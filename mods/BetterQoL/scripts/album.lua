@@ -25,10 +25,10 @@
 -- model wears the kit of the declaring mod's first team (content	eams [[team]], id = crc32(key)) whose roster lists
 -- his card (`kit_from_own_teams`, default true; the plate's VRFW.plate_card_team), else his own team's kit.
 -- Own rows: a root own_row_cards = [cards] in content/album/*.toml keeps each card's character as a row of his own in
--- his series: he is not folded into the character whose voice bank he uses.
+-- his series: he is not folded into the character whose voice bank or model he shares.
 -- Hidden rarities: a mod's contentlbum [[hide_rarities]] (option = a full option row key, when = [{ values = [option
--- values], rarities = [card rarities] }, …]) keeps the cards of those rarities out of the album while its option row
--- has one of those values (e.g. No More Rarities' removed Ídolo / Diamante tiers); the roster is rebuilt when the
+-- values], rarities = [card rarities] }, …]; or config = a dotted path of the declaring mod's config.toml instead of
+-- option) keeps the cards of those rarities out of the album while its option row or config has one of those values (e.g. No More Rarities' removed Ídolo / Diamante tiers); the roster is rebuilt when the
 -- value in force changes.
 -- Last, «Especiales»: every card of a listed player whose rarity is above [album] display_rarity (Idol, Diamond, …),
 -- listed by the character name alone. A character whose cards are all above it (a mod's Idol with a character of its own,
@@ -208,17 +208,23 @@ local function hidden_rarities(declarations)
     local data = type(d.data) == "table" and d.data or {}
     for _, rule in ipairs(type(data.hide_rarities) == "table" and data.hide_rarities or {}) do
       local key = type(rule.option) == "string" and rule.option or ""
-      local ok, value = pcall(VRFW.option, key)
-      if not (ok and value ~= nil) and key ~= "" then
-        -- the declaring mod's own row under its current id (the key may name a former id)
-        ok, value = pcall(VRFW.option, tostring(d.mod) .. "." .. (key:match("([^.]+)$") or key))
+      local ok, value
+      if type(rule.config) == "string" then
+        key = rule.config
+        ok, value = pcall(VRFW.files.config, key, tostring(d.mod))
+      else
+        ok, value = pcall(VRFW.option, key)
+        if not (ok and value ~= nil) and key ~= "" then
+          -- the declaring mod's own row under its current id (the key may name a former id)
+          ok, value = pcall(VRFW.option, tostring(d.mod) .. "." .. (key:match("([^.]+)$") or key))
+        end
       end
-      value = ok and tonumber(value) or nil
+      value = ok and value or nil
       signature[#signature + 1] = key .. "=" .. tostring(value)
       for _, case in ipairs(type(rule.when) == "table" and rule.when or {}) do
         local applies = false
         for _, v in ipairs(type(case.values) == "table" and case.values or {}) do
-          if value ~= nil and tonumber(v) == value then applies = true end
+          if value ~= nil and (v == value or (tonumber(v) ~= nil and tonumber(v) == tonumber(value))) then applies = true end
         end
         if applies then
           for _, rarity in ipairs(type(case.rarities) == "table" and case.rarities or {}) do
@@ -325,7 +331,7 @@ local function build()
       end
       if voice ~= 0 and voice ~= b and listed[voice] and category_of_base[voice] == category and not own_row[b] then
         into = voice
-      elseif model ~= 0 and models[model] then
+      elseif model ~= 0 and models[model] and not own_row[b] then
         into = models[model]
       end
       if into then
@@ -336,7 +342,7 @@ local function build()
                     game_name_text = category and category.row.name_text or nil }
         entries[#entries + 1] = e
         by_base[b] = e
-        if model ~= 0 then
+        if model ~= 0 and not own_row[b] then
           models[model] = b
         end
       end

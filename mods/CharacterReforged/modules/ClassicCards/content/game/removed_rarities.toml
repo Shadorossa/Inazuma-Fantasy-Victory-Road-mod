@@ -1,0 +1,7 @@
+schema = "VRFW.game/2"
+# Classic Cards: the game's Lua reads config.toml [removed_rarities] tiers through this command
+# (ClassicCards.RarityRemoved, assets\lua\_all\no_more_rarities_card_look.lua; handler scripts\removed_rarities.lua).
+
+[[VRFW.Command]]
+name = "CMND_CLASSICCARDS_REMOVED_RARITIES"
+handler = "ClassicCards.RemovedRaritiesChoice"

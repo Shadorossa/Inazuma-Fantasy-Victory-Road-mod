@@ -1,8 +1,8 @@
 id = "SkillDuel"
 # name / description: the English fallback; the card shows the text keys mod_name / mod_description (text\keys.toml)
 name = "Skill Duel"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Focus duels are won by reading the side, not by the stats. If the attacker runs into the defender (his body, arm or hand), the defender wins; go past the hand and the attacker wins. The stats set the defender's reach and hand size. Both teams, the CPU too. Special move against special move keeps its power duel."
 priority = 0
@@ -17,7 +17,7 @@ folder = "SkillDuel"
 #   text\keys.toml            the card's name / description, 9 languages
 # The framework provides the mechanism (match_engine focus_line: Duel.LineParams post-hook + Duel.Duel wrapper);
 # this module only declares the values.
-requires = ["VRFW>=0.2.2", "FootballReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "FootballReforged>=0.2.4"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"

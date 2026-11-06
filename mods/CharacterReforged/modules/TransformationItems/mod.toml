@@ -9,8 +9,8 @@ former_ids = ["TransformingItems"]
 key_id = "TransformationItems"
 # the English fallback; the Mods screen shows the text keys mod_name / mod_description (text\keys.toml)
 name = "Transformation Items"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Items that change a player's look while he wears them. The Alius Crystal lets a player who took the Alius stone (the Dark Emperors, Royal Academy Redux and the Alius Academy players, classic version) equip it and take his Alius look, with that version's stats and moves; take it off and he is back to normal. It unlocks once you beat the Dark Emperors in the Chronicle."
 # this mod's own names: TOML keys [[TransformationItems.X]], Lua TransformationItems.X (never VRFW)
@@ -24,7 +24,7 @@ updated = "2026-11-03"
 # the flag declared by name only; its bit is given by the framework (2.8.86)
 # an embedded
 # module of Character Reforged (research/mods/CharacterReforged/modules/TransformationItems/)
-requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4"]
 conflicts = []
 
 # A MODULE of Character Reforged: shipped in

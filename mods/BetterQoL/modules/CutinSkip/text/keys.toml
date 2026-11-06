@@ -1,0 +1,39 @@
+# Texts of Technique Cut-in Skip, a module of BetterQoL: the name and description of its card on BetterQoL's page in Mods.
+schema = "VRFW.text_key/1"
+default_lang = "en"
+
+[en.new]
+mod_name = "Technique Cut-in Skip"
+mod_description = "A fresh A / Enter press ends the running technique cut-in in a match, and the match carries on with the same result. Transform, Keshin, Armed and Miximax cut-ins always play. Never in a network match."
+
+[es.new]
+mod_name = "Saltar supertécnicas"
+mod_description = "Pulsar A / Intro termina la animación de la supertécnica en curso en un partido, y el partido sigue con el mismo resultado. Las animaciones de transformación, Keshin, Armadura y Miximax siempre se reproducen. Nunca en partidos en red."
+
+[fr.new]
+mod_name = "Passer les techniques"
+mod_description = "Appuyer sur A / Entrée met fin à l'animation de la technique spéciale en cours pendant un match, et le match continue avec le même résultat. Les animations de transformation, Keshin, Armure et Miximax sont toujours jouées. Jamais en match en ligne."
+
+[de.new]
+mod_name = "Techniken überspringen"
+mod_description = "Ein Druck auf A / Enter beendet im Spiel die laufende Animation einer Spezialtechnik, und das Spiel geht mit demselben Ergebnis weiter. Animationen von Verwandlung, Keshin, Rüstung und Miximax laufen immer. Nie in Online-Spielen."
+
+[it.new]
+mod_name = "Salta le tecniche"
+mod_description = "Premere A / Invio termina l'animazione della tecnica speciale in corso durante una partita, e la partita continua con lo stesso risultato. Le animazioni di trasformazione, Keshin, Armatura e Miximax vengono sempre riprodotte. Mai nelle partite online."
+
+[pt.new]
+mod_name = "Saltar supertécnicas"
+mod_description = "Premir A / Enter termina a animação da supertécnica em curso num jogo, e o jogo continua com o mesmo resultado. As animações de transformação, Keshin, Armadura e Miximax são sempre reproduzidas. Nunca em jogos online."
+
+[ja.new]
+mod_name = "必殺技演出スキップ"
+mod_description = "試合中にA / Enterを押すと、再生中の必殺技演出を終了します。試合は同じ結果のまま続きます。変身、化身、アームド、ミキシマックスの演出は必ず再生されます。ネットワーク対戦では無効です。"
+
+[zh_hans.new]
+mod_name = "跳过必杀技演出"
+mod_description = "比赛中按下 A / Enter 可结束正在播放的必杀技演出，比赛以相同的结果继续。变身、化身、化身铠甲和混合最大的演出始终播放。联网比赛中无效。"
+
+[zh_hant.new]
+mod_name = "跳過必殺技演出"
+mod_description = "比賽中按下 A / Enter 可結束正在播放的必殺技演出，比賽以相同的結果繼續。變身、化身、化身鎧甲和混合最大的演出始終播放。連線比賽中無效。"

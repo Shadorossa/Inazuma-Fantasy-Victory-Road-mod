@@ -1,0 +1,39 @@
+schema = "VRFW.technique/3"
+# Inazuma Fantasy: Tormenta de fuego oscura: Tormenta de fuego (whs00450) with its power, cost, recast, flags and growth, the element and description of
+# retail Tornado oscuro (whs00430), its own name and its own cut-in (content\anims\dark_fire_storm.toml) with its recoloured object
+# (content\effects\dark_fire_storm.toml). Sold in the Special Moves shop (content\shops\own_skills.toml).
+
+[[technique]]
+name = "dark_fire_storm"
+base = "whs00450"
+manual = true
+element = "forest"
+event = "InazumaFantasy.dark_fire_storm"
+desc_text = "0xB29455E7"
+  [technique.text.es]
+  name = "Tormenta de fuego oscura"
+  [technique.text.en]
+  name = "Dark Fireball Storm"
+  [technique.text.fr]
+  name = "Tempête de feu noire"
+  [technique.text.de]
+  name = "Dunkel-Feuersturm"
+  [technique.text.it]
+  name = "Dark Tormenta di Fuoco"
+  [technique.text.pt]
+  name = "Tempestade Explosiva Escura"
+  [technique.text.ja]
+  name = "ダーク[爆熱/ばくねつ]ストーム"
+  [technique.text.zh_hans]
+  name = "暗影爆热风暴"
+  [technique.text.zh_hant]
+  name = "暗影爆炎風暴"
+
+# with Hissatsu Reforged, the numbers it gives Tormenta de fuego: this move is never the weaker one
+[[edit]]
+if_mod = "HissatsuReforged"
+target = "InazumaFantasy.dark_fire_storm"
+power_min = 75
+power_max = 480
+tp = 75
+recast = 60

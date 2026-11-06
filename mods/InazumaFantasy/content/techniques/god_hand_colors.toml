@@ -1,0 +1,104 @@
+schema = "VRFW.technique/3"
+# Inazuma Fantasy: the God Hand family in the retail red and blue. Each move is its base with the base's power, cost, recast and
+# description, the element of its colour, the base's name and its own cut-ins (content\anims\god_hand_colors.toml) with
+# their recoloured object (content\effects\god_hand_colors.toml). Sold in the Special Moves shop (content\shops\own_skills.toml).
+
+[[technique]]
+name = "god_hand_ev_red"
+base = "whk00490"
+manual = true
+element = "fire"
+event = "InazumaFantasy.god_hand_ev_red"
+fail_event = "InazumaFantasy.god_hand_ev_red_fail"
+name_text = "base"
+desc_text = "base"
+
+[[technique]]
+name = "god_hand_ev_blue"
+base = "whk00490"
+manual = true
+element = "forest"
+event = "InazumaFantasy.god_hand_ev_blue"
+fail_event = "InazumaFantasy.god_hand_ev_blue_fail"
+name_text = "base"
+desc_text = "base"
+
+[[technique]]
+name = "infinite_hands_blue"
+base = "whk00240"
+manual = true
+element = "forest"
+event = "InazumaFantasy.infinite_hands_blue"
+fail_event = "InazumaFantasy.infinite_hands_blue_fail"
+name_text = "base"
+desc_text = "base"
+
+[[technique]]
+name = "fist_of_fury_blue"
+base = "whk00510"
+manual = true
+element = "forest"
+event = "InazumaFantasy.fist_of_fury_blue"
+fail_event = "InazumaFantasy.fist_of_fury_blue_fail"
+name_text = "base"
+desc_text = "base"
+
+[[technique]]
+name = "double_god_hand_blue"
+base = "whk01090"
+manual = true
+element = "forest"
+event = "InazumaFantasy.double_god_hand_blue"
+fail_event = "InazumaFantasy.double_god_hand_blue_fail"
+name_text = "base"
+desc_text = "base"
+
+[[technique]]
+name = "double_god_hand_red"
+base = "whk01090"
+manual = true
+element = "fire"
+event = "InazumaFantasy.double_god_hand_red"
+fail_event = "InazumaFantasy.double_god_hand_red_fail"
+name_text = "base"
+desc_text = "base"
+
+[[technique]]
+name = "triple_god_hand_blue"
+base = "whk00380"
+manual = true
+element = "forest"
+event = "InazumaFantasy.triple_god_hand_blue"
+fail_event = "InazumaFantasy.triple_god_hand_blue_fail"
+name_text = "base"
+desc_text = "base"
+
+[[technique]]
+name = "triple_god_hand_red"
+base = "whk00380"
+manual = true
+element = "fire"
+event = "InazumaFantasy.triple_god_hand_red"
+fail_event = "InazumaFantasy.triple_god_hand_red_fail"
+name_text = "base"
+desc_text = "base"
+
+[[technique]]
+name = "super_god_hand_blue"
+base = "whk01720"
+manual = true
+element = "forest"
+event = "InazumaFantasy.super_god_hand_blue"
+fail_event = "InazumaFantasy.super_god_hand_blue_fail"
+name_text = "base"
+desc_text = "base"
+
+[[technique]]
+name = "super_god_hand_red"
+base = "whk01720"
+manual = true
+element = "fire"
+event = "InazumaFantasy.super_god_hand_red"
+fail_event = "InazumaFantasy.super_god_hand_red_fail"
+name_text = "base"
+desc_text = "base"

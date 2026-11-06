@@ -15,7 +15,8 @@
 --                       (`normalize_special_rarities`) becomes his character's base card at that rarity; when the club
 --                       already has that card, its copies are merged into the one keep_first keeps (only those
 --                       copies leave). Offered while a rule declares `normal_card_rarity`; the confirmation line is
---                       the option value's `save_adjust_label` when the rule names one.
+--                       the option value's `save_adjust_label` when the rule names one. A rule's
+--                       `save_adjust_every_saved_player` also raises every other saved character below that rarity.
 -- Two more actions take out of the save what the active mods' rules make unobtainable:
 --   remove_unobtainable_moves  every move no player can obtain ([[VRFW.Unobtainable]], lib/unobtainable_moves.lua;
 --                              this mod's content\techniques\unobtainable_auras.toml = the awakening and bond
@@ -90,6 +91,7 @@ function SaveAdjust.normal_rarity(tree, event)
   -- one_card_per, no hidden-card release)
   local policy = policy_with({ one_card_per = false, hidden_card_sources = {}, convert_special_cards = true })
   if policy.normal_card_rarity == nil then return { error = "no duplicate rule declares normal_card_rarity" } end
+  policy.raise_every_saved_player = policy.save_adjust_every_saved_player == true
   local report = run_pass(tree, policy, "normal_rarity (slot " .. event.slot .. ")")
   return { count = report.to_normal_rarity + report.duplicates_merged, log = report.to_normal_rarity .. " cards -> rarity "
     .. tostring(policy.normal_card_rarity) .. " (" .. report.to_base_card .. " special cards -> their base card), "

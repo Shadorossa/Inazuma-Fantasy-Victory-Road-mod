@@ -1,0 +1,219 @@
+schema = "VRFW.character/2"
+# Chronicle Deluxe: players of the Inazuma Eleven the game ships models and faces for but no player row: signed from the player album.
+# Ids, stats and moves: ported from the old Chronicles Deluxe / Inazuma Fantasy declarations (research/archive, research/mods/_aside).
+default_lang = "en"
+
+[[character]]
+name = "don_ringo"  # Don Ringo
+based_on = "c01010960"
+
+  [character.base]
+  id = 0xA9AEA644
+  name = "c01009360"
+  name_text = 0x3A1E5DB2
+  short_name_text = 0x4C5B1F67
+  upper_name_text = 0x4C5B1F67
+  model = 0x3089C005
+  voice_bank = 0
+  description_text = 0x0CE055A0
+
+  [character.text.es]
+  name = "Don Ringo"
+  short = "Don"
+  description = "¡Un niño travieso y apasionado por la música!\n¡Tiene cara de ángel y corazón de diablo!"
+
+  [character.text.en]
+  name = "Don Ringo"
+  short = "Don"
+  description = "A mischievous kid who's crazy about music!\nHe's got the face of an angel and the heart of a devil!"
+
+  [character.text.fr]
+  name = "Don Ringo"
+  short = "Don"
+  description = "Un enfant espiègle et passionné de musique !\nIl a un visage d'ange et un cœur de diable !"
+
+  [character.text.de]
+  name = "Don Ringo"
+  short = "Don"
+  description = "Ein freches Kind, das Musik über alles liebt!\nEs hat ein Engelsgesicht und ein Teufelsherz!"
+
+  [character.text.it]
+  name = "Don Ringo"
+  short = "Don"
+  description = "Un bambino birichino e appassionato di musica!\nHa il volto di un angelo e il cuore di un diavolo!"
+
+  [character.text.pt]
+  name = "Don Ringo"
+  short = "Don"
+  description = "Uma criança travessa e apaixonada por música!\nTem rosto de anjo e coração de diabo!"
+
+  [character.text.ja]
+  name = "ドン"
+  short = "ドン"
+  upper = "ドン"
+
+  [[character.cards]]
+  id = 0xFFF7C4F8
+  from = 0x3D9ED3F0
+  sub_position = "df"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x44E1A25A, level = 1 },
+    { move = 0xE9968761, level = 13 },
+    { move = 0x3EC287DE, level = 20 },
+    { move = 0x8FBCFC3C, level = 30 },
+    { move = 0x4523C86D, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "hiroshi_dot"  # Hiroshi Dot
+based_on = "c01010960"
+
+  [character.base]
+  id = 0x8E2ED114
+  name = "c01010120"
+  name_text = 0x0FEB165E
+  short_name_text = 0x6A30C118
+  upper_name_text = 0x6A30C118
+  model = 0x1709B755
+  voice_bank = 0
+  description_text = 0x4606CFFF
+
+  [character.text.es]
+  name = "Hiroshi Dot"
+  short = "Hiroshi"
+  description = "Un \"chico malo\" apasionado por la música.\nA menudo lo confunden con otra persona."
+
+  [character.text.en]
+  name = "Hiroshi Dot"
+  short = "Hiroshi"
+  description = "A \"bad boy\" who's passionate about music.\nOften mistaken for someone else."
+
+  [character.text.fr]
+  name = "Hiroshi Dot"
+  short = "Hiroshi"
+  description = "Un « mauvais garçon » passionné de musique.\nSouvent confondu avec quelqu'un d'autre."
+
+  [character.text.de]
+  name = "Hiroshi Dot"
+  short = "Hiroshi"
+  description = "Ein „Bad Boy“, der Musik liebt.\nWird oft mit jemand anderem verwechselt."
+
+  [character.text.it]
+  name = "Hiroshi Dot"
+  short = "Hiroshi"
+  description = "Un \"bad boy\" appassionato di musica.\nSpesso scambiato per qualcun altro."
+
+  [character.text.pt]
+  name = "Hiroshi Dot"
+  short = "Hiroshi"
+  description = "Um \"bad boy\" apaixonado por música.\nFrequentemente confundido com outra pessoa."
+
+  [character.text.ja]
+  name = "ヒロシ"
+  short = "ヒロシ"
+  upper = "ヒロシ"
+
+  [[character.cards]]
+  id = 0xFFF7C4F9
+  from = 0x4B619D06
+  rank = 3
+  ability_board = 0
+  special_rarity = 0
+  cells = { performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x3C843987, level = 1 },
+    { move = 0x6ADE9E01, level = 13 },
+    { move = 0x0455B9CE, level = 20 },
+    { move = 0x4AD6453E, level = 30 },
+    { move = 0x33ED6677, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "ei_king"  # Ei King
+based_on = "c01010960"
+
+  [character.base]
+  id = 0xEF0D0295
+  name = "c01010660"
+  name_text = 0x0460BC5F
+  short_name_text = 0x4CDBD2C7
+  upper_name_text = 0x4CDBD2C7
+  model = 0x762A64D4
+  voice_bank = 0
+  description_text = 0x452F03C8
+
+  [character.text.es]
+  name = "Ei King"
+  short = "Ei"
+  description = "Un tipo apuesto, apasionado por la música soul."
+
+  [character.text.en]
+  name = "Ei King"
+  short = "Ei"
+  description = "A good-looking guy who's passionate about soul music."
+
+  [character.text.fr]
+  name = "Ei King"
+  short = "Ei"
+  description = "Un beau gars passionné de musique soul."
+
+  [character.text.de]
+  name = "Ei King"
+  short = "Ei"
+  description = "Ein gutaussehender Kerl mit einer Leidenschaft für Soulmusik."
+
+  [character.text.it]
+  name = "Ei King"
+  short = "Ei"
+  description = "Un tipo affascinante, appassionato di musica soul."
+
+  [character.text.pt]
+  name = "Ei King"
+  short = "Ei"
+  description = "Um sujeito boa-pinta, apaixonado por música soul."
+
+  [character.text.ja]
+  name = "エイ"
+  short = "エイ"
+  upper = "エイ"
+
+  [[character.cards]]
+  id = 0xFFF7C4FA
+  from = 0x85363312
+  position = "df"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x19025F83, level = 1 },
+    { move = 0x2B343D01, level = 13 },
+    { move = 0x7B64F3D2, level = 20 },
+    { move = 0x3C843987, level = 30 },
+    { move = 0x7A67325B, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "celia_hills"  # Celia Hills
+based_on = "c02024740"
+model_row = { force_kit = 1 }
+
+  [character.base]
+  id = 0x57B88165
+  model = 0xE549F121
+
+  [[character.cards]]
+  id = 0xFFF7C50F
+  from = 0x8C27F348
+  growth_pattern = 1
+  moves = [
+    { move = 0xB576BB31, level = 1 },
+    { move = 0x6ADE9E01, level = 13 },
+    { move = 0x4E9A9232, level = 20 },
+    { move = 0xC16279D1, level = 30 },
+    { move = 0x32EEA7FE, level = 38 },
+    { move = 0x1A868BED, level = 43 },
+  ]

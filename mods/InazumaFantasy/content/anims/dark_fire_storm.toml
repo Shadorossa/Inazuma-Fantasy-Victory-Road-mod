@@ -1,0 +1,8 @@
+schema = "VRFW.anim/2"
+# Inazuma Fantasy: Tormenta de fuego oscura: the cut-in of Tormenta de fuego copied whole; content\effects\dark_fire_storm.toml makes it load its recoloured object, giant and aura.
+owner = "match"
+
+[[event]]
+name = "dark_fire_storm"
+from = "ev60_00450"
+id = "ev60_86100"

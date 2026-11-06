@@ -2,8 +2,8 @@ id = "InazumaFantasy"
 # name / description: the English fallback; the screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml).
 name = "Inazuma Fantasy"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Inazuma Fantasy. The Market gets its own shops, priced in Passion Points that every match pays: a general store, a training shop and two special move shops, with a padlock on what is not unlocked yet. It adds Fantasy Idol cards, the Inazuma Fantasy title screen, a free match section with two mod teams and a daily legendary rival. New special moves, including 30 by LegendaryAd and God Strike, and an Arion military outfit are sold in the shops."
 priority = 0
@@ -70,6 +70,20 @@ folder = "InazumaFantasy"
 #                                       (whs03250) as its own cut-in ev60_83250; content\effects\god_strike.toml its copy of
 #                                       the effect object (ev600325gs, devil half hidden); content\shops\own_skills.toml its
 #                                       manual in the Special Moves shop (Shot tab)
+#   content\techniques\god_hand_colors.toml  the God Hand family in the retail red and blue: God Hand EV, Double, Triple, Super (both),
+#                                       Infinite Hands and Fist of Fury (blue): each its base's numbers, the element of its colour;
+#                                       content\anims\god_hand_colors.toml their cut-ins, content\effects\god_hand_colors.toml the recoloured
+#                                       objects (ev63860000 .. ev63860180); content\shops\own_skills.toml their manuals
+#   content\techniques\dark_tornado_a.toml  Dark Tornado (A): Fire Tornado A's numbers and flags, Dark Tornado's element and description;
+#                                       content\anims\dark_tornado_a.toml its cut-in, content\effects\dark_tornado_a.toml the recoloured
+#                                       object (ev60860000); content\shops\own_skills.toml its manual
+#   content\techniques\dark_fire_storm.toml  Dark Fireball Storm: Fireball Storm's numbers and flags, Dark Tornado's element and description;
+#                                       content\anims\dark_fire_storm.toml its cut-in, content\effects\dark_fire_storm.toml the recoloured object (ev60861000),
+#                                       giant (ev60_86101, content\characters\dark_fire_storm_model.toml) and ball aura; content\shops\own_skills.toml its manual
+#   content\techniques\tiger_fang.toml  Colmillo del Tigre: Colmillo de pantera's numbers and flags, Remate del tigre's element;
+#                                       content\anims\tiger_fang.toml its cut-ins, content\effects\tiger_fang.toml the actor they load,
+#                                       content\models\props\tiger_fang + content\characters\tiger_fang_model.toml the tiger (ev63_86020),
+#                                       made by research/scripts/tiger_fang_model_build.py (_deploy.toml); content\shops\own_skills.toml its manual
 # LegendaryAd's thirty skills (formerly the mod Hissatsu Revamp, merged here; same keys whs9xxxx / who9xxxx / whd9xxxx /
 # whk9xxxx, so learned skills stay), written by research/scripts/hissatsu_revamp_build.py from the download; names in
 # the nine languages: _hissatsu_revamp_names.toml (developer file):
@@ -115,7 +129,7 @@ lua_early = true
 # 1.3.3 (VRFW 2.4.133: [[VRFW.MatchDropExtra]]): every match pays Puntos de pasión at its end.
 # 1.16.0 (VRFW 2.140.0: [[VRFW.DropFilter]] Sources = ["chests"], Exclude = "unused_shop_currencies"): no chest gives a
 # shop currency no shop charges any more (content\items\currencies.toml).
-requires = ["VRFW>=0.2.2"]
+requires = ["VRFW>=0.2.4"]
 optional = ["BattleBayDeluxe", "BetterMenu", "BetterQoL", "CharacterReforged", "ChronicleDeluxe", "ClassicRecruitment"]
 conflicts = []
 loader_modules = ["lua_bridge"]

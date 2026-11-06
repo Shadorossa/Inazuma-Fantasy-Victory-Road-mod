@@ -10,10 +10,13 @@
 --                                           order; KEEP_ORDER_KEYS below (default: the list KEEP_ORDER_DEFAULT)
 --   normal_card_rarity = 0..15              the saved rarity every normal card gets (absent = rarities unchanged); a
 --                                           new club card joins at it too (scripts\new_card_rarity.lua)
+--   save_adjust_every_saved_player = true   the save adjust action also raises every other saved character below
+--                                           normal_card_rarity (only the rarity word; merge_pass.lua); not on load or copy
 --   normalize_special_rarities = { option = "<mod>.<row>", values = { "<option value>" = { rarities = [...],
 --                                  save_adjust_label = "<text key>" } } }
 --                                           the special cards that get normal_card_rarity too, by the current value of
---                                           a settings row (none listed for that value = none). `rarities` names rarity
+--                                           a settings row, or with config = "<path>" instead of option, of a path of
+--                                           the declaring mod's config.toml (none listed for that value = none). `rarities` names rarity
 --                                           ids of the rarity data (the framework's content\defaults\game_rarities.toml
 --                                           and the mods' content\rarities\: an id stands for its `value` and `also`
 --                                           col 41 values); a whole number is a col 41 value. `save_adjust_label` = the
@@ -115,11 +118,24 @@ local function merge_rule(policy, mod_id, rule_name, rule)
       else
         warn(label .. ": normal_card_rarity must be a whole number 0.." .. HIGHEST_RARITY)
       end
+    elseif key == "save_adjust_every_saved_player" then
+      if type(value) == "boolean" then
+        policy.save_adjust_every_saved_player = policy.save_adjust_every_saved_player or value
+      else
+        warn(label .. ": save_adjust_every_saved_player must be true or false")
+      end
     elseif key == "normalize_special_rarities" then
       local option = type(value) == "table" and value.option or nil
+      local config = type(value) == "table" and value.config or nil
       local values = type(value) == "table" and value.values or nil
-      if type(option) == "string" and option:find(".", 1, true) and type(values) == "table" then
-        local ok, current = pcall(VRFW.option, option)
+      local by_config = type(config) == "string" and config ~= ""
+      if (by_config or (type(option) == "string" and option:find(".", 1, true))) and type(values) == "table" then
+        local ok, current
+        if by_config then
+          ok, current = pcall(VRFW.files.config, config, mod_id)
+        else
+          ok, current = pcall(VRFW.option, option)
+        end
         local key = (ok and type(current) == "number") and string.format("%d", math.floor(current)) or tostring(ok and current or "")
         local choice = values[key]
         local list = choice
@@ -130,9 +146,9 @@ local function merge_rule(policy, mod_id, rule_name, rule)
           end
         end
         policy.normal_special_rarities = special_rarity_set(label, list)
-        policy.normal_special_option = option .. " = " .. tostring(ok and current or "?")
+        policy.normal_special_option = (by_config and config or option) .. " = " .. tostring(ok and current or "?")
       else
-        warn(label .. ": normalize_special_rarities must be { option = \"<mod>.<row>\", values = { \"<value>\" = { rarities = [...] } } }")
+        warn(label .. ": normalize_special_rarities must be { option = \"<mod>.<row>\" or config = \"<path>\", values = { \"<value>\" = { rarities = [...] } } }")
       end
     elseif key == "element_spirits_per_released_card" then
       if type(value) == "number" and value >= 0 and value % 1 == 0 then

@@ -90,9 +90,3 @@ needs = ["Event.Manager", "Event.Seek", "Audio.StopEventSounds", "Event.Timeline
 name = "CMND_BETTERQOL_XSKIP_HOLD"
 handler = "BetterQoL.SkipHold"
 
-# In-match cut-in skip (docs/game/match/cutin-skip.md): graft block cs_event.lua asks it on a fresh press;
-# scripts\prematch_skip.lua ends the running technique event. Answers 1 ended, 2 ask again next Step, 0 nothing done.
-[[VRFW.Command]]
-name = "CMND_BETTERQOL_CUTIN_SKIP"
-handler = "BetterQoL.CutinSkip"
-needs = ["Event.Manager", "Event.Seek", "Audio.StopEventSounds", "Event.TimelineSeek"]

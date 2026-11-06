@@ -3,7 +3,8 @@ schema = "VRFW.game/2"
 # Signature Passives › the own passive of each player in the custom passive slot (board equip slot 9, «Pasiva propia»).
 # The declarations are content\own_passives\*.toml of any active mod; scripts\own_passives.lua reads them and fills the
 # tables below. The two engine readers of that slot are answered natively, so the save's custom passive item is never
-# read: a player with a declared own passive gets it, every other player gets none.
+# read: a player with a declared own passive gets it, every other player gets none. Retail's own custom passives
+# («Pasiva personalizada n.º N», item sub-category 177) stay out of matches through that: see GroupPassiveId below.
 
 # ------------------------------------------------------------------------------------------------ hooks
 
@@ -12,7 +13,8 @@ schema = "VRFW.game/2"
 # 0xFE2BA0). Post: out = the own passive of the player's card, else 0. Stolen bytes (17, an inline hook takes at least
 # 14): mov [rsp+10h],rbx; push rdi; sub rsp,20h; mov ebx,edx; mov rdi,rcx; test edx,edx. `alt`: v7.2.1 0xE836C0 (the
 # record found through FindCharaRecord; same arguments and answer), whose first 17 bytes are whole instructions too:
-# mov [rsp+10h],edx; push rbx; sub rsp,20h; mov rbx,rcx; lea rdx,[rsp+38h].
+# mov [rsp+10h],edx; push rbx; sub rsp,20h; mov rbx,rcx; lea rdx,[rsp+38h]. On v7.2.1 the match builder no longer calls
+# it (GroupPassiveId below reads the slot inline): this answers the framework's and the menus' reads of the slot.
 [[VRFW.Hook]]
 name = "PersonalPassives.SixSensePassiveId"
 kind = "function"
@@ -63,6 +65,54 @@ when = { state = "vrfw.passive.all_off", equals = 1 }
 [[VRFW.Hook.answer]]
 table = "PersonalPassives.AlwaysOpen"
 key = ["[record([args[1]]:u32) + 4]:u32"]
+
+# u32* GroupPassiveId(u32* out, u32 charaHdl, u8 group, u8 useCopy) 0xE833E0: the passive of one of a player's seven
+# match groups (0-4 the team slots, 5 the custom passive slot, 6 the hidden constant). Its two callers are the match
+# builder 0x1633B40 and the formation passive totals 0xD7C3C0. For group 5 it reads the save's item inline, so without
+# this hook an equipped retail custom passive still runs in matches. Post, group 5 only, every player of both teams:
+# the slot holds what the slot reader above answers, never the save's item. Decided by the group, so no passive id or
+# item is named here, and without this module the hook is not loaded. Stolen bytes (14): mov [rsp+18h],rbx;
+# mov [rsp+20h],rbp; mov [rsp+10h],edx.
+[[VRFW.Hook]]
+name = "PersonalPassives.GroupPassiveId"
+kind = "function"
+pattern = "48 89 5C 24 18 48 89 6C 24 20 89 54 24 10 56 57 41 56 48 83 EC 30 33 DB 41 0F B6 E9 41 0F B6 F0 8B FA 4C 8B F1 85 D2 75 07 89 19 E9 ?? ?? ?? ?? 40 80 FE 05 0F 85"
+rva = 0xE833E0
+steal = 14
+arguments = ["ptr", "u32", "u8", "u8"]
+returns = "ptr"
+
+# first: in a mode without player passives the slot is empty for every player
+[[VRFW.Hook.answer]]
+value = "0"
+when = [{ value = "mask(args[3], 0xFF)", equals = 5 }, { state = "vrfw.passive.all_off", equals = 1 }]
+write = "[args[1]]:u32"
+
+# a mode's signature passive (the framework's Passive.Signature* tables, as its reader of the slot answers them)
+[[VRFW.Hook.answer]]
+table = "*/Passive.SignatureSlot"
+key = ["slot", "[record(args[2]) + 4]:u32"]
+when = { value = "mask(args[3], 0xFF)", equals = 5 }
+write = "[args[1]]:u32"
+
+[[VRFW.Hook.answer]]
+table = "*/Passive.SignatureOnly"
+key = ["slot"]
+when = { value = "mask(args[3], 0xFF)", equals = 5 }
+write = "[args[1]]:u32"
+
+# the own passive of the player's card (key: chara_param id)
+[[VRFW.Hook.answer]]
+table = "PersonalPassives.OwnPassive"
+key = ["[record(args[2]) + 4]:u32"]
+when = { value = "mask(args[3], 0xFF)", equals = 5 }
+write = "[args[1]]:u32"
+
+# no own passive: the slot is empty whatever item the save holds there
+[[VRFW.Hook.answer]]
+value = "0"
+when = { value = "mask(args[3], 0xFF)", equals = 5 }
+write = "[args[1]]:u32"
 
 # ------------------------------------------------------------------------------------------------ commands
 

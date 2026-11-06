@@ -5,7 +5,7 @@
 --
 -- The retail row (UpdateListItem_DropChara(layer, instance, dirty, focused, chara, ..., rarity)) paints its band with
 -- the rarity's sprite of win05_38 (list_drop_chr_rarity01..08) on the texture slot list_drop_chr_rarity01. After it, a
--- row of a removed rarity (ClassicCards.RarityRemoved: 0-4 always, the Ídolo variants 5-7 by the option) gets the band of his
+-- row of a removed rarity (ClassicCards.RarityRemoved: 0-4 always, the Ídolo variants 5-7 by the config) gets the band of his
 -- position look, from the mod's one shared helper ClassicCards.PositionColour (no_more_rarities_card_look.lua: the
 -- card's own position, the VR-Framework's rule; nil = the retail look: a reserved slot such as INAROGUE's, a special
 -- card, staff, an unknown position), the card being the spirit's (CMND_GET_SPIRIT_CHARA_PARAM_ID(chara, rarity), what

@@ -1,0 +1,8 @@
+schema = "VRFW.anim/2"
+# Inazuma Fantasy: Tornado oscuro (A): the cut-in of Tornado de fuego A copied whole; content\effects\dark_tornado_a.toml makes it load its recoloured object.
+owner = "match"
+
+[[event]]
+name = "dark_tornado_a"
+from = "ev60_02750"
+id = "ev60_86000"

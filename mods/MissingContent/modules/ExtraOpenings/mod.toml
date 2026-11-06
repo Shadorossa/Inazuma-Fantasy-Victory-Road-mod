@@ -1,8 +1,8 @@
 id = "ExtraOpenings"
 # name / description: the English fallback; the screen shows the text keys mod_name / mod_description in the game's language (text\keys.toml)
 name = "Extra Openings"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "More title openings: the Nintendo DS openings of Inazuma Eleven 2 and 3, remastered in HD and sung in the game's language where the DS games had it. Choose them in Mod options, row «Opening»; they play after the logos and in the title screen's loop, and both are also in the scene archive. Also the DS games' menu theme as menu music, in the row «Menu music»."
 priority = 0
@@ -27,7 +27,7 @@ folder = "ExtraOpenings"
 #   text\keys.toml                     the mod's name / description and the menu theme label (9 languages)
 # README.md, _deploy.toml and _split.toml are developer files, never installed.
 # Works without Inazuma Fantasy; IF does not require this mod.
-requires = ["VRFW>=0.2.2", "MissingContent>=0.2.2"]
+requires = ["VRFW>=0.2.4", "MissingContent>=0.2.4"]
 conflicts = []
 
 # UI only: left out of the mod set two players must share in a private online room, and of

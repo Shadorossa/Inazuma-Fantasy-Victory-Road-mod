@@ -4,8 +4,8 @@ key_id = "ClassicTraining"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml). «Player Training» is a provisional name.
 name = "Classic Training"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Classic training, as in Chrono Stone. Each player has Freedom points that grow with his level and spreads them over his base stats in a training window (team dock, command list, Training). With no free points left, raising a stat lowers its counterpart, which follows the chosen position; Reset gives everything back. Trained points count in matches and stay in the save, training beans are gone, and every card can be trained, weaker cards getting more Freedom."
 priority = 0
@@ -76,7 +76,7 @@ lua_early = true
 # no beans in any mode nor from boxes, quests, trophies, gifts.
 # no chest (Victory crates, field treasure boxes) holds
 # a training bean (content\items\no_training_beans.toml).
-requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"

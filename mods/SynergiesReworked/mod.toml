@@ -12,8 +12,8 @@ id = "SynergiesReworked"
 name = "Synergies Reworked"
 prefix = "SynergiesReworked"
 folder = "SynergiesReworked"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Reworks some team synergies so they ask for players of a team or a group instead of a few named characters, for example any three female managers of a series or one player of each Raimon team. It also adds new synergies (Los cuatro magníficos, Japón en la sombra, Tablero de Ajedrez and more) with their own icons, and renames a few. The synergy panel shows who is still missing."
 priority = 0
@@ -24,7 +24,7 @@ updated = "2026-11-03"
 # Inazuma Fantasy and Character Reforged are not needed (the pools read the game's own characters).
 # VRFW 2.57.0: an emptied row's face stays off (no player behind a crest); the shop's effects page without the
 # rows' crests and minifaces.
-requires = ["VRFW>=0.2.2"]
+requires = ["VRFW>=0.2.4"]
 conflicts = []
 permissions = []
 

@@ -6,3 +6,13 @@
 # 4 = the 5★ box is listed too; 0 = every rarity, as in the game.
 [rarity_filter]
 first_listed_rarity = 5
+
+# Which cards lose their rarity look. The normal cards (rarity 0-4) always do.
+#   "basic"          only the normal cards: Ídolo (5-7) and Diamante (8) cards keep their look
+#   "basic_idol"     also the Ídolo cards
+#   "basic_diamond"  also the Diamante cards
+#   "all"            also the Ídolo and Diamante cards
+# Read at start by ClassicCards.RarityRemoved, the album rule (content\album\hidden_rarities.toml) and the save rule
+# (content\duplicate_rules\no_more_rarities.toml). A value saved by the old option row is ignored.
+[removed_rarities]
+tiers = "basic"

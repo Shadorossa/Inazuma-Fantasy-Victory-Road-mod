@@ -33,11 +33,6 @@ stem = "event_menu"
   source = "xs_event.lua"
   marker = "utilities prematch skip event"
 
-  # In-match cut-in skip (docs/game/match/cutin-skip.md): a fresh press ends the running technique cut-in.
-  [[files.ops]]
-  type = "append_block"
-  source = "cs_event.lua"
-  marker = "betterqol cutin skip event"
 
 [[files]]
 stem = "soccer_battle_setting_flow_vs_menu"

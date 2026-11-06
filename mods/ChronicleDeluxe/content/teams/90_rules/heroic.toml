@@ -1508,11 +1508,10 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro01_010_010", "fbtl_cro01_020_010", "evt_rn_ie1_umbrella", "fbtl_cro01_030_010", "fbtl_cro01_040_010", "fbtl_cro01_050_010", "evt_rn_ie1_sallys", "fbtl_cro01_060_010", "fbtl_cro01_070_010", "fbtl_cro01_080_010", "fbtl_cro01_090_010", "fbtl_cro01_100_010", "fbtl_cro01_110_010", "fbtl_cro01_120_010", "fbtl_cro01_130_010"]
   [[VRFW.MatchChallenge.Require]]     # cap: ie1
-  Every = { AnyOf = [{ Series = ["0x62E8448F"] }, { Characters = "c11600010" }] }
+  Every = { AnyOf = [{ Series = ["0x62E8448F"] }, { Characters = "c11600010" }, { Avatar = true }] }
   Text = "chronicle_deluxe_heroic_cap_ie1"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1527,12 +1526,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro02_010_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 1 from ie2
-  Count = { Series = "0xFBE11535" }
+  Count = { AnyOf = [{ Series = "0xFBE11535" }, { Avatar = true }] }
   AtLeast = 1
   Text = "chronicle_deluxe_heroic_ie2_at_least_1"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1547,12 +1545,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro02_020_010", "fbtl_cro02_030_010", "fbtl_cro02_040_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 2 from ie2
-  Count = { Series = "0xFBE11535" }
+  Count = { AnyOf = [{ Series = "0xFBE11535" }, { Avatar = true }] }
   AtLeast = 2
   Text = "chronicle_deluxe_heroic_ie2_at_least_2"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1567,12 +1564,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro02_050_010", "fbtl_cro02_060_010", "fbtl_cro02_070_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 3 from ie2
-  Count = { Series = "0xFBE11535" }
+  Count = { AnyOf = [{ Series = "0xFBE11535" }, { Avatar = true }] }
   AtLeast = 3
   Text = "chronicle_deluxe_heroic_ie2_at_least_3"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1587,12 +1583,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro02_080_010", "fbtl_cro02_090_010", "fbtl_cro02_100_010", "fbtl_cro02_110_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 4 from ie2
-  Count = { Series = "0xFBE11535" }
+  Count = { AnyOf = [{ Series = "0xFBE11535" }, { Avatar = true }] }
   AtLeast = 4
   Text = "chronicle_deluxe_heroic_ie2_at_least_4"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1607,12 +1602,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro02_120_010", "fbtl_cro02_130_010", "fbtl_cro02_140_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 5 from ie2
-  Count = { Series = "0xFBE11535" }
+  Count = { AnyOf = [{ Series = "0xFBE11535" }, { Avatar = true }] }
   AtLeast = 5
   Text = "chronicle_deluxe_heroic_ie2_at_least_5"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1627,12 +1621,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro02_150_010", "fbtl_cro02_160_010", "fbtl_cro02_170_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 6 from ie2
-  Count = { Series = "0xFBE11535" }
+  Count = { AnyOf = [{ Series = "0xFBE11535" }, { Avatar = true }] }
   AtLeast = 6
   Text = "chronicle_deluxe_heroic_ie2_at_least_6"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1647,12 +1640,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro02_180_010", "fbtl_cro02_190_010", "fbtl_cro02_200_010", "evt_rn_ie2_forest"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 7 from ie2
-  Count = { Series = "0xFBE11535" }
+  Count = { AnyOf = [{ Series = "0xFBE11535" }, { Avatar = true }] }
   AtLeast = 7
   Text = "chronicle_deluxe_heroic_ie2_at_least_7"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1667,12 +1659,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro03_010_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 1 from ie3
-  Count = { Series = "0x8CE625A3" }
+  Count = { AnyOf = [{ Series = "0x8CE625A3" }, { Avatar = true }] }
   AtLeast = 1
   Text = "chronicle_deluxe_heroic_ie3_at_least_1"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1687,12 +1678,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro03_020_010", "fbtl_cro03_030_010", "fbtl_cro03_040_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 2 from ie3
-  Count = { Series = "0x8CE625A3" }
+  Count = { AnyOf = [{ Series = "0x8CE625A3" }, { Avatar = true }] }
   AtLeast = 2
   Text = "chronicle_deluxe_heroic_ie3_at_least_2"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1707,12 +1697,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro03_050_010", "fbtl_cro03_060_010", "fbtl_cro03_070_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 3 from ie3
-  Count = { Series = "0x8CE625A3" }
+  Count = { AnyOf = [{ Series = "0x8CE625A3" }, { Avatar = true }] }
   AtLeast = 3
   Text = "chronicle_deluxe_heroic_ie3_at_least_3"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1727,12 +1716,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro03_080_010", "fbtl_cro03_090_010", "fbtl_cro03_100_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 4 from ie3
-  Count = { Series = "0x8CE625A3" }
+  Count = { AnyOf = [{ Series = "0x8CE625A3" }, { Avatar = true }] }
   AtLeast = 4
   Text = "chronicle_deluxe_heroic_ie3_at_least_4"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1747,12 +1735,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro03_110_010", "fbtl_cro03_120_010", "fbtl_cro03_130_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 5 from ie3
-  Count = { Series = "0x8CE625A3" }
+  Count = { AnyOf = [{ Series = "0x8CE625A3" }, { Avatar = true }] }
   AtLeast = 5
   Text = "chronicle_deluxe_heroic_ie3_at_least_5"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1767,12 +1754,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro03_140_010", "fbtl_cro03_150_010", "fbtl_cro03_160_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 6 from ie3
-  Count = { Series = "0x8CE625A3" }
+  Count = { AnyOf = [{ Series = "0x8CE625A3" }, { Avatar = true }] }
   AtLeast = 6
   Text = "chronicle_deluxe_heroic_ie3_at_least_6"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1787,12 +1773,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro03_170_010", "fbtl_cro03_180_010", "fbtl_cro03_190_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 7 from ie3
-  Count = { Series = "0x8CE625A3" }
+  Count = { AnyOf = [{ Series = "0x8CE625A3" }, { Avatar = true }] }
   AtLeast = 7
   Text = "chronicle_deluxe_heroic_ie3_at_least_7"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1807,12 +1792,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro04_010_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 1 from go1
-  Count = { Series = "0x9299810F" }
+  Count = { AnyOf = [{ Series = "0x9299810F" }, { Avatar = true }] }
   AtLeast = 1
   Text = "chronicle_deluxe_heroic_go1_at_least_1"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1827,12 +1811,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro04_020_010", "fbtl_cro04_030_010", "fbtl_cro04_040_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 2 from go1
-  Count = { Series = "0x9299810F" }
+  Count = { AnyOf = [{ Series = "0x9299810F" }, { Avatar = true }] }
   AtLeast = 2
   Text = "chronicle_deluxe_heroic_go1_at_least_2"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1847,12 +1830,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro04_050_010", "fbtl_cro04_060_010", "fbtl_cro04_070_010", "fbtl_cro04_080_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 3 from go1
-  Count = { Series = "0x9299810F" }
+  Count = { AnyOf = [{ Series = "0x9299810F" }, { Avatar = true }] }
   AtLeast = 3
   Text = "chronicle_deluxe_heroic_go1_at_least_3"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1867,12 +1849,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro04_090_010", "fbtl_cro04_100_010", "fbtl_cro04_110_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 4 from go1
-  Count = { Series = "0x9299810F" }
+  Count = { AnyOf = [{ Series = "0x9299810F" }, { Avatar = true }] }
   AtLeast = 4
   Text = "chronicle_deluxe_heroic_go1_at_least_4"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1887,12 +1868,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro04_120_010", "fbtl_cro04_130_010", "fbtl_cro04_140_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 5 from go1
-  Count = { Series = "0x9299810F" }
+  Count = { AnyOf = [{ Series = "0x9299810F" }, { Avatar = true }] }
   AtLeast = 5
   Text = "chronicle_deluxe_heroic_go1_at_least_5"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1907,12 +1887,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro04_150_010", "fbtl_cro04_160_010", "fbtl_cro04_170_010", "fbtl_cro04_180_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 6 from go1
-  Count = { Series = "0x9299810F" }
+  Count = { AnyOf = [{ Series = "0x9299810F" }, { Avatar = true }] }
   AtLeast = 6
   Text = "chronicle_deluxe_heroic_go1_at_least_6"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1927,12 +1906,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro04_190_010", "fbtl_cro04_200_010", "fbtl_cro04_210_010", "fbtl_cro04_220_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 7 from go1
-  Count = { Series = "0x9299810F" }
+  Count = { AnyOf = [{ Series = "0x9299810F" }, { Avatar = true }] }
   AtLeast = 7
   Text = "chronicle_deluxe_heroic_go1_at_least_7"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1947,12 +1925,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro05_010_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 1 from go2
-  Count = { Series = "0x0B90D0B5" }
+  Count = { AnyOf = [{ Series = "0x0B90D0B5" }, { Avatar = true }] }
   AtLeast = 1
   Text = "chronicle_deluxe_heroic_go2_at_least_1"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1967,12 +1944,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro05_020_010", "fbtl_cro05_030_010", "fbtl_cro05_040_010", "fbtl_cro05_050_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 2 from go2
-  Count = { Series = "0x0B90D0B5" }
+  Count = { AnyOf = [{ Series = "0x0B90D0B5" }, { Avatar = true }] }
   AtLeast = 2
   Text = "chronicle_deluxe_heroic_go2_at_least_2"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -1987,12 +1963,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro05_060_010", "fbtl_cro05_070_010", "fbtl_cro05_080_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 3 from go2
-  Count = { Series = "0x0B90D0B5" }
+  Count = { AnyOf = [{ Series = "0x0B90D0B5" }, { Avatar = true }] }
   AtLeast = 3
   Text = "chronicle_deluxe_heroic_go2_at_least_3"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2007,12 +1982,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro05_090_010", "fbtl_cro05_090_110", "fbtl_cro05_100_010", "fbtl_cro05_100_110", "fbtl_cro05_110_010", "fbtl_cro05_110_110", "fbtl_cro05_120_010", "fbtl_cro05_120_110"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 4 from go2
-  Count = { Series = "0x0B90D0B5" }
+  Count = { AnyOf = [{ Series = "0x0B90D0B5" }, { Avatar = true }] }
   AtLeast = 4
   Text = "chronicle_deluxe_heroic_go2_at_least_4"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2027,12 +2001,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro05_130_010", "fbtl_cro05_130_110", "fbtl_cro05_140_010", "fbtl_cro05_140_110", "fbtl_cro05_150_010", "fbtl_cro05_150_110", "fbtl_cro05_160_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 5 from go2
-  Count = { Series = "0x0B90D0B5" }
+  Count = { AnyOf = [{ Series = "0x0B90D0B5" }, { Avatar = true }] }
   AtLeast = 5
   Text = "chronicle_deluxe_heroic_go2_at_least_5"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2047,12 +2020,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro05_170_010", "fbtl_cro05_180_010", "fbtl_cro05_180_110", "fbtl_cro05_190_010", "fbtl_cro05_190_110", "fbtl_cro05_200_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 6 from go2
-  Count = { Series = "0x0B90D0B5" }
+  Count = { AnyOf = [{ Series = "0x0B90D0B5" }, { Avatar = true }] }
   AtLeast = 6
   Text = "chronicle_deluxe_heroic_go2_at_least_6"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2067,12 +2039,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro05_210_010", "fbtl_cro05_220_010", "fbtl_cro05_220_110", "fbtl_cro05_230_010", "fbtl_cro05_240_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 7 from go2
-  Count = { Series = "0x0B90D0B5" }
+  Count = { AnyOf = [{ Series = "0x0B90D0B5" }, { Avatar = true }] }
   AtLeast = 7
   Text = "chronicle_deluxe_heroic_go2_at_least_7"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2087,12 +2058,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro06_010_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 1 from go3
-  Count = { Series = "0x7C97E023" }
+  Count = { AnyOf = [{ Series = "0x7C97E023" }, { Avatar = true }] }
   AtLeast = 1
   Text = "chronicle_deluxe_heroic_go3_at_least_1"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2107,12 +2077,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro06_020_010", "fbtl_cro06_030_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 2 from go3
-  Count = { Series = "0x7C97E023" }
+  Count = { AnyOf = [{ Series = "0x7C97E023" }, { Avatar = true }] }
   AtLeast = 2
   Text = "chronicle_deluxe_heroic_go3_at_least_2"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2127,12 +2096,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["evt_rn_galaxy_raimon", "fbtl_cro06_040_010", "fbtl_cro06_050_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 3 from go3
-  Count = { Series = "0x7C97E023" }
+  Count = { AnyOf = [{ Series = "0x7C97E023" }, { Avatar = true }] }
   AtLeast = 3
   Text = "chronicle_deluxe_heroic_go3_at_least_3"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2147,12 +2115,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro06_060_010", "fbtl_cro06_070_010", "fbtl_cro06_080_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 4 from go3
-  Count = { Series = "0x7C97E023" }
+  Count = { AnyOf = [{ Series = "0x7C97E023" }, { Avatar = true }] }
   AtLeast = 4
   Text = "chronicle_deluxe_heroic_go3_at_least_4"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2167,12 +2134,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro06_090_010", "fbtl_cro06_100_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 5 from go3
-  Count = { Series = "0x7C97E023" }
+  Count = { AnyOf = [{ Series = "0x7C97E023" }, { Avatar = true }] }
   AtLeast = 5
   Text = "chronicle_deluxe_heroic_go3_at_least_5"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2187,12 +2153,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro06_110_010", "fbtl_cro06_120_010", "fbtl_cro06_130_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 6 from go3
-  Count = { Series = "0x7C97E023" }
+  Count = { AnyOf = [{ Series = "0x7C97E023" }, { Avatar = true }] }
   AtLeast = 6
   Text = "chronicle_deluxe_heroic_go3_at_least_6"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2207,12 +2172,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro06_140_010", "fbtl_cro06_150_010", "fbtl_cro06_160_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 7 from go3
-  Count = { Series = "0x7C97E023" }
+  Count = { AnyOf = [{ Series = "0x7C97E023" }, { Avatar = true }] }
   AtLeast = 7
   Text = "chronicle_deluxe_heroic_go3_at_least_7"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2227,12 +2191,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro07_010_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 1 from ares
-  Count = { Series = "0x6461BCB4" }
+  Count = { AnyOf = [{ Series = "0x6461BCB4" }, { Avatar = true }] }
   AtLeast = 1
   Text = "chronicle_deluxe_heroic_ares_at_least_1"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2247,12 +2210,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro07_020_010", "fbtl_cro07_030_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 2 from ares
-  Count = { Series = "0x6461BCB4" }
+  Count = { AnyOf = [{ Series = "0x6461BCB4" }, { Avatar = true }] }
   AtLeast = 2
   Text = "chronicle_deluxe_heroic_ares_at_least_2"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2267,12 +2229,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro07_040_010", "fbtl_cro07_050_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 3 from ares
-  Count = { Series = "0x6461BCB4" }
+  Count = { AnyOf = [{ Series = "0x6461BCB4" }, { Avatar = true }] }
   AtLeast = 3
   Text = "chronicle_deluxe_heroic_ares_at_least_3"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2287,12 +2248,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro07_060_010", "fbtl_cro07_070_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 4 from ares
-  Count = { Series = "0x6461BCB4" }
+  Count = { AnyOf = [{ Series = "0x6461BCB4" }, { Avatar = true }] }
   AtLeast = 4
   Text = "chronicle_deluxe_heroic_ares_at_least_4"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2307,12 +2267,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro07_080_010", "fbtl_cro07_090_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 5 from ares
-  Count = { Series = "0x6461BCB4" }
+  Count = { AnyOf = [{ Series = "0x6461BCB4" }, { Avatar = true }] }
   AtLeast = 5
   Text = "chronicle_deluxe_heroic_ares_at_least_5"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2327,12 +2286,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro07_100_010", "fbtl_cro07_110_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 6 from ares
-  Count = { Series = "0x6461BCB4" }
+  Count = { AnyOf = [{ Series = "0x6461BCB4" }, { Avatar = true }] }
   AtLeast = 6
   Text = "chronicle_deluxe_heroic_ares_at_least_6"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2347,12 +2305,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro07_120_010", "fbtl_cro07_130_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 7 from ares
-  Count = { Series = "0x6461BCB4" }
+  Count = { AnyOf = [{ Series = "0x6461BCB4" }, { Avatar = true }] }
   AtLeast = 7
   Text = "chronicle_deluxe_heroic_ares_at_least_7"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2367,12 +2324,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro08_010_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 1 from orion
-  Count = { Series = "0xE43DAFA3" }
+  Count = { AnyOf = [{ Series = "0xE43DAFA3" }, { Avatar = true }] }
   AtLeast = 1
   Text = "chronicle_deluxe_heroic_orion_at_least_1"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2387,12 +2343,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro08_020_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 2 from orion
-  Count = { Series = "0xE43DAFA3" }
+  Count = { AnyOf = [{ Series = "0xE43DAFA3" }, { Avatar = true }] }
   AtLeast = 2
   Text = "chronicle_deluxe_heroic_orion_at_least_2"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2407,12 +2362,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro08_030_010", "fbtl_cro08_040_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 3 from orion
-  Count = { Series = "0xE43DAFA3" }
+  Count = { AnyOf = [{ Series = "0xE43DAFA3" }, { Avatar = true }] }
   AtLeast = 3
   Text = "chronicle_deluxe_heroic_orion_at_least_3"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2427,12 +2381,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro08_050_010", "fbtl_cro08_060_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 4 from orion
-  Count = { Series = "0xE43DAFA3" }
+  Count = { AnyOf = [{ Series = "0xE43DAFA3" }, { Avatar = true }] }
   AtLeast = 4
   Text = "chronicle_deluxe_heroic_orion_at_least_4"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2447,12 +2400,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro08_070_010", "fbtl_cro08_080_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 5 from orion
-  Count = { Series = "0xE43DAFA3" }
+  Count = { AnyOf = [{ Series = "0xE43DAFA3" }, { Avatar = true }] }
   AtLeast = 5
   Text = "chronicle_deluxe_heroic_orion_at_least_5"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2467,12 +2419,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro08_090_010", "fbtl_cro08_100_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 6 from orion
-  Count = { Series = "0xE43DAFA3" }
+  Count = { AnyOf = [{ Series = "0xE43DAFA3" }, { Avatar = true }] }
   AtLeast = 6
   Text = "chronicle_deluxe_heroic_orion_at_least_6"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2487,12 +2438,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro08_110_010", "fbtl_cro08_120_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 7 from orion
-  Count = { Series = "0xE43DAFA3" }
+  Count = { AnyOf = [{ Series = "0xE43DAFA3" }, { Avatar = true }] }
   AtLeast = 7
   Text = "chronicle_deluxe_heroic_orion_at_least_7"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2507,12 +2457,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro09_010_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 1 from victory_road
-  Count = { Series = "0xE177FC30" }
+  Count = { AnyOf = [{ Series = "0xE177FC30" }, { Avatar = true }] }
   AtLeast = 1
   Text = "chronicle_deluxe_heroic_victory_road_at_least_1"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2525,12 +2474,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro09_020_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 3 from victory_road
-  Count = { Series = "0xE177FC30" }
+  Count = { AnyOf = [{ Series = "0xE177FC30" }, { Avatar = true }] }
   AtLeast = 3
   Text = "chronicle_deluxe_heroic_victory_road_at_least_3"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2543,12 +2491,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro09_030_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 4 from victory_road
-  Count = { Series = "0xE177FC30" }
+  Count = { AnyOf = [{ Series = "0xE177FC30" }, { Avatar = true }] }
   AtLeast = 4
   Text = "chronicle_deluxe_heroic_victory_road_at_least_4"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2561,12 +2508,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro09_040_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 5 from victory_road
-  Count = { Series = "0xE177FC30" }
+  Count = { AnyOf = [{ Series = "0xE177FC30" }, { Avatar = true }] }
   AtLeast = 5
   Text = "chronicle_deluxe_heroic_victory_road_at_least_5"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2579,12 +2525,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro09_050_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 6 from victory_road
-  Count = { Series = "0xE177FC30" }
+  Count = { AnyOf = [{ Series = "0xE177FC30" }, { Avatar = true }] }
   AtLeast = 6
   Text = "chronicle_deluxe_heroic_victory_road_at_least_6"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"
@@ -2597,12 +2542,11 @@ Scope = "squad"
 Difficulties = [4]
 Games = ["fbtl_cro09_060_010"]
   [[VRFW.MatchChallenge.Require]]     # ramp: at least 7 from victory_road
-  Count = { Series = "0xE177FC30" }
+  Count = { AnyOf = [{ Series = "0xE177FC30" }, { Avatar = true }] }
   AtLeast = 7
   Text = "chronicle_deluxe_heroic_victory_road_at_least_7"
   [[VRFW.MatchChallenge.Required]]    # c11600010 (Victorio Cryptix) as a starter
   Characters = "c11600010"
-  Positions = ["fw", "mf"]
   UntilFirstClear = true
   Text = "chronicle_deluxe_heroic_required"
   Label = "chronicle_deluxe_heroic_required_label"

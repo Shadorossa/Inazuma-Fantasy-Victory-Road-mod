@@ -8535,11 +8535,3 @@ face = "#E5A671"
 iris = "#3C312B"
 skin = "#E5A671"
 
-[[VRFW.MiximaxPalette]]
-character = "c90000130"
-id = "0x49D3E161"
-head = "_face/01_IE1/c01000100/c01000100.g4tx"
-hair = "#FAD9AE"
-face = "#E5A671"
-iris = "#3C312B"
-skin = "#E5A671"

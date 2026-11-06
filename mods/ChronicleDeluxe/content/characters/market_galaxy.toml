@@ -1,0 +1,330 @@
+schema = "VRFW.character/2"
+# Chronicle Deluxe: players of the Galaxy the game ships models and faces for but no player row: signed from the player album.
+# Ids, stats and moves: ported from the old Chronicles Deluxe / Inazuma Fantasy declarations (research/archive, research/mods/_aside).
+default_lang = "en"
+
+[[character]]
+name = "sena_arata"  # Sena Arata
+based_on = "c06037880"
+
+  [character.base]
+  id = 0xEC0E290B
+  name = "c06037850"
+  name_text = 0x1571229A
+  short_name_text = 0x40D2A0FD
+  upper_name_text = 0x40D2A0FD
+  model = 0x75294F4A
+  description_text = 0x56B025B6
+
+  [character.text.es]
+  name = "Sena Arata"
+  short = "Arata"
+  description = "Un Jugador LBX que asiste a la Kamui Daimon Tougou Gakuen.\nSupera situaciones difíciles gracias a su poder creativo natural."
+
+  [character.text.en]
+  name = "Sena Arata"
+  short = "Arata"
+  description = "An LBX Player who attends Kamui Daimon Tougou Gakuen.\nHe overcomes difficult situations thanks to his natural creative power."
+
+  [character.text.fr]
+  name = "Sena Arata"
+  short = "Arata"
+  description = "Un Joueur LBX qui fréquente la Kamui Daimon Tougou Gakuen.\nIl surmonte les situations difficiles grâce à son pouvoir créatif naturel."
+
+  [character.text.de]
+  name = "Sena Arata"
+  short = "Arata"
+  description = "Ein LBX-Spieler, der die Kamui Daimon Tougou Gakuen besucht.\nEr meistert schwierige Situationen dank seiner natürlichen Kreativität."
+
+  [character.text.it]
+  name = "Sena Arata"
+  short = "Arata"
+  description = "Un Giocatore LBX che frequenta la Kamui Daimon Tougou Gakuen.\nSupera situazioni difficili grazie al suo potere creativo naturale."
+
+  [character.text.pt]
+  name = "Sena Arata"
+  short = "Arata"
+  description = "Um Jogador LBX que frequenta a Kamui Daimon Tougou Gakuen.\nEle supera situações difíceis graças ao seu poder criativo natural."
+
+  [character.text.ja]
+  name = "アラタ"
+  short = "アラタ"
+  upper = "アラタ"
+
+  [[character.cards]]
+  id = 0xFFF7C504
+  from = 0x85363312
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x518BCA26, level = 1 },
+    { move = 0x828A53C8, level = 13 },
+    { move = 0x43B5739B, level = 20 },
+    { move = 0xF806D6C3, level = 30 },
+    { move = 0xB9676390, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "sugawara_kenta"  # Sugawara Kenta
+based_on = "c06037880"
+
+  [character.base]
+  id = 0xDFFA21BE
+  name = "c06037970"
+  name_text = 0x15A57235
+  short_name_text = 0x12722213
+  upper_name_text = 0x12722213
+  model = 0x46DD47FF
+  description_text = 0x0FB82203
+
+  [character.text.es]
+  name = "Sugawara Kenta"
+  short = "Sugaken"
+  description = "El gobernante más poderoso de la historia que reinó sobre\nla Categoría Junior del Torneo Oficial de Inazuma Eleven GO 2."
+
+  [character.text.en]
+  name = "Sugawara Kenta"
+  short = "Sugaken"
+  description = "The most powerful ruler in history to reign over\nthe Junior Category of the Official Inazuma Eleven GO 2 Tournament."
+
+  [character.text.fr]
+  name = "Sugawara Kenta"
+  short = "Sugaken"
+  description = "Le souverain le plus puissant de l'histoire à avoir régné sur\nla Catégorie Junior du Tournoi Officiel Inazuma Eleven GO 2."
+
+  [character.text.de]
+  name = "Sugawara Kenta"
+  short = "Sugaken"
+  description = "Der mächtigste Herrscher der Geschichte, der über\ndie Junior-Kategorie des offiziellen Inazuma Eleven GO 2-Turniers regierte."
+
+  [character.text.it]
+  name = "Sugawara Kenta"
+  short = "Sugaken"
+  description = "Il sovrano più potente della storia a regnare\nsulla Categoria Junior del Torneo Ufficiale di Inazuma Eleven GO 2."
+
+  [character.text.pt]
+  name = "Sugawara Kenta"
+  short = "Sugaken"
+  description = "O governante mais poderoso da história a reinar sobre\na Categoria Júnior do Torneio Oficial de Inazuma Eleven GO 2."
+
+  [[character.cards]]
+  id = 0xFFF7C505
+  from = 0x85363312
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0x518BCA26, level = 13 },
+    { move = 0x3663DB4C, level = 20 },
+    { move = 0xE35B59DB, level = 30 },
+    { move = 0x41F3CDC2, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "mecha_iriho"  # Mecha Iriho
+based_on = "c06037880"
+
+  [character.base]
+  id = 0x58623D71
+  name = "c06037980"
+  name_text = 0x0CCE451A
+  short_name_text = 0x3EA5A962
+  upper_name_text = 0x3EA5A962
+  model = 0xC1455B30
+  description_text = 0x7C689C9C
+
+  [character.text.es]
+  name = "Mecha Iriho"
+  short = "Iriho"
+  description = "El enigmático robot que reinó sobre la\nCategoría Maestra del Torneo Oficial de Inazuma Eleven GO 2."
+
+  [character.text.en]
+  name = "Mecha Iriho"
+  short = "Iriho"
+  description = "The enigmatic robot that reigned over\nthe Master Category of the Official Inazuma Eleven GO 2 Tournament."
+
+  [character.text.fr]
+  name = "Mecha Iriho"
+  short = "Iriho"
+  description = "Le robot énigmatique qui régnait sur la\nCatégorie Maître du Tournoi Officiel Inazuma Eleven GO 2."
+
+  [character.text.de]
+  name = "Mecha Iriho"
+  short = "Iriho"
+  description = "Der rätselhafte Roboter, der über die\nMeister-Kategorie des offiziellen Inazuma Eleven GO 2-Turniers regierte."
+
+  [character.text.it]
+  name = "Mecha Iriho"
+  short = "Iriho"
+  description = "Il robot enigmatico che regnava sulla\nCategoria Master del Torneo Ufficiale di Inazuma Eleven GO 2."
+
+  [character.text.pt]
+  name = "Mecha Iriho"
+  short = "Iriho"
+  description = "O robô enigmático que reinava sobre a\nCategoria Mestre do Torneio Oficial de Inazuma Eleven GO 2."
+
+  [[character.cards]]
+  id = 0xFFF7C506
+  from = 0x061964FB
+  growth_pattern = 1
+  cells = { c6 = 9, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x518BCA26, level = 1 },
+    { move = 0x4E22F64D, level = 13 },
+    { move = 0xED7B7A4F, level = 20 },
+    { move = 0x64CDCFB9, level = 30 },
+    { move = 0xF806D6C3, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "kusaba_kenta"  # Kusaba Kenta
+based_on = "c06037880"
+
+  [character.base]
+  id = 0x41790C30
+  name = "c06037990"
+  name_text = 0x79405036
+  short_name_text = 0x0E757325
+  upper_name_text = 0x0E757325
+  model = 0xD85E6A71
+  description_text = 0x02B11A12
+
+  [character.text.es]
+  name = "Kusaba Kenta"
+  short = "Kusaken"
+  description = "El gobernante absolutamente invencible que reinó sobre\nla Categoría Junior del Torneo Oficial de GO Strikers 2013."
+
+  [character.text.en]
+  name = "Kusaba Kenta"
+  short = "Kusaken"
+  description = "The utterly invincible ruler who reigned over\nthe Junior Category of the Official GO Strikers 2013 Tournament."
+
+  [character.text.fr]
+  name = "Kusaba Kenta"
+  short = "Kusaken"
+  description = "Le souverain absolument invincible qui a régné sur\nla Catégorie Junior du Tournoi Officiel GO Strikers 2013."
+
+  [character.text.de]
+  name = "Kusaba Kenta"
+  short = "Kusaken"
+  description = "Der absolut unbesiegbare Herrscher, der über\ndie Junior-Kategorie des offiziellen GO Strikers 2013-Turniers regierte."
+
+  [character.text.it]
+  name = "Kusaba Kenta"
+  short = "Kusaken"
+  description = "Il sovrano assolutamente invincibile che regnò\nsulla Categoria Junior del Torneo Ufficiale di GO Strikers 2013."
+
+  [character.text.pt]
+  name = "Kusaba Kenta"
+  short = "Kusaken"
+  description = "O governante absolutamente invencível que reinou sobre\na Categoria Júnior do Torneio Oficial de GO Strikers 2013."
+
+  [[character.cards]]
+  id = 0xFFF7C507
+  from = 0x3D9ED3F0
+  position = "df"
+  sub_position = "mf"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x518BCA26, level = 1 },
+    { move = 0x7D6E9A87, level = 13 },
+    { move = 0x8917BF4B, level = 20 },
+    { move = 0x04941270, level = 30 },
+    { move = 0xA9A7000B, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "tetchan"  # Tetchan
+based_on = "c06037880"
+
+  [character.base]
+  id = 0xC7099CA0
+  name = "c06038000"
+  name_text = 0x0EEDB5EF
+  short_name_text = 0x0EEDB5EF
+  upper_name_text = 0x0EEDB5EF
+  model = 0x5E2EFAE1
+  description_text = 0x79068B24
+
+  [character.text.es]
+  name = "Tetchan"
+  description = "El gobernante inigualable que reinó sobre la\nCategoría Maestra del Torneo Oficial de GO Strikers 2013."
+
+  [character.text.en]
+  name = "Tetchan"
+  description = "The unrivaled ruler who reigned over the\nMaster Category of the Official GO Strikers 2013 Tournament."
+
+  [character.text.fr]
+  name = "Tetchan"
+  description = "Le souverain inégalé qui a régné sur la\nCatégorie Maître du Tournoi Officiel GO Strikers 2013."
+
+  [character.text.de]
+  name = "Tetchan"
+  description = "Der unvergleichliche Herrscher, der über die\nMeister-Kategorie des offiziellen GO Strikers 2013-Turniers regierte."
+
+  [character.text.it]
+  name = "Tetchan"
+  description = "Il sovrano ineguagliabile che regnò sulla\nCategoria Master del Torneo Ufficiale di GO Strikers 2013."
+
+  [character.text.pt]
+  name = "Tetchan"
+  description = "O governante inigualável que reinou sobre a\nCategoria Mestre do Torneio Oficial de GO Strikers 2013."
+
+  [[character.cards]]
+  id = 0xFFF7C508
+  from = 0x3D9ED3F0
+  position = "df"
+  sub_position = "mf"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x518BCA26, level = 1 },
+    { move = 0xA23AEC88, level = 13 },
+    { move = 0x4FE09C7A, level = 20 },
+    { move = 0x6BA49049, level = 30 },
+    { move = 0xA9A7000B, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[edit]]
+target = "c06039350"  # Circulus Corona
+base = { voice_bank = 0x11CA7196, flag_31 = 0 }
+
+  [[edit.cards]]
+  id = 0xFFF7C517
+  from = 0xB83E7FE4
+  rank = 3
+  moves = [
+    { move = 0xDAC3A5F6, level = 1 },
+    { move = 0xCD391C9D, level = 13 },
+    { move = 0x7D536206, level = 20 },
+    { move = 0xFF0F7E1F, level = 30 },
+    { move = 0x0C08B663, level = 38 },
+    { move = 0x91CEE43D, level = 43 },
+    { move = 0x00000000, level = 0 },
+    { move = 0xBE333B90, level = 1 },
+  ]
+
+[[edit]]
+target = "c06039360"  # Arculus Orbes
+base = { voice_bank = 0x124EA5F8, flag_31 = 0 }
+
+  [[edit.cards]]
+  id = 0xFFF7C518
+  from = 0xBBBAAB8A
+  rank = 3
+  moves = [
+    { move = 0x6DAEF91C, level = 1 },
+    { move = 0xE6144F5E, level = 13 },
+    { move = 0x64485347, level = 20 },
+    { move = 0xFF0F7E1F, level = 30 },
+    { move = 0x828A53C8, level = 38 },
+    { move = 0x1656F8F2, level = 43 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x7A21082E, level = 1 },
+  ]

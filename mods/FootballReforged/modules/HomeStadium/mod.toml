@@ -2,8 +2,8 @@ id = "HomeStadium"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Home Stadium"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Each of your teams gets a home stadium. Pick it in Team Dock › «Home stadium» among the stadiums you own (bought or unlocked); the choice is saved for that team. The team plays its home friendlies there when the match has no stadium of its own. Competition, Chronicle and Battle Bay keep their own stadiums."
 priority = 0
@@ -36,7 +36,7 @@ folder = "HomeStadium"
 #                                                    reached and decided by BetterUI >= 1.22.10, BetterUI.AddDockButton), else a
 #                                                    row of the dock's list
 #   text\keys.toml                                   the row's texts, the mod's name / description
-requires = ["VRFW>=0.2.2", "FootballReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "FootballReforged>=0.2.4"]
 optional = ["BetterUI"]
 conflicts = []
 loader_modules = ["lua_bridge"]

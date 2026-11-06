@@ -2,7 +2,8 @@ schema = "VRFW.match_ai/1"
 # Legendary AI › the «Legendary» AI level (format: docs/framework/match-ai.md).
 # The knob names, units and ranges: the framework's catalogue content\rules\catalog\ai_knobs.toml.
 # Every number / switch is a value of the mod's config.toml (written as the quoted path ${config.section.key}): edit it there.
-# No Modes / AiLevels / Teams / Games list = every offline match (online and observed matches are never touched).
+# No Modes / AiLevels / Teams / Games list = every offline match (online and observed matches are never touched), but
+# never the match modes of not_in_match_modes in mod.toml (Chronicle battles).
 # Side "rival" = the CPU team only; your AI teammates keep the game's AI.
 
 # The option row «Difficulty» picks the level; the values of each level: config.toml [difficulty].

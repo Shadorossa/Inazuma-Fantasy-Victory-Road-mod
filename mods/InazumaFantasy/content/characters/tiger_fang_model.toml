@@ -1,0 +1,19 @@
+schema = "VRFW.character/2"
+# Inazuma Fantasy: Colmillo del Tigre's tiger as a `_waza` actor: the game finds it through its chara_base row
+# (id = crc32(name)) and that row's chara_model row (id = crc32(name) ^ 0x0A0B78D5), as every retail `_waza` model.
+default_lang = "en"
+
+[[character]]
+name = "move_model_tiger_fang"
+based_on = "ev63_00300"
+battle = false
+
+  [character.base]
+  id = 0xDBDF977D
+  name = "ev63_86020"
+
+  [character.new_model]
+  id = 0xD1D4EFA8
+  from = "ev63_00300"
+  [character.new_model.cells]
+  skeleton_path = "_waza/ev63_86020/ev63_86020.objbin"

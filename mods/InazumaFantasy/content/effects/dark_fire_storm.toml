@@ -1,0 +1,202 @@
+schema = "VRFW.effect/1"
+# Inazuma Fantasy: Tormenta de fuego oscura (content\techniques\dark_fire_storm.toml): recoloured copies of the object of Tormenta de fuego
+# (ev60004500), its giant (chr/_waza/ev60_01020) and its ball aura in the colours measured on retail Tornado oscuro (ev60004300). A gradient = the luma to colour curve
+# measured between the same retail part of Tornado de fuego (ev60000300) and Tornado oscuro. Grey masks, flow and particle maps and the ega0001 flash stay.
+
+[[recolor]]
+object = "ev60004500"
+copy = "ev60861000"
+hue = 243.3
+mode = "set"
+materials = "none"
+textures = ["ev60004500_01", "ev60004500_32", "ev60004500_35", "ev60004500_13", "ev60004500_07", "ev60004500_21", "ev60004500_02", "ev60004500_06", "ev60004500_10", "ev60004500_11", "ev60004500_17", "ev60004500_52", "ev60004500_12", "ev60004500_04", "ev60004500_42", "ev60004500_43", "ev60004500_44"]
+[recolor.per_texture."ev60004500_01"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.476, 0.078, 0.078, 0.204], [1.0, 0.91, 0.902, 0.973]]
+[recolor.per_texture."ev60004500_32"]
+gradient = [[0.453, 0.071, 0.008, 0.306], [0.608, 0.165, 0.141, 0.58], [0.796, 0.29, 0.298, 0.761], [0.99, 0.424, 0.463, 0.824]]
+[recolor.per_texture."ev60004500_35"]
+gradient = [[0.386, 0.0, 0.0, 0.0], [0.395, 0.0, 0.0, 0.0], [0.398, 0.0, 0.0, 0.0], [0.85, 0.333, 0.247, 0.882]]
+[recolor.per_texture."ev60004500_13"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.89, 0.31, 0.204, 0.745]]
+[recolor.per_texture."ev60004500_07"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.358, 0.0, 0.0, 0.0], [0.479, 0.039, 0.043, 0.086], [0.886, 0.416, 0.384, 0.608]]
+[recolor.per_texture."ev60004500_21"]
+gradient = [[0.299, 0.231, 0.184, 0.49], [0.34, 0.255, 0.214, 0.498], [0.638, 0.42, 0.42, 0.576], [0.693, 0.451, 0.451, 0.62]]
+[recolor.per_texture."ev60004500_02"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.603, 0.31, 0.133, 0.953], [0.89, 0.827, 0.851, 0.984]]
+[recolor.per_texture."ev60004500_06"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.603, 0.31, 0.133, 0.953], [0.89, 0.827, 0.851, 0.984]]
+[recolor.per_texture."ev60004500_10"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.476, 0.078, 0.078, 0.204], [1.0, 0.91, 0.902, 0.973]]
+[recolor.per_texture."ev60004500_11"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.89, 0.31, 0.204, 0.745]]
+[recolor.per_texture."ev60004500_17"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.89, 0.31, 0.204, 0.745]]
+[recolor.per_texture."ev60004500_52"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.89, 0.31, 0.204, 0.745]]
+[recolor.per_texture."ev60004500_12"]
+gradient = [[0.294, 0.027, 0.0, 0.09], [0.312, 0.031, 0.0, 0.114], [0.419, 0.094, 0.004, 0.345], [0.878, 0.443, 0.502, 0.925]]
+[recolor.per_texture."ev60004500_04"]
+gradient = [[0.294, 0.027, 0.0, 0.09], [0.312, 0.031, 0.0, 0.114], [0.419, 0.094, 0.004, 0.345], [0.878, 0.443, 0.502, 0.925]]
+[recolor.per_texture."ev60004500_42"]
+hue = 240.0
+mode = "set"
+saturation = 0.464
+value = 0.941
+[recolor.per_texture."ev60004500_43"]
+hue = 246.9
+mode = "set"
+saturation = 0.877
+value = 0.741
+[recolor.per_texture."ev60004500_44"]
+hue = 246.9
+mode = "set"
+saturation = 1.0
+value = 0.0
+
+# the colour of the rings, waves and bars lives in their vertices
+[[recolor]]
+object = "ev60861000"
+textures = "none"
+materials = "none"
+hue = 236.2
+mode = "set"
+saturation = 0.39
+value = 0.941
+vertex_colors = ["_102_Khand_fire_a2", "_306_shoot_obi", "_307_shoot_new_sc"]
+
+[[recolor]]
+object = "ev60861000"
+textures = "none"
+materials = "none"
+hue = 261.6
+mode = "set"
+saturation = 1.0
+value = 1.0
+vertex_colors = ["_103_Khand_fire_wave"]
+
+[[recolor]]
+object = "ev60861000"
+textures = "none"
+materials = "none"
+hue = 259.7
+mode = "set"
+saturation = 0.627
+value = 0.82
+vertex_colors = ["_202_body_firering", "_204_body_firering", "_205_body_firering", "_303_kiseki_uzuB", "_304_kiseki_uzu_center", "_305_kiseki_uzuA"]
+
+[[recolor]]
+object = "ev60861000"
+textures = "none"
+materials = "none"
+hue = 261.0
+mode = "set"
+saturation = 0.761
+value = 1.0
+vertex_colors = ["_210_inbody_wave", "_211_inbody_ring", "_212_inbody_ring", "_213_inbody_ring", "_328_up_body_wave_t2m1_a2"]
+
+[[recolor]]
+object = "ev60861000"
+textures = "none"
+materials = "none"
+hue = 261.5
+mode = "set"
+saturation = 1.992
+value = 1.0
+vertex_colors = ["_300_kiseki_uzu_center_a1"]
+
+[[recolor]]
+object = "ev60861000"
+textures = "none"
+materials = "none"
+hue = 261.0
+mode = "set"
+saturation = 1.011
+value = 1.0
+vertex_colors = ["_302_up_body_wave_grd"]
+
+[[recolor]]
+object = "ev60861000"
+textures = "none"
+materials = "none"
+hue = 236.2
+mode = "set"
+saturation = 0.781
+value = 0.941
+vertex_colors = ["_324_up_body_fire"]
+
+[[recolor]]
+object = "ev60861000"
+textures = "none"
+materials = "none"
+hue = 250.1
+mode = "set"
+saturation = 0.806
+value = 0.608
+vertex_colors = ["_325_firebar", "_326_firebar", "_327_firebar", "_328_up_body_wave_t2m1_a3"]
+
+# static colour blocks: retail numbers
+[[recolor]]
+object = "ev60861000"
+textures = "none"
+materials = "none"
+[[recolor.tint]]
+mesh = "body_firering"
+rgb = [0.643, 0.565, 0.823]
+op = "set"
+[[recolor.tint]]
+mesh = "_100_black_01"
+rgb = [0.007, 0.0, 0.15]
+op = "set"
+[[recolor.tint]]
+mesh = "_101_Khand_fire_a3"
+rgb = [1.0, 1.0, 1.0]
+op = "set"
+[[recolor.tint]]
+mesh = "_324_up_body_fire_a2a"
+rgb = [1.0, 1.0, 1.0]
+op = "set"
+[[recolor.tint]]
+mesh = "firebar"
+rgb = [1.0, 0.913, 0.87]
+op = "set"
+
+# the giant: no retail part, so the curve of the fire ball; the outline, occlusion and specular maps stay
+[[recolor]]
+object = "chr/_waza/ev60_01020/ev60_01020.objbin"
+copy = "ev60_86101"
+materials = "none"
+textures = ["ev60_01020_10", "ev60_01020_10spm"]
+hue = 0.0
+mode = "set"
+[recolor.per_texture."ev60_01020_10"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.603, 0.31, 0.133, 0.953], [0.89, 0.827, 0.851, 0.984]]
+[recolor.per_texture."ev60_01020_10spm"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.603, 0.31, 0.133, 0.953], [0.89, 0.827, 0.851, 0.984]]
+
+# the ball aura: the colour of the ball's _540_ball_tamaR_01
+[[recolor]]
+aura = "ball_aura_bakunetsu_storm"
+copy = "ball_aura_dark_fire_storm_86100"
+hue = 257.5
+mode = "set"
+value = 0.875
+
+[[event_command]]
+event = "ev60_86100"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60004500"]
+set = ["ev60004500", "common/effect/event/ev60/ev60861000/ev60861000.objbin"]
+
+[[event_command]]
+event = "ev60_86100"
+list = "evt"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60_01020_s00_p<VARIATION>"]
+set = ["ev60_01020_s00_p<VARIATION>", "ev60_86101"]
+
+[[event_command]]
+event = "ev60_86100"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["b000001_s00_p<VARIATION>", "ball_aura_bakunetsu_storm"]
+set = ["b000001_s00_p<VARIATION>", "ball_aura_dark_fire_storm_86100"]

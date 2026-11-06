@@ -1,0 +1,191 @@
+schema = "VRFW.effect/1"
+# Inazuma Fantasy: Tornado oscuro (A) (content\techniques\dark_tornado_a.toml): a recoloured copy of the object of Tornado de fuego A
+# (ev60027500) in the colours measured on retail Tornado oscuro (ev60004300). hue = the retail part's hue; saturation / value = retail
+# part / part of the copy; a gradient = the retail part's own pixels by the luma of the same pixel in A. A part only A has takes its closest retail part. Grey masks, the ega0001 flash and the particle maps stay.
+
+[[recolor]]
+object = "ev60027500"
+copy = "ev60860000"
+hue = 243.3
+mode = "set"
+materials = "none"
+textures = ["ev60027500_01", "ev60027500_04", "ev60027500_07", "ev60027500_12", "ev60027500_14", "ev60027500_15", "ev60027500_17", "ev60027500_18", "ev60027500_02", "ev60027500_25", "ev60027500_20", "ev60027500_21", "ev60027500_22"]
+[recolor.per_texture."ev60027500_01"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.476, 0.078, 0.078, 0.204], [1.0, 0.91, 0.902, 0.973]]
+[recolor.per_texture."ev60027500_04"]
+gradient = [[0.453, 0.071, 0.008, 0.306], [0.608, 0.165, 0.141, 0.58], [0.796, 0.29, 0.298, 0.761], [0.99, 0.424, 0.463, 0.824]]
+[recolor.per_texture."ev60027500_07"]
+gradient = [[0.299, 0.231, 0.184, 0.49], [0.34, 0.255, 0.214, 0.498], [0.638, 0.42, 0.42, 0.576], [0.693, 0.451, 0.451, 0.62]]
+[recolor.per_texture."ev60027500_12"]
+gradient = [[0.294, 0.027, 0.0, 0.09], [0.312, 0.031, 0.0, 0.114], [0.419, 0.094, 0.004, 0.345], [0.878, 0.443, 0.502, 0.925]]
+[recolor.per_texture."ev60027500_14"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.89, 0.31, 0.204, 0.745]]
+[recolor.per_texture."ev60027500_15"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.358, 0.0, 0.0, 0.0], [0.479, 0.039, 0.043, 0.086], [0.886, 0.416, 0.384, 0.608]]
+[recolor.per_texture."ev60027500_17"]
+gradient = [[0.294, 0.0, 0.0, 0.0], [0.299, 0.0, 0.0, 0.0], [0.603, 0.31, 0.133, 0.953], [0.89, 0.827, 0.851, 0.984]]
+[recolor.per_texture."ev60027500_18"]
+gradient = [[0.386, 0.0, 0.0, 0.0], [0.395, 0.0, 0.0, 0.0], [0.398, 0.0, 0.0, 0.0], [0.85, 0.333, 0.247, 0.882]]
+[recolor.per_texture."ev60027500_02"]
+hue = 243.5
+mode = "set"
+saturation = 0.43
+value = 0.933
+[recolor.per_texture."ev60027500_25"]
+gradient = [[0.405, 0.071, 0.008, 0.306], [0.589, 0.165, 0.141, 0.58], [0.796, 0.29, 0.298, 0.761], [0.99, 0.424, 0.463, 0.824]]
+[recolor.per_texture."ev60027500_20"]
+hue = 240.0
+mode = "set"
+saturation = 0.755
+value = 1.034
+[recolor.per_texture."ev60027500_21"]
+hue = 246.9
+mode = "set"
+saturation = 0.873
+value = 0.741
+[recolor.per_texture."ev60027500_22"]
+hue = 246.9
+mode = "set"
+saturation = 1.0
+value = 0.0
+
+# the colour of the white-textured rings, lights and waves lives in their vertices
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+hue = 250.1
+mode = "set"
+saturation = 0.806
+value = 0.608
+vertex_colors = ["_100_under_light_01", "_100_under_ring_01", "_500_aura_tamaR_01"]
+
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+hue = 261.0
+mode = "set"
+saturation = 0.761
+value = 1.0
+vertex_colors = ["_110_under_light_02", "_510_aura_wave_2"]
+
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+hue = 242.4
+mode = "set"
+saturation = 0.529
+value = 0.749
+vertex_colors = ["_200_leg_ring01"]
+
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+hue = 255.7
+mode = "set"
+saturation = 0.788
+value = 0.722
+vertex_colors = ["_280_hit_ring01"]
+
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+hue = 261.6
+mode = "set"
+saturation = 1.0
+value = 1.0
+vertex_colors = ["_210_under_fire_s_01", "_320_under_fire_01", "_330_under_fire_02", "_550_aura_wave_f1"]
+
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+hue = 259.7
+mode = "set"
+saturation = 0.627
+value = 0.82
+vertex_colors = ["_220_uzu_03", "_230_uzu_04"]
+
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+hue = 261.5
+mode = "set"
+saturation = 1.0
+value = 1.0
+vertex_colors = ["_300_ball_wave_02"]
+
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+hue = 261.5
+mode = "set"
+saturation = 1.992
+value = 1.0
+vertex_colors = ["_320_ball_wave_01", "_520_aura_wave_01"]
+
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+hue = 257.5
+mode = "set"
+saturation = 1.0
+value = 0.875
+vertex_colors = ["_370_ball_tamaR_01"]
+
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+hue = 236.2
+mode = "set"
+saturation = 0.196
+value = 0.941
+vertex_colors = ["_600_aura_tamaY_01"]
+
+# static colour blocks: retail numbers
+[[recolor]]
+object = "ev60860000"
+textures = "none"
+materials = "none"
+[[recolor.tint]]
+mesh = "uzu"
+rgb = [0.643, 0.565, 0.823]
+op = "set"
+[[recolor.tint]]
+mesh = "_100_black_01"
+rgb = [0.007, 0.0, 0.15]
+op = "set"
+[[recolor.tint]]
+mesh = "_500_front_b_01"
+rgb = [0.007, 0.0, 0.15]
+op = "set"
+[[recolor.tint]]
+mesh = "_990_front_03"
+rgb = [0.007, 0.0, 0.15]
+op = "set"
+[[recolor.tint]]
+mesh = "_100_under_light_01"
+rgb = [0.647, 0.627, 0.843]
+op = "set"
+[[recolor.tint]]
+mesh = "_100_under_ring_01"
+rgb = [0.647, 0.627, 0.843]
+op = "set"
+[[recolor.tint]]
+mesh = "_110_under_light_02"
+rgb = [0.647, 0.627, 0.843]
+op = "set"
+
+[[event_command]]
+event = "ev60_86000"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60027500"]
+set = ["ev60027500", "common/effect/event/ev60/ev60860000/ev60860000.objbin"]

@@ -139,6 +139,7 @@ end
 -- ---------------------------------------------------------------------------------------- the free aura slot
 local AURA_SLOT = LAST_SLOT
 local LAST_EFFECT = 59                -- openedEffectPieceList holds 60 effects: the free piece stays inside it
+local LAST_MOVE_SLOT = 5               -- board slots 0-5 are the skill table's move rows
 
 -- is `piece` on board slot 8 the free aura piece (not a piece of the card's board definition)?
 local function is_free_aura(hdl, slot, piece)
@@ -220,6 +221,13 @@ local function put(data, hdl, inv, slot)
   local after = read_slot(data, slot)
   if not after then return STATUS_NOT_READY, 0 end
   local ok = not is_closed(after) and effective(after) == inv
+  -- the game's list rebuild only reads a piece marked in openedEffectPieceList (right after the 9 piece bytes)
+  if ok and not free and slot <= LAST_MOVE_SLOT and piece <= LAST_EFFECT then
+    local flag = data + BOARD.pieces + LAST_SLOT + 1 + piece
+    local was = read("u8", flag)
+    if was == 0 then pcall(VRFW.mem.write, "u8", flag, 1) end
+    if was ~= 1 then info(string.format("slot %d of %s: piece %d opened flag %s -> %s", slot, hex(hdl), piece, tostring(was), tostring(read("u8", flag)))) end
+  end
   if not ok then
     warn(string.format("slot %d after the write: piece %d placed %s native %s (wanted %s)", slot, after.piece, hex(after.placed), hex(after.native), hex(inv)))
   end

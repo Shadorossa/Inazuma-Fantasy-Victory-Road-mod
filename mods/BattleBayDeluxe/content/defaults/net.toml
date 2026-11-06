@@ -9,6 +9,8 @@
 #   input_delay  frames between a player's input and the frame it drives (1-15; more = smoother on a slow link)
 #   hash_every   the two PCs compare their match state every this many frames (60 frames = 1 second)
 #   timeout_ms   a PC that gets no input from the other for this long gives the lockstep up (the match goes on locally)
+#   join_menu    the menu a guest goes to from any screen when a Steam invite is welcomed (it joins the room from there)
+#   join_title_mode  the title's mode value of that menu (the top bar's Battle Bay entries use 2)
 #   mismatch     "block": a guest whose mods must match and do not is refused (the lockstep needs the same game on
 #                both PCs); the framework's compatibility screen lists the differences (docs/framework/online.md)
 # Draft and Torneo are not played online.
@@ -21,3 +23,5 @@ input_delay = 3
 hash_every = 30
 timeout_ms = 10000
 mismatch = "block"
+join_menu = "bb_stadium_top_menu"
+join_title_mode = 2

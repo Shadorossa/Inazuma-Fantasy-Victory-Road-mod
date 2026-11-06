@@ -21,6 +21,7 @@ if BetterQoL_TeamBankPager == nil and type(PostStep) == "function" and type(OnOp
     MAX_TRIES = 120,                 -- frames to wait for the copies to open
     FIRST_SET = 4017866835,          -- the first team dock's logical set
     CAN_ACTIVE = 1104634465,         -- funcLuaCommand(CAN_ACTIVE, logical set, 0): the retail grey-out rule
+    LIST_REFRESH = 4114514990,       -- funcLuaMenuCommand(LIST_REFRESH, list layer): the list redraws its rows on screen
     want = nil, tries = 0, row = nil,
   }
   BetterQoL_TeamBankPager = P
@@ -60,14 +61,14 @@ if BetterQoL_TeamBankPager == nil and type(PostStep) == "function" and type(OnOp
     end
   end
 
-  -- every row of the open list again from the mounted page: its dock plate and its grey state
+  -- the grey state of every dock of the mounted page, then one retail list refresh: the list calls UpdateListItem for the
+  -- rows on screen, which draws each dock plate and its grey look (UpdateBtnGrayMaterial on this window type)
   local function RedrawRows(rows)
     local first = funcLuaCommand(P.FIRST_SET)
     for i = 0, rows - 1 do
-      UpdateTeamDocListItem(i, i, false, false)
       SetBtnEnable(i, funcLuaCommand(P.CAN_ACTIVE, first + i, 0) and 1 or 0)
-      UpdateBtnGray(i)
     end
+    funcLuaMenuCommand(P.LIST_REFRESH, P.WINDOW)
   end
 
   local function OnPage(page, pages, rows)

@@ -1,0 +1,16 @@
+{
+ "_markers": [
+  "OnOpenLayer",
+  "OnSetupLayer",
+  "Step",
+  "OnFunction"
+ ],
+ "event_menu": {
+  "script": "event_menu_6.00.28.00",
+  "require": [
+   "ResetSkippedState"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ }
+}

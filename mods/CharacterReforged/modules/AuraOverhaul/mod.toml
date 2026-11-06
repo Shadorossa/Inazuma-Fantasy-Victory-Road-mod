@@ -4,8 +4,8 @@ key_id = "AuraOverhaul"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Aura Overhaul"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Four aura reworks in one mod, each switched on or off in its settings. Souls Rework: totems level up during the match and spin a skill reel. Custom Change Mode: any player gets his own Change Mode into any of your characters, swapped with RB+B. All Miximaxed: a miximax between any two of your players, as in Chrono Stone. All Keshin Armed: every keshin with its armour, for every player."
 priority = 0
@@ -64,7 +64,7 @@ folder = "AuraOverhaul"
 # VRFW 2.195.0: the passive engine (kinds VRFW.passive_block/1, VRFW.passive/1) that runs the spirit passives and the
 # reel results of effect "passive"; no requirement on Signature Passives. VRFW 2.244.0: the TensionMax block and the
 # ball_stopped trigger of the spirit passives
-requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"

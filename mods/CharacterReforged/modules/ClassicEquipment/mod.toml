@@ -13,8 +13,8 @@
 id = "ClassicEquipment"
 # the English fallback; the Mods screen shows the text keys mod_name / mod_description (text\keys.toml)
 name = "Classic Equipment"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "167 pieces of equipment from Inazuma Eleven GO, Chrono Stone and Galaxy that Victory Road lacks: boots, keeper gloves, bracelets and pendants, with their original 3DS icons and the stats they raised there, balanced like every Better Equipment item. They join its sets plus four new ones (Paradise, Samurai, Three Kingdoms, Round Table) and are sold in the shop of their closest retail equivalent. Needs Better Equipment."
 # this mod's own names: [[item]] ClassicEquipment.<name>, sets ClassicEquipment.<Set>, Lua ClassicEquipment.X
@@ -24,7 +24,7 @@ priority = 0
 tags = ["Gameplay", "Characters"]
 updated = "2026-11-03"
 # Better Equipment 1.20.4: its sets (content\better_equipment\sets.toml of every mod) and its set bonus script
-requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2", "BetterEquipment>=0.2.2"]
+requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4", "BetterEquipment>=0.2.4"]
 conflicts = []
 # memory: the equipment reads of the Suerte on the player page; command: CMND_CLASSICEQUIPMENT_LUCK
 permissions = ["memory", "command"]

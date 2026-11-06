@@ -4,8 +4,8 @@ key_id = "ClassicRecruitment"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Classic Recruitment"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "One card per character, as in the classic games: saves keep only the best copy and the others merge into it. Players no longer drop as spirits anywhere, so you sign them in the Clubroom's Player album with Friendship Points, earned in every match (a common player costs about 4 matches, a star about 10, the strongest about 20). The spirit screen and the player-universe gacha are gone, and Chronicle pick-up matches recruit nobody."
 priority = 0
@@ -138,7 +138,7 @@ folder = "ClassicRecruitment"
 # board; new_recruitment_pachanga_active_team: the same with the active match team when no pachanga team is set); scripts\pachangas.lua + content\game\pachangas.toml (CMND_CLASSICRECRUITMENT_PACHANGA_*: the zones, the armed
 # match, its result from match_end, the won pachangas: save key won.<pachanga>); assets\lua\vs_route_town_menu\
 # new_recruitment_pachangas.lua (the board side: a pachanga played through the VRFW match start service).
-requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2", "BetterQoL>=0.2.2"]
+requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4", "BetterQoL>=0.2.4"]
 # requires BetterQoL: its album is where players are signed
 # optional: the bank card, one 5-star card per player, the pachanga matches and their modules
 optional = ["BetterUI", "ClassicCards", "FootballReforged", "Friendlies", "StoppageTime"]

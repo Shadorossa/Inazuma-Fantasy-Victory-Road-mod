@@ -1,0 +1,36 @@
+id = "CutinSkip"
+# name / description: the English fallback; the card shows the text keys mod_name / mod_description (text\keys.toml)
+name = "Technique Cut-in Skip"
+version = "0.2.4"
+author = "Fantasy Team"
+author_steam = "76561199013321372"
+description = "A fresh A / Enter press ends the running technique cut-in in a match. The cut-in ends in that frame and the match carries on with the same result. Transform, Keshin, Armed and Miximax cut-ins always play. Never in a network match."
+priority = 0
+tags = ["Gameplay"]
+updated = "2026-11-06"
+# This mod's own names (Lua CutinSkip.X, command CMND_CUTINSKIP_SKIP, input CMD_CUTINSKIP_SKIP); never VRFW.
+prefix = "CutinSkip"
+folder = "CutinSkip"
+# Standard mod layout (docs/game/match/cutin-skip.md):
+#   config.toml                   [cutin_skip] the event name prefixes it applies to, the ones it never applies to, the
+#                                 seconds before a press counts
+#   scripts\cutin_skip.lua        decides and ends the running event; the event comes from BetterQoL.RunningEvent
+#   content\game\cutin_skip.toml  the command CMND_CUTINSKIP_SKIP
+#   content\inputs\cutin_skip.toml  the input CMD_CUTINSKIP_SKIP in the three event controllers
+#   research/grafts/cutin_skip    event_menu's Step reads the press and asks the command
+requires = ["VRFW>=0.2.4", "BetterQoL>=0.2.4"]
+conflicts = []
+loader_modules = ["lua_bridge"]
+loader_min = "1.7.0"
+permissions = ["call", "command", "memory"]
+
+[exports]
+functions = []
+keys = []
+tables = []
+
+# A MODULE of BetterQoL: shown inside BetterQoL's entry on the Mods screen; switching BetterQoL off switches it off too.
+[module]
+of = "BetterQoL"
+order = 10
+default_enabled = true

@@ -641,8 +641,14 @@ function M.set_versions(c, rows)
   c.versions = rows
 end
 
+-- the game's resolver for the menus (it applies other mods' rarity tiers); set once the startup lists are built
+function M.set_version_resolver(c, resolve)
+  c.resolve_version = resolve
+end
+
 -- the version of `id` a card of `rarity` uses (the id itself without a rarity row)
 function M.version_at(c, id, rarity)
+  if c.resolve_version then return c.resolve_version(id, rarity or 0) end
   local row = c.versions and c.versions[id]
   if not row then return id end
   local v = row[math.min(math.max(rarity or 0, 0), 5) + 1] or 0

@@ -1,0 +1,875 @@
+schema = "VRFW.effect/1"
+# Inazuma Fantasy: the God Hand family in the retail red and blue (content\techniques\god_hand_colors.toml): recoloured copies of
+# each base object in the colours measured on the retail fire God Hand (ev63017100) and the forest one (ev63004800).
+# hue = the retail part's hue; saturation / value = retail part / mountain part of the same part. A part retail lacks takes
+# its closest retail part. KeeperHit_*, BallAura_*, smoke, dust, rocks, ground, the rainbows and the hand meshes' vertex data stay.
+
+# ---- god_hand_ev_red (whk00490, red): ev63860000
+[[recolor]]
+object = "ev63004900"
+copy = "ev63860000"
+hue = 0.0
+mode = "set"
+textures = ["ev63004900_ef_05", "ev63004900_ef_46", "hand_01", "hand_03", "hand_06", "ev63004900_ef_20", "ev63004900_ef_24", "ev63004900_ef_50", "ev63004900_ef_51", "ev63004900_ef_83"]
+[recolor.per_texture."ev63004900_ef_05"]
+hue = 8.6
+mode = "set"
+saturation = 1.993
+value = 1.072
+[recolor.per_texture."ev63004900_ef_46"]
+hue = 0.0
+mode = "set"
+saturation = 0.757
+value = 1.004
+[recolor.per_texture."hand_01"]
+hue = 0.0
+mode = "set"
+saturation = 0.623
+value = 1.0
+[recolor.per_texture."hand_03"]
+hue = 0.0
+mode = "set"
+saturation = 1.0
+value = 0.996
+[recolor.per_texture."hand_06"]
+hue = 0.0
+mode = "set"
+saturation = 0.696
+value = 1.004
+[recolor.per_texture."ev63004900_ef_20"]
+hue = 0.0
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_24"]
+hue = 0.0
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_50"]
+hue = 0.0
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_51"]
+hue = 0.0
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_83"]
+hue = 0.0
+mode = "set"
+saturation = 0.623
+value = 1.0
+
+[[recolor]]
+object = "ev63860000"
+textures = ["ev63860000_ef_47"]
+hue = 358.9
+mode = "set"
+saturation = 1.0
+value = 1.533
+colorize = 0.229
+
+[[recolor]]
+object = "ev63860000"
+textures = "none"
+hue = 0.0
+mode = "set"
+vertex_colors = ["_100_handlight_1_1_orange"]
+
+[[recolor]]
+object = "ev63860000"
+textures = "none"
+hue = 0.0
+mode = "set"
+vertex_colors = ["_325_handlight_1_2_yellow"]
+
+[[recolor]]
+object = "ev63860000"
+textures = "none"
+hue = 0.0
+mode = "set"
+vertex_colors = ["_475_handlight"]
+
+[[event_command]]
+event = "ev63_86000"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63004900"]
+set = ["ev63004900", "common/effect/event/ev63/ev63860000/ev63860000.objbin"]
+
+[[event_command]]
+event = "ev63_86001"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63004900"]
+set = ["ev63004900", "common/effect/event/ev63/ev63860000/ev63860000.objbin"]
+
+# ---- god_hand_ev_blue (whk00490, blue): ev63860020
+[[recolor]]
+object = "ev63004900"
+copy = "ev63860020"
+hue = 191.6
+mode = "set"
+textures = ["ev63004900_ef_05", "ev63004900_ef_46", "hand_01", "hand_03", "hand_06", "ev63004900_ef_20", "ev63004900_ef_24", "ev63004900_ef_50", "ev63004900_ef_51", "ev63004900_ef_83"]
+[recolor.per_texture."ev63004900_ef_05"]
+hue = 205.2
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."ev63004900_ef_46"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+[recolor.per_texture."hand_01"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."hand_03"]
+hue = 185.8
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."hand_06"]
+hue = 187.4
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."ev63004900_ef_20"]
+hue = 184.7
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_24"]
+hue = 184.7
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_50"]
+hue = 184.7
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_51"]
+hue = 184.7
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_83"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+
+[[recolor]]
+object = "ev63860020"
+textures = ["ev63860020_ef_47"]
+hue = 211.1
+mode = "set"
+saturation = 1.0
+value = 0.718
+mask_hue = [0, 45]
+
+[[recolor]]
+object = "ev63860020"
+textures = ["ev63860020_ef_47"]
+hue = 178.3
+mode = "set"
+saturation = 0.978
+value = 0.995
+mask_hue = [45, 90]
+
+[[recolor]]
+object = "ev63860020"
+textures = "none"
+hue = 213.4
+mode = "set"
+vertex_colors = ["_100_handlight_1_1_orange"]
+
+[[recolor]]
+object = "ev63860020"
+textures = "none"
+hue = 184.7
+mode = "set"
+vertex_colors = ["_325_handlight_1_2_yellow"]
+
+[[recolor]]
+object = "ev63860020"
+textures = "none"
+hue = 213.4
+mode = "set"
+vertex_colors = ["_475_handlight"]
+
+[[event_command]]
+event = "ev63_86002"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63004900"]
+set = ["ev63004900", "common/effect/event/ev63/ev63860020/ev63860020.objbin"]
+
+[[event_command]]
+event = "ev63_86003"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63004900"]
+set = ["ev63004900", "common/effect/event/ev63/ev63860020/ev63860020.objbin"]
+
+# ---- infinite_hands_blue (whk00240, blue): ev63860040
+[[recolor]]
+object = "ev63002400"
+copy = "ev63860040"
+hue = 191.6
+mode = "set"
+textures = ["hand_01", "hand_03", "hand_06", "hand_07", "whk0028_ef_16", "whk0028_ef_22", "whk0028_ef_46", "whk0028_ef_47", "whk0028_ef_51", "whk0028_ef_53"]
+[recolor.per_texture."hand_01"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."hand_03"]
+hue = 185.8
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."hand_06"]
+hue = 187.4
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."hand_07"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."whk0028_ef_16"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."whk0028_ef_22"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."whk0028_ef_46"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+[recolor.per_texture."whk0028_ef_47"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+[recolor.per_texture."whk0028_ef_51"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."whk0028_ef_53"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+
+[[recolor]]
+object = "ev63860040"
+textures = "none"
+hue = 213.4
+mode = "set"
+vertex_colors = ["_147_handlight_L_4_1", "_148_handlight_R_4_1", "_194_handlight_L_1_1_ALP", "_195_handlight_R_1_1_ALP", "_241_hand_ring_L_1_ALP", "_242_hand_ring_R_1_ALP", "_807_hand_catch_1_1_new", "_808_hand_catch_1_2_new", "_809_hand_catch_1_3_new", "_810_hand_catch_1_4_new", "_811_hand_catch_1_5_new", "_812_hand_catch_1_6_new", "_900_kirari_tamaA", "_900_kirari_tamaB", "_900_kirari_tamaD", "_900_kirari_tamaE"]
+
+[[recolor]]
+object = "ev63860040"
+textures = "none"
+hue = 184.7
+mode = "set"
+vertex_colors = ["_287_nichirin_line", "_288_nichirin_3_ALP", "_288_nichirin_3_ALP1", "_289_hand_ring_L_1_ALP1", "_382_handlight_L_2_1_ALP", "_383_handlight_R_2_1_ALP", "_429_handlight_L_4_2", "_430_handlight_R_4_2", "_570_handlight_C_2_1_ALP", "_617_nichirin_1_ALP", "_852_hand_catch_ring_2_ALP", "_900_kirari_tamaC", "_900_kirari_tamaF"]
+
+[[recolor]]
+object = "ev63860040"
+textures = "none"
+hue = 184.7
+mode = "set"
+materials = ["Effect_T1_24", "Effect_T1_41"]
+
+[[event_command]]
+event = "ev63_86004"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63002400"]
+set = ["ev63002400", "common/effect/event/ev63/ev63860040/ev63860040.objbin"]
+
+[[event_command]]
+event = "ev63_86005"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63002400"]
+set = ["ev63002400", "common/effect/event/ev63/ev63860040/ev63860040.objbin"]
+
+# ---- fist_of_fury_blue (whk00510, blue): ev63860060
+[[recolor]]
+object = "ev63005100"
+copy = "ev63860060"
+hue = 191.6
+mode = "set"
+textures = ["Jump_01", "Jump_02", "Jump_03", "w103510_ef_01", "w103510_ef_05", "w103510_ef_21", "w103510_ef_22"]
+[recolor.per_texture."Jump_01"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."Jump_02"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+[recolor.per_texture."Jump_03"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+[recolor.per_texture."w103510_ef_01"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+[recolor.per_texture."w103510_ef_05"]
+hue = 205.2
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."w103510_ef_21"]
+hue = 187.4
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."w103510_ef_22"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+
+[[recolor]]
+object = "ev63860060"
+textures = ["w103510_ef_47"]
+hue = 211.1
+mode = "set"
+saturation = 1.0
+value = 0.718
+mask_hue = [0, 45]
+
+[[recolor]]
+object = "ev63860060"
+textures = ["w103510_ef_47"]
+hue = 178.3
+mode = "set"
+saturation = 0.978
+value = 0.995
+mask_hue = [45, 90]
+
+[[recolor]]
+object = "ev63860060"
+textures = "none"
+hue = 213.4
+mode = "set"
+vertex_colors = ["_700_hand_light_1_1"]
+
+[[recolor]]
+object = "ev63860060"
+textures = "none"
+hue = 184.7
+mode = "set"
+vertex_colors = ["_710_hand_light_1_2"]
+
+[[event_command]]
+event = "ev63_86006"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63005100"]
+set = ["ev63005100", "common/effect/event/ev63/ev63860060/ev63860060.objbin"]
+
+[[event_command]]
+event = "ev63_86007"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63005100"]
+set = ["ev63005100", "common/effect/event/ev63/ev63860060/ev63860060.objbin"]
+
+# ---- double_god_hand_blue (whk01090, blue): ev63860080
+[[recolor]]
+object = "ev63010900"
+copy = "ev63860080"
+hue = 191.6
+mode = "set"
+textures = ["hand_01", "hand_03", "hand_06", "whk0035_ef_05", "whk0035_ef_24", "whk0035_ef_46"]
+[recolor.per_texture."hand_01"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."hand_03"]
+hue = 185.8
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."hand_06"]
+hue = 187.4
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."whk0035_ef_05"]
+hue = 205.2
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."whk0035_ef_24"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."whk0035_ef_46"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+
+[[recolor]]
+object = "ev63860080"
+textures = ["whk0035_ef_47"]
+hue = 211.1
+mode = "set"
+saturation = 1.0
+value = 0.718
+mask_hue = [0, 45]
+
+[[recolor]]
+object = "ev63860080"
+textures = ["whk0035_ef_47"]
+hue = 178.3
+mode = "set"
+saturation = 0.978
+value = 0.995
+mask_hue = [45, 90]
+
+[[recolor]]
+object = "ev63860080"
+textures = "none"
+hue = 213.4
+mode = "set"
+vertex_colors = ["_200_c4_handlight_A_1", "_200_c4_handlight_A_2", "_201_c4_handlight_A_2", "_201_c4_handlight_A_3", "_250_c52_handlight_L_1_1", "_251_c3_handlight_L_1_2", "_252__05_handlight_R_1_1", "_253__05_handlight_R_1_2_Z", "_350_c4_09_c_hit_4_1", "_500__12_C_handlight1_1", "_503__12_C_handlight2_1_Z", "_506__12_L_hand_spark_1_1_new_Z1", "_506__12_L_hand_spark_1_1_new_Z2", "_507__12_L_hand_spark_1_2_new_Z1", "_507__12_L_hand_spark_1_2_new_Z2", "_550__13_C_hand_spark_1_1_new_Z", "_551__13_C_hand_spark_1_2_new_Z", "_552__13_C_hand_spark_2_1_new", "_553__13_C_hand_spark_2_2_new"]
+
+[[recolor]]
+object = "ev63860080"
+textures = "none"
+hue = 184.7
+mode = "set"
+vertex_colors = ["_400_c52_handlight_L_2_1", "_401_c3_handlight_L_2_2_Z", "_402__10_handlight_R_2_1", "_403__10_handlight_R_2_2_Z", "_501__12_C_handlight1_2", "_504__12_C_handlight2_2_Z", "_558_c4_13_c_hit_3_1", "_559_c4_13_c_hit_3_2", "_607_c4_14_c_hit_5_1", "_750__26_a_hit_1_1_Z", "_751__26_a_hit_2_1_Z"]
+
+[[event_command]]
+event = "ev63_86008"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63010900"]
+set = ["ev63010900", "common/effect/event/ev63/ev63860080/ev63860080.objbin"]
+
+[[event_command]]
+event = "ev63_86009"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63010900"]
+set = ["ev63010900", "common/effect/event/ev63/ev63860080/ev63860080.objbin"]
+
+# ---- double_god_hand_red (whk01090, red): ev63860100
+[[recolor]]
+object = "ev63010900"
+copy = "ev63860100"
+hue = 0.0
+mode = "set"
+textures = ["hand_01", "hand_03", "hand_06", "whk0035_ef_05", "whk0035_ef_24", "whk0035_ef_46"]
+[recolor.per_texture."hand_01"]
+hue = 0.0
+mode = "set"
+saturation = 0.623
+value = 1.0
+[recolor.per_texture."hand_03"]
+hue = 0.0
+mode = "set"
+saturation = 1.0
+value = 0.996
+[recolor.per_texture."hand_06"]
+hue = 0.0
+mode = "set"
+saturation = 0.696
+value = 1.004
+[recolor.per_texture."whk0035_ef_05"]
+hue = 8.6
+mode = "set"
+saturation = 1.993
+value = 1.072
+[recolor.per_texture."whk0035_ef_24"]
+hue = 0.0
+mode = "set"
+saturation = 0.623
+value = 1.0
+[recolor.per_texture."whk0035_ef_46"]
+hue = 0.0
+mode = "set"
+saturation = 0.757
+value = 1.004
+
+[[recolor]]
+object = "ev63860100"
+textures = ["whk0035_ef_47"]
+hue = 358.9
+mode = "set"
+saturation = 1.0
+value = 1.533
+colorize = 0.229
+
+[[recolor]]
+object = "ev63860100"
+textures = "none"
+hue = 0.0
+mode = "set"
+vertex_colors = ["_200_c4_handlight_A_1", "_200_c4_handlight_A_2", "_201_c4_handlight_A_2", "_201_c4_handlight_A_3", "_250_c52_handlight_L_1_1", "_251_c3_handlight_L_1_2", "_252__05_handlight_R_1_1", "_253__05_handlight_R_1_2_Z", "_350_c4_09_c_hit_4_1", "_500__12_C_handlight1_1", "_503__12_C_handlight2_1_Z", "_506__12_L_hand_spark_1_1_new_Z1", "_506__12_L_hand_spark_1_1_new_Z2", "_507__12_L_hand_spark_1_2_new_Z1", "_507__12_L_hand_spark_1_2_new_Z2", "_550__13_C_hand_spark_1_1_new_Z", "_551__13_C_hand_spark_1_2_new_Z", "_552__13_C_hand_spark_2_1_new", "_553__13_C_hand_spark_2_2_new"]
+
+[[recolor]]
+object = "ev63860100"
+textures = "none"
+hue = 0.0
+mode = "set"
+vertex_colors = ["_400_c52_handlight_L_2_1", "_401_c3_handlight_L_2_2_Z", "_402__10_handlight_R_2_1", "_403__10_handlight_R_2_2_Z", "_501__12_C_handlight1_2", "_504__12_C_handlight2_2_Z", "_558_c4_13_c_hit_3_1", "_559_c4_13_c_hit_3_2", "_607_c4_14_c_hit_5_1", "_750__26_a_hit_1_1_Z", "_751__26_a_hit_2_1_Z"]
+
+[[event_command]]
+event = "ev63_86010"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63010900"]
+set = ["ev63010900", "common/effect/event/ev63/ev63860100/ev63860100.objbin"]
+
+[[event_command]]
+event = "ev63_86011"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63010900"]
+set = ["ev63010900", "common/effect/event/ev63/ev63860100/ev63860100.objbin"]
+
+# ---- triple_god_hand_blue (whk00380, blue): ev63860120
+[[recolor]]
+object = "ev63003800"
+copy = "ev63860120"
+hue = 191.6
+mode = "set"
+textures = ["hand_01", "hand_03", "hand_06", "ef_05", "ef_46"]
+[recolor.per_texture."hand_01"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."hand_03"]
+hue = 185.8
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."hand_06"]
+hue = 187.4
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."ef_05"]
+hue = 205.2
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."ef_46"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+
+[[recolor]]
+object = "ev63860120"
+textures = ["ev63860120_ef_47"]
+hue = 211.1
+mode = "set"
+saturation = 1.0
+value = 0.718
+mask_hue = [0, 45]
+
+[[recolor]]
+object = "ev63860120"
+textures = ["ev63860120_ef_47"]
+hue = 178.3
+mode = "set"
+saturation = 0.978
+value = 0.995
+mask_hue = [45, 90]
+
+[[recolor]]
+object = "ev63860120"
+textures = "none"
+hue = 213.4
+mode = "set"
+vertex_colors = ["_150_hand_light_orange_A", "_200_hand_light_orange_B", "_200_hand_light_orange_C", "_300_handlight_a", "_300_handlight_b", "_300_handlight_c", "_300_handlight_d", "_300_handlight_e", "_315_handlight1", "_440_charge_ring", "_440_charge_ring1", "_506_hand_around_spark_1_1", "_506_hand_around_spark_1_2", "_506_hand_around_spark_1_3", "_506_hand_around_spark_2_1", "_506_hand_light_spark_A1", "_506_hand_light_spark_A2", "_507_hand_light_spark_B1", "_507_hand_light_spark_B2"]
+
+[[recolor]]
+object = "ev63860120"
+textures = "none"
+hue = 184.7
+mode = "set"
+vertex_colors = ["_400_hand_light_yellow_A", "_400_hand_light_yellow_B", "_400_hand_light_yellow_C", "_600_hit_ring_Z1"]
+
+[[event_command]]
+event = "ev63_86012"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63003800"]
+set = ["ev63003800", "common/effect/event/ev63/ev63860120/ev63860120.objbin"]
+
+[[event_command]]
+event = "ev63_86013"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63003800"]
+set = ["ev63003800", "common/effect/event/ev63/ev63860120/ev63860120.objbin"]
+
+# ---- triple_god_hand_red (whk00380, red): ev63860140
+[[recolor]]
+object = "ev63003800"
+copy = "ev63860140"
+hue = 0.0
+mode = "set"
+textures = ["hand_01", "hand_03", "hand_06", "ef_05", "ef_46"]
+[recolor.per_texture."hand_01"]
+hue = 0.0
+mode = "set"
+saturation = 0.623
+value = 1.0
+[recolor.per_texture."hand_03"]
+hue = 0.0
+mode = "set"
+saturation = 1.0
+value = 0.996
+[recolor.per_texture."hand_06"]
+hue = 0.0
+mode = "set"
+saturation = 0.696
+value = 1.004
+[recolor.per_texture."ef_05"]
+hue = 8.6
+mode = "set"
+saturation = 1.993
+value = 1.072
+[recolor.per_texture."ef_46"]
+hue = 0.0
+mode = "set"
+saturation = 0.757
+value = 1.004
+
+[[recolor]]
+object = "ev63860140"
+textures = ["ev63860140_ef_47"]
+hue = 358.9
+mode = "set"
+saturation = 1.0
+value = 1.533
+colorize = 0.229
+
+[[recolor]]
+object = "ev63860140"
+textures = "none"
+hue = 0.0
+mode = "set"
+vertex_colors = ["_150_hand_light_orange_A", "_200_hand_light_orange_B", "_200_hand_light_orange_C", "_300_handlight_a", "_300_handlight_b", "_300_handlight_c", "_300_handlight_d", "_300_handlight_e", "_315_handlight1", "_440_charge_ring", "_440_charge_ring1", "_506_hand_around_spark_1_1", "_506_hand_around_spark_1_2", "_506_hand_around_spark_1_3", "_506_hand_around_spark_2_1", "_506_hand_light_spark_A1", "_506_hand_light_spark_A2", "_507_hand_light_spark_B1", "_507_hand_light_spark_B2"]
+
+[[recolor]]
+object = "ev63860140"
+textures = "none"
+hue = 0.0
+mode = "set"
+vertex_colors = ["_400_hand_light_yellow_A", "_400_hand_light_yellow_B", "_400_hand_light_yellow_C", "_600_hit_ring_Z1"]
+
+[[event_command]]
+event = "ev63_86014"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63003800"]
+set = ["ev63003800", "common/effect/event/ev63/ev63860140/ev63860140.objbin"]
+
+[[event_command]]
+event = "ev63_86015"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63003800"]
+set = ["ev63003800", "common/effect/event/ev63/ev63860140/ev63860140.objbin"]
+
+# ---- super_god_hand_blue (whk01720, blue): ev63860160
+[[recolor]]
+object = "ev63017200"
+copy = "ev63860160"
+hue = 191.6
+mode = "set"
+textures = ["hand_01", "hand_03", "hand_06", "ef_05", "ef_46", "ef_53"]
+[recolor.per_texture."hand_01"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."hand_03"]
+hue = 185.8
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."hand_06"]
+hue = 187.4
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."ef_05"]
+hue = 205.2
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."ef_46"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+[recolor.per_texture."ef_53"]
+hue = 187.4
+mode = "set"
+saturation = 1.0
+value = 1.0
+
+[[recolor]]
+object = "ev63860160"
+textures = ["ev63860160_ef_47"]
+hue = 211.1
+mode = "set"
+saturation = 1.0
+value = 0.718
+mask_hue = [0, 45]
+
+[[recolor]]
+object = "ev63860160"
+textures = ["ev63860160_ef_47"]
+hue = 178.3
+mode = "set"
+saturation = 0.978
+value = 0.995
+mask_hue = [45, 90]
+
+[[recolor]]
+object = "ev63860160"
+textures = "none"
+hue = 213.4
+mode = "set"
+vertex_colors = ["_100_handlight_1_1", "_300_God_hand_light1", "_300_God_hand_light2", "_300_God_hand_light3", "_300_God_hand_light4", "_300_God_hand_light5", "_300_God_hand_light6", "_800_Godhand_spark_1_1", "_800_Godhand_spark_1_2", "_800_Godhand_spark_2_1", "_800_Godhand_spark_2_2", "_979_inazuma_sub_1_3", "_979_inazuma_sub_1_4"]
+
+[[recolor]]
+object = "ev63860160"
+textures = "none"
+hue = 184.7
+mode = "set"
+vertex_colors = ["_325_handlight_1_2"]
+
+[[recolor]]
+object = "ev63860160"
+textures = "none"
+hue = 213.4
+mode = "set"
+materials = ["Effect_T1_21", "Effect_T1_low_08", "Effect_T1_20"]
+
+[[recolor]]
+object = "ev63860160"
+textures = "none"
+hue = 184.7
+mode = "set"
+materials = ["Effect_T1_low_37", "Effect_T1_low_16", "Effect_T1_22", "Effect_SolidToon1_01"]
+
+[[event_command]]
+event = "ev63_86016"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63017200"]
+set = ["ev63017200", "common/effect/event/ev63/ev63860160/ev63860160.objbin"]
+
+[[event_command]]
+event = "ev63_86017"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63017200"]
+set = ["ev63017200", "common/effect/event/ev63/ev63860160/ev63860160.objbin"]
+
+# ---- super_god_hand_red (whk01720, red): ev63860180
+[[recolor]]
+object = "ev63017200"
+copy = "ev63860180"
+hue = 0.0
+mode = "set"
+textures = ["hand_01", "hand_03", "hand_06", "ef_05", "ef_46", "ef_53"]
+[recolor.per_texture."hand_01"]
+hue = 0.0
+mode = "set"
+saturation = 0.623
+value = 1.0
+[recolor.per_texture."hand_03"]
+hue = 0.0
+mode = "set"
+saturation = 1.0
+value = 0.996
+[recolor.per_texture."hand_06"]
+hue = 0.0
+mode = "set"
+saturation = 0.696
+value = 1.004
+[recolor.per_texture."ef_05"]
+hue = 8.6
+mode = "set"
+saturation = 1.993
+value = 1.072
+[recolor.per_texture."ef_46"]
+hue = 0.0
+mode = "set"
+saturation = 0.757
+value = 1.004
+[recolor.per_texture."ef_53"]
+hue = 0.0
+mode = "set"
+saturation = 0.696
+value = 1.004
+
+[[recolor]]
+object = "ev63860180"
+textures = ["ev63860180_ef_47"]
+hue = 358.9
+mode = "set"
+saturation = 1.0
+value = 1.533
+colorize = 0.229
+
+[[recolor]]
+object = "ev63860180"
+textures = "none"
+hue = 0.0
+mode = "set"
+vertex_colors = ["_100_handlight_1_1", "_300_God_hand_light1", "_300_God_hand_light2", "_300_God_hand_light3", "_300_God_hand_light4", "_300_God_hand_light5", "_300_God_hand_light6", "_800_Godhand_spark_1_1", "_800_Godhand_spark_1_2", "_800_Godhand_spark_2_1", "_800_Godhand_spark_2_2", "_979_inazuma_sub_1_3", "_979_inazuma_sub_1_4"]
+
+[[recolor]]
+object = "ev63860180"
+textures = "none"
+hue = 0.0
+mode = "set"
+vertex_colors = ["_325_handlight_1_2"]
+
+[[recolor]]
+object = "ev63860180"
+textures = "none"
+hue = 0.0
+mode = "set"
+materials = ["Effect_T1_21", "Effect_T1_low_08", "Effect_T1_20"]
+
+[[recolor]]
+object = "ev63860180"
+textures = "none"
+hue = 0.0
+mode = "set"
+materials = ["Effect_T1_low_37", "Effect_T1_low_16", "Effect_T1_22", "Effect_SolidToon1_01"]
+
+[[event_command]]
+event = "ev63_86018"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63017200"]
+set = ["ev63017200", "common/effect/event/ev63/ev63860180/ev63860180.objbin"]
+
+[[event_command]]
+event = "ev63_86019"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63017200"]
+set = ["ev63017200", "common/effect/event/ev63/ev63860180/ev63860180.objbin"]

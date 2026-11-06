@@ -1,0 +1,19 @@
+schema = "VRFW.technique/3"
+# «Strikers Shots»: the flight of Sierra celestial (Celestial Saw, whs02910), cut-in ev60_02910.
+#
+# In the cut-in's shot (c0040) the ball skims the pitch at ~0.25 m inside its level wind saw
+# (research/scripts/celestial_saw_ball_fx.py). Flight (every aura shot one straight level line <= 3 m):
+# straight and level at 1.0 m into the goal, so the saw (~0.6 m under and over the ball) stays over the grass.
+# unblockable = false: the game's block rules (this mod changes no block rule). Heights are the ball centre over the
+# pitch (m); one point = a level flight.
+
+# Sierra celestial (whs02910).
+[[edit]]
+target = "whs02910"
+trajectory = { points = [[0.0, 1.0]], straight = true, unblockable = false }
+
+# Sierra celestial², Inazuma Fantasy's clone of it: the same flight.
+[[edit]]
+if_mod = "InazumaFantasy"
+target = "InazumaFantasy.celestial_saw_cuts"
+trajectory = { points = [[0.0, 1.0]], straight = true, unblockable = false }

@@ -76,6 +76,18 @@ Name = "MissingContent.MenuIE23"
 Music = "exop_menu_ie23"
 Text = "menu_music_ie23"
 
+# Second theme: «The Inazuma TM Bus» (track 16 of the owner's soundtrack file), the whole track as one loop
+# (the track's fade-out runs into its quiet intro), loudness matched to the retail menu BGM. Label: text\keys.toml menu_music_tm_bus.
+[[music]]
+add = "exop_menu_tm_bus"
+name = "The Inazuma TM Bus"
+file = "assets/sounds/music/exop_menu_tm_bus.hca"
+
+[[VRFW.MenuMusic]]
+Name = "MissingContent.MenuTMBus"
+Music = "exop_menu_tm_bus"
+Text = "menu_music_tm_bus"
+
 # The old id keeps resolving.
 
 [[alias]]

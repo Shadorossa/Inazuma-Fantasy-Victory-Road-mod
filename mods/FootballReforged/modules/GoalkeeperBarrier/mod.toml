@@ -1,8 +1,8 @@
 id = "GoalkeeperBarrier"
 # name / description: the English fallback; the card shows the text keys mod_name / mod_description (text\keys.toml)
 name = "Goalkeeper Barrier"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Every keeper's barrier is the top 25 % of his bar on the scoreboard, drawn bronze: while his bar is above 75 % the shots he faces lose power (÷ 1.4); below that they keep their full power. A block move of his team makes his next keeper move 30 % cheaper in tension."
 priority = 0
@@ -21,7 +21,7 @@ folder = "GoalkeeperBarrier"
 #                                            the bronze segment layer; graft research/grafts/goalkeeper_barrier_hud
 # Football Reforged 1.4.0 flips the own keeper bar (empties left to right): config.toml
 # hud_fill_from = ["right", "left"], the own bronze barrier at the fill's left (moving) edge.
-requires = ["VRFW>=0.2.2", "FootballReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "FootballReforged>=0.2.4"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"

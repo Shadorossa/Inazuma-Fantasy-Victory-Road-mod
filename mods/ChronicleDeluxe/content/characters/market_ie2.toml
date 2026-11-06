@@ -1,0 +1,254 @@
+schema = "VRFW.character/2"
+# Chronicle Deluxe: players of the Inazuma Eleven 2 the game ships models and faces for but no player row: signed from the player album.
+# Ids, stats and moves: ported from the old Chronicles Deluxe / Inazuma Fantasy declarations (research/archive, research/mods/_aside).
+default_lang = "en"
+
+[[character]]
+name = "ebirina"  # Ebirina
+based_on = "c02029240"
+
+  [character.base]
+  id = 0xE711C6C6
+  name = "c02025310"
+  name_text = 0x210EE5A1
+  short_name_text = 0x210EE5A1
+  upper_name_text = 0x210EE5A1
+  model = 0x7E36A087
+  gender = 2
+  description_text = 0x4862E9AD
+
+  [character.text.es]
+  name = "Ebirina"
+  description = "Es susceptible a los productos de AEON,\nasí que los compra sin saber si realmente son útiles."
+
+  [character.text.en]
+  name = "Ebirina"
+  description = "She's easily swayed by AEON products,\nso she buys them without knowing if they're actually useful."
+
+  [character.text.fr]
+  name = "Ebirina"
+  description = "Elle est influençable face aux produits AEON,\ndonc elle les achète sans savoir s'ils sont vraiment utiles."
+
+  [character.text.de]
+  name = "Ebirina"
+  description = "Sie ist anfällig für AEON-Produkte\nund kauft sie, ohne zu wissen, ob sie wirklich nützlich sind."
+
+  [character.text.it]
+  name = "Ebirina"
+  description = "È facilmente influenzabile dai prodotti AEON,\nquindi li compra senza sapere se siano davvero utili."
+
+  [character.text.pt]
+  name = "Ebirina"
+  description = "Ela é suscetível aos produtos da AEON,\nentão os compra sem saber se são realmente úteis."
+
+  [character.text.ja]
+  name = "エビリーナ"
+  short = "エビリーナ"
+  upper = "エビリーナ"
+
+  [[character.cards]]
+  id = 0xFFF7C4FB
+  from = 0x061964FB
+  growth_pattern = 1
+  cells = { c6 = 9, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x2B343D01, level = 1 },
+    { move = 0x70417B2E, level = 13 },
+    { move = 0x27D9B69F, level = 20 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "shuu_maimai"  # Shuu Maimai
+based_on = "c02029240"
+
+  [character.base]
+  id = 0xBB2795D8
+  name = "c02026260"
+  name_text = 0x0C41E6FC
+  short_name_text = 0x32BC6885
+  upper_name_text = 0x32BC6885
+  model = 0x2200F399
+  gender = 2
+  description_text = 0x54F1496A
+
+  [character.text.es]
+  name = "Shuu Maimai"
+  short = "Mai Mai"
+  description = "Da la imagen de una hermana mayor\nresponsable, pero, en secreto, es un poco sentimental."
+
+  [character.text.en]
+  name = "Shuu Maimai"
+  short = "Mai Mai"
+  description = "She gives off the image of a responsible\nolder sister, but secretly, she's a bit sentimental."
+
+  [character.text.fr]
+  name = "Shuu Maimai"
+  short = "Mai Mai"
+  description = "Elle donne l'image d'une grande sœur\nresponsable, mais, secrètement, elle est un peu sentimentale."
+
+  [character.text.de]
+  name = "Shuu Maimai"
+  short = "Mai Mai"
+  description = "Sie wirkt wie eine verantwortungsbewusste\nältere Schwester, ist aber insgeheim etwas sentimental."
+
+  [character.text.it]
+  name = "Shuu Maimai"
+  short = "Mai Mai"
+  description = "Dà l'immagine di una sorella maggiore\nresponsabile, ma, segretamente, è un po' sentimentale."
+
+  [character.text.pt]
+  name = "Shuu Maimai"
+  short = "Mai Mai"
+  description = "Ela passa a imagem de uma irmã mais velha\nresponsável, mas, secretamente, é um pouco sentimental."
+
+  [[character.cards]]
+  id = 0xFFF7C4FC
+  from = 0x061964FB
+  growth_pattern = 1
+  cells = { c6 = 9, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x19025F83, level = 1 },
+    { move = 0xB3BD79DA, level = 13 },
+    { move = 0x7EEA4EE9, level = 20 },
+    { move = 0x5B6C28ED, level = 30 },
+    { move = 0x49933AEE, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "hide_king"  # Hide King
+based_on = "c02029240"
+
+  [character.base]
+  id = 0x759AA7AD
+  name = "c02028550"
+  name_text = 0x02FB0A4A
+  short_name_text = 0x1F6A891D
+  upper_name_text = 0x1F6A891D
+  model = 0xECBDC1EC
+  description_text = 0x56E9B22A
+
+  [character.text.es]
+  name = "Hide King"
+  short = "Hide"
+  description = "Quiere bailar tango, pero le da vergüenza\nbuscar una pareja."
+
+  [character.text.en]
+  name = "Hide King"
+  short = "Hide"
+  description = "He wants to dance tango, but he's too shy\nto look for a partner."
+
+  [character.text.fr]
+  name = "Hide King"
+  short = "Hide"
+  description = "Il veut danser le tango, mais il a honte\nde chercher une partenaire."
+
+  [character.text.de]
+  name = "Hide King"
+  short = "Hide"
+  description = "Er möchte Tango tanzen, schämt sich aber,\nsich eine Partnerin zu suchen."
+
+  [character.text.it]
+  name = "Hide King"
+  short = "Hide"
+  description = "Vuole ballare il tango, ma si vergogna\ndi cercare una partner."
+
+  [character.text.pt]
+  name = "Hide King"
+  short = "Hide"
+  description = "Ele quer dançar tango, mas tem vergonha\nde procurar uma parceira."
+
+  [character.text.ja]
+  name = "ヒデ"
+  short = "ヒデ"
+  upper = "ヒデ"
+
+  [[character.cards]]
+  id = 0xFFF7C4FD
+  from = 0x3D9ED3F0
+  position = "df"
+  sub_position = "mf"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x33ED6677, level = 1 },
+    { move = 0x261BDCA8, level = 13 },
+    { move = 0x7EEA4EE9, level = 20 },
+    { move = 0x4E9A9232, level = 30 },
+    { move = 0x7A67325B, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[edit]]
+target = "c11902060"  # Astram B. Schiller
+base = { flag_31 = 0 }
+
+  [[edit.cards]]
+  id = 0xFFF7C515
+  from = 0x105DB7FF
+  position = "gk"
+  growth_pattern = 1
+  rank = 3
+  ability_board = 0
+  special_rarity = 0
+  cells = { c6 = 9, flag_37 = 1 }
+  moves = [
+    { move = 0x8B31808E, level = 13 },
+    { move = 0xB907E20C, level = 20 },
+    { move = 0xA01CD34D, level = 30 },
+    { move = 0xF2CB0879, level = 38 },
+    { move = 0xAD6E4BF9, level = 43 },
+    { move = 0x00000000, level = 0 },
+  ]
+
+[[edit]]
+target = "c11902340"  # Xavier Foster
+base = { model = 0xC7A9639C, voice_bank = 0x6CFE2D23, flag_31 = 0 }
+model_row = { force_kit = 1 }
+
+  [[edit.cards]]
+  id = 0xFFF7C516
+  from = 0xC50A2351
+  moves = [
+    { move = 0xC3D894B7, level = 1 },
+    { move = 0x65766A4F, level = 13 },
+    { move = 0x6DAEF91C, level = 20 },
+    { move = 0xB633C4E1, level = 30 },
+    { move = 0x2296A01A, level = 38 },
+    { move = 0xDAC3A5F6, level = 43 },
+  ]
+
+[[edit]]
+target = "c02023390"  # Shawn Froste
+base = { voice_bank = 0x94203E9C }
+
+  [[edit.cards]]
+  id = 0xFFF7C51B
+  from = 0x3DD430EE
+  growth_pattern = 1
+  moves = [
+    { move = 0x039DBAAC, level = 1 },
+    { move = 0x19C3F43D, level = 13 },
+    { move = 0xDCF43422, level = 20 },
+    { move = 0x79224D8B, level = 30 },
+    { move = 0x5E5AF1A9, level = 38 },
+    { move = 0xB7F1AED6, level = 43 },
+  ]
+
+[[edit]]
+target = "c02024320"  # Nathan Swift
+base = { voice_bank = 0xB28C9293 }
+
+  [[edit.cards]]
+  id = 0xFFF7C51E
+  from = 0xEF429E90
+  growth_pattern = 1
+  moves = [
+    { move = 0x37A1B17B, level = 1 },
+    { move = 0x22EF6FDB, level = 13 },
+    { move = 0x3C843987, level = 20 },
+    { move = 0x1A868BED, level = 30 },
+    { move = 0x17A96A44, level = 38 },
+    { move = 0x3BF45E9A, level = 43 },
+  ]

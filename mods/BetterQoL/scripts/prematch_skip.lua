@@ -62,7 +62,10 @@ local SLOT_CUTS = 0x5B0           -- ptr / u32 (+0x5B8): the cut table EventSeek
 local SLOT_CUT_COUNT = 0x5B8
 local SLOT_FREE_SEEK = 0x7C0      -- u8: seek allowed without a cut table
 local SLOT_SKIP_TO = 0x7BC        -- f32: the retail skip's target (-1 = none)
-local SLOT_NAME = 0x79C           -- char[32]
+local SLOT_NAME = 0x79C           -- char[32]: the override name, empty unless a command sets it (0xC58DD0, 0xC800F0)
+local SLOT_ENV_ROW = 0x500        -- ptr: the event's event_env_config row
+local ENV_ROW_ID = 0x00           -- u32: crc32 of the name
+local ENV_ROW_NAME = 0x08         -- ptr: the event's name (the <EVENT> of its file paths)
 local TL_CLOCK = 0x40             -- f32: the timeline's clock (s)
 local TL_STATE = 0x4B             -- u8: 1 loaded, 2 playing, 4 ended
 local jump_on = false
@@ -73,10 +76,11 @@ local function hex64(v)            -- a 64-bit address as hex without "%X" on it
   return string.format("0x%X%08X", hi, v - hi * 2 ^ 32)
 end
 
-local function slot_name(slot)
-  local ok, bytes = pcall(VRFW.mem.read_array, "u8", slot + SLOT_NAME, 32)
-  if not ok or type(bytes) ~= "table" then
-    return "?"
+-- The bytes at `at` up to the first zero (32 at most), "" when not readable.
+local function read_text(at)
+  local bytes = VRFW.mem.read_array("u8", at, 32)
+  if type(bytes) ~= "table" then
+    return ""
   end
   local out = {}
   for i = 1, #bytes do
@@ -86,6 +90,37 @@ local function slot_name(slot)
     out[#out + 1] = string.char(bytes[i])
   end
   return table.concat(out)
+end
+
+-- The event a slot plays, picked as the game does (0xF17EC0): the slot's override name, empty unless a command sets it,
+-- else the name of its event_env_config row. "" when neither can be read.
+local function slot_name(slot)
+  local ok, name = pcall(function()
+    local override = read_text(slot + SLOT_NAME)
+    if override ~= "" then
+      return override
+    end
+    local row = VRFW.mem.read("ptr", slot + SLOT_ENV_ROW)
+    if row == 0 then
+      return ""
+    end
+    local text = VRFW.mem.read("ptr", row + ENV_ROW_NAME)
+    return text ~= 0 and read_text(text) or ""
+  end)
+  return ok and name or ""
+end
+
+-- The name for a log line: the event's name, or its row's id (crc32 of the name) when the name cannot be read.
+local function slot_label(slot)
+  local name = slot_name(slot)
+  if name ~= "" then
+    return name
+  end
+  local ok, id = pcall(function()
+    local row = VRFW.mem.read("ptr", slot + SLOT_ENV_ROW)
+    return row ~= 0 and string.format("row id 0x%08X", VRFW.mem.read("u32", row + ENV_ROW_ID)) or "no row"
+  end)
+  return "unnamed (" .. (ok and id or "row not readable") .. ")"
 end
 
 -- The current event's slot and timeline, or nil + why.
@@ -106,6 +141,19 @@ local function current_event()
   return slot, tl, idx
 end
 
+-- Exported: the running event for other mods. A table { slot, timeline, index, name, label }, or { why } when none:
+-- name = "" when it cannot be read, label = what a log line prints.
+function BetterQoL.RunningEvent()
+  local ok, slot, tl, idx = pcall(current_event)
+  if not ok then
+    return { why = tostring(slot) }
+  end
+  if slot == nil then
+    return { why = tostring(tl) }
+  end
+  return { slot = slot, timeline = tl, index = idx, name = slot_name(slot), label = slot_label(slot) }
+end
+
 local function xskip_jump(on)
   if on ~= 1 then
     if jump_on then
@@ -122,7 +170,7 @@ local function xskip_jump(on)
   local state = VRFW.mem.read("u8", slot + SLOT_STATE)
   local tl_state = VRFW.mem.read("u8", tl + TL_STATE)
   local clock = VRFW.mem.read("f32", tl + TL_CLOCK)
-  local name = slot_name(slot)
+  local name = slot_label(slot)
   if tl_state == 4 then
     VRFW.log(string.format("pre-match X jump: event %s (slot %d) already at its end: nothing to end", name, idx))
     jump_on = true
@@ -177,147 +225,4 @@ end)
 VRFW.on("game_reset", function()
   VRFW.native.table_clear(COVER_TABLE)
   jump_on = false
-end)
-
--- ---------------------------------------------------------------------------------------------------------------------
--- In-match cut-in skip (docs/game/match/cutin-skip.md). The graft block cs_event.lua (event_menu Step) asks
--- CMND_BETTERQOL_CUTIN_SKIP() on a fresh press of CMD_BETTERQOL_CUTIN_SKIP. The running technique event is ended the way
--- the pre-match jump ends one: its sounds stopped and its timeline run to the end in skip mode. The game's own flow
--- (event scene, command phases, focus battle) only waits for the event to stop playing, so it goes on by itself.
--- Answers: 1 = ended, 2 = the timeline stopped at a blocking command (asked again next Step), 0 = nothing done.
-local TL_NEXT_COMMAND = 0x3C      -- u32: the next command to run
-local TL_COMMAND_COUNT = 0x10     -- u32: the commands of the timeline
-local SLOT_STATE_PLAYING = 8
-local TL_STATE_PLAYING = 2
-local SKIP_ASK_LIMIT = 30         -- blocking stops of one event before the skip gives up
-local cutin_playing = false       -- between the match events cutin_start and cutin_end: only then a skip applies
-local cutin_started_ms = 0
-local skips = 0
-local skip_log = nil              -- the last skip's number and time, for the line at its cutin_end
-local pending_slot = nil          -- the slot whose timeline stopped at a blocking command
-local pending_asks = 0
-
--- config.toml [cutin_skip] `events` / `not_events`: the event name prefixes a skip applies to / never applies to
-local function name_in(key, name)
-  local list = VRFW.files.config(key)
-  if type(list) ~= "table" then
-    return false
-  end
-  for _, prefix in ipairs(list) do
-    if type(prefix) == "string" and prefix ~= "" and name:sub(1, #prefix) == prefix then
-      return true
-    end
-  end
-  return false
-end
-
-local function min_seconds()
-  local v = VRFW.files.config("cutin_skip.min_seconds")
-  return (type(v) == "number" and v == v and v >= 0) and v or 0
-end
-
-local function carrier_text()
-  local ball = VRFW.ai and VRFW.ai.ball
-  if not ball then
-    return "unknown"
-  end
-  local ok, hdl, team = pcall(ball)
-  if ok and hdl then
-    return string.format("%08X (team %s)", hdl, tostring(team))
-  end
-  return "none"
-end
-
-local function end_timeline(slot, tl, name, idx)
-  VRFW.call("Audio.StopEventSounds", slot, 0.0, 1)
-  local cuts = VRFW.mem.read("ptr", slot + SLOT_CUTS)
-  local cut_count = VRFW.mem.read("u32", slot + SLOT_CUT_COUNT)
-  local free = VRFW.mem.read("u8", slot + SLOT_FREE_SEEK)
-  if (cuts ~= 0 and cut_count ~= 0) or free ~= 0 then
-    VRFW.call("Event.Seek", slot, -1.0)
-  else
-    VRFW.call("Event.TimelineSeek", tl, -1.0, 1)
-  end
-  VRFW.mem.write("f32", slot + SLOT_SKIP_TO, -1.0)
-  local tl_state = VRFW.mem.read("u8", tl + TL_STATE)
-  VRFW.log(string.format("cut-in skip [%d]: %s (slot %d): sounds stopped, timeline run to the end: timeline state %d, next command %d of %d",
-    skips, name, idx, tl_state, VRFW.mem.read("u32", tl + TL_NEXT_COMMAND), VRFW.mem.read("u32", tl + TL_COMMAND_COUNT)))
-  if tl_state == 4 then
-    pending_slot = nil
-    return 1
-  end
-  pending_slot = slot
-  return 2
-end
-
-local function cutin_skip()
-  if not cutin_playing then
-    return 0
-  end
-  local synced = VRFW.match and VRFW.match.synced
-  if synced and synced() then
-    VRFW.log("cut-in skip: refused: synced match")
-    return 0
-  end
-  local slot, tl, idx = current_event()
-  if slot == nil then
-    VRFW.log("cut-in skip: refused: " .. tostring(tl))
-    return 0
-  end
-  local name = slot_name(slot)
-  if pending_slot == slot then
-    pending_asks = pending_asks + 1
-    if pending_asks > SKIP_ASK_LIMIT then
-      VRFW.log(string.format("cut-in skip [%d]: %s: still blocked after %d tries: it plays on", skips, name, SKIP_ASK_LIMIT))
-      pending_slot = nil
-      return 0
-    end
-    return end_timeline(slot, tl, name, idx)
-  end
-  if not name_in("cutin_skip.events", name) or name_in("cutin_skip.not_events", name) then
-    VRFW.log("cut-in skip: not skipped: " .. name .. " is not a listed technique event")
-    return 0
-  end
-  local state = VRFW.mem.read("u8", slot + SLOT_STATE)
-  local tl_state = VRFW.mem.read("u8", tl + TL_STATE)
-  local clock = VRFW.mem.read("f32", tl + TL_CLOCK)
-  if state ~= SLOT_STATE_PLAYING or tl_state ~= TL_STATE_PLAYING or clock < min_seconds() then
-    VRFW.log(string.format("cut-in skip: too early or over: %s slot state %d, timeline state %d at %.2f s", name, state, tl_state, clock))
-    return 0
-  end
-  skips = skips + 1
-  pending_asks = 0
-  skip_log = { number = skips, at = VRFW.now() }
-  VRFW.log(string.format("cut-in skip [%d]: technique event %s at %.2f s (%d ms after cutin_start), slot %d state %d, timeline state %d, ball carrier %s",
-    skips, name, clock, math.floor(VRFW.now() - cutin_started_ms), idx, state, tl_state, carrier_text()))
-  return end_timeline(slot, tl, name, idx)
-end
-
--- A failing step answers 0 (the event plays on) instead of an error, which would switch this script off.
-function BetterQoL.CutinSkip()
-  local ok, r = pcall(cutin_skip)
-  if ok then
-    return r
-  end
-  VRFW.log("cut-in skip: failed: " .. tostring(r))
-  pending_slot = nil
-  return 0
-end
-
-VRFW.on("cutin_start", function()
-  cutin_playing = true
-  cutin_started_ms = VRFW.now()
-  pending_slot = nil
-  return nil
-end)
-
-VRFW.on("cutin_end", function()
-  cutin_playing = false
-  pending_slot = nil
-  if skip_log then
-    VRFW.log(string.format("cut-in skip [%d]: the game saw the event end %d ms after the press; ball carrier %s",
-      skip_log.number, math.floor(VRFW.now() - skip_log.at), carrier_text()))
-    skip_log = nil
-  end
-  return nil
 end)

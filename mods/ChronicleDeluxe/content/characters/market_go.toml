@@ -1,0 +1,258 @@
+schema = "VRFW.character/2"
+# Chronicle Deluxe: players of the Inazuma Eleven GO the game ships models and faces for but no player row: signed from the player album.
+# Ids, stats and moves: ported from the old Chronicles Deluxe / Inazuma Fantasy declarations (research/archive, research/mods/_aside).
+default_lang = "en"
+
+[[character]]
+name = "tsunoda_keigo"  # Tsunoda Keigo
+based_on = "c04017260"
+
+  [character.base]
+  id = 0xD392989B
+  name = "c04016010"
+  name_text = 0x6F4D1218
+  short_name_text = 0x469B363C
+  upper_name_text = 0x469B363C
+  model = 0x4AB5FEDA
+  voice_bank = 0
+  description_text = 0x51142260
+
+  [character.text.es]
+  name = "Tsunoda Keigo"
+  short = "Keigo"
+  description = "El Shitennou del Este. Su regate, perfeccionado en la bulliciosa ciudad,\n¡le ha dado una habilidad excepcional para mantener la posesión del balón!"
+
+  [character.text.en]
+  name = "Tsunoda Keigo"
+  short = "Keigo"
+  description = "The Shitennou of the East. His dribbling, honed in the bustling city,\nhas given him an exceptional ability to keep possession of the ball!"
+
+  [character.text.fr]
+  name = "Tsunoda Keigo"
+  short = "Keigo"
+  description = "Le Shitennou de l'Est. Son dribble, affiné dans la ville animée,\nlui a donné une capacité exceptionnelle à conserver la possession du ballon !"
+
+  [character.text.de]
+  name = "Tsunoda Keigo"
+  short = "Keigo"
+  description = "Der Shitennou des Ostens. Sein Dribbling, verfeinert in der geschäftigen Stadt,\nverleiht ihm eine außergewöhnliche Fähigkeit, den Ballbesitz zu behalten!"
+
+  [character.text.it]
+  name = "Tsunoda Keigo"
+  short = "Keigo"
+  description = "Lo Shitennou dell'Est. Il suo dribbling, affinato nella città frenetica,\ngli ha dato una capacità eccezionale di mantenere il possesso del pallone!"
+
+  [character.text.pt]
+  name = "Tsunoda Keigo"
+  short = "Keigo"
+  description = "O Shitennou do Leste. Seu drible, aprimorado na cidade movimentada,\nlhe deu uma habilidade excepcional de manter a posse de bola!"
+
+  [[character.cards]]
+  id = 0xFFF7C4FE
+  from = 0x061964FB
+  growth_pattern = 1
+  cells = { c6 = 9, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x50880BAF, level = 1 },
+    { move = 0xC324C788, level = 13 },
+    { move = 0xDBFD9CFE, level = 20 },
+    { move = 0xACAC21CE, level = 30 },
+    { move = 0x627FC293, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "tsutsui_ryouta"  # Tsutsui Ryouta
+based_on = "c04017260"
+
+  [character.base]
+  id = 0xF8BFCB58
+  name = "c04016020"
+  name_text = 0x26FE8EF4
+  short_name_text = 0x3DC550DF
+  upper_name_text = 0x3DC550DF
+  model = 0x6198AD19
+  voice_bank = 0
+  description_text = 0x1F8C3245
+
+  [character.text.es]
+  name = "Tsutsui Ryouta"
+  short = "Ryouta"
+  description = "El Shitennou del Oeste. Un delantero que lanza\ndisparos magníficos. ¡Demuestra su espíritu de Naniwa!"
+
+  [character.text.en]
+  name = "Tsutsui Ryouta"
+  short = "Ryouta"
+  description = "The Shitennou of the West. A striker who delivers\nmagnificent shots. He shows off his Naniwa spirit!"
+
+  [character.text.fr]
+  name = "Tsutsui Ryouta"
+  short = "Ryouta"
+  description = "Le Shitennou de l'Ouest. Un attaquant qui décoche\ndes tirs magnifiques. Il fait preuve de son esprit de Naniwa !"
+
+  [character.text.de]
+  name = "Tsutsui Ryouta"
+  short = "Ryouta"
+  description = "Der Shitennou des Westens. Ein Stürmer, der\nprächtige Schüsse abgibt. Er zeigt seinen Naniwa-Geist!"
+
+  [character.text.it]
+  name = "Tsutsui Ryouta"
+  short = "Ryouta"
+  description = "Lo Shitennou dell'Ovest. Un attaccante che sferra\ntiri magnifici. Dimostra il suo spirito di Naniwa!"
+
+  [character.text.pt]
+  name = "Tsutsui Ryouta"
+  short = "Ryouta"
+  description = "O Shitennou do Oeste. Um atacante que desfere\nchutes magníficos. Ele demonstra o seu espírito de Naniwa!"
+
+  [[character.cards]]
+  id = 0xFFF7C4FF
+  from = 0x85363312
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x50880BAF, level = 1 },
+    { move = 0x19C3F43D, level = 13 },
+    { move = 0x65766A4F, level = 20 },
+    { move = 0x1FC99D68, level = 30 },
+    { move = 0x3B8D915B, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "okumura_tatsuya"  # Okumura Tatsuya
+based_on = "c04017260"
+
+  [character.base]
+  id = 0xE1A4FA19
+  name = "c04016030"
+  name_text = 0x694116A6
+  short_name_text = 0x1A93D05E
+  upper_name_text = 0x1A93D05E
+  model = 0x78839C58
+  voice_bank = 0
+  description_text = 0x2EA9FB88
+
+  [character.text.es]
+  name = "Okumura Tatsuya"
+  short = "Tatsuya"
+  description = "El Shitennou del Sur.\n¡Con su corazón apasionado, detendrá a cualquier rival!"
+
+  [character.text.en]
+  name = "Okumura Tatsuya"
+  short = "Tatsuya"
+  description = "The Shitennou of the South.\nWith his passionate heart, he'll stop any opponent!"
+
+  [character.text.fr]
+  name = "Okumura Tatsuya"
+  short = "Tatsuya"
+  description = "Le Shitennou du Sud.\nAvec son cœur passionné, il arrêtera n'importe quel adversaire !"
+
+  [character.text.de]
+  name = "Okumura Tatsuya"
+  short = "Tatsuya"
+  description = "Der Shitennou des Südens.\nMit seinem leidenschaftlichen Herzen wird er jeden Gegner aufhalten!"
+
+  [character.text.it]
+  name = "Okumura Tatsuya"
+  short = "Tatsuya"
+  description = "Lo Shitennou del Sud.\nCon il suo cuore appassionato, fermerà qualsiasi avversario!"
+
+  [character.text.pt]
+  name = "Okumura Tatsuya"
+  short = "Tatsuya"
+  description = "O Shitennou do Sul.\nCom seu coração apaixonado, ele deterá qualquer oponente!"
+
+  [[character.cards]]
+  id = 0xFFF7C500
+  from = 0x3D9ED3F0
+  position = "df"
+  sub_position = "mf"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x50880BAF, level = 1 },
+    { move = 0x737DCB3F, level = 13 },
+    { move = 0x4A17EE80, level = 20 },
+    { move = 0x6F918884, level = 30 },
+    { move = 0x72BFA108, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "satou_seiji"  # Satou Seiji
+based_on = "c04017260"
+
+  [character.base]
+  id = 0xAEE56CDE
+  name = "c04016040"
+  name_text = 0x4A2AE8AD
+  short_name_text = 0x0B4BCCCB
+  upper_name_text = 0x0B4BCCCB
+  model = 0x37C20A9F
+  voice_bank = 0
+  description_text = 0x3A98A71A
+
+  [character.text.es]
+  name = "Satou Seiji"
+  short = "Seiji"
+  description = "El Shitennou del Norte. Con su voluntad forjada en el rigor del invierno,\n¡se aferrará con firmeza, sean cuales sean las circunstancias!"
+
+  [character.text.en]
+  name = "Satou Seiji"
+  short = "Seiji"
+  description = "The Shitennou of the North. With his willpower forged in the harshness of winter,\nhe'll hold firm, no matter the circumstances!"
+
+  [character.text.fr]
+  name = "Satou Seiji"
+  short = "Seiji"
+  description = "Le Shitennou du Nord. Avec sa volonté forgée dans la rigueur de l'hiver,\nil s'accrochera fermement, quelles que soient les circonstances !"
+
+  [character.text.de]
+  name = "Satou Seiji"
+  short = "Seiji"
+  description = "Der Shitennou des Nordens. Mit seinem im strengen Winter geschmiedeten Willen\nwird er festhalten, egal unter welchen Umständen!"
+
+  [character.text.it]
+  name = "Satou Seiji"
+  short = "Seiji"
+  description = "Lo Shitennou del Nord. Con la sua volontà forgiata nel rigore dell'inverno,\nsi aggrapperà con fermezza, qualunque siano le circostanze!"
+
+  [character.text.pt]
+  name = "Satou Seiji"
+  short = "Seiji"
+  description = "O Shitennou do Norte. Com sua vontade forjada no rigor do inverno,\nele agarrará com firmeza, sejam quais forem as circunstâncias!"
+
+  [[character.cards]]
+  id = 0xFFF7C501
+  from = 0x3D9ED3F0
+  element = "wind"
+  sub_position = "df"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x50880BAF, level = 1 },
+    { move = 0x41AEB4DF, level = 13 },
+    { move = 0xDF2D9951, level = 20 },
+    { move = 0xC42D6F54, level = 30 },
+    { move = 0x3F00EDE9, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[edit]]
+target = "c11904040"  # Vladimir Blade
+base = { voice_bank = 0x3DC18FD7 }
+
+  [[edit.cards]]
+  id = 0xFFF7C514
+  from = 0x943581A5
+  moves = [
+    { move = 0x8A52C09B, level = 1 },
+    { move = 0x3C843987, level = 13 },
+    { move = 0x0C08B663, level = 20 },
+    { move = 0x0B011EBF, level = 30 },
+    { move = 0x0CF4E55C, level = 38 },
+    { move = 0x41F3CDC2, level = 43 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x29E98497, level = 1 },
+  ]

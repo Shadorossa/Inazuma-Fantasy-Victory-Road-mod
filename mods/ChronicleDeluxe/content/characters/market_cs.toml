@@ -1,0 +1,697 @@
+schema = "VRFW.character/2"
+# Chronicle Deluxe: players of the Chrono Stone the game ships models and faces for but no player row: signed from the player album.
+# Ids, stats and moves: ported from the old Chronicles Deluxe / Inazuma Fantasy declarations (research/archive, research/mods/_aside).
+default_lang = "en"
+
+[[character]]
+name = "fb_111x"  # FB-111X
+based_on = "c05027040"
+battle = [0, 0]
+
+  [character.base]
+  id = 0x20A51BB6
+  name = "c05023820"
+  serial_no = 6000
+  name_text = 0x45090207
+  short_name_text = 0x45090207
+  upper_name_text = 0x76BA1C00
+  model = 0xB9827DF7
+  voice_bank = 0
+  gender = 5
+  description_text = 0x0C6E2FD8
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Un guardia del Museo del Fútbol.\nTiene un tornillo suelto. Literalmente."
+
+  [character.text.en]
+  description = "A guard at the Football Museum.\nHe's got a screw loose. Literally."
+
+  [character.text.fr]
+  description = "Un gardien du Musée du Football.\nIl a une case en moins. Littéralement."
+
+  [character.text.de]
+  description = "Ein Wächter des Fußballmuseums.\nEr hat eine Schraube locker. Buchstäblich."
+
+  [character.text.it]
+  description = "Una guardia del Museo del Calcio.\nGli manca una vite. Letteralmente."
+
+  [character.text.pt]
+  description = "Um guarda do Museu do Futebol.\nTem um parafuso solto. Literalmente."
+
+  [[character.cards]]
+  id = 0xFFF7C4E2
+  from = 0xB3B71AB6
+  build_type = 3
+  play_style = 1
+  cells = { c6 = 2 }
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0x016DEA27, level = 13 },
+    { move = 0x2E7B2B84, level = 20 },
+    { move = 0xE196F1D1, level = 30 },
+    { move = 0x74B5C85D, level = 38 },
+    { move = 0x087999EE, level = 43 },
+  ]
+
+[[character]]
+name = "fb_110x"  # FB-110X
+based_on = "c05027040"
+battle = [0, 0]
+
+  [character.base]
+  id = 0x075C913F
+  name = "c05023820"
+  serial_no = 6000
+  name_text = 0x5C123346
+  short_name_text = 0x5C123346
+  upper_name_text = 0x6FA12D41
+  model = 0xB9827DF7
+  voice_bank = 0
+  gender = 5
+  description_text = 0x097FDA0C
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Un guardia del Museo del Fútbol.\nNo siente ninguna afinidad con otros robots."
+
+  [character.text.en]
+  description = "A guard at the Football Museum.\nHe feels no kinship with other robots."
+
+  [character.text.fr]
+  description = "Un gardien du Musée du Football.\nIl ne ressent aucune affinité avec les autres robots."
+
+  [character.text.de]
+  description = "Ein Wächter des Fußballmuseums.\nEr fühlt keine Verbundenheit mit anderen Robotern."
+
+  [character.text.it]
+  description = "Una guardia del Museo del Calcio.\nNon prova alcuna affinità con gli altri robot."
+
+  [character.text.pt]
+  description = "Um guarda do Museu do Futebol.\nNão sente afinidade com outros robôs."
+
+  [[character.cards]]
+  id = 0xFFF7C4E3
+  from = 0x85363312
+  build_type = 3
+  play_style = 1
+  cells = { c6 = 2, flag_36 = 0, performance_genre = 0x0BF5508A }
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0x016DEA27, level = 13 },
+    { move = 0x05567847, level = 20 },
+    { move = 0xEFFC6FA8, level = 30 },
+    { move = 0xF94FAAA7, level = 38 },
+    { move = 0x10A0C298, level = 43 },
+  ]
+
+[[character]]
+name = "fb_109x"  # FB-109X
+based_on = "c05027040"
+battle = [0, 0]
+
+  [character.base]
+  id = 0x05CDBB73
+  name = "c05023820"
+  serial_no = 6000
+  name_text = 0x8C12E238
+  short_name_text = 0x8C12E238
+  upper_name_text = 0xBFA1FC3F
+  model = 0xB9827DF7
+  voice_bank = 0
+  gender = 5
+  description_text = 0x00FC63AC
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Un guardia del Museo del Fútbol.\nSueña con conocer a su creador."
+
+  [character.text.en]
+  description = "A guard at the Football Museum.\nHe dreams of meeting his creator."
+
+  [character.text.fr]
+  description = "Un gardien du Musée du Football.\nIl rêve de rencontrer son créateur."
+
+  [character.text.de]
+  description = "Ein Wächter des Fußballmuseums.\nEr träumt davon, seinen Schöpfer kennenzulernen."
+
+  [character.text.it]
+  description = "Una guardia del Museo del Calcio.\nSogna di conoscere il suo creatore."
+
+  [character.text.pt]
+  description = "Um guarda do Museu do Futebol.\nSonha em conhecer seu criador."
+
+  [[character.cards]]
+  id = 0xFFF7C4E4
+  from = 0x5E7A74AD
+  build_type = 3
+  play_style = 1
+  rank = 3
+  cells = { c6 = 2 }
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0x016DEA27, level = 13 },
+    { move = 0x12E67CC1, level = 20 },
+    { move = 0xD0AF516E, level = 30 },
+    { move = 0xA23AEC88, level = 38 },
+    { move = 0x5B6C28ED, level = 43 },
+  ]
+
+[[character]]
+name = "fb_108x"  # FB-108X
+based_on = "c05027040"
+battle = [0, 0]
+
+  [character.base]
+  id = 0x09D277A7
+  name = "c05023820"
+  serial_no = 6000
+  name_text = 0x9509D379
+  short_name_text = 0x9509D379
+  upper_name_text = 0xA6BACD7E
+  model = 0xB9827DF7
+  voice_bank = 0
+  gender = 5
+  description_text = 0x0BFA6A77
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Un guardia del Museo del Fútbol.\nLe gusta pensar que es humano."
+
+  [character.text.en]
+  description = "A guard at the Football Museum.\nHe likes to think he's human."
+
+  [character.text.fr]
+  description = "Un gardien du Musée du Football.\nIl aime à penser qu'il est humain."
+
+  [character.text.de]
+  description = "Ein Wächter des Fußballmuseums.\nEr denkt gern, dass er ein Mensch ist."
+
+  [character.text.it]
+  description = "Una guardia del Museo del Calcio.\nGli piace pensare di essere umano."
+
+  [character.text.pt]
+  description = "Um guarda do Museu do Futebol.\nGosta de pensar que é humano."
+
+  [[character.cards]]
+  id = 0xFFF7C4E5
+  from = 0x489A980B
+  sub_position = "df"
+  build_type = 3
+  cells = { c6 = 2 }
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0x4E22F64D, level = 13 },
+    { move = 0xF626F557, level = 20 },
+    { move = 0xDF8CB373, level = 30 },
+    { move = 0x0710C61E, level = 38 },
+    { move = 0xF94FAAA7, level = 43 },
+  ]
+
+[[character]]
+name = "fb_107x"  # FB-107X
+based_on = "c05027040"
+battle = [0, 0]
+
+  [character.base]
+  id = 0x5BB3A114
+  name = "c05023820"
+  serial_no = 6000
+  name_text = 0x1291CFB6
+  short_name_text = 0x1291CFB6
+  upper_name_text = 0x2122D1B1
+  model = 0xB9827DF7
+  voice_bank = 0
+  gender = 5
+  description_text = 0x4BDB901F
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Un guardia del Museo del Fútbol.\nTiene ambiciones más allá del museo."
+
+  [character.text.en]
+  description = "A guard at the Football Museum.\nHe has ambitions beyond the museum."
+
+  [character.text.fr]
+  description = "Un gardien du Musée du Football.\nIl a des ambitions qui dépassent le musée."
+
+  [character.text.de]
+  description = "Ein Wächter des Fußballmuseums.\nEr hat Ambitionen, die über das Museum hinausgehen."
+
+  [character.text.it]
+  description = "Una guardia del Museo del Calcio.\nHa ambizioni che vanno oltre il museo."
+
+  [character.text.pt]
+  description = "Um guarda do Museu do Futebol.\nTem ambições além do museu."
+
+  [[character.cards]]
+  id = 0xFFF7C4E6
+  from = 0x489A980B
+  element = "forest"
+  sub_position = "df"
+  build_type = 3
+  cells = { c6 = 2 }
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0x4E22F64D, level = 13 },
+    { move = 0x928B9BED, level = 20 },
+    { move = 0x20D01E43, level = 30 },
+    { move = 0x01DB04F5, level = 38 },
+    { move = 0x0F4DC9B3, level = 43 },
+  ]
+
+[[character]]
+name = "fb_106x"  # FB-106X
+based_on = "c05027040"
+battle = [0, 0]
+
+  [character.base]
+  id = 0x578A60E6
+  name = "c05023820"
+  serial_no = 6000
+  name_text = 0x0B8AFEF7
+  short_name_text = 0x0B8AFEF7
+  upper_name_text = 0x3839E0F0
+  model = 0xB9827DF7
+  voice_bank = 0
+  gender = 5
+  description_text = 0x54CD5712
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Un guardia del Museo del Fútbol.\nEstá escribiendo un plugin para mejorar su velocidad."
+
+  [character.text.en]
+  description = "A guard at the Football Museum.\nHe's writing a plug-in to improve his speed."
+
+  [character.text.fr]
+  description = "Un gardien du Musée du Football.\nIl écrit un plug-in pour améliorer sa vitesse."
+
+  [character.text.de]
+  description = "Ein Wächter des Fußballmuseums.\nEr schreibt ein Plug-in, um seine Geschwindigkeit zu verbessern."
+
+  [character.text.it]
+  description = "Una guardia del Museo del Calcio.\nSta scrivendo un plug-in per migliorare la sua velocità."
+
+  [character.text.pt]
+  description = "Um guarda do Museu do Futebol.\nEscrevendo um plug-in para melhorar a velocidade."
+
+  [[character.cards]]
+  id = 0xFFF7C4E7
+  from = 0x489A980B
+  element = "fire"
+  sub_position = "df"
+  build_type = 3
+  cells = { c6 = 2 }
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0x4E22F64D, level = 13 },
+    { move = 0x12E67CC1, level = 20 },
+    { move = 0xEFFC6FA8, level = 30 },
+    { move = 0xF626F557, level = 38 },
+    { move = 0x58D7E841, level = 43 },
+  ]
+
+[[character]]
+name = "fb_105x"  # FB-105X
+based_on = "c05027040"
+battle = [0, 0]
+
+  [character.base]
+  id = 0x0FBDA74B
+  name = "c05023820"
+  serial_no = 6000
+  name_text = 0x20A7AD34
+  short_name_text = 0x20A7AD34
+  upper_name_text = 0x1314B333
+  model = 0xB9827DF7
+  voice_bank = 0
+  gender = 5
+  description_text = 0x1943AB66
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Un guardia del Museo del Fútbol.\nEstá desarrollando nuevos protocolos de lenguaje."
+
+  [character.text.en]
+  description = "A guard at the Football Museum.\nHe's developing new language protocols."
+
+  [character.text.fr]
+  description = "Un gardien du Musée du Football.\nIl développe de nouveaux protocoles de langage."
+
+  [character.text.de]
+  description = "Ein Wächter des Fußballmuseums.\nEr entwickelt neue Sprachprotokolle."
+
+  [character.text.it]
+  description = "Una guardia del Museo del Calcio.\nSta sviluppando nuovi protocolli linguistici."
+
+  [character.text.pt]
+  description = "Um guarda do Museu do Futebol.\nDesenvolvendo novos protocolos de linguagem."
+
+  [[character.cards]]
+  id = 0xFFF7C4E8
+  from = 0x43AB265F
+  build_type = 3
+  rank = 3
+  ability_board = 0
+  special_rarity = 0
+  cells = { c6 = 2 }
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0xF626F557, level = 13 },
+    { move = 0x4E22F64D, level = 20 },
+    { move = 0x56FBAD3B, level = 30 },
+    { move = 0x81FC5E34, level = 38 },
+    { move = 0x8F1F3A5D, level = 43 },
+  ]
+
+[[character]]
+name = "fb_104x"  # FB-104X
+based_on = "c05027040"
+battle = [0, 0]
+
+  [character.base]
+  id = 0x3376B205
+  name = "c05023820"
+  serial_no = 6000
+  name_text = 0x39BC9C75
+  short_name_text = 0x39BC9C75
+  upper_name_text = 0x0A0F8272
+  model = 0xB9827DF7
+  voice_bank = 0
+  gender = 5
+  description_text = 0x67ED40A3
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Un guardia del Museo del Fútbol.\nSolo usa bombillas LED de bajo consumo."
+
+  [character.text.en]
+  description = "A guard at the Football Museum.\nHe only uses low-power LED bulbs."
+
+  [character.text.fr]
+  description = "Un gardien du Musée du Football.\nIl n'utilise que des ampoules LED basse consommation."
+
+  [character.text.de]
+  description = "Ein Wächter des Fußballmuseums.\nEr verwendet nur stromsparende LED-Lampen."
+
+  [character.text.it]
+  description = "Una guardia del Museo del Calcio.\nUsa solo lampadine LED a basso consumo."
+
+  [character.text.pt]
+  description = "Um guarda do Museu do Futebol.\nSó usa lâmpadas LED de baixo consumo."
+
+  [[character.cards]]
+  id = 0xFFF7C4E9
+  from = 0xAAAC2BF7
+  growth_pattern = 1
+  rank = 3
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0xF626F557, level = 13 },
+    { move = 0x4E22F64D, level = 20 },
+    { move = 0x56FBAD3B, level = 30 },
+    { move = 0x62BE692D, level = 38 },
+    { move = 0x087999EE, level = 43 },
+  ]
+
+[[character]]
+name = "fb_103x"  # FB-103X
+based_on = "c05027040"
+battle = [0, 0]
+model_row = { force_kit = 1 }
+
+  [character.base]
+  id = 0x02D06AA9
+  name = "c05023820"
+  serial_no = 6000
+  name_text = 0x76FD0AB2
+  short_name_text = 0x76FD0AB2
+  upper_name_text = 0x454E14B5
+  model = 0xB9827DF7
+  voice_bank = 0
+  gender = 5
+  description_text = 0x20206816
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Un guardia del Museo del Fútbol.\nLubrica sus articulaciones dos veces al día, sin falta."
+
+  [character.text.en]
+  description = "A guard at the Football Museum.\nHe lubricates his joints twice a day, without fail."
+
+  [character.text.fr]
+  description = "Un gardien du Musée du Football.\nIl lubrifie ses articulations deux fois par jour, sans exception."
+
+  [character.text.de]
+  description = "Ein Wächter des Fußballmuseums.\nEr ölt seine Gelenke ausnahmslos zweimal täglich."
+
+  [character.text.it]
+  description = "Una guardia del Museo del Calcio.\nLubrifica le sue articolazioni due volte al giorno, senza eccezioni."
+
+  [character.text.pt]
+  description = "Um guarda do Museu do Futebol.\nLubrifica as articulações duas vezes por dia, sem falta."
+
+  [[character.cards]]
+  id = 0xFFF7C4EA
+  from = 0x9C8A670E
+  rank = 3
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0xF626F557, level = 13 },
+    { move = 0x05567847, level = 20 },
+    { move = 0x39CB2F02, level = 30 },
+    { move = 0x4A17EE80, level = 38 },
+    { move = 0x087999EE, level = 43 },
+  ]
+
+[[character]]
+name = "fb_102x"  # FB-102X
+based_on = "c05027040"
+battle = [0, 0]
+
+  [character.base]
+  id = 0x335CB2DD
+  name = "c05023820"
+  serial_no = 6000
+  name_text = 0x6FE63BF3
+  short_name_text = 0x6FE63BF3
+  upper_name_text = 0x5C5525F4
+  model = 0xB9827DF7
+  voice_bank = 0
+  gender = 5
+  description_text = 0x672B652E
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Un guardia del Museo del Fútbol.\nEs meticuloso con el mantenimiento."
+
+  [character.text.en]
+  description = "A guard at the Football Museum.\nHe's meticulous about maintenance."
+
+  [character.text.fr]
+  description = "Un gardien du Musée du Football.\nIl est méticuleux quant à son entretien."
+
+  [character.text.de]
+  description = "Ein Wächter des Fußballmuseums.\nEr ist sehr gewissenhaft bei der Wartung."
+
+  [character.text.it]
+  description = "Una guardia del Museo del Calcio.\nÈ meticoloso riguardo alla manutenzione."
+
+  [character.text.pt]
+  description = "Um guarda do Museu do Futebol.\nMeticuloso com a manutenção."
+
+  [[character.cards]]
+  id = 0xFFF7C4EB
+  from = 0x85363312
+  position = "df"
+  build_type = 3
+  play_style = 1
+  cells = { c6 = 2, flag_36 = 0, performance_genre = 0x0BF5508A }
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0xF626F557, level = 13 },
+    { move = 0x4E22F64D, level = 20 },
+    { move = 0xA23AEC88, level = 30 },
+    { move = 0x7CACF0B0, level = 38 },
+    { move = 0x087999EE, level = 43 },
+  ]
+
+[[character]]
+name = "fb_101x"  # FB-101X
+based_on = "c05027040"
+battle = [0, 0]
+model_row = { force_kit = 1 }
+
+  [character.base]
+  id = 0x4B5D86E6
+  name = "c05023810"
+  serial_no = 6000
+  name_text = 0x44CB6830
+  short_name_text = 0x44CB6830
+  upper_name_text = 0x77787637
+  model = 0x92AF2E34
+  voice_bank = 0
+  gender = 5
+  description_text = 0x18B91284
+  sort_order = 6000
+
+  [character.text.es]
+  description = "Portero en el Museo del Fútbol.\nSufre de un brazo chirriante."
+
+  [character.text.en]
+  description = "Goalkeeper at the Football Museum.\nHe suffers from a creaky arm."
+
+  [character.text.fr]
+  description = "Gardien de but au Musée du Football.\nIl souffre d'un bras grinçant."
+
+  [character.text.de]
+  description = "Torwart im Fußballmuseum.\nEr leidet unter einem knarrenden Arm."
+
+  [character.text.it]
+  description = "Portiere al Museo del Calcio.\nSoffre di un braccio cigolante."
+
+  [character.text.pt]
+  description = "Goleiro no Museu do Futebol.\nSofre de um braço rangente."
+
+  [[character.cards]]
+  id = 0xFFF7C4EC
+  from = 0x2D343738
+  play_style = 1
+  cells = { c6 = 2 }
+  moves = [
+    { move = 0xA9A7000B, level = 1 },
+    { move = 0x50E88A33, level = 13 },
+    { move = 0x62DEE8B1, level = 20 },
+    { move = 0xCD6AEF2D, level = 30 },
+    { move = 0x9A755221, level = 38 },
+    { move = 0x1E6B76C3, level = 43 },
+  ]
+
+[[character]]
+name = "sina_yuis"  # Sina Yuis
+based_on = "c05029640"
+
+  [character.base]
+  id = 0x7672DE6D
+  name = "c05029700"
+  name_text = 0x3146B923
+  short_name_text = 0x10C2BADC
+  upper_name_text = 0x10C2BADC
+  model = 0xEF55B82C
+  voice_bank = 0
+  description_text = 0x4715C7EF
+
+  [character.text.es]
+  name = "Sina Yuis"
+  short = "Sina"
+  description = "Una chica que vive en el mundo del Rey Arturo.\nParece que es muy buena en los cuestionarios."
+
+  [character.text.en]
+  name = "Sina Yuis"
+  short = "Sina"
+  description = "A girl who lives in King Arthur's world.\nShe seems to be very good at quizzes."
+
+  [character.text.fr]
+  name = "Sina Yuis"
+  short = "Sina"
+  description = "Une fille qui vit dans le monde du roi Arthur.\nIl semblerait qu'elle soit très douée pour les quiz."
+
+  [character.text.de]
+  name = "Sina Yuis"
+  short = "Sina"
+  description = "Ein Mädchen, das in der Welt von König Artus lebt.\nEs scheint, sie ist sehr gut in Quizfragen."
+
+  [character.text.it]
+  name = "Sina Yuis"
+  short = "Sina"
+  description = "Una ragazza che vive nel mondo di Re Artù.\nSembra che sia molto brava nei quiz."
+
+  [character.text.pt]
+  name = "Sina Yuis"
+  short = "Sina"
+  description = "Uma garota que vive no mundo do Rei Arthur.\nParece que ela é muito boa em quizzes."
+
+  [character.text.ja]
+  name = "シーナ・ユイス"
+  short = "シーナ・ユイス"
+  upper = "シーナ・ユイス"
+
+  [[character.cards]]
+  id = 0xFFF7C502
+  from = 0x061964FB
+  growth_pattern = 1
+  cells = { c6 = 9, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x2A4E3349, level = 1 },
+    { move = 0x6ADE9E01, level = 13 },
+    { move = 0xD3A09353, level = 20 },
+    { move = 0x4A17EE80, level = 30 },
+    { move = 0x2B8C597E, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "remi_altava"  # Remi Altava
+based_on = "c05029720"
+
+  [character.base]
+  id = 0x5D5F8DAE
+  name = "c05029730"
+  serial_no = 3867
+  name_text = 0x358633E9
+  short_name_text = 0x5E5EBDB3
+  upper_name_text = 0x5E5EBDB3
+  model = 0xC478EBEF
+  gender = 2
+  description_text = 0x24231857
+  sort_order = 3881
+
+  [character.text.es]
+  name = "Remi Altava"
+  short = "Remi"
+  description = "La asistente del Profesor Layton, bastante decidida.\nEs una luchadora con habilidades físicas sobrehumanas."
+
+  [character.text.en]
+  name = "Remi Altava"
+  short = "Remi"
+  description = "Professor Layton's rather determined assistant.\nShe's a fighter with superhuman physical abilities."
+
+  [character.text.fr]
+  name = "Remi Altava"
+  short = "Remi"
+  description = "L'assistante du Professeur Layton, plutôt déterminée.\nC'est une combattante aux capacités physiques surhumaines."
+
+  [character.text.de]
+  name = "Remi Altava"
+  short = "Remi"
+  description = "Die ziemlich entschlossene Assistentin von Professor Layton.\nSie ist eine Kämpferin mit übermenschlichen körperlichen Fähigkeiten."
+
+  [character.text.it]
+  name = "Remi Altava"
+  short = "Remi"
+  description = "L'assistente del Professor Layton, piuttosto determinata.\nÈ una combattente con abilità fisiche sovrumane."
+
+  [character.text.pt]
+  name = "Remi Altava"
+  short = "Remi"
+  description = "Assistente do Professor Layton, um tanto quanto determinada.\nEla é uma lutadora e possui habilidades físicas sobre-humanas."
+
+  [character.text.ja]
+  name = "レミ"
+  short = "レミ"
+  upper = "レミ"
+
+  [[character.cards]]
+  id = 0xFFF7C503
+  from = 0x85363312
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x21127474, level = 1 },
+    { move = 0x518BCA26, level = 13 },
+    { move = 0x4FE09C7A, level = 20 },
+    { move = 0xB9A6C82E, level = 30 },
+    { move = 0xF4604B0E, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]

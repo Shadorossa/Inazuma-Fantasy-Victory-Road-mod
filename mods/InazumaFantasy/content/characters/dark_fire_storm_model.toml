@@ -1,0 +1,18 @@
+schema = "VRFW.character/2"
+# The giant of Tormenta de fuego oscura (contenteffectsdark_fire_storm.toml): the game finds a `_waza` model through its chara_base row (id = crc32(name)) and that row's chara_model row.
+default_lang = "en"
+
+[[character]]
+name = "move_model_dark_fire_storm"
+based_on = "ev60_01020"
+battle = false
+
+  [character.base]
+  id = 0xAEC4B5C3
+  name = "ev60_86101"
+
+  [character.new_model]
+  id = 0xA4CFCD16
+  from = "ev60_01020"
+  [character.new_model.cells]
+  skeleton_path = "_waza/ev60_86101/ev60_86101.objbin"

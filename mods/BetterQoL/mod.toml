@@ -1,8 +1,8 @@
 id = "BetterQoL"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the game's language (text\keys.toml)
 name = "BetterQoL"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Quality-of-life tools for any save: Team Dock pages, a passive configurator, home / away kits, a visual style option, unlocked and extra formations, a shop filter and technique search, a Player album and Club stats in the Clubroom, a team planner with ghost cards, career stats on each player, shortcuts in the top bar to the game's modes, and more small conveniences."
 
@@ -14,7 +14,7 @@ updated = "2026-11-06"
 # VRFW.match_camera/1) on the framework's match camera service (docs/framework/camera.md).
 # [[VRFW.ElementIcon]] of the image type (its neutral enso for the Mods panel); the team emblem grid (VRFW_EmblemGrid,
 # objects vrfw_emblem_tile / vrfw_tile_label) of the original-names picker and the team planner.
-requires = ["VRFW>=0.2.2", "VRFW.text", "VRFW.menu"]
+requires = ["VRFW>=0.2.4", "VRFW.text", "VRFW.menu"]
 conflicts = []
 # the standalone mod away_kit 1.0 is a feature of BetterQoL now: an installed away_kit is replaced by it (same Lua
 # commands, same mask bit, same kit ids in the save) the same for the standalone mod visual_presets 1.0.0: its row is
@@ -33,6 +33,8 @@ provides = ["away_kit=1.0.0", "visual_presets=1.0.0", "TechniqueSearch=1.1.0"]
 # team_planner (CMND_BETTERQOL_TP_*, blob team_planner.json per slot). No DLL: «Estilo visual» is data on the VR-Framework's shader presets
 # (content\shaders\visual_style.toml + assets\shaders\*.hlsl, docs/framework/shaders.md). The neutral element icon is
 # Lua + image recipes + the shop rows' void check (content\game\neutral_element.toml).
+# Its module is an embedded module mod, a card on this mod's page in Mods (on / off in enabled.toml):
+#   modules\CutinSkip\   CutinSkip (CutinSkip.X): a fresh A press ends the running technique cut-in in a match
 folder = "BetterQoL"
 # the mod's own names (docs/framework/native.md §5): Lua functions BetterQoL.*, TOML keys [[BetterQoL.*]]
 prefix = "BetterQoL"
@@ -56,11 +58,12 @@ loader_min = "1.7.0"
 # chara_param ids of a save slot's career records, comma-separated (Inazuma Fantasy's office «signed once» seed);
 # TeamBanksMembers(slot) / TeamBanksRepair(slot, plan) = the team bank pages' stored members and their repair after a
 # one-card merge (scripts\tb_repair.lua over lib\tb_store.lua; Inazuma Fantasy's «Reparar duplicados»);
+# RunningEvent() = the running event of the event manager, its name read from its env row (module CutinSkip);
 # TopBarOn / TopBarOnBoard = the game Lua gates of the top bar hosts (BetterQoL.TopBarOn in every menu VM; other mods'
 # [[top_bar_host]] name them, e.g. Inazuma Fantasy's soccer_top_menu). A mod adds an icon to the bar with its own
 # [[entry]] host = "top_bar" (docs/framework/top-bar.md §2), a row of the «Battle Bay» dropdown with group = "battle_bay"
 [exports]
-functions = ["Career.Params", "TeamBanksMembers", "TeamBanksRepair", "TopBarOn", "TopBarOnBoard"]
+functions = ["Career.Params", "TeamBanksMembers", "TeamBanksRepair", "TopBarOn", "TopBarOnBoard", "RunningEvent"]
 # game_lua: BetterQoL.ViewForms = «Cambiar forma», the key that cycles the shown character's forms
 # (assets\lua\_all\utilities_view_forms.lua; action BetterQoL.ViewForms.Cycle, CMD_UTIL_VIEW_FORMS, default RS / G,
 # content\inputs\view_forms.toml): Declared(stem), Pressed(), Down(stem), Forms(hdl), GLYPH. A mod applies it to its own

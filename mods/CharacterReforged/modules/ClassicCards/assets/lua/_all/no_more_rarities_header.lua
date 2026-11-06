@@ -2,7 +2,7 @@
 -- band colour of Character Reforged's host CharacterReforged.header_band; CharacterReforged.Header.BandColour calls
 -- ClassicCards.HeaderBandColour(layer, inst, hdl) on every fill of the band). Without this mod the band keeps the
 -- retail rarity look (Character Reforged).
--- * A card of a removed rarity (ClassicCards.RarityRemoved: 0-4 always, Ídolo / Diamante by the option) gets the plate of his OWN position through the
+-- * A card of a removed rarity (ClassicCards.RarityRemoved: 0-4 always, Ídolo / Diamante by the config) gets the plate of his OWN position through the
 --   mod's one position helper ClassicCards.PositionColour,
 -- swapped on the band's texture slot status_chr_base01_s01 -> true.
 -- * A special card (Héroe / Ídolo / Diamante: they keep their rarity), staff or an unknown position -> false: Character

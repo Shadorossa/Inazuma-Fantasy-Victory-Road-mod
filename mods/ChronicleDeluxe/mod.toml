@@ -2,8 +2,8 @@ id = "ChronicleDeluxe"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml).
 name = "Chronicle Deluxe"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "More Chronicle mode: new matches on the IE1 Chronicle board and three chains from the original IE1 and IE2 (Sonny's Premium Route, Mary Times Coach's Route and Suzette's Mother's Route), with their rivals, chests and S / A / B ranks. Every Chronicle team has a Chronicle battle and a Heroica battle up to Lv 200, with the levels, moves and auras of its own game. Matches drop move manuals, boots, auras and the rival's crest and kit, and the free match offers Lv 50, 99 and 200 difficulties."
 priority = 0
@@ -26,7 +26,7 @@ folder = "ChronicleDeluxe"
 #   config.toml                        tunables of the Heroica (level curve, sync, ramp), the drops and the extra kits
 #   text\                              the «Mods» screen texts and the texts of the rules, challenges and menus (9 languages)
 # Generated files are marked in their own headers; hand-maintained chain files are never overwritten by the builders.
-requires = ["VRFW>=0.2.2"]
+requires = ["VRFW>=0.2.4"]
 optional = ["BetterMenu", "BetterUI", "CharacterReforged", "ClassicEquipment", "HissatsuLevelUp", "InaRogue", "InazumaFantasy"]
 # Native declarations of the free-match shuffle (content/game/free_match_shuffle.toml) need these.
 permissions = ["call", "memory", "command"]

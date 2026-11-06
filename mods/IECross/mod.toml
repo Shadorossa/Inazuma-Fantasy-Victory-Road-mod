@@ -2,10 +2,10 @@ id = "IECross"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml) «IECross»: the same name in every language; the id stays.
 name = "IECross"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "LiLKi"
 author_steam = "76561199013321372"
-description = "Inazuma Eleven Cross in Victory Road: its 11 teams with crests, kits and moves, the Cross cards with their heads and outfits, 15 Cross special moves, new kits, extra Office characters and eight Cross stadiums for matches. It adds its own Inazuma Eleven Cross tabs to the bot matches, Battle Bay and the player bank, and the Cross intros as goal celebrations. Always on: no options."
+description = "Inazuma Eleven Cross in Victory Road: its 11 teams with crests, kits and moves, the Cross cards with their heads and outfits, 15 Cross special moves, new kits, extra Office characters and eight Cross stadiums for matches. It adds its own Inazuma Eleven Cross tabs to the bot matches, Battle Bay and the player bank, and the Cross intros as goal celebrations. Always on: no options. Authors: LiLKi."
 priority = 0
 tags = ["Teams", "Characters", "Techniques"]
 updated = "2026-11-06"
@@ -84,9 +84,11 @@ folder = "IECross"
 # characters\iecross_cards.toml). Celebrations: with the same events; the old keys new_animations.cross_* are
 # [[alias]]es in content\celebrations\cross_intros.toml (VRFW 2.45.0: the players' saved picks keep their
 # performanceId; old claims resolve).
-requires = ["VRFW>=0.2.2"]
+requires = ["VRFW>=0.2.4"]
 # All Miximaxed (AuraOverhaul): with it, the red-haired Axel Blaze is the Axel x Torch ideal miximax
 # (content\transforms\axel_torch_miximax.toml, if_mod = "all_miximaxed").
+# Its Miximax also needs the colour keys and eye zones of the Cross heads: content\miximax_palettes\cross.toml +
+# assets\mx_zones\ (same gate, research/scripts/iecross_mx_palettes.py); every Cross character mixes as base and partner.
 # Inazuma Fantasy: the Cross moves and kits in its shops (content\shops\, if_mod = "InazumaFantasy").
 optional = ["AuraOverhaul", "BetterQoL", "InazumaFantasy"]
 conflicts = []

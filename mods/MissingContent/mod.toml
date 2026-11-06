@@ -2,8 +2,8 @@ id = "MissingContent"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Missing Content"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Content the game ships without or never uses, in modules you can switch on and off: Lost Cutscenes (unused keeper, duel, de-summon and chain scenes back in matches), Missing Voice (Japanese voice lines for silent special moves) and Extra Openings (the DS openings of Inazuma Eleven 2 and 3 and the DS menu music)."
 priority = 0
@@ -23,5 +23,5 @@ folder = "MissingContent"
 #   modules\ExtraOpenings\   ExtraOpenings (MissingContent.X): the DS openings of IE2 / IE3, their scene archive tab and
 #                            the DS menu music
 # The base itself only holds its texts (text\keys.toml) and changelog.
-requires = ["VRFW>=0.2.2"]
+requires = ["VRFW>=0.2.4"]
 conflicts = []

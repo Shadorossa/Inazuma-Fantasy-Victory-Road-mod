@@ -1,8 +1,8 @@
 id = "StoppageTime"
 # name / description: the English fallback; the card shows the text keys mod_name / mod_description (text\keys.toml)
 name = "Stoppage Time"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Added time at the end of every half, as in football: fouls, special moves, keeper scenes, goals and substitutions add seconds, rounded to whole minutes (1 to 5). A «+N» telop shows when the regular time ends and the clock keeps running. When the added time runs out, the half ends by the play: at once if the team with the ball is in its own half, near the rival goal once its shot resolves or it loses the ball."
 priority = 0
@@ -25,7 +25,7 @@ folder = "StoppageTime"
 # The framework provides the mechanisms (VRFW period service: the trigger time_up, VRFW.match.period / set_added /
 # end_period; the match triggers foul, goal, possession, cutin_start, keeper_scene, state_enter and the game event
 # match:substitution); this module only declares the rules.
-requires = ["VRFW>=0.2.2", "FootballReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "FootballReforged>=0.2.4"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"

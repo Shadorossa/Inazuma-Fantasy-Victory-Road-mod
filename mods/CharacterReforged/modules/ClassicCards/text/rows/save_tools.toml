@@ -1,8 +1,8 @@
 # No More Rarities › its action of the VR-Framework's save adjust:
 # title,
 # description and result (%d = the count the action answers). The title is the confirmation line: one per value of
-# the option «Cartas sin aspecto de rareza» (content\duplicate_rules\no_more_rarities.toml `save_adjust_label`; the
-# first row = «Solo las normales» and the fallback). Rows of
+# config.toml [removed_rarities] tiers (content\duplicate_rules\no_more_rarities.toml `save_adjust_label`; the
+# first row = "basic" and the fallback). Rows of
 # menu_text, read by id = crc32(row id).
 schema = "VRFW.text/2"
 table = "menu_text"

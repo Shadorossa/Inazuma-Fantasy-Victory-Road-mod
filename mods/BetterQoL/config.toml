@@ -228,16 +228,6 @@ game_rate = 14.1
 # prematch_skip_hold until BetterQoL 1.17.0.
 hold = 1.0
 
-[cutin_skip]
-# In-match cut-in skip (docs/game/match/cutin-skip.md): a fresh A / Enter press ends the running technique cut-in.
-# Event name prefixes it applies to: shot, dribble, defence and keeper techniques. Transform, Keshin, Armed and Miximax
-# cut-ins (their commit runs after them) and the keeper-gauge scenes of basic catches are not listed.
-events = ["ev60_", "ev61_", "ev62_", "ev63_"]
-# Prefixes it never applies to: the technique preview slots of the menus.
-not_events = ["ev60_9999"]
-# Seconds of the cut-in that must have played before a press counts.
-min_seconds = 0.25
-
 [away_kit]
 # Save adjust «Quitar las equipaciones de visitante de las actualizaciones» (Options › «Ajustar save»,
 # content\save_adjust\away_kits.toml, scripts\away_kit.lua): a kit item is an away-kit item when its key is another

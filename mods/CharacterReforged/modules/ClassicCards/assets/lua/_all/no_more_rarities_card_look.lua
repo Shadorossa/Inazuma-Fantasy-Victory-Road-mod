@@ -2,10 +2,10 @@
 -- With this mod on, every card of a removed rarity shows its player's position, the same scheme as the player header
 -- (no_more_rarities_header.lua): POR gold, DF green, MC blue, DL red. Without this mod: the retail look. A mode's own
 -- save (a reserved slot: INAROGUE) keeps its players' rarities and their look exactly as in the game. Which rarities
--- are removed is the option ClassicCards.removed_rarities (options.toml): the normal cards 0-4 always, the Ídolo
+-- are removed is config.toml [removed_rarities] tiers: the normal cards 0-4 always, the Ídolo
 -- cards 5-7 and the Diamante cards 8 by the choice; a kept rarity and the season cards (9+) keep their look exactly as
 -- in the game. The game's own rarity sprites are never repainted.
---   ClassicCards.RarityRemoved(rarity)    THE rule of the option (every reader goes through it): this rarity loses
+--   ClassicCards.RarityRemoved(rarity)    THE rule of the config (every reader goes through it): this rarity loses
 --     its rarity look. ClassicCards.FrameOfRarity(rarity): the card / plate / title frame number of a rarity.
 --   ClassicCards.POSITION_LOOKS[type]     the position look by position icon type (0 GK, 1 DF, 2 MF, 3 FW; the
 --     VR-Framework's one rule VRFW_UI.HeaderRow.NaturalType / ParamType): key, card_frame (the card frame the engine
@@ -123,22 +123,24 @@ if ClassicCards.RarityRemovalApplies == nil then
 end
 
 if ClassicCards.RarityRemoved == nil then
-  local OPTION_GET = 4082322029        -- CMND_VRFW_OPTION_GET (row key) -> the current value
-  local OPTION_KEY = "ClassicCards.removed_rarities"
-  local OPTION_DEFAULT = 0             -- options.toml default: basic only
+  local CONFIG_GET = 827643706         -- CMND_CLASSICCARDS_REMOVED_RARITIES () -> config.toml [removed_rarities] tiers
+  local CONFIG_DEFAULT = "basic"       -- no answer or an unknown value: basic only
   -- the game's rarity tiers: the normal cards 0-4, Ídolo 5-7, Diamante 8
   local LAST_BASIC_RARITY, LAST_IDOL_RARITY, DIAMOND_RARITY = 4, 7, 8
   local DIAMOND_FRAME = 10             -- the card / plate / title frame is rarity + 1, Diamante's is 10
-  -- options.toml values: 0 basic only, 1 basic + Ídolo, 2 basic + Diamante, 3 all
-  local TIERS_OF_CHOICE = {[0] = {}, {idol = true}, {diamond = true}, {idol = true, diamond = true}}
+  local TIERS_OF_CHOICE = {basic = {}, basic_idol = {idol = true}, basic_diamond = {diamond = true},
+    all = {idol = true, diamond = true}}
+  local choice = nil                   -- the config is fixed for the session: asked until it answers, then kept
 
-  -- the removed special tiers of the option, read at use (only for a rarity the choice decides)
+  -- the removed special tiers of the config (only for a rarity the choice decides)
   local function RemovedTiers()
-    local ok, value = false, nil
-    if type(funcLuaCommand) == "function" then
-      ok, value = pcall(funcLuaCommand, OPTION_GET, OPTION_KEY)
+    if choice == nil and type(funcLuaCommand) == "function" then
+      local ok, value = pcall(funcLuaCommand, CONFIG_GET)
+      if ok and type(value) == "string" then
+        choice = TIERS_OF_CHOICE[value] and value or CONFIG_DEFAULT
+      end
     end
-    return TIERS_OF_CHOICE[ok and type(value) == "number" and value or OPTION_DEFAULT] or TIERS_OF_CHOICE[OPTION_DEFAULT]
+    return TIERS_OF_CHOICE[choice or CONFIG_DEFAULT]
   end
 
   function ClassicCards.RarityRemoved(rarity)

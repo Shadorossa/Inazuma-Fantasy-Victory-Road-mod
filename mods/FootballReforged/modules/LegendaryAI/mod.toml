@@ -4,10 +4,10 @@ key_id = "LegendaryAI"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Legendary AI"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
-description = "Every offline match is played against a «Legendary» CPU. Only the rival team (never your AI teammates): it reacts at once in duels, picks the move whose element beats yours, remembers and counters the moves you use, saves tension for its keeper, passes and decides without waits, shoots as soon as a shoot zone opens, presses your tired players and substitutes tired ones (with a stamina mod). Both teams: the defensive action range is halved. In free matches the rival's players also come trained for the position they play, with the best passives for it (the stats need Classic Training)."
+description = "Every offline match except Chronicle battles is played against a «Legendary» CPU. Only the rival team (never your AI teammates): it reacts at once in duels, picks the move whose element beats yours, remembers and counters the moves you use, saves tension for its keeper, passes and decides without waits, shoots as soon as a shoot zone opens, presses your tired players and substitutes tired ones (with a stamina mod). Both teams: the defensive action range is halved. In free matches the rival's players also come trained for the position they play, with the best passives for it (the stats need Classic Training)."
 priority = 0
 tags = ["AI difficulty", "Gameplay"]
 updated = "2026-11-06"
@@ -29,7 +29,7 @@ folder = "LegendaryAI"
 # The framework provides the mechanisms (VRFW.MatchAI); this module only declares the values. Switching the module off
 # (its card on Football Reforged's Mods page) leaves every match to the game's AI.
 # Uses the framework's match AI profiles (match_ai/1), the per-team knobs, the move choice, the situations, the pass lane cut, the learned tendencies, the zone / duel conditions, the strategy level, the power-aware move choice.
-requires = ["VRFW>=0.2.2", "FootballReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "FootballReforged>=0.2.4"]
 optional = ["Furor"]
 conflicts = []
 loader_modules = ["lua_bridge"]
@@ -37,6 +37,9 @@ loader_min = "1.7.0"
 permissions = ["memory", "hook", "state"]
 # Always loaded: its card's switch acts from the next match, with no restart (docs/framework/hot-reload.md section 8).
 live_toggle = true
+# Never in Chronicle battles (the game's Chronicle mode, the routes and boards mods add to it): the game's own AI plays them.
+# Keys of the match mode catalog (VRFW content/rules/catalog/match_modes.toml). Free matches keep this AI.
+not_in_match_modes = ["chronicle", "chronicle_small"]
 
 [exports]
 functions = []

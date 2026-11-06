@@ -4,16 +4,16 @@ key_id = "ClassicCards"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Classic Cards"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
-description = "Every normal player is a 5★ Legend, as in the classic Inazuma Eleven games: no 1★-4★ rarities, rarity bonuses, rarity-up or fusion, and saves are converted to 5★ cards. Normal cards are coloured by position: goalkeeper gold, defender green, midfielder blue, forward red. A setting chooses which special rarities also lose their rarity look; by default only the basic ones, so Hero and Diamond cards keep theirs."
+description = "Every normal player is a 5★ Legend, as in the classic Inazuma Eleven games: no 1★-4★ rarities, rarity bonuses, rarity-up or fusion, and saves are converted to 5★ cards. Normal cards are coloured by position: goalkeeper gold, defender green, midfielder blue, forward red. Only the basic rarities lose their rarity look: Hero and Diamond cards keep theirs."
 priority = 0
 tags = ["Characters", "Gameplay"]
-updated = "2026-11-05"
+updated = "2026-11-06"
 # Comment links to existing docs
 # content/album/hidden_rarities.toml: BetterQoL's player album leaves out the Ídolo / Diamante cards this
-# module's option removes.
+# module's config removes.
 # This mod's own names (TOML keys [ClassicCards.X], Lua ClassicCards.X, commands CMND_CLASSICCARDS_*); never VRFW.
 prefix = "ClassicCards"
 folder = "ClassicCards"
@@ -29,7 +29,7 @@ folder = "ClassicCards"
 #                                     player slot (a backup of the save first, once per save; Character Reforged >= 1.7.8)
 #   content\save_adjust\no_more_rarities.toml + text\rows\save_tools.toml   Options › «Ajustar save» › «Igualar la
 #                                     rareza de los jugadores», run by Character Reforged's scripts\save_tools.lua: the
-#                                     normal cards and the special tiers the option removes -> rarity 4
+#                                     normal cards and the special tiers the config removes -> rarity 4
 #                                     (duplicate rule key normalize_special_rarities)
 #   content\rarities\rarity.toml      the rarity set without the 1★-4★ rarities (normal, growing, advanced, top)
 #   content\params\rarity_removal.toml  no rarity stat bonus, the spirit weights on the 5★ card (GENERATED)
@@ -41,7 +41,8 @@ folder = "ClassicCards"
 #                                     pass, graft no_more_rarities_filter), through the VR-Framework's card-type
 #                                     service (the rarities below it are card types with filter = false)
 #   content\team_planner\rule.toml    Utilities' team planner: the cards drawn as the 5★ card
-#   options.toml                      the row removed_rarities (restart): which tiers lose their rarity look (basic
+#   config.toml [removed_rarities] + scripts\removed_rarities.lua + content\game\removed_rarities.toml
+#                                     tiers: which tiers lose their rarity look (basic
 #                                     always; Ídolo 5-7 and Diamante 8 by the choice), read only through the one
 #                                     function ClassicCards.RarityRemoved(rarity) (card look, plates, titles,
 #                                     header band and title, drop-list bands, the filter graft)
@@ -73,13 +74,15 @@ folder = "ClassicCards"
 # rar_menus (no fusion / rarity-up on the spirit and summon menus), no_more_rarities_filter
 # (the filter windows' normal cards).
 # VRFW 2.4.24: VRFW_ListRows
-requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4"]
 # optional: its album and team planner read this module's rules
 optional = ["BetterQoL"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 # loader 1.7.0: patches of INCLUDE'd scripts (the filter includes)
 loader_min = "1.7.0"
+# its script answers a game Lua command (content\game\removed_rarities.toml)
+permissions = ["command"]
 
 # its own content\ folders read by other mods' scripts: Character Reforged's duplicate hook (duplicate_rules) and
 # Utilities' team planner (team_planner); vrfw check's layout lint accepts them
@@ -99,7 +102,7 @@ order = 70
 # ClassicCards.RarityRemovalApplies = whether the removal applies to the loaded save (never a reserved slot);
 # ClassicCards.PositionColour(card) / PositionLookOfType(type) = the one position look (card frame, plates, rgb) of a
 # normal card, nil = the retail look (assets\lua\_all\no_more_rarities_card_look.lua; card look, header band, drop lists);
-# ClassicCards.RarityRemoved(rarity) = the option's rule: this rarity loses its rarity look (assets\lua\_all\
+# ClassicCards.RarityRemoved(rarity) = the config's rule: this rarity loses its rarity look (assets\lua\_all\
 # no_more_rarities_card_look.lua);
 # ClassicCards.NormalCardRarity() = the rarity every normal card has (4) while the removal applies, else nil (read by
 # New Recruitment's spirit recruit);

@@ -2,8 +2,8 @@ id = "BattleBayDeluxe"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml) «Battle Bay Deluxe»: the same name in every language.
 name = "Battle Bay Deluxe"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Adds the Chronicle mode teams to the Battle Bay as teams to pick and rivals: 221 teams at level 40, with their original players, kits, formations, emblems, special tactics and special moves. Besides the Campaign, play with your active team, a Draft (pick 1 of 5 players for each place of your squad), a Tournament, a League, a daily challenge and a private 1v1 Multiplayer room (in testing). Every player can use all his special moves, whatever his level."
 priority = 0
@@ -61,7 +61,7 @@ owns = ["battle_bay", "teams", "team_tags", "level_sync"]
 # `requires` also makes it load after them (the Decide hook chains on top of the framework's BB pages service;
 # VRFW.battle_bay.unlock_rule, VRFW.data.import_once, hook:VRFW.BattleBayRecord; the lockstep [[VRFW.NetMode]] keys,
 # CMND_VRFW_NET_LOCKSTEP; VRFW_ChildMenu, the Torneo group-stage menu's handshake).
-requires = ["VRFW>=0.2.2", "VRFW.text", "VRFW.menu", "BetterUI>=0.2.2"]
+requires = ["VRFW>=0.2.4", "VRFW.text", "VRFW.menu", "BetterUI>=0.2.4"]
 optional = ["BetterQoL", "CharacterReforged", "LegendaryAI"]
 conflicts = []
 # native access of content\game (docs/framework/native.md §4)

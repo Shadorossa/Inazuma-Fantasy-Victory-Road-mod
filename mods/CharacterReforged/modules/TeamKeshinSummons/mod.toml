@@ -4,8 +4,8 @@ key_id = "TeamKeshinSummons"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Team Keshin Summons"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Keshin summoned by several players together, as in IE GO Strikers 2013: Griffin by three players and Arthur by two, all in the summon scene. The nearest team-mates who carry the keshin (or one player of each component keshin) take part, and the group keshin replaces them. RB+B starts it, each participant pays his share of the move from his own PEG, and Griffin's Flamberge is kicked by all three. Other keshin are summoned as usual."
 priority = 0
@@ -31,7 +31,7 @@ folder = "TeamKeshinSummons"
 # VRFW 2.4.30: the plates' lent aura and the aura rules as Character Reforged / Aura Points use them;
 # an anim reference to a moved key (the [[alias]]es here) reads the event under its new key.
 # a component counts only while its player has it summoned; the group keshin replaces the components.
-requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2", "SpiritStaminaPoints>=0.2.2", "AuraOverhaul>=0.2.2"]
+requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4", "SpiritStaminaPoints>=0.2.4", "AuraOverhaul>=0.2.4"]
 conflicts = []
 
 # Nothing to call: other mods read the group keshin through the framework (vrfw_aura_rule_*, CMND_VRFW_AURA_RULE) and

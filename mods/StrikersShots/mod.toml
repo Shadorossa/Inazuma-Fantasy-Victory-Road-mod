@@ -5,8 +5,8 @@ name = "Strikers Shots"
 # the mod's own name prefix: its TOML keys / rule ids are StrikersShots.X
 prefix = "StrikersShots"
 folder = "StrikersShots"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Shots at goal like a TV broadcast: while a shot of your team flies, the camera shows it from the touchline, then your camera comes back. Finished shot auras keep the look of the move's cut-in while the ball flies in a straight line to the goal. Scoring with a few special moves, such as Inazuma Break or Ultimate Eleven Assault, smashes the goal; an option in Mod options skips that scene. Visual only: no power, cost or block change."
 priority = 0
@@ -17,6 +17,8 @@ updated = "2026-11-05"
 # ([[effect]] + [[shot_aura]]) with their flights in content\techniques\, the special goals
 # content\techniques\goal_smash.toml (+ its scenes in content\base_tables\ and assets\effect\event\ev71\) and the
 # option options.toml. `provides` makes an installed copy of the old standalone Goal Smash mod skipped.
-requires = ["VRFW>=0.2.2"]
+requires = ["VRFW>=0.2.4"]
+# Inazuma Fantasy: its Sierra celestial² shares the aura and flight of Sierra celestial
+optional = ["InazumaFantasy"]
 provides = ["goal_smash=1.0.0"]
 conflicts = []

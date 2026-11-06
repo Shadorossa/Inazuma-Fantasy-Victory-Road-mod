@@ -432,6 +432,18 @@ zh_hans = "稀有度%d～%d"
 zh_hant = "稀有度%d～%d"
 
 [[row]]
+id = "vrfw_mc_f_avatar"
+es = "tu avatar"
+en = "your avatar"
+fr = "ton avatar"
+de = "dein Avatar"
+it = "il tuo avatar"
+pt = "o teu avatar"
+ja = "自分のアバター"
+zh_hans = "你的虚拟形象"
+zh_hant = "你的虛擬形象"
+
+[[row]]
 id = "vrfw_mc_f_not"
 es = "no %s"
 en = "not %s"

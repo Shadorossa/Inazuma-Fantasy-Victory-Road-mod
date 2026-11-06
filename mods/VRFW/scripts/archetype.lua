@@ -719,6 +719,7 @@ local PASSIVE_ENTRIES = {
   { "Passive.SignatureSlotId", { "Passive.SignatureSlot", "Passive.SignatureOnly" } },
   { "Passive.SignaturePieceOpen", { "Passive.SignatureOpen", "Passive.SignatureOnly" } },
   { "Passive.RarityVersion", { "Passive.RarityTwin", "Passive.RarityTier" } },
+  { "Passive.RarityValue", { "Passive.RarityTier" } },
 }
 
 local function shared_entries()

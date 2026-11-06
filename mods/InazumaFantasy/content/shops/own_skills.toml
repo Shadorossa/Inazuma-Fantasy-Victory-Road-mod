@@ -11,6 +11,132 @@ target = "InazumaFantasy.technique_shop"
   price = 32
   currency = "tk_bb000001"
 
+  [[edit.entry]]
+  technique = "god_hand_ev_red"    # Mano celestial EV Roja: catch, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "god_hand_ev_blue"    # Mano celestial EV Azul: catch, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "infinite_hands_blue"    # Manos infinitas Azules: catch, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "fist_of_fury_blue"    # Puño de furia Azul: catch, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "double_god_hand_blue"    # Bimano celestial Azul: catch, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "double_god_hand_red"    # Bimano celestial Roja: catch, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "triple_god_hand_blue"    # Trimano celestial Azul: catch, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "triple_god_hand_red"    # Trimano celestial Roja: catch, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "super_god_hand_blue"    # Supermano celestial Azul: catch, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "super_god_hand_red"    # Supermano celestial Roja: catch, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  if_not_mod = "HissatsuReforged"
+  technique = "dark_tornado_a"    # Tornado oscuro (A): shot, 360
+  price = 6
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  if_mod = "HissatsuReforged"
+  technique = "dark_tornado_a"    # Tornado oscuro (A) with Hissatsu Reforged's numbers: shot, 320
+  price = 4
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  if_not_mod = "HissatsuReforged"
+  technique = "tiger_fang"    # Colmillo del Tigre: catch, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  if_mod = "HissatsuReforged"
+  technique = "tiger_fang"    # Colmillo del Tigre with Hissatsu Reforged's numbers: catch, 640
+  price = 32
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  if_not_mod = "HissatsuReforged"
+  technique = "celestial_saw_cuts"    # Sierra celestial²: shot, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  if_mod = "HissatsuReforged"
+  technique = "celestial_saw_cuts"    # Sierra celestial² with Hissatsu Reforged's numbers: shot, 380
+  price = 7
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  if_not_mod = "HissatsuReforged"
+  technique = "dark_fire_storm"    # Tormenta de fuego oscura: shot, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  if_mod = "HissatsuReforged"
+  technique = "dark_fire_storm"    # Tormenta de fuego oscura with Hissatsu Reforged's numbers: shot, 480
+  price = 13
+  currency = "tk_bb000001"
+
+  # The normal versions of override moves with no manual in the game (content/base_tables/gamedata/item/item_config.toml):
+  # retail moves, at the shop's price for their top power.
+
+  [[edit.entry]]
+  technique = "whs03330"    # Pingüino emperador n.º 2 + Tiburón: shot, 640
+  price = 32
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs03360"    # Lanza gélida: shot, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs10190"    # Tormenta de fuego: shot, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs10195"    # Tormenta de fuego: shot, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whk01500"    # Dimensión Kamakura: catch, 640
+  price = 32
+  currency = "tk_bb000001"
+
   # LegendaryAd's skills (written by research/scripts/hissatsu_revamp_build.py from this line down)
 
   [[edit.entry]]

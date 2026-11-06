@@ -41,6 +41,7 @@ local CFG, LAYOUT, RULES, UNLOCK = nil, nil, nil, "configured"
 -- mod's typed [slots] archetype = true. Read once, the same rule for every answer (no second derivation anywhere).
 local PLAYER = nil
 local CAT, DECL, VALUES = nil, nil, {}
+local resolve_version       -- a passive's version at a rarity (the game's resolver)
 local OWN, POS, BASES = {}, {}, {}
 local ROLE_OF_ITEM = {}     -- role badge item id -> staff role (pc_core ROLES) whose passives the catalogue offers
 local ROLE_OF_BADGE = {}    -- badge inventory handle -> staff role (false = not a role badge)
@@ -259,6 +260,7 @@ local function load_tables()
   end
   ROLE_OF_ITEM, ROLE_OF_BADGE = role_of_item, {}
   info("staff passives: " .. table.concat(staff_log, ", "))
+  C.set_version_resolver(cat, function(id, rarity) return resolve_version(id, rarity) end)
   local values = {}
   for _, r in ipairs(raws) do
     if #r.defs > 0 then values[r.id] = r.value end
@@ -387,7 +389,7 @@ local function base_slots(hdl, copy)
   return out
 end
 
-local function resolve_version(id, rarity)
+resolve_version = function(id, rarity)
   if id == 0 or not VRFW.is_on("Passive.RarityVersion") then return id end
   local out, idb = VRFW.mem.buffer("pc_rv_out", 8), VRFW.mem.buffer("pc_rv_id", 4)
   VRFW.mem.write("ptr", out, 0)

@@ -1,0 +1,13 @@
+schema = "VRFW.technique/3"
+# Hissatsu Level Up › Mano celestial EV of the forest Mano celestial: a hidden copy of whk00480 (its row, name and
+# manual) whose cut-ins are the G5 events (content\anims\god_hand_ev_g5.toml). Nobody learns it: the grade rule
+# (content\hissatsu_level_up\grade_animations.toml) plays its cut-ins from G5; the move itself keeps its name, power,
+# element, cost and recast.
+
+[[technique]]
+name = "god_hand_forest_g5"
+base = "whk00480"
+event = "HissatsuLevelUp.god_hand_forest_g5"
+fail_event = "HissatsuLevelUp.god_hand_forest_g5_fail"
+name_text = "base"
+desc_text = "base"

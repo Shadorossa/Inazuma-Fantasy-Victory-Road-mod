@@ -523,28 +523,6 @@ For = "config"
   Label = { es = "Tiempo de pulsación (s)", en = "Hold time (s)" }
   Help = { es = "Segundos que hay que mantener X en un evento previo para ir al saque (0 a 10).", en = "Seconds X must be held in a pre-match event to go to the kick-off (0 to 10)." }
   [[Shape.Field]]
-  Key = "cutin_skip"
-  Type = "table"
-  Label = { es = "Saltar supertécnicas", en = "Technique cut-in skip" }
-  Help = { es = "Pulsar A durante la animación de una supertécnica en un partido la termina.", en = "Pressing A during a technique cut-in in a match ends it." }
-  [[Shape.Field]]
-  Key = "cutin_skip.events"
-  Type = "list"
-  Of = "string"
-  Label = { es = "Eventos que se saltan", en = "Events it applies to" }
-  Help = { es = "Prefijos de nombre de evento a los que se aplica.", en = "Event name prefixes it applies to." }
-  [[Shape.Field]]
-  Key = "cutin_skip.not_events"
-  Type = "list"
-  Of = "string"
-  Label = { es = "Eventos que nunca se saltan", en = "Events it never applies to" }
-  Help = { es = "Prefijos de nombre de evento a los que nunca se aplica.", en = "Event name prefixes it never applies to." }
-  [[Shape.Field]]
-  Key = "cutin_skip.min_seconds"
-  Type = "float"
-  Label = { es = "Tiempo mínimo (s)", en = "Minimum time (s)" }
-  Help = { es = "Segundos de animación antes de que la pulsación cuente.", en = "Seconds of the cut-in before a press counts." }
-  [[Shape.Field]]
   Key = "away_kit"
   Type = "table"
   Label = { es = "Equipaciones de visitante", en = "Away kits" }

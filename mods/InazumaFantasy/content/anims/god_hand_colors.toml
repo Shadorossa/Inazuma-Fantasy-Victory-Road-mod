@@ -1,0 +1,104 @@
+schema = "VRFW.anim/2"
+# Inazuma Fantasy: the God Hand family in the retail red and blue: each new move's two cut-ins (success, fail) are whole copies of
+# its base's; content\effects\god_hand_colors.toml makes each pair load its recoloured object.
+owner = "match"
+
+[[event]]
+name = "god_hand_ev_red"
+from = "ev63_00490_1"
+id = "ev63_86000"
+
+[[event]]
+name = "god_hand_ev_red_fail"
+from = "ev63_00490_2"
+id = "ev63_86001"
+
+[[event]]
+name = "god_hand_ev_blue"
+from = "ev63_00490_1"
+id = "ev63_86002"
+
+[[event]]
+name = "god_hand_ev_blue_fail"
+from = "ev63_00490_2"
+id = "ev63_86003"
+
+[[event]]
+name = "infinite_hands_blue"
+from = "ev63_00240_1"
+id = "ev63_86004"
+
+[[event]]
+name = "infinite_hands_blue_fail"
+from = "ev63_00240_2"
+id = "ev63_86005"
+
+[[event]]
+name = "fist_of_fury_blue"
+from = "ev63_00510_1"
+id = "ev63_86006"
+
+[[event]]
+name = "fist_of_fury_blue_fail"
+from = "ev63_00510_2"
+id = "ev63_86007"
+
+[[event]]
+name = "double_god_hand_blue"
+from = "ev63_01090_1"
+id = "ev63_86008"
+
+[[event]]
+name = "double_god_hand_blue_fail"
+from = "ev63_01090_2"
+id = "ev63_86009"
+
+[[event]]
+name = "double_god_hand_red"
+from = "ev63_01090_1"
+id = "ev63_86010"
+
+[[event]]
+name = "double_god_hand_red_fail"
+from = "ev63_01090_2"
+id = "ev63_86011"
+
+[[event]]
+name = "triple_god_hand_blue"
+from = "ev63_00380_1"
+id = "ev63_86012"
+
+[[event]]
+name = "triple_god_hand_blue_fail"
+from = "ev63_00380_2"
+id = "ev63_86013"
+
+[[event]]
+name = "triple_god_hand_red"
+from = "ev63_00380_1"
+id = "ev63_86014"
+
+[[event]]
+name = "triple_god_hand_red_fail"
+from = "ev63_00380_2"
+id = "ev63_86015"
+
+[[event]]
+name = "super_god_hand_blue"
+from = "ev63_01720_1"
+id = "ev63_86016"
+
+[[event]]
+name = "super_god_hand_blue_fail"
+from = "ev63_01720_2"
+id = "ev63_86017"
+
+[[event]]
+name = "super_god_hand_red"
+from = "ev63_01720_1"
+id = "ev63_86018"
+
+[[event]]
+name = "super_god_hand_red_fail"
+from = "ev63_01720_2"
+id = "ev63_86019"

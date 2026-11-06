@@ -41,6 +41,9 @@ BattleBayDeluxe.NetRoom = BattleBayDeluxe.NetRoom or {
   LEAVE = @crc:CMND_VRFW_NET_LEAVE@,
   INVITE = @crc:CMND_VRFW_NET_INVITE@,
   PENDING = @crc:CMND_VRFW_NET_PENDING@,
+  INVITE_TARGET = @crc:CMND_VRFW_NET_INVITE_TARGET@,
+  NOTICE = @crc:CMND_VRFW_NET_NOTICE@,
+  NOTICE_TAKE = @crc:CMND_VRFW_NET_NOTICE_TAKE@,
   PICKS = @crc:CMND_VRFW_NET_PICKS@,
   PREPARE = @crc:CMND_BBD_NET_PREPARE@,
   RESTORE = @crc:CMND_BBD_NET_RESTORE@,
@@ -468,7 +471,11 @@ function BBN_EntryRun()
   -- a friend's invite (Steam overlay / the command line of a game launched by it)
   local okp, pending = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.PENDING)
   if okp and type(pending) == "string" and pending ~= "" then
-    if BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.invite_q) .. "\n" .. pending, 2) == 0 then
+    -- BBN_AUTO_JOIN: the player already chose «Join game» in Steam and its host welcomed this game (bbn_room.lua)
+    local auto = BBN_AUTO_JOIN == true
+    BBN_AUTO_JOIN = false
+    BBN_Log("pending invite", pending, "asked here", tostring(not auto))
+    if auto or BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.invite_q) .. "\n" .. pending, 2) == 0 then
       local okj, joined, err = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.JOIN, pending)
       if okj and joined == true then
         if BBN_WaitWelcome() then

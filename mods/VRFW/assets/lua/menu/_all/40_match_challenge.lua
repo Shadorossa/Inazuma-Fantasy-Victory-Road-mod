@@ -17,9 +17,9 @@
 --   VRFW_MC.RequiredTexts(i, cleared) -> the text ids of its required starters that apply (a `UntilFirstClear` one
 --                                     stops once the row is won), for the match info; generated ones and those with a
 --                                     `Label` (shown in the challenge's one-line label instead) are left out
---   VRFW_MC.Players(scope, tt)     -> the active dock's players in scope: {{hdl, card, level, rarity, pos, place}, ...}
+--   VRFW_MC.Players(scope, tt)     -> the active dock's players in scope: {{hdl, card, level, rarity, pos, place, avatar}, ...}
 --                                     (place: a starter's formation place, 1 GK / 2 FW / 3 MF / 4 DF, 0 unknown; nil
---                                     on the bench)
+--                                     on the bench; avatar: true = the save's avatar)
 --   VRFW_MC.Check(i, tt, cleared)  -> ok, failed {1-based conditions; required starter k = nreq + k}, offenders
 --                                     {players}, players
 --   VRFW_MC.Refusal(game, tt, diff, cleared) -> nil when the team may play, else the message text (title, description,
@@ -43,7 +43,7 @@ if VRFW_MC == nil then
       GET = VRFW_Cmd.VRFW_TEAM_CHALLENGE_GET,       -- CMND_VRFW_TEAM_CHALLENGE_GET (i) -> name, mod, title, description, scope, conditions,
                               --   difficulties ("4", "1,4"; "" = every row), required starters, short (0 = the title)
       REQ = VRFW_Cmd.VRFW_TEAM_CHALLENGE_REQ,       -- CMND_VRFW_TEAM_CHALLENGE_REQ (i, "2/1") -> kind, at least, at most, text, inner, filter
-      CHECK = VRFW_Cmd.VRFW_TEAM_CHALLENGE_CHECK,     -- CMND_VRFW_TEAM_CHALLENGE_CHECK (i, "card:level:rarity[:place];...", cleared 0 / 1)
+      CHECK = VRFW_Cmd.VRFW_TEAM_CHALLENGE_CHECK,     -- CMND_VRFW_TEAM_CHALLENGE_CHECK (i, "card:level:rarity[:place[:avatar]];...", cleared 0 / 1)
                               --   -> ok, failed, offenders
       REQUIRED = VRFW_Cmd.VRFW_TEAM_CHALLENGE_REQUIRED,   -- CMND_VRFW_TEAM_CHALLENGE_REQUIRED (i, k) -> characters, places "2,3", until first
                               --   clear, own text id, label suffix text id
@@ -55,6 +55,7 @@ if VRFW_MC == nil then
     VS_SET = VRFW_Cmd.GET_VS_USE_TEAM_SET,      -- CMND_GET_VS_USE_TEAM_SET
     MEMBER = 1720957768,      -- (set, team, i, 0 hdl / 1 position)
     STATUS = 1131797651,      -- (hdl, 0 level / 4 chara_param / 12 rarity)
+    IS_AVATAR = VRFW_Cmd.GET_IS_AVATAR_CHARA,  -- CMND_GET_IS_AVATAR_CHARA (hdl) -> the character is an avatar
     TEAM_SET_INFO = VRFW_Cmd.GET_TEAM_SET_INFO, -- CMND_GET_TEAM_SET_INFO (set, team, 4) -> ok, formation id
     FORMATION_INFO = VRFW_Cmd.GET_SOCCER_FORMATION_INFO, -- CMND_GET_SOCCER_FORMATION_INFO (6, formation, place) -> ok, scPosType bits
     -- scPosType bit (16 GK, 32 DF, 64 MF, 128 FW) -> position code
@@ -75,7 +76,7 @@ if VRFW_MC == nil then
       POSITION = {[1] = 1807914029, [2] = 4073440663, [3] = 2244801793, [4] = 464019618},
       F_ELEMENT = 3685919861, F_POSITION = 970726332, F_SERIES = 2001861548, F_TEAM = 3863514637, F_CHARA = 2064652193,
       F_LEVEL_MIN = 2369649544, F_LEVEL_MAX = 2972763345, F_LEVEL = 1769018739, F_RARITY_MIN = 266945921,
-      F_RARITY_MAX = 870611672, F_RARITY = 4202775751, F_NOT = 2721797827, OR = 2007264933, AND = 3539978642,
+      F_RARITY_MAX = 870611672, F_RARITY = 4202775751, F_AVATAR = 1530300590, F_NOT = 2721797827, OR = 2007264933, AND = 3539978642,
       REQUIRED = 3122860320, REQUIRED_PLACES = 4094007390, WITH_REQUIRED = 206140731,
     },
     -- the dock's positions (team 0: 0-10 starters, 11-18 bench, 19 coach, 20-28 reserves; team 1: 0-4, 5-15)
@@ -239,7 +240,8 @@ if VRFW_MC == nil then
             end
           end
           out[#out + 1] = {hdl = hdl, card = u32(call(MC.STATUS, hdl, 4)), level = tonumber(call(MC.STATUS, hdl, 0)) or 0,
-                           rarity = tonumber(call(MC.STATUS, hdl, 12)) or -1, pos = pos, place = place}
+                           rarity = tonumber(call(MC.STATUS, hdl, 12)) or -1, pos = pos, place = place,
+                           avatar = call(MC.IS_AVATAR, hdl) == true}
         end
       end
     end
@@ -263,7 +265,7 @@ if VRFW_MC == nil then
     local parts = {}
     for _, p in ipairs(ps) do
       -- not "%d": card ids >= 2^31 (32-bit `long`); the place only for starters
-      parts[#parts + 1] = string.format("%.0f:%.0f:%.0f:%.0f", p.card, p.level, p.rarity, p.place or -1)
+      parts[#parts + 1] = string.format("%.0f:%.0f:%.0f:%.0f:%d", p.card, p.level, p.rarity, p.place or -1, p.avatar and 1 or 0)
     end
     local ok, failed, bad = call(MC.CMD.CHECK, i, table.concat(parts, ";"), cleared and 1 or 0)
     if ok == nil then
@@ -356,6 +358,8 @@ if VRFW_MC == nil then
         elseif z then
           out[#out + 1] = fmt(max_id, z)
         end
+      elseif k == "avatar" then
+        out[#out + 1] = v == "1" and text(MC.T.F_AVATAR) or fmt(MC.T.F_NOT, text(MC.T.F_AVATAR))
       elseif k == "not" then
         out[#out + 1] = fmt(MC.T.F_NOT, MC.Filter(inner(v)))
       elseif k == "any" then

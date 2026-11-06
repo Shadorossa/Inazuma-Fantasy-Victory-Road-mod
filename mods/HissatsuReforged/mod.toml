@@ -26,14 +26,14 @@ id = "HissatsuReforged"
 name = "Hissatsu Reforged"
 prefix = "HissatsuReforged"
 folder = "HissatsuReforged"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Rebalances the game's special moves: new minimum and maximum power, tension cost and recast time for 683 moves, while the power each grade adds stays the game's. A move with two properties (long shot and counter shot) shows both icons in every move list. Special moves can land a critical hit, and the Breach team build becomes the Critical build. The base of Hissatsu Effects and Hissatsu Level Up."
 priority = 0
 tags = ["Gameplay"]
 updated = "2026-11-03"
-requires = ["VRFW>=0.2.2"]
+requires = ["VRFW>=0.2.4"]
 conflicts = []
 # command: CMND_HISSATSUREFORGED_MOVE_FAMILIES (content/game/technique_families.toml, scripts/technique_families.lua);
 # state: the critical rank scripts/critical.lua keeps per match side

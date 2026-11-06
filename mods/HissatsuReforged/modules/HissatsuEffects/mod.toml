@@ -6,14 +6,14 @@ id = "HissatsuEffects"
 name = "Hissatsu Effects"
 prefix = "HissatsuEffects"
 folder = "HissatsuEffects"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Gameplay effects for the game's own special moves: Excalibur grows stronger the farther it flies, Doom Rain splits into 7 balls that blocks take away, Electric Trap locks the shot it stops, Needle Hammer steals tension, and Double Tornado takes the elements of its two performers. Almost every other special move gets an effect of its own, for every player. In the Habilidades list, Q / E (LT / RT) turn the move card to a page that explains the effect."
 priority = 0
 tags = ["Gameplay"]
 updated = "2026-11-04"
-requires = ["VRFW>=0.2.2", "HissatsuReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "HissatsuReforged>=0.2.4"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"

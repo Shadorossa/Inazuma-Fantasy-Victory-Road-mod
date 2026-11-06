@@ -1,0 +1,69 @@
+schema = "VRFW.character/2"
+# Chronicle Deluxe: players of the Victory Road the game ships models and faces for but no player row: signed from the player album.
+# Ids, stats and moves: ported from the old Chronicles Deluxe / Inazuma Fantasy declarations (research/archive, research/mods/_aside).
+default_lang = "en"
+
+[[character]]
+name = "raika_shinohara"  # Raika Shinohara
+based_on = "c11010060"
+battle = [0, 0]
+model_row = { clothes = 0xB3D90A3F, shoes = 0x5FECD722, force_kit = 1 }
+
+  [character.base]
+  id = 0x502D4E2F
+  name = "c11010061"
+  model = 0x40693D80
+  voice_bank = 0x272A7EB9
+
+  [[character.cards]]
+  id = 0xFFF7C50D
+  from = 0x8EDE70CB
+  growth_pattern = 1
+  rank = 3
+  moves = [
+    { move = 0xF5C2A0A5, level = 1 },
+    { move = 0x3AB14410, level = 13 },
+    { move = 0x36A270F2, level = 20 },
+    { move = 0x592A96B4, level = 30 },
+    { move = 0x06130797, level = 38 },
+    { move = 0xC13F00CC, level = 43 },
+  ]
+
+[[edit]]
+target = "c11600070"  # Master Goverm
+base = { flag_31 = 0 }
+
+  [[edit.cards]]
+  id = 0xFFF7C509
+  from = 0x0C08F742
+  rank = 3
+  cells = { c6 = 14, performance_genre = 0xE5FB31A6 }
+  moves = [
+    { move = 0x924A3053, level = 1 },
+    { move = 0x8A936B25, level = 13 },
+    { move = 0x910F4F83, level = 20 },
+    { move = 0x19BA3BFC, level = 30 },
+    { move = 0xB7474004, level = 38 },
+    { move = 0x87379CDF, level = 43 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x50D2A7DE, level = 1 },
+  ]
+
+[[edit]]
+target = "c11600080"  # Master Goverm
+base = { voice_bank = 0xD5088555, flag_31 = 0 }
+
+  [[edit.cards]]
+  id = 0xFFF7C50A
+  from = 0x0C08F742
+  rank = 3
+  cells = { c6 = 14, performance_genre = 0xE5FB31A6 }
+  moves = [
+    { move = 0x8A936B25, level = 13 },
+    { move = 0x910F4F83, level = 20 },
+    { move = 0x19BA3BFC, level = 30 },
+    { move = 0xB7474004, level = 38 },
+    { move = 0x87379CDF, level = 43 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x50D2A7DE, level = 1 },
+  ]

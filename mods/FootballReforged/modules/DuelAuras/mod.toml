@@ -2,8 +2,8 @@ id = "DuelAuras"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Open-duel auras"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "In a duel (1v1 or group), from its start to the choice, any aura (keshin, totem, armour, Mix-Max, bond, mode change, awakening) can be used and is never the answer to the rival's special move: the duel pauses, the aura plays and applies, the players go back to their duel spots with the duel's camera, menus and countdown, and the duel goes on where it was. The same for the CPU."
 priority = 0
@@ -23,7 +23,7 @@ folder = "DuelAuras"
 # Needs VRFW 2.13.0 (the rule runs on the game's v7.2.1); no skill table view or option is read: enabling the module is the only switch.
 # Needs VRFW 2.19.0: the duel's clock is frozen during the aura's cut-in on v7.2.1 (the focus hold installs there), and an aura is refused once its side committed its duel choice (no aura behind a clash).
 # Needs VRFW 2.425.0: the aura plays on the duel's own performance list, so a keshin summoned in a duel does not leave the duel waiting (no focus hold, no stall guard).
-requires = ["VRFW>=0.2.2", "FootballReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "FootballReforged>=0.2.4"]
 conflicts = []
 loader_modules = []
 permissions = []

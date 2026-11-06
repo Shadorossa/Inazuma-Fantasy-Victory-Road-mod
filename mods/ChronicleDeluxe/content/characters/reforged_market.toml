@@ -1,0 +1,308 @@
+schema = "VRFW.character/2"
+# Chronicle Deluxe with Character Reforged: Lv 200 stats and growth of the market players (the character files only hold what works without it).
+# Named to sort after market_*.toml: an edit with `card` runs in file order, so the card has to be declared by then.
+if_mod = "CharacterReforged"
+
+[[edit]]
+target = "fb_111x"
+card = 0xFFF7C4E2
+growth = "normal"
+stats = { kick = 219, control = 250, technique = 197, pressure = 216, physical = 243, intelligence = 223, agility = 180, freedom = 279 }
+
+[[edit]]
+target = "fb_110x"
+card = 0xFFF7C4E3
+growth = "normal"
+stats = { kick = 231, control = 232, technique = 204, pressure = 203, physical = 247, intelligence = 197, agility = 177, freedom = 371 }
+
+[[edit]]
+target = "fb_109x"
+card = 0xFFF7C4E4
+growth = "normal"
+stats = { kick = 219, control = 221, technique = 193, pressure = 211, physical = 247, intelligence = 194, agility = 189, freedom = 317 }
+
+[[edit]]
+target = "fb_108x"
+card = 0xFFF7C4E5
+growth = "normal"
+stats = { kick = 204, control = 225, technique = 250, pressure = 165, physical = 251, intelligence = 184, agility = 204, freedom = 309 }
+
+[[edit]]
+target = "fb_107x"
+card = 0xFFF7C4E6
+growth = "normal"
+stats = { kick = 209, control = 246, technique = 232, pressure = 167, physical = 248, intelligence = 208, agility = 197, freedom = 305 }
+
+[[edit]]
+target = "fb_106x"
+card = 0xFFF7C4E7
+growth = "normal"
+stats = { kick = 244, control = 213, technique = 244, pressure = 155, physical = 254, intelligence = 163, agility = 197, freedom = 297 }
+
+[[edit]]
+target = "fb_105x"
+card = 0xFFF7C4E8
+growth = "normal"
+stats = { kick = 211, control = 219, technique = 225, pressure = 169, physical = 250, intelligence = 181, agility = 190, freedom = 267 }
+
+[[edit]]
+target = "fb_104x"
+card = 0xFFF7C4E9
+growth = "normal"
+stats = { kick = 84, control = 186, technique = 189, pressure = 213, physical = 305, intelligence = 236, agility = 224, freedom = 347 }
+
+[[edit]]
+target = "fb_103x"
+card = 0xFFF7C4EA
+growth = "normal"
+stats = { kick = 82, control = 201, technique = 189, pressure = 201, physical = 305, intelligence = 252, agility = 228, freedom = 393 }
+
+[[edit]]
+target = "fb_102x"
+card = 0xFFF7C4EB
+growth = "normal"
+stats = { kick = 158, control = 184, technique = 193, pressure = 193, physical = 313, intelligence = 220, agility = 224, freedom = 417 }
+
+[[edit]]
+target = "fb_101x"
+card = 0xFFF7C4EC
+growth = "normal"
+stats = { kick = 89, control = 197, technique = 158, pressure = 248, physical = 324, intelligence = 212, agility = 219, freedom = 417 }
+
+[[edit]]
+target = "matsushita_riku"
+card = 0xFFF7C4EF
+growth = "normal"
+stats = { kick = 151, control = 173, technique = 155, pressure = 267, physical = 216, intelligence = 259, agility = 225, freedom = 313 }
+
+[[edit]]
+target = "kitajima_yuuta"
+card = 0xFFF7C4F0
+growth = "normal"
+stats = { kick = 265, control = 285, technique = 288, pressure = 144, physical = 150, intelligence = 208, agility = 144, freedom = 329 }
+
+[[edit]]
+target = "yoshida_kazuki"
+card = 0xFFF7C4F1
+growth = "normal"
+stats = { kick = 259, control = 213, technique = 236, pressure = 228, physical = 221, intelligence = 244, agility = 227, freedom = 335 }
+
+[[edit]]
+target = "ryuu_riku"
+card = 0xFFF7C4F2
+growth = "normal"
+stats = { kick = 184, control = 266, technique = 284, pressure = 166, physical = 225, intelligence = 227, agility = 184, freedom = 305 }
+
+[[edit]]
+target = "shimizu_saki"
+card = 0xFFF7C4F3
+growth = "normal"
+stats = { kick = 184, control = 204, technique = 192, pressure = 275, physical = 178, intelligence = 246, agility = 247, freedom = 231 }
+
+[[edit]]
+target = "tsugunaga_momoko"
+card = 0xFFF7C4F4
+growth = "normal"
+stats = { kick = 93, control = 177, technique = 146, pressure = 348, physical = 170, intelligence = 298, agility = 220, freedom = 355 }
+
+[[edit]]
+target = "tokunaga_chinami"
+card = 0xFFF7C4F5
+growth = "normal"
+stats = { kick = 85, control = 170, technique = 147, pressure = 319, physical = 161, intelligence = 288, agility = 207, freedom = 309 }
+
+[[edit]]
+target = "sugaya_risako"
+card = 0xFFF7C4F6
+growth = "normal"
+stats = { kick = 131, control = 228, technique = 190, pressure = 130, physical = 225, intelligence = 150, agility = 211, freedom = 335 }
+
+[[edit]]
+target = "kmc"
+card = 0xFFF7C4F7
+growth = "normal"
+stats = { kick = 263, control = 300, technique = 297, pressure = 123, physical = 143, intelligence = 194, agility = 130, freedom = 329 }
+
+[[edit]]
+target = "don_ringo"
+card = 0xFFF7C4F8
+growth = "normal"
+stats = { kick = 171, control = 262, technique = 258, pressure = 181, physical = 167, intelligence = 223, agility = 196, freedom = 225 }
+
+[[edit]]
+target = "hiroshi_dot"
+card = 0xFFF7C4F9
+growth = "normal"
+stats = { kick = 212, control = 219, technique = 174, pressure = 213, physical = 211, intelligence = 182, agility = 211, freedom = 217 }
+
+[[edit]]
+target = "ei_king"
+card = 0xFFF7C4FA
+growth = "normal"
+stats = { kick = 205, control = 194, technique = 180, pressure = 204, physical = 224, intelligence = 231, agility = 174, freedom = 259 }
+
+[[edit]]
+target = "ebirina"
+card = 0xFFF7C4FB
+growth = "normal"
+stats = { kick = 151, control = 288, technique = 308, pressure = 159, physical = 174, intelligence = 231, agility = 166, freedom = 335 }
+
+[[edit]]
+target = "shuu_maimai"
+card = 0xFFF7C4FC
+growth = "normal"
+stats = { kick = 274, control = 231, technique = 235, pressure = 212, physical = 163, intelligence = 236, agility = 174, freedom = 224 }
+
+[[edit]]
+target = "hide_king"
+card = 0xFFF7C4FD
+growth = "normal"
+stats = { kick = 154, control = 186, technique = 178, pressure = 266, physical = 244, intelligence = 281, agility = 216, freedom = 397 }
+
+[[edit]]
+target = "tsunoda_keigo"
+card = 0xFFF7C4FE
+growth = "normal"
+stats = { kick = 219, control = 251, technique = 346, pressure = 161, physical = 173, intelligence = 208, agility = 151, freedom = 335 }
+
+[[edit]]
+target = "tsutsui_ryouta"
+card = 0xFFF7C4FF
+growth = "normal"
+stats = { kick = 396, control = 246, technique = 166, pressure = 163, physical = 171, intelligence = 186, agility = 192, freedom = 335 }
+
+[[edit]]
+target = "okumura_tatsuya"
+card = 0xFFF7C500
+growth = "normal"
+stats = { kick = 113, control = 192, technique = 109, pressure = 306, physical = 258, intelligence = 321, agility = 220, freedom = 217 }
+
+[[edit]]
+target = "satou_seiji"
+card = 0xFFF7C501
+growth = "normal"
+stats = { kick = 146, control = 225, technique = 166, pressure = 197, physical = 220, intelligence = 216, agility = 306, freedom = 259 }
+
+[[edit]]
+target = "sina_yuis"
+card = 0xFFF7C502
+growth = "normal"
+stats = { kick = 223, control = 282, technique = 246, pressure = 189, physical = 147, intelligence = 267, agility = 184, freedom = 305 }
+
+[[edit]]
+target = "remi_altava"
+card = 0xFFF7C503
+stats = { kick = 321, control = 254, technique = 279, pressure = 132, physical = 225, intelligence = 174, agility = 174, freedom = 293 }
+
+[[edit]]
+target = "sena_arata"
+card = 0xFFF7C504
+stats = { kick = 325, control = 239, technique = 273, pressure = 162, physical = 198, intelligence = 186, agility = 154, freedom = 325 }
+
+[[edit]]
+target = "sugawara_kenta"
+card = 0xFFF7C505
+growth = "normal"
+stats = { kick = 344, control = 254, technique = 258, pressure = 201, physical = 167, intelligence = 234, agility = 176, freedom = 217 }
+
+[[edit]]
+target = "mecha_iriho"
+card = 0xFFF7C506
+growth = "normal"
+stats = { kick = 273, control = 252, technique = 289, pressure = 209, physical = 165, intelligence = 266, agility = 182, freedom = 262 }
+
+[[edit]]
+target = "kusaba_kenta"
+card = 0xFFF7C507
+growth = "normal"
+stats = { kick = 244, control = 198, technique = 213, pressure = 242, physical = 231, intelligence = 308, agility = 196, freedom = 255 }
+
+[[edit]]
+target = "tetchan"
+card = 0xFFF7C508
+growth = "normal"
+stats = { kick = 205, control = 207, technique = 193, pressure = 227, physical = 234, intelligence = 292, agility = 174, freedom = 225 }
+
+[[edit]]
+target = "raika_shinohara"
+card = 0xFFF7C50D
+growth = "normal"
+stats = { kick = 340, control = 239, technique = 194, pressure = 201, physical = 212, intelligence = 208, agility = 182, freedom = 230 }
+
+[[edit]]
+target = "celia_hills"
+card = 0xFFF7C50F
+growth = "normal"
+stats = { kick = 257, control = 227, technique = 251, pressure = 223, physical = 165, intelligence = 231, agility = 186, freedom = 375 }
+
+[[edit]]
+target = "c11600070"
+card = 0xFFF7C509
+growth = "normal"
+stats = { kick = 261, control = 198, technique = 219, pressure = 235, physical = 244, intelligence = 293, agility = 174, freedom = 267 }
+
+[[edit]]
+target = "c11600080"
+card = 0xFFF7C50A
+growth = "normal"
+stats = { kick = 258, control = 197, technique = 217, pressure = 236, physical = 244, intelligence = 293, agility = 180, freedom = 321 }
+
+[[edit]]
+target = "c11903030"
+card = 0xFFF7C50B
+growth = "normal"
+stats = { kick = 270, control = 263, technique = 263, pressure = 196, physical = 150, intelligence = 254, agility = 192, freedom = 284 }
+
+[[edit]]
+target = "c11902320"
+card = 0xFFF7C50C
+growth = "normal"
+stats = { kick = 273, control = 250, technique = 220, pressure = 185, physical = 169, intelligence = 205, agility = 178, freedom = 301 }
+
+[[edit]]
+target = "c11908010"
+card = 0xFFF7C50E
+growth = "normal"
+stats = { kick = 304, control = 239, technique = 244, pressure = 196, physical = 150, intelligence = 228, agility = 171, freedom = 393 }
+
+[[edit]]
+target = "c11904040"
+card = 0xFFF7C514
+growth = "normal"
+stats = { kick = 323, control = 275, technique = 243, pressure = 181, physical = 224, intelligence = 225, agility = 169, freedom = 221 }
+
+[[edit]]
+target = "c11902060"
+card = 0xFFF7C515
+growth = "normal"
+stats = { kick = 239, control = 223, technique = 242, pressure = 223, physical = 216, intelligence = 248, agility = 219, freedom = 325 }
+
+[[edit]]
+target = "c11902340"
+card = 0xFFF7C516
+growth = "normal"
+stats = { kick = 273, control = 271, technique = 220, pressure = 221, physical = 162, intelligence = 254, agility = 171, freedom = 317 }
+
+[[edit]]
+target = "c06039350"
+card = 0xFFF7C517
+growth = "normal"
+stats = { kick = 356, control = 265, technique = 269, pressure = 190, physical = 166, intelligence = 234, agility = 177, freedom = 231 }
+
+[[edit]]
+target = "c06039360"
+card = 0xFFF7C518
+growth = "normal"
+stats = { kick = 356, control = 258, technique = 247, pressure = 227, physical = 140, intelligence = 250, agility = 161, freedom = 231 }
+
+[[edit]]
+target = "c02023390"
+card = 0xFFF7C51B
+growth = "normal"
+stats = { kick = 315, control = 242, technique = 259, pressure = 247, physical = 161, intelligence = 252, agility = 153, freedom = 247 }
+
+[[edit]]
+target = "c02024320"
+card = 0xFFF7C51E
+growth = "normal"
+stats = { kick = 344, control = 277, technique = 281, pressure = 178, physical = 186, intelligence = 228, agility = 178, freedom = 389 }

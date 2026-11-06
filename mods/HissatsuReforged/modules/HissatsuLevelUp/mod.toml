@@ -6,8 +6,8 @@ key_id = "HissatsuLevelUp"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Hissatsu Level Up"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Special moves level up the classic way: each player's move grows with the times he uses it in matches, and a banner says when it levels up. The last level needs the Ultimate Evolution Manual from the general shop, and a game item becomes the Technique Upgrade (+1 level). A player can no longer carry the same special move twice. From G5 on, some moves play the cut-in of their evolution."
 priority = 0
@@ -42,7 +42,7 @@ folder = "HissatsuLevelUp"
 # reads, content/skill_set/hissatsu_level_up.toml, and the row action its host calls; the [[host]] is declared here
 # too so the entry stays valid while Character Reforged is off).
 # VRFW 2.475.84: the match move level (lib/match_move_level.lua) the opponents' grade at a match install reads.
-requires = ["VRFW>=0.2.2", "HissatsuReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "HissatsuReforged>=0.2.4"]
 optional = ["CharacterReforged"]
 conflicts = []
 loader_modules = ["lua_bridge"]

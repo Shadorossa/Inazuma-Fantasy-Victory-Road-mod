@@ -4,8 +4,8 @@ key_id = "PersonalPassives"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Personal Passives"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Each player has a Signature Passive of his own, set per character by the mods, instead of one you equip: the passive slot always shows it, cannot be changed, and matches use it. It also adds the generic elemental passives (Wind, Forest, Fire, Mountain, Void), which make a player's own moves of that element 15% stronger. Passives are built from reusable blocks that mods can edit per character, and the same system powers the passives other mods give to spirits. Needs Character Reforged."
 priority = 0
@@ -23,7 +23,7 @@ folder = "PersonalPassives"
 # Optional: conditions on team groups of Synergies Reworked (team_groups = ["SynergiesReworked.*"]) and technique
 # families of Hissatsu Reforged (families = ["HissatsuReforged.*"]); without those mods such a condition never holds.
 # VRFW 2.301.0: the framework's key vrfw.passive.all_off (modes without player passives).
-requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4"]
 # optional: the passive configurator, the cross cards, the special-move families and team groups its passives name
 optional = ["BetterQoL", "IECross"]
 conflicts = []

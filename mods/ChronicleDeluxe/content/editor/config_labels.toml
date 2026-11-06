@@ -156,7 +156,7 @@ For = "config"
   Type = "list"
   Of = "string"
   Label = { es = "Posiciones permitidas", en = "Allowed positions" }
-  Help = { es = "Posiciones en las que puede jugar el personaje obligatorio.", en = "Positions the required character may play." }
+  Help = { es = "Posiciones en las que puede empezar el personaje obligatorio (vacío = cualquiera).", en = "Positions the required character may start in (empty = any)." }
   [[Shape.Field]]
   Key = "heroic.required.until_first_clear"
   Type = "bool"

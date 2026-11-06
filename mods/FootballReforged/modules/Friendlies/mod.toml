@@ -4,8 +4,8 @@ key_id = "Friendlies"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "5-a-side teams"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Team Dock's list starts with one row of two columns, «Match» and «5-a-side» (left / right pick one, confirm switches): every Team Dock's 5-a-side team mirrors its match team, with the same players, kit, emblem and name; its five are picked automatically by the 5v5 formation and can be swapped among those players, and the active team is one Team Dock for both formats: its 5-a-side team is the one the friendlies are played with."
 priority = 0
@@ -41,7 +41,7 @@ folder = "Friendlies"
 # BetterQoL is optional: its team bank pages reach the dock through VRFW_TeamDock, the mounted page is read through
 # VRFW's TeamDock.page() (0 without it) and the 5v5 kit goes through VRFW's CMND_VRFW_TEAM_UNIFORM. InaRogue is optional: while its save is
 # loaded (its export InaRogue.SaveSlot) the docks keep the retail 11v11 / 5v5 link.
-requires = ["VRFW>=0.2.2", "FootballReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "FootballReforged>=0.2.4"]
 optional = ["InaRogue"]
 conflicts = []
 loader_modules = ["lua_bridge"]

@@ -1,0 +1,37 @@
+schema = "VRFW.anim/2"
+# Inazuma Fantasy: Sierra celestial, cut version: the retail cut-in of Sierra celestial (ev60_02910) with the kick played three times from
+# three cameras before the flight. Each replay runs from 38 frames before contact to 0.1 s after it (kick 3: to the end of the base cut).
+# The shout (sh010) sounds on the first kick only. The kick cameras come from assets\anims\celestial_saw_cuts.glb.
+owner = "match"
+
+[[event]]
+name = "celestial_saw_cuts"
+from = "ev60_02910"
+id = "ev60_86001"
+cuts = [
+  "c0010",
+  "c0020",
+  { cut = "c0030", slot = "c0030", trim = [0, 70], sync = [[0, 0], [70, 70]] },
+  { cut = "c0030", slot = "c0030", trim = [71, 117], warp = [[0, 0], [38, 38], [46, 43]], sync = [[71, 0], [109, 38], [117, 43]], hide = ["ega0001", "whs02910"] },
+  { cut = "c0030", slot = "c0030", trim = [71, 117], warp = [[0, 0], [38, 38], [46, 43]], sync = [[71, 0], [109, 38], [117, 43]], hide = ["ega0001", "whs02910", "sh010"] },
+  { cut = "c0030", slot = "c0030", trim = [71, 117], sync = [[71, 0], [117, 46]], hide = ["ega0001", "whs02910", "sh010"] },
+  { cut = "c0040", slot = "c0040" },
+]
+
+[[camera]]
+event = "celestial_saw_cuts"
+cut = "c0040"
+glb = "assets/anims/celestial_saw_cuts.glb"
+action = "camera:c0040"
+
+[[camera]]
+event = "celestial_saw_cuts"
+cut = "c0050"
+glb = "assets/anims/celestial_saw_cuts.glb"
+action = "camera:c0050"
+
+[[camera]]
+event = "celestial_saw_cuts"
+cut = "c0060"
+glb = "assets/anims/celestial_saw_cuts.glb"
+action = "camera:c0060"

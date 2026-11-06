@@ -1,0 +1,59 @@
+schema = "BetterQoL.album/1"
+# The market players: each a row of his own in his season, not folded into the character whose voice bank or model he shares.
+own_row_cards = [
+  0xFFF7C4E2,  # FB-111X
+  0xFFF7C4E3,  # FB-110X
+  0xFFF7C4E4,  # FB-109X
+  0xFFF7C4E5,  # FB-108X
+  0xFFF7C4E6,  # FB-107X
+  0xFFF7C4E7,  # FB-106X
+  0xFFF7C4E8,  # FB-105X
+  0xFFF7C4E9,  # FB-104X
+  0xFFF7C4EA,  # FB-103X
+  0xFFF7C4EB,  # FB-102X
+  0xFFF7C4EC,  # FB-101X
+  0xFFF7C4EF,  # Matsushita Riku
+  0xFFF7C4F0,  # Kitajima Yuuta
+  0xFFF7C4F1,  # Yoshida Kazuki
+  0xFFF7C4F2,  # Ryuu Riku
+  0xFFF7C4F3,  # Shimizu Saki
+  0xFFF7C4F4,  # Tsugunaga Momoko
+  0xFFF7C4F5,  # Tokunaga Chinami
+  0xFFF7C4F6,  # Sugaya Risako
+  0xFFF7C4F7,  # KMC
+  0xFFF7C4F8,  # Don Ringo
+  0xFFF7C4F9,  # Hiroshi Dot
+  0xFFF7C4FA,  # Ei King
+  0xFFF7C4FB,  # Ebirina
+  0xFFF7C4FC,  # Shuu Maimai
+  0xFFF7C4FD,  # Hide King
+  0xFFF7C4FE,  # Tsunoda Keigo
+  0xFFF7C4FF,  # Tsutsui Ryouta
+  0xFFF7C500,  # Okumura Tatsuya
+  0xFFF7C501,  # Satou Seiji
+  0xFFF7C502,  # Sina Yuis
+  0xFFF7C503,  # Remi Altava
+  0xFFF7C504,  # Sena Arata
+  0xFFF7C505,  # Sugawara Kenta
+  0xFFF7C506,  # Mecha Iriho
+  0xFFF7C507,  # Kusaba Kenta
+  0xFFF7C508,  # Tetchan
+  0xFFF7C50D,  # Raika Shinohara
+  0xFFF7C50F,  # Celia Hills
+  0xFFF7C509,  # Maestra Goverm
+  0xFFF7C50A,  # Maestra Goverm
+  0xFFF7C50B,  # Julio Acuto
+  0xFFF7C50C,  # Suzette Hartland
+  0xFFF7C50E,  # Martemeli Prestov
+  0xFFF7C514,  # Vladimir Blade
+  0xFFF7C515,  # Astram B. Schiller
+  0xFFF7C516,  # Xavier Foster
+  0xFFF7C517,  # Circulus Corona
+  0xFFF7C518,  # Arculus Orbes
+  0xFFF7C51B,  # Shawn Froste
+  0xFFF7C51E,  # Nathan Swift
+  0x41898A24,  # Scott Banyan
+  0x54920923,  # Aitor Cazador
+]
+# Retail cards whose character the game does not have: with Remi Altava and Sena Arata declared they would be their first card.
+exclude_cards = [0xF4AB83DC, 0x45FA2779]

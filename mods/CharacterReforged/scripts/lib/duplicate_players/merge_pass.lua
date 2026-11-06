@@ -5,6 +5,9 @@
 --     With policy convert_special_cards (the save adjust action) such a special card also becomes his character's
 --     base card (CardFacts:base_card_of: param_id_crc, a team's captainParamId) and joins the copies of that card: when
 --     the club already has that card, the copies are merged into the one keep_first keeps (as the duplicates below)
+--   * lower rarities (policy raise_every_saved_player, the save adjust action): any other saved character whose rarity is
+--     below normal_card_rarity gets it, whatever his card or attribute bits, in m_saveHumanP and in the guest, custom
+--     avatar and story scout records. Only the rarity word changes: same handle, same card. A mode's own card stays
 --   * hidden cards (policy release_cards_hidden_in): every copy is released, a copy in a team too (team slot,
 --     memberNum, captain, team aura entry); their spirit cards (spirit lists) are emptied
 --   * duplicates (policy one_card_per): ONE copy per card (the exact chara_param id; two cards of one character or one
@@ -15,7 +18,7 @@
 --     equipment and board items go back to their stacks (equipment_num), his handle leaves charaBank / rpgCharaBank /
 --     m_Collection, the Kizuna boards (item + its lines) and the Kizuna Town residents; he gives
 --     element_spirits_per_released_card element spirits of his element (story spirits, rarity 4 then 3..0, capped)
--- Never touched: story-only, season and released-scout records (attribute bits). Never released: a card the game's
+-- Otherwise never touched: story-only, season and released-scout records (attribute bits). Never released: a card the game's
 -- bank cannot retire (CanCharaBankRemove of chara_bank_menu: attribute bits 0x80 / 0x1000 / 0x2000 / 0x10000, e.g. the
 -- avatars and the original players) and any card that did not join by signing (addPartySource other than 4): in a
 -- duplicate group such a card is always the one kept, and a second one of them stays too (logged «not released»).
@@ -29,7 +32,8 @@ local band, bor = bit32.band, bit32.bor
 local floor, concat, sub, byte, char = math.floor, table.concat, string.sub, string.byte, string.char
 
 -- attribute bits of the records the pass never touches (story-only, season, released scouts)
-MergePass.ATTRIBUTES_NEVER_TOUCHED = 0x10000000 + 0x00100000 + 0x80 + 0x40
+MergePass.ATTRIBUTE_MODE_CARD = 0x10000000
+MergePass.ATTRIBUTES_NEVER_TOUCHED = MergePass.ATTRIBUTE_MODE_CARD + 0x00100000 + 0x80 + 0x40
 -- the attribute bits of a card the bank cannot retire (chara_bank_menu CanCharaBankRemove: CMND 29506568(hdl, bit))
 MergePass.ATTRIBUTES_NOT_RETIRABLE = 0x80 + 0x1000 + 0x2000 + 0x10000
 -- addPartySource of a player who joined by signing (a spirit summon / fichaje)
@@ -63,6 +67,13 @@ local BLOCK_KIZUNA_BOARDS, BLOCK_SPIRITS, BLOCK_RESIDENTS = 0x11, 0x12, 0x17
 
 local function eligible(record)
   return record.handle ~= 0 and record.card ~= 0 and band(record.attributes, MergePass.ATTRIBUTES_NEVER_TOUCHED) == 0
+end
+
+-- policy raise_every_saved_player: this saved character's rarity is below the rule's, and he is no mode's own card
+local function rarity_is_raised(record, policy)
+  return policy.raise_every_saved_player == true and policy.normal_card_rarity ~= nil
+    and record.handle ~= 0 and record.card ~= 0 and record.rarity < policy.normal_card_rarity
+    and band(record.attributes, MergePass.ATTRIBUTE_MODE_CARD) == 0
 end
 
 -- the pass may release this card: the bank could retire it and he joined by signing
@@ -122,8 +133,9 @@ function MergePass.plan(records, policy, is_hidden)
             and record.base_card ~= nil and record.base_card ~= record.card then
           record.converts_to = record.base_card
         end
-        if policy.normal_card_rarity ~= nil and (record.special_rarity == 0 or special[record.special_rarity])
-            and (record.rarity ~= policy.normal_card_rarity or record.converts_to ~= nil) then
+        if rarity_is_raised(record, policy) or (policy.normal_card_rarity ~= nil
+            and (record.special_rarity == 0 or special[record.special_rarity])
+            and (record.rarity ~= policy.normal_card_rarity or record.converts_to ~= nil)) then
           plan.rarity[#plan.rarity + 1] = { record.handle, record.card, record.rarity, record.character, record.converts_to }
         end
         if policy.one_card_per ~= nil or convert then
@@ -138,6 +150,8 @@ function MergePass.plan(records, policy, is_hidden)
           if record.converts_to ~= nil then converting[key] = true end
         end
       end
+    elseif rarity_is_raised(record, policy) then
+      plan.rarity[#plan.rarity + 1] = { record.handle, record.card, record.rarity, record.character }
     end
   end
   table.sort(keys)
@@ -286,6 +300,29 @@ function MergePass.run(tree, facts, policy)
     report.lines[#report.lines + 1] = string.format("rarity 0x%08X (m_saveHumanP[%d]) card 0x%08X character 0x%08X: %d -> %d%s",
       entry[1], i, entry[2], entry[4] or 0, entry[3], policy.normal_card_rarity,
       base ~= nil and string.format(", card -> base card 0x%08X", base) or "")
+  end
+  -- the saved characters outside m_saveHumanP, one record each
+  local function raise_record(path, label)
+    local record = {
+      handle = T.num(tree, path, "handle") or 0, card = T.num(tree, path, "param_id_crc") or 0,
+      rarity = T.num(tree, path, "charaRarity"), attributes = T.num(tree, path, "attribute") or 0,
+    }
+    if record.rarity ~= nil and rarity_is_raised(record, policy) then
+      P:set(path .. ".charaRarity", record.rarity, policy.normal_card_rarity)
+      report.to_normal_rarity = report.to_normal_rarity + 1
+      rarity_from[record.rarity] = (rarity_from[record.rarity] or 0) + 1
+      report.lines[#report.lines + 1] = string.format("rarity 0x%08X (%s) card 0x%08X: %d -> %d",
+        record.handle, label, record.card, record.rarity, policy.normal_card_rarity)
+    end
+  end
+  if policy.raise_every_saved_player == true and policy.normal_card_rarity ~= nil then
+    local characters = T.unwrap(tree, "block5", "m_Permanent")
+    local guest = T.kids(tree, characters, "m_stGuestP")
+    if guest then raise_record(guest, "m_stGuestP") end
+    for _, name in ipairs({ "m_stEditP", "m_stStoryScoutP" }) do
+      local array, array_count = T.arr(tree, characters, name)
+      for i = 0, (array_count or 0) - 1 do raise_record(T.at(array, i), name .. "[" .. i .. "]") end
+    end
   end
   local function card_after(handle)
     return final_card[handle] or cards[index_of[handle] + 1]

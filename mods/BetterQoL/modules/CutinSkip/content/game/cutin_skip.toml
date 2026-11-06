@@ -1,0 +1,8 @@
+# Technique Cut-in Skip > the command graft cutin_skip asks on a fresh press; scripts\cutin_skip.lua ends the running
+# technique event. Answers 1 ended, 2 ask again next Step, 0 nothing done.
+schema = "VRFW.game/2"
+
+[[VRFW.Command]]
+name = "CMND_CUTINSKIP_SKIP"
+handler = "CutinSkip.Skip"
+needs = ["Event.Manager", "Event.Seek", "Audio.StopEventSounds", "Event.TimelineSeek"]

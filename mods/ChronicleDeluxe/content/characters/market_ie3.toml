@@ -1,0 +1,533 @@
+schema = "VRFW.character/2"
+# Chronicle Deluxe: players of the Inazuma Eleven 3 the game ships models and faces for but no player row: signed from the player album.
+# Ids, stats and moves: ported from the old Chronicles Deluxe / Inazuma Fantasy declarations (research/archive, research/mods/_aside).
+default_lang = "en"
+
+[[character]]
+name = "matsushita_riku"  # Matsushita Riku
+based_on = "c03033360"
+
+  [character.base]
+  id = 0x485CC09E
+  name = "c03030110"
+  name_text = 0x7E5DCB69
+  short_name_text = 0x0C738A8C
+  upper_name_text = 0x0C738A8C
+  model = 0xD17BA6DF
+  description_text = 0x6590CC76
+
+  [character.text.es]
+  name = "Matsushita Riku"
+  short = "Pants"
+  description = "Con jugadas magníficas, deja a sus rivales completamente encantados.\nDicen que ya tuvo la experiencia de ganar cierto torneo."
+
+  [character.text.en]
+  name = "Matsushita Riku"
+  short = "Pants"
+  description = "With magnificent plays, she leaves her opponents completely enchanted.\nThey say she's had the experience of winning a certain tournament."
+
+  [character.text.fr]
+  name = "Matsushita Riku"
+  short = "Pants"
+  description = "Avec des actions magnifiques, elle laisse ses adversaires complètement charmés.\nOn dit qu'elle a déjà eu l'expérience de remporter un certain tournoi."
+
+  [character.text.de]
+  name = "Matsushita Riku"
+  short = "Pants"
+  description = "Mit großartigen Spielzügen verzaubert sie ihre Gegner völlig.\nMan sagt, sie habe bereits ein bestimmtes Turnier gewonnen."
+
+  [character.text.it]
+  name = "Matsushita Riku"
+  short = "Pants"
+  description = "Con giocate magnifiche, lascia i suoi avversari completamente incantati.\nSi dice che abbia già avuto l'esperienza di vincere un certo torneo."
+
+  [character.text.pt]
+  name = "Matsushita Riku"
+  short = "Pants"
+  description = "Com jogadas magníficas, deixa os inimigos completamente encantados.\nDizem que ela já teve a experiência de vencer um determinado torneio."
+
+  [[character.cards]]
+  id = 0xFFF7C4EF
+  from = 0xBFD823AB
+  element = "forest"
+  position = "df"
+  sub_position = "mf"
+  rank = 3
+  moves = [
+    { move = 0x7207C577, level = 1 },
+    { move = 0x7577A26A, level = 20 },
+    { move = 0xAEEA9F97, level = 30 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "kitajima_yuuta"  # Kitajima Yuuta
+based_on = "c03033360"
+
+  [character.base]
+  id = 0x6371935D
+  name = "c03030120"
+  name_text = 0x34292982
+  short_name_text = 0x42C6A779
+  upper_name_text = 0x42C6A779
+  model = 0xFA56F51C
+  gender = 1
+  description_text = 0x4C290FC0
+
+  [character.text.es]
+  name = "Kitajima Yuuta"
+  short = "Yuuta"
+  description = "¡Casi nadie puede rivalizar con este delantero!\nUn ganador nato..."
+
+  [character.text.en]
+  name = "Kitajima Yuuta"
+  short = "Yuuta"
+  description = "Almost no one can rival this striker!\nA born winner..."
+
+  [character.text.fr]
+  name = "Kitajima Yuuta"
+  short = "Yuuta"
+  description = "Presque personne ne peut rivaliser avec cet attaquant !\nUn vainqueur né..."
+
+  [character.text.de]
+  name = "Kitajima Yuuta"
+  short = "Yuuta"
+  description = "Kaum jemand kann es mit diesem Stürmer aufnehmen!\nEin geborener Gewinner..."
+
+  [character.text.it]
+  name = "Kitajima Yuuta"
+  short = "Yuuta"
+  description = "Quasi nessuno può rivaleggiare con questo attaccante!\nUn vincitore nato..."
+
+  [character.text.pt]
+  name = "Kitajima Yuuta"
+  short = "Yuuta"
+  description = "Quase ninguém consegue rivalizar com este atacante!\nUm vencedor nato..."
+
+  [[character.cards]]
+  id = 0xFFF7C4F0
+  from = 0x85363312
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x259F08C6, level = 1 },
+    { move = 0x41F3CDC2, level = 13 },
+    { move = 0x65766A4F, level = 20 },
+    { move = 0xA17F9358, level = 30 },
+    { move = 0xABA58912, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "yoshida_kazuki"  # Yoshida Kazuki
+based_on = "c03033360"
+
+  [character.base]
+  id = 0x7A6AA21C
+  name = "c03030130"
+  name_text = 0x07AA13C8
+  short_name_text = 0x6B000426
+  upper_name_text = 0x6B000426
+  model = 0xE34DC45D
+  gender = 1
+  description_text = 0x2968D375
+
+  [character.text.es]
+  name = "Yoshida Kazuki"
+  short = "Katchan"
+  description = "Este exitoso portero puede detener\ncon tranquilidad cualquier tipo de disparo."
+
+  [character.text.en]
+  name = "Yoshida Kazuki"
+  short = "Katchan"
+  description = "This successful goalkeeper can calmly\nsave any kind of shot."
+
+  [character.text.fr]
+  name = "Yoshida Kazuki"
+  short = "Katchan"
+  description = "Ce gardien de but à succès peut arrêter\navec calme n'importe quel type de tir."
+
+  [character.text.de]
+  name = "Yoshida Kazuki"
+  short = "Katchan"
+  description = "Dieser erfolgreiche Torwart kann jede Art von Schuss\nmit Leichtigkeit abwehren."
+
+  [character.text.it]
+  name = "Yoshida Kazuki"
+  short = "Katchan"
+  description = "Questo portiere di successo riesce a parare\ncon tranquillità qualsiasi tipo di tiro."
+
+  [character.text.pt]
+  name = "Yoshida Kazuki"
+  short = "Katchan"
+  description = "Esse goleiro de sucesso consegue defender\ncom tranquilidade qualquer tipo de chute."
+
+  [[character.cards]]
+  id = 0xFFF7C4F1
+  from = 0x3D9ED3F0
+  sub_position = "df"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x8E7E960B, level = 1 },
+    { move = 0x9765A74A, level = 13 },
+    { move = 0xB864A219, level = 20 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "ryuu_riku"  # Ryuu Riku
+based_on = "c03033360"
+
+  [character.base]
+  id = 0x352B34DB
+  name = "c03030140"
+  name_text = 0x0519CA9E
+  short_name_text = 0x50AF614D
+  upper_name_text = 0x50AF614D
+  model = 0xAC0C529A
+  gender = 1
+  description_text = 0x5DA576DF
+
+  [character.text.es]
+  name = "Ryuu Riku"
+  short = "Ryuu"
+  description = "¡Juega con sus rivales gracias a su velocidad!\nParece que es el ganador de cierto torneo."
+
+  [character.text.en]
+  name = "Ryuu Riku"
+  short = "Ryuu"
+  description = "He toys with his opponents using his speed!\nIt seems he's the winner of a certain tournament."
+
+  [character.text.fr]
+  name = "Ryuu Riku"
+  short = "Ryuu"
+  description = "Il joue avec ses adversaires grâce à sa vitesse !\nIl semblerait qu'il soit le vainqueur d'un certain tournoi."
+
+  [character.text.de]
+  name = "Ryuu Riku"
+  short = "Ryuu"
+  description = "Er spielt mit seinen Gegnern dank seiner Geschwindigkeit!\nEs heißt, er sei der Sieger eines bestimmten Turniers."
+
+  [character.text.it]
+  name = "Ryuu Riku"
+  short = "Ryuu"
+  description = "Gioca con i suoi avversari grazie alla sua velocità!\nSembra che sia il vincitore di un certo torneo."
+
+  [character.text.pt]
+  name = "Ryuu Riku"
+  short = "Ryuu"
+  description = "Ele brinca com seus oponentes usando sua velocidade!\nParece que ele é o vencedor de um certo torneio."
+
+  [[character.cards]]
+  id = 0xFFF7C4F2
+  from = 0xBFD823AB
+  build_type = 5
+  rank = 3
+  moves = [
+    { move = 0x15EFD41D, level = 1 },
+    { move = 0xB864A219, level = 13 },
+    { move = 0x30A819A7, level = 20 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "shimizu_saki"  # Shimizu Saki
+based_on = "c03033360"
+
+  [character.base]
+  id = 0x6B5BD99C
+  name = "c03033330"
+  name_text = 0x0740EF20
+  short_name_text = 0x10501904
+  upper_name_text = 0x10501904
+  model = 0xF27CBFDD
+  description_text = 0x5BE19C55
+
+  [character.text.es]
+  name = "Shimizu Saki"
+  short = "Cap"
+  description = "La líder de un popular grupo de idols.\nAtrapa con firmeza tanto corazones como balones de fútbol♪"
+
+  [character.text.en]
+  name = "Shimizu Saki"
+  short = "Cap"
+  description = "The leader of a popular idol group.\nShe firmly catches both hearts and footballs♪"
+
+  [character.text.fr]
+  name = "Shimizu Saki"
+  short = "Cap"
+  description = "La leader d'un groupe d'idoles populaire.\nElle attrape fermement aussi bien les cœurs que les ballons de football♪"
+
+  [character.text.de]
+  name = "Shimizu Saki"
+  short = "Cap"
+  description = "Die Anführerin einer beliebten Idol-Gruppe.\nSie fängt sowohl Herzen als auch Fußbälle mit fester Hand♪"
+
+  [character.text.it]
+  name = "Shimizu Saki"
+  short = "Cap"
+  description = "La leader di un popolare gruppo di idol.\nAfferra con fermezza sia i cuori che i palloni da calcio♪"
+
+  [character.text.pt]
+  name = "Shimizu Saki"
+  short = "Cap"
+  description = "A líder de um grupo de idols popular.\nEla agarra com firmeza tanto corações quanto bolas de futebol♪"
+
+  [[character.cards]]
+  id = 0xFFF7C4F3
+  from = 0x3D9ED3F0
+  sub_position = "df"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x8C382852, level = 1 },
+    { move = 0x5DFA931B, level = 20 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "tsugunaga_momoko"  # Tsugunaga Momoko
+based_on = "c03033360"
+
+  [character.base]
+  id = 0x241A4F5B
+  name = "c03033340"
+  name_text = 0x56D9354E
+  short_name_text = 0x7212D69B
+  upper_name_text = 0x7212D69B
+  model = 0xBD3D291A
+  description_text = 0x77442CEF
+
+  [character.text.es]
+  name = "Tsugunaga Momoko"
+  short = "Peachitchi"
+  description = "Integrante de un popular grupo de idols.\nEs bajita, pero tiene reflejos excelentes♪"
+
+  [character.text.en]
+  name = "Tsugunaga Momoko"
+  short = "Peachitchi"
+  description = "Member of a popular idol group.\nShe's short, but has excellent reflexes♪"
+
+  [character.text.fr]
+  name = "Tsugunaga Momoko"
+  short = "Peachitchi"
+  description = "Membre d'un groupe d'idoles populaire.\nElle est petite, mais a d'excellents réflexes♪"
+
+  [character.text.de]
+  name = "Tsugunaga Momoko"
+  short = "Peachitchi"
+  description = "Mitglied einer beliebten Idol-Gruppe.\nSie ist klein, hat aber exzellente Reflexe♪"
+
+  [character.text.it]
+  name = "Tsugunaga Momoko"
+  short = "Peachitchi"
+  description = "Membro di un popolare gruppo di idol.\nÈ bassina, ma ha riflessi eccellenti♪"
+
+  [character.text.pt]
+  name = "Tsugunaga Momoko"
+  short = "Peachitchi"
+  description = "Integrante de um grupo de idols popular.\nEla é baixinha, mas tem reflexos excelentes♪"
+
+  [[character.cards]]
+  id = 0xFFF7C4F4
+  from = 0x85363312
+  position = "df"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0xB13A6C3D, level = 1 },
+    { move = 0x4CDC2C6B, level = 20 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "tokunaga_chinami"  # Tokunaga Chinami
+based_on = "c03033360"
+
+  [character.base]
+  id = 0x3D017E1A
+  name = "c03033350"
+  name_text = 0x422A06F9
+  short_name_text = 0x3141B68B
+  upper_name_text = 0x3141B68B
+  model = 0xA426185B
+  description_text = 0x31184B12
+
+  [character.text.es]
+  name = "Tokunaga Chinami"
+  short = "Chii-chan"
+  description = "Integrante de un popular grupo de idols.\nPuede ser un poco distraída por naturaleza...♪"
+
+  [character.text.en]
+  name = "Tokunaga Chinami"
+  short = "Chii-chan"
+  description = "Member of a popular idol group.\nShe can be a bit absent-minded by nature...♪"
+
+  [character.text.fr]
+  name = "Tokunaga Chinami"
+  short = "Chii-chan"
+  description = "Membre d'un groupe d'idoles populaire.\nElle peut être un peu étourdie de nature...♪"
+
+  [character.text.de]
+  name = "Tokunaga Chinami"
+  short = "Chii-chan"
+  description = "Mitglied einer beliebten Idol-Gruppe.\nSie ist von Natur aus etwas zerstreut...♪"
+
+  [character.text.it]
+  name = "Tokunaga Chinami"
+  short = "Chii-chan"
+  description = "Membro di un popolare gruppo di idol.\nPuò essere un po' distratta per natura...♪"
+
+  [character.text.pt]
+  name = "Tokunaga Chinami"
+  short = "Chii-chan"
+  description = "Integrante de um grupo de idols popular.\nEla pode ser um pouco distraída por natureza...♪"
+
+  [[character.cards]]
+  id = 0xFFF7C4F5
+  from = 0x04D7D484
+  rank = 3
+  moves = [
+    { move = 0x2C3D95DD, level = 1 },
+    { move = 0x750E6DAB, level = 20 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "sugaya_risako"  # Sugaya Risako
+based_on = "c03033360"
+
+  [character.base]
+  id = 0x0F371C98
+  name = "c03033370"
+  name_text = 0x4F89FCF8
+  short_name_text = 0x431011E1
+  upper_name_text = 0x431011E1
+  model = 0x96107AD9
+  description_text = 0x67FC5A1D
+
+  [character.text.es]
+  name = "Sugaya Risako"
+  short = "Rishako"
+  description = "Integrante de un popular grupo de idols.\nPuede ser un poco despreocupada...♪"
+
+  [character.text.en]
+  name = "Sugaya Risako"
+  short = "Rishako"
+  description = "Member of a popular idol group.\nShe can be a bit carefree...♪"
+
+  [character.text.fr]
+  name = "Sugaya Risako"
+  short = "Rishako"
+  description = "Membre d'un groupe d'idoles populaire.\nElle peut être un peu insouciante...♪"
+
+  [character.text.de]
+  name = "Sugaya Risako"
+  short = "Rishako"
+  description = "Mitglied einer beliebten Idol-Gruppe.\nSie kann manchmal etwas sorglos sein...♪"
+
+  [character.text.it]
+  name = "Sugaya Risako"
+  short = "Rishako"
+  description = "Membro di un popolare gruppo di idol.\nPuò essere un po' spensierata...♪"
+
+  [character.text.pt]
+  name = "Sugaya Risako"
+  short = "Rishako"
+  description = "Integrante de um grupo de idols popular.\nEla pode ser um pouco despreocupada...♪"
+
+  [[character.cards]]
+  id = 0xFFF7C4F6
+  from = 0xBFD823AB
+  element = "forest"
+  build_type = 5
+  rank = 3
+  moves = [
+    { move = 0x2C3D95DD, level = 1 },
+    { move = 0x4C1D87D5, level = 13 },
+    { move = 0x21127474, level = 20 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[character]]
+name = "kmc"  # KMC
+based_on = "c03033360"
+
+  [character.base]
+  id = 0x537EF449
+  name = "c03039250"
+  name_text = 0x034C33CF
+  short_name_text = 0x034C33CF
+  upper_name_text = 0x034C33CF
+  model = 0xCA599208
+  gender = 1
+  description_text = 0x726F9B8F
+
+  [character.text.es]
+  description = "Es un rapero talentoso y sorprendentemente\nsensible detrás de toda esa pose de tipo duro."
+
+  [character.text.en]
+  description = "He's a talented rapper and surprisingly\nsensitive beneath all that tough-guy posturing."
+
+  [character.text.fr]
+  description = "C'est un rappeur talentueux et étonnamment\nsensible derrière toute cette pose de dur à cuire."
+
+  [character.text.de]
+  description = "Er ist ein talentierter Rapper und überraschend\nsensibel hinter seiner ganzen harten Fassade."
+
+  [character.text.it]
+  description = "È un rapper talentuoso e sorprendentemente\nsensibile dietro tutta quella posa da duro."
+
+  [character.text.pt]
+  description = "Ele é um rapper talentoso e surpreendentemente\nsensível por trás de toda aquela pose de durão."
+
+  [[character.cards]]
+  id = 0xFFF7C4F7
+  from = 0x85363312
+  element = "forest"
+  play_style = 1
+  cells = { c6 = 9, flag_36 = 0, performance_genre = 0x09B3EED3 }
+  moves = [
+    { move = 0x259F08C6, level = 1 },
+    { move = 0x8B90AAAC, level = 13 },
+    { move = 0x900C8E0A, level = 20 },
+    { move = 0x2B8C597E, level = 30 },
+    { move = 0x7DAF3139, level = 38 },
+    { move = 0x62BE692D, level = 43 },
+  ]
+
+[[edit]]
+target = "c11903030"  # Giulio Acuto
+
+  [[edit.cards]]
+  id = 0xFFF7C50B
+  from = 0x400F98C8
+  growth_pattern = 1
+  rank = 3
+  moves = [
+    { move = 0xB27F13ED, level = 1 },
+    { move = 0x6ADE9E01, level = 13 },
+    { move = 0xD9477198, level = 20 },
+    { move = 0x4890FB67, level = 30 },
+    { move = 0xB039ADB4, level = 38 },
+    { move = 0x30A819A7, level = 43 },
+  ]
+
+[[edit]]
+target = "c11902320"  # Suzette Hartland
+base = { voice_bank = 0x423BEC50, flag_31 = 0 }
+model_row = { force_kit = 1 }
+
+  [[edit.cards]]
+  id = 0xFFF7C50C
+  from = 0xEBCFE222
+  rank = 3
+  moves = [
+    { move = 0x55C71D2A, level = 1 },
+    { move = 0x4C1D87D5, level = 13 },
+    { move = 0x4741C0E8, level = 20 },
+    { move = 0x54C4DCA3, level = 30 },
+    { move = 0x27D9B69F, level = 38 },
+    { move = 0x6DD736DD, level = 43 },
+  ]

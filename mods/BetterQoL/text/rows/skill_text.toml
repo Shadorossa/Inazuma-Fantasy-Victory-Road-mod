@@ -1,0 +1,18 @@
+# Texts of BetterQoL's retail technique renames: the name of whs02750 (Fire Tornado variant A, ev60_02750) says «(A)»
+# like «Tornado oscuro (A)». Fixed id: the retail skill_text noun 0xCC87EFBB (used only by whs02750); Japanese keeps the
+# retail ruby marker.
+schema = "VRFW.text/2"
+table = "skill_text"
+
+[[row]]
+id = 0xCC87EFBB  # whs02750 name: «Tornado de fuego A» -> «Tornado de fuego (A)»
+kind = "noun"
+es = "Tornado de fuego (A)"
+en = "Fire Tornado (A)"
+fr = "Tornade de feu (A)"
+de = "Feuertornado (A)"
+it = "Tornado di Fuoco (A)"
+pt = "Furacão de Fogo (A)"
+ja = "ファイアトルネード[Ａ/アレス]"
+zh_hans = "烈焰龙卷风(A)"
+zh_hant = "烈焰龍捲風(A)"

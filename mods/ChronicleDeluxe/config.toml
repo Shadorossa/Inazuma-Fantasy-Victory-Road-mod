@@ -76,6 +76,8 @@ store_kits = [
 # earlier ones
 #   max_per_series: from the second game on, at most this many players of the squad from any one game (season). 0 = no
 # maximum
+# The player's avatar counts as a player of any game: it passes the first game's and the cap's rule, counts toward the
+# ramp and takes no place of a per-season maximum (written by the generator: `{ Avatar = true }`, VRFW match-challenge.md).
 [heroic.players]
 ramp_start = 1
 ramp_end = 7
@@ -85,14 +87,14 @@ max_per_series = 0
 
 # The required starter of every Batalla heroica, from the first one (Royal Academy) to Victory Road's last: the
 # player's starting line-up must have this character (any card of his: the normal cards and the Hero / Idol ones of
-# the same character; NOT the possessed form c11600090 nor the young one c11600110, other characters) in a formation
-# place of one of `positions` (the place in the dock's formation: fw = DL, mf = MC), only until that heroic battle's
-# first win (`until_first_clear`). He is exempt from the cap, and counts toward the ramp and the per-season maximum
+# the same character; NOT the possessed form c11600090 nor the young one c11600110, other characters). `positions`: the
+# dock formation's places he may start in (fw = DL, mf = MC; empty = any place). Only until that heroic battle's first
+# win (`until_first_clear`). He is exempt from the cap, and counts toward the ramp and the per-season maximum
 # only where his own series (chara_base: Victory Road) is allowed, i.e. in Victory Road's heroic battles. The Crónica
 # has no rule.
 [heroic.required]
 character = "c11600010"   # Victorio Cryptix, normal form (the one of the starting teams, content/teams/05_start_teams.toml)
-positions = ["fw", "mf"]
+positions = []
 until_first_clear = true
 
 # The auras BOTH teams may start in a Batalla heroica, per the battle's game: each game lists its allowed kinds (the

@@ -1,0 +1,48 @@
+schema = "VRFW.changelog/1"
+# Technique Cut-in Skip: ONE general summary of what the mod offers, shown on «Novedades de mods».
+
+[[release]]
+icon = "general"
+notes = [
+    "A termina la animación de la supertécnica",
+]
+
+[release.en]
+notes = [
+    "A ends the technique cut-in",
+]
+
+[release.fr]
+notes = [
+    "A met fin à l'animation de la technique",
+]
+
+[release.de]
+notes = [
+    "A beendet die Technik-Animation",
+]
+
+[release.it]
+notes = [
+    "A termina l'animazione della tecnica",
+]
+
+[release.pt]
+notes = [
+    "A termina a animação da supertécnica",
+]
+
+[release.ja]
+notes = [
+    "Aで必殺技演出を終了",
+]
+
+[release.zh_hans]
+notes = [
+    "按 A 结束必杀技演出",
+]
+
+[release.zh_hant]
+notes = [
+    "按 A 結束必殺技演出",
+]

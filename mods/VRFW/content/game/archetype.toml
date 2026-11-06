@@ -160,7 +160,7 @@ value = "int(callback(ArchRankAtLeast))"
 #   Passive.SlotUnlock   (save slot, saved owner, slot) -> 0 / 1: a configured slot's unlock state
 #   Passive.AllOpen      (save slot) -> 1: every non-empty slot of a saved, configurable player works
 #   Passive.OwnOpen      (chara_param id, slot) -> 1: a slot holding an own passive works
-#   Passive.RarityTier   (asked rarity) -> the rarity whose version is read (Prime: 10 -> 4)
+#   Passive.RarityTier   (asked rarity) -> the rarity whose version and value are read (Character Reforged: 0-3 -> 4)
 #   Passive.RarityTwin   (passive id) -> the address of the id to read instead (Prime's doubled twins), only for an
 #                        asked rarity listed in Passive.RarityTier
 # Record layout used below: +4 chara_param id, +0x10 rarity, +0xEC + slot * 12 passive slots, +0x1BC coach / manager badge (0 = player).
@@ -305,6 +305,20 @@ phase = "pre"
 table = "*/Passive.RarityTier"
 key = ["args[3]"]
 write = "args[3]"
+
+# RarityValue: effect value of a passive at a rarity; the game's second reader of the rarity table (cached slot values, plates, skill lists). Same tier as the version above.
+[[VRFW.Hook]]
+name = "VRFW.PassiveRarityValue"
+game = "Passive.RarityValue"
+kind = "function"
+arguments = ["ptr", "u32"]
+returns = "f32"
+
+[[VRFW.Hook.answer]]
+phase = "pre"
+table = "*/Passive.RarityTier"
+key = ["args[2]"]
+write = "args[2]"
 
 # Archetype data for the menus and the match HUD (Lua patches under assets\lua\archetype\include\).
 

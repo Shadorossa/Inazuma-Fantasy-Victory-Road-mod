@@ -2,8 +2,8 @@ id = "CharacterReforged"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Character Reforged"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 # player page 3D model: a shown card the VR-Framework dresses in his own clothes (VRFW_PlateMember.Kit -> 0,
 # "own") wears them, as his miniface (graft plate_model).
@@ -50,7 +50,7 @@ folder = "CharacterReforged"
 # the voice fill groups a character by its Japanese and English names, an adult bank
 # only takes adult banks' cues and a youth bank youth banks' (chara_base age group), and a technique's other keys come
 # from the bank's own cue of it (God Hand whk00010 -> whk00480, whk01710; VRFW 2.44.0)
-requires = ["VRFW>=0.2.2"]
+requires = ["VRFW>=0.2.4"]
 # optional: mods it works with when they are on (BetterQoL view forms, passive slots and role medal rules;
 # BetterUI's compact bank card)
 optional = ["BetterQoL", "BetterUI"]
@@ -231,7 +231,8 @@ functions = ["PairRules", "PairCheck", "PairValidity", "Card", "BoardItems", "Bo
 keys = ["PairRules", "Create", "DuplicateRules", "SkillBoard", "EraKit", "PartnerLock", "PlaceRules"]
 # its native tables other mods' answers may read as "CharacterReforged/<name>" (the cards with per-character
 # values: Inazuma Fantasy's trained-points modifier)
-tables = ["CharacterReforged.StatRow", "CharacterReforged.EraKit"]
+# Passive.RarityTier: read by the VR-Framework's passive rarity detours (content\game\passive_tier.toml)
+tables = ["CharacterReforged.StatRow", "CharacterReforged.EraKit", "Passive.RarityTier"]
 # game_lua: CharacterReforged.Header = the player header's slot (assets\lua\_all\character_reforged_header.lua): SLOT,
 # Items(). A mod hangs a piece there as data: [[entry]] host = "CharacterReforged.header",
 # action = { lua = "<Prefix>.<fn>" } (f(phase, ctx), content\menus\player_header_host.toml); its layers attach to the

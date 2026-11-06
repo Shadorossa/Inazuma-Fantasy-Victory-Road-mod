@@ -101,6 +101,18 @@ ja = "招待を受けました。マルチプレイを開いてルームに参�
 zh_hans = "已接受邀请：打开多人游戏以加入房间"
 zh_hant = "已接受邀請：開啟多人遊戲以加入房間"
 
+[[row]]
+id = "vrfw_net_invite_go"
+es = "Invitación aceptada. ¿Ir a la sala ahora? Se guardará la partida y se saldrá de esta pantalla"
+en = "Invite accepted. Go to the room now? The game is saved and this screen is left"
+fr = "Invitation acceptée. Aller au salon maintenant ? La partie sera sauvegardée et cet écran fermé"
+de = "Einladung angenommen. Jetzt zum Raum wechseln? Das Spiel wird gespeichert und dieser Bildschirm verlassen"
+it = "Invito accettato. Andare ora alla stanza? La partita verrà salvata e questa schermata chiusa"
+pt = "Convite aceite. Ir agora para a sala? O jogo será guardado e este ecrã será fechado"
+ja = "招待を受けました。今すぐルームに移動しますか?ゲームを保存してこの画面を離れます"
+zh_hans = "已接受邀请。现在前往房间吗?游戏将保存并离开此画面"
+zh_hant = "已接受邀請。現在前往房間嗎?遊戲將儲存並離開此畫面"
+
 # Detail lines of «Lista de mods no coincide» (fw::services::net::notice_lines): {a} {b} {c} = the line's args
 # (id / key, this game's value, the host's value).
 

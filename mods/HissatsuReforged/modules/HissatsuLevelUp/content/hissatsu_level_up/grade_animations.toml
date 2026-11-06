@@ -28,3 +28,10 @@ animation_of = "whk00555"
 technique = "whk00440"
 grade = 5
 animation_of = "HissatsuLevelUp.fist_of_justice_g5"
+
+# Mano celestial (God Hand, forest, whk00480, cut-in ev63_00480_1 / _2) at G5 shows Mano celestial EV in its colours:
+# the copy HissatsuLevelUp.god_hand_forest_g5 (content/techniques/god_hand_ev_g5.toml, events ev63_80480 / _80481)
+[[HissatsuLevelUp.GradeAnimation]]
+technique = "whk00480"
+grade = 5
+animation_of = "HissatsuLevelUp.god_hand_forest_g5"

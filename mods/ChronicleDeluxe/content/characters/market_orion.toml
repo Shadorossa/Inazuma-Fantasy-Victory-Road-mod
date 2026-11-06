@@ -1,0 +1,21 @@
+schema = "VRFW.character/2"
+# Chronicle Deluxe: players of the Orion the game ships models and faces for but no player row: signed from the player album.
+# Ids, stats and moves: ported from the old Chronicles Deluxe / Inazuma Fantasy declarations (research/archive, research/mods/_aside).
+default_lang = "en"
+
+[[edit]]
+target = "c11908010"  # Martemeli Prestov
+base = { voice_bank = 0x7D9C7880 }
+
+  [[edit.cards]]
+  id = 0xFFF7C50E
+  from = 0xD46876F2
+  rank = 3
+  moves = [
+    { move = 0x0C7FF30F, level = 13 },
+    { move = 0x5BE73EBE, level = 20 },
+    { move = 0x768AB9C5, level = 30 },
+    { move = 0x21127474, level = 38 },
+    { move = 0x50880BAF, level = 43 },
+    { move = 0x00000000, level = 0 },
+  ]

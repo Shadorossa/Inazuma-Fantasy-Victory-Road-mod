@@ -4,8 +4,8 @@ key_id = "SpiritStaminaPoints"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Spirit & Stamina Points"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "Keshin, keshin armours and totems run on points instead of time, as in Chrono Stone and Galaxy. Summoning is free and unlimited; the spirit's special move costs its fighting-spirit points (PEG, or SP for totems) instead of tension, an armour drains them while worn, and an empty pool sends the spirit away. Every player also has a stamina bar (GP): running and dashing spend it, Physical makes it last, half-time gives some back, and an exhausted player slows down. Each part can be switched off in settings."
 priority = 0
@@ -72,7 +72,7 @@ folder = "SpiritStaminaPoints"
 # and match resource aliases. CharacterReforged 1.5.0: the shared base of the character / aura mods
 #  and its player header slot (the max PE).
 # VRFW 2.10.0: the match resource keys state min_seconds (the sprint bar's cooldown) and cap_by (sprint <= PE).
-requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2"]
+requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"

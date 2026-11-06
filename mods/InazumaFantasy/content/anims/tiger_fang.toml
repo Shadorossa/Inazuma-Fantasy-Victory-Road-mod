@@ -1,0 +1,14 @@
+schema = "VRFW.anim/2"
+# Inazuma Fantasy: Colmillo del Tigre: the two cut-ins of Colmillo de pantera copied whole; content\effects\tiger_fang.toml
+# makes them load the tiger.
+owner = "match"
+
+[[event]]
+name = "tiger_fang"
+from = "ev63_00300_1"
+id = "ev63_86020"
+
+[[event]]
+name = "tiger_fang_fail"
+from = "ev63_00300_2"
+id = "ev63_86021"

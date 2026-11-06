@@ -2,14 +2,14 @@ id = "BetterUI"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml) «BetterUI» since 1.17.1; data id = mod id since 1.75.0
 name = "BetterUI"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "A cleaner match HUD and original game menus: a compact, translucent menu top bar, a lighter match HUD with fewer markers and guides, compact player cards on the formation, rival squad and bank screens, and shop shortcuts (L2 / R2 or Q / E). Shirt numbers and AI roles are set for the whole team from the Team Dock, and the cut-ins of special move duels show each player's total. No rules, data or saves are changed."
 priority = 0
 tags = ["Visual", "Interface"]
 updated = "2026-11-03"
-requires = ["VRFW>=0.2.2"]
+requires = ["VRFW>=0.2.4"]
 optional = ["BetterQoL"]
 conflicts = []
 # Lua patches of 31 scripts (30 menus + title_main) + the framework's «Mods» screen (vrfw_mods_menu: VRFW_MM_LAYOUT.top_dy = -55)

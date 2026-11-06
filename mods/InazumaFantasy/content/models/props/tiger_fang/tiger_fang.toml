@@ -1,0 +1,38 @@
+schema = "VRFW.model/1"
+# Inazuma Fantasy: Colmillo del Tigre's tiger: Remate del tigre's model refitted to Colmillo de pantera's skeleton, so that
+# move's motion packs still play it. The .glb and PNGs under assets\models\props\tiger_fang\ are made by
+# research/scripts/tiger_fang_model_build.py (_deploy.toml).
+name = "tiger_fang"
+kind = "prop"
+target = "chr/_waza/ev63_86020/ev63_86020.g4pkm"
+template = "chr/_waza/ev63_00300/ev63_00300.g4pkm"
+glb = "tiger_fang.glb"
+reuse_unchanged = false
+
+[skeleton]
+mode = "template"
+
+[[material]]
+name = "tiger_fang"
+from = "ev63_00300_10M"
+rename = "ev63_86020_10M"
+textures = ["ev63_86020_10", "ev63_86020_10line", "ev63_86020_10oc", "ev63_86020_10nml", "ev63_86020_10sp", "ev63_86020_10spm"]
+
+[[texture]]
+name = "ev63_86020_10"
+mips = 9
+[[texture]]
+name = "ev63_86020_10line"
+mips = 2
+[[texture]]
+name = "ev63_86020_10nml"
+mips = 9
+[[texture]]
+name = "ev63_86020_10oc"
+mips = 8
+[[texture]]
+name = "ev63_86020_10sp"
+mips = 6
+[[texture]]
+name = "ev63_86020_10spm"
+mips = 8

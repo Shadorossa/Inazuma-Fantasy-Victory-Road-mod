@@ -2,8 +2,8 @@ id = "FootballReforged"
 # name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
 # game's language (text\keys.toml)
 name = "Football Reforged"
-version = "0.2.2"
-author = "Shadorossa"
+version = "0.2.4"
+author = "Fantasy Team"
 author_steam = "76561199013321372"
 description = "A base of match mechanics in modules: each module is a card on this mod's page in Mods (on / off, applies after a restart). Goalkeeper barrier: keepers resist shots while an orange part of their fatigue bar lasts. Furor: the GO Strikers tension gauge, a fire bar by each crest; full, L3 / R starts the Fired up phase. Both on by default. Match formats in the base: Football 7 (7 vs 7), Inazuma Street (3 vs 3, no keepers or referee) and the 5-a-side friendly without tactics or referee, rulebooks other mods and modes can pick."
 priority = 0
@@ -51,7 +51,7 @@ folder = "FootballReforged"
 #   options.toml, scripts\no_move_cooldown.lua, content\game\no_move_cooldown.toml   the option «no special move
 #                                cooldown» (off by default, both teams): a move's own full recast never starts
 permissions = ["memory", "hook"]
-requires = ["VRFW>=0.2.2"]
+requires = ["VRFW>=0.2.4"]
 conflicts = []
 
 # The former module match_formats: always on with the base.

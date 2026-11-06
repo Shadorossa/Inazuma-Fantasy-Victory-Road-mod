@@ -1,0 +1,20 @@
+# Declaration schema of VRFW.archetype/1 (content\archetypes\**\*.toml; docs/framework/archetype.md): [[VRFW.Archetype]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.archetype/1"
+folder = "content/archetypes"
+
+[entry.Archetype]
+name = { type = "name", required = true, doc = "key <mod>.siege (a-z 0-9 _)" }
+number = { type = "int", doc = "the build number: 7..63 (0-5 the game's, 6 «Libertad»); unique over the mods" }
+label = { type = "string", doc = "name: a text key (the game's id = crc32 of it) or an id (\"0x…\")" }
+description = { type = "string", doc = "the explanation (dock balloon)" }
+pick_state = { type = "string" }
+pick_value = { type = "int" }
+rank_state = { type = "string" }
+icon = { type = "string", doc = "small sprite of the build icon atlases (name = crc32, or an id)" }
+icon_large = { type = "string", doc = "large sprite (icon_common: dock plate, team guide, «Bonificaciones»)" }
+gauge_icon = { type = "string", doc = "the controlled player's circle in a match" }
+passives = { type = "strings", ref = "passive", doc = "passive keys (or ids): each carrier of one = 1 point" }
+rank_charges = { type = "ints", doc = "the charge each rank needs (ascending); max charge = the last" }
+start_charge = { type = "int", default = 0, doc = "at kick-off" }
+charge = { type = "records", fields = { on = { type = "string", doc = "shot_on_target | goal | conceded | shot | no_shot" }, add = { type = "int", doc = "+ / − charge" }, every_s = { type = "int", doc = "no_shot: each `every_s` live seconds without a shot of the side" } } }

@@ -1,0 +1,113 @@
+schema = "VRFW.catalog/1"
+# Maps technique-id prefixes to telop banner kinds and voice-cue families; rules are tried in order, first match wins.
+# A rule matches a lower-case id starting with one of `prefixes` (or of `set`) or equal to one of `exact`; then `suffix`, `len` and `digits` must also hold.
+# `digits`: "all" = the rest is only digits (at least one); "lead" = at least one more character, the next (up to) 5 are digits.
+# telop `kind`: technique, keshin, totem, miximax, armour, kizuna, power, mode_change, badge (else other); voice `family`: Mods screen text key.
+
+[sets]
+# Special-move id prefixes, in telop template lookup order.
+technique = ["whs", "whk", "whd", "who", "wht"]
+# Special-move prefixes of voice cues (no `wht` cue).
+technique_voice = ["whs", "whk", "whd", "who"]
+# Armour aura command prefixes of voice cues.
+armour_voice = ["was", "wao", "wad", "wak"]
+
+[[telop]]
+set = "technique"
+kind = "technique"
+
+[[telop]]
+prefixes = ["aura_mixi"]
+kind = "miximax"
+
+[[telop]]
+prefixes = ["aura_armed"]
+kind = "armour"
+
+[[telop]]
+prefixes = ["aura_kizuna"]
+kind = "kizuna"
+
+[[telop]]
+prefixes = ["aura_power"]
+kind = "power"
+
+[[telop]]
+prefixes = ["mode_change"]
+kind = "mode_change"
+
+# Level / kizuna badges: telop objects, never hidden.
+[[telop]]
+exact = ["kz"]
+kind = "badge"
+
+[[telop]]
+prefixes = ["lv"]
+len = 3
+digits = "all"
+kind = "badge"
+
+# Keshin (k000010) and totem (a000010) ids: one letter plus digits only.
+[[telop]]
+prefixes = ["k"]
+digits = "all"
+kind = "keshin"
+
+[[telop]]
+prefixes = ["a"]
+digits = "all"
+kind = "totem"
+
+[[voice]]
+set = "technique_voice"
+digits = "lead"
+family = "au_cue_technique"
+
+[[voice]]
+set = "armour_voice"
+digits = "lead"
+family = "au_cue_armour"
+
+[[voice]]
+exact = ["armed"]
+family = "au_cue_armed"
+
+[[voice]]
+prefixes = ["k"]
+suffix = "_inc"
+family = "au_cue_invoke"
+
+[[voice]]
+prefixes = ["gl"]
+family = "au_cue_goal"
+
+[[voice]]
+prefixes = ["bt"]
+family = "au_cue_match_line"
+
+[[voice]]
+prefixes = ["pa"]
+family = "au_cue_pass"
+
+[[voice]]
+prefixes = ["sh"]
+family = "au_cue_shot"
+
+[[voice]]
+prefixes = ["kp"]
+family = "au_cue_keeper"
+
+[[voice]]
+prefixes = ["sp"]
+family = "au_cue_special"
+
+[[voice]]
+prefixes = ["wa", "fr", "jp"]
+family = "au_cue_reaction"
+
+[[voice]]
+prefixes = ["preview"]
+family = "au_cue_preview"
+
+[voice_default]
+family = "au_cue_other"

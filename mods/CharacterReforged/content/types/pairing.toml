@@ -1,0 +1,27 @@
+# Declaration schema of CharacterReforged.pairing/1 (content\pairing): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "CharacterReforged.pairing/1"
+folder = "content/pairing"
+label = "Pairing rules"
+label_es = "Reglas de emparejamiento"
+
+[entry.PairRules]
+single = true
+armour = { type = "table" }
+default = { type = "table" }
+miximax = { type = "table" }
+
+[entry.Create]
+single = true
+change = { type = "table" }
+miximax = { type = "table" }
+
+[entry.PartnerLock]
+single = true
+change = { type = "table" }
+miximax = { type = "table" }
+
+[entry.PartnerStatus]
+single = true
+prohibited_badge = { type = "string" }
+no_move_badge = { type = "string" }

@@ -1,0 +1,56 @@
+# Schema of the rarity declarations (kind VRFW.rarity/1, a mod's content\rarities\**\*.toml): own card rarities,
+# edits of the game's or another mod's, and the set kept or removed. The rarity type builds them (strict parse);
+# this schema describes the same keys for the checker and the editors.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.rarity/1"
+folder = "content/rarities"
+
+[entry.File]
+file_root = true
+doc = "the rarities the set keeps or removes (on the set so far, before this file's edits and rarities)"
+keep = { type = "strings", doc = "removes every other rarity of the set so far" }
+remove = { type = "strings", doc = "removes these rarities (keys such as hero, fabled, <mod>.<id>)" }
+
+[entry.Rarity]
+entry_table = "rarity"
+provides = "rarity"
+doc = "an own rarity: key <mod>.<id>"
+id = { type = "name", required = true, doc = "own id (a-z 0-9 _): key <mod>.<id>" }
+value = { type = "int", min = 0, max = 15, required = true, doc = "column 41 of its cards (0-15)" }
+also = { type = "ints", min = 0, max = 15, doc = "other values that are this rarity too" }
+frame = { type = "int", min = 0, doc = "sprite group NN of the card frame" }
+also_frames = { type = "ints", min = 0, doc = "more frames (one frame per card)" }
+texture = { type = "string", doc = "the frame atlas texture" }
+group = { type = "string", doc = "the family (filters / UI)" }
+group_label = { type = "table", doc = "the family's name per language" }
+banner = { type = "string", values = ["none", "retail", "own"], doc = "none | retail (the game's word for that value) | own (banner_text)" }
+banner_text = { type = "table", doc = "the banner's text per language (or all = \"…\")" }
+plate = { type = "string", values = ["retail", "static", "scroll"], doc = "the name plate: retail | static | scroll" }
+label = { type = "table", doc = "the rarity's name per language" }
+order = { type = "int", doc = "sort order (the game's: 0, 10 … 90)" }
+scope = { type = "string", doc = "unset = everywhere; a mode key (<mod>.<mode>): only inside that mode" }
+tier = { type = "int", min = 0, doc = "its tier inside its family (UIs draw stars; unset = none)" }
+cells = { type = "table", doc = "chara_param cells its cards get (engine names, col_<n> or a [[param_column]] name)" }
+tint = { type = "string", doc = "colour #RRGGBB" }
+team_limit = { type = "int", min = 0, doc = "most cards of this rarity in a team" }
+trainable = { type = "bool", doc = "its cards can be trained" }
+passive_inheritance = { type = "bool", doc = "its cards pass on passives" }
+default_for_value = { type = "bool", default = false, doc = "the rarity of that value when the card says no other" }
+bonus = { type = "table", doc = "stat bonuses: best_stat, all_stats, passives, moment_tilt" }
+
+[entry.Edit]
+entry_table = "edit"
+doc = "a change to a rarity of the game or of another mod (only the keys written change)"
+id = { type = "string", required = true, doc = "the rarity's key (legendary, <mod>.<id>)" }
+frame = { type = "int", min = 0 }
+texture = { type = "string" }
+banner = { type = "string", values = ["none", "retail", "own"] }
+banner_text = { type = "table" }
+plate = { type = "string", values = ["retail", "static", "scroll"] }
+label = { type = "table" }
+order = { type = "int" }
+tint = { type = "string" }
+team_limit = { type = "int", min = 0 }
+trainable = { type = "bool" }
+passive_inheritance = { type = "bool" }
+bonus = { type = "table" }

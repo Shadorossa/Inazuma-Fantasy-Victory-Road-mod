@@ -1,0 +1,76 @@
+schema = "VRFW.changelog/1"
+# IECross: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Inazuma Eleven Cross en Victory Road",
+    "Equipos, cartas y estadios de Cross",
+    "Supertécnicas de Cross con escena",
+    "Competir contra bots",
+]
+
+[release.en]
+notes = [
+    "Inazuma Eleven Cross in Victory Road",
+    "Cross teams, cards and stadiums",
+    "Cross special moves with scenes",
+    "Play against bots",
+]
+
+[release.fr]
+notes = [
+    "Inazuma Eleven Cross dans Victory Road",
+    "Équipes, cartes et stades de Cross",
+    "Techniques de Cross avec scènes",
+    "Jouer contre des bots",
+]
+
+[release.de]
+notes = [
+    "Inazuma Eleven Cross in Victory Road",
+    "Cross-Teams, -Karten und -Stadien",
+    "Cross-Techniken mit Szenen",
+    "Gegen Bots spielen",
+]
+
+[release.it]
+notes = [
+    "Inazuma Eleven Cross in Victory Road",
+    "Squadre, carte e stadi di Cross",
+    "Super tecniche Cross con scene",
+    "Sfida contro i bot",
+]
+
+[release.pt]
+notes = [
+    "Inazuma Eleven Cross em Victory Road",
+    "Equipas, cartas e estádios de Cross",
+    "Supertécnicas de Cross com cenas",
+    "Jogar contra bots",
+]
+
+[release.ja]
+notes = [
+    "VRにイナズマイレブンクロス登場",
+    "クロスのチーム・カード・スタジアム",
+    "演出付きのクロス必殺技",
+    "ボットと対戦",
+]
+
+[release.zh_hans]
+notes = [
+    "胜利之路加入闪电十一人Cross",
+    "Cross的球队、卡片与球场",
+    "带演出的Cross必杀技",
+    "与机器人对战",
+]
+
+[release.zh_hant]
+notes = [
+    "勝利之路加入閃電十一人Cross",
+    "Cross的球隊、卡片與球場",
+    "帶演出的Cross必殺技",
+    "與機器人對戰",
+]

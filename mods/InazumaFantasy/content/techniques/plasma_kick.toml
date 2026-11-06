@@ -1,0 +1,42 @@
+schema = "VRFW.technique/3"
+# Patada de plasma (Plasma Kick): the download's move whs90010, a clone of whs02390 with its numbers; its event ev60_90010 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "plasma_kick"
+key = "whs90010"
+base = "whs02390"
+event = "ev60_90010"
+manual = { icon = [161, 0] }                 # its base has no manual: a new one (generic shot icon, as the game's
+                                            # whs02150 / who00540 manuals), so the move shop can sell it
+element = "wind"
+power_min = 85
+power_max = 540
+color = 1
+  [technique.text.es]
+  name = "Patada de plasma"
+  description = "Carga el balón de plasma ardiente\ny lo dispara con una patada."
+  [technique.text.en]
+  name = "Plasma Kick"
+  description = "Charges the ball with burning plasma\nand fires it with a kick."
+  [technique.text.fr]
+  name = "Frappe plasma"
+  description = "Charge le ballon de plasma brûlant\net le tire d'un coup de pied."
+  [technique.text.de]
+  name = "Plasmatritt"
+  description = "Lädt den Ball mit glühendem Plasma\nund schießt ihn mit einem Tritt ab."
+  [technique.text.it]
+  name = "Calcio al plasma"
+  description = "Carica la palla di plasma ardente\ne la scaglia con un calcio."
+  [technique.text.pt]
+  name = "Chute de plasma"
+  description = "Carrega a bola com plasma ardente\ne dispara-a com um chute."
+  [technique.text.ja]
+  name = "プラズマキック"
+  description = "灼熱のプラズマをボールに込め\n蹴り放つ！"
+  [technique.text.zh_hans]
+  name = "等离子踢"
+  description = "为足球注入炽热等离子，\n一脚踢出。"
+  [technique.text.zh_hant]
+  name = "電漿踢"
+  description = "為足球注入熾熱電漿，\n一腳踢出。"

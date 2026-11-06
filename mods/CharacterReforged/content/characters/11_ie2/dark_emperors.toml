@@ -1,0 +1,194 @@
+schema = "VRFW.character/2"
+# Character Reforged · Dark Emperors · Inazuma Eleven 2
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c02024300"                                   # Nathan Swift
+moves = [
+  { move = 0x3C843987, level = 1 },                         # Flurry Dash
+  { move = 0x2354CA2D, level = 15 },                        # Wind God's Dance
+  { move = 0xF1EEF635, level = 45 },                        # The Hurricane
+  { move = 0xC21AFE80, level = 55 },                        # Whirlwind Drop
+]
+VRFW.MoveGrades = [
+  { Move = 0x3C843987, Grade = 1 },                         # Flurry Dash
+]
+
+  [[edit.cards]]
+  id = 0xEF429E90                                         # FW/MF · wind
+  growth_pattern = 1
+  growth = "normal"
+  stats = { kick = 344, control = 277, technique = 281, pressure = 178, physical = 186, intelligence = 228, agility = 178, freedom = 389 }
+
+[[edit]]
+target = "c02024240"                                   # Jim Wraith
+moves = [
+  { move = 0x10A0C298, level = 1 },                         # Warp Drive
+  { move = 0x55C71D2A, level = 22 },                        # About Face
+  { move = 0xB5B7108F, level = 34 },                        # Shadow Stitch
+  { move = 0x38094535, level = 60 },                        # Sub-Terfuge
+]
+
+  [[edit.cards]]
+  id = 0x8AEC31A3                                         # DF/GK · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 196, control = 215, technique = 236, pressure = 231, physical = 220, intelligence = 317, agility = 180, freedom = 238 }
+
+[[edit]]
+target = "c02024250"                                   # Tod Ironside
+moves = [
+  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
+  { move = 0x1F0836D6, level = 7 },                         # Comet Shot
+  { move = 0x6C827857, level = 20 },                        # Rolling Steal
+  { move = 0x31ABD82E, level = 42 },                        # Circus Block
+]
+VRFW.MoveGrades = [
+  { Move = 0x1F0836D6, Grade = 1 },                         # Comet Shot
+]
+
+  [[edit.cards]]
+  id = 0x93F700E2                                         # MF/DF · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 200, control = 267, technique = 258, pressure = 186, physical = 135, intelligence = 242, agility = 171, freedom = 267 }
+
+[[edit]]
+target = "c02024260"                                   # Steve Grim
+moves = [
+  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
+  { move = 0x06130797, level = 12 },                        # Rolling Kick
+  { move = 0x4CDC2C6B, level = 30 },                        # Shooting Star
+  { move = 0x8D5B6847, level = 66 },                        # Odin Sword
+]
+
+  [[edit.cards]]
+  id = 0xB8DA5321                                         # MF/DF · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 217, control = 240, technique = 279, pressure = 167, physical = 180, intelligence = 201, agility = 197, freedom = 271 }
+
+[[edit]]
+target = "c02024270"                                   # Tim Saunders
+moves = [
+  { move = 0x427719AC, level = 1 },                         # Gale Dash
+  { move = 0x011AAF4B, level = 18 },                        # Gyro Head
+  { move = 0x574008CD, level = 35 },                        # Kung Fu Fighting
+  { move = 0x316A7390, level = 48 },                        # Land Dragon
+]
+
+  [[edit.cards]]
+  id = 0xA1C16260                                         # MF/DF · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 262, control = 243, technique = 258, pressure = 201, physical = 177, intelligence = 243, agility = 212, freedom = 417 }
+
+[[edit]]
+target = "c02024280"                                   # Sam Kincaid
+moves = [
+  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
+  { move = 0x6B1CF436, level = 14 },                        # Bewildered
+  { move = 0x4D1E465C, level = 23 },                        # Fake Bomber
+  { move = 0x0597D3F9, level = 37 },                        # Dragon Tornado
+]
+
+  [[edit.cards]]
+  id = 0x26597EAF                                         # MF/FW · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 236, control = 269, technique = 257, pressure = 165, physical = 153, intelligence = 212, agility = 157, freedom = 339 }
+
+[[edit]]
+target = "c02024290"                                   # Maxwell Carson
+moves = [
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
+  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
+  { move = 0x3F00EDE9, level = 38 },                        # Dash Storm
+  { move = 0x240BEDF2, level = 55 },                        # Bounce Shot
+]
+
+  [[edit.cards]]
+  id = 0x3F424FEE                                         # MF/FW · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 135, control = 267, technique = 247, pressure = 221, physical = 207, intelligence = 263, agility = 193, freedom = 209 }
+
+[[edit]]
+target = "c02024310"                                   # Kevin Dragonfly
+moves = [
+  { move = 0x2CFC3E63, level = 1 },                         # Dragon Crash
+  { move = 0x5F989B9E, level = 18 },                        # Wyvern Crash
+  { move = 0x10D90D59, level = 32 },                        # Wyvern Blizzard
+  { move = 0xE937AD43, level = 42 },                        # Dragon Slayer
+]
+VRFW.MoveGrades = [
+  { Move = 0x2CFC3E63, Grade = 1 },                         # Dragon Crash
+  { Move = 0x5F989B9E, Grade = 1 },                         # Wyvern Crash
+]
+
+  [[edit.cards]]
+  id = 0xF659AFD1                                         # FW/MF · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 302, control = 255, technique = 178, pressure = 153, physical = 250, intelligence = 178, agility = 176, freedom = 284 }
+
+[[edit]]
+target = "c02024210"                                   # Thomas Feldt
+moves = [
+  { move = 0xF9B80F86, level = 1 },                         # Strong Punch
+  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
+  { move = 0xEA12530F, level = 30 },                        # Double Rocket
+  { move = 0x8E7E960B, level = 52 },                        # Drill Smasher
+]
+
+  [[edit.cards]]
+  id = 0xF79BC5E6                                         # GK/MF · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 204, control = 215, technique = 215, pressure = 203, physical = 269, intelligence = 227, agility = 255, freedom = 335 }
+
+[[edit]]
+target = "c02024220"                                   # Malcolm Night
+moves = [
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
+  { move = 0x6C827857, level = 39 },                        # Rolling Steal
+  { move = 0xB6F26F5F, level = 60 },                        # Tri-Pegasus
+]
+
+  [[edit.cards]]
+  id = 0xDCB69625                                         # DF/MF · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 244, control = 182, technique = 180, pressure = 240, physical = 252, intelligence = 266, agility = 231, freedom = 238 }
+
+[[edit]]
+target = "c02024230"                                   # Shadow Cimmerian
+moves = [
+  { move = 0x6B4A7B35, level = 1 },                         # Power Shot
+  { move = 0x568262FA, level = 1 },                         # Dark Tornado
+  { move = 0xB5B7108F, level = 1 },                         # Shadow Stitch
+  { move = 0x32EEA7FE, level = 70 },                        # Death Zone 2
+]
+
+  [[edit.cards]]
+  id = 0xC5ADA764                                         # FW/MF · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 252, control = 258, technique = 259, pressure = 230, physical = 180, intelligence = 248, agility = 215, freedom = 343 }
+
+[[edit]]
+target = "c11802070"                                   # Godric Wyles
+moves = [
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0x74B5C85D, level = 13 },                        # Security Shot
+  { move = 0xC16279D1, level = 20 },                        # Field of Force
+  { move = 0x750E6DAB, level = 30 },                        # Matador Feint
+]
+
+  [[edit.cards]]
+  id = 0xECFF22DC                                         # MF/FW · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 216, control = 250, technique = 252, pressure = 190, physical = 181, intelligence = 230, agility = 186, freedom = 225 }

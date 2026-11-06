@@ -1,0 +1,83 @@
+schema = "VRFW.item/2"
+# New Recruitment's currency: Puntos de amistad = tk_hr000008 (the retail Victory Star renamed; every balance is the
+# item's own count in the save, kept 1:1). They pay the signings from BetterQoL's album (config.toml [album],
+# scripts\album_price.lua). Other mods' shops that charge tk_hr000008 (Hissatsu Level Up, IE Cross) show the new name.
+# Icon: content/images/menu/200_icon/02_icon_item/friendship_points.toml.
+default_lang = "en"
+
+[[edit]]
+target = "tk_hr000008"
+max_stack = 999999                          # the bag holds up to 999999 (retail 99999); the counters: VRFW item_count_digits
+  [edit.text.es]
+  name = "Puntos de amistad"
+  [edit.text.en]
+  name = "Friendship Points"
+  [edit.text.fr]
+  name = "Points d'amitié"
+  [edit.text.de]
+  name = "Freundschaftspunkte"
+  [edit.text.it]
+  name = "Punti Carisma"
+  [edit.text.pt]
+  name = "Pontos de amizade"
+  [edit.text.ja]
+  name = "友情ポイント"
+  [edit.text.zh_hans]
+  name = "友情点数"
+  [edit.text.zh_hant]
+  name = "友情點數"
+
+# A goal's in-match drop of Puntos de amistad is not picked up on the pitch: held and paid at the end (win = the sum
+# of the goal rolls, draw = one roll's worth, loss = nothing) (docs/game/mechanics/end-of-match-rewards.md).
+[VRFW.EndOfMatchRewards]
+HeldDrops = ["tk_hr000008"]
+
+# Every match of every mode pays Puntos de amistad at its end, as a row of the result list, on top of its goal rolls.
+# The amounts are the player's: config.toml [match_drops.friendship] (win, draw, loss, per_goal, per_goal_margin), all
+# times the difficulty's multiplier; the values below are the defaults when the config has no such key. VR-Framework [[VRFW.MatchDropExtra]] (docs/framework/drops.md §6).
+[[VRFW.MatchDropExtra]]
+Item = "tk_hr000008"
+Win = 12
+Draw = 6
+Loss = 0
+PerGoal = 2
+PerGoalMargin = 2                           # a win by 3 goals: +6
+MarginMax = 5                               # no more than +10 (no farming of weak rivals)
+Config = "match_drops.friendship"
+  [VRFW.MatchDropExtra.Difficulty]          # the multiplier by the played difficulty (declared Ids)
+  Cronica = 1.0
+  RouteOpen = 1.25
+  RareItems = 1.5
+  Heroica = 1.75
+  HeroicaPlus = 2.0
+  Legendaria = 2.5
+  Class1 = 1.0                              # free match Lv 50
+  Class2 = 1.5                              # Lv 99
+  Class3 = 2.0
+  Class4 = 2.5                              # Lv 200
+
+# The board matches of Chronicle Deluxe's chains pay a rank bonus on a win: the match's rank is the best rank Chronicle
+# Deluxe declares (S = 5+ goals and none conceded, A = 3+ and none conceded, B = any other win), plus 2 for each goal
+# past that rank's goals; times the same difficulty multiplier. Without Chronicle Deluxe no chain matches: nothing.
+[[VRFW.MatchDropExtra]]
+Item = "tk_hr000008"
+Chains = ["ChronicleDeluxe.*"]
+  [VRFW.MatchDropExtra.Difficulty]          # the multiplier by the played difficulty (declared Ids)
+  Cronica = 1.0
+  RouteOpen = 1.25
+  RareItems = 1.5
+  Heroica = 1.75
+  HeroicaPlus = 2.0
+  Legendaria = 2.5
+  Class1 = 1.0                              # free match Lv 50
+  Class2 = 1.5                              # Lv 99
+  Class3 = 2.0
+  Class4 = 2.5                              # Lv 200
+  [[VRFW.MatchDropExtra.Rank]]
+  Id = "A"
+  Bonus = 5
+  PerExtraGoal = 2
+  [[VRFW.MatchDropExtra.Rank]]
+  Id = "S"
+  Bonus = 10
+  PerExtraGoal = 2

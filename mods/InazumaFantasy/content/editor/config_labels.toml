@@ -1,0 +1,56 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "match_drops"
+  Type = "table"
+  Label = { es = "Recompensas de partido", en = "Match rewards" }
+  Help = { es = "Lo que paga cada partido al terminar.", en = "What every match pays at its end." }
+  [[Shape.Field]]
+  Key = "match_drops.passion"
+  Type = "table"
+  Label = { es = "Puntos de pasión", en = "Passion points" }
+  Help = { es = "Puntos de pasión que se ganan al final de cada partido.", en = "Passion points earned at the end of every match." }
+  [[Shape.Field]]
+  Key = "match_drops.passion.win"
+  Type = "int"
+  Label = { es = "Por victoria", en = "On a win" }
+  Help = { es = "Puntos de pasión al ganar.", en = "Passion points for a win." }
+  [[Shape.Field]]
+  Key = "match_drops.passion.draw"
+  Type = "int"
+  Label = { es = "Por empate", en = "On a draw" }
+  Help = { es = "Puntos de pasión al empatar.", en = "Passion points for a draw." }
+  [[Shape.Field]]
+  Key = "match_drops.passion.loss"
+  Type = "int"
+  Label = { es = "Por derrota", en = "On a loss" }
+  Help = { es = "Puntos de pasión al perder.", en = "Passion points for a loss." }
+  [[Shape.Field]]
+  Key = "match_drops.passion.per_goal"
+  Type = "int"
+  Label = { es = "Por gol", en = "Per goal" }
+  Help = { es = "Puntos de pasión por cada gol marcado.", en = "Passion points per goal scored." }
+  [[Shape.Field]]
+  Key = "match_drops.passion.per_goal_margin"
+  Type = "int"
+  Label = { es = "Por gol de diferencia", en = "Per goal of margin" }
+  Help = { es = "Puntos de pasión por cada gol de diferencia a favor.", en = "Passion points per goal of winning margin." }
+  [[Shape.Field]]
+  Key = "VRFW"
+  Type = "table"
+  Label = { es = "Framework", en = "Framework" }
+  Help = { es = "Ajustes del framework para este mod.", en = "Framework settings for this mod." }
+  [[Shape.Field]]
+  Key = "VRFW.TitleArt"
+  Type = "table"
+  Label = { es = "Arte del título", en = "Title art" }
+  Help = { es = "Arte de la pantalla de título.", en = "Title screen art." }
+  [[Shape.Field]]
+  Key = "VRFW.TitleArt.own"
+  Type = "bool"
+  Label = { es = "Usar arte propio", en = "Use own art" }
+  Help = { es = "El mod usa su propio logo y la imagen de inicio en lugar de los del framework.", en = "The mod serves its own title logo and press-start art instead of the framework's." }

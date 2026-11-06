@@ -1,0 +1,269 @@
+# Classic Equipment › the rules research/scripts/classic_equipment.py builds the module from (the generated files:
+# content\items\, content\better_equipment\sets.toml, content\classic_equipment\, content\shops\, content\team_gear\,
+# content\images\, assets\images\). Nothing here is read in the game.
+
+[stats]
+# the 3DS stat (go3ds_items.json key) -> the Victory Road stat, the functional mapping approved by the owner:
+# Tiro -> Disparo, Regate -> Control, Técnica -> Técnica, Defensa (bloqueo) -> Presión, Atrapar (parada) -> Agilidad,
+# Aguante -> Físico, Rapidez (velocidad) -> Inteligencia; Suerte -> Suerte (Character Reforged's 8th stat, apart)
+map = { tiro = "kick", regate = "control", "técnica" = "technique", bloqueo = "pressure", parada = "intelligence", aguante = "physical", velocidad = "agility" }
+luck_key = "suerte"
+
+[scale]
+# The values follow Better Equipment's budget (its rules.toml [budget]): at its display_s (70) the shown bonuses of
+# every item add up to exactly 70, signed (raises minus the lowered stat; Suerte, content\classic_equipment\luck.toml,
+# counts as a raise). How they are shaped: [shape]. An item the 3DS game gave no stats takes the most common raised
+# pair of its kind, even.
+
+[drops]
+# Team items also drop in the matches against their team: an item whose retail counterpart (its Japanese stem) is the
+# boots of a team's kit is declared in content\team_gear\classic_equipment.toml (generated); Chronicle Deluxe's rival
+# drops put it in that team's boots slot, at the boots' rate (its config.toml [[drops.battle]] `boots`, `gear` on the
+# free-match classes), weight as the boots. Only the kinds below (a team's gloves for its boots: an accessory named
+# after a whole country is no team's gear); of the boots holding the item's stem, those whose stem starts with it when
+# there are any. The other items are only sold (content\shops\).
+kinds = ["gloves"]
+
+[[mod_shops]]
+# A mod whose own shops replace the retail ones in the Mercado: Inazuma Fantasy redirects the retail Mercado shops to
+# its own and lists the equipment in its training shop. The classic items get rows there too (if_mod), in the tab of
+# their kind, priced as that shop prices the item's equivalent, else by its price rule ([price] of `rule`, IF's
+# convert); its [limits] (rows of a shop, of a tab) are checked. The retail rows stay (story shops keep them).
+why = "Inazuma Fantasy's training shop"
+mod = "InazumaFantasy"
+shop = "InazumaFantasy.training_shop"
+rule = "research/mods/InazumaFantasy/_general_store.toml"
+rows = "research/mods/InazumaFantasy/content/shops/training_shop.toml"
+
+[shape]
+# How an item's shown bonuses are shaped; their absolute values add up to 70 (Better Equipment's rules.toml [shape],
+# the same rule as its own items: raises, lowered stat, min_raise, max_raise):
+#   trade   a penalty tier of `trade_tiers` (Better Equipment's tier, raised by the 3DS rank, [penalty]): two raises and
+#           one lowered stat (60 + 10)
+#   single  no trade and one raised 3DS stat: that stat +70
+#   spread  no trade, more 3DS stats: three raises for a small tier or from `three_from_rank` on (the 3DS rank of the
+#           item in its kind, 0 the weakest, 1 the strongest), else two; an item with Suerte keeps its own 3DS stats
+# The main raise is a 3DS stat of the item (of those at least `swap_ratio` of its strongest, the one fewer classic
+# items have as their main stat; a main stat already the main one of more than `main_share` x the average gives way to
+# the rarest main stat). Each further raise keeps the 3DS stat of that rank while no more classic items raise it than
+# the average, else it goes to the stat the classic items raise least so far (every stat gets good items). The values
+# keep the 3DS proportion by rank; a rank the 3DS item lacks weighs `fill_weight` of the main raise. The lowered stat:
+# Better Equipment's pair table, else the stat the classic items raise most.
+trade_tiers = ["big"]
+three_from_rank = 0.5
+main_share = 1.5
+swap_ratio = 0.75
+fill_weight = 0.4
+
+[penalty]
+# Better Equipment's penalty tier of a classic item (no passive: by its sets), raised by its standing in its 3DS game:
+# the rank of its 3DS raise total among the 3DS items of its kind (0 the weakest, 1 the strongest); from `small` on it
+# trades at least small, from `big` on big (an endgame item: bigger plus, bigger minus; a starter item: no minus)
+original_rank = { small = 0.34, big = 0.67 }
+
+[names]
+# the Japanese kind words a name ends with (its stem = the rest without a trailing の): a 3DS item whose stem names
+# a retail item of another kind (a team's boots for its gloves) joins that item's Better Equipment sets and, for the
+# languages the 3DS releases lack, takes that item's name with the kind word swapped (swap)
+# a team stem this long or longer also matches a retail item whose stem holds it (ツキガミの -> ツキガミの一族)
+team_stem_min = 3
+# ... only retail boots of the series of the 3DS game (the two digits after eq_sh: 04 GO, 05 Chrono Stone, 06 Galaxy)
+team_series = { go = "04", cs = "05", galaxy = "06" }
+ja_kind_words = ["シューズ", "グローブ", "ミサンガ", "ペンダント", "ブレスレット", "ネックレス"]
+
+# per language: the retail name of one kind -> the name of the other (regular expressions, Python syntax)
+swap.es = [
+    { from_kind = "boots", to_kind = "gloves", pattern = "^(Botas|Zapatillas|Deportivas|Sandalias|Tacos) ", replace = "Guantes " },
+]
+swap.en = [
+    { from_kind = "boots", to_kind = "gloves", pattern = " (Boots|Shoes|Sneakers|Sandals|Spikes)$", replace = " Gloves" },
+]
+swap.fr = [
+    { from_kind = "boots", to_kind = "gloves", pattern = "^(Crampons|Chaussures|Baskets|Sandales) ", replace = "Gants " },
+]
+swap.de = [
+    { from_kind = "boots", to_kind = "gloves", pattern = "-?(Schuhe|Stiefel|Sandalen)$", replace = "-Handschuhe" },
+]
+swap.it = [
+    { from_kind = "boots", to_kind = "gloves", pattern = "^(Scarpini|Scarpe|Sandali) ", replace = "Guanti " },
+]
+swap.pt = [
+    { from_kind = "boots", to_kind = "gloves", pattern = "^(Chuteiras|Sapatos|Ténis|Tênis|Sandálias) ", replace = "Luvas " },
+]
+swap.ja = [
+    { from_kind = "boots", to_kind = "gloves", pattern = "シューズ$", replace = "グローブ" },
+]
+swap.zh_hans = [
+    { from_kind = "boots", to_kind = "gloves", pattern = "(球鞋|之鞋|鞋)$", replace = "手套" },
+]
+swap.zh_hant = [
+    { from_kind = "boots", to_kind = "gloves", pattern = "(釘鞋|球鞋|之鞋|鞋)$", replace = "手套" },
+]
+
+# the name of an item of each kind around a stem of research/data/classic_equipment_names.toml (unofficial names)
+[names.template.boots]
+es = "Botas {x}"
+en = "{x} Boots"
+fr = "Crampons {x}"
+de = "{x}-Schuhe"
+it = "Scarpini {x}"
+pt = "Chuteiras {x}"
+zh_hans = "{x}球鞋"
+zh_hant = "{x}球鞋"
+[names.template.gloves]
+es = "Guantes {x}"
+en = "{x} Gloves"
+fr = "Gants {x}"
+de = "{x}-Handschuhe"
+it = "Guanti {x}"
+pt = "Luvas {x}"
+zh_hans = "{x}手套"
+zh_hant = "{x}手套"
+[names.template.bracelet]
+es = "Pulsera {x}"
+en = "{x} Bracelet"
+fr = "Bracelet {x}"
+de = "{x}-Armband"
+it = "Bracciale {x}"
+pt = "Pulseira {x}"
+zh_hans = "{x}手绳"
+zh_hant = "{x}手鍊"
+[names.template.pendant]
+es = "Colgante {x}"
+en = "{x} Pendant"
+fr = "Pendentif {x}"
+de = "{x}-Anhänger"
+it = "Collanina {x}"
+pt = "Pingente {x}"
+zh_hans = "{x}吊坠"
+zh_hant = "{x}吊墜"
+
+# ------------------------------------------------------------------------------------------------ sets
+# An item whose Japanese stem names a retail item (its counterpart: a team's boots for the team's gloves) joins that
+# item's Better Equipment sets by itself. The others are assigned here by their motif (the 3DS name: Japanese / Spanish
+# of the European release), one entry per item (`item` = the 3DS item id); `sets` = Better Equipment sets (by name),
+# empty for an item that only joins one of the new sets below.
+[sets]
+assign = [
+    { item = "32127595", sets = ["Thunder"], why = "カミナリ / trueno: thunder" },
+    { item = "AA553518", sets = ["Thunder"], why = "カミナリ / trueno: thunder" },
+    { item = "C3A88BD6", sets = ["Angel"], why = "シャイン / luminosas: light (the set of Botas Luz Eterna)" },
+    { item = "5BEFCB5B", sets = ["Angel"], why = "シャイン / luminosos: light (the set of Botas Luz Eterna)" },
+    { item = "4F3D2E5D", sets = ["Angel"], why = "せいなる / sacra: holy" },
+    { item = "D583E4E9", sets = ["Angel"], why = "せいなる / sacro: holy" },
+    { item = "4850EA44", sets = ["Angel"], why = "てんし / angelical: angel" },
+    { item = "C52E9983", sets = ["Angel"], why = "クロス / cruz: cross" },
+    { item = "AAD94E18", sets = ["Angel"], why = "ブラック / templarias: the Templars (黒の騎士団), whose retail boots Botas Caballeros Templarios are in Angel" },
+    { item = "329E0E95", sets = ["Angel"], why = "ブラック / templarios: the Templars (黒の騎士団), whose retail boots Botas Caballeros Templarios are in Angel" },
+    { item = "DB71D0A0", sets = ["Darkness"], why = "ごくあく / vileza: utter evil" },
+    { item = "4336902D", sets = ["Darkness"], why = "ごくあく / vileza: utter evil" },
+    { item = "3F57DAD2", sets = ["Darkness"], why = "あくま / demoníaca: demon" },
+    { item = "BB9FE53E", sets = ["Darkness"], why = "ゴシック / gótico: gothic" },
+    { item = "697C6EA2", sets = ["Darkness"], why = "はかいしん / destructor: god of destruction" },
+    { item = "A1334F71", sets = ["Darkness"], why = "シュウ / Tezcat: Tezcat (Shuu) leads Ancient Dark, whose retail boots Botas Oscuridad Ancestral are in Darkness" },
+    { item = "357FB18C", sets = ["FirePath"], why = "かえん / llamarada: flame" },
+    { item = "AD38F101", sets = ["FirePath"], why = "かえん / llamarada: flame" },
+    { item = "353DED1A", sets = ["FirePath"], why = "ボルケイノ: volcano" },
+    { item = "AD7AAD97", sets = ["FirePath"], why = "ボルケイノ: volcano" },
+    { item = "423ADD8C", sets = ["FirePath"], why = "アッシュ: ash (the volcano pair of Galaxy)" },
+    { item = "DA7D9D01", sets = ["FirePath"], why = "アッシュ: ash (the volcano pair of Galaxy)" },
+    { item = "AC76E036", sets = ["MountainPath"], why = "だいち / altozano: earth" },
+    { item = "3431A0BB", sets = ["MountainPath"], why = "だいち / altozano: earth" },
+    { item = "3C8BA131", sets = ["MountainPath"], why = "すなあらし: sandstorm (the set of the sand team Sílice)" },
+    { item = "A4CCE1BC", sets = ["MountainPath"], why = "すなあらし: sandstorm (the set of the sand team Sílice)" },
+    { item = "4B8C91A7", sets = ["MountainPath"], why = "エルグ: erg, a sand sea (the sandstorm pair of Galaxy)" },
+    { item = "D3CBD12A", sets = ["MountainPath"], why = "エルグ: erg, a sand sea (the sandstorm pair of Galaxy)" },
+    { item = "10CB36EB", sets = ["ForestPath"], why = "こもれび: sunlight through the trees" },
+    { item = "888C7666", sets = ["ForestPath"], why = "こもれび: sunlight through the trees" },
+    { item = "67CC067D", sets = ["ForestPath"], why = "ハンティング: hunting (the forest pair of Galaxy)" },
+    { item = "FF8B46F0", sets = ["ForestPath"], why = "ハンティング: hunting (the forest pair of Galaxy)" },
+    { item = "5B63B05B", sets = ["Tide"], why = "うみ / náuticas: sea" },
+    { item = "C324F0D6", sets = ["Tide"], why = "うみ / marinero: sea" },
+    { item = "4D233F89", sets = ["Tide"], why = "スイム / impermeables: swimming" },
+    { item = "D5647F04", sets = ["Tide"], why = "スイム / impermeables: swimming" },
+    { item = "D285C01D", sets = ["Tide"], why = "カレント: sea current" },
+    { item = "4AC28090", sets = ["Tide"], why = "カレント: sea current" },
+    { item = "A582F08B", sets = ["Tide"], why = "フロート: float (the current pair of Galaxy)" },
+    { item = "3DC5B006", sets = ["Tide"], why = "フロート: float (the current pair of Galaxy)" },
+    { item = "AB1B242F", sets = ["Training"], why = "たんれん / diestras: drilling" },
+    { item = "335C64A2", sets = ["Training"], why = "たんれん / diestros: drilling" },
+    { item = "45154503", sets = ["Training"], why = "れんしゅうよう / de práctica: for practice" },
+    { item = "77232781", sets = ["Training"], why = "エナジー / vitalidad: energy" },
+    { item = "EF64670C", sets = ["Training"], why = "エナジー / vitalidad: energy" },
+    { item = "4BCECD31", sets = ["Sporty"], why = "スポーツ / deportivas: sports" },
+    { item = "D3898DBC", sets = ["Sporty"], why = "スポーツ / deportivos: sports" },
+    { item = "147A8911", sets = ["Sporty"], why = "アクティブ / activa: active" },
+    { item = "B34E0459", sets = ["Victory"], why = "えいこう / invictus: glory, victory" },
+    { item = "1DCCC53A", sets = ["Valiant"], why = "ゆうき / guerrera: courage" },
+    { item = "453CF978", sets = ["Valiant"], why = "ゆうき / guerrero: courage" },
+    { item = "B56DD177", sets = ["Passion"], why = "パッション / pureza: passion" },
+    { item = "2D2A91FA", sets = ["Passion"], why = "パッション / pureza: passion" },
+    { item = "0A0C7C49", sets = ["Passion"], why = "あかいろ / roja: red" },
+    { item = "8D73D8AB", sets = ["Colorful"], why = "にじいろ / arcoíris: rainbow colours" },
+    { item = "5C0E7442", sets = ["Trendy"], why = "ストライプ / de barras: stripes (fashion)" },
+    { item = "C44934CF", sets = ["Trendy"], why = "ストライプ / de barras: stripes (fashion)" },
+    { item = "A4409ABC", sets = ["Royalty"], why = "きこうし / nobles: nobleman" },
+    { item = "3C07DA31", sets = ["Royalty"], why = "きこうし / nobles: nobleman" },
+    { item = "43F8B7BB", sets = ["Royalty"], why = "きぞく / aristocráticas: aristocracy" },
+    { item = "DBBFF736", sets = ["Royalty"], why = "きぞく / aristocráticos: aristocracy" },
+    { item = "2C6480CD", sets = ["Royalty"], why = "しんし / de señorito: gentleman" },
+    { item = "B423C040", sets = ["Royalty"], why = "しんし / señorito: gentleman" },
+    { item = "2C4D3CB6", sets = ["Royalty"], why = "ひしがた / diamante: a diamond-cut jewel" },
+    { item = "ACB8C7A0", sets = ["Greenwood"], why = "むらびと / campesinos: villagers (the set of Botas campesinas)" },
+    { item = "0D61B850", sets = ["Greenwood"], why = "じゅずだま / semilla: Job's tears seeds" },
+    { item = "52D5FC70", sets = ["Greenwood"], why = "こだま / de eco: kodama, the echo spirit of the trees" },
+    { item = "CA92BCFD", sets = ["Greenwood"], why = "こだま / eco: kodama, the echo spirit of the trees" },
+    { item = "88000D66", sets = ["Tech"], why = "アルゴリズム / autómatas: algorithm" },
+    { item = "10474DEB", sets = ["Tech"], why = "アルゴリズム / autómatas: algorithm" },
+    { item = "166498C5", sets = ["Tech"], why = "バイナリィ / binarias: binary" },
+    { item = "8E23D848", sets = ["Tech"], why = "バイナリィ / binarios: binary" },
+    { item = "2FE054A3", sets = ["Military"], why = "コンバット: combat" },
+    { item = "B7A7142E", sets = ["Military"], why = "コンバット: combat" },
+    { item = "F718FB01", sets = ["Scholar"], why = "がくしゅう: study" },
+    { item = "801FCB97", sets = ["Fortune"], why = "トレジャー: treasure" },
+    { item = "D6347FE7", sets = ["Classic"], why = "よごれた / gastada: worn out (the set of Colgante oxidado)" },
+    { item = "756599D8", sets = ["Glory"], why = "だいひょう / Sel. Tierra: the national selection (the set of Botas Earth Eleven)" },
+    { item = "ED22D955", sets = ["Glory"], why = "だいひょう / Sel. Tierra: the national selection (the set of Botas Earth Eleven)" },
+    { item = "00241717", sets = ["Glory"], why = "プレミア / de primera: premier" },
+    { item = "9863579A", sets = ["Glory"], why = "プレミア / de primera: premier" },
+    { item = "D42A6E33", sets = ["World"], why = "みんぞく / Tonghana: folk costume of a foreign land" },
+    { item = "4C6D2EBE", sets = ["World"], why = "みんぞく / Tonghana: folk costume of a foreign land" },
+    { item = "C26AE1E1", sets = ["Wild"], why = "パンサー / pantera: panther" },
+    { item = "5A2DA16C", sets = ["Wild"], why = "パンサー / pantera: panther" },
+    { item = "AF7E4F58", sets = ["Omega"], why = "オメガ Z / Omega Z: Protocol Omega" },
+    { item = "C50725F8", sets = ["Fiesta"], why = "リフレクト / arlequín: harlequin" },
+    { item = "5D406575", sets = ["Fiesta"], why = "リフレクト / arlequín: harlequin" },
+    { item = "25D2CCE6", sets = ["Challenger"], why = "リープ / inspiradoras: a leap forward" },
+    { item = "BD958C6B", sets = ["Challenger"], why = "リープ / inspiradores: a leap forward" },
+    { item = "5B4A0C20", sets = ["Bond"], why = "ハート / corazón: heart" },
+    { item = "5C27C839", sets = ["Moonlight"], why = "シルバー / de plata: silver" },
+    { item = "C8D402A4", sets = ["Rebel"], why = "デストロイ / Desesperdidos: the team's retail Zapatillas Desesperdidos are in Rebel" },
+    { item = "383A1ECB", sets = [], why = "らくえん / paradisíaca: the Paradise pair" },
+    { item = "A284D47F", sets = [], why = "らくえん / paradisíaco: the Paradise pair" },
+    { item = "D347AA2A", sets = [], why = "しんせんぐみ: Shinsengumi (Chrono Stone's Bakumatsu era)" },
+    { item = "4B00EAA7", sets = [], why = "しんせんぐみ: Shinsengumi (Chrono Stone's Bakumatsu era)" },
+    { item = "4A4EFB90", sets = [], why = "はおりはかま: haori and hakama" },
+    { item = "D209BB1D", sets = [], why = "はおりはかま: haori and hakama" },
+    { item = "3D49CB06", sets = [], why = "こいき: Edo chic" },
+    { item = "A50E8B8B", sets = [], why = "こいき: Edo chic" },
+    { item = "3B6A1E28", sets = [], why = "いなせ: Edo dash (the gloves of the retail Sandalias sofisticadas)" },
+    { item = "660E6C4A", sets = [], why = "とうえん: the Peach Garden oath (Chrono Stone's Three Kingdoms era)" },
+    { item = "FE492CC7", sets = [], why = "とうえん: the Peach Garden oath (Chrono Stone's Three Kingdoms era)" },
+    { item = "FF073DF0", sets = [], why = "せきへき: Red Cliffs (Chrono Stone's Three Kingdoms era)" },
+    { item = "67407D7D", sets = [], why = "せきへき: Red Cliffs (Chrono Stone's Three Kingdoms era)" },
+    { item = "11095CDC", sets = [], why = "アーマー: armour" },
+    { item = "894E1C51", sets = [], why = "アーマー: armour" },
+    { item = "58E76435", sets = [], why = "きしだん: an order of knights" },
+    { item = "C0A024B8", sets = [], why = "きしだん: an order of knights" },
+]
+
+# New sets: a group of classic items that only exists together (one motif, two equip slots). Bonus as Better
+# Equipment's two-slot sets (Youth, Prism, Nimbus, Exotic): one tier at 2 pieces, two stats at 0.0571 of S (+4 / +4 at
+# S = 70), the stats its members raise. `members` = 3DS item ids, `retail` = retail members (an item may be in
+# several sets). Names: text\keys.toml (set_<name in lower case>).
+new_set = [
+    { name = "Paradise", members = ["383A1ECB", "A284D47F"], bonus = [{ pieces = 2, stats = { physical = 0.0571, control = 0.0571 } }], why = "the bracelet raises Físico, the pendant Control" },
+    { name = "Samurai", members = ["D347AA2A", "4B00EAA7", "4A4EFB90", "D209BB1D", "3D49CB06", "A50E8B8B", "3B6A1E28"], retail = ["eq_sh1104901"], bonus = [{ pieces = 2, stats = { intelligence = 0.0571, technique = 0.0571 } }], why = "the sandals raise Inteligencia (Rapidez), the gloves Técnica" },
+    { name = "ThreeKingdoms", members = ["660E6C4A", "FE492CC7", "FF073DF0", "67407D7D"], bonus = [{ pieces = 2, stats = { kick = 0.0571, agility = 0.0571 } }], why = "the boots raise Disparo, the gloves Agilidad (Atrapar)" },
+    { name = "RoundTable", members = ["11095CDC", "894E1C51", "58E76435", "C0A024B8"], bonus = [{ pieces = 2, stats = { physical = 0.0571, agility = 0.0571 } }], why = "armour: Físico; the gloves raise Agilidad (Atrapar)" },
+]

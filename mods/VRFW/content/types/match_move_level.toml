@@ -1,0 +1,22 @@
+# Declaration schema of VRFW.match_move_level/1 (content\match_move_level): the level of the special moves of one side
+# of a match, for that match only (scripts\lib\match_move_level.lua; docs/game/mods/rival-move-level.md). One rule per
+# file. Each [moves] key is applied by the mod that owns that level, only while it is active.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.match_move_level/1"
+folder = "content/match_move_level"
+label = "Match move level"
+label_es = "Nivel de técnicas en partido"
+doc = "The level every move of a side takes in the matches that fit the rule."
+doc_es = "El nivel que toman todas las técnicas de un bando en los partidos que cumplen la regla."
+
+[entry.Match]
+entry_table = "match"
+single = true
+play_mode = { type = "int", doc = "the engine's play-mode byte (Game.PlayMode) the match must have; left out = any" }
+difficulty = { type = "string", required = true, doc = "a [MatchDifficulty.<Id>] key (content/defaults/match_difficulty.toml) or its Difficulty number" }
+side = { type = "string", default = "rival", values = ["rival"], doc = "the side whose moves take the level" }
+
+[entry.Moves]
+entry_table = "moves"
+single = true
+grade = { type = "string", doc = "the evolution grade of every move (read by the mod that owns move grades): \"max\" = its last grade, or a number" }

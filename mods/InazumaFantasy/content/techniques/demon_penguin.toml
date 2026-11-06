@@ -1,0 +1,39 @@
+schema = "VRFW.technique/3"
+# Pingüino demoniaco (Demon Penguin): the download's move whs90022, a clone of whs03250 with its numbers; its event ev60_90022 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "demon_penguin"
+key = "whs90022"
+base = "whs03250"
+event = "ev60_90022"
+element = "fire"
+users = 1
+cells = { colorIdx = 12 }
+  [technique.text.es]
+  name = "Pingüino demoniaco"
+  description = "Un disparo en solitario con los pingüinos de la oscuridad."
+  [technique.text.en]
+  name = "Demon Penguin"
+  description = "A solo shot with the\npenguins of darkness."
+  [technique.text.fr]
+  name = "Pingouin démoniaque"
+  description = "Un tir en solo avec les\npingouins des ténèbres."
+  [technique.text.de]
+  name = "Dämonenpinguin"
+  description = "Ein Soloschuss mit den\nPinguinen der Dunkelheit."
+  [technique.text.it]
+  name = "Pinguino demoniaco"
+  description = "Un tiro in solitaria con i\npinguini dell'oscurità."
+  [technique.text.pt]
+  name = "Pinguim demoníaco"
+  description = "Um remate a solo com os\npinguins da escuridão."
+  [technique.text.ja]
+  name = "デーモンペンギン"
+  description = "闇のペンギンを従えた\nひとりでのシュート！"
+  [technique.text.zh_hans]
+  name = "恶魔企鹅"
+  description = "率领黑暗企鹅的\n单人射门。"
+  [technique.text.zh_hant]
+  name = "惡魔企鵝"
+  description = "率領黑暗企鵝的\n單人射門。"

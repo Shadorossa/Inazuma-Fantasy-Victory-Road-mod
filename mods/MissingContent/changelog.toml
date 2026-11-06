@@ -1,0 +1,49 @@
+schema = "VRFW.changelog/1"
+# Missing Content: ONE general summary of what the mod offers (docs/framework/types/changelog.md). Each module keeps
+# its own changelog.
+
+[[release]]
+icon = "general"
+notes = [
+    "Escenas perdidas, voces que faltan y openings de DS en un solo mod",
+]
+
+[release.en]
+notes = [
+    "Lost scenes, missing voices and DS openings in one mod",
+]
+
+[release.fr]
+notes = [
+    "Scènes perdues, voix manquantes et génériques DS dans un seul mod",
+]
+
+[release.de]
+notes = [
+    "Verlorene Szenen, fehlende Stimmen und DS-Openings in einem Mod",
+]
+
+[release.it]
+notes = [
+    "Scene perdute, voci mancanti e sigle DS in un solo mod",
+]
+
+[release.pt]
+notes = [
+    "Cenas perdidas, vozes que faltavam e aberturas de DS num só mod",
+]
+
+[release.ja]
+notes = [
+    "失われたシーン、足りないボイス、DSオープニングをひとつのMODに",
+]
+
+[release.zh_hans]
+notes = [
+    "失落的场景、缺失的语音和DS片头合为一个模组",
+]
+
+[release.zh_hant]
+notes = [
+    "失落的場景、缺失的語音和DS片頭合為一個模組",
+]

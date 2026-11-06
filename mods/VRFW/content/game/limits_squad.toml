@@ -1,0 +1,31 @@
+schema = "VRFW.game/2"
+
+# Squad card types of mods (schema VRFW.game/2): a mod card type counts with a native one via
+# `[limits.squad.card_type.<name>] rarities = [...], counts_as = "diamond"`. Nothing declared = the hook passes through.
+
+# u32 GetCharaRarity(u32 charaHdl): rarity of a character handle (0 for an unknown handle).
+[[VRFW.Function]]
+name = "LimitsRarity"
+game = "Card.GetCharaRarity"
+
+# TeamSet* SetStruct(teamsObj, u8 teamType, u8 partyType): team set of a team type.
+[[VRFW.Function]]
+name = "LimitsTeamSet"
+game = "Team.SetStruct"
+
+# Team-set object [[g_gameRoot] + Game.RootParty].
+[[VRFW.Global]]
+name = "LimitsParty"
+base = "game_root"
+chain = ["Game.RootParty"]
+
+# 1 while a mod declares a card type counted with a native one.
+[[VRFW.State]]
+key = "vrfw.limits.squad_types"
+
+# u32 CountBasaraInTeam(u8 teamType, u8 partyType): Diamond starters of a team set. Post: the answer becomes the max of the game's count and each declared card type's starters.
+[[VRFW.Hook]]
+name = "LimitsDiamondCounter"
+game = "Card.CountBasaraInTeam"
+needs = ["LimitsRarity", "LimitsTeamSet", "LimitsParty"]
+post_when = { state = "vrfw.limits.squad_types", equals = 1 }

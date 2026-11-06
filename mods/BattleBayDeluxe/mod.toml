@@ -1,0 +1,79 @@
+id = "BattleBayDeluxe"
+# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
+# game's language (text\keys.toml) «Battle Bay Deluxe»: the same name in every language.
+name = "Battle Bay Deluxe"
+version = "0.2.2"
+author = "Shadorossa"
+author_steam = "76561199013321372"
+description = "Adds the Chronicle mode teams to the Battle Bay as teams to pick and rivals: 221 teams at level 40, with their original players, kits, formations, emblems, special tactics and special moves. Besides the Campaign, play with your active team, a Draft (pick 1 of 5 players for each place of your squad), a Tournament, a League, a daily challenge and a private 1v1 Multiplayer room (in testing). Every player can use all his special moves, whatever his level."
+priority = 0
+tags = ["Teams", "Gameplay"]
+updated = "2026-11-06"
+# This mod's own names (TOML keys [[BattleBayDeluxe.X]], Lua BattleBayDeluxe.X, any later text, command or key); never
+# VRFW. The names it had before keep working: commands CMND_BBCR_DRAFT_*, the
+# Draft team key evt_bbd_draft, the old roster files bb_draft_slot<N>.json (imported once), config.toml [campaign] / [draft].
+prefix = "BattleBayDeluxe"
+folder = "BattleBayDeluxe"
+# The content types this mod is the home of (ModManager saves NEW records of them here; the game ignores it). Its
+# content\characters\ rule (every move unlocked in the Battle Bay) does not make it the home of characters: new
+# players go to the character mods (Character Reforged…).
+owns = ["battle_bay", "teams", "team_tags", "level_sync"]
+# Standard mod layout (docs/framework/mod-layout.md):
+#   content\teams\     the team type (VRFW.team/2): [[team]] based_on + stadium = the team's home; [[append]]
+#                      list = "bb_stadium" with category / season (the Battle Bay pages / categories of VR-Framework,
+#                      docs/framework/bb-pages.md; a team's Battle Bay row plays at its home stadium).
+#                      NN_<season>.toml, 80_movesets.toml and 90_bb_grid.toml were generated ONCE from the retail data by
+#                      research/scripts/bb_chronicle_teams_build.py (game keys and ids, nothing copied from the game
+#                      files); they are now HAND-MAINTAINED source, edited directly or with ModManager «Equipos» in place; the
+#                      script refuses to overwrite them without --force-regenerate. 50_draft.toml (the Draft team) is hand-written.
+#   content\menus\     bb_tournament.toml: the Torneo's bracket overlay added to the Battle Bay top menu (game list plates,
+#                      crests, connectors; graft research/grafts/bb_tournament); content\images\: its drawings.
+#   content\rules\     bbd_knockout.toml: the Torneo's knockout rulebook (extra time + penalties, the framework rule engine).
+#   content\menus\     bb_draft.toml: the Draft screen's layers (menu type); its cards are Clean HUD's formation card
+#                      object (team00_01_chara_card_for_formation_evt, BetterUI).
+#   content\passive_config\ battle_bay.toml: no player passives in the Battle Bay (Utilities' [[off_mode]]:
+#                      every slot, the own passive and the script passives off in its menus and matches, no team bonus;
+#                      the plate hides the passive rows, the formation screen «Bonific. de equipo»).
+#   content\extra_slots\ aura_slots.toml: with Character Reforged, every Battle Bay player's auras leave his
+#                      match move list for the aura / mix slots of its plates slot (`list_auras_out_modes`).
+#   content\game\      active_team.toml: the hook StartMatchRequest that plays the «Active team» tile
+#                      (content\teams\51_active_team.toml) as the player's active team (scripts\active_team.lua; graft
+#                      research/grafts/bb_active_team).
+#   content\game\      tournament.toml: the 9 CMND_BBD_TOURN_* commands (scripts\tournament.lua). campaign.toml, draft.toml: the native access as data (VRFW.game/1, docs/framework/native.md):
+#                      the grid's Decide hook, the game functions, globals, structs, the 8 CMND_BBCR_DRAFT_* commands
+#                      and the 2 game_state keys BattleBayDeluxe.draft.team / .phase.
+#   content\game\      net_match.toml: the 5 CMND_BBD_NET_* commands of the «Sala privada» (scripts\net_match.lua: the
+#                      room's team pick on the grid, the room's local match on a borrowed Campaña block; graft
+#                      research/grafts/bb_net_room).
+#   scripts\           campaign.lua (the only entry: the Campaign's 7 rivals from the whole enjoy table, ratings from
+#                      data/common/gamedata/team/evt_bb_team_rating.cfg.bin when a mod ships it), draft.lua (the Draft:
+#                      the pool derived at run time by config.toml [draft], the session of the commands, the roster of
+#                      a running draft campaign in the save blob bb_draft.json of the slot, the old
+#                      <loader data dir>\bb_draft_slot<N>.json imported once; the Draft tile's avatar on
+#                      hook:VRFW.BattleBayRecord), lib\ (helpers). No DLL.
+#   content\game\      daily_challenge.toml: the 5 CMND_BBD_DAILY_* commands of the «Reto diario» (scripts\
+#                      daily_challenge.lua, lib\campaign_block.lua; config.toml [daily_challenge]; graft
+#                      research/grafts/bb_daily_challenge).
+#   content\game\      trophy_celebration.toml: the match globals of the champions' celebration
+#                      (scripts\lib\trophy_celebration.lua: a won Torneo / Liga / Campaña / Reto diario sends VRFW's
+#                      signal vrfw.trophy: the trophy lift of the game's Victory Road final, then its photo scene).
+#   text\              keys.toml (the mod's name / description), rows\ (the Draft's texts, text engine).
+# `requires` also makes it load after them (the Decide hook chains on top of the framework's BB pages service;
+# VRFW.battle_bay.unlock_rule, VRFW.data.import_once, hook:VRFW.BattleBayRecord; the lockstep [[VRFW.NetMode]] keys,
+# CMND_VRFW_NET_LOCKSTEP; VRFW_ChildMenu, the Torneo group-stage menu's handshake).
+requires = ["VRFW>=0.2.2", "VRFW.text", "VRFW.menu", "BetterUI>=0.2.2"]
+optional = ["BetterQoL", "CharacterReforged", "LegendaryAI"]
+conflicts = []
+# native access of content\game (docs/framework/native.md §4)
+permissions = ["memory", "call", "command", "state", "hook"]
+# Lua: the graft research/grafts/bb_draft (`mod = "BattleBayDeluxe"`, menu_assemble.py build --mod
+# BattleBayDeluxe); the loader module its funcLuaCommand calls of CMND_BBCR_DRAFT_* need
+loader_modules = ["lua_bridge"]
+
+# What other mods may use: BattleBayDeluxe.Ratings() = team id -> rating of the campaign's rating table
+# (data/common/gamedata/team/evt_bb_team_rating.cfg.bin, any mod may ship it; its header version checked; {} without
+# one), Career Mode's club ratings. Other mods edit this mod's teams by name (`[[edit]] target =
+# "BattleBayDeluxe.ie1_0101"`, Inazuma Fantasy).
+[exports]
+functions = ["Ratings"]
+keys = []

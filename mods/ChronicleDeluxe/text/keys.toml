@@ -1,0 +1,42 @@
+# Texts of Chronicle Deluxe: the «Mods» screen's name and description in the game's language. A language missing here
+# falls back to English. New texts get the id crc32("ChronicleDeluxe.<name>"). The nodes' match titles are their
+# [VRFW.RouteNode.Title] (9 languages); the chain's challenge titles are menu_text rows
+# (text\rows\chain_challenges.toml).
+schema = "VRFW.text_key/1"
+default_lang = "en"
+
+[en.new]
+mod_name = "Chronicle Deluxe"
+mod_description = "More Chronicle mode: new matches on the IE1 Chronicle board and three chains from the original IE1 and IE2 (Sonny's Premium Route, Mary Times Coach's Route and Suzette's Mother's Route), with their rivals, chests and S / A / B ranks. Every Chronicle team has a Chronicle battle and a Heroica battle up to Lv 200, with the levels, moves and auras of its own game. Matches drop move manuals, boots, auras and the rival's crest and kit, and the free match offers Lv 50, 99 and 200 difficulties."
+
+[es.new]
+mod_name = "Chronicle Deluxe"
+mod_description = "Más modo Crónica: partidos nuevos en el tablero de Crónica de IE1 y tres cadenas de los IE1 e IE2 originales (la Ruta prémium de Sonny, la Ruta del entrenador de Mary Times y la Ruta de la madre de Suzette), con sus rivales, cofres y rangos S / A / B. Cada equipo de Crónica tiene una batalla de Crónica y una Batalla heroica hasta Lv 200, con los niveles, técnicas y auras de su propio juego. Los partidos sueltan manuales de supertécnicas, botas, auras y el emblema y la equipación del rival, y el partido libre ofrece dificultades Lv 50, 99 y 200."
+
+[fr.new]
+mod_name = "Chronicle Deluxe"
+mod_description = "Plus de mode Chronique : de nouveaux matchs sur le plateau de Chronique d'IE1 et trois chaînes des IE1 et IE2 originaux (la Route premium de Sonny, la Route de l'entraîneur de Mary Times et la Route de la mère de Suzette), avec leurs rivaux, coffres et rangs S / A / B. Chaque équipe de Chronique a une bataille de Chronique et une Bataille héroïque jusqu'au Niv. 200, avec les niveaux, techniques et auras de son propre jeu. Les matchs donnent des manuels de supertechniques, des chaussures, des auras et l'emblème et le maillot du rival, et le match libre propose les difficultés Niv. 50, 99 et 200."
+
+[de.new]
+mod_name = "Chronicle Deluxe"
+mod_description = "Mehr Chronik-Modus: neue Spiele auf dem Chronik-Brett von IE1 und drei Ketten aus dem originalen IE1 und IE2 (Sonnys Premium-Route, die Route von Mary Times' Trainer und die Route von Suzettes Mutter) mit ihren Rivalen, Truhen und den Rängen S / A / B. Jedes Chronik-Team hat einen Chronik-Kampf und einen Heldenkampf bis Lv 200, mit den Leveln, Techniken und Auren seines eigenen Spiels. Die Spiele liefern Anleitungen für Spezialtechniken, Schuhe, Auren sowie Emblem und Trikot des Rivalen, und das freie Spiel bietet die Schwierigkeiten Lv 50, 99 und 200."
+
+[it.new]
+mod_name = "Chronicle Deluxe"
+mod_description = "Più modalità Cronaca: nuove partite sul tabellone della Cronaca di IE1 e tre catene dagli IE1 e IE2 originali (il Percorso premium di Sonny, il Percorso dell'allenatore di Mary Times e il Percorso della madre di Suzette), con i loro rivali, forzieri e rank S / A / B. Ogni squadra della Cronaca ha una battaglia di Cronaca e una Battaglia eroica fino a Lv 200, con i livelli, le tecniche e le aure del proprio gioco. Le partite lasciano manuali di supertecniche, scarpe, aure e lo stemma e la divisa del rivale, e la partita libera offre le difficoltà Lv 50, 99 e 200."
+
+[pt.new]
+mod_name = "Chronicle Deluxe"
+mod_description = "Mais modo Crónica: jogos novos no tabuleiro da Crónica do IE1 e três cadeias dos IE1 e IE2 originais (a Rota premium de Sonny, a Rota do treinador de Mary Times e a Rota da mãe de Suzette), com os seus rivais, baús e classificações S / A / B. Cada equipa da Crónica tem uma batalha de Crónica e uma Batalha heroica até ao Nv. 200, com os níveis, técnicas e auras do seu próprio jogo. Os jogos deixam manuais de supertécnicas, chuteiras, auras e o emblema e o equipamento do rival, e o jogo livre oferece as dificuldades Nv. 50, 99 e 200."
+
+[ja.new]
+mod_name = "Chronicle Deluxe"
+mod_description = "クロニクルモードをもっと：IE1のクロニクル盤に新しい試合を追加し、初代IE1・IE2の3つのルート（大介のプレミアム対戦ルート、メアリータイムズ監督のルート、スゼットの母のルート）を収録。ライバル、宝箱、S / A / B ランクもあります。各クロニクルチームにはクロニクルバトルとヒロイックバトル（Lv 200まで）があり、レベル・必殺技・オーラはそのゲームのものです。試合では必殺技の書、シューズ、オーラ、相手のエンブレムとユニフォームが手に入り、フリーマッチにはLv 50・99・200の難易度が加わります。"
+
+[zh_hans.new]
+mod_name = "Chronicle Deluxe"
+mod_description = "更多编年史模式：在 IE1 编年史棋盘上新增比赛，并收录初代 IE1 和 IE2 的三条路线（大介的高级对战路线、玛丽时报教练路线、苏泽特母亲路线），含对手、宝箱和 S / A / B 评价。每支编年史球队都有编年史对战和最高 Lv 200 的英雄对战，等级、必杀技和灵气均为其对应作品的设定。比赛会掉落必杀技秘籍、球鞋、灵气以及对手的队徽和队服，自由比赛提供 Lv 50、99、200 三种难度。"
+
+[zh_hant.new]
+mod_name = "Chronicle Deluxe"
+mod_description = "更多編年史模式：在 IE1 編年史棋盤上新增比賽，並收錄初代 IE1 和 IE2 的三條路線（大介的高級對戰路線、瑪麗時報教練路線、蘇澤特母親路線），含對手、寶箱和 S / A / B 評價。每支編年史球隊都有編年史對戰和最高 Lv 200 的英雄對戰，等級、必殺技和靈氣均為其對應作品的設定。比賽會掉落必殺技秘笈、球鞋、靈氣以及對手的隊徽和隊服，自由比賽提供 Lv 50、99、200 三種難度。"

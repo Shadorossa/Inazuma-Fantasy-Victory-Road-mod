@@ -1,0 +1,44 @@
+# Declaration schema of VRFW.extra_slot/1 (content\extra_slots): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.extra_slot/1"
+folder = "content/extra_slots"
+label = "Extra slots"
+label_es = "Ranuras extra"
+
+[entry.ExtraSlotExtend]
+slot = { type = "string", required = true }
+source = { type = "table" }
+rules = { type = "table" }
+commands = { type = "table" }
+swap = { type = "table" }
+fusion = { type = "table" }
+
+[entry.ExtraSlot]
+name = { type = "name", required = true }
+kind = { type = "string", required = true }
+option = { type = "string", ref = "option" }
+states = { type = "ints", required = true }
+summon_states = { type = "ints" }
+plate_states = { type = "ints", required = true }
+lend_slot = { type = "string", required = true }
+start_timeout_s = { type = "int", required = true }
+restore_delay_s = { type = "number", required = true }
+cooldown_s = { type = "int" }
+disguise = { type = "bool", required = true }
+preload = { type = "bool", required = true }
+row_parity = { type = "bool" }
+aura_row = { type = "bool" }
+input = { type = "table", required = true }
+plate = { type = "records", fields = { key = { type = "string" }, pad = { type = "string" }, xinput = { type = "bool" } }, required = true }
+select = { type = "table" }
+cpu = { type = "table" }
+source = { type = "table", required = true }
+spirit = { type = "table" }
+commands = { type = "table", required = true }
+fallback = { type = "bool" }
+swap = { type = "table" }
+
+[entry.DuelAura]
+single = true
+types = { type = "ints" }
+fast_resume = { type = "bool" }

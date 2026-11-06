@@ -1,0 +1,4 @@
+# BetterQoL › Home / Away kit (feature away_kit): every kit with two sides, of the game or any mod, gets the twin the
+# kit picker's Local / Visitante switch writes to the team (docs/framework/types/kit_twin.md).
+schema = "VRFW.kit_twin/1"
+all_kits = true

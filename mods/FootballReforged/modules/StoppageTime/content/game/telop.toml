@@ -1,0 +1,12 @@
+# Stoppage Time > the command the «+N» layer (assets\lua\_all\stoppage_time_telop.lua) asks when it opens and when told,
+# and the game's menu lookup scripts\stoppage_time.lua tells it through.
+schema = "VRFW.game/2"
+
+# CMND_STOPPAGETIME_TELOP() -> text, centre x, middle y, text height (screen px of 1080p, y down)
+[[VRFW.Command]]
+name = "CMND_STOPPAGETIME_TELOP"
+handler = "StoppageTime.Telop"
+
+[[VRFW.Function]]
+name = "StoppageTime.MenuFind"
+game = "Menu.Find"

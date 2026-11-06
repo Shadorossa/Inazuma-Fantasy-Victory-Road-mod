@@ -1,0 +1,52 @@
+schema = "VRFW.menu/2"
+# Held-item counters show up to 999999: only the display maximum per layer (retail 999 or 99999). An item's own
+# max_stack still decides what it can reach. Digit slots and spacing:
+# content\base_tables\menu\config\menu_graphic_number_config.toml.
+
+[[object_set]]
+object = "team00_20_item_detail_l"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0x80A0D941 }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "team00_21_item_detail"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0x80A0D941 }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "team00_21b_item_detail"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0x80A0D941 }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "shop01_05_item_info"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0x80A0D941 }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "shop01_02_list_item"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0x80A0D941 }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "win06_01_num_window_shop"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0xC6C6E593 }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "datafile01_12_present_list_item"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0xC6C6E593 }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "datafile01_12_scout_present_item"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0xC6C6E593 }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "vsroute01_10_info_window"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0xC6C6E593 }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "vsroute01_10b_info_window"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0xC6C6E593 }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "item01_02_list_item"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0x6D29755E }, values = { 2 = 999999 } }]
+
+[[object_set]]
+object = "shop01_04d_token_item_5dig"
+set = [{ parameter = "DispMaxValue", match = { 1 = 0x06B07E66 }, values = { 2 = 999999 } }]

@@ -1,0 +1,76 @@
+schema = "VRFW.changelog/1"
+# BetterUI: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "HUD de partido más limpio",
+    "Barra superior compacta y translúcida",
+    "Cartas y menús reordenados",
+    "Ficha del jugador más clara",
+]
+
+[release.en]
+notes = [
+    "Cleaner match HUD",
+    "Compact translucent top bar",
+    "Reordered cards and menus",
+    "Clearer player sheet",
+]
+
+[release.fr]
+notes = [
+    "HUD de match plus épuré",
+    "Barre haute compacte et translucide",
+    "Cartes et menus réorganisés",
+    "Fiche joueur plus claire",
+]
+
+[release.de]
+notes = [
+    "Aufgeräumteres Spiel-HUD",
+    "Kompakte, transparente Oberleiste",
+    "Neu geordnete Karten und Menüs",
+    "Übersichtlichere Spielerkarte",
+]
+
+[release.it]
+notes = [
+    "HUD di partita più pulito",
+    "Barra superiore compatta e traslucida",
+    "Carte e menu riorganizzati",
+    "Scheda giocatore più chiara",
+]
+
+[release.pt]
+notes = [
+    "HUD de jogo mais limpo",
+    "Barra superior compacta e translúcida",
+    "Cartas e menus reorganizados",
+    "Ficha do jogador mais clara",
+]
+
+[release.ja]
+notes = [
+    "試合HUDをすっきり表示",
+    "コンパクトで半透明の上部バー",
+    "カードとメニューを再配置",
+    "選手情報を見やすく",
+]
+
+[release.zh_hans]
+notes = [
+    "更简洁的比赛HUD",
+    "紧凑半透明的顶栏",
+    "重新排列的卡片与菜单",
+    "更清晰的球员信息页",
+]
+
+[release.zh_hant]
+notes = [
+    "更簡潔的比賽HUD",
+    "緊湊半透明的頂欄",
+    "重新排列的卡片與選單",
+    "更清晰的球員資訊頁",
+]

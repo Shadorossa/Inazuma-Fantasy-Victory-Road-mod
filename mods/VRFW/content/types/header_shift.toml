@@ -1,0 +1,22 @@
+# Declaration schema of the header shifts (content\header_shift\*.toml, scripts\header_shift.lua): [[VRFW.HeaderShift]]
+# = root layers of one menu script that move up by `dy` (layout units, + = up), e.g. under a shorter top header. Every
+# position the script itself sets for those layers gets the same offset, so its slide-ins and list scrolls keep
+# working. A `stretch` layer is scaled instead, so its top moves up while its bottom and right edges stay.
+# The menu applies the rules when a hook file of its script calls VRFW_HeaderShift.Apply (lua\menu\_all\
+# 98_header_shift.lua). An unknown key, wrong type or out-of-range value drops that declaration with a warning.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.header_shift/1"
+folder = "content/header_shift"
+label = "Header shift"
+label_es = "Desplazamiento bajo la cabecera"
+doc = "Layers of a menu moved up by a fixed height, e.g. under a shorter header."
+doc_es = "Capas de un menú subidas una altura fija, p. ej. bajo una cabecera más corta."
+
+[entry.HeaderShift]
+doc = "the root layers of menu script `stem` move up by `dy`; `stretch` layers are scaled so only their top moves"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+stem = { type = "string", required = true, doc = "the menu script, e.g. \"soccer_top_menu\"" }
+dy = { type = "number", required = true, min = 0, doc = "height the layers move up (layout units)" }
+layers = { type = "ids", default = [], doc = "root layers moved up (names or crc ids); a layer attached to one follows it" }
+stretch = { type = "records", default = [], fields = { layer = { type = "any", doc = "the layer (name or crc id)" }, scale = { type = "number", doc = "uniform scale of the layer" }, x = { type = "number", doc = "layer x at that scale" }, y = { type = "number", doc = "layer y at that scale, before the shift" } }, doc = "background layers stretched instead of moved: { layer, scale, x, y }" }
+when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

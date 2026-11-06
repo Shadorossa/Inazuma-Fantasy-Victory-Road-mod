@@ -1,0 +1,67 @@
+schema = "VRFW.game/2"
+if_mod = "all_miximaxed"                 # the part's switch (Mods options; docs/framework/merged-mods.md)
+# All Miximaxed › the creation flow's commands (scripts/miximax.lua; Character Reforged's create entry on the skill board
+# calls CMND_AURAOVERHAUL_MIXIMAX_SET) and the one-time import of Inazuma Fantasy's fusion store.
+
+# (base, partner[, move1[, move2]]) -> code (0 = the miximax is stored): the store of Character Reforged's create entry
+# (system `miximax`, content/pairing/miximax.toml); the moves = the partner moves picked in the bank (`moves` of the
+# pairing rules)
+[[VRFW.Command]]
+name = "CMND_AURAOVERHAUL_MIXIMAX_SET"
+aliases = ["CMND_ALLMIXIMAXED_SET"]
+handler = "AuraOverhaul.Miximaxed.Set"
+
+# (base, partner) -> code (0 = a miximax can be made; the codes of CMND_AURAOVERHAUL_MIXIMAX_SET, 23 = no saved card can
+# be his partner): partner 0 asks whether the base may get one at all (the «Crear miximax» row), else that pair (the
+# partner bank); Character Reforged's pickers grey out what is refused ([CharacterReforged.Create.miximax] check)
+[[VRFW.Command]]
+name = "CMND_AURAOVERHAUL_MIXIMAX_CHECK"
+handler = "AuraOverhaul.Miximaxed.Check"
+
+# (base) -> partnerHdl, partnerChara (0 = no miximax)
+[[VRFW.Command]]
+name = "CMND_AURAOVERHAUL_MIXIMAX_GET"
+aliases = ["CMND_ALLMIXIMAXED_GET"]
+handler = "AuraOverhaul.Miximaxed.Get"
+
+# (base) -> ok. Alias: Character Reforged's page slot (the skill table's mix slot emptied)
+[[VRFW.Command]]
+name = "CMND_AURAOVERHAUL_MIXIMAX_CLEAR"
+aliases = ["CMND_ALLMIXIMAXED_CLEAR", "CMND_CHARACTERREFORGED_PAGE_FUSION_CLEAR"]
+handler = "AuraOverhaul.Miximaxed.Clear"
+
+# (card) -> exists, partnerParam, move1, move2, partnerChara, bestMatch, partnerHdl: the card's running fusion.
+# Alias: Character Reforged's page slot (the player page's Hyper mix card, the skill table's mix panel), asked when
+# Inazuma Fantasy's CMND_EVT_MX_GET does not answer
+[[VRFW.Command]]
+name = "CMND_AURAOVERHAUL_MIXIMAX_FUSION_GET"
+aliases = ["CMND_ALLMIXIMAXED_FUSION_GET", "CMND_CHARACTERREFORGED_PAGE_FUSION"]
+handler = "AuraOverhaul.Miximaxed.FusionGet"
+
+# (card) -> ok, favouredMask, g0 .. g8, kind, peGain, peFavoured: the stats his miximax adds (the Chrono Stone transfer,
+# scripts/lib/stat_transfer.lua; content/stat_transfer/miximax.toml). Character Reforged's player page asks it through
+# its slot CharacterReforged.page_stat_gain (content/menus/player_page_slots.toml); false when another mod owns the rule
+[[VRFW.Command]]
+name = "CMND_AURAOVERHAUL_MIXIMAX_GAINS"
+aliases = ["CMND_ALLMIXIMAXED_GAINS"]
+handler = "AuraOverhaul.Miximaxed.Gains"
+
+# (base, partner, move) -> ok, favouredMask, g0 .. g8, kind, peGain, peFavoured, peBase: what a pair NOT stored yet would
+# add (the confirmation panel of Character Reforged's «Crear miximax» bank: [CharacterReforged.Create.miximax] preview)
+[[VRFW.Command]]
+name = "CMND_AURAOVERHAUL_MIXIMAX_PREVIEW"
+aliases = ["CMND_ALLMIXIMAXED_PREVIEW"]
+handler = "AuraOverhaul.Miximaxed.Preview"
+
+# The fusion store is this mod's per-slot blob (miximax.json). The mod All Miximaxed's copy
+#  is copied once into slot<N>/aura_reworked/ first;
+# Inazuma Fantasy's older copy (slot<N>/inazuma_fantasy/miximax.json) only when there is none yet.
+[[VRFW.SaveImport]]
+name = "AuraOverhaul.MiximaxFromAllMiximaxed"
+from = "all_miximaxed"
+blobs = ["miximax.json"]
+
+[[VRFW.SaveImport]]
+name = "AuraOverhaul.MiximaxFromInazumaFantasy"
+from = "inazuma_fantasy"
+blobs = ["miximax.json"]

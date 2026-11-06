@@ -1,0 +1,18 @@
+# Display names and order for detected game openings; entries for undetected movies are ignored.
+# «VR | <song>» titles are literal text, identical in every language.
+schema = "VRFW.opening/1"
+
+[[opening]]
+id = "ev01_00050"
+text = "VR | A Smile is Our Goal!"
+movie = "ev01_00050"
+
+[[opening]]
+id = "ev07_00140"
+text = "VR | The Victoreeyo!"
+movie = "ev07_00140"
+
+[[opening]]
+id = "ev20_00050"
+text = "VR | Grand Finale!"
+movie = "ev20_00050"

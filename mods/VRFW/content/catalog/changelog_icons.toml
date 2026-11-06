@@ -1,0 +1,27 @@
+schema = "VRFW.catalog/1"
+# Icons for mod changelog summaries (retail update-notes textures and colour tags). Built into the framework.
+# [icon.<name>]: <name> is the `icon` value in changelog.toml; texture = retail textureName, color = retail colour tag.
+
+[icon.story]
+texture = 840982734
+color = "[CMODE01]"
+
+[icon.chronicle]
+texture = 2871603572
+color = "[CMODE02]"
+
+[icon.general]
+texture = 3694002658
+color = "[CMODE03]"
+
+[icon.stadium]
+texture = 2890200429
+color = "[CMODE06]"
+
+[icon.shop]
+texture = 3678651899
+color = "[CMODE07]"
+
+[icon.tournament]
+texture = 1274861674
+color = "[CMODE08]"

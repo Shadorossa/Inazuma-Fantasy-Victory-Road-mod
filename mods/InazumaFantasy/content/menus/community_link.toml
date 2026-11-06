@@ -1,0 +1,10 @@
+# The title's «Inazuma Post» window (qrcode_menu, layer general_win): Accept / left click opens the declared
+# community link (content/community_links/discord.toml) instead of closing; Back / right click still close.
+schema = "VRFW.menu/2"
+
+[[patch]]
+menu = "qrcode_menu"
+remove_commands = [{ layer = "general_win", input = "CMD_ENTER_CLICK", command = "CMD_BACK" }]
+add_commands = [
+    { layer = "general_win", input = "CMD_ENTER_CLICK", command = "CMD_FUNCTION", arg = "vrfw_community_open" },
+]

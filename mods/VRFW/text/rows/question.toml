@@ -1,0 +1,28 @@
+# VRFW_Question.List (assets\lua\menu\_all\93_question.lua): a list of names in the game's language. ListJoin puts two
+# items together, ListLast the last one («A, B y C»). Rows of menu_text, read by id = crc32(row id).
+schema = "VRFW.text/2"
+table = "menu_text"
+
+[[row]]
+id = "VRFW.Text.ListJoin"
+es = "%s, %s"
+en = "%s, %s"
+fr = "%s, %s"
+de = "%s, %s"
+it = "%s, %s"
+pt = "%s, %s"
+ja = "%s、%s"
+zh_hans = "%s、%s"
+zh_hant = "%s、%s"
+
+[[row]]
+id = "VRFW.Text.ListLast"
+es = "%s y %s"
+en = "%s and %s"
+fr = "%s et %s"
+de = "%s und %s"
+it = "%s e %s"
+pt = "%s e %s"
+ja = "%s、%s"
+zh_hans = "%s和%s"
+zh_hant = "%s和%s"

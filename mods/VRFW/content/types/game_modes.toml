@@ -1,0 +1,21 @@
+# Declaration schema of VRFW.game_modes/1 (content\game_modes): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.game_modes/1"
+folder = "content/game_modes"
+label = "Game modes"
+label_es = "Modos de juego"
+
+[entry.Context]
+entry_table = "context"
+key = { type = "string", required = true }
+enter_menus = { type = "strings", required = true }
+leave_menus = { type = "strings", required = true }
+
+[entry.Rule]
+entry_table = "rule"
+key = { type = "string", required = true }
+order = { type = "int", required = true }
+state = { type = "string" }
+state_is = { type = "int" }
+scene = { type = "string" }
+play_mode = { type = "ints" }

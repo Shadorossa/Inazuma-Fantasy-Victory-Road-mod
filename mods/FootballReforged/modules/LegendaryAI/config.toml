@@ -1,0 +1,1194 @@
+# Legendary AI: every value of the mod's behaviour. Edit them here; restart the game after a change.
+# The content files (content\rules\ai\legendary.toml, content\rules\furor.toml, content\shot_rules\zone.toml) only
+# hold the rules' shape and read each value by its path (the quoted text ${config.section.key}). A value can also be set in the mod
+# loader's config.toml under [mods.LegendaryAI.<section>] (it wins over this file).
+# «it» / «its» = the rival (the CPU team); «you» / «your» = your team. Each comment: what, units, range; the value
+# shipped is the default.
+
+# ------------------------------------------------------------------------------------------------ the rival's foul chances (scripts\legendary_ai.lua)
+[fouls]
+# foul chance of its power charges / power blocks in a duel (0..1; the game: 0.15 for both teams; yours keep the game's); default 0.05
+rival_power_action_foul_rate = 0.05
+# its aggressive sprint charges: the game's foul chance (0.40 x passives) x this (0..1; 0.125 = 5 %); default 0.125
+rival_dash_foul_scale = 0.125
+
+# ------------------------------------------------------------------------------------------------ the rival's mistakes
+[errors]
+# chance each duel read of your covered side misses (0..1); default 0.0
+focus_duel_read_error = 0.0
+# chance the offside line misses a step-up read (0..1); default 0.0
+offside_trap_miss = 0.0
+
+# ------------------------------------------------------------------------------------------------ the rival's auras under the team's cap
+[auras]
+# how often it reviews its auras (s); default 0.5
+decide_s = 0.5
+# chance, at each threat, that the keeper's aura goes first (0..1); default 0.85
+keeper_priority = 0.85
+# your carrier this close to its goal line is a threat (m); default 35
+keeper_threat_m = 35
+# a threat is over after this long with none (s); default 3
+threat_calm_s = 3
+# the keeper's aura is worth a slot with its gauge at least here (0..1); default 0.2
+keeper_min_gauge = 0.2
+# the ball within this of its goal: the last free slot stays for the keeper (m); default 50
+keep_slot_m = 50
+# it frees a slot only if the aura that wants it can start within this (s); default 2
+free_slot_wait_s = 2
+# for the keeper, the player who gives up his aura stands at least this far from the ball (m); default 8
+drop_near_m = 8
+# for a carrier, the player who gives up his aura stands at least this far from the ball (m); default 30
+drop_far_m = 30
+# at least this long between two dropped auras (s); default 3
+drop_gap_s = 3
+# a carrier this close to your goal line can ask for a slot (m); default 35
+carrier_shot_m = 35
+# chance, once per carrier, that he gets a slot (0..1); default 0.4
+carrier_free_slot_chance = 0.4
+# a summon waiting for its cooldowns gives up after this (s); default 20
+summon_later_s = 20
+# a spirit stays out this long before its armour (s); default 8
+armour_delay_s = 8
+# the armour goes on with the gauge at least here (0..1); default 0.5
+armour_min_gauge = 0.5
+# your carrier this close to the player is play near (m); default 10
+armour_near_m = 10
+# its own carrier this close to your goal line is play near (m); default 35
+armour_shot_m = 35
+# an armour with no play near this long may come off (s); default 4
+armour_idle_s = 4
+# an idle armour comes off under this gauge, keeping the rest of the pool (0..1); default 0.35
+armour_rest_gauge = 0.35
+
+# ------------------------------------------------------------------------------------------------ the rival's ball carrier in a focus duel
+[focus_duel]
+# as the duel's attacker its strategy reads the duel's elapsed time x this (0..10; higher = breaks out sooner); default 3.0
+hurry_scale = 3.0
+# elapsed fraction from which the duel counts as out of time (0..1); default 0.6
+hurry_force_at = 0.6
+# the part of a duel move toward you is turned backward x this (0..5); default 1.0
+retreat_back = 1.0
+# the sideways part of that duel move x this (0..5); default 1.0
+retreat_lateral = 1.0
+# its duel carrier reads the side you cover as it was this long ago (s, 0..5; lower = faster); default 0.05
+attack_read_react_s = 0.05
+# chance its read follows when you change side (0..1); default 1.0
+attack_read_feint = 1.0
+# a straight duel move drifts this far to the free side (m, 0..5); default 1.3
+attack_read_drift_m = 1.3
+# your sideways movement over 0.3 s that counts as leaning to a side (m, 0..5); default 0.2
+attack_read_lean_m = 0.2
+
+# ------------------------------------------------------------------------------------------------ the rival chases your ball carrier and cuts your pass lanes
+[charge]
+# only a player holding the ball charges. It decides once for each of your players who comes this close between him and
+# the goal (m; 0 = never); default 8
+opponent_ahead_m = 8
+# the chance of that decision, x the player's dash attack rate (0..1); default 0.5
+chance_per_opponent = 0.5
+# how long one dash attack lasts (s); default 1.0
+duration_s = 1.0
+# after a dash attack touches one of your players, that player starts no dash attack for this long, in play time (s);
+# a dash attack that touches nobody starts no wait; default 1.5
+block_after_contact_s = 1.5
+# a sliding tackle that reaches a charging ball carrier takes the ball at this chance, once per slide, for both teams;
+# otherwise the charge goes on as usual (0..1); default 0.75
+slide_steal_chance = 0.75
+
+[press]
+# when you press pass, your players nearest to the passer counted as receivers (players); default 3
+lane_cut_receivers = 3
+# point of each pass lane a defender moves to (0 = the passer, 1 = the receiver); default 0.5
+lane_cut_at = 0.5
+# how long the lane cut lasts (s); default 1.0
+lane_cut_seconds = 1.0
+# receivers within this of the passer (m); default 30
+lane_cut_range_m = 30
+# its forwards chase your ball carrier (1 = on, 0 = off); default 1
+forwards = 1
+# its midfielders chase your ball carrier (1 = on, 0 = off); default 1
+midfielders = 1
+# its defenders chase your ball carrier (1 = on, 0 = off); default 1
+defenders = 1
+# only players within this of the carrier chase (m, 0..100); default 45
+range_m = 45
+# most chasers at once (players); default 3
+max = 3
+# the chasers' run speed x this; default 1.15
+speed_mult = 1.15
+# a chaser keeps the job unless another player is this much nearer (m); default 3
+keep_m = 3
+# nobody chases your keeper while he holds the ball in his hands, as the game's own press (true / false); default true
+respect_keeper_hold = true
+# it presses right after a kick-off too (the game pauses the press for 3 s; yours keeps the pause) (true / false); default true
+kickoff_press = true
+
+# ------------------------------------------------------------------------------------------------ the rival's offside line steps up
+[offside_trap]
+# defenders holding the flat line (players); default 4
+defenders = 4
+# the line stands this far behind your most advanced attacker (m); default 0.5
+level_m = 0.5
+# how far the line steps up (m); default 3.5
+step_m = 3.5
+# how long the step-up lasts (s); default 0.7
+step_s = 0.7
+# delay before the step-up (s); default 0.3
+reaction_s = 0.3
+# off while your carrier is within this of the line (m); default 10
+min_distance_m = 10
+# off while your carrier is within this of its goal line (m); default 16.5
+box_m = 16.5
+# a pass lane counts as open with none of its players within this (m); default 2.5
+lane_m = 2.5
+# only defenders within this of the line take part (m); default 20
+range_m = 20
+# no new step-up for this long after one (s); default 2.5
+cooldown_s = 2.5
+# only while your carrier is between halfway and this fraction of the pitch into its half (0..1; 0 = anywhere); default 0.25
+zone_fraction = 0.25
+
+# ------------------------------------------------------------------------------------------------ after its counter-press the rival marks man to man; the block's height (negative = past halfway)
+[low_block]
+# seconds after it loses the ball before the block forms (its counter-press time); default 2
+after_lost_s = 2
+# its forwards stand at least this far behind halfway (m; negative = that far past it); default -30
+forward_drop_m = -30
+# its other players stand at least this far behind halfway (m; negative = that far past it); default -20
+top_m = -20
+# nobody stands more than this in front of its last outfield player (m); default 40
+compact_m = 40
+# block players mark your players goal side (1 = on, 0 = off); default 1
+mark = 1
+# the marking distance goal side of the man (m); default 1.0
+mark_m = 1.0
+# how much a marker turns toward the ball (0..1); default 0.4
+lane_bias = 0.4
+# only your players within this are marked (m); default 70
+range_m = 70
+# during the block this many nearest players of any role chase your carrier (players; 0 = off); default 2
+press = 2
+# a player farther than this from his spot runs faster (m); default 4
+recover_m = 4
+# that recovery run's speed x this; default 1.25
+recover_mult = 1.25
+# most markers at once (players); default 10
+max_markers = 10
+# a marker only marks a man within this of him (m; 0 = range_m); default 30
+mark_zone_m = 30
+# its forwards may mark too (1 = on, 0 = off); default 1
+mark_forwards = 1
+
+# ------------------------------------------------------------------------------------------------ your carrier near the rival's goal: a keeper pair and a flat box line
+[box_line]
+# on while your carrier is within this of its goal line (m); default 25
+near_m = 25
+# defenders standing by the keeper (players); default 2
+keeper_pair = 2
+# they stand this far out on the goal-to-ball line (m); default 4
+keeper_m = 4
+# the gap between the keeper pair (m); default 1.5
+pair_gap_m = 1.5
+# the other defenders' flat line this far from the goal line (m); default 9
+line_m = 9
+# the gap between line defenders (m); default 3
+gap_m = 3
+# the line stays at least this far behind the ball (m); default 2
+min_ball_m = 2
+# the line stays within this of the goal centre (m); default 20
+width_m = 20
+
+# ------------------------------------------------------------------------------------------------ the rival reads your shot chains and blocks the line to goal
+[shot_chain_read]
+# a pass of yours whose target is within this of its goal counts as a chain start (m); default 30
+range_m = 30
+# a shot passing within this of your teammate counts too (m); default 4
+chain_m = 4
+# players taking spots on the chain-to-goal line (players); default 2
+blockers = 2
+# the first spot this far from the chain point (m); default 2
+from_m = 2
+# the gap between spots (m); default 2
+spacing_m = 2
+# spots held this long after the ball arrives (s); default 1.0
+hold_s = 1.0
+
+# ------------------------------------------------------------------------------------------------ the rival reads your passes at the kick (the game's own landing point and flight time)
+[pass_read]
+# players sent to each pass of yours (players, 0..6; 0 = off); default 2
+players = 2
+# delay before they react to your kick (s, 0..2; 0 = at the kick); default 0.0
+reaction_s = 0.0
+# only players within this of their interception point take part (m); default 30
+range_m = 30
+# run speed used to find the first point of the pass they reach before the ball (m/s; their real run is the game's); default 7.0
+run_speed_mps = 7.0
+# the order lasts until the ball gets there plus this (s); default 0.2
+hold_s = 0.2
+# they sprint there (1 = on, 0 = off; the sprint drains stamina as usual); default 1
+sprint = 1
+# passes reaching their target sooner than this are left to the game (s); default 0.3
+min_flight_s = 0.3
+# a pass rising faster than this is a lob: only its landing point counts (m/s); default 6.0
+lob_vertical_mps = 6.0
+# its defenders react (1 = on, 0 = off); default 1
+defenders = 1
+# its midfielders react (1 = on, 0 = off); default 1
+midfielders = 1
+# its forwards react (1 = on, 0 = off); default 0
+forwards = 0
+
+# ------------------------------------------------------------------------------------------------ the rival's back line against your through balls and runs in behind
+[through_ball_cover]
+# your pass is a through ball when it lands this much deeper than its receiver stands, or behind its last defender (m); default 4
+lead_m = 4
+# players racing for a through ball: the first to the ball, the others goal side of its landing point (players, 0..4); default 2
+chasers = 2
+# the gap goal side of the landing point between the covering chasers (m); default 3
+goal_side_m = 3
+# only players within this of the landing point take part (m); default 40
+range_m = 40
+# on a through ball its other defenders higher than the landing point run back goal side of it (1 = on, 0 = off); default 1
+drop = 1
+# the back line never stands closer than this to its goal line (m); default 6
+line_min_m = 6
+# its back line stays at least this far goal side of your deepest player (m); default 2
+runner_cover_m = 2
+# your carrier counts as pressed with one of its players within this (m); default 6
+pressure_m = 6
+# while your carrier is not pressed its back line stays at least this far behind the ball (m); default 18
+free_gap_m = 18
+
+# ------------------------------------------------------------------------------------------------ your carrier behind its last outfield player: 2 walls, 1 presser, 1 in the middle, the others keep their shape
+[behind_line]
+# players sent to the wall spots, defenders first (players, 0..2: the game keeps 2 walls); default 2
+walls = 2
+# the state starts with your carrier this far behind its last outfield player (m); default 1
+enter_m = 1
+# ... and for this long (s); default 0.15
+enter_s = 0.15
+# ... running at its goal at least this fast (m/s); default 3
+moving_mps = 3
+# your carrier counts as stopped under this speed toward its goal (m/s); default 1
+stopped_mps = 1
+# stopped or caught level for this long ends the state (s); default 0.5
+end_after_s = 0.5
+# your carrier is caught level with the presser this far goal side of him or less (m); default 1
+level_m = 1
+# ... and within this of him (m); default 4
+level_near_m = 4
+# after it ends it does not start again for this long (s); default 1.5
+again_after_s = 1.5
+# the wall spots stand this far inside the shoot zone's front edge (m); default 6
+wall_from_zone_edge_m = 6
+# the gap between the two wall spots, either side of your carrier's line to goal (m); default 5
+wall_gap_m = 5
+# the wall spots stay at least this far behind your carrier (m); default 4
+wall_ball_gap_m = 4
+# the wall spots stay at least this far from its goal line (m); default 5
+wall_min_goal_m = 5
+# the middle player stands this far ahead of your carrier on his line to goal (m); default 10
+middle_m = 10
+# ... at most this part of the way to the goal (0..1); default 0.5
+middle_max_rate = 0.5
+# all of them run there at a sprint (1 = on, 0 = off); default 1
+sprint = 1
+
+# ------------------------------------------------------------------------------------------------ the rival's three lines and rest defence
+[shape]
+# a role keeps a player at least this long against a less urgent change (s); default 0.5
+hold_s = 0.5
+# without the ball its back line stands this far behind the ball (m); default 10
+line_behind_ball_m = 10
+# the back line stays at least this far from its goal line (m); default 8
+line_min_m = 8
+# the gap between its back, middle and front lines (m); default 8
+line_gap_m = 8
+# with the ball this many deepest defenders stay back (players); default 2
+rest_defence = 2
+# they stay this far behind the ball (m); default 20
+rest_gap_m = 20
+
+# ------------------------------------------------------------------------------------------------ the rival's fixed one-to-one marking pairs
+[man_marking]
+# your role its defenders mark (1 forwards, 2 midfielders, 3 defenders, 0 none); default 1
+defenders = 1
+# your role its midfielders mark (1 forwards, 2 midfielders, 3 defenders, 0 none); default 2
+midfielders = 2
+# your role its forwards mark (1 forwards, 2 midfielders, 3 defenders, 0 none); default 3
+forwards = 3
+# pair the players left over across roles (1 = on, 0 = off); default 1
+fill = 1
+# pair cost per metre between marker and man; default 1
+distance_weight = 1
+# pair cost bonus when the marker's element beats his man's; default 15
+advantage_weight = 15
+# pair cost penalty when his man's element beats the marker's; default 25
+disadvantage_penalty = 25
+# your carrier's marker chases first when within this of him (m); default 25
+press_m = 25
+
+# ------------------------------------------------------------------------------------------------ the rival's counter-attack runs
+[counter]
+# its runners go forward during the first this-many seconds of a won ball (s); default 6
+window_s = 6
+# players running forward (players); default 3
+runners = 3
+# the gap between the runners' channels across the pitch (m); default 10
+channel_m = 10
+# each runs to this far ahead of himself or the ball (m); default 14
+ahead_m = 14
+# they stay this far behind your second-last player (m; with the offside rule on); default 1
+onside_m = 1
+# they stop at least this far from your goal line (m); default 8
+goal_gap_m = 8
+# no counter when the ball is within this of your goal (m); default 22
+end_m = 22
+# a counter only with at most this many of your players behind the ball; default 6
+max_behind = 6
+# the runners sprint (1 = on, 0 = off); default 1
+sprint = 1
+# forwards waiting near halfway while you hold the ball in its half (players); default 1
+outlets = 1
+# they wait this far from halfway on their side (m, at most 0); default -1
+outlet_m = -1
+
+# ------------------------------------------------------------------------------------------------ the rival's passes
+[passing]
+# in its zone a teammate's shot score must be the carrier's x this to pass first; default 1.4
+pass_before_shot_margin = 1.4
+# most passes before the shot per zone (0 = none: in its zone only a chain passes the ball); default 0
+pass_before_shot_max_passes = 0
+# longest the carrier holds the shot for a pass (s): past it he shoots at once (2 pass rolls of passLotteryIntervalMax); default 0.2
+pass_before_shot_max_hold_s = 0.2
+# a teammate this far from his nearest marker counts as free (m); default 3
+pass_before_shot_free_m = 3
+# teammates within this of the goal are scored (m); default 30
+pass_before_shot_range_m = 30
+# its passes reach the receiver this x sooner (0.5..3; 1 = the game's); default 1.136 (12 % less flight time)
+pass_speed = 1.136
+
+# ------------------------------------------------------------------------------------------------ the shoot zone («Área»)
+[shoot_zone]
+# in its own shoot zone the team re-plans every this many seconds (s); default 0.1
+shoot_now_replan_s = 0.1
+# its strategy reads its zone as at least this old: it shoots / chains at once (s); default 9.0
+shoot_now_elapsed_s = 9.0
+# it asks for a direct shot in its zone (1 = on, 0 = off); default 1
+shoot_now_direct = 1
+# the log: one line per zone decision (start, pass, shot, ball lost, end) and one when its carrier holds the ball this
+# long without one (s; 0 = no zone log); default 0.8
+zone_log_after_s = 0.8
+# its carrier in the area with no zone running shoots after this much real time (s, at most 1; the clock waits during a
+# duel, a cut-in or a dead ball); default 0.5
+zone_act_limit_s = 0.5
+# a refused kick is asked again after this much real time (s); default 0.1
+zone_act_retry_s = 0.1
+# in your shoot zone, players blocking the shot's path besides the game's 2 walls (players, 0..8); default 2
+wall_guards_extra = 2
+# the first blocker this far from the shooter (m); default 3
+wall_guards_from_m = 3
+# the gap between blockers (m); default 2.5
+wall_guards_spacing_m = 2.5
+# only players within this of a point take it (m); default 25
+wall_guards_range_m = 25
+# a player in one of its 2 walls goes to his wall and stays there until it ends, nothing sends him at your carrier (true / false); default true
+wall_hold = true
+# YOUR shoot zone (the penalty box): its width and depth x this (0.5..3; the CPU keeps the game's band); default 1.05
+user_box_scale = 1.05
+
+# ------------------------------------------------------------------------------------------------ the rival's move choice (duels, shots, keepers, auras)
+[moves]
+# chance a move choice takes the best move instead of the game's pick (0..1); default 1.0
+best_move_chance = 1.0
+# always pick a move whose element beats yours when one is usable (true / false); default true
+element_counter = true
+# best move = power / cost ^ this (0 = strongest, 1 = most power per tension point; 0..2); default 0.5
+move_cost_weight = 0.5
+# remember the elements of your moves and expect the most used one (true / false); default true
+learn_user_moves = true
+# a move wins when its power >= yours x this; default 1.05
+power_aware_margin = 1.05
+# no move when no option wins (1 = on, 0 = off); default 1
+power_aware_save_tension = 1
+# a picked keeper / block / shot move skips the game's use-rate roll (1 = on, 0 = off); default 1
+power_aware_force = 1
+# when your keeper stops every shot, it shoots with the affordable move nearest to beating him, not a plain kick: the shot's power wears his bar (1 = on, 0 = off); default 1
+power_aware_strongest_shot_when_stopped = 1
+# an aura choice takes the aura whose element beats most of your players (true / false); default true
+aura_element_counter = true
+
+# ------------------------------------------------------------------------------------------------ the rival's sprints and substitutions
+[stamina]
+# a player sprints at the full rate above this stamina ratio (0..1); default 0.35
+sprint_above = 0.35
+# and never below this stamina ratio (0..1); default 0.20
+sprint_below = 0.20
+# the sprint rate at full stamina (0..1); default 1.0
+sprint_rate = 1.0
+# the dash attack rate at full stamina (0..1); default 1.0
+sprint_attack_rate = 1.0
+# after holding the ball this long it calms down (s; 0 = off); default 0
+sprint_calm_after_s = 0
+# then the carrier's sprint rates x this; default 1.0
+sprint_calm_mult = 1.0
+# and his teammates' sprint rates x this; default 1.0
+sprint_calm_support_mult = 1.0
+# at a dead ball it substitutes its most tired outfield player below this stamina ratio (0..1); default 0.15
+substitute_at_stamina = 0.15
+# element substitutions (a forward whose element beats your keeper) not before this game time (s); default 900
+element_substitute_after_s = 900
+# most element substitutions per match; default 2
+element_substitute_max = 2
+
+# ------------------------------------------------------------------------------------------------ the rival's strategy level and tension
+[team]
+# the AI level its strategies and player tactics read (1..9; the game's 1-4): it plays every strategy up to it; default 9
+strategy_level = 9
+# tension points it gains every second of play (0..50); default 1.0
+tension_per_second = 1.0
+# tension kept for its keeper (0..300; the game keeps 20); default 30
+keeper_tension_reserve = 30
+
+# ------------------------------------------------------------------------------------------------ when the rival starts its furor phase (content\rules\furor.toml; needs the Furor module)
+[furor]
+# attack: a rival player gets the ball beyond this depth (team frame m; 55 = your goal line: 33 = 22 m from it); default 33.0
+attack_from_z = 33.0
+# comeback: from this half on (1..2); default 2
+comeback_from_half = 2
+# comeback: from this part of that half on, while trailing (0..1); default 0.5
+comeback_half_fraction = 0.5
+# defence: your player gets the ball beyond this depth (team frame m; 55 = its goal line: 30 = 25 m from it); default 30.0
+defend_from_z = 30.0
+# no waste: up to this half (1 = the first only, 2 = both); default 2
+no_waste_half_max = 2
+# no waste: a full gauge is used from this part of the half on (0..1); default 0.85
+no_waste_half_fraction = 0.85
+
+# ------------------------------------------------------------------------------------------------ the game's AI rates of the rival's class (base: the game's «Batalla legendaria» class SoccerAIProperty_8)
+[retail_ai.class_rates]
+# chance to pass when a pass is possible (0..1); default 0.6
+passEnableRate = 0.6
+# chance to slide-tackle (0..1); default 0.8
+slidingEnableRate = 0.8
+# chance to sprint in open play (0..1); default 1.0
+normalDashEnableRate = 1.0
+# chance to use the dash attack (0..1); default 1.0
+attackDashEnableRate = 1.0
+# chance to dodge a tackle at the right moment (0..1); default 1.0
+allCourtJustAvoidRate = 1.0
+# seconds between catch attempts in a duel (0..10); default 1.0
+focusCatchActInterval = 1.0
+# catch attempt rate in a duel (0..10); default 10.0
+focusCatchActRate = 10.0
+# keeps its distance while dribbling in a duel (0..1); default 0.7
+focusKeepDistanceDribbleRate = 0.7
+# attacker uses a move in a duel (0..1); default 1.0
+focusAtkSkillRate = 1.0
+# defender uses a move in a duel (0..1); default 1.0
+focusDefSkillRate = 1.0
+# attacker answers a move the opponent committed (0..1); default 1.0
+focusAtkOpponentSkillRate = 1.0
+# defender answers a move the opponent committed (0..1); default 1.0
+focusDefOpponentSkillRate = 1.0
+# attacker uses a move at the start of the duel (0..1); default 1.0
+focusAtkImmediateSkillRate = 1.0
+# defender uses a move at the start of the duel (0..1); default 1.0
+focusDefImmediateSkillRate = 1.0
+# duel action interval (first value, s) (0..10); default 0.1
+focusActionIntervalA = 0.1
+# duel action interval (second value, s) (0..10); default 0.05
+focusActionIntervalB = 0.05
+# duel action interval (third value, s) (0..10); default 0.05
+focusActionIntervalC = 0.05
+# seconds before a breakthrough is allowed (0..99); default 0.1
+focusBreakThroughDisableTime = 0.1
+# breakthrough escape rate (0..1); default 1.0
+focusBreakThroughEscapeRate = 1.0
+# passes out of a duel (0..1); default 1.0
+focusPassEnableRate = 1.0
+# uses the power charge in a duel (0..1); default 1.0
+focusPowerChargeUseRate = 1.0
+# uses the power block in a duel (0..1); default 1.0
+focusPowerBlockUseRate = 1.0
+# keeper uses a move against a normal shot (0..1); default 1.0
+zoneKeeperSkillRateVsNormal = 1.0
+# uses a block move against a shot (0..1); default 1.0
+zoneShootBlockSkillRate = 1.0
+# chains a teammate's shot (0..1); default 1.0
+zoneShootChainUseRate = 1.0
+# uses a shot move in the zone (0..1); default 1.0
+zoneShootSkillRate = 1.0
+# seconds after the zone starts before it may shoot (0..10); default 0.0
+zoneShootDisableTime = 0.0
+# passes inside the zone (0..1); default 0.0
+zonePassEnableRate = 0.0
+# uses a shot move on a direct free kick (0..1); default 1.0
+directFreeKickSkillRate = 1.0
+# uses a special tactic (0..1); default 1.0
+spTacticsUseRate = 1.0
+# uses a super tactic (0..1); default 1.0
+suTacticsUseRate = 1.0
+# hits the scramble gauge at the right moment (0..1); default 1.0
+scrambleJustRate = 1.0
+# summons an aura (keshin, armour, miximax...) (0..1); default 1.0
+auraSkillRate = 1.0
+
+# ------------------------------------------------------------------------------------------------ more of the game's AI rates, the rival's players only
+[retail_ai.rival_rates]
+# percent: reacts at once to a side step / breakthrough (0..100); default 100
+focusFramePerfectReactRate = 100
+# keeper uses a move against a special shot (0..1); default 1.0
+zoneKeeperSkillRateVsSkill = 1.0
+# tension it keeps after a move (a move that would drop below is skipped) (0..300); default 50
+keepTention = 50
+
+# ------------------------------------------------------------------------------------------------ the game's global AI values while the rival's AI runs (timers in s, weights, distances in m)
+[retail_ai.globals]
+# seconds a wait action without its own duration lasts (the CPU's idle pauses; read by the action executors) (0..10); default 0.0
+defaultWaitTimeMax = 0.0
+# seconds between two re-plans of a player (0..10); default 0.1
+fCharaTacticsUpdateIntervalTime = 0.1
+# players near the ball that re-plan twice as often (0..11); default 11
+fCharaTacticsUpdateMoreNumMax = 11
+# seconds of reaction delay before a new plan starts (0..5); default 0.0
+charaTacticsDelayTime = 0.0
+# random extra reaction delay (seconds) (0..5); default 0.0
+charaTacticsDelayFluctuationTime = 0.0
+# seconds a player re-plans at once after a state change (0..5); default 0.5
+fCharaTacticsStateChangeUpdateTime = 0.5
+# seconds before a player's tactic is reset (0..30); default 1.0
+fCharaTacticsResetIntervalTime = 1.0
+# seconds between two strategy choices of the team (0..10); default 0.2
+teamStrategyUpdateInterval = 0.2
+# seconds between two team tactic choices (0..30); default 0.5
+teamTacticsUpdateInterval = 0.5
+# seconds between pass decisions (shortest) (0..10); default 0.02
+passLotteryIntervalMin = 0.02
+# seconds between pass decisions (longest) (0..10); default 0.1
+passLotteryIntervalMax = 0.1
+# seconds the ball owner holds the ball before an automatic pass (0..10); default 0.1
+fAutoPassIntervalTime = 0.1
+# seconds the keeper holds the ball before passing (0..20); default 0.8
+gkAutoPassTime = 0.8
+# seconds between dash decisions of the ball carrier (shortest) (0..10); default 0.1
+dashLineDashLotteryIntervalMin = 0.1
+# seconds between dash decisions of the ball carrier (longest) (0..10); default 0.6
+dashLineDashLotteryIntervalMax = 0.6
+# seconds between slide-tackle decisions (shortest) (0..10); default 0.5
+slidingLotteryIntervalMin = 0.5
+# seconds between slide-tackle decisions (longest) (0..10); default 1.5
+slidingLotteryIntervalMax = 1.5
+# seconds between special tactic checks (shortest) (0..60); default 1.0
+spTacticsAutoUseIntervalMin = 1.0
+# seconds between special tactic checks (longest) (0..60); default 2.0
+spTacticsAutoUseIntervalMax = 2.0
+# seconds between super tactic checks (shortest) (0..60); default 1.0
+suTacticsAutoUseIntervalMin = 1.0
+# seconds between super tactic checks (longest) (0..60); default 2.0
+suTacticsAutoUseIntervalMax = 2.0
+# seconds between aura checks (shortest) (0..60); default 0.5
+auraSkillAutoUseIntervalMin = 0.5
+# seconds between aura checks (longest) (0..60); default 1.0
+auraSkillAutoUseIntervalMax = 1.0
+# percent: the team starts a duel (each roll) (0..100); default 80
+autoRunFocusBtlProbabilityMax = 80
+# seconds before the team may start a duel (0..60); default 2.0
+autoRunFocusBtlIntervalMin = 2.0
+# seconds after which a duel start is forced (0..120); default 15.0
+autoRunFocusBtlIntervalMax = 15.0
+# seconds between two duel-start rolls (0..60); default 2.0
+autoRunFocusBtlLotIntervalTime = 2.0
+# percent: the team starts a shoot zone (each roll) (0..100); default 100
+autoRunZoneProbabilityMax = 100
+# seconds before the team may start a zone (0..60; 0 = as soon as its carrier is in the zone area: no standing with the ball); default 0.0
+autoRunZoneIntervalMin = 0.0
+# seconds after which a zone start is forced (0..120); default 0.5
+autoRunZoneIntervalMax = 0.5
+# seconds between two zone-start rolls (0..60); default 0.1
+autoRunZoneLotIntervalTime = 0.1
+# percent: the zone's shot decision at autoRunShootIntervalMax (forced roll) (0..100); default 100
+autoRunShootProbabilityMin = 100
+# percent: the zone's shot decision at each roll (0..100); default 100
+autoRunShootProbabilityMax = 100
+# seconds of its zone before a shot decision may go through (0..60); default 0.0
+autoRunShootIntervalMin = 0.0
+# seconds of its zone after which its carrier's shot decision is forced: never an idle zone (0..120; retail 10); default 0.6
+autoRunShootIntervalMax = 0.6
+# players that press the ball owner at once (0..11); default 6
+uPressCharaNumMax = 6
+# players that press without stopping (0..11); default 4
+uNoStopPressCharaNumMax = 4
+# pass choice: weight of the success rate (0..1000); default 80
+tacticsPassEvaluationSuccessRateWeight = 80
+# pass choice: weight of the phase value (0..1000); default 80
+tacticsPassEvaluationPhaseEvaluationWeight = 80
+# dribble choice: weight of the success rate (0..1000); default 40
+tacticsDribbleEvaluationSuccessRateWeight = 40
+# dribble choice: weight of the phase value (0..1000); default 60
+tacticsDribbleEvaluationPhaseEvaluationWeight = 60
+# pass success lost per nearby rival (0..10); default 0.6
+passNearEnemyNumSuccessRateRatio = 0.6
+# weight of back passes (0..1000); default 5
+passWeightBackPasss = 5
+# pitch depth beyond which back passes stop (-1..1); default 0.0
+passDisableBackPassPosRateZ = 0.0
+# pass target value away from rivals (0..100000); default 1500
+passPotentialFromOpp = 1500
+# pass target value toward the goal (0..100000); default 12000
+passPotentialToGoal = 12000
+# lowest run urgency of its players: the run speed factor never drops below it (0..1.8; the game 0.2; 1 = never slower than normal); default 1.0
+charaSpeedStrengthMin = 1.0
+# duel: shortest delay before it answers a move you committed, part of the action interval (0..2; the game 0.4); default 0.05
+focusOpponentSkillDelayMinTimeRate = 0.05
+# duel: random extra delay before that answer (0..2; the game 0.5); default 0.05
+focusOpponentSkillDelayAddTimeRate = 0.05
+# metres within which a player may pick one of your men to mark (5..120; the game 30); default 60
+markCheckNearDist = 60
+# metres at which a presser's press score falls to 0: farther players still press (2..60; the game 10); default 20
+pressCheckNearLen = 20
+# run speed factor of a marking player (0..1.5; the game 0.75); default 1.0
+eventMoveSpeedStrength_Mark = 1.0
+# run speed factor of a player pressing the ball (0..1.5; the game 0.75); default 1.0
+eventMoveSpeedStrength_PressBall = 1.0
+# run speed factor of a player pressing a man (0..1.5; the game 0.7); default 1.0
+eventMoveSpeedStrength_PressChara = 1.0
+# run speed factor of a player moving with his line (0..1.5; the game 0.5); default 0.8
+eventMoveSpeedStrength_LineMove = 0.8
+# seconds a press action runs before it stops (0..30; the game 6); default 12
+pressTimeLimit = 12
+# seconds the analysis keeps the previous phase after a change of possession (0..10; the game 1.3); default 0.5
+changePossessionContinueTime = 0.5
+# pass length (m) from which the pass success starts to drop (0..100); default 18
+passFarDistBase = 18
+# pass length (m) at which the distance drop of the pass success is full (0..150); default 45
+passFarDistMax = 45
+# pass length (m) up to which a longer pass gains expected value (0..150); default 35
+passExpectetdFarDistMax = 35
+# weight of the forward distance a pass gains in its expected value (0..10); default 1.0
+passTrgDirDistExpectedRateRatio = 1.0
+# lead of a through-ball into the receiver's space (x his run) (0..10); default 3.0
+throuthPassTargetLengthAdjustRate = 3.0
+
+# ------------------------------------------------------------------------------------------------ both teams: the game's defensive action range
+[retail_ai.field_range]
+# squared distance (m2) from the ball owner at which a defender's action is possible (25 = 5 m) (0..400), a factor on the game's value; default 0.25
+canDefenseActionLen2_mult = 0.25
+
+# ------------------------------------------------------------------------------------------------ both teams: move against move in a focus duel
+[retail_ai.skill_duel]
+# the win table's first row: stronger / weaker up to this ratio is a 50 % roll. 1.0 = only an exact tie (-1..100); the game's value 1.2
+skillBattleWinPercent0_HighPowerRatio = 1.0
+# the win table's second row: up to this ratio the stronger side wins 60 %. -1 = row skipped, so the higher power always wins (-1..100); the game's value 1.5
+skillBattleWinPercent1_HighPowerRatio = -1.0
+
+# ------------------------------------------------------------------------------------------------ situation opponent_received_pass_within
+# A situation of the rival (a player of the other side received a pass from a teammate less than Value seconds ago (he still holds the ball)): while it holds, these values replace the ones above.
+[situations.opponent_received_pass_within]
+# the situation: a player of the other side received a pass from a teammate less than Value seconds ago (he still holds the ball) (0..30); default 2.0
+value = 2.0
+# players that press the ball owner at once (0..11); default 8
+uPressCharaNumMax = 8
+# players that press without stopping (0..11); default 6
+uNoStopPressCharaNumMax = 6
+
+# ------------------------------------------------------------------------------------------------ situation opponent_ball_owner_stamina_below
+# A situation of the rival (the other side holds the ball and its owner's stamina ratio (StaminaResource) is below Value): while it holds, these values replace the ones above.
+[situations.opponent_ball_owner_stamina_below]
+# the situation: the other side holds the ball and its owner's stamina ratio (StaminaResource) is below Value (0..1); default 0.35
+value = 0.35
+# players that press the ball owner at once (0..11); default 8
+uPressCharaNumMax = 8
+# players that press without stopping (0..11); default 6
+uNoStopPressCharaNumMax = 6
+
+# ------------------------------------------------------------------------------------------------ situation opponent_keeper_bar_above
+# A situation of the rival (the other side's keeper bar (KeeperBarSource) is above Value (a ratio)): while it holds, these values replace the ones above.
+[situations.opponent_keeper_bar_above]
+# the situation: the other side's keeper bar (KeeperBarSource) is above Value (a ratio) (0..1); default 0.5
+value = 0.5
+# percent: the team decides to shoot (each roll) (0..100); default 100
+autoRunShootProbabilityMax = 100
+# seconds after which a shot decision is forced (0..120); default 0.6
+autoRunShootIntervalMax = 0.6
+
+# ------------------------------------------------------------------------------------------------ situation opponent_dribbles_often
+# A situation of the rival (more than Value of the other side's possessions end otherwise (carried on, lost, shot) (LearnUserMoves)): while it holds, these values replace the ones above.
+[situations.opponent_dribbles_often]
+# the situation: more than Value of the other side's possessions end otherwise (carried on, lost, shot) (LearnUserMoves) (0..1); default 0.6
+value = 0.6
+# players that press the ball owner at once (0..11); default 8
+uPressCharaNumMax = 8
+# chance to slide-tackle (0..1); default 0.95
+slidingEnableRate = 0.95
+
+# ------------------------------------------------------------------------------------------------ situation opponent_passes_often
+# A situation of the rival (more than Value of the other side's possessions end in a pass to a teammate (LearnUserMoves)): while it holds, these values replace the ones above.
+[situations.opponent_passes_often]
+# the situation: more than Value of the other side's possessions end in a pass to a teammate (LearnUserMoves) (0..1); default 0.6
+value = 0.6
+# players that press without stopping (0..11); default 6
+uNoStopPressCharaNumMax = 6
+
+# ------------------------------------------------------------------------------------------------ situation opponent_duel_side_bias_above
+# A situation of the rival (the other side's duel side steps / angled breakthroughs go to one side (of its attack) more than Value of the time (LearnUserMoves)): while it holds, these values replace the ones above.
+[situations.opponent_duel_side_bias_above]
+# the situation: the other side's duel side steps / angled breakthroughs go to one side (of its attack) more than Value of the time (LearnUserMoves) (0.5..1); default 0.65
+value = 0.65
+# defender uses a move at the start of the duel (0..1); default 1.0
+focusDefImmediateSkillRate = 1.0
+# uses the power block in a duel (0..1); default 1.0
+focusPowerBlockUseRate = 1.0
+
+# ------------------------------------------------------------------------------------------------ situation opponent_duel_pass_out_above
+# A situation of the rival (the other side passes out of a duel more than Value of its duel actions (LearnUserMoves)): while it holds, these values replace the ones above.
+[situations.opponent_duel_pass_out_above]
+# the situation: the other side passes out of a duel more than Value of its duel actions (LearnUserMoves) (0..1); default 0.4
+value = 0.4
+# defender uses a move at the start of the duel (0..1); default 1.0
+focusDefImmediateSkillRate = 1.0
+
+# ------------------------------------------------------------------------------------------------ situation own_lost_ball_within
+# A situation of the rival (the side lost the ball to the other side less than Value seconds ago and the other side still holds it): while it holds, these values replace the ones above.
+[situations.own_lost_ball_within]
+# the situation: the side lost the ball to the other side less than Value seconds ago and the other side still holds it (0..30); default 2.0
+value = 2.0
+# players that press the ball owner at once (0..11); default 8
+uPressCharaNumMax = 8
+# players that press without stopping (0..11); default 6
+uNoStopPressCharaNumMax = 6
+
+# ------------------------------------------------------------------------------------------------ situation own_lost_ball_over
+# A situation of the rival (the side lost the ball to the other side at least Value seconds ago and the other side still holds it (after its counter-press)): while it holds, these values replace the ones above.
+[situations.own_lost_ball_over]
+# the situation: the side lost the ball to the other side at least Value seconds ago and the other side still holds it (after its counter-press) (0..60); default 3.0
+value = 3.0
+# depth offset of his spot while he plays in the forward group, in half-pitch lengths (retail 0; «Move up!» writes it) (-1..1); default 0.1
+posOffsetRateFW = 0.1
+# depth offset of his spot while he plays in the midfield group, in half-pitch lengths (retail 0; «Move up!» writes it) (-1..1); default 0.1
+posOffsetRateMF = 0.1
+# depth offset of his spot while he plays in the defender group, in half-pitch lengths (retail 0) (-1..1); default 0.1
+posOffsetRateDF = 0.1
+
+# ------------------------------------------------------------------------------------------------ situation own_possession_under
+# A situation of the rival (the side won the ball less than Value seconds ago and still holds it): while it holds, these values replace the ones above.
+[situations.own_possession_under]
+# the situation: the side won the ball less than Value seconds ago and still holds it (0..60); default 6.0
+value = 6.0
+# pass target value toward the goal (0..100000); default 25000
+passPotentialToGoal = 25000
+# weight of back passes (0..1000); default 0
+passWeightBackPasss = 0
+# pass length (m) from which the pass success starts to drop (0..100); default 20
+passFarDistBase = 20
+# pass length (m) at which the distance drop of the pass success is full (0..150); default 50
+passFarDistMax = 50
+# pass length (m) up to which a longer pass gains expected value (0..150); default 40
+passExpectetdFarDistMax = 40
+# weight of the forward distance a pass gains in its expected value (0..10); default 1.0
+passTrgDirDistExpectedRateRatio = 1.0
+# lead of a through-ball into the receiver's space (x his run) (0..10); default 3.0
+throuthPassTargetLengthAdjustRate = 3.0
+# metres a player's position moves toward the attack while his side holds the ball (0..30); default 8
+positioningOffenseDirPosOffsetDist = 8
+# multiplier of that forward move for attacking players (0..10); default 2.0
+offensePosOffsetDistRateOffense = 2.0
+# seconds between dash decisions of the ball carrier (shortest) (0..10); default 0.1
+dashLineDashLotteryIntervalMin = 0.1
+# seconds between dash decisions of the ball carrier (longest) (0..10); default 0.6
+dashLineDashLotteryIntervalMax = 0.6
+
+# ------------------------------------------------------------------------------------------------ situation own_possession_over
+# A situation of the rival (the side has held the ball (its players' touches and passes, a loose ball between them) for at least Value seconds): while it holds, these values replace the ones above.
+[situations.own_possession_over]
+# the situation: the side has held the ball (its players' touches and passes, a loose ball between them) for at least Value seconds (0..60); default 6.0
+value = 6.0
+# pass target value toward the goal (0..100000); default 15000
+passPotentialToGoal = 15000
+# pass target value away from rivals (0..100000); default 1500
+passPotentialFromOpp = 1500
+# weight of back passes (0..1000); default 5
+passWeightBackPasss = 5
+# pitch depth beyond which back passes stop (-1..1); default 0.0
+passDisableBackPassPosRateZ = 0.0
+# dribble choice: weight of the phase value (0..1000); default 60
+tacticsDribbleEvaluationPhaseEvaluationWeight = 60
+# seconds between dash decisions of the ball carrier (shortest) (0..10); default 0.1
+dashLineDashLotteryIntervalMin = 0.1
+# seconds between dash decisions of the ball carrier (longest) (0..10); default 0.6
+dashLineDashLotteryIntervalMax = 0.6
+# depth offset of his spot while he plays in the forward group, in half-pitch lengths (retail 0; «Move up!» writes it) (-1..1); default 0.1
+posOffsetRateFW = 0.1
+# depth offset of his spot while he plays in the defender group, in half-pitch lengths (retail 0) (-1..1); default 0.1
+posOffsetRateDF = 0.1
+
+# ------------------------------------------------------------------------------------------------ situation opponent_line_over
+# A situation of the rival (the side holds the ball and the other side's deepest outfield player stands at least Value metres in front of its own goal line (a high line: space behind it)): while it holds, these values replace the ones above.
+[situations.opponent_line_over]
+# the situation: the side holds the ball and the other side's deepest outfield player stands at least Value metres in front of its own goal line (a high line: space behind it) (0..120); default 30.0
+value = 30.0
+# pass target value toward the goal (0..100000); default 15000
+passPotentialToGoal = 15000
+# pass length (m) from which the pass success starts to drop (0..100); default 18
+passFarDistBase = 18
+# pass length (m) at which the distance drop of the pass success is full (0..150); default 50
+passFarDistMax = 50
+# pass length (m) up to which a longer pass gains expected value (0..150); default 40
+passExpectetdFarDistMax = 40
+# lead of a through-ball into the receiver's space (x his run) (0..10); default 3.0
+throuthPassTargetLengthAdjustRate = 3.0
+
+# ------------------------------------------------------------------------------------------------ situation own_carrier_pressed_within
+# A situation of the rival (the side holds the ball in play and an outfield player of the other side stands within Value metres of its carrier (a player with an AI move order, such as a press order, counts at half his distance); it holds until nobody is within 1.5 x Value. Checked every frame: the layer switches at once (a fast release under pressure)): while it holds, these values replace the ones above.
+[situations.own_carrier_pressed_within]
+# the situation: the side holds the ball in play and an outfield player of the other side stands within Value metres of its carrier (a player with an AI move order, such as a press order, counts at half his distance); it holds until nobody is within 1.5 x Value. Checked every frame: the layer switches at once (a fast release under pressure) (0..30); default 4.5
+value = 4.5
+# seconds between pass decisions (shortest) (0..10); default 0.0
+passLotteryIntervalMin = 0.0
+# seconds between pass decisions (longest) (0..10); default 0.02
+passLotteryIntervalMax = 0.02
+# seconds the ball owner holds the ball before an automatic pass (0..10); default 0.0
+fAutoPassIntervalTime = 0.0
+# seconds a wait action without its own duration lasts (the CPU's idle pauses; read by the action executors) (0..10); default 0.0
+defaultWaitTimeMax = 0.0
+# pass choice: weight of the success rate (0..1000); default 90
+tacticsPassEvaluationSuccessRateWeight = 90
+# pass success lost per nearby rival (0..10); default 0.4
+passNearEnemyNumSuccessRateRatio = 0.4
+# chance to pass when a pass is possible (0..1); default 1.0
+passEnableRate = 1.0
+# chance to sprint in open play (0..1); default 1.0
+normalDashEnableRate = 1.0
+# chance to use the dash attack (0..1); default 1.0
+attackDashEnableRate = 1.0
+
+# ------------------------------------------------------------------------------------------------ situation opponent_carrier_behind_line
+# A situation of the rival (your carrier behind its last outfield player, see [behind_line]): while it holds, these values replace the ones above.
+[situations.opponent_carrier_behind_line]
+# the game's own pressers of the rival: none, the rule's presser is the only chaser (players); default 0
+uPressCharaNumMax = 0
+# the game's own no-stop pressers of the rival: none (players); default 0
+uNoStopPressCharaNumMax = 0
+
+# ------------------------------------------------------------------------------------------------ situation own_zone
+# A situation of the rival (the side's own shoot zone is running): while it holds, these values replace the ones above.
+[situations.own_zone]
+# tension it keeps after a move (a move that would drop below is skipped) (0..300); default 0.0
+keepTention = 0.0
+
+# ------------------------------------------------------------------------------------------------ difficulty
+# The levels of the option row «Difficulty» (options.toml, read at each match start). Every value above stays the top
+# level, Hell; content\rules\ai\legendary.toml reads this table through [[VRFW.MatchAILevels]] and is built once per
+# level. A value this table does not name is the same at every level.
+[difficulty]
+# one factor per level, low to high: value = start + factor x (top value - start), integers rounded; 1.0 = the value above
+factors = [0.2, 0.4, 0.6, 0.8, 1.0]
+# the names in the log line at match start, by level
+names = ["novice", "amateur", "professional", "world_class", "hell"]
+
+# the level (1 = lowest) from which a per-team behaviour plays; below it the key is left out, so the game's own AI acts
+[difficulty.team_from]
+BehindLineCover = 2
+CounterRuns = 2
+PressCarrier = 2
+AuraPlan = 3
+BoxLine = 3
+ElementCounter = 3
+FocusAttackRead = 3
+FocusRetreat = 3
+KickoffPress = 3
+LowBlock = 3
+ManMarking = 3
+PassLaneCut = 3
+PassRead = 3
+Shape = 3
+SubstituteAtStamina = 3
+ThroughBallCover = 3
+ZoneWallGuards = 3
+ZoneWallHold = 3
+AuraElementCounter = 4
+LearnUserMoves = 4
+OffsideTrap = 4
+PassBeforeShot = 4
+PowerAware = 4
+ShotChainRead = 4
+SubstituteForElement = 4
+ZoneAct = 4
+ZoneShootNow = 4
+
+# the level from which a situation of the profile plays
+[difficulty.if_from]
+opponent_carrier_behind_line = 2
+own_carrier_pressed_within = 2
+own_lost_ball_within = 2
+opponent_ball_owner_stamina_below = 3
+opponent_keeper_bar_above = 3
+opponent_received_pass_within = 3
+own_lost_ball_over = 3
+own_possession_over = 3
+own_possession_under = 3
+opponent_dribbles_often = 4
+opponent_duel_pass_out_above = 4
+opponent_duel_side_bias_above = 4
+opponent_line_over = 4
+opponent_passes_often = 4
+
+# where a value starts at factor 0, under the same section and key as the value:
+#   a number  the start: the game's hardest value when it is a game rate, else the value at which the behaviour does nothing
+#   "retail"  the knob's game value in the framework's catalogue (content\rules\catalog\ai_knobs.toml), by the key's name
+#   { values = [...] }  one value per level, for what has no straight line
+[difficulty.from.fouls]
+# the game's focusFoulBaseRatePowerAction, and its own sprint chance (read by scripts\legendary_ai.lua)
+rival_power_action_foul_rate = 0.15
+rival_dash_foul_scale = 1.0
+
+# a read that fails half the time is no read
+[difficulty.from.errors]
+focus_duel_read_error = 0.5
+offside_trap_miss = 0.5
+
+[difficulty.from.focus_duel]
+hurry_scale = 1.0
+hurry_force_at = 1.0
+attack_read_react_s = 0.25
+attack_read_feint = 0.0
+
+# the same chance at every level: it multiplies attackDashEnableRate, which rises with the level
+[difficulty.from.charge]
+chance_per_opponent = 0.5
+
+[difficulty.from.press]
+lane_cut_receivers = 1
+range_m = 20
+max = 1
+speed_mult = 1.0
+
+[difficulty.from.offside_trap]
+reaction_s = 1.0
+
+[difficulty.from.low_block]
+after_lost_s = 6
+press = 0
+recover_mult = 1.0
+
+[difficulty.from.shot_chain_read]
+blockers = 1
+
+[difficulty.from.pass_read]
+players = 1
+reaction_s = 0.5
+
+[difficulty.from.through_ball_cover]
+chasers = 1
+
+[difficulty.from.counter]
+window_s = 2
+runners = 1
+
+[difficulty.from.passing]
+pass_speed = 1.0
+
+[difficulty.from.moves]
+best_move_chance = 0.0
+
+# the hardest sprint rates of the game's classes: this behaviour replaces the class's rates
+[difficulty.from.stamina]
+sprint_rate = 0.85
+sprint_attack_rate = 0.5
+
+# strategy gates: never below the level of the game's Legendary rows (8); tension: the game gives none by time and keeps 20 for the keeper
+[difficulty.from.team]
+strategy_level = { values = [8, 8, 8, 8, 9] }
+tension_per_second = 0.0
+keeper_tension_reserve = 20
+
+[difficulty.from.auras]
+keeper_priority = 0.0
+carrier_free_slot_chance = 0.0
+
+# the hardest value of the game's classes SoccerAIProperty, _0.._9 (soccer_ai_property.cfg.bin): every level plays at or above
+# the game's top; a smaller value is harder for intervals and disable times. zonePassEnableRate: the top level never passes in
+# its zone, the game's top always does, so every level keeps the top level's 0
+[difficulty.from.retail_ai.class_rates]
+passEnableRate = 0.6
+slidingEnableRate = 0.8
+normalDashEnableRate = 0.85
+attackDashEnableRate = 0.5
+allCourtJustAvoidRate = 1.0
+focusCatchActInterval = 1.0
+focusCatchActRate = 10.0
+focusKeepDistanceDribbleRate = 0.7
+focusAtkSkillRate = 0.8
+focusDefSkillRate = 0.8
+focusAtkOpponentSkillRate = 0.9
+focusDefOpponentSkillRate = 0.9
+focusAtkImmediateSkillRate = 0.8
+focusDefImmediateSkillRate = 0.8
+focusActionIntervalA = 0.2
+focusActionIntervalB = 0.1
+focusActionIntervalC = 0.1
+focusBreakThroughDisableTime = 0.15
+focusBreakThroughEscapeRate = 1.0
+focusPassEnableRate = 1.0
+focusPowerChargeUseRate = 0.85
+focusPowerBlockUseRate = 0.85
+zoneKeeperSkillRateVsNormal = 0.7
+zoneShootBlockSkillRate = 1.0
+zoneShootChainUseRate = 0.3
+zoneShootSkillRate = 0.9
+zoneShootDisableTime = 0.0
+zonePassEnableRate = 0.0
+directFreeKickSkillRate = 1.0
+spTacticsUseRate = 0.7
+suTacticsUseRate = 0.5
+scrambleJustRate = 1.0
+auraSkillRate = 0.95
+
+[difficulty.from.retail_ai.rival_rates]
+focusFramePerfectReactRate = 100
+zoneKeeperSkillRateVsSkill = 0.95
+keepTention = 0.0
+
+[difficulty.from.retail_ai.globals]
+defaultWaitTimeMax = "retail"
+fCharaTacticsUpdateIntervalTime = "retail"
+fCharaTacticsUpdateMoreNumMax = "retail"
+charaTacticsDelayTime = "retail"
+charaTacticsDelayFluctuationTime = "retail"
+fCharaTacticsStateChangeUpdateTime = "retail"
+fCharaTacticsResetIntervalTime = "retail"
+teamStrategyUpdateInterval = "retail"
+teamTacticsUpdateInterval = "retail"
+passLotteryIntervalMin = "retail"
+passLotteryIntervalMax = "retail"
+fAutoPassIntervalTime = "retail"
+gkAutoPassTime = "retail"
+dashLineDashLotteryIntervalMin = "retail"
+dashLineDashLotteryIntervalMax = "retail"
+slidingLotteryIntervalMin = "retail"
+slidingLotteryIntervalMax = "retail"
+spTacticsAutoUseIntervalMin = "retail"
+spTacticsAutoUseIntervalMax = "retail"
+suTacticsAutoUseIntervalMin = "retail"
+suTacticsAutoUseIntervalMax = "retail"
+auraSkillAutoUseIntervalMin = "retail"
+auraSkillAutoUseIntervalMax = "retail"
+autoRunFocusBtlProbabilityMax = "retail"
+autoRunFocusBtlIntervalMin = "retail"
+autoRunFocusBtlIntervalMax = "retail"
+autoRunFocusBtlLotIntervalTime = "retail"
+autoRunZoneProbabilityMax = "retail"
+autoRunZoneIntervalMin = "retail"
+autoRunZoneIntervalMax = "retail"
+autoRunZoneLotIntervalTime = "retail"
+autoRunShootProbabilityMin = "retail"
+autoRunShootProbabilityMax = "retail"
+autoRunShootIntervalMin = "retail"
+autoRunShootIntervalMax = "retail"
+uPressCharaNumMax = "retail"
+uNoStopPressCharaNumMax = "retail"
+tacticsPassEvaluationSuccessRateWeight = "retail"
+tacticsPassEvaluationPhaseEvaluationWeight = "retail"
+tacticsDribbleEvaluationSuccessRateWeight = "retail"
+tacticsDribbleEvaluationPhaseEvaluationWeight = "retail"
+passNearEnemyNumSuccessRateRatio = "retail"
+passWeightBackPasss = "retail"
+passDisableBackPassPosRateZ = "retail"
+passPotentialFromOpp = "retail"
+passPotentialToGoal = "retail"
+charaSpeedStrengthMin = "retail"
+focusOpponentSkillDelayMinTimeRate = "retail"
+focusOpponentSkillDelayAddTimeRate = "retail"
+markCheckNearDist = "retail"
+pressCheckNearLen = "retail"
+eventMoveSpeedStrength_Mark = "retail"
+eventMoveSpeedStrength_PressBall = "retail"
+eventMoveSpeedStrength_PressChara = "retail"
+eventMoveSpeedStrength_LineMove = "retail"
+pressTimeLimit = "retail"
+changePossessionContinueTime = "retail"
+passFarDistBase = "retail"
+passFarDistMax = "retail"
+passExpectetdFarDistMax = "retail"
+passTrgDirDistExpectedRateRatio = "retail"
+throuthPassTargetLengthAdjustRate = "retail"
+
+[difficulty.from.situations.opponent_received_pass_within]
+uPressCharaNumMax = "retail"
+uNoStopPressCharaNumMax = "retail"
+
+[difficulty.from.situations.opponent_ball_owner_stamina_below]
+uPressCharaNumMax = "retail"
+uNoStopPressCharaNumMax = "retail"
+
+[difficulty.from.situations.opponent_keeper_bar_above]
+autoRunShootProbabilityMax = "retail"
+autoRunShootIntervalMax = "retail"
+
+[difficulty.from.situations.opponent_dribbles_often]
+uPressCharaNumMax = "retail"
+slidingEnableRate = 0.8
+
+[difficulty.from.situations.opponent_passes_often]
+uNoStopPressCharaNumMax = "retail"
+
+[difficulty.from.situations.opponent_duel_side_bias_above]
+focusDefImmediateSkillRate = 0.8
+focusPowerBlockUseRate = 0.85
+
+[difficulty.from.situations.opponent_duel_pass_out_above]
+focusDefImmediateSkillRate = 0.8
+
+[difficulty.from.situations.own_lost_ball_within]
+uPressCharaNumMax = "retail"
+uNoStopPressCharaNumMax = "retail"
+
+[difficulty.from.situations.own_lost_ball_over]
+posOffsetRateFW = 0.0
+posOffsetRateMF = 0.0
+posOffsetRateDF = 0.0
+
+[difficulty.from.situations.own_possession_under]
+passPotentialToGoal = "retail"
+passWeightBackPasss = "retail"
+passFarDistBase = "retail"
+passFarDistMax = "retail"
+passExpectetdFarDistMax = "retail"
+passTrgDirDistExpectedRateRatio = "retail"
+throuthPassTargetLengthAdjustRate = "retail"
+positioningOffenseDirPosOffsetDist = "retail"
+offensePosOffsetDistRateOffense = "retail"
+dashLineDashLotteryIntervalMin = "retail"
+dashLineDashLotteryIntervalMax = "retail"
+
+[difficulty.from.situations.own_possession_over]
+passPotentialToGoal = "retail"
+passPotentialFromOpp = "retail"
+passWeightBackPasss = "retail"
+passDisableBackPassPosRateZ = "retail"
+tacticsDribbleEvaluationPhaseEvaluationWeight = "retail"
+dashLineDashLotteryIntervalMin = "retail"
+dashLineDashLotteryIntervalMax = "retail"
+posOffsetRateFW = 0.0
+posOffsetRateDF = 0.0
+
+[difficulty.from.situations.opponent_line_over]
+passPotentialToGoal = "retail"
+passFarDistBase = "retail"
+passFarDistMax = "retail"
+passExpectetdFarDistMax = "retail"
+throuthPassTargetLengthAdjustRate = "retail"
+
+[difficulty.from.situations.own_carrier_pressed_within]
+passLotteryIntervalMin = "retail"
+passLotteryIntervalMax = "retail"
+fAutoPassIntervalTime = "retail"
+defaultWaitTimeMax = "retail"
+tacticsPassEvaluationSuccessRateWeight = "retail"
+passNearEnemyNumSuccessRateRatio = "retail"
+passEnableRate = 0.6
+normalDashEnableRate = 0.85
+attackDashEnableRate = 0.5
+
+[difficulty.from.situations.own_zone]
+keepTention = 0.0

@@ -1,0 +1,69 @@
+# Declares which match difficulties exist per context; one [MatchDifficulty.<Id>] table each, merged by Id across mods in load order.
+# Difficulty: SOCCER_GAME_DIFFICULTY id (1-255). Contexts: route | gate | chain | free_match. Enabled: false removes it (default true).
+# Badge/BadgeAtlas: title sprite and its .g4tx atlas. Ball/BallAtlas: level ball on the free-match class card and its atlas.
+# Name: per-language table. Level: rival level (display only). Order: sort order (default: the difficulty id). Mod ids: "<Prefix>.<Name>".
+# Retail set:
+
+[MatchDifficulty.Cronica]
+Difficulty = 1
+Contexts = ["route"]
+Badge = "gtxt_class21"
+Order = 1
+
+[MatchDifficulty.RouteOpen]
+Difficulty = 2
+Contexts = ["route", "gate"]
+Badge = "gtxt_class22"
+Order = 2
+
+[MatchDifficulty.RareItems]
+Difficulty = 3
+Contexts = ["route"]
+Badge = "gtxt_class23"
+Order = 3
+
+[MatchDifficulty.Heroica]
+Difficulty = 4
+Contexts = ["route", "chain"]
+Badge = "gtxt_class24"
+Order = 4
+
+[MatchDifficulty.HeroicaPlus]
+Difficulty = 10
+Contexts = ["route", "gate"]
+Badge = "gtxt_class26"
+Order = 5
+
+[MatchDifficulty.Legendaria]
+Difficulty = 11
+Contexts = ["route", "gate"]
+Badge = "gtxt_class28"
+Order = 6
+
+[MatchDifficulty.Class1]
+Difficulty = 6
+Contexts = ["free_match", "chain"]
+Badge = "gtxt_class01"
+Ball = "lv_base00"
+Order = 7
+
+[MatchDifficulty.Class2]
+Difficulty = 7
+Contexts = ["free_match", "chain"]
+Badge = "gtxt_class02"
+Ball = "lv_base01"
+Order = 8
+
+[MatchDifficulty.Class3]
+Difficulty = 8
+Contexts = ["free_match", "chain"]
+Badge = "gtxt_class03"
+Ball = "lv_base02"
+Order = 9
+
+[MatchDifficulty.Class4]
+Difficulty = 9
+Contexts = ["free_match", "chain"]
+Badge = "gtxt_class04"
+Ball = "lv_base03"
+Order = 10

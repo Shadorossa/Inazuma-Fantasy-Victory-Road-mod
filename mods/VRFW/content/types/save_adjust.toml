@@ -1,0 +1,14 @@
+# Declaration schema of VRFW.save_adjust/1 (content\save_adjust\**\*.toml; docs/framework/save-adjust.md): [[VRFW.SaveAdjust]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.save_adjust/1"
+folder = "content/save_adjust"
+
+[entry.SaveAdjust]
+id = { type = "name", required = true, doc = "a-z 0-9 _; the key is \"<mod id>.<id>\"" }
+label = { type = "string", doc = "text key (menu_text row of the mod's text\\): the confirmation line" }
+description = { type = "string", doc = "text key: what it does (logs / future screens)" }
+result = { type = "string", default = "vrfw_save_tools_done", doc = "optional text key, %d = count" }
+order = { type = "int", doc = "optional, run order (default 1000), then load order" }
+script = { type = "string", doc = "the mod's script (inside scripts\\) that holds the functions" }
+run = { type = "string", doc = "global function of that script (dotted path)" }
+available = { type = "string", doc = "optional global function -> bool, or a text key (no save read)" }

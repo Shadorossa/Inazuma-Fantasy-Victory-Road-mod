@@ -1,0 +1,16 @@
+# Character Reforged's declaration for the character bank's COMANDOS popup (docs/framework/bank-commands.md):
+# «Tabla de habilidades» opens the skill table (evt_skill_slot_menu, graft ss2_menus) with the parameters the formation
+# passes to it, as the formation entry does (graft ss2_dock). HOOK file (docs/framework/lua-hosts.md §7): it only
+# declares into VRFW_BankCommands (no handler, no engine call at load). Without a mod that draws the popup it is inert.
+name = "cr_bank_skill_table"
+mod = "CharacterReforged"
+order = 340
+module = ""
+requires = []
+conflicts = []
+wraps = []
+description = "Bank COMANDOS popup: the skill table (VRFW_BankCommands)"
+
+[[hooks]]
+stem = "chara_bank_menu"
+source = "cr_bank_skill_table.lua"

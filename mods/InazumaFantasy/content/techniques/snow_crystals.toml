@@ -1,0 +1,41 @@
+schema = "VRFW.technique/3"
+# Cristales nevados (Icicle Bomb): the download's move who91002, a clone of who00780 with its numbers; its event ev61_91002 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "snow_crystals"
+key = "who91002"
+base = "who00780"
+event = "ev61_91002"
+element = "wind"
+power_min = 70
+power_max = 440
+tp = 70
+color = 1
+  [technique.text.es]
+  name = "Cristales nevados"
+  description = "Lanza cristales de hielo que\ncongelan a los rivales a su paso."
+  [technique.text.en]
+  name = "Icicle Bomb"
+  description = "Throws ice crystals that\nfreeze the rivals in its path."
+  [technique.text.fr]
+  name = "Cristaux enneigés"
+  description = "Lance des cristaux de glace\nqui gèlent les adversaires au passage."
+  [technique.text.de]
+  name = "Schneekristalle"
+  description = "Wirft Eiskristalle, die die Gegner\nauf ihrem Weg einfrieren."
+  [technique.text.it]
+  name = "Cristalli innevati"
+  description = "Lancia cristalli di ghiaccio\nche congelano gli avversari."
+  [technique.text.pt]
+  name = "Cristais nevados"
+  description = "Lança cristais de gelo que\ncongelam os adversários no caminho."
+  [technique.text.ja]
+  name = "アイシクルボム"
+  description = "氷の結晶を放ち\n行く手の相手を凍らせる！"
+  [technique.text.zh_hans]
+  name = "雪之结晶"
+  description = "掷出冰晶，\n冻住沿途的对手。"
+  [technique.text.zh_hant]
+  name = "雪之結晶"
+  description = "擲出冰晶，\n凍住沿途的對手。"

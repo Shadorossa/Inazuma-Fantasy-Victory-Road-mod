@@ -1,0 +1,66 @@
+# Declaration schema of VRFW.rival_players/1 (content\rival_players): what each rival player of a match gets for that
+# match only: passives in his 5 passive slots, absolute stats, stat points and a training to the full by position
+# (scripts\lib\rival_players.lua, scripts\rival_players.lua; docs/framework/types/rival-players.md). Names
+# (training_stats, passive_sets, position_passives, a player's rule) are looked up in the same file.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.rival_players/1"
+folder = "content/rival_players"
+label = "Rival players"
+label_es = "Jugadores rivales"
+doc = "Passives, stats and training of the rival players in the matches that fit a rule."
+doc_es = "Pasivas, stats y entrenamiento de los jugadores rivales en los partidos que cumplen una regla."
+
+[entry.Rule]
+entry_table = "rule"
+name = { type = "name", required = true, doc = "the rule's name (a [[player]] names it)" }
+difficulty = { type = "string", doc = "a [MatchDifficulty.<Id>] key (content/defaults/match_difficulty.toml) or its Difficulty number; this or difficulties" }
+difficulties = { type = "strings", doc = "several [MatchDifficulty.<Id>] keys or numbers" }
+games = { type = "strings", doc = "game keys (soccer_game_config) or ids: only these matches; a rule with games wins over a rule without; left out = every game of the difficulty" }
+play_mode = { type = "int", doc = "the engine's play-mode byte (Game.PlayMode) the match must have; left out = any" }
+side = { type = "string", default = "rival", values = ["rival"], doc = "the side the rule changes" }
+training_level = { type = "string", doc = "every player is trained to the full at this level (Player Training applies it): a number, or class = the level of the match's class row" }
+archetypes = { type = "strings", doc = "[[archetype]] names: each player gets the one that suits him (same result every time); it replaces passive_sets and training_stats" }
+team_focus = { type = "number", default = 0, doc = "how much a team leans to its most chosen archetype, added x the share of the team that chose it; stat fit is a 0..1 share" }
+keep_special = { type = "bool", default = false, doc = "a player's own special stays in his first slot" }
+training_stats = { type = "string", doc = "the [[training_stats]] the training puts the points into" }
+passive_sets = { type = "strings", doc = "[[passive_set]] names: one is drawn at random every time the match is entered" }
+set_passives = { type = "int", default = 0, doc = "passives of the drawn set each player gets (drawn), in his last slots" }
+position_passives = { type = "string", doc = "the [[position_passives]] that fill the other slots, by the player's position" }
+
+[entry.TrainingStats]
+entry_table = "training_stats"
+name = { type = "name", required = true, doc = "the list's name" }
+GK = { type = "strings", doc = "keeper stats in order: kick, control, technique, pressure, physical, intelligence, agility, luck" }
+FW = { type = "strings", doc = "forward stats in order" }
+MF = { type = "strings", doc = "midfielder stats in order" }
+DF = { type = "strings", doc = "defender stats in order" }
+
+[entry.Archetype]
+entry_table = "archetype"
+name = { type = "name", required = true, doc = "the archetype's name" }
+element_bonus = { type = "table", doc = "added to the choice for a player of an element: { fire = 0.02 } (wind, forest, fire, mountain, void, neutral)" }
+GK = { type = "table", doc = "{ stats = [...], passives = [...] }: what a keeper trains and carries in his last slots" }
+FW = { type = "table", doc = "the same for a forward" }
+MF = { type = "table", doc = "the same for a midfielder" }
+DF = { type = "table", doc = "the same for a defender" }
+
+[entry.PassiveSet]
+entry_table = "passive_set"
+name = { type = "name", required = true, doc = "the set's name" }
+passives = { type = "strings", required = true, ref = "passive", doc = "game passive keys (ps10099_04) or ids" }
+
+[entry.PositionPassives]
+entry_table = "position_passives"
+name = { type = "name", required = true, doc = "the lists' name" }
+GK = { type = "strings", ref = "passive", doc = "keeper passives, best first; a repeat fills one more slot" }
+FW = { type = "strings", ref = "passive", doc = "forward passives, best first; a repeat fills one more slot" }
+MF = { type = "strings", ref = "passive", doc = "midfielder passives, best first; a repeat fills one more slot" }
+DF = { type = "strings", ref = "passive", doc = "defender passives, best first; a repeat fills one more slot" }
+
+[entry.Player]
+entry_table = "player"
+rule = { type = "string", required = true, doc = "the [[rule]] of this file the entry belongs to" }
+card = { type = "int", required = true, doc = "the chara_param id" }
+passives = { type = "strings", ref = "passive", doc = "his 5 slots in order (instead of the rule's sets and position lists)" }
+stats = { type = "table", doc = "absolute match stats: { kick = 300, ... } (kick, control, technique, pressure, physical, intelligence, agility)" }
+points = { type = "table", doc = "stat points added to the match stats: { kick = 40, ... } (negative lowers)" }

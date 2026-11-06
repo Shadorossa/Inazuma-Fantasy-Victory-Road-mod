@@ -1,0 +1,166 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "level"
+  Type = "table"
+  Label = { es = "Nivel", en = "Level" }
+  Help = { es = "Ajustes del nivel máximo.", en = "Level cap settings." }
+  [[Shape.Field]]
+  Key = "level.cap"
+  Type = "int"
+  Label = { es = "Nivel máximo", en = "Level cap" }
+  Help = { es = "99 es el límite del juego; de 100 a 999 lo amplía.", en = "99 is the game's own cap; 100 to 999 raises it." }
+  [[Shape.Field]]
+  Key = "stats"
+  Type = "table"
+  Label = { es = "Estadísticas", en = "Stats" }
+  Help = { es = "Cómo crecen las estadísticas con el nivel.", en = "How stats grow with level." }
+  [[Shape.Field]]
+  Key = "stats.lv1_ratio"
+  Type = "float"
+  Label = { es = "Valor en nivel 1", en = "Level 1 value" }
+  Help = { es = "Proporción entre el valor en nivel 1 y el de nivel 99 (0 a 1).", en = "Ratio of the level 1 value to the level 99 value (0 to 1)." }
+  [[Shape.Field]]
+  Key = "stats.curve_slow"
+  Type = "float"
+  Label = { es = "Curva de crecimiento lento", en = "Slow growth curve" }
+  Help = { es = "Exponente de la curva de nivel 1 a 99 para jugadores de crecimiento lento.", en = "Level 1 to 99 curve exponent for slow-growth players." }
+  [[Shape.Field]]
+  Key = "stats.curve_normal"
+  Type = "float"
+  Label = { es = "Curva de crecimiento normal", en = "Normal growth curve" }
+  Help = { es = "Exponente de la curva de nivel 1 a 99 para crecimiento normal.", en = "Level 1 to 99 curve exponent for normal growth." }
+  [[Shape.Field]]
+  Key = "stats.curve_fast"
+  Type = "float"
+  Label = { es = "Curva de crecimiento rápido", en = "Fast growth curve" }
+  Help = { es = "Exponente de la curva de nivel 1 a 99 para crecimiento rápido.", en = "Level 1 to 99 curve exponent for fast growth." }
+  [[Shape.Field]]
+  Key = "stats.lv200_factor_slow"
+  Type = "float"
+  Label = { es = "Factor al nivel 200, lento", en = "Level 200 factor, slow" }
+  Help = { es = "Valor en nivel 200 frente al de nivel 99 para crecimiento lento.", en = "Level 200 value against level 99 value for slow growth." }
+  [[Shape.Field]]
+  Key = "stats.lv200_factor_normal"
+  Type = "float"
+  Label = { es = "Factor al nivel 200, normal", en = "Level 200 factor, normal" }
+  Help = { es = "Valor en nivel 200 frente al de nivel 99 para crecimiento normal.", en = "Level 200 value against level 99 value for normal growth." }
+  [[Shape.Field]]
+  Key = "stats.lv200_factor_fast"
+  Type = "float"
+  Label = { es = "Factor al nivel 200, rápido", en = "Level 200 factor, fast" }
+  Help = { es = "Valor en nivel 200 frente al de nivel 99 para crecimiento rápido.", en = "Level 200 value against level 99 value for fast growth." }
+  [[Shape.Field]]
+  Key = "stats.curve_post99"
+  Type = "float"
+  Label = { es = "Curva después del nivel 99", en = "Curve after level 99" }
+  Help = { es = "Exponente por encima del nivel 99; menor que 1 concentra el crecimiento justo después del 99.", en = "Exponent above level 99; below 1 puts most growth soon after 99." }
+  [[Shape.Field]]
+  Key = "stats.cap_scale"
+  Type = "float"
+  Label = { es = "Efecto del nivel máximo", en = "Level cap effect" }
+  Help = { es = "Cómo sigue el valor máximo al nivel máximo (0 = valor guardado con cualquier tope).", en = "How the top value follows the level cap (0 = stored value at any cap)." }
+  [[Shape.Field]]
+  Key = "stats.agility_speed"
+  Type = "float"
+  Label = { es = "Velocidad según agilidad", en = "Speed from agility" }
+  Help = { es = "Variación de la velocidad de carrera según la agilidad dentro de su posición, hasta ±5 % (0 = desactivado).", en = "Run speed change from agility inside the position, up to 5 % (0 = off)." }
+  [[Shape.Field]]
+  Key = "stats.speed_npc"
+  Type = "bool"
+  Label = { es = "Velocidad también en rivales", en = "Speed for opponents too" }
+  Help = { es = "Aplica lo anterior también a jugadores rivales sin personaje guardado.", en = "Also applies it to roster rows without a saved character." }
+  [[Shape.Field]]
+  Key = "stats.rarity_mult"
+  Type = "table"
+  Label = { es = "Multiplicador por rareza", en = "Rarity multiplier" }
+  Help = { es = "Factor por rareza de carta (0,1 a 10); sin indicar = 1.", en = "Factor per card rarity (0.1 to 10); none = 1." }
+  [[Shape.Field]]
+  Key = "stats.past_cap"
+  Type = "table"
+  Label = { es = "Crecimiento pasado el nivel 99", en = "Growth past level 99" }
+  Help = { es = "Crecimiento de las cartas sin valores guardados por encima del nivel 99.", en = "Growth past level 99 of cards without stored values." }
+  [[Shape.Field]]
+  Key = "stats.past_cap.gain_slow"
+  Type = "float"
+  Label = { es = "Ganancia, lento", en = "Gain, slow" }
+  Help = { es = "Ganancia al llegar al tope para crecimiento lento.", en = "Gain at the cap for slow growth." }
+  [[Shape.Field]]
+  Key = "stats.past_cap.gain_normal"
+  Type = "float"
+  Label = { es = "Ganancia, normal", en = "Gain, normal" }
+  Help = { es = "Ganancia al llegar al tope para crecimiento normal.", en = "Gain at the cap for normal growth." }
+  [[Shape.Field]]
+  Key = "stats.past_cap.gain_fast"
+  Type = "float"
+  Label = { es = "Ganancia, rápido", en = "Gain, fast" }
+  Help = { es = "Ganancia al llegar al tope para crecimiento rápido.", en = "Gain at the cap for fast growth." }
+  [[Shape.Field]]
+  Key = "stats.past_cap.shape"
+  Type = "float"
+  Label = { es = "Forma de la curva", en = "Curve shape" }
+  Help = { es = "Exponente de suavizado; 1 es una recta, 2 concentra el crecimiento tras el nivel 99.", en = "Ease-out exponent; 1 is a straight line, 2 puts most growth soon after level 99." }
+  [[Shape.Field]]
+  Key = "player_sets"
+  Type = "table"
+  Label = { es = "Sets de jugador", en = "Player sets" }
+  Help = { es = "Exportar e importar sets de habilidades como archivos .vrmod.", en = "Export and import skill sets as .vrmod files." }
+  [[Shape.Field]]
+  Key = "player_sets.export_area"
+  Type = "string"
+  Label = { es = "Carpeta de exportación", en = "Export folder" }
+  Help = { es = "Carpeta donde se guardan y leen los sets.", en = "Folder where sets are written and read." }
+  [[Shape.Field]]
+  Key = "player_sets.sets_per_page"
+  Type = "int"
+  Label = { es = "Sets por página", en = "Sets per page" }
+  Help = { es = "Filas de sets por página en la tabla de habilidades (máximo 5).", en = "Set rows per page in the skill table (at most 5)." }
+  [[Shape.Field]]
+  Key = "player_sets.pages"
+  Type = "int"
+  Label = { es = "Páginas de sets", en = "Set pages" }
+  Help = { es = "Número de páginas de sets (cambian con L1 / R1).", en = "Number of set pages (turned with L1 / R1)." }
+  [[Shape.Field]]
+  Key = "player_page"
+  Type = "table"
+  Label = { es = "Página de jugador", en = "Player page" }
+  Help = { es = "Modelo 3D de la página de jugador durante un partido.", en = "The player page 3D model in a match." }
+  [[Shape.Field]]
+  Key = "player_page.match_model"
+  Type = "string"
+  Label = { es = "Modelo en partido", en = "Model in match" }
+  Help = { es = "Qué modelo se muestra en la página durante el partido; \"auto\" es lo normal.", en = "Which model shows on the page during a match; \"auto\" is the default." }
+  [[Shape.Field]]
+  Key = "player_page.match_camera"
+  Type = "string"
+  Label = { es = "Cámara en partido", en = "Match camera" }
+  Help = { es = "Cámara usada para el modelo durante el partido.", en = "Camera used for the model during a match." }
+  [[Shape.Field]]
+  Key = "player_page.capture_report"
+  Type = "bool"
+  Label = { es = "Informe de captura", en = "Capture report" }
+  Help = { es = "Escribe información de la captura en el registro (depuración).", en = "Writes capture info to the log (debug)." }
+  [[Shape.Field]]
+  Key = "player_page.match_live_pause"
+  Type = "bool"
+  Label = { es = "Partido vivo en pausa", en = "Live match in pause" }
+  Help = { es = "Activado: el juego no se congela mientras la página se muestra en una pausa (depuración).", en = "On: the game stays unfrozen while the page shows in a pause (debug)." }
+  [[Shape.Field]]
+  Key = "player_page.match_quad_until_drawn"
+  Type = "bool"
+  Label = { es = "Ocultar hasta dibujar", en = "Hide until drawn" }
+  Help = { es = "El panel se oculta hasta que se ha dibujado el modelo, para evitar parpadeos.", en = "The panel stays hidden until the model has been drawn, to avoid flashes." }
+  [[Shape.Field]]
+  Key = "player_page.match_no_draw_polls"
+  Type = "int"
+  Label = { es = "Comprobaciones sin dibujo", en = "Polls without drawing" }
+  Help = { es = "Cuántas comprobaciones sin dibujo se esperan antes de rendirse (depuración).", en = "How many checks without a draw are waited before giving up (debug)." }
+  [[Shape.Field]]
+  Key = "player_page.match_lost_frames"
+  Type = "int"
+  Label = { es = "Fotogramas perdidos", en = "Lost frames" }
+  Help = { es = "Fotogramas sin dibujo tras los que se considera perdido el modelo (depuración).", en = "Frames without a draw after which the model counts as lost (debug)." }

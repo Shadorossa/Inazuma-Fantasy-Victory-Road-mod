@@ -1,0 +1,6 @@
+schema = "VRFW.transform/2"
+# Character Reforged › who may equip a premade Mix-Max / «Modo cambio»: the game's own rows are for their owners and
+# listed cards only (AURA_CMD_CHARA, change_aura_skill_config). The skill table's picker greys and refuses them for
+# anyone else (CharacterReforged.CreateCard.Rule), with or without a miximax module.
+[miximax]
+owner_only_rows = true

@@ -1,0 +1,27 @@
+schema = "VRFW.effect/1"
+# God Strike (content\techniques\god_strike.toml): its event ev60_83250 loads its own copy of Penguin Reckoning's effect
+# object ev60032500 (copy ev600325gs; the game's object stays as it is), with the devil half's pieces and the penguin
+# trails of the flight hidden (alpha 0): the dark aura and lights of the opening kick (dark_light, dark_aura, the
+# fake-particle glow fakePar_01), the dark lightning, the dark impact and smash rays, the dark smoke of the final kick
+# (smoke_c0700_04-06) and both penguin trails of the flight (tail / shoot aura, smoke_c0800). The god half's pieces
+# (wings, shine lights and auras, shine lightning, light impact, smoke_c0700_01-03) keep their colours.
+
+[[recolor]]
+object = "ev60032500"
+copy = "ev600325gs"
+
+  [[recolor.tint]]
+  mesh = [
+    "dark_light_", "dark_aura_", "fakePar_01",
+    "d_lightning", "d_s_lightning", "d_impact_01", "d_smash_01",
+    "smoke_c0700_04", "smoke_c0700_05", "smoke_c0700_06",
+    "tail_d_01", "shoot_aura_d_01", "tail_s_01", "shoot_aura_s_01", "smoke_c0800_",
+  ]
+  alpha = 0.0
+
+# the event loads the copy
+[[event_command]]
+event = "ev60_83250"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60032500"]
+set = ["ev60032500", "common/effect/event/ev60/ev600325gs/ev600325gs.objbin"]

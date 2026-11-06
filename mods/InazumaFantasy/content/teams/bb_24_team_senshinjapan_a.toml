@@ -1,0 +1,11 @@
+schema = "VRFW.team/2"
+# The team Inazuma Japón Implacable A (bb_24_team_senshinjapan_a) with this mod's moves: whole move lists of these slots, over the lists Battle Bay Deluxe gives them.
+
+[[edit]]
+target = "bb_24_team_senshinjapan_a"
+  # demon_penguin
+  [[edit.member]]
+  slot = 10
+  patch = true
+  moves = [0x16658ADE, 0x16E01620, 0x69D15C3C, 0xAB8EF83A, 0x91FD9611]
+  levels = [1, 1, 1, 1, 1]

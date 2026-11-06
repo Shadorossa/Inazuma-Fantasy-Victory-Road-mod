@@ -1,0 +1,17 @@
+# Player Training's pieces on Character Reforged's player page,
+# declared on the page's slots (CharacterReforged\content\menus\player_page_host.toml):
+# * the ATRIBUTOS gauges' top = the training's «value / max» limit (base + max); without it the page draws the 8 gauges
+#   on one common scale;
+# * the committed Suerte added to the page's Suerte (asked only when no other mod's page_stat entry gives the whole
+#   value: Inazuma Fantasy's stat command already adds it).
+schema = "VRFW.menu/2"
+
+[[entry]]
+host = "CharacterReforged.page_stat_max"
+id = "training_max"
+action = { command = "CMND_CLASSICTRAINING_STAT" }   # (charaStHdl, idx) -> ok, value, base, bonus, delta, committed, min, max
+
+[[entry]]
+host = "CharacterReforged.page_luck_bonus"
+id = "training_luck"
+action = { command = "CMND_CLASSICTRAINING_LUCK_DELTA" }   # (charaStHdl) -> the committed Suerte delta

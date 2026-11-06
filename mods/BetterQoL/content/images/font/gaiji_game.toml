@@ -1,0 +1,47 @@
+# BetterQoL, feature neutral_element: the text icon [$gaiji_cmd_type00] (purple tile, navy ensō) of the «neutro»
+# element in gaiji_game.g4tx. Made at the first start (and after a game update) from the PLAYER'S own game files by an
+# image recipe (docs/framework/types/image.md §2.1): the retail wind element tile (icon_cmd_type01) with its glyph
+# covered by a stretched glyph-free column, filled with the neutral purple, and our own ensō (neutral\enso_gaiji.png,
+# research/scripts/util_neutral_icon_parts.py) on top.
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/font/gaiji_game.g4tx"
+name = "gaiji_game"
+size = [908, 928]
+
+[[sprite]]
+atlas = "#/font/gaiji_game.g4tx"
+name = "gaiji_cmd_type00"
+texture = "gaiji_game"
+x = 4
+y = 860
+size = [64, 64]
+recipe = "gaiji"
+
+[[recipe]]
+name = "enso"
+png = "neutral/enso_gaiji.png"
+
+# the glyph in the navy the retail element tiles show their glyphs in (0, 25, 96)
+[[recipe]]
+name = "enso_navy"
+from = "enso"
+ops = [{ op = "affine", mul = [1.0, 1.0, 1.0], add = [0.0, 25.0, 96.0] }]
+
+# the tile of the retail element icons of the item filter (icon_cmd_type01: rounded square without rim; the wind glyph
+# is covered with a glyph-free column of the same sprite), flat purple, navy ensō
+[[recipe]]
+name = "wind"
+game = "#/menu/200_icon/15_icon_common/icon_common.g4tx"
+sprite = "icon_cmd_type01"
+
+[[recipe]]
+name = "strip"
+from = "wind"
+ops = [{ op = "crop", box = [8, 0, 10, 64] }, { op = "resize", size = [46, 64] }]
+
+[[recipe]]
+name = "gaiji"
+from = "wind"
+ops = [{ op = "paste", image = "strip", at = [9, 0] }, { op = "fill", rgb = [173, 81, 234] }, { op = "paste", image = "enso_navy", at = [0, 0] }]

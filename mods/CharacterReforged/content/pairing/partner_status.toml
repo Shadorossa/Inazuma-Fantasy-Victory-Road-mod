@@ -1,0 +1,15 @@
+schema = "CharacterReforged.pairing/1"
+# Character Reforged › the corner badges of the «Crear …» partner bank (graft character_reforged_board,
+# bank_create_moves_hooks.lua): a card that can not be the partner wears one in the place of the retail «in a team»
+# icon. Priority: prohibited > the lower `order` of the systems that use the card (miximax 10, change 20) > no learned
+# move. The system badges show in the player bank too.
+# A system's own badge: [CharacterReforged.PartnerLock.<system>] status_badge; the check codes shown as prohibited:
+# [CharacterReforged.Create.<system>] prohibited_codes.
+
+[CharacterReforged.PartnerStatus]
+# the player's avatar refused by the system's rules, or a check code of `prohibited_codes` (no look for the pair):
+# red circle-slash (sprite asked of team00_01.g4tx, served from content\images\...\character_reforged_own)
+prohibited_badge = "character_reforged_status_prohibited"
+# a partner without a learned move that is not grey (rule partner_needs_learned_move): the game's own lock of the card's
+# atlas, team00_01.g4tx, no redirect
+no_move_badge = "icon_lock01"

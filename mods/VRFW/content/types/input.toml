@@ -1,0 +1,23 @@
+# Declaration schema of VRFW.input/1 (content\inputs): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.input/1"
+folder = "content/inputs"
+
+[entry.Action]
+entry_table = "action"
+id = { type = "string", required = true }
+command = { type = "string", required = true }
+ctrl = { type = "any", required = true }
+category = { type = "string", required = true }
+label = { type = "string", required = true }
+pad = { type = "string", required = true }
+keyboard = { type = "string", required = true }
+screens = { type = "strings" }
+
+[entry.Command]
+entry_table = "command"
+ctrl = { type = "string", required = true }
+name = { type = "string", required = true }
+pad = { type = "numbers" }
+keyboard = { type = "ints" }
+mouse = { type = "numbers" }

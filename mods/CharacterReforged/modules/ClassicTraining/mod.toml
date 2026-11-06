@@ -1,0 +1,102 @@
+id = "ClassicTraining"
+former_ids = ["PlayerTraining"]
+key_id = "ClassicTraining"
+# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
+# game's language (text\keys.toml). «Player Training» is a provisional name.
+name = "Classic Training"
+version = "0.2.2"
+author = "Shadorossa"
+author_steam = "76561199013321372"
+description = "Classic training, as in Chrono Stone. Each player has Freedom points that grow with his level and spreads them over his base stats in a training window (team dock, command list, Training). With no free points left, raising a stat lowers its counterpart, which follows the chosen position; Reset gives everything back. Trained points count in matches and stay in the save, training beans are gone, and every card can be trained, weaker cards getting more Freedom."
+priority = 0
+tags = ["Characters", "Gameplay"]
+updated = "2026-11-05"
+# Comment links to existing docs
+# This mod's own names (TOML keys [ClassicTraining.X], Lua ClassicTraining.X, commands CMND_CLASSICTRAINING_*, state
+# ClassicTraining.*); never VRFW. The old names CMND_EVT_TRAIN_* stay as command aliases (the game Lua calls them).
+prefix = "ClassicTraining"
+folder = "ClassicTraining"
+# Standard mod layout:
+#   config.toml                          [training]: the rule (trade / pool / pairs), the floor, the max value, the
+#                                        rarities that cannot be trained
+#                                        (Diamond, Prime) and the Hero rule for a card with no stored Libertad
+#   scripts\player_training.lua (+ lib\) the run time: sessions, rules (lib\training_rules.lua), the Suerte blob
+#                                        training.json (lib\training_store.lua), the game's character objects
+#                                        (lib\chara_view.lua); the per-card values (Libertad = chara_param col 54,
+#                                        Suerte, position, growth) are Character Reforged's exports (lib\card_stats.lua)
+#   content\game\player_training.toml    the commands (CMND_CLASSICTRAINING_*, aliases CMND_EVT_TRAIN_*), the trained
+#                                        points in matches ([[VRFW.MatchStat]]), the module bit 16 the game Lua tests,
+#                                        the save import of Inazuma Fantasy's Suerte blob
+#   content\menus\training_window.toml + assets\menu\10_win\win06\evt_win06_06_training\   the window evt_training_menu
+#   content\items\no_training_beans.toml   [[VRFW.MatchDropRemove]]: no stat bean (item category 210) from any match
+#                                        (drops and prizes; the slot stays empty) nor any other grant but a shop purchase
+#   text\rows\training.toml              its texts (menu_text rows evt_tr_*, 9 languages)
+#   content\menus\player_page_slots.toml  its pieces on Character Reforged's player page (1.0.2): the ATRIBUTOS
+#                                        gauges' top (slot page_stat_max) and the committed Suerte (page_luck_bonus)
+#   scripts\lib\stat_effects.lua + content\game\stat_effects.toml   the stats in a match (config.toml [stat_effects]):
+#                                        Suerte -> the parada base % of the defending keeper before each shot (hook
+#                                        ClassicTraining.ShotLaunch) and the move critical chance (crit_check); Control ->
+#                                        the first-touch reception probe (options.toml row first_touch, log only)
+# Grafts (research/grafts, mod = ClassicTraining): player_training_menu (the window's Lua), player_training_dock (the
+# «Entrenamiento» row of the team dock's command list), player_training_mode (the «Entrenar» button and the training mode of Character Reforged's «Fantasy» skill table, a hook
+# file on that screen's host; the button declared in content\menus\skill_table_training.toml, the mode's dark stat
+# icons and column backing in content\images\).
+# the training beans give nothing while the mod is on (content\game\player_training.toml «the training beans»:
+# the bean stat term zeroed, no automatic bean equip, «Autoequipar judías» read as off) and the skill board's bean slot
+# shows a message instead of the bean menu (graft player_training_beans, text evt_tr_beans_off).
+# the formation's team «COMANDOS» window without the bean
+# rows (equip, remove, «Autoequipar judías»): assets\lua\_all\player_training_list_rows.lua.
+# VRFW 2.4.13: mod families ([module]); CharacterReforged 1.6.4: the per-card values (StatsReady / StatCard /
+# StatAt / Libertad) and its table CharacterReforged.StatRow (the match modifier's card test).
+# CharacterReforged 1.6.5: its skill table host (the «Entrenar» button and the training mode hang on it); 1.7.0: the
+# player page's slots (hosts CharacterReforged.page_stat_max / page_luck_bonus, 1.0.2).
+# lua_early: the team dock patch (graft player_training_dock, an append_block on soccer_team_dock_menu) is a
+# merge-path patch: it promotes the script's locals and redefines the whole menu (OnInit, Step, OnFunction, ...). Run after
+# the VR-Framework's host it dropped every host handler of that screen (Utilities' team_banks, input trace, other mods'
+# OnInit / row wrappers). Early, the host sits on top of these functions. The other
+# grafts are a new file and hook files, not merge-path.
+# the COMANDOS bean rows really hidden: lua_early runs this mod's lua\_all before the framework's, so the rules
+# of assets\lua\_all\player_training_list_rows.lua were never registered (VRFW_ListRows still nil); they go to the
+# framework's queue VRFW_LIST_ROWS_Q (VRFW 2.4.47).
+# the training view's card on the skill table (graft player_training_mode, ClassicTraining.TrainingMode.DETAIL):
+# one card rect inside the screen, the stat icon left of the name (the detail locator placed for the name, which a node
+# move cannot shift), no description divider line, the player-sets save icon covered with the other buttons.
+# the training view's purple bar shows the focused stat's name and, at its right end, the positions the stat serves
+# (tags of the player page's ATRIBUTOS row, EVT_PPG.StatTags); the guide line is only «Invierte la libertad y estadísticas
+# de tu jugador» (text evt_tr_mode_guide_short); position labels evt_tr_pos_gk / df / mf / fw.
+# the position tag re-placed every frame at the bar's right end (the retail tag slid to its own place when it opened).
+lua_early = true
+# every card can be trained (config.toml locked_rarities empty) and reaches the same total at a level: Freedom =
+# Budget(level) - the card's untrained stat sum (config.toml budget_percent, lib/card_stats.lua).
+# Chronicle matches drop no training beans.
+# the «Canjear judías» button guide is not drawn on any screen (bag, Mercado, spirit list, rarity-up screen,
+# skill board): the same _all file takes its entry out of the footer guide lists.
+# the bean exchange («Canjear judías», beans_trade_menu) is closed so it never takes beans for nothing
+# (assets\lua\_all\player_training_no_bean_trade.lua).
+# no beans in any mode nor from boxes, quests, trophies, gifts.
+# no chest (Victory crates, field treasure boxes) holds
+# a training bean (content\items\no_training_beans.toml).
+requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2"]
+conflicts = []
+loader_modules = ["lua_bridge"]
+loader_min = "1.7.0"
+# memory: the card records (prm_growth = the trained points); call: the game's FindCharaRecord / GetLevel; command:
+# its commands; state: ClassicTraining.active; hook: the match-build modifier
+permissions = ["memory", "call", "command", "state", "hook"]
+
+# What other mods call: the commands' functions and LuckDelta(charaStHdl) -> the committed Suerte delta (Inazuma
+# Fantasy's CMND_EVT_CHARA_STAT adds it to the Suerte it shows)
+[exports]
+functions = ["Info", "Stat", "Set", "Commit", "Cancel", "Reset", "LuckDelta", "Position", "SetPosition"]
+keys = []
+# the menu-VM function Character Reforged's skill table host calls for this mod's footer button; the training view's
+# state Character Reforged's skill table reads (graft player_training_mode)
+game_lua = ["ClassicTraining.SkillTableButton", "ClassicTraining.TrainingMode"]
+tables = []
+
+# A MODULE of Character Reforged: the Mods screen, the
+# ModManager and `vrfw list` show it inside Character Reforged's entry («Módulos y ajustes»: on / off) instead of as a mod
+# of its own; switching Character Reforged off switches it off too. Its name there: its mod_name (text\keys.toml).
+[module]
+of = "CharacterReforged"
+order = 80

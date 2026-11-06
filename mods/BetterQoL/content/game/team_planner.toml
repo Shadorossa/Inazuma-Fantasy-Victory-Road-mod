@@ -1,0 +1,77 @@
+schema = "VRFW.game/1"
+
+# BetterQoL › team planner («Planificador de equipo»): ghost cards in the team dock's squads. The menu side is graft
+# research/grafts/util_team_planner (hook files on team_dock_formation_menu, soccer_team_dock_menu and chara_bank_menu); the logic is
+# scripts\team_planner.lua (+ scripts\lib\tp_core.lua and the original-names catalogue). Plans: blob team_planner.json
+# per save slot. The rule (display rarity, which owned copies count, a character's normal card): config.toml
+# [team_planner] and other mods' content\team_planner\*.toml (schema BetterQoL.team_planner/1).
+#
+# Lua commands (crc32 of the name; the hook files hold the numbers). A list answer is text "a:b,a:b" ("" = none).
+
+# () -> on (bool: the planner works in this slot), ghost alpha, display rarity
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TP_INFO"
+handler = "BetterQoL.TeamPlanner.Info"
+
+# (set, type) -> "slot:param,…" of the squad on the mounted team-bank page, display rarity
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TP_LIST"
+handler = "BetterQoL.TeamPlanner.List"
+
+# (set, type, slot, param) -> ok; param 0 removes the slot's plan
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TP_SET"
+handler = "BetterQoL.TeamPlanner.Set"
+
+# (from set, from type, from slot, to set, to type, to slot) -> ok: a plan moved, swapping with a plan on the other slot
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TP_MOVE"
+handler = "BetterQoL.TeamPlanner.Move"
+
+# (param) -> "h,h,…" the owned copies of that card the rule accepts, best first
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TP_CANDIDATES"
+handler = "BetterQoL.TeamPlanner.Candidates"
+
+# (set, type, slot, handle) -> ok: the menu placed a real copy in the ghost's slot (the plan is removed)
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TP_ASSIGNED"
+handler = "BetterQoL.TeamPlanner.Assigned"
+
+# () -> "set:type,…" the squads of the mounted page that hold plans
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TP_PENDING"
+handler = "BetterQoL.TeamPlanner.Pending"
+
+# (on) -> on: the bank opened by «Planificar equipo» also lists every character not owned (their number); off: 0
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TP_BANK_PLAN"
+handler = "BetterQoL.TeamPlanner.BankPlan"
+
+# (row) -> the card param of that row of the plan bank's list when it is a character not owned, else 0
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TP_BANK_ENTRY"
+handler = "BetterQoL.TeamPlanner.BankEntry"
+
+# ---------------------------------------------------------------- the plan bank's list
+
+# 1 while the bank opened by «Planificar equipo» is open (set by scripts	eam_planner.lua)
+[[VRFW.State]]
+key = "BetterQoL.tp_bank_plan"
+
+# bool CharaBankFilter(list, handle, u32* param, Filter*): the bank's own test of one list row; asked for each character
+# not owned with handle 0, as the game's param list (list kind 0x1000) asks it
+[[VRFW.Function]]
+name = "BetterQoL.TpBankFilter"
+game = "Card.BankFilter"
+
+# void CharaBankListSort(list, sort type, u8): the bank list's sort, right after each build of its owned cards. Pre: the
+# rows the script appended before go; post: one row (handle 0, card param) per character not owned the filter accepts.
+[[VRFW.Hook]]
+name = "BetterQoL.TpBankSort"
+game = "Card.BankListSort"
+kind = "function"
+args = ["ptr", "u32", "u8"]
+wait_ms = 500
+pre_when = [{ state = "BetterQoL.tp_bank_plan", equals = 1 }]
+post_when = [{ state = "BetterQoL.tp_bank_plan", equals = 1 }]

@@ -1,0 +1,85 @@
+schema = "VRFW.changelog/1"
+# Battle Bay Deluxe: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "stadium"
+notes = [
+    "Equipos de Crónica en Bahía Batalla",
+    "Nuevo modo Draft de jugadores",
+    "Torneo, Liga y Reto diario",
+    "Campaña con rivales aleatorios",
+    "Multijugador en sala privada",
+]
+
+[release.en]
+notes = [
+    "Chronicle teams in Battle Bay",
+    "New player Draft mode",
+    "Tournament, League and Daily Challenge",
+    "Campaign with random rivals",
+    "Private room multiplayer",
+]
+
+[release.fr]
+notes = [
+    "Équipes Chronique dans Baie Bataille",
+    "Nouveau mode Draft de joueurs",
+    "Tournoi, Ligue et Défi quotidien",
+    "Campagne à rivaux aléatoires",
+    "Multijoueur en salon privé",
+]
+
+[release.de]
+notes = [
+    "Chronik-Teams in der Kampfbucht",
+    "Neuer Spieler-Draft-Modus",
+    "Turnier, Liga und Tagesherausforderung",
+    "Kampagne mit Zufallsgegnern",
+    "Mehrspieler im privaten Raum",
+]
+
+[release.it]
+notes = [
+    "Squadre Cronaca nella Baia Battaglia",
+    "Nuova modalità Draft giocatori",
+    "Torneo, Lega e Sfida giornaliera",
+    "Campagna con rivali casuali",
+    "Multigiocatore in stanza privata",
+]
+
+[release.pt]
+notes = [
+    "Equipas da Crónica na Baía Batalha",
+    "Novo modo Draft de jogadores",
+    "Torneio, Liga e Desafio diário",
+    "Campanha com rivais aleatórios",
+    "Multijogador em sala privada",
+]
+
+[release.ja]
+notes = [
+    "バトルベイに年代記のチームが登場",
+    "新モード：選手ドラフト",
+    "トーナメント、リーグ、デイリー挑戦",
+    "ランダムな相手とのキャンペーン",
+    "プライベートルームで対戦",
+]
+
+[release.zh_hans]
+notes = [
+    "战斗湾加入编年史球队",
+    "新增球员选秀模式",
+    "锦标赛、联赛和每日挑战",
+    "随机对手的战役",
+    "私人房间多人对战",
+]
+
+[release.zh_hant]
+notes = [
+    "戰鬥灣加入編年史球隊",
+    "新增球員選秀模式",
+    "錦標賽、聯賽和每日挑戰",
+    "隨機對手的戰役",
+    "私人房間多人對戰",
+]

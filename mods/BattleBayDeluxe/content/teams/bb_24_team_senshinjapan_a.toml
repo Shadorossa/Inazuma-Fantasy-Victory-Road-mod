@@ -1,0 +1,20 @@
+schema = "VRFW.team/2"
+# The team Inazuma Japón Implacable A (bb_24_team_senshinjapan_a) in every match.
+
+[[edit]]
+target = "bb_24_team_senshinjapan_a"
+  [[edit.member]]
+  slot = 5
+  patch = true
+  moves = [0xBB97331B, 0x1D39CDE3, 0xDCF43422, 0xC7A73197, 0xA108D634]
+  levels = [1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 10
+  patch = true
+  moves = [0x16658ADE, 0x16E01620, 0x69D15C3C, 0x91FD9611]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 14
+  patch = true
+  moves = [0x2296A01A, 0xA9E3374B, 0x1F0836D6]
+  levels = [1, 1, 1]

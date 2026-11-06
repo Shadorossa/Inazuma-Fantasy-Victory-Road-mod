@@ -1,0 +1,8 @@
+# Maps scripted event name prefixes (lower case) to a group word; the longest matching prefix wins (no match = "other", no name = "unnamed").
+[groups]
+ev60_ = "shot"       # shot techniques
+ev61_ = "dribble"    # dribble techniques
+ev62_ = "defense"    # block / defence techniques
+ev63_ = "keeper"     # keeper techniques
+ev71_31 = "keeper"   # keeper-gauge scenes of basic catches
+ev71_ = "scene"      # other match scenes

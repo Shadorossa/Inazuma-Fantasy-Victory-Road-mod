@@ -1,0 +1,91 @@
+# Friendlies (module of Football Reforged): the Team Dock list («Plantilla de equipo», soccer_team_dock_menu) as used by
+# the format columns of graft pachanga_dock.
+schema = "VRFW.menu/2"
+
+# The list gets a LEFT row. The retail list has none (only up / down / right); the graft reads it in OnFunction
+# (friendlies_dock_left) to move from the «Pachanga» cell to the «Partido» cell of the list's first row. On every other
+# row it does nothing, as before.
+[[patch]]
+menu = "soccer_team_dock_menu"
+add_commands = [
+    { layer = "team01_02_list_item", input = "CMD_LEFT", command = "CMD_FUNCTION", arg = "friendlies_dock_left", flag = 1 },
+]
+
+# One slot joint per list row that no animation drives. The rows hang from _atc_list01 .. _atc_list09 of the locator
+# layout, and its «Open» animation keys those joints every frame (slide in, then the _smt_default_01 loop), so a node
+# write on them never shows. Each new joint is a child of its _atc_listNN at (0, 0): the rows still slide in with the
+# game's animation and sit where they always did, and the graft moves the new joints for the columns.
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_friendlies_slot01"
+parent = "_atc_list01"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_friendlies_slot02"
+parent = "_atc_list02"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_friendlies_slot03"
+parent = "_atc_list03"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_friendlies_slot04"
+parent = "_atc_list04"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_friendlies_slot05"
+parent = "_atc_list05"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_friendlies_slot06"
+parent = "_atc_list06"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_friendlies_slot07"
+parent = "_atc_list07"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_friendlies_slot08"
+parent = "_atc_list08"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_friendlies_slot09"
+parent = "_atc_list09"
+translate = [0.0, 0.0]
+
+# The locator's attach rows NullLayerName [name, joint, layer, instance] (layer team01_02_list_item = crc32 3367997069)
+# put list instance i on _atc_pachangas_slot<i + 1> instead of _atc_list<i + 1> (values: crc32 of the joint names).
+# The retail object places instances 0 .. 7; the copied row places instance 8 on slot 9 for a list of 9 rows
+# (Home Stadium without BetterUI), so the framework's attach_slots finds every instance placed.
+[[object_set]]
+object = "team01_01_list_item_locator"
+set = [
+    { parameter = "NullLayerName", match = { 2 = 3618404533, 3 = 3367997069 }, values = { 2 = 1457676264 } },   # _atc_list01 -> _atc_friendlies_slot01
+    { parameter = "NullLayerName", match = { 2 = 1319446799, 3 = 3367997069 }, values = { 2 = 3488288338 } },  # _atc_list02 -> _atc_friendlies_slot02
+    { parameter = "NullLayerName", match = { 2 = 966924697, 3 = 3367997069 }, values = { 2 = 3102490308 } },   # _atc_list03 -> _atc_friendlies_slot03
+    { parameter = "NullLayerName", match = { 2 = 2814807098, 3 = 3367997069 }, values = { 2 = 646490983 } },  # _atc_list04 -> _atc_friendlies_slot04
+    { parameter = "NullLayerName", match = { 2 = 3502357676, 3 = 3367997069 }, values = { 2 = 1368366065 } },  # _atc_list05 -> _atc_friendlies_slot05
+    { parameter = "NullLayerName", match = { 2 = 1237904662, 3 = 3367997069 }, values = { 2 = 3364276811 } },  # _atc_list06 -> _atc_friendlies_slot06
+    { parameter = "NullLayerName", match = { 2 = 1053810048, 3 = 3367997069 }, values = { 2 = 3212966621 } },  # _atc_list07 -> _atc_friendlies_slot07
+    { parameter = "NullLayerName", match = { 2 = 2926624785, 3 = 3367997069 }, values = { 2 = 792651596 } },  # _atc_list08 -> _atc_friendlies_slot08
+]
+copy = [
+    # name friendlies_slot09, joint _atc_friendlies_slot09, instance 8
+    { parameter = "NullLayerName", match = { 3 = 3367997069, 4 = 7 }, values = { 1 = 1368074514, 2 = 1480185818, 4 = 8 } },
+]

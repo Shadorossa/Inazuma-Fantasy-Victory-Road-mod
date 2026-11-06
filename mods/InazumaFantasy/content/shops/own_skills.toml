@@ -1,0 +1,164 @@
+schema = "VRFW.shop/2"
+# Inazuma Fantasy's own skills in its Special Moves shop (InazumaFantasy.technique_shop), each in the tab of its skill
+# type, priced by the shop's rule on the skill's top power (_general_store.toml [price.power]) in Puntos de pasión
+# (tk_bb000001). technique_shop.toml itself is GENERATED (inazuma_fantasy_general_store.py), so the own skills stay here.
+
+[[edit]]
+target = "InazumaFantasy.technique_shop"
+
+  [[edit.entry]]
+  technique = "god_strike"      # Remate divino: shot, 640
+  price = 32
+  currency = "tk_bb000001"
+
+  # LegendaryAd's skills (written by research/scripts/hissatsu_revamp_build.py from this line down)
+
+  [[edit.entry]]
+  technique = "bed_of_roses_f"    # Lecho de rosas F: shot, 300
+  price = 3
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "pirate_ropes"    # Lianas pirata: shot, 300
+  price = 3
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "big_snowball"    # Bola de nieve: shot, 360
+  price = 6
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "white_rose"    # Rosa blanca: shot, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "aurora_borealis"    # Aurora boreal: shot, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "hasty_lightning"    # Relámpago presuroso: shot, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "negative_storm"    # Tormenta negativa: shot, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "plasma_kick"    # Patada de plasma: shot, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "ethereal_claws"    # Garras etéreas: shot, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "the_apocalypse"    # El Apocalipsis: shot, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "celestial_emperor_penguin"    # Pingüino emperador celestial: shot, 640
+  price = 32
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "demon_penguin"    # Pingüino demoniaco: shot, 640
+  price = 32
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "abyss_strike"    # Golpe del abismo: shot, 640
+  price = 32
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "cyber_shot"    # Cyberremate: shot, 720
+  price = 40
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "angel_flight"    # Vuelo angelical: shot, 800
+  price = 48
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "green_leaf"    # Hoja verde: dribble, 300
+  price = 3
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "matrix_tunnel"    # Túnel matrix: dribble, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "snow_crystals"    # Cristales nevados: dribble, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "divine_spiral"    # Espiral divina: dribble, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "binary_zone"    # Zona binaria: block, 360
+  price = 6
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "judgement_gavel"    # Mazo del juez: block, 360
+  price = 6
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "trick_fall"    # Caída tramposa: block, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "magma_rocks"    # Rocas magmáticas: block, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "dark_zone"    # Zona oscura: block, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "the_geyser"    # El Geiser: block, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "nuclear_field"    # Campo nuclear: block, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "nightfall"    # El anochecer: catch, 360
+  price = 6
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "void_fire"    # Fuego vacío: catch, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "frozen_clearance"    # Despeje helado: catch, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "dispersion"    # Dispersión: catch, 640
+  price = 32
+  currency = "tk_bb000001"

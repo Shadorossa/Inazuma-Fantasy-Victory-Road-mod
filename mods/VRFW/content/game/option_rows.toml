@@ -1,0 +1,22 @@
+schema = "VRFW.game/2"
+
+# Option rows: detours installed only when a mod declares a row value (`apply = "script"`); see scripts\option_rows.lua.
+
+# void SettingRowRead(menu, Row* row): post
+[[VRFW.Hook]]
+name = "OptionRows.Read"
+game = "Option.SettingRowRead"
+apply = "script"
+
+# void SettingRowWrite(menu, Row* row): pre + post
+[[VRFW.Hook]]
+name = "OptionRows.Write"
+game = "Option.SettingRowWrite"
+apply = "script"
+
+# --- commands
+
+# (key) -> chosen, index, live: the declared value `<mod>.<name>` (or `<name>` of any mod) in force, its index in the row list, detours installed. Nothing for an unknown key.
+[[VRFW.Command]]
+name = "CMND_VRFW_SETTING_ROW"
+handler = "OptionRows.Cmd"

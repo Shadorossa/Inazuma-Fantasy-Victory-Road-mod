@@ -1,0 +1,242 @@
+schema = "VRFW.look/2"
+# the Cross team kits: the clown kit (Chaos Circus and KFC Pierrot), Samurai Blue (Japan 2026), Shin Zeus, pirate (one per pirate team),
+# Ramen (one per Ramen team) and the kits of the Cross characters' own outfits
+
+[[kit]]
+id = 0xCF5CE72B
+
+[[kit.model]]
+fielder = 0xE4AE2ED6
+keeper = 0x2C4EA1A6
+shoes = 0x9035CD57
+glove = 0xBE70ECC5
+type = 0
+
+[[kit.model]]
+fielder = 0xCF837D15
+keeper = 0x0763F265
+shoes = 0x9035CD57
+glove = 0x955DBF06
+type = 1
+
+[[kit]]
+id = 0x5D154E9D
+
+[[kit.model]]
+fielder = 0x2931C35B
+keeper = 0xE1D14C2B
+shoes = 0x9035CD57
+glove = 0xBE70ECC5
+type = 0
+
+[[kit.model]]
+fielder = 0x021C9098
+keeper = 0xE1D14C2B
+shoes = 0x9035CD57
+glove = 0x955DBF06
+type = 1
+
+[[kit]]
+id = 0x8088576A
+
+[[kit.model]]
+fielder = 0x6D4BC9C7
+keeper = 0xA5AB46B7
+shoes = 0x9035CD57
+glove = 0xBE70ECC5
+type = 0
+
+[[kit.model]]
+fielder = 0x46669A04
+keeper = 0x8E861574
+shoes = 0x9035CD57
+glove = 0x955DBF06
+type = 1
+
+[[kit]]
+id = 0x55DD7FAD
+# the pirate kit of the IEVRCROSS mod (cross_pirate_kit.toml): keeper shirts, boots, gloves, variants
+
+[[kit.model]]
+type = 0
+fielder = 0xC9910F9D
+keeper = 0x017180ED
+shoes = 0xC48F7FDA
+glove = 0xEACA5E48
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0x04B9F245, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0x4E2EB70A, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0x03D4365C, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0x49437313, uniformFielderNavelBaringModelIdCrc = 0x40071D9B, uniformKeeperNavelBaringModelIdCrc = 0xA62ED6DF, shoesKeeperModelIdCrc = 0x0C6FF0AA, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit.model]]
+type = 1
+fielder = 0xE2BC5C5E
+keeper = 0x2A5CD32E
+shoes = 0xC48F7FDA
+glove = 0xC1E70D8B
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0x822D80EB, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0xC8BAC5A4, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0x854044F2, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0xCFD701BD, uniformFielderNavelBaringModelIdCrc = 0x71EF0706, uniformKeeperNavelBaringModelIdCrc = 0x97C6CC42, shoesKeeperModelIdCrc = 0x0C6FF0AA, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit]]
+id = 0x381CAC9B
+# the pirate kit of the IEVRCROSS mod (cross_pirate_kit.toml): keeper shirts, boots, gloves, variants
+
+[[kit.model]]
+type = 0
+fielder = 0xC9910F9D
+keeper = 0x017180ED
+shoes = 0xC48F7FDA
+glove = 0xEACA5E48
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0x04B9F245, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0x4E2EB70A, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0x03D4365C, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0x49437313, uniformFielderNavelBaringModelIdCrc = 0x40071D9B, uniformKeeperNavelBaringModelIdCrc = 0xA62ED6DF, shoesKeeperModelIdCrc = 0x0C6FF0AA, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit.model]]
+type = 1
+fielder = 0xE2BC5C5E
+keeper = 0x2A5CD32E
+shoes = 0xC48F7FDA
+glove = 0xC1E70D8B
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0x822D80EB, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0xC8BAC5A4, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0x854044F2, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0xCFD701BD, uniformFielderNavelBaringModelIdCrc = 0x71EF0706, uniformKeeperNavelBaringModelIdCrc = 0x97C6CC42, shoesKeeperModelIdCrc = 0x0C6FF0AA, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit]]
+id = 0xD0BFCD34
+# the pirate kit of the IEVRCROSS mod (cross_pirate_kit.toml): keeper shirts, boots, gloves, variants
+
+[[kit.model]]
+type = 0
+fielder = 0xC9910F9D
+keeper = 0x017180ED
+shoes = 0xC48F7FDA
+glove = 0xEACA5E48
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0x04B9F245, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0x4E2EB70A, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0x03D4365C, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0x49437313, uniformFielderNavelBaringModelIdCrc = 0x40071D9B, uniformKeeperNavelBaringModelIdCrc = 0xA62ED6DF, shoesKeeperModelIdCrc = 0x0C6FF0AA, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit.model]]
+type = 1
+fielder = 0xE2BC5C5E
+keeper = 0x2A5CD32E
+shoes = 0xC48F7FDA
+glove = 0xC1E70D8B
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0x822D80EB, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0xC8BAC5A4, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0x854044F2, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0xCFD701BD, uniformFielderNavelBaringModelIdCrc = 0x71EF0706, uniformKeeperNavelBaringModelIdCrc = 0x97C6CC42, shoesKeeperModelIdCrc = 0x0C6FF0AA, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit]]
+id = 0xAD895D0B
+# the Ramen kit of the IEVRCROSS mod (cross_ramen_kit.toml): keeper shirts, boots, gloves, variants
+
+[[kit.model]]
+type = 0
+fielder = 0x38C7BD48
+keeper = 0xF0273238
+shoes = 0x35D9CD0F
+glove = 0x1B9CEC9D
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0xAB2C02C5, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0x42781216, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0x8D8E0091, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0xBF25EC87, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0xB848289E, uniformFielderNavelBaringModelIdCrc = 0xD3FFE95D, uniformKeeperNavelBaringModelIdCrc = 0x35D62219, shoesKeeperModelIdCrc = 0xFD39427F, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit.model]]
+type = 1
+fielder = 0x13EAEE8B
+keeper = 0xDB0A61FB
+shoes = 0x35D9CD0F
+glove = 0x30B1BF5E
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0x2DB8706B, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0xC4EC60B8, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0x0B1A723F, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0x39B19E29, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0x3EDC5A30, uniformFielderNavelBaringModelIdCrc = 0xE217F3C0, uniformKeeperNavelBaringModelIdCrc = 0x043E3884, shoesKeeperModelIdCrc = 0xFD39427F, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit]]
+id = 0xF5501B12
+# the Ramen kit of the IEVRCROSS mod (cross_ramen_kit.toml): keeper shirts, boots, gloves, variants
+
+[[kit.model]]
+type = 0
+fielder = 0x38C7BD48
+keeper = 0xF0273238
+shoes = 0x35D9CD0F
+glove = 0x1B9CEC9D
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0xAB2C02C5, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0x42781216, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0x8D8E0091, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0xBF25EC87, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0xB848289E, uniformFielderNavelBaringModelIdCrc = 0xD3FFE95D, uniformKeeperNavelBaringModelIdCrc = 0x35D62219, shoesKeeperModelIdCrc = 0xFD39427F, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit.model]]
+type = 1
+fielder = 0x13EAEE8B
+keeper = 0xDB0A61FB
+shoes = 0x35D9CD0F
+glove = 0x30B1BF5E
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0x2DB8706B, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0xC4EC60B8, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0x0B1A723F, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0x39B19E29, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0x3EDC5A30, uniformFielderNavelBaringModelIdCrc = 0xE217F3C0, uniformKeeperNavelBaringModelIdCrc = 0x043E3884, shoesKeeperModelIdCrc = 0xFD39427F, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit]]
+id = 0x1C661C38
+# the Ramen kit of the IEVRCROSS mod (cross_ramen_kit.toml): keeper shirts, boots, gloves, variants
+
+[[kit.model]]
+type = 0
+fielder = 0x38C7BD48
+keeper = 0xF0273238
+shoes = 0x35D9CD0F
+glove = 0x1B9CEC9D
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0xAB2C02C5, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0x42781216, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0x8D8E0091, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0xBF25EC87, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0xB848289E, uniformFielderNavelBaringModelIdCrc = 0xD3FFE95D, uniformKeeperNavelBaringModelIdCrc = 0x35D62219, shoesKeeperModelIdCrc = 0xFD39427F, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit.model]]
+type = 1
+fielder = 0x13EAEE8B
+keeper = 0xDB0A61FB
+shoes = 0x35D9CD0F
+glove = 0x30B1BF5E
+cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0x2DB8706B, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0xC4EC60B8, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0x0B1A723F, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0x39B19E29, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0x3EDC5A30, uniformFielderNavelBaringModelIdCrc = 0xE217F3C0, uniformKeeperNavelBaringModelIdCrc = 0x043E3884, shoesKeeperModelIdCrc = 0xFD39427F, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
+
+[[kit]]
+id = 0x70AA263C
+
+[[kit.model]]
+fielder = 0xD8E34E0E
+keeper = 0xD8E34E0E
+shoes = 0x37DEEBEE
+glove = 0xBE70ECC5
+type = 0
+
+[[kit.model]]
+fielder = 0xD8E34E0E
+keeper = 0xD8E34E0E
+shoes = 0x37DEEBEE
+glove = 0x955DBF06
+type = 1
+
+[[kit]]
+id = 0x8A21E75D
+
+[[kit.model]]
+fielder = 0xE58367BE
+keeper = 0xE58367BE
+shoes = 0x0ABEC25E
+glove = 0xBE70ECC5
+type = 0
+
+[[kit.model]]
+fielder = 0xE58367BE
+keeper = 0xE58367BE
+shoes = 0x0ABEC25E
+glove = 0x955DBF06
+type = 1
+
+[[kit]]
+id = 0x33A6C2E3
+
+[[kit.model]]
+fielder = 0x13BF9DAB
+keeper = 0x13BF9DAB
+shoes = 0xFC82384B
+glove = 0xBE70ECC5
+type = 0
+
+[[kit.model]]
+fielder = 0x13BF9DAB
+keeper = 0x13BF9DAB
+shoes = 0xFC82384B
+glove = 0x955DBF06
+type = 1
+
+[[kit]]
+id = 0xAB1D6AA5
+
+[[kit.model]]
+fielder = 0x2EDFB41B
+keeper = 0x2EDFB41B
+shoes = 0xC1E211FB
+glove = 0xBE70ECC5
+type = 0
+
+[[kit.model]]
+fielder = 0x2EDFB41B
+keeper = 0x2EDFB41B
+shoes = 0xC1E211FB
+glove = 0x955DBF06
+type = 1

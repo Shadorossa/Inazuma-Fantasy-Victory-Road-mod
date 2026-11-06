@@ -1,0 +1,17 @@
+# Declaration schema of VRFW.card_look/1 (content\card_looks\**\*.toml; docs/framework/card-look.md): [[VRFW.CardLook]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.card_look/1"
+folder = "content/card_looks"
+
+[entry.CardLook]
+name = { type = "name", required = true, doc = "key <mod>.<name>" }
+column = { type = "string", doc = "chara_param column holding the uniform: its index, or its schema name (schemas/character/chara_param.toml)" }
+table = { type = "string", doc = "optional: a native table (param id -> uniform) asked when the column's cell is 0" }
+label = { type = "string", doc = "optional: menu_text row id naming the switch in «Equipamiento» (§3.1)" }
+on = { type = "strings", doc = "surfaces" }
+rarity = { type = "ints", doc = "card rarity range, inclusive (save record +0x10, v7.1.2; not re-checked; an unowned card: chara_param col 41). Omit = any card" }
+switch_bit = { type = "int", doc = "the player's switch: a bit of the record's attribute word (+0x20, v7.1.2; not re-checked); set = off for him. Omit = no switch" }
+priority = { type = "int", doc = "several rules: the highest that gives the card a look wins (then load order)" }
+rarity_also = { type = "ints", doc = "more rarities" }
+face_rarity = { type = "ints", doc = "face icons: this range instead of rarity + rarity_also" }
+with_kit_column = { type = "int", doc = "only while the team kit is this column's uniform (0 in the cell = any team kit)" }

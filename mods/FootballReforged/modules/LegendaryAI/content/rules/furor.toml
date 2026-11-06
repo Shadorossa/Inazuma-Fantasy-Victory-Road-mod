@@ -1,0 +1,139 @@
+schema = "VRFW.behaviour/1"
+# Legendary AI › when the rival starts its «Fase de furor» (the Furor module of Football Reforged). Soft companion:
+# without Furor no rule here ever fires (its flag Furor.gauge.rival.full is never set, its signal starts nothing).
+# Furor's exports used: the flag Furor.cpu_driven (Furor's own random CPU start steps aside), the signal
+# Furor.gauge.start (the phase of the actor's team, only with a full gauge: the same function, gauge and cost as your
+# furor button) and the signal Furor.gauge.full (a team's gauge just filled; actor = a player of that team).
+# The phase: moves x1.15, run x1.08, its keeper faces shots x0.9, every player his position's awakening stats, 24 s.
+# Zones in the team frame (metres): z = 55 the attacked goal line, z = -55 the own one.
+# Every number is a value of the mod's config.toml [furor]: edit it there.
+
+# ------------------------------------------------------------------------------------------------ the CPU's start is ours
+
+[[rule]]
+id = "furor_cpu_driven_on"
+on = "match_start"
+[rule.do]
+set_flag = "Furor.cpu_driven"
+
+[[rule]]
+id = "furor_cpu_driven_off"
+on = "match_end"
+[rule.do]
+clear_flag = "Furor.cpu_driven"
+
+# ------------------------------------------------------------------------------------------------ when it starts it
+
+# A scoring chance: a rival player gets the ball 22 m or less from your goal line (its shooting range): the stronger
+# shots and the forwards' kick stat for the shot that follows.
+[[rule]]
+id = "furor_attack"
+on = "possession"
+[rule.when]
+team = "rival"
+flag = "Furor.gauge.rival.full"
+zone = { z = ["${config.furor.attack_from_z}", 60.0], frame = "team" }
+[rule.do]
+signal = "Furor.gauge.start"
+log = "legendary furor: attack (shooting range)"
+
+# Its shoot zone starts (state 16, «Activación del Área») while its gauge is full: the shot comes now. A state has no
+# actor, so scripts\legendary_ai.lua starts it with the ball carrier when he is a rival player (signal
+# LegendaryAI.furor_zone). The flag LegendaryAI.zone_running lets a gauge that fills during a zone start it too.
+[[rule]]
+id = "furor_zone_running_on"
+on = "state_enter:16"
+[rule.do]
+set_flag = "LegendaryAI.zone_running"
+
+[[rule]]
+id = "furor_zone_running_off"
+on = "state_leave:16"
+[rule.do]
+clear_flag = "LegendaryAI.zone_running"
+
+[[rule]]
+id = "furor_zone"
+on = "state_enter:16"
+[rule.when]
+flag = "Furor.gauge.rival.full"
+[rule.do]
+signal = "LegendaryAI.furor_zone"
+log = "legendary furor: its shoot zone starts"
+
+[[rule]]
+id = "furor_zone_gauge_full"
+on = "signal:Furor.gauge.full"
+[rule.when]
+team = "rival"
+flag = "LegendaryAI.zone_running"
+[rule.do]
+signal = "LegendaryAI.furor_zone"
+log = "legendary furor: gauge full during a shoot zone"
+
+# Behind late: from the second half's middle on, while trailing, at its next ball anywhere on the pitch.
+[[rule]]
+id = "furor_comeback"
+on = "possession"
+[rule.when]
+team = "rival"
+flag = "Furor.gauge.rival.full"
+score = "trailing"
+half = { min = "${config.furor.comeback_from_half}" }
+half_fraction_from = "${config.furor.comeback_half_fraction}"
+[rule.do]
+signal = "Furor.gauge.start"
+log = "legendary furor: comeback (trailing late)"
+
+# The gauge fills while it is behind late: at once, not at its next ball (actor = one of its players).
+[[rule]]
+id = "furor_comeback_gauge_full"
+on = "signal:Furor.gauge.full"
+[rule.when]
+team = "rival"
+score = "trailing"
+half = { min = "${config.furor.comeback_from_half}" }
+half_fraction_from = "${config.furor.comeback_half_fraction}"
+[rule.do]
+signal = "Furor.gauge.start"
+log = "legendary furor: comeback (gauge full while trailing late)"
+
+# A key defence: one of your players gets the ball 25 m or less from its goal line (a shot coming): its keeper
+# faces weaker shots, its defenders press harder. The actor is your player, so scripts\legendary_ai.lua starts the
+# rival's phase with one of its own players (signal LegendaryAI.furor_defend).
+[[rule]]
+id = "furor_defend"
+on = "possession"
+[rule.when]
+team = "user"
+flag = "Furor.gauge.rival.full"
+zone = { z = ["${config.furor.defend_from_z}", 60.0], frame = "team" }
+[rule.do]
+signal = "LegendaryAI.furor_defend"
+log = "legendary furor: defence (your carrier near its goal)"
+
+# Never wasted: in the last 15 % of each half a full gauge is used at its next ball (a full gauge stops filling; the
+# phase goes on into the second half).
+[[rule]]
+id = "furor_no_waste"
+on = "possession"
+[rule.when]
+team = "rival"
+flag = "Furor.gauge.rival.full"
+half = { max = "${config.furor.no_waste_half_max}" }
+half_fraction_from = "${config.furor.no_waste_half_fraction}"
+[rule.do]
+signal = "Furor.gauge.start"
+log = "legendary furor: end of half (no waste)"
+
+# The gauge fills in the last part of a half: used at once.
+[[rule]]
+id = "furor_no_waste_gauge_full"
+on = "signal:Furor.gauge.full"
+[rule.when]
+team = "rival"
+half = { max = "${config.furor.no_waste_half_max}" }
+half_fraction_from = "${config.furor.no_waste_half_fraction}"
+[rule.do]
+signal = "Furor.gauge.start"
+log = "legendary furor: end of half (gauge full late)"

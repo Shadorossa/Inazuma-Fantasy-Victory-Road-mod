@@ -1,0 +1,133 @@
+schema = "VRFW.item/2"
+# Inazuma Fantasy's currency is a retail item renamed (docs/game/modes/tienda-general.md §6), every balance kept 1:1:
+# * Puntos de pasión = tk_bb000001 (retail; the only currency of the Tienda general).
+# Puntos de amistad (tk_hr000008: name, icon, match rule) belong to Character Reforged's ClassicRecruitment module
+# (content\items\friendship_points.toml); the filters below still name the retail item.
+# Icons: content/images/menu/200_icon/02_icon_item/currencies.toml.
+# Earned: the game's own sources (match prizes, item tables, trophies, gifts) and the match rules below.
+default_lang = "en"
+
+[[edit]]
+target = "tk_bb000001"
+max_stack = 999999                          # the bag holds up to 999999 (retail 99999); the counters: VRFW item_count_digits
+  [edit.text.es]
+  name = "Puntos de pasión"
+  [edit.text.en]
+  name = "Passion Points"
+  [edit.text.fr]
+  name = "Points de passion"
+  [edit.text.de]
+  name = "Leidenschaftspunkte"
+  [edit.text.it]
+  name = "Punti passione"
+  [edit.text.pt]
+  name = "Pontos de paixão"
+  [edit.text.ja]
+  name = "情熱ポイント"
+  [edit.text.zh_hans]
+  name = "热情点数"
+  [edit.text.zh_hant]
+  name = "熱情點數"
+
+# The points a goal drops in a match are not picked up on the pitch: held and paid at the end (win = the sum of the
+# goal rolls, draw = one roll's worth, loss = nothing). Same rolls, odds and tables (docs/game/mechanics/end-of-match-rewards.md).
+[VRFW.EndOfMatchRewards]
+HeldDrops = ["tk_bb000001"]                  # Puntos de pasión
+
+# No in-match drop gives an item the retail shops take as payment (story tokens, Chronicle pages, Vs coins, BB tags...,
+# derived by the VR-Framework): such an entry gives Puntos de amistad instead (same count and weight). The two
+# currencies themselves are kept (docs/game/mechanics/chronicle-drops.md §4).
+[[VRFW.DropFilter]]
+Exclude = "shop_currencies"
+Keep = [
+    "tk_hr000008",                                # Puntos de amistad
+    "tk_bb000001",                                # Puntos de pasión
+]
+ReplaceWith = "tk_hr000008"
+
+# No chest gives a shop currency: the Victory crates' tables and the field treasure boxes' / ball chests' tables lose
+# every item a shop of the game charges (derived by the VR-Framework from the game's shop_config: Exclude =
+# "shop_currencies", docs/framework/drops.md §3): the Chronicle pages tk_hr000001-7, the Vs coins, the Vinculo items,
+# the BB tag and pin, the tournament medal. Kept: this mod's two currencies, and the story cards tk_si000001-7, the
+# only thing the story maps' field chests hold besides their key items: without them a story chest would give
+# something else and the story shops would lose their source (no category sets them apart, so they are named).
+# A removed entry's chance goes to the chest's other items; a table that would be left with nothing gives Puntos de
+# amistad instead. Win prizes, in-match drops, quests and gifts are other tables, not touched by this rule.
+[[VRFW.DropFilter]]
+Sources = ["chests"]
+Exclude = "shop_currencies"
+Keep = [
+    "tk_hr000008",                                # Puntos de amistad
+    "tk_bb000001",                                # Puntos de pasión
+    "tk_si000001", "tk_si000002", "tk_si000003", "tk_si000004", "tk_si000005", "tk_si000006", "tk_si000007",
+]
+Fallback = "tk_hr000008"                    # Puntos de amistad
+
+# The Piedra de la victoria (tk_hr000009, retail Market currency, unused here) is never given by a match of any mode:
+# the game's prize rows of it (soccer_prize_config: win and first-clear prizes, which the filter above does not edit)
+# are left out of the result and an in-match drop of it gives nothing; every other grant of it (boxes, quests,
+# trophies, gifts, a repeated item's compensation) gives nothing either.
+# VR-Framework [[VRFW.MatchDropRemove]] (docs/framework/drops.md §6).
+[[VRFW.MatchDropRemove]]
+Items = ["tk_hr000009"]                     # Piedra de la victoria
+AllSources = true
+
+# Every match of every mode also pays Puntos de pasión at its end, as rows of the result list,
+# on top of what its goal rolls give. The amounts are the player's: config.toml
+# [match_drops.passion] (win, draw, loss, per_goal = for each goal of the user's team, any result, per_goal_margin = for
+# each goal of a win's margin); the values below are the defaults when the config has no such key. The whole amount is
+# multiplied by the played difficulty (the declared difficulty Ids, defaults\match_difficulty.toml). VR-Framework
+# [[VRFW.MatchDropExtra]] (docs/framework/drops.md §6; table in docs/game/mods/fantasy-economy.md).
+[[VRFW.MatchDropExtra]]
+Item = "tk_bb000001"                        # Puntos de pasión
+Win = 2
+Draw = 1
+Loss = 0
+PerGoal = 0
+PerGoalMargin = 1                           # a win by 3 goals: +3
+MarginMax = 5                               # no more than +5 (no farming of weak rivals)
+Config = "match_drops.passion"
+  [VRFW.MatchDropExtra.Difficulty]          # the multiplier by the played difficulty (declared Ids)
+  Cronica = 1.0
+  RouteOpen = 1.25
+  RareItems = 1.5
+  Heroica = 1.75
+  HeroicaPlus = 2.0
+  Legendaria = 2.5
+  Class1 = 1.0                              # free match Lv 50
+  Class2 = 1.5                              # Lv 99
+  Class3 = 2.0
+  Class4 = 2.5                              # Lv 200
+
+# The board matches of Chronicle Deluxe's chains (crónica routes) pay a rank bonus on a win: the match's rank is the best
+# rank Chronicle Deluxe declares (its defaults\match_rank.toml: S = 5+ goals and none conceded, A = 3+ and none
+# conceded, B = any other win), plus 1 for each goal past that rank's goals; times the same difficulty multiplier.
+# Without Chronicle Deluxe no chain matches: nothing.
+[[VRFW.MatchDropExtra]]
+Item = "tk_bb000001"                        # Puntos de pasión
+Chains = ["ChronicleDeluxe.*"]
+  [VRFW.MatchDropExtra.Difficulty]          # the multiplier by the played difficulty (declared Ids)
+  Cronica = 1.0
+  RouteOpen = 1.25
+  RareItems = 1.5
+  Heroica = 1.75
+  HeroicaPlus = 2.0
+  Legendaria = 2.5
+  Class1 = 1.0                              # free match Lv 50
+  Class2 = 1.5                              # Lv 99
+  Class3 = 2.0
+  Class4 = 2.5                              # Lv 200
+  [[VRFW.MatchDropExtra.Rank]]
+  Id = "A"
+  Bonus = 2
+  PerExtraGoal = 1
+  [[VRFW.MatchDropExtra.Rank]]
+  Id = "S"
+  Bonus = 4
+  PerExtraGoal = 1
+
+# The Chronicle drop-rate list: Puntos de pasión first; Puntos de amistad are not listed (paid at
+# the end of the match).
+[VRFW.DropList]
+First = ["tk_bb000001"]                     # Puntos de pasión
+Hide = ["tk_hr000008"]                      # Puntos de amistad

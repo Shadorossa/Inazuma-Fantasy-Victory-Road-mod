@@ -1,0 +1,6 @@
+schema = "VRFW.model/1"
+# IECross head / face of Axel Blaze (Cross) (the IEVRCROSS mod's c90000250): game files served as they are
+# (docs/framework/mod-layout.md «Models»), from assets\models\characters\c90000250\{common,dx11}\ to
+# data\{common,dx11}\chr\_face\90_CROSS\c90000250\.
+format = "native"
+game_path = "chr/_face/90_CROSS/c90000250"

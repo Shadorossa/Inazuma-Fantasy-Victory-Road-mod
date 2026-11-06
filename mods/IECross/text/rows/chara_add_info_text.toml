@@ -1,0 +1,7 @@
+# Name of the «Inazuma Eleven Cross» character series. Added to the end of their list in declaration order.
+schema = "VRFW.text/2"
+
+[[row]]
+id = 0x41983033  # Inazuma Eleven Cross
+kind = "noun"
+all = "Inazuma Eleven Cross"

@@ -1,0 +1,34 @@
+# Declaration schema of VRFW.match_ai/1 (content\rules\ai\**\*.toml; docs/framework/match-ai.md): [[VRFW.MatchAI]], [[VRFW.MatchAIClass]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.match_ai/1"
+folder = "content/rules/ai"
+label = "Match AI classes"
+label_es = "Clases de IA de partido"
+doc = "A new AI class for matches: a game class plus its member values."
+doc_es = "Una clase de IA nueva para partidos: una clase del juego más los valores de sus miembros."
+
+[entry.MatchAI]
+Name = { type = "string", required = true, doc = "<ModPrefix>.<Name>" }
+Side = { type = "string", doc = "rival (default) | user | both" }
+Priority = { type = "int" }
+Rates = { type = "table", doc = "property knobs (every player of the side)" }
+Class = { type = "string", doc = "or Level = 1..99, or Personality = ForceWin | Counter | Kizuna | Tension | RoughPlay | FairPlay" }
+Global = { type = "table", doc = "ai_global / strategy_global / team_ai / shared knobs" }
+Team = { type = "table", doc = "per-team behaviours ([[team]] of the catalogue)" }
+If = { type = "records", fields = { When = { type = "string" }, Value = { type = "number" }, Global = { type = "table" }, Rates = { type = "table" } }, doc = "knob values while a situation holds ([[condition]] of the catalogue)" }
+Modes = { type = "strings", doc = "lists: every list given must match; none = every offline match" }
+AiLevels = { type = "ints", doc = "the row's AI level (aiLv) of that team" }
+Teams = { type = "ids", doc = "rival team ids (\"0xHASH\", number or name)" }
+Games = { type = "strings", doc = "match rows" }
+Manual = { type = "bool", doc = "true = applied only by CMND_VRFW_MATCH_AI_APPLY" }
+
+[entry.MatchAILevels]
+doc = "the file's profiles and classes built once per level of a list option row"
+Option = { type = "string", required = true, doc = "the list row <owner>.<id>: value 0, 1, 2... = level 1, 2, 3..." }
+Config = { type = "string", required = true, doc = "the mod's config table with factors, from, team_from and if_from" }
+
+[entry.MatchAIClass]
+doc = "a new class: a game class + member values"
+Name = { type = "string", required = true }
+Inherit = { type = "string", doc = "a game class ([[class]] of the catalogue) or another declared class" }
+Rates = { type = "table" }

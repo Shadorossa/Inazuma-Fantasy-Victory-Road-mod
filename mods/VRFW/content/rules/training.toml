@@ -1,0 +1,19 @@
+schema = "VRFW.rule/1"
+# Base ruleset for training and dribble trials (types 3 and 4): every rule follows the match row ("row").
+# A mod may replace it (same id, loaded later) or assign another in its rules\matches.toml.
+id = "training"
+name = "Training (original)"   # fallback; shown in the game language from the text key ruleset_training
+version = 1
+
+[time]
+half_minutes = "row"
+halves = "row"
+
+[teams]
+players = "row"
+
+[end]
+extra_time = false
+golden_goal = false
+penalties = false
+extended_vgoal = "row"

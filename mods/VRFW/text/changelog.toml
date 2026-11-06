@@ -1,0 +1,40 @@
+schema = "VRFW.text_key/1"
+# Changelog texts (text_engine format; ids are crc32("changelog.<name>")): `news` labels the FUNC3 key of the Mods screen button guide,
+# `sheet_title` titles the sheet.
+default_lang = "en"
+
+[ja.new]
+sheet_title = "MODの新着情報"
+news = "新着情報"
+
+[en.new]
+sheet_title = "Mod updates"
+news = "What's new"
+
+[es.new]
+sheet_title = "Novedades de mods"
+news = "Novedades"
+
+[fr.new]
+sheet_title = "Nouveautés des mods"
+news = "Nouveautés"
+
+[de.new]
+sheet_title = "Neues in den Mods"
+news = "Neuigkeiten"
+
+[it.new]
+sheet_title = "Novità delle mod"
+news = "Novità"
+
+[pt.new]
+sheet_title = "Novidades dos mods"
+news = "Novidades"
+
+[zh_hans.new]
+sheet_title = "模组更新内容"
+news = "更新内容"
+
+[zh_hant.new]
+sheet_title = "模組更新內容"
+news = "更新內容"

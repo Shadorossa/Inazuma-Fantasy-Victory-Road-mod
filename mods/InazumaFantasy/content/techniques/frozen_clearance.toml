@@ -1,0 +1,43 @@
+schema = "VRFW.technique/3"
+# Despeje helado (Icicle Punch): the download's move whk93001, a clone of whk01550 with its numbers; its event ev63_93001_1 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "frozen_clearance"
+key = "whk93001"
+base = "whk01550"
+event = "ev63_93001_1"
+fail_event = "ev63_93001_2"
+element = "wind"
+color = 1
+  [technique.text.es]
+  name = "Despeje helado"
+  description = "Golpea el balón con un puño de hielo\ny lo despeja lejos de la portería."
+  [technique.text.en]
+  name = "Icicle Punch"
+  description = "Punches the ball with a fist of ice\nand clears it far from goal."
+  [technique.text.fr]
+  name = "Dégagement glacé"
+  description = "Frappe le ballon d'un poing de glace\net le dégage loin du but."
+  [technique.text.de]
+  name = "Eisige Abwehr"
+  description = "Schlägt den Ball mit einer Eisfaust\nweit vom Tor weg."
+  [technique.text.it]
+  name = "Respinta gelata"
+  description = "Colpisce la palla con un pugno di ghiaccio\ne la respinge lontano dalla porta."
+  [technique.text.pt]
+  name = "Afastamento gelado"
+  description = "Soca a bola com um punho de gelo\ne afasta-a para longe da baliza."
+  [technique.text.ja]
+  name = "アイシクルパンチ"
+  description = "氷の拳でボールを殴り\nゴールから遠くへ弾く！"
+  [technique.text.zh_hans]
+  name = "冰霜解围"
+  description = "用寒冰之拳击球，\n将其远远解围。"
+  [technique.text.zh_hant]
+  name = "冰霜解圍"
+  description = "用寒冰之拳擊球，\n將其遠遠解圍。"
+
+[[event_env]]
+event = "ev63_93001_2"
+from = "ev63_01550_2"

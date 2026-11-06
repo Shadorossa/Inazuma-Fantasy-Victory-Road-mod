@@ -1,0 +1,9 @@
+# The QR code of this mod's community link (qrcode_menu, docs/framework/community-link.md), generated
+# by research/scripts/community_qr_art.py from content\community_links\ [[VRFW.CommunityLink]] url:
+# https://discord.gg/8bdwWXwXpB. Replaces the pixels of the retail texture (same size).
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/220_img/qr_code/iev0001.g4tx"
+name = "iev0001"
+png = "iev0001/iev0001.png"

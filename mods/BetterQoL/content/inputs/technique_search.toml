@@ -1,0 +1,25 @@
+# BetterQoL's technique name search: the key that opens the search in the special moves and auras tabs of a shop
+# (assets\lua\shop_menu_buy\900_technique_search.lua). Keyboard F (key index 5: the letters run A = 0), pad R3 (index 2),
+# in both menu controllers (the shop list runs MENU_CTRL_WITH_ANALOG_MOVE_FOCUS). Change the numbers here to use
+# another key.
+schema = "VRFW.input/1"
+
+[[command]]
+ctrl = "MENU_CTRL"
+name = "CMD_BETTERQOL_TECHNIQUE_SEARCH"
+keyboard = [0, 5]
+
+[[command]]
+ctrl = "MENU_CTRL_WITH_ANALOG_MOVE_FOCUS"
+name = "CMD_BETTERQOL_TECHNIQUE_SEARCH"
+keyboard = [0, 5]
+
+[[command]]
+ctrl = "MENU_CTRL"
+name = "CMD_BETTERQOL_TECHNIQUE_SEARCH"
+pad = [0, 2]
+
+[[command]]
+ctrl = "MENU_CTRL_WITH_ANALOG_MOVE_FOCUS"
+name = "CMD_BETTERQOL_TECHNIQUE_SEARCH"
+pad = [0, 2]

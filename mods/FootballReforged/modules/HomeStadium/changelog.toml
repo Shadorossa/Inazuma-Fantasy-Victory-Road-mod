@@ -1,0 +1,58 @@
+schema = "VRFW.changelog/1"
+# Home Stadium: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "stadium"
+notes = [
+    "Estadio local elegible",
+    "Partidos en casa en tu estadio",
+]
+
+[release.en]
+notes = [
+    "Selectable home stadium",
+    "Home matches in your stadium",
+]
+
+[release.fr]
+notes = [
+    "Stade à domicile au choix",
+    "Matchs à domicile dans votre stade",
+]
+
+[release.de]
+notes = [
+    "Wählbares Heimstadion",
+    "Heimspiele in deinem Stadion",
+]
+
+[release.it]
+notes = [
+    "Stadio di casa selezionabile",
+    "Partite in casa nel tuo stadio",
+]
+
+[release.pt]
+notes = [
+    "Estádio da casa à escolha",
+    "Jogos em casa no teu estádio",
+]
+
+[release.ja]
+notes = [
+    "ホームスタジアムを選択",
+    "ホーム戦は自分のスタジアム",
+]
+
+[release.zh_hans]
+notes = [
+    "可选择主场球场",
+    "主场比赛在你的球场",
+]
+
+[release.zh_hant]
+notes = [
+    "可選擇主場球場",
+    "主場比賽在你的球場",
+]

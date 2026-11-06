@@ -1,0 +1,41 @@
+-- BattleBayDeluxe bb_draft, Estadio BB top menu (bb_stadium_top_menu; docs/game/modes/estadio-bb.md §14). Every time the menu
+-- opens (entering the Estadio BB, back from a campaign match or from its result) the loader syncs the Draft with the
+-- retail campaign state (CMND_GET_BB_STADIUM_CAMPAIGN_INFO 0 = active, 2 = the player's team): a campaign that plays
+-- the Draft team keeps its drafted squad (after a restart the loader takes it from bb_draft_slot<N>.json); any other
+-- state (campaign won / lost, another team, no campaign) discards the draft. 1.5.42: a running Torneo with the Draft
+-- team keeps it too (the scripts ask the run), and this block also runs on soccer_top_menu, the hub the Battle Bay is
+-- entered through now (bb_stadium_top_menu no longer opens). Globals only; nothing runs at chunk load.
+BBCR_DRAFT_TOP = {
+  SYNC = @crc:CMND_BBCR_DRAFT_SYNC@,
+  CAMPAIGN = @crc:CMND_GET_BB_STADIUM_CAMPAIGN_INFO@,
+}
+
+-- the logger (VRFW_Log), made at the first line: the framework's menu files load after the graft blocks
+function BBCR_DRAFT_TopLog(...)
+  BBCR_DRAFT_TOP.logger = BBCR_DRAFT_TOP.logger or VRFW_Log.New("BattleBayDeluxe.draft_top")
+  BBCR_DRAFT_TOP.logger(...)
+end
+
+function BBCR_DRAFT_TopSync()
+  local T = BBCR_DRAFT_TOP
+  local active = funcLuaMenuCommand(T.CAMPAIGN, 0) == true
+  local player = 0
+  if active then
+    local p = funcLuaMenuCommand(T.CAMPAIGN, 2)
+    player = type(p) == "number" and p or 0
+  end
+  local phase = funcLuaCommand(T.SYNC, active and 1 or 0, player)
+  BBCR_DRAFT_TopLog("sync", active, player, phase)
+end
+
+do
+  local init = OnInit
+  function OnInit(...)
+    local r = table.pack(init(...))
+    local ok, err = pcall(BBCR_DRAFT_TopSync)
+    if not ok then
+      BBCR_DRAFT_TopLog("sync error", tostring(err))
+    end
+    return table.unpack(r, 1, r.n)
+  end
+end

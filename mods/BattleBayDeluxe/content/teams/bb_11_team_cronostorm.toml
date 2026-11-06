@@ -1,0 +1,61 @@
+schema = "VRFW.team/2"
+# The team Chrono Storm (bb_11_team_cronostorm) in every match.
+
+[[edit]]
+target = "bb_11_team_cronostorm"
+  [[edit.member]]
+  slot = 0
+  patch = true
+  moves = [0xC636A810, 0x737DCB3F, 0x62DEE8B1, 0xF2CB0879, 0x6DF74BDB, 0xDA3823A5]
+  levels = [1, 1, 1, 1, 1, 1]
+  c14_19 = [-1, -1, 1, -1, -1, -1]
+  [[edit.member]]
+  slot = 1
+  patch = true
+  moves = [0x4FE09C7A, 0xC66BD10D, 0x17110E3B, 0xEEFFAE21, 0x74EC7A9A, 0x49C9969F]
+  levels = [1, 1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 2
+  patch = true
+  moves = [0x530CDFC1, 0x6BA49049, 0x2B8C597E, 0x099B8EDF, 0x2C6739AC]
+  levels = [1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 3
+  patch = true
+  moves = [0x8A936B25, 0xB7474004, 0x22B6DD1C, 0x50D2A7DE]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 4
+  patch = true
+  moves = [0x8B90AAAC, 0x20D01E43, 0x7DD6FEF8, 0x752E10AD, 0x6063D0BB]
+  levels = [1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 5
+  patch = true
+  moves = [0xA9A7000B, 0x19BA3BFC, 0x5E03436E, 0x185B327B]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 6
+  patch = true
+  moves = [0x65766A4F, 0xB60E3C60, 0x9A5308BE, 0x6C3521EC, 0x2F22467C]
+  levels = [1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 7
+  patch = true
+  moves = [0x2A4E3349, 0xA37D1A41, 0xB501FE5D, 0xAF9E1B72, 0x1080BF9E, 0x62256EE2]
+  levels = [1, 1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 8
+  patch = true
+  moves = [0xC4D13C6B, 0x4FE09C7A, 0xC0806EE0, 0x3639773D]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 9
+  patch = true
+  moves = [0x8A52C09B, 0x0C08B663, 0x90CD25B4, 0x910F4F83, 0x4718722F, 0x7978E1FA]
+  levels = [1, 1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 10
+  patch = true
+  moves = [0x1876DB66, 0xD0A1DBC3, 0x93885A64, 0xD99B5FA1]
+  levels = [1, 1, 1, 1]

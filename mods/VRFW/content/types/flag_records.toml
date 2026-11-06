@@ -1,0 +1,18 @@
+# Schema of the flag declarations (kind VRFW.flag/1, a mod's content\flags\**\*.toml): global bit flags a mod's
+# scripts read and write in the save, added to the game's flag_config. The flag type builds them; this schema
+# describes the same keys for the checker and the editors.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.flag/1"
+folder = "content/flags"
+label = "Flags"
+label_es = "Banderas"
+doc = "One global bit flag."
+doc_es = "Una bandera global de un bit."
+
+[entry.Flag]
+entry_table = "flag"
+doc = "one global bit flag"
+name = { type = "string", doc = "the flag's name (id = crc32(name)), e.g. MyMod.QuestDone" }
+id = { type = "any", doc = "instead of name: the flag id (a number or 0x…)" }
+bank = { type = "int", min = 0, default = 0, doc = "the FLAG_INFO bank" }
+bit = { type = "int", min = 0, doc = "optional in bank 0: a fixed bit (only to keep a bit that saves already hold; unset = the framework picks a free one)" }

@@ -1,0 +1,114 @@
+# Declaration schema of VRFW.catalog/1 (content\catalog): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.catalog/1"
+folder = "content/catalog"
+label = "Catalogue"
+label_es = "Catálogo"
+
+[entry.Friendly]
+entry_table = "friendly"
+single = true
+team = { type = "string", ref = "team" }
+challenge = { type = "string" }
+pass = { type = "string" }
+save = { type = "string" }
+return = { type = "string" }
+field_net = { type = "bool" }
+
+[entry.Menu]
+entry_table = "menu"
+single = true
+hosts = { type = "strings" }
+title_hosts = { type = "strings" }
+
+[entry.Mode]
+entry_table = "mode"
+single = true
+hosts = { type = "strings" }
+slot_screen = { type = "string" }
+
+[entry.VerbSets]
+entry_table = "verb_sets"
+single = true
+friendly = { type = "strings" }
+
+[entry.Family]
+entry_table = "family"
+old = { type = "string", required = true }
+new = { type = "string", required = true }
+route = { type = "string", required = true }
+verbs = { type = "any" }
+type = { type = "string" }
+verbs_of = { type = "string" }
+
+[entry.Owner]
+entry_table = "owner"
+prefix = { type = "string", required = true }
+node = { type = "string", required = true }
+
+[entry.Kind]
+entry_table = "kind"
+kind = { type = "string", required = true }
+cat = { type = "string", required = true }
+row = { type = "int" }
+alias = { type = "strings" }
+args = { type = "records", fields = { name = { type = "name" }, type = { type = "string" }, default = { type = "any" }, values = { type = "strings" }, codes = { type = "ints" } } }
+clauses = { type = "records", fields = { arg = { type = "string" }, clause = { type = "string" }, op = { type = "string" } } }
+target = { type = "string" }
+sub = { type = "string" }
+outs = { type = "strings" }
+
+[entry.Clause]
+entry_table = "clause"
+key = { type = "string", required = true }
+call = { type = "string" }
+choice = { type = "records", fields = { value = { type = "string" }, call = { type = "string" }, op = { type = "string" }, int = { type = "int" }, against = { type = "string" } } }
+args = { type = "strings" }
+value = { type = "string" }
+is = { type = "string" }
+
+[entry.Events]
+entry_table = "events"
+single = true
+step_flags = { type = "strings" }
+
+[entry.Hint]
+entry_table = "hint"
+code = { type = "string", required = true }
+text = { type = "string", required = true }
+
+[entry.Sets]
+entry_table = "sets"
+single = true
+technique = { type = "strings" }
+technique_voice = { type = "strings" }
+armour_voice = { type = "strings" }
+
+[entry.Telop]
+entry_table = "telop"
+set = { type = "string" }
+kind = { type = "string", required = true }
+prefixes = { type = "strings" }
+exact = { type = "strings" }
+len = { type = "int" }
+digits = { type = "string" }
+
+[entry.Voice]
+entry_table = "voice"
+set = { type = "string" }
+digits = { type = "string" }
+family = { type = "string", required = true }
+exact = { type = "strings" }
+prefixes = { type = "strings" }
+suffix = { type = "string" }
+
+[entry.VoiceDefault]
+entry_table = "voice_default"
+single = true
+family = { type = "string" }
+
+[entry.File]
+file_root = true
+icon = { type = "table" }
+op = { type = "table" }
+category = { type = "table" }

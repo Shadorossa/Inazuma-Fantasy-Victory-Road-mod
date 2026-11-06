@@ -1,0 +1,522 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "languages"
+  Type = "table"
+  Label = { es = "Idiomas", en = "Languages" }
+  Help = { es = "Fuente única de idiomas del framework.", en = "The framework's single language source." }
+  [[Shape.Field]]
+  Key = "languages.order"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Orden de idiomas", en = "Language order" }
+  Help = { es = "Idiomas del juego en el orden en que se guardan los textos.", en = "Game languages in the order texts are stored." }
+  [[Shape.Field]]
+  Key = "languages.fallback"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Idiomas de reserva", en = "Fallback languages" }
+  Help = { es = "Idiomas que se prueban cuando falta un texto en el idioma pedido.", en = "Languages tried when a text is missing in the asked language." }
+  [[Shape.Field]]
+  Key = "languages.default"
+  Type = "string"
+  Label = { es = "Idioma por defecto", en = "Default language" }
+  Help = { es = "Idioma de un texto cuando nadie lo indica: «game» es el idioma actual del juego.", en = "Language of a text when none is given: «game» is the game's current language." }
+  [[Shape.Field]]
+  Key = "languages.source"
+  Type = "string"
+  Label = { es = "Idioma de origen", en = "Source language" }
+  Help = { es = "Idioma en que están escritos los datos cuando el archivo no indica otro (solo al construir).", en = "Language data is written in when a file names none (build time only)." }
+  [[Shape.Field]]
+  Key = "limits"
+  Type = "table"
+  Label = { es = "Límites", en = "Limits" }
+  Help = { es = "Límites del motor que el cargador amplía al arrancar.", en = "Engine limits the loader raises at boot." }
+  [[Shape.Field]]
+  Key = "limits.shop_rows"
+  Type = "int"
+  Label = { es = "Filas de tienda", en = "Shop rows" }
+  Help = { es = "Máximo de filas de tienda que admite el juego.", en = "Most shop rows the game accepts." }
+  [[Shape.Field]]
+  Key = "dev"
+  Type = "table"
+  Label = { es = "Desarrollo", en = "Development" }
+  Help = { es = "Herramientas para creadores de mods.", en = "Tools for mod authors." }
+  [[Shape.Field]]
+  Key = "dev.hot_reload"
+  Type = "bool"
+  Label = { es = "Recarga en caliente", en = "Hot reload" }
+  Help = { es = "Vigila los archivos de los mods mientras se juega y aplica los cambios (depuración).", en = "Watches the mods' files while playing and applies changes (debug)." }
+  [[Shape.Field]]
+  Key = "dev.poll_ms"
+  Type = "int"
+  Label = { es = "Intervalo de vigilancia (ms)", en = "Watch interval (ms)" }
+  Help = { es = "Cada cuánto mira la recarga en caliente si algo cambió (depuración).", en = "How often hot reload looks for changes (debug)." }
+  [[Shape.Field]]
+  Key = "debug"
+  Type = "table"
+  Label = { es = "Depuración", en = "Debug" }
+  Help = { es = "Opciones de prueba; apagadas para jugar.", en = "Test options; off for playing." }
+  [[Shape.Field]]
+  Key = "debug.reveal_all"
+  Type = "bool"
+  Label = { es = "Revelarlo todo (depuración)", en = "Reveal all (debug)" }
+  Help = { es = "Muestra todos los mapas de contacto abiertos y todas las páginas de equipos de la oficina (depuración).", en = "Shows every contact map open and every office team page (debug)." }
+  [[Shape.Field]]
+  Key = "debug.all_chains"
+  Type = "bool"
+  Label = { es = "Todas las cadenas abiertas (depuración)", en = "All chains open (debug)" }
+  Help = { es = "Todos los tableros de cadena muestran sus partidos abiertos y jugables (depuración).", en = "Every chain board shows its matches open and playable (debug)." }
+  [[Shape.Field]]
+  Key = "debug.capture_pause_probe"
+  Type = "bool"
+  Label = { es = "Sonda de captura en pausa (depuración)", en = "Capture pause probe (debug)" }
+  Help = { es = "Sonda interna de la captura durante la pausa (depuración).", en = "Internal probe for capture during pause (debug)." }
+  [[Shape.Field]]
+  Key = "debug.command_hooks"
+  Type = "bool"
+  Label = { es = "Registrar comandos (depuración)", en = "Log command hooks (debug)" }
+  Help = { es = "Cada menú anota en el registro los comandos que instala (depuración).", en = "Each menu logs the commands it installs (debug)." }
+  [[Shape.Field]]
+  Key = "debug.free_gacha"
+  Type = "bool"
+  Label = { es = "Gacha gratis (depuración)", en = "Free gacha (debug)" }
+  Help = { es = "Mantiene las monedas de una gacha a un mínimo para probar tiradas (depuración).", en = "Keeps a gacha's cost item stocked to test draws (debug)." }
+  [[Shape.Field]]
+  Key = "debug.free_gacha_stock"
+  Type = "int"
+  Label = { es = "Existencias de gacha gratis (depuración)", en = "Free gacha stock (debug)" }
+  Help = { es = "Cuántas unidades del objeto de coste se mantienen con la gacha gratis (depuración).", en = "How many of the cost item the free gacha keeps (debug)." }
+  [[Shape.Field]]
+  Key = "character"
+  Type = "table"
+  Label = { es = "Personajes", en = "Characters" }
+  Help = { es = "Motor de personajes.", en = "Character engine." }
+  [[Shape.Field]]
+  Key = "character.lang"
+  Type = "string"
+  Label = { es = "Idioma de personajes", en = "Characters language" }
+  Help = { es = "Idioma de los textos de personajes: «game» usa el del juego.", en = "Language of character texts: «game» uses the game's." }
+  [[Shape.Field]]
+  Key = "character.stand_in_kits"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Equipaciones comodín", en = "Stand-in kits" }
+  Help = { es = "Equipaciones que se sustituyen por la del equipo indicado en la opción siguiente.", en = "Kits replaced by the kit of the team named in the next setting." }
+  [[Shape.Field]]
+  Key = "character.stand_in_kit_team"
+  Type = "string"
+  Label = { es = "Equipo de la equipación comodín", en = "Stand-in kit team" }
+  Help = { es = "Equipo cuya equipación se usa en lugar de las equipaciones comodín.", en = "Team whose kit stands in for the stand-in kits." }
+  [[Shape.Field]]
+  Key = "team"
+  Type = "table"
+  Label = { es = "Equipos", en = "Teams" }
+  Help = { es = "Motor de equipos.", en = "Team engine." }
+  [[Shape.Field]]
+  Key = "team.lang"
+  Type = "string"
+  Label = { es = "Idioma de equipos", en = "Teams language" }
+  Help = { es = "Idioma de los textos de equipos: «game» usa el del juego.", en = "Language of team texts: «game» uses the game's." }
+  [[Shape.Field]]
+  Key = "technique"
+  Type = "table"
+  Label = { es = "Técnicas", en = "Techniques" }
+  Help = { es = "Motor de supertécnicas.", en = "Special move engine." }
+  [[Shape.Field]]
+  Key = "technique.report"
+  Type = "bool"
+  Label = { es = "Informe de técnicas", en = "Technique report" }
+  Help = { es = "Escribe en el registro un informe del motor de técnicas (depuración).", en = "Writes a technique engine report to the log (debug)." }
+  [[Shape.Field]]
+  Key = "technique.goal_events"
+  Type = "bool"
+  Label = { es = "Eventos de gol con técnica", en = "Goal events" }
+  Help = { es = "Un gol marcado con una técnica reproduce su evento de gol.", en = "A goal scored with a move plays its goal event." }
+  [[Shape.Field]]
+  Key = "technique.keeper_scenes"
+  Type = "bool"
+  Label = { es = "Escenas de portero extra", en = "Extra keeper scenes" }
+  Help = { es = "Admite más escenas aleatorias de portero declaradas por mods; si no, solo las 5 del juego.", en = "Allows more random keeper scenes declared by mods; otherwise only the game's 5." }
+  [[Shape.Field]]
+  Key = "anim"
+  Type = "table"
+  Label = { es = "Animaciones", en = "Animations" }
+  Help = { es = "Motor de animaciones.", en = "Animation engine." }
+  [[Shape.Field]]
+  Key = "anim.report"
+  Type = "bool"
+  Label = { es = "Informe de animaciones", en = "Animation report" }
+  Help = { es = "Escribe en el registro un informe del motor de animaciones (depuración).", en = "Writes an animation engine report to the log (debug)." }
+  [[Shape.Field]]
+  Key = "item"
+  Type = "table"
+  Label = { es = "Objetos", en = "Items" }
+  Help = { es = "Motor de objetos y tiendas.", en = "Item and shop engine." }
+  [[Shape.Field]]
+  Key = "item.lang"
+  Type = "string"
+  Label = { es = "Idioma de objetos", en = "Items language" }
+  Help = { es = "Idioma de los textos de objetos: «game» usa el del juego.", en = "Language of item texts: «game» uses the game's." }
+  [[Shape.Field]]
+  Key = "mode"
+  Type = "table"
+  Label = { es = "Modos de juego", en = "Game modes" }
+  Help = { es = "Motor de modos de juego.", en = "Game mode engine." }
+  [[Shape.Field]]
+  Key = "mode.lang"
+  Type = "string"
+  Label = { es = "Idioma de modos", en = "Modes language" }
+  Help = { es = "Idioma de los textos de modos: «game» usa el del juego.", en = "Language of mode texts: «game» uses the game's." }
+  [[Shape.Field]]
+  Key = "mode.switch"
+  Type = "table"
+  Label = { es = "Cambio de modo", en = "Mode switch" }
+  Help = { es = "Ajustes del cambio entre modos de juego.", en = "Settings for switching game modes." }
+  [[Shape.Field]]
+  Key = "text"
+  Type = "table"
+  Label = { es = "Textos", en = "Texts" }
+  Help = { es = "Motor de textos.", en = "Text engine." }
+  [[Shape.Field]]
+  Key = "text.lang"
+  Type = "string"
+  Label = { es = "Idioma de textos", en = "Texts language" }
+  Help = { es = "Idioma por defecto cuando una llamada no indica ninguno: «game» usa el del juego.", en = "Default language when a call gives none: «game» uses the game's." }
+  [[Shape.Field]]
+  Key = "flag"
+  Type = "table"
+  Label = { es = "Datos de guardado", en = "Save data" }
+  Help = { es = "Datos de cada mod ligados a la ranura de guardado.", en = "Per-mod data tied to the save slot." }
+  [[Shape.Field]]
+  Key = "flag.commit"
+  Type = "string"
+  Label = { es = "Cuándo se escribe", en = "When written" }
+  Help = { es = "«on_save» escribe al guardar la ranura; «immediate» escribe cada cambio al momento.", en = "«on_save» writes when the slot is saved; «immediate» writes every change at once." }
+  [[Shape.Field]]
+  Key = "flag.immediate_mods"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Mods con escritura inmediata", en = "Immediate-write mods" }
+  Help = { es = "Mods cuyos datos se escriben siempre al momento.", en = "Mods whose data is always written at once." }
+  [[Shape.Field]]
+  Key = "flag.flush_ms"
+  Type = "int"
+  Label = { es = "Periodo de escritura (ms)", en = "Write period (ms)" }
+  Help = { es = "Cada cuánto trabaja el escritor de datos de guardado.", en = "How often the save data writer works." }
+  [[Shape.Field]]
+  Key = "flag.trash_keep"
+  Type = "int"
+  Label = { es = "Carpetas en la papelera", en = "Trash folders kept" }
+  Help = { es = "Carpetas que se conservan de ranuras borradas o reemplazadas.", en = "Folders kept from deleted or replaced slots." }
+  [[Shape.Field]]
+  Key = "flag.storage"
+  Type = "table"
+  Label = { es = "Ubicación de guardado", en = "Storage location" }
+  Help = { es = "Dónde se guardan los datos de los mods.", en = "Where mod data is stored." }
+  [[Shape.Field]]
+  Key = "flag.storage.location"
+  Type = "string"
+  Label = { es = "Ubicación", en = "Location" }
+  Help = { es = "«profile» usa la carpeta del perfil de usuario; «game» usa la carpeta del juego.", en = "«profile» uses the user profile folder; «game» uses the game folder." }
+  [[Shape.Field]]
+  Key = "flag.storage.path"
+  Type = "string"
+  Label = { es = "Carpeta propia", en = "Custom folder" }
+  Help = { es = "Carpeta absoluta que sustituye a la ubicación (vacío = ninguna).", en = "Absolute folder that overrides the location (empty = none)." }
+  [[Shape.Field]]
+  Key = "flag.slots"
+  Type = "table"
+  Label = { es = "Ranuras de guardado", en = "Save slots" }
+  Help = { es = "Más ranuras de guardado que el juego original.", en = "More save slots than retail." }
+  [[Shape.Field]]
+  Key = "flag.slots.enabled"
+  Type = "bool"
+  Label = { es = "Activar ranuras extra", en = "Enable extra slots" }
+  Help = { es = "Activa el servicio de ranuras de guardado adicionales.", en = "Turns the extra save slot service on." }
+  [[Shape.Field]]
+  Key = "flag.slots.count"
+  Type = "int"
+  Label = { es = "Número de ranuras", en = "Slot count" }
+  Help = { es = "Ranuras de jugador, incluida la bloqueada (1 a 99); se ven 3 por página.", en = "Player slots, the locked one included (1 to 99); 3 are shown per page." }
+  [[Shape.Field]]
+  Key = "flag.slots.lock"
+  Type = "bool"
+  Label = { es = "Bloquear la ranura original", en = "Lock the original slot" }
+  Help = { es = "La partida original solo se puede leer o duplicar, nunca jugar ni escribir.", en = "The vanilla save is read or duplicate only, never played or written." }
+  [[Shape.Field]]
+  Key = "flag.slots.locked_slot"
+  Type = "int"
+  Label = { es = "Ranura bloqueada", en = "Locked slot" }
+  Help = { es = "Número de la ranura bloqueada.", en = "Number of the locked slot." }
+  [[Shape.Field]]
+  Key = "flag.slots.reserved"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Ranuras reservadas", en = "Reserved slots" }
+  Help = { es = "Ranuras que quedan fuera de la numeración del jugador, además de las que reservan los mods.", en = "Slots kept out of player numbering besides the ones mods reserve." }
+  [[Shape.Field]]
+  Key = "flag.slots.backups_per_slot"
+  Type = "int"
+  Label = { es = "Copias por ranura", en = "Backups per slot" }
+  Help = { es = "Copias de seguridad que se guardan de cada ranura.", en = "Backup copies kept for each slot." }
+  [[Shape.Field]]
+  Key = "flag.slots.reset_guard"
+  Type = "bool"
+  Label = { es = "Protección contra reinicios", en = "Reset guard" }
+  Help = { es = "Rechaza una escritura del juego que parece un perfil nuevo sobre una ranura con progreso.", en = "Refuses a game write that looks like a fresh profile over a slot with progress." }
+  [[Shape.Field]]
+  Key = "flag.slots.snapshots_per_slot"
+  Type = "int"
+  Label = { es = "Instantáneas por ranura", en = "Snapshots per slot" }
+  Help = { es = "Instantáneas automáticas que se conservan de la ranura activa.", en = "Automatic snapshots kept for the active slot." }
+  [[Shape.Field]]
+  Key = "flag.slots.ask_on_boot"
+  Type = "bool"
+  Label = { es = "Preguntar al arrancar", en = "Ask on boot" }
+  Help = { es = "Abre la pantalla de ranuras una vez al iniciar el juego.", en = "Opens the slot screen once at boot." }
+  [[Shape.Field]]
+  Key = "param"
+  Type = "table"
+  Label = { es = "Parámetros del juego", en = "Game parameters" }
+  Help = { es = "Reglas globales del juego que declaran los mods.", en = "Global game rules declared by mods." }
+  [[Shape.Field]]
+  Key = "param.params"
+  Type = "bool"
+  Label = { es = "Activar parámetros", en = "Enable parameters" }
+  Help = { es = "Aplica las reglas globales que declaran los mods sobre las tablas del juego.", en = "Applies the global rules mods declare on the game's tables." }
+  [[Shape.Field]]
+  Key = "param.input"
+  Type = "bool"
+  Label = { es = "Activar controles", en = "Enable input" }
+  Help = { es = "Permite a los mods añadir comandos de entrada y reasignar botones.", en = "Lets mods add input commands and remap buttons." }
+  [[Shape.Field]]
+  Key = "sound"
+  Type = "table"
+  Label = { es = "Sonido", en = "Sound" }
+  Help = { es = "Motor de audio.", en = "Audio engine." }
+  [[Shape.Field]]
+  Key = "sound.armed_voice"
+  Type = "table"
+  Label = { es = "Grito de armadura", en = "Armour shout" }
+  Help = { es = "Grito propio de cada armadura.", en = "Own shout for each armour." }
+  [[Shape.Field]]
+  Key = "sound.armed_voice.enabled"
+  Type = "bool"
+  Label = { es = "Activar grito", en = "Enable shout" }
+  Help = { es = "Reproduce el grito de cada armadura antes del sonido original.", en = "Plays each armour's shout before the retail sound." }
+  [[Shape.Field]]
+  Key = "sound.output_guard"
+  Type = "table"
+  Label = { es = "Protección de salida de audio", en = "Audio output guard" }
+  Help = { es = "Corrección de la salida de audio.", en = "Audio output fix." }
+  [[Shape.Field]]
+  Key = "sound.output_guard.enabled"
+  Type = "bool"
+  Label = { es = "Activar protección (experimental)", en = "Enable guard (experimental)" }
+  Help = { es = "Pone a cero los fotogramas que la salida deja sin escribir para evitar que se repita el último sonido.", en = "Zeroes frames the output leaves unwritten so the last sound does not repeat." }
+  [[Shape.Field]]
+  Key = "sound.queue_sheet"
+  Type = "table"
+  Label = { es = "Hoja de cola de sonido", en = "Sound queue sheet" }
+  Help = { es = "Registro de bancos de sonido.", en = "Sound bank registration." }
+  [[Shape.Field]]
+  Key = "sound.queue_sheet.merge"
+  Type = "bool"
+  Label = { es = "Registrar bancos nuevos", en = "Register new banks" }
+  Help = { es = "Registra los bancos de sonido nuevos en la hoja de cola del juego.", en = "Registers new sound banks in the game's queue sheet." }
+  [[Shape.Field]]
+  Key = "sound.build"
+  Type = "table"
+  Label = { es = "Construcción de audio", en = "Audio build" }
+  Help = { es = "Construcción de los sonidos de los mods.", en = "Building of the mods' sounds." }
+  [[Shape.Field]]
+  Key = "sound.build.enabled"
+  Type = "bool"
+  Label = { es = "Construir audio al iniciar", en = "Build audio at start" }
+  Help = { es = "Construye las voces, efectos y música de los mods al arrancar.", en = "Builds the mods' voices, effects and music at start." }
+  [[Shape.Field]]
+  Key = "rule"
+  Type = "table"
+  Label = { es = "Reglas de partido", en = "Match rules" }
+  Help = { es = "Motor de reglas de partido.", en = "Match rule engine." }
+  [[Shape.Field]]
+  Key = "rule.match_rules"
+  Type = "bool"
+  Label = { es = "Activar reglas de partido", en = "Enable match rules" }
+  Help = { es = "Activa los conjuntos de reglas y la duración de las partes en Opciones.", en = "Turns on rulesets and the half length in Options." }
+  [[Shape.Field]]
+  Key = "rule.setup"
+  Type = "bool"
+  Label = { es = "Ajustes de reglas", en = "Rule setup" }
+  Help = { es = "Permite a las reglas cambiar periodos, partes y jugadores.", en = "Lets rulesets change periods, halves and players." }
+  [[Shape.Field]]
+  Key = "rule.test_ruleset"
+  Type = "string"
+  Label = { es = "Reglas de prueba", en = "Test ruleset" }
+  Help = { es = "Id de un conjunto de reglas aplicado a todo partido sin selección; vacío = ninguno (depuración).", en = "Ruleset id applied to every match without a selection; empty = none (debug)." }
+  [[Shape.Field]]
+  Key = "rule.challenges"
+  Type = "bool"
+  Label = { es = "Desafíos de partido", en = "Match challenges" }
+  Help = { es = "Activa los desafíos de partido (goles en X segundos, robos, mantener la pelota).", en = "Turns match challenges on (goals in X seconds, steals, keep the ball)." }
+  [[Shape.Field]]
+  Key = "telop"
+  Type = "table"
+  Label = { es = "Rótulos", en = "Banners" }
+  Help = { es = "Rótulos personalizados de supertécnicas.", en = "Custom special move banners." }
+  [[Shape.Field]]
+  Key = "telop.live_switch"
+  Type = "bool"
+  Label = { es = "Rótulos personalizados", en = "Custom banners" }
+  Help = { es = "Activa los rótulos personalizados de supertécnicas.", en = "Turns custom special move banners on." }
+  [[Shape.Field]]
+  Key = "telop.live_reload"
+  Type = "bool"
+  Label = { es = "Recarga de rótulos", en = "Banner reload" }
+  Help = { es = "Muestra los cambios en rótulos sin reiniciar (depuración).", en = "Shows banner changes without restarting (debug)." }
+  [[Shape.Field]]
+  Key = "telop.lang_values"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Valor por idioma", en = "Value per language" }
+  Help = { es = "Valor guardado para cada idioma de los rótulos; no cambiar el orden.", en = "Stored value of each banner language; never reorder." }
+  [[Shape.Field]]
+  Key = "theme"
+  Type = "table"
+  Label = { es = "Temas", en = "Themes" }
+  Help = { es = "Temas de interfaz.", en = "Interface themes." }
+  [[Shape.Field]]
+  Key = "theme.background_build"
+  Type = "bool"
+  Label = { es = "Construir temas en segundo plano", en = "Build themes in background" }
+  Help = { es = "Construye los temas de interfaz mientras se juega.", en = "Builds interface themes while playing." }
+  [[Shape.Field]]
+  Key = "theme.workers"
+  Type = "int"
+  Label = { es = "Hilos de temas", en = "Theme workers" }
+  Help = { es = "Atlas que se codifican a la vez (0 = la mitad de los núcleos).", en = "Atlases encoded at once (0 = half the cores)." }
+  [[Shape.Field]]
+  Key = "theme.start_delay"
+  Type = "int"
+  Label = { es = "Retraso de inicio (s)", en = "Start delay (s)" }
+  Help = { es = "Segundos tras arrancar antes de empezar la construcción en segundo plano.", en = "Seconds after start before the background build begins." }
+  [[Shape.Field]]
+  Key = "theme.early_build_max"
+  Type = "int"
+  Label = { es = "Máximo al arrancar", en = "Early build limit" }
+  Help = { es = "Archivos cambiados que se reconstruyen antes de los menús; el resto va a segundo plano.", en = "Changed files rebuilt before the menus; the rest go to the background." }
+  [[Shape.Field]]
+  Key = "image"
+  Type = "table"
+  Label = { es = "Imágenes", en = "Images" }
+  Help = { es = "Motor de imágenes.", en = "Image engine." }
+  [[Shape.Field]]
+  Key = "image.bc7"
+  Type = "string"
+  Label = { es = "Calidad de compresión", en = "Compression quality" }
+  Help = { es = "Velocidad del codificador de texturas BC7 (por ejemplo «fast»).", en = "BC7 texture encoder speed (for example «fast»)." }
+  [[Shape.Field]]
+  Key = "image.threads"
+  Type = "int"
+  Label = { es = "Hilos de imagen", en = "Image threads" }
+  Help = { es = "Hilos del codificador (0 = todos los núcleos).", en = "Encoder threads (0 = every core)." }
+  [[Shape.Field]]
+  Key = "effect"
+  Type = "table"
+  Label = { es = "Efectos", en = "Effects" }
+  Help = { es = "Motor de efectos.", en = "Effect engine." }
+  [[Shape.Field]]
+  Key = "effect.report"
+  Type = "bool"
+  Label = { es = "Informe de efectos", en = "Effect report" }
+  Help = { es = "Escribe en el registro un informe del motor de efectos (depuración).", en = "Writes an effect engine report to the log (debug)." }
+  [[Shape.Field]]
+  Key = "model"
+  Type = "table"
+  Label = { es = "Modelos", en = "Models" }
+  Help = { es = "Motor de modelos.", en = "Model engine." }
+  [[Shape.Field]]
+  Key = "model.report"
+  Type = "bool"
+  Label = { es = "Informe de modelos", en = "Model report" }
+  Help = { es = "Escribe en el registro un informe del motor de modelos (depuración).", en = "Writes a model engine report to the log (debug)." }
+  [[Shape.Field]]
+  Key = "option"
+  Type = "table"
+  Label = { es = "Opciones de mods", en = "Mod options" }
+  Help = { es = "Pantalla de opciones de los mods.", en = "Mod options screen." }
+  [[Shape.Field]]
+  Key = "option.tab"
+  Type = "table"
+  Label = { es = "Pestaña de opciones", en = "Options tab" }
+  Help = { es = "Pestaña de opciones de mods.", en = "Mod options tab." }
+  [[Shape.Field]]
+  Key = "option.tab.enabled"
+  Type = "bool"
+  Label = { es = "Mostrar la pestaña", en = "Show the tab" }
+  Help = { es = "Si se apaga, las filas de los mods solo se quitan de las pestañas originales y no se muestran.", en = "If off, mod rows are removed from retail tabs and shown nowhere." }
+  [[Shape.Field]]
+  Key = "mods_screen"
+  Type = "table"
+  Label = { es = "Pantalla de mods", en = "Mods screen" }
+  Help = { es = "Pantalla que lista los mods.", en = "Screen that lists the mods." }
+  [[Shape.Field]]
+  Key = "mods_screen.screen"
+  Type = "table"
+  Label = { es = "Pantalla", en = "Screen" }
+  Help = { es = "Pantalla de mods.", en = "Mods screen." }
+  [[Shape.Field]]
+  Key = "mods_screen.screen.enabled"
+  Type = "bool"
+  Label = { es = "Activar la pantalla", en = "Enable the screen" }
+  Help = { es = "Activa la pantalla de mods.", en = "Turns the mods screen on." }
+  [[Shape.Field]]
+  Key = "mods_screen.title_button"
+  Type = "table"
+  Label = { es = "Botón del título", en = "Title button" }
+  Help = { es = "Botón «Mods» del título.", en = "The title's «Mods» button." }
+  [[Shape.Field]]
+  Key = "mods_screen.title_button.enabled"
+  Type = "bool"
+  Label = { es = "Mostrar el botón", en = "Show the button" }
+  Help = { es = "Añade un botón «Mods» al final de la fila inferior del título.", en = "Adds a «Mods» button at the end of the title's lower row." }
+  [[Shape.Field]]
+  Key = "changelog"
+  Type = "table"
+  Label = { es = "Novedades de mods", en = "Mod news" }
+  Help = { es = "Resúmenes de novedades de los mods.", en = "Mod news summaries." }
+  [[Shape.Field]]
+  Key = "changelog.at_title"
+  Type = "bool"
+  Label = { es = "Mostrar en el título", en = "Show at title" }
+  Help = { es = "Al iniciar, muestra una vez los mods cuyo resumen es nuevo o ha cambiado.", en = "At start, shows once the mods whose summary is new or changed." }
+  [[Shape.Field]]
+  Key = "changelog.first_install"
+  Type = "string"
+  Label = { es = "Mod nunca visto", en = "Never-seen mod" }
+  Help = { es = "Qué se muestra de un mod nuevo: «latest» es el último resumen.", en = "What is shown for a new mod: «latest» is the latest summary." }
+  [[Shape.Field]]
+  Key = "changelog.max_pages"
+  Type = "int"
+  Label = { es = "Páginas máximas", en = "Maximum pages" }
+  Help = { es = "Máximo de páginas por mod (1 a 10).", en = "Most pages per mod (1 to 10)." }
+  [[Shape.Field]]
+  Key = "shop"
+  Type = "table"
+  Label = { es = "Tiendas", en = "Shops" }
+  Help = { es = "Ajustes de tiendas.", en = "Shop settings." }
+  [[Shape.Field]]
+  Key = "shop.aura_cards"
+  Type = "bool"
+  Label = { es = "Cartas de aura en tiendas", en = "Aura cards in shops" }
+  Help = { es = "Activa los subtipos de objeto de carta de aura que declaran los mods.", en = "Turns on the aura card item kinds mods declare." }
+  [[Shape.Field]]
+  Key = "shop.synergy_conditions"
+  Type = "bool"
+  Label = { es = "Condiciones de sinergia en tiendas", en = "Shop synergy conditions" }
+  Help = { es = "El panel de sinergia de una tienda se muestra como la tarjeta de condiciones, con todas las casillas vacías.", en = "A shop's synergy panel shows as the condition card with every box empty." }

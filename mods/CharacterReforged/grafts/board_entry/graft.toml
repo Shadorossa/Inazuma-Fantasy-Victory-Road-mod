@@ -1,0 +1,35 @@
+# «Tabla de habilidades» of the story field dock (team_dock_menu_rpg_battle) and of the scout screen
+# (rpg_select_scout_chara_menu) always opens Character Reforged's skill table evt_skill_slot_menu instead of the game's
+# ability board; the story dock's entry is always selectable.
+name = "board_entry"
+mod = "CharacterReforged"
+order = 200
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["ExecAbilityBoardMenu", "OpenAbilityLearningBoard"]
+description = "Story dock and scout screen: «Tabla de habilidades» opens the skill table"
+
+[[files]]
+stem = "team_dock_menu_rpg_battle"
+
+  [[files.ops]]
+  type = "replace"
+  point = "team_dock_menu_rpg_battle.OnEnter.BoardEntry"
+  text = '''
+    if true then -- EVT: Character Reforged skill table (always selectable)
+'''
+  crc = "none"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "board_rpg_1.lua"
+  marker = "board removal"
+
+[[files]]
+stem = "rpg_select_scout_chara_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "board_scout_1.lua"
+  marker = "board removal"

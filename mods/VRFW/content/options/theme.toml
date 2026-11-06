@@ -1,0 +1,16 @@
+schema = "VRFW.option/2"
+# Theme engine setting (Mods options tab); stored in mod_options/theme_engine.json. Only value 0 (off) is declared here; one value per theme accent is added at boot.
+
+[[option]]
+id = "ui_theme"                               # row key theme_engine.ui_theme
+visual = true                                 # only what this player sees / hears: not compared in online rooms
+type = "list"
+label = "ui_theme"                            # text key
+help = "ui_theme_help"
+values = [
+    { value = 0, name = "ui_theme_off", text = "Desactivado" },
+]
+default = 0
+# Child of custom_style.
+parent = "mod_options.custom_style"
+order = 124

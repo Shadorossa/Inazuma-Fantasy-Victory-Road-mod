@@ -1,0 +1,41 @@
+# Texts of Group Summons; new texts get the id
+# crc32("TeamKeshinSummons.<name>"): the mod's name and description on the «Mods» screen, in the game's language.
+# «Group Summons» is not translated. A language missing here falls back to English.
+schema = "VRFW.text_key/1"
+default_lang = "en"
+
+[en.new]
+mod_name = "Team Keshin Summons"
+mod_description = "Keshin summoned by several players together, as in IE GO Strikers 2013: Griffin by three players and Arthur by two, all in the summon scene. The nearest team-mates who carry the keshin (or one player of each component keshin) take part, and the group keshin replaces them. RB+B starts it, each participant pays his share of the move from his own PEG, and Griffin's Flamberge is kicked by all three. Other keshin are summoned as usual."
+
+[es.new]
+mod_name = "Invocación de espíritus guerreros en equipo"
+mod_description = "Espíritus guerreros invocados por varios jugadores a la vez, como en IE GO Strikers 2013: Grifo por tres jugadores y Arturo por dos, todos en la escena de invocación. Participan los compañeros más cercanos que llevan ese espíritu (o un jugador de cada espíritu que lo compone) y el espíritu de grupo los sustituye. Se invoca con RB+B, cada participante paga su parte de la supertécnica con su propio PEG y la Flamberge de Grifo la patean los tres. Los demás espíritus se invocan como siempre."
+
+[fr.new]
+mod_name = "Invocation de Keshin en équipe"
+mod_description = "Des keshin invoqués par plusieurs joueurs à la fois, comme dans IE GO Strikers 2013 : Griffon par trois joueurs et Arthur par deux, tous dans la scène d'invocation. Les coéquipiers les plus proches qui portent ce keshin (ou un joueur de chaque keshin qui le compose) y participent, et le keshin de groupe les remplace. RB+B le lance, chaque participant paie sa part de la technique avec son propre PG, et la Flamberge de Griffon est frappée par les trois. Les autres keshin s'invoquent comme d'habitude."
+
+[de.new]
+mod_name = "Team-Keshin-Beschwörung"
+mod_description = "Keshin, die mehrere Spieler gemeinsam beschwören, wie in IE GO Strikers 2013: Greif von drei Spielern und Artus von zwei, alle in der Beschwörungsszene. Beteiligt sind die nächsten Mitspieler, die diesen Keshin tragen (oder je ein Spieler jedes Keshin, aus dem er besteht), und der Gruppen-Keshin ersetzt sie. RB+B startet ihn, jeder Beteiligte zahlt seinen Anteil der Technik aus seinen eigenen KGP, und Greifs Flamberge wird von allen dreien getreten. Andere Keshin werden wie gewohnt beschworen."
+
+[it.new]
+mod_name = "Evocazione keshin di squadra"
+mod_description = "Keshin evocati da più giocatori insieme, come in IE GO Strikers 2013: Grifo da tre giocatori e Artù da due, tutti nella scena dell'evocazione. Partecipano i compagni più vicini che hanno quel Keshin (o un giocatore per ciascun Keshin che lo compone) e il Keshin di gruppo li sostituisce. RB+B lo avvia, ogni partecipante paga la sua parte della tecnica con i propri PSG e la Flamberge di Grifo viene calciata da tutti e tre. Gli altri Keshin si evocano come al solito."
+
+[pt.new]
+mod_name = "Invocação de Keshin em equipa"
+mod_description = "Keshin invocados por vários jogadores ao mesmo tempo, como em IE GO Strikers 2013: Grifo por três jogadores e Artur por dois, todos na cena da invocação. Participam os colegas mais próximos que têm esse Keshin (ou um jogador de cada Keshin que o compõe) e o Keshin de grupo substitui-os. RB+B inicia-o, cada participante paga a sua parte da técnica com o seu próprio PEG e a Flamberge de Grifo é chutada pelos três. Os outros Keshin invocam-se como de costume."
+
+[ja.new]
+mod_name = "チーム化身召喚"
+mod_description = "IE GO ストライカーズ 2013のように、複数の選手で化身を一緒に召喚します：グリフォンは3人、アーサーは2人で、全員が召喚シーンに登場します。その化身を持つ最も近い味方（または構成する化身をそれぞれ持つ選手）が参加し、合体化身がそれらと入れ替わります。RB+Bで発動し、参加者はそれぞれ自分のFSPで必殺技の分を支払い、グリフォンのフランベルジュは3人で蹴ります。ほかの化身はいつもどおり召喚します。"
+
+[zh_hans.new]
+mod_name = "团队化身召唤"
+mod_description = "像 IE GO 王者 2013 一样，由多名球员一起召唤化身：格里芬由三名球员召唤，亚瑟由两名，全员出现在召唤场景中。携带该化身的最近队友（或分别持有其组成化身的球员）参与，合体化身会取代他们。按RB+B发动，每名参与者用自己的FSP支付必杀技的一份，格里芬的火焰之剑由三人一起踢出。其他化身照常召唤。"
+
+[zh_hant.new]
+mod_name = "團隊化身召喚"
+mod_description = "像 IE GO 王者 2013 一樣，由多名球員一起召喚化身：葛利芬由三名球員召喚，亞瑟由兩名，全員出現在召喚場景中。攜帶該化身的最近隊友（或分別持有其組成化身的球員）參與，合體化身會取代他們。按RB+B發動，每名參與者用自己的FSP支付必殺技的一份，葛利芬的火焰之劍由三人一起踢出。其他化身照常召喚。"

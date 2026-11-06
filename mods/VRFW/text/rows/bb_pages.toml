@@ -1,0 +1,188 @@
+# Texts of the Battle Bay pages (menu_text rows, 9 languages): page label, framework categories and series seasons. A mod adding a series / category ships the rows its declaration names.
+
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# Page plate label: the abbreviated word "page".
+[[row]]
+id = "vrfw_bb_page"
+es = "Pág."
+en = "Pg."
+fr = "P."
+de = "S."
+it = "Pag."
+pt = "Pág."
+ja = "P."
+zh_hans = "页"
+zh_hant = "頁"
+
+# Category "main teams" (rule game).
+[[row]]
+id = "vrfw_bb_cat_main"
+es = "Equipos principales"
+en = "Main Teams"
+fr = "Équipes principales"
+de = "Hauptteams"
+it = "Squadre principali"
+pt = "Equipes principais"
+ja = "メインチーム"
+zh_hans = "主要球队"
+zh_hant = "主要球隊"
+
+# Category "secondary teams" (id secondary, alias chain; rule chain).
+[[row]]
+id = "vrfw_bb_cat_secondary"
+es = "Equipos secundarios"
+en = "Secondary Teams"
+fr = "Équipes secondaires"
+de = "Nebenteams"
+it = "Squadre secondarie"
+pt = "Equipes secundárias"
+ja = "サブチーム"
+zh_hans = "次要球队"
+zh_hant = "次要球隊"
+
+# Category "mod teams" (rule mod).
+[[row]]
+id = "vrfw_bb_cat_mods"
+es = "Equipos de mods"
+en = "Mod Teams"
+fr = "Équipes des mods"
+de = "Mod-Teams"
+it = "Squadre delle mod"
+pt = "Equipes de mods"
+ja = "MODチーム"
+zh_hans = "模组球队"
+zh_hant = "模組球隊"
+
+# Season carousel first entry (no filter).
+[[row]]
+id = "vrfw_bb_season_all"
+es = "Todas"
+en = "All"
+fr = "Toutes"
+de = "Alle"
+it = "Tutte"
+pt = "Todas"
+ja = "すべて"
+zh_hans = "全部"
+zh_hant = "全部"
+
+# Season of series type 1.
+[[row]]
+id = "vrfw_bb_season_01"
+es = "Inazuma Eleven"
+en = "Inazuma Eleven"
+fr = "Inazuma Eleven"
+de = "Inazuma Eleven"
+it = "Inazuma Eleven"
+pt = "Inazuma Eleven"
+ja = "イナズマイレブン"
+zh_hans = "闪电十一人"
+zh_hant = "閃電十一人"
+
+# Season of series type 2.
+[[row]]
+id = "vrfw_bb_season_02"
+es = "Inazuma Eleven 2"
+en = "Inazuma Eleven 2"
+fr = "Inazuma Eleven 2"
+de = "Inazuma Eleven 2"
+it = "Inazuma Eleven 2"
+pt = "Inazuma Eleven 2"
+ja = "イナズマイレブン2"
+zh_hans = "闪电十一人2"
+zh_hant = "閃電十一人2"
+
+# Season of series type 3.
+[[row]]
+id = "vrfw_bb_season_03"
+es = "Inazuma Eleven 3"
+en = "Inazuma Eleven 3"
+fr = "Inazuma Eleven 3"
+de = "Inazuma Eleven 3"
+it = "Inazuma Eleven 3"
+pt = "Inazuma Eleven 3"
+ja = "イナズマイレブン3"
+zh_hans = "闪电十一人3"
+zh_hant = "閃電十一人3"
+
+# Season of series type 4.
+[[row]]
+id = "vrfw_bb_season_04"
+es = "Inazuma Eleven GO"
+en = "Inazuma Eleven GO"
+fr = "Inazuma Eleven GO"
+de = "Inazuma Eleven GO"
+it = "Inazuma Eleven GO"
+pt = "Inazuma Eleven GO"
+ja = "イナズマイレブンGO"
+zh_hans = "闪电十一人GO"
+zh_hant = "閃電十一人GO"
+
+# Season of series type 5.
+[[row]]
+id = "vrfw_bb_season_05"
+es = "Chrono Stones"
+en = "Chrono Stones"
+fr = "Chrono Stones"
+de = "Chrono Stones"
+it = "Chrono Stones"
+pt = "Chrono Stones"
+ja = "クロノ・ストーン"
+zh_hans = "时空之石"
+zh_hant = "時空之石"
+
+# Season of series type 6.
+[[row]]
+id = "vrfw_bb_season_06"
+es = "Galaxy"
+en = "Galaxy"
+fr = "Galaxy"
+de = "Galaxy"
+it = "Galaxy"
+pt = "Galaxy"
+ja = "ギャラクシー"
+zh_hans = "银河"
+zh_hant = "銀河"
+
+# Season of series type 7.
+[[row]]
+id = "vrfw_bb_season_07"
+es = "Ares"
+en = "Ares"
+fr = "Arès"
+de = "Ares"
+it = "Ares"
+pt = "Ares"
+ja = "アレスの天秤"
+zh_hans = "阿瑞斯的天平"
+zh_hant = "阿瑞斯的天平"
+
+# Season of series type 8.
+[[row]]
+id = "vrfw_bb_season_08"
+es = "Orión"
+en = "Orion"
+fr = "Orion"
+de = "Orion"
+it = "Orione"
+pt = "Órion"
+ja = "オリオンの刻印"
+zh_hans = "猎户座的刻印"
+zh_hant = "獵戶座的刻印"
+
+# Season of series type 9.
+[[row]]
+id = "vrfw_bb_season_09"
+es = "Victory Road"
+en = "Victory Road"
+fr = "Victory Road"
+de = "Victory Road"
+it = "Victory Road"
+pt = "Victory Road"
+ja = "英雄たちのヴィクトリーロード"
+zh_hans = "英雄们的胜利之路"
+zh_hant = "英雄們的勝利之路"
+
+# Hints of locked teams are not rows here: the team build writes them per team from defaults/team.toml [bb_unlock.hint].

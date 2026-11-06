@@ -1,0 +1,177 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "stoppage_time"
+  Type = "table"
+  Label = { es = "Tiempo añadido", en = "Stoppage time" }
+  Help = { es = "Minutos que se añaden al final de cada parte según lo ocurrido.", en = "Minutes added at the end of each half according to what happened." }
+  [[Shape.Field]]
+  Key = "stoppage_time.halves"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Partes con tiempo añadido", en = "Halves with added time" }
+  Help = { es = "Partes que reciben tiempo añadido: 1 y 2 tiempos normales, 3 y 4 prórroga.", en = "Halves that get added time: 1 and 2 regular, 3 and 4 extra time." }
+  [[Shape.Field]]
+  Key = "stoppage_time.rounding"
+  Type = "string"
+  Label = { es = "Redondeo", en = "Rounding" }
+  Help = { es = "Cómo se pasan los segundos a minutos: nearest (al más cercano) o up (hacia arriba).", en = "How seconds become minutes: nearest or up." }
+  [[Shape.Field]]
+  Key = "stoppage_time.min_minutes"
+  Type = "int"
+  Label = { es = "Mínimo de minutos", en = "Minimum minutes" }
+  Help = { es = "Menos tiempo añadido que se da en una parte.", en = "Least added time given in a half." }
+  [[Shape.Field]]
+  Key = "stoppage_time.max_minutes"
+  Type = "int"
+  Label = { es = "Máximo de minutos", en = "Maximum minutes" }
+  Help = { es = "Más tiempo añadido que se da en una parte.", en = "Most added time given in a half." }
+  [[Shape.Field]]
+  Key = "stoppage_time.blocked_modes"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Modos sin tiempo añadido", en = "Modes without added time" }
+  Help = { es = "Modos de juego en los que no hay tiempo añadido (por ejemplo el modo historia).", en = "Game modes with no added time (for example story mode)." }
+  [[Shape.Field]]
+  Key = "stoppage_time.blocked_states"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Estados sin tiempo añadido", en = "States without added time" }
+  Help = { es = "Estados del juego (retos, entrenamientos) en los que no se añade tiempo.", en = "Game states (challenges, training) in which no time is added." }
+  [[Shape.Field]]
+  Key = "stoppage_time.skip_match_tags"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Partidos sin tiempo añadido", en = "Matches without added time" }
+  Help = { es = "Etiquetas de partido que no tienen tiempo añadido (por ejemplo pachanga).", en = "Match tags that get no added time (for example pachanga)." }
+  [[Shape.Field]]
+  Key = "stoppage_time.log"
+  Type = "bool"
+  Label = { es = "Registrar (depuración)", en = "Log (debug)" }
+  Help = { es = "Escribe en el registro los eventos y el tiempo añadido de cada parte (depuración).", en = "Writes each half's events and added time to the log (debug)." }
+  [[Shape.Field]]
+  Key = "stoppage_time.seconds"
+  Type = "table"
+  Label = { es = "Segundos por suceso", en = "Seconds per event" }
+  Help = { es = "Segundos de juego que añade cada tipo de suceso.", en = "Game seconds each kind of event adds." }
+  [[Shape.Field]]
+  Key = "stoppage_time.seconds.foul"
+  Type = "int"
+  Label = { es = "Falta", en = "Foul" }
+  Help = { es = "Segundos que añade una falta pitada.", en = "Seconds added by a whistled foul." }
+  [[Shape.Field]]
+  Key = "stoppage_time.seconds.technique"
+  Type = "int"
+  Label = { es = "Supertécnica", en = "Special move" }
+  Help = { es = "Segundos que añade la escena de una supertécnica.", en = "Seconds added by a special move cut-in." }
+  [[Shape.Field]]
+  Key = "stoppage_time.seconds.keeper_scene"
+  Type = "int"
+  Label = { es = "Escena del portero", en = "Keeper scene" }
+  Help = { es = "Segundos que añade un tiro que llega al portero.", en = "Seconds added by a shot that reaches the keeper." }
+  [[Shape.Field]]
+  Key = "stoppage_time.seconds.goal"
+  Type = "int"
+  Label = { es = "Gol", en = "Goal" }
+  Help = { es = "Segundos que añade un gol (celebración y saque).", en = "Seconds added by a goal (celebration and kick-off)." }
+  [[Shape.Field]]
+  Key = "stoppage_time.seconds.substitution"
+  Type = "int"
+  Label = { es = "Sustitución", en = "Substitution" }
+  Help = { es = "Segundos que añade cada jugador que entra.", en = "Seconds added by each player coming on." }
+  [[Shape.Field]]
+  Key = "stoppage_time.technique"
+  Type = "table"
+  Label = { es = "Supertécnicas que cuentan", en = "Counting special moves" }
+  Help = { es = "Qué supertécnicas cuentan para el tiempo añadido.", en = "Which special moves count for added time." }
+  [[Shape.Field]]
+  Key = "stoppage_time.technique.groups"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Grupos de supertécnicas", en = "Move groups" }
+  Help = { es = "Grupos de escenas que cuentan: shot, dribble, defense, keeper, scene, other.", en = "Cut-in groups that count: shot, dribble, defense, keeper, scene, other." }
+  [[Shape.Field]]
+  Key = "play_on"
+  Type = "table"
+  Label = { es = "Prolongación de la jugada", en = "Play-on" }
+  Help = { es = "Al acabar el tiempo añadido, la parte termina según la jugada.", en = "When added time ends, the half ends according to the play." }
+  [[Shape.Field]]
+  Key = "play_on.enabled"
+  Type = "bool"
+  Label = { es = "Activar prolongación", en = "Enable play-on" }
+  Help = { es = "Permite que la jugada termine tras acabar el tiempo; sin ello la parte acaba con el reloj.", en = "Lets the play finish after time is up; off, the half ends with the clock." }
+  [[Shape.Field]]
+  Key = "play_on.own_half_until"
+  Type = "float"
+  Label = { es = "Campo propio hasta", en = "Own half until" }
+  Help = { es = "Por debajo de este punto del campo (0 a 1) el pitido es inmediato.", en = "Below this place of the pitch (0 to 1) the whistle blows at once." }
+  [[Shape.Field]]
+  Key = "play_on.near_goal_from"
+  Type = "float"
+  Label = { es = "Cerca de la portería desde", en = "Near the goal from" }
+  Help = { es = "Desde este punto la jugada sigue hasta que el tiro se resuelva o se pierda el balón.", en = "From this place the play goes on until the shot resolves or the ball is lost." }
+  [[Shape.Field]]
+  Key = "play_on.back_pass_margin"
+  Type = "float"
+  Label = { es = "Margen del pase atrás", en = "Back pass margin" }
+  Help = { es = "En el centro del campo, un pase recibido más atrás que este margen acaba la jugada.", en = "In midfield, a pass received further back than this margin ends the play." }
+  [[Shape.Field]]
+  Key = "play_on.max_overrun_seconds"
+  Type = "int"
+  Label = { es = "Límite cerca de la portería", en = "Limit near the goal" }
+  Help = { es = "Segundos del reloj que la jugada puede pasar del tiempo anunciado.", en = "Clock seconds the play may run past the announced time." }
+  [[Shape.Field]]
+  Key = "play_on.midfield_max_overrun_seconds"
+  Type = "int"
+  Label = { es = "Límite en el centro del campo", en = "Limit in midfield" }
+  Help = { es = "Lo mismo para una jugada en el centro del campo.", en = "The same for a play in midfield." }
+  [[Shape.Field]]
+  Key = "play_on.wait_step_seconds"
+  Type = "int"
+  Label = { es = "Paso de espera", en = "Wait step" }
+  Help = { es = "Segundos del reloj que se abre la parte cada vez mientras hay un tiro o una escena en curso.", en = "Clock seconds the half stays open each time while a shot or a cut-in runs." }
+  [[Shape.Field]]
+  Key = "play_on.wait_max_seconds"
+  Type = "int"
+  Label = { es = "Espera máxima", en = "Longest wait" }
+  Help = { es = "Lo máximo que se espera a un tiro o una escena en curso.", en = "The longest wait for a running shot or cut-in." }
+  [[Shape.Field]]
+  Key = "play_on.shot_settle_seconds"
+  Type = "int"
+  Label = { es = "Tras un tiro con balón suelto", en = "After a shot with a loose ball" }
+  Help = { es = "Segundos del reloj hasta el pitido si el tiro deja el balón suelto.", en = "Clock seconds until the whistle when a shot leaves the ball loose." }
+  [[Shape.Field]]
+  Key = "play_on.end_states"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Estados que terminan la jugada", en = "Play-ending states" }
+  Help = { es = "Estados del juego (por ejemplo gol o falta) que acaban la prolongación.", en = "Game states (such as goal or foul) that end the play-on." }
+  [[Shape.Field]]
+  Key = "telop"
+  Type = "table"
+  Label = { es = "Rótulo «+N»", en = "«+N» banner" }
+  Help = { es = "Minutos añadidos bajo el reloj, desde el fin del tiempo normal hasta el fin de la parte.", en = "Added minutes under the clock, from the end of regular time to the end of the half." }
+  [[Shape.Field]]
+  Key = "telop.enabled"
+  Type = "bool"
+  Label = { es = "Mostrar rótulo", en = "Show banner" }
+  Help = { es = "Muestra el rótulo de tiempo añadido.", en = "Shows the added time banner." }
+  [[Shape.Field]]
+  Key = "telop.center_x"
+  Type = "int"
+  Label = { es = "Centro horizontal", en = "Horizontal centre" }
+  Help = { es = "Centro del «+N» en píxeles de 1080p; 960 = el centro del reloj.", en = "Centre of the «+N» in 1080p pixels; 960 = the clock's centre." }
+  [[Shape.Field]]
+  Key = "telop.middle_y"
+  Type = "int"
+  Label = { es = "Altura en pantalla", en = "Height on screen" }
+  Help = { es = "Mitad vertical del «+N» en píxeles de 1080p desde arriba; 148 = pegado bajo el reloj.", en = "Vertical middle of the «+N» in 1080p pixels from the top; 148 = right under the clock." }
+  [[Shape.Field]]
+  Key = "telop.text_height"
+  Type = "int"
+  Label = { es = "Tamaño del texto", en = "Text size" }
+  Help = { es = "Altura del «+N»; 28 = la de la etiqueta de la parte.", en = "Height of the «+N»; 28 = the half label's." }

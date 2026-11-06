@@ -1,0 +1,39 @@
+schema = "VRFW.technique/3"
+# Túnel matrix (Matrix Tunnel): the download's move who90410, a clone of who00410 with its numbers; its event ev61_90410 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "matrix_tunnel"
+key = "who90410"
+base = "who00410"
+event = "ev61_90410"
+power_min = 70
+power_max = 440
+tp = 70
+  [technique.text.es]
+  name = "Túnel matrix"
+  description = "Un viaje en la matrix."
+  [technique.text.en]
+  name = "Matrix Tunnel"
+  description = "A trip through the matrix."
+  [technique.text.fr]
+  name = "Tunnel Matrix"
+  description = "Un voyage dans la matrice."
+  [technique.text.de]
+  name = "Matrix-Tunnel"
+  description = "Eine Reise durch die Matrix."
+  [technique.text.it]
+  name = "Tunnel Matrix"
+  description = "Un viaggio nella matrice."
+  [technique.text.pt]
+  name = "Túnel Matrix"
+  description = "Uma viagem pela matrix."
+  [technique.text.ja]
+  name = "マトリックストンネル"
+  description = "マトリックスの中を駆け抜ける！"
+  [technique.text.zh_hans]
+  name = "矩阵隧道"
+  description = "一次矩阵中的旅程。"
+  [technique.text.zh_hant]
+  name = "矩陣隧道"
+  description = "一次矩陣中的旅程。"

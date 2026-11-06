@@ -1,0 +1,38 @@
+schema = "VRFW.technique/3"
+# Caída tramposa (Trick Fall): the download's move whd92002, a clone of whd00710 with its numbers; its event ev62_92002 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "trick_fall"
+key = "whd92002"
+base = "whd00710"
+event = "ev62_92002"
+element = "fire"
+color = 2
+  [technique.text.es]
+  name = "Caída tramposa"
+  description = "Abre una trampa bajo el rival\ny le roba el balón en la caída."
+  [technique.text.en]
+  name = "Trick Fall"
+  description = "Opens a trap under the rival\nand steals the ball as he falls."
+  [technique.text.fr]
+  name = "Chute piégée"
+  description = "Ouvre un piège sous l'adversaire\net lui vole le ballon dans sa chute."
+  [technique.text.de]
+  name = "Fallenstrick"
+  description = "Öffnet eine Falle unter dem Gegner\nund nimmt ihm im Fall den Ball ab."
+  [technique.text.it]
+  name = "Caduta trappola"
+  description = "Apre una trappola sotto l'avversario\ne gli ruba la palla mentre cade."
+  [technique.text.pt]
+  name = "Queda armadilha"
+  description = "Abre uma armadilha sob o adversário\ne rouba a bola na queda."
+  [technique.text.ja]
+  name = "トリックフォール"
+  description = "相手の足元に罠を開き\n落ちる隙にボールを奪う！"
+  [technique.text.zh_hans]
+  name = "陷阱坠落"
+  description = "在对手脚下打开陷阱，\n趁其坠落夺走足球。"
+  [technique.text.zh_hant]
+  name = "陷阱墜落"
+  description = "在對手腳下打開陷阱，\n趁其墜落奪走足球。"

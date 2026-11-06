@@ -1,0 +1,11 @@
+# Declaration schema of BetterQoL.team_planner/1 (content\team_planner): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "BetterQoL.team_planner/1"
+folder = "content/team_planner"
+label = "Team planner"
+label_es = "Planificador de equipos"
+
+[entry.File]
+file_root = true
+owned_rarities = { type = "string" }
+display_rarity = { type = "int" }

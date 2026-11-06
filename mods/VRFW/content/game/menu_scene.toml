@@ -1,0 +1,275 @@
+schema = "VRFW.game/2"
+
+# (key, map crc | 0, members, uniform) -> accepted, why; no key = current scene and pending travel.
+# Applied at the next game reset; the current scene and its redirects remain valid until then.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_TRAVEL"
+handler = "MenuScene.Travel"
+
+# Menu scenes (scripts/menu_scene.lua, docs/framework/menu-scene.md): a field map kept loaded under the main menu.
+# Nothing is installed unless a mod declares a menu scene: the detour is `apply = "script"`.
+
+# bool MoveMainState::Update(state, machine): one frame of the field state of the rpg scene. While a scene's map loads
+# (state key armed = 1) the script hands the field over to the title state (25) once the map is up.
+[[VRFW.Hook]]
+name = "MenuScene.MoveMainUpdate"
+game = "Scene.RpgMoveMainUpdate"
+kind = "function"
+apply = "script"
+pre_when = { state = "VRFW.menu_scene.armed", equals = 1 }
+
+# 1 while a menu scene's map is loading (set by the script): the detour calls the script only then.
+[[VRFW.State]]
+key = "VRFW.menu_scene.armed"
+
+# The reservation manager: the map jump reservation (its status and the map it names).
+[[VRFW.Global]]
+name = "menu_scene_reserve_manager"
+game = "Chronicle.ReserveManager"
+
+# Player data block (holds the play-mode byte).
+[[VRFW.Global]]
+name = "menu_scene_play_data"
+base = "game_root"
+chain = ["ROOT_PLAY_DATA"]
+
+# RPG root (holds the no-press-start flag).
+[[VRFW.Global]]
+name = "menu_scene_rpg"
+game = "Route.Rpg"
+
+# void Camera::UpdateView(cam): every camera before its view is taken. While a scene's shots run (state key camera = 1)
+# the script writes the camera named in VRFW.MenuScene.Cameras (its name crc at +0x70): position, look-at, FOV.
+[[VRFW.Hook]]
+name = "MenuScene.CameraView"
+game = "Camera.UpdateView"
+kind = "function"
+apply = "script"
+arguments = ["ptr"]
+pre_when = [
+  { state = "VRFW.menu_scene.camera", equals = 1 },
+  { value = "[args[1] + 0x70]:u32", in_table = "VRFW.MenuScene.Cameras" },
+]
+
+# 1 while a menu scene's shots drive a camera (set by the script).
+[[VRFW.State]]
+key = "VRFW.menu_scene.camera"
+
+# Camera object: position +0x30, look-at +0x2B0, vertical FOV (radians) +0x2E4, projection dirty +0x30C, world / view
+# versions +0x304 / +0x308, the parent's version pointer +0x90 (crates/vr-fx camera_drive field_rt.rs). Written by the
+# engine's last view update (Camera::UpdateView, 0x4C5C70): the eye in world space +0x290, the eye plus the world
+# matrix's z axis times the eye-to-look-at distance +0x2A0, the world matrix's y axis (up) +0x2C0.
+[[VRFW.Struct]]
+name = "MenuScene.Camera"
+size = 0x330
+fields = { pos_x = { at = 0x30, type = "f32" }, pos_y = { at = 0x34, type = "f32" }, pos_z = { at = 0x38, type = "f32" }, target_x = { at = 0x2B0, type = "f32" }, target_y = { at = 0x2B4, type = "f32" }, target_z = { at = 0x2B8, type = "f32" }, fov = { at = 0x2E4, type = "f32" }, proj_dirty = { at = 0x30C, type = "u8" }, clip_near = { at = 0x2EC, type = "f32" }, clip_far = { at = 0x2F0, type = "f32" }, view_eye_x = { at = 0x290, type = "f32" }, view_eye_y = { at = 0x294, type = "f32" }, view_eye_z = { at = 0x298, type = "f32" }, view_axis_x = { at = 0x2A0, type = "f32" }, view_axis_y = { at = 0x2A4, type = "f32" }, view_axis_z = { at = 0x2A8, type = "f32" }, view_up_x = { at = 0x2C0, type = "f32" }, view_up_y = { at = 0x2C4, type = "f32" }, view_up_z = { at = 0x2C8, type = "f32" }, world_ver = { at = 0x304, type = "u32" }, view_ver = { at = 0x308, type = "u32" }, parent_ver = { at = 0x90, type = "ptr" } }
+
+# The Kizuna town data block of the game root: the save's avatar (a character handle) at +0x15610.
+[[VRFW.Global]]
+name = "menu_scene_kizuna"
+base = "game_root"
+chain = ["Game.RootKizunaTown"]
+
+[[VRFW.Struct]]
+name = "MenuScene.Kizuna"
+size = 0x15618
+fields = { avatar = { at = 0x15610, type = "u32" } }
+
+# Game reset (queues the end of the rpg scene and the title): the fail-safe when a scene's map never comes up.
+[[VRFW.Function]]
+name = "MenuScene.GameReset"
+game = "Game.Reset"
+
+# Map jump reservation: status (0 idle, 1 pending, 3 done) and the map id of the last request (CMND_RESERVE_MAP_JUMP's first argument).
+[[VRFW.Struct]]
+name = "MenuScene.ReserveManager"
+size = 0x24
+fields = { map_jump_status = { at = 0x10, type = "u32" }, map_jump_map = { at = 0x20, type = "u32" } }
+
+# MoveMainState: 1 once its first frame set the field up.
+[[VRFW.Struct]]
+name = "MenuScene.MoveMainState"
+size = 0x10
+fields = { entered = { at = 0x9, type = "u8" } }
+
+# The rpg state machine an Update gets: the next state an Update returning true goes to.
+[[VRFW.Struct]]
+name = "MenuScene.RpgMachine"
+size = 0x16
+fields = { next_state = { at = 0x15, type = "u8" } }
+
+# The play-mode byte of the player data block (written only by the rpg InitState in the game).
+[[VRFW.Struct]]
+name = "MenuScene.PlayData"
+size = 0x2CAC70
+fields = { play_mode = { at = 0x2CAC6F, type = "u8" } }
+
+# ---- commands (game Lua: lua/menu/<stem>/150_menu_scene.lua)
+
+# (menu name) -> the scene key for that menu, "" when none (or the scene failed this session).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_FOR"
+handler = "MenuScene.For"
+
+# (key) -> { key, map, map_id, field_mode, x, y, z, rot, hide_layers = { ids }, close_menus = { ids }, timeout_ms }, "" when unknown.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE"
+handler = "MenuScene.Get"
+
+# (key, members, uniform, avatar) -> placed, text: the map's npc_setting served with the people (members =
+# "role:chara_base:motion set,…"; roles are player, manager or coach; "" = nobody) and the map opens redirected to it until reset.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_PEOPLE"
+handler = "MenuScene.People"
+
+# (key, guests) -> placed, text: the scene's people served again with these guests ("guest:chara_base:motion
+# set:kit:keeper 0|1,…", on the who = "guest" spots, each in its own kit); the caller asks CMND_RELOAD_NPC after.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_GUESTS"
+handler = "MenuScene.Guests"
+
+# (key, tile id) -> the shot now running (name): the tile's own shot, else the scene's default. A menu calls it when a
+# tile that may have a shot gets the focus.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_SHOT"
+handler = "MenuScene.Shot"
+
+# (step, info) -> 1: the field's NPC update of a scene's map ("asked" / "ready"), reported by the field HUD's menu
+# (lua/menu/rpg_info_window/151_menu_scene_npcs.lua); the hand-over waits for "ready".
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_NPCS"
+handler = "MenuScene.Npcs"
+
+# (key[, on]) -> 1 on the scene's home entry (home_shot), else 0: on = 1 the camera goes to the home shot and stays there
+# for tile focus reports, on = 0 leaves it; without `on` only the answer.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_HOME"
+handler = "MenuScene.Home"
+
+# (key, step) -> the shot now running: -1 the previous / +1 the next shot of the scene's list (a menu's shot keys).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_SHOT_STEP"
+handler = "MenuScene.ShotStep"
+
+# (key[, shot]) -> "" or { shot, settled, n, [i] = { name, actions, text, push_shot, ms, flood_ms, door, door_id,
+# door_ms, door_reverse, leave_white, start, x, y, w, h, seen, outline, hidden } }: the hotspots of the shot now running (or of `shot`), projected with this frame's camera (menu px,
+# 1920 x 1080, y down).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_HOTSPOTS"
+handler = "MenuScene.Hotspots"
+
+# (key) -> "" or { n, [i] = { name, on, fade_ms, seen, x0, y0, x1, y1, layers, design } }: the scene's screens
+# ([[VRFW.MenuSceneScreen]]) with this frame's camera (docs/framework/menu-scene.md §2.2.4).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_SCREENS"
+handler = "MenuScene.Screens"
+
+# (key) -> "" | { shot, on = { tag ids }, off = { tag ids } }: the map tags of the shot the camera is on
+# (docs/framework/menu-scene.md §2.2.4).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_SHOT_TAGS"
+handler = "MenuScene.ShotTags"
+
+# () -> chara_base, card, handle of the save's avatar, 0 when unknown.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_AVATAR"
+handler = "MenuScene.Avatar"
+
+# () -> state, key, ms in this state, ms since the request, 1 when the scene failed this session.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_STATE"
+handler = "MenuScene.State"
+
+# (state, arg) -> 1 | 0, state. The steps the game Lua reports: requested (arg = key), options, entering, loading, up,
+# leaving, failed (arg = why).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_SET"
+handler = "MenuScene.Set"
+
+# (action) -> 1: an action that ends in a menu opened after the leave's reset waits for it (chronicle_map); "" = none.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_PENDING"
+handler = "MenuScene.Pending"
+
+# (action) -> 1 when that action was pending (answered once; dropped after 30 s), else 0. The menu it ends in asks at
+# its start (lua/menu/chronicle_mode_top_menu/150_menu_scene.lua).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_TAKE"
+handler = "MenuScene.Take"
+
+# (menu) -> "title" | "": the menu an action ended in (chronicle_map: chronicle_mode_top_menu), opening again, sends its
+# Back there at once when the action's declaration says `return = "title"` (answered once; dropped when a scene comes up).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_RETURN"
+handler = "MenuScene.Return"
+
+# (camera name, on) -> 1 | 0: another engine camera (e.g. "MenuCamera") takes the running shot's pose too while on.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_FOLLOW_CAMERA"
+handler = "MenuScene.FollowCamera"
+
+# (camera name, x, y, z[, near]) -> x, y, z, turn, screen x, screen y, metres per screen height, distance | "": a point
+# framed by a following camera's own pose (a menu's 3D model), moved to where the running shot shows it at the same
+# screen place and size; turn = degrees about the world's up; screen place in px of the 1920 x 1080 menu (y down).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_REFRAME"
+handler = "MenuScene.Reframe"
+
+# (key, shot, eye x, y, z, target x, y, z[, fov]) -> 1 | 0: a shot's pose set at run time (the camera eases there
+# when that shot is on).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_SHOT_POSE"
+handler = "MenuScene.ShotPose"
+
+# () -> "read" | "busy" | "none" | "failed": people served while the map is up read into the map's NPC set
+# (VRFW.map_npcs.reload); after "read" ask CMND_RELOAD_NPC.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_NPC_READ"
+handler = "MenuScene.NpcRead"
+
+# (why) -> text: a probe of the NPC manager's live entries, logged (VRFW.map_npcs.entries).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_NPC_ENTRIES"
+handler = "MenuScene.NpcEntries"
+
+# (key) -> "" | { sig, n, [i] = { base, set, kit, keeper, x, y, z, rot, clip } }: a scene's guests as scene actors
+# (scene key guests = "actors"; lua/menu/title_menu_2/152_menu_scene_actors.lua creates them).
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_ACTORS"
+handler = "MenuScene.Actors"
+
+# (key, text | nil) -> text: the scene's live actors «handle=id|…», kept by the framework for a title that opens again
+# (a menu that replaced it): the new title adopts them instead of making them twice.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_COME_BACK"
+handler = "MenuScene.ComeBack"
+
+# (key, text | nil) -> text (see above)
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_SCENE_ACTOR_HANDLES"
+handler = "MenuScene.ActorHandles"
+
+# (handle, motion set) -> true | false, why: the set's NPC pack loaded onto a scene character (VRFW.map_npcs).
+[[VRFW.Command]]
+name = "CMND_VRFW_SCN_CHARA_FACE_HOLD"
+handler = "MenuScene.CharaFaceHold"
+
+# (handle, on, r, g, b, a, pixel) -> text | nil, why (see above)
+[[VRFW.Command]]
+name = "CMND_VRFW_SCN_CHARA_EDGE"
+handler = "MenuScene.CharaEdge"
+
+# (handle, motion set) -> true | false, why (see above)
+[[VRFW.Command]]
+name = "CMND_VRFW_SCN_CHARA_MOTION_PACK"
+handler = "MenuScene.CharaMotionPack"
+
+# (handle, why) -> text | false, why: a read-only probe of a scene character's face (VRFW.map_npcs.face_probe).
+[[VRFW.Command]]
+name = "CMND_VRFW_SCN_CHARA_FACE_PROBE"
+handler = "MenuScene.CharaFaceProbe"
+
+# (handle) -> lip motion | false, why: the facial component's default face again (VRFW.map_npcs.facial_default).
+[[VRFW.Command]]
+name = "CMND_VRFW_SCN_CHARA_FACIAL_DEFAULT"
+handler = "MenuScene.CharaFacialDefault"

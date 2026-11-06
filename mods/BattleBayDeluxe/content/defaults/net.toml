@@ -1,0 +1,23 @@
+# Battle Bay Deluxe's private online room mode (VR-Framework net service): a 1 vs 1 Battle Bay match between two
+# players with the same gameplay mod set. Each PC plays the match as a LOCAL offline match (the host's team against
+# the guest's, scripts/net_match.lua); the framework's input lockstep carries the two players' inputs on its own Steam
+# channel. The game's online stack (EOS rooms, GameNet) is never used. The room screen is the game's own private-room
+# screen as a UI shell (graft research/grafts/bb_net_room).
+#   key          the room mode (CMND_VRFW_NET_CREATE("bbd_1v1"))
+#   players      2 (1 vs 1)
+#   lockstep     true: the match runs in input lockstep
+#   input_delay  frames between a player's input and the frame it drives (1-15; more = smoother on a slow link)
+#   hash_every   the two PCs compare their match state every this many frames (60 frames = 1 second)
+#   timeout_ms   a PC that gets no input from the other for this long gives the lockstep up (the match goes on locally)
+#   mismatch     "block": a guest whose mods must match and do not is refused (the lockstep needs the same game on
+#                both PCs); the framework's compatibility screen lists the differences (docs/framework/online.md)
+# Draft and Torneo are not played online.
+
+[[VRFW.NetMode]]
+key = "bbd_1v1"
+players = 2
+lockstep = true
+input_delay = 3
+hash_every = 30
+timeout_ms = 10000
+mismatch = "block"

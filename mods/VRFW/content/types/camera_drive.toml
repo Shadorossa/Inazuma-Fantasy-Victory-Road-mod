@@ -1,0 +1,28 @@
+# Declaration schema of VRFW.camera_drive/1 (content\camera_drives\**\*.toml; docs/framework/camera-drive.md): [[VRFW.CameraDrive]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.camera_drive/1"
+folder = "content/camera_drives"
+label = "Shot camera"
+label_es = "Cámara de tiros"
+doc = "Switches the match camera to a chosen preset while a shot is played."
+doc_es = "Cambia la cámara del partido a un preajuste elegido mientras se ejecuta un tiro."
+
+[entry.CameraDrive]
+name = { type = "name", required = true, doc = "key <mod>.shot_view (a-z 0-9 _)" }
+window = { type = "string", doc = "the match window (the only one of /1, §2)" }
+shots = { type = "string", default = "all", doc = "all | long | special_long" }
+preset = { type = "string", doc = "a match camera preset (camera.md §1): this mod's name, or a full key \"<mod>.<name>\"" }
+chain_preset = { type = "string", doc = "optional: the view while a shot can be chained (schema /3, frame_goal = true)" }
+priority = { type = "int", default = 0, doc = "of the match camera request (camera.md §2)" }
+rebuild = { type = "bool", default = true, doc = "rebuild the camera at the switch; false = rows / option bytes only" }
+turn_in_s = { type = "number", default = 0.6, doc = "swing into the view at the kick (0 = cut)" }
+turn_out_s = { type = "number", default = 0.8, doc = "swing back to the player's camera after the window (0 = cut)" }
+cut_in_window_s = { type = "number", default = 2.0, doc = "a shot this soon after a cut-in ended gets the view at once" }
+shooter_groups = { type = "strings", doc = "match event groups of the shooter's cut-ins (defaults\\match_events.toml)" }
+side = { type = "string", default = "all", doc = "whose shots: all | own (the user's team) | rival" }
+mode = { type = "string", doc = "the mode context (a word = this mod's)" }
+camera = { type = "string", doc = "the engine camera driven: its name (crc32 = the camera node's +0x70)" }
+rails = { type = "string", doc = "<mod>\\<rails>\\*.json, else <loader data dir>\\<rails>\\" }
+default_follow = { type = "table", doc = "a map without a file (none: the engine's camera there)" }
+command_aliases = { type = "table" }
+log = { type = "bool", doc = "the first camera writes" }

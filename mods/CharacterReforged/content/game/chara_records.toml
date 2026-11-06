@@ -1,0 +1,11 @@
+schema = "VRFW.game/2"
+
+# Character Reforged › a character handle's engine objects for the per-character stats (scripts\lib\chara_view.lua):
+# the status object, its record and the effective level (the same declarations as Inazuma Fantasy's own copy, which
+# its board / training keep).
+
+# [[g_gameRoot]+ Game.RootCharaContainers]: the character containers (container of kind k = [this + 8 + k * 8])
+[[VRFW.Global]]
+name = "character_reforged_chara_containers"
+base = "game_root"
+chain = ["Game.RootCharaContainers"]

@@ -1,0 +1,67 @@
+schema = "VRFW.changelog/1"
+# No More Rarities: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Todos los jugadores son Leyenda",
+    "Sin rarezas ni fusión de cartas",
+    "Cartas con el color de la posición",
+]
+
+[release.en]
+notes = [
+    "Every player is a Legend",
+    "No rarities or card fusion",
+    "Cards in the position color",
+]
+
+[release.fr]
+notes = [
+    "Tous les joueurs sont Légende",
+    "Sans raretés ni fusion de cartes",
+    "Cartes aux couleurs du poste",
+]
+
+[release.de]
+notes = [
+    "Alle Spieler sind Legende",
+    "Keine Seltenheit, keine Fusion",
+    "Karten in der Positionsfarbe",
+]
+
+[release.it]
+notes = [
+    "Tutti i giocatori sono Leggenda",
+    "Senza rarità né fusione",
+    "Carte con il colore del ruolo",
+]
+
+[release.pt]
+notes = [
+    "Todos os jogadores são Lenda",
+    "Sem raridades nem fusão",
+    "Cartas com a cor da posição",
+]
+
+[release.ja]
+notes = [
+    "全選手がレジェンドに",
+    "レアリティと合成を廃止",
+    "ポジション色のカード",
+]
+
+[release.zh_hans]
+notes = [
+    "所有球员均为传奇",
+    "取消稀有度与合成",
+    "卡片使用位置颜色",
+]
+
+[release.zh_hant]
+notes = [
+    "所有球員均為傳奇",
+    "取消稀有度與合成",
+    "卡片使用位置顏色",
+]

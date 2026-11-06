@@ -1,0 +1,17 @@
+# Declares `[[VRFW.CoachLook]]` keys for content\coach_looks\*.toml; unknown keys, wrong types or out-of-range values drop that declaration with a warning.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.coach_look/1"
+folder = "content/coach_looks"
+label = "Coach looks"
+label_es = "Aspecto de entrenadores"
+doc = "While the rule holds, a coach who plays or stands as a member of the team keeps his coach clothes."
+doc_es = "Mientras se cumple la regla, un entrenador que juega o está como miembro del equipo mantiene su ropa de entrenador."
+
+[entry.CoachLook]
+doc = "while the rule holds, a coach / manager dressed by the player-kit path (a match where he plays or stands as a member) keeps his coach clothes"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+states = { type = "strings", doc = "game_state keys: the rule holds while one of them is 1 (e.g. match.challenge.active)" }
+ui_flags = { type = "strings", doc = "UI flags (the game Lua's flags, by name): the rule holds while one of them has a value of `ui_values`" }
+ui_values = { type = "ints", min = -2147483648, max = 2147483647, doc = "the values of `ui_flags` that hold (default: any value but 0)" }
+always = { type = "bool", default = false, doc = "the rule always holds (every match)" }
+when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

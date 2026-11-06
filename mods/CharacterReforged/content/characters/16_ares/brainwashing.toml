@@ -1,0 +1,206 @@
+schema = "VRFW.character/2"
+# Character Reforged · Brainwashing · Inazuma Eleven: Ares
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c07060040"                                   # Philip Marvel
+moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x34256515, level = 20 },                        # Dynamite Shot
+  { move = 0x23C3EE90, level = 26 },                        # Shoulder Tackle
+  { move = 0x7BA5586C, level = 58 },                        # Mad Express
+]
+
+  [[edit.cards]]
+  id = 0xA1B2FBFD                                         # DF/MF · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 173, control = 200, technique = 190, pressure = 181, physical = 286, intelligence = 224, agility = 205, freedom = 313 }
+
+[[edit]]
+target = "c07060050"                                   # Noel Good
+moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x75994916, level = 24 },                        # Cunning Pull
+  { move = 0x0710C61E, level = 29 },                        # Perimeter Zone
+  { move = 0x00196EC2, level = 34 },                        # Earthquake
+]
+
+  [[edit.cards]]
+  id = 0xB8A9CABC                                         # DF/MF · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 150, control = 184, technique = 165, pressure = 262, physical = 269, intelligence = 259, agility = 192, freedom = 284 }
+
+[[edit]]
+target = "c07060070"                                   # Francis Tell
+moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
+  { move = 0x2D68DB57, level = 25 },                        # Deceptive Step
+  { move = 0x8C990270, level = 55 },                        # Gunshot
+]
+
+  [[edit.cards]]
+  id = 0x8A9FA83E                                         # MF/FW · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 154, control = 252, technique = 248, pressure = 238, physical = 157, intelligence = 254, agility = 200, freedom = 271 }
+
+[[edit]]
+target = "c07060090"                                   # Jonathan Seller
+moves = [
+  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x72514A74, level = 27 },                        # Low Drive
+  { move = 0x8EDFBC29, level = 65 },                        # Double Jaw
+]
+
+  [[edit.cards]]
+  id = 0x141C85B0                                         # FW/MF · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 270, control = 250, technique = 213, pressure = 174, physical = 208, intelligence = 176, agility = 178, freedom = 313 }
+
+[[edit]]
+target = "c07060100"                                   # Victor Kind
+moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
+  { move = 0x49041E53, level = 26 },                        # Crosscut Feint
+  { move = 0x30A819A7, level = 48 },                        # Twin Boost F
+]
+
+  [[edit.cards]]
+  id = 0xC41C54CE                                         # MF/FW · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 167, control = 290, technique = 313, pressure = 169, physical = 169, intelligence = 242, agility = 163, freedom = 289 }
+
+[[edit]]
+target = "c07060110"                                   # Neil Turner
+moves = [
+  { move = 0x72514A74, level = 1 },                         # Low Drive
+  { move = 0x035C1112, level = 1 },                         # Gungnir
+  { move = 0x518BCA26, level = 10 },                        # Fire Tornado
+  { move = 0x00D8C57C, level = 55 },                        # Fireball Storm
+]
+
+  [[edit.cards]]
+  id = 0xDD07658F                                         # FW/MF · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 250, control = 286, technique = 293, pressure = 165, physical = 193, intelligence = 225, agility = 171, freedom = 230 }
+
+[[edit]]
+target = "c07060010"                                   # Gideon Poe
+moves = [
+  { move = 0xE9968761, level = 1 },                         # Rocket Kobushi
+  { move = 0xF14FDC17, level = 13 },                        # Shot Pocket
+  { move = 0xEA12530F, level = 20 },                        # Double Rocket
+  { move = 0xC7F4C227, level = 30 },                        # Shot Trap
+]
+
+  [[edit.cards]]
+  id = 0xDCC50FB8                                         # GK/FW · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 193, control = 208, technique = 188, pressure = 243, physical = 219, intelligence = 235, agility = 261, freedom = 242 }
+
+[[edit]]
+target = "c07060060"                                   # Electra Faraday
+moves = [
+  { move = 0xB1FBC783, level = 1 },                         # Reflect Buster
+  { move = 0x520F1E48, level = 13 },                        # Psycho Shot
+  { move = 0x245D62F1, level = 20 },                        # Attack Scan
+  { move = 0xDCC9CCA3, level = 30 },                        # Tesla Coil
+]
+
+  [[edit.cards]]
+  id = 0x9384997F                                         # MF/DF · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 203, control = 248, technique = 257, pressure = 205, physical = 181, intelligence = 240, agility = 193, freedom = 271 }
+
+[[edit]]
+target = "c07060080"                                   # Darren Gouger
+moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x38094535, level = 13 },                        # Sub-Terfuge
+  { move = 0xC0A013E6, level = 20 },                        # Liar Shot
+  { move = 0x74B5C85D, level = 30 },                        # Security Shot
+]
+
+  [[edit.cards]]
+  id = 0x0D07B4F1                                         # MF/DF · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 204, control = 243, technique = 246, pressure = 196, physical = 200, intelligence = 225, agility = 198, freedom = 293 }
+
+[[edit]]
+target = "c07060020"                                   # Harry Leading
+moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0xB3BD79DA, level = 29 },                        # Patriot Shot
+  { move = 0x6C827857, level = 31 },                        # Rolling Steal
+  { move = 0x5B6C28ED, level = 48 },                        # Invisible Fake
+]
+
+  [[edit.cards]]
+  id = 0xF7E85C7B                                         # DF/MF · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 197, control = 194, technique = 174, pressure = 184, physical = 290, intelligence = 207, agility = 204, freedom = 309 }
+
+[[edit]]
+target = "c07060030"                                   # Terry Stronger
+moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x08EEBD53, level = 24 },                        # Feint Play
+  { move = 0x520F1E48, level = 29 },                        # Psycho Shot
+  { move = 0xA5777314, level = 38 },                        # Assault Shot
+]
+
+  [[edit.cards]]
+  id = 0xEEF36D3A                                         # DF/FW · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 155, control = 184, technique = 170, pressure = 239, physical = 203, intelligence = 250, agility = 177, freedom = 271 }
+
+[[edit]]
+target = "c11807070"                                   # Jethro Mackin
+moves = [
+  { move = 0x245D62F1, level = 1 },                         # Attack Scan
+  { move = 0xB3BD79DA, level = 13 },                        # Patriot Shot
+  { move = 0x01DB04F5, level = 20 },                        # Defence Scan
+  { move = 0x928B9BED, level = 30 },                        # Optimal Trajectory
+]
+
+  [[edit.cards]]
+  id = 0xDB21D2EE                                         # MF/FW · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 205, control = 252, technique = 244, pressure = 184, physical = 176, intelligence = 221, agility = 188, freedom = 247 }
+
+[[edit]]
+target = "c11807080"                                   # Des Pott
+moves = [
+  { move = 0xB3BD79DA, level = 1 },                         # Patriot Shot
+  { move = 0xA1BE38E6, level = 13 },                        # La Flamme
+  { move = 0x245D62F1, level = 20 },                        # Attack Scan
+  { move = 0x67F17FA8, level = 30 },                        # Mega Quake
+]
+
+  [[edit.cards]]
+  id = 0x5CB9CE21                                         # MF/DF · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 192, control = 254, technique = 234, pressure = 186, physical = 181, intelligence = 220, agility = 192, freedom = 335 }

@@ -1,0 +1,72 @@
+# Declaration schema of BetterEquipment.rules/1 (content\better_equipment): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "BetterEquipment.rules/1"
+folder = "content/better_equipment"
+label = "Equipment rules"
+label_es = "Reglas de equipamiento"
+
+[entry.Scale]
+entry_table = "scale"
+single = true
+cap = { type = "number" }
+
+[entry.Budget]
+entry_table = "budget"
+single = true
+raises = { type = "number" }
+lower = { type = "number" }
+
+[entry.Shape]
+entry_table = "shape"
+single = true
+total = { type = "number" }
+display_s = { type = "number" }
+lowered = { type = "number" }
+min_raise = { type = "number" }
+third_share = { type = "number" }
+single_ratio = { type = "number" }
+by_tier = { type = "table" }
+
+[entry.Splits]
+entry_table = "splits"
+single = true
+balanced = { type = "number" }
+soft = { type = "number" }
+mild = { type = "number" }
+concentrated = { type = "number" }
+leaning = { type = "number" }
+strong = { type = "number" }
+extreme = { type = "number" }
+variant_order = { type = "strings" }
+
+[entry.PairPenalty]
+entry_table = "pair_penalty"
+pair = { type = "strings", required = true }
+lower = { type = "strings", required = true }
+
+[entry.Affinity]
+entry_table = "affinity"
+single = true
+one = { type = "number" }
+both = { type = "number" }
+position_by_stat = { type = "table" }
+
+[entry.Passives]
+entry_table = "passives"
+single = true
+family_mod = { type = "string" }
+
+[entry.Card]
+entry_table = "card"
+single = true
+element_icon_files = { type = "strings" }
+element_icon = { type = "table" }
+
+[entry.Optimizer]
+entry_table = "optimizer"
+single = true
+passive = { type = "number" }
+set_effect = { type = "number" }
+keep_current = { type = "number" }
+max_plans = { type = "number" }
+weights = { type = "table" }

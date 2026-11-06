@@ -1,0 +1,7 @@
+schema = "VRFW.game/2"
+
+# Rebindable input actions declared by mods' input files; player bindings are kept by the game. Runtime: scripts/input_actions.lua.
+
+[[VRFW.Command]]
+name = "CMND_VRFW_INPUT_ACTION"     # (command name or action id) -> table of the action (last mod in load order wins); 0 = none declared
+handler = "InputActions.Get"

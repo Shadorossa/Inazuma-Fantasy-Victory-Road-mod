@@ -1,0 +1,5 @@
+schema = "VRFW.model/1"
+# Ball aura rw90022b (colour row 12): game files served as they are, from assets\models\effects\rw90022b\{common,dx11}\ to data\{common,dx11}\effect\battle\common\rw90022b\
+# (native: the object carries its own animation banks and materials). research/scripts/hissatsu_revamp_build.py.
+format = "native"
+game_path = "effect/battle/common/rw90022b"

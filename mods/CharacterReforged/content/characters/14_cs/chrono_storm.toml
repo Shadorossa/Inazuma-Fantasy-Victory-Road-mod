@@ -1,0 +1,71 @@
+schema = "VRFW.character/2"
+# Character Reforged · Chrono Storm · Inazuma Eleven GO Chrono Stone
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c05020150_5000"                              # Sor
+
+  [[edit.cards]]
+  id = 0x7968D308                                         # DF/MF · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 224, control = 182, technique = 198, pressure = 244, physical = 244, intelligence = 271, agility = 231, freedom = 238 }
+
+[[edit]]
+target = "c05020150"                                   # Sor
+moves = [
+  { move = 0xEEFFAE21, level = 11 },                        # Jungle Jam
+  { move = 0x4FE09C7A, level = 18 },                        # Acrobatic Keep
+  { move = 0x08EEBD53, level = 37 },                        # Feint Play
+  { move = 0xC66BD10D, level = 53 },                        # Zigzag Spark
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0x74EC7A9A, level = 1 },                         # Miximax Trans: Papá [aura]
+]
+
+  [[edit.cards]]
+  id = 0xDB741762                                         # DF/MF · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 224, control = 182, technique = 198, pressure = 244, physical = 244, intelligence = 271, agility = 231, freedom = 238 }
+
+[[edit]]
+target = "c05028080"                                   # Sor
+moves = [
+  { move = 0xEEFFAE21, level = 11 },                        # Jungle Jam
+  { move = 0x4FE09C7A, level = 18 },                        # Acrobatic Keep
+  { move = 0x08EEBD53, level = 37 },                        # Feint Play
+  { move = 0xC66BD10D, level = 53 },                        # Zigzag Spark
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0x49C9969F, level = 1 },                         # Jaguar [aura]
+]
+
+  [[edit.cards]]
+  id = 0xAAAC2BF7                                         # DF/MF · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 224, control = 182, technique = 198, pressure = 244, physical = 244, intelligence = 271, agility = 231, freedom = 238 }
+
+[[edit]]
+target = "c06039010"                                   # David Evans
+moves = [
+  { move = 0x8C382852, level = 1 },                         # God Hand
+  { move = 0xF9B80F86, level = 15 },                        # Strong Punch
+  { move = 0xF2CB0879, level = 36 },                        # Mugen the Hand
+  { move = 0xB8C5883B, level = 62 },                        # God Hand X
+]
+
+  [[edit.cards]]
+  id = 0xCF5AC4F6                                         # GK/MF · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 212, control = 211, technique = 198, pressure = 221, physical = 240, intelligence = 227, agility = 262, freedom = 259 }

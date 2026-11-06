@@ -1,0 +1,53 @@
+# BetterQoL's rules for the framework's dark theme (merged into every theme with id "dark").
+schema = "VRFW.theme_rules/1"
+theme = "dark"
+# the club stats panel (its own atlas inside the art folder)
+include = ["dx11/menu/220_img/util_club_stats"]
+
+# the club stats panel: list rows take the card colour, title / section bands, selection and focus the accent, the
+# panel the background; the cursor keeps its colours
+[[sprite]]
+match = "util_club_stats_row*"
+class = "surface"
+file = "util_club_stats/"
+[[sprite]]
+match = "util_club_stats_panel"
+class = "bg"
+file = "util_club_stats/"
+[[sprite]]
+match = "util_club_stats_head"
+class = "accent"
+file = "util_club_stats/"
+[[sprite]]
+match = "util_club_stats_section_*"
+class = "accent"
+file = "util_club_stats/"
+[[sprite]]
+match = "util_club_stats_sel"
+class = "accent"
+file = "util_club_stats/"
+[[sprite]]
+match = "util_club_stats_focus*"
+class = "accent"
+file = "util_club_stats/"
+[[sprite]]
+match = "util_club_stats_facebox"
+class = "panel"
+file = "util_club_stats/"
+[[sprite]]
+match = "util_club_stats_sbar"
+class = "accent"
+file = "util_club_stats/"
+[[sprite]]
+match = "util_club_stats_sthumb"
+class = "accent"
+file = "util_club_stats/"
+[[sprite]]
+match = "util_club_stats_cursor"
+class = "keep"
+file = "util_club_stats/"
+# the passive card being edited (the retail card on a cyan rim): the card colour, the rim the accent
+[[sprite]]
+match = "util_passive_card_sel"
+class = "surface"
+file = "better_qol_own/better_qol_soccer11_20"

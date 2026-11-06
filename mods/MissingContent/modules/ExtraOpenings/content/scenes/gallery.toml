@@ -1,0 +1,41 @@
+schema = "VRFW.gallery/1"
+# Extra Openings' gallery (docs/framework/types/gallery.md): the «Inazuma Eleven» tab of the scene archive (club room)
+# and the two Nintendo DS openings, shown in that tab and offered in the framework's «Opening» row. Each opening plays its
+# USM (assets\data\dx11\movie\) with the song of the game's text language (content\sounds\sounds.toml); languages
+# without a song get DefaultLanguage's. ArchiveKey / OpeningKey / TemplateMovie / TemplateEvent keep the ids, movie rows
+# and event rows the mod had before the gallery type (a saved «Opening» choice stays valid). Thumbnails:
+# assets\data\dx11\menu\220_img\theater_img\<ArchiveKey>.g4tx.
+
+# Shared by name: another mod's videos with Tab = "inazuma_eleven" join this tab.
+[[VRFW.GalleryTab]]
+Name = "inazuma_eleven"
+Text = { ja = "イナズマイレブン", en = "Inazuma Eleven", es = "Inazuma Eleven", fr = "Inazuma Eleven", de = "Inazuma Eleven", it = "Inazuma Eleven", pt = "Inazuma Eleven", zh_hans = "闪电十一人", zh_hant = "閃電十一人" }
+Order = 100
+
+[[VRFW.Video]]
+Name = "ie2"
+Title = { ja = "IE2 | Tsunagariyo", en = "IE2 | Tsunagariyo", es = "IE2 | Tsunagariyo", fr = "IE2 | Tsunagariyo", de = "IE2 | Tsunagariyo", it = "IE2 | Tsunagariyo", pt = "IE2 | Tsunagariyo", zh_hans = "IE2 | Tsunagariyo", zh_hant = "IE2 | Tsunagariyo" }
+File = "if_op_ie2.usm"
+Songs = { ja = "if_op_ie2_ja", es = "if_op_ie2_es" }
+DefaultLanguage = "ja"
+Tab = "inazuma_eleven"
+Opening = true
+Order = 100
+ArchiveKey = "if_vt_op_ie2"
+OpeningKey = "if_op_ie2"
+TemplateMovie = "ev74_01190"
+TemplateEvent = "ev01_00050"
+
+[[VRFW.Video]]
+Name = "ie3"
+Title = { ja = "IE3 | Kiai de Hurricane", en = "IE3 | Kiai de Hurricane", es = "IE3 | Kiai de Hurricane", fr = "IE3 | Kiai de Hurricane", de = "IE3 | Kiai de Hurricane", it = "IE3 | Kiai de Hurricane", pt = "IE3 | Kiai de Hurricane", zh_hans = "IE3 | Kiai de Hurricane", zh_hant = "IE3 | Kiai de Hurricane" }
+File = "if_op_ie3.usm"
+Songs = { ja = "if_op_ie3_ja", es = "if_op_ie3_es", en = "if_op_ie3_en", it = "if_op_ie3_it" }
+DefaultLanguage = "en"
+Tab = "inazuma_eleven"
+Opening = true
+Order = 103
+ArchiveKey = "if_vt_op_ie3"
+OpeningKey = "if_op_ie3"
+TemplateMovie = "ev74_01190"
+TemplateEvent = "ev01_00050"

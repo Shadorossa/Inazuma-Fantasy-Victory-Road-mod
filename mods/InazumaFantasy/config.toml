@@ -1,0 +1,55 @@
+# Inazuma Fantasy: default configuration (docs/framework/native.md §2.3). The loader's config.toml
+# [mods.InazumaFantasy] overrides it key by key (survives mod updates), e.g.
+# [mods.InazumaFantasy.match_drops.passion] win = 3. Read at start (a change applies at the next start).
+
+# What every match (every mode) pays at its end, as rows of the result list, on top of what its goal rolls give
+# (content\items\currencies.toml, VR-Framework [[VRFW.MatchDropExtra]]): by the result (win / draw / loss) plus
+# per_goal for each goal of your team (any result), per_goal_margin for each goal of a win's margin (at most 5), all
+# times the difficulty's multiplier (content\items\currencies.toml). 0..255 each (one row holds at most 255). Puntos de amistad: Character
+# Reforged's ClassicRecruitment config.toml [match_drops.friendship]. The shops' prices are set in wins of 2 Puntos de pasión (_general_store.toml [price] scale,
+# docs/game/mods/fantasy-economy.md): a special move costs 3 (power 300) to 48 (power 800).
+# Passion: a win 2 + 1 per goal of margin, a draw 1, a loss nothing (no farming by losing); the goal rolls add about
+# 0.07 per goal; a Chronicle Deluxe chain win adds its rank bonus (currencies.toml).
+# Defaults chosen (the earlier Inazuma Fantasy had no fixed amount, only its drop tables: about 0.4 Puntos
+# de amistad and 0.07 Puntos de pasión per goal, docs/game/mechanics/end-of-match-rewards.md §4).
+[match_drops.passion]
+# Puntos de pasión (tk_bb000001)
+win = 2
+draw = 1
+loss = 0
+per_goal = 0
+per_goal_margin = 1
+
+# The title art (content/images/menu/50_title/title_art.toml): the mod serves its own title logo and press-start key
+# art, so the framework's own title art stays off (docs/framework/types/image.md §2.3).
+[VRFW.TitleArt]
+own = true
+
+# The Daily Legendary Rival (scripts/daily_legendary_rival.lua): one rival team a day in the mod's free-match section,
+# the same for every player that day (UTC day + salt + version through VR-Framework's seeded generator). The pool:
+# every team of the free-match list (the enabled mods' included; each game's rival of `class`) with at least
+# `min_players` players, minus `exclude` (team keys). Changing salt / version / the pool changes every day's rival.
+[daily_legendary_rival]
+salt = "InazumaFantasy.DailyLegendaryRival"
+version = 1
+min_players = 11
+exclude = []
+# the row's game (content/teams/free_match_section.toml Game), its class and its level (every rival player)
+game = "inazuma_fantasy_daily_legendary_rival"
+class = 9
+level = 250
+# days of beaten records kept in the save blob
+keep_days = 60
+# beating the day's rival pays `reward` of `reward_item` once per day (0 = no reward), on top of the match's own
+# Puntos de pasión; given when the free-match list opens again and shown in the row's guide line
+reward = 10
+reward_item = "tk_bb000001"               # Puntos de pasión
+# the rival plays at its own stadium: the games whose key starts with this are its Chronicle venues
+chronicle_prefix = "fbtl_cro"
+
+# The level orbs (scripts/level_orbs.lua, graft inazuma_fantasy_level_orbs): the levels one orb gives from the player's
+# current level, up to his own cap. Prices: _general_store.toml, category consumables.
+[level_orbs.levels]
+ex0001 = 1                                 # small
+ex0002 = 5                                 # medium
+ex0003 = 10                                # large

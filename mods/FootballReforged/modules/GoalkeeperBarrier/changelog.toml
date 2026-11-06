@@ -1,0 +1,58 @@
+schema = "VRFW.changelog/1"
+# Goalkeeper Barrier: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Barrera del portero",
+    "Tiros más débiles mientras dura",
+]
+
+[release.en]
+notes = [
+    "Goalkeeper barrier",
+    "Weaker shots while it lasts",
+]
+
+[release.fr]
+notes = [
+    "Barrière du gardien",
+    "Tirs affaiblis pendant sa durée",
+]
+
+[release.de]
+notes = [
+    "Torwart-Barriere",
+    "Schwächere Schüsse währenddessen",
+]
+
+[release.it]
+notes = [
+    "Barriera del portiere",
+    "Tiri più deboli finché dura",
+]
+
+[release.pt]
+notes = [
+    "Barreira do guarda-redes",
+    "Remates mais fracos enquanto dura",
+]
+
+[release.ja]
+notes = [
+    "キーパーのバリア",
+    "効果中はシュートが弱まる",
+]
+
+[release.zh_hans]
+notes = [
+    "守门员屏障",
+    "持续期间射门减弱",
+]
+
+[release.zh_hant]
+notes = [
+    "守門員屏障",
+    "持續期間射門減弱",
+]

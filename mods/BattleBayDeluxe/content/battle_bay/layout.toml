@@ -1,0 +1,195 @@
+# Battle Bay Deluxe: the pages of the Battle Bay grid (schema of content\defaults\team.toml [bb_pages.layout]).
+# One [[BattleBayDeluxe.Page]] per page: Section = a grid tab, Index = its page (from 1), Teams = the slots in
+# grid order (a game team key or <mod>.<name>; "" = an empty slot). Edited with ModManager «Bahía Batalla».
+schema = "BattleBayDeluxe.layout/1"
+
+[[BattleBayDeluxe.Page]]
+Section = "main"
+Index = 1
+Teams = [
+  "BattleBayDeluxe.active_team",
+  "BattleBayDeluxe.draft",
+  "bb_01_team_raimon",
+  "bb_02_team_empire",
+  "BattleBayDeluxe.ie1_0200",
+  "BattleBayDeluxe.legend_ie2_01",
+  "BattleBayDeluxe.legend_ie1_06",
+  "BattleBayDeluxe.ie1_0300",
+  "BattleBayDeluxe.ie1_0400",
+  "BattleBayDeluxe.ie1_0500",
+  "BattleBayDeluxe.ie1_0600",
+  "BattleBayDeluxe.ie1_0800",
+  "BattleBayDeluxe.ie1_0900",
+  "BattleBayDeluxe.ie1_1000",
+  "BattleBayDeluxe.ie1_1100",
+  "bb_03_team_zeus",
+  "bb_04_team_jemini",
+  "BattleBayDeluxe.ie2_0200",
+  "BattleBayDeluxe.ie2_0400",
+  "BattleBayDeluxe.ie2_0600",
+  "bb_05_team_epsilon",
+  "BattleBayDeluxe.ie2_0800",
+  "BattleBayDeluxe.ie2_0900",
+  "BattleBayDeluxe.ie2_1100",
+  "bb_06_team_genesis",
+  "BattleBayDeluxe.ie2_1300",
+  "BattleBayDeluxe.ie2_1500",
+  "BattleBayDeluxe.ie2_1600",
+]
+
+[[BattleBayDeluxe.Page]]
+Section = "main"
+Index = 2
+Teams = [
+  "BattleBayDeluxe.ie2_1800",
+  "BattleBayDeluxe.ie2_2000",
+  "bb_07_team_japan",
+  "BattleBayDeluxe.ie3_0200",
+  "BattleBayDeluxe.ie3_0300",
+  "BattleBayDeluxe.ie3_0400",
+  "BattleBayDeluxe.ie3_0500",
+  "BattleBayDeluxe.legend_ie3_05",
+  "BattleBayDeluxe.legend_ie3_06",
+  "BattleBayDeluxe.legend_ie3_07",
+  "BattleBayDeluxe.ie3_0600",
+  "BattleBayDeluxe.ie3_0700",
+  "BattleBayDeluxe.ie3_0800",
+  "BattleBayDeluxe.ie3_0900",
+  "BattleBayDeluxe.ie3_1000",
+  "BattleBayDeluxe.ie3_1100",
+  "BattleBayDeluxe.ie3_1200",
+  "BattleBayDeluxe.ie3_1300",
+  "BattleBayDeluxe.ie3_1400",
+  "BattleBayDeluxe.ie3_1500",
+  "BattleBayDeluxe.ie3_1600",
+  "BattleBayDeluxe.ie3_1800",
+  "BattleBayDeluxe.ie1_1300",
+  "bb_08_team_raimon_go",
+  "BattleBayDeluxe.go1_0100",
+  "BattleBayDeluxe.go1_0200",
+  "BattleBayDeluxe.go1_0300",
+  "BattleBayDeluxe.go1_0400",
+]
+
+[[BattleBayDeluxe.Page]]
+Section = "main"
+Index = 3
+Teams = [
+  "BattleBayDeluxe.go1_0500",
+  "BattleBayDeluxe.go1_0600",
+  "BattleBayDeluxe.legend_go1_01",
+  "BattleBayDeluxe.go1_0700",
+  "BattleBayDeluxe.go1_0800",
+  "BattleBayDeluxe.go1_0900",
+  "BattleBayDeluxe.go1_1000",
+  "BattleBayDeluxe.go1_1100",
+  "BattleBayDeluxe.go1_1200",
+  "BattleBayDeluxe.go1_1300",
+  "bb_09_team_zoro",
+  "BattleBayDeluxe.go1_1500",
+  "BattleBayDeluxe.go1_1700",
+  "BattleBayDeluxe.go1_1600",
+  "BattleBayDeluxe.go1_1800",
+  "BattleBayDeluxe.go1_1900",
+  "BattleBayDeluxe.go2_2600",
+  "BattleBayDeluxe.go2_2500",
+  "BattleBayDeluxe.go2_2700",
+  "BattleBayDeluxe.go2_0100",
+  "bb_10_team_omega_2.0",
+  "BattleBayDeluxe.go2_0600",
+  "BattleBayDeluxe.go2_0800",
+  "BattleBayDeluxe.go2_2300",
+  "bb_10_team_zanark_domain",
+  "BattleBayDeluxe.go2_1100",
+  "BattleBayDeluxe.go2_1400",
+  "BattleBayDeluxe.go2_1500",
+]
+
+[[BattleBayDeluxe.Page]]
+Section = "main"
+Index = 4
+Teams = [
+  "BattleBayDeluxe.go2_1600",
+  "BattleBayDeluxe.go2_1700",
+  "bb_11_team_cronostorm",
+  "BattleBayDeluxe.go2_1800",
+  "BattleBayDeluxe.go2_1900",
+  "BattleBayDeluxe.go2_2000",
+  "BattleBayDeluxe.go2_2100",
+  "BattleBayDeluxe.go2_2200",
+  "bb_13_team_newjapan",
+  "BattleBayDeluxe.go3_0200",
+  "BattleBayDeluxe.go3_0300",
+  "BattleBayDeluxe.go3_0400",
+  "BattleBayDeluxe.go3_0500",
+  "BattleBayDeluxe.go3_0600",
+  "BattleBayDeluxe.go3_0700",
+  "BattleBayDeluxe.go3_0800",
+  "BattleBayDeluxe.go3_0900",
+  "BattleBayDeluxe.go3_1000",
+  "BattleBayDeluxe.go3_1100",
+  "bb_19_team_faram_diete",
+  "BattleBayDeluxe.go3_1300",
+  "BattleBayDeluxe.go3_1400",
+  "BattleBayDeluxe.go3_1500",
+  "BattleBayDeluxe.go3_1600",
+  "bb_17_team_inakuniraimon",
+  "bb_18_team_inakuniraimon",
+  "BattleBayDeluxe.ares_1100",
+  "BattleBayDeluxe.legend_ares_05",
+]
+
+[[BattleBayDeluxe.Page]]
+Section = "main"
+Index = 5
+Teams = [
+  "bb_20_team_seishogakuen",
+  "BattleBayDeluxe.ares_0205",
+  "BattleBayDeluxe.ares_0305",
+  "BattleBayDeluxe.ares_0400",
+  "BattleBayDeluxe.ares_0500",
+  "bb_21_team_oteitsukinomiya",
+  "BattleBayDeluxe.ares_0600",
+  "BattleBayDeluxe.ares_0705",
+  "BattleBayDeluxe.ares_0805",
+  "BattleBayDeluxe.ares_0905",
+  "bb_24_team_senshinjapan_a",
+  "bb_25_team_senshinjapan_b",
+  "BattleBayDeluxe.orion_0100",
+  "BattleBayDeluxe.orion_0200",
+  "BattleBayDeluxe.orion_0300",
+  "BattleBayDeluxe.orion_0400",
+  "BattleBayDeluxe.orion_0500",
+  "BattleBayDeluxe.orion_0600",
+  "BattleBayDeluxe.legend_orion_06",
+  "BattleBayDeluxe.orion_0700",
+  "BattleBayDeluxe.orion_0900",
+  "BattleBayDeluxe.orion_1000",
+  "BattleBayDeluxe.orion_1200",
+  "bb_26_team_zhaojinyun",
+  "BattleBayDeluxe.orion_1100",
+  "bb_14_team_nagumoharaA",
+  "bb_15_team_nagumoharaB",
+  "bb_16_team_nagumoharaC",
+]
+
+[[BattleBayDeluxe.Page]]
+Section = "main"
+Index = 6
+Teams = [
+  "BattleBayDeluxe.victory_0105",
+  "bb_23_team_hokuyou",
+  "BattleBayDeluxe.victory_0300",
+  "BattleBayDeluxe.victory_0405",
+  "BattleBayDeluxe.victory_0505",
+  "bb_22_team_raimon",
+  "BattleBayDeluxe.legend_original_07",
+  "BattleBayDeluxe.original_0200",
+  "BattleBayDeluxe.original_0100",
+  "bb_27_team_puratosu",
+  "bb_28_team_destroyers",
+  "BattleBayDeluxe.original_0500",
+  "BattleBayDeluxe.original_0600",
+  "BattleBayDeluxe.original_0700",
+  "BattleBayDeluxe.original_0800",
+]

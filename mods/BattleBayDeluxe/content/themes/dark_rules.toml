@@ -1,0 +1,66 @@
+# Battle Bay Deluxe's rules for the framework's dark theme (merged into every theme with id "dark"). Its other atlases
+# in the art folder (mode selector, bracket) take the default for mod atlases: only their plates change.
+schema = "VRFW.theme_rules/1"
+theme = "dark"
+# the League hub (its own atlas)
+include = ["dx11/menu/220_img/bbd_lg"]
+# the Draft pack opening (darkness, glows, flashes) and the bracket's score digits keep their colours
+exclude = ["dx11/menu/220_img/bbd_pk", "dx11/menu/220_img/bbd_tn_num"]
+
+# the League hub: cards (white body, navy band) take the card colour, the band stays a muted navy (hue range kept off
+# blue); side menu / bands / bar take the accent; the badge keeps its gold
+[[sprite]]
+match = "bbd_lg_hero"
+class = "surface"
+file = "bbd_lg/"
+hue = [10.0, 20.0]
+[[sprite]]
+match = "bbd_lg_stand"
+class = "surface"
+file = "bbd_lg/"
+hue = [10.0, 20.0]
+[[sprite]]
+match = "bbd_lg_panel"
+class = "surface"
+file = "bbd_lg/"
+hue = [10.0, 20.0]
+[[sprite]]
+match = "bbd_lg_cal"
+class = "surface"
+file = "bbd_lg/"
+hue = [10.0, 20.0]
+[[sprite]]
+match = "bbd_lg_table"
+class = "surface"
+file = "bbd_lg/"
+hue = [10.0, 20.0]
+[[sprite]]
+match = "bbd_lg_fix"
+class = "surface"
+file = "bbd_lg/"
+hue = [10.0, 20.0]
+[[sprite]]
+match = "bbd_lg_fix_next"
+class = "surface"
+file = "bbd_lg/"
+hue = [10.0, 20.0]
+[[sprite]]
+match = "bbd_lg_badge"
+class = "keep"
+file = "bbd_lg/"
+[[sprite]]
+match = "bbd_lg_nav"
+class = "accent"
+file = "bbd_lg/"
+[[sprite]]
+match = "bbd_lg_head"
+class = "accent"
+file = "bbd_lg/"
+[[sprite]]
+match = "bbd_lg_pill"
+class = "accent"
+file = "bbd_lg/"
+[[sprite]]
+match = "bbd_lg_bar_*"
+class = "accent"
+file = "bbd_lg/"

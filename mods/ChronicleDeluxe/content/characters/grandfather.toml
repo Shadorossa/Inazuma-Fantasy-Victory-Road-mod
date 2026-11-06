@@ -1,0 +1,87 @@
+schema = "VRFW.character/2"
+# «Abuelo»: the player the Chrono Stone «Cadena del Abuelo» gives in its last chest (3DS scr_br_0015, the
+# teams\70_route_nodes\chain_cs_grandfather.toml tile c19). The CS dumps have no card data of him, so his card is a
+# clone of Astero Black's (c06039290: element, positions, rarity, growth, stats and moves); his look is Astero Black's
+# model (head, skin, body c000301) wearing Ray Dark's suit (c11801020's own clothes u11801020, same body). No office
+# row: he is only given by the chain.
+default_lang = "en"
+
+[[character]]
+name = "grandfather"
+based_on = "c06039290"                  # Astero Black: the cloned identity, card, voice and moves
+icon = "c06039290"                      # Astero Black's face icon (the game draws it over the outfit's bust)
+
+  [character.look]
+  clothes = "u11801020"                 # Ray Dark's suit
+
+  [character.text.es]
+  name = "Abuelo"
+  surname = "Abuelo"
+  given = "Abuelo"
+  short = "Abuelo"
+  upper = "ABUELO"
+  description = "Un veterano misterioso que espera al final de la Cadena del Abuelo."
+
+  [character.text.en]
+  name = "Grandfather"
+  surname = "Grandfather"
+  given = "Grandfather"
+  short = "Grandfather"
+  upper = "GRANDFATHER"
+  description = "A mysterious veteran waiting at the end of Grandfather's Chain."
+
+  [character.text.fr]
+  name = "Grand-père"
+  surname = "Grand-père"
+  given = "Grand-père"
+  short = "Grand-père"
+  upper = "GRAND-PÈRE"
+  description = "Un vétéran mystérieux qui attend au bout de la Chaîne du grand-père."
+
+  [character.text.de]
+  name = "Großvater"
+  surname = "Großvater"
+  given = "Großvater"
+  short = "Großvater"
+  upper = "GROSSVATER"
+  description = "Ein geheimnisvoller Veteran, der am Ende von Großvaters Kette wartet."
+
+  [character.text.it]
+  name = "Nonno"
+  surname = "Nonno"
+  given = "Nonno"
+  short = "Nonno"
+  upper = "NONNO"
+  description = "Un misterioso veterano che attende alla fine della Catena del nonno."
+
+  [character.text.pt]
+  name = "Avô"
+  surname = "Avô"
+  given = "Avô"
+  short = "Avô"
+  upper = "AVÔ"
+  description = "Um veterano misterioso que espera no fim da Cadeia do avô."
+
+  [character.text.ja]
+  name = "おじいさん"
+  surname = "おじいさん"
+  given = "おじいさん"
+  short = "おじいさん"
+  upper = "おじいさん"
+  description = "おじいさんの連戦の最後で待つ、なぞのベテラン。"
+
+  [character.text.zh_hans]
+  name = "爷爷"
+  surname = "爷爷"
+  given = "爷爷"
+  short = "爷爷"
+  upper = "爷爷"
+  description = "在爷爷的连战尽头等待的神秘老将。"
+
+  [character.text.zh_hant]
+  name = "爺爺"
+  surname = "爺爺"
+  given = "爺爺"
+  short = "爺爺"
+  upper = "爺爺"
+  description = "在爺爺的連戰盡頭等待的神秘老將。"

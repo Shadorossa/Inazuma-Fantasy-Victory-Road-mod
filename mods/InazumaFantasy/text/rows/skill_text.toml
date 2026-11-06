@@ -1,0 +1,108 @@
+# Names and descriptions of the four moves first shipped by a former mod (merged here) whose technique files pin the
+# download's text ids (skillNameId / skillDescId). Spanish names = the download's (accent fixed: «Dispersíon»);
+# descriptions written for the mod (the download had placeholders). Same texts as _names.toml. Line break: \n.
+schema = "VRFW.text/2"
+
+[[row]]
+id = 0x6B5E606A  # whs90208 name
+kind = "noun"
+es = "Golpe del abismo"
+en = "Abyss Strike"
+fr = "Frappe abyssale"
+de = "Abgrundschlag"
+it = "Colpo dell'abisso"
+pt = "Golpe do abismo"
+ja = "アビスストライク"
+zh_hans = "深渊之击"
+zh_hant = "深淵之擊"
+
+[[row]]
+id = 0x3EC8B238  # whs90208 description
+kind = "text"
+es = "Tiro demoledor que carga el balón con la\nenergía del abismo y lo lanza desde el aire."
+en = "A crushing shot that charges the ball with\nthe abyss's energy and fires it from the air."
+fr = "Un tir dévastateur qui charge le ballon\nde l'énergie de l'abîme, lancé depuis les airs."
+de = "Ein vernichtender Schuss, der den Ball mit der\nKraft des Abgrunds lädt und aus der Luft feuert."
+it = "Un tiro devastante che carica il pallone con\nl'energia dell'abisso e lo scaglia dall'alto."
+pt = "Remate demolidor que carrega a bola com a\nenergia do abismo e a lança desde o ar."
+ja = "深淵のエネルギーをボールに込め\n空中から放つ破壊的なシュート！"
+zh_hans = "将深渊之力注入球中，\n从空中轰出的毁灭射门。"
+zh_hant = "將深淵之力注入球中，\n從空中轟出的毀滅射門。"
+
+[[row]]
+id = 0x1A9284C0  # whd92114 name
+kind = "noun"
+es = "Campo nuclear"
+en = "Nuclear Field"
+fr = "Champ nucléaire"
+de = "Nuklearfeld"
+it = "Campo nucleare"
+pt = "Campo nuclear"
+ja = "ニュークリアフィールド"
+zh_hans = "核能领域"
+zh_hant = "核能領域"
+
+[[row]]
+id = 0x4F045692  # whd92114 description
+kind = "text"
+es = "Llena el aire de partículas de energía que\nestallan a la vez y frenan el ataque rival."
+en = "Fills the air with energy particles that\nburst at once and stop the rival's attack."
+fr = "Remplit l'air de particules d'énergie qui\nexplosent ensemble et stoppent l'attaque."
+de = "Füllt die Luft mit Energieteilchen, die\nzugleich explodieren und den Angriff stoppen."
+it = "Riempie l'aria di particelle di energia che\nesplodono insieme e fermano l'attacco."
+pt = "Enche o ar de partículas de energia que\nexplodem juntas e travam o ataque rival."
+ja = "エネルギー粒子を空中に放ち\n一斉に爆発させて攻撃を止める！"
+zh_hans = "让能量粒子充满空中，\n同时爆炸阻止对手进攻。"
+zh_hant = "讓能量粒子充滿空中，\n同時爆炸阻止對手進攻。"
+
+[[row]]
+id = 0xF434B8B9  # whd92149 name
+kind = "noun"
+es = "Zona oscura"
+en = "Dark Zone"
+fr = "Zone obscure"
+de = "Dunkle Zone"
+it = "Zona oscura"
+pt = "Zona escura"
+ja = "ダークゾーン"
+zh_hans = "黑暗领域"
+zh_hant = "黑暗領域"
+
+[[row]]
+id = 0xA1A26AEB  # whd92149 description
+kind = "text"
+es = "Rodéate de una barrera de sombras y crea\nmil reflejos oscuros que frenan al rival."
+en = "Raise a barrier of shadows and create\na thousand dark reflections to stop the rival."
+fr = "Dresse une barrière d'ombres et crée\nmille reflets obscurs contre l'adversaire."
+de = "Errichte eine Schattenbarriere und erschaffe\ntausend dunkle Spiegelbilder gegen den Gegner."
+it = "Erigi una barriera d'ombra e crea\nmille riflessi oscuri che fermano l'avversario."
+pt = "Ergue uma barreira de sombras e cria\nmil reflexos escuros que travam o rival."
+ja = "影の壁で身を包み\n無数の黒い分身で相手を止める！"
+zh_hans = "以暗影屏障环绕自身，\n制造无数黑影阻挡对手。"
+zh_hant = "以暗影屏障環繞自身，\n製造無數黑影阻擋對手。"
+
+[[row]]
+id = 0x10ECA03B  # whk93113 name
+kind = "noun"
+es = "Dispersión"
+en = "Dispersion"
+fr = "Dispersion"
+de = "Zerstreuung"
+it = "Dispersione"
+pt = "Dispersão"
+ja = "ディスパージョン"
+zh_hans = "驱散"
+zh_hant = "驅散"
+
+[[row]]
+id = 0x457A7269  # whk93113 description
+kind = "text"
+es = "Da la espalda al balón y dispersa toda\nsu fuerza con un aura punzante."
+en = "Turn your back to the ball and scatter\nall its power with a piercing aura."
+fr = "Tourne le dos au ballon et disperse\ntoute sa force d'une aura perçante."
+de = "Dreh dem Ball den Rücken zu und zerstreue\nseine Kraft mit einer stechenden Aura."
+it = "Volta le spalle al pallone e disperdi\ntutta la sua forza con un'aura pungente."
+pt = "Vira as costas à bola e dispersa toda\na sua força com uma aura penetrante."
+ja = "ボールに背を向け、鋭いオーラで\nその力をすべて散らす！"
+zh_hans = "背对足球，以尖锐的灵气\n驱散其全部力量。"
+zh_hant = "背對足球，以尖銳的靈氣\n驅散其全部力量。"

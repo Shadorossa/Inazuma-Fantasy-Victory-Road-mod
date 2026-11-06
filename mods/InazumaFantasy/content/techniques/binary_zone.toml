@@ -1,0 +1,41 @@
+schema = "VRFW.technique/3"
+# Zona binaria (Binary Zone): the download's move whd92001, a clone of whd00440 with its numbers; its event ev62_92001 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "binary_zone"
+key = "whd92001"
+base = "whd00440"
+event = "ev62_92001"
+element = "forest"
+power_min = 60
+power_max = 360
+tp = 60
+color = 3
+  [technique.text.es]
+  name = "Zona binaria"
+  description = "Crea un campo de datos binarios\nque detiene al rival en seco."
+  [technique.text.en]
+  name = "Binary Zone"
+  description = "Creates a field of binary data\nthat stops the rival dead."
+  [technique.text.fr]
+  name = "Zone binaire"
+  description = "Crée un champ de données binaires\nqui arrête net l'adversaire."
+  [technique.text.de]
+  name = "Binärzone"
+  description = "Erzeugt ein Feld aus Binärdaten,\ndas den Gegner abrupt stoppt."
+  [technique.text.it]
+  name = "Zona binaria"
+  description = "Crea un campo di dati binari\nche blocca l'avversario di colpo."
+  [technique.text.pt]
+  name = "Zona binária"
+  description = "Cria um campo de dados binários\nque trava o adversário na hora."
+  [technique.text.ja]
+  name = "バイナリーゾーン"
+  description = "二進数のフィールドを作り\n相手をその場で止める！"
+  [technique.text.zh_hans]
+  name = "二进制领域"
+  description = "展开二进制数据领域，\n让对手瞬间停下。"
+  [technique.text.zh_hant]
+  name = "二進制領域"
+  description = "展開二進制資料領域，\n讓對手瞬間停下。"

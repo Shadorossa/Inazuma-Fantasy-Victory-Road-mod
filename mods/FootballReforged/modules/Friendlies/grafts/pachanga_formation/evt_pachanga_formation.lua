@@ -1,0 +1,176 @@
+-- Formation screen opened from «Plantilla de equipo» in «Tipo: Pachanga» (docs/game/ui/pachanga-templates.md §3.1).
+-- The formation screen is two VMs: soccer_formation_menu (the menu, it owns the formation list win05_01) and the layer
+-- group team_dock_formation_menu. Each INCLUDEs soccer_formation_menu_inc and picks its formation list in
+-- OnInitFormationCommon: 11v11 = t6 (UVR: 62 formations), 5v5 = t7 (the 5 retail pachanga formations: en V, en Y,
+-- martillo, flecha, fuego cruzado, plus the five-a-side ones BetterQoL unlocks). Both read the team kind (param
+-- 4081600465) in OnInit, but Nacho still got the 11v11 list in Pachanga (2026-09-28). So the dock also leaves its own key per VM (value = the dock), and after the retail
+-- OnInit this block puts that VM in 5v5 mode again: OnInitFormationCommon(formation, nil, dock, select, nil, true,
+-- true), the retail 5v5 call of team_dock_formation_menu (5v5 list t7, 5v5 field, the dock's team 1). Idempotent when
+-- the VM already was in 5v5 mode. The formation picker mode (param 2438617231) is passed on in the layer group only,
+-- as the retail calls do. «Bonificaciones de equipo» (V / build icon) shows the 5v5 team (EVT_Bonus5, §3.7).
+-- Partido (fix 2026-09-30): the dock leaves the 11v11 key of the VM (evt_pf11_menu / evt_pf11_group, value = dock) and
+-- the kind 0. PF.on is cleared on every OnInit (it stayed true after a Pachanga visit: synergy / «T» hidden, 5 picker
+-- rows in Partido). A VM that is opened again (its Lua state kept) still holds the 5v5 locals of the INCLUDE, which the
+-- retail 11v11 call (last argument nil) does not put back: after the retail OnInit it is put in 11v11 mode again
+-- (OnInitFormationCommon(..., false) + CMND_FRIENDLIES_UPVAL 5 -> 11 starters, 40 -> 94 field height, the 11v11
+-- field layer), as the dock does on its in-place switch. The «T» (supertácticas) stays in Pachanga (2026-09-30).
+-- Nothing calls funcLuaCommand at chunk load.
+@BONUS5@
+do
+  local PF = {
+    KEY = EVT_PF_KEY,                -- set by the dock: evt_pf_menu / evt_pf_group (the file that includes this one)
+    KEY11 = EVT_PF_KEY11,            -- set by the dock in Partido: evt_pf11_menu / evt_pf11_group
+    UPVAL = @crc:CMND_FRIENDLIES_UPVAL@,
+    SELECT = 2438617231,             -- param «formation picker mode» (the FORMACIÓN box), peeked before OnInit
+    -- no synergies in Pachanga (as in the dock): hidden, no focus, decide / enter refused. The «T»
+    -- (soccer11_17_tactics_check_button) is not hidden any more: supertácticas are back in Pachanga (2026-09-30).
+    NO5 = {[3966159602] = true,      -- soccer11_40_synergy_attachment_button_pillar (castle)
+           [212184996] = true},      -- soccer11_40_synergy_attachment_button_flag (flag)
+    on = false, dock = nil, opens = 0,
+  }
+  EVT_PF = PF
+  function PF.hide()
+    for L in pairs(PF.NO5) do
+      pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_VISIBLE@, L, 0, false)
+      pcall(funcLuaMenuCommand, @crc:CMND_SET_ENABLE_CTRL_FOCUS@, L, false)
+    end
+  end
+  -- the retail refreshes show the synergy buttons again (CMND_UPDATE_SYNERGY_BUTTON and the INCLUDE's own layer /
+  -- focus calls): while this VM is in 5v5 mode those calls leave them hidden
+  function PF.guard()
+    if type(VRFW_Host) ~= "table" or type(VRFW_Host.HookCommand) ~= "function" then
+      return
+    end
+    local menu = {menu = true}
+    VRFW_Host.HookCommand(@crc:CMND_SET_LAYER_VISIBLE@, function(nxt, id, layer, index, visible, ...)
+      if PF.on and PF.NO5[layer] and visible then
+        return nxt(id, layer, index, false, ...)
+      end
+      return nxt(id, layer, index, visible, ...)
+    end, "Friendlies.formation_layer_visible", menu)
+    VRFW_Host.HookCommand(@crc:CMND_SET_ENABLE_CTRL_FOCUS@, function(nxt, id, layer, enabled, ...)
+      if PF.on and PF.NO5[layer] and enabled then
+        return nxt(id, layer, false, ...)
+      end
+      return nxt(id, layer, enabled, ...)
+    end, "Friendlies.formation_layer_focus", menu)
+    VRFW_Host.HookCommand({@crc:CMND_UPDATE_SYNERGY_BUTTON@, 3964547760}, function(nxt, id, layer, ...)
+      local r = table.pack(nxt(id, layer, ...))
+      if PF.on and PF.NO5[layer] then
+        PF.hide()
+      end
+      return table.unpack(r, 1, r.n)
+    end, "Friendlies.formation_synergy_button", menu)
+  end
+  local function wrapcb(name, make)
+    local f = rawget(_ENV, name)
+    if type(f) == "function" and not (EVT_PF_WRAPPED or {})[f] then
+      local w = make(f)
+      EVT_PF_WRAPPED = EVT_PF_WRAPPED or {}
+      EVT_PF_WRAPPED[w] = true
+      rawset(_ENV, name, w)
+    end
+  end
+  wrapcb("OnOpenLayer", function(orig)
+    return function(a1, ...)
+      local r = table.pack(orig(a1, ...))
+      if PF.on and PF.NO5[a1] then
+        PF.hide()
+      end
+      return table.unpack(r, 1, r.n)
+    end
+  end)
+  -- the formation picker (native MenuListViewSoccerFormation in win05_01): its row count is not #l2 (it stayed at the
+  -- 11v11 count: 5 names, then blank rows); in Pachanga it gets exactly the formations of t7 (active row count
+  -- command 3252599449, as the retail lists use it), on every opening: the retail 5, or the 5v5 list another mod
+  -- lengthened (BetterQoL_FormationList5, BetterQoL's unlocked five-a-side formations)
+  PF.LIST, PF.ITEM, PF.COUNT = 3873858080, 1027507646, 5
+  function PF.rows()
+    local list = rawget(_ENV, "BetterQoL_FormationList5")
+    if type(list) == "table" and #list >= PF.COUNT then
+      return #list
+    end
+    return PF.COUNT
+  end
+  wrapcb("OnOpenGeneralSubListLayer", function(orig)
+    return function(...)
+      local r = table.pack(orig(...))
+      if PF.on then
+        local rows = PF.rows()
+        pcall(funcLuaMenuCommand, 3252599449, PF.LIST, rows)
+        pcall(funcLuaMenuCommand, 3252599449, PF.ITEM, rows, rows)
+        pcall(funcLuaCommand, @crc:CMND_EVT_LOG@, "EVT pachanga formation", "picker rows", rows)
+      end
+      return table.unpack(r, 1, r.n)
+    end
+  end)
+  for _, cb in ipairs({"OnDecideFocus", "OnEnter"}) do
+    wrapcb(cb, function(orig)
+      return function(a1, ...)
+        if PF.on and PF.NO5[a1] then
+          pcall(funcLuaCommand, @crc:CMND_SND_PLAY_SE@, 2086672038 --[[sy0003]])
+          return
+        end
+        return orig(a1, ...)
+      end
+    end)
+  end
+  wrapcb("OpenAndWaitTeamSkillParameterMenu", function(orig)
+    return function(...)
+      if PF.on and type(PF.dock) == "number" then
+        return select(2, EVT_Bonus5(PF.dock, "formation", orig, ...))
+      end
+      return orig(...)
+    end
+  end)
+  local init = rawget(_ENV, "OnInit")
+  if type(init) == "function" and not (EVT_PF_WRAPPED or {})[init] then
+    local w = function(...)
+      local dock, dock11, sel = nil, nil, false
+      PF.on, PF.dock = false, nil
+      PF.opens = PF.opens + 1
+      pcall(function()
+        if VRFW_Param.Has(PF.KEY) then
+          dock = VRFW_Param.Get(PF.KEY)
+          VRFW_Param.Clear(PF.KEY)
+        end
+        if type(PF.KEY11) == "number" and VRFW_Param.Has(PF.KEY11) then
+          dock11 = VRFW_Param.Get(PF.KEY11)
+          VRFW_Param.Clear(PF.KEY11)
+        end
+        sel = VRFW_Param.Has(PF.SELECT)
+      end)
+      local r = table.pack(init(...))
+      if type(dock) == "number" and funcLuaCommand(@crc:CMND_GET_PLAY_GAME_MODE@) ~= 2
+          and type(OnInitFormationCommon) == "function" then
+        local ok, got, fid = pcall(funcLuaCommand, @crc:CMND_GET_TEAM_SET_INFO@, dock, 1, 4)
+        local e = select(2, pcall(OnInitFormationCommon, (ok and got) and fid or nil, nil, dock,
+          (EVT_PF_SELECT and sel) or nil, nil, true, true))
+        pcall(funcLuaCommand, @crc:CMND_EVT_LOG@, "EVT pachanga formation", "5v5 list", "dock", dock,
+          "formation", tostring(fid), "select", tostring(sel), tostring(e))
+        PF.on, PF.dock = true, dock
+        PF.guard()
+        PF.hide()
+      elseif type(dock11) == "number" and PF.opens > 1 and type(OnInitFormationCommon) == "function" then
+        -- this VM was opened before (state kept): back to the 11v11 INCLUDE state whatever the last visit was
+        local ok, got, fid = pcall(funcLuaCommand, @crc:CMND_GET_TEAM_SET_INFO@, dock11, 0, 4)
+        local u = -1
+        if type(UpdateFormationReducedDrawingIconPos) == "function" then
+          local okU, n = pcall(funcLuaCommand, PF.UPVAL, UpdateFormationReducedDrawingIconPos, 5, 11, 40, 94)
+          u = okU and n or -1
+        end
+        if type(SetFormationLayer) == "function" then
+          pcall(SetFormationLayer, 3321884270 --[[soccer11_02_formation_frame]])
+        end
+        local e = select(2, pcall(OnInitFormationCommon, (ok and got) and fid or nil, nil, dock11,
+          (EVT_PF_SELECT and sel) or nil, nil, true, false))
+        pcall(funcLuaCommand, @crc:CMND_EVT_LOG@, "EVT pachanga formation", "11v11 state", "dock", dock11,
+          "formation", tostring(fid), "upvalues", tostring(u), "open", PF.opens, tostring(e))
+      end
+      return table.unpack(r, 1, r.n)
+    end
+    EVT_PF_WRAPPED = EVT_PF_WRAPPED or {}
+    EVT_PF_WRAPPED[w] = true
+    rawset(_ENV, "OnInit", w)
+  end
+end

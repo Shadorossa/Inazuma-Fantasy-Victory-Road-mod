@@ -1,0 +1,58 @@
+schema = "VRFW.changelog/1"
+# Furor: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Barra de Furor de GO Strikers",
+    "Fase de furor con ventaja temporal",
+]
+
+[release.en]
+notes = [
+    "GO Strikers Fury bar",
+    "Temporary Fired up phase",
+]
+
+[release.fr]
+notes = [
+    "Barre de Furie de GO Strikers",
+    "Phase de Furie temporaire",
+]
+
+[release.de]
+notes = [
+    "Furor-Leiste aus GO Strikers",
+    "Zeitlich begrenzte Furor-Phase",
+]
+
+[release.it]
+notes = [
+    "Barra Furore di GO Strikers",
+    "Fase Furore temporanea",
+]
+
+[release.pt]
+notes = [
+    "Barra de Furor de GO Strikers",
+    "Fase de Furor temporária",
+]
+
+[release.ja]
+notes = [
+    "GOストライカーズの怒りゲージ",
+    "一定時間の怒りフェーズ",
+]
+
+[release.zh_hans]
+notes = [
+    "GO Strikers狂热条",
+    "限时狂热阶段",
+]
+
+[release.zh_hant]
+notes = [
+    "GO Strikers狂熱條",
+    "限時狂熱階段",
+]

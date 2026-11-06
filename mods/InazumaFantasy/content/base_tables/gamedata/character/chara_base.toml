@@ -1,0 +1,46 @@
+schema = "VRFW.base_table/1"
+# The chara_base rows of the technique models the moves' events load by name (LOAD_ACTOR_RESOURCE): id = crc32(name),
+# each a copy of a retail technique model's row with the download's name, name text and model (chara_model.toml).
+
+[[keyed]]
+table = "character/chara_base"
+
+  [[keyed.add]]
+  key = 0x0C5E6FB4                # ev60_90680
+  from = 0x014E0DC5               # ev60_00680
+  cells = { name = { text = "ev60_90680" }, name_text = 0x94F0BF36, model = 0x0D1C39D4 }
+
+  [[keyed.add]]
+  key = 0x853BCB1A                # ev60_90021
+  from = 0x6EFB1302               # ev60_01310
+  cells = { name = { text = "ev60_90021" }, name_text = 0x1D951B98, model = 0x84799D7A }
+
+  [[keyed.add]]
+  key = 0x1C329AA0                # ev60_90022
+  from = 0xA15C74BA               # ev60_03250
+  cells = { name = { text = "ev60_90022" }, name_text = 0x849C4A22, model = 0x1D70CCC0 }
+
+  [[keyed.add]]
+  key = 0xA48EFDC5                # ev60_91022
+  from = 0xA15C74BA               # ev60_03250
+  cells = { name = { text = "ev60_91022" }, name_text = 0x3C202D47, model = 0xA5CCABA5 }
+
+  [[keyed.add]]
+  key = 0xA9C6C549                # ev61_91001
+  from = 0x09CAF724               # ev61_00540
+  cells = { name = { text = "ev61_91001" }, name_text = 0x316815CB, model = 0xA8849329 }
+
+  [[keyed.add]]
+  key = 0xC7675D17                # ev60_90004
+  from = 0xE47116E5               # ev60_00330
+  cells = { name = { text = "ev60_90004" }, name_text = 0x5FC98D95, model = 0xC6250B77 }
+
+  [[keyed.add]]
+  key = 0xB0AAE29C                # b900007
+  from = 0x7EC61661               # b000001
+  cells = { name = { text = "b900007" }, name_text = 0x2804321E, model = 0xB1E8B4FC }
+
+  [[keyed.add]]
+  key = 0xFAF184B5                # ev62_92004
+  from = 0x7F3C9890               # ev62_10110
+  cells = { name = { text = "ev62_92004" }, name_text = 0x625F5437, model = 0xFBB3D2D5 }

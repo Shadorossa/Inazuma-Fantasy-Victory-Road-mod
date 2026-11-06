@@ -1,0 +1,110 @@
+schema = "VRFW.character/2"
+# Inazuma Eleven Cross characters of the IEVRCROSS mod that IECross did not have: Axel Blaze with his red Cross hair,
+# and David Samford and Nathan Swift in the Pumpkin Devil kit (pumpkin mask). Its Tyron Rock was the game's Tyron in the
+# Shin Zeus kit (same head, face and card): left out, the kit is sold (content\items\cross_kits.toml).
+# Own ids (pinned): character crc32(internal name), card crc32("IECross.<name>#card"), model
+# crc32("IECross.<name>.look"). Heads: content\models\characters\ (the mod's files, chr\_face\90_CROSS\);
+# kits: content\looks\cross_new_kits.toml. Names, voice and moves are the template's; element and positions
+# are the Cross card's; each card is a copy of the template's first card. Recruited at the Office on the template's page (its office row cloned).
+default_lang = "en"
+
+[[character]]
+name = "axel_blaze_cross"                        # Axel Blaze (Cross)
+based_on = "c01000100"
+order = 76
+
+  [character.base]
+  id = 0x77011C7E
+  name = "c90000170"
+  team_3 = 0x1E5DC7AA
+
+  [character.new_model]
+  id = 0x2CE900BB
+  from = 0x185FFC67                                       # model of c01000100
+  order = 84
+  [character.new_model.cells]
+  clothes = 0x9D2BBD10
+  shoes = 0x9035CD57
+  head_mesh_path = "_face/90_CROSS/c90000250/c90000250.g4md"
+
+  [[character.cards]]
+  id = 0xE95788DB
+  from = 0x288C9454                                       # Axel Blaze's first card (c01000100)
+  order = 81
+  element = "fire"
+  position = "fw"
+  sub_position = "mf"
+  growth_pattern = 1
+
+  [character.recruit]
+  beside = "c01000100"
+
+[[character]]
+name = "david_samford_halloween"                 # David Samford (Pumpkin Devil kit)
+based_on = "c01000310"
+order = 77
+
+  [character.base]
+  id = 0xF09900B1
+  name = "c90000180"
+  team_1 = 0x1E5DC7AA                                     # the Cross belong team first: it has no kit, so lists dress him in his own clothes
+  team_2 = 0x699E68EC                                     # Royal Academy (his team of origin)
+  team_3 = 0x6E8EFF55                                     # the template's team_2
+
+  [character.new_model]
+  id = 0xE1E4257E
+  from = 0x02C01948                                       # model of c01000310
+  order = 85
+  [character.new_model.cells]
+  clothes = 0x824BDC1E
+  shoes = 0x8F55AC59
+  gloves = 0xA1108DCB
+  head_mesh_path = "_face/90_CROSS/c90000310/c90000310.g4md"
+
+  [[character.cards]]
+  id = 0x245AAD1E
+  from = 0x3213717B                                       # David Samford's first card (c01000310)
+  order = 82
+  element = "forest"
+  position = "fw"
+  sub_position = "mf"
+  growth_pattern = 1
+  moment_kit = 0x30503B87                                 # Pumpkin Devil, worn by rule: content\card_looks\own_kit.toml
+
+  [character.recruit]
+  beside = "c01000310"
+
+[[character]]
+name = "nathan_swift_halloween"                  # Nathan Swift (Pumpkin Devil kit)
+based_on = "c01000020"
+order = 78
+
+  [character.base]
+  id = 0xE98231F0
+  name = "c90000190"
+  team_1 = 0x1E5DC7AA                                     # the Cross belong team first: it has no kit, so lists dress him in his own clothes
+  team_2 = 0xF01BB293                                     # Raimon (his team of origin)
+  team_3 = 0x6E8EFF55                                     # the template's team_2
+
+  [character.new_model]
+  id = 0x676413FF
+  from = 0x2BABF4D2                                       # model of c01000020
+  order = 86
+  [character.new_model.cells]
+  clothes = 0x824BDC1E
+  shoes = 0x8F55AC59
+  gloves = 0xA1108DCB
+  head_mesh_path = "_face/90_CROSS/c90000320/c90000320.g4md"
+
+  [[character.cards]]
+  id = 0xA2DA9B9F
+  from = 0x1B789CE1                                       # Nathan Swift's first card (c01000020)
+  order = 83
+  element = "wind"
+  position = "df"
+  sub_position = "mf"
+  growth_pattern = 0
+  moment_kit = 0x30503B87                                 # Pumpkin Devil, worn by rule: content\card_looks\own_kit.toml
+
+  [character.recruit]
+  beside = "c01000020"

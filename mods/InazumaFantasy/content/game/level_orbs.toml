@@ -1,0 +1,8 @@
+# The level orbs' command (schema VRFW.game/1, docs/framework/native.md), handled by scripts\level_orbs.lua; the item
+# use menu's patch calls it (research/grafts/inazuma_fantasy_level_orbs).
+schema = "VRFW.game/1"
+
+[[VRFW.Command]]
+# item id -> levels one orb gives (config.toml [level_orbs.levels]); 0 = not a level orb
+name = "CMND_INAZUMAFANTASY_LEVEL_ORB_LEVELS"
+handler = "InazumaFantasy.LevelOrbLevels"

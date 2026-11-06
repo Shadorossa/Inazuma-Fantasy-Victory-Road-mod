@@ -1,0 +1,87 @@
+schema = "VRFW.game_shader/1"
+# The shaders of the IEVRCROSS mod (Inazuma Eleven Cross for Victory Road) that its special moves' effects and
+# the Inferno Penguin model use (Effect_PFXCross, Effect_BunsinCross, the Effect_FakeParticle*PFX family,
+# Chr_ToonMetalCross): compiled files as that mod ships them.
+
+[[program]]
+file = "assets/shaders/chr_toon_cross.vfxo"
+
+[[program]]
+file = "assets/shaders/chr_toon_cross_vb.vfxo"
+
+[[program]]
+file = "assets/shaders/chr_toon_effstatustex_cross.vfxo"
+
+[[program]]
+file = "assets/shaders/chr_toon_effstatustex_cross_vb.vfxo"
+
+[[program]]
+file = "assets/shaders/prerender_chr_toon_cross.vfxo"
+
+[[program]]
+file = "assets/shaders/prerender_chr_toon_cross_vb.vfxo"
+
+[[program]]
+file = "assets/shaders/chr_toon_metal_effstatustex_cross.pfxo"
+
+[[program]]
+file = "assets/shaders/Effect_PFXCross.vfxo"
+
+[[program]]
+file = "assets/shaders/Effect_PFXCross_vb.vfxo"
+
+[[program]]
+file = "assets/shaders/Effect_FakeParticleRotZPatPFX.pfxo"
+
+[[program]]
+file = "assets/shaders/Effect_PFXCross.pfxo"
+
+[[program]]
+file = "assets/shaders/Effect_BunsinCross.pfxo"
+
+[[program]]
+file = "assets/shaders/Effect_FakeParticleLocalPFX.gfxo"
+
+[[program]]
+file = "assets/shaders/Effect_FakeParticleRotZPatPFX.gfxo"
+
+[[program]]
+file = "assets/shaders/Effect_FakeParticleLine1PFX.gfxo"
+
+[[program]]
+file = "assets/shaders/Effect_FakeParticleTrailPFX.gfxo"
+
+[[program]]
+file = "assets/shaders/Effect_FakeParticleLine2PFX.gfxo"
+
+[[effect]]
+name = "Effect_PFXCross"
+file = "assets/shaders/effect_pfx_cross.fxbin"
+
+[[effect]]
+name = "Chr_ToonMetalCross"
+file = "assets/shaders/chr_toon_metal_cross.fxbin"
+
+[[effect]]
+name = "Effect_FakeParticleLocalPFX"
+file = "assets/shaders/effect_fake_particle_local_pfx.fxbin"
+
+[[effect]]
+name = "Effect_FakeParticleRotZPatPFX"
+file = "assets/shaders/effect_fake_particle_rotz_pat_pfx.fxbin"
+
+[[effect]]
+name = "Effect_FakeParticleLine1PFX"
+file = "assets/shaders/effect_fake_particle_line1_pfx.fxbin"
+
+[[effect]]
+name = "Effect_FakeParticleTrailPFX"
+file = "assets/shaders/effect_fake_particle_trail_pfx.fxbin"
+
+[[effect]]
+name = "Effect_FakeParticleLine2PFX"
+file = "assets/shaders/effect_fake_particle_line2_pfx.fxbin"
+
+[[effect]]
+name = "Effect_BunsinCross"
+file = "assets/shaders/effect_bunsin_cross.fxbin"

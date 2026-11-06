@@ -1,0 +1,30 @@
+# Declaration schema of VRFW.field_clip/1 (content\rules): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.field_clip/1"
+folder = "content/rules"
+label = "Field clips"
+label_es = "Animaciones de campo"
+
+[entry.Locomotion]
+entry_table = "locomotion"
+name = { type = "name", required = true }
+actions = { type = "table", required = true }
+
+[entry.Alias]
+entry_table = "alias"
+old = { type = "string" }
+new = { type = "string" }
+
+[entry.FieldClip]
+entry_table = "field_clip"
+name = { type = "name", required = true }
+glb = { type = "string" }
+loop = { type = "string" }
+retail = { type = "string" }
+
+[entry.OnAuraEnd]
+entry_table = "on_aura_end"
+aura = { type = "any", required = true }
+reason = { type = "any", required = true }
+clip = { type = "string", required = true }
+skip_controlled = { type = "bool", required = true }

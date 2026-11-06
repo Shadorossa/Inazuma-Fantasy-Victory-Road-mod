@@ -1,0 +1,15 @@
+schema = "VRFW.option/2"
+# Player Training › its rows on the Mods screen's «Ajustes» and in Opciones › «Opciones de mods». Values:
+# <data dir>\mod_options\. Read by scripts\lib\stat_effects.lua at each pass reception (no restart needed).
+#   first_touch  Control and the first touch of a received pass. The game has no stat-driven miss on a plain pass
+#                reception (docs/game/mechanics/stats-system.md §10.1): for now the row switches the reception probe,
+#                one log line per received pass with the receiver's Control (data for the later effect).
+
+[[option]]
+id = "first_touch"                            # row key ClassicTraining.first_touch
+type = "toggle"
+label = "option_first_touch"                  # text\keys.toml, 9 languages
+help = "option_first_touch_help"
+default = 0
+order = 100
+restart = false

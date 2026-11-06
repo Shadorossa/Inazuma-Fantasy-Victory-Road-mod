@@ -1,0 +1,248 @@
+schema = "VRFW.character/2"
+# Character Reforged · Kirkwood · Inazuma Eleven: Ares
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c07050050"                                   # Trice Topper
+moves = [
+  { move = 0x8DFA4265, level = 1 },                         # Toughness Block
+  { move = 0xDBA0E5E3, level = 13 },                        # Gigant Wall
+  { move = 0xE9968761, level = 20 },                        # Rocket Kobushi
+  { move = 0x78E027BC, level = 30 },                        # Shine Drive
+]
+
+  [[edit.cards]]
+  id = 0xFF09B06C                                         # GK/FW · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 198, control = 203, technique = 186, pressure = 246, physical = 227, intelligence = 235, agility = 263, freedom = 251 }
+
+[[edit]]
+target = "c07050130"                                   # Hilary Prentice
+moves = [
+  { move = 0x5781A373, level = 1 },                         # Hurricane Arrows
+  { move = 0x7207C577, level = 13 },                        # Boost Glider
+  { move = 0x4AD6453E, level = 20 },                        # Back Tornado
+  { move = 0x1C4D4906, level = 30 },                        # Whirlpool
+]
+
+  [[edit.cards]]
+  id = 0xA8917DDD                                         # MF/DF · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 203, control = 247, technique = 250, pressure = 207, physical = 180, intelligence = 238, agility = 193, freedom = 279 }
+
+[[edit]]
+target = "c07050140"                                   # Jodi Green
+moves = [
+  { move = 0x5781A373, level = 1 },                         # Hurricane Arrows
+  { move = 0x7207C577, level = 13 },                        # Boost Glider
+  { move = 0x4CDC2C6B, level = 20 },                        # Shooting Star
+  { move = 0xD1E62D0A, level = 30 },                        # Mushroom Hop
+]
+
+  [[edit.cards]]
+  id = 0xE7D0EB1A                                         # DF/FW · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 194, control = 188, technique = 174, pressure = 240, physical = 238, intelligence = 267, agility = 213, freedom = 269 }
+
+[[edit]]
+target = "c07050010"                                   # Axel Blaze
+moves = [
+  { move = 0x518BCA26, level = 1 },                         # Fire Tornado
+  { move = 0x00D8C57C, level = 1 },                         # Fireball Storm
+  { move = 0x0B011EBF, level = 11 },                        # Fireball Screw
+  { move = 0xEAB3792D, level = 21 },                        # Grand Fire
+]
+VRFW.MoveGrades = [
+  { Move = 0x518BCA26, Grade = 1 },                         # Fire Tornado
+]
+
+  [[edit.cards]]
+  id = 0x9B657568                                         # FW/MF · fire
+  growth = "normal"
+  stats = { kick = 328, control = 244, technique = 258, pressure = 184, physical = 208, intelligence = 205, agility = 185, freedom = 247 }
+
+[[edit]]
+target = "c07050060"                                   # Malcolm Night
+moves = [
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
+  { move = 0x6C827857, level = 39 },                        # Rolling Steal
+  { move = 0xB6F26F5F, level = 60 },                        # Tri-Pegasus
+]
+
+  [[edit.cards]]
+  id = 0xD424E3AF                                         # DF/MF · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 244, control = 182, technique = 180, pressure = 240, physical = 252, intelligence = 266, agility = 231, freedom = 238 }
+
+[[edit]]
+target = "c07050070"                                   # Alfred Meenan
+moves = [
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
+  { move = 0x5781A373, level = 1 },                         # Hurricane Arrows
+  { move = 0x261BDCA8, level = 50 },                        # Moonsault
+  { move = 0xA7B451B3, level = 58 },                        # Paladin Strike
+]
+
+  [[edit.cards]]
+  id = 0xCD3FD2EE                                         # DF/MF · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 236, control = 193, technique = 190, pressure = 239, physical = 215, intelligence = 273, agility = 198, freedom = 230 }
+
+[[edit]]
+target = "c07050080"                                   # Dan Mirthful
+moves = [
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
+  { move = 0x00196EC2, level = 42 },                        # Earthquake
+  { move = 0x1A472053, level = 49 },                        # Double Wrath Shot
+  { move = 0x78E027BC, level = 50 },                        # Shine Drive
+]
+
+  [[edit.cards]]
+  id = 0x4AA7CE21                                         # DF/FW · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 220, control = 169, technique = 154, pressure = 261, physical = 254, intelligence = 257, agility = 246, freedom = 263 }
+
+[[edit]]
+target = "c07050090"                                   # Ricky Clover
+moves = [
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
+  { move = 0x5781A373, level = 1 },                         # Hurricane Arrows
+  { move = 0x4AD6453E, level = 45 },                        # Back Tornado
+  { move = 0x52CEB5F6, level = 70 },                        # Iron Wall
+]
+
+  [[edit.cards]]
+  id = 0x53BCFF60                                         # DF/FW · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 193, control = 212, technique = 211, pressure = 205, physical = 186, intelligence = 262, agility = 178, freedom = 335 }
+
+[[edit]]
+target = "c07050100"                                   # Toby Damian
+moves = [
+  { move = 0x261BDCA8, level = 1 },                         # Moonsault
+  { move = 0x4AD6453E, level = 1 },                         # Back Tornado
+  { move = 0x4CDC2C6B, level = 48 },                        # Shooting Star
+  { move = 0x5049A011, level = 56 },                        # Spinning Shot
+]
+
+  [[edit.cards]]
+  id = 0x83BC2E1E                                         # MF/FW · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 211, control = 250, technique = 251, pressure = 200, physical = 184, intelligence = 231, agility = 186, freedom = 267 }
+
+[[edit]]
+target = "c07050110"                                   # York Nashmith
+moves = [
+  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
+  { move = 0x2A37FC88, level = 32 },                        # Revolution V
+  { move = 0x4AD6453E, level = 50 },                        # Back Tornado
+  { move = 0x7207C577, level = 54 },                        # Boost Glider
+]
+
+  [[edit.cards]]
+  id = 0x9AA71F5F                                         # MF/FW · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 182, control = 247, technique = 255, pressure = 221, physical = 180, intelligence = 251, agility = 209, freedom = 271 }
+
+[[edit]]
+target = "c07050120"                                   # Zachary Moore
+moves = [
+  { move = 0x49041E53, level = 1 },                         # Crosscut Feint
+  { move = 0x6ADE9E01, level = 42 },                        # Illusory Ball
+  { move = 0x4890FB67, level = 53 },                        # Twin Boost
+  { move = 0x7207C577, level = 58 },                        # Boost Glider
+]
+
+  [[edit.cards]]
+  id = 0xB18A4C9C                                         # MF/FW · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 188, control = 265, technique = 278, pressure = 170, physical = 184, intelligence = 225, agility = 181, freedom = 267 }
+
+[[edit]]
+target = "c07050020"                                   # Marvin Murdock
+moves = [
+  { move = 0x3D10DCB3, level = 1 },                         # Curve Shot
+  { move = 0x2F78EA0D, level = 1 },                         # Triangle Z
+  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
+  { move = 0x6ADE9E01, level = 37 },                        # Illusory Ball
+]
+
+  [[edit.cards]]
+  id = 0xB04826AB                                         # FW/MF · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 282, control = 238, technique = 258, pressure = 205, physical = 155, intelligence = 211, agility = 173, freedom = 231 }
+
+[[edit]]
+target = "c07050030"                                   # Thomas Murdock
+moves = [
+  { move = 0x6B4A7B35, level = 1 },                         # Power Shot
+  { move = 0x4AD6453E, level = 1 },                         # Back Tornado
+  { move = 0x2F78EA0D, level = 35 },                        # Triangle Z
+  { move = 0x36A270F2, level = 55 },                        # Rolling Slide
+]
+
+  [[edit.cards]]
+  id = 0xA95317EA                                         # FW/MF · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 284, control = 269, technique = 259, pressure = 157, physical = 131, intelligence = 196, agility = 153, freedom = 231 }
+
+[[edit]]
+target = "c07050040"                                   # Tyler Murdock
+moves = [
+  { move = 0x4AD6453E, level = 1 },                         # Back Tornado
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
+  { move = 0x2F78EA0D, level = 10 },                        # Triangle Z
+  { move = 0x3BF45E9A, level = 65 },                        # Triple Boost
+]
+
+  [[edit.cards]]
+  id = 0xE612812D                                         # FW/MF · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 327, control = 266, technique = 269, pressure = 180, physical = 186, intelligence = 224, agility = 180, freedom = 217 }
+
+[[edit]]
+target = "c11807090"                                   # Lynn Tambelle
+moves = [
+  { move = 0x7207C577, level = 1 },                         # Boost Glider
+  { move = 0x5781A373, level = 13 },                        # Hurricane Arrows
+  { move = 0x4E9A9232, level = 20 },                        # Spinning Cut
+  { move = 0x93E8DBF8, level = 30 },                        # Dimensional Hand
+]
+
+  [[edit.cards]]
+  id = 0x45A2FF60                                         # DF/GK · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 174, control = 184, technique = 189, pressure = 259, physical = 228, intelligence = 277, agility = 215, freedom = 255 }
+
+[[edit]]
+target = "c11807280"                                   # Seth Nichols
+moves = [
+  { move = 0x518BCA26, level = 1 },                         # Fire Tornado
+  { move = 0x49933AEE, level = 13 },                        # Perfect Tower
+  { move = 0xAF28F5A0, level = 20 },                        # The Tower
+  { move = 0x5781A373, level = 30 },                        # Hurricane Arrows
+]
+
+  [[edit.cards]]
+  id = 0x5F3D1A4F                                         # DF/FW · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 181, control = 203, technique = 193, pressure = 220, physical = 221, intelligence = 267, agility = 197, freedom = 238 }

@@ -1,0 +1,31 @@
+# Menu texts of Inazuma Eleven Cross (VR-Framework text type; id = crc32 of the row id): the name of the mod's
+# «Competir contra bots» tab and of its Bahía Batalla season (content/teams/free_match_tab.toml), read by the
+# framework's Lua with CMND_TEXT_GET.
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# crc32("iecross_series_cross") = the tab / season name
+[[row]]
+id = "iecross_series_cross"
+es = "Inazuma Eleven Cross"
+en = "Inazuma Eleven Cross"
+fr = "Inazuma Eleven Cross"
+de = "Inazuma Eleven Cross"
+it = "Inazuma Eleven Cross"
+pt = "Inazuma Eleven Cross"
+ja = "イナズマイレブン クロス"
+zh_hans = "闪电十一人 Cross"
+zh_hant = "閃電十一人 Cross"
+
+# the name of the switch of a normal card's own kit in «Equipamiento» (content\card_looks\own_kit.toml)
+[[row]]
+id = "iecross_own_kit"
+es = "Equipación propia"
+en = "Own kit"
+fr = "Tenue personnelle"
+de = "Eigenes Trikot"
+it = "Divisa personale"
+pt = "Uniforme próprio"
+ja = "専用ユニフォーム"
+zh_hans = "专属球衣"
+zh_hant = "專屬球衣"

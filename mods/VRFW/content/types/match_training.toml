@@ -1,0 +1,23 @@
+# Declaration schema of VRFW.match_training/1 (content\match_training): the players of one side of a match who come
+# trained to the full for that match only (scripts\lib\match_training.lua; docs/game/mods/rival-training.md). One rule
+# per file. The mod that owns the training (Player Training) applies it, only while it is active.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.match_training/1"
+folder = "content/match_training"
+label = "Match training"
+label_es = "Entrenamiento en partido"
+doc = "The level a side's players play at in the matches that fit the rule."
+doc_es = "El nivel al que juegan los jugadores de un bando en los partidos que cumplen la regla."
+
+[entry.Match]
+entry_table = "match"
+single = true
+play_mode = { type = "int", doc = "the engine's play-mode byte (Game.PlayMode) the match must have; left out = any" }
+difficulty = { type = "string", required = true, doc = "a [MatchDifficulty.<Id>] key (content/defaults/match_difficulty.toml) or its Difficulty number" }
+side = { type = "string", default = "rival", values = ["rival"], doc = "the side whose players are trained" }
+
+[entry.Training]
+entry_table = "training"
+single = true
+positions = { type = "strings", doc = "the main positions trained (\"GK\", \"DF\", \"MF\", \"FW\")" }
+level = { type = "int", doc = "the level the side's players play at (their untrained stats and their Libertad are taken there)" }

@@ -1,0 +1,16 @@
+# Declares `[[VRFW.Flow]]` keys for content\flows\*.toml; unknown keys, wrong types or out-of-range values drop that declaration with a warning.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.flow/1"
+folder = "content/flows"
+label = "Flow toggles"
+label_es = "Interruptores de flujo"
+doc = "A screen or flow toggle of the game: which way one of its fixed decisions goes."
+doc_es = "Un interruptor de pantalla o flujo del juego: hacia dónde va una de sus decisiones fijas."
+
+[entry.Flow]
+doc = "a screen / flow toggle of the game: which way one of its fixed decisions goes"
+# Toggles and values are defined by scripts\flow.lua; with several mods the later one in load order wins.
+name = { type = "name", required = true, doc = "the toggle: prematch_editor, match_exit" }
+value = { type = "string", required = true, doc = "prematch_editor: \"game\" (the game's rule) or \"skip_offline\" (no team editor before the walk-in of an offline match); match_exit: \"game\" or \"black_to_menu\" (leaving an offline match with the hold prompts fades to black until the menu the game returns to has opened)" }
+play_modes = { type = "ints", min = 0, max = 255, doc = "match_exit: the engine play modes whose matches it covers (1 = the menus' matches: free match, Competición, Estadio BB); required with black_to_menu" }
+when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

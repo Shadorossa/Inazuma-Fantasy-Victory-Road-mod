@@ -1,0 +1,93 @@
+schema = "VRFW.image/1"
+# BetterUI > the owner's four technique books (256 px sources in technique_books\): the icon of a move drawn as an item
+# (shop, inventory, rewards; content\game\technique_icons.toml). Drawn at about 72 px; 128 px stays sharp at 4K.
+# Own atlas, served through content\sprite_redirects\own_atlases.toml; the retail icon_sp_area sprites are not touched.
+# icon_sp_area01-04 here: the same books at 96 px for the list rows that name those sprites from Lua (drawn at about 46 px).
+
+[[recipe]]
+name = "shot"
+png = "technique_books/technique_book_shot.png"
+ops = [{ op = "resize", size = [128, 128] }]
+
+[[recipe]]
+name = "dribble"
+png = "technique_books/technique_book_dribble.png"
+ops = [{ op = "resize", size = [128, 128] }]
+
+[[recipe]]
+name = "block"
+png = "technique_books/technique_book_block.png"
+ops = [{ op = "resize", size = [128, 128] }]
+
+[[recipe]]
+name = "keeper"
+png = "technique_books/technique_book_keeper.png"
+ops = [{ op = "resize", size = [128, 128] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/better_ui_own/better_ui_technique_books.g4tx"
+name = "better_ui_tech_book_shot"
+recipe = "shot"
+size = [128, 128]
+
+[[texture]]
+atlas = "#/menu/200_icon/better_ui_own/better_ui_technique_books.g4tx"
+name = "better_ui_tech_book_dribble"
+recipe = "dribble"
+size = [128, 128]
+
+[[texture]]
+atlas = "#/menu/200_icon/better_ui_own/better_ui_technique_books.g4tx"
+name = "better_ui_tech_book_block"
+recipe = "block"
+size = [128, 128]
+
+[[texture]]
+atlas = "#/menu/200_icon/better_ui_own/better_ui_technique_books.g4tx"
+name = "better_ui_tech_book_keeper"
+recipe = "keeper"
+size = [128, 128]
+
+[[recipe]]
+name = "row_shot"
+png = "technique_books/technique_book_shot.png"
+ops = [{ op = "resize", size = [96, 96] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/better_ui_own/better_ui_technique_books.g4tx"
+name = "icon_sp_area01"
+recipe = "row_shot"
+size = [96, 96]
+
+[[recipe]]
+name = "row_dribble"
+png = "technique_books/technique_book_dribble.png"
+ops = [{ op = "resize", size = [96, 96] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/better_ui_own/better_ui_technique_books.g4tx"
+name = "icon_sp_area02"
+recipe = "row_dribble"
+size = [96, 96]
+
+[[recipe]]
+name = "row_block"
+png = "technique_books/technique_book_block.png"
+ops = [{ op = "resize", size = [96, 96] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/better_ui_own/better_ui_technique_books.g4tx"
+name = "icon_sp_area03"
+recipe = "row_block"
+size = [96, 96]
+
+[[recipe]]
+name = "row_keeper"
+png = "technique_books/technique_book_keeper.png"
+ops = [{ op = "resize", size = [96, 96] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/better_ui_own/better_ui_technique_books.g4tx"
+name = "icon_sp_area04"
+recipe = "row_keeper"
+size = [96, 96]

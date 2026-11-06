@@ -1,0 +1,10 @@
+schema = "VRFW.game/2"
+
+# Chronicle Deluxe: free-match teams that play with their line-up swapped (run time scripts\free_match_shuffle.lua).
+# Deals the starters of a class team (game key chronicle_deluxe_fms_*) to new places in game memory from its source
+# teams <key>_as_gk|fw|mf|df.
+
+[[VRFW.Command]]
+name = "CMND_ChronicleDeluxe_FreeMatchShuffle"   # () -> teams dealt (0 when every shuffled team still holds its deal)
+handler = "ChronicleDeluxe.FreeMatchShuffle.Deal"
+needs = ["Team.FindConfig", "TeamRecord", "TeamConfig", "MemberRow"]

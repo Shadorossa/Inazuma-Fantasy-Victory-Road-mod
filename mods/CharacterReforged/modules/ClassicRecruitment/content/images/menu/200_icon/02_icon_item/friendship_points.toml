@@ -1,0 +1,8 @@
+# New Recruitment: the icon of Puntos de amistad (content/items/friendship_points.toml), a texture of icon_item10 (the
+# `tk` sheet) replaced: the rare medal recoloured blue.
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item10.g4tx"
+name = "tk_hr000008"
+png = "friendship_points/tk_hr000008.png"

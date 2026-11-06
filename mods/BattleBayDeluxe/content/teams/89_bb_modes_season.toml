@@ -1,0 +1,8 @@
+schema = "VRFW.team/2"
+# Battle Bay grid, season carousel: «Modes», the season of the Active team and Draft tiles, so they are listed under
+# every season and under this one, not under a game's season (the Draft is a copy of the first Raimon roster).
+[[VRFW.Season]]
+Id = "bbd_modes"
+Text = "evt_bbd_season_modes"
+Icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_battle01"
+Order = 5

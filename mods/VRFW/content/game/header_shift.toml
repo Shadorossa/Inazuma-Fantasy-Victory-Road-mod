@@ -1,0 +1,8 @@
+schema = "VRFW.game/2"
+
+# Header shifts (scripts/header_shift.lua; declarations content/header_shift/*.toml, VRFW.header_shift/1). A menu whose
+# hook file calls VRFW_HeaderShift.Apply reads its list once per script VM (lua\menu\_all\98_header_shift.lua).
+
+[[VRFW.Command]]
+name = "CMND_VRFW_HEADER_SHIFT"    # (stem crc, i) -> layer crc, dy, scale, x, y of the stem's layer i (1-based); layer 0 past the end
+handler = "HeaderShift.Cmd"

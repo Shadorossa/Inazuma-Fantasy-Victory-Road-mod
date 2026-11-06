@@ -1,0 +1,61 @@
+# Retail game modes for the current-mode service (schema VRFW.game_modes/1). Mods may add rules or contexts in their own game_modes.toml.
+# [[rule]]: `key` holds while every given condition holds; rules are checked by `order` (lower first, default 100), the first that holds is the detected key.
+#   play_mode = [..]  engine play-mode byte (1 VS / free / menus, 2 and 6 story, 3 Kizuna town, 4 Chronicle, 5 Victory Road; 0 = unreadable)
+#   scene = "Name"    a scene with this class name is running
+#   state = "key"     game_state(key) == state_is (default 1)
+# [[context]]: a key with no game value; entered / left by CMND_VRFW_MODE_CURRENT_ENTER / _LEAVE or by opening the listed menus (enter_menus / leave_menus).
+schema = "VRFW.game_modes/1"
+
+[[rule]]
+key = "title"
+order = 10
+scene = "SceneTitle"
+
+[[rule]]
+key = "boot"
+order = 20
+play_mode = [0]
+
+# Framework pachanga (friendly match), wherever it is played
+[[rule]]
+key = "pachanga"
+order = 30
+state = "match.friendly.running"
+
+[[rule]]
+key = "story"
+order = 50
+play_mode = [2, 6]
+
+# Kizuna town: the retail free walk
+[[rule]]
+key = "free_walk"
+order = 50
+play_mode = [3]
+
+[[rule]]
+key = "chronicle"
+order = 50
+play_mode = [4]
+
+[[rule]]
+key = "victory_road"
+order = 50
+play_mode = [5]
+
+# Battle Bay (menus and matches): play mode 1 like any free match, so it is tracked as a context; mods test it with is("battle_bay").
+[[context]]
+key = "battle_bay"
+enter_menus = ["bb_stadium_top_menu", "enjoy_team_select_menu"]
+leave_menus = ["soccer_top_menu", "market_menu", "item_menu", "play_guide_top_menu", "chronicle_mode_top_menu",
+  "victory_road_top_menu", "information_top_menu", "team_dock_common_top_menu", "title_menu_2"]
+
+[[rule]]
+key = "match"
+order = 80
+state = "match.in_match"
+
+[[rule]]
+key = "menus"
+order = 90
+play_mode = [1]

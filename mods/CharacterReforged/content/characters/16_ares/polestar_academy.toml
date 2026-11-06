@@ -1,0 +1,296 @@
+schema = "VRFW.character/2"
+# Character Reforged · Polestar Academy · Inazuma Eleven: Ares
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c07020010"                                   # Elliot Ember
+growth_pattern = 1
+growth = "normal"
+stats = { kick = 311, control = 265, technique = 258, pressure = 194, physical = 182, intelligence = 234, agility = 177, freedom = 271 }
+
+  [[edit.cards]]
+  id = 0x2945A978    # normal card (the character's special cards keep their own set)
+  moves = [
+    { move = 0x16658ADE, level = 1 },                       # Perfect Penguin
+    { move = 0x91FD9611, level = 13 },                      # Penguin Volley
+    { move = 0xB27F13ED, level = 20 },                      # Death Zone
+    { move = 0x0A02DF36, level = 30 },                      # Containment Field
+  ]
+
+[[edit]]
+target = "c07020020"                                   # Eddy O'Ryan
+moves = [
+  { move = 0xB27F13ED, level = 1 },                         # Death Zone
+  { move = 0x142DBE2A, level = 13 },                        # Foul Offence
+  { move = 0x88E6A750, level = 20 },                        # Centrifugal Blast
+  { move = 0xA17F9358, level = 30 },                        # Clone Death Zone
+]
+
+  [[edit.cards]]
+  id = 0x0268FABB                                         # MF/FW · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 267, control = 252, technique = 271, pressure = 193, physical = 178, intelligence = 243, agility = 178, freedom = 247 }
+
+[[edit]]
+target = "c07020030"                                   # Oscar Pio
+moves = [
+  { move = 0xB27F13ED, level = 1 },                         # Death Zone
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0x88E6A750, level = 20 },                        # Centrifugal Blast
+  { move = 0x245D62F1, level = 30 },                        # Attack Scan
+]
+
+  [[edit.cards]]
+  id = 0x1B73CBFA                                         # MF/FW · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 240, control = 252, technique = 266, pressure = 198, physical = 181, intelligence = 244, agility = 185, freedom = 259 }
+
+[[edit]]
+target = "c07020040"                                   # Oliver Golightly
+moves = [
+  { move = 0x7DD6FEF8, level = 1 },                         # Athena's Anthem
+  { move = 0x8331F63E, level = 13 },                        # Divine Dummy
+  { move = 0x88E6A750, level = 20 },                        # Centrifugal Blast
+  { move = 0xDF8CB373, level = 30 },                        # Sonic Shot
+]
+
+  [[edit.cards]]
+  id = 0x54325D3D                                         # MF/FW · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 232, control = 254, technique = 271, pressure = 201, physical = 177, intelligence = 247, agility = 184, freedom = 247 }
+
+[[edit]]
+target = "c07020050"                                   # Caesar Pike
+moves = [
+  { move = 0x0A02DF36, level = 1 },                         # Containment Field
+  { move = 0x737DCB3F, level = 13 },                        # Pancake Defence
+  { move = 0xE8F5C774, level = 20 },                        # Megalodon
+  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+]
+
+  [[edit.cards]]
+  id = 0x4D296C7C                                         # MF/DF · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 215, control = 251, technique = 248, pressure = 201, physical = 194, intelligence = 239, agility = 185, freedom = 301 }
+
+[[edit]]
+target = "c07020060"                                   # Jimmy Nigh
+moves = [
+  { move = 0x0A02DF36, level = 1 },                         # Containment Field
+  { move = 0x142DBE2A, level = 13 },                        # Foul Offence
+  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
+  { move = 0x4CDC2C6B, level = 30 },                        # Shooting Star
+]
+
+  [[edit.cards]]
+  id = 0x66043FBF                                         # MF/DF · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 219, control = 255, technique = 267, pressure = 208, physical = 177, intelligence = 251, agility = 186, freedom = 267 }
+
+[[edit]]
+target = "c07020070"                                   # Acker Reese
+moves = [
+  { move = 0x0A02DF36, level = 1 },                         # Containment Field
+  { move = 0x7DAF3139, level = 13 },                        # Emperor Penguin No. 2
+  { move = 0x2B343D01, level = 20 },                        # Cyclone
+  { move = 0x7C1494CF, level = 30 },                        # Tornado Tunnel
+]
+
+  [[edit.cards]]
+  id = 0x7F1F0EFE                                         # DF/MF · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 215, control = 208, technique = 221, pressure = 240, physical = 232, intelligence = 315, agility = 194, freedom = 375 }
+
+[[edit]]
+target = "c07020080"                                   # Ari Zimmerman
+moves = [
+  { move = 0x0A02DF36, level = 1 },                         # Containment Field
+  { move = 0xA81CA5FD, level = 13 },                        # Sparky Spin
+  { move = 0x5643C944, level = 20 },                        # Killer Slide
+  { move = 0xC7A9BB3A, level = 30 },                        # Whirlwind Cut
+]
+
+  [[edit.cards]]
+  id = 0xF8871231                                         # DF/MF · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 186, control = 192, technique = 178, pressure = 242, physical = 254, intelligence = 278, agility = 211, freedom = 335 }
+
+[[edit]]
+target = "c07020090"                                   # Cygnus Starkey
+moves = [
+  { move = 0x7A67325B, level = 1 },                         # Flame Dance
+  { move = 0x8331F63E, level = 13 },                        # Divine Dummy
+  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
+]
+
+  [[edit.cards]]
+  id = 0xE19C2370                                         # DF/MF · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 171, control = 198, technique = 192, pressure = 246, physical = 227, intelligence = 289, agility = 212, freedom = 343 }
+
+[[edit]]
+target = "c07020100"                                   # Larry Lyre
+moves = [
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
+  { move = 0x7A67325B, level = 13 },                        # Flame Dance
+  { move = 0x427719AC, level = 20 },                        # Gale Dash
+  { move = 0xABA58912, level = 30 },                        # Ignited Steal
+]
+
+  [[edit.cards]]
+  id = 0x319CF20E                                         # DF/FW · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 205, control = 196, technique = 182, pressure = 243, physical = 234, intelligence = 285, agility = 204, freedom = 247 }
+
+[[edit]]
+target = "c07020110"                                   # Mickey Way
+moves = [
+  { move = 0x57E122EF, level = 1 },                         # Desecrater
+  { move = 0x4EFA13AE, level = 13 },                        # Fur Trapper
+  { move = 0x8DFA4265, level = 20 },                        # Toughness Block
+  { move = 0xB27F13ED, level = 30 },                        # Death Zone
+]
+
+  [[edit.cards]]
+  id = 0x2887C34F                                         # GK/FW · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 196, control = 209, technique = 201, pressure = 254, physical = 213, intelligence = 250, agility = 259, freedom = 247 }
+
+[[edit]]
+target = "c07020130"                                   # Holt Northam
+moves = [
+  { move = 0x0A02DF36, level = 1 },                         # Containment Field
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
+  { move = 0x01DB04F5, level = 30 },                        # Defence Scan
+]
+
+  [[edit.cards]]
+  id = 0x1AB1A1CD                                         # DF/MF · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 171, control = 198, technique = 176, pressure = 240, physical = 227, intelligence = 278, agility = 204, freedom = 321 }
+
+[[edit]]
+target = "c07020140"                                   # Braveon Halvors
+moves = [
+  { move = 0xB1FBC783, level = 1 },                         # Reflect Buster
+  { move = 0x4DDFEDE2, level = 13 },                        # Eagle Buster
+  { move = 0x485150D9, level = 20 },                        # Body Shield
+  { move = 0xC5EF0563, level = 30 },                        # Three-Legged Rush
+]
+
+  [[edit.cards]]
+  id = 0x55F0370A                                         # FW/DF · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 261, control = 251, technique = 232, pressure = 196, physical = 197, intelligence = 211, agility = 185, freedom = 251 }
+
+[[edit]]
+target = "c07020150"                                   # Konrad Hardin
+moves = [
+  { move = 0x025FD09B, level = 1 },                         # Volcano Cut
+  { move = 0x06D2AC29, level = 13 },                        # Diabolical Cut
+  { move = 0x414BA9BD, level = 20 },                        # Pincer Pinch
+  { move = 0xA2BF7076, level = 30 },                        # Side Swipe
+]
+
+  [[edit.cards]]
+  id = 0x4CEB064B                                         # GK/DF · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 197, control = 213, technique = 189, pressure = 217, physical = 227, intelligence = 220, agility = 251, freedom = 271 }
+
+[[edit]]
+target = "c07020160"                                   # Aren Yarrow
+moves = [
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
+  { move = 0x73C5AF40, level = 13 },                        # Dash Accelerator
+  { move = 0x88B554E0, level = 20 },                        # Galatyn
+  { move = 0x55C71D2A, level = 30 },                        # About Face
+]
+
+  [[edit.cards]]
+  id = 0x67C65588                                         # MF/GK · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 224, control = 240, technique = 257, pressure = 220, physical = 177, intelligence = 247, agility = 192, freedom = 259 }
+
+[[edit]]
+target = "c07020120"                                   # Jude Sharp
+moves = [
+  { move = 0xC42D6F54, level = 1 },                         # Aikido
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
+  { move = 0xB039ADB4, level = 1 },                         # Inazuma Break
+  { move = 0x32EEA7FE, level = 55 },                        # Death Zone 2
+]
+
+  [[edit.cards]]
+  id = 0x03AA908C                                         # MF/FW · wind
+  growth_pattern = 1
+  growth = "normal"
+  stats = { kick = 281, control = 258, technique = 282, pressure = 200, physical = 181, intelligence = 259, agility = 157, freedom = 271 }
+
+[[edit]]
+target = "c11807140"                                   # Percival Travis
+moves = [
+  { move = 0x4E22F64D, level = 8 },                         # Transporter Device
+  { move = 0x6BA49049, level = 19 },                        # Mystic Mist
+  { move = 0x2296A01A, level = 33 },                        # Southern Cross
+  { move = 0x6ADE9E01, level = 52 },                        # Illusory Ball
+]
+
+  [[edit.cards]]
+  id = 0xF1CEEB1A                                         # MF/DF · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 224, control = 296, technique = 244, pressure = 217, physical = 144, intelligence = 305, agility = 193, freedom = 213 }
+
+[[edit]]
+target = "c11807150"                                   # Dominic Hewitt
+moves = [
+  { move = 0x029E7B25, level = 1 },                         # Gaia Break
+  { move = 0x1876DB66, level = 13 },                        # Disaster Strike
+  { move = 0xDCA94D3F, level = 20 },                        # Flash Upper
+  { move = 0xD471DE6C, level = 30 },                        # Snakebite
+]
+
+  [[edit.cards]]
+  id = 0xE8D5DA5B                                         # FW/GK · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 246, control = 232, technique = 209, pressure = 204, physical = 192, intelligence = 194, agility = 197, freedom = 335 }
+
+[[edit]]
+target = "c11807250"                                   # Celia Hills
+moves = [
+  { move = 0x1F5EB9D5, level = 1 },                         # Nutmeg
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0xC16279D1, level = 50 },                        # Field of Force
+  { move = 0x32EEA7FE, level = 70 },                        # Death Zone 2
+]
+
+  [[edit.cards]]
+  id = 0xEA936402                                         # MF/DF · wind
+  growth = "normal"
+  stats = { kick = 257, control = 227, technique = 251, pressure = 223, physical = 165, intelligence = 231, agility = 186, freedom = 375 }

@@ -1,0 +1,28 @@
+# Furor › menu_text rows with fixed ids: the label of
+# the furor button in the game's «Configuración de controles» (content\inputs\phase.toml) and the button glyph
+# right of the own bar (furor_phase_key: only the command's markup, the engine draws the button bound now on the device in use).
+schema = "VRFW.text/2"
+
+[[row]]
+id = "furor_phase_action"
+es = "Fase de furor"
+en = "Fired up phase"
+fr = "Phase de fureur"
+de = "Furor-Phase"
+it = "Fase di furore"
+pt = "Fase de furor"
+ja = "ヒーロータイム"
+zh_hans = "怒火时刻"
+zh_hant = "怒火時刻"
+
+[[row]]
+id = "furor_phase_key"
+es = "<CMD_FUROR_PHASE>"
+en = "<CMD_FUROR_PHASE>"
+fr = "<CMD_FUROR_PHASE>"
+de = "<CMD_FUROR_PHASE>"
+it = "<CMD_FUROR_PHASE>"
+pt = "<CMD_FUROR_PHASE>"
+ja = "<CMD_FUROR_PHASE>"
+zh_hans = "<CMD_FUROR_PHASE>"
+zh_hant = "<CMD_FUROR_PHASE>"

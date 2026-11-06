@@ -1,0 +1,42 @@
+# Technique defaults. A later mod's defaults\technique.toml key wins.
+
+# Retail scenes whose event_env_config row is cloned for a mod's own `[[keeper_scene]]` event.
+[keeper_scene]
+save_template = "ev71_31010"
+goal_template = "ev71_31020"
+
+# Defaults for move mini-effects when a move's rule omits the key.
+[mini_effects]
+# distance_falloff = "inverted": bonus slope (multiple of the game's falloff per second) and max gain (fraction of power).
+slope = 1.0
+cap = 0.5
+# pe_sacrifice: fraction of current PE spent, and power multiplier.
+fraction = 0.15
+power_mult = 1.25
+# power_per_participant: percent of power per counted performer.
+participant_pct = 5.0
+# on_win_steal_tension: percent of the shot's tension cost stolen.
+steal_pct = 15.0
+# trajectory heights in metres: dive / drop_skim start height over the kick point; ground / drop_skim skim height (ball centre).
+# drop_skim: landing point as a share of the way to the goal.
+dive_height = 10.0
+ground_height = 0.25
+drop_touch = 0.4
+# trajectory = "level": run height (m, ball centre) and the height it eases into at the goal (m).
+level_height = 3.0
+level_end_height = 2.0
+# split_shot: number of parts, and parts lost to a basic block / a block move.
+split_parts = 7
+split_lose_basic = 1
+split_lose_move = 2
+# ground_trail: seconds between trail pieces.
+trail_interval = 0.05
+# Shooter fall: after the cut-in of a shot whose flight starts at a number, the shooter is placed at that start and falls to the ground.
+# shooter_fall_min_height: minimum height over ground (m) for the fall; shooter_fall_gravity: fall gravity (m/s^2).
+shooter_fall_min_height = 1.5
+shooter_fall_gravity = 24.8
+
+# Per mod (read from that mod's own content/defaults/technique.toml, not merged): start height (m, ball centre) of every point `trajectory`
+# declared without its own `start.height`; also the shooter's fall start. Example:
+# [trajectory]
+# start_height = 8.0

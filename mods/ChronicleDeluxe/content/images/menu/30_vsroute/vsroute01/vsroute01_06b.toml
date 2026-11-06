@@ -1,0 +1,69 @@
+# Chronicle Deluxe: #/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx, the Chronicle board's clear-dot
+# atlas. The chain «C» pieces' rank badges (PieceBadge of this mod's ranks, content\defaults\match_rank.toml): new sprites
+# of the dots' atlas (packed into a new texture of it); the VR-Framework's graft route_board (VRFW_RB_Badge,
+# docs/framework/route-board.md) sets one on the 6th dot of a chain «C» piece (its chain rank). Our own drawing. Other mods may declare other sprites of this atlas; sprite names differ, so
+# they merge.
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
+name = "chronicle_deluxe_vsroute01_06b"
+size = [236, 64]
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
+name = "chronicle_deluxe_rank_s"
+texture = "chronicle_deluxe_vsroute01_06b"
+x = 136
+y = 0
+png = "vsroute01_06b/chronicle_deluxe_rank_s.png"
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
+name = "chronicle_deluxe_rank_a"
+texture = "chronicle_deluxe_vsroute01_06b"
+x = 0
+y = 0
+png = "vsroute01_06b/chronicle_deluxe_rank_a.png"
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
+name = "chronicle_deluxe_rank_b"
+texture = "chronicle_deluxe_vsroute01_06b"
+x = 68
+y = 0
+png = "vsroute01_06b/chronicle_deluxe_rank_b.png"
+
+# The «team cleared» gauge's orb of BATALLA LEGENDARIA: a new sprite made at boot from the PLAYER'S own orbs, the
+# legendary ball's recipe (vsroute01_21.toml): the purple orb clear_icon02 blended diagonally into the blue one turned
+# cyan (clear_icon01) and the gold one turned lime (clear_icon03). The gauge's own instance shows it in place of the
+# orange clear_icon04 (the board's dots keep the retail sprite).
+[[recipe]]
+name = "chronicle_deluxe_legendary_orb_base"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+sprite = "clear_icon02"
+
+[[recipe]]
+name = "chronicle_deluxe_legendary_orb_cyan"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+sprite = "clear_icon01"
+ops = [{ op = "hue", turns = -0.1 }]
+
+[[recipe]]
+name = "chronicle_deluxe_legendary_orb_lime"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+sprite = "clear_icon03"
+ops = [{ op = "hue", turns = 0.1 }]
+
+[[recipe]]
+name = "chronicle_deluxe_legendary_orb"
+from = "chronicle_deluxe_legendary_orb_base"
+ops = [{ op = "mix_gradient", image = "chronicle_deluxe_legendary_orb_cyan", weight = [-0.2, 1.4, 1.4], clamp = [0.0, 1.0] }, { op = "mix_gradient", image = "chronicle_deluxe_legendary_orb_lime", weight = [-1.2, 1.6, 1.6], clamp = [0.0, 1.0] }]
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
+name = "chronicle_deluxe_legendary_orb"
+texture = "chronicle_deluxe_vsroute01_06b"
+x = 204
+y = 0
+recipe = "chronicle_deluxe_legendary_orb"

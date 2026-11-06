@@ -1,0 +1,77 @@
+# Character Reforged › its actions of the VR-Framework's save tools:
+# title, description (shown in the question before the action) and result (%d = the
+# count the action answers). Rows of menu_text, read by id = crc32(row id).
+schema = "VRFW.text/2"
+table = "menu_text"
+
+[[row]]
+id = "character_reforged_save_tools_remove_unobtainable_moves"
+es = "Quitar auras de despertar y vínculo"
+en = "Remove awakening and bond auras"
+fr = "Retirer les auras d'éveil et de lien"
+de = "Erweckungs- und Bandauren entfernen"
+it = "Rimuovi le aure di risveglio e legame"
+pt = "Remover auras de despertar e vínculo"
+ja = "覚醒と絆のオーラを外す"
+zh_hans = "移除觉醒与羁绊灵气"
+zh_hant = "移除覺醒與羈絆靈氣"
+
+[[row]]
+id = "character_reforged_save_tools_remove_unobtainable_moves_desc"
+es = "Las auras de despertar y de transformación de vínculo salen de todos tus jugadores: tablero, técnicas de partido, auras de equipo, sets de jugador y objetos."
+en = "The awakening and bond transformation auras leave all your players: board, match moves, team auras, player sets and items."
+fr = "Les auras d'éveil et de transformation de lien quittent tous tes joueurs : plateau, techniques de match, auras d'équipe, sets de joueur et objets."
+de = "Die Erweckungs- und Bandverwandlungsauren verlassen alle deine Spieler: Brett, Spieltechniken, Teamauren, Spielersets und Gegenstände."
+it = "Le aure di risveglio e di trasformazione del legame lasciano tutti i tuoi giocatori: tabellone, tecniche di partita, aure di squadra, set dei giocatori e oggetti."
+pt = "As auras de despertar e de transformação de vínculo saem de todos os teus jogadores: tabuleiro, técnicas de jogo, auras de equipa, sets de jogador e objetos."
+ja = "覚醒と絆変身のオーラを全選手から外します（ボード、試合の技、チームオーラ、選手セット、アイテム）。"
+zh_hans = "觉醒与羁绊变身灵气将从你所有球员身上移除：技能盘、比赛招式、队伍灵气、球员套装和道具。"
+zh_hant = "覺醒與羈絆變身靈氣將從你所有球員身上移除：技能盤、比賽招式、隊伍靈氣、球員套裝和道具。"
+
+[[row]]
+id = "character_reforged_save_tools_remove_unobtainable_moves_done"
+es = "Hecho: %d auras de despertar y vínculo quitadas."
+en = "Done: %d awakening and bond auras removed."
+fr = "Terminé : %d auras d'éveil et de lien retirées."
+de = "Fertig: %d Erweckungs- und Bandauren entfernt."
+it = "Fatto: %d aure di risveglio e legame rimosse."
+pt = "Feito: %d auras de despertar e vínculo removidas."
+ja = "完了：覚醒と絆のオーラを%d個外しました。"
+zh_hans = "完成：移除了%d个觉醒与羁绊灵气。"
+zh_hant = "完成：移除了%d個覺醒與羈絆靈氣。"
+
+[[row]]
+id = "character_reforged_save_tools_remove_hidden_kits"
+es = "Quitar equipaciones de visitante"
+en = "Remove away kits"
+fr = "Retirer les tenues extérieur"
+de = "Auswärtstrikots entfernen"
+it = "Rimuovi le divise da trasferta"
+pt = "Remover equipamentos alternativos"
+ja = "アウェイユニフォームを外す"
+zh_hans = "移除客场队服"
+zh_hant = "移除客場隊服"
+
+[[row]]
+id = "character_reforged_save_tools_remove_hidden_kits_desc"
+es = "Las equipaciones «E. visitante» salen del inventario; los equipos que las llevan vuelven a su equipación local."
+en = "The «E. visitante» away kits leave the inventory; the teams wearing one go back to their home kit."
+fr = "Les tenues extérieur «E. visitante» quittent l'inventaire ; les équipes qui en portent une reprennent leur tenue domicile."
+de = "Die Auswärtstrikots «E. visitante» verlassen das Inventar; Teams, die eines tragen, bekommen wieder ihr Heimtrikot."
+it = "Le divise da trasferta «E. visitante» escono dall'inventario; le squadre che ne indossano una tornano alla divisa di casa."
+pt = "Os equipamentos alternativos «E. visitante» saem do inventário; as equipas que usam um voltam ao equipamento principal."
+ja = "「E. visitante」のアウェイユニフォームを所持品から外し、着ているチームはホームユニフォームに戻します。"
+zh_hans = "「E. visitante」客场队服将从物品栏移除；穿着它的队伍换回主场队服。"
+zh_hant = "「E. visitante」客場隊服將從物品欄移除；穿著它的隊伍換回主場隊服。"
+
+[[row]]
+id = "character_reforged_save_tools_remove_hidden_kits_done"
+es = "Hecho: %d equipaciones de visitante quitadas."
+en = "Done: %d away kits removed."
+fr = "Terminé : %d tenues extérieur retirées."
+de = "Fertig: %d Auswärtstrikots entfernt."
+it = "Fatto: %d divise da trasferta rimosse."
+pt = "Feito: %d equipamentos alternativos removidos."
+ja = "完了：アウェイユニフォームを%d件外しました。"
+zh_hans = "完成：移除了%d件客场队服。"
+zh_hant = "完成：移除了%d件客場隊服。"

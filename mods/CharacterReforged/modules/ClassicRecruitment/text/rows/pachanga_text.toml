@@ -1,0 +1,177 @@
+# New Recruitment › the pachanga list of a Chronicle board zone. Rows of
+# menu_text, read by id = crc32(row id). The zone names: text\rows\pachanga_zones.toml (generated).
+schema = "VRFW.text/2"
+table = "menu_text"
+
+[[row]]
+id = "new_recruitment_pachangas_title"
+es = "Pachangas"
+en = "Pick-up Matches"
+fr = "Matchs amicaux"
+de = "Freundschaftsspiele"
+it = "Partitelle"
+pt = "Peladinhas"
+ja = "ミニバトル"
+zh_hans = "街头对战"
+zh_hant = "街頭對戰"
+
+[[row]]
+id = "new_recruitment_pachangas_format_5v5"
+es = "5 contra 5"
+en = "5 vs 5"
+fr = "5 contre 5"
+de = "5 gegen 5"
+it = "5 contro 5"
+pt = "5 contra 5"
+ja = "5対5"
+zh_hans = "5对5"
+zh_hant = "5對5"
+
+[[row]]
+id = "new_recruitment_pachangas_level"
+es = "Nivel"
+en = "Level"
+fr = "Niveau"
+de = "Stufe"
+it = "Livello"
+pt = "Nível"
+ja = "レベル"
+zh_hans = "等级"
+zh_hant = "等級"
+
+[[row]]
+id = "new_recruitment_pachangas_players"
+es = "Jugadores"
+en = "Players"
+fr = "Joueurs"
+de = "Spieler"
+it = "Giocatori"
+pt = "Jogadores"
+ja = "選手"
+zh_hans = "球员"
+zh_hant = "球員"
+
+[[row]]
+id = "new_recruitment_pachangas_won"
+es = "Ganada"
+en = "Won"
+fr = "Gagné"
+de = "Gewonnen"
+it = "Vinta"
+pt = "Ganha"
+ja = "勝利済み"
+zh_hans = "已获胜"
+zh_hant = "已獲勝"
+
+[[row]]
+id = "new_recruitment_pachangas_play"
+es = "Jugar"
+en = "Play"
+fr = "Jouer"
+de = "Spielen"
+it = "Gioca"
+pt = "Jogar"
+ja = "対戦する"
+zh_hans = "对战"
+zh_hant = "對戰"
+
+[[row]]
+id = "new_recruitment_pachangas_count"
+es = "%d pachangas"
+en = "%d matches"
+fr = "%d matchs"
+de = "%d Spiele"
+it = "%d partitelle"
+pt = "%d peladinhas"
+ja = "ミニバトル %d件"
+zh_hans = "%d场对战"
+zh_hant = "%d場對戰"
+
+# a list row's second line (level)
+[[row]]
+id = "new_recruitment_pachangas_row"
+es = "Nv. %d"
+en = "Lv. %d"
+fr = "Niv. %d"
+de = "Lv. %d"
+it = "Liv. %d"
+pt = "Nv. %d"
+ja = "Lv. %d"
+zh_hans = "等级 %d"
+zh_hant = "等級 %d"
+
+# the panel's line under the team's name (%d = level)
+[[row]]
+id = "new_recruitment_pachangas_info_5v5"
+es = "Nivel %d   ·   5 contra 5"
+en = "Level %d   ·   5 vs 5"
+fr = "Niveau %d   ·   5 contre 5"
+de = "Level %d   ·   5 gegen 5"
+it = "Livello %d   ·   5 contro 5"
+pt = "Nível %d   ·   5 contra 5"
+ja = "レベル %d   ·   5対5"
+zh_hans = "等级 %d   ·   5对5"
+zh_hant = "等級 %d   ·   5對5"
+
+# a list row's format badge
+[[row]]
+id = "new_recruitment_pachangas_tag_5v5"
+es = "5v5"
+en = "5v5"
+fr = "5v5"
+de = "5v5"
+it = "5v5"
+pt = "5v5"
+ja = "5v5"
+zh_hans = "5v5"
+zh_hant = "5v5"
+
+# the line after a signing from the album (%s = the player's name)
+[[row]]
+id = "new_recruitment_pachangas_join_done"
+es = "¡%s se ha unido a tu equipo!"
+en = "%s has joined your team!"
+fr = "%s a rejoint ton équipe !"
+de = "%s spielt jetzt in deiner Mannschaft!"
+it = "%s si è unito alla tua squadra!"
+pt = "%s juntou-se à tua equipa!"
+ja = "%sがチームに加わった！"
+zh_hans = "%s加入了你的球队！"
+zh_hant = "%s加入了你的球隊！"
+
+[[row]]
+id = "new_recruitment_pachangas_team_dock"
+es = "Plantilla de equipo"
+en = "Team Roster"
+fr = "Effectif"
+de = "Mannschaftskader"
+it = "Rosa della squadra"
+pt = "Plantel da equipa"
+ja = "チーム編成"
+zh_hans = "球队阵容"
+zh_hant = "球隊陣容"
+
+[[row]]
+id = "new_recruitment_pachangas_page"
+es = "Página %d / %d"
+en = "Page %d / %d"
+fr = "Page %d / %d"
+de = "Seite %d / %d"
+it = "Pagina %d / %d"
+pt = "Página %d / %d"
+ja = "%d / %d ページ"
+zh_hans = "第 %d / %d 页"
+zh_hant = "第 %d / %d 頁"
+
+# a pachanga that cannot start: neither an active pachanga team nor the active team has a complete five
+[[row]]
+id = "new_recruitment_pachangas_no_team"
+es = "No hay un equipo de 5 listo. Elige un equipo activo de pachanga en «Plantilla de equipo»."
+en = "No 5-a-side team is ready. Choose an active pick-up team in «Team Roster»."
+fr = "Aucune équipe à 5 n'est prête. Choisis une équipe de match amical active dans «Effectif»."
+de = "Kein 5er-Team ist bereit. Wähle ein aktives Freundschaftsspiel-Team im «Mannschaftskader»."
+it = "Nessuna squadra da 5 è pronta. Scegli una squadra attiva per le partitelle in «Rosa della squadra»."
+pt = "Nenhuma equipa de 5 está pronta. Escolhe uma equipa ativa de peladinhas em «Plantel da equipa»."
+ja = "5人のチームが準備できていません。「チーム編成」でミニバトル用のチームを選んでください。"
+zh_hans = "没有准备好的5人球队。请在「球队阵容」中选择街头对战的出场球队。"
+zh_hant = "沒有準備好的5人球隊。請在「球隊陣容」中選擇街頭對戰的出場球隊。"

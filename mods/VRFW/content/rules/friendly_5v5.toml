@@ -1,0 +1,18 @@
+schema = "VRFW.rule/1"
+# Base ruleset: friendly small match; plays the original game as it is.
+id = "friendly_5v5"
+aliases = ["pachanga_5v5"]
+name = "5-a-side friendly (original)"   # fallback; the text key ruleset_friendly_5v5 gives the localized name
+version = 1
+
+[time]
+half_minutes = "row"       # taken from the match row
+halves = "row"             # taken from the match row
+
+[teams]
+players = "row"            # taken from the match row
+
+[end]
+extra_time = false
+golden_goal = false
+penalties = false

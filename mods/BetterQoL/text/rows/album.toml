@@ -1,0 +1,330 @@
+# Texts of BetterQoL's «Álbum de jugadores» (the row of «Caseta del club», graft util_album_row, and its page
+# util_album_menu, assets/lua/screens/util_album_menu.lua, which reads them with CMND_TEXT_GET(crc32(id))). Format:
+# «{1}» / «{2}» = values the page fills in.
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# the «Caseta del club» row and the screen's header
+[[row]]
+id = "BetterQoL.Album.Row"
+es = "Álbum de jugadores"
+en = "Player album"
+fr = "Album des joueurs"
+de = "Spieleralbum"
+it = "Album dei giocatori"
+pt = "Álbum de jogadores"
+ja = "選手アルバム"
+zh_hans = "球员图鉴"
+zh_hant = "球員圖鑑"
+
+# the row's help line
+[[row]]
+id = "BetterQoL.Album.RowHelp"
+es = "Todos los jugadores del juego; los que ya están en tu club, marcados."
+en = "Every player in the game; the ones already in your club are ticked."
+fr = "Tous les joueurs du jeu ; ceux déjà dans ton club sont cochés."
+de = "Alle Spieler des Spiels; die schon in deinem Verein sind abgehakt."
+it = "Tutti i giocatori del gioco; quelli già nel tuo club sono spuntati."
+pt = "Todos os jogadores do jogo; os que já estão no teu clube, marcados."
+ja = "ゲームの全選手。クラブにいる選手にはチェックが付きます。"
+zh_hans = "游戏中的全部球员；已在俱乐部的球员带勾选标记。"
+zh_hant = "遊戲中的全部球員；已在俱樂部的球員帶勾選標記。"
+
+# the grouping types (L2 / R2)
+[[row]]
+id = "BetterQoL.Album.TypeName"
+es = "Nombre"
+en = "Name"
+fr = "Nom"
+de = "Name"
+it = "Nome"
+pt = "Nome"
+ja = "名前"
+zh_hans = "名称"
+zh_hant = "名稱"
+
+[[row]]
+id = "BetterQoL.Album.TypeSeries"
+es = "Juego"
+en = "Game"
+fr = "Jeu"
+de = "Spiel"
+it = "Gioco"
+pt = "Jogo"
+ja = "作品"
+zh_hans = "作品"
+zh_hant = "作品"
+
+# the «Nombre» groups of the language: the first letters of each group, groups split by «,» (a name whose first
+# letter is in no group goes to «#»); empty = one group with every name
+# the game bar's last group: every special card (rarity above the album's display rarity)
+[[row]]
+id = "BetterQoL.Album.Specials"
+es = "Especiales"
+en = "Specials"
+fr = "Spéciaux"
+de = "Spezial"
+it = "Speciali"
+pt = "Especiais"
+ja = "スペシャル"
+zh_hans = "特别"
+zh_hant = "特別"
+
+[[row]]
+id = "BetterQoL.Album.TypeTeam"
+es = "Equipo"
+en = "Team"
+fr = "Équipe"
+de = "Team"
+it = "Squadra"
+pt = "Equipa"
+ja = "チーム"
+zh_hans = "队伍"
+zh_hant = "隊伍"
+
+# the «Equipo» group tab: the team's name and its place among the teams
+[[row]]
+id = "BetterQoL.Album.TeamTab"
+es = "{1}  ({2})"
+en = "{1}  ({2})"
+fr = "{1}  ({2})"
+de = "{1}  ({2})"
+it = "{1}  ({2})"
+pt = "{1}  ({2})"
+ja = "{1}  ({2})"
+zh_hans = "{1}  ({2})"
+zh_hant = "{1}  ({2})"
+
+[[row]]
+id = "BetterQoL.Album.NameGroups"
+es = "ABCD,EFGH,IJKL,MNÑOP,QRST,UVWXYZ"
+en = "ABCD,EFGH,IJKL,MNOP,QRST,UVWXYZ"
+fr = "ABCD,EFGH,IJKL,MNOP,QRST,UVWXYZ"
+de = "ABCD,EFGH,IJKL,MNOP,QRST,UVWXYZ"
+it = "ABCD,EFGH,IJKL,MNOP,QRST,UVWXYZ"
+pt = "ABCD,EFGH,IJKL,MNOP,QRST,UVWXYZ"
+ja = "あいうえおぁぃぅぇぉ,かきくけこがぎぐげご,さしすせそざじずぜぞ,たちつてとだぢづでどっ,なにぬねの,はひふへほばびぶべぼぱぴぷぺぽ,まみむめも,やゆよゃゅょ,らりるれろわをん"
+zh_hans = ""
+zh_hant = ""
+
+# the label of the names in no group
+[[row]]
+id = "BetterQoL.Album.OtherGroup"
+es = "#"
+en = "#"
+fr = "#"
+de = "#"
+it = "#"
+pt = "#"
+ja = "#"
+zh_hans = "全部"
+zh_hant = "全部"
+
+# «Equipo»: the page of a game's teams with few players (config.toml [album] team_page_min_players)
+[[row]]
+id = "BetterQoL.Album.OtherTeams"
+es = "Otros equipos"
+en = "Other teams"
+fr = "Autres équipes"
+de = "Weitere Teams"
+it = "Altre squadre"
+pt = "Outras equipas"
+ja = "その他のチーム"
+zh_hans = "其他球队"
+zh_hant = "其他球隊"
+
+# the band over the list: the type and group, how many of the group the club has, the page
+[[row]]
+id = "BetterQoL.Album.Owned"
+es = "Tienes {1} / {2}"
+en = "You have {1} / {2}"
+fr = "Tu en as {1} / {2}"
+de = "Du hast {1} / {2}"
+it = "Ne hai {1} / {2}"
+pt = "Tens {1} / {2}"
+ja = "所持 {1} / {2}"
+zh_hans = "已拥有 {1} / {2}"
+zh_hant = "已擁有 {1} / {2}"
+
+[[row]]
+id = "BetterQoL.Album.Page"
+es = "Página {1}/{2}"
+en = "Page {1}/{2}"
+fr = "Page {1}/{2}"
+de = "Seite {1}/{2}"
+it = "Pagina {1}/{2}"
+pt = "Página {1}/{2}"
+ja = "ページ {1}/{2}"
+zh_hans = "第 {1}/{2} 页"
+zh_hant = "第 {1}/{2} 頁"
+
+# the button guide
+[[row]]
+id = "BetterQoL.Album.GuideType"
+es = "Tipo"
+en = "Type"
+fr = "Type"
+de = "Art"
+it = "Tipo"
+pt = "Tipo"
+ja = "分類"
+zh_hans = "分类"
+zh_hant = "分類"
+
+[[row]]
+id = "BetterQoL.Album.GuideGroup"
+es = "Grupo"
+en = "Group"
+fr = "Groupe"
+de = "Gruppe"
+it = "Gruppo"
+pt = "Grupo"
+ja = "グループ"
+zh_hans = "分组"
+zh_hant = "分組"
+
+# the content guide line: the page's description (fixed)
+[[row]]
+id = "BetterQoL.Album.Line"
+es = "Consulta a todos los jugadores de la saga y los que ya tienes."
+en = "Browse every player in the saga and the ones you own."
+fr = "Consulte tous les joueurs de la saga et ceux que tu possèdes déjà."
+de = "Sieh dir alle Spieler der Saga und die, die du schon hast, an."
+it = "Consulta tutti i giocatori della saga e quelli che possiedi già."
+pt = "Consulta todos os jogadores da saga e os que já tens."
+ja = "シリーズの全選手と、すでに持っている選手を確認できる。"
+zh_hans = "查看系列中的所有球员以及你已拥有的球员。"
+zh_hant = "查看系列中的所有球員以及你已擁有的球員。"
+
+[[row]]
+id = "BetterQoL.Album.Empty"
+es = "No hay jugadores en este grupo."
+en = "No players in this group."
+fr = "Aucun joueur dans ce groupe."
+de = "Keine Spieler in dieser Gruppe."
+it = "Nessun giocatore in questo gruppo."
+pt = "Não há jogadores neste grupo."
+ja = "このグループには選手がいません。"
+zh_hans = "此分组没有球员。"
+zh_hant = "此分組沒有球員。"
+
+[[row]]
+id = "BetterQoL.Album.NoSave"
+es = "Carga una partida para ver tu álbum."
+en = "Load a save to see your album."
+fr = "Charge une partie pour voir ton album."
+de = "Lade einen Spielstand, um dein Album zu sehen."
+it = "Carica una partita per vedere il tuo album."
+pt = "Carrega um jogo para veres o teu álbum."
+ja = "セーブデータをロードするとアルバムを見られます。"
+zh_hans = "读取存档后即可查看图鉴。"
+zh_hant = "讀取存檔後即可查看圖鑑。"
+
+# the badge under the player plate of a player the club does not have
+[[row]]
+id = "BetterQoL.Album.NotOwned"
+es = "No obtenido"
+en = "Not obtained"
+fr = "Non obtenu"
+de = "Nicht erhalten"
+it = "Non ottenuto"
+pt = "Não obtido"
+ja = "未所持"
+zh_hans = "未拥有"
+zh_hant = "未擁有"
+
+# the button guide: the player plate's pages
+[[row]]
+id = "BetterQoL.Album.GuidePlate"
+es = "Ficha"
+en = "Profile"
+fr = "Fiche"
+de = "Profil"
+it = "Scheda"
+pt = "Ficha"
+ja = "プロフィール"
+zh_hans = "资料"
+zh_hant = "資料"
+
+# the guide's keys (the game's button tags): type (Y toggles «Nombre» / «Juego»)
+[[row]]
+id = "BetterQoL.Album.KeysType"
+es = "<CMD_FUNC3>"
+en = "<CMD_FUNC3>"
+fr = "<CMD_FUNC3>"
+de = "<CMD_FUNC3>"
+it = "<CMD_FUNC3>"
+pt = "<CMD_FUNC3>"
+ja = "<CMD_FUNC3>"
+zh_hans = "<CMD_FUNC3>"
+zh_hant = "<CMD_FUNC3>"
+
+# the guide's keys: group
+[[row]]
+id = "BetterQoL.Album.KeysGroup"
+es = "<CMD_FUNCL1><CMD_FUNCR1>"
+en = "<CMD_FUNCL1><CMD_FUNCR1>"
+fr = "<CMD_FUNCL1><CMD_FUNCR1>"
+de = "<CMD_FUNCL1><CMD_FUNCR1>"
+it = "<CMD_FUNCL1><CMD_FUNCR1>"
+pt = "<CMD_FUNCL1><CMD_FUNCR1>"
+ja = "<CMD_FUNCL1><CMD_FUNCR1>"
+zh_hans = "<CMD_FUNCL1><CMD_FUNCR1>"
+zh_hant = "<CMD_FUNCL1><CMD_FUNCR1>"
+
+# the guide's keys: the other column, a page at the list's edge (also drawn beside «Página N/M» under the list)
+[[row]]
+id = "BetterQoL.Album.KeysPage"
+es = "<CMD_LEFT><CMD_RIGHT>"
+en = "<CMD_LEFT><CMD_RIGHT>"
+fr = "<CMD_LEFT><CMD_RIGHT>"
+de = "<CMD_LEFT><CMD_RIGHT>"
+it = "<CMD_LEFT><CMD_RIGHT>"
+pt = "<CMD_LEFT><CMD_RIGHT>"
+ja = "<CMD_LEFT><CMD_RIGHT>"
+zh_hans = "<CMD_LEFT><CMD_RIGHT>"
+zh_hant = "<CMD_LEFT><CMD_RIGHT>"
+
+# the guide's keys: the player plate's pages (L2 / R2, Q / E)
+[[row]]
+id = "BetterQoL.Album.KeysPlate"
+es = "<CMD_FUNCL2><CMD_FUNCR2>"
+en = "<CMD_FUNCL2><CMD_FUNCR2>"
+fr = "<CMD_FUNCL2><CMD_FUNCR2>"
+de = "<CMD_FUNCL2><CMD_FUNCR2>"
+it = "<CMD_FUNCL2><CMD_FUNCR2>"
+pt = "<CMD_FUNCL2><CMD_FUNCR2>"
+ja = "<CMD_FUNCL2><CMD_FUNCR2>"
+zh_hans = "<CMD_FUNCL2><CMD_FUNCR2>"
+zh_hant = "<CMD_FUNCL2><CMD_FUNCR2>"
+
+# the player search (X): the title of the game's text entry
+[[row]]
+id = "BetterQoL.Album.SearchTitle"
+es = "Buscar jugador"
+en = "Search player"
+fr = "Rechercher un joueur"
+de = "Spieler suchen"
+it = "Cerca giocatore"
+pt = "Procurar jogador"
+ja = "選手を検索"
+zh_hans = "搜索球员"
+zh_hant = "搜尋球員"
+
+# the group bar while a search is on: {1} the text, {2} the players found
+[[row]]
+id = "BetterQoL.Album.SearchBand"
+es = "Búsqueda: {1} ({2})"
+en = "Search: {1} ({2})"
+fr = "Recherche : {1} ({2})"
+de = "Suche: {1} ({2})"
+it = "Ricerca: {1} ({2})"
+pt = "Procura: {1} ({2})"
+ja = "検索: {1} ({2})"
+zh_hans = "搜索: {1} ({2})"
+zh_hant = "搜尋: {1} ({2})"
+
+# the button guide's glyph of the search
+[[row]]
+id = "BetterQoL.Album.SearchKey"
+all = "<CMD_FUNC4>"

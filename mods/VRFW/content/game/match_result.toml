@@ -1,0 +1,56 @@
+schema = "VRFW.game/2"
+
+# The result of the last finished match (docs/framework/match-result.md): written by scripts/match_result.lua at the
+# final whistle, before the signal vrfw.match_result; read by any mod with require("VRFW/lib/match_result").last().
+# Whole numbers only: the library turns them back into its table (outcome, source and the booleans included).
+
+[[VRFW.State]]
+key = "vrfw.match_result.seq"
+
+[[VRFW.State]]
+key = "vrfw.match_result.home_score"
+
+[[VRFW.State]]
+key = "vrfw.match_result.away_score"
+
+[[VRFW.State]]
+key = "vrfw.match_result.user_side"
+
+[[VRFW.State]]
+key = "vrfw.match_result.shootout"
+
+[[VRFW.State]]
+key = "vrfw.match_result.shootout_home"
+
+[[VRFW.State]]
+key = "vrfw.match_result.shootout_away"
+
+[[VRFW.State]]
+key = "vrfw.match_result.extra_time"
+
+[[VRFW.State]]
+key = "vrfw.match_result.winner_side"
+
+[[VRFW.State]]
+key = "vrfw.match_result.won"
+
+[[VRFW.State]]
+key = "vrfw.match_result.outcome"
+
+[[VRFW.State]]
+key = "vrfw.match_result.game"
+
+[[VRFW.State]]
+key = "vrfw.match_result.difficulty"
+
+[[VRFW.State]]
+key = "vrfw.match_result.home_team"
+
+[[VRFW.State]]
+key = "vrfw.match_result.away_team"
+
+[[VRFW.State]]
+key = "vrfw.match_result.mode_id"
+
+[[VRFW.State]]
+key = "vrfw.match_result.source"

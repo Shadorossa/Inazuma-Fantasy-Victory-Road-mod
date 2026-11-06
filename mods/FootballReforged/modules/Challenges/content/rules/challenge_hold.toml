@@ -1,0 +1,13 @@
+schema = "VRFW.rule/1"
+# Challenge ruleset (module Challenges of Football Reforged): keep the ball 15 s
+# in a row. 5v5 without keepers or shoot zone; the rival touching the ball (or scoring) loses it.
+id = "challenge_hold"
+name = "Challenge: keep the ball for 15 s"   # fallback; the game shows the text key Challenges.ruleset_challenge_hold
+version = 1
+
+[teams]
+players = 5
+
+[challenge]
+kind = "hold"
+seconds = 15

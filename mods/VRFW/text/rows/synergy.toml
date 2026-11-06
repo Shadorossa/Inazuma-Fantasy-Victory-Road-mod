@@ -1,0 +1,55 @@
+# Team synergy texts (menu_text rows, looked up by crc32 of the row id); {n} is filled by the synergy menu patch.
+
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# Shown in grey after the nexus's name when he is not in the team (short: name box is 360 px)
+[[row]]
+id = "VRFW.SynergyNexusMissing"
+es = "falta"
+en = "missing"
+fr = "absent"
+de = "fehlt"
+it = "assente"
+pt = "ausente"
+ja = "いない"
+zh_hans = "缺席"
+zh_hant = "缺席"
+
+# Shown after the last member row when more players of the synergy group are in the team than slots
+[[row]]
+id = "VRFW.SynergyMore"
+es = "+{n} más"
+en = "+{n} more"
+fr = "+{n} de plus"
+de = "+{n} weitere"
+it = "+{n} in più"
+pt = "+{n} a mais"
+ja = "ほか{n}[人/にん]"
+zh_hans = "另有{n}人"
+zh_hant = "另有{n}人"
+
+# An empty staff slot's short label beside the role icon (the slot's series icons follow on the right)
+[[row]]
+id = "VRFW.SynergyRoleManager"
+es = "Gerente"
+en = "Manager"
+fr = "Manager"
+de = "Manager"
+it = "Manager"
+pt = "Gerente"
+ja = "マネージャー"
+zh_hans = "经理"
+zh_hant = "經理"
+
+[[row]]
+id = "VRFW.SynergyRoleCoach"
+es = "Entrenador"
+en = "Coach"
+fr = "Entraîneur"
+de = "Trainer"
+it = "Allenatore"
+pt = "Treinador"
+ja = "[監督/かんとく]"
+zh_hans = "教练"
+zh_hant = "教練"

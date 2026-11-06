@@ -1,0 +1,212 @@
+schema = "VRFW.character/2"
+# Character Reforged · Table Tennis Club · Inazuma Eleven: Victory Road
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c11500380"                                   # Alphonse Wreckenbach
+moves = [
+  { move = 0x43B5739B, level = 1 },                         # Lightning Bolt
+  { move = 0x4890FB67, level = 13 },                        # Twin Boost
+  { move = 0x518BCA26, level = 20 },                        # Fire Tornado
+  { move = 0x8F1DD61E, level = 30 },                        # Maximum Fire
+]
+
+  [[edit.cards]]
+  id = 0x7FB65B1F                                         # FW/MF · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 304, control = 244, technique = 205, pressure = 163, physical = 215, intelligence = 178, agility = 178, freedom = 227 }
+
+[[edit]]
+target = "c11700450"                                   # Tenison Onsera
+moves = [
+  { move = 0x9D236FA3, level = 1 },                         # Sword of the King
+  { move = 0xC5EF0563, level = 13 },                        # Three-Legged Rush
+  { move = 0x53CD747F, level = 20 },                        # Tarzan Kick
+  { move = 0x19BA3BFC, level = 30 },                        # Dance on Air
+]
+
+  [[edit.cards]]
+  id = 0x829F92DC                                         # MF/FW · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 247, control = 243, technique = 235, pressure = 177, physical = 228, intelligence = 213, agility = 185, freedom = 221 }
+
+[[edit]]
+target = "c11700770"                                   # Selina Goldpyre
+moves = [
+  { move = 0x592A96B4, level = 1 },                         # Afterimage
+  { move = 0x06D2AC29, level = 13 },                        # Diabolical Cut
+  { move = 0x322F0C40, level = 20 },                        # Spider Web
+  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+]
+
+  [[edit.cards]]
+  id = 0xB2EF4E07                                         # DF/MF · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 196, control = 189, technique = 188, pressure = 215, physical = 270, intelligence = 247, agility = 201, freedom = 234 }
+
+[[edit]]
+target = "c11722010"                                   # Dazziel Spinwick
+moves = [
+  { move = 0x00A10ABD, level = 1 },                         # Ball Lightning
+  { move = 0xE0DF8DB5, level = 13 },                        # No Future
+  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
+  { move = 0xB60E3C60, level = 30 },                        # Plasma Cut
+]
+
+  [[edit.cards]]
+  id = 0x313364EF                                         # MF/FW · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 247, control = 243, technique = 236, pressure = 170, physical = 213, intelligence = 203, agility = 184, freedom = 225 }
+
+[[edit]]
+target = "c11722020"                                   # Curven Rallye
+moves = [
+  { move = 0xB907E20C, level = 1 },                         # Procyon Net
+  { move = 0x613ABD43, level = 13 },                        # Dawnrise
+  { move = 0x5781A373, level = 20 },                        # Hurricane Arrows
+  { move = 0x2B343D01, level = 30 },                        # Cyclone
+]
+
+  [[edit.cards]]
+  id = 0x1A1E372C                                         # DF/GK · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 204, control = 181, technique = 171, pressure = 228, physical = 277, intelligence = 246, agility = 201, freedom = 230 }
+
+[[edit]]
+target = "c11722030"                                   # Ryker Strive
+moves = [
+  { move = 0xBBA44137, level = 1 },                         # Great Wall
+  { move = 0xC41097D5, level = 13 },                        # Acrobotics
+  { move = 0xC5EF0563, level = 20 },                        # Three-Legged Rush
+  { move = 0x72BFA108, level = 30 },                        # Wall of Atlantis
+]
+
+  [[edit.cards]]
+  id = 0x0305066D                                         # MF/DF · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 221, control = 240, technique = 228, pressure = 176, physical = 232, intelligence = 201, agility = 188, freedom = 251 }
+
+[[edit]]
+target = "c11722040"                                   # Cyrus Veil
+moves = [
+  { move = 0xDCF43422, level = 1 },                         # Aurora Dribble
+  { move = 0x49933AEE, level = 13 },                        # Perfect Tower
+  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
+  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
+]
+
+  [[edit.cards]]
+  id = 0x4C4490AA                                         # DF/MF · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 203, control = 190, technique = 177, pressure = 211, physical = 277, intelligence = 242, agility = 194, freedom = 238 }
+
+[[edit]]
+target = "c11722050"                                   # Gavin Mallory
+moves = [
+  { move = 0x592A96B4, level = 1 },                         # Afterimage
+  { move = 0x1755397B, level = 13 },                        # Dark Energy Star
+  { move = 0x568262FA, level = 20 },                        # Dark Tornado
+  { move = 0xC16279D1, level = 30 },                        # Field of Force
+]
+
+  [[edit.cards]]
+  id = 0x555FA1EB                                         # FW/MF · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 290, control = 244, technique = 211, pressure = 166, physical = 217, intelligence = 178, agility = 181, freedom = 259 }
+
+[[edit]]
+target = "c11722060"                                   # Mira Fiendish
+moves = [
+  { move = 0xABA58912, level = 1 },                         # Ignited Steal
+  { move = 0x3A4FFB6C, level = 13 },                        # The Ikaros
+  { move = 0xAF150D21, level = 20 },                        # Swallow Counter
+  { move = 0x78218C02, level = 30 },                        # Duskfall
+]
+
+  [[edit.cards]]
+  id = 0x7E72F228                                         # MF/DF · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 228, control = 244, technique = 231, pressure = 173, physical = 217, intelligence = 203, agility = 188, freedom = 247 }
+
+[[edit]]
+target = "c11722070"                                   # Carly Veneer
+moves = [
+  { move = 0xBD8A9EBE, level = 1 },                         # Infinite Wall
+  { move = 0x8AF3EAB9, level = 13 },                        # Hammer of Fury
+  { move = 0xA3980723, level = 20 },                        # Colosseum Guard
+  { move = 0x65B7C1F1, level = 30 },                        # Sumo Stomp
+]
+
+  [[edit.cards]]
+  id = 0x6769C369                                         # GK/DF · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 196, control = 194, technique = 157, pressure = 220, physical = 284, intelligence = 203, agility = 265, freedom = 255 }
+
+[[edit]]
+target = "c11722080"                                   # Ponny Grace
+moves = [
+  { move = 0x613ABD43, level = 1 },                         # Dawnrise
+  { move = 0x6F918884, level = 13 },                        # Easy Breezy
+  { move = 0xC42D6F54, level = 20 },                        # Aikido
+  { move = 0x1C4D4906, level = 30 },                        # Whirlpool
+]
+
+  [[edit.cards]]
+  id = 0xE0F1DFA6                                         # DF/MF · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 198, control = 192, technique = 176, pressure = 204, physical = 274, intelligence = 236, agility = 196, freedom = 230 }
+
+[[edit]]
+target = "c11722090"                                   # Aria Fondue
+moves = [
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
+  { move = 0x49933AEE, level = 13 },                        # Perfect Tower
+  { move = 0x025FD09B, level = 20 },                        # Volcano Cut
+  { move = 0x4CDC2C6B, level = 30 },                        # Shooting Star
+]
+
+  [[edit.cards]]
+  id = 0xF9EAEEE7                                         # DF/MF · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 205, control = 192, technique = 165, pressure = 196, physical = 278, intelligence = 225, agility = 197, freedom = 255 }
+
+[[edit]]
+target = "c11722100"                                   # Charlet Namora
+moves = [
+  { move = 0x21127474, level = 1 },                         # Ultra Moon
+  { move = 0x7748D3F2, level = 13 },                        # Devil Ball
+  { move = 0x19025F83, level = 20 },                        # Quick Draw
+  { move = 0xDBFD9CFE, level = 30 },                        # Big Ball Trick
+]
+
+  [[edit.cards]]
+  id = 0x29EA3F99                                         # MF/DF · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 209, control = 244, technique = 227, pressure = 171, physical = 213, intelligence = 196, agility = 189, freedom = 251 }

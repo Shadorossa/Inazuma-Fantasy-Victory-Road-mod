@@ -1,0 +1,44 @@
+# Engine limits a mod can raise; the effective value is the maximum over the framework and all active mods.
+
+[limits]
+# Rows per tab of the CPU opponent list (retail 256, maximum 32767).
+opponent_rows = 256
+
+# sort_no capacity of the match clear bits (retail 2560, maximum 32768; larger values are clamped with a warning).
+clear_bits = 32768
+
+# --- squad: card-type limits (a count or "unlimited"; any value above retail lifts the limit) ---
+[limits.squad]
+max_per_card_type = { hero = 2, diamond = 1 }
+
+# Game profile edits that stop the game counting a card type (`counter` = framework hook counting mod card types).
+[limits.squad.native.hero]
+skip = [
+    "Squad.CountHeroCards.Skip",
+    "Squad.HeroCardsInTeamTest.Skip",
+    "Squad.HeroCardsValidate.Skip",
+    "Squad.HeroCardsInMatchTest.Skip",
+    "Squad.HeroCardsInMatchValidate.Skip",
+    "Squad.HeroCardsInSwap.Skip",
+]
+
+[limits.squad.native.diamond]
+skip = [
+    "Squad.CountDiamondCards.Skip",
+    "Squad.CountDiamondStaff.Skip",
+    "Squad.CountDiamondStaffInSwap.Skip",
+    "Squad.DiamondCardsInTeamTest.Skip",
+    "Squad.DiamondCardsValidate.Skip",
+    "Squad.DiamondCardsInMatchTest.Skip",
+    "Squad.DiamondCardsInMatchValidate.Skip",
+    "Squad.DiamondCardsInSwap.Skip",
+]
+counter = "LimitsDiamondCounter"
+
+# --- lists: native lists whose row count follows rows added by Lua via CMND_VRFW_LIST_ROWS(name, extra) ---
+[limits.lists.formation_picker]
+getter = "Team.FormationCount"
+max_extra = 248
+
+# --- constants: game rules held as immediates in code, by game profile constant name ---
+# A mod declares: [constants] "Rules.X" = { config = "key", default = 0, min = 0, max = 127 } (also an integer, { min_of = [...] }, { max_of = [...] }); the later mod wins.

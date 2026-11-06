@@ -1,0 +1,31 @@
+schema = "VRFW.game/2"
+
+# Menu input diagnostics: reads the menu controller's input list (used by the input trace menu script).
+
+# Menu controller singleton.
+[[VRFW.Global]]
+name = "menu_controller"
+game = "Menu.Controller"
+
+# CMenu* MenuFind(u32 nameCrc): the open menu object of that name, or null.
+[[VRFW.Function]]
+name = "MenuFind"
+game = "Menu.Find"
+arguments = ["u32"]
+returns = "ptr"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_INPUT_DUMP"     # () -> "crc pPRIO oORDER alive|gone actN [top]; ... | ctrl <name> on<0|1>"
+handler = "MenuInput.Dump"
+needs = ["menu_controller", "MenuFind"]
+
+# Global menu input controller and its input switch.
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_INPUT_CTRL"     # () -> "ctrl <name> on<0|1>"
+handler = "MenuInput.Ctrl"
+needs = ["menu_controller"]
+
+[[VRFW.Command]]
+name = "CMND_VRFW_MENU_INPUT_CTRL_ON"  # () -> previous switch byte (0 = it was off and is on now)
+handler = "MenuInput.CtrlOn"
+needs = ["menu_controller"]

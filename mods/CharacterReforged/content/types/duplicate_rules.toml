@@ -1,0 +1,11 @@
+# Declaration schema of CharacterReforged.duplicate_rules/1 (content\duplicate_rules): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "CharacterReforged.duplicate_rules/1"
+folder = "content/duplicate_rules"
+label = "Duplicate rules"
+label_es = "Reglas de duplicados"
+
+[entry.DuplicateRules]
+single = true
+new_recruitment = { type = "table" }
+no_more_rarities = { type = "table" }

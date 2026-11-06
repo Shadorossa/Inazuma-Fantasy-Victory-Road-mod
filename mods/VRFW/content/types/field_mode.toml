@@ -1,0 +1,21 @@
+# Declaration schema of VRFW.field_mode/1 (content\field_modes\**\*.toml; docs/framework/field-mode.md): [[VRFW.FieldMode]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.field_mode/1"
+folder = "content/field_modes"
+label = "Field modes"
+label_es = "Modos de campo"
+doc = "A field setup a mod switches on: the map kept, the play mode, the walker, the autosaves and the input menus."
+doc_es = "Una configuración de campo que activa un mod: el mapa que se mantiene, el modo de juego, el personaje que camina, los autoguardados y los menús de entrada."
+
+[entry.FieldMode]
+doc = "a field setup a mod switches on: the map kept, the play mode, the walker, the autosaves and the input menus while it is on"
+name = { type = "name", required = true, doc = "key <mod>.route_field" }
+play_mode = { type = "int", doc = "the play-mode byte while on, back at leave (3 = the Kizuna town walker setup)" }
+walker = { type = "string", default = "none", doc = "none | list (the party = the walker only) | avatar (the Kizuna avatar = the walker; needs play_mode = 3)" }
+block_autosave = { type = "bool", default = false, doc = "the map-entry autosaves and CMND_SYSTEM_AUTO_SAVE do not save" }
+menus = { type = "table", doc = "an input field menu (its name or \"0x…\") → what opens" }
+keep_map = { type = "bool", default = false, doc = "Chronicle (play mode 4): the map is not unloaded after every event" }
+camera_lock = { type = "bool", default = false, doc = "the field camera rotation axes (CMD_CAMERA_MOVE_X / _Y) read 0" }
+walker_list = { type = "bool", default = false, doc = "with walker = \"avatar\": also the party member list = the walker only around every build" }
+keep_until_board = { type = "bool", default = false, doc = "with walker = \"avatar\": after «back to the board» the party rebuilds of the fade keep the field setup" }
+mode = { type = "string", doc = "current-mode context while on: <mod>.<mode>; \"\" = none" }

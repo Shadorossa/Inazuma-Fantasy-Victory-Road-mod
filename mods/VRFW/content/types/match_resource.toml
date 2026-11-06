@@ -1,0 +1,37 @@
+# Declaration schema of VRFW.match_resource/1 (content\match_resources\**\*.toml; docs/framework/match-resource.md): [[VRFW.MatchResource]], [[VRFW.MatchResourceMax]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.match_resource/1"
+folder = "content/match_resources"
+
+[entry.MatchResource]
+name = { type = "name", required = true, doc = "key <mod>.pe (a-z 0-9 _)" }
+per = { type = "string", doc = "what holds it: a player (default), a team (team gauge, §9) or an aura (one pool per aura, §7)" }
+max = { type = "int", doc = "a full bar" }
+move_cost = { type = "int", doc = "the price of an aura's own move without a row (read by the mod / other services)" }
+pool = { type = "records", fields = { aura = { type = "string", doc = "an aura command id, \"0x…\" or its key (the game's id = crc32 of the key)" }, max = { type = "int" }, move_cost = { type = "int" }, values = { type = "table", doc = "free numbers of the row (`VRFW.resource.pool_value(key, aura, \"atk\")`)" } } }
+aliases = { type = "strings", doc = "other full keys that name it (a resource moved from another mod)" }
+pe_provider = { type = "bool", default = false, doc = "the technique type's pe_sacrifice moves pay with it" }
+live_states = { type = "ints", doc = "soccer states of live play (InPlay, FocusBtl, Scramble, Zone)" }
+duel_states = { type = "ints", doc = "soccer states of a duel (speed_mult_duel)" }
+drain = { type = "table", doc = "− per live second, by what the player does" }
+stat_scale = { type = "table", doc = "drain × max(floor, (1 − step)^(stat − ref))" }
+scale = { type = "table", doc = "drain × (all default 1; match_length_ref_s default 0 = off)" }
+half_time = { type = "table", doc = "before a new half: + max × (share ± jitter), capped at max" }
+state = { type = "records", fields = { name = { type = "name" }, below = { type = "number", doc = "entered at value ≤ below × max" }, above = { type = "number", doc = "left at value > above × max" }, speed_mult = { type = "number", doc = "move speed ×" }, speed_mult_duel = { type = "number", doc = "… in a duel state" }, block_dash = { type = "bool", doc = "no manual dash" }, end_dash = { type = "bool", doc = "a running manual dash is ended (its record's fuel 0, refilled when it is over)" }, min_seconds = { type = "number", default = 0, doc = "once entered, on for at least this many live seconds" }, stop_drain = { type = "bool", doc = "no drain while on (regen_per_s still fills it)" }, speed_mult_dashing = { type = "number", doc = "move speed × while he dashes (manual dash or DP consume)" }, block_auras = { type = "ids", doc = "aura starts refused (aura words / bits)" }, block_moves = { type = "bool", doc = "every move slot greyed" } }, doc = "a named state with hysteresis (at most 32)" }
+regen_per_s = { type = "number", default = 0, doc = "+ per live second (negative = a flat drain)" }
+start = { type = "number", default = 1, doc = "share of max at kick-off" }
+team = { type = "table" }
+label = { type = "string", doc = "optional text key" }
+teams = { type = "string", default = "both", doc = "both | user | rival" }
+keepers = { type = "bool", default = true, doc = "goalkeepers have it too" }
+cap_by = { type = "string", doc = "never above that per-player resource's share of its max" }
+aura_mult = { type = "records", fields = { auras = { type = "strings" }, mult = { type = "number" } }, doc = "drain × while these auras run: the FIRST entry whose auras all run wins" }
+cost = { type = "records", fields = { on = { type = "string", doc = "move | aura | dash" }, techniques = { type = "ids", doc = "move / aura ids (numbers or \"0x…\"); empty = every one" }, auras = { type = "ids", doc = "on = \"aura\": the aura bits the check narrows to; empty = every aura" }, amount = { type = "int", doc = "flat" }, share_of_max = { type = "number", doc = "+ × max" }, share_of_current = { type = "number", doc = "+ × the value now" }, require = { type = "bool", doc = "refused (greyed, no dash) while the value is below the price" } }, doc = "paying with it" }
+
+[entry.MatchResourceMax]
+resource = { type = "string", doc = "a per = \"player\" resource of this mod" }
+default = { type = "int", doc = "the cards not listed" }
+level_ref = { type = "int" }
+drain_follows_level = { type = "bool" }
+level_curve = { type = "numbers" }
+cards = { type = "table" }

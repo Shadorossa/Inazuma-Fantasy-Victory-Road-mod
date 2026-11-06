@@ -1,0 +1,132 @@
+# Aura Reworked: the settings of its parts (read by its scripts at the start; restart the game after a change). The
+# Mods options rows (options.toml) switch the parts and their choices; the numbers stay here.
+
+# ================================================================= Custom Change Mode
+[mode_change]
+# false: no change can be created or equipped, the stored ones stay in the save but do nothing
+enabled = true
+# The swap's cooldown, button and states are the plates slot's declaration: content\extra_slots\change.toml
+# ([VRFW.ExtraSlot.swap] cooldown_s = 60 s between two swaps).
+
+# ================================================================= Souls Rework
+# The totems and the skill families are content\souls\*.toml (kind AuraOverhaul.soul/1).
+
+# Aura Points (optional): its per-totem SP pool and its per-player cost input. With its pool running for a totem, each
+# level sets the pool's max to the totem's SP at that level; without it, each level lengthens the totem's summon time.
+[souls.aura_points]
+resource = "VRFW.spirit_points"
+# the rule flag <start_flag>.<aura id> = the totem's SP at level 1: its SP bar starts there in matches and menus
+start_flag = "SpiritStaminaPoints.sp_start"
+
+# Aura Points' match PE: the team stamina the recovery skills refill
+[souls.stamina]
+resource = "VRFW.stamina"
+
+# The skill carousel over the totem move's cut-in (screen aura_reworked_souls_reel_menu, content\menus\reel.toml): the
+# totem's 6 skills as small cards sliding sideways, the centre one in front and the two beside it smaller and dimmer;
+# it spins, slows down and stops with the result in the centre. It opens when the first cut-in after the totem move's
+# command starts (or over play when no cut-in comes) and closes early when that cut-in ends.
+[souls.reel]
+# false: the rolls apply without the carousel
+show = true
+# seconds: fade in, spin (fast, slowing down), settle back onto the result, hold on it, fade out
+open_s = 0.2
+spin_s = 1.9
+settle_s = 0.25
+hold_s = 1.2
+close_s = 0.25
+# whole turns over the 6 cards before the result, and how far (in cards) it runs past the result before settling
+loops = 3
+settle_cards = 0.08
+# layout in screen px of 1080p, y down: the centre card's centre, the distance between card centres, the centre
+# card's size; the side cards' scale and opacity
+center_x = 960
+center_y = 96
+spacing = 214
+card_width = 224
+card_height = 60
+side_scale = 0.8
+side_alpha = 0.55
+# inside a card: the icon's size and its gap to the texts, the name's and the level's text heights, the level
+# diamonds' size and distance, the gap between the name and the level line
+icon_size = 34
+icon_gap = 10
+name_size = 21
+level_size = 15
+diamond_size = 9
+diamond_spacing = 13
+line_gap = 5
+# the cut-in that shows the carousel: the first one to start within this many seconds of the move's command
+cutin_window_s = 3
+# the plate colour of the totem's element (aura_skill_config column 8: 1 wind, 2 forest, 3 fire, 4 mountain, 5 void),
+# measured as the mean colour of the game's element move plates cmd_base_sp01..05 (soccer11_09); neutral = an
+# element outside the list (cmd_base_sp06); miss = the plate of a miss card
+element_colors = ["#0080BD", "#38A530", "#C03622", "#B07222", "#7520AD"]
+neutral_color = "#8B8B8B"
+miss_color = "#5C6070"
+# the atlas of the cards' icons (the skill families' `icon` sprites); it is in the screen's res list
+icon_atlas = "#/menu/200_icon/08_icon_teambuff/<LG>/icon_teambuff.g4tx"
+
+# The level-up pop (graft souls_rework_level_pop): a small speech bubble over the player's head with «+Nv.2» (text key
+# AuraOverhaul.level_pop, {level} = the new level), its tail pointing down to the head, following him: it pops in,
+# stays, then rises and fades out. Its colours are those of the aura type (totem, keshin, armed, miximax, …: the type's
+# own icon of the game, research/scripts/souls_rework_bubble_build.py). Hidden while a cut-in or a match scene plays
+# (the framework's cutin_start / cutin_end); it shows again after the scene only while its time is not over. Seconds;
+# sizes in layout units of a 1920 x 1080 screen.
+[souls.level_pop]
+# false: no pop
+show = true
+# the rival (CPU) team's level-ups pop too (their levels count only with [levels] cpu = true)
+cpu = true
+appear_s = 0.15
+# how long it stays over the player at full size
+hold_s = 4.0
+out_s = 0.4
+# the bubble: body height, tail height (the tail tip is `lift` above the head) and the text's scale (1 = the retail
+# telop's text size)
+body_height = 28
+tail_height = 8
+lift = 10
+text_scale = 0.45
+# room left and right of the text inside the body
+pad_x = 8
+# the body widths drawn for each aura type (the narrowest that holds the text is used); the sprites are made from this
+# list by research/scripts/souls_rework_bubble_build.py: run it again after a change
+bubble_widths = [36, 40, 44, 49, 54, 60, 66, 73, 80, 88, 97, 107, 118]
+# a character's width at text scale 1, used only when the game does not measure the text
+char_width = 24
+# moves the text up (+) or down (-) inside the body
+text_offset_y = 0
+# the text's colour markup around it ({text}; font_color tags: [CW] white ... [C] reset)
+text_markup = "[CW]{text}[C]"
+# how far it rises while it fades out
+rise = 24
+
+# How a totem gains level points (LP) and levels while it is out (Galaxy's real amounts are unknown). About 4 minutes of
+# live play reach level 5 without duels; each duel won is 15 s of play, a goal 30 s.
+[souls.levels]
+# total LP to reach level 2, 3, 4, 5 (one value per level above 1; lower them to level up faster)
+thresholds = [30, 80, 150, 240]
+# LP per second of live play
+per_second = 1.0
+# LP when its player wins a focus duel
+per_duel_won = 15.0
+# LP when its player scores
+per_goal = 30.0
+# LP when its player uses the totem's own move
+per_own_move = 10.0
+# without Aura Points: extra summon time = full time x (SP[level] - SP[1]) / SP[1] x this
+time_scale = 1.0
+# the rival (CPU) team's totems gain levels and roll the reel too, whenever the part is on (its rolls are never shown)
+cpu = true
+# the release button does nothing while a totem is out
+no_release = true
+# the soccer states of live play (the level points per second count only there)
+live_states = [9, 14, 15, 16]
+
+[souls.effects]
+# a reel result of effect "passive": the framework's passive engine grant flag prefix (VRFW content\types\passive.toml [grant]
+# flag_prefix); the flag <grant_flag>.<passive>.<actor handle> = the skill level while the result lasts
+grant_flag = "VRFW.passive.grant"
+# knock-down: a field clip played on the opponent (<mod>.<name>; "" = none, only the slow-down)
+knockdown_clip = ""

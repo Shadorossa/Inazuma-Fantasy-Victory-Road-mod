@@ -1,0 +1,35 @@
+# Aura Points: the entries of the match buff row (soccer_team_buff_icon_list_menu, the bottom bar of team passives and
+# active auras). The retail row has 3 aura entries (portrait soccer00_53_aura_buff_chara_icon + circular time gauge
+# soccer00_54_aura_recast_gauge); research/grafts/aura_points_buff_bar (aura_points_buff_row.lua) shows one entry per
+# aura user up to the VR-Framework's team limit of transformed players ([rules] team_aura_max) and as many as these
+# layers have instances: one per player on the pitch.
+#  The bars under them: buff_bar.toml (two instances
+# per entry). The retail attach locator holds rows for portrait instances 0..2 only: the copies below hang instances
+# 3..10 on the same locator (the gauge follows its portrait through the portrait's own index attach), otherwise they
+# draw at the screen origin (top-left, above the tension gauge).
+schema = "VRFW.menu/2"
+
+[[patch]]
+menu = "soccer_team_buff_icon_list_menu"
+layer = "soccer00_53_aura_buff_chara_icon"
+count = 11
+
+[[patch]]
+menu = "soccer_team_buff_icon_list_menu"
+layer = "soccer00_54_aura_recast_gauge"
+count = 11
+
+# attach rows of the portrait (soccer00_53_aura_buff_chara_icon, crc32 0x5B80C29B) for instances 3..10: copies of
+# instance 0's row on soccer00_50_team_buff_icon_attach_locator (_atc_teambuff01); the Lua places them 68 apart
+[[object_set]]
+object = "soccer00_50_team_buff_icon_attach_locator"
+copy = [
+    { parameter = "NullLayerName", match = { 3 = 1535165083, 4 = 0 }, values = { 3 = 1535165083, 4 = 3 } },
+    { parameter = "NullLayerName", match = { 3 = 1535165083, 4 = 0 }, values = { 3 = 1535165083, 4 = 4 } },
+    { parameter = "NullLayerName", match = { 3 = 1535165083, 4 = 0 }, values = { 3 = 1535165083, 4 = 5 } },
+    { parameter = "NullLayerName", match = { 3 = 1535165083, 4 = 0 }, values = { 3 = 1535165083, 4 = 6 } },
+    { parameter = "NullLayerName", match = { 3 = 1535165083, 4 = 0 }, values = { 3 = 1535165083, 4 = 7 } },
+    { parameter = "NullLayerName", match = { 3 = 1535165083, 4 = 0 }, values = { 3 = 1535165083, 4 = 8 } },
+    { parameter = "NullLayerName", match = { 3 = 1535165083, 4 = 0 }, values = { 3 = 1535165083, 4 = 9 } },
+    { parameter = "NullLayerName", match = { 3 = 1535165083, 4 = 0 }, values = { 3 = 1535165083, 4 = 10 } },
+]

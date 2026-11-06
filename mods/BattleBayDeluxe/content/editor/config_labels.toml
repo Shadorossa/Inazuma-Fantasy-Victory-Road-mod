@@ -1,0 +1,403 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "campaign"
+  Type = "table"
+  Label = { es = "Campaña", en = "Campaign" }
+  Help = { es = "Ajustes de la Campaña.", en = "Campaign settings." }
+  [[Shape.Field]]
+  Key = "campaign.progression"
+  Type = "bool"
+  Label = { es = "Rivales de débil a fuerte", en = "Rivals weakest to strongest" }
+  Help = { es = "Ordena los 7 rivales de la Campaña del más débil al más fuerte según la tabla de valoración de equipos.", en = "Orders the 7 Campaign rivals from weakest to strongest by the team rating table." }
+  [[Shape.Field]]
+  Key = "campaign.seed"
+  Type = "int"
+  Label = { es = "Semilla de la Campaña", en = "Campaign seed" }
+  Help = { es = "0 = sorteo nuevo en cada campaña y Draft. Otro número = mismos rivales y ofertas siempre (para pruebas).", en = "0 = a new draw every campaign and Draft. Any other number = same rivals and offers every time (for testing)." }
+  [[Shape.Field]]
+  Key = "active_team"
+  Type = "table"
+  Label = { es = "Equipo activo", en = "Active team" }
+  Help = { es = "Ajustes de la casilla Equipo activo.", en = "Settings of the Active team tile." }
+  [[Shape.Field]]
+  Key = "active_team.team"
+  Type = "string"
+  Label = { es = "Equipo activo (clave)", en = "Active team key" }
+  Help = { es = "Equipo que juega la casilla Equipo activo, tal como está.", en = "Team played by the Active team tile, as it is." }
+  [[Shape.Field]]
+  Key = "active_team.level_sync"
+  Type = "int"
+  Label = { es = "Sincronía de nivel del equipo activo", en = "Active team level sync" }
+  Help = { es = "Nivel al que juegan los jugadores por encima de él en esos partidos (0 = sin sincronía).", en = "Level players above it play at in those matches (0 = no sync)." }
+  [[Shape.Field]]
+  Key = "difficulty"
+  Type = "table"
+  Label = { es = "Dificultad", en = "Difficulty" }
+  Help = { es = "Ajustes de la dificultad de la IA.", en = "AI difficulty settings." }
+  [[Shape.Field]]
+  Key = "difficulty.owner_states"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Dificultad fijada por otro mod", en = "Difficulty set by another mod" }
+  Help = { es = "Estados del juego con los que otro mod publica su propia dificultad de IA.", en = "Game states with which another mod publishes its own AI difficulty." }
+  [[Shape.Field]]
+  Key = "draft"
+  Type = "table"
+  Label = { es = "Draft", en = "Draft" }
+  Help = { es = "Ajustes del Draft de jugadores.", en = "Player Draft settings." }
+  [[Shape.Field]]
+  Key = "draft.team"
+  Type = "string"
+  Label = { es = "Equipo del Draft (clave)", en = "Draft team key" }
+  Help = { es = "Clave del equipo del Draft; su reserva de jugadores se calcula al iniciar el juego.", en = "Key of the Draft team; its player pool is derived when the game starts." }
+  [[Shape.Field]]
+  Key = "draft.special_rarities"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Rarezas excluidas", en = "Excluded rarities" }
+  Help = { es = "Tipos de carta que nunca se ofrecen (cartas especiales: Ídolo, Héroe, Diamante, Prime).", en = "Card types never offered (special cards: Idol, Hero, Diamond, Prime)." }
+  [[Shape.Field]]
+  Key = "draft.name_language"
+  Type = "string"
+  Label = { es = "Idioma de nombres", en = "Name language" }
+  Help = { es = "Idioma cuyos nombres unen las variantes de un mismo personaje en una sola carta.", en = "Language whose names merge the variants of one character into one card." }
+  [[Shape.Field]]
+  Key = "draft.exclude"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Personajes excluidos", en = "Excluded characters" }
+  Help = { es = "Identificadores de personaje que nunca se ofrecen.", en = "Character ids never offered." }
+  [[Shape.Field]]
+  Key = "draft.modes"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Modos con Draft", en = "Draft modes" }
+  Help = { es = "Dónde se puede jugar la casilla Draft (campaign, free_match).", en = "Where the Draft tile can be played (campaign, free_match)." }
+  [[Shape.Field]]
+  Key = "draft.mouse"
+  Type = "bool"
+  Label = { es = "Ratón en el Draft", en = "Mouse in the Draft" }
+  Help = { es = "Permite elegir con el ratón huecos del campo, banquillo y cartas candidatas.", en = "Lets the mouse pick pitch slots, bench slots and candidate cards." }
+  [[Shape.Field]]
+  Key = "draft.pack"
+  Type = "table"
+  Label = { es = "Apertura de sobre", en = "Pack opening" }
+  Help = { es = "Tiempos y aspecto de la animación de apertura de las 5 cartas candidatas.", en = "Timing and look of the opening animation of the 5 candidate cards." }
+  [[Shape.Field]]
+  Key = "draft.pack.intro"
+  Type = "float"
+  Label = { es = "Entrada (s)", en = "Intro (s)" }
+  Help = { es = "Tiempo de oscurecer la pantalla y abrir la banda.", en = "Time to darken the screen and open the band." }
+  [[Shape.Field]]
+  Key = "draft.pack.deal"
+  Type = "float"
+  Label = { es = "Reparto de carta (s)", en = "Deal (s)" }
+  Help = { es = "Tiempo de una carta volando boca abajo.", en = "Time of one card flying in face down." }
+  [[Shape.Field]]
+  Key = "draft.pack.deal_stagger"
+  Type = "float"
+  Label = { es = "Retardo entre cartas (s)", en = "Deal stagger (s)" }
+  Help = { es = "Tiempo entre el reparto de dos cartas.", en = "Time between two cards dealt." }
+  [[Shape.Field]]
+  Key = "draft.pack.flip"
+  Type = "float"
+  Label = { es = "Giro de carta (s)", en = "Flip (s)" }
+  Help = { es = "Tiempo de una carta dándose la vuelta.", en = "Time of one card turning." }
+  [[Shape.Field]]
+  Key = "draft.pack.settle"
+  Type = "float"
+  Label = { es = "Asentado de carta (s)", en = "Settle (s)" }
+  Help = { es = "Rebote de la carta a su tamaño tras girar.", en = "Bounce of the card back to its size after turning." }
+  [[Shape.Field]]
+  Key = "draft.pack.flash"
+  Type = "float"
+  Label = { es = "Destello (s)", en = "Flash (s)" }
+  Help = { es = "Duración del destello blanco sobre una carta girada.", en = "Length of the white flash over a turned card." }
+  [[Shape.Field]]
+  Key = "draft.pack.gap"
+  Type = "float"
+  Label = { es = "Pausa entre giros (s)", en = "Gap (s)" }
+  Help = { es = "Tiempo desde que gira una carta hasta la siguiente.", en = "Time from one card turn to the next." }
+  [[Shape.Field]]
+  Key = "draft.pack.suspense"
+  Type = "float"
+  Label = { es = "Suspense (s)", en = "Suspense (s)" }
+  Help = { es = "Pausa extra antes de la mejor carta.", en = "Extra pause before the best card." }
+  [[Shape.Field]]
+  Key = "draft.pack.outro"
+  Type = "float"
+  Label = { es = "Salida (s)", en = "Outro (s)" }
+  Help = { es = "Tiempo de la carta elegida yendo a su sitio y de volver la pantalla.", en = "Time of the chosen card flying to its place and the screen returning." }
+  [[Shape.Field]]
+  Key = "draft.pack.dim"
+  Type = "float"
+  Label = { es = "Oscuridad del fondo", en = "Background dimming" }
+  Help = { es = "Oscuridad de la pantalla tras la banda (0 = nada, 1 = negro).", en = "Darkness of the screen behind the band (0 = none, 1 = black)." }
+  [[Shape.Field]]
+  Key = "draft.pack.scale"
+  Type = "float"
+  Label = { es = "Tamaño de las cartas", en = "Card size" }
+  Help = { es = "Tamaño de las cartas en la banda (1 = 154 x 116 px).", en = "Size of the cards on the band (1 = 154 x 116 px)." }
+  [[Shape.Field]]
+  Key = "draft.pack.spacing"
+  Type = "int"
+  Label = { es = "Separación entre cartas (px)", en = "Card spacing (px)" }
+  Help = { es = "Distancia entre centros de dos cartas, en píxeles de una pantalla de 1920 x 1080.", en = "Distance between two card centres, in pixels of a 1920 x 1080 screen." }
+  [[Shape.Field]]
+  Key = "draft.pack.se_open"
+  Type = "string"
+  Label = { es = "Sonido: abrir sobre", en = "Sound: open pack" }
+  Help = { es = "Sonido del juego al abrir el sobre.", en = "Game sound when the pack opens." }
+  [[Shape.Field]]
+  Key = "draft.pack.se_deal"
+  Type = "string"
+  Label = { es = "Sonido: repartir carta", en = "Sound: deal card" }
+  Help = { es = "Sonido del juego al repartir cada carta.", en = "Game sound when each card is dealt." }
+  [[Shape.Field]]
+  Key = "draft.pack.se_reveal"
+  Type = "string"
+  Label = { es = "Sonido: girar carta", en = "Sound: turn card" }
+  Help = { es = "Sonido del juego al girar cada carta.", en = "Game sound when each card turns." }
+  [[Shape.Field]]
+  Key = "draft.pack.se_best"
+  Type = "string"
+  Label = { es = "Sonido: mejor carta", en = "Sound: best card" }
+  Help = { es = "Sonido del juego al girar la mejor carta.", en = "Game sound when the best card turns." }
+  [[Shape.Field]]
+  Key = "tournament"
+  Type = "table"
+  Label = { es = "Torneo", en = "Tournament" }
+  Help = { es = "Ajustes del Torneo (menú de Battle Bay, Campaña).", en = "Tournament settings (Battle Bay menu, Campaign)." }
+  [[Shape.Field]]
+  Key = "tournament.format"
+  Type = "string"
+  Label = { es = "Formato", en = "Format" }
+  Help = { es = "Formato inicial del torneo (knockout = eliminatoria; también hay grupos).", en = "Starting tournament format (knockout; groups also exist)." }
+  [[Shape.Field]]
+  Key = "tournament.teams"
+  Type = "int"
+  Label = { es = "Número de equipos", en = "Number of teams" }
+  Help = { es = "Potencia de dos: 4, 8, 16, 32 o 64 (con grupos, de 8 a 64).", en = "Power of two: 4, 8, 16, 32 or 64 (with groups, 8 to 64)." }
+  [[Shape.Field]]
+  Key = "tournament.filter_minor"
+  Type = "bool"
+  Label = { es = "Filtrar equipos poco importantes", en = "Filter minor teams" }
+  Help = { es = "Si se activa, el torneo empieza sin equipos poco importantes (se elige en el juego antes de cada torneo).", en = "When on, the tournament starts without minor teams (chosen in the game before each tournament)." }
+  [[Shape.Field]]
+  Key = "tournament.filter_story_games"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Partidos de historia", en = "Story matches" }
+  Help = { es = "Claves de partidos de historia (con comodín *) que cuentan para el filtro de equipos poco importantes.", en = "Story match keys (with * wildcard) used by the minor teams filter." }
+  [[Shape.Field]]
+  Key = "tournament.seeded"
+  Type = "bool"
+  Label = { es = "Cabezas de serie", en = "Seeded" }
+  Help = { es = "Mantiene separados a los equipos más fuertes en el cuadro o uno por grupo. Desactivado = sorteo al azar.", en = "Keeps the strongest teams apart in the bracket or one per group. Off = plain random draw." }
+  [[Shape.Field]]
+  Key = "tournament.goals"
+  Type = "float"
+  Label = { es = "Goles medios simulados", en = "Simulated mean goals" }
+  Help = { es = "Goles de un lado entre equipos iguales en los partidos simulados (media de Poisson).", en = "Goals of a side between equal teams in simulated matches (Poisson mean)." }
+  [[Shape.Field]]
+  Key = "tournament.strength_weight"
+  Type = "float"
+  Label = { es = "Peso de la fuerza", en = "Strength weight" }
+  Help = { es = "Cuánto inclina la fuerza del equipo los goles de los partidos simulados.", en = "How much team strength tilts the goals of simulated matches." }
+  [[Shape.Field]]
+  Key = "tournament.penalty_score"
+  Type = "float"
+  Label = { es = "Acierto de penalti", en = "Penalty score chance" }
+  Help = { es = "Probabilidad de marcar un penalti en los partidos simulados.", en = "Chance of scoring a penalty in simulated matches." }
+  [[Shape.Field]]
+  Key = "tournament.penalty_kicks"
+  Type = "int"
+  Label = { es = "Penaltis de la tanda", en = "Shootout kicks" }
+  Help = { es = "Número de penaltis por equipo en la tanda simulada.", en = "Number of penalties per team in the simulated shootout." }
+  [[Shape.Field]]
+  Key = "tournament.knockout_rules"
+  Type = "string"
+  Label = { es = "Reglas de eliminatoria", en = "Knockout rules" }
+  Help = { es = "Libro de reglas de tus partidos de eliminatoria (prórroga y penaltis). Puede ser el de otro mod.", en = "Rulebook of your knockout matches (extra time and penalties). May be another mod's." }
+  [[Shape.Field]]
+  Key = "tournament.final_rules"
+  Type = "string"
+  Label = { es = "Reglas de la final", en = "Final rules" }
+  Help = { es = "Libro de reglas de la final. Vacío = las de la eliminatoria.", en = "Rulebook of the final. Empty = the knockout rules." }
+  [[Shape.Field]]
+  Key = "tournament.final_stadiums"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Estadios de la final", en = "Final stadiums" }
+  Help = { es = "La final se juega en uno de estos estadios, sorteado una vez por torneo.", en = "The final is played in one of these stadiums, drawn once per tournament." }
+  [[Shape.Field]]
+  Key = "tournament.seed"
+  Type = "int"
+  Label = { es = "Semilla del torneo", en = "Tournament seed" }
+  Help = { es = "0 = sorteo nuevo en cada torneo. Otro número = mismo cuadro y resultados (para pruebas).", en = "0 = a new draw every tournament. Any other number = same bracket and results (for testing)." }
+  [[Shape.Field]]
+  Key = "tournament.exclude_same_kit_as"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Excluir equipos con la misma equipación", en = "Exclude same kit" }
+  Help = { es = "Nunca se sortean equipos que lleven la misma equipación que estos equipos (por clave).", en = "Teams wearing the same kit as these teams (by key) are never drawn." }
+  [[Shape.Field]]
+  Key = "tournament.exclude_same_emblem_as"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Excluir equipos con el mismo escudo", en = "Exclude same emblem" }
+  Help = { es = "Nunca se sortean equipos con el mismo escudo que estos equipos (por clave).", en = "Teams with the same emblem as these teams (by key) are never drawn." }
+  [[Shape.Field]]
+  Key = "tournament.exclude_teams"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Equipos excluidos", en = "Excluded teams" }
+  Help = { es = "Equipos que nunca se sortean (por clave).", en = "Teams never drawn (by key)." }
+  [[Shape.Field]]
+  Key = "bracket_strips"
+  Type = "table"
+  Label = { es = "Franjas del cuadro", en = "Bracket strips" }
+  Help = { es = "Color de la franja de cada equipo en el cuadro, según el color de su escudo.", en = "Colour of each team strip in the bracket, from its emblem colour." }
+  [[Shape.Field]]
+  Key = "bracket_strips.names"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Nombres de color", en = "Colour names" }
+  Help = { es = "Franjas disponibles, en orden.", en = "Strips available, in order." }
+  [[Shape.Field]]
+  Key = "bracket_strips.hues"
+  Type = "list"
+  Label = { es = "Tonos de cada color", en = "Colour hues" }
+  Help = { es = "Rango de tono (grados) de cada color; gana el tono listado más cercano.", en = "Hue range (degrees) of each colour; the nearest listed hue wins." }
+  [[Shape.Field]]
+  Key = "bracket_strips.min_strength"
+  Type = "float"
+  Label = { es = "Fuerza de color mínima", en = "Minimum colour strength" }
+  Help = { es = "Con menos color que esto se usa negro o plata.", en = "With less colour than this, black or silver is used." }
+  [[Shape.Field]]
+  Key = "bracket_strips.min_share"
+  Type = "float"
+  Label = { es = "Proporción de color mínima", en = "Minimum colour share" }
+  Help = { es = "Con menos parte coloreada que esto se usa negro o plata.", en = "With less coloured share than this, black or silver is used." }
+  [[Shape.Field]]
+  Key = "bracket_strips.dark"
+  Type = "string"
+  Label = { es = "Franja oscura", en = "Dark strip" }
+  Help = { es = "Franja usada cuando el escudo es oscuro.", en = "Strip used when the emblem is dark." }
+  [[Shape.Field]]
+  Key = "bracket_strips.dark_below"
+  Type = "float"
+  Label = { es = "Umbral de oscuridad", en = "Darkness threshold" }
+  Help = { es = "Por debajo de este brillo el escudo cuenta como oscuro.", en = "Below this brightness the emblem counts as dark." }
+  [[Shape.Field]]
+  Key = "bracket_strips.light"
+  Type = "string"
+  Label = { es = "Franja clara", en = "Light strip" }
+  Help = { es = "Franja usada cuando el escudo es claro.", en = "Strip used when the emblem is light." }
+  [[Shape.Field]]
+  Key = "league"
+  Type = "table"
+  Label = { es = "Liga", en = "League" }
+  Help = { es = "Ajustes de la Liga (Campaña, Liga).", en = "League settings (Campaign, League)." }
+  [[Shape.Field]]
+  Key = "league.teams"
+  Type = "int"
+  Label = { es = "Equipos de la liga", en = "League teams" }
+  Help = { es = "Número de equipos; todos juegan contra todos.", en = "Number of teams; everyone plays everyone." }
+  [[Shape.Field]]
+  Key = "league.double"
+  Type = "bool"
+  Label = { es = "Ida y vuelta", en = "Home and away" }
+  Help = { es = "Si se activa, cada pareja juega dos veces (local y visitante).", en = "When on, every pair plays twice (home and away)." }
+  [[Shape.Field]]
+  Key = "league.rows_per_page"
+  Type = "int"
+  Label = { es = "Filas por página", en = "Rows per page" }
+  Help = { es = "Equipos en una página de la clasificación (4 a 18).", en = "Teams on one standings page (4 to 18)." }
+  [[Shape.Field]]
+  Key = "league.no_national"
+  Type = "bool"
+  Label = { es = "Sin selecciones nacionales", en = "No national teams" }
+  Help = { es = "Si se activa, la liga no incluye selecciones nacionales.", en = "When on, the league has no national teams." }
+  [[Shape.Field]]
+  Key = "league.name_language"
+  Type = "string"
+  Label = { es = "Idioma de nombres", en = "Name language" }
+  Help = { es = "Idioma de los nombres con los que se reconocen las selecciones nacionales.", en = "Language of the names used to recognise national teams." }
+  [[Shape.Field]]
+  Key = "league.scorer_weight_forward"
+  Type = "float"
+  Label = { es = "Peso goleador: delantero", en = "Scorer weight: forward" }
+  Help = { es = "Parte de los goles del equipo para un delantero titular (por su disparo).", en = "Share of team goals for a starting forward (by his kick stat)." }
+  [[Shape.Field]]
+  Key = "league.scorer_weight_midfielder"
+  Type = "float"
+  Label = { es = "Peso goleador: centrocampista", en = "Scorer weight: midfielder" }
+  Help = { es = "Parte de los goles del equipo para un centrocampista titular.", en = "Share of team goals for a starting midfielder." }
+  [[Shape.Field]]
+  Key = "net"
+  Type = "table"
+  Label = { es = "Sala privada", en = "Private room" }
+  Help = { es = "Ajustes de la Sala privada (partido en red entre dos PC).", en = "Private room settings (network match between two PCs)." }
+  [[Shape.Field]]
+  Key = "net.game"
+  Type = "int"
+  Label = { es = "Partido de la sala", en = "Room match" }
+  Help = { es = "Partido del juego que se juega en la Sala privada.", en = "Game match played in the Private room." }
+  [[Shape.Field]]
+  Key = "net.difficulty"
+  Type = "int"
+  Label = { es = "Dificultad de la sala", en = "Room difficulty" }
+  Help = { es = "Dificultad del partido de la Sala privada (0 a 3).", en = "Difficulty of the Private room match (0 to 3)." }
+  [[Shape.Field]]
+  Key = "daily_challenge"
+  Type = "table"
+  Label = { es = "Reto diario", en = "Daily challenge" }
+  Help = { es = "Ajustes del Reto diario: partidos iguales para todos cada día UTC.", en = "Daily challenge settings: the same matches for everyone each UTC day." }
+  [[Shape.Field]]
+  Key = "daily_challenge.salt"
+  Type = "string"
+  Label = { es = "Sal del sorteo (depuración)", en = "Draw salt (debug)" }
+  Help = { es = "Texto que se mezcla con la fecha para el sorteo; cambiarlo cambia el reto de todos.", en = "Text mixed with the date for the draw; changing it changes everyone's challenge." }
+  [[Shape.Field]]
+  Key = "daily_challenge.version"
+  Type = "int"
+  Label = { es = "Versión del reto", en = "Challenge version" }
+  Help = { es = "Número que se cambia para renovar el reto.", en = "Number changed to renew the challenge." }
+  [[Shape.Field]]
+  Key = "daily_challenge.matches"
+  Type = "int"
+  Label = { es = "Partidos del reto", en = "Challenge matches" }
+  Help = { es = "Partidos de una tanda (1-3); se completa al ganarlos todos.", en = "Matches of a run (1-3); complete when all are won." }
+  [[Shape.Field]]
+  Key = "daily_challenge.difficulty"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Dificultad por partido", en = "Difficulty per match" }
+  Help = { es = "Dificultad de cada partido (1 Principiante a 4 Desafiante).", en = "Difficulty of each match (1 Beginner to 4 Challenging)." }
+  [[Shape.Field]]
+  Key = "daily_challenge.keep_days"
+  Type = "int"
+  Label = { es = "Días guardados", en = "Days kept" }
+  Help = { es = "Días cuyo resultado conserva la partida.", en = "Days whose result the save keeps." }
+  [[Shape.Field]]
+  Key = "daily_challenge.pool"
+  Type = "table"
+  Label = { es = "Reserva de equipos", en = "Team pool" }
+  Help = { es = "Equipos que puede sortear el Reto diario.", en = "Teams the Daily challenge may draw." }
+  [[Shape.Field]]
+  Key = "daily_challenge.pool.level"
+  Type = "int"
+  Label = { es = "Nivel de los equipos", en = "Team level" }
+  Help = { es = "Nivel de las filas de equipo que entran en el sorteo.", en = "Level of the team rows that enter the draw." }
+  [[Shape.Field]]
+  Key = "daily_challenge.pool.team_keys"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Claves de equipo", en = "Team keys" }
+  Help = { es = "Patrones (con comodín *) de las claves de equipo que entran en el sorteo.", en = "Patterns (with * wildcard) of the team keys that enter the draw." }

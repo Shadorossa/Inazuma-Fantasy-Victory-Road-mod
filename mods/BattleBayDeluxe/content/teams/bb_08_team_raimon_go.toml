@@ -1,0 +1,39 @@
+schema = "VRFW.team/2"
+# The team Raimon revolucionario (bb_08_team_raimon_go) in every match.
+
+[[edit]]
+target = "bb_08_team_raimon_go"
+  [[edit.member]]
+  slot = 1
+  patch = true
+  moves = [0x530CDFC1, 0x6BA49049, 0x2B8C597E]
+  levels = [1, 1, 1]
+  [[edit.member]]
+  slot = 3
+  patch = true
+  moves = [0x4A17EE80, 0xC324C788, 0x737DCB3F]
+  levels = [1, 1, 1]
+  [[edit.member]]
+  slot = 4
+  patch = true
+  moves = [0x14D1ED15, 0x737DCB3F, 0x19BA3BFC, 0x62DEE8B1, 0xDA3823A5]
+  levels = [1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 5
+  patch = true
+  moves = [0x6F918884, 0x9349F1DA, 0xA9E3374B, 0xC755E805, 0x62256EE2]
+  levels = [1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 8
+  patch = true
+  moves = [0x6063D0BB, 0x8B90AAAC, 0x20D01E43, 0xEDBAD1F1]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 9
+  patch = true
+  c14_19 = [1, -1, -1, -1, -1, -1]
+  [[edit.member]]
+  slot = 10
+  patch = true
+  moves = [0x8A52C09B, 0x0C08B663, 0x90CD25B4, 0x910F4F83, 0x7978E1FA]
+  levels = [1, 1, 1, 1, 1]

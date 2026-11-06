@@ -1,0 +1,19 @@
+schema = "VRFW.rule/1"
+# Base ruleset for story matches: every rule is taken from the match row ("row"), i.e. the original game behaviour.
+# A mod may replace it (same id, loaded later) or assign another ruleset in its rules\matches.toml.
+id = "story"
+name = "Story (original)"   # fallback; shown in the game language from the text key ruleset_story
+version = 1
+
+[time]
+half_minutes = "row"
+halves = "row"
+
+[teams]
+players = "row"
+
+[end]
+extra_time = false
+golden_goal = false
+penalties = false
+extended_vgoal = "row"

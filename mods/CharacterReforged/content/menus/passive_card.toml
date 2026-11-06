@@ -1,0 +1,59 @@
+# Character Reforged: the own passive card on the
+# skill table and the player page: one window, one fill (research/grafts/plate_pages parts/passives.lua
+# EVT_PPG.PassiveCardFill, the parts' places = the joints of evt_team00_26_detail in content/menus/skill_table.toml).
+#   team00_26_passive_slot_detail_info  the custom passive window (object evt_team00_26_passive_slot_detail_info of
+#                    skill_table.toml): on the skill table it is the screen's own row; the player page gets it here,
+#                    attached to the page (row in player_page_layout.toml evt_team11_01_personal_plate_bg)
+#   evt_pp_card_face  the retail list character card (team00_01_chara_card_for_list) shown as the face only
+#                    (VRFW_FaceIcon.Card), over the window
+#   evt_pp_card_current  the small grey «Actual: …» line of a stacking passive under the description: a text cell
+#                    (the layout evt_trn_cell of skill_table.toml) whose _text_bonus01 takes a 22 px style
+#   icon_list_tab.g4tx  the series icons a saga passive's icon is taken from (CMND_VRFW_SERIES_ICON)
+#   evt_cr_card.g4tx  the element bands (content/images/menu/102_team/team11/evt_cr_card.toml)
+schema = "VRFW.menu/2"
+
+[[object]]
+name = "evt_pp_card_face"
+from = "team00_01_chara_card_for_list"
+priority = 700
+
+# the «Actual» line: the description's style family at 22 px (the description is 28 px), grey, centred, squeezed to
+# the cell's width
+[[object]]
+name = "evt_pp_card_current"
+from = "soccer20_09_team_level_diff_bonus"
+set = [
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/00_soccer/soccer20/soccer20_09/soccer20_09.g4pkm" }, values = { 1 = "common/menu/00_soccer/soccer11/evt_trn_cell/evt_trn_cell.g4pkm" } },
+    { parameter = "m_drawPriority", match = { 1 = 201 }, values = { 1 = 701 } },
+    { parameter = "_text_bonus01", match = { 1 = 0x4D0759D7 }, values = { 1 = 0x206CC783 } },   # fs_22_k_cc_2d0_001_nr_sclw
+]
+
+[[patch]]
+menu = "evt_skill_slot_menu"
+add_layer = { name = "evt_pp_card_face", object = "evt_pp_card_face", count = 1, groups = [{ group = "common", flags = [0, 0, 0, 0, 1, 0] }] }
+
+[[patch]]
+menu = "evt_skill_slot_menu"
+add_layer = { name = "evt_pp_card_current", object = "evt_pp_card_current", count = 1, groups = [{ group = "common", flags = [0, 0, 0, 0, 1, 0] }] }
+
+[[patch]]
+menu = "evt_skill_slot_menu"
+resources = ["#/menu/102_team/team11/evt_cr_card/evt_cr_card.g4tx", "#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx"]
+
+[[patch]]
+menu = "personal_plate_menu"
+add_layer = { name = "team00_26_passive_slot_detail_info", object = "evt_team00_26_passive_slot_detail_info", count = 1, align = [0, 0], scale = 1.0, groups = [{ group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0] }] }
+
+[[patch]]
+menu = "personal_plate_menu"
+add_layer = { name = "evt_pp_card_face", object = "evt_pp_card_face", count = 1, after = "team00_26_passive_slot_detail_info", groups = [{ group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "team00_26_passive_slot_detail_info" }] }
+
+[[patch]]
+menu = "personal_plate_menu"
+add_layer = { name = "evt_pp_card_current", object = "evt_pp_card_current", count = 1, after = "team00_26_passive_slot_detail_info", groups = [{ group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "team00_26_passive_slot_detail_info" }] }
+
+# the atlases the card's parts take on the player page: its element bands, the passive icons, the element icons, the
+# window's own atlas (the skill table loads the last three already), the series icons
+[[patch]]
+menu = "personal_plate_menu"
+resources = ["#/menu/102_team/team11/evt_cr_card/evt_cr_card.g4tx", "#/menu/200_icon/08_icon_teambuff/<LG>/icon_teambuff.g4tx", "#/menu/200_icon/15_icon_common/icon_common.g4tx", "#/menu/102_team/team00/team00_26/team00_26.g4tx", "#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx"]

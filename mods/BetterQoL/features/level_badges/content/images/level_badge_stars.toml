@@ -1,0 +1,35 @@
+# BetterQoL > "Nivel de supertécnica personalizado" (option row BetterQoL.level_badges, options.toml): this folder is the
+# option feature of that row, read only while the row says Stars. Repaints only the +1 / +2 / +3 sprites over the
+# player's own game files, in the default file and the 8 language folders of each atlas. Each sprite keeps the rectangle
+# its language's atlas gives it; every other sprite and block of those atlases stays that language's retail art.
+schema = "VRFW.image/1"
+
+[[sprite]]
+atlas = "#/font/<LG>/gaiji_game2.g4tx"
+name = "gaiji_wlv101"
+png = "stars/gaiji_wlv101.png"
+
+[[sprite]]
+atlas = "#/font/<LG>/gaiji_game2.g4tx"
+name = "gaiji_wlv102"
+png = "stars/gaiji_wlv102.png"
+
+[[sprite]]
+atlas = "#/font/<LG>/gaiji_game2.g4tx"
+name = "gaiji_wlv103"
+png = "stars/gaiji_wlv103.png"
+
+[[sprite]]
+atlas = "#/menu/00_soccer/soccer10/soccer10_01_lv1/<LG>/soccer10_01_lv1.g4tx"
+name = "wlv101"
+png = "stars/wlv101.png"
+
+[[sprite]]
+atlas = "#/menu/00_soccer/soccer10/soccer10_01_lv2/<LG>/soccer10_01_lv2.g4tx"
+name = "wlv102"
+png = "stars/wlv102.png"
+
+[[sprite]]
+atlas = "#/menu/00_soccer/soccer10/soccer10_01_lv3/<LG>/soccer10_01_lv3.g4tx"
+name = "wlv103"
+png = "stars/wlv103.png"

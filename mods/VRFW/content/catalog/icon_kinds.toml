@@ -1,0 +1,49 @@
+schema = "VRFW.catalog/1"
+# Icon kinds for [[VRFW.Icon]] (docs/framework/types/image.md §Icons). Built into the framework.
+# [kind.<name>]: <name> is the `Kind` of an icon declaration.
+#   placement     sprite (packed into a new texture of `atlas`), texture (a whole new texture of `atlas`),
+#                 own_atlas (a texture + sprite in an atlas the framework creates), delegated (another type builds it)
+#   atlas         the target atlas (sprite / texture kinds; `<LG>` = the default file + every language file)
+#   name_prefix   start of the names the framework gives (texture kinds: the key prefix the game maps to `atlas`)
+#   size_of       a game picture whose size the icons must have: "<name>" of `atlas`, or "<atlas>:<name>"
+#   default       the game picture used for an unknown icon: "<name>" of `atlas`, or "<atlas>:<name>"
+#   per_atlas     own_atlas: icons per created atlas (0 = as many as the format holds)
+#   delegated_to  delegated: the type that declares these pictures
+
+[kind.item_icon]
+description = "Item icon (bag, shop rows, rewards): a whole texture of the sheet of its key prefix"
+placement = "texture"
+atlas = "#/menu/200_icon/02_icon_item/icon_item10.g4tx"
+name_prefix = "tk_"
+size_of = "tk_bb000001"
+default = "tk_bb000001"
+
+[kind.passive_icon]
+description = "Passive buff icon (passive lists, plates)"
+placement = "sprite"
+atlas = "#/menu/200_icon/08_icon_teambuff/<LG>/icon_teambuff.g4tx"
+size_of = "icon_teambuff01"
+default = "icon_teambuff01"
+
+[kind.tab_icon]
+description = "List tab icon (free-match tabs, shop tabs, filters)"
+placement = "sprite"
+atlas = "#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx"
+size_of = "icon_list_tab_series01"
+default = "icon_list_tab_series01"
+
+[kind.season_icon]
+description = "Season icon: one picture per atlas, like the game's season files"
+placement = "own_atlas"
+per_atlas = 1
+size_of = "#/menu/200_icon/26_icon_nm_season/nm05501_season00.g4tx:nm05501_season00"
+default = "#/menu/200_icon/26_icon_nm_season/nm05501_season00.g4tx:nm05501_season00"
+
+[kind.menu_sprite]
+description = "Free-size picture for a mod's own screens"
+placement = "own_atlas"
+
+[kind.emblem]
+description = "Team emblem (crest): declared with the team type"
+placement = "delegated"
+delegated_to = "team"

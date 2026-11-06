@@ -1,0 +1,204 @@
+schema = "VRFW.look/2"
+# The Ramen kit (u119801, keeper u119851) as the IEVRCROSS mod has it: its shirts and their sleeve / belly variants,
+# keeper shirts, boots, gloves and armbands (chara_parts rows as that mod has them). Worn by the three Ramen teams'
+# kits (kits.toml); textures in content\models\kits\u119801.toml and cross_<folder>.toml.
+
+[[clothes]]
+model = "u119801_10"
+rows = [
+  ["_uniform/u004101/u004101.g4md", "_uniform/u004101/u119801_10.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", 952614216, "_uniform/sk000101/sk000101.g4md", "_uniform/sk000101/sk000101_10.g4tx", "_uniform/m000101/m000101.g4md", "_uniform/m000101/m119801_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004102.g4md", 0, 1, "_uniform/n000101/n000102.g4md", 0, 0, "_uniform/sk000101/sk000102.g4md", 0, "_uniform/m000101/m000102.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004103.g4md", 0, 2, "_uniform/n000101/n000103.g4md", 0, 0, "_uniform/sk000101/sk000103.g4md", 0, "_uniform/m000101/m000103.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004104.g4md", 0, 3, "_uniform/n000101/n000104.g4md", 0, 0, "_uniform/sk000101/sk000104.g4md", 0, "_uniform/m000101/m000104.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004105.g4md", 0, 4, "_uniform/n000101/n000105.g4md", 0, 0, "_uniform/sk000101/sk000105.g4md", 0, "_uniform/m000101/m000105.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004106.g4md", 0, 5, "_uniform/n000101/n000106.g4md", 0, 0, "_uniform/sk000101/sk000106.g4md", 0, "_uniform/m000101/m000106.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004107.g4md", 0, 6, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000101/sk000107.g4md", 0, "_uniform/m000101/m000107.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004108.g4md", 0, 7, "_uniform/n000101/n000108.g4md", 0, 0, "_uniform/sk000101/sk000108.g4md", 0, "_uniform/m000101/m000108.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004106.g4md", 0, 8, "_uniform/n000101/n000106.g4md", 0, 0, "_uniform/sk000101/sk000109.g4md", 0, "_uniform/m000101/m000106.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004107.g4md", 0, 9, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000101/sk000110.g4md", 0, "_uniform/m000101/m000107.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004103.g4md", 0, 10, "_uniform/n000101/n000103.g4md", 0, 0, "_uniform/sk000101/sk000103.g4md", 0, "_uniform/m000101/m000103.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004104.g4md", 0, 11, "_uniform/n000101/n000104.g4md", 0, 0, "_uniform/sk000101/sk000104.g4md", 0, "_uniform/m000101/m000104.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004107.g4md", 0, 12, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000101/sk000107.g4md", 0, "_uniform/m000101/m000107.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004107.g4md", 0, 13, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000101/sk000110.g4md", 0, "_uniform/m000101/m000107.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119801_10_blyR"
+rows = [
+  ["_uniform/u094101/u094102.g4md", "_uniform/u004101/u119801_10.g4tx", 1, "_uniform/n000101/n000102.g4md", "_uniform/n000101/n000101_10.g4tx", 952614216, "_uniform/sk090101/sk090102.g4md", "_uniform/sk090101/sk090101_10.g4tx", "_uniform/m000101/m000102.g4md", "_uniform/m000101/m119801_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119801_10_dam"
+rows = [
+  ["_uniform/u094161/u094167.g4md", "_uniform/u004101/u119801_10.g4tx", 6, "_uniform/n000101/n000107.g4md", "_uniform/n000101/n000101_10.g4tx", 952614216, "_uniform/sk000701/sk000707.g4md", "_uniform/sk000701/sk000701_10.g4tx", "_uniform/m000101/m000107.g4md", "_uniform/m000101/m119801_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119801_10_fld"
+rows = [
+  ["_uniform/u094151/u094151.g4md", "_uniform/u004101/u119801_10.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", 952614216, "_uniform/sk000101/sk000101.g4md", "_uniform/sk000101/sk000101_10.g4tx", "_uniform/m090151/m090151.g4md", "_uniform/m000101/m119801_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119801_10_slv"
+rows = [
+  ["_uniform/u094141/u094141.g4md", "_uniform/u004101/u119801_10.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", 952614216, "_uniform/sk000501/sk000501.g4md", "_uniform/sk000501/sk000501_10.g4tx", "_uniform/m000101/m000101.g4md", "_uniform/m000101/m119801_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u094141/u094146.g4md", 0, 5, "_uniform/n000101/n000106.g4md", 0, 0, "_uniform/sk000501/sk000506.g4md", 0, "_uniform/m000101/m000106.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119801_20"
+rows = [
+  ["_uniform/u004101/u004101.g4md", "_uniform/u004101/u119801_20.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", 334163595, "_uniform/sk000101/sk000101.g4md", "_uniform/sk000101/sk000101_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004102.g4md", 0, 1, "_uniform/n000101/n000102.g4md", 0, 0, "_uniform/sk000101/sk000102.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004103.g4md", 0, 2, "_uniform/n000101/n000103.g4md", 0, 0, "_uniform/sk000101/sk000103.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004104.g4md", 0, 3, "_uniform/n000101/n000104.g4md", 0, 0, "_uniform/sk000101/sk000104.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004105.g4md", 0, 4, "_uniform/n000101/n000105.g4md", 0, 0, "_uniform/sk000101/sk000105.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004106.g4md", 0, 5, "_uniform/n000101/n000106.g4md", 0, 0, "_uniform/sk000101/sk000106.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004107.g4md", 0, 6, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000101/sk000107.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004108.g4md", 0, 7, "_uniform/n000101/n000108.g4md", 0, 0, "_uniform/sk000101/sk000108.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004106.g4md", 0, 8, "_uniform/n000101/n000106.g4md", 0, 0, "_uniform/sk000101/sk000109.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004107.g4md", 0, 9, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000101/sk000110.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004103.g4md", 0, 10, "_uniform/n000101/n000103.g4md", 0, 0, "_uniform/sk000101/sk000103.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004104.g4md", 0, 11, "_uniform/n000101/n000104.g4md", 0, 0, "_uniform/sk000101/sk000104.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004107.g4md", 0, 12, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000101/sk000107.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004101/u004107.g4md", 0, 13, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000101/sk000110.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119801_20_blyR"
+rows = [
+  ["_uniform/u094101/u094102.g4md", "_uniform/u004101/u119801_20.g4tx", 1, "_uniform/n000101/n000102.g4md", "_uniform/n000101/n000101_10.g4tx", 334163595, "_uniform/sk090101/sk090102.g4md", "_uniform/sk090101/sk090101_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119801_20_dam"
+rows = [
+  ["_uniform/u094161/u094167.g4md", "_uniform/u004101/u119801_20.g4tx", 6, "_uniform/n000101/n000107.g4md", "_uniform/n000101/n000101_10.g4tx", 334163595, "_uniform/sk000701/sk000707.g4md", "_uniform/sk000701/sk000701_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119801_20_fld"
+rows = [
+  ["_uniform/u094151/u094151.g4md", "_uniform/u004101/u119801_20.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", 334163595, "_uniform/sk000101/sk000101.g4md", "_uniform/sk000101/sk000101_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119801_20_slv"
+rows = [
+  ["_uniform/u094141/u094141.g4md", "_uniform/u004101/u119801_20.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", 334163595, "_uniform/sk000501/sk000501.g4md", "_uniform/sk000501/sk000501_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u094141/u094146.g4md", 0, 5, "_uniform/n000101/n000106.g4md", 0, 0, "_uniform/sk000501/sk000506.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119851_10"
+rows = [
+  ["_uniform/u004201/u004201.g4md", "_uniform/u004201/u119851_10.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", -265866696, "_uniform/sk000201/sk000201.g4md", "_uniform/sk000201/sk000201_10.g4tx", "_uniform/m000201/m000201.g4md", "_uniform/m000101/m119851_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004202.g4md", 0, 1, "_uniform/n000101/n000102.g4md", 0, 0, "_uniform/sk000201/sk000202.g4md", 0, "_uniform/m000201/m000202.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004203.g4md", 0, 2, "_uniform/n000101/n000103.g4md", 0, 0, "_uniform/sk000201/sk000203.g4md", 0, "_uniform/m000201/m000203.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004204.g4md", 0, 3, "_uniform/n000101/n000104.g4md", 0, 0, "_uniform/sk000201/sk000204.g4md", 0, "_uniform/m000201/m000204.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004205.g4md", 0, 4, "_uniform/n000101/n000105.g4md", 0, 0, "_uniform/sk000201/sk000205.g4md", 0, "_uniform/m000201/m000205.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004206.g4md", 0, 5, "_uniform/n000101/n000106.g4md", 0, 0, "_uniform/sk000201/sk000206.g4md", 0, "_uniform/m000201/m000206.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004207.g4md", 0, 6, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000201/sk000207.g4md", 0, "_uniform/m000201/m000207.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004208.g4md", 0, 7, "_uniform/n000101/n000108.g4md", 0, 0, "_uniform/sk000201/sk000208.g4md", 0, "_uniform/m000201/m000208.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004206.g4md", 0, 8, "_uniform/n000101/n000106.g4md", 0, 0, "_uniform/sk000201/sk000209.g4md", 0, "_uniform/m000201/m000206.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004207.g4md", 0, 9, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000201/sk000210.g4md", 0, "_uniform/m000201/m000207.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004203.g4md", 0, 10, "_uniform/n000101/n000103.g4md", 0, 0, "_uniform/sk000201/sk000203.g4md", 0, "_uniform/m000201/m000203.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004204.g4md", 0, 11, "_uniform/n000101/n000104.g4md", 0, 0, "_uniform/sk000201/sk000204.g4md", 0, "_uniform/m000201/m000204.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004207.g4md", 0, 12, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000201/sk000207.g4md", 0, "_uniform/m000201/m000207.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004207.g4md", 0, 13, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000201/sk000210.g4md", 0, "_uniform/m000201/m000207.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119851_10_blyR"
+rows = [
+  ["_uniform/u094201/u094202.g4md", "_uniform/u004201/u119851_10.g4tx", 1, "_uniform/n000101/n000102.g4md", "_uniform/n000101/n000101_10.g4tx", -265866696, "_uniform/sk090201/sk090202.g4md", "_uniform/sk090201/sk090201_10.g4tx", "_uniform/m000201/m000202.g4md", "_uniform/m000101/m119851_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119851_10_lsa"
+rows = [
+  ["_uniform/u094281/u094281.g4md", "_uniform/u004201/u119851_10.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", -265866696, "_uniform/sk000901/sk000901.g4md", "_uniform/sk000901/sk000901_10.g4tx", "_uniform/m000201/m000201.g4md", "_uniform/m000101/m119851_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119851_10_lse"
+rows = [
+  ["_uniform/u094271/u094271.g4md", "_uniform/u004201/u119851_10.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", -265866696, "_uniform/sk000801/sk000801.g4md", "_uniform/sk000801/sk000801_10.g4tx", "_uniform/m000201/m000201.g4md", "_uniform/m000101/m119851_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u094271/u094275.g4md", 0, 4, "_uniform/n000101/n000105.g4md", 0, 0, "_uniform/sk000801/sk000805.g4md", 0, "_uniform/m000201/m000205.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119851_20"
+rows = [
+  ["_uniform/u004201/u004201.g4md", "_uniform/u004201/u119851_20.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", -620076549, "_uniform/sk000201/sk000201.g4md", "_uniform/sk000201/sk000201_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004202.g4md", 0, 1, "_uniform/n000101/n000102.g4md", 0, 0, "_uniform/sk000201/sk000202.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004203.g4md", 0, 2, "_uniform/n000101/n000103.g4md", 0, 0, "_uniform/sk000201/sk000203.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004204.g4md", 0, 3, "_uniform/n000101/n000104.g4md", 0, 0, "_uniform/sk000201/sk000204.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004205.g4md", 0, 4, "_uniform/n000101/n000105.g4md", 0, 0, "_uniform/sk000201/sk000205.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004206.g4md", 0, 5, "_uniform/n000101/n000106.g4md", 0, 0, "_uniform/sk000201/sk000206.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004207.g4md", 0, 6, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000201/sk000207.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004208.g4md", 0, 7, "_uniform/n000101/n000108.g4md", 0, 0, "_uniform/sk000201/sk000208.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004206.g4md", 0, 8, "_uniform/n000101/n000106.g4md", 0, 0, "_uniform/sk000201/sk000209.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004207.g4md", 0, 9, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000201/sk000210.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004203.g4md", 0, 10, "_uniform/n000101/n000103.g4md", 0, 0, "_uniform/sk000201/sk000203.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004204.g4md", 0, 11, "_uniform/n000101/n000104.g4md", 0, 0, "_uniform/sk000201/sk000204.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004207.g4md", 0, 12, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000201/sk000207.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u004201/u004207.g4md", 0, 13, "_uniform/n000101/n000107.g4md", 0, 0, "_uniform/sk000201/sk000210.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119851_20_blyR"
+rows = [
+  ["_uniform/u094201/u094202.g4md", "_uniform/u004201/u119851_20.g4tx", 1, "_uniform/n000101/n000102.g4md", "_uniform/n000101/n000101_10.g4tx", -620076549, "_uniform/sk090201/sk090202.g4md", "_uniform/sk090201/sk090201_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119851_20_lsa"
+rows = [
+  ["_uniform/u094281/u094281.g4md", "_uniform/u004201/u119851_20.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", -620076549, "_uniform/sk000901/sk000901.g4md", "_uniform/sk000901/sk000901_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[clothes]]
+model = "u119851_20_lse"
+rows = [
+  ["_uniform/u094271/u094271.g4md", "_uniform/u004201/u119851_20.g4tx", 0, "_uniform/n000101/n000101.g4md", "_uniform/n000101/n000101_10.g4tx", -620076549, "_uniform/sk000801/sk000801.g4md", "_uniform/sk000801/sk000801_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ["_uniform/u094271/u094275.g4md", 0, 4, "_uniform/n000101/n000105.g4md", 0, 0, "_uniform/sk000801/sk000805.g4md", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+[[shoes]]
+id = 0x35D9CD0F
+rows = [
+  ["_uniform/s001211/s001211.g4md", "_uniform/s001211/s119801_10.g4tx", 0],
+  ["_uniform/s001211/s001212.g4md", 0, 1],
+  ["_uniform/s001211/s001213.g4md", 0, 2],
+  ["_uniform/s001211/s001214.g4md", 0, 3],
+]
+
+[[shoes]]
+id = 0xFD39427F
+rows = [
+  ["_uniform/s001211/s001211.g4md", "_uniform/s001211/s119851_10.g4tx", 0],
+  ["_uniform/s001211/s001212.g4md", 0, 1],
+  ["_uniform/s001211/s001213.g4md", 0, 2],
+  ["_uniform/s001211/s001214.g4md", 0, 3],
+]
+
+[[gloves]]
+id = 0x1B9CEC9D
+rows = [
+  ["_uniform/g000201/g000201.g4md", "_uniform/g000201/g119801_10.g4tx", 0],
+  ["_uniform/g000201/g000202.g4md", 0, 1],
+  ["_uniform/g000201/g000203.g4md", 0, 2],
+  ["_uniform/g000201/g000204.g4md", 0, 3],
+]
+
+[[gloves]]
+id = 0x30B1BF5E
+rows = [
+  ["_uniform/g000201/g000201.g4md", "_uniform/g000201/g119801_20.g4tx", 0],
+  ["_uniform/g000201/g000202.g4md", 0, 1],
+  ["_uniform/g000201/g000203.g4md", 0, 2],
+  ["_uniform/g000201/g000204.g4md", 0, 3],
+]

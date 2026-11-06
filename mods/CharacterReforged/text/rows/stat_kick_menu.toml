@@ -1,0 +1,14 @@
+# Character Reforged › stat 0 («kick») reads «Disparo» in Spanish (retail: «Potencia»): the retail rows where it is the stat name.
+schema = "VRFW.text/2"
+table = "menu_text"
+
+[[row]]
+id = 0x1D702CD5
+fallback = false
+es = "Disparo"
+
+[[row]]
+id = 0x2D909DD6
+variant = 131
+fallback = false
+es = "Aumenta el atributo Disparo de un jugador\\nal configurarse en la tabla de habilidades."

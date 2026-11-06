@@ -1,0 +1,86 @@
+# Texts of Football Reforged (format of the text engine:): the mod's name and description
+# on the «Mods» screen, in the game's language, and ruleset_<id> = the name of the base's ruleset <id> in the rules editor
+# (content\rules\). «Football Reforged» is not translated. Its modules have their own texts (modules\<Module>\text\keys.toml).
+schema = "VRFW.text_key/1"
+default_lang = "en"
+
+[en.new]
+option_no_move_cooldown = "No special move cooldown"
+option_no_move_cooldown_help = "Special moves can be used again right away, on both teams. They still cost tension and auras keep their recharge. Applies at once; a move already recharging finishes its time."
+mod_name = "Football Reforged"
+mod_description = "A base of match mechanics in modules: each module is a card on this mod's page in Mods (on / off, applies after a restart). Goalkeeper barrier: keepers resist shots while an orange part of their fatigue bar lasts. Furor: the GO Strikers tension gauge, a fire bar by each crest; full, L3 / R starts the Fired up phase. Both on by default. Match formats in the base: Football 7 (7 vs 7), Inazuma Street (3 vs 3, no keepers or referee) and the 5-a-side friendly without tactics or referee, rulebooks other mods and modes can pick."
+ruleset_football_7 = "7-a-side football (7 vs 7)"
+ruleset_friendly_5v5_no_tactics_or_referee = "5-a-side friendly (no tactics or referee)"
+ruleset_inazuma_street = "Inazuma Street (3 vs 3, no keepers or referee)"
+
+[es.new]
+option_no_move_cooldown = "Sin enfriamiento de supertécnicas"
+option_no_move_cooldown_help = "Las supertécnicas se pueden repetir al momento, en los dos equipos. Siguen costando tensión y las auras mantienen su recarga. Se aplica al instante; una supertécnica que ya se esté recargando termina su tiempo."
+mod_name = "Football Reforged"
+mod_description = "Una base de mecánicas de partido en módulos: cada módulo es una tarjeta en la página de este mod en Mods (activar / desactivar, se aplica al reiniciar). Barrera del portero: los porteros resisten tiros mientras dura una parte naranja de su barra de cansancio. Furor: la barra de tensión de GO Strikers, una barra de fuego junto a cada escudo; llena, L3 / R inicia la fase de furor. Ambos activados por defecto. Formatos de partido en la base: Fútbol 7 (7 contra 7), Inazuma Street (3 contra 3, sin porteros ni árbitro) y la pachanga 5 contra 5 sin supertácticas ni árbitro, reglamentos que otros mods y modos pueden elegir."
+ruleset_football_7 = "Fútbol 7 (7 contra 7)"
+ruleset_friendly_5v5_no_tactics_or_referee = "Pachanga 5 contra 5 (sin supertácticas ni árbitro)"
+ruleset_inazuma_street = "Inazuma Street (3 contra 3, sin porteros ni árbitro)"
+
+[fr.new]
+option_no_move_cooldown = "Sans recharge des techniques spéciales"
+option_no_move_cooldown_help = "Les techniques spéciales peuvent être réutilisées aussitôt, dans les deux équipes. Elles coûtent toujours de la tension et les auras gardent leur recharge. S'applique immédiatement ; une technique déjà en recharge termine son délai."
+mod_name = "Football Reforged"
+mod_description = "Une base de mécaniques de match en modules : chaque module est une carte sur la page de ce mod dans Mods (activer / désactiver, appliqué au redémarrage). Barrière du gardien : les gardiens résistent aux tirs tant qu'une partie orange de leur barre de fatigue tient. Furie : la jauge de tension de GO Strikers, une barre de feu près de chaque blason ; pleine, L3 / R lance la phase de fureur. Les deux actifs par défaut. Formats de match dans la base : Football à 7 (7 contre 7), Inazuma Street (3 contre 3, sans gardiens ni arbitre) et le match amical à 5 sans tactiques ni arbitre, des règlements que d'autres mods et modes peuvent choisir."
+ruleset_football_7 = "Football à 7 (7 contre 7)"
+ruleset_friendly_5v5_no_tactics_or_referee = "Match amical à 5 (sans tactiques ni arbitre)"
+ruleset_inazuma_street = "Inazuma Street (3 contre 3, sans gardiens ni arbitre)"
+
+[de.new]
+option_no_move_cooldown = "Keine Abklingzeit für Spezialtechniken"
+option_no_move_cooldown_help = "Spezialtechniken können sofort wieder eingesetzt werden, in beiden Teams. Sie kosten weiterhin Spannung, und Auren behalten ihre Aufladezeit. Gilt sofort; eine Technik, die gerade auflädt, läuft noch zu Ende."
+mod_name = "Football Reforged"
+mod_description = "Eine Basis für Spielmechaniken in Modulen: Jedes Modul ist eine Karte auf der Seite dieses Mods unter Mods (an / aus, gilt nach einem Neustart). Torwart-Barriere: Torhüter halten Schüssen stand, solange ein oranger Teil ihres Ermüdungsbalkens hält. Furor: die Spannungsleiste aus GO Strikers, ein Feuerbalken an jedem Wappen; voll startet L3 / R die Furor-Phase. Beide standardmäßig an. Spielformate in der Basis: 7er-Fußball (7 gegen 7), Inazuma Street (3 gegen 3, ohne Torhüter und Schiedsrichter) und das 5-gegen-5-Freundschaftsspiel ohne Taktiken und Schiedsrichter, Regelwerke, die andere Mods und Modi wählen können."
+ruleset_football_7 = "7er-Fußball (7 gegen 7)"
+ruleset_friendly_5v5_no_tactics_or_referee = "5-gegen-5-Freundschaftsspiel (ohne Taktiken und Schiedsrichter)"
+ruleset_inazuma_street = "Inazuma Street (3 gegen 3, ohne Torhüter und Schiedsrichter)"
+
+[it.new]
+option_no_move_cooldown = "Nessuna ricarica delle supertecniche"
+option_no_move_cooldown_help = "Le supertecniche si possono riutilizzare subito, in entrambe le squadre. Costano comunque tensione e le aure mantengono la loro ricarica. Vale da subito; una tecnica già in ricarica finisce il suo tempo."
+mod_name = "Football Reforged"
+mod_description = "Una base di meccaniche di partita in moduli: ogni modulo è una carta nella pagina di questo mod in Mod (attiva / disattiva, vale al riavvio). Barriera del portiere: i portieri resistono ai tiri finché dura una parte arancione della barra di fatica. Furore: la barra di tensione di GO Strikers, una barra di fuoco accanto a ogni stemma; piena, L3 / R avvia la fase di furore. Entrambi attivi di base. Formati di partita nella base: Calcio a 7 (7 contro 7), Inazuma Street (3 contro 3, senza portieri né arbitro) e l'amichevole 5 contro 5 senza tattiche né arbitro, regolamenti che altri mod e modalità possono scegliere."
+ruleset_football_7 = "Calcio a 7 (7 contro 7)"
+ruleset_friendly_5v5_no_tactics_or_referee = "Amichevole 5 contro 5 (senza tattiche né arbitro)"
+ruleset_inazuma_street = "Inazuma Street (3 contro 3, senza portieri né arbitro)"
+
+[pt.new]
+option_no_move_cooldown = "Sem recarga das supertécnicas"
+option_no_move_cooldown_help = "As supertécnicas podem ser usadas de novo de imediato, nas duas equipas. Continuam a custar tensão e as auras mantêm a sua recarga. Aplica-se de imediato; uma técnica já em recarga termina o seu tempo."
+mod_name = "Football Reforged"
+mod_description = "Uma base de mecânicas de partida em módulos: cada módulo é um cartão na página deste mod em Mods (ativar / desativar, aplica-se ao reiniciar). Barreira do guarda-redes: os guarda-redes resistem a remates enquanto dura uma parte laranja da barra de cansaço. Furor: a barra de tensão de GO Strikers, uma barra de fogo junto a cada emblema; cheia, L3 / R inicia a fase de furor. Ambos ativos por defeito. Formatos de partida na base: Futebol de 7 (7 contra 7), Inazuma Street (3 contra 3, sem guarda-redes nem árbitro) e o amigável 5 contra 5 sem táticas nem árbitro, regulamentos que outros mods e modos podem escolher."
+ruleset_football_7 = "Futebol de 7 (7 contra 7)"
+ruleset_friendly_5v5_no_tactics_or_referee = "Amistoso 5 contra 5 (sem táticas nem árbitro)"
+ruleset_inazuma_street = "Inazuma Street (3 contra 3, sem goleiros nem árbitro)"
+
+[ja.new]
+option_no_move_cooldown = "必殺技の再使用時間なし"
+option_no_move_cooldown_help = "両チームとも、必殺技をすぐに再使用できます。テンションの消費はそのままで、オーラの再使用時間も残ります。すぐに適用されます。再使用待ちの必殺技は残り時間が終わるまで待ちます。"
+mod_name = "Football Reforged"
+mod_description = "試合メカニクスをモジュールで追加するベース。各モジュールはMODページのカードでオン・オフ（再起動後に反映）。キーパーバリア：疲労ゲージのオレンジ部分がある間キーパーはシュートに強い。フューラー：GOストライカーズのテンションゲージ。エンブレム横の炎ゲージが満タンでL3 / Rでヒーロータイム。どちらも初期状態でオン。ベースに試合形式も収録：7人制サッカー（7対7）、イナズマストリート（3対3、GK・審判なし）、必殺タクティクス・審判なしの5人制。他のMODやモードが選べるルール。"
+ruleset_football_7 = "7人制サッカー（7対7）"
+ruleset_friendly_5v5_no_tactics_or_referee = "5人制（必殺タクティクス・審判なし）"
+ruleset_inazuma_street = "イナズマストリート（3対3、GK・審判なし）"
+
+[zh_hans.new]
+option_no_move_cooldown = "必杀技无冷却"
+option_no_move_cooldown_help = "双方队伍的必杀技都可以立即再次使用。仍会消耗气势，灵气的冷却保持不变。立即生效；已在冷却中的必杀技会走完剩余时间。"
+mod_name = "Football Reforged"
+mod_description = "以模块形式加入比赛机制的基础模组：每个模块是本模组页面上的一张卡片（开关，重启后生效）。门将屏障：疲劳条的橙色部分存在时门将更能抵挡射门。怒火：GO Strikers的气势槽，队徽旁的火焰条；满时按L3 / R进入怒火时刻。两者默认开启。基础中还包含比赛形式：7人制足球（7对7）、闪电街头（3对3，无门将、无裁判）以及无战术、无裁判的5人制友谊赛，其他模组和模式均可选用。"
+ruleset_football_7 = "7人制足球（7对7）"
+ruleset_friendly_5v5_no_tactics_or_referee = "5人制友谊赛（无战术、无裁判）"
+ruleset_inazuma_street = "闪电街头（3对3，无门将、无裁判）"
+
+[zh_hant.new]
+option_no_move_cooldown = "必殺技無冷卻"
+option_no_move_cooldown_help = "雙方隊伍的必殺技都可以立即再次使用。仍會消耗氣勢，靈氣的冷卻維持不變。立即生效；已在冷卻中的必殺技會走完剩餘時間。"
+mod_name = "Football Reforged"
+mod_description = "以模組形式加入比賽機制的基礎模組：每個模組是本模組頁面上的一張卡片（開關，重啟後生效）。門將屏障：疲勞條的橙色部分存在時門將更能抵擋射門。怒火：GO Strikers的氣勢槽，隊徽旁的火焰條；滿時按L3 / R進入怒火時刻。兩者預設開啟。基礎中還包含比賽形式：7人制足球（7對7）、閃電街頭（3對3，無門將、無裁判）以及無戰術、無裁判的5人制友誼賽，其他模組和模式均可選用。"
+ruleset_football_7 = "7人制足球（7對7）"
+ruleset_friendly_5v5_no_tactics_or_referee = "5人制友誼賽（無戰術、無裁判）"
+ruleset_inazuma_street = "閃電街頭（3對3，無門將、無裁判）"

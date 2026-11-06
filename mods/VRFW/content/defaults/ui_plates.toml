@@ -1,0 +1,56 @@
+# Layout constants of the shared header row and move plate (Lua: VRFW_UI.HeaderRow / VRFW_UI.MovePlate).
+# Units: screen px at 1080p (x right, y down) unless noted as layout units (y up).
+# A screen needing a variant adds a [*.variants.<name>] table.
+schema = "VRFW.ui_plates/1"
+
+# ---- header row ----
+# Retail status plate (soccer11_04 / soccer11_04pp) plus the framework's position band and archetype box.
+[header_row]
+# Extra atlases the library swaps sprites from; a menu showing a header row must list them in its res.
+res = [
+    "#/menu/200_icon/15_icon_common2/<LG>/icon_common2.g4tx",   # the position badges (natural position)
+]
+# Mesh sizes of the position badge and of the archetype / role glyph.
+pos_badge = [68, 46]
+role_glyph = 40
+# Row origin and size in its layout (scale 1).
+row_origin = [957, 163]
+row_size = [952, 64]
+
+# Slanted position-coloured band under the row.
+[header_row.band]
+dx = 46
+y0 = 164
+sx = 1.0
+sy = 0.3333333333333333
+# Nickname box of the band: node local position and size.
+namebox = [-951, 78, 56, 144]
+
+# Archetype glyph box (screen x, y, w, h).
+[header_row.arch_box]
+box = [1042, 175, 81, 40]
+# Dual-archetype variant of the box.
+box_dual = [1036, 175, 127, 40]
+# Gauge frame mesh in its layout: left, top (y up), width, height.
+gauge = [94, 816, 476, 44]
+
+# Variant for screens placing the row elsewhere: scale s and top-left (x, y).
+[header_row.variants.contact_map]
+s = 0.69
+x = 1250
+y = 867
+
+# ---- move plate ----
+# Element-coloured special-move plate, filled from the retail row or drawn from quads (VRFW_UI.MovePlate.Look).
+[move_plate]
+# Atlases the menu res must contain: `res` for the row fill, `quad_res` for quad-drawn plates.
+res = []
+quad_res = [
+    "#/menu/200_icon/15_icon_common/icon_common.g4tx",              # category icons
+]
+# Quad look, offsets from the plate centre (px at scale 1): plate, category icon, name left edge, AT/DF label, power right edge.
+plate = [600, 82]
+category = [-269, 0, 56]
+name_x = -220
+label = [170, 2, 108, 24]
+power_right = 286

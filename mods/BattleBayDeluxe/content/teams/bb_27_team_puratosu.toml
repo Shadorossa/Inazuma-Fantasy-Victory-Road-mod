@@ -1,0 +1,10 @@
+schema = "VRFW.team/2"
+# The team Plathos (bb_27_team_puratosu) in every match.
+
+[[edit]]
+target = "bb_27_team_puratosu"
+  [[edit.member]]
+  slot = 9
+  patch = true
+  moves = [0x00AF8010, 0xF806D6C3, 0x7C1494CF, 0xF85C7AB2]
+  levels = [1, 1, 1, 1]

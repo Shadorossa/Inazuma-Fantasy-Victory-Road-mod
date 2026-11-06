@@ -1,0 +1,15 @@
+# Inazuma Fantasy's community link (docs/framework/community-link.md): the title's «Inazuma Post» window (Alt) shows
+# the Inazuma Fantasy Discord invite and its QR code instead of Level-5's feedback page; Accept or a left click opens
+# the invite. The window keeps the retail icons.
+#   * texts: text/rows/community_link.toml (InazumaFantasy.CommunityLabel = the corner label,
+#     InazumaFantasy.CommunityBody = the window body; {title} / {creator} / {url} filled from here)
+#   * QR code: content/images/menu/220_img/qr_code/ (research/scripts/community_qr_art.py --export from this url)
+#   * Accept = open: content/menus/community_link.toml
+# Changing the link: edit `url` and re-run community_qr_art.py --export research/mods/InazumaFantasy.
+
+[[VRFW.CommunityLink]]
+url = "https://discord.gg/8bdwWXwXpB"
+title = "Inazuma Fantasy"
+creator = "Fantasy Team"
+label = "InazumaFantasy.CommunityLabel"
+body = "InazumaFantasy.CommunityBody"

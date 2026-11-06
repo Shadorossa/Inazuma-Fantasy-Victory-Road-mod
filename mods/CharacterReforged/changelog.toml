@@ -1,0 +1,85 @@
+schema = "VRFW.changelog/1"
+# Character Reforged: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Personajes reequilibrados",
+    "Nivel máximo ampliado",
+    "Página del jugador renovada",
+    "Módulos de auras, puntos y entreno",
+    "Tabla de habilidades ampliada",
+]
+
+[release.en]
+notes = [
+    "Rebalanced characters",
+    "Raised level cap",
+    "Renewed player page",
+    "Aura, points and training modules",
+    "Expanded skill table",
+]
+
+[release.fr]
+notes = [
+    "Personnages rééquilibrés",
+    "Niveau maximum relevé",
+    "Page joueur renouvelée",
+    "Modules d'auras, points et entraînement",
+    "Tableau des techniques étendu",
+]
+
+[release.de]
+notes = [
+    "Neu ausbalancierte Charaktere",
+    "Höheres Levellimit",
+    "Neu gestaltete Spielerseite",
+    "Aura-, Punkte- und Trainingsmodule",
+    "Erweiterte Technikentafel",
+]
+
+[release.it]
+notes = [
+    "Personaggi riequilibrati",
+    "Livello massimo aumentato",
+    "Pagina giocatore rinnovata",
+    "Moduli di aure, punti e allenamento",
+    "Tabella delle tecniche ampliata",
+]
+
+[release.pt]
+notes = [
+    "Personagens reequilibrados",
+    "Nível máximo ampliado",
+    "Página do jogador renovada",
+    "Módulos de auras, pontos e treino",
+    "Tabela de técnicas ampliada",
+]
+
+[release.ja]
+notes = [
+    "キャラクターを再調整",
+    "レベル上限を拡張",
+    "選手ページを刷新",
+    "オーラ・ポイント・特訓モジュール",
+    "拡張スキルテーブル",
+]
+
+[release.zh_hans]
+notes = [
+    "角色重新平衡",
+    "提高等级上限",
+    "全新的球员页面",
+    "灵气、点数与训练模块",
+    "扩展技能表",
+]
+
+[release.zh_hant]
+notes = [
+    "角色重新平衡",
+    "提高等級上限",
+    "全新的球員頁面",
+    "靈氣、點數與訓練模組",
+    "擴展技能表",
+]

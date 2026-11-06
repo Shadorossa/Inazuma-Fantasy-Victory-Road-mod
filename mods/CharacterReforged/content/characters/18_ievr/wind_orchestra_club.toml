@@ -1,0 +1,260 @@
+schema = "VRFW.character/2"
+# Character Reforged · Wind Orchestra Club · Inazuma Eleven: Victory Road
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c11500480"                                   # Juniper Cushionne
+moves = [
+  { move = 0xE0549BE6, level = 1 },                         # Easy Breezy Kid
+  { move = 0xC42D6F54, level = 13 },                        # Aikido
+  { move = 0xB0BC314A, level = 20 },                        # Spin Meister
+  { move = 0x6E53E2B3, level = 30 },                        # Angel Ball
+]
+
+  [[edit.cards]]
+  id = 0x7AF94D9A                                         # MF/FW · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 234, control = 246, technique = 239, pressure = 176, physical = 203, intelligence = 208, agility = 185, freedom = 221 }
+
+[[edit]]
+target = "c11700550"                                   # Flaurine Woodwind
+moves = [
+  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
+  { move = 0x1876DB66, level = 13 },                        # Disaster Strike
+  { move = 0xA7B451B3, level = 20 },                        # Paladin Strike
+  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+]
+
+  [[edit.cards]]
+  id = 0x835DF8EB                                         # FW/MF · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 311, control = 239, technique = 198, pressure = 166, physical = 239, intelligence = 180, agility = 184, freedom = 263 }
+
+[[edit]]
+target = "c11700740"                                   # Kellan Beatley
+moves = [
+  { move = 0xAEEA9F97, level = 1 },                         # Sigma Zone
+  { move = 0x21127474, level = 13 },                        # Ultra Moon
+  { move = 0x7DD6FEF8, level = 20 },                        # Athena's Anthem
+  { move = 0x6BA49049, level = 30 },                        # Mystic Mist
+]
+
+  [[edit.cards]]
+  id = 0x99C21DC4                                         # MF/DF · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 215, control = 244, technique = 235, pressure = 173, physical = 217, intelligence = 201, agility = 186, freedom = 259 }
+
+[[edit]]
+target = "c11731010"                                   # Louise Basson
+moves = [
+  { move = 0x592A96B4, level = 1 },                         # Afterimage
+  { move = 0x93E8DBF8, level = 13 },                        # Dimensional Hand
+  { move = 0x06B22DB5, level = 20 },                        # Gyro-Blocker
+  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+]
+
+  [[edit.cards]]
+  id = 0x1EE6E2B1                                         # GK/MF · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 193, control = 198, technique = 169, pressure = 228, physical = 258, intelligence = 212, agility = 263, freedom = 267 }
+
+[[edit]]
+target = "c11731020"                                   # Claudette Clackenoff
+moves = [
+  { move = 0x7A67325B, level = 1 },                         # Flame Dance
+  { move = 0xEFFC6FA8, level = 13 },                        # Warhead
+  { move = 0xB7474004, level = 20 },                        # Dough Ray Me
+  { move = 0x4741C0E8, level = 30 },                        # Steeple Shot
+]
+
+  [[edit.cards]]
+  id = 0x35CBB172                                         # FW/DF · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 278, control = 243, technique = 207, pressure = 176, physical = 223, intelligence = 185, agility = 188, freedom = 250 }
+
+[[edit]]
+target = "c11731030"                                   # Brooke Reedman
+moves = [
+  { move = 0xAF28F5A0, level = 1 },                         # The Tower
+  { move = 0x613ABD43, level = 13 },                        # Dawnrise
+  { move = 0x822B79EA, level = 20 },                        # Somersault Stamp
+  { move = 0x1C4D4906, level = 30 },                        # Whirlpool
+]
+
+  [[edit.cards]]
+  id = 0x2CD08033                                         # DF/GK · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 201, control = 184, technique = 174, pressure = 228, physical = 271, intelligence = 250, agility = 203, freedom = 230 }
+
+[[edit]]
+target = "c11731040"                                   # Cornelia Hoopett
+moves = [
+  { move = 0x9D236FA3, level = 1 },                         # Sword of the King
+  { move = 0x64CDCFB9, level = 13 },                        # Rising Dragon
+  { move = 0x19BA3BFC, level = 20 },                        # Dance on Air
+  { move = 0x53CD747F, level = 30 },                        # Tarzan Kick
+]
+
+  [[edit.cards]]
+  id = 0x639116F4                                         # MF/FW · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 243, control = 238, technique = 231, pressure = 174, physical = 230, intelligence = 203, agility = 186, freedom = 225 }
+
+[[edit]]
+target = "c11731050"                                   # Penelope Mozartin
+moves = [
+  { move = 0x485150D9, level = 1 },                         # Body Shield
+  { move = 0x2AF65736, level = 13 },                        # Bamboo Pattern
+  { move = 0x2FB941B3, level = 20 },                        # Stone Prison
+  { move = 0xBD8A9EBE, level = 30 },                        # Infinite Wall
+]
+
+  [[edit.cards]]
+  id = 0x7A8A27B5                                         # DF/GK · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 205, control = 178, technique = 165, pressure = 221, physical = 300, intelligence = 236, agility = 204, freedom = 242 }
+
+[[edit]]
+target = "c11731060"                                   # Brianna Summing
+moves = [
+  { move = 0xBBA44137, level = 1 },                         # Great Wall
+  { move = 0x9D236FA3, level = 13 },                        # Sword of the King
+  { move = 0x4FE09C7A, level = 20 },                        # Acrobatic Keep
+  { move = 0x72BFA108, level = 30 },                        # Wall of Atlantis
+]
+
+  [[edit.cards]]
+  id = 0x51A77476                                         # MF/DF · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 231, control = 235, technique = 224, pressure = 177, physical = 239, intelligence = 198, agility = 190, freedom = 257 }
+
+[[edit]]
+target = "c11731070"                                   # Henrietta Kettingham
+moves = [
+  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
+  { move = 0x768AB9C5, level = 13 },                        # Frosticle
+  { move = 0x2354CA2D, level = 20 },                        # Wind God's Dance
+  { move = 0xB0BC314A, level = 30 },                        # Spin Meister
+]
+
+  [[edit.cards]]
+  id = 0x48BC4537                                         # MF/FW · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 244, control = 244, technique = 247, pressure = 177, physical = 209, intelligence = 211, agility = 182, freedom = 221 }
+
+[[edit]]
+target = "c11731080"                                   # Marjorie Piperplume
+moves = [
+  { move = 0xAD6E4BF9, level = 1 },                         # Harvest
+  { move = 0x78218C02, level = 13 },                        # Duskfall
+  { move = 0xC16279D1, level = 20 },                        # Field of Force
+  { move = 0x12E67CC1, level = 30 },                        # Future Eye
+]
+
+  [[edit.cards]]
+  id = 0xCF2459F8                                         # DF/MF · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 194, control = 189, technique = 177, pressure = 208, physical = 275, intelligence = 238, agility = 198, freedom = 255 }
+
+[[edit]]
+target = "c11731090"                                   # Dizzy Fumbleton
+moves = [
+  { move = 0x7D6E9A87, level = 1 },                         # The Wall
+  { move = 0xD471DE6C, level = 13 },                        # Snakebite
+  { move = 0xBFCC20E7, level = 20 },                        # Wood Chopper
+  { move = 0x72BFA108, level = 30 },                        # Wall of Atlantis
+]
+
+  [[edit.cards]]
+  id = 0xD63F68B9                                         # GK/DF · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 207, control = 200, technique = 174, pressure = 192, physical = 292, intelligence = 188, agility = 250, freedom = 247 }
+
+[[edit]]
+target = "c11731100"                                   # Donovan Brasswagon
+moves = [
+  { move = 0x95823331, level = 1 },                         # The Tube
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
+  { move = 0x49933AEE, level = 20 },                        # Perfect Tower
+  { move = 0x9349F1DA, level = 30 },                        # Zephyr Shot
+]
+
+  [[edit.cards]]
+  id = 0x063FB9C7                                         # FW/DF · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 261, control = 248, technique = 205, pressure = 167, physical = 215, intelligence = 180, agility = 188, freedom = 251 }
+
+[[edit]]
+target = "c11731110"                                   # Liselotte Heartsway
+moves = [
+  { move = 0x2CFC3E63, level = 1 },                         # Dragon Crash
+  { move = 0x7748D3F2, level = 13 },                        # Devil Ball
+  { move = 0x17A96A44, level = 20 },                        # Clone Faker
+  { move = 0xADAFE047, level = 30 },                        # Dual Strike
+]
+
+  [[edit.cards]]
+  id = 0x1F248886                                         # MF/FW · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 230, control = 242, technique = 239, pressure = 178, physical = 208, intelligence = 207, agility = 186, freedom = 230 }
+
+[[edit]]
+target = "c11731120"                                   # Jaslyn Warbleton
+moves = [
+  { move = 0xB7F1AED6, level = 1 },                         # Double Cyclone
+  { move = 0x49933AEE, level = 13 },                        # Perfect Tower
+  { move = 0xC13F00CC, level = 20 },                        # Flower Power
+  { move = 0x2B343D01, level = 30 },                        # Cyclone
+]
+
+  [[edit.cards]]
+  id = 0x3409DB45                                         # DF/GK · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 205, control = 184, technique = 170, pressure = 221, physical = 270, intelligence = 240, agility = 201, freedom = 242 }
+
+[[edit]]
+target = "c11731130"                                   # Francesca Fintootle
+moves = [
+  { move = 0x8E7E960B, level = 1 },                         # Drill Smasher
+  { move = 0x49933AEE, level = 13 },                        # Perfect Tower
+  { move = 0x025FD09B, level = 20 },                        # Volcano Cut
+  { move = 0x7BC5D9F0, level = 30 },                        # Rotary Sander
+]
+
+  [[edit.cards]]
+  id = 0x2D12EA04                                         # DF/GK · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 212, control = 180, technique = 162, pressure = 219, physical = 279, intelligence = 234, agility = 203, freedom = 255 }

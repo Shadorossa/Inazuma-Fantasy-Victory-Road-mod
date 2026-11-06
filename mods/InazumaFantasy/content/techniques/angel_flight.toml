@@ -1,0 +1,40 @@
+schema = "VRFW.technique/3"
+# Vuelo angelical (Angel Flight): the download's move whs90236, a clone of whs02360 with its numbers; its event ev60_90236 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "angel_flight"
+key = "whs90236"
+base = "whs02360"
+event = "ev60_90236"
+element = "wind"
+tp = 50
+effect_flags = 4
+cells = { colorIdx = 13 }
+  [technique.text.es]
+  name = "Vuelo angelical"
+  description = "Envuelve el balón en un aura celestial y\nlánzalo como un ángel contra la portería."
+  [technique.text.en]
+  name = "Angel Flight"
+  description = "Wrap the ball in a heavenly aura and\nfly at the goal like an angel."
+  [technique.text.fr]
+  name = "Vol angélique"
+  description = "Enveloppe le ballon d'une aura céleste\net lance-le tel un ange vers le but."
+  [technique.text.de]
+  name = "Engelsflug"
+  description = "Hülle den Ball in eine himmlische Aura\nund schieß ihn wie ein Engel aufs Tor."
+  [technique.text.it]
+  name = "Volo angelico"
+  description = "Avvolgi il pallone in un'aura celeste\ne scaglialo come un angelo verso la porta."
+  [technique.text.pt]
+  name = "Voo angelical"
+  description = "Envolve a bola numa aura celestial e\nlança-a como um anjo contra a baliza."
+  [technique.text.ja]
+  name = "エンジェルフライト"
+  description = "ボールを天上のオーラで包み\n天使のようにゴールへ放つ！"
+  [technique.text.zh_hans]
+  name = "天使飞翔"
+  description = "以天界灵气包裹足球，\n如天使般射向球门。"
+  [technique.text.zh_hant]
+  name = "天使飛翔"
+  description = "以天界靈氣包裹足球，\n如天使般射向球門。"

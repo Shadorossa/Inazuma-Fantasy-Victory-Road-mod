@@ -1,0 +1,13 @@
+# Declares `[[VRFW.TeamTag]]` keys for content\team_tags\*.toml (read by scripts\lib\game_catalogue.lua: Catalogue.tagged / has_tag).
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.team_tag/1"
+folder = "content/team_tags"
+label = "Team tags"
+label_es = "Etiquetas de equipo"
+doc = "A tag on teams that other mods read as team data (for example national side)."
+doc_es = "Una etiqueta de equipos que otros mods leen como dato del equipo (por ejemplo, selección nacional)."
+
+[entry.TeamTag]
+doc = "a tag on teams that other mods read as team data (e.g. national = the team is a national side)"
+tag = { type = "name", required = true, doc = "the tag (a-z 0-9 _), e.g. national" }
+teams = { type = "strings", ref = "team", required = true, doc = "the tagged teams: game keys, 0x… ids or <mod>.<name>" }

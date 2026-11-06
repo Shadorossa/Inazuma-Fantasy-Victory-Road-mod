@@ -1,0 +1,573 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "team_banks"
+  Type = "table"
+  Label = { es = "Bancos de equipo", en = "Team banks" }
+  Help = { es = "Páginas de equipos de la Plantilla de equipo.", en = "Team pages of the Team dock." }
+  [[Shape.Field]]
+  Key = "team_banks.pages"
+  Type = "int"
+  Label = { es = "Páginas de equipos", en = "Team pages" }
+  Help = { es = "Número de páginas de la Plantilla de equipo (2 a 32); cada una guarda los 11 equipos del juego.", en = "Number of Team dock pages (2 to 32); each holds the game's 11 teams." }
+  [[Shape.Field]]
+  Key = "team_banks.new_page"
+  Type = "string"
+  Label = { es = "Página nueva empieza", en = "New page starts as" }
+  Help = { es = "Cómo empieza una página usada por primera vez: empty = cada plantilla como una sin usar (sin nombre ni jugadores); copy = copia completa de la actual.", en = "How a page used for the first time starts: empty = every dock like an unused one (no name, no players); copy = a full copy of the current page." }
+  [[Shape.Field]]
+  Key = "team_banks.verify"
+  Type = "bool"
+  Label = { es = "Comprobar al cambiar de página (depuración)", en = "Check on page change (debug)" }
+  Help = { es = "Escribe en el registro una comprobación de cada equipo tras cada cambio de página.", en = "Writes a check of every team to the log after each page change." }
+  [[Shape.Field]]
+  Key = "team_banks.blocked_modes"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Modos sin cambio de página", en = "Modes without page change" }
+  Help = { es = "Modos de juego en los que no se cambia de página (el modo historia usa los equipos para sus plantillas).", en = "Game modes where pages cannot be changed (story mode uses the teams for its own squads)." }
+  [[Shape.Field]]
+  Key = "team_name"
+  Type = "table"
+  Label = { es = "Nombre del equipo", en = "Team name" }
+  Help = { es = "Nombre del equipo en la Plantilla de equipo.", en = "Team name in the Team dock." }
+  [[Shape.Field]]
+  Key = "team_name.max_length"
+  Type = "int"
+  Label = { es = "Longitud máxima del nombre", en = "Max name length" }
+  Help = { es = "Caracteres que acepta el teclado de nombre (1 a 31; el juego permite 12).", en = "Characters the name keyboard accepts (1 to 31; the game allows 12)." }
+  [[Shape.Field]]
+  Key = "team_name.room"
+  Type = "int"
+  Label = { es = "Ancho del nombre (px)", en = "Name width (px)" }
+  Help = { es = "Ancho disponible para el nombre en la cabecera del equipo; un nombre más largo se dibuja más pequeño.", en = "Width the name may take in the team header; a longer name is drawn smaller." }
+  [[Shape.Field]]
+  Key = "team_name.style"
+  Type = "string"
+  Label = { es = "Estilo del nombre", en = "Name style" }
+  Help = { es = "Estilo de texto del nombre en la cabecera.", en = "Text style of the name in the header." }
+  [[Shape.Field]]
+  Key = "team_name.fit_styles"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Estilos de ajuste", en = "Fit styles" }
+  Help = { es = "Estilos de texto más pequeños que se prueban si el nombre no cabe.", en = "Smaller text styles tried when the name does not fit." }
+  [[Shape.Field]]
+  Key = "passives"
+  Type = "table"
+  Label = { es = "Pasivas", en = "Passives" }
+  Help = { es = "Configuración de pasivas de los jugadores.", en = "Player passive setup." }
+  [[Shape.Field]]
+  Key = "passives.max_slots"
+  Type = "int"
+  Label = { es = "Huecos de pasiva configurables", en = "Configurable passive slots" }
+  Help = { es = "Cuántos de los 5 huecos de pasiva de un jugador se pueden configurar (3 a 5).", en = "How many of a player's 5 passive slots can be configured (3 to 5)." }
+  [[Shape.Field]]
+  Key = "passives.unlock"
+  Type = "string"
+  Label = { es = "Desbloqueo de pasivas", en = "Passive unlock" }
+  Help = { es = "all = todos los huecos de un jugador configurable funcionan en partido; configured = solo los configurados.", en = "all = every slot of a configurable player works in matches; configured = only the configured ones." }
+  [[Shape.Field]]
+  Key = "passives.always_unlocked"
+  Type = "bool"
+  Label = { es = "Pasiva propia siempre activa", en = "Own passive always active" }
+  Help = { es = "Un hueco con la pasiva propia del personaje funciona aunque su casilla del tablero esté cerrada.", en = "A slot holding a character's own passive works even if its board piece is closed." }
+  [[Shape.Field]]
+  Key = "passives.build_rarities"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Rarezas con pasivas de build", en = "Build passive rarities" }
+  Help = { es = "Rarezas de carta cuyos huecos de build conservan las pasivas del tablero (Héroe 5-7, Diamante 8).", en = "Card rarities whose build slots keep the board's build passives (Hero 5-7, Diamond 8)." }
+  [[Shape.Field]]
+  Key = "passives.build_slots"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Huecos de build", en = "Build slots" }
+  Help = { es = "Huecos (1 a 5) que conservan las pasivas de build en esas rarezas.", en = "Slots (1 to 5) that keep the build passives for those rarities." }
+  [[Shape.Field]]
+  Key = "passives.log_first"
+  Type = "int"
+  Label = { es = "Registrar los primeros cambios (depuración)", en = "Log first replacements (debug)" }
+  Help = { es = "Registra los primeros N reemplazos de hueco (0 = ninguno).", en = "Logs the first N slot replacements (0 = none)." }
+  [[Shape.Field]]
+  Key = "passives.allow_duplicates"
+  Type = "bool"
+  Label = { es = "Permitir pasivas repetidas", en = "Allow duplicate passives" }
+  Help = { es = "La misma pasiva puede elegirse en varios huecos de un jugador; cada copia se aplica.", en = "The same passive may be chosen in several slots of a player; each copy applies." }
+  [[Shape.Field]]
+  Key = "passives.enabled"
+  Type = "bool"
+  Label = { es = "Configurador de pasivas activo", en = "Passive setup enabled" }
+  Help = { es = "Desactivado = pasivas originales, sin configurador.", en = "Off = original passives, no configurator." }
+  [[Shape.Field]]
+  Key = "role_medal"
+  Type = "table"
+  Label = { es = "Medalla de rol", en = "Role medal" }
+  Help = { es = "Medalla de entrenador o mánager en el tablero de habilidades.", en = "Coach or manager medal on the ability board." }
+  [[Shape.Field]]
+  Key = "role_medal.matches_required"
+  Type = "int"
+  Label = { es = "Partidos para la medalla", en = "Matches for the medal" }
+  Help = { es = "Partidos que necesita un jugador antes de que su hueco de insignia tome la medalla de entrenador o mánager.", en = "Matches a player needs before his badge slot takes the coach or manager medal." }
+  [[Shape.Field]]
+  Key = "role_medal.matches_required_created_role"
+  Type = "int"
+  Label = { es = "Partidos para la medalla (rol creado)", en = "Matches for the medal (created role)" }
+  Help = { es = "Lo mismo para un jugador creado como entrenador o mánager.", en = "The same for a player created as coach or manager." }
+  [[Shape.Field]]
+  Key = "original_names"
+  Type = "table"
+  Label = { es = "Nombres originales", en = "Original names" }
+  Help = { es = "Nombres originales (japoneses o romaji) por jugador en Opciones.", en = "Original (Japanese or romaji) names per player in Options." }
+  [[Shape.Field]]
+  Key = "original_names.legacy_series"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Sagas con nombres de época", en = "Legacy series" }
+  Help = { es = "Sagas cuyos nombres se muestran con el texto original de su época.", en = "Series whose names show with the original text of their era." }
+  [[Shape.Field]]
+  Key = "original_names.legacy_series_lang"
+  Type = "string"
+  Label = { es = "Idioma de nombres de época", en = "Legacy series language" }
+  Help = { es = "Idioma de texto usado para esas sagas.", en = "Text language used for those series." }
+  [[Shape.Field]]
+  Key = "original_names.team_skip_langs"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Idiomas sin cambio en equipos", en = "Languages without team change" }
+  Help = { es = "Idiomas de texto en los que los nombres de equipo nunca cambian (ahí ya son los japoneses).", en = "Text languages where team names never change (they are already the Japanese ones)." }
+  [[Shape.Field]]
+  Key = "original_names.picker_reopen"
+  Type = "bool"
+  Label = { es = "Reabrir la ventana de equipos", en = "Reopen team window" }
+  Help = { es = "La ventana de equipos se cierra y abre tras cada cambio (solo si la ventana del juego deja de aceptar A).", en = "The team window closes and opens again after each change (only if the game window stops taking A)." }
+  [[Shape.Field]]
+  Key = "original_names.log"
+  Type = "bool"
+  Label = { es = "Registrar cargas de texto (depuración)", en = "Log text loads (debug)" }
+  Help = { es = "Registra cada carga de texto y cambio de tabla.", en = "Logs every text load and table switch." }
+  [[Shape.Field]]
+  Key = "original_names.team_grid"
+  Type = "table"
+  Label = { es = "Cuadrícula de equipos", en = "Team grid" }
+  Help = { es = "Posición y tamaño de la cuadrícula de escudos.", en = "Position and size of the emblem grid." }
+  [[Shape.Field]]
+  Key = "original_names.team_grid.cols"
+  Type = "int"
+  Label = { es = "Columnas", en = "Columns" }
+  Help = { es = "Fichas por fila.", en = "Tiles per row." }
+  [[Shape.Field]]
+  Key = "original_names.team_grid.rows"
+  Type = "int"
+  Label = { es = "Filas", en = "Rows" }
+  Help = { es = "Filas por página.", en = "Rows per page." }
+  [[Shape.Field]]
+  Key = "original_names.team_grid.pitch_x"
+  Type = "int"
+  Label = { es = "Separación horizontal (px)", en = "Horizontal pitch (px)" }
+  Help = { es = "Distancia horizontal entre fichas.", en = "Horizontal distance between tiles." }
+  [[Shape.Field]]
+  Key = "original_names.team_grid.pitch_y"
+  Type = "int"
+  Label = { es = "Separación vertical (px)", en = "Vertical pitch (px)" }
+  Help = { es = "Distancia vertical entre fichas.", en = "Vertical distance between tiles." }
+  [[Shape.Field]]
+  Key = "original_names.team_grid.cx"
+  Type = "int"
+  Label = { es = "Centro X (px)", en = "Centre X (px)" }
+  Help = { es = "Centro horizontal de la cuadrícula (pantalla de 1920 x 1080).", en = "Horizontal centre of the grid (1920 x 1080 screen)." }
+  [[Shape.Field]]
+  Key = "original_names.team_grid.cy"
+  Type = "int"
+  Label = { es = "Centro Y (px)", en = "Centre Y (px)" }
+  Help = { es = "Centro vertical de la cuadrícula.", en = "Vertical centre of the grid." }
+  [[Shape.Field]]
+  Key = "original_names.grid"
+  Type = "table"
+  Label = { es = "Cuadrícula de jugadores", en = "Player grid" }
+  Help = { es = "Posición y tamaño de la cuadrícula de caras de jugadores.", en = "Position and size of the player face grid." }
+  [[Shape.Field]]
+  Key = "original_names.grid.cols"
+  Type = "int"
+  Label = { es = "Columnas", en = "Columns" }
+  Help = { es = "Fichas por fila.", en = "Tiles per row." }
+  [[Shape.Field]]
+  Key = "original_names.grid.rows"
+  Type = "int"
+  Label = { es = "Filas", en = "Rows" }
+  Help = { es = "Filas por página.", en = "Rows per page." }
+  [[Shape.Field]]
+  Key = "original_names.grid.pitch_x"
+  Type = "int"
+  Label = { es = "Separación horizontal (px)", en = "Horizontal pitch (px)" }
+  Help = { es = "Distancia horizontal entre fichas.", en = "Horizontal distance between tiles." }
+  [[Shape.Field]]
+  Key = "original_names.grid.pitch_y"
+  Type = "int"
+  Label = { es = "Separación vertical (px)", en = "Vertical pitch (px)" }
+  Help = { es = "Distancia vertical entre fichas.", en = "Vertical distance between tiles." }
+  [[Shape.Field]]
+  Key = "original_names.grid.tile"
+  Type = "int"
+  Label = { es = "Tamaño de cara (px)", en = "Face size (px)" }
+  Help = { es = "Tamaño de la cara de cada jugador.", en = "Size of each player face." }
+  [[Shape.Field]]
+  Key = "original_names.grid.cx"
+  Type = "int"
+  Label = { es = "Centro X (px)", en = "Centre X (px)" }
+  Help = { es = "Centro horizontal de la cuadrícula.", en = "Horizontal centre of the grid." }
+  [[Shape.Field]]
+  Key = "original_names.grid.cy"
+  Type = "int"
+  Label = { es = "Centro Y (px)", en = "Centre Y (px)" }
+  Help = { es = "Centro vertical de la cuadrícula.", en = "Vertical centre of the grid." }
+  [[Shape.Field]]
+  Key = "original_names.grid.grey"
+  Type = "float"
+  Label = { es = "Gris de nombre doblado", en = "Dub name grey" }
+  Help = { es = "Color de un jugador que conserva su nombre doblado (1 = color normal).", en = "Colour of a player who keeps his dub name (1 = normal colour)." }
+  [[Shape.Field]]
+  Key = "original_names.grid.names"
+  Type = "bool"
+  Label = { es = "Mostrar nombres", en = "Show names" }
+  Help = { es = "Muestra bajo cada ficha el nombre actual del jugador (doblado u original).", en = "Shows the player's current name (dub or original) under each tile." }
+  [[Shape.Field]]
+  Key = "team_planner"
+  Type = "table"
+  Label = { es = "Planificador de equipo", en = "Team planner" }
+  Help = { es = "Planificador de equipo: añadir del banco o planificar equipo en un hueco vacío.", en = "Team planner: add from the bank or plan a team from an empty slot." }
+  [[Shape.Field]]
+  Key = "team_planner.enabled"
+  Type = "bool"
+  Label = { es = "Planificador activo", en = "Planner enabled" }
+  Help = { es = "Activa Añadir del banco y Planificar equipo al pulsar A en un hueco vacío.", en = "Enables Add from bank and Plan team on A at an empty slot." }
+  [[Shape.Field]]
+  Key = "team_planner.display_rarity"
+  Type = "int"
+  Label = { es = "Rareza mostrada", en = "Displayed rarity" }
+  Help = { es = "Rareza con la que se dibujan los personajes que no tienes en el banco de planificación y los fantasmas (0 Normal a 4 Legendaria).", en = "Rarity the characters you do not own are drawn at in the plan bank and as ghosts (0 Normal to 4 Legendary)." }
+  [[Shape.Field]]
+  Key = "team_planner.owned_rarities"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Rarezas que reemplazan al fantasma", en = "Rarities replacing a ghost" }
+  Help = { es = "Copias que tienes y que sustituyen a un fantasma: lista de rarezas, o any (cualquier copia).", en = "Owned copies that replace a ghost: a list of rarities, or any (every copy)." }
+  [[Shape.Field]]
+  Key = "team_planner.card_values"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Valores de carta normal", en = "Normal card values" }
+  Help = { es = "Valores de rareza que cuentan como la carta normal de un personaje.", en = "Rarity values that count as a character's normal card." }
+  [[Shape.Field]]
+  Key = "team_planner.ghost_alpha"
+  Type = "float"
+  Label = { es = "Opacidad del fantasma", en = "Ghost opacity" }
+  Help = { es = "Opacidad de una carta fantasma o de una carta del banco de planificación que no tienes (1 = opaca).", en = "Opacity of a ghost card and of a plan bank card you do not own (1 = opaque)." }
+  [[Shape.Field]]
+  Key = "route_map_speed"
+  Type = "table"
+  Label = { es = "Velocidad del mapa de Crónica", en = "Chronicle map speed" }
+  Help = { es = "Cursor más rápido en el mapa de rutas del Modo Crónica.", en = "Faster cursor on the Chronicle mode route map." }
+  [[Shape.Field]]
+  Key = "route_map_speed.factor"
+  Type = "float"
+  Label = { es = "Factor de velocidad", en = "Speed factor" }
+  Help = { es = "Multiplicador de la velocidad del cursor al mantener R2.", en = "Cursor speed multiplier while holding R2." }
+  [[Shape.Field]]
+  Key = "route_map_speed.keys"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Teclas que cuentan como R2", en = "Keys counting as R2" }
+  Help = { es = "Teclas del teclado que cuentan como R2 con la ventana del juego activa (vacío = solo mando).", en = "Keyboard keys that count as R2 while the game window has focus (empty = pad only)." }
+  [[Shape.Field]]
+  Key = "route_map_speed.log"
+  Type = "bool"
+  Label = { es = "Registrar R2 (depuración)", en = "Log R2 (debug)" }
+  Help = { es = "Registra cada pulsación mantenida de R2 en el mapa.", en = "Logs each held press of R2 on the map." }
+  [[Shape.Field]]
+  Key = "auto_commander"
+  Type = "table"
+  Label = { es = "Comandante automático", en = "Auto commander" }
+  Help = { es = "Ajustes del Modo Comandante automático.", en = "Auto Commander mode settings." }
+  [[Shape.Field]]
+  Key = "auto_commander.always_games"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Partidos siempre en Comandante", en = "Always-commander matches" }
+  Help = { es = "Partidos que siempre empiezan en modo Comandante.", en = "Matches that always start in Commander mode." }
+  [[Shape.Field]]
+  Key = "auto_commander.beaten_only_contexts"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Contextos solo si ya ganado", en = "Beaten-only contexts" }
+  Help = { es = "Contextos de dificultad en los que el modo Comandante solo se inicia si ya has ganado ese partido.", en = "Difficulty contexts where Commander mode only starts if you already won that match." }
+  [[Shape.Field]]
+  Key = "auto_commander.beaten_only_difficulties"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Dificultades solo si ya ganado", en = "Beaten-only difficulties" }
+  Help = { es = "Dificultades en las que el modo Comandante solo se inicia si ya has ganado ese partido.", en = "Difficulties where Commander mode only starts if you already won that match." }
+  [[Shape.Field]]
+  Key = "auto_commander.never_modes"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Modos sin esa regla", en = "Modes without that rule" }
+  Help = { es = "Modos de juego en los que la regla de solo si ya ganado nunca se aplica.", en = "Game modes where the beaten-only rule never applies." }
+  [[Shape.Field]]
+  Key = "auto_commander.speed_min"
+  Type = "float"
+  Label = { es = "Velocidad mínima", en = "Minimum speed" }
+  Help = { es = "Velocidad de juego mínima de la fila Velocidad del Modo Comandante automático.", en = "Minimum game speed of the Auto Commander speed row." }
+  [[Shape.Field]]
+  Key = "auto_commander.speed_max"
+  Type = "float"
+  Label = { es = "Velocidad máxima", en = "Maximum speed" }
+  Help = { es = "Velocidad de juego máxima de esa fila.", en = "Maximum game speed of that row." }
+  [[Shape.Field]]
+  Key = "tech_preview"
+  Type = "table"
+  Label = { es = "Vista previa de técnicas", en = "Technique preview" }
+  Help = { es = "Previsualizar la animación de una supertécnica desde su carta.", en = "Preview a special move's cut-in from its card." }
+  [[Shape.Field]]
+  Key = "tech_preview.lineup"
+  Type = "int"
+  Label = { es = "Jugadores del equipo de vista previa", en = "Preview lineup" }
+  Help = { es = "Tamaño del equipo del que se elige quién ejecuta la técnica.", en = "Size of the team the performer is picked from." }
+  [[Shape.Field]]
+  Key = "tech_preview.positions"
+  Type = "table"
+  Label = { es = "Posición por tipo de técnica", en = "Position per move type" }
+  Help = { es = "Posición de carta que ejecuta cada categoría de técnica (1 tiro, 2 regate, 3 bloqueo, 4 parada).", en = "Card position that performs each move category (1 shoot, 2 dribble, 3 block, 4 catch)." }
+  [[Shape.Field]]
+  Key = "tech_preview.prefer_learners"
+  Type = "bool"
+  Label = { es = "Preferir quien la aprende", en = "Prefer learners" }
+  Help = { es = "Se prefiere a un jugador cuya carta aprende la técnica frente al primero de esa posición.", en = "A player whose card learns the move is preferred over the first one at the position." }
+  [[Shape.Field]]
+  Key = "tech_preview.need_any_menu"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Menús que permiten la vista previa", en = "Menus allowing preview" }
+  Help = { es = "La vista previa solo funciona mientras esté abierto uno de estos menús.", en = "The preview only plays while one of these menus is open." }
+  [[Shape.Field]]
+  Key = "tech_preview.off_with_menus"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Menús que la impiden", en = "Menus blocking preview" }
+  Help = { es = "La vista previa no funciona si está abierto uno de estos menús.", en = "The preview does not play while one of these menus is open." }
+  [[Shape.Field]]
+  Key = "tech_preview.hide_menus"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Menús ocultos durante la animación", en = "Menus hidden during cut-in" }
+  Help = { es = "Menús que se ocultan y suspenden mientras suena la animación.", en = "Menus hidden and suspended while the cut-in plays." }
+  [[Shape.Field]]
+  Key = "tech_preview.bar_menus"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Menús con cabecera oculta", en = "Menus with hidden header" }
+  Help = { es = "Menús cuyas capas de cabecera se ocultan durante la animación.", en = "Menus whose header layers are hidden during the cut-in." }
+  [[Shape.Field]]
+  Key = "tech_preview.bar_layers"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Capas de cabecera", en = "Header layers" }
+  Help = { es = "Capas de cabecera que se ocultan.", en = "Header layers that are hidden." }
+  [[Shape.Field]]
+  Key = "tech_preview.carrier_menu"
+  Type = "string"
+  Label = { es = "Menú del modelo", en = "Model menu" }
+  Help = { es = "Menú de un solo modelo que muestra al ejecutor durante la animación.", en = "One-model menu that holds the performer during the cut-in." }
+  [[Shape.Field]]
+  Key = "tech_preview.carrier_layer"
+  Type = "string"
+  Label = { es = "Capa del modelo", en = "Model layer" }
+  Help = { es = "Capa del menú que contiene el modelo del ejecutor.", en = "Layer of the menu that holds the performer's model." }
+  [[Shape.Field]]
+  Key = "tech_preview.backdrop"
+  Type = "string"
+  Label = { es = "Fondo de la escena", en = "Scene backdrop" }
+  Help = { es = "Fondo detrás de la animación; vacío = ninguno.", en = "Backdrop behind the cut-in; empty = none." }
+  [[Shape.Field]]
+  Key = "tech_preview.hint_x"
+  Type = "int"
+  Label = { es = "Aviso: desplazamiento X", en = "Hint offset X" }
+  Help = { es = "Desplazamiento horizontal del aviso respecto a su sitio en la carta.", en = "Horizontal offset of the prompt from its place on the card." }
+  [[Shape.Field]]
+  Key = "tech_preview.hint_y"
+  Type = "int"
+  Label = { es = "Aviso: desplazamiento Y", en = "Hint offset Y" }
+  Help = { es = "Desplazamiento vertical del aviso respecto a su sitio en la carta.", en = "Vertical offset of the prompt from its place on the card." }
+  [[Shape.Field]]
+  Key = "tech_preview.fade_s"
+  Type = "float"
+  Label = { es = "Fundido (s)", en = "Fade (s)" }
+  Help = { es = "Duración de los fundidos.", en = "Length of the fades." }
+  [[Shape.Field]]
+  Key = "tech_preview.bgm_fade_s"
+  Type = "float"
+  Label = { es = "Fundido de música (s)", en = "Music fade (s)" }
+  Help = { es = "Duración del fundido de la música.", en = "Length of the music fade." }
+  [[Shape.Field]]
+  Key = "tech_preview.model_wait_frames"
+  Type = "int"
+  Label = { es = "Espera del modelo (fotogramas)", en = "Model wait (frames)" }
+  Help = { es = "Máximo de fotogramas de espera a que cargue el modelo del ejecutor.", en = "Most frames to wait for the performer's model." }
+  [[Shape.Field]]
+  Key = "tech_preview.max_seconds"
+  Type = "int"
+  Label = { es = "Duración máxima (s)", en = "Maximum length (s)" }
+  Help = { es = "Máximo de segundos de espera por la animación.", en = "Longest wait for the cut-in in seconds." }
+  [[Shape.Field]]
+  Key = "tech_preview.back_skips"
+  Type = "bool"
+  Label = { es = "B salta la animación", en = "B skips cut-in" }
+  Help = { es = "B termina la animación (mantener también la salta).", en = "B ends the cut-in (the game's hold-to-skip also works)." }
+  [[Shape.Field]]
+  Key = "tech_preview.log_queries"
+  Type = "bool"
+  Label = { es = "Registrar consultas (depuración)", en = "Log queries (debug)" }
+  Help = { es = "Una línea de registro por técnica que consulta una carta.", en = "One log line per move a card asks about." }
+  [[Shape.Field]]
+  Key = "view_forms"
+  Type = "table"
+  Label = { es = "Cambiar forma", en = "Change form" }
+  Help = { es = "Indicador de forma en el Ver apariencia del juego (arriba a la derecha).", en = "Form indicator in the game's View appearance (top right)." }
+  [[Shape.Field]]
+  Key = "view_forms.badge_x"
+  Type = "int"
+  Label = { es = "Indicador X (px)", en = "Badge X (px)" }
+  Help = { es = "Posición horizontal del indicador.", en = "Horizontal position of the indicator." }
+  [[Shape.Field]]
+  Key = "view_forms.badge_y"
+  Type = "int"
+  Label = { es = "Indicador Y (px)", en = "Badge Y (px)" }
+  Help = { es = "Posición vertical del indicador.", en = "Vertical position of the indicator." }
+  [[Shape.Field]]
+  Key = "view_forms.badge_scale"
+  Type = "int"
+  Label = { es = "Escala del indicador", en = "Badge scale" }
+  Help = { es = "Escala de toda la fila (fichas, hueco y tecla).", en = "Scale of the whole row (tiles, gap and key glyph)." }
+  [[Shape.Field]]
+  Key = "view_forms.badge_priority"
+  Type = "int"
+  Label = { es = "Prioridad de dibujo", en = "Draw priority" }
+  Help = { es = "Prioridad de dibujo de las fichas (sobre el modelo 3D y el campo).", en = "Draw priority of the tiles (over the 3D model and the board)." }
+  [[Shape.Field]]
+  Key = "view_forms.tile_size"
+  Type = "int"
+  Label = { es = "Tamaño de ficha (px)", en = "Tile size (px)" }
+  Help = { es = "Lado de cada ficha.", en = "Side of each tile." }
+  [[Shape.Field]]
+  Key = "view_forms.tile_gap"
+  Type = "int"
+  Label = { es = "Hueco entre fichas (px)", en = "Tile gap (px)" }
+  Help = { es = "Separación entre fichas.", en = "Gap between tiles." }
+  [[Shape.Field]]
+  Key = "view_forms.key_scale"
+  Type = "float"
+  Label = { es = "Escala de la tecla", en = "Key scale" }
+  Help = { es = "Tamaño del texto de la tecla.", en = "Text size of the key glyph." }
+  [[Shape.Field]]
+  Key = "view_forms.key_dx"
+  Type = "int"
+  Label = { es = "Tecla: ajuste X", en = "Key nudge X" }
+  Help = { es = "Ajuste horizontal de la tecla dentro de la ficha.", en = "Horizontal nudge of the key inside the tile." }
+  [[Shape.Field]]
+  Key = "view_forms.key_dy"
+  Type = "int"
+  Label = { es = "Tecla: ajuste Y", en = "Key nudge Y" }
+  Help = { es = "Ajuste vertical de la tecla dentro de la ficha (negativo = arriba).", en = "Vertical nudge of the key inside the tile (negative = up)." }
+  [[Shape.Field]]
+  Key = "album"
+  Type = "table"
+  Label = { es = "Álbum de jugadores", en = "Player album" }
+  Help = { es = "Álbum de jugadores.", en = "Player album." }
+  [[Shape.Field]]
+  Key = "album.display_rarity"
+  Type = "int"
+  Label = { es = "Rareza mostrada", en = "Displayed rarity" }
+  Help = { es = "Cada jugador se muestra como su carta base con esta rareza (4 Legendaria).", en = "Every player shows as his base card at this rarity (4 Legendary)." }
+  [[Shape.Field]]
+  Key = "album.game_level_cap"
+  Type = "int"
+  Label = { es = "Nivel mostrado", en = "Displayed level" }
+  Help = { es = "Nivel al que se muestran las cartas del álbum.", en = "Level the album cards are shown at." }
+  [[Shape.Field]]
+  Key = "album.special_icon"
+  Type = "string"
+  Label = { es = "Icono de Especiales", en = "Specials icon" }
+  Help = { es = "Sprite del icono de la pestaña Especiales (cartas por encima de la rareza mostrada).", en = "Sprite of the Specials tab icon (cards above the displayed rarity)." }
+  [[Shape.Field]]
+  Key = "match_clock"
+  Type = "table"
+  Label = { es = "Reloj de partido", en = "Match clock" }
+  Help = { es = "Segundos por minuto de partido.", en = "Seconds per match minute." }
+  [[Shape.Field]]
+  Key = "match_clock.game_rate"
+  Type = "float"
+  Label = { es = "Ritmo del reloj del juego", en = "Game clock rate" }
+  Help = { es = "Segundos de reloj del juego por segundo real a velocidad normal.", en = "Game clock seconds per real second at normal speed." }
+  [[Shape.Field]]
+  Key = "prematch_skip"
+  Type = "table"
+  Label = { es = "Saltar el previo", en = "Pre-match skip" }
+  Help = { es = "Saltar directamente al saque inicial.", en = "Skip straight to the kick-off." }
+  [[Shape.Field]]
+  Key = "prematch_skip.hold"
+  Type = "float"
+  Label = { es = "Tiempo de pulsación (s)", en = "Hold time (s)" }
+  Help = { es = "Segundos que hay que mantener X en un evento previo para ir al saque (0 a 10).", en = "Seconds X must be held in a pre-match event to go to the kick-off (0 to 10)." }
+  [[Shape.Field]]
+  Key = "cutin_skip"
+  Type = "table"
+  Label = { es = "Saltar supertécnicas", en = "Technique cut-in skip" }
+  Help = { es = "Pulsar A durante la animación de una supertécnica en un partido la termina.", en = "Pressing A during a technique cut-in in a match ends it." }
+  [[Shape.Field]]
+  Key = "cutin_skip.events"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Eventos que se saltan", en = "Events it applies to" }
+  Help = { es = "Prefijos de nombre de evento a los que se aplica.", en = "Event name prefixes it applies to." }
+  [[Shape.Field]]
+  Key = "cutin_skip.not_events"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Eventos que nunca se saltan", en = "Events it never applies to" }
+  Help = { es = "Prefijos de nombre de evento a los que nunca se aplica.", en = "Event name prefixes it never applies to." }
+  [[Shape.Field]]
+  Key = "cutin_skip.min_seconds"
+  Type = "float"
+  Label = { es = "Tiempo mínimo (s)", en = "Minimum time (s)" }
+  Help = { es = "Segundos de animación antes de que la pulsación cuente.", en = "Seconds of the cut-in before a press counts." }
+  [[Shape.Field]]
+  Key = "away_kit"
+  Type = "table"
+  Label = { es = "Equipaciones de visitante", en = "Away kits" }
+  Help = { es = "Ajuste de partida para quitar las equipaciones de visitante de las actualizaciones.", en = "Save adjustment that removes the away kits of updates." }
+  [[Shape.Field]]
+  Key = "away_kit.keep"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Equipaciones que se conservan", en = "Kits kept" }
+  Help = { es = "Equipaciones de visitante que no se quitan.", en = "Away kits that are not removed." }
+  [[Shape.Field]]
+  Key = "item_type_order"
+  Type = "table"
+  Label = { es = "Orden de objetos", en = "Item order" }
+  Help = { es = "Orden de las pestañas Coleccionables y Consumibles del inventario.", en = "Order of the Collectibles and Consumables tabs of the inventory." }
+  [[Shape.Field]]
+  Key = "item_type_order.tables"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Tablas de objetos", en = "Item tables" }
+  Help = { es = "Tablas de objetos que se reordenan.", en = "Item tables that are re-ordered." }
+  [[Shape.Field]]
+  Key = "item_type_order.groups"
+  Type = "list"
+  Label = { es = "Grupos de objetos", en = "Item groups" }
+  Help = { es = "Grupos en que se agrupan los objetos de esas tablas.", en = "Groups the items of those tables are arranged in." }

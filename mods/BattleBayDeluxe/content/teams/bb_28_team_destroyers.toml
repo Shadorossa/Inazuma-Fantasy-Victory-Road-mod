@@ -1,0 +1,40 @@
+schema = "VRFW.team/2"
+# The team Destructores (bb_28_team_destroyers) in every match.
+
+[[edit]]
+target = "bb_28_team_destroyers"
+  [[edit.member]]
+  slot = 0
+  patch = true
+  moves = [0x1FA91CF4, 0x49F3BB72, 0x3F18A8D1]
+  levels = [1, 1, 1]
+  [[edit.member]]
+  slot = 3
+  patch = true
+  moves = [0xF626F557, 0xB8A509A7, 0xB60E3C60, 0x481F9847]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 4
+  patch = true
+  moves = [0xB60E3C60, 0xD32B8500, 0x650FA58E, 0xA17C3D72]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 5
+  patch = true
+  moves = [0x86F5F6E8, 0x0D0B77EA, 0xD0A1DBC3, 0xD67B0DE4]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 6
+  patch = true
+  moves = [0xB60E3C60, 0x4E22F64D, 0x0A02DF36, 0xA17C3D72]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 9
+  patch = true
+  moves = [0xC9BAEA82, 0xB8A509A7, 0x15138722, 0xA611F96B]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 10
+  patch = true
+  moves = [0xE29933EC, 0xC8760A18, 0xD262F964, 0xA611F96B]
+  levels = [1, 1, 1, 1]

@@ -1,0 +1,22 @@
+schema = "VRFW.base_table/1"
+# Inazuma Fantasy: a big update card of its own on the advent calendar's path, on 05/11/2026, with the mod's art and no
+# retail title or detail text (text ids of 0 leave them empty). The retail cards stay. The pictures:
+# content\images\menu\220_img\calendar_img\inazuma_fantasy_advent_card.toml; the menu loads them by the resources of
+# content\menus\advent_calendar_menu.toml.
+# The calendar walks the days in order and this list with them, so a new date row goes after the earlier dates.
+
+[[keyed]]
+list = "m_NewsInfoList"
+
+  [[keyed.add]]
+  key = "InazumaFantasy_advent_card"
+  from = 0x94182F35                     # the card of 28/10: same trophy badge
+  cells = { headline_small_text_id = 0, headline_large_text_id = 0, detail_text_id = 0, banner_start_res_name = "inazuma_fantasy_advent_card", detail_window_res_name = "inazuma_fantasy_advent_detail" }
+
+[[keyed]]
+list = "m_AdventCalendarInfoList"
+
+  [[keyed.add]]
+  key = "InazumaFantasy_advent_card_date"
+  from = 0xCD417C2D                     # the date row of 28/10: same cell type and fixed reward
+  cells = { flag_no = 8, time_start = [2026, 11, 5, 0, 0, 0], time_end = [2026, 11, 5, 0, 0, 0], data_id_crc = "InazumaFantasy_advent_card" }

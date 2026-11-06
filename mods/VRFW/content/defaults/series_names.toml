@@ -1,0 +1,8 @@
+# Aliases for series names used by character rules (canonical names come from the chara_base in_<name> columns); mods may add more.
+
+[aliases]
+go = "go1"
+cs = "go2"
+chrono_stone = "go2"
+galaxy = "go3"
+vr = "victory_road"

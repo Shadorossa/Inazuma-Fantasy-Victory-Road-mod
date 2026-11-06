@@ -1,0 +1,60 @@
+schema = "VRFW.text_key/1"
+# Texts of «Player Training»: the «Mods»
+# screen's name and description. A language missing here falls back to English. The training's own texts are menu_text
+# rows (text\rows\training.toml).
+default_lang = "en"
+
+[en.new]
+mod_name = "Classic Training"
+mod_description = "Classic training, as in Chrono Stone. Each player has Freedom points that grow with his level and spreads them over his base stats in a training window (team dock, command list, Training). With no free points left, raising a stat lowers its counterpart, which follows the chosen position; Reset gives everything back. Trained points count in matches and stay in the save, training beans are gone, and every card can be trained, weaker cards getting more Freedom."
+option_first_touch = "Control: first touch"
+option_first_touch_help = "Control decides how cleanly a player controls a pass he receives. In development: for now each received pass is only recorded in the log."
+
+[es.new]
+mod_name = "Entrenamiento clásico"
+mod_description = "Entrenamiento clásico, como en Chrono Stone. Cada jugador tiene puntos de Libertad que crecen con su nivel y los reparte entre sus estadísticas base en una ventana de entrenamiento (Plantilla de equipo, lista de comandos, Entrenamiento). Sin puntos libres, subir una estadística baja su contraria, que sigue la posición elegida; Reiniciar devuelve todo. Los puntos entrenados cuentan en los partidos y se guardan en la partida, las judías de entrenamiento desaparecen y toda carta se puede entrenar; las más débiles reciben más Libertad."
+option_first_touch = "Control: primer toque"
+option_first_touch_help = "El Control decide lo limpio que un jugador controla el pase que recibe. En desarrollo: por ahora cada pase recibido solo se anota en el registro."
+
+[fr.new]
+mod_name = "Entraînement classique"
+mod_description = "Entraînement classique, comme dans Chrono Stone. Chaque joueur a des points de Liberté qui augmentent avec son niveau et les répartit entre ses statistiques de base dans une fenêtre d'entraînement (Effectif, liste de commandes, Entraînement). Sans points libres, augmenter une statistique baisse son opposée, qui suit le poste choisi ; Réinitialiser rend tout. Les points entraînés comptent en match et restent dans la sauvegarde, les haricots d'entraînement disparaissent et toute carte peut être entraînée ; les plus faibles ont plus de Liberté."
+option_first_touch = "Contrôle : première touche"
+option_first_touch_help = "Le Contrôle décide de la propreté avec laquelle un joueur contrôle la passe qu'il reçoit. En développement : pour l'instant, chaque passe reçue est seulement notée dans le journal."
+
+[de.new]
+mod_name = "Klassisches Training"
+mod_description = "Klassisches Training wie in Chrono Stone. Jeder Spieler hat Freiheitspunkte, die mit seinem Level wachsen, und verteilt sie in einem Trainingsfenster auf seine Grundwerte (Kader, Befehlsliste, Training). Ohne freie Punkte senkt das Erhöhen eines Werts seinen Gegenwert, der der gewählten Position folgt; Zurücksetzen gibt alles zurück. Trainierte Punkte zählen in Spielen und bleiben im Spielstand, Trainingsbohnen entfallen, und jede Karte ist trainierbar, schwächere Karten bekommen mehr Freiheit."
+option_first_touch = "Kontrolle: Ballannahme"
+option_first_touch_help = "Die Kontrolle entscheidet, wie sauber ein Spieler einen empfangenen Pass annimmt. In Entwicklung: Vorerst wird jeder empfangene Pass nur im Protokoll vermerkt."
+
+[it.new]
+mod_name = "Allenamento classico"
+mod_description = "Allenamento classico, come in Chrono Stone. Ogni giocatore ha punti Libertà che crescono con il suo livello e li distribuisce tra le sue statistiche base in una finestra di allenamento (Rosa, elenco comandi, Allenamento). Senza punti liberi, aumentare una statistica abbassa la sua opposta, che segue il ruolo scelto; Azzera restituisce tutto. I punti allenati contano nelle partite e restano nel salvataggio, i fagioli di allenamento spariscono e ogni carta si può allenare; quelle più deboli ricevono più Libertà."
+option_first_touch = "Controllo: primo tocco"
+option_first_touch_help = "Il Controllo decide quanto pulito un giocatore controlla il passaggio che riceve. In sviluppo: per ora ogni passaggio ricevuto viene solo annotato nel registro."
+
+[pt.new]
+mod_name = "Treino clássico"
+mod_description = "Treino clássico, como em Chrono Stone. Cada jogador tem pontos de Liberdade que crescem com o seu nível e distribui-os pelos seus atributos base numa janela de treino (Plantel, lista de comandos, Treino). Sem pontos livres, subir um atributo baixa o seu oposto, que segue a posição escolhida; Repor devolve tudo. Os pontos treinados contam nas partidas e ficam no save, os feijões de treino desaparecem e qualquer carta pode ser treinada; as mais fracas recebem mais Liberdade."
+option_first_touch = "Controlo: primeiro toque"
+option_first_touch_help = "O Controlo decide quão limpo um jogador domina o passe que recebe. Em desenvolvimento: por agora cada passe recebido é apenas anotado no registo."
+
+[ja.new]
+mod_name = "クラシック特訓"
+mod_description = "クロノ・ストーンのような特訓。各選手はレベルとともに増えるフリーダムポイントを、特訓ウィンドウ（チーム編成、コマンドリスト、特訓）で基本ステータスに振り分けます。残りポイントがないときは、ステータスを上げると選んだポジションに合わせた対のステータスが下がり、リセットで全部戻せます。振ったポイントは試合に反映されてセーブに残り、特訓用の豆はなくなり、どのカードも特訓でき、弱いカードほどフリーダムが多くなります。"
+option_first_touch = "コントロール：ファーストタッチ"
+option_first_touch_help = "コントロールは受けたパスをどれだけきれいにトラップできるかを決めます。開発中：現在は受けたパスをログに記録するだけです。"
+
+[zh_hans.new]
+mod_name = "经典特训"
+mod_description = "如同《时空之石》的经典特训。每名球员拥有随等级增长的自由点数，在特训窗口（队伍编成、指令列表、特训）中分配给基础能力。没有剩余点数时，提升一项能力会降低其对应能力（随所选位置而定）；重置可全部还原。训练的点数在比赛中生效并保存在存档中，训练豆被移除，所有卡都能训练，较弱的卡获得更多自由点数。"
+option_first_touch = "控球：第一脚触球"
+option_first_touch_help = "控球决定球员接传球时停球的干净程度。开发中：目前每次接到传球只会记录在日志中。"
+
+[zh_hant.new]
+mod_name = "經典特訓"
+mod_description = "如同《時空之石》的經典特訓。每名球員擁有隨等級增長的自由點數，在特訓視窗（隊伍編成、指令列表、特訓）中分配給基礎能力。沒有剩餘點數時，提升一項能力會降低其對應能力（隨所選位置而定）；重置可全部還原。訓練的點數在比賽中生效並保存在存檔中，訓練豆被移除，所有卡都能訓練，較弱的卡獲得更多自由點數。"
+option_first_touch = "控球：第一腳觸球"
+option_first_touch_help = "控球決定球員接傳球時停球的乾淨程度。開發中：目前每次接到傳球只會記錄在日誌中。"
+

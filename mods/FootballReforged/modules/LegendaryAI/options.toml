@@ -1,0 +1,14 @@
+schema = "VRFW.option/2"
+# Legendary AI › its row on the Mods screen's «Ajustes» and in Options › «Mod options».
+
+# «Difficulty»: the rival's AI rules only (never its stats, passives, level or class). The framework reads it at each match
+# setup and the script at each match start, so a change applies from the next match. The levels: config.toml [difficulty].
+[[option]]
+id = "difficulty"                             # row key LegendaryAI.difficulty
+type = "list"
+label = "option_difficulty"                   # text\keys.toml, 9 languages
+help = "option_difficulty_help"
+values = [{ value = 0, name = "difficulty_novice", text = "Novice" }, { value = 1, name = "difficulty_amateur", text = "Amateur" }, { value = 2, name = "difficulty_professional", text = "Professional" }, { value = 3, name = "difficulty_world_class", text = "World class" }, { value = 4, name = "difficulty_hell", text = "Hell" }]
+default = 4
+order = 100
+restart = false

@@ -1,0 +1,14 @@
+schema = "VRFW.game/2"
+
+# Coach clothes rules: the detour is installed only when a mod declares a rule (`apply = "script"`); see scripts\coach_looks.lua.
+[[VRFW.Hook]]
+name = "CoachLooks.CostumeLookup"
+game = "Render.CoachCostume"
+apply = "script"
+
+# --- commands
+
+# () -> active, live: a declared rule holds and the detour is installed
+[[VRFW.Command]]
+name = "CMND_VRFW_COACH_LOOK"
+handler = "CoachLooks.Cmd"

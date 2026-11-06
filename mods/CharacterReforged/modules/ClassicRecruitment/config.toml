@@ -1,0 +1,44 @@
+# New Recruitment: default configuration. The loader's config.toml
+# [mods.ClassicRecruitment] overrides it key by key (survives mod updates). Read at start.
+
+[office]
+# the recruitment office (content\contact_maps\office.toml): false = every player is signed for his price in fichas
+# only; the old office's requirements (players at a level, items, trials, harder wins) are kept in
+# content\contact_maps\office_terms.toml but not asked, and a trial («Prueba») stays playable without gating anything.
+# true = the old office's requirements are asked again.
+requirements = false
+
+[album]
+# the price of a player signed from BetterQoL's «Álbum de jugadores» (option «Fichajes» = «Álbum»;
+# scripts\album_price.lua, CMND_CLASSICRECRUITMENT_ALBUM_PRICE). The game sells no player for this currency, so the price
+# is this rule: (base + per_value × his value + per_level × the level he joins at, the team's level, at most level_cap)
+# × the factor of the shown card's rarity. His value = his card's price in fichas at the old office (value_file:
+# 2-3 most players, 6 a regular, 12-24 a star, 34-40 the strongest) or a mod's content\album album_values; a card in
+# neither = the median of the list.
+# Pacing (docs/game/mods/friendship-economy.md): a common player about 4 matches, a star 8-10, the strongest about 20.
+# currency: the item paid (its game name; tk_hr000008 = «Puntos de amistad», content\items\friendship_points.toml)
+currency = "tk_hr000008"
+# the atlas of the currency's icon (sprite = the currency's name), shown beside the price on the album's rows
+icon_atlas = "#/menu/200_icon/02_icon_item/icon_item10.g4tx"
+value_file = "content/contact_maps/office_terms.toml"
+base = 30
+per_value = 8
+per_level = 0.5
+level_cap = 99
+# factor per card rarity of the album row (its «Especiales» cards: Ídolo, Diamante…); a rarity not listed = 1
+[album.rarity_factor]
+"5" = 1.5
+"6" = 2
+"7" = 2.5
+
+# What every match (every mode) pays at its end in Puntos de amistad, as a row of the result list, on top of what its
+# goal rolls give (content\items\friendship_points.toml, VR-Framework [[VRFW.MatchDropExtra]]): by the result (win /
+# draw / loss) plus per_goal for each goal of your team (any result) plus per_goal_margin for each goal of a win's
+# margin (at most 5), all times the played difficulty's multiplier (Crónica x1 .. Legendaria x2.5, free match Lv 50 x1 ..
+# Lv 200 x2.5; content\items\friendship_points.toml). 0..255 each. A loss pays only its goals (no farming by losing). The loader's [mods.ClassicRecruitment.match_drops.friendship] overrides it key by key.
+[match_drops.friendship]
+win = 12
+draw = 6
+loss = 0
+per_goal = 2
+per_goal_margin = 2

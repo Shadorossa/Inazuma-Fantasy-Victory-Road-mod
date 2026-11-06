@@ -1,0 +1,101 @@
+# Chronicle Deluxe: the level ball of the free-match class «BATALLA LEGENDARIA» (Lv 200, class 9) on the class card,
+# the legendary ball. No retail ball has the legendary title's colours: made at boot from the
+# class menu's own balls (the PLAYER'S files): the purple one (lv_base01) blended diagonally into the blue one turned
+# cyan (lv_base00) and the gold one turned lime (lv_base02); the shape, shading and alpha of lv_base01. Declared as
+# the class's Ball in content/defaults/match_difficulty.toml (VRFW MatchDifficulty Ball)
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_21.g4tx"
+name = "chronicle_deluxe_vsroute01_21"
+size = [176, 68]
+
+[[recipe]]
+name = "chronicle_deluxe_legendary_ball_base"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_21/vsroute01_21.g4tx"
+sprite = "lv_base01"
+
+[[recipe]]
+name = "chronicle_deluxe_legendary_ball_lv_base00"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_21/vsroute01_21.g4tx"
+texture = "lv_base00"
+ops = [{ op = "hue", turns = -0.1 }]
+
+[[recipe]]
+name = "chronicle_deluxe_legendary_ball_lv_base02"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_21/vsroute01_21.g4tx"
+sprite = "lv_base02"
+ops = [{ op = "hue", turns = 0.1 }]
+
+[[recipe]]
+name = "chronicle_deluxe_legendary_ball"
+from = "chronicle_deluxe_legendary_ball_base"
+ops = [{ op = "mix_gradient", image = "chronicle_deluxe_legendary_ball_lv_base00", weight = [-0.2, 1.4, 1.4], clamp = [0.0, 1.0] }, { op = "mix_gradient", image = "chronicle_deluxe_legendary_ball_lv_base02", weight = [-1.2, 1.6, 1.6], clamp = [0.0, 1.0] }]
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_21.g4tx"
+name = "chronicle_deluxe_legendary_ball"
+texture = "chronicle_deluxe_vsroute01_21"
+x = 0
+y = 0
+recipe = "chronicle_deluxe_legendary_ball"
+
+# The class orbs of the free-match class cards: copies of the Competition list's own orbs (vsroute01_06b.g4tx, the
+# PLAYER'S files) in the card's atlas, the atlas the card's tick slot list_icon_state_comp01 already takes its sprites
+# from. INAZUMA blue clear_icon01, ZONA LETAL purple clear_icon02, BATALLA LEGENDARIA the legendary orb of the «team
+# cleared» gauge (the same recipe as chronicle_deluxe_legendary_orb, vsroute01_06b.toml).
+[[recipe]]
+name = "chronicle_deluxe_class_orb_inazuma"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+sprite = "clear_icon01"
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_21.g4tx"
+name = "chronicle_deluxe_class_orb_inazuma"
+texture = "chronicle_deluxe_vsroute01_21"
+x = 72
+y = 0
+recipe = "chronicle_deluxe_class_orb_inazuma"
+
+[[recipe]]
+name = "chronicle_deluxe_class_orb_lethal_zone"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+sprite = "clear_icon02"
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_21.g4tx"
+name = "chronicle_deluxe_class_orb_lethal_zone"
+texture = "chronicle_deluxe_vsroute01_21"
+x = 144
+y = 0
+recipe = "chronicle_deluxe_class_orb_lethal_zone"
+
+[[recipe]]
+name = "chronicle_deluxe_class_orb_legendary_base"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+sprite = "clear_icon02"
+
+[[recipe]]
+name = "chronicle_deluxe_class_orb_legendary_cyan"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+sprite = "clear_icon01"
+ops = [{ op = "hue", turns = -0.1 }]
+
+[[recipe]]
+name = "chronicle_deluxe_class_orb_legendary_lime"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+sprite = "clear_icon03"
+ops = [{ op = "hue", turns = 0.1 }]
+
+[[recipe]]
+name = "chronicle_deluxe_class_orb_legendary"
+from = "chronicle_deluxe_class_orb_legendary_base"
+ops = [{ op = "mix_gradient", image = "chronicle_deluxe_class_orb_legendary_cyan", weight = [-0.2, 1.4, 1.4], clamp = [0.0, 1.0] }, { op = "mix_gradient", image = "chronicle_deluxe_class_orb_legendary_lime", weight = [-1.2, 1.6, 1.6], clamp = [0.0, 1.0] }]
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_21.g4tx"
+name = "chronicle_deluxe_class_orb_legendary"
+texture = "chronicle_deluxe_vsroute01_21"
+x = 108
+y = 0
+recipe = "chronicle_deluxe_class_orb_legendary"

@@ -1,0 +1,41 @@
+schema = "VRFW.technique/3"
+# Hoja verde (New Leaf): the download's move who91001, a clone of who00540 with its numbers; its event ev61_91001 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "green_leaf"
+key = "who91001"
+base = "who00540"
+event = "ev61_91001"
+element = "forest"
+power_min = 50
+power_max = 300
+tp = 50
+color = 3
+  [technique.text.es]
+  name = "Hoja verde"
+  description = "Se envuelve en hojas verdes\ny se escurre entre los rivales."
+  [technique.text.en]
+  name = "New Leaf"
+  description = "Wraps himself in green leaves\nand slips between the rivals."
+  [technique.text.fr]
+  name = "Feuille verte"
+  description = "S'entoure de feuilles vertes\net se faufile entre les adversaires."
+  [technique.text.de]
+  name = "Grünes Blatt"
+  description = "Hüllt sich in grüne Blätter\nund schlüpft an den Gegnern vorbei."
+  [technique.text.it]
+  name = "Foglia verde"
+  description = "Si avvolge di foglie verdi\ne sguscia tra gli avversari."
+  [technique.text.pt]
+  name = "Folha verde"
+  description = "Envolve-se em folhas verdes\ne escapa entre os adversários."
+  [technique.text.ja]
+  name = "ニューリーフ"
+  description = "緑の葉に包まれ\n相手の間をすり抜ける！"
+  [technique.text.zh_hans]
+  name = "绿叶"
+  description = "身披绿叶，\n从对手之间溜过。"
+  [technique.text.zh_hant]
+  name = "綠葉"
+  description = "身披綠葉，\n從對手之間溜過。"

@@ -1,0 +1,65 @@
+# Inazuma Fantasy (InazumaFantasy): the level orbs. In Objetos › item_use_menu an orb of config.toml [level_orbs.levels]
+# opens the retail amount window (num_shop_window, as the bag's Victory crates do) before it is used: stock limited to
+# the orbs a player needs to reach his cap, the window shows «Nv. X → Nv. Y». The confirmed orbs give in one call the
+# exact EXP from the player's level and EXP to the start of the target level, through the same retail command a
+# retail orb uses (0xB91C81DB, handler nie.exe 0xC76A20), so the level-up path is the game's own. The bag loses the used
+# orbs when the menu closes, as retail. Any other item of the menu runs retail. Doc: docs/game/mods/fantasy-economy.md.
+# Text ops on functions that read the chunk's locals: the planner promotes those locals. Engine calls only in OnInit
+# and in the menu's callbacks.
+name = "inazuma_fantasy_level_orbs"
+mod = "InazumaFantasy"
+order = 215
+module = ""
+requires = []
+conflicts = []
+wraps = ["OpenWindow", "OnOpenLayer", "OnFunction"]
+description = "Inazuma Fantasy: level orbs with an amount window in the item use menu"
+
+[[files]]
+stem = "item_use_menu"
+
+  [[files.ops]]
+  type = "insert_after"
+  anchor = '''
+    n8 = funcLuaCommand(2011560392 --[[CMND_GET_ITEM_NUM]], l2)
+'''
+  text = '''
+    InazumaFantasyLevelOrb.levels = funcLuaCommand(@crc:CMND_INAZUMAFANTASY_LEVEL_ORB_LEVELS@, l2) or 0
+'''
+
+  [[files.ops]]
+  type = "insert_before"
+  anchor = '''
+    CloseLevelupPopup()
+    n9 = n9 + 1
+'''
+  text = '''
+    if InazumaFantasyLevelOrb.levels > 0 then
+      InazumaFantasyLevelOrb.OpenAmountWindow()
+      return
+    end
+'''
+
+  [[files.ops]]
+  type = "insert_after"
+  anchor = '''
+function CalcNextLevelAndNextExp(a1)
+'''
+  text = '''
+  if InazumaFantasyLevelOrb.levels > 0 then
+    return InazumaFantasyLevelOrb.PreviewOneOrb(a1)
+  end
+'''
+
+  [[files.ops]]
+  type = "append_block"
+  source = "item_use_level_orbs.lua"
+  marker = "InazumaFantasy level_orbs"
+
+[[files]]
+stem = "num_shop_window"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "num_shop_window_level_orbs.lua"
+  marker = "InazumaFantasy level_orbs window"

@@ -1,0 +1,18 @@
+# Chronicle Deluxe's rules for the framework's dark theme (merged into every theme with id "dark"). The chain board's
+# atlases take the default for mod atlases: only their plates change.
+schema = "VRFW.theme_rules/1"
+theme = "dark"
+
+# its copy of the chronicle world map keeps its retail colours, as the game's own
+[[sprite]]
+match = "*"
+class = "keep"
+file = "chronicle_deluxe_own/chronicle_deluxe_vsroute01_0"
+
+# the class orbs of the free-match class cards (INAZUMA blue, ZONA LETAL purple, BATALLA LEGENDARIA green-cyan; sprites of
+# the card's own atlas, vsroute01_21.toml) keep their colours: the dark theme would shade the blue one as a plate
+[[sprite]]
+match = "chronicle_deluxe_class_orb_*"
+class = "keep"
+file = "chronicle_deluxe_own/chronicle_deluxe_vsroute01_21"
+

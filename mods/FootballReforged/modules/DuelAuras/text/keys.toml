@@ -1,0 +1,40 @@
+# Texts of Duel Auras, a module of Football Reforged: the name and description of its
+# card on Football Reforged's page in Mods.
+schema = "VRFW.text_key/1"
+default_lang = "en"
+
+[en.new]
+mod_name = "Open-duel auras"
+mod_description = "In a duel (1v1 or group), from its start to the choice, any aura (keshin, totem, armour, Mix-Max, bond, mode change, awakening) can be used and is never the answer to the rival's special move: the duel pauses, the aura plays and applies, the players go back to their duel spots with the duel's camera, menus and countdown, and the duel goes on where it was. The same for the CPU."
+
+[es.new]
+mod_name = "Auras en duelos libres"
+mod_description = "En un duelo (1 contra 1 o en grupo), desde que empieza hasta la elección, se puede usar cualquier aura (keshin, tótem, armadura, Mix-Max, vínculo, modo cambio, despertar) y nunca cuenta como respuesta a la supertécnica del rival: el duelo se pausa, el aura se activa y se aplica, los jugadores vuelven a sus puestos del duelo con su cámara, sus menús y su cuenta atrás, y el duelo sigue donde estaba. Igual para la CPU."
+
+[fr.new]
+mod_name = "Auras en duels libres"
+mod_description = "En duel (1 contre 1 ou en groupe), du début au choix, toute aura (keshin, totem, armure, Mix-Max, lien, mode change, éveil) peut être utilisée et n'est jamais la réponse à la supertechnique adverse : le duel se met en pause, l'aura se déclenche et s'applique, les joueurs reprennent leur place de duel avec sa caméra, ses menus et son compte à rebours, et le duel reprend là où il était. Pareil pour le CPU."
+
+[de.new]
+mod_name = "Auren in freien Duellen"
+mod_description = "Im Duell (1 gegen 1 oder in der Gruppe) kann vom Beginn bis zur Wahl jede Aura (Keshin, Totem, Rüstung, Mix-Max, Bund, Wechselmodus, Erwachen) eingesetzt werden und ist nie die Antwort auf die Spezialtechnik des Gegners: Das Duell pausiert, die Aura wird ausgelöst und wirkt, die Spieler kehren mit Kamera, Menüs und Countdown des Duells an ihre Duellplätze zurück, und das Duell geht dort weiter, wo es war. Ebenso für die CPU."
+
+[it.new]
+mod_name = "Aure nei duelli liberi"
+mod_description = "In un duello (1 contro 1 o di gruppo), dall'inizio alla scelta, si può usare qualsiasi aura (keshin, totem, armatura, Mix-Max, legame, modalità cambio, risveglio) e non è mai la risposta alla supertecnica avversaria: il duello va in pausa, l'aura si attiva e si applica, i giocatori tornano ai loro posti del duello con telecamera, menu e conto alla rovescia, e il duello riprende da dove era. Lo stesso per la CPU."
+
+[pt.new]
+mod_name = "Auras em duelos livres"
+mod_description = "Num duelo (1 contra 1 ou em grupo), desde o início até à escolha, pode usar-se qualquer aura (keshin, totem, armadura, Mix-Max, vínculo, modo troca, despertar) e nunca conta como resposta à supertécnica do rival: o duelo pausa, a aura ativa-se e aplica-se, os jogadores voltam aos seus lugares do duelo com a câmara, os menus e a contagem decrescente, e o duelo continua onde estava. O mesmo para o CPU."
+
+[ja.new]
+mod_name = "自由デュエルのオーラ"
+mod_description = "デュエル（1対1でもグループでも）では開始から選択まで、どのオーラ（化身・トーテム・アームド・ミキシマックス・絆・モードチェンジ・覚醒）も使え、相手の必殺技への応戦にはならない。デュエルが一時停止し、オーラが発動して効果が乗り、選手はデュエルの位置・カメラ・メニュー・カウントダウンに戻り、デュエルは止まったところから続く。CPUも同じ。"
+
+[zh_hans.new]
+mod_name = "自由对决中的灵气"
+mod_description = "对决中（一对一或多人），从开始到选择期间可以使用任何灵气（化身、图腾、铠甲、混合最大化、羁绊、模式转换、觉醒），且绝不会算作对对手必杀技的应对：对决暂停，灵气发动并生效，球员回到对决位置，镜头、菜单和倒计时恢复，对决从暂停处继续。电脑方同样如此。"
+
+[zh_hant.new]
+mod_name = "自由對決中的靈氣"
+mod_description = "對決中（一對一或多人），從開始到選擇期間可以使用任何靈氣（化身、圖騰、鎧甲、混合最大化、羈絆、模式轉換、覺醒），且絕不會算作對對手必殺技的應對：對決暫停，靈氣發動並生效，球員回到對決位置，鏡頭、選單和倒數恢復，對決從暫停處繼續。電腦方同樣如此。"

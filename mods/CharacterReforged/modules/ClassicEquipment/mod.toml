@@ -1,0 +1,41 @@
+# Classic Equipment: an add-on of Better Equipment, in the standard layout.
+#   config.toml                 the rules research/scripts/classic_equipment.py builds the module from (stat map, scale
+#                               factors, names, set assignments, new sets)
+#   content\items\              GENERATED: the classic items ([[item]], clones of their closest retail equivalent) and
+#                               the sets they join ([[VRFW.EquipmentSet]])
+#   content\better_equipment\   GENERATED: the new sets' bonus tiers (Better Equipment's set schema)
+#   content\classic_equipment\  GENERATED: the items' Suerte; content\types\ its declaration schema
+#   content\shops\              GENERATED: the shop rows (the closest retail equivalent's shop and price)
+#   content\images\, assets\images\   GENERATED: the 3DS icons, new textures of the game's equipment icon sheets
+#   content\game\, content\menus\, scripts\   the Suerte of the worn items on Character Reforged's player page
+#   text\                       the mod's name, description and the new sets' names
+# The inventory: docs/game/mods/better-equipment-classic.md.
+id = "ClassicEquipment"
+# the English fallback; the Mods screen shows the text keys mod_name / mod_description (text\keys.toml)
+name = "Classic Equipment"
+version = "0.2.2"
+author = "Shadorossa"
+author_steam = "76561199013321372"
+description = "167 pieces of equipment from Inazuma Eleven GO, Chrono Stone and Galaxy that Victory Road lacks: boots, keeper gloves, bracelets and pendants, with their original 3DS icons and the stats they raised there, balanced like every Better Equipment item. They join its sets plus four new ones (Paradise, Samurai, Three Kingdoms, Round Table) and are sold in the shop of their closest retail equivalent. Needs Better Equipment."
+# this mod's own names: [[item]] ClassicEquipment.<name>, sets ClassicEquipment.<Set>, Lua ClassicEquipment.X
+prefix = "ClassicEquipment"
+folder = "ClassicEquipment"
+priority = 0
+tags = ["Gameplay", "Characters"]
+updated = "2026-11-03"
+# Better Equipment 1.20.4: its sets (content\better_equipment\sets.toml of every mod) and its set bonus script
+requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2", "BetterEquipment>=0.2.2"]
+conflicts = []
+# memory: the equipment reads of the Suerte on the player page; command: CMND_CLASSICEQUIPMENT_LUCK
+permissions = ["memory", "command"]
+
+[exports]
+functions = []
+keys = []
+tables = []
+
+# A MODULE of Character Reforged: shipped in CharacterReforged\modules\ClassicEquipment\;
+# the Mods screen shows it inside Character Reforged's entry («Módulos y ajustes»: on / off).
+[module]
+of = "CharacterReforged"
+order = 91

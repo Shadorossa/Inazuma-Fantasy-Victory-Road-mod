@@ -1,0 +1,18 @@
+schema = "VRFW.rule/1"
+# Base ruleset: 11-a-side free match (VS CPU, friendlies), same as the original game; another mod may replace it (later load wins).
+id = "free_match"
+name = "Free match (original)"   # fallback; shown in the game language from the text key ruleset_free_match
+version = 1
+
+[time]
+half_minutes = "row"       # "row" = value of the match row
+halves = "row"
+
+[teams]
+players = "row"
+
+[end]
+extra_time = false         # a draw stays a draw
+golden_goal = false
+penalties = false
+extended_vgoal = "row"

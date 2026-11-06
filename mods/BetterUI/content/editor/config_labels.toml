@@ -1,0 +1,91 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "skip_prematch_editor"
+  Type = "bool"
+  Label = { es = "Saltar el editor previo al partido", en = "Skip pre-match editor" }
+  Help = { es = "Activado: no se muestra el editor de equipo entre la pantalla VS y la salida al campo (solo partidos sin conexión). Desactivado: interruptor de desarrollo.", en = "On: no team editor between the VS screen and the walk-in (offline matches only). Off: developer switch." }
+  [[Shape.Field]]
+  Key = "slanted_kizuna"
+  Type = "bool"
+  Label = { es = "Placa de kizuna inclinada", en = "Slanted kizuna plate" }
+  Help = { es = "La placa de kizuna del marcador se muestra inclinada como las barras.", en = "The match HUD kizuna plate is slanted like the gauge bars." }
+  [[Shape.Field]]
+  Key = "position_card_looks"
+  Type = "table"
+  Label = { es = "Colores de carta por posición", en = "Card colours by position" }
+  Help = { es = "Color de la carta de cada posición.", en = "Card colour of each position." }
+  [[Shape.Field]]
+  Key = "position_card_looks.goalkeeper"
+  Type = "string"
+  Label = { es = "Color del portero", en = "Goalkeeper card look" }
+  Help = { es = "Aspecto de carta usado para porteros.", en = "Card look used for goalkeepers." }
+  [[Shape.Field]]
+  Key = "position_card_looks.defender"
+  Type = "string"
+  Label = { es = "Color del defensa", en = "Defender card look" }
+  Help = { es = "Aspecto de carta usado para defensas.", en = "Card look used for defenders." }
+  [[Shape.Field]]
+  Key = "position_card_looks.midfielder"
+  Type = "string"
+  Label = { es = "Color del centrocampista", en = "Midfielder card look" }
+  Help = { es = "Aspecto de carta usado para centrocampistas.", en = "Card look used for midfielders." }
+  [[Shape.Field]]
+  Key = "position_card_looks.forward"
+  Type = "string"
+  Label = { es = "Color del delantero", en = "Forward card look" }
+  Help = { es = "Aspecto de carta usado para delanteros.", en = "Card look used for forwards." }
+  [[Shape.Field]]
+  Key = "formation_card_spread"
+  Type = "table"
+  Label = { es = "Separación de cartas en formación", en = "Formation card spread" }
+  Help = { es = "Separa las cartas del campo en las pantallas de formación cuando se tocan.", en = "Moves apart the pitch cards of the formation screens where they touch." }
+  [[Shape.Field]]
+  Key = "formation_card_spread.enabled"
+  Type = "bool"
+  Label = { es = "Activar separación", en = "Enable spread" }
+  Help = { es = "Activa o desactiva la separación de cartas.", en = "Turns the card spreading on or off." }
+  [[Shape.Field]]
+  Key = "formation_card_spread.card_width"
+  Type = "int"
+  Label = { es = "Ancho de carta", en = "Card width" }
+  Help = { es = "Ancho del área táctil de la carta compacta.", en = "Touch area width of the compact card." }
+  [[Shape.Field]]
+  Key = "formation_card_spread.card_height"
+  Type = "int"
+  Label = { es = "Alto de carta", en = "Card height" }
+  Help = { es = "Alto del área táctil de la carta compacta.", en = "Touch area height of the compact card." }
+  [[Shape.Field]]
+  Key = "formation_card_spread.gap"
+  Type = "int"
+  Label = { es = "Espacio entre cartas", en = "Gap between cards" }
+  Help = { es = "Espacio que se deja entre dos cartas que se han movido.", en = "Space kept between two cards that had to move." }
+  [[Shape.Field]]
+  Key = "formation_card_spread.smallest_scale"
+  Type = "float"
+  Label = { es = "Escala mínima", en = "Smallest scale" }
+  Help = { es = "Tamaño mínimo al que se reduce una carta si moverla no basta.", en = "Smallest card size tried when moving is not enough." }
+  [[Shape.Field]]
+  Key = "formation_card_spread.scale_step"
+  Type = "float"
+  Label = { es = "Paso de escala", en = "Scale step" }
+  Help = { es = "Pasos de tamaño que se prueban de 1 hasta la escala mínima.", en = "Size steps tried from 1 down to the smallest scale." }
+  [[Shape.Field]]
+  Key = "formation_card_spread.pitch_side"
+  Type = "int"
+  Label = { es = "Límite lateral del campo", en = "Pitch side limit" }
+  Help = { es = "Distancia máxima a izquierda y derecha del centro para el centro de una carta.", en = "How far left or right of the centre a card centre may go." }
+  [[Shape.Field]]
+  Key = "formation_card_spread.pitch_top"
+  Type = "int"
+  Label = { es = "Límite superior del campo", en = "Pitch top limit" }
+  Help = { es = "Posición más alta del centro de una carta.", en = "Highest card centre position." }
+  [[Shape.Field]]
+  Key = "formation_card_spread.pitch_bottom"
+  Type = "int"
+  Label = { es = "Límite inferior del campo", en = "Pitch bottom limit" }
+  Help = { es = "Posición más baja del centro de una carta.", en = "Lowest card centre position." }

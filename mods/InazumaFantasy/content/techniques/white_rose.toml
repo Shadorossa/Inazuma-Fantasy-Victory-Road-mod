@@ -1,0 +1,42 @@
+schema = "VRFW.technique/3"
+# Rosa blanca (White Rose): the download's move whs90009, a clone of whs02150 with its numbers; its event ev60_90009 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "white_rose"
+key = "whs90009"
+base = "whs02150"
+event = "ev60_90009"
+element = "forest"
+power_min = 70
+power_max = 440
+tp = 70
+effect_flags = 16
+color = 3
+  [technique.text.es]
+  name = "Rosa blanca"
+  description = "Vinculada a la transparencia, la limpieza de espíritu\ny los nuevos comienzos."
+  [technique.text.en]
+  name = "White Rose"
+  description = "Bound to clarity, a pure spirit\nand new beginnings."
+  [technique.text.fr]
+  name = "Rose blanche"
+  description = "Liée à la transparence, à la pureté de l'esprit\net aux nouveaux départs."
+  [technique.text.de]
+  name = "Weiße Rose"
+  description = "Verbunden mit Klarheit, reinem Geist\nund neuen Anfängen."
+  [technique.text.it]
+  name = "Rosa bianca"
+  description = "Legata alla trasparenza, alla purezza dello spirito\ne ai nuovi inizi."
+  [technique.text.pt]
+  name = "Rosa branca"
+  description = "Ligada à transparência, à pureza de espírito\ne aos novos começos."
+  [technique.text.ja]
+  name = "ホワイトローズ"
+  description = "透明さと清らかな心、\nそして新たな始まりの象徴。"
+  [technique.text.zh_hans]
+  name = "白玫瑰"
+  description = "象征透明、纯净的心灵\n与新的开始。"
+  [technique.text.zh_hant]
+  name = "白玫瑰"
+  description = "象徵透明、純淨的心靈\n與新的開始。"

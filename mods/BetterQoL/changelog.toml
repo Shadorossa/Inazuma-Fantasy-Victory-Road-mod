@@ -1,0 +1,85 @@
+schema = "VRFW.changelog/1"
+# BetterQoL: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Plantillas y Banco mejorados",
+    "Configurador de pasivas y equipos",
+    "Atajos a los modos de juego",
+    "Formaciones y equipaciones nuevas",
+    "Estadísticas y trayectoria del club",
+]
+
+[release.en]
+notes = [
+    "Improved squads and Bench",
+    "Passive and team planner",
+    "Shortcuts to game modes",
+    "New formations and kits",
+    "Club stats and history",
+]
+
+[release.fr]
+notes = [
+    "Effectifs et Banc améliorés",
+    "Configurateur de passifs et d'équipes",
+    "Raccourcis vers les modes",
+    "Nouvelles formations et tenues",
+    "Statistiques et parcours du club",
+]
+
+[release.de]
+notes = [
+    "Verbesserte Kader und Bank",
+    "Passiv- und Teamplaner",
+    "Abkürzungen zu den Spielmodi",
+    "Neue Formationen und Trikots",
+    "Vereinsstatistiken und Werdegang",
+]
+
+[release.it]
+notes = [
+    "Rose e Panchina migliorate",
+    "Configuratore passive e squadre",
+    "Scorciatoie ai modi di gioco",
+    "Nuove formazioni e divise",
+    "Statistiche e storia del club",
+]
+
+[release.pt]
+notes = [
+    "Plantéis e Banco melhorados",
+    "Configurador de passivas e equipas",
+    "Atalhos para os modos",
+    "Novas formações e equipamentos",
+    "Estatísticas e percurso do clube",
+]
+
+[release.ja]
+notes = [
+    "編成とベンチを改良",
+    "パッシブとチームの設定ツール",
+    "モードへのショートカット",
+    "新しいフォーメーションとユニフォーム",
+    "クラブの成績と歩み",
+]
+
+[release.zh_hans]
+notes = [
+    "改进阵容与替补席",
+    "被动与球队规划器",
+    "模式快捷入口",
+    "新阵型与球衣",
+    "俱乐部统计与历程",
+]
+
+[release.zh_hant]
+notes = [
+    "改進陣容與替補席",
+    "被動與球隊規劃器",
+    "模式快捷入口",
+    "新陣型與球衣",
+    "俱樂部統計與歷程",
+]

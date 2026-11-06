@@ -1,0 +1,53 @@
+schema = "VRFW.option/2"
+# Telop engine settings (Mods options tab); values are stored in mod_options/telop_engine.json and read live.
+# Master switch: off hides every name banner (level badges stay) and disables its children; takes effect from the next telop.
+[[option]]
+id = "show_banners"                           # row key telop_engine.show_banners
+visual = true                                 # only what this player sees / hears: not compared in online rooms
+type = "toggle"
+label = "show_banners"                        # text key
+help = "show_banners_help"
+default = 1
+order = 110
+
+# Hide aura banners (aura_*: miximax, armour, kizuna, power-up).
+[[option]]
+id = "hide_aura"                              # row key telop_engine.hide_aura
+visual = true                                 # only what this player sees / hears: not compared in online rooms
+type = "toggle"
+label = "hide_aura"
+help = "hide_aura_help"
+default = 0
+parent = "telop_engine.show_banners"
+order = 111
+
+# Hide special-move name banners (keshin, totems and auras keep theirs).
+[[option]]
+id = "hide_technique"                         # row key telop_engine.hide_technique
+visual = true                                 # only what this player sees / hears: not compared in online rooms
+type = "toggle"
+label = "hide_technique"
+help = "hide_technique_help"
+default = 0
+parent = "telop_engine.show_banners"
+order = 112
+
+# Custom telop language: 0 = original telops, 1 = game language, plus one value per language declared by enabled mods (`[content.languages] telops`), added at boot; shown disabled when no mod declares one.
+[[option]]
+id = "custom_banners"                         # row key telop_engine.custom_banners
+visual = true                                 # only what this player sees / hears: not compared in online rooms
+type = "list"
+label = "custom_banners"                      # text key
+help = "custom_banners_help"
+values = [
+    { value = 0, name = "custom_banners_off", text = "Off" },
+    { value = 1, name = "custom_banners_game", text = "Game language" },
+]
+default = 1
+# Disabled unless an enabled mod declares telop languages.
+enabled_if = "languages:telops"
+# Child of show_banners.
+parent = "telop_engine.show_banners"
+order = 113
+
+# The level badge row (order 114) is declared by a mod as a child of show_banners.

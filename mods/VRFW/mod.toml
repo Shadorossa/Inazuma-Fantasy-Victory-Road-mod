@@ -1,0 +1,146 @@
+id = "VRFW"
+former_ids = ["vr_framework"]
+# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the game's language (text\rows\mod_info.toml)
+name = "VRFW"
+version = "0.2.2"
+author = "Shadorossa"
+author_steam = "76561199013321372"
+description = "The base of the VR ModLoader's mods, in one mod: characters and teams declared by mods and their rarity (chara), mod texts in 9 languages (text), the save slots (the slot screen before the game starts), per-mod save data tied to the slot and the mods' save flags (save), global game rules declared by mods: parameters (game_param and the other property tables), controls and buttons (system), mod audio and voice packs (audio), match rulesets (match), special move animations (anim), row changes in any game table (tables), game modes declared by mods (modes), special move name banners, the «Mod options» tab and the title menu's «Mods» screen (graphics). Built into the VR ModLoader (winmm.dll): no DLL of its own. Needed by the mods that use any of its parts."
+# the base loads first: the mods that use it load after it (and win their conflicts)
+priority = -10
+tags = ["Framework"]
+updated = "2026-11-06"
+# No plugin key: the framework's code is linked into the ModLoader (winmm.dll) and runs for the mod with this id.
+# The framework API version this folder's content is written for (checked like any mod's requires_api)
+requires_api = ">=1"
+# The parts' public names (VRFW.<part>, the framework's version), then the old engine names as frozen aliases
+# (an old separate engine folder in mods\ is skipped).
+provides = [
+    "VRFW.rarity",
+    "VRFW.character",
+    "VRFW.look",
+    "VRFW.team",
+    "VRFW.anim",
+    "VRFW.technique",
+    "VRFW.item",
+    "VRFW.fx",
+    "VRFW.model",
+    "VRFW.table",
+    "VRFW.mode",
+    "VRFW.transform",
+    "VRFW.system",
+    "VRFW.theme",
+    "VRFW.image",
+    "VRFW.menu",
+    "VRFW.telop",
+    "VRFW.text",
+    "VRFW.save",
+    "VRFW.audio",
+    "VRFW.match",
+    "rarity_engine=1.0.0",
+    "character_engine=1.5.0",
+    "look_engine=1.0.0",
+    "team_engine=1.0.0",
+    "anim_engine=1.1.0",
+    "technique_engine=2.1.0",
+    "item_engine=1.0.0",
+    "fx_engine=1.0.0",
+    "model_engine=1.0.0",
+    "table_engine=1.0.0",
+    "mode_engine=1.0.0",
+    "transform_engine=1.1.0",
+    "system_engine=1.0.0",
+    "armed_voice",
+    "voice_packs",
+    "match_rules",
+    "theme_engine=1.0.0",
+    "image_engine=1.0.0",
+    "menu_engine=1.0.0",
+    "telop_engine=1.2.0",
+    "text_engine=1.1.0",
+    "save_engine=1.3.0",
+    "audio_engine=1.3.0",
+    "match_engine=1.2.1",
+    "mod_options=1.0.0",
+    "mods_menu=1.3.0",
+    "changelog=1.0.1",
+]
+# Lua patch roots, one per topic under assets\lua\; run in this order.
+# Game-path files (the sound_queue_sheet placeholder, full files of the Lua build) are in assets\data\ (read by default: no files_roots).
+lua_roots = ["assets/lua/option", "assets/lua/sound", "assets/lua/mods_screen", "assets/lua/changelog", "assets/lua/save", "assets/lua/mode", "assets/lua/menu", "assets/lua/archetype", "assets/lua/synergy"]
+# CMND_EVT_ANIM_* / CMND_EVT_CHARA_* / CMND_EVT_TEAM_* / CMND_EVT_RARITY_* / CMND_EVT_ITEM_* / CMND_EVT_TEXT_* / CMND_EVT_MODE_* / CMND_EVT_OPT_* / CMND_EVT_VOICE_* / CMND_EVT_MATCH_* / CMND_VRFW_MM_* need the Lua bridge
+loader_modules = ["lua_bridge"]
+# loader_min: the framework needs ModLoader 2.0.0 (an older loader would load this folder as data only).
+loader_min = "2.0.0"
+# Native access used by content\game: byte patches, functions, hooks, commands and state keys.
+permissions = ["patch", "memory", "call", "command", "state", "hook"]
+# content\ folders the framework's scripts and run times read in every mod (not types, no declaration schema)
+[layout]
+script_folders = ["archetypes", "camera_drives", "community_links", "contact_maps", "editor", "random_teams", "redeem_codes", "screen_art", "story_start", "talk_templates"]
+
+# ---- debug switches (docs/framework/debug-flags.md) ----------------------------------------------------------------------
+# The framework's config switches a debug flag forces on (e.g. while a debug mod is enabled); config.toml keeps them off.
+[[VRFW.DebugSwitch]]
+Flag = "reveal_all"
+Config = "debug.reveal_all"
+
+[[VRFW.DebugSwitch]]
+Flag = "all_chains"
+Config = "debug.all_chains"
+
+[[VRFW.DebugSwitch]]
+Flag = "free_gacha"
+Config = "debug.free_gacha"
+
+# ---- mod tags (Mods panel: «Crear › Supertécnicas» (Create › Special moves) editor, the mod info panels) ----------------
+# The tags any mod may carry: a label (a text key of text\rows\mod_tags.toml), an order and the rules that give it to a
+# mod from its own files (any rule matching = the tag). Other mods declare more tags the same way in their mod.toml; a
+# mod adds / removes tags by hand with [VRFW.Mod] Tags = [...] / NoTags = [...].
+[[VRFW.ModTag]]
+Id = "new_hissatsu"
+Text = "VRFW.tag_new_hissatsu"
+Short = "VRFW.tag_new_hissatsu_short"
+Order = 10
+# a new special move
+[[VRFW.ModTag.Detect]]
+Dir = "techniques"
+Tables = ["technique"]
+
+[[VRFW.ModTag]]
+Id = "edited_hissatsu"
+Text = "VRFW.tag_edited_hissatsu"
+Short = "VRFW.tag_edited_hissatsu_short"
+Order = 20
+# an edit that sets anything but the visual keys (numbers, element, users, names, gameplay effects…)
+[[VRFW.ModTag.Detect]]
+Dir = "techniques"
+Tables = ["edit"]
+Outside = ["trajectory", "goal_event", "ground_trail", "color", "ball", "effect_variant", "event", "fail_event", "telop", "icon", "effect_flags"]
+Ignore = ["technique", "default_lang", "name"]
+# a removed move, a changed keshin / armed command, an override, a passive of a move
+[[VRFW.ModTag.Detect]]
+Dir = "techniques"
+Tables = ["remove", "aura", "aura_command", "aura_change", "override", "passive"]
+
+[[VRFW.ModTag]]
+Id = "hissatsu_vfx"
+Text = "VRFW.tag_hissatsu_vfx"
+Short = "VRFW.tag_hissatsu_vfx_short"
+Order = 30
+# an edit that only sets visual keys (flight, colours, effects, events, banner)
+[[VRFW.ModTag.Detect]]
+Dir = "techniques"
+Tables = ["edit"]
+Only = ["trajectory", "goal_event", "ground_trail", "color", "ball", "effect_variant", "event", "fail_event", "telop", "icon", "effect_flags"]
+Ignore = ["technique", "default_lang", "name"]
+# the scenes of the moves: cutscene environment, keeper scenes, hand-offs
+[[VRFW.ModTag.Detect]]
+Dir = "techniques"
+Tables = ["event_env", "keeper_scene", "handoff"]
+# effects (fx type) and special-move banners (telop type)
+[[VRFW.ModTag.Detect]]
+Dir = "effects"
+[[VRFW.ModTag.Detect]]
+Dir = "telop"
+[[VRFW.ModTag.Detect]]
+Dir = "telops"

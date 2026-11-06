@@ -1,0 +1,70 @@
+# Known engine limits; the core reports `table_limit` (warn) when a served table nears or passes one (schema VRFW.engine_limits).
+# A mod that raises a limit ships the same `[limit.<id>]` with a new `max` (merged key by key, later mod wins).
+# Keys of a limit:
+#   table     = table index id (`folder/id`)
+#   measure   = "rows", "max_value" (largest value of `column`; uses value + 1 slots), "distinct_values" (different
+#               non-zero values of `column`: the numbers taken of a spread number space) or "rows_per_group" (see [limit.<id>.group])
+#   column    = schema column name (measures "max_value" and "distinct_values")
+#   where     = optional { column = int, ... }: only rows whose cells equal these values
+#   max       = engine capacity (max_value: slots, so the largest valid value is max - 1)
+#   declared  = optional [limits] key of defaults\limits.toml whose effective value raises `max`
+#   max_state = optional game_state key whose value (> 0) replaces `max` for the session
+#   ceiling   = optional: the most the engine takes whatever is declared
+#   retail    = optional: the retail limit, shown in the message when it differs
+#   what      = what breaks past the limit (shown in the message)
+#   doc       = page with the evidence
+# [limit.<id>.group] (rows_per_group):
+#   fixed  = [{ column, value, group }]: rows whose `column` = `value` belong to `group`
+#   join   = { key, table, slice, match, value }: group = `value` of the parent row of `table` whose `slice` child rows hold the row's `key` in `match`
+#   ignore = groups never reported
+# Measured only when the table (or the joined table) was served this start.
+
+[settings]
+# Share of a limit at or above which a table is reported as near it.
+warn_ratio = 0.9
+
+[limit.opponent_tab]
+# Rows of one tab of the CPU opponent list.
+table = "soccer/soccer_opponent_info"
+measure = "rows_per_group"
+max = 256
+declared = "opponent_rows"
+ceiling = 32767
+retail = 256
+what = "one tab of the CPU opponent list keeps at most this many rows; the rest never shows"
+doc = "docs/framework/limits.md"
+
+[limit.opponent_tab.group]
+fixed = [{ column = "category", value = 0, group = 8 }]
+join = { key = "battleId", table = "vsroute/vs_route_piece", slice = "eventInfoRef", match = "paramCrc1", value = "routeType" }
+# 255 = normal board piece, listed in no tab
+ignore = [255]
+
+[limit.clear_bits]
+# sort_no indexes the match clear bits. The allocator spreads new numbers over 2560..32767 (crc32 of the key), so the
+# largest sort_no is always near the top: what fills up is the count of different numbers taken.
+table = "soccer/soccer_game_difficulty"
+measure = "distinct_values"
+column = "sort_no"
+max = 32767
+retail = 2559
+what = "sort_no 1..32767 each have a match clear bit (2560..32767: the framework's extension, needs the slot service); when every number is taken new games get no clear bit"
+doc = "docs/framework/clear-bits.md"
+
+[limit.menu_registry]
+table = "menu/menu_create_info"
+measure = "rows"
+max = 384
+max_state = "loader.menu_capacity"
+retail = 384
+what = "every registered menu takes a slot of a fixed pool at boot; past it the game dies silently at boot"
+doc = "docs/game/ui/menu-layer-limits.md"
+
+[limit.scene_archive]
+# Retail list capacity is raised to the served table's rows (16-bit index).
+table = "scene_archive/scene_archive"
+measure = "rows"
+max = 32767
+retail = 128
+what = "the «Archivo de escenas» list index is 16-bit (the cap patch's MAX_ROWS); retail lists nothing past 128 rows"
+doc = "docs/game/ui/scene-archive-cap.md"

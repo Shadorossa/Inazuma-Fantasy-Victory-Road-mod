@@ -1,0 +1,41 @@
+# BetterQoL: icons of the three game kit items the game ships without one (their keys are not in icon_item07.g4tx), made
+# at the first start and after a game update from the player's own game files: each takes the icon of the game kit of
+# the same model (docs/framework/types/image.md section 2.1). The keys reach this atlas through
+# content\sprite_redirects\kit_icons.toml.
+schema = "VRFW.image/1"
+
+# «Equipación Equipo Ogro Redux»: Team Ogre's model u031001
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/better_qol_kit_icons.g4tx"
+name = "uni_u031801"
+recipe = "icon_of_uni_u031001"
+size = [256, 256]
+
+# «Equipación Caballeros de la Mesa Redonda»: the GO Raimon model u040101_10
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/better_qol_kit_icons.g4tx"
+name = "uni_u050801"
+recipe = "icon_of_uni_u040101"
+size = [256, 256]
+
+# the second «Equipación Vendedores Nagumohara»: the same uniform as uni_u111201
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/better_qol_kit_icons.g4tx"
+name = "uni_u111201_st02"
+recipe = "icon_of_uni_u111201"
+size = [256, 256]
+
+[[recipe]]
+name = "icon_of_uni_u031001"
+game = "#/menu/200_icon/02_icon_item/icon_item07.g4tx"
+texture = "uni_u031001"
+
+[[recipe]]
+name = "icon_of_uni_u040101"
+game = "#/menu/200_icon/02_icon_item/icon_item07.g4tx"
+texture = "uni_u040101"
+
+[[recipe]]
+name = "icon_of_uni_u111201"
+game = "#/menu/200_icon/02_icon_item/icon_item07.g4tx"
+texture = "uni_u111201"

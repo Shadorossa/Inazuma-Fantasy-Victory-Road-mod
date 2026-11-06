@@ -1,0 +1,41 @@
+schema = "VRFW.game/1"
+
+# Commands read by the contact map screen from mods' content\contact_maps\*.toml (schema VRFW.contact_map/1).
+
+[[VRFW.Command]]
+name = "CMND_VRFW_CONTACT_SETS"     # () -> { {key, crc, title, maps}, ... }
+handler = "ContactMap.Sets"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_CONTACT_MAPS"     # (set crc / key, lang code) -> the set: title, currencies, its maps
+handler = "ContactMap.Maps"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_CONTACT_HUB"      # (set crc / key) -> { menu, title }: the set's hub menu (0 = the contact map screen)
+handler = "ContactMap.Hub"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_CONTACT_FIND"     # (set crc / key, game) -> { map = key, zone = n }: the team page of a match
+handler = "ContactMap.Find"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_CONTACT_MAP"  # (map crc / key, lang code) -> zones, items for sale, nodes (players, gates, links)
+handler = "ContactMap.Map"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_CONTACT_KIT"  # (card[, team]) -> { uniform, flags, source }: kit of the named team, else of the card's own team
+handler = "ContactMap.Kit"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_MODEL_POSE_BODIES"  # (menu model pose id) -> { body types the pose has }
+handler = "ContactMap.PoseBodies"
+
+# 1 when config.toml [debug] reveal_all is on (view-only debug mode; writes nothing to the save).
+[[VRFW.State]]
+key = "vrfw.debug.reveal_all"
+value = { config = "debug.reveal_all", default = 0, min = 0, max = 1 }
+fallback = 0
+
+[[VRFW.Command]]
+name = "CMND_VRFW_CONTACT_HUB_FILTER" # (set crc / key, or 0) -> live: the free-match list keeps only the set's team pages
+handler = "ContactMap.HubFilter"

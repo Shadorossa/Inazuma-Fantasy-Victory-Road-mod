@@ -1,0 +1,4 @@
+# Independent Battle Bay Deluxe data; edit this team's own declaration.
+schema = "VRFW.team/2"
+default_lang = "en"
+VRFW = { BbUnlock = { Open = ["draft"] } }

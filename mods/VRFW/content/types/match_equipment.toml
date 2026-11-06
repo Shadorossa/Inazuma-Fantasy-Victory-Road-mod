@@ -1,0 +1,21 @@
+# Declaration schema of VRFW.match_equipment/1 (content\match_equipment): the equipment the rival players of a match
+# wear for that match only (scripts\lib\match_equipment.lua; docs/game/mods/rival-equipment.md). One rule per file.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.match_equipment/1"
+folder = "content/match_equipment"
+label = "Match equipment"
+label_es = "Equipamiento en partido"
+doc = "The equipment items a side wears in the matches that fit the rule."
+doc_es = "Los objetos de equipamiento que lleva un bando en los partidos que cumplen la regla."
+
+[entry.Match]
+entry_table = "match"
+single = true
+play_mode = { type = "int", doc = "the engine's play-mode byte (Game.PlayMode) the match must have; left out = any" }
+difficulty = { type = "string", required = true, doc = "a [MatchDifficulty.<Id>] key (content/defaults/match_difficulty.toml) or its Difficulty number" }
+side = { type = "string", default = "rival", values = ["rival"], doc = "the side that wears it" }
+
+[entry.Game]
+entry_table = "game"
+game = { type = "string", required = true, doc = "the game key (soccer_game_config) the rule applies to" }
+players = { type = "records", required = true, fields = { card = { type = "int", doc = "the chara_param id" }, items = { type = "strings", doc = "the 4 equip slots in order (boots, bracelet, pendant, special): item keys or ids, \"\" = empty" } } }

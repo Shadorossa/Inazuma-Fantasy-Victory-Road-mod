@@ -1,0 +1,421 @@
+-- Combo partners of the mod BetterQoL, general_window part (docs/game/mechanics/combo-partners.md «Confirm popup»).
+-- SOURCE of the hook file util_cp_gw.lua (research/grafts/util_combo_partners/gen_hooks.py fills the @crc
+-- placeholders; edit this file, then run the script).
+--
+-- A partner picker (BetterQoL's on the retail «Tabla de habilidades» and on Character Reforged's skill table) opens the
+-- retail chara-card window, type 191 (the card band; the text in _text_win02 under it; Sí / No by MSG_KIND 2) with
+-- the player's handle as the window's card, after putting the performers in the parameter store:
+--   util_cp_gw_n            number of cards (1..4)
+--   util_cp_gw_h1..h4       chara status handle per card (0 = «?», a random partner)
+--   util_cp_gw_i1..i4       icons code (element * 10 + position): not drawn (the card draws its own), cleared
+-- When those keys are there, setupChangeAvatarRarity (the type 190 / 191 setup) takes and clears them, opens layer
+-- util_cp_card (BetterQoL menus\102_team\combo_partners.toml: the Plantilla's player card object, 4 instances in
+-- general_window, free origin) for the performers only, then runs the retail setup, so the window is the same band
+-- as every card window. The retail card is kept hidden; its place (101 px above the window centre) measures the
+-- window. Laid out around that centre (screen px, y down; design centre 960, 540, band y 220..860, question centred
+-- in y 484..724):
+--   * the cards side by side, centred, CARD_SPACING px apart, their centres CARD_DY above the window centre (the band
+--     above the question), at the scale of FIT (BetterUI's compact card, content\menus\confirm_cards.toml) or
+--     RETAIL_FIT (the retail card) for their count;
+--   * «Sí» / «No» (general_win_yn_btn: type 191 has no buttons of its own, their joints sit off the band) moved under
+--     the question, centre x -/+ YN.DX, centre y + YN.DY, measured and corrected (YN.PROBE_AT frames), over the cards
+--     (the same placement as Character Reforged's pair confirmation, pair_confirm_window_hooks.lua).
+-- Every card instance is parked off screen from its setup on and shown once the window's open animation has ended.
+--   * the window band is cut shorter (UTIL_CPW.BAND: its lower edge up to YN.DY below the centre) so Sí / No sit on that
+--     edge; restored when the window closes.
+-- Closed with the window (CloseBasaraShopLayer). Without the keys every window is the retail one.
+-- Hook file (graft [[hooks]]): general_window has no VR-Framework host, so the globals are wrapped directly, once
+-- per VM. Nothing calls the engine at chunk load.
+do
+  UTIL_CPW = UTIL_CPW or {}
+  UTIL_CPW.LAYER = @crc:util_cp_card@
+  UTIL_CPW.KEY_N = @crc:util_cp_gw_n@
+  UTIL_CPW.KEY_H = {@crc:util_cp_gw_h1@, @crc:util_cp_gw_h2@, @crc:util_cp_gw_h3@, @crc:util_cp_gw_h4@}
+  UTIL_CPW.KEY_I = {@crc:util_cp_gw_i1@, @crc:util_cp_gw_i2@, @crc:util_cp_gw_i3@, @crc:util_cp_gw_i4@}
+  UTIL_CPW.N = 4
+  UTIL_CPW.PRIO = {CARD = 885, BUTTON = 890}
+  UTIL_CPW.WINDOW = 292844459 -- general_win (the window layer of type 191)
+  UTIL_CPW.RETAIL_CARD = 1973487846 -- team00_01_chara_card_for_soccer (general_window's own card)
+  UTIL_CPW.CARD_ABOVE_CENTRE = 101 -- the retail card's joint (_pos_attach_chr01) above the window centre
+  UTIL_CPW.DESIGN_CENTRE = {960, 540}
+  UTIL_CPW.CARD_DY = -188
+  UTIL_CPW.CARD_SPACING = 24
+  -- {scale, body width at scale 1} by card count
+  UTIL_CPW.FIT = {[1] = {1.16, 154}, [2] = {1.16, 154}, [3] = {1.16, 154}, [4] = {0.96, 154}}
+  UTIL_CPW.RETAIL_FIT = {[1] = {1.04, 212}, [2] = {1.04, 212}, [3] = {0.92, 212}, [4] = {0.8, 212}}
+  UTIL_CPW.YN = {LAYER = 1465363740 --[[general_win_yn_btn]], CURSOR = 1319214747 --[[general_win_btn_cursor]],
+    TEXT = 2921358143 --[[_text_cmd_btn01]], DX = 300, DY = 150, PROBE_AT = {30, 36, 42, 90}}
+  -- the window band, cut shorter (owner 2026-10-15): the retail band is the quad _win_base01 (2640 x 640 px, top edge
+  -- 320 above the window centre), its shadow and its two 20 px edge lines; the retail open animation draws it at ANIM
+  -- of that height. NODE_SCALE / NODE_TRANSLATION on the quads (local px, y up) cut the bottom edge up to BOTTOM px
+  -- below the window centre (drawn px), so Si / No (YN.DY = BOTTOM) straddle it; the top edge stays. Undone when the
+  -- window closes.
+  UTIL_CPW.BAND = {LAYER = 292844459 --[[general_win]], ANIM = 0.6875, BOTTOM = 150, TOP = 320, SHADOW_TOP = 376, SHADOW_MARGIN = 56,
+    WIDTH = 2640, HEIGHT = 640, SHADOW_HEIGHT = 752, LINE_X = -1320, LINE_Y = 20,
+    BASE = @crc:_win_base01@, SHADOW = @crc:_win_base_shadow01@, LINE_DOWN = @crc:_win_base_line01_d@,
+    NODE_SCALE = 2885415772, NODE_TRANSLATION = 1856671416}
+  UTIL_CPW.SHOW_AFTER = 24 -- frames: the cards show at the window's open end, at the latest after these
+  UTIL_CPW.OFF = {-4000, 4000} -- where a card instance not drawn is parked
+  UTIL_CPW.C = {EXISTS = 262659071, OPEN = 629267548, CLOSE_ARRAY = 2323943931, VIS = 711242136, POS = 1389957207,
+    SCALE = 3778714801, PRIO = 1491630496, TEXT_PRIO = 1848885328, IS_OPEN = 2640875187, GPOS = 4002164178}
+  UTIL_CPW.LOG = 3661580131 -- CMND_EVT_LOG -> loader.log
+  -- the card's nodes (team00_01 L card; names of general_window NameSetting_CharaCard)
+  UTIL_CPW.FACE_SLOT = 21929195 --[[icon_chr_dmy_l01]]
+  UTIL_CPW.ICON_MESHES = {32585899 --[[_icon_chr_type_dmy_l01]], 3895971012 --[[_icon_base_l01]],
+    1721769611 --[[_icon_chr_position_dmy_l01]]}
+  UTIL_CPW.GREY = {643056375, 0.55} -- the card's grey-out tint (retail SetCharaCardGrayOutColor), for «?»
+  UTIL_CPW.UNKNOWN = {tex = 2320109963 --[[#/menu/200_icon/15_icon_common/icon_common.g4tx]],
+    spr = @crc:util_cp_unknown@}
+
+  function UTIL_CPW.Log(...)
+    pcall(funcLuaCommand, UTIL_CPW.LOG, "BetterQoL combo_partners", "gw", ...)
+  end
+
+  local function Cmd(...)
+    local ok, a, b = pcall(funcLuaMenuCommand, ...)
+    if ok then
+      return a, b
+    end
+    return nil
+  end
+
+  function UTIL_CPW.Reset()
+    UTIL_CPW.cards = nil
+    UTIL_CPW.opened, UTIL_CPW.filled, UTIL_CPW.logged = {}, {}, {}
+    UTIL_CPW.shown, UTIL_CPW.frames = false, 0
+    UTIL_CPW.anchor, UTIL_CPW.anchor_tries = nil, 0
+    UTIL_CPW.fix, UTIL_CPW.fixes = {}, {}
+  end
+  if UTIL_CPW.opened == nil then
+    UTIL_CPW.Reset()
+  end
+
+  function UTIL_CPW.Take(key)
+    if not VRFW_Param.Has(key) then
+      return nil
+    end
+    local v = tonumber(VRFW_Param.Get(key))
+    VRFW_Param.Clear(key)
+    return v
+  end
+
+  -- the performers a picker left in the parameter store (nil = none: a retail window)
+  function UTIL_CPW.Read()
+    local m = UTIL_CPW.Take(UTIL_CPW.KEY_N)
+    local out = {}
+    for i = 1, UTIL_CPW.N do
+      local h = UTIL_CPW.Take(UTIL_CPW.KEY_H[i]) or 0
+      UTIL_CPW.Take(UTIL_CPW.KEY_I[i])
+      if m ~= nil and i <= m then
+        out[#out + 1] = {hdl = VRFW_Id.u32(h)}
+      end
+    end
+    if m == nil or #out == 0 then
+      return nil
+    end
+    return out
+  end
+
+  -- the handle a «?» card is drawn from (its look only: the portrait, element and position are replaced)
+  function UTIL_CPW.AnyHandle()
+    for _, c in ipairs(UTIL_CPW.cards or {}) do
+      if c.hdl ~= 0 then
+        return c.hdl
+      end
+    end
+    return 0
+  end
+
+  -- card i (0-based) from performer c: the retail card fill of general_window's own card (type 191)
+  function UTIL_CPW.Fill(i, c)
+    local L = UTIL_CPW.LAYER
+    local random = c.hdl == 0
+    local h = random and UTIL_CPW.AnyHandle() or c.hdl
+    if h == 0 then
+      return false, "no handle"
+    end
+    EVT_FC_EXTRA = EVT_FC_EXTRA or {}
+    EVT_FC_EXTRA[L] = true
+    local ok, err = pcall(funcLuaMenuCommand, 3837561292 --[[card by status handle]], L, i, h, true, false, 0, 0, 0,
+      false, false, 0, 0, false, false, 0, false, false, false, false, false, 1)
+    if not ok then
+      return false, tostring(err)
+    end
+    if type(NotVisibleCharaCardInfo) == "function" then
+      pcall(NotVisibleCharaCardInfo, L, i)
+    end
+    for _, m in ipairs({354066630, 2350117244, 3724160950}) do
+      pcall(funcLuaMenuCommand, 2692063727, L, i, m, 3)
+    end
+    pcall(funcLuaMenuCommand, 855005857 --[[collision]], L, i, false)
+    if random then
+      pcall(funcLuaMenuCommand, 4176779611 --[[ResetFaceIcon]], L, i, UTIL_CPW.FACE_SLOT)
+      pcall(funcLuaMenuCommand, 558735651 --[[sprite]], L, UTIL_CPW.UNKNOWN.tex, UTIL_CPW.UNKNOWN.spr,
+        UTIL_CPW.FACE_SLOT, 0, i)
+      for _, m in ipairs(UTIL_CPW.ICON_MESHES) do
+        pcall(funcLuaMenuCommand, 3405944500 --[[CMND_SET_MESH_VISIBLE]], L, m, false, i)
+      end
+      local g = UTIL_CPW.GREY
+      pcall(funcLuaMenuCommand, 801406373 --[[material colour]], L, i, g[1], g[2], g[2], g[2])
+    end
+    return true, random and "random" or "player"
+  end
+
+  -- an instance not drawn: hidden and off screen
+  function UTIL_CPW.Park(L, i)
+    Cmd(UTIL_CPW.C.VIS, L, i, false)
+    Cmd(UTIL_CPW.C.POS, L, UTIL_CPW.OFF[1], UTIL_CPW.OFF[2], 0, i)
+  end
+
+  -- the window centre (screen px, y down): measured from the hidden retail card, else the design centre
+  function UTIL_CPW.Centre()
+    local a = UTIL_CPW.anchor or UTIL_CPW.DESIGN_CENTRE
+    return a[1], a[2]
+  end
+
+  -- measures the window once from the retail card, which is kept hidden; true when the centre was just measured
+  function UTIL_CPW.Anchor()
+    local C = UTIL_CPW.C
+    local open = funcLuaMenuCommand(C.IS_OPEN, UTIL_CPW.RETAIL_CARD, 0) == true
+    if open then
+      Cmd(C.VIS, UTIL_CPW.RETAIL_CARD, 0, false)
+    end
+    if UTIL_CPW.anchor ~= nil or not open or UTIL_CPW.anchor_tries > 60 then
+      return false
+    end
+    UTIL_CPW.anchor_tries = UTIL_CPW.anchor_tries + 1
+    local okg, gx, gy = pcall(funcLuaMenuCommand, C.GPOS, UTIL_CPW.RETAIL_CARD, 0)
+    if not okg or type(gx) ~= "number" or type(gy) ~= "number" then
+      return false
+    end
+    local x, y = gx, -gy + UTIL_CPW.CARD_ABOVE_CENTRE
+    if x < 400 or x > 1520 or y < 200 or y > 900 then
+      if UTIL_CPW.anchor_tries == 1 or UTIL_CPW.anchor_tries == 60 then
+        UTIL_CPW.Log("anchor not plausible", math.floor(x + 0.5), math.floor(y + 0.5), "try", UTIL_CPW.anchor_tries)
+      end
+      return false
+    end
+    UTIL_CPW.anchor = {x, y}
+    UTIL_CPW.Log("anchor", "window centre", math.floor(x + 0.5), math.floor(y + 0.5))
+    return true
+  end
+
+  -- place, scale, raise, fill and show instance i (once it is open)
+  function UTIL_CPW.Draw(i)
+    local cards = UTIL_CPW.cards
+    local c = cards ~= nil and cards[i + 1] or nil
+    local L = UTIL_CPW.LAYER
+    if c == nil or i >= UTIL_CPW.N then
+      UTIL_CPW.Park(L, i)
+      return
+    end
+    local C = UTIL_CPW.C
+    local m = math.min(#cards, UTIL_CPW.N)
+    -- BetterUI's compact cards (its player-card graft defines CLEAN_HUD_PC_IsCardLayer), else the retail card
+    local fits = type(CLEAN_HUD_PC_IsCardLayer) == "function" and UTIL_CPW.FIT or UTIL_CPW.RETAIL_FIT
+    local fit = fits[m] or fits[1]
+    local step = fit[2] * fit[1] + UTIL_CPW.CARD_SPACING
+    local cx, cy = UTIL_CPW.Centre()
+    local x, y = cx + (i - (m - 1) / 2) * step, cy + UTIL_CPW.CARD_DY
+    if UTIL_CPW.filled[i] == nil then
+      local okf, filled, what = pcall(UTIL_CPW.Fill, i, c)
+      UTIL_CPW.filled[i] = {ok = okf and filled == true, what = tostring(what)}
+    end
+    local f = UTIL_CPW.filled[i]
+    Cmd(C.POS, L, x, -y, 0, i)
+    Cmd(C.SCALE, L, fit[1], fit[1], 1, i)
+    Cmd(C.PRIO, L, i, UTIL_CPW.PRIO.CARD, true)
+    Cmd(C.VIS, L, i, f.ok and UTIL_CPW.shown)
+    if UTIL_CPW.shown and not UTIL_CPW.logged[i] then
+      UTIL_CPW.logged[i] = true
+      UTIL_CPW.Log("card drawn", i, string.format("%08X", c.hdl), "of", m, "fill", tostring(f.ok), f.what, "at",
+        math.floor(x + 0.5), math.floor(y + 0.5), "scale", fit[1])
+    end
+  end
+
+  function UTIL_CPW.DrawAll()
+    for i = 0, UTIL_CPW.N - 1 do
+      if UTIL_CPW.opened[i] then
+        UTIL_CPW.Draw(i)
+      end
+    end
+  end
+
+  -- the measured offset that puts (L, i) on (tx, ty); true = settled (within 4 px, at most 2 corrections)
+  function UTIL_CPW.Settle(L, i, tx, ty)
+    local okg, gx, gy = pcall(funcLuaMenuCommand, UTIL_CPW.C.GPOS, L, i)
+    if not okg or type(gx) ~= "number" or type(gy) ~= "number" then
+      return false
+    end
+    local key = L .. ":" .. i
+    local fix = UTIL_CPW.fix[key] or {0, 0}
+    local dx, dy = tx - gx, ty + gy
+    if math.abs(dx) <= 4 and math.abs(dy) <= 4 then
+      return true
+    end
+    UTIL_CPW.fixes[key] = (UTIL_CPW.fixes[key] or 0) + 1
+    if UTIL_CPW.fixes[key] > 2 then
+      return false
+    end
+    UTIL_CPW.fix[key] = {fix[1] + dx, fix[2] + dy}
+    return false
+  end
+
+  -- «Sí» / «No» under the question, centred on the window (the design centre until it is measured), over the cards
+  function UTIL_CPW.Buttons()
+    local B, C = UTIL_CPW.YN, UTIL_CPW.C
+    local wx, wy = UTIL_CPW.Centre()
+    pcall(UTIL_CPW.CutBand, true)
+    for i = 0, 1 do
+      if funcLuaMenuCommand(C.IS_OPEN, B.LAYER, i) == true then
+        Cmd(C.PRIO, B.LAYER, i, UTIL_CPW.PRIO.BUTTON, true)
+        Cmd(C.TEXT_PRIO, B.LAYER, i, B.TEXT, UTIL_CPW.PRIO.BUTTON + 1)
+        Cmd(C.VIS, B.LAYER, i, true)
+        local tx, ty = wx + (i == 0 and -B.DX or B.DX), wy + B.DY
+        if not UTIL_CPW.Settle(B.LAYER, i, tx, ty) then
+          local fix = UTIL_CPW.fix[B.LAYER .. ":" .. i]
+          if fix ~= nil then
+            Cmd(C.POS, B.LAYER, fix[1], -fix[2], 0, i)
+          end
+        end
+      end
+    end
+    if funcLuaMenuCommand(C.IS_OPEN, B.CURSOR, 0) == true then
+      Cmd(C.PRIO, B.CURSOR, 0, UTIL_CPW.PRIO.BUTTON + 2, true)
+    end
+  end
+
+  -- the band cut to B.BOTTOM (cut = true) or back to the retail size (cut = false)
+  function UTIL_CPW.CutBand(cut)
+    local B = UTIL_CPW.BAND
+    local below = cut and B.BOTTOM / B.ANIM or B.TOP -- local px under the window centre the band reaches
+    local top_edge_shift = cut and (B.TOP * B.ANIM - B.BOTTOM) or 0 -- drawn px the lower edge line moves up
+    Cmd(B.NODE_SCALE, B.LAYER, 0, B.BASE, B.WIDTH, B.TOP + below)
+    Cmd(B.NODE_SCALE, B.LAYER, 0, B.SHADOW, B.WIDTH, B.SHADOW_TOP + below + B.SHADOW_MARGIN)
+    Cmd(B.NODE_TRANSLATION, B.LAYER, 0, B.LINE_DOWN, B.LINE_X, B.LINE_Y + top_edge_shift, 0)
+    UTIL_CPW.band_cut = cut
+  end
+
+  function UTIL_CPW.WrapGlobal(name, make)
+    UTIL_CPW.wrapped = UTIL_CPW.wrapped or {}
+    if UTIL_CPW.wrapped[name] then
+      return
+    end
+    local cur = _ENV[name]
+    if cur == nil then
+      return
+    end
+    _ENV[name] = make(cur)
+    UTIL_CPW.wrapped[name] = true
+  end
+
+  -- the type 190 / 191 setup: the performers' cards when a picker left them, then the retail setup (window, card)
+  UTIL_CPW.WrapGlobal("setupChangeAvatarRarity", function(prev)
+    return function(...)
+      UTIL_CPW.Reset()
+      local ok, cards = pcall(UTIL_CPW.Read)
+      if ok and cards ~= nil then
+        local okE, exists = pcall(funcLuaMenuCommand, UTIL_CPW.C.EXISTS, UTIL_CPW.LAYER)
+        if okE and exists == true then
+          UTIL_CPW.cards = cards
+          -- only the instances with a card are opened; the card's node names are registered first, as general_window
+          -- does for its own card (NameSetting_CharaCard)
+          for i = 0, math.min(#cards, UTIL_CPW.N) - 1 do
+            if type(NameSetting_CharaCard) == "function" then
+              pcall(NameSetting_CharaCard, UTIL_CPW.LAYER, i)
+            end
+            Cmd(UTIL_CPW.C.OPEN, UTIL_CPW.LAYER, i)
+          end
+          UTIL_CPW.Log("card window", #cards, "cards: layer opening")
+        else
+          UTIL_CPW.Log("card window", #cards, "cards: layer util_cp_card missing in general_window (menu data)")
+        end
+      elseif not ok then
+        UTIL_CPW.Log("card window read failed", tostring(cards))
+      end
+      return prev(...)
+    end
+  end)
+
+  UTIL_CPW.WrapGlobal("OnSetupLayer", function(prev)
+    return function(a1, a2, ...)
+      local r = table.pack(prev(a1, a2, ...))
+      if a1 == UTIL_CPW.LAYER then
+        UTIL_CPW.Park(a1, a2 or 0)
+      end
+      return table.unpack(r, 1, r.n)
+    end
+  end)
+
+  UTIL_CPW.WrapGlobal("OnOpenLayer", function(prev)
+    return function(a1, a2, ...)
+      local r = table.pack(prev(a1, a2, ...))
+      if a1 == UTIL_CPW.LAYER then
+        UTIL_CPW.Park(a1, a2 or 0)
+        if UTIL_CPW.cards ~= nil then
+          UTIL_CPW.opened[a2 or 0] = true
+          local ok, err = pcall(UTIL_CPW.Draw, a2 or 0)
+          if not ok then
+            UTIL_CPW.Log("card draw failed", tostring(err))
+          end
+        end
+      elseif a1 == UTIL_CPW.RETAIL_CARD and UTIL_CPW.cards ~= nil then
+        Cmd(UTIL_CPW.C.VIS, a1, a2 or 0, false)
+      end
+      return table.unpack(r, 1, r.n)
+    end
+  end)
+
+  -- the cards show when the window's open animation has ended (the band is up), as the retail card does
+  UTIL_CPW.WrapGlobal("OnOpenEndLayer", function(prev)
+    return function(a1, a2, ...)
+      local r = table.pack(prev(a1, a2, ...))
+      if a1 == UTIL_CPW.WINDOW and UTIL_CPW.cards ~= nil and not UTIL_CPW.shown then
+        UTIL_CPW.shown = true
+        pcall(UTIL_CPW.Anchor)
+        pcall(UTIL_CPW.DrawAll)
+      end
+      return table.unpack(r, 1, r.n)
+    end
+  end)
+
+  UTIL_CPW.WrapGlobal("Step", function(prev)
+    return function(...)
+      local r = table.pack(prev(...))
+      if UTIL_CPW.cards ~= nil then
+        UTIL_CPW.frames = UTIL_CPW.frames + 1
+        local okA, measured = pcall(UTIL_CPW.Anchor)
+        local redraw = okA and measured == true
+        if not UTIL_CPW.shown and UTIL_CPW.frames >= UTIL_CPW.SHOW_AFTER then
+          UTIL_CPW.shown = true
+          redraw = true
+        end
+        if redraw then
+          pcall(UTIL_CPW.DrawAll)
+        end
+        for _, at in ipairs(UTIL_CPW.YN.PROBE_AT) do
+          if UTIL_CPW.shown and UTIL_CPW.frames == at then
+            local okb, err = pcall(UTIL_CPW.Buttons)
+            if not okb then
+              UTIL_CPW.Log("buttons failed", tostring(err))
+            end
+          end
+        end
+      end
+      return table.unpack(r, 1, r.n)
+    end
+  end)
+
+  UTIL_CPW.WrapGlobal("CloseBasaraShopLayer", function(prev)
+    return function(...)
+      if UTIL_CPW.cards ~= nil then
+        Cmd(UTIL_CPW.C.CLOSE_ARRAY, UTIL_CPW.LAYER)
+        if UTIL_CPW.band_cut then
+          pcall(UTIL_CPW.CutBand, false)
+        end
+        UTIL_CPW.Reset()
+      end
+      return prev(...)
+    end
+  end)
+end

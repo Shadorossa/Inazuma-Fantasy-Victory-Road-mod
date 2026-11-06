@@ -1,0 +1,16 @@
+# The bond star (Estrella de vínculo, item tk_st000001) as a text icon, [$gaiji_chronicle_deluxe_bond_star]: the gacha
+# rows say «x1 - 5 <star>». Made at build from the PLAYER's own retail item icon (icon_item10, the sheet of the `tk`
+# prefix), cut to the 64 x 64 of the other text icons; the sprite is packed into a new texture of gaiji_game.g4tx.
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "bond_star"
+game = "#/menu/200_icon/02_icon_item/icon_item10.g4tx"
+texture = "tk_st000001"
+ops = [{ op = "resize", size = [64, 64] }]
+
+[[sprite]]
+atlas = "#/font/gaiji_game.g4tx"
+name = "gaiji_chronicle_deluxe_bond_star"
+size = [64, 64]
+recipe = "bond_star"

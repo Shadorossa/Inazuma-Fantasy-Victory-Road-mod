@@ -1,0 +1,16 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "rarity_filter"
+  Type = "table"
+  Label = { es = "Filtro de rareza", en = "Rarity filter" }
+  Help = { es = "Pestaña «Rareza» de las ventanas de filtro.", en = "The «Rarity» tab of the filter windows." }
+  [[Shape.Field]]
+  Key = "rarity_filter.first_listed_rarity"
+  Type = "int"
+  Label = { es = "Primera rareza listada", en = "First listed rarity" }
+  Help = { es = "Primera rareza que aparece en las pestañas de filtro de rareza.", en = "First rarity listed in the rarity filter tab." }

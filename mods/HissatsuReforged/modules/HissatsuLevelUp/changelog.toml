@@ -1,0 +1,67 @@
+schema = "VRFW.changelog/1"
+# Hissatsu Level Up: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Supertécnicas que suben de nivel",
+    "Libros de mejora y evolución",
+    "Evoluciones de técnicas visibles",
+]
+
+[release.en]
+notes = [
+    "Special moves that level up",
+    "Upgrade and evolution books",
+    "Visible move evolutions",
+]
+
+[release.fr]
+notes = [
+    "Techniques qui montent de niveau",
+    "Livres d'amélioration et d'évolution",
+    "Évolutions de techniques visibles",
+]
+
+[release.de]
+notes = [
+    "Spezialtechniken mit Levelaufstieg",
+    "Verbesserungs- und Evolutionsbücher",
+    "Sichtbare Technik-Evolutionen",
+]
+
+[release.it]
+notes = [
+    "Super tecniche che salgono di livello",
+    "Libri di potenziamento ed evoluzione",
+    "Evoluzioni delle tecniche visibili",
+]
+
+[release.pt]
+notes = [
+    "Supertécnicas que sobem de nível",
+    "Livros de melhoria e evolução",
+    "Evoluções de técnicas visíveis",
+]
+
+[release.ja]
+notes = [
+    "必殺技のレベルアップ",
+    "強化・進化の本",
+    "技の進化を表示",
+]
+
+[release.zh_hans]
+notes = [
+    "必杀技可升级",
+    "强化与进化书",
+    "显示技能进化",
+]
+
+[release.zh_hant]
+notes = [
+    "必殺技可升級",
+    "強化與進化書",
+    "顯示技能進化",
+]

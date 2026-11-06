@@ -1,0 +1,8 @@
+schema = "VRFW.game/2"
+
+# Number fits (scripts/number_fit.lua; declarations content/number_fit/*.toml, VRFW.number_fit/1). The menus read the
+# list once per script VM (VRFW_NumberFit, lua\menu\_all\97_number_fit.lua).
+
+[[VRFW.Command]]
+name = "CMND_VRFW_NUMBER_FIT"    # (i) -> layer crc, digits, both (bool) of declaration i (1-based); layer 0 past the end
+handler = "NumberFit.Cmd"

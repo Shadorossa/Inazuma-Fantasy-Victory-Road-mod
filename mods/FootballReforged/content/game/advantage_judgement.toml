@@ -1,0 +1,14 @@
+# Football Reforged > what scripts\advantage_judgement.lua touches of the game: the rule word of the match.
+schema = "VRFW.game/2"
+
+# The match info block [[g_gameRoot]+Game.RootMatch]
+[[VRFW.Global]]
+name = "football_reforged_match_info"
+base = "game_root"
+chain = ["ROOT_MATCH"]
+
+# mi+0: the match's rule bits. Bit 2 = a level match ends in the Advantage Judgement (docs/game/mechanics/advantage-judgement.md).
+[[VRFW.Struct]]
+name = "FootballReforgedMatchRules"
+size = 0x4
+fields = { rule_bits = { at = 0x0, type = "u32" } }

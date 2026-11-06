@@ -1,0 +1,28 @@
+# Declaration schema of VRFW.story_start/1 (content\story_start\**\*.toml; docs/framework/shared-helpers.md): [[VRFW.StoryStart]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.story_start/1"
+folder = "content/story_start"
+label = "Story start"
+label_es = "Inicio de historia"
+
+[entry.StoryStart]
+version = { type = "int" }
+level = { type = "int" }
+normal_level = { type = "int" }
+phase = { type = "ints" }
+story_clear_flag = { type = "int" }
+flags_on = { type = "ints" }
+flags_off = { type = "ints" }
+byte_flags = { type = "records", fields = { flag = { type = "int" }, value = { type = "int" } } }
+help = { type = "ints" }
+quests = { type = "records", fields = { quest = { type = "int" }, state = { type = "int" } } }
+search_words = { type = "ints" }
+story_matches = { type = "ints" }
+items = { type = "records", fields = { item = { type = "int" }, count = { type = "int" } } }
+team_info = { type = "records", fields = { args = { type = "ints" } } }
+team_set = { type = "records", fields = { args = { type = "ints" } } }
+story_roster = { type = "records", fields = { card = { type = "int" }, arg3 = { type = "bool" }, arg4 = { type = "bool" }, story_bank = { type = "bool" }, arg8 = { type = "bool" }, arg9 = { type = "bool" }, team_set = { type = "int" }, slot = { type = "int" }, arg12 = { type = "int" }, arg16 = { type = "bool" }, arg19 = { type = "bool" } } }
+scouts = { type = "records", fields = { card = { type = "int" }, character = { type = "int" }, join_flag = { type = "int" }, team_set = { type = "int" } } }
+normal_copies = { type = "ints" }
+characters = { type = "records", fields = { character = { type = "int" }, cards = { type = "ints" } } }
+trophies = { type = "records", fields = { trophy = { type = "int" }, tier = { type = "int" } } }

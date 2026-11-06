@@ -1,0 +1,67 @@
+schema = "VRFW.changelog/1"
+# Hissatsu Effects: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Efectos nuevos en supertécnicas",
+    "Tiros, regates y paradas con efecto propio",
+    "Explicación del efecto en la tarjeta",
+]
+
+[release.en]
+notes = [
+    "New effects on special moves",
+    "Shots, dribbles, saves with own effects",
+    "Effect explained on the card",
+]
+
+[release.fr]
+notes = [
+    "Nouveaux effets sur les techniques",
+    "Tirs, dribbles, arrêts à effets",
+    "Effet expliqué sur la carte",
+]
+
+[release.de]
+notes = [
+    "Neue Effekte bei Spezialtechniken",
+    "Schüsse, Dribblings, Paraden mit Effekt",
+    "Effekt auf der Karte erklärt",
+]
+
+[release.it]
+notes = [
+    "Nuovi effetti sulle super tecniche",
+    "Tiri, dribbling, parate con effetti",
+    "Effetto spiegato sulla carta",
+]
+
+[release.pt]
+notes = [
+    "Novos efeitos nas supertécnicas",
+    "Remates, dribles, defesas com efeitos",
+    "Efeito explicado no cartão",
+]
+
+[release.ja]
+notes = [
+    "必殺技に新効果",
+    "シュート・ドリブル・キャッチに効果",
+    "カードで効果を説明",
+]
+
+[release.zh_hans]
+notes = [
+    "必杀技新增效果",
+    "射门、过人、扑救各有效果",
+    "卡片上说明效果",
+]
+
+[release.zh_hant]
+notes = [
+    "必殺技新增效果",
+    "射門、過人、撲救各有效果",
+    "卡片上說明效果",
+]

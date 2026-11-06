@@ -1,0 +1,109 @@
+# Player Training: the «Entrenar» rows' stat icons in a dark contrast colour.
+# The retail stat icons icon_parameter01..07 of this atlas
+# are white glyphs made for a dark ground; each gets a copy evt_trn_icon_parameterNN filled with the rows' navy, made
+# at the first start (and after a game update) from the player's own game files (no Level-5 pixel ships). The graft
+# player_training_mode (ClassicTraining.TrainingMode.DarkIcon) swaps the copy in wherever the retail icon goes (MENU_DEF.GetStatusParamIconName).
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/200_icon/player_training_own/player_training_icon_common.g4tx"
+name = "player_training_icon_common"
+size = [584, 80]
+
+[[recipe]]
+name = "trn_icon_parameter01"
+game = "#/menu/200_icon/15_icon_common/icon_common.g4tx"
+sprite = "icon_parameter01"
+ops = [{ op = "fill", rgb = [20, 48, 96] }]
+
+[[sprite]]
+atlas = "#/menu/200_icon/player_training_own/player_training_icon_common.g4tx"
+name = "evt_trn_icon_parameter01"
+texture = "player_training_icon_common"
+x = 0
+y = 0
+recipe = "trn_icon_parameter01"
+
+[[recipe]]
+name = "trn_icon_parameter02"
+game = "#/menu/200_icon/15_icon_common/icon_common.g4tx"
+sprite = "icon_parameter02"
+ops = [{ op = "fill", rgb = [20, 48, 96] }]
+
+[[sprite]]
+atlas = "#/menu/200_icon/player_training_own/player_training_icon_common.g4tx"
+name = "evt_trn_icon_parameter02"
+texture = "player_training_icon_common"
+x = 84
+y = 0
+recipe = "trn_icon_parameter02"
+
+[[recipe]]
+name = "trn_icon_parameter03"
+game = "#/menu/200_icon/15_icon_common/icon_common.g4tx"
+sprite = "icon_parameter03"
+ops = [{ op = "fill", rgb = [20, 48, 96] }]
+
+[[sprite]]
+atlas = "#/menu/200_icon/player_training_own/player_training_icon_common.g4tx"
+name = "evt_trn_icon_parameter03"
+texture = "player_training_icon_common"
+x = 168
+y = 0
+recipe = "trn_icon_parameter03"
+
+[[recipe]]
+name = "trn_icon_parameter04"
+game = "#/menu/200_icon/15_icon_common/icon_common.g4tx"
+sprite = "icon_parameter04"
+ops = [{ op = "fill", rgb = [20, 48, 96] }]
+
+[[sprite]]
+atlas = "#/menu/200_icon/player_training_own/player_training_icon_common.g4tx"
+name = "evt_trn_icon_parameter04"
+texture = "player_training_icon_common"
+x = 252
+y = 0
+recipe = "trn_icon_parameter04"
+
+[[recipe]]
+name = "trn_icon_parameter05"
+game = "#/menu/200_icon/15_icon_common/icon_common.g4tx"
+sprite = "icon_parameter05"
+ops = [{ op = "fill", rgb = [20, 48, 96] }]
+
+[[sprite]]
+atlas = "#/menu/200_icon/player_training_own/player_training_icon_common.g4tx"
+name = "evt_trn_icon_parameter05"
+texture = "player_training_icon_common"
+x = 336
+y = 0
+recipe = "trn_icon_parameter05"
+
+[[recipe]]
+name = "trn_icon_parameter06"
+game = "#/menu/200_icon/15_icon_common/icon_common.g4tx"
+sprite = "icon_parameter06"
+ops = [{ op = "fill", rgb = [20, 48, 96] }]
+
+[[sprite]]
+atlas = "#/menu/200_icon/player_training_own/player_training_icon_common.g4tx"
+name = "evt_trn_icon_parameter06"
+texture = "player_training_icon_common"
+x = 420
+y = 0
+recipe = "trn_icon_parameter06"
+
+[[recipe]]
+name = "trn_icon_parameter07"
+game = "#/menu/200_icon/15_icon_common/icon_common.g4tx"
+sprite = "icon_parameter07"
+ops = [{ op = "fill", rgb = [20, 48, 96] }]
+
+[[sprite]]
+atlas = "#/menu/200_icon/player_training_own/player_training_icon_common.g4tx"
+name = "evt_trn_icon_parameter07"
+texture = "player_training_icon_common"
+x = 504
+y = 0
+recipe = "trn_icon_parameter07"

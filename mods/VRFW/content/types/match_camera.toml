@@ -1,0 +1,19 @@
+# Declaration schema of VRFW.match_camera/1 (content\cameras): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.match_camera/1"
+folder = "content/cameras"
+label = "Match camera presets"
+label_es = "Preajustes de cámara de partido"
+doc = "A match camera preset: its angle, distance and field of view."
+doc_es = "Un preajuste de cámara de partido: su ángulo, distancia y campo de visión."
+
+[entry.Preset]
+entry_table = "preset"
+name = { type = "name" }
+kind = { type = "string" }
+yaw = { type = "number" }
+pitch = { type = "number" }
+distance = { type = "number" }
+fov = { type = "number" }
+fixed_pitch = { type = "bool" }
+option = { type = "string" }

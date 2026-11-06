@@ -1,0 +1,26 @@
+schema = "VRFW.game/2"
+
+# No goal scenes (ruleset `[play] goal_scenes = false`): ends goal scene and celebration events from goal to next kick-off; see scripts\goal_scenes.lua.
+
+# Event manager global.
+[[VRFW.Global]]
+name = "event_manager"
+game = "Event.Manager"
+
+# EventSeek(slot, t): t < 0 runs the event timeline to its end.
+[[VRFW.Function]]
+name = "EventSeek"
+game = "Event.Seek"
+arguments = ["ptr", "f32"]
+
+# StopEventSounds(slot, fade, all): stops the slot's voices / SE.
+[[VRFW.Function]]
+name = "StopEventSounds"
+game = "Audio.StopEventSounds"
+arguments = ["ptr", "f32", "u8"]
+
+# TimelineSeek(tl, t, voices): t < 0 runs every pending command and marks the timeline ended.
+[[VRFW.Function]]
+name = "TimelineSeek"
+game = "Event.TimelineSeek"
+arguments = ["ptr", "f32", "u8"]

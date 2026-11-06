@@ -1,0 +1,39 @@
+# Declaration schema of VRFW.card_filter/1 (content\card_filters): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.card_filter/1"
+folder = "content/card_filters"
+label = "Card bank filters"
+label_es = "Filtros del banco de cartas"
+doc = "The tabs of the card bank screens, filtered by series or team."
+doc_es = "Las pestañas de las pantallas del banco de cartas, filtradas por serie o equipo."
+
+[entry.BankTab]
+entry_table = "bank_tab"
+id = { type = "name" }
+series = { type = "int" }
+team = { type = "int" }
+icon = { type = "string", doc = "the tab icon: \"<atlas>:<sprite>\" or a tab_icon icon \"<mod>.<name>\" ([[VRFW.Icon]])" }
+icon_off = { type = "string", doc = "the unfocused icon (same forms as icon; default: icon)" }
+order = { type = "int" }
+
+[entry.Series]
+entry_table = "series"
+id = { type = "name" }
+series = { type = "int" }
+team = { type = "int" }
+exclusive = { type = "bool" }
+
+[entry.Screen]
+entry_table = "screen"
+stem = { type = "string", required = true }
+offset = { type = "numbers", required = true }
+function = { type = "int", required = true }
+args = { type = "ints", required = true }
+idle_local = { type = "string" }
+tabs_per_page = { type = "int" }
+pinned_tabs = { type = "int" }
+
+[entry.BankTabBar]
+entry_table = "bank_tab_bar"
+tabs = { type = "int" }
+attach = { type = "string" }

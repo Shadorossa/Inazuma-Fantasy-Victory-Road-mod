@@ -1,0 +1,204 @@
+schema = "VRFW.character/2"
+# Character Reforged · Raimon First Squad · Inazuma Eleven GO Chrono Stone
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c05020140_5000"                              # Goldie Lemmon
+
+  [[edit.cards]]
+  id = 0xDF1FD8BC                                         # DF/FW · fire
+  growth_pattern = 1
+  growth = "normal"
+  stats = { kick = 247, control = 203, technique = 227, pressure = 230, physical = 224, intelligence = 302, agility = 196, freedom = 238 }
+
+[[edit]]
+target = "c05028070"                                   # Jean-Pierre Lapin
+moves = [
+  { move = 0xC636A810, level = 1 },                         # Combustion Catch
+  { move = 0x737DCB3F, level = 1 },                         # Pancake Defence
+  { move = 0x62DEE8B1, level = 9 },                         # Jumping Whack
+  { move = 0xF2CB0879, level = 30 },                        # Mugen the Hand
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0xDA3823A5, level = 1 },                         # Atlas [aura]
+]
+
+  [[edit.cards]]
+  id = 0x2D343738                                         # GK/DF · mountain
+  growth = "normal"
+  stats = { kick = 130, control = 223, technique = 189, pressure = 161, physical = 247, intelligence = 186, agility = 335, freedom = 367 }
+
+[[edit]]
+target = "c05028040"                                   # Riccardo Di Rigo
+moves = [
+  { move = 0x8B90AAAC, level = 1 },                         # Fortissimo
+  { move = 0x20D01E43, level = 1 },                         # Hey Presto
+  { move = 0x2D68DB57, level = 17 },                        # Deceptive Step
+  { move = 0x7DD6FEF8, level = 52 },                        # Athena's Anthem
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0x6063D0BB, level = 1 },                         # Magister [aura]
+]
+
+  [[edit.cards]]
+  id = 0x061964FB                                         # MF/DF · forest
+  growth_pattern = 1
+  growth = "normal"
+  stats = { kick = 246, control = 271, technique = 242, pressure = 219, physical = 186, intelligence = 281, agility = 194, freedom = 221 }
+
+[[edit]]
+target = "c05028110"                                   # Victor Blade
+moves = [
+  { move = 0x8A52C09B, level = 1 },                         # Doomsword Slash
+  { move = 0x0C08B663, level = 1 },                         # Doom Dive Drive
+  { move = 0x1F7F73BA, level = 13 },                        # Bicycle Slash
+  { move = 0x90CD25B4, level = 20 },                        # Supernatural Strike
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0x7978E1FA, level = 1 },                         # Lancelot [aura]
+]
+
+  [[edit.cards]]
+  id = 0x7AACFA89                                         # FW/MF · fire
+  growth = "normal"
+  stats = { kick = 360, control = 261, technique = 231, pressure = 189, physical = 182, intelligence = 225, agility = 170, freedom = 213 }
+
+[[edit]]
+target = "c05020140"                                   # Goldie Lemmon
+growth_pattern = 1
+growth = "normal"
+stats = { kick = 242, control = 201, technique = 216, pressure = 239, physical = 235, intelligence = 311, agility = 201, freedom = 267 }
+
+  [[edit.cards]]
+  id = 0xB0DD6F1B    # normal card (the character's special cards keep their own set)
+  moves = [
+    { move = 0x8A936B25, level = 1 },                       # Goopy Gloopy Goo
+    { move = 0xB7474004, level = 1 },                       # Dough Ray Me
+    { move = 0x19BA3BFC, level = 27 },                      # Dance on Air
+    { move = 0x87379CDF, level = 67 },                      # Fire Tornado TC
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0x22B6DD1C, level = 1 },                       # Miximax Trans: R. dragones [aura]
+  ]
+
+  [[edit.cards]]
+  id = 0xC26F2623    # normal card (the character's special cards keep their own set)
+  moves = [
+    { move = 0x8A936B25, level = 1 },                       # Goopy Gloopy Goo
+    { move = 0xB7474004, level = 1 },                       # Dough Ray Me
+    { move = 0x19BA3BFC, level = 27 },                      # Dance on Air
+    { move = 0x87379CDF, level = 67 },                      # Fire Tornado TC
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0x22B6DD1C, level = 1 },                       # Miximax Trans: R. dragones [aura]
+  ]
+
+[[edit]]
+target = "c05028030"                                   # Arion Sherwind
+moves = [
+  { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
+  { move = 0x6F918884, level = 1 },                         # Easy Breezy
+  { move = 0xA37D1A41, level = 1 },                         # Hyper-Swiper
+  { move = 0x7C1494CF, level = 40 },                        # Tornado Tunnel
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0x62256EE2, level = 1 },                         # Archipegaso [aura]
+]
+
+  [[edit.cards]]
+  id = 0x4958F23C                                         # MF/FW · wind
+  growth = "normal"
+  stats = { kick = 266, control = 220, technique = 305, pressure = 200, physical = 197, intelligence = 219, agility = 174, freedom = 230 }
+
+[[edit]]
+target = "c05028050"                                   # Gabriel Garcia
+moves = [
+  { move = 0x530CDFC1, level = 1 },                         # Mystifying Mist
+  { move = 0x6BA49049, level = 21 },                        # Mystic Mist
+  { move = 0x2296A01A, level = 31 },                        # Southern Cross
+  { move = 0xEEFFAE21, level = 46 },                        # Jungle Jam
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0x2C6739AC, level = 1 },                         # Brunilda [aura]
+]
+
+  [[edit.cards]]
+  id = 0x1F0255BA                                         # DF/MF · forest
+  growth_pattern = 1
+  growth = "normal"
+  stats = { kick = 165, control = 211, technique = 184, pressure = 244, physical = 200, intelligence = 297, agility = 180, freedom = 355 }
+
+[[edit]]
+target = "c05028100"                                   # Ryoma Nishiki
+moves = [
+  { move = 0x4FE09C7A, level = 1 },                         # Acrobatic Keep
+  { move = 0xC4D13C6B, level = 25 },                        # Katana Kick
+  { move = 0x64CDCFB9, level = 34 },                        # Rising Dragon
+  { move = 0x501F2F12, level = 51 },                        # Heel Flick
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0x3639773D, level = 1 },                         # Musashi [aura]
+]
+
+  [[edit.cards]]
+  id = 0x63B7CBC8                                         # MF/FW · mountain
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 286, control = 257, technique = 251, pressure = 194, physical = 208, intelligence = 244, agility = 140, freedom = 385 }
+
+[[edit]]
+target = "c05028120"                                   # Goldie Lemmon
+moves = [
+  { move = 0x8A936B25, level = 1 },                         # Goopy Gloopy Goo
+  { move = 0xC5D2FDE2, level = 1 },                         # Oglitteration
+  { move = 0x6C827857, level = 47 },                        # Rolling Steal
+  { move = 0x87379CDF, level = 69 },                        # Fire Tornado TC
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0x50D2A7DE, level = 1 },                         # Amaterasu [aura]
+]
+
+  [[edit.cards]]
+  id = 0x5181A94A                                         # DF/FW · fire
+  growth_pattern = 1
+  growth = "normal"
+  stats = { kick = 246, control = 204, technique = 224, pressure = 234, physical = 228, intelligence = 309, agility = 189, freedom = 225 }
+
+[[edit]]
+target = "c05028130"                                   # Arion Sherwind
+moves = [
+  { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
+  { move = 0x6F918884, level = 1 },                         # Easy Breezy
+  { move = 0xA37D1A41, level = 1 },                         # Hyper-Swiper
+  { move = 0x7C1494CF, level = 40 },                        # Tornado Tunnel
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0x62256EE2, level = 1 },                         # Archipegaso [aura]
+]
+
+  [[edit.cards]]
+  id = 0x489A980B                                         # MF/FW · wind
+  growth = "normal"
+  stats = { kick = 266, control = 220, technique = 305, pressure = 200, physical = 197, intelligence = 219, agility = 174, freedom = 230 }

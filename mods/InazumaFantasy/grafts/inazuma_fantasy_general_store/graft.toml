@@ -1,0 +1,161 @@
+# Inazuma Fantasy (InazumaFantasy): its shops' bars at the top of the Mercado (market_menu): «Tienda general»,
+# «Tienda de entrenamiento» and «Supertécnicas». The shops themselves are data (research/mods/InazumaFantasy/
+# content/shops/*.toml, written by research/scripts/inazuma_fantasy_general_store.py from _general_store.toml); their
+# ids are the framework's (CMND_VRFW_REG_FIND("shop", "InazumaFantasy.<name>")), read in OnInit. A retail shop
+# whose every row a mod hides (CMND_VRFW_REG_GET("shop", i): rows hidden = rows total) leaves the Mercado in the same
+# OnInit (with Inazuma Fantasy: every retail shop of the Mercado). The bar count: content/menus/market_menu.toml (layer
+# count) and assets/menu/150_shop/shop01/shop01_20/shop01_20.g4pkm (research/scripts/inazuma_fantasy_market_bar.py).
+# Merge-path patch (the per-entry tables are locals of the script): the mod is lua_early, so later wrappers of
+# market_menu (VRFW menu music, BetterUI shop shortcuts) sit on top of it.
+name = "inazuma_fantasy_general_store"
+mod = "InazumaFantasy"
+order = 210
+module = ""
+requires = []
+conflicts = []
+wraps = ["OnInit"]
+description = "Inazuma Fantasy: its shops at the top of the Mercado; emptied retail shops leave it (not one that opens a contact set)"
+
+[[files]]
+stem = "market_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  text = '''
+
+-- ===== InazumaFantasy general_store BEGIN =====
+-- Entries 1-3 of the Mercado = Inazuma Fantasy's shops; the retail entries move down. A retail entry whose shop has
+-- every row hidden by a mod is taken out.
+do
+  local REG_FIND = 2175579023           -- CMND_VRFW_REG_FIND (type, key) -> id (-1)
+  local REG_COUNT = 3298114773          -- CMND_VRFW_REG_COUNT (type) -> shops the item build touched
+  local REG_GET = 1306193655            -- CMND_VRFW_REG_GET (type, i) -> key, id, mod, new, added, changed, hidden, total
+  local SHOP_SCREENS = 3797150395       -- CMND_VRFW_SHOP_SCREENS () -> n, from 1, set 1, ...: shops that open a contact set
+  local SHOP_REDIRECTS = 2445086479     -- CMND_VRFW_SHOP_REDIRECTS () -> n, from 1, to 1, ...: shops opened as another shop
+  local LOG = 3661580131                -- CMND_EVT_LOG
+  -- the bars of this mod, in Mercado order: shop key, bar name (shop_text row "InazumaFantasy.<name>_name"), art set
+  local BARS = {
+    { key = "InazumaFantasy.general_store", name = 713514104,          -- art market04 (Tienda vínculo)
+      header = 428357293, background = 2854327783, base = 1416979514, icon = 1290312194 },
+    { key = "InazumaFantasy.training_shop", name = 343889320,          -- art market02 (Tienda Vs)
+      header = 4041970584, background = 1128411346, base = 3172385039, icon = 2777366327 },
+    { key = "InazumaFantasy.technique_shop", name = 674756040,         -- art market03 (Mercado BB)
+      header = 2280432398, background = 876937284, base = 3390173593, icon = 3532394401 },
+  }
+  local function unsigned(id)
+    if id < 0 then
+      return id + 4294967296
+    end
+    return id
+  end
+  for k = #BARS, 1, -1 do
+    local bar = BARS[k]
+    table.insert(t, 1, 0)               -- the shop id, filled in OnInit
+    table.insert(t2, 1, bar.header)
+    table.insert(t3, 1, bar.background)
+    table.insert(t4, 1, bar.base)
+    table.insert(t5, 1, bar.name)
+    table.insert(t8, 1, bar.icon)
+  end
+  local function remove_entry(k)
+    table.remove(t, k)
+    table.remove(t2, k)
+    table.remove(t3, k)
+    table.remove(t4, k)
+    table.remove(t5, k)
+    table.remove(t8, k)
+  end
+  local ready = false
+  local on_init = OnInit
+  function OnInit(...)
+    if not ready then
+      ready = true
+      for k, bar in ipairs(BARS) do
+        local ok, id = pcall(funcLuaCommand, REG_FIND, "shop", bar.key)
+        if ok and type(id) == "number" and id ~= -1 and id ~= 0 then
+          t[k] = unsigned(id)
+        else
+          pcall(funcLuaCommand, LOG, "InazumaFantasy: shop " .. bar.key .. " not found: its Mercado bar is left out")
+        end
+      end
+      -- the shops whose every row a mod hides
+      local empty = {}
+      local ok, count = pcall(funcLuaCommand, REG_COUNT, "shop")
+      if ok and type(count) == "number" then
+        for i = 0, count - 1 do
+          local got, key, id, _, new, _, _, hidden, total = pcall(funcLuaCommand, REG_GET, "shop", i)
+          if got and type(id) == "number" and not new and type(total) == "number" and type(hidden) == "number"
+            and total > 0 and hidden >= total then
+            empty[unsigned(id)] = key
+          end
+        end
+      end
+      -- the framework's redirect pairs (n, from 1, to 1, ...): a shop key (text) as its id
+      local function pairs_of(cmd)
+        local out = {}
+        local okS, r = pcall(function() return table.pack(funcLuaCommand(cmd)) end)
+        if okS and type(r) == "table" and type(r[1]) == "number" then
+          for i = 1, r[1] do
+            local a, b = r[2 * i], r[2 * i + 1]
+            if type(a) == "string" then
+              local okF, id = pcall(funcLuaCommand, REG_FIND, "shop", a)
+              a = okF and type(id) == "number" and id ~= -1 and unsigned(id) or nil
+            end
+            if type(b) == "string" then
+              local okF, id = pcall(funcLuaCommand, REG_FIND, "shop", b)
+              b = okF and type(id) == "number" and id ~= -1 and unsigned(id) or nil
+            end
+            if type(a) == "number" then
+              out[unsigned(a)] = type(b) == "number" and unsigned(b) or true
+            end
+          end
+        end
+        return out
+      end
+      -- a shop whose menu entries open a contact set (another mod's screen, e.g. New Recruitment's office) keeps its bar
+      local screen = pairs_of(SHOP_SCREENS)
+      -- a retail shop opened as one of this mod's shops (its rows moved there) would be a second bar of that shop
+      local own = {}
+      for k = 1, #BARS do
+        if t[k] ~= 0 then
+          own[t[k]] = true
+        end
+      end
+      local redirect = pairs_of(SHOP_REDIRECTS)
+      for k = #t, 1, -1 do
+        if t[k] == 0 then
+          remove_entry(k)
+        elseif screen[t[k]] then
+          -- kept
+        elseif empty[t[k]] ~= nil then
+          pcall(funcLuaCommand, LOG, "InazumaFantasy: shop " .. tostring(empty[t[k]]) .. " has no row left: its Mercado bar is left out")
+          remove_entry(k)
+        elseif k > #BARS and own[redirect[t[k]]] then
+          pcall(funcLuaCommand, LOG, string.format("InazumaFantasy: shop 0x%08X opens 0x%08X (a bar of its own): its Mercado bar is left out", t[k], redirect[t[k]]))
+          remove_entry(k)
+        end
+      end
+      -- the contact-set bars right after this mod's bars (within the bar count of content/menus/market_menu.toml)
+      local first = 1
+      while first <= #t and own[t[first]] do
+        first = first + 1
+      end
+      for k = first, #t do
+        if screen[t[k]] and k > first then
+          for _, tb in ipairs({t, t2, t3, t4, t5, t8}) do
+            table.insert(tb, first, table.remove(tb, k))
+          end
+          first = first + 1
+        elseif screen[t[k]] then
+          first = first + 1
+        end
+      end
+      pcall(funcLuaCommand, LOG, "InazumaFantasy: the Mercado lists " .. #t .. " shops")
+    end
+    return on_init(...)
+  end
+end
+-- ===== InazumaFantasy general_store END =====
+'''
+  marker = "inazuma_fantasy_general_store"
+  crc = "none"

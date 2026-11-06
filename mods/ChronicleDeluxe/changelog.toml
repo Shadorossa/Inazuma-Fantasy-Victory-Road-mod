@@ -1,0 +1,76 @@
+schema = "VRFW.changelog/1"
+# Chronicle Deluxe: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Crónica ampliada con más rivales",
+    "Partidas libres con niveles y botín",
+    "Cadenas de rivales sin repetir",
+    "Sello del Maestro",
+]
+
+[release.en]
+notes = [
+    "Expanded Chronicle with more rivals",
+    "Free matches with levels and loot",
+    "Rival chains without repeats",
+    "Master's Seal",
+]
+
+[release.fr]
+notes = [
+    "Chronique élargie, plus de rivaux",
+    "Matchs libres avec niveaux et butin",
+    "Chaînes de rivaux sans répétition",
+    "Sceau du Maître",
+]
+
+[release.de]
+notes = [
+    "Erweiterte Chronik mit mehr Gegnern",
+    "Freie Spiele mit Level und Beute",
+    "Gegnerketten ohne Wiederholung",
+    "Siegel des Meisters",
+]
+
+[release.it]
+notes = [
+    "Cronaca ampliata con più rivali",
+    "Partite libere con livelli e bottino",
+    "Catene di rivali senza ripetizioni",
+    "Sigillo del Maestro",
+]
+
+[release.pt]
+notes = [
+    "Crónica ampliada com mais rivais",
+    "Jogos livres com níveis e saque",
+    "Cadeias de rivais sem repetição",
+    "Selo do Mestre",
+]
+
+[release.ja]
+notes = [
+    "対戦相手が増えた年代記",
+    "レベルと戦利品付きの自由戦",
+    "重複しないライバル連戦",
+    "マスターの印",
+]
+
+[release.zh_hans]
+notes = [
+    "扩充的编年史与更多对手",
+    "带等级与战利品的自由赛",
+    "不重复的对手链",
+    "大师印记",
+]
+
+[release.zh_hant]
+notes = [
+    "擴充的編年史與更多對手",
+    "帶等級與戰利品的自由賽",
+    "不重複的對手鏈",
+    "大師印記",
+]

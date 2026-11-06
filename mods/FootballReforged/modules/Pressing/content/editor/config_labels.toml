@@ -1,0 +1,187 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "pressing"
+  Type = "table"
+  Label = { es = "Presión", en = "Pressing" }
+  Help = { es = "Cómo presiona el equipo al portador del balón.", en = "How the team presses the ball carrier." }
+  [[Shape.Field]]
+  Key = "pressing.min_players"
+  Type = "int"
+  Label = { es = "Mínimo de presionadores", en = "Minimum pressers" }
+  Help = { es = "Menos compañeros de campo que corren a presionar.", en = "Fewest outfield teammates sent to press." }
+  [[Shape.Field]]
+  Key = "pressing.max_players"
+  Type = "int"
+  Label = { es = "Máximo de presionadores", en = "Maximum pressers" }
+  Help = { es = "Más compañeros de campo que corren a presionar.", en = "Most outfield teammates sent to press." }
+  [[Shape.Field]]
+  Key = "pressing.band_m"
+  Type = "float"
+  Label = { es = "Margen de distancia (m)", en = "Distance band (m)" }
+  Help = { es = "Margen en metros al elegir quién presiona según su cercanía al portador.", en = "Margin in metres when choosing pressers by distance to the carrier." }
+  [[Shape.Field]]
+  Key = "pressing.range_m"
+  Type = "float"
+  Label = { es = "Alcance de la presión (m)", en = "Press range (m)" }
+  Help = { es = "Distancia máxima al portador para que un jugador presione.", en = "Greatest distance to the carrier for a player to press." }
+  [[Shape.Field]]
+  Key = "pressing.sprint"
+  Type = "bool"
+  Label = { es = "Presionar con sprint", en = "Press at sprint" }
+  Help = { es = "Los que presionan corren con el sprint del juego; si no, a paso normal.", en = "Pressers run with the game's sprint; otherwise at normal pace." }
+  [[Shape.Field]]
+  Key = "pressing.sprint_speed"
+  Type = "float"
+  Label = { es = "Velocidad del sprint", en = "Sprint speed" }
+  Help = { es = "Velocidad del sprint al presionar frente a un sprint normal (0.9 = 10 % más lento).", en = "Pressing sprint speed against a normal sprint (0.9 = 10 % slower)." }
+  [[Shape.Field]]
+  Key = "pressing.sprint_drain"
+  Type = "float"
+  Label = { es = "Gasto del sprint", en = "Sprint drain" }
+  Help = { es = "Cuánto gasta el sprint al presionar frente a uno normal.", en = "How much pressing drains compared with a normal sprint." }
+  [[Shape.Field]]
+  Key = "pressing.order_ms"
+  Type = "int"
+  Label = { es = "Duración de la orden (ms)", en = "Order length (ms)" }
+  Help = { es = "Cuánto dura una orden de presión sin renovarse; el script la renueva en cada fotograma.", en = "How long a press order lasts without a refresh." }
+  [[Shape.Field]]
+  Key = "pressing.chase"
+  Type = "bool"
+  Label = { es = "Perseguir al portador", en = "Chase the carrier" }
+  Help = { es = "Los presionadores siguen al portador; si no, corren a donde está ahora.", en = "Pressers follow the carrier; otherwise they run to where he is now." }
+  [[Shape.Field]]
+  Key = "pressing.sprint_resource"
+  Type = "string"
+  Label = { es = "Recurso de sprint", en = "Sprint resource" }
+  Help = { es = "Recurso de la barra de sprint que se consulta y gasta (depuración).", en = "Sprint bar resource that is checked and drained (debug)." }
+  [[Shape.Field]]
+  Key = "pressing.winded_state"
+  Type = "string"
+  Label = { es = "Estado de agotado", en = "Winded state" }
+  Help = { es = "Estado de la barra de sprint en el que el jugador no presiona (depuración).", en = "Sprint bar state in which a player does not press (debug)." }
+  [[Shape.Field]]
+  Key = "pressing.min_sprint"
+  Type = "float"
+  Label = { es = "Sprint mínimo", en = "Minimum sprint" }
+  Help = { es = "Nivel mínimo de la barra de sprint para poder presionar.", en = "Lowest sprint bar level needed to press." }
+  [[Shape.Field]]
+  Key = "pressing.focus_field_gate"
+  Type = "string"
+  Label = { es = "Campo de enfoque", en = "Focus field" }
+  Help = { es = "Cuándo se puede abrir el campo de enfoque: off_ball = solo con balón; sin balón L2 presiona.", en = "When the focus field can open: off_ball = only with the ball; without it L2 presses." }
+  [[Shape.Field]]
+  Key = "pressing.hold_commands"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Botones de presión", en = "Press buttons" }
+  Help = { es = "Órdenes de entrada que activan tu presión (L2 en mando).", en = "Input commands that start your press (L2 on pad)." }
+  [[Shape.Field]]
+  Key = "pressing.cpu"
+  Type = "bool"
+  Label = { es = "Presión de la CPU", en = "CPU pressing" }
+  Help = { es = "La CPU y tu equipo en automático presionan con las reglas de abajo.", en = "The CPU and your auto team press with the rules below." }
+  [[Shape.Field]]
+  Key = "pressing.decide_ms"
+  Type = "int"
+  Label = { es = "Intervalo de decisión (ms)", en = "Decision interval (ms)" }
+  Help = { es = "Cada cuántos milisegundos decide la CPU si presiona.", en = "How often the CPU decides whether to press." }
+  [[Shape.Field]]
+  Key = "pressing.press_ms"
+  Type = "int"
+  Label = { es = "Duración de la presión (ms)", en = "Press length (ms)" }
+  Help = { es = "Cuánto dura una presión de la CPU.", en = "How long a CPU press lasts." }
+  [[Shape.Field]]
+  Key = "pressing.rest_ms"
+  Type = "int"
+  Label = { es = "Descanso entre presiones (ms)", en = "Rest between presses (ms)" }
+  Help = { es = "Pausa de la CPU antes de poder presionar otra vez.", en = "CPU pause before it may press again." }
+  [[Shape.Field]]
+  Key = "pressing.hud_sprite"
+  Type = "string"
+  Label = { es = "Sprite de la guía", en = "Guide sprite" }
+  Help = { es = "Imagen de «¡Presión!» que muestra la guía de L2 cuando el rival tiene el balón.", en = "«Press!» image the L2 guide shows when the rival has the ball." }
+  [[Shape.Field]]
+  Key = "pressing.arrows"
+  Type = "string"
+  Label = { es = "Flechas de «¡Subid!»", en = "«Move Up!» arrows" }
+  Help = { es = "De quién se muestran las flechas sobre los presionadores (user = tu equipo).", en = "Whose pressers show the arrows (user = your team)." }
+  [[Shape.Field]]
+  Key = "pressing.ai"
+  Type = "table"
+  Label = { es = "Presión espontánea de la IA", en = "AI's own press" }
+  Help = { es = "Presión que hace por sí solo un defensa controlado por la IA, de cualquier equipo.", en = "Press an AI-controlled defender of either team makes by himself." }
+  [[Shape.Field]]
+  Key = "pressing.ai.enabled"
+  Type = "bool"
+  Label = { es = "Activar presión de la IA", en = "Enable AI press" }
+  Help = { es = "Permite que los defensas de la IA presionen por su cuenta.", en = "Lets AI defenders press on their own." }
+  [[Shape.Field]]
+  Key = "pressing.ai.radius_m"
+  Type = "float"
+  Label = { es = "Radio (m)", en = "Radius (m)" }
+  Help = { es = "Distancia máxima al portador para que un defensa de la IA presione.", en = "Greatest distance to the carrier for an AI defender to press." }
+  [[Shape.Field]]
+  Key = "pressing.ai.ranks"
+  Type = "int"
+  Label = { es = "Defensas más cercanos", en = "Nearest defenders" }
+  Help = { es = "Cuántos de los defensas más cercanos al portador pueden presionar.", en = "How many of the nearest defenders may press." }
+  [[Shape.Field]]
+  Key = "pressing.ai.chance"
+  Type = "float"
+  Label = { es = "Probabilidad", en = "Chance" }
+  Help = { es = "Probabilidad (0 a 1) de que presione en cada decisión.", en = "Chance (0 to 1) of pressing at each decision." }
+  [[Shape.Field]]
+  Key = "pressing.ai.press_ms"
+  Type = "int"
+  Label = { es = "Duración (ms)", en = "Length (ms)" }
+  Help = { es = "Cuánto dura la presión de un defensa de la IA.", en = "How long an AI defender's press lasts." }
+  [[Shape.Field]]
+  Key = "pressing.ai.cooldown_ms"
+  Type = "int"
+  Label = { es = "Espera entre presiones (ms)", en = "Cooldown (ms)" }
+  Help = { es = "Tiempo antes de que el mismo defensa pueda presionar otra vez.", en = "Time before the same defender may press again." }
+  [[Shape.Field]]
+  Key = "pressing.ai.decide_ms"
+  Type = "int"
+  Label = { es = "Intervalo de decisión (ms)", en = "Decision interval (ms)" }
+  Help = { es = "Cada cuántos milisegundos decide un defensa de la IA si presiona.", en = "How often an AI defender decides whether to press." }
+  [[Shape.Field]]
+  Key = "pressing.cpu_rule"
+  Type = "list"
+  Label = { es = "Reglas de presión de la CPU", en = "CPU press rules" }
+  Help = { es = "Situaciones en las que la CPU empieza una presión, cada una con su probabilidad.", en = "Situations in which the CPU starts a press, each with a chance." }
+  [[Shape.Field]]
+  Key = "pressing.cpu_rule.carrier_to_own_goal_max_m"
+  Type = "float"
+  Label = { es = "Distancia del portador a su portería (m)", en = "Carrier distance to goal (m)" }
+  Help = { es = "El portador está a menos de esta distancia de la portería de la CPU.", en = "The carrier is within this distance of the CPU's goal." }
+  [[Shape.Field]]
+  Key = "pressing.cpu_rule.chance"
+  Type = "float"
+  Label = { es = "Probabilidad de la regla", en = "Rule chance" }
+  Help = { es = "Probabilidad (0 a 1) de que la CPU presione cuando se cumple la regla.", en = "Chance (0 to 1) the CPU presses when the rule applies." }
+  [[Shape.Field]]
+  Key = "pressing.cpu_rule.carrier_in_own_half"
+  Type = "bool"
+  Label = { es = "Portador en campo de la CPU", en = "Carrier in CPU half" }
+  Help = { es = "La regla solo vale si el portador está en el campo de la CPU.", en = "The rule only applies if the carrier is in the CPU's half." }
+  [[Shape.Field]]
+  Key = "pressing.cpu_rule.nearest_within_m"
+  Type = "float"
+  Label = { es = "Jugador cercano (m)", en = "Nearest player (m)" }
+  Help = { es = "Un jugador de la CPU está a menos de esta distancia del portador.", en = "A CPU player is within this distance of the carrier." }
+  [[Shape.Field]]
+  Key = "pressing.cpu_rule.ready_within_m"
+  Type = "float"
+  Label = { es = "Radio de grupo (m)", en = "Group radius (m)" }
+  Help = { es = "Distancia dentro de la cual deben estar los jugadores de la CPU junto al portador.", en = "Distance within which CPU players must be near the carrier." }
+  [[Shape.Field]]
+  Key = "pressing.cpu_rule.ready_count"
+  Type = "int"
+  Label = { es = "Jugadores necesarios", en = "Players needed" }
+  Help = { es = "Cuántos jugadores de la CPU deben estar cerca del portador.", en = "How many CPU players must be close to the carrier." }

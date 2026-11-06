@@ -1,0 +1,11 @@
+schema = "VRFW.technique_filter_tab/1"
+# Hissatsu Reforged › the move filter window's «Families» tab: one row per technique family (content\techniques\
+# families.toml); ticking families lists the moves of those families. Icon and background symbol are the game's own
+# «people» art of the filter window.
+
+[[VRFW.TechniqueFilterTab]]
+name = "families"
+rows = "families"
+text = "HissatsuReforged.filter_tab_families"
+icon = "icon_list_tab_filter05"
+symbol = "filter_symbol05"

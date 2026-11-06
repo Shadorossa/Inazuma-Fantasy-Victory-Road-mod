@@ -1,0 +1,6 @@
+schema = "BetterQoL.team_planner/1"
+# No More Rarities' rule for Utilities' team planner:
+# every normal player is «Leyenda»,
+# so the picker and the ghosts show the normal look (display rarity 4). Which owned copies count is the module New
+# Recruitment's; declarations apply key by key in load order.
+display_rarity = 4

@@ -1,0 +1,16 @@
+# Declaration schema of VRFW.match_role/1 (content\rules\ai\roles\**\*.toml; docs/framework/match-role.md): [[VRFW.MatchRole]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.match_role/1"
+folder = "content/rules/ai/roles"
+label = "Match roles"
+label_es = "Roles de partido"
+doc = "A role a player can take in a match, with its name, allowed positions and effect."
+doc_es = "Un rol que un jugador puede tomar en un partido, con su nombre, posiciones permitidas y efecto."
+
+[entry.MatchRole]
+Name = { type = "string", required = true, doc = "<Prefix>.<Name>; a name without a dot gets the mod's id in front" }
+Text = { type = "string", doc = "text key of the name shown in the chooser (text\\keys.toml)" }
+Help = { type = "string", doc = "text key of a one-line description (optional)" }
+Positions = { type = "strings", doc = "who may take it: the catalogue's [[position]] words; empty = any position" }
+Order = { type = "int", doc = "place in the chooser (lower first)" }
+Effect = { type = "records", fields = { When = { type = "string", doc = "\"always\" (default), \"own_ball\", \"rival_ball\"" }, HoldLine = { type = "bool" }, LineGap = { type = "number" }, DepthMin = { type = "number" }, BallDepthMax = { type = "number" }, DepthMax = { type = "number" }, Inward = { type = "number", doc = "pull his spot toward the middle (+) or toward his touchline (-)" }, Rates = { type = "table", doc = "AI rates: teammates look for him more" }, BallDepthMin = { type = "number", doc = "optional: where the ball must be (see the frame below)" }, Depth = { type = "number", doc = "move his spot forward (+) or back (-)" } }, doc = "an effect: applies while its condition holds" }

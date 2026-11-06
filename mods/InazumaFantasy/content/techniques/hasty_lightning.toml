@@ -1,0 +1,39 @@
+schema = "VRFW.technique/3"
+# Relámpago presuroso (Hasty Lightning): the download's move whs90005, a clone of whs02970 with its numbers; its event ev60_90005 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "hasty_lightning"
+key = "whs90005"
+base = "whs02970"
+event = "ev60_90005"
+power_min = 85
+power_max = 540
+tp = 80
+  [technique.text.es]
+  name = "Relámpago presuroso"
+  description = "Avanza como un relámpago en zigzag\ny dispara antes de que reaccionen."
+  [technique.text.en]
+  name = "Hasty Lightning"
+  description = "Darts in a lightning zigzag\nand shoots before they react."
+  [technique.text.fr]
+  name = "Éclair hâtif"
+  description = "Avance en zigzag comme un éclair\net tire avant toute réaction."
+  [technique.text.de]
+  name = "Eiliger Blitz"
+  description = "Rast im Blitz-Zickzack nach vorn\nund schießt, bevor jemand reagiert."
+  [technique.text.it]
+  name = "Fulmine lesto"
+  description = "Avanza a zigzag come un fulmine\ne tira prima che reagiscano."
+  [technique.text.pt]
+  name = "Relâmpago apressado"
+  description = "Avança em zigue-zague como um raio\ne remata antes que reajam."
+  [technique.text.ja]
+  name = "ヘイスティライトニング"
+  description = "稲妻のようにジグザグに走り\n反応される前にシュート！"
+  [technique.text.zh_hans]
+  name = "疾速闪电"
+  description = "如闪电般折线疾进，\n在对手反应前射门。"
+  [technique.text.zh_hant]
+  name = "疾速閃電"
+  description = "如閃電般折線疾進，\n在對手反應前射門。"

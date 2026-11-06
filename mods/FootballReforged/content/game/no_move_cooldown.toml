@@ -1,0 +1,12 @@
+# Football Reforged > what scripts\no_move_cooldown.lua touches of the game.
+schema = "VRFW.game/2"
+
+# void StartSlotRecast(SoccerActor* actor, u8 slot, f32 seconds): every recast of a move slot starts here.
+# seconds < 0 = the slot's full recast (a move's use); an aura's end passes its own time.
+[[VRFW.Hook]]
+name = "FootballReforged.StartSlotRecast"
+kind = "function"
+pattern = "40 53 56 41 56 48 83 EC 30 0F 29 74 24 20 4C 8B F1 0F 28 F2 0F B6 F2"
+rva = 0x15D82B0
+args = ["ptr", "u8", "f32"]
+wait_ms = 200

@@ -1,0 +1,150 @@
+schema = "VRFW.shop/2"
+# The Inazuma Eleven Cross stadium tickets (content/items/cross_stadiums.toml), sold where the retail stadium tickets are:
+# * with Inazuma Fantasy (InazumaFantasy): its Tienda general (InazumaFantasy.general_store), in the tickets tab
+#   with the retail stadium tickets it sells, priced by its rule (research/mods/InazumaFantasy/_general_store.toml
+#   [price]): the retail Tienda Vs row below (35 tk_vi000001 = 105 + 35 tk_hr000008 = 35 Puntos de amistad) / 10 =
+#   14 Puntos de pasión, the store's only currency.
+# * without it: the retail Tienda Vs (0x9BE09172), the shop that sells the base ticket gd120030, at that retail row's
+#   price (35 tk_vi000001 + 35 tk_hr000008, shop_config_3.00.22). With Inazuma Fantasy the Tienda Vs has every row
+#   moved and leaves the Mercado, so these rows are not added there.
+
+[[edit]]
+target = "InazumaFantasy.general_store"   # Tienda general (Inazuma Fantasy)
+if_mod = "InazumaFantasy"
+
+  [[edit.entry]]
+  item = "stadium_s91g001"        # Inazuma Big Ferry
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s91g001b"       # Inazuma Big Ferry (verano)
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s91g001c"       # Inazuma Big Ferry (festival)
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s92g001"        # Estadio Costero
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s93g001"        # Barco Pirata Fantasma
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s94g001"        # Barco Ramen
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s98g001"        # Campo Cibernético
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s99g001"        # Cubierta del Big Ferry
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+
+[[edit]]
+target = "0x9BE09172"           # Tienda Vs (retail)
+if_not_mod = "InazumaFantasy"
+
+  [[edit.entry]]
+  item = "stadium_s91g001"       # Inazuma Big Ferry
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s91g001b"      # Inazuma Big Ferry (verano)
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s91g001c"      # Inazuma Big Ferry (festival)
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s92g001"       # Estadio Costero
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s93g001"       # Barco Pirata Fantasma
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s94g001"       # Barco Ramen
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s98g001"       # Campo Cibernético
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s99g001"       # Cubierta del Big Ferry
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+# A shop row's purchase counter / «new» bit index is numbered from "<mod adding the row>.row:<shop>/<item id hex>"
+# (docs/framework/ids-and-numbers.md §3): these aliases keep each row's counter, so a bought ticket stays bought (the
+# row ids, "row:<shop>/<item>", never had the mod in them).
+[[alias]]
+old = "inazuma_fantasy.row:0xF24DB4CD/1e4f5d8e"
+new = "IECross.row:0xF24DB4CD/1e4f5d8e"
+[[alias]]
+old = "inazuma_fantasy.row:0xF24DB4CD/7ba00e83"
+new = "IECross.row:0xF24DB4CD/7ba00e83"
+[[alias]]
+old = "inazuma_fantasy.row:0xF24DB4CD/0ca73e15"
+new = "IECross.row:0xF24DB4CD/0ca73e15"
+[[alias]]
+old = "inazuma_fantasy.row:0xF24DB4CD/59ef275e"
+new = "IECross.row:0xF24DB4CD/59ef275e"
+[[alias]]
+old = "inazuma_fantasy.row:0xF24DB4CD/648f0eee"
+new = "IECross.row:0xF24DB4CD/648f0eee"
+[[alias]]
+old = "inazuma_fantasy.row:0xF24DB4CD/d6afd2fe"
+new = "IECross.row:0xF24DB4CD/d6afd2fe"
+[[alias]]
+old = "inazuma_fantasy.row:0xF24DB4CD/135f3fff"
+new = "IECross.row:0xF24DB4CD/135f3fff"
+[[alias]]
+old = "inazuma_fantasy.row:0xF24DB4CD/2e3f164f"
+new = "IECross.row:0xF24DB4CD/2e3f164f"

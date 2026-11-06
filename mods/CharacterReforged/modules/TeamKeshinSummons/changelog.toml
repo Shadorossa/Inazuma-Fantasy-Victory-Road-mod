@@ -1,0 +1,58 @@
+schema = "VRFW.changelog/1"
+# Group Summons: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Keshin invocados por varios jugadores",
+    "Supertécnicas de keshin en equipo",
+]
+
+[release.en]
+notes = [
+    "Keshin summoned by several players",
+    "Team keshin special moves",
+]
+
+[release.fr]
+notes = [
+    "Keshin invoqués à plusieurs",
+    "Techniques de keshin en équipe",
+]
+
+[release.de]
+notes = [
+    "Keshin von mehreren Spielern",
+    "Keshin-Techniken im Team",
+]
+
+[release.it]
+notes = [
+    "Keshin evocati da più giocatori",
+    "Super tecniche keshin di squadra",
+]
+
+[release.pt]
+notes = [
+    "Keshin invocados por vários jogadores",
+    "Supertécnicas de keshin em equipa",
+]
+
+[release.ja]
+notes = [
+    "複数人で呼び出す化身",
+    "化身必殺技をチームで",
+]
+
+[release.zh_hans]
+notes = [
+    "多名球员合力召唤化身",
+    "化身必杀技团队合作",
+]
+
+[release.zh_hant]
+notes = [
+    "多名球員合力召喚化身",
+    "化身必殺技團隊合作",
+]

@@ -1,0 +1,17 @@
+schema = "VRFW.game/2"
+
+# Character stats providers: ordered subscribers on three game entries (runtime: scripts/chara_stats.lua).
+# Entries (one loader detour each):
+#   Chara.GetParamStatus        the 8 stat values of a card at a level
+#   Chara.GetSpecialtyType      the specialty type of a card
+#   Technique.MatchSkillInstall a move put in a match slot
+# Providers: native item transformations (`stats` / `moves`), then each mod's `[[VRFW.Hook]]` with `game = "<entry>"`.
+
+# Number of Chara.GetParamStatus detour owners declared by active mods (native item transformations excluded).
+[[VRFW.State]]
+key = "vrfw.chara_stats.providers"
+
+# (entry) -> n, provider 1..n: declared providers of a stats entry in run order, as "<mod>.<hook name>".
+[[VRFW.Command]]
+name = "CMND_VRFW_CHARA_STATS_PROVIDERS"
+handler = "CharaStats.Providers"

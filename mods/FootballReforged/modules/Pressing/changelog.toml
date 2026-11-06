@@ -1,0 +1,58 @@
+schema = "VRFW.changelog/1"
+# Pressing: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Presión sin balón con L2",
+    "Compañeros que corren hacia el rival",
+]
+
+[release.en]
+notes = [
+    "Off-ball pressing with L2",
+    "Teammates rush the rival",
+]
+
+[release.fr]
+notes = [
+    "Pressing sans balle avec L2",
+    "Coéquipiers qui foncent sur l'adversaire",
+]
+
+[release.de]
+notes = [
+    "Pressing ohne Ball mit L2",
+    "Mitspieler stürmen auf den Gegner",
+]
+
+[release.it]
+notes = [
+    "Pressing senza palla con L2",
+    "Compagni che aggrediscono l'avversario",
+]
+
+[release.pt]
+notes = [
+    "Pressão sem bola com L2",
+    "Colegas que correm para o rival",
+]
+
+[release.ja]
+notes = [
+    "L2でオフザボールのプレス",
+    "味方が相手へ詰め寄る",
+]
+
+[release.zh_hans]
+notes = [
+    "L2无球逼抢",
+    "队友冲向对手",
+]
+
+[release.zh_hant]
+notes = [
+    "L2無球逼搶",
+    "隊友衝向對手",
+]

@@ -1,0 +1,40 @@
+schema = "VRFW.team/2"
+# The team Earth Eleven (bb_13_team_newjapan) in every match.
+
+[[edit]]
+target = "bb_13_team_newjapan"
+  [[edit.member]]
+  slot = 0
+  patch = true
+  moves = [0xE4849E49, 0xE6C22010, 0x04F493EC, 0x7BCEA96F]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 3
+  patch = true
+  moves = [0xBB21DDC9, 0x322F0C40, 0x867EE0BB, 0xC3052576]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 5
+  patch = true
+  moves = [0x8B90AAAC, 0x900C8E0A, 0x20D01E43, 0xAD53B378, 0x7DD6FEF8, 0x969ABC3D]
+  levels = [1, 1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 8
+  patch = true
+  moves = [0xA37D1A41, 0xF88DC090, 0xB501FE5D, 0x7C1494CF, 0x1CFBA7D4, 0xF5FFD1E5]
+  levels = [1, 1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 9
+  patch = true
+  moves = [0x0C08B663, 0x90CD25B4, 0x1F7F73BA, 0x910F4F83, 0xA955D999, 0x372620B0]
+  levels = [1, 1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 10
+  patch = true
+  moves = [0xB3CA3CB6, 0x9B63BB1B, 0x568262FA, 0x2E3D11F1]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 11
+  patch = true
+  moves = [0x1DEFA2AD, 0x62DEE8B1, 0xDA3823A5, 0xF2CB0879]
+  levels = [1, 1, 1, 1]

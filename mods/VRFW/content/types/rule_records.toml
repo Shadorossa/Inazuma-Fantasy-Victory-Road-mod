@@ -1,0 +1,100 @@
+# Schema of the rulebooks (kind VRFW.rule/1, a mod's content\rules\**\*.toml, one rulebook per file): the rules of
+# an offline match. The rule type parses them (strict, match_engine::ruleset); this schema describes the same keys for
+# the checker and the editors. Keys that take "row" also accept the word "row": the match row's own value.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.rule/1"
+folder = "content/rules"
+label = "Rulebooks"
+label_es = "Libros de reglas"
+doc = "The rulebook of a match: its time, teams, play rules, end conditions, challenge and pitch."
+doc_es = "El libro de reglas de un partido: su duración, equipos, reglas de juego, condiciones de final, desafío y campo."
+
+[entry.Rulebook]
+file_root = true
+doc = "the rulebook: its id, name and former ids"
+id = { type = "string", doc = "the rulebook's id (default: the file name)" }
+aliases = { type = "strings", doc = "former ids: selections, bindings and friendlies naming one still find it" }
+name = { type = "string", doc = "fallback name (the Mods screen shows the text <mod>.ruleset_<id>)" }
+version = { type = "int", min = 0, doc = "the rulebook's version" }
+training = { type = "bool", default = false, doc = "a training match: state key match.training = 1 while it runs" }
+
+[entry.Time]
+entry_table = "time"
+single = true
+doc = "the match length"
+half_minutes = { type = "any", doc = "minutes per half (a number or \"row\")" }
+halves = { type = "any", doc = "number of halves (a number or \"row\")" }
+endless = { type = "bool", default = false, doc = "one period, clock stopped: the match never ends by itself" }
+
+[entry.Kickoff]
+entry_table = "kickoff"
+single = true
+doc = "who kicks off"
+always = { type = "any", doc = "\"user\" / \"player\" | \"rival\": that side kicks off every kick-off" }
+
+[entry.Teams]
+entry_table = "teams"
+single = true
+doc = "the sides: players, keepers, formations"
+players = { type = "any", doc = "players per side (a number or \"row\")" }
+goalkeeper = { type = "any", doc = "keepers on the pitch (true / false or \"row\"; also written keepers)" }
+keepers = { type = "any", doc = "the same as goalkeeper" }
+fill = { type = "any", doc = "a hole of the built line-up gets a bench player, the keeper's spot first" }
+user = { type = "table", doc = "the user's side: players, formation, goalkeeper, fill, team" }
+rival = { type = "table", doc = "the rival's side: players, formation, goalkeeper, fill, team" }
+
+[entry.Play]
+entry_table = "play"
+single = true
+doc = "fouls, referee, offside, tactics and rule bits"
+exrule = { type = "ints", min = 0, max = 255, doc = "ExRule bits switched on" }
+exrule_off = { type = "ints", min = 0, max = 255, doc = "ExRule bits switched off" }
+rule_bits = { type = "ints", min = 0, max = 255, doc = "bits of the match's rule word, this match only" }
+rule_bits_off = { type = "ints", min = 0, max = 255, doc = "bits of the match's rule word switched off" }
+fouls = { type = "any", doc = "true / false or \"row\"" }
+referee = { type = "any", doc = "true / false or \"row\"" }
+offside = { type = "any", doc = "true / false or \"row\"" }
+tactics = { type = "any", doc = "true / false or \"row\"" }
+coach_mode = { type = "any", doc = "true / false or \"row\"" }
+goal_scenes = { type = "any", doc = "false: after a goal the goal scene / celebration run to their end at once" }
+
+[entry.End]
+entry_table = "end"
+single = true
+doc = "how the match ends: extra time, golden goal, penalties"
+first_goal_ends = { type = "bool", default = false, doc = "the first goal ends the match" }
+extra_time = { type = "bool", default = false }
+extra_time_halves = { type = "int", min = 0, max = 255 }
+extra_time_minutes = { type = "int", min = 0 }
+golden_goal = { type = "any", doc = "true / false or a word" }
+draw = { type = "string", values = ["draw", "extra_time", "penalties", "extra_time_then_penalties"], doc = "what a draw leads to" }
+penalties = { type = "bool", default = false }
+penalties_kicks = { type = "int", min = 0, max = 255 }
+penalties_sudden_death = { type = "bool", default = false }
+penalties_order = { type = "string", values = ["forwards_first", "lineup"], default = "forwards_first" }
+penalties_first = { type = "string", values = ["user", "rival"], default = "user" }
+penalties_final_score = { type = "string", values = ["winner_plus_one", "sum"], default = "winner_plus_one" }
+extended_vgoal = { type = "any", doc = "true / false or \"row\"" }
+
+[entry.Challenge]
+entry_table = "challenge"
+single = true
+doc = "optional: the match is a challenge (hold the ball, score N goals, steal N times)"
+kind = { type = "string", required = true, doc = "the challenge: goals, hold, steals, …" }
+seconds = { type = "int", min = 0, doc = "the time limit in seconds" }
+count = { type = "int", min = 0, doc = "how many goals / steals" }
+zone_block = { type = "bool" }
+outfield = { type = "bool" }
+keepaway = { type = "bool" }
+keepers_out = { type = "bool" }
+end_match = { type = "bool" }
+tag = { type = "int", min = 0 }
+outfield_formation = { type = "string", ref = "formation", doc = "the formation of the outfield players" }
+keepaway_ai = { type = "table", doc = "keep-away AI tunables by name" }
+
+[entry.Pitch]
+entry_table = "pitch"
+single = true
+doc = "optional: pitch and goal size"
+scale = { type = "number", doc = "pitch scale" }
+goal = { type = "numbers", doc = "goal size [width, height]" }

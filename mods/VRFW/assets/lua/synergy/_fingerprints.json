@@ -1,0 +1,33 @@
+{
+ "_markers": [
+  "OnOpenLayer",
+  "OnSetupLayer",
+  "OnInit",
+  "Step",
+  "OnFunction"
+ ],
+ "equip_synergy_menu_list": {
+  "script": "equip_synergy_menu_list_6.00.30.00",
+  "require": [
+   "GetEquipTypeFromSlotType"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "shop_menu_buy": {
+  "script": "shop_menu_buy_7.00.05.00",
+  "require": [
+   "ResetFreeCursor"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "team_dock_formation_menu": {
+  "script": "team_dock_formation_menu_7.00.09.00",
+  "require": [
+   "OpenSubWinSelectCharaSetting"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ }
+}

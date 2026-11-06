@@ -1,0 +1,25 @@
+# Custom Change Mode: the two sprites of its «Modo cambio» tab on the «Habilidades» list (focused / unfocused), added to the
+# retail icon_common atlas, made by _tools/mode_change_tab_icon_build.py: the mode
+# change's own centre (icon_sp_area11) recoloured on the Totem tab's frame. The retail sprites are untouched.
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/200_icon/aura_reworked_own/aura_reworked_icon_common.g4tx"
+name = "aura_reworked_icon_common"
+size = [292, 96]
+
+[[sprite]]
+atlas = "#/menu/200_icon/aura_reworked_own/aura_reworked_icon_common.g4tx"
+name = "evt_mode_change_tab_on"
+texture = "aura_reworked_icon_common"
+x = 148
+y = 0
+png = "mode_change_tab/evt_mode_change_tab_on.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/aura_reworked_own/aura_reworked_icon_common.g4tx"
+name = "evt_mode_change_tab_off"
+texture = "aura_reworked_icon_common"
+x = 0
+y = 0
+png = "mode_change_tab/evt_mode_change_tab_off.png"

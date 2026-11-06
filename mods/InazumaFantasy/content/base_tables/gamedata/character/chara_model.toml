@@ -1,0 +1,46 @@
+schema = "VRFW.base_table/1"
+# The chara_model rows of the technique models (chara_base.toml, same folder): the objbin each one loads,
+# a copy of the retail model row of the same kind with the path changed.
+
+[[keyed]]
+table = "character/chara_model"
+
+  [[keyed.add]]
+  key = 0x0D1C39D4                # ev60_90680
+  from = 0x000C5BA5               # ev60_00680
+  cells = { skeleton_path = { text = "_waza/ev60_90680/ev60_90680.objbin" } }
+
+  [[keyed.add]]
+  key = 0x84799D7A                # ev60_90021
+  from = 0x6FB94562               # ev60_01310
+  cells = { skeleton_path = { text = "_waza/ev60_90021/ev60_90021.objbin" } }
+
+  [[keyed.add]]
+  key = 0x1D70CCC0                # ev60_90022
+  from = 0xA01E22DA               # ev60_03250
+  cells = { skeleton_path = { text = "_waza/ev60_90022/ev60_90022.objbin" } }
+
+  [[keyed.add]]
+  key = 0xA5CCABA5                # ev60_91022
+  from = 0xA01E22DA               # ev60_03250
+  cells = { skeleton_path = { text = "_waza/ev60_91022/ev60_91022.objbin" } }
+
+  [[keyed.add]]
+  key = 0xA8849329                # ev61_91001
+  from = 0x0888A144               # ev61_00540
+  cells = { skeleton_path = { text = "_waza/ev61_91001/ev61_91001.objbin" } }
+
+  [[keyed.add]]
+  key = 0xC6250B77                # ev60_90004
+  from = 0xE5334085               # ev60_00330
+  cells = { skeleton_path = { text = "_waza/ev60_90004/ev60_90004.objbin" } }
+
+  [[keyed.add]]
+  key = 0xB1E8B4FC                # b900007
+  from = 0xFD30941C               # b000001
+  cells = { skeleton_path = { text = "b900007/b900007.objbin" } }
+
+  [[keyed.add]]
+  key = 0xFBB3D2D5                # ev62_92004
+  from = 0x7E7ECEF0               # ev62_10110
+  cells = { skeleton_path = { text = "_waza/ev62_92004/ev62_92004.objbin" } }

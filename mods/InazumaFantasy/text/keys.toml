@@ -1,0 +1,48 @@
+schema = "VRFW.text_key/1"
+# Texts of Inazuma Fantasy (mod InazumaFantasy): the «Mods» screen's name and description.
+default_lang = "en"
+
+[en.new]
+level_orb_result = "Lv. {1} → Lv. {2}"
+mod_name = "Inazuma Fantasy"
+mod_description = "Inazuma Fantasy. The Market gets its own shops, priced in Passion Points that every match pays: a general store, a training shop and two special move shops, with a padlock on what is not unlocked yet. It adds Fantasy Idol cards, the Inazuma Fantasy title screen, a free match section with two mod teams and a daily legendary rival. New special moves, including 30 by LegendaryAd and God Strike, and an Arion military outfit are sold in the shops."
+
+[es.new]
+level_orb_result = "Nv. {1} → Nv. {2}"
+mod_name = "Inazuma Fantasy"
+mod_description = "Inazuma Fantasy. El Mercado tiene tiendas propias, con precios en Puntos de pasión que paga cada partido: una tienda general, una de entrenamiento y dos de supertécnicas, con un candado en lo que aún no está desbloqueado. Añade cartas Ídolo de Fantasy, la pantalla de título de Inazuma Fantasy, una sección de partido libre con dos equipos del mod y un rival legendario diario. Las supertécnicas nuevas, entre ellas 30 de LegendaryAd y Golpe Divino, y un traje militar de Arion se venden en las tiendas."
+
+[fr.new]
+level_orb_result = "Niv. {1} → Niv. {2}"
+mod_name = "Inazuma Fantasy"
+mod_description = "Inazuma Fantasy. Le Marché a ses propres boutiques, au prix de Points de passion que chaque match rapporte : une boutique générale, une d'entraînement et deux de supertechniques, avec un cadenas sur ce qui n'est pas encore débloqué. Il ajoute des cartes Idole de Fantasy, l'écran-titre d'Inazuma Fantasy, une section de match libre avec deux équipes du mod et un rival légendaire quotidien. Les nouvelles supertechniques, dont 30 de LegendaryAd et Frappe divine, et une tenue militaire d'Arion sont vendues en boutique."
+
+[de.new]
+level_orb_result = "Lv. {1} → Lv. {2}"
+mod_name = "Inazuma Fantasy"
+mod_description = "Inazuma Fantasy. Der Markt hat eigene Läden, bezahlt mit Leidenschaftspunkten, die jedes Spiel einbringt: einen Gemischtwarenladen, einen Trainingsladen und zwei Läden für Spezialtechniken, mit einem Schloss bei allem, was noch nicht freigeschaltet ist. Dazu kommen Fantasy-Idol-Karten, der Titelbildschirm von Inazuma Fantasy, ein Bereich im freien Spiel mit zwei Teams der Mod und ein täglicher legendärer Rivale. Neue Spezialtechniken, darunter 30 von LegendaryAd und Göttlicher Schlag, und ein Militäroutfit für Arion werden in den Läden verkauft."
+
+[it.new]
+level_orb_result = "Liv. {1} → Liv. {2}"
+mod_name = "Inazuma Fantasy"
+mod_description = "Inazuma Fantasy. Il Mercato ha negozi propri, con prezzi in Punti passione che ogni partita fa guadagnare: un negozio generale, uno di allenamento e due di supertecniche, con un lucchetto su ciò che non è ancora sbloccato. Aggiunge carte Idol di Fantasy, la schermata del titolo di Inazuma Fantasy, una sezione della partita libera con due squadre della mod e un rivale leggendario giornaliero. Le supertecniche nuove, tra cui 30 di LegendaryAd e Colpo divino, e un abito militare di Arion si comprano nei negozi."
+
+[pt.new]
+level_orb_result = "Nv. {1} → Nv. {2}"
+mod_name = "Inazuma Fantasy"
+mod_description = "Inazuma Fantasy. O Mercado tem lojas próprias, com preços em Pontos de paixão que cada jogo paga: uma loja geral, uma de treino e duas de supertécnicas, com um cadeado no que ainda não está desbloqueado. Acrescenta cartas Ídolo de Fantasy, o ecrã de título de Inazuma Fantasy, uma secção do jogo livre com duas equipas do mod e um rival lendário diário. As supertécnicas novas, entre elas 30 de LegendaryAd e Golpe Divino, e um traje militar de Arion vendem-se nas lojas."
+
+[ja.new]
+level_orb_result = "Lv.{1} → Lv.{2}"
+mod_name = "Inazuma Fantasy"
+mod_description = "Inazuma Fantasy。マーケットに専用ショップが加わります。価格は試合ごとにもらえる情熱ポイントで、よろず屋、トレーニングショップ、必殺技ショップ2つ。未解放の商品には鍵が付きます。Fantasyのアイドルカード、Inazuma Fantasyのタイトル画面、2チームが登場するフリーマッチの専用セクション、毎日のレジェンドライバルも追加。LegendaryAd作の30種やゴッドストライクなどの新必殺技と、アリオンの軍服衣装がショップで買えます。"
+
+[zh_hans.new]
+level_orb_result = "Lv.{1} → Lv.{2}"
+mod_name = "Inazuma Fantasy"
+mod_description = "Inazuma Fantasy。市场新增专属商店，以每场比赛赠送的热情点数购买：综合商店、训练商店和两家必杀技商店，尚未解锁的商品带有挂锁标记。新增 Fantasy 偶像卡、Inazuma Fantasy 标题画面、包含两支模组球队的自由比赛专属分区，以及每日传奇对手。新必杀技（包括 LegendaryAd 制作的 30 种和神之一击）以及亚里翁的军装服装可在商店购买。"
+
+[zh_hant.new]
+level_orb_result = "Lv.{1} → Lv.{2}"
+mod_name = "Inazuma Fantasy"
+mod_description = "Inazuma Fantasy。市場新增專屬商店，以每場比賽贈送的熱情點數購買：綜合商店、訓練商店和兩家必殺技商店，尚未解鎖的商品帶有掛鎖標記。新增 Fantasy 偶像卡、Inazuma Fantasy 標題畫面、包含兩支模組球隊的自由比賽專屬分區，以及每日傳奇對手。新必殺技（包括 LegendaryAd 製作的 30 種和神之一擊）以及亞里翁的軍裝服裝可在商店購買。"

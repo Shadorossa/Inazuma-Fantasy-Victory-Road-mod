@@ -1,0 +1,15 @@
+schema = "VRFW.team/2"
+# The team Falam Medius (bb_19_team_faram_diete) in every match.
+
+[[edit]]
+target = "bb_19_team_faram_diete"
+  [[edit.member]]
+  slot = 6
+  patch = true
+  moves = [0xB04EE8D8, 0x660EED1E, 0x62F85358]
+  levels = [1, 1, 1]
+  [[edit.member]]
+  slot = 10
+  patch = true
+  moves = [0x8A52C09B, 0x372620B0, 0x1F7F73BA, 0x90CD25B4]
+  levels = [1, 1, 1, 1]

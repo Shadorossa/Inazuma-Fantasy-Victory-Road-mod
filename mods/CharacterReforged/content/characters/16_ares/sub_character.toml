@@ -1,0 +1,93 @@
+schema = "VRFW.character/2"
+# Character Reforged · Sub Character · Inazuma Eleven: Ares
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c11908080"                                   # Chesney Horse
+moves = [
+  { move = 0x5506B694, level = 1 },                         # Utter Gutsiness Club
+  { move = 0x6B1CF436, level = 13 },                        # Bewildered
+  { move = 0xCF7FA2C4, level = 20 },                        # Gold Rush
+  { move = 0x29B328E6, level = 30 },                        # Spectacle Crash
+]
+
+  [[edit.cards]]
+  id = 0xCF860DD2                                         # FW/MF · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 224, control = 250, technique = 223, pressure = 197, physical = 176, intelligence = 201, agility = 189, freedom = 355 }
+
+[[edit]]
+target = "c11907050"                                   # Hunter Foster
+moves = [
+  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
+  { move = 0xB633C4E1, level = 5 },                         # Photon Crash
+  { move = 0xC3D894B7, level = 35 },                        # The Dawn
+  { move = 0xEE3E059F, level = 40 },                        # Celestial Smash
+]
+VRFW.MoveGrades = [
+  { Move = 0x65766A4F, Grade = 1 },                         # Meteor Blade
+]
+
+  [[edit.cards]]
+  id = 0x224B63C9                                         # FW/DF · fire
+  growth = "normal"
+  stats = { kick = 320, control = 255, technique = 262, pressure = 205, physical = 171, intelligence = 231, agility = 174, freedom = 335 }
+
+[[edit]]
+target = "c11907060"                                   # Xavier Schiller
+moves = [
+  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
+  { move = 0x1755397B, level = 16 },                        # Dark Energy Star
+  { move = 0xC3D894B7, level = 37 },                        # The Dawn
+  { move = 0x00A10ABD, level = 50 },                        # Ball Lightning
+]
+
+  [[edit.cards]]
+  id = 0x0966300A                                         # FW/DF · forest
+  growth = "normal"
+  stats = { kick = 301, control = 257, technique = 269, pressure = 207, physical = 174, intelligence = 235, agility = 178, freedom = 255 }
+
+[[edit]]
+target = "c11907080"                                   # Massimo Donati
+moves = [
+  { move = 0xA3CBF493, level = 1 },                         # Fire Lemonade
+  { move = 0x728CD324, level = 13 },                        # Fizzy Fire Lemonade
+  { move = 0x3663DB4C, level = 20 },                        # Utter Gutsiness Bat
+  { move = 0x4D1E465C, level = 30 },                        # Fake Bomber
+]
+
+  [[edit.cards]]
+  id = 0x97E51D84                                         # FW/DF · fire
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 251, control = 251, technique = 228, pressure = 182, physical = 193, intelligence = 201, agility = 196, freedom = 313 }
+
+[[edit]]
+target = "c11907090_notplayer"                         # Kia Tanner
+
+  [[edit.cards]]
+  id = 0xF2B8250A                                         # DF/MF · forest
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 184, control = 194, technique = 201, pressure = 219, physical = 230, intelligence = 259, agility = 205, freedom = 375 }
+
+[[edit]]
+target = "c11907070"                                   # Faith Winter
+moves = [
+  { move = 0x867EE0BB, level = 1 },                         # Verdure Vortex
+  { move = 0x0A02DF36, level = 13 },                        # Containment Field
+  { move = 0x9543988F, level = 20 },                        # Tornado Barrier
+  { move = 0x8D9AC3F9, level = 30 },                        # Twister Trap
+]
+
+  [[edit.cards]]
+  id = 0x107D014B                                         # DF/FW · wind
+  growth_pattern = 1
+  rank = 3
+  growth = "normal"
+  stats = { kick = 215, control = 190, technique = 197, pressure = 248, physical = 235, intelligence = 288, agility = 205, freedom = 267 }

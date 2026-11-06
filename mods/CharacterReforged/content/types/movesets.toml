@@ -1,0 +1,32 @@
+# Declaration schema of CharacterReforged.movesets/1 (content\movesets): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "CharacterReforged.movesets/1"
+folder = "content/movesets"
+label = "Movesets"
+label_es = "Repertorios de técnicas"
+doc = "The rules that decide which moves each player gets."
+doc_es = "Las reglas que deciden qué técnicas recibe cada jugador."
+
+[entry.Mix]
+single = true
+
+[entry.MovesetRules]
+single = true
+Moves = { type = "int" }
+Games = { type = "strings" }
+Sources = { type = "strings" }
+VictoryRoadSeries = { type = "strings" }
+KeepSpecialCards = { type = "bool" }
+SpecialCardsInheritBase = { type = "bool" }
+LevelScale = { type = "number" }
+StoryLevelStep = { type = "int" }
+SagaGames = { type = "strings" }
+SagaSource = { type = "string" }
+ModernSource = { type = "string" }
+GreySeed = { type = "string" }
+GreyCategoryByPosition = { type = "table" }
+NameFamily = { type = "bool" }
+PreferOwnElement = { type = "bool" }
+GreyMove = { type = "table" }
+VoiceOrder = { type = "table" }
+StartingGrades = { type = "table" }

@@ -1,0 +1,11 @@
+schema = "VRFW.menu/2"
+# The stat numbers next to the radar / stat chart show up to 9999: retail draws them at most 999 (DispMaxValue 999 on
+# the six number primitives of the object). The digit slots (4) are in
+# content\base_tables\menu\config\menu_graphic_number_config.toml; a 4-digit value is narrowed to the width of 3 by
+# the number fit (content\number_fit\stat_numbers.toml).
+
+[[object_set]]
+object = "soccer11_06_p1_formation_status_graph_param_num"
+set = [
+    { parameter = "DispMaxValue", values = { 2 = 9999 } },
+]

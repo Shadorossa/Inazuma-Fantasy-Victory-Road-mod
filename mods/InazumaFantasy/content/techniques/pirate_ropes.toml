@@ -1,0 +1,39 @@
+schema = "VRFW.technique/3"
+# Lianas pirata (Pirate Ropes): the download's move whs90004, a clone of whs00330 with its numbers; its event ev60_90004 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "pirate_ropes"
+key = "whs90004"
+base = "whs00330"
+event = "ev60_90004"
+element = "wind"
+effect_flags = 0
+color = 1
+  [technique.text.es]
+  name = "Lianas pirata"
+  description = "Se balancea en una liana pirata\ny remata desde lo alto."
+  [technique.text.en]
+  name = "Pirate Ropes"
+  description = "Swings on a pirate rope\nand shoots from above."
+  [technique.text.fr]
+  name = "Lianes pirates"
+  description = "Se balance à une liane de pirate\net tire d'en haut."
+  [technique.text.de]
+  name = "Piratenlianen"
+  description = "Schwingt an einer Piratenliane\nund schießt von oben."
+  [technique.text.it]
+  name = "Liane pirata"
+  description = "Si dondola su una liana pirata\ne tira dall'alto."
+  [technique.text.pt]
+  name = "Cipós piratas"
+  description = "Balança num cipó pirata\ne remata lá de cima."
+  [technique.text.ja]
+  name = "パイレーツロープ"
+  description = "海賊のロープで宙を舞い\n上からシュート！"
+  [technique.text.zh_hans]
+  name = "海盗藤蔓"
+  description = "荡着海盗藤蔓，\n从高处射门。"
+  [technique.text.zh_hant]
+  name = "海盜藤蔓"
+  description = "盪著海盜藤蔓，\n從高處射門。"

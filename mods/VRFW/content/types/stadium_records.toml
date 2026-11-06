@@ -1,0 +1,20 @@
+# Schema of the stadium declarations (kind VRFW.stadium/1, a mod's content\stadiums\**\*.toml): rows of the
+# stadium picker (soccer_game_option). The stadium type builds them; this schema describes the same keys for the
+# checker and the editors.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.stadium/1"
+folder = "content/stadiums"
+label = "Stadiums"
+label_es = "Estadios"
+doc = "One row of the stadium picker lists; a later row for the same map replaces it."
+doc_es = "Una fila de las listas de elección de estadio; una fila posterior del mismo mapa la sustituye."
+
+[entry.Stadium]
+entry_table = "stadium"
+doc = "one stadium picker row; a later declaration of the same map replaces the row"
+map = { type = "string", ref = "map", required = true, doc = "the map (row key crc32(map)), e.g. s91g001" }
+name = { type = "table", doc = "optional: the map's name per language (map_text row map_name_<map>)" }
+picture = { type = "string", doc = "the picture (default img_room_<map>)" }
+order = { type = "int", min = 0, max = 255, default = 200, doc = "the row's place in the list (lower first)" }
+unlock_item = { type = "string", ref = "item", doc = "optional: the row shows only while the save owns this item (a mod item name, <mod>.<name>, a game key or 0x…)" }
+cells = { type = "table", doc = "optional raw cells c0-c5" }

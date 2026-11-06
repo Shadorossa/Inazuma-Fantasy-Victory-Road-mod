@@ -1,0 +1,277 @@
+# The first-start window (crates/vr-loader/src/boot_splash): shown while the early phase really builds.
+
+# Milliseconds of real building before the window appears: a cached start never shows it.
+threshold_ms = 1500
+default_weight = 100
+default_word = "data"
+fallback_language = "en"
+
+# Each type's typical first-start time in ms: the bar gives it that share. Edit freely, no rebuild needed.
+# From `[core] timing: early phase` of a full build. Two are lowered for commits made after that log:
+# rule was 169279 (duel clip import 163 s, now ~7 s, VRFW 3.138); sound was 99019 (118 s -> 30 s, VRFW 3.139).
+[weights]
+rule = 13000
+image = 151990
+telop = 128588
+sound = 25000
+technique = 40422
+team = 18640
+model = 11028
+effect = 9238
+item = 8549
+character = 6780
+base_table = 4602
+text = 3702
+theme = 3489
+menu = 1778
+script = 1577
+param = 1369
+scene = 1289
+mods_screen = 1192
+transform = 1162
+celebration = 1019
+formation = 665
+anim = 648
+game_shader = 500
+card_filter = 406
+table = 393
+flag = 286
+font = 284
+trigger = 275
+look = 233
+kit_twin = 159
+stadium = 142
+input = 138
+option = 77
+shop = 66
+changelog = 34
+mode = 6
+friendly = 4
+rarity = 4
+
+# Type -> the player word of [text.<language>.words]; a type not named here uses default_word.
+[words]
+image = "images"
+card_filter = "images"
+telop = "banners"
+sound = "sound"
+team = "teams"
+formation = "teams"
+kit_twin = "teams"
+character = "characters"
+look = "characters"
+celebration = "characters"
+transform = "characters"
+technique = "techniques"
+anim = "animations"
+scene = "animations"
+model = "models"
+stadium = "models"
+effect = "effects"
+game_shader = "effects"
+item = "items"
+shop = "items"
+text = "texts"
+font = "texts"
+menu = "menus"
+mods_screen = "menus"
+theme = "menus"
+option = "menus"
+changelog = "menus"
+rule = "rules"
+mode = "rules"
+friendly = "rules"
+trigger = "rules"
+flag = "rules"
+param = "rules"
+
+# Where the game's language comes from before the game reads it: the system save, then Steam's language for the game.
+[steam]
+app_id = 2799860
+system_file = "002AB8F4-SYSTEMLIVE"
+system_inner = "SYSTEM_data.bin"
+language_member = "LanguageCode"
+
+[steam.languages]
+japanese = "ja"
+english = "en"
+spanish = "es"
+latam = "es"
+french = "fr"
+german = "de"
+italian = "it"
+portuguese = "pt"
+brazilian = "pt"
+schinese = "zh_hans"
+tchinese = "zh_hant"
+
+[text.en]
+line = "Preparing {what}... {done}/{total}"
+font = "Segoe UI"
+[text.en.words]
+images = "images"
+banners = "banners"
+sound = "sound"
+teams = "teams"
+characters = "characters"
+techniques = "techniques"
+animations = "animations"
+models = "models"
+effects = "effects"
+items = "items"
+texts = "texts"
+menus = "menus"
+rules = "rules"
+data = "data"
+
+[text.es]
+line = "Preparando {what}... {done}/{total}"
+font = "Segoe UI"
+[text.es.words]
+images = "imágenes"
+banners = "rótulos"
+sound = "sonido"
+teams = "equipos"
+characters = "personajes"
+techniques = "supertécnicas"
+animations = "animaciones"
+models = "modelos"
+effects = "efectos"
+items = "objetos"
+texts = "textos"
+menus = "menús"
+rules = "reglas"
+data = "datos"
+
+[text.fr]
+line = "Préparation : {what}... {done}/{total}"
+font = "Segoe UI"
+[text.fr.words]
+images = "images"
+banners = "bannières"
+sound = "son"
+teams = "équipes"
+characters = "personnages"
+techniques = "techniques"
+animations = "animations"
+models = "modèles"
+effects = "effets"
+items = "objets"
+texts = "textes"
+menus = "menus"
+rules = "règles"
+data = "données"
+
+[text.de]
+line = "Vorbereitung: {what}... {done}/{total}"
+font = "Segoe UI"
+[text.de.words]
+images = "Bilder"
+banners = "Banner"
+sound = "Sound"
+teams = "Teams"
+characters = "Charaktere"
+techniques = "Techniken"
+animations = "Animationen"
+models = "Modelle"
+effects = "Effekte"
+items = "Gegenstände"
+texts = "Texte"
+menus = "Menüs"
+rules = "Regeln"
+data = "Daten"
+
+[text.it]
+line = "Preparazione: {what}... {done}/{total}"
+font = "Segoe UI"
+[text.it.words]
+images = "immagini"
+banners = "banner"
+sound = "audio"
+teams = "squadre"
+characters = "personaggi"
+techniques = "tecniche"
+animations = "animazioni"
+models = "modelli"
+effects = "effetti"
+items = "oggetti"
+texts = "testi"
+menus = "menu"
+rules = "regole"
+data = "dati"
+
+[text.pt]
+line = "Preparando {what}... {done}/{total}"
+font = "Segoe UI"
+[text.pt.words]
+images = "imagens"
+banners = "faixas"
+sound = "som"
+teams = "equipes"
+characters = "personagens"
+techniques = "técnicas"
+animations = "animações"
+models = "modelos"
+effects = "efeitos"
+items = "itens"
+texts = "textos"
+menus = "menus"
+rules = "regras"
+data = "dados"
+
+[text.ja]
+line = "{what}を準備中... {done}/{total}"
+font = "Yu Gothic UI"
+[text.ja.words]
+images = "画像"
+banners = "テロップ"
+sound = "サウンド"
+teams = "チーム"
+characters = "キャラクター"
+techniques = "必殺技"
+animations = "アニメーション"
+models = "モデル"
+effects = "エフェクト"
+items = "アイテム"
+texts = "テキスト"
+menus = "メニュー"
+rules = "ルール"
+data = "データ"
+
+[text.zh_hans]
+line = "正在准备{what}... {done}/{total}"
+font = "Microsoft YaHei UI"
+[text.zh_hans.words]
+images = "图像"
+banners = "字幕"
+sound = "音效"
+teams = "队伍"
+characters = "角色"
+techniques = "必杀技"
+animations = "动画"
+models = "模型"
+effects = "特效"
+items = "道具"
+texts = "文本"
+menus = "菜单"
+rules = "规则"
+data = "数据"
+
+[text.zh_hant]
+line = "正在準備{what}... {done}/{total}"
+font = "Microsoft JhengHei UI"
+[text.zh_hant.words]
+images = "圖像"
+banners = "字幕"
+sound = "音效"
+teams = "隊伍"
+characters = "角色"
+techniques = "必殺技"
+animations = "動畫"
+models = "模型"
+effects = "特效"
+items = "道具"
+texts = "文字"
+menus = "選單"
+rules = "規則"
+data = "資料"

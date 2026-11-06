@@ -1,0 +1,41 @@
+# Texts of Missing Content (mod id MissingContent) (format of the text engine: docs/framework/types/text.md); new texts
+# get the id crc32("MissingContent.<name>"): the mod's name and description on the «Mods» screen, in the game's
+# language. A language missing here falls back to English.
+schema = "VRFW.text_key/1"
+default_lang = "en"
+
+[en.new]
+mod_name = "Missing Content"
+mod_description = "Content the game ships without or never uses, in modules you can switch on and off: Lost Cutscenes (unused keeper, duel, de-summon and chain scenes back in matches), Missing Voice (Japanese voice lines for silent special moves) and Extra Openings (the DS openings of Inazuma Eleven 2 and 3 and the DS menu music)."
+
+[es.new]
+mod_name = "Missing Content"
+mod_description = "Contenido que el juego no trae o nunca usa, en módulos que puedes activar y desactivar: Lost Cutscenes (escenas de portero, duelos, fin de invocación y cadenas sin usar, de vuelta en los partidos), Missing Voice (voces japonesas para supertécnicas mudas) y Extra Openings (los openings de DS de Inazuma Eleven 2 y 3 y la música de menú de DS)."
+
+[fr.new]
+mod_name = "Missing Content"
+mod_description = "Du contenu que le jeu n'inclut pas ou n'utilise jamais, en modules activables : Lost Cutscenes (scènes de gardien, de duel, de fin d'invocation et d'enchaînement inutilisées, de retour en match), Missing Voice (voix japonaises pour les techniques muettes) et Extra Openings (les génériques DS d'Inazuma Eleven 2 et 3 et la musique de menu DS)."
+
+[de.new]
+mod_name = "Missing Content"
+mod_description = "Inhalte, die das Spiel nicht enthält oder nie nutzt, in Modulen zum An- und Ausschalten: Lost Cutscenes (ungenutzte Torwart-, Duell-, Beschwörungsende- und Kettenszenen zurück im Spiel), Missing Voice (japanische Sprachaufnahmen für stumme Spezialtechniken) und Extra Openings (die DS-Openings von Inazuma Eleven 2 und 3 und die DS-Menümusik)."
+
+[it.new]
+mod_name = "Missing Content"
+mod_description = "Contenuti che il gioco non include o non usa mai, in moduli attivabili: Lost Cutscenes (scene di portiere, duelli, fine evocazione e catene inutilizzate, di nuovo nelle partite), Missing Voice (voci giapponesi per le tecniche mute) ed Extra Openings (le sigle DS di Inazuma Eleven 2 e 3 e la musica del menu DS)."
+
+[pt.new]
+mod_name = "Missing Content"
+mod_description = "Conteúdo que o jogo não traz ou nunca usa, em módulos que você liga e desliga: Lost Cutscenes (cenas de goleiro, duelos, fim de invocação e combinações sem uso, de volta às partidas), Missing Voice (vozes japonesas para técnicas mudas) e Extra Openings (as aberturas de DS de Inazuma Eleven 2 e 3 e a música de menu do DS)."
+
+[ja.new]
+mod_name = "Missing Content"
+mod_description = "ゲームに入っていない、または使われていないコンテンツをモジュールで追加します（オン／オフ可能）：Lost Cutscenes（未使用のキーパー・競り合い・化身解除・連携シーンを試合に復活）、Missing Voice（声のない必殺技に日本語ボイス）、Extra Openings（イナズマイレブン2・3のDSオープニングとDSのメニュー曲）。"
+
+[zh_hans.new]
+mod_name = "Missing Content"
+mod_description = "游戏没有收录或从未使用的内容，以可开关的模块提供：Lost Cutscenes（未使用的守门员、对决、化身解除和连携场景回到比赛中）、Missing Voice（为无声的必杀技加入日语语音）和 Extra Openings（闪电十一人2和3的DS片头及DS菜单音乐）。"
+
+[zh_hant.new]
+mod_name = "Missing Content"
+mod_description = "遊戲沒有收錄或從未使用的內容，以可開關的模組提供：Lost Cutscenes（未使用的守門員、對決、化身解除和連攜場景回到比賽中）、Missing Voice（為無聲的必殺技加入日語語音）和 Extra Openings（閃電十一人2和3的DS片頭及DS選單音樂）。"

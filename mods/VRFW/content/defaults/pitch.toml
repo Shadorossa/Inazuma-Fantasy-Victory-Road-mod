@@ -1,0 +1,7 @@
+# Defaults of a ruleset's [pitch]; sizes are set per ruleset. A mod may ship its own defaults\pitch.toml to override keys.
+
+# Move and scale the visible goals with the pitch logic; false keeps them drawn at retail place and size.
+visual_goals = true
+
+# Frames (60 = 1 s) to keep looking for the goal model after the field build.
+visual_retry_frames = 600

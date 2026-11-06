@@ -1,0 +1,69 @@
+schema = "VRFW.base_table/1"
+# The trigger rows that play the moves' ball auras (effect_define.toml, same folder) on the ball (CB_SkillShootBallAura)
+# while their colour row's statuses are on: each the retail aura's row with the effect (#0) and the status (#8)
+# changed, in the ball's definition (DEF #0 = 0x6439C5A6).
+
+[[keyed]]
+list = "EFFECT_CHR_TRIGGER_DEFINE_DEF_INFO"
+key_columns = ["#0"]
+within = { list = "EFFECT_CHR_TRIGGER_DEFINE_DEF", column = "#0", key = 0x6439C5A6 }
+
+  [[keyed.add]]
+  key = "rw90208a"
+  from = "ega0075e"
+  cells = { "#8" = 0x1C3B48D5 }
+
+  [[keyed.add]]
+  key = "rw90208b"
+  from = "ega0080e"
+  cells = { "#8" = 0x6C4651B6 }
+
+  [[keyed.add]]
+  key = "rw90208c"
+  from = "ega0085e"
+  cells = { "#8" = 0x03F85230 }
+
+  [[keyed.add]]
+  key = "rw90680a"
+  from = "ega0075d"
+  cells = { "#8" = 0x4ECBE9BF }
+
+  [[keyed.add]]
+  key = "rw90680b"
+  from = "ega0080d"
+  cells = { "#8" = 0x775A0C3C }
+
+  [[keyed.add]]
+  key = "rw90680c"
+  from = "ega0085d"
+  cells = { "#8" = 0x1E00A365 }
+
+  [[keyed.add]]
+  key = "rw90022a"
+  from = "ega0075c"
+  cells = { "#8" = 0xAC312E5F }
+
+  [[keyed.add]]
+  key = "rw90022b"
+  from = "ega0080c"
+  cells = { "#8" = 0x600F7A34 }
+
+  [[keyed.add]]
+  key = "rw90022c"
+  from = "ega0085c"
+  cells = { "#8" = 0xFCC8E8FB }
+
+  [[keyed.add]]
+  key = "rw90236a"
+  from = "ega0075a"
+  cells = { "#8" = 0xB120C51F }
+
+  [[keyed.add]]
+  key = "rw90236b"
+  from = "ega0080a"
+  cells = { "#8" = 0xDB0A411F }
+
+  [[keyed.add]]
+  key = "rw90236c"
+  from = "ega0085a"
+  cells = { "#8" = 0xF2B4C04E }

@@ -1,0 +1,32 @@
+# Declaration schema of VRFW.random_team/1 (content\random_teams\**\*.toml; docs/framework/random-team.md): [[VRFW.RandomTeamLook]], [[VRFW.RandomTeamPool]], [[VRFW.RandomTeam]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.random_team/1"
+folder = "content/random_teams"
+label = "Random teams"
+label_es = "Equipos aleatorios"
+doc = "Teams built at random from a pool of cards, with rules such as unique players and element themes."
+doc_es = "Equipos generados al azar a partir de un grupo de cartas, con reglas como jugadores únicos y temas de elemento."
+
+[entry.RandomTeamLook]
+Name = { type = "name", required = true }
+Entry = { type = "records", fields = { Text = { type = "string", doc = "team_text id: number or key (crc32 of the key)" }, Emblem = { type = "int", doc = "item_emblem id / key / <mod>.<name>" }, Kit = { type = "int", doc = "uniform id / key / <mod>.<name>" }, Team = { type = "string", doc = "name / emblem / kit of that team (keys given here win)" } } }
+
+[entry.RandomTeamPool]
+Name = { type = "name", required = true, doc = "full key <mod>.rivals" }
+Include = { type = "records", fields = { Columns = { type = "table" }, Series = { type = "strings", doc = "the characters' source series (names or numbers; chara-index.md §1)" }, Rarity = { type = "ints", doc = "chara_param col 41 special_rarity" }, IfMod = { type = "string", doc = "this row only while that mod is active" }, Mod = { type = "string", doc = "cards that mod created (VRFW.ids.origin)" } }, doc = "a card joins when ONE include row matches (no row = every card)" }
+Exclude = { type = "records", fields = { Cards = { type = "ids" } }, doc = "a card leaves when ONE exclude row matches" }
+
+[entry.RandomTeam]
+Name = { type = "name", required = true }
+Pool = { type = "string" }
+Look = { type = "string" }
+Slots = { type = "strings", doc = "slot teams (game keys or <mod>.<name>)" }
+Unique = { type = "string", doc = "no character twice (\"card\": no card twice)" }
+Version = { type = "int", doc = "part of the seed: a new version = new teams" }
+TierColumn = { type = "string", doc = "a chara_param column (schema name, col_<n> or 0-based number) for Tier" }
+MaxSame = { type = "int", doc = "at most 3 players of one element" }
+Theme = { type = "table", doc = "25 %: one element is the team's theme (its cards weigh x6)" }
+Stage = { type = "records", fields = { Stage = { type = "int" }, Tier = { type = "ints" }, Stages = { type = "ints", doc = "stage numbers this row serves (or Stage = n)" }, Level = { type = "ints" }, LevelSpread = { type = "int", doc = "each member level offset in -1..+1" }, Step = { type = "int", doc = "member AI step (0-4, added to the row's AI tier, capped at 4)" }, RarityWeights = { type = "table", doc = "a rarity not listed weighs 0" }, Formations = { type = "ints", doc = "a stage may override any rule key" } } }
+Formations = { type = "ints", doc = "must have as many places as the slot team has starters" }
+BenchKeeper = { type = "bool", doc = "the first bench row gets a goalkeeper" }
+ElementWeights = { type = "table" }

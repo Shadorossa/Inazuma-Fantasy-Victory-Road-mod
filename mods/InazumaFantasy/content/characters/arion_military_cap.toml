@@ -1,0 +1,43 @@
+schema = "VRFW.character/2"
+# Arion Sherwind with his military cap: the look the game's Arion Sherwind (c04000080) takes while he wears his military
+# uniform (content/items/arion_sherwind_uniform.toml, its [[VRFW.ItemTransform]]). A copy of Arion with a new model
+# (his row, the head c90400081 and the cap i90400081 as extra mesh, declared in content/looks/arion_sherwind_fantasy.toml) and one
+# card (Arion's first card, needed by the transformation). Never a player: no office row, no team, marked as an
+# alternate version (flag_31, as the game's variants), out of the album (content/album/fantasy.toml). Face icon:
+# assets/menu/200_icon/10_icon_chr/face/c90400081_l.g4tx.
+# Pinned ids: character crc32("c90400081"), model crc32("InazumaFantasy.arion_military_cap_model"),
+# card crc32("InazumaFantasy.arion_military_cap#card").
+default_lang = "en"
+
+[[character]]
+name = "arion_military_cap"
+based_on = "c04000080"
+
+  [character.base]
+  id = 0x1DCD1806
+  name = "c90400081"
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0
+  flag_31 = 1
+
+  [character.new_model]
+  id = 0xAF6C3C75
+  from = "c04000080"
+  [character.new_model.cells]
+  head_mesh_path = "_face/04_GO1/c90400081/c90400081.g4md"
+  exmesh_1 = 0x88E39298                     # crc32("i90400081"): the cap
+
+  [[character.cards]]
+  id = 0xD4B19B55
+  moves = [
+    { move = 0x501F2F12, level = 1 },                     # Heel Flick
+    { move = 0x6F918884, level = 13 },                    # Easy Breezy
+    { move = 0, level = 0 },                              # (empty)
+    { move = 0x9349F1DA, level = 30 },                    # Zephyr Shot
+    { move = 0xA9E3374B, level = 38 },                    # Cyclone Sprint
+    { move = 0, level = 0 },                              # (empty)
+    { move = 0xC755E805, level = 30 },                    # Triple Threat
+    { move = 0xAF9E1B72, level = 38 },
+    { move = 0x1080BF9E, level = 43 },                    # Miximax Trans: Rey Arturo [aura]
+  ]

@@ -1,0 +1,44 @@
+# BetterQoL's technique name search texts: rows of menu_text in 9 languages, read by
+# assets\lua\shop_menu_buy\900_technique_search.lua by id = crc32(row id).
+
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# the title of the game's text entry
+[[row]]
+id = "betterqol_technique_search_title"
+es = "Buscar supertécnica"
+en = "Search special move"
+fr = "Rechercher une supertechnique"
+de = "Spezialtechnik suchen"
+it = "Cerca supertecnica"
+pt = "Procurar supertécnica"
+ja = "必殺技を検索"
+zh_hans = "搜索必杀技"
+zh_hant = "搜尋必殺技"
+
+# the button guide's word, right of the key glyph
+[[row]]
+id = "betterqol_technique_search"
+es = "Buscar"
+en = "Search"
+fr = "Rechercher"
+de = "Suchen"
+it = "Cerca"
+pt = "Procurar"
+ja = "検索"
+zh_hans = "搜索"
+zh_hant = "搜尋"
+
+# the button guide's key glyph: the markup of the search command (F on a keyboard, R3 on a pad)
+[[row]]
+id = "betterqol_technique_search_key"
+es = "<CMD_BETTERQOL_TECHNIQUE_SEARCH>"
+en = "<CMD_BETTERQOL_TECHNIQUE_SEARCH>"
+fr = "<CMD_BETTERQOL_TECHNIQUE_SEARCH>"
+de = "<CMD_BETTERQOL_TECHNIQUE_SEARCH>"
+it = "<CMD_BETTERQOL_TECHNIQUE_SEARCH>"
+pt = "<CMD_BETTERQOL_TECHNIQUE_SEARCH>"
+ja = "<CMD_BETTERQOL_TECHNIQUE_SEARCH>"
+zh_hans = "<CMD_BETTERQOL_TECHNIQUE_SEARCH>"
+zh_hant = "<CMD_BETTERQOL_TECHNIQUE_SEARCH>"

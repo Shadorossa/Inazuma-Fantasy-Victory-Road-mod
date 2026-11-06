@@ -1,0 +1,67 @@
+schema = "VRFW.changelog/1"
+# New Recruitment: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Fichajes como en los juegos clásicos",
+    "Pachangas con retos para reclutar",
+    "Ficha en la Oficina y álbum",
+]
+
+[release.en]
+notes = [
+    "Recruiting like the classic games",
+    "Matches with recruiting goals",
+    "Office signing and album",
+]
+
+[release.fr]
+notes = [
+    "Recrutement comme dans les classiques",
+    "Matchs amicaux avec défis",
+    "Recrutement au Bureau et album",
+]
+
+[release.de]
+notes = [
+    "Anwerben wie in den Klassikern",
+    "Freundschaftsspiele mit Aufgaben",
+    "Verpflichtung im Büro und Album",
+]
+
+[release.it]
+notes = [
+    "Reclutamento come nei classici",
+    "Amichevoli con sfide di reclutamento",
+    "Ingaggi in Ufficio e album",
+]
+
+[release.pt]
+notes = [
+    "Recrutamento como nos clássicos",
+    "Jogos amigáveis com desafios",
+    "Contratações no Escritório e álbum",
+]
+
+[release.ja]
+notes = [
+    "従来作のスカウト方式",
+    "勧誘条件付きの親善試合",
+    "オフィスでの獲得とアルバム",
+]
+
+[release.zh_hans]
+notes = [
+    "经典作品式招募",
+    "带招募挑战的友谊赛",
+    "办公室签约与相册",
+]
+
+[release.zh_hant]
+notes = [
+    "經典作品式招募",
+    "帶招募挑戰的友誼賽",
+    "辦公室簽約與相簿",
+]

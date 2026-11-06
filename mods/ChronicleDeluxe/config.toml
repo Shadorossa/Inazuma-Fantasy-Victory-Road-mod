@@ -1,0 +1,243 @@
+# Chronicle Deluxe's settings. Read by the generator research/scripts/chronicle_deluxe_heroic_build.py, which writes
+# the mod's data from them (content\teams\90_rules\ heroic.toml,
+# content\base_tables\gamedata\soccer\soccer_prize_config.toml, text\rows\heroic_challenges.toml): change a value
+# here, re-run the generator (`--check` = exit 1 when the data is stale). Nothing here is read in game.
+
+# The Batalla heroica's rival level along the Chronicle. The heroic battles in the game's own Chronicle order (the
+# routes of chronicle_vs_route_config, their match pieces in table order; this mod's side nodes right after the piece
+# they follow) get level = first + (last - first) × t ^ curve_exponent, t = 0 at the first battle and 1 at the last,
+# rounded half up. curve_exponent = 1 is a straight line; above 1 the climb is slower first, faster at the end.
+[heroic]
+first_level = 4
+last_level = 200
+curve_exponent = 1.0
+
+# The player's team in a Batalla heroica is synced (the row's level sync: players above it play at it) to a level
+# `level_sync_below_percent` % below the rival's: sync = rival × (100 − percent) / 100, rounded DOWN, at least 1.
+level_sync_below_percent = 7
+
+# Gate battles whose first win (the gate battle, difficulty 2) also gives the gate rival's kit.
+# research/scripts/chronicle_deluxe_heroic_build.py writes the table ChronicleDeluxe.gate_<game> (the battle's retail
+# first-clear items + the kit) and its [[VRFW.GameDrops]] in content/teams/90_rules/heroic.toml.
+gate_kits = ["fbtl_cro12_030_010"]    # Plathos
+
+# Free-match rows whose first win also gives the rival's crest and kit, each only while the player has none. The
+# builder writes the table ChronicleDeluxe.rival_<game>_<difficulty> (the row's retail first-clear items + the two)
+# and its [[VRFW.GameDrops]] FirstClear; a rival uniform without a kit item gets one (content/items/rival_kits.toml).
+rival_rewards = [{ game = "fbtl_free_001", difficulty = 9 }]    # Jóvenes Inazuma
+
+# Chain match tiles whose first win also gives the tile team's crest and kit, each only while the player has none.
+# `chain` = the chain file content/teams/70_route_nodes/chain_<chain>.toml, `tile` = a match tile's Id. The builder
+# writes ChronicleDeluxe.chain_<evt_ch game>_<difficulty> and its [[VRFW.GameDrops]] FirstClear.
+chain_rewards = [{ chain = "ie2_marytimes", tile = "m01" }]
+
+# Heroic battles whose rival wears a uniform with no kit item in the game: the builder creates the kit item
+# (content/items/rival_kits.toml) and the battle's first heroic win gives it, only while the player has none. A
+# uniform with no model texture and no icon on disk whose derived name is a kit the game already has gives that kit
+# (Emperadores Oscuros: u021901 is not on disk; the game's «Equipación Emperadores Oscuros» is uni_u021301).
+heroic_kits = [
+    "fbtl_cro02_140_010",    # Épsilon Plus
+    "fbtl_cro02_200_010",    # Emperadores Oscuros
+    "fbtl_cro05_090_010",    # Ejército de Terracota (and its twin game)
+]
+
+# Kits that are in the game with no item and no team wearing them: the item is declared by hand in
+# content/items/unused_kits.toml and the first heroic win of `game` (the team the kit belongs to) gives it, only while
+# the player has none. `item` = the item's id key: its icon_key for a key_id item, else ChronicleDeluxe.<name> (the
+# id is the CRC of that text).
+extra_kits = [
+    { game = "fbtl_cro02_130_010", item = "uni_u112001" },                                  # Mary Times (V)
+    { game = "fbtl_cro04_070_010", item = "uni_u112801" },                                  # Cala Pirata (V)
+    { game = "fbtl_cro03_190_010", item = "uni_u112401" },                                  # Inazuma Japón (V)
+    { game = "fbtl_cro06_080_010", item = "ChronicleDeluxe.kit_silica_eleven_alt" },       # Sílice (second kit)
+    { game = "fbtl_cro08_100_010", item = "ChronicleDeluxe.kit_queens_guardians_alt" },    # G. de la Reina (second kit)
+]
+
+# Kits of teams sold in a store instead: the kit item is created when the team's uniform has none, and sold in `store`
+# while `store_mod` is active, at the price of the store's other Raimon kit of that game (Equipación Raimon Isla
+# Remota: 14 Puntos de pasión). A kit no single team owns gives its `names` and `icon_from`: a kit of the same mesh
+# that the new item clones and whose icon is recoloured with the colours of the uniform's own texture (the uniform has
+# no icon in the game); `icon_png` (a path under the mod folder) is a hand-made icon used as is instead of the
+# recolour. `team` = one team wearing it.
+store_kits = [
+    { team = "pltm_cro_ie7_02", store = "InazumaFantasy.general_store", store_mod = "InazumaFantasy", price = 14, currency = "tk_bb000001" },
+    { team = "tm_prc_050200", store = "InazumaFantasy.general_store", store_mod = "InazumaFantasy", price = 14, currency = "tk_bb000001", icon_from = "uni_u031401", icon_png = "assets/images/menu/200_icon/02_icon_item/icon_item07/uni_u117301.png", names = { es = "Equipación de club", en = "Club Kit", fr = "Maillot de club", de = "Vereinstrikot", it = "Divisa del club", pt = "Uniforme de clube", ja = "部活ウェア", zh_hans = "社团球衣", zh_hant = "社團服裝" } },
+]
+
+# The heroic player rules. The «first game» of a player is his character's source series in the game's data
+# (chara_base series → chara_series_config type: Inazuma Eleven, 2, 3, GO, GO 2, GO Galaxy, Ares, Orion, Victory
+# Road); a Chronicle route's game is the series most of its Crónica rivals' players belong to.
+#   first game: every player of the squad (starters and bench; the coach and the reserves never count) is from that game
+#         (its text says so: «Solo jugadores de …»)
+#   ramp: from the second game on, at least N players of the squad are from the node's game, and nothing else is asked;
+#         N climbs over that game's heroic battles in Chronicle order: N = ramp_start + (ramp_end − ramp_start) ×
+#         t ^ ramp_exponent, rounded UP (t = 0 at the game's first heroic battle, 1 at its last, which asks ramp_end)
+#   cap_after_first_game: true = from the second game on the squad may also only hold players of the node's game or
+# earlier ones
+#   max_per_series: from the second game on, at most this many players of the squad from any one game (season). 0 = no
+# maximum
+[heroic.players]
+ramp_start = 1
+ramp_end = 7
+ramp_exponent = 1.0
+cap_after_first_game = false
+max_per_series = 0
+
+# The required starter of every Batalla heroica, from the first one (Royal Academy) to Victory Road's last: the
+# player's starting line-up must have this character (any card of his: the normal cards and the Hero / Idol ones of
+# the same character; NOT the possessed form c11600090 nor the young one c11600110, other characters) in a formation
+# place of one of `positions` (the place in the dock's formation: fw = DL, mf = MC), only until that heroic battle's
+# first win (`until_first_clear`). He is exempt from the cap, and counts toward the ramp and the per-season maximum
+# only where his own series (chara_base: Victory Road) is allowed, i.e. in Victory Road's heroic battles. The Crónica
+# has no rule.
+[heroic.required]
+character = "c11600010"   # Victorio Cryptix, normal form (the one of the starting teams, content/teams/05_start_teams.toml)
+positions = ["fw", "mf"]
+until_first_clear = true
+
+# The auras BOTH teams may start in a Batalla heroica, per the battle's game: each game lists its allowed kinds (the
+# games' keys of [heroic.players.short_names]); every kind not listed is refused (the plates, the duel aura picks, the
+# game's aura rows and the CPU: the framework's match aura rule, [VRFW.MatchChallenge.Auras]). A game not listed here
+# allows everything (no rule). The Crónica and every other match are not ruled.
+#   keshin = fighting spirits; armour = keshin armed; bond = bond transformations; awakening = awakening powers and
+#   changes; own_mode_change = a mode change of the card's own kit (the game's own, e.g. Shawn Froste's);
+#   created_mode_change = a mode change a player created (Custom Change Mode's «Modo cambio»)
+# No aura in IE1-IE3, Ares and Orion except the cards' own mode changes; fighting spirits in GO; + armours and
+# miximax in Chrono Stone; + totems in Galaxy; Victory Road allows everything (bond, awakening, created mode changes).
+[heroic.auras]
+ie1 = ["own_mode_change"]
+ie2 = ["own_mode_change"]
+ie3 = ["own_mode_change"]
+go1 = ["keshin", "own_mode_change"]
+go2 = ["keshin", "armour", "miximax", "own_mode_change"]
+go3 = ["keshin", "armour", "miximax", "totem", "own_mode_change"]
+ares = ["own_mode_change"]
+orion = ["own_mode_change"]
+
+# The short names the match info uses for the games (series names of chara_base's in_<name> columns). A game missing
+# here is written with the game's own full name (chara_series_config's name text, every language).
+[heroic.players.short_names]
+ie1 = "IE1"
+ie2 = "IE2"
+ie3 = "IE3"
+go1 = "GO"
+go2 = "CS"
+go3 = "Galaxy"
+ares = "Ares"
+orion = "Orion"
+victory_road = "VR"
+
+# Free-match teams whose players play their base form: research/scripts/chronicle_deluxe_base_form_build.py writes
+# content/teams/90_rules/free_match_base_forms.toml, a team `ChronicleDeluxe.<name>` based on `team` with each
+# player's base-form card (the same-named character's other card in the game's teams), used per class by
+# [[VRFW.FreeMatchRival]] (content/teams/90_rules/free_match.toml).
+[[free_match_base_form]]
+team = "tm_cro_go2_0800"     # Protocolo Omega 3.0 (its players miximaxed with Zanark)
+name = "fm_protocol_omega_3_base"
+
+# Plathos and Destructores: the Chronicle teams play possessed (c1121 02x0 / c1122 02x0, Victorio c11600090); their
+# BATALLA LEGENDARIA plays the same players unpossessed (the cards of their Battle Bay copies), as Épsilon's plays
+# Épsilon Plus. Destructores' coach too.
+[[free_match_base_form]]
+team = "tm_cro_original_0300" # Plathos
+name = "fm_plathos_base"
+
+[[free_match_base_form]]
+team = "tm_cro_original_0400" # Destructores
+name = "fm_destructores_base"
+coach = true
+
+# Free-match teams that play with their line-up swapped: research/scripts/chronicle_deluxe_shuffle_build.py writes
+# content/teams/90_rules/free_match_shuffles.toml, the class team `ChronicleDeluxe.<name>` (game key `key`, which
+# starts with chronicle_deluxe_fms_) and its four position source teams; scripts/free_match_shuffle.lua deals the
+# starters to new places before every match.
+[[free_match_shuffle]]
+team = "tm_cro_orion_1200"   # Chispas Perfectas (La marca llama de nuevo)
+name = "fm_perfect_spark_shuffle"
+key = "chronicle_deluxe_fms_perfect_spark"
+# The rival's drops of every Chronicle board battle. Read by research/scripts/chronicle_deluxe_drops_build.py, which
+# writes content\teams\90_rules\rival_drops.toml and the drop / loot base tables from them: change a value here,
+# re-run it (`--check` = exit 1 when the data is stale). Rates are percent per drop roll (one roll per goal of the
+# player's team, kept on a win); each rate is lowered when a row's drops would pass 100 %. An item a row already gives
+# (its first-clear prize, its own drops) is not added again.
+[drops]
+max_manuals = 32          # manuals per row at most, the moves most players use first (the drop-rate list shows 64 rows)
+weight = 10               # loot weight of one manual / the boots / one aura
+max_auras = 20            # aura items per row at most: keshin / totems first, then Mix-Max / mode changes
+
+# Batalla de crónica (1) and the gate battle that stands in for it on the gate pieces (2)
+[[drops.battle]]
+difficulties = [1, 2]
+manuals = 4.0             # the rival's unlocked manuals, shared by all of them
+boots = 1.0               # the rival team's own boots
+auras = 0.5               # its players' aura items (keshin, totems, Mix-Max, mode changes; never armours), shared
+
+# Batalla heroica (4)
+[[drops.battle]]
+difficulties = [4]
+manuals = 10.0
+boots = 2.5
+auras = 1.5
+
+# «Competir contra bots» (free match): every listed game's class rows, the new free-match games of
+# [[VRFW.FreeMatchGame]] and the side nodes listed there included; the rival is the class row's (a [[VRFW.FreeMatchRival]]
+# team, its `_flat` copy), every player at the class level. Only the classes this mod offers get a row
+# (content\defaults\match_difficulty.toml). Special-move manuals and aura items, no boots; `gear` = the rate of the
+# team gear other mods declare for the rival (content\team_gear\*.toml, e.g. Classic Equipment's 3DS gloves of a team).
+# INAZUMA (6, Lv 50)
+[[drops.battle]]
+difficulties = [6]
+manuals = 4.0
+auras = 1.0
+gear = 1.0                # the rival team's gear other mods declare (content\team_gear), as the Crónica boots
+
+# ZONA LETAL (7, Lv 99)
+[[drops.battle]]
+difficulties = [7]
+manuals = 6.0
+auras = 2.0
+gear = 1.5
+
+# BATALLA LEGENDARIA (9, Lv 200); RANGO DIVINO (8) is not a free-match class here
+[[drops.battle]]
+difficulties = [8, 9]
+manuals = 8.0
+auras = 3.0
+gear = 2.0
+
+# The equipment of the free-match rivals (docs/game/mods/rival-equipment.md). Read by
+# research/scripts/chronicle_deluxe_rival_equipment_build.py, which writes content\match_equipment\legendary_rivals.toml
+# (`--check` = exit 1 when stale). Every rival player of every free-match game at this class wears one COMPLETE Better
+# Equipment set for the match only (its `slots` pieces, one per equipment slot; the free slots take his best item). The
+# set is the one with the highest score below for him; nothing is listed per player.
+[rival_equipment]
+difficulty = "Class4"     # the [MatchDifficulty.<Id>] of the class (content\defaults\match_difficulty.toml: BATALLA LEGENDARIA)
+play_mode = 1             # the engine's play-mode byte of the free match («Competir contra bots»)
+
+# The score of a set for one player (higher = better). An item's score: position / element of its affinity data, plus
+# `raise` × Σ (its raises × his stat weight). A set's score: its chosen items, plus `set_stats` × Σ (its bonus stats ×
+# his stat weight), plus each bonus effect (`move_kind` when it names a kind of move he plays, scaled by how many of
+# them up to `move_kind_cap`; `element_power` for his element or his moves' element; `family` for a technique family of
+# his moves; `generic_effect` for any other effect), plus `set_element` when the set's element is his. His stat weight =
+# his stat / the mean of his 7 stats (Character Reforged's stats), else [rival_equipment.position_stats].
+[rival_equipment.weights]
+position = 3.0            # an item made for his position
+element = 1.5             # an item of his element
+both = 1.0                # extra when both match (the +25 % affinity)
+raise = 4.0               # × the item's raises weighted by his stats
+item_passive = 1.0        # × an item passive's fit (its effect score / the largest effect weight)
+set_stats = 6.0           # × the set bonus stats weighted by his stats
+set_element = 2.0         # a set of his element
+move_kind = 2.5           # a set effect on a kind of move he plays (shoot, long_shoot, dribble, block, catch…)
+move_kind_cap = 2         # moves of that kind counted at most
+element_power = 2.0       # an element effect of his element or of his moves'
+family = 2.0              # a technique family he plays
+generic_effect = 0.5      # any other effect (tension, speed, recast…)
+repeat = 1.5              # minus per teammate already wearing that set (variety inside a team)
+
+# A player without stats data: his position's stat weights (1.0 = an average stat)
+[rival_equipment.position_stats]
+GK = { physical = 1.25, intelligence = 1.2, pressure = 1.1, kick = 0.8 }
+FW = { kick = 1.3, control = 1.15, agility = 1.05, pressure = 0.85 }
+MF = { technique = 1.2, control = 1.15, intelligence = 1.1, physical = 0.9 }
+DF = { pressure = 1.25, physical = 1.25, kick = 0.85 }

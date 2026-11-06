@@ -1,0 +1,32 @@
+# Declaration schema of VRFW.friendly/1 (content\friendlies): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.friendly/1"
+folder = "content/friendlies"
+label = "Friendlies"
+label_es = "Amistosos"
+doc = "A friendly match: its team, rival, rules and what follows it."
+doc_es = "Un partido amistoso: su equipo, rival, reglas y lo que ocurre después."
+
+[entry.Friendly]
+entry_table = "friendly"
+id = { type = "name", required = true }
+name = { type = "string", required = true }
+team = { type = "string", required = true, ref = "team" }
+pre_match = { type = "bool", required = true }
+rival_home = { type = "bool" }
+save = { type = "string", required = true }
+return = { type = "string", required = true }
+before = { type = "records", fields = { op = { type = "string" }, frames = { type = "int" }, menu = { type = "string" }, secs = { type = "number" }, key = { type = "string" }, value = { type = "int" } }, required = true }
+game = { type = "string" }
+ruleset = { type = "string" }
+kit_from_11 = { type = "bool" }
+challenge = { type = "string" }
+pass = { type = "string" }
+passed_key = { type = "string" }
+tags = { type = "strings" }
+stadium = { type = "int" }
+steals_once = { type = "bool" }
+keep_game = { type = "bool" }
+origin = { type = "int" }
+after = { type = "records", fields = { op = { type = "string" }, key = { type = "string" }, value = { type = "int" }, menu = { type = "string" }, frames = { type = "int" }, secs = { type = "number" } } }
+field_net = { type = "bool" }

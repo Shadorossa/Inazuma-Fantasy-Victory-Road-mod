@@ -1,0 +1,54 @@
+# Declaration schema of VRFW.contact_map/1 (content\contact_maps\**\*.toml; docs/framework/contact-map.md): [[VRFW.ContactSet]], [[VRFW.ContactMap]], [[VRFW.ContactTerms]], [[VRFW.ContactTrials]], [[VRFW.ContactBypass]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.contact_map/1"
+folder = "content/contact_maps"
+label = "Contact map"
+label_es = "Mapa de contactos"
+doc = "The sets and entries of the contact map, and what each entry opens."
+doc_es = "Los conjuntos y entradas del mapa de contactos, y lo que abre cada entrada."
+
+[entry.ContactSet]
+doc = "what an entry opens: <mod>.<Name>"
+Name = { type = "name", required = true }
+Title = { type = "string", doc = "menu_text row id (the header)" }
+Hub = { type = "string" }
+ElementCurrency = { type = "table" }
+ElementCurrencyTitle = { type = "table" }
+ElementCurrencyUnit = { type = "table" }
+ReleaseRefund = { type = "int", doc = "«Dimitir» gives back 3 of the player's price spirit" }
+JoinRarity = { type = "int", doc = "the rarity a signed player joins at (absent: the recruit service's default)" }
+TrialFriendly = { type = "string", doc = "the [[friendly]] a { Trial = N } requirement is played as" }
+TrialFriendlyActiveTeam = { type = "string", doc = "optional: the same friendly with team = \"current\"" }
+Requirements = { type = "table", doc = "{ config = \"<dotted path>\", default = … } of the declaring mod's config (or true / false): false = the terms' Requires / Unlock are not asked (price only); absent = asked" }
+Teams = { type = "table", doc = "rules of every team page of this set" }
+RecruitCurrency = { type = "string", doc = "the item a player costs" }
+ItemCurrency = { type = "string", doc = "the item an item for sale costs" }
+RecruitCurrencyTitle = { type = "string", doc = "their names (menu_text rows)" }
+ItemCurrencyTitle = { type = "string" }
+Exclude = { type = "records", doc = "optional: cards kept off every map of the set (§16)" }
+
+[entry.ContactMap]
+Set = { type = "string", doc = "this mod's set, or \"<mod>.<name>\"" }
+Name = { type = "name", required = true }
+Order = { type = "int", doc = "the set's list order" }
+Title = { type = "string", doc = "used when a route's series cannot be named" }
+Teams = { type = "table" }
+Kind = { type = "string", doc = "zones | network | list" }
+Art = { type = "string", doc = "the background (1920 x 1080), loaded on demand" }
+Sprite = { type = "string" }
+Zone = { type = "records", fields = { Name = { type = "string" }, Title = { type = "string" }, Pos = { type = "ints", doc = "screen px, y down (none: the screen lays the pins out on a grid)" }, Art = { type = "string", doc = "optional: the zone's own map, drawn (dimmed, aspect kept) under its grid of players" }, Sprite = { type = "string" }, ArtSize = { type = "ints" } }, doc = "zones: a pin; list: a section" }
+Node = { type = "records", fields = { Zone = { type = "string" }, Card = { type = "string", doc = "chara_param" }, Base = { type = "string", doc = "chara_base (the name, in the game's language)" }, Face = { type = "string", doc = "the face icon (#/menu/200_icon/10_icon_chr/face/<Face>_l.g4tx)" }, Level = { type = "int", doc = "the level he joins at" }, Price = { type = "int", doc = "RecruitCurrency taken" }, Requires = { type = "records", doc = "at most 4; kept, not taken" } }, doc = "a player (zones / list: in a zone)" }
+Item = { type = "records", fields = { Item = { type = "string" }, Price = { type = "int" }, Title = { type = "string" } }, doc = "for sale (ItemCurrency): one at a time" }
+
+[entry.ContactTerms]
+doc = "per-card terms (any file of content\\contact_maps\\)"
+Set = { type = "string" }
+Terms = { type = "records", doc = "per-card terms: Card, Level, Price, Spirit, Page, Extra, Requires (records), Unlock (lists of conditions)" }
+
+[entry.ContactTrials]
+doc = "the trials named by { Trial = N }"
+Set = { type = "string" }
+Trials = { type = "records", fields = { Id = { type = "int" }, Game = { type = "int" }, Objective = { type = "int" }, Part = { type = "int" }, Of = { type = "int" } } }
+
+[entry.ContactBypass]
+Option = { type = "string", ref = "option" }

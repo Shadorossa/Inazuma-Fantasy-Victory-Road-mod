@@ -1,0 +1,15 @@
+schema = "VRFW.game/1"
+
+# Recruit service: club counts the game Lua cannot read itself (element / position requirements).
+
+[[VRFW.Command]]
+name = "CMND_VRFW_RECRUIT_CLUB"     # () -> { total, element = {n x 5}, position = {n x 4} }
+handler = "Recruit.Club"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_RECRUIT_HOLDERS"  # (card, ...) -> { {handle, param, level, busy}, ... }: the club players of those cards
+handler = "Recruit.Holders"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_RECRUIT_GAME_STADIUM"  # (game) -> map crc (0 = none): a match row's own stadium in the game data
+handler = "Recruit.GameStadium"

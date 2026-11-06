@@ -1,0 +1,11 @@
+# Free-match rivals of ZONA LETAL, Nv. 99: their special moves play at this grade, for the match only (VRFW match move
+# level). The team views show it too (Hissatsu Level Up). Grade by class: a trained player of that level.
+schema = "VRFW.match_move_level/1"
+
+[match]
+play_mode = 1
+difficulty = "Class2"
+side = "rival"
+
+[moves]
+grade = 3

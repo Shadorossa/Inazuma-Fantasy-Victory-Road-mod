@@ -1,0 +1,67 @@
+schema = "VRFW.changelog/1"
+# Legendary Match: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "CPU Legendaria",
+    "Reacciones rápidas y elementos ventajosos",
+    "Presión y marcaje por todo el campo",
+]
+
+[release.en]
+notes = [
+    "Legendary CPU",
+    "Fast reactions, winning elements",
+    "Pressing and marking everywhere",
+]
+
+[release.fr]
+notes = [
+    "CPU Légendaire",
+    "Réactions rapides, éléments gagnants",
+    "Pressing et marquage partout",
+]
+
+[release.de]
+notes = [
+    "Legendäre CPU",
+    "Schnelle Reaktionen, passende Elemente",
+    "Pressing und Deckung überall",
+]
+
+[release.it]
+notes = [
+    "CPU Leggendaria",
+    "Reazioni rapide, elementi vincenti",
+    "Pressing e marcatura ovunque",
+]
+
+[release.pt]
+notes = [
+    "CPU Lendária",
+    "Reações rápidas, elementos vantajosos",
+    "Pressão e marcação em todo o campo",
+]
+
+[release.ja]
+notes = [
+    "レジェンドCPU",
+    "素早い反応と有利な属性",
+    "全面的なプレスとマーク",
+]
+
+[release.zh_hans]
+notes = [
+    "传奇电脑",
+    "反应迅速，属性克制",
+    "全场逼抢与盯防",
+]
+
+[release.zh_hant]
+notes = [
+    "傳奇電腦",
+    "反應迅速，屬性剋制",
+    "全場逼搶與盯防",
+]

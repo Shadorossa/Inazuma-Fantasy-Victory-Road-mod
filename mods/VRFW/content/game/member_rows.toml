@@ -1,0 +1,149 @@
+schema = "VRFW.game/2"
+
+# Makes team-member readers treat the 16-bit member row as unsigned (movsx -> movzx, sign branch -> nop/jmp), so teams whose members start past row 32767 keep their players.
+# `expect` = the game's bytes, `bytes` = same-length replacement. A site not found or with differing bytes keeps the game's code; the log lists each applied patch.
+
+# Team member field handler: row of member i.
+[[VRFW.Patch]]
+name = "MemberRows.MenuMemberField"
+edit = "Squad.MemberRow.LuaMemberFieldUnsigned"
+
+# Team info captain search over the member slice.
+[[VRFW.Patch]]
+name = "MemberRows.MenuTeamCaptain"
+edit = "Squad.MemberRow.LuaTeamCaptainUnsigned"
+
+# Team member handler: row of member i.
+[[VRFW.Patch]]
+name = "MemberRows.MenuMemberC30410"
+edit = "Squad.MemberRow.LuaTeamMemberUnsigned"
+
+# Member level, by row.
+[[VRFW.Patch]]
+name = "MemberRows.MemberLevel"
+edit = "Squad.MemberRow.MemberLevelUnsigned"
+
+# Member rarity / step, by row.
+[[VRFW.Patch]]
+name = "MemberRows.MemberRarity"
+edit = "Squad.MemberRow.MemberRarityUnsigned"
+
+# Member slice lookup.
+[[VRFW.Patch]]
+name = "MemberRows.TeamMemberRowE45B40"
+edit = "Squad.MemberRow.SliceLookupUnsigned"
+
+# Setup-team roster builder (VS / Chronicle line-up): member rows.
+[[VRFW.Patch]]
+name = "MemberRows.BuildRoster.Rows"
+edit = "Squad.MemberRow.SetupRosterUnsigned"
+
+# Setup-team roster builder: member level offset row.
+[[VRFW.Patch]]
+name = "MemberRows.BuildRoster.Level"
+edit = "Squad.MemberRow.SetupRosterLevelUnsigned"
+
+# Team roster builder: member rows.
+[[VRFW.Patch]]
+name = "MemberRows.TeamRoster.Rows"
+edit = "Squad.MemberRow.TeamRosterUnsigned"
+
+# Team roster builder (filler team): member rows.
+[[VRFW.Patch]]
+name = "MemberRows.TeamRoster.FillerRows"
+edit = "Squad.MemberRow.FillerRosterUnsigned"
+
+# Team roster builder: sign test of the filler row (negative row = no row) always taken as a row.
+[[VRFW.Patch]]
+name = "MemberRows.TeamRoster.FillerSign"
+edit = "Squad.MemberRow.FillerRosterSignUnsigned"
+
+# Team roster builder: row of that branch.
+[[VRFW.Patch]]
+name = "MemberRows.TeamRoster.FillerRow"
+edit = "Squad.MemberRow.FillerRosterBranchUnsigned"
+
+# Party / team roster copy: first member row.
+[[VRFW.Patch]]
+name = "MemberRows.PartyRows.First"
+edit = "Squad.MemberRow.PartyCopyFirstUnsigned"
+
+# Party / team roster copy: each member row.
+[[VRFW.Patch]]
+name = "MemberRows.PartyRows.Row"
+edit = "Squad.MemberRow.PartyCopyUnsigned"
+
+# Party / team roster copy: sign test of the row.
+[[VRFW.Patch]]
+name = "MemberRows.PartyRows.Sign"
+edit = "Squad.MemberRow.PartyCopySignUnsigned"
+
+# Member slice walk.
+[[VRFW.Patch]]
+name = "MemberRows.MemberRowF04910"
+edit = "Squad.MemberRow.EventSliceWalkUnsigned"
+
+# Event actor setup: team member rows.
+[[VRFW.Patch]]
+name = "MemberRows.EventActorRows"
+edit = "Squad.MemberRow.EventActorsUnsigned"
+
+# Member slice walk.
+[[VRFW.Patch]]
+name = "MemberRows.MemberRowF3A390"
+edit = "Squad.MemberRow.EventSliceReadUnsigned"
+
+# Member slice walk.
+[[VRFW.Patch]]
+name = "MemberRows.MemberRow1064920"
+edit = "Squad.MemberRow.MenuWalkFirstUnsigned"
+
+# Member slice walk.
+[[VRFW.Patch]]
+name = "MemberRows.MemberRow1064AD0"
+edit = "Squad.MemberRow.MenuWalkSecondUnsigned"
+
+# Member slice walk.
+[[VRFW.Patch]]
+name = "MemberRows.MemberRow1064C70"
+edit = "Squad.MemberRow.MenuWalkThirdUnsigned"
+
+# Member slice walk.
+[[VRFW.Patch]]
+name = "MemberRows.MemberRow1064E10"
+edit = "Squad.MemberRow.MenuWalkFourthUnsigned"
+
+# Member slice walk (first site).
+[[VRFW.Patch]]
+name = "MemberRows.MemberRow15C7850.A"
+edit = "Squad.MemberRow.MatchUnitsTestFirstUnsigned"
+
+# Member slice walk (second site).
+[[VRFW.Patch]]
+name = "MemberRows.MemberRow15C7850.B"
+edit = "Squad.MemberRow.MatchUnitsTestSecondUnsigned"
+
+# Member slice walk.
+[[VRFW.Patch]]
+name = "MemberRows.MemberRow15C89F0"
+edit = "Squad.MemberRow.MatchUnitsSetupUnsigned"
+
+# Member slice walk (first site).
+[[VRFW.Patch]]
+name = "MemberRows.MemberRow15CB8F0.A"
+edit = "Squad.MemberRow.MatchUnitsLookupFirstUnsigned"
+
+# Member slice walk (second site).
+[[VRFW.Patch]]
+name = "MemberRows.MemberRow15CB8F0.B"
+edit = "Squad.MemberRow.MatchUnitsLookupSecondUnsigned"
+
+# The chara's team slice search of the match chara build (v7.2.1 only).
+[[VRFW.Patch]]
+name = "MemberRows.MatchCharaMemberSearch"
+edit = "Squad.MemberRow.MatchCharaMemberSearchUnsigned"
+
+# A team slice's member row by chara (v7.2.1 only).
+[[VRFW.Patch]]
+name = "MemberRows.SliceFindByChara"
+edit = "Squad.MemberRow.SliceFindByCharaUnsigned"

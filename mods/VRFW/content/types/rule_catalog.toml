@@ -1,0 +1,123 @@
+# Declaration schema of VRFW.rule_catalog/1 (content\rules): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.rule_catalog/1"
+folder = "content/rules"
+label = "Rule catalogue"
+label_es = "Catálogo de reglas"
+
+[entry.Knob]
+entry_table = "knob"
+name = { type = "string", required = true }
+where = { type = "string", required = true }
+offset = { type = "int" }
+type = { type = "string", required = true }
+min = { type = "number", required = true }
+max = { type = "number", required = true }
+verified = { type = "bool" }
+summary = { type = "string", required = true }
+rate_kinds = { type = "ints" }
+rva = { type = "int" }
+retail = { type = "number" }
+
+[entry.Position]
+entry_table = "position"
+name = { type = "name", required = true }
+card_position = { type = "int", required = true }
+group = { type = "int", required = true }
+
+[entry.Team]
+entry_table = "team"
+name = { type = "string", required = true }
+kind = { type = "string", required = true }
+min = { type = "number" }
+max = { type = "number" }
+hook = { type = "string", required = true }
+summary = { type = "string", required = true }
+keys = { type = "strings" }
+
+[entry.Condition]
+entry_table = "condition"
+name = { type = "name", required = true }
+min = { type = "number" }
+max = { type = "number" }
+summary = { type = "string", required = true }
+needs = { type = "string" }
+
+[entry.Passing]
+entry_table = "passing"
+single = true
+commands = { type = "strings" }
+move_actions = { type = "ints" }
+
+[entry.AiMove]
+entry_table = "ai_move"
+single = true
+chase_action = { type = "int" }
+move_action = { type = "int" }
+sprint_dash_type = { type = "int" }
+sprint_action = { type = "int" }
+
+[entry.Learning]
+entry_table = "learning"
+single = true
+min_samples = { type = "int" }
+
+[entry.Power]
+entry_table = "power"
+single = true
+counter_shot_power_rate = { type = "number" }
+counter_shot_tension_rate = { type = "number" }
+shot_block_basic_rate = { type = "number" }
+keeper_level_rate = { type = "number" }
+duel_win_table = { type = "any" }
+
+[entry.Elements]
+entry_table = "elements"
+single = true
+advantage = { type = "number" }
+own_element = { type = "number" }
+answers = { type = "lists" }
+
+[entry.Element]
+entry_table = "element"
+id = { type = "int", required = true }
+name = { type = "name", required = true }
+beats = { type = "int" }
+
+[entry.Class]
+entry_table = "class"
+name = { type = "string", required = true }
+commander = { type = "bool" }
+personality = { type = "string" }
+
+[entry.MatchModes]
+entry_table = "match_modes"
+single = true
+default = { type = "string" }
+small_types = { type = "ints" }
+small_suffix = { type = "string" }
+training = { type = "string" }
+training_types = { type = "ints" }
+
+[entry.MatchMode]
+entry_table = "match_mode"
+key = { type = "string", required = true }
+play_mode = { type = "ints", required = true }
+
+[entry.Trigger]
+entry_table = "trigger"
+name = { type = "name", required = true }
+id = { type = "int", required = true }
+fired_by = { type = "string", required = true }
+actor = { type = "bool" }
+move = { type = "bool" }
+args = { type = "strings" }
+
+[entry.Effect]
+entry_table = "effect"
+name = { type = "name", required = true }
+on = { type = "strings" }
+min = { type = "number" }
+summary = { type = "string", required = true }
+words = { type = "strings" }
+sink = { type = "bool" }

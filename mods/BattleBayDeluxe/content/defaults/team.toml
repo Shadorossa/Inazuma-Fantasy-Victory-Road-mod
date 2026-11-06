@@ -1,0 +1,8 @@
+# Battle Bay Deluxe: the schema of the Battle Bay layouts (docs/game/mods/battlebay-pages.md). Any enabled mod may ship
+# content\battle_bay\*.toml with schema = "BattleBayDeluxe.layout/1": [[BattleBayDeluxe.Section]] (a grid tab, the keys
+# of [[VRFW.Category]]), [[BattleBayDeluxe.Page]] (Section, Index, Teams), [[BattleBayDeluxe.Entry]] (Team, Section,
+# Page + Slot or After / Before) and [[BattleBayDeluxe.Remove]] (Team). Later mods win a slot.
+[bb_pages.layout]
+schema = "BattleBayDeluxe.layout/1"
+prefix = "BattleBayDeluxe"
+folder = "battle_bay"

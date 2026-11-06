@@ -1,0 +1,46 @@
+schema = "VRFW.game/2"
+
+# Locked shop rows. Runtime: scripts/shop_rows.lua reads each mod's content/shop_locks/*.toml and installs the two hooks below only when a mod declares locked rows (`apply = "script"`).
+# Condition hook: a hidden row of a declared shop whose condition is a progress gate is shown as visible and recorded as locked.
+# Fill hook: maps each list-item layer instance to its row id so menu Lua can tell which instance shows a locked row.
+
+# bool EvalCondition(const u8* compiled), post hook; rows the script put in ShopRows.Skip (never listed as locked) are
+# answered without the scripts (the shop status rebuild evaluates every row of every shop).
+[[VRFW.Hook]]
+name = "ShopRows.Condition"
+game = "Shop.RowCondition"
+apply = "script"
+post_when = { value = "[regs.r14]:u32", not_in_table = "ShopRows.Skip" }
+
+# u64 ListViewFill(layerItem, args*, row**), pre hook.
+[[VRFW.Hook]]
+name = "ShopRows.Fill"
+game = "Shop.RowFill"
+apply = "script"
+
+# --- commands ---
+
+# (shop ids...) -> live: shops whose rows are locked from now on (no argument = query).
+[[VRFW.Command]]
+name = "CMND_VRFW_SHOP_LOCK_SHOPS"
+handler = "ShopRows.Shops"
+
+# (inst) -> locked, row id, kind, a, b: the row a shop list layer instance shows.
+[[VRFW.Command]]
+name = "CMND_VRFW_SHOP_LOCKED"
+handler = "ShopRows.Locked"
+
+# (item) -> locked, kind, a, b: whether a row selling this item is locked.
+[[VRFW.Command]]
+name = "CMND_VRFW_SHOP_LOCKED_ITEM"
+handler = "ShopRows.LockedItem"
+
+# (shop id) -> whether rows of this shop are listed as locked.
+[[VRFW.Command]]
+name = "CMND_VRFW_SHOP_LOCK_ON"
+handler = "ShopRows.On"
+
+# (kind, a, b, language code) -> form, name, number, text id: what a locked row waits for, named from the game's tables.
+[[VRFW.Command]]
+name = "CMND_VRFW_SHOP_LOCK_SOURCE"
+handler = "ShopRows.Source"

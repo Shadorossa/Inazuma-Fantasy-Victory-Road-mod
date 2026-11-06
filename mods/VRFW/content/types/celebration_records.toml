@@ -1,0 +1,27 @@
+# Schema of the goal celebration declarations (kind VRFW.celebration/1, a mod's content\celebrations\**\*.toml).
+# The celebration type parses them (strict) and the character type builds them; this schema describes the same keys
+# for the checker and the editors. Who may use a celebration is the character's celebrations / celebration_auto.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.celebration/1"
+folder = "content/celebrations"
+label = "Goal celebrations"
+label_es = "Celebraciones de gol"
+doc = "One goal celebration: the event the scorer plays after a goal."
+doc_es = "Una celebración de gol: el evento que reproduce el goleador tras marcar."
+
+[entry.Celebration]
+entry_table = "celebration"
+provides = "celebration"
+doc = "one goal celebration: the event the scorer plays after a goal"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+event = { type = "string", required = true, doc = "the event that plays: a game ev71_1xxxx or the mod's own event" }
+mode = { type = "string", values = ["exclusive", "open"], default = "exclusive", doc = "exclusive: only the cards that claim it; open: anyone may pick it" }
+template = { type = "string", default = "ev71_10020", doc = "the game celebration whose event row a mod's own event clones" }
+thumbnail = { type = "string", doc = "the game celebration whose picker image is shown (default: template)" }
+text = { type = "table", doc = "the picker name per language: [celebration.text.<lang>] name = \"…\"" }
+
+[entry.Alias]
+entry_table = "alias"
+doc = "a former celebration key that still finds a celebration of this mod"
+old = { type = "string", required = true, doc = "the former key (<mod>.<name>)" }
+new = { type = "string", doc = "the celebration it names now (<mod>.<name>)" }

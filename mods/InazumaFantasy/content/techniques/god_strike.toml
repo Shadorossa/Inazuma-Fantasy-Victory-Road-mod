@@ -1,0 +1,54 @@
+schema = "VRFW.technique/3"
+# God Strike: a solo wind shot made from the god half of Penguin Reckoning (whs03250, cut-in ev60_03250). The user plays
+# both shots of the cut-in: the opening kick (c0100, c0200) and the god half (c0300, c0400, c0700, c0800); the devil
+# half's cuts (c0500, c0600), its player and its penguin model are left out. The devil half's effect pieces are hidden
+# on a copy of the effect object (content\effects\god_strike.toml).
+# Numbers: power 100-640, TP 100 and recast 90 s, as the game's solo wind shots of power 100 (skill_config).
+
+[[technique]]
+name = "god_strike"
+base = "whs03250"
+manual = true
+users = 1
+element = "wind"
+power_min = 100
+power_max = 640
+tp = 100
+  [technique.text.en]
+  name = "God Strike"
+  description = "A golden angel descends behind the\nshooter and blesses a divine shot."
+  [technique.text.es]
+  name = "Remate divino"
+  description = "Un ángel dorado desciende tras el\ntirador y bendice un disparo divino."
+  [technique.text.fr]
+  name = "Frappe divine"
+  description = "Un ange doré descend derrière le\ntireur et bénit un tir divin."
+  [technique.text.de]
+  name = "Göttlicher Schlag"
+  description = "Ein goldener Engel steigt hinter dem\nSchützen herab und segnet einen göttlichen Schuss."
+  [technique.text.it]
+  name = "Colpo Divino"
+  description = "Un angelo dorato scende alle spalle del\ntiratore e benedice un tiro divino."
+  [technique.text.pt]
+  name = "Golpe Divino"
+  description = "Um anjo dourado desce atrás do\nrematador e abençoa um remate divino."
+  [technique.text.ja]
+  name = "ゴッドストライク"
+  description = "黄金の天使が舞い降り\n神のシュートを放つ！"
+  [technique.text.zh_hans]
+  name = "神圣一击"
+  description = "金色天使降临在射手身后，\n祝福这一记神圣射门。"
+  [technique.text.zh_hant]
+  name = "神聖一擊"
+  description = "金色天使降臨在射手身後，\n祝福這一記神聖射門。"
+  [technique.animation]
+  from = "ev60_03250"
+  id = "ev60_83250"
+  cuts = [
+    { cut = "c0100", hide = ["s01"] },
+    "c0200",
+    { from_event = "ev60_03250", cut = "c0300", seats = { s00 = "s01" } },
+    { from_event = "ev60_03250", cut = "c0400", seats = { s00 = "s01" } },
+    { from_event = "ev60_03250", cut = "c0700", seats = { s00 = "s01" }, hide = ["ev60_03251_s00_p<VARIATION>"] },
+    { from_event = "ev60_03250", cut = "c0800", seats = { s00 = "s01" }, hide = ["ev60_03251_s00_p<VARIATION>"] },
+  ]

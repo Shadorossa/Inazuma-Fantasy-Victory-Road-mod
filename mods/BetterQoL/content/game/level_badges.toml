@@ -1,0 +1,11 @@
+schema = "VRFW.game/1"
+
+# BetterQoL › «Nivel de técnica: +1 / +2 / +3 / Estrellas» (BetterQoL.level_badges, options.toml). The +1 / +2 / +3 stars
+# of every language are image declarations in features\level_badges\content\images\. This switch serves only what
+# remains of the old Spanish pack: the +4 match badge file soccer10_01_lv4 (es) with its restyled +4 art, the mod's own
+# assets file named as the game file with _util_stars before the extension. Other languages keep the game's +4 art.
+[[VRFW.FileSwitch]]
+name = "LevelBadgeStars"
+suffix = "_util_stars"
+option = "level_badges"
+value = 1

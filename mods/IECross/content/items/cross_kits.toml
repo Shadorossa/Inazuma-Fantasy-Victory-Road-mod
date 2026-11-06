@@ -1,0 +1,106 @@
+schema = "VRFW.item/2"
+# The Cross kits IECross adds as wearable kits (content\looks\cross_new_kits.toml), as the IEVRCROSS mod
+# sells them: a copy of the Ura-Zeus kit item (uni_u912001, the item_config base table of this mod) with
+# the new kit and its own icon (the kit icon atlas, icon_key). The copy keeps that row's icon_index, which orders the
+# «Cambiar equipación» list, so these kits list with the other Cross kits after every retail kit.
+default_lang = "en"
+
+[[item]]
+name = "kit_penguin"
+base = "uni_u912001"
+category = "kit"
+model = { uniform = 0x304B3A70 }            # crc32("IECross.kit_penguin"): the kit of cross_new_kits.toml
+icon_key = "uni_u119601"                  # content\images\menu\200_icon\02_icon_item\icon_item07.toml
+  [item.text.ja]
+  name = "ペンギンウェア"
+  [item.text.en]
+  name = "Penguin Kit"
+  [item.text.es]
+  name = "Equipación Pingüino"
+  [item.text.fr]
+  name = "Tenue Pingouin"
+  [item.text.it]
+  name = "Divisa Pinguino"
+  [item.text.de]
+  name = "Pinguin-Trikot"
+  [item.text.pt]
+  name = "Equipamento Pinguim"
+  [item.text.zh_hans]
+  name = "企鹅队服"
+  [item.text.zh_hant]
+  name = "企鵝隊服"
+
+[[item]]
+name = "kit_shin_zeus"
+base = "uni_u912001"
+category = "kit"
+model = { uniform = 0xB60649A2 }            # crc32("IECross.kit_shin_zeus"): the kit of cross_new_kits.toml
+icon_key = "uni_u911001"                  # content\images\menu\200_icon\02_icon_item\icon_item07.toml
+  [item.text.ja]
+  name = "シン・ゼウスウェア"
+  [item.text.en]
+  name = "Shin Zeus Kit"
+  [item.text.es]
+  name = "Equipación Shin Zeus"
+  [item.text.fr]
+  name = "Tenue Shin Zeus"
+  [item.text.it]
+  name = "Divisa Shin Zeus"
+  [item.text.de]
+  name = "Shin-Zeus-Trikot"
+  [item.text.pt]
+  name = "Equipamento Shin Zeus"
+  [item.text.zh_hans]
+  name = "真·宙斯队服"
+  [item.text.zh_hant]
+  name = "真·宙斯隊服"
+
+[[item]]
+name = "kit_full_moon_festival"
+base = "uni_u912001"
+category = "kit"
+model = { uniform = 0xD85CB1F4 }            # crc32("IECross.kit_full_moon_festival"): the kit of cross_new_kits.toml
+icon_key = "uni_u119901"                  # content\images\menu\200_icon\02_icon_item\icon_item07.toml
+  [item.text.ja]
+  name = "満月の夏祭りウェア"
+  [item.text.en]
+  name = "Full Moon Summer Festival Kit"
+  [item.text.es]
+  name = "Equipación Festival de Verano de Luna Llena"
+  [item.text.fr]
+  name = "Tenue Fête d'été de la pleine lune"
+  [item.text.it]
+  name = "Divisa Festa d'estate della luna piena"
+  [item.text.de]
+  name = "Vollmond-Sommerfest-Trikot"
+  [item.text.pt]
+  name = "Equipamento Festival de Verão da Lua Cheia"
+  [item.text.zh_hans]
+  name = "满月夏日祭队服"
+  [item.text.zh_hant]
+  name = "滿月夏日祭隊服"
+
+[[item]]
+name = "kit_pumpkin_devil"
+base = "uni_u912001"
+category = "kit"
+model = { uniform = 0x30503B87 }            # crc32("IECross.kit_pumpkin_devil"): the kit of cross_new_kits.toml
+icon_key = "uni_u120201"                  # content\images\menu\200_icon\02_icon_item\icon_item07.toml
+  [item.text.ja]
+  name = "パンプキンデビルウェア"
+  [item.text.en]
+  name = "Pumpkin Devil Kit"
+  [item.text.es]
+  name = "Equipación Diablo Calabaza"
+  [item.text.fr]
+  name = "Tenue Diable Citrouille"
+  [item.text.it]
+  name = "Divisa Diavolo Zucca"
+  [item.text.de]
+  name = "Kürbisteufel-Trikot"
+  [item.text.pt]
+  name = "Equipamento Diabo Abóbora"
+  [item.text.zh_hans]
+  name = "南瓜恶魔队服"
+  [item.text.zh_hant]
+  name = "南瓜惡魔隊服"

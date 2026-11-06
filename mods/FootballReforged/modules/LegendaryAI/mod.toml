@@ -1,0 +1,52 @@
+id = "LegendaryAI"
+former_ids = ["LegendaryMatch"]
+key_id = "LegendaryAI"
+# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
+# game's language (text\keys.toml)
+name = "Legendary AI"
+version = "0.2.2"
+author = "Shadorossa"
+author_steam = "76561199013321372"
+description = "Every offline match is played against a «Legendary» CPU. Only the rival team (never your AI teammates): it reacts at once in duels, picks the move whose element beats yours, remembers and counters the moves you use, saves tension for its keeper, passes and decides without waits, shoots as soon as a shoot zone opens, presses your tired players and substitutes tired ones (with a stamina mod). Both teams: the defensive action range is halved. In free matches the rival's players also come trained for the position they play, with the best passives for it (the stats need Classic Training)."
+priority = 0
+tags = ["AI difficulty", "Gameplay"]
+updated = "2026-11-06"
+# This mod's own names: TOML keys LegendaryAI.X (profile and class names); never VRFW.
+prefix = "LegendaryAI"
+folder = "LegendaryAI"
+# Standard mod layout:
+#   content\rules\ai\legendary.toml   the match AI profiles (kind VRFW.match_ai/1): the rival's
+#                             class, rates, timers, per-team behaviours and situations; the field range of both teams
+#   content\game\legendary_ai.toml   the foul-chance hook (GetFoulRate), the globals the script reads and the
+#                             game_state key LegendaryAI.ai_difficulty (the difficulty other mods' menus use)
+#   content\rules\furor.toml          when the rival starts its furor phase (soft companion: the Furor module's exports)
+#   content\rival_players\free_match_rivals.toml   the rival players of every free match: training by archetype and passives
+#                             (kind VRFW.rival_players/1; the stats need Classic Training)
+#   scripts\legendary_ai.lua          the rival's power charge / power block foul chance; the furor starts (defence, shoot zone)
+#   config.toml               every value of the mod, by topic; the content files read them by path; [difficulty] the levels
+#   options.toml              the row «Difficulty»: the level of the AI rules, from the next match
+#   text\keys.toml            the mod's name / description and the row's texts, 9 languages
+# The framework provides the mechanisms (VRFW.MatchAI); this module only declares the values. Switching the module off
+# (its card on Football Reforged's Mods page) leaves every match to the game's AI.
+# Uses the framework's match AI profiles (match_ai/1), the per-team knobs, the move choice, the situations, the pass lane cut, the learned tendencies, the zone / duel conditions, the strategy level, the power-aware move choice.
+requires = ["VRFW>=0.2.2", "FootballReforged>=0.2.2"]
+optional = ["Furor"]
+conflicts = []
+loader_modules = ["lua_bridge"]
+loader_min = "1.7.0"
+permissions = ["memory", "hook", "state"]
+# Always loaded: its card's switch acts from the next match, with no restart (docs/framework/hot-reload.md section 8).
+live_toggle = true
+
+[exports]
+functions = []
+keys = []
+tables = []
+
+# A MODULE of Football Reforged: the Mods screen, the
+# ModManager and `vrfw list` show it inside Football Reforged's entry; switching Football Reforged off switches it off too.
+[module]
+of = "FootballReforged"
+order = 30
+# starts switched OFF (the player opts in on its card)
+default_enabled = true

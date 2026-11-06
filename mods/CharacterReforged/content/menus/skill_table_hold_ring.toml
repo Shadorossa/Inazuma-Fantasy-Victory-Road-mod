@@ -1,0 +1,13 @@
+# Character Reforged › the skill table's V / Y hold:
+# the retail long-press ring of the general window's «mantener» buttons (object win04_12_long_press_button: an 88 px
+# ring whose rate «bar» fills, the key glyph in its middle), one instance driven by the framework's hold prompt.
+#No
+# opening group (flags [0, 0, 0, 0, 1, 0]): the layer stays closed while idle, so the guide shows only «Y Restablecer»;
+# the ring is opened and shown over that glyph only while the key is held. Inazuma Fantasy's own copy of the screen
+# draws its ring on its layer evt_ss_hold instead.
+schema = "VRFW.menu/2"
+
+[[patch]]
+menu = "evt_skill_slot_menu"
+add_layer = { name = "cr_skill_table_hold", object = "win04_12_long_press_button", count = 1, align = [0, 0], scale = 1, after = "mainmenu90_05_content_guide_line01", groups = [{ group = "common", flags = [0, 0, 0, 0, 1, 0], after = "mainmenu90_05_content_guide_line01" }] }
+resources = ["#/menu/10_win/win04/win04_12/win04_12.g4tx"]

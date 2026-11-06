@@ -1,0 +1,67 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier"
+  Type = "table"
+  Label = { es = "Barrera del portero", en = "Goalkeeper barrier" }
+  Help = { es = "Parte superior de la barra de cada portero que actúa como barrera.", en = "The top part of each keeper's bar that acts as a barrier." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.barrier_percent"
+  Type = "float"
+  Label = { es = "Tamaño de la barrera (%)", en = "Barrier size (%)" }
+  Help = { es = "Porcentaje de la barra del portero que forma la barrera.", en = "Share of the keeper's bar that forms the barrier." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.mitigation"
+  Type = "float"
+  Label = { es = "Reducción del tiro", en = "Shot reduction" }
+  Help = { es = "Cuánto reduce la barrera la fuerza del tiro que absorbe.", en = "How much the barrier weakens the shot it absorbs." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.tension_discount"
+  Type = "float"
+  Label = { es = "Descuento de tensión", en = "Tension discount" }
+  Help = { es = "Parte de tensión que se descuenta al tirador cuando rompe la barrera.", en = "Share of tension discounted for the shooter when the barrier is hit." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.discount_expire_seconds"
+  Type = "int"
+  Label = { es = "Caducidad del descuento (s)", en = "Discount expiry (s)" }
+  Help = { es = "Segundos tras los que caduca el descuento; 0 = no caduca.", en = "Seconds after which the discount expires; 0 = never." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.block_category"
+  Type = "int"
+  Label = { es = "Categoría de bloqueo", en = "Block category" }
+  Help = { es = "Categoría de supertécnica que cuenta como bloqueo (número interno).", en = "Move category that counts as a block (internal number)." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.keeper_category"
+  Type = "int"
+  Label = { es = "Categoría de portero", en = "Keeper category" }
+  Help = { es = "Categoría de supertécnica propia de porteros (número interno).", en = "Move category used by goalkeepers (internal number)." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.keeper_position"
+  Type = "int"
+  Label = { es = "Posición de portero", en = "Keeper position" }
+  Help = { es = "Número de posición que identifica a los porteros (número interno).", en = "Position number that identifies goalkeepers (internal number)." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.rescan_ms"
+  Type = "int"
+  Label = { es = "Intervalo de comprobación (ms)", en = "Check interval (ms)" }
+  Help = { es = "Cada cuántos milisegundos se vuelve a leer el estado de los porteros.", en = "How often, in milliseconds, the keepers' state is read again." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.hud_fill_from"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Lado de relleno de la barra", en = "Bar fill side" }
+  Help = { es = "Extremo desde el que se rellena la barra de cada portero (propio, rival): left o right.", en = "End each keeper bar fills from (own, rival): left or right." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.hud_step_pixels"
+  Type = "int"
+  Label = { es = "Píxeles por escalón", en = "Pixels per step" }
+  Help = { es = "Píxeles de barra por cada escalón de bronce de la barrera.", en = "Bar pixels per bronze step of the barrier." }
+  [[Shape.Field]]
+  Key = "goalkeeper_barrier.hud_debug"
+  Type = "bool"
+  Label = { es = "Barra lisa (depuración)", en = "Plain bar (debug)" }
+  Help = { es = "Dibuja la barrera con el medidor original liso en vez del sprite de bronce (depuración).", en = "Draws the barrier with the plain retail gauge instead of the bronze sprite (debug)." }

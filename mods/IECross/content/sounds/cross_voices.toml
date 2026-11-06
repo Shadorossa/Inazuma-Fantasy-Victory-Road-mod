@@ -1,0 +1,215 @@
+schema = "VRFW.sound/1"
+# The Cross moves' name calls in Japanese: the lines of the IEVRCROSS mod (Inazuma Eleven Cross for Victory
+# Road), each a ready HCA added to the voice bank of the character who calls it (cue <bank>_<move key>; the
+# moves' sound lists play `<key>` from the performer's bank). One file per character and move, shared by
+# the banks of that character's cards.
+
+[[voice]]
+bank = "c01001900"            # Byron Love
+cue = "whs95020"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01001900_whs95020.hca"
+
+[[voice]]
+bank = "c05026590"            # Byron Love
+cue = "whs95020"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01001900_whs95020.hca"
+
+[[voice]]
+bank = "c07080010"            # Byron Love
+cue = "whs95020"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01001900_whs95020.hca"
+
+[[voice]]
+bank = "c01000010"            # Mark Evans
+cue = "who95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_who95100.hca"
+
+[[voice]]
+bank = "c01000010"            # Mark Evans
+cue = "whs95110"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_whs95110.hca"
+
+[[voice]]
+bank = "c01000020"            # Nathan Swift
+cue = "whd95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000020_whd95120.hca"
+
+[[voice]]
+bank = "c01000020"            # Nathan Swift
+cue = "who95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000020_who95120.hca"
+
+[[voice]]
+bank = "c01000300"            # Jude Sharp
+cue = "whd95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whd95100.hca"
+
+[[voice]]
+bank = "c01000300"            # Jude Sharp
+cue = "whs95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whs95100.hca"
+
+[[voice]]
+bank = "c01000310"            # David Samford
+cue = "whd95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000310_whd95120.hca"
+
+[[voice]]
+bank = "c01000310"            # David Samford
+cue = "whs95140"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000310_whs95140.hca"
+
+[[voice]]
+bank = "c01010970"            # Jude Sharp
+cue = "whd95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whd95100.hca"
+
+[[voice]]
+bank = "c01010970"            # Jude Sharp
+cue = "whs95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whs95100.hca"
+
+[[voice]]
+bank = "c02023710"            # David Samford
+cue = "whd95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000310_whd95120.hca"
+
+[[voice]]
+bank = "c02023710"            # David Samford
+cue = "whs95140"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000310_whs95140.hca"
+
+[[voice]]
+bank = "c02024300"            # Nathan Swift
+cue = "whd95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000020_whd95120.hca"
+
+[[voice]]
+bank = "c02024300"            # Nathan Swift
+cue = "who95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000020_who95120.hca"
+
+[[voice]]
+bank = "c05024610"            # Mark Evans
+cue = "who95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_who95100.hca"
+
+[[voice]]
+bank = "c05024610"            # Mark Evans
+cue = "whs95110"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_whs95110.hca"
+
+[[voice]]
+bank = "c05024620"            # David Samford
+cue = "whd95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000310_whd95120.hca"
+
+[[voice]]
+bank = "c05024620"            # David Samford
+cue = "whs95140"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000310_whs95140.hca"
+
+[[voice]]
+bank = "c05024650"            # Nathan Swift
+cue = "whd95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000020_whd95120.hca"
+
+[[voice]]
+bank = "c05024650"            # Nathan Swift
+cue = "who95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000020_who95120.hca"
+
+[[voice]]
+bank = "c05024670"            # Jude Sharp
+cue = "whd95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whd95100.hca"
+
+[[voice]]
+bank = "c05024670"            # Jude Sharp
+cue = "whs95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whs95100.hca"
+
+[[voice]]
+bank = "c07020120"            # Jude Sharp
+cue = "whd95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whd95100.hca"
+
+[[voice]]
+bank = "c07020120"            # Jude Sharp
+cue = "whs95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whs95100.hca"
+
+[[voice]]
+bank = "c07070120"            # Nathan Swift
+cue = "whd95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000020_whd95120.hca"
+
+[[voice]]
+bank = "c07070120"            # Nathan Swift
+cue = "who95120"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000020_who95120.hca"
+
+[[voice]]
+bank = "c07110020"            # Mark Evans
+cue = "who95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_who95100.hca"
+
+[[voice]]
+bank = "c07110020"            # Mark Evans
+cue = "whs95110"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_whs95110.hca"
+
+[[voice]]
+bank = "c11500500"            # Mark Evans
+cue = "who95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_who95100.hca"
+
+[[voice]]
+bank = "c11500500"            # Mark Evans
+cue = "whs95110"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_whs95110.hca"
+
+[[voice]]
+bank = "c11500520"            # Jude Sharp
+cue = "whd95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whd95100.hca"
+
+[[voice]]
+bank = "c11500520"            # Jude Sharp
+cue = "whs95100"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whs95100.hca"

@@ -1,0 +1,41 @@
+schema = "VRFW.technique/3"
+# Rocas magmáticas (Magma Rocks): the download's move whd92060, a clone of whd00600 with its numbers; its event ev62_92060 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "magma_rocks"
+key = "whd92060"
+base = "whd00600"
+event = "ev62_92060"
+element = "fire"
+power_min = 70
+power_max = 440
+tp = 70
+color = 2
+  [technique.text.es]
+  name = "Rocas magmáticas"
+  description = "Rocas de un volcán recién eruptado."
+  [technique.text.en]
+  name = "Magma Rocks"
+  description = "Rocks from a freshly erupted volcano."
+  [technique.text.fr]
+  name = "Roches magmatiques"
+  description = "Des roches d'un volcan en pleine éruption."
+  [technique.text.de]
+  name = "Magmafelsen"
+  description = "Felsen aus einem frisch ausgebrochenen Vulkan."
+  [technique.text.it]
+  name = "Rocce magmatiche"
+  description = "Rocce di un vulcano appena eruttato."
+  [technique.text.pt]
+  name = "Rochas magmáticas"
+  description = "Rochas de um vulcão em plena erupção."
+  [technique.text.ja]
+  name = "マグマロック"
+  description = "噴火したての火山の岩石！"
+  [technique.text.zh_hans]
+  name = "熔岩巨石"
+  description = "刚刚喷发的火山岩石。"
+  [technique.text.zh_hant]
+  name = "熔岩巨石"
+  description = "剛剛噴發的火山岩石。"

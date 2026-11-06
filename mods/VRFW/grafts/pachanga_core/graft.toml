@@ -1,0 +1,49 @@
+# The pachanga way back of the VR-Framework match engine: the title end of the way back (pachanga_title.lua) and the
+# story-field fallback (pachanga_field.lua, VRFW_PACHANGA_FieldTick). The friendly executor VRFW_PACHANGA itself is in
+# every menu VM (VRFW lua\menu\_all\12_pachanga.lua). Callers (e.g. a roguelite dock, office trials, chain modes) only
+# pick a rules id declared by their mod and call VRFW_PACHANGA.start / back / set_passed.
+# A VR-Framework graft (module match_engine; no global alias): built by `menu_assemble.py build --mod vr_framework`
+# into the save part's Lua root (framework_pack.py).
+# On title_menu_2 pachanga_title.lua closes the pachanga after the retail OnInit.
+name = "pachanga_core"
+mod = "VRFW"
+order = 200
+module = ""
+requires = []
+conflicts = []
+wraps = ["OnInit", "Step"]
+description = "Pachangas: the way back of every mode's friendly matches at the title and the story field (VR-Framework match engine)"
+
+[[files]]
+stem = "title_menu_2"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "pachanga_title.lua"
+  marker = "pachanga title"
+  crc = "none"
+
+[[files]]
+stem = "activity_telop_menu"
+
+  # return = "title" fallback: a story field after a pachanga -> black, title (rules field_net)
+  [[files.ops]]
+  type = "append_block"
+  source = "pachanga_field.lua"
+  marker = "pachanga field"
+
+[[files]]
+stem = "main_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "pachanga_field.lua"
+  marker = "pachanga field"
+
+[[files]]
+stem = "map_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "pachanga_field.lua"
+  marker = "pachanga field"

@@ -1,0 +1,15 @@
+# Declaration schema of VRFW.behaviour/1 (content\rules): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.behaviour/1"
+folder = "content/rules"
+label = "Behaviour rules"
+label_es = "Reglas de comportamiento"
+
+[entry.Rule]
+entry_table = "rule"
+id = { type = "name", required = true }
+on = { type = "string", required = true }
+do = { type = "table", required = true }
+when = { type = "table" }
+priority = { type = "int" }
+text = { type = "string" }

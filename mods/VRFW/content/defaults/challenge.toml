@@ -1,0 +1,39 @@
+# Framework defaults for match challenges; a ruleset's [challenge] or a mod's defaults/challenge.toml may override keys.
+
+# `outfield_formation`: formation_config row name used by 5v5 outfield challenges; unset keeps the teams' own formation.
+
+# `keepaway_ai`: knob name -> value for the rival AI during keepaway challenges; global knobs are restored afterwards, unlisted knobs keep the game value.
+[keepaway_ai]
+# Ball carrier looks for a pass every 0.1-0.4 s (seconds).
+passLotteryIntervalMin = 0.1
+passLotteryIntervalMax = 0.4
+# Passes are chosen by success rate only.
+tacticsPassEvaluationSuccessRateWeight = 100.0
+tacticsPassEvaluationPhaseEvaluationWeight = 0.0
+# Dribbling is never rated as worthwhile.
+tacticsDribbleEvaluationSuccessRateWeight = 0.0
+tacticsDribbleEvaluationPhaseEvaluationWeight = 0.0
+# The AI team never starts a focus battle.
+autoRunFocusBtlProbabilityMin = 0.0
+autoRunFocusBtlProbabilityMax = 0.0
+# Defenders near a pass target sharply lower its success rate.
+passNearEnemyNumSuccessRateRatio = 1.0
+# Back passes are allowed anywhere on the pitch.
+passWeightBackPasss = 60.0
+passDisableBackPassPosRateZ = 1.0
+# Pass-target potential field: no pull to goal, strong push away from opponents.
+passPotentialToGoal = 0.0
+passPotentialFromOpp = 5000.0
+# Per-player knobs applied to every rival player.
+passEnableRate = 1.0
+slidingEnableRate = 0.0
+attackDashEnableRate = 0.0
+allCourtJustAvoidRate = 1.0
+focusAtkSkillRate = 1.0
+focusAtkOpponentSkillRate = 1.0
+focusAtkImmediateSkillRate = 1.0
+focusFramePerfectReactRate = 100.0
+focusKeepDistanceDribbleRate = 1.0
+focusBreakThroughDisableTime = 99.0
+focusPassEnableRate = 1.0
+focusPowerChargeUseRate = 1.0

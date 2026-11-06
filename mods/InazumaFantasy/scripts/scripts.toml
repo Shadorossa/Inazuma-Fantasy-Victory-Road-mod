@@ -1,0 +1,15 @@
+schema = "VRFW.script/1"
+
+# daily_legendary_rival.lua: the Daily Legendary Rival of the free-match section (the day's team, the day's win kept in
+# the save blob if_daily_legendary_rival.json of the slot). It reads the game's team and match tables once per session.
+[settings]
+budget = 2000000
+memory_kb = 32768
+allow = ["save"]
+
+[[script]]
+file = "daily_legendary_rival.lua"
+
+# level_orbs.lua: which items are level orbs (config.toml [level_orbs.levels]), for the item use menu.
+[[script]]
+file = "level_orbs.lua"

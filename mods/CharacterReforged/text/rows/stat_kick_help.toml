@@ -1,0 +1,33 @@
+# Character Reforged › stat 0 («kick») reads «Disparo» in Spanish (retail: «Potencia»): the retail rows where it is the stat name.
+schema = "VRFW.text/2"
+table = "help_list_text"
+
+[[row]]
+id = 0xA6E97D1A
+fallback = false
+es = "Los jugadores tienen siete atributos básicos:\\ndisparo, control, técnica, inteligencia, presión, físico y agilidad.\\nTodos influyen en el resultado de las minibatallas, las supertécnicas y otros momentos clave del juego."
+
+[[row]]
+id = 0xE01B22A7
+fallback = false
+es = "Disparo"
+
+[[row]]
+id = 0x8DC42ED9
+fallback = false
+es = "El disparo aumenta la habilidad de tiro de un jugador y es especialmente importante para los delanteros.\\nIncrementa el ataque de tiro (AT de tiro) y el ataque de batallas de foco (AT de foco), fundamental para\\nmarcar goles."
+
+[[row]]
+id = 0xD4E4C50F
+fallback = false
+es = "Disparo"
+
+[[row]]
+id = 0xBE30266C
+fallback = false
+es = "El AT de tiro representa un poder de chute y es el total combinado de los valores de disparo y control del jugador.\\nLas supertécnicas o las cadenas de tiros aumentan el AT durante el tiro en el que se utilizan."
+
+[[row]]
+id = 0xA72B172D
+fallback = false
+es = "Determinan el resultado de las batallas de foco.\\nEl AT de foco se ve afectado por Técnica, Control y Disparo,\\nla DF de foco por Técnica, Inteligencia y Agilidad."

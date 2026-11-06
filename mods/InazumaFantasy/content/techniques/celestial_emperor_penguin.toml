@@ -1,0 +1,42 @@
+schema = "VRFW.technique/3"
+# Pingüino emperador celestial (Celestial Emperor Penguin): the download's move whs90021, a clone of whs01310 with its numbers; its event ev60_90021 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "celestial_emperor_penguin"
+key = "whs90021"
+base = "whs01310"
+event = "ev60_90021"
+element = "wind"
+power_min = 100
+power_max = 640
+tp = 100
+effect_flags = 4
+color = 1
+  [technique.text.es]
+  name = "Pingüino emperador celestial"
+  description = "Pingüinos emperador celestiales\nacompañan un tiro divino."
+  [technique.text.en]
+  name = "Celestial Emperor Penguin"
+  description = "Celestial emperor penguins\nescort a divine shot."
+  [technique.text.fr]
+  name = "Pingouin empereur céleste"
+  description = "Des pingouins empereurs célestes\naccompagnent un tir divin."
+  [technique.text.de]
+  name = "Himmlischer Kaiserpinguin"
+  description = "Himmlische Kaiserpinguine\nbegleiten einen göttlichen Schuss."
+  [technique.text.it]
+  name = "Pinguino imperatore celeste"
+  description = "Pinguini imperatori celesti\naccompagnano un tiro divino."
+  [technique.text.pt]
+  name = "Pinguim imperador celestial"
+  description = "Pinguins imperadores celestiais\nacompanham um remate divino."
+  [technique.text.ja]
+  name = "天空の皇帝ペンギン"
+  description = "天空の皇帝ペンギンが\n神のシュートに付き従う！"
+  [technique.text.zh_hans]
+  name = "天界皇帝企鹅"
+  description = "天界的皇帝企鹅\n伴随神圣的射门。"
+  [technique.text.zh_hant]
+  name = "天界皇帝企鵝"
+  description = "天界的皇帝企鵝\n伴隨神聖的射門。"

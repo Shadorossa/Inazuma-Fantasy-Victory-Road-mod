@@ -1,0 +1,88 @@
+# The rival players of every free-match team, every class, mods' teams and the Daily Legendary Rival included, for the
+# match only (VRFW rival players, docs/framework/types/rival-players.md). Each player is trained as a player of the
+# class's level can be (Player Training's rules: the budget of that level, then the position pairs' trade), for the
+# archetype that suits him, and carries the best passives of his position and of that archetype. The same team and class
+# always give the same result; nothing is saved. The stats need Character Reforged's Classic Training; without it the rule
+# gives the passives only.
+#
+# Training level: the class row's own level (INAZUMA Nv. 50, ZONA LETAL Nv. 99, Nv. 200, the daily Nv. 250). The classes
+# keep their distance: a lower class has a lower budget and lower values, trained the same way.
+schema = "VRFW.rival_players/1"
+
+[[rule]]
+name = "free_match"
+difficulties = ["Class1", "Class2", "Class3", "Class4"]
+play_mode = 1
+training_level = "class"
+archetypes = ["counter", "tension", "justice", "bond", "foul_play"]
+# Choice per player: the share of his own values in the archetype's stats for his position (0..1) + its element bonus +
+# team_focus x the share of the team that chose it, so a team leans to one archetype and a player with a clearly
+# different profile can still differ. The team's archetype is the game's count of its starters' archetype passives.
+team_focus = 0.15
+keep_special = true
+position_passives = "best_by_position"
+
+# ----------------------------------------------------------------------------------------------------- archetypes
+# Hypertraining: a player trains for the position he plays in the match's formation (the bench: his card's). All his
+# Libertad goes into the list's first stat, the most important one of the position: GK agility (keeper saves), FW kick
+# (shot AT), MF technique (focus AT and DF), DF pressure (duel and wall DF). Each list holds one stat of each of the
+# position's 4 pairs (CharacterReforged ClassicTraining scripts/lib/training_rules.lua): the 4 listed stats are raised
+# and the 4 others drained: to Classic Training's [rival_training] useful_floor, those its [rival_training.useless] names
+# for the position to 1, so no list holds a useless stat; what each stat feeds: docs/game/mechanics/stats-system.md section 1. Passives: the game's archetype passives at their top version, by real
+# value (passive_skill_config) and what the position uses; 2 different effects, in slots 4 and 5.
+# Left out: Brecha (its team effect multiplies a base rate of 0, docs/game/ideas/arquetipos-balance.md section 0).
+
+# Contraataque, the strongest team effect (team DF +60 % with no charges).
+[[archetype]]
+name = "counter"
+element_bonus = { wind = 0.02 }
+GK = { stats = ["agility", "physical", "pressure", "luck"], passives = ["ps10075_04", "ps10077_04"] }           # keeper PP 5, AT / DF 6 after a recovery
+FW = { stats = ["kick", "control", "agility", "physical"], passives = ["ps10069_04", "ps10073_04"] }            # team shot AT 4, team focus 1 per rank
+MF = { stats = ["technique", "agility", "pressure", "intelligence"], passives = ["ps10073_04", "ps10077_04"] }  # team focus 1 per rank, AT / DF 6
+DF = { stats = ["pressure", "intelligence", "agility", "luck"], passives = ["ps10077_04", "ps10073_04"] }       # AT / DF 6, team focus 1 per rank
+
+# Tensión.
+[[archetype]]
+name = "tension"
+element_bonus = { fire = 0.02 }
+GK = { stats = ["agility", "physical", "pressure", "luck"], passives = ["ps10127_04", "ps10063_04"] }           # tension 2 per rank, tension 6 on a win
+FW = { stats = ["kick", "control", "luck", "physical"], passives = ["ps10067_04", "ps10127_04"] }               # team shot AT 6 at full tension, tension 2 per rank
+MF = { stats = ["technique", "kick", "intelligence", "pressure"], passives = ["ps10065_04", "ps10063_04"] }     # team focus 2, tension 6 on a win
+DF = { stats = ["pressure", "intelligence", "agility", "luck"], passives = ["ps10063_04", "ps10127_04"] }    # tension 6 on a win, tension 2 per rank
+
+# Justicia.
+[[archetype]]
+name = "justice"
+element_bonus = { mountain = 0.02 }
+GK = { stats = ["agility", "physical", "pressure", "luck"], passives = ["ps10098_04", "ps10100_04"] }           # wall DF 2, team AT / DF 0.4 per rank
+FW = { stats = ["kick", "control", "agility", "intelligence"], passives = ["ps10100_04", "ps10096_04"] }        # team AT / DF 0.4 per rank, affinity 8
+MF = { stats = ["technique", "kick", "physical", "pressure"], passives = ["ps10100_04", "ps10096_04"] }         # the same
+DF = { stats = ["pressure", "physical", "agility", "luck"], passives = ["ps10100_04", "ps10098_04"] }           # team AT / DF 0.4 per rank, wall DF 2
+
+# Vínculo.
+[[archetype]]
+name = "bond"
+element_bonus = { forest = 0.02 }
+GK = { stats = ["agility", "physical", "pressure", "luck"], passives = ["ps10119_04", "ps10081_04"] }       # team AT / DF per affinity, team duel 5 per rank
+FW = { stats = ["kick", "control", "luck", "intelligence"], passives = ["ps10083_04", "ps10119_04"] }           # direct shot AT 4, team AT / DF per affinity
+MF = { stats = ["technique", "kick", "intelligence", "pressure"], passives = ["ps10081_04", "ps10119_04"] }       # team duel 5 per rank, team AT / DF per affinity
+DF = { stats = ["pressure", "intelligence", "agility", "luck"], passives = ["ps10081_04", "ps10119_04"] }          # the same
+
+# Juego sucio.
+[[archetype]]
+name = "foul_play"
+element_bonus = { void = 0.02 }
+GK = { stats = ["agility", "physical", "pressure", "luck"], passives = ["ps10086_04", "ps10088_04"] }           # team foul rate -4 sprinting / outside the area
+FW = { stats = ["kick", "control", "agility", "physical"], passives = ["ps10092_04", "ps10090_04"] }           # hard attack 1 per rank, tension 4 when fouled
+MF = { stats = ["technique", "kick", "physical", "luck"], passives = ["ps10092_04", "ps10086_04"] }             # hard attack 1 per rank, foul rate -4
+DF = { stats = ["pressure", "physical", "agility", "luck"], passives = ["ps10092_04", "ps10086_04"] }        # the same
+
+# ----------------------------------------------------------------------------------------------------- general passives
+# The 3 general slots of a player of each position in the formation (not his card's): the same passive 3 times, top
+# version, the engine stacks them. A player with his own special keeps it and gets 2 of them.
+[[position_passives]]
+name = "best_by_position"
+GK = ["ps10112_04", "ps10112_04", "ps10112_04"]   # team PP +3.5 %
+FW = ["ps10039_04", "ps10039_04", "ps10039_04"]   # own shot AT +8 % in the rival half
+MF = ["ps10022_04", "ps10022_04", "ps10022_04"]   # own focus value +8 %, a same-element player nearby
+DF = ["ps10024_04", "ps10024_04", "ps10024_04"]   # own duel value +20 %, a same-element player nearby

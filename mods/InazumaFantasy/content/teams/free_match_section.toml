@@ -1,0 +1,42 @@
+schema = "VRFW.team/2"
+# Inazuma Fantasy's section of the / section bar, on
+# page 2 (VR-Framework section pages, docs/framework/team-sections.md). Its icon is the outlined F
+# (content\images\menu\200_icon\16_icon_list_tab\icon_list_tab.toml), its name a menu_text row
+# (text\rows\free_match_section.toml).
+# Teams: the mod's own (content\teams\*.toml), named by the mod's key id InazumaFantasy. Each is a new game of the section: the generic free match
+# fbtl_free_001's class-9 row against the team, listed from the start: its hidden piece takes the status of the first
+# Chronicle piece (fbtl_cro01_010_010), as the Cross section's piece does. The classes below are the three free-match
+# classes Chronicle Deluxe offers (its content\defaults\match_difficulty.toml): INAZUMA (6) Nv. 50, ZONA LETAL (7)
+# Nv. 99 and the Nv. 200 class (9). Rows 6 / 7 are made from row 9 (class AI of each class); RANGO DIVINO (8) is not
+# one of them.
+
+[[VRFW.FreeMatchTab]]
+Id = "fantasy"
+Text = "InazumaFantasy.free_match_section_fantasy"
+Icon = "#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx:icon_list_tab_series11"
+IconOff = "#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx:icon_list_tab_series11_off"
+Order = 200
+Page = 2
+Template = "fbtl_free_001"
+Unlock = "fbtl_cro01_010_010"
+Teams = [
+  # the Daily Legendary Rival (content\teams\daily_legendary_rival.toml): one class only, BATALLA LEGENDARIA (row 9) at
+  # Nv. 250 with the AI of the game's «Batalla legendaria» (difficulty 11), its card titled «BATALLA LEGENDARIA+»
+  # (content\images\menu\200_icon\06_icon_class\daily_rival_class.toml); every other team keeps the three classes
+  { Team = "InazumaFantasy.ct_ft_daily_legendary_rival", Game = "inazuma_fantasy_daily_legendary_rival", VRFW.Difficulties = [{ Difficulty = 9, Level = 250, AiOf = 11, Banner = "#/menu/200_icon/06_icon_class/<LG>/icon_class.g4tx:if_legendary_battle_plus" }] },
+  { Team = "InazumaFantasy.ct_ft_punishment" },
+  { Team = "InazumaFantasy.ct_ft_crossed_japan" },
+]
+VRFW.Difficulties = [
+  { Difficulty = 6, Level = 50 },
+  { Difficulty = 7, Level = 99 },
+  { Difficulty = 9, Level = 200 },
+]
+
+# Bahía Batalla › the season carousel: the Fantasy series (type 11 of chara_series_config, this mod's row) is derived by
+# the framework as season `series_11`; this gives it its name and the same F icon.
+[[VRFW.Season]]
+Id = "series_11"
+Text = "InazumaFantasy.free_match_section_fantasy"
+Icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_series11"
+Order = 110                               # after the Cross series (series_10 = 100)

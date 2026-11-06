@@ -1,0 +1,2056 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "difficulty"
+  Type = "table"
+  Label = { es = "Dificultad", en = "Difficulty" }
+  Help = { es = "Los niveles de la fila «Dificultad» (Novato, Aficionado, Profesional, Clase mundial, Infierno). Los demás valores de esta lista son los de Infierno; cada nivel los calcula desde aquí. Solo cambian las reglas de la IA.", en = "The levels of the row «Difficulty» (Novice, Amateur, Professional, World class, Hell). The other values of this list are Hell's; each level computes them from here. Only the AI rules change." }
+  [[Shape.Field]]
+  Key = "difficulty.from"
+  Type = "table"
+  Label = { es = "Punto de partida", en = "Starting point" }
+  Help = { es = "Dónde empieza cada valor con factor 0: el valor del juego o el valor con el que esa conducta no hace nada.", en = "Where each value starts at factor 0: the game's value, or the value at which that behaviour does nothing." }
+  [[Shape.Field]]
+  Key = "difficulty.team_from"
+  Type = "table"
+  Label = { es = "Conductas: desde qué nivel", en = "Behaviours: from which level" }
+  Help = { es = "El nivel (1 = Novato) desde el que juega cada conducta. Por debajo actúa la IA del juego.", en = "The level (1 = Novice) from which each behaviour plays. Below it the game's AI acts." }
+  [[Shape.Field]]
+  Key = "difficulty.if_from"
+  Type = "table"
+  Label = { es = "Situaciones: desde qué nivel", en = "Situations: from which level" }
+  Help = { es = "El nivel (1 = Novato) desde el que juega cada situación.", en = "The level (1 = Novice) from which each situation plays." }
+  [[Shape.Field]]
+  Key = "fouls"
+  Type = "table"
+  Label = { es = "Faltas del rival", en = "Rival fouls" }
+  Help = { es = "Con qué frecuencia comete faltas el rival.", en = "How often the rival commits fouls." }
+  [[Shape.Field]]
+  Key = "fouls.rival_power_action_foul_rate"
+  Type = "float"
+  Label = { es = "Falta en cargas y bloqueos", en = "Foul on power charges/blocks" }
+  Help = { es = "Probabilidad de falta en sus cargas y bloqueos de potencia en un duelo (0 a 1). El juego usa 0,15.", en = "Foul chance of its power charges and power blocks in a duel (0 to 1). The game uses 0.15." }
+  [[Shape.Field]]
+  Key = "fouls.rival_dash_foul_scale"
+  Type = "float"
+  Label = { es = "Falta en carreras agresivas", en = "Foul on aggressive sprints" }
+  Help = { es = "Multiplica la probabilidad de falta de sus embestidas al correr (0 a 1; 0,125 = 5 %).", en = "Multiplies the foul chance of its aggressive sprint charges (0 to 1; 0.125 = 5 %)." }
+  [[Shape.Field]]
+  Key = "errors"
+  Type = "table"
+  Label = { es = "Errores del rival", en = "Rival mistakes" }
+  Help = { es = "Fallos que comete el rival a propósito.", en = "Mistakes the rival makes on purpose." }
+  [[Shape.Field]]
+  Key = "errors.focus_duel_read_error"
+  Type = "float"
+  Label = { es = "Fallo al leer el duelo", en = "Duel read error" }
+  Help = { es = "Probabilidad de que no lea el lado que cubres en un duelo (0 a 1).", en = "Chance it misreads the side you cover in a duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "errors.offside_trap_miss"
+  Type = "float"
+  Label = { es = "Fallo en el fuera de juego", en = "Offside trap miss" }
+  Help = { es = "Probabilidad de que la línea de fuera de juego falle al adelantarse (0 a 1).", en = "Chance the offside line misses a step-up (0 to 1)." }
+  [[Shape.Field]]
+  Key = "focus_duel"
+  Type = "table"
+  Label = { es = "Rival en un duelo de enfoque", en = "Rival in a focus duel" }
+  Help = { es = "Cómo juega el portador rival en un duelo de enfoque.", en = "How the rival ball carrier plays in a focus duel." }
+  [[Shape.Field]]
+  Key = "focus_duel.hurry_scale"
+  Type = "float"
+  Label = { es = "Prisa en el duelo", en = "Duel hurry" }
+  Help = { es = "Cuánto pesa el tiempo transcurrido en su estrategia (0 a 10); más alto, rompe antes.", en = "How much elapsed time weighs on its strategy (0 to 10); higher breaks out sooner." }
+  [[Shape.Field]]
+  Key = "focus_duel.hurry_force_at"
+  Type = "float"
+  Label = { es = "Duelo agotado desde", en = "Duel out of time at" }
+  Help = { es = "Fracción del tiempo del duelo a partir de la cual se considera agotado (0 a 1).", en = "Fraction of the duel's time from which it counts as out of time (0 to 1)." }
+  [[Shape.Field]]
+  Key = "focus_duel.retreat_back"
+  Type = "float"
+  Label = { es = "Retroceso hacia atrás", en = "Backward retreat" }
+  Help = { es = "Multiplica la parte del movimiento hacia ti que se gira hacia atrás (0 a 5).", en = "Multiplies the part of a move toward you that turns backward (0 to 5)." }
+  [[Shape.Field]]
+  Key = "focus_duel.retreat_lateral"
+  Type = "float"
+  Label = { es = "Retroceso lateral", en = "Sideways retreat" }
+  Help = { es = "Multiplica la parte lateral de ese movimiento (0 a 5).", en = "Multiplies the sideways part of that move (0 to 5)." }
+  [[Shape.Field]]
+  Key = "focus_duel.attack_read_react_s"
+  Type = "float"
+  Label = { es = "Retraso al leer tu lado (s)", en = "Side read delay (s)" }
+  Help = { es = "Lee el lado que cubres como estaba hace tanto tiempo; menos es más rápido (0 a 5 s).", en = "Reads the side you cover as it was this long ago; lower is faster (0 to 5 s)." }
+  [[Shape.Field]]
+  Key = "focus_duel.attack_read_feint"
+  Type = "float"
+  Label = { es = "Cae en tu amago", en = "Follows your feint" }
+  Help = { es = "Probabilidad de que su lectura te siga cuando cambias de lado (0 a 1).", en = "Chance its read follows when you change side (0 to 1)." }
+  [[Shape.Field]]
+  Key = "focus_duel.attack_read_drift_m"
+  Type = "float"
+  Label = { es = "Desvío al lado libre (m)", en = "Drift to free side (m)" }
+  Help = { es = "Cuánto se desvía hacia el lado libre un movimiento recto (0 a 5 m).", en = "How far a straight move drifts to the free side (0 to 5 m)." }
+  [[Shape.Field]]
+  Key = "focus_duel.attack_read_lean_m"
+  Type = "float"
+  Label = { es = "Umbral de inclinación (m)", en = "Lean threshold (m)" }
+  Help = { es = "Tu movimiento lateral en 0,3 s que cuenta como inclinarte a un lado (0 a 5 m).", en = "Your sideways movement over 0.3 s that counts as leaning to a side (0 to 5 m)." }
+  [[Shape.Field]]
+  Key = "press"
+  Type = "table"
+  Label = { es = "Presión del rival", en = "Rival press" }
+  Help = { es = "El rival persigue a tu portador y corta tus pases.", en = "The rival chases your ball carrier and cuts your passes." }
+  [[Shape.Field]]
+  Key = "press.lane_cut_receivers"
+  Type = "int"
+  Label = { es = "Receptores vigilados", en = "Watched receivers" }
+  Help = { es = "Al pasar, tus jugadores más cercanos al pasador que cuentan como receptores.", en = "When you pass, your players nearest to the passer counted as receivers." }
+  [[Shape.Field]]
+  Key = "press.lane_cut_at"
+  Type = "float"
+  Label = { es = "Punto de corte del pase", en = "Pass cut point" }
+  Help = { es = "Punto de cada línea de pase al que va el defensor (0 = pasador, 1 = receptor).", en = "Point of each pass lane a defender moves to (0 = passer, 1 = receiver)." }
+  [[Shape.Field]]
+  Key = "press.lane_cut_seconds"
+  Type = "float"
+  Label = { es = "Duración del corte (s)", en = "Cut duration (s)" }
+  Help = { es = "Cuánto dura el corte de la línea de pase.", en = "How long the lane cut lasts." }
+  [[Shape.Field]]
+  Key = "press.lane_cut_range_m"
+  Type = "int"
+  Label = { es = "Alcance del corte (m)", en = "Cut range (m)" }
+  Help = { es = "Receptores a esta distancia del pasador.", en = "Receivers within this distance of the passer." }
+  [[Shape.Field]]
+  Key = "press.forwards"
+  Type = "int"
+  Label = { es = "Presionan delanteros", en = "Forwards press" }
+  Help = { es = "Sus delanteros persiguen a tu portador (1 = sí, 0 = no).", en = "Its forwards chase your ball carrier (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "press.midfielders"
+  Type = "int"
+  Label = { es = "Presionan centrocampistas", en = "Midfielders press" }
+  Help = { es = "Sus centrocampistas persiguen a tu portador (1 = sí, 0 = no).", en = "Its midfielders chase your ball carrier (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "press.defenders"
+  Type = "int"
+  Label = { es = "Presionan defensas", en = "Defenders press" }
+  Help = { es = "Sus defensas persiguen a tu portador (1 = sí, 0 = no).", en = "Its defenders chase your ball carrier (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "charge.block_after_contact_s"
+  Type = "float"
+  Label = { es = "Espera tras chocar (s)", en = "Wait after contact (s)" }
+  Help = { es = "Tras tocar a un jugador con una embestida, ese jugador no empieza otra durante este tiempo de juego. Si no toca a nadie, no espera.", en = "After a dash attack touches a player, that player starts no other one for this much play time. If it touches nobody, he does not wait." }
+  [[Shape.Field]]
+  Key = "charge.opponent_ahead_m"
+  Type = "float"
+  Label = { es = "Rival delante (m)", en = "Opponent ahead (m)" }
+  Help = { es = "Solo embiste quien lleva el balón. Decide una vez por cada jugador tuyo que se ponga a esta distancia entre él y la portería (0 = nunca).", en = "Only the player with the ball charges. He decides once for each of your players who comes this close between him and the goal (0 = never)." }
+  [[Shape.Field]]
+  Key = "charge.chance_per_opponent"
+  Type = "float"
+  Label = { es = "Probabilidad de embestir", en = "Dash attack chance" }
+  Help = { es = "Probabilidad de esa decisión, por el ritmo de embestida del jugador (0 a 1).", en = "The chance of that decision, times the player's dash attack rate (0 to 1)." }
+  [[Shape.Field]]
+  Key = "charge.duration_s"
+  Type = "float"
+  Label = { es = "Duración de la embestida (s)", en = "Dash attack duration (s)" }
+  Help = { es = "Lo que dura una embestida.", en = "How long one dash attack lasts." }
+  [[Shape.Field]]
+  Key = "charge.slide_steal_chance"
+  Type = "float"
+  Label = { es = "Segada roba a una embestida", en = "Slide steals from a charge" }
+  Help = { es = "Probabilidad de que una segada que alcanza al portador que embiste le quite el balón, una vez por segada, en ambos equipos (0 a 1).", en = "The chance that a sliding tackle reaching a charging ball carrier takes the ball, once per slide, for both teams (0 to 1)." }
+  [[Shape.Field]]
+  Key = "press.range_m"
+  Type = "int"
+  Label = { es = "Alcance de la presión (m)", en = "Press range (m)" }
+  Help = { es = "Solo persiguen los jugadores a esta distancia del portador (0 a 100).", en = "Only players within this distance of the carrier chase (0 to 100)." }
+  [[Shape.Field]]
+  Key = "press.max"
+  Type = "int"
+  Label = { es = "Máximo de perseguidores", en = "Maximum chasers" }
+  Help = { es = "Cuántos jugadores como máximo persiguen a la vez.", en = "Most chasers at once." }
+  [[Shape.Field]]
+  Key = "press.speed_mult"
+  Type = "float"
+  Label = { es = "Velocidad de los perseguidores", en = "Chaser speed" }
+  Help = { es = "Multiplica la velocidad de carrera de quienes persiguen.", en = "Multiplies the chasers' run speed." }
+  [[Shape.Field]]
+  Key = "press.keep_m"
+  Type = "int"
+  Label = { es = "Margen para conservar la presión (m)", en = "Chase keep margin (m)" }
+  Help = { es = "Un perseguidor conserva su tarea salvo que otro esté tanto más cerca.", en = "A chaser keeps the job unless another player is this much nearer." }
+  [[Shape.Field]]
+  Key = "press.respect_keeper_hold"
+  Type = "bool"
+  Label = { es = "No presiona al portero con el balón en las manos", en = "No press on a keeper holding the ball" }
+  Help = { es = "Nadie persigue a tu portero mientras tiene el balón en las manos, como la presión propia del juego.", en = "Nobody chases your keeper while he holds the ball in his hands, as the game's own press." }
+  [[Shape.Field]]
+  Key = "press.kickoff_press"
+  Type = "bool"
+  Label = { es = "Presiona tras el saque inicial", en = "Press after kick-off" }
+  Help = { es = "Presiona también justo tras un saque de centro (el juego pausa la presión 3 s).", en = "Presses right after a kick-off too (the game pauses the press for 3 s)." }
+  [[Shape.Field]]
+  Key = "offside_trap"
+  Type = "table"
+  Label = { es = "Trampa del fuera de juego", en = "Offside trap" }
+  Help = { es = "La línea defensiva rival se adelanta.", en = "The rival's offside line steps up." }
+  [[Shape.Field]]
+  Key = "offside_trap.defenders"
+  Type = "int"
+  Label = { es = "Defensas en la línea", en = "Defenders on the line" }
+  Help = { es = "Defensas que mantienen la línea plana.", en = "Defenders holding the flat line." }
+  [[Shape.Field]]
+  Key = "offside_trap.level_m"
+  Type = "float"
+  Label = { es = "Distancia al delantero (m)", en = "Distance to attacker (m)" }
+  Help = { es = "La línea queda a esta distancia detrás de tu atacante más adelantado.", en = "The line stands this far behind your most advanced attacker." }
+  [[Shape.Field]]
+  Key = "offside_trap.step_m"
+  Type = "float"
+  Label = { es = "Paso adelante (m)", en = "Step-up distance (m)" }
+  Help = { es = "Cuánto se adelanta la línea.", en = "How far the line steps up." }
+  [[Shape.Field]]
+  Key = "offside_trap.step_s"
+  Type = "float"
+  Label = { es = "Duración del paso (s)", en = "Step-up duration (s)" }
+  Help = { es = "Cuánto dura el paso adelante.", en = "How long the step-up lasts." }
+  [[Shape.Field]]
+  Key = "offside_trap.reaction_s"
+  Type = "float"
+  Label = { es = "Reacción (s)", en = "Reaction (s)" }
+  Help = { es = "Retraso antes de adelantarse.", en = "Delay before the step-up." }
+  [[Shape.Field]]
+  Key = "offside_trap.min_distance_m"
+  Type = "int"
+  Label = { es = "Distancia mínima del portador (m)", en = "Minimum carrier distance (m)" }
+  Help = { es = "Desactivada mientras tu portador esté más cerca de la línea que esto.", en = "Off while your carrier is within this distance of the line." }
+  [[Shape.Field]]
+  Key = "offside_trap.box_m"
+  Type = "float"
+  Label = { es = "Distancia al área (m)", en = "Box distance (m)" }
+  Help = { es = "Desactivada mientras tu portador esté a esta distancia de su línea de gol.", en = "Off while your carrier is within this distance of its goal line." }
+  [[Shape.Field]]
+  Key = "offside_trap.lane_m"
+  Type = "float"
+  Label = { es = "Pase abierto (m)", en = "Open lane (m)" }
+  Help = { es = "Una línea de pase está abierta si ninguno de sus jugadores está más cerca que esto.", en = "A pass lane counts as open with none of its players within this distance." }
+  [[Shape.Field]]
+  Key = "offside_trap.range_m"
+  Type = "int"
+  Label = { es = "Alcance de la línea (m)", en = "Line range (m)" }
+  Help = { es = "Solo participan los defensas a esta distancia de la línea.", en = "Only defenders within this distance of the line take part." }
+  [[Shape.Field]]
+  Key = "offside_trap.cooldown_s"
+  Type = "float"
+  Label = { es = "Espera entre pasos (s)", en = "Cooldown (s)" }
+  Help = { es = "Sin nuevo paso adelante durante este tiempo tras uno.", en = "No new step-up for this long after one." }
+  [[Shape.Field]]
+  Key = "offside_trap.zone_fraction"
+  Type = "float"
+  Label = { es = "Zona activa del campo", en = "Active zone" }
+  Help = { es = "Solo mientras tu portador esté entre el medio campo y esta fracción de su mitad (0 a 1; 0 = en cualquier sitio).", en = "Only while your carrier is between halfway and this fraction of its half (0 to 1; 0 = anywhere)." }
+  [[Shape.Field]]
+  Key = "low_block"
+  Type = "table"
+  Label = { es = "Bloque bajo", en = "Low block" }
+  Help = { es = "Tras su contrapresión, el rival marca al hombre y se repliega.", en = "After its counter-press the rival marks man to man and drops back." }
+  [[Shape.Field]]
+  Key = "low_block.after_lost_s"
+  Type = "int"
+  Label = { es = "Tiempo tras perder el balón (s)", en = "Time after losing the ball (s)" }
+  Help = { es = "Segundos tras perder el balón hasta que se forma el bloque.", en = "Seconds after it loses the ball until the block forms." }
+  [[Shape.Field]]
+  Key = "low_block.forward_drop_m"
+  Type = "int"
+  Label = { es = "Repliegue de delanteros (m)", en = "Forward drop (m)" }
+  Help = { es = "Sus delanteros se sitúan al menos tan atrás del medio campo (negativo = más allá).", en = "Its forwards stand at least this far behind halfway (negative = past it)." }
+  [[Shape.Field]]
+  Key = "low_block.top_m"
+  Type = "int"
+  Label = { es = "Repliegue del resto (m)", en = "Others' drop (m)" }
+  Help = { es = "Los demás jugadores se sitúan al menos tan atrás del medio campo (negativo = más allá).", en = "Its other players stand at least this far behind halfway (negative = past it)." }
+  [[Shape.Field]]
+  Key = "low_block.compact_m"
+  Type = "int"
+  Label = { es = "Compactación (m)", en = "Compactness (m)" }
+  Help = { es = "Nadie está más adelantado que esto respecto a su último jugador de campo.", en = "Nobody stands more than this in front of its last outfield player." }
+  [[Shape.Field]]
+  Key = "low_block.mark"
+  Type = "int"
+  Label = { es = "Marcaje del bloque", en = "Block marking" }
+  Help = { es = "Los jugadores del bloque marcan a los tuyos por el lado de la portería (1 = sí, 0 = no).", en = "Block players mark yours goal side (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "low_block.mark_m"
+  Type = "float"
+  Label = { es = "Distancia de marcaje (m)", en = "Marking distance (m)" }
+  Help = { es = "Distancia del marcaje por el lado de la portería.", en = "Marking distance goal side of the man." }
+  [[Shape.Field]]
+  Key = "low_block.lane_bias"
+  Type = "float"
+  Label = { es = "Giro hacia el balón", en = "Ball lean" }
+  Help = { es = "Cuánto se gira el marcador hacia el balón (0 a 1).", en = "How much a marker turns toward the ball (0 to 1)." }
+  [[Shape.Field]]
+  Key = "low_block.range_m"
+  Type = "int"
+  Label = { es = "Alcance del marcaje (m)", en = "Marking range (m)" }
+  Help = { es = "Solo se marca a tus jugadores a esta distancia.", en = "Only your players within this distance are marked." }
+  [[Shape.Field]]
+  Key = "low_block.press"
+  Type = "int"
+  Label = { es = "Presionadores del bloque", en = "Block pressers" }
+  Help = { es = "Cuántos jugadores cercanos, de cualquier puesto, persiguen a tu portador durante el bloque (0 = ninguno).", en = "How many nearest players of any role chase your carrier during the block (0 = none)." }
+  [[Shape.Field]]
+  Key = "low_block.recover_m"
+  Type = "int"
+  Label = { es = "Distancia de recuperación (m)", en = "Recovery distance (m)" }
+  Help = { es = "Un jugador más lejos de su puesto que esto corre más rápido.", en = "A player farther than this from his spot runs faster." }
+  [[Shape.Field]]
+  Key = "low_block.recover_mult"
+  Type = "float"
+  Label = { es = "Velocidad de recuperación", en = "Recovery speed" }
+  Help = { es = "Multiplica la velocidad de esa carrera de recuperación.", en = "Multiplies the speed of that recovery run." }
+  [[Shape.Field]]
+  Key = "low_block.max_markers"
+  Type = "int"
+  Label = { es = "Máximo de marcadores", en = "Maximum markers" }
+  Help = { es = "Cuántos marcadores como máximo a la vez.", en = "Most markers at once." }
+  [[Shape.Field]]
+  Key = "low_block.mark_zone_m"
+  Type = "int"
+  Label = { es = "Zona de marcaje (m)", en = "Marking zone (m)" }
+  Help = { es = "Un marcador solo marca a un rival a esta distancia (0 = el alcance del marcaje).", en = "A marker only marks a man within this distance (0 = marking range)." }
+  [[Shape.Field]]
+  Key = "low_block.mark_forwards"
+  Type = "int"
+  Label = { es = "Marcan los delanteros", en = "Forwards mark" }
+  Help = { es = "Sus delanteros también pueden marcar (1 = sí, 0 = no).", en = "Its forwards may mark too (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "auras"
+  Type = "table"
+  Label = { es = "Auras del rival", en = "Rival auras" }
+  Help = { es = "Cómo reparte el tope de auras: el portero primero, huecos liberados y armadura solo con juego cerca.", en = "How it shares the aura cap: the keeper first, freed slots and armour only with play near." }
+  [[Shape.Field]]
+  Key = "auras.decide_s"
+  Type = "float"
+  Label = { es = "Cada cuánto revisa sus auras", en = "Review interval" }
+  Help = { es = "Segundos entre revisiones de sus auras.", en = "Seconds between reviews of its auras." }
+  [[Shape.Field]]
+  Key = "auras.keeper_priority"
+  Type = "float"
+  Label = { es = "Prioridad del portero", en = "Keeper priority" }
+  Help = { es = "Probabilidad, en cada amenaza, de que el aura del portero vaya primero y se libere un hueco para ella (0 a 1).", en = "Chance, at each threat, that the keeper's aura goes first and a slot is freed for it (0 to 1)." }
+  [[Shape.Field]]
+  Key = "auras.keeper_threat_m"
+  Type = "float"
+  Label = { es = "Distancia de amenaza", en = "Threat distance" }
+  Help = { es = "Tu portador a esta distancia de su línea de gol cuenta como amenaza (m).", en = "Your carrier this close to its goal line is a threat (m)." }
+  [[Shape.Field]]
+  Key = "auras.threat_calm_s"
+  Type = "float"
+  Label = { es = "Fin de la amenaza", en = "Threat over" }
+  Help = { es = "La amenaza termina tras este tiempo sin ninguna (s).", en = "A threat is over after this long with none (s)." }
+  [[Shape.Field]]
+  Key = "auras.keeper_min_gauge"
+  Type = "float"
+  Label = { es = "PEG mínimo del portero", en = "Keeper minimum gauge" }
+  Help = { es = "El aura del portero solo merece un hueco con su indicador por encima de esto (0 a 1).", en = "The keeper's aura is worth a slot only with its gauge above this (0 to 1)." }
+  [[Shape.Field]]
+  Key = "auras.keep_slot_m"
+  Type = "float"
+  Label = { es = "Hueco reservado", en = "Kept slot" }
+  Help = { es = "Con el balón a esta distancia de su portería, el último hueco queda para el portero (m).", en = "With the ball this close to its goal the last slot stays for the keeper (m)." }
+  [[Shape.Field]]
+  Key = "auras.free_slot_wait_s"
+  Type = "float"
+  Label = { es = "Espera máxima", en = "Longest wait" }
+  Help = { es = "Solo libera un hueco si el aura que lo quiere puede empezar en este tiempo (s).", en = "It frees a slot only if the aura that wants it can start within this (s)." }
+  [[Shape.Field]]
+  Key = "auras.drop_near_m"
+  Type = "float"
+  Label = { es = "Distancia al ceder (portero)", en = "Drop distance (keeper)" }
+  Help = { es = "Para el portero, quien retira su aura está al menos a esta distancia del balón (m).", en = "For the keeper, the player who drops his aura is at least this far from the ball (m)." }
+  [[Shape.Field]]
+  Key = "auras.drop_far_m"
+  Type = "float"
+  Label = { es = "Distancia al ceder (portador)", en = "Drop distance (carrier)" }
+  Help = { es = "Para el portador, quien retira su aura está al menos a esta distancia del balón (m).", en = "For a carrier, the player who drops his aura is at least this far from the ball (m)." }
+  [[Shape.Field]]
+  Key = "auras.drop_gap_s"
+  Type = "float"
+  Label = { es = "Pausa entre retiradas", en = "Gap between drops" }
+  Help = { es = "Tiempo mínimo entre dos auras retiradas (s).", en = "Shortest time between two dropped auras (s)." }
+  [[Shape.Field]]
+  Key = "auras.carrier_shot_m"
+  Type = "float"
+  Label = { es = "Portador en tiro", en = "Carrier in range" }
+  Help = { es = "Un portador a esta distancia de tu línea de gol puede pedir un hueco (m).", en = "A carrier this close to your goal line can ask for a slot (m)." }
+  [[Shape.Field]]
+  Key = "auras.carrier_free_slot_chance"
+  Type = "float"
+  Label = { es = "Hueco para el portador", en = "Slot for the carrier" }
+  Help = { es = "Probabilidad, una vez por portador, de que consiga un hueco (0 a 1).", en = "Chance, once per carrier, that he gets a slot (0 to 1)." }
+  [[Shape.Field]]
+  Key = "auras.summon_later_s"
+  Type = "float"
+  Label = { es = "Espera de invocación", en = "Summon wait" }
+  Help = { es = "Una invocación que espera sus enfriamientos se abandona tras este tiempo (s).", en = "A summon waiting for its cooldowns gives up after this (s)." }
+  [[Shape.Field]]
+  Key = "auras.armour_delay_s"
+  Type = "float"
+  Label = { es = "Espera de la armadura", en = "Armour delay" }
+  Help = { es = "El espíritu sigue fuera este tiempo antes de su armadura (s).", en = "The spirit stays out this long before its armour (s)." }
+  [[Shape.Field]]
+  Key = "auras.armour_min_gauge"
+  Type = "float"
+  Label = { es = "PEG para armadura", en = "Armour gauge" }
+  Help = { es = "La armadura se pone con el indicador al menos aquí (0 a 1).", en = "The armour goes on with the gauge at least here (0 to 1)." }
+  [[Shape.Field]]
+  Key = "auras.armour_near_m"
+  Type = "float"
+  Label = { es = "Juego cerca", en = "Play near" }
+  Help = { es = "Tu portador a esta distancia del jugador cuenta como juego cerca (m).", en = "Your carrier this close to the player counts as play near (m)." }
+  [[Shape.Field]]
+  Key = "auras.armour_shot_m"
+  Type = "float"
+  Label = { es = "Armadura en tiro", en = "Armour in range" }
+  Help = { es = "Su propio portador a esta distancia de tu línea de gol cuenta como juego cerca (m).", en = "Its own carrier this close to your goal line counts as play near (m)." }
+  [[Shape.Field]]
+  Key = "auras.armour_idle_s"
+  Type = "float"
+  Label = { es = "Armadura ociosa", en = "Idle armour" }
+  Help = { es = "Una armadura sin juego cerca durante este tiempo puede retirarse (s).", en = "An armour with no play near for this long may come off (s)." }
+  [[Shape.Field]]
+  Key = "auras.armour_rest_gauge"
+  Type = "float"
+  Label = { es = "PEG para retirar", en = "Armour off gauge" }
+  Help = { es = "Una armadura ociosa se retira por debajo de este indicador y conserva el resto (0 a 1).", en = "An idle armour comes off under this gauge and keeps the rest (0 to 1)." }
+  [[Shape.Field]]
+  Key = "box_line"
+  Type = "table"
+  Label = { es = "Línea del área", en = "Box line" }
+  Help = { es = "Cuando tu portador está cerca de su portería: una pareja junto al portero y una línea plana.", en = "When your carrier is near its goal: a keeper pair and a flat line." }
+  [[Shape.Field]]
+  Key = "box_line.near_m"
+  Type = "int"
+  Label = { es = "Distancia de activación (m)", en = "Trigger distance (m)" }
+  Help = { es = "Activa mientras tu portador esté a esta distancia de su línea de gol.", en = "On while your carrier is within this distance of its goal line." }
+  [[Shape.Field]]
+  Key = "box_line.keeper_pair"
+  Type = "int"
+  Label = { es = "Defensas junto al portero", en = "Keeper pair" }
+  Help = { es = "Defensas que se colocan junto al portero.", en = "Defenders standing by the keeper." }
+  [[Shape.Field]]
+  Key = "box_line.keeper_m"
+  Type = "int"
+  Label = { es = "Salida de la pareja (m)", en = "Pair distance out (m)" }
+  Help = { es = "Se colocan a esta distancia sobre la línea portería-balón.", en = "They stand this far out on the goal-to-ball line." }
+  [[Shape.Field]]
+  Key = "box_line.pair_gap_m"
+  Type = "float"
+  Label = { es = "Hueco de la pareja (m)", en = "Pair gap (m)" }
+  Help = { es = "Separación entre la pareja del portero.", en = "The gap between the keeper pair." }
+  [[Shape.Field]]
+  Key = "box_line.line_m"
+  Type = "int"
+  Label = { es = "Línea de defensas (m)", en = "Defence line (m)" }
+  Help = { es = "Los demás defensas forman una línea plana a esta distancia de la línea de gol.", en = "The other defenders' flat line this far from the goal line." }
+  [[Shape.Field]]
+  Key = "box_line.gap_m"
+  Type = "int"
+  Label = { es = "Hueco de la línea (m)", en = "Line gap (m)" }
+  Help = { es = "Separación entre los defensas de la línea.", en = "The gap between line defenders." }
+  [[Shape.Field]]
+  Key = "box_line.min_ball_m"
+  Type = "int"
+  Label = { es = "Distancia mínima al balón (m)", en = "Minimum ball distance (m)" }
+  Help = { es = "La línea queda al menos tan atrás del balón.", en = "The line stays at least this far behind the ball." }
+  [[Shape.Field]]
+  Key = "box_line.width_m"
+  Type = "int"
+  Label = { es = "Anchura de la línea (m)", en = "Line width (m)" }
+  Help = { es = "La línea no se aleja más que esto del centro de la portería.", en = "The line stays within this of the goal centre." }
+  [[Shape.Field]]
+  Key = "shot_chain_read"
+  Type = "table"
+  Label = { es = "Lectura de cadenas de tiro", en = "Shot chain read" }
+  Help = { es = "El rival lee tus cadenas de tiro y bloquea la línea.", en = "The rival reads your shot chains and blocks the line." }
+  [[Shape.Field]]
+  Key = "shot_chain_read.range_m"
+  Type = "int"
+  Label = { es = "Alcance de la cadena (m)", en = "Chain range (m)" }
+  Help = { es = "Un pase tuyo cuyo destino esté a esta distancia de su portería cuenta como inicio de cadena.", en = "A pass of yours whose target is within this of its goal counts as a chain start." }
+  [[Shape.Field]]
+  Key = "shot_chain_read.chain_m"
+  Type = "int"
+  Label = { es = "Distancia de enlace (m)", en = "Link distance (m)" }
+  Help = { es = "Un tiro que pasa tan cerca de tu compañero también cuenta.", en = "A shot passing this close to your teammate counts too." }
+  [[Shape.Field]]
+  Key = "shot_chain_read.blockers"
+  Type = "int"
+  Label = { es = "Bloqueadores", en = "Blockers" }
+  Help = { es = "Jugadores que ocupan puestos en la línea cadena-portería.", en = "Players taking spots on the chain-to-goal line." }
+  [[Shape.Field]]
+  Key = "shot_chain_read.from_m"
+  Type = "int"
+  Label = { es = "Primer puesto (m)", en = "First spot (m)" }
+  Help = { es = "El primer puesto queda a esta distancia del punto de la cadena.", en = "The first spot this far from the chain point." }
+  [[Shape.Field]]
+  Key = "shot_chain_read.spacing_m"
+  Type = "int"
+  Label = { es = "Separación entre puestos (m)", en = "Spot spacing (m)" }
+  Help = { es = "Hueco entre los puestos de bloqueo.", en = "The gap between spots." }
+  [[Shape.Field]]
+  Key = "shot_chain_read.hold_s"
+  Type = "float"
+  Label = { es = "Tiempo de espera (s)", en = "Hold time (s)" }
+  Help = { es = "Mantienen los puestos este tiempo tras llegar el balón.", en = "Spots held this long after the ball arrives." }
+  [[Shape.Field]]
+  Key = "pass_read"
+  Type = "table"
+  Label = { es = "Lectura de pases", en = "Pass read" }
+  Help = { es = "El rival lee tus pases en el momento del chut: sabe dónde cae el balón.", en = "The rival reads your passes at the kick: it knows where the ball lands." }
+  [[Shape.Field]]
+  Key = "pass_read.players"
+  Type = "int"
+  Label = { es = "Jugadores por pase", en = "Players per pass" }
+  Help = { es = "Jugadores que salen a cada pase tuyo (0 = desactivado).", en = "Players sent to each pass of yours (0 = off)." }
+  [[Shape.Field]]
+  Key = "pass_read.reaction_s"
+  Type = "float"
+  Label = { es = "Reacción (s)", en = "Reaction (s)" }
+  Help = { es = "Retraso antes de reaccionar a tu pase (0 = al instante).", en = "Delay before they react to your pass (0 = at once)." }
+  [[Shape.Field]]
+  Key = "pass_read.range_m"
+  Type = "int"
+  Label = { es = "Alcance (m)", en = "Range (m)" }
+  Help = { es = "Solo salen los jugadores a esta distancia de su punto de corte.", en = "Only players within this of their interception point react." }
+  [[Shape.Field]]
+  Key = "pass_read.run_speed_mps"
+  Type = "float"
+  Label = { es = "Velocidad estimada (m/s)", en = "Estimated speed (m/s)" }
+  Help = { es = "Velocidad con la que calcula a qué punto del pase llega antes que el balón (la carrera real es la del juego).", en = "Speed used to find the point of the pass reached before the ball (the real run is the game's)." }
+  [[Shape.Field]]
+  Key = "pass_read.hold_s"
+  Type = "float"
+  Label = { es = "Margen (s)", en = "Margin (s)" }
+  Help = { es = "La orden dura hasta que llega el balón más esto.", en = "The order lasts until the ball arrives plus this." }
+  [[Shape.Field]]
+  Key = "pass_read.sprint"
+  Type = "int"
+  Label = { es = "Sprint", en = "Sprint" }
+  Help = { es = "Esprintan hacia el punto (1 = sí, 0 = no).", en = "They sprint to the point (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "pass_read.min_flight_s"
+  Type = "float"
+  Label = { es = "Vuelo mínimo (s)", en = "Minimum flight (s)" }
+  Help = { es = "Los pases más rápidos que esto se dejan al juego.", en = "Passes faster than this are left to the game." }
+  [[Shape.Field]]
+  Key = "pass_read.lob_vertical_mps"
+  Type = "float"
+  Label = { es = "Velocidad de vaselina (m/s)", en = "Lob speed (m/s)" }
+  Help = { es = "Un pase que sube más rápido que esto es un globo: solo cuenta su punto de caída.", en = "A pass rising faster than this is a lob: only its landing point counts." }
+  [[Shape.Field]]
+  Key = "pass_read.defenders"
+  Type = "int"
+  Label = { es = "Defensas", en = "Defenders" }
+  Help = { es = "Sus defensas reaccionan (1 = sí, 0 = no).", en = "Its defenders react (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "pass_read.midfielders"
+  Type = "int"
+  Label = { es = "Centrocampistas", en = "Midfielders" }
+  Help = { es = "Sus centrocampistas reaccionan (1 = sí, 0 = no).", en = "Its midfielders react (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "pass_read.forwards"
+  Type = "int"
+  Label = { es = "Delanteros", en = "Forwards" }
+  Help = { es = "Sus delanteros reaccionan (1 = sí, 0 = no).", en = "Its forwards react (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "behind_line"
+  Type = "table"
+  Label = { es = "Portador a su espalda", en = "Carrier behind its line" }
+  Help = { es = "Tu portador supera a su último jugador de campo: 2 a los muros, 1 le presiona, 1 en medio, el resto mantiene su sitio.", en = "Your carrier passes its last outfield player: 2 go to the walls, 1 presses him, 1 in the middle, the rest keep their place." }
+  [[Shape.Field]]
+  Key = "behind_line.walls"
+  Type = "int"
+  Label = { es = "Jugadores a los muros", en = "Players to the walls" }
+  Help = { es = "Jugadores que van a los puntos de muro, defensas primero (0 a 2).", en = "Players sent to the wall spots, defenders first (0 to 2)." }
+  [[Shape.Field]]
+  Key = "behind_line.enter_m"
+  Type = "float"
+  Label = { es = "Distancia para empezar (m)", en = "Distance to start (m)" }
+  Help = { es = "Empieza con tu portador tanto detrás de su último jugador de campo.", en = "It starts with your carrier this far behind its last outfield player." }
+  [[Shape.Field]]
+  Key = "behind_line.enter_s"
+  Type = "float"
+  Label = { es = "Tiempo para empezar (s)", en = "Time to start (s)" }
+  Help = { es = "Debe cumplirse durante este tiempo.", en = "It must hold for this long." }
+  [[Shape.Field]]
+  Key = "behind_line.moving_mps"
+  Type = "float"
+  Label = { es = "Velocidad para empezar (m/s)", en = "Speed to start (m/s)" }
+  Help = { es = "Tu portador corre hacia su portería al menos a esta velocidad.", en = "Your carrier runs at its goal at least this fast." }
+  [[Shape.Field]]
+  Key = "behind_line.stopped_mps"
+  Type = "float"
+  Label = { es = "Velocidad de parado (m/s)", en = "Stopped speed (m/s)" }
+  Help = { es = "Por debajo de esta velocidad hacia la portería cuenta como parado.", en = "Under this speed toward the goal he counts as stopped." }
+  [[Shape.Field]]
+  Key = "behind_line.end_after_s"
+  Type = "float"
+  Label = { es = "Tiempo para terminar (s)", en = "Time to end (s)" }
+  Help = { es = "Parado o alcanzado durante este tiempo termina.", en = "Stopped or caught level for this long ends it." }
+  [[Shape.Field]]
+  Key = "behind_line.level_m"
+  Type = "float"
+  Label = { es = "Alcanzado: margen (m)", en = "Caught level: margin (m)" }
+  Help = { es = "Alcanzado con el que presiona a esta distancia del lado de la portería o menos.", en = "Caught level with the presser this far goal side of him or less." }
+  [[Shape.Field]]
+  Key = "behind_line.level_near_m"
+  Type = "float"
+  Label = { es = "Alcanzado: cerca (m)", en = "Caught level: near (m)" }
+  Help = { es = "Y a menos de esta distancia de él.", en = "And within this of him." }
+  [[Shape.Field]]
+  Key = "behind_line.again_after_s"
+  Type = "float"
+  Label = { es = "Pausa tras terminar (s)", en = "Pause after ending (s)" }
+  Help = { es = "Tras terminar no vuelve a empezar durante este tiempo.", en = "After it ends it does not start again for this long." }
+  [[Shape.Field]]
+  Key = "behind_line.wall_from_zone_edge_m"
+  Type = "float"
+  Label = { es = "Muros: dentro de la zona (m)", en = "Walls: inside the zone (m)" }
+  Help = { es = "Los puntos de muro quedan tanto dentro del borde frontal de la zona de tiro.", en = "The wall spots stand this far inside the shoot zone's front edge." }
+  [[Shape.Field]]
+  Key = "behind_line.wall_gap_m"
+  Type = "float"
+  Label = { es = "Muros: separación (m)", en = "Walls: gap (m)" }
+  Help = { es = "Separación entre los dos puntos de muro.", en = "The gap between the two wall spots." }
+  [[Shape.Field]]
+  Key = "behind_line.wall_ball_gap_m"
+  Type = "float"
+  Label = { es = "Muros: tras el portador (m)", en = "Walls: behind the carrier (m)" }
+  Help = { es = "Los puntos de muro quedan al menos a esta distancia de tu portador.", en = "The wall spots stay at least this far from your carrier." }
+  [[Shape.Field]]
+  Key = "behind_line.wall_min_goal_m"
+  Type = "float"
+  Label = { es = "Muros: desde la línea de gol (m)", en = "Walls: from the goal line (m)" }
+  Help = { es = "Los puntos de muro quedan al menos a esta distancia de la línea de gol.", en = "The wall spots stay at least this far from the goal line." }
+  [[Shape.Field]]
+  Key = "behind_line.middle_m"
+  Type = "float"
+  Label = { es = "En medio: distancia (m)", en = "Middle: distance (m)" }
+  Help = { es = "El jugador de en medio se pone tanto por delante de tu portador, en su línea a la portería.", en = "The middle player stands this far ahead of your carrier on his line to goal." }
+  [[Shape.Field]]
+  Key = "behind_line.middle_max_rate"
+  Type = "float"
+  Label = { es = "En medio: parte del camino", en = "Middle: part of the way" }
+  Help = { es = "Como mucho esta parte del camino a la portería (0 a 1).", en = "At most this part of the way to the goal (0 to 1)." }
+  [[Shape.Field]]
+  Key = "behind_line.sprint"
+  Type = "int"
+  Label = { es = "Al sprint", en = "At a sprint" }
+  Help = { es = "Todos corren al sprint (1 = sí, 0 = no).", en = "All of them run at a sprint (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_carrier_behind_line"
+  Type = "table"
+  Label = { es = "Portador a su espalda", en = "Carrier behind its line" }
+  Help = { es = "Situación: tu portador está a su espalda; la presión propia del juego no añade a nadie.", en = "Your carrier is behind its line: the game's own press adds nobody." }
+  [[Shape.Field]]
+  Key = "situations.opponent_carrier_behind_line.uPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Presionadores del juego", en = "The game's pressers" }
+  Help = { es = "Presionadores propios del juego en esta situación.", en = "The game's own pressers in this situation." }
+  [[Shape.Field]]
+  Key = "situations.opponent_carrier_behind_line.uNoStopPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Presionadores sin parar del juego", en = "The game's no-stop pressers" }
+  Help = { es = "Presionadores sin parar del juego en esta situación.", en = "The game's own no-stop pressers in this situation." }
+  [[Shape.Field]]
+  Key = "through_ball_cover"
+  Type = "table"
+  Label = { es = "Cobertura de pases en profundidad", en = "Through ball cover" }
+  Help = { es = "Su línea defensiva no se deja ganar la espalda.", en = "Its back line does not let you get in behind." }
+  [[Shape.Field]]
+  Key = "through_ball_cover.lead_m"
+  Type = "int"
+  Label = { es = "Adelanto del pase (m)", en = "Pass lead (m)" }
+  Help = { es = "Un pase que cae tanto más adelante que su receptor (o tras su último defensa) es un pase en profundidad.", en = "A pass landing this far beyond its receiver (or behind its last defender) is a through ball." }
+  [[Shape.Field]]
+  Key = "through_ball_cover.chasers"
+  Type = "int"
+  Label = { es = "Perseguidores", en = "Chasers" }
+  Help = { es = "Jugadores que corren al pase en profundidad: uno al balón, los demás por detrás del punto de caída.", en = "Players racing for a through ball: one to the ball, the others goal side of its landing point." }
+  [[Shape.Field]]
+  Key = "through_ball_cover.goal_side_m"
+  Type = "int"
+  Label = { es = "Cobertura por detrás (m)", en = "Goal side cover (m)" }
+  Help = { es = "Separación de los perseguidores por detrás del punto de caída.", en = "The gap goal side of the landing point between the covering chasers." }
+  [[Shape.Field]]
+  Key = "through_ball_cover.range_m"
+  Type = "int"
+  Label = { es = "Alcance (m)", en = "Range (m)" }
+  Help = { es = "Solo participan los jugadores a esta distancia del punto de caída.", en = "Only players within this of the landing point take part." }
+  [[Shape.Field]]
+  Key = "through_ball_cover.drop"
+  Type = "int"
+  Label = { es = "Repliegue", en = "Drop back" }
+  Help = { es = "Sus demás defensas por delante del punto de caída corren hacia atrás (1 = sí, 0 = no).", en = "Its other defenders above the landing point run back (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "through_ball_cover.line_min_m"
+  Type = "int"
+  Label = { es = "Distancia mínima a su portería (m)", en = "Minimum goal distance (m)" }
+  Help = { es = "La línea nunca se acerca más que esto a su línea de gol.", en = "The line never stands closer than this to its goal line." }
+  [[Shape.Field]]
+  Key = "through_ball_cover.runner_cover_m"
+  Type = "int"
+  Label = { es = "Cobertura de desmarques (m)", en = "Runner cover (m)" }
+  Help = { es = "Su línea queda al menos tanto por detrás de tu jugador más adelantado.", en = "Its line stays at least this far goal side of your deepest player." }
+  [[Shape.Field]]
+  Key = "through_ball_cover.pressure_m"
+  Type = "int"
+  Label = { es = "Distancia de presión (m)", en = "Pressure distance (m)" }
+  Help = { es = "Tu jugador con balón cuenta como presionado con un rival a esta distancia.", en = "Your carrier counts as pressed with a rival within this." }
+  [[Shape.Field]]
+  Key = "through_ball_cover.free_gap_m"
+  Type = "int"
+  Label = { es = "Distancia sin presión (m)", en = "Free carrier gap (m)" }
+  Help = { es = "Si tu jugador con balón no está presionado, su línea queda al menos tanto por detrás del balón.", en = "While your carrier is not pressed its line stays at least this far behind the ball." }
+  [[Shape.Field]]
+  Key = "shape"
+  Type = "table"
+  Label = { es = "Forma del equipo rival", en = "Rival shape" }
+  Help = { es = "Sus tres líneas y la defensa de reposo.", en = "Its three lines and rest defence." }
+  [[Shape.Field]]
+  Key = "shape.hold_s"
+  Type = "float"
+  Label = { es = "Mantener rol (s)", en = "Role hold (s)" }
+  Help = { es = "Un rol mantiene al jugador al menos este tiempo ante un cambio menos urgente.", en = "A role keeps a player at least this long against a less urgent change." }
+  [[Shape.Field]]
+  Key = "shape.line_behind_ball_m"
+  Type = "int"
+  Label = { es = "Línea tras el balón (m)", en = "Line behind ball (m)" }
+  Help = { es = "Sin balón, su línea defensiva queda a esta distancia detrás del balón.", en = "Without the ball its back line stands this far behind the ball." }
+  [[Shape.Field]]
+  Key = "shape.line_min_m"
+  Type = "int"
+  Label = { es = "Distancia mínima a su portería (m)", en = "Minimum goal distance (m)" }
+  Help = { es = "La línea defensiva queda al menos tan lejos de su línea de gol.", en = "The back line stays at least this far from its goal line." }
+  [[Shape.Field]]
+  Key = "shape.line_gap_m"
+  Type = "int"
+  Label = { es = "Hueco entre líneas (m)", en = "Line gap (m)" }
+  Help = { es = "Separación entre su defensa, medio y delantera.", en = "The gap between its back, middle and front lines." }
+  [[Shape.Field]]
+  Key = "shape.rest_defence"
+  Type = "int"
+  Label = { es = "Defensa de reposo", en = "Rest defence" }
+  Help = { es = "Con balón, cuántos defensas más retrasados se quedan atrás.", en = "With the ball, how many deepest defenders stay back." }
+  [[Shape.Field]]
+  Key = "shape.rest_gap_m"
+  Type = "int"
+  Label = { es = "Distancia de reposo (m)", en = "Rest gap (m)" }
+  Help = { es = "Se quedan a esta distancia detrás del balón.", en = "They stay this far behind the ball." }
+  [[Shape.Field]]
+  Key = "man_marking"
+  Type = "table"
+  Label = { es = "Marcaje al hombre", en = "Man marking" }
+  Help = { es = "Parejas fijas de marcaje uno a uno del rival.", en = "The rival's fixed one-to-one marking pairs." }
+  [[Shape.Field]]
+  Key = "man_marking.defenders"
+  Type = "int"
+  Label = { es = "Sus defensas marcan a", en = "Its defenders mark" }
+  Help = { es = "Puesto tuyo al que marcan sus defensas (1 delanteros, 2 centrocampistas, 3 defensas, 0 ninguno).", en = "Your role its defenders mark (1 forwards, 2 midfielders, 3 defenders, 0 none)." }
+  [[Shape.Field]]
+  Key = "man_marking.midfielders"
+  Type = "int"
+  Label = { es = "Sus centrocampistas marcan a", en = "Its midfielders mark" }
+  Help = { es = "Puesto tuyo al que marcan sus centrocampistas (1 delanteros, 2 centrocampistas, 3 defensas, 0 ninguno).", en = "Your role its midfielders mark (1 forwards, 2 midfielders, 3 defenders, 0 none)." }
+  [[Shape.Field]]
+  Key = "man_marking.forwards"
+  Type = "int"
+  Label = { es = "Sus delanteros marcan a", en = "Its forwards mark" }
+  Help = { es = "Puesto tuyo al que marcan sus delanteros (1 delanteros, 2 centrocampistas, 3 defensas, 0 ninguno).", en = "Your role its forwards mark (1 forwards, 2 midfielders, 3 defenders, 0 none)." }
+  [[Shape.Field]]
+  Key = "man_marking.fill"
+  Type = "int"
+  Label = { es = "Emparejar sobrantes", en = "Pair leftovers" }
+  Help = { es = "Empareja a los jugadores que sobran entre puestos distintos (1 = sí, 0 = no).", en = "Pair the players left over across roles (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "man_marking.distance_weight"
+  Type = "int"
+  Label = { es = "Peso de la distancia", en = "Distance weight" }
+  Help = { es = "Coste de la pareja por metro entre marcador y rival.", en = "Pair cost per metre between marker and man." }
+  [[Shape.Field]]
+  Key = "man_marking.advantage_weight"
+  Type = "int"
+  Label = { es = "Bonificación de elemento", en = "Element advantage bonus" }
+  Help = { es = "Bonificación al coste si el elemento del marcador gana al de su rival.", en = "Pair cost bonus when the marker's element beats his man's." }
+  [[Shape.Field]]
+  Key = "man_marking.disadvantage_penalty"
+  Type = "int"
+  Label = { es = "Penalización de elemento", en = "Element disadvantage penalty" }
+  Help = { es = "Penalización al coste si el elemento de su rival gana al del marcador.", en = "Pair cost penalty when his man's element beats the marker's." }
+  [[Shape.Field]]
+  Key = "man_marking.press_m"
+  Type = "int"
+  Label = { es = "Distancia de persecución (m)", en = "Chase distance (m)" }
+  Help = { es = "El marcador de tu portador lo persigue primero si está a esta distancia.", en = "Your carrier's marker chases first when within this distance of him." }
+  [[Shape.Field]]
+  Key = "counter"
+  Type = "table"
+  Label = { es = "Contraataque", en = "Counter-attack" }
+  Help = { es = "Carreras de contraataque del rival.", en = "The rival's counter-attack runs." }
+  [[Shape.Field]]
+  Key = "counter.window_s"
+  Type = "int"
+  Label = { es = "Ventana de contraataque (s)", en = "Counter window (s)" }
+  Help = { es = "Sus corredores avanzan durante estos primeros segundos tras ganar el balón.", en = "Its runners go forward during the first seconds after winning the ball." }
+  [[Shape.Field]]
+  Key = "counter.runners"
+  Type = "int"
+  Label = { es = "Corredores", en = "Runners" }
+  Help = { es = "Jugadores que corren hacia delante.", en = "Players running forward." }
+  [[Shape.Field]]
+  Key = "counter.channel_m"
+  Type = "int"
+  Label = { es = "Separación de carriles (m)", en = "Channel gap (m)" }
+  Help = { es = "Hueco entre los carriles de los corredores a lo ancho del campo.", en = "The gap between the runners' channels across the pitch." }
+  [[Shape.Field]]
+  Key = "counter.ahead_m"
+  Type = "int"
+  Label = { es = "Distancia de carrera (m)", en = "Run distance (m)" }
+  Help = { es = "Cada uno corre a esta distancia por delante de sí mismo o del balón.", en = "Each runs to this far ahead of himself or the ball." }
+  [[Shape.Field]]
+  Key = "counter.onside_m"
+  Type = "int"
+  Label = { es = "Margen de fuera de juego (m)", en = "Onside margin (m)" }
+  Help = { es = "Se quedan a esta distancia detrás de tu penúltimo jugador (con la regla de fuera de juego).", en = "They stay this far behind your second-last player (with the offside rule on)." }
+  [[Shape.Field]]
+  Key = "counter.goal_gap_m"
+  Type = "int"
+  Label = { es = "Distancia a tu portería (m)", en = "Goal gap (m)" }
+  Help = { es = "Se detienen al menos a esta distancia de tu línea de gol.", en = "They stop at least this far from your goal line." }
+  [[Shape.Field]]
+  Key = "counter.end_m"
+  Type = "int"
+  Label = { es = "Sin contraataque cerca de tu portería (m)", en = "No counter near goal (m)" }
+  Help = { es = "No hay contraataque si el balón está a esta distancia de tu portería.", en = "No counter when the ball is within this distance of your goal." }
+  [[Shape.Field]]
+  Key = "counter.max_behind"
+  Type = "int"
+  Label = { es = "Máximo de tus jugadores atrás", en = "Maximum of yours behind" }
+  Help = { es = "Solo contraataca si como mucho tantos jugadores tuyos están detrás del balón.", en = "A counter only with at most this many of your players behind the ball." }
+  [[Shape.Field]]
+  Key = "counter.sprint"
+  Type = "int"
+  Label = { es = "Corredores esprintan", en = "Runners sprint" }
+  Help = { es = "Los corredores esprintan (1 = sí, 0 = no).", en = "The runners sprint (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "counter.outlets"
+  Type = "int"
+  Label = { es = "Delanteros de salida", en = "Outlet forwards" }
+  Help = { es = "Delanteros que esperan cerca del medio campo mientras tienes el balón en su mitad.", en = "Forwards waiting near halfway while you hold the ball in its half." }
+  [[Shape.Field]]
+  Key = "counter.outlet_m"
+  Type = "int"
+  Label = { es = "Posición de salida (m)", en = "Outlet position (m)" }
+  Help = { es = "Esperan a esta distancia del medio campo en su lado (como máximo 0).", en = "They wait this far from halfway on their side (at most 0)." }
+  [[Shape.Field]]
+  Key = "passing"
+  Type = "table"
+  Label = { es = "Pases del rival", en = "Rival passing" }
+  Help = { es = "Cómo pasa el rival.", en = "How the rival passes." }
+  [[Shape.Field]]
+  Key = "passing.pass_before_shot_margin"
+  Type = "float"
+  Label = { es = "Margen para pasar antes de tirar", en = "Pass-before-shot margin" }
+  Help = { es = "En su zona, el tiro de un compañero debe puntuar el valor del portador por esto para pasar primero.", en = "In its zone a teammate's shot score must be the carrier's times this to pass first." }
+  [[Shape.Field]]
+  Key = "passing.pass_before_shot_max_passes"
+  Type = "int"
+  Label = { es = "Pases máximos antes de tirar", en = "Maximum passes before shot" }
+  Help = { es = "Máximo de pases antes del tiro por zona.", en = "Most passes before the shot per zone." }
+  [[Shape.Field]]
+  Key = "passing.pass_before_shot_max_hold_s"
+  Type = "float"
+  Label = { es = "Espera máxima del tiro (s)", en = "Maximum shot hold (s)" }
+  Help = { es = "Lo máximo que el portador retiene el tiro para pasar.", en = "Longest the carrier holds the shot for a pass." }
+  [[Shape.Field]]
+  Key = "passing.pass_before_shot_free_m"
+  Type = "int"
+  Label = { es = "Distancia de libre (m)", en = "Free distance (m)" }
+  Help = { es = "Un compañero a esta distancia de su marcador más cercano cuenta como libre.", en = "A teammate this far from his nearest marker counts as free." }
+  [[Shape.Field]]
+  Key = "passing.pass_before_shot_range_m"
+  Type = "int"
+  Label = { es = "Alcance de puntuación (m)", en = "Scoring range (m)" }
+  Help = { es = "Se puntúa a los compañeros a esta distancia de la portería.", en = "Teammates within this distance of the goal are scored." }
+  [[Shape.Field]]
+  Key = "passing.pass_speed"
+  Type = "float"
+  Label = { es = "Velocidad de sus pases", en = "Pass speed" }
+  Help = { es = "Sus pases llegan al receptor tantas veces antes (0,5 a 3; 1 = como el juego).", en = "Its passes reach the receiver this many times sooner (0.5 to 3; 1 = the game's)." }
+  [[Shape.Field]]
+  Key = "shoot_zone"
+  Type = "table"
+  Label = { es = "Zona de tiro («Área»)", en = "Shoot zone" }
+  Help = { es = "La zona de tiro.", en = "The shoot zone." }
+  [[Shape.Field]]
+  Key = "shoot_zone.shoot_now_replan_s"
+  Type = "float"
+  Label = { es = "Replanificación en zona (s)", en = "Zone re-plan (s)" }
+  Help = { es = "En su zona de tiro el equipo replanifica cada tantos segundos.", en = "In its own shoot zone the team re-plans every this many seconds." }
+  [[Shape.Field]]
+  Key = "shoot_zone.shoot_now_elapsed_s"
+  Type = "float"
+  Label = { es = "Antigüedad de la zona (s)", en = "Zone age (s)" }
+  Help = { es = "Su estrategia lee la zona como si tuviera al menos esta edad: tira o encadena de inmediato.", en = "Its strategy reads its zone as at least this old: it shoots or chains at once." }
+  [[Shape.Field]]
+  Key = "shoot_zone.shoot_now_direct"
+  Type = "int"
+  Label = { es = "Pide tiro directo", en = "Asks for direct shot" }
+  Help = { es = "Pide un tiro directo en su zona (1 = sí, 0 = no).", en = "It asks for a direct shot in its zone (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "shoot_zone.zone_log_after_s"
+  Type = "float"
+  Label = { es = "Registro de zona: sin decisión tras (s)", en = "Zone log: no decision after (s)" }
+  Help = { es = "El registro anota cada decisión en su zona y una línea si su portador lleva el balón tanto tiempo sin decidir (0 = sin registro).", en = "The log gets each of its zone decisions and one line when its carrier holds the ball this long without one (0 = no zone log)." }
+  [[Shape.Field]]
+  Key = "shoot_zone.zone_act_limit_s"
+  Type = "float"
+  Label = { es = "Tira en el área sin zona tras (s)", en = "Shoots in the area with no zone after (s)" }
+  Help = { es = "Su portador en el área sin zona en marcha tira tras este tiempo real, 1 s como mucho; el reloj espera durante un duelo, una animación o el balón parado.", en = "Its carrier in the area with no zone running shoots after this much real time, at most 1 s; the clock waits during a duel, a cut-in or a dead ball." }
+  [[Shape.Field]]
+  Key = "shoot_zone.zone_act_retry_s"
+  Type = "float"
+  Label = { es = "Reintento de un tiro rechazado (s)", en = "Retry of a refused kick (s)" }
+  Help = { es = "Un tiro que el juego rechaza se vuelve a pedir tras este tiempo real.", en = "A kick the game refuses is asked again after this much real time." }
+  [[Shape.Field]]
+  Key = "shoot_zone.wall_hold"
+  Type = "bool"
+  Label = { es = "Los muros se quedan en su muro", en = "Walls stay at their wall" }
+  Help = { es = "Un jugador de sus 2 muros va a su muro y se queda hasta que termina; nada lo manda a por tu portador.", en = "A player in one of its 2 walls goes to his wall and stays until it ends; nothing sends him at your carrier." }
+  [[Shape.Field]]
+  Key = "shoot_zone.wall_guards_extra"
+  Type = "int"
+  Label = { es = "Bloqueadores extra", en = "Extra blockers" }
+  Help = { es = "En tu zona de tiro, jugadores que bloquean el tiro además de las 2 barreras del juego (0 a 8).", en = "In your shoot zone, players blocking the shot besides the game's 2 walls (0 to 8)." }
+  [[Shape.Field]]
+  Key = "shoot_zone.wall_guards_from_m"
+  Type = "int"
+  Label = { es = "Primer bloqueador (m)", en = "First blocker (m)" }
+  Help = { es = "El primer bloqueador queda a esta distancia del tirador.", en = "The first blocker this far from the shooter." }
+  [[Shape.Field]]
+  Key = "shoot_zone.wall_guards_spacing_m"
+  Type = "float"
+  Label = { es = "Separación entre bloqueadores (m)", en = "Blocker spacing (m)" }
+  Help = { es = "Hueco entre bloqueadores.", en = "The gap between blockers." }
+  [[Shape.Field]]
+  Key = "shoot_zone.wall_guards_range_m"
+  Type = "int"
+  Label = { es = "Alcance de bloqueo (m)", en = "Blocking range (m)" }
+  Help = { es = "Solo los jugadores a esta distancia de un punto lo ocupan.", en = "Only players within this distance of a point take it." }
+  [[Shape.Field]]
+  Key = "shoot_zone.user_box_scale"
+  Type = "float"
+  Label = { es = "Tamaño de tu zona de tiro", en = "Your shoot zone size" }
+  Help = { es = "Multiplica ancho y fondo de TU zona de tiro (el área); la CPU mantiene la del juego (0,5 a 3).", en = "Multiplies the width and depth of YOUR shoot zone (the box); the CPU keeps the game's (0.5 to 3)." }
+  [[Shape.Field]]
+  Key = "moves"
+  Type = "table"
+  Label = { es = "Elección de técnicas del rival", en = "Rival move choice" }
+  Help = { es = "Cómo elige técnicas el rival (duelos, tiros, porteros, auras).", en = "How the rival chooses moves (duels, shots, keepers, auras)." }
+  [[Shape.Field]]
+  Key = "moves.best_move_chance"
+  Type = "float"
+  Label = { es = "Probabilidad de la mejor técnica", en = "Best move chance" }
+  Help = { es = "Probabilidad de elegir la mejor técnica en vez de la del juego (0 a 1).", en = "Chance a move choice takes the best move instead of the game's pick (0 to 1)." }
+  [[Shape.Field]]
+  Key = "moves.element_counter"
+  Type = "bool"
+  Label = { es = "Contrarrestar elemento", en = "Counter element" }
+  Help = { es = "Elige siempre una técnica cuyo elemento gane al tuyo si hay una utilizable.", en = "Always picks a move whose element beats yours when one is usable." }
+  [[Shape.Field]]
+  Key = "moves.move_cost_weight"
+  Type = "float"
+  Label = { es = "Peso del coste", en = "Cost weight" }
+  Help = { es = "Mejor técnica = potencia / coste elevado a esto (0 = la más fuerte, 1 = más potencia por punto de tensión; 0 a 2).", en = "Best move = power / cost to this power (0 = strongest, 1 = most power per tension point; 0 to 2)." }
+  [[Shape.Field]]
+  Key = "moves.learn_user_moves"
+  Type = "bool"
+  Label = { es = "Aprende tus técnicas", en = "Learns your moves" }
+  Help = { es = "Recuerda los elementos de tus técnicas y espera el más usado.", en = "Remembers the elements of your moves and expects the most used one." }
+  [[Shape.Field]]
+  Key = "moves.power_aware_margin"
+  Type = "float"
+  Label = { es = "Margen de potencia", en = "Power margin" }
+  Help = { es = "Una técnica gana si su potencia es al menos la tuya por esto.", en = "A move wins when its power is at least yours times this." }
+  [[Shape.Field]]
+  Key = "moves.power_aware_save_tension"
+  Type = "int"
+  Label = { es = "Ahorrar tensión", en = "Save tension" }
+  Help = { es = "No usa técnica si ninguna opción gana (1 = sí, 0 = no).", en = "No move when no option wins (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "moves.power_aware_force"
+  Type = "int"
+  Label = { es = "Forzar técnica elegida", en = "Force chosen move" }
+  Help = { es = "Una técnica de portero, bloqueo o tiro elegida salta la tirada de uso del juego (1 = sí, 0 = no).", en = "A picked keeper, block or shot move skips the game's use-rate roll (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "moves.power_aware_strongest_shot_when_stopped"
+  Type = "int"
+  Label = { es = "Tiro fuerte ante portero superior", en = "Strong shot against a better keeper" }
+  Help = { es = "Si tu portero para todos sus tiros, tira con la técnica que más se acerca a superarle: la potencia del tiro desgasta su barra (1 = sí, 0 = no).", en = "When your keeper stops every shot, it shoots with the move nearest to beating him: the shot's power wears his bar (1 = on, 0 = off)." }
+  [[Shape.Field]]
+  Key = "moves.aura_element_counter"
+  Type = "bool"
+  Label = { es = "Contrarrestar aura", en = "Counter aura" }
+  Help = { es = "Elige el aura cuyo elemento gana a la mayoría de tus jugadores.", en = "An aura choice takes the aura whose element beats most of your players." }
+  [[Shape.Field]]
+  Key = "stamina"
+  Type = "table"
+  Label = { es = "Resistencia del rival", en = "Rival stamina" }
+  Help = { es = "Esprints y sustituciones del rival.", en = "The rival's sprints and substitutions." }
+  [[Shape.Field]]
+  Key = "stamina.sprint_above"
+  Type = "float"
+  Label = { es = "Esprint completo por encima de", en = "Full sprint above" }
+  Help = { es = "Un jugador esprinta a ritmo completo por encima de esta resistencia (0 a 1).", en = "A player sprints at the full rate above this stamina ratio (0 to 1)." }
+  [[Shape.Field]]
+  Key = "stamina.sprint_below"
+  Type = "float"
+  Label = { es = "Nunca esprinta por debajo de", en = "Never sprints below" }
+  Help = { es = "Nunca esprinta por debajo de esta resistencia (0 a 1).", en = "Never sprints below this stamina ratio (0 to 1)." }
+  [[Shape.Field]]
+  Key = "stamina.sprint_rate"
+  Type = "float"
+  Label = { es = "Ritmo de esprint", en = "Sprint rate" }
+  Help = { es = "Ritmo de esprint con resistencia completa (0 a 1).", en = "The sprint rate at full stamina (0 to 1)." }
+  [[Shape.Field]]
+  Key = "stamina.sprint_attack_rate"
+  Type = "float"
+  Label = { es = "Ritmo de embestida", en = "Dash attack rate" }
+  Help = { es = "Ritmo de la embestida al correr con resistencia completa (0 a 1).", en = "The dash attack rate at full stamina (0 to 1)." }
+  [[Shape.Field]]
+  Key = "stamina.sprint_calm_after_s"
+  Type = "int"
+  Label = { es = "Calma tras retener el balón (s)", en = "Calm after holding ball (s)" }
+  Help = { es = "Tras retener el balón este tiempo se calma (0 = desactivado).", en = "After holding the ball this long it calms down (0 = off)." }
+  [[Shape.Field]]
+  Key = "stamina.sprint_calm_mult"
+  Type = "float"
+  Label = { es = "Ritmo del portador calmado", en = "Calm carrier rate" }
+  Help = { es = "Entonces los ritmos de esprint del portador se multiplican por esto.", en = "Then the carrier's sprint rates are multiplied by this." }
+  [[Shape.Field]]
+  Key = "stamina.sprint_calm_support_mult"
+  Type = "float"
+  Label = { es = "Ritmo de apoyos calmados", en = "Calm support rate" }
+  Help = { es = "Y los de sus compañeros se multiplican por esto.", en = "And his teammates' sprint rates are multiplied by this." }
+  [[Shape.Field]]
+  Key = "stamina.substitute_at_stamina"
+  Type = "float"
+  Label = { es = "Sustituir por cansancio", en = "Substitute when tired" }
+  Help = { es = "En una pausa sustituye a su jugador de campo más cansado por debajo de esta resistencia (0 a 1).", en = "At a dead ball it substitutes its most tired outfield player below this stamina ratio (0 to 1)." }
+  [[Shape.Field]]
+  Key = "stamina.element_substitute_after_s"
+  Type = "int"
+  Label = { es = "Cambios por elemento desde (s)", en = "Element substitutions from (s)" }
+  Help = { es = "Los cambios por elemento (un delantero cuyo elemento gana a tu portero) no antes de este tiempo de juego.", en = "Element substitutions (a forward whose element beats your keeper) not before this game time." }
+  [[Shape.Field]]
+  Key = "stamina.element_substitute_max"
+  Type = "int"
+  Label = { es = "Máximo de cambios por elemento", en = "Maximum element substitutions" }
+  Help = { es = "Cambios por elemento como máximo por partido.", en = "Most element substitutions per match." }
+  [[Shape.Field]]
+  Key = "team"
+  Type = "table"
+  Label = { es = "Equipo rival", en = "Rival team" }
+  Help = { es = "Nivel de estrategia y tensión del rival.", en = "The rival's strategy level and tension." }
+  [[Shape.Field]]
+  Key = "team.strategy_level"
+  Type = "int"
+  Label = { es = "Nivel de estrategia", en = "Strategy level" }
+  Help = { es = "Nivel de IA que leen sus estrategias y tácticas (1 a 9; el juego usa 1-4): juega todas hasta ese nivel.", en = "The AI level its strategies and tactics read (1 to 9; the game uses 1-4): it plays every strategy up to it." }
+  [[Shape.Field]]
+  Key = "team.tension_per_second"
+  Type = "float"
+  Label = { es = "Tensión por segundo", en = "Tension per second" }
+  Help = { es = "Puntos de tensión que gana cada segundo de juego (0 a 50).", en = "Tension points it gains every second of play (0 to 50)." }
+  [[Shape.Field]]
+  Key = "team.keeper_tension_reserve"
+  Type = "int"
+  Label = { es = "Reserva de tensión del portero", en = "Keeper tension reserve" }
+  Help = { es = "Tensión reservada para su portero (0 a 300; el juego guarda 20).", en = "Tension kept for its keeper (0 to 300; the game keeps 20)." }
+  [[Shape.Field]]
+  Key = "furor"
+  Type = "table"
+  Label = { es = "Fase de furor del rival", en = "Rival furor phase" }
+  Help = { es = "Cuándo empieza el rival su fase de furor.", en = "When the rival starts its furor phase." }
+  [[Shape.Field]]
+  Key = "furor.attack_from_z"
+  Type = "float"
+  Label = { es = "Furor de ataque desde", en = "Attack furor from" }
+  Help = { es = "Un jugador rival recibe el balón más allá de esta profundidad (m en el marco del equipo; 55 = tu línea de gol).", en = "A rival player gets the ball beyond this depth (team frame m; 55 = your goal line)." }
+  [[Shape.Field]]
+  Key = "furor.comeback_from_half"
+  Type = "int"
+  Label = { es = "Remontada desde la parte", en = "Comeback from half" }
+  Help = { es = "La remontada vale desde esta parte (1 a 2).", en = "Comeback applies from this half on (1 to 2)." }
+  [[Shape.Field]]
+  Key = "furor.comeback_half_fraction"
+  Type = "float"
+  Label = { es = "Remontada desde la fracción", en = "Comeback from fraction" }
+  Help = { es = "Desde esta fracción de esa parte, si va perdiendo (0 a 1).", en = "From this part of that half on, while trailing (0 to 1)." }
+  [[Shape.Field]]
+  Key = "furor.defend_from_z"
+  Type = "float"
+  Label = { es = "Furor de defensa desde", en = "Defence furor from" }
+  Help = { es = "Un jugador tuyo recibe el balón más allá de esta profundidad (m en el marco del equipo; 55 = su línea de gol).", en = "Your player gets the ball beyond this depth (team frame m; 55 = its goal line)." }
+  [[Shape.Field]]
+  Key = "furor.no_waste_half_max"
+  Type = "int"
+  Label = { es = "Sin desperdicio hasta la parte", en = "No waste up to half" }
+  Help = { es = "Hasta esta parte (1 = solo la primera, 2 = ambas).", en = "Up to this half (1 = the first only, 2 = both)." }
+  [[Shape.Field]]
+  Key = "furor.no_waste_half_fraction"
+  Type = "float"
+  Label = { es = "Sin desperdicio desde la fracción", en = "No waste from fraction" }
+  Help = { es = "Un medidor lleno se usa desde esta fracción de la parte (0 a 1).", en = "A full gauge is used from this part of the half on (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai"
+  Type = "table"
+  Label = { es = "IA del juego", en = "Game AI" }
+  Help = { es = "Valores de la IA original del juego aplicados al rival.", en = "Values of the game's own AI applied to the rival." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates"
+  Type = "table"
+  Label = { es = "Tasas de IA de la clase del rival", en = "Rival class AI rates" }
+  Help = { es = "Tasas de la IA del juego para la clase del rival.", en = "The game's AI rates of the rival's class." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.passEnableRate"
+  Type = "float"
+  Label = { es = "Probabilidad de pasar", en = "Pass chance" }
+  Help = { es = "Probabilidad de pasar cuando un pase es posible (0 a 1).", en = "Chance to pass when a pass is possible (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.slidingEnableRate"
+  Type = "float"
+  Label = { es = "Probabilidad de entrada deslizante", en = "Slide tackle chance" }
+  Help = { es = "Probabilidad de hacer una entrada deslizante (0 a 1).", en = "Chance to slide-tackle (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.normalDashEnableRate"
+  Type = "float"
+  Label = { es = "Probabilidad de esprintar", en = "Sprint chance" }
+  Help = { es = "Probabilidad de esprintar en juego abierto (0 a 1).", en = "Chance to sprint in open play (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.attackDashEnableRate"
+  Type = "float"
+  Label = { es = "Probabilidad de embestir", en = "Dash attack chance" }
+  Help = { es = "Probabilidad de usar la embestida al correr (0 a 1).", en = "Chance to use the dash attack (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.allCourtJustAvoidRate"
+  Type = "float"
+  Label = { es = "Probabilidad de esquivar", en = "Dodge chance" }
+  Help = { es = "Probabilidad de esquivar una entrada en el momento justo (0 a 1).", en = "Chance to dodge a tackle at the right moment (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusCatchActInterval"
+  Type = "float"
+  Label = { es = "Intervalo de intentos de robo (s)", en = "Catch attempt interval (s)" }
+  Help = { es = "Segundos entre intentos de robo en un duelo (0 a 10).", en = "Seconds between catch attempts in a duel (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusCatchActRate"
+  Type = "float"
+  Label = { es = "Tasa de intentos de robo", en = "Catch attempt rate" }
+  Help = { es = "Frecuencia de intentos de robo en un duelo (0 a 10).", en = "Catch attempt rate in a duel (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusKeepDistanceDribbleRate"
+  Type = "float"
+  Label = { es = "Mantener distancia al regatear", en = "Keep distance dribbling" }
+  Help = { es = "Mantiene la distancia mientras regatea en un duelo (0 a 1).", en = "Keeps its distance while dribbling in a duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusAtkSkillRate"
+  Type = "float"
+  Label = { es = "Atacante usa técnica", en = "Attacker uses move" }
+  Help = { es = "Probabilidad de que el atacante use una técnica en un duelo (0 a 1).", en = "Chance the attacker uses a move in a duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusDefSkillRate"
+  Type = "float"
+  Label = { es = "Defensor usa técnica", en = "Defender uses move" }
+  Help = { es = "Probabilidad de que el defensor use una técnica en un duelo (0 a 1).", en = "Chance the defender uses a move in a duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusAtkOpponentSkillRate"
+  Type = "float"
+  Label = { es = "Atacante responde a tu técnica", en = "Attacker answers your move" }
+  Help = { es = "El atacante responde a una técnica que el rival ya ha lanzado (0 a 1).", en = "Attacker answers a move the opponent committed (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusDefOpponentSkillRate"
+  Type = "float"
+  Label = { es = "Defensor responde a tu técnica", en = "Defender answers your move" }
+  Help = { es = "El defensor responde a una técnica que el rival ya ha lanzado (0 a 1).", en = "Defender answers a move the opponent committed (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusAtkImmediateSkillRate"
+  Type = "float"
+  Label = { es = "Atacante usa técnica al inicio", en = "Attacker moves at start" }
+  Help = { es = "El atacante usa una técnica al empezar el duelo (0 a 1).", en = "Attacker uses a move at the start of the duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusDefImmediateSkillRate"
+  Type = "float"
+  Label = { es = "Defensor usa técnica al inicio", en = "Defender moves at start" }
+  Help = { es = "El defensor usa una técnica al empezar el duelo (0 a 1).", en = "Defender uses a move at the start of the duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusActionIntervalA"
+  Type = "float"
+  Label = { es = "Intervalo de acción de duelo A (s)", en = "Duel action interval A (s)" }
+  Help = { es = "Primer valor del intervalo de acción del duelo (0 a 10).", en = "Duel action interval, first value (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusActionIntervalB"
+  Type = "float"
+  Label = { es = "Intervalo de acción de duelo B (s)", en = "Duel action interval B (s)" }
+  Help = { es = "Segundo valor del intervalo de acción del duelo (0 a 10).", en = "Duel action interval, second value (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusActionIntervalC"
+  Type = "float"
+  Label = { es = "Intervalo de acción de duelo C (s)", en = "Duel action interval C (s)" }
+  Help = { es = "Tercer valor del intervalo de acción del duelo (0 a 10).", en = "Duel action interval, third value (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusBreakThroughDisableTime"
+  Type = "float"
+  Label = { es = "Espera antes de la ruptura (s)", en = "Breakthrough delay (s)" }
+  Help = { es = "Segundos antes de permitir una ruptura (0 a 99).", en = "Seconds before a breakthrough is allowed (0 to 99)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusBreakThroughEscapeRate"
+  Type = "float"
+  Label = { es = "Escape en la ruptura", en = "Breakthrough escape rate" }
+  Help = { es = "Tasa de escape en una ruptura (0 a 1).", en = "Breakthrough escape rate (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusPassEnableRate"
+  Type = "float"
+  Label = { es = "Pasa fuera del duelo", en = "Passes out of duel" }
+  Help = { es = "Probabilidad de pasar saliendo de un duelo (0 a 1).", en = "Chance of passing out of a duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusPowerChargeUseRate"
+  Type = "float"
+  Label = { es = "Usa carga de potencia", en = "Uses power charge" }
+  Help = { es = "Usa la carga de potencia en un duelo (0 a 1).", en = "Uses the power charge in a duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.focusPowerBlockUseRate"
+  Type = "float"
+  Label = { es = "Usa bloqueo de potencia", en = "Uses power block" }
+  Help = { es = "Usa el bloqueo de potencia en un duelo (0 a 1).", en = "Uses the power block in a duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.zoneKeeperSkillRateVsNormal"
+  Type = "float"
+  Label = { es = "Portero usa técnica vs tiro normal", en = "Keeper move vs normal shot" }
+  Help = { es = "El portero usa una técnica contra un tiro normal (0 a 1).", en = "Keeper uses a move against a normal shot (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.zoneShootBlockSkillRate"
+  Type = "float"
+  Label = { es = "Usa técnica de bloqueo", en = "Uses block move" }
+  Help = { es = "Usa una técnica de bloqueo contra un tiro (0 a 1).", en = "Uses a block move against a shot (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.zoneShootChainUseRate"
+  Type = "float"
+  Label = { es = "Encadena tiros", en = "Chains shots" }
+  Help = { es = "Encadena el tiro de un compañero (0 a 1).", en = "Chains a teammate's shot (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.zoneShootSkillRate"
+  Type = "float"
+  Label = { es = "Usa técnica de tiro en zona", en = "Uses shot move in zone" }
+  Help = { es = "Usa una técnica de tiro en la zona (0 a 1).", en = "Uses a shot move in the zone (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.zoneShootDisableTime"
+  Type = "float"
+  Label = { es = "Espera para tirar en zona (s)", en = "Zone shot delay (s)" }
+  Help = { es = "Segundos desde que empieza la zona hasta que puede tirar (0 a 10).", en = "Seconds after the zone starts before it may shoot (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.zonePassEnableRate"
+  Type = "float"
+  Label = { es = "Pasa dentro de la zona", en = "Passes inside zone" }
+  Help = { es = "Probabilidad de pasar dentro de la zona (0 a 1).", en = "Chance of passing inside the zone (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.directFreeKickSkillRate"
+  Type = "float"
+  Label = { es = "Técnica en falta directa", en = "Move on direct free kick" }
+  Help = { es = "Usa una técnica de tiro en una falta directa (0 a 1).", en = "Uses a shot move on a direct free kick (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.spTacticsUseRate"
+  Type = "float"
+  Label = { es = "Usa táctica especial", en = "Uses special tactic" }
+  Help = { es = "Probabilidad de usar una táctica especial (0 a 1).", en = "Chance to use a special tactic (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.suTacticsUseRate"
+  Type = "float"
+  Label = { es = "Usa supertáctica", en = "Uses super tactic" }
+  Help = { es = "Probabilidad de usar una supertáctica (0 a 1).", en = "Chance to use a super tactic (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.scrambleJustRate"
+  Type = "float"
+  Label = { es = "Acierta el medidor de pugna", en = "Hits scramble gauge" }
+  Help = { es = "Acierta el medidor de pugna en el momento justo (0 a 1).", en = "Hits the scramble gauge at the right moment (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.class_rates.auraSkillRate"
+  Type = "float"
+  Label = { es = "Invoca aura", en = "Summons aura" }
+  Help = { es = "Probabilidad de invocar un aura (keshin, armadura, miximax...) (0 a 1).", en = "Chance to summon an aura (keshin, armour, miximax...) (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.rival_rates"
+  Type = "table"
+  Label = { es = "Más tasas de IA del rival", en = "More rival AI rates" }
+  Help = { es = "Más tasas de la IA del juego, solo para los jugadores del rival.", en = "More of the game's AI rates, the rival's players only." }
+  [[Shape.Field]]
+  Key = "retail_ai.rival_rates.focusFramePerfectReactRate"
+  Type = "int"
+  Label = { es = "Reacción perfecta en duelo (%)", en = "Perfect duel reaction (%)" }
+  Help = { es = "Porcentaje en que reacciona al instante a un paso lateral o ruptura (0 a 100).", en = "Percent that reacts at once to a side step or breakthrough (0 to 100)." }
+  [[Shape.Field]]
+  Key = "retail_ai.rival_rates.zoneKeeperSkillRateVsSkill"
+  Type = "float"
+  Label = { es = "Portero usa técnica vs técnica", en = "Keeper move vs special shot" }
+  Help = { es = "Probabilidad de que el portero use una técnica contra un tiro especial (0 a 1).", en = "Chance the keeper uses a move against a special shot (0 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.rival_rates.keepTention"
+  Type = "int"
+  Label = { es = "Tensión que conserva", en = "Tension kept" }
+  Help = { es = "Tensión que guarda tras una técnica (una técnica que bajaría de ahí se omite) (0 a 300).", en = "Tension it keeps after a move (a move that would drop below is skipped) (0 to 300)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals"
+  Type = "table"
+  Label = { es = "Valores globales de IA", en = "Global AI values" }
+  Help = { es = "Valores globales de la IA del juego mientras actúa la IA del rival.", en = "The game's global AI values while the rival's AI runs." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.defaultWaitTimeMax"
+  Type = "float"
+  Label = { es = "Pausa de espera (s)", en = "Wait pause (s)" }
+  Help = { es = "Segundos que dura una acción de espera sin duración propia (las pausas de la CPU) (0 a 10).", en = "Seconds a wait action without its own duration lasts (the CPU's idle pauses) (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.fCharaTacticsUpdateIntervalTime"
+  Type = "float"
+  Label = { es = "Intervalo de replanificación (s)", en = "Re-plan interval (s)" }
+  Help = { es = "Segundos entre dos replanificaciones de un jugador (0 a 10).", en = "Seconds between two re-plans of a player (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.fCharaTacticsUpdateMoreNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que replanifican doble", en = "Double re-plan players" }
+  Help = { es = "Jugadores cerca del balón que replanifican el doble de a menudo (0 a 11).", en = "Players near the ball that re-plan twice as often (0 to 11)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.charaTacticsDelayTime"
+  Type = "float"
+  Label = { es = "Retraso de reacción (s)", en = "Reaction delay (s)" }
+  Help = { es = "Segundos de retraso antes de empezar un plan nuevo (0 a 5).", en = "Seconds of reaction delay before a new plan starts (0 to 5)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.charaTacticsDelayFluctuationTime"
+  Type = "float"
+  Label = { es = "Retraso aleatorio extra (s)", en = "Random extra delay (s)" }
+  Help = { es = "Retraso de reacción aleatorio adicional (0 a 5).", en = "Random extra reaction delay (0 to 5)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.fCharaTacticsStateChangeUpdateTime"
+  Type = "float"
+  Label = { es = "Replanificación tras cambio (s)", en = "Re-plan after change (s)" }
+  Help = { es = "Segundos en que un jugador replanifica de inmediato tras un cambio de estado (0 a 5).", en = "Seconds a player re-plans at once after a state change (0 to 5)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.fCharaTacticsResetIntervalTime"
+  Type = "float"
+  Label = { es = "Reinicio de táctica (s)", en = "Tactic reset (s)" }
+  Help = { es = "Segundos antes de reiniciar la táctica de un jugador (0 a 30).", en = "Seconds before a player's tactic is reset (0 to 30)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.teamStrategyUpdateInterval"
+  Type = "float"
+  Label = { es = "Intervalo de estrategia (s)", en = "Strategy interval (s)" }
+  Help = { es = "Segundos entre dos elecciones de estrategia del equipo (0 a 10).", en = "Seconds between two strategy choices of the team (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.teamTacticsUpdateInterval"
+  Type = "float"
+  Label = { es = "Intervalo de táctica (s)", en = "Tactics interval (s)" }
+  Help = { es = "Segundos entre dos elecciones de táctica del equipo (0 a 30).", en = "Seconds between two team tactic choices (0 to 30)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passLotteryIntervalMin"
+  Type = "float"
+  Label = { es = "Intervalo de pase mínimo (s)", en = "Pass interval min (s)" }
+  Help = { es = "Segundos mínimos entre decisiones de pase (0 a 10).", en = "Shortest seconds between pass decisions (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passLotteryIntervalMax"
+  Type = "float"
+  Label = { es = "Intervalo de pase máximo (s)", en = "Pass interval max (s)" }
+  Help = { es = "Segundos máximos entre decisiones de pase (0 a 10).", en = "Longest seconds between pass decisions (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.fAutoPassIntervalTime"
+  Type = "float"
+  Label = { es = "Retención antes de pase automático (s)", en = "Hold before auto pass (s)" }
+  Help = { es = "Segundos que el portador retiene el balón antes de un pase automático (0 a 10).", en = "Seconds the ball owner holds the ball before an automatic pass (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.gkAutoPassTime"
+  Type = "float"
+  Label = { es = "Retención del portero (s)", en = "Keeper hold (s)" }
+  Help = { es = "Segundos que el portero retiene el balón antes de pasar (0 a 20).", en = "Seconds the keeper holds the ball before passing (0 to 20)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.dashLineDashLotteryIntervalMin"
+  Type = "float"
+  Label = { es = "Intervalo de esprint mínimo (s)", en = "Sprint interval min (s)" }
+  Help = { es = "Segundos mínimos entre decisiones de esprint del portador (0 a 10).", en = "Shortest seconds between dash decisions of the ball carrier (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.dashLineDashLotteryIntervalMax"
+  Type = "float"
+  Label = { es = "Intervalo de esprint máximo (s)", en = "Sprint interval max (s)" }
+  Help = { es = "Segundos máximos entre decisiones de esprint del portador (0 a 10).", en = "Longest seconds between dash decisions of the ball carrier (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.slidingLotteryIntervalMin"
+  Type = "float"
+  Label = { es = "Intervalo de entrada mínimo (s)", en = "Slide interval min (s)" }
+  Help = { es = "Segundos mínimos entre decisiones de entrada deslizante (0 a 10).", en = "Shortest seconds between slide-tackle decisions (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.slidingLotteryIntervalMax"
+  Type = "float"
+  Label = { es = "Intervalo de entrada máximo (s)", en = "Slide interval max (s)" }
+  Help = { es = "Segundos máximos entre decisiones de entrada deslizante (0 a 10).", en = "Longest seconds between slide-tackle decisions (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.spTacticsAutoUseIntervalMin"
+  Type = "float"
+  Label = { es = "Revisión de táctica especial mínima (s)", en = "Special tactic check min (s)" }
+  Help = { es = "Segundos mínimos entre comprobaciones de táctica especial (0 a 60).", en = "Shortest seconds between special tactic checks (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.spTacticsAutoUseIntervalMax"
+  Type = "float"
+  Label = { es = "Revisión de táctica especial máxima (s)", en = "Special tactic check max (s)" }
+  Help = { es = "Segundos máximos entre comprobaciones de táctica especial (0 a 60).", en = "Longest seconds between special tactic checks (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.suTacticsAutoUseIntervalMin"
+  Type = "float"
+  Label = { es = "Revisión de supertáctica mínima (s)", en = "Super tactic check min (s)" }
+  Help = { es = "Segundos mínimos entre comprobaciones de supertáctica (0 a 60).", en = "Shortest seconds between super tactic checks (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.suTacticsAutoUseIntervalMax"
+  Type = "float"
+  Label = { es = "Revisión de supertáctica máxima (s)", en = "Super tactic check max (s)" }
+  Help = { es = "Segundos máximos entre comprobaciones de supertáctica (0 a 60).", en = "Longest seconds between super tactic checks (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.auraSkillAutoUseIntervalMin"
+  Type = "float"
+  Label = { es = "Revisión de aura mínima (s)", en = "Aura check min (s)" }
+  Help = { es = "Segundos mínimos entre comprobaciones de aura (0 a 60).", en = "Shortest seconds between aura checks (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.auraSkillAutoUseIntervalMax"
+  Type = "float"
+  Label = { es = "Revisión de aura máxima (s)", en = "Aura check max (s)" }
+  Help = { es = "Segundos máximos entre comprobaciones de aura (0 a 60).", en = "Longest seconds between aura checks (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunFocusBtlProbabilityMax"
+  Type = "int"
+  Label = { es = "Probabilidad de iniciar duelo (%)", en = "Duel start chance (%)" }
+  Help = { es = "Porcentaje en que el equipo inicia un duelo en cada tirada (0 a 100).", en = "Percent the team starts a duel (each roll) (0 to 100)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunFocusBtlIntervalMin"
+  Type = "float"
+  Label = { es = "Espera para iniciar duelo (s)", en = "Duel start delay (s)" }
+  Help = { es = "Segundos antes de que el equipo pueda iniciar un duelo (0 a 60).", en = "Seconds before the team may start a duel (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunFocusBtlIntervalMax"
+  Type = "float"
+  Label = { es = "Duelo forzado tras (s)", en = "Forced duel after (s)" }
+  Help = { es = "Segundos tras los cuales se fuerza el inicio de un duelo (0 a 120).", en = "Seconds after which a duel start is forced (0 to 120)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunFocusBtlLotIntervalTime"
+  Type = "float"
+  Label = { es = "Intervalo entre tiradas de duelo (s)", en = "Duel roll interval (s)" }
+  Help = { es = "Segundos entre dos tiradas de inicio de duelo (0 a 60).", en = "Seconds between two duel-start rolls (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunZoneProbabilityMax"
+  Type = "int"
+  Label = { es = "Probabilidad de iniciar zona (%)", en = "Zone start chance (%)" }
+  Help = { es = "Porcentaje en que el equipo inicia una zona de tiro en cada tirada (0 a 100).", en = "Percent the team starts a shoot zone (each roll) (0 to 100)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunZoneIntervalMin"
+  Type = "float"
+  Label = { es = "Espera para iniciar zona (s)", en = "Zone start delay (s)" }
+  Help = { es = "Segundos antes de que el equipo pueda iniciar una zona (0 a 60).", en = "Seconds before the team may start a zone (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunZoneIntervalMax"
+  Type = "float"
+  Label = { es = "Zona forzada tras (s)", en = "Forced zone after (s)" }
+  Help = { es = "Segundos tras los cuales se fuerza el inicio de una zona (0 a 120).", en = "Seconds after which a zone start is forced (0 to 120)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunZoneLotIntervalTime"
+  Type = "float"
+  Label = { es = "Intervalo entre tiradas de zona (s)", en = "Zone roll interval (s)" }
+  Help = { es = "Segundos entre dos tiradas de inicio de zona (0 a 60).", en = "Seconds between two zone-start rolls (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunShootProbabilityMin"
+  Type = "int"
+  Label = { es = "Tiro forzado en zona (%)", en = "Forced zone shot (%)" }
+  Help = { es = "Porcentaje: decide tirar en su zona al llegar al tiempo de tiro forzado (0 a 100).", en = "Percent: the zone's shot decision when the forced shot time is reached (0 to 100)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunShootProbabilityMax"
+  Type = "int"
+  Label = { es = "Tiro en zona por tirada (%)", en = "Zone shot per roll (%)" }
+  Help = { es = "Porcentaje: decide tirar en su zona en cada tirada (0 a 100).", en = "Percent: the zone's shot decision at each roll (0 to 100)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunShootIntervalMin"
+  Type = "float"
+  Label = { es = "Espera mínima para tirar en zona (s)", en = "Zone shot delay (s)" }
+  Help = { es = "Segundos de zona antes de que pueda decidir el tiro (0 a 60).", en = "Seconds of its zone before a shot decision may go through (0 to 60)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.autoRunShootIntervalMax"
+  Type = "float"
+  Label = { es = "Tiro forzado en zona tras (s)", en = "Forced zone shot after (s)" }
+  Help = { es = "Segundos de zona tras los cuales su portador decide el tiro sí o sí: nunca se queda pensando (0 a 120; juego 10).", en = "Seconds of its zone after which its carrier's shot decision is forced: never an idle zone (0 to 120; game 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.uPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que presionan", en = "Pressing players" }
+  Help = { es = "Jugadores que presionan al portador a la vez (0 a 11).", en = "Players that press the ball owner at once (0 to 11)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.uNoStopPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que presionan sin parar", en = "Non-stop pressers" }
+  Help = { es = "Jugadores que presionan sin detenerse (0 a 11).", en = "Players that press without stopping (0 to 11)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.tacticsPassEvaluationSuccessRateWeight"
+  Type = "int"
+  Label = { es = "Pase: peso del acierto", en = "Pass: success weight" }
+  Help = { es = "Al elegir pase, peso de la tasa de acierto (0 a 1000).", en = "Pass choice: weight of the success rate (0 to 1000)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.tacticsPassEvaluationPhaseEvaluationWeight"
+  Type = "int"
+  Label = { es = "Pase: peso de la fase", en = "Pass: phase weight" }
+  Help = { es = "Al elegir pase, peso del valor de la fase (0 a 1000).", en = "Pass choice: weight of the phase value (0 to 1000)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.tacticsDribbleEvaluationSuccessRateWeight"
+  Type = "int"
+  Label = { es = "Regate: peso del acierto", en = "Dribble: success weight" }
+  Help = { es = "Al elegir regate, peso de la tasa de acierto (0 a 1000).", en = "Dribble choice: weight of the success rate (0 to 1000)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.tacticsDribbleEvaluationPhaseEvaluationWeight"
+  Type = "int"
+  Label = { es = "Regate: peso de la fase", en = "Dribble: phase weight" }
+  Help = { es = "Al elegir regate, peso del valor de la fase (0 a 1000).", en = "Dribble choice: weight of the phase value (0 to 1000)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passNearEnemyNumSuccessRateRatio"
+  Type = "float"
+  Label = { es = "Acierto perdido por rival cercano", en = "Success lost per nearby rival" }
+  Help = { es = "Acierto del pase que se pierde por cada rival cercano (0 a 10).", en = "Pass success lost per nearby rival (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passWeightBackPasss"
+  Type = "int"
+  Label = { es = "Peso de pases atrás", en = "Back pass weight" }
+  Help = { es = "Peso de los pases hacia atrás (0 a 1000).", en = "Weight of back passes (0 to 1000)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passDisableBackPassPosRateZ"
+  Type = "float"
+  Label = { es = "Profundidad sin pases atrás", en = "Back pass cutoff depth" }
+  Help = { es = "Profundidad del campo más allá de la cual cesan los pases atrás (-1 a 1).", en = "Pitch depth beyond which back passes stop (-1 to 1)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passPotentialFromOpp"
+  Type = "int"
+  Label = { es = "Valor de pase lejos de rivales", en = "Pass value away from rivals" }
+  Help = { es = "Valor del destino del pase alejado de rivales (0 a 100000).", en = "Pass target value away from rivals (0 to 100000)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passPotentialToGoal"
+  Type = "int"
+  Label = { es = "Valor de pase hacia la portería", en = "Pass value toward goal" }
+  Help = { es = "Valor del destino del pase hacia la portería (0 a 100000).", en = "Pass target value toward the goal (0 to 100000)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.charaSpeedStrengthMin"
+  Type = "float"
+  Label = { es = "Urgencia mínima de carrera", en = "Minimum run urgency" }
+  Help = { es = "Mínimo factor de velocidad de carrera de sus jugadores (0 a 1,8; el juego usa 0,2; 1 = nunca más lento).", en = "Lowest run speed factor of its players (0 to 1.8; the game uses 0.2; 1 = never slower)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.focusOpponentSkillDelayMinTimeRate"
+  Type = "float"
+  Label = { es = "Retraso mínimo al responder en duelo", en = "Minimum answer delay in duel" }
+  Help = { es = "Retraso mínimo antes de responder a tu técnica, como parte del intervalo de acción (0 a 2).", en = "Shortest delay before it answers a move you committed, part of the action interval (0 to 2)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.focusOpponentSkillDelayAddTimeRate"
+  Type = "float"
+  Label = { es = "Retraso aleatorio al responder", en = "Random answer delay" }
+  Help = { es = "Retraso aleatorio extra antes de esa respuesta (0 a 2; el juego usa 0,5).", en = "Random extra delay before that answer (0 to 2; the game uses 0.5)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.markCheckNearDist"
+  Type = "int"
+  Label = { es = "Alcance para marcar (m)", en = "Marking reach (m)" }
+  Help = { es = "Metros dentro de los cuales un jugador puede elegir marcar a uno tuyo (5 a 120; el juego usa 30).", en = "Metres within which a player may pick one of your men to mark (5 to 120; the game uses 30)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.pressCheckNearLen"
+  Type = "int"
+  Label = { es = "Distancia de puntuación de presión (m)", en = "Press score distance (m)" }
+  Help = { es = "Metros a los que la puntuación de presión cae a 0; más lejos aún presionan (2 a 60; el juego usa 10).", en = "Metres at which a presser's score falls to 0; farther players still press (2 to 60; the game uses 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.eventMoveSpeedStrength_Mark"
+  Type = "float"
+  Label = { es = "Velocidad al marcar", en = "Marking speed" }
+  Help = { es = "Factor de velocidad de carrera de quien marca (0 a 1,5; el juego usa 0,75).", en = "Run speed factor of a marking player (0 to 1.5; the game uses 0.75)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.eventMoveSpeedStrength_PressBall"
+  Type = "float"
+  Label = { es = "Velocidad al presionar el balón", en = "Ball press speed" }
+  Help = { es = "Factor de velocidad de quien presiona el balón (0 a 1,5; el juego usa 0,75).", en = "Run speed factor of a player pressing the ball (0 to 1.5; the game uses 0.75)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.eventMoveSpeedStrength_PressChara"
+  Type = "float"
+  Label = { es = "Velocidad al presionar a un rival", en = "Man press speed" }
+  Help = { es = "Factor de velocidad de quien presiona a un jugador (0 a 1,5; el juego usa 0,7).", en = "Run speed factor of a player pressing a man (0 to 1.5; the game uses 0.7)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.eventMoveSpeedStrength_LineMove"
+  Type = "float"
+  Label = { es = "Velocidad al moverse con la línea", en = "Line move speed" }
+  Help = { es = "Factor de velocidad de quien se mueve con su línea (0 a 1,5; el juego usa 0,5).", en = "Run speed factor of a player moving with his line (0 to 1.5; the game uses 0.5)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.pressTimeLimit"
+  Type = "int"
+  Label = { es = "Duración máxima de la presión (s)", en = "Press time limit (s)" }
+  Help = { es = "Segundos que corre una acción de presión antes de detenerse (0 a 30; el juego usa 6).", en = "Seconds a press action runs before it stops (0 to 30; the game uses 6)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.changePossessionContinueTime"
+  Type = "float"
+  Label = { es = "Memoria tras cambio de posesión (s)", en = "Possession change memory (s)" }
+  Help = { es = "Segundos que el análisis mantiene la fase anterior tras cambiar la posesión (0 a 10; el juego usa 1,3).", en = "Seconds the analysis keeps the previous phase after a change of possession (0 to 10; the game uses 1.3)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passFarDistBase"
+  Type = "int"
+  Label = { es = "Pase largo desde (m)", en = "Long pass from (m)" }
+  Help = { es = "Longitud del pase desde la que empieza a bajar el acierto (0 a 100).", en = "Pass length from which the pass success starts to drop (0 to 100)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passFarDistMax"
+  Type = "int"
+  Label = { es = "Pase largo máximo (m)", en = "Long pass maximum (m)" }
+  Help = { es = "Longitud del pase a la que la caída de acierto por distancia es total (0 a 150).", en = "Pass length at which the distance drop of the pass success is full (0 to 150)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passExpectetdFarDistMax"
+  Type = "int"
+  Label = { es = "Valor esperado hasta (m)", en = "Expected value up to (m)" }
+  Help = { es = "Longitud del pase hasta la que un pase más largo gana valor esperado (0 a 150).", en = "Pass length up to which a longer pass gains expected value (0 to 150)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.passTrgDirDistExpectedRateRatio"
+  Type = "float"
+  Label = { es = "Peso de la distancia hacia delante", en = "Forward distance weight" }
+  Help = { es = "Peso de la distancia hacia delante que gana un pase en su valor esperado (0 a 10).", en = "Weight of the forward distance a pass gains in its expected value (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.globals.throuthPassTargetLengthAdjustRate"
+  Type = "float"
+  Label = { es = "Adelanto del pase en profundidad", en = "Through-ball lead" }
+  Help = { es = "Cuánto se adelanta un pase en profundidad al espacio del receptor (x su carrera) (0 a 10).", en = "Lead of a through-ball into the receiver's space (times his run) (0 to 10)." }
+  [[Shape.Field]]
+  Key = "retail_ai.field_range"
+  Type = "table"
+  Label = { es = "Rango defensivo", en = "Defensive range" }
+  Help = { es = "Alcance de la acción defensiva del juego, para ambos equipos.", en = "The game's defensive action range, for both teams." }
+  [[Shape.Field]]
+  Key = "retail_ai.field_range.canDefenseActionLen2_mult"
+  Type = "float"
+  Label = { es = "Alcance de la acción defensiva", en = "Defensive action range" }
+  Help = { es = "Distancia al cuadrado (m2) del portador a la que es posible la acción de un defensa (25 = 5 m) (0 a 400).", en = "Squared distance (m2) from the ball owner at which a defender's action is possible (25 = 5 m) (0 to 400)." }
+  [[Shape.Field]]
+  Key = "retail_ai.skill_duel"
+  Type = "table"
+  Label = { es = "Duelo de supertécnicas", en = "Move against move duel" }
+  Help = { es = "La tabla de victoria del juego en un duelo de supertécnicas, para ambos equipos.", en = "The game's win table in a move against move duel, for both teams." }
+  [[Shape.Field]]
+  Key = "retail_ai.skill_duel.skillBattleWinPercent0_HighPowerRatio"
+  Type = "float"
+  Label = { es = "Proporción con tirada al 50 %", en = "Ratio with a 50 % roll" }
+  Help = { es = "Hasta esta proporción de potencias (mayor / menor) el duelo es 50 %. 1 = solo un empate exacto. Valor del juego: 1,2.", en = "Up to this power ratio (higher / lower) the duel is 50 %. 1 = only an exact tie. The game's value: 1.2." }
+  [[Shape.Field]]
+  Key = "retail_ai.skill_duel.skillBattleWinPercent1_HighPowerRatio"
+  Type = "float"
+  Label = { es = "Proporción con tirada al 60 %", en = "Ratio with a 60 % roll" }
+  Help = { es = "Hasta esta proporción gana el más fuerte el 60 %. -1 = sin esta fila: la potencia mayor gana siempre. Valor del juego: 1,5.", en = "Up to this ratio the stronger side wins 60 %. -1 = no such row: the higher power always wins. The game's value: 1.5." }
+  [[Shape.Field]]
+  Key = "situations"
+  Type = "table"
+  Label = { es = "Situaciones del rival", en = "Rival situations" }
+  Help = { es = "Ajustes de IA que se aplican cuando se da cada situación.", en = "AI tweaks applied while each situation holds." }
+  [[Shape.Field]]
+  Key = "situations.opponent_received_pass_within"
+  Type = "table"
+  Label = { es = "Rival acaba de recibir un pase", en = "Opponent just received a pass" }
+  Help = { es = "Situación: un jugador del otro bando recibió un pase de un compañero hace menos de «umbral» segundos.", en = "A player of the other side received a pass from a teammate less than the threshold seconds ago." }
+  [[Shape.Field]]
+  Key = "situations.opponent_received_pass_within.value"
+  Type = "float"
+  Label = { es = "Umbral (segundos)", en = "Threshold (seconds)" }
+  Help = { es = "Valor que activa esta situación (segundos).", en = "Value that triggers this situation (seconds)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_received_pass_within.uPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que presionan", en = "Pressing players" }
+  Help = { es = "Jugadores que presionan al portador a la vez (0 a 11).", en = "Players that press the ball owner at once (0 to 11)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_received_pass_within.uNoStopPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que presionan sin parar", en = "Non-stop pressers" }
+  Help = { es = "Jugadores que presionan sin detenerse (0 a 11).", en = "Players that press without stopping (0 to 11)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_ball_owner_stamina_below"
+  Type = "table"
+  Label = { es = "Portador rival cansado", en = "Opponent carrier tired" }
+  Help = { es = "Situación: el otro bando tiene el balón y la resistencia de su portador está por debajo del umbral (razón).", en = "The other side holds the ball and its owner's stamina ratio is below the threshold." }
+  [[Shape.Field]]
+  Key = "situations.opponent_ball_owner_stamina_below.value"
+  Type = "float"
+  Label = { es = "Umbral (resistencia)", en = "Threshold (stamina)" }
+  Help = { es = "Valor que activa esta situación (resistencia).", en = "Value that triggers this situation (stamina)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_ball_owner_stamina_below.uPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que presionan", en = "Pressing players" }
+  Help = { es = "Jugadores que presionan al portador a la vez (0 a 11).", en = "Players that press the ball owner at once (0 to 11)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_ball_owner_stamina_below.uNoStopPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que presionan sin parar", en = "Non-stop pressers" }
+  Help = { es = "Jugadores que presionan sin detenerse (0 a 11).", en = "Players that press without stopping (0 to 11)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_keeper_bar_above"
+  Type = "table"
+  Label = { es = "Barra de portero rival alta", en = "Opponent keeper bar high" }
+  Help = { es = "Situación: la barra del portero del otro bando está por encima del umbral (razón).", en = "The other side's keeper bar is above the threshold (a ratio)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_keeper_bar_above.value"
+  Type = "float"
+  Label = { es = "Umbral (barra de portero)", en = "Threshold (keeper bar)" }
+  Help = { es = "Valor que activa esta situación (barra de portero).", en = "Value that triggers this situation (keeper bar)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_keeper_bar_above.autoRunShootProbabilityMax"
+  Type = "int"
+  Label = { es = "Probabilidad de decidir tiro (%)", en = "Shot decision chance (%)" }
+  Help = { es = "Porcentaje en que el equipo decide tirar en cada tirada (0 a 100).", en = "Percent the team decides to shoot (each roll) (0 to 100)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_keeper_bar_above.autoRunShootIntervalMax"
+  Type = "float"
+  Label = { es = "Tiro forzado tras (s)", en = "Forced shot after (s)" }
+  Help = { es = "Segundos tras los cuales se fuerza la decisión de tirar (0 a 120).", en = "Seconds after which a shot decision is forced (0 to 120)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_dribbles_often"
+  Type = "table"
+  Label = { es = "Rival regatea a menudo", en = "Opponent dribbles often" }
+  Help = { es = "Situación: más del umbral de las posesiones del otro bando acaban de otro modo (avanza, pierde, tira).", en = "More than the threshold of the other side's possessions end otherwise (carried on, lost, shot)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_dribbles_often.value"
+  Type = "float"
+  Label = { es = "Umbral (proporción)", en = "Threshold (share)" }
+  Help = { es = "Valor que activa esta situación (proporción).", en = "Value that triggers this situation (share)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_dribbles_often.uPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que presionan", en = "Pressing players" }
+  Help = { es = "Jugadores que presionan al portador a la vez (0 a 11).", en = "Players that press the ball owner at once (0 to 11)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_dribbles_often.slidingEnableRate"
+  Type = "float"
+  Label = { es = "Probabilidad de entrada deslizante", en = "Slide tackle chance" }
+  Help = { es = "Probabilidad de hacer una entrada deslizante (0 a 1).", en = "Chance to slide-tackle (0 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_passes_often"
+  Type = "table"
+  Label = { es = "Rival pasa a menudo", en = "Opponent passes often" }
+  Help = { es = "Situación: más del umbral de las posesiones del otro bando acaban en pase a un compañero.", en = "More than the threshold of the other side's possessions end in a pass to a teammate." }
+  [[Shape.Field]]
+  Key = "situations.opponent_passes_often.value"
+  Type = "float"
+  Label = { es = "Umbral (proporción)", en = "Threshold (share)" }
+  Help = { es = "Valor que activa esta situación (proporción).", en = "Value that triggers this situation (share)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_passes_often.uNoStopPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que presionan sin parar", en = "Non-stop pressers" }
+  Help = { es = "Jugadores que presionan sin detenerse (0 a 11).", en = "Players that press without stopping (0 to 11)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_duel_side_bias_above"
+  Type = "table"
+  Label = { es = "Rival se decanta por un lado en duelos", en = "Opponent favours one side in duels" }
+  Help = { es = "Situación: los pasos laterales y rupturas en ángulo del otro bando van a un mismo lado más del umbral.", en = "The other side's duel side steps and angled breakthroughs go to one side more than the threshold." }
+  [[Shape.Field]]
+  Key = "situations.opponent_duel_side_bias_above.value"
+  Type = "float"
+  Label = { es = "Umbral (proporción)", en = "Threshold (share)" }
+  Help = { es = "Valor que activa esta situación (proporción).", en = "Value that triggers this situation (share)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_duel_side_bias_above.focusDefImmediateSkillRate"
+  Type = "float"
+  Label = { es = "Defensor usa técnica al inicio", en = "Defender moves at start" }
+  Help = { es = "El defensor usa una técnica al empezar el duelo (0 a 1).", en = "Defender uses a move at the start of the duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_duel_side_bias_above.focusPowerBlockUseRate"
+  Type = "float"
+  Label = { es = "Usa bloqueo de potencia", en = "Uses power block" }
+  Help = { es = "Usa el bloqueo de potencia en un duelo (0 a 1).", en = "Uses the power block in a duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_duel_pass_out_above"
+  Type = "table"
+  Label = { es = "Rival pasa al salir de duelos", en = "Opponent passes out of duels" }
+  Help = { es = "Situación: el otro bando pasa al salir de un duelo en más del umbral de sus acciones de duelo.", en = "The other side passes out of a duel in more than the threshold of its duel actions." }
+  [[Shape.Field]]
+  Key = "situations.opponent_duel_pass_out_above.value"
+  Type = "float"
+  Label = { es = "Umbral (proporción)", en = "Threshold (share)" }
+  Help = { es = "Valor que activa esta situación (proporción).", en = "Value that triggers this situation (share)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_duel_pass_out_above.focusDefImmediateSkillRate"
+  Type = "float"
+  Label = { es = "Defensor usa técnica al inicio", en = "Defender moves at start" }
+  Help = { es = "El defensor usa una técnica al empezar el duelo (0 a 1).", en = "Defender uses a move at the start of the duel (0 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.own_lost_ball_within"
+  Type = "table"
+  Label = { es = "Acaba de perder el balón", en = "Just lost the ball" }
+  Help = { es = "Situación: el bando perdió el balón hace menos de «umbral» segundos y el otro aún lo tiene.", en = "The side lost the ball less than the threshold seconds ago and the other side still holds it." }
+  [[Shape.Field]]
+  Key = "situations.own_lost_ball_within.value"
+  Type = "float"
+  Label = { es = "Umbral (segundos)", en = "Threshold (seconds)" }
+  Help = { es = "Valor que activa esta situación (segundos).", en = "Value that triggers this situation (seconds)." }
+  [[Shape.Field]]
+  Key = "situations.own_lost_ball_within.uPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que presionan", en = "Pressing players" }
+  Help = { es = "Jugadores que presionan al portador a la vez (0 a 11).", en = "Players that press the ball owner at once (0 to 11)." }
+  [[Shape.Field]]
+  Key = "situations.own_lost_ball_within.uNoStopPressCharaNumMax"
+  Type = "int"
+  Label = { es = "Jugadores que presionan sin parar", en = "Non-stop pressers" }
+  Help = { es = "Jugadores que presionan sin detenerse (0 a 11).", en = "Players that press without stopping (0 to 11)." }
+  [[Shape.Field]]
+  Key = "situations.own_lost_ball_over"
+  Type = "table"
+  Label = { es = "Lleva tiempo sin balón", en = "Long without the ball" }
+  Help = { es = "Situación: el bando perdió el balón hace al menos «umbral» segundos y el otro aún lo tiene.", en = "The side lost the ball at least the threshold seconds ago and the other side still holds it." }
+  [[Shape.Field]]
+  Key = "situations.own_lost_ball_over.value"
+  Type = "float"
+  Label = { es = "Umbral (segundos)", en = "Threshold (seconds)" }
+  Help = { es = "Valor que activa esta situación (segundos).", en = "Value that triggers this situation (seconds)." }
+  [[Shape.Field]]
+  Key = "situations.own_lost_ball_over.posOffsetRateFW"
+  Type = "float"
+  Label = { es = "Desplazamiento de delanteros", en = "Forward offset" }
+  Help = { es = "Desplazamiento en profundidad de su puesto en el grupo de delanteros, en longitudes de media cancha (el juego usa 0) (-1 a 1).", en = "Depth offset of his spot in the forward group, in half-pitch lengths (the game uses 0) (-1 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.own_lost_ball_over.posOffsetRateMF"
+  Type = "float"
+  Label = { es = "Desplazamiento de centrocampistas", en = "Midfielder offset" }
+  Help = { es = "Desplazamiento en profundidad de su puesto en el grupo de centrocampistas, en longitudes de media cancha (el juego usa 0) (-1 a 1).", en = "Depth offset of his spot in the midfield group, in half-pitch lengths (the game uses 0) (-1 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.own_lost_ball_over.posOffsetRateDF"
+  Type = "float"
+  Label = { es = "Desplazamiento de defensas", en = "Defender offset" }
+  Help = { es = "Desplazamiento en profundidad de su puesto en el grupo de defensas, en longitudes de media cancha (el juego usa 0) (-1 a 1).", en = "Depth offset of his spot in the defender group, in half-pitch lengths (the game uses 0) (-1 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under"
+  Type = "table"
+  Label = { es = "Acaba de ganar el balón", en = "Just won the ball" }
+  Help = { es = "Situación: el bando ganó el balón hace menos de «umbral» segundos y aún lo tiene.", en = "The side won the ball less than the threshold seconds ago and still holds it." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.value"
+  Type = "float"
+  Label = { es = "Umbral (segundos)", en = "Threshold (seconds)" }
+  Help = { es = "Valor que activa esta situación (segundos).", en = "Value that triggers this situation (seconds)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.passPotentialToGoal"
+  Type = "int"
+  Label = { es = "Valor de pase hacia la portería", en = "Pass value toward goal" }
+  Help = { es = "Valor del destino del pase hacia la portería (0 a 100000).", en = "Pass target value toward the goal (0 to 100000)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.passWeightBackPasss"
+  Type = "int"
+  Label = { es = "Peso de pases atrás", en = "Back pass weight" }
+  Help = { es = "Peso de los pases hacia atrás (0 a 1000).", en = "Weight of back passes (0 to 1000)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.passFarDistBase"
+  Type = "int"
+  Label = { es = "Pase largo desde (m)", en = "Long pass from (m)" }
+  Help = { es = "Longitud del pase desde la que empieza a bajar el acierto (0 a 100).", en = "Pass length from which the pass success starts to drop (0 to 100)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.passFarDistMax"
+  Type = "int"
+  Label = { es = "Pase largo máximo (m)", en = "Long pass maximum (m)" }
+  Help = { es = "Longitud del pase a la que la caída de acierto por distancia es total (0 a 150).", en = "Pass length at which the distance drop of the pass success is full (0 to 150)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.passExpectetdFarDistMax"
+  Type = "int"
+  Label = { es = "Valor esperado hasta (m)", en = "Expected value up to (m)" }
+  Help = { es = "Longitud del pase hasta la que un pase más largo gana valor esperado (0 a 150).", en = "Pass length up to which a longer pass gains expected value (0 to 150)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.passTrgDirDistExpectedRateRatio"
+  Type = "float"
+  Label = { es = "Peso de la distancia hacia delante", en = "Forward distance weight" }
+  Help = { es = "Peso de la distancia hacia delante que gana un pase en su valor esperado (0 a 10).", en = "Weight of the forward distance a pass gains in its expected value (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.throuthPassTargetLengthAdjustRate"
+  Type = "float"
+  Label = { es = "Adelanto del pase en profundidad", en = "Through-ball lead" }
+  Help = { es = "Cuánto se adelanta un pase en profundidad al espacio del receptor (x su carrera) (0 a 10).", en = "Lead of a through-ball into the receiver's space (times his run) (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.positioningOffenseDirPosOffsetDist"
+  Type = "int"
+  Label = { es = "Avance de posición en ataque (m)", en = "Attack position shift (m)" }
+  Help = { es = "Metros que se adelanta la posición de un jugador mientras su equipo tiene el balón (0 a 30).", en = "Metres a player's position moves toward the attack while his side holds the ball (0 to 30)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.offensePosOffsetDistRateOffense"
+  Type = "float"
+  Label = { es = "Multiplicador de avance de atacantes", en = "Attacker shift multiplier" }
+  Help = { es = "Multiplica ese avance para los jugadores atacantes (0 a 10).", en = "Multiplier of that forward move for attacking players (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.dashLineDashLotteryIntervalMin"
+  Type = "float"
+  Label = { es = "Intervalo de esprint mínimo (s)", en = "Sprint interval min (s)" }
+  Help = { es = "Segundos mínimos entre decisiones de esprint del portador (0 a 10).", en = "Shortest seconds between dash decisions of the ball carrier (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_under.dashLineDashLotteryIntervalMax"
+  Type = "float"
+  Label = { es = "Intervalo de esprint máximo (s)", en = "Sprint interval max (s)" }
+  Help = { es = "Segundos máximos entre decisiones de esprint del portador (0 a 10).", en = "Longest seconds between dash decisions of the ball carrier (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over"
+  Type = "table"
+  Label = { es = "Lleva tiempo con el balón", en = "Long on the ball" }
+  Help = { es = "Situación: el bando lleva al menos «umbral» segundos con el balón.", en = "The side has held the ball for at least the threshold seconds." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over.value"
+  Type = "float"
+  Label = { es = "Umbral (segundos)", en = "Threshold (seconds)" }
+  Help = { es = "Valor que activa esta situación (segundos).", en = "Value that triggers this situation (seconds)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over.passPotentialToGoal"
+  Type = "int"
+  Label = { es = "Valor de pase hacia la portería", en = "Pass value toward goal" }
+  Help = { es = "Valor del destino del pase hacia la portería (0 a 100000).", en = "Pass target value toward the goal (0 to 100000)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over.passPotentialFromOpp"
+  Type = "int"
+  Label = { es = "Valor de pase lejos de rivales", en = "Pass value away from rivals" }
+  Help = { es = "Valor del destino del pase alejado de rivales (0 a 100000).", en = "Pass target value away from rivals (0 to 100000)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over.passWeightBackPasss"
+  Type = "int"
+  Label = { es = "Peso de pases atrás", en = "Back pass weight" }
+  Help = { es = "Peso de los pases hacia atrás (0 a 1000).", en = "Weight of back passes (0 to 1000)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over.passDisableBackPassPosRateZ"
+  Type = "float"
+  Label = { es = "Profundidad sin pases atrás", en = "Back pass cutoff depth" }
+  Help = { es = "Profundidad del campo más allá de la cual cesan los pases atrás (-1 a 1).", en = "Pitch depth beyond which back passes stop (-1 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over.tacticsDribbleEvaluationPhaseEvaluationWeight"
+  Type = "int"
+  Label = { es = "Regate: peso de la fase", en = "Dribble: phase weight" }
+  Help = { es = "Al elegir regate, peso del valor de la fase (0 a 1000).", en = "Dribble choice: weight of the phase value (0 to 1000)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over.dashLineDashLotteryIntervalMin"
+  Type = "float"
+  Label = { es = "Intervalo de esprint mínimo (s)", en = "Sprint interval min (s)" }
+  Help = { es = "Segundos mínimos entre decisiones de esprint del portador (0 a 10).", en = "Shortest seconds between dash decisions of the ball carrier (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over.dashLineDashLotteryIntervalMax"
+  Type = "float"
+  Label = { es = "Intervalo de esprint máximo (s)", en = "Sprint interval max (s)" }
+  Help = { es = "Segundos máximos entre decisiones de esprint del portador (0 a 10).", en = "Longest seconds between dash decisions of the ball carrier (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over.posOffsetRateFW"
+  Type = "float"
+  Label = { es = "Desplazamiento de delanteros", en = "Forward offset" }
+  Help = { es = "Desplazamiento en profundidad de su puesto en el grupo de delanteros, en longitudes de media cancha (el juego usa 0) (-1 a 1).", en = "Depth offset of his spot in the forward group, in half-pitch lengths (the game uses 0) (-1 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.own_possession_over.posOffsetRateDF"
+  Type = "float"
+  Label = { es = "Desplazamiento de defensas", en = "Defender offset" }
+  Help = { es = "Desplazamiento en profundidad de su puesto en el grupo de defensas, en longitudes de media cancha (el juego usa 0) (-1 a 1).", en = "Depth offset of his spot in the defender group, in half-pitch lengths (the game uses 0) (-1 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_line_over"
+  Type = "table"
+  Label = { es = "Línea rival muy atrasada", en = "Opponent line very deep" }
+  Help = { es = "Situación: el bando tiene el balón y el jugador de campo más retrasado del otro está al menos «umbral» metros por delante de su portería.", en = "The side holds the ball and the other side's deepest outfield player stands at least the threshold metres in front." }
+  [[Shape.Field]]
+  Key = "situations.opponent_line_over.value"
+  Type = "float"
+  Label = { es = "Umbral (metros)", en = "Threshold (metres)" }
+  Help = { es = "Valor que activa esta situación (metros).", en = "Value that triggers this situation (metres)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_line_over.passPotentialToGoal"
+  Type = "int"
+  Label = { es = "Valor de pase hacia la portería", en = "Pass value toward goal" }
+  Help = { es = "Valor del destino del pase hacia la portería (0 a 100000).", en = "Pass target value toward the goal (0 to 100000)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_line_over.passFarDistBase"
+  Type = "int"
+  Label = { es = "Pase largo desde (m)", en = "Long pass from (m)" }
+  Help = { es = "Longitud del pase desde la que empieza a bajar el acierto (0 a 100).", en = "Pass length from which the pass success starts to drop (0 to 100)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_line_over.passFarDistMax"
+  Type = "int"
+  Label = { es = "Pase largo máximo (m)", en = "Long pass maximum (m)" }
+  Help = { es = "Longitud del pase a la que la caída de acierto por distancia es total (0 a 150).", en = "Pass length at which the distance drop of the pass success is full (0 to 150)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_line_over.passExpectetdFarDistMax"
+  Type = "int"
+  Label = { es = "Valor esperado hasta (m)", en = "Expected value up to (m)" }
+  Help = { es = "Longitud del pase hasta la que un pase más largo gana valor esperado (0 a 150).", en = "Pass length up to which a longer pass gains expected value (0 to 150)." }
+  [[Shape.Field]]
+  Key = "situations.opponent_line_over.throuthPassTargetLengthAdjustRate"
+  Type = "float"
+  Label = { es = "Adelanto del pase en profundidad", en = "Through-ball lead" }
+  Help = { es = "Cuánto se adelanta un pase en profundidad al espacio del receptor (x su carrera) (0 a 10).", en = "Lead of a through-ball into the receiver's space (times his run) (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within"
+  Type = "table"
+  Label = { es = "Portador presionado de cerca", en = "Carrier pressed closely" }
+  Help = { es = "Situación: el bando tiene el balón y un jugador de campo rival está a menos de «umbral» metros.", en = "The side holds the ball and an outfield player of the other side stands within the threshold metres." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within.value"
+  Type = "float"
+  Label = { es = "Umbral (metros)", en = "Threshold (metres)" }
+  Help = { es = "Valor que activa esta situación (metros).", en = "Value that triggers this situation (metres)." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within.passLotteryIntervalMin"
+  Type = "float"
+  Label = { es = "Intervalo de pase mínimo (s)", en = "Pass interval min (s)" }
+  Help = { es = "Segundos mínimos entre decisiones de pase (0 a 10).", en = "Shortest seconds between pass decisions (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within.passLotteryIntervalMax"
+  Type = "float"
+  Label = { es = "Intervalo de pase máximo (s)", en = "Pass interval max (s)" }
+  Help = { es = "Segundos máximos entre decisiones de pase (0 a 10).", en = "Longest seconds between pass decisions (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within.fAutoPassIntervalTime"
+  Type = "float"
+  Label = { es = "Retención antes de pase automático (s)", en = "Hold before auto pass (s)" }
+  Help = { es = "Segundos que el portador retiene el balón antes de un pase automático (0 a 10).", en = "Seconds the ball owner holds the ball before an automatic pass (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within.defaultWaitTimeMax"
+  Type = "float"
+  Label = { es = "Pausa de espera (s)", en = "Wait pause (s)" }
+  Help = { es = "Segundos que dura una acción de espera sin duración propia (las pausas de la CPU) (0 a 10).", en = "Seconds a wait action without its own duration lasts (the CPU's idle pauses) (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within.tacticsPassEvaluationSuccessRateWeight"
+  Type = "int"
+  Label = { es = "Pase: peso del acierto", en = "Pass: success weight" }
+  Help = { es = "Al elegir pase, peso de la tasa de acierto (0 a 1000).", en = "Pass choice: weight of the success rate (0 to 1000)." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within.passNearEnemyNumSuccessRateRatio"
+  Type = "float"
+  Label = { es = "Acierto perdido por rival cercano", en = "Success lost per nearby rival" }
+  Help = { es = "Acierto del pase que se pierde por cada rival cercano (0 a 10).", en = "Pass success lost per nearby rival (0 to 10)." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within.passEnableRate"
+  Type = "float"
+  Label = { es = "Probabilidad de pasar", en = "Pass chance" }
+  Help = { es = "Probabilidad de pasar cuando un pase es posible (0 a 1).", en = "Chance to pass when a pass is possible (0 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within.normalDashEnableRate"
+  Type = "float"
+  Label = { es = "Probabilidad de esprintar", en = "Sprint chance" }
+  Help = { es = "Probabilidad de esprintar en juego abierto (0 a 1).", en = "Chance to sprint in open play (0 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.own_carrier_pressed_within.attackDashEnableRate"
+  Type = "float"
+  Label = { es = "Probabilidad de embestir", en = "Dash attack chance" }
+  Help = { es = "Probabilidad de usar la embestida al correr (0 a 1).", en = "Chance to use the dash attack (0 to 1)." }
+  [[Shape.Field]]
+  Key = "situations.own_zone"
+  Type = "table"
+  Label = { es = "En su zona de tiro", en = "In its shoot zone" }
+  Help = { es = "Situación: el bando está en su propia zona de tiro.", en = "The side is in its own shoot zone." }
+  [[Shape.Field]]
+  Key = "situations.own_zone.keepTention"
+  Type = "float"
+  Label = { es = "Tensión que conserva", en = "Tension kept" }
+  Help = { es = "Tensión que guarda tras una técnica en su zona de tiro (0 a 300).", en = "Tension it keeps after a move in its shoot zone (0 to 300)." }

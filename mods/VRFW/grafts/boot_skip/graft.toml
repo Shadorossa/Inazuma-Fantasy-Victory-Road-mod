@@ -1,0 +1,24 @@
+# Boot skip: the logos and the warning screens of title_main are skipped (LogoStart).
+# A VR-Framework base service: built into mod vr_framework (`menu_assemble.py build --mod
+# vr_framework`, packed by framework_pack.py under save/lua/title_main/), behind the framework option
+# "Skip start-up notices" (row mods_menu.skip_boot_screens, research/mods/VRFW/content/options/mods_screen.toml; default ON).
+# boot_skip.lua: a LogoStart WRAPPER only (no retail function redefined, no retail local, no movie id): while LogoStart
+# runs, PlayTitleMovie plays only the id GetPlayOpeningEventId() answered (the logos before it are skipped, whatever
+# their ids) and the warning functions are replaced; the definitions found at that moment are put back before
+# TitleStart. title_main is patched at run time (lua_patch, patch mode): other mods' title_main grafts ship their own
+# patch files, so each runs without the other.
+name = "boot_skip"
+order = 100
+mod = "VRFW"
+requires = []
+conflicts = []
+wraps = ["LogoStart"]
+description = "Boot: skip logos and warnings (framework option «Saltar avisos de inicio»)"
+
+[[files]]
+stem = "title_main"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "boot_skip.lua"
+  marker = "boot_skip"

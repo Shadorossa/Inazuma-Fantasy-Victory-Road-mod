@@ -1,0 +1,29 @@
+schema = "VRFW.text_key/1"
+# Texts of the Mods screen's top row (tabs, search, view, order, profile); merged after text.toml.
+
+[en.new]
+count_short = "{n}/{t} · {a} on"
+
+[es.new]
+count_short = "{n}/{t} · {a} activos"
+
+[fr.new]
+count_short = "{n}/{t} · {a} actifs"
+
+[de.new]
+count_short = "{n}/{t} · {a} aktiv"
+
+[it.new]
+count_short = "{n}/{t} · {a} attive"
+
+[pt.new]
+count_short = "{n}/{t} · {a} ativos"
+
+[ja.new]
+count_short = "{n}/{t}・有効 {a}"
+
+[zh_hans.new]
+count_short = "{n}/{t} · 已启用 {a}"
+
+[zh_hant.new]
+count_short = "{n}/{t} · 已啟用 {a}"

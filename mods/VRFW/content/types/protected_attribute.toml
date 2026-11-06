@@ -1,0 +1,13 @@
+# Declares `[[VRFW.ProtectedAttribute]]` keys for content\protected_attributes\*.toml (read by scripts\lib\protected_attributes.lua).
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.protected_attribute/1"
+folder = "content/protected_attributes"
+label = "Protected attributes"
+label_es = "Atributos protegidos"
+doc = "A bit of a saved player's attribute word that framework services never change."
+doc_es = "Un bit de la palabra de atributos de un jugador guardado que los servicios del framework nunca cambian."
+
+[entry.ProtectedAttribute]
+doc = "a bit of a saved player record's attribute word that framework services never change on that record"
+name = { type = "name", required = true, doc = "the bit's name (key <mod>.<name>)" }
+bit = { type = "int", min = 1, max = 4294967295, required = true, doc = "the bit's value (one bit: 0x10000000)" }

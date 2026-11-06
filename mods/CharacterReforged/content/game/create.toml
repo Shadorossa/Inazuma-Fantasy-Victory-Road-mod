@@ -1,0 +1,62 @@
+schema = "VRFW.game/2"
+# Character Reforged › the commands of the base game's «Crear …» entry.
+# The rows are the systems the active mods declare ([CharacterReforged.Create.<system>] in content\pairing\*.toml); each
+# system's own store command keeps the pair (the graft calls it by its id).
+
+# (charaHdl) -> n, create item 1 .. n: the rows of the aura piece's list; the board slots remembered (n = 0: no row)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_BEGIN"
+handler = "CharacterReforged.Create.Begin"
+
+# () -> n, create item 1 .. n: every declared system's create item (the «Fantasy» skill table's picker; nothing remembered)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_ITEMS"
+handler = "CharacterReforged.Create.Items"
+
+# (item) -> row (0 = not a create item), the system's store command id, plays the creation scene, the system's check
+# command id (0 = none) (the «Fantasy» skill table's pick, the
+# greyed «create» rows)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_ROW"
+handler = "CharacterReforged.Create.Row"
+
+# (charaHdl) -> row (0 = no create item picked), board slot, the system's store command id
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_PICKED"
+handler = "CharacterReforged.Create.Picked"
+
+# (row) -> n, confirmId, confirmText, confirmIcon, previewCommand, checkCommand, prohibitedCodes,
+# prohibitedBadge: the partner moves the bank
+# asks for (the pairing rule `moves`; 0 = none), the text of its confirmation window, the sprite between its two cards, the
+# stat preview command and the system's check command (the
+# partners it refuses are greyed; 0 = none), the check codes shown with the prohibited corner badge and its sprite
+# (bank_create_moves_hooks.lua of graft
+# character_reforged_board; the cards: pair_confirm_window_hooks.lua)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_MOVES"
+handler = "CharacterReforged.Create.Moves"
+
+# (row, k) -> the system's carrier item id (k = the store's carrier index)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_CARRIER"
+handler = "CharacterReforged.Create.Carrier"
+
+# (charaHdl, slot, carrierInv) -> ok: the carrier on that board slot (the game's placement)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_PLACE"
+handler = "CharacterReforged.Create.Place"
+
+# (charaHdl, slot) -> ok: the slot gets back what it held before the list (refused / cancelled)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_RESTORE"
+handler = "CharacterReforged.Create.Restore"
+
+# (row, code) -> labelId, reasonId, labelText, reasonText: the refusal window's texts (code 0 = none, -4 = the avatar)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_REFUSAL"
+handler = "CharacterReforged.Create.Refusal"
+
+# (step, values…) -> true: one loader.log line per step of the graft («create: board <step> …»)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_LOG"
+handler = "CharacterReforged.Create.Log"

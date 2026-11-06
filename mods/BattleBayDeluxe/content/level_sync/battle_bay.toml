@@ -1,0 +1,11 @@
+schema = "VRFW.level_sync/1"
+
+# The own team would come out at level 99, so it is synced to level 40 while keeping all its unlocked special moves.
+# Every Battle Bay match (Campaña, Torneo, Draft, the free 1 vs 1) is played on
+# the game fbtl_bb_stadium_00 (its 4 difficulty rows only change the AI): the user's players play with their Lv 40
+# stats, above or below it. Only the match stats change: the saved players keep their level, EXP and moves, so every
+# move they have stays usable.
+[[VRFW.LevelSync]]
+name = "battle_bay_lv40"
+games = ["fbtl_bb_stadium_00"]
+level = 40

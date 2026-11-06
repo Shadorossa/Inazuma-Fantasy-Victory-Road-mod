@@ -1,0 +1,418 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "heroic"
+  Type = "table"
+  Label = { es = "Batalla heroica", en = "Heroic battle" }
+  Help = { es = "Nivel de los rivales de las Batallas heroicas a lo largo de la Crónica.", en = "Rival level of the heroic battles along the Chronicle." }
+  [[Shape.Field]]
+  Key = "heroic.first_level"
+  Type = "int"
+  Label = { es = "Nivel de la primera batalla", en = "First battle level" }
+  Help = { es = "Nivel del rival en la primera Batalla heroica.", en = "Rival level in the first heroic battle." }
+  [[Shape.Field]]
+  Key = "heroic.last_level"
+  Type = "int"
+  Label = { es = "Nivel de la última batalla", en = "Last battle level" }
+  Help = { es = "Nivel del rival en la última Batalla heroica.", en = "Rival level in the last heroic battle." }
+  [[Shape.Field]]
+  Key = "heroic.curve_exponent"
+  Type = "float"
+  Label = { es = "Curva de nivel", en = "Level curve" }
+  Help = { es = "Forma de la subida de nivel entre la primera y la última batalla (1 = recta).", en = "Shape of the level rise from the first to the last battle (1 = straight)." }
+  [[Shape.Field]]
+  Key = "heroic.level_sync_below_percent"
+  Type = "int"
+  Label = { es = "Sincronía de nivel (% por debajo)", en = "Level sync (% below)" }
+  Help = { es = "Tu equipo juega al nivel del rival rebajado este porcentaje; los jugadores más fuertes bajan a él.", en = "Your team plays at the rival level lowered by this percent; stronger players are brought down to it." }
+  [[Shape.Field]]
+  Key = "heroic.gate_kits"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Equipaciones de batallas puerta", en = "Gate battle kits" }
+  Help = { es = "Batallas puerta cuya primera victoria da también la equipación del rival. Lo escribe un script de generación.", en = "Gate battles whose first win also gives the rival kit. Written by a build script." }
+  [[Shape.Field]]
+  Key = "heroic.rival_rewards"
+  Type = "list"
+  Label = { es = "Recompensas de partidos libres", en = "Free match rewards" }
+  Help = { es = "Partidos libres cuya primera victoria da el escudo y la equipación del rival si aún no los tienes.", en = "Free matches whose first win gives the rival crest and kit if you have none yet." }
+  [[Shape.Field]]
+  Key = "heroic.chain_rewards"
+  Type = "list"
+  Label = { es = "Recompensas de cadenas", en = "Chain rewards" }
+  Help = { es = "Partidos de cadena cuya primera victoria da el escudo y la equipación del equipo si aún no los tienes.", en = "Chain match tiles whose first win gives the team crest and kit if you have none yet." }
+  [[Shape.Field]]
+  Key = "heroic.heroic_kits"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Equipaciones de rivales heroicos", en = "Heroic rival kits" }
+  Help = { es = "Rivales heroicos con uniforme sin objeto en el juego: se crea el objeto de equipación.", en = "Heroic rivals whose uniform has no kit item in the game: the kit item is created." }
+  [[Shape.Field]]
+  Key = "heroic.extra_kits"
+  Type = "list"
+  Label = { es = "Equipaciones sin dueño", en = "Unused kits" }
+  Help = { es = "Equipaciones del juego sin objeto ni equipo que las use; se dan con la primera batalla heroica.", en = "Kits in the game with no item and no team wearing them; given with the first heroic battle." }
+  [[Shape.Field]]
+  Key = "heroic.store_kits"
+  Type = "list"
+  Label = { es = "Equipaciones de tienda", en = "Store kits" }
+  Help = { es = "Equipaciones de equipos que se venden en una tienda.", en = "Kits of teams sold in a store." }
+  [[Shape.Field]]
+  Key = "heroic.players"
+  Type = "table"
+  Label = { es = "Jugadores heroicos", en = "Heroic players" }
+  Help = { es = "Reglas de los jugadores permitidos en las Batallas heroicas.", en = "Rules for the players allowed in heroic battles." }
+  [[Shape.Field]]
+  Key = "heroic.players.ramp_start"
+  Type = "int"
+  Label = { es = "Rampa: primera batalla", en = "Ramp start" }
+  Help = { es = "Batalla heroica desde la que empieza a subir la rampa de juegos permitidos.", en = "Heroic battle where the allowed-games ramp starts to rise." }
+  [[Shape.Field]]
+  Key = "heroic.players.ramp_end"
+  Type = "int"
+  Label = { es = "Rampa: última batalla", en = "Ramp end" }
+  Help = { es = "Batalla heroica en la que la rampa llega a su máximo.", en = "Heroic battle where the ramp reaches its maximum." }
+  [[Shape.Field]]
+  Key = "heroic.players.ramp_exponent"
+  Type = "float"
+  Label = { es = "Curva de la rampa", en = "Ramp curve" }
+  Help = { es = "Forma de la rampa (1 = recta).", en = "Shape of the ramp (1 = straight)." }
+  [[Shape.Field]]
+  Key = "heroic.players.cap_after_first_game"
+  Type = "bool"
+  Label = { es = "Límite tras el primer juego", en = "Cap after first game" }
+  Help = { es = "Si se activa, el límite por saga se aplica a jugadores de juegos posteriores a su primera aparición.", en = "When on, the per-series cap applies to players after their first game." }
+  [[Shape.Field]]
+  Key = "heroic.players.max_per_series"
+  Type = "int"
+  Label = { es = "Máximo de jugadores por saga", en = "Max players per series" }
+  Help = { es = "Máximo de jugadores de una misma saga en tu alineación (0 = sin límite).", en = "Most players of one series in your line-up (0 = no limit)." }
+  [[Shape.Field]]
+  Key = "heroic.players.short_names"
+  Type = "table"
+  Label = { es = "Nombres cortos de juegos", en = "Game short names" }
+  Help = { es = "Nombres cortos que usa la info del partido para cada juego.", en = "Short names the match info uses for each game." }
+  [[Shape.Field]]
+  Key = "heroic.players.short_names.ie1"
+  Type = "string"
+  Label = { es = "Nombre corto: IE1", en = "Short name: IE1" }
+  Help = { es = "Nombre del primer Inazuma Eleven.", en = "Name of the first Inazuma Eleven." }
+  [[Shape.Field]]
+  Key = "heroic.players.short_names.ie2"
+  Type = "string"
+  Label = { es = "Nombre corto: IE2", en = "Short name: IE2" }
+  Help = { es = "Nombre de Inazuma Eleven 2.", en = "Name of Inazuma Eleven 2." }
+  [[Shape.Field]]
+  Key = "heroic.players.short_names.ie3"
+  Type = "string"
+  Label = { es = "Nombre corto: IE3", en = "Short name: IE3" }
+  Help = { es = "Nombre de Inazuma Eleven 3.", en = "Name of Inazuma Eleven 3." }
+  [[Shape.Field]]
+  Key = "heroic.players.short_names.go1"
+  Type = "string"
+  Label = { es = "Nombre corto: GO", en = "Short name: GO" }
+  Help = { es = "Nombre de Inazuma Eleven GO.", en = "Name of Inazuma Eleven GO." }
+  [[Shape.Field]]
+  Key = "heroic.players.short_names.go2"
+  Type = "string"
+  Label = { es = "Nombre corto: Chrono Stones", en = "Short name: Chrono Stones" }
+  Help = { es = "Nombre de GO Chrono Stones.", en = "Name of GO Chrono Stones." }
+  [[Shape.Field]]
+  Key = "heroic.players.short_names.go3"
+  Type = "string"
+  Label = { es = "Nombre corto: Galaxy", en = "Short name: Galaxy" }
+  Help = { es = "Nombre de GO Galaxy.", en = "Name of GO Galaxy." }
+  [[Shape.Field]]
+  Key = "heroic.players.short_names.ares"
+  Type = "string"
+  Label = { es = "Nombre corto: Ares", en = "Short name: Ares" }
+  Help = { es = "Nombre de Ares.", en = "Name of Ares." }
+  [[Shape.Field]]
+  Key = "heroic.players.short_names.orion"
+  Type = "string"
+  Label = { es = "Nombre corto: Orion", en = "Short name: Orion" }
+  Help = { es = "Nombre de Orion.", en = "Name of Orion." }
+  [[Shape.Field]]
+  Key = "heroic.players.short_names.victory_road"
+  Type = "string"
+  Label = { es = "Nombre corto: Victory Road", en = "Short name: Victory Road" }
+  Help = { es = "Nombre de Victory Road.", en = "Name of Victory Road." }
+  [[Shape.Field]]
+  Key = "heroic.required"
+  Type = "table"
+  Label = { es = "Titular obligatorio", en = "Required starter" }
+  Help = { es = "Jugador que debe estar en tu alineación inicial de cada Batalla heroica.", en = "Player that must be in your starting line-up in every heroic battle." }
+  [[Shape.Field]]
+  Key = "heroic.required.character"
+  Type = "string"
+  Label = { es = "Personaje obligatorio", en = "Required character" }
+  Help = { es = "Personaje que debe empezar el partido.", en = "Character that must start the match." }
+  [[Shape.Field]]
+  Key = "heroic.required.positions"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Posiciones permitidas", en = "Allowed positions" }
+  Help = { es = "Posiciones en las que puede jugar el personaje obligatorio.", en = "Positions the required character may play." }
+  [[Shape.Field]]
+  Key = "heroic.required.until_first_clear"
+  Type = "bool"
+  Label = { es = "Solo hasta la primera victoria", en = "Only until first win" }
+  Help = { es = "Si se activa, solo se exige hasta ganar la batalla una vez.", en = "When on, only required until the battle is won once." }
+  [[Shape.Field]]
+  Key = "heroic.auras"
+  Type = "table"
+  Label = { es = "Auras permitidas", en = "Allowed auras" }
+  Help = { es = "Tipos de aura que ambos equipos pueden usar en una Batalla heroica, según el juego de la batalla.", en = "Aura kinds both teams may use in a heroic battle, per the battle game." }
+  [[Shape.Field]]
+  Key = "heroic.auras.ie1"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Auras en IE1", en = "Auras in IE1" }
+  Help = { es = "Tipos de aura permitidos en batallas de IE1.", en = "Aura kinds allowed in IE1 battles." }
+  [[Shape.Field]]
+  Key = "heroic.auras.ie2"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Auras en IE2", en = "Auras in IE2" }
+  Help = { es = "Tipos de aura permitidos en batallas de IE2.", en = "Aura kinds allowed in IE2 battles." }
+  [[Shape.Field]]
+  Key = "heroic.auras.ie3"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Auras en IE3", en = "Auras in IE3" }
+  Help = { es = "Tipos de aura permitidos en batallas de IE3.", en = "Aura kinds allowed in IE3 battles." }
+  [[Shape.Field]]
+  Key = "heroic.auras.go1"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Auras en GO", en = "Auras in GO" }
+  Help = { es = "Tipos de aura permitidos en batallas de GO.", en = "Aura kinds allowed in GO battles." }
+  [[Shape.Field]]
+  Key = "heroic.auras.go2"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Auras en Chrono Stones", en = "Auras in Chrono Stones" }
+  Help = { es = "Tipos de aura permitidos en batallas de Chrono Stones.", en = "Aura kinds allowed in Chrono Stones battles." }
+  [[Shape.Field]]
+  Key = "heroic.auras.go3"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Auras en Galaxy", en = "Auras in Galaxy" }
+  Help = { es = "Tipos de aura permitidos en batallas de Galaxy.", en = "Aura kinds allowed in Galaxy battles." }
+  [[Shape.Field]]
+  Key = "heroic.auras.ares"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Auras en Ares", en = "Auras in Ares" }
+  Help = { es = "Tipos de aura permitidos en batallas de Ares.", en = "Aura kinds allowed in Ares battles." }
+  [[Shape.Field]]
+  Key = "heroic.auras.orion"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Auras en Orion", en = "Auras in Orion" }
+  Help = { es = "Tipos de aura permitidos en batallas de Orion.", en = "Aura kinds allowed in Orion battles." }
+  [[Shape.Field]]
+  Key = "free_match_base_form"
+  Type = "list"
+  Label = { es = "Equipos en forma base", en = "Base-form teams" }
+  Help = { es = "Equipos de partido libre cuyos jugadores juegan en su forma base. Lo escribe un script de generación.", en = "Free-match teams whose players play their base form. Written by a build script." }
+  [[Shape.Field]]
+  Key = "free_match_base_form.team"
+  Type = "string"
+  Label = { es = "Equipo", en = "Team" }
+  Help = { es = "Equipo del partido libre afectado.", en = "Free-match team affected." }
+  [[Shape.Field]]
+  Key = "free_match_base_form.name"
+  Type = "string"
+  Label = { es = "Regla", en = "Rule" }
+  Help = { es = "Nombre interno de la regla generada.", en = "Internal name of the generated rule." }
+  [[Shape.Field]]
+  Key = "free_match_base_form.coach"
+  Type = "bool"
+  Label = { es = "Incluir entrenador", en = "Include coach" }
+  Help = { es = "Si se activa, el entrenador también juega en forma base.", en = "When on, the coach also plays in base form." }
+  [[Shape.Field]]
+  Key = "free_match_shuffle"
+  Type = "list"
+  Label = { es = "Equipos con alineación cambiada", en = "Shuffled line-up teams" }
+  Help = { es = "Equipos de partido libre que juegan con la alineación intercambiada. Lo escribe un script de generación.", en = "Free-match teams that play with a swapped line-up. Written by a build script." }
+  [[Shape.Field]]
+  Key = "free_match_shuffle.team"
+  Type = "string"
+  Label = { es = "Equipo", en = "Team" }
+  Help = { es = "Equipo del partido libre afectado.", en = "Free-match team affected." }
+  [[Shape.Field]]
+  Key = "free_match_shuffle.name"
+  Type = "string"
+  Label = { es = "Regla", en = "Rule" }
+  Help = { es = "Nombre interno de la regla generada.", en = "Internal name of the generated rule." }
+  [[Shape.Field]]
+  Key = "free_match_shuffle.key"
+  Type = "string"
+  Label = { es = "Clave", en = "Key" }
+  Help = { es = "Clave interna de la regla.", en = "Internal key of the rule." }
+  [[Shape.Field]]
+  Key = "drops"
+  Type = "table"
+  Label = { es = "Botín de los rivales", en = "Rival drops" }
+  Help = { es = "Objetos que sueltan los rivales de los partidos de Crónica. Lo lee un script de generación.", en = "Items the Chronicle match rivals drop. Read by a build script." }
+  [[Shape.Field]]
+  Key = "drops.max_manuals"
+  Type = "int"
+  Label = { es = "Máximo de manuales", en = "Max manuals" }
+  Help = { es = "Máximo de manuales por fila de botín, empezando por los movimientos más usados.", en = "Most manuals per drop row, the most used moves first." }
+  [[Shape.Field]]
+  Key = "drops.weight"
+  Type = "int"
+  Label = { es = "Peso del botín", en = "Drop weight" }
+  Help = { es = "Peso de un manual, de las botas o de un aura en el sorteo.", en = "Loot weight of one manual, the boots or one aura." }
+  [[Shape.Field]]
+  Key = "drops.max_auras"
+  Type = "int"
+  Label = { es = "Máximo de auras", en = "Max auras" }
+  Help = { es = "Máximo de objetos de aura por fila: primero Keshin y tótems, luego Mixi Max y cambios de modo.", en = "Most aura items per row: Keshin and totems first, then Mix-Max and mode changes." }
+  [[Shape.Field]]
+  Key = "drops.battle"
+  Type = "list"
+  Label = { es = "Botín por tipo de batalla", en = "Drops per battle type" }
+  Help = { es = "Cantidad de botín según la dificultad del partido.", en = "Drop amounts by match difficulty." }
+  [[Shape.Field]]
+  Key = "drops.battle.difficulties"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Dificultades", en = "Difficulties" }
+  Help = { es = "Dificultades del partido a las que se aplica esta fila.", en = "Match difficulties this row applies to." }
+  [[Shape.Field]]
+  Key = "drops.battle.manuals"
+  Type = "float"
+  Label = { es = "Manuales", en = "Manuals" }
+  Help = { es = "Cantidad de manuales del rival que se reparten.", en = "Amount of the rival manuals shared out." }
+  [[Shape.Field]]
+  Key = "drops.battle.boots"
+  Type = "float"
+  Label = { es = "Botas", en = "Boots" }
+  Help = { es = "Cantidad de botas del equipo rival.", en = "Amount of the rival team boots." }
+  [[Shape.Field]]
+  Key = "drops.battle.auras"
+  Type = "float"
+  Label = { es = "Auras", en = "Auras" }
+  Help = { es = "Cantidad de objetos de aura de sus jugadores.", en = "Amount of aura items of its players." }
+  [[Shape.Field]]
+  Key = "drops.battle.gear"
+  Type = "float"
+  Label = { es = "Equipamiento", en = "Gear" }
+  Help = { es = "Cantidad del equipamiento del equipo rival que declaran otros mods.", en = "Amount of the rival team gear that other mods declare." }
+  [[Shape.Field]]
+  Key = "rival_equipment"
+  Type = "table"
+  Label = { es = "Equipamiento de rivales", en = "Rival equipment" }
+  Help = { es = "Equipamiento de los rivales de partidos libres. Lo lee un script de generación.", en = "Equipment of the free-match rivals. Read by a build script." }
+  [[Shape.Field]]
+  Key = "rival_equipment.difficulty"
+  Type = "string"
+  Label = { es = "Dificultad", en = "Difficulty" }
+  Help = { es = "Clase de dificultad del partido libre al que se aplica.", en = "Difficulty class of the free match it applies to." }
+  [[Shape.Field]]
+  Key = "rival_equipment.play_mode"
+  Type = "int"
+  Label = { es = "Modo de juego", en = "Play mode" }
+  Help = { es = "Modo de juego interno del partido libre Competir contra bots.", en = "Internal play mode of the Compete against bots free match." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights"
+  Type = "table"
+  Label = { es = "Puntuación de conjuntos", en = "Set scoring" }
+  Help = { es = "Puntuación de un conjunto de equipamiento para un jugador (más alto = mejor).", en = "Score of an equipment set for one player (higher = better)." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.position"
+  Type = "float"
+  Label = { es = "Peso: posición", en = "Weight: position" }
+  Help = { es = "Objeto hecho para su posición.", en = "Item made for his position." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.element"
+  Type = "float"
+  Label = { es = "Peso: elemento", en = "Weight: element" }
+  Help = { es = "Objeto de su elemento.", en = "Item of his element." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.both"
+  Type = "float"
+  Label = { es = "Peso: ambos", en = "Weight: both" }
+  Help = { es = "Extra cuando coinciden posición y elemento.", en = "Extra when both position and element match." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.raise"
+  Type = "float"
+  Label = { es = "Peso: mejoras", en = "Weight: raises" }
+  Help = { es = "Multiplicador de las mejoras del objeto según sus estadísticas.", en = "Multiplier of the item raises weighted by his stats." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.item_passive"
+  Type = "float"
+  Label = { es = "Peso: pasiva del objeto", en = "Weight: item passive" }
+  Help = { es = "Multiplicador por lo bien que encaja la pasiva del objeto.", en = "Multiplier of how well the item passive fits." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.set_stats"
+  Type = "float"
+  Label = { es = "Peso: estadísticas del conjunto", en = "Weight: set stats" }
+  Help = { es = "Multiplicador de las estadísticas del bonus de conjunto.", en = "Multiplier of the set bonus stats." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.set_element"
+  Type = "float"
+  Label = { es = "Peso: elemento del conjunto", en = "Weight: set element" }
+  Help = { es = "Conjunto de su elemento.", en = "A set of his element." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.move_kind"
+  Type = "float"
+  Label = { es = "Peso: tipo de técnica", en = "Weight: move kind" }
+  Help = { es = "Efecto de conjunto sobre un tipo de técnica que usa.", en = "A set effect on a kind of move he plays." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.move_kind_cap"
+  Type = "int"
+  Label = { es = "Máximo por tipo de técnica", en = "Move kind cap" }
+  Help = { es = "Máximo de técnicas de ese tipo que se cuentan.", en = "Most moves of that kind counted." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.element_power"
+  Type = "float"
+  Label = { es = "Peso: poder elemental", en = "Weight: element power" }
+  Help = { es = "Efecto de elemento de su elemento o el de sus técnicas.", en = "An element effect of his element or of his moves." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.family"
+  Type = "float"
+  Label = { es = "Peso: familia de técnica", en = "Weight: technique family" }
+  Help = { es = "Familia de técnica que usa.", en = "A technique family he plays." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.generic_effect"
+  Type = "float"
+  Label = { es = "Peso: otros efectos", en = "Weight: other effects" }
+  Help = { es = "Cualquier otro efecto (tensión, velocidad, recarga...).", en = "Any other effect (tension, speed, recast...)." }
+  [[Shape.Field]]
+  Key = "rival_equipment.weights.repeat"
+  Type = "float"
+  Label = { es = "Penalización por repetir", en = "Repeat penalty" }
+  Help = { es = "Se resta por cada compañero que ya lleva ese conjunto (variedad en el equipo).", en = "Subtracted per teammate already wearing that set (variety in a team)." }
+  [[Shape.Field]]
+  Key = "rival_equipment.position_stats"
+  Type = "table"
+  Label = { es = "Estadísticas por posición", en = "Stats per position" }
+  Help = { es = "Peso de cada estadística por posición para jugadores sin datos de estadísticas (1.0 = media).", en = "Stat weights per position for players without stats data (1.0 = average)." }
+  [[Shape.Field]]
+  Key = "rival_equipment.position_stats.GK"
+  Type = "table"
+  Label = { es = "Portero", en = "Goalkeeper" }
+  Help = { es = "Pesos de estadística del portero.", en = "Stat weights for goalkeepers." }
+  [[Shape.Field]]
+  Key = "rival_equipment.position_stats.FW"
+  Type = "table"
+  Label = { es = "Delantero", en = "Forward" }
+  Help = { es = "Pesos de estadística del delantero.", en = "Stat weights for forwards." }
+  [[Shape.Field]]
+  Key = "rival_equipment.position_stats.MF"
+  Type = "table"
+  Label = { es = "Centrocampista", en = "Midfielder" }
+  Help = { es = "Pesos de estadística del centrocampista.", en = "Stat weights for midfielders." }
+  [[Shape.Field]]
+  Key = "rival_equipment.position_stats.DF"
+  Type = "table"
+  Label = { es = "Defensa", en = "Defender" }
+  Help = { es = "Pesos de estadística del defensa.", en = "Stat weights for defenders." }

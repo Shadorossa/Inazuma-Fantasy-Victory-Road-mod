@@ -1,0 +1,46 @@
+schema = "VRFW.technique/3"
+# Fuego vacío (Void Fire): the download's move whk93045, a clone of whk00450 with its numbers; its event ev63_93045_1 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "void_fire"
+key = "whk93045"
+base = "whk00450"
+event = "ev63_93045_1"
+fail_event = "ev63_93045_2"
+element = "void"
+power_min = 70
+power_max = 440
+tp = 70
+color = 4
+  [technique.text.es]
+  name = "Fuego vacío"
+  description = "Llamas del vacío envuelven las manos\ny devoran la fuerza del tiro."
+  [technique.text.en]
+  name = "Void Fire"
+  description = "Flames of the void wrap the hands\nand devour the shot's power."
+  [technique.text.fr]
+  name = "Feu du néant"
+  description = "Les flammes du néant entourent les mains\net dévorent la puissance du tir."
+  [technique.text.de]
+  name = "Leerenfeuer"
+  description = "Flammen der Leere umhüllen die Hände\nund verschlingen die Kraft des Schusses."
+  [technique.text.it]
+  name = "Fuoco del vuoto"
+  description = "Fiamme del vuoto avvolgono le mani\ne divorano la forza del tiro."
+  [technique.text.pt]
+  name = "Fogo vazio"
+  description = "Chamas do vazio envolvem as mãos\ne devoram a força do remate."
+  [technique.text.ja]
+  name = "ヴォイドファイア"
+  description = "虚無の炎が両手を包み\nシュートの力を喰らう！"
+  [technique.text.zh_hans]
+  name = "虚空之火"
+  description = "虚空之炎包裹双手，\n吞噬射门的力量。"
+  [technique.text.zh_hant]
+  name = "虛空之火"
+  description = "虛空之炎包裹雙手，\n吞噬射門的力量。"
+
+[[event_env]]
+event = "ev63_93045_2"
+from = "ev63_00450_2"

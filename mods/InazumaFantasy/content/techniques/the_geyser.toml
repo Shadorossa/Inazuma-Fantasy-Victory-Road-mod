@@ -1,0 +1,39 @@
+schema = "VRFW.technique/3"
+# El Geiser (The Geyser): the download's move whd92003, a clone of whd00700 with its numbers; its event ev62_92003 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "the_geyser"
+key = "whd92003"
+base = "whd00700"
+event = "ev62_92003"
+power_min = 85
+power_max = 540
+tp = 80
+  [technique.text.es]
+  name = "El Geiser"
+  description = "Un chorro de agua brota del suelo\ny lanza al rival por los aires."
+  [technique.text.en]
+  name = "The Geyser"
+  description = "A jet of water bursts from the ground\nand throws the rival into the air."
+  [technique.text.fr]
+  name = "Le Geyser"
+  description = "Un jet d'eau jaillit du sol\net projette l'adversaire en l'air."
+  [technique.text.de]
+  name = "Der Geysir"
+  description = "Ein Wasserstrahl schießt aus dem Boden\nund schleudert den Gegner in die Luft."
+  [technique.text.it]
+  name = "Il Geyser"
+  description = "Un getto d'acqua esce dal terreno\ne scaraventa l'avversario in aria."
+  [technique.text.pt]
+  name = "O Gêiser"
+  description = "Um jato de água brota do chão\ne lança o adversário pelos ares."
+  [technique.text.ja]
+  name = "ザ・ガイザー"
+  description = "地面から水柱が噴き上がり\n相手を空へ吹き飛ばす！"
+  [technique.text.zh_hans]
+  name = "间歇泉"
+  description = "水柱从地面喷涌而出，\n把对手冲上天空。"
+  [technique.text.zh_hant]
+  name = "間歇泉"
+  description = "水柱從地面噴湧而出，\n把對手衝上天空。"

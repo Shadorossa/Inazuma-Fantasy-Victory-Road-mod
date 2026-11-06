@@ -1,0 +1,23 @@
+# VRFW: the ranks of a won match. Read by the team
+# type (vr-core types/team.rs) at every start and served to the game's Lua (CMND_VRFW_TEAM_MATCH_RANK_COUNT / _GET):
+# the Chronicle board's piece badges, the chain boards' tiles and their «Ayuda» (Help) window use them.
+#
+# One table per rank, keyed by its Id: [MatchRank.<Id>]. Every active mod's defaults\match_rank.toml is merged by Id in
+# load order (a later mod's keys win): redeclare an Id to change it (e.g. [MatchRank.S] GoalsFor = 6), declare a new
+# Id to ADD a rank (a mod's own: "<Prefix>.<Name>", e.g. [MatchRank."Fantasy.SS"]).
+# The ranks are tried from the highest Order down; the first one whose conditions all hold is the match's rank.
+#   Order        number, higher = better (also the scale of a chain's average rank)
+#   Won          the match is won (default true)
+#   GoalsFor     goals scored, at least
+#   MaxConceded  goals conceded, at most
+#   GoalDiff     scored - conceded, at least
+#   Badge        sprite of BadgeAtlas drawn on a chain tile, a hub list row and the «Ayuda» window
+#   BadgeAtlas   «#/menu/...g4tx» of Badge (a mod's own art: its image type atlas; the chain board screen loads it
+#                when it draws the badge; no default: no badge without it)
+#   PieceBadge   sprite of the Chronicle board's dot atlas vsroute01_06b (a mod adds sprites to it with the image type)
+#   Text         menu_text row id: the rank's line in the chain board's «Ayuda» window
+# Saves keep the rank Id of every won piece / tile; the digits 1 / 2 / 3 of older saves read as the Ids B / A / S.
+#
+# The framework declares no rank (the ranks and their badges are a mod's content): with no rank
+# declared a win is unranked (no piece / tile badge, an empty «Ayuda» window; the menu log says «no ranks declared»).
+# A mod declares its ranks (e.g. S / A / B) in its own content\defaults\match_rank.toml, with its own badges.

@@ -1,0 +1,37 @@
+schema = "VRFW.game/2"
+
+# Character Reforged › the coach / manager role (the skill board's medal slot) for the «Fantasy» skill table's role
+# slot (graft skill_table_role_slot). The logic is scripts\board_role.lua (CharacterReforged.BoardRole.*).
+
+# ------------------------------------------------------------------------------------------------ functions
+
+# void BadgeEquip(const u32* charaHdl, const u32* itemId) 0xE73630: takes a free copy of the badge item from the
+# inventory and equips it (rec8+0x1BC = its inventory handle)
+[[VRFW.Function]]
+name = "CharacterReforged.BadgeEquip"
+game = "Board.BadgeEquip"
+
+# void BadgeUnequip(const u32* charaHdl, const u32* badgeHdl) 0xE790D0: gives the badge copy back (equipped count - 1)
+# and clears rec8+0x1BC
+[[VRFW.Function]]
+name = "CharacterReforged.BadgeUnequip"
+game = "Board.BadgeUnequip"
+
+# [g_gameRoot] + Game.RootItems = the inventory InvRecord takes
+[[VRFW.Global]]
+name = "character_reforged_items"
+base = "game_root"
+chain = ["Game.RootItems"]
+
+# ------------------------------------------------------------------------------------------------ commands
+# Status codes: 1 ok, 0 refused, -1 bad args, -2 not ready, -4 exception, -5 no record, -10 matches missing.
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_GET_ROLE"     # (charaStHdl) -> role, badgeHdl, playCount, native, lock
+handler = "CharacterReforged.BoardRole.GetRole"
+needs = ["CharacterReforged.BadgeEquip", "CharacterReforged.BadgeUnequip", "Board.InvRecord", "character_reforged_items"]
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_SET_ROLE"     # (charaStHdl, role 0..2) -> status, roleAfter (-10: the matches missing)
+handler = "CharacterReforged.BoardRole.SetRole"
+needs = ["CharacterReforged.BadgeEquip", "CharacterReforged.BadgeUnequip", "Board.InvRecord", "character_reforged_items"]

@@ -1,0 +1,25 @@
+# Character Reforged › its actions of the VR-Framework's save adjust.
+# The functions live in scripts\save_tools.lua; the texts in text\rows\save_tools.toml.
+# The duplicates and the rarity actions are declared by their owners (New Recruitment, No More Rarities) and run here
+# (script = "CharacterReforged:save_tools.lua": the duplicate-players pass is this mod's mechanism).
+schema = "VRFW.save_adjust/1"
+
+[[VRFW.SaveAdjust]]
+id = "remove_unobtainable_moves"
+label = "character_reforged_save_tools_remove_unobtainable_moves"
+description = "character_reforged_save_tools_remove_unobtainable_moves_desc"
+result = "character_reforged_save_tools_remove_unobtainable_moves_done"
+order = 120
+script = "save_tools.lua"
+run = "CharacterReforged.SaveAdjust.remove_unobtainable_moves"
+available = "CharacterReforged.SaveAdjust.can_remove_unobtainable_moves"
+
+[[VRFW.SaveAdjust]]
+id = "remove_hidden_kits"
+label = "character_reforged_save_tools_remove_hidden_kits"
+description = "character_reforged_save_tools_remove_hidden_kits_desc"
+result = "character_reforged_save_tools_remove_hidden_kits_done"
+order = 130
+script = "save_tools.lua"
+run = "CharacterReforged.SaveAdjust.remove_hidden_kits"
+available = "CharacterReforged.SaveAdjust.can_remove_hidden_kits"

@@ -1,0 +1,28 @@
+schema = "VRFW.base_table/1"
+# The moves' own ball colours: new rows of the move colours (m_skillColorInfoList; the technique sets colorIdx through
+# `cells`: the type's `color` key stops at 9), each a retail row of the same gradation with the download's effect tag
+# and three ball-aura statuses, which eff_chr_trigger maps to the tag's a / b / c effects (content\base_tables\effect\).
+
+[[keyed]]
+list = "m_skillColorInfoList"
+key_columns = ["colorIdx"]
+
+  [[keyed.add]]
+  key = 10                       # whs90208
+  from = 4
+  cells = { effectTag = "rw90208", skillShootEffStatus = 0x1C3B48D5, skillShootChainEffStatus = 0x6C4651B6, skillLongShootEffStatus = 0x03F85230 }
+
+  [[keyed.add]]
+  key = 11                       # whs90680
+  from = 0
+  cells = { effectTag = "rw90680", skillShootEffStatus = 0x4ECBE9BF, skillShootChainEffStatus = 0x775A0C3C, skillLongShootEffStatus = 0x1E00A365 }
+
+  [[keyed.add]]
+  key = 12                       # whs90022
+  from = 2
+  cells = { effectTag = "rw90022", skillShootEffStatus = 0xAC312E5F, skillShootChainEffStatus = 0x600F7A34, skillLongShootEffStatus = 0xFCC8E8FB }
+
+  [[keyed.add]]
+  key = 13                       # whs90236
+  from = 1
+  cells = { effectTag = "rw90236", skillShootEffStatus = 0xB120C51F, skillShootChainEffStatus = 0xDB0A411F, skillLongShootEffStatus = 0xF2B4C04E }

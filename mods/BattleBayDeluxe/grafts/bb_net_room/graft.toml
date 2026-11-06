@@ -1,0 +1,64 @@
+# Battle Bay «Sala privada» (docs/game/modes/bb-p2p-lockstep.md §6, §7) of the mod BattleBayDeluxe: with gameplay
+# mods enabled, the Battle Bay top menu's «Multijugador» row opens a private room on the VR-Framework net service
+# (CMND_VRFW_NET_*: Steam transport, the room code + PIN, the mod-set check) instead of the retail EOS rooms; the mode
+# is content/defaults/net.toml [[VRFW.NetMode]] bbd_1v1 (lockstep), the texts evt_bbd_net_* (text/rows/net_text.toml).
+# The game's online stack never runs: the room screen is the retail one as a UI shell over our room, the match a local
+# offline match on each PC with the framework's input lockstep. With only UI mods or none the row stays retail.
+#   bb_stadium_top_menu   bbn_common.lua (BBN_Entry) + bbn_room.lua (the row's decide; the Campaña block given back on
+#                         the first Step): create / join with the clipboard's code / a friend's invite, the game's own
+#                         private-room screen, then the room's local match (BBN_StartMatch: the host's team vs the
+#                         guest's, the Campaña «continue» on a borrowed block); the close notes (wrong code, different
+#                         mods with the list, the other player left / lost)
+#   soccer_top_menu       bbn_common.lua only: BBN_Entry(host) for a «Multi» box of that menu (no box calls it at
+#                         present), so such a box opens this room too, never the retail online steps
+#   network_room_match_top  bbn_top.lua (the network_menu object): in our room the private-room layer group opens at
+#                         once (never the retail room list / EOS lobbies); Back leaves the room
+#   network_room_match_wait bbn_wait.lua (the private-room screen): the UI shell; its network questions answered from
+#                         our room (members, names, ready, start), the team pick on the Battle Bay grid, Back / a closed
+#                         room leave our room and close network_menu, invite = the Steam overlay's, kick off
+# Order 347: after bb_tournament (346). Globals only (BBN*); nothing runs at chunk load.
+name = "bb_net_room"
+mod = "BattleBayDeluxe"
+order = 347
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["OnDecideFocus", "Step", "OnInit", "OnBack", "OpenNetworkRoomMatchTop", "RequestBack", "RequestBackError", "OnFunction", "UpdatePlayerInfo"]
+description = "Battle Bay: «Multijugador» opens a private 1v1 room (the retail room screen as a shell, a local match in input lockstep) on the framework's Steam transport (gameplay mods enabled)"
+
+[[files]]
+stem = "bb_stadium_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "bbn_common.lua"
+  marker = "bb_net_room common"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "bbn_room.lua"
+  marker = "bb_net_room"
+
+[[files]]
+stem = "soccer_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "bbn_common.lua"
+  marker = "bb_net_room common"
+
+[[files]]
+stem = "network_room_match_top"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "bbn_top.lua"
+  marker = "bb_net_room top"
+
+[[files]]
+stem = "network_room_match_wait"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "bbn_wait.lua"
+  marker = "bb_net_room wait"

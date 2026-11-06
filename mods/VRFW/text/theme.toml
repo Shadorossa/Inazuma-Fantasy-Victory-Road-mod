@@ -1,0 +1,75 @@
+schema = "VRFW.text_key/1"
+# Theme texts (ids crc32("theme_engine.<name>")) for the interface theme row of the mods options.
+default_lang = "en"
+
+[ja.new]
+ui_theme = "インターフェースのテーマ"
+ui_theme_help = "メニューの色。準備後に開くメニューから反映（初回は数分）。オフは次回起動。"
+ui_theme_off = "オフ"
+ui_theme_dark_blue = "ダーク（ブルー）"
+ui_theme_dark_teal = "ダーク（ティール）"
+ui_theme_dark_amber = "ダーク（アンバー）"
+
+[en.new]
+ui_theme = "Interface theme"
+ui_theme_help = "Menu colours, in menus opened once ready (first time: minutes). Off: next start."
+ui_theme_off = "Off"
+ui_theme_dark_blue = "Dark (blue)"
+ui_theme_dark_teal = "Dark (teal)"
+ui_theme_dark_amber = "Dark (amber)"
+
+[es.new]
+ui_theme = "Tema de la interfaz"
+ui_theme_help = "Colores de los menús al abrirlos, cuando esté listo (1.ª vez: minutos). Desactivar: al reiniciar."
+ui_theme_off = "Desactivado"
+ui_theme_dark_blue = "Oscuro (azul)"
+ui_theme_dark_teal = "Oscuro (verde azulado)"
+ui_theme_dark_amber = "Oscuro (ámbar)"
+
+[fr.new]
+ui_theme = "Thème de l'interface"
+ui_theme_help = "Couleurs des menus à l'ouverture, une fois prêt (1re fois : minutes). Désactiver : redémarrage."
+ui_theme_off = "Désactivé"
+ui_theme_dark_blue = "Sombre (bleu)"
+ui_theme_dark_teal = "Sombre (bleu canard)"
+ui_theme_dark_amber = "Sombre (ambre)"
+
+[de.new]
+ui_theme = "Oberflächen-Design"
+ui_theme_help = "Menüfarben beim Öffnen, sobald bereit (erstes Mal: Minuten). Aus: nächster Start."
+ui_theme_off = "Aus"
+ui_theme_dark_blue = "Dunkel (blau)"
+ui_theme_dark_teal = "Dunkel (Petrol)"
+ui_theme_dark_amber = "Dunkel (Bernstein)"
+
+[it.new]
+ui_theme = "Tema dell'interfaccia"
+ui_theme_help = "Colori dei menu all'apertura, quando è pronto (1ª volta: minuti). Disattivare: al riavvio."
+ui_theme_off = "Disattivato"
+ui_theme_dark_blue = "Scuro (blu)"
+ui_theme_dark_teal = "Scuro (verde acqua)"
+ui_theme_dark_amber = "Scuro (ambra)"
+
+[pt.new]
+ui_theme = "Tema da interface"
+ui_theme_help = "Cores dos menus ao abri-los, quando estiver pronto (1.ª vez: minutos). Desativar: ao reiniciar."
+ui_theme_off = "Desativado"
+ui_theme_dark_blue = "Escuro (azul)"
+ui_theme_dark_teal = "Escuro (verde-azulado)"
+ui_theme_dark_amber = "Escuro (âmbar)"
+
+[zh_hans.new]
+ui_theme = "界面主题"
+ui_theme_help = "菜单颜色：准备好后打开的菜单即生效（首次需几分钟）。关闭需重启。"
+ui_theme_off = "关闭"
+ui_theme_dark_blue = "深色（蓝）"
+ui_theme_dark_teal = "深色（青绿）"
+ui_theme_dark_amber = "深色（琥珀）"
+
+[zh_hant.new]
+ui_theme = "介面主題"
+ui_theme_help = "選單顏色：準備好後開啟的選單即生效（首次需幾分鐘）。關閉需重啟。"
+ui_theme_off = "關閉"
+ui_theme_dark_blue = "深色（藍）"
+ui_theme_dark_teal = "深色（青綠）"
+ui_theme_dark_amber = "深色（琥珀）"

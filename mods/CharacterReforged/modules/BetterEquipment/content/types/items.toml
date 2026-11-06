@@ -1,0 +1,15 @@
+# Declaration schema of BetterEquipment.items/1 (content\better_equipment): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "BetterEquipment.items/1"
+folder = "content/better_equipment"
+label = "Equipment items"
+label_es = "Objetos de equipamiento"
+
+[entry.Item]
+entry_table = "item"
+item = { type = "string", ref = "item", required = true }
+passive = { type = "table" }
+element = { type = "string" }
+alias = { type = "string" }
+raise = { type = "strings" }
+position = { type = "string" }

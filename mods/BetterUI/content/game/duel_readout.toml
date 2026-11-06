@@ -1,0 +1,51 @@
+schema = "VRFW.game/2"
+
+# BetterUI › duel power counter: the totals the game compares when a focus duel is decided by a special move, a power
+# charge or a power block. The mid hook below reads the resolver's result block right before it is posted (game profile
+# site Duel.SkillClashResult: FocusBtlState sub-state 0xB, before the performance); scripts\duel_readout.lua keeps the
+# result and opens the screen betterui_power_counter_menu during each cut-in of the duel. The screen asks
+# CMND_BETTERUI_DUEL_READOUT once. Plain line duels never reach this resolver.
+
+# The resolver's result block (on its stack, rbp - 0x30 at the site). Powers = the values compared (x 1e-4, truncated).
+# kind: 5 a special move won, 6 a power charge / power block won, 9 no clash.
+[[VRFW.Struct]]
+name = "ClashResultBlock"
+size = 0x70
+fields = { winner_side = { at = 0x00, type = "u8" }, winner_power = { at = 0x28, type = "i32" }, loser_power = { at = 0x48, type = "i32" }, kind = { at = 0x68, type = "u8" } }
+
+# The focus manager (r13 at the site): the offense side and each side's command slot (+0xC44 + side x 0x30): +0 the
+# player's chara handle, +4 its move id, byte +0x1E marks a power charge / power block instead of a special move.
+[[VRFW.Struct]]
+name = "FocusDuel"
+size = 0xCA0
+fields = { offense_side = { at = 0x906, type = "u8" }, power_action_side0 = { at = 0xC62, type = "u8" }, power_action_side1 = { at = 0xC92, type = "u8" }, move_side0 = { at = 0xC48, type = "u32" }, move_side1 = { at = 0xC78, type = "u32" }, chara_side0 = { at = 0xC44, type = "u32" }, chara_side1 = { at = 0xC74, type = "u32" } }
+
+# The match data ([g_gameRoot] + 0x6A58): the side the player controls (0 / 1; another value = none, e.g. a CPU match).
+[[VRFW.Global]]
+name = "DuelMatchData"
+base = "game_root"
+chain = ["ROOT_MATCH"]
+
+[[VRFW.Struct]]
+name = "DuelMatchSides"
+size = 0x2C30
+fields = { user_side = { at = 0x2C29, type = "u8" } }
+
+[[VRFW.Hook]]
+name = "DuelClashResult"
+game = "Duel.SkillClashResult"
+kind = "mid"
+needs = ["ClashResultBlock", "FocusDuel"]
+
+# CMND_BETTERUI_DUEL_READOUT() -> left power, left label, right power, right label, left move, right move, left chara,
+# right chara. Left = the player's side, right = the rival's; labels 1 dribble, 2 defense, 3 power charge, 4 power block; a
+# power of 0 = that side has no plate; a move of 0 = the plate shows its label instead of the move's name; a chara of 0 =
+# that plate has no bust.
+[[VRFW.Command]]
+name = "CMND_BETTERUI_DUEL_READOUT"
+handler = "BetterUI.DuelReadout"
+
+# CMND_BETTERUI_DUEL_PLATE_LAYOUT() -> the tunables of config.toml [duel_counter] as a table, or nil when one is missing.
+[[VRFW.Command]]
+name = "CMND_BETTERUI_DUEL_PLATE_LAYOUT"
+handler = "BetterUI.DuelPlateLayout"

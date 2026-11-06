@@ -1,0 +1,46 @@
+schema = "VRFW.game/2"
+
+# BetterUI > technique books: a move drawn as an item takes its category's book; every plate keeps the retail icon.
+#
+# Native (nie.exe v7.2.1): an item icon of category 160 asks 0x10FA3C0 (out, category, sub-category) for its sprite in
+# icon_common: sub-category 161-164 = icon_sp_area01-04. Callers: the item icon command 0xD057D0, the native list icon
+# 0x10144B0 and 0x10FC200 (its icon_category part has no such sprite, with or without this hook). The plates name
+# icon_sp_area01-04 from Lua with the sprite command, so they never pass here. The sub-category is the item row's, so
+# a mod's move has the one of the move it is cloned from. The new names are served by the mod's sprite redirect.
+# Prologue: 14 bytes without a relative operand, up to the `ja` of the switch.
+[[VRFW.Hook]]
+name = "TechniqueItemSprite"
+kind = "function"
+pattern = "0F B7 C2 4C 8B C9 83 C0 F6 3D D2 00 00 00 0F 87 ?? ?? ?? ?? 4C 8D 15 ?? ?? ?? ?? 48 98"
+rva = 0x10FA3C0
+steal = 14
+arguments = ["ptr", "u16", "u16"]
+returns = "ptr"
+
+# shot: crc32("better_ui_tech_book_shot")
+[[VRFW.Hook.answer]]
+phase = "post"
+when = [{ value = "args[2]", equals = 160 }, { value = "args[3]", equals = 161 }]
+value = "1050629542"
+write = "[args[1]]:u32"
+
+# dribble: crc32("better_ui_tech_book_dribble")
+[[VRFW.Hook.answer]]
+phase = "post"
+when = [{ value = "args[2]", equals = 160 }, { value = "args[3]", equals = 162 }]
+value = "3222081366"
+write = "[args[1]]:u32"
+
+# block: crc32("better_ui_tech_book_block")
+[[VRFW.Hook.answer]]
+phase = "post"
+when = [{ value = "args[2]", equals = 160 }, { value = "args[3]", equals = 163 }]
+value = "3767034662"
+write = "[args[1]]:u32"
+
+# keeper: crc32("better_ui_tech_book_keeper")
+[[VRFW.Hook.answer]]
+phase = "post"
+when = [{ value = "args[2]", equals = 160 }, { value = "args[3]", equals = 164 }]
+value = "2074415481"
+write = "[args[1]]:u32"

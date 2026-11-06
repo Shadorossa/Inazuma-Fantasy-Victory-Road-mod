@@ -1,0 +1,113 @@
+# The forms of the gallery type (docs/framework/types/gallery.md: kind VRFW.gallery/1, [[VRFW.GalleryTab]] and
+# [[VRFW.Video]]) in the editor schema format (docs/framework/modmanager-editor-schemas.md). ModManager lists them in
+# «Más tipos» for every enabled mod; «Nuevo» adds a record to the active mod (`New` when it has no gallery file yet).
+# `Type = "import"` fields import a file into the mod: a video (converted to a VP9 USM), a song per language (a
+# [[music]] track) or a thumbnail. Read only by ModManager: the game does not read content\editor\.
+schema = "VRFW.editor/1"
+
+[[Shape]]
+Id = "gallery_tab"
+For = "VRFW.gallery/1 VRFW.GalleryTab"
+New = "content/scenes/gallery.toml"
+Label = { en = "Gallery tabs", es = "Pestañas de la galería" }
+Help = { en = "Tabs of the scene archive (club room). The same name in several mods is one tab.", es = "Pestañas del archivo de escenas (sala del club). El mismo nombre en varios mods es una sola pestaña." }
+  [[Shape.Field]]
+  Key = "Name"
+  Type = "id"
+  Required = true
+  Label = { en = "Name", es = "Nombre" }
+  Help = { en = "a-z 0-9 _. Videos name it in «Tab».", es = "a-z 0-9 _. Los vídeos la nombran en «Pestaña»." }
+  [[Shape.Field]]
+  Key = "Text"
+  Type = "text"
+  Required = true
+  Label = { en = "Tab label", es = "Nombre de la pestaña" }
+  [[Shape.Field]]
+  Key = "Order"
+  Type = "int"
+  Default = 100
+  Label = { en = "Order", es = "Orden" }
+  [[Shape.Field]]
+  Key = "Icon"
+  Type = "int"
+  Min = 0
+  Max = 255
+  More = true
+  Label = { en = "Tab icon type", es = "Tipo de icono de la pestaña" }
+
+[[Shape]]
+Id = "gallery_video"
+For = "VRFW.gallery/1 VRFW.Video"
+New = "content/scenes/gallery.toml"
+Label = { en = "Gallery videos", es = "Vídeos de la galería" }
+Help = { en = "Videos in a gallery tab and/or title openings, with their song in each language.", es = "Vídeos en una pestaña de la galería y/o openings del título, con su canción en cada idioma." }
+  [[Shape.Field]]
+  Key = "Name"
+  Type = "id"
+  Required = true
+  Label = { en = "Name", es = "Nombre" }
+  [[Shape.Field]]
+  Key = "Title"
+  Type = "text"
+  Required = true
+  Label = { en = "Title", es = "Título" }
+  Help = { en = "Shown in the scene archive and in Mod options → «Opening».", es = "Se ve en el archivo de escenas y en Opciones de mods → «Opening»." }
+  [[Shape.Field]]
+  Key = "File"
+  Type = "import"
+  Import = "video"
+  Required = true
+  Label = { en = "Video", es = "Vídeo" }
+  Help = { en = "Any video file: converted to the game's movie format (VP9 USM) with ffmpeg.", es = "Cualquier vídeo: se convierte al formato de vídeo del juego (USM VP9) con ffmpeg." }
+  [[Shape.Field]]
+  Key = "Songs"
+  Type = "import"
+  Import = "song"
+  PerLanguage = true
+  Label = { en = "Song per language", es = "Canción por idioma" }
+  Help = { en = "The song of each game language. The languages without one play the default language's song.", es = "La canción de cada idioma del juego. Los idiomas sin canción usan la del idioma por defecto." }
+  [[Shape.Field]]
+  Key = "DefaultLanguage"
+  Type = "enum"
+  Values = ["ja", "en", "es", "fr", "de", "it", "pt", "zh_hans", "zh_hant"]
+  Label = { en = "Default song language", es = "Idioma de la canción por defecto" }
+  [[Shape.Field]]
+  Key = "Tab"
+  Type = "string"
+  Label = { en = "Tab", es = "Pestaña" }
+  Help = { en = "A gallery tab name, or story / competition / chronicle. Empty = not in the scene archive.", es = "El nombre de una pestaña de la galería, o story / competition / chronicle. Vacío = no sale en el archivo de escenas." }
+  [[Shape.Field]]
+  Key = "Opening"
+  Type = "bool"
+  Label = { en = "Usable as opening", es = "Se puede usar como opening" }
+  Help = { en = "Offered in Mod options → «Opening» (after the logos and in the title screen).", es = "Sale en Opciones de mods → «Opening» (tras los logos y en la pantalla de título)." }
+  [[Shape.Field]]
+  Key = "Thumbnail"
+  Type = "import"
+  Import = "picture"
+  Label = { en = "Thumbnail", es = "Miniatura" }
+  [[Shape.Field]]
+  Key = "Order"
+  Type = "int"
+  Default = 100
+  Label = { en = "Order", es = "Orden" }
+  [[Shape.Field]]
+  Key = "ArchiveKey"
+  Type = "string"
+  More = true
+  Label = { en = "Archive row key", es = "Clave de la fila del archivo" }
+  [[Shape.Field]]
+  Key = "OpeningKey"
+  Type = "string"
+  More = true
+  Label = { en = "Opening movie key", es = "Clave del vídeo del opening" }
+  [[Shape.Field]]
+  Key = "TemplateMovie"
+  Type = "string"
+  More = true
+  Label = { en = "Template movie row", es = "Fila de vídeo de plantilla" }
+  [[Shape.Field]]
+  Key = "TemplateEvent"
+  Type = "string"
+  More = true
+  Label = { en = "Template event", es = "Evento de plantilla" }

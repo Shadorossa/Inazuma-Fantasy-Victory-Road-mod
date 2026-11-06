@@ -1,0 +1,67 @@
+schema = "VRFW.changelog/1"
+# Aura Points: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Puntos para keshin, armaduras y tótems",
+    "Barra de aguante por jugador",
+    "Miximax por puntos, sin tiempo",
+]
+
+[release.en]
+notes = [
+    "Points for keshin, armors and totems",
+    "Stamina bar per player",
+    "Miximax by points, not time",
+]
+
+[release.fr]
+notes = [
+    "Points pour keshin, armures et totems",
+    "Barre d'endurance par joueur",
+    "Miximax par points, sans temps",
+]
+
+[release.de]
+notes = [
+    "Punkte für Keshin, Rüstungen, Totems",
+    "Ausdauerleiste pro Spieler",
+    "Miximax per Punkte statt Zeit",
+]
+
+[release.it]
+notes = [
+    "Punti per keshin, armature e totem",
+    "Barra di resistenza per giocatore",
+    "Miximax a punti, senza tempo",
+]
+
+[release.pt]
+notes = [
+    "Pontos para keshin, armaduras e totens",
+    "Barra de resistência por jogador",
+    "Miximax por pontos, sem tempo",
+]
+
+[release.ja]
+notes = [
+    "化身・アーマー・トーテムにポイント制",
+    "選手ごとのスタミナゲージ",
+    "ミキシマックスもポイント制",
+]
+
+[release.zh_hans]
+notes = [
+    "化身、铠甲与图腾改用点数",
+    "每名球员的体力条",
+    "融合改为点数制",
+]
+
+[release.zh_hant]
+notes = [
+    "化身、鎧甲與圖騰改用點數",
+    "每名球員的體力條",
+    "融合改為點數制",
+]

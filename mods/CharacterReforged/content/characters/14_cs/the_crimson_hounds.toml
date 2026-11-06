@@ -1,0 +1,28 @@
+schema = "VRFW.character/2"
+# Character Reforged · The Crimson Hounds · Inazuma Eleven GO Chrono Stone
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c05029850"                                   # Redd Hazzard
+moves = [
+  { move = 0xFA40689A, level = 8 },                         # Solar Nexus
+  { move = 0xDA3FF6C9, level = 13 },                        # Criss-Cross
+  { move = 0x72514A74, level = 37 },                        # Low Drive
+  { move = 0xAE5C7145, level = 55 },                        # Fangtasmagoria
+]
+
+  [[edit.cards]]
+  id = 0xA9AD6367                                         # FW/MF · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 308, control = 255, technique = 277, pressure = 163, physical = 192, intelligence = 197, agility = 174, freedom = 230 }
+
+[[edit]]
+target = "c05029850_5000"                              # Redd Hazzard
+
+  [[edit.cards]]
+  id = 0xCA847E78                                         # FW/MF · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 308, control = 255, technique = 277, pressure = 163, physical = 192, intelligence = 197, agility = 174, freedom = 230 }

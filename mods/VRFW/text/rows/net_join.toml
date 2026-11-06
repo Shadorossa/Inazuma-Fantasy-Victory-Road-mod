@@ -1,0 +1,201 @@
+# Joiner notices of the net service's rooms (CMND_VRFW_NET_NOTICE, fw::services::net::join_notice_text): why a join
+# ended without a room, or that an invite's room is ready. Shown by lua\menu\_all\11_net_join_notice.lua in the retail
+# message window.
+
+schema = "VRFW.text/2"
+table = "menu_text"
+
+[[row]]
+id = "vrfw_net_refused_mod_set"
+es = "Lista de mods no coincide"
+en = "Mod list does not match"
+fr = "La liste des mods ne correspond pas"
+de = "Mod-Liste stimmt nicht überein"
+it = "L'elenco delle mod non corrisponde"
+pt = "A lista de mods não coincide"
+ja = "MODリストが一致しません"
+zh_hans = "模组列表不一致"
+zh_hant = "模組列表不一致"
+
+[[row]]
+id = "vrfw_net_refused_protocol"
+es = "Versión del protocolo de red distinta"
+en = "Different network protocol version"
+fr = "Version du protocole réseau différente"
+de = "Andere Version des Netzwerkprotokolls"
+it = "Versione del protocollo di rete diversa"
+pt = "Versão do protocolo de rede diferente"
+ja = "ネットワークプロトコルのバージョンが違います"
+zh_hans = "网络协议版本不同"
+zh_hant = "網路協定版本不同"
+
+[[row]]
+id = "vrfw_net_refused_full"
+es = "La sala está llena"
+en = "The room is full"
+fr = "Le salon est plein"
+de = "Der Raum ist voll"
+it = "La stanza è piena"
+pt = "A sala está cheia"
+ja = "ルームが満員です"
+zh_hans = "房间已满"
+zh_hant = "房間已滿"
+
+[[row]]
+id = "vrfw_net_refused_closed"
+es = "La sala está cerrada o no responde"
+en = "The room is closed or not answering"
+fr = "Le salon est fermé ou ne répond pas"
+de = "Der Raum ist geschlossen oder antwortet nicht"
+it = "La stanza è chiusa o non risponde"
+pt = "A sala está fechada ou não responde"
+ja = "ルームが閉じているか、応答がありません"
+zh_hans = "房间已关闭或无响应"
+zh_hant = "房間已關閉或無回應"
+
+[[row]]
+id = "vrfw_net_refused_bad_pin"
+es = "El código de la sala no es válido"
+en = "The room code is not valid"
+fr = "Le code du salon n'est pas valide"
+de = "Der Raumcode ist ungültig"
+it = "Il codice della stanza non è valido"
+pt = "O código da sala não é válido"
+ja = "ルームコードが無効です"
+zh_hans = "房间代码无效"
+zh_hant = "房間代碼無效"
+
+[[row]]
+id = "vrfw_net_refused_mode"
+es = "Este juego no tiene el modo de la sala"
+en = "This game does not have the room's mode"
+fr = "Ce jeu n'a pas le mode du salon"
+de = "Diesem Spiel fehlt der Modus des Raums"
+it = "Questo gioco non ha la modalità della stanza"
+pt = "Este jogo não tem o modo da sala"
+ja = "このゲームにはルームのモードがありません"
+zh_hans = "本游戏没有该房间的模式"
+zh_hant = "本遊戲沒有該房間的模式"
+
+[[row]]
+id = "vrfw_net_refused"
+es = "No se pudo entrar en la sala"
+en = "Could not join the room"
+fr = "Impossible de rejoindre le salon"
+de = "Beitritt zum Raum nicht möglich"
+it = "Impossibile entrare nella stanza"
+pt = "Não foi possível entrar na sala"
+ja = "ルームに参加できませんでした"
+zh_hans = "无法加入房间"
+zh_hant = "無法加入房間"
+
+[[row]]
+id = "vrfw_net_invite_ready"
+es = "Invitación aceptada: abre el multijugador para entrar en la sala"
+en = "Invite accepted: open multiplayer to join the room"
+fr = "Invitation acceptée : ouvrez le multijoueur pour rejoindre le salon"
+de = "Einladung angenommen: Öffne den Mehrspielermodus, um dem Raum beizutreten"
+it = "Invito accettato: apri il multigiocatore per entrare nella stanza"
+pt = "Convite aceite: abre o multijogador para entrares na sala"
+ja = "招待を受けました。マルチプレイを開いてルームに参加してください"
+zh_hans = "已接受邀请：打开多人游戏以加入房间"
+zh_hant = "已接受邀請：開啟多人遊戲以加入房間"
+
+# Detail lines of «Lista de mods no coincide» (fw::services::net::notice_lines): {a} {b} {c} = the line's args
+# (id / key, this game's value, the host's value).
+
+[[row]]
+id = "vrfw_net_diff_missing"
+es = "Falta: {a}"
+en = "Missing: {a}"
+fr = "Manquant : {a}"
+de = "Fehlt: {a}"
+it = "Manca: {a}"
+pt = "Falta: {a}"
+ja = "不足: {a}"
+zh_hans = "缺少：{a}"
+zh_hant = "缺少：{a}"
+
+[[row]]
+id = "vrfw_net_diff_extra"
+es = "Sobra: {a}"
+en = "Extra: {a}"
+fr = "En trop : {a}"
+de = "Zu viel: {a}"
+it = "In più: {a}"
+pt = "A mais: {a}"
+ja = "余分: {a}"
+zh_hans = "多余：{a}"
+zh_hant = "多餘：{a}"
+
+[[row]]
+id = "vrfw_net_diff_version"
+es = "Versión distinta: {a} ({b} / {c})"
+en = "Different version: {a} ({b} / {c})"
+fr = "Version différente : {a} ({b} / {c})"
+de = "Andere Version: {a} ({b} / {c})"
+it = "Versione diversa: {a} ({b} / {c})"
+pt = "Versão diferente: {a} ({b} / {c})"
+ja = "バージョン違い: {a}（{b} / {c}）"
+zh_hans = "版本不同：{a}（{b} / {c}）"
+zh_hant = "版本不同：{a}（{b} / {c}）"
+
+[[row]]
+id = "vrfw_net_diff_files"
+es = "Archivos distintos: {a}"
+en = "Different files: {a}"
+fr = "Fichiers différents : {a}"
+de = "Andere Dateien: {a}"
+it = "File diversi: {a}"
+pt = "Ficheiros diferentes: {a}"
+ja = "ファイル違い: {a}"
+zh_hans = "文件不同：{a}"
+zh_hant = "檔案不同：{a}"
+
+[[row]]
+id = "vrfw_net_diff_setting"
+es = "Ajuste distinto: {a} ({b} / {c})"
+en = "Different setting: {a} ({b} / {c})"
+fr = "Réglage différent : {a} ({b} / {c})"
+de = "Andere Einstellung: {a} ({b} / {c})"
+it = "Impostazione diversa: {a} ({b} / {c})"
+pt = "Definição diferente: {a} ({b} / {c})"
+ja = "設定違い: {a}（{b} / {c}）"
+zh_hans = "设置不同：{a}（{b} / {c}）"
+zh_hant = "設定不同：{a}（{b} / {c}）"
+
+[[row]]
+id = "vrfw_net_diff_base"
+es = "Juego o VRFW distinto ({a} / {b})"
+en = "Different game or VRFW ({a} / {b})"
+fr = "Jeu ou VRFW différent ({a} / {b})"
+de = "Anderes Spiel oder VRFW ({a} / {b})"
+it = "Gioco o VRFW diverso ({a} / {b})"
+pt = "Jogo ou VRFW diferente ({a} / {b})"
+ja = "ゲームまたはVRFWが違います（{a} / {b}）"
+zh_hans = "游戏或 VRFW 不同（{a} / {b}）"
+zh_hant = "遊戲或 VRFW 不同（{a} / {b}）"
+
+[[row]]
+id = "vrfw_net_diff_order"
+es = "Orden de carga distinto"
+en = "Different load order"
+fr = "Ordre de chargement différent"
+de = "Andere Ladereihenfolge"
+it = "Ordine di caricamento diverso"
+pt = "Ordem de carregamento diferente"
+ja = "読み込み順が違います"
+zh_hans = "加载顺序不同"
+zh_hant = "載入順序不同"
+
+[[row]]
+id = "vrfw_net_diff_more"
+es = "y {a} más"
+en = "and {a} more"
+fr = "et {a} de plus"
+de = "und {a} weitere"
+it = "e altri {a}"
+pt = "e mais {a}"
+ja = "ほか{a}件"
+zh_hans = "以及另外 {a} 项"
+zh_hant = "以及另外 {a} 項"

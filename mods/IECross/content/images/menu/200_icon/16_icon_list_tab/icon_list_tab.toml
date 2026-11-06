@@ -1,0 +1,26 @@
+# Inazuma Eleven Cross: the «Inazuma Eleven Cross» icon of the tab atlas (the X; lit and unfocused), for the mod's tab
+# of «Competir contra bots» (content\teams\free_match_tab.toml, VR-Framework free-match tabs) and its season of the
+# Bahía Batalla grid's carousel (content\teams\free_match_tab.toml, [[VRFW.Season]] series_10), and for Inazuma
+# Fantasy's Cross series tab of the player bank.
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/200_icon/iecross_own/iecross_icon_list_tab.g4tx"
+name = "iecross_icon_list_tab"
+size = [292, 96]
+
+[[sprite]]
+atlas = "#/menu/200_icon/iecross_own/iecross_icon_list_tab.g4tx"
+name = "icon_list_tab_series10"
+texture = "iecross_icon_list_tab"
+x = 0
+y = 0
+png = "icon_list_tab/icon_list_tab_series10.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/iecross_own/iecross_icon_list_tab.g4tx"
+name = "icon_list_tab_series10_off"
+texture = "iecross_icon_list_tab"
+x = 148
+y = 0
+png = "icon_list_tab/icon_list_tab_series10_off.png"

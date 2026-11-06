@@ -1,0 +1,76 @@
+schema = "VRFW.changelog/1"
+# VRFW: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Base de todos los mods",
+    "Pantalla Mods y hoja de novedades",
+    "Mods en TOML y Lua, en 9 idiomas",
+    "Ranuras de guardado y salas privadas",
+]
+
+[release.en]
+notes = [
+    "Foundation of all mods",
+    "Mods screen and news sheet",
+    "TOML and Lua mods in 9 languages",
+    "Save slots and private rooms",
+]
+
+[release.fr]
+notes = [
+    "Base de tous les mods",
+    "Écran Mods et page des nouveautés",
+    "Mods TOML et Lua en 9 langues",
+    "Emplacements de sauvegarde et salons privés",
+]
+
+[release.de]
+notes = [
+    "Grundlage aller Mods",
+    "Mod-Bildschirm und Neuigkeiten",
+    "TOML- und Lua-Mods in 9 Sprachen",
+    "Speicherplätze und private Räume",
+]
+
+[release.it]
+notes = [
+    "Base di tutti i mod",
+    "Schermata Mod e novità",
+    "Mod TOML e Lua in 9 lingue",
+    "Slot di salvataggio e stanze private",
+]
+
+[release.pt]
+notes = [
+    "Base de todos os mods",
+    "Ecrã Mods e novidades",
+    "Mods TOML e Lua em 9 idiomas",
+    "Ranhuras de gravação e salas privadas",
+]
+
+[release.ja]
+notes = [
+    "全MODの基盤",
+    "MOD画面とお知らせ",
+    "TOMLとLuaのMODを9言語で",
+    "セーブスロットとプライベートルーム",
+]
+
+[release.zh_hans]
+notes = [
+    "所有模组的基础",
+    "模组界面与更新公告",
+    "TOML与Lua模组，支持9种语言",
+    "存档位与私人房间",
+]
+
+[release.zh_hant]
+notes = [
+    "所有模組的基礎",
+    "模組介面與更新公告",
+    "TOML與Lua模組，支援9種語言",
+    "存檔位與私人房間",
+]

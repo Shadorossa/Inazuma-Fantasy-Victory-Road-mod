@@ -1,0 +1,10 @@
+schema = "VRFW.field_clip/1"
+
+# The battery out of the trait rules: after the
+# kneel (battery_clip = MissingContent.aura_end_kneel) the player stays on one knee until the end of the match.
+# Whatever the engine asks for (stand, walk, run), the held kneel; scripts\stamina.lua switches it on the inert
+# player (set SpiritStaminaPoints.battery_out). The clips are «Lost Cutscenes»' (LostCutscenes,
+# content\rules\aura_end\aura_end.toml): without that mod the set has no clip.
+[[locomotion]]
+name = "battery_out"
+actions = { STAND = "MissingContent.aura_end_kneel_hold", WALK = "MissingContent.aura_end_kneel_hold", RUN = "MissingContent.aura_end_kneel_hold" }

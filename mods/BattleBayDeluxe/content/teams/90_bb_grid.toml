@@ -1,0 +1,85 @@
+# Independent Battle Bay Deluxe data; edit this team's own declaration.
+schema = "VRFW.team/2"
+
+[[append]]
+team = "bb_24_team_senshinjapan_a"
+list = "bb_stadium"
+row = { copy = false }
+season = "series_08"
+
+[[append]]
+team = "bb_27_team_puratosu"
+list = "bb_stadium"
+row = { copy = false }
+season = "series_09"
+
+[[append]]
+team = "bb_28_team_destroyers"
+list = "bb_stadium"
+row = { copy = false }
+season = "series_09"
+
+[[append]]
+team = "bb_03_team_zeus"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_05_team_epsilon"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_06_team_genesis"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_09_team_zoro"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_10_team_omega_2.0"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_10_team_zanark_domain"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_23_team_hokuyou"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_22_team_raimon"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_19_team_faram_diete"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_20_team_seishogakuen"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_21_team_oteitsukinomiya"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_26_team_zhaojinyun"
+list = "bb_stadium"
+row = { copy = false }
+
+[[append]]
+team = "bb_11_team_cronostorm"
+list = "bb_stadium"
+row = { copy = false }

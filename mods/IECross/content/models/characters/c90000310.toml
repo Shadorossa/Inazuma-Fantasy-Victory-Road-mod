@@ -1,0 +1,6 @@
+schema = "VRFW.model/1"
+# IECross head / face of David Samford (Pumpkin Devil kit) (the IEVRCROSS mod's c90000310): game files served as they are
+# (docs/framework/mod-layout.md «Models»), from assets\models\characters\c90000310\{common,dx11}\ to
+# data\{common,dx11}\chr\_face\90_CROSS\c90000310\.
+format = "native"
+game_path = "chr/_face/90_CROSS/c90000310"

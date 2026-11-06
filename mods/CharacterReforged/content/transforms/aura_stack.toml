@@ -1,0 +1,19 @@
+schema = "VRFW.transform/2"
+# Character Reforged › which forms of the new skill set's two slots run together on one player.
+# The aura slot's spirit (a keshin, or a totem or an
+# awakening power: kind "aura") and the mix slot's fusion (a Mix-Max: kind "miximax") stack both ways: the fusion
+# starts while the spirit is out, and the spirit is summoned while the fusion runs. The armour stacks with the fusion
+# both ways too: the fusion starts while the armour is worn, and the armour is put on over a running fusion. The
+# armour keeps the engine's one metamorphosis (its look and time); the fusion adds its stats and partner moves under
+# it. Each form ends on its own condition and ends alone (stack_ends_alone): when the armour ends the fusion goes on
+# with its look, stats and time, and when the fusion ends the armour goes on. The spirit's move stays usable under its
+# armour. Each keeps its own costs and limits (the team
+# limit, the cooldown between auras, Aura Points' pools); the end of the fusion does not end the spirit or the armour.
+# Merged over the other mods' rules key by key.
+
+[rules]
+stack = ["keshin", "aura", "miximax", "armour"]
+stack_ends_alone = true
+# The controlled player's face bubble over his PE / PEG / SP bars (face icon type 9) always shows his base portrait,
+# whatever form runs; the other portraits follow the form.
+portrait_base_icon_types = [9]

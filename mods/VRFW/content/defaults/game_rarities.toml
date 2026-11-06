@@ -1,0 +1,61 @@
+# The game's own rarities, in the format of a mod's `[[rarity]]` file; mods remove, edit or add over them.
+# value = chara_param column 41; frame = card-frame sprite group; order = value x 10.
+
+[[rarity]]
+id = "normal"
+value = 0
+frame = 1
+order = 0
+label = { es = "Futbolista común", en = "Normal" }
+
+[[rarity]]
+id = "growing"
+value = 1
+frame = 2
+order = 10
+label = { es = "Emergente", en = "Growing" }
+
+[[rarity]]
+id = "advanced"
+value = 2
+frame = 3
+order = 20
+label = { es = "De élite", en = "Advanced" }
+
+[[rarity]]
+id = "top"
+value = 3
+frame = 4
+order = 30
+label = { es = "Estrella", en = "Top" }
+
+[[rarity]]
+id = "legendary"
+value = 4
+frame = 5
+order = 40
+label = { es = "Leyenda del fútbol", en = "Legendary" }
+
+[[rarity]]
+id = "hero"
+value = 5
+also = [6, 7]
+frame = 6
+order = 50
+team_limit = 2
+label = { es = "Ídolo", en = "Hero" }
+
+[[rarity]]
+id = "fabled"
+value = 8
+frame = 10
+order = 80
+team_limit = 1
+label = { es = "Diamante", en = "Fabled" }
+
+[[rarity]]
+id = "seasonal"
+value = 9
+frame = 9
+order = 90
+label = { es = "De temporada", en = "Seasonal" }

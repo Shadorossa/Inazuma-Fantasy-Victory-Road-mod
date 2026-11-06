@@ -1,0 +1,7 @@
+# Settings of VRFW's own scripts. Every top-level scripts\*.lua is an entry point (name order); every .lua below (lib\, build\) is a `require` library.
+schema = "VRFW.script/1"
+
+# Higher instruction budget: the contact map service loads every mod's contact maps and name tables on first call, far above the 200k default.
+[settings]
+budget = 5000000
+memory_kb = 65536

@@ -1,0 +1,76 @@
+schema = "VRFW.changelog/1"
+# Hissatsu Reforged: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Supertécnicas reequilibradas",
+    "Nuevo coste y tiempo de recarga",
+    "Golpes críticos",
+    "Base de Hissatsu Effects y True Hissatsu",
+]
+
+[release.en]
+notes = [
+    "Rebalanced special moves",
+    "New cost and cooldown",
+    "Critical hits",
+    "Base for Hissatsu Effects and True Hissatsu",
+]
+
+[release.fr]
+notes = [
+    "Techniques spéciales rééquilibrées",
+    "Nouveaux coûts et recharges",
+    "Coups critiques",
+    "Base de Hissatsu Effects et True Hissatsu",
+]
+
+[release.de]
+notes = [
+    "Neu ausbalancierte Spezialtechniken",
+    "Neue Kosten und Abklingzeiten",
+    "Kritische Treffer",
+    "Basis für Hissatsu Effects/True Hissatsu",
+]
+
+[release.it]
+notes = [
+    "Super tecniche riequilibrate",
+    "Nuovi costi e ricariche",
+    "Colpi critici",
+    "Base di Hissatsu Effects e True Hissatsu",
+]
+
+[release.pt]
+notes = [
+    "Supertécnicas reequilibradas",
+    "Novos custos e recargas",
+    "Golpes críticos",
+    "Base de Hissatsu Effects e True Hissatsu",
+]
+
+[release.ja]
+notes = [
+    "必殺技を再調整",
+    "消費と再使用時間を変更",
+    "クリティカル",
+    "必殺技効果・真必殺技の基盤",
+]
+
+[release.zh_hans]
+notes = [
+    "必杀技重新平衡",
+    "新的消耗与冷却",
+    "暴击",
+    "必杀技效果与真必杀技的基础",
+]
+
+[release.zh_hant]
+notes = [
+    "必殺技重新平衡",
+    "新的消耗與冷卻",
+    "暴擊",
+    "必殺技效果與真必殺技的基礎",
+]

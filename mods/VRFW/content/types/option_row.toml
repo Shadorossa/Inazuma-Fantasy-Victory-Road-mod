@@ -1,0 +1,20 @@
+# Declares `[[VRFW.OptionRow]]` entries (content/option_rows/*.toml): extra values for a row of the game's settings menu.
+# Each key is checked against this file; an unknown key, wrong type or out-of-range value drops the declaration with a warning.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.option_row/1"
+folder = "content/option_rows"
+label = "Option rows"
+label_es = "Filas de opciones"
+doc = "One more value in a row of the game's settings menu, chosen like the game's own."
+doc_es = "Un valor más en una fila del menú de ajustes del juego, elegido como los del propio juego."
+
+[entry.OptionRow]
+doc = "one more value in a row of the game's settings menu (setting_menu): shown and chosen like the game's own, kept in an option value of the declaring mod"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+setting = { type = "int", min = 0, max = 65535, required = true, doc = "the row's setting type (the game's settings row field +0x08; one declaration per setting type: the later mod wins)" }
+text = { type = "string", required = true, doc = "text key of the new value's name (its crc32 is the text id the row shows)" }
+at = { type = "int", min = 0, max = 15, default = 1, doc = "its place in the row's value list (0 = first); the game's values after it move one place on" }
+game_values = { type = "int", min = 1, max = 15, default = 2, doc = "the row's own value count: a row read with another count is left as the game made it" }
+stores = { type = "int", min = 0, max = 15, default = 0, doc = "the game's own value the game's settings (and the save) keep while the new value is chosen" }
+option = { type = "string", required = true, doc = "the declaring mod's option value (mod_options/<mod>.json) that says the new value is chosen (1) or not (absent / 0); written by the service, read by the mod" }
+when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

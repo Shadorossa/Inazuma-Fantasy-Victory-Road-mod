@@ -1,0 +1,9 @@
+schema = "VRFW.level_sync/1"
+
+# the free match's Lv 50 class plays the user's team at Lv 50 too: every difficulty row declared at Level 50
+# (content\defaults\match_difficulty.toml, INAZUMA), in every game (other mods' tabs too). Every player's match
+# stats are his Lv 50 stats, above or below it; the saved players keep their level, EXP and moves.
+[[VRFW.LevelSync]]
+name = "free_match_lv50"
+difficulty_level = 50
+level = 50

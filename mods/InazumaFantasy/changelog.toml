@@ -1,0 +1,85 @@
+schema = "VRFW.changelog/1"
+# Inazuma Fantasy: ONE general summary of what the mod offers, shown on (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Tienda general y tiendas de Fantasy",
+    "Rival legendario diario",
+    "Inazuma Post y QR de Discord",
+    "Ídolos, logo y álbum de Fantasy",
+    "Nuevas supertécnicas en las tiendas",
+]
+
+[release.en]
+notes = [
+    "General store and Fantasy shops",
+    "Daily legendary rival",
+    "Inazuma Post and Discord QR",
+    "Fantasy Idols, logo and album",
+    "New special moves in the shops",
+]
+
+[release.fr]
+notes = [
+    "Boutique générale et boutiques Fantasy",
+    "Rival légendaire quotidien",
+    "Inazuma Post et QR Discord",
+    "Idoles, logo et album Fantasy",
+    "Nouvelles techniques en boutique",
+]
+
+[release.de]
+notes = [
+    "Gemischtwaren- und Fantasy-Läden",
+    "Täglicher legendärer Rivale",
+    "Inazuma Post und Discord-QR",
+    "Fantasy-Idole, Logo und Album",
+    "Neue Spezialtechniken in den Läden",
+]
+
+[release.it]
+notes = [
+    "Negozio generale e negozi Fantasy",
+    "Rivale leggendario giornaliero",
+    "Inazuma Post e QR di Discord",
+    "Idoli, logo e album Fantasy",
+    "Nuove super tecniche nei negozi",
+]
+
+[release.pt]
+notes = [
+    "Loja geral e lojas Fantasy",
+    "Rival lendário diário",
+    "Inazuma Post e QR do Discord",
+    "Ídolos, logótipo e álbum Fantasy",
+    "Novas supertécnicas nas lojas",
+]
+
+[release.ja]
+notes = [
+    "総合ショップとFantasyのショップ",
+    "毎日のレジェンドライバル",
+    "イナズマポストとDiscordのQR",
+    "Fantasyのアイドル・ロゴ・アルバム",
+    "ショップに新しい必殺技",
+]
+
+[release.zh_hans]
+notes = [
+    "综合商店与Fantasy商店",
+    "每日传奇对手",
+    "闪电邮报与Discord二维码",
+    "Fantasy偶像、标志与相册",
+    "商店新增必杀技",
+]
+
+[release.zh_hant]
+notes = [
+    "綜合商店與Fantasy商店",
+    "每日傳奇對手",
+    "閃電郵報與Discord二維碼",
+    "Fantasy偶像、標誌與相簿",
+    "商店新增必殺技",
+]

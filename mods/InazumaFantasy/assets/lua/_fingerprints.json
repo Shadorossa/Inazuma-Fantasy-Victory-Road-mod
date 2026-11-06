@@ -1,0 +1,33 @@
+{
+ "_markers": [
+  "OnOpenLayer",
+  "OnSetupLayer",
+  "OnInit",
+  "Step",
+  "OnFunction"
+ ],
+ "item_use_menu": {
+  "script": "item_use_menu_6.00.09.00",
+  "require": [
+   "InitItemUseMenuParam"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "market_menu": {
+  "script": "market_menu_4.00.05.00",
+  "require": [
+   "IsCheckNoTokenShopIdx"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "num_shop_window": {
+  "script": "num_shop_window_0.00.00",
+  "require": [
+   "SetupShopCustomInfo"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ }
+}

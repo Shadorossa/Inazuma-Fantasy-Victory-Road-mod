@@ -1,0 +1,41 @@
+schema = "VRFW.technique/3"
+# Espiral divina (Divine Spiral): the download's move who91108, a clone of who01080 with its numbers; its event ev61_91108 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "divine_spiral"
+key = "who91108"
+base = "who01080"
+event = "ev61_91108"
+manual = { icon = [162, 0] }                 # its base has no manual: a new one (generic dribble icon, as the game's
+                                            # whs02150 / who00540 manuals), so the move shop can sell it
+power_min = 85
+power_max = 540
+tp = 80
+  [technique.text.es]
+  name = "Espiral divina"
+  description = "Gira en una espiral de luz divina\ny deja atrás a los rivales."
+  [technique.text.en]
+  name = "Divine Spiral"
+  description = "Spins in a spiral of divine light\nand leaves the rivals behind."
+  [technique.text.fr]
+  name = "Spirale divine"
+  description = "Tourne dans une spirale de lumière divine\net laisse les adversaires sur place."
+  [technique.text.de]
+  name = "Göttliche Spirale"
+  description = "Dreht sich in einer Spirale aus Licht\nund lässt die Gegner hinter sich."
+  [technique.text.it]
+  name = "Spirale divina"
+  description = "Gira in una spirale di luce divina\ne si lascia dietro gli avversari."
+  [technique.text.pt]
+  name = "Espiral divina"
+  description = "Gira numa espiral de luz divina\ne deixa os adversários para trás."
+  [technique.text.ja]
+  name = "ディバインスパイラル"
+  description = "神の光の渦をまとい\n相手を置き去りにする！"
+  [technique.text.zh_hans]
+  name = "神圣螺旋"
+  description = "化作神圣光芒的螺旋，\n把对手甩在身后。"
+  [technique.text.zh_hant]
+  name = "神聖螺旋"
+  description = "化作神聖光芒的螺旋，\n把對手甩在身後。"

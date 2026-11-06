@@ -1,0 +1,6 @@
+# Record attribute bits the framework's save services leave alone.
+schema = "VRFW.protected_attribute/1"
+
+[[VRFW.ProtectedAttribute]]
+name = "story_player"
+bit = 0x80

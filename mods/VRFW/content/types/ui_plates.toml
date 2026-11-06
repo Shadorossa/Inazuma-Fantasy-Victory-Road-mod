@@ -1,0 +1,29 @@
+# Declaration schema of VRFW.ui_plates/1 (content\defaults\ui_plates.toml): fields read from the shipped file. `vrfw check` validates it and the ModManager draws its form from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.ui_plates/1"
+folder = "content/defaults"
+
+[entry.HeaderRow]
+doc = "Layout of the shared header row (Lua: VRFW_UI.HeaderRow): screen px at 1080p unless noted."
+entry_table = "header_row"
+single = true
+res = { type = "strings", doc = "extra atlases the row swaps sprites from; a menu showing the row lists them in its res" }
+pos_badge = { type = "ints", doc = "position badge mesh size: width, height" }
+role_glyph = { type = "int", doc = "archetype / role glyph mesh size" }
+row_origin = { type = "ints", doc = "row origin in its layout (scale 1): x, y" }
+row_size = { type = "ints", doc = "row size in its layout: width, height" }
+band = { type = "table", doc = "slanted position-coloured band under the row", fields = { dx = { type = "int" }, y0 = { type = "int" }, sx = { type = "number" }, sy = { type = "number" }, namebox = { type = "ints", doc = "nickname box: node local x, y, width, height" } } }
+arch_box = { type = "table", doc = "archetype glyph box", fields = { box = { type = "ints", doc = "screen x, y, w, h" }, box_dual = { type = "ints", doc = "dual-archetype box: x, y, w, h" }, gauge = { type = "ints", doc = "gauge frame mesh in its layout: left, top (y up), width, height" } } }
+variants = { type = "table", doc = "per-screen placements `[header_row.variants.<name>]`: scale s and top-left x, y" }
+
+[entry.MovePlate]
+doc = "Element-coloured special-move plate (Lua: VRFW_UI.MovePlate): quad offsets from the plate centre, px at scale 1."
+entry_table = "move_plate"
+single = true
+res = { type = "strings", doc = "atlases a menu res must contain for the row fill" }
+quad_res = { type = "strings", doc = "atlases a menu res must contain for quad-drawn plates" }
+plate = { type = "ints", doc = "plate size: width, height" }
+category = { type = "ints", doc = "category icon: x, y, size" }
+name_x = { type = "int", doc = "name left edge" }
+label = { type = "ints", doc = "AT / DF label: x, y, width, height" }
+power_right = { type = "int", doc = "power right edge" }

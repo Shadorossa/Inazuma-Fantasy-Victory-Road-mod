@@ -1,0 +1,69 @@
+# Texts for outfits ([[VRFW.Outfit]]) and switchable card looks ([[VRFW.CardLook]]): menu_text rows in 9 languages;
+# a missing row leaves the label blank.
+
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# Label of the empty outfit row in the equipment menu.
+[[row]]
+id = "vrfw_outfit_slot"
+es = "Elegir atuendo"
+en = "Choose outfit"
+fr = "Choisir une tenue"
+de = "Outfit wählen"
+it = "Scegli tenuta"
+pt = "Escolher traje"
+ja = "コスチュームを選ぶ"
+zh_hans = "选择服装"
+zh_hant = "選擇服裝"
+
+# Label of the empty outfit row while the player's switchable card look (an idol's moment kit) is on.
+[[row]]
+id = "vrfw_outfit_card_look_on"
+es = "Equipación de ídolo activa"
+en = "Idol kit on"
+fr = "Tenue d'idole activée"
+de = "Idol-Trikot aktiv"
+it = "Divisa da idolo attiva"
+pt = "Equipamento de ídolo ativo"
+ja = "アイドルユニフォーム着用中"
+zh_hans = "偶像队服已启用"
+zh_hant = "偶像隊服已啟用"
+
+# Row of a card look the player can switch ([[VRFW.CardLook]] with switch_bit) in the equipment menu; {label} = the
+# rule's label text (vrfw_card_look_name when it declares none).
+[[row]]
+id = "vrfw_card_look_on"
+es = "{label}: Activada"
+en = "{label}: On"
+fr = "{label} : activée"
+de = "{label}: An"
+it = "{label}: attiva"
+pt = "{label}: ativado"
+ja = "{label}：ON"
+zh_hans = "{label}：开启"
+zh_hant = "{label}：開啟"
+
+[[row]]
+id = "vrfw_card_look_off"
+es = "{label}: Desactivada"
+en = "{label}: Off"
+fr = "{label} : désactivée"
+de = "{label}: Aus"
+it = "{label}: disattiva"
+pt = "{label}: desativado"
+ja = "{label}：OFF"
+zh_hans = "{label}：关闭"
+zh_hant = "{label}：關閉"
+
+[[row]]
+id = "vrfw_card_look_name"
+es = "Equipación de la carta"
+en = "Card kit"
+fr = "Tenue de la carte"
+de = "Karten-Trikot"
+it = "Divisa della carta"
+pt = "Uniforme da carta"
+ja = "カードのユニフォーム"
+zh_hans = "卡牌球衣"
+zh_hant = "卡牌球衣"

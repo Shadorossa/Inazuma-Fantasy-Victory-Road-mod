@@ -1,0 +1,42 @@
+schema = "VRFW.option/2"
+# Option rows of the framework in the mod options tab; values are stored under mod_options.<id>. Texts: this part's text.toml.
+
+# Opening movie shown by the title. Only the retail entry is declared here (0 = the game's own pick, default);
+# the core publishes the other values at boot (the game's openings and those declared by enabled mods).
+# Group rows: parents shown only when one of their children is on the tab; off = children do not apply (values kept).
+
+# Group: game settings.
+[[option]]
+id = "game_settings"
+type = "toggle"
+label = "game_settings"
+help = "game_settings_help"
+default = 1
+group = true
+order = 100
+
+# Group: custom style.
+[[option]]
+id = "custom_style"
+visual = true                                 # only what this player sees / hears: not compared in online rooms
+type = "toggle"
+label = "custom_style"
+help = "custom_style_help"
+default = 1
+group = true
+order = 120
+
+[[option]]
+id = "opening"
+visual = true                                 # only what this player sees / hears: not compared in online rooms
+type = "list"
+hook = "title_opening"
+parent = "mod_options.custom_style"
+label = "opening"
+help = "opening_help"
+values = [
+    { value = 0, name = "opening_retail", text = "Retail" },
+]
+default = 0
+# First child of the custom style group; a child's order only places it among its siblings.
+order = 121

@@ -1,0 +1,93 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "training"
+  Type = "table"
+  Label = { es = "Entrenamiento", en = "Training" }
+  Help = { es = "Reglas del entrenamiento de jugadores (reinicia el juego tras cambiarlas).", en = "Player training rules (restart the game after a change)." }
+  [[Shape.Field]]
+  Key = "training.rule"
+  Type = "string"
+  Label = { es = "Regla de entrenamiento", en = "Training rule" }
+  Help = { es = "\"trade\": con Libertad agotada, subir una estadística baja su opuesta uno a uno. \"pool\": un solo fondo de puntos.", en = "\"trade\": with no Libertad left, raising a stat lowers its counterpart one for one. \"pool\": one pool of points." }
+  [[Shape.Field]]
+  Key = "training.floor_percent"
+  Type = "int"
+  Label = { es = "Mínimo de una estadística drenada", en = "Drained stat floor" }
+  Help = { es = "Lo más bajo que puede llegar una estadística, en % de su base sin entrenar (0 = hasta 1).", en = "Lowest a drained stat can go, in % of its untrained base (0 = down to 1)." }
+  [[Shape.Field]]
+  Key = "training.max_value"
+  Type = "int"
+  Label = { es = "Valor máximo entrenado", en = "Max trained value" }
+  Help = { es = "Valor base máximo entrenado de una estadística.", en = "Highest trained base value of a stat." }
+  [[Shape.Field]]
+  Key = "training.locked_rarities"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Rarezas sin entrenamiento", en = "Untrainable rarities" }
+  Help = { es = "Rarezas de carta que no se pueden entrenar (por ejemplo [8, 10]); vacío = todas se entrenan.", en = "Card rarities that cannot be trained (e.g. [8, 10]); empty = all train." }
+  [[Shape.Field]]
+  Key = "training.budget_percent"
+  Type = "int"
+  Label = { es = "Presupuesto de Libertad", en = "Libertad budget" }
+  Help = { es = "Ajuste del total de puntos de Libertad por nivel, como en IE3.", en = "Adjusts the total Libertad points per level, as in IE3." }
+  [[Shape.Field]]
+  Key = "stat_effects"
+  Type = "table"
+  Label = { es = "Efectos de la Suerte", en = "Luck effects" }
+  Help = { es = "Qué hace la Suerte durante un partido.", en = "What Luck does in a match." }
+  [[Shape.Field]]
+  Key = "stat_effects.critical_catch_base_percent"
+  Type = "int"
+  Label = { es = "Parada crítica base (%)", en = "Base critical catch (%)" }
+  Help = { es = "Probabilidad base de parada crítica del portero en cada tiro.", en = "Base critical catch chance of the keeper on each shot." }
+  [[Shape.Field]]
+  Key = "stat_effects.critical_catch_per_luck"
+  Type = "float"
+  Label = { es = "Parada crítica por Suerte", en = "Critical catch per Luck" }
+  Help = { es = "Probabilidad extra de parada crítica por cada punto de Suerte.", en = "Extra critical catch chance per point of Luck." }
+  [[Shape.Field]]
+  Key = "stat_effects.critical_catch_cap_percent"
+  Type = "int"
+  Label = { es = "Tope de parada crítica (%)", en = "Critical catch cap (%)" }
+  Help = { es = "Máxima probabilidad de parada crítica.", en = "Highest critical catch chance." }
+  [[Shape.Field]]
+  Key = "stat_effects.move_critical_base_percent"
+  Type = "float"
+  Label = { es = "Crítico de técnicas base (%)", en = "Base move critical (%)" }
+  Help = { es = "Probabilidad base de golpe crítico en las supertécnicas.", en = "Base critical hit chance of special moves." }
+  [[Shape.Field]]
+  Key = "stat_effects.move_critical_per_luck"
+  Type = "float"
+  Label = { es = "Crítico de técnicas por Suerte", en = "Move critical per Luck" }
+  Help = { es = "Probabilidad extra de crítico por cada punto de Suerte.", en = "Extra critical chance per point of Luck." }
+  [[Shape.Field]]
+  Key = "stat_effects.move_critical_cap_percent"
+  Type = "float"
+  Label = { es = "Tope de crítico de técnicas (%)", en = "Move critical cap (%)" }
+  Help = { es = "Máxima probabilidad de crítico en las supertécnicas.", en = "Highest critical chance of special moves." }
+  [[Shape.Field]]
+  Key = "stat_effects.move_critical_power_multiplier"
+  Type = "float"
+  Label = { es = "Multiplicador de potencia crítica", en = "Critical power multiplier" }
+  Help = { es = "Multiplicador de potencia de un crítico que aplica este mod; 1,0 lo deja a otros mods.", en = "Power multiplier of a critical hit this mod answers; 1.0 leaves it to other mods." }
+  [[Shape.Field]]
+  Key = "rival_training"
+  Type = "table"
+  Label = { es = "Entrenamiento de rivales", en = "Rival training" }
+  Help = { es = "Rivales que un mod declara entrenados al máximo para un partido.", en = "Rival players a mod declares fully trained for a match." }
+  [[Shape.Field]]
+  Key = "rival_training.spread"
+  Type = "string"
+  Label = { es = "Reparto de puntos", en = "Point spread" }
+  Help = { es = "\"priority\": cada estadística de la lista toma toda la Libertad; \"even\": se reparte por igual.", en = "\"priority\": each stat in list order takes all the Libertad; \"even\": split evenly." }
+  [[Shape.Field]]
+  Key = "rival_training.GK"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Prioridad de porteros", en = "Keeper priority" }
+  Help = { es = "Estadísticas de portero de mayor a menor prioridad.", en = "Keeper stats, highest priority first." }

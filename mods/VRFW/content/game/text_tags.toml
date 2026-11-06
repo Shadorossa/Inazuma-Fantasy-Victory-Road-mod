@@ -1,0 +1,16 @@
+schema = "VRFW.game/2"
+
+# Name tags in game texts (scripts\text_tags.lua, scripts\lib\name_tags.lua): the engine replaces <PFX:KEY> tags only
+# in its own text widgets; a screen that draws a game text itself asks for the replaced text.
+
+# [[g_gameRoot] + Game.RootSettings] = the game settings ([struct.GameSettings]: «Nombres de los personajes»)
+[[VRFW.Global]]
+name = "Game.Settings"
+base = "game_root"
+chain = ["Game.RootSettings"]
+
+# (text, lang code) -> text: the text with its name tags replaced as the game shows them (place and character names,
+# dub or original names), unknown tags removed
+[[VRFW.Command]]
+name = "CMND_VRFW_TEXT_EXPAND_TAGS"
+handler = "TextTags.Expand"

@@ -1,0 +1,29 @@
+schema = "VRFW.editor/1"
+# The «Normal / Grado 5» selector of ModManager's technique studio: the G5 look of a special move (the cut-in this
+# mod's grade rule plays from G5, content\hissatsu_level_up\grade_animations.toml). Read only by ModManager
+# (docs/framework/modmanager-editor-schemas.md, `[[StudioVariant]]`).
+#   - a move whose G5 row names a mod's move (HissatsuLevelUp.fist_of_justice_g5) opens that move: its cut-in copy
+#     and its effects are edited in place;
+#   - a move whose G5 row names a game move (Mano celestial -> whk00490 EV), or that has no G5 row yet, opens on a copy
+#     of the cut-in shown today: the first change creates, in the destination mod, the never-learned technique
+#     `<move>_g5` (CopyFile: base = the move, name and description of the move, its own `animation` block = the copied
+#     cut-in events with ids from the framework), its effect file (content\effects\) and the G5 row (the existing
+#     row re-pointed in place, else a new row in content\hissatsu_level_up\grade_animations.toml).
+
+[[StudioVariant]]
+Id = "grade_animation"
+Label = { es = "Aspecto", en = "Look" }
+Help = { es = "La animación que la supertécnica muestra desde su nivel G5.", en = "The cut-in the special move shows from its G5 level." }
+Normal = { es = "Normal", en = "Normal" }
+RulesType = "hissatsu_level_up"
+Table = "HissatsuLevelUp.GradeAnimation"
+MoveField = "technique"
+AnimationField = "animation_of"
+EnabledField = "enabled"
+NewRulesFile = "grade_animations.toml"
+RulesSchema = "HissatsuLevelUp.rules/1"
+CopyFile = "content/techniques/{name}.toml"
+  [[StudioVariant.Option]]
+  Label = { es = "Grado 5", en = "Grade 5" }
+  Suffix = "g5"
+  Fields = { grade = 5 }

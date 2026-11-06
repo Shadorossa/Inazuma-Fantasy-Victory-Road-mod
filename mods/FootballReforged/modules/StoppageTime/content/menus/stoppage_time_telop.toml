@@ -1,0 +1,17 @@
+# Stoppage Time > the «+N» under the scoreboard's clock: one layer of the scoreboard's own screen, so the game opens,
+# closes and fades it with the scoreboard (every HUD close, cut-in, scene, pause or half-time). Its script is
+# assets\lua\_all\stoppage_time_telop.lua; an empty text draws nothing until the half's regular end.
+# Object: the retail text soccer00_81_approval_command_button, the text node and dummy meshes only, whose open and close
+# are the same 10-frame material fade as the scoreboard's. Flags: those of the keeper bars, opened with the group.
+schema = "VRFW.menu/2"
+
+[[object]]
+name = "stoppage_time_telop"
+from = "soccer00_81_approval_command_button"
+
+[[patch]]
+menu = "soccer_constant_menu"
+add_layer = { name = "stoppage_time_telop", object = "stoppage_time_telop", count = 1, after = "soccer00_02_kp2_kp_empty_enemy", groups = [
+    { group = "soccer_constant_menu", flags = [0, 1, 0, 0, 1, 0] },
+    { group = "soccer_battle_constant_menu", flags = [0, 1, 0, 0, 1, 0] },
+] }

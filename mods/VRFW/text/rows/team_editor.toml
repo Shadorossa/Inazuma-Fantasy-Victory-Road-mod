@@ -1,0 +1,44 @@
+# Texts of the team editor (lua\menu\_all\81_team_editor.lua, docs/framework/team-editor.md): the button guide entry of
+# Y on the dock with spec.inline_card_actions, A on a crest / kit with spec.identity_choices (soccer_team_dock_menu\130_foreign_team.lua asks crc32(id)).
+
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# Y on a player card: the player page.
+[[row]]
+id = "vrfw_team_editor_player_page"
+es = "Ficha"
+en = "Profile"
+fr = "Fiche"
+de = "Profil"
+it = "Scheda"
+pt = "Ficha"
+ja = "選手情報"
+zh_hans = "球员资料"
+zh_hant = "球員資料"
+
+# A on the team page's crest with identity choices (spec.identity_choices): the next crest.
+[[row]]
+id = "vrfw_team_editor_next_crest"
+es = "Cambiar escudo"
+en = "Next crest"
+fr = "Écusson suivant"
+de = "Nächstes Wappen"
+it = "Stemma successivo"
+pt = "Próximo emblema"
+ja = "エンブレム変更"
+zh_hans = "切换队徽"
+zh_hant = "切換隊徽"
+
+# A on the team page's kit with identity choices (spec.identity_choices): the next kit.
+[[row]]
+id = "vrfw_team_editor_next_kit"
+es = "Cambiar equipación"
+en = "Next kit"
+fr = "Tenue suivante"
+de = "Nächstes Trikot"
+it = "Divisa successiva"
+pt = "Próximo uniforme"
+ja = "ユニフォーム変更"
+zh_hans = "切换队服"
+zh_hant = "切換隊服"

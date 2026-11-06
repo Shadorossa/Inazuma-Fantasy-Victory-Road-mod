@@ -1,0 +1,5 @@
+# Defaults of the anim engine, merged across mods in load order (later mod wins).
+
+[celebration]
+# Event whose event_env_config row a mod's celebration clones when its [[celebration]] has no `template`.
+template = "ev71_10020"

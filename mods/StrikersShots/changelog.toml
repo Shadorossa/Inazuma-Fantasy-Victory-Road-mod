@@ -1,0 +1,67 @@
+schema = "VRFW.changelog/1"
+# Strikers Shots: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Cámara de banda que sigue el tiro",
+    "Auras de tiro en línea recta",
+    "Goles que rompen la portería",
+]
+
+[release.en]
+notes = [
+    "Sideline camera following the shot",
+    "Straight-line shot auras",
+    "Goals that break the net",
+]
+
+[release.fr]
+notes = [
+    "Caméra de touche suivant le tir",
+    "Auras de tir en ligne droite",
+    "Buts qui brisent le but",
+]
+
+[release.de]
+notes = [
+    "Seitenkamera folgt dem Schuss",
+    "Schuss-Auren in gerader Linie",
+    "Tore, die das Tor zerbrechen",
+]
+
+[release.it]
+notes = [
+    "Camera laterale che segue il tiro",
+    "Aure di tiro in linea retta",
+    "Gol che rompono la porta",
+]
+
+[release.pt]
+notes = [
+    "Câmara lateral que segue o remate",
+    "Auras de remate em linha reta",
+    "Golos que partem a baliza",
+]
+
+[release.ja]
+notes = [
+    "シュートを追う中継カメラ",
+    "直線を描くシュートオーラ",
+    "ゴールを破壊する演出",
+]
+
+[release.zh_hans]
+notes = [
+    "跟随射门的边线镜头",
+    "直线飞行的射门灵气",
+    "破网进球演出",
+]
+
+[release.zh_hant]
+notes = [
+    "跟隨射門的邊線鏡頭",
+    "直線飛行的射門靈氣",
+    "破網進球演出",
+]

@@ -1,0 +1,111 @@
+# «Pachanga» (5v5) templates of the team dock (module Friendlies of Football Reforged).
+# Logic: scripts\friendlies.lua. Commands CMND_FRIENDLIES_*; their names in Inazuma Fantasy (CMND_FANTASY_PACHANGA_*) and
+# before (CMND_EVT_PACHANGA_*) stay as aliases, so every graft and mod that calls them keeps working.
+# CMND_FRIENDLIES_UPVAL is the framework's built-in command lua_upvalues.
+schema = "VRFW.game/2"
+
+[[VRFW.Global]]
+name = "friendly_party"
+base = "game_root"
+chain = ["ROOT_PARTY"]
+
+[[VRFW.Global]]
+name = "friendly_play_data"
+base = "game_root"
+chain = ["ROOT_PLAY_DATA"]
+
+# CMND_FRIENDLIES_INFO -> ok, active dock (-1 none), 5v5 members of it, bank (1-based), slot
+[[VRFW.Command]]
+name = "CMND_FRIENDLIES_INFO"
+aliases = ["CMND_PACHANGAS_INFO", "CMND_FANTASY_PACHANGA_INFO", "CMND_EVT_PACHANGA_INFO"]
+handler = "Friendlies.Info"
+needs = ["Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+# CMND_FRIENDLIES_SET(dock 2..12, -1 = none) -> ok, code
+[[VRFW.Command]]
+name = "CMND_FRIENDLIES_SET"
+aliases = ["CMND_PACHANGAS_SET", "CMND_FANTASY_PACHANGA_SET", "CMND_EVT_PACHANGA_SET"]
+handler = "Friendlies.Set"
+needs = ["Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+# CMND_FRIENDLIES_TEAM -> ok, dock, formation dword, team name, n, handle x n (the active 5v5 team)
+[[VRFW.Command]]
+name = "CMND_FRIENDLIES_TEAM"
+aliases = ["CMND_PACHANGAS_TEAM", "CMND_FANTASY_PACHANGA_TEAM", "CMND_EVT_PACHANGA_TEAM"]
+handler = "Friendlies.Team"
+needs = ["Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+# CMND_FRIENDLIES_CAPTAIN -> ok, captain card, captain handle (the active 5v5 team's captain; 0 = none named)
+[[VRFW.Command]]
+name = "CMND_FRIENDLIES_CAPTAIN"
+aliases = ["CMND_PACHANGAS_CAPTAIN", "CMND_FANTASY_PACHANGA_CAPTAIN"]
+handler = "Friendlies.Captain"
+needs = ["Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+# CMND_FRIENDLIES_NOTE(op "set" / "get", text) -> the note (a text handed between menu VMs: the join scene's name)
+[[VRFW.Command]]
+name = "CMND_FRIENDLIES_NOTE"
+aliases = ["CMND_PACHANGAS_NOTE", "CMND_FANTASY_PACHANGA_NOTE"]
+handler = "Friendlies.Note"
+
+# CMND_FRIENDLIES_VS(op 1 remember / 0 take / 2 peek, vs set) -> ok, vs set (-1 none)
+[[VRFW.Command]]
+name = "CMND_FRIENDLIES_VS"
+aliases = ["CMND_PACHANGAS_VS", "CMND_FANTASY_PACHANGA_VS", "CMND_EVT_PACHANGA_VS"]
+handler = "Friendlies.Vs"
+needs = ["Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+# CMND_FRIENDLIES_FLAGS -> dock bits put back on 11v11 / 5v5 members (-1 = not ready)
+[[VRFW.Command]]
+name = "CMND_FRIENDLIES_FLAGS"
+aliases = ["CMND_PACHANGAS_FLAGS", "CMND_FANTASY_PACHANGA_FLAGS", "CMND_EVT_PACHANGA_FLAGS"]
+handler = "Friendlies.Flags"
+needs = ["Party.SetOrganizedFlagBit", "Party.LogicalToPhysical", "friendly_party"]
+
+# CMND_FRIENDLIES_MIRROR(dock, 5v5 formation id) -> changes (-1 = n/a), removed, added: the 5v5 team holds exactly the
+# players of the dock's 11v11 team; empty starter positions are filled from them by the formation's positions
+[[VRFW.Command]]
+name = "CMND_FRIENDLIES_MIRROR"
+aliases = ["CMND_PACHANGAS_MIRROR"]
+handler = "Friendlies.Mirror"
+needs = ["Party.SetOrganizedFlagBit", "Party.RecountTeamInfo", "Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+# CMND_FRIENDLIES_TEAMSWAP(dock, on 1 / 0) -> ok, swapped dock (-1 none): 11v11 <-> 5v5 members for the team bonuses screen
+[[VRFW.Command]]
+name = "CMND_FRIENDLIES_TEAMSWAP"
+aliases = ["CMND_PACHANGAS_TEAMSWAP", "CMND_FANTASY_PACHANGA_TEAMSWAP", "CMND_EVT_PACHANGA_TEAMSWAP"]
+handler = "Friendlies.TeamSwap"
+needs = ["Party.RecountTeamInfo", "Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+# a return to the title undoes a pending team bonuses swap (the retail command keeps running: the handler answers
+# nothing). The trial's own return to the title (CMND_EVT_TRIAL_RETURN) does not pass here.
+[[VRFW.CommandFilter]]
+name = "FriendliesGameReset"
+command = "CMND_GAME_RESET"
+handler = "Friendlies.OnGameReset"
+needs = ["Party.RecountTeamInfo", "Party.LogicalToPhysical", "friendly_party"]
+
+# One team per call from dock 02 on: around the retail place / move 193693077(toSet, pos, fromSet, hdl, team) (0xC35A80)
+# the team the call is NOT about is saved (before) and put back, recounted, its dock bits restored (after), so the
+# retail side effect never drops a player into a random 5v5 position; CMND_FRIENDLIES_MIRROR then brings the 5v5 team
+# to the 11v11 team's players.
+[[VRFW.CommandFilter]]
+name = "FriendliesSplitPre"
+command = 0x0B8B8595
+handler = "Friendlies.SplitPre"
+needs = ["Party.SetOrganizedFlagBit", "Party.RecountTeamInfo", "Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+[[VRFW.CommandFilter]]
+name = "FriendliesSplitPost"
+command = 0x0B8B8595
+phase = "after"
+handler = "Friendlies.SplitPost"
+needs = ["Party.SetOrganizedFlagBit", "Party.RecountTeamInfo", "Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+# CMND_FRIENDLIES_UPVAL(fn, expect1, value1 [, expect2, value2 …]) -> upvalues changed (-1 = not a function / not
+# available): every numeric upvalue of the game Lua function `fn` equal to an `expect` becomes its `value` (the
+# framework's built-in, through the game VM's lua_getupvalue / lua_setupvalue)
+[[VRFW.Command]]
+name = "CMND_FRIENDLIES_UPVAL"
+aliases = ["CMND_PACHANGAS_UPVAL", "CMND_FANTASY_PACHANGA_UPVAL", "CMND_EVT_PACHANGA_UPVAL"]
+builtin = "lua_upvalues"

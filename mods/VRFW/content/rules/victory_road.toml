@@ -1,0 +1,18 @@
+schema = "VRFW.rule/1"
+# Base ruleset: Victory Road mode, every rule left to the match row ("row"); a mod may replace it (same id, later load).
+id = "victory_road"
+name = "Victory Road (original)"   # fallback; shown in the game language from the text key ruleset_victory_road
+version = 1
+
+[time]
+half_minutes = "row"
+halves = "row"
+
+[teams]
+players = "row"
+
+[end]
+extra_time = false
+golden_goal = false
+penalties = false
+extended_vgoal = "row"

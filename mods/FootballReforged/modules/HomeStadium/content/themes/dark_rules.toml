@@ -1,0 +1,23 @@
+# Home Stadium's rules for the framework's dark theme (merged into every theme with id "dark").
+schema = "VRFW.theme_rules/1"
+theme = "dark"
+# the selector window, name plate and arrows (its own atlas; the stadium pictures stay as they are)
+include = ["dx11/menu/220_img/home_stadium_ui"]
+
+# the window takes the panel colour, the name plate the card colour, the arrows the accent (the list-end arrows dimmed)
+[[sprite]]
+match = "home_stadium_ui_window"
+class = "panel"
+file = "home_stadium_ui/"
+[[sprite]]
+match = "home_stadium_ui_plate"
+class = "surface"
+file = "home_stadium_ui/"
+[[sprite]]
+match = "home_stadium_ui_arrow_*_dim"
+class = "mute"
+file = "home_stadium_ui/"
+[[sprite]]
+match = "home_stadium_ui_arrow_*"
+class = "accent"
+file = "home_stadium_ui/"

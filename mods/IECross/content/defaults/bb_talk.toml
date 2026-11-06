@@ -1,0 +1,9 @@
+# IECross: the lines the captains of its Battle Bay teams speak in the pre-match talk (the VR-Framework's
+# defaults\bb_talk.toml, docs/framework/bb-prematch.md «Retail lines»; merged with the other mods' lines key by key).
+# Each line is a retail story line, with its own voice and the speaker's pose in that talk. Battle Bay Deluxe turns
+# the retail lines on (`sources`); with it off these lines stay unused.
+[bb_talk.retail.lines]
+"evt_ct_cx_shin_zeus_bb" = "ev21_12000_010_060"      # Byron Love
+"evt_ct_cx_pierrot_chaos_bb" = "ev22_18000_010_040"  # Torch
+"evt_ct_cx_kaizoku_ij_bb" = "ev21_13000_010_030"     # Mark Evans
+"evt_ct_cx_royal_academy_bb" = "ev21_01500_010_010"  # Jude Sharp

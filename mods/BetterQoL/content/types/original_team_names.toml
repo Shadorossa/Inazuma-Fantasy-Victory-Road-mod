@@ -1,0 +1,13 @@
+# Declaration schema of BetterQoL.original_team_names/1 (content\original_names): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "BetterQoL.original_team_names/1"
+folder = "content/original_names"
+label = "Original team names"
+label_es = "Nombres originales de equipos"
+doc = "The original (Japanese) and display name of a team."
+doc_es = "El nombre original (japonés) y el nombre mostrado de un equipo."
+
+[entry.Team]
+entry_table = "team"
+ja = { type = "string", required = true }
+name = { type = "string", required = true }

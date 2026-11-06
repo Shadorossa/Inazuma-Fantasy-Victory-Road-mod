@@ -1,0 +1,58 @@
+schema = "VRFW.changelog/1"
+# Strikers Titles: ONE general summary of what the mod offers, shown on (docs/framework/types/changelog.md).
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Rótulos de GO Strikers 2013",
+    "Rótulos de supertécnicas y espíritus",
+]
+
+[release.en]
+notes = [
+    "GO Strikers 2013 banners",
+    "Special move and spirit banners",
+]
+
+[release.fr]
+notes = [
+    "Bandeaux de GO Strikers 2013",
+    "Bandeaux de techniques et d'esprits",
+]
+
+[release.de]
+notes = [
+    "GO Strikers 2013-Einblendungen",
+    "Technik- und Geist-Einblendungen",
+]
+
+[release.it]
+notes = [
+    "Titoli di GO Strikers 2013",
+    "Titoli di tecniche e spiriti",
+]
+
+[release.pt]
+notes = [
+    "Legendas de GO Strikers 2013",
+    "Legendas de técnicas e espíritos",
+]
+
+[release.ja]
+notes = [
+    "GOストライカーズ2013のテロップ",
+    "必殺技と化身のテロップ",
+]
+
+[release.zh_hans]
+notes = [
+    "GO Strikers 2013字幕",
+    "必杀技与化身字幕",
+]
+
+[release.zh_hant]
+notes = [
+    "GO Strikers 2013字幕",
+    "必殺技與化身字幕",
+]

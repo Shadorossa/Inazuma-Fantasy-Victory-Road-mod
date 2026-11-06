@@ -1,0 +1,1512 @@
+schema = "VRFW.editor/1"
+# Legendary AI in ModManager: the forms of its match AI profiles (content\rules\ai\legendary.toml), listed in «IA de
+# rivales» (Partido › Campo) and grouped by topic. Every value of those
+# files is a config reference (${config.…}): the form shows and edits config.toml, named by config_labels.toml.
+# Ranges: the framework's knob catalogue (VRFW content\rules\catalog\ai_knobs.toml); a knob it marks verified = false
+# says so in its help. Generated from the profile file: keep it in step when the profile gains keys.
+
+[[Editor]]
+Id = "legendary_ai"
+Title = { es = "IA legendaria", en = "Legendary AI" }
+Help = { es = "El rival «legendario» de cada partido offline: su ritmo, pases, duelos, tiros, defensa, portero, técnicas y estamina. Cada valor se guarda en el config.toml del mod.", en = "The «Legendary» rival of every offline match: its pace, passing, duels, shots, defence, keeper, moves and stamina. Every value is saved in the mod's config.toml." }
+Section = "rules"
+Files = ["content/rules/ai/*.toml"]
+Table = "VRFW.MatchAI"
+Key = "Name"
+Shape = "legendary_ai_profile"
+
+[[Shape]]
+Id = "legendary_ai_class"
+For = "VRFW.match_ai/1 VRFW.MatchAIClass"
+Label = { es = "IA del partido · clases", en = "Match AI · classes" }
+Help = { es = "Una clase de IA del juego con valores propios: cómo juega cada jugador del bando que la usa.", en = "A game AI class with own values: how every player of the side using it plays." }
+  [[Shape.Field]]
+  Key = "Name"
+  Type = "string"
+  Label = { es = "Nombre", en = "Name" }
+  Required = true
+  [[Shape.Field]]
+  Key = "Inherit"
+  Type = "string"
+  Label = { es = "Clase base del juego", en = "Game base class" }
+  Help = { es = "La clase del juego de la que parte (SoccerAIProperty_8 = Batalla legendaria, nivel de IA 8); los valores de abajo la cambian.", en = "The game class it starts from (SoccerAIProperty_8 = Legendary battle, AI level 8); the values below change it." }
+  [[Shape.Field]]
+  Key = "_section_passing"
+  Type = "section"
+  Label = { es = "Pases", en = "Passing" }
+  Help = { es = "Cuándo pasa, a quién y cuánto arriesga.", en = "When it passes, to whom and how much it risks." }
+  [[Shape.Field]]
+  Key = "Rates.passEnableRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.focusPassEnableRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "_section_duels"
+  Type = "section"
+  Label = { es = "Regates y duelos", en = "Dribbles and duels" }
+  Help = { es = "Carreras con balón, esquivas y duelos de enfoque.", en = "Runs with the ball, dodges and focus duels." }
+  [[Shape.Field]]
+  Key = "Rates.normalDashEnableRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.attackDashEnableRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.allCourtJustAvoidRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.focusCatchActInterval"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  [[Shape.Field]]
+  Key = "Rates.focusCatchActRate"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  [[Shape.Field]]
+  Key = "Rates.focusKeepDistanceDribbleRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.focusActionIntervalA"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  [[Shape.Field]]
+  Key = "Rates.focusActionIntervalB"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  [[Shape.Field]]
+  Key = "Rates.focusActionIntervalC"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  [[Shape.Field]]
+  Key = "Rates.focusBreakThroughDisableTime"
+  Type = "float"
+  Min = 0.0
+  Max = 99.0
+  Unit = " s"
+  [[Shape.Field]]
+  Key = "Rates.focusBreakThroughEscapeRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.focusPowerChargeUseRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.focusPowerBlockUseRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "_section_shots"
+  Type = "section"
+  Label = { es = "Tiros y zona de tiro", en = "Shots and shoot zone" }
+  Help = { es = "Cuándo tira y cómo defiende tu zona de tiro.", en = "When it shoots and how it defends your shoot zone." }
+  [[Shape.Field]]
+  Key = "Rates.zoneShootChainUseRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.zoneShootDisableTime"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  [[Shape.Field]]
+  Key = "Rates.zonePassEnableRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "_section_defence"
+  Type = "section"
+  Label = { es = "Defensa y presión", en = "Defence and pressing" }
+  Help = { es = "Entradas, presión, marcajes, fuera de juego y líneas.", en = "Tackles, pressing, marking, offside trap and lines." }
+  [[Shape.Field]]
+  Key = "Rates.slidingEnableRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "_section_keeper"
+  Type = "section"
+  Label = { es = "Portero", en = "Goalkeeper" }
+  Help = { es = "Su portero: técnicas, tensión que guarda y la barra que lee.", en = "Its keeper: moves, tension kept and the bar it reads." }
+  [[Shape.Field]]
+  Key = "Rates.zoneKeeperSkillRateVsNormal"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "_section_moves"
+  Type = "section"
+  Label = { es = "Supertécnicas y tácticas", en = "Special moves and tactics" }
+  Help = { es = "Qué técnica elige, cuándo la usa y las tácticas especiales.", en = "Which move it picks, when it uses it and the special tactics." }
+  [[Shape.Field]]
+  Key = "Rates.focusAtkSkillRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.focusDefSkillRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.focusAtkOpponentSkillRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.focusDefOpponentSkillRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.focusAtkImmediateSkillRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.focusDefImmediateSkillRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.zoneShootBlockSkillRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.zoneShootSkillRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.directFreeKickSkillRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.spTacticsUseRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.suTacticsUseRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.scrambleJustRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  [[Shape.Field]]
+  Key = "Rates.auraSkillRate"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+
+[[Shape]]
+Id = "legendary_ai_profile"
+For = "VRFW.match_ai/1 VRFW.MatchAI"
+Label = { es = "IA del partido · perfiles", en = "Match AI · profiles" }
+Help = { es = "Un perfil de IA: a qué bando se aplica, su clase y sus valores por tema.", en = "An AI profile: the side it applies to, its class and its values by topic." }
+  [[Shape.Field]]
+  Key = "Name"
+  Type = "string"
+  Label = { es = "Nombre", en = "Name" }
+  Required = true
+  [[Shape.Field]]
+  Key = "Side"
+  Type = "enum"
+  Label = { es = "Bando", en = "Side" }
+  Help = { es = "rival = solo el equipo de la CPU (tus compañeros con IA siguen con la del juego); ambos = los dos equipos.", en = "rival = the CPU team only (your AI teammates keep the game's AI); both = both teams." }
+  Values = ["rival", "user", "both"]
+  ValueLabels = { rival = { es = "Rival", en = "Rival" }, user = { es = "Tu equipo", en = "Your team" }, both = { es = "Ambos", en = "Both" } }
+  [[Shape.Field]]
+  Key = "Class"
+  Type = "string"
+  Label = { es = "Clase", en = "Class" }
+  Help = { es = "La clase de IA de sus jugadores (una clase del juego o una declarada, como LegendaryAI.Legendary).", en = "The AI class of its players (a game class or a declared one, such as LegendaryAI.Legendary)." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "_section_pace"
+  Type = "section"
+  Label = { es = "Ritmo y decisiones", en = "Pace and decisions" }
+  Help = { es = "Cada cuánto vuelve a pensar, cuánto espera y cómo coloca al equipo.", en = "How often it re-plans, how long it waits and how it shapes the team." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.defaultWaitTimeMax"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.fCharaTacticsUpdateIntervalTime"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.fCharaTacticsUpdateMoreNumMax"
+  Type = "int"
+  Min = 0.0
+  Max = 11.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.charaTacticsDelayTime"
+  Type = "float"
+  Min = 0.0
+  Max = 5.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.charaTacticsDelayFluctuationTime"
+  Type = "float"
+  Min = 0.0
+  Max = 5.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.fCharaTacticsStateChangeUpdateTime"
+  Type = "float"
+  Min = 0.0
+  Max = 5.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.fCharaTacticsResetIntervalTime"
+  Type = "float"
+  Min = 0.0
+  Max = 30.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.teamStrategyUpdateInterval"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.teamTacticsUpdateInterval"
+  Type = "float"
+  Min = 0.0
+  Max = 30.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.charaSpeedStrengthMin"
+  Type = "float"
+  Min = 0.0
+  Max = 1.8
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.changePossessionContinueTime"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.StrategyLevel"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.Shape.hold_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.Shape.line_behind_ball_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.Shape.line_min_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.Shape.line_gap_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.Shape.rest_defence"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.Shape.rest_gap_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.window_s"
+  Type = "int"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.runners"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.channel_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.ahead_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.onside_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.goal_gap_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.end_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.max_behind"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.sprint"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.outlets"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.CounterRuns.outlet_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "_section_passing"
+  Type = "section"
+  Label = { es = "Pases", en = "Passing" }
+  Help = { es = "Cuándo pasa, a quién y cuánto arriesga.", en = "When it passes, to whom and how much it risks." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passLotteryIntervalMin"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passLotteryIntervalMax"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.fAutoPassIntervalTime"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.tacticsPassEvaluationSuccessRateWeight"
+  Type = "int"
+  Min = 0.0
+  Max = 1000.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.tacticsPassEvaluationPhaseEvaluationWeight"
+  Type = "int"
+  Min = 0.0
+  Max = 1000.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passNearEnemyNumSuccessRateRatio"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passWeightBackPasss"
+  Type = "int"
+  Min = 0.0
+  Max = 1000.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passDisableBackPassPosRateZ"
+  Type = "float"
+  Min = -1.0
+  Max = 1.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passPotentialFromOpp"
+  Type = "int"
+  Min = 0.0
+  Max = 100000.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passPotentialToGoal"
+  Type = "int"
+  Min = 0.0
+  Max = 100000.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passFarDistBase"
+  Type = "int"
+  Min = 0.0
+  Max = 100.0
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passFarDistMax"
+  Type = "int"
+  Min = 0.0
+  Max = 150.0
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passExpectetdFarDistMax"
+  Type = "int"
+  Min = 0.0
+  Max = 150.0
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.passTrgDirDistExpectedRateRatio"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.throuthPassTargetLengthAdjustRate"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassBeforeShot.margin"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassBeforeShot.max_passes"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassBeforeShot.max_hold_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassBeforeShot.free_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassBeforeShot.range_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassLaneCut.receivers"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassLaneCut.at"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassLaneCut.seconds"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassLaneCut.range_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassSpeed"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "_section_duels"
+  Type = "section"
+  Label = { es = "Regates y duelos", en = "Dribbles and duels" }
+  Help = { es = "Carreras con balón, esquivas y duelos de enfoque.", en = "Runs with the ball, dodges and focus duels." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Rates.focusFramePerfectReactRate"
+  Type = "int"
+  Min = 0.0
+  Max = 100.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.dashLineDashLotteryIntervalMin"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.dashLineDashLotteryIntervalMax"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.autoRunFocusBtlProbabilityMax"
+  Type = "int"
+  Min = 0.0
+  Max = 100.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.autoRunFocusBtlIntervalMin"
+  Type = "float"
+  Min = 0.0
+  Max = 60.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.autoRunFocusBtlIntervalMax"
+  Type = "float"
+  Min = 0.0
+  Max = 120.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.autoRunFocusBtlLotIntervalTime"
+  Type = "float"
+  Min = 0.0
+  Max = 60.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.tacticsDribbleEvaluationSuccessRateWeight"
+  Type = "int"
+  Min = 0.0
+  Max = 1000.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.tacticsDribbleEvaluationPhaseEvaluationWeight"
+  Type = "int"
+  Min = 0.0
+  Max = 1000.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.focusOpponentSkillDelayMinTimeRate"
+  Type = "float"
+  Min = 0.0
+  Max = 2.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.focusOpponentSkillDelayAddTimeRate"
+  Type = "float"
+  Min = 0.0
+  Max = 2.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.FocusHurry.scale"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.FocusHurry.force_at"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.FocusRetreat.back"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.FocusRetreat.lateral"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.FocusAttackRead.react_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.FocusAttackRead.error"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.FocusAttackRead.feint"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.FocusAttackRead.drift_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.FocusAttackRead.lean_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "_section_shots"
+  Type = "section"
+  Label = { es = "Tiros y zona de tiro", en = "Shots and shoot zone" }
+  Help = { es = "Cuándo tira y cómo defiende tu zona de tiro.", en = "When it shoots and how it defends your shoot zone." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.autoRunZoneProbabilityMax"
+  Type = "int"
+  Min = 0.0
+  Max = 100.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.autoRunZoneIntervalMin"
+  Type = "float"
+  Min = 0.0
+  Max = 60.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.autoRunZoneIntervalMax"
+  Type = "float"
+  Min = 0.0
+  Max = 120.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.autoRunZoneLotIntervalTime"
+  Type = "float"
+  Min = 0.0
+  Max = 60.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ZoneShootNow.replan_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ZoneShootNow.elapsed_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ZoneShootNow.direct"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ZoneWallGuards.extra"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ZoneWallGuards.from_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ZoneWallGuards.spacing_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ZoneWallGuards.range_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ShotChainRead.range_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ShotChainRead.chain_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ShotChainRead.blockers"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ShotChainRead.from_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ShotChainRead.spacing_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ShotChainRead.hold_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.players"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.reaction_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.range_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.run_speed_mps"
+  Type = "float"
+  Unit = " m/s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.hold_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.sprint"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.min_flight_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.lob_vertical_mps"
+  Type = "float"
+  Unit = " m/s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.defenders"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.midfielders"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PassRead.forwards"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.walls"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.enter_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.enter_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.moving_mps"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.stopped_mps"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.end_after_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.level_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.level_near_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.again_after_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.zone_scale"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.wall_from_zone_edge_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.wall_gap_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.wall_ball_gap_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.wall_min_goal_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.middle_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.middle_max_rate"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BehindLineCover.sprint"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ThroughBallCover.lead_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ThroughBallCover.chasers"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ThroughBallCover.goal_side_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ThroughBallCover.range_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ThroughBallCover.drop"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ThroughBallCover.line_min_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ThroughBallCover.runner_cover_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ThroughBallCover.pressure_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ThroughBallCover.free_gap_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "_section_defence"
+  Type = "section"
+  Label = { es = "Defensa y presión", en = "Defence and pressing" }
+  Help = { es = "Entradas, presión, marcajes, fuera de juego y líneas.", en = "Tackles, pressing, marking, offside trap and lines." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.slidingLotteryIntervalMin"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.slidingLotteryIntervalMax"
+  Type = "float"
+  Min = 0.0
+  Max = 10.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.uPressCharaNumMax"
+  Type = "int"
+  Min = 0.0
+  Max = 11.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.uNoStopPressCharaNumMax"
+  Type = "int"
+  Min = 0.0
+  Max = 11.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.markCheckNearDist"
+  Type = "int"
+  Min = 5.0
+  Max = 120.0
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.pressCheckNearLen"
+  Type = "int"
+  Min = 2.0
+  Max = 60.0
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.eventMoveSpeedStrength_Mark"
+  Type = "float"
+  Min = 0.0
+  Max = 1.5
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.eventMoveSpeedStrength_PressBall"
+  Type = "float"
+  Min = 0.0
+  Max = 1.5
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.eventMoveSpeedStrength_PressChara"
+  Type = "float"
+  Min = 0.0
+  Max = 1.5
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.eventMoveSpeedStrength_LineMove"
+  Type = "float"
+  Min = 0.0
+  Max = 1.5
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.pressTimeLimit"
+  Type = "int"
+  Min = 0.0
+  Max = 30.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ZoneWallHold"
+  Type = "bool"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.KeeperHoldRespect"
+  Type = "bool"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.KickoffPress"
+  Type = "bool"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ChargeCarrier.block_after_contact_s"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ChargeCarrier.opponent_ahead_m"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ChargeCarrier.chance_per_opponent"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ChargeCarrier.duration_s"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ChargeCarrier.slide_steal_chance"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PressCarrier.forwards"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PressCarrier.midfielders"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PressCarrier.defenders"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PressCarrier.range_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PressCarrier.max"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PressCarrier.speed_mult"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PressCarrier.keep_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.defenders"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.level_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.step_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.step_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.reaction_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.miss"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.min_distance_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.box_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.lane_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.range_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.cooldown_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.OffsideTrap.zone_fraction"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.after_lost_s"
+  Type = "int"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.forward_drop_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.top_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.compact_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.mark"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.mark_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.lane_bias"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.range_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.press"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.recover_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.recover_mult"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.max_markers"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.mark_zone_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LowBlock.mark_forwards"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ManMarking.defenders"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ManMarking.midfielders"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ManMarking.forwards"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ManMarking.fill"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ManMarking.distance_weight"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ManMarking.advantage_weight"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ManMarking.disadvantage_penalty"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ManMarking.press_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BoxLine.near_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BoxLine.keeper_pair"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BoxLine.keeper_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BoxLine.pair_gap_m"
+  Type = "float"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BoxLine.line_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BoxLine.gap_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BoxLine.min_ball_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BoxLine.width_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "_section_keeper"
+  Type = "section"
+  Label = { es = "Portero", en = "Goalkeeper" }
+  Help = { es = "Su portero: técnicas, tensión que guarda y la barra que lee.", en = "Its keeper: moves, tension kept and the bar it reads." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Rates.zoneKeeperSkillRateVsSkill"
+  Type = "float"
+  Min = 0.0
+  Max = 1.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.gkAutoPassTime"
+  Type = "float"
+  Min = 0.0
+  Max = 20.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.KeeperTpReserve"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.KeeperBarSource"
+  Type = "string"
+  Label = { es = "Barra del portero que lee", en = "Keeper bar it reads" }
+  Help = { es = "La barra del portero que mira la situación de tiro lejano (keeper_hp = la barra del marcador).", en = "The keeper bar the long-shot situation reads (keeper_hp = the scoreboard bar)." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "_section_moves"
+  Type = "section"
+  Label = { es = "Supertécnicas y tácticas", en = "Special moves and tactics" }
+  Help = { es = "Qué técnica elige, cuándo la usa y las tácticas especiales.", en = "Which move it picks, when it uses it and the special tactics." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Rates.keepTention"
+  Type = "int"
+  Min = 0.0
+  Max = 300.0
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.spTacticsAutoUseIntervalMin"
+  Type = "float"
+  Min = 0.0
+  Max = 60.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.spTacticsAutoUseIntervalMax"
+  Type = "float"
+  Min = 0.0
+  Max = 60.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.suTacticsAutoUseIntervalMin"
+  Type = "float"
+  Min = 0.0
+  Max = 60.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.suTacticsAutoUseIntervalMax"
+  Type = "float"
+  Min = 0.0
+  Max = 60.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.auraSkillAutoUseIntervalMin"
+  Type = "float"
+  Min = 0.0
+  Max = 60.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Global.auraSkillAutoUseIntervalMax"
+  Type = "float"
+  Min = 0.0
+  Max = 60.0
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.TensionPerSecond"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.BestMoveChance"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.ElementCounter"
+  Type = "bool"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.MoveCostWeight"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.LearnUserMoves"
+  Type = "bool"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PowerAware.margin"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PowerAware.save_tension"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PowerAware.force"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PowerAware.strongest_shot_when_stopped"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.AuraElementCounter"
+  Type = "bool"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "_section_stamina"
+  Type = "section"
+  Label = { es = "Estamina y cambios", en = "Stamina and substitutions" }
+  Help = { es = "Carreras según la estamina y sustituciones.", en = "Sprints by stamina and substitutions." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.StaminaResource"
+  Type = "string"
+  Label = { es = "Estamina que lee", en = "Stamina it reads" }
+  Help = { es = "El recurso de estamina de los jugadores (VRFW.stamina = el recurso que declara ese papel); sin él las reglas de estamina no hacen nada.", en = "The players' stamina resource (VRFW.stamina = the resource that declares that role); without it the stamina rules do nothing." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.SprintByStamina.above"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.SprintByStamina.below"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.SprintByStamina.rate"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.SprintByStamina.attack_rate"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.SprintByStamina.calm_after_s"
+  Type = "int"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.SprintByStamina.calm_mult"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.SprintByStamina.calm_support_mult"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.SubstituteAtStamina"
+  Type = "float"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.SubstituteForElement.after_s"
+  Type = "int"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.SubstituteForElement.max"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "If"
+  Type = "list"
+  Of = "legendary_ai_situation"
+  Label = { es = "Situaciones", en = "Situations" }
+  Help = { es = "Mientras se cumple una situación del partido, estos valores sustituyen a los de arriba.", en = "While a match situation holds, these values replace the ones above." }
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "_section_both"
+  Type = "section"
+  Label = { es = "Ambos equipos", en = "Both teams" }
+  Help = { es = "Valores que cambian el juego de los dos equipos.", en = "Values that change both teams' play." }
+  When = { Side = ["both"] }
+  [[Shape.Field]]
+  Key = "Global.canDefenseActionLen2.mult"
+  Type = "float"
+  When = { Side = ["both"] }
+  [[Shape.Field]]
+  Key = "Global.skillBattleWinPercent0_HighPowerRatio"
+  Type = "float"
+  Min = -1.0
+  Max = 100.0
+  When = { Side = ["both"] }
+  [[Shape.Field]]
+  Key = "Global.skillBattleWinPercent1_HighPowerRatio"
+  Type = "float"
+  Min = -1.0
+  Max = 100.0
+  When = { Side = ["both"] }
+
+[[Shape]]
+Id = "legendary_ai_situation"
+  [[Shape.Field]]
+  Key = "When"
+  Type = "enum"
+  Label = { es = "Situación", en = "Situation" }
+  Help = { es = "La situación del partido que activa estos valores; «Valor» es su umbral.", en = "The match situation that turns these values on; «Value» is its threshold." }
+  Values = ["opponent_keeper_bar_above", "opponent_ball_owner_stamina_below", "opponent_received_pass_within", "own_zone", "own_possession_over", "own_possession_under", "own_lost_ball_within", "own_lost_ball_over", "own_carrier_pressed_within", "opponent_line_over", "opponent_duel_side_bias_above", "opponent_duel_pass_out_above", "opponent_passes_often", "opponent_dribbles_often"]
+  ValueLabels = { opponent_keeper_bar_above = { es = "Tu portero tiene la barra por encima de", en = "Your keeper's bar above" }, opponent_ball_owner_stamina_below = { es = "Tu portador tiene menos estamina que", en = "Your carrier's stamina below" }, opponent_received_pass_within = { es = "Uno de los tuyos acaba de recibir un pase (s)", en = "One of yours just received a pass (s)" }, own_zone = { es = "Su propia zona de tiro", en = "Its own shoot zone" }, own_possession_over = { es = "Lleva el balón al menos (s)", en = "It has held the ball at least (s)" }, own_possession_under = { es = "Acaba de ganar el balón (s)", en = "It just won the ball (s)" }, own_lost_ball_within = { es = "Acaba de perder el balón (s)", en = "It just lost the ball (s)" }, own_lost_ball_over = { es = "Perdió el balón hace al menos (s)", en = "It lost the ball at least (s) ago" }, own_carrier_pressed_within = { es = "Su portador está presionado a menos de (m)", en = "Its carrier pressed within (m)" }, opponent_line_over = { es = "Tu última línea está adelantada al menos (m)", en = "Your last line at least (m) up" }, opponent_duel_side_bias_above = { es = "En los duelos vas casi siempre a un lado (más de)", en = "In duels you mostly go to one side (above)" }, opponent_duel_pass_out_above = { es = "En los duelos sueles salir con un pase (más de)", en = "In duels you often pass out (above)" }, opponent_passes_often = { es = "Pasas más de lo que conduces (más de)", en = "You pass more than you carry (above)" }, opponent_dribbles_often = { es = "Conduces más de lo que pasas (más de)", en = "You carry more than you pass (above)" } }
+  [[Shape.Field]]
+  Key = "Value"
+  Type = "float"
+  Label = { es = "Valor", en = "Value" }
+  Help = { es = "El umbral de la situación (segundos, metros o proporción 0-1, según la situación).", en = "The situation's threshold (seconds, metres or a 0-1 ratio, by situation)." }
+  [[Shape.Field]]
+  Key = "Global"
+  Type = "fields"
+  Label = { es = "Valores del equipo", en = "Team values" }
+  [[Shape.Field]]
+  Key = "Rates"
+  Type = "fields"
+  Label = { es = "Valores de cada jugador", en = "Each player's values" }

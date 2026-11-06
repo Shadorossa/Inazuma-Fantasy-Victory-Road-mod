@@ -1,0 +1,13 @@
+# Declares `[[VRFW.TeamCrest]]` keys for content\team_crests\*.toml (read by scripts\lib\game_catalogue.lua; the former schema id team_crests/1 of a mod, `[[crest]]`, is read too).
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.team_crest/1"
+folder = "content/team_crests"
+label = "Team crests"
+label_es = "Escudos de equipo"
+doc = "The crest a team shows wherever the framework draws its crest."
+doc_es = "El escudo que muestra un equipo allí donde el framework dibuja su escudo."
+
+[entry.TeamCrest]
+doc = "the crest a belong team shows wherever the framework draws its crest; the first declaration of a team wins"
+team = { type = "string", ref = "team", required = true, doc = "the belong team: a 0x… id, a number or its key name" }
+emblem = { type = "string", ref = "emblem", required = true, doc = "the item_emblem crest: a 0x… id, a number or its key (em070001)" }

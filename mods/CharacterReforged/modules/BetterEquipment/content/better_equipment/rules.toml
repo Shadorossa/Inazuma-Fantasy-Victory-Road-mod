@@ -1,0 +1,190 @@
+schema = "BetterEquipment.rules/1"
+# Better Equipment › the rules every item follows. No power tiers: every item
+# nets the same; its penalty tier follows its passive. research/scripts/better_equipment.py builds the profiles from them (content\items\profiles.toml);
+# scripts\better_equipment.lua reads [affinity] and [scale] in matches.
+
+[scale]
+# S = the largest single equipment bonus after the earlier mods' edits (VRFW.item.equipment_scale: 40 retail, 70 with
+# Inazuma Fantasy); every number below is a fraction of S
+cap = 1.0                       # no final single bonus above cap × S (affinity and sets included)
+
+[budget]
+# every item nets the same: its raises minus its lowered stat = net × S (70 at S = 70); the penalty tier sets how much
+# is lowered (raises = net + penalty), so items differ by shape and by how much they trade, not by power
+net = 1.0
+# no raise passes the largest bonus (scale_stats are fractions of it, -1..1): the excess goes to the next raised stat
+max_raise = 1.0
+# the S the shown bonuses are exact at (the game shows round(fraction x S), half away from zero): at it every item
+# shows raises - lowered stat = net x S exactly (70 with Inazuma Fantasy)
+display_s = 70
+
+[shape]
+# The shown bonuses of every item (Better Equipment's and Classic Equipment's): their ABSOLUTE values add up to
+# total x S (70 at display_s = 70; the game shows round(fraction x S), half away from zero, exact at display_s).
+# by_tier: the shape of each penalty tier ([penalty]): trade = two raises + one lowered stat of `lowered` (the raises
+# share the rest: 60 + 10), two = two raises, three = three raises (the third takes third_share of what the main raise
+# leaves: the game's third raised stat, else the stat raised least so far), single = one raise of total x S (a
+# `two` item whose game stats raise one stat at least single_ratio times the other). Every raise at least min_raise.
+total = 1.0
+display_s = 70
+lowered = 0.143
+min_raise = 0.143
+third_share = 0.4
+single_ratio = 1.5
+by_tier = { none = "two", small = "three", big = "trade" }
+
+[penalty]
+# the lowered stat per tier, as a fraction of S (at S = 70: none 0 / small −10 / big −20; raises 70 / 80 / 90)
+tiers = { none = 0.0, small = 0.143, big = 0.286 }
+# the tier comes from the item's passive (items.toml), the stronger the edge the bigger the trade:
+#   big   = a passive of a strong kind (a whole move family, the tension economy, recharge) or a legendary item (L)
+#   none  = a passive that gives nothing on the pitch (match money / experience)
+#   small = any other passive
+# an item without a passive: small when it is a member of multi_set sets or more (more set bonuses within reach),
+# else none; an item raising a single stat (no second raise to carry the extra) is always none
+strong_kinds = ["family_power", "tension_on", "tension_cost", "recast"]
+strong_identity = ["L"]
+off_pitch_kinds = ["match_exp", "match_money"]
+multi_set = 2
+
+[splits]                        # the primary raise's share of the raises
+balanced = 0.50
+soft = 0.54
+mild = 0.57
+concentrated = 0.59
+leaning = 0.62
+strong = 0.65
+extreme = 0.68
+# the order items of one slot and raised pair take them (natural, then inverted; balanced once)
+variant_order = ["concentrated", "extreme", "soft", "leaning", "strong", "mild", "balanced"]
+
+# the stat a pair lowers: first choice, then the second; the other stats follow in stat order
+[[pair_penalty]]
+pair = ["kick", "control"]
+lower = ["pressure", "agility"]
+[[pair_penalty]]
+pair = ["kick", "technique"]
+lower = ["physical", "pressure"]
+[[pair_penalty]]
+pair = ["kick", "pressure"]
+lower = ["intelligence", "technique"]
+[[pair_penalty]]
+pair = ["kick", "physical"]
+lower = ["intelligence", "technique"]
+[[pair_penalty]]
+pair = ["kick", "intelligence"]
+lower = ["physical", "pressure"]
+[[pair_penalty]]
+pair = ["kick", "agility"]
+lower = ["intelligence", "technique"]
+[[pair_penalty]]
+pair = ["control", "technique"]
+lower = ["pressure", "physical"]
+[[pair_penalty]]
+pair = ["control", "pressure"]
+lower = ["kick", "technique"]
+[[pair_penalty]]
+pair = ["control", "physical"]
+lower = ["intelligence", "kick"]
+[[pair_penalty]]
+pair = ["control", "intelligence"]
+lower = ["physical", "pressure"]
+[[pair_penalty]]
+pair = ["control", "agility"]
+lower = ["kick", "physical"]
+[[pair_penalty]]
+pair = ["technique", "pressure"]
+lower = ["kick", "intelligence"]
+[[pair_penalty]]
+pair = ["technique", "physical"]
+lower = ["intelligence", "kick"]
+[[pair_penalty]]
+pair = ["technique", "intelligence"]
+lower = ["physical", "pressure"]
+[[pair_penalty]]
+pair = ["technique", "agility"]
+lower = ["kick", "physical"]
+[[pair_penalty]]
+pair = ["pressure", "physical"]
+lower = ["intelligence", "technique"]
+[[pair_penalty]]
+pair = ["pressure", "intelligence"]
+lower = ["control", "technique"]
+[[pair_penalty]]
+pair = ["pressure", "agility"]
+lower = ["kick", "control"]
+[[pair_penalty]]
+pair = ["physical", "intelligence"]
+lower = ["technique", "kick"]
+[[pair_penalty]]
+pair = ["physical", "agility"]
+lower = ["intelligence", "control"]
+[[pair_penalty]]
+pair = ["intelligence", "agility"]
+lower = ["physical", "kick"]
+
+[affinity]
+# the wearer's card main position matches the item's → its raises × (1 + one); its card element too → × (1 + both)
+one = 0.15
+both = 0.25
+# an item's position: the one of its primary raise (items.toml `position` overrides, e.g. keeper gloves)
+position_by_stat = { kick = "FW", technique = "FW", control = "MF", intelligence = "MF", pressure = "DF", physical = "DF", agility = "GK" }
+
+[passives]
+family_mod = "HissatsuReforged"   # the mod whose [[VRFW.TechniqueFamily]] the items' families name
+
+[card]
+# the item card's text icons (gaiji tags of the game's font atlases) for the elements: retail wind / forest / fire /
+# mountain (gaiji_cmd_type01..04); void = BetterQoL's neutral element icon (gaiji_cmd_type00), no icon without it
+# the image files where a mod may declare an element's icon ([[VRFW.ElementIcon]]: BetterQoL's neutral icon for void);
+# the item card shows that icon when the mod is active, the game's element name otherwise
+element_icon_files = ["content/images/menu/200_icon/15_icon_common/icon_common.toml"]
+element_icon = { wind = "[$gaiji_cmd_type01]", forest = "[$gaiji_cmd_type02]", fire = "[$gaiji_cmd_type03]", mountain = "[$gaiji_cmd_type04]", void = "[$gaiji_cmd_type00]" }
+
+[optimizer]
+# «Equipar óptimo» on Equipamiento: the 4 slots worn together that score most for the player. Score = sum over the
+# stats of weight × (the items' own stats + their affinity raises + the sets' stat tiers), + passive per worn item
+# with a passive, + set_effect per reached set tier with effects, + keep_current per slot left as it is (no churn
+# between equal picks). Weights by the card's main position (GK / FW / MF / DF); a stat not listed weighs 0.
+passive = 6.0
+set_effect = 6.0
+keep_current = 0.5
+# the most combinations scored per press (plans of 1 or 2 sets over the slots, the most promising sets first; the rest
+# skipped, logged). A press must end inside the script's CPU budget (scripts/scripts.toml) or the whole script stops
+max_plans = 4000
+
+[optimizer.weights.FW]
+kick = 1.0
+technique = 0.7
+control = 0.6
+agility = 0.5
+physical = 0.4
+intelligence = 0.2
+pressure = 0.1
+
+[optimizer.weights.MF]
+control = 1.0
+technique = 0.8
+intelligence = 0.7
+agility = 0.6
+kick = 0.5
+pressure = 0.4
+physical = 0.3
+
+[optimizer.weights.DF]
+pressure = 1.0
+physical = 0.9
+intelligence = 0.6
+agility = 0.5
+control = 0.4
+technique = 0.2
+kick = 0.1
+
+[optimizer.weights.GK]
+intelligence = 1.0
+physical = 0.8
+pressure = 0.6
+agility = 0.4
+control = 0.2
+technique = 0.1
+kick = 0.1

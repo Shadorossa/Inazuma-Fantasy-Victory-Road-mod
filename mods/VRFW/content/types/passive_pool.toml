@@ -1,0 +1,18 @@
+# Declares [[VRFW.PassivePool]] (kind VRFW.passive_pool/1): a match resource the special passives treat as a spirit
+# pool, in a mod's content\passive_pools\*.toml. A player whose running keshin / totem has a bar in that resource uses
+# it: PoolRestore refills it, PoolCost scales its costs, SummonTime leaves his summon alone (scripts\passives.lua).
+# Unknown keys, wrong types or out-of-range values drop that declaration with a warning.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.passive_pool/1"
+folder = "content/passive_pools"
+label = "Passive pools"
+label_es = "Reservas de pasivas"
+doc = "A match resource the special passives use as a spirit pool."
+doc_es = "Un recurso de partido que las pasivas especiales usan como reserva de espíritu."
+
+[entry.PassivePool]
+doc = "a match resource the special passives use as a spirit pool"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+resource = { type = "string", required = true, doc = "the match resource ([[VRFW.MatchResource]]) as <mod>.<name> or a role key, e.g. MyMod.points, VRFW.stamina" }
+cost_flag = { type = "string", doc = "the rule flag prefix PoolCost writes: <cost_flag>.<player handle> = the percent of that player's pool costs (the resource's mod reads it); none = PoolCost does nothing on this pool" }
+when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

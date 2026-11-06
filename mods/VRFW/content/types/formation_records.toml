@@ -1,0 +1,43 @@
+# Schema of the formation declarations (kind VRFW.formation/1, a mod's content\formations\**\*.toml): new formations
+# cloned from a game formation, edits of existing ones and removals. The formation type builds them (strict parse);
+# this schema describes the same keys for the checker and the editors.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.formation/1"
+folder = "content/formations"
+label = "Formations"
+label_es = "Formaciones"
+doc = "A new formation: a clone of a game formation with its own places, cells and texts."
+doc_es = "Una formación nueva: un clon de una formación del juego con sus propias posiciones, celdas y textos."
+
+[entry.Formation]
+entry_table = "formation"
+provides = "formation"
+doc = "a new formation: a clone of a game formation (based_on) with its own places, cells and texts"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+id = { type = "any", doc = "the game id: a number, 0x… or a name hashed with crc32 (default crc32 of <mod>.<name>)" }
+based_on = { type = "any", doc = "the formation it clones (powers, name, description, the places not replaced): a number, 0x…, a name or <mod>.<name>" }
+after = { type = "any", doc = "row position: the formation this one follows" }
+places = { type = "records", doc = "the placement rows", fields = { position_no = { type = "int" }, position_id = { type = "int" }, pass_no = { type = "int" }, b_kickoff = { type = "bool" }, b_follow = { type = "bool" }, defense_pos = { type = "numbers" }, offense_pos = { type = "numbers" }, start_pos = { type = "numbers" }, ck_defense_left_pos = { type = "numbers" }, ck_defense_right_pos = { type = "numbers" }, ck_offense_left_pos = { type = "numbers" }, ck_offense_right_pos = { type = "numbers" }, pk_defense_pos = { type = "numbers" }, pk_offense_pos = { type = "numbers" }, bustup_pos = { type = "numbers" } } }
+cells = { type = "table", doc = "other cells by column name (power_offense, power_defense, …)" }
+title = { type = "table", doc = "the name per language ({ es = \"…\", en = \"…\" })" }
+description = { type = "table", doc = "the description per language ({ es = \"…\", en = \"…\" })" }
+
+[entry.Edit]
+entry_table = "edit"
+doc = "a change to an existing formation"
+target = { type = "any", required = true, doc = "the formation: a game id, a name or <mod>.<name>" }
+places = { type = "records", doc = "the placement rows", fields = { position_no = { type = "int" }, position_id = { type = "int" }, pass_no = { type = "int" }, b_kickoff = { type = "bool" }, b_follow = { type = "bool" }, defense_pos = { type = "numbers" }, offense_pos = { type = "numbers" }, start_pos = { type = "numbers" }, ck_defense_left_pos = { type = "numbers" }, ck_defense_right_pos = { type = "numbers" }, ck_offense_left_pos = { type = "numbers" }, ck_offense_right_pos = { type = "numbers" }, pk_defense_pos = { type = "numbers" }, pk_offense_pos = { type = "numbers" }, bustup_pos = { type = "numbers" } } }
+cells = { type = "table", doc = "other cells by column name" }
+title = { type = "table", doc = "the name per language" }
+description = { type = "table", doc = "the description per language" }
+
+[entry.Remove]
+entry_table = "remove"
+doc = "a formation removed"
+target = { type = "any", required = true, doc = "the formation: a game id, a name or <mod>.<name>" }
+
+[entry.Alias]
+entry_table = "alias"
+doc = "a former formation key that still finds a formation of this mod"
+old = { type = "string", required = true, doc = "the former key (<mod>.<name>)" }
+new = { type = "string", ref = "formation", doc = "the formation it names now (<mod>.<name>)" }

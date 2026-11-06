@@ -1,0 +1,46 @@
+# The national sides of the Battle Bay Deluxe teams (VRFW team tag «national», docs/framework/game-catalogue.md):
+# the Liga's «No national teams» option leaves them out (with every team of the same name: the Battle Bay copies),
+# and other mods read the same tag (Catalogue.has_tag(team, "national")).
+schema = "VRFW.team_tag/1"
+
+[[VRFW.TeamTag]]
+tag = "national"
+teams = [
+  "tm_cro_ie3_0200",  # Big Waves
+  "tm_cro_ie3_0300",  # Leones del Desierto
+  "tm_cro_ie3_0400",  # Neo Japón
+  "tm_cro_ie3_0500",  # Dragones de Fuego
+  "tm_cro_legend_IE3_05",  # Grifos de Rosa
+  "tm_cro_legend_IE3_06",  # Brocken Brigade
+  "tm_cro_legend_IE3_07",  # Caimanes del Cabo
+  "tm_cro_ie3_0600",  # Knights of Queen
+  "tm_cro_ie3_0800",  # Los Emperadores
+  "tm_cro_ie3_0900",  # Unicorn
+  "tm_cro_ie3_1000",  # Los Rojos
+  "tm_cro_ie3_1100",  # Orfeo
+  "tm_cro_ie3_1500",  # Os Reis
+  "tm_cro_ie3_1800",  # Pequeños Gigantes
+  "tm_cro_legend_IE3_04",  # Ases Internacionales
+  "tm_cro_legend_IE2_06",  # Selección nacional A
+  "tm_cro_legend_IE2_11",  # Selección nacional B
+  "tm_cro_go2_2100",  # Inazuma Japón Legendario
+  "tm_cro_go3_0200",  # Dragones de Fuego
+  "tm_cro_go3_0300",  # Big Waves
+  "tm_cro_go3_0400",  # Cimitarras
+  "tm_cro_go3_0500",  # Muay Tigers
+  "tm_cro_go3_0600",  # Resistencia Japón
+  "tm_cro_go3_0700",  # Storm Wolves
+  "tm_cro_orion_0100",  # Bisonte Rojo
+  "tm_cro_orion_0200",  # Demonios Brillantes
+  "tm_cro_orion_0300",  # Bailarines Eternos
+  "tm_cro_orion_0400",  # Ejército del Fénix Árabe
+  "tm_cro_orion_0500",  # Tropa Acrobática del Fútbol
+  "tm_cro_orion_0600",  # Gigantes Invencibles
+  "tm_cro_legend_ORION_06",  # Unicornios con Estrellas
+  "tm_cro_orion_0700",  # Navy Invader
+  "tm_cro_orion_0900",  # Olé de Samba
+  "tm_cro_orion_1000",  # Guardianes de la Reina
+  "tm_cro_orion_1200",  # Chispas Perfectas
+  "tm_cro_legend_ORION_02",  # Selección Mundial
+  "tm_cro_legend_ORION_08",  # Neo Japón Implacable
+]

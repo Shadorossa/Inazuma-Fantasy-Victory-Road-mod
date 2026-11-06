@@ -1,0 +1,18 @@
+schema = "VRFW.game/2"
+
+# Party / team sets (schema VRFW.game/2). The only framework detour is the party load event; mods name the game's party functions by profile name.
+
+# ------------------------------------------------------------------------------------------------ party load
+
+# bool CGDDPartyStatus::Load(this, ...): post hook publishes the number of loads since boot; the game's code and answer are untouched.
+[[VRFW.Hook]]
+name = "VRFW.PartyLoad"
+game = "Party.Load"
+kind = "function"
+arguments = ["ptr", "ptr", "ptr", "ptr"]
+returns = "u8"
+
+# Party loads since boot (set by scripts\party.lua from the hook above).
+[[VRFW.State]]
+key = "vrfw.party.loads"
+needs = ["VRFW.PartyLoad"]

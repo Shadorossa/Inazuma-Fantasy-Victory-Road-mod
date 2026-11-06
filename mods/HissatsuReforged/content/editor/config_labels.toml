@@ -1,0 +1,83 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "critical"
+  Type = "table"
+  Label = { es = "Golpe crítico", en = "Critical hit" }
+  Help = { es = "Reglas del golpe crítico de las supertécnicas.", en = "Rules of the critical hit of special moves." }
+  [[Shape.Field]]
+  Key = "critical.base_chance"
+  Type = "int"
+  Label = { es = "Probabilidad base extra (%)", en = "Extra base chance (%)" }
+  Help = { es = "Probabilidad extra de crítico de toda supertécnica (el 10 % base viene de la Suerte).", en = "Extra critical chance of every special move (the 10 % base comes from Luck)." }
+  [[Shape.Field]]
+  Key = "critical.multiplier"
+  Type = "float"
+  Label = { es = "Multiplicador del crítico", en = "Critical multiplier" }
+  Help = { es = "Potencia de la supertécnica en un crítico (× este valor).", en = "Move power on a critical hit (× this value)." }
+  [[Shape.Field]]
+  Key = "critical.cap"
+  Type = "int"
+  Label = { es = "Tope de probabilidad (%)", en = "Chance cap (%)" }
+  Help = { es = "Mayor probabilidad de crítico posible, sume lo que sume.", en = "Highest critical chance, whatever adds up." }
+  [[Shape.Field]]
+  Key = "critical.archetype_build"
+  Type = "int"
+  Label = { es = "Estilo «Crítico» (número)", en = "«Critical» build (number)" }
+  Help = { es = "Número del estilo de equipo que es el arquetipo «Crítico» (número interno).", en = "Number of the team build that is the «Critical» archetype (internal number)." }
+  [[Shape.Field]]
+  Key = "critical.keeper_move_category"
+  Type = "int"
+  Label = { es = "Categoría de técnicas de portero", en = "Keeper move category" }
+  Help = { es = "Categoría de la tabla de habilidades que usan los porteros (número interno).", en = "Skill table category used by keepers (internal number)." }
+  [[Shape.Field]]
+  Key = "critical.archetype_chance"
+  Type = "int"
+  Label = { es = "Probabilidad del estilo Crítico (%)", en = "Critical build chance (%)" }
+  Help = { es = "Puntos de crítico que da a todo el equipo el estilo «Crítico».", en = "Critical points the «Critical» build gives the whole team." }
+  [[Shape.Field]]
+  Key = "critical.archetype_level_or_behind_chance"
+  Type = "int"
+  Label = { es = "Extra si empata o pierde (%)", en = "Extra when level or behind (%)" }
+  Help = { es = "Puntos más de crítico mientras el equipo empata o va perdiendo.", en = "More critical points while level or behind on goals." }
+  [[Shape.Field]]
+  Key = "critical.power_per_rank"
+  Type = "int"
+  Label = { es = "Potencia por rango (%)", en = "Power per rank (%)" }
+  Help = { es = "El multiplicador del crítico sube este % por cada rango.", en = "The critical multiplier rises this % per rank." }
+  [[Shape.Field]]
+  Key = "critical.crit_tension"
+  Type = "float"
+  Label = { es = "Tensión recuperada por crítico", en = "Tension per critical" }
+  Help = { es = "Unidades de tensión que recupera el equipo con cada crítico.", en = "Tension units the team gets back on each critical hit." }
+  [[Shape.Field]]
+  Key = "critical.keeper_per_rank"
+  Type = "int"
+  Label = { es = "Bonus de porteros por rango (%)", en = "Keeper bonus per rank (%)" }
+  Help = { es = "La probabilidad de crítico de los porteros sube este % por rango.", en = "Keepers' critical chance rises this % per rank." }
+  [[Shape.Field]]
+  Key = "critical.rank_up_seconds"
+  Type = "int"
+  Label = { es = "Segundos para subir de rango", en = "Seconds per rank up" }
+  Help = { es = "Segundos que tarda la carga del estilo Crítico en subir un rango.", en = "Seconds the Critical charge takes to gain a rank." }
+  [[Shape.Field]]
+  Key = "critical.rank_down_on_crit"
+  Type = "int"
+  Label = { es = "Rangos que baja al criticar", en = "Ranks lost on crit" }
+  Help = { es = "Rangos que se pierden tras cada golpe crítico.", en = "Ranks lost after each critical hit." }
+  [[Shape.Field]]
+  Key = "critical.levels"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Bonus de equipo por rango (%)", en = "Team bonus per rank (%)" }
+  Help = { es = "Para cada rango (1 a 5): % extra sobre la probabilidad de crítico del equipo.", en = "For each rank (1 to 5): extra % on the team's critical chance." }
+  [[Shape.Field]]
+  Key = "critical.keeper_levels"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Bonus de porteros por nivel (%)", en = "Keeper bonus per level (%)" }
+  Help = { es = "Para cada rango (1 a 5): % extra sobre la probabilidad de crítico de los porteros.", en = "For each rank (1 to 5): extra % on keepers' critical chance." }

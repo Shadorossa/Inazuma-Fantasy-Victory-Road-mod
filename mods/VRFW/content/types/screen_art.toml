@@ -1,0 +1,13 @@
+# Declaration schema of VRFW.screen_art/1 (content\screen_art\**\*.toml; docs/framework/screen-art.md): [[VRFW.ScreenArt]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.screen_art/1"
+folder = "content/screen_art"
+label = "Screen art"
+label_es = "Arte de pantallas"
+doc = "The atlas and sprites a framework screen draws."
+doc_es = "El atlas y los sprites que dibuja una pantalla del framework."
+
+[entry.ScreenArt]
+Screen = { type = "string", doc = "the framework screen" }
+Atlas = { type = "string", doc = "the atlas of the sprites below" }
+Sprites = { type = "table" }

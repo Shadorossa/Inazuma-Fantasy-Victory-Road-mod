@@ -1,0 +1,4 @@
+schema = "VRFW.telop/2"
+# Hand-maintained.
+# a telop the game does not have: menu object and texture format of aura_mixi_c04000100 (the event names soccer10_01_aura_mixi_evt_mx)
+from = "aura_mixi_c04000100"

@@ -1,0 +1,69 @@
+# Chronicle Deluxe: the texts of the Chronicle board's gacha node (content/gacha/kizuna_coin_gacha.toml; VRFW
+# docs/framework/gacha.md).
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# the node panel's two command rows (the battle rows' place): «x1 - 5» / «x12 - 60» + the bond star icon (%d = what the row costs;
+# the icon is the text icon content/images/font/gaiji_game.toml makes from the retail item icon); no words, so no translation
+[[row]]
+id = "chronicle_deluxe_gacha_draw_1"
+es = "x1 - %d[$gaiji_chronicle_deluxe_bond_star]"
+en = "x1 - %d[$gaiji_chronicle_deluxe_bond_star]"
+fr = "x1 - %d[$gaiji_chronicle_deluxe_bond_star]"
+de = "x1 - %d[$gaiji_chronicle_deluxe_bond_star]"
+it = "x1 - %d[$gaiji_chronicle_deluxe_bond_star]"
+pt = "x1 - %d[$gaiji_chronicle_deluxe_bond_star]"
+ja = "x1 - %d[$gaiji_chronicle_deluxe_bond_star]"
+zh_hans = "x1 - %d[$gaiji_chronicle_deluxe_bond_star]"
+zh_hant = "x1 - %d[$gaiji_chronicle_deluxe_bond_star]"
+
+[[row]]
+id = "chronicle_deluxe_gacha_draw_12"
+es = "x12 - %d[$gaiji_chronicle_deluxe_bond_star]"
+en = "x12 - %d[$gaiji_chronicle_deluxe_bond_star]"
+fr = "x12 - %d[$gaiji_chronicle_deluxe_bond_star]"
+de = "x12 - %d[$gaiji_chronicle_deluxe_bond_star]"
+it = "x12 - %d[$gaiji_chronicle_deluxe_bond_star]"
+pt = "x12 - %d[$gaiji_chronicle_deluxe_bond_star]"
+ja = "x12 - %d[$gaiji_chronicle_deluxe_bond_star]"
+zh_hans = "x12 - %d[$gaiji_chronicle_deluxe_bond_star]"
+zh_hant = "x12 - %d[$gaiji_chronicle_deluxe_bond_star]"
+
+# the framework's fallback text of a command row without its own
+[[row]]
+id = "chronicle_deluxe_gacha_command"
+es = "Usar Estrellas de vínculo"
+en = "Use Bond Stars"
+fr = "Utiliser des Étoiles de lien"
+de = "Bindungssterne einsetzen"
+it = "Usa Stelle Legame"
+pt = "Usar Estrelas de Vínculo"
+ja = "キズナスターを使う"
+zh_hans = "使用友情辉星"
+zh_hant = "使用閃緣之星"
+
+# the command row without enough bond stars (the retail «Estrella de vínculo», tk_st000001): nothing is drawn
+[[row]]
+id = "chronicle_deluxe_gacha_no_stars"
+es = "No tienes suficientes Estrellas de vínculo."
+en = "You don't have enough Bond Stars."
+fr = "Tu n'as pas assez d'Étoiles de lien."
+de = "Du hast nicht genug Bindungssterne."
+it = "Non hai abbastanza Stelle Legame."
+pt = "Não tens Estrelas de Vínculo suficientes."
+ja = "キズナスターが足りません。"
+zh_hans = "友情辉星不足。"
+zh_hant = "閃緣之星不足。"
+
+# the command row's second line: how many bond stars the player has (%d)
+[[row]]
+id = "chronicle_deluxe_gacha_stars"
+es = "Estrellas de vínculo: %d"
+en = "Bond Stars: %d"
+fr = "Étoiles de lien : %d"
+de = "Bindungssterne: %d"
+it = "Stelle Legame: %d"
+pt = "Estrelas de Vínculo: %d"
+ja = "キズナスター：%d"
+zh_hans = "友情辉星：%d"
+zh_hant = "閃緣之星：%d"

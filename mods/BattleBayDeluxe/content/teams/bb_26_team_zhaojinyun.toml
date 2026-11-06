@@ -1,0 +1,56 @@
+schema = "VRFW.team/2"
+# The team Equipo de Mister Yi (bb_26_team_zhaojinyun) in every match.
+
+[[edit]]
+target = "bb_26_team_zhaojinyun"
+  [[edit.member]]
+  slot = 0
+  patch = true
+  moves = [0x1AE60A71, 0x7D0E1B1B, 0x28D068F3, 0x562348D8, 0xE1CB88CC, 0x70CA6D7D]
+  levels = [1, 1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 1
+  patch = true
+  moves = [0x0C7FF30F, 0x83BAE06D, 0xB10794BC, 0x5BE73EBE]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 3
+  player = "c08090010"
+  number = 9
+  loadout = 0xE9D05808
+  [[edit.member]]
+  slot = 4
+  patch = true
+  moves = [0x0E394D56, 0x17227C17, 0x5BE73EBE, 0x21127474]
+  levels = [1, 1, 1, 1]
+  [[edit.member]]
+  slot = 5
+  patch = true
+  moves = [0xB10794BC, 0x9AA1D12C, 0x83BAE06D, 0xB9D18D42, 0xA34E686D]
+  levels = [1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 8
+  player = "c07050010"
+  number = 10
+  loadout = 0xDA68C5E0
+  [[edit.member]]
+  slot = 9
+  patch = true
+  moves = [0x16658ADE, 0x16E01620, 0x69D15C3C, 0x91FD9611, 0x4178DB91]
+  levels = [1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 10
+  player = "c07130010"
+  number = 18
+  loadout = 0x9E74E3E5
+  [[edit.member]]
+  slot = 12
+  player = "c07070110"
+  number = 3
+  moves = [0x5643C944, 0xC16279D1, 0x3DCD45E3, 0xA108D634, 0x4178DB91]
+  levels = [1, 1, 1, 1, 1]
+  [[edit.member]]
+  slot = 15
+  player = "c07080010"
+  number = 16
+  loadout = 0x22F80151

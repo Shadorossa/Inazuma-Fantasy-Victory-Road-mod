@@ -1,0 +1,28 @@
+# Character Reforged's rules for the framework's dark theme (merged into every theme with id "dark").
+schema = "VRFW.theme_rules/1"
+theme = "dark"
+# the match HUD's PE / PEG / SP numbers, slash and bars under the portrait (Spirit Stamina Points' own atlas, like the
+# retail gauge atlas btl06_13 the theme already leaves as drawn): kept as drawn
+exclude = ["dx11/menu/02_btl/aura_points_hud"]
+
+# the player page's archetype passive card (the retail passive plate pre-coloured light blue): the card colour, as the
+# retail passive cards in the dark theme
+[[sprite]]
+match = "evt_pp_card_blue"
+class = "surface"
+file = "character_reforged_own/character_reforged_soccer11_20"
+
+# the «Crear …» confirmation's stats inset (flat light plate in the dialog band): a surface, so it is dark with the dialog
+# band; its stat names and totals are blue-ink text styles, drawn in the accent text colour
+[[sprite]]
+match = "evt_pair_panel"
+class = "surface"
+file = "102_team/team11/evt_cr_page/evt_cr_page"
+
+# the bank cards' corner badges (white or light tiles a mod's atlas adds, read as panels otherwise): kept as drawn
+[[sprite]]
+match = "aura_reworked_status_*"
+class = "keep"
+[[sprite]]
+match = "character_reforged_status_*"
+class = "keep"

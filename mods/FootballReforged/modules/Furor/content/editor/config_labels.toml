@@ -1,0 +1,61 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "furor_banner"
+  Type = "table"
+  Label = { es = "Aviso de fase de furor", en = "Fired up phase banner" }
+  Help = { es = "Cartel «Fase de furor activa» que entra al empezar el furor de un equipo.", en = "The «Fired up phase active» banner shown when a team's furor starts." }
+  [[Shape.Field]]
+  Key = "furor_banner.enter_from"
+  Type = "string"
+  Label = { es = "Lado de entrada", en = "Entry side" }
+  Help = { es = "Lado por el que entra el cartel (left o right).", en = "Side the banner slides in from (left or right)." }
+  [[Shape.Field]]
+  Key = "furor_banner.exit_to"
+  Type = "string"
+  Label = { es = "Lado de salida", en = "Exit side" }
+  Help = { es = "Lado por el que sale el cartel (left o right).", en = "Side the banner slides out to (left or right)." }
+  [[Shape.Field]]
+  Key = "furor_banner.in_seconds"
+  Type = "float"
+  Label = { es = "Duración de la entrada (s)", en = "Slide-in time (s)" }
+  Help = { es = "Segundos que tarda el cartel en deslizarse hasta su sitio.", en = "Seconds the banner takes to slide into place." }
+  [[Shape.Field]]
+  Key = "furor_banner.hold_seconds"
+  Type = "float"
+  Label = { es = "Tiempo en pantalla (s)", en = "Time on screen (s)" }
+  Help = { es = "Segundos que el cartel se queda quieto en pantalla.", en = "Seconds the banner stays still on screen." }
+  [[Shape.Field]]
+  Key = "furor_banner.out_seconds"
+  Type = "float"
+  Label = { es = "Duración de la salida (s)", en = "Slide-out time (s)" }
+  Help = { es = "Segundos que tarda el cartel en salir.", en = "Seconds the banner takes to leave." }
+  [[Shape.Field]]
+  Key = "furor_banner.slide_units"
+  Type = "int"
+  Label = { es = "Distancia de deslizamiento", en = "Slide distance" }
+  Help = { es = "Distancia que recorre el cartel al entrar y salir, en unidades de pantalla.", en = "Distance the banner travels when entering and leaving, in screen units." }
+  [[Shape.Field]]
+  Key = "furor_banner.top_units"
+  Type = "int"
+  Label = { es = "Posición vertical", en = "Vertical position" }
+  Help = { es = "Altura del cartel desde el borde superior, en unidades de pantalla.", en = "Banner height from the top edge, in screen units." }
+  [[Shape.Field]]
+  Key = "furor_banner.height_units"
+  Type = "int"
+  Label = { es = "Alto del cartel", en = "Banner height" }
+  Help = { es = "Alto del cartel en unidades de pantalla.", en = "Banner height in screen units." }
+  [[Shape.Field]]
+  Key = "furor_hud"
+  Type = "table"
+  Label = { es = "Medidor de furor", en = "Furor gauge" }
+  Help = { es = "Barra de fuego del furor en el marcador.", en = "The furor fire gauge on the scoreboard." }
+  [[Shape.Field]]
+  Key = "furor_hud.debug"
+  Type = "bool"
+  Label = { es = "Medidor liso (depuración)", en = "Plain gauge (debug)" }
+  Help = { es = "Dibuja el medidor original liso, sin el sprite de Strikers (depuración).", en = "Draws the plain retail gauge without the Strikers sprite (debug)." }

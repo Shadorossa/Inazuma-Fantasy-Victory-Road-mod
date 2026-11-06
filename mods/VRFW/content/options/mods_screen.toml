@@ -1,0 +1,14 @@
+schema = "VRFW.option/2"
+# Rows of the Mods options screen (schema VRFW.option/2).
+
+# Skips the boot logos and notices, going from language setup straight to the opening movie; applies at next start.
+[[option]]
+id = "skip_boot_screens"
+visual = true                                 # only what this player sees / hears: not compared in online rooms
+type = "toggle"
+label = "skip_boot_screens"
+help = "skip_boot_screens_help"
+default = true
+# child of "Custom style"; when that is off the retail boot sequence plays
+parent = "mod_options.custom_style"
+order = 125

@@ -1,0 +1,18 @@
+schema = "VRFW.game/2"
+
+# Character Reforged › the rarity a new club card joins at.
+# OFF unless an active mod declares `normal_card_rarity` in its content\duplicate_rules\*.toml (Classic Cards does):
+# without it the detour is never installed and the game's code stays as it is. The value and the rule live in that
+# TOML; scripts\new_card_rarity.lua reads them.
+# SetRarity 0xD802A0 is the one writer of a live player's rarity, so every path obeys: player setup 0xD822C0 (no rarity
+# in the add context = chara_param col 41, 0 on a normal card: the native team copy of the first team, CMND_ADD_PARTY
+# with rarity 0), spirit summon 0xEB01C0, rarity-up 0xD80090.
+# The scripts are called only for a normal rarity (0-4): a Hero, Diamond or Prime card goes on natively.
+[[VRFW.Hook]]
+name = "CharacterReforged.SetRarity"
+game = "Chara.SetRarity"
+kind = "function"
+args = ["ptr", "u32", "u32", "u32", "u8"]
+apply = "script"
+wait_ms = 200
+pre_when = [{ value = "args[3]", in = [0, 1, 2, 3, 4] }]

@@ -1,0 +1,41 @@
+schema = "VRFW.technique/3"
+# Tormenta negativa (Negative Storm): the download's move whs90007, a clone of whs02140 with its numbers; its event ev60_90007 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "negative_storm"
+key = "whs90007"
+base = "whs02140"
+event = "ev60_90007"
+element = "forest"
+power_min = 85
+power_max = 540
+tp = 80
+color = 3
+  [technique.text.es]
+  name = "Tormenta negativa"
+  description = "Desata una tormenta de viento negro\nque arrastra el balón a la portería."
+  [technique.text.en]
+  name = "Negative Storm"
+  description = "Unleashes a storm of black wind\nthat drags the ball into the goal."
+  [technique.text.fr]
+  name = "Tempête négative"
+  description = "Déchaîne une tempête de vent noir\nqui emporte le ballon au but."
+  [technique.text.de]
+  name = "Negativsturm"
+  description = "Entfesselt einen Sturm aus schwarzem Wind,\nder den Ball ins Tor reißt."
+  [technique.text.it]
+  name = "Tempesta negativa"
+  description = "Scatena una tempesta di vento nero\nche trascina la palla in porta."
+  [technique.text.pt]
+  name = "Tempestade negativa"
+  description = "Desata uma tempestade de vento negro\nque arrasta a bola para a baliza."
+  [technique.text.ja]
+  name = "ネガティブストーム"
+  description = "黒い風の嵐を巻き起こし\nボールをゴールへ運ぶ！"
+  [technique.text.zh_hans]
+  name = "负能风暴"
+  description = "掀起黑色狂风，\n把足球卷进球门。"
+  [technique.text.zh_hant]
+  name = "負能風暴"
+  description = "掀起黑色狂風，\n把足球捲進球門。"

@@ -1,0 +1,95 @@
+schema = "VRFW.item/2"
+# The three EXP orbs of the game as level orbs, with Inazuma Fantasy on: only their names and descriptions change here
+# (same ids, icons and stacks; a save keeps its count). The levels are config.toml [level_orbs.levels]; the use is the
+# graft inazuma_fantasy_level_orbs. Mod off: the game's orbs.
+default_lang = "en"
+
+[[edit]]
+target = "ex0001"
+  [edit.text.es]
+  name = "Orbe de nivel pequeño (+1)"
+  description = "Úsalo en un jugador para subirlo\n1 nivel."
+  [edit.text.en]
+  name = "Small Level Orb (+1)"
+  description = "Use it on a player to raise him\nby 1 level."
+  [edit.text.fr]
+  name = "Petite orbe de niveau (+1)"
+  description = "À utiliser sur un joueur pour lui faire\ngagner 1 niveau."
+  [edit.text.de]
+  name = "Kleine Level-Kugel (+1)"
+  description = "Hebt einen Spieler bei Anwendung\num 1 Level an."
+  [edit.text.it]
+  name = "Sfera livello piccola (+1)"
+  description = "Usala su un giocatore per fargli\nguadagnare 1 livello."
+  [edit.text.pt]
+  name = "Mini-Brasão de nível (+1)"
+  description = "Usa-o num jogador para o fazer\nsubir 1 nível."
+  [edit.text.ja]
+  name = "小レベル玉 (+1)"
+  description = "選手に使うと、レベルが1上がる。"
+  [edit.text.zh_hans]
+  name = "低级等级石 (+1)"
+  description = "对球员使用后，等级提升1级。"
+  [edit.text.zh_hant]
+  name = "初級等級石 (+1)"
+  description = "對球員使用後，等級提升1級。"
+
+[[edit]]
+target = "ex0002"
+  [edit.text.es]
+  name = "Orbe de nivel mediano (+5)"
+  description = "Úsalo en un jugador para subirlo\n5 niveles."
+  [edit.text.en]
+  name = "Medium Level Orb (+5)"
+  description = "Use it on a player to raise him\nby 5 levels."
+  [edit.text.fr]
+  name = "Orbe de niveau moyenne (+5)"
+  description = "À utiliser sur un joueur pour lui faire\ngagner 5 niveaux."
+  [edit.text.de]
+  name = "Mittlere Level-Kugel (+5)"
+  description = "Hebt einen Spieler bei Anwendung\num 5 Level an."
+  [edit.text.it]
+  name = "Sfera livello media (+5)"
+  description = "Usala su un giocatore per fargli\nguadagnare 5 livelli."
+  [edit.text.pt]
+  name = "Brasão de nível (+5)"
+  description = "Usa-o num jogador para o fazer\nsubir 5 níveis."
+  [edit.text.ja]
+  name = "中レベル玉 (+5)"
+  description = "選手に使うと、レベルが5上がる。"
+  [edit.text.zh_hans]
+  name = "中级等级石 (+5)"
+  description = "对球员使用后，等级提升5级。"
+  [edit.text.zh_hant]
+  name = "中級等級石 (+5)"
+  description = "對球員使用後，等級提升5級。"
+
+[[edit]]
+target = "ex0003"
+  [edit.text.es]
+  name = "Orbe de nivel grande (+10)"
+  description = "Úsalo en un jugador para subirlo\n10 niveles."
+  [edit.text.en]
+  name = "Large Level Orb (+10)"
+  description = "Use it on a player to raise him\nby 10 levels."
+  [edit.text.fr]
+  name = "Grande orbe de niveau (+10)"
+  description = "À utiliser sur un joueur pour lui faire\ngagner 10 niveaux."
+  [edit.text.de]
+  name = "Große Level-Kugel (+10)"
+  description = "Hebt einen Spieler bei Anwendung\num 10 Level an."
+  [edit.text.it]
+  name = "Sfera livello grande (+10)"
+  description = "Usala su un giocatore per fargli\nguadagnare 10 livelli."
+  [edit.text.pt]
+  name = "Grande Brasão de nível (+10)"
+  description = "Usa-o num jogador para o fazer\nsubir 10 níveis."
+  [edit.text.ja]
+  name = "大レベル玉 (+10)"
+  description = "選手に使うと、レベルが10上がる。"
+  [edit.text.zh_hans]
+  name = "高级等级石 (+10)"
+  description = "对球员使用后，等级提升10级。"
+  [edit.text.zh_hant]
+  name = "高級等級石 (+10)"
+  description = "對球員使用後，等級提升10級。"

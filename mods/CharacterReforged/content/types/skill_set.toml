@@ -1,0 +1,18 @@
+# Declaration schema of CharacterReforged.skill_set/1 (content\skill_set): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "CharacterReforged.skill_set/1"
+folder = "content/skill_set"
+label = "Skill set"
+label_es = "Conjunto de habilidades"
+
+[entry.SkillSet]
+single = true
+moves_refuse_auras = { type = "bool" }
+aura_types = { type = "ints" }
+mix_types = { type = "ints" }
+mix_stat_types = { type = "ints" }
+moveset_export = { type = "string" }
+
+[entry.PlaceRules]
+single = true
+hissatsu_level_up = { type = "table" }

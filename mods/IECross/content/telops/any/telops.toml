@@ -1,0 +1,48 @@
+schema = "VRFW.telop_list/2"
+# The Cross moves' name banners, the same picture in every text language (folder `any`): the Japanese pictures of the
+# IEVRCROSS mod (Inazuma Eleven Cross for Victory Road), <id>.png beside this list; `from` = the move's base, whose
+# menu object the new banner clones.
+
+[[telop]]
+id = "whs95000"                 # インフェルノペンギン
+from = "whs02470"
+
+[[telop]]
+id = "whs95010"                 # オーシャン・バース
+from = "whs00020"
+
+[[telop]]
+id = "whs95020"                 # ゴッドノウズ・マキナ
+from = "whs00340"
+
+[[telop]]
+id = "whs95030"                 # カオスイリュージョン
+from = "whs02640"
+
+[[telop]]
+id = "whs95100"                 # サムライペンギン2号
+from = "whs00040"
+
+[[telop]]
+id = "whs95110"                 # サムライショット
+from = "whs00170"
+
+[[telop]]
+id = "who95100"                 # サムライフェイント
+from = "who00010"
+
+[[telop]]
+id = "whd95100"                 # ブルーサイクロン
+from = "who00220"
+
+[[telop]]
+id = "whs95140"                 # 分身ペンギン（ハロウィン）
+from = "whs01450"
+
+[[telop]]
+id = "who95120"                 # 風神の舞（ハロウィン）
+from = "who00530"
+
+[[telop]]
+id = "whd95120"                 # デーモンカット（ハロウィン）
+from = "whd00540"

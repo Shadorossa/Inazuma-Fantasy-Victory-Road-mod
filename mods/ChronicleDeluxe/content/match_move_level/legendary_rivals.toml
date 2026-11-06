@@ -1,0 +1,12 @@
+# The free-match rivals of the class below play every special move at its last evolution grade (Nv.6: GO / 神 / ∞,
+# +5), for the match only (VRFW match move level, docs/game/mods/rival-move-level.md). Applied by Hissatsu Level Up
+# when it is active.
+schema = "VRFW.match_move_level/1"
+
+[match]
+play_mode = 1
+difficulty = "Class4"    # Difficulty 9, Lv 200
+side = "rival"
+
+[moves]
+grade = "max"

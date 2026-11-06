@@ -1,0 +1,28 @@
+schema = "VRFW.text/2"
+# The community link texts (content/community_links/discord.toml label / body). [CN]…[C] = link colour;
+# <CMD_ENTER> = Accept glyph; <CMD_FUNC1|5> = Alt glyph; {title} / {creator} / {url} filled at run time.
+table = "menu_text"
+
+[[row]]
+id = "InazumaFantasy.CommunityLabel"  # the title corner label (retail «<Alt> Inazuma Post»)
+es = "<CMD_FUNC1|5> {title}"
+en = "<CMD_FUNC1|5> {title}"
+fr = "<CMD_FUNC1|5> {title}"
+de = "<CMD_FUNC1|5> {title}"
+it = "<CMD_FUNC1|5> {title}"
+pt = "<CMD_FUNC1|5> {title}"
+ja = "<CMD_FUNC1|5> {title}"
+zh_hans = "<CMD_FUNC1|5> {title}"
+zh_hant = "<CMD_FUNC1|5> {title}"
+
+[[row]]
+id = "InazumaFantasy.CommunityBody"  # the «Inazuma Post» window body
+es = "¡Únete al servidor de Discord de {title}!\\nNovedades, ayuda y comentarios sobre los mods.\\n\\nCreador: {creator}\\n\\n[CN]{url}[C]\\n<CMD_ENTER> Abrir el enlace"
+en = "Join the {title} Discord server!\\nNews, help and feedback about the mods.\\n\\nCreator: {creator}\\n\\n[CN]{url}[C]\\n<CMD_ENTER> Open the link"
+fr = "Rejoignez le serveur Discord de {title} !\\nNouveautés, aide et retours sur les mods.\\n\\nCréateur : {creator}\\n\\n[CN]{url}[C]\\n<CMD_ENTER> Ouvrir le lien"
+de = "Tritt dem Discord-Server von {title} bei!\\nNeuigkeiten, Hilfe und Feedback zu den Mods.\\n\\nErsteller: {creator}\\n\\n[CN]{url}[C]\\n<CMD_ENTER> Link öffnen"
+it = "Unisciti al server Discord di {title}!\\nNovità, aiuto e commenti sulle mod.\\n\\nCreatore: {creator}\\n\\n[CN]{url}[C]\\n<CMD_ENTER> Apri il link"
+pt = "Entre no servidor do Discord de {title}!\\nNovidades, ajuda e opiniões sobre os mods.\\n\\nCriador: {creator}\\n\\n[CN]{url}[C]\\n<CMD_ENTER> Abrir o link"
+ja = "{title}のDiscordサーバーに参加しよう！\\nMODの最新情報・サポート・ご意見はこちら。\\n\\n制作者：{creator}\\n\\n[CN]{url}[C]\\n<CMD_ENTER> リンクを開く"
+zh_hans = "加入 {title} 的 Discord 服务器！\\n模组的最新消息、帮助和意见反馈。\\n\\n制作者：{creator}\\n\\n[CN]{url}[C]\\n<CMD_ENTER> 打开链接"
+zh_hant = "加入 {title} 的 Discord 伺服器！\\n模組的最新消息、協助和意見回饋。\\n\\n製作者：{creator}\\n\\n[CN]{url}[C]\\n<CMD_ENTER> 開啟連結"

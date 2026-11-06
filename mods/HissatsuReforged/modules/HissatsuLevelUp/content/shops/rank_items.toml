@@ -1,0 +1,30 @@
+schema = "VRFW.shop/2"
+# Hissatsu Level Up › the move-rank items:
+# * with Inazuma Fantasy (InazumaFantasy): its «Tienda general» (InazumaFantasy.general_store), whose only currency
+#   is Puntos de pasión (tk_bb000001, the retail Medalla rara BB that Inazuma Fantasy renames). Prices by the store's
+#   rule (_general_store.toml [price]: 10 Puntos de amistad = 1 Punto de pasión, rounded up): 20.
+# * without it: the retail Tienda Vs (0x9BE09172), whose token group holds the Puntos de amistad (tk_hr000008, the
+#   retail «Estrella de la victoria», named Puntos de amistad by Inazuma Fantasy).
+# * the +1 level item is the retail abl_000001: its
+#   retail sources only; the old own book (technique_upgrade_book) is sold nowhere.
+# * Cuaderno de evolución definitiva (ultimate_evolution_manual): the only way to a move's last level, so the rare one:
+#   200 Puntos de amistad (the large EXP orb costs 81).
+
+[[edit]]
+target = "InazumaFantasy.general_store"   # Tienda general (Inazuma Fantasy)
+if_mod = "InazumaFantasy"
+
+  [[edit.entry]]
+  item = "ultimate_evolution_manual"
+  price = 20
+  currency = "tk_bb000001"
+
+
+[[edit]]
+target = "0x9BE09172"           # Tienda Vs (retail)
+if_not_mod = "InazumaFantasy"
+
+  [[edit.entry]]
+  item = "ultimate_evolution_manual"
+  price = 200
+  currency = "tk_hr000008"

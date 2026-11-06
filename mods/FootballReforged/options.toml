@@ -1,0 +1,12 @@
+schema = "VRFW.option/2"
+# Football Reforged: its rows on the Mods screen's «Ajustes» and in Options > «Mod options».
+
+# Read by scripts\no_move_cooldown.lua each time a move's recast would start.
+[[option]]
+id = "no_move_cooldown"                       # row key FootballReforged.no_move_cooldown
+type = "toggle"
+label = "option_no_move_cooldown"             # text\keys.toml, 9 languages
+help = "option_no_move_cooldown_help"
+default = 0
+order = 100
+restart = false

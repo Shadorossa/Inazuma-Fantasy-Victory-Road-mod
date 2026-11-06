@@ -1,0 +1,83 @@
+-- Character Reforged › auras out of the technique slots of a save.
+-- The learn lists hold an aura only in their aura slot ([VRFW.LearnLevels] AuraSlots, content\characters\
+-- learn_levels.toml), but a save made before may still hold one a player learnt in a technique slot. Once per save, when
+-- a player slot loads (the save engine's safe point), every saved character's board slot outside
+-- [CharacterReforged.SkillSet] aura_board_slots (content\skill_set\*.toml) that holds an aura (VRFW.extra_slot.aura_type)
+-- is emptied, with its match list entry (lib/purge_moves.lua). Then the marker blob misplaced_auras.txt is set in the
+-- slot (the engine clears it when another save is copied there or a new game starts). Never: the locked retail save,
+-- reserved slots, an empty slot, the boot's own load (not writable: the next load of that slot does it).
+-- Log: one line per player changed and one summary, only when something changed.
+
+local T = require "VRFW/lib/save_tree"
+local PurgeMoves = require "lib/purge_moves"
+
+local MARKER_BLOB = "misplaced_auras.txt"
+
+local function log(message) VRFW.log("misplaced auras: " .. message) end
+local function warn(message) VRFW.warn("misplaced auras: " .. message) end
+
+-- [0-based board slot] = true of every aura_board_slots of the active mods' content\skill_set\ (later mods win); nil = none
+local function aura_slots()
+  local list = nil
+  local ok, decl = pcall(VRFW.files.declarations, "content/skill_set")
+  for _, f in ipairs(ok and type(decl) == "table" and decl or {}) do
+    local d = type(f) == "table" and f.data or nil
+    local t = type(d) == "table" and type(d.CharacterReforged) == "table" and d.CharacterReforged.SkillSet or nil
+    if type(t) == "table" and type(t.aura_board_slots) == "table" then list = t.aura_board_slots end
+  end
+  if not list then return nil end
+  local set = {}
+  for _, v in ipairs(list) do
+    local n = tonumber(v)
+    if n then set[n] = true end
+  end
+  return set
+end
+
+local function is_aura(move)
+  local ok, t = pcall(VRFW.extra_slot.aura_type, move)
+  return ok and t ~= nil
+end
+
+local function is_player_slot(slot)
+  local ok_locked, locked = pcall(VRFW.slots.locked)
+  if ok_locked and locked == slot then return false end
+  local ok_reserved, reserved = pcall(VRFW.slots.reserved, slot)
+  return not (ok_reserved and reserved)
+end
+
+VRFW.on("slot_load", function(event)
+  local slot = event.slot
+  if not event.has_data or not is_player_slot(slot) then return nil end
+  local ok_marker, marker = pcall(VRFW.save.get_blob, slot, MARKER_BLOB)
+  if ok_marker and type(marker) == "string" and marker ~= "" then return nil end
+  local slots = aura_slots()
+  if not slots then return nil end
+  local tree, why = T.open_slot(slot)
+  if not tree then
+    warn("slot " .. slot .. ": the save could not be read (" .. tostring(why) .. ")")
+    return nil
+  end
+  local ok, report = pcall(PurgeMoves.misplaced_auras, tree, is_aura, slots)
+  if not ok then
+    warn("slot " .. slot .. ": not checked (" .. tostring(report) .. ")")
+    return nil
+  end
+  if tree:changed() then
+    if event.after_load then
+      log("slot " .. slot .. " (read at boot, not writable): the next load of this slot takes off " .. report.board .. " aura(s)")
+      return nil
+    end
+    local ok_commit, written = pcall(function() return tree:commit() end)
+    if not ok_commit or not written then
+      warn("slot " .. slot .. ": the save was not written (" .. tostring(ok_commit and "nothing written" or written) .. ")")
+      return nil
+    end
+    log(string.format("slot %d: %d players, %d board slots, %d match moves emptied", slot, report.players, report.board, report.list))
+    for _, line in ipairs(report.lines) do log("slot " .. slot .. ": " .. line) end
+  elseif event.after_load then
+    return nil
+  end
+  pcall(VRFW.save.set_blob, slot, MARKER_BLOB, string.format("checked: %d board slots, %d match moves emptied\n", report.board, report.list))
+  return nil
+end)

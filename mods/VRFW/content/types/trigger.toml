@@ -1,0 +1,26 @@
+# Declaration schema of VRFW.trigger/1 (content\triggers): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.trigger/1"
+folder = "content/triggers"
+label = "Triggers"
+label_es = "Disparadores"
+
+[entry.Trigger]
+entry_table = "trigger"
+name = { type = "name", required = true }
+part = { type = "string" }
+folder = { type = "string" }
+lua = { type = "string" }
+rows = { type = "records", fields = { type = { type = "int" }, target = { type = "int" }, cond = { type = "string" } }, required = true }
+script = { type = "string" }
+vars = { type = "table" }
+
+[entry.Script]
+entry_table = "script"
+name = { type = "name", required = true }
+file = { type = "string", required = true }
+
+[entry.Copy]
+entry_table = "copy"
+name = { type = "name", required = true }
+from = { type = "string", required = true }

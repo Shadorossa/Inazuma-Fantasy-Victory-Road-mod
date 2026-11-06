@@ -1,0 +1,27 @@
+id = "MissingContent"
+# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
+# game's language (text\keys.toml)
+name = "Missing Content"
+version = "0.2.2"
+author = "Shadorossa"
+author_steam = "76561199013321372"
+description = "Content the game ships without or never uses, in modules you can switch on and off: Lost Cutscenes (unused keeper, duel, de-summon and chain scenes back in matches), Missing Voice (Japanese voice lines for silent special moves) and Extra Openings (the DS openings of Inazuma Eleven 2 and 3 and the DS menu music)."
+priority = 0
+tags = ["Visual", "Audio"]
+updated = "2026-11-04"
+# This mod's own names (TOML keys [MissingContent.X], Lua MissingContent.X, text keys); never VRFW.
+# Its modules share it; the old LostCutscenes.X, MissingVoice.X and ExtraOpenings.X ids stay as aliases.
+prefix = "MissingContent"
+folder = "MissingContent"
+# Its modules are embedded module mods (docs/framework/mod-families.md), each a card on this mod's page in Mods (on /
+# off in enabled.toml, applies after a restart; on by default as every new mod). They were mods of their own until
+# 2026-11-04 and keep their ids, content keys, key ids and saves:
+#   modules\LostCutscenes\   LostCutscenes (MissingContent.X): unused keeper scenes, the effortless save, CS / Galaxy
+#                            duel cut-ins, de-summon clips and the override chain hand-off scenes
+#   modules\MissingVoice\    MissingVoice (MissingContent.X): Japanese special-move voice lines (personal use only:
+#                            research/scripts/data/release_mods.toml [personal]; release_exclude.py drops the module)
+#   modules\ExtraOpenings\   ExtraOpenings (MissingContent.X): the DS openings of IE2 / IE3, their scene archive tab and
+#                            the DS menu music
+# The base itself only holds its texts (text\keys.toml) and changelog.
+requires = ["VRFW>=0.2.2"]
+conflicts = []

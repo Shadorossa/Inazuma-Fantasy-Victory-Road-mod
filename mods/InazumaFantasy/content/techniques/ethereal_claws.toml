@@ -1,0 +1,41 @@
+schema = "VRFW.technique/3"
+# Garras etéreas (Ethereal Claws): the download's move whs90015, a clone of whs01840 with its numbers; its event ev60_90015 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "ethereal_claws"
+key = "whs90015"
+base = "whs01840"
+event = "ev60_90015"
+element = "forest"
+power_min = 85
+power_max = 540
+tp = 80
+color = 3
+  [technique.text.es]
+  name = "Garras etéreas"
+  description = "Unas garras etéreas desgarran el aire\ny guían el tiro a la portería."
+  [technique.text.en]
+  name = "Ethereal Claws"
+  description = "Ethereal claws tear through the air\nand guide the shot into the goal."
+  [technique.text.fr]
+  name = "Griffes éthérées"
+  description = "Des griffes éthérées déchirent l'air\net guident le tir vers le but."
+  [technique.text.de]
+  name = "Ätherische Klauen"
+  description = "Ätherische Klauen zerreißen die Luft\nund lenken den Schuss ins Tor."
+  [technique.text.it]
+  name = "Artigli eterei"
+  description = "Artigli eterei squarciano l'aria\ne guidano il tiro in porta."
+  [technique.text.pt]
+  name = "Garras etéreas"
+  description = "Garras etéreas rasgam o ar\ne guiam o remate para a baliza."
+  [technique.text.ja]
+  name = "エーテルクロー"
+  description = "霊妙な爪が空を裂き\nシュートをゴールへ導く！"
+  [technique.text.zh_hans]
+  name = "虚灵之爪"
+  description = "虚灵之爪撕裂空气，\n引导射门直入球门。"
+  [technique.text.zh_hant]
+  name = "虛靈之爪"
+  description = "虛靈之爪撕裂空氣，\n引導射門直入球門。"

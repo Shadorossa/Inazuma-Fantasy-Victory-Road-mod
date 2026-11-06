@@ -1,0 +1,42 @@
+# New Recruitment › its action of the VR-Framework's save adjust:
+# title,
+# description (shown in the question before the action) and result (%d = the count the action answers). Rows of
+# menu_text, read by id = crc32(row id).
+schema = "VRFW.text/2"
+table = "menu_text"
+
+[[row]]
+id = "new_recruitment_save_tools_remove_duplicates"
+es = "Quitar jugadores duplicados"
+en = "Remove duplicate players"
+fr = "Retirer les joueurs en double"
+de = "Doppelte Spieler entfernen"
+it = "Rimuovi giocatori doppi"
+pt = "Remover jogadores duplicados"
+ja = "重複した選手を削除"
+zh_hans = "移除重复球员"
+zh_hant = "移除重複球員"
+
+[[row]]
+id = "new_recruitment_save_tools_remove_duplicates_desc"
+es = "Deja una sola copia de cada carta: se conserva la mejor copia y las copias fichadas sobrantes se funden en ella y salen del club y de todos los equipos. Nunca quita una carta que el club no permita despedir (jugadores originales, avatar…): esa es siempre la que se queda."
+en = "Keeps one copy of each card: the best copy stays, the extra signed copies are merged into it and leave the club and every team. It never removes a card the club cannot release (original players, the avatar…): that one is always the card kept."
+fr = "Garde une seule copie de chaque carte : la meilleure copie reste, les copies recrutées en trop y sont fusionnées et quittent le club et toutes les équipes. Ne retire jamais une carte que le club ne peut pas libérer (joueurs d'origine, avatar…) : c'est toujours elle qui reste."
+de = "Behält eine Kopie jeder Karte: Die beste Kopie bleibt, die überzähligen verpflichteten Kopien werden mit ihr verschmolzen und verlassen den Verein und alle Teams. Entfernt nie eine Karte, die der Verein nicht entlassen kann (ursprüngliche Spieler, Avatar …): Diese bleibt immer."
+it = "Tiene una sola copia di ogni carta: resta la copia migliore, le copie ingaggiate in più si fondono in essa e lasciano il club e tutte le squadre. Non rimuove mai una carta che il club non può svincolare (giocatori originali, avatar…): resta sempre quella."
+pt = "Mantém uma cópia de cada carta: fica a melhor cópia, as cópias contratadas a mais fundem-se nela e saem do clube e de todas as equipas. Nunca remove uma carta que o clube não pode dispensar (jogadores originais, avatar…): é sempre essa a que fica."
+ja = "同じカードは1枚だけにします。一番良いカードを残し、余分にスカウトしたカードはそこに統合されてクラブと全チームから外れます。クラブから外せないカード（元からの選手、アバターなど）は外さず、常にそちらを残します。"
+zh_hans = "每张卡只保留一份：保留最好的一张，多余的招募卡合并到它并离开俱乐部和所有队伍。俱乐部无法解约的卡（原有球员、化身等）绝不会被移除，总是保留它。"
+zh_hant = "每張卡只保留一份：保留最好的一張，多餘的招募卡合併到它並離開俱樂部和所有隊伍。俱樂部無法解約的卡（原有球員、化身等）絕不會被移除，總是保留它。"
+
+[[row]]
+id = "new_recruitment_save_tools_remove_duplicates_done"
+es = "Hecho: %d jugadores duplicados quitados."
+en = "Done: %d duplicate players removed."
+fr = "Terminé : %d joueurs en double retirés."
+de = "Fertig: %d doppelte Spieler entfernt."
+it = "Fatto: %d giocatori doppi rimossi."
+pt = "Feito: %d jogadores duplicados removidos."
+ja = "完了：重複した選手を%d人削除しました。"
+zh_hans = "完成：移除了%d名重复球员。"
+zh_hant = "完成：移除了%d名重複球員。"

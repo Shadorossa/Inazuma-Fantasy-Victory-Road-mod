@@ -1,0 +1,832 @@
+-- ===== EVT Furor hud BEGIN =====
+-- EVT furor_hud (mod Furor, a module of Football Reforged; docs/game/mechanics/furor.md §2.4.1, §3.2): each team's furor
+-- gauge drawn as GO Strikers 2013's GUI_TG draws its fire gauge, with Strikers' own pictures remastered (the mod's own
+-- atlases FUROR_HUD_ATLASES, loaded first), level with the score and growing OUTWARD from its crest (own team: left of
+-- the left crest, rival: right of the right crest, the flipped pictures as Strikers' *_R files). Layers (the mod's
+-- content\menus\furor_hud.toml; per team, bottom to top):
+--   furor_trough   the empty blue gauge, always drawn while the gauge answers
+--   furor_gauge    the flames, cut from the crest side to the gauge's share (GUI_TG::CSetCallback: quad and texture
+--                  cut together, never stretched): one sprite per cut step (FUROR_HUD_STEPS), the last step squeezed
+--   furor_glow     the flames' brightness pulse (Base_eff: 0 -> 50 % -> 0 in 1 s), cut as the flames
+--   furor_stripes  at 50 %, cut as the flames: the 4 rising frames while the gauge rises, the 4 falling frames while it
+--                  falls (the phase), none while it stays; a frame every 3 Strikers frames (60 per second)
+--   furor_max      full: the Max picture over the whole flames, alpha 0 -> 1 -> 0 in 1 s
+--   furor_spark    full: Max's 17 sparkles (scale 0.3 -> 1, alpha 1 -> 0, rising, 30 frames each), FUROR_HUD_SPARK_SLOTS
+--                  reusable instances per team
+-- Each instance is the retail btl06_13 gauge with only its FRAME quad _hp_base01 drawn (fill, red trail, label hidden),
+-- the frame's sprite swapped for the furor sprite; its size and place are the layer's local scale and position; its
+-- alpha CMND_SET_PRIM_ALPHA of the frame quad; a look that draws nothing hides the frame quad (no layer re-show).
+-- Placement is measured as Goalkeeper Barrier's (research/grafts/goalkeeper_barrier_hud): each instance's local ->
+-- screen mapping is probed with CMND_GET_MESH_GLOBAL_POSITION of its frame node (again while an open animation still
+-- moves it: x and y units must agree), the target comes every frame from the scoreboard's keeper bar locators
+-- _pos_hp01 / _pos_hp02 (layout units of their space, y up), an origin drift is corrected from the frame node.
+-- No global positions = hidden. Value: CMND_VRFW_TEAM_MOMENTUM("Furor.gauge", -1 own / -2 rival) -> ok, ratio, phase,
+-- level, team, user, full; no answer (no match) = hidden. The furor button (the mod's action CMD_FUROR_PHASE, default
+-- pad L3 / keyboard R, rebindable) is polled with CMND_CHECK_INPUT on the match controllers; a press asks
+-- CMND_VRFW_TEAM_MOMENTUM_START(key, -1). Its glyph (layer furor_prompt, text row furor_phase_key = <CMD_FUROR_PHASE>)
+-- sits right of the own bar while the own trough shows: written when the layer opens, commands only on a change. Engine calls only from the wrapped UpdateScoreboardKeeperHp (every frame from
+-- StepSoccerConstantMenu), each through pcall. Animation time: this frame's seconds (the retail command), at Strikers'
+-- 60 frames per second. loader.log: the first lines «FUROR ...».
+FUROR_HUD = true                              -- false: no gauges, no button
+FUROR_HUD_KEY = "Furor.gauge"
+FUROR_HUD_CMD = @crc:CMND_VRFW_TEAM_MOMENTUM@
+FUROR_HUD_START = @crc:CMND_VRFW_TEAM_MOMENTUM_START@
+FUROR_HUD_DEBUG_CMD = @crc:CMND_FUROR_HUD_DEBUG@     -- 1 = config.toml [furor_hud] debug: plain retail gauges, fire full
+FUROR_HUD_BUTTON = @crc:CMD_FUROR_PHASE@
+FUROR_HUD_CTRLS = {@crc:PLAYER_SOCCER_CTRL@, @crc:PLAYER_SOCCER_ZONE_CTRL@}
+-- the bars in the keeper bar locators' space (layout units, y up; _pos_hp01 (-335, -107), _pos_hp02 (335, -107) of
+-- soccer00_01_kp): ABOVE the scoreboard, each over its own team's name plate (plates x about -562..-174 / 174..562
+-- from the centre, top about 42 below the screen top): the crest-side end of each flame bar 160 units from its locator
+-- towards the centre (the plate's inner end), its middle 85.5 above the locator (21.5 below the screen top, between
+-- the screen top and the plates); trough, Max and sparkles placed from the flames as Strikers' layout UI 105
+-- (FUROR_HUD_REACH / FUROR_HUD_RISE)
+FUROR_HUD_BAR_INNER = 160
+FUROR_HUD_BAR_MIDDLE = 85.5
+FUROR_HUD_LOCATOR_SPAN = 670                  -- x distance from _pos_hp01 to _pos_hp02, layout units
+FUROR_HUD_FPS = 60                            -- Strikers' animation frames per second
+FUROR_HUD_STRIPE_FRAMES = 3                   -- Strikers frames per stripe frame (Up_tex / Down_tex IMGY keys)
+FUROR_HUD_PULSE_FRAMES = 60                   -- the flames' glow and Max's pulse (0 -> top at 30 -> 0 at 60)
+FUROR_HUD_GLOW_ALPHA = 0.5                    -- Base_eff's top alpha
+FUROR_HUD_STRIPE_ALPHA = 0.5                  -- Up_tex / Down_tex alpha
+FUROR_HUD_SPARK_SCALE = 0.3                   -- a sparkle's scale at its start (1 at its end)
+FUROR_HUD_EASE_SECONDS = 0.15                 -- the drawn gauge eases toward the value (time constant: ~95 % in 0.45 s)
+FUROR_HUD_FRAME_SECONDS = 1549797111          -- this frame's seconds (the retail command)
+FUROR_HUD_PROBE_STEP = 100
+FUROR_HUD_PROBE_WAIT = 2
+FUROR_HUD_SETTLE = 1
+FUROR_HUD_SNAP = 2
+FUROR_HUD_LOGS = 0
+FUROR_HUD_MAX_LOGS = 40                       -- loader.log lines of this block at most
+FUROR_HUD_FILL_FRAMES = 10                    -- frames after a show in which the meshes are set up every frame
+FUROR_HUD_FILL_EVERY = 30                     -- then every this many frames while shown
+-- the button glyph: its centre this far from the own locator towards the centre (layout units): 4.5 past the full
+-- gauge's Max pulse (its end at 181) + half its width, level with the flames' middle; about 25 units tall at this scale
+FUROR_HUD_PROMPT_INNER = 198
+FUROR_HUD_PROMPT_SCALE = 0.66
+FUROR_HUD_PROMPT_TRIES = 8                    -- placements until the glyph sits on its target, else it stays hidden
+FUROR_HUD_PROBE_TRIES = 6                     -- probes per slot until its x and y units agree (an animation moved it)
+FUROR_HUD_UNIT_TOLERANCE = 0.02               -- relative difference of the x and y units accepted as uniform
+-- generated BEGIN
+-- generated by research/scripts/furor_gauge_draw.py: atlases, sizes and reaches (layout units), the sparkles
+-- of Strikers' Max animation, sprite ids per side (0 left, 1 right), look, frame, cut step
+FUROR_HUD_STEPS = 31
+FUROR_HUD_UNIT = 1.5
+FUROR_HUD_ATLASES = {{path = "#/menu/02_btl/furor_gauge/furor_gauge.g4tx", id = 114771192}, {path = "#/menu/02_btl/furor_gauge_up/furor_gauge_up.g4tx", id = 91847101}, {path = "#/menu/02_btl/furor_gauge_down/furor_gauge_down.g4tx", id = 4128367723}}
+FUROR_HUD_ATLAS_OF = {max = 114771192, trough = 114771192, spark = 114771192, base = 114771192, glow = 114771192, up = 91847101, down = 4128367723}
+FUROR_HUD_SIZES = {max = {336.0, 66.0}, trough = {306.0, 42.0}, fill = {288.0, 36.0}, spark = {24.0, 24.0}}
+FUROR_HUD_REACH = {[0] = {max = 21.0, trough = 7.5}, [1] = {max = 19.5, trough = 4.5}}
+FUROR_HUD_RISE = {[0] = {max = 0.0, trough = -1.5}, [1] = {max = 0.0, trough = -1.5}}
+FUROR_HUD_MAX_TO_CREST = {[0] = 210, [1] = 211}
+FUROR_HUD_MAX_MIDDLE = 22
+FUROR_HUD_SPARK_SLOTS = 13
+FUROR_HUD_SPARK_LIFE = 30
+FUROR_HUD_SPARKS = {
+  {slot = 1, start = 0, x0 = 192, y0 = 31, x1 = 192, y1 = -1},
+  {slot = 2, start = 10, x0 = 184, y0 = 39, x1 = 176, y1 = 7},
+  {slot = 3, start = 20, x0 = 192, y0 = 31, x1 = 184, y1 = -1},
+  {slot = 1, start = 30, x0 = 176, y0 = 15, x1 = 160, y1 = -25},
+  {slot = 4, start = 0, x0 = 160, y0 = 23, x1 = 152, y1 = -9},
+  {slot = 5, start = 10, x0 = 208, y0 = 23, x1 = 208, y1 = -17},
+  {slot = 6, start = 20, x0 = 200, y0 = 31, x1 = 200, y1 = 15},
+  {slot = 4, start = 30, x0 = 136, y0 = 15, x1 = 128, y1 = -33},
+  {slot = 7, start = 0, x0 = 64, y0 = 31, x1 = 56, y1 = -1},
+  {slot = 8, start = 10, x0 = 88, y0 = 23, x1 = 88, y1 = -9},
+  {slot = 9, start = 20, x0 = 120, y0 = 31, x1 = 120, y1 = 7},
+  {slot = 7, start = 30, x0 = 96, y0 = 23, x1 = 72, y1 = -33},
+  {slot = 10, start = 0, x0 = 32, y0 = 23, x1 = 16, y1 = -1},
+  {slot = 11, start = 10, x0 = 48, y0 = 39, x1 = 48, y1 = 7},
+  {slot = 12, start = 20, x0 = 32, y0 = 23, x1 = 24, y1 = -17},
+  {slot = 10, start = 30, x0 = 16, y0 = 7, x1 = 8, y1 = -41},
+  {slot = 13, start = 0, x0 = 136, y0 = 39, x1 = 128, y1 = -17},
+}
+FUROR_HUD_SPRITES = {
+  [0] = {max = 4140320618, trough = 1698589636, spark = 3583545707,
+    base = {871317724, 2867204454, 3722519024, 1132835923, 880968901, 2911622527, 3666666985, 1244919928, 1026869486, 1576222987, 720662941, 3019710503, 3304722609, 1520338194, 765048196, 3029394494, 3281507496, 1395181881, 607123887, 1994265288, 31007326, 2563797988, 4023862130, 1907611345, 112518727, 2680010749, 3904538475, 2013633274, 251832940, 1875190665, 415372063},
+    glow = {2185861426, 457230472, 1816655902, 4062408125, 2233752875, 472714385, 1797929991, 4220854678, 2358382848, 3965032677, 2605885555, 39582153, 1969015135, 3946339580, 2621402218, 87440848, 1915817286, 3800961239, 2508791873, 3346582310, 2961177520, 695642634, 1584503452, 3222605631, 3071426473, 773549587, 1495031429, 3382919956, 3198448514, 3731094119, 2841955057},
+    up = {{770142821, 3035505631, 3286831945, 1569556202, 713733756, 3011766214, 3297040208, 1413204673, 591198807, 1140552626, 888947492, 2918519454, 3673301512, 1150728107, 865175357, 2862143111, 3718243857, 1294007168, 975686422, 1758863473, 533795047, 2262319453, 4057952715, 1874584680, 415028478, 2176156996, 4138907090, 1712171075, 285907157, 1909264688, 113910182}, {1062395275, 2791017521, 3512515751, 1329080580, 943659410, 2704689192, 3593566398, 1183737135, 831083961, 1364122716, 642378954, 3208691056, 3360132582, 1445140549, 556017875, 3089987945, 3475655167, 1603621998, 680682744, 2053345183, 224706313, 2490232499, 3815431717, 2098088838, 168393488, 2466261674, 3825670716, 1958217645, 62863163, 1668857566, 343903816}, {2280569582, 518515540, 1776344002, 4152643169, 2156101367, 428486477, 1854742491, 4264690250, 2301965020, 3924998969, 2666892207, 134011413, 1895557763, 4003430176, 2576895926, 9510412, 2006331034, 3878236939, 2418934685, 3269454074, 3050887276, 751929814, 1540798784, 3316788451, 2998213749, 733760975, 1555791193, 3422838984, 3137556574, 3687111099, 2898520365}, {439976535, 2201015277, 4097303419, 1783854808, 492062286, 2220693492, 4082771810, 1675967219, 350358117, 1948615552, 52605718, 2586567340, 3979137594, 1934116761, 72316687, 2638620341, 3930134051, 2063469490, 234437412, 1594413123, 672129237, 2970005871, 3321987577, 1483019354, 794961100, 3060495734, 3245098464, 1372805233, 651454695, 1175707906, 823447956}},
+    down = {{4159873721, 1862005507, 435995541, 2274907702, 4036978336, 1771452186, 512821132, 2385386013, 4180224651, 2582553454, 4008285176, 2011218498, 15200980, 2659411831, 3917764577, 1888290395, 126498509, 2536844124, 3761380298, 2999185581, 3318005819, 1556976001, 734699799, 3048092852, 3265856546, 1537234328, 749167886, 3155720351, 3407824905, 2883109356, 3705663866}, {3846638935, 2085510381, 189361275, 2502818264, 3794454862, 2065930484, 203728994, 2627450355, 3952903525, 2338000000, 4233903126, 1700097452, 307387706, 2352400537, 4214355983, 1647880629, 356489507, 2239792306, 4068979748, 2692112195, 3614535637, 1316503151, 964628217, 2803604314, 3491539916, 1226177142, 1041418976, 2930628465, 3651856359, 3110956546, 3463077524}, {1576757810, 3304209288, 3019180830, 764518077, 1519824427, 3282042769, 3029913351, 606589590, 1394663936, 870804453, 1155554163, 3723037385, 2867739231, 881504252, 1133354858, 3666136784, 2911108678, 1027400663, 1245434689, 415905830, 1875708080, 4140062986, 2177067420, 531102783, 1755368617, 4054424851, 2259594629, 370257940, 1628864642, 30476647, 1993751025}, {3224130187, 1495597873, 773993383, 2957420036, 3342964370, 1581827880, 693106622, 3119573551, 3472349881, 2922402652, 3644285898, 1077817968, 926483174, 2841483077, 3730483155, 1196684905, 810862335, 2699811694, 3622628344, 2233270431, 4061802505, 1796432307, 471093541, 2188428422, 4118279184, 1820239274, 460952892, 2345044141, 4240554043, 2617651678, 3942711624}}},
+  [1] = {max = 689467017, trough = 202328285, spark = 3799611128,
+    base = {1475205439, 3471083653, 3118708755, 663170480, 1350573350, 3381218460, 3197008906, 774988187, 1496731917, 972151016, 1324804222, 3623860676, 2700642642, 1050418417, 1234906215, 3499261405, 2811579723, 925520090, 1076715596, 316443435, 1708899261, 4241680903, 2346048145, 363941682, 1656127396, 4223610398, 2360876680, 470221593, 1795175311, 197638762, 2092993276},
+    glow = {3863675089, 2135052651, 138764797, 2518807646, 3777414344, 2016384370, 254322148, 2677520501, 3901786339, 2287403270, 4283445648, 1717133354, 291393724, 2402993439, 4164810121, 1630839859, 372479141, 2257357108, 4052466082, 2742702789, 3564986963, 1299461097, 980616063, 2753009372, 3541083722, 1243215856, 1025427302, 2913065719, 3668372065, 3126944644, 3446035218},
+    up = {{1154896252, 3722379462, 2866294864, 884778483, 1136366949, 3669148895, 2914382921, 1024125400, 1242421582, 717901995, 1573740605, 3301192071, 3015901457, 765957298, 1520477220, 3282695582, 3031352584, 605149337, 1394010127, 31916904, 1994404862, 4025049668, 2565755602, 109758321, 1905129447, 3901007453, 2676201163, 255626074, 2017180620, 419181097, 1878721215}, {1449393810, 3479875368, 3094192062, 638126621, 1359886987, 3355929393, 3204471719, 801064502, 1488484000, 947912517, 1333317587, 3597770345, 2708909823, 1058159452, 1209338826, 3508296304, 2786814694, 916748151, 1101219809, 324185222, 1683332112, 4250717610, 2321284412, 339699871, 1664636937, 4197517747, 2369141029, 495527092, 1787696162, 172596679, 2102308177}, {4007631351, 2010564685, 13760731, 2662690168, 3920780782, 1891306580, 129776834, 2533564755, 3758363077, 2160302112, 4156860598, 1858992396, 432720282, 2276351033, 4037635247, 1772109077, 514264451, 2383941650, 4179566724, 2884553699, 3706321781, 1172351695, 854039129, 2894270458, 3682877292, 1116565206, 898260544, 2771731409, 3526521671, 3002464930, 3321023028}, {1929945422, 3925995764, 2634465378, 56776129, 1952802135, 3983291629, 2590704763, 181672426, 2110990716, 487891097, 1779666959, 4078617013, 2216554787, 444163200, 1836995606, 4101440940, 2205168954, 332343467, 1690835005, 909767514, 1094632396, 3627520630, 2939200224, 827602755, 1179846613, 3747239535, 2824693497, 954366824, 1340427262, 790807067, 1478881933}},
+    down = {{3465876450, 1469858392, 547058382, 3204441965, 3388528635, 1358005825, 670480087, 3075058502, 3226377168, 2693337653, 3616416419, 1317499673, 964707215, 2816792108, 3504596666, 1240119040, 1055754134, 2924648967, 3646270097, 2342797814, 4238569824, 1705648346, 313331788, 2362017263, 4224628089, 1657267395, 364958805, 2239744452, 4068014418, 2462019767, 3854057505}, {3693132812, 1160375734, 841932064, 2890549379, 3679287317, 1111763375, 893589817, 2784756904, 3539678270, 2990325211, 3309014349, 1546837239, 724954209, 3042015682, 3260434772, 1532958958, 743975032, 3169269225, 3420456319, 2568089112, 3994476174, 1998556980, 1621922, 2658937345, 3917159063, 1886538541, 125139899, 2546624042, 3771553468, 2148196185, 4144885711}, {1688001385, 4254436051, 2324871749, 351678438, 1676746608, 4210577098, 2382331484, 490759117, 1783059291, 176216766, 2106059304, 3834559378, 2475264772, 233643687, 2062167601, 3823337355, 2497990429, 73093772, 1935434266, 565021053, 1454029291, 3483625553, 3097811143, 650136932, 1372028402, 3368954952, 3217628382, 796262735, 1483813337, 951498812, 1337034922}, {4182500304, 1614983786, 390431484, 2300647263, 4263913417, 1731163763, 271075045, 2157402996, 4153437154, 2539119111, 3763393169, 2035909419, 241087421, 2419729950, 3879540360, 2117355314, 154367908, 2576116277, 4002110115, 3162157508, 3413999954, 1383387368, 628351102, 3138876893, 3423618379, 1427707121, 572400743, 2996910582, 3315992928, 2774630533, 3529945107}}},
+}
+-- generated END
+
+-- one local for the whole block (the chunk's local budget is shared)
+local furor_hud = {
+  -- layers bottom to top; per_side instances per team (own team first)
+  LAYERS = {
+    {id = @crc:furor_trough@, kind = "trough", per_side = 1},
+    {id = @crc:furor_gauge@, kind = "base", per_side = 1},
+    {id = @crc:furor_glow@, kind = "glow", per_side = 1},
+    {id = @crc:furor_stripes@, kind = "stripes", per_side = 1},
+    {id = @crc:furor_max@, kind = "max", per_side = 1},
+    {id = @crc:furor_spark@, kind = "spark", per_side = FUROR_HUD_SPARK_SLOTS},
+  },
+  KEEPER_BARS = 546630184 --[[soccer00_01_kp_scoreboard_kp]],
+  MESH_FRAME = 1837325853 --[[_hp_base01]],
+  MESH_FILL = 2043683848 --[[_hp_bar02]],
+  MESH_LABEL = 1257514352 --[[_gtxt_stamina01]],
+  MESH_TRAIL = 2609329121 --[[_hp_empty01]],
+  TEXTURE_SLOT = 538967808 --[[hp_base01: the frame's texture slot]],
+  DRAW_NODE = 1837325853 --[[_hp_base01: the frame quad that draws the sprite]],
+  LOCATORS = {2302841237 --[[_pos_hp01]], 273399855 --[[_pos_hp02]]},
+  GLOBAL_POS = @crc:CMND_GET_MESH_GLOBAL_POSITION@,
+  SET_POS = @crc:CMND_SET_LAYER_LOCAL_POS@,
+  SET_SCALE = @crc:CMND_SET_LAYER_LOCAL_SCALE@,
+  CHECK_INPUT = @crc:CMND_CHECK_INPUT_CMD@,
+  LOAD_TEXTURE = @crc:CMND_LOAD_MENU_RES_TEXTURE@,
+  TEXTURE_LOADING = 1506186496 --[[the texture is still loading]],
+  PRIM_ALPHA = @crc:CMND_SET_PRIM_ALPHA@ --[[CMND_SET_PRIM_ALPHA: (layer, instance, mesh, alpha)]],
+  MESH_VISIBLE = @crc:CMND_SET_MESH_VISIBLE@,
+  LAYER_VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@,
+  -- the button glyph: soccer00_81's text node (box centred on the layer's origin) and its dummy mesh at the origin
+  PROMPT = {
+    LAYER = @crc:furor_prompt@, TEXT_NODE = @crc:_text_btn01@, ORIGIN_NODE = @crc:_dmy01@, TEXT_ROW = @crc:furor_phase_key@,
+    TEXT_GET = @crc:CMND_TEXT_GET@, SET_TEXT = @crc:CMND_SET_MENU_TEXT_STRING@, STYLE = @crc:fs_36_cc_2d0_btn@,
+    SET_STYLE = 2333948100 --[[the text node's font style]],
+  },
+  prompt = {},                                -- the glyph's state: open, shown, settled, px, py, x, y, wait, tries
+  -- the source gauge's frame quad _hp_base01: top-left (94, -816), 476 x 44 (layout units, y up)
+  SOURCE_X = 94, SOURCE_Y = -816, SOURCE_W = 476, SOURCE_H = 44,
+  slots = nil,                                -- built on the first step: {layer, instance, side, kind, index}
+  slot_of = nil,                              -- kind -> side -> index -> slot
+  -- per slot
+  ready = {}, shown = {}, sprite = {}, mapping = {}, probe = {}, place = {},
+  fill = {}, fill_logged = {},                -- frames since it was shown, its look logged once
+  tries = {},                                 -- probes made
+  lit = {},                                   -- its frame quad drawn
+  alpha = {},                                 -- the alpha last set
+  drawn = {},                                 -- per side: the gauge ratio drawn now (eased toward the value)
+  sides = {[0] = {}, [1] = {}},               -- per side: last drawn ratio, the clock when the gauge became full
+  tick = 0,
+  clock = 0,                                  -- seconds since the first step
+  dt = 1 / 60,
+  locators = nil, locators_tick = -1,
+  button_was = false,
+  texture = 0,                                -- the furor atlases: 0 not asked, 1 loading, 2 in
+  logged = {},
+  init = {},                                  -- per layer: its instances hidden once after it opened
+  why = nil,                                  -- the last reason the step stopped early (logged on a change)
+}
+
+-- the slot table: every instance of every layer
+function FurorHud_Slots()
+  local slots, slot_of = {}, {}
+  for index, layer in ipairs(furor_hud.LAYERS) do
+    layer.first = #slots + 1
+    slot_of[layer.kind] = {[0] = {}, [1] = {}}
+    for side = 0, 1 do
+      for k = 1, layer.per_side do
+        slots[#slots + 1] = {layer = layer.id, instance = side * layer.per_side + k - 1, side = side, kind = layer.kind,
+          layer_index = index}
+        slot_of[layer.kind][side][k] = #slots
+      end
+    end
+    layer.last = #slots
+  end
+  furor_hud.slots, furor_hud.slot_of = slots, slot_of
+end
+
+-- slot -> layer, instance, side
+function FurorHud_Slot(slot)
+  local s = furor_hud.slots[slot]
+  return s.layer, s.instance, s.side
+end
+
+function FurorHud_Menu(...)
+  if type(funcLuaMenuCommand) ~= "function" then
+    return nil
+  end
+  local r = table.pack(pcall(funcLuaMenuCommand, ...))
+  if not r[1] then
+    return nil
+  end
+  return table.unpack(r, 2, r.n)
+end
+
+function FurorHud_Log(...)
+  if FUROR_HUD_LOGS >= FUROR_HUD_MAX_LOGS or type(funcLuaCommand) ~= "function" then
+    return
+  end
+  FUROR_HUD_LOGS = FUROR_HUD_LOGS + 1
+  pcall(funcLuaCommand, @crc:CMND_EVT_LOG_DEBUG@, "FUROR", ...)
+end
+
+-- side 0 (own) / 1 (rival): ratio 0..1, phase, full; nil = nothing to show
+function FurorHud_Value(side)
+  if type(funcLuaCommand) ~= "function" then
+    return nil
+  end
+  local ok, has, ratio, phase, _, _, _, full = pcall(funcLuaCommand, FUROR_HUD_CMD, FUROR_HUD_KEY, side == 0 and -1 or -2)
+  if not ok or has ~= true or type(ratio) ~= "number" then
+    return nil
+  end
+  return math.max(0, math.min(1, ratio)), phase == 1, full == 1
+end
+
+-- the furor button: a press (any match controller) asks the own phase
+function FurorHud_Button()
+  if type(funcLuaCommand) ~= "function" then
+    return
+  end
+  local down = false
+  for _, ctrl in ipairs(FUROR_HUD_CTRLS) do
+    local ok, on = pcall(funcLuaCommand, furor_hud.CHECK_INPUT, ctrl, FUROR_HUD_BUTTON)
+    if ok and on == true then
+      down = true
+    end
+  end
+  if down and not furor_hud.button_was then
+    local ok, started = pcall(funcLuaCommand, FUROR_HUD_START, FUROR_HUD_KEY, -1)
+    FurorHud_Log("button", ok and started == true and "phase started" or "not full")
+  end
+  furor_hud.button_was = down
+end
+
+function FurorHud_Global(layer, index, node)
+  local x, y = FurorHud_Menu(furor_hud.GLOBAL_POS, layer, index, node)
+  if type(x) ~= "number" or type(y) ~= "number" then
+    return nil
+  end
+  return x, y
+end
+
+-- the keeper bar locators' screen positions, read once per frame: own x, y, rival x, y (nil: not readable)
+function FurorHud_Locators()
+  if furor_hud.locators_tick ~= furor_hud.tick then
+    furor_hud.locators_tick = furor_hud.tick
+    local own_x, own_y = FurorHud_Global(furor_hud.KEEPER_BARS, 0, furor_hud.LOCATORS[1])
+    local rival_x, rival_y = FurorHud_Global(furor_hud.KEEPER_BARS, 0, furor_hud.LOCATORS[2])
+    furor_hud.locators = (own_x ~= nil and rival_x ~= nil) and {own_x, own_y, rival_x, rival_y} or nil
+  end
+  local l = furor_hud.locators
+  if l == nil then
+    return nil
+  end
+  return l[1], l[2], l[3], l[4]
+end
+
+-- measures a slot's mapping: screen = origin + unit * (position + scale * object point) (as Goalkeeper Barrier's probe)
+function FurorHud_Probe(slot)
+  if furor_hud.mapping[slot] ~= nil then
+    return furor_hud.mapping[slot] ~= false
+  end
+  local layer, i = FurorHud_Slot(slot)
+  local p = furor_hud.probe[slot]
+  if p == nil then
+    furor_hud.probe[slot] = {stage = 1, wait = FUROR_HUD_PROBE_WAIT}
+    FurorHud_Menu(furor_hud.SET_SCALE, layer, 1, 1, 1, i)
+    FurorHud_Menu(furor_hud.SET_POS, layer, 0, 0, 0, i)
+    return false
+  end
+  if p.wait > 0 then
+    p.wait = p.wait - 1
+    return false
+  end
+  local x, y = FurorHud_Global(layer, i, furor_hud.DRAW_NODE)
+  if x == nil then
+    furor_hud.mapping[slot] = false
+    FurorHud_Log("slot", slot, "no global position for the frame node: hidden")
+    return false
+  end
+  local step = FUROR_HUD_PROBE_STEP
+  if p.stage == 1 then
+    p.x1, p.y1, p.stage, p.wait = x, y, 2, FUROR_HUD_PROBE_WAIT
+    FurorHud_Menu(furor_hud.SET_POS, layer, step, step, 0, i)
+    return false
+  end
+  if p.stage == 2 then
+    p.x2, p.y2, p.stage, p.wait = x, y, 3, FUROR_HUD_PROBE_WAIT
+    FurorHud_Menu(furor_hud.SET_POS, layer, 0, 0, 0, i)
+    FurorHud_Menu(furor_hud.SET_SCALE, layer, 2, 2, 1, i)
+    return false
+  end
+  local unit_x, unit_y = (p.x2 - p.x1) / step, (p.y2 - p.y1) / step
+  if math.abs(unit_x) < 0.05 or math.abs(unit_y) < 0.05 then
+    furor_hud.mapping[slot] = false
+    FurorHud_Log("slot", slot, "position does not move the frame node: hidden")
+    return false
+  end
+  -- an open animation (the scoreboard's, the gauge's) still moving the node shows as x and y units that differ: measure again
+  local tries = (furor_hud.tries[slot] or 0) + 1
+  furor_hud.tries[slot] = tries
+  if math.abs(unit_x - unit_y) > FUROR_HUD_UNIT_TOLERANCE * math.max(math.abs(unit_x), math.abs(unit_y))
+      and tries < FUROR_HUD_PROBE_TRIES then
+    FurorHud_Log("slot", slot, "probe", tries, "units differ", string.format("%.3f %.3f", unit_x, unit_y), "measuring again")
+    furor_hud.probe[slot] = nil
+    return false
+  end
+  local node_x, node_y = x - p.x1, y - p.y1
+  furor_hud.mapping[slot] = {unit_x = unit_x, unit_y = unit_y, node_x = node_x, node_y = node_y,
+    origin_x = p.x1 - node_x, origin_y = p.y1 - node_y}
+  if slot <= 2 then
+    FurorHud_Log("slot", slot, "frame node point", string.format("%.1f %.1f", node_x / unit_x, node_y / unit_y))
+    FurorHud_Log("slot", slot, "mapping unit", string.format("%.3f %.3f", unit_x, unit_y), "origin",
+      string.format("%.1f %.1f", p.x1 - node_x, p.y1 - node_y))
+  end
+  return true
+end
+
+-- a slot's local position and scale for a quad `width` x `height` layout units whose crest-side end lies `inner` past
+-- the flames' crest-side end and whose middle lies `rise` above the flames' middle, or nil (locators not readable)
+function FurorHud_Target(side, width, height, map, inner, rise)
+  local own_x, own_y, rival_x, rival_y = FurorHud_Locators()
+  if own_x == nil then
+    return nil
+  end
+  local board_x = (rival_x - own_x) / FUROR_HUD_LOCATOR_SPAN
+  if math.abs(board_x) < 0.05 then
+    return nil
+  end
+  local board_y = board_x * map.unit_y / map.unit_x
+  local top = FUROR_HUD_BAR_MIDDLE + (rise or 0) + height / 2
+  local target_x, target_y
+  inner = FUROR_HUD_BAR_INNER + (inner or 0)
+  if side == 0 then
+    target_x = own_x + (inner - width) * board_x
+    target_y = own_y + top * board_y
+  else
+    target_x = rival_x - inner * board_x
+    target_y = rival_y + top * board_y
+  end
+  local sx = width * board_x / (map.unit_x * furor_hud.SOURCE_W)
+  local sy = height * board_y / (map.unit_y * furor_hud.SOURCE_H)
+  local px = (target_x - map.origin_x) / map.unit_x - sx * furor_hud.SOURCE_X
+  local py = (target_y - map.origin_y) / map.unit_y - sy * furor_hud.SOURCE_Y
+  return px, py, sx, sy
+end
+
+-- places a slot; true once it sits on its target (moving: set at once, no settle wait, as the sparkles every frame)
+function FurorHud_Place(slot, look)
+  local layer, i, side = FurorHud_Slot(slot)
+  local map = furor_hud.mapping[slot]
+  local place = furor_hud.place[slot]
+  if not look.moving then
+    if place and place.wait > 0 then
+      place.wait = place.wait - 1
+      return place.settled
+    end
+    if place then
+      local x, y = FurorHud_Global(layer, i, furor_hud.DRAW_NODE)
+      if x ~= nil then
+        local origin_x = x - map.unit_x * place.px - place.sx * map.node_x
+        local origin_y = y - map.unit_y * place.py - place.sy * map.node_y
+        local error_x, error_y = origin_x - map.origin_x, origin_y - map.origin_y
+        if math.abs(error_x) <= FUROR_HUD_SNAP and math.abs(error_y) <= FUROR_HUD_SNAP then
+          place.settled = true
+        end
+        if math.abs(error_x) > 0.5 or math.abs(error_y) > 0.5 then
+          map.origin_x, map.origin_y = origin_x, origin_y
+        end
+      end
+    end
+  end
+  local px, py, sx, sy = FurorHud_Target(side, look.width, look.height, map, look.inner, look.rise)
+  if px == nil then
+    return false
+  end
+  if not furor_hud.logged[slot] and slot <= 2 then
+    furor_hud.logged[slot] = true
+    local own_x, own_y, rival_x, rival_y = FurorHud_Locators()
+    FurorHud_Log("slot", slot, "locators", string.format("%.1f %.1f / %.1f %.1f", own_x or 0, own_y or 0, rival_x or 0, rival_y or 0))
+    FurorHud_Log("slot", slot, "size", string.format("%.1f %.1f", look.width, look.height), "pos scale",
+      string.format("%.1f %.1f / %.3f %.3f", px, py, sx, sy))
+  end
+  if place == nil or math.abs(place.px - px) > 0.05 or math.abs(place.py - py) > 0.05 or math.abs(place.sx - sx) > 0.0005
+      or math.abs(place.sy - sy) > 0.0005 then
+    FurorHud_Menu(furor_hud.SET_SCALE, layer, sx, sy, 1, i)
+    FurorHud_Menu(furor_hud.SET_POS, layer, px, py, 0, i)
+    place = {px = px, py = py, sx = sx, sy = sy, wait = look.moving and 0 or FUROR_HUD_SETTLE,
+      settled = look.moving or (place ~= nil and place.settled)}
+    furor_hud.place[slot] = place
+  end
+  return place.settled
+end
+
+function FurorHud_Hide(slot)
+  if furor_hud.shown[slot] then
+    local layer, i = FurorHud_Slot(slot)
+    furor_hud.shown[slot] = false
+    FurorHud_Menu(furor_hud.LAYER_VISIBLE, layer, i, false)
+  end
+  furor_hud.lit[slot], furor_hud.alpha[slot] = nil, nil
+end
+
+function FurorHud_Prepare(slot)
+  local layer, i = FurorHud_Slot(slot)
+  furor_hud.ready[slot] = true
+  furor_hud.shown[slot] = false
+  furor_hud.sprite[slot] = nil
+  FurorHud_Menu(furor_hud.LAYER_VISIBLE, layer, i, false)    -- hidden until placed
+  FurorHud_Fill(slot)
+end
+
+-- a slot's look: only the frame quad drawn (it carries the furor sprite; hidden while the slot's look draws nothing),
+-- the gauge's fill, «ENERGÍA» label and red trail off. Showing an instance replays the gauge's open animation, which
+-- may show them again and reset the quad's alpha, so the step calls this again after every show.
+function FurorHud_Fill(slot)
+  FurorHud_HideMeshes(slot)
+  local layer, i = FurorHud_Slot(slot)
+  FurorHud_Menu(furor_hud.MESH_VISIBLE, layer, furor_hud.MESH_FRAME, furor_hud.lit[slot] ~= false, i)
+  furor_hud.alpha[slot] = nil
+  if furor_hud.shown[slot] and not furor_hud.fill_logged[slot] and slot <= 2 then
+    furor_hud.fill_logged[slot] = true
+    FurorHud_Log("slot", slot, "frame quad drawn after the show")
+  end
+end
+
+-- the retail gauge's fill, «ENERGÍA» label and red trail off (again whenever shown: its open animation shows them)
+function FurorHud_HideMeshes(slot)
+  local layer, i = FurorHud_Slot(slot)
+  FurorHud_Menu(furor_hud.MESH_VISIBLE, layer, furor_hud.MESH_FILL, false, i)
+  FurorHud_Menu(furor_hud.MESH_VISIBLE, layer, furor_hud.MESH_LABEL, false, i)
+  FurorHud_Menu(furor_hud.MESH_VISIBLE, layer, furor_hud.MESH_TRAIL, false, i)
+end
+
+-- a shown slot's frame quad drawn or not (only on a change)
+function FurorHud_Lit(slot, on)
+  if furor_hud.lit[slot] ~= on then
+    local layer, i = FurorHud_Slot(slot)
+    furor_hud.lit[slot] = on
+    FurorHud_Menu(furor_hud.MESH_VISIBLE, layer, furor_hud.MESH_FRAME, on, i)
+  end
+end
+
+-- a shown slot's alpha (only on a change)
+function FurorHud_Alpha(slot, alpha)
+  if furor_hud.alpha[slot] == nil or math.abs(furor_hud.alpha[slot] - alpha) > 0.004 then
+    local layer, i = FurorHud_Slot(slot)
+    furor_hud.alpha[slot] = alpha
+    FurorHud_Menu(furor_hud.PRIM_ALPHA, layer, i, furor_hud.MESH_FRAME, alpha)
+  end
+end
+
+-- the furor atlases (their own G4TX files, research/scripts/furor_gauge_draw.py) are in memory: asked once, then polled
+function FurorHud_TextureReady()
+  if furor_hud.texture == 0 then
+    for _, atlas in ipairs(FUROR_HUD_ATLASES) do
+      FurorHud_Menu(furor_hud.LOAD_TEXTURE, atlas.path)
+    end
+    furor_hud.texture = 1
+    return false
+  end
+  if furor_hud.texture == 1 and type(funcLuaCommand) == "function" then
+    local all = true
+    for _, atlas in ipairs(FUROR_HUD_ATLASES) do
+      local ok, loading = pcall(funcLuaCommand, furor_hud.TEXTURE_LOADING, atlas.id)
+      if not ok or loading then
+        all = false
+      end
+    end
+    if all then
+      furor_hud.texture = 2
+      FurorHud_Log("atlases in", #FUROR_HUD_ATLASES)
+    end
+  end
+  return furor_hud.texture == 2
+end
+
+-- swaps a slot's sprite (of the atlas `atlas`) only on a change
+function FurorHud_Sprite(slot, sprite, atlas)
+  if furor_hud.debug then
+    return                                    -- debug: the plain retail gauge stays
+  end
+  if furor_hud.sprite[slot] ~= sprite then
+    local layer, i = FurorHud_Slot(slot)
+    furor_hud.sprite[slot] = sprite
+    FurorHud_Menu(558735651 --[[swap texture]], layer, atlas, sprite, furor_hud.TEXTURE_SLOT, 0, i)
+  end
+end
+
+-- this frame's seconds; the animation clock
+function FurorHud_Clock()
+  local dt = 1 / 60
+  if type(funcLuaCommand) == "function" then
+    local ok, s = pcall(funcLuaCommand, FUROR_HUD_FRAME_SECONDS)
+    if ok and type(s) == "number" and s > 0 and s < 0.25 then
+      dt = s
+    end
+  end
+  furor_hud.dt = dt
+  furor_hud.clock = furor_hud.clock + dt
+end
+
+-- the ratio a side draws this frame: eased toward the gauge's value (a smooth rise and fall, never a jump)
+function FurorHud_Drawn(side, ratio)
+  local drawn = furor_hud.drawn[side]
+  if drawn == nil then
+    furor_hud.drawn[side] = ratio
+    return ratio
+  end
+  drawn = drawn + (ratio - drawn) * (1 - math.exp(-furor_hud.dt / FUROR_HUD_EASE_SECONDS))
+  if math.abs(ratio - drawn) < 0.0005 then
+    drawn = ratio
+  end
+  furor_hud.drawn[side] = drawn
+  return drawn
+end
+
+-- 0 -> 1 -> 0 over u = 0..1 (Strikers' linear TRAN keys at 0, 30 and 60)
+function FurorHud_Pulse(u)
+  return 1 - math.abs(2 * u - 1)
+end
+
+-- what a side draws now: slot -> look {sprite, atlas, width, height, inner, rise, alpha, moving} or {off = true} (the
+-- frame quad hidden). As GUI_TG::Exec: the trough always; the flames and their glow cut to the share; the stripes by
+-- the gauge's direction; full: Max's pulse and sparkles over the whole flames, no stripes.
+function FurorHud_Looks(side, ratio, phase, full)
+  local st = furor_hud.sides[side]
+  local sprites = FUROR_HUD_SPRITES[side]
+  local atlas = FUROR_HUD_ATLAS_OF
+  local sizes = FUROR_HUD_SIZES
+  local reach = FUROR_HUD_REACH[side]
+  local slot_of = furor_hud.slot_of
+  local frame = furor_hud.clock * FUROR_HUD_FPS
+  local looks = {}
+  local off = {off = true}
+  looks[slot_of.trough[side][1]] = {sprite = sprites.trough, atlas = atlas.trough, width = sizes.trough[1],
+    height = sizes.trough[2], inner = reach.trough, rise = FUROR_HUD_RISE[side].trough}
+  local maxed = full and not phase and ratio >= 0.995
+  if maxed then
+    st.full_since = st.full_since or furor_hud.clock
+  else
+    st.full_since = nil
+  end
+  local delta = ratio - (st.last or ratio)
+  st.last = ratio
+  local share = maxed and 1 or ratio
+  local cut = share * FUROR_HUD_STEPS
+  local base, glow, stripes = off, off, off
+  if cut >= 0.05 then
+    local step = math.max(1, math.min(FUROR_HUD_STEPS, math.ceil(cut - 1e-6)))
+    local width, height = sizes.fill[1] * math.min(1, share), sizes.fill[2]
+    base = {sprite = sprites.base[step], atlas = atlas.base, width = width, height = height}
+    local pulse = FUROR_HUD_GLOW_ALPHA * FurorHud_Pulse((frame % FUROR_HUD_PULSE_FRAMES) / FUROR_HUD_PULSE_FRAMES)
+    if pulse > 0.004 then
+      glow = {sprite = sprites.glow[step], atlas = atlas.glow, width = width, height = height, alpha = pulse}
+    end
+    local look = nil
+    if not maxed and delta > 1e-6 then
+      look = "up"
+    elseif not maxed and delta < -1e-6 then
+      look = "down"
+    end
+    if look ~= nil then
+      local frames = sprites[look]
+      local f = math.floor(frame / FUROR_HUD_STRIPE_FRAMES) % #frames + 1
+      stripes = {sprite = frames[f][step], atlas = atlas[look], width = width, height = height,
+        alpha = FUROR_HUD_STRIPE_ALPHA}
+    end
+  end
+  looks[slot_of.base[side][1]] = base
+  looks[slot_of.glow[side][1]] = glow
+  looks[slot_of.stripes[side][1]] = stripes
+  looks[slot_of.max[side][1]] = off
+  for k = 1, FUROR_HUD_SPARK_SLOTS do
+    looks[slot_of.spark[side][k]] = off
+  end
+  if maxed then
+    local g = ((furor_hud.clock - st.full_since) * FUROR_HUD_FPS) % FUROR_HUD_PULSE_FRAMES
+    looks[slot_of.max[side][1]] = {sprite = sprites.max, atlas = atlas.max, width = sizes.max[1], height = sizes.max[2],
+      inner = reach.max, rise = FUROR_HUD_RISE[side].max, alpha = FurorHud_Pulse(g / FUROR_HUD_PULSE_FRAMES)}
+    for _, spark in ipairs(FUROR_HUD_SPARKS) do
+      if g >= spark.start and g < spark.start + FUROR_HUD_SPARK_LIFE then
+        local u = (g - spark.start) / FUROR_HUD_SPARK_LIFE
+        local scale = FUROR_HUD_SPARK_SCALE + (1 - FUROR_HUD_SPARK_SCALE) * u
+        local w, h = sizes.spark[1] * scale, sizes.spark[2] * scale
+        -- the centre past the flames' crest-side end and above their middle (texture pixels -> layout units)
+        local past = (spark.x0 + (spark.x1 - spark.x0) * u - FUROR_HUD_MAX_TO_CREST[side]) * FUROR_HUD_UNIT
+        local above = (FUROR_HUD_MAX_MIDDLE - (spark.y0 + (spark.y1 - spark.y0) * u)) * FUROR_HUD_UNIT
+        looks[slot_of.spark[side][spark.slot]] = {sprite = sprites.spark, atlas = atlas.spark, width = w, height = h,
+          inner = past + w / 2, rise = above, alpha = 1 - u, moving = true}
+      end
+    end
+  end
+  return looks
+end
+
+-- the step's state, one line per change (why it stops early, or "drawing")
+function FurorHud_Why(why)
+  if furor_hud.why ~= why then
+    furor_hud.why = why
+    FurorHud_Log("step", why)
+  end
+end
+
+function FurorHud_HideAll()
+  if furor_hud.slots ~= nil then
+    for slot = 1, #furor_hud.slots do
+      FurorHud_Hide(slot)
+    end
+  end
+  FurorHud_PromptHide()
+end
+
+-- the glyph's layer opened (the game's call, with the scoreboard): its text, style and scale once, hidden at the origin
+function FurorHud_PromptOpened()
+  local P = furor_hud.PROMPT
+  furor_hud.prompt = {}
+  FurorHud_Menu(furor_hud.LAYER_VISIBLE, P.LAYER, 0, false)
+  local ok, text = pcall(funcLuaCommand, P.TEXT_GET, P.TEXT_ROW)
+  if not ok or type(text) ~= "string" or text == "" then
+    FurorHud_Log("prompt: no text row")
+    return
+  end
+  FurorHud_Menu(P.SET_STYLE, P.LAYER, 0, P.TEXT_NODE, P.STYLE)
+  FurorHud_Menu(P.SET_TEXT, P.LAYER, P.TEXT_NODE, text, 0)
+  FurorHud_Menu(furor_hud.SET_SCALE, P.LAYER, FUROR_HUD_PROMPT_SCALE, FUROR_HUD_PROMPT_SCALE, 1, 0)
+  FurorHud_Menu(furor_hud.SET_POS, P.LAYER, 0, 0, 0, 0)
+  furor_hud.prompt = {open = true, px = 0, py = 0, wait = FUROR_HUD_SETTLE, tries = 0}
+end
+
+function FurorHud_PromptHide()
+  local p = furor_hud.prompt
+  if p.shown then
+    p.shown = false
+    FurorHud_Menu(furor_hud.LAYER_VISIBLE, furor_hud.PROMPT.LAYER, 0, false)
+  end
+end
+
+-- follows the own trough: placed on the bar's middle from the same locators, shown once on its target. No command while
+-- the target stays and the glyph shows.
+function FurorHud_Prompt()
+  local p = furor_hud.prompt
+  if not p.open then
+    return
+  end
+  local trough = furor_hud.slot_of.trough[0][1]
+  local map = furor_hud.mapping[trough]
+  local own_x, own_y, rival_x = FurorHud_Locators()
+  if not furor_hud.shown[trough] or not map or own_x == nil then
+    FurorHud_PromptHide()
+    return
+  end
+  local board_x = (rival_x - own_x) / FUROR_HUD_LOCATOR_SPAN
+  local x = own_x + FUROR_HUD_PROMPT_INNER * board_x
+  local y = own_y + FUROR_HUD_BAR_MIDDLE * board_x * map.unit_y / map.unit_x
+  if p.settled and math.abs(x - p.x) <= 0.5 and math.abs(y - p.y) <= 0.5 then
+    if not p.shown then
+      p.shown = true
+      FurorHud_Menu(furor_hud.LAYER_VISIBLE, furor_hud.PROMPT.LAYER, 0, true)
+    end
+    return
+  end
+  if p.settled then
+    p.settled, p.tries = false, 0
+  end
+  if p.wait > 0 then
+    p.wait = p.wait - 1
+    return
+  end
+  local at_x, at_y = FurorHud_Global(furor_hud.PROMPT.LAYER, 0, furor_hud.PROMPT.ORIGIN_NODE)
+  if at_x == nil or p.tries >= FUROR_HUD_PROMPT_TRIES then
+    FurorHud_PromptHide()
+    return
+  end
+  local error_x, error_y = x - at_x, y - at_y
+  if math.abs(error_x) <= 0.5 and math.abs(error_y) <= 0.5 then
+    p.settled, p.x, p.y = true, x, y
+    return
+  end
+  p.tries = p.tries + 1
+  p.px, p.py = p.px + error_x / map.unit_x, p.py + error_y / map.unit_y
+  p.wait = FUROR_HUD_SETTLE
+  FurorHud_Menu(furor_hud.SET_POS, furor_hud.PROMPT.LAYER, p.px, p.py, 0, 0)
+end
+
+function FurorHud_Step()
+  if not FUROR_HUD or FUROR_HUD_SPRITES == nil or FurorHud_Menu(@crc:CMND_IS_OPEN_LAYER@, furor_hud.KEEPER_BARS, 0) ~= true then
+    FurorHud_Why("keeper bar layer closed")
+    FurorHud_HideAll()
+    return
+  end
+  if furor_hud.slots == nil then
+    FurorHud_Slots()
+  end
+  furor_hud.tick = furor_hud.tick + 1
+  FurorHud_Clock()
+  if furor_hud.debug == nil and type(funcLuaCommand) == "function" then
+    local ok, debug = pcall(funcLuaCommand, FUROR_HUD_DEBUG_CMD)
+    furor_hud.debug = ok and debug == 1
+    if furor_hud.debug then
+      FurorHud_Log("debug: plain retail gauges at every slot, the fire full")
+    end
+  end
+  local looks = {}
+  local any = false
+  for side = 0, 1 do
+    local ratio, phase, full = FurorHud_Value(side)
+    if ratio ~= nil and furor_hud.debug then
+      ratio, phase, full = 1, false, true
+    end
+    if ratio ~= nil then
+      any = true
+      for slot, look in pairs(FurorHud_Looks(side, FurorHud_Drawn(side, ratio), phase, full)) do
+        looks[slot] = look
+      end
+      if side == 0 then
+        FurorHud_Button()
+      end
+    end
+  end
+  if not any then
+    FurorHud_Why("no gauge answer (no match / module off)")
+    furor_hud.drawn = {}
+    furor_hud.sides = {[0] = {}, [1] = {}}
+    FurorHud_HideAll()
+    return
+  end
+  for index, layer in ipairs(furor_hud.LAYERS) do
+    if FurorHud_Menu(@crc:CMND_IS_OPEN_LAYER@, layer.id) ~= true then
+      for slot = layer.first, layer.last do
+        furor_hud.ready[slot], furor_hud.shown[slot], furor_hud.sprite[slot] = false, false, nil
+        furor_hud.mapping[slot], furor_hud.probe[slot], furor_hud.place[slot] = nil, nil, nil
+        furor_hud.tries[slot], furor_hud.lit[slot], furor_hud.alpha[slot] = nil, nil, nil
+      end
+      furor_hud.init[index] = false
+      FurorHud_Menu(@crc:CMND_OPEN_LAYER_ARRAY@, layer.id)
+      FurorHud_Why("opening layer " .. index)
+      return
+    end
+    if FurorHud_Menu(@crc:CMND_IS_LOADING_LAYER@, layer.id) == true then
+      FurorHud_Why("layer " .. index .. " loading")
+      return
+    end
+    -- a layer opens with its instances visible at the retail gauge's own place (bottom left, «ENERGÍA»): hide them all
+    -- now, the slots that draw show theirs once placed
+    if not furor_hud.init[index] then
+      furor_hud.init[index] = true
+      for slot = layer.first, layer.last do
+        local _, i = FurorHud_Slot(slot)
+        FurorHud_Menu(furor_hud.LAYER_VISIBLE, layer.id, i, false)
+        FurorHud_HideMeshes(slot)
+        furor_hud.shown[slot] = false
+      end
+      FurorHud_Log("layer", index, "open: instances hidden")
+    end
+  end
+  if not FurorHud_TextureReady() then
+    FurorHud_Why("furor atlas loading")
+    FurorHud_HideAll()
+    return
+  end
+  FurorHud_Why("drawing")
+  for slot = 1, #furor_hud.slots do
+    local look = looks[slot]
+    if look == nil then
+      FurorHud_Hide(slot)
+    else
+      if not furor_hud.ready[slot] then
+        FurorHud_Prepare(slot)
+      end
+      if look.off then
+        FurorHud_Probe(slot)                  -- measured ahead, so it draws on its first frame
+        if furor_hud.shown[slot] then
+          FurorHud_Lit(slot, false)
+        end
+      else
+        FurorHud_Sprite(slot, look.sprite, look.atlas)
+        if FurorHud_Probe(slot) and FurorHud_Place(slot, look) then
+          if not furor_hud.shown[slot] then
+            local layer, i = FurorHud_Slot(slot)
+            furor_hud.shown[slot] = true
+            furor_hud.fill[slot] = 0
+            furor_hud.lit[slot] = true
+            FurorHud_Menu(furor_hud.LAYER_VISIBLE, layer, i, true)
+            if slot <= 2 then
+              local x, y = FurorHud_Global(layer, i, furor_hud.DRAW_NODE)
+              FurorHud_Log("shown", slot, "frame node at", string.format("%.1f %.1f", x or 0, y or 0))
+            end
+          end
+          local frames = furor_hud.fill[slot] or 0
+          furor_hud.fill[slot] = frames + 1
+          if frames < FUROR_HUD_FILL_FRAMES or frames % FUROR_HUD_FILL_EVERY == 0 then
+            FurorHud_Fill(slot)
+          end
+          FurorHud_Lit(slot, true)
+          if look.alpha ~= nil then
+            FurorHud_Alpha(slot, look.alpha)
+          end
+        end
+      end
+    end
+  end
+  FurorHud_Prompt()
+end
+
+-- every frame of the match HUD: a subscriber of the framework's hud:frame (one wrap of UpdateScoreboardKeeperHp)
+@HUD_FRAME@
+VRFW_OnHudFrame(function() FurorHud_Step() end)
+-- the glyph's layer opens with the scoreboard: the game's call of both match HUD scripts
+if type(OnOpenSoccerConstantMenuLayer) == "function" then
+  FurorHud_GameOpenLayer = OnOpenSoccerConstantMenuLayer
+  OnOpenSoccerConstantMenuLayer = function(layer, index, ...)
+    if layer == furor_hud.PROMPT.LAYER then
+      pcall(FurorHud_PromptOpened)
+    end
+    return FurorHud_GameOpenLayer(layer, index, ...)
+  end
+end
+-- ===== EVT Furor hud END =====

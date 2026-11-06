@@ -1,0 +1,8 @@
+schema = "VRFW.game/1"
+
+# Chronicle board pieces for the game Lua's VRFW_Chronicle.
+# for the game Lua's VRFW_Chronicle (menu part lua\_all\37_chronicle.lua). Run time: scripts\chronicle.lua.
+
+[[VRFW.Command]]
+name = "CMND_VRFW_CHRONICLE_PIECES"   # () -> { { pieceId, statusFlagIndex, eventType }, ... }
+handler = "Chronicle.Pieces"

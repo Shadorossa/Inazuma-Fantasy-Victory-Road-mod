@@ -1,0 +1,29 @@
+schema = "VRFW.text/2"
+# The mailbox's password entry (assets\lua\menu\post_menu\100_redeem_codes.lua): the window shown instead of the
+# game's «wrong password» when a code a mod declares was already redeemed in this save, and the «received» line of each
+# reward with its count (name, count). Read by id = crc32(row id).
+table = "menu_text"
+
+[[row]]
+id = "VRFW.RedeemCode.AlreadyRedeemed"
+es = "Ya has canjeado este código en esta partida."
+en = "You have already redeemed this code in this save."
+fr = "Vous avez déjà utilisé ce code dans cette sauvegarde."
+de = "Du hast diesen Code in diesem Spielstand bereits eingelöst."
+it = "Hai già riscattato questo codice in questo salvataggio."
+pt = "Você já resgatou este código neste jogo salvo."
+ja = "このセーブデータでは、このコードはすでに使用済みです。"
+zh_hans = "此存档已兑换过该代码。"
+zh_hant = "此存檔已兌換過該代碼。"
+
+[[row]]
+id = "VRFW.RedeemCode.ItemGot"
+es = "Has obtenido [CG]%s (x%d)[C]."
+en = "You received [CG]%s (x%d)[C]!"
+fr = "Vous avez reçu [CG]%s (x%d)[C] !"
+de = "Du hast [CG]%s (x%d)[C] erhalten!"
+it = "Hai ricevuto: [CG]%s (x%d)[C]!"
+pt = "Você recebeu [CG]%s (x%d)[C]!"
+ja = "[CG]%s (×%d)[C] を手に入れた！"
+zh_hans = "获得了[CG]%s (×%d)[C]！"
+zh_hant = "獲得了[CG]%s (×%d)[C]！"

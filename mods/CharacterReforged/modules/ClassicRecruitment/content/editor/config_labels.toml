@@ -1,0 +1,106 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "office"
+  Type = "table"
+  Label = { es = "Oficina de fichajes", en = "Recruitment office" }
+  Help = { es = "Reglas de la oficina de reclutamiento.", en = "Recruitment office rules." }
+  [[Shape.Field]]
+  Key = "office.requirements"
+  Type = "bool"
+  Label = { es = "Requisitos de fichaje", en = "Signing requirements" }
+  Help = { es = "Desactivado: todos los jugadores se fichan solo por su precio en fichas. Activado: se piden los requisitos de la oficina antigua.", en = "Off: every player is signed for his price in fichas only. On: the old office's requirements apply." }
+  [[Shape.Field]]
+  Key = "album"
+  Type = "table"
+  Label = { es = "Álbum de jugadores", en = "Player album" }
+  Help = { es = "Precio de fichar desde el álbum de jugadores.", en = "Price of signing from the player album." }
+  [[Shape.Field]]
+  Key = "album.currency"
+  Type = "string"
+  Label = { es = "Moneda del álbum", en = "Album currency" }
+  Help = { es = "Objeto usado como moneda para fichar desde el álbum.", en = "Item used as currency to sign from the album." }
+  [[Shape.Field]]
+  Key = "album.value_file"
+  Type = "string"
+  Label = { es = "Archivo de valores", en = "Value file" }
+  Help = { es = "Archivo con el valor de cada jugador para calcular el precio.", en = "File holding each player's value used for the price." }
+  [[Shape.Field]]
+  Key = "album.base"
+  Type = "int"
+  Label = { es = "Precio base", en = "Base price" }
+  Help = { es = "Precio mínimo de cualquier jugador.", en = "Minimum price of any player." }
+  [[Shape.Field]]
+  Key = "album.per_value"
+  Type = "int"
+  Label = { es = "Precio por punto de valor", en = "Price per value point" }
+  Help = { es = "Se suma por cada punto de valor del jugador.", en = "Added for each point of the player's value." }
+  [[Shape.Field]]
+  Key = "album.per_level"
+  Type = "float"
+  Label = { es = "Precio por nivel", en = "Price per level" }
+  Help = { es = "Se suma por cada nivel del jugador.", en = "Added for each level of the player." }
+  [[Shape.Field]]
+  Key = "album.level_cap"
+  Type = "int"
+  Label = { es = "Nivel máximo en el precio", en = "Level cap for price" }
+  Help = { es = "Nivel a partir del cual ya no sube el precio.", en = "Level past which the price stops growing." }
+  [[Shape.Field]]
+  Key = "album.rarity_factor"
+  Type = "table"
+  Label = { es = "Factor por rareza", en = "Rarity factor" }
+  Help = { es = "Multiplicador del precio según la rareza de la carta; sin indicar = 1.", en = "Price multiplier by card rarity; none = 1." }
+  [[Shape.Field]]
+  Key = "album.rarity_factor.5"
+  Type = "float"
+  Label = { es = "Rareza 5", en = "Rarity 5" }
+  Help = { es = "Multiplicador del precio para la rareza 5.", en = "Price multiplier for rarity 5." }
+  [[Shape.Field]]
+  Key = "album.rarity_factor.6"
+  Type = "int"
+  Label = { es = "Rareza 6", en = "Rarity 6" }
+  Help = { es = "Multiplicador del precio para la rareza 6.", en = "Price multiplier for rarity 6." }
+  [[Shape.Field]]
+  Key = "album.rarity_factor.7"
+  Type = "float"
+  Label = { es = "Rareza 7", en = "Rarity 7" }
+  Help = { es = "Multiplicador del precio para la rareza 7.", en = "Price multiplier for rarity 7." }
+  [[Shape.Field]]
+  Key = "match_drops"
+  Type = "table"
+  Label = { es = "Recompensas de partido", en = "Match rewards" }
+  Help = { es = "Lo que paga cada partido al terminar.", en = "What every match pays at its end." }
+  [[Shape.Field]]
+  Key = "match_drops.friendship"
+  Type = "table"
+  Label = { es = "Puntos de amistad", en = "Friendship points" }
+  Help = { es = "Puntos de amistad ganados al final de cada partido.", en = "Friendship points earned at the end of every match." }
+  [[Shape.Field]]
+  Key = "match_drops.friendship.win"
+  Type = "int"
+  Label = { es = "Por victoria", en = "On a win" }
+  Help = { es = "Puntos de amistad al ganar.", en = "Friendship points for a win." }
+  [[Shape.Field]]
+  Key = "match_drops.friendship.draw"
+  Type = "int"
+  Label = { es = "Por empate", en = "On a draw" }
+  Help = { es = "Puntos de amistad al empatar.", en = "Friendship points for a draw." }
+  [[Shape.Field]]
+  Key = "match_drops.friendship.loss"
+  Type = "int"
+  Label = { es = "Por derrota", en = "On a loss" }
+  Help = { es = "Puntos de amistad al perder.", en = "Friendship points for a loss." }
+  [[Shape.Field]]
+  Key = "match_drops.friendship.per_goal"
+  Type = "int"
+  Label = { es = "Por gol", en = "Per goal" }
+  Help = { es = "Puntos de amistad por cada gol marcado.", en = "Friendship points per goal scored." }
+  [[Shape.Field]]
+  Key = "match_drops.friendship.per_goal_margin"
+  Type = "int"
+  Label = { es = "Por gol de diferencia", en = "Per goal of margin" }
+  Help = { es = "Puntos de amistad por cada gol de diferencia a favor.", en = "Friendship points per goal of winning margin." }

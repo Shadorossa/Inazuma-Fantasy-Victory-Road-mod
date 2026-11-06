@@ -1,0 +1,33 @@
+# Declaration schema of BetterQoL.passive_config/1 (content\passive_config): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "BetterQoL.passive_config/1"
+folder = "content/passive_config"
+label = "Passive settings"
+label_es = "Ajustes de pasivas"
+
+[entry.OffMode]
+entry_table = "off_mode"
+mode = { type = "string", required = true }
+
+[entry.PlayerArchetype]
+entry_table = "player_archetype"
+single = true
+derive = { type = "bool" }
+without = { type = "string" }
+
+[entry.RewardHandler]
+entry_table = "reward_handler"
+func = { type = "int", required = true }
+
+[entry.RewardEffect]
+entry_table = "reward_effect"
+id = { type = "int", required = true }
+
+[entry.Passive]
+entry_table = "passive"
+key = { type = "string", required = true }
+
+[entry.EffectIcon]
+entry_table = "effect_icon"
+effect = { type = "string", required = true }
+sprite = { type = "string", required = true }

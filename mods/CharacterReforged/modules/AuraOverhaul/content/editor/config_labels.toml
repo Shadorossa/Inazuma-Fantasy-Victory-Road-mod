@@ -1,0 +1,335 @@
+schema = "VRFW.editor/1"
+# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+
+[[Shape]]
+Id = "settings"
+For = "config"
+  [[Shape.Field]]
+  Key = "mode_change"
+  Type = "table"
+  Label = { es = "Modo de cambio personalizado", en = "Custom change mode" }
+  Help = { es = "Cambios de modo creados por el jugador.", en = "Change modes created by the player." }
+  [[Shape.Field]]
+  Key = "mode_change.enabled"
+  Type = "bool"
+  Label = { es = "Activado", en = "Enabled" }
+  Help = { es = "Si se desactiva no se pueden crear ni equipar cambios; los guardados siguen en la partida sin efecto.", en = "When off no change can be created or equipped; stored ones stay in the save but do nothing." }
+  [[Shape.Field]]
+  Key = "souls"
+  Type = "table"
+  Label = { es = "Tótems de alma", en = "Soul totems" }
+  Help = { es = "Ajustes de los tótems y sus habilidades.", en = "Settings of the totems and their skills." }
+  [[Shape.Field]]
+  Key = "souls.aura_points"
+  Type = "table"
+  Label = { es = "Puntos de aura (SP)", en = "Aura Points (SP)" }
+  Help = { es = "Reserva SP por tótem de Aura Points, si está activo.", en = "Aura Points' per-totem SP pool, when active." }
+  [[Shape.Field]]
+  Key = "souls.aura_points.resource"
+  Type = "string"
+  Label = { es = "Recurso SP", en = "SP resource" }
+  Help = { es = "Recurso de Aura Points que hace de reserva del tótem (interno).", en = "Aura Points resource used as the totem's pool (internal)." }
+  [[Shape.Field]]
+  Key = "souls.aura_points.start_flag"
+  Type = "string"
+  Label = { es = "Marca de SP inicial", en = "Starting SP flag" }
+  Help = { es = "Prefijo de la marca con el SP del tótem a nivel 1; la barra empieza ahí en partidos y menús (interno).", en = "Flag prefix holding the totem's SP at level 1; its bar starts there in matches and menus (internal)." }
+  [[Shape.Field]]
+  Key = "souls.stamina"
+  Type = "table"
+  Label = { es = "Aguante", en = "Stamina" }
+  Help = { es = "Aguante del partido que recuperan las habilidades de recuperación.", en = "Match stamina refilled by recovery skills." }
+  [[Shape.Field]]
+  Key = "souls.stamina.resource"
+  Type = "string"
+  Label = { es = "Recurso de aguante", en = "Stamina resource" }
+  Help = { es = "Recurso de Aura Points usado como aguante (interno).", en = "Aura Points resource used as stamina (internal)." }
+  [[Shape.Field]]
+  Key = "souls.reel"
+  Type = "table"
+  Label = { es = "Carrusel de habilidades", en = "Skill carousel" }
+  Help = { es = "Carrusel que se muestra sobre la supertécnica del tótem con sus 6 habilidades.", en = "Carousel shown over the totem's move with its 6 skills." }
+  [[Shape.Field]]
+  Key = "souls.reel.show"
+  Type = "bool"
+  Label = { es = "Mostrar carrusel", en = "Show carousel" }
+  Help = { es = "Si se desactiva, las habilidades se aplican sin mostrar el carrusel.", en = "When off, rolls apply without the carousel." }
+  [[Shape.Field]]
+  Key = "souls.reel.open_s"
+  Type = "float"
+  Label = { es = "Aparición (s)", en = "Fade in (s)" }
+  Help = { es = "Segundos que tarda en aparecer el carrusel.", en = "Seconds the carousel takes to fade in." }
+  [[Shape.Field]]
+  Key = "souls.reel.spin_s"
+  Type = "float"
+  Label = { es = "Giro (s)", en = "Spin (s)" }
+  Help = { es = "Segundos que gira el carrusel, frenando poco a poco.", en = "Seconds the carousel spins, slowing down." }
+  [[Shape.Field]]
+  Key = "souls.reel.settle_s"
+  Type = "float"
+  Label = { es = "Asentado (s)", en = "Settle (s)" }
+  Help = { es = "Segundos que tarda en asentarse sobre el resultado.", en = "Seconds to settle on the result." }
+  [[Shape.Field]]
+  Key = "souls.reel.hold_s"
+  Type = "float"
+  Label = { es = "Pausa en el resultado (s)", en = "Hold on result (s)" }
+  Help = { es = "Segundos que se queda mostrando el resultado.", en = "Seconds it stays on the result." }
+  [[Shape.Field]]
+  Key = "souls.reel.close_s"
+  Type = "float"
+  Label = { es = "Desaparición (s)", en = "Fade out (s)" }
+  Help = { es = "Segundos que tarda en desaparecer.", en = "Seconds it takes to fade out." }
+  [[Shape.Field]]
+  Key = "souls.reel.loops"
+  Type = "int"
+  Label = { es = "Vueltas", en = "Loops" }
+  Help = { es = "Vueltas completas a las 6 tarjetas antes de parar en el resultado.", en = "Whole turns over the 6 cards before the result." }
+  [[Shape.Field]]
+  Key = "souls.reel.settle_cards"
+  Type = "float"
+  Label = { es = "Recorrido final (tarjetas)", en = "Overshoot (cards)" }
+  Help = { es = "Cuántas tarjetas se pasa del resultado antes de volver a él.", en = "How many cards it runs past the result before settling." }
+  [[Shape.Field]]
+  Key = "souls.reel.center_x"
+  Type = "int"
+  Label = { es = "Posición X central", en = "Centre X" }
+  Help = { es = "Posición horizontal del centro de la tarjeta central, en píxeles de 1080p.", en = "Horizontal position of the centre card's centre, in 1080p pixels." }
+  [[Shape.Field]]
+  Key = "souls.reel.center_y"
+  Type = "int"
+  Label = { es = "Posición Y central", en = "Centre Y" }
+  Help = { es = "Posición vertical del centro de la tarjeta central, en píxeles de 1080p.", en = "Vertical position of the centre card's centre, in 1080p pixels." }
+  [[Shape.Field]]
+  Key = "souls.reel.spacing"
+  Type = "int"
+  Label = { es = "Separación entre tarjetas", en = "Card spacing" }
+  Help = { es = "Distancia entre los centros de dos tarjetas.", en = "Distance between card centres." }
+  [[Shape.Field]]
+  Key = "souls.reel.card_width"
+  Type = "int"
+  Label = { es = "Ancho de tarjeta", en = "Card width" }
+  Help = { es = "Ancho de la tarjeta central en píxeles.", en = "Width of the centre card in pixels." }
+  [[Shape.Field]]
+  Key = "souls.reel.card_height"
+  Type = "int"
+  Label = { es = "Alto de tarjeta", en = "Card height" }
+  Help = { es = "Alto de la tarjeta central en píxeles.", en = "Height of the centre card in pixels." }
+  [[Shape.Field]]
+  Key = "souls.reel.side_scale"
+  Type = "float"
+  Label = { es = "Escala de tarjetas laterales", en = "Side card scale" }
+  Help = { es = "Tamaño de las tarjetas laterales respecto a la central.", en = "Size of side cards relative to the centre one." }
+  [[Shape.Field]]
+  Key = "souls.reel.side_alpha"
+  Type = "float"
+  Label = { es = "Opacidad de tarjetas laterales", en = "Side card opacity" }
+  Help = { es = "Opacidad de las tarjetas laterales (0 a 1).", en = "Opacity of side cards (0 to 1)." }
+  [[Shape.Field]]
+  Key = "souls.reel.icon_size"
+  Type = "int"
+  Label = { es = "Tamaño del icono", en = "Icon size" }
+  Help = { es = "Tamaño del icono dentro de la tarjeta.", en = "Icon size inside a card." }
+  [[Shape.Field]]
+  Key = "souls.reel.icon_gap"
+  Type = "int"
+  Label = { es = "Hueco del icono", en = "Icon gap" }
+  Help = { es = "Espacio entre el icono y los textos.", en = "Gap between the icon and the texts." }
+  [[Shape.Field]]
+  Key = "souls.reel.name_size"
+  Type = "int"
+  Label = { es = "Tamaño del nombre", en = "Name size" }
+  Help = { es = "Altura del texto del nombre.", en = "Height of the name text." }
+  [[Shape.Field]]
+  Key = "souls.reel.level_size"
+  Type = "int"
+  Label = { es = "Tamaño del nivel", en = "Level size" }
+  Help = { es = "Altura del texto del nivel.", en = "Height of the level text." }
+  [[Shape.Field]]
+  Key = "souls.reel.diamond_size"
+  Type = "int"
+  Label = { es = "Tamaño de los rombos", en = "Diamond size" }
+  Help = { es = "Tamaño de los rombos de nivel.", en = "Size of the level diamonds." }
+  [[Shape.Field]]
+  Key = "souls.reel.diamond_spacing"
+  Type = "int"
+  Label = { es = "Separación de los rombos", en = "Diamond spacing" }
+  Help = { es = "Distancia entre los rombos de nivel.", en = "Distance between level diamonds." }
+  [[Shape.Field]]
+  Key = "souls.reel.line_gap"
+  Type = "int"
+  Label = { es = "Espacio entre líneas", en = "Line gap" }
+  Help = { es = "Espacio entre las líneas de texto de la tarjeta.", en = "Gap between a card's text lines." }
+  [[Shape.Field]]
+  Key = "souls.reel.cutin_window_s"
+  Type = "int"
+  Label = { es = "Ventana de la secuencia (s)", en = "Cut-in window (s)" }
+  Help = { es = "La primera secuencia que empiece en estos segundos tras la orden de la técnica muestra el carrusel.", en = "The first cut-in to start within these seconds of the move command shows the carousel." }
+  [[Shape.Field]]
+  Key = "souls.reel.element_colors"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Colores de elemento", en = "Element colours" }
+  Help = { es = "Color de la tarjeta de cada elemento del tótem (viento, bosque, fuego, montaña, vacío).", en = "Card colour of each totem element (wind, forest, fire, mountain, void)." }
+  [[Shape.Field]]
+  Key = "souls.reel.neutral_color"
+  Type = "string"
+  Label = { es = "Color neutro", en = "Neutral colour" }
+  Help = { es = "Color de la tarjeta sin elemento.", en = "Card colour with no element." }
+  [[Shape.Field]]
+  Key = "souls.reel.miss_color"
+  Type = "string"
+  Label = { es = "Color de fallo", en = "Miss colour" }
+  Help = { es = "Color de la tarjeta cuando la tirada falla.", en = "Card colour when the roll fails." }
+  [[Shape.Field]]
+  Key = "souls.reel.icon_atlas"
+  Type = "string"
+  Label = { es = "Atlas de iconos", en = "Icon atlas" }
+  Help = { es = "Atlas de los iconos de las tarjetas (interno).", en = "Atlas of the card icons (internal)." }
+  [[Shape.Field]]
+  Key = "souls.level_pop"
+  Type = "table"
+  Label = { es = "Aviso de subida de nivel", en = "Level-up pop" }
+  Help = { es = "Globo sobre el jugador con «+Nv.2» al subir de nivel el tótem.", en = "Speech bubble over the player with «+Lv.2» when the totem levels up." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.show"
+  Type = "bool"
+  Label = { es = "Mostrar aviso", en = "Show pop" }
+  Help = { es = "Si se desactiva no aparece el globo.", en = "When off no bubble appears." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.cpu"
+  Type = "bool"
+  Label = { es = "También rival", en = "Also CPU" }
+  Help = { es = "El rival (CPU) también muestra el aviso.", en = "The CPU team shows the pop too." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.appear_s"
+  Type = "float"
+  Label = { es = "Aparición (s)", en = "Appear (s)" }
+  Help = { es = "Segundos que tarda en aparecer el globo.", en = "Seconds the bubble takes to appear." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.hold_s"
+  Type = "float"
+  Label = { es = "Duración (s)", en = "Hold (s)" }
+  Help = { es = "Segundos que se queda a tamaño completo sobre el jugador.", en = "Seconds it stays at full size over the player." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.out_s"
+  Type = "float"
+  Label = { es = "Desaparición (s)", en = "Fade out (s)" }
+  Help = { es = "Segundos que tarda en desvanecerse.", en = "Seconds it takes to fade out." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.body_height"
+  Type = "int"
+  Label = { es = "Alto del globo", en = "Bubble height" }
+  Help = { es = "Altura del cuerpo del globo.", en = "Height of the bubble body." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.tail_height"
+  Type = "int"
+  Label = { es = "Alto de la cola", en = "Tail height" }
+  Help = { es = "Altura de la cola del globo.", en = "Height of the bubble tail." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.lift"
+  Type = "int"
+  Label = { es = "Elevación", en = "Lift" }
+  Help = { es = "Distancia entre la punta de la cola y la cabeza del jugador.", en = "Distance from the tail tip to the player's head." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.text_scale"
+  Type = "float"
+  Label = { es = "Escala del texto", en = "Text scale" }
+  Help = { es = "Tamaño del texto (1 = tamaño del rótulo original).", en = "Text size (1 = the retail caption size)." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.pad_x"
+  Type = "int"
+  Label = { es = "Margen lateral", en = "Side padding" }
+  Help = { es = "Espacio a izquierda y derecha del texto dentro del globo.", en = "Room left and right of the text inside the bubble." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.bubble_widths"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Anchos del globo", en = "Bubble widths" }
+  Help = { es = "Anchos disponibles del globo; se usa el más estrecho que cabe el texto.", en = "Available bubble widths; the narrowest that holds the text is used." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.char_width"
+  Type = "int"
+  Label = { es = "Ancho de carácter", en = "Character width" }
+  Help = { es = "Ancho de un carácter a escala 1, solo si el juego no mide el texto.", en = "Width of a character at scale 1, used only when the game does not measure the text." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.text_offset_y"
+  Type = "int"
+  Label = { es = "Desplazamiento vertical del texto", en = "Text vertical offset" }
+  Help = { es = "Sube (+) o baja (-) el texto dentro del globo.", en = "Moves the text up (+) or down (-) inside the bubble." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.text_markup"
+  Type = "string"
+  Label = { es = "Formato del texto", en = "Text markup" }
+  Help = { es = "Marcas de color alrededor del texto; {text} es el texto.", en = "Colour markup around the text; {text} is the text." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.rise"
+  Type = "int"
+  Label = { es = "Ascenso al desvanecerse", en = "Rise" }
+  Help = { es = "Cuánto sube el globo mientras se desvanece.", en = "How far the bubble rises while fading out." }
+  [[Shape.Field]]
+  Key = "souls.levels"
+  Type = "table"
+  Label = { es = "Niveles del tótem", en = "Totem levels" }
+  Help = { es = "Cómo gana puntos de nivel (LP) y niveles el tótem mientras está fuera.", en = "How a totem gains level points (LP) and levels while out." }
+  [[Shape.Field]]
+  Key = "souls.levels.thresholds"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Puntos para cada nivel", en = "Level thresholds" }
+  Help = { es = "LP totales para llegar a los niveles 2, 3, 4 y 5; bájalos para subir antes.", en = "Total LP to reach levels 2, 3, 4 and 5; lower them to level up faster." }
+  [[Shape.Field]]
+  Key = "souls.levels.per_second"
+  Type = "float"
+  Label = { es = "LP por segundo", en = "LP per second" }
+  Help = { es = "Puntos de nivel por segundo de juego.", en = "Level points per second of live play." }
+  [[Shape.Field]]
+  Key = "souls.levels.per_duel_won"
+  Type = "float"
+  Label = { es = "LP por duelo ganado", en = "LP per duel won" }
+  Help = { es = "Puntos de nivel al ganar un duelo de enfoque.", en = "Level points when winning a focus duel." }
+  [[Shape.Field]]
+  Key = "souls.levels.per_goal"
+  Type = "float"
+  Label = { es = "LP por gol", en = "LP per goal" }
+  Help = { es = "Puntos de nivel cuando el jugador marca.", en = "Level points when the player scores." }
+  [[Shape.Field]]
+  Key = "souls.levels.per_own_move"
+  Type = "float"
+  Label = { es = "LP por técnica propia", en = "LP per own move" }
+  Help = { es = "Puntos de nivel al usar la técnica del tótem.", en = "Level points when using the totem's own move." }
+  [[Shape.Field]]
+  Key = "souls.levels.time_scale"
+  Type = "float"
+  Label = { es = "Escala del tiempo extra", en = "Extra time scale" }
+  Help = { es = "Sin Aura Points: tiempo extra de invocación = tiempo total x subida de SP relativa x esto.", en = "Without Aura Points: extra summon time = full time x relative SP gain x this." }
+  [[Shape.Field]]
+  Key = "souls.levels.cpu"
+  Type = "bool"
+  Label = { es = "También rival", en = "Also CPU" }
+  Help = { es = "Los tótems del rival (CPU) también suben de nivel y tiran el carrusel (sin mostrarlo).", en = "The CPU team's totems also level up and roll the carousel (never shown)." }
+  [[Shape.Field]]
+  Key = "souls.levels.no_release"
+  Type = "bool"
+  Label = { es = "Sin soltar tótem", en = "No release" }
+  Help = { es = "El botón de soltar no hace nada mientras hay un tótem fuera.", en = "The release button does nothing while a totem is out." }
+  [[Shape.Field]]
+  Key = "souls.levels.live_states"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Estados de juego activo", en = "Live states" }
+  Help = { es = "Estados del partido en los que cuentan los puntos por segundo.", en = "Match states in which points per second count." }
+  [[Shape.Field]]
+  Key = "souls.effects"
+  Type = "table"
+  Label = { es = "Efectos", en = "Effects" }
+  Help = { es = "Ajustes de los efectos de las habilidades del carrusel.", en = "Settings for the carousel skills' effects." }
+  [[Shape.Field]]
+  Key = "souls.effects.grant_flag"
+  Type = "string"
+  Label = { es = "Marca de concesión de pasivas", en = "Passive grant flag" }
+  Help = { es = "Prefijo de marca del motor de pasivas del framework para el efecto «passive» (interno).", en = "Framework passive engine flag prefix for the \"passive\" effect (internal)." }
+  [[Shape.Field]]
+  Key = "souls.effects.knockdown_clip"
+  Type = "string"
+  Label = { es = "Animación de derribo", en = "Knock-down clip" }
+  Help = { es = "Animación que se reproduce al rival al derribarlo; vacío = solo la ralentización.", en = "Clip played on the opponent on a knock-down; empty = only the slow-down." }

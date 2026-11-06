@@ -1,0 +1,21 @@
+# Declaration schema of the number fits (content\number_fit\*.toml, scripts\number_fit.lua): [[VRFW.NumberFit]] = a menu
+# layer whose bitmap numbers (the game's *set number* command) keep the width they were designed for. A value with
+# more digits than `digits` is drawn narrower (the layer instance is scaled by digits / value digits around its
+# origin), so it takes the same space as a `digits`-digit value. The digit slots and DispMaxValue of the number
+# itself are menu data (content\menus, content\base_tables\menu\config\menu_graphic_number_config.toml).
+# An unknown key, wrong type or out-of-range value drops that declaration with a warning.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.number_fit/1"
+folder = "content/number_fit"
+label = "Number fit"
+label_es = "Ajuste de números"
+doc = "A menu layer whose numbers are squeezed to fit a number of digits when they are longer."
+doc_es = "Una capa de menú cuyos números se comprimen para caber en un número de dígitos cuando son más largos."
+
+[entry.NumberFit]
+doc = "A menu layer whose numbers are squeezed to the width of `digits` digits when they have more"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+layer = { type = "string", required = true, doc = "the layer's name in its menu setting (the name the game's set number command gets)" }
+digits = { type = "int", default = 3, min = 1, max = 9, doc = "digits the layout was designed for: a value with more is drawn at that width" }
+shrink = { type = "string", default = "width", doc = "\"width\" (only narrower: same height and baseline) or \"both\" (smaller in both directions)" }
+when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

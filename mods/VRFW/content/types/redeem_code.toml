@@ -1,0 +1,15 @@
+# Declaration schema of VRFW.redeem_code/1 (content\redeem_codes\**\*.toml; docs/framework/types/redeem_code.md): [[VRFW.RedeemCode]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.redeem_code/1"
+folder = "content/redeem_codes"
+label = "Redeem codes"
+label_es = "Códigos de canje"
+doc = "Codes typed in the mailbox's password entry that give items once per save."
+doc_es = "Códigos que se escriben en la contraseña del buzón y dan objetos una vez por partida."
+
+[entry.RedeemCode]
+doc = "a code of the mailbox's password entry: typed (any case), it gives its rewards once per save"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+code = { type = "string", required = true, doc = "the code as the player types it (letters and digits, at most 16; case does not matter)" }
+flag = { type = "string", required = true, doc = "global bit flag (name or id) the mod declares in content/flags: set when the rewards are given, so the code works once per save" }
+rewards = { type = "records", required = true, fields = { item = { type = "id", ref = "item", doc = "item name or id" }, count = { type = "int", doc = "how many" } }, doc = "one or two items (the game's dialog reads two rows)" }

@@ -1,0 +1,49 @@
+schema = "VRFW.game/2"
+
+# Team synergies declared by mods: scripts\synergy.lua recomputes the game's synergy check for declared synergies only; others keep the game's check.
+
+# ---- the check ----
+
+# Synergy check: post hook rewrites the answer of a declared synergy (`post_when` against table Synergy.Declared).
+[[VRFW.Hook]]
+name = "SynergyCheck"
+game = "Team.CheckSynergy"
+kind = "function"
+arguments = ["ptr", "ptr", "ptr"]
+returns = "ptr"
+wait_ms = 250
+post_when = { value = "[args[2]]:u32", in_table = "Synergy.Declared" }
+
+# ---- the detail panel ----
+
+# Detail panel entry: pre marks the answer for the row builder (table Synergy.Answers), post unmarks it.
+[[VRFW.Hook]]
+name = "SynergyDetail"
+game = "Menu.SynergyDetailShow"
+kind = "function"
+arguments = ["ptr", "ptr", "ptr"]
+wait_ms = 250
+pre_when = { value = "[args[2]]:u32", in_table = "Synergy.Declared" }
+post_when = { value = "[args[2]]:u32", in_table = "Synergy.Declared" }
+
+# Detail panel row builder: pre writes the declared synergy's rows (up to 3) into the list, only for answers marked above.
+[[VRFW.Hook]]
+name = "SynergyDetailRows"
+game = "Menu.SynergyDetailRows"
+kind = "function"
+arguments = ["ptr", "ptr", "ptr"]
+wait_ms = 250
+pre_when = { value = "args[3]", in_table = "Synergy.Answers" }
+
+# ---- commands ----
+
+# Used by the synergy menu patch to mark the nexus, write slot hints and grey an inactive synergy.
+[[VRFW.Command]]
+name = "CMND_VRFW_SYNERGY_PANEL"    # (item id, language code) -> nil, or { active, extra, team, rows = { { kind, name, hint, team_name, crests, faces } } }
+handler = "Synergy.CmdPanel"
+
+# Used by the shop's synergy panel (lua\synergy\shop_menu_buy\310_synergy_shop.lua): config.toml [shop]
+# synergy_conditions (default on); false = the game's shop panel.
+[[VRFW.Command]]
+name = "CMND_VRFW_SYNERGY_SHOP_CONDITIONS"   # () -> bool
+handler = "Synergy.ShopConditions"

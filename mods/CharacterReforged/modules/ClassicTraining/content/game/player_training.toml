@@ -1,0 +1,190 @@
+schema = "VRFW.game/2"
+
+# Player Training › the classic training's commands, its match modifier and its save import.
+# The logic is scripts\player_training.lua (ClassicTraining.*, rules in scripts\lib\
+# training_rules.lua, the Suerte blob in scripts\lib\training_store.lua). The old command names CMND_EVT_TRAIN_* stay
+# as aliases: the training window evt_training_menu (graft player_training_menu) and Inazuma Fantasy's skill-table
+# training mode (its graft training_btn) call them by those names.
+
+[[VRFW.Command]]
+name = "CMND_CLASSICTRAINING_INFO"     # (charaStHdl, fresh) -> ok, status, libTotal, libAvail, level, position, dirty, growthType, rule
+aliases = ["CMND_EVT_TRAIN_INFO"]
+handler = "ClassicTraining.Info"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "player_training_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CLASSICTRAINING_STAT"     # (charaStHdl, idx) -> ok, value, base, bonus, delta, committed, min, max, partner1, partner2
+aliases = ["CMND_EVT_TRAIN_STAT"]
+handler = "ClassicTraining.Stat"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "player_training_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CLASSICTRAINING_SET"      # (charaStHdl, idx, newDelta) -> ok, stop, reached, libAvail, d0 … d8
+aliases = ["CMND_EVT_TRAIN_SET"]
+handler = "ClassicTraining.Set"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "player_training_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CLASSICTRAINING_COMMIT"   # (charaStHdl) -> ok, status
+aliases = ["CMND_EVT_TRAIN_COMMIT"]
+handler = "ClassicTraining.Commit"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "player_training_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CLASSICTRAINING_CANCEL"   # (charaStHdl, 0 = every session) -> ok
+aliases = ["CMND_EVT_TRAIN_CANCEL"]
+handler = "ClassicTraining.Cancel"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "player_training_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CLASSICTRAINING_RESET"    # (charaStHdl) -> ok, libAvail
+aliases = ["CMND_EVT_TRAIN_RESET"]
+handler = "ClassicTraining.Reset"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "player_training_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CLASSICTRAINING_POSITION"     # (charaStHdl) -> ok, chosen, main, sub (0 = none), trained
+handler = "ClassicTraining.Position"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "player_training_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CLASSICTRAINING_SET_POSITION" # (charaStHdl, position) -> ok, libAvail (the working training back to 0)
+handler = "ClassicTraining.SetPosition"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "player_training_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CLASSICTRAINING_LUCK_DELTA"   # (charaStHdl) -> the committed Suerte delta (0 = none)
+handler = "ClassicTraining.LuckDelta"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "player_training_chara_containers"]
+
+# ------------------------------------------------------------------------------------------------ the match copy
+
+[[VRFW.State]]
+key = "ClassicTraining.active"     # 1 = the training runs (scripts\player_training.lua)
+
+# prm_growth[0..7] (the trained deltas) added to the match copy of a saved character's copy (not kind 0) whose card
+# has per-character values (Character Reforged's table); clamped to 1..9999 (the engine keeps a minimum of 1). Before
+# Character Reforged's run speed (its order 100).
+[[VRFW.MatchStat]]
+name = "ClassicTraining.TrainedPoints"
+order = 10
+when = [
+  { state = "ClassicTraining.active", equals = 1 },
+  { value = "mask(args[2], 0xF000)", not = 0 },
+  { value = ["[record(args[2]) + 4]:u32"], in_table = "CharacterReforged/CharacterReforged.StatRow" },
+]
+stat = "clamp(args[4] + [record(args[2]) + 0x24 + i * 4]:i32, 1, 9999)"
+# The menus' stat of a saved character (Chara.GetStatusStat: max(base + bonuses, 1) + prm_growth): a trained point
+# below zero is added after the game's minimum, so an equipment lowering on a drained stat went below 1 (shown as
+# 9999). After the game's code the stat (0..7; a negative i32 reads above 2147483647 as u32) is kept at 1 or more, as
+# the match copy above.
+[[VRFW.Hook]]
+name = "ClassicTraining.StatusStatMinimum"
+game = "Chara.GetStatusStat"
+kind = "function"
+[[VRFW.Hook.answer]]
+phase = "post"
+value = "if(args[2] < 8, if((ret == 0) + (ret > 2147483647), 1, ret), ret)"
+write = "ret"
+
+# The rival players a mod declares trained for a match (VRFW match training, content\match_training\*.toml;
+# scripts\rival_training.lua): the native table ClassicTraining.RivalAdd, key (chara_param id, stat 0..7), filled when the
+# match is requested and empty in any other match, added to the rival's roster rows (the NPC builder: args[3] = the
+# chara_param id). Same place as the trained points (order 10), before the rival's match equipment (order 30).
+[[VRFW.MatchStat]]
+name = "ClassicTraining.RivalTraining"
+order = 10
+owned = false
+npc = true
+stat = "clamp(args[4] + lookup_or(ClassicTraining.RivalAdd, 0, args[3], i), 1, 9999)"
+
+# the blocks the framework's match libraries read (VRFW scripts\lib\match_equipment.lua, match_training.lua): the
+# match info (MatchInfo.Game / MatchInfo.Difficulty) and the play data (Game.PlayMode)
+[[VRFW.Global]]
+name = "match_equipment_info"
+base = "game_root"
+chain = ["Game.RootMatch"]
+
+[[VRFW.Global]]
+name = "match_equipment_play_data"
+base = "game_root"
+chain = ["Game.RootPlayData"]
+
+# module bit 16 of CMND_EVT_LOADER_VERSION (the game Lua's «training available» test: the team dock row, the window,
+# the skill table's training mode).
+[[VRFW.ModuleMask]]
+bit = 4
+needs = ["CMND_CLASSICTRAINING_INFO", "ClassicTraining.TrainedPoints"]
+
+# ------------------------------------------------------------------------------------------------ the training beans
+
+# The training replaces the retail training beans: while this mod is on, an
+# equipped bean adds nothing to any stat and no bean is ever equipped automatically. Without the mod nothing changes
+# (these declarations ship only here).
+#
+# RefreshBeansParam (profile Board.RefreshBeansParam) is the one writer of the bean term of a character's parameter block
+# (param block [obj + 0x10], + 0x90: one i32 per stat type 0..7 = min(count, cap) of its bean slot), which every stat
+# sum adds (menus, the player page, the match copies). After the game's code the 8 entries are 0. The bean slots and
+# the items themselves are untouched (the save keeps them; they count again once the mod is off).
+[[VRFW.Hook]]
+name = "ClassicTraining.BeansGiveNothing"
+game = "Board.RefreshBeansParam"
+kind = "function"
+
+[[VRFW.Hook.answer]]
+phase = "post"
+each = { count = "8", max = 8 }
+when = { value = "[args[1] + 0x10]", not = 0 }
+value = "0"
+write = "[[args[1] + 0x10] + 0x90 + i * 4]:i32"
+
+# TeamAutoEquipBeans (profile Board.TeamAutoEquipBeans): every automatic bean equip (the «Equipar judías» rows and the five
+# native callers gated by the «Autoequipar judías» flag: joins, level-ups, end-of-match prizes) is skipped; the answer
+# 0x100 = not done, reason 1 («no beans»: the retail rows show their «no beans» line), nothing equipped. The beans stay
+# in the inventory. The one-character fill of the rarity-up check (0xE82E70) is NOT blocked: a rarity-up that needs
+# beans keeps working (a cost, no stat gain).
+[[VRFW.Hook]]
+name = "ClassicTraining.NoBeanAutoEquip"
+game = "Board.TeamAutoEquipBeans"
+kind = "function"
+
+[[VRFW.Hook.answer]]
+phase = "pre"
+value = "256"
+write = "ret"
+
+# The «Autoequipar judías» setting (retail commands 0x2086CD04 get / 0x799BDB53 set): read as off, a change ignored
+# (scripts\player_training.lua ClassicTraining.AutoBeansGet / AutoBeansSet)
+[[VRFW.CommandFilter]]
+name = "ClassicTraining.AutoBeansGet"
+command = 0x2086CD04
+handler = "ClassicTraining.AutoBeansGet"
+
+[[VRFW.CommandFilter]]
+name = "ClassicTraining.AutoBeansSet"
+command = 0x799BDB53
+handler = "ClassicTraining.AutoBeansSet"
+
+# CMND_CLASSICTRAINING_BEANS_OFF() -> true while the beans give nothing (graft player_training_beans: the board's bean
+# slot shows a message instead of the retail bean menu)
+[[VRFW.Command]]
+name = "CMND_CLASSICTRAINING_BEANS_OFF"
+handler = "ClassicTraining.BeansOff"
+needs = ["ClassicTraining.BeansGiveNothing"]
+
+# ------------------------------------------------------------------------------------------------ the save
+
+# Inazuma Fantasy's Suerte deltas (its blob training.json, same layout) copied once per slot (never over this mod's
+# own); the trained points themselves (prm_growth) are the game's save
+[[VRFW.SaveImport]]
+name = "ClassicTraining.FromInazumaFantasy"
+from = "inazuma_fantasy"
+blobs = ["training.json"]
+
+# ------------------------------------------------------------------------------------------------ the game's objects
+
+# [[g_gameRoot]+ Game.RootCharaContainers]: the character containers (container of kind k = [this + 8 + k * 8])
+[[VRFW.Global]]
+name = "player_training_chara_containers"
+base = "game_root"
+chain = ["Game.RootCharaContainers"]

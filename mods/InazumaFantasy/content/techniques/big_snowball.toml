@@ -1,0 +1,42 @@
+schema = "VRFW.technique/3"
+# Bola de nieve (Big Snowball): the download's move whs90008, a clone of whs00360 with its numbers; its event ev60_90008 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "big_snowball"
+key = "whs90008"
+base = "whs00360"
+event = "ev60_90008"
+element = "wind"
+power_min = 60
+power_max = 360
+tp = 60
+effect_flags = 0
+color = 1
+  [technique.text.es]
+  name = "Bola de nieve"
+  description = "Envuelve el balón en una enorme\nbola de nieve y la dispara."
+  [technique.text.en]
+  name = "Big Snowball"
+  description = "Wraps the ball in a huge\nsnowball and fires it."
+  [technique.text.fr]
+  name = "Grosse boule de neige"
+  description = "Enveloppe le ballon dans une énorme\nboule de neige et la tire."
+  [technique.text.de]
+  name = "Riesenschneeball"
+  description = "Hüllt den Ball in einen riesigen\nSchneeball und schießt ihn ab."
+  [technique.text.it]
+  name = "Palla di neve gigante"
+  description = "Avvolge la palla in un'enorme\npalla di neve e la tira."
+  [technique.text.pt]
+  name = "Grande bola de neve"
+  description = "Envolve a bola numa enorme\nbola de neve e dispara-a."
+  [technique.text.ja]
+  name = "ビッグスノーボール"
+  description = "ボールを巨大な雪玉で包み\n撃ち出す！"
+  [technique.text.zh_hans]
+  name = "巨型雪球"
+  description = "把足球裹进巨大雪球，\n一脚射出。"
+  [technique.text.zh_hant]
+  name = "巨型雪球"
+  description = "把足球裹進巨大雪球，\n一腳射出。"

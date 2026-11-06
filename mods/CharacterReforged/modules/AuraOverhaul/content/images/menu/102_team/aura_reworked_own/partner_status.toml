@@ -1,0 +1,122 @@
+# Aura Reworked › the corner badges of the player bank and Character Reforged's «Crear …» partner bank
+# ([CharacterReforged.PartnerLock.<system>] status_badge / status_badge_in_team), 48 x 56 px, drawn at 24 x 28 on the
+# card's retail «in a team» icon (_icon_teamdock01). Made at the first start (and after a game update) from the PLAYER'S
+# own game files: the skill list's tab glyphs icon_list_tab_sp_area07 Mix-Max / 11 «Modo cambio» (their 80 x 80 tile; the
+# sprites are 144 x 96, a direct swap into the 24 x 28 quad would squash them). The _team sprites add the retail
+# icon_teamdock01 on the lower right: a player in a team keeps that mark. No Level-5 pixel ships.
+# The colours (`fill rgb` of the glyph recipes): the tile takes the colour the game gives the system's own icon in icon_common
+# (icon_sp_area07 orange, icon_sp_area11 blue), the figure stays white. Kept as drawn by the dark theme (Character Reforged's
+# content\themes\dark_rules.toml): a white tile counts as a panel there and came out almost black.
+# The Lua asks team00_01.g4tx for them; content\sprite_redirects\own_atlases.toml serves them from this atlas.
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/102_team/aura_reworked_own/aura_reworked_status_badges.g4tx"
+name = "aura_reworked_status_badges"
+size = [208, 56]
+
+[[recipe]]
+name = "ar_status_glyph_miximax"
+game = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx"
+sprite = "icon_list_tab_sp_area07"
+ops = [
+    { op = "crop", box = [32, 8, 112, 88] },
+    { op = "fit", box = [48, 48] },
+    { op = "fill", rgb = [240, 120, 0] },
+]
+
+[[recipe]]
+name = "ar_status_glyph_change"
+game = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx"
+sprite = "icon_list_tab_sp_area11"
+ops = [
+    { op = "crop", box = [32, 8, 112, 88] },
+    { op = "fit", box = [48, 48] },
+    { op = "fill", rgb = [24, 72, 232] },
+]
+
+# the white under the cut-out figure of a glyph
+[[recipe]]
+name = "ar_status_figure"
+canvas = [48, 48]
+ops = [
+    { op = "opaque" },
+    { op = "fill", rgb = [255, 255, 255] },
+    { op = "round_corners", radius = 8 },
+]
+
+[[recipe]]
+name = "ar_status_team_mark"
+game = "#/menu/102_team/team00/team00_01/team00_01.g4tx"
+sprite = "icon_teamdock01"
+ops = [{ op = "alpha_crop" }]
+
+[[recipe]]
+name = "ar_status_miximax"
+canvas = [48, 56]
+ops = [
+    { op = "paste", image = "ar_status_figure", centre = [24, 28] },
+    { op = "paste", image = "ar_status_glyph_miximax", centre = [24, 28] },
+]
+
+[[recipe]]
+name = "ar_status_change"
+canvas = [48, 56]
+ops = [
+    { op = "paste", image = "ar_status_figure", centre = [24, 28] },
+    { op = "paste", image = "ar_status_glyph_change", centre = [24, 28] },
+]
+
+[[recipe]]
+name = "ar_status_miximax_team"
+canvas = [48, 56]
+ops = [
+    { op = "paste", image = "ar_status_figure", centre = [24, 24] },
+    { op = "paste", image = "ar_status_glyph_miximax", centre = [24, 24] },
+    { op = "paste", image = "ar_status_team_mark", centre = [36, 42] },
+]
+
+[[recipe]]
+name = "ar_status_change_team"
+canvas = [48, 56]
+ops = [
+    { op = "paste", image = "ar_status_figure", centre = [24, 24] },
+    { op = "paste", image = "ar_status_glyph_change", centre = [24, 24] },
+    { op = "paste", image = "ar_status_team_mark", centre = [36, 42] },
+]
+
+[[sprite]]
+atlas = "#/menu/102_team/aura_reworked_own/aura_reworked_status_badges.g4tx"
+name = "aura_reworked_status_miximax"
+recipe = "ar_status_miximax"
+texture = "aura_reworked_status_badges"
+x = 0
+y = 0
+size = [48, 56]
+
+[[sprite]]
+atlas = "#/menu/102_team/aura_reworked_own/aura_reworked_status_badges.g4tx"
+name = "aura_reworked_status_change"
+recipe = "ar_status_change"
+texture = "aura_reworked_status_badges"
+x = 52
+y = 0
+size = [48, 56]
+
+[[sprite]]
+atlas = "#/menu/102_team/aura_reworked_own/aura_reworked_status_badges.g4tx"
+name = "aura_reworked_status_miximax_team"
+recipe = "ar_status_miximax_team"
+texture = "aura_reworked_status_badges"
+x = 104
+y = 0
+size = [48, 56]
+
+[[sprite]]
+atlas = "#/menu/102_team/aura_reworked_own/aura_reworked_status_badges.g4tx"
+name = "aura_reworked_status_change_team"
+recipe = "ar_status_change_team"
+texture = "aura_reworked_status_badges"
+x = 156
+y = 0
+size = [48, 56]

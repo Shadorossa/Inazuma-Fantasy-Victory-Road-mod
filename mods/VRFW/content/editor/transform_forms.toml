@@ -1,0 +1,212 @@
+# The forms of the transform type's policy tables and fusion keshin rules (docs/framework/types/transform.md §2.2,
+# §2.4.1), in the editor schema format (docs/framework/modmanager-editor-schemas.md). ModManager edits these files in
+# «Más tipos»: `For = "<schema>"` is a whole file without `[[…]]` lists (`[rules]`, `[miximax]`, `[ability_list]`),
+# `For = "<schema> <list>"` one entry of that list. Fields read from the shipped transform files.
+# Read only by ModManager: the game does not read content\editor\.
+schema = "VRFW.editor/1"
+
+# ------------------------------------------------------------------------------------------------ policy file
+[[Shape]]
+Id = "transform_policy"
+For = "VRFW.transform/2"
+Label = { en = "Transformation policy", es = "Reglas de transformación" }
+Help = { en = "The [rules], [miximax] and [ability_list] tables of a transform file, merged over the mods key by key.", es = "Las tablas [rules], [miximax] y [ability_list] de un archivo de transformaciones, combinadas entre mods clave a clave." }
+  [[Shape.Field]]
+  Key = "if_mod"
+  Type = "string"
+  Label = { en = "Only when this part is on", es = "Solo con esta parte activa" }
+  [[Shape.Field]]
+  Key = "rules"
+  Type = "table"
+  Of = "transform_rules"
+  Label = { en = "Rules", es = "Reglas" }
+  [[Shape.Field]]
+  Key = "miximax"
+  Type = "table"
+  Of = "transform_miximax"
+  Label = { en = "Miximax", es = "Miximax" }
+  [[Shape.Field]]
+  Key = "ability_list"
+  Type = "table"
+  Of = "transform_ability_list"
+  Label = { en = "Ability list", es = "Lista de habilidades" }
+
+[[Shape]]
+Id = "transform_rules"
+  [[Shape.Field]]
+  Key = "stack"
+  Type = "list"
+  Of = "string"
+  Label = { en = "Stack order (kinds)", es = "Orden de capas (tipos)" }
+  [[Shape.Field]]
+  Key = "team_aura_max"
+  Type = "int"
+  Label = { en = "Auras per team at once", es = "Auras por equipo a la vez" }
+  Min = 0
+  Max = 11
+  [[Shape.Field]]
+  Key = "team_aura_max_option"
+  Type = "string"
+  Label = { en = "Option that sets it", es = "Opción que lo ajusta" }
+  [[Shape.Field]]
+  Key = "team_aura_cooldown_s"
+  Type = "int"
+  Label = { en = "Team aura cooldown", es = "Recarga de aura del equipo" }
+  Min = 0
+  Max = 600
+  Unit = " s"
+  [[Shape.Field]]
+  Key = "team_aura_cooldown_option"
+  Type = "string"
+  Label = { en = "Option that sets it", es = "Opción que lo ajusta" }
+  [[Shape.Field]]
+  Key = "armour_source"
+  Type = "string"
+  Label = { en = "Armour source", es = "Origen de la armadura" }
+  [[Shape.Field]]
+  Key = "armour_wearers"
+  Type = "string"
+  Label = { en = "Who may wear an armour", es = "Quién puede llevar armadura" }
+  [[Shape.Field]]
+  Key = "armour_identity"
+  Type = "string"
+  Label = { en = "Identity while armoured", es = "Identidad con armadura" }
+  [[Shape.Field]]
+  Key = "armour_from_keshin_free"
+  Type = "bool"
+  Label = { en = "Armour over its keshin is free", es = "Armadura sobre su keshin gratis" }
+  [[Shape.Field]]
+  Key = "armour_mesh_fallback"
+  Type = "lists"
+  Label = { en = "Body group mesh fallbacks (group, uses)", es = "Mallas de reserva por grupo (grupo, usa)" }
+  [[Shape.Field]]
+  Key = "armour_no_mesh_groups"
+  Type = "numbers"
+  Label = { en = "Body groups without armour", es = "Grupos de cuerpo sin armadura" }
+
+[[Shape]]
+Id = "transform_miximax"
+  [[Shape.Field]]
+  Key = "free"
+  Type = "bool"
+  Label = { en = "Free pairs", es = "Parejas libres" }
+  [[Shape.Field]]
+  Key = "colors"
+  Type = "string"
+  Label = { en = "Colour table folder", es = "Carpeta de la tabla de colores" }
+  [[Shape.Field]]
+  Key = "aura_board_slot"
+  Type = "int"
+  Label = { en = "Partner aura board slot", es = "Casilla del aura del compañero" }
+  [[Shape.Field]]
+  Key = "form_source"
+  Type = "string"
+  Label = { en = "Form source", es = "Origen de la forma" }
+  [[Shape.Field]]
+  Key = "owner_only_rows"
+  Type = "bool"
+  Label = { en = "Premade rows for their owners only", es = "Filas prehechas solo para sus dueños" }
+  [[Shape.Field]]
+  Key = "carriers"
+  Type = "list"
+  Of = "string"
+  Label = { en = "Carrier lists", es = "Listas portadoras" }
+  [[Shape.Field]]
+  Key = "validity"
+  Type = "string"
+  Label = { en = "Validity check", es = "Comprobación de validez" }
+  [[Shape.Field]]
+  Key = "mix_table"
+  Type = "string"
+  Label = { en = "Mix table", es = "Tabla de mezcla" }
+
+[[Shape]]
+Id = "transform_ability_list"
+  [[Shape.Field]]
+  Key = "hide"
+  Type = "list"
+  Of = "string"
+  Label = { en = "Hidden lists", es = "Listas ocultas" }
+  [[Shape.Field]]
+  Key = "create"
+  Type = "list"
+  Of = "string"
+  Label = { en = "Created lists", es = "Listas creadas" }
+  [[Shape.Field]]
+  Key = "create_flag"
+  Type = "string"
+  Label = { en = "Create flag", es = "Indicador de creación" }
+  [[Shape.Field]]
+  Key = "filter_pass"
+  Type = "list"
+  Of = "string"
+  Label = { en = "Lists the filter lets through", es = "Listas que pasan el filtro" }
+
+# ------------------------------------------------------------------------------------------- [[aura_rule]]
+[[Shape]]
+Id = "transform_aura_rule"
+For = "VRFW.transform/2 aura_rule"
+Label = { en = "Fusion keshin", es = "Keshin de fusión" }
+Help = { en = "A keshin that N players on the pitch summon together (docs/framework/types/transform.md §2.4.1).", es = "Un keshin que N jugadores en el campo invocan juntos." }
+  [[Shape.Field]]
+  Key = "aura"
+  Type = "ref"
+  Ref = "technique"
+  Required = true
+  Label = { en = "Fusion keshin", es = "Keshin de fusión" }
+  [[Shape.Field]]
+  Key = "carriers"
+  Type = "int"
+  Label = { en = "Participants", es = "Participantes" }
+  Min = 2
+  Max = 4
+  [[Shape.Field]]
+  Key = "components"
+  Type = "lists"
+  Label = { en = "Component sets (one player each)", es = "Conjuntos de componentes (uno por jugador)" }
+  [[Shape.Field]]
+  Key = "all_can_use_move"
+  Type = "bool"
+  Label = { en = "Every participant may use its move", es = "Todos pueden usar su técnica" }
+  [[Shape.Field]]
+  Key = "cost"
+  Type = "enum"
+  Values = ["shared", "summoner"]
+  Label = { en = "Cost", es = "Coste" }
+  [[Shape.Field]]
+  Key = "cost_resource"
+  Type = "string"
+  Label = { en = "Cost resource", es = "Recurso del coste" }
+  [[Shape.Field]]
+  Key = "partners"
+  Type = "enum"
+  Values = ["bound", "free"]
+  Label = { en = "Partners", es = "Compañeros" }
+  [[Shape.Field]]
+  Key = "transfer"
+  Type = "bool"
+  Label = { en = "A miximax partner's keshin grants it", es = "El keshin de un compañero miximax lo da" }
+  [[Shape.Field]]
+  Key = "cut_in"
+  Type = "string"
+  Label = { en = "Summon event", es = "Evento de invocación" }
+  [[Shape.Field]]
+  Key = "move_event"
+  Type = "table"
+  Of = "transform_move_event"
+  Label = { en = "Move event while it runs", es = "Evento de la técnica mientras dura" }
+  [[Shape.Field]]
+  Key = "remove"
+  Type = "bool"
+  Label = { en = "Drop an earlier mod's rule", es = "Quitar la regla de otro mod" }
+
+[[Shape]]
+Id = "transform_move_event"
+  [[Shape.Field]]
+  Key = "from"
+  Type = "string"
+  Label = { en = "From", es = "De" }
+  [[Shape.Field]]
+  Key = "to"
+  Type = "string"
+  Label = { en = "To", es = "A" }

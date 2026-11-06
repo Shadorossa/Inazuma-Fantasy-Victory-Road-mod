@@ -1,0 +1,274 @@
+schema = "VRFW.character/2"
+# Character Reforged · Orchid Academy · Inazuma Eleven: Victory Road
+# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
+# characters. Only the fields that differ from the retail game.
+
+[[edit]]
+target = "c11110010"                                   # Celina Lavelle
+moves = [
+  { move = 0x27D9B69F, level = 1 },                         # Prima Donna
+  { move = 0x54C4DCA3, level = 13 },                        # Butterfly Trance
+  { move = 0xAC6D8A70, level = 20 },                        # Rainbow Arc
+  { move = 0xA8215D7C, level = 30 },                        # The Mountain
+]
+
+  [[edit.cards]]
+  id = 0x0AC335A9                                         # FW/DF · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 270, control = 238, technique = 209, pressure = 182, physical = 232, intelligence = 185, agility = 190, freedom = 221 }
+
+[[edit]]
+target = "c11110020"                                   # Clarisse Luxe
+moves = [
+  { move = 0x37A1B17B, level = 1 },                         # Fire Rooster
+  { move = 0xDA3FF6C9, level = 13 },                        # Criss-Cross
+  { move = 0x27D9B69F, level = 20 },                        # Prima Donna
+  { move = 0x4C1D87D5, level = 30 },                        # Bed of Roses
+]
+
+  [[edit.cards]]
+  id = 0x21EE666A                                         # FW/MF · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 284, control = 242, technique = 220, pressure = 180, physical = 212, intelligence = 189, agility = 189, freedom = 234 }
+
+[[edit]]
+target = "c11110030"                                   # Adelina Gearhart
+moves = [
+  { move = 0x21127474, level = 1 },                         # Ultra Moon
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0x70417B2E, level = 20 },                        # Deceptor Dribble
+  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+]
+
+  [[edit.cards]]
+  id = 0x38F5572B                                         # FW/MF · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 252, control = 246, technique = 224, pressure = 170, physical = 213, intelligence = 180, agility = 188, freedom = 225 }
+
+[[edit]]
+target = "c11110040"                                   # Eliza Florence
+moves = [
+  { move = 0x20D01E43, level = 1 },                         # Hey Presto
+  { move = 0xDA3FF6C9, level = 13 },                        # Criss-Cross
+  { move = 0x36A270F2, level = 20 },                        # Rolling Slide
+  { move = 0x4FE09C7A, level = 30 },                        # Acrobatic Keep
+]
+
+  [[edit.cards]]
+  id = 0x77B4C1EC                                         # MF/FW · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 254, control = 236, technique = 250, pressure = 188, physical = 223, intelligence = 216, agility = 184, freedom = 215 }
+
+[[edit]]
+target = "c11110050"                                   # Elyse Reign
+moves = [
+  { move = 0x54C4DCA3, level = 1 },                         # Butterfly Trance
+  { move = 0x21127474, level = 13 },                        # Ultra Moon
+  { move = 0x750E6DAB, level = 20 },                        # Matador Feint
+  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
+]
+
+  [[edit.cards]]
+  id = 0x6EAFF0AD                                         # MF/FW · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 281, control = 246, technique = 234, pressure = 171, physical = 215, intelligence = 213, agility = 177, freedom = 221 }
+
+[[edit]]
+target = "c11110060"                                   # Galia Flair
+moves = [
+  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
+  { move = 0xAF150D21, level = 13 },                        # Swallow Counter
+  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
+  { move = 0x585098FC, level = 30 },                        # Slice and Dice
+]
+
+  [[edit.cards]]
+  id = 0x4582A36E                                         # MF/DF · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 236, control = 240, technique = 227, pressure = 180, physical = 216, intelligence = 207, agility = 188, freedom = 232 }
+
+[[edit]]
+target = "c11110070"                                   # Selene Trance
+moves = [
+  { move = 0x2354CA2D, level = 1 },                         # Wind God's Dance
+  { move = 0x27D9B69F, level = 13 },                        # Prima Donna
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
+  { move = 0xF64674CB, level = 30 },                        # Fist of Justice
+]
+
+  [[edit.cards]]
+  id = 0x5C99922F                                         # MF/GK · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 242, control = 228, technique = 228, pressure = 207, physical = 212, intelligence = 219, agility = 185, freedom = 230 }
+
+[[edit]]
+target = "c11110080"                                   # Margie Frostveil
+moves = [
+  { move = 0x6E53E2B3, level = 1 },                         # Angel Ball
+  { move = 0xB633C4E1, level = 13 },                        # Photon Crash
+  { move = 0xC19E2AEE, level = 20 },                        # Pegasus Shot
+  { move = 0x19025F83, level = 30 },                        # Quick Draw
+]
+
+  [[edit.cards]]
+  id = 0xDB018EE0                                         # DF/FW · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 204, control = 192, technique = 193, pressure = 223, physical = 261, intelligence = 259, agility = 197, freedom = 217 }
+
+[[edit]]
+target = "c11110090"                                   # Evelyn Hale
+moves = [
+  { move = 0xB7F1AED6, level = 1 },                         # Double Cyclone
+  { move = 0x1C4D4906, level = 13 },                        # Whirlpool
+  { move = 0xC42D6F54, level = 20 },                        # Aikido
+  { move = 0x4E9A9232, level = 30 },                        # Spinning Cut
+]
+
+  [[edit.cards]]
+  id = 0xC21ABFA1                                         # DF/MF · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 198, control = 193, technique = 178, pressure = 205, physical = 271, intelligence = 239, agility = 196, freedom = 225 }
+
+[[edit]]
+target = "c11110100"                                   # Elara Silvane
+moves = [
+  { move = 0xB5B7108F, level = 1 },                         # Shadow Stitch
+  { move = 0xEA12530F, level = 13 },                        # Double Rocket
+  { move = 0x530CDFC1, level = 20 },                        # Mystifying Mist
+  { move = 0xBA833662, level = 30 },                        # Million Hands
+]
+
+  [[edit.cards]]
+  id = 0x121A6EDF                                         # DF/GK · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 220, control = 178, technique = 182, pressure = 236, physical = 274, intelligence = 254, agility = 207, freedom = 225 }
+
+[[edit]]
+target = "c11110110"                                   # Lilia Charmont
+moves = [
+  { move = 0xD471DE6C, level = 1 },                         # Snakebite
+  { move = 0xC13F00CC, level = 13 },                        # Flower Power
+  { move = 0x4FE09C7A, level = 20 },                        # Acrobatic Keep
+  { move = 0xF14FDC17, level = 30 },                        # Shot Pocket
+]
+
+  [[edit.cards]]
+  id = 0x0B015F9E                                         # GK/MF · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 196, control = 193, technique = 158, pressure = 221, physical = 279, intelligence = 203, agility = 265, freedom = 250 }
+
+[[edit]]
+target = "c11110120"                                   # Talia Jester
+moves = [
+  { move = 0xEA12530F, level = 1 },                         # Double Rocket
+  { move = 0x5B3151F0, level = 13 },                        # Nitro Slap
+  { move = 0x4890FB67, level = 20 },                        # Twin Boost
+  { move = 0x47657634, level = 30 },                        # Flame Breath
+]
+
+  [[edit.cards]]
+  id = 0x202C0C5D                                         # GK/FW · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 227, control = 204, technique = 178, pressure = 192, physical = 259, intelligence = 192, agility = 242, freedom = 221 }
+
+[[edit]]
+target = "c11110130"                                   # Kiyora Asakiri
+moves = [
+  { move = 0x3C843987, level = 1 },                         # Flurry Dash
+  { move = 0x592A96B4, level = 13 },                        # Afterimage
+  { move = 0x49933AEE, level = 20 },                        # Perfect Tower
+  { move = 0x1A868BED, level = 30 },                        # Clone Defence
+]
+
+  [[edit.cards]]
+  id = 0x39373D1C                                         # MF/DF · wind
+  rank = 3
+  growth = "normal"
+  stats = { kick = 231, control = 242, technique = 243, pressure = 178, physical = 211, intelligence = 208, agility = 188, freedom = 230 }
+
+[[edit]]
+target = "c11110140"                                   # Lenora Graves
+moves = [
+  { move = 0x592A96B4, level = 1 },                         # Afterimage
+  { move = 0x18C035B4, level = 13 },                        # Ghost Pull
+  { move = 0x53E9C2A3, level = 20 },                        # Capable Hands
+  { move = 0xAB6422AC, level = 30 },                        # Phantom Shot
+]
+
+  [[edit.cards]]
+  id = 0x7676ABDB                                         # FW/GK · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 294, control = 227, technique = 201, pressure = 190, physical = 216, intelligence = 181, agility = 189, freedom = 221 }
+
+[[edit]]
+target = "c11110150"                                   # Liliane Alban
+moves = [
+  { move = 0x27D9B69F, level = 1 },                         # Prima Donna
+  { move = 0xC5D2FDE2, level = 13 },                        # Oglitteration
+  { move = 0x4C1D87D5, level = 20 },                        # Bed of Roses
+  { move = 0x54C4DCA3, level = 30 },                        # Butterfly Trance
+]
+
+  [[edit.cards]]
+  id = 0x6F6D9A9A                                         # FW/DF · forest
+  rank = 3
+  growth = "normal"
+  stats = { kick = 257, control = 244, technique = 219, pressure = 177, physical = 212, intelligence = 184, agility = 189, freedom = 225 }
+
+[[edit]]
+target = "c11110160"                                   # Amara Winslow
+moves = [
+  { move = 0x1A868BED, level = 1 },                         # Clone Defence
+  { move = 0x4F58F805, level = 13 },                        # Coil Turn
+  { move = 0x9D236FA3, level = 20 },                        # Sword of the King
+  { move = 0xB5B7108F, level = 30 },                        # Shadow Stitch
+]
+
+  [[edit.cards]]
+  id = 0x4440C959                                         # DF/MF · mountain
+  rank = 3
+  growth = "normal"
+  stats = { kick = 194, control = 188, technique = 170, pressure = 205, physical = 289, intelligence = 231, agility = 201, freedom = 242 }
+
+[[edit]]
+target = "c11110500"                                   # Apia Crownwell
+moves = [
+  { move = 0x518BCA26, level = 1 },                         # Fire Tornado
+  { move = 0x79E3E635, level = 13 },                        # Racing Flame
+  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
+  { move = 0x750E6DAB, level = 30 },                        # Matador Feint
+]
+
+  [[edit.cards]]
+  id = 0x1513C603                                         # FW/MF · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 277, control = 242, technique = 205, pressure = 171, physical = 215, intelligence = 177, agility = 185, freedom = 234 }
+
+[[edit]]
+target = "c11110510"                                   # Melissa Hivewood
+moves = [
+  { move = 0x5049A011, level = 1 },                         # Spinning Shot
+  { move = 0x18019E0A, level = 13 },                        # Double Grenade
+  { move = 0x19025F83, level = 20 },                        # Quick Draw
+  { move = 0x37A1B17B, level = 30 },                        # Fire Rooster
+]
+
+  [[edit.cards]]
+  id = 0x0C08F742                                         # DF/FW · fire
+  rank = 3
+  growth = "normal"
+  stats = { kick = 209, control = 196, technique = 177, pressure = 201, physical = 265, intelligence = 243, agility = 196, freedom = 221 }

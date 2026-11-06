@@ -1,0 +1,39 @@
+schema = "VRFW.technique/3"
+# Lecho de rosas F (Bed of Roses F): the download's move whs90001, a clone of whs00620 with its numbers; its event ev60_90001 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "bed_of_roses_f"
+key = "whs90001"
+base = "whs00620"
+event = "ev60_90001"
+element = "fire"
+effect_flags = 0
+color = 2
+  [technique.text.es]
+  name = "Lecho de rosas F"
+  description = "Un lecho de rosas en llamas\nimpulsa un tiro ardiente."
+  [technique.text.en]
+  name = "Bed of Roses F"
+  description = "A bed of burning roses\ndrives a blazing shot."
+  [technique.text.fr]
+  name = "Lit de roses F"
+  description = "Un lit de roses en flammes\nporte un tir brûlant."
+  [technique.text.de]
+  name = "Rosenbett F"
+  description = "Ein Bett aus brennenden Rosen\ntreibt einen glühenden Schuss an."
+  [technique.text.it]
+  name = "Letto di rose F"
+  description = "Un letto di rose in fiamme\nspinge un tiro ardente."
+  [technique.text.pt]
+  name = "Leito de rosas F"
+  description = "Um leito de rosas em chamas\nimpulsiona um remate ardente."
+  [technique.text.ja]
+  name = "ローズベッドF"
+  description = "燃えるバラのじゅうたんが\n灼熱のシュートを生む！"
+  [technique.text.zh_hans]
+  name = "玫瑰花床F"
+  description = "燃烧的玫瑰花床，\n推动炽热的射门。"
+  [technique.text.zh_hant]
+  name = "玫瑰花床F"
+  description = "燃燒的玫瑰花床，\n推動熾熱的射門。"

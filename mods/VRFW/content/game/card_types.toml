@@ -1,0 +1,179 @@
+schema = "VRFW.game/2"
+
+# Card-type registry sites (scripts/card_types.lua); written only when a mod declares card types (apply = "script").
+# The rarity tab of the character and spirit filter windows is built by a loop; the patches below extend it by one extra item.
+
+# ---- functions
+
+# u32 GetCharaRarity(u32 charaHdl): rarity of a character handle (0 if unknown)
+[[VRFW.Function]]
+name = "CardTypes.GetCharaRarity"
+game = "Card.GetCharaRarity"
+arguments = ["u32"]
+returns = "u32"
+
+# ---- rarity tab
+
+# ---- CMenuListViewCharaFilter, builder of the rarity tab (game label «Rareza»)
+[[VRFW.Patch]]
+name = "CardTypes.CharaTab.Move"
+edit = "Card.RarityCharaTab.MoveRewrite"
+apply = "script"
+
+# first rarity listed (u32 immediate); value supplied by the script
+[[VRFW.Patch]]
+name = "CardTypes.CharaTab.First"
+game = "Card.RarityCharaTab.First"
+needs = ["CardTypes.CharaTab.Move"]
+
+[[VRFW.Patch]]
+name = "CardTypes.CharaTab.Skip"
+edit = "Card.RarityCharaTab.SkipRewrite"
+apply = "script"
+needs = ["CardTypes.CharaTab.Move"]
+
+# loop call stub; both immediates (loop end, extra rarity) are written by the script
+[[VRFW.Patch]]
+name = "CardTypes.CharaTab.Extra"
+game = "Card.RarityCharaTab.Prime"
+kind = "stub"
+apply = "script"
+entry = "call"
+code = "83 FA ?? 75 05 BA ?? ?? ?? ?? E9 ?? ?? ?? ??"
+imm = [{ at = 2, width = "u8", value = 9 }, { at = 6, width = "u32", value = 9 }]
+refs = [{ at = 11, branch = 21 }]
+
+# loop end + 1 when an extra card type exists
+[[VRFW.Patch]]
+name = "CardTypes.CharaTab.End"
+game = "Card.RarityCharaTab.End"
+needs = ["CardTypes.CharaTab.Extra"]
+
+# ---- CMenuListViewCharaFilter, full rebuild
+[[VRFW.Patch]]
+name = "CardTypes.CharaRebuild.Move"
+edit = "Card.RarityCharaRebuild.MoveRewrite"
+apply = "script"
+
+[[VRFW.Patch]]
+name = "CardTypes.CharaRebuild.First"
+game = "Card.RarityCharaRebuild.First"
+needs = ["CardTypes.CharaRebuild.Move"]
+
+[[VRFW.Patch]]
+name = "CardTypes.CharaRebuild.Skip"
+edit = "Card.RarityCharaRebuild.SkipRewrite"
+apply = "script"
+needs = ["CardTypes.CharaRebuild.Move"]
+
+[[VRFW.Patch]]
+name = "CardTypes.CharaRebuild.Extra"
+game = "Card.RarityCharaRebuild.Prime"
+kind = "stub"
+apply = "script"
+entry = "call"
+code = "83 FA ?? 75 05 BA ?? ?? ?? ?? E9 ?? ?? ?? ??"
+imm = [{ at = 2, width = "u8", value = 9 }, { at = 6, width = "u32", value = 9 }]
+refs = [{ at = 11, branch = 17 }]
+
+[[VRFW.Patch]]
+name = "CardTypes.CharaRebuild.End"
+game = "Card.RarityCharaRebuild.End"
+needs = ["CardTypes.CharaRebuild.Extra"]
+
+# ---- CMenuListViewSoccerSpiritFilter, builder of the rarity tab (game label «Rareza»)
+[[VRFW.Patch]]
+name = "CardTypes.SpiritTab.Move"
+edit = "Card.RaritySpiritTab.MoveRewrite"
+apply = "script"
+
+[[VRFW.Patch]]
+name = "CardTypes.SpiritTab.First"
+game = "Card.RaritySpiritTab.First"
+needs = ["CardTypes.SpiritTab.Move"]
+
+[[VRFW.Patch]]
+name = "CardTypes.SpiritTab.Skip"
+edit = "Card.RaritySpiritTab.SkipRewrite"
+apply = "script"
+needs = ["CardTypes.SpiritTab.Move"]
+
+[[VRFW.Patch]]
+name = "CardTypes.SpiritTab.Extra"
+game = "Card.RaritySpiritTab.Prime"
+kind = "stub"
+apply = "script"
+entry = "call"
+code = "83 FA ?? 75 05 BA ?? ?? ?? ?? E9 ?? ?? ?? ??"
+imm = [{ at = 2, width = "u8", value = 9 }, { at = 6, width = "u32", value = 9 }]
+refs = [{ at = 11, branch = 23 }]
+
+[[VRFW.Patch]]
+name = "CardTypes.SpiritTab.End"
+game = "Card.RaritySpiritTab.End"
+needs = ["CardTypes.SpiritTab.Extra"]
+
+# ---- CMenuListViewSoccerSpiritFilter, the loop in its full rebuild switch
+[[VRFW.Patch]]
+name = "CardTypes.SpiritRebuild.Move"
+edit = "Card.RaritySpiritRebuild.MoveRewrite"
+apply = "script"
+
+[[VRFW.Patch]]
+name = "CardTypes.SpiritRebuild.First"
+game = "Card.RaritySpiritRebuild.First"
+needs = ["CardTypes.SpiritRebuild.Move"]
+
+[[VRFW.Patch]]
+name = "CardTypes.SpiritRebuild.Skip"
+edit = "Card.RaritySpiritRebuild.SkipRewrite"
+apply = "script"
+needs = ["CardTypes.SpiritRebuild.Move"]
+
+[[VRFW.Patch]]
+name = "CardTypes.SpiritRebuild.Extra"
+game = "Card.RaritySpiritRebuild.Prime"
+kind = "stub"
+apply = "script"
+entry = "call"
+code = "83 FA ?? 75 05 BA ?? ?? ?? ?? E9 ?? ?? ?? ??"
+imm = [{ at = 2, width = "u8", value = 9 }, { at = 6, width = "u32", value = 9 }]
+refs = [{ at = 11, branch = 20 }]
+
+[[VRFW.Patch]]
+name = "CardTypes.SpiritRebuild.End"
+game = "Card.RaritySpiritRebuild.End"
+needs = ["CardTypes.SpiritRebuild.Extra"]
+
+# ---- player bank
+
+# 1 when the CardTypes.BankFilter hook is on (set only when a card type declares every_filter).
+[[VRFW.State]]
+key = "VRFW.card_types.every_filter"
+
+# bool CharaBankFilter(ctx, hdl, paramId, Filter*): adds the rarities of `every_filter` card types to the filter's rarity set
+#   Filter: +0x15CB u8 rarity test on, +0xA44 u32 set size, +0xA48 u8[16] set
+[[VRFW.Hook]]
+name = "CardTypes.BankFilter"
+game = "Card.BankFilter"
+kind = "function"
+arguments = ["ptr", "u32", "ptr", "ptr"]
+returns = "bool"
+pre_when = [
+  { state = "VRFW.card_types.every_filter", equals = 1 },
+  { value = "[args[4] + 0x15CB]:u8", not = 0 },
+  { value = "[args[4] + 0xA44]:u32", in = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] },
+]
+
+# ---- commands
+
+# (charaHdl) -> rarity, listed, every_filter  (rarity 0 for an unknown handle)
+[[VRFW.Command]]
+name = "CMND_VRFW_CARD_TYPE"
+handler = "CardTypes.CmdType"
+needs = ["CardTypes.GetCharaRarity"]
+
+# () -> n, then the n rarities listed on the rarity tab, in order (n = 0: service off).
+[[VRFW.Command]]
+name = "CMND_VRFW_CARD_TYPE_TAB"
+handler = "CardTypes.CmdTab"

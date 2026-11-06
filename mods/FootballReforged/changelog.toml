@@ -1,0 +1,76 @@
+schema = "VRFW.changelog/1"
+# Football Reforged: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Rules (the parser refuses the rest): a single 
+
+[[release]]
+icon = "general"
+notes = [
+    "Mecánicas de partido en módulos",
+    "Nuevos formatos de partido",
+    "Estadio local, presión y Furor",
+    "Tiempo añadido y duelos de habilidad",
+]
+
+[release.en]
+notes = [
+    "Match mechanics as modules",
+    "New match formats",
+    "Home stadium, pressing and Fury",
+    "Stoppage time and skill duels",
+]
+
+[release.fr]
+notes = [
+    "Mécaniques de match en modules",
+    "Nouveaux formats de match",
+    "Stade, pressing et Furie",
+    "Temps additionnel et duels d'habileté",
+]
+
+[release.de]
+notes = [
+    "Spielmechaniken als Module",
+    "Neue Spielformate",
+    "Heimstadion, Pressing und Furor",
+    "Nachspielzeit und Geschicklichkeitsduelle",
+]
+
+[release.it]
+notes = [
+    "Meccaniche di gioco a moduli",
+    "Nuovi formati di partita",
+    "Stadio, pressing e Furore",
+    "Recupero e duelli di abilità",
+]
+
+[release.pt]
+notes = [
+    "Mecânicas de jogo em módulos",
+    "Novos formatos de jogo",
+    "Estádio, pressão e Furor",
+    "Tempo extra e duelos de habilidade",
+]
+
+[release.ja]
+notes = [
+    "試合の仕組みをモジュール化",
+    "新しい試合形式",
+    "ホームスタジアムとプレス",
+    "アディショナルタイムと技術対決",
+]
+
+[release.zh_hans]
+notes = [
+    "模块化的比赛机制",
+    "新的比赛形式",
+    "主场、逼抢与狂热",
+    "补时与技巧对决",
+]
+
+[release.zh_hant]
+notes = [
+    "模組化的比賽機制",
+    "新的比賽形式",
+    "主場、逼搶與狂熱",
+    "補時與技巧對決",
+]

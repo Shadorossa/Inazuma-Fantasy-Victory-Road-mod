@@ -1,0 +1,5 @@
+schema = "VRFW.model/1"
+# IECross kit files (u119951) of the IEVRCROSS kits: game files served as they are (docs/framework/mod-layout.md
+# «Models»), from assets\models\kits\cross_u050451\{dx11}\ to data\{dx11}\chr\_uniform\u050451\.
+format = "native"
+game_path = "chr/_uniform/u050451"

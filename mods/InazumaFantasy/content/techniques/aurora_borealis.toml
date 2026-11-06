@@ -1,0 +1,38 @@
+schema = "VRFW.technique/3"
+# Aurora boreal (Aurora Borealis): the download's move whs90003, a clone of whs01100 with its numbers; its event ev60_90003 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "aurora_borealis"
+key = "whs90003"
+base = "whs01100"
+event = "ev60_90003"
+element = "forest"
+color = 3
+  [technique.text.es]
+  name = "Aurora boreal"
+  description = "Dos jugadores tiñen el cielo con\nuna aurora y rematan a la vez."
+  [technique.text.en]
+  name = "Aurora Borealis"
+  description = "Two players paint the sky with\nan aurora and shoot together."
+  [technique.text.fr]
+  name = "Aurore boréale"
+  description = "Deux joueurs colorent le ciel d'une\naurore et tirent ensemble."
+  [technique.text.de]
+  name = "Nordlicht"
+  description = "Zwei Spieler färben den Himmel mit\neinem Polarlicht und schießen zusammen."
+  [technique.text.it]
+  name = "Aurora boreale"
+  description = "Due giocatori tingono il cielo con\nun'aurora e tirano insieme."
+  [technique.text.pt]
+  name = "Aurora boreal"
+  description = "Dois jogadores pintam o céu com\numa aurora e rematam juntos."
+  [technique.text.ja]
+  name = "オーロラボレアリス"
+  description = "二人でオーロラを描き\n同時にシュート！"
+  [technique.text.zh_hans]
+  name = "北极光"
+  description = "两名球员以极光染遍天空，\n同时射门。"
+  [technique.text.zh_hant]
+  name = "北極光"
+  description = "兩名球員以極光染遍天空，\n同時射門。"

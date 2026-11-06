@@ -1,0 +1,9 @@
+# Character Reforged › stat 0 («kick») reads «Disparo» in Spanish (retail: «Potencia»): the retail rows where it is the stat name.
+schema = "VRFW.text/2"
+table = "system_text"
+
+[[row]]
+id = 0xFF1FAD0D
+kind = "noun"
+fallback = false
+es = "Disparo"

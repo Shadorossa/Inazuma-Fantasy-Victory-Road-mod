@@ -1,0 +1,67 @@
+schema = "VRFW.game/2"
+
+# UI theme: the colour of the game's full-screen white fades (schema VRFW.game/2). The `theme` type fills the table
+# Theme.FadeWhite (key = channel 0..2, value 0..1) from `[fade] white` of the served theme; while it is empty (no theme
+# served, or a theme without `[fade]`) the answers find no value and the game's white stays.
+
+# FadeLayerTo(obj, layer, start RGBA*, target RGBA*, seconds, from_start): every fade of one layer of the bright-fade
+# object. Each layer's record is 0x3C bytes at obj + layer * 0x3C: start RGBA at +0x00, target RGBA at +0x10 (f32).
+# The object's four layers (created by the game's ScreenFade setup): 0 FadeMain, 1 FadeOnDraw, 2 FadeEvent,
+# 3 FadePostMenuEndDraw. A call whose start and target alpha are the same (a layer set to rest) is never recoloured.
+# The game reads a layer's colour back (BrightFadeColor: menu change end, "is white / is black" checks) and clears
+# layer 0 only when it reads exact black or exact white: Theme.FadeReadWhite reports the theme's colour as white there,
+# so recoloured fades end as the game's white ones do.
+
+# Whether a fade from alpha SA to alpha TA on layer L (both read from the layer's record after the game wrote it) is a
+# transition the theme recolours: the alpha must change, and either the layer ends transparent (a fade in from white)
+# or it fades into white on layer 0, 1 or 2 (the menu change and save flashes run on layer 0: alpha 0 -> 1 in 0.3 s,
+# then 1 -> 0). Layer 3 (drawn after the menus) is left as the game draws it.
+[[VRFW.Formula]]
+name = "Theme.FadeRecoloured"
+parameters = ["SA", "TA", "L"]
+value = "(SA != TA) * min(1, (TA == 0) + (TA > SA) * (L != 3))"
+
+# Theme.IsFadeColour while channel I of the colour is being rewritten to white (channels before I already read 1).
+[[VRFW.Formula]]
+name = "Theme.IsFadeColourRead"
+parameters = ["R", "G", "B", "I"]
+value = "min(1, (abs(R - lookup(Theme.FadeWhite, 0)) < 0.002) + (I > 0) * (R == 1)) * min(1, (abs(G - lookup(Theme.FadeWhite, 1)) < 0.002) + (I > 1) * (G == 1)) * (abs(B - lookup(Theme.FadeWhite, 2)) < 0.002)"
+
+# Whether a colour R, G, B is the theme's fade colour (Theme.FadeWhite, written as f32 by the answers below).
+[[VRFW.Formula]]
+name = "Theme.IsFadeColour"
+parameters = ["R", "G", "B"]
+value = "(abs(R - lookup(Theme.FadeWhite, 0)) < 0.002) * (abs(G - lookup(Theme.FadeWhite, 1)) < 0.002) * (abs(B - lookup(Theme.FadeWhite, 2)) < 0.002)"
+
+[[VRFW.Hook]]
+name = "Theme.FadeColor"
+game = "Render.BrightFadeLayer"
+kind = "function"
+
+# Start colour: a white start (args[3] = 1, 1, 1) of a recoloured fade takes the theme's colour, channel by channel.
+[[VRFW.Hook.answer]]
+phase = "post"
+each = { count = "3", max = 3 }
+value = "if(Theme.FadeRecoloured([args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + 0x0C]:f32, [args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + 0x1C]:f32, mask(args[2], 0xFFFFFFFF)) * ([args[3]]:f32 == 1) * ([args[3] + 4]:f32 == 1) * ([args[3] + 8]:f32 == 1) * ([args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + i * 4]:f32 == 1), lookup(Theme.FadeWhite, i), [args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + i * 4]:f32)"
+write = "[args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + i * 4]:f32"
+
+# Target colour: a white target (args[4] = 1, 1, 1) of a recoloured fade, or of a fade that starts from the theme's
+# colour (a white fade continued from a recoloured one), takes the theme's colour; alpha stays the game's.
+[[VRFW.Hook.answer]]
+phase = "post"
+each = { count = "3", max = 3 }
+value = "if(max(Theme.IsFadeColour([args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C]:f32, [args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + 4]:f32, [args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + 8]:f32), Theme.FadeRecoloured([args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + 0x0C]:f32, [args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + 0x1C]:f32, mask(args[2], 0xFFFFFFFF))) * ([args[4]]:f32 == 1) * ([args[4] + 4]:f32 == 1) * ([args[4] + 8]:f32 == 1) * ([args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + 0x10 + i * 4]:f32 == 1), lookup(Theme.FadeWhite, i), [args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + 0x10 + i * 4]:f32)"
+write = "[args[1] + mask(args[2], 0xFFFFFFFF) * 0x3C + 0x10 + i * 4]:f32"
+
+[[VRFW.Hook]]
+name = "Theme.FadeReadWhite"
+game = "Render.BrightFadeColor"
+kind = "function"
+
+# BrightFadeColor(obj, out RGBA*, layer): a layer showing the theme's fade colour reads back as white (1, 1, 1); the
+# alpha stays. Channels are written in order, so a channel before i already reads 1 when the colour matched.
+[[VRFW.Hook.answer]]
+phase = "post"
+each = { count = "3", max = 3 }
+value = "if(Theme.IsFadeColourRead([args[2]]:f32, [args[2] + 4]:f32, [args[2] + 8]:f32, i), 1, [args[2] + i * 4]:f32)"
+write = "[args[2] + i * 4]:f32"

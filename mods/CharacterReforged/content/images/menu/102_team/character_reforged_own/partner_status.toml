@@ -1,0 +1,18 @@
+# Character Reforged › the prohibited corner badge of the «Crear …» partner bank (content\pairing\partner_status.toml):
+# a red circle-slash tile, 48 x 56 px drawn at 24 x 28 on the card's retail «in a team» icon (_icon_teamdock01);
+# research/scripts/partner_status_badge_sprite.py. The Lua asks team00_01.g4tx for it;
+# content\sprite_redirects\own_atlases.toml serves it from this atlas.
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_status_badges.g4tx"
+name = "character_reforged_status_badges"
+size = [48, 56]
+
+[[sprite]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_status_badges.g4tx"
+name = "character_reforged_status_prohibited"
+texture = "character_reforged_status_badges"
+x = 0
+y = 0
+png = "partner_status/character_reforged_status_prohibited.png"

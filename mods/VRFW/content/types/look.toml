@@ -1,0 +1,60 @@
+# Maps `[[look]]` entries (looks/**/*.toml) to cells of the character tables. Lookups provided by the character type:
+#   chara       "<mod>|<character>"          -> chara id (mod character, own name, or game name / id)
+#   model       "<mod>|<model>"              -> chara_model id (0x... or number) or that character's model
+#   body_model  "<mod>|<character>|<model>"  -> chara_model row receiving the body cells
+#   card        "<mod>|<card>|<character>"   -> chara_param row for moment_kit
+# An unresolved reference skips the row. Parts, kits, emblems and sprites are handled by the look engine. Columns use schema names (schemas/character/*.toml).
+schema = "VRFW.table_map/1"
+code = ["clothes", "shoes", "gloves", "exmesh", "number", "kit", "emblem", "sprite"]
+
+# model = "<character>" | "0x...": the model row used by the character's chara_base row.
+[[map]]
+entry = "look"
+table = "character/chara_base"
+mode = "edit"
+key = "character"
+when = "model"
+row_key = { lookup = "chara", of = "{mod}|{character}" }
+[map.fields]
+character = { type = "string" }
+card = { type = "id" }
+model = { type = "string", default = "" }
+body = { type = "table" }
+kit = { type = "table" }               # handled by the look engine (uniform_config)
+moment_kit = { type = "id" }
+[map.derive]
+model = { lookup = "model", of = "{mod}|{model}" }
+
+# body = { ... }: cells of the character's chara_model row (schema names such as head_mesh_path, clothes, shoes).
+[[map]]
+entry = "look"
+table = "character/chara_model"
+mode = "edit"
+key = "character"
+when = "body"
+row_key = { lookup = "body_model", of = "{mod}|{character}|{model}" }
+cells = "body"
+[map.fields]
+character = { type = "string" }
+card = { type = "id" }
+model = { type = "string", default = "" }
+kit = { type = "table" }
+moment_kit = { type = "id" }
+
+# moment_kit = <kit>: kit id, key or `<mod>.<name>` (crc32) set as the card's moment kit.
+[[map]]
+entry = "look"
+table = "character/chara_param"
+mode = "edit"
+key = "character"
+when = "moment_kit"
+row_key = { lookup = "card", of = "{mod}|{card}|{character}" }
+[map.fields]
+character = { type = "string", default = "" }
+card = { type = "id", default = "" }
+model = { type = "string" }
+body = { type = "table" }
+kit = { type = "table" }
+moment_kit = { type = "id" }
+[map.derive]
+moment_kit = { id = "{moment_kit}" }  # chara_param col 56

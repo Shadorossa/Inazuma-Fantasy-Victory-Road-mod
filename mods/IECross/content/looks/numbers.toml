@@ -1,0 +1,172 @@
+schema = "VRFW.look/2"
+# The back number colours of the Cross kits. `fill` and `outline` come from each kit's own palette (a shirt or shorts
+# colour); `fill` is picked to read on the shirt's back.
+
+# Penguin
+[[number]]
+clothes = "u119601_10"
+fill = "FDCC6F"
+outline = "223B59"
+
+[[number]]
+clothes = "u119651_10"
+fill = "2B2A30"
+outline = "EAF0FE"
+
+[[number]]
+clothes = "u119601_20"
+fill = "EAF0FE"
+outline = "2B2A30"
+
+[[number]]
+clothes = "u119651_20"
+fill = "301B5E"
+outline = "FACBFF"
+
+# Shin Zeus (shop kit)
+[[number]]
+clothes = "u911001_10"
+fill = "30314F"
+outline = "FFEDC7"
+
+[[number]]
+clothes = "u911051_10"
+fill = "677079"
+outline = "111D2B"
+
+[[number]]
+clothes = "u911001_20"
+fill = "30314F"
+outline = "FFEDC7"
+
+[[number]]
+clothes = "u911051_20"
+fill = "312E35"
+outline = "D5D6D0"
+
+# Shin Zeus (team kit): the away shirt; the home and keeper shirts keep their game presets
+[[number]]
+clothes = "u912001_20"
+fill = "561A1A"
+outline = "9AA4A5"
+
+# Full Moon Summer Festival
+[[number]]
+clothes = "u119901_10"
+fill = "FFFFFF"
+outline = "CF1A13"
+
+[[number]]
+clothes = "u119951_10"
+fill = "FFFFFF"
+outline = "181D3D"
+
+[[number]]
+clothes = "u119901_20"
+fill = "FFFFFF"
+outline = "242424"
+
+[[number]]
+clothes = "u119951_20"
+fill = "FFFFFF"
+outline = "BE1A1B"
+
+# Pumpkin Devil
+[[number]]
+clothes = "u120201_10"
+fill = "FFFFFF"
+outline = "FFFFFF"
+
+[[number]]
+clothes = "u120251_10"
+fill = "FFFFFF"
+outline = "FFFFFF"
+
+[[number]]
+clothes = "u120201_20"
+fill = "FFFFFF"
+outline = "FFFFFF"
+
+[[number]]
+clothes = "u120251_20"
+fill = "FFFFFF"
+outline = "FFFFFF"
+
+# Pirates
+[[number]]
+clothes = "u119701_10"
+fill = "D0C0A9"
+outline = "131217"
+
+[[number]]
+clothes = "u119751_10"
+fill = "C6BDAC"
+outline = "191A2F"
+
+[[number]]
+clothes = "u119701_20"
+fill = "D0C0A9"
+outline = "6B2607"
+
+[[number]]
+clothes = "u119751_20"
+fill = "C6BDAC"
+outline = "3C1913"
+
+# Clown (Chaos Circus, KFC Pierrot)
+[[number]]
+clothes = "u120001_20"
+fill = "CBEB6E"
+outline = "2A2522"
+
+[[number]]
+clothes = "u120051_20"
+fill = "2A2522"
+outline = "EAEBAF"
+
+[[number]]
+clothes = "u120001_10"
+fill = "E7FFA1"
+outline = "443937"
+
+[[number]]
+clothes = "u120051_10"
+fill = "2A2522"
+outline = "D5E9EA"
+
+# Samurai Blue (Japan 2026)
+[[number]]
+clothes = "u990001_10"
+fill = "E8E8E8"
+outline = "1F2A7A"
+
+[[number]]
+clothes = "u990051_10"
+fill = "E8E8E8"
+outline = "1F2A7A"
+
+[[number]]
+clothes = "u990001_20"
+fill = "0C131A"
+outline = "F9F4E0"
+
+# Ramen (the download's colours; orange home, purple away)
+[[number]]
+clothes = "u119801_10"
+fill = "24252A"
+outline = "EC6841"
+
+[[number]]
+clothes = "u119851_10"
+fill = "E5E5E5"
+outline = "24252A"
+
+[[number]]
+clothes = "u119801_20"
+fill = "E5E5E5"
+outline = "3C395E"
+
+[[number]]
+clothes = "u119851_20"
+fill = "4A494E"
+outline = "E6E6E6"

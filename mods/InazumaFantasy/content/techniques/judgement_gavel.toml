@@ -1,0 +1,36 @@
+schema = "VRFW.technique/3"
+# Mazo del juez (Judgement Gavel): the download's move whd92004, a clone of whd10110 with its numbers; its event ev62_92004 is the download's
+# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
+
+[[technique]]
+name = "judgement_gavel"
+key = "whd92004"
+base = "whd10110"
+event = "ev62_92004"
+  [technique.text.es]
+  name = "Mazo del juez"
+  description = "Machaca el suelo con un golpe colosal para\nenviar una violenta sacudida que dispersará a tus rivales."
+  [technique.text.en]
+  name = "Judgement Gavel"
+  description = "Pounds the ground with a colossal blow,\nsending a violent shock that scatters the rivals."
+  [technique.text.fr]
+  name = "Marteau du juge"
+  description = "Frappe le sol d'un coup colossal\net envoie une secousse qui disperse les adversaires."
+  [technique.text.de]
+  name = "Richterhammer"
+  description = "Ein gewaltiger Schlag auf den Boden\nschickt eine Erschütterung, die die Gegner zerstreut."
+  [technique.text.it]
+  name = "Martello del giudice"
+  description = "Colpisce il suolo con un colpo colossale\ne invia una scossa che disperde gli avversari."
+  [technique.text.pt]
+  name = "Martelo do juiz"
+  description = "Esmaga o chão com um golpe colossal\ne envia um tremor que dispersa os adversários."
+  [technique.text.ja]
+  name = "ジャッジメントガベル"
+  description = "巨大な一撃で地面を叩き\n衝撃波で相手を吹き散らす！"
+  [technique.text.zh_hans]
+  name = "审判之锤"
+  description = "以巨力重击地面，\n震波将对手全部击散。"
+  [technique.text.zh_hant]
+  name = "審判之錘"
+  description = "以巨力重擊地面，\n震波將對手全部擊散。"

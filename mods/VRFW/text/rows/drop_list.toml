@@ -1,0 +1,17 @@
+# Drop-rate list texts (menu_text rows, 9 languages, read with CMND_TEXT_GET by id = crc32(row id)).
+
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# Header of the «AURAS» section ([VRFW.DropList.Auras]: keshin, totems, Mix-Max, mode changes).
+[[row]]
+id = "vrfw_drop_list_auras"
+es = "AURAS"
+en = "AURAS"
+fr = "AURAS"
+de = "AUREN"
+it = "AURE"
+pt = "AURAS"
+ja = "オーラ"
+zh_hans = "灵气"
+zh_hant = "靈氣"

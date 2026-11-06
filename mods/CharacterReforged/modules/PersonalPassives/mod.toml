@@ -1,0 +1,103 @@
+id = "PersonalPassives"
+former_ids = ["SignaturePassives"]
+key_id = "PersonalPassives"
+# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
+# game's language (text\keys.toml)
+name = "Personal Passives"
+version = "0.2.2"
+author = "Shadorossa"
+author_steam = "76561199013321372"
+description = "Each player has a Signature Passive of his own, set per character by the mods, instead of one you equip: the passive slot always shows it, cannot be changed, and matches use it. It also adds the generic elemental passives (Wind, Forest, Fire, Mountain, Void), which make a player's own moves of that element 15% stronger. Passives are built from reusable blocks that mods can edit per character, and the same system powers the passives other mods give to spirits. Needs Character Reforged."
+priority = 0
+tags = ["Characters", "Gameplay"]
+updated = "2026-11-03"
+# This mod's own names (TOML keys [PersonalPassives.X], Lua PersonalPassives.X, commands CMND_PERSONALPASSIVES_*); never VRFW.
+# Renamed from Signature Passives (SignaturePassives) to match its display name; former_ids only lets old
+# enabled / family lists resolve (the save engine imports its old SignaturePassives data once).
+prefix = "PersonalPassives"
+folder = "PersonalPassives"
+# Character Reforged: the family base (its «Fantasy» skill table shows the own passive on its custom passive button).
+# no custom passive item (item sub-category 177) from matches or any other grant but a
+# shop purchase (content\items\no_custom_passive_drops.toml).
+# VRFW 2.195.0: the passive engine (block types, reader, interpreter, description words) is the framework's
+# Optional: conditions on team groups of Synergies Reworked (team_groups = ["SynergiesReworked.*"]) and technique
+# families of Hissatsu Reforged (families = ["HissatsuReforged.*"]); without those mods such a condition never holds.
+# VRFW 2.301.0: the framework's key vrfw.passive.all_off (modes without player passives).
+requires = ["VRFW>=0.2.2", "CharacterReforged>=0.2.2"]
+# optional: the passive configurator, the cross cards, the special-move families and team groups its passives name
+optional = ["BetterQoL", "IECross"]
+conflicts = []
+# hook: the custom passive slot's two engine readers answered natively; memory: the player's card (record) behind a
+# handle; command: CMND_PERSONALPASSIVES_OWN_PASSIVE; call: the passive slot readers (the passives a player carries)
+permissions = ["memory", "call", "command", "hook"]
+# lua_bridge: graft signature_passives_board (hook files on ability_learning_board_menu and equip_six_sense_menu)
+loader_modules = ["lua_bridge"]
+loader_min = "1.7.0"
+# Layout:
+#   (the passive engine is the framework's since VRFW 2.195.0: its block types content\types\passive_block.toml and
+#   passive.toml (kinds VRFW.passive_block/1, VRFW.passive/1), scripts\lib\passives.lua and scripts\passives.lua,
+#   the description words text\passive.toml; this mod declares data for it and owns the own passive slot)
+#  content\types\passive_block.toml   the block types (VRFW.decl_schema/1, kind VRFW.passive_block/1):
+#                                        triggers, conditions, effects and their keys; vrfw check and ModManager read it
+#  content\types\passive.toml   the passives' format (kind VRFW.passive/1)
+#   content\passive_blocks\*.toml        the blocks, by name (any active mod may ship this folder)
+#   content\special_passives\signature_<part>.toml   the signature passives of every character of a design doc
+#                                        part, generated with
+#                                        research/scripts/signature_passives_from_doc.py with the blocks
+#                                        (content\passive_blocks\signature_<part>.toml), the card game passives
+#                                        (content\techniques\signature_<part>.toml) and the card texts
+#                                        (text\rows\signature_<part>.toml); signature_rules.toml = the archetype tags
+#                                        and the caps
+#   content\special_passives\*.toml      the passives (named lists of blocks) and who has them: carried_by game
+#                                        passives, [[VRFW.Character]] per character (any active mod may ship it;
+#                                        ModManager «Pasivas especiales» edits it)
+#   (VRFW) scripts\lib\passives.lua      reads and checks the blocks and passives (own_passives.lua requires it as
+#                                        VRFW/lib/passives and builds the own passive slot of each card)
+#   (VRFW) scripts\passives.lua          the block interpreter: answers the behaviour-rule triggers the passives name
+#                                        and carries the spirit passives ([[VRFW.Spirit]]: the running
+#                                        summon without armour), the granted passives (grant = true: a rule flag) and
+#                                        the spirit families ([[VRFW.SpiritFamily]], the SpiritsOut block)
+#   scripts\own_passives.lua             the own passive slot's native tables; CMND_PERSONALPASSIVES_OWN_PASSIVE
+#   scripts\card_look.lua               CMND_PERSONALPASSIVES_CARD_LOOK: card, character, element and team crest of
+#                                        a player for Character Reforged's own passive card
+#   assets\lua\_all\signature_passives_display.lua   PersonalPassives_Display.Of: an own passive's name and
+#                                        effect lines, shared by the skill boards' window and the player page
+#   assets\lua\_all\signature_passives_icon.lua   PersonalPassives_Icon: a passive's own buff icon in the passive
+#                                        windows (wraps UpdateSixSenseDetailInfo; the player page asks it)
+#   content\passive_icons\signature_<part>.toml   each signature passive's buff icon (PersonalPassives.passive_icon/1,
+#                                        schema content\types\passive_icon.toml; CMND_PERSONALPASSIVES_PASSIVE_ICON):
+#                                        one sprite per distinct effect + condition, shared, in the own atlases of
+#                                        content\images\menu\200_icon\signature_passives_own\effect_icons.toml, served
+#                                        for icon_teambuff by content\sprite_redirects\effect_icons.toml; generated with
+#                                        research/scripts/signature_passive_icons.py
+#   assets\lua\include\soccer_common\400_signature_passive_page.lua   the player page's custom passive page shows
+#                                        the own passive (wraps UpdateSixSenseLayerInfo)
+#   content\game\own_passives.toml       the engine entries of the own passive slot: SixSensePassiveId 0xE7B390 (the
+#                                        slot's passive: the GamePassive block, else none) and SixSensePieceOpen
+#                                        0x165EBF0 (unlock = "always"), the command
+#   content\game\carried_passives.toml   the passive slot readers the interpreter asks
+#   content\own_passives\*.toml          older own passive declarations of other mods (PersonalPassives.own_passives/1),
+#                                        still read
+#   content\items\no_custom_passive_drops.toml   [[VRFW.MatchDropRemove]]: the game's custom passive items never given
+#   text\rows\own_passive.toml           the game's custom passive texts renamed «Pasiva propia» (9 languages)
+#   text\rows\current_value.toml         the card's grey «Actual: {value}» line of a stacking passive (9 languages)
+#   text\keys.toml                       the block descriptions (9 languages) ModManager composes a passive's text from
+#   content\techniques\element_plus.toml   the generic elemental passives «<element> plus» (name, text, buff icon),
+#                                        offered in Utilities' «Configuración de pasivas» (content\passive_config\);
+#                                        their power is content\special_passives\element_plus.toml
+# A new game passive for an own passive slot is declared like any other: a [[passive]] row of a content\techniques\*.toml
+# file.
+
+# A MODULE of Character Reforged: the Mods screen, the
+# ModManager and `vrfw list` show it inside Character Reforged's entry («Módulos y ajustes»: on / off) instead of as a mod
+# of its own; switching Character Reforged off switches it off too. Its name there: its mod_name (text\keys.toml).
+[module]
+of = "CharacterReforged"
+order = 60
+
+[exports]
+functions = ["OwnPassiveOfCard"]
+
+# its own content/ folders read only by its scripts (vrfw check's layout lint accepts them)
+[layout]
+script_folders = ["passive_blocks", "special_passives", "passive_config"]

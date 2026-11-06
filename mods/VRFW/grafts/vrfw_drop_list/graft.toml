@@ -1,0 +1,31 @@
+# The drop-rate list ("Drop Rate", vs_route_town_drop_rate_list_menu, list view CMenuListViewDropRateList):
+# the look of the "AURAS" section a mod declares ([VRFW.DropList.Auras] of the item type) and the headers of the
+# declared sections ([[VRFW.DropList.Sections]]: the same header row with the section's own label picture).
+# The rows themselves are native: item_engine (drop_list_rt) moves the
+# section's items under an inserted header row at the end of every tab and marks the row being drawn
+# (CMND_VRFW_DROP_ROW). This graft draws them:
+# * the header: the game's header row with its label picture changed (VRFW image vrfw_gtxt_auras01 of win05_38,
+#   one per language, made from menu_text vrfw_drop_list_auras by research/scripts/vrfw_drop_list_header_build.py);
+# * an item of the section: its aura's banner, as the aura card of the game draws it (team00_30 band by aura type and
+#   element, the aura's own art on the right, the item icon on the band's square, the name, the rate).
+# A row reused by another kind of row gets the retail layout back. Always on: without a declared section the
+# framework never marks a row and every row stays retail. [VRFW.DropList] HideTabs: those tabs left out of the tab list.
+# A gacha node's list (CMND_VRFW_GACHA_OF_GAME of its game, docs/framework/gacha.md): the owned players' spirits are
+# left out while it is open (CMND_VRFW_DROP_LIST_EXCLUDE_OWNED, on at OnInit, off at FinalizeMenu).
+name = "vrfw_drop_list"
+mod = "VRFW"
+order = 100
+module = ""
+requires = []
+conflicts = []
+wraps = ["OnInit", "OnTabChanged", "UpdateListItem_DropItem", "UpdateListItem_DropChara", "UpdateListItem_ItemLine", "UpdateListItem_CharaLine", "OnUpdateTabData"]
+description = "drop-rate list: the AURAS section's header and aura banners ([VRFW.DropList.Auras]), the declared sections' headers ([[VRFW.DropList.Sections]])"
+
+[[files]]
+stem = "vs_route_town_drop_rate_list_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "vrfw_drop_list_block.lua"
+  marker = "vrfw_drop_list"
+  crc = "at"

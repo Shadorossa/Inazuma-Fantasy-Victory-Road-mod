@@ -470,6 +470,67 @@ function PL.MxSceneContext()
   return ctx
 end
 
+-- 07/11 diagnostics, not a fix (owner's shots after the scene: first a stray panel at the top-left corner, then no 3D
+-- model, no name band and no card on the right; causes not proved from code): once per scene, the open and visible state
+-- of the page's right side and of the card, list and panel layers of the menus the scene hides, at each step of the close
+-- and 60 steps after it. One "miximax scene layer changed" line per instance that changed; "miximax scene layer check"
+-- gives the totals. Remove with PL.MxSceneLayerLog when the owner's log has decided it.
+PL.MX_SCENE_WATCH_LAYERS = {
+  {2917320188 --[[soccer11_05_equip_status_base]], 1},
+  {858725131 --[[mainmenu01_08_chara_3d_shadow]], 1},
+  {607716004 --[[soccer11_04_chara_status]], 1},
+  {2760439293 --[[evt_pp_band]], 1},
+  {412849572 --[[evt_pp_slant]], 1},
+  {925665090 --[[evt_pp_tag]], 1},
+  {575058101 --[[mainmenu90_01_header]], 1},
+  {458408972 --[[evt_topbar_plate]], 8},
+  {430410954 --[[evt_topbar_icon]], 8},
+  {3241819447 --[[team00_01_chara_card_for_move]], 1},
+  {1973487846 --[[team00_01_chara_card_for_soccer]], 25},
+  {3571911991 --[[team00_01_p1_chara_card_blank]], 25},
+  {1658289671 --[[team00_01_chara_card_for_leader]], 1},
+  {2290394976 --[[team00_01_p1_chara_card_blank_for_leader]], 1},
+  {1559239586 --[[team00_11_p1_tactics_focus]], 1},
+  {3367997069 --[[team01_02_list_item]], 25},
+  {1922851874 --[[team01_04_p1_team_name_frame]], 1},
+  {3926241346 --[[team01_04_p2_deck_name_frame]], 1},
+  {3518110933 --[[mainmenu04_10_formation_base]], 1},
+  {3321884270 --[[soccer11_02_formation_frame]], 1},
+  {2296367164 --[[cmn05_01_cursor]], 1},
+  {2279382105 --[[mainmenu90_31_doc_item]], 1},
+  {1676790659 --[[clean_hud_chr_box]], 25},
+  {878737202 --[[team11_01_personal_plate]], 1},
+}
+PL.MX_CMD.IS_LAYER_VISIBLE = @crc:CMND_IS_LAYER_VISIBLE@
+
+-- step = name of this point of the close; state = what the previous call returned (nil: the first call, before the hide)
+function PL.MxSceneLayerLog(step, menus, state)
+  local now, checked, changed = {}, 0, 0
+  for _, m in ipairs(menus) do
+    if funcLuaMenuCommand(C.EXIST_MENU, m) == true then
+      for _, w in ipairs(PL.MX_SCENE_WATCH_LAYERS) do
+        for idx = 0, w[2] - 1 do
+          local key = string.format("%08X %08X %d", EVT_U32(m), EVT_U32(w[1]), idx)
+          local okv, vis = pcall(funcLuaMenuCommand, PL.MX_CMD.IS_LAYER_VISIBLE, w[1], idx, m)
+          local value = (okv and vis == true) and "visible" or "hidden"
+          if m == EVT_MENU then
+            local oko, open = pcall(funcLuaMenuCommand, @crc:CMND_IS_OPEN_LAYER@, w[1], idx)
+            value = value .. ((oko and open == true) and " open" or " closed")
+          end
+          now[key] = value
+          checked = checked + 1
+          if state ~= nil and state[key] ~= value then
+            changed = changed + 1
+            pcall(EVT_Call, C.EVT_LOG, "skill_slots", "miximax scene layer changed", step, key, tostring(state[key]), value)
+          end
+        end
+      end
+    end
+  end
+  pcall(EVT_Call, C.EVT_LOG, "skill_slots", "miximax scene layer check", step, "instances", checked, "changed", changed)
+  return now
+end
+
 -- true = the scene played and the screen is back (the caller then shows «Miximax con X asignado.»)
 function PL.MxScenePlay()
   if not PL.MX_SCENE_ON or PL.MxStub() or n == nil or n == 0 then
@@ -532,6 +593,10 @@ function PL.MxScenePlay()
   local hidden = {}
   local hidden_only = {}
   local bars = {}
+  local watch_menus = {}
+  for _, m in ipairs(PL.MX_SCENE_HIDE) do watch_menus[#watch_menus + 1] = m end
+  for _, m in ipairs(PL.MX_SCENE_HIDE_ONLY) do watch_menus[#watch_menus + 1] = m end
+  local watch = PL.MxSceneLayerLog("before the hide", watch_menus)
   if okr then
     -- 01/10 23:30 (Nacho): the scene showed BEHIND the skill table: suspending the layer groups does not stop the
     -- drawing. Hide every menu of the stack the way the retail hides them for a full-screen movie
@@ -630,10 +695,14 @@ function PL.MxScenePlay()
   end
   for i = #hidden, 1, -1 do
     funcLuaMenuCommand(3257327861 --[[show again]], hidden[i])
+  end
+  watch = PL.MxSceneLayerLog("after show again", watch_menus, watch)
+  for i = #hidden, 1, -1 do
     funcLuaMenuCommand(66378409 --[[resume]], hidden[i])
   end
   PL.MxScenePreloadEnd()
   PL.MxSceneModelRestore(fused)
+  watch = PL.MxSceneLayerLog("after resume and model restore", watch_menus, watch)
   pcall(funcLuaCommand, PL.MX_CMD.SCENE_END, played and "played over the menus" or "not played")
   PL.MxSceneTopBar(false)
   PL.mx_scene_busy = false
@@ -643,6 +712,13 @@ function PL.MxScenePlay()
   while funcLuaCommand(@crc:CMND_BRIGHT_IS_FADE@) do
     coroutine.yield()
   end
+  watch = PL.MxSceneLayerLog("page back", watch_menus, watch)
+  PL.deferred[#PL.deferred + 1] = coroutine.create(function()
+    for _ = 1, 60 do
+      coroutine.yield()
+    end
+    PL.MxSceneLayerLog("60 steps after", watch_menus, watch)
+  end)
   return played
 end
 

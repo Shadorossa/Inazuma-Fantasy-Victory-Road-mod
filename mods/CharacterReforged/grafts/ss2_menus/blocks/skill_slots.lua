@@ -111,6 +111,8 @@ local C = {
   -- invSkill handle for a move that is not on this player's board (try 9): the list only gives item ids
   ADD_ITEM = @crc:CMND_ADD_ITEM_ONLY@,      -- 0x711FE46A CMND_ADD_ITEM_ONLY (itemId, count, flag) -> invSkill handle (prog_common.AddSkillItemAndLearnWithBoard)
   DEL_ITEM = @crc:CMND_DELETE_ITEM@,       -- 0x195E1FD9 CMND_DELETE_ITEM (itemId, count): undo the +1 so the stock does not change
+  ITEM_NUM = @crc:CMND_GET_ITEM_NUM@,      -- CMND_GET_ITEM_NUM (itemId) -> copies owned
+  EQUIPPED_NUM = 556568075,                -- (invHdl) -> copies equipped
   -- menu textures (save-slot menu / kizuna_town_menu_inc): the load is asynchronous
   SPRITE = 558735651,         -- (layer, textureCrc, spriteCrc, nodeCrc, 0, idx)
   LOAD_TEX = @crc:CMND_LOAD_MENU_RES_TEXTURE@,       -- CMND_LOAD_MENU_RES_TEXTURE (path)
@@ -284,46 +286,13 @@ function PL.HasService(name)
   return present
 end
 
--- 2026-10-14 (Character Reforged: the new set is a PROJECTION over the game's own list, docs/refactor/
--- aura-mods-split.md «The 6 + 2 set over the retail data»): rows 1-6 are the list positions that hold a special move
--- (or nothing), in list order; a position holding an aura (keshin, totem, Mix-Max, «Modo cambio»: the aura / mix
--- slots' moves) is skipped and KEPT, hidden; the rows left over take those positions last and show empty (writing one
--- first moves its aura to its slot when that is free: PL.FreeListPos). Nothing is rewritten to show the set (the old
--- PL.AuraSlotCleanup moved auras off rows 1-6 when a player was shown; it is no longer called). PL fields only.
+-- 2026-11-07 (owner): row r = list position r - 1, always: a move stays in the row it was placed in and the row's level
+-- lock is that position's (positions 5-6 have none, CR_MOVE_ROWS). A position holding an aura (keshin, totem, Mix-Max,
+-- «Modo cambio»: the aura / mix slots' moves) is KEPT and its row shows empty (writing that row first moves the aura to
+-- its slot when that is free: PL.FreeListPos). Nothing is rewritten to show the set. PL fields only.
 PL.special_of = {}
 function PL.ProjPos(row)
-  if n == nil or n == 0 then
-    return row - 1
-  end
-  local free, boarded, empty, aura = {}, {}, {}, {}
-  for p = 0, EVT_NORMAL_NUM - 1 do
-    local id = funcLuaCommand(C.GET_SKILL, n, p)
-    id = (id ~= nil) and EVT_U32(id) or 0
-    if id == 0 then
-      id = PL.BoardTechniqueAt(p)                -- an empty position shows its board cell's technique
-      if id ~= 0 then
-        boarded[#boarded + 1] = p
-      else
-        empty[#empty + 1] = p
-      end
-    elseif PL.IsSpecialCached(id) then
-      aura[#aura + 1] = p
-    else
-      free[#free + 1] = p
-    end
-  end
-  -- 2026-10-15 (owner): the list's techniques, then the positions filled from their board cell (the order of
-  -- CharacterReforged.EffectiveSkillSet), then the empty ones, the hidden aura positions last
-  for _, p in ipairs(boarded) do
-    free[#free + 1] = p
-  end
-  for _, p in ipairs(empty) do
-    free[#free + 1] = p
-  end
-  for _, p in ipairs(aura) do
-    free[#free + 1] = p
-  end
-  return free[row] or (row - 1)
+  return row - 1
 end
 function PL.IsSpecialCached(id)
   local sp = PL.special_of[id]
@@ -1657,6 +1626,10 @@ function EVT_DetailShow(skill, row)
   -- 2026-09-24: part of the player panel, not a card on top of it: no window frame / shadow
   funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, 3303013605 --[[_sp_win_base01]], false, 0)
   pcall(PL.DetailPolish, skill, pos)
+  -- a level-locked row plays nothing: no AI state to show (the retail fill shows the tag for a move outside the list)
+  if row ~= nil and row > 0 and EVT_IsLocked(row) then
+    funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, 1013569271 --[[_ai_use01]], false, 0)
+  end
   local okr, er = pcall(PL.MoveAsRow, skill, team_info)   -- round 14: the shared move row + TENSIÓN
   if not okr then
     pcall(EVT_Call, C.EVT_LOG, "skill_slots", "move as row failed", tostring(er))
@@ -2070,8 +2043,11 @@ end
 
 -- Real invSkill handle for `skill`: a handle in `pool` (items just taken off the board), the handle already on one of
 -- this player's board slots (swap, restore), else CMND_ADD_ITEM_ONLY(skill, 1) (the story's way; moves stack, one
--- inventory record per move) - the caller removes the extra copy with CMND_DELETE_ITEM right after. The picker
--- already refuses moves without a free copy (codigo 5).
+-- inventory record per move). Second value true: a free copy already existed, so the caller removes the extra one with
+-- CMND_DELETE_ITEM right after. Without a free copy the added copy is the one the board holds and it stays: deleting it
+-- frees the stack while the board cell keeps its handle, and the next item the game adds takes that same handle
+-- (docs/game/skill-slots.md «Inventory stacks»). A stack with fewer copies than holders is brought up first, or the game
+-- refuses the placement.
 local function EVT_HandleFor(skill, pool)
   if pool ~= nil and pool[skill] ~= nil and pool[skill] ~= 0 then
     return pool[skill], false
@@ -2082,9 +2058,16 @@ local function EVT_HandleFor(skill, pool)
       return h, false
     end
   end
+  local owned = funcLuaCommand(C.ITEM_NUM, skill)
+  owned = type(owned) == "number" and owned or 0
   local h = funcLuaCommand(C.ADD_ITEM, skill, 1, false)
   if h ~= nil and h ~= 0 then
-    return h, true
+    local used = funcLuaCommand(C.EQUIPPED_NUM, h)
+    used = type(used) == "number" and used or 0
+    if used > owned then
+      funcLuaCommand(C.ADD_ITEM, skill, used - owned, false)
+    end
+    return h, owned > used
   end
   return 0, false
 end

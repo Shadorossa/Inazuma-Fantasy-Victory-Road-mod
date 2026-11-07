@@ -47,6 +47,10 @@ folder = "InazumaFantasy"
 #                                       Fantasy» series (the free-match section's name)
 #   content\characters\idols.toml       the Idol cards: each replaces a game Idol card of the same player (same card id);
 #                                       Hidetoshi Nakata and Tom Skipper (no game Idol) are new cards, not obtainable yet
+#   _cs_miximax_idols.toml, content\characters\cs_miximax_idols.toml, content\items\cs_miximax_idol_titles.toml,
+#   content\techniques\cs_miximax_idols.toml   Chrono Stone's Mix-Max forms as Idols, each on a game Idol card a player had
+#                                       to spare: rule (developer file) and GENERATED (research/scripts/inazuma_fantasy_cs_idols_build.py)
+#   content\characters\nakata_hidetoshi.toml, content\teams\nakata_orfeo.toml   Hidetoshi Nakata's basic card, in Orfeo's slot 8
 #   content\teams\byron_love_idol_fire_dragon.toml   Dragones de Fuego (IE3, tm_cro_ie3_0500 / _0520) fields
 #                                       the Byron Love Idol card in Byron Love's slot
 # content\teams\crossed_japan.toml (key evt_ct_ft_crossed_japan): an Inazuma Japan squad on
@@ -130,7 +134,7 @@ lua_early = true
 # 1.16.0 (VRFW 2.140.0: [[VRFW.DropFilter]] Sources = ["chests"], Exclude = "unused_shop_currencies"): no chest gives a
 # shop currency no shop charges any more (content\items\currencies.toml).
 requires = ["VRFW>=0.2.4"]
-optional = ["BattleBayDeluxe", "BetterMenu", "BetterQoL", "CharacterReforged", "ChronicleDeluxe", "ClassicRecruitment"]
+optional = ["AuraOverhaul", "BattleBayDeluxe", "BetterMenu", "BetterQoL", "CharacterReforged", "ChronicleDeluxe", "ClassicRecruitment"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"

@@ -152,7 +152,7 @@ character = "c08030010"
 head = "_face/08_ORION/c08030010/c08030010.g4tx"
 hair = "#4B5765"
 face = "#FEDAB8"
-iris = "#CD8F80"
+iris = "#E3F72F"
 skin = "#FEDAB8"
 
 [[VRFW.MiximaxPalette]]
@@ -248,7 +248,7 @@ character = "c08030110"
 head = "_face/08_ORION/c08030110/c08030110.g4tx"
 hair = "#ACA593"
 face = "#BA835A"
-iris = "#66544A"
+iris = "#C9462A"
 skin = "#BA835A"
 
 [[VRFW.MiximaxPalette]]
@@ -424,7 +424,7 @@ character = "c08050070"
 head = "_face/08_ORION/c08050070/c08050070.g4tx"
 hair = "#763531"
 face = "#BE8E68"
-iris = "#010101"
+iris = "#020200"
 skin = "#BE8E68"
 
 [[VRFW.MiximaxPalette]]
@@ -568,7 +568,7 @@ character = "c08060120"
 head = "_face/08_ORION/c08060120/c08060120.g4tx"
 hair = "#B76B78"
 face = "#FDC7A1"
-iris = "#35292B"
+iris = "#000000"
 skin = "#FDC7A1"
 
 [[VRFW.MiximaxPalette]]
@@ -752,7 +752,7 @@ character = "c08080130"
 head = "_face/08_ORION/c08080130/c08080130.g4tx"
 hair = "#E9E4BA"
 face = "#FDC7A1"
-iris = "#4B52A2"
+iris = "#BE5F29"
 skin = "#FDC7A1"
 
 [[VRFW.MiximaxPalette]]
@@ -1088,7 +1088,7 @@ character = "c08110070"
 head = "_face/08_ORION/c08110070/c08110070.g4tx"
 hair = "#787178"
 face = "#FFDECD"
-iris = "#AC99D0"
+iris = "#9C7651"
 skin = "#FFDECD"
 
 [[VRFW.MiximaxPalette]]
@@ -1264,7 +1264,7 @@ character = "c08120130"
 head = "_face/08_ORION/c08120130/c08120130.g4tx"
 hair = "#AE9F7E"
 face = "#FCD6BF"
-iris = "#373252"
+iris = "#000000"
 skin = "#FCD6BF"
 
 [[VRFW.MiximaxPalette]]

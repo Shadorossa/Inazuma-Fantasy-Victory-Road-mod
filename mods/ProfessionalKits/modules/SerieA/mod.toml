@@ -1,0 +1,17 @@
+id = "SerieA"
+name = "Serie A"
+version = "0.2.4"
+author = "@ohluck_, @pugliah"
+description = "New kits and crests of Italian Serie A clubs, sold in the shop. The game's kits stay as they are. Pack by @ohluck_ and @pugliah."
+priority = 0
+tags = ["Teams"]
+updated = "2026-11-07"
+prefix = "SerieA"
+folder = "SerieA"
+requires = ["VRFW>=0.2.4", "ProfessionalKits>=0.2.4"]
+optional = ["InazumaFantasy"]
+conflicts = []
+
+[module]
+of = "ProfessionalKits"
+order = 10

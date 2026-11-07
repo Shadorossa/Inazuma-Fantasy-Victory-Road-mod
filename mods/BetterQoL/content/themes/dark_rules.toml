@@ -11,6 +11,10 @@ match = "util_club_stats_row*"
 class = "surface"
 file = "util_club_stats/"
 [[sprite]]
+match = "util_club_stats_album_row*"
+class = "surface"
+file = "util_club_stats/"
+[[sprite]]
 match = "util_club_stats_panel"
 class = "bg"
 file = "util_club_stats/"

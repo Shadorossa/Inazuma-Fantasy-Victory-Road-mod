@@ -26,7 +26,7 @@ folder = "ClassicRecruitment"
 #   content\items\drop_list.toml      [VRFW.DropList.Spirits] ExcludeAll: no player spirit drops in matches (every
 #                                     candidate refused, the chance lost), [VRFW.DropList] HideTabs: no player groups
 #                                     in «Tasa de aparición»; not in a reserved slot
-#   assets\lua\_all\new_recruitment_spirits.lua   no spirit «!» notices, no «Espíritu» row in the team docks, and a
+#   assets\lua\_all\new_recruitment_spirits.lua   no spirit «!» notices, and a
 #                                     spirit drop of a normal card (since 1.0.1 none drops outside a reserved slot,
 #                                     so only there) = the player: noted on the match result screen,
 #                                     recruited into the bank on the first step of a menu of the save (VRFW_Recruit), his
@@ -51,13 +51,14 @@ folder = "ClassicRecruitment"
 #                                     Reforged's scripts\save_tools.lua (script = "CharacterReforged:save_tools.lua") with
 #                                     this module's duplicate rule; a card the bank cannot retire or that did not join
 #                                     by signing is never released
+#   assets\lua\soccer_summon_menu\new_recruitment_summon_special.lua   the «Espíritu» screen turns Ídolo and Diamante
+#                                     cards into players (the Atrio's retail Basara flow); a normal card or a card the
+#                                     club already has is refused
 #   content\contact_maps\office.toml   [[VRFW.ContactSet]] office: the recruitment office
 #   content\contact_maps\office_terms.toml   GENERATED (research/scripts/new_recruitment_office_terms.py): every
 #                                     card's level, price in fichas, page, requirements and trials as the old office had them
 #   config.toml                        [office] requirements (default false: the office asks only the price)
 #   content\friendlies\office_trial.toml   the trial friendly («Prueba»), passed per card (office.{tag}.{sub})
-#   content\shop_redirects\office.toml + text\rows\shop_text.toml   the Mercado bar of «El atrio de los indomables»
-#                                     (0x66B2F9E6, no player sold any more) opens the office and reads «Oficina de fichajes»
 #   text\rows\menu_text.toml   the office's titles
 # Saved state: none under this mod's id. The pending spirit recruits are loader UI flags whose key names were kept from
 # No More Rarities (no_more_rarities_spirit_pending*), so recruits noted before the split still happen; the on-load
@@ -73,8 +74,7 @@ folder = "ClassicRecruitment"
 # asked through CMND_CLASSICRECRUITMENT_ALBUM_PRICE (scripts\album_price.lua); the question shows the price and the
 # balance, too few points = a message and nothing signed, «Sí» takes the points then signs (VRFW_Recruit.Recruit price).
 # signing: always BetterQoL's «Álbum de jugadores» (A on a player the club does not have; assets\lua\_all\
-# new_recruitment_album.lua; texts text\rows\album_text.toml); the office's Mercado bar stays out of the list
-# (assets\lua\market_menu\new_recruitment_office_bar.lua). A left-over recruit_source value in an old
+# new_recruitment_album.lua; texts text\rows\album_text.toml). The office's contact set has no way in. A left-over recruit_source value in an old
 # mod_options\new_recruitment.json is never read.
 # no icon on the pachanga list's banner (VRFW 2.75.0: the formation
 # view, the players' rows, the caravan put back).

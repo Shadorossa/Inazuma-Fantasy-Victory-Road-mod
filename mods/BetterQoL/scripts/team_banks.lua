@@ -411,7 +411,7 @@ local function poll()
 end
 
 -- the slot's sidecar, checked against the live docks (no sidecar = page 1 only). `unloaded`: no party Load seen yet
--- (boot, title): the docks in memory are not the slot's, a mismatch is expected and the check is made again on load
+-- or none since the last game reset (boot, title): the docks in memory are not the slot's, a mismatch is expected and the check is made again on load
 local NO_SIDECAR_LOGGED = {}  -- slots whose missing sidecar was already logged (logged once per slot)
 local function read_sidecar(slot, party, unloaded)
   SS.best[slot] = nil
@@ -563,7 +563,7 @@ local function resolve(slot, party)
     -- our own stage of this slot (unsaved pages) no longer matches the game in memory: it is replaced below
     local stale = SS.staged ~= nil and SS.staged.slot == slot
     SS.staged = nil
-    SS.state = read_sidecar(slot, party, loads == 0)
+    SS.state = read_sidecar(slot, party, loads == 0 or docks_from_reset())
     SS.allowed[slot] = 0
     SS.gen, SS.dirty, SS.restage = SS.gen + 1, false, false
     if stale and slot >= 2 then stage("the loaded save's pages back on the stage") end
@@ -714,12 +714,6 @@ local function swap(target)
     if new_active[i] ~= cur_active[i] then
       local okw = pcall(VRFW.mem.write, "u8", party + S.ACTIVE_OFF + i - 1, new_active[i])
       if not okw then warn("active set byte " .. (i - 1) .. " not written") end
-    end
-  end
-  for i, n in ipairs({ "vs", "esports", "tournament" }) do
-    local v = new_active[i]
-    if v >= S.FIRST_DOCK and v <= S.LAST_DOCK and S.team0_count(new_w, v - S.FIRST_DOCK) == 0 then
-      warn(string.format("the %s team (dock %02d) of page %d has no players", n, v - S.FIRST_DOCK + 1, target + 1))
     end
   end
   local old = st.banks[from + 1]

@@ -480,6 +480,9 @@ EVT_PPG = EVT_PPG or {}
   local CMD_IS_CLOSING_MENU, CMD_IS_CLOSED_MENU = @crc:CMND_IS_CLOSING_MENU_OBJECT@, @crc:CMND_IS_CLOSE_MENU_OBJECT@   -- CMND_IS_CLOSING / CLOSE_MENU_OBJECT
   function G.HostClosing()
     local m = G.H.menu
+    if type(m) == "function" then
+      m = m()                              -- the script answers the menu it runs in
+    end
     if m == nil then
       return false
     end
@@ -540,15 +543,17 @@ EVT_PPG = EVT_PPG or {}
       if not G.H.pages and EVT_PPG_HOST_OFF == true then
         return table.unpack(r, 1, r.n)          -- the block off on this host: the screen exactly as retail
       end
+      -- every host, the paged player page too: a close without CLOSE_MENU_OBJECT's second argument (item_use_menu) takes
+      -- some frames, and a layer opened in them never ends its close (nie.exe 0x536B90, 0x536EF0), so the menu stays
+      local okC, closing = pcall(G.HostClosing)
+      if okC and closing then
+        G.Try("HostShut", "closing")            -- never Ready() / reopen anything while the host menu closes
+        return table.unpack(r, 1, r.n)
+      elseif G.hostShut then
+        G.hostShut = false                      -- the close did not happen (a back swallowed): drawn again
+        pcall(funcLuaCommand, C.LOG, "EVT_PPG host reopened")
+      end
       if not G.H.pages then
-        local okC, closing = pcall(G.HostClosing)
-        if okC and closing then
-          G.Try("HostShut", "closing")          -- never Ready() / reopen anything while the host menu closes
-          return table.unpack(r, 1, r.n)
-        elseif G.hostShut then
-          G.hostShut = false                    -- the close did not happen (a back swallowed): drawn again
-          pcall(funcLuaCommand, C.LOG, "EVT_PPG host reopened")
-        end
         local okI, why = pcall(G.HostIdle)
         why = okI and why or nil
         if why ~= G.hostIdle then

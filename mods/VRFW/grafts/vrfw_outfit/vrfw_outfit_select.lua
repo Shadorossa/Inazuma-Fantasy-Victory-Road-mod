@@ -13,7 +13,7 @@
 -- * a card with a switchable card look ([[VRFW.CardLook]] with switch_bit, CMND_VRFW_CARD_LOOK state 0 / 1): with no
 --   outfit declared, row type 4 shows that look's switch ("<label>: Activada / Desactivada", menu_text
 --   vrfw_card_look_on / _off); Accept or the eye key (CMD_FUNC4) on the row switches it in place (the record
---   attribute bit the rule names, the retail "hide equipment" command). With outfits declared the row stays "Atuendo"
+--   attribute bit the rule names, the retail set attribute command). With outfits declared the row stays "Atuendo"
 --   and the eye key (X, CMD_FUNC4) on it switches the look; the button guide then shows «X <the rule's label>» while
 --   the cursor is on that row for a player whose card has a switchable look (VRFW_FooterPrompts, the guide function
 --   UpdateEquipButtonGuide). The row appears / disappears with the player on L / R;
@@ -34,7 +34,7 @@ do
   VRFW_Outfit.L_ROW = 4251697490                     -- soccer11_08_equip_list_item
   VRFW_Outfit.TYPE = 4                               -- equip slot / row type of the costume
   VRFW_Outfit.P_LIST_TABS = 363718978                -- list param: costume tab (retail flag6)
-  VRFW_Outfit.CARD_LOOK = @crc:CMND_VRFW_CARD_LOOK@   -- (hdl) -> uniform, state, switch bit, label text id
+  VRFW_Outfit.CARD_LOOK = @crc:CMND_VRFW_CARD_LOOK@   -- (hdl) -> uniform, state, switch bit, label text id, bit set means on
   VRFW_Outfit.TEXT_LOOK_ON = @crc:vrfw_card_look_on@   -- menu_text "{label}: Activada"
   VRFW_Outfit.TEXT_LOOK_OFF = @crc:vrfw_card_look_off@ -- menu_text "{label}: Desactivada"
   VRFW_Outfit.TEXT_LOOK_NAME = @crc:vrfw_card_look_name@ -- menu_text: the label of a rule without one
@@ -89,16 +89,17 @@ do
     return item, u
   end
 
-  -- the card look of a player: uniform, state (-1 none / not eligible, 0 switched off, 1 on), switch bit, label id
+  -- the card look of a player: uniform, state (-1 none / not eligible, 0 switched off, 1 on), switch bit, label id,
+  -- the value of the bit that means on
   function VRFW_Outfit.Look(h)
     if type(h) ~= "number" or h == 0 then
       return 0, -1, 0, 0
     end
-    local ok, u, st, bit, label = pcall(funcLuaCommand, VRFW_Outfit.CARD_LOOK, h)
+    local ok, u, st, bit, label, set_means_on = pcall(funcLuaCommand, VRFW_Outfit.CARD_LOOK, h)
     if not ok or type(u) ~= "number" or type(st) ~= "number" then
       return 0, -1, 0, 0
     end
-    return u, st, type(bit) == "number" and bit or 0, type(label) == "number" and label or 0
+    return u, st, type(bit) == "number" and bit or 0, type(label) == "number" and label or 0, set_means_on == true
   end
 
   -- the player has a card look he can switch (outside the story)
@@ -157,14 +158,14 @@ do
 
   -- switch the shown player's card look; true when it changed
   function VRFW_Outfit.LookToggle()
-    local u, st, bit = VRFW_Outfit.Look(n)
+    local u, st, bit, _, set_means_on = VRFW_Outfit.Look(n)
     if u == 0 or bit == 0 or (st ~= 0 and st ~= 1) then
       funcLuaCommand(VRFW_Outfit.SOUND, VRFW_Outfit.SOUND_REFUSED)
       VRFW_Outfit.Log("look refused", n, st)
       return false
     end
     local off = st == 1
-    funcLuaCommand(VRFW_Outfit.ATTR_SET, n, bit, off)
+    funcLuaCommand(VRFW_Outfit.ATTR_SET, n, bit, off ~= set_means_on)
     funcLuaCommand(VRFW_Outfit.SOUND, off and VRFW_Outfit.SOUND_OFF or VRFW_Outfit.SOUND_ON)
     local _, now = VRFW_Outfit.Look(n)
     VRFW_Outfit.Log("look", n, u, off and "OFF" or "ON", now)

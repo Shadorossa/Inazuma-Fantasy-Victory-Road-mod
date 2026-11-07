@@ -1,0 +1,17 @@
+id = "LaLiga"
+name = "LaLiga"
+version = "0.2.4"
+author = "Dexter ZSP"
+description = "New kits and crests of Spanish LaLiga clubs, sold in the shop, with their own shirt cuts and back number colours. The game's kits stay as they are. Pack by Dexter ZSP."
+priority = 0
+tags = ["Teams"]
+updated = "2026-11-07"
+prefix = "LaLiga"
+folder = "LaLiga"
+requires = ["VRFW>=0.2.4", "ProfessionalKits>=0.2.4"]
+optional = ["InazumaFantasy"]
+conflicts = []
+
+[module]
+of = "ProfessionalKits"
+order = 20

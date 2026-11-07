@@ -7,11 +7,13 @@
 --     card (chara_param: the team planner's rule, config.toml [team_planner] card_values), and a real player
 --     (VRFW/lib/real_players: an own face icon, a body that wears a kit or own clothes, a profile; e.g. a keshin armour
 --     form drawn with Mark Evans' default face, a mascot body are left out of every tab and count);
---   * a base whose voice bank is another listed character (his outfits and eras) and bases sharing one model (the same
---     face and body) are one row: the first base in table order; the club has the row when it has any of their cards.
--- «Juego» lists a series' players in its team order (belong_team_config teamNumber_<X>, the original-names catalogue),
--- the rest after them; «Nombre» sorts every player by name and groups him by his first letter (the groups are a text
--- of the page's language, passed by the page).
+--   * one row per face: every base with a face icon of his own is a row in his own series, whatever voice bank or model
+--     he shares with another character (Tod Ironside of Ares is not Tod of IE1); only bases with the same internal
+--     name (the face id) and the same name text are one row.
+-- «Juego» lists a series' players team by team (belong_team_config teamNumber_<X>, the original-names catalogue's team
+-- order), each team by chara_base sort_order (0 = none: after the others), then serial_no; a player's team = the first of
+-- team_1..3 numbered in his series, else the first he has. «Nombre» sorts every player by name, then season, and groups
+-- him by his first letter (the groups are a text of the page's language, passed by the page).
 --
 -- «Juego» also lists the album categories other mods declare in content\album\*.toml ([[series]]: series =
 -- <chara_series_config id> names the tab and gives its logo, the series type's tab icon; its members are the cards
@@ -158,9 +160,16 @@ local function declared_categories(declarations, base_rows, base_of, normal_base
           end
         end
         if own then
+          -- except_cards: characters the mod declares that stay under the series and team of their own chara_base
+          local excepted = {}
+          for _, card_id in ipairs(type(sd.except_cards) == "table" and sd.except_cards or {}) do
+            excepted[base_of[u32(card_id)] or 0] = true
+          end
           mod_characters = mod_characters or declared_characters()
           for _, base in ipairs(mod_characters[d.mod] or {}) do
-            claim(base)
+            if not excepted[base] then
+              claim(base)
+            end
           end
         end
         if team ~= 0 then
@@ -271,6 +280,7 @@ local function build()
   local okc, acfg = pcall(VRFW.files.config, "album")
   local shown_rarity = (okc and type(acfg) == "table" and int(acfg.display_rarity)) or 0
   local special_cards = {}        -- { param, base, rarity } of the cards above the shown rarity, in card order
+  local is_special = {}           -- [param] = true: a card of «Especiales»: its own row has the tick, not the player's
   for _, c in ipairs(VRFW.character.cards()) do
     local p, b = u32(c.id), u32(c.base)
     local rar = int(c.rarity) or 0
@@ -281,6 +291,7 @@ local function build()
       base_of[p] = b
       if rar > shown_rarity then
         special_cards[#special_cards + 1] = { p, b, rar }
+        is_special[p] = true
       end
     end
   end
@@ -315,24 +326,28 @@ local function build()
       end
     end
   end
-  local entries, by_base, by_model, fold_into = {}, {}, {}, {}
+  local entries, by_base, by_face, fold_into = {}, {}, {}, {}
+  local order_of = {}             -- [entry] = his place inside a team: chara_base sort_order, serial_no, table order
   for _, r in ipairs(rows) do
     local b = u32(r.id)
     if listed[b] then
       local voice, model = u32(r.voice_bank), u32(r.model)
       local category = category_of_base[b]
       local into = nil
+      local face = tostring(r.name) .. "\0" .. u32(r.name_text)
       -- a declared category's character is his own row (his own card, model and outfit); nothing outside his
       -- category folds into him, and he folds only into a character of the same category (one look, one row)
-      local models = by_model
-      if category then
+      if own_row[b] then
+        into = nil
+      elseif category then
         category.by_model = category.by_model or {}
-        models = category.by_model
-      end
-      if voice ~= 0 and voice ~= b and listed[voice] and category_of_base[voice] == category and not own_row[b] then
-        into = voice
-      elseif model ~= 0 and models[model] and not own_row[b] then
-        into = models[model]
+        if voice ~= 0 and voice ~= b and listed[voice] and category_of_base[voice] == category then
+          into = voice
+        elseif model ~= 0 then
+          into = category.by_model[model]
+        end
+      else
+        into = by_face[face]
       end
       if into then
         fold_into[b] = into
@@ -342,8 +357,11 @@ local function build()
                     game_name_text = category and category.row.name_text or nil }
         entries[#entries + 1] = e
         by_base[b] = e
-        if model ~= 0 and not own_row[b] then
-          models[model] = b
+        order_of[e] = { sort = int(r.sort_order) or 0, serial = int(r.serial_no) or 0, index = #entries }
+        if category and model ~= 0 and not own_row[b] then
+          category.by_model[model] = b
+        elseif not category and not own_row[b] then
+          by_face[face] = b
         end
       end
     end
@@ -378,7 +396,8 @@ local function build()
     end
   end
   -- A character whose cards are all special has no normal card, so no row of his own: his cards go to «Especiales»
-  -- under his own face and name. Same filter as a listed player; his card ticks the player his voice bank names.
+  -- under his own face and name. Same filter as a listed player; only a hidden rarity's card of his ticks the player
+  -- his voice bank names.
   local has_card = {}
   for _, b in pairs(base_of) do
     has_card[b] = true
@@ -410,30 +429,43 @@ local function build()
         e = player
       end
     end
-    if e then
+    -- a special card is another card of the club (the game holds both): it ticks its own «Especiales» row only
+    if e and (not is_special[p] or e.param == p) then
       of_param[p] = e
     end
   end
-  -- «Juego»: each series' players in its team order, then the ones in no team row of it
+  -- «Juego»: each series' players team by team (the series' team order), inside a team by order_of
   local series = {}
+  local NO_RANK = math.huge
   for si, s in ipairs(cat.series) do
-    local list, seen = {}, {}
-    for _, tr in ipairs(Cat.rows(cat, s)) do
-      for _, ci in ipairs(tr.players) do
-        local e = by_base[cat.charas[ci][8]]
-        if e and e.si == si and not seen[e] and in_source_series(e) then
-          seen[e] = true
-          e.team = e.team or tr.team
-          list[#list + 1] = e
-        end
-      end
+    local team_rank = {}
+    for i, t in ipairs(s.teams) do
+      team_rank[t] = i
     end
+    local list, rank = {}, {}
     for _, e in ipairs(entries) do
-      if e.si == si and not seen[e] and in_source_series(e) then
-        seen[e] = true
+      if e.si == si and in_source_series(e) then
+        local first, numbered = 0, 0
+        for _, t in ipairs(e.teams) do
+          if t ~= 0 then
+            if first == 0 then first = t end
+            local row = numbered == 0 and Catalogue.team(t) or nil
+            if row and (row.numbers[s.ty] or 0) > 0 then numbered = t end
+          end
+        end
+        e.team = numbered ~= 0 and numbered or (first ~= 0 and first or nil)
+        rank[e] = e.team and team_rank[e.team] or NO_RANK
         list[#list + 1] = e
       end
     end
+    table.sort(list, function(a, b)
+      if rank[a] ~= rank[b] then return rank[a] < rank[b] end
+      local oa, ob = order_of[a], order_of[b]
+      local sa, sb = oa.sort > 0 and oa.sort or NO_RANK, ob.sort > 0 and ob.sort or NO_RANK
+      if sa ~= sb then return sa < sb end
+      if oa.serial ~= ob.serial then return oa.serial < ob.serial end
+      return oa.index < ob.index
+    end)
     if #list > 0 then
       series[#series + 1] = { si = si, ty = s.ty or 0, name_text = s.name_text, list = list }
     end
@@ -714,11 +746,11 @@ local function language_base(lang)
   for _, e in ipairs(roster.special_players) do
     B.name[e] = text_of(crows, e.name_text) or ""
   end
-  -- sorted by name, then base: plain string keys (key, NUL, base) sort without a Lua comparator
+  -- sorted by name, then season, then base: plain string keys (key, NUL, series, base) sort without a Lua comparator
   local sort_keys, of_sort_key = {}, {}
   for _, e in ipairs(roster.entries) do
     if B.name[e] ~= "" then
-      local k = B.key[e] .. "\0" .. string.format("%010d", e.base)
+      local k = B.key[e] .. "\0" .. string.format("%03d%010d", e.si or 999, e.base)
       sort_keys[#sort_keys + 1] = k
       of_sort_key[k] = e
     end

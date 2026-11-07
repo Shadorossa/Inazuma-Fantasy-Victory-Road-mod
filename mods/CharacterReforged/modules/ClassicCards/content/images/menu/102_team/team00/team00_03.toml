@@ -29,7 +29,7 @@ x = 0
 y = 0
 png = "team00_03/icon_chr_color01_l16.png"
 
-# icon_chr_base01_l17 (new): defender card <- the game's icon_chr_base01_l02
+# icon_chr_base01_l17 (new): midfielder card <- the game's icon_chr_base01_l02
 [[sprite]]
 atlas = "#/menu/102_team/no_more_rarities/no_more_rarities_big_cards.g4tx"
 name = "icon_chr_base01_l17"
@@ -38,7 +38,7 @@ x = 1176
 y = 0
 png = "team00_03/icon_chr_base01_l17.png"
 
-# icon_chr_color01_l17 (new): defender card <- the game's icon_chr_color01_l02
+# icon_chr_color01_l17 (new): midfielder card <- the game's icon_chr_color01_l02
 [[sprite]]
 atlas = "#/menu/102_team/no_more_rarities/no_more_rarities_big_cards.g4tx"
 name = "icon_chr_color01_l17"
@@ -47,7 +47,7 @@ x = 160
 y = 0
 png = "team00_03/icon_chr_color01_l17.png"
 
-# icon_chr_base01_l18 (new): midfielder card <- the game's icon_chr_base01_l01
+# icon_chr_base01_l18 (new): defender card <- the game's icon_chr_base01_l01
 [[sprite]]
 atlas = "#/menu/102_team/no_more_rarities/no_more_rarities_big_cards.g4tx"
 name = "icon_chr_base01_l18"
@@ -56,7 +56,7 @@ x = 1392
 y = 0
 png = "team00_03/icon_chr_base01_l18.png"
 
-# icon_chr_color01_l18 (new): midfielder card <- the game's icon_chr_color01_l01
+# icon_chr_color01_l18 (new): defender card <- the game's icon_chr_color01_l01
 [[sprite]]
 atlas = "#/menu/102_team/no_more_rarities/no_more_rarities_big_cards.g4tx"
 name = "icon_chr_color01_l18"

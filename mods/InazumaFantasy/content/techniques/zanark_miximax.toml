@@ -1,0 +1,291 @@
+schema = "VRFW.technique/3"
+# The two Zanark Mix-Max items first made by the mod Ultimate Victory Road 1.4 (third party; source note:
+# docs/game/hiper/hiper-two-slots.md section 7). All looks are the game's: each command's variant card (chara_param)
+# already exists in the game with its own model; no files come from that mod.
+# One command per user, cloned from the game's wmm00080 (same cost, time and buffs). The item is the first command of
+# each list; its [[aura_change]] names which command each user's card runs. The moves are the base move with the
+# higher power of a miximax move, as the game's own *_mm rows.
+
+[[technique]]  # Caída planetaria: whs02110 at the power of a miximax move
+name = "mix_falling_planet"
+base = "whs02110"
+power_min = 85
+power_max = 540
+name_text = "base"
+desc_text = "base"
+manual = false
+
+[[technique]]  # Salto explosivo: who00990 at the power of a miximax move
+name = "mix_bungee_ball_burst"
+base = "who00990"
+power_min = 85
+power_max = 540
+name_text = "base"
+desc_text = "base"
+manual = false
+
+[[technique]]  # Barreno de fuego: whd01070 at the power of a miximax move
+name = "mix_fire_drill"
+base = "whd01070"
+power_min = 85
+power_max = 540
+name_text = "base"
+desc_text = "base"
+manual = false
+
+[[technique]]  # Corte de arena: whk01060 at the power of a miximax move
+name = "mix_rotary_sander"
+base = "whk01060"
+power_min = 120
+power_max = 640
+name_text = "base"
+desc_text = "base"
+manual = false
+
+[[technique]]  # Golpe cataclismo: whs02080 at the power of a miximax move
+name = "mix_disaster_strike"
+base = "whs02080"
+power_min = 100
+power_max = 640
+name_text = "base"
+desc_text = "base"
+manual = false
+
+[[aura_command]]  # Gamma (c05020800), look c05028300
+key = "wmm_zanark"
+from = "wmm00080"
+technique = "mix_falling_planet"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0x60331FA6, order = 41601, flag_18 = 1 }
+charas = [[0x0026D6DA]]  # c05020800
+
+[[aura_command]]  # Einam (c05020510), look c05028310
+key = "wmm_zanark_einam"
+from = "wmm00080"
+technique = "mix_falling_planet"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0x79282EE7, order = 41602, flag_18 = 1 }
+charas = [[0x11E574C8]]  # c05020510
+
+[[aura_command]]  # Reiza (c05020490), look c05028290
+key = "wmm_zanark_reiza"
+from = "wmm00080"
+technique = "mix_falling_planet"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0xB033CED8, order = 41603, flag_18 = 1 }
+charas = [[0xD8FE94F7]]  # c05020490
+
+[[aura_command]]  # Darna (c05020780), look c05028280
+key = "wmm_zanark_darna"
+from = "wmm00080"
+technique = "mix_bungee_ball_burst"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0xA928FF99, order = 41604, flag_18 = 1 }
+charas = [[0xC3A31BEF]]  # c05020780
+
+[[aura_command]]  # Orca (c05020680), look c05028270
+key = "wmm_zanark_orca"
+from = "wmm00080"
+technique = "mix_bungee_ball_burst"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0x2EB0E356, order = 41605, flag_18 = 1 }
+charas = [[0xC26171D8]]  # c05020680
+
+[[aura_command]]  # Quorse (c05020460), look c05028260
+key = "wmm_zanark_quorse"
+from = "wmm00080"
+technique = "mix_bungee_ball_burst"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0x37ABD217, order = 41606, flag_18 = 1 }
+charas = [[0x5F668838]]  # c05020460
+
+[[aura_command]]  # Bahamus (c05020750), look c05028250
+key = "wmm_zanark_bahamus"
+from = "wmm00080"
+technique = "mix_fire_drill"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0x1C8681D4, order = 41607, flag_18 = 1 }
+charas = [[0x760D65A2]]  # c05020750
+
+[[aura_command]]  # Galling (c05020740), look c05028240
+key = "wmm_zanark_galling"
+from = "wmm00080"
+technique = "mix_fire_drill"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0x059DB095, order = 41608, flag_18 = 1 }
+charas = [[0x6F1654E3]]  # c05020740
+
+[[aura_command]]  # Ward (c05020630), look c05028230
+key = "wmm_zanark_ward"
+from = "wmm00080"
+technique = "mix_fire_drill"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0x4ADC2652, order = 41609, flag_18 = 1 }
+charas = [[0x2195A813]]  # c05020630
+
+[[aura_command]]  # Medam (c05020420), look c05028220
+key = "wmm_zanark_medam"
+from = "wmm00080"
+technique = "mix_fire_drill"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0x53C71713, order = 41610, flag_18 = 1 }
+charas = [[0x3B0A4D3C]]  # c05020420
+
+[[aura_command]]  # Ruzik (c05020710), look c05028210
+key = "wmm_zanark_ruzik"
+from = "wmm00080"
+technique = "mix_rotary_sander"
+cells = { name_text = 0x40E412C7, desc_text = 0x1572C095, aura_chara = 0xB04222EC, chara_param = 0x78EA44D0, order = 41611, flag_18 = 1, event = 0x7D399AE6 }
+charas = [[0x1261A0A6]]  # c05020710
+
+[[aura_command]]  # Desta (c03034310), look c11250050
+key = "wmm_zanark_avalonic"
+from = "wmm00080"
+technique = "mix_disaster_strike"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x1DBB24C3, order = 41612, flag_18 = 1 }
+charas = [[0xC4BA83A7]]  # c03034310
+
+[[aura_command]]  # Huracán Zeta (c06037500), look c11250020
+key = "wmm_zanark_avalonic_zeta"
+from = "wmm00080"
+technique = "mix_disaster_strike"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x52FAB204, order = 41613, flag_18 = 1 }
+charas = [[0x99A14E1D]]  # c06037500
+
+[[aura_command]]  # Badapp Sleed (c03033690), look c11250060
+key = "wmm_zanark_avalonic_badapp"
+from = "wmm00080"
+technique = "mix_disaster_strike"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x36967700, order = 41614, flag_18 = 1 }
+charas = [[0x977FF3FD]]  # c03033690
+
+[[aura_command]]  # Akio Fudo (c02023700), look c11250040
+key = "wmm_zanark_avalonic_fudo"
+from = "wmm00080"
+technique = "mix_bungee_ball_burst"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x04A01582, order = 41615, flag_18 = 1 }
+charas = [[0xDC680087]]  # c02023700
+
+[[aura_command]]  # Shinjami (c05021470), look c11250090
+key = "wmm_zanark_avalonic_shinjami"
+from = "wmm00080"
+technique = "mix_bungee_ball_burst"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0xB10E6BCF, order = 41616, flag_18 = 1 }
+charas = [[0xFEC1DE1C]]  # c05021470
+
+[[aura_command]]  # Zanark Avalonic (c05021500), look c11250010
+key = "wmm_zanark_avalonic_zanark"
+from = "wmm00080"
+technique = "mix_disaster_strike"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x79D7E1C7, order = 41617, flag_18 = 1 }
+charas = [[0xB04222EC]]  # c05021500
+
+[[aura_command]]  # Ryoma Nishiki (c04000160), look c11250070
+key = "wmm_zanark_avalonic_nishiki"
+from = "wmm00080"
+technique = "mix_bungee_ball_burst"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x2F8D4641, order = 41618, flag_18 = 1 }
+charas = [[0x851A1207]]  # c04000160
+
+[[aura_command]]  # Engil (c05021450), look c11250100
+key = "wmm_zanark_avalonic_engil"
+from = "wmm00080"
+technique = "mix_fire_drill"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x610EBAB1, order = 41619, flag_18 = 1 }
+charas = [[0xCCF7BC9E]]  # c05021450
+
+[[aura_command]]  # Ganjiro Seki (c04002160), look c11250080
+key = "wmm_zanark_avalonic_grizzly"
+from = "wmm00080"
+technique = "mix_fire_drill"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0xA8155A8E, order = 41620, flag_18 = 1 }
+charas = [[0x2F13DA8C]]  # c04002160
+
+[[aura_command]]  # Cao Cao (c05020360), look c11250110
+key = "wmm_zanark_avalonic_cao_cao"
+from = "wmm00080"
+technique = "mix_fire_drill"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x78158BF0, order = 41621, flag_18 = 1 }
+charas = [[0x5A299EBD]]  # c05020360
+
+[[aura_command]]  # Dezarm (c02021210), look c11250030
+key = "wmm_zanark_avalonic_dezarm"
+from = "wmm00080"
+technique = "mix_rotary_sander"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x4BE18345, order = 41622, flag_18 = 1, event = 0x7D399AE6 }
+charas = [[0x69B13BA6]]  # c02021210
+
+[[aura_command]]  # Gele (c02021420), look c11250120
+key = "wmm_zanark_avalonic_gele"
+from = "wmm00080"
+technique = "mix_fire_drill"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x5338D833, order = 41623, flag_18 = 1 }
+charas = [[0x461114D7]]  # c02021420
+
+[[aura_command]]  # Taruhiko Kabata (c04001280), look c11250150
+key = "wmm_zanark_avalonic_kabata"
+from = "wmm00080"
+technique = "mix_fire_drill"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x1C794EF4, order = 41624, flag_18 = 1 }
+charas = [[0xA163E6B5]]  # c04001280
+
+[[aura_command]]  # Venom Blag (c05029840), look c11250160
+key = "wmm_zanark_avalonic_venom"
+from = "wmm00080"
+technique = "mix_fire_drill"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x37541D37, order = 41625, flag_18 = 1 }
+charas = [[0x19425C54]]  # c05029840
+
+[[aura_command]]  # Arachnes (c03034290), look c11250130
+key = "wmm_zanark_avalonic_arachnes"
+from = "wmm00080"
+technique = "mix_bungee_ball_burst"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x4A23E972, order = 41626, flag_18 = 1 }
+charas = [[0x0DA16398]]  # c03034290
+
+[[aura_command]]  # Zagomel Zande (c03033610), look c11250140
+key = "wmm_zanark_avalonic_zagomel"
+from = "wmm00080"
+technique = "mix_rotary_sander"
+cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x05627FB5, order = 41627, flag_18 = 1, event = 0x7D399AE6 }
+charas = [[0x5FA679F5]]  # c03033610
+
+[[aura_change]]
+aura = "wmm_zanark"
+changes = [
+  ["wmm_zanark", "0xA9D2D8A8"],
+  ["wmm_zanark", "0x176AE34C"],
+  ["wmm_zanark", "0x3EA257BE"],
+  ["wmm_zanark_einam", "0xB8117ABA"],
+  ["wmm_zanark_reiza", "0x710A9A85"],
+  ["wmm_zanark_darna", "0x6A57159D"],
+  ["wmm_zanark_orca", "0x6B957FAA"],
+  ["wmm_zanark_quorse", "0xF692864A"],
+  ["wmm_zanark_bahamus", "0xDFF96BD0"],
+  ["wmm_zanark_galling", "0xC6E25A91"],
+  ["wmm_zanark_ward", "0x8861A661"],
+  ["wmm_zanark_medam", "0x92FE434E"],
+  ["wmm_zanark_ruzik", "0xBB95AED4"],
+]
+
+[[aura_change]]
+aura = "wmm_zanark_avalonic"
+changes = [
+  ["wmm_zanark_avalonic", "0x6D4E8DD5"],
+  ["wmm_zanark_avalonic_zeta", "0x3055406F"],
+  ["wmm_zanark_avalonic_badapp", "0x3E8BFD8F"],
+  ["wmm_zanark_avalonic_badapp", "0x8033C66B"],
+  ["wmm_zanark_avalonic_badapp", "0xA9FB7299"],
+  ["wmm_zanark_avalonic_badapp", "0xB21F1932"],
+  ["wmm_zanark_avalonic_fudo", "0x759C0EF5"],
+  ["wmm_zanark_avalonic_fudo", "0x78571227"],
+  ["wmm_zanark_avalonic_fudo", "0xD826A9B3"],
+  ["wmm_zanark_avalonic_shinjami", "0x5735D06E"],
+  ["wmm_zanark_avalonic_zanark", "0x19B62C9E"],
+  ["wmm_zanark_avalonic_zanark", "0xA70E177A"],
+  ["wmm_zanark_avalonic_zanark", "0x8EC6A388"],
+  ["wmm_zanark_avalonic_zanark", "0x9522C823"],
+  ["wmm_zanark_avalonic_nishiki", "0x2CEE1C75"],
+  ["wmm_zanark_avalonic_engil", "0x6503B2EC"],
+  ["wmm_zanark_avalonic_grizzly", "0x86E7D4FE"],
+  ["wmm_zanark_avalonic_cao_cao", "0xF3DD90CF"],
+  ["wmm_zanark_avalonic_dezarm", "0xC04535D4"],
+  ["wmm_zanark_avalonic_dezarm", "0x7EFD0E30"],
+  ["wmm_zanark_avalonic_dezarm", "0x5735BAC2"],
+  ["wmm_zanark_avalonic_dezarm", "0x4CD1D169"],
+  ["wmm_zanark_avalonic_gele", "0xEFE51AA5"],
+  ["wmm_zanark_avalonic_kabata", "0x0897E8C7"],
+  ["wmm_zanark_avalonic_venom", "0xB0B65226"],
+  ["wmm_zanark_avalonic_arachnes", "0xA4556DEA"],
+  ["wmm_zanark_avalonic_zagomel", "0xF6527787"],
+]

@@ -106,3 +106,55 @@ pt = "Vira as costas à bola e dispersa toda\na sua força com uma aura penetran
 ja = "ボールに背を向け、鋭いオーラで\nその力をすべて散らす！"
 zh_hans = "背对足球，以尖锐的灵气\n驱散其全部力量。"
 zh_hant = "背對足球，以尖銳的靈氣\n驅散其全部力量。"
+
+[[row]]
+id = 0x40E412C7  # wmm_zanark name
+kind = "noun"
+es = "Miximax Trans: Zanark"
+en = "Mix 'n' Match: Zanark"
+fr = "Transfo. Miximax : Zanark"
+de = "Miximorph: Zanark"
+it = "Miximax Trans: Zanark"
+pt = "Fusão Miximax: Zanark"
+ja = "ミキシトランス・ザナーク"
+zh_hans = "合体变身·扎纳克"
+zh_hant = "合體變身·扎納克"
+
+[[row]]
+id = 0x1572C095  # wmm_zanark description
+kind = "text"
+es = "Libera la fuerza salvaje de Zanark\nen el cuerpo del jugador."
+en = "Unleashes the savage power of Zanark\nwithin the player's body."
+fr = "Libère la puissance sauvage de Zanark\ndans le corps du joueur."
+de = "Entfesselt die wilde Kraft von Zanark\nim Körper des Spielers."
+it = "Libera la forza selvaggia di Zanark\nnel corpo del giocatore."
+pt = "Liberta a força selvagem de Zanark\nno corpo do jogador."
+ja = "ザナークの荒々しい力を\n選手の体に解き放つ。"
+zh_hans = "将扎纳克的狂野之力\n释放到球员体内。"
+zh_hant = "將扎納克的狂野之力\n釋放到球員體內。"
+
+[[row]]
+id = 0xBA10F2C2  # wmm_zanark_avalonic name
+kind = "noun"
+es = "Miximax Trans: Zanark Avalonic"
+en = "Mix 'n' Match: Zanark Avalonic"
+fr = "Transfo. Miximax : Zanark Avalonic"
+de = "Miximorph: Zanark Avalonic"
+it = "Miximax Trans: Zanark Avalonic"
+pt = "Fusão Miximax: Zanark Avalonic"
+ja = "ミキシトランス・ザナーク・アバロニク"
+zh_hans = "合体变身·扎纳克·阿巴洛尼库"
+zh_hant = "合體變身·扎納克·阿巴洛尼庫"
+
+[[row]]
+id = 0xEF862090  # wmm_zanark_avalonic description
+kind = "text"
+es = "Libera la fuerza salvaje de Zanark Avalonic\nen el cuerpo del jugador."
+en = "Unleashes the savage power of Zanark Avalonic\nwithin the player's body."
+fr = "Libère la puissance sauvage de Zanark Avalonic\ndans le corps du joueur."
+de = "Entfesselt die wilde Kraft von Zanark Avalonic\nim Körper des Spielers."
+it = "Libera la forza selvaggia di Zanark Avalonic\nnel corpo del giocatore."
+pt = "Liberta a força selvagem de Zanark Avalonic\nno corpo do jogador."
+ja = "ザナーク・アバロニクの荒々しい力を\n選手の体に解き放つ。"
+zh_hans = "将扎纳克·阿巴洛尼库的狂野之力\n释放到球员体内。"
+zh_hant = "將扎納克·阿巴洛尼庫的狂野之力\n釋放到球員體內。"

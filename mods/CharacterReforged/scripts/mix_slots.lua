@@ -11,8 +11,8 @@
 --     named by [CharacterReforged.SkillSet] moveset_export (agreed with charstats: CharacterReforged.Moveset(card))
 --     when this script sees it.
 --   * THE PROJECTION: CharacterReforged.ProjectSkillSet(card) reads the game's data as
---     it is and says where each entry of the 6-entry technique list belongs in the new set: special moves on the 6 rows
---     (list order), auras in the aura slot (keshin / totem / armour) or the mix slot (Mix-Max / «Modo cambio», by
+--     it is and says where each entry of the 6-entry technique list belongs in the new set: row r is list position
+--     r - 1, always (a move stays in the row it was placed in; an aura's position shows an empty row), auras in the aura slot (keshin / totem / armour) or the mix slot (Mix-Max / «Modo cambio», by
 --     content\skill_set\*.toml aura_types / mix_types); per slot its own move first (board slot 8; the mix store), else
 --     the first one of the list in list order; the others are hidden (kept in the save). Used by the skill table
 --     (CMND_CHARACTERREFORGED_PROJECT_SKILL_SET), MixSlot, FormContext and the overflow log; the match side does the
@@ -230,8 +230,9 @@ end
 
 -- ---------------------------------------------------------------------------------------------- the projection
 
--- THE projection of one saved card (read only). Rows 1-6 = the list positions holding a special move, in list order,
--- then the empty positions; every aura of the list is off the rows. Aura slot = board slot 8 when it holds a keshin /
+-- THE projection of one saved card (read only). Row r = list position r - 1, always: a move stays in the row it was
+-- placed in, and the row's level lock is that position's. A position holding an aura shows an empty row
+-- (aura_positions); every aura of the list is off the rows. Aura slot = board slot 8 when it holds a keshin /
 -- totem / armour, else the first keshin / totem / armour of the list (list order). Mix slot = the stored mix, else the
 -- first Mix-Max / «Modo cambio» of the list (list order), else (none in the list) the first of his board. Every other
 -- aura of the list is hidden (kept where it is in the save).
@@ -239,20 +240,13 @@ local AURA_FROM_BOARD_SLOT, MIX_FROM_STORE, MIX_FROM_BOARD = 8, 100, 200
 -- `stored` (optional): the card's stored mix when the caller holds the store; `inv_items`: the sweep's item cache
 local function project_with_board(hdl, addr, stored, inv_items)
   local l, b = list_and_board(addr, inv_items)
-  local out = { techniques = {}, rows = {}, aura = 0, mix = 0, aura_from = -1, mix_from = -1, hidden = {} }
-  local empty = {}
+  local out = { techniques = {}, rows = {}, aura_positions = {}, aura = 0, mix = 0, aura_from = -1, mix_from = -1, hidden = {} }
   for k = 0, LIST_SLOTS - 1 do
     local x = l[k]
-    if x == 0 then
-      empty[#empty + 1] = k
-    elseif aura_type(x) == nil then
-      out.techniques[#out.techniques + 1] = x
-      out.rows[#out.rows + 1] = k
-    end
-  end
-  for _, k in ipairs(empty) do
-    out.techniques[#out.techniques + 1] = 0
-    out.rows[#out.rows + 1] = k
+    local is_aura = x ~= 0 and aura_type(x) ~= nil
+    out.rows[k + 1] = k
+    out.techniques[k + 1] = is_aura and 0 or x
+    if is_aura then out.aura_positions[k] = true end
   end
   local own = slot_of(b[8])
   if b[8] ~= 0 and (own == "aura" or own == "armour") then
@@ -280,10 +274,6 @@ local function project_with_board(hdl, addr, stored, inv_items)
         break
       end
     end
-  end
-  while #out.techniques < LIST_SLOTS do
-    out.techniques[#out.techniques + 1] = 0
-    out.rows[#out.rows + 1] = -1
   end
   return out, b
 end
@@ -648,8 +638,8 @@ end
 -- moves (the form viewer «Cambiar forma», the miximax partner aura, other mods' menus through CMND_VRFW_SKILL_SET) asks
 -- the framework, which asks this provider: the skill table's view of the card (aura slot = the projection's
 -- aura move, else his moveset default; mix slot = the stored / projected mix, else his moveset default; techniques =
--- the 6 rows in table order, an empty list position taking the board slot of the same position when it holds a special
--- move not already listed, as the match's list_board_fill; filled rows first, empty rows last).
+-- the 6 rows (row r = list position r - 1), an empty list position taking the board slot of the same position when it
+-- holds a special move not already listed, as the match's list_board_fill; an aura's position stays an empty row).
 -- An empty board slot takes the learn list move of the same slot once its level is reached (board slots 3-5 open only
 -- through the retail board screen, which is gone).
 
@@ -678,15 +668,14 @@ function CharacterReforged.EffectiveSkillSet(card)
     if aura == 0 and (d.aura or 0) ~= 0 then aura, aura_from = d.aura, 200 end
     if mix == 0 and (d.mix or 0) ~= 0 then mix, mix_from = d.mix, 200 end
   end
-  local listed, techniques = {}, {}
+  local listed, techniques, rows = {}, {}, {}
   for _, x in ipairs(p.techniques) do
     if x ~= 0 then listed[x] = true end
   end
-  local filled, empty = {}, {}
   local learn = nil
   for i, x in ipairs(p.techniques) do
     local pos = p.rows[i]
-    if x == 0 and pos and pos >= 0 then
+    if x == 0 and not p.aura_positions[pos] then
       local m = b[pos] or 0
       if m == 0 then
         learn = learn or learned_moves(card, u32(r.param or 0))
@@ -697,16 +686,8 @@ function CharacterReforged.EffectiveSkillSet(card)
         listed[m] = true
       end
     end
-    if x ~= 0 then
-      filled[#filled + 1] = { x, pos }
-    else
-      empty[#empty + 1] = { x, pos }
-    end
+    techniques[i], rows[i] = x, pos
   end
-  -- the filled rows first, then the empty ones (the skill table's row order)
-  local rows = {}
-  for _, e in ipairs(filled) do techniques[#techniques + 1], rows[#rows + 1] = e[1], e[2] end
-  for _, e in ipairs(empty) do techniques[#techniques + 1], rows[#rows + 1] = e[1], e[2] end
   return { aura = aura, mix = mix, aura_from = aura_from, mix_from = mix_from, techniques = techniques, rows = rows }
 end
 if type(VRFW.skill_set) == "table" and type(VRFW.skill_set.provide) == "function" then

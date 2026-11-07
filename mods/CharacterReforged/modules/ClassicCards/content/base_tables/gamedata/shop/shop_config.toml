@@ -51,7 +51,10 @@ set = [
 name = "SHOP_INFO_ITEM"
 parent = [["SHOP_INFO", 15]]
 set = [
-  { row = 5, cells = { "#25" = 4 } },
-  { row = 6, cells = { "#25" = 4 } },
-  { row = 7, cells = { "#25" = 4 } },
+  { row = 15, cells = { "#25" = 4 } },
+  { row = 16, cells = { "#25" = 4 } },
+  { row = 17, cells = { "#25" = 4 } },
+  { row = 18, cells = { "#25" = 4 } },
+  { row = 19, cells = { "#25" = 4 } },
+  { row = 20, cells = { "#25" = 4 } },
 ]

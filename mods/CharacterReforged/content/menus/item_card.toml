@@ -60,6 +60,21 @@ add_layer = { name = "evt_eq_ypage", object = "evt_eq_ypage", count = 1, align =
 # the set page's slot icons (soccer11_08) and another mod's neutral element icon (icon_common): loaded, never changed
 resources = ["#/menu/00_soccer/soccer11/soccer11_08/<LG>/soccer11_08.g4tx", "#/menu/200_icon/15_icon_common/icon_common.g4tx"]
 
+# Chronicle and the other soccer screens open the same script as the menu item_menu_soccer, a retail file of its own with the same group and header.
+[[patch]]
+menu = "item_menu_soccer"
+add_layer = { name = "evt_eq_set_icon", object = "evt_eq_fx", count = 44, align = ["right", "middle"], scale = 0.20000000298023224, after = "mainmenu90_01_header", groups = [{ group = "item_menu", flags = [0, 1, 0, 0, 1, 0], after = "mainmenu90_01_header" }] }
+
+[[patch]]
+menu = "item_menu_soccer"
+add_layer = { name = "evt_eq_dots", object = "evt_eq_dots", count = 8, align = ["right", "middle"], scale = 0.20000000298023224, after = "evt_eq_set_icon", groups = [{ group = "item_menu", flags = [0, 1, 0, 0, 1, 0], after = "evt_eq_set_icon" }] }
+
+[[patch]]
+menu = "item_menu_soccer"
+add_layer = { name = "evt_eq_ypage", object = "evt_eq_ypage", count = 1, align = [0, 0], scale = 1, after = "evt_eq_dots", groups = [{ group = "item_menu", flags = [0, 1, 0, 0, 1, 0], after = "evt_eq_dots" }] }
+# the set page's slot icons (soccer11_08) and another mod's neutral element icon (icon_common): loaded, never changed
+resources = ["#/menu/00_soccer/soccer11/soccer11_08/<LG>/soccer11_08.g4tx", "#/menu/200_icon/15_icon_common/icon_common.g4tx"]
+
 [[patch]]
 menu = "shop_menu"
 add_layer = { name = "evt_eq_set_icon", object = "evt_eq_fx", count = 44, align = ["right", "middle"], scale = 0.20000000298023224, after = "mainmenu90_01_header", groups = [{ group = "shop_menu_buy", flags = [0, 1, 0, 0, 1, 0], after = "mainmenu90_01_header" }] }

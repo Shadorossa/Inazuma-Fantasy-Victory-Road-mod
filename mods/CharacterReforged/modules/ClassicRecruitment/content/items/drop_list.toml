@@ -7,11 +7,12 @@ schema = "VRFW.item/2"
 # * ExcludeAll: no character is a spirit candidate of a match's spirit drop (the drop roll's own candidate check refuses
 #   every one): a spirit drop gives nothing, its chance is lost (no re-roll, nothing moved to the items), and the
 #   player rows leave «Tasa de aparición».
-# * AllSources: no player spirit from any other source either (VR-Framework 2.4.142): the game's spirit stock refuses
-#   every grant of a player card (normal, hero, diamond, seasonal): fixed match rewards and victory boxes, gifts and
-#   login rewards, select boxes, packs, event and mission rewards, a retired player's card. The element and token
-#   spirits are not players and stay; the take-backs (this mod's own recruit, the save tools) still work.
-# * Rarities 0-7: every spirit drop rarity (0-4 the normal cards, 5-7 the Ídolo variants).
+# * AllSources: no normal player spirit from any other source either (VR-Framework 2.4.142): the game's spirit stock
+#   refuses every grant of a normal or seasonal card: fixed match rewards and victory boxes, gifts and login rewards,
+#   select boxes, packs, event and mission rewards, a retired player's card. The element and token spirits are not
+#   players and stay; the take-backs (this mod's own recruit, the save tools) still work.
+# * Rarities 0-4: the normal cards. Ídolo (5-7) and Diamante (8) cards stay the game's: the Atrio's retail Basara flow
+#   spends them and gives them.
 # * ExceptReservedSlots: a mode's own save (INAROGUE's) keeps the game's spirits, as it keeps its rarities
 #   (the same rule as ClassicRecruitment.Applies, assets\lua\_all\new_recruitment_spirits.lua).
 # * HideTabs 1-4: the player groups of «Tasa de aparición» (Grupo A-D) are never shown: only the items tab is left, so
@@ -22,5 +23,5 @@ HideTabs = [1, 2, 3, 4]
 [VRFW.DropList.Spirits]
 ExcludeAll = true
 AllSources = true
-Rarities = [0, 1, 2, 3, 4, 5, 6, 7]
+Rarities = [0, 1, 2, 3, 4]
 ExceptReservedSlots = true

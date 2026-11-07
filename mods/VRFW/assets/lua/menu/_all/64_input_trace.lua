@@ -145,6 +145,7 @@ if VRFW_INPUT_TRACE == nil then
     if T.WD.STEMS[T.stem or ""] ~= nil then
       pcall(T.WdCallbacks)                     -- the freeze watchdog counts this VM's input callbacks
     end
+    pcall(T.FlowInstall)
     -- Step wrapped again here (OnInit runs after every patch of the script: a stem patch that redefined Step
     -- after lua\_all dropped the first wrapper, so the market's trace stayed at frame 0 and never watched)
     if not T.ticking and type(Step) == "function" then
@@ -343,6 +344,26 @@ if VRFW_INPUT_TRACE == nil then
       pcall(T.WdDump, S, why)
       if not S.dump_only then pcall(T.WdRecover, S) end
     end
+  end
+
+  -- Diagnostic (07/11): a layer the menu's own script opens while that menu closes keeps the menu closing.
+  -- Logged at most LINES lines per VM. Reads only: nothing is switched.
+  T.FLOW = {OPEN_WATCH = {personal_plate_menu = 1427722143}, LINES = 16, lines = 0}
+
+  function T.FlowInstall()
+    local own = T.FLOW.OPEN_WATCH[T.stem or ""]
+    if own == nil then
+      return
+    end
+    VRFW_Host.HookCommand({VRFW_Cmd.OPEN_LAYER}, function(nxt, c, ...)
+      local ok, closing = pcall(T.raw_cmd, VRFW_Cmd.IS_CLOSING_MENU_OBJECT, own)
+      if ok and closing == true and T.FLOW.lines < T.FLOW.LINES then
+        T.FLOW.lines = T.FLOW.lines + 1
+        pcall(T.raw_cmd, VRFW_Cmd.EVT_LOG, "VRFW layer trace", T.vm, "f" .. T.frame,
+          "layer opened while the menu closes", tostring((...)), tostring((select(2, ...))))
+      end
+      return nxt(c, ...)
+    end, "VRFW.layer_trace", {menu = true})
   end
 
   function T.Tick()

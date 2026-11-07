@@ -232,7 +232,7 @@ character = "c05020330"
 head = "_face/05_GO2/c05020330/c05020330.g4tx"
 hair = "#2E2F43"
 face = "#BB8652"
-iris = "#9A463B"
+iris = "#B95243"
 skin = "#BB8652"
 
 [[VRFW.MiximaxPalette]]
@@ -648,7 +648,7 @@ character = "c05021120"
 head = "_face/05_GO2/c05021120/c05021120.g4tx"
 hair = "#BAB7B0"
 face = "#FECA88"
-iris = "#000000"
+iris = ""
 skin = "#FFCA88"
 
 [[VRFW.MiximaxPalette]]
@@ -1000,7 +1000,7 @@ character = "c05021900"
 head = "_face/05_GO2/c05021900/c05021900.g4tx"
 hair = "#908E81"
 face = "#F7E5CB"
-iris = "#000000"
+iris = "#010101"
 skin = "#F6E5CB"
 
 [[VRFW.MiximaxPalette]]
@@ -1008,7 +1008,7 @@ character = "c05021900_5000"
 head = "_face/05_GO2/c05021900/c05021900.g4tx"
 hair = "#908E81"
 face = "#F7E5CB"
-iris = "#000000"
+iris = "#010101"
 skin = "#F6E5CB"
 
 [[VRFW.MiximaxPalette]]
@@ -1160,7 +1160,7 @@ character = "c05022650"
 head = "_face/05_GO2/c05022650/c05022650.g4tx"
 hair = "#C2C0D5"
 face = "#AC8864"
-iris = "#000000"
+iris = ""
 skin = "#AC8864"
 
 [[VRFW.MiximaxPalette]]
@@ -1208,7 +1208,7 @@ character = "c05022710"
 head = "_face/05_GO2/c05022710/c05022710.g4tx"
 hair = "#F4F4F6"
 face = "#C9966B"
-iris = "#000000"
+iris = ""
 skin = "#C49370"
 
 [[VRFW.MiximaxPalette]]
@@ -1216,7 +1216,7 @@ character = "c05022710_5000"
 head = "_face/05_GO2/c05022710/c05022710.g4tx"
 hair = "#F4F4F6"
 face = "#C9966B"
-iris = "#000000"
+iris = ""
 skin = "#C49370"
 
 [[VRFW.MiximaxPalette]]
@@ -1288,7 +1288,7 @@ character = "c05022830"
 head = "_face/05_GO2/c05022830/c05022830.g4tx"
 hair = "#7B7CAA"
 face = "#E4A363"
-iris = "#000000"
+iris = ""
 skin = "#E4A363"
 
 [[VRFW.MiximaxPalette]]
@@ -1432,7 +1432,7 @@ character = "c05022960"
 head = "_face/05_GO2/c05022960/c05022960.g4tx"
 hair = "#FFF5D9"
 face = "#C9966B"
-iris = "#000000"
+iris = ""
 skin = "#C9966B"
 
 [[VRFW.MiximaxPalette]]
@@ -1736,7 +1736,7 @@ character = "c05023360"
 head = "_face/05_GO2/c05023360/c05023360.g4tx"
 hair = "#CFDEF1"
 face = "#DBC6A9"
-iris = "#020000"
+iris = "#000000"
 skin = "#DBC6A9"
 
 [[VRFW.MiximaxPalette]]
@@ -2210,7 +2210,7 @@ character = "c05024810"
 head = "_face/05_GO2/c05024810/c05024810.g4tx"
 hair = "#BA9056"
 face = "#F8C89A"
-iris = "#8F7A76"
+iris = "#FE8517"
 skin = "#F8C89A"
 
 [[VRFW.MiximaxPalette]]
@@ -2218,7 +2218,7 @@ character = "c05024810_5000"
 head = "_face/05_GO2/c05024810/c05024810.g4tx"
 hair = "#BA9056"
 face = "#F8C89A"
-iris = "#8F7A76"
+iris = "#FE8517"
 skin = "#F8C89A"
 
 [[VRFW.MiximaxPalette]]
@@ -2514,7 +2514,7 @@ character = "c05026750"
 head = "_face/05_GO2/c05026750/c05026750.g4tx"
 hair = "#687156"
 face = "#FECA88"
-iris = "#BF7E56"
+iris = "#000000"
 skin = "#FFCA88"
 
 [[VRFW.MiximaxPalette]]
@@ -2650,7 +2650,7 @@ character = "c05027050"
 head = "_face/05_GO2/c05027050/c05027050.g4tx"
 hair = "#303A3B"
 face = "#C9966B"
-iris = "#CB683E"
+iris = "#000000"
 skin = "#C9966B"
 
 [[VRFW.MiximaxPalette]]
@@ -3114,7 +3114,7 @@ character = "c05027630"
 head = "_face/05_GO2/c05027630/c05027630.g4tx"
 hair = "#F8F8EC"
 face = "#F8C89A"
-iris = "#DA9D64"
+iris = "#1A3745"
 skin = "#F8C89A"
 
 [[VRFW.MiximaxPalette]]
@@ -3194,7 +3194,7 @@ character = "c05027730"
 head = "_face/05_GO2/c05027730/c05027730.g4tx"
 hair = "#211D2E"
 face = "#DAC7A9"
-iris = "#B16950"
+iris = "#000000"
 skin = "#DAC7A9"
 
 [[VRFW.MiximaxPalette]]
@@ -3439,7 +3439,6 @@ skin = "#F0CFB0"
 
 [[VRFW.MiximaxPalette]]
 character = "c05028090"
-id = "0x1D6E568A"
 head = "_face/05_GO2/c05028090/c05028090.g4tx"
 hair = "#3089EF"
 face = "#C9966B"
@@ -3451,7 +3450,7 @@ character = "c05028100"
 head = "_face/05_GO2/c05028100/c05028100.g4tx"
 hair = "#254B78"
 face = "#E4A363"
-iris = "#9C6C49"
+iris = "#117972"
 skin = "#E4A363"
 
 [[VRFW.MiximaxPalette]]
@@ -3723,7 +3722,7 @@ character = "c05028490"
 head = "_face/05_GO2/c05028490/c05028490.g4tx"
 hair = "#B2A4A4"
 face = "#F6E5CB"
-iris = "#FDAA30"
+iris = "#000000"
 skin = "#F5E4CA"
 
 [[VRFW.MiximaxPalette]]
@@ -3731,7 +3730,7 @@ character = "c05028490_5000"
 head = "_face/05_GO2/c05028490/c05028490.g4tx"
 hair = "#B2A4A4"
 face = "#F6E5CB"
-iris = "#FDAA30"
+iris = "#000000"
 skin = "#F5E4CA"
 
 [[VRFW.MiximaxPalette]]
@@ -3840,7 +3839,6 @@ skin = "#F7E6CC"
 
 [[VRFW.MiximaxPalette]]
 character = "c05028610"
-id = "0x92FF442A"
 head = "_face/05_GO2/c05028610/c05028610.g4tx"
 hair = "#6C7288"
 face = "#F0CFB0"
@@ -3852,7 +3850,7 @@ character = "c05028620"
 head = "_face/05_GO2/c05028620/c05028620.g4tx"
 hair = "#E1F5F6"
 face = "#C9966B"
-iris = "#000000"
+iris = ""
 skin = "#C9966B"
 
 [[VRFW.MiximaxPalette]]
@@ -4116,7 +4114,7 @@ character = "c05029830"
 head = "_face/05_GO2/c05029830/c05029830.g4tx"
 hair = "#688998"
 face = "#6598D1"
-iris = "#F0CFB0"
+iris = "#7FDFEF"
 skin = "#F0CFB0"
 
 [[VRFW.MiximaxPalette]]
@@ -4124,7 +4122,7 @@ character = "c05029830_5000"
 head = "_face/05_GO2/c05029830/c05029830.g4tx"
 hair = "#688998"
 face = "#6598D1"
-iris = "#F0CFB0"
+iris = "#7FDFEF"
 skin = "#F0CFB0"
 
 [[VRFW.MiximaxPalette]]
@@ -4230,3 +4228,67 @@ hair = "#5A4033"
 face = "#F1B67C"
 iris = "#615A6C"
 skin = "#F0B57B"
+
+[[VRFW.MiximaxPalette]]
+character = "c05028040_5000"
+head = "_face/05_GO2/c05028040/c05028040.g4tx"
+hair = "#986564"
+face = "#F8C89A"
+iris = "#AC2120"
+skin = "#F8C89A"
+
+[[VRFW.MiximaxPalette]]
+character = "c05028090_5000"
+head = "_face/05_GO2/c05028090/c05028090.g4tx"
+hair = "#3089EF"
+face = "#C9966B"
+iris = "#2A98A9"
+skin = "#C9966B"
+
+[[VRFW.MiximaxPalette]]
+character = "c05028110_5000"
+head = "_face/05_GO2/c05028110/c05028110.g4tx"
+hair = "#48247E"
+face = "#C9966B"
+iris = "#765272"
+skin = "#C9966B"
+
+[[VRFW.MiximaxPalette]]
+character = "c05028120_5000"
+head = "_face/05_GO2/c05028120/c05028120.g4tx"
+hair = "#E9D7A5"
+face = "#F8C89A"
+iris = "#395E79"
+skin = "#F8C89A"
+
+[[VRFW.MiximaxPalette]]
+character = "c05028130_5000"
+head = "_face/05_GO2/c05028130/c05028130.g4tx"
+hair = "#DFD194"
+face = "#F7B583"
+iris = "#6C7991"
+skin = "#F7B583"
+
+[[VRFW.MiximaxPalette]]
+character = "c05028130_5200"
+head = "_face/05_GO2/c05028130/c05028130.g4tx"
+hair = "#DFD194"
+face = "#F7B583"
+iris = "#6C7991"
+skin = "#F7B583"
+
+[[VRFW.MiximaxPalette]]
+character = "c05028130_5300"
+head = "_face/05_GO2/c05028130/c05028130.g4tx"
+hair = "#DFD194"
+face = "#F7B583"
+iris = "#6C7991"
+skin = "#F7B583"
+
+[[VRFW.MiximaxPalette]]
+character = "c05028610_5000"
+head = "_face/05_GO2/c05028610/c05028610.g4tx"
+hair = "#6C7288"
+face = "#F0CFB0"
+iris = "#1A5D87"
+skin = "#EFCFB0"

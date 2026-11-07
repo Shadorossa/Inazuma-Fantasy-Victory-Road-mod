@@ -7,61 +7,61 @@ icon = "general"
 notes = [
     "Fichajes como en los juegos clásicos",
     "Pachangas con retos para reclutar",
-    "Ficha en la Oficina y álbum",
+    "Ficha en el álbum, Basaras en el Atrio",
 ]
 
 [release.en]
 notes = [
     "Recruiting like the classic games",
     "Matches with recruiting goals",
-    "Office signing and album",
+    "Album signing, Basaras in the Atrium",
 ]
 
 [release.fr]
 notes = [
     "Recrutement comme dans les classiques",
     "Matchs amicaux avec défis",
-    "Recrutement au Bureau et album",
+    "Recrutement à l'album, Basaras à l'Atrium",
 ]
 
 [release.de]
 notes = [
     "Anwerben wie in den Klassikern",
     "Freundschaftsspiele mit Aufgaben",
-    "Verpflichtung im Büro und Album",
+    "Anwerben im Album, Basaras im Atrium",
 ]
 
 [release.it]
 notes = [
     "Reclutamento come nei classici",
     "Amichevoli con sfide di reclutamento",
-    "Ingaggi in Ufficio e album",
+    "Ingaggi nell'album, Basara nell'Atrio",
 ]
 
 [release.pt]
 notes = [
     "Recrutamento como nos clássicos",
     "Jogos amigáveis com desafios",
-    "Contratações no Escritório e álbum",
+    "Contratações no álbum, Basaras no Átrio",
 ]
 
 [release.ja]
 notes = [
     "従来作のスカウト方式",
     "勧誘条件付きの親善試合",
-    "オフィスでの獲得とアルバム",
+    "アルバムで獲得、アトリウムでバサラ",
 ]
 
 [release.zh_hans]
 notes = [
     "经典作品式招募",
     "带招募挑战的友谊赛",
-    "办公室签约与相册",
+    "在相册签约，在中庭打造婆娑罗",
 ]
 
 [release.zh_hant]
 notes = [
     "經典作品式招募",
     "帶招募挑戰的友誼賽",
-    "辦公室簽約與相簿",
+    "在相簿簽約，在中庭打造婆娑羅",
 ]

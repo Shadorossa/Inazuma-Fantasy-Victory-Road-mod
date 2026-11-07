@@ -10,4 +10,6 @@ exclude_cards = [0xD4B19B55]
 [[series]]
 series = 0xB2D2CD9B             # crc32("evt_chara_series_fantasy")
 own_characters = true
+# Nakata's basic card is a player of Orfeo (content/teams/nakata_orfeo.toml): listed under IE3, team Orfeo
+except_cards = [0xFFF7C4EE]
 page = 2                        # its own album page: page 2 of the «Juego» bar

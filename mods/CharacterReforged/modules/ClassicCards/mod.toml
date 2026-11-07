@@ -75,8 +75,8 @@ folder = "ClassicCards"
 # (the filter windows' normal cards).
 # VRFW 2.4.24: VRFW_ListRows
 requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4"]
-# optional: its album and team planner read this module's rules
-optional = ["BetterQoL"]
+# optional: its album and team planner read this module's rules; Universe Reforged's added rows get the rarity rule, so it loads first
+optional = ["BetterQoL", "UniverseReforged"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 # loader 1.7.0: patches of INCLUDE'd scripts (the filter includes)

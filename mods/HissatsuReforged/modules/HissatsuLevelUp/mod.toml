@@ -43,7 +43,7 @@ folder = "HissatsuLevelUp"
 # too so the entry stays valid while Character Reforged is off).
 # VRFW 2.475.84: the match move level (lib/match_move_level.lua) the opponents' grade at a match install reads.
 requires = ["VRFW>=0.2.4", "HissatsuReforged>=0.2.4"]
-optional = ["CharacterReforged"]
+optional = ["CharacterReforged", "UniverseReforged"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"
@@ -63,9 +63,10 @@ keys = ["Rules"]
 # HissatsuLevelUp.SkillTableRankItem(phase, ctx) (graft move_rank_items, rank_items_skill_table.lua)
 game_lua = ["HissatsuLevelUp.SkillTableRankItem"]
 
-# content\skill_set\ is read by Character Reforged (its place rules as data): the layout lint accepts it
+# content\skill_set\ is read by Character Reforged (its place rules as data), content\universe_prizes\ by Universe
+# Reforged (this mod's items as prizes of its pulls): the layout lint accepts them
 [layout]
-script_folders = ["skill_set", "hissatsu_level_up"]
+script_folders = ["skill_set", "hissatsu_level_up", "universe_prizes"]
 
 # A MODULE of Hissatsu Reforged: shipped in HissatsuReforged\modules\HissatsuLevelUp\; the Mods screen, the ModManager
 # and `vrfw list` show it inside Hissatsu Reforged's entry («Módulos y ajustes»: on / off) instead of as a mod of its

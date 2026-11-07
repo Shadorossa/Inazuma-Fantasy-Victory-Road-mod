@@ -107,7 +107,7 @@ stem = "item_menu"
   type = "append_block"
   source = "plate_pages.lua"
   marker = "plate_pages plate"
-  vars = { "@MENU@" = "3040181864 --[[item_menu]]", "@CARD_LAYER@" = "3627613836 --[[team00_20_item_detail_l]]", "@CARD_RECT@" = "{984, 739, 1862, 869}", "@PAGER_AT@" = "{1423, 858}", "@PILL_SHIFT@" = "nil", "@LIGHT_TEXT@" = "false" }
+  vars = { "@MENU@" = "GetItemMenuName", "@CARD_LAYER@" = "3627613836 --[[team00_20_item_detail_l]]", "@CARD_RECT@" = "{984, 739, 1862, 869}", "@PAGER_AT@" = "{1423, 858}", "@PILL_SHIFT@" = "nil", "@LIGHT_TEXT@" = "false" }
 
     [files.ops.include]   # the block's own pieces (parts\*.lua) after the host's
     "@COMMON@" = "plate_pages_common.lua"

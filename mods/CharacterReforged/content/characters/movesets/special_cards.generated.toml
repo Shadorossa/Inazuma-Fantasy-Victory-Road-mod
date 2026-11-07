@@ -116,6 +116,7 @@ target = "c01000030"                                # Jack Wallside
 
   [[edit.cards]]
   id = 0x951322B6                                         # special card, list of card 0x0263ADA0
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x7D6E9A87, level = 1 },                       # The Wall
     { move = 0x4031A7F5, level = 12 },                      # Mole Fake
@@ -254,6 +255,7 @@ target = "c01000300"                                # Jude Sharp
 
   [[edit.cards]]
   id = 0xBC78CF2C                                         # special card, list of card 0x2B08403A
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0xC42D6F54, level = 1 },                       # Aikido
     { move = 0x4E9A9232, level = 1 },                       # Spinning Cut
@@ -300,6 +302,7 @@ target = "c01001900"                                # Byron Love
 
   [[edit.cards]]
   id = 0x09532D9F                                         # special card, list of card 0x9E23A289
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x1F5EB9D5, level = 1 },                       # Nutmeg
     { move = 0x1C8CE2B8, level = 1 },                       # God Knows
@@ -376,6 +379,7 @@ target = "c02020890"                                # Gazelle
 
   [[edit.cards]]
   id = 0x030F668B                                         # special card, list of card 0xBDB75D6F
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x6B4A7B35, level = 1 },                       # Power Shot
     { move = 0x5E5AF1A9, level = 1 },                       # Northern Impact
@@ -466,6 +470,7 @@ target = "c02021100"                                # Janus
 
   [[edit.cards]]
   id = 0x65A08128                                         # special card, list of card 0xDB18BACC
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
     { move = 0x10A0C298, level = 1 },                       # Warp Drive
@@ -556,6 +561,7 @@ target = "c02021510"                                # Xene
 
   [[edit.cards]]
   id = 0x7BB218B5                                         # special card, list of card 0xC50A2351
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x65766A4F, level = 1 },                       # Meteor Blade
     { move = 0x1162A8AF, level = 22 },                      # Bewilder Blast
@@ -615,6 +621,7 @@ target = "c02023380"                                # Shawn Froste
 
   [[edit.cards]]
   id = 0x2D3CA337                                         # special card, list of card 0xBA4C2C21
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x19C3F43D, level = 1 },                       # Eternal Blizzard
     { move = 0xDCF43422, level = 1 },                       # Aurora Dribble
@@ -705,6 +712,7 @@ target = "c02024040"                                # Hurley Kane
 
   [[edit.cards]]
   id = 0x1E186ADB                                         # special card, list of card 0x8968E5CD
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x6C827857, level = 1 },                       # Rolling Steal
     { move = 0x2BF596BF, level = 1 },                       # Tsunami Boost
@@ -736,6 +744,7 @@ target = "c03030010"                                # Austin Hobbes
 
   [[edit.cards]]
   id = 0x5ED29F3F                                         # special card, list of card 0xE06AA4DB
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x0CF4E55C, level = 1 },                       # Double Touch
     { move = 0xA6763B84, level = 11 },                      # Gladius Arch
@@ -840,6 +849,7 @@ target = "c03030050"                                # Caleb Stonewall
 
   [[edit.cards]]
   id = 0x1376EEC9                                         # special card, list of card 0x840661DF
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x5643C944, level = 1 },                       # Killer Slide
     { move = 0x71831119, level = 1 },                       # Foul Offence 2
@@ -1021,6 +1031,7 @@ target = "c04000030"                                # Gabriel Garcia
 
   [[edit.cards]]
   id = 0xC72B0D11                                         # special card, list of card 0x505B8207
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x530CDFC1, level = 1 },                       # Mystifying Mist
     { move = 0x6BA49049, level = 21 },                      # Mystic Mist
@@ -1113,6 +1124,7 @@ target = "c04000080"                                # Arion Sherwind
 
   [[edit.cards]]
   id = 0x24DFD4DA                                         # special card, list of card 0xB3AF5BCC
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x9349F1DA, level = 1 },                       # Zephyr Shot
     { move = 0x6F918884, level = 1 },                       # Easy Breezy
@@ -1158,6 +1170,7 @@ target = "c04000090"                                # Riccardo Di Rigo
 
   [[edit.cards]]
   id = 0x3DC4E59B                                         # special card, list of card 0xAAB46A8D
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x8B90AAAC, level = 1 },                       # Fortissimo
     { move = 0x20D01E43, level = 1 },                       # Hey Presto
@@ -1189,6 +1202,7 @@ target = "c04000100"                                # Victor Blade
 
   [[edit.cards]]
   id = 0xC40C8017                                         # special card, list of card 0x7AB4BBF3
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x8A52C09B, level = 1 },                       # Doomsword Slash
     { move = 0x0C08B663, level = 1 },                       # Doom Dive Drive
@@ -1294,6 +1308,7 @@ target = "c04003500"                                # Bailong
 
   [[edit.cards]]
   id = 0xF87833D7                                         # special card, list of card 0x6F08BCC1
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x89D614F5, level = 12 },                      # White Hurricane
     { move = 0x3297683F, level = 26 },                      # Warp Step
@@ -1325,6 +1340,7 @@ target = "c04003700"                                # Tezcat
 
   [[edit.cards]]
   id = 0xD234534B                                         # special card, list of card 0x6C8C68AF
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0xEC78BBC6, level = 15 },                      # Black Ash
     { move = 0xC9BAEA82, level = 30 },                      # Eye of the Storm
@@ -1384,6 +1400,7 @@ target = "c05020110"                                # Fei Rune
 
   [[edit.cards]]
   id = 0x28685D70                                         # special card, list of card 0xBF18D266
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0xA9A7000B, level = 7 },                       # Bouncing Bunny
     { move = 0x19BA3BFC, level = 13 },                      # Dance on Air
@@ -1429,6 +1446,7 @@ target = "c05020140"                                # Goldie Lemmon
 
   [[edit.cards]]
   id = 0x551FA935                                         # special card, list of card 0xC26F2623
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x8A936B25, level = 1 },                       # Goopy Gloopy Goo
     { move = 0xB7474004, level = 1 },                       # Dough Ray Me
@@ -1460,6 +1478,7 @@ target = "c05020500"                                # Alpha
 
   [[edit.cards]]
   id = 0x1FB2701F                                         # special card, list of card 0xA10A4BFB
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0xB0BC314A, level = 7 },                       # Spin Meister
     { move = 0xC324C788, level = 12 },                      # Blast Mine
@@ -1564,6 +1583,7 @@ target = "c05020800"                                # Gamma
 
   [[edit.cards]]
   id = 0x3EA257BE                                         # special card, list of card 0xA9D2D8A8
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0xD32B8500, level = 10 },                      # Atomic Spin
     { move = 0x163D8F70, level = 15 },                      # Chip Shot
@@ -1610,6 +1630,7 @@ target = "c05021500"                                # Zanark Avalonic
 
   [[edit.cards]]
   id = 0x8EC6A388                                         # special card, list of card 0x19B62C9E
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x1876DB66, level = 3 },                       # Disaster Strike
     { move = 0xD0A1DBC3, level = 18 },                      # Bungee Ball Burst
@@ -1655,6 +1676,7 @@ target = "c05023300"                                # Simeon Ayp
 
   [[edit.cards]]
   id = 0x204217B1                                         # special card, list of card 0xB73298A7
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0xF806D6C3, level = 12 },                      # Shell Burst
     { move = 0xF94FAAA7, level = 23 },                      # Decoy Deploy
@@ -1700,6 +1722,7 @@ target = "c06030010"                                # Terry Archibald
 
   [[edit.cards]]
   id = 0x2522046A                                         # special card, list of card 0xB2528B7C
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0xD2955C45, level = 1 },                       # Power Catch
     { move = 0x04F493EC, level = 48 },                      # Dragon Rage Dunk
@@ -2091,6 +2114,7 @@ target = "c07020010"                                # Elliot Ember
 
   [[edit.cards]]
   id = 0x97FD929C                                         # special card, list of card 0x2945A978
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x16658ADE, level = 1 },                       # Perfect Penguin
     { move = 0x91FD9611, level = 13 },                      # Penguin Volley
@@ -2150,6 +2174,7 @@ target = "c07130010"                                # Sergi Hernández
 
   [[edit.cards]]
   id = 0x4809DC7B                                         # special card, list of card 0xDF79536D
+  if_not_mod = ["InazumaFantasy"]                         # another mod gives this card its own list
   moves = [
     { move = 0x0DBD9938, level = 1 },                       # Diamond Cutter
     { move = 0x6813360B, level = 13 },                      # Diamond Ray

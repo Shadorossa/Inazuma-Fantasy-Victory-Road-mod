@@ -108,7 +108,7 @@ local REFUSAL_WORDS = {
   [18] = "the partner is the base of another miximax", [19] = "the base is already the partner of another miximax",
   [20] = "not a retail / declared pair and no mod turns the any-pair generator on",
   [21] = "the framework could not make the fusion record", [22] = "the framework did not store the fusion",
-  [23] = "no saved card can be his partner",
+  [23] = "no saved card can be his partner", [24] = "the base's model has no head",
 }
 
 local function refused(code, base, partner, detail)
@@ -203,13 +203,16 @@ local function pair_code(base, partner, others)
 end
 
 -- CMND_AURAOVERHAUL_MIXIMAX_CHECK(base, partner) -> code (0 = a miximax can be made). partner 0: may `base` get one at
--- all: an owned card whose rarity may be fused, not the partner of another miximax, with at least one saved card he
--- can be paired with (code 23 when none); the stored pairs are read again (a list opening). partner ≠ 0: that pair.
+-- all: an owned card whose rarity may be fused, whose model has a head (code 24), not the partner of another miximax,
+-- with at least one saved card he can be paired with (code 23 when none); the stored pairs are read again (a list
+-- opening). partner ≠ 0: that pair (code 20 when either model has no head: the framework's `allowed`).
 function AuraOverhaul.Miximaxed.Check(base, partner)
   base, partner = u32(base), u32(partner)
   if mx { op = "status" } == nil then return 1 end
   if partner ~= 0 then return pair_code(base, partner, check_pairs(base)) end
   CHECK = nil
+  local card = CharacterReforged.Card(base)
+  if type(card) == "table" and mx { op = "has_head", chara = card.chara } == false then return 24 end
   local others = check_pairs(base)
   local ok, list = pcall(VRFW.character.saved)
   local first = 12

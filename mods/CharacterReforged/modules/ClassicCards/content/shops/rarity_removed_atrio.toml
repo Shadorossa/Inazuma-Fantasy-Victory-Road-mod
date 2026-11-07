@@ -1,0 +1,14 @@
+schema = "VRFW.shop/2"
+# No More Rarities › a Diamante rarity removed takes «El atrio de los indomables» out of the Mercado: its rows are hidden
+# and a shop with no row left has no bar (VRFW market_menu\100_market_bars.lua). The values are those of config.toml
+# [removed_rarities] tiers that remove the Diamante cards. Read at start.
+
+[[edit]]
+target = "0x66B2F9E6"           # El atrio de los indomables
+hide_spirits = true
+when = { config = "removed_rarities.tiers", equals = "basic_diamond" }
+
+[[edit]]
+target = "0x66B2F9E6"           # El atrio de los indomables
+hide_spirits = true
+when = { config = "removed_rarities.tiers", equals = "all" }

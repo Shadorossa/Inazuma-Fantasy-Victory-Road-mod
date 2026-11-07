@@ -1,6 +1,5 @@
 -- Classic Recruitment › players are signed in BetterQoL's «Álbum de jugadores»: A on a player the club does not have
--- asks «¿Quieres fichar a X?» and he joins on «Sí». The pachangas of the Chronicle board are only matches and the
--- office's Mercado bar is gone (assets\lua\market_menu\new_recruitment_office_bar.lua).
+-- asks «¿Quieres fichar a X?» and he joins on «Sí». The pachangas of the Chronicle board are only matches.
 -- * ClassicRecruitment.Ask(s) / Notice(s) / Say(id, name): the game's question / notice window (Sí / No, «%s» = the name),
 --   used inside a coroutine (they yield until the window is answered and closed).
 -- * The album action: one entry of BetterQoL.AlbumActions: offered while
@@ -121,6 +120,14 @@ if ClassicRecruitment.Album == nil then
       if R == nil or type(row.param) ~= "number" or row.param == 0 then return false end
       local can, why = R.CanSign(row.param)
       if row.owned == true or why == "owned" then
+        -- what this refusal read: the row's tick, the game's count of this exact card, the club's records of that card
+        R.Refresh()
+        local holders = {}
+        for _, h in ipairs(R.Holders({row.param})) do
+          holders[#holders + 1] = string.format("%.0f:%.0f", h.handle, h.param)
+        end
+        pcall(funcLuaCommand, A.LOG, "ClassicRecruitment album refused owned", row.param, tostring(row.owned), tostring(why),
+          R.Owned(row.param), table.concat(holders, ","))
         ClassicRecruitment.Notice(ClassicRecruitment.Say(A.OWNED, name))
         return false
       end

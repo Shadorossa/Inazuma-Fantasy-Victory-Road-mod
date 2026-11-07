@@ -1,0 +1,10 @@
+e54eb112e3ac9f3e2f42d79143b532b4c5ff4037f29264a93a379ffbc6eb1e96c46158c14be25a0e343ecf5dd7bd6bae380d0d2f0c235ff9470455b6e39b4404
+format = 1
+sequence = 1
+
+[[version]]
+label = "0.2.4a"
+ref = "release-0.2.4a"
+sequence = 1
+manifest_sha256 = "8f3dfc12455e7bb3045273950890e97a90104c079faa18181345a2d5cb04b6d0"
+game_version = "v7.2.1"

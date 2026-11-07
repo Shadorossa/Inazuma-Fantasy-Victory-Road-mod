@@ -288,6 +288,90 @@ function BoardSlots.Piece(hdl, slot)
   return s.piece, effective(s), s.placed, s.native
 end
 
+-- ------------------------------------------------------------------------------------- cells whose stack was freed
+-- Saves written before 2026-11-07: the skill table deleted the copy it had just placed, so a board cell can keep the
+-- handle of a freed stack, and the next item added takes that handle on every such cell (docs/game/skill-slots.md
+-- «Inventory stacks»). Once per save load: each such cell gets the move of the same list position with a copy of its
+-- own, or is emptied. A cell whose stack holds an item is never touched: an item already taken over stays until
+-- «Restablecer», nothing here can tell it from a real placement.
+local TECHNIQUE_LIST_ENTRY_BYTES = 8
+local add_buffer = nil
+
+local function stack_is_free(inv)
+  local ok, item = pcall(VRFW.item.of_inv, inv)
+  return ok and (item == nil or u32(item) == 0)
+end
+
+local function added_copy_of(item)
+  add_buffer = add_buffer or VRFW.mem.buffer("character_reforged_board_item_add", 64)
+  pcall(VRFW.mem.write, "u32", add_buffer, 0)
+  if not pcall(VRFW.call, "CharacterReforged.ItemAdd", add_buffer, item, 1, 0) then return 0 end
+  return u32(read("u32", add_buffer) or 0)
+end
+
+local function repair_cell(data, hdl, slot, cell, list_at)
+  local move = 0
+  if cell.native == 0 and list_at and slot <= LAST_MOVE_SLOT then
+    move = u32(read("u32", data + list_at + slot * TECHNIQUE_LIST_ENTRY_BYTES) or 0)
+  end
+  local cleared = clear(data, hdl, slot, true, false)
+  if cleared ~= STATUS_OK then return false, 0 end
+  if move ~= 0 then
+    local inv = added_copy_of(move)
+    if inv ~= 0 and put(data, hdl, inv, slot) == STATUS_OK then return true, move end
+  end
+  return true, 0
+end
+
+-- false: no save is in memory yet
+local function repair_freed_cells()
+  if not board_layout() then return true end
+  local ok, cards = pcall(VRFW.character.saved)
+  if not ok or type(cards) ~= "table" or #cards == 0 then return false end
+  local list_at = profile_field("CharaData.TechniqueList")
+  local free, restored, emptied, failed = {}, 0, 0, 0
+  for _, card in ipairs(cards) do
+    local data, hdl = card.addr, u32(card.handle)
+    if data and data >= 0x10000 then
+      for slot = 0, LAST_SLOT do
+        local cell = read_slot(data, slot)
+        if cell and cell.placed ~= 0 then
+          if free[cell.placed] == nil then free[cell.placed] = stack_is_free(cell.placed) end
+          if free[cell.placed] then
+            local done, move = repair_cell(data, hdl, slot, cell, list_at)
+            if not done then
+              failed = failed + 1
+            elseif move ~= 0 then
+              restored = restored + 1
+            else
+              emptied = emptied + 1
+            end
+            info(string.format("freed stack: %s slot %d handle %s -> %s", hex(hdl), slot, hex(cell.placed),
+              done and hex(move) or "left as it is"))
+          end
+        end
+      end
+    end
+  end
+  info(string.format("freed stacks on boards of %d player(s): %d move(s) back with their own copy, %d cell(s) emptied, %d left",
+    #cards, restored, emptied, failed))
+  return true
+end
+
+local repair_due = false
+VRFW.on("slot_load", function()
+  repair_due = true
+  return nil
+end)
+VRFW.on("menu:open:post", function()
+  if repair_due and repair_freed_cells() then repair_due = false end
+  return nil
+end)
+VRFW.on("game_reset", function()
+  repair_due = false
+  return nil
+end)
+
 function BoardSlots.Place(hdl, inv, slot)
   hdl, inv, slot = u32(hdl), u32(inv), slot_argument(slot)
   local st, now = STATUS_BAD_ARGUMENTS, 0

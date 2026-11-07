@@ -26,7 +26,8 @@
 --     of the match (config.toml [active_team] level_sync, table BattleBayDeluxe.LevelSync: the stats level of the
 --     active team's players, content\game\active_team.toml MatchStatLevel; their moves stay as they are);
 -- * 1.5.77: the mirror also gives the
---     Draft team the active team's crest and kit (its team record) and its name in the match (hook TeamLookBuild).
+--     Draft team the active team's kit (its team record) and its name in the match (hook TeamLookBuild); the Draft's
+--     crest stays its own ([team.emblem]), because the grid draws its tile from that same record.
 
 local U = require "lib/util"
 local G = require "lib/game"
@@ -148,8 +149,8 @@ local function team_record(team)
   return rec
 end
 
--- the active team's emblem and kit over a team record (the tile's, the Draft's: the grid's crest and model and the
--- match setup read it) -> note; `label` names the team in the log
+-- an emblem and a kit over a team record, 0 = leave that field (the grid's crest and model and the match setup read
+-- it) -> note; `label` names the team in the log
 local function write_look(team, label, emblem, uniform)
   if emblem == 0 and uniform == 0 then
     return "no emblem / kit to write"
@@ -179,8 +180,8 @@ local function write_look(team, label, emblem, uniform)
   return label .. " " .. table.concat(done, ", ")
 end
 
--- the Draft team carries the active team's identity in its matches. Crest and kit: write_look over the Draft's
--- record. Name: the hook TeamLookBuild (content\game\active_team.toml) gives the match team set of every team in the
+-- the Draft team carries the active team's kit and name in its matches; its crest stays its own. Kit: write_look over
+-- the Draft's record. Name: the hook TeamLookBuild (content\game\active_team.toml) gives the match team set of every team in the
 -- table BattleBayDeluxe.TeamName the name held in this native block (NUL-terminated); the grid keeps the tile's own
 -- text.
 local NAME_TABLE = "BattleBayDeluxe.TeamName"
@@ -235,17 +236,17 @@ local function write_name(team, name)
   return "name «" .. name .. "»"
 end
 
--- the active team's emblem, kit and name onto the Draft team -> note
-local function write_draft_identity(emblem, uniform, name)
+-- the active team's kit and name onto the Draft team -> note
+local function write_draft_identity(uniform, name)
   local draft = Draft.team()
   if draft == 0 then
     return "no Draft team"
   end
-  return write_look(draft, "Draft", emblem, uniform) .. ", Draft " .. write_name(draft, name)
+  return write_look(draft, "Draft", 0, uniform) .. ", Draft " .. write_name(draft, name)
 end
 
 -- CMND_BBD_ACTIVE_TEAM_MIRROR(captain, lineup[, set, emblem, uniform, name]): the active team set onto the tile's member
--- rows, row leader and team record (crest, kit), and its crest, kit and name onto the Draft team. -> ok, what was done
+-- rows, row leader and team record (crest, kit), and its kit and name onto the Draft team. -> ok, what was done
 -- (text)
 function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform, name)
   if TEAM == 0 then
@@ -258,7 +259,7 @@ function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform,
   end
   emblem, uniform = U.u32(tonumber(emblem) or 0) or 0, U.u32(tonumber(uniform) or 0) or 0
   local look = write_look(TEAM, "tile", emblem, uniform)
-  local draft_look = write_draft_identity(emblem, uniform, name)
+  local draft_look = write_draft_identity(uniform, name)
   captain = U.u32(tonumber(captain) or 0) or 0
   local want = parse_lineup(lineup)
   if next(want) == nil then

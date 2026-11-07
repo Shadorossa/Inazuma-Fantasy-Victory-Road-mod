@@ -5005,7 +5005,7 @@ do
     TEAM_UNIFORM = 3577549271,      -- CMND_VRFW_TEAM_UNIFORM (set, team [, uniformId]) -> ok, uniformId
     TACTIC_INFO = 2774302575,        -- CMND_GET_SPECIAL_TACTICS_INFO (id, 10) -> ok, refused in a 5v5 team
     PLAY_MODE = 3004482920,
-    BANK = 16, COACH = 19, MEMBERS = {16, 17, 18, 19}, SLOTS = 4,
+    BANK = 16, COACH = 19, MEMBERS = {16, 17, 18, 19}, SLOTS = 4, ENTRIES = 29,
     logs = 0,
   }
 
@@ -5160,25 +5160,72 @@ do
     end
   end
 
-  function PT.putMember(set, t, pos, h)
-    local cur = PT.memberAt(set, t, pos)
-    if cur == h then
-      return
-    end
-    if pos == PT.L.COACH and cur ~= 0 then
-      PT.call(PT.L.DIRECTOR, set, t, 0)                -- as the retail bank does before the coach leaves
-    end
-    if h ~= 0 then
-      PT.call(PT.L.MOVE, set, pos, PT.L.BANK, h, t)    -- into this template only (loader after-hook keeps the other)
-    else
-      PT.call(PT.L.MOVE, PT.L.BANK, pos, set, cur, t)  -- the occupant goes back to the bank
-    end
-    if pos == PT.L.COACH and h ~= 0 then
-      local d = PT.call(PT.L.CHARA, h, 4)
-      if type(d) == "number" and d ~= 0 then
-        PT.call(PT.L.DIRECTOR, set, t, d)
+  -- Template t's coach and managers become want[16..19] (each handle at most once). The retail bank place 193693077 is
+  -- a per-position write only on an empty position holding a handle not placed elsewhere: on an occupied one it replaces
+  -- the occupant by handle, at his first entry and then at every other entry of his (SetTeamMember 0xDA5A20), so a swap
+  -- of two members ends with one of them twice and a duplicate only changes name. Every position that changes is emptied
+  -- first (193693077 to the bank removes one entry per call, the first of that handle), then placed. cur = the read
+  -- before; note(position, t) for each position that ended different.
+  function PT.putMembers(set, t, cur, want, note)
+    local changes = false
+    for _, p in ipairs(PT.L.MEMBERS) do
+      if cur[p] ~= want[p] then
+        changes = true
+        if cur[p] ~= 0 then
+          if p == PT.L.COACH then
+            PT.call(PT.L.DIRECTOR, set, t, 0)          -- as the retail bank does before the coach leaves
+          end
+          for _ = 1, PT.L.ENTRIES do
+            if PT.memberAt(set, t, p) ~= cur[p] then
+              break
+            end
+            PT.call(PT.L.MOVE, PT.L.BANK, p, set, cur[p], t)
+          end
+        end
       end
     end
+    if not changes then
+      return
+    end
+    for _, p in ipairs(PT.L.MEMBERS) do
+      local h = want[p]
+      if h ~= 0 and PT.memberAt(set, t, p) == 0 then
+        PT.call(PT.L.MOVE, set, p, PT.L.BANK, h, t)    -- into this template only (loader after-hook keeps the other)
+        if p == PT.L.COACH then
+          local d = PT.call(PT.L.CHARA, h, 4)
+          if type(d) == "number" and d ~= 0 then
+            PT.call(PT.L.DIRECTOR, set, t, d)
+          end
+        end
+      end
+      if PT.memberAt(set, t, p) ~= cur[p] then
+        note(p, t)
+      end
+    end
+  end
+
+  -- what position p of both templates holds after the sync: the winner of the field, or the other template's value when
+  -- the winner's handle already sits on an earlier position (a saved duplicate), or empty; a handle goes on one position
+  function PT.wantMembers(a, b, snap)
+    local want, used = {}, {}
+    for _, p in ipairs(PT.L.MEMBERS) do
+      local first, second = a.mem[p], b.mem[p]
+      if PT.side(first, second, snap.mem[p]) == 1 then
+        first, second = second, first
+      end
+      local h = first
+      if h ~= 0 and used[h] then
+        h = second
+      end
+      if h ~= 0 and used[h] then
+        h = 0
+      end
+      want[p] = h
+      if h ~= 0 then
+        used[h] = true
+      end
+    end
+    return want
   end
 
   -- sync one dock; true = something was written
@@ -5229,24 +5276,12 @@ do
       end
     end
     if PT.memberLink(set) then
-      -- decided on the reads above, then placed (a move empties the member's old position) before emptied
-      local plan = {}
-      for _, p in ipairs(PT.L.MEMBERS) do
-        local s = PT.side(a.mem[p], b.mem[p], snap.mem[p])
-        if s == 0 then
-          plan[#plan + 1] = {1, p, a.mem[p]}
-        elseif s == 1 then
-          plan[#plan + 1] = {0, p, b.mem[p]}
-        end
+      local want = PT.wantMembers(a, b, snap)
+      local function noteMember(p, t)
+        note(p == PT.L.COACH and "coach" or ("manager" .. p), t == 0 and 1 or 0)
       end
-      for pass = 1, 2 do
-        for _, w in ipairs(plan) do
-          if (pass == 1) == (w[3] ~= 0) then
-            PT.putMember(set, w[1], w[2], w[3])
-            note((w[2] == PT.L.COACH and "coach" or ("manager" .. w[2])), w[1] == 0 and 1 or 0)
-          end
-        end
-      end
+      PT.putMembers(set, 0, a.mem, want, noteMember)
+      PT.putMembers(set, 1, b.mem, want, noteMember)
     end
     local mirrored, out, inn = PT.mirror(set)
     if mirrored then
@@ -5340,7 +5375,10 @@ do
     if not EVT_PACHANGA or PT.inRogue() then
       return
     end
-    PT.linkAll("exit")
+    -- the last edit of the docks, after the other mods saw the dock close; the retail exit below saves the game
+    if PT.linkAll("exit") > 0 and type(VRFW_TeamDock) == "table" then
+      VRFW_TeamDock.Emit("docks_changed")
+    end
     local vs = PT.call(PT.GET_VS)
     local want = PT.vs
     if PT.loader then

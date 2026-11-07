@@ -1,0 +1,24 @@
+schema = "VRFW.game/2"
+
+# Render-state file ids a material can use besides the game's 0-16: stencil and depth func
+# (docs/game/media/g4md-render-states.md section 2.1). A retail G4MD has none of them.
+
+# File ids 18-26 get the engine ids below and keep their value unconverted; any other id takes the game's path.
+[[VRFW.Patch]]
+name = "RenderStates.ExtraFileIds"
+game = "Render.MaterialStateIdRead"
+kind = "stub"
+code = "0F B6 07 8D 48 EE 83 F9 08 77 19 48 8D 35 09 00 00 00 0F B6 34 0E E9 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 41 8B B4 86 20 A9 E7 01"
+# movzx eax, [rdi] | lea ecx, [rax-18] | cmp ecx, 8 | ja game | lea rsi, [table] | movzx esi, [rsi+rcx] | jmp past the converter | table | game: the replaced read
+refs = [{ at = 0x17, branch = 0x30 }]
+imm = [
+    { at = 0x1B, width = "u8", value = 7 },  # file id 18: stencil enable
+    { at = 0x1C, width = "u8", value = 8 },  # 19: stencil masks on
+    { at = 0x1D, width = "u8", value = 9 },  # 20: stencil func
+    { at = 0x1E, width = "u8", value = 10 }, # 21: stencil read and write mask
+    { at = 0x1F, width = "u8", value = 11 }, # 22: stencil reference
+    { at = 0x20, width = "u8", value = 12 }, # 23: stencil fail op
+    { at = 0x21, width = "u8", value = 13 }, # 24: stencil pass op
+    { at = 0x22, width = "u8", value = 14 }, # 25: stencil depth fail op
+    { at = 0x23, width = "u8", value = 6 },  # 26: depth func
+]

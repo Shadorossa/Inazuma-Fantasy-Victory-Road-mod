@@ -8,10 +8,10 @@
 -- entry = { handle, getOrder, reserve, charaParamId, stockNum, usedStockNum, newFlag }; a free entry is all zeros (the
 -- game's own reset writes zeros; there is no count field: the game scans the arrays). Their «new» marks per character:
 -- block 0x02 (CGDDFlagStatus) m_Permanent.m_globalChrSpirit{Normal,Growing,Advanced,Top,Legendary,Hero,Basara}NewFlag.
--- What goes: every entry of the four PLAYER spirit lists (normal, hero = Ídolo, basara = Diamante, seasonal normal)
--- emptied (all its leaves to zero, as Character Reforged / Inazuma Fantasy empty a released card's entry) and the
--- seven spirit «new» bit fields cleared. What stays: the element spirits and the token spirits (shop currencies, not
--- players), getOrderCount (a counter only ever raised), sortType / isLockTradeItem (settings), the spirit «got» bit
+-- What goes: every entry of the normal and seasonal normal spirit lists emptied (all its leaves to zero, as Character
+-- Reforged / Inazuma Fantasy empty a released card's entry) and their five spirit «new» bit fields cleared. What stays:
+-- the Ídolo and Diamante spirits (the retail Basara flow spends them), the element spirits and the token spirits (shop
+-- currencies, not players), getOrderCount (a counter only ever raised), sortType / isLockTradeItem (settings), the spirit «got» bit
 -- fields m_globalChrSpirit*GetFlag (the collection history), everything outside these records. Idempotent: a purged
 -- save gives no write.
 
@@ -20,14 +20,13 @@ local SpiritPurge = {}
 SpiritPurge.BLOCK_SPIRITS = 0x12
 SpiritPurge.BLOCK_FLAGS = 0x02
 -- the spirit lists whose entries are players
-SpiritPurge.PLAYER_SPIRIT_LISTS = { "normalSpiritInfo", "heroSpiritInfo", "basaraSpiritInfo", "seasonalNormalSpiritInfo" }
+SpiritPurge.PLAYER_SPIRIT_LISTS = { "normalSpiritInfo", "seasonalNormalSpiritInfo" }
 -- the records of a player spirit entry (SPIRITINFO_NORMAL_P / _HERO_P / _BASARA_P / _SEASONAL_NORMAL_P)
 SpiritPurge.SPIRIT_ENTRY_FIELDS = { "handle", "getOrder", "reserve", "charaParamId", "stockNum", "usedStockNum", "newFlag" }
 -- the per-character «new spirit» bit fields of block 0x02 (one bit per character)
 SpiritPurge.SPIRIT_NEW_FLAG_FIELDS = {
   "m_globalChrSpiritNormalNewFlag", "m_globalChrSpiritGrowingNewFlag", "m_globalChrSpiritAdvancedNewFlag",
-  "m_globalChrSpiritTopNewFlag", "m_globalChrSpiritLegendaryNewFlag", "m_globalChrSpiritHeroNewFlag",
-  "m_globalChrSpiritBasaraNewFlag",
+  "m_globalChrSpiritTopNewFlag", "m_globalChrSpiritLegendaryNewFlag",
 }
 -- the leaves whose u16 words are card counts
 local COUNT_FIELDS = { stockNum = true, usedStockNum = true }

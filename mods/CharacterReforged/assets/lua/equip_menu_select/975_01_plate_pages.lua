@@ -302,10 +302,8 @@ end
 -- Character Reforged (2026-10-14, owner: «every place that shows the player's moves shows the FANTASY set»): every
 -- player plate that fills its 6 move rows through the retail SetupPersonalPlateCharaSkillItem (the player page's
 -- SUPERTÉCNICAS, the team dock / Plantilla / formation card, the banks, the «Confirmación de supertécnica» window,
--- which reads the rows' moves) shows the skill table's 6 rows instead of the retail list positions (the old «branch»
--- groups): row r = the r-th list position that holds no aura (empty ones included, list order), then the positions
--- holding an aura; a row shows its position's move, nothing when that is an aura (the aura / mix halves own it: the
--- Hiper page), the board slot of the same position when the position is empty (ss2_menus EVT_Skill / PL.ProjPos,
+-- which reads the rows' moves) shows the skill table's 6 rows: row r = list position r - 1, always; a row shows its
+-- position's move, nothing when that is an aura (the aura / mix halves own it: the Hiper page), the board slot of the same position when the position is empty (ss2_menus EVT_Skill / PL.ProjPos,
 -- the same rule). The retail fill runs with the move lookup answered for this card only (CMND 0x35D3E3B8, the
 -- evolution grade read at the move's own list position) and restored right after. A row locked by the skill board's
 -- rule (CR_MOVE_ROWS.Lock, ../_lib/cr_move_rows.lua: the level of its list position's learn slot) is drawn as the
@@ -530,15 +528,9 @@ do
   -- list position (an aura position, an empty one or the move's own)} }; in a match a team member row's loadout,
   -- else the framework's effective skill set when it answers, else the same rule read here
   function F.Rows(call, hdl)
-    local list, free, auras = {}, {}, {}
+    local list = {}
     for p = 0, F.ROW_COUNT - 1 do
-      local id = U32(call(F.GET_SKILL, hdl, p))
-      list[p] = id
-      if IsAura(call, id) then
-        auras[#auras + 1] = p
-      else
-        free[#free + 1] = p
-      end
+      list[p] = U32(call(F.GET_SKILL, hdl, p))
     end
     local member = MatchMemberRows(hdl, list)
     if member ~= nil then
@@ -548,12 +540,9 @@ do
     if served ~= nil then
       return served
     end
-    for _, p in ipairs(auras) do
-      free[#free + 1] = p
-    end
     local rows = {}
     for r = 1, F.ROW_COUNT do
-      local p = free[r]
+      local p = r - 1
       local id = list[p] or 0
       if id ~= 0 then
         rows[r] = IsAura(call, id) and {move = 0, slot = p} or {move = id, position = p, slot = p}
@@ -773,10 +762,13 @@ do
   end
 
   -- runs fn(...) with the reads / writes of card `hdl` at `instance` answered for its projected `row`: the AI-use
-  -- commands go to the row's list position; no list position -> no AI flag and the AI setting reported off; the move
-  -- read answers the row's move
+  -- commands go to the row's list position; no list position or a level-locked row -> no AI flag and the AI setting
+  -- reported off; the move read answers the row's move
   local function WithRowSource(call, hdl, instance, row, fn, ...)
     local position = row.position
+    if F.plateType ~= 1 and type(row.slot) == "number" and CR_MOVE_ROWS.Lock(call, hdl, row.slot) then
+      position = nil
+    end
     local enabled = IsAiSkillSettingsEnable
     F.raw_call = call
     funcLuaCommand = function(cmd, a, b, ...)
@@ -858,7 +850,9 @@ do
       if row == nil then
         return orig(a1, a2, ...)
       end
-      if row.move ~= 0 and row.position == nil then
+      -- a level-locked row is neither held nor a target: its move stays out of the free rows, no move enters it
+      local locked = F.plateType ~= 1 and type(row.slot) == "number" and CR_MOVE_ROWS.Lock(call, hdl, row.slot)
+      if locked or (row.move ~= 0 and row.position == nil) then
         pcall(call, F.PLAY_SOUND, F.CANNOT_SOUND)
         return
       end
@@ -4433,6 +4427,9 @@ EVT_PPG = EVT_PPG or {}
   local CMD_IS_CLOSING_MENU, CMD_IS_CLOSED_MENU = 1193349555, 1521844538   -- CMND_IS_CLOSING / CLOSE_MENU_OBJECT
   function G.HostClosing()
     local m = G.H.menu
+    if type(m) == "function" then
+      m = m()                              -- the script answers the menu it runs in
+    end
     if m == nil then
       return false
     end
@@ -4493,15 +4490,17 @@ EVT_PPG = EVT_PPG or {}
       if not G.H.pages and EVT_PPG_HOST_OFF == true then
         return table.unpack(r, 1, r.n)          -- the block off on this host: the screen exactly as retail
       end
+      -- every host, the paged player page too: a close without CLOSE_MENU_OBJECT's second argument (item_use_menu) takes
+      -- some frames, and a layer opened in them never ends its close (nie.exe 0x536B90, 0x536EF0), so the menu stays
+      local okC, closing = pcall(G.HostClosing)
+      if okC and closing then
+        G.Try("HostShut", "closing")            -- never Ready() / reopen anything while the host menu closes
+        return table.unpack(r, 1, r.n)
+      elseif G.hostShut then
+        G.hostShut = false                      -- the close did not happen (a back swallowed): drawn again
+        pcall(funcLuaCommand, C.LOG, "EVT_PPG host reopened")
+      end
       if not G.H.pages then
-        local okC, closing = pcall(G.HostClosing)
-        if okC and closing then
-          G.Try("HostShut", "closing")          -- never Ready() / reopen anything while the host menu closes
-          return table.unpack(r, 1, r.n)
-        elseif G.hostShut then
-          G.hostShut = false                    -- the close did not happen (a back swallowed): drawn again
-          pcall(funcLuaCommand, C.LOG, "EVT_PPG host reopened")
-        end
         local okI, why = pcall(G.HostIdle)
         why = okI and why or nil
         if why ~= G.hostIdle then

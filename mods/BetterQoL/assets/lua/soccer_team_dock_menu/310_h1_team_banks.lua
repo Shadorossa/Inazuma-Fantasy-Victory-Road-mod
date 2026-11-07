@@ -69,7 +69,6 @@ do
     MENU_ID = 937147172,             -- soccer_team_dock_menu
     SUB_WINDOW = 968210065,
     CURSOR = 2296367164,             -- cmn05_01_cursor
-    CAN_ACTIVE = 1104634465,         -- funcLuaCommand(CAN_ACTIVE, logical set, 0): the retail grey-out rule
     -- refusal code (store::code) -> crc32 of its text row (BetterQoL's text rows, 9 languages)
     REFUSED = {
       [3] = 1035602341,              -- evt_tb_refused_mode
@@ -347,13 +346,15 @@ do
     return TB.text(TB.TEXT_HEADER) or ""
   end
 
-  -- the pager of the open window: paging is refused online, so no pager there
+  -- the window was opened: its script draws the rows' grey state and the pager (paging is refused online: no pager there)
   function TB.pagerShow()
-    if TB.online() or type(VRFW_MenuEvent) ~= "table" then
+    if type(VRFW_MenuEvent) ~= "table" then
       return
     end
+    local rows = MENU_DEF.GetTeamDockNum ~= nil and MENU_DEF.GetTeamDockNum() or 11
+    local pages = TB.online() and 0 or TB.count
     for _ = 1, TB.PAGER_WAIT do
-      if VRFW_MenuEvent.Emit(TB.PAGER_EVENT, TB.mounted, TB.count) > 0 then
+      if VRFW_MenuEvent.Emit(TB.PAGER_EVENT, TB.mounted, pages, rows, true) > 0 then
         return
       end
       coroutine.yield()
@@ -480,12 +481,6 @@ do
     end
   end
 
-  function UTIL_TB_WinDisabled(a1)      -- a grey row (cannot be the active team) can still be chosen
-    if TB.inwin and type(a1) == "number" then
-      TB.act = {"pick", a1}
-    end
-  end
-
   function UTIL_TB_WinZLZR(a1, a2)
     if TB.inwin and TB.act == nil then
       if a1 == TB.DIR_L or a2 == TB.DIR_L then
@@ -522,15 +517,16 @@ do
       {Guide = 1138543975 --[[mainmenu01_06_base_button_guide]], Declared = false})
   end
 
+  -- every row can be chosen, as retail L1 / R1 reaches every dock: choosing shows a dock, it does not make it the active
+  -- team. The window's script draws the grey look of the docks that cannot be active (150_team_bank_pager.lua).
   function TB.openList()
     local get = MENU_DEF.GetTeamDockNum ~= nil and MENU_DEF.GetTeamDockNum() or 11
-    local first = funcLuaCommand(4017866835)
     local en = {}
     for i = 1, get do
-      en[i] = funcLuaCommand(TB.CAN_ACTIVE, first + i - 1, 0) and 1 or 0
+      en[i] = 1
     end
     MENU_DEF.SetSubwindowCallback_PressZLZREvent("UTIL_TB_WinZLZR")
-    MENU_DEF.OpenSubWindowDisableBtnCB("UTIL_TB_WinDone", "", "UTIL_TB_WinDisabled", get, {}, 1, 0, en, 0, false, false, 2)
+    MENU_DEF.OpenSubWindow("UTIL_TB_WinDone", "", get, {}, 1, 0, en, 0, false, false, 2)
     funcLuaMenuCommand(711242136 --[[CMND_SET_LAYER_VISIBLE]], TB.CURSOR, 0, false)
     waitTrue(TB.isOpen)
     funcLuaCommand(63483614, 960, -273)  -- window position (as Partido libre)
@@ -702,6 +698,15 @@ do
       return orig(...)
     end
   end)
+
+  -- another mod edited docks after the close above, before the game saves: the sidecar takes their fingerprint
+  if type(VRFW_TeamDock) == "table" then
+    VRFW_TeamDock.On("docks_changed", "team_banks", function()
+      if TB.ready then
+        pcall(funcLuaCommand, TB.MENU, 0, 0)
+      end
+    end)
+  end
 
   TB.wrap("SwapHeaderTextBack", function(orig)
     return function(...)

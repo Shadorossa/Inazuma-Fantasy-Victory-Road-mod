@@ -1,18 +1,14 @@
 -- New Recruitment: no spirits to summon. With this
--- mod a player is one card, so a spirit is only the player himself: a spirit drop recruits that player straight into
--- the bank, and the spirit screen («Espíritu»: summon, rarity-up, fusion) and its «!» notices are gone. Only while
+-- mod a player is one card, so a normal spirit is only the player himself: a spirit drop recruits that player straight
+-- into the bank, and the spirit «!» notices are gone. Only while
 -- ClassicRecruitment.Applies() holds (below: not in a reserved slot, a mode's own save such as INAROGUE's): there
 -- everything stays the game's.
 -- 1. Notices. Every «!» / egg notice of new spirits asks CMND_GET_SPIRIT_INFO (mode 0 new, 1 egg; the team docks'
 --    «Espíritu» row, the spirit screen's era tabs, the main menus' «Equipo» entries and their mods' copies), and the
 --    character cards' «new spirit» mark asks CMND_HAS_CHARA_SPIRIT: both answer «nothing new» (funcLuaCommand filtered
 --    in every menu VM; every other command goes on as given).
--- 2. The «Espíritu» row of the team docks (soccer_team_dock_menu: row kind SPIRIT_DOCK_ROW of its
---    row-kind list, reached as an upvalue through the loader's EVT_DEBUG, removed by value and put back at its place in
---    a reserved slot; filtered when the list layer's first row is set up, as BetterUI's clean_hud_dock_rows does) and
---    the Chronicle team dock (rpg_team_dock_menu_inc: GetSortOflistItems answers a copy without SPIRIT_RPG_DOCK_ROW).
---    The spirit screen (soccer_summon_menu) has no other way in, so its summon / rarity-up rows go with it (with No
---    More Rarities on, its graft rar_menus also greys and refuses rarity-up and fusion there).
+-- 2. The «Espíritu» rows of the team docks stay: that screen turns Ídolo and Diamante cards into players (the Atrio's
+--    retail Basara flow, assets\lua\soccer_summon_menu\new_recruitment_summon_special.lua refuses normal cards).
 -- 3. A spirit drop = the player. The match result screen (soccer_result_menu_item, UpdateItem with a spirit row) lists
 --    the spirits the match gives; the engine adds them to the bag only after that screen. Each spirit of a normal card
 --    (spirit rarity 0-4, card type below 5) is kept as PENDING (loader UI flags, persistent: count PENDING_COUNT_KEY,
@@ -31,11 +27,9 @@
 -- _all file (in «Plantilla de equipo», soccer_team_dock_menu, Player Training's player_training_dock redefines
 -- OnSetupLayer, Step...). So the notice filter is a VR-Framework command hook registered at load (VRFW_Host.HookCommand:
 -- in place the moment the engine registers funcLuaCommand, right over the command), and the callback wrappers (the
--- dock rows, the Chronicle list, the result rows, the recruit step) are taken at the VM's first engine command, when
+-- result rows, the recruit step) are taken at the VM's first engine command, when
 -- every patch of the script has run and before the first layer is set up.
 -- Defines functions and wrappers only; engine calls only inside the game's callbacks; every call goes through pcall.
-local SPIRIT_DOCK_ROW = 1        -- soccer_team_dock_menu row kind of «Espíritu»
-local SPIRIT_RPG_DOCK_ROW = 60   -- rpg_team_dock_menu_inc row kind of «Espíritu» (the Chronicle list)
 local RECRUIT_MENUS = {          -- menus of a loaded save where the pending players are recruited (first step)
   "vs_route_town_menu", "chronicle_mode_top_menu", "soccer_top_menu", "soccer_team_dock_menu", "chara_bank_menu",
   "team_dock_menu", "market_menu",
@@ -78,7 +72,6 @@ if ClassicRecruitment.Spirits == nil then
   local FLAG_PERSIST = 3323775344        -- CMND_EVT_UI_FLAG_PERSIST (key, value): kept with the save
   local ACTIVE_SLOT = 4245285902         -- CMND_VRFW_SLOT_ACTIVE -> the loaded save's slot (0 = none)
   local IN_STORY = 424926145             -- true while the story's play mode runs (its roster is another bank)
-  local DOCK_LIST_LAYER = 3367997069     -- team01_02_list_item (both team docks)
   local LAST_NORMAL_RARITY = 4           -- spirit rarities 0-4: the normal cards
   local FIRST_SPECIAL_CARD_TYPE = 5      -- card types 5-7 Ídolo, 8 Diamante, 9+ season / mods' cards
   local RECRUIT_LEVEL = 1                -- the summon screen's level
@@ -153,116 +146,6 @@ if ClassicRecruitment.Spirits == nil then
   local function FirstCommand(nxt, ...)
     LateOnce()
     return nxt(...)
-  end
-
-  -- 2. the «Espíritu» rows ------------------------------------------------------------------------------------------
-  -- the Chronicle team dock: a copy of its list without the row
-  local function ChronicleRows(retail_sort)
-    return function(...)
-      local list = retail_sort(...)
-      if type(list) ~= "table" or not RemovalApplies() then
-        return list
-      end
-      local shown = {}
-      for _, kind in ipairs(list) do
-        if kind ~= SPIRIT_RPG_DOCK_ROW then
-          shown[#shown + 1] = kind
-        end
-      end
-      return shown
-    end
-  end
-
-  -- «Plantilla de equipo»: its row-kind list, a chunk local reached as an upvalue (the list functions index it)
-  local function FindUpvalue(names, matches)
-    local debug_library = rawget(_ENV, "EVT_DEBUG")
-    if type(debug_library) ~= "table" then
-      return nil
-    end
-    local seen = {}
-    local function Scan(f, depth)
-      if type(f) ~= "function" or seen[f] or depth > 4 then
-        return nil
-      end
-      seen[f] = true
-      local i = 1
-      while true do
-        local name, value = debug_library.getupvalue(f, i)
-        if name == nil then
-          return nil
-        end
-        if type(value) == "table" and matches(value) then
-          return value
-        end
-        if type(value) == "function" then
-          local found = Scan(value, depth + 1)
-          if found ~= nil then
-            return found
-          end
-        end
-        i = i + 1
-      end
-    end
-    for _, name in ipairs(names) do
-      local found = Scan(rawget(_ENV, name), 0)
-      if found ~= nil then
-        return found
-      end
-    end
-    return nil
-  end
-
-  -- the row-kind list: numbers only, 3-16 rows, with the kinds every variant keeps (7, 8, 9: BetterUI's rule) and none
-  -- of 3-6 (the chunk's other number lists)
-  local function IsDockRowList(v)
-    if v[0] ~= nil or #v < 3 or #v > 16 then
-      return false
-    end
-    local seen = {}
-    for _, kind in ipairs(v) do
-      if type(kind) ~= "number" or (kind >= 3 and kind <= 6) then
-        return false
-      end
-      seen[kind] = true
-    end
-    -- the retail kinds 7, 8, 9, or (BetterUI's shortcut tiles take those rows out of the list) the «Espíritu» and
-    -- next rows 1, 2
-    return (seen[7] == true and seen[8] == true and seen[9] == true) or (seen[1] == true and seen[2] == true)
-  end
-
-  local dock = {list = nil, removed_at = nil, logged = false}
-  local function FilterDockRows()
-    if dock.list == nil then
-      dock.list = FindUpvalue({"SetupTeamDockListItem", "UpdateViewTeamDockListItem", "SetupTeamDockListItemText",
-        "OnSetupLayer", "OnEnter", "OnDecideFocus"}, IsDockRowList)
-    end
-    local list = dock.list
-    if list == nil then
-      if not dock.logged then
-        dock.logged = true
-        Log("team dock: «Espíritu» row list not found (no EVT_DEBUG?): the row stays")
-      end
-      return
-    end
-    -- the row is only hidden (the spirit screen and its data stay), in every save
-    for row = #list, 1, -1 do
-      if list[row] == SPIRIT_DOCK_ROW then
-        table.remove(list, row)
-        dock.removed_at = row
-      end
-    end
-    if not dock.logged then
-      dock.logged = true
-      Log("team dock: «Espíritu» row " .. (dock.removed_at ~= nil and "removed" or "kept") .. ", " .. #list .. " row(s)")
-    end
-  end
-  local function DockRows(retail_setup)
-    return function(layer, row, ...)
-      if layer == DOCK_LIST_LAYER and row == 0 then
-        pcall(FilterDockRows)
-      end
-      return retail_setup(layer, row, ...)
-    end
   end
 
   -- 3. a spirit drop = the player ------------------------------------------------------------------------------------
@@ -449,10 +332,6 @@ if ClassicRecruitment.Spirits == nil then
   end
 
   function S.LateWrappers()
-    if type(rawget(_ENV, "SetupTeamDockListItemText")) == "function" then
-      WrapGlobal("OnSetupLayer", DockRows)
-    end
-    WrapGlobal("GetSortOflistItems", ChronicleRows)
     if type(rawget(_ENV, "UpdateSpiritItem")) == "function" then
       WrapGlobal("UpdateItem", ResultRows)
     end

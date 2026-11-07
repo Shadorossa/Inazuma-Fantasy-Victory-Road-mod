@@ -8,7 +8,7 @@
 -- Without a player the affinity shows its requirement and both rates, the set its slots and tiers (no worn count).
 @ITEMSPEC@
 EVT_PPG_HOST = {name = "item_detail", pages = false, item_only = true, fixed = 9, frame_hook = "Step",
-  menu = @MENU@,                           -- the screen's menu (its close shuts our added layers)
+  menu = @MENU@,                           -- the screen's menu, or the script's function that answers it (its close shuts our added layers)
   chart = false}
 EVT_PPG_HOST.item_card = {
   -- the game's item cards of these screens (the one the screen fills is the one shown)

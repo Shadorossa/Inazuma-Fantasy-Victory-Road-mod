@@ -1,0 +1,13 @@
+id = "ProfessionalKits"
+name = "Professional Kits"
+version = "0.2.4"
+author = "@ohluck_, @pugliah, Dexter ZSP"
+description = "New kits of real football clubs, one module per league. The parent holds no data."
+priority = 0
+tags = ["Teams"]
+updated = "2026-11-07"
+prefix = "ProfessionalKits"
+folder = "ProfessionalKits"
+requires = ["VRFW>=0.2.4"]
+optional = []
+conflicts = []

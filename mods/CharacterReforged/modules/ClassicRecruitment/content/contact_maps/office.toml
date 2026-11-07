@@ -3,7 +3,7 @@ schema = "VRFW.contact_map/1"
 # VR-Framework's contact map screen:
 # beat a team, then sign its players. The pages are built from the game's own teams and matches; each card's level,
 # price in «fichas», page and requirements are the old office's (content\contact_maps\office_terms.toml, generated).
-# The Mercado bar that opens it: content\shop_redirects\office.toml.
+# No menu opens it at the moment: players are signed in the album.
 
 [[VRFW.ContactSet]]
 Name = "office"

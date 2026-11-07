@@ -55,7 +55,9 @@ if VRFW_MC == nil then
     VS_SET = VRFW_Cmd.GET_VS_USE_TEAM_SET,      -- CMND_GET_VS_USE_TEAM_SET
     MEMBER = 1720957768,      -- (set, team, i, 0 hdl / 1 position)
     STATUS = 1131797651,      -- (hdl, 0 level / 4 chara_param / 12 rarity)
-    IS_AVATAR = VRFW_Cmd.GET_IS_AVATAR_CHARA,  -- CMND_GET_IS_AVATAR_CHARA (hdl) -> the character is an avatar
+    IS_AVATAR = VRFW_Cmd.GET_IS_AVATAR_CHARA,  -- CMND_GET_IS_AVATAR_CHARA (chara_param, not the handle) -> bool
+    HAS_ATTRIBUTE = 29506568, -- (hdl, mask) -> bool: only for the dock log line (ATTRIBUTE_AVATAR, as chara_bank_menu)
+    ATTRIBUTE_AVATAR = 4096,
     TEAM_SET_INFO = VRFW_Cmd.GET_TEAM_SET_INFO, -- CMND_GET_TEAM_SET_INFO (set, team, 4) -> ok, formation id
     FORMATION_INFO = VRFW_Cmd.GET_SOCCER_FORMATION_INFO, -- CMND_GET_SOCCER_FORMATION_INFO (6, formation, place) -> ok, scPosType bits
     -- scPosType bit (16 GK, 32 DF, 64 MF, 128 FW) -> position code
@@ -239,9 +241,10 @@ if VRFW_MC == nil then
               end
             end
           end
-          out[#out + 1] = {hdl = hdl, card = u32(call(MC.STATUS, hdl, 4)), level = tonumber(call(MC.STATUS, hdl, 0)) or 0,
+          local chara_param = call(MC.STATUS, hdl, 4)
+          out[#out + 1] = {hdl = hdl, card = u32(chara_param), level = tonumber(call(MC.STATUS, hdl, 0)) or 0,
                            rarity = tonumber(call(MC.STATUS, hdl, 12)) or -1, pos = pos, place = place,
-                           avatar = call(MC.IS_AVATAR, hdl) == true}
+                           avatar = call(MC.IS_AVATAR, chara_param) == true}
         end
       end
     end
@@ -256,6 +259,29 @@ if VRFW_MC == nil then
     return t
   end
 
+  -- one line per challenge and dock: how many players were flagged as the avatar, and the check's answer
+  local function log_dock(c, tt, dock, ps, ok, failed)
+    if MC.logged_dock ~= dock then
+      MC.logged_dock = dock
+      MC.logged = {}
+    end
+    if MC.logged[c.i] then
+      return
+    end
+    MC.logged[c.i] = true
+    local avatars, attributes = 0, 0
+    for _, p in ipairs(ps) do
+      if p.avatar then
+        avatars = avatars + 1
+      end
+      if call(MC.HAS_ATTRIBUTE, p.hdl, MC.ATTRIBUTE_AVATAR) == true then
+        attributes = attributes + 1
+      end
+    end
+    MC.Log("dock team", tt or 0, c.name, "players", #ps, "avatars", avatars, "avatar_attribute", attributes,
+           "ok", ok, "failed", failed ~= "" and failed or "-")
+  end
+
   function MC.Check(i, tt, cleared)
     local c = MC.Info(i)
     if c == nil then
@@ -267,7 +293,9 @@ if VRFW_MC == nil then
       -- not "%d": card ids >= 2^31 (32-bit `long`); the place only for starters
       parts[#parts + 1] = string.format("%.0f:%.0f:%.0f:%.0f:%d", p.card, p.level, p.rarity, p.place or -1, p.avatar and 1 or 0)
     end
-    local ok, failed, bad = call(MC.CMD.CHECK, i, table.concat(parts, ";"), cleared and 1 or 0)
+    local dock = table.concat(parts, ";")
+    local ok, failed, bad = call(MC.CMD.CHECK, i, dock, cleared and 1 or 0)
+    log_dock(c, tt, tostring(tt or 0) .. "|" .. dock, ps, ok, tostring(failed or ""))
     if ok == nil then
       return true, {}, {}, ps
     end

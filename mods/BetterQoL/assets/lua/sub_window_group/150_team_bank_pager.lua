@@ -1,9 +1,9 @@
 -- BetterQoL, team bank pages: the pager «L2 • • • R2» under the title of the bank window (the dock list of the sub window,
 -- layer win05_15_sub_list_locator_doc), drawn by the framework's page row (VRFW_Pager) on the layer util_tb_pager
 -- (content\menus\10_win\sub_window.toml). The window is another menu with its own Lua state, so the team dock tells this
--- script the page with the menu event BetterQoL.TeamBankPage (research/grafts/team_banks): (mounted page, pages) when it
--- opens the list, (mounted page, pages, rows) after a page turn, (0, 0) before it closes it. A page turn keeps the list
--- open: the rows are drawn again from the mounted page with the window's own functions, so nothing fades. The other
+-- script the page with the menu event BetterQoL.TeamBankPage (research/grafts/team_banks): (mounted page, pages, rows, true)
+-- when it opens the list, (mounted page, pages, rows) after a page turn, (0, 0) before it closes it. A page turn keeps the
+-- list open: the rows are drawn again from the mounted page with the window's own functions, so nothing fades. The other
 -- users of this window never send it: the layer stays closed for them.
 -- Wrappers by assignment (the script has no VRFW_Host host); no engine call at load time.
 if BetterQoL_TeamBankPager == nil and type(PostStep) == "function" and type(OnOpenLayer) == "function" then
@@ -22,6 +22,9 @@ if BetterQoL_TeamBankPager == nil and type(PostStep) == "function" and type(OnOp
     FIRST_SET = 4017866835,          -- the first team dock's logical set
     CAN_ACTIVE = 1104634465,         -- funcLuaCommand(CAN_ACTIVE, logical set, 0): the retail grey-out rule
     LIST_REFRESH = 4114514990,       -- funcLuaMenuCommand(LIST_REFRESH, list layer): the list redraws its rows on screen
+    -- SetBtnEnable value of a dock that cannot be active: the window's OnEnter refuses only 0, its grey look is any value
+    -- other than 1. Choosing a row shows that dock, as retail L1 / R1 reaches every dock.
+    ROW_CAN_ACTIVE = 1, ROW_GREY_CHOOSABLE = 2,
     want = nil, tries = 0, row = nil,
   }
   BetterQoL_TeamBankPager = P
@@ -66,18 +69,20 @@ if BetterQoL_TeamBankPager == nil and type(PostStep) == "function" and type(OnOp
   local function RedrawRows(rows)
     local first = funcLuaCommand(P.FIRST_SET)
     for i = 0, rows - 1 do
-      SetBtnEnable(i, funcLuaCommand(P.CAN_ACTIVE, first + i, 0) and 1 or 0)
+      SetBtnEnable(i, funcLuaCommand(P.CAN_ACTIVE, first + i, 0) and P.ROW_CAN_ACTIVE or P.ROW_GREY_CHOOSABLE)
     end
     funcLuaMenuCommand(P.LIST_REFRESH, P.WINDOW)
   end
 
-  local function OnPage(page, pages, rows)
+  local function OnPage(page, pages, rows, opening)
+    if rows ~= nil then
+      RedrawRows(rows)
+    end
     if type(pages) ~= "number" or pages < 2 or type(VRFW_Pager) ~= "table" then
       Hide()
       return
     end
-    if rows ~= nil and P.row ~= nil then
-      RedrawRows(rows)
+    if not opening and P.row ~= nil then
       P.want = {pages = pages, page = page + 1}
       P.tries = 0
       TryShow()

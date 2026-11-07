@@ -1,0 +1,67 @@
+schema = "VRFW.character/2"
+# Hidetoshi Nakata's basic card, a normal player of Orfeo (content\teams\nakata_orfeo.toml). His Idol is another card
+# of content\characters\idols.toml, which holds his names (same name text ids).
+# Character: the game's Nakata assets, which have no chara_base row: face and model row 0x8EC2F9F9 of c02024760, icon
+# c02024760_l. Card id: the earlier Inazuma Fantasy's, which InaRogue and Character Reforged name.
+# Stats: the earlier card's wiki IE3 profile, each stat capped at the Idol's value. Moves: his IE3 (DS) list (Brave Shot,
+# Circus Block, Super Elastico at their DS levels; research/data/ie3ds/story_matches.json) and the earlier card's Gale Dash.
+default_lang = "en"
+
+[[character]]
+name = "nakata_hidetoshi"  # Nakata Hidetoshi
+based_on = "c03031700"  # template: Paolo Bianchi (Orfeo)
+order = 12
+
+  [character.base]
+  id = 0x17E59FB8  # crc32("c02024760")
+  name = "c02024760"
+  name_text = 0x64B207D9
+  short_name_text = 0x523427CD
+  upper_name_text = 0x523427CD
+  model = 0x8EC2F9F9
+  voice_bank = 0x17E59FB8
+  description_text = 0x28EA4CD7
+
+  [character.text.ja]
+  description = "[世界中/せかいじゅう]で[知/し]られる\n[伝説/でんせつ]のプレーヤー。"
+
+  [character.text.en]
+  description = "This icon of international football is an undisputed legend!"
+
+  [character.text.es]
+  description = "¡Este ícono del fútbol internacional es una leyenda indiscutible!"
+
+  [character.text.fr]
+  description = "Cette icône du football international est une légende incontestée !"
+
+  [character.text.de]
+  description = "Diese Ikone des internationalen Fußballs ist eine unbestrittene Legende!"
+
+  [character.text.it]
+  description = "Questa icona del calcio internazionale è una leggenda indiscussa!"
+
+  [character.text.pt]
+  description = "Este ícone do futebol internacional é uma lenda incontestável!"
+
+  [character.text.zh_hans]
+  description = "享誉世界的传奇球员。"
+
+  [character.text.zh_hant]
+  description = "享譽世界的傳奇球員。"
+
+  [[character.cards]]
+  id = 0xFFF7C4EE  # new card: MF/FW · mountain · normal rarity
+  from = 0x4482E47A  # template: Paolo Bianchi's normal card
+  order = 12
+  element = "mountain"
+  position = "mf"
+  sub_position = "fw"
+  rank = 3
+  growth = "normal"
+  stats = { kick = 282, control = 227, technique = 274, pressure = 186, physical = 189, intelligence = 244, agility = 190, luck = 212, freedom = 0 }
+  moves = [
+    { move = 0xA5F2EFEA, level = 1 },                     # Brave Shot
+    { move = 0x31ABD82E, level = 20 },                    # Circus Block
+    { move = 0x427719AC, level = 38 },                    # Gale Dash
+    { move = 0x5E233E68, level = 60 },                    # Super Elastico
+  ]

@@ -1,8 +1,8 @@
 -- Character Reforged › the lock rule of a move row: ONE rule for the skill board (graft ss2_menus, EVT_UnlockLevel)
 -- and the player plate's move page (graft plate_pages, EVT_PPG_FANTASY_MOVES). A row is locked by its LIST POSITION
 -- p (0-5): the level of learn slot p + 1 (the retail learn table 0xCF25A8AF, answered by the framework's learn levels),
--- positions 5-6 always free, the retail ladder when the card has no learn table; locked while the player's level is
--- below it. A locked row shows its own move (list position or board cell), else the move learn slot p + 1 will teach.
+-- positions 5-6 always free ([VRFW.LearnLevels] FreeListSlots says the same to the match list and the list rebuild), the
+-- retail ladder when the card has no learn table; locked while the player's level is below it. A locked row shows its own move (list position or board cell), else the move learn slot p + 1 will teach.
 -- CR_MOVE_ROWS.LearnedCounts: learned and learned non-grey moves (the «Crear …» bank's partner rule).
 -- Put in place by `--@lib cr_move_rows.lua#MoveRows` (graft_lib.expand_lib); global table only, no main-chunk local
 -- (the board's chunk is at Lua 5.2's 200-local limit); no engine call at chunk load.

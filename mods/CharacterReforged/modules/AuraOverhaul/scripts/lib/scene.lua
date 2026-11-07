@@ -4,8 +4,8 @@
 --
 -- The framework builds both command lists from content\anims\mx_scene.toml as templates (`….template.cfg.bin`). This
 -- library keeps the pristine template in memory, serves a copy under the real key at load (VRFW.files.serve, same
--- size) and, before each play, serves it again with the placeholders replaced by the real chara_base names and body
--- rigs (whole strings of the T2B value pool; a replacement is never longer than its placeholder, the rest is NUL).
+-- size) and, before each play, serves it again with the placeholders replaced by the strings that bind the players and
+-- their body rigs (whole strings of the T2B value pool; a replacement is never longer than its placeholder, the rest is NUL).
 -- The scene is played by the skill table through the VR-Framework's live player (CMND_VRFW_ANIM_LIVE_*).
 
 local M = {}
@@ -23,6 +23,7 @@ local PATH_F00 = "common/event/ev99/ev99_97020/ev99_97020_c000101_s00_p00_c0010.
 local RIGS = { "c000101", "c000201", "c000301", "c000401" }
 
 require "VRFW/lib/basics"
+local Id = require "VRFW/lib/ids"
 local info, warn = VRFW.logger("AuraOverhaul miximax: scene")
 
 local function u32le(s, at)
@@ -107,6 +108,55 @@ end
 
 local function name_ok(n) return type(n) == "string" and #n > 0 and #n <= #MODEL_S00 and not n:find("[%z\128-\255]") end
 
+-- LOAD_ACTOR_CHARA binds an actor to the character object whose chara_base id is crc32(its string) (nie.exe 0xF41930,
+-- object +0xA8). A fusion's names are labels: the avatar's is no internal name (CHARA_BASE_INFO keeps only the hash and
+-- no game file holds the text) and a mod character's id need not be the crc32 of his label. Their actor string is
+-- solved from the id: CRC-32 is affine over GF(2), and these 32 free bits of an 8-character string reach every id once.
+local ACTOR_PREFIX, ACTOR_CHARS, ACTOR_FILLER, ACTOR_CHAR_BITS = "mx_", 8, 0x60, { 0, 2, 3, 4 }
+
+local function actor_text(picks)
+  local chars = {}
+  for pos = 1, ACTOR_CHARS do
+    local code = ACTOR_FILLER
+    for k, char_bit in ipairs(ACTOR_CHAR_BITS) do
+      if bit32.extract(picks, (pos - 1) * #ACTOR_CHAR_BITS + k - 1) == 1 then code = code + 2 ^ char_bit end
+    end
+    chars[pos] = string.char(code)
+  end
+  return ACTOR_PREFIX .. table.concat(chars)
+end
+
+-- the printable string whose crc32 is `id`, nil when none was solved
+local function text_with_crc(id)
+  local start = VRFW.crc32(actor_text(0))
+  local pivots = {}
+  for bit = 0, ACTOR_CHARS * #ACTOR_CHAR_BITS - 1 do
+    local picks = bit32.lshift(1, bit)
+    local delta = bit32.bxor(VRFW.crc32(actor_text(picks)), start)
+    for _, p in ipairs(pivots) do
+      if bit32.btest(delta, p.low) then delta, picks = bit32.bxor(delta, p.delta), bit32.bxor(picks, p.picks) end
+    end
+    if delta ~= 0 then pivots[#pivots + 1] = { delta = delta, picks = picks, low = bit32.band(delta, -delta) } end
+  end
+  local rest, picks = bit32.bxor(id, start), 0
+  for _, p in ipairs(pivots) do
+    if bit32.btest(rest, p.low) then rest, picks = bit32.bxor(rest, p.delta), bit32.bxor(picks, p.picks) end
+  end
+  local text = actor_text(picks)
+  if rest ~= 0 or VRFW.crc32(text) ~= id then return nil end
+  return text
+end
+
+-- the string that binds the character `id` in the scene: his label when it hashes to him, else one solved from the id
+local function actor_name(label, id)
+  local chara = Id.u32(id)
+  if chara == 0 then return nil end
+  if name_ok(label) and VRFW.crc32(label) == chara then return label end
+  local text = text_with_crc(chara)
+  if text then info(string.format("actor string of chara %s (label %s): %s", Id.hex(chara), tostring(label), text)) end
+  return text
+end
+
 function M.load()
   local why
   LISTS.main, why = boot(EVT_KEY, { MODEL_S00, MODEL_S01, PATH_S00, PATH_S01 })
@@ -143,23 +193,26 @@ local PENDING_MAX_S = 90
 -- fill the scene with fusion `f` (the look's record) right before the menu reserves it: true, finalEvent, fxOk | false, why
 function M.prepare(base_hdl, f)
   if not LISTS.main then return false, "the scene is not installed / not served this session" end
-  if not name_ok(f.base) or not name_ok(f.partner) then return false, "chara_base names do not fit the placeholders" end
+  local base_name, partner_name = actor_name(f.base, f.base_chara), actor_name(f.partner, f.partner_chara)
+  if not base_name or not partner_name then
+    return false, string.format("no actor string for chara %s / %s", tostring(f.base_chara), tostring(f.partner_chara))
+  end
   local function rig(param)
     local b = VRFW.miximax.call { op = "body", param = param }
     return (type(b) == "table" and M.rig_of_skeleton(b[2])) or RIGS[1]
   end
   local rb, rp = rig(f.base_param), rig(f.partner_param)
   local c, why = serve_play(LISTS.main, {
-    { MODEL_S00, f.base }, { MODEL_S01, f.partner },
+    { MODEL_S00, base_name }, { MODEL_S01, partner_name },
     { PATH_S00, (PATH_S00:gsub(BODY_TOKEN, rb, 1)) }, { PATH_S01, (PATH_S01:gsub(BODY_TOKEN, rp, 1)) },
   })
   if not c then return false, why end
   local fin = ""
   if LISTS.final then
-    local c2, why2 = serve_play(LISTS.final, { { MODEL_S00, f.base }, { PATH_F00, (PATH_F00:gsub(BODY_TOKEN, rb, 1)) } })
+    local c2, why2 = serve_play(LISTS.final, { { MODEL_S00, base_name }, { PATH_F00, (PATH_F00:gsub(BODY_TOKEN, rb, 1)) } })
     if c2 then
       fin = M.FINAL_EVENT
-      info(string.format("final shot %s = %s (%s), strings replaced [%s]", M.FINAL_EVENT, f.base, rb, table.concat(c2, ", ")))
+      info(string.format("final shot %s = %s (%s), strings replaced [%s]", M.FINAL_EVENT, base_name, rb, table.concat(c2, ", ")))
     else
       warn(string.format("final shot %s not prepared (%s): the main event alone", M.FINAL_EVENT, tostring(why2)))
     end
@@ -169,7 +222,7 @@ function M.prepare(base_hdl, f)
   local n, ok, list = effect_report()
   info(string.format("effects: %d object(s) in the eff list, %d with all 4 files installed [%s]", n, ok, list))
   PENDING = { base = base_hdl, at = VRFW.now() }
-  info(string.format("%s = %s (%s) + %s (%s, card 0x%08X), strings replaced [%s]", M.EVENT, f.base, rb, f.partner, rp, f.partner_hdl, table.concat(c, ", ")))
+  info(string.format("%s = %s (%s) + %s (%s, card 0x%08X), strings replaced [%s]", M.EVENT, base_name, rb, partner_name, rp, f.partner_hdl, table.concat(c, ", ")))
   return true, fin, ok
 end
 

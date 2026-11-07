@@ -1390,6 +1390,8 @@ local C = {
   -- invSkill handle for a move that is not on this player's board (try 9): the list only gives item ids
   ADD_ITEM = 1897915498,      -- 0x711FE46A CMND_ADD_ITEM_ONLY (itemId, count, flag) -> invSkill handle (prog_common.AddSkillItemAndLearnWithBoard)
   DEL_ITEM = 425598937,       -- 0x195E1FD9 CMND_DELETE_ITEM (itemId, count): undo the +1 so the stock does not change
+  ITEM_NUM = 2011560392,      -- CMND_GET_ITEM_NUM (itemId) -> copies owned
+  EQUIPPED_NUM = 556568075,                -- (invHdl) -> copies equipped
   -- menu textures (save-slot menu / kizuna_town_menu_inc): the load is asynchronous
   SPRITE = 558735651,         -- (layer, textureCrc, spriteCrc, nodeCrc, 0, idx)
   LOAD_TEX = 839427544,       -- CMND_LOAD_MENU_RES_TEXTURE (path)
@@ -1563,46 +1565,13 @@ function PL.HasService(name)
   return present
 end
 
--- 2026-10-14 (Character Reforged: the new set is a PROJECTION over the game's own list, docs/refactor/
--- aura-mods-split.md «The 6 + 2 set over the retail data»): rows 1-6 are the list positions that hold a special move
--- (or nothing), in list order; a position holding an aura (keshin, totem, Mix-Max, «Modo cambio»: the aura / mix
--- slots' moves) is skipped and KEPT, hidden; the rows left over take those positions last and show empty (writing one
--- first moves its aura to its slot when that is free: PL.FreeListPos). Nothing is rewritten to show the set (the old
--- PL.AuraSlotCleanup moved auras off rows 1-6 when a player was shown; it is no longer called). PL fields only.
+-- 2026-11-07 (owner): row r = list position r - 1, always: a move stays in the row it was placed in and the row's level
+-- lock is that position's (positions 5-6 have none, CR_MOVE_ROWS). A position holding an aura (keshin, totem, Mix-Max,
+-- «Modo cambio»: the aura / mix slots' moves) is KEPT and its row shows empty (writing that row first moves the aura to
+-- its slot when that is free: PL.FreeListPos). Nothing is rewritten to show the set. PL fields only.
 PL.special_of = {}
 function PL.ProjPos(row)
-  if n == nil or n == 0 then
-    return row - 1
-  end
-  local free, boarded, empty, aura = {}, {}, {}, {}
-  for p = 0, EVT_NORMAL_NUM - 1 do
-    local id = funcLuaCommand(C.GET_SKILL, n, p)
-    id = (id ~= nil) and EVT_U32(id) or 0
-    if id == 0 then
-      id = PL.BoardTechniqueAt(p)                -- an empty position shows its board cell's technique
-      if id ~= 0 then
-        boarded[#boarded + 1] = p
-      else
-        empty[#empty + 1] = p
-      end
-    elseif PL.IsSpecialCached(id) then
-      aura[#aura + 1] = p
-    else
-      free[#free + 1] = p
-    end
-  end
-  -- 2026-10-15 (owner): the list's techniques, then the positions filled from their board cell (the order of
-  -- CharacterReforged.EffectiveSkillSet), then the empty ones, the hidden aura positions last
-  for _, p in ipairs(boarded) do
-    free[#free + 1] = p
-  end
-  for _, p in ipairs(empty) do
-    free[#free + 1] = p
-  end
-  for _, p in ipairs(aura) do
-    free[#free + 1] = p
-  end
-  return free[row] or (row - 1)
+  return row - 1
 end
 function PL.IsSpecialCached(id)
   local sp = PL.special_of[id]
@@ -3241,6 +3210,10 @@ function EVT_DetailShow(skill, row)
   -- 2026-09-24: part of the player panel, not a card on top of it: no window frame / shadow
   funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, 3303013605 --[[_sp_win_base01]], false, 0)
   pcall(PL.DetailPolish, skill, pos)
+  -- a level-locked row plays nothing: no AI state to show (the retail fill shows the tag for a move outside the list)
+  if row ~= nil and row > 0 and EVT_IsLocked(row) then
+    funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, 1013569271 --[[_ai_use01]], false, 0)
+  end
   local okr, er = pcall(PL.MoveAsRow, skill, team_info)   -- round 14: the shared move row + TENSIÓN
   if not okr then
     pcall(EVT_Call, C.EVT_LOG, "skill_slots", "move as row failed", tostring(er))
@@ -3654,8 +3627,11 @@ end
 
 -- Real invSkill handle for `skill`: a handle in `pool` (items just taken off the board), the handle already on one of
 -- this player's board slots (swap, restore), else CMND_ADD_ITEM_ONLY(skill, 1) (the story's way; moves stack, one
--- inventory record per move) - the caller removes the extra copy with CMND_DELETE_ITEM right after. The picker
--- already refuses moves without a free copy (codigo 5).
+-- inventory record per move). Second value true: a free copy already existed, so the caller removes the extra one with
+-- CMND_DELETE_ITEM right after. Without a free copy the added copy is the one the board holds and it stays: deleting it
+-- frees the stack while the board cell keeps its handle, and the next item the game adds takes that same handle
+-- (docs/game/skill-slots.md «Inventory stacks»). A stack with fewer copies than holders is brought up first, or the game
+-- refuses the placement.
 local function EVT_HandleFor(skill, pool)
   if pool ~= nil and pool[skill] ~= nil and pool[skill] ~= 0 then
     return pool[skill], false
@@ -3666,9 +3642,16 @@ local function EVT_HandleFor(skill, pool)
       return h, false
     end
   end
+  local owned = funcLuaCommand(C.ITEM_NUM, skill)
+  owned = type(owned) == "number" and owned or 0
   local h = funcLuaCommand(C.ADD_ITEM, skill, 1, false)
   if h ~= nil and h ~= 0 then
-    return h, true
+    local used = funcLuaCommand(C.EQUIPPED_NUM, h)
+    used = type(used) == "number" and used or 0
+    if used > owned then
+      funcLuaCommand(C.ADD_ITEM, skill, used - owned, false)
+    end
+    return h, owned > used
   end
   return 0, false
 end
@@ -7709,6 +7692,67 @@ function PL.MxSceneContext()
   return ctx
 end
 
+-- 07/11 diagnostics, not a fix (owner's shots after the scene: first a stray panel at the top-left corner, then no 3D
+-- model, no name band and no card on the right; causes not proved from code): once per scene, the open and visible state
+-- of the page's right side and of the card, list and panel layers of the menus the scene hides, at each step of the close
+-- and 60 steps after it. One "miximax scene layer changed" line per instance that changed; "miximax scene layer check"
+-- gives the totals. Remove with PL.MxSceneLayerLog when the owner's log has decided it.
+PL.MX_SCENE_WATCH_LAYERS = {
+  {2917320188 --[[soccer11_05_equip_status_base]], 1},
+  {858725131 --[[mainmenu01_08_chara_3d_shadow]], 1},
+  {607716004 --[[soccer11_04_chara_status]], 1},
+  {2760439293 --[[evt_pp_band]], 1},
+  {412849572 --[[evt_pp_slant]], 1},
+  {925665090 --[[evt_pp_tag]], 1},
+  {575058101 --[[mainmenu90_01_header]], 1},
+  {458408972 --[[evt_topbar_plate]], 8},
+  {430410954 --[[evt_topbar_icon]], 8},
+  {3241819447 --[[team00_01_chara_card_for_move]], 1},
+  {1973487846 --[[team00_01_chara_card_for_soccer]], 25},
+  {3571911991 --[[team00_01_p1_chara_card_blank]], 25},
+  {1658289671 --[[team00_01_chara_card_for_leader]], 1},
+  {2290394976 --[[team00_01_p1_chara_card_blank_for_leader]], 1},
+  {1559239586 --[[team00_11_p1_tactics_focus]], 1},
+  {3367997069 --[[team01_02_list_item]], 25},
+  {1922851874 --[[team01_04_p1_team_name_frame]], 1},
+  {3926241346 --[[team01_04_p2_deck_name_frame]], 1},
+  {3518110933 --[[mainmenu04_10_formation_base]], 1},
+  {3321884270 --[[soccer11_02_formation_frame]], 1},
+  {2296367164 --[[cmn05_01_cursor]], 1},
+  {2279382105 --[[mainmenu90_31_doc_item]], 1},
+  {1676790659 --[[clean_hud_chr_box]], 25},
+  {878737202 --[[team11_01_personal_plate]], 1},
+}
+PL.MX_CMD.IS_LAYER_VISIBLE = 1262717583
+
+-- step = name of this point of the close; state = what the previous call returned (nil: the first call, before the hide)
+function PL.MxSceneLayerLog(step, menus, state)
+  local now, checked, changed = {}, 0, 0
+  for _, m in ipairs(menus) do
+    if funcLuaMenuCommand(C.EXIST_MENU, m) == true then
+      for _, w in ipairs(PL.MX_SCENE_WATCH_LAYERS) do
+        for idx = 0, w[2] - 1 do
+          local key = string.format("%08X %08X %d", EVT_U32(m), EVT_U32(w[1]), idx)
+          local okv, vis = pcall(funcLuaMenuCommand, PL.MX_CMD.IS_LAYER_VISIBLE, w[1], idx, m)
+          local value = (okv and vis == true) and "visible" or "hidden"
+          if m == EVT_MENU then
+            local oko, open = pcall(funcLuaMenuCommand, 2640875187, w[1], idx)
+            value = value .. ((oko and open == true) and " open" or " closed")
+          end
+          now[key] = value
+          checked = checked + 1
+          if state ~= nil and state[key] ~= value then
+            changed = changed + 1
+            pcall(EVT_Call, C.EVT_LOG, "skill_slots", "miximax scene layer changed", step, key, tostring(state[key]), value)
+          end
+        end
+      end
+    end
+  end
+  pcall(EVT_Call, C.EVT_LOG, "skill_slots", "miximax scene layer check", step, "instances", checked, "changed", changed)
+  return now
+end
+
 -- true = the scene played and the screen is back (the caller then shows «Miximax con X asignado.»)
 function PL.MxScenePlay()
   if not PL.MX_SCENE_ON or PL.MxStub() or n == nil or n == 0 then
@@ -7771,6 +7815,10 @@ function PL.MxScenePlay()
   local hidden = {}
   local hidden_only = {}
   local bars = {}
+  local watch_menus = {}
+  for _, m in ipairs(PL.MX_SCENE_HIDE) do watch_menus[#watch_menus + 1] = m end
+  for _, m in ipairs(PL.MX_SCENE_HIDE_ONLY) do watch_menus[#watch_menus + 1] = m end
+  local watch = PL.MxSceneLayerLog("before the hide", watch_menus)
   if okr then
     -- 01/10 23:30 (Nacho): the scene showed BEHIND the skill table: suspending the layer groups does not stop the
     -- drawing. Hide every menu of the stack the way the retail hides them for a full-screen movie
@@ -7869,10 +7917,14 @@ function PL.MxScenePlay()
   end
   for i = #hidden, 1, -1 do
     funcLuaMenuCommand(3257327861 --[[show again]], hidden[i])
+  end
+  watch = PL.MxSceneLayerLog("after show again", watch_menus, watch)
+  for i = #hidden, 1, -1 do
     funcLuaMenuCommand(66378409 --[[resume]], hidden[i])
   end
   PL.MxScenePreloadEnd()
   PL.MxSceneModelRestore(fused)
+  watch = PL.MxSceneLayerLog("after resume and model restore", watch_menus, watch)
   pcall(funcLuaCommand, PL.MX_CMD.SCENE_END, played and "played over the menus" or "not played")
   PL.MxSceneTopBar(false)
   PL.mx_scene_busy = false
@@ -7882,6 +7934,13 @@ function PL.MxScenePlay()
   while funcLuaCommand(1215256347) do
     coroutine.yield()
   end
+  watch = PL.MxSceneLayerLog("page back", watch_menus, watch)
+  PL.deferred[#PL.deferred + 1] = coroutine.create(function()
+    for _ = 1, 60 do
+      coroutine.yield()
+    end
+    PL.MxSceneLayerLog("60 steps after", watch_menus, watch)
+  end)
   return played
 end
 
@@ -12272,10 +12331,8 @@ end
 -- Character Reforged (2026-10-14, owner: «every place that shows the player's moves shows the FANTASY set»): every
 -- player plate that fills its 6 move rows through the retail SetupPersonalPlateCharaSkillItem (the player page's
 -- SUPERTÉCNICAS, the team dock / Plantilla / formation card, the banks, the «Confirmación de supertécnica» window,
--- which reads the rows' moves) shows the skill table's 6 rows instead of the retail list positions (the old «branch»
--- groups): row r = the r-th list position that holds no aura (empty ones included, list order), then the positions
--- holding an aura; a row shows its position's move, nothing when that is an aura (the aura / mix halves own it: the
--- Hiper page), the board slot of the same position when the position is empty (ss2_menus EVT_Skill / PL.ProjPos,
+-- which reads the rows' moves) shows the skill table's 6 rows: row r = list position r - 1, always; a row shows its
+-- position's move, nothing when that is an aura (the aura / mix halves own it: the Hiper page), the board slot of the same position when the position is empty (ss2_menus EVT_Skill / PL.ProjPos,
 -- the same rule). The retail fill runs with the move lookup answered for this card only (CMND 0x35D3E3B8, the
 -- evolution grade read at the move's own list position) and restored right after. A row locked by the skill board's
 -- rule (CR_MOVE_ROWS.Lock, ../_lib/cr_move_rows.lua: the level of its list position's learn slot) is drawn as the
@@ -12500,15 +12557,9 @@ do
   -- list position (an aura position, an empty one or the move's own)} }; in a match a team member row's loadout,
   -- else the framework's effective skill set when it answers, else the same rule read here
   function F.Rows(call, hdl)
-    local list, free, auras = {}, {}, {}
+    local list = {}
     for p = 0, F.ROW_COUNT - 1 do
-      local id = U32(call(F.GET_SKILL, hdl, p))
-      list[p] = id
-      if IsAura(call, id) then
-        auras[#auras + 1] = p
-      else
-        free[#free + 1] = p
-      end
+      list[p] = U32(call(F.GET_SKILL, hdl, p))
     end
     local member = MatchMemberRows(hdl, list)
     if member ~= nil then
@@ -12518,12 +12569,9 @@ do
     if served ~= nil then
       return served
     end
-    for _, p in ipairs(auras) do
-      free[#free + 1] = p
-    end
     local rows = {}
     for r = 1, F.ROW_COUNT do
-      local p = free[r]
+      local p = r - 1
       local id = list[p] or 0
       if id ~= 0 then
         rows[r] = IsAura(call, id) and {move = 0, slot = p} or {move = id, position = p, slot = p}
@@ -12743,10 +12791,13 @@ do
   end
 
   -- runs fn(...) with the reads / writes of card `hdl` at `instance` answered for its projected `row`: the AI-use
-  -- commands go to the row's list position; no list position -> no AI flag and the AI setting reported off; the move
-  -- read answers the row's move
+  -- commands go to the row's list position; no list position or a level-locked row -> no AI flag and the AI setting
+  -- reported off; the move read answers the row's move
   local function WithRowSource(call, hdl, instance, row, fn, ...)
     local position = row.position
+    if F.plateType ~= 1 and type(row.slot) == "number" and CR_MOVE_ROWS.Lock(call, hdl, row.slot) then
+      position = nil
+    end
     local enabled = IsAiSkillSettingsEnable
     F.raw_call = call
     funcLuaCommand = function(cmd, a, b, ...)
@@ -12828,7 +12879,9 @@ do
       if row == nil then
         return orig(a1, a2, ...)
       end
-      if row.move ~= 0 and row.position == nil then
+      -- a level-locked row is neither held nor a target: its move stays out of the free rows, no move enters it
+      local locked = F.plateType ~= 1 and type(row.slot) == "number" and CR_MOVE_ROWS.Lock(call, hdl, row.slot)
+      if locked or (row.move ~= 0 and row.position == nil) then
         pcall(call, F.PLAY_SOUND, F.CANNOT_SOUND)
         return
       end
@@ -16403,6 +16456,9 @@ EVT_PPG = EVT_PPG or {}
   local CMD_IS_CLOSING_MENU, CMD_IS_CLOSED_MENU = 1193349555, 1521844538   -- CMND_IS_CLOSING / CLOSE_MENU_OBJECT
   function G.HostClosing()
     local m = G.H.menu
+    if type(m) == "function" then
+      m = m()                              -- the script answers the menu it runs in
+    end
     if m == nil then
       return false
     end
@@ -16463,15 +16519,17 @@ EVT_PPG = EVT_PPG or {}
       if not G.H.pages and EVT_PPG_HOST_OFF == true then
         return table.unpack(r, 1, r.n)          -- the block off on this host: the screen exactly as retail
       end
+      -- every host, the paged player page too: a close without CLOSE_MENU_OBJECT's second argument (item_use_menu) takes
+      -- some frames, and a layer opened in them never ends its close (nie.exe 0x536B90, 0x536EF0), so the menu stays
+      local okC, closing = pcall(G.HostClosing)
+      if okC and closing then
+        G.Try("HostShut", "closing")            -- never Ready() / reopen anything while the host menu closes
+        return table.unpack(r, 1, r.n)
+      elseif G.hostShut then
+        G.hostShut = false                      -- the close did not happen (a back swallowed): drawn again
+        pcall(funcLuaCommand, C.LOG, "EVT_PPG host reopened")
+      end
       if not G.H.pages then
-        local okC, closing = pcall(G.HostClosing)
-        if okC and closing then
-          G.Try("HostShut", "closing")          -- never Ready() / reopen anything while the host menu closes
-          return table.unpack(r, 1, r.n)
-        elseif G.hostShut then
-          G.hostShut = false                    -- the close did not happen (a back swallowed): drawn again
-          pcall(funcLuaCommand, C.LOG, "EVT_PPG host reopened")
-        end
         local okI, why = pcall(G.HostIdle)
         why = okI and why or nil
         if why ~= G.hostIdle then

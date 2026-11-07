@@ -129,6 +129,14 @@
   "forbid": [],
   "ambiguous": []
  },
+ "market_menu": {
+  "script": "market_menu_4.00.05.00",
+  "require": [
+   "IsCheckNoTokenShopIdx"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
  "menu_chara_model_comp": {
   "script": "menu_chara_model_comp_6.00.34.00",
   "require": [

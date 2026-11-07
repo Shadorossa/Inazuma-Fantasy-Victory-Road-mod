@@ -13,7 +13,7 @@ updated = "2026-11-06"
 # ChronicleDeluxe.<name>. Exported: the gacha pool kizuna_coin_gacha ([exports] keys; other mods add cards to it).
 # Optional integrations (every use gated by if_mod / if_not_mod or a nil check; the mod runs without them):
 #   ClassicEquipment (team gear in the rival drops), HissatsuLevelUp (grade books in the drops and chain prizes),
-#   InazumaFantasy (unused kits in its general store), BetterUI (team line-up button), BetterMenu (cleared gauge under
+#   InazumaFantasy (unused kits in its general store, Nakata in the mod's own Orfeo), BetterUI (team line-up button), BetterMenu (cleared gauge under
 #   the Competition strip: writes BetterMenu.Competition.strip_listeners; to be replaced by a BetterMenu export).
 prefix = "ChronicleDeluxe"
 folder = "ChronicleDeluxe"

@@ -7,6 +7,9 @@
 #   own levels (the movesets of content\characters\**, other mods' custom cards) keep them.
 # * Slots 7-8 (branch 2 of the retail board) are not part of a moveset (4 moves + the aura in slot 9): dropped from
 #   every card.
+# * The level belongs to the list position (the row), not to the move in it: rows 1-4 open at the level of learn list
+#   slots 1-4, rows 5-6 never need a level, so a move placed there works at once. The skill table and the plates apply
+#   the same rule (research/grafts/_lib/cr_move_rows.lua).
 # * Slot 9 is the only slot that may hold an aura (any aura_skill_config command: keshin, armour, totem, Mix-Max, power):
 #   an aura in a technique slot moves to slot 9 when it is empty, else it is dropped (one log line per case).
 schema = "VRFW.character/2"
@@ -16,6 +19,7 @@ Enforce = true
 UnusedSlots = [7, 8]
 AuraSlots = [9]
 StarterAtFloor = true
+FreeListSlots = [5, 6]
 Tiers = [
     { Power = 200, Level = 1 },
     { Power = 300, Level = 5 },

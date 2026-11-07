@@ -47,8 +47,8 @@ name = "ActiveTeamRecord"
 size = 0x30
 fields = { uniform = { at = 0x1C, type = "u32" }, emblem = { at = 0x20, type = "u32" } }
 
-# the Draft team carries the active team's identity. Its crest and kit: the mirror writes them over the Draft's team
-# record too (scripts\active_team.lua; the match setup reads the record at every build, the game's own kit clash rule
+# the Draft team carries the active team's kit and name; its crest stays its own. Its kit: the mirror writes it over
+# the Draft's team record too (scripts\active_team.lua; the match setup reads the record at every build, the game's own kit clash rule
 # still applies). Its name: TeamLookBuild(out, record, …) 0xE9B760 resolves the record's name text (+0x14) to the name
 # string the match team set keeps (out +0x60, a char*: 0xE9B580 stores its 9th argument there), which the VS screen
 # and the scoreboard show. The answer points it at the active team's name (a native block of the mod; table

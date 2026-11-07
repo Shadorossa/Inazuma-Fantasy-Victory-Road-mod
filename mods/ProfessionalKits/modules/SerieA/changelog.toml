@@ -1,0 +1,8 @@
+schema = "VRFW.changelog/1"
+
+[[release]]
+icon = "general"
+notes = ["Equipaciones y escudos nuevos de la Serie A"]
+
+[release.en]
+notes = ["New Serie A kits and crests"]

@@ -45,7 +45,7 @@ if VRFW_TeamDock == nil then
   end
 
   -- listen to a dock event: "page_changing" / "page_changed" (a mod mounted another page of docks), "header" (the
-  -- screen title was written again); name = the listener's id (registering again replaces it)
+  -- screen title was written again), "docks_changed" (a mod edited docks while the dock was closing); name = the listener's id (registering again replaces it)
   function TD.On(event, name, fn)
     local list = TD.listeners[event] or {}
     TD.listeners[event] = list

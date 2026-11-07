@@ -32,7 +32,7 @@ character = "c07010030"
 head = "_face/07_ARES/c07010030/c07010030.g4tx"
 hair = "#6C658F"
 face = "#BE8E68"
-iris = "#7C5238"
+iris = "#000000"
 skin = "#BE8E68"
 
 [[VRFW.MiximaxPalette]]
@@ -856,7 +856,7 @@ character = "c07120040"
 head = "_face/07_ARES/c07120040/c07120040.g4tx"
 hair = "#80511B"
 face = "#FDC7A1"
-iris = "#937C46"
+iris = "#000000"
 skin = "#FCC7A1"
 
 [[VRFW.MiximaxPalette]]

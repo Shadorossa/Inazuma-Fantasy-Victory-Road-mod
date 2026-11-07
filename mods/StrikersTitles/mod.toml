@@ -4,7 +4,7 @@ id = "StrikersTitles"
 # same name in every language.
 name = "Strikers Titles"
 version = "0.2.4"
-author = "Fantasy Team"
+author = "adridebolsillo, angelico"
 author_steam = "76561199013321372"
 # (mod.toml has no credits key: the credit goes in the description)
 description = "Special-move name banners: the Spanish ones of the Inazuma Eleven GO Strikers 2013 fan translation on the game's own techniques and keshin, plus banners for techniques added by mods (Spanish, Japanese and English). Strikers titles by @IEGOStrikersESP (https://x.com/IEGOStrikersESP), @ShinAngelico, @adridebolsillo."

@@ -8,10 +8,10 @@ target = "c05028040_5000"
   [[edit.cards]]
   id = 0xA86D7A3A
   moves = [
-    { move = 0x8B90AAAC, level = 1 },                       # Fortissimo
-    { move = 0x20D01E43, level = 11 },                      # Hey Presto
-    { move = 0x7DD6FEF8, level = 52 },                      # Athena's Anthem
+    { move = 0x7DD6FEF8, level = 1 },                       # Athena's Anthem
     { move = 0x900C8E0A, level = 62 },                      # Maestro's Call
+    { move = 0xAD53B378, level = 72 },                      # Diffusal Chord
+    { move = 0x8B90AAAC, level = 82 },                      # Fortissimo
   ]
 
 [[edit]]
@@ -20,7 +20,7 @@ target = "c05028090_5000"
   [[edit.cards]]
   id = 0xC9BA1BFA
   moves = [
-    { move = 0xA9A7000B, level = 7 },                       # Bouncing Bunny
+    { move = 0xA9A7000B, level = 1 },                       # Bouncing Bunny
     { move = 0x19BA3BFC, level = 13 },                      # Dance on Air
     { move = 0xB0F8060A, level = 40 },                      # Ozone Flayer
     { move = 0x00AF8010, level = 52 },                      # Splitting Hares
@@ -32,10 +32,10 @@ target = "c05028110_5000"
   [[edit.cards]]
   id = 0x36FF5503
   moves = [
-    { move = 0x8A52C09B, level = 1 },                       # Doomsword Slash
-    { move = 0x0C08B663, level = 11 },                      # Doom Dive Drive
-    { move = 0x1F7F73BA, level = 13 },                      # Bicycle Slash
+    { move = 0x1F7F73BA, level = 1 },                       # Bicycle Slash
     { move = 0x90CD25B4, level = 20 },                      # Supernatural Strike
+    { move = 0x910F4F83, level = 47 },                      # Fire Tornado DD
+    { move = 0xA955D999, level = 57 },                      # The Earth: Infinity
   ]
 
 [[edit]]
@@ -44,10 +44,10 @@ target = "c05028120_5000"
   [[edit.cards]]
   id = 0x07174F9E
   moves = [
-    { move = 0x8A936B25, level = 1 },                       # Goopy Gloopy Goo
-    { move = 0xB7474004, level = 11 },                      # Dough Ray Me
-    { move = 0x19BA3BFC, level = 27 },                      # Dance on Air
-    { move = 0x87379CDF, level = 67 },                      # Fire Tornado TC
+    { move = 0xECB91078, level = 1 },                       # Volcanic Flight
+    { move = 0xB4757AB8, level = 11 },                      # Divine Stamp
+    { move = 0x087999EE, level = 21 },                      # Heel Drop
+    { move = 0xF6E75EE9, level = 31 },                      # Headbanger
   ]
 
 [[edit]]
@@ -57,9 +57,9 @@ target = "c05028130_5000"
   id = 0xA160442A
   moves = [
     { move = 0x9349F1DA, level = 1 },                       # Zephyr Shot
-    { move = 0x6F918884, level = 11 },                      # Easy Breezy
-    { move = 0xA37D1A41, level = 21 },                      # Hyper-Swiper
     { move = 0x7C1494CF, level = 40 },                      # Tornado Tunnel
+    { move = 0xF88DC090, level = 50 },                      # Z Slash
+    { move = 0x1CFBA7D4, level = 60 },                      # Twister Tornado
   ]
 
 [[edit]]
@@ -69,9 +69,9 @@ target = "c05028130_5200"
   id = 0xA2E49044
   moves = [
     { move = 0x9349F1DA, level = 1 },                       # Zephyr Shot
-    { move = 0x6F918884, level = 11 },                      # Easy Breezy
-    { move = 0xA37D1A41, level = 21 },                      # Hyper-Swiper
     { move = 0x7C1494CF, level = 40 },                      # Tornado Tunnel
+    { move = 0xF88DC090, level = 50 },                      # Z Slash
+    { move = 0x1CFBA7D4, level = 60 },                      # Twister Tornado
   ]
 
 [[edit]]
@@ -81,9 +81,9 @@ target = "c05028130_5300"
   id = 0xA326FA73
   moves = [
     { move = 0x9349F1DA, level = 1 },                       # Zephyr Shot
-    { move = 0x6F918884, level = 11 },                      # Easy Breezy
-    { move = 0xA37D1A41, level = 21 },                      # Hyper-Swiper
     { move = 0x7C1494CF, level = 40 },                      # Tornado Tunnel
+    { move = 0xF88DC090, level = 50 },                      # Z Slash
+    { move = 0x1CFBA7D4, level = 60 },                      # Twister Tornado
   ]
 
 [[edit]]

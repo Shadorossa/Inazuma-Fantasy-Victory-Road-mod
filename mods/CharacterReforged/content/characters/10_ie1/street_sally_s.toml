@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c01002410"                                   # Suzanne Yuma
 moves = [
+  { move = 0x8DFA4265, level = 1 },                         # Toughness Block
+  { move = 0xBFCC20E7, level = 21 },                        # Wood Chopper
+  { move = 0x5E7E4775, level = 35 },                        # Table-Turner
   { move = 0x8FBCFC3C, level = 48 },                        # Blazing Knuckle
-  { move = 0x8DFA4265, level = 58 },                        # Toughness Block
-  { move = 0xBFCC20E7, level = 68 },                        # Wood Chopper
-  { move = 0x5E7E4775, level = 78 },                        # Table-Turner
 ]
 
   [[edit.cards]]
@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c01002420"                                   # Tammy Fielding
 moves = [
-  { move = 0x0F703132, level = 24 },                        # Black Magic
+  { move = 0x0F703132, level = 1 },                         # Black Magic
   { move = 0x592A96B4, level = 35 },                        # Afterimage
   { move = 0xB5B7108F, level = 40 },                        # Shadow Stitch
   { move = 0x637C031A, level = 52 },                        # No Escape
@@ -64,10 +64,10 @@ moves = [
 [[edit]]
 target = "c01002450"                                   # Ness Sheldon
 moves = [
+  { move = 0x65B7C1F1, level = 1 },                         # Sumo Stomp
   { move = 0x7EEA4EE9, level = 70 },                        # Blade Attack
-  { move = 0x65B7C1F1, level = 80 },                        # Sumo Stomp
-  { move = 0x1162A8AF, level = 90 },                        # Bewilder Blast
-  { move = 0xC6978232, level = 100 },                       # Dinosaur Roar
+  { move = 0x1162A8AF, level = 80 },                        # Bewilder Blast
+  { move = 0xC6978232, level = 90 },                        # Dinosaur Roar
 ]
 
   [[edit.cards]]
@@ -171,10 +171,10 @@ moves = [
 [[edit]]
 target = "c01002520"                                   # Alf Holmes
 moves = [
+  { move = 0xBFCC20E7, level = 1 },                         # Wood Chopper
+  { move = 0x73C5AF40, level = 14 },                        # Dash Accelerator
   { move = 0xC0FD6AFB, level = 35 },                        # Fireball Head
-  { move = 0xBFCC20E7, level = 45 },                        # Wood Chopper
-  { move = 0x73C5AF40, level = 55 },                        # Dash Accelerator
-  { move = 0x5E7E4775, level = 65 },                        # Table-Turner
+  { move = 0x5E7E4775, level = 45 },                        # Table-Turner
 ]
 
   [[edit.cards]]
@@ -186,7 +186,7 @@ moves = [
 [[edit]]
 target = "c01002530"                                   # Ian Stager
 moves = [
-  { move = 0x4B142F09, level = 21 },                        # Teleport Shot
+  { move = 0x4B142F09, level = 1 },                         # Teleport Shot
   { move = 0x6B1CF436, level = 28 },                        # Bewildered
   { move = 0x5506B694, level = 39 },                        # Utter Gutsiness Club
   { move = 0xB5B7108F, level = 61 },                        # Shadow Stitch

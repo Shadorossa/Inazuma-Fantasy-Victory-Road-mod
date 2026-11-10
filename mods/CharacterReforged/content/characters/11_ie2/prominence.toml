@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c02020810"                                   # Grent
 moves = [
+  { move = 0xEF5D458A, level = 1 },                         # Burnout
+  { move = 0x8FBCFC3C, level = 11 },                        # Blazing Knuckle
+  { move = 0xC636A810, level = 21 },                        # Combustion Catch
   { move = 0xBE0E4AD0, level = 60 },                        # Fireball Knuckle
-  { move = 0xEF5D458A, level = 70 },                        # Burnout
-  { move = 0x8FBCFC3C, level = 80 },                        # Blazing Knuckle
-  { move = 0xC636A810, level = 90 },                        # Combustion Catch
 ]
 
   [[edit.cards]]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c02020820"                                   # Baller
 moves = [
+  { move = 0xABA58912, level = 1 },                         # Ignited Steal
+  { move = 0xB13A6C3D, level = 38 },                        # Zigzag Flame
+  { move = 0x3B8D915B, level = 44 },                        # Meteor Shower
   { move = 0x01DB04F5, level = 52 },                        # Defence Scan
-  { move = 0xABA58912, level = 62 },                        # Ignited Steal
-  { move = 0xB13A6C3D, level = 72 },                        # Zigzag Flame
-  { move = 0x3B8D915B, level = 82 },                        # Meteor Shower
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c02020850"                                   # Bomber
 moves = [
+  { move = 0xABA58912, level = 1 },                         # Ignited Steal
+  { move = 0x79E3E635, level = 11 },                        # Racing Flame
+  { move = 0x166B0073, level = 35 },                        # Super Armadillo
   { move = 0x4D1E465C, level = 59 },                        # Fake Bomber
-  { move = 0xABA58912, level = 69 },                        # Ignited Steal
-  { move = 0x79E3E635, level = 79 },                        # Racing Flame
-  { move = 0x166B0073, level = 89 },                        # Super Armadillo
 ]
 
   [[edit.cards]]
@@ -51,8 +51,8 @@ target = "c02020860"                                   # Heat
 moves = [
   { move = 0x029E7B25, level = 1 },                         # Gaia Break
   { move = 0x3B8D915B, level = 11 },                        # Meteor Shower
+  { move = 0xDDCA0D2A, level = 22 },                        # Bouncing Bomb
   { move = 0x30A819A7, level = 63 },                        # Twin Boost F
-  { move = 0xDDCA0D2A, level = 73 },                        # Bouncing Bomb
 ]
 
   [[edit.cards]]

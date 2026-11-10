@@ -37,7 +37,7 @@ moves = [
 [[edit]]
 target = "c03031630"                                   # Ottorino Nobili
 moves = [
-  { move = 0x34E4CEAB, level = 20 },                        # Barbarian Shield
+  { move = 0x34E4CEAB, level = 1 },                         # Barbarian Shield
   { move = 0x4BD584B7, level = 38 },                        # Power Charge
   { move = 0x7FE98F60, level = 56 },                        # Ganymede Ray
   { move = 0x2FB941B3, level = 66 },                        # Stone Prison
@@ -85,8 +85,8 @@ target = "c03031660"                                   # Angelo Gabrini
 moves = [
   { move = 0x61FB16FD, level = 1 },                         # Divine Arrows
   { move = 0xB633C4E1, level = 11 },                        # Photon Crash
+  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
   { move = 0x0D368F6B, level = 60 },                        # Heaven's Time
-  { move = 0x737DCB3F, level = 70 },                        # Pancake Defence
 ]
 
   [[edit.cards]]
@@ -153,59 +153,10 @@ target = "c03031700"                                   # Paolo Bianchi
   moves = [
     { move = 0x8D5B6847, level = 1 },                       # Odin Sword
     { move = 0x0CF4E55C, level = 11 },                      # Double Touch
+    { move = 0x6F918884, level = 12 },                      # Easy Breezy
     { move = 0x61FB16FD, level = 42 },                      # Divine Arrows
-    { move = 0x6F918884, level = 52 },                      # Easy Breezy
   ]
 
-
-
-
-
-
-
-
-[[edit]]
-target = "c03031700"
-card = 0x4482E47A
-VRFW.MoveGrades = [
-  { Move = 0x8D5B6847, Grade = 1 },                         # Odin Sword
-]
-[[edit]]
-target = "c03031700"
-card = 0x4482E47A
-VRFW.MoveGrades = [
-  { Move = 0x8D5B6847, Grade = 1 },                         # Odin Sword
-]
-[[edit]]
-target = "c03031700"
-card = 0x4482E47A
-VRFW.MoveGrades = [
-  { Move = 0x8D5B6847, Grade = 1 },                         # Odin Sword
-]
-[[edit]]
-target = "c03031700"
-card = 0x4482E47A
-VRFW.MoveGrades = [
-  { Move = 0x8D5B6847, Grade = 1 },                         # Odin Sword
-]
-[[edit]]
-target = "c03031700"
-card = 0x4482E47A
-VRFW.MoveGrades = [
-  { Move = 0x8D5B6847, Grade = 1 },                         # Odin Sword
-]
-[[edit]]
-target = "c03031700"
-card = 0x4482E47A
-VRFW.MoveGrades = [
-  { Move = 0x8D5B6847, Grade = 1 },                         # Odin Sword
-]
-[[edit]]
-target = "c03031700"
-card = 0x4482E47A
-VRFW.MoveGrades = [
-  { Move = 0x8D5B6847, Grade = 1 },                         # Odin Sword
-]
 [[edit]]
 target = "c03031700"
 card = 0x4482E47A

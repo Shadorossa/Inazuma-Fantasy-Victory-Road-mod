@@ -16,10 +16,10 @@ moves = [
 [[edit]]
 target = "c02020840"                                   # Gocker
 moves = [
+  { move = 0x65B7C1F1, level = 1 },                         # Sumo Stomp
+  { move = 0x74CC079C, level = 22 },                        # Big Fan
+  { move = 0x2DFFFFEA, level = 55 },                        # Ground Quake
   { move = 0x50880BAF, level = 72 },                        # Frozen Steal
-  { move = 0x65B7C1F1, level = 82 },                        # Sumo Stomp
-  { move = 0x74CC079C, level = 92 },                        # Big Fan
-  { move = 0x2DFFFFEA, level = 102 },                       # Ground Quake
 ]
 
   [[edit.cards]]
@@ -93,10 +93,10 @@ stats = { kick = 339, control = 257, technique = 263, pressure = 193, physical =
 [[edit]]
 target = "c02022610"                                   # Beluga
 moves = [
+  { move = 0xC4701649, level = 1 },                         # Ice Block
+  { move = 0x8B31808E, level = 32 },                        # Wormhole
+  { move = 0x41AEB4DF, level = 43 },                        # Crystal Barrier
   { move = 0x94E17324, level = 60 },                        # Tornado Catch
-  { move = 0xC4701649, level = 70 },                        # Ice Block
-  { move = 0x8B31808E, level = 80 },                        # Wormhole
-  { move = 0x41AEB4DF, level = 90 },                        # Crystal Barrier
 ]
 
   [[edit.cards]]
@@ -108,10 +108,10 @@ moves = [
 [[edit]]
 target = "c02022620"                                   # Arkew
 moves = [
+  { move = 0x50880BAF, level = 1 },                         # Frozen Steal
+  { move = 0x19C3F43D, level = 43 },                        # Eternal Blizzard
   { move = 0x01DB04F5, level = 62 },                        # Defence Scan
-  { move = 0x50880BAF, level = 72 },                        # Frozen Steal
-  { move = 0x5E5AF1A9, level = 82 },                        # Northern Impact
-  { move = 0x19C3F43D, level = 92 },                        # Eternal Blizzard
+  { move = 0x5E5AF1A9, level = 72 },                        # Northern Impact
 ]
 
   [[edit.cards]]

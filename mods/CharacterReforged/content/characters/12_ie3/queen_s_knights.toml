@@ -66,7 +66,7 @@ moves = [
 [[edit]]
 target = "c03030850"                                   # Edge Ripper
 moves = [
-  { move = 0x2FB941B3, level = 10 },                        # Stone Prison
+  { move = 0x2FB941B3, level = 1 },                         # Stone Prison
   { move = 0x4E9A9232, level = 30 },                        # Spinning Cut
   { move = 0x04941270, level = 49 },                        # Vac Attack
   { move = 0x18C035B4, level = 59 },                        # Ghost Pull
@@ -179,7 +179,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03030920"                                   # Servilius Jeeves
 moves = [
-  { move = 0x88B554E0, level = 15 },                        # Galatyn
+  { move = 0x88B554E0, level = 1 },                         # Galatyn
   { move = 0x4523C86D, level = 30 },                        # Killer Blade
   { move = 0x8E7E960B, level = 43 },                        # Drill Smasher
   { move = 0xA7157B91, level = 53 },                        # Power Shield
@@ -194,7 +194,7 @@ moves = [
 [[edit]]
 target = "c03030930"                                   # Martin Squall
 moves = [
-  { move = 0x73C5AF40, level = 6 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x21127474, level = 15 },                        # Ultra Moon
   { move = 0x4D1E465C, level = 27 },                        # Fake Bomber
   { move = 0xD8851BAF, level = 68 },                        # Unicorn Boost

@@ -18,9 +18,9 @@ moves = [
 [[edit]]
 target = "c01001620"                                   # Malcolm Night
 moves = [
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0x4E9A9232, level = 11 },                        # Spinning Cut
   { move = 0x1ECA5CE1, level = 39 },                        # Wrath Shot
-  { move = 0x73C5AF40, level = 49 },                        # Dash Accelerator
-  { move = 0x4E9A9232, level = 59 },                        # Spinning Cut
   { move = 0xB6F26F5F, level = 60 },                        # Tri-Pegasus
 ]
 
@@ -123,10 +123,10 @@ moves = [
 [[edit]]
 target = "c01001690"                                   # Marvin Murdock
 moves = [
+  { move = 0x2F78EA0D, level = 1 },                         # Triangle Z
+  { move = 0x35E70F22, level = 11 },                        # Grenade Shot
+  { move = 0x6ADE9E01, level = 37 },                        # Illusory Ball
   { move = 0x7207C577, level = 70 },                        # Boost Glider
-  { move = 0x2F78EA0D, level = 80 },                        # Triangle Z
-  { move = 0x35E70F22, level = 90 },                        # Grenade Shot
-  { move = 0x6ADE9E01, level = 100 },                       # Illusory Ball
 ]
 
   [[edit.cards]]

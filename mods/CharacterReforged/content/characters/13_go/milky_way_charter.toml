@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c04000860_5000"                              # Zaphod Riker
 moves = [
+  { move = 0x0BFD4D80, level = 1 },                         # Grand Slam
   { move = 0x768AB9C5, level = 43 },                        # Frosticle
+  { move = 0x457EB170, level = 53 },                        # Pyrokinetic
   { move = 0xB0F8060A, level = 60 },                        # Ozone Flayer
-  { move = 0x0BFD4D80, level = 70 },                        # Grand Slam
-  { move = 0x457EB170, level = 80 },                        # Pyrokinetic
 ]
 
   [[edit.cards]]
@@ -34,10 +34,10 @@ moves = [
 [[edit]]
 target = "c04000820"                                   # Worff Chewback
 moves = [
+  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
   { move = 0x05567847, level = 30 },                        # Runaway Train
-  { move = 0x17110E3B, level = 40 },                        # Jumbo Sandwich
-  { move = 0x79E3E635, level = 50 },                        # Racing Flame
-  { move = 0xBBA44137, level = 60 },                        # Great Wall
+  { move = 0x79E3E635, level = 40 },                        # Racing Flame
+  { move = 0xBBA44137, level = 42 },                        # Great Wall
 ]
 
   [[edit.cards]]
@@ -50,9 +50,9 @@ moves = [
 [[edit]]
 target = "c04000830"                                   # Dart H. Cylon
 moves = [
+  { move = 0x179492C5, level = 1 },                         # Center Scythe Slice
   { move = 0x1C4D4906, level = 26 },                        # Whirlpool
-  { move = 0x179492C5, level = 36 },                        # Center Scythe Slice
-  { move = 0xE196F1D1, level = 46 },                        # Burning Bomb
+  { move = 0xE196F1D1, level = 31 },                        # Burning Bomb
   { move = 0xBA662B00, level = 56 },                        # Pterrordactyl Swoop
 ]
 
@@ -66,9 +66,9 @@ moves = [
 [[edit]]
 target = "c04000840"                                   # Scotty O'Brien
 moves = [
+  { move = 0x0BFD4D80, level = 1 },                         # Grand Slam
   { move = 0x6A66FA7E, level = 35 },                        # Killer Whale
-  { move = 0x0BFD4D80, level = 45 },                        # Grand Slam
-  { move = 0xDD0BA694, level = 55 },                        # Okehazama Ravine
+  { move = 0xDD0BA694, level = 45 },                        # Okehazama Ravine
   { move = 0xD1E62D0A, level = 60 },                        # Mushroom Hop
 ]
 
@@ -98,10 +98,10 @@ moves = [
 [[edit]]
 target = "c04000860"                                   # Zaphod Riker
 moves = [
+  { move = 0x0BFD4D80, level = 1 },                         # Grand Slam
   { move = 0x768AB9C5, level = 43 },                        # Frosticle
+  { move = 0x457EB170, level = 53 },                        # Pyrokinetic
   { move = 0xB0F8060A, level = 60 },                        # Ozone Flayer
-  { move = 0x0BFD4D80, level = 70 },                        # Grand Slam
-  { move = 0x457EB170, level = 80 },                        # Pyrokinetic
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -119,10 +119,10 @@ moves = [
 [[edit]]
 target = "c04000870"                                   # Cyber Dalekman
 moves = [
+  { move = 0x0BFD4D80, level = 1 },                         # Grand Slam
   { move = 0x737DCB3F, level = 35 },                        # Pancake Defence
-  { move = 0x0BFD4D80, level = 45 },                        # Grand Slam
-  { move = 0xDCC9CCA3, level = 55 },                        # Tesla Coil
-  { move = 0x19BA3BFC, level = 65 },                        # Dance on Air
+  { move = 0xDCC9CCA3, level = 45 },                        # Tesla Coil
+  { move = 0x19BA3BFC, level = 55 },                        # Dance on Air
 ]
 
   [[edit.cards]]
@@ -134,10 +134,10 @@ moves = [
 [[edit]]
 target = "c04000880"                                   # Lucas Skywalk
 moves = [
+  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
+  { move = 0x0BFD4D80, level = 19 },                        # Grand Slam
   { move = 0x457EB170, level = 27 },                        # Pyrokinetic
-  { move = 0xF6E75EE9, level = 37 },                        # Headbanger
-  { move = 0x0BFD4D80, level = 47 },                        # Grand Slam
-  { move = 0xD9BB22A7, level = 57 },                        # Air Ride
+  { move = 0xD9BB22A7, level = 37 },                        # Air Ride
 ]
 
   [[edit.cards]]
@@ -149,10 +149,10 @@ moves = [
 [[edit]]
 target = "c04000890"                                   # Jimmy Kyrk
 moves = [
+  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
+  { move = 0x0BFD4D80, level = 10 },                        # Grand Slam
+  { move = 0x2A4E3349, level = 40 },                        # Heart Beat
   { move = 0xB9A6C82E, level = 52 },                        # Triangle ZZ
-  { move = 0xF6E75EE9, level = 62 },                        # Headbanger
-  { move = 0x0BFD4D80, level = 72 },                        # Grand Slam
-  { move = 0x2A4E3349, level = 82 },                        # Heart Beat
 ]
 
   [[edit.cards]]
@@ -164,10 +164,10 @@ moves = [
 [[edit]]
 target = "c04000900"                                   # Harkness Torchwood
 moves = [
+  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
+  { move = 0x0BFD4D80, level = 19 },                        # Grand Slam
   { move = 0xDBFD9CFE, level = 56 },                        # Big Ball Trick
-  { move = 0xF6E75EE9, level = 66 },                        # Headbanger
-  { move = 0x0BFD4D80, level = 76 },                        # Grand Slam
-  { move = 0xAC91D94F, level = 86 },                        # Major Miner
+  { move = 0xAC91D94F, level = 66 },                        # Major Miner
 ]
 
   [[edit.cards]]
@@ -179,9 +179,9 @@ moves = [
 [[edit]]
 target = "c04000910"                                   # Jean-Luc Janeway
 moves = [
+  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
   { move = 0x457EB170, level = 27 },                        # Pyrokinetic
-  { move = 0xF6E75EE9, level = 37 },                        # Headbanger
-  { move = 0xF88DC090, level = 47 },                        # Z Slash
+  { move = 0xF88DC090, level = 37 },                        # Z Slash
   { move = 0xE0DF8DB5, level = 58 },                        # No Future
 ]
 
@@ -212,9 +212,9 @@ moves = [
 target = "c04000930"                                   # Sithri Peon
 moves = [
   { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0xF4604B0E, level = 11 },                        # Fancy-Footwork
   { move = 0x17110E3B, level = 32 },                        # Jumbo Sandwich
-  { move = 0xF4604B0E, level = 42 },                        # Fancy-Footwork
-  { move = 0xDE8F72FA, level = 52 },                        # Under Miner
+  { move = 0xDE8F72FA, level = 42 },                        # Under Miner
 ]
 
   [[edit.cards]]
@@ -228,9 +228,9 @@ moves = [
 target = "c04000940"                                   # Isaac Binks
 moves = [
   { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0x4E9A9232, level = 11 },                        # Spinning Cut
   { move = 0xA9E3374B, level = 35 },                        # Cyclone Sprint
-  { move = 0x4E9A9232, level = 45 },                        # Spinning Cut
-  { move = 0x0F4DC9B3, level = 55 },                        # Logicstical Sync
+  { move = 0x0F4DC9B3, level = 45 },                        # Logicstical Sync
 ]
 
   [[edit.cards]]
@@ -242,10 +242,10 @@ moves = [
 [[edit]]
 target = "c04000950"                                   # Carl Rissian
 moves = [
+  { move = 0x0BFD4D80, level = 1 },                         # Grand Slam
   { move = 0xBBA44137, level = 27 },                        # Great Wall
-  { move = 0x0BFD4D80, level = 37 },                        # Grand Slam
-  { move = 0x24E5068E, level = 47 },                        # Fractal Repeller
-  { move = 0xAA67E325, level = 57 },                        # Desert Blast
+  { move = 0x24E5068E, level = 37 },                        # Fractal Repeller
+  { move = 0xAA67E325, level = 40 },                        # Desert Blast
 ]
 
   [[edit.cards]]
@@ -258,10 +258,10 @@ moves = [
 [[edit]]
 target = "c04000960"                                   # Robert Affett
 moves = [
+  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
   { move = 0x0BFD4D80, level = 24 },                        # Grand Slam
-  { move = 0xF6E75EE9, level = 34 },                        # Headbanger
-  { move = 0xE196F1D1, level = 44 },                        # Burning Bomb
-  { move = 0x25276CB9, level = 54 },                        # Solar Surprise
+  { move = 0xE196F1D1, level = 34 },                        # Burning Bomb
+  { move = 0x25276CB9, level = 41 },                        # Solar Surprise
 ]
 
   [[edit.cards]]

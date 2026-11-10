@@ -80,10 +80,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c05024690"                                   # Xavier Schiller
 moves = [
-  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
-  { move = 0x1755397B, level = 16 },                        # Dark Energy Star
-  { move = 0x00A10ABD, level = 50 },                        # Ball Lightning
-  { move = 0xDAC3A5F6, level = 60 },                        # Big Bang
+  { move = 0xDAC3A5F6, level = 1 },                         # Big Bang
+  { move = 0xC3D894B7, level = 11 },                        # The Dawn
+  { move = 0x65766A4F, level = 21 },                        # Meteor Blade
+  { move = 0xEE3E059F, level = 31 },                        # Celestial Smash
 ]
 
   [[edit.cards]]
@@ -127,9 +127,9 @@ VRFW.MoveGrades = [
 target = "c05024640"                                   # Hurley Kane
 moves = [
   { move = 0x2BF596BF, level = 1 },                         # Tsunami Boost
+  { move = 0x1C4D4906, level = 26 },                        # Whirlpool
   { move = 0xB2BEB853, level = 28 },                        # Whale Guard
   { move = 0xA4B51923, level = 38 },                        # The Typhoon
-  { move = 0x1C4D4906, level = 48 },                        # Whirlpool
 ]
 VRFW.MoveGrades = [
   { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost

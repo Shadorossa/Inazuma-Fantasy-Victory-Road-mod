@@ -7,10 +7,10 @@ rank = 3
 growth = "normal"
 stats = { kick = 211, control = 208, technique = 219, pressure = 244, physical = 227, intelligence = 246, agility = 238, freedom = 217 }
 moves = [
+  { move = 0xB907E20C, level = 1 },                         # Procyon Net
+  { move = 0xA01CD34D, level = 35 },                        # Temporal Wall
+  { move = 0x9B3048AB, level = 51 },                        # Shadow Catch
   { move = 0xE854ED56, level = 53 },                        # Warp Space
-  { move = 0xB907E20C, level = 63 },                        # Procyon Net
-  { move = 0xA01CD34D, level = 73 },                        # Temporal Wall
-  { move = 0x9B3048AB, level = 83 },                        # Shadow Catch
 ]
 
 [[edit]]

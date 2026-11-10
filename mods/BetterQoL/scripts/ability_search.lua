@@ -1,5 +1,5 @@
 -- Technique name search of the ability list (assets/lua/ability_list_menu/900_technique_search.lua): after each
--- build of the list, only the rows the menu matched stay; rows it has not judged yet wait in `pending`.
+-- build of the list, the rows the menu judged as not matching leave; rows it has not judged yet stay and wait in `pending`.
 local Memory = VRFW.memory
 
 -- CMenuListViewAbility: rows at +0x19F10 (16 bytes each, item id at +4), count at +0x26710 (docs/game/ui/miximax-partner-bank.md §6)
@@ -68,7 +68,8 @@ VRFW.on("hook:BetterQoL.AbilityListBuild:post", function(ev)
     local decided = search.decided[item]
     if decided == nil then
       search.pending[#search.pending + 1] = item
-    elseif decided then
+    end
+    if decided ~= false then
       kept[#kept + 1] = r
     end
   end
@@ -78,7 +79,7 @@ VRFW.on("hook:BetterQoL.AbilityListBuild:post", function(ev)
   return nil
 end)
 
--- -> live: a new search (nothing judged yet; the next build holds every row back until the menu judges it)
+-- Returns live and starts a new search: nothing is judged yet, so the next build keeps every row until the menu judges it.
 function BetterQoL.AbilitySearchStart()
   search = { on = true, view = 0, decided = {}, pending = {}, serial = search.serial + 1 }
   return live()
@@ -90,19 +91,25 @@ function BetterQoL.AbilitySearchStop()
   return live()
 end
 
--- -> serial (one more per build), n, item1, ...: the rows of the last build the menu has not judged
+-- Returns the build serial and the items the menu has not judged as one "item,item" text, because a command call carries 32 values at most.
 function BetterQoL.AbilitySearchPending()
-  return search.serial, #search.pending, table.unpack(search.pending)
+  local items = {}
+  for i, item in ipairs(search.pending) do
+    items[i] = string.format("%.0f", item)
+  end
+  return search.serial, table.concat(items, ",")
 end
 
--- matched, item1, ... -> true: the first `matched` items match the search, the others do not
-function BetterQoL.AbilitySearchDecide(matched, ...)
-  local items = { ... }
-  matched = type(matched) == "number" and matched or 0
-  for i, item in ipairs(items) do
-    if type(item) == "number" then
-      search.decided[item] = i <= matched
+-- Takes the matching items as one "item,item" text, judges every pending item with it and returns how many it judged.
+function BetterQoL.AbilitySearchDecide(matching)
+  local matches = {}
+  if type(matching) == "string" then
+    for item in matching:gmatch("%d+") do
+      matches[tonumber(item)] = true
     end
   end
-  return true
+  for _, item in ipairs(search.pending) do
+    search.decided[item] = matches[item] == true
+  end
+  return #search.pending
 end

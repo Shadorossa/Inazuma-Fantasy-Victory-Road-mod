@@ -3,9 +3,9 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c02023410"                                   # Crane Kik
 moves = [
+  { move = 0x47657634, level = 1 },                         # Flame Breath
   { move = 0xBFCC20E7, level = 20 },                        # Wood Chopper
-  { move = 0x47657634, level = 30 },                        # Flame Breath
-  { move = 0xA553C5C8, level = 40 },                        # Clone Block
+  { move = 0xA553C5C8, level = 30 },                        # Clone Block
   { move = 0xF64674CB, level = 55 },                        # Fist of Justice
 ]
 
@@ -33,7 +33,7 @@ moves = [
 [[edit]]
 target = "c02023430"                                   # Bri Spark
 moves = [
-  { move = 0x3D4653B0, level = 13 },                        # Poison Fog
+  { move = 0x3D4653B0, level = 1 },                         # Poison Fog
   { move = 0x574008CD, level = 20 },                        # Kung Fu Fighting
   { move = 0x09BBF3D9, level = 29 },                        # Dark Whirlwind
   { move = 0x17A96A44, level = 50 },                        # Clone Faker
@@ -93,10 +93,10 @@ moves = [
 [[edit]]
 target = "c02023470"                                   # Ian Telektual
 moves = [
+  { move = 0x17A96A44, level = 1 },                         # Clone Faker
+  { move = 0x6B1CF436, level = 21 },                        # Bewildered
   { move = 0x3663DB4C, level = 30 },                        # Utter Gutsiness Bat
-  { move = 0x17A96A44, level = 40 },                        # Clone Faker
-  { move = 0x6B1CF436, level = 50 },                        # Bewildered
-  { move = 0x58E8FC83, level = 60 },                        # Rolling Hell
+  { move = 0x58E8FC83, level = 38 },                        # Rolling Hell
 ]
 
   [[edit.cards]]
@@ -124,10 +124,10 @@ moves = [
 [[edit]]
 target = "c02023490"                                   # Marshall Artz
 moves = [
+  { move = 0x574008CD, level = 1 },                         # Kung Fu Fighting
+  { move = 0x259F08C6, level = 11 },                        # Whirlwind Twister
   { move = 0xADAFE047, level = 53 },                        # Dual Strike
-  { move = 0x574008CD, level = 63 },                        # Kung Fu Fighting
-  { move = 0x259F08C6, level = 73 },                        # Whirlwind Twister
-  { move = 0x00D8C57C, level = 83 },                        # Fireball Storm
+  { move = 0x00D8C57C, level = 60 },                        # Fireball Storm
 ]
 
   [[edit.cards]]
@@ -155,10 +155,10 @@ moves = [
 [[edit]]
 target = "c02023510"                                   # Dirk Artz
 moves = [
+  { move = 0xB4B4D106, level = 1 },                         # Dragon Cannon
+  { move = 0x427719AC, level = 11 },                        # Gale Dash
   { move = 0x4DDFEDE2, level = 57 },                        # Eagle Buster
-  { move = 0xB4B4D106, level = 67 },                        # Dragon Cannon
-  { move = 0x427719AC, level = 77 },                        # Gale Dash
-  { move = 0x62BE692D, level = 87 },                        # Whirlwind Force
+  { move = 0x62BE692D, level = 67 },                        # Whirlwind Force
 ]
 
   [[edit.cards]]

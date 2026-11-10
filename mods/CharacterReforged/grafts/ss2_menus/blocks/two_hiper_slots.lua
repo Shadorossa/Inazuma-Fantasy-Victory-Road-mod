@@ -129,7 +129,8 @@ function PL.hs_split_row()
       return ""                                    -- an empty slot: the plate alone
     end
     local t = half == 1 and PL.hs_mix_name(id, mix_partner) or PL.hs_short_name(Name(id))
-    return (half == 1 and R.PAD2 or R.PAD1) .. Cut(t, R.CUT)
+    -- The limit counts display units, so a name in wide characters is not cut after a third of its bytes.
+    return (half == 1 and R.PAD2 or R.PAD1) .. VRFW.text_fold.cut(t, R.CUT)
   end
   local tinted = PL.hs_plates_ready()
   PL.hs_plates_wait = not tinted

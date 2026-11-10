@@ -55,9 +55,9 @@ moves = [
 [[edit]]
 target = "c05021040"                                   # Hanbee Yabe
 moves = [
+  { move = 0xDD0BA694, level = 1 },                         # Okehazama Ravine
+  { move = 0xD6649385, level = 6 },                         # Tusk Force
   { move = 0x3663DB4C, level = 8 },                         # Utter Gutsiness Bat
-  { move = 0xDD0BA694, level = 18 },                        # Okehazama Ravine
-  { move = 0xD6649385, level = 28 },                        # Tusk Force
   { move = 0xADD8A52B, level = 40 },                        # Matchlock Bullet
 ]
 
@@ -86,7 +86,7 @@ moves = [
 [[edit]]
 target = "c05021060"                                   # Denbee Asama
 moves = [
-  { move = 0xAF150D21, level = 2 },                         # Swallow Counter
+  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
   { move = 0x62BE692D, level = 8 },                         # Whirlwind Force
   { move = 0x3C843987, level = 29 },                        # Flurry Dash
   { move = 0x2354CA2D, level = 47 },                        # Wind God's Dance
@@ -101,7 +101,7 @@ moves = [
 [[edit]]
 target = "c05021070"                                   # Ginji Santetsu
 moves = [
-  { move = 0xAF150D21, level = 3 },                         # Swallow Counter
+  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
   { move = 0xB4C3946A, level = 56 },                        # Ephemeral Boost
   { move = 0xDD0BA694, level = 66 },                        # Okehazama Ravine
   { move = 0x4A17EE80, level = 76 },                        # Hunter's Net
@@ -117,10 +117,10 @@ moves = [
 [[edit]]
 target = "c05021080"                                   # Denrai Ochimura
 moves = [
+  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
+  { move = 0x05567847, level = 11 },                        # Runaway Train
   { move = 0x457EB170, level = 43 },                        # Pyrokinetic
-  { move = 0xAF150D21, level = 53 },                        # Swallow Counter
-  { move = 0x05567847, level = 63 },                        # Runaway Train
-  { move = 0xE196F1D1, level = 73 },                        # Burning Bomb
+  { move = 0xE196F1D1, level = 47 },                        # Burning Bomb
 ]
 
   [[edit.cards]]
@@ -133,7 +133,7 @@ moves = [
 [[edit]]
 target = "c05021090"                                   # Senji Kudo
 moves = [
-  { move = 0xAF150D21, level = 3 },                         # Swallow Counter
+  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
   { move = 0xADD8A52B, level = 24 },                        # Matchlock Bullet
   { move = 0x457EB170, level = 29 },                        # Pyrokinetic
   { move = 0x6B1CF436, level = 36 },                        # Bewildered
@@ -169,7 +169,7 @@ moves = [
 [[edit]]
 target = "c05021110"                                   # Korin Maebayashi
 moves = [
-  { move = 0xADD8A52B, level = 5 },                         # Matchlock Bullet
+  { move = 0xADD8A52B, level = 1 },                         # Matchlock Bullet
   { move = 0xC4D13C6B, level = 45 },                        # Katana Kick
   { move = 0xE11DE782, level = 57 },                        # Chrysanthemum Katana
   { move = 0xAF150D21, level = 67 },                        # Swallow Counter
@@ -184,7 +184,7 @@ moves = [
 [[edit]]
 target = "c05021120"                                   # Mikimaru Ujiki
 moves = [
-  { move = 0xE546F47E, level = 3 },                         # Dust Devil
+  { move = 0xE546F47E, level = 1 },                         # Dust Devil
   { move = 0xA7157B91, level = 13 },                        # Power Shield
   { move = 0xC636A810, level = 23 },                        # Combustion Catch
   { move = 0xB01D1B68, level = 33 },                        # Power Spike
@@ -199,7 +199,7 @@ moves = [
 [[edit]]
 target = "c05021130"                                   # Doshin Yomoyama
 moves = [
-  { move = 0xAF150D21, level = 6 },                         # Swallow Counter
+  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
   { move = 0x141046AB, level = 22 },                        # Overnight Fortress
   { move = 0xDD0BA694, level = 53 },                        # Okehazama Ravine
   { move = 0x0A3F27B7, level = 63 },                        # Foul Offence 3
@@ -215,7 +215,7 @@ moves = [
 [[edit]]
 target = "c05021140"                                   # Tenkei Yazu
 moves = [
-  { move = 0x3C843987, level = 6 },                         # Flurry Dash
+  { move = 0x3C843987, level = 1 },                         # Flurry Dash
   { move = 0x62BE692D, level = 10 },                        # Whirlwind Force
   { move = 0x04941270, level = 41 },                        # Vac Attack
   { move = 0x2354CA2D, level = 51 },                        # Wind God's Dance

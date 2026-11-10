@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c01000820"                                   # Harry Leading
 moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0x55C71D2A, level = 29 },                        # About Face
-  { move = 0x01DB04F5, level = 39 },                        # Defence Scan
-  { move = 0xB3BD79DA, level = 49 },                        # Patriot Shot
-  { move = 0x5B6C28ED, level = 59 },                        # Invisible Fake
+  { move = 0xB3BD79DA, level = 39 },                        # Patriot Shot
+  { move = 0x5B6C28ED, level = 48 },                        # Invisible Fake
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c01000830"                                   # Terry Stronger
 moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x520F1E48, level = 29 },                        # Psycho Shot
+  { move = 0xA5777314, level = 38 },                        # Assault Shot
   { move = 0xA8E0F6C2, level = 65 },                        # Kung Fu Header
-  { move = 0x01DB04F5, level = 75 },                        # Defence Scan
-  { move = 0x520F1E48, level = 85 },                        # Psycho Shot
-  { move = 0xA5777314, level = 95 },                        # Assault Shot
 ]
 
   [[edit.cards]]
@@ -48,10 +48,10 @@ moves = [
 [[edit]]
 target = "c01000840"                                   # Philip Marvel
 moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x34256515, level = 20 },                        # Dynamite Shot
+  { move = 0x7BA5586C, level = 58 },                        # Mad Express
   { move = 0x58E8FC83, level = 92 },                        # Rolling Hell
-  { move = 0x01DB04F5, level = 102 },                       # Defence Scan
-  { move = 0x34256515, level = 112 },                       # Dynamite Shot
-  { move = 0x7BA5586C, level = 122 },                       # Mad Express
 ]
 
   [[edit.cards]]
@@ -64,10 +64,10 @@ moves = [
 [[edit]]
 target = "c01000850"                                   # Noel Good
 moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x0710C61E, level = 29 },                        # Perimeter Zone
+  { move = 0x00196EC2, level = 34 },                        # Earthquake
   { move = 0x520F1E48, level = 76 },                        # Psycho Shot
-  { move = 0x01DB04F5, level = 86 },                        # Defence Scan
-  { move = 0x0710C61E, level = 96 },                        # Perimeter Zone
-  { move = 0x00196EC2, level = 106 },                       # Earthquake
 ]
 
   [[edit.cards]]
@@ -95,10 +95,10 @@ moves = [
 [[edit]]
 target = "c01000870"                                   # Francis Tell
 moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x520F1E48, level = 11 },                        # Psycho Shot
+  { move = 0x8C990270, level = 55 },                        # Gunshot
   { move = 0xB5B7108F, level = 89 },                        # Shadow Stitch
-  { move = 0x01DB04F5, level = 99 },                        # Defence Scan
-  { move = 0x520F1E48, level = 109 },                       # Psycho Shot
-  { move = 0x8C990270, level = 119 },                       # Gunshot
 ]
 
   [[edit.cards]]
@@ -126,10 +126,10 @@ moves = [
 [[edit]]
 target = "c01000890"                                   # Jonathan Seller
 moves = [
+  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
+  { move = 0x01DB04F5, level = 11 },                        # Defence Scan
+  { move = 0x8EDFBC29, level = 65 },                        # Double Jaw
   { move = 0x518BCA26, level = 85 },                        # Fire Tornado
-  { move = 0x520F1E48, level = 95 },                        # Psycho Shot
-  { move = 0x01DB04F5, level = 105 },                       # Defence Scan
-  { move = 0x8EDFBC29, level = 115 },                       # Double Jaw
 ]
 
   [[edit.cards]]
@@ -141,10 +141,10 @@ moves = [
 [[edit]]
 target = "c01000900"                                   # Victor Kind
 moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x520F1E48, level = 11 },                        # Psycho Shot
+  { move = 0x30A819A7, level = 48 },                        # Twin Boost F
   { move = 0x4890FB67, level = 78 },                        # Twin Boost
-  { move = 0x01DB04F5, level = 88 },                        # Defence Scan
-  { move = 0x520F1E48, level = 98 },                        # Psycho Shot
-  { move = 0x30A819A7, level = 108 },                       # Twin Boost F
 ]
 
   [[edit.cards]]
@@ -187,10 +187,10 @@ moves = [
 [[edit]]
 target = "c01000930"                                   # Patrick Stiller
 moves = [
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x627FC293, level = 27 },                        # Meteor Attack
   { move = 0x19025F83, level = 35 },                        # Quick Draw
-  { move = 0x01DB04F5, level = 45 },                        # Defence Scan
-  { move = 0x627FC293, level = 55 },                        # Meteor Attack
-  { move = 0x29B328E6, level = 65 },                        # Spectacle Crash
+  { move = 0x29B328E6, level = 42 },                        # Spectacle Crash
 ]
 
   [[edit.cards]]

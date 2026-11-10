@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c02024410"                                   # Daisy Fields
 moves = [
+  { move = 0xC13F00CC, level = 1 },                         # Flower Power
+  { move = 0xBC48F489, level = 11 },                        # Claw Slash
   { move = 0x5E7E4775, level = 37 },                        # Table-Turner
-  { move = 0xC13F00CC, level = 47 },                        # Flower Power
-  { move = 0xBC48F489, level = 57 },                        # Claw Slash
-  { move = 0x5B3151F0, level = 67 },                        # Nitro Slap
+  { move = 0x5B3151F0, level = 47 },                        # Nitro Slap
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -71,10 +71,10 @@ moves = [
 [[edit]]
 target = "c02024450"                                   # Esther Greenland
 moves = [
+  { move = 0x2C3D95DD, level = 1 },                         # Sleeping Dust
+  { move = 0x7EEA4EE9, level = 26 },                        # Blade Attack
   { move = 0x1F0836D6, level = 33 },                        # Comet Shot
-  { move = 0x2C3D95DD, level = 43 },                        # Sleeping Dust
-  { move = 0x7EEA4EE9, level = 53 },                        # Blade Attack
-  { move = 0x65766A4F, level = 63 },                        # Meteor Blade
+  { move = 0x65766A4F, level = 43 },                        # Meteor Blade
 ]
 
   [[edit.cards]]
@@ -150,10 +150,10 @@ rank = 3
 growth = "normal"
 stats = { kick = 273, control = 250, technique = 220, pressure = 185, physical = 169, intelligence = 205, agility = 178, freedom = 301 }
 moves = [
+  { move = 0x4C1D87D5, level = 1 },                         # Bed of Roses
+  { move = 0x54C4DCA3, level = 11 },                        # Butterfly Trance
   { move = 0x27D9B69F, level = 31 },                        # Prima Donna
-  { move = 0x4C1D87D5, level = 41 },                        # Bed of Roses
-  { move = 0x54C4DCA3, level = 51 },                        # Butterfly Trance
-  { move = 0xC5EF0563, level = 61 },                        # Three-Legged Rush
+  { move = 0xC5EF0563, level = 45 },                        # Three-Legged Rush
 ]
 
 [[edit]]
@@ -175,9 +175,9 @@ moves = [
 target = "c02024520"                                   # Dell Closeout
 moves = [
   { move = 0x4523C86D, level = 1 },                         # Killer Blade
+  { move = 0xC13F00CC, level = 11 },                        # Flower Power
   { move = 0xBC48F489, level = 46 },                        # Claw Slash
-  { move = 0xC13F00CC, level = 56 },                        # Flower Power
-  { move = 0x5E7E4775, level = 66 },                        # Table-Turner
+  { move = 0x5E7E4775, level = 56 },                        # Table-Turner
 ]
 
   [[edit.cards]]
@@ -220,10 +220,10 @@ moves = [
 [[edit]]
 target = "c02024550"                                   # Gayle Revel
 moves = [
+  { move = 0xAAA6489B, level = 1 },                         # Spiral Shot
   { move = 0x261BDCA8, level = 29 },                        # Moonsault
-  { move = 0xAAA6489B, level = 39 },                        # Spiral Shot
-  { move = 0xAA67E325, level = 49 },                        # Desert Blast
-  { move = 0x74CC079C, level = 59 },                        # Big Fan
+  { move = 0xAA67E325, level = 37 },                        # Desert Blast
+  { move = 0x74CC079C, level = 49 },                        # Big Fan
 ]
 
   [[edit.cards]]
@@ -236,9 +236,9 @@ moves = [
 target = "c02024560"                                   # Janine Brook
 moves = [
   { move = 0x8DFA4265, level = 1 },                         # Toughness Block
+  { move = 0xBC48F489, level = 11 },                        # Claw Slash
   { move = 0xDA628FD4, level = 53 },                        # Sliding Goal
-  { move = 0xBC48F489, level = 63 },                        # Claw Slash
-  { move = 0xDCA94D3F, level = 73 },                        # Flash Upper
+  { move = 0xDCA94D3F, level = 63 },                        # Flash Upper
 ]
 
   [[edit.cards]]
@@ -266,10 +266,10 @@ moves = [
 [[edit]]
 target = "c02024410_5000"                              # Daisy Fields
 moves = [
+  { move = 0xC13F00CC, level = 1 },                         # Flower Power
+  { move = 0xBC48F489, level = 11 },                        # Claw Slash
   { move = 0x5E7E4775, level = 37 },                        # Table-Turner
-  { move = 0xC13F00CC, level = 47 },                        # Flower Power
-  { move = 0xBC48F489, level = 57 },                        # Claw Slash
-  { move = 0x5B3151F0, level = 67 },                        # Nitro Slap
+  { move = 0x5B3151F0, level = 47 },                        # Nitro Slap
 ]
 
   [[edit.cards]]

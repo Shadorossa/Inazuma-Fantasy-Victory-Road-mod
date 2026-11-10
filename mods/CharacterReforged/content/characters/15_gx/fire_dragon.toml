@@ -175,9 +175,9 @@ moves = [
 target = "c11806070"                                   # Changsu Choi
 moves = [
   { move = 0x087999EE, level = 1 },                         # Heel Drop
+  { move = 0x457EB170, level = 15 },                        # Pyrokinetic
   { move = 0xB4B4D106, level = 20 },                        # Dragon Cannon
   { move = 0x316A7390, level = 63 },                        # Land Dragon
-  { move = 0x457EB170, level = 73 },                        # Pyrokinetic
 ]
 
   [[edit.cards]]

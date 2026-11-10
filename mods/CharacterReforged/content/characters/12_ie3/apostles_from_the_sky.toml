@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c03034010"                                   # Anorel
 moves = [
   { move = 0x89773ED7, level = 1 },                         # Celestial Zone
+  { move = 0xCD6AEF2D, level = 53 },                        # All-Star
+  { move = 0xE647BCEE, level = 62 },                        # God Hand V
   { move = 0xEE9F2FBD, level = 72 },                        # God Catch
-  { move = 0xCD6AEF2D, level = 82 },                        # All-Star
-  { move = 0xE647BCEE, level = 92 },                        # God Hand V
 ]
 
   [[edit.cards]]
@@ -19,9 +19,9 @@ moves = [
 target = "c03034020"                                   # Nenel
 moves = [
   { move = 0x613ABD43, level = 1 },                         # Dawnrise
+  { move = 0x4A17EE80, level = 34 },                        # Hunter's Net
   { move = 0x6E53E2B3, level = 43 },                        # Angel Ball
   { move = 0x6ADE9E01, level = 51 },                        # Illusory Ball
-  { move = 0x4A17EE80, level = 61 },                        # Hunter's Net
 ]
 
   [[edit.cards]]
@@ -66,9 +66,9 @@ moves = [
 target = "c03034050"                                   # Lephiel
 moves = [
   { move = 0x613ABD43, level = 1 },                         # Dawnrise
+  { move = 0x5DA7EA06, level = 15 },                        # Boomerang Bluff
   { move = 0xA6763B84, level = 58 },                        # Gladius Arch
   { move = 0x47380F29, level = 62 },                        # Echo Ball
-  { move = 0x5DA7EA06, level = 72 },                        # Boomerang Bluff
 ]
 
   [[edit.cards]]

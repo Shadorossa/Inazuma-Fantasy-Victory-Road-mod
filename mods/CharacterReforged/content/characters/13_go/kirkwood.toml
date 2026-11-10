@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c04002290_5000"                              # Bay Laurel
 moves = [
+  { move = 0xB9A6C82E, level = 1 },                         # Triangle ZZ
   { move = 0xDA3FF6C9, level = 26 },                        # Criss-Cross
+  { move = 0x4FE09C7A, level = 48 },                        # Acrobatic Keep
   { move = 0xA0BDF96F, level = 60 },                        # Ballista Barrage
-  { move = 0xB9A6C82E, level = 70 },                        # Triangle ZZ
-  { move = 0x4FE09C7A, level = 80 },                        # Acrobatic Keep
 ]
 
   [[edit.cards]]
@@ -35,9 +35,9 @@ moves = [
 target = "c04002300_5100"                              # Langford Ash
 moves = [
   { move = 0xBBE07677, level = 1 },                         # Sidewinder
+  { move = 0xADD8A52B, level = 11 },                        # Matchlock Bullet
   { move = 0xC324C788, level = 34 },                        # Blast Mine
   { move = 0xC4D13C6B, level = 48 },                        # Katana Kick
-  { move = 0xADD8A52B, level = 58 },                        # Matchlock Bullet
 ]
 
   [[edit.cards]]
@@ -70,10 +70,10 @@ moves = [
 [[edit]]
 target = "c04002220"                                   # Dock Hickory
 moves = [
+  { move = 0x414BA9BD, level = 1 },                         # Pincer Pinch
+  { move = 0xF88DC090, level = 26 },                        # Z Slash
   { move = 0xC2E6ADBF, level = 27 },                        # Log Roll
-  { move = 0x414BA9BD, level = 37 },                        # Pincer Pinch
-  { move = 0xF88DC090, level = 47 },                        # Z Slash
-  { move = 0x93885A64, level = 57 },                        # Fire Drill
+  { move = 0x93885A64, level = 32 },                        # Fire Drill
 ]
 
   [[edit.cards]]
@@ -86,9 +86,9 @@ moves = [
 [[edit]]
 target = "c04002230"                                   # Bourne Birch
 moves = [
+  { move = 0x414BA9BD, level = 1 },                         # Pincer Pinch
+  { move = 0x660EED1E, level = 20 },                        # Low Scythe Slice
   { move = 0x6ADE9E01, level = 32 },                        # Illusory Ball
-  { move = 0x414BA9BD, level = 42 },                        # Pincer Pinch
-  { move = 0x660EED1E, level = 52 },                        # Low Scythe Slice
   { move = 0x7D6E9A87, level = 63 },                        # The Wall
 ]
 
@@ -102,10 +102,10 @@ moves = [
 [[edit]]
 target = "c04002240"                                   # Flynt Pine
 moves = [
+  { move = 0x414BA9BD, level = 1 },                         # Pincer Pinch
+  { move = 0x0C08B663, level = 28 },                        # Doom Dive Drive
   { move = 0x3297683F, level = 60 },                        # Warp Step
-  { move = 0x414BA9BD, level = 70 },                        # Pincer Pinch
-  { move = 0x0C08B663, level = 80 },                        # Doom Dive Drive
-  { move = 0xB60E3C60, level = 90 },                        # Plasma Cut
+  { move = 0xB60E3C60, level = 63 },                        # Plasma Cut
 ]
 
   [[edit.cards]]
@@ -117,9 +117,9 @@ moves = [
 [[edit]]
 target = "c04002250"                                   # Trent Poplar
 moves = [
+  { move = 0x414BA9BD, level = 1 },                         # Pincer Pinch
+  { move = 0xD1E62D0A, level = 24 },                        # Mushroom Hop
   { move = 0xC2E6ADBF, level = 27 },                        # Log Roll
-  { move = 0x414BA9BD, level = 37 },                        # Pincer Pinch
-  { move = 0xD1E62D0A, level = 47 },                        # Mushroom Hop
   { move = 0x7DAF3139, level = 59 },                        # Emperor Penguin No. 2
 ]
 
@@ -179,10 +179,10 @@ moves = [
 [[edit]]
 target = "c04002290"                                   # Bay Laurel
 moves = [
+  { move = 0xB9A6C82E, level = 1 },                         # Triangle ZZ
   { move = 0xDA3FF6C9, level = 26 },                        # Criss-Cross
+  { move = 0x4FE09C7A, level = 48 },                        # Acrobatic Keep
   { move = 0xA0BDF96F, level = 60 },                        # Ballista Barrage
-  { move = 0xB9A6C82E, level = 70 },                        # Triangle ZZ
-  { move = 0x4FE09C7A, level = 80 },                        # Acrobatic Keep
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -201,9 +201,9 @@ moves = [
 target = "c04002300"                                   # Langford Ash
 moves = [
   { move = 0xBBE07677, level = 1 },                         # Sidewinder
+  { move = 0xADD8A52B, level = 11 },                        # Matchlock Bullet
   { move = 0xC324C788, level = 34 },                        # Blast Mine
   { move = 0xC4D13C6B, level = 48 },                        # Katana Kick
-  { move = 0xADD8A52B, level = 58 },                        # Matchlock Bullet
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -220,10 +220,10 @@ moves = [
 [[edit]]
 target = "c04002310"                                   # Escott Aspen
 moves = [
+  { move = 0xB9A6C82E, level = 1 },                         # Triangle ZZ
+  { move = 0xEFFC6FA8, level = 17 },                        # Warhead
   { move = 0x00A10ABD, level = 60 },                        # Ball Lightning
-  { move = 0xB9A6C82E, level = 70 },                        # Triangle ZZ
-  { move = 0xEFFC6FA8, level = 80 },                        # Warhead
-  { move = 0xB60E3C60, level = 90 },                        # Plasma Cut
+  { move = 0xB60E3C60, level = 62 },                        # Plasma Cut
 ]
 
   [[edit.cards]]
@@ -236,7 +236,7 @@ moves = [
 [[edit]]
 target = "c04002320"                                   # Maxwell Mahogany
 moves = [
-  { move = 0xC636A810, level = 8 },                         # Combustion Catch
+  { move = 0xC636A810, level = 1 },                         # Combustion Catch
   { move = 0x37009B59, level = 35 },                        # Burnout Burst
   { move = 0xDF2D9951, level = 53 },                        # Close Counter
   { move = 0xF14FDC17, level = 63 },                        # Shot Pocket
@@ -251,10 +251,10 @@ moves = [
 [[edit]]
 target = "c04002330"                                   # Bradford Ash
 moves = [
+  { move = 0xB9A6C82E, level = 1 },                         # Triangle ZZ
+  { move = 0x14D1ED15, level = 24 },                        # Jumping Jack
   { move = 0x64CDCFB9, level = 48 },                        # Rising Dragon
-  { move = 0xB9A6C82E, level = 58 },                        # Triangle ZZ
-  { move = 0x14D1ED15, level = 68 },                        # Jumping Jack
-  { move = 0xE452F107, level = 78 },                        # Dust Javelin
+  { move = 0xE452F107, level = 58 },                        # Dust Javelin
 ]
 
   [[edit.cards]]
@@ -267,7 +267,7 @@ moves = [
 [[edit]]
 target = "c04002340"                                   # Calder Elm
 moves = [
-  { move = 0xDF8CB373, level = 4 },                         # Sonic Shot
+  { move = 0xDF8CB373, level = 1 },                         # Sonic Shot
   { move = 0xE8F5C774, level = 6 },                         # Megalodon
   { move = 0x6F918884, level = 15 },                        # Easy Breezy
   { move = 0xA2FB4736, level = 35 },                        # Flying Fish
@@ -283,7 +283,7 @@ moves = [
 [[edit]]
 target = "c04002350"                                   # Laike Alder
 moves = [
-  { move = 0xB58AE80E, level = 4 },                         # Silk Road
+  { move = 0xB58AE80E, level = 1 },                         # Silk Road
   { move = 0x5643C944, level = 25 },                        # Killer Slide
   { move = 0xF4604B0E, level = 33 },                        # Fancy-Footwork
   { move = 0xDD0BA694, level = 60 },                        # Okehazama Ravine
@@ -300,9 +300,9 @@ moves = [
 target = "c04002360"                                   # Tahoma Sequoia
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0x5739C70C, level = 11 },                        # Guided Collide
+  { move = 0xB0BC314A, level = 12 },                        # Spin Meister
   { move = 0xA2FB4736, level = 30 },                        # Flying Fish
-  { move = 0x5739C70C, level = 40 },                        # Guided Collide
-  { move = 0xB0BC314A, level = 50 },                        # Spin Meister
 ]
 
   [[edit.cards]]

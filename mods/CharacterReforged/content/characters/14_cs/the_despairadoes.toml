@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05024810_5000"                              # Lotus
 moves = [
-  { move = 0x34844F37, level = 12 },                        # White Hole
+  { move = 0x34844F37, level = 1 },                         # White Hole
   { move = 0x2D9F7E76, level = 44 },                        # Breath Taker
   { move = 0x49F3BB72, level = 59 },                        # Psychlone
   { move = 0xFC5DC53F, level = 69 },                        # Double God Hand
@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c05024830_5000"                              # Tulip
 moves = [
-  { move = 0x0D0B77EA, level = 3 },                         # Floral Fiesta
+  { move = 0x0D0B77EA, level = 1 },                         # Floral Fiesta
   { move = 0xC324C788, level = 33 },                        # Blast Mine
   { move = 0xA8215D7C, level = 43 },                        # The Mountain
   { move = 0x67F17FA8, level = 53 },                        # Mega Quake
@@ -49,10 +49,10 @@ moves = [
 [[edit]]
 target = "c05024910_5000"                              # Gentian
 moves = [
+  { move = 0xAC1ACF1C, level = 1 },                         # Flower Plower
+  { move = 0x0D0B77EA, level = 14 },                        # Floral Fiesta
   { move = 0xF7E49F60, level = 41 },                        # Magnetism
-  { move = 0xAC1ACF1C, level = 51 },                        # Flower Plower
-  { move = 0x0D0B77EA, level = 61 },                        # Floral Fiesta
-  { move = 0x8917BF4B, level = 71 },                        # Willy-Willy
+  { move = 0x8917BF4B, level = 42 },                        # Willy-Willy
 ]
 
   [[edit.cards]]
@@ -94,7 +94,7 @@ moves = [
 [[edit]]
 target = "c05024810"                                   # Lotus
 moves = [
-  { move = 0x34844F37, level = 12 },                        # White Hole
+  { move = 0x34844F37, level = 1 },                         # White Hole
   { move = 0x2D9F7E76, level = 44 },                        # Breath Taker
   { move = 0x49F3BB72, level = 59 },                        # Psychlone
   { move = 0xFC5DC53F, level = 69 },                        # Double God Hand
@@ -130,7 +130,7 @@ moves = [
 [[edit]]
 target = "c05024830"                                   # Tulip
 moves = [
-  { move = 0x0D0B77EA, level = 3 },                         # Floral Fiesta
+  { move = 0x0D0B77EA, level = 1 },                         # Floral Fiesta
   { move = 0xC324C788, level = 33 },                        # Blast Mine
   { move = 0xA8215D7C, level = 43 },                        # The Mountain
   { move = 0x67F17FA8, level = 53 },                        # Mega Quake
@@ -151,10 +151,10 @@ moves = [
 [[edit]]
 target = "c05024840"                                   # Argyr
 moves = [
+  { move = 0x0D0B77EA, level = 1 },                         # Floral Fiesta
+  { move = 0x5643C944, level = 22 },                        # Killer Slide
+  { move = 0xF4604B0E, level = 30 },                        # Fancy-Footwork
   { move = 0x457EB170, level = 51 },                        # Pyrokinetic
-  { move = 0x0D0B77EA, level = 61 },                        # Floral Fiesta
-  { move = 0x5643C944, level = 71 },                        # Killer Slide
-  { move = 0xF4604B0E, level = 81 },                        # Fancy-Footwork
 ]
 
   [[edit.cards]]
@@ -167,7 +167,7 @@ moves = [
 [[edit]]
 target = "c05024850"                                   # Laven
 moves = [
-  { move = 0xD262F964, level = 10 },                        # Format Disk
+  { move = 0xD262F964, level = 1 },                         # Format Disk
   { move = 0x414BA9BD, level = 25 },                        # Pincer Pinch
   { move = 0xC513565C, level = 40 },                        # Doom Spear
   { move = 0xC16279D1, level = 50 },                        # Field of Force
@@ -183,7 +183,7 @@ moves = [
 [[edit]]
 target = "c05024860"                                   # Viol
 moves = [
-  { move = 0xD262F964, level = 12 },                        # Format Disk
+  { move = 0xD262F964, level = 1 },                         # Format Disk
   { move = 0x6E53E2B3, level = 22 },                        # Angel Ball
   { move = 0x7C1494CF, level = 32 },                        # Tornado Tunnel
   { move = 0x52CEB5F6, level = 42 },                        # Iron Wall
@@ -198,10 +198,10 @@ moves = [
 [[edit]]
 target = "c05024870"                                   # Dandy
 moves = [
+  { move = 0xD262F964, level = 1 },                         # Format Disk
+  { move = 0x8A52C09B, level = 18 },                        # Doomsword Slash
   { move = 0x457EB170, level = 36 },                        # Pyrokinetic
-  { move = 0xD262F964, level = 46 },                        # Format Disk
-  { move = 0x8A52C09B, level = 56 },                        # Doomsword Slash
-  { move = 0xB8A509A7, level = 66 },                        # Asterocks
+  { move = 0xB8A509A7, level = 52 },                        # Asterocks
 ]
 
   [[edit.cards]]
@@ -214,7 +214,7 @@ moves = [
 [[edit]]
 target = "c05024880"                                   # Chamomile
 moves = [
-  { move = 0xD262F964, level = 12 },                        # Format Disk
+  { move = 0xD262F964, level = 1 },                         # Format Disk
   { move = 0x0D0B77EA, level = 23 },                        # Floral Fiesta
   { move = 0xEDBAD1F1, level = 61 },                        # Brimstone Rain
   { move = 0xD9BB22A7, level = 71 },                        # Air Ride
@@ -230,8 +230,8 @@ moves = [
 [[edit]]
 target = "c05024890"                                   # Orchid
 moves = [
+  { move = 0xD262F964, level = 1 },                         # Format Disk
   { move = 0x7C6D5B0E, level = 14 },                        # Astro Break
-  { move = 0xD262F964, level = 24 },                        # Format Disk
   { move = 0xC66BD10D, level = 34 },                        # Zigzag Spark
   { move = 0x04941270, level = 60 },                        # Vac Attack
 ]
@@ -266,10 +266,10 @@ moves = [
 [[edit]]
 target = "c05024910"                                   # Gentian
 moves = [
+  { move = 0xAC1ACF1C, level = 1 },                         # Flower Plower
+  { move = 0x0D0B77EA, level = 14 },                        # Floral Fiesta
   { move = 0xF7E49F60, level = 41 },                        # Magnetism
-  { move = 0xAC1ACF1C, level = 51 },                        # Flower Plower
-  { move = 0x0D0B77EA, level = 61 },                        # Floral Fiesta
-  { move = 0x8917BF4B, level = 71 },                        # Willy-Willy
+  { move = 0x8917BF4B, level = 42 },                        # Willy-Willy
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -306,8 +306,8 @@ moves = [
 [[edit]]
 target = "c05024930"                                   # Sterne
 moves = [
+  { move = 0x016DEA27, level = 1 },                         # Accelerator Gears
   { move = 0xF7E49F60, level = 11 },                        # Magnetism
-  { move = 0x016DEA27, level = 21 },                        # Accelerator Gears
   { move = 0x828A53C8, level = 37 },                        # Plasma Ball
   { move = 0xC755E805, level = 52 },                        # Triple Threat
 ]
@@ -341,10 +341,10 @@ moves = [
 [[edit]]
 target = "c05024910_5100"                              # Gentian
 moves = [
+  { move = 0xAC1ACF1C, level = 1 },                         # Flower Plower
+  { move = 0x0D0B77EA, level = 14 },                        # Floral Fiesta
   { move = 0xF7E49F60, level = 41 },                        # Magnetism
-  { move = 0xAC1ACF1C, level = 51 },                        # Flower Plower
-  { move = 0x0D0B77EA, level = 61 },                        # Floral Fiesta
-  { move = 0x8917BF4B, level = 71 },                        # Willy-Willy
+  { move = 0x8917BF4B, level = 42 },                        # Willy-Willy
 ]
 
   [[edit.cards]]

@@ -49,13 +49,19 @@ function B.clear(c)
   if not c.ok then
     return
   end
-  local fast = c.diff == B.CHRONICLE and c.kind == B.NORMAL and not funcLuaCommand(B.CMD.GET_CLEAR, c.slot, B.ROUTE_OPEN)
+  local route_won = funcLuaCommand(B.CMD.GET_CLEAR, c.slot, B.ROUTE_OPEN) == true
+  local fast = c.diff == B.CHRONICLE and c.kind == B.NORMAL and not route_won
   c.force = fast
+  -- Diagnostics: the state each board return decides the route opening from (docs/audit/chronicle-route-graph.md).
+  B.log("clear: piece", c.piece, "slot", c.slot, "difficulty", c.diff, "kind", c.kind,
+    "chronicle won", tostring(funcLuaCommand(B.CMD.GET_CLEAR, c.slot, B.CHRONICLE) == true),
+    "route unlock won", tostring(route_won), "trigger piece", B.trigger_piece)
   if fast and B.trigger_piece ~= c.piece then
     B.trigger_piece = c.piece
     B.log("route unlock by Chronicle win: piece", c.piece, "slot", c.slot)
     RunVsRouteTrigger(506, B.WIN)
     if funcLuaCommand(B.CMD.TRIGGER_RUNNING) then
+      B.log("trigger 506 running: the board waits, piece", c.piece)
       c.wait = true
       VRFW.route_board.L.n21 = 4
       funcLuaMenuCommand(B.CMD.MENU_ACTIVE, VRFW.route_board.L.n9, false)
@@ -123,6 +129,7 @@ if VRFW.host ~= nil then
   VRFW.host.on(stem, "VRFW.route_board.open_effect", {id = id, phase = "around", fn = function(nxt, open)
     local fast = B.fast_clear == true
     B.fast_clear = false
+    B.log("open effect: retail", tostring(open), "fast clear", tostring(fast))
     return nxt(open) == true or fast
   end})
   VRFW.host.on(stem, "VRFW.route_board.dot_shown", {id = id, phase = "around", fn = function(nxt, kind, difficulty)

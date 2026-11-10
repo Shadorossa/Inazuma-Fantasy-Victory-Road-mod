@@ -60,300 +60,6 @@ stats = { kick = 204, control = 209, technique = 216, pressure = 242, physical =
     { move = 0xF7841EFC, level = 31 },                      # Fiend Hand
   ]
 
-
-
-
-
-
-
-
-[[edit]]
-target = "c02023810"
-card = 0x156931B1
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x393E8ED7
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x67DB7889
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x745291A9
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x783DFFC3
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0xD61D1732
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-[[edit]]
-target = "c02023810"
-card = 0x156931B1
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x393E8ED7
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x67DB7889
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x745291A9
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x783DFFC3
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0xD61D1732
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-[[edit]]
-target = "c02023810"
-card = 0x156931B1
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x393E8ED7
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x67DB7889
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x745291A9
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x783DFFC3
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0xD61D1732
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-[[edit]]
-target = "c02023810"
-card = 0x156931B1
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x393E8ED7
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x67DB7889
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x745291A9
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x783DFFC3
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0xD61D1732
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-[[edit]]
-target = "c02023810"
-card = 0x156931B1
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x393E8ED7
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x67DB7889
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x745291A9
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x783DFFC3
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0xD61D1732
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-[[edit]]
-target = "c02023810"
-card = 0x156931B1
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x393E8ED7
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x67DB7889
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x745291A9
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x783DFFC3
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0xD61D1732
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-[[edit]]
-target = "c02023810"
-card = 0x156931B1
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x393E8ED7
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x67DB7889
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x745291A9
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0x783DFFC3
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
-
-[[edit]]
-target = "c02023810"
-card = 0xD61D1732
-VRFW.MoveGrades = [
-  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
-]
 [[edit]]
 target = "c02023810"
 card = 0x156931B1
@@ -398,10 +104,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c02023820"                                   # Drancis Fake
 moves = [
+  { move = 0x31ABD82E, level = 1 },                         # Circus Block
   { move = 0x4F58F805, level = 28 },                        # Coil Turn
-  { move = 0x31ABD82E, level = 38 },                        # Circus Block
-  { move = 0x74CC079C, level = 48 },                        # Big Fan
-  { move = 0xA7B451B3, level = 58 },                        # Paladin Strike
+  { move = 0x74CC079C, level = 38 },                        # Big Fan
+  { move = 0xA7B451B3, level = 46 },                        # Paladin Strike
 ]
 
   [[edit.cards]]
@@ -521,10 +227,10 @@ moves = [
 [[edit]]
 target = "c02023900"                                   # Jonathan Luckyman
 moves = [
+  { move = 0xAC6D8A70, level = 1 },                         # Rainbow Arc
+  { move = 0xC5EF0563, level = 11 },                        # Three-Legged Rush
   { move = 0x34256515, level = 41 },                        # Dynamite Shot
-  { move = 0xAC6D8A70, level = 51 },                        # Rainbow Arc
-  { move = 0xC5EF0563, level = 61 },                        # Three-Legged Rush
-  { move = 0xB039ADB4, level = 71 },                        # Inazuma Break
+  { move = 0xB039ADB4, level = 55 },                        # Inazuma Break
 ]
 
   [[edit.cards]]
@@ -536,10 +242,10 @@ moves = [
 [[edit]]
 target = "c02023910"                                   # Joe Poker
 moves = [
+  { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
+  { move = 0xAC6D8A70, level = 11 },                        # Rainbow Arc
+  { move = 0x627FC293, level = 33 },                        # Meteor Attack
   { move = 0xC5EF0563, level = 53 },                        # Three-Legged Rush
-  { move = 0x3663DB4C, level = 63 },                        # Utter Gutsiness Bat
-  { move = 0xAC6D8A70, level = 73 },                        # Rainbow Arc
-  { move = 0x627FC293, level = 83 },                        # Meteor Attack
 ]
 
   [[edit.cards]]
@@ -628,7 +334,7 @@ moves = [
 [[edit]]
 target = "c02029020"                                   # Dany Destiny
 moves = [
-  { move = 0x259F08C6, level = 8 },                         # Whirlwind Twister
+  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
   { move = 0x7A67325B, level = 24 },                        # Flame Dance
   { move = 0x025FD09B, level = 38 },                        # Volcano Cut
   { move = 0x74CC079C, level = 50 },                        # Big Fan

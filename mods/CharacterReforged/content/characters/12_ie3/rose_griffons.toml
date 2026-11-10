@@ -78,7 +78,7 @@ moves = [
 [[edit]]
 target = "c03032460"
 moves = [
-  { move = 0x5B6C28ED, level = 7 },                         # Invisible Fake
+  { move = 0x5B6C28ED, level = 1 },                         # Invisible Fake
   { move = 0x132416F6, level = 20 },                        # Dog Run
   { move = 0x6633159F, level = 28 },                        # Gravitation
   { move = 0x3BF45E9A, level = 68 },                        # Triple Boost
@@ -95,8 +95,8 @@ target = "c03032470"                                   # Julien Rousseau
 moves = [
   { move = 0x4C1D87D5, level = 1 },                         # Bed of Roses
   { move = 0xB633C4E1, level = 8 },                         # Photon Crash
+  { move = 0x8B90AAAC, level = 12 },                        # Fortissimo
   { move = 0xB6F26F5F, level = 53 },                        # Tri-Pegasus
-  { move = 0x8B90AAAC, level = 63 },                        # Fortissimo
 ]
 
   [[edit.cards]]
@@ -124,7 +124,7 @@ moves = [
 [[edit]]
 target = "c03032490"                                   # Romuald Huysmans
 moves = [
-  { move = 0xA7B451B3, level = 20 },                        # Paladin Strike
+  { move = 0xA7B451B3, level = 1 },                         # Paladin Strike
   { move = 0xB633C4E1, level = 29 },                        # Photon Crash
   { move = 0xB6F26F5F, level = 55 },                        # Tri-Pegasus
   { move = 0x4683AADF, level = 65 },                        # Space Penguin
@@ -169,7 +169,7 @@ moves = [
 [[edit]]
 target = "c03032520"                                   # Émile Lazare
 moves = [
-  { move = 0xECD991E4, level = 20 },                        # The Stinger
+  { move = 0xECD991E4, level = 1 },                         # The Stinger
   { move = 0x8AF3EAB9, level = 42 },                        # Hammer of Fury
   { move = 0xF14FDC17, level = 55 },                        # Shot Pocket
   { move = 0xBD8A9EBE, level = 65 },                        # Infinite Wall
@@ -184,7 +184,7 @@ moves = [
 [[edit]]
 target = "c03032530"
 moves = [
-  { move = 0xB4757AB8, level = 6 },                         # Divine Stamp
+  { move = 0xB4757AB8, level = 1 },                         # Divine Stamp
   { move = 0x7A67325B, level = 17 },                        # Flame Dance
   { move = 0x592A96B4, level = 28 },                        # Afterimage
   { move = 0x0A3F27B7, level = 38 },                        # Foul Offence 3

@@ -10,9 +10,11 @@ VictoryRoadSeries = ["VR", "Ares", "Orion"]
 # special cards (chara_param rarity column, not 0) keep the set they have
 KeepSpecialCards = true
 SpecialCardsInheritBase = true
-# learn level = source level × LevelScale
+# learn level = source level × LevelScale; slots in ascending learn level, a story move or a tie at the level before + StoryLevelStep
 LevelScale = 1.0
 StoryLevelStep = 10
+# learn level of the first slot (the starter move)
+StarterLevel = 1
 SagaGames = ["IE1", "IE2", "IE3"]
 SagaSource = "IE3"
 ModernSource = "GX"

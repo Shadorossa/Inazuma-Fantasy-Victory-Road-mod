@@ -35,7 +35,7 @@ moves = [
 [[edit]]
 target = "c03033030"                                   # Jake Fana
 moves = [
-  { move = 0x36A270F2, level = 4 },                         # Rolling Slide
+  { move = 0x36A270F2, level = 1 },                         # Rolling Slide
   { move = 0x41F3CDC2, level = 16 },                        # Scorching Tackle
   { move = 0xABA58912, level = 26 },                        # Ignited Steal
   { move = 0x0A3F27B7, level = 36 },                        # Foul Offence 3
@@ -97,7 +97,7 @@ moves = [
 [[edit]]
 target = "c03033070"                                   # Adam Marunga
 moves = [
-  { move = 0xC0A013E6, level = 6 },                         # Liar Shot
+  { move = 0xC0A013E6, level = 1 },                         # Liar Shot
   { move = 0x087999EE, level = 26 },                        # Heel Drop
   { move = 0x21127474, level = 37 },                        # Ultra Moon
   { move = 0x2354CA2D, level = 52 },                        # Wind God's Dance
@@ -127,7 +127,7 @@ moves = [
 [[edit]]
 target = "c03033090"                                   # Siyabonga Mahlangu
 moves = [
-  { move = 0x41F3CDC2, level = 2 },                         # Scorching Tackle
+  { move = 0x41F3CDC2, level = 1 },                         # Scorching Tackle
   { move = 0x2BF596BF, level = 27 },                        # Tsunami Boost
   { move = 0x36A270F2, level = 39 },                        # Rolling Slide
   { move = 0x38094535, level = 60 },                        # Sub-Terfuge
@@ -172,7 +172,7 @@ moves = [
 [[edit]]
 target = "c03033120"                                   # Herschel De Villiers
 moves = [
-  { move = 0xC0A013E6, level = 7 },                         # Liar Shot
+  { move = 0xC0A013E6, level = 1 },                         # Liar Shot
   { move = 0xBDAE2862, level = 38 },                        # Hellfire
   { move = 0x427719AC, level = 47 },                        # Gale Dash
   { move = 0x0CF4E55C, level = 57 },                        # Double Touch
@@ -188,7 +188,7 @@ moves = [
 [[edit]]
 target = "c03033130"                                   # Moeneeb Booysen
 moves = [
-  { move = 0xB37CD264, level = 10 },                        # Am-Bush
+  { move = 0xB37CD264, level = 1 },                         # Am-Bush
   { move = 0x36A270F2, level = 16 },                        # Rolling Slide
   { move = 0x087999EE, level = 34 },                        # Heel Drop
   { move = 0xDCF43422, level = 44 },                        # Aurora Dribble
@@ -204,7 +204,7 @@ moves = [
 [[edit]]
 target = "c03033140"                                   # Kennedy McCarthy
 moves = [
-  { move = 0xC0A013E6, level = 8 },                         # Liar Shot
+  { move = 0xC0A013E6, level = 1 },                         # Liar Shot
   { move = 0x166B0073, level = 9 },                         # Super Armadillo
   { move = 0xB13A6C3D, level = 30 },                        # Zigzag Flame
   { move = 0xB37CD264, level = 60 },                        # Am-Bush

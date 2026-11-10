@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c05023620_5000"                              # Ron Innwater
 moves = [
+  { move = 0x72BFA108, level = 1 },                         # Wall of Atlantis
   { move = 0x4E22F64D, level = 47 },                        # Transporter Device
-  { move = 0x72BFA108, level = 57 },                        # Wall of Atlantis
-  { move = 0x7F15DC5F, level = 67 },                        # Desert Drift
-  { move = 0xB0F8060A, level = 77 },                        # Ozone Flayer
+  { move = 0x7F15DC5F, level = 52 },                        # Desert Drift
+  { move = 0xB0F8060A, level = 64 },                        # Ozone Flayer
 ]
 
   [[edit.cards]]
@@ -49,7 +49,7 @@ moves = [
 [[edit]]
 target = "c05023690_5000"                              # Desmodus Drakul
 moves = [
-  { move = 0xD2E9EF37, level = 11 },                        # Bloodsucker Bite
+  { move = 0xD2E9EF37, level = 1 },                         # Bloodsucker Bite
   { move = 0x0D368F6B, level = 25 },                        # Heaven's Time
   { move = 0xB501FE5D, level = 58 },                        # Holy Roller
   { move = 0xCBF2DE76, level = 81 },                        # Nocturne
@@ -64,7 +64,7 @@ moves = [
 [[edit]]
 target = "c05023700_5000"                              # Woodrow Stake
 moves = [
-  { move = 0x5E5AF1A9, level = 4 },                         # Northern Impact
+  { move = 0x5E5AF1A9, level = 1 },                         # Northern Impact
   { move = 0x2B8C597E, level = 21 },                        # Fugue Wave
   { move = 0xEDBAD1F1, level = 49 },                        # Brimstone Rain
   { move = 0xD2E9EF37, level = 75 },                        # Bloodsucker Bite
@@ -79,7 +79,7 @@ moves = [
 [[edit]]
 target = "c05023710_5000"                              # Nora Flexion
 moves = [
-  { move = 0x0DCADC54, level = 12 },                        # Emperor Penguin 7
+  { move = 0x0DCADC54, level = 1 },                         # Emperor Penguin 7
   { move = 0xCB79C825, level = 25 },                        # In-Line Stampede
   { move = 0xD32B8500, level = 47 },                        # Atomic Spin
   { move = 0x1876DB66, level = 65 },                        # Disaster Strike
@@ -114,10 +114,10 @@ moves = [
 [[edit]]
 target = "c05023620"                                   # Ron Innwater
 moves = [
+  { move = 0x72BFA108, level = 1 },                         # Wall of Atlantis
   { move = 0x4E22F64D, level = 47 },                        # Transporter Device
-  { move = 0x72BFA108, level = 57 },                        # Wall of Atlantis
-  { move = 0x7F15DC5F, level = 67 },                        # Desert Drift
-  { move = 0xB0F8060A, level = 77 },                        # Ozone Flayer
+  { move = 0x7F15DC5F, level = 52 },                        # Desert Drift
+  { move = 0xB0F8060A, level = 64 },                        # Ozone Flayer
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -150,7 +150,7 @@ moves = [
 [[edit]]
 target = "c05023640"                                   # Turner Fogg
 moves = [
-  { move = 0x72BFA108, level = 5 },                         # Wall of Atlantis
+  { move = 0x72BFA108, level = 1 },                         # Wall of Atlantis
   { move = 0xC324C788, level = 17 },                        # Blast Mine
   { move = 0xB8A509A7, level = 54 },                        # Asterocks
   { move = 0xA8215D7C, level = 64 },                        # The Mountain
@@ -165,7 +165,7 @@ moves = [
 [[edit]]
 target = "c05023650"                                   # Sid Viper
 moves = [
-  { move = 0x7DD6FEF8, level = 13 },                        # Athena's Anthem
+  { move = 0x7DD6FEF8, level = 1 },                         # Athena's Anthem
   { move = 0x0E0A3F7A, level = 22 },                        # Spatial Portal
   { move = 0xA9A7000B, level = 43 },                        # Bouncing Bunny
   { move = 0xC16279D1, level = 53 },                        # Field of Force
@@ -202,7 +202,7 @@ moves = [
 [[edit]]
 target = "c05023670"                                   # Porphyria Filia
 moves = [
-  { move = 0x768AB9C5, level = 6 },                         # Frosticle
+  { move = 0x768AB9C5, level = 1 },                         # Frosticle
   { move = 0x0D0B77EA, level = 14 },                        # Floral Fiesta
   { move = 0xAC1ACF1C, level = 29 },                        # Flower Plower
   { move = 0xF94FAAA7, level = 55 },                        # Decoy Deploy
@@ -234,7 +234,7 @@ moves = [
 [[edit]]
 target = "c05023690"                                   # Desmodus Drakul
 moves = [
-  { move = 0xD2E9EF37, level = 11 },                        # Bloodsucker Bite
+  { move = 0xD2E9EF37, level = 1 },                         # Bloodsucker Bite
   { move = 0x0D368F6B, level = 25 },                        # Heaven's Time
   { move = 0xB501FE5D, level = 58 },                        # Holy Roller
   { move = 0xCBF2DE76, level = 81 },                        # Nocturne
@@ -254,7 +254,7 @@ moves = [
 [[edit]]
 target = "c05023700"                                   # Woodrow Stake
 moves = [
-  { move = 0x5E5AF1A9, level = 4 },                         # Northern Impact
+  { move = 0x5E5AF1A9, level = 1 },                         # Northern Impact
   { move = 0x2B8C597E, level = 21 },                        # Fugue Wave
   { move = 0xEDBAD1F1, level = 49 },                        # Brimstone Rain
   { move = 0xD2E9EF37, level = 75 },                        # Bloodsucker Bite
@@ -274,7 +274,7 @@ moves = [
 [[edit]]
 target = "c05023710"                                   # Nora Flexion
 moves = [
-  { move = 0x0DCADC54, level = 12 },                        # Emperor Penguin 7
+  { move = 0x0DCADC54, level = 1 },                         # Emperor Penguin 7
   { move = 0xCB79C825, level = 25 },                        # In-Line Stampede
   { move = 0xD32B8500, level = 47 },                        # Atomic Spin
   { move = 0x1876DB66, level = 65 },                        # Disaster Strike
@@ -294,7 +294,7 @@ moves = [
 [[edit]]
 target = "c05028640"                                   # Desmodus Drakul
 moves = [
-  { move = 0xD2E9EF37, level = 11 },                        # Bloodsucker Bite
+  { move = 0xD2E9EF37, level = 1 },                         # Bloodsucker Bite
   { move = 0x0D368F6B, level = 25 },                        # Heaven's Time
   { move = 0xB501FE5D, level = 58 },                        # Holy Roller
   { move = 0xCBF2DE76, level = 81 },                        # Nocturne

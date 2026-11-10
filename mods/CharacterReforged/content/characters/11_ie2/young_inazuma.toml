@@ -79,10 +79,10 @@ moves = [
 [[edit]]
 target = "c02022260"                                   # Josh Nathaniel
 moves = [
+  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
+  { move = 0x3663DB4C, level = 11 },                        # Utter Gutsiness Bat
   { move = 0x7EEA4EE9, level = 34 },                        # Blade Attack
-  { move = 0xC66BD10D, level = 44 },                        # Zigzag Spark
-  { move = 0x3663DB4C, level = 54 },                        # Utter Gutsiness Bat
-  { move = 0x7A67325B, level = 64 },                        # Flame Dance
+  { move = 0x7A67325B, level = 44 },                        # Flame Dance
 ]
 
   [[edit.cards]]
@@ -171,10 +171,10 @@ moves = [
 [[edit]]
 target = "c11801010"                                   # David Evans
 moves = [
-  { move = 0x8C382852, level = 1 },                         # God Hand
-  { move = 0xF2CB0879, level = 36 },                        # Mugen the Hand
-  { move = 0xB8C5883B, level = 62 },                        # God Hand X
-  { move = 0x8AF3EAB9, level = 72 },                        # Hammer of Fury
+  { move = 0x8AF3EAB9, level = 1 },                         # Hammer of Fury
+  { move = 0xC4701649, level = 11 },                        # Ice Block
+  { move = 0xDBA0E5E3, level = 21 },                        # Gigant Wall
+  { move = 0x8C382852, level = 31 },                        # God Hand
 ]
 
   [[edit.cards]]

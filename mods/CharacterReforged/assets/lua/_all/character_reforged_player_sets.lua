@@ -367,7 +367,7 @@ if CharacterReforged.player_sets == nil then
     return (call(C.BOARD_CLEAR, h, bslot, keep_open and 1 or 0))
   end
 
-  --- Puts `skill` on list position `slot`.
+  --- Puts `skill` on list position `slot`; the move leaves every other position that held it.
   function S.list_put(h, slot, skill)
     if skill == 0 or slot == nil then
       return
@@ -375,6 +375,15 @@ if CharacterReforged.player_sets == nil then
     local pos = funcLuaCommand(C.SKILL_POS, h, skill)
     if pos ~= slot then
       funcLuaCommand(C.SET_SKILL, h, skill, slot)
+    end
+    -- CMND_SET_SKILL swaps with the move on `slot`; over an empty `slot` it leaves `skill` on its old position too.
+    if S.list_skill(h, slot) ~= u32(skill) then
+      return
+    end
+    for other = 0, NORMAL_NUM - 1 do
+      if other ~= slot and S.list_skill(h, other) == u32(skill) then
+        funcLuaCommand(C.REMOVE_SKILL, h, other)
+      end
     end
   end
 

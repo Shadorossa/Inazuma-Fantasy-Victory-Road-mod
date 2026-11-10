@@ -1,7 +1,7 @@
-6d2ae94646f9dbd39ac65e547c847d6388d17aad9346e3f73c793d6ff461c06802b92d0d4ecfd56202ebdd9ccb6f9cf5891a1095d2ab34a2c5bcdc164e2d4f0b
+4153bd7ef15ae734d2da8fbb8798c8ebaa137ef113d249d08ade4295067c4142f7171c96f078d165ce32e5ba5de9e8d1de8a5f3bcf19b9f005b23a52e86b510e
 format = 1
 channel = "InazumaFantasy"
-label = "0.3.0b"
+label = "0.3.0c"
 
 [[retired]]
 path = "mods/BattleBayDeluxe/assets/lua/screens/evt_bbd_tn_groups_menu.lua"
@@ -16665,6 +16665,11 @@ sha256 = "a72f392c2c9bc845660c3934900445705393fd39498cabaa389c0f035f809ac0"
 
 [[retired]]
 path = "mods/InazumaFantasy/content/update_channels/InazumaFantasy.history.signed"
+size = 1781586
+sha256 = "1282f79c6415c5d7c5dbb93b1c24c2aea4561839cc27a64246843187fa780619"
+
+[[retired]]
+path = "mods/InazumaFantasy/content/update_channels/InazumaFantasy.history.signed"
 size = 1757839
 sha256 = "728988576a557160aae408b271b9299d3db96a3d1b2b9be601c3f3916ac49804"
 
@@ -26594,6 +26599,11 @@ size = 7606
 sha256 = "15018dec217fce3f48d551e3845350facf002a2723de0bd673e7e1a247cbcbac"
 
 [[replaced]]
+path = "mods/BetterQoL/assets/lua/ability_list_menu/900_technique_search.lua"
+size = 5525
+sha256 = "bf95fef98eee89ba24411ca7a84e7966c04947dcbffe986fe171aeee2f6e4aea"
+
+[[replaced]]
 path = "mods/BetterQoL/assets/lua/chara_pack_probability_list_menu/300_01_neutral_element.lua"
 size = 914
 sha256 = "026fdc855b28515fa88617c8425b36f6b4d98b0eeee3f6c407816872b7f13285"
@@ -26872,6 +26882,11 @@ sha256 = "74ba0f2d8ca9d4895fbf8b2bb008f9d6da631c6a95d392c8cfb738f2f83cd4c3"
 path = "mods/BetterQoL/content/formations/unlocked_formation_texts.toml"
 size = 80384
 sha256 = "e0b074c9fe16e70751d5091dba47af423d172f7288d573af85ae4b57f68485ec"
+
+[[replaced]]
+path = "mods/BetterQoL/content/game/ability_search.toml"
+size = 1105
+sha256 = "96a8845488e919a2220e9e981dc7935fb2c6094f925203fcecd94a96e5aa03a9"
 
 [[replaced]]
 path = "mods/BetterQoL/content/game/album.toml"
@@ -27794,6 +27809,11 @@ size = 8644
 sha256 = "e1cb50d158d7ff701691ede4292a6ad400d27560eafcac98f183e531a0d4b4fe"
 
 [[replaced]]
+path = "mods/BetterQoL/scripts/ability_search.lua"
+size = 3884
+sha256 = "cd70c5d0d4d424e29d40762865077ee74122582895bf4cf36925d25c58609703"
+
+[[replaced]]
 path = "mods/BetterQoL/scripts/album.lua"
 size = 45843
 sha256 = "6086f54bcd52995781c3d49a15e66c9fabc8c00331ffc188b9ff4e0ef5f24ce1"
@@ -28214,6 +28234,16 @@ size = 3414
 sha256 = "82a942c89f8c647f4a6f0d140ce53d32ce1dbe5dc6b3fc2e331adfd565941f4c"
 
 [[replaced]]
+path = "mods/BetterUI/addons/BetterQoL/content/menus/confirm_cards.toml"
+size = 836
+sha256 = "52e68a88911ddda6e60e09cfa6a461a610a79c3ded983b45eacfb9f89d9fd145"
+
+[[replaced]]
+path = "mods/BetterUI/addons/CharacterReforged/content/menus/confirm_cards.toml"
+size = 847
+sha256 = "ca5cf5135a61867eaaa24e40769880da17dc7618b23abc4217f67aadb592ce56"
+
+[[replaced]]
 path = "mods/BetterUI/assets/gamedata/menu/obj/team00_01_p1_chara_card_blank_for_formation_evt.objbin"
 size = 1344
 sha256 = "994cf5ff0dd03df88bd99967cdec3d91d85a8ad4e3c7c42f304ba3aa0c98e8b9"
@@ -28427,6 +28457,11 @@ sha256 = "50efbe637515a9baa1af6c881ac9e830c62085919c56906daa0014c35adc08c6"
 path = "mods/BetterUI/assets/lua/vs_route_town_vs_team_menu/140_vs_basic_data.lua"
 size = 1780
 sha256 = "f1fc4e2c86a37d14eefa0794d35c3242225bfd24204bcadfe4579a4951257809"
+
+[[replaced]]
+path = "mods/BetterUI/assets/menu/102_team/team00/team00_01/team00_01_bui_fc.g4pkm"
+size = 42432
+sha256 = "1893ed8089392bae301dd0213ee73d86ede13f660800fb597566aed04149b2f5"
 
 [[replaced]]
 path = "mods/BetterUI/changelog.toml"
@@ -28705,6 +28740,11 @@ sha256 = "d363e0f1d5109b7fe624eae008d138d3f101c0568c8d432df6d5aa6f9f3f8421"
 
 [[replaced]]
 path = "mods/BetterUI/content/menus/player_cards.toml"
+size = 4227
+sha256 = "1dd40c812b09c32c76ee73e778a741874fd6a182e8c89181ad2a43fbd6564e69"
+
+[[replaced]]
+path = "mods/BetterUI/content/menus/player_cards.toml"
 size = 7084
 sha256 = "5309043d665fcbe9c3272e0bd639081cd6aba7e9acf1369fee70893155bc8993"
 
@@ -28782,6 +28822,11 @@ sha256 = "3f0b07718e0c0a5931e1407e27561cf56b76febd96e5b467cbdc353d2947fbc3"
 path = "mods/BetterUI/content/menus/top_bar.toml"
 size = 625
 sha256 = "e888b10ccff15e985400370e027351197e16d485545f01e2dff8166017107062"
+
+[[replaced]]
+path = "mods/BetterUI/content/menus/vs_basic_data.toml"
+size = 7789
+sha256 = "227ff394591c71ef0d5a915f8d7fb9e99328bf6a9f11f827aa76602d3301adac"
 
 [[replaced]]
 path = "mods/BetterUI/content/menus/vs_basic_data.toml"
@@ -29089,6 +29134,11 @@ size = 12999
 sha256 = "d620bf9a1ad2b28bea4c8877283ace479fa6bd27565728ce5795eeb94359635a"
 
 [[replaced]]
+path = "mods/CharacterReforged/assets/lua/_all/character_reforged_player_sets.lua"
+size = 40629
+sha256 = "22d241cf2c2e34846709d401cc29f6e43b4aa08ea2c4eccdfea53389f22b3ce9"
+
+[[replaced]]
 path = "mods/CharacterReforged/assets/lua/_all/character_reforged_skill_table_entry.lua"
 size = 4374
 sha256 = "492c9d8e8dd900781e2ca4ba73fd3157cf3d265fb5487b425f827e7ea39d9cf6"
@@ -29364,6 +29414,11 @@ size = 370723
 sha256 = "394be638d13940f1c7d7c8c860cc1d67a08cd4b8c3b9550307c9434ecb27c79c"
 
 [[replaced]]
+path = "mods/CharacterReforged/assets/script/lua/menu/vrfw_skill_slot_menu.lua.bin"
+size = 371093
+sha256 = "92d777ae337b65e5553c8941e224b757e938cc4d1b9df78bc9e6cb41f3051c6a"
+
+[[replaced]]
 path = "mods/CharacterReforged/changelog.toml"
 size = 1955
 sha256 = "c0c590a84c2d1052e6169592799643690e8e48b6e944590ad2288564b88f352a"
@@ -29415,6 +29470,11 @@ sha256 = "e38e1432b16d835dea1099c2457d70d875b72f91db9e03dcde6b3ccfd0c698fa"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/brainwashing.toml"
+size = 11612
+sha256 = "017ff8851b082931d1998284bf673a98dd942dcc9681a0680566f66715d8ca3d"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/brainwashing.toml"
 size = 11840
 sha256 = "4edf47822dad59738ee91be42dfcc03750b37f745b44fc17473a16f1cfac028e"
 
@@ -29422,6 +29482,11 @@ sha256 = "4edf47822dad59738ee91be42dfcc03750b37f745b44fc17473a16f1cfac028e"
 path = "mods/CharacterReforged/content/characters/10_ie1/brainwashing.toml"
 size = 11573
 sha256 = "b27628ab0b2636e6673cf97359f051754d2d283abd6818c180a3b800acd153e7"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/farm.toml"
+size = 11444
+sha256 = "57cba55f3d501422ac1c281b5c3accbf21cd970b0c5dd6b4b29e13d11b252282"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/farm.toml"
@@ -29440,6 +29505,11 @@ sha256 = "149f14a37cd02e2038fce00ffc05a9855c1415c8ad973283dc15d3f44b3c7239"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/inazuma_kids_fc.toml"
+size = 11548
+sha256 = "15fb99ab5d0d37dc966712f135a598316c544abd2191184a19d08bd864c0ca59"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/inazuma_kids_fc.toml"
 size = 11193
 sha256 = "c1251fbf9e2b4fd98564714087c4c87434c86610bf125474a29e8c6324ad863f"
 
@@ -29447,6 +29517,11 @@ sha256 = "c1251fbf9e2b4fd98564714087c4c87434c86610bf125474a29e8c6324ad863f"
 path = "mods/CharacterReforged/content/characters/10_ie1/kirkwood.toml"
 size = 11719
 sha256 = "0a0cc5f25d365d31ba48e8fec1260ce5ac551e2557ee73c8f813132e144db812"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/kirkwood.toml"
+size = 11499
+sha256 = "48a3682489485b8f067a808d7636f436e1d9b1a18a49f6fd43d5cbd8e5a16c85"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/kirkwood.toml"
@@ -29462,6 +29537,16 @@ sha256 = "5a81ee40efd2946db263adcc5e23444316aa00b958b71fb7ec5513363373b192"
 path = "mods/CharacterReforged/content/characters/10_ie1/occult.toml"
 size = 13532
 sha256 = "cfd34f7d16947f35e3586491f03ea4b3c93401cb4913c186c92b6e0114be5b40"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/occult.toml"
+size = 12919
+sha256 = "f6e42350688b017dd88368900f8d6861a9a0125a60be4faf23b403966a3f64fb"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/otaku.toml"
+size = 12208
+sha256 = "68e0d319fa18c69398a6118031b3f50807945cfa9eb128e461e45c08da69250a"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/otaku.toml"
@@ -29484,6 +29569,16 @@ size = 30051
 sha256 = "2d605392e680b2b44db19ed34dcd13faef632670489f782f5d720e6e907b7c7c"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/raimon.toml"
+size = 59546
+sha256 = "45dafc08cfc8280ed31967d110cd8d2fc17646560bbad1861d7de0aedf1d9307"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/raimon_veterans.toml"
+size = 10797
+sha256 = "0a2cd618d4abbb9e1d73cb655c94590a4e78495a20f93a9c89a65a1f6aa904fd"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/raimon_veterans.toml"
 size = 11103
 sha256 = "589abf9add761e0767a3abf4c74660fb94f5a86c74bb9bf9ee501c41e514f7e2"
@@ -29504,9 +29599,19 @@ size = 14108
 sha256 = "83c18f817248ff261501996570bd153fc120e27dde5e315019489d2a7ea677aa"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/royal_academy.toml"
+size = 15049
+sha256 = "d434e4dc4606cc265cb1bd3df78f96225487758cf514fdb3776a37e7abad49cc"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/shuriken.toml"
 size = 11767
 sha256 = "115ed3a3960a480c30f8b69b8ce5172aea07f1b6eb35b01dfd46085deafc446e"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/shuriken.toml"
+size = 11531
+sha256 = "b83fea45fdd2dd7c1d2692d01a9824c1dbc5a45b25d24e179dd20b85338b1dcb"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/shuriken.toml"
@@ -29524,9 +29629,19 @@ size = 10831
 sha256 = "3780df4afa4883cb132a6f41996d2621ca4545eb4b54bb4ecbfcfc03e2b446c5"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/street_sally_s.toml"
+size = 10858
+sha256 = "fc2f218ee7105dca32b7db2ed18c06192f635beb38088c29612ae951810bbe5f"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/sub_character.toml"
 size = 5021
 sha256 = "0882dd24c448cb67692c2892c22e87cd38dc99f481921c3d668ff9626fc8e0cf"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/sub_character.toml"
+size = 4807
+sha256 = "232cbf99525137084556ad37d3e13334136ffa703d98aea4ab14f9a36bcd344b"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/sub_character.toml"
@@ -29544,6 +29659,11 @@ size = 11638
 sha256 = "adc07923d12c8bf88d63d44eed4cbf12f43a1aa15c49a12825e9f45ccbe66608"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/umbrella_ms.toml"
+size = 11417
+sha256 = "e6808db232e73b2827f157899a10c4d374195349915147857de990bf87c608ac"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/unaffiliated.toml"
 size = 536855
 sha256 = "20b011fb44f72fef53678c1ddfaa9b975a02bcbed094b523151db1600755e58d"
@@ -29552,6 +29672,16 @@ sha256 = "20b011fb44f72fef53678c1ddfaa9b975a02bcbed094b523151db1600755e58d"
 path = "mods/CharacterReforged/content/characters/10_ie1/unaffiliated.toml"
 size = 524643
 sha256 = "8afcf23269c69302287a4f5011d11c4b1672c8d6e55f818cba3b045dc10cc5d4"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/unaffiliated.toml"
+size = 537224
+sha256 = "c47405d6050a95a91582dab7b0b437ba41d9237a9343d0c3489604e7a251a123"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/wild.toml"
+size = 12260
+sha256 = "1c54422c5e04eb87b4baff757f2835a6d8130ee42d1d157793ce0cee23063d02"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/10_ie1/wild.toml"
@@ -29574,9 +29704,19 @@ size = 12214
 sha256 = "8aa41d96436635120895a3d1afcc8e7812a956edca0abcd76e622c0c3aeccf2e"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/10_ie1/zeus.toml"
+size = 12019
+sha256 = "b9fd75e11dc9977c56a9afa909dbf0d5423cb1fa89e1130d0e0377030f13c051"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/advanced_epsilon.toml"
 size = 7764
 sha256 = "41a4756d5a89b331ca20481bf18fa158a5ed117d23b00b2813b81e1735215bb7"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/advanced_epsilon.toml"
+size = 9306
+sha256 = "a17d3f5efff2d1caf710d3ff137b5309804b958799dc315e0fcd412c848d24fb"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/advanced_epsilon.toml"
@@ -29587,6 +29727,11 @@ sha256 = "aa347dfccd61c11675b740ae239c98447931901c67a7bf5d547e5573196cd5e6"
 path = "mods/CharacterReforged/content/characters/11_ie2/alpine.toml"
 size = 15538
 sha256 = "139f0ffa191fa7c0e5a1bb7904c03a0e8632740ed9195d6ea2e939a3ab06801c"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/alpine.toml"
+size = 14262
+sha256 = "399da46440569d36ffb8eccef2c4a4da07fe1b38d4dc2490ca48ad7a207fd1a2"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/alpine.toml"
@@ -29602,6 +29747,16 @@ sha256 = "2227cc0ff6464eda04d0f8a67488038abd4fc3d2761ee6185a0bfea08e6b30f8"
 path = "mods/CharacterReforged/content/characters/11_ie2/cloister_divinity.toml"
 size = 13075
 sha256 = "42154b711e3f05c877045ddf3a4fb2d1ca9936e887dad9d10363204159257bc1"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/cloister_divinity.toml"
+size = 12464
+sha256 = "b8f70dc503c375763fc40659a46da065f989d1359e15ab59cf0f219aa2445e4b"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/dark_emperors.toml"
+size = 8467
+sha256 = "28483586a8809a4bef7030fdaf303943f0f2d647b3e4efe0d62241b51256265f"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/dark_emperors.toml"
@@ -29620,6 +29775,11 @@ sha256 = "112b81a20b609101b3843f421bf9d075ce39cb5216b4e689365e22c798324331"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/diamond_dust.toml"
+size = 7979
+sha256 = "83082569acdf82ec6b8dad50f204d83b8df5fe656a61150ca73de44f4c9860bf"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/diamond_dust.toml"
 size = 8392
 sha256 = "fadfeabfbcbb849aff542d216a7fe6f4369571cbf1ce9d73f0dbc3c73c3eb041"
 
@@ -29632,6 +29792,16 @@ sha256 = "3d258df0a1c93e4e85c1cd0508f698ae7788d1e102915094f0b9c10630f9812f"
 path = "mods/CharacterReforged/content/characters/11_ie2/epsilon.toml"
 size = 7657
 sha256 = "51a675f71424631b6335fe0eaba6bc34c04b817b6f053612956b017efbd6adcf"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/epsilon.toml"
+size = 9205
+sha256 = "544c4dd53239287e8b221a8b2a16fc38da38e53aafdb4e5d147122f492554f43"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/fauxshore.toml"
+size = 22102
+sha256 = "85fbe1c58fdaf5c127a714ff6ccb9d9e93296376617501c30de6b9f7b294dcee"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/fauxshore.toml"
@@ -29650,8 +29820,18 @@ sha256 = "2d48642ac7280eba1217a663576b622e97dfe41f0858457884789aadea4274d4"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/forest_team.toml"
+size = 7475
+sha256 = "a08e93037a933aca6c4f4026cb2db90c0adc769a3f214d0c04a172d67968f006"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/forest_team.toml"
 size = 7525
 sha256 = "eb15c859ccf33115a8b1fc43116892de07345619c50e1065d25bfa4322c801ee"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/gemini_storm.toml"
+size = 7965
+sha256 = "9a31831dfd0bbe3cfad0512b72db2b2dfd8e7c5da66fe696efbfcac1dc23cfcf"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/gemini_storm.toml"
@@ -29662,6 +29842,11 @@ sha256 = "b7de40007cbb70d77867f833dc5b140fef61c78adc68941a1633f48e0bb7de2c"
 path = "mods/CharacterReforged/content/characters/11_ie2/gemini_storm.toml"
 size = 8411
 sha256 = "d99b655a9af201cbb44ce83aa35de9008a73fd9990651a6b2a6267e63c32a066"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/genesis.toml"
+size = 9634
+sha256 = "38a79b95df947b08fe5eb0a8bb2d57d8d2ca3046c0a83ccf3bb5c88aa210ff62"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/genesis.toml"
@@ -29680,8 +29865,18 @@ sha256 = "b3d581d38bd5fb9547652750adce78b07ca552bfc751ae0d1d12e77eaf3c6b94"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/mary_times.toml"
+size = 17432
+sha256 = "d08f60bb5199e3f9b0d98d2d7012b5755d64b21c1bf296e40458587725c4fe42"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/mary_times.toml"
 size = 13340
 sha256 = "d242f011309834eaf3f95a5fdb30831b860e06f128ff18f0ebcf96bac86f842b"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/prominence.toml"
+size = 7922
+sha256 = "34243242169395dbc7811ed0fa0c71c69f92c8f55501ec3072941e0313c15003"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/prominence.toml"
@@ -29705,6 +29900,11 @@ sha256 = "e45e1a5194cfa214f405c744623758db37d37feec872e798f1fe29bff585d82e"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/royal_academy_redux.toml"
+size = 11056
+sha256 = "6a8d298f1fed59f457d0a4da3ab3771b4d632cc7f88b83b6d3d6601f2cc4ab35"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/royal_academy_redux.toml"
 size = 11273
 sha256 = "9e2cb31edfd293a607ef458f7348bf84ad7c011b575a8ea3e5f87f5c3fb6e86d"
 
@@ -29724,14 +29924,29 @@ size = 10853
 sha256 = "929c1058e1dd64cffc77ec92c7041fe570f00df9437e7d1cb7f5a76e08cb3e52"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/secret_service.toml"
+size = 10892
+sha256 = "b9e29420715669df9c540c9d9725c0ab86b772fdb2cfb9bc3943c298723518c8"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/sub_character.toml"
 size = 3221
 sha256 = "0a72fef8eb1cee374b32f7a9323a8c8b149a2c1b65ee7610a667445d50c3ac6f"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/sub_character.toml"
+size = 2998
+sha256 = "25c90afbecfcfffb69149d02a447567875befcf7bf0bec5a4ca77d4142b81bb2"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/sub_character.toml"
 size = 3150
 sha256 = "40ef462c75c56e0051cc4dfc4198eaffd9cb99b329b1e574570ef57bc0fa0b47"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/super_triple_c.toml"
+size = 12500
+sha256 = "446b01552aa57770b414901a3d1c8b37f22904a8e83b483ae978d6cb78dc8355"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/super_triple_c.toml"
@@ -29750,6 +29965,11 @@ sha256 = "26806272b0834ca857924c2e7046aa608f4445f325c0049b9bb4024919588815"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/unaffiliated.toml"
+size = 296664
+sha256 = "3d45a1613875ccc33fe6ae313c08c454eed64aa0946b79ca6414e5a0edd2b08e"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/unaffiliated.toml"
 size = 289916
 sha256 = "651daf4078b946ac905144781831e24115a8fde1d4415761ecaa2e6cb4fc7df2"
 
@@ -29757,6 +29977,11 @@ sha256 = "651daf4078b946ac905144781831e24115a8fde1d4415761ecaa2e6cb4fc7df2"
 path = "mods/CharacterReforged/content/characters/11_ie2/young_inazuma.toml"
 size = 8374
 sha256 = "235301d82afb2184c8469d31c221addf6cc9cfd0bcf42760022e9706422d8eca"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/11_ie2/young_inazuma.toml"
+size = 8145
+sha256 = "31824f642c50862a6b0b548ab1af0ffcec59786a2bbc336b4696411a275bc51b"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/11_ie2/young_inazuma.toml"
@@ -29770,8 +29995,18 @@ sha256 = "4d091788667cd428e1668d5ae44abaadade71725d1f1265a7ca3f5068d486050"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/apostles_from_the_sky.toml"
+size = 7392
+sha256 = "f66af1ba4728725f0e6c6966e1c1a4ca2fc341e7c6247d2f725d9defae7e5977"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/apostles_from_the_sky.toml"
 size = 7459
 sha256 = "fd76fa440166021cdb53f184fb766c936aa3cf73c07cfb2759fc558d01c31f38"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/big_waves.toml"
+size = 11877
+sha256 = "4ff8f1a83df541817e9943b4cbf291b6bfe4387bfacc0a8067655016f29e6fa6"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/big_waves.toml"
@@ -29790,6 +30025,11 @@ sha256 = "c56134cf18c41742cabc78341a82c8c29ddc8fd4c4e47db4ad052ed8c0754002"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/brocken_brigade.toml"
+size = 10848
+sha256 = "d6af79a6b633438030519cdd66dc70312a67427e7392847509287f9e9be90f40"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/brocken_brigade.toml"
 size = 11052
 sha256 = "f14e575a2baced995ee937cf016887d15938b76be4bbcf9be17dcfc4bf05b24e"
 
@@ -29802,6 +30042,16 @@ sha256 = "53e9ef6e8aa6a15d3b66ad4d2e20957cdf1c778f2ea7955476590a1630b358ea"
 path = "mods/CharacterReforged/content/characters/12_ie3/desert_lions.toml"
 size = 13224
 sha256 = "77c0daab8db193f956dc4e9772b02ea947690e4787c45af23f37b8421db164ce"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/desert_lions.toml"
+size = 12620
+sha256 = "ab6c4d48748b636e8a1deb588d3686dfa3e9307d98455013b96bddfd63c386f5"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/devil_army_z.toml"
+size = 7365
+sha256 = "209c6fe25d4cfac6077439a1a01f36884d1b7e1d1c3edf03c87caa330d544d31"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/devil_army_z.toml"
@@ -29820,8 +30070,18 @@ sha256 = "aec8d971898072b890b91f61f85458fbf38e06085ed359c996d335097a543554"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/fire_dragon.toml"
+size = 11286
+sha256 = "d2353342ab92b0e1f3b1cfa40c5be3d8c1d02a04571a77c52cd2d76a6ae3dc3e"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/fire_dragon.toml"
 size = 11226
 sha256 = "e41ebcec4f8aadbaf486fd3dd74ee9c3a0e53a4d7add88a46b07f8f27067d2cb"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/inazuma_national.toml"
+size = 7830
+sha256 = "20959cfcc0681ba2ae1b87ae964064568cc737b68502aa58095b9d0c15efc4a4"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/inazuma_national.toml"
@@ -29840,8 +30100,18 @@ sha256 = "a4e506c6cb9c738bcb942ccf8d34a90eb1417fb35b8258d4d592bbe7816decd0"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/little_gigantes.toml"
+size = 12638
+sha256 = "a7d7b10c03c46c66366a712407195bea88bbdfa79f89cc5dd3d6d11e4a673df5"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/little_gigantes.toml"
 size = 11659
 sha256 = "bd914fe8c9320fb9cee8d83aa7aaa0094aebdefb546dc369e677274d079f052f"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/mnt_teamk.toml"
+size = 12019
+sha256 = "092c0f5f5c1e70cc3c92c1adcc4eebba5c0ab220f31bdc98055c3f54619feaf1"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/mnt_teamk.toml"
@@ -29864,6 +30134,16 @@ size = 3985
 sha256 = "81a73aa9e625be6279edddb666d57012231c589ef83824bbdc2299e6109f48f9"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/neo_national.toml"
+size = 3665
+sha256 = "bd2cb1d3d406378e7666aa27321d36572ecefdaa397c1e123422859ac2c779ce"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/orpheus.toml"
+size = 11575
+sha256 = "01687c56399bca9d2f18c7ef6aaef784882baf418a00cb2138913b52b184c0ce"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/orpheus.toml"
 size = 10485
 sha256 = "569d3748e3046799feb85e33cbf21f7425339f2d509f0769286e5606f771d538"
@@ -29884,6 +30164,16 @@ size = 11911
 sha256 = "778f32b64d7619a37d6ea9e3dc56f9cf5da4c32ceb4f2c19b6eeb6289b399b5b"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/queen_s_knights.toml"
+size = 11862
+sha256 = "e204456cad1dd33d91bac11eed94d35c4388818ca1293070213fb0e01fa08fc0"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/red_matador.toml"
+size = 10538
+sha256 = "040f65e141ee092e3b88fe7de1907dbb1e74dec1890de51c394503f86a41a678"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/red_matador.toml"
 size = 10766
 sha256 = "3d947b515cf20bdc09f0df76fe293114417e6da2cd7e1c93bc6ac994edb19a07"
@@ -29895,6 +30185,11 @@ sha256 = "63b681309518ee3037959536910cf319ce4a7544ac654709b6554130851622d6"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/rose_griffons.toml"
+size = 10538
+sha256 = "1ad90031f4c209df4fabb528fe33d1163d20ce2a1bf56f99c2d0f576c1f6b92d"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/rose_griffons.toml"
 size = 10960
 sha256 = "3f10df666cd0c6224074fbdcf291dcfbc3f0a5efc67f8ab427ebd0b406385b76"
 
@@ -29902,6 +30197,11 @@ sha256 = "3f10df666cd0c6224074fbdcf291dcfbc3f0a5efc67f8ab427ebd0b406385b76"
 path = "mods/CharacterReforged/content/characters/12_ie3/rose_griffons.toml"
 size = 10715
 sha256 = "c7b1abddccbc61b08e977f84d2e963c343743c1a141fdfd5908aacc0abe3027a"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/sub_character.toml"
+size = 3466
+sha256 = "63f7a76150358de5ed533eb7914477d45561c3e5ca80879bb859394440a69866"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/sub_character.toml"
@@ -29920,8 +30220,18 @@ sha256 = "2b4c0017436cca70f46e88313687e8998e5c59a607cc45b35336dcf2ca3b81e6"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/team_fst_garcildo.toml"
+size = 10931
+sha256 = "483af8ea2fc1b2e0d61778cc379a5dba19966f7d9748ba3cc591b66ee00333a0"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/team_fst_garcildo.toml"
 size = 10920
 sha256 = "829ea2b2433138b67d71441fd19cda25722af80f46fde4a35c9cf2b97c912717"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/team_lst_yuto.toml"
+size = 1373
+sha256 = "93f1d2d5f00edceff64e7793df822b48dd442287bcdef63fbaae2844a5028a25"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/team_lst_yuto.toml"
@@ -29940,6 +30250,11 @@ sha256 = "3c357cd7d560dfc434bc5ced36076f4ee8813a1c98a880a8b7a5f15a396294a8"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/team_ogre.toml"
+size = 8665
+sha256 = "74004972a90421b81c1cace2e197dbe87beb87a699ab700d4643bb6f087ebab8"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/team_ogre.toml"
 size = 8879
 sha256 = "7d1c0c330cde7fb0c29e0883d94bfe7bb4c58cd46171eda4613229df66d44289"
 
@@ -29954,9 +30269,19 @@ size = 10909
 sha256 = "5625b82962ddad2164168ba5e53bcad8eadc0c40a8e1855d9a7c4178bc35f3e0"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/the_cape_crusaders.toml"
+size = 10932
+sha256 = "ec1e512eeb027050fa3b57e01e2a4f1d2e5f6f2eca0e2571c8fe5f13a7c13173"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/the_empire.toml"
 size = 11902
 sha256 = "5d3eddac797dd8ba3f568a76c5774fe61bb0571026d4f9b180ec52b38c2f9230"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/the_empire.toml"
+size = 11470
+sha256 = "ccfd68a2f3df40a4ba2be6ecacb6a621b9fde2e3fd20da75992af89551494f38"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/the_empire.toml"
@@ -29974,9 +30299,19 @@ size = 12344
 sha256 = "3332911fd1d96f9b07374eb5f25b7bce445e589ad520376a6c2a805339ab5952"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/the_kingdom.toml"
+size = 12394
+sha256 = "6f7c4ff0dbc64610775f9dc3ad26bd2bd95afa7321a3b3a7c1e42b748f0e928c"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/unaffiliated.toml"
 size = 233954
 sha256 = "5cc9165a401bbd54578f5dd4985a914970f06612469410a1d2968a85237cf11f"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/unaffiliated.toml"
+size = 233566
+sha256 = "d26255d75ad6f8ba49c6ea65007db8adacfb10001ec851c17f98f8c246a4880f"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/unaffiliated.toml"
@@ -29990,6 +30325,11 @@ sha256 = "005a111aed6a66e2f87d8a14e9239caed216225989b9dd8a9873cf4db7f0855a"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/12_ie3/unicorn.toml"
+size = 11656
+sha256 = "43457c5bb55d1277d5ea94831d32d045721db2a9b911dfa811baf55ff48f7a8f"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/12_ie3/unicorn.toml"
 size = 11697
 sha256 = "d1856010d0f6e89e5967270c84a1658f1f6d08ec3f51892433e1f2f9574fd729"
 
@@ -30000,6 +30340,11 @@ sha256 = "3e7ec18a51371ebbf0801a64f3f39527fc1abc16e87b36ff7dc31386e94fa060"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/almighty_faith.toml"
+size = 13795
+sha256 = "6c203c3d67b9b0e274905d422a821f0abc0cec5d701adad5d56a362ecdd90a71"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/almighty_faith.toml"
 size = 13054
 sha256 = "fd701bf76de3de27ab38c79f515b2010e82124207cf2ccc3f5469bb62e491d73"
 
@@ -30007,6 +30352,11 @@ sha256 = "fd701bf76de3de27ab38c79f515b2010e82124207cf2ccc3f5469bb62e491d73"
 path = "mods/CharacterReforged/content/characters/13_go/alpine.toml"
 size = 14294
 sha256 = "42e36fa64fa90f49c651a0dcd467016a5c2520a6897c44dffeb5ec9553b1ab39"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/alpine.toml"
+size = 15363
+sha256 = "5f1d137746a7475e40ca6a92520ab9955036f6b3addd7a606263f2beb51174d7"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/alpine.toml"
@@ -30024,14 +30374,29 @@ size = 10903
 sha256 = "bb809fe2258886546086f4bee03752e0826082c50a767488de35eb82c1c01450"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/ancient_darkness.toml"
+size = 12253
+sha256 = "fbcbfa9a8befb7e3b7fee0ef9d067873b1dd91fef11a501d64fa659559bdc01f"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/black_templars.toml"
 size = 11895
 sha256 = "0e37cee1e662541a123001a5dd5ea0be248b612f61e965955ab92609b89aadf3"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/black_templars.toml"
+size = 11982
+sha256 = "a83767ba0380fade0012777066bc4c22a4dadeaa8b8f4e7170fcb0155030f7ce"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/black_templars.toml"
 size = 11629
 sha256 = "e070eeeff69fd17a6e0f30cb26ff68733c7884df7112195abac1edac60429e6b"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/demon_s_horn.toml"
+size = 709
+sha256 = "9953559ca45432ec9e7ea5f0a4138afce37da2740e01b0613be1d6b722530354"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/demon_s_horn.toml"
@@ -30054,6 +30419,16 @@ size = 20356
 sha256 = "09923f7d158e70e580480bdd86875db3a345d6aa2010a66e932fa774bfa65d80"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/dragon_link.toml"
+size = 23770
+sha256 = "ba6f6fdb896a81d06c12c6980fa2576b1cf902436234af70878b79737ec94d03"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/eternal_light.toml"
+size = 10607
+sha256 = "1e419dd886b34535c09d713c38c39311c27a64395360d1814a1df4309bbdf859"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/eternal_light.toml"
 size = 9927
 sha256 = "488665bb6fa394f758c9e5c4204b86177303bfe0be5431167c84c467f3b7b7d7"
@@ -30074,6 +30449,11 @@ size = 8562
 sha256 = "63a2aa63f1ec03fb7d8ca717fbc9edcf3c823efcc10e12fc7da3dd0668911ccf"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/golden_oldies.toml"
+size = 8320
+sha256 = "f1f7631c6542bbf4fc649d57e4acb68b7005bfad29fc3bc4188ad9a824e02d09"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/inazuma_kids_fc.toml"
 size = 13225
 sha256 = "1b2636c4363b290f26f9020548f554e1dcbc50580580f96637609c30d44d2a00"
@@ -30082,6 +30462,16 @@ sha256 = "1b2636c4363b290f26f9020548f554e1dcbc50580580f96637609c30d44d2a00"
 path = "mods/CharacterReforged/content/characters/13_go/inazuma_kids_fc.toml"
 size = 12929
 sha256 = "2c999e530261422e31fe824bcdc2df8387085da15cf61d0bb96c2fed3808689e"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/inazuma_kids_fc.toml"
+size = 13346
+sha256 = "86cd49767b2f225295fa3b13bc2cf6b3e21d660fe2d70bea8cb30a50d03530c5"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/ivy_selective.toml"
+size = 10936
+sha256 = "236afa18596d73f38b69fa097bf866e23431add011f767c87dad136ec43fdb82"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/ivy_selective.toml"
@@ -30104,6 +30494,16 @@ size = 13746
 sha256 = "2500342374afd01a688223dde0eaf1c87925c80712a9a7284173f39aa64765ca"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/kirkwood.toml"
+size = 14775
+sha256 = "8405580f05eaf7c5c51062c868a675b1db192202f8e3701c90b695fac9741944"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/lunar_sea.toml"
+size = 14081
+sha256 = "3cf50bd2e361e57a26d1ffab14b19d0a8ecb831e692b49ffa9a672703f45e7c0"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/lunar_sea.toml"
 size = 13104
 sha256 = "6279cc280647d85490b09bf608d387c164ce38f051d2f0ea9a7ab41ec2219b85"
@@ -30124,9 +30524,19 @@ size = 12663
 sha256 = "a0d060087bfd49e3253c2c7ef4e1fc9ed11d661f16112baec704392745651b2c"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/milky_way_charter.toml"
+size = 12735
+sha256 = "da99e53c365b78a2847a7dae8df4d414eff13524ee32e47664ee3816b5f8c7db"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/mirage.toml"
 size = 14437
 sha256 = "77638736128dbb486089db0d78877e680ef80e33cb35e06be795b60f34678218"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/mirage.toml"
+size = 15824
+sha256 = "af3fba02225188f2fd238dc2180cc6d6e56df51fe5d84096cd8bba4eed5cfb2f"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/mirage.toml"
@@ -30140,8 +30550,18 @@ sha256 = "a1446783df80606faeeafccf9d1b30209446bef07f4d670cf4c213c09e58b8ed"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/mount_olympus.toml"
+size = 15844
+sha256 = "a84c4775da0d6b66b35758d22e33e356d67d9936c87725b36f122d0e2a85aa78"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/mount_olympus.toml"
 size = 15111
 sha256 = "ea26579206b0fc9b7d7dd2dee803c38ba11cb298c16cde711c919599a2a9b1bd"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/northern_fang.toml"
+size = 7544
+sha256 = "14f9d0a667570b1c54cbfae3f1c86a5f1728c8cdeb17c23a5431995617abaa67"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/northern_fang.toml"
@@ -30160,8 +30580,18 @@ sha256 = "0bcc8dd3ce18852dfcdc0159bbe6f8d8d2ecd3170c48ebcfc58b51b4c0e03d30"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/pirates_cove.toml"
+size = 14670
+sha256 = "9172475bdcbf0155c4020ce5ce7f94b9c2d648cbf455d442b1a55d330c979268"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/pirates_cove.toml"
 size = 13648
 sha256 = "ac7ba629c9672215c6d82608fca9745b607f2e85227f23873c669f85206725cc"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/prodigy_grammar.toml"
+size = 11611
+sha256 = "0f9734bcbeac22d1357e4ef1059373ab0886f21ae10ed6c3111eac0e3f474591"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/prodigy_grammar.toml"
@@ -30172,6 +30602,11 @@ sha256 = "4051d669554b5f5b0402510c55eff77baaa08b1fdb0206a3a073122a7a182444"
 path = "mods/CharacterReforged/content/characters/13_go/prodigy_grammar.toml"
 size = 11526
 sha256 = "63b6cea7a8b96c256a40f0d308f671282dbf03e45a0237853a1b9b463de445b9"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/raimon_first_squad.toml"
+size = 30227
+sha256 = "7eb8c90754e92fff0ca9a87afa7bb4ea0b9fee6cc0d24cda246ed0e2c6b08436"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/raimon_first_squad.toml"
@@ -30194,6 +30629,16 @@ size = 7645
 sha256 = "21f41d92526b0cc1feba48700fbb486001c75918216fb41a882c3a196f28edc0"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/raimon_second_squad.toml"
+size = 7516
+sha256 = "3c552b32296a6011f5955761b8a44889b18ff68896834712b1b5fe9393a44041"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/royal_academy.toml"
+size = 14481
+sha256 = "46bc68014ad9d0740f29a3ad912b1c3c5ffb947e6afa6622b3f0b31c3ffab027"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/royal_academy.toml"
 size = 13732
 sha256 = "5fd4c0223d69e3718a163870de795e2e87ab2b6fd1e82416720eafa6e979e958"
@@ -30202,6 +30647,11 @@ sha256 = "5fd4c0223d69e3718a163870de795e2e87ab2b6fd1e82416720eafa6e979e958"
 path = "mods/CharacterReforged/content/characters/13_go/royal_academy.toml"
 size = 14043
 sha256 = "689b74638a46d65db62b217b7144dfe322bfa6531071a42501ba794747eedf45"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/southern_claw.toml"
+size = 7555
+sha256 = "0de75601ba8e1020d115454fabdaa20d042212dc5c24202ef1c492eebd236fb4"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/southern_claw.toml"
@@ -30224,6 +30674,16 @@ size = 16568
 sha256 = "c9826dac8cc8b2424e784880e06934157585b03a05f50fe4e8add445dabbb308"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/sub_character.toml"
+size = 17073
+sha256 = "f878f5b08e6ebccb0edbc97d166254e41d6edd2058233a77573af18163db9c3d"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/team_zero.toml"
+size = 4149
+sha256 = "06cda4e547e5ba7d759d0af086383dd928e2a6eaff6b4676c2d41f921bc07135"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/team_zero.toml"
 size = 4356
 sha256 = "5a12f7898c94e25cd580ac9ce4d8b38b4107a3bab75f10d968f920bcde1fc15a"
@@ -30232,6 +30692,11 @@ sha256 = "5a12f7898c94e25cd580ac9ce4d8b38b4107a3bab75f10d968f920bcde1fc15a"
 path = "mods/CharacterReforged/content/characters/13_go/team_zero.toml"
 size = 4260
 sha256 = "d63738ec565a0b52fcc9441ca5c24053b3aa8bb6e7e8430757e8de4e57948581"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/unaffiliated.toml"
+size = 367625
+sha256 = "4fb396f62b4d4d1e08acef062935f97766145a6495806e9b78de03ec5c471aad"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/13_go/unaffiliated.toml"
@@ -30252,6 +30717,16 @@ sha256 = "2071dc408aeb057d60ef2a04a0e3075a095dd980314556dcce5ec7e483124ffc"
 path = "mods/CharacterReforged/content/characters/13_go/universal.toml"
 size = 13720
 sha256 = "4dea004e55932af6b35b9542238bb8051617984320907e7c9370f2b1f9bf05ad"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/13_go/universal.toml"
+size = 14710
+sha256 = "cfcc1f1256f9f3e473c1edcfdd96fc8c09efdc9ed270cc8bdc0a14d61d6afdaa"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/chrono_storm.toml"
+size = 3464
+sha256 = "89a057b1b8c1160ff94188ef5ebf84371a8147ca81976e535820cfdfe7b741d8"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/chrono_storm.toml"
@@ -30290,6 +30765,11 @@ sha256 = "324e017678888b46da026128b4c2e7ccacd9fffcd14df6d364eae9e2b0f462f9"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/eternal_light.toml"
+size = 1036
+sha256 = "35a02ccd8f1f8979da441b45ec337909f2ea851dd0e672c776709b767fae3009"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/eternal_light.toml"
 size = 1293
 sha256 = "87d5dfb992f32ecca38994a8825c761b28d438a84e475bdbed6bd70f122a538a"
 
@@ -30304,6 +30784,16 @@ size = 16477
 sha256 = "44234559959c3f007439eff66508b94628427afa7cf26fd7b4cf752ca1a060a4"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/fst_zanark_s_domain.toml"
+size = 18362
+sha256 = "d6a6fc99e06e87def0c2071d2da40168c4504128c84e3bca9f41c314134ac593"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/gahl.toml"
+size = 14309
+sha256 = "4e7a169aea1c11da0842d49511f5697b86c3aa575ac563cf6c46c0e3df6788c6"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/gahl.toml"
 size = 12930
 sha256 = "dc09ea9894b00e5010c20256f594a6b058b5e46ec927ab9d2bec1cadeb3de098"
@@ -30312,6 +30802,11 @@ sha256 = "dc09ea9894b00e5010c20256f594a6b058b5e46ec927ab9d2bec1cadeb3de098"
 path = "mods/CharacterReforged/content/characters/14_cs/gahl.toml"
 size = 12640
 sha256 = "e40220791cbd5cab6b24e01f50042e2ecfd218f185dea003cf23bc746ba94c5f"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/gihl.toml"
+size = 16961
+sha256 = "84abe26a314721c5f5a98c77074e27a8e7560a1e8f21d55e95a3a1302b7492a0"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/gihl.toml"
@@ -30334,9 +30829,19 @@ size = 6576
 sha256 = "78dcc6319c8862b1e3ec810220dd02d8c54a877c79ddd91be83ec95cd2601f69"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/inazuma_legend_national.toml"
+size = 6462
+sha256 = "a31e8742a0f21d6d531cf1c675d383cfea56dbbcc7515b054804590d3e35c9da"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/lunar_howl.toml"
 size = 12363
 sha256 = "a82d759b3f5411dd4b36700ea8b18ff18a0d270d71bcb9893f4f41dada71d4dd"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/lunar_howl.toml"
+size = 14714
+sha256 = "b8cd606a593613e49698cb8215ed736ec4f0fd1e266ab3589fd4b086c6e9e9f6"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/lunar_howl.toml"
@@ -30354,14 +30859,29 @@ size = 12720
 sha256 = "d7986138079dda48cde07efd3d79efbb513a4eae700b4dbf58312732e7d6274f"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/mnt_shiroshika.toml"
+size = 13822
+sha256 = "f5fb39b56528682e30da14409f24bbe8c79e161dff96543c4dd43cad97a5b96e"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/nosfanatica.toml"
 size = 13204
 sha256 = "7fb4ee340c5e17861ae9e34a93ad787749eb8d88257a85ce11fb5c0a9499f99a"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/nosfanatica.toml"
+size = 14866
+sha256 = "90f698eace7a723db81c2fd506d39a9060fcdd939d457e317c4ab6b7938412ae"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/nosfanatica.toml"
 size = 12925
 sha256 = "abbc2269c48cae35fd4e84a7eabdfc8f018b6ac3eb1adedf8d1683900423898d"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/perfect_cascade.toml"
+size = 55594
+sha256 = "0a6953bf630a79ebe9fae192c26b8407ec5674c705eff6d35cc7efeaf1aba81d"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/perfect_cascade.toml"
@@ -30380,6 +30900,11 @@ sha256 = "4d0f3d5f6731a735752ebd2e43a58a600a74e93f3563a7bb55f9f9c3645b1757"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/protocol_omega.toml"
+size = 13876
+sha256 = "d21ba63949b089d511fd4050ff6f1192f75d31429ddd1533de86bb03b9e3f1aa"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/protocol_omega.toml"
 size = 12455
 sha256 = "ddb95de45d2efd79fc1f8d729b5dfc849cd4c574fa7996a898c1786b566ba0eb"
 
@@ -30394,9 +30919,19 @@ size = 5821
 sha256 = "8e1b977fc6875338f271fe404328c85e97f5384799a5a3eea76458fd25a583d6"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/protocol_omega_2_0.toml"
+size = 5419
+sha256 = "e9f9bd65e995c52c6150e0a3b1b59cec79334b9b449f7f6be1eaa68fa2315761"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/protocol_omega_3_0.toml"
 size = 12858
 sha256 = "83276df21a6c74a064e78c9cd23545c32c2c7006c367b4dd2fc23034aafc6038"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/protocol_omega_3_0.toml"
+size = 13232
+sha256 = "871e74e9a043087350adf9ca5499833f156e315964414ae3f0661229dd4612e5"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/protocol_omega_3_0.toml"
@@ -30412,6 +30947,16 @@ sha256 = "99df54d28c4aa4dd0b16b2e8a6bd38e05e6458801f010009df6076553ac1a12e"
 path = "mods/CharacterReforged/content/characters/14_cs/ragnah.toml"
 size = 14898
 sha256 = "a0706a82166e5c9ea154e8a794ab99277302c30b8e0448398586405068d92505"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/ragnah.toml"
+size = 16568
+sha256 = "cdc8e3c59c0478a0be077dd6a160ea5ad72412270c3f084f32265af3ef7b80ee"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/raimon_first_squad.toml"
+size = 10697
+sha256 = "747e752c89ca64fa6d2bf544863ba741e12214e90801ed114d7f7e571d52fb65"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/raimon_first_squad.toml"
@@ -30434,14 +30979,29 @@ size = 36886
 sha256 = "9eb9366c57bdb7bd7db40b5ce476ec5ffb24a83902545aa3ab8c8e8537632509"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/sub_character.toml"
+size = 42453
+sha256 = "cd91bcfec098eb32e9fc7adbcf105daab8eb875cdd2e36943c8a492586af954a"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/the_aquatic_wings.toml"
 size = 1301
 sha256 = "20398c1c2533fd0ebedf74b340b30e57fc807bf972e5447033ade9f048155490"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/the_aquatic_wings.toml"
+size = 1381
+sha256 = "c14ae65b68eb4c1e5d50aeb2722cc96b8acd8e8b0548a8ee0c42b34565bac5c6"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/the_aquatic_wings.toml"
 size = 1273
 sha256 = "fb6abbf1020600b43d24d47f80c3bb9ff97d9effd40a29d1ebaf0beb9c245501"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/the_crimson_hounds.toml"
+size = 1367
+sha256 = "580e86ba39d3640e8161ae6d2507308e7b5a3363b3d998646886fd8a49d682c6"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/the_crimson_hounds.toml"
@@ -30460,6 +31020,11 @@ sha256 = "460f2e2e59cec083330f824a1a0e4f5972afcb3b96329919f8ae7c1b396e4983"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/the_despairadoes.toml"
+size = 16265
+sha256 = "4d0df93a87bce4bdaa9fc4757c5bedcf39e09bf1acdc73b12b31b27df31b88e3"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/the_despairadoes.toml"
 size = 13995
 sha256 = "ea178d2fcdb864f2fa084137241aef734c81aa75a5a2462360c408e647f5b932"
 
@@ -30472,6 +31037,11 @@ sha256 = "2204993fffe407a979800aa1794e5dd143b1b68bd98155ddf22874f31f69e590"
 path = "mods/CharacterReforged/content/characters/14_cs/the_golden_bears.toml"
 size = 1673
 sha256 = "2ef51c7eccead420a8874eea5ef7f70648c2776b8d0c23d3490af84ea1f97ad8"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/the_mnt_tenmas.toml"
+size = 14229
+sha256 = "6d1bc855936889cfb33faff9ec6079df0263e10e5fc69506877df7a9f2d27300"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/the_mnt_tenmas.toml"
@@ -30504,6 +31074,11 @@ size = 1296
 sha256 = "87347b2d244eeb6ac304e245cb8348670f79b0ad57c4cdef74fdd1efee048f6a"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/the_snow_weasels.toml"
+size = 1367
+sha256 = "db2083bdd61c74fcf0ebcc134f8f83da1ed8c7045d32607eba6d808b860657c2"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/the_terracotta_army.toml"
 size = 7680
 sha256 = "1b18910ce3a8154c16e23e5ed334fbf3ce8e2b3b1bd15392fdbc668600353cc6"
@@ -30514,6 +31089,16 @@ size = 7849
 sha256 = "575d120c8010de14e1811a32c4a4a240a51ac6737eba688b9a0ef5fc4b2f520b"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/the_terracotta_army.toml"
+size = 7625
+sha256 = "8f359fcf9817715ea127d5b5ae7452d8733a9fefc2b23eab47afac95a7ae7362"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/unaffiliated.toml"
+size = 79458
+sha256 = "1d5a6f77f141280bc09f07e0290b9522a723a502ebd290c0be0f771caae37eb6"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/unaffiliated.toml"
 size = 77774
 sha256 = "2be68738c47f668f31ab9e33d2406028d238441ca8aee3af0c8bc63a36c52f9f"
@@ -30522,6 +31107,11 @@ sha256 = "2be68738c47f668f31ab9e33d2406028d238441ca8aee3af0c8bc63a36c52f9f"
 path = "mods/CharacterReforged/content/characters/14_cs/unaffiliated.toml"
 size = 79569
 sha256 = "e8a3c13a5eade21378cae06885432f0a508b2fb820694703b4a14d56b0fb49c2"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/universal.toml"
+size = 1037
+sha256 = "0ff9693005bf37cad4967e878ef9e4355305b8bfbd4bbb4251aad6fb106d602d"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/universal.toml"
@@ -30540,6 +31130,11 @@ sha256 = "80f2ee4a044d4b4d76d8304ce0dd582a2e61d5c3c0fdc43dcd238978db44d377"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/14_cs/zan.toml"
+size = 14332
+sha256 = "8b55afe5e273b117636324a211692a22840cd65edd0a98ca404c824cc8fae579"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/14_cs/zan.toml"
 size = 13034
 sha256 = "d829d309a82c64b5468d6f5b9f730718f3b711b69c87f8ad47a50b25a9d61052"
 
@@ -30552,6 +31147,11 @@ sha256 = "45c4b78b6cfd03cc0bb1e62c677cae2947a5856d5e92ec9ec7abf913ca655ab0"
 path = "mods/CharacterReforged/content/characters/15_gx/big_bang.toml"
 size = 11562
 sha256 = "8a85692e81e1566455a4815142efabbb30ca6a5d56fbc6da157b80457ee5b09e"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/big_bang.toml"
+size = 11435
+sha256 = "8c618439cba0cedf4e47d91a2595bf9558b5a7f97b1cb470f40b8ba81d4e2591"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/big_waves.toml"
@@ -30574,6 +31174,11 @@ size = 13423
 sha256 = "1f04fbeb36e5f172e6f8557b3427ab85290a83e07f14f6d186ceda11abaef168"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/earth_eleven.toml"
+size = 13092
+sha256 = "b2deb6c287463c043b84176f31cde95caf2be75e3ceeb1feb041dbad6ce2ff78"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/falam_medius.toml"
 size = 4716
 sha256 = "6c09f14902f4d60438c85c4edcedcac73c0b23be16632084a2ad1fe4228fa8ff"
@@ -30584,6 +31189,11 @@ size = 4614
 sha256 = "8a58b6db798af1b515f8cb7db50ec5276bca721cb424d1d894c833487e3766c8"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/falam_medius.toml"
+size = 4481
+sha256 = "f82dbb0a80e2797a197a4053c7e9bea2eb9c4ca14ce3d39ba8b8b968216416ac"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/fertilia_eleven.toml"
 size = 13061
 sha256 = "840617aa73035ed61740ec935333bda9c96aae4a182e1ef92f43f5364244860a"
@@ -30592,6 +31202,16 @@ sha256 = "840617aa73035ed61740ec935333bda9c96aae4a182e1ef92f43f5364244860a"
 path = "mods/CharacterReforged/content/characters/15_gx/fertilia_eleven.toml"
 size = 13347
 sha256 = "f9adbfeadd361eb7b4401a30da86890e13ee557971bd33b7d89568ad5a2065b0"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/fertilia_eleven.toml"
+size = 13060
+sha256 = "fbaf69b283a0e4255a00f13c5458f34878e1c5705fd848c7269a1b6ba767f03a"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/fire_dragon.toml"
+size = 8200
+sha256 = "00e01ae124866d6d984e098617cc46cdcc615a56a05d5ed5d0ea955138a4d775"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/fire_dragon.toml"
@@ -30610,6 +31230,11 @@ sha256 = "0d9fa83de08de5500d7fc9190f388320a1b20f4da3e4bc4fef5767b9a12325ac"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/ixar_fleet.toml"
+size = 9684
+sha256 = "89ae430ed546904c2978b49071e773b8849ac47bd15afe9faed1e78dff96b370"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/ixar_fleet.toml"
 size = 10027
 sha256 = "ed98ccd29535044823441ff3bc96e9089cde49de31ad3386e0d360d8cf10c7b7"
 
@@ -30625,6 +31250,11 @@ sha256 = "d0c599e3936f94ec0adc7ce81ab695cdf61d9b0251886bcc50c5733e5bcb67ac"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/magmavia_eleven.toml"
+size = 10296
+sha256 = "6b7ef214e1b2acd92c029643715d92faaacd5734252da17c06c83704ca319b63"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/magmavia_eleven.toml"
 size = 10362
 sha256 = "8bffd67d5ec09c389ec6e93803e0afaf2bff429e35420805571dfbb6597b5328"
 
@@ -30635,6 +31265,11 @@ sha256 = "a35470a8e66b2d2117a271756684b094fb81df6410012f4a3f0a8d91682e4a9f"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/muay_tigers.toml"
+size = 8328
+sha256 = "691f959f10c78d215e47fb39caf5cbb01d0c064bc7cfa785ffda724e7c306b1a"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/muay_tigers.toml"
 size = 8563
 sha256 = "9ede70484b8ba785c138e5080b6c426a4bc1622d5c5a8c9bea58923c86471b42"
 
@@ -30642,6 +31277,11 @@ sha256 = "9ede70484b8ba785c138e5080b6c426a4bc1622d5c5a8c9bea58923c86471b42"
 path = "mods/CharacterReforged/content/characters/15_gx/muay_tigers.toml"
 size = 8371
 sha256 = "cdf9234638bad6ab97cc80b92b6c9e38777b21e4f13ecaf7b440153690d58717"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/naiadi_eleven.toml"
+size = 9604
+sha256 = "4974211a3a8ed10cf0d2af0a0c337de1306664c1270fd5ed84a6f62ed5dd4550"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/naiadi_eleven.toml"
@@ -30670,6 +31310,11 @@ sha256 = "316e0bf4fd845ed70c38b318a6ac0db663559ef42686a43099978dfe9096f061"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/silica_eleven.toml"
+size = 9891
+sha256 = "7607c739d4b0d4b3a18b725590b51ccca541ab58924bb8171c800b7daa41b7a1"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/silica_eleven.toml"
 size = 10173
 sha256 = "e188ae087023de318a9086cacc8e452c4730b7a36c78b3dc1cd1f23c25311557"
 
@@ -30682,6 +31327,11 @@ sha256 = "0e31d5b00cca5f011e7236ee3b49c75e887d1a3580a13a39cadff66ba93207ba"
 path = "mods/CharacterReforged/content/characters/15_gx/storm_wolves.toml"
 size = 8218
 sha256 = "324c68b40e893c8a54002877a46415d8b226ec76e04f652ce7af0c04d59abc6e"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/sub_character.toml"
+size = 18463
+sha256 = "36dc09bc0fc5e6bb23a077fa25b362faf006c340618480460341f75b3381d11c"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/sub_character.toml"
@@ -30700,8 +31350,18 @@ sha256 = "81666236d2ea19a68f303fa3754087fa992a545dfbd0c9769258789b5d8d3c40"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/supernova.toml"
+size = 11453
+sha256 = "a4cbd0008581ae74f671b3e6fe11c035267e49364b30d8f34056fa31853b6d4c"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/supernova.toml"
 size = 11573
 sha256 = "c75c3e15103c51d6284524b4f8fa6458ad66f7d6f1f82d83316aeb0a8ef29ff7"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/15_gx/unaffiliated.toml"
+size = 133562
+sha256 = "018c1af723744a6e3acf03260b7f246f591ea596bda10eb4438997e61572cdf5"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/15_gx/unaffiliated.toml"
@@ -31769,6 +32429,11 @@ size = 864
 sha256 = "818b37e32fff00f9067555d8345614a3882da7ef543de00a2caf3fb953bbef81"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/characters/movesets/no_series_entry.generated.toml"
+size = 4220
+sha256 = "a1ca9dd286cf24ef828f8838a85dd3f3507cc53d43dde4a8dad3acad9c210601"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/characters/movesets/overrides.toml"
 size = 10958
 sha256 = "60317a6ba6c18b76761803a1e7a1131ed401ff7af6e9ab64a32bd3ebaba01fe6"
@@ -31782,6 +32447,11 @@ sha256 = "943f78a46afd3521ac1a7a60f13d4063b20b698abc661862e73751d7cb2481a0"
 path = "mods/CharacterReforged/content/characters/movesets/special_cards.generated.toml"
 size = 130334
 sha256 = "98a8748d2b8e5503b53ba67d768993c198e5923c4118910da404e02217bcac51"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/characters/movesets/special_cards.generated.toml"
+size = 181022
+sha256 = "9fc181c7be5af7b39228adcdb35cc2a8ba20e19a7b8265c58d1563537e1dc4ff"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/characters/movesets/special_cards.generated.toml"
@@ -32262,6 +32932,11 @@ sha256 = "1867edcf856ae214d06fd7961620f2eeb41223b7b87bb98053f84458ece11a6e"
 path = "mods/CharacterReforged/content/movesets/generator_rules.toml"
 size = 4543
 sha256 = "1917acc203ad6d4c898ae2280cb6789f0dc4e6131608ab09ab57ef129194d340"
+
+[[replaced]]
+path = "mods/CharacterReforged/content/movesets/generator_rules.toml"
+size = 1896
+sha256 = "bbd45be727019025d889f0306f4ebb80a3066898a13351425cac5c29834fd583"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/number_fit/player_page.toml"
@@ -33290,6 +33965,11 @@ sha256 = "76ee17737592bd35315c883d00ee11109638c81e459b4e33ad06506ddeb4948f"
 
 [[replaced]]
 path = "mods/CharacterReforged/grafts/ss2_menus/blocks/skill_slots.lua"
+size = 95027
+sha256 = "9cc457b23791f0104617bb6f6799ef6bfcf0be75c9213cc0e52c6107d6963d39"
+
+[[replaced]]
+path = "mods/CharacterReforged/grafts/ss2_menus/blocks/skill_slots.lua"
 size = 146102
 sha256 = "b034c8ca49198938e910c546d70fd74f827f724d59098fd6db8bfcc659bb80cf"
 
@@ -33302,6 +33982,11 @@ sha256 = "8d2102535edf1a002f20fbc9a4bbe2b0e9f8b7f382bf5d05e92e53629fba4e90"
 path = "mods/CharacterReforged/grafts/ss2_menus/blocks/two_hiper_slots.lua"
 size = 40925
 sha256 = "c0172f54b4626f24ce9f9edc3c57b1d99ec4c17a9c360584d23d8f477d20d541"
+
+[[replaced]]
+path = "mods/CharacterReforged/grafts/ss2_menus/blocks/two_hiper_slots.lua"
+size = 26502
+sha256 = "ef7685700cb18ff97e2eeef338efa364cb20405fd8b4b08b4c4ad742f99d11c9"
 
 [[replaced]]
 path = "mods/CharacterReforged/grafts/ss2_menus/blocks/unlimited_copies.lua"
@@ -34809,6 +35494,11 @@ size = 10628
 sha256 = "3e2428ca02a64eca438dcedead182c67b35da845e95d8376e26b74ca9897aef7"
 
 [[replaced]]
+path = "mods/ChronicleDeluxe/assets/lua/vs_route_town_menu/155_h1_chronicle_deluxe_board.lua"
+size = 8546
+sha256 = "66386725fd98f67c381436a8f58b47368a2dc22cf7ebf717b184366135c67d64"
+
+[[replaced]]
 path = "mods/ChronicleDeluxe/assets/lua/vs_route_town_menu/156_h1_chronicle_deluxe_master_seal.lua"
 size = 3099
 sha256 = "87aad6cd3371154ce43bc2aa1ed02d1f8045a61ad728c45da8190b9ce90a08de"
@@ -35342,6 +36032,11 @@ sha256 = "0190f7b709d4c5cb214930e47136ca6146e8e894b7a1beb0366b88e3b819c6d2"
 path = "mods/ChronicleDeluxe/content/menus/free_match_cleared_gauge.toml"
 size = 750
 sha256 = "53a58b8503d44d3e3ee33716d81b26a96f5a469301734d936aecb54817c31001"
+
+[[replaced]]
+path = "mods/ChronicleDeluxe/content/menus/team_lineup.toml"
+size = 3219
+sha256 = "32af0ab36f5520a655fd9ad34e00883342e2f78ef8a03f8f9c24c0a7c6baefb5"
 
 [[replaced]]
 path = "mods/ChronicleDeluxe/content/menus/team_lineup.toml"
@@ -36197,6 +36892,11 @@ sha256 = "9e06444fa67ba3bbda2025e037614c7802d0353654636bb7e6750afc961bad6a"
 path = "mods/ChronicleDeluxe/grafts/chronicle_deluxe_board/cd_board_hooks.lua"
 size = 6700
 sha256 = "ce05044176ccd39dcf53b31460df3a11bdf1b4d747069713dd2d8e2e6af74a04"
+
+[[replaced]]
+path = "mods/ChronicleDeluxe/grafts/chronicle_deluxe_board/cd_board_hooks.lua"
+size = 5993
+sha256 = "f709547391f94738c9acd04e0463a76544b5d2f016c528af3e1b1991486a2a95"
 
 [[replaced]]
 path = "mods/ChronicleDeluxe/grafts/chronicle_deluxe_board/cd_command_hooks.lua"
@@ -42235,8 +42935,8 @@ sha256 = "df720d548a05750578039e4afa6cefdd6494079812b94190f66de8a834b050d5"
 
 [[replaced]]
 path = "mods/InazumaFantasy/content/update_channels/inazuma_fantasy.toml"
-size = 568
-sha256 = "cdf35111215db1f8130e85a7bac269bfa7ba72bbef5c4c3cfcd2b278d949430a"
+size = 546
+sha256 = "362bfcd27fb887e58b4ed41665dba3250e11be74d0fa376e05f6601bbc3ba09f"
 
 [[replaced]]
 path = "mods/InazumaFantasy/content/update_channels/inazuma_fantasy.toml"
@@ -42417,6 +43117,11 @@ sha256 = "a11c1c0d6c6f67aae089ca788ff8cbd7122f9338a7f513560dbc14897d8a0cdc"
 path = "mods/InazumaFantasy/text/rows/skill_text.toml"
 size = 4825
 sha256 = "c456cc127fde7b8a511fad61c1811370cbb121f1812119caf60984cfff036c0a"
+
+[[replaced]]
+path = "mods/InazumaFantasy/text/rows/warrior_spirit_names.toml"
+size = 6324
+sha256 = "951cbcc33230e3ca2be61d0811b9f6299d9a91f22912325a91b7cf4b283b21a9"
 
 [[replaced]]
 path = "mods/MissingContent/changelog.toml"
@@ -42712,6 +43417,11 @@ sha256 = "145db6dea4143dfd9131603aae14615c0fa7c933c6b138be828987f1a384cd91"
 path = "mods/VRFW/assets/lua/menu/_all/17_bank_commands.lua"
 size = 1866
 sha256 = "9783ff3a28d82ff9008a55564034e03afa019c1bb87d7b0cc20d830741faf08b"
+
+[[replaced]]
+path = "mods/VRFW/assets/lua/menu/_all/17_team_dock_half_rows.lua"
+size = 32543
+sha256 = "23f008fc9e606ae2d06df5e7fbb715cba78e14468bc3098450885e189d47269a"
 
 [[replaced]]
 path = "mods/VRFW/assets/lua/menu/_all/20_card_filter.lua"
@@ -43322,6 +44032,11 @@ sha256 = "6d0e50c25b642ed05e52926b68830a1897a1045bc6052f4b4aca7575dd00bf91"
 path = "mods/VRFW/assets/lua/menu/_all/96_game.lua"
 size = 4705
 sha256 = "9beacbf2b3cbc0c9eb75d0eafa6f340cabbc51adbbb9005450f7f35291e4b454"
+
+[[replaced]]
+path = "mods/VRFW/assets/lua/menu/_all/97_number_fit.lua"
+size = 3186
+sha256 = "236a25d65f5bfe76992d66f5f220db6491cd9650bbae6965cbbfe9991c5eb7d7"
 
 [[replaced]]
 path = "mods/VRFW/assets/lua/menu/_all/97_number_fit.lua"
@@ -45979,6 +46694,11 @@ size = 14751
 sha256 = "ecbf0f6ae533e88f44477e373d017e39fe19991340fb07e74559b6e2a3d7de5a"
 
 [[replaced]]
+path = "mods/VRFW/content/images/menu/102_team/team01/team01_02.toml"
+size = 13325
+sha256 = "f06a2da507025a00ce02dcca3cdc48d0094799190e9ddf648ab7d574a0bea6e7"
+
+[[replaced]]
 path = "mods/VRFW/content/images/menu/107_vs/vrfw_bb_pages.toml"
 size = 6264
 sha256 = "d1fa99dd2a678e23aec0a35fdf5f947eda1f35c9126b7363e0787c4f885fd7f3"
@@ -46937,6 +47657,11 @@ sha256 = "76072a0bce107e06785a4f2851b069a1b01427801800fae0d499120114a41f69"
 path = "mods/VRFW/content/types/number_fit.toml"
 size = 1762
 sha256 = "216a9fc1e8478fe9077e5dee5813860da965afedad5cf60b23c51a0c4abb78d2"
+
+[[replaced]]
+path = "mods/VRFW/content/types/number_fit.toml"
+size = 1244
+sha256 = "b425b5e34fb7e865adf81378ee08e92630df8594d5decc0ea715e91cc4e5cf9e"
 
 [[replaced]]
 path = "mods/VRFW/content/types/number_fit.toml"
@@ -48325,6 +49050,11 @@ sha256 = "f04835ec8e8253f06d4ec12fe7a954f42e9acb7424caef4016245f2cc093c240"
 
 [[replaced]]
 path = "mods/VRFW/scripts/number_fit.lua"
+size = 1576
+sha256 = "d3e8bd63184d3531f14517080e0e0e3bb820e5cb960c341812f6da3fc05a0dd7"
+
+[[replaced]]
+path = "mods/VRFW/scripts/number_fit.lua"
 size = 1917
 sha256 = "d49e95567b33e4f1df39497013b96c70fe18661aa378523a359826c8e8cf3dfa"
 
@@ -48567,6 +49297,11 @@ sha256 = "7a30a15fbbf37150c9c68f45880add8fdd5783492b4b3f3f276a86440c38386f"
 path = "mods/VRFW/scripts/synergy.lua"
 size = 64345
 sha256 = "4744f79d19c3009c9f60e40857e2b001ea6c303cd7b903c8d2a789b9fe2e11de"
+
+[[replaced]]
+path = "mods/VRFW/scripts/synergy.lua"
+size = 52978
+sha256 = "49c287e00e4cf83234fbe15960a08733b68dda4a6d8e52224a5ed39760dd4fc7"
 
 [[replaced]]
 path = "mods/VRFW/scripts/synergy.lua"

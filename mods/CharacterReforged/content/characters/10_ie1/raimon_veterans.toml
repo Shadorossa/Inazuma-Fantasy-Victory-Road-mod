@@ -79,10 +79,10 @@ moves = [
 [[edit]]
 target = "c01002660"                                   # Josh Nathaniel
 moves = [
+  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
+  { move = 0x3663DB4C, level = 11 },                        # Utter Gutsiness Bat
   { move = 0x7EEA4EE9, level = 34 },                        # Blade Attack
-  { move = 0xC66BD10D, level = 44 },                        # Zigzag Spark
-  { move = 0x3663DB4C, level = 54 },                        # Utter Gutsiness Bat
-  { move = 0x7A67325B, level = 64 },                        # Flame Dance
+  { move = 0x7A67325B, level = 44 },                        # Flame Dance
 ]
 
   [[edit.cards]]

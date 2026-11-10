@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05020110_5000"                              # Fei Rune
 moves = [
-  { move = 0xA9A7000B, level = 7 },                         # Bouncing Bunny
+  { move = 0xA9A7000B, level = 1 },                         # Bouncing Bunny
   { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
   { move = 0xB0F8060A, level = 40 },                        # Ozone Flayer
   { move = 0x00AF8010, level = 52 },                        # Splitting Hares
@@ -31,10 +31,10 @@ moves = [
 [[edit]]
 target = "c05020010"                                   # Biggsy
 moves = [
+  { move = 0x2D9F7E76, level = 1 },                         # Breath Taker
   { move = 0xB01D1B68, level = 12 },                        # Power Spike
+  { move = 0xE4849E49, level = 15 },                        # Wild Dunk
   { move = 0x62DEE8B1, level = 42 },                        # Jumping Whack
-  { move = 0x2D9F7E76, level = 52 },                        # Breath Taker
-  { move = 0xE4849E49, level = 62 },                        # Wild Dunk
 ]
 
   [[edit.cards]]
@@ -46,10 +46,10 @@ moves = [
 [[edit]]
 target = "c05020020"                                   # Smiley
 moves = [
-  { move = 0x0E0A3F7A, level = 47 },                        # Spatial Portal
-  { move = 0x24E5068E, level = 57 },                        # Fractal Repeller
-  { move = 0xD0AF516E, level = 67 },                        # Asteride
-  { move = 0x867EE0BB, level = 77 },                        # Verdure Vortex
+  { move = 0x24E5068E, level = 1 },                         # Fractal Repeller
+  { move = 0xD0AF516E, level = 24 },                        # Asteride
+  { move = 0x0E0A3F7A, level = 42 },                        # Spatial Portal
+  { move = 0x867EE0BB, level = 48 },                        # Verdure Vortex
 ]
 
   [[edit.cards]]
@@ -62,7 +62,7 @@ moves = [
 [[edit]]
 target = "c05020030"                                   # Skinny
 moves = [
-  { move = 0x24E5068E, level = 2 },                         # Fractal Repeller
+  { move = 0x24E5068E, level = 1 },                         # Fractal Repeller
   { move = 0x12E67CC1, level = 5 },                         # Future Eye
   { move = 0x39CB2F02, level = 20 },                        # Dragster
   { move = 0x1C4D4906, level = 44 },                        # Whirlpool
@@ -94,7 +94,7 @@ moves = [
 [[edit]]
 target = "c05020050"                                   # Chunky
 moves = [
-  { move = 0x24E5068E, level = 3 },                         # Fractal Repeller
+  { move = 0x24E5068E, level = 1 },                         # Fractal Repeller
   { move = 0x12E67CC1, level = 8 },                         # Future Eye
   { move = 0x2E7B2B84, level = 24 },                        # Thief's Eye
   { move = 0x928B9BED, level = 41 },                        # Optimal Trajectory
@@ -110,7 +110,7 @@ moves = [
 [[edit]]
 target = "c05020060"                                   # Tiny
 moves = [
-  { move = 0x6ADE9E01, level = 5 },                         # Illusory Ball
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0x2E7B2B84, level = 12 },                        # Thief's Eye
   { move = 0x530CDFC1, level = 36 },                        # Mystifying Mist
   { move = 0xD0AF516E, level = 47 },                        # Asteride
@@ -142,7 +142,7 @@ moves = [
 [[edit]]
 target = "c05020090"                                   # Spikey
 moves = [
-  { move = 0x6ADE9E01, level = 4 },                         # Illusory Ball
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0xA37D1A41, level = 16 },                        # Hyper-Swiper
   { move = 0x4A17EE80, level = 48 },                        # Hunter's Net
   { move = 0x1C4D4906, level = 58 },                        # Whirlpool
@@ -158,10 +158,10 @@ moves = [
 [[edit]]
 target = "c05020100"                                   # Creepy
 moves = [
+  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
   { move = 0xA9A7000B, level = 23 },                        # Bouncing Bunny
-  { move = 0xF6E75EE9, level = 33 },                        # Headbanger
-  { move = 0xF5A22139, level = 43 },                        # Bindweed
-  { move = 0x1876DB66, level = 53 },                        # Disaster Strike
+  { move = 0xF5A22139, level = 31 },                        # Bindweed
+  { move = 0x1876DB66, level = 43 },                        # Disaster Strike
 ]
 
   [[edit.cards]]
@@ -179,7 +179,7 @@ growth = "normal"
   id = 0xBF18D266                                         # FW/MF · forest
   stats = { kick = 274, control = 246, technique = 221, pressure = 165, physical = 188, intelligence = 181, agility = 217, freedom = 317 }
   moves = [
-    { move = 0xA9A7000B, level = 7 },                       # Bouncing Bunny
+    { move = 0xA9A7000B, level = 1 },                       # Bouncing Bunny
     { move = 0x19BA3BFC, level = 13 },                      # Dance on Air
     { move = 0xB0F8060A, level = 40 },                      # Ozone Flayer
     { move = 0x00AF8010, level = 52 },                      # Splitting Hares
@@ -194,7 +194,7 @@ growth = "normal"
   id = 0x0EDEBDDD                                         # FW/MF · forest
   stats = { kick = 270, control = 243, technique = 219, pressure = 162, physical = 185, intelligence = 178, agility = 215, freedom = 317 }
   moves = [
-    { move = 0xA9A7000B, level = 7 },                       # Bouncing Bunny
+    { move = 0xA9A7000B, level = 1 },                       # Bouncing Bunny
     { move = 0x19BA3BFC, level = 13 },                      # Dance on Air
     { move = 0xB0F8060A, level = 40 },                      # Ozone Flayer
     { move = 0x00AF8010, level = 52 },                      # Splitting Hares
@@ -227,7 +227,7 @@ moves = [
 [[edit]]
 target = "c05028010"                                   # Fei Rune
 moves = [
-  { move = 0xA9A7000B, level = 7 },                         # Bouncing Bunny
+  { move = 0xA9A7000B, level = 1 },                         # Bouncing Bunny
   { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
   { move = 0xB0F8060A, level = 40 },                        # Ozone Flayer
   { move = 0x00AF8010, level = 52 },                        # Splitting Hares
@@ -265,7 +265,7 @@ moves = [
 [[edit]]
 target = "c05028090"                                   # Fei Rune
 moves = [
-  { move = 0xA9A7000B, level = 7 },                         # Bouncing Bunny
+  { move = 0xA9A7000B, level = 1 },                         # Bouncing Bunny
   { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
   { move = 0xB0F8060A, level = 40 },                        # Ozone Flayer
   { move = 0x00AF8010, level = 52 },                        # Splitting Hares
@@ -284,7 +284,7 @@ moves = [
 [[edit]]
 target = "c06039120"                                   # Clark von Wunderbar
 moves = [
-  { move = 0xA9A7000B, level = 15 },                        # Bouncing Bunny
+  { move = 0xA9A7000B, level = 1 },                         # Bouncing Bunny
   { move = 0xE29933EC, level = 77 },                        # Dimensional Deluge
   { move = 0x07D16DA0, level = 87 },                        # Inazuma-1
   { move = 0xDB01CFC1, level = 97 },                        # Thunder Beast

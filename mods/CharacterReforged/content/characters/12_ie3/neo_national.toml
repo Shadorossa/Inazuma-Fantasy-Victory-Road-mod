@@ -57,8 +57,8 @@ target = "c04017470"                                   # Ethan Whitering
 moves = [
   { move = 0x029E7B25, level = 1 },                         # Gaia Break
   { move = 0x3B8D915B, level = 11 },                        # Meteor Shower
+  { move = 0xDDCA0D2A, level = 22 },                        # Bouncing Bomb
   { move = 0x30A819A7, level = 63 },                        # Twin Boost F
-  { move = 0xDDCA0D2A, level = 73 },                        # Bouncing Bomb
 ]
 
   [[edit.cards]]

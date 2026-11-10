@@ -23,7 +23,7 @@ moves = [
 [[edit]]
 target = "c06031820"                                   # Mayon Langcrest
 moves = [
-  { move = 0xECB91078, level = 3 },                         # Volcanic Flight
+  { move = 0xECB91078, level = 1 },                         # Volcanic Flight
   { move = 0x79E3E635, level = 21 },                        # Racing Flame
   { move = 0x9EA7BBCD, level = 34 },                        # Magmire
   { move = 0x0E8FA384, level = 46 },                        # Warsaw
@@ -44,7 +44,7 @@ moves = [
 [[edit]]
 target = "c06031830"                                   # Merapil Sekretair
 moves = [
-  { move = 0xECB91078, level = 5 },                         # Volcanic Flight
+  { move = 0xECB91078, level = 1 },                         # Volcanic Flight
   { move = 0x9EA7BBCD, level = 23 },                        # Magmire
   { move = 0xF4604B0E, level = 35 },                        # Fancy-Footwork
   { move = 0x5643C944, level = 45 },                        # Killer Slide
@@ -64,7 +64,7 @@ moves = [
 [[edit]]
 target = "c06031840"                                   # Misty Aul
 moves = [
-  { move = 0x9EA7BBCD, level = 4 },                         # Magmire
+  { move = 0x9EA7BBCD, level = 1 },                         # Magmire
   { move = 0xECB91078, level = 10 },                        # Volcanic Flight
   { move = 0xAF150D21, level = 48 },                        # Swallow Counter
   { move = 0x485150D9, level = 58 },                        # Body Shield
@@ -80,7 +80,7 @@ moves = [
 [[edit]]
 target = "c06031850"                                   # Nevado Condorum
 moves = [
-  { move = 0x9EA7BBCD, level = 6 },                         # Magmire
+  { move = 0x9EA7BBCD, level = 1 },                         # Magmire
   { move = 0xECB91078, level = 12 },                        # Volcanic Flight
   { move = 0x0E8FA384, level = 52 },                        # Warsaw
   { move = 0x78218C02, level = 62 },                        # Duskfall
@@ -96,7 +96,7 @@ moves = [
 [[edit]]
 target = "c06031860"                                   # Etna Horx
 moves = [
-  { move = 0x9EA7BBCD, level = 8 },                         # Magmire
+  { move = 0x9EA7BBCD, level = 1 },                         # Magmire
   { move = 0xB2085681, level = 24 },                        # Volcanic Rock
   { move = 0xECB91078, level = 40 },                        # Volcanic Flight
   { move = 0xB58AE80E, level = 49 },                        # Silk Road
@@ -112,7 +112,7 @@ moves = [
 [[edit]]
 target = "c06031870"                                   # Promon Shubill
 moves = [
-  { move = 0x9EA7BBCD, level = 6 },                         # Magmire
+  { move = 0x9EA7BBCD, level = 1 },                         # Magmire
   { move = 0xE196F1D1, level = 22 },                        # Burning Bomb
   { move = 0x457EB170, level = 33 },                        # Pyrokinetic
   { move = 0xD0A1DBC3, level = 44 },                        # Bungee Ball Burst
@@ -128,7 +128,7 @@ moves = [
 [[edit]]
 target = "c06031880"                                   # Cotopax Gerigar
 moves = [
-  { move = 0xB2085681, level = 5 },                         # Volcanic Rock
+  { move = 0xB2085681, level = 1 },                         # Volcanic Rock
   { move = 0x9EA7BBCD, level = 20 },                        # Magmire
   { move = 0xDDCA0D2A, level = 29 },                        # Bouncing Bomb
   { move = 0xB9A6C82E, level = 46 },                        # Triangle ZZ
@@ -143,7 +143,7 @@ moves = [
 [[edit]]
 target = "c06031890"                                   # Vesuvion Bubo
 moves = [
-  { move = 0xB2085681, level = 7 },                         # Volcanic Rock
+  { move = 0xB2085681, level = 1 },                         # Volcanic Rock
   { move = 0xEFFC6FA8, level = 22 },                        # Warhead
   { move = 0x0C08B663, level = 43 },                        # Doom Dive Drive
   { move = 0x9EA7BBCD, level = 53 },                        # Magmire
@@ -158,7 +158,7 @@ moves = [
 [[edit]]
 target = "c06031900"                                   # Tar Parky
 moves = [
-  { move = 0xB2085681, level = 3 },                         # Volcanic Rock
+  { move = 0xB2085681, level = 1 },                         # Volcanic Rock
   { move = 0xECB91078, level = 24 },                        # Volcanic Flight
   { move = 0xAF150D21, level = 36 },                        # Swallow Counter
   { move = 0x066442FB, level = 48 },                        # Gusher Crusher
@@ -173,7 +173,7 @@ moves = [
 [[edit]]
 target = "c06031910"                                   # Nyira Fezun
 moves = [
-  { move = 0xB2085681, level = 2 },                         # Volcanic Rock
+  { move = 0xB2085681, level = 1 },                         # Volcanic Rock
   { move = 0x9EA7BBCD, level = 13 },                        # Magmire
   { move = 0x518BCA26, level = 32 },                        # Fire Tornado
   { move = 0xFA40689A, level = 51 },                        # Solar Nexus
@@ -188,7 +188,7 @@ moves = [
 [[edit]]
 target = "c06031920"                                   # Bala Gasgula
 moves = [
-  { move = 0x99250542, level = 13 },                        # Volcanic Lightning
+  { move = 0x99250542, level = 1 },                         # Volcanic Lightning
   { move = 0x79E3E635, level = 41 },                        # Racing Flame
   { move = 0xBDAE2862, level = 51 },                        # Hellfire
   { move = 0xECB91078, level = 61 },                        # Volcanic Flight

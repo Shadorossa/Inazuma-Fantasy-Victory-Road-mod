@@ -21,8 +21,8 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c02024240"                                   # Jim Wraith
 moves = [
+  { move = 0x10A0C298, level = 1 },                         # Warp Drive
   { move = 0x4F58F805, level = 8 },                         # Coil Turn
-  { move = 0x10A0C298, level = 18 },                        # Warp Drive
   { move = 0x55C71D2A, level = 22 },                        # About Face
   { move = 0xB5B7108F, level = 34 },                        # Shadow Stitch
 ]
@@ -36,9 +36,9 @@ moves = [
 [[edit]]
 target = "c02024250"                                   # Tod Ironside
 moves = [
+  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
   { move = 0xDF70E04C, level = 7 },                         # Rodeo Clown
-  { move = 0x70417B2E, level = 17 },                        # Deceptor Dribble
-  { move = 0x1F0836D6, level = 27 },                        # Comet Shot
+  { move = 0x1F0836D6, level = 17 },                        # Comet Shot
   { move = 0x31ABD82E, level = 42 },                        # Circus Block
 ]
 VRFW.MoveGrades = [
@@ -69,10 +69,10 @@ moves = [
 [[edit]]
 target = "c02024270"                                   # Tim Saunders
 moves = [
+  { move = 0x427719AC, level = 1 },                         # Gale Dash
   { move = 0x259F08C6, level = 6 },                         # Whirlwind Twister
   { move = 0xA8E0F6C2, level = 18 },                        # Kung Fu Header
-  { move = 0x427719AC, level = 28 },                        # Gale Dash
-  { move = 0x011AAF4B, level = 38 },                        # Gyro Head
+  { move = 0x011AAF4B, level = 28 },                        # Gyro Head
 ]
 
   [[edit.cards]]
@@ -99,9 +99,9 @@ moves = [
 [[edit]]
 target = "c02024290"                                   # Maxwell Carson
 moves = [
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
   { move = 0xAAA6489B, level = 10 },                        # Spiral Shot
-  { move = 0x19025F83, level = 20 },                        # Quick Draw
-  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
   { move = 0x3F00EDE9, level = 38 },                        # Dash Storm
 ]
 
@@ -148,9 +148,9 @@ moves = [
 [[edit]]
 target = "c02024220"                                   # Malcolm Night
 moves = [
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0x4E9A9232, level = 11 },                        # Spinning Cut
   { move = 0x1ECA5CE1, level = 39 },                        # Wrath Shot
-  { move = 0x73C5AF40, level = 49 },                        # Dash Accelerator
-  { move = 0x4E9A9232, level = 59 },                        # Spinning Cut
   { move = 0xB6F26F5F, level = 60 },                        # Tri-Pegasus
 ]
 
@@ -163,9 +163,9 @@ moves = [
 [[edit]]
 target = "c02024230"                                   # Shadow Cimmerian
 moves = [
+  { move = 0x568262FA, level = 1 },                         # Dark Tornado
+  { move = 0xB5B7108F, level = 11 },                        # Shadow Stitch
   { move = 0x33ED6677, level = 24 },                        # Doppelganger
-  { move = 0x568262FA, level = 34 },                        # Dark Tornado
-  { move = 0xB5B7108F, level = 44 },                        # Shadow Stitch
   { move = 0x32EEA7FE, level = 70 },                        # Death Zone 2
 ]
 

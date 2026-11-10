@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c01006540"                                   # Ton Nino
 moves = [
-  { move = 0x60397CCA, level = 14 },                        # Cross Drive
+  { move = 0x60397CCA, level = 1 },                         # Cross Drive
   { move = 0xC66BD10D, level = 22 },                        # Zigzag Spark
   { move = 0x3663DB4C, level = 36 },                        # Utter Gutsiness Bat
   { move = 0x47380F29, level = 51 },                        # Echo Ball
@@ -19,7 +19,7 @@ moves = [
 [[edit]]
 target = "c01010940"                                   # Chester Horse Jr
 moves = [
-  { move = 0x6B1CF436, level = 5 },                         # Bewildered
+  { move = 0x6B1CF436, level = 1 },                         # Bewildered
   { move = 0x01DB04F5, level = 15 },                        # Defence Scan
   { move = 0x29B328E6, level = 29 },                        # Spectacle Crash
   { move = 0x47380F29, level = 44 },                        # Echo Ball
@@ -35,9 +35,9 @@ moves = [
 target = "c06037360"                                   # Julia Blaze
 moves = [
   { move = 0x2A4E3349, level = 1 },                         # Heart Beat
+  { move = 0xC2E6ADBF, level = 11 },                        # Log Roll
   { move = 0x0B011EBF, level = 16 },                        # Fireball Screw
   { move = 0xDA3FF6C9, level = 50 },                        # Criss-Cross
-  { move = 0xB7474004, level = 60 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]
@@ -50,9 +50,9 @@ moves = [
 target = "c11901080"                                   # Chester Horse Sr
 moves = [
   { move = 0x2D9F7E76, level = 1 },                         # Breath Taker
+  { move = 0xEBD03938, level = 3 },                         # Utter Gutsiness Catch
   { move = 0xE546F47E, level = 14 },                        # Dust Devil
   { move = 0xD471DE6C, level = 45 },                        # Snakebite
-  { move = 0xEBD03938, level = 55 },                        # Utter Gutsiness Catch
 ]
 
   [[edit.cards]]

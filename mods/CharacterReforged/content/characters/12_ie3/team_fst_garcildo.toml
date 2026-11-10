@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c03032010"                                   # Cyril Fox
 moves = [
-  { move = 0x91AE65A1, level = 2 },                         # Giant Spider
+  { move = 0x91AE65A1, level = 1 },                         # Giant Spider
   { move = 0x4523C86D, level = 45 },                        # Killer Blade
   { move = 0xA6D711A6, level = 55 },                        # Full Power Shield
   { move = 0xA25A6D14, level = 65 },                        # The End
@@ -38,8 +38,8 @@ target = "c03032030"                                   # Phil A. Minion
 moves = [
   { move = 0x0A3F27B7, level = 1 },                         # Foul Offence 3
   { move = 0x06D2AC29, level = 10 },                        # Diabolical Cut
+  { move = 0x457EB170, level = 22 },                        # Pyrokinetic
   { move = 0x0D368F6B, level = 50 },                        # Heaven's Time
-  { move = 0x457EB170, level = 60 },                        # Pyrokinetic
 ]
 
   [[edit.cards]]
@@ -173,7 +173,7 @@ moves = [
 [[edit]]
 target = "c03032120"                                   # Grizzler Bruin
 moves = [
-  { move = 0x91AE65A1, level = 30 },                        # Giant Spider
+  { move = 0x91AE65A1, level = 1 },                         # Giant Spider
   { move = 0xD824318D, level = 40 },                        # Swan Dive
   { move = 0xDBA0E5E3, level = 50 },                        # Gigant Wall
   { move = 0xBA833662, level = 60 },                        # Million Hands

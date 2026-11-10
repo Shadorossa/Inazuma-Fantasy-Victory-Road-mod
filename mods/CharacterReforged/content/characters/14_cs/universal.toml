@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c05028060"                                   # Sol Daystar
 moves = [
   { move = 0x65766A4F, level = 1 },                         # Meteor Blade
+  { move = 0xAE2B3429, level = 12 },                        # Atomic Flare
   { move = 0x20D01E43, level = 16 },                        # Hey Presto
-  { move = 0xAE2B3429, level = 26 },                        # Atomic Flare
-  { move = 0xB60E3C60, level = 36 },                        # Plasma Cut
+  { move = 0xB60E3C60, level = 25 },                        # Plasma Cut
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)

@@ -63,7 +63,7 @@ moves = [
 [[edit]]
 target = "c01002250"                                   # Maxwell Claus
 moves = [
-  { move = 0x4F58F805, level = 9 },                         # Coil Turn
+  { move = 0x4F58F805, level = 1 },                         # Coil Turn
   { move = 0x7EEA4EE9, level = 22 },                        # Blade Attack
   { move = 0x74CC079C, level = 35 },                        # Big Fan
   { move = 0x2B343D01, level = 54 },                        # Cyclone
@@ -78,7 +78,7 @@ moves = [
 [[edit]]
 target = "c01002260"                                   # Bruce Chaney
 moves = [
-  { move = 0x35E70F22, level = 10 },                        # Grenade Shot
+  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
   { move = 0x34256515, level = 24 },                        # Dynamite Shot
   { move = 0x568262FA, level = 41 },                        # Dark Tornado
   { move = 0x4AD6453E, level = 53 },                        # Back Tornado
@@ -108,7 +108,7 @@ moves = [
 [[edit]]
 target = "c01002280"                                   # Mildford Scott
 moves = [
-  { move = 0x01DB04F5, level = 19 },                        # Defence Scan
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0x695A4A6F, level = 28 },                        # Magic
   { move = 0xACAC21CE, level = 39 },                        # Fake Ball
   { move = 0xC19E2AEE, level = 70 },                        # Pegasus Shot
@@ -184,7 +184,7 @@ moves = [
 [[edit]]
 target = "c01002330"                                   # Saul Tunk
 moves = [
-  { move = 0xAAA6489B, level = 9 },                         # Spiral Shot
+  { move = 0xAAA6489B, level = 1 },                         # Spiral Shot
   { move = 0x142DBE2A, level = 24 },                        # Foul Offence
   { move = 0x637C031A, level = 43 },                        # No Escape
   { move = 0x53CD747F, level = 58 },                        # Tarzan Kick

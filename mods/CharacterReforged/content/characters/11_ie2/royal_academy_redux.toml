@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c02023610"                                   # Joseph King
 moves = [
   { move = 0xA7157B91, level = 1 },                         # Power Shield
+  { move = 0xBD8A9EBE, level = 11 },                        # Infinite Wall
+  { move = 0x8E7E960B, level = 21 },                        # Drill Smasher
   { move = 0xA6D711A6, level = 26 },                        # Full Power Shield
-  { move = 0xBD8A9EBE, level = 36 },                        # Infinite Wall
-  { move = 0x8E7E960B, level = 46 },                        # Drill Smasher
 ]
 VRFW.MoveGrades = [
   { Move = 0xBD8A9EBE, Grade = 2 },                         # Infinite Wall
@@ -20,10 +20,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c02023710"                                   # David Samford
 moves = [
+  { move = 0x427719AC, level = 1 },                         # Gale Dash
+  { move = 0x7DAF3139, level = 11 },                        # Emperor Penguin No. 2
   { move = 0x6730D416, level = 60 },                        # Emperor Penguin No. 1
-  { move = 0x427719AC, level = 70 },                        # Gale Dash
-  { move = 0x7DAF3139, level = 80 },                        # Emperor Penguin No. 2
-  { move = 0x4683AADF, level = 90 },                        # Space Penguin
+  { move = 0x4683AADF, level = 70 },                        # Space Penguin
 ]
 
   [[edit.cards]]
@@ -174,8 +174,8 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c02023720"                                   # Jimbo Cellar
 moves = [
+  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
   { move = 0xA6D711A6, level = 30 },                        # Full Power Shield
-  { move = 0xF14FDC17, level = 40 },                        # Shot Pocket
   { move = 0x88B554E0, level = 50 },                        # Galatyn
   { move = 0xA7157B91, level = 60 },                        # Power Shield
 ]

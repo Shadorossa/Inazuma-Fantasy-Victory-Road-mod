@@ -25,8 +25,8 @@ target = "c03033620"                                   # Lump Trungus
 moves = [
   { move = 0x06D2AC29, level = 1 },                         # Diabolical Cut
   { move = 0x7BA5586C, level = 11 },                        # Mad Express
+  { move = 0x0BFD4D80, level = 12 },                        # Grand Slam
   { move = 0x025FD09B, level = 52 },                        # Volcano Cut
-  { move = 0x0BFD4D80, level = 62 },                        # Grand Slam
 ]
 VRFW.MoveGrades = [
   { Move = 0x06D2AC29, Grade = 2 },                         # Diabolical Cut
@@ -82,8 +82,8 @@ target = "c03033650"                                   # Drachen Gunther
 moves = [
   { move = 0xAEEA9F97, level = 1 },                         # Sigma Zone
   { move = 0x1162A8AF, level = 11 },                        # Bewilder Blast
+  { move = 0x05567847, level = 15 },                        # Runaway Train
   { move = 0x4BD584B7, level = 34 },                        # Power Charge
-  { move = 0x05567847, level = 44 },                        # Runaway Train
 ]
 VRFW.MoveGrades = [
   { Move = 0x4BD584B7, Grade = 1 },                         # Power Charge
@@ -117,9 +117,9 @@ VRFW.MoveGrades = [
 target = "c03033670"                                   # Radd Ischer
 moves = [
   { move = 0x4BD584B7, level = 1 },                         # Power Charge
+  { move = 0x05567847, level = 15 },                        # Runaway Train
+  { move = 0x17110E3B, level = 22 },                        # Jumbo Sandwich
   { move = 0x025FD09B, level = 56 },                        # Volcano Cut
-  { move = 0x05567847, level = 66 },                        # Runaway Train
-  { move = 0x17110E3B, level = 76 },                        # Jumbo Sandwich
 ]
 VRFW.MoveGrades = [
   { Move = 0x4BD584B7, Grade = 1 },                         # Power Charge
@@ -142,8 +142,8 @@ target = "c03033690"                                   # Bash Lancer
   moves = [
     { move = 0xDC08671D, level = 1 },                       # Doom Break
     { move = 0xC513565C, level = 11 },                      # Doom Spear
+    { move = 0xF4A1E0B0, level = 50 },                      # Entropic Arrows
     { move = 0xC16279D1, level = 63 },                      # Field of Force
-    { move = 0xF4A1E0B0, level = 73 },                      # Entropic Arrows
   ]
 
 [[edit]]

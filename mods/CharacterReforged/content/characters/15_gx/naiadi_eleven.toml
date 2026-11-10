@@ -23,7 +23,7 @@ moves = [
 [[edit]]
 target = "c06031620"                                   # Squalcha Nhess
 moves = [
-  { move = 0xC79443BB, level = 5 },                         # Waterfall
+  { move = 0xC79443BB, level = 1 },                         # Waterfall
   { move = 0x039DBAAC, level = 18 },                        # Land of Ice
   { move = 0x0F4DC9B3, level = 50 },                        # Logicstical Sync
   { move = 0x78218C02, level = 60 },                        # Duskfall
@@ -39,7 +39,7 @@ moves = [
 [[edit]]
 target = "c06031630"                                   # Sog Galily
 moves = [
-  { move = 0xC79443BB, level = 8 },                         # Waterfall
+  { move = 0xC79443BB, level = 1 },                         # Waterfall
   { move = 0x650FA58E, level = 34 },                        # Spin Out
   { move = 0x4E9A9232, level = 47 },                        # Spinning Cut
   { move = 0xC0A013E6, level = 57 },                        # Liar Shot
@@ -86,7 +86,7 @@ target = "c06031650"                                   # Plink Powai
 [[edit]]
 target = "c06031660"                                   # Puddel Khaspian
 moves = [
-  { move = 0x87BC8A8C, level = 4 },                         # Hydro Flow
+  { move = 0x87BC8A8C, level = 1 },                         # Hydro Flow
   { move = 0xFD49C046, level = 17 },                        # Bubble Trouble
   { move = 0x6DD736DD, level = 31 },                        # Ribbon Shower
   { move = 0x7DD6FEF8, level = 41 },                        # Athena's Anthem
@@ -102,7 +102,7 @@ moves = [
 [[edit]]
 target = "c06031670"                                   # Sploosh Saroma
 moves = [
-  { move = 0x87BC8A8C, level = 5 },                         # Hydro Flow
+  { move = 0x87BC8A8C, level = 1 },                         # Hydro Flow
   { move = 0xFD49C046, level = 18 },                        # Bubble Trouble
   { move = 0x04941270, level = 45 },                        # Vac Attack
   { move = 0xC79443BB, level = 55 },                        # Waterfall
@@ -118,7 +118,7 @@ moves = [
 [[edit]]
 target = "c06031680"                                   # Droplit Turkana
 moves = [
-  { move = 0x87BC8A8C, level = 2 },                         # Hydro Flow
+  { move = 0x87BC8A8C, level = 1 },                         # Hydro Flow
   { move = 0xFD49C046, level = 8 },                         # Bubble Trouble
   { move = 0x039DBAAC, level = 33 },                        # Land of Ice
   { move = 0x6DD736DD, level = 45 },                        # Ribbon Shower
@@ -134,7 +134,7 @@ moves = [
 [[edit]]
 target = "c06031690"                                   # Plip Batur
 moves = [
-  { move = 0xFD49C046, level = 7 },                         # Bubble Trouble
+  { move = 0xFD49C046, level = 1 },                         # Bubble Trouble
   { move = 0xC79443BB, level = 23 },                        # Waterfall
   { move = 0x7E2BE557, level = 36 },                        # Legendary Wolf
   { move = 0xCB79C825, level = 47 },                        # In-Line Stampede
@@ -149,7 +149,7 @@ moves = [
 [[edit]]
 target = "c06031700"                                   # Serban Bacha
 moves = [
-  { move = 0xFD49C046, level = 6 },                         # Bubble Trouble
+  { move = 0xFD49C046, level = 1 },                         # Bubble Trouble
   { move = 0x87BC8A8C, level = 12 },                        # Hydro Flow
   { move = 0xDE4ED944, level = 46 },                        # Snowstorm Leopard
   { move = 0xC0A013E6, level = 56 },                        # Liar Shot
@@ -164,7 +164,7 @@ moves = [
 [[edit]]
 target = "c06031710"                                   # Plunk Balkhash
 moves = [
-  { move = 0xFD49C046, level = 10 },                        # Bubble Trouble
+  { move = 0xFD49C046, level = 1 },                         # Bubble Trouble
   { move = 0xE8F5C774, level = 20 },                        # Megalodon
   { move = 0xD9BB22A7, level = 35 },                        # Air Ride
   { move = 0x82788A5A, level = 48 },                        # Straight Counter
@@ -186,7 +186,7 @@ target = "c06031720"                                   # Rondula Flehl
   growth = "normal"
   stats = { kick = 285, control = 254, technique = 286, pressure = 184, physical = 188, intelligence = 248, agility = 189, freedom = 254 }
   moves = [
-    { move = 0xE3D04F88, level = 5 },                       # Jackknife
+    { move = 0xE3D04F88, level = 1 },                       # Jackknife
     { move = 0xB501FE5D, level = 39 },                      # Holy Roller
     { move = 0x0D368F6B, level = 49 },                      # Heaven's Time
     { move = 0xC42D6F54, level = 59 },                      # Aikido

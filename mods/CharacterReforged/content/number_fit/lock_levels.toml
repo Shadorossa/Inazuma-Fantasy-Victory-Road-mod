@@ -1,0 +1,38 @@
+schema = "VRFW.number_fit/1"
+
+# A move's unlock level can have 3 digits (level cap 200): it is drawn in the width of the 2 digits its plate was designed for.
+
+[[VRFW.NumberFit]]
+name = "skill_table_row_lock_level"
+layer = "character_reforged_ss_row_plate"
+node = "_num_passive_lock01"
+number = "num_passive_lock01"
+digits = 2
+
+[[VRFW.NumberFit]]
+name = "move_row_lock_level"
+layer = "soccer11_09_formation_chara_skill"
+node = "_num_passive_lock01"
+number = "num_passive_lock01"
+digits = 2
+
+[[VRFW.NumberFit]]
+name = "level_badge_closed"
+layer = "team13_26b_open_level_lock"
+node = "_num_pt01"
+number = "0xA546A089"
+digits = 2
+
+[[VRFW.NumberFit]]
+name = "level_badge_open"
+layer = "team13_26b_open_level_lock"
+node = "_num_pt01"
+number = "0xFE6666D8"
+digits = 2
+
+[[VRFW.NumberFit]]
+name = "board_level_popup"
+layer = "team13_10b_open_level_popup"
+node = "_num_pt01"
+number = "0xFE6666D8"
+digits = 2

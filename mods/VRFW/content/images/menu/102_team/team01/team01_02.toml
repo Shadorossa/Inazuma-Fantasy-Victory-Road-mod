@@ -1,6 +1,7 @@
 schema = "VRFW.image/1"
 
 # The half-width cell plates of VRFW.team_dock.half_rows (docs/framework/team-dock.md), cut from the retail row plate.
+# The left cell is the row's first 306 pixels plus its right end, the right cell its left end plus the row from pixel 345.
 
 # ---- list_base01_off ----
 [[recipe]]
@@ -41,22 +42,22 @@ ops = [{ op = "crop", box = [364, 0, 392, 72] }]
 [[recipe]]
 name = "off_row_left"
 from = "off_row"
-ops = [{ op = "crop", box = [0, 0, 265, 72] }]
+ops = [{ op = "crop", box = [0, 0, 306, 72] }]
 
 [[recipe]]
 name = "off_row_right"
 from = "off_row"
-ops = [{ op = "crop", box = [304, 0, 568, 72] }]
+ops = [{ op = "crop", box = [345, 0, 568, 72] }]
 
 [[recipe]]
 name = "off_shape_left"
 canvas = [388, 72]
-ops = [{ op = "paste", image = "off_row_left", at = [0, 0] }, { op = "paste", image = "off_end_right", at = [265, 0] }]
+ops = [{ op = "paste", image = "off_row_left", at = [0, 0] }, { op = "paste", image = "off_end_right", at = [306, 0] }]
 
 [[recipe]]
 name = "off_shape_right"
 canvas = [388, 72]
-ops = [{ op = "paste", image = "off_end_left", at = [96, 0] }, { op = "paste", image = "off_row_right", at = [124, 0] }]
+ops = [{ op = "paste", image = "off_end_left", at = [137, 0] }, { op = "paste", image = "off_row_right", at = [165, 0] }]
 
 [[recipe]]
 name = "off_cut_left"
@@ -137,22 +138,22 @@ ops = [{ op = "crop", box = [364, 0, 392, 72] }]
 [[recipe]]
 name = "on_row_left"
 from = "on_row"
-ops = [{ op = "crop", box = [0, 0, 265, 72] }]
+ops = [{ op = "crop", box = [0, 0, 306, 72] }]
 
 [[recipe]]
 name = "on_row_right"
 from = "on_row"
-ops = [{ op = "crop", box = [304, 0, 568, 72] }]
+ops = [{ op = "crop", box = [345, 0, 568, 72] }]
 
 [[recipe]]
 name = "on_shape_left"
 canvas = [388, 72]
-ops = [{ op = "paste", image = "on_row_left", at = [0, 0] }, { op = "paste", image = "on_end_right", at = [265, 0] }]
+ops = [{ op = "paste", image = "on_row_left", at = [0, 0] }, { op = "paste", image = "on_end_right", at = [306, 0] }]
 
 [[recipe]]
 name = "on_shape_right"
 canvas = [388, 72]
-ops = [{ op = "paste", image = "on_end_left", at = [96, 0] }, { op = "paste", image = "on_row_right", at = [124, 0] }]
+ops = [{ op = "paste", image = "on_end_left", at = [137, 0] }, { op = "paste", image = "on_row_right", at = [165, 0] }]
 
 [[recipe]]
 name = "on_cut_left"
@@ -233,22 +234,22 @@ ops = [{ op = "crop", box = [364, 0, 392, 72] }]
 [[recipe]]
 name = "ok_row_left"
 from = "ok_row"
-ops = [{ op = "crop", box = [0, 0, 265, 72] }]
+ops = [{ op = "crop", box = [0, 0, 306, 72] }]
 
 [[recipe]]
 name = "ok_row_right"
 from = "ok_row"
-ops = [{ op = "crop", box = [304, 0, 568, 72] }]
+ops = [{ op = "crop", box = [345, 0, 568, 72] }]
 
 [[recipe]]
 name = "ok_shape_left"
 canvas = [388, 72]
-ops = [{ op = "paste", image = "ok_row_left", at = [0, 0] }, { op = "paste", image = "ok_end_right", at = [265, 0] }]
+ops = [{ op = "paste", image = "ok_row_left", at = [0, 0] }, { op = "paste", image = "ok_end_right", at = [306, 0] }]
 
 [[recipe]]
 name = "ok_shape_right"
 canvas = [388, 72]
-ops = [{ op = "paste", image = "ok_end_left", at = [96, 0] }, { op = "paste", image = "ok_row_right", at = [124, 0] }]
+ops = [{ op = "paste", image = "ok_end_left", at = [137, 0] }, { op = "paste", image = "ok_row_right", at = [165, 0] }]
 
 [[recipe]]
 name = "ok_cut_left"
@@ -329,22 +330,22 @@ ops = [{ op = "crop", box = [364, 0, 392, 72] }]
 [[recipe]]
 name = "ol_row_left"
 from = "ol_row"
-ops = [{ op = "crop", box = [0, 0, 265, 72] }]
+ops = [{ op = "crop", box = [0, 0, 306, 72] }]
 
 [[recipe]]
 name = "ol_row_right"
 from = "ol_row"
-ops = [{ op = "crop", box = [304, 0, 568, 72] }]
+ops = [{ op = "crop", box = [345, 0, 568, 72] }]
 
 [[recipe]]
 name = "ol_shape_left"
 canvas = [388, 72]
-ops = [{ op = "paste", image = "ol_row_left", at = [0, 0] }, { op = "paste", image = "ol_end_right", at = [265, 0] }]
+ops = [{ op = "paste", image = "ol_row_left", at = [0, 0] }, { op = "paste", image = "ol_end_right", at = [306, 0] }]
 
 [[recipe]]
 name = "ol_shape_right"
 canvas = [388, 72]
-ops = [{ op = "paste", image = "ol_end_left", at = [96, 0] }, { op = "paste", image = "ol_row_right", at = [124, 0] }]
+ops = [{ op = "paste", image = "ol_end_left", at = [137, 0] }, { op = "paste", image = "ol_row_right", at = [165, 0] }]
 
 [[recipe]]
 name = "ol_left_a"

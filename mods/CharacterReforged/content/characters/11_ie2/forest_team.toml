@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c02021820"                                   # Harry Boufante
 moves = [
-  { move = 0x37A1B17B, level = 25 },                        # Fire Rooster
+  { move = 0x37A1B17B, level = 1 },                         # Fire Rooster
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
   { move = 0xC5EF0563, level = 60 },                        # Three-Legged Rush
   { move = 0xB5B7108F, level = 70 },                        # Shadow Stitch
@@ -63,7 +63,7 @@ moves = [
 [[edit]]
 target = "c02021850"                                   # Marismus Oregon
 moves = [
-  { move = 0xB4757AB8, level = 25 },                        # Divine Stamp
+  { move = 0xB4757AB8, level = 1 },                         # Divine Stamp
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
   { move = 0x121A2FFE, level = 60 },                        # Mirage Shot
   { move = 0x6633159F, level = 70 },                        # Gravitation
@@ -127,7 +127,7 @@ moves = [
 [[edit]]
 target = "c02021890"                                   # Chris Ticker
 moves = [
-  { move = 0x7B64F3D2, level = 25 },                        # Hawk Shot
+  { move = 0x7B64F3D2, level = 1 },                         # Hawk Shot
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
   { move = 0xC5EF0563, level = 60 },                        # Three-Legged Rush
   { move = 0x1D4E888F, level = 70 },                        # Condor Dive
@@ -142,7 +142,7 @@ moves = [
 [[edit]]
 target = "c02021900"                                   # Roy Daring
 moves = [
-  { move = 0x2D3E5454, level = 25 },                        # Clone Shot
+  { move = 0x2D3E5454, level = 1 },                         # Clone Shot
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
   { move = 0x3C843987, level = 60 },                        # Flurry Dash
   { move = 0x17A96A44, level = 70 },                        # Clone Faker
@@ -158,7 +158,7 @@ moves = [
 [[edit]]
 target = "c02021910"                                   # Scaber Enoki
 moves = [
-  { move = 0x78E027BC, level = 25 },                        # Shine Drive
+  { move = 0x78E027BC, level = 1 },                         # Shine Drive
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
   { move = 0xA9229CF5, level = 60 },                        # The Galaxy
   { move = 0x31ABD82E, level = 70 },                        # Circus Block

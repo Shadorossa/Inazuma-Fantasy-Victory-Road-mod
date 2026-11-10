@@ -166,7 +166,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03030510"                                   # Majdi Ismail
 moves = [
-  { move = 0x121A2FFE, level = 8 },                         # Mirage Shot
+  { move = 0x121A2FFE, level = 1 },                         # Mirage Shot
   { move = 0x7C6D5B0E, level = 43 },                        # Astro Break
   { move = 0x0455B9CE, level = 53 },                        # Run Ball Run
   { move = 0xF7E49F60, level = 63 },                        # Magnetism

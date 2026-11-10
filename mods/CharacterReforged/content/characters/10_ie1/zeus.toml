@@ -98,10 +98,10 @@ moves = [
 [[edit]]
 target = "c01001870"                                   # Arion Matlock
 moves = [
+  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
+  { move = 0x12E67CC1, level = 6 },                         # Future Eye
+  { move = 0xB4757AB8, level = 40 },                        # Divine Stamp
   { move = 0x2B343D01, level = 53 },                        # Cyclone
-  { move = 0x0D368F6B, level = 63 },                        # Heaven's Time
-  { move = 0xB4757AB8, level = 73 },                        # Divine Stamp
-  { move = 0x12E67CC1, level = 83 },                        # Future Eye
 ]
 
   [[edit.cards]]
@@ -242,10 +242,10 @@ moves = [
 [[edit]]
 target = "c01001950"                                   # Andy Chronic
 moves = [
+  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
+  { move = 0xA8E0F6C2, level = 11 },                        # Kung Fu Header
+  { move = 0x6ADE9E01, level = 46 },                        # Illusory Ball
   { move = 0x73C5AF40, level = 59 },                        # Dash Accelerator
-  { move = 0x0D368F6B, level = 69 },                        # Heaven's Time
-  { move = 0xA8E0F6C2, level = 79 },                        # Kung Fu Header
-  { move = 0x6ADE9E01, level = 89 },                        # Illusory Ball
 ]
 
   [[edit.cards]]

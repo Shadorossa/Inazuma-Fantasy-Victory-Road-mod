@@ -2,18 +2,19 @@ schema = "VRFW.text/2"
 table = "skill_text"
 # Names of the warrior spirits of content/techniques/warrior_spirits.toml, short (variant 0) and long (variant 11).
 
+# The short form is the spirit's own name without its title, as the game's spirits have it (Apollo for Sun Deity Apollo).
 [[row]]
 id = 0xEC078783  # InazumaFantasy.keshin_k002011_name
 kind = "noun"
-de = "Victoria, Schatten des Triumphs"
-en = "Victoria, Shadow of Triumph"
-es = "Victoria, sombra del triunfo"
-fr = "Victoria, ombre du triomphe"
-it = "Victoria, ombra del trionfo"
-ja = "勝利の影 ヴィクトリア"
-pt = "Victoria, sombra do triunfo"
-zh_hans = "胜利之影 维克多利亚"
-zh_hant = "勝利之影 維克多里亞"
+de = "Victoria"
+en = "Victoria"
+es = "Victoria"
+fr = "Victoria"
+it = "Victoria"
+ja = "ヴィクトリア"
+pt = "Victoria"
+zh_hans = "维克多利亚"
+zh_hant = "維克多里亞"
 
 [[row]]
 id = 0xEC078783  # InazumaFantasy.keshin_k002011_name, long form

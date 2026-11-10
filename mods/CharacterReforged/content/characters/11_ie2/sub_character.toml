@@ -22,9 +22,9 @@ VRFW.MoveGrades = [
 target = "c02024710"                                   # Syon Blaze
 moves = [
   { move = 0x518BCA26, level = 1 },                         # Fire Tornado
+  { move = 0x41F3CDC2, level = 11 },                        # Scorching Tackle
+  { move = 0x63BDA8A4, level = 21 },                        # Inazuma Drop
   { move = 0x00D8C57C, level = 45 },                        # Fireball Storm
-  { move = 0x41F3CDC2, level = 55 },                        # Scorching Tackle
-  { move = 0x63BDA8A4, level = 65 },                        # Inazuma Drop
 ]
 VRFW.MoveGrades = [
   { Move = 0x41F3CDC2, Grade = 1 },                         # Scorching Tackle
@@ -38,7 +38,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c02029240"                                   # In Chikita
 moves = [
-  { move = 0xACAC21CE, level = 15 },                        # Fake Ball
+  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
   { move = 0x6C6C932B, level = 25 },                        # Megaton Head
   { move = 0x7A67325B, level = 27 },                        # Flame Dance
   { move = 0xDD365E15, level = 48 },                        # Mole Shuffle

@@ -3,9 +3,9 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05020710_5000"                              # Romeo
 moves = [
+  { move = 0x06B22DB5, level = 1 },                         # Gyro-Blocker
   { move = 0x8B31808E, level = 12 },                        # Wormhole
-  { move = 0x06B22DB5, level = 22 },                        # Gyro-Blocker
-  { move = 0xE4849E49, level = 32 },                        # Wild Dunk
+  { move = 0xE4849E49, level = 16 },                        # Wild Dunk
   { move = 0x4AF2F3E2, level = 57 },                        # Bridge to Nowhere
 ]
 
@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c05020800_5000"                              # Gamma
 moves = [
-  { move = 0xD32B8500, level = 10 },                        # Atomic Spin
+  { move = 0xD32B8500, level = 1 },                         # Atomic Spin
   { move = 0xD262F964, level = 38 },                        # Format Disk
   { move = 0x1BF20F08, level = 67 },                        # Omega Assault
   { move = 0xE35B59DB, level = 77 },                        # Twin Sun Smash
@@ -33,9 +33,9 @@ moves = [
 [[edit]]
 target = "c05020710"                                   # Romeo
 moves = [
+  { move = 0x06B22DB5, level = 1 },                         # Gyro-Blocker
   { move = 0x8B31808E, level = 12 },                        # Wormhole
-  { move = 0x06B22DB5, level = 22 },                        # Gyro-Blocker
-  { move = 0xE4849E49, level = 32 },                        # Wild Dunk
+  { move = 0xE4849E49, level = 16 },                        # Wild Dunk
   { move = 0x4AF2F3E2, level = 57 },                        # Bridge to Nowhere
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -53,7 +53,7 @@ moves = [
 [[edit]]
 target = "c05020740"                                   # Papa
 moves = [
-  { move = 0xF7E49F60, level = 6 },                         # Magnetism
+  { move = 0xF7E49F60, level = 1 },                         # Magnetism
   { move = 0x457EB170, level = 11 },                        # Pyrokinetic
   { move = 0x93885A64, level = 46 },                        # Fire Drill
   { move = 0x585098FC, level = 56 },                        # Slice and Dice
@@ -69,7 +69,7 @@ moves = [
 [[edit]]
 target = "c05020750"                                   # Quebec
 moves = [
-  { move = 0x5739C70C, level = 2 },                         # Guided Collide
+  { move = 0x5739C70C, level = 1 },                         # Guided Collide
   { move = 0xF7E49F60, level = 14 },                        # Magnetism
   { move = 0x828A53C8, level = 58 },                        # Plasma Ball
   { move = 0x737DCB3F, level = 68 },                        # Pancake Defence
@@ -84,7 +84,7 @@ moves = [
 [[edit]]
 target = "c05020780"                                   # Sierra
 moves = [
-  { move = 0x5739C70C, level = 2 },                         # Guided Collide
+  { move = 0x5739C70C, level = 1 },                         # Guided Collide
   { move = 0x828A53C8, level = 14 },                        # Plasma Ball
   { move = 0x4E22F64D, level = 40 },                        # Transporter Device
   { move = 0x90CD25B4, level = 66 },                        # Supernatural Strike
@@ -106,7 +106,7 @@ target = "c05020800"                                   # Gamma
   growth = "normal"
   stats = { kick = 305, control = 289, technique = 242, pressure = 167, physical = 163, intelligence = 242, agility = 182, freedom = 217 }
   moves = [
-    { move = 0xD32B8500, level = 10 },                      # Atomic Spin
+    { move = 0xD32B8500, level = 1 },                       # Atomic Spin
     { move = 0xD262F964, level = 38 },                      # Format Disk
     { move = 0x1BF20F08, level = 67 },                      # Omega Assault
     { move = 0xE35B59DB, level = 77 },                      # Twin Sun Smash
@@ -120,9 +120,9 @@ target = "c05020800"                                   # Gamma
 [[edit]]
 target = "c05028210"                                   # Romeo
 moves = [
+  { move = 0x06B22DB5, level = 1 },                         # Gyro-Blocker
   { move = 0x8B31808E, level = 12 },                        # Wormhole
-  { move = 0x06B22DB5, level = 22 },                        # Gyro-Blocker
-  { move = 0xE4849E49, level = 32 },                        # Wild Dunk
+  { move = 0xE4849E49, level = 16 },                        # Wild Dunk
   { move = 0x4AF2F3E2, level = 57 },                        # Bridge to Nowhere
 ]
 
@@ -135,9 +135,9 @@ moves = [
 [[edit]]
 target = "c05028220"                                   # Oscar
 moves = [
+  { move = 0xDCC9CCA3, level = 1 },                         # Tesla Coil
+  { move = 0x81FC5E34, level = 42 },                        # Driving Header
   { move = 0xBBE07677, level = 44 },                        # Sidewinder
-  { move = 0xDCC9CCA3, level = 54 },                        # Tesla Coil
-  { move = 0x81FC5E34, level = 64 },                        # Driving Header
   { move = 0xF7E49F60, level = 65 },                        # Magnetism
 ]
 
@@ -151,7 +151,7 @@ moves = [
 [[edit]]
 target = "c05028230"                                   # Kilo
 moves = [
-  { move = 0xDCC9CCA3, level = 3 },                         # Tesla Coil
+  { move = 0xDCC9CCA3, level = 1 },                         # Tesla Coil
   { move = 0x457EB170, level = 20 },                        # Pyrokinetic
   { move = 0xF7E49F60, level = 47 },                        # Magnetism
   { move = 0x21127474, level = 57 },                        # Ultra Moon
@@ -167,7 +167,7 @@ moves = [
 [[edit]]
 target = "c05028240"                                   # Papa
 moves = [
-  { move = 0xF7E49F60, level = 6 },                         # Magnetism
+  { move = 0xF7E49F60, level = 1 },                         # Magnetism
   { move = 0x457EB170, level = 11 },                        # Pyrokinetic
   { move = 0x93885A64, level = 46 },                        # Fire Drill
   { move = 0x585098FC, level = 56 },                        # Slice and Dice
@@ -183,7 +183,7 @@ moves = [
 [[edit]]
 target = "c05028250"                                   # Quebec
 moves = [
-  { move = 0x5739C70C, level = 2 },                         # Guided Collide
+  { move = 0x5739C70C, level = 1 },                         # Guided Collide
   { move = 0xF7E49F60, level = 14 },                        # Magnetism
   { move = 0x828A53C8, level = 58 },                        # Plasma Ball
   { move = 0x737DCB3F, level = 68 },                        # Pancake Defence
@@ -230,7 +230,7 @@ moves = [
 [[edit]]
 target = "c05028280"                                   # Sierra
 moves = [
-  { move = 0x5739C70C, level = 2 },                         # Guided Collide
+  { move = 0x5739C70C, level = 1 },                         # Guided Collide
   { move = 0x828A53C8, level = 14 },                        # Plasma Ball
   { move = 0x4E22F64D, level = 40 },                        # Transporter Device
   { move = 0x90CD25B4, level = 66 },                        # Supernatural Strike
@@ -246,7 +246,7 @@ moves = [
 [[edit]]
 target = "c05028290"                                   # Juliet
 moves = [
-  { move = 0xFB8202AD, level = 3 },                         # Gaussian Goal
+  { move = 0xFB8202AD, level = 1 },                         # Gaussian Goal
   { move = 0x828A53C8, level = 25 },                        # Plasma Ball
   { move = 0x768AB9C5, level = 58 },                        # Frosticle
   { move = 0x650FA58E, level = 68 },                        # Spin Out
@@ -261,7 +261,7 @@ moves = [
 [[edit]]
 target = "c05028300"                                   # Gamma
 moves = [
-  { move = 0xD32B8500, level = 10 },                        # Atomic Spin
+  { move = 0xD32B8500, level = 1 },                         # Atomic Spin
   { move = 0xD262F964, level = 38 },                        # Format Disk
   { move = 0x1BF20F08, level = 67 },                        # Omega Assault
   { move = 0xE35B59DB, level = 77 },                        # Twin Sun Smash
@@ -281,10 +281,10 @@ moves = [
 [[edit]]
 target = "c05028310"                                   # Mike
 moves = [
+  { move = 0xFB8202AD, level = 1 },                         # Gaussian Goal
+  { move = 0x828A53C8, level = 7 },                         # Plasma Ball
   { move = 0xF9C4BCF4, level = 59 },                        # Double Helix
-  { move = 0xFB8202AD, level = 69 },                        # Gaussian Goal
-  { move = 0x828A53C8, level = 79 },                        # Plasma Ball
-  { move = 0x1F7F73BA, level = 89 },                        # Bicycle Slash
+  { move = 0x1F7F73BA, level = 62 },                        # Bicycle Slash
 ]
 
   [[edit.cards]]

@@ -1023,7 +1023,7 @@ if #LIST > 0 then
   end
 
   local MAX_ROW_FACES = 24
-  local function candidate_faces(p, d, marks, first_base, lang)
+  local function candidate_faces(p, d, marks, lang)
     -- a pure team pool shows its crests; a pool that also names characters shows those as candidates (and the crests)
     if not p or p.role or (p.any_team and not p.any_chara) then return "", "" end
     pool_members(p)
@@ -1047,17 +1047,6 @@ if #LIST > 0 then
       end
     end
     if #order == 0 then return "", "" end
-    -- the row's own face (the placeholder the game's row builder draws) first, as the big face with its name
-    if first_base and first_base ~= 0 then
-      local fk = who(first_base)
-      if pick[fk] then
-        pick[fk] = first_base
-        for i, k in ipairs(order) do
-          if k == fk then table.remove(order, i); break end
-        end
-        table.insert(order, 1, fk)
-      end
-    end
     if #order > MAX_ROW_FACES then
       if not p.show_candidates then return "", "" end
       for i = #order, MAX_ROW_FACES + 1, -1 do order[i] = nil end
@@ -1188,7 +1177,7 @@ if #LIST > 0 then
         base = row.base or 0 }
       local x = rows[r]
       x.have = ""
-      if row.kind == KIND_EMPTY and not members and x.faces == "" then x.faces, x.have = candidate_faces(row.pool, d, st.marks, row.base, lang) end
+      if row.kind == KIND_EMPTY and not members and x.faces == "" then x.faces, x.have = candidate_faces(row.pool, d, st.marks, lang) end
       if row.kind == KIND_EMPTY and x.faces ~= "" then
         local first = tonumber(x.faces:match("^(%d+)"))
         if first then x.base, x.name = first, name_of(first, lang) end

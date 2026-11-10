@@ -42,10 +42,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03030040"                                   # Xavier Foster
 moves = [
+  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
   { move = 0x6DAEF91C, level = 35 },                        # Supernova
-  { move = 0x65766A4F, level = 45 },                        # Meteor Blade
-  { move = 0xC3D894B7, level = 55 },                        # The Dawn
-  { move = 0xEE3E059F, level = 65 },                        # Celestial Smash
+  { move = 0xC3D894B7, level = 45 },                        # The Dawn
+  { move = 0xEE3E059F, level = 55 },                        # Celestial Smash
 ]
 VRFW.MoveGrades = [
   { Move = 0x65766A4F, Grade = 1 },                         # Meteor Blade
@@ -71,55 +71,6 @@ target = "c03030050"                                   # Caleb Stonewall
     { move = 0xC16279D1, level = 60 },                      # Field of Force
   ]
 
-
-
-
-
-
-
-
-[[edit]]
-target = "c03030050"
-card = 0x840661DF
-VRFW.MoveGrades = [
-  { Move = 0x5643C944, Grade = 1 },                         # Killer Slide
-]
-[[edit]]
-target = "c03030050"
-card = 0x840661DF
-VRFW.MoveGrades = [
-  { Move = 0x5643C944, Grade = 1 },                         # Killer Slide
-]
-[[edit]]
-target = "c03030050"
-card = 0x840661DF
-VRFW.MoveGrades = [
-  { Move = 0x5643C944, Grade = 1 },                         # Killer Slide
-]
-[[edit]]
-target = "c03030050"
-card = 0x840661DF
-VRFW.MoveGrades = [
-  { Move = 0x5643C944, Grade = 1 },                         # Killer Slide
-]
-[[edit]]
-target = "c03030050"
-card = 0x840661DF
-VRFW.MoveGrades = [
-  { Move = 0x5643C944, Grade = 1 },                         # Killer Slide
-]
-[[edit]]
-target = "c03030050"
-card = 0x840661DF
-VRFW.MoveGrades = [
-  { Move = 0x5643C944, Grade = 1 },                         # Killer Slide
-]
-[[edit]]
-target = "c03030050"
-card = 0x840661DF
-VRFW.MoveGrades = [
-  { Move = 0x5643C944, Grade = 1 },                         # Killer Slide
-]
 [[edit]]
 target = "c03030050"
 card = 0x840661DF
@@ -151,16 +102,16 @@ target = "c03030020"                                   # Archer Hawkins
   growth = "normal"
   stats = { kick = 243, control = 158, technique = 203, pressure = 223, physical = 278, intelligence = 217, agility = 163, freedom = 271 }
   moves = [
+    { move = 0x8A52C09B, level = 1 },                       # Doomsword Slash
     { move = 0x142DBE2A, level = 30 },                      # Foul Offence
     { move = 0x7B64F3D2, level = 40 },                      # Hawk Shot
     { move = 0x04941270, level = 50 },                      # Vac Attack
-    { move = 0x8A52C09B, level = 60 },                      # Doomsword Slash
   ]
 
 [[edit]]
 target = "c03030080"                                   # Camellia Travis
 moves = [
-  { move = 0x73C5AF40, level = 10 },                        # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x7EEA4EE9, level = 16 },                        # Blade Attack
   { move = 0x4890FB67, level = 23 },                        # Twin Boost
   { move = 0x36A270F2, level = 38 },                        # Rolling Slide
@@ -175,7 +126,7 @@ moves = [
 [[edit]]
 target = "c03039500"                                   # Percival Travis
 moves = [
-  { move = 0x4E22F64D, level = 8 },                         # Transporter Device
+  { move = 0x4E22F64D, level = 1 },                         # Transporter Device
   { move = 0x6BA49049, level = 19 },                        # Mystic Mist
   { move = 0x2296A01A, level = 33 },                        # Southern Cross
   { move = 0x21127474, level = 43 },                        # Ultra Moon

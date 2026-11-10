@@ -9,55 +9,12 @@ target = "c03032210"                                   # Hector Helio
   growth = "normal"
   stats = { kick = 189, control = 225, technique = 205, pressure = 213, physical = 232, intelligence = 240, agility = 273, freedom = 279 }
   moves = [
+    { move = 0x8C382852, level = 1 },                       # God Hand
     { move = 0xA1DEB97A, level = 10 },                      # Soul Hand
     { move = 0xB8C5883B, level = 15 },                      # God Hand X
-    { move = 0x8C382852, level = 25 },                      # God Hand
     { move = 0xE647BCEE, level = 62 },                      # God Hand V
   ]
 
-
-
-
-
-
-
-
-[[edit]]
-target = "c03032210"
-card = 0x49E7B83E
-VRFW.MoveGrades = [
-  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
-]
-[[edit]]
-target = "c03032210"
-card = 0x49E7B83E
-VRFW.MoveGrades = [
-  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
-]
-[[edit]]
-target = "c03032210"
-card = 0x49E7B83E
-VRFW.MoveGrades = [
-  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
-]
-[[edit]]
-target = "c03032210"
-card = 0x49E7B83E
-VRFW.MoveGrades = [
-  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
-]
-[[edit]]
-target = "c03032210"
-card = 0x49E7B83E
-VRFW.MoveGrades = [
-  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
-]
-[[edit]]
-target = "c03032210"
-card = 0x49E7B83E
-VRFW.MoveGrades = [
-  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
-]
 [[edit]]
 target = "c03032210"
 card = 0x49E7B83E
@@ -83,8 +40,8 @@ moves = [
 target = "c03032230"                                   # Walter Mountain
 moves = [
   { move = 0xDD365E15, level = 1 },                         # Mole Shuffle
+  { move = 0xBBA44137, level = 15 },                        # Great Wall
   { move = 0x2DFFFFEA, level = 25 },                        # Ground Quake
-  { move = 0xBBA44137, level = 35 },                        # Great Wall
   { move = 0x7D6E9A87, level = 62 },                        # The Wall
 ]
 
@@ -207,7 +164,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03032310"                                   # Drago Hill
 moves = [
-  { move = 0x8EDFBC29, level = 10 },                        # Double Jaw
+  { move = 0x8EDFBC29, level = 1 },                         # Double Jaw
   { move = 0xD9BB22A7, level = 25 },                        # Air Ride
   { move = 0x2CFC3E63, level = 50 },                        # Dragon Crash
   { move = 0x316A7390, level = 60 },                        # Land Dragon

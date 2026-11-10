@@ -32,10 +32,11 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
       {3034975430, 1755271497, 3904338166, 2056805512},   -- _list_base01_ol, list_base01_ol, half_row_cell_left_ol, half_row_cell_right_ol
     },
     ROW_LEFT = -97, ROW_WIDTH = 568, ROW_HEIGHT = 72, PITCH = 66,
-    -- Cells (index 1 is left, 2 is right) in row units, where the sprites cut the full row.
+    -- Cells (index 1 is left, 2 is right) in row units, where the sprites cut the full row: they span the full row's plate.
+    -- The seam is centred on the row's part on screen (row x 0..456 at mid-height), so both cells show the same width.
     CELL_QUAD = 388,
     CELL_X = {-97, 83},
-    CELL_SHOWN = {{-83, 181}, {193, 456}},
+    CELL_SHOWN = {{-83, 222}, {234, 456}},
     SCREEN_X = 0,                    -- the row x of the screen's left edge (the slots' origin)
     ROW_GAP = 12,                    -- the rows' own spacing (pitch 66 - plate 54), also the seam's gap
     PLATE_SLANT = 1 / 6,
@@ -362,15 +363,10 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     return width
   end
 
-  -- Returns how far a pair moves right on the row.
-  local function pair_shift()
-    return K.SCREEN_X + K.ROW_GAP - K.CELL_X[1]
-  end
-
-  -- Returns the slot x of a cell, which centres its label on the cell and keeps the cursor inside the slanted edge.
+  -- Returns the slot x of a cell, which centres its label on the cell's part on screen and keeps the cursor inside the slanted edge.
   local function cell_shift(found, instance)
     local shown = K.CELL_SHOWN[found.side]
-    local left, right = shown[1] + pair_shift(), shown[2] + pair_shift()
+    local left, right = math.max(shown[1], K.SCREEN_X), shown[2]
     local width = label_width(instance, HR.cell_text(found.cell))
     local x = (left + right) / 2 - width / 2 - K.TEXT_X
     return math.max(x, left - K.CURSOR_X)
@@ -378,7 +374,7 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
 
   -- Returns row x `row_x` in the units of the cell's own instance (the plates and the pointer zones are both placed with it).
   local function on_cell(instance, row_x)
-    return row_x + pair_shift() - (S.shift[instance] or 0)
+    return row_x - (S.shift[instance] or 0)
   end
 
   -- Switches the engine's own pointer zones of the cells.
@@ -457,7 +453,7 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
         places[#places + 1] = instance .. "=" .. math.floor(S.shift[instance] + 0.5) .. (cell.side == 1 and "L" or "R")
       end
       table.sort(places)
-      log("half rows", some and "on" or "off", "rows", L.n, "pair shift", pair_shift(), "cells", table.concat(places, " "))
+      log("half rows", some and "on" or "off", "rows", L.n, "cells", table.concat(places, " "))
     end
   end
 

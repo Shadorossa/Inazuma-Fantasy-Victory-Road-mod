@@ -62,9 +62,9 @@ moves = [
 target = "c06039010"                                   # David Evans
 moves = [
   { move = 0x8C382852, level = 1 },                         # God Hand
-  { move = 0xF2CB0879, level = 36 },                        # Mugen the Hand
-  { move = 0xB8C5883B, level = 62 },                        # God Hand X
-  { move = 0xFC5DC53F, level = 72 },                        # Double God Hand
+  { move = 0xFC5DC53F, level = 11 },                        # Double God Hand
+  { move = 0x2D9F7E76, level = 21 },                        # Breath Taker
+  { move = 0xA491AFFF, level = 31 },                        # Majin the Hand
 ]
 
   [[edit.cards]]

@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05023010_5000"                              # Chitoh
 moves = [
-  { move = 0x07704782, level = 13 },                        # Rejection
+  { move = 0x07704782, level = 1 },                         # Rejection
   { move = 0x62DEE8B1, level = 24 },                        # Jumping Whack
   { move = 0x9B3048AB, level = 43 },                        # Shadow Catch
   { move = 0x9AF2229C, level = 61 },                        # Gravity Point
@@ -49,7 +49,7 @@ moves = [
 [[edit]]
 target = "c05023010"                                   # Chitoh
 moves = [
-  { move = 0x07704782, level = 13 },                        # Rejection
+  { move = 0x07704782, level = 1 },                         # Rejection
   { move = 0x62DEE8B1, level = 24 },                        # Jumping Whack
   { move = 0x9B3048AB, level = 43 },                        # Shadow Catch
   { move = 0x9AF2229C, level = 61 },                        # Gravity Point
@@ -85,7 +85,7 @@ moves = [
 [[edit]]
 target = "c05023030"                                   # Fumh
 moves = [
-  { move = 0x1C4D4906, level = 6 },                         # Whirlpool
+  { move = 0x1C4D4906, level = 1 },                         # Whirlpool
   { move = 0x62BE692D, level = 17 },                        # Whirlwind Force
   { move = 0xB0F8060A, level = 55 },                        # Ozone Flayer
   { move = 0x0D368F6B, level = 65 },                        # Heaven's Time
@@ -137,7 +137,7 @@ moves = [
 [[edit]]
 target = "c05023060"                                   # Rokah
 moves = [
-  { move = 0xF94FAAA7, level = 10 },                        # Decoy Deploy
+  { move = 0xF94FAAA7, level = 1 },                         # Decoy Deploy
   { move = 0x530CDFC1, level = 14 },                        # Mystifying Mist
   { move = 0x5739C70C, level = 17 },                        # Guided Collide
   { move = 0x2B8C597E, level = 49 },                        # Fugue Wave
@@ -153,7 +153,7 @@ moves = [
 [[edit]]
 target = "c05023070"                                   # Pinoh
 moves = [
-  { move = 0xF94FAAA7, level = 11 },                        # Decoy Deploy
+  { move = 0xF94FAAA7, level = 1 },                         # Decoy Deploy
   { move = 0xEFFC6FA8, level = 20 },                        # Warhead
   { move = 0x44BCDB47, level = 59 },                        # Pyroclastic
   { move = 0x19BA3BFC, level = 69 },                        # Dance on Air
@@ -169,7 +169,7 @@ moves = [
 [[edit]]
 target = "c05023080"                                   # Tahk
 moves = [
-  { move = 0xF94FAAA7, level = 12 },                        # Decoy Deploy
+  { move = 0xF94FAAA7, level = 1 },                         # Decoy Deploy
   { move = 0x24E5068E, level = 19 },                        # Fractal Repeller
   { move = 0xA0BDF96F, level = 54 },                        # Ballista Barrage
   { move = 0x67F17FA8, level = 64 },                        # Mega Quake
@@ -225,9 +225,9 @@ moves = [
 [[edit]]
 target = "c05023120"                                   # Bhabass
 moves = [
+  { move = 0x07704782, level = 1 },                         # Rejection
   { move = 0x50E88A33, level = 13 },                        # Fist Beam
-  { move = 0x07704782, level = 23 },                        # Rejection
-  { move = 0xE4849E49, level = 33 },                        # Wild Dunk
+  { move = 0xE4849E49, level = 21 },                        # Wild Dunk
   { move = 0xED1BFBD3, level = 50 },                        # Fingers of Gaia
 ]
 
@@ -256,7 +256,7 @@ moves = [
 [[edit]]
 target = "c05023140"                                   # Tessell
 moves = [
-  { move = 0xF94FAAA7, level = 12 },                        # Decoy Deploy
+  { move = 0xF94FAAA7, level = 1 },                         # Decoy Deploy
   { move = 0x5DA7EA06, level = 17 },                        # Boomerang Bluff
   { move = 0x17110E3B, level = 41 },                        # Jumbo Sandwich
   { move = 0x9B916289, level = 47 },                        # Jurassic Jaws
@@ -272,7 +272,7 @@ moves = [
 [[edit]]
 target = "c05023150"                                   # Chikka
 moves = [
-  { move = 0xF94FAAA7, level = 12 },                        # Decoy Deploy
+  { move = 0xF94FAAA7, level = 1 },                         # Decoy Deploy
   { move = 0x4031A7F5, level = 19 },                        # Mole Fake
   { move = 0x5739C70C, level = 24 },                        # Guided Collide
   { move = 0x20D01E43, level = 41 },                        # Hey Presto
@@ -288,7 +288,7 @@ moves = [
 [[edit]]
 target = "c05023160"                                   # Mahrsa
 moves = [
-  { move = 0xF9C4BCF4, level = 4 },                         # Double Helix
+  { move = 0xF9C4BCF4, level = 1 },                         # Double Helix
   { move = 0xC2E6ADBF, level = 16 },                        # Log Roll
   { move = 0xA9E3374B, level = 46 },                        # Cyclone Sprint
   { move = 0x7E2BE557, level = 50 },                        # Legendary Wolf

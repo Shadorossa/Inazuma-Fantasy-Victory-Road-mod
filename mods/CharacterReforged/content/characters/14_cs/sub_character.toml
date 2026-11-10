@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05020350_5000"                              # Zhuge Liang
 moves = [
-  { move = 0xCA30B441, level = 15 },                        # Thundertaker
+  { move = 0xCA30B441, level = 1 },                         # Thundertaker
   { move = 0x64CDCFB9, level = 50 },                        # Rising Dragon
   { move = 0x0D368F6B, level = 55 },                        # Heaven's Time
   { move = 0x6BA49049, level = 65 },                        # Mystic Mist
@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c05020210"                                   # Ichimasa
 moves = [
-  { move = 0x0CF4E55C, level = 20 },                        # Double Touch
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
   { move = 0xC2E6ADBF, level = 21 },                        # Log Roll
   { move = 0x6F918884, level = 26 },                        # Easy Breezy
   { move = 0x5DA7EA06, level = 45 },                        # Boomerang Bluff
@@ -34,10 +34,10 @@ moves = [
 [[edit]]
 target = "c05020220"                                   # Jingo
 moves = [
+  { move = 0x6B1CF436, level = 1 },                         # Bewildered
+  { move = 0xA23AEC88, level = 20 },                        # Copy Cut
   { move = 0x4031A7F5, level = 22 },                        # Mole Fake
-  { move = 0x6B1CF436, level = 32 },                        # Bewildered
-  { move = 0xA23AEC88, level = 42 },                        # Copy Cut
-  { move = 0x56FBAD3B, level = 52 },                        # Seal Matrix
+  { move = 0x56FBAD3B, level = 42 },                        # Seal Matrix
 ]
 
   [[edit.cards]]
@@ -82,7 +82,7 @@ moves = [
 [[edit]]
 target = "c05020250"                                   # Tasuke
 moves = [
-  { move = 0x141046AB, level = 2 },                         # Overnight Fortress
+  { move = 0x141046AB, level = 1 },                         # Overnight Fortress
   { move = 0x6B1CF436, level = 22 },                        # Bewildered
   { move = 0x2354CA2D, level = 36 },                        # Wind God's Dance
   { move = 0xDD0BA694, level = 53 },                        # Okehazama Ravine
@@ -98,7 +98,7 @@ moves = [
 [[edit]]
 target = "c05020270"                                   # Nobunaga Oda
 moves = [
-  { move = 0xB4C3946A, level = 11 },                        # Ephemeral Boost
+  { move = 0xB4C3946A, level = 1 },                         # Ephemeral Boost
   { move = 0x64CDCFB9, level = 47 },                        # Rising Dragon
   { move = 0xF5638A87, level = 77 },                        # Elemental Destroyer
   { move = 0xADD8A52B, level = 87 },                        # Matchlock Bullet
@@ -129,7 +129,7 @@ moves = [
 [[edit]]
 target = "c05020290"                                   # Joan of Arc
 moves = [
-  { move = 0xA1BE38E6, level = 2 },                         # La Flamme
+  { move = 0xA1BE38E6, level = 1 },                         # La Flamme
   { move = 0xDBFD9CFE, level = 40 },                        # Big Ball Trick
   { move = 0x0D0B77EA, level = 59 },                        # Floral Fiesta
   { move = 0x6BA49049, level = 69 },                        # Mystic Mist
@@ -145,7 +145,7 @@ moves = [
 [[edit]]
 target = "c05020300"                                   # La Hire
 moves = [
-  { move = 0xA0BDF96F, level = 10 },                        # Ballista Barrage
+  { move = 0xA0BDF96F, level = 1 },                         # Ballista Barrage
   { move = 0xBA221C40, level = 18 },                        # Dragon's Tail
   { move = 0x2296A01A, level = 39 },                        # Southern Cross
   { move = 0xAE5C7145, level = 65 },                        # Fangtasmagoria
@@ -160,7 +160,7 @@ moves = [
 [[edit]]
 target = "c05020310"                                   # Gilles de Rais
 moves = [
-  { move = 0xC324C788, level = 2 },                         # Blast Mine
+  { move = 0xC324C788, level = 1 },                         # Blast Mine
   { move = 0x4A17EE80, level = 17 },                        # Hunter's Net
   { move = 0xDA3FF6C9, level = 39 },                        # Criss-Cross
   { move = 0x24E5068E, level = 49 },                        # Fractal Repeller
@@ -206,7 +206,7 @@ moves = [
 [[edit]]
 target = "c05020340"                                   # Zhang Fei
 moves = [
-  { move = 0xAE2B3429, level = 12 },                        # Atomic Flare
+  { move = 0xAE2B3429, level = 1 },                         # Atomic Flare
   { move = 0x2CFC3E63, level = 21 },                        # Dragon Crash
   { move = 0xB60E3C60, level = 31 },                        # Plasma Cut
   { move = 0xF4A1E0B0, level = 53 },                        # Entropic Arrows
@@ -221,7 +221,7 @@ moves = [
 [[edit]]
 target = "c05020350"                                   # Zhuge Liang
 moves = [
-  { move = 0xCA30B441, level = 15 },                        # Thundertaker
+  { move = 0xCA30B441, level = 1 },                         # Thundertaker
   { move = 0x64CDCFB9, level = 50 },                        # Rising Dragon
   { move = 0x0D368F6B, level = 55 },                        # Heaven's Time
   { move = 0x6BA49049, level = 65 },                        # Mystic Mist
@@ -241,7 +241,7 @@ moves = [
 [[edit]]
 target = "c05020360"                                   # Cao Cao
 moves = [
-  { move = 0x0E0A3F7A, level = 2 },                         # Spatial Portal
+  { move = 0x0E0A3F7A, level = 1 },                         # Spatial Portal
   { move = 0xC6978232, level = 62 },                        # Dinosaur Roar
   { move = 0xB8A509A7, level = 86 },                        # Asterocks
   { move = 0x06D2AC29, level = 96 },                        # Diabolical Cut
@@ -262,7 +262,7 @@ moves = [
 [[edit]]
 target = "c05020370"                                   # Soji Okita
 moves = [
-  { move = 0xE11DE782, level = 12 },                        # Chrysanthemum Katana
+  { move = 0xE11DE782, level = 1 },                         # Chrysanthemum Katana
   { move = 0xAF150D21, level = 53 },                        # Swallow Counter
   { move = 0xC755E805, level = 69 },                        # Triple Threat
   { move = 0x64CDCFB9, level = 79 },                        # Rising Dragon
@@ -277,7 +277,7 @@ moves = [
 [[edit]]
 target = "c05020380"                                   # Ryoma Sakamoto
 moves = [
-  { move = 0x84385EE2, level = 13 },                        # Black Tide Ride
+  { move = 0x84385EE2, level = 1 },                         # Black Tide Ride
   { move = 0x04941270, level = 51 },                        # Vac Attack
   { move = 0x141046AB, level = 61 },                        # Overnight Fortress
   { move = 0x17110E3B, level = 71 },                        # Jumbo Sandwich
@@ -293,7 +293,7 @@ moves = [
 [[edit]]
 target = "c05020390"                                   # King Arthur
 moves = [
-  { move = 0x9D236FA3, level = 15 },                        # Sword of the King
+  { move = 0x9D236FA3, level = 1 },                         # Sword of the King
   { move = 0x518BCA26, level = 25 },                        # Fire Tornado
   { move = 0x8D5B6847, level = 70 },                        # Odin Sword
   { move = 0x2B8C597E, level = 75 },                        # Fugue Wave
@@ -308,7 +308,7 @@ moves = [
 [[edit]]
 target = "c05026710"                                   # Gammon Checker
 moves = [
-  { move = 0x58B5859E, level = 2 },                         # Whip Crack
+  { move = 0x58B5859E, level = 1 },                         # Whip Crack
   { move = 0xF400CA92, level = 23 },                        # Anchors Aweigh
   { move = 0x4AF2F3E2, level = 33 },                        # Bridge to Nowhere
   { move = 0x1FA91CF4, level = 43 },                        # Negative Feedback
@@ -323,10 +323,10 @@ moves = [
 [[edit]]
 target = "c05026720"                                   # Kyoko Hanabayashi
 moves = [
+  { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
   { move = 0xA2FB4736, level = 22 },                        # Flying Fish
-  { move = 0x9349F1DA, level = 32 },                        # Zephyr Shot
-  { move = 0x39CB2F02, level = 42 },                        # Dragster
-  { move = 0xB3CA3CB6, level = 52 },                        # Parkour Power
+  { move = 0x39CB2F02, level = 25 },                        # Dragster
+  { move = 0xB3CA3CB6, level = 39 },                        # Parkour Power
 ]
 
   [[edit.cards]]
@@ -353,10 +353,10 @@ moves = [
 [[edit]]
 target = "c05026740"                                   # Aslei Rune
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0x650FA58E, level = 10 },                        # Spin Out
-  { move = 0x00AF8010, level = 58 },                        # Splitting Hares
-  { move = 0xAF150D21, level = 68 },                        # Swallow Counter
+  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
+  { move = 0x928B9BED, level = 11 },                        # Optimal Trajectory
+  { move = 0x7DD6FEF8, level = 21 },                        # Athena's Anthem
+  { move = 0xDBFD9CFE, level = 31 },                        # Big Ball Trick
 ]
 
   [[edit.cards]]
@@ -417,7 +417,7 @@ moves = [
 [[edit]]
 target = "c05026780"                                   # Toshiie Maeda
 moves = [
-  { move = 0xADD8A52B, level = 11 },                        # Matchlock Bullet
+  { move = 0xADD8A52B, level = 1 },                         # Matchlock Bullet
   { move = 0xAF150D21, level = 23 },                        # Swallow Counter
   { move = 0xC4D13C6B, level = 55 },                        # Katana Kick
   { move = 0xEFFC6FA8, level = 65 },                        # Warhead
@@ -447,10 +447,10 @@ moves = [
 [[edit]]
 target = "c05029410"                                   # Victor Blade
 moves = [
-  { move = 0x8A52C09B, level = 1 },                         # Doomsword Slash
-  { move = 0x0C08B663, level = 11 },                        # Doom Dive Drive
-  { move = 0x1F7F73BA, level = 13 },                        # Bicycle Slash
+  { move = 0x1F7F73BA, level = 1 },                         # Bicycle Slash
   { move = 0x90CD25B4, level = 20 },                        # Supernatural Strike
+  { move = 0x910F4F83, level = 47 },                        # Fire Tornado DD
+  { move = 0xA955D999, level = 57 },                        # The Earth: Infinity
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -467,10 +467,10 @@ moves = [
 [[edit]]
 target = "c05029420"                                   # Gabriel Garcia
 moves = [
+  { move = 0x530CDFC1, level = 1 },                         # Mystifying Mist
+  { move = 0x6BA49049, level = 21 },                        # Mystic Mist
+  { move = 0x2296A01A, level = 31 },                        # Southern Cross
   { move = 0x2B8C597E, level = 41 },                        # Fugue Wave
-  { move = 0x530CDFC1, level = 51 },                        # Mystifying Mist
-  { move = 0x6BA49049, level = 61 },                        # Mystic Mist
-  { move = 0x2296A01A, level = 71 },                        # Southern Cross
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -487,10 +487,10 @@ moves = [
 [[edit]]
 target = "c05029430"                                   # Gabriel Garcia
 moves = [
+  { move = 0x530CDFC1, level = 1 },                         # Mystifying Mist
+  { move = 0x6BA49049, level = 21 },                        # Mystic Mist
+  { move = 0x2296A01A, level = 31 },                        # Southern Cross
   { move = 0x2B8C597E, level = 41 },                        # Fugue Wave
-  { move = 0x530CDFC1, level = 51 },                        # Mystifying Mist
-  { move = 0x6BA49049, level = 61 },                        # Mystic Mist
-  { move = 0x2296A01A, level = 71 },                        # Southern Cross
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -508,10 +508,10 @@ moves = [
 [[edit]]
 target = "c05029440"                                   # Victor Blade
 moves = [
-  { move = 0x8A52C09B, level = 1 },                         # Doomsword Slash
-  { move = 0x0C08B663, level = 11 },                        # Doom Dive Drive
-  { move = 0x1F7F73BA, level = 13 },                        # Bicycle Slash
+  { move = 0x1F7F73BA, level = 1 },                         # Bicycle Slash
   { move = 0x90CD25B4, level = 20 },                        # Supernatural Strike
+  { move = 0x910F4F83, level = 47 },                        # Fire Tornado DD
+  { move = 0xA955D999, level = 57 },                        # The Earth: Infinity
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -528,7 +528,7 @@ moves = [
 [[edit]]
 target = "c05029450"                                   # Bailong
 moves = [
-  { move = 0x89D614F5, level = 12 },                        # White Hurricane
+  { move = 0x89D614F5, level = 1 },                         # White Hurricane
   { move = 0x3297683F, level = 26 },                        # Warp Step
   { move = 0x1C097E46, level = 45 },                        # Dragon Drive
   { move = 0x0E4E083A, level = 67 },                        # Zero Magnum
@@ -607,10 +607,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c06039070"                                   # Victor Blade
 moves = [
-  { move = 0x8A52C09B, level = 1 },                         # Doomsword Slash
-  { move = 0x0C08B663, level = 11 },                        # Doom Dive Drive
-  { move = 0x1F7F73BA, level = 13 },                        # Bicycle Slash
+  { move = 0x1F7F73BA, level = 1 },                         # Bicycle Slash
   { move = 0x90CD25B4, level = 20 },                        # Supernatural Strike
+  { move = 0x910F4F83, level = 47 },                        # Fire Tornado DD
+  { move = 0xA955D999, level = 57 },                        # The Earth: Infinity
 ]
 
   [[edit.cards]]
@@ -650,7 +650,7 @@ moves = [
 [[edit]]
 target = "c06037480"                                   # Big
 moves = [
-  { move = 0xAE5C7145, level = 5 },                         # Fangtasmagoria
+  { move = 0xAE5C7145, level = 1 },                         # Fangtasmagoria
   { move = 0xA9A7000B, level = 36 },                        # Bouncing Bunny
   { move = 0xF5638A87, level = 61 },                        # Elemental Destroyer
   { move = 0x928B9BED, level = 71 },                        # Optimal Trajectory
@@ -681,7 +681,7 @@ moves = [
 [[edit]]
 target = "c06037500"                                   # Hurricane Zeta
 moves = [
-  { move = 0xB6852A33, level = 5 },                         # I Am the Almighty
+  { move = 0xB6852A33, level = 1 },                         # I Am the Almighty
   { move = 0xA4B51923, level = 40 },                        # The Typhoon
   { move = 0x7C1494CF, level = 60 },                        # Tornado Tunnel
   { move = 0xF3A8486C, level = 70 },                        # Jet Stream
@@ -696,10 +696,10 @@ moves = [
 [[edit]]
 target = "c06039090"                                   # Cross Word Cryptix
 moves = [
-  { move = 0xA9A7000B, level = 1 },                         # Bouncing Bunny
-  { move = 0x05124F07, level = 18 },                        # Fission and Fusion
-  { move = 0xF626F557, level = 34 },                        # Electric Impedance
-  { move = 0x00AF8010, level = 53 },                        # Splitting Hares
+  { move = 0xBA662B00, level = 1 },                         # Pterrordactyl Swoop
+  { move = 0xB0BC314A, level = 11 },                        # Spin Meister
+  { move = 0xDF8CB373, level = 21 },                        # Sonic Shot
+  { move = 0xA2BF7076, level = 31 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -758,9 +758,9 @@ moves = [
 target = "c11908140"                                   # Arion Sherwind
 moves = [
   { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
-  { move = 0x6F918884, level = 11 },                        # Easy Breezy
-  { move = 0xA37D1A41, level = 21 },                        # Hyper-Swiper
   { move = 0x7C1494CF, level = 40 },                        # Tornado Tunnel
+  { move = 0xF88DC090, level = 50 },                        # Z Slash
+  { move = 0x1CFBA7D4, level = 60 },                        # Twister Tornado
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -776,10 +776,10 @@ moves = [
 [[edit]]
 target = "c11908150"                                   # Riccardo Di Rigo
 moves = [
-  { move = 0x8B90AAAC, level = 1 },                         # Fortissimo
-  { move = 0x20D01E43, level = 11 },                        # Hey Presto
-  { move = 0x7DD6FEF8, level = 52 },                        # Athena's Anthem
+  { move = 0x7DD6FEF8, level = 1 },                         # Athena's Anthem
   { move = 0x900C8E0A, level = 62 },                        # Maestro's Call
+  { move = 0xAD53B378, level = 72 },                        # Diffusal Chord
+  { move = 0x8B90AAAC, level = 82 },                        # Fortissimo
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -796,9 +796,9 @@ moves = [
 [[edit]]
 target = "c11908160"                                   # Aitor Cazador
 moves = [
+  { move = 0x4A17EE80, level = 1 },                         # Hunter's Net
+  { move = 0xC324C788, level = 25 },                        # Blast Mine
   { move = 0x6ADE9E01, level = 37 },                        # Illusory Ball
-  { move = 0x4A17EE80, level = 47 },                        # Hunter's Net
-  { move = 0xC324C788, level = 57 },                        # Blast Mine
   { move = 0x0E0A3F7A, level = 63 },                        # Spatial Portal
 ]
 
@@ -812,7 +812,7 @@ moves = [
 [[edit]]
 target = "c11908170"                                   # Bailong
 moves = [
-  { move = 0x89D614F5, level = 12 },                        # White Hurricane
+  { move = 0x89D614F5, level = 1 },                         # White Hurricane
   { move = 0x3297683F, level = 26 },                        # Warp Step
   { move = 0x1C097E46, level = 45 },                        # Dragon Drive
   { move = 0x0E4E083A, level = 67 },                        # Zero Magnum
@@ -831,7 +831,7 @@ moves = [
 [[edit]]
 target = "c11908180"                                   # Tezcat
 moves = [
-  { move = 0xEC78BBC6, level = 15 },                        # Black Ash
+  { move = 0xEC78BBC6, level = 1 },                         # Black Ash
   { move = 0xC9BAEA82, level = 30 },                        # Eye of the Storm
   { move = 0xA2BF7076, level = 48 },                        # Side Swipe
   { move = 0x0E4E083A, level = 74 },                        # Zero Magnum
@@ -851,9 +851,9 @@ moves = [
 target = "c11908190"                                   # Arion Sherwind
 moves = [
   { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
-  { move = 0x6F918884, level = 11 },                        # Easy Breezy
-  { move = 0xA37D1A41, level = 21 },                        # Hyper-Swiper
   { move = 0x7C1494CF, level = 40 },                        # Tornado Tunnel
+  { move = 0xF88DC090, level = 50 },                        # Z Slash
+  { move = 0x1CFBA7D4, level = 60 },                        # Twister Tornado
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -899,7 +899,7 @@ moves = [
 [[edit]]
 target = "c05020360_5000"                              # Cao Cao
 moves = [
-  { move = 0x0E0A3F7A, level = 2 },                         # Spatial Portal
+  { move = 0x0E0A3F7A, level = 1 },                         # Spatial Portal
   { move = 0xC6978232, level = 62 },                        # Dinosaur Roar
   { move = 0xB8A509A7, level = 86 },                        # Asterocks
   { move = 0x06D2AC29, level = 96 },                        # Diabolical Cut

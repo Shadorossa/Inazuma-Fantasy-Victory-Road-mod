@@ -23,7 +23,7 @@ target = "c06030010"                                   # Terry Archibald
   growth = "normal"
   stats = { kick = 150, control = 247, technique = 153, pressure = 200, physical = 282, intelligence = 257, agility = 270, freedom = 385 }
   moves = [
-    { move = 0x04F493EC, level = 48 },                      # Dragon Rage Dunk
+    { move = 0x04F493EC, level = 1 },                       # Dragon Rage Dunk
     { move = 0xE4849E49, level = 58 },                      # Wild Dunk
     { move = 0xE6C22010, level = 68 },                      # Claw de Force
     { move = 0x4BB5052B, level = 78 },                      # Mammoth Stomp
@@ -37,7 +37,7 @@ target = "c06030010"                                   # Terry Archibald
 [[edit]]
 target = "c06030020"                                   # Trina Verdure
 moves = [
-  { move = 0x0CF4E55C, level = 12 },                        # Double Touch
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
   { move = 0x322F0C40, level = 20 },                        # Spider Web
   { move = 0x867EE0BB, level = 42 },                        # Verdure Vortex
   { move = 0xBB21DDC9, level = 52 },                        # Trina Tumble
@@ -58,7 +58,7 @@ moves = [
 [[edit]]
 target = "c06030030"                                   # Keenan Sharpe
 moves = [
-  { move = 0x5DA7EA06, level = 13 },                        # Boomerang Bluff
+  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
   { move = 0x0F4DC9B3, level = 30 },                        # Logicstical Sync
   { move = 0xA23AEC88, level = 40 },                        # Copy Cut
   { move = 0xB4488239, level = 50 },                        # Look! UFO
@@ -78,7 +78,7 @@ moves = [
 [[edit]]
 target = "c06030040"                                   # Zippy Lerner
 moves = [
-  { move = 0x2E7B2B84, level = 5 },                         # Thief's Eye
+  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
   { move = 0x12E67CC1, level = 8 },                         # Future Eye
   { move = 0x0F4DC9B3, level = 30 },                        # Logicstical Sync
   { move = 0xED7B7A4F, level = 40 },                        # Defence Equation
@@ -99,7 +99,7 @@ moves = [
 [[edit]]
 target = "c06030050"                                   # Frank Foreman
 moves = [
-  { move = 0xF4604B0E, level = 12 },                        # Fancy-Footwork
+  { move = 0xF4604B0E, level = 1 },                         # Fancy-Footwork
   { move = 0x82788A5A, level = 25 },                        # Straight Counter
   { move = 0xEFFC6FA8, level = 35 },                        # Warhead
   { move = 0xBDAE2862, level = 45 },                        # Hellfire
@@ -126,7 +126,7 @@ target = "c06030060"                                   # Buddy Fury
   growth = "normal"
   stats = { kick = 269, control = 257, technique = 271, pressure = 189, physical = 201, intelligence = 252, agility = 192, freedom = 271 }
   moves = [
-    { move = 0xCABBA212, level = 2 },                       # Menacing Glare
+    { move = 0xCABBA212, level = 1 },                       # Menacing Glare
     { move = 0x52CEB5F6, level = 51 },                      # Iron Wall
     { move = 0x81FC5E34, level = 61 },                      # Driving Header
     { move = 0x179492C5, level = 71 },                      # Center Scythe Slice
@@ -146,7 +146,7 @@ target = "c06038010"                                   # Buddy Fury
   growth = "normal"
   stats = { kick = 277, control = 255, technique = 275, pressure = 189, physical = 198, intelligence = 250, agility = 185, freedom = 243 }
   moves = [
-    { move = 0xCABBA212, level = 2 },                       # Menacing Glare
+    { move = 0xCABBA212, level = 1 },                       # Menacing Glare
     { move = 0x52CEB5F6, level = 51 },                      # Iron Wall
     { move = 0x81FC5E34, level = 61 },                      # Driving Header
     { move = 0x179492C5, level = 71 },                      # Center Scythe Slice
@@ -155,10 +155,10 @@ target = "c06038010"                                   # Buddy Fury
 [[edit]]
 target = "c06030070"                                   # Cerise Blossom
 moves = [
-  { move = 0xD3A09353, level = 8 },                         # Hoopsie-Daisy
-  { move = 0xAAD10DF7, level = 15 },                        # Mermaid Smash
-  { move = 0x6DD736DD, level = 28 },                        # Ribbon Shower
-  { move = 0x54C4DCA3, level = 35 },                        # Butterfly Trance
+  { move = 0xC2E6ADBF, level = 1 },                         # Log Roll
+  { move = 0xD3A09353, level = 31 },                        # Hoopsie-Daisy
+  { move = 0xAAD10DF7, level = 41 },                        # Mermaid Smash
+  { move = 0x54C4DCA3, level = 51 },                        # Butterfly Trance
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -175,7 +175,7 @@ moves = [
 [[edit]]
 target = "c06030110"                                   # Falco Flashman
 moves = [
-  { move = 0x568262FA, level = 30 },                        # Dark Tornado
+  { move = 0x568262FA, level = 1 },                         # Dark Tornado
   { move = 0xB3CA3CB6, level = 40 },                        # Parkour Power
   { move = 0x9B63BB1B, level = 50 },                        # Black Dawn
   { move = 0xD9BB22A7, level = 60 },                        # Air Ride
@@ -199,7 +199,7 @@ target = "c06038020"                                   # Falco Flashman
   growth = "normal"
   stats = { kick = 312, control = 239, technique = 201, pressure = 184, physical = 204, intelligence = 192, agility = 211, freedom = 305 }
   moves = [
-    { move = 0x568262FA, level = 30 },                      # Dark Tornado
+    { move = 0x568262FA, level = 1 },                       # Dark Tornado
     { move = 0xB3CA3CB6, level = 40 },                      # Parkour Power
     { move = 0x9B63BB1B, level = 50 },                      # Black Dawn
     { move = 0xD9BB22A7, level = 60 },                      # Air Ride
@@ -249,9 +249,9 @@ moves = [
 target = "c06039290"                                   # Astero Black
 moves = [
   { move = 0x7DAF3139, level = 1 },                         # Emperor Penguin No. 2
-  { move = 0x6ADE9E01, level = 11 },                        # Illusory Ball
-  { move = 0x5643C944, level = 21 },                        # Killer Slide
   { move = 0xBF6D0AC5, level = 26 },                        # Emperor Penguin No. 3
+  { move = 0x0DCADC54, level = 34 },                        # Emperor Penguin 7
+  { move = 0xC9B4602F, level = 60 },                        # Final Death Zone
 ]
 
   [[edit.cards]]

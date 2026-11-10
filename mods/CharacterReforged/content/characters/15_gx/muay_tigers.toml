@@ -148,7 +148,7 @@ moves = [
   { move = 0x660EED1E, level = 1 },                         # Low Scythe Slice
   { move = 0xD6649385, level = 10 },                        # Tusk Force
   { move = 0xCABBA212, level = 30 },                        # Menacing Glare
-  { move = 0x9FEEC7A9, level = 40 },                        # Gigaton Head
+  { move = 0x81FC5E34, level = 40 },                        # Driving Header
 ]
 
   [[edit.cards]]

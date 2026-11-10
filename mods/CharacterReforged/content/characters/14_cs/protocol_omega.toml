@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05020500_5000"                              # Alpha
 moves = [
-  { move = 0xB0BC314A, level = 7 },                         # Spin Meister
+  { move = 0xB0BC314A, level = 1 },                         # Spin Meister
   { move = 0xC324C788, level = 12 },                        # Blast Mine
   { move = 0xFB8202AD, level = 36 },                        # Gaussian Goal
   { move = 0x1BF20F08, level = 67 },                        # Omega Assault
@@ -38,9 +38,9 @@ moves = [
 [[edit]]
 target = "c05020420"                                   # Oscar
 moves = [
+  { move = 0xDCC9CCA3, level = 1 },                         # Tesla Coil
+  { move = 0x81FC5E34, level = 42 },                        # Driving Header
   { move = 0xBBE07677, level = 44 },                        # Sidewinder
-  { move = 0xDCC9CCA3, level = 54 },                        # Tesla Coil
-  { move = 0x81FC5E34, level = 64 },                        # Driving Header
   { move = 0xF7E49F60, level = 65 },                        # Magnetism
 ]
 
@@ -70,10 +70,10 @@ moves = [
 [[edit]]
 target = "c05020440"                                   # Golf
 moves = [
-  { move = 0x457EB170, level = 43 },                        # Pyrokinetic
-  { move = 0xDCC9CCA3, level = 53 },                        # Tesla Coil
-  { move = 0x650FA58E, level = 63 },                        # Spin Out
-  { move = 0xAC91D94F, level = 73 },                        # Major Miner
+  { move = 0xDCC9CCA3, level = 1 },                         # Tesla Coil
+  { move = 0x650FA58E, level = 9 },                         # Spin Out
+  { move = 0x457EB170, level = 42 },                        # Pyrokinetic
+  { move = 0xC42D6F54, level = 52 },                        # Aikido
 ]
 
   [[edit.cards]]
@@ -123,7 +123,7 @@ moves = [
 [[edit]]
 target = "c05020470"                                   # Bravo
 moves = [
-  { move = 0x650FA58E, level = 4 },                         # Spin Out
+  { move = 0x650FA58E, level = 1 },                         # Spin Out
   { move = 0x17110E3B, level = 10 },                        # Jumbo Sandwich
   { move = 0xF7E49F60, level = 24 },                        # Magnetism
   { move = 0xAC91D94F, level = 53 },                        # Major Miner
@@ -155,7 +155,7 @@ moves = [
 [[edit]]
 target = "c05020490"                                   # Juliet
 moves = [
-  { move = 0xFB8202AD, level = 3 },                         # Gaussian Goal
+  { move = 0xFB8202AD, level = 1 },                         # Gaussian Goal
   { move = 0x828A53C8, level = 25 },                        # Plasma Ball
   { move = 0x768AB9C5, level = 58 },                        # Frosticle
   { move = 0x650FA58E, level = 68 },                        # Spin Out
@@ -176,7 +176,7 @@ target = "c05020500"                                   # Alpha
   growth = "normal"
   stats = { kick = 302, control = 258, technique = 254, pressure = 213, physical = 158, intelligence = 232, agility = 193, freedom = 363 }
   moves = [
-    { move = 0xB0BC314A, level = 7 },                       # Spin Meister
+    { move = 0xB0BC314A, level = 1 },                       # Spin Meister
     { move = 0xC324C788, level = 12 },                      # Blast Mine
     { move = 0xFB8202AD, level = 36 },                      # Gaussian Goal
     { move = 0x1BF20F08, level = 67 },                      # Omega Assault
@@ -190,10 +190,10 @@ target = "c05020500"                                   # Alpha
 [[edit]]
 target = "c05020510"                                   # Mike
 moves = [
+  { move = 0xFB8202AD, level = 1 },                         # Gaussian Goal
+  { move = 0x828A53C8, level = 7 },                         # Plasma Ball
   { move = 0xF9C4BCF4, level = 59 },                        # Double Helix
-  { move = 0xFB8202AD, level = 69 },                        # Gaussian Goal
-  { move = 0x828A53C8, level = 79 },                        # Plasma Ball
-  { move = 0x1F7F73BA, level = 89 },                        # Bicycle Slash
+  { move = 0x1F7F73BA, level = 62 },                        # Bicycle Slash
 ]
 
   [[edit.cards]]
@@ -205,7 +205,7 @@ moves = [
 [[edit]]
 target = "c05020520"                                   # Uniform
 moves = [
-  { move = 0x4B3099D5, level = 3 },                         # Stomper Stopper
+  { move = 0x4B3099D5, level = 1 },                         # Stomper Stopper
   { move = 0xF14FDC17, level = 17 },                        # Shot Pocket
   { move = 0x8B31808E, level = 20 },                        # Wormhole
   { move = 0x7BC5D9F0, level = 45 },                        # Rotary Sander
@@ -220,7 +220,7 @@ moves = [
 [[edit]]
 target = "c05020530"                                   # Tango
 moves = [
-  { move = 0xDCC9CCA3, level = 3 },                         # Tesla Coil
+  { move = 0xDCC9CCA3, level = 1 },                         # Tesla Coil
   { move = 0x650FA58E, level = 30 },                        # Spin Out
   { move = 0xC41097D5, level = 40 },                        # Acrobotics
   { move = 0x21127474, level = 50 },                        # Ultra Moon

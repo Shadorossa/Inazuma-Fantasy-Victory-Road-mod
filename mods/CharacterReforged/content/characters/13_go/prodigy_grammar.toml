@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c04000610"                                   # Par Scal
 moves = [
+  { move = 0x822B79EA, level = 1 },                         # Somersault Stamp
   { move = 0xDF2D9951, level = 52 },                        # Close Counter
   { move = 0x06B22DB5, level = 62 },                        # Gyro-Blocker
-  { move = 0x822B79EA, level = 72 },                        # Somersault Stamp
-  { move = 0xB8C5883B, level = 82 },                        # God Hand X
+  { move = 0xB8C5883B, level = 72 },                        # God Hand X
 ]
 
   [[edit.cards]]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c04000620"                                   # Tez La
 moves = [
+  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0xED7B7A4F, level = 20 },                        # Defence Equation
   { move = 0xA9E3374B, level = 35 },                        # Cyclone Sprint
-  { move = 0x2E7B2B84, level = 45 },                        # Thief's Eye
-  { move = 0xED7B7A4F, level = 55 },                        # Defence Equation
-  { move = 0x0F4DC9B3, level = 65 },                        # Logicstical Sync
+  { move = 0x0F4DC9B3, level = 45 },                        # Logicstical Sync
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c04000630"                                   # Aris Tottle
 moves = [
+  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0xD8794890, level = 25 },                        # Kangaroo Kick
   { move = 0x5DA7EA06, level = 32 },                        # Boomerang Bluff
-  { move = 0x2E7B2B84, level = 42 },                        # Thief's Eye
-  { move = 0xD8794890, level = 52 },                        # Kangaroo Kick
-  { move = 0x64CDCFB9, level = 62 },                        # Rising Dragon
+  { move = 0x64CDCFB9, level = 42 },                        # Rising Dragon
 ]
 
   [[edit.cards]]
@@ -141,10 +141,10 @@ moves = [
 [[edit]]
 target = "c04000700"                                   # Dave Inchy
 moves = [
+  { move = 0x12E67CC1, level = 1 },                         # Future Eye
+  { move = 0x928B9BED, level = 13 },                        # Optimal Trajectory
+  { move = 0x0F4DC9B3, level = 46 },                        # Logicstical Sync
   { move = 0x0E0A3F7A, level = 56 },                        # Spatial Portal
-  { move = 0x12E67CC1, level = 66 },                        # Future Eye
-  { move = 0x928B9BED, level = 76 },                        # Optimal Trajectory
-  { move = 0x0F4DC9B3, level = 86 },                        # Logicstical Sync
 ]
 
   [[edit.cards]]
@@ -187,10 +187,10 @@ moves = [
 [[edit]]
 target = "c04000730"                                   # Leo Gally
 moves = [
+  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
   { move = 0x4A17EE80, level = 39 },                        # Hunter's Net
-  { move = 0x2E7B2B84, level = 49 },                        # Thief's Eye
-  { move = 0xEF3DC416, level = 59 },                        # Skytree Hop
-  { move = 0x7DD6FEF8, level = 69 },                        # Athena's Anthem
+  { move = 0xEF3DC416, level = 49 },                        # Skytree Hop
+  { move = 0x7DD6FEF8, level = 59 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -203,10 +203,10 @@ moves = [
 [[edit]]
 target = "c04000740"                                   # Desmond Cartes
 moves = [
+  { move = 0x12E67CC1, level = 1 },                         # Future Eye
+  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
   { move = 0xDBFD9CFE, level = 56 },                        # Big Ball Trick
-  { move = 0x12E67CC1, level = 66 },                        # Future Eye
-  { move = 0x2E7B2B84, level = 76 },                        # Thief's Eye
-  { move = 0x737DCB3F, level = 86 },                        # Pancake Defence
+  { move = 0x737DCB3F, level = 66 },                        # Pancake Defence
 ]
 
   [[edit.cards]]
@@ -218,10 +218,10 @@ moves = [
 [[edit]]
 target = "c04000750"                                   # Connor Fuschius
 moves = [
+  { move = 0x12E67CC1, level = 1 },                         # Future Eye
+  { move = 0xCF7FA2C4, level = 30 },                        # Gold Rush
   { move = 0x14D1ED15, level = 36 },                        # Jumping Jack
-  { move = 0x12E67CC1, level = 46 },                        # Future Eye
-  { move = 0xCF7FA2C4, level = 56 },                        # Gold Rush
-  { move = 0x73C5AF40, level = 66 },                        # Dash Accelerator
+  { move = 0x73C5AF40, level = 46 },                        # Dash Accelerator
 ]
 
   [[edit.cards]]
@@ -233,10 +233,10 @@ moves = [
 [[edit]]
 target = "c04000760"                                   # Dar Wynne
 moves = [
+  { move = 0x928B9BED, level = 1 },                         # Optimal Trajectory
   { move = 0xF6E75EE9, level = 24 },                        # Headbanger
+  { move = 0x332CCDC9, level = 34 },                        # Heel Kick
   { move = 0x1C4D4906, level = 36 },                        # Whirlpool
-  { move = 0x928B9BED, level = 46 },                        # Optimal Trajectory
-  { move = 0x332CCDC9, level = 56 },                        # Heel Kick
 ]
 
   [[edit.cards]]

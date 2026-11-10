@@ -9,60 +9,11 @@ target = "c01000210"                                   # Joseph King
   stats = { kick = 180, control = 197, technique = 196, pressure = 242, physical = 255, intelligence = 216, agility = 265, freedom = 305 }
   moves = [
     { move = 0xA7157B91, level = 1 },                       # Power Shield
+    { move = 0xBD8A9EBE, level = 11 },                      # Infinite Wall
+    { move = 0x8E7E960B, level = 21 },                      # Drill Smasher
     { move = 0xA6D711A6, level = 26 },                      # Full Power Shield
-    { move = 0xBD8A9EBE, level = 36 },                      # Infinite Wall
-    { move = 0x8E7E960B, level = 46 },                      # Drill Smasher
   ]
 
-
-
-
-
-
-
-
-[[edit]]
-target = "c01000210"
-card = 0x33D11B4C
-VRFW.MoveGrades = [
-  { Move = 0xBD8A9EBE, Grade = 2 },                         # Infinite Wall
-]
-[[edit]]
-target = "c01000210"
-card = 0x33D11B4C
-VRFW.MoveGrades = [
-  { Move = 0xBD8A9EBE, Grade = 2 },                         # Infinite Wall
-]
-[[edit]]
-target = "c01000210"
-card = 0x33D11B4C
-VRFW.MoveGrades = [
-  { Move = 0xBD8A9EBE, Grade = 2 },                         # Infinite Wall
-]
-[[edit]]
-target = "c01000210"
-card = 0x33D11B4C
-VRFW.MoveGrades = [
-  { Move = 0xBD8A9EBE, Grade = 2 },                         # Infinite Wall
-]
-[[edit]]
-target = "c01000210"
-card = 0x33D11B4C
-VRFW.MoveGrades = [
-  { Move = 0xBD8A9EBE, Grade = 2 },                         # Infinite Wall
-]
-[[edit]]
-target = "c01000210"
-card = 0x33D11B4C
-VRFW.MoveGrades = [
-  { Move = 0xBD8A9EBE, Grade = 2 },                         # Infinite Wall
-]
-[[edit]]
-target = "c01000210"
-card = 0x33D11B4C
-VRFW.MoveGrades = [
-  { Move = 0xBD8A9EBE, Grade = 2 },                         # Infinite Wall
-]
 [[edit]]
 target = "c01000210"
 card = 0x33D11B4C
@@ -103,9 +54,9 @@ moves = [
 [[edit]]
 target = "c01000240"                                   # Alan Master
 moves = [
+  { move = 0x5643C944, level = 1 },                         # Killer Slide
+  { move = 0x6ADE9E01, level = 11 },                        # Illusory Ball
   { move = 0x34256515, level = 23 },                        # Dynamite Shot
-  { move = 0x5643C944, level = 33 },                        # Killer Slide
-  { move = 0x6ADE9E01, level = 43 },                        # Illusory Ball
   { move = 0x47380F29, level = 62 },                        # Echo Ball
 ]
 
@@ -120,8 +71,8 @@ target = "c01000250"                                   # Gus Martin
 moves = [
   { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0x17A96A44, level = 11 },                        # Clone Faker
+  { move = 0x0E0A3F7A, level = 21 },                        # Spatial Portal
   { move = 0x01DB04F5, level = 31 },                        # Defence Scan
-  { move = 0x0E0A3F7A, level = 41 },                        # Spatial Portal
 ]
 
   [[edit.cards]]
@@ -164,10 +115,10 @@ moves = [
 [[edit]]
 target = "c01000280"                                   # Derek Swing
 moves = [
+  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
   { move = 0x5643C944, level = 30 },                        # Killer Slide
+  { move = 0x17A96A44, level = 32 },                        # Clone Faker
   { move = 0xB27F13ED, level = 90 },                        # Death Zone
-  { move = 0x3EC287DE, level = 100 },                       # Bubble Gum
-  { move = 0x17A96A44, level = 110 },                       # Clone Faker
 ]
 
   [[edit.cards]]
@@ -180,9 +131,9 @@ moves = [
 target = "c01000290"                                   # Daniel Hatch
 moves = [
   { move = 0x1ECA5CE1, level = 1 },                         # Wrath Shot
+  { move = 0x5643C944, level = 11 },                        # Killer Slide
+  { move = 0xB7F1AED6, level = 21 },                        # Double Cyclone
   { move = 0xB27F13ED, level = 25 },                        # Death Zone
-  { move = 0x5643C944, level = 35 },                        # Killer Slide
-  { move = 0xB7F1AED6, level = 45 },                        # Double Cyclone
 ]
 
   [[edit.cards]]
@@ -239,19 +190,19 @@ target = "c01000310"                                   # David Samford
 growth = "normal"
 stats = { kick = 292, control = 251, technique = 248, pressure = 211, physical = 130, intelligence = 219, agility = 169, freedom = 284 }
 moves = [
+  { move = 0x427719AC, level = 1 },                         # Gale Dash
+  { move = 0x7DAF3139, level = 11 },                        # Emperor Penguin No. 2
   { move = 0x6730D416, level = 60 },                        # Emperor Penguin No. 1
-  { move = 0x427719AC, level = 70 },                        # Gale Dash
-  { move = 0x7DAF3139, level = 80 },                        # Emperor Penguin No. 2
-  { move = 0x4683AADF, level = 90 },                        # Space Penguin
+  { move = 0x4683AADF, level = 70 },                        # Space Penguin
 ]
 
 [[edit]]
 target = "c01000320"                                   # Bob Carlton
 moves = [
+  { move = 0xA7157B91, level = 1 },                         # Power Shield
   { move = 0xC0FD6AFB, level = 24 },                        # Fireball Head
-  { move = 0xA7157B91, level = 34 },                        # Power Shield
-  { move = 0xA6D711A6, level = 44 },                        # Full Power Shield
-  { move = 0x91AE65A1, level = 54 },                        # Giant Spider
+  { move = 0xA6D711A6, level = 34 },                        # Full Power Shield
+  { move = 0x91AE65A1, level = 44 },                        # Giant Spider
 ]
 
   [[edit.cards]]
@@ -340,9 +291,9 @@ moves = [
 target = "c11801020"                                   # Ray Dark
 moves = [
   { move = 0x7DAF3139, level = 1 },                         # Emperor Penguin No. 2
-  { move = 0x6ADE9E01, level = 11 },                        # Illusory Ball
-  { move = 0x5643C944, level = 21 },                        # Killer Slide
   { move = 0xBF6D0AC5, level = 26 },                        # Emperor Penguin No. 3
+  { move = 0x0DCADC54, level = 34 },                        # Emperor Penguin 7
+  { move = 0xC9B4602F, level = 60 },                        # Final Death Zone
 ]
 
   [[edit.cards]]

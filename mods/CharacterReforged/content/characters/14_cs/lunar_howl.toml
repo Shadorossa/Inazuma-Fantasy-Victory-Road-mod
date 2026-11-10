@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c05023420_5000"                              # Gerald Fuss
 moves = [
-  { move = 0xB0F8060A, level = 8 },                         # Ozone Flayer
+  { move = 0xB0F8060A, level = 1 },                         # Ozone Flayer
   { move = 0xB60E3C60, level = 19 },                        # Plasma Cut
   { move = 0x25276CB9, level = 57 },                        # Solar Surprise
   { move = 0x49933AEE, level = 67 },                        # Perfect Tower
@@ -34,7 +34,7 @@ moves = [
 [[edit]]
 target = "c05023500_5000"                              # Wolfram Vulpeen
 moves = [
-  { move = 0x02E93E49, level = 11 },                        # Werewolf Howl
+  { move = 0x02E93E49, level = 1 },                         # Werewolf Howl
   { move = 0xD262F964, level = 23 },                        # Format Disk
   { move = 0xAE5C7145, level = 54 },                        # Fangtasmagoria
   { move = 0xCBF2DE76, level = 76 },                        # Nocturne
@@ -83,7 +83,7 @@ moves = [
 [[edit]]
 target = "c05023420"                                   # Gerald Fuss
 moves = [
-  { move = 0xB0F8060A, level = 8 },                         # Ozone Flayer
+  { move = 0xB0F8060A, level = 1 },                         # Ozone Flayer
   { move = 0xB60E3C60, level = 19 },                        # Plasma Cut
   { move = 0x25276CB9, level = 57 },                        # Solar Surprise
   { move = 0x49933AEE, level = 67 },                        # Perfect Tower
@@ -104,10 +104,10 @@ moves = [
 [[edit]]
 target = "c05023430"                                   # Kym Errer
 moves = [
+  { move = 0xB0F8060A, level = 1 },                         # Ozone Flayer
+  { move = 0x2354CA2D, level = 15 },                        # Wind God's Dance
   { move = 0x93885A64, level = 38 },                        # Fire Drill
-  { move = 0xB0F8060A, level = 48 },                        # Ozone Flayer
-  { move = 0x2354CA2D, level = 58 },                        # Wind God's Dance
-  { move = 0xECB91078, level = 68 },                        # Volcanic Flight
+  { move = 0xECB91078, level = 48 },                        # Volcanic Flight
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -125,7 +125,7 @@ moves = [
 [[edit]]
 target = "c05023440"                                   # Hunter O'Mann
 moves = [
-  { move = 0xB60E3C60, level = 3 },                         # Plasma Cut
+  { move = 0xB60E3C60, level = 1 },                         # Plasma Cut
   { move = 0xAF28F5A0, level = 45 },                        # The Tower
   { move = 0x2296A01A, level = 52 },                        # Southern Cross
   { move = 0x7748D3F2, level = 62 },                        # Devil Ball
@@ -140,10 +140,10 @@ moves = [
 [[edit]]
 target = "c05023450"                                   # Mona Selene
 moves = [
+  { move = 0xB60E3C60, level = 1 },                         # Plasma Cut
+  { move = 0x0D0B77EA, level = 18 },                        # Floral Fiesta
+  { move = 0xB58AE80E, level = 32 },                        # Silk Road
   { move = 0x457EB170, level = 35 },                        # Pyrokinetic
-  { move = 0xB60E3C60, level = 45 },                        # Plasma Cut
-  { move = 0x0D0B77EA, level = 55 },                        # Floral Fiesta
-  { move = 0xB58AE80E, level = 65 },                        # Silk Road
 ]
 
   [[edit.cards]]
@@ -155,7 +155,7 @@ moves = [
 [[edit]]
 target = "c05023460"                                   # Lou Garrou
 moves = [
-  { move = 0x44BCDB47, level = 7 },                         # Pyroclastic
+  { move = 0x44BCDB47, level = 1 },                         # Pyroclastic
   { move = 0x414BA9BD, level = 20 },                        # Pincer Pinch
   { move = 0xC324C788, level = 50 },                        # Blast Mine
   { move = 0x7DD6FEF8, level = 60 },                        # Athena's Anthem
@@ -170,7 +170,7 @@ moves = [
 [[edit]]
 target = "c05023470"                                   # Al Woo
 moves = [
-  { move = 0x2296A01A, level = 8 },                         # Southern Cross
+  { move = 0x2296A01A, level = 1 },                         # Southern Cross
   { move = 0xA37D1A41, level = 17 },                        # Hyper-Swiper
   { move = 0x7DD6FEF8, level = 59 },                        # Athena's Anthem
   { move = 0xC16279D1, level = 69 },                        # Field of Force
@@ -202,7 +202,7 @@ moves = [
 [[edit]]
 target = "c05023490"                                   # Terri Ann Thrope
 moves = [
-  { move = 0xB039ADB4, level = 6 },                         # Inazuma Break
+  { move = 0xB039ADB4, level = 1 },                         # Inazuma Break
   { move = 0xB60E3C60, level = 15 },                        # Plasma Cut
   { move = 0xC513565C, level = 45 },                        # Doom Spear
   { move = 0xE29933EC, level = 59 },                        # Dimensional Deluge
@@ -222,7 +222,7 @@ moves = [
 [[edit]]
 target = "c05023500"                                   # Wolfram Vulpeen
 moves = [
-  { move = 0x02E93E49, level = 11 },                        # Werewolf Howl
+  { move = 0x02E93E49, level = 1 },                         # Werewolf Howl
   { move = 0xD262F964, level = 23 },                        # Format Disk
   { move = 0xAE5C7145, level = 54 },                        # Fangtasmagoria
   { move = 0xCBF2DE76, level = 76 },                        # Nocturne
@@ -261,7 +261,7 @@ moves = [
 [[edit]]
 target = "c05028630"                                   # Wolfram Vulpeen
 moves = [
-  { move = 0x02E93E49, level = 11 },                        # Werewolf Howl
+  { move = 0x02E93E49, level = 1 },                         # Werewolf Howl
   { move = 0xD262F964, level = 23 },                        # Format Disk
   { move = 0xAE5C7145, level = 54 },                        # Fangtasmagoria
   { move = 0xCBF2DE76, level = 76 },                        # Nocturne
@@ -280,10 +280,10 @@ moves = [
 [[edit]]
 target = "c05023430_5000"                              # Kym Errer
 moves = [
+  { move = 0xB0F8060A, level = 1 },                         # Ozone Flayer
+  { move = 0x2354CA2D, level = 15 },                        # Wind God's Dance
   { move = 0x93885A64, level = 38 },                        # Fire Drill
-  { move = 0xB0F8060A, level = 48 },                        # Ozone Flayer
-  { move = 0x2354CA2D, level = 58 },                        # Wind God's Dance
-  { move = 0xECB91078, level = 68 },                        # Volcanic Flight
+  { move = 0xECB91078, level = 48 },                        # Volcanic Flight
 ]
 
   [[edit.cards]]
@@ -296,7 +296,7 @@ moves = [
 [[edit]]
 target = "c05023490_5000"                              # Terri Ann Thrope
 moves = [
-  { move = 0xB039ADB4, level = 6 },                         # Inazuma Break
+  { move = 0xB039ADB4, level = 1 },                         # Inazuma Break
   { move = 0xB60E3C60, level = 15 },                        # Plasma Cut
   { move = 0xC513565C, level = 45 },                        # Doom Spear
   { move = 0xE29933EC, level = 59 },                        # Dimensional Deluge

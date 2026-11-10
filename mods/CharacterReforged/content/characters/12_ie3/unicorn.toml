@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c03031470"                                   # Erik Eagle
 moves = [
+  { move = 0x5049A011, level = 1 },                         # Spinning Shot
+  { move = 0x261BDCA8, level = 18 },                        # Moonsault
+  { move = 0x7A67325B, level = 30 },                        # Flame Dance
   { move = 0x64B40078, level = 47 },                        # The Phoenix
-  { move = 0x5049A011, level = 57 },                        # Spinning Shot
-  { move = 0x261BDCA8, level = 67 },                        # Moonsault
-  { move = 0x7A67325B, level = 77 },                        # Flame Dance
 ]
 VRFW.MoveGrades = [
   { Move = 0x7A67325B, Grade = 1 },                         # Flame Dance
@@ -21,10 +21,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03031450"                                   # Bobby Shearer
 moves = [
+  { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0x7EEA4EE9, level = 19 },                        # Blade Attack
-  { move = 0x5643C944, level = 29 },                        # Killer Slide
-  { move = 0x025FD09B, level = 39 },                        # Volcano Cut
-  { move = 0x4AD6453E, level = 49 },                        # Back Tornado
+  { move = 0x025FD09B, level = 21 },                        # Volcano Cut
+  { move = 0x4AD6453E, level = 32 },                        # Back Tornado
 ]
 
   [[edit.cards]]
@@ -130,8 +130,8 @@ target = "c03031490"                                   # Mark Krueger
 moves = [
   { move = 0x94405906, level = 1 },                         # Grand Fenrir
   { move = 0x3A4FFB6C, level = 11 },                        # The Ikaros
+  { move = 0xDA3FF6C9, level = 19 },                        # Criss-Cross
   { move = 0xB6F26F5F, level = 45 },                        # Tri-Pegasus
-  { move = 0xDA3FF6C9, level = 55 },                        # Criss-Cross
 ]
 VRFW.MoveGrades = [
   { Move = 0x94405906, Grade = 1 },                         # Grand Fenrir
@@ -148,9 +148,9 @@ VRFW.MoveGrades = [
 target = "c03031500"                                   # Dylan Keats
 moves = [
   { move = 0xD8851BAF, level = 1 },                         # Unicorn Boost
+  { move = 0x0BFD4D80, level = 12 },                        # Grand Slam
   { move = 0x3EC287DE, level = 15 },                        # Bubble Gum
   { move = 0x2A37FC88, level = 42 },                        # Revolution V
-  { move = 0x0BFD4D80, level = 52 },                        # Grand Slam
 ]
 
   [[edit.cards]]

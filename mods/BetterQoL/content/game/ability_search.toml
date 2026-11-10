@@ -19,12 +19,12 @@ handler = "BetterQoL.AbilitySearchStart"
 name = "CMND_BETTERQOL_ABILITY_SEARCH_STOP"
 handler = "BetterQoL.AbilitySearchStop"
 
-# -> serial, n, item1, …: the rows of the last build not judged yet
+# -> serial, "item,item,…": the rows of the last build not judged yet, as one text
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_ABILITY_SEARCH_PENDING"
 handler = "BetterQoL.AbilitySearchPending"
 
-# matched, item1, … -> true: the first `matched` items match, the others do not
+# "item,item,…" -> n: those pending rows match, the other pending rows do not; n = the rows judged
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_ABILITY_SEARCH_DECIDE"
 handler = "BetterQoL.AbilitySearchDecide"

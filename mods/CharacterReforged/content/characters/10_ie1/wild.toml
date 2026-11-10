@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c01000610"                                   # Charlie Boardfield
 moves = [
+  { move = 0xC2BBD4A2, level = 1 },                         # Wild Claw
+  { move = 0x5E7E4775, level = 37 },                        # Table-Turner
   { move = 0x8FBCFC3C, level = 50 },                        # Blazing Knuckle
-  { move = 0xC2BBD4A2, level = 60 },                        # Wild Claw
-  { move = 0x5E7E4775, level = 70 },                        # Table-Turner
-  { move = 0xEF5D458A, level = 80 },                        # Burnout
+  { move = 0xEF5D458A, level = 56 },                        # Burnout
 ]
 
   [[edit.cards]]
@@ -64,10 +64,10 @@ moves = [
 [[edit]]
 target = "c01000650"                                   # Leonard O'Shea
 moves = [
+  { move = 0x166B0073, level = 1 },                         # Super Armadillo
+  { move = 0x7CACF0B0, level = 11 },                        # Horn Train
+  { move = 0xDD365E15, level = 40 },                        # Mole Shuffle
   { move = 0x0455B9CE, level = 66 },                        # Run Ball Run
-  { move = 0x166B0073, level = 76 },                        # Super Armadillo
-  { move = 0x7CACF0B0, level = 86 },                        # Horn Train
-  { move = 0xDD365E15, level = 96 },                        # Mole Shuffle
 ]
 
   [[edit.cards]]
@@ -80,8 +80,8 @@ moves = [
 [[edit]]
 target = "c01000660"                                   # Cham Lion
 moves = [
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
   { move = 0x592A96B4, level = 18 },                        # Afterimage
-  { move = 0x19025F83, level = 28 },                        # Quick Draw
   { move = 0x5B6C28ED, level = 48 },                        # Invisible Fake
   { move = 0x121A2FFE, level = 54 },                        # Mirage Shot
 ]
@@ -126,9 +126,9 @@ moves = [
 [[edit]]
 target = "c01000690"                                   # Gary Lancaster
 moves = [
+  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
+  { move = 0x166B0073, level = 11 },                        # Super Armadillo
   { move = 0x6B1CF436, level = 16 },                        # Bewildered
-  { move = 0x53CD747F, level = 26 },                        # Tarzan Kick
-  { move = 0x166B0073, level = 36 },                        # Super Armadillo
   { move = 0x4BD584B7, level = 48 },                        # Power Charge
 ]
 
@@ -219,7 +219,7 @@ moves = [
 [[edit]]
 target = "c01000750"                                   # Matt Mouseman
 moves = [
-  { move = 0xACAC21CE, level = 15 },                        # Fake Ball
+  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
   { move = 0x6B1CF436, level = 25 },                        # Bewildered
   { move = 0xAC6D8A70, level = 42 },                        # Rainbow Arc
   { move = 0x592A96B4, level = 55 },                        # Afterimage

@@ -13,4 +13,6 @@ name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
 layer = { type = "string", required = true, doc = "the layer's name in its menu setting (the name the game's set number command gets)" }
 digits = { type = "int", default = 3, min = 1, max = 9, doc = "digits the layout was designed for: a value with more is drawn at that width" }
 shrink = { type = "string", default = "width", doc = "\"width\" (only narrower: same height and baseline) or \"both\" (smaller in both directions)" }
+node = { type = "string", doc = "a joint of the layer's layout that holds one number: only that joint is squeezed, around its own origin, and the rest of the layer keeps its size (needs `number`)" }
+number = { type = "string", doc = "with `node`: the number that decides (its number setting name, or 0x… id)" }
 when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

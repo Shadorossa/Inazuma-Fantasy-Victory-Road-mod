@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c02024010"                                   # Rocky Black
 moves = [
+  { move = 0x5E7E4775, level = 1 },                         # Table-Turner
+  { move = 0x96A7CD7D, level = 11 },                        # Tsunami Wall
   { move = 0xC2BBD4A2, level = 46 },                        # Wild Claw
-  { move = 0x5E7E4775, level = 56 },                        # Table-Turner
-  { move = 0x96A7CD7D, level = 66 },                        # Tsunami Wall
-  { move = 0x422A60B1, level = 76 },                        # Barrier Reef
+  { move = 0x422A60B1, level = 56 },                        # Barrier Reef
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c02024030"                                   # Victor Hills
 moves = [
+  { move = 0x637C031A, level = 1 },                         # No Escape
   { move = 0x65B7C1F1, level = 51 },                        # Sumo Stomp
-  { move = 0x637C031A, level = 61 },                        # No Escape
-  { move = 0x00196EC2, level = 71 },                        # Earthquake
-  { move = 0x316A7390, level = 81 },                        # Land Dragon
+  { move = 0x00196EC2, level = 61 },                        # Earthquake
+  { move = 0x316A7390, level = 71 },                        # Land Dragon
 ]
 
   [[edit.cards]]
@@ -56,234 +56,38 @@ stats = { kick = 274, control = 182, technique = 208, pressure = 231, physical =
   id = 0x5700BD47
   moves = [
     { move = 0x2BF596BF, level = 1 },                       # Tsunami Boost
+    { move = 0x1C4D4906, level = 26 },                      # Whirlpool
     { move = 0xB2BEB853, level = 28 },                      # Whale Guard
     { move = 0xA4B51923, level = 38 },                      # The Typhoon
-    { move = 0x1C4D4906, level = 48 },                      # Whirlpool
   ]
 
   [[edit.cards]]
   id = 0x8968E5CD
   moves = [
     { move = 0x2BF596BF, level = 1 },                       # Tsunami Boost
+    { move = 0x1C4D4906, level = 26 },                      # Whirlpool
     { move = 0xB2BEB853, level = 28 },                      # Whale Guard
     { move = 0xA4B51923, level = 38 },                      # The Typhoon
-    { move = 0x1C4D4906, level = 48 },                      # Whirlpool
   ]
 
   [[edit.cards]]
   id = 0x968E6287
   moves = [
     { move = 0x2BF596BF, level = 1 },                       # Tsunami Boost
+    { move = 0x1C4D4906, level = 26 },                      # Whirlpool
     { move = 0xB2BEB853, level = 28 },                      # Whale Guard
     { move = 0xA4B51923, level = 38 },                      # The Typhoon
-    { move = 0x1C4D4906, level = 48 },                      # Whirlpool
   ]
 
   [[edit.cards]]
   id = 0xD78D1393
   moves = [
     { move = 0x2BF596BF, level = 1 },                       # Tsunami Boost
+    { move = 0x1C4D4906, level = 26 },                      # Whirlpool
     { move = 0xB2BEB853, level = 28 },                      # Whale Guard
     { move = 0xA4B51923, level = 38 },                      # The Typhoon
-    { move = 0x1C4D4906, level = 48 },                      # Whirlpool
   ]
 
-
-
-
-
-
-
-
-[[edit]]
-target = "c02024040"
-card = 0x5700BD47
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x8968E5CD
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x968E6287
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0xD78D1393
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-[[edit]]
-target = "c02024040"
-card = 0x5700BD47
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x8968E5CD
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x968E6287
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0xD78D1393
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-[[edit]]
-target = "c02024040"
-card = 0x5700BD47
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x8968E5CD
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x968E6287
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0xD78D1393
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-[[edit]]
-target = "c02024040"
-card = 0x5700BD47
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x8968E5CD
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x968E6287
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0xD78D1393
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-[[edit]]
-target = "c02024040"
-card = 0x5700BD47
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x8968E5CD
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x968E6287
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0xD78D1393
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-[[edit]]
-target = "c02024040"
-card = 0x5700BD47
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x8968E5CD
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x968E6287
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0xD78D1393
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-[[edit]]
-target = "c02024040"
-card = 0x5700BD47
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x8968E5CD
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0x968E6287
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
-
-[[edit]]
-target = "c02024040"
-card = 0xD78D1393
-VRFW.MoveGrades = [
-  { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost
-]
 [[edit]]
 target = "c02024040"
 card = 0x5700BD47
@@ -315,9 +119,9 @@ VRFW.MoveGrades = [
 target = "c02024050"                                   # Hector Redding
 moves = [
   { move = 0x5643C944, level = 1 },                         # Killer Slide
+  { move = 0x41F3CDC2, level = 35 },                        # Scorching Tackle
+  { move = 0x36A270F2, level = 38 },                        # Rolling Slide
   { move = 0x4D1E465C, level = 45 },                        # Fake Bomber
-  { move = 0x41F3CDC2, level = 55 },                        # Scorching Tackle
-  { move = 0x36A270F2, level = 65 },                        # Rolling Slide
 ]
 
   [[edit.cards]]
@@ -360,10 +164,10 @@ moves = [
 [[edit]]
 target = "c02024080"                                   # Dora Delight
 moves = [
+  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
   { move = 0x7A67325B, level = 44 },                        # Flame Dance
-  { move = 0x3EC287DE, level = 54 },                        # Bubble Gum
-  { move = 0xB2BEB853, level = 64 },                        # Whale Guard
-  { move = 0xF1EEF635, level = 74 },                        # The Hurricane
+  { move = 0xB2BEB853, level = 54 },                        # Whale Guard
+  { move = 0xF1EEF635, level = 56 },                        # The Hurricane
 ]
 
   [[edit.cards]]
@@ -376,10 +180,10 @@ moves = [
 [[edit]]
 target = "c02024090"                                   # Tom Contented
 moves = [
+  { move = 0x4DDFEDE2, level = 1 },                         # Eagle Buster
+  { move = 0x7B64F3D2, level = 11 },                        # Hawk Shot
+  { move = 0x332CCDC9, level = 36 },                        # Heel Kick
   { move = 0xDEB28A7B, level = 47 },                        # Monkey Turn
-  { move = 0x4DDFEDE2, level = 57 },                        # Eagle Buster
-  { move = 0x7B64F3D2, level = 67 },                        # Hawk Shot
-  { move = 0x332CCDC9, level = 77 },                        # Heel Kick
 ]
 
   [[edit.cards]]
@@ -408,10 +212,10 @@ moves = [
 [[edit]]
 target = "c02024110"                                   # Spring Millpond
 moves = [
+  { move = 0x78E027BC, level = 1 },                         # Shine Drive
+  { move = 0xC66BD10D, level = 11 },                        # Zigzag Spark
+  { move = 0x60397CCA, level = 34 },                        # Cross Drive
   { move = 0x4DDFEDE2, level = 49 },                        # Eagle Buster
-  { move = 0x78E027BC, level = 59 },                        # Shine Drive
-  { move = 0xC66BD10D, level = 69 },                        # Zigzag Spark
-  { move = 0x60397CCA, level = 79 },                        # Cross Drive
 ]
 
   [[edit.cards]]
@@ -423,8 +227,8 @@ moves = [
 [[edit]]
 target = "c02024120"                                   # Gaston Cooley
 moves = [
+  { move = 0xD824318D, level = 1 },                         # Swan Dive
   { move = 0x5C38F92C, level = 40 },                        # Mistral
-  { move = 0xD824318D, level = 50 },                        # Swan Dive
   { move = 0x96A7CD7D, level = 53 },                        # Tsunami Wall
   { move = 0xC4701649, level = 66 },                        # Ice Block
 ]

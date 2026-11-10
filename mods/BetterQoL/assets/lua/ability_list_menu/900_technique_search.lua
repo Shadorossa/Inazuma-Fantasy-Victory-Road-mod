@@ -10,8 +10,11 @@ if BetterQoL.ability_search == nil and VRFW.host ~= nil then
   local LIST, TAB_BAR, DETAIL = 571205469, 4044286600, 1205526439
   local ITEM_SKILL = 901208644         -- list item id -> its move id
   local LIST_REFRESH, LIST_FOCUS, LAYER_REFRESH, GET_FOCUS = 4114514990, 306610847, 1778826357, 2603265800
+  local LIST_ROW_COUNT, LAYER_IS_VISIBLE = 2389020234, 1262717583
+  local EMPTY_LIST_MARK = 3082153440   -- cmn01_40_list_base_empty
+  local SETTLE_FRAMES = 10             -- The list redraws its rows on a later frame than the rebuild.
 
-  local S = { query = "", text = "", co = nil, serial = nil, first = false }
+  local S = { query = "", text = "", co = nil, serial = nil, first = false, settle = 0 }
   BetterQoL.ability_search = S
 
   local function Log(...)
@@ -30,8 +33,16 @@ if BetterQoL.ability_search == nil and VRFW.host ~= nil then
     end
   end
 
+  -- Logs what the list shows once after a judged rebuild has settled.
+  local function LogSettledList()
+    Log("list settled", S.query, "rows", tostring(funcLuaMenuCommand(LIST_ROW_COUNT, LIST)),
+      "first row shown", tostring(funcLuaMenuCommand(LAYER_IS_VISIBLE, DETAIL, 0)),
+      "empty mark shown", tostring(funcLuaMenuCommand(LAYER_IS_VISIBLE, EMPTY_LIST_MARK, 0)),
+      "row focus", tostring(funcLuaMenuCommand(GET_FOCUS, DETAIL)))
+  end
+
   local function Stop()
-    S.query, S.text, S.serial, S.first = "", "", nil, false
+    S.query, S.text, S.serial, S.first, S.settle = "", "", nil, false, 0
     VRFW.host.command(VRFW.commands.BETTERQOL_ABILITY_SEARCH_STOP)
   end
 
@@ -40,25 +51,24 @@ if BetterQoL.ability_search == nil and VRFW.host ~= nil then
     return type(skill) == "number" and skill ~= 0 and BetterQoL.text_search.move_name(skill):find(S.query, 1, true) ~= nil
   end
 
-  -- judges the rows of the last build the search has not seen; a first search with no match is refused
+  -- Judges every row of the last build the search has not seen in one pass; a first search with no match is refused.
   local function Judge()
-    local r = table.pack(VRFW.host.command(VRFW.commands.BETTERQOL_ABILITY_SEARCH_PENDING))
-    local serial, n = r[1], r[2]
+    local serial, pending = VRFW.host.command(VRFW.commands.BETTERQOL_ABILITY_SEARCH_PENDING)
     if type(serial) ~= "number" or serial == S.serial then
       return
     end
     S.serial = serial
-    if type(n) ~= "number" or n == 0 then
+    if type(pending) ~= "string" or pending == "" then
       return
     end
-    local hits, misses = {}, {}
-    for i = 3, 2 + n do
-      if type(r[i]) == "number" then
-        local list = Matches(r[i]) and hits or misses
-        list[#list + 1] = r[i]
+    local rows, hits = 0, {}
+    for text in pending:gmatch("%d+") do
+      rows = rows + 1
+      if Matches(tonumber(text)) then
+        hits[#hits + 1] = text
       end
     end
-    Log("search", S.query, "rows", n, "found", #hits)
+    Log("search", S.query, "rows", rows, "found", #hits)
     if S.first and #hits == 0 then
       Stop()
       BetterQoL.text_search.refuse()
@@ -66,12 +76,15 @@ if BetterQoL.ability_search == nil and VRFW.host ~= nil then
       return
     end
     S.first = false
-    local matched = #hits
-    for _, item in ipairs(misses) do
-      hits[#hits + 1] = item
+    local judged = VRFW.host.command(VRFW.commands.BETTERQOL_ABILITY_SEARCH_DECIDE, table.concat(hits, ","))
+    if judged ~= rows then
+      Log("search stopped: rows judged", tostring(judged), "of", rows)
+      Stop()
+      Rebuild()
+      return
     end
-    VRFW.host.command(VRFW.commands.BETTERQOL_ABILITY_SEARCH_DECIDE, matched, table.unpack(hits))
     Rebuild()
+    S.settle = SETTLE_FRAMES
   end
 
   -- what a confirmed text does: "" ends the search
@@ -80,6 +93,9 @@ if BetterQoL.ability_search == nil and VRFW.host ~= nil then
       Stop()
     elseif VRFW.host.command(VRFW.commands.BETTERQOL_ABILITY_SEARCH_START) == true then
       S.query, S.text, S.serial, S.first = query, text, nil, true
+      Rebuild()
+      Judge()
+      return
     else
       Log("search not applied: the ability list hook is off")
       BetterQoL.text_search.refuse()
@@ -143,6 +159,12 @@ if BetterQoL.ability_search == nil and VRFW.host ~= nil then
       local ok, err = pcall(Judge)
       if not ok then
         Log("judge error", tostring(err))
+      end
+      if S.settle > 0 then
+        S.settle = S.settle - 1
+        if S.settle == 0 then
+          pcall(LogSettledList)
+        end
       end
     end
     if nxt ~= nil then

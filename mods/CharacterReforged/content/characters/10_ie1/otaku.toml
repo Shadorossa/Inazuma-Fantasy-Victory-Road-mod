@@ -3,9 +3,9 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c01001010"                                   # Sam Idol
 moves = [
+  { move = 0xDA628FD4, level = 1 },                         # Sliding Goal
   { move = 0x44E1A25A, level = 29 },                        # Pressure Punch
-  { move = 0xDA628FD4, level = 39 },                        # Sliding Goal
-  { move = 0xEBD03938, level = 49 },                        # Utter Gutsiness Catch
+  { move = 0xEBD03938, level = 34 },                        # Utter Gutsiness Catch
   { move = 0x93E8DBF8, level = 70 },                        # Dimensional Hand
 ]
 
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c01001030"                                   # Light Nobel
 moves = [
+  { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
+  { move = 0xACAC21CE, level = 26 },                        # Fake Ball
+  { move = 0xB2BEB853, level = 37 },                        # Whale Guard
   { move = 0x73C5AF40, level = 46 },                        # Dash Accelerator
-  { move = 0x3663DB4C, level = 56 },                        # Utter Gutsiness Bat
-  { move = 0xACAC21CE, level = 66 },                        # Fake Ball
-  { move = 0xB2BEB853, level = 76 },                        # Whale Guard
 ]
 
   [[edit.cards]]
@@ -79,9 +79,9 @@ moves = [
 [[edit]]
 target = "c01001060"                                   # Josh Spear
 moves = [
+  { move = 0x6B1CF436, level = 1 },                         # Bewildered
   { move = 0x18C035B4, level = 27 },                        # Ghost Pull
-  { move = 0x6B1CF436, level = 37 },                        # Bewildered
-  { move = 0x01DB04F5, level = 47 },                        # Defence Scan
+  { move = 0x01DB04F5, level = 35 },                        # Defence Scan
   { move = 0xAA67E325, level = 50 },                        # Desert Blast
 ]
 
@@ -96,9 +96,9 @@ moves = [
 target = "c01001070"                                   # Gaby Farmer
 moves = [
   { move = 0x142DBE2A, level = 1 },                         # Foul Offence
+  { move = 0x6B1CF436, level = 25 },                        # Bewildered
   { move = 0x2B343D01, level = 30 },                        # Cyclone
-  { move = 0x6B1CF436, level = 40 },                        # Bewildered
-  { move = 0x63BDA8A4, level = 50 },                        # Inazuma Drop
+  { move = 0x63BDA8A4, level = 40 },                        # Inazuma Drop
 ]
 
   [[edit.cards]]
@@ -233,7 +233,7 @@ moves = [
 [[edit]]
 target = "c01001160"                                   # Ollie Webb
 moves = [
-  { move = 0x01DB04F5, level = 25 },                        # Defence Scan
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0x0F703132, level = 35 },                        # Black Magic
   { move = 0x28B0E96F, level = 42 },                        # Heavy Mettle
   { move = 0x60397CCA, level = 51 },                        # Cross Drive

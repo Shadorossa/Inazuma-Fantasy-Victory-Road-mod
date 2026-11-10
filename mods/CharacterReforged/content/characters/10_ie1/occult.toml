@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c01000410"                                   # Nathan Jones
 moves = [
+  { move = 0x4523C86D, level = 1 },                         # Killer Blade
+  { move = 0xE854ED56, level = 11 },                        # Warp Space
+  { move = 0x88B554E0, level = 50 },                        # Galatyn
   { move = 0xF08DB620, level = 55 },                        # Whirlwind
-  { move = 0x4523C86D, level = 65 },                        # Killer Blade
-  { move = 0xE854ED56, level = 75 },                        # Warp Space
-  { move = 0x88B554E0, level = 85 },                        # Galatyn
 ]
 
   [[edit.cards]]
@@ -95,10 +95,10 @@ moves = [
 [[edit]]
 target = "c01000470"                                   # Robert Mayer
 moves = [
+  { move = 0x18C035B4, level = 1 },                         # Ghost Pull
+  { move = 0x09BBF3D9, level = 23 },                        # Dark Whirlwind
   { move = 0x3D4653B0, level = 33 },                        # Poison Fog
-  { move = 0x18C035B4, level = 43 },                        # Ghost Pull
-  { move = 0x09BBF3D9, level = 53 },                        # Dark Whirlwind
-  { move = 0x322F0C40, level = 63 },                        # Spider Web
+  { move = 0x322F0C40, level = 35 },                        # Spider Web
 ]
 
   [[edit.cards]]
@@ -157,9 +157,9 @@ moves = [
 [[edit]]
 target = "c01000510"                                   # Burt Wolf
 moves = [
+  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
+  { move = 0x3D4653B0, level = 17 },                        # Poison Fog
   { move = 0x695A4A6F, level = 22 },                        # Magic
-  { move = 0xAB6422AC, level = 32 },                        # Phantom Shot
-  { move = 0x3D4653B0, level = 42 },                        # Poison Fog
   { move = 0x34E4CEAB, level = 52 },                        # Barbarian Shield
 ]
 
@@ -188,7 +188,7 @@ moves = [
 [[edit]]
 target = "c01000530"                                   # Chuck Dollman
 moves = [
-  { move = 0xAB6422AC, level = 9 },                         # Phantom Shot
+  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
   { move = 0x322F0C40, level = 18 },                        # Spider Web
   { move = 0x33ED6677, level = 32 },                        # Doppelganger
   { move = 0xC42D6F54, level = 66 },                        # Aikido
@@ -235,7 +235,7 @@ moves = [
 [[edit]]
 target = "c01000560"                                   # Mick Askley
 moves = [
-  { move = 0x18C035B4, level = 10 },                        # Ghost Pull
+  { move = 0x18C035B4, level = 1 },                         # Ghost Pull
   { move = 0x0F703132, level = 15 },                        # Black Magic
   { move = 0x34E4CEAB, level = 42 },                        # Barbarian Shield
   { move = 0x58E8FC83, level = 50 },                        # Rolling Hell

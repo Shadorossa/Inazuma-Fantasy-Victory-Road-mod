@@ -15,70 +15,12 @@ target = "c02021210"                                   # Dvalin
     { move = 0x9AF2229C, level = 62 },                      # Gravity Point
   ]
 
-
-
-
-
-
-
-
 [[edit]]
 target = "c02021210"
 card = 0xC04535D4
 VRFW.MoveGrades = [
   { Move = 0x8B31808E, Grade = 1 },                         # Wormhole
   { Move = 0x8E7E960B, Grade = 1 },                         # Drill Smasher
-]
-[[edit]]
-target = "c02021210"
-card = 0xC04535D4
-VRFW.MoveGrades = [
-  { Move = 0x8B31808E, Grade = 1 },                         # Wormhole
-  { Move = 0x8E7E960B, Grade = 1 },                         # Drill Smasher
-]
-[[edit]]
-target = "c02021210"
-card = 0xC04535D4
-VRFW.MoveGrades = [
-  { Move = 0x8B31808E, Grade = 1 },                         # Wormhole
-  { Move = 0x8E7E960B, Grade = 1 },                         # Drill Smasher
-]
-[[edit]]
-target = "c02021210"
-card = 0xC04535D4
-VRFW.MoveGrades = [
-  { Move = 0x8B31808E, Grade = 1 },                         # Wormhole
-  { Move = 0x8E7E960B, Grade = 1 },                         # Drill Smasher
-]
-[[edit]]
-target = "c02021210"
-card = 0xC04535D4
-VRFW.MoveGrades = [
-  { Move = 0x8B31808E, Grade = 1 },                         # Wormhole
-  { Move = 0x8E7E960B, Grade = 1 },                         # Drill Smasher
-]
-[[edit]]
-target = "c02021210"
-card = 0xC04535D4
-VRFW.MoveGrades = [
-  { Move = 0x8B31808E, Grade = 1 },                         # Wormhole
-  { Move = 0x8E7E960B, Grade = 1 },                         # Drill Smasher
-]
-[[edit]]
-target = "c02021210"
-card = 0xC04535D4
-VRFW.MoveGrades = [
-  { Move = 0x8B31808E, Grade = 1 },                         # Wormhole
-  { Move = 0x8E7E960B, Grade = 1 },                         # Drill Smasher
-]
-[[edit]]
-target = "c02021210"
-card = 0xC04535D4
-VRFW.MoveGrades = [
-  { Move = 0x8B31808E, Grade = 1 },                         # Wormhole
-  { Move = 0x8E7E960B, Grade = 1 },                         # Drill Smasher
-  { Move = 0x035C1112, Grade = 1 },                         # Gungnir
-  { Move = 0x7FE98F60, Grade = 1 },                         # Ganymede Ray
 ]
 [[edit]]
 target = "c02021220"                                   # Kenville
@@ -204,10 +146,10 @@ moves = [
 [[edit]]
 target = "c02021300"                                   # Metron
 moves = [
+  { move = 0x029E7B25, level = 1 },                         # Gaia Break
+  { move = 0x10A0C298, level = 11 },                        # Warp Drive
   { move = 0x60397CCA, level = 37 },                        # Cross Drive
-  { move = 0x029E7B25, level = 47 },                        # Gaia Break
-  { move = 0x10A0C298, level = 57 },                        # Warp Drive
-  { move = 0x7C6D5B0E, level = 67 },                        # Astro Break
+  { move = 0x7C6D5B0E, level = 55 },                        # Astro Break
 ]
 
   [[edit.cards]]

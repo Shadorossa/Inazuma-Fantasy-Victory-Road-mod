@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c03032810"                                   # Thorsten Welger
 moves = [
-  { move = 0xC7F4C227, level = 7 },                         # Shot Trap
+  { move = 0xC7F4C227, level = 1 },                         # Shot Trap
   { move = 0xECD991E4, level = 50 },                        # The Stinger
   { move = 0x46A71C03, level = 60 },                        # Black Hole
   { move = 0x93E8DBF8, level = 70 },                        # Dimensional Hand
@@ -123,7 +123,7 @@ moves = [
 [[edit]]
 target = "c03032890"                                   # Jonas Polk
 moves = [
-  { move = 0x8C990270, level = 4 },                         # Gunshot
+  { move = 0x8C990270, level = 1 },                         # Gunshot
   { move = 0x6633159F, level = 16 },                        # Gravitation
   { move = 0xA9229CF5, level = 47 },                        # The Galaxy
   { move = 0xDCF43422, level = 57 },                        # Aurora Dribble
@@ -154,7 +154,7 @@ moves = [
 [[edit]]
 target = "c03032910"                                   # Peter Naumann
 moves = [
-  { move = 0x38094535, level = 4 },                         # Sub-Terfuge
+  { move = 0x38094535, level = 1 },                         # Sub-Terfuge
   { move = 0x61FB16FD, level = 28 },                        # Divine Arrows
   { move = 0x60397CCA, level = 34 },                        # Cross Drive
   { move = 0xA5777314, level = 49 },                        # Assault Shot
@@ -232,7 +232,7 @@ moves = [
 [[edit]]
 target = "c03032960"                                   # Emmanuel Ewerz
 moves = [
-  { move = 0xB37CD264, level = 3 },                         # Am-Bush
+  { move = 0xB37CD264, level = 1 },                         # Am-Bush
   { move = 0x4BD584B7, level = 16 },                        # Power Charge
   { move = 0xB13A6C3D, level = 50 },                        # Zigzag Flame
   { move = 0xC42D6F54, level = 60 },                        # Aikido

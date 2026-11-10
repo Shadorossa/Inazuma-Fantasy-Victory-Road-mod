@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c03034210"                                   # Astaroth
 moves = [
   { move = 0xA25A6D14, level = 1 },                         # The End
+  { move = 0xA9062A29, level = 15 },                        # Ultrasonic
+  { move = 0x9AF2229C, level = 62 },                        # Gravity Point
   { move = 0x91AE65A1, level = 75 },                        # Giant Spider
-  { move = 0xA9062A29, level = 85 },                        # Ultrasonic
-  { move = 0x9AF2229C, level = 95 },                        # Gravity Point
 ]
 
   [[edit.cards]]
@@ -20,8 +20,8 @@ target = "c03034220"                                   # Bael
 moves = [
   { move = 0x78218C02, level = 1 },                         # Duskfall
   { move = 0x09BBF3D9, level = 11 },                        # Dark Whirlwind
+  { move = 0xC324C788, level = 34 },                        # Blast Mine
   { move = 0x6633159F, level = 72 },                        # Gravitation
-  { move = 0xC324C788, level = 82 },                        # Blast Mine
 ]
 
   [[edit.cards]]
@@ -65,9 +65,9 @@ moves = [
 target = "c03034250"                                   # Belial
 moves = [
   { move = 0x78218C02, level = 1 },                         # Duskfall
+  { move = 0x8A52C09B, level = 4 },                         # Doomsword Slash
   { move = 0xBD2BB49C, level = 42 },                        # Dark Matter
   { move = 0x28B0E96F, level = 72 },                        # Heavy Mettle
-  { move = 0x8A52C09B, level = 82 },                        # Doomsword Slash
 ]
 
   [[edit.cards]]
@@ -80,9 +80,9 @@ moves = [
 target = "c03034260"                                   # Malphas
 moves = [
   { move = 0x7748D3F2, level = 1 },                         # Devil Ball
+  { move = 0x0BFD4D80, level = 12 },                        # Grand Slam
   { move = 0x06D2AC29, level = 48 },                        # Diabolical Cut
   { move = 0x71831119, level = 72 },                        # Foul Offence 2
-  { move = 0x0BFD4D80, level = 82 },                        # Grand Slam
 ]
 
   [[edit.cards]]

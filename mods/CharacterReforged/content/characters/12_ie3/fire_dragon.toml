@@ -5,8 +5,8 @@ target = "c03030710"                                   # Bryce Whitingale
 moves = [
   { move = 0x46FA651E, level = 1 },                         # Water Veil
   { move = 0x5E5AF1A9, level = 10 },                        # Northern Impact
+  { move = 0x19C3F43D, level = 38 },                        # Eternal Blizzard
   { move = 0x09C23C18, level = 50 },                        # Fire Blizzard
-  { move = 0x19C3F43D, level = 60 },                        # Eternal Blizzard
 ]
 VRFW.MoveGrades = [
   { Move = 0x46FA651E, Grade = 1 },                         # Water Veil
@@ -22,8 +22,8 @@ target = "c03030690"                                   # Claude Beacons
 moves = [
   { move = 0x5FE1545F, level = 1 },                         # Flame Veil
   { move = 0xAE2B3429, level = 10 },                        # Atomic Flare
+  { move = 0x44BCDB47, level = 46 },                        # Pyroclastic
   { move = 0x111B676E, level = 50 },                        # Fire Blizzard
-  { move = 0x44BCDB47, level = 60 },                        # Pyroclastic
 ]
 VRFW.MoveGrades = [
   { Move = 0x5FE1545F, Grade = 1 },                         # Flame Veil
@@ -152,9 +152,9 @@ VRFW.MoveGrades = [
 target = "c03030700"                                   # Changsu Choi
 moves = [
   { move = 0x087999EE, level = 1 },                         # Heel Drop
+  { move = 0x457EB170, level = 15 },                        # Pyrokinetic
   { move = 0xB4B4D106, level = 20 },                        # Dragon Cannon
   { move = 0x316A7390, level = 63 },                        # Land Dragon
-  { move = 0x457EB170, level = 73 },                        # Pyrokinetic
 ]
 
   [[edit.cards]]

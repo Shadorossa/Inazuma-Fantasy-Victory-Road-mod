@@ -23,8 +23,8 @@ target = "c03031220"                                   # Thiago Torres
 moves = [
   { move = 0xB13A6C3D, level = 1 },                         # Zigzag Flame
   { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
+  { move = 0x585098FC, level = 34 },                        # Slice and Dice
   { move = 0xABA58912, level = 60 },                        # Ignited Steal
-  { move = 0x585098FC, level = 70 },                        # Slice and Dice
 ]
 
   [[edit.cards]]

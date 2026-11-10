@@ -322,7 +322,8 @@ function PL.row_move(row)
     return (PL.is_idol() and IsSpecial(m)) and m or 0
   end
   local locked = CharacterReforged.skill_table_is_locked(row)
-  return locked and m or 0
+  -- A move the match list already holds is not learned again at this row, so the row names no move.
+  return (locked and not CharacterReforged.player_sets.active(n, m)) and m or 0
 end
 
 -- Applies the Idol rule.

@@ -21,7 +21,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03030220"                                   # David Waterman
 moves = [
-  { move = 0x60F8D774, level = 5 },                         # Gravestone
+  { move = 0x60F8D774, level = 1 },                         # Gravestone
   { move = 0x039DBAAC, level = 20 },                        # Land of Ice
   { move = 0x259F08C6, level = 36 },                        # Whirlwind Twister
   { move = 0x2296A01A, level = 53 },                        # Southern Cross
@@ -36,7 +36,7 @@ moves = [
 [[edit]]
 target = "c03030230"                                   # Sonny Shore
 moves = [
-  { move = 0xD8794890, level = 5 },                         # Kangaroo Kick
+  { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
   { move = 0x78E027BC, level = 37 },                        # Shine Drive
   { move = 0x4E9A9232, level = 40 },                        # Spinning Cut
   { move = 0x025FD09B, level = 53 },                        # Volcano Cut
@@ -81,7 +81,7 @@ moves = [
 [[edit]]
 target = "c03030260"                                   # Shawn Princeton
 moves = [
-  { move = 0x46FA651E, level = 5 },                         # Water Veil
+  { move = 0x46FA651E, level = 1 },                         # Water Veil
   { move = 0x261BDCA8, level = 20 },                        # Moonsault
   { move = 0x60F8D774, level = 36 },                        # Gravestone
   { move = 0x2FB941B3, level = 61 },                        # Stone Prison
@@ -128,8 +128,8 @@ target = "c03030290"                                   # Dolph Hensen
 moves = [
   { move = 0xE8F5C774, level = 1 },                         # Megalodon
   { move = 0x2BF596BF, level = 5 },                         # Tsunami Boost
+  { move = 0x0DCADC54, level = 26 },                        # Emperor Penguin 7
   { move = 0x121A2FFE, level = 63 },                        # Mirage Shot
-  { move = 0x0DCADC54, level = 73 },                        # Emperor Penguin 7
 ]
 
   [[edit.cards]]

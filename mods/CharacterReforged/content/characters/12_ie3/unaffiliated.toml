@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c03031760"                                   # Dino Zolletta
 moves = [
-  { move = 0x97C48D68, level = 20 },                        # Astro Gate
+  { move = 0x97C48D68, level = 1 },                         # Astro Gate
   { move = 0x8D5B6847, level = 30 },                        # Odin Sword
   { move = 0x61FB16FD, level = 40 },                        # Divine Arrows
   { move = 0x7C6D5B0E, level = 50 },                        # Astro Break
@@ -201,10 +201,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03033320"                                   # Walken Ruhlbuch
 moves = [
-  { move = 0xCD6AEF2D, level = 53 },                        # All-Star
-  { move = 0x2D9F7E76, level = 63 },                        # Breath Taker
-  { move = 0xD471DE6C, level = 73 },                        # Snakebite
-  { move = 0xBD8A9EBE, level = 83 },                        # Infinite Wall
+  { move = 0xC0FD6AFB, level = 1 },                         # Fireball Head
+  { move = 0x922AB1CF, level = 11 },                        # Safety First
+  { move = 0xDEEFF366, level = 30 },                        # Card Protector
+  { move = 0xBD8A9EBE, level = 40 },                        # Infinite Wall
 ]
 
   [[edit.cards]]
@@ -217,7 +217,7 @@ moves = [
 [[edit]]
 target = "c03033360"                                   # Maasa Sudou
 moves = [
-  { move = 0x6DD736DD, level = 12 },                        # Ribbon Shower
+  { move = 0x6DD736DD, level = 1 },                         # Ribbon Shower
   { move = 0xC42D6F54, level = 32 },                        # Aikido
   { move = 0x0D368F6B, level = 42 },                        # Heaven's Time
   { move = 0xD9BB22A7, level = 52 },                        # Air Ride
@@ -232,7 +232,7 @@ moves = [
 [[edit]]
 target = "c03033380"                                   # Yurina Kumai
 moves = [
-  { move = 0x261BDCA8, level = 15 },                        # Moonsault
+  { move = 0x261BDCA8, level = 1 },                         # Moonsault
   { move = 0x2A37FC88, level = 37 },                        # Revolution V
   { move = 0x3F00EDE9, level = 47 },                        # Dash Storm
   { move = 0x19C3F43D, level = 57 },                        # Eternal Blizzard
@@ -262,7 +262,7 @@ moves = [
 [[edit]]
 target = "c03036010"                                   # Percy Verens
 moves = [
-  { move = 0x0CF4E55C, level = 20 },                        # Double Touch
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
   { move = 0x1F0836D6, level = 31 },                        # Comet Shot
   { move = 0xB3BD79DA, level = 49 },                        # Patriot Shot
   { move = 0x2B343D01, level = 55 },                        # Cyclone
@@ -296,7 +296,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03036030"                                   # Skyler Styler
 moves = [
-  { move = 0x2D3E5454, level = 23 },                        # Clone Shot
+  { move = 0x2D3E5454, level = 1 },                         # Clone Shot
   { move = 0x41F3CDC2, level = 25 },                        # Scorching Tackle
   { move = 0x627FC293, level = 32 },                        # Meteor Attack
   { move = 0x21127474, level = 42 },                        # Ultra Moon
@@ -312,7 +312,7 @@ moves = [
 [[edit]]
 target = "c03036040"                                   # Balen Straw
 moves = [
-  { move = 0x8DFA4265, level = 19 },                        # Toughness Block
+  { move = 0x8DFA4265, level = 1 },                         # Toughness Block
   { move = 0xF5C2A0A5, level = 45 },                        # Capoeira Grab
   { move = 0xA7157B91, level = 55 },                        # Power Shield
   { move = 0x8AF3EAB9, level = 65 },                        # Hammer of Fury
@@ -327,7 +327,7 @@ moves = [
 [[edit]]
 target = "c03036050"                                   # Malachi Way
 moves = [
-  { move = 0x46A71C03, level = 54 },                        # Black Hole
+  { move = 0x46A71C03, level = 1 },                         # Black Hole
   { move = 0xF309624E, level = 64 },                        # Dual Smash
   { move = 0xF2CB0879, level = 74 },                        # Mugen the Hand
   { move = 0x91AE65A1, level = 84 },                        # Giant Spider
@@ -343,7 +343,7 @@ moves = [
 [[edit]]
 target = "c03036060"                                   # Paul Kerface
 moves = [
-  { move = 0xEBD03938, level = 15 },                        # Utter Gutsiness Catch
+  { move = 0xEBD03938, level = 1 },                         # Utter Gutsiness Catch
   { move = 0x8DFA4265, level = 16 },                        # Toughness Block
   { move = 0x93E8DBF8, level = 54 },                        # Dimensional Hand
   { move = 0xA7157B91, level = 64 },                        # Power Shield
@@ -358,7 +358,7 @@ moves = [
 [[edit]]
 target = "c03036070"                                   # Chip Tatum
 moves = [
-  { move = 0x7C6D5B0E, level = 6 },                         # Astro Break
+  { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
   { move = 0xDD365E15, level = 38 },                        # Mole Shuffle
   { move = 0x18C035B4, level = 45 },                        # Ghost Pull
   { move = 0x0CF4E55C, level = 48 },                        # Double Touch
@@ -373,7 +373,7 @@ moves = [
 [[edit]]
 target = "c03036080"                                   # Rebus Stumper
 moves = [
-  { move = 0x695A4A6F, level = 5 },                         # Magic
+  { move = 0x695A4A6F, level = 1 },                         # Magic
   { move = 0x322F0C40, level = 44 },                        # Spider Web
   { move = 0x6ADE9E01, level = 47 },                        # Illusory Ball
   { move = 0x8C990270, level = 54 },                        # Gunshot
@@ -388,7 +388,7 @@ moves = [
 [[edit]]
 target = "c03036090"                                   # Cutter Shorten
 moves = [
-  { move = 0x10A0C298, level = 14 },                        # Warp Drive
+  { move = 0x10A0C298, level = 1 },                         # Warp Drive
   { move = 0x65B7C1F1, level = 20 },                        # Sumo Stomp
   { move = 0x7CACF0B0, level = 38 },                        # Horn Train
   { move = 0x2296A01A, level = 40 },                        # Southern Cross
@@ -406,7 +406,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03036100"                                   # Manny Pickles
 moves = [
-  { move = 0x166B0073, level = 33 },                        # Super Armadillo
+  { move = 0x166B0073, level = 1 },                         # Super Armadillo
   { move = 0x73C5AF40, level = 46 },                        # Dash Accelerator
   { move = 0x79E3E635, level = 49 },                        # Racing Flame
   { move = 0xA8215D7C, level = 54 },                        # The Mountain
@@ -421,7 +421,7 @@ moves = [
 [[edit]]
 target = "c03036110"                                   # Campen Allerjee
 moves = [
-  { move = 0x2EBA803A, level = 7 },                         # Dirt Ball
+  { move = 0x2EBA803A, level = 1 },                         # Dirt Ball
   { move = 0x4031A7F5, level = 25 },                        # Mole Fake
   { move = 0xDD365E15, level = 40 },                        # Mole Shuffle
   { move = 0x142DBE2A, level = 69 },                        # Foul Offence
@@ -437,7 +437,7 @@ moves = [
 [[edit]]
 target = "c03036120"                                   # Climie Hills
 moves = [
-  { move = 0xBFCC20E7, level = 41 },                        # Wood Chopper
+  { move = 0xBFCC20E7, level = 1 },                         # Wood Chopper
   { move = 0xA6D711A6, level = 48 },                        # Full Power Shield
   { move = 0xB8C5883B, level = 58 },                        # God Hand X
   { move = 0xEF5D458A, level = 68 },                        # Burnout
@@ -452,7 +452,7 @@ moves = [
 [[edit]]
 target = "c03036130"                                   # Earl Bird
 moves = [
-  { move = 0xBE0E4AD0, level = 11 },                        # Fireball Knuckle
+  { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
   { move = 0xF309624E, level = 47 },                        # Dual Smash
   { move = 0xDD6B2708, level = 57 },                        # Majin the Hand
   { move = 0x46A71C03, level = 67 },                        # Black Hole
@@ -470,7 +470,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03036140"                                   # Walt Whittler
 moves = [
-  { move = 0xD824318D, level = 36 },                        # Swan Dive
+  { move = 0xD824318D, level = 1 },                         # Swan Dive
   { move = 0xC7F4C227, level = 40 },                        # Shot Trap
   { move = 0x96A7CD7D, level = 50 },                        # Tsunami Wall
   { move = 0x88B554E0, level = 60 },                        # Galatyn
@@ -501,7 +501,7 @@ moves = [
 [[edit]]
 target = "c03036160"                                   # Traylor Beadle
 moves = [
-  { move = 0x7A67325B, level = 15 },                        # Flame Dance
+  { move = 0x7A67325B, level = 1 },                         # Flame Dance
   { move = 0x0CF4E55C, level = 22 },                        # Double Touch
   { move = 0x4DDFEDE2, level = 45 },                        # Eagle Buster
   { move = 0x3B8D915B, level = 55 },                        # Meteor Shower
@@ -516,10 +516,10 @@ moves = [
 [[edit]]
 target = "c03036170"                                   # Doug Boateng
 moves = [
+  { move = 0xB0BC314A, level = 1 },                         # Spin Meister
   { move = 0x332CCDC9, level = 6 },                         # Heel Kick
   { move = 0x66F2BE21, level = 32 },                        # Leaping Thunder
   { move = 0x38094535, level = 38 },                        # Sub-Terfuge
-  { move = 0xB0BC314A, level = 48 },                        # Spin Meister
 ]
 
   [[edit.cards]]
@@ -531,7 +531,7 @@ moves = [
 [[edit]]
 target = "c03036210"                                   # Fanny Oakley
 moves = [
-  { move = 0x34256515, level = 27 },                        # Dynamite Shot
+  { move = 0x34256515, level = 1 },                         # Dynamite Shot
   { move = 0xA5777314, level = 36 },                        # Assault Shot
   { move = 0x8C990270, level = 51 },                        # Gunshot
   { move = 0xEE3E059F, level = 61 },                        # Celestial Smash
@@ -546,7 +546,7 @@ moves = [
 [[edit]]
 target = "c03036220"                                   # Bucky Colt
 moves = [
-  { move = 0x5049A011, level = 7 },                         # Spinning Shot
+  { move = 0x5049A011, level = 1 },                         # Spinning Shot
   { move = 0xC19E2AEE, level = 38 },                        # Pegasus Shot
   { move = 0x8C990270, level = 41 },                        # Gunshot
   { move = 0xB6F26F5F, level = 54 },                        # Tri-Pegasus
@@ -562,7 +562,7 @@ moves = [
 [[edit]]
 target = "c03036230"                                   # Chuckie Roper
 moves = [
-  { move = 0x49529150, level = 29 },                        # Snake Shot
+  { move = 0x49529150, level = 1 },                         # Snake Shot
   { move = 0x4D1E465C, level = 30 },                        # Fake Bomber
   { move = 0x1D8F2331, level = 45 },                        # Yo-Yo Ball
   { move = 0x316A7390, level = 51 },                        # Land Dragon
@@ -578,7 +578,7 @@ moves = [
 [[edit]]
 target = "c03036240"                                   # Lucien Brightside
 moves = [
-  { move = 0xD824318D, level = 24 },                        # Swan Dive
+  { move = 0xD824318D, level = 1 },                         # Swan Dive
   { move = 0xA3980723, level = 41 },                        # Colosseum Guard
   { move = 0xA01CD34D, level = 51 },                        # Temporal Wall
   { move = 0x96A7CD7D, level = 61 },                        # Tsunami Wall
@@ -593,7 +593,7 @@ moves = [
 [[edit]]
 target = "c03036250"                                   # Caffrey Punt
 moves = [
-  { move = 0xD9E65BBA, level = 21 },                        # Aurora Curtain
+  { move = 0xD9E65BBA, level = 1 },                         # Aurora Curtain
   { move = 0x422A60B1, level = 52 },                        # Barrier Reef
   { move = 0x9765A74A, level = 62 },                        # Beast Fang
   { move = 0x8FBCFC3C, level = 72 },                        # Blazing Knuckle
@@ -609,7 +609,7 @@ moves = [
 [[edit]]
 target = "c03036260"                                   # Debra Lee
 moves = [
-  { move = 0x35E70F22, level = 23 },                        # Grenade Shot
+  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
   { move = 0x68982058, level = 31 },                        # Armadillo Circus
   { move = 0xA7B451B3, level = 51 },                        # Paladin Strike
   { move = 0x06130797, level = 54 },                        # Rolling Kick
@@ -624,7 +624,7 @@ moves = [
 [[edit]]
 target = "c03036270"                                   # Goodie Touchouse
 moves = [
-  { move = 0x6B1CF436, level = 8 },                         # Bewildered
+  { move = 0x6B1CF436, level = 1 },                         # Bewildered
   { move = 0x01DB04F5, level = 15 },                        # Defence Scan
   { move = 0xDF70E04C, level = 47 },                        # Rodeo Clown
   { move = 0x1A472053, level = 52 },                        # Double Wrath Shot
@@ -640,7 +640,7 @@ moves = [
 [[edit]]
 target = "c03036280"                                   # Ray Pier
 moves = [
-  { move = 0x78E027BC, level = 18 },                        # Shine Drive
+  { move = 0x78E027BC, level = 1 },                         # Shine Drive
   { move = 0x1162A8AF, level = 22 },                        # Bewilder Blast
   { move = 0x8D5B6847, level = 43 },                        # Odin Sword
   { move = 0x3F00EDE9, level = 53 },                        # Dash Storm
@@ -655,7 +655,7 @@ moves = [
 [[edit]]
 target = "c03036290"                                   # Jen Erris
 moves = [
-  { move = 0xBC48F489, level = 11 },                        # Claw Slash
+  { move = 0xBC48F489, level = 1 },                         # Claw Slash
   { move = 0xF2CB0879, level = 68 },                        # Mugen the Hand
   { move = 0x9765A74A, level = 78 },                        # Beast Fang
   { move = 0x5B3151F0, level = 88 },                        # Nitro Slap
@@ -671,7 +671,7 @@ moves = [
 [[edit]]
 target = "c03036300"                                   # Jude Ellery
 moves = [
-  { move = 0xD8794890, level = 10 },                        # Kangaroo Kick
+  { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
   { move = 0x68982058, level = 42 },                        # Armadillo Circus
   { move = 0x485150D9, level = 52 },                        # Body Shield
   { move = 0x6633159F, level = 62 },                        # Gravitation
@@ -702,7 +702,7 @@ moves = [
 [[edit]]
 target = "c03036320"                                   # Tim Roubadour
 moves = [
-  { move = 0x259F08C6, level = 8 },                         # Whirlwind Twister
+  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
   { move = 0x47380F29, level = 34 },                        # Echo Ball
   { move = 0x3C843987, level = 45 },                        # Flurry Dash
   { move = 0x7577A26A, level = 70 },                        # God Break
@@ -718,7 +718,7 @@ moves = [
 [[edit]]
 target = "c03036330"                                   # Matt Skerade
 moves = [
-  { move = 0x8E7E960B, level = 48 },                        # Drill Smasher
+  { move = 0x8E7E960B, level = 1 },                         # Drill Smasher
   { move = 0xB8C5883B, level = 58 },                        # God Hand X
   { move = 0xEA12530F, level = 68 },                        # Double Rocket
   { move = 0xA6D711A6, level = 78 },                        # Full Power Shield
@@ -734,7 +734,7 @@ moves = [
 [[edit]]
 target = "c03036340"                                   # Florence Tripps
 moves = [
-  { move = 0x259F08C6, level = 9 },                         # Whirlwind Twister
+  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
   { move = 0x4890FB67, level = 10 },                        # Twin Boost
   { move = 0x8D5B6847, level = 55 },                        # Odin Sword
   { move = 0x1A868BED, level = 56 },                        # Clone Defence
@@ -749,7 +749,7 @@ moves = [
 [[edit]]
 target = "c03036350"                                   # Inke Marks
 moves = [
-  { move = 0xE9968761, level = 45 },                        # Rocket Kobushi
+  { move = 0xE9968761, level = 1 },                         # Rocket Kobushi
   { move = 0xECD991E4, level = 63 },                        # The Stinger
   { move = 0xB8C5883B, level = 73 },                        # God Hand X
   { move = 0xA6D711A6, level = 83 },                        # Full Power Shield
@@ -765,7 +765,7 @@ moves = [
 [[edit]]
 target = "c03036360"                                   # Gary Baldi
 moves = [
-  { move = 0x3D4653B0, level = 6 },                         # Poison Fog
+  { move = 0x3D4653B0, level = 1 },                         # Poison Fog
   { move = 0x2B343D01, level = 42 },                        # Cyclone
   { move = 0x04941270, level = 51 },                        # Vac Attack
   { move = 0x3B8D915B, level = 61 },                        # Meteor Shower
@@ -781,7 +781,7 @@ moves = [
 [[edit]]
 target = "c03036370"                                   # Bobby Peeler
 moves = [
-  { move = 0x73C5AF40, level = 26 },                        # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x01DB04F5, level = 31 },                        # Defence Scan
   { move = 0x574008CD, level = 36 },                        # Kung Fu Fighting
   { move = 0xC7A9BB3A, level = 38 },                        # Whirlwind Cut
@@ -796,7 +796,7 @@ moves = [
 [[edit]]
 target = "c03036380"                                   # Mark Brand
 moves = [
-  { move = 0x520F1E48, level = 18 },                        # Psycho Shot
+  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
   { move = 0x132416F6, level = 42 },                        # Dog Run
   { move = 0x5643C944, level = 48 },                        # Killer Slide
   { move = 0x4741C0E8, level = 58 },                        # Steeple Shot
@@ -811,7 +811,7 @@ moves = [
 [[edit]]
 target = "c03036390"                                   # Hedwig Hodge
 moves = [
-  { move = 0xC2BBD4A2, level = 16 },                        # Wild Claw
+  { move = 0xC2BBD4A2, level = 1 },                         # Wild Claw
   { move = 0xECD991E4, level = 25 },                        # The Stinger
   { move = 0x8E7E960B, level = 35 },                        # Drill Smasher
   { move = 0xBD8A9EBE, level = 45 },                        # Infinite Wall
@@ -826,7 +826,7 @@ moves = [
 [[edit]]
 target = "c03036400"                                   # Bill Mallard
 moves = [
-  { move = 0x3EC287DE, level = 28 },                        # Bubble Gum
+  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
   { move = 0x039DBAAC, level = 38 },                        # Land of Ice
   { move = 0xE8F5C774, level = 43 },                        # Megalodon
   { move = 0xB2BEB853, level = 54 },                        # Whale Guard
@@ -842,7 +842,7 @@ moves = [
 [[edit]]
 target = "c03036410"                                   # Roo Hopper
 moves = [
-  { move = 0x7EEA4EE9, level = 19 },                        # Blade Attack
+  { move = 0x7EEA4EE9, level = 1 },                         # Blade Attack
   { move = 0xB633C4E1, level = 26 },                        # Photon Crash
   { move = 0xD8794890, level = 27 },                        # Kangaroo Kick
   { move = 0x1ECA5CE1, level = 54 },                        # Wrath Shot
@@ -857,7 +857,7 @@ moves = [
 [[edit]]
 target = "c03036420"                                   # Cole Bear
 moves = [
-  { move = 0x695A4A6F, level = 27 },                        # Magic
+  { move = 0x695A4A6F, level = 1 },                         # Magic
   { move = 0xB3BD79DA, level = 32 },                        # Patriot Shot
   { move = 0x105C91A7, level = 44 },                        # Slingshot
   { move = 0xA7B451B3, level = 54 },                        # Paladin Strike
@@ -872,7 +872,7 @@ moves = [
 [[edit]]
 target = "c03036430"                                   # Al Opino
 moves = [
-  { move = 0xA6D711A6, level = 5 },                         # Full Power Shield
+  { move = 0xA6D711A6, level = 1 },                         # Full Power Shield
   { move = 0x5B3151F0, level = 35 },                        # Nitro Slap
   { move = 0xF64674CB, level = 45 },                        # Fist of Justice
   { move = 0x88B554E0, level = 55 },                        # Galatyn
@@ -891,7 +891,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03036440"                                   # Oz Tier
 moves = [
-  { move = 0x6B1CF436, level = 34 },                        # Bewildered
+  { move = 0x6B1CF436, level = 1 },                         # Bewildered
   { move = 0x1162A8AF, level = 40 },                        # Bewilder Blast
   { move = 0xAA67E325, level = 48 },                        # Desert Blast
   { move = 0xDCF43422, level = 66 },                        # Aurora Dribble
@@ -907,7 +907,7 @@ moves = [
 [[edit]]
 target = "c03036450"                                   # Shelley Wordsworth
 moves = [
-  { move = 0x01DB04F5, level = 14 },                        # Defence Scan
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0x568262FA, level = 30 },                        # Dark Tornado
   { move = 0x53CD747F, level = 42 },                        # Tarzan Kick
   { move = 0xB633C4E1, level = 52 },                        # Photon Crash
@@ -923,7 +923,7 @@ moves = [
 [[edit]]
 target = "c03036460"                                   # Stu Potter
 moves = [
-  { move = 0x0CF4E55C, level = 8 },                         # Double Touch
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
   { move = 0x518BCA26, level = 12 },                        # Fire Tornado
   { move = 0x087999EE, level = 26 },                        # Heel Drop
   { move = 0x07D16DA0, level = 36 },                        # Inazuma-1
@@ -938,7 +938,7 @@ moves = [
 [[edit]]
 target = "c03036470"                                   # Bern Ballast
 moves = [
-  { move = 0x94E17324, level = 8 },                         # Tornado Catch
+  { move = 0x94E17324, level = 1 },                         # Tornado Catch
   { move = 0x8B31808E, level = 44 },                        # Wormhole
   { move = 0xA6D711A6, level = 54 },                        # Full Power Shield
   { move = 0x5B3151F0, level = 64 },                        # Nitro Slap
@@ -954,10 +954,10 @@ moves = [
 [[edit]]
 target = "c03036480"                                   # Heidi Rood
 moves = [
-  { move = 0xA37D1A41, level = 2 },                         # Hyper-Swiper
-  { move = 0x6B1CF436, level = 12 },                        # Bewildered
-  { move = 0x737DCB3F, level = 38 },                        # Pancake Defence
-  { move = 0x637C031A, level = 48 },                        # No Escape
+  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
+  { move = 0x73C5AF40, level = 47 },                        # Dash Accelerator
+  { move = 0x7E2BE557, level = 58 },                        # Legendary Wolf
+  { move = 0x637C031A, level = 68 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -969,7 +969,7 @@ moves = [
 [[edit]]
 target = "c03036490"                                   # Elvis Schumacher
 moves = [
-  { move = 0x5643C944, level = 7 },                         # Killer Slide
+  { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0x1F0836D6, level = 26 },                        # Comet Shot
   { move = 0x7C6D5B0E, level = 36 },                        # Astro Break
   { move = 0xB4757AB8, level = 40 },                        # Divine Stamp
@@ -984,10 +984,10 @@ moves = [
 [[edit]]
 target = "c03036500"                                   # Snezhana White
 moves = [
-  { move = 0xE0DF8DB5, level = 40 },                        # No Future
-  { move = 0x14D1ED15, level = 50 },                        # Jumping Jack
-  { move = 0x8B90AAAC, level = 60 },                        # Fortissimo
-  { move = 0xB04EE8D8, level = 70 },                        # Scream of Eden
+  { move = 0x6633159F, level = 1 },                         # Gravitation
+  { move = 0x09BBF3D9, level = 10 },                        # Dark Whirlwind
+  { move = 0x27D9B69F, level = 41 },                        # Prima Donna
+  { move = 0x63BDA8A4, level = 52 },                        # Inazuma Drop
 ]
 
   [[edit.cards]]
@@ -999,7 +999,7 @@ moves = [
 [[edit]]
 target = "c03036510"                                   # Abel Forager
 moves = [
-  { move = 0x88B554E0, level = 34 },                        # Galatyn
+  { move = 0x88B554E0, level = 1 },                         # Galatyn
   { move = 0x4523C86D, level = 37 },                        # Killer Blade
   { move = 0xC4701649, level = 47 },                        # Ice Block
   { move = 0x96A7CD7D, level = 57 },                        # Tsunami Wall
@@ -1014,7 +1014,7 @@ moves = [
 [[edit]]
 target = "c03036520"                                   # Will Wary
 moves = [
-  { move = 0x41F3CDC2, level = 24 },                        # Scorching Tackle
+  { move = 0x41F3CDC2, level = 1 },                         # Scorching Tackle
   { move = 0x4890FB67, level = 37 },                        # Twin Boost
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
   { move = 0x70417B2E, level = 60 },                        # Deceptor Dribble
@@ -1030,7 +1030,7 @@ moves = [
 [[edit]]
 target = "c03036530"                                   # Rocco Shale
 moves = [
-  { move = 0x2FB941B3, level = 37 },                        # Stone Prison
+  { move = 0x2FB941B3, level = 1 },                         # Stone Prison
   { move = 0x4031A7F5, level = 47 },                        # Mole Fake
   { move = 0x19025F83, level = 57 },                        # Quick Draw
   { move = 0xB3BD79DA, level = 67 },                        # Patriot Shot
@@ -1046,7 +1046,7 @@ moves = [
 [[edit]]
 target = "c03036540"                                   # Bob Jobbe
 moves = [
-  { move = 0x7CACF0B0, level = 13 },                        # Horn Train
+  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
   { move = 0x1D4E888F, level = 14 },                        # Condor Dive
   { move = 0xAB6422AC, level = 24 },                        # Phantom Shot
   { move = 0x31ABD82E, level = 58 },                        # Circus Block
@@ -1061,7 +1061,7 @@ moves = [
 [[edit]]
 target = "c03036550"                                   # Lee Bei
 moves = [
-  { move = 0x31CB59B2, level = 11 },                        # God Hand
+  { move = 0x31CB59B2, level = 1 },                         # God Hand
   { move = 0xA6D711A6, level = 54 },                        # Full Power Shield
   { move = 0x9765A74A, level = 58 },                        # Beast Fang
   { move = 0xEA12530F, level = 68 },                        # Double Rocket
@@ -1077,7 +1077,7 @@ moves = [
 [[edit]]
 target = "c03036560"                                   # Quincy Wang
 moves = [
-  { move = 0x1ECA5CE1, level = 18 },                        # Wrath Shot
+  { move = 0x1ECA5CE1, level = 1 },                         # Wrath Shot
   { move = 0x19025F83, level = 28 },                        # Quick Draw
   { move = 0x0D368F6B, level = 40 },                        # Heaven's Time
   { move = 0x8EDFBC29, level = 55 },                        # Double Jaw
@@ -1093,7 +1093,7 @@ moves = [
 [[edit]]
 target = "c03036570"                                   # Dan Fei
 moves = [
-  { move = 0x3069B219, level = 16 },                        # Super Sumo Stomp
+  { move = 0x3069B219, level = 1 },                         # Super Sumo Stomp
   { move = 0x4890FB67, level = 38 },                        # Twin Boost
   { move = 0x1E0BF75F, level = 48 },                        # Mega Wall
   { move = 0x0597D3F9, level = 58 },                        # Dragon Tornado
@@ -1108,7 +1108,7 @@ moves = [
 [[edit]]
 target = "c03036580"                                   # Liddy Gan
 moves = [
-  { move = 0x27D9B69F, level = 23 },                        # Prima Donna
+  { move = 0x27D9B69F, level = 1 },                         # Prima Donna
   { move = 0x1ECA5CE1, level = 24 },                        # Wrath Shot
   { move = 0x54C4DCA3, level = 37 },                        # Butterfly Trance
   { move = 0xA8215D7C, level = 47 },                        # The Mountain
@@ -1126,7 +1126,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03036590"                                   # Tom Bulldown
 moves = [
-  { move = 0x73C5AF40, level = 6 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x259F08C6, level = 33 },                        # Whirlwind Twister
   { move = 0x52CEB5F6, level = 45 },                        # Iron Wall
   { move = 0x332CCDC9, level = 51 },                        # Heel Kick
@@ -1144,10 +1144,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03036600"                                   # Ria Vivalist
 moves = [
-  { move = 0x0CF4E55C, level = 25 },                        # Double Touch
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
+  { move = 0xA2FB4736, level = 35 },                        # Flying Fish
   { move = 0xAAA6489B, level = 38 },                        # Spiral Shot
   { move = 0x3F00EDE9, level = 55 },                        # Dash Storm
-  { move = 0xA2FB4736, level = 65 },                        # Flying Fish
 ]
 
   [[edit.cards]]
@@ -1159,7 +1159,7 @@ moves = [
 [[edit]]
 target = "c03036610"                                   # Sunniffa Scentgood
 moves = [
-  { move = 0x2B343D01, level = 7 },                         # Cyclone
+  { move = 0x2B343D01, level = 1 },                         # Cyclone
   { move = 0x2C3D95DD, level = 21 },                        # Sleeping Dust
   { move = 0x60397CCA, level = 27 },                        # Cross Drive
   { move = 0xC21AFE80, level = 55 },                        # Whirlwind Drop
@@ -1174,10 +1174,10 @@ moves = [
 [[edit]]
 target = "c03036620"                                   # Julia Mason
 moves = [
+  { move = 0x822B79EA, level = 1 },                         # Somersault Stamp
+  { move = 0xF400CA92, level = 13 },                        # Anchors Aweigh
+  { move = 0x41AEB4DF, level = 38 },                        # Crystal Barrier
   { move = 0xA3980723, level = 39 },                        # Colosseum Guard
-  { move = 0x822B79EA, level = 49 },                        # Somersault Stamp
-  { move = 0xF400CA92, level = 59 },                        # Anchors Aweigh
-  { move = 0x41AEB4DF, level = 69 },                        # Crystal Barrier
 ]
 
   [[edit.cards]]
@@ -1189,7 +1189,7 @@ moves = [
 [[edit]]
 target = "c03036630"                                   # Ria Carnival
 moves = [
-  { move = 0xF5C2A0A5, level = 51 },                        # Capoeira Grab
+  { move = 0xF5C2A0A5, level = 1 },                         # Capoeira Grab
   { move = 0xBE0E4AD0, level = 61 },                        # Fireball Knuckle
   { move = 0xA6D711A6, level = 71 },                        # Full Power Shield
   { move = 0x47657634, level = 81 },                        # Flame Breath
@@ -1204,7 +1204,7 @@ moves = [
 [[edit]]
 target = "c03036640"                                   # Gracey Grapples
 moves = [
-  { move = 0x4031A7F5, level = 41 },                        # Mole Fake
+  { move = 0x4031A7F5, level = 1 },                         # Mole Fake
   { move = 0x1A472053, level = 51 },                        # Double Wrath Shot
   { move = 0x3B8D915B, level = 58 },                        # Meteor Shower
   { move = 0xC42D6F54, level = 68 },                        # Aikido
@@ -1219,7 +1219,7 @@ moves = [
 [[edit]]
 target = "c03036650"                                   # Shep Woolacombe
 moves = [
-  { move = 0x5B6C28ED, level = 20 },                        # Invisible Fake
+  { move = 0x5B6C28ED, level = 1 },                         # Invisible Fake
   { move = 0x121A2FFE, level = 44 },                        # Mirage Shot
   { move = 0xB633C4E1, level = 45 },                        # Photon Crash
   { move = 0x3C843987, level = 46 },                        # Flurry Dash
@@ -1234,10 +1234,10 @@ moves = [
 [[edit]]
 target = "c03036660"                                   # Sue Accharin
 moves = [
-  { move = 0xD3A09353, level = 3 },                         # Hoopsie-Daisy
-  { move = 0xA23AEC88, level = 14 },                        # Copy Cut
-  { move = 0x6DD736DD, level = 26 },                        # Ribbon Shower
-  { move = 0x8B90AAAC, level = 42 },                        # Fortissimo
+  { move = 0x695A4A6F, level = 1 },                         # Magic
+  { move = 0x6ADE9E01, level = 28 },                        # Illusory Ball
+  { move = 0x1F0836D6, level = 33 },                        # Comet Shot
+  { move = 0x33ED6677, level = 38 },                        # Doppelganger
 ]
 
   [[edit.cards]]
@@ -1250,7 +1250,7 @@ moves = [
 [[edit]]
 target = "c03036670"                                   # Venus Demila
 moves = [
-  { move = 0xBE0E4AD0, level = 5 },                         # Fireball Knuckle
+  { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
   { move = 0xBC48F489, level = 36 },                        # Claw Slash
   { move = 0xF5C2A0A5, level = 44 },                        # Capoeira Grab
   { move = 0xBA833662, level = 54 },                        # Million Hands
@@ -1265,7 +1265,7 @@ moves = [
 [[edit]]
 target = "c03036680"                                   # Steven Nevets
 moves = [
-  { move = 0x5643C944, level = 25 },                        # Killer Slide
+  { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0xDD365E15, level = 30 },                        # Mole Shuffle
   { move = 0x4031A7F5, level = 45 },                        # Mole Fake
   { move = 0x38094535, level = 53 },                        # Sub-Terfuge
@@ -1281,10 +1281,10 @@ moves = [
 [[edit]]
 target = "c03036690"                                   # Gerald Gerund
 moves = [
+  { move = 0x8C382852, level = 1 },                         # God Hand
   { move = 0xF08DB620, level = 21 },                        # Whirlwind
   { move = 0x8FBCFC3C, level = 48 },                        # Blazing Knuckle
   { move = 0xBD8A9EBE, level = 65 },                        # Infinite Wall
-  { move = 0x8C382852, level = 75 },                        # God Hand
 ]
 
   [[edit.cards]]
@@ -1296,10 +1296,10 @@ moves = [
 [[edit]]
 target = "c03036700"                                   # Tracy Tracker
 moves = [
+  { move = 0xC13F00CC, level = 1 },                         # Flower Power
+  { move = 0x8C382852, level = 27 },                        # God Hand
+  { move = 0xD471DE6C, level = 43 },                        # Snakebite
   { move = 0x5DFA931B, level = 54 },                        # Triple Defence
-  { move = 0xC13F00CC, level = 64 },                        # Flower Power
-  { move = 0x8C382852, level = 74 },                        # God Hand
-  { move = 0xD471DE6C, level = 84 },                        # Snakebite
 ]
 
   [[edit.cards]]
@@ -1326,7 +1326,7 @@ moves = [
 [[edit]]
 target = "c03036720"                                   # Keshia Readingplace
 moves = [
-  { move = 0xB4757AB8, level = 25 },                        # Divine Stamp
+  { move = 0xB4757AB8, level = 1 },                         # Divine Stamp
   { move = 0x54C4DCA3, level = 34 },                        # Butterfly Trance
   { move = 0x0CF4E55C, level = 35 },                        # Double Touch
   { move = 0xC5EF0563, level = 51 },                        # Three-Legged Rush
@@ -1342,7 +1342,7 @@ moves = [
 [[edit]]
 target = "c03036730"                                   # Sahara Kalahari
 moves = [
-  { move = 0xC5B27C7E, level = 24 },                        # Storm Rider
+  { move = 0xC5B27C7E, level = 1 },                         # Storm Rider
   { move = 0xF309624E, level = 40 },                        # Dual Smash
   { move = 0xBA833662, level = 50 },                        # Million Hands
   { move = 0xE9968761, level = 60 },                        # Rocket Kobushi
@@ -1358,7 +1358,7 @@ moves = [
 [[edit]]
 target = "c03036740"                                   # Fala Polaris
 moves = [
-  { move = 0x261BDCA8, level = 29 },                        # Moonsault
+  { move = 0x261BDCA8, level = 1 },                         # Moonsault
   { move = 0x6633159F, level = 37 },                        # Gravitation
   { move = 0x3B8D915B, level = 38 },                        # Meteor Shower
   { move = 0x65766A4F, level = 45 },                        # Meteor Blade
@@ -1392,7 +1392,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03036760"                                   # Penny Linguine
 moves = [
-  { move = 0x166B0073, level = 33 },                        # Super Armadillo
+  { move = 0x166B0073, level = 1 },                         # Super Armadillo
   { move = 0x0CF4E55C, level = 43 },                        # Double Touch
   { move = 0x3A4FFB6C, level = 53 },                        # The Ikaros
   { move = 0x132416F6, level = 63 },                        # Dog Run
@@ -1407,7 +1407,7 @@ moves = [
 [[edit]]
 target = "c03036770"                                   # Poppy Playhard
 moves = [
-  { move = 0x4E9A9232, level = 16 },                        # Spinning Cut
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
   { move = 0xD8794890, level = 32 },                        # Kangaroo Kick
   { move = 0x3A4FFB6C, level = 70 },                        # The Ikaros
   { move = 0x3069B219, level = 80 },                        # Super Sumo Stomp
@@ -1438,7 +1438,7 @@ moves = [
 [[edit]]
 target = "c03036790"                                   # Baron Blackgold
 moves = [
-  { move = 0xB5B7108F, level = 17 },                        # Shadow Stitch
+  { move = 0xB5B7108F, level = 1 },                         # Shadow Stitch
   { move = 0x6ADE9E01, level = 45 },                        # Illusory Ball
   { move = 0x105C91A7, level = 52 },                        # Slingshot
   { move = 0xEE3E059F, level = 70 },                        # Celestial Smash
@@ -1454,7 +1454,7 @@ moves = [
 [[edit]]
 target = "c03036800"                                   # Marty Oshker
 moves = [
-  { move = 0x322F0C40, level = 9 },                         # Spider Web
+  { move = 0x322F0C40, level = 1 },                         # Spider Web
   { move = 0x73C5AF40, level = 11 },                        # Dash Accelerator
   { move = 0x10A0C298, level = 38 },                        # Warp Drive
   { move = 0xAF28F5A0, level = 39 },                        # The Tower
@@ -1469,7 +1469,7 @@ moves = [
 [[edit]]
 target = "c03036810"                                   # Nat Meg
 moves = [
-  { move = 0x19025F83, level = 16 },                        # Quick Draw
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
   { move = 0xB4757AB8, level = 35 },                        # Divine Stamp
   { move = 0xB7300568, level = 46 },                        # Double Tornado
   { move = 0xAEEA9F97, level = 56 },                        # Sigma Zone
@@ -1485,7 +1485,7 @@ moves = [
 [[edit]]
 target = "c03036820"                                   # Eddy Steady
 moves = [
-  { move = 0x025FD09B, level = 15 },                        # Volcano Cut
+  { move = 0x025FD09B, level = 1 },                         # Volcano Cut
   { move = 0xAE2B3429, level = 25 },                        # Atomic Flare
   { move = 0xBC6C4255, level = 55 },                        # Neo Galaxy
   { move = 0xABA58912, level = 65 },                        # Ignited Steal
@@ -1503,10 +1503,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03036830"                                   # Severin Volei
 moves = [
-  { move = 0x232D05EC, level = 39 },                        # Tiger Drive
-  { move = 0xBBE07677, level = 49 },                        # Sidewinder
-  { move = 0x4FE09C7A, level = 59 },                        # Acrobatic Keep
-  { move = 0x13D845C9, level = 69 },                        # Samba Strike
+  { move = 0x10A0C298, level = 1 },                         # Warp Drive
+  { move = 0x1D4E888F, level = 22 },                        # Condor Dive
+  { move = 0x64B40078, level = 63 },                        # The Phoenix
+  { move = 0x029E7B25, level = 73 },                        # Gaia Break
 ]
 
   [[edit.cards]]
@@ -1534,7 +1534,7 @@ moves = [
 [[edit]]
 target = "c03036850"                                   # Helmut Hoarder
 moves = [
-  { move = 0x7CACF0B0, level = 9 },                         # Horn Train
+  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
   { move = 0x6C6C932B, level = 17 },                        # Megaton Head
   { move = 0x750E6DAB, level = 50 },                        # Matador Feint
   { move = 0xC19E2AEE, level = 60 },                        # Pegasus Shot
@@ -1550,7 +1550,7 @@ moves = [
 [[edit]]
 target = "c03036860"                                   # Strama daKoto
 moves = [
-  { move = 0xDF70E04C, level = 14 },                        # Rodeo Clown
+  { move = 0xDF70E04C, level = 1 },                         # Rodeo Clown
   { move = 0x332CCDC9, level = 22 },                        # Heel Kick
   { move = 0x011AAF4B, level = 24 },                        # Gyro Head
   { move = 0xB4B4D106, level = 44 },                        # Dragon Cannon
@@ -1565,7 +1565,7 @@ moves = [
 [[edit]]
 target = "c03036870"                                   # Olaf Nobeard
 moves = [
-  { move = 0x7CACF0B0, level = 14 },                        # Horn Train
+  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
   { move = 0x60F8D774, level = 25 },                        # Gravestone
   { move = 0x33ED6677, level = 29 },                        # Doppelganger
   { move = 0xD9BB22A7, level = 52 },                        # Air Ride
@@ -1581,7 +1581,7 @@ moves = [
 [[edit]]
 target = "c03036880"                                   # Gudrun Lodestone
 moves = [
-  { move = 0x1ECA5CE1, level = 17 },                        # Wrath Shot
+  { move = 0x1ECA5CE1, level = 1 },                         # Wrath Shot
   { move = 0x46FA651E, level = 32 },                        # Water Veil
   { move = 0xAAA6489B, level = 42 },                        # Spiral Shot
   { move = 0x2B343D01, level = 52 },                        # Cyclone
@@ -1598,9 +1598,9 @@ moves = [
 target = "c03036890"                                   # Carol Fairfoot
 moves = [
   { move = 0x27D9B69F, level = 1 },                         # Prima Donna
+  { move = 0xBBE07677, level = 11 },                        # Sidewinder
   { move = 0x627FC293, level = 15 },                        # Meteor Attack
   { move = 0x7A67325B, level = 28 },                        # Flame Dance
-  { move = 0xBBE07677, level = 38 },                        # Sidewinder
 ]
 
   [[edit.cards]]
@@ -1612,10 +1612,10 @@ moves = [
 [[edit]]
 target = "c03036900"                                   # Michael Shako
 moves = [
-  { move = 0x58B5859E, level = 2 },                         # Whip Crack
-  { move = 0xF400CA92, level = 20 },                        # Anchors Aweigh
-  { move = 0xF5C2A0A5, level = 39 },                        # Capoeira Grab
-  { move = 0x41AEB4DF, level = 49 },                        # Crystal Barrier
+  { move = 0xD9E65BBA, level = 1 },                         # Aurora Curtain
+  { move = 0xF309624E, level = 21 },                        # Dual Smash
+  { move = 0xA01CD34D, level = 31 },                        # Temporal Wall
+  { move = 0x96A7CD7D, level = 41 },                        # Tsunami Wall
 ]
 
   [[edit.cards]]
@@ -1645,7 +1645,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03036920"                                   # Marina Coaster
 moves = [
-  { move = 0x627FC293, level = 6 },                         # Meteor Attack
+  { move = 0x627FC293, level = 1 },                         # Meteor Attack
   { move = 0x520F1E48, level = 8 },                         # Psycho Shot
   { move = 0x46FA651E, level = 50 },                        # Water Veil
   { move = 0xB2BEB853, level = 51 },                        # Whale Guard
@@ -1690,7 +1690,7 @@ moves = [
 [[edit]]
 target = "c03036950"                                   # Devlin Ogor
 moves = [
-  { move = 0x31CB59B2, level = 11 },                        # God Hand
+  { move = 0x31CB59B2, level = 1 },                         # God Hand
   { move = 0xA491AFFF, level = 43 },                        # Majin the Hand
   { move = 0xDBA0E5E3, level = 52 },                        # Gigant Wall
   { move = 0xB8C5883B, level = 62 },                        # God Hand X
@@ -1705,7 +1705,7 @@ moves = [
 [[edit]]
 target = "c03036960"                                   # Fez Monkton
 moves = [
-  { move = 0xA5777314, level = 34 },                        # Assault Shot
+  { move = 0xA5777314, level = 1 },                         # Assault Shot
   { move = 0x1A868BED, level = 44 },                        # Clone Defence
   { move = 0x4031A7F5, level = 62 },                        # Mole Fake
   { move = 0x1B44E1DA, level = 72 },                        # Stone Wall
@@ -1720,7 +1720,7 @@ moves = [
 [[edit]]
 target = "c03036970"                                   # Berthel Stagg
 moves = [
-  { move = 0x5643C944, level = 10 },                        # Killer Slide
+  { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0xC66BD10D, level = 22 },                        # Zigzag Spark
   { move = 0x78E027BC, level = 27 },                        # Shine Drive
   { move = 0xAD6E4BF9, level = 62 },                        # Harvest
@@ -1735,7 +1735,7 @@ moves = [
 [[edit]]
 target = "c03036980"                                   # Damon Sumner
 moves = [
-  { move = 0x0F703132, level = 52 },                        # Black Magic
+  { move = 0x0F703132, level = 1 },                         # Black Magic
   { move = 0x1B854A64, level = 63 },                        # Cosmic Blast
   { move = 0x41F3CDC2, level = 73 },                        # Scorching Tackle
   { move = 0x518BCA26, level = 83 },                        # Fire Tornado
@@ -1750,7 +1750,7 @@ moves = [
 [[edit]]
 target = "c03036990"                                   # Anders Thettock
 moves = [
-  { move = 0xB1FBC783, level = 22 },                        # Reflect Buster
+  { move = 0xB1FBC783, level = 1 },                         # Reflect Buster
   { move = 0x4AD6453E, level = 32 },                        # Back Tornado
   { move = 0xD8851BAF, level = 55 },                        # Unicorn Boost
   { move = 0x029E7B25, level = 65 },                        # Gaia Break
@@ -1765,7 +1765,7 @@ moves = [
 [[edit]]
 target = "c03037000"                                   # Laititia Cheeseman
 moves = [
-  { move = 0x27D9B69F, level = 24 },                        # Prima Donna
+  { move = 0x27D9B69F, level = 1 },                         # Prima Donna
   { move = 0x54C4DCA3, level = 34 },                        # Butterfly Trance
   { move = 0x06130797, level = 44 },                        # Rolling Kick
   { move = 0x1D8F2331, level = 54 },                        # Yo-Yo Ball
@@ -1780,7 +1780,7 @@ moves = [
 [[edit]]
 target = "c03037010"                                   # Isodoura Bouquet
 moves = [
-  { move = 0x2C3D95DD, level = 27 },                        # Sleeping Dust
+  { move = 0x2C3D95DD, level = 1 },                         # Sleeping Dust
   { move = 0x70417B2E, level = 35 },                        # Deceptor Dribble
   { move = 0x518BCA26, level = 40 },                        # Fire Tornado
   { move = 0x039DBAAC, level = 41 },                        # Land of Ice
@@ -1795,7 +1795,7 @@ moves = [
 [[edit]]
 target = "c03037020"                                   # May Jarrett
 moves = [
-  { move = 0x520F1E48, level = 41 },                        # Psycho Shot
+  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
   { move = 0x6ADE9E01, level = 42 },                        # Illusory Ball
   { move = 0x2EBA803A, level = 49 },                        # Dirt Ball
   { move = 0x22EF6FDB, level = 54 },                        # Dark Phoenix
@@ -1813,7 +1813,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037030"                                   # Des Einer
 moves = [
-  { move = 0x73C5AF40, level = 5 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x4890FB67, level = 24 },                        # Twin Boost
   { move = 0x41F3CDC2, level = 29 },                        # Scorching Tackle
   { move = 0x029E7B25, level = 41 },                        # Gaia Break
@@ -1829,7 +1829,7 @@ moves = [
 [[edit]]
 target = "c03037040"                                   # Kev Fiyah
 moves = [
-  { move = 0x6B1CF436, level = 11 },                        # Bewildered
+  { move = 0x6B1CF436, level = 1 },                         # Bewildered
   { move = 0xAA67E325, level = 24 },                        # Desert Blast
   { move = 0x4F58F805, level = 35 },                        # Coil Turn
   { move = 0xB13A6C3D, level = 42 },                        # Zigzag Flame
@@ -1845,7 +1845,7 @@ moves = [
 [[edit]]
 target = "c03037050"                                   # Shadi Mesmer
 moves = [
-  { move = 0x5405771D, level = 15 },                        # Supreme Spin
+  { move = 0x5405771D, level = 1 },                         # Supreme Spin
   { move = 0x70417B2E, level = 33 },                        # Deceptor Dribble
   { move = 0x5643C944, level = 40 },                        # Killer Slide
   { move = 0x52CEB5F6, level = 50 },                        # Iron Wall
@@ -1879,7 +1879,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037070"                                   # Roman Fawkes
 moves = [
-  { move = 0xBE0E4AD0, level = 10 },                        # Fireball Knuckle
+  { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
   { move = 0x96A7CD7D, level = 20 },                        # Tsunami Wall
   { move = 0x88B554E0, level = 30 },                        # Galatyn
   { move = 0xC5B27C7E, level = 40 },                        # Storm Rider
@@ -1895,7 +1895,7 @@ moves = [
 [[edit]]
 target = "c03037080"                                   # Morty Portland
 moves = [
-  { move = 0x01DB04F5, level = 19 },                        # Defence Scan
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0xAA67E325, level = 29 },                        # Desert Blast
   { move = 0x52CEB5F6, level = 32 },                        # Iron Wall
   { move = 0x637C031A, level = 42 },                        # No Escape
@@ -1910,7 +1910,7 @@ moves = [
 [[edit]]
 target = "c03037090"                                   # Fabrice Pesci
 moves = [
-  { move = 0xDEB28A7B, level = 8 },                         # Monkey Turn
+  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
   { move = 0x3C843987, level = 9 },                         # Flurry Dash
   { move = 0x4E9A9232, level = 14 },                        # Spinning Cut
   { move = 0xE8F5C774, level = 30 },                        # Megalodon
@@ -1926,7 +1926,7 @@ moves = [
 [[edit]]
 target = "c03037100"                                   # Boo Spector
 moves = [
-  { move = 0x3D4653B0, level = 15 },                        # Poison Fog
+  { move = 0x3D4653B0, level = 1 },                         # Poison Fog
   { move = 0x7CACF0B0, level = 16 },                        # Horn Train
   { move = 0x34E4CEAB, level = 49 },                        # Barbarian Shield
   { move = 0x637C031A, level = 59 },                        # No Escape
@@ -1942,7 +1942,7 @@ moves = [
 [[edit]]
 target = "c03037110"                                   # Cole Tivator
 moves = [
-  { move = 0x73C5AF40, level = 12 },                        # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0xAA67E325, level = 31 },                        # Desert Blast
   { move = 0x4F58F805, level = 34 },                        # Coil Turn
   { move = 0x4D1E465C, level = 41 },                        # Fake Bomber
@@ -1958,7 +1958,7 @@ moves = [
 [[edit]]
 target = "c03037120"                                   # Blagun White
 moves = [
-  { move = 0x3D4653B0, level = 24 },                        # Poison Fog
+  { move = 0x3D4653B0, level = 1 },                         # Poison Fog
   { move = 0x6ADE9E01, level = 29 },                        # Illusory Ball
   { move = 0xB5B7108F, level = 37 },                        # Shadow Stitch
   { move = 0xA6763B84, level = 48 },                        # Gladius Arch
@@ -1973,7 +1973,7 @@ moves = [
 [[edit]]
 target = "c03037130"                                   # Jeanie Tanner
 moves = [
-  { move = 0xDF70E04C, level = 22 },                        # Rodeo Clown
+  { move = 0xDF70E04C, level = 1 },                         # Rodeo Clown
   { move = 0xC0A013E6, level = 31 },                        # Liar Shot
   { move = 0x18C035B4, level = 50 },                        # Ghost Pull
   { move = 0x2FB941B3, level = 60 },                        # Stone Prison
@@ -1988,7 +1988,7 @@ moves = [
 [[edit]]
 target = "c03037140"                                   # Monty Tasker
 moves = [
-  { move = 0x0F703132, level = 15 },                        # Black Magic
+  { move = 0x0F703132, level = 1 },                         # Black Magic
   { move = 0x73C5AF40, level = 27 },                        # Dash Accelerator
   { move = 0x4741C0E8, level = 38 },                        # Steeple Shot
   { move = 0x62BE692D, level = 43 },                        # Whirlwind Force
@@ -2004,7 +2004,7 @@ moves = [
 [[edit]]
 target = "c03037150"                                   # Artie Xan
 moves = [
-  { move = 0x18C035B4, level = 20 },                        # Ghost Pull
+  { move = 0x18C035B4, level = 1 },                         # Ghost Pull
   { move = 0x3D4653B0, level = 23 },                        # Poison Fog
   { move = 0x0455B9CE, level = 25 },                        # Run Ball Run
   { move = 0x74CC079C, level = 27 },                        # Big Fan
@@ -2019,7 +2019,7 @@ moves = [
 [[edit]]
 target = "c03037160"                                   # Genghis Cohen
 moves = [
-  { move = 0x592A96B4, level = 24 },                        # Afterimage
+  { move = 0x592A96B4, level = 1 },                         # Afterimage
   { move = 0x2B343D01, level = 28 },                        # Cyclone
   { move = 0xC19E2AEE, level = 47 },                        # Pegasus Shot
   { move = 0x41F3CDC2, level = 55 },                        # Scorching Tackle
@@ -2034,7 +2034,7 @@ moves = [
 [[edit]]
 target = "c03037170"                                   # Adam Venturus
 moves = [
-  { move = 0x53CD747F, level = 10 },                        # Tarzan Kick
+  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
   { move = 0xD8794890, level = 28 },                        # Kangaroo Kick
   { move = 0x18C035B4, level = 35 },                        # Ghost Pull
   { move = 0x2D3E5454, level = 41 },                        # Clone Shot
@@ -2052,7 +2052,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037180"                                   # Zahida Zahid
 moves = [
-  { move = 0x5B6C28ED, level = 25 },                        # Invisible Fake
+  { move = 0x5B6C28ED, level = 1 },                         # Invisible Fake
   { move = 0x73C5AF40, level = 36 },                        # Dash Accelerator
   { move = 0x087999EE, level = 41 },                        # Heel Drop
   { move = 0x1B854A64, level = 45 },                        # Cosmic Blast
@@ -2067,7 +2067,7 @@ moves = [
 [[edit]]
 target = "c03037190"                                   # Zowie Trope
 moves = [
-  { move = 0x592A96B4, level = 10 },                        # Afterimage
+  { move = 0x592A96B4, level = 1 },                         # Afterimage
   { move = 0x18C035B4, level = 17 },                        # Ghost Pull
   { move = 0xB5B7108F, level = 40 },                        # Shadow Stitch
   { move = 0x70417B2E, level = 45 },                        # Deceptor Dribble
@@ -2082,10 +2082,10 @@ moves = [
 [[edit]]
 target = "c03037200"                                   # Roland Lex
 moves = [
+  { move = 0xA4B51923, level = 1 },                         # The Typhoon
   { move = 0xAB6422AC, level = 23 },                        # Phantom Shot
   { move = 0x5F989B9E, level = 43 },                        # Wyvern Crash
   { move = 0x4031A7F5, level = 47 },                        # Mole Fake
-  { move = 0xA4B51923, level = 57 },                        # The Typhoon
 ]
 
   [[edit.cards]]
@@ -2097,7 +2097,7 @@ moves = [
 [[edit]]
 target = "c03037210"                                   # Holly Marx
 moves = [
-  { move = 0xA7157B91, level = 17 },                        # Power Shield
+  { move = 0xA7157B91, level = 1 },                         # Power Shield
   { move = 0x922AB1CF, level = 42 },                        # Safety First
   { move = 0xF309624E, level = 70 },                        # Dual Smash
   { move = 0xA01CD34D, level = 80 },                        # Temporal Wall
@@ -2112,7 +2112,7 @@ moves = [
 [[edit]]
 target = "c03037220"                                   # Springer Boreham
 moves = [
-  { move = 0x4031A7F5, level = 12 },                        # Mole Fake
+  { move = 0x4031A7F5, level = 1 },                         # Mole Fake
   { move = 0xDD365E15, level = 22 },                        # Mole Shuffle
   { move = 0x7A67325B, level = 44 },                        # Flame Dance
   { move = 0x316A7390, level = 48 },                        # Land Dragon
@@ -2127,7 +2127,7 @@ moves = [
 [[edit]]
 target = "c03037230"                                   # Kandhul Lai
 moves = [
-  { move = 0x49529150, level = 20 },                        # Snake Shot
+  { move = 0x49529150, level = 1 },                         # Snake Shot
   { move = 0x1F0836D6, level = 24 },                        # Comet Shot
   { move = 0xB27F13ED, level = 43 },                        # Death Zone
   { move = 0x5643C944, level = 50 },                        # Killer Slide
@@ -2143,7 +2143,7 @@ moves = [
 [[edit]]
 target = "c03037240"                                   # Kit Fischer
 moves = [
-  { move = 0x2FB941B3, level = 21 },                        # Stone Prison
+  { move = 0x2FB941B3, level = 1 },                         # Stone Prison
   { move = 0xB1FBC783, level = 35 },                        # Reflect Buster
   { move = 0x73C5AF40, level = 45 },                        # Dash Accelerator
   { move = 0x50880BAF, level = 58 },                        # Frozen Steal
@@ -2158,7 +2158,7 @@ moves = [
 [[edit]]
 target = "c03037250"                                   # Becks Binder
 moves = [
-  { move = 0x3D4653B0, level = 10 },                        # Poison Fog
+  { move = 0x3D4653B0, level = 1 },                         # Poison Fog
   { move = 0x514A6198, level = 30 },                        # Asteroid Belt
   { move = 0x2296A01A, level = 62 },                        # Southern Cross
   { move = 0x6ADE9E01, level = 72 },                        # Illusory Ball
@@ -2174,7 +2174,7 @@ moves = [
 [[edit]]
 target = "c03037260"                                   # Ralph Chasing
 moves = [
-  { move = 0xAB6422AC, level = 35 },                        # Phantom Shot
+  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
   { move = 0xA7B451B3, level = 36 },                        # Paladin Strike
   { move = 0x22EF6FDB, level = 57 },                        # Dark Phoenix
   { move = 0x029E7B25, level = 67 },                        # Gaia Break
@@ -2189,7 +2189,7 @@ moves = [
 [[edit]]
 target = "c03037270"                                   # Phil Debonair
 moves = [
-  { move = 0x73C5AF40, level = 8 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x142DBE2A, level = 30 },                        # Foul Offence
   { move = 0xE8F5C774, level = 51 },                        # Megalodon
   { move = 0xC42D6F54, level = 61 },                        # Aikido
@@ -2204,10 +2204,10 @@ moves = [
 [[edit]]
 target = "c03037280"                                   # Si Sosman
 moves = [
-  { move = 0xBFCC20E7, level = 9 },                         # Wood Chopper
+  { move = 0xBFCC20E7, level = 1 },                         # Wood Chopper
+  { move = 0xC636A810, level = 16 },                        # Combustion Catch
   { move = 0x5E7E4775, level = 25 },                        # Table-Turner
   { move = 0xF64674CB, level = 54 },                        # Fist of Justice
-  { move = 0xC636A810, level = 64 },                        # Combustion Catch
 ]
 VRFW.MoveGrades = [
   { Move = 0xBFCC20E7, Grade = 2 },                         # Wood Chopper
@@ -2222,10 +2222,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037290"                                   # Aaron Gossamer
 moves = [
+  { move = 0x58B5859E, level = 1 },                         # Whip Crack
+  { move = 0xF400CA92, level = 21 },                        # Anchors Aweigh
+  { move = 0x41AEB4DF, level = 32 },                        # Crystal Barrier
   { move = 0xDCA94D3F, level = 38 },                        # Flash Upper
-  { move = 0x58B5859E, level = 48 },                        # Whip Crack
-  { move = 0xF400CA92, level = 58 },                        # Anchors Aweigh
-  { move = 0x41AEB4DF, level = 68 },                        # Crystal Barrier
 ]
 
   [[edit.cards]]
@@ -2237,7 +2237,7 @@ moves = [
 [[edit]]
 target = "c03037300"                                   # Pomponius Fanfair
 moves = [
-  { move = 0x0455B9CE, level = 6 },                         # Run Ball Run
+  { move = 0x0455B9CE, level = 1 },                         # Run Ball Run
   { move = 0x68982058, level = 41 },                        # Armadillo Circus
   { move = 0x09BBF3D9, level = 45 },                        # Dark Whirlwind
   { move = 0xD9BB22A7, level = 55 },                        # Air Ride
@@ -2255,7 +2255,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037310"                                   # Fanella Waftgood
 moves = [
-  { move = 0x15EFD41D, level = 9 },                         # Dual Pass
+  { move = 0x15EFD41D, level = 1 },                         # Dual Pass
   { move = 0x2F78EA0D, level = 33 },                        # Triangle Z
   { move = 0x514A6198, level = 45 },                        # Asteroid Belt
   { move = 0x6ADE9E01, level = 55 },                        # Illusory Ball
@@ -2270,7 +2270,7 @@ moves = [
 [[edit]]
 target = "c03037320"                                   # Irina Swift
 moves = [
-  { move = 0x332CCDC9, level = 9 },                         # Heel Kick
+  { move = 0x332CCDC9, level = 1 },                         # Heel Kick
   { move = 0x0CF4E55C, level = 12 },                        # Double Touch
   { move = 0xB4757AB8, level = 38 },                        # Divine Stamp
   { move = 0x592A96B4, level = 48 },                        # Afterimage
@@ -2289,7 +2289,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037330"                                   # Rick Shaw
 moves = [
-  { move = 0x259F08C6, level = 14 },                        # Whirlwind Twister
+  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
   { move = 0x7EEA4EE9, level = 15 },                        # Blade Attack
   { move = 0x4E5B398C, level = 17 },                        # Acrobat Bomber
   { move = 0x5AAE42DA, level = 47 },                        # Triple Dash
@@ -2305,7 +2305,7 @@ moves = [
 [[edit]]
 target = "c03037340"                                   # Montaine Skalin
 moves = [
-  { move = 0x518BCA26, level = 26 },                        # Fire Tornado
+  { move = 0x518BCA26, level = 1 },                         # Fire Tornado
   { move = 0xB4B4D106, level = 39 },                        # Dragon Cannon
   { move = 0x261BDCA8, level = 41 },                        # Moonsault
   { move = 0x485150D9, level = 57 },                        # Body Shield
@@ -2320,7 +2320,7 @@ moves = [
 [[edit]]
 target = "c03037350"                                   # Meowlinda Purrsival
 moves = [
-  { move = 0x0F703132, level = 13 },                        # Black Magic
+  { move = 0x0F703132, level = 1 },                         # Black Magic
   { move = 0x087999EE, level = 25 },                        # Heel Drop
   { move = 0x3B8D915B, level = 29 },                        # Meteor Shower
   { move = 0x06D2AC29, level = 58 },                        # Diabolical Cut
@@ -2335,7 +2335,7 @@ moves = [
 [[edit]]
 target = "c03037360"                                   # Rune Sigilsson
 moves = [
-  { move = 0x18019E0A, level = 32 },                        # Double Grenade
+  { move = 0x18019E0A, level = 1 },                         # Double Grenade
   { move = 0x3D4653B0, level = 35 },                        # Poison Fog
   { move = 0x3B8D915B, level = 47 },                        # Meteor Shower
   { move = 0x35E70F22, level = 51 },                        # Grenade Shot
@@ -2351,7 +2351,7 @@ moves = [
 [[edit]]
 target = "c03037370"                                   # Onslow Mastick
 moves = [
-  { move = 0x3EC287DE, level = 15 },                        # Bubble Gum
+  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
   { move = 0x53CD747F, level = 19 },                        # Tarzan Kick
   { move = 0xB3BD79DA, level = 22 },                        # Patriot Shot
   { move = 0x1A472053, level = 49 },                        # Double Wrath Shot
@@ -2366,7 +2366,7 @@ moves = [
 [[edit]]
 target = "c03037380"                                   # Blowie Armstraw
 moves = [
-  { move = 0x7EEA4EE9, level = 14 },                        # Blade Attack
+  { move = 0x7EEA4EE9, level = 1 },                         # Blade Attack
   { move = 0x4AD6453E, level = 34 },                        # Back Tornado
   { move = 0xAAA6489B, level = 37 },                        # Spiral Shot
   { move = 0x4BD584B7, level = 60 },                        # Power Charge
@@ -2381,7 +2381,7 @@ moves = [
 [[edit]]
 target = "c03037390"                                   # Paddy Filler
 moves = [
-  { move = 0x4F58F805, level = 12 },                        # Coil Turn
+  { move = 0x4F58F805, level = 1 },                         # Coil Turn
   { move = 0x3B8D915B, level = 25 },                        # Meteor Shower
   { move = 0xB5B7108F, level = 34 },                        # Shadow Stitch
   { move = 0x316A7390, level = 47 },                        # Land Dragon
@@ -2397,7 +2397,7 @@ moves = [
 [[edit]]
 target = "c03037400"                                   # Avid Peddler
 moves = [
-  { move = 0x0CF4E55C, level = 11 },                        # Double Touch
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
   { move = 0x2EBA803A, level = 12 },                        # Dirt Ball
   { move = 0xD8794890, level = 33 },                        # Kangaroo Kick
   { move = 0x97C48D68, level = 46 },                        # Astro Gate
@@ -2412,7 +2412,7 @@ moves = [
 [[edit]]
 target = "c03037410"                                   # Woody Prince
 moves = [
-  { move = 0x4F58F805, level = 12 },                        # Coil Turn
+  { move = 0x4F58F805, level = 1 },                         # Coil Turn
   { move = 0x520F1E48, level = 48 },                        # Psycho Shot
   { move = 0x33ED6677, level = 51 },                        # Doppelganger
   { move = 0x7DAF3139, level = 54 },                        # Emperor Penguin No. 2
@@ -2427,7 +2427,7 @@ moves = [
 [[edit]]
 target = "c03037420"                                   # Demerara Kane
 moves = [
-  { move = 0x5506B694, level = 9 },                         # Utter Gutsiness Club
+  { move = 0x5506B694, level = 1 },                         # Utter Gutsiness Club
   { move = 0xDD365E15, level = 31 },                        # Mole Shuffle
   { move = 0x79224D8B, level = 34 },                        # Freeze Shot
   { move = 0x2BF596BF, level = 61 },                        # Tsunami Boost
@@ -2443,7 +2443,7 @@ moves = [
 [[edit]]
 target = "c03037430"                                   # Tiny Jetson
 moves = [
-  { move = 0x18C035B4, level = 34 },                        # Ghost Pull
+  { move = 0x18C035B4, level = 1 },                         # Ghost Pull
   { move = 0x5AAE42DA, level = 40 },                        # Triple Dash
   { move = 0x53CD747F, level = 42 },                        # Tarzan Kick
   { move = 0x2EBA803A, level = 54 },                        # Dirt Ball
@@ -2459,7 +2459,7 @@ moves = [
 [[edit]]
 target = "c03037440"                                   # Joe Java
 moves = [
-  { move = 0x695A4A6F, level = 10 },                        # Magic
+  { move = 0x695A4A6F, level = 1 },                         # Magic
   { move = 0x4D1E465C, level = 33 },                        # Fake Bomber
   { move = 0xB13A6C3D, level = 40 },                        # Zigzag Flame
   { move = 0x38094535, level = 63 },                        # Sub-Terfuge
@@ -2477,7 +2477,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037450"                                   # Wulf Blackbean
 moves = [
-  { move = 0xB13A6C3D, level = 12 },                        # Zigzag Flame
+  { move = 0xB13A6C3D, level = 1 },                         # Zigzag Flame
   { move = 0x2EBA803A, level = 22 },                        # Dirt Ball
   { move = 0x3C843987, level = 32 },                        # Flurry Dash
   { move = 0x5E233E68, level = 50 },                        # Super Elastico
@@ -2492,7 +2492,7 @@ moves = [
 [[edit]]
 target = "c03037460"                                   # Neville Boyle
 moves = [
-  { move = 0x1ECA5CE1, level = 5 },                         # Wrath Shot
+  { move = 0x1ECA5CE1, level = 1 },                         # Wrath Shot
   { move = 0x0CF4E55C, level = 7 },                         # Double Touch
   { move = 0xA5777314, level = 35 },                        # Assault Shot
   { move = 0xAFE95E1E, level = 60 },                        # Inazuma-1 Drop
@@ -2511,7 +2511,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037470"                                   # Ameen Abel
 moves = [
-  { move = 0x33ED6677, level = 17 },                        # Doppelganger
+  { move = 0x33ED6677, level = 1 },                         # Doppelganger
   { move = 0x0CF4E55C, level = 18 },                        # Double Touch
   { move = 0x3EC287DE, level = 25 },                        # Bubble Gum
   { move = 0x1162A8AF, level = 51 },                        # Bewilder Blast
@@ -2527,7 +2527,7 @@ moves = [
 [[edit]]
 target = "c03037480"                                   # Bombasta Flamboyanzi
 moves = [
-  { move = 0x41F3CDC2, level = 28 },                        # Scorching Tackle
+  { move = 0x41F3CDC2, level = 1 },                         # Scorching Tackle
   { move = 0xB13A6C3D, level = 45 },                        # Zigzag Flame
   { move = 0x13D845C9, level = 69 },                        # Samba Strike
   { move = 0x3B8D915B, level = 79 },                        # Meteor Shower
@@ -2543,10 +2543,10 @@ moves = [
 [[edit]]
 target = "c03037490"                                   # Fada Prendi
 moves = [
+  { move = 0xDF8CB373, level = 1 },                         # Sonic Shot
   { move = 0xB633C4E1, level = 14 },                        # Photon Crash
   { move = 0x4C1D87D5, level = 16 },                        # Bed of Roses
   { move = 0x47380F29, level = 39 },                        # Echo Ball
-  { move = 0xDF8CB373, level = 49 },                        # Sonic Shot
 ]
 
   [[edit.cards]]
@@ -2558,7 +2558,7 @@ moves = [
 [[edit]]
 target = "c03037500"                                   # Bella Baker
 moves = [
-  { move = 0x10A0C298, level = 12 },                        # Warp Drive
+  { move = 0x10A0C298, level = 1 },                         # Warp Drive
   { move = 0x35E70F22, level = 22 },                        # Grenade Shot
   { move = 0xAA67E325, level = 34 },                        # Desert Blast
   { move = 0x5FE1545F, level = 49 },                        # Flame Veil
@@ -2573,7 +2573,7 @@ moves = [
 [[edit]]
 target = "c03037510"                                   # Olivia Palme
 moves = [
-  { move = 0xDEB28A7B, level = 32 },                        # Monkey Turn
+  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
   { move = 0x7CACF0B0, level = 35 },                        # Horn Train
   { move = 0x18C035B4, level = 38 },                        # Ghost Pull
   { move = 0x31ABD82E, level = 48 },                        # Circus Block
@@ -2588,10 +2588,10 @@ moves = [
 [[edit]]
 target = "c03037520"                                   # Gustav Weathervane
 moves = [
+  { move = 0x62BE692D, level = 1 },                         # Whirlwind Force
   { move = 0xB7F1AED6, level = 32 },                        # Double Cyclone
   { move = 0x3F00EDE9, level = 40 },                        # Dash Storm
   { move = 0x2354CA2D, level = 50 },                        # Wind God's Dance
-  { move = 0x62BE692D, level = 60 },                        # Whirlwind Force
 ]
 VRFW.MoveGrades = [
   { Move = 0xB7F1AED6, Grade = 1 },                         # Double Cyclone
@@ -2607,10 +2607,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037530"                                   # Grover Noggin
 moves = [
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0x15EFD41D, level = 30 },                        # Dual Pass
   { move = 0xB27F13ED, level = 40 },                        # Death Zone
   { move = 0xB37CD264, level = 52 },                        # Am-Bush
-  { move = 0x6ADE9E01, level = 62 },                        # Illusory Ball
 ]
 VRFW.MoveGrades = [
   { Move = 0x15EFD41D, Grade = 1 },                         # Dual Pass
@@ -2626,7 +2626,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037540"                                   # Blazer Firefoot
 moves = [
-  { move = 0x47657634, level = 12 },                        # Flame Breath
+  { move = 0x47657634, level = 1 },                         # Flame Breath
   { move = 0xEF5D458A, level = 55 },                        # Burnout
   { move = 0x9765A74A, level = 65 },                        # Beast Fang
   { move = 0x5B3151F0, level = 75 },                        # Nitro Slap
@@ -2644,7 +2644,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037550"                                   # Adam Montayne
 moves = [
-  { move = 0x029E7B25, level = 27 },                        # Gaia Break
+  { move = 0x029E7B25, level = 1 },                         # Gaia Break
   { move = 0xDD365E15, level = 32 },                        # Mole Shuffle
   { move = 0xA8215D7C, level = 60 },                        # The Mountain
   { move = 0xD8794890, level = 70 },                        # Kangaroo Kick
@@ -2663,10 +2663,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037560"                                   # Chauncey Slinka
 moves = [
-  { move = 0x4D1E465C, level = 8 },                         # Fake Bomber
+  { move = 0x4D1E465C, level = 1 },                         # Fake Bomber
+  { move = 0x2A4E3349, level = 12 },                        # Heart Beat
   { move = 0x3B8D915B, level = 31 },                        # Meteor Shower
   { move = 0x65766A4F, level = 59 },                        # Meteor Blade
-  { move = 0x2A4E3349, level = 69 },                        # Heart Beat
 ]
 VRFW.MoveGrades = [
   { Move = 0x4D1E465C, Grade = 2 },                         # Fake Bomber
@@ -2682,7 +2682,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037570"                                   # Leighton Bolt
 moves = [
-  { move = 0x6C6C932B, level = 23 },                        # Megaton Head
+  { move = 0x6C6C932B, level = 1 },                         # Megaton Head
   { move = 0x5E233E68, level = 51 },                        # Super Elastico
   { move = 0xDD365E15, level = 56 },                        # Mole Shuffle
   { move = 0x0D368F6B, level = 66 },                        # Heaven's Time
@@ -2700,7 +2700,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037580"                                   # Lucien Thrope
 moves = [
-  { move = 0xC2BBD4A2, level = 13 },                        # Wild Claw
+  { move = 0xC2BBD4A2, level = 1 },                         # Wild Claw
   { move = 0x9765A74A, level = 38 },                        # Beast Fang
   { move = 0xA7157B91, level = 48 },                        # Power Shield
   { move = 0xA6D711A6, level = 58 },                        # Full Power Shield
@@ -2715,7 +2715,7 @@ moves = [
 [[edit]]
 target = "c03037590"                                   # Lenton Gouger
 moves = [
-  { move = 0x2B343D01, level = 27 },                        # Cyclone
+  { move = 0x2B343D01, level = 1 },                         # Cyclone
   { move = 0x10A0C298, level = 32 },                        # Warp Drive
   { move = 0x33ED6677, level = 37 },                        # Doppelganger
   { move = 0x06D2AC29, level = 58 },                        # Diabolical Cut
@@ -2730,7 +2730,7 @@ moves = [
 [[edit]]
 target = "c03037600"                                   # Titania Khamun
 moves = [
-  { move = 0x73C5AF40, level = 6 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x33ED6677, level = 33 },                        # Doppelganger
   { move = 0x637C031A, level = 47 },                        # No Escape
   { move = 0x70417B2E, level = 57 },                        # Deceptor Dribble
@@ -2745,7 +2745,7 @@ moves = [
 [[edit]]
 target = "c03037610"                                   # Eveline Veitch
 moves = [
-  { move = 0xB633C4E1, level = 30 },                        # Photon Crash
+  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
   { move = 0x1D4E888F, level = 34 },                        # Condor Dive
   { move = 0x695A4A6F, level = 48 },                        # Magic
   { move = 0x7207C577, level = 60 },                        # Boost Glider
@@ -2760,7 +2760,7 @@ moves = [
 [[edit]]
 target = "c03037620"                                   # Eldritch Priest
 moves = [
-  { move = 0x5C38F92C, level = 6 },                         # Mistral
+  { move = 0x5C38F92C, level = 1 },                         # Mistral
   { move = 0x46A71C03, level = 16 },                        # Black Hole
   { move = 0xEE9F2FBD, level = 26 },                        # God Catch
   { move = 0xDCA94D3F, level = 36 },                        # Flash Upper
@@ -2775,7 +2775,7 @@ moves = [
 [[edit]]
 target = "c03037630"                                   # Gene Bulge
 moves = [
-  { move = 0x520F1E48, level = 13 },                        # Psycho Shot
+  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
   { move = 0x3B8D915B, level = 31 },                        # Meteor Shower
   { move = 0x79E3E635, level = 33 },                        # Racing Flame
   { move = 0x2A37FC88, level = 45 },                        # Revolution V
@@ -2791,7 +2791,7 @@ moves = [
 [[edit]]
 target = "c03037640"                                   # Candy Reviva
 moves = [
-  { move = 0x4D1E465C, level = 12 },                        # Fake Bomber
+  { move = 0x4D1E465C, level = 1 },                         # Fake Bomber
   { move = 0xC7A9BB3A, level = 22 },                        # Whirlwind Cut
   { move = 0xDCF43422, level = 47 },                        # Aurora Dribble
   { move = 0x514A6198, level = 57 },                        # Asteroid Belt
@@ -2806,7 +2806,7 @@ moves = [
 [[edit]]
 target = "c03037650"                                   # Pacey Mack
 moves = [
-  { move = 0xF14FDC17, level = 8 },                         # Shot Pocket
+  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
   { move = 0x8B31808E, level = 28 },                        # Wormhole
   { move = 0xB907E20C, level = 42 },                        # Procyon Net
   { move = 0x93E8DBF8, level = 52 },                        # Dimensional Hand
@@ -2821,7 +2821,7 @@ moves = [
 [[edit]]
 target = "c03037660"                                   # Anil Latikal
 moves = [
-  { move = 0x18C035B4, level = 35 },                        # Ghost Pull
+  { move = 0x18C035B4, level = 1 },                         # Ghost Pull
   { move = 0x1ECA5CE1, level = 36 },                        # Wrath Shot
   { move = 0x7EEA4EE9, level = 40 },                        # Blade Attack
   { move = 0x520F1E48, level = 54 },                        # Psycho Shot
@@ -2837,10 +2837,10 @@ moves = [
 [[edit]]
 target = "c03037670"                                   # Indy Ferrante
 moves = [
-  { move = 0x2E7B2B84, level = 6 },                         # Thief's Eye
-  { move = 0x0CF4E55C, level = 16 },                        # Double Touch
-  { move = 0xED7B7A4F, level = 26 },                        # Defence Equation
-  { move = 0x1F7F73BA, level = 36 },                        # Bicycle Slash
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
+  { move = 0xB633C4E1, level = 22 },                        # Photon Crash
+  { move = 0x0597D3F9, level = 35 },                        # Dragon Tornado
+  { move = 0x41F3CDC2, level = 39 },                        # Scorching Tackle
 ]
 
   [[edit.cards]]
@@ -2852,7 +2852,7 @@ moves = [
 [[edit]]
 target = "c03037680"                                   # Stan Tistischen
 moves = [
-  { move = 0x4031A7F5, level = 35 },                        # Mole Fake
+  { move = 0x4031A7F5, level = 1 },                         # Mole Fake
   { move = 0x0710C61E, level = 39 },                        # Perimeter Zone
   { move = 0x19025F83, level = 40 },                        # Quick Draw
   { move = 0x4DDFEDE2, level = 45 },                        # Eagle Buster
@@ -2867,7 +2867,7 @@ moves = [
 [[edit]]
 target = "c03037690"                                   # Simon Borg
 moves = [
-  { move = 0x01DB04F5, level = 11 },                        # Defence Scan
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0xB633C4E1, level = 15 },                        # Photon Crash
   { move = 0xC42D6F54, level = 25 },                        # Aikido
   { move = 0x04941270, level = 35 },                        # Vac Attack
@@ -2882,7 +2882,7 @@ moves = [
 [[edit]]
 target = "c03037700"                                   # Clark Phylen
 moves = [
-  { move = 0x01DB04F5, level = 7 },                         # Defence Scan
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0x34256515, level = 23 },                        # Dynamite Shot
   { move = 0x4031A7F5, level = 33 },                        # Mole Fake
   { move = 0x1B854A64, level = 43 },                        # Cosmic Blast
@@ -2897,7 +2897,7 @@ moves = [
 [[edit]]
 target = "c03037710"                                   # Gram Vineela
 moves = [
-  { move = 0x49529150, level = 11 },                        # Snake Shot
+  { move = 0x49529150, level = 1 },                         # Snake Shot
   { move = 0x4031A7F5, level = 36 },                        # Mole Fake
   { move = 0x1B854A64, level = 37 },                        # Cosmic Blast
   { move = 0x1D8F2331, level = 50 },                        # Yo-Yo Ball
@@ -2916,7 +2916,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037720"                                   # Yasser Rightaway
 moves = [
-  { move = 0xA553C5C8, level = 19 },                        # Clone Block
+  { move = 0xA553C5C8, level = 1 },                         # Clone Block
   { move = 0x5B3151F0, level = 33 },                        # Nitro Slap
   { move = 0xBFCC20E7, level = 37 },                        # Wood Chopper
   { move = 0xF64674CB, level = 47 },                        # Fist of Justice
@@ -2932,7 +2932,7 @@ moves = [
 [[edit]]
 target = "c03037730"                                   # Adora Shivers
 moves = [
-  { move = 0x4B142F09, level = 10 },                        # Teleport Shot
+  { move = 0x4B142F09, level = 1 },                         # Teleport Shot
   { move = 0x7EEA4EE9, level = 18 },                        # Blade Attack
   { move = 0x70417B2E, level = 30 },                        # Deceptor Dribble
   { move = 0x5E5AF1A9, level = 52 },                        # Northern Impact
@@ -2948,7 +2948,7 @@ moves = [
 [[edit]]
 target = "c03037740"                                   # Roland Allardyce
 moves = [
-  { move = 0x4031A7F5, level = 22 },                        # Mole Fake
+  { move = 0x4031A7F5, level = 1 },                         # Mole Fake
   { move = 0x1162A8AF, level = 38 },                        # Bewilder Blast
   { move = 0xB4B4D106, level = 39 },                        # Dragon Cannon
   { move = 0x518BCA26, level = 55 },                        # Fire Tornado
@@ -2963,7 +2963,7 @@ moves = [
 [[edit]]
 target = "c03037750"                                   # Lacy Cagney
 moves = [
-  { move = 0x2C3D95DD, level = 20 },                        # Sleeping Dust
+  { move = 0x2C3D95DD, level = 1 },                         # Sleeping Dust
   { move = 0x70417B2E, level = 24 },                        # Deceptor Dribble
   { move = 0x0710C61E, level = 44 },                        # Perimeter Zone
   { move = 0x74B5C85D, level = 48 },                        # Security Shot
@@ -2981,7 +2981,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037760"                                   # Justice Gavel
 moves = [
-  { move = 0x4F58F805, level = 14 },                        # Coil Turn
+  { move = 0x4F58F805, level = 1 },                         # Coil Turn
   { move = 0x3B8D915B, level = 41 },                        # Meteor Shower
   { move = 0xB4757AB8, level = 43 },                        # Divine Stamp
   { move = 0x74B5C85D, level = 48 },                        # Security Shot
@@ -2996,10 +2996,10 @@ moves = [
 [[edit]]
 target = "c03037770"                                   # Raleigh Greenstreet
 moves = [
+  { move = 0xDF8CB373, level = 1 },                         # Sonic Shot
   { move = 0x4890FB67, level = 41 },                        # Twin Boost
   { move = 0x28B0E96F, level = 43 },                        # Heavy Mettle
   { move = 0x34256515, level = 50 },                        # Dynamite Shot
-  { move = 0xDF8CB373, level = 60 },                        # Sonic Shot
 ]
 
   [[edit.cards]]
@@ -3011,7 +3011,7 @@ moves = [
 [[edit]]
 target = "c03037780"                                   # Melody Toontune
 moves = [
-  { move = 0x33ED6677, level = 14 },                        # Doppelganger
+  { move = 0x33ED6677, level = 1 },                         # Doppelganger
   { move = 0x0CF4E55C, level = 27 },                        # Double Touch
   { move = 0x7FE98F60, level = 29 },                        # Ganymede Ray
   { move = 0xA6763B84, level = 49 },                        # Gladius Arch
@@ -3026,10 +3026,10 @@ moves = [
 [[edit]]
 target = "c03037790"                                   # Zip Windrush
 moves = [
+  { move = 0xDF8CB373, level = 1 },                         # Sonic Shot
+  { move = 0xA9E3374B, level = 24 },                        # Cyclone Sprint
   { move = 0x5E233E68, level = 28 },                        # Super Elastico
   { move = 0x8D5B6847, level = 42 },                        # Odin Sword
-  { move = 0xDF8CB373, level = 52 },                        # Sonic Shot
-  { move = 0xA9E3374B, level = 62 },                        # Cyclone Sprint
 ]
 
   [[edit.cards]]
@@ -3041,7 +3041,7 @@ moves = [
 [[edit]]
 target = "c03037800"                                   # Buster Lungs
 moves = [
-  { move = 0x5643C944, level = 30 },                        # Killer Slide
+  { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0x2BF596BF, level = 35 },                        # Tsunami Boost
   { move = 0x1ECA5CE1, level = 37 },                        # Wrath Shot
   { move = 0x3069B219, level = 47 },                        # Super Sumo Stomp
@@ -3057,7 +3057,7 @@ moves = [
 [[edit]]
 target = "c03037810"                                   # Stanza Verse
 moves = [
-  { move = 0x01DB04F5, level = 11 },                        # Defence Scan
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0x4C1D87D5, level = 18 },                        # Bed of Roses
   { move = 0x54C4DCA3, level = 45 },                        # Butterfly Trance
   { move = 0x7EEA4EE9, level = 48 },                        # Blade Attack
@@ -3076,7 +3076,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037820"                                   # Dextra Gleeson
 moves = [
-  { move = 0x2CFC3E63, level = 18 },                        # Dragon Crash
+  { move = 0x2CFC3E63, level = 1 },                         # Dragon Crash
   { move = 0x4F58F805, level = 22 },                        # Coil Turn
   { move = 0x2FB941B3, level = 49 },                        # Stone Prison
   { move = 0x4CDC2C6B, level = 55 },                        # Shooting Star
@@ -3095,7 +3095,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037830"                                   # Aidull Wanabi
 moves = [
-  { move = 0x66F2BE21, level = 18 },                        # Leaping Thunder
+  { move = 0x66F2BE21, level = 1 },                         # Leaping Thunder
   { move = 0x6ADE9E01, level = 24 },                        # Illusory Ball
   { move = 0x65766A4F, level = 54 },                        # Meteor Blade
   { move = 0x592A96B4, level = 64 },                        # Afterimage
@@ -3111,7 +3111,7 @@ moves = [
 [[edit]]
 target = "c03037840"                                   # Earle Humble
 moves = [
-  { move = 0x4C1D87D5, level = 18 },                        # Bed of Roses
+  { move = 0x4C1D87D5, level = 1 },                         # Bed of Roses
   { move = 0xB633C4E1, level = 33 },                        # Photon Crash
   { move = 0x41F3CDC2, level = 45 },                        # Scorching Tackle
   { move = 0x750E6DAB, level = 55 },                        # Matador Feint
@@ -3127,7 +3127,7 @@ moves = [
 [[edit]]
 target = "c03037850"                                   # Rich Fowler
 moves = [
-  { move = 0xD824318D, level = 18 },                        # Swan Dive
+  { move = 0xD824318D, level = 1 },                         # Swan Dive
   { move = 0x5E7E4775, level = 39 },                        # Table-Turner
   { move = 0xEA12530F, level = 51 },                        # Double Rocket
   { move = 0xBA833662, level = 61 },                        # Million Hands
@@ -3143,7 +3143,7 @@ moves = [
 [[edit]]
 target = "c03037860"                                   # Rio Shoring
 moves = [
-  { move = 0xC7A9BB3A, level = 14 },                        # Whirlwind Cut
+  { move = 0xC7A9BB3A, level = 1 },                         # Whirlwind Cut
   { move = 0x520F1E48, level = 30 },                        # Psycho Shot
   { move = 0x6633159F, level = 49 },                        # Gravitation
   { move = 0xC42D6F54, level = 59 },                        # Aikido
@@ -3159,7 +3159,7 @@ moves = [
 [[edit]]
 target = "c03037870"                                   # Joy Seeker
 moves = [
-  { move = 0x5049A011, level = 16 },                        # Spinning Shot
+  { move = 0x5049A011, level = 1 },                         # Spinning Shot
   { move = 0x27D9B69F, level = 29 },                        # Prima Donna
   { move = 0x7C6D5B0E, level = 35 },                        # Astro Break
   { move = 0x21127474, level = 45 },                        # Ultra Moon
@@ -3174,7 +3174,7 @@ moves = [
 [[edit]]
 target = "c03037880"                                   # Haydn Woe
 moves = [
-  { move = 0x5643C944, level = 11 },                        # Killer Slide
+  { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0x0F703132, level = 22 },                        # Black Magic
   { move = 0x18C035B4, level = 24 },                        # Ghost Pull
   { move = 0x49529150, level = 49 },                        # Snake Shot
@@ -3189,7 +3189,7 @@ moves = [
 [[edit]]
 target = "c03037890"                                   # Levi Atherton
 moves = [
-  { move = 0x4E5B398C, level = 21 },                        # Acrobat Bomber
+  { move = 0x4E5B398C, level = 1 },                         # Acrobat Bomber
   { move = 0x4CDC2C6B, level = 47 },                        # Shooting Star
   { move = 0x4BD584B7, level = 49 },                        # Power Charge
   { move = 0xE8F5C774, level = 50 },                        # Megalodon
@@ -3205,7 +3205,7 @@ moves = [
 [[edit]]
 target = "c03037900"                                   # Flick Screening
 moves = [
-  { move = 0x039DBAAC, level = 8 },                         # Land of Ice
+  { move = 0x039DBAAC, level = 1 },                         # Land of Ice
   { move = 0x1F0836D6, level = 13 },                        # Comet Shot
   { move = 0x261BDCA8, level = 28 },                        # Moonsault
   { move = 0x50880BAF, level = 47 },                        # Frozen Steal
@@ -3221,7 +3221,7 @@ moves = [
 [[edit]]
 target = "c03037910"                                   # Buff Bagenal
 moves = [
-  { move = 0x695A4A6F, level = 15 },                        # Magic
+  { move = 0x695A4A6F, level = 1 },                         # Magic
   { move = 0x5405771D, level = 17 },                        # Supreme Spin
   { move = 0x6B1CF436, level = 30 },                        # Bewildered
   { move = 0x1D8F2331, level = 50 },                        # Yo-Yo Ball
@@ -3236,7 +3236,7 @@ moves = [
 [[edit]]
 target = "c03037920"                                   # Mariah Knowles
 moves = [
-  { move = 0x1ECA5CE1, level = 27 },                        # Wrath Shot
+  { move = 0x1ECA5CE1, level = 1 },                         # Wrath Shot
   { move = 0x4F58F805, level = 54 },                        # Coil Turn
   { move = 0xB4B4D106, level = 57 },                        # Dragon Cannon
   { move = 0xA4B51923, level = 67 },                        # The Typhoon
@@ -3255,7 +3255,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03037930"                                   # Phil Harmonic
 moves = [
-  { move = 0x2CFC3E63, level = 17 },                        # Dragon Crash
+  { move = 0x2CFC3E63, level = 1 },                         # Dragon Crash
   { move = 0x3EC287DE, level = 23 },                        # Bubble Gum
   { move = 0x33ED6677, level = 27 },                        # Doppelganger
   { move = 0x1A472053, level = 33 },                        # Double Wrath Shot
@@ -3271,7 +3271,7 @@ moves = [
 [[edit]]
 target = "c03037940"                                   # Ghoulian Haunter
 moves = [
-  { move = 0x70417B2E, level = 8 },                         # Deceptor Dribble
+  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
   { move = 0x520F1E48, level = 11 },                        # Psycho Shot
   { move = 0x28B0E96F, level = 33 },                        # Heavy Mettle
   { move = 0x121A2FFE, level = 38 },                        # Mirage Shot
@@ -3286,7 +3286,7 @@ moves = [
 [[edit]]
 target = "c03037950"                                   # Jacko Lenton
 moves = [
-  { move = 0x4031A7F5, level = 9 },                         # Mole Fake
+  { move = 0x4031A7F5, level = 1 },                         # Mole Fake
   { move = 0x520F1E48, level = 14 },                        # Psycho Shot
   { move = 0x2EBA803A, level = 40 },                        # Dirt Ball
   { move = 0x06D2AC29, level = 55 },                        # Diabolical Cut
@@ -3302,7 +3302,7 @@ moves = [
 [[edit]]
 target = "c03037960"                                   # Dee Tarrant
 moves = [
-  { move = 0xDCA94D3F, level = 14 },                        # Flash Upper
+  { move = 0xDCA94D3F, level = 1 },                         # Flash Upper
   { move = 0x94E17324, level = 23 },                        # Tornado Catch
   { move = 0xDBA0E5E3, level = 60 },                        # Gigant Wall
   { move = 0xB8C5883B, level = 70 },                        # God Hand X
@@ -3318,7 +3318,7 @@ moves = [
 [[edit]]
 target = "c03037970"                                   # Lee Bartarian
 moves = [
-  { move = 0x17A96A44, level = 21 },                        # Clone Faker
+  { move = 0x17A96A44, level = 1 },                         # Clone Faker
   { move = 0x2B343D01, level = 32 },                        # Cyclone
   { move = 0x61FB16FD, level = 53 },                        # Divine Arrows
   { move = 0xC5EF0563, level = 63 },                        # Three-Legged Rush
@@ -3333,10 +3333,10 @@ moves = [
 [[edit]]
 target = "c03037980"                                   # Amir Rika
 moves = [
-  { move = 0x3EC287DE, level = 5 },                         # Bubble Gum
-  { move = 0x13D845C9, level = 19 },                        # Samba Strike
-  { move = 0xA23AEC88, level = 33 },                        # Copy Cut
-  { move = 0x4FE09C7A, level = 41 },                        # Acrobatic Keep
+  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
+  { move = 0x4F58F805, level = 35 },                        # Coil Turn
+  { move = 0x4AD6453E, level = 44 },                        # Back Tornado
+  { move = 0x750E6DAB, level = 55 },                        # Matador Feint
 ]
 
   [[edit.cards]]
@@ -3348,7 +3348,7 @@ moves = [
 [[edit]]
 target = "c03037990"                                   # Ewan Envoi
 moves = [
-  { move = 0x627FC293, level = 7 },                         # Meteor Attack
+  { move = 0x627FC293, level = 1 },                         # Meteor Attack
   { move = 0x79E3E635, level = 33 },                        # Racing Flame
   { move = 0x4CDC2C6B, level = 48 },                        # Shooting Star
   { move = 0x43B5739B, level = 68 },                        # Lightning Bolt
@@ -3396,7 +3396,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038020"                                   # Leo Maine
 moves = [
-  { move = 0x7DAF3139, level = 7 },                         # Emperor Penguin No. 2
+  { move = 0x7DAF3139, level = 1 },                         # Emperor Penguin No. 2
   { move = 0x2296A01A, level = 10 },                        # Southern Cross
   { move = 0x6730D416, level = 65 },                        # Emperor Penguin No. 1
   { move = 0x70417B2E, level = 75 },                        # Deceptor Dribble
@@ -3413,9 +3413,9 @@ moves = [
 target = "c03038030"                                   # Scorpia Venin
 moves = [
   { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
+  { move = 0xB01D1B68, level = 8 },                         # Power Spike
   { move = 0x8E7E960B, level = 17 },                        # Drill Smasher
-  { move = 0xB01D1B68, level = 27 },                        # Power Spike
-  { move = 0xDF2D9951, level = 37 },                        # Close Counter
+  { move = 0xDF2D9951, level = 24 },                        # Close Counter
 ]
 VRFW.MoveGrades = [
   { Move = 0xBE0E4AD0, Grade = 2 },                         # Fireball Knuckle
@@ -3449,7 +3449,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038050"                                   # Pan Kidd
 moves = [
-  { move = 0x10A0C298, level = 19 },                        # Warp Drive
+  { move = 0x10A0C298, level = 1 },                         # Warp Drive
   { move = 0x17A96A44, level = 36 },                        # Clone Faker
   { move = 0x121A2FFE, level = 50 },                        # Mirage Shot
   { move = 0x21127474, level = 60 },                        # Ultra Moon
@@ -3464,7 +3464,7 @@ moves = [
 [[edit]]
 target = "c03038060"                                   # Cuba Lieber
 moves = [
-  { move = 0x5B6C28ED, level = 20 },                        # Invisible Fake
+  { move = 0x5B6C28ED, level = 1 },                         # Invisible Fake
   { move = 0x574008CD, level = 38 },                        # Kung Fu Fighting
   { move = 0x485150D9, level = 58 },                        # Body Shield
   { move = 0xC5EF0563, level = 68 },                        # Three-Legged Rush
@@ -3480,7 +3480,7 @@ moves = [
 [[edit]]
 target = "c03038070"                                   # Arthur Crabbe
 moves = [
-  { move = 0x4E9A9232, level = 14 },                        # Spinning Cut
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
   { move = 0x61FB16FD, level = 24 },                        # Divine Arrows
   { move = 0x04941270, level = 60 },                        # Vac Attack
   { move = 0x49933AEE, level = 70 },                        # Perfect Tower
@@ -3496,10 +3496,10 @@ moves = [
 [[edit]]
 target = "c03038080"                                   # Regina Raffles
 moves = [
-  { move = 0xA9A7000B, level = 4 },                         # Bouncing Bunny
-  { move = 0x900C8E0A, level = 20 },                        # Maestro's Call
-  { move = 0xAF28F5A0, level = 36 },                        # The Tower
-  { move = 0xA3392D01, level = 40 },                        # Rainbow Bubble Burst
+  { move = 0x18C035B4, level = 1 },                         # Ghost Pull
+  { move = 0x332CCDC9, level = 12 },                        # Heel Kick
+  { move = 0x8C990270, level = 40 },                        # Gunshot
+  { move = 0x49529150, level = 47 },                        # Snake Shot
 ]
 
   [[edit.cards]]
@@ -3511,7 +3511,7 @@ moves = [
 [[edit]]
 target = "c03038090"                                   # Ian Fountry
 moves = [
-  { move = 0x33ED6677, level = 10 },                        # Doppelganger
+  { move = 0x33ED6677, level = 1 },                         # Doppelganger
   { move = 0x1ECA5CE1, level = 24 },                        # Wrath Shot
   { move = 0x105C91A7, level = 38 },                        # Slingshot
   { move = 0x087999EE, level = 45 },                        # Heel Drop
@@ -3526,7 +3526,7 @@ moves = [
 [[edit]]
 target = "c03038100"                                   # Mark Osman
 moves = [
-  { move = 0xBE0E4AD0, level = 24 },                        # Fireball Knuckle
+  { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
   { move = 0xC379BE95, level = 34 },                        # Counter Strike
   { move = 0xDA628FD4, level = 44 },                        # Sliding Goal
   { move = 0xDBA0E5E3, level = 54 },                        # Gigant Wall
@@ -3542,7 +3542,7 @@ moves = [
 [[edit]]
 target = "c03038110"                                   # Colin Mando
 moves = [
-  { move = 0x34256515, level = 16 },                        # Dynamite Shot
+  { move = 0x34256515, level = 1 },                         # Dynamite Shot
   { move = 0x78E027BC, level = 28 },                        # Shine Drive
   { move = 0x55C71D2A, level = 29 },                        # About Face
   { move = 0xB37CD264, level = 37 },                        # Am-Bush
@@ -3557,10 +3557,10 @@ moves = [
 [[edit]]
 target = "c03038120"                                   # Pete Parrish
 moves = [
-  { move = 0x79E3E635, level = 2 },                         # Racing Flame
-  { move = 0xF88DC090, level = 20 },                        # Z Slash
-  { move = 0xB0BC314A, level = 33 },                        # Spin Meister
-  { move = 0xADD8A52B, level = 41 },                        # Matchlock Bullet
+  { move = 0x3C843987, level = 1 },                         # Flurry Dash
+  { move = 0x6633159F, level = 30 },                        # Gravitation
+  { move = 0xB4757AB8, level = 49 },                        # Divine Stamp
+  { move = 0x0A3F27B7, level = 59 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -3572,7 +3572,7 @@ moves = [
 [[edit]]
 target = "c03038130"                                   # Serge Major
 moves = [
-  { move = 0xDF70E04C, level = 30 },                        # Rodeo Clown
+  { move = 0xDF70E04C, level = 1 },                         # Rodeo Clown
   { move = 0xDCF43422, level = 54 },                        # Aurora Dribble
   { move = 0x4890FB67, level = 62 },                        # Twin Boost
   { move = 0x0CF4E55C, level = 72 },                        # Double Touch
@@ -3588,7 +3588,7 @@ moves = [
 [[edit]]
 target = "c03038140"                                   # Susan Taylor
 moves = [
-  { move = 0x4523C86D, level = 11 },                        # Killer Blade
+  { move = 0x4523C86D, level = 1 },                         # Killer Blade
   { move = 0xD9E65BBA, level = 25 },                        # Aurora Curtain
   { move = 0x88B554E0, level = 55 },                        # Galatyn
   { move = 0xF2CB0879, level = 65 },                        # Mugen the Hand
@@ -3603,7 +3603,7 @@ moves = [
 [[edit]]
 target = "c03038150"                                   # Keenan Guru
 moves = [
-  { move = 0x025FD09B, level = 19 },                        # Volcano Cut
+  { move = 0x025FD09B, level = 1 },                         # Volcano Cut
   { move = 0x34256515, level = 24 },                        # Dynamite Shot
   { move = 0xB633C4E1, level = 40 },                        # Photon Crash
   { move = 0xB13A6C3D, level = 50 },                        # Zigzag Flame
@@ -3619,7 +3619,7 @@ moves = [
 [[edit]]
 target = "c03038160"                                   # Lovell Ribner
 moves = [
-  { move = 0x0CF4E55C, level = 20 },                        # Double Touch
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
   { move = 0x5049A011, level = 26 },                        # Spinning Shot
   { move = 0x06130797, level = 39 },                        # Rolling Kick
   { move = 0xA5777314, level = 44 },                        # Assault Shot
@@ -3653,7 +3653,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038180"                                   # Falah Hazbin
 moves = [
-  { move = 0xD8794890, level = 11 },                        # Kangaroo Kick
+  { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
   { move = 0x53CD747F, level = 15 },                        # Tarzan Kick
   { move = 0x7EEA4EE9, level = 22 },                        # Blade Attack
   { move = 0x0A3F27B7, level = 32 },                        # Foul Offence 3
@@ -3668,7 +3668,7 @@ moves = [
 [[edit]]
 target = "c03038190"                                   # Marthin Bannister
 moves = [
-  { move = 0x19025F83, level = 23 },                        # Quick Draw
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
   { move = 0x3C843987, level = 43 },                        # Flurry Dash
   { move = 0x1ECA5CE1, level = 45 },                        # Wrath Shot
   { move = 0x3F00EDE9, level = 51 },                        # Dash Storm
@@ -3683,7 +3683,7 @@ moves = [
 [[edit]]
 target = "c03038200"                                   # Orion Tearing
 moves = [
-  { move = 0x35E70F22, level = 6 },                         # Grenade Shot
+  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
   { move = 0x33ED6677, level = 23 },                        # Doppelganger
   { move = 0x49529150, level = 40 },                        # Snake Shot
   { move = 0x121A2FFE, level = 53 },                        # Mirage Shot
@@ -3699,7 +3699,7 @@ moves = [
 [[edit]]
 target = "c03038210"                                   # Reese Fryer
 moves = [
-  { move = 0x73C5AF40, level = 7 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x06130797, level = 12 },                        # Rolling Kick
   { move = 0xB13A6C3D, level = 16 },                        # Zigzag Flame
   { move = 0xBDAE2862, level = 45 },                        # Hellfire
@@ -3714,7 +3714,7 @@ moves = [
 [[edit]]
 target = "c03038220"                                   # Ben Feuer
 moves = [
-  { move = 0x5643C944, level = 19 },                        # Killer Slide
+  { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0x592A96B4, level = 30 },                        # Afterimage
   { move = 0x09BBF3D9, level = 43 },                        # Dark Whirlwind
   { move = 0x79E3E635, level = 48 },                        # Racing Flame
@@ -3729,7 +3729,7 @@ moves = [
 [[edit]]
 target = "c03038230"                                   # Edison Ford
 moves = [
-  { move = 0x60F8D774, level = 12 },                        # Gravestone
+  { move = 0x60F8D774, level = 1 },                         # Gravestone
   { move = 0x3EC287DE, level = 13 },                        # Bubble Gum
   { move = 0x01DB04F5, level = 32 },                        # Defence Scan
   { move = 0x6ADE9E01, level = 52 },                        # Illusory Ball
@@ -3747,7 +3747,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038240"                                   # Eva Chatton
 moves = [
-  { move = 0x06130797, level = 18 },                        # Rolling Kick
+  { move = 0x06130797, level = 1 },                         # Rolling Kick
   { move = 0x53CD747F, level = 31 },                        # Tarzan Kick
   { move = 0x568262FA, level = 45 },                        # Dark Tornado
   { move = 0x38094535, level = 54 },                        # Sub-Terfuge
@@ -3763,7 +3763,7 @@ moves = [
 [[edit]]
 target = "c03038250"                                   # Pezi Miste
 moves = [
-  { move = 0x73C5AF40, level = 22 },                        # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x7CACF0B0, level = 31 },                        # Horn Train
   { move = 0x1A868BED, level = 48 },                        # Clone Defence
   { move = 0x4741C0E8, level = 55 },                        # Steeple Shot
@@ -3778,7 +3778,7 @@ moves = [
 [[edit]]
 target = "c03038260"                                   # Preston Creasefree
 moves = [
-  { move = 0x74CC079C, level = 15 },                        # Big Fan
+  { move = 0x74CC079C, level = 1 },                         # Big Fan
   { move = 0x2EBA803A, level = 48 },                        # Dirt Ball
   { move = 0x039DBAAC, level = 55 },                        # Land of Ice
   { move = 0x7F2824DE, level = 60 },                        # Dual Storm
@@ -3793,7 +3793,7 @@ moves = [
 [[edit]]
 target = "c03038270"                                   # Anna Mite
 moves = [
-  { move = 0x4031A7F5, level = 7 },                         # Mole Fake
+  { move = 0x4031A7F5, level = 1 },                         # Mole Fake
   { move = 0x1F0836D6, level = 19 },                        # Comet Shot
   { move = 0x4F58F805, level = 39 },                        # Coil Turn
   { move = 0xB13A6C3D, level = 56 },                        # Zigzag Flame
@@ -3811,7 +3811,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038280"                                   # Bear Zurka
 moves = [
-  { move = 0x5E7E4775, level = 17 },                        # Table-Turner
+  { move = 0x5E7E4775, level = 1 },                         # Table-Turner
   { move = 0x5AF33BC7, level = 27 },                        # God Hand
   { move = 0xEA12530F, level = 50 },                        # Double Rocket
   { move = 0x91AE65A1, level = 60 },                        # Giant Spider
@@ -3827,7 +3827,7 @@ moves = [
 [[edit]]
 target = "c03038290"                                   # Pasha Lomo
 moves = [
-  { move = 0x35E70F22, level = 9 },                         # Grenade Shot
+  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
   { move = 0xB1FBC783, level = 14 },                        # Reflect Buster
   { move = 0x5B6C28ED, level = 21 },                        # Invisible Fake
   { move = 0xDD365E15, level = 51 },                        # Mole Shuffle
@@ -3843,7 +3843,7 @@ moves = [
 [[edit]]
 target = "c03038300"                                   # Lennon Trousers
 moves = [
-  { move = 0x627FC293, level = 17 },                        # Meteor Attack
+  { move = 0x627FC293, level = 1 },                         # Meteor Attack
   { move = 0x695A4A6F, level = 30 },                        # Magic
   { move = 0x63BDA8A4, level = 39 },                        # Inazuma Drop
   { move = 0x105C91A7, level = 48 },                        # Slingshot
@@ -3859,7 +3859,7 @@ moves = [
 [[edit]]
 target = "c03038310"                                   # Drysden Waller
 moves = [
-  { move = 0x7CACF0B0, level = 7 },                         # Horn Train
+  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
   { move = 0x6B1CF436, level = 28 },                        # Bewildered
   { move = 0x60F8D774, level = 43 },                        # Gravestone
   { move = 0x3C843987, level = 50 },                        # Flurry Dash
@@ -3874,7 +3874,7 @@ moves = [
 [[edit]]
 target = "c03038320"                                   # Zipp Fastener
 moves = [
-  { move = 0x322F0C40, level = 19 },                        # Spider Web
+  { move = 0x322F0C40, level = 1 },                         # Spider Web
   { move = 0x07D16DA0, level = 56 },                        # Inazuma-1
   { move = 0x132416F6, level = 65 },                        # Dog Run
   { move = 0xC19E2AEE, level = 75 },                        # Pegasus Shot
@@ -3890,7 +3890,7 @@ moves = [
 [[edit]]
 target = "c03038330"                                   # Brook Dredger
 moves = [
-  { move = 0x2CFC3E63, level = 27 },                        # Dragon Crash
+  { move = 0x2CFC3E63, level = 1 },                         # Dragon Crash
   { move = 0x1162A8AF, level = 30 },                        # Bewilder Blast
   { move = 0x73C5AF40, level = 36 },                        # Dash Accelerator
   { move = 0x18C035B4, level = 50 },                        # Ghost Pull
@@ -3905,7 +3905,7 @@ moves = [
 [[edit]]
 target = "c03038340"                                   # Luke Nohans
 moves = [
-  { move = 0x19025F83, level = 15 },                        # Quick Draw
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
   { move = 0x4890FB67, level = 25 },                        # Twin Boost
   { move = 0x71831119, level = 38 },                        # Foul Offence 2
   { move = 0x41F3CDC2, level = 56 },                        # Scorching Tackle
@@ -3924,7 +3924,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038350"                                   # BA Branssen
 moves = [
-  { move = 0x3C843987, level = 16 },                        # Flurry Dash
+  { move = 0x3C843987, level = 1 },                         # Flurry Dash
   { move = 0x261BDCA8, level = 31 },                        # Moonsault
   { move = 0x2B343D01, level = 35 },                        # Cyclone
   { move = 0x3A4FFB6C, level = 55 },                        # The Ikaros
@@ -3939,7 +3939,7 @@ moves = [
 [[edit]]
 target = "c03038360"                                   # Fabrice Soffner
 moves = [
-  { move = 0x79224D8B, level = 17 },                        # Freeze Shot
+  { move = 0x79224D8B, level = 1 },                         # Freeze Shot
   { move = 0x2EBA803A, level = 36 },                        # Dirt Ball
   { move = 0x4DDFEDE2, level = 50 },                        # Eagle Buster
   { move = 0x53CD747F, level = 54 },                        # Tarzan Kick
@@ -3954,7 +3954,7 @@ moves = [
 [[edit]]
 target = "c03038370"                                   # Virgil Milliner
 moves = [
-  { move = 0xD8794890, level = 26 },                        # Kangaroo Kick
+  { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
   { move = 0x121A2FFE, level = 30 },                        # Mirage Shot
   { move = 0x4D1E465C, level = 40 },                        # Fake Bomber
   { move = 0x43B5739B, level = 50 },                        # Lightning Bolt
@@ -3969,7 +3969,7 @@ moves = [
 [[edit]]
 target = "c03038380"                                   # Nishan Naudle
 moves = [
-  { move = 0xC42D6F54, level = 20 },                        # Aikido
+  { move = 0xC42D6F54, level = 1 },                         # Aikido
   { move = 0x5049A011, level = 32 },                        # Spinning Shot
   { move = 0x06130797, level = 35 },                        # Rolling Kick
   { move = 0x322F0C40, level = 46 },                        # Spider Web
@@ -3985,7 +3985,7 @@ moves = [
 [[edit]]
 target = "c03038390"                                   # Chandler Spillane
 moves = [
-  { move = 0x73C5AF40, level = 9 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0xC66BD10D, level = 16 },                        # Zigzag Spark
   { move = 0x5B6C28ED, level = 37 },                        # Invisible Fake
   { move = 0x38094535, level = 50 },                        # Sub-Terfuge
@@ -4001,10 +4001,10 @@ moves = [
 [[edit]]
 target = "c03038400"                                   # Monarch Rome
 moves = [
-  { move = 0xB633C4E1, level = 12 },                        # Photon Crash
+  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
+  { move = 0x62BE692D, level = 25 },                        # Whirlwind Force
   { move = 0x0D368F6B, level = 32 },                        # Heaven's Time
   { move = 0xB27F13ED, level = 60 },                        # Death Zone
-  { move = 0x62BE692D, level = 70 },                        # Whirlwind Force
 ]
 
   [[edit.cards]]
@@ -4016,7 +4016,7 @@ moves = [
 [[edit]]
 target = "c03038410"                                   # Sonny Wukong
 moves = [
-  { move = 0xDEB28A7B, level = 5 },                         # Monkey Turn
+  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
   { move = 0x574008CD, level = 22 },                        # Kung Fu Fighting
   { move = 0x011AAF4B, level = 30 },                        # Gyro Head
   { move = 0x2F78EA0D, level = 50 },                        # Triangle Z
@@ -4032,7 +4032,7 @@ moves = [
 [[edit]]
 target = "c03038420"                                   # Joe Bajie
 moves = [
-  { move = 0x259F08C6, level = 29 },                        # Whirlwind Twister
+  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
   { move = 0x4E5B398C, level = 41 },                        # Acrobat Bomber
   { move = 0x3BF45E9A, level = 54 },                        # Triple Boost
   { move = 0x5E233E68, level = 64 },                        # Super Elastico
@@ -4047,7 +4047,7 @@ moves = [
 [[edit]]
 target = "c03038430"                                   # Sean Wujing
 moves = [
-  { move = 0x19025F83, level = 10 },                        # Quick Draw
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
   { move = 0x73C5AF40, level = 18 },                        # Dash Accelerator
   { move = 0x0455B9CE, level = 28 },                        # Run Ball Run
   { move = 0x7FE98F60, level = 48 },                        # Ganymede Ray
@@ -4066,10 +4066,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038440"                                   # Tony Sanzang
 moves = [
-  { move = 0x9B3048AB, level = 53 },                        # Shadow Catch
-  { move = 0xC13F00CC, level = 63 },                        # Flower Power
-  { move = 0x615A3CDF, level = 73 },                        # Bounce Handler
-  { move = 0x8B31808E, level = 83 },                        # Wormhole
+  { move = 0xE854ED56, level = 1 },                         # Warp Space
+  { move = 0x47657634, level = 45 },                        # Flame Breath
+  { move = 0x5DFA931B, level = 60 },                        # Triple Defence
+  { move = 0x8B31808E, level = 70 },                        # Wormhole
 ]
 
   [[edit.cards]]
@@ -4081,7 +4081,7 @@ moves = [
 [[edit]]
 target = "c03038450"                                   # Helmut Hardy
 moves = [
-  { move = 0x33ED6677, level = 25 },                        # Doppelganger
+  { move = 0x33ED6677, level = 1 },                         # Doppelganger
   { move = 0x29B328E6, level = 41 },                        # Spectacle Crash
   { move = 0x0CF4E55C, level = 45 },                        # Double Touch
   { move = 0x31ABD82E, level = 47 },                        # Circus Block
@@ -4099,7 +4099,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038460"                                   # Harley Hogg
 moves = [
-  { move = 0x94E17324, level = 30 },                        # Tornado Catch
+  { move = 0x94E17324, level = 1 },                         # Tornado Catch
   { move = 0x5C38F92C, level = 40 },                        # Mistral
   { move = 0x46A71C03, level = 50 },                        # Black Hole
   { move = 0xF2CB0879, level = 60 },                        # Mugen the Hand
@@ -4115,7 +4115,7 @@ moves = [
 [[edit]]
 target = "c03038470"                                   # Ezio Ryder
 moves = [
-  { move = 0xB633C4E1, level = 14 },                        # Photon Crash
+  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
   { move = 0x17A96A44, level = 26 },                        # Clone Faker
   { move = 0x4D1E465C, level = 44 },                        # Fake Bomber
   { move = 0x52CEB5F6, level = 46 },                        # Iron Wall
@@ -4130,7 +4130,7 @@ moves = [
 [[edit]]
 target = "c03038480"                                   # Tori Torrence
 moves = [
-  { move = 0x0CF4E55C, level = 21 },                        # Double Touch
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
   { move = 0xAAA6489B, level = 30 },                        # Spiral Shot
   { move = 0x627FC293, level = 35 },                        # Meteor Attack
   { move = 0x65766A4F, level = 50 },                        # Meteor Blade
@@ -4145,7 +4145,7 @@ moves = [
 [[edit]]
 target = "c03038490"                                   # Placido Cannes
 moves = [
-  { move = 0xDA628FD4, level = 26 },                        # Sliding Goal
+  { move = 0xDA628FD4, level = 1 },                         # Sliding Goal
   { move = 0xBA833662, level = 58 },                        # Million Hands
   { move = 0xA7157B91, level = 68 },                        # Power Shield
   { move = 0xA6D711A6, level = 78 },                        # Full Power Shield
@@ -4160,7 +4160,7 @@ moves = [
 [[edit]]
 target = "c03038500"                                   # Noyss Kensler
 moves = [
-  { move = 0x19025F83, level = 13 },                        # Quick Draw
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
   { move = 0x10A0C298, level = 17 },                        # Warp Drive
   { move = 0x70417B2E, level = 33 },                        # Deceptor Dribble
   { move = 0x47380F29, level = 43 },                        # Echo Ball
@@ -4175,7 +4175,7 @@ moves = [
 [[edit]]
 target = "c03038510"                                   # Hedwig Setter
 moves = [
-  { move = 0x3EC287DE, level = 12 },                        # Bubble Gum
+  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
   { move = 0x4E5B398C, level = 42 },                        # Acrobat Bomber
   { move = 0xC7A9BB3A, level = 49 },                        # Whirlwind Cut
   { move = 0x592A96B4, level = 59 },                        # Afterimage
@@ -4190,7 +4190,7 @@ moves = [
 [[edit]]
 target = "c03038520"                                   # Phineas Hudd
 moves = [
-  { move = 0x2EBA803A, level = 18 },                        # Dirt Ball
+  { move = 0x2EBA803A, level = 1 },                         # Dirt Ball
   { move = 0x7FE98F60, level = 25 },                        # Ganymede Ray
   { move = 0x4AD6453E, level = 38 },                        # Back Tornado
   { move = 0x47380F29, level = 40 },                        # Echo Ball
@@ -4206,7 +4206,7 @@ moves = [
 [[edit]]
 target = "c03038530"                                   # Viking Beagle
 moves = [
-  { move = 0x3C843987, level = 8 },                         # Flurry Dash
+  { move = 0x3C843987, level = 1 },                         # Flurry Dash
   { move = 0x514A6198, level = 15 },                        # Asteroid Belt
   { move = 0x6B1CF436, level = 23 },                        # Bewildered
   { move = 0x29728358, level = 55 },                        # Planet Shield
@@ -4221,7 +4221,7 @@ moves = [
 [[edit]]
 target = "c03038540"                                   # Seth Paynter
 moves = [
-  { move = 0x49529150, level = 8 },                         # Snake Shot
+  { move = 0x49529150, level = 1 },                         # Snake Shot
   { move = 0x695A4A6F, level = 19 },                        # Magic
   { move = 0xACAC21CE, level = 29 },                        # Fake Ball
   { move = 0x61FB16FD, level = 39 },                        # Divine Arrows
@@ -4237,7 +4237,7 @@ moves = [
 [[edit]]
 target = "c03038550"                                   # Indira Patil
 moves = [
-  { move = 0xC5B27C7E, level = 13 },                        # Storm Rider
+  { move = 0xC5B27C7E, level = 1 },                         # Storm Rider
   { move = 0xD9E65BBA, level = 40 },                        # Aurora Curtain
   { move = 0x8DFA4265, level = 50 },                        # Toughness Block
   { move = 0xDBA0E5E3, level = 60 },                        # Gigant Wall
@@ -4252,7 +4252,7 @@ moves = [
 [[edit]]
 target = "c03038560"                                   # T.T. Mann
 moves = [
-  { move = 0x1162A8AF, level = 15 },                        # Bewilder Blast
+  { move = 0x1162A8AF, level = 1 },                         # Bewilder Blast
   { move = 0x4890FB67, level = 37 },                        # Twin Boost
   { move = 0x74CC079C, level = 40 },                        # Big Fan
   { move = 0x7F2824DE, level = 51 },                        # Dual Storm
@@ -4271,7 +4271,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038570"                                   # Concordia Choral
 moves = [
-  { move = 0xAAA6489B, level = 12 },                        # Spiral Shot
+  { move = 0xAAA6489B, level = 1 },                         # Spiral Shot
   { move = 0xA7B451B3, level = 23 },                        # Paladin Strike
   { move = 0xDCF43422, level = 47 },                        # Aurora Dribble
   { move = 0x36A270F2, level = 52 },                        # Rolling Slide
@@ -4287,7 +4287,7 @@ moves = [
 [[edit]]
 target = "c03038580"                                   # Assumpta Meakin
 moves = [
-  { move = 0x3D4653B0, level = 19 },                        # Poison Fog
+  { move = 0x3D4653B0, level = 1 },                         # Poison Fog
   { move = 0x2C3D95DD, level = 20 },                        # Sleeping Dust
   { move = 0x78E027BC, level = 42 },                        # Shine Drive
   { move = 0xB5B7108F, level = 46 },                        # Shadow Stitch
@@ -4303,7 +4303,7 @@ moves = [
 [[edit]]
 target = "c03038590"                                   # Laurie Driver
 moves = [
-  { move = 0xE9968761, level = 37 },                        # Rocket Kobushi
+  { move = 0xE9968761, level = 1 },                         # Rocket Kobushi
   { move = 0xA6D711A6, level = 45 },                        # Full Power Shield
   { move = 0xC7F4C227, level = 55 },                        # Shot Trap
   { move = 0x8FBCFC3C, level = 65 },                        # Blazing Knuckle
@@ -4319,7 +4319,7 @@ moves = [
 [[edit]]
 target = "c03038600"                                   # Raine Walker
 moves = [
-  { move = 0xAC6D8A70, level = 24 },                        # Rainbow Arc
+  { move = 0xAC6D8A70, level = 1 },                         # Rainbow Arc
   { move = 0x73C5AF40, level = 26 },                        # Dash Accelerator
   { move = 0x1ECA5CE1, level = 35 },                        # Wrath Shot
   { move = 0x46FA651E, level = 44 },                        # Water Veil
@@ -4334,7 +4334,7 @@ moves = [
 [[edit]]
 target = "c03038610"                                   # Martha Hubbard
 moves = [
-  { move = 0x627FC293, level = 19 },                        # Meteor Attack
+  { move = 0x627FC293, level = 1 },                         # Meteor Attack
   { move = 0xD8794890, level = 44 },                        # Kangaroo Kick
   { move = 0x2EBA803A, level = 52 },                        # Dirt Ball
   { move = 0x7A67325B, level = 54 },                        # Flame Dance
@@ -4350,7 +4350,7 @@ moves = [
 [[edit]]
 target = "c03038620"                                   # Bernina Nightoil
 moves = [
-  { move = 0x6DD736DD, level = 36 },                        # Ribbon Shower
+  { move = 0x6DD736DD, level = 1 },                         # Ribbon Shower
   { move = 0x29B328E6, level = 43 },                        # Spectacle Crash
   { move = 0xC0A013E6, level = 53 },                        # Liar Shot
   { move = 0x33ED6677, level = 63 },                        # Doppelganger
@@ -4366,7 +4366,7 @@ moves = [
 [[edit]]
 target = "c03038630"                                   # Erik Strongarm
 moves = [
-  { move = 0x94E17324, level = 18 },                        # Tornado Catch
+  { move = 0x94E17324, level = 1 },                         # Tornado Catch
   { move = 0xC5B27C7E, level = 32 },                        # Storm Rider
   { move = 0x91AE65A1, level = 62 },                        # Giant Spider
   { move = 0xF64674CB, level = 72 },                        # Fist of Justice
@@ -4382,7 +4382,7 @@ moves = [
 [[edit]]
 target = "c03038640"                                   # Gunnar Boatwright
 moves = [
-  { move = 0x1F0836D6, level = 13 },                        # Comet Shot
+  { move = 0x1F0836D6, level = 1 },                         # Comet Shot
   { move = 0x5506B694, level = 25 },                        # Utter Gutsiness Club
   { move = 0xAC6D8A70, level = 28 },                        # Rainbow Arc
   { move = 0x3BF45E9A, level = 48 },                        # Triple Boost
@@ -4397,7 +4397,7 @@ moves = [
 [[edit]]
 target = "c03038650"                                   # Sigmund Wayfinder
 moves = [
-  { move = 0xAAA6489B, level = 25 },                        # Spiral Shot
+  { move = 0xAAA6489B, level = 1 },                         # Spiral Shot
   { move = 0x3C843987, level = 31 },                        # Flurry Dash
   { move = 0x2BF596BF, level = 45 },                        # Tsunami Boost
   { move = 0x38094535, level = 51 },                        # Sub-Terfuge
@@ -4413,7 +4413,7 @@ moves = [
 [[edit]]
 target = "c03038660"                                   # Grim Jinxweaver
 moves = [
-  { move = 0x0F703132, level = 9 },                         # Black Magic
+  { move = 0x0F703132, level = 1 },                         # Black Magic
   { move = 0x322F0C40, level = 22 },                        # Spider Web
   { move = 0x520F1E48, level = 32 },                        # Psycho Shot
   { move = 0x29728358, level = 52 },                        # Planet Shield
@@ -4428,10 +4428,10 @@ moves = [
 [[edit]]
 target = "c03038670"                                   # Tia Cruz
 moves = [
-  { move = 0x13D845C9, level = 10 },                        # Samba Strike
-  { move = 0xEFFC6FA8, level = 21 },                        # Warhead
-  { move = 0xAF28F5A0, level = 32 },                        # The Tower
-  { move = 0x90CD25B4, level = 49 },                        # Supernatural Strike
+  { move = 0x06130797, level = 1 },                         # Rolling Kick
+  { move = 0x2A37FC88, level = 21 },                        # Revolution V
+  { move = 0x2C3D95DD, level = 45 },                        # Sleeping Dust
+  { move = 0xAF28F5A0, level = 51 },                        # The Tower
 ]
 
   [[edit.cards]]
@@ -4443,7 +4443,7 @@ moves = [
 [[edit]]
 target = "c03038680"                                   # Thomas Oquendo
 moves = [
-  { move = 0x1D4E888F, level = 15 },                        # Condor Dive
+  { move = 0x1D4E888F, level = 1 },                         # Condor Dive
   { move = 0x4031A7F5, level = 24 },                        # Mole Fake
   { move = 0x65B7C1F1, level = 44 },                        # Sumo Stomp
   { move = 0x38094535, level = 69 },                        # Sub-Terfuge
@@ -4461,7 +4461,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038690"                                   # Reyes Cabedo
 moves = [
-  { move = 0x332CCDC9, level = 17 },                        # Heel Kick
+  { move = 0x332CCDC9, level = 1 },                         # Heel Kick
   { move = 0xB13A6C3D, level = 30 },                        # Zigzag Flame
   { move = 0x025FD09B, level = 31 },                        # Volcano Cut
   { move = 0x4031A7F5, level = 38 },                        # Mole Fake
@@ -4477,7 +4477,7 @@ moves = [
 [[edit]]
 target = "c03038700"                                   # Newt Perfect
 moves = [
-  { move = 0x29B328E6, level = 12 },                        # Spectacle Crash
+  { move = 0x29B328E6, level = 1 },                         # Spectacle Crash
   { move = 0x58E8FC83, level = 29 },                        # Rolling Hell
   { move = 0x53CD747F, level = 32 },                        # Tarzan Kick
   { move = 0x5AAE42DA, level = 57 },                        # Triple Dash
@@ -4493,7 +4493,7 @@ moves = [
 [[edit]]
 target = "c03038710"                                   # Carmen Aria
 moves = [
-  { move = 0x60397CCA, level = 8 },                         # Cross Drive
+  { move = 0x60397CCA, level = 1 },                         # Cross Drive
   { move = 0x1F0836D6, level = 25 },                        # Comet Shot
   { move = 0x47380F29, level = 33 },                        # Echo Ball
   { move = 0xAC6D8A70, level = 36 },                        # Rainbow Arc
@@ -4571,7 +4571,7 @@ moves = [
 [[edit]]
 target = "c03038760"                                   # Theron Starr
 moves = [
-  { move = 0x2EBA803A, level = 19 },                        # Dirt Ball
+  { move = 0x2EBA803A, level = 1 },                         # Dirt Ball
   { move = 0x7CACF0B0, level = 31 },                        # Horn Train
   { move = 0x0597D3F9, level = 34 },                        # Dragon Tornado
   { move = 0x2D3E5454, level = 57 },                        # Clone Shot
@@ -4587,7 +4587,7 @@ moves = [
 [[edit]]
 target = "c03038770"                                   # Niall Kuhn
 moves = [
-  { move = 0x62BE692D, level = 46 },                        # Whirlwind Force
+  { move = 0x62BE692D, level = 1 },                         # Whirlwind Force
   { move = 0x0CF4E55C, level = 52 },                        # Double Touch
   { move = 0x6ADE9E01, level = 62 },                        # Illusory Ball
   { move = 0xC16279D1, level = 72 },                        # Field of Force
@@ -4603,7 +4603,7 @@ moves = [
 [[edit]]
 target = "c03038780"                                   # Graplen Hawk
 moves = [
-  { move = 0xB5B7108F, level = 11 },                        # Shadow Stitch
+  { move = 0xB5B7108F, level = 1 },                         # Shadow Stitch
   { move = 0x2EBA803A, level = 26 },                        # Dirt Ball
   { move = 0x7CACF0B0, level = 39 },                        # Horn Train
   { move = 0x79E3E635, level = 43 },                        # Racing Flame
@@ -4619,7 +4619,7 @@ moves = [
 [[edit]]
 target = "c03038790"                                   # Tribulus Galtrop
 moves = [
-  { move = 0x4D1E465C, level = 24 },                        # Fake Bomber
+  { move = 0x4D1E465C, level = 1 },                         # Fake Bomber
   { move = 0x3C843987, level = 34 },                        # Flurry Dash
   { move = 0x7EEA4EE9, level = 45 },                        # Blade Attack
   { move = 0x322F0C40, level = 48 },                        # Spider Web
@@ -4635,10 +4635,10 @@ moves = [
 [[edit]]
 target = "c03038800"                                   # Sunil Rahman
 moves = [
-  { move = 0xB01D1B68, level = 9 },                         # Power Spike
-  { move = 0x7BC5D9F0, level = 29 },                        # Rotary Sander
-  { move = 0xA7157B91, level = 47 },                        # Power Shield
-  { move = 0xF2CB0879, level = 72 },                        # Mugen the Hand
+  { move = 0xA553C5C8, level = 1 },                         # Clone Block
+  { move = 0xEF5D458A, level = 20 },                        # Burnout
+  { move = 0xF2CB0879, level = 60 },                        # Mugen the Hand
+  { move = 0xA6D711A6, level = 70 },                        # Full Power Shield
 ]
 
   [[edit.cards]]
@@ -4650,7 +4650,7 @@ moves = [
 [[edit]]
 target = "c03038810"
 moves = [
-  { move = 0x592A96B4, level = 60 },                        # Afterimage
+  { move = 0x592A96B4, level = 1 },                         # Afterimage
   { move = 0x4E5B398C, level = 70 },                        # Acrobat Bomber
   { move = 0x7748D3F2, level = 80 },                        # Devil Ball
   { move = 0x74B5C85D, level = 90 },                        # Security Shot
@@ -4666,7 +4666,7 @@ moves = [
 [[edit]]
 target = "c03038820"                                   # Khefren Chepren
 moves = [
-  { move = 0x79E3E635, level = 60 },                        # Racing Flame
+  { move = 0x79E3E635, level = 1 },                         # Racing Flame
   { move = 0xEE3E059F, level = 70 },                        # Celestial Smash
   { move = 0x4CDC2C6B, level = 80 },                        # Shooting Star
   { move = 0x3663DB4C, level = 90 },                        # Utter Gutsiness Bat
@@ -4681,7 +4681,7 @@ moves = [
 [[edit]]
 target = "c03038830"                                   # Mykerinos Menkh
 moves = [
-  { move = 0x232D05EC, level = 60 },                        # Tiger Drive
+  { move = 0x232D05EC, level = 1 },                         # Tiger Drive
   { move = 0x8D5B6847, level = 70 },                        # Odin Sword
   { move = 0xDEB28A7B, level = 80 },                        # Monkey Turn
   { move = 0x574008CD, level = 90 },                        # Kung Fu Fighting
@@ -4712,7 +4712,7 @@ moves = [
 [[edit]]
 target = "c03038850"                                   # Pauletta Porter
 moves = [
-  { move = 0x27D9B69F, level = 34 },                        # Prima Donna
+  { move = 0x27D9B69F, level = 1 },                         # Prima Donna
   { move = 0x2CFC3E63, level = 42 },                        # Dragon Crash
   { move = 0x6ADE9E01, level = 45 },                        # Illusory Ball
   { move = 0xAC6D8A70, level = 53 },                        # Rainbow Arc
@@ -4728,7 +4728,7 @@ moves = [
 [[edit]]
 target = "c03038860"                                   # Hattie Couture
 moves = [
-  { move = 0x695A4A6F, level = 28 },                        # Magic
+  { move = 0x695A4A6F, level = 1 },                         # Magic
   { move = 0x2C3D95DD, level = 34 },                        # Sleeping Dust
   { move = 0x78E027BC, level = 35 },                        # Shine Drive
   { move = 0xC66BD10D, level = 51 },                        # Zigzag Spark
@@ -4747,7 +4747,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03038870"                                   # Urbana Street
 moves = [
-  { move = 0x2EBA803A, level = 39 },                        # Dirt Ball
+  { move = 0x2EBA803A, level = 1 },                         # Dirt Ball
   { move = 0x6DD736DD, level = 49 },                        # Ribbon Shower
   { move = 0xAF28F5A0, level = 59 },                        # The Tower
   { move = 0x49529150, level = 69 },                        # Snake Shot
@@ -4763,7 +4763,7 @@ moves = [
 [[edit]]
 target = "c03038880"                                   # Lovell Lyons
 moves = [
-  { move = 0x35E70F22, level = 11 },                        # Grenade Shot
+  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
   { move = 0x695A4A6F, level = 43 },                        # Magic
   { move = 0x0A3F27B7, level = 53 },                        # Foul Offence 3
   { move = 0x0CF4E55C, level = 63 },                        # Double Touch
@@ -4778,7 +4778,7 @@ moves = [
 [[edit]]
 target = "c03038890"                                   # Pease Marrowfat
 moves = [
-  { move = 0x2EBA803A, level = 25 },                        # Dirt Ball
+  { move = 0x2EBA803A, level = 1 },                         # Dirt Ball
   { move = 0x3663DB4C, level = 36 },                        # Utter Gutsiness Bat
   { move = 0x132416F6, level = 69 },                        # Dog Run
   { move = 0xC19E2AEE, level = 79 },                        # Pegasus Shot
@@ -4809,7 +4809,7 @@ moves = [
 [[edit]]
 target = "c03038910"                                   # Pius Fisher
 moves = [
-  { move = 0x422A60B1, level = 22 },                        # Barrier Reef
+  { move = 0x422A60B1, level = 1 },                         # Barrier Reef
   { move = 0x96A7CD7D, level = 40 },                        # Tsunami Wall
   { move = 0xC4701649, level = 50 },                        # Ice Block
   { move = 0x88B554E0, level = 60 },                        # Galatyn
@@ -4824,7 +4824,7 @@ moves = [
 [[edit]]
 target = "c03038920"                                   # Archie Rider
 moves = [
-  { move = 0xC5EF0563, level = 23 },                        # Three-Legged Rush
+  { move = 0xC5EF0563, level = 1 },                         # Three-Legged Rush
   { move = 0xD8794890, level = 30 },                        # Kangaroo Kick
   { move = 0x105C91A7, level = 38 },                        # Slingshot
   { move = 0x232D05EC, level = 48 },                        # Tiger Drive
@@ -4840,10 +4840,10 @@ moves = [
 [[edit]]
 target = "c03038930"                                   # Virginia Goldstein
 moves = [
-  { move = 0xDDCA0D2A, level = 5 },                         # Bouncing Bomb
-  { move = 0x86F5F6E8, level = 15 },                        # Cupid's Arrow
-  { move = 0x0C08B663, level = 22 },                        # Doom Dive Drive
-  { move = 0xF806D6C3, level = 62 },                        # Shell Burst
+  { move = 0x332CCDC9, level = 1 },                         # Heel Kick
+  { move = 0x65766A4F, level = 55 },                        # Meteor Blade
+  { move = 0x3A4FFB6C, level = 60 },                        # The Ikaros
+  { move = 0x0B011EBF, level = 70 },                        # Fireball Screw
 ]
 
   [[edit.cards]]
@@ -4855,7 +4855,7 @@ moves = [
 [[edit]]
 target = "c03038940"                                   # Norton Waters
 moves = [
-  { move = 0xB2BEB853, level = 15 },                        # Whale Guard
+  { move = 0xB2BEB853, level = 1 },                         # Whale Guard
   { move = 0x2BF596BF, level = 53 },                        # Tsunami Boost
   { move = 0xAA67E325, level = 68 },                        # Desert Blast
   { move = 0x029E7B25, level = 78 },                        # Gaia Break
@@ -4871,7 +4871,7 @@ moves = [
 [[edit]]
 target = "c03038950"                                   # Jen Miniver
 moves = [
-  { move = 0x15EFD41D, level = 12 },                        # Dual Pass
+  { move = 0x15EFD41D, level = 1 },                         # Dual Pass
   { move = 0xADAFE047, level = 27 },                        # Dual Strike
   { move = 0x1B854A64, level = 48 },                        # Cosmic Blast
   { move = 0x70417B2E, level = 58 },                        # Deceptor Dribble
@@ -4886,7 +4886,7 @@ moves = [
 [[edit]]
 target = "c03038960"                                   # Ernest Goodman
 moves = [
-  { move = 0x2296A01A, level = 19 },                        # Southern Cross
+  { move = 0x2296A01A, level = 1 },                         # Southern Cross
   { move = 0x61FB16FD, level = 25 },                        # Divine Arrows
   { move = 0x3A3634AD, level = 59 },                        # Excalibur
   { move = 0xB576BB31, level = 75 },                        # The Earth
@@ -4901,7 +4901,7 @@ moves = [
 [[edit]]
 target = "c03038970"                                   # Galahad Chevalier
 moves = [
-  { move = 0x3663DB4C, level = 22 },                        # Utter Gutsiness Bat
+  { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
   { move = 0x4BD584B7, level = 39 },                        # Power Charge
   { move = 0xA7B451B3, level = 49 },                        # Paladin Strike
   { move = 0xB4757AB8, level = 55 },                        # Divine Stamp
@@ -4931,7 +4931,7 @@ moves = [
 [[edit]]
 target = "c03038990"                                   # Nick Pincher
 moves = [
-  { move = 0xB5B7108F, level = 15 },                        # Shadow Stitch
+  { move = 0xB5B7108F, level = 1 },                         # Shadow Stitch
   { move = 0xAA67E325, level = 27 },                        # Desert Blast
   { move = 0x2354CA2D, level = 45 },                        # Wind God's Dance
   { move = 0xA6763B84, level = 57 },                        # Gladius Arch
@@ -4946,7 +4946,7 @@ moves = [
 [[edit]]
 target = "c03039000"                                   # Marshall Artison
 moves = [
-  { move = 0x332CCDC9, level = 38 },                        # Heel Kick
+  { move = 0x332CCDC9, level = 1 },                         # Heel Kick
   { move = 0x574008CD, level = 48 },                        # Kung Fu Fighting
   { move = 0x232D05EC, level = 68 },                        # Tiger Drive
   { move = 0x0CF4E55C, level = 78 },                        # Double Touch
@@ -4961,7 +4961,7 @@ moves = [
 [[edit]]
 target = "c03039010"                                   # Mary Curey
 moves = [
-  { move = 0xD9E65BBA, level = 15 },                        # Aurora Curtain
+  { move = 0xD9E65BBA, level = 1 },                         # Aurora Curtain
   { move = 0xE854ED56, level = 25 },                        # Warp Space
   { move = 0x93E8DBF8, level = 35 },                        # Dimensional Hand
   { move = 0xF14FDC17, level = 45 },                        # Shot Pocket
@@ -4976,7 +4976,7 @@ moves = [
 [[edit]]
 target = "c03039020"                                   # Ian Bick
 moves = [
-  { move = 0xDF70E04C, level = 11 },                        # Rodeo Clown
+  { move = 0xDF70E04C, level = 1 },                         # Rodeo Clown
   { move = 0x3D4653B0, level = 47 },                        # Poison Fog
   { move = 0x592A96B4, level = 58 },                        # Afterimage
   { move = 0x0D368F6B, level = 68 },                        # Heaven's Time
@@ -4991,7 +4991,7 @@ moves = [
 [[edit]]
 target = "c03039030"                                   # Jib Spinaker
 moves = [
-  { move = 0x5049A011, level = 25 },                        # Spinning Shot
+  { move = 0x5049A011, level = 1 },                         # Spinning Shot
   { move = 0x18019E0A, level = 35 },                        # Double Grenade
   { move = 0x35E70F22, level = 38 },                        # Grenade Shot
   { move = 0xE8F5C774, level = 42 },                        # Megalodon
@@ -5006,7 +5006,7 @@ moves = [
 [[edit]]
 target = "c03039040"                                   # Odo Riffeck
 moves = [
-  { move = 0x3C843987, level = 6 },                         # Flurry Dash
+  { move = 0x3C843987, level = 1 },                         # Flurry Dash
   { move = 0x3D4653B0, level = 7 },                         # Poison Fog
   { move = 0x73C5AF40, level = 11 },                        # Dash Accelerator
   { move = 0x142DBE2A, level = 31 },                        # Foul Offence
@@ -5021,7 +5021,7 @@ moves = [
 [[edit]]
 target = "c03039050"                                   # Fox Wiley
 moves = [
-  { move = 0x695A4A6F, level = 18 },                        # Magic
+  { move = 0x695A4A6F, level = 1 },                         # Magic
   { move = 0x5643C944, level = 48 },                        # Killer Slide
   { move = 0xC0A013E6, level = 54 },                        # Liar Shot
   { move = 0x43B5739B, level = 64 },                        # Lightning Bolt
@@ -5037,7 +5037,7 @@ moves = [
 [[edit]]
 target = "c03039060"                                   # Gladius Swinger
 moves = [
-  { move = 0x0CF4E55C, level = 9 },                         # Double Touch
+  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
   { move = 0x3C843987, level = 13 },                        # Flurry Dash
   { move = 0x60F8D774, level = 58 },                        # Gravestone
   { move = 0x31ABD82E, level = 68 },                        # Circus Block
@@ -5055,7 +5055,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03039070"                                   # Asif Ecks
 moves = [
-  { move = 0x33ED6677, level = 31 },                        # Doppelganger
+  { move = 0x33ED6677, level = 1 },                         # Doppelganger
   { move = 0x3D4653B0, level = 48 },                        # Poison Fog
   { move = 0xAEEA9F97, level = 55 },                        # Sigma Zone
   { move = 0x21127474, level = 65 },                        # Ultra Moon
@@ -5073,7 +5073,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03039080"                                   # Roy Ellway
 moves = [
-  { move = 0x7BA5586C, level = 13 },                        # Mad Express
+  { move = 0x7BA5586C, level = 1 },                         # Mad Express
   { move = 0x259F08C6, level = 39 },                        # Whirlwind Twister
   { move = 0xB13A6C3D, level = 46 },                        # Zigzag Flame
   { move = 0x3D4653B0, level = 53 },                        # Poison Fog
@@ -5088,7 +5088,7 @@ moves = [
 [[edit]]
 target = "c03039090"                                   # Scott Amundsen
 moves = [
-  { move = 0x1D4E888F, level = 13 },                        # Condor Dive
+  { move = 0x1D4E888F, level = 1 },                         # Condor Dive
   { move = 0x039DBAAC, level = 15 },                        # Land of Ice
   { move = 0x4AD6453E, level = 23 },                        # Back Tornado
   { move = 0x5E5AF1A9, level = 70 },                        # Northern Impact
@@ -5106,7 +5106,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03039100"                                   # Mike Roscopy
 moves = [
-  { move = 0x60397CCA, level = 12 },                        # Cross Drive
+  { move = 0x60397CCA, level = 1 },                         # Cross Drive
   { move = 0x332CCDC9, level = 21 },                        # Heel Kick
   { move = 0x1F0836D6, level = 23 },                        # Comet Shot
   { move = 0x4890FB67, level = 33 },                        # Twin Boost
@@ -5122,7 +5122,7 @@ moves = [
 [[edit]]
 target = "c03039110"                                   # Gruff Dorman
 moves = [
-  { move = 0x2EBA803A, level = 12 },                        # Dirt Ball
+  { move = 0x2EBA803A, level = 1 },                         # Dirt Ball
   { move = 0x74B5C85D, level = 33 },                        # Security Shot
   { move = 0x695A4A6F, level = 44 },                        # Magic
   { move = 0x332CCDC9, level = 51 },                        # Heel Kick
@@ -5138,7 +5138,7 @@ moves = [
 [[edit]]
 target = "c03039120"                                   # Snowy Bergman
 moves = [
-  { move = 0x1A472053, level = 18 },                        # Double Wrath Shot
+  { move = 0x1A472053, level = 1 },                         # Double Wrath Shot
   { move = 0x039DBAAC, level = 35 },                        # Land of Ice
   { move = 0x79224D8B, level = 36 },                        # Freeze Shot
   { move = 0x2B343D01, level = 65 },                        # Cyclone
@@ -5170,7 +5170,7 @@ moves = [
 [[edit]]
 target = "c03039140"                                   # Ugg LeMugg
 moves = [
-  { move = 0x5506B694, level = 17 },                        # Utter Gutsiness Club
+  { move = 0x5506B694, level = 1 },                         # Utter Gutsiness Club
   { move = 0x06130797, level = 21 },                        # Rolling Kick
   { move = 0x2B343D01, level = 41 },                        # Cyclone
   { move = 0xB7F1AED6, level = 71 },                        # Double Cyclone
@@ -5186,7 +5186,7 @@ moves = [
 [[edit]]
 target = "c03039150"                                   # Hans Popov
 moves = [
-  { move = 0x58E8FC83, level = 37 },                        # Rolling Hell
+  { move = 0x58E8FC83, level = 1 },                         # Rolling Hell
   { move = 0x7D6E9A87, level = 54 },                        # The Wall
   { move = 0x4BD584B7, level = 64 },                        # Power Charge
   { move = 0x7A67325B, level = 74 },                        # Flame Dance
@@ -5204,7 +5204,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03039160"                                   # Norman Zeus
 moves = [
-  { move = 0x5643C944, level = 5 },                         # Killer Slide
+  { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0x74CC079C, level = 10 },                        # Big Fan
   { move = 0x259F08C6, level = 53 },                        # Whirlwind Twister
   { move = 0x7FE98F60, level = 62 },                        # Ganymede Ray
@@ -5219,7 +5219,7 @@ moves = [
 [[edit]]
 target = "c03039170"                                   # Tommo Marrow
 moves = [
-  { move = 0x3D4653B0, level = 10 },                        # Poison Fog
+  { move = 0x3D4653B0, level = 1 },                         # Poison Fog
   { move = 0x2BF596BF, level = 20 },                        # Tsunami Boost
   { move = 0xE8F5C774, level = 50 },                        # Megalodon
   { move = 0x132416F6, level = 53 },                        # Dog Run
@@ -5234,7 +5234,7 @@ moves = [
 [[edit]]
 target = "c03039180"                                   # Lyle Covet
 moves = [
-  { move = 0x7D6E9A87, level = 12 },                        # The Wall
+  { move = 0x7D6E9A87, level = 1 },                         # The Wall
   { move = 0x3663DB4C, level = 24 },                        # Utter Gutsiness Bat
   { move = 0x65B7C1F1, level = 35 },                        # Sumo Stomp
   { move = 0x1F0836D6, level = 38 },                        # Comet Shot
@@ -5253,7 +5253,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03039190"                                   # Graham Dupree
 moves = [
-  { move = 0x44E1A25A, level = 7 },                         # Pressure Punch
+  { move = 0x44E1A25A, level = 1 },                         # Pressure Punch
   { move = 0xC5B27C7E, level = 41 },                        # Storm Rider
   { move = 0x9765A74A, level = 51 },                        # Beast Fang
   { move = 0x8FBCFC3C, level = 61 },                        # Blazing Knuckle
@@ -5269,7 +5269,7 @@ moves = [
 [[edit]]
 target = "c03039200"                                   # Dirk Byker
 moves = [
-  { move = 0xAA67E325, level = 10 },                        # Desert Blast
+  { move = 0xAA67E325, level = 1 },                         # Desert Blast
   { move = 0xDF70E04C, level = 13 },                        # Rodeo Clown
   { move = 0x60F8D774, level = 46 },                        # Gravestone
   { move = 0x43B5739B, level = 51 },                        # Lightning Bolt
@@ -5285,7 +5285,7 @@ moves = [
 [[edit]]
 target = "c03039210"                                   # Charles LeMans
 moves = [
-  { move = 0x73C5AF40, level = 5 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x0455B9CE, level = 19 },                        # Run Ball Run
   { move = 0x3C843987, level = 40 },                        # Flurry Dash
   { move = 0x5AAE42DA, level = 50 },                        # Triple Dash

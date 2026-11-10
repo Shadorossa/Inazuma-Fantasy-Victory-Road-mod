@@ -143,8 +143,8 @@ target = "c03031900"                                   # Mac Robingo
 moves = [
   { move = 0x13D845C9, level = 1 },                         # Samba Strike
   { move = 0x5E233E68, level = 11 },                        # Super Elastico
+  { move = 0x9349F1DA, level = 19 },                        # Zephyr Shot
   { move = 0x5049A011, level = 40 },                        # Spinning Shot
-  { move = 0x9349F1DA, level = 50 },                        # Zephyr Shot
 ]
 VRFW.MoveGrades = [
   { Move = 0x13D845C9, Grade = 1 },                         # Samba Strike

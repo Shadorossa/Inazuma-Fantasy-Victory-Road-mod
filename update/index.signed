@@ -1,0 +1,10 @@
+5f7fc883ebcf53cf6e6a09024157324f972eb57a60a480041df8bf6956a9630621e3f2b2b6fef4c1c9768460a421743d8d579bde5a6b4ddb6c91757762051e01
+format = 1
+sequence = 1
+
+[[version]]
+label = "0.3.0"
+ref = "kits-0.3.0"
+sequence = 1
+manifest_sha256 = "0eba621addea5a6fd08291f45c3f8f3bc844faf25de35e8aab60cbb271d4d867"
+game_version = "v7.2.1"

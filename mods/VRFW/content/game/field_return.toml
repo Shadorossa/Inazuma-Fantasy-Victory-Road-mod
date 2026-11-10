@@ -1,7 +1,5 @@
 schema = "VRFW.game/2"
 
-# Makes a field-map battle (e.g. a 5v5 played on a field map) return to the menus or the title instead of the field.
-
 # Match-end check of the loaded field map; while armed it takes the menu return path once and disarms.
 [[VRFW.Hook]]
 name = "FieldReturnSite"
@@ -23,8 +21,7 @@ chain = ["ROOT_PLAY_DATA"]
 name = "field_return_rpg"
 game = "Route.Rpg"
 
-# CMND_VRFW_BATTLE_RETURN(op) -> live, armed, taken. op: 1 arm + title (memory kept), 3 arm + title (save reloaded), 2 arm menu route only, 0 disarm, -1 query.
+# CMND_VRFW_BATTLE_RETURN(op) -> live, armed, taken.
 [[VRFW.Command]]
 name = "CMND_VRFW_BATTLE_RETURN"
-aliases = ["CMND_EVT_TRIAL_RETURN"]
 handler = "FieldReturn.Command"

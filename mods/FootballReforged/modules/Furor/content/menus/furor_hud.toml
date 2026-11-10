@@ -1,20 +1,3 @@
-# Furor › the furor gauges on the match HUD: GO Strikers 2013's fire gauge,
-# one per team, level with the score, growing OUTWARD from its team's crest, drawn in Strikers' layers. Not opened by
-# the screen: the graft research/grafts/furor_hud opens them, measures each instance's local -> screen mapping and
-# places it from the scoreboard's keeper bar locators (as Goalkeeper Barrier). Instances 0 = own team (left),
-# 1 = rival (right); furor_spark: 0.. FUROR_HUD_SPARK_SLOTS - 1 own, then the rival's.
-#   furor_trough   the empty blue gauge, always drawn (priority 302)
-#   furor_gauge    the flames (Base_tex), cut from the crest side (303)
-#   furor_glow     the flames' 1 s brightness pulse (Base_eff) (304)
-#   furor_stripes  the rising / falling stripe frames at 50 % (Up_tex / Down_tex) (305)
-#   furor_max      the full gauge's 1 s pulse (Max_Tex) (306)
-#   furor_spark    the Max animation's sparkles (kira): FUROR_HUD_SPARK_SLOTS per team (generated, 13) (307)
-#   furor_prompt   the own bar's button glyph (308): opened with the group, so the game opens, closes and fades it with
-#                  the scoreboard; the graft writes it when it opens and shows it while the own trough shows. Object: the
-#                  retail soccer00_81_approval_command_button, one text node and a dummy mesh, centred on its origin
-# Their object is the retail stamina gauge of the stairs race (btl06_13_stamina_gauge): only its frame quad shown (fill,
-# red trail, label hidden by the graft), the frame's sprite swapped for the sprites of
-# content\images\menu\02_btl\furor_gauge.toml (own atlases). In both groups that show the scoreboard. No retail byte.
 schema = "VRFW.menu/2"
 
 [[object]]
@@ -82,7 +65,7 @@ add_layer = { name = "furor_max", object = "furor_max", count = 2, after = "furo
     { group = "soccer_battle_constant_menu", flags = [0, 0, 0, 0, 1, 0] },
 ] }
 
-# count = 2 x FUROR_HUD_SPARK_SLOTS of the graft's generated block
+# count = 2 x Furor.hud.SPARK_SLOTS of the graft's generated block
 [[patch]]
 menu = "soccer_constant_menu"
 add_layer = { name = "furor_spark", object = "furor_spark", count = 26, after = "furor_max", groups = [

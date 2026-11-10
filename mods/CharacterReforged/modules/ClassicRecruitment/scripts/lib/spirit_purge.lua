@@ -1,20 +1,3 @@
--- New Recruitment › the spirit purge of a duplicated save.
--- Pure: a save tree in, the tree patched in place and a report out; no
--- other VRFW call (the entry script scripts\spirit_purge.lua decides when it runs; a Rust test runs this file on a
--- synthetic save: crates/vr-core/src/script/api_savetree.rs).
--- Where the spirits live: save block 0x12,
--- record m_Permanent = { normalSpiritInfo[6600], heroSpiritInfo[500], elementSpiritInfo, tokenSpiritInfo,
--- basaraSpiritInfo[250], seasonalNormalSpiritInfo[120], getOrderCount, sortType, isLockTradeItem }. A player spirit
--- entry = { handle, getOrder, reserve, charaParamId, stockNum, usedStockNum, newFlag }; a free entry is all zeros (the
--- game's own reset writes zeros; there is no count field: the game scans the arrays). Their «new» marks per character:
--- block 0x02 (CGDDFlagStatus) m_Permanent.m_globalChrSpirit{Normal,Growing,Advanced,Top,Legendary,Hero,Basara}NewFlag.
--- What goes: every entry of the normal and seasonal normal spirit lists emptied (all its leaves to zero, as Character
--- Reforged / Inazuma Fantasy empty a released card's entry) and their five spirit «new» bit fields cleared. What stays:
--- the Ídolo and Diamante spirits (the retail Basara flow spends them), the element spirits and the token spirits (shop
--- currencies, not players), getOrderCount (a counter only ever raised), sortType / isLockTradeItem (settings), the spirit «got» bit
--- fields m_globalChrSpirit*GetFlag (the collection history), everything outside these records. Idempotent: a purged
--- save gives no write.
-
 local SpiritPurge = {}
 
 SpiritPurge.BLOCK_SPIRITS = 0x12
@@ -23,7 +6,7 @@ SpiritPurge.BLOCK_FLAGS = 0x02
 SpiritPurge.PLAYER_SPIRIT_LISTS = { "normalSpiritInfo", "seasonalNormalSpiritInfo" }
 -- the records of a player spirit entry (SPIRITINFO_NORMAL_P / _HERO_P / _BASARA_P / _SEASONAL_NORMAL_P)
 SpiritPurge.SPIRIT_ENTRY_FIELDS = { "handle", "getOrder", "reserve", "charaParamId", "stockNum", "usedStockNum", "newFlag" }
--- the per-character «new spirit» bit fields of block 0x02 (one bit per character)
+-- the per-character "new spirit" bit fields of block 0x02 (one bit per character)
 SpiritPurge.SPIRIT_NEW_FLAG_FIELDS = {
   "m_globalChrSpiritNormalNewFlag", "m_globalChrSpiritGrowingNewFlag", "m_globalChrSpiritAdvancedNewFlag",
   "m_globalChrSpiritTopNewFlag", "m_globalChrSpiritLegendaryNewFlag",
@@ -40,7 +23,6 @@ local function has_block(tree, id)
   return false
 end
 
--- `block<N>.m_Permanent` when it is a struct, else the block itself
 local function permanent_of(tree, id)
   local base = "block" .. id
   local wrapper = base .. ".m_Permanent"
@@ -59,12 +41,9 @@ local function word_sum(bytes)
   return total
 end
 
--- one player spirit list emptied: entries cleared, cards (stock + used) counted
 local function purge_list(tree, list_path, list_report)
   local list = tree:get(list_path)
   if not list or list.kind ~= "array" or list.len == 0 then return end
-  -- every element of an array has the same records: the names of the first one (the tree lists a record it was never
-  -- asked for as «0x<hash>»: the known names are asked first; an unknown record is still emptied through its hash)
   for _, name in ipairs(SpiritPurge.SPIRIT_ENTRY_FIELDS) do tree:get(list_path .. "[0]." .. name) end
   local leaf_names = tree:children(list_path .. "[0]") or {}
   for index = 0, list.len - 1 do
@@ -88,8 +67,7 @@ local function purge_list(tree, list_path, list_report)
   end
 end
 
--- Empty the player spirits of `tree`. Returns the report:
---   { lists = { [name] = { entries, cards } }, entries, cards, new_flag_fields, has_spirit_block, has_flag_block }
+-- Empty the player spirits of `tree`.
 function SpiritPurge.run(tree)
   local report = { lists = {}, entries = 0, cards = 0, new_flag_fields = 0, has_spirit_block = false, has_flag_block = false }
   if has_block(tree, SpiritPurge.BLOCK_SPIRITS) then
@@ -121,7 +99,7 @@ function SpiritPurge.run(tree)
   return report
 end
 
--- one line bit fields cleared»
+-- the report as one log line
 function SpiritPurge.summary(report)
   local parts = {}
   for _, name in ipairs(SpiritPurge.PLAYER_SPIRIT_LISTS) do

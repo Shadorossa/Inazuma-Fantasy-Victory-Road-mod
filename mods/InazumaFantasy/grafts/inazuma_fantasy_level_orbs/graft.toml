@@ -35,7 +35,7 @@ stem = "item_use_menu"
 '''
   text = '''
     if InazumaFantasyLevelOrb.levels > 0 then
-      InazumaFantasyLevelOrb.OpenAmountWindow()
+      InazumaFantasyLevelOrb.open_amount_window()
       return
     end
 '''
@@ -47,7 +47,7 @@ function CalcNextLevelAndNextExp(a1)
 '''
   text = '''
   if InazumaFantasyLevelOrb.levels > 0 then
-    return InazumaFantasyLevelOrb.PreviewOneOrb(a1)
+    return InazumaFantasyLevelOrb.preview_one_orb(a1)
   end
 '''
 

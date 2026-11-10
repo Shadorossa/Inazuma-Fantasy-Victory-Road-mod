@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · Mary Times · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c11200010"                                   # Mary Times Eleven
+moves = [
+  { move = 0xED1BFBD3, level = 1 },                         # Fingers of Gaia
+  { move = 0xDCA94D3F, level = 11 },                        # Flash Upper
+  { move = 0x1AE60A71, level = 21 },                        # Super God Hand
+  { move = 0x8AF3EAB9, level = 31 },                        # Hammer of Fury
+]
 
   [[edit.cards]]
   id = 0xB1376EB7                                         # GK/MF · mountain
@@ -15,6 +18,12 @@ target = "c11200010"                                   # Mary Times Eleven
 
 [[edit]]
 target = "c11200020"                                   # Mary Times Eleven
+moves = [
+  { move = 0xE546F47E, level = 1 },                         # Dust Devil
+  { move = 0xDCA94D3F, level = 11 },                        # Flash Upper
+  { move = 0x4D7EC7C0, level = 21 },                        # Maw-Ment of Truth
+  { move = 0x57E122EF, level = 31 },                        # Desecrater
+]
 
   [[edit.cards]]
   id = 0x9A1A3D74                                         # GK/MF · mountain
@@ -25,6 +34,12 @@ target = "c11200020"                                   # Mary Times Eleven
 
 [[edit]]
 target = "c11200030"                                   # Mary Times Eleven
+moves = [
+  { move = 0xC2BBD4A2, level = 1 },                         # Wild Claw
+  { move = 0xED1BFBD3, level = 11 },                        # Fingers of Gaia
+  { move = 0x4D7EC7C0, level = 21 },                        # Maw-Ment of Truth
+  { move = 0xD471DE6C, level = 31 },                        # Snakebite
+]
 
   [[edit.cards]]
   id = 0x83010C35                                         # GK/MF · mountain
@@ -35,6 +50,12 @@ target = "c11200030"                                   # Mary Times Eleven
 
 [[edit]]
 target = "c11200040"                                   # Mary Times Eleven
+moves = [
+  { move = 0xEBD03938, level = 1 },                         # Utter Gutsiness Catch
+  { move = 0xCC2FF5A7, level = 11 },                        # Gravity Dune
+  { move = 0xDCA94D3F, level = 21 },                        # Flash Upper
+  { move = 0x8AF3EAB9, level = 31 },                        # Hammer of Fury
+]
 
   [[edit.cards]]
   id = 0xCC409AF2                                         # GK/MF · mountain
@@ -45,6 +66,12 @@ target = "c11200040"                                   # Mary Times Eleven
 
 [[edit]]
 target = "c11200500"                                   # Hurley Kane
+moves = [
+  { move = 0x2BF596BF, level = 1 },                         # Tsunami Boost
+  { move = 0x1C4D4906, level = 11 },                        # Whirlpool
+  { move = 0xA4B51923, level = 21 },                        # The Typhoon
+  { move = 0x49933AEE, level = 31 },                        # Perfect Tower
+]
 
   [[edit.cards]]
   id = 0xAEE79D1D                                         # DF/FW · wind

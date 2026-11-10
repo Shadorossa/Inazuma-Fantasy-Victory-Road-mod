@@ -3,57 +3,37 @@
 function OnInit()
   InitializeGlobalValues()
   OnInitSoccerCommandActionMenu()
-  EVT_HiperInit() -- EVT
+  CharacterReforged.hyper_button_init() -- EVT
 end
 function OnSetupLayer(a1, a2)
   OnSetupSoccerCommandActionMenuLayer(a1, a2)
-  EVT_HiperSetupLayer(a1, a2) -- EVT
+  CharacterReforged.hyper_button_setup_layer(a1, a2) -- EVT
 end
 function PostStep()
   PostStepSoccerCommandActionMenu()
-  EVT_HiperStep() -- EVT
+  CharacterReforged.hyper_button_step() -- EVT
 end
 
 -- ===== EVT hiper_btn BEGIN =====
--- EVT ------------------------------------------------------------------------------------------
--- Character Reforged since 2026-10-14 (the RB+A / RB+B plates of the new skill set are the base's; docs/refactor/
--- aura-mods-split.md «The 6 + 2 set over the retail data»): a NEUTRAL plate (move name, icon, glyph, state, cooldown);
--- Inazuma Fantasy adds its look (the portrait column: EVT_HC of its graft hiper_btn_face, layer evt_hiper_chr_icon).
--- Two plates (layer soccer08_10_cmd_act_hiper_slot, a copy of the move-row widget soccer08_10, 2 instances), mounted
--- on the move selector by attach entries of soccer08_07_cmd_act_btn_cmd_base: right of the ">" arrow (pos 0,
--- instance 0 level with the lower move row, instance 1 with the upper one) or above it (pos 1; loader config
--- hiper_slot.button_pos). Two slots per player (2026-10-12, docs/game/hiper/hiper-two-slots.md), selected-slot
--- controls: instance 0 (RB+A / H) = the SPECIAL MOVE (the running aura's or mix's move; the selected slot's when both
--- grant one), instance 1 (RB+B / J) = the TRANSFORMATION of the selected slot (keshin / totem summon, then the armour
--- "Armadura" from the running keshin; Mix-Max / «Modo cambio»); RB + D-pad (K) selects the slot: with both slots
--- filled each plate ends with the slot's tag («Aura» / «Mix», values 22-25 below). The loader answers CMND_EVT_HIPER_BTN with
--- (state, actor, move, ring, pos, device, glyph, state2, move2, glyph2, armour): state 0 hidden / 1 usable / 2 greyed;
--- glyph = the game's button icon tags (<CMD_FUNCR1><CMD_DECIDE_CMD_R_DOWN> = RB + A) drawn left of the name, or
--- "[H]" on a keyboard. Nothing is drawn without the loader.
-local EVT_HL = 444446249 --[[soccer08_10_cmd_act_hiper_slot]]
-local EVT_BASE = 1927855329 --[[soccer08_07_cmd_act_btn_cmd_base]]
-local EVT_ATC = {{2563617955, 2592803578}, {111747328, 82812761}} --[[evt_hiper01_r/02_r, evt_hiper01_u/02_u]]
-local EVT_CMD_BTN = 930255798 --[[CMND_VRFW_XSLOT_PLATES: the plates slot running the match (2026-10-14; was IF's CMND_EVT_HIPER_BTN, the same answer)]]
-local EVT_SKILL_INFO = 2580586398 --[[CMND_GET_SOCCER_SKILL_INFO: 4 name id, 7 element, 13 aura type]]
-local EVT_CUBES = {931753331, 2927639753, 3649506399, 1206098428, 820291946} --[[_cmd_tp_cube01..05]]
-local EVT_last = {}
-local EVT_pos = -1
-local evt_ho_open = false   -- move list open (retail flag3, see EVT_HiperOpenPlace)
-local evt_ho_set = {}       -- LOCAL_POS applied to each plate instance ("dx,dy")
-local evt_ho_slide = {}     -- slide-in start frame (EVT_tick) of each plate instance, nil = none running
-local evt_ho_want = false   -- last corner placement (the list-open transition starts the slide)
--- the «modo cambio» cooldown bar of the RB+A plate (EVT_CdBar). tex: 0 not asked, 1 loading, 2 ready, -1 failed;
--- shown / geo / swapped: what instance 0 has now (nil = unknown, after a draw); total: cooldown length in seconds
--- for the fallback
--- inst: the plate instance the bar is drawn on (the «modo cambio» is the mix slot's: instance 1 since 2026-10-12)
-local evt_cd = {tex = 0, t = 0, swapped = false, shown = nil, geo = nil, total = 0, logs = 0, inst = 1}
--- the collapsed plates (EVT_FoldApply, EVT_HIPER_COLLAPSE below). From the plate layout evt_soccer08_10_hiper: the
--- band quad width, the input column's locator x (_atc_evt_input01), the band quads (name hash, top-left x, width,
--- height), the left ends of the name (_text_cmd_sp01) and of the armour logo (_gtxt_cmd_armed01). progress: 0
--- collapsed .. 1 expanded; width: band width of this frame (nil = full); band / shift: band width and input column
--- shift applied per instance (nil = not since its draw); icon / logo: what the draw showed of the type icon and the
--- armour logo
-local evt_fold = {
+-- EVT ------------------------------------------------------------------------------------------ The match
+CharacterReforged = type(CharacterReforged) == "table" and CharacterReforged or {}
+local HyperButtonLayer = 444446249 --[[soccer08_10_cmd_act_hiper_slot]]
+-- The attach row of each plate instance on the ring (content\menus\hyper_plates.toml).
+local PLATE_ATTACH = {3516142263, 1218265869, 1067086747, 2717836856}
+-- Each entry of the transformation cross (in the order the mod declares its direct entries) has a plate instance.
+local ENTRY_COUNT = 4
+local ENTRY_LAST = ENTRY_COUNT - 1
+local COMMAND_ENTRIES = 3801256470  -- The direct entries of the plates slot running the match.
+local SKILL_INFO = 2580586398 --[[CMND_GET_SOCCER_SKILL_INFO: 4 name id, 7 element, 13 aura type]]
+local HyperCubes = {931753331, 2927639753, 3649506399, 1206098428, 820291946} --[[_cmd_tp_cube01..05]]
+local hyperButtonLast = {}
+local hyperButtonPos = -1
+local character_reforged_ho_set = {}       -- LOCAL_POS applied to each plate instance ("dx,dy")
+local character_reforged_ho_slide = {}
+local character_reforged_ho_want = false   -- last corner placement (the list-open transition starts the slide)
+-- Per-instance state.
+local character_reforged_cd = {swapped = false, shown = nil, geo = nil, total = 0, logs = 0, inst = 1}
+local character_reforged_fold = {
   full_width = 436, input_x = -184, name_left = -163, logo_left = -103,
   quad_right = 185, band_margin = 19, visible_right = 172, icon_x = -246, icon_size = 43,
   quads = {
@@ -68,160 +48,213 @@ local evt_fold = {
   progress = 0, input_shift = 0, width = nil, band = {}, shift = {}, icon = {}, logo = {},
 }
 
--- the slot tags of the selected-slot controls (menu_text evt_hs_tag_aura / evt_hs_tag_mix, 9 languages), read once
--- EVT_HIPER_SLOT_TAG: the tag after the plate's name («  · Aura»); off: the name alone (owner 2026-10-15)
-EVT_HIPER_SLOT_TAG = false
-local evt_sel = {tags = nil}
--- the page arrows (EVT_PageArrows): pages = the plates have a second page (nil = not drawn yet); key = what each
--- instance of layer evt_plate_page_arrows shows now (nil = unknown, after a set-up); aspect = width / height of the
--- retail arrow sprite (72 x 136)
-local evt_pa = {pages = nil, key = {}, aspect = 72 / 136}
-local function EVT_SelTag(slot)
-  if not EVT_HIPER_SLOT_TAG then
+-- The transformation cross at the bottom left of the match HUD: a ring like the super-tactics widget beside it, with the
+-- modifier's glyph in the centre and the type icon of each entry at its arrow's place, and one plate per existing entry
+-- while the modifier is held.
+-- Its places are the mod's config.toml [transform_cross], read through CMND_CHARACTERREFORGED_TRANSFORM_CROSS (nil until then).
+CharacterReforged.TRANSFORM_CROSS = nil
+local CROSS_DIRECTION_NAME = {[1] = "up", [2] = "left", [3] = "right", [4] = "down"}
+local character_reforged_cross = {held = false, reasons = nil, labels = nil, logged = {}, ring = {}, fit = {}, rows = {}, row_count = 0, config_failed = false, rects_logged = false, measure_logged = false}
+-- The ring, a copy of the retail super-tactics widget (content\menus\hyper_plates.toml).
+local RingLayer = 334757758
+local RING_NATIVE_SIZE = 144
+-- The ring's centre in its layout: the layer's origin is the bottom right corner of the 1920 x 1080 screen (x right, y up).
+local RING_LAYOUT_X, RING_LAYOUT_Y = -130, 429
+local SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1080
+local RING_BAND = 1881008211 --[[_tactics_guide_base01]]
+local RING_GLYPH = 950238781 --[[_text_btn01]]
+local RING_PULSE_GROUP = 801776940 --[[_pos_sp_tactics01: the retail special tactic's pulsing base, never shown]]
+local RING_ICON_ATLAS = 502529699 --[[#/menu/200_icon/15_icon_common/<LG>/icon_common.g4tx]]
+-- The icon of each arrow by direction code: its mesh, its texture slot and its colour row.
+local RING_ICONS = {
+  [1] = {1457127177 --[[_icon_tactics_g_dmy01]], 3944247612 --[[icon_tactics_g_dmy01]], 249618010 --[[tactics_dmy01]]},
+  [2] = {3486559923 --[[_icon_tactics_g_dmy02]], 1913725062 --[[icon_tactics_g_dmy02]], 2548666336 --[[tactics_dmy02]]},
+  [3] = {2487205043 --[[_icon_sp_tactics_dmy01]], 3258038558 --[[icon_sp_tactics_dmy01]], 2122984149},
+  [4] = {3101138469 --[[_icon_tactics_g_dmy03]], 85331984 --[[icon_tactics_g_dmy03]], 3773742966 --[[tactics_dmy03]]},
+}
+-- The three text layers of a plate (_tools\transform_cross_build.py): layer, attach row on the plate, the text node it shows.
+local CAPTION_LEFT_TEXT, CAPTION_PILL_TEXT = 950238781 --[[_text_btn01]], 2712285063 --[[_text_btn02]]
+local CAPTION_PILL_BAND = 2605774483 --[[_pw_guide01]]
+local CAPTION_TEXTS = {CAPTION_LEFT_TEXT, CAPTION_PILL_TEXT}
+local TypeLayer, PillLayer, NameLayer = 284253473, 471764223, 3255596046
+local CAPTION_LAYERS = {
+  {layer = TypeLayer, attach = 1443105901, text = CAPTION_LEFT_TEXT},
+  {layer = PillLayer, attach = 3094022737, text = CAPTION_PILL_TEXT},
+  {layer = NameLayer, attach = 111836817, text = CAPTION_LEFT_TEXT},
+}
+local COMMAND_TEXT_SIZE = 3549540977 --[[CMND_GET_MENU_TEXT_RECT_SIZE(layer, instance, text node) -> width, height of the node's text]]
+-- The type label over the name: the menu_text row by the entry's page (0 aura, 1 armour, 2 mix, 3 group, 4 inherited).
+local CROSS_TYPE_ROWS = {[0] = 3661789771, [1] = 2048185767,
+  [2] = 2350099683, [3] = 1030115397, [4] = 2451114934}
+local CROSS_TYPE_TECHNIQUE_ROWS = {mix = 4183836824, spirit = 4252702171}
+-- Returns the type label of an entry on page `page` that shows the form's technique (`technique`) or its transformation.
+local function HyperButtonTypeLabel(page, technique)
+  local row = CROSS_TYPE_ROWS[page]
+  if technique then
+    row = page == 2 and CROSS_TYPE_TECHNIQUE_ROWS.mix or CROSS_TYPE_TECHNIQUE_ROWS.spirit
+  end
+  if row == nil then
     return ""
   end
-  if evt_sel.tags == nil then
-    evt_sel.tags = {}
-    for k, id in pairs({[0] = 2257771510 --[[evt_hs_tag_aura]], [1] = 1104879536 --[[evt_hs_tag_mix]]}) do
-      local ok, t = pcall(funcLuaCommand, 4074371074, id)
-      evt_sel.tags[k] = (ok and type(t) == "string" and t ~= "") and t or nil
-    end
+  if character_reforged_cross.labels == nil then
+    character_reforged_cross.labels = {}
   end
-  local t = evt_sel.tags[slot]
-  if t == nil then
+  local label = character_reforged_cross.labels[row]
+  if label == nil then
+    local ok, text = pcall(funcLuaCommand, 4074371074, row)
+    label = (ok and type(text) == "string") and text or ""
+    character_reforged_cross.labels[row] = label
+  end
+  return label
+end
+-- The one-word reason of a greyed entry: the reason code of the entries command, then the menu_text row.
+local CROSS_REASON_ROWS = {
+  [2] = "character_reforged_cross_why_not_now", [3] = "character_reforged_cross_why_not_now", [4] = "character_reforged_cross_why_tension",
+  [5] = "character_reforged_cross_why_cost", [6] = "character_reforged_cross_why_wait", [7] = "character_reforged_cross_why_active",
+  [8] = "character_reforged_cross_why_locked", [9] = "character_reforged_cross_why_group", [10] = "character_reforged_cross_why_limit",
+  [12] = "character_reforged_cross_why_limit", [13] = "character_reforged_cross_why_limit", [14] = "character_reforged_cross_why_armour",
+  [15] = "character_reforged_cross_why_locked", [16] = "character_reforged_cross_why_locked", [17] = "character_reforged_cross_why_duel",
+}
+local CROSS_REASON_IDS = {
+  character_reforged_cross_why_not_now = 3016609505, character_reforged_cross_why_tension = 1885868007,
+  character_reforged_cross_why_cost = 256501778, character_reforged_cross_why_wait = 1786904331,
+  character_reforged_cross_why_active = 3528460312, character_reforged_cross_why_locked = 1939618955,
+  character_reforged_cross_why_group = 711320774, character_reforged_cross_why_limit = 942884963,
+  character_reforged_cross_why_armour = 246547593, character_reforged_cross_why_duel = 2363218828,
+  character_reforged_cross_why_no_spirit = 3633575196, character_reforged_cross_why_no_miximax = 1629048221,
+}
+-- Returns the reason word of a greyed entry on page `page` ("" when the text is missing).
+local function HyperButtonReasonWord(reason, page)
+  local row = CROSS_REASON_ROWS[reason]
+  if reason == 18 then
+    -- The form the entry comes from is not out: the armour's keshin, the inherited spirit's Mix-Max.
+    row = page == 4 and "character_reforged_cross_why_no_miximax" or "character_reforged_cross_why_no_spirit"
+  end
+  if row == nil then
     return ""
   end
-  return "  · " .. t
+  if character_reforged_cross.reasons == nil then
+    character_reforged_cross.reasons = {}
+  end
+  local word = character_reforged_cross.reasons[row]
+  if word == nil then
+    local ok, text = pcall(funcLuaCommand, 4074371074, CROSS_REASON_IDS[row])
+    word = (ok and type(text) == "string") and text or ""
+    character_reforged_cross.reasons[row] = word
+  end
+  return word
 end
 
-local function EVT_Reset()
-  EVT_last = {{st = -1, skill = 0, ring = false, glyph = ""}, {st = -1, skill = 0, ring = false, glyph = ""}}
-  EVT_pos = -1
-  evt_ho_set = {}
-  evt_ho_slide = {}
-end
-EVT_Reset()
 
-function EVT_HiperInit()
-  EVT_Reset()
-  evt_ho_open = false
-  evt_ho_want = false
-  evt_fold.progress, evt_fold.input_shift, evt_fold.width = 0, 0, nil
-  evt_fold.band, evt_fold.shift = {}, {}
-  evt_pa.pages, evt_pa.key = nil, {}
+local function HyperButtonReset()
+  hyperButtonLast = {}
+  for entry = 1, ENTRY_COUNT do
+    hyperButtonLast[entry] = {st = -1, skill = 0, ring = false, glyph = ""}
+  end
+  hyperButtonPos = -1
+  character_reforged_ho_set = {}
+  character_reforged_ho_slide = {}
+end
+HyperButtonReset()
+
+function CharacterReforged.hyper_button_init()
+  HyperButtonReset()
+  character_reforged_cross.held = false
+  character_reforged_cross.ring, character_reforged_cross.rows, character_reforged_cross.row_count = {}, {}, 0
+  character_reforged_cross.fit = {}
+  character_reforged_cross.rects_logged = false
 end
 
-function EVT_HiperSetupLayer(a1, a2)
-  if a1 == EVT_HL then
-    pcall(funcLuaMenuCommand, 711242136, EVT_HL, a2, false)
-    if EVT_last[a2 + 1] ~= nil then
-      EVT_last[a2 + 1].st = -1
-      EVT_last[a2 + 1].shown = false
+function CharacterReforged.hyper_button_setup_layer(a1, a2)
+  if a1 == HyperButtonLayer then
+    pcall(funcLuaMenuCommand, 711242136, HyperButtonLayer, a2, false)
+    if hyperButtonLast[a2 + 1] ~= nil then
+      hyperButtonLast[a2 + 1].st = -1
+      hyperButtonLast[a2 + 1].shown = false
     end
-    evt_ho_set[a2 + 1] = nil
-    evt_fold.band[a2 + 1] = nil
-    if a2 == evt_cd.inst then
-      evt_cd.swapped, evt_cd.shown, evt_cd.geo = false, nil, nil   -- a set-up layer has its retail sprite back
+    character_reforged_ho_set[a2 + 1] = nil
+    if a2 == character_reforged_cd.inst then
+      character_reforged_cd.swapped, character_reforged_cd.shown, character_reforged_cd.geo = false, nil, nil   -- a set-up layer has its retail sprite back
     end
-  elseif a1 == 1154761048 --[[evt_hiper_chr_icon: the plate portrait, shown by EVT_PlateFace]]
-    or a1 == 3071105076 --[[evt_hiper_input: the input column, shown by EVT_InputDraw]] then
+  elseif a1 == 1501547018 --[[cr_hiper_chr_icon: the plate portrait, shown by CharacterReforged.HyperButtonPlateFace]]
+    or a1 == 2183681184 --[[cr_hiper_input: the input column, shown by CharacterReforged.HyperButtonInputDraw]] then
     pcall(funcLuaMenuCommand, 711242136, a1, a2, false)
-  elseif a1 == 1713173579 --[[evt_plate_page_arrows: the page arrows, shown by EVT_PageArrows]] then
+  elseif a1 == TypeLayer or a1 == PillLayer or a1 == NameLayer then
     pcall(funcLuaMenuCommand, 711242136, a1, a2, false)
-    evt_pa.key[a2 + 1] = nil
-  elseif a1 == EVT_BASE then
-    EVT_pos = -1
+  elseif a1 == RingLayer then
+    -- The ring starts like the retail widget (its «active» animation), hidden until the first entry is known.
+    pcall(funcLuaMenuCommand, 3781155141, a1, a2, 1260321794 --[[active]], 0, 365840886)
+    pcall(funcLuaMenuCommand, 711242136, a1, a2, false)
+    character_reforged_cross.ring = {}
+    hyperButtonPos = -1
   end
 end
 
-local function EVT_SetPos(pos)
-  for p = 1, #EVT_ATC do
-    for i = 1, #EVT_ATC[p] do
-      pcall(funcLuaMenuCommand, 1774843228, EVT_BASE, 0, EVT_ATC[p][i], pos == p - 1)
-    end
+-- Hangs every plate instance on its attach row of the ring.
+local function HyperButtonSetPos()
+  for i = 1, #PLATE_ATTACH do
+    pcall(funcLuaMenuCommand, 1774843228, RingLayer, 0, PLATE_ATTACH[i], true)
   end
 end
 
-local function EVT_Info(skill, what)
-  local ok, v = funcLuaCommand(EVT_SKILL_INFO, skill, what)
+local function HyperButtonInfo(skill, what)
+  local ok, v = funcLuaCommand(SKILL_INFO, skill, what)
   if ok and type(v) == "number" then
     return v
   end
   return nil
 end
 
-local EVT_CMD_MXP = 3173975339 --[[CMND_CHARACTERREFORGED_FUSION_PARTNER (was CMND_EVT_MX_BUFF_PARTNER, the same answer)]]
-local EVT_CMD_LOG = 3661580131
-local EVT_CMD_APPEARANCE = 2996279796
-local EVT_SUB_MESH = 559600405 --[[_icon_sp_sub_dmy01]]
-local EVT_SUB_TEX = 3992937973 --[[icon_sp_sub_dmy01]]
--- The widget's placeholder meshes at the plate's right end, white boxes when left visible: the sub-type slot
--- _icon_sp_sub_dmy01 (x +107..+141; kept when it holds a miximax partner's face) and the power number's box
--- _num_at_cmd_dmy01 / _gtxt_cmd_at01 (the plates show no power).
-local function EVT_HideDummies(L, inst, face)
-  funcLuaMenuCommand(3405944500, L, EVT_SUB_MESH, false, inst)   -- face: own layer
+local COMMAND_MXP = 3173975339
+local COMMAND_LOG = 519897777
+local COMMAND_APPEARANCE = 2996279796
+local HYPER_SUB_MESH = 559600405 --[[_icon_sp_sub_dmy01]]
+local HYPER_SUB_TEXTURE = 3992937973 --[[icon_sp_sub_dmy01]]
+-- The widget's placeholder meshes at the plate's right end, white boxes when left visible
+local function HyperButtonHideDummies(L, inst, face)
+  funcLuaMenuCommand(3405944500, L, HYPER_SUB_MESH, false, inst)   -- face: own layer
   funcLuaMenuCommand(3405944500, L, 365666709 --[[_num_at_cmd_dmy01]], false, inst)
   funcLuaMenuCommand(3405944500, L, 563708378 --[[_gtxt_cmd_at01]], false, inst)
 end
--- The card's portrait at the band's right end, inside the band (2026-10-06, Nacho: as the player page's Hiper card).
--- Round 1 used the retail aura-row face object (soccer08_10_p5): "drawn true" in loader.log but nothing on screen.
--- Now layer evt_hiper_chr_icon = IF's object evt_ph_face, the player page's own card layer (the retail team00_30 aura
--- window: portrait quads _icon_fs_dmy01 / _icon_chr_dmy01 with the retail masked materials, white only on the band
--- rect, rounded right end; draw priority 570), its band / type icon / name hidden here (the plate draws those), 2
--- instances attached to the plates' _atc_chr01_r (attach row evt_hiper_chr01_r, placed on the plate band's top-right
--- corner, hiper_btn_build.py FACE_*). Scaled around that corner so the card's band (x -473..457, top 160, 88.15 high)
--- lands on the plate's band (EVT_HIPER_FACE_H high, right end on the corner). What it shows = the player page's rule,
--- shared: EVT_HC.Portrait (research/grafts/plate_hiper_plate/evt_hiper_card.lua, appended to this script by the graft):
---   * a miximax plate (aura type 2) or a fused player's plain-move plate (RB+X): the partner (CMND_EVT_MX_BUFF_PARTNER
---     -> face key 347353059), miximax face type 12 if it has one, else his plain chara icon;
---   * a «modo cambio» plate: the other form (loader value 16);
---   * keshin / armed / soul: the aura's own character (SKILL_INFO 17) on its retail slot and type (8 / 14);
---   * anything else: no portrait.
--- Nothing resolved -> the layer stays hidden (never a blank card).
-local EVT_CHR = 1154761048 --[[evt_hiper_chr_icon]]
-local EVT_CHR_ATC = 3457799775 --[[evt_hiper_chr01_r: its attach row on the plate]]
-local EVT_CHR_HIDE = {734954092 --[[_fs_base01]], 1605611365 --[[_icon_fs_area_dmy01]]}
-local EVT_CHR_TEXT = 2915321899 --[[_text_fs01]]
-EVT_HIPER_FACE_H = 52                -- plate band height (plate layer units, before its 0.72): the card's band scaled to it
-EVT_HIPER_FACE_DX, EVT_HIPER_FACE_DY = 0, 0   -- extra shift of the card's band corner (plate layer units)
-local EVT_CHR_BAND_R, EVT_CHR_BAND_TOP, EVT_CHR_BAND_H = 457, 160, 88.15
-local evt_chr_logs = 0
--- 2026-10-19 (owner: the portrait a few px short of the plate's height; it blinked): the fit is MEASURED after each
--- draw (EVT_FaceFit, on the draw's retry frames only): the card's band (_fs_base01, layout top 160, 88.15 high) is
--- scaled to the plate's painted band (_cmd_base_sp01: its sprite's opaque rows 2..53 = layout y +26..-26, measured
--- against the plate's own scale) and its top-right corner put on the band's top-right corner. evt_face[inst + 1] =
--- {fix = scale factor, dy = vertical shift (card layer units), key = what is drawn, ok = drawn}
-local EVT_PLATE_BASE, EVT_PLATE_BASE_Y, EVT_PLATE_BAND = 4282364172 --[[_cmd_base_sp01]], 28, 26
-local EVT_CHR_BASE = 734954092 --[[_fs_base01]]
-local EVT_POS_BASE = 1517329426 --[[_pos_base01]]
-local evt_face = {{fix = 1, dy = 0}, {fix = 1, dy = 0}}
+-- The card's portrait at the band's right end, inside the band
+local HyperChara = 1501547018 --[[cr_hiper_chr_icon]]
+local HYPER_CHARA_ATTACH = 3531792463 --[[cr_hiper_chr01_r: its attach row on the plate]]
+local HYPER_CHARA_HIDE = {734954092 --[[_fs_base01]], 1605611365 --[[_icon_fs_area_dmy01]]}
+local HYPER_CHARA_TEXT = 2915321899 --[[_text_fs01]]
+CharacterReforged.HYPER_BUTTON_FACE_H = 52
+CharacterReforged.HYPER_BUTTON_FACE_DX, CharacterReforged.HYPER_BUTTON_FACE_DY = 0, 0   -- extra shift of the card's band corner (plate layer units)
+local HYPER_CHARA_BAND_R, HYPER_CHARA_BAND_TOP, HYPER_CHARA_BAND_H = 457, 160, 88.15
+local character_reforged_chr_logs = 0
+-- Plate band constants: the band quad (layout top 160, 88.15 high) is scaled to the plate's painted band (_cmd_base_sp01).
+local PLATE_BASE, PLATE_BASE_Y, PLATE_BAND = 4282364172 --[[_cmd_base_sp01]], 28, 26
+local HYPER_CHARA_BASE = 734954092 --[[_fs_base01]]
+local POSITION_BASE = 1517329426 --[[_pos_base01]]
+local character_reforged_face = {{fix = 1, dy = 0}, {fix = 1, dy = 0}}
 
-function EVT_PlateFaceHide(inst)
-  pcall(funcLuaMenuCommand, 711242136, EVT_CHR, inst, false)
-  if evt_face ~= nil and evt_face[inst + 1] ~= nil then
-    evt_face[inst + 1].key, evt_face[inst + 1].ok = nil, false
+function CharacterReforged.hyper_button_plate_face_hide(inst)
+  pcall(funcLuaMenuCommand, 711242136, HyperChara, inst, false)
+  if character_reforged_face ~= nil and character_reforged_face[inst + 1] ~= nil then
+    character_reforged_face[inst + 1].key, character_reforged_face[inst + 1].ok = nil, false
   end
 end
 
--- place / clean instance `inst` of the card layer (engine calls: from EVT_HiperStep only)
-local function EVT_PlateFacePlace(inst)
-  pcall(funcLuaMenuCommand, 1774843228, EVT_HL, inst, EVT_CHR_ATC, true)
-  local fc = evt_face[inst + 1]
-  local k = EVT_HIPER_FACE_H / EVT_CHR_BAND_H * (EVT_HIPER_PLATE_SCALE or 1) * fc.fix
-  funcLuaMenuCommand(3778714801, EVT_CHR, k, k, 1, inst)
-  funcLuaMenuCommand(1389957207, EVT_CHR, EVT_HIPER_FACE_DX - EVT_CHR_BAND_R * k,
-    EVT_HIPER_FACE_DY - EVT_CHR_BAND_TOP * k + fc.dy, 0, inst)
-  for i = 1, #EVT_CHR_HIDE do
-    funcLuaMenuCommand(3405944500, EVT_CHR, EVT_CHR_HIDE[i], false, inst)
+local function HyperButtonPlateFacePlace(inst)
+  pcall(funcLuaMenuCommand, 1774843228, HyperButtonLayer, inst, HYPER_CHARA_ATTACH, true)
+  local fc = character_reforged_face[inst + 1]
+  local k = CharacterReforged.HYPER_BUTTON_FACE_H / HYPER_CHARA_BAND_H * (CharacterReforged.HYPER_BUTTON_PLATE_SCALE or 1) * fc.fix
+  funcLuaMenuCommand(3778714801, HyperChara, k, k, 1, inst)
+  funcLuaMenuCommand(1389957207, HyperChara, CharacterReforged.HYPER_BUTTON_FACE_DX - HYPER_CHARA_BAND_R * k,
+    CharacterReforged.HYPER_BUTTON_FACE_DY - HYPER_CHARA_BAND_TOP * k + fc.dy, 0, inst)
+  for i = 1, #HYPER_CHARA_HIDE do
+    funcLuaMenuCommand(3405944500, HyperChara, HYPER_CHARA_HIDE[i], false, inst)
   end
-  funcLuaMenuCommand(1083631230, EVT_CHR, EVT_CHR_TEXT, "", inst)
-  funcLuaMenuCommand(2735666188 --[[CMND_SET_MENU_TEXT_VISIBLE]], EVT_CHR, EVT_CHR_TEXT, false, inst)
+  funcLuaMenuCommand(1083631230, HyperChara, HYPER_CHARA_TEXT, "", inst)
+  funcLuaMenuCommand(2735666188 --[[CMND_SET_MENU_TEXT_VISIBLE]], HyperChara, HYPER_CHARA_TEXT, false, inst)
 end
 
--- the card's band onto the plate's painted band (global units, both layers measured): its height by the scale factor,
--- its top by the shift; applied when off by more than half a pixel, measured again on the next retry frame
-function EVT_FaceFit(inst)
-  local fc = evt_face[inst + 1]
+-- Fits the card's band onto the plate's painted band (global units, both layers measured).
+function CharacterReforged.hyper_button_face_fit(inst)
+  local fc = character_reforged_face[inst + 1]
   local function g(L, node)
     local ok, x, y = pcall(funcLuaMenuCommand, 499270986, L, inst, node)
     if ok and type(x) == "number" and type(y) == "number" then
@@ -229,21 +262,21 @@ function EVT_FaceFit(inst)
     end
     return nil
   end
-  local _, pby = g(EVT_HL, EVT_POS_BASE)
-  local _, pty = g(EVT_HL, EVT_PLATE_BASE)
-  local _, fby = g(EVT_CHR, EVT_POS_BASE)
-  local _, fty = g(EVT_CHR, EVT_CHR_BASE)
+  local _, pby = g(HyperButtonLayer, POSITION_BASE)
+  local _, pty = g(HyperButtonLayer, PLATE_BASE)
+  local _, fby = g(HyperChara, POSITION_BASE)
+  local _, fty = g(HyperChara, HYPER_CHARA_BASE)
   if pby == nil or pty == nil or fby == nil or fty == nil then
     return
   end
-  local kp = (pty - pby) / EVT_PLATE_BASE_Y          -- global per plate layer unit (y)
-  local kf = (fty - fby) / EVT_CHR_BAND_TOP          -- global per card layer unit (y)
+  local kp = (pty - pby) / PLATE_BASE_Y          -- global per plate layer unit (y)
+  local kf = (fty - fby) / HYPER_CHARA_BAND_TOP          -- global per card layer unit (y)
   if math.abs(kp) < 0.001 or math.abs(kf) < 0.001 then
     return
   end
-  local want_h = 2 * EVT_PLATE_BAND * math.abs(kp)   -- the painted band's height
-  local have_h = EVT_CHR_BAND_H * math.abs(kf)       -- the card band's height
-  local want_top = pby + EVT_PLATE_BAND * kp         -- the painted band's top
+  local want_h = 2 * PLATE_BAND * math.abs(kp)   -- the painted band's height
+  local have_h = HYPER_CHARA_BAND_H * math.abs(kf)       -- the card band's height
+  local want_top = pby + PLATE_BAND * kp         -- the painted band's top
   local ratio = want_h / have_h
   local dtop = (want_top - fty) / kf                 -- card layer units
   if math.abs(ratio - 1) < 0.005 and math.abs(dtop * math.abs(kf)) < 0.5 then
@@ -252,26 +285,26 @@ function EVT_FaceFit(inst)
   if math.abs(ratio - 1) >= 0.005 then
     fc.fix = fc.fix * ratio
   else
-    local k = EVT_HIPER_FACE_H / EVT_CHR_BAND_H * (EVT_HIPER_PLATE_SCALE or 1) * fc.fix
-    fc.dy = fc.dy + dtop * k                          -- in the card's parent units (its local position)
+    local k = CharacterReforged.HYPER_BUTTON_FACE_H / HYPER_CHARA_BAND_H * (CharacterReforged.HYPER_BUTTON_PLATE_SCALE or 1) * fc.fix
+    fc.dy = fc.dy + dtop * k
   end
-  EVT_PlateFacePlace(inst)
-  if evt_chr_logs < 24 then
-    evt_chr_logs = evt_chr_logs + 1
-    pcall(funcLuaCommand, 1563215927, "hiper_btn", "face fit", tostring(inst),
+  HyperButtonPlateFacePlace(inst)
+  if character_reforged_chr_logs < 24 then
+    character_reforged_chr_logs = character_reforged_chr_logs + 1
+    pcall(funcLuaCommand, 3626744379, "hiper_btn", "face fit", tostring(inst),
       string.format("band %.1f / card %.1f, fix %.3f, dy %.1f", want_h, have_h, fc.fix, fc.dy))
   end
 end
 
--- true when it drew a portrait. retry = a re-issue a few frames after the draw (the texture may still be loading)
-function EVT_PlateFace(L, inst, hdl, retry, pover, skill)
-  if type(EVT_HC) ~= "table" or type(EVT_HC.Portrait) ~= "function" then
-    EVT_PlateFaceHide(inst)
+-- Returns true when it drew a portrait.
+function CharacterReforged.hyper_button_plate_face(L, inst, hdl, retry, pover, skill)
+  if type(CharacterReforged.hyper_card) ~= "table" or type(CharacterReforged.hyper_card.portrait) ~= "function" then
+    CharacterReforged.hyper_button_plate_face_hide(inst)
     return false
   end
   local t = nil
   if skill ~= nil and skill ~= 0 then
-    t = EVT_HC.AuraType(skill)
+    t = CharacterReforged.hyper_card.aura_type(skill)
   end
   local fusion, mc, own = nil, nil, skill
   local function key(param)
@@ -282,38 +315,36 @@ function EVT_PlateFace(L, inst, hdl, retry, pover, skill)
     return param
   end
   if pover ~= nil and pover ~= 0 then
-    mc = {face = key(pover)}             -- «modo cambio» plate: the face of the other form (loader value 16)
+    mc = {face = key(pover)}
   elseif t == 2 or t == nil or t == 255 then
-    -- whose move it is (the plate's move given): a miximax aura or a partner move = the fusion partner; the running
-    -- spirit's own move = that spirit (its aura's own character, as the aura plates draw it); else no portrait
-    local okf, partner, spirit = pcall(funcLuaCommand, EVT_CMD_MXP, hdl, skill or 0)
+    local okf, partner, spirit = pcall(funcLuaCommand, COMMAND_MXP, hdl, skill or 0)
     if okf and type(partner) == "number" and partner ~= 0 then
       fusion = {face = key(partner)}
     elseif okf and t == nil and type(spirit) == "number" and spirit ~= 0 then
       own = spirit
-      t = EVT_HC.AuraType(spirit)
+      t = CharacterReforged.hyper_card.aura_type(spirit)
     end
   end
-  if fusion == nil and mc == nil and (t == nil or EVT_HC.FACE_BY_TYPE[t] == nil) then
-    EVT_PlateFaceHide(inst)
+  if fusion == nil and mc == nil and (t == nil or CharacterReforged.hyper_card.FACE_BY_TYPE[t] == nil) then
+    CharacterReforged.hyper_button_plate_face_hide(inst)
     return false
   end
-  local fc = evt_face[inst + 1]
+  local fc = character_reforged_face[inst + 1]
   local key = tostring(own or 0) .. ":" .. tostring(fusion and fusion.face or 0) .. ":" .. tostring(mc and mc.face or 0)
   if fc.key == key and fc.ok then
-    -- the same face is on screen: no clear / re-issue (each one blanked it for a frame: the blinking), only the fit
+    -- The same face is on screen.
     if retry then
-      pcall(EVT_FaceFit, inst)
+      pcall(CharacterReforged.hyper_button_face_fit, inst)
     end
     return true
   end
-  EVT_PlateFacePlace(inst)
-  local okp, shown = pcall(EVT_HC.Portrait, EVT_CHR, own or 0, fusion, mc, "hiper_plates", inst)
+  HyperButtonPlateFacePlace(inst)
+  local okp, shown = pcall(CharacterReforged.hyper_card.portrait, HyperChara, own or 0, fusion, mc, "hiper_plates", inst)
   local ok = okp and shown ~= nil and shown ~= 0
   fc.key, fc.ok = key, ok
-  funcLuaMenuCommand(711242136, EVT_CHR, inst, ok)
-  if not retry or evt_chr_logs < 12 then
-    evt_chr_logs = evt_chr_logs + 1
+  funcLuaMenuCommand(711242136, HyperChara, inst, ok)
+  if not retry or character_reforged_chr_logs < 12 then
+    character_reforged_chr_logs = character_reforged_chr_logs + 1
     local what = "own"
     if fusion ~= nil then
       what = "partner"
@@ -322,24 +353,22 @@ function EVT_PlateFace(L, inst, hdl, retry, pover, skill)
     elseif own ~= skill then
       what = string.format("spirit %08X", own or 0)
     end
-    pcall(funcLuaCommand, 1563215927, "hiper_btn", "plate portrait", tostring(inst), tostring(hdl),
+    pcall(funcLuaCommand, 3626744379, "hiper_btn", "plate portrait", tostring(inst), tostring(hdl),
       string.format("%08X", skill or 0), "type " .. tostring(t), what,
       okp and tostring(shown) or ("error " .. tostring(shown)), retry and "retry" or "")
   end
   return ok
 end
 
--- The name text of a miximax / soul aura as retail UpdateSkillCmdSkillName builds it: the partner's name (skill
--- info 17 -> chara info 10 for a miximax, 0 for a soul) put into the name's tag 2508554842 (CMND_TEXT_CONVERT).
--- Other auras: the name unchanged.
-function EVT_AuraName(skill, name, auraType)
+-- The name text of a miximax / soul aura as retail UpdateSkillCmdSkillName builds it
+function CharacterReforged.hyper_button_aura_name(skill, name, auraType)
   local mixi = IsAuraSkillMixiMax(auraType)
   local soul = IsAuraSkillSoul(auraType)
   if not (mixi or soul) then
     return name
   end
   local s = ""
-  local _, chara = funcLuaCommand(EVT_SKILL_INFO, skill, 17)
+  local _, chara = funcLuaCommand(SKILL_INFO, skill, 17)
   if type(chara) == "number" and chara ~= 0 then
     local _, n = funcLuaCommand(4060384944, chara, mixi and 10 or 0)
     if type(n) == "string" then
@@ -353,71 +382,117 @@ function EVT_AuraName(skill, name, auraType)
   return name
 end
 
--- the input column (2026-10-06 round 4): layer evt_hiper_input (IF object evt_hiper_input = the retail «RB + LB» guide
--- soccer08_19b with only its two RETAIL button texts on screen, _text_btn01 over _text_btn02; hiper_btn_build.py
--- INPUT_*), 2 instances hung on the plates' _atc_evt_input01 (left of the name, right of the type icon). Rounds 1-3
--- wrote into text nodes appended to the plate layout: only the first appended node ever drew (the tiny «RB» badge),
--- the A / X never did.
-local EVT_IN = 3071105076 --[[evt_hiper_input]]
-local EVT_IN_ATC = 299612426 --[[evt_hiper_input01: its attach row on the plate]]
-local EVT_IN_TOP = 950238781 --[[_text_btn01]]
-local EVT_IN_BOTTOM = 2712285063 --[[_text_btn02]]
-EVT_INPUT_K = 0.8                  -- column scale (the retail 36-px button texts; x the plate's 0.72 on screen)
-EVT_INPUT_DX, EVT_INPUT_DY = 0, 0  -- extra shift of the column (plate layer units)
-local evt_glyph_logs, evt_glyph_last = 0, {}
--- the loader's face-button tags are the move cross's commands (<CMD_DECIDE_CMD_R_DOWN> ...); mapped to the menu
--- commands that always show those buttons
-EVT_INPUT_TAGS = {["<CMD_DECIDE_CMD_R_DOWN>"] = "<CMD_ENTER>", ["<CMD_DECIDE_CMD_R_RIGHT>"] = "<CMD_BACK>",
+local HyperInput = 2183681184 --[[cr_hiper_input]]
+local HYPER_INPUT_ATTACH = 222334746 --[[cr_hiper_input01: its attach row on the plate]]
+local HYPER_INPUT_TOP = 950238781 --[[_text_btn01]]
+local HYPER_INPUT_BOTTOM = 2712285063 --[[_text_btn02]]
+CharacterReforged.HYPER_INPUT_K = 0.8
+CharacterReforged.HYPER_INPUT_DX, CharacterReforged.HYPER_INPUT_DY = 0, 0  -- extra shift of the column (plate layer units)
+local character_reforged_glyph_logs, character_reforged_glyph_last = 0, {}
+-- The loader's face-button tags are the move cross's commands (<CMD_DECIDE_CMD_R_DOWN> and so on).
+CharacterReforged.HYPER_INPUT_TAGS = {["<CMD_DECIDE_CMD_R_DOWN>"] = "<CMD_ENTER>", ["<CMD_DECIDE_CMD_R_RIGHT>"] = "<CMD_BACK>",
   ["<CMD_DECIDE_CMD_R_LEFT>"] = "<CMD_FUNC4>", ["<CMD_DECIDE_CMD_R_UP>"] = "<CMD_FUNC3>"}
 
--- Collapsed plates (owner 2026-10-15): while the retail move list is closed (RB not held) each plate shows only its
--- input column and the aura portrait, on a short band anchored at the plate's right end; when the list opens (the
--- retail open state, UpdateAnimeMoveOffsetCmdBase(true): RB held) the band stretches to the left to the full plate
--- with the type icon and the name, and back when it closes. The band quads are resized and moved at their right end;
--- the input column slides with the band's left end. Display only; every plate of every slot behaves the same.
-EVT_HIPER_COLLAPSE = true
-EVT_HIPER_COLLAPSE_FRAMES = 8        -- frames of the stretch (about 0.13 s)
-EVT_HIPER_COLLAPSED_WIDTH = 183      -- band quad width while collapsed (plate layer units; full 436)
-EVT_HIPER_COLLAPSED_INPUT_X = 40     -- input column centre while collapsed (plate layer units; full -184)
-
-local function EVT_FoldWidth()
-  local p = evt_fold.progress
-  local eased = p * p * (3 - 2 * p)
-  return EVT_HIPER_COLLAPSED_WIDTH + (evt_fold.full_width - EVT_HIPER_COLLAPSED_WIDTH) * eased
+function CharacterReforged.hyper_button_input_hide(inst)
+  pcall(funcLuaMenuCommand, 711242136, HyperInput, inst, false)
 end
 
-function EVT_InputHide(inst)
-  pcall(funcLuaMenuCommand, 711242136, EVT_IN, inst, false)
-end
-
--- the column of plate `inst`: attach entry on, scale / shift, the two texts, shown (engine calls: EVT_HiperStep only)
-function EVT_InputDraw(inst, top, bottom)
-  pcall(funcLuaMenuCommand, 1774843228, EVT_HL, inst, EVT_IN_ATC, true)
-  local k = EVT_INPUT_K * (EVT_HIPER_PLATE_SCALE or 1)
-  funcLuaMenuCommand(3778714801, EVT_IN, k, k, 1, inst)
-  funcLuaMenuCommand(1389957207, EVT_IN, EVT_INPUT_DX + evt_fold.input_shift, EVT_INPUT_DY, 0, inst)
-  local r1 = funcLuaMenuCommand(1083631230, EVT_IN, EVT_IN_TOP, top, inst)
-  local r2 = funcLuaMenuCommand(1083631230, EVT_IN, EVT_IN_BOTTOM, bottom, inst)
-  funcLuaMenuCommand(2735666188 --[[CMND_SET_MENU_TEXT_VISIBLE]], EVT_IN, EVT_IN_TOP, top ~= "", inst)
-  funcLuaMenuCommand(2735666188, EVT_IN, EVT_IN_BOTTOM, bottom ~= "", inst)
-  funcLuaMenuCommand(711242136, EVT_IN, inst, top ~= "" or bottom ~= "")
+function CharacterReforged.hyper_button_input_draw(inst, top, bottom)
+  pcall(funcLuaMenuCommand, 1774843228, HyperButtonLayer, inst, HYPER_INPUT_ATTACH, true)
+  local k = CharacterReforged.HYPER_INPUT_K * (CharacterReforged.HYPER_BUTTON_PLATE_SCALE or 1)
+  funcLuaMenuCommand(3778714801, HyperInput, k, k, 1, inst)
+  funcLuaMenuCommand(1389957207, HyperInput, CharacterReforged.HYPER_INPUT_DX + character_reforged_fold.input_shift, CharacterReforged.HYPER_INPUT_DY, 0, inst)
+  local r1 = funcLuaMenuCommand(1083631230, HyperInput, HYPER_INPUT_TOP, top, inst)
+  local r2 = funcLuaMenuCommand(1083631230, HyperInput, HYPER_INPUT_BOTTOM, bottom, inst)
+  funcLuaMenuCommand(2735666188 --[[CMND_SET_MENU_TEXT_VISIBLE]], HyperInput, HYPER_INPUT_TOP, top ~= "", inst)
+  funcLuaMenuCommand(2735666188, HyperInput, HYPER_INPUT_BOTTOM, bottom ~= "", inst)
+  funcLuaMenuCommand(711242136, HyperInput, inst, top ~= "" or bottom ~= "")
   return r1, r2
 end
 
-function EVT_HiperDraw(inst, st, hdl, skill, ring, appear, glyph, armour, suffix, pover)
-  local L = EVT_HL
+function CharacterReforged.hyper_button_caption_hide(inst)
+  for i = 1, #CAPTION_LAYERS do
+    pcall(funcLuaMenuCommand, 711242136, CAPTION_LAYERS[i].layer, inst, false)
+  end
+end
+
+-- Shows `text` on one text layer of plate `inst` at `scale` against the plate, `dx`, `dy` from the input column.
+local function HyperButtonCaptionLayer(index, inst, text, scale, dx, dy, red, green, blue)
+  local caption = CAPTION_LAYERS[index]
+  local layer = caption.layer
+  funcLuaMenuCommand(1774843228, HyperButtonLayer, inst, caption.attach, true)
+  local k = scale * (CharacterReforged.HYPER_BUTTON_PLATE_SCALE or 1)
+  funcLuaMenuCommand(3778714801, layer, k, k, 1, inst)
+  funcLuaMenuCommand(1389957207, layer, dx + character_reforged_fold.input_shift, dy, 0, inst)
+  for i = 1, #CAPTION_TEXTS do
+    funcLuaMenuCommand(2735666188 --[[CMND_SET_MENU_TEXT_VISIBLE]], layer, CAPTION_TEXTS[i], CAPTION_TEXTS[i] == caption.text and text ~= "", inst)
+  end
+  funcLuaMenuCommand(3405944500, layer, CAPTION_PILL_BAND, caption.text == CAPTION_PILL_TEXT and text ~= "", inst)
+  local set = funcLuaMenuCommand(1083631230, layer, caption.text, text, inst)
+  funcLuaMenuCommand(2771105252 --[[text colour]], layer, inst, caption.text, red, green, blue)
+  if text ~= "" and not character_reforged_cross.logged["text" .. index] then
+    character_reforged_cross.logged["text" .. index] = true
+    pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross text layer " .. index .. " plate " .. inst, text, "set " .. tostring(set), "scale " .. k, "at " .. dx .. "," .. dy)
+  end
+  funcLuaMenuCommand(711242136, layer, inst, text ~= "")
+end
+
+-- Draws the texts of plate `inst`: the type label over the name, the name shrunk to its room, the cost or reason pill.
+function CharacterReforged.hyper_button_caption_draw(inst, name, caption, usable)
+  local place = CharacterReforged.TRANSFORM_CROSS
+  local shade = usable and 1 or 0.5
+  HyperButtonCaptionLayer(1, inst, caption.label, place.text_scale, place.type_offset_x, place.type_offset_y, shade, shade, shade)
+  if caption.reason then
+    HyperButtonCaptionLayer(2, inst, caption.pill, place.text_scale, place.pill_offset_x, place.pill_offset_y, 1, 0.5, 0.45)
+  else
+    HyperButtonCaptionLayer(2, inst, caption.pill, place.text_scale, place.pill_offset_x, place.pill_offset_y, 1, 1, 1)
+  end
+  -- The name is drawn at its full size; the next step measures it and shrinks it to its room.
+  HyperButtonCaptionLayer(3, inst, name, place.name_scale, place.name_offset_x, place.name_offset_y, shade, shade, shade)
+  character_reforged_cross.fit[inst + 1] = name
+end
+
+-- Shrinks the name layer of plate `inst` as a whole until the drawn name fits its room: a name is never cut.
+local function HyperButtonNameFit(inst, face)
+  local name = character_reforged_cross.fit[inst + 1]
+  character_reforged_cross.fit[inst + 1] = nil
+  local place = CharacterReforged.TRANSFORM_CROSS
+  local room = face and place.name_room_face or place.name_room
+  local ok, width = pcall(funcLuaMenuCommand, COMMAND_TEXT_SIZE, NameLayer, inst, CAPTION_LEFT_TEXT)
+  if not ok or type(width) ~= "number" or width <= 0 then
+    if not character_reforged_cross.measure_logged then
+      character_reforged_cross.measure_logged = true
+      pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "ERROR: the name's width cannot be measured: long names are not fitted", name, tostring(ok), tostring(width))
+    end
+    return
+  end
+  local scale = place.name_scale
+  if width * scale > room then
+    scale = room / width
+  end
+  local k = scale * (CharacterReforged.HYPER_BUTTON_PLATE_SCALE or 1)
+  funcLuaMenuCommand(3778714801, NameLayer, k, k, 1, inst)
+  if character_reforged_cross.logged["fit" .. inst] ~= name then
+    character_reforged_cross.logged["fit" .. inst] = name
+    pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross name plate " .. inst, name, "width " .. width, "room " .. room, "scale " .. scale)
+  end
+end
+
+function CharacterReforged.hyper_button_draw(slot, st, hdl, skill, ring, appear, glyph, armour, caption, pover)
+  local L, inst = HyperButtonLayer, slot
   if st == 0 or skill == 0 then
     funcLuaMenuCommand(711242136, L, inst, false)
-    EVT_PlateFaceHide(inst)
-    EVT_InputHide(inst)
+    CharacterReforged.hyper_button_plate_face_hide(inst)
+    CharacterReforged.hyper_button_input_hide(inst)
+    CharacterReforged.hyper_button_caption_hide(inst)
     return
   end
   local usable = st == 1
-  local element = EVT_Info(skill, 7) or 1
-  local nameId = EVT_Info(skill, 4) or 0
-  local auraType = EVT_Info(skill, 13)
+  local element = HyperButtonInfo(skill, 7) or 1
+  local nameId = HyperButtonInfo(skill, 4) or 0
+  local auraType = HyperButtonInfo(skill, 13)
   local isAura = auraType ~= nil and auraType ~= 255
-  local category = isAura and 8 or (EVT_Info(skill, 9) or 1)
+  local category = isAura and 8 or (HyperButtonInfo(skill, 9) or 1)
   local armed = isAura and IsAuraSkillKeshinArmed(auraType) or false
   funcLuaMenuCommand(711242136, L, inst, true)
   -- plate, name (same calls as a move row of SetupSkillCmdInfo)
@@ -426,71 +501,60 @@ function EVT_HiperDraw(inst, st, hdl, skill, ring, appear, glyph, armour, suffix
     SwapTextureSkillCmd(L, inst, tex)
   end
   UpdateSkillCmdSkillName(L, inst, hdl, skill, nameId, category)
-  -- the category icon slot at the plate's left end (retail sets it for every move row; left alone it shows the
-  -- widget's placeholder: a white chevron / square)
-  evt_fold.icon[inst + 1] = pcall(SetupCommandActionSkillInfoCategoryIcon, L, inst, skill)
-  if not evt_fold.icon[inst + 1] then
+  character_reforged_fold.icon[slot + 1] = pcall(SetupCommandActionSkillInfoCategoryIcon, L, inst, skill)
+  if not character_reforged_fold.icon[slot + 1] then
     funcLuaMenuCommand(3405944500, L, 2164615260 --[[_icon_sp_area_dmy01]], false, inst)
   end
-  -- the button icons left of the name (game glyph tags; the text renderer follows the active device). 2026-09-30
-  -- (Nacho): every plate shows its input, the miximax / soul aura plates («Miximax Trans») too: their name goes
-  -- through the retail conversion of UpdateSkillCmdSkillName first (EVT_AuraName), then the glyphs are put before it.
+  do
+    local buttons = {}
+    for tag in string.gmatch(glyph or "", "<[^>]+>") do buttons[#buttons + 1] = CharacterReforged.HYPER_INPUT_TAGS[tag] or tag end
+    -- The modifier is the ring's centre: the column shows the entry's own button alone.
+    local top, bottom = "", buttons[#buttons] or glyph or ""
+    local okg, r1, r2 = pcall(CharacterReforged.hyper_button_input_draw, inst, top, bottom)
+    local gkey = top .. "|" .. bottom
+    if character_reforged_glyph_last[inst + 1] ~= gkey and character_reforged_glyph_logs < 40 then
+      character_reforged_glyph_last[inst + 1] = gkey
+      character_reforged_glyph_logs = character_reforged_glyph_logs + 1
+      pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn glyph", "inst=" .. tostring(inst), "top=" .. top, "bottom=" .. bottom,
+        "raw=" .. tostring(glyph), okg and ("set " .. tostring(r1) .. "/" .. tostring(r2)) or ("error " .. tostring(r1)))
+    end
+  end
+  funcLuaMenuCommand(1284929827, L, inst, usable)
+  SetVisibleCmdButton(L, inst, true)
+  -- The name is drawn by its own text layer, which can shrink.
+  SetVisibleSkillCmdName(L, inst, false)
+  -- Hides the placeholder boxes at the plate's right end.
+  local okf, drawn = pcall(CharacterReforged.hyper_button_plate_face, L, inst, hdl, false, pover, skill)
+  local face = okf and drawn == true
   if glyph ~= "" and nameId ~= 0 then
     local name = funcLuaCommand(720417636, nameId)
     if isAura and type(name) == "string" then
-      local okn, conv = pcall(EVT_AuraName, skill, name, auraType)
+      local okn, conv = pcall(CharacterReforged.hyper_button_aura_name, skill, name, auraType)
       if okn and type(conv) == "string" then
         name = conv
       end
     end
     if armour then
-      -- the armour plate: the button glyphs, then the retail armed-form logo (_gtxt_cmd_armed01) instead of a text
+      -- Handles the armour plate.
       name = ""
     end
-    if type(name) == "string" and suffix ~= nil and suffix ~= "" then
-      name = name .. suffix
-    end
     if type(name) == "string" then
-      funcLuaMenuCommand(1083631230, L, 1123081621 --[[_text_cmd_sp01]], name, inst)
+      local okc, errc = pcall(CharacterReforged.hyper_button_caption_draw, inst, name, caption, usable)
+      if not okc and character_reforged_cross.logged["caption"] ~= tostring(errc) then
+        character_reforged_cross.logged["caption"] = tostring(errc)
+        pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross texts error", tostring(errc))
+      end
     end
+  else
+    CharacterReforged.hyper_button_caption_hide(inst)
   end
-  -- 2026-10-06 (Nacho): the input as a column at the plate's left end, «RB» over «A» (RB+A plate) / «X» (RB+X
-  -- plate), on layer evt_hiper_input (see EVT_IN). Pad: one game glyph tag per text (the text renderer draws the
-  -- active device's icon), the face buttons mapped by EVT_INPUT_TAGS (A <CMD_ENTER>, B <CMD_BACK>, X <CMD_FUNC4>,
-  -- Y <CMD_FUNC3>); keyboard ("[H]"): the key alone in the lower text.
-  local buttons = {}
-  for tag in string.gmatch(glyph or "", "<[^>]+>") do buttons[#buttons + 1] = EVT_INPUT_TAGS[tag] or tag end
-  local top, bottom = buttons[1] or "", buttons[2] or ""
-  if #buttons <= 1 then
-    top, bottom = "", buttons[1] or glyph or ""
-  end
-  local okg, r1, r2 = pcall(EVT_InputDraw, inst, top, bottom)
-  local gkey = top .. "|" .. bottom
-  if evt_glyph_last[inst + 1] ~= gkey and evt_glyph_logs < 40 then
-    evt_glyph_last[inst + 1] = gkey
-    evt_glyph_logs = evt_glyph_logs + 1
-    pcall(funcLuaCommand, EVT_CMD_LOG, "hiper_btn glyph", "inst=" .. tostring(inst), "top=" .. top, "bottom=" .. bottom,
-      "raw=" .. tostring(glyph), okg and ("set " .. tostring(r1) .. "/" .. tostring(r2)) or ("error " .. tostring(r1)))
-  end
-  funcLuaMenuCommand(1284929827, L, inst, usable)
-  SetVisibleCmdButton(L, inst, true)
-  SetVisibleSkillCmdName(L, inst, true)
-  -- the placeholder boxes at the plate's right end (2026-09-28, capture 71: a white square right of "Sirena").
-  -- SetVisibleCmdButton turns node _pos_base01 on, which shows its child meshes again: the hides used to run before
-  -- it and were undone. They now run after it (retail SetupAuraSlotInfo also sets the sub icon after
-  -- SetVisibleCmdButton), at the end of the draw and every frame from EVT_HiperStep.
-  -- A fused player (module miximax) / a «modo cambio» plate: the partner's face at the band's right end (own layer,
-  -- EVT_PlateFace), with the plate page's rule: the miximax face icon of key 347353059(partner) if one exists, else the
-  -- plain chara icon.
-  local okf, face = pcall(EVT_PlateFace, L, inst, hdl, false, pover, skill)
-  face = okf and face == true
-  EVT_HideDummies(L, inst, face)
-  for i = 1, #EVT_CUBES do
-    funcLuaMenuCommand(3405944500, L, EVT_CUBES[i], false, inst)
+  HyperButtonHideDummies(L, inst, face)
+  for i = 1, #HyperCubes do
+    funcLuaMenuCommand(3405944500, L, HyperCubes[i], false, inst)
   end
   funcLuaMenuCommand(3405944500, L, 1621112166 --[[_cmd_pw_cube01]], false, inst)
-  evt_fold.logo[inst + 1] = armed or armour == true
-  funcLuaMenuCommand(3405944500, L, 1206374040 --[[_gtxt_cmd_armed01]], evt_fold.logo[inst + 1], inst)
+  character_reforged_fold.logo[slot + 1] = armour == true
+  funcLuaMenuCommand(3405944500, L, 1206374040 --[[_gtxt_cmd_armed01]], character_reforged_fold.logo[slot + 1], inst)
   funcLuaMenuCommand(2158717427, L, 4081284803 --[[_pos_at01]], false, inst)
   funcLuaMenuCommand(1233047821, L, inst, 2467766246, false)
   funcLuaMenuCommand(1233047821, L, inst, 875648615, false)
@@ -503,13 +567,8 @@ function EVT_HiperDraw(inst, st, hdl, skill, ring, appear, glyph, armour, suffix
   end
   funcLuaMenuCommand(3405944500, L, 3742978053 --[[_cmd_base_sp_grayout01]], not usable, inst)
   funcLuaMenuCommand(558735651, L, 2804251149 --[[soccer08_10.g4tx]], gray, 2300007848 --[[cmd_base_sp_grayout01]], 0, inst)
-  -- RB held: the selection ring + the "Active" pulse ("press the button now")
   funcLuaMenuCommand(558735651, L, 2804251149 --[[soccer08_10.g4tx]], ringTex, 97673312 --[[sp_ring02]], 0, inst)
   funcLuaMenuCommand(3405944500, L, 1213120893 --[[_sp_ring02]], ring, inst)
-  local dark = usable and 0 or 0.5
-  local col = usable and 1 or 0.5
-  funcLuaMenuCommand(2484004035, L, inst, 1123081621 --[[_text_cmd_sp01]], dark)
-  funcLuaMenuCommand(2771105252, L, inst, 1123081621 --[[_text_cmd_sp01]], col, col, col)
   funcLuaMenuCommand(3781155141, L, inst, 1633223871, usable and 2 or 0)
   funcLuaMenuCommand(3781155141, L, inst, 846750395, 2)
   if ring and usable then
@@ -520,134 +579,97 @@ function EVT_HiperDraw(inst, st, hdl, skill, ring, appear, glyph, armour, suffix
   if appear then
     funcLuaMenuCommand(3781155141, L, inst, 71445658 --[[Open]], 0, 2181236453)
   end
-  EVT_HideDummies(L, inst, face)
+  HyperButtonHideDummies(L, inst, face)
   return face
 end
 
-local function EVT_Num(v)
+local function HyperButtonNum(v)
   if type(v) == "number" then
     return v
   end
   return 0
 end
 
-local function EVT_Str(v)
+local function HyperButtonStr(v)
   if type(v) == "string" then
     return v
   end
   return ""
 end
 
-local EVT_tick = 0   -- EVT_HiperStep calls (frames)
+local hyperButtonTick = 0
 
--- 2026-10-06 (Nacho): the «modo cambio» cooldown of the RB+A plate is a thin bar along the plate's bottom that fills up
--- from left to right until the swap is usable again (no «19s» text after the name; the plate stays greyed while it
--- cools down). Drawn on the plate's spare quad _cmd_pw_cube01 (the move row's power cube, always hidden on these
--- plates; under _pos_base01, drawn after the grey-out) of instance 0, with the retail sprite gauge_recast_aura01 of
--- soccer00_54 (the aura recast gauge, 4 x 12, orange, opaque rows 2..8; the clean_hud time line's sprite) loaded here
--- (CMND_LOAD_MENU_RES_TEXTURE) and swapped into the quad's slot; node scale = quad size, node translation = top-left.
--- Fill = loader value 17 (cooldown recovered, per mille); a loader without it: from the seconds (value 15), the first
--- value of a cooldown taken as its length. Engine calls only from EVT_HiperStep (PostStep).
-EVT_HIPER_CD_BAR = true
-EVT_HIPER_CD_BAR_L = -226           -- plate layer units (before the plate's 0.72): left end, right of the round cap
-EVT_HIPER_CD_BAR_R = 166            -- right end (the plate's visible right edge is ~172)
-EVT_HIPER_CD_BAR_BOTTOM = -21       -- bottom of the line (the plate's visible bottom is -27)
-EVT_HIPER_CD_BAR_H = 6              -- thickness (x 0.72: ~4 px)
-local EVT_CD_MESH = 1621112166 --[[_cmd_pw_cube01]]
-local EVT_CD_SLOT = 3488642376 --[[its sprite slot (40 x 40 power cube)]]
-local EVT_CD_TEX_PATH = "#/menu/00_soccer/soccer00/soccer00_54/soccer00_54.g4tx"
-local EVT_CD_TEX = 3000726149 --[[crc32 of EVT_CD_TEX_PATH]]
-local EVT_CD_SPRITE = 4200959402 --[[gauge_recast_aura01]]
-local EVT_CD_ROWS, EVT_CD_OPAQUE = 12, 7
+-- The plate stays greyed until the charge bar fills again.
+CharacterReforged.HYPER_BUTTON_CHARGE_BAR = true
+CharacterReforged.HYPER_BUTTON_CHARGE_BAR_L = -226
+CharacterReforged.HYPER_BUTTON_CHARGE_BAR_R = 166            -- right end (the plate's visible right edge is ~172)
+CharacterReforged.HYPER_BUTTON_CHARGE_BAR_BOTTOM = -21       -- bottom of the line (the plate's visible bottom is -27)
+CharacterReforged.HYPER_BUTTON_CHARGE_BAR_H = 6              -- thickness (x 0.72: ~4 px)
+local HYPER_CHARGE_MESH = 1621112166 --[[_cmd_pw_cube01]]
+local HYPER_CHARGE_SLOT = 3488642376 --[[its sprite slot (40 x 40 power cube)]]
+local HYPER_CHARGE_TEXTURE_PATH = "#/menu/00_soccer/soccer00/soccer00_54/soccer00_54.g4tx"
+local HYPER_CHARGE_TEXTURE = 3000726149 --[[crc32 of HYPER_CHARGE_TEXTURE_PATH]]
+local HYPER_CHARGE_SPRITE = 4200959402 --[[gauge_recast_aura01]]
+local HYPER_CHARGE_ROWS, HYPER_CHARGE_OPAQUE = 12, 7
 
-local function EVT_CdLog(...)
-  if evt_cd.logs < 8 then
-    evt_cd.logs = evt_cd.logs + 1
-    pcall(funcLuaCommand, 1563215927, "hiper_btn", "cooldown bar", ...)
+local function HyperButtonChargeLog(...)
+  if character_reforged_cd.logs < 8 then
+    character_reforged_cd.logs = character_reforged_cd.logs + 1
+    character_reforged_cd.logger = character_reforged_cd.logger or VRFW.logger.new("hiper_btn")
+    character_reforged_cd.logger.debug("cooldown bar", ...)
   end
 end
 
-local function EVT_CdTexReady()
-  if evt_cd.tex == 2 then
-    return true
-  elseif evt_cd.tex == -1 then
-    return false
-  elseif evt_cd.tex == 0 then
-    local ok = pcall(funcLuaMenuCommand, 839427544, EVT_CD_TEX_PATH)
-    evt_cd.tex, evt_cd.t = ok and 1 or -1, 0
-    if not ok then
-      EVT_CdLog("texture load FAILED (no bar)")
-    end
-    return false
-  end
-  evt_cd.t = evt_cd.t + 1
-  local ok, busy = pcall(funcLuaCommand, 1506186496 --[[texture still loading]], EVT_CD_TEX)
-  if not ok or evt_cd.t > 600 then
-    evt_cd.tex = -1
-    EVT_CdLog("texture never loaded (no bar)")
-    return false
-  end
-  if busy ~= true and evt_cd.t >= 10 then
-    evt_cd.tex = 2
-    EVT_CdLog("texture in after", tostring(evt_cd.t), "frames")
-    return true
-  end
-  return false
-end
-
-local function EVT_CdShow(on)
-  if evt_cd.shown ~= on then
-    funcLuaMenuCommand(3405944500, EVT_HL, EVT_CD_MESH, on, evt_cd.inst)
-    evt_cd.shown = on
+local function HyperButtonChargeShow(on)
+  if character_reforged_cd.shown ~= on then
+    funcLuaMenuCommand(3405944500, HyperButtonLayer, HYPER_CHARGE_MESH, on, character_reforged_cd.inst)
+    character_reforged_cd.shown = on
   end
 end
 
--- frac: part of the cooldown recovered (0..1), nil = no bar
-local function EVT_CdBar(frac)
-  if frac == nil or not EVT_HIPER_CD_BAR or frac >= 1 then
-    EVT_CdShow(false)
+-- Draws the charge bar for the fraction `frac`.
+local function HyperButtonChargeBar(frac)
+  if frac == nil or not CharacterReforged.HYPER_BUTTON_CHARGE_BAR or frac >= 1 then
+    HyperButtonChargeShow(false)
     return
   end
-  if not EVT_CdTexReady() then
-    EVT_CdShow(false)
+  if not VRFW.textures.poll(HYPER_CHARGE_TEXTURE_PATH, VRFW.textures.SETTLED) then
+    HyperButtonChargeShow(false)
     return
   end
-  if not evt_cd.swapped then
-    funcLuaMenuCommand(558735651 --[[swap texture]], EVT_HL, EVT_CD_TEX, EVT_CD_SPRITE, EVT_CD_SLOT, 0, evt_cd.inst)
-    evt_cd.swapped, evt_cd.geo = true, nil
+  if not character_reforged_cd.swapped then
+    funcLuaMenuCommand(558735651 --[[swap texture]], HyperButtonLayer, HYPER_CHARGE_TEXTURE, HYPER_CHARGE_SPRITE, HYPER_CHARGE_SLOT, 0, character_reforged_cd.inst)
+    character_reforged_cd.swapped, character_reforged_cd.geo = true, nil
   end
-  -- a collapsed band (EVT_FoldApply) shortens the bar from its left end
-  local span = (EVT_HIPER_CD_BAR_R - EVT_HIPER_CD_BAR_L) * (evt_fold.width or evt_fold.full_width) / evt_fold.full_width
-  local left = EVT_HIPER_CD_BAR_R - span
+  local span = (CharacterReforged.HYPER_BUTTON_CHARGE_BAR_R - CharacterReforged.HYPER_BUTTON_CHARGE_BAR_L) * (character_reforged_fold.width or character_reforged_fold.full_width) / character_reforged_fold.full_width
+  local left = CharacterReforged.HYPER_BUTTON_CHARGE_BAR_R - span
   local w = span * math.max(0, frac)
   if w < 1 then
-    EVT_CdShow(false)
+    HyperButtonChargeShow(false)
     return
   end
-  local h = EVT_HIPER_CD_BAR_H
-  local quad_h = h * EVT_CD_ROWS / EVT_CD_OPAQUE
-  local top = EVT_HIPER_CD_BAR_BOTTOM + h * 9 / EVT_CD_OPAQUE   -- opaque rows 2..8 of the quad end on the bottom
-  local g = evt_cd.geo
+  local h = CharacterReforged.HYPER_BUTTON_CHARGE_BAR_H
+  local quad_h = h * HYPER_CHARGE_ROWS / HYPER_CHARGE_OPAQUE
+  local top = CharacterReforged.HYPER_BUTTON_CHARGE_BAR_BOTTOM + h * 9 / HYPER_CHARGE_OPAQUE   -- opaque rows 2..8 of the quad end on the bottom
+  local g = character_reforged_cd.geo
   if g == nil or math.abs(g[1] - w) > 0.05 or g[2] ~= top or g[3] ~= quad_h or math.abs(g[4] - left) > 0.05 then
-    funcLuaMenuCommand(2885415772 --[[node size]], EVT_HL, evt_cd.inst, EVT_CD_MESH, w, quad_h)
-    funcLuaMenuCommand(2575768773 --[[node translation]], EVT_HL, evt_cd.inst, EVT_CD_MESH, 0, left)
-    funcLuaMenuCommand(2575768773 --[[node translation]], EVT_HL, evt_cd.inst, EVT_CD_MESH, 1, top)
-    evt_cd.geo = {w, top, quad_h, left}
+    funcLuaMenuCommand(2885415772 --[[node size]], HyperButtonLayer, character_reforged_cd.inst, HYPER_CHARGE_MESH, w, quad_h)
+    funcLuaMenuCommand(2575768773 --[[node translation]], HyperButtonLayer, character_reforged_cd.inst, HYPER_CHARGE_MESH, 0, left)
+    funcLuaMenuCommand(2575768773 --[[node translation]], HyperButtonLayer, character_reforged_cd.inst, HYPER_CHARGE_MESH, 1, top)
+    character_reforged_cd.geo = {w, top, quad_h, left}
   end
-  EVT_CdShow(true)
+  HyperButtonChargeShow(true)
 end
 
-local function EVT_Update(inst, st, hdl, skill, ring, glyph, armour, suffix, pover)
-  local last = EVT_last[inst + 1]
-  suffix = suffix or ""
+local function HyperButtonUpdate(inst, st, hdl, skill, ring, glyph, armour, caption, pover)
+  local last = hyperButtonLast[inst + 1]
+  local caption_key = caption.label .. "|" .. caption.pill .. "|" .. tostring(caption.reason)
   pover = pover or 0
-  -- the «modo cambio» values (loader 11-17) can be missing for a frame: the plate kept toggling between the other form's
-  -- face and none (a redraw each time: the blinking). The face stays while the plate's skill and player are the same.
   if pover == 0 and (last.pover or 0) ~= 0 and skill == last.skill and hdl == last.hdl and st == last.st then
     pover = last.pover
   end
   if st == last.st and skill == last.skill and ring == last.ring and glyph == last.glyph and hdl == last.hdl and armour == last.armour
-    and suffix == (last.suffix or "") and pover == (last.pover or 0) then
+    and caption_key == (last.caption_key or "") and pover == (last.pover or 0) then
     return
   end
   local appear = last.st ~= 1 and last.st ~= 2
@@ -657,528 +679,372 @@ local function EVT_Update(inst, st, hdl, skill, ring, glyph, armour, suffix, pov
   last.glyph = glyph
   last.hdl = hdl
   last.armour = armour
-  last.suffix = suffix
+  last.caption_key = caption_key
   last.pover = pover
-  local ok, face = pcall(EVT_HiperDraw, inst, st, hdl, skill, ring, appear, glyph, armour, suffix, pover)
+  local ok, face = pcall(CharacterReforged.hyper_button_draw, inst, st, hdl, skill, ring, appear, glyph, armour, caption, pover)
   last.face = ok and face == true
-  evt_fold.band[inst + 1] = nil   -- the draw showed the name / icon again: EVT_FoldApply sets the band again
-  if inst == evt_cd.inst then
-    evt_cd.shown = nil   -- the draw hid the bar's quad (_cmd_pw_cube01): EVT_CdBar sets it again
+  if inst == character_reforged_cd.inst then
+    character_reforged_cd.shown = nil
   end
-  last.drawTick = EVT_tick
+  last.drawTick = hyperButtonTick
   last.hasFace = false
   if ok and st ~= 0 and skill ~= 0 then
-    local okp, partner, spirit = pcall(funcLuaCommand, EVT_CMD_MXP, hdl, skill)
+    local okp, partner, spirit = pcall(funcLuaCommand, COMMAND_MXP, hdl, skill)
     last.hasFace = (okp and ((type(partner) == "number" and partner ~= 0) or (type(spirit) == "number" and spirit ~= 0)))
       or pover ~= 0
   end
   last.shown = ok and st ~= 0 and skill ~= 0
   if appear and last.shown then
-    evt_ho_slide[inst + 1] = EVT_tick   -- the plate comes in from the right screen edge (EVT_HiperOpenPlace)
+    character_reforged_ho_slide[inst + 1] = hyperButtonTick
   end
   if not ok then
-    pcall(funcLuaMenuCommand, 711242136, EVT_HL, inst, false)
-    EVT_PlateFaceHide(inst)
-    EVT_InputHide(inst)
+    pcall(funcLuaMenuCommand, 711242136, HyperButtonLayer, inst, false)
+    CharacterReforged.hyper_button_plate_face_hide(inst)
+    CharacterReforged.hyper_button_input_hide(inst)
+    CharacterReforged.hyper_button_caption_hide(inst)
   end
 end
 
--- 2026-09-30 (Nacho): move list open. clean_hud keeps the open menu at the closed anchor (the retail slide of the
--- cross, 330 left, is held at rest), so the plates hung right of the ">" arrow would sit off the right edge / on the
--- menu. While the list is open (the retail open state: UpdateAnimeMoveOffsetCmdBase(true), wrapped below; without
--- clean_hud the retail slide still runs) the two plates of pos 0 ("right") go under the menu, right-aligned:
--- CMND_SET_LAYER_LOCAL_POS relative to their locators, x from the measured cross (so it holds with and without the
--- slide or the duel "vs" shift), y a fixed step below the cross. Back to (0, 0) when the list closes. pos 1 ("above")
--- is not moved. Display only.
-EVT_HIPER_OPEN_MOVE = true
-EVT_HIPER_OPEN_RIGHT = 0            -- plates' right edge while the list is open (layout units from the right edge):
-                                    -- 0 = flush against the screen edge, a card out of the right side (Nacho 2026-09-30;
-                                    -- was -16)
--- 2026-09-30 (Nacho): the plates slide in from the right screen edge when they appear (Open) and when the list opens
--- and they move to the corner: an added LOCAL_POS x offset from EVT_HIPER_SLIDE_DX to 0 over EVT_HIPER_SLIDE_FRAMES
--- (ease-out). 0 frames = no slide. Display only.
-EVT_HIPER_SLIDE_FRAMES = 9
-EVT_HIPER_SLIDE_DX = 380            -- start offset: the whole plate (2 x 176 wide) past the right edge
-EVT_HIPER_OPEN_Y = {-192, -192}     -- plate centres while open, relative to the cross centre (instance 0 / 1): below the
-                                    -- lowest plate of the cross (_cmd01_02 at -76, bottom ~-106) and the page dots (-62);
-                                    -- one row (Nacho 2026-09-30: the RB+X plate left of the RB+A plate)
-EVT_HIPER_OPEN_GAP = 12             -- gap between the RB+X plate (instance 1, left) and the RB+A plate (instance 0, right)
-EVT_HIPER_PLATE_SCALE = 0.88        -- plate size (1 = the move row's own); the right edge stays where it was
-EVT_HIPER_RAISE_Y = 22              -- plates moved up by this (layout units, y up)
-local EVT_HO_ATC_X = 504            -- x of _atc_hiper01_r / _atc_hiper02_r relative to the cross (hiper_btn_build.py _RX)
-local EVT_HO_ATC_Y = {-36, 30}      -- their y (instance 0 / 1)
-local EVT_HO_HALF_R = 133           -- plate right half-width (245 x 0.72)
-local EVT_HO_CROSS = -342           -- retail cross x from the right edge (closed, no duel shift): fallback of the measure
+-- The plates slide in from the left screen edge when they appear.
+CharacterReforged.HYPER_BUTTON_SLIDE_FRAMES = 9
+CharacterReforged.HYPER_BUTTON_SLIDE_DX = 380            -- start offset: the whole plate past its place
+-- The plate's scale is the cross's config value (set with it): the portrait and the input column follow it.
 
-local evt_ho_prevOffset = rawget(_ENV, "UpdateAnimeMoveOffsetCmdBase")
-if type(evt_ho_prevOffset) == "function" then
-  rawset(_ENV, "UpdateAnimeMoveOffsetCmdBase", function(a1, ...)
-    evt_ho_open = a1 == true
-    return evt_ho_prevOffset(a1, ...)
-  end)
-end
-
--- 2026-10-07 (Nacho: «quita también en partido el botón de R2 desinvocar para el modo cambio»): with the loader's
--- [hiper_slot] mode_change_dismiss = false the retail aura release button does nothing for a player in his «modo
--- cambio» form (only RB+A swaps him back), so its guide (soccer08_17b «Desactivar») is hidden while the controlled
--- player is in that form (loader value 20 of CMND_EVT_HIPER_BTN). Keshin / armour / miximax keep it. Engine calls only
--- inside the engine's own call of UpdateVisibleAttachButtonGuide and from EVT_HiperStep (PostStep).
-local EVT_REL_GUIDE = 3063505148 --[[soccer08_17b_aura_release_button_guide]]
-EVT_MC_NO_RELEASE = false
-local evt_mc_prevVis = rawget(_ENV, "UpdateVisibleAttachButtonGuide")
-if type(evt_mc_prevVis) == "function" then
+local RELEASE_GUIDE = 3063505148 --[[soccer08_17b_aura_release_button_guide]]
+CharacterReforged.MODE_CHANGE_NO_RELEASE = false
+local character_reforged_mc_prevVis = rawget(_ENV, "UpdateVisibleAttachButtonGuide")
+if type(character_reforged_mc_prevVis) == "function" then
   rawset(_ENV, "UpdateVisibleAttachButtonGuide", function(a1, a2, ...)
-    local r = evt_mc_prevVis(a1, a2, ...)
-    if a1 == EVT_REL_GUIDE and EVT_MC_NO_RELEASE then
+    local r = character_reforged_mc_prevVis(a1, a2, ...)
+    if a1 == RELEASE_GUIDE and CharacterReforged.MODE_CHANGE_NO_RELEASE then
       pcall(funcLuaMenuCommand, 711242136, a1, a2, false)
     end
     return r
   end)
 end
 
--- the cross (_pos_gaiji01) from the right screen edge in layout units, as hud_layout measures it: relative to the
--- layer root soccer08_07_output, scale from _cmd01_01 (128 layout units right of the cross)
-local function EVT_HO_CrossX()
-  local gp = 499270986
-  local ok1, gx = pcall(funcLuaMenuCommand, gp, EVT_BASE, 0, 708999887 --[[_pos_gaiji01]])
-  local ok2, ox = pcall(funcLuaMenuCommand, gp, EVT_BASE, 0, 2812881813 --[[soccer08_07_output]])
-  local ok3, cx = pcall(funcLuaMenuCommand, gp, EVT_BASE, 0, 1816929598 --[[_cmd01_01]])
-  if not ok1 or not ok2 or type(gx) ~= "number" or type(ox) ~= "number" then
-    return EVT_HO_CROSS
-  end
-  local k = 1
-  if ok3 and type(cx) == "number" and (cx - gx) / 128 > 0.25 and (cx - gx) / 128 < 4 then
-    k = (cx - gx) / 128
-  end
-  local rel = (gx - ox) / k
-  if rel >= 0 or rel <= -1920 then
-    return EVT_HO_CROSS
-  end
-  return rel
+-- Returns the visible band of a plate at band quad width `width`.
+local function HyperButtonBandEnds(width)
+  local f = width / character_reforged_fold.full_width
+  return character_reforged_fold.quad_right - width + character_reforged_fold.band_margin * f, character_reforged_fold.visible_right
 end
 
--- x offset of a running slide-in of plate `inst` (0 when none; ends the slide after its last frame)
--- 2026-10-16 (owner: «que el RB+A y RB+B estén centrados abajo de ¡Subid!»): the collapsed pair (or the one shown
--- plate) is centred under the «¡Subid!» guide (soccer08_17_go_ahead_guide, centred on its root soccer08_17_output),
--- measured against the cross like EVT_HO_CrossX; the right plate's right end stays there while the plates stretch left.
--- No measure: the global EVT_HL_GOAHEAD_X of the HUD layout, else the plates stay flush with the screen edge.
--- 2026-10-19 (owner): off. One layout in every selector (shot, dribble, defence, keeper): both plates flush with the
--- right screen edge, RB+A rightmost, RB+B on its left with a visible gap (centred, they sat on the bottom stat bar).
-EVT_HIPER_CENTER_UNDER_GO_AHEAD = false
-EVT_HIPER_PAIR_GAP = 24             -- gap between the two plates' visible bands (layout units)
-local EVT_GO_AHEAD = 4104611069 --[[soccer08_17_go_ahead_guide]]
-local EVT_GO_AHEAD_ROOT = 2966568918 --[[soccer08_17_output]]
-
--- the «¡Subid!» centre x from the right screen edge (layout units), nil = unknown
-local function EVT_HO_GoAheadX(cross)
-  local gp = 499270986
-  local ok1, gx = pcall(funcLuaMenuCommand, gp, EVT_BASE, 0, 708999887 --[[_pos_gaiji01]])
-  local ok2, cx = pcall(funcLuaMenuCommand, gp, EVT_BASE, 0, 1816929598 --[[_cmd01_01]])
-  local ok3, sx = pcall(funcLuaMenuCommand, gp, EVT_GO_AHEAD, 0, EVT_GO_AHEAD_ROOT)
-  if ok1 and ok2 and ok3 and type(gx) == "number" and type(cx) == "number" and type(sx) == "number" then
-    local k = (cx - gx) / 128
-    if k > 0.25 and k < 4 then
-      local x = cross + (sx - gx) / k
-      if x < 0 and x > -1920 then
-        return x
-      end
-    end
-  end
-  if type(EVT_HL_GOAHEAD_X) == "number" then
-    return EVT_HL_GOAHEAD_X
-  end
-  return nil
-end
-
--- visible band of a plate at band quad width `width`: left and right ends (plate layer units)
-local function EVT_BandEnds(width)
-  local f = width / evt_fold.full_width
-  return evt_fold.quad_right - width + evt_fold.band_margin * f, evt_fold.visible_right
-end
-
-local function EVT_SlideDx(inst)
-  local start = evt_ho_slide[inst + 1]
+local function HyperButtonSlideDx(inst)
+  local start = character_reforged_ho_slide[inst + 1]
   if start == nil then
     return 0
   end
-  local n = EVT_HIPER_SLIDE_FRAMES or 0
-  local t = n > 0 and (EVT_tick - start) / n or 1
+  local n = CharacterReforged.HYPER_BUTTON_SLIDE_FRAMES or 0
+  local t = n > 0 and (hyperButtonTick - start) / n or 1
   if t >= 1 or t < 0 then
-    evt_ho_slide[inst + 1] = nil
+    character_reforged_ho_slide[inst + 1] = nil
     return 0
   end
   local r = 1 - t
-  return math.floor(EVT_HIPER_SLIDE_DX * r * r * r + 0.5)
+  return math.floor(CharacterReforged.HYPER_BUTTON_SLIDE_DX * r * r * r + 0.5)
 end
 
--- 2026-10-02 (Nacho): the RB+X plate (instance 1) LEFT of the RB+A plate (instance 0) on one row, always (it sat
--- above it while the move list was closed). pos 0 ("right"): both plates in the corner under the cross, right-aligned
--- (the open-list placement, now also with the list closed: right of the ">" arrow there is no room for two plates).
--- pos 1 ("above"): the RB+X plate moves left of the RB+A plate, on its row. Display only.
-EVT_HIPER_ONE_ROW = true
-local EVT_HO_U_Y = {150, 216}        -- y of _atc_hiper01_u / _atc_hiper02_u (hiper_btn_build.py ATC)
-
-function EVT_HiperOpenPlace()
-  local want = EVT_HIPER_OPEN_MOVE and (evt_ho_open or EVT_HIPER_ONE_ROW) and EVT_pos == 0
-  if want ~= evt_ho_want then
-    evt_ho_want = want
-    if want then
-      for inst = 0, 1 do
-        if EVT_last[inst + 1] ~= nil and EVT_last[inst + 1].shown then
-          evt_ho_slide[inst + 1] = EVT_tick
-        end
-      end
-    end
-  end
-  local cross = want and EVT_HO_CrossX() or EVT_HO_CROSS
-  local scale = EVT_HIPER_PLATE_SCALE or 1
-  local unit = 0.72 * scale            -- plate layer unit -> layout units (the layout's 0.72, the plate scale)
-  -- the left plate follows the right plate's band while it collapses / stretches (EVT_FoldApply)
-  local left_now, right_end = EVT_BandEnds(evt_fold.width or evt_fold.full_width)
-  local row_dx = math.floor((right_end - left_now) * unit + EVT_HIPER_PAIR_GAP + 0.5)
-  -- the right plate's right end: centred pair (collapsed widths) under «¡Subid!», else the screen edge
-  local shown0 = EVT_last[1] ~= nil and EVT_last[1].shown
-  local shown1 = EVT_last[2] ~= nil and EVT_last[2].shown
-  local right = EVT_HIPER_OPEN_RIGHT - (EVT_HO_HALF_R - right_end * 0.72) * scale
-  local go_ahead = want and EVT_HIPER_CENTER_UNDER_GO_AHEAD and EVT_HO_GoAheadX(cross) or nil
-  if go_ahead ~= nil then
-    local left_folded = EVT_BandEnds(EVT_HIPER_COLLAPSED_WIDTH)
-    local folded = (right_end - left_folded) * unit
-    local total = folded
-    if shown0 and shown1 then
-      total = 2 * folded + EVT_HIPER_PAIR_GAP
-    end
-    right = go_ahead + total / 2
-  elseif want and evt_pa.pages then
-    -- the right page arrow (EVT_PageArrows) between the right plate and the screen edge
-    right = right - (EVT_PAGE_ARROW_GAP + EVT_PAGE_ARROW_H * evt_pa.aspect) * unit - EVT_PAGE_ARROW_EDGE
-  end
-  for inst = 0, 1 do
-    local dx, dy = 0, 0
-    if want then
-      dx = math.floor(right - right_end * unit - (cross + EVT_HO_ATC_X) + 0.5)
-      if inst == 1 and shown0 and EVT_HIPER_OPEN_Y[1] == EVT_HIPER_OPEN_Y[2] then
-        dx = dx - row_dx
-      end
-      dy = EVT_HIPER_OPEN_Y[inst + 1] - EVT_HO_ATC_Y[inst + 1]
-    elseif EVT_HIPER_ONE_ROW and EVT_pos == 1 and inst == 1 then
-      dx = -row_dx
-      dy = EVT_HO_U_Y[1] - EVT_HO_U_Y[2]
-    end
-    dx = dx + EVT_SlideDx(inst)
-    dy = dy + (EVT_HIPER_RAISE_Y or 0)
-    local key = dx .. "," .. dy .. "," .. scale
-    if evt_ho_set[inst + 1] ~= key then
-      funcLuaMenuCommand(3778714801, EVT_HL, scale, scale, 1, inst)
-      funcLuaMenuCommand(1389957207, EVT_HL, dx, dy, 0, inst)
-      evt_ho_set[inst + 1] = key
-    end
-  end
-end
-
--- one frame of the collapse (engine calls: EVT_HiperStep only). The progress moves toward the retail list state
--- over EVT_HIPER_COLLAPSE_FRAMES; each shown plate gets its band quads at the current width (right ends kept), the
--- name, type icon and armour logo only once the band reaches them, and the input column at the band's left part.
-local function EVT_FoldApply()
-  local target = (evt_ho_open or not EVT_HIPER_COLLAPSE) and 1 or 0
-  local frames = EVT_HIPER_COLLAPSE_FRAMES or 0
-  local step = frames > 0 and 1 / frames or 1
-  if evt_fold.progress < target then
-    evt_fold.progress = math.min(target, evt_fold.progress + step)
-  elseif evt_fold.progress > target then
-    evt_fold.progress = math.max(target, evt_fold.progress - step)
-  end
-  local width = EVT_FoldWidth()
-  evt_fold.width = width
-  local fraction = width / evt_fold.full_width
-  local input_travel = (EVT_HIPER_COLLAPSED_INPUT_X - evt_fold.input_x) / (evt_fold.full_width - EVT_HIPER_COLLAPSED_WIDTH)
-  local input_x = evt_fold.input_x + (evt_fold.full_width - width) * input_travel
-  local shift = math.floor((input_x - evt_fold.input_x) * (EVT_HIPER_PLATE_SCALE or 1) + 0.5)
-  evt_fold.input_shift = shift
-  local full = width >= evt_fold.full_width
-  local band_left = evt_fold.quads[1][2] + evt_fold.quads[1][3] - width
-  for inst = 0, 1 do
-    local last = EVT_last[inst + 1]
-    if last ~= nil and last.shown then
-      -- a fully open band is the layout's own: set once, then left to the retail animations
-      if not (full and evt_fold.band[inst + 1] == evt_fold.full_width) then
-        for i = 1, #evt_fold.quads do
-          local quad = evt_fold.quads[i]
-          local quad_width = quad[3] * fraction
-          funcLuaMenuCommand(2885415772 --[[node size]], EVT_HL, inst, quad[1], quad_width, quad[4])
-          funcLuaMenuCommand(2575768773 --[[node translation]], EVT_HL, inst, quad[1], 0, quad[2] + quad[3] - quad_width)
-        end
-        funcLuaMenuCommand(2735666188 --[[CMND_SET_MENU_TEXT_VISIBLE]], EVT_HL, 1123081621 --[[_text_cmd_sp01]],
-          band_left <= evt_fold.name_left - 12, inst)
-        -- a plate without a portrait (a plain move, or its portrait not resolved) shows its type icon in the
-        -- portrait's place while folded, never an empty band
-        local folded_icon = evt_fold.progress <= 0 and not last.face
-        local icon_x = evt_fold.icon_x
-        if folded_icon then
-          icon_x = math.floor((evt_fold.visible_right + EVT_HIPER_COLLAPSED_INPUT_X) / 2 + 12 - evt_fold.icon_size / 2 + 0.5)
-        end
-        funcLuaMenuCommand(2575768773 --[[node translation]], EVT_HL, inst, 2164615260 --[[_icon_sp_area_dmy01]], 0, icon_x)
-        funcLuaMenuCommand(3405944500, EVT_HL, 2164615260 --[[_icon_sp_area_dmy01]],
-          (full or folded_icon) and evt_fold.icon[inst + 1] == true, inst)
-        funcLuaMenuCommand(3405944500, EVT_HL, 1206374040 --[[_gtxt_cmd_armed01]],
-          band_left <= evt_fold.logo_left - 12 and evt_fold.logo[inst + 1] == true, inst)
-        evt_fold.band[inst + 1] = width
-      end
-      if evt_fold.shift[inst + 1] ~= shift then
-        funcLuaMenuCommand(1389957207, EVT_IN, EVT_INPUT_DX + shift, EVT_INPUT_DY, 0, inst)
-        evt_fold.shift[inst + 1] = shift
-      end
-    end
-  end
-end
-
--- The page arrows (owner 2026-10-27): while the plates have a second page (the selected-slot controls with both slots
--- filled: RB + D-pad switches aura <-> mix), the retail move selector's chevrons (atlas soccer08_07: cmd_arrow01_l /
--- cmd_arrow01_r) stand at the outer ends of the plates, as the selector shows them beside its move pages. Layer
--- evt_plate_page_arrows (Character Reforged content\menus\hyper_plates.toml: a copy of the selector layout with its two
--- arrow joints at the root; everything else, under _pos_base01, hidden here), 2 instances hung on the plates' band
--- corner _atc_chr01_r (attach row evt_plate_page_arrows01). Plates on one row: the left plate (instance 1) carries
--- the left arrow, the right plate (instance 0) the right one; a plate alone carries both. Commands only on change.
-EVT_PAGE_ARROWS = true
-EVT_PAGE_ARROW_H = 80                -- arrow height (plate layer units; the painted band is 52 high)
-EVT_PAGE_ARROW_GAP = 8               -- gap between a band end and its arrow (plate layer units)
-EVT_PAGE_ARROW_EDGE = 6              -- right arrow to the screen edge while the plates sit flush right (layout units)
-EVT_PAGE_ARROW_DY = 8                -- arrows lowered onto the card's visual centre (plate layer units)
-local EVT_PA = {
-  layer = 1713173579 --[[evt_plate_page_arrows]], attach = 1713169121 --[[evt_plate_page_arrows01]],
-  hide = 1517329426 --[[_pos_base01]],
-  joint = {2946906320 --[[_pos_arrow01_l]], 1437140403 --[[_pos_arrow01_r]]},
-  mesh = {1811606789 --[[_arrow01_l]], 2448805990 --[[_arrow01_r]]},
+-- The numbers of the config command, in the order scripts\transform_cross.lua returns them.
+local CROSS_CONFIG_KEYS = {
+  "centre_x", "centre_y", "ring_size", "dim_brightness", "plate_left", "plate_scale", "row_pitch", "text_scale", "name_scale", "name_room",
+  "name_room_face", "type_offset_x", "type_offset_y", "name_offset_x", "name_offset_y", "pill_offset_x", "pill_offset_y",
 }
-
-local function EVT_PageArrows(pages)
-  -- only while the plates are expanded (move list open: evt_ho_open, set by UpdateAnimeMoveOffsetCmdBase)
-  pages = pages == true and evt_ho_open and EVT_PAGE_ARROWS == true
-  if pages ~= evt_pa.pages then
-    evt_pa.pages = pages
-    pcall(funcLuaCommand, 1563215927, "hiper_btn", "page arrows", pages and "on (second page)" or "off")
+-- Reads the cross's places from the mod's config once; answers whether they are known.
+local function HyperButtonCrossConfig()
+  if CharacterReforged.TRANSFORM_CROSS ~= nil then
+    return true
   end
-  local shown0 = EVT_last[1] ~= nil and EVT_last[1].shown == true
-  local shown1 = EVT_last[2] ~= nil and EVT_last[2].shown == true
-  -- side by side on one row: the placements of EVT_HiperOpenPlace that put instance 1 left of instance 0
-  local paired = shown0 and shown1 and ((evt_ho_want and EVT_HIPER_OPEN_Y[1] == EVT_HIPER_OPEN_Y[2])
-    or (not evt_ho_want and EVT_HIPER_ONE_ROW and EVT_pos == 1))
-  local s = EVT_HIPER_PLATE_SCALE or 1
-  local h = EVT_PAGE_ARROW_H
-  local w = h * evt_pa.aspect
-  local left_end, right_end = EVT_BandEnds(evt_fold.width or evt_fold.full_width)
-  -- arrow top-left corners from the band's top-right corner (the attach locator), in the arrow layer's units
-  -- (the plate's 0.72 is inherited, its layer scale is not): centred on the band (y 0, its top EVT_PLATE_BAND)
-  local y = math.floor((h / 2 - EVT_PLATE_BAND - EVT_PAGE_ARROW_DY) * s + 0.5)
-  local xs = {
-    math.floor((left_end - EVT_PAGE_ARROW_GAP - w - evt_fold.visible_right) * s + 0.5),
-    math.floor((right_end + EVT_PAGE_ARROW_GAP - evt_fold.visible_right) * s + 0.5),
-  }
-  for inst = 0, 1 do
-    local shown = (inst == 0 and shown0) or (inst == 1 and shown1)
-    local on = {pages and shown and (inst == 1 or not paired), pages and shown and (inst == 0 or not paired)}
-    local key = tostring(on[1]) .. "," .. tostring(on[2]) .. "," .. xs[1] .. "," .. xs[2] .. "," .. y .. "," .. h .. "," .. s
-    if evt_pa.key[inst + 1] ~= key then
-      evt_pa.key[inst + 1] = key
-      if on[1] or on[2] then
-        funcLuaMenuCommand(1774843228, EVT_HL, inst, EVT_PA.attach, true)
-        funcLuaMenuCommand(2158717427 --[[node visible]], EVT_PA.layer, EVT_PA.hide, false, inst)
-        for side = 1, 2 do
-          funcLuaMenuCommand(2885415772 --[[node size]], EVT_PA.layer, inst, EVT_PA.mesh[side], w * s, h * s)
-          funcLuaMenuCommand(2575768773 --[[node translation]], EVT_PA.layer, inst, EVT_PA.joint[side], 0, xs[side])
-          funcLuaMenuCommand(2575768773 --[[node translation]], EVT_PA.layer, inst, EVT_PA.joint[side], 1, y)
-          funcLuaMenuCommand(3405944500, EVT_PA.layer, EVT_PA.mesh[side], on[side], inst)
-        end
-        funcLuaMenuCommand(711242136, EVT_PA.layer, inst, true)
-      else
-        funcLuaMenuCommand(711242136, EVT_PA.layer, inst, false)
-      end
+  if character_reforged_cross.config_failed then
+    return false
+  end
+  local r = {pcall(funcLuaCommand, 1541962490)}
+  local place = {directions = {}}
+  for i = 1, #CROSS_CONFIG_KEYS do
+    place[CROSS_CONFIG_KEYS[i]] = r[i + 1]
+  end
+  for entry = 1, ENTRY_COUNT do
+    place.directions[entry] = r[#CROSS_CONFIG_KEYS + 1 + entry]
+  end
+  if r[1] ~= true or type(place.centre_x) ~= "number" or type(place.directions[ENTRY_COUNT]) ~= "number" then
+    character_reforged_cross.config_failed = true
+    pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "ERROR: no transform cross layout (config.toml [transform_cross]): the cross is not drawn", tostring(r[2]))
+    return false
+  end
+  CharacterReforged.TRANSFORM_CROSS = place
+  CharacterReforged.HYPER_BUTTON_PLATE_SCALE = place.plate_scale
+  return true
+end
+
+-- Shows or hides the ring; a shown ring sits at its place with the modifier's glyph `modifier_tag` in the centre.
+local function HyperButtonRingShow(visible, modifier_tag)
+  local ring = character_reforged_cross.ring
+  local seen = tostring(visible) .. modifier_tag
+  if ring.shown == seen then
+    return
+  end
+  ring.shown = seen
+  if visible then
+    local place = CharacterReforged.TRANSFORM_CROSS
+    local scale = place.ring_size / RING_NATIVE_SIZE
+    funcLuaMenuCommand(3778714801, RingLayer, scale, scale, 1, 0)
+    -- The layer moves from its layout place to the configured screen place (layer y grows upwards).
+    funcLuaMenuCommand(1389957207, RingLayer, place.centre_x - SCREEN_WIDTH - RING_LAYOUT_X, SCREEN_HEIGHT - place.centre_y - RING_LAYOUT_Y, 0, 0)
+    funcLuaMenuCommand(2158717427 --[[node group visible]], RingLayer, RING_PULSE_GROUP, false)
+    funcLuaMenuCommand(1083631230, RingLayer, RING_GLYPH, modifier_tag, 0)
+    funcLuaMenuCommand(2735666188 --[[CMND_SET_MENU_TEXT_VISIBLE]], RingLayer, RING_GLYPH, modifier_tag ~= "", 0)
+  end
+  funcLuaMenuCommand(711242136, RingLayer, 0, visible)
+end
+
+-- Draws the type icon of entry `entry` on the ring: lit (state 1), dim (2) or absent (0).
+local function HyperButtonRingIcon(entry, slot_skill, state)
+  local ring = character_reforged_cross.ring
+  local seen = slot_skill .. ":" .. state
+  if ring[entry + 1] == seen then
+    return
+  end
+  ring[entry + 1] = seen
+  local place = CharacterReforged.TRANSFORM_CROSS
+  local icon = RING_ICONS[place.directions[entry + 1]]
+  local sprite = 0
+  if state ~= 0 and slot_skill ~= 0 then
+    local aura_type = HyperButtonInfo(slot_skill, 13)
+    local category = (aura_type ~= nil and aura_type ~= 255) and 8 or (HyperButtonInfo(slot_skill, 9) or 0)
+    sprite = GetSkillCategoryIcon(category, slot_skill, 0)
+  end
+  if sprite ~= 0 then
+    funcLuaMenuCommand(558735651 --[[swap texture]], RingLayer, RING_ICON_ATLAS, sprite, icon[2], 0)
+    local shade = state == 1 and 1 or place.dim_brightness
+    funcLuaMenuCommand(3676296427 --[[material colour]], RingLayer, 0, icon[3], shade, shade, shade)
+  end
+  funcLuaMenuCommand(3405944500, RingLayer, icon[1], sprite ~= 0)
+end
+
+-- Returns the layout y of the row of entry `entry` (the rows of the existing entries, centred on the cross).
+local function HyperButtonRowY(entry)
+  local place = CharacterReforged.TRANSFORM_CROSS
+  local row = character_reforged_cross.rows[entry + 1] or 0
+  return place.centre_y + (row - (character_reforged_cross.row_count - 1) / 2) * place.row_pitch
+end
+
+-- Places the plates of the existing entries as rows right of the ring: each plate hangs on the ring's centre.
+function CharacterReforged.hyper_button_open_place()
+  local place = CharacterReforged.TRANSFORM_CROSS
+  local scale = place.plate_scale
+  local unit = 0.72 * scale
+  local left_now, right_end = HyperButtonBandEnds(character_reforged_fold.full_width)
+  -- The screen x of the plate's origin, then its place from the ring's centre (layer y grows upwards).
+  local origin_x = place.plate_left - left_now * unit
+  for inst = 0, ENTRY_LAST do
+    local dx = math.floor(origin_x - place.centre_x + 0.5) - HyperButtonSlideDx(inst)
+    local dy = math.floor(place.centre_y - HyperButtonRowY(inst) + 0.5)
+    local key = dx .. "," .. dy .. "," .. scale
+    if character_reforged_ho_set[inst + 1] ~= key then
+      funcLuaMenuCommand(3778714801, HyperButtonLayer, scale, scale, 1, inst)
+      funcLuaMenuCommand(1389957207, HyperButtonLayer, dx, dy, 0, inst)
+      character_reforged_ho_set[inst + 1] = key
     end
+  end
+  -- One line with the resolved screen places for the first in-game check (layout units, x from the left, y from the top).
+  if not character_reforged_cross.rects_logged and character_reforged_cross.row_count > 0 then
+    character_reforged_cross.rects_logged = true
+    local band_width, band_half_height = (right_end - left_now) * unit, 26 * unit
+    local half = place.ring_size / 2
+    local okg, ring_x, ring_y = pcall(funcLuaMenuCommand, 499270986, RingLayer, 0, RING_BAND)
+    local parts = {"ring x " .. (place.centre_x - half) .. "-" .. (place.centre_x + half) .. " y " .. (place.centre_y - half) .. "-" .. (place.centre_y + half)
+      .. " (its band's corner measured at " .. tostring(okg and ring_x) .. "," .. tostring(okg and ring_y) .. ")"}
+    for entry = 0, ENTRY_LAST do
+      local line = "entry " .. entry .. " " .. tostring(CROSS_DIRECTION_NAME[place.directions[entry + 1]])
+      if character_reforged_cross.rows[entry + 1] ~= nil then
+        local row_y = HyperButtonRowY(entry)
+        local okp, plate_x, plate_y = pcall(funcLuaMenuCommand, 499270986, HyperButtonLayer, entry, POSITION_BASE)
+        line = line .. " (origin measured at " .. tostring(okp and plate_x) .. "," .. tostring(okp and plate_y) .. ")"
+        line = line .. " plate x " .. place.plate_left .. "-" .. math.floor(place.plate_left + band_width + 0.5) .. " y " .. math.floor(row_y - band_half_height + 0.5) .. "-" .. math.floor(row_y + band_half_height + 0.5)
+      end
+      parts[#parts + 1] = line
+    end
+    pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross layout (1920 x 1080): " .. table.concat(parts, "; "))
   end
 end
 
-EVT_HIPER_HIDE_IN_TACTICS = true     -- 2026-09-29 (Nacho): no Hiper / armour plate («RB A Atenea») while the LB tactics menu is up
-EVT_HIPER_FACE_RETRY = {10, 30, 60, 120, 240}   -- frames after a draw when the partner face is issued again
+CharacterReforged.HYPER_BUTTON_HIDE_IN_TACTICS = true     -- no Hiper / armour plate while the LB tactics menu is up
+CharacterReforged.HYPER_BUTTON_FACE_RETRY = {10, 30, 60, 120, 240}   -- frames after a draw when the partner face is issued again
 
-function EVT_HiperStep()
-  local r = {pcall(funcLuaCommand, EVT_CMD_BTN)}
+-- Values of the entries command: after `hdl, held, device, count, release refused`, twelve per entry.
+local ENTRY_FIRST_VALUE, ENTRY_VALUE_COUNT = 6, 12
+
+function CharacterReforged.hyper_button_step()
+  if not HyperButtonCrossConfig() then
+    return
+  end
+  local r = {pcall(funcLuaCommand, COMMAND_ENTRIES)}
   if r[1] ~= true then
     r = {}
   end
-  EVT_tick = EVT_tick + 1
-  local st, hdl, skill = EVT_Num(r[2]), EVT_Num(r[3]), EVT_Num(r[4])
-  local ring = r[5] == true
-  local pos = EVT_Num(r[6])
-  local glyph = EVT_Str(r[8])
-  local st2, skill2, glyph2 = EVT_Num(r[9]), EVT_Num(r[10]), EVT_Str(r[11])
-  if EVT_HIPER_HIDE_IN_TACTICS then
+  hyperButtonTick = hyperButtonTick + 1
+  local hdl = HyperButtonNum(r[2])
+  -- The keyboard has no modifier to hold: its plates stay open.
+  local held = r[3] == true or (hdl ~= 0 and HyperButtonNum(r[4]) == 1)
+  local count = math.min(HyperButtonNum(r[5]), ENTRY_COUNT)
+  if CharacterReforged.HYPER_BUTTON_HIDE_IN_TACTICS then
     local okt, tac = pcall(funcLuaCommand, 1350751656)
     if okt and tac == true then
-      st, st2 = 0, 0   -- both plates "nothing to show": hidden now, drawn again (Open) when the menu closes
+      count = 0
     end
   end
-  if pos ~= EVT_pos then
-    EVT_SetPos(pos)
-    EVT_pos = pos
+  if hyperButtonPos ~= 0 then
+    HyperButtonSetPos()
+    hyperButtonPos = 0
   end
-  local armour = r[12] == true
-  -- value 20 (r[22]): the controlled player is in his «modo cambio» form and its release button is refused: no release guide
-  local noRel = r[22] == true
-  if noRel then
-    pcall(funcLuaMenuCommand, 711242136, EVT_REL_GUIDE, 0, false)
-  end
-  EVT_MC_NO_RELEASE = noRel
-  -- «modo cambio» (docs/game/mechanics/mode-change.md §5.4; loader values 11-17: state, actor, carrier, (unused),
-  -- cooldown s, face of the other form, cooldown recovered per mille): the plate that holds it (the mix slot's, RB+B,
-  -- since 2026-10-12; RB+A for an older loader) shows the cooldown as a bar along its bottom (EVT_CdBar) and the face
-  -- of the form it swaps to
-  local st3, skill3 = EVT_Num(r[13]), EVT_Num(r[15])
-  local cd3, face3 = EVT_Num(r[17]), EVT_Num(r[18])
-  local cdFrac = nil
-  -- selected-slot controls (values 22-25): on, selected slot, the move plate's slot (2 = none), both slots filled
-  local selOn, selSlot, mvSlot, selBoth = r[23] == true, EVT_Num(r[24]), EVT_Num(r[25]), r[26] == true
-  local sfx0, sfx1 = "", ""
-  if selOn and selBoth then
-    if mvSlot == 0 or mvSlot == 1 then
-      sfx0 = EVT_SelTag(mvSlot)
+  character_reforged_cross.held = held
+  -- The rows: one per existing entry, in the entries' order.
+  local rows, row_count = {}, 0
+  for entry = 0, ENTRY_LAST do
+    local base = ENTRY_FIRST_VALUE + entry * ENTRY_VALUE_COUNT
+    if entry < count and hdl ~= 0 and HyperButtonNum(r[base + 3]) ~= 0 and HyperButtonNum(r[base + 2]) ~= 0 then
+      rows[entry + 1] = row_count
+      row_count = row_count + 1
     end
-    sfx1 = EVT_SelTag(selSlot)
   end
-  local swInst = nil
-  if st3 ~= 0 and skill3 ~= 0 and skill3 == skill2 then
-    swInst = 1
-  elseif st3 ~= 0 and skill3 ~= 0 and skill3 == skill then
-    swInst = 0
-  end
-  if swInst ~= nil and swInst ~= evt_cd.inst then
-    pcall(EVT_CdShow, false)                   -- the bar leaves the other plate
-    evt_cd.inst = swInst
-    evt_cd.swapped, evt_cd.shown, evt_cd.geo = false, nil, nil
-  end
-  if swInst ~= nil then
-    if swInst == 0 then
-      EVT_Update(0, st, hdl, skill, ring, glyph, armour and not selOn, sfx0, face3)
-    else
-      EVT_Update(0, st, hdl, skill, ring, glyph, armour and not selOn, sfx0)
+  character_reforged_cross.rows, character_reforged_cross.row_count = rows, row_count
+  local swap_entry, swap_fraction = nil, nil
+  local modifier_tag = ""
+  for entry = 0, ENTRY_LAST do
+    local base = ENTRY_FIRST_VALUE + entry * ENTRY_VALUE_COUNT
+    local page, skill, state = HyperButtonNum(r[base + 1]), HyperButtonNum(r[base + 2]), HyperButtonNum(r[base + 3])
+    local reason, cost = HyperButtonNum(r[base + 4]), HyperButtonNum(r[base + 6])
+    local cooldown_per_mille = HyperButtonNum(r[base + 8])
+    local glyph, action = HyperButtonStr(r[base + 9]), HyperButtonNum(r[base + 10])
+    if rows[entry + 1] == nil then
+      state, skill = 0, 0
     end
-    if type(r[19]) == "number" then
-      if r[19] < 1000 then
-        cdFrac = math.max(0, r[19]) / 1000
+    -- The icon of the entry's kind stays on the ring; its plate shows only while the modifier is held.
+    local okt, errt = pcall(HyperButtonRingIcon, entry, state ~= 0 and HyperButtonNum(r[base + 12]) or 0, state)
+    if not okt and character_reforged_cross.logged["ring" .. entry] ~= tostring(errt) then
+      character_reforged_cross.logged["ring" .. entry] = tostring(errt)
+      pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross icon " .. entry .. " error", tostring(errt))
+    end
+    -- The first tag of a two-button chord is the modifier, the ring's centre.
+    if state ~= 0 and modifier_tag == "" then
+      local first, second = string.match(glyph, "^(<[^>]+>)(<[^>]+>)")
+      if second ~= nil then
+        modifier_tag = first
       end
-    elseif cd3 > 0 then
-      evt_cd.total = math.max(evt_cd.total, cd3)
-      cdFrac = 1 - cd3 / evt_cd.total
     end
-  else
-    EVT_Update(0, st, hdl, skill, ring, glyph, armour and not selOn, sfx0)
+    -- The plate's texts: the type label, and in the pill a greyed entry's reason or the technique's cost when the mod declares one.
+    local caption = {label = state ~= 0 and HyperButtonTypeLabel(page, r[base + 5] == true) or "", pill = "", reason = false}
+    if state == 2 then
+      caption.pill, caption.reason = HyperButtonReasonWord(reason, page), true
+    elseif state == 1 and r[base + 5] == true and cost > 0 then
+      caption.pill = tostring(cost)
+    end
+    -- The swap (action 8) carries the other form's face and the cooldown bar.
+    if state ~= 0 and action == 8 then
+      swap_entry = entry
+      if cooldown_per_mille < 1000 then
+        swap_fraction = cooldown_per_mille / 1000
+      end
+    end
+    HyperButtonUpdate(entry, held and state or 0, hdl, held and skill or 0, held, glyph, false, caption, HyperButtonNum(r[base + 11]))
+    local seen = state .. ":" .. skill .. ":" .. reason
+    if state ~= 0 and character_reforged_cross.logged[entry + 1] ~= seen then
+      character_reforged_cross.logged[entry + 1] = seen
+      pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross entry " .. entry, "page " .. page, "move " .. skill, "state " .. state, "reason " .. reason, "glyph " .. glyph)
+    end
   end
-  if cd3 <= 0 then
-    evt_cd.total = 0
+  local okr, errr = pcall(HyperButtonRingShow, row_count > 0, modifier_tag)
+  if not okr and character_reforged_cross.logged["ring"] ~= tostring(errr) then
+    character_reforged_cross.logged["ring"] = tostring(errr)
+    pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross ring error", tostring(errr))
   end
-  if swInst == 1 then
-    EVT_Update(1, st2, hdl, skill2, ring, glyph2, false, sfx1, face3)
-  else
-    EVT_Update(1, st2, hdl, skill2, ring, glyph2, armour and selOn, sfx1)
+  -- A running form that refuses the retail release button hides its guide.
+  local no_release = r[6] == true
+  if no_release then
+    pcall(funcLuaMenuCommand, 711242136, RELEASE_GUIDE, 0, false)
   end
-  if not EVT_last[evt_cd.inst + 1].shown then
-    cdFrac = nil
+  CharacterReforged.MODE_CHANGE_NO_RELEASE = no_release
+  if swap_entry ~= nil and swap_entry ~= character_reforged_cd.inst then
+    pcall(HyperButtonChargeShow, false)                   -- the bar leaves the other plate
+    character_reforged_cd.inst = swap_entry
+    character_reforged_cd.swapped, character_reforged_cd.shown, character_reforged_cd.geo = false, nil, nil
   end
-  local okc, errc = pcall(EVT_CdBar, cdFrac)
+  if swap_entry == nil or not hyperButtonLast[character_reforged_cd.inst + 1].shown then
+    swap_fraction = nil
+  end
+  local okc, errc = pcall(HyperButtonChargeBar, swap_fraction)
   if not okc then
-    EVT_CdLog("error", tostring(errc))
+    HyperButtonChargeLog("error", tostring(errc))
   end
-  -- keep the placeholder boxes hidden between two draws (anything that re-shows the plate's meshes); re-issue a
-  -- partner face a few times after each draw (its texture may still be loading on the first call)
-  for inst = 0, 1 do
-    local last = EVT_last[inst + 1]
+  -- Keeps the placeholder boxes hidden between two draws (anything that re-shows the plate's meshes).
+  for inst = 0, ENTRY_LAST do
+    local last = hyperButtonLast[inst + 1]
     if last.shown then
       if last.hasFace and last.drawTick then
-        local age = EVT_tick - last.drawTick
-        for i = 1, #EVT_HIPER_FACE_RETRY do
-          if age == EVT_HIPER_FACE_RETRY[i] then
-            local okf, face = pcall(EVT_PlateFace, EVT_HL, inst, last.hdl, true, last.pover, last.skill)
+        local age = hyperButtonTick - last.drawTick
+        for i = 1, #CharacterReforged.HYPER_BUTTON_FACE_RETRY do
+          if age == CharacterReforged.HYPER_BUTTON_FACE_RETRY[i] then
+            local okf, face = pcall(CharacterReforged.hyper_button_plate_face, HyperButtonLayer, inst, last.hdl, true, last.pover, last.skill)
             last.face = okf and face == true
           end
         end
       end
-      pcall(EVT_HideDummies, EVT_HL, inst, last.face)
+      pcall(HyperButtonHideDummies, HyperButtonLayer, inst, last.face)
+      if character_reforged_cross.fit[inst + 1] ~= nil and last.drawTick ~= hyperButtonTick then
+        pcall(HyperButtonNameFit, inst, last.face)
+      end
     end
   end
-  local okf, errf = pcall(EVT_FoldApply)
-  if not okf then
-    pcall(funcLuaCommand, EVT_CMD_LOG, "hiper_btn", "collapse error", tostring(errf))
-    EVT_HIPER_COLLAPSE = false
-  end
-  local oka, erra = pcall(EVT_PageArrows, selOn and selBoth)
-  if not oka then
-    pcall(funcLuaCommand, EVT_CMD_LOG, "hiper_btn", "page arrows error", tostring(erra))
-    EVT_PAGE_ARROWS = false
-    evt_pa.key = {}
-  end
-  pcall(EVT_HiperOpenPlace)
+  pcall(CharacterReforged.hyper_button_open_place)
 end
 -- ===== EVT hiper_btn END =====
 
 -- ===== EVT hiper_card BEGIN ===== (shared Hiper card component; docs/game/hiper/plate-hiper-page.md «Shared card»)
--- 2026-10-04 (user: «dentro de la tabla de habilidades tiene que verse igual ... un componente común para que si se
--- edita en una, se edite en otra»): the rules of a Hiper card that both screens draw live HERE, once:
---   * the personal plate's Hiper page (plate_hiper_plate, evt_plate_hiper_graft.lua: EVT_PHI.*),
---   * the techniques screen's Hiper panel (ss2_menus, evt_skill_slot_menu.lua: PL.Hiper*).
--- Included by both files (graft include «@HIPER_CARD@»); edit this file, not copies. Each screen keeps only its own
--- layers (which layer holds the band / portrait / gauge); what a card shows and how is decided by EVT_HC.
--- No main-chunk locals (both menus are near the 200-local limit): everything lives in the global EVT_HC.
-EVT_HC = EVT_HC or {}
-EVT_HC.SKILL_INFO = 2580586398       -- (skill, 13 aura type | 16 change skill | 11 cost)
-EVT_HC.MC_TYPE = 6                   -- aura type «Modo cambio»
-EVT_HC.TEAM02 = 3964676290           -- #/menu/102_team/team02/team02_02/<LG>/team02_02.g4tx
-EVT_HC.SP_RGB = {0.32, 0.72, 1.0}
-EVT_HC.TENS_RGB = {0.99, 0.51, 0.0}   -- round 12: the retail TENSIÓN orange (number back to it on a tension card)
-EVT_HC.PEG_RGB = {0.72, 0.42, 1.0}   -- the PEG gauge / label / number tint (the match HUD's PEG purple)
+CharacterReforged.hyper_card = CharacterReforged.hyper_card or {}
+CharacterReforged.hyper_card.SKILL_INFO = 2580586398       -- (skill, 13 aura type | 16 change skill | 11 cost)
+CharacterReforged.hyper_card.MC_TYPE = 6
+CharacterReforged.hyper_card.TEAM02 = 3964676290           -- #/menu/102_team/team02/team02_02/<LG>/team02_02.g4tx
+CharacterReforged.hyper_card.SP_RGB = {0.32, 0.72, 1.0}
+CharacterReforged.hyper_card.TENS_RGB = {0.99, 0.51, 0.0}
+CharacterReforged.hyper_card.PEG_RGB = {0.72, 0.42, 1.0}   -- the PEG gauge / label / number tint (the match HUD's PEG purple)
 
-function EVT_HC.Log(...)
-  pcall(funcLuaCommand, 3661580131, "hiper_card", ...)
+function CharacterReforged.hyper_card.log(...)
+  CharacterReforged.hyper_card.logger = CharacterReforged.hyper_card.logger or VRFW.logger.new("hiper_card")
+  CharacterReforged.hyper_card.logger(...)
 end
 
-function EVT_HC.AuraType(skill)
-  local ok, t = funcLuaCommand(EVT_HC.SKILL_INFO, skill or 0, 13)
+function CharacterReforged.hyper_card.aura_type(skill)
+  local ok, t = funcLuaCommand(CharacterReforged.hyper_card.SKILL_INFO, skill or 0, 13)
   if ok and type(t) == "number" then
     return t
   end
   return nil
 end
 
-function EVT_HC.IsModeChange(skill)
-  return EVT_HC.AuraType(skill) == EVT_HC.MC_TYPE
+function CharacterReforged.hyper_card.is_mode_change(skill)
+  return CharacterReforged.hyper_card.aura_type(skill) == CharacterReforged.hyper_card.MC_TYPE
 end
 
--- ---- header: band, aura-type icon, name (the retail team00_30 aura window meshes) --------------------------------
--- The band is the game's own background of the aura type (team00_30.g4tx header sprites, chosen as retail
--- UpdateKeshinDetailInfo & co. do: family by aura type SKILL_INFO 13, 01..05 by element SKILL_INFO 7);
--- docs/game/skill-slots.md "Aura type backgrounds".
--- [aura type] = {base01 .. base05}; index = element 1 wind, 2 forest, 3 fire, 4 mountain, 5 void (else 01, as retail)
-EVT_HC.BANDS = {
+CharacterReforged.hyper_card.BANDS = {
   [0] = {1716659057, 4284183243, 2287747677, 372824062, 1631577960},   -- fs_base     keshin
   [1] = {1742805750, 4276636492, 2314173402, 395046521, 1619844847},   -- fsa_base    keshin armed
   [2] = {3558327990, 1293850380, 974759834, 2759668281, 3547988655},   -- mixi_base   miximax
-  [3] = {2619781135, 87024053, 1915277603, 3964421248, 2605413398},    -- soul_base   soul (tótem)
+  [3] = {2619781135, 87024053, 1915277603, 3964421248, 2605413398},
   [4] = {1514509020, 3276587878, 3024876528, 707749459, 1562924741},   -- kizuna_base kizuna trans
   [5] = {4250578944, 1683218874, 324325676, 2368750735, 4197938201},   -- power_base  awakening power
   [6] = {3293713115, 1566262113, 710702071, 3023627860, 3275740866},   -- mode_base   mode change
 }
--- the aura-type icon of the band's left slot (icon_common.g4tx onto icon_fs_area_dmy01): keshin icon_sp_area05,
--- armed 06, miximax 07, soul 08, kizuna 09, awakening power 10, mode change 11
-EVT_HC.TYPE_ICON = {[0] = 1815339204, 4114264446, 2185069032, 310549625, 1703259375, 88220938, 1917130140}
-EVT_HC.TEX_T30 = 2815298114         -- #/menu/102_team/team00/team00_30/<LG>/team00_30.g4tx
+-- Aura-type icon of the band's left slot (icon_common.g4tx onto icon_fs_area_dmy01).
+CharacterReforged.hyper_card.TYPE_ICON = {[0] = 1815339204, 4114264446, 2185069032, 310549625, 1703259375, 88220938, 1917130140}
+CharacterReforged.hyper_card.TEX_T30 = 2815298114         -- #/menu/102_team/team00/team00_30/<LG>/team00_30.g4tx
 
--- the band sprite of an aura skill; element 5 of a common skill (800895612) counts as 6 and, like any other value
--- without a band, falls back to 01 (retail Update*DetailInfo)
-function EVT_HC.Band(skill)
-  local t = EVT_HC.AuraType(skill)
-  local fam = t ~= nil and EVT_HC.BANDS[t] or nil
+-- Returns the band sprite of an aura skill.
+function CharacterReforged.hyper_card.band(skill)
+  local t = CharacterReforged.hyper_card.aura_type(skill)
+  local fam = t ~= nil and CharacterReforged.hyper_card.BANDS[t] or nil
   if fam == nil then
     return nil
   end
-  local ok, e = funcLuaCommand(EVT_HC.SKILL_INFO, skill, 7)
+  local ok, e = funcLuaCommand(CharacterReforged.hyper_card.SKILL_INFO, skill, 7)
   if ok and e == 5 then
     local okc, common = funcLuaCommand(800895612, skill)
     if okc and common then
@@ -1189,16 +1055,16 @@ function EVT_HC.Band(skill)
   return band or fam[1]
 end
 
--- band + type icon + name on a team00_30 aura window (or its clone) instance; returns the icon (nil = none)
-function EVT_HC.Header(A, skill, name, inst)
+-- Sets band, type icon and name on a team00_30 aura window (or its clone) instance.
+function CharacterReforged.hyper_card.header(A, skill, name, inst)
   inst = inst or 0
-  local band = EVT_HC.Band(skill)
+  local band = CharacterReforged.hyper_card.band(skill)
   if band ~= nil then
-    funcLuaMenuCommand(558735651, A, EVT_HC.TEX_T30, band, 1716659057 --[[fs_base01]], 0, inst)
+    funcLuaMenuCommand(558735651, A, CharacterReforged.hyper_card.TEX_T30, band, 1716659057 --[[fs_base01]], 0, inst)
   end
   funcLuaMenuCommand(3405944500, A, 734954092 --[[_fs_base01]], true, inst)
-  local t = EVT_HC.AuraType(skill)
-  local icon = t ~= nil and EVT_HC.TYPE_ICON[t] or nil
+  local t = CharacterReforged.hyper_card.aura_type(skill)
+  local icon = t ~= nil and CharacterReforged.hyper_card.TYPE_ICON[t] or nil
   if icon ~= nil then
     funcLuaMenuCommand(558735651, A, 2320109963 --[[icon_common.g4tx]], icon, 4285917355 --[[icon_fs_area_dmy01]], 0, inst)
   end
@@ -1210,9 +1076,8 @@ function EVT_HC.Header(A, skill, name, inst)
   return icon
 end
 
--- the skill's description (as the retail SetupPersonalPlateSkillDetailInfo: SKILL_INFO 5 -> text), "" = none
-function EVT_HC.Desc(skill)
-  local ok, id = funcLuaCommand(EVT_HC.SKILL_INFO, skill, 5)
+function CharacterReforged.hyper_card.desc(skill)
+  local ok, id = funcLuaCommand(CharacterReforged.hyper_card.SKILL_INFO, skill, 5)
   if not ok or id == nil then
     return ""
   end
@@ -1220,32 +1085,23 @@ function EVT_HC.Desc(skill)
   return (okt and type(s) == "string") and s or ""
 end
 
--- ---- «Modo cambio»: the equipped change of the player (a copy asks its owner) ------------------------------------
--- The partner comes from the mods declared on Character Reforged's host CharacterReforged.mode_change_partner
--- (CharacterReforged.Page.ModeChangePartner). nil or {face = face key, name = partner name, chara = partner chara id}
-function EVT_HC.McAsk(chara)
-  local page = type(CharacterReforged) == "table" and CharacterReforged.Page or nil
-  if type(page) ~= "table" or type(page.ModeChangePartner) ~= "function" then
+function CharacterReforged.hyper_card.mc_ask(chara)
+  local page = type(CharacterReforged) == "table" and CharacterReforged.page or nil
+  if type(page) ~= "table" or type(page.mode_change_partner) ~= "function" then
     return false
   end
-  local ok, pparam, pchara = pcall(page.ModeChangePartner, chara)
+  local ok, pparam, pchara = pcall(page.mode_change_partner, chara)
   if ok and type(pparam) == "number" and pparam ~= 0 then
     return true, true, pparam, pchara
   end
   return false
 end
 
-function EVT_HC.McGet(chara, skill)
-  if chara == nil or chara == 0 or not EVT_HC.IsModeChange(skill) then
+function CharacterReforged.hyper_card.mc_get(chara, skill)
+  if chara == nil or chara == 0 or not CharacterReforged.hyper_card.is_mode_change(skill) then
     return nil
   end
-  local ok, exists, pparam, pchara = EVT_HC.McAsk(chara)
-  if not ok then
-    local oko, owner = pcall(funcLuaCommand, CALC_CRC("CMND_EVT_CHARA_OWNER"), chara)
-    if oko and type(owner) == "number" and owner ~= 0 and owner ~= chara then
-      ok, exists, pparam, pchara = EVT_HC.McAsk(owner)
-    end
-  end
+  local ok, exists, pparam, pchara = CharacterReforged.hyper_card.mc_ask(chara)
   if not ok or not exists or type(pparam) ~= "number" or pparam == 0 then
     return nil
   end
@@ -1257,9 +1113,7 @@ function EVT_HC.McGet(chara, skill)
   return m
 end
 
--- the card's title: a Mix-Max = the move's name only («Miximax Trans»: owner 2026-10-12, never the player's),
--- «Modo cambio: <partner>», else the skill's own name
-function EVT_HC.Title(name, fusion, mc)
+function CharacterReforged.hyper_card.title(name, fusion, mc)
   if fusion ~= nil then
     return name or "Miximax Trans"
   end
@@ -1269,56 +1123,46 @@ function EVT_HC.Title(name, fusion, mc)
   return name
 end
 
--- ---- portrait: a partner drawn as retail draws a miximax partner (UpdateMixiMaxDetailInfo) -----------------------
--- A = a team00_30 aura window (or a clone with its meshes): _icon_chr_dmy01 (200 px, mask icon_chr_win_msk01), face
--- type 12; no type-12 face for the key -> the plain chara icon the bank / dock lists draw. Both portrait slots cleared
--- first (a plain-icon fallback leaks into the next draw otherwise). ctx = the appearance context that lets the
--- partner be drawn on purpose (module appearance: «plate_page», «skill_panel»).
-EVT_HC.CHR_MESH, EVT_HC.CHR_SLOT = 478320441, 3237726902   -- _icon_chr_dmy01 / icon_chr_dmy01
-EVT_HC.FS_MESH, EVT_HC.FS_SLOT = 2449339029, 1051570875     -- _icon_fs_dmy01 / icon_fs_dmy01
-function EVT_HC.Partner(A, face, ctx, inst)
-  inst = inst or 0   -- layer instance (2026-10-06: the match HUD's RB plates draw 2 cards; the pages use 0)
-  funcLuaMenuCommand(4176779611 --[[clear face icon]], A, inst, EVT_HC.FS_SLOT)
-  funcLuaMenuCommand(4176779611 --[[clear face icon]], A, inst, EVT_HC.CHR_SLOT)
-  funcLuaMenuCommand(3405944500 --[[MESH_VISIBLE]], A, EVT_HC.FS_MESH, false, inst)
+CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT = 478320441, 3237726902
+CharacterReforged.hyper_card.FS_MESH, CharacterReforged.hyper_card.FS_SLOT = 2449339029, 1051570875
+function CharacterReforged.hyper_card.partner(A, face, ctx, inst)
+  inst = inst or 0
+  funcLuaMenuCommand(4176779611 --[[clear face icon]], A, inst, CharacterReforged.hyper_card.FS_SLOT)
+  funcLuaMenuCommand(4176779611 --[[clear face icon]], A, inst, CharacterReforged.hyper_card.CHR_SLOT)
+  funcLuaMenuCommand(3405944500 --[[MESH_VISIBLE]], A, CharacterReforged.hyper_card.FS_MESH, false, inst)
   if face == nil or face == 0 then
-    funcLuaMenuCommand(3405944500, A, EVT_HC.CHR_MESH, false, inst)
+    funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, false, inst)
     return false
   end
-  funcLuaMenuCommand(3405944500, A, EVT_HC.CHR_MESH, true, inst)
+  funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, true, inst)
   pcall(funcLuaCommand, 2996279796, ctx or "plate_page", face)
   local has = funcLuaMenuCommand(2208175668 --[[has a miximax face icon]], face)
   if has then
-    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, EVT_HC.CHR_MESH, EVT_HC.CHR_SLOT, face, 0, 12, true,
+    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT, face, 0, 12, true,
       true, true, 5)
   else
-    VRFW_FaceIcon.Request(A, inst, face, EVT_HC.CHR_MESH, EVT_HC.CHR_SLOT)
+    VRFW.face_icon.request(A, inst, face, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT)
   end
-  EVT_HC.Log("partner", tostring(A), tostring(face), tostring(has))
+  CharacterReforged.hyper_card.log("partner", tostring(A), tostring(face), tostring(has))
   return true
 end
 
--- ---- the card's portrait: ONE rule for the player page's Hiper card and the skill table's aura card ----------------
--- (2026-10-06, round 14: the skill table showed a white block where the partner face goes). A = a team00_30 aura
--- window or its clone. A miximax / mode change partner (fusion.face / mc.face) through EVT_HC.Partner; otherwise the
--- aura's own character (SKILL_INFO 17) on the slot its type uses (keshin / armed / soul: _icon_fs_dmy01 type 8 / 14,
--- miximax: _icon_chr_dmy01 type 12), as retail. Both slots cleared first.
-EVT_HC.FACE_BY_TYPE = {[0] = {2449339029, 1051570875, 8}, [1] = {2449339029, 1051570875, 8},
+CharacterReforged.hyper_card.FACE_BY_TYPE = {[0] = {2449339029, 1051570875, 8}, [1] = {2449339029, 1051570875, 8},
   [2] = {478320441, 3237726902, 12}, [3] = {2449339029, 1051570875, 14}}
-function EVT_HC.Portrait(A, skill, fusion, mc, ctx, inst)
+function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst)
   inst = inst or 0
-  funcLuaMenuCommand(3405944500, A, EVT_HC.FS_MESH, false, inst)
-  funcLuaMenuCommand(3405944500, A, EVT_HC.CHR_MESH, false, inst)
-  funcLuaMenuCommand(4176779611 --[[clear face icon]], A, inst, EVT_HC.FS_SLOT)
-  funcLuaMenuCommand(4176779611 --[[clear face icon]], A, inst, EVT_HC.CHR_SLOT)
+  funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.FS_MESH, false, inst)
+  funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, false, inst)
+  funcLuaMenuCommand(4176779611 --[[clear face icon]], A, inst, CharacterReforged.hyper_card.FS_SLOT)
+  funcLuaMenuCommand(4176779611 --[[clear face icon]], A, inst, CharacterReforged.hyper_card.CHR_SLOT)
   local partner = (fusion ~= nil and fusion.face) or (mc ~= nil and mc.face) or nil
   if fusion ~= nil or mc ~= nil then
-    EVT_HC.Partner(A, partner, ctx, inst)
+    CharacterReforged.hyper_card.partner(A, partner, ctx, inst)
     return partner
   end
-  local t = EVT_HC.AuraType(skill)
-  local face = t ~= nil and EVT_HC.FACE_BY_TYPE[t] or nil
-  local okc, cid = funcLuaCommand(EVT_HC.SKILL_INFO, skill, 17)
+  local t = CharacterReforged.hyper_card.aura_type(skill)
+  local face = t ~= nil and CharacterReforged.hyper_card.FACE_BY_TYPE[t] or nil
+  local okc, cid = funcLuaCommand(CharacterReforged.hyper_card.SKILL_INFO, skill, 17)
   if okc and cid ~= nil and cid ~= 0 and face ~= nil then
     funcLuaMenuCommand(3405944500, A, face[1], true, inst)
     funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, face[1], face[2], cid, 0, face[3], true, true, true, 5)
@@ -1327,23 +1171,17 @@ function EVT_HC.Portrait(A, skill, fusion, mc, ctx, inst)
   return nil
 end
 
--- ---- the spirit's move ---------------------------------------------------------------------------------------------
--- the supertécnica a Hiper card shows under its band: the game's change skill (SKILL_INFO 16), else the loader's
--- (armed forms: their keshin's). A mode change has none (its change skill is the command itself) and no TENSIÓN.
-function EVT_HC.AuraMove(skill)
-  if EVT_HC.IsModeChange(skill) then
+function CharacterReforged.hyper_card.aura_move(skill)
+  if CharacterReforged.hyper_card.is_mode_change(skill) then
     return false, 0
   end
-  local ok, move = funcLuaCommand(EVT_HC.SKILL_INFO, skill, 16)
+  local ok, move = funcLuaCommand(CharacterReforged.hyper_card.SKILL_INFO, skill, 16)
   if ok and type(move) == "number" and move ~= 0 then
     return true, move
   end
-  local okl, m, keshin = pcall(funcLuaCommand, CALC_CRC("CMND_EVT_AURA_MOVE"), skill)
-  if okl and type(m) == "number" and m ~= 0 then
-    return true, m
-  end
-  if okl and type(keshin) == "number" and keshin ~= 0 then
-    local okk, km = funcLuaCommand(EVT_HC.SKILL_INFO, keshin, 16)
+  local okl, kind, keshin = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_SLOT_OF"), skill)
+  if okl and kind == 2 and type(keshin) == "number" and keshin ~= 0 then
+    local okk, km = funcLuaCommand(CharacterReforged.hyper_card.SKILL_INFO, keshin, 16)
     if okk and type(km) == "number" and km ~= 0 then
       return true, km
     end
@@ -1351,44 +1189,27 @@ function EVT_HC.AuraMove(skill)
   return false, 0
 end
 
--- ---- PEG (keshin / armour) or SP (totem) ---------------------------------------------------------------------------
--- nil or {kind = 1 PEG | 2 SP, pool, cost = the move's cost in it}
-function EVT_HC.PegInfo(aura)
-  local ok, has, kind, pool, cost = pcall(funcLuaCommand, CALC_CRC("CMND_EVT_PEG_INFO"), aura or 0)
+function CharacterReforged.hyper_card.peg_info(aura)
+  local ok, has, kind, pool, cost = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_POINTS_PEG_INFO"), aura or 0)
   if ok and has == true and type(pool) == "number" and pool > 0 then
     return {kind = kind, pool = pool, cost = cost or 0}
   end
   return nil
 end
 
--- the TENSIÓN group of a team02_02 layer in the PEG look (2026-10-04, in game): CMND_SET_PRIM_COLOR tints the number
--- primitive only and the label slot took the PEG sprite badly, so the look is made of sprites
--- (research/scripts/plate_peg_build.py, team02_02): the lit squares -> evt_tension_on_peg (purple), the «T» after the
--- number -> evt_gtxt_peg_t («PEG», user: «el PEG debería sustituir la T»), the «TENSIÓN» label and the track hidden,
--- the number purple. on = false = the retail look back. CALL IT AFTER the group's locator _pos_tension01 is shown:
--- showing a locator shows all its meshes again.
-function EVT_HC.PegLook(L, inst, on, kind)
+function CharacterReforged.hyper_card.peg_look(L, inst, on, kind)
   local sp = on and kind == 2
-  -- round 12 (Nacho: «100» white on the white card): off = the retail TENSIÓN orange (team02_02 gtxt_t01 / gtxt_tension01
-  -- pixels 252, 130, 0), not white: SET_PRIM_COLOR replaces the number's tint
-  local c = on and (sp and EVT_HC.SP_RGB or EVT_HC.PEG_RGB) or EVT_HC.TENS_RGB
-  local ok1, r1 = pcall(funcLuaMenuCommand, 558735651, L, EVT_HC.TEAM02, on and CALC_CRC(sp and "evt_tension_on_sp" or "evt_tension_on_peg") or CALC_CRC("tension_on01"),
+  local c = on and (sp and CharacterReforged.hyper_card.SP_RGB or CharacterReforged.hyper_card.PEG_RGB) or CharacterReforged.hyper_card.TENS_RGB
+  local ok1, r1 = pcall(funcLuaMenuCommand, 558735651, L, CharacterReforged.hyper_card.TEAM02, on and CALC_CRC(sp and "cr_tension_on_sp" or "cr_tension_on_peg") or CALC_CRC("tension_on01"),
     CALC_CRC("tension_on01"), 0, inst)
-  local ok2, r2 = pcall(funcLuaMenuCommand, 558735651, L, EVT_HC.TEAM02, on and CALC_CRC(sp and "evt_gtxt_sp_t" or "evt_gtxt_peg_t") or CALC_CRC("gtxt_t01"),
+  local ok2, r2 = pcall(funcLuaMenuCommand, 558735651, L, CharacterReforged.hyper_card.TEAM02, on and CALC_CRC(sp and "cr_gtxt_sp_t" or "cr_gtxt_peg_t") or CALC_CRC("gtxt_t01"),
     CALC_CRC("gtxt_t01"), 0, inst)
-  -- 2026-10-05 (in game: a white square with a small «TENSIÓN» where the «PEG» after the number should be, while the
-  -- squares swap right): what the swaps answered, for the first calls (loader.log «hiper_card peg look»);
-  -- research/scripts/find_sprite.py says in which atlas / texture page each retail sprite lives.
-  -- 2026-10-06: the _gtxt_t01 quad keeps its texture PAGE on a swap and only takes the new sprite's UVs, so a picture
-  -- packed in another page drew a piece of team02_02 (its white panel + «TENSIÓN» cut = «TENSK»); the T pictures
-  -- and the squares now live in team02_02's own page (plate_peg_build.py grows it). The log is one string (the lua
-  -- log line kept only its first 8 values: the T answer was cut off)
-  EVT_HC.PEG_LOGS = (EVT_HC.PEG_LOGS or 0) + 1
-  if on and EVT_HC.PEG_LOGS <= 8 then
-    EVT_HC.Log("peg look", string.format("layer %s inst %s kind %s squares %s/%s T %s/%s", tostring(L), tostring(inst),
+  CharacterReforged.hyper_card.PEG_LOGS = (CharacterReforged.hyper_card.PEG_LOGS or 0) + 1
+  if on and CharacterReforged.hyper_card.PEG_LOGS <= 8 then
+    CharacterReforged.hyper_card.log("peg look", string.format("layer %s inst %s kind %s squares %s/%s T %s/%s", tostring(L), tostring(inst),
       tostring(kind), tostring(ok1), tostring(r1), tostring(ok2), tostring(r2)))
   end
-  pcall(funcLuaMenuCommand, 558735651, L, EVT_HC.TEAM02, CALC_CRC("gtxt_tension01"), CALC_CRC("gtxt_tension01"), 0, inst)
+  pcall(funcLuaMenuCommand, 558735651, L, CharacterReforged.hyper_card.TEAM02, CALC_CRC("gtxt_tension01"), CALC_CRC("gtxt_tension01"), 0, inst)
   funcLuaMenuCommand(3405944500, L, CALC_CRC("_gtxt_tension01"), not on, inst)
   funcLuaMenuCommand(3405944500, L, CALC_CRC("_tension_off01"), not on, inst)
   funcLuaMenuCommand(3405944500, L, CALC_CRC("_gtxt_t01"), true, inst)
@@ -1396,29 +1217,23 @@ function EVT_HC.PegLook(L, inst, on, kind)
   pcall(funcLuaMenuCommand, 2219773080, L, inst, CALC_CRC("_gtxt_tension01"), on and 0 or 1)
   pcall(funcLuaMenuCommand, 2219773080, L, inst, CALC_CRC("_tension_off01"), on and 0 or 1)
   pcall(funcLuaMenuCommand, 855211291, L, inst, 3424269865 --[[number prim]], c[1], c[2], c[3])
-  -- 2026-10-07 (Nacho: «80T» with a white patch behind the last digit and the «T»): the number field's 24 x 24
-  -- placeholder _num_tension_dmy01 (under the last digit) came back when the caller showed _pos_tension01 (a shown
-  -- locator shows all its meshes); off here, after every show
+  -- the number field's placeholder _num_tension_dmy01 off after every show of _pos_tension01
   funcLuaMenuCommand(3405944500, L, CALC_CRC("_num_tension_dmy01"), false, inst)
 end
 
--- the pool (keshin / armour PEG, totem SP) goes into the card's name, as the extra bands do («Sirena  ·  PEG 170»;
--- 2026-10-04, user: the big «PEG 170» on the AT slot was out of place)
-function EVT_HC.PoolName(name, peg)
+function CharacterReforged.hyper_card.pool_name(name, peg)
   if name == nil or peg == nil then
     return name
   end
   return string.format("%s  ·  %s %d", name, peg.kind == 2 and "SP" or "PEG", math.floor(peg.pool + 0.5))
 end
 
--- the AT slot of a team02_02 layer back to the retail «AT» label (the pool is no longer drawn there)
-function EVT_HC.PegPool(L, peg)
-  pcall(funcLuaMenuCommand, 558735651, L, EVT_HC.TEAM02, CALC_CRC("gtxt_cmd_at01"), CALC_CRC("gtxt_cmd_at01"), 0, 0)
+function CharacterReforged.hyper_card.peg_pool(L, peg)
+  pcall(funcLuaMenuCommand, 558735651, L, CharacterReforged.hyper_card.TEAM02, CALC_CRC("gtxt_cmd_at01"), CALC_CRC("gtxt_cmd_at01"), 0, 0)
   pcall(funcLuaMenuCommand, 855211291, L, 0, 2223127589, 1, 1, 1)
 end
 
--- the gauge's lit squares: cost / scale × 10 (retail), at least 1 when the scale is known; PEG mode: scale = the pool (2026-10-04: pool / 10 lit every square)
-function EVT_HC.Steps(cost, scale)
+function CharacterReforged.hyper_card.steps(cost, scale)
   if type(cost) ~= "number" or scale == nil or scale <= 0 then
     return 0
   end

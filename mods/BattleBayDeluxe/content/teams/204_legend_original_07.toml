@@ -88,6 +88,8 @@ name_text = 0xE88E8BF1
 level = 40
 card_moves = 6
 series = "ORIGINAL"
+music = "auto"
+goal_jingle = "auto"
 stadium_fallback = "s11g001b"
 stadium_image = "ev_chronicle_img/ev_bb_s11g001_01.g4tx"
 appears = [{ list = "bb_stadium", category = "main", season = "series_09", row = { copy = false, stadium = 0x1C7C825E, image = "ev_chronicle_img/ev_bb_s11g001_01.g4tx", image_name = "ev_bb_s11g001_01", bgm = 0x6C1E6CDD } }]

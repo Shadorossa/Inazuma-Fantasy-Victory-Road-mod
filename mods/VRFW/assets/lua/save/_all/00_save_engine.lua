@@ -1,26 +1,15 @@
--- save_engine: the VRFW_Save helper, defined in every script VM (lua\_all runs after each retail chunk).
--- It only defines a table: no engine call happens here (funcLuaCommand does not exist while a chunk loads).
---
---   local S = VRFW_Save and VRFW_Save.open()   -- at the TOP LEVEL of your patch file: takes your mod id from EVT_PATCH
---   ...inside OnInit / Step / any callback:
---   local n = S.get("visits", 0) + 1       -- slot data (follows the player's save slot)
---   S.set("visits", n)                     -- saved when the game saves this slot
---   S.set("boss_beaten", true)             -- numbers, strings, booleans; nil deletes
---   S.gset("launches", S.gget("launches", 0) + 1)   -- global data (not tied to a slot), written at once
---
+-- lua_patch.scope: used
+-- save_engine: the VRFW.save helper, defined in every script VM (lua\_all runs after each retail chunk).
 -- Command hashes (crc32 of the names) are listed in mods\save_engine\README.md.
-if VRFW_Save == nil and type(EvtSave) == "table" then
-  VRFW_Save = EvtSave   -- made by a 1.x copy of this file
-end
-if VRFW_Save == nil then
+if VRFW.save == nil then
   local H = {
-    GET = 3760054781, SET = 4214418001, SET_BOOL = 1378346386, DEL = 4046964722,
-    GGET = 192964512, GSET = 279931916, GSET_BOOL = 316081803, GDEL = 447365551,
-    COMMIT = 2951850645, SLOT = 74766845,
+    GET = 2187277743, SET = 2574269955, SET_BOOL = 2635532156, DEL = 2473923488,
+    GGET = 2239362470, GSET = 2656501258, GSET_BOOL = 2513119134, GDEL = 2488521641,
+    COMMIT = 3176099982, SLOT = 2171841521,
   }
 
   local function caller_id()
-    local f = EVT_PATCH and EVT_PATCH.file
+    local f = VRFW.patch and VRFW.patch.file
     if type(f) ~= "string" then return nil end
     return string.match(f, "^mods/([^/]+)/")
   end
@@ -36,11 +25,10 @@ if VRFW_Save == nil then
     return funcLuaCommand(h, id, key, value, n)
   end
 
-  VRFW_Save = { H = H }
+  VRFW.save = { H = H }
 
-  -- open(id): a handle bound to one mod id. Without `id` it is read from EVT_PATCH, so call it at the top level of
-  -- your patch file (EVT_PATCH belongs to the file that is running at that moment).
-  function VRFW_Save.open(id)
+  -- open(id): a handle bound to one mod id.
+  function VRFW.save.open(id)
     id = id or caller_id()
     if id == nil then return nil end
     local s = { id = id }
@@ -50,12 +38,9 @@ if VRFW_Save == nil then
     function s.global_get(key, default) return funcLuaCommand(H.GGET, id, key, default) end
     function s.global_set(key, value) return put(H.GSET, H.GSET_BOOL, id, key, value, nil) end
     function s.global_delete(key) return funcLuaCommand(H.GDEL, id, key) end
-    -- old names (aliases)
     s.del, s.gget, s.gset, s.gdel = s.delete, s.global_get, s.global_set, s.global_delete
     function s.commit() return funcLuaCommand(H.COMMIT, id) end
     function s.slot() return funcLuaCommand(H.SLOT) end
     return s
   end
 end
--- 1.x name: the same table under the old name, so mods written for 1.x keep working
-EvtSave = VRFW_Save

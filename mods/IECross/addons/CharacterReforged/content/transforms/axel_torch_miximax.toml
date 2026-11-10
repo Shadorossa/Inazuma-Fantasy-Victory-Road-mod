@@ -1,0 +1,9 @@
+schema = "VRFW.transform/2"
+
+[[transform]]
+name = "axel_x_torch"
+kind = "miximax"
+command = "wmm_evt"
+source = { partner = "c02020900" }       # Torch
+users = { characters = ["c01000100"] }   # Axel Blaze
+look = { character = "IECross.axel_blaze_cross" }

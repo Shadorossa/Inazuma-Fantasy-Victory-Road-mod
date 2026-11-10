@@ -1,0 +1,57 @@
+# The Mods screen's name and description (new texts get the id crc32("MiximaxFromKickoff.<name>")).
+schema = "VRFW.text_key/1"
+default_lang = "en"
+
+[en.new]
+mod_name = "Miximax From Kick-Off"
+mod_description = "As in IE GO Galaxy: every player with a miximax, on both teams, starts the match already in his form. It costs nothing, never runs out and cannot be switched off. Needs Character Reforged."
+option_start_in_form = "Miximax active from kick-off"
+option_start_in_form_help = "On: every player with a miximax, on both teams, starts the match already in his form, as in IE GO Galaxy. Off: miximax are used during the match as usual. Applies after restarting the game."
+
+[es.new]
+mod_name = "Miximax desde el saque"
+mod_description = "Como en IE GO Galaxy: todos los jugadores con miximax, de los dos equipos, empiezan el partido ya transformados. No cuesta nada, no se agota y no se puede desactivar. Necesita Character Reforged."
+option_start_in_form = "Miximax activos desde el saque"
+option_start_in_form_help = "Activado: todos los jugadores con miximax, de los dos equipos, empiezan el partido ya transformados, como en IE GO Galaxy. Desactivado: los miximax se usan durante el partido como siempre. Se aplica al reiniciar el juego."
+
+[fr.new]
+mod_name = "Miximax dès le coup d'envoi"
+mod_description = "Comme dans IE GO Galaxy : tous les joueurs avec un miximax, dans les deux équipes, commencent le match déjà transformés. Cela ne coûte rien, ne s'épuise pas et ne peut pas être désactivé. Nécessite Character Reforged."
+option_start_in_form = "Miximax actifs dès le coup d'envoi"
+option_start_in_form_help = "Activé : tous les joueurs avec un miximax, dans les deux équipes, commencent le match déjà transformés, comme dans IE GO Galaxy. Désactivé : les miximax s'utilisent pendant le match comme d'habitude. S'applique après le redémarrage du jeu."
+
+[de.new]
+mod_name = "Miximax ab Anstoß"
+mod_description = "Wie in IE GO Galaxy: Alle Spieler mit Miximax beider Teams beginnen das Spiel bereits verwandelt. Es kostet nichts, läuft nicht ab und lässt sich nicht beenden. Benötigt Character Reforged."
+option_start_in_form = "Miximax ab Anstoß aktiv"
+option_start_in_form_help = "An: Alle Spieler mit Miximax beider Teams beginnen das Spiel bereits verwandelt, wie in IE GO Galaxy. Aus: Miximax werden wie gewohnt während des Spiels eingesetzt. Gilt nach einem Neustart des Spiels."
+
+[it.new]
+mod_name = "Miximax dal calcio d'inizio"
+mod_description = "Come in IE GO Galaxy: tutti i giocatori con un miximax, di entrambe le squadre, iniziano la partita già trasformati. Non costa nulla, non si esaurisce e non si può disattivare. Richiede Character Reforged."
+option_start_in_form = "Miximax attivi dal calcio d'inizio"
+option_start_in_form_help = "Attivo: tutti i giocatori con un miximax, di entrambe le squadre, iniziano la partita già trasformati, come in IE GO Galaxy. Disattivato: i miximax si usano durante la partita come sempre. Si applica dopo aver riavviato il gioco."
+
+[pt.new]
+mod_name = "Miximax desde o pontapé de saída"
+mod_description = "Como em IE GO Galaxy: todos os jogadores com miximax, das duas equipas, começam a partida já transformados. Não custa nada, não se esgota e não pode ser desativado. Requer Character Reforged."
+option_start_in_form = "Miximax ativos desde o pontapé de saída"
+option_start_in_form_help = "Ativado: todos os jogadores com miximax, das duas equipas, começam a partida já transformados, como em IE GO Galaxy. Desativado: os miximax usam-se durante a partida como sempre. Aplica-se depois de reiniciar o jogo."
+
+[ja.new]
+mod_name = "キックオフからミキシマックス"
+mod_description = "イナズマイレブンGO ギャラクシーのように、ミキシマックスを持つ両チームの選手全員が変身した状態で試合を始めます。コストはかからず、時間切れもなく、解除もできません。Character Reforgedが必要です。"
+option_start_in_form = "キックオフからミキシマックス"
+option_start_in_form_help = "オン：ミキシマックスを持つ両チームの選手全員が、イナズマイレブンGO ギャラクシーのように変身した状態で試合を始めます。オフ：ミキシマックスは通常どおり試合中に使います。ゲームの再起動後に反映されます。"
+
+[zh_hans.new]
+mod_name = "开球即超级合体"
+mod_description = "如同《闪电十一人GO 银河》：双方拥有超级合体的球员在比赛开始时就已变身。不消耗资源，不会结束，也无法解除。需要 Character Reforged。"
+option_start_in_form = "开场即超级合体"
+option_start_in_form_help = "开启：双方拥有超级合体的球员在比赛开始时就已变身，如同《闪电十一人GO 银河》。关闭：超级合体照常在比赛中使用。重新启动游戏后生效。"
+
+[zh_hant.new]
+mod_name = "開球即超級合體"
+mod_description = "如同《閃電十一人GO 銀河》：雙方擁有超級合體的球員在比賽開始時就已變身。不消耗資源，不會結束，也無法解除。需要 Character Reforged。"
+option_start_in_form = "開場即超級合體"
+option_start_in_form_help = "開啟：雙方擁有超級合體的球員在比賽開始時就已變身，如同《閃電十一人GO 銀河》。關閉：超級合體照常在比賽中使用。重新啟動遊戲後生效。"

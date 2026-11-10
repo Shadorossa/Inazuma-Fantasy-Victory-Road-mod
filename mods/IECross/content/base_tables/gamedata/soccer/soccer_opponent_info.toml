@@ -1,9 +1,4 @@
 schema = "VRFW.base_table/1"
-# The free-match rows of the Cross games (category 1, under the Cross tab; their conditions: listed while the office
-# is off), one row per game: the team type orders them (content/teams/cross_tab.toml order; no unlock chain since
-# every game is listed from the start). Key = [battleId, sortOrder]. 1.3.21: the second rows of Piratas Inazuma Japón,
-# Shin Zeus and Circo Caos (the old chain's «listed again after the previous win» copies) are gone: each game is
-# listed once.
 
 [[keyed]]
 table = "soccer/soccer_opponent_info"
@@ -48,6 +43,6 @@ key_columns = ["battleId", "sortOrder"]
   key = [0xC500E903, 740]
   cells = { category = 1, cond1 = "AAAAABgFNZ6ZhIwACgEoAAYCNJtjX8IyAAAAAHg=", cond2 = "AAAAABgFNZ6ZhIwACgEoAAYCNJtjX8IyAAAAAHg=", cond3 = "AAAAABgFNZ6ZhIwACgEoAAYCNJtjX8IyAAAAAHg=", cond4 = "AAAAABgFNZ6ZhIwACgEoAAYCNJtjX8IyAAAAAHg=" }
 
-  [[keyed.add]]                         # evt_cm_cx_japan_2026
+  [[keyed.add]]
   key = [0xDD7171CC, 741]
   cells = { category = 1, cond1 = "AAAAABgFNZ6ZhIwACgEoAAYCNJtjX8IyAAAAAHg=", cond2 = "AAAAABgFNZ6ZhIwACgEoAAYCNJtjX8IyAAAAAHg=", cond3 = "AAAAABgFNZ6ZhIwACgEoAAYCNJtjX8IyAAAAAHg=", cond4 = "AAAAABgFNZ6ZhIwACgEoAAYCNJtjX8IyAAAAAHg=" }

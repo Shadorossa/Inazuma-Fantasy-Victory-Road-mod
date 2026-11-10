@@ -1,5 +1,4 @@
 schema = "VRFW.text_key/1"
-# Challenge sentences of recruit trials ({secs} = seconds, {count} = times / goals); ids = crc32("character_engine.<name>").
 default_lang = "en"
 
 [ja.new]

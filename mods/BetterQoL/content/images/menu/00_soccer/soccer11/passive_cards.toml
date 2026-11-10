@@ -1,12 +1,3 @@
-# BetterQoL: the player page's passive cards during a «Configuración de pasivas» session (Lua UTIL_PPC.RowTint,
-# research/grafts/passive_config): the slot being edited = util_passive_card_sel (the retail card on a 3 px cyan rim:
-# the VR list focus colour); the other slots and no session = the retail passive_base01. (the old
-# «dim» sprite, a light grey silhouette at 55 %, and the near-white «sel» plate made the angled cards vanish on the
-# white panel: both now keep the retail card's own pixels.)
-# Both are made at the first start (and after a game update) from the PLAYER'S own game files by the image type's
-# recipes (docs/framework/types/image.md §2.1): the retail card silhouette passive_base01 of soccer11_20 (72 x 92),
-# never a Level-5 pixel in the mod. A recipe that cannot be made is an ERROR in the log; the card then stays blank
-# only during a session.
 schema = "VRFW.image/1"
 
 [[texture]]
@@ -16,7 +7,7 @@ size = [72, 92]
 
 [[sprite]]
 atlas = "#/menu/00_soccer/better_qol_own/better_qol_soccer11_20.g4tx"
-name = "util_passive_card_sel"
+name = "betterqol_passive_card_sel"
 texture = "better_qol_soccer11_20"
 x = 0
 y = 0

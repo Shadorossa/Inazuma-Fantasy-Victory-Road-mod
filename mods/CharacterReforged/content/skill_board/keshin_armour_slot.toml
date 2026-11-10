@@ -1,0 +1,4 @@
+schema = "CharacterReforged.skill_board/1"
+
+[CharacterReforged.SkillBoard]
+armour_without_item = true

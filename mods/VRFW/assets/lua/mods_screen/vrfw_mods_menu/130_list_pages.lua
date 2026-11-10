@@ -1,19 +1,14 @@
--- mods_menu (VRFW): the «Mods» screen, the list pages in the content area («¿Quién lo toca?») and the page
--- helpers of CE. Runs after 100_mods_screen.lua in the same VM and takes the names it shares from VRFW_ModsScreen. No
--- engine call at load time.
-local Screen = VRFW_ModsScreen
+local Screen = VRFW.mods_screen
 if Screen == nil then
   return
 end
-local C, CE, Call, Cut, Draw, DrawPanel = Screen.C, Screen.CE, Screen.Call, Screen.Cut, Screen.Draw, Screen.DrawPanel
-local DrawScrollbar, Fit, G, Hit, Int = Screen.DrawScrollbar, Screen.Fit, Screen.G, Screen.Hit, Screen.Int
-local Keyboard, M, ModById, Quad, RT_SEARCH = Screen.Keyboard, Screen.M, Screen.ModById, Screen.Quad, Screen.RT_SEARCH
-local RV, SE_NG, SP, Str, T, Txt = Screen.RV, Screen.SE_NG, Screen.SP, Screen.Str, Screen.T, Screen.Txt
+local C, CE, Call, Cut, Draw, DrawPanel = Screen.C, Screen.CE, Screen.call, Screen.cut, Screen.draw, Screen.draw_panel
+local DrawScrollbar, Fit, G, Hit, Int = Screen.draw_scrollbar, Screen.fit, Screen.G, Screen.hit, Screen.int
+local Keyboard, M, ModById, Quad, RT_SEARCH = Screen.keyboard, Screen.M, Screen.mod_by_id, Screen.quad, Screen.RT_SEARCH
+local RV, SE_NG, SP, Str, T, Txt = Screen.RV, Screen.SE_NG, Screen.SP, Screen.str, Screen.T, Screen.txt
 local mouse, ui = Screen.mouse, Screen.ui
+local Literal = Screen.literal
 
--- ---- list pages -----------------------------------------------------------------------------------------------------------
--- A page is drawn in the content area and waits for the player: the flow runs as the screen's coroutine and waits for
--- `ui.page.pick` / `ui.page.back` / `ui.page.act`.
 local function WaitPage(p)
   p.pick, p.back, p.act = nil, false, nil
   ui.page = p
@@ -24,9 +19,6 @@ local function WaitPage(p)
   return p.pick, p.back, p.act
 end
 
--- a list page: `items` = {{label, sub, off, head}}; opt.search = a function(query) that refills the list (nil = none),
--- opt.preview(item) = the panel's lines for the selected item, opt.info = lines under them. Returns the picked row and
--- its item, or nil (B)
 local function ListPage(title, help, items, opt)
   opt = opt or {}
   local p = {kind = "list", title = title, help = help, items = items, sel = opt.sel or 1, top = 1, search = opt.search,
@@ -57,7 +49,7 @@ end
 local function DrawList(p)
   local LW = G.ROW_W
   local rows = G.LIST_ROWS
-  local y0 = G.LIST_Y              -- its search is in the top row (CE.DrawPageRow)
+  local y0 = G.LIST_Y              -- its search is in the top row (CE.draw_page_row)
   p.sel = math.max(1, math.min(p.sel, math.max(1, #p.items)))
   if p.sel < p.top then
     p.top = p.sel
@@ -65,7 +57,7 @@ local function DrawList(p)
     p.top = p.sel - rows + 1
   end
   p.top = math.max(1, math.min(p.top, math.max(1, #p.items - rows + 1)))
-  CE.ListBox()
+  CE.list_box()
   if #p.items == 0 then
     Quad("Q2", SP("row_off"), G.LIST_X, y0, LW, G.ROW_H)
     Txt("TL", "[CWG]" .. T("list_empty") .. "[C]", G.LIST_X + 28, y0 + G.ROW_H / 2, 0.85)
@@ -82,7 +74,7 @@ local function DrawList(p)
       else
         Quad("Q2", SP(sel and "row_sel" or (it.off and "row_off" or "row")), G.LIST_X, y, LW, G.ROW_H)
         if sel then
-          CE.Focus("Q1", G.LIST_X, y, LW, G.ROW_H, 3)   -- the cursor of every list
+          CE.focus("Q1", G.LIST_X, y, LW, G.ROW_H, 3)   -- the cursor of every list
         end
         local lx = G.LIST_X + 28
         Txt("TL", (it.off and "[CWG]" or "[CB]") .. Cut(it.label, math.min(it.sub and 44 or 64, Fit(LW - (lx - G.LIST_X) - (it.sub and 230 or 30), 0.84))) .. "[C]", lx, y + G.ROW_H / 2, 0.84)
@@ -117,8 +109,7 @@ local function DrawPage()
   DrawList(ui.page)
 end
 
--- «¿Quién lo toca?» (RV.OpenWho): the rows of id `id` for a list page -> items, places, winner
-function RV.WhoItems(id)
+function RV.who_items(id)
   local items, places = {}, 0
   if id == nil or id == "" then
     return items, 0, ""
@@ -136,27 +127,28 @@ function RV.WhoItems(id)
     if mid ~= last and kind ~= "report" then
       last = mid
       local m = ModById(mid)
-      local name = (m ~= nil and m.name ~= nil and m.name ~= "") and m.name or mid
+      local name = Literal((m ~= nil and m.name ~= nil and m.name ~= "") and m.name or mid)
       local pos = Int(order) > 0 and T("who_order", {n = Int(order)}) or T("who_not_loaded")
       items[#items + 1] = {head = true, label = (mid == win and "[CY]" or "") .. name .. "  ·  " .. pos ..
                            (mid == win and ("  ·  " .. T("rp_winner", {w = name})) or "") .. (mid == win and "[C]" or "")}
     end
     places = places + (kind == "report" and 0 or 1)
-    items[#items + 1] = {label = "[" .. Str(ty) .. "] " .. Str(text), sub = Str(place), off = kind == "refers",
-                         full = Str(text), place = Str(place), mod = mid, kind = kind, win = wins == true}
+    local shown_text, shown_place = Literal(Str(text)), Literal(Str(place))
+    items[#items + 1] = {label = "[" .. Literal(Str(ty)) .. "] " .. shown_text, sub = shown_place, off = kind == "refers",
+                         full = shown_text, place = shown_place, mod = mid, kind = kind, win = wins == true}
   end
   return items, places, win
 end
 
--- the explorer's list page; B returns to the mod page on the view it came from
-function RV.WhoFlow(id)
+-- The explorer's list page; B returns to the mod page on the view it came from.
+function RV.who_flow(id)
   local saved = ui.popup
   ui.popup = nil
   local opt = {query = id or ""}
   local function fill(q)
-    local items, places, win = RV.WhoItems(q)
-    local info = {{gap = 10}, {t = q == "" and T("who_empty") or (win ~= "" and T("who_winner", {w = win}) or
-                  (places > 0 and T("who_no_winner") or T("who_nobody", {i = q}))), c = "[CN]", max = 3}}
+    local items, places, win = RV.who_items(q)
+    local info = {{gap = 10}, {t = q == "" and T("who_empty") or (win ~= "" and T("who_winner", {w = Literal(win)}) or
+                  (places > 0 and T("who_no_winner") or T("who_nobody", {i = Literal(q)}))), c = "[CN]", max = 3}}
     opt.info = info
     if opt.p ~= nil then
       opt.p.info = info
@@ -186,18 +178,19 @@ function RV.WhoFlow(id)
   Draw()
 end
 
--- The header adaptation: G is laid out for the retail header; a mod that restyles the header sets the
--- global VRFW_MM_LAYOUT = {top_dy = n} in a Lua patch of this script (e.g. -55). Applied in OnInit from the retail values, so any order of the patches and any
--- number of visits give the same layout. top_dy is clamped to ±160 px.
-function CE.ApplyLayout()
+-- a mod's vertical offset (px) of the screen's top block, applied at the next layout
+function Screen.set_top_offset(dy)
+  Screen.top_offset = tonumber(dy) or 0
+end
+
+function CE.apply_layout()
   if G.BASE_Y == nil then
     G.BASE_Y = {}
     for _, k in ipairs(G.SHIFT_Y) do
       G.BASE_Y[k] = G[k]
     end
   end
-  local dy = type(VRFW_MM_LAYOUT) == "table" and tonumber(VRFW_MM_LAYOUT.top_dy) or 0
-  dy = math.max(-160, math.min(160, dy or 0))
+  local dy = math.max(-160, math.min(160, Screen.top_offset or 0))
   for _, k in ipairs(G.SHIFT_Y) do
     G[k] = G.BASE_Y[k] + dy
   end
@@ -207,8 +200,8 @@ function CE.ApplyLayout()
   return dy
 end
 
--- the search of a list page for CE.RowSearch, or nil (none)
-function CE.PageSearch(p)
+-- the search of a list page for CE.row_search, or nil (none)
+function CE.page_search(p)
   if p.search == nil then
     return nil
   end
@@ -217,13 +210,13 @@ function CE.PageSearch(p)
           foc = p.zone == "search" or mouse.hot == id, id = id, act = function() p.act = "search" end}
 end
 
--- the page's own part of the top row: its search box (the count inside), in the place of «Instalados»' search
-function CE.DrawPageRow(p)
-  local s = CE.PageSearch(p)
+-- the page's own part of the top row: its search box (the count inside), in the place of the "Installed" search
+function CE.draw_page_row(p)
+  local s = CE.page_search(p)
   if s ~= nil then
-    CE.RowSearch(s)
+    CE.row_search(s)
   end
 end
 
 -- for 100_mods_screen.lua and the files after this one
-Screen.DrawPage = DrawPage
+Screen.draw_page = DrawPage

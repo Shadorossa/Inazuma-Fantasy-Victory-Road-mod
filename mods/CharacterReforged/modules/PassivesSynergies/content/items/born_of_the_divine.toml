@@ -1,0 +1,39 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# New synergy sf11010 (cloned from sf10001): Byron Love (Zeus) + Thaddeus Bellefax (Solaria-Zeus).
+
+[[item]]
+name = "born_of_the_divine"
+base = "sf10001"
+category = "synergy"
+icon_key = "sf11010"
+key_id = true
+  [item.text.es]
+  name = "Nacido de lo divino"
+  [item.text.en]
+  name = "Born of the Divine"
+  [item.text.fr]
+  name = "Né du divin"
+  [item.text.de]
+  name = "Vom Göttlichen geboren"
+  [item.text.it]
+  name = "Nato dal divino"
+  [item.text.pt]
+  name = "Nascido do divino"
+  [item.text.ja]
+  name = "[神/かみ]より[生/う]まれし[者/もの]"
+  [item.text.zh_hans]
+  name = "生于神明"
+  [item.text.zh_hant]
+  name = "生於神明"
+
+[[currency]]
+name = "byron_love_card"
+spirit = 0x9E23A289                      # chara_param of Byron Love c01001900
+rarity = 4
+
+[[currency]]
+name = "thaddeus_bellefax_card"
+spirit = 0xD5ACAA9D                      # chara_param of Thaddeus Bellefax c11150120
+rarity = 4

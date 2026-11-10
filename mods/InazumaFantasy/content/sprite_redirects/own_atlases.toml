@@ -1,6 +1,5 @@
 schema = "VRFW.sprite_redirect/1"
-# Inazuma Fantasy: the game and the Lua ask the game's tab atlas for the section icon by name; it lives in the mod's own
-# atlas (content\images\menu\200_icon\16_icon_list_tab\icon_list_tab.toml), so the game atlas gets no entry.
+# The section icon lives in the mod's own atlas, so the game's tab atlas gets no entry.
 
 [[VRFW.SpriteRedirect]]
 name = "inazuma_fantasy_icon_list_tab"
@@ -9,4 +8,20 @@ own_atlas = "#/menu/200_icon/inazuma_fantasy_own/inazuma_fantasy_icon_list_tab.g
 sprites = [
     "icon_list_tab_series11",
     "icon_list_tab_series11_off",
+]
+
+[[VRFW.SpriteRedirect]]
+name = "inazuma_fantasy_vsroute01_06b"
+atlas = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+own_atlas = "#/menu/30_vsroute/inazuma_fantasy_own/inazuma_fantasy_vsroute01_06b.g4tx"
+sprites = [
+    "if_heroic_plus_orb",
+]
+
+[[VRFW.SpriteRedirect]]
+name = "inazuma_fantasy_vsroute01_21"
+atlas = "#/menu/30_vsroute/vsroute01/vsroute01_21/vsroute01_21.g4tx"
+own_atlas = "#/menu/30_vsroute/inazuma_fantasy_own/inazuma_fantasy_vsroute01_21.g4tx"
+sprites = [
+    "if_heroic_plus_orb",
 ]

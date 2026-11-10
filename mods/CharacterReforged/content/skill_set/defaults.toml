@@ -1,29 +1,14 @@
-# Character Reforged › what each slot of the new skill set accepts.
-# Read by scripts\skill_set.lua (CharacterReforged.CanPlace): every active mod's content\skill_set\*.toml
-# may declare [CharacterReforged.SkillSet] keys (later mods win key by key). Aura types are the engine's aura record
-# type (VRFW.extra_slot.aura_type): 0 keshin, 1 keshin armour, 2 Mix-Max, 3 totem, 5 awakening power, 6 «Modo cambio», 7 awakening change.
 schema = "CharacterReforged.skill_set/1"
 
 [CharacterReforged.SkillSet]
 # the 6 move rows: special moves only (no aura of any type)
 moves_refuse_auras = true
-# the aura slot: keshin, totem and awakening (power 5, change 7) (an armour comes through its keshin in the match,
-# never alone); a move no player can obtain is still refused in every slot
+# the aura slot: keshin, totem and awakening (power 5, change 7); an armour comes through its keshin
 aura_types = [0, 3, 5, 7]
 # the mix slot: Mix-Max and «Modo cambio» (their creation entries and carriers have these types too)
 mix_types = [2, 6]
-# the mix slot kinds that add stats (a stat rule such as All Miximaxed's transfer applies only while the mix slot holds
-# one of these): Mix-Max; a «Modo cambio» (6) only swaps the player into his partner, no stats of its own
+# the mix slot kinds that add stats (a «Modo cambio» only swaps the player into his partner)
 mix_stat_types = [2]
-# the board slots (0-based; 8 = the aura slot) that may hold an aura in a save: an aura a saved player holds in any other
-# board slot (a technique slot) is taken off once per save when it loads (scripts\misplaced_auras.lua)
 aura_board_slots = [8]
-# a character's own moveset (his keshin / totem and his Mix-Max / «Modo cambio» go to the aura / mix
-# slot by default, unless the player or his team's data already filled it): scripts/mix_slots.lua publishes the native
-# table MovesetDefault (chara_param -> { aura, mix }; read by content/extra_slots/skill_set.toml [source] default_table)
-# from each card's learn list slot 9 and, for the mix, from this export when that script sees it.
-# "" = the learn list only.
 moveset_export = "CharacterReforged.Moveset"
 
-# [CharacterReforged.PlaceRules.<name>]: another mod's placement rule as data (scripts\skill_set.lua «place rules as
-# data»): command = "CMND_<MOD>_CAN_PLACE" ((charaHdl, slot, move) -> ok, … ; false refuses), slot = "board" | "set"

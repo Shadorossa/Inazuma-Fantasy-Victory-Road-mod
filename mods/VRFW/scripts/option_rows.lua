@@ -1,33 +1,22 @@
--- Option rows: a declaration adds one value to a row of the game's settings menu (declarations: content\option_rows\*.toml; native side: content\game\option_rows.toml).
--- The game keeps `stores` while the new value is chosen; the declaring mod's option `option` reads 1 (chosen).
--- CMND_VRFW_SETTING_ROW(key) -> chosen, index, live
 
 OptionRows = OptionRows or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
+local Memory = VRFW.memory
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("option_rows")
 
 -- settings row record: setting type, value list (text ids), u16 count, shown index and base (value = index + base)
 local ROW_TYPE, ROW_LIST, ROW_COUNT, ROW_INDEX, ROW_BASE = 0x08, 0x10, 0x18, 0x1C, 0x20
 
-local ROWS = {}          -- setting type -> declaration in force (+ our value list buffer)
+local ROWS = {}
 local KEYS = {}          -- "<mod>.<name>" / "<name>" -> row
 local LIVE = false
 local pending = nil      -- write in progress
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
+local rd = Memory.read
 
-local function wr(ty, at, v)
-  if type(at) ~= "number" or at < 0x10000 then return false end
-  return (pcall(VRFW.mem.write, ty, at, v))
-end
+local wr = Memory.write
 
 local crc = VRFW.crc32
 
@@ -103,7 +92,7 @@ local function start()
   end
 end
 
--- our value list for row r whose game list is at `list`, built once
+-- the script's value list for row r whose game list is at `list`, built once
 local function our_list(r, list)
   if r.list ~= 0 then return r.list end
   local ids = {}
@@ -113,7 +102,8 @@ local function our_list(r, list)
     ids[#ids + 1] = x
   end
   table.insert(ids, r.at + 1, r.id)
-  local ok, p = pcall(VRFW.mem.buffer, "option_rows." .. r.setting, 4 * #ids)
+  local p = VRFW.memory.buffer("option_rows." .. r.setting, 4 * #ids)
+  local ok = p ~= nil
   if not ok or type(p) ~= "number" then return nil end
   for i, x in ipairs(ids) do wr("u32", p + 4 * (i - 1), x) end
   r.list = p
@@ -128,7 +118,7 @@ local function shown(r, g)
   return g
 end
 
--- after the engine read the row: install our list and shown index
+-- after the engine read the row: install the script's list and shown index
 local function on_read(ev)
   local row = ev.args[2]
   local r = ROWS[rd("u32", row and row + ROW_TYPE) or -1]
@@ -136,7 +126,7 @@ local function on_read(ev)
   local list, count = rd("ptr", row + ROW_LIST), rd("u16", row + ROW_COUNT)
   if not list or not count then return nil end
   if list ~= r.list then
-    if count ~= r.game_values then return nil end   -- not the declared game list: left as is
+    if count ~= r.game_values then return nil end   -- Not the declared game list: left as is.
     local p = our_list(r, list)
     if not p then return nil end
     wr("ptr", row + ROW_LIST, p)

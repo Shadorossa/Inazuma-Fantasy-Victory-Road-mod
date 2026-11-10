@@ -1,8 +1,0 @@
-schema = "VRFW.game/2"
-
-# Classic Equipment › the command Character Reforged's player page asks for the Suerte of the worn classic items
-# (content\menus\player_page_slots.toml). The logic is scripts\classic_equipment.lua.
-
-[[VRFW.Command]]
-name = "CMND_CLASSICEQUIPMENT_LUCK"   # (charaStHdl) -> the Suerte of the classic items he wears (0 = none)
-handler = "ClassicEquipment.Luck"

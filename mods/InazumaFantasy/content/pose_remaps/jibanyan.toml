@@ -1,0 +1,17 @@
+schema = "VRFW.pose_remap/1"
+# Jibanyan: the human hip height of any animation (matches, cut-ins) mapped to his short legs: small sway scaled, a crouch
+# stays above the floor, big jumps keep their full height. The spine bends half as much so his round body does not fold.
+# The marker is a joint that only his skeleton has.
+
+[[remap]]
+key = "jibanyan"
+skeleton_joint = "c90620000_anchor"
+
+  [[remap.joint]]
+  name = "c_c_1_0"
+  translation_y = [[-0.3, 0.4558], [-0.233, 0.4564], [-0.166, 0.4573], [-0.099, 0.4585], [-0.032, 0.4599], [0.035, 0.4618], [0.102, 0.4643], [0.169, 0.4674], [0.236, 0.4715], [0.303, 0.4767], [0.369, 0.4834], [0.436, 0.4921], [0.503, 0.5033], [0.553, 0.5128], [0.603, 0.5223], [0.653, 0.5318], [0.703, 0.5413], [0.753, 0.5511], [0.803, 0.5624], [0.853, 0.5764], [0.903, 0.5942], [0.953, 0.6165], [1.003, 0.6437], [1.053, 0.676], [1.103, 0.7131], [1.153, 0.7547], [1.203, 0.8001], [1.253, 0.8483], [1.303, 0.898], [1.353, 0.948], [1.403, 0.998], [1.453, 1.048], [1.503, 1.098], [1.553, 1.148], [1.603, 1.198], [1.653, 1.248], [1.703, 1.298], [2.503, 2.098], [4.503, 4.098], [8.503, 8.0981]]
+
+  [[remap.joint]]
+  name = "c_c_1_1"
+  rotation_keep = 0.5
+  rest_rotation = [-0.0235733, -0.0, 0.0, 0.9997221]

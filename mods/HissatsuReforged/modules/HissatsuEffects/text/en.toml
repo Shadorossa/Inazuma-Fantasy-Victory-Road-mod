@@ -1,6 +1,4 @@
 schema = "VRFW.text_key/1"
-# Hissatsu Effects › the move card's sentences of the technique effects (content\rules\technique_effects_*.toml,
-# their `text`), language en. Other languages fall back to English.
 
 [new]
 te_whd00170 = "+15% power with 2 or more teammates within 15 m."
@@ -783,3 +781,4 @@ te_whs10010 = "Costs 15% less tension in the first third of the second half whil
 te_whs10020 = "Costs 15% less tension in the first third of the second half while trailing."
 te_whs10090 = "Costs 15% less tension in the last third of each half while trailing."
 te_whs10130 = "Costs 15% less tension in the last third of the first half."
+te_whk00690 = "Once per match, the keeper who has it equipped makes an Unstoppable save that costs no tension."

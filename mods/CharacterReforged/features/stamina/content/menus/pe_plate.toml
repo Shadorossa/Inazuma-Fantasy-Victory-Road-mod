@@ -1,0 +1,291 @@
+schema = "VRFW.menu/2"
+
+[[object]]
+name = "character_reforged_points_pe_plate_bar"
+from = "btl06_13_stamina_gauge"
+priority = 304
+
+[[object]]
+name = "character_reforged_points_pe_plate_tag"
+from = "btl06_13_stamina_gauge"
+priority = 305
+
+[[object]]
+name = "character_reforged_points_pe_plate_num"
+from = "btl06_13_stamina_gauge"
+priority = 305
+
+[[object]]
+name = "character_reforged_points_pe_plate_num2"
+from = "btl06_13_stamina_gauge"
+priority = 305
+
+[[object]]
+name = "character_reforged_points_pe_plate_num3"
+from = "btl06_13_stamina_gauge"
+priority = 305
+
+[[object]]
+name = "character_reforged_points_pe_plate_fill"
+from = "btl06_13_stamina_gauge"
+priority = 305
+
+[[object_set]]
+object = "soccer11_04pp_chara_status_info"
+add = [
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x89CBE08F, 0x5A709C12, 0x89CBE08F, 0] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xFCBDDBA6, 0x5A709C12, 0xFCBDDBA6, 0] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x2377C34B, 0x5A709C12, 0x2377C34B, 0] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xFBF851D6, 0x5A709C12, 0xFBF851D6, 0] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x8CFF6140, 0x5A709C12, 0x8CFF6140, 0] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xBEB86E9F, 0x5A709C12, 0xBEB86E9F, 0] },
+]
+
+# team dock (formation screen, team dock plate): the plate is in the groups common and team_dock_menu_rpg_battle
+[[patch]]
+menu = "team_dock_menu"
+add_layer = { name = "character_reforged_points_pe_plate_bar", object = "character_reforged_points_pe_plate_bar", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "soccer11_04_formation_chara_status", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "soccer11_04_formation_chara_status" },
+    { group = "team_dock_menu_rpg_battle", flags = [0, 0, 0, 0, 1, 0], after = "soccer11_04_formation_chara_status" },
+] }
+
+[[patch]]
+menu = "team_dock_menu"
+add_layer = { name = "character_reforged_points_pe_plate_tag", object = "character_reforged_points_pe_plate_tag", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_bar", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_bar" },
+    { group = "team_dock_menu_rpg_battle", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_bar" },
+] }
+
+[[patch]]
+menu = "team_dock_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num", object = "character_reforged_points_pe_plate_num", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_tag", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_tag" },
+    { group = "team_dock_menu_rpg_battle", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_tag" },
+] }
+
+[[patch]]
+menu = "team_dock_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num2", object = "character_reforged_points_pe_plate_num2", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num" },
+    { group = "team_dock_menu_rpg_battle", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num" },
+] }
+
+[[patch]]
+menu = "team_dock_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num3", object = "character_reforged_points_pe_plate_num3", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num2", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num2" },
+    { group = "team_dock_menu_rpg_battle", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num2" },
+] }
+
+[[patch]]
+menu = "team_dock_menu"
+add_layer = { name = "character_reforged_points_pe_plate_fill", object = "character_reforged_points_pe_plate_fill", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num3", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num3" },
+    { group = "team_dock_menu_rpg_battle", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num3" },
+] }
+
+# player plate «Ficha» (team dock, bank, formation), the data-file and mode-change variants
+[[patch]]
+menu = "personal_plate_menu"
+add_layer = { name = "character_reforged_points_pe_plate_bar", object = "character_reforged_points_pe_plate_bar", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "soccer11_04_formation_chara_status", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "soccer11_04_formation_chara_status" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu"
+add_layer = { name = "character_reforged_points_pe_plate_tag", object = "character_reforged_points_pe_plate_tag", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_bar", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_bar" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num", object = "character_reforged_points_pe_plate_num", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_tag", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_tag" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num2", object = "character_reforged_points_pe_plate_num2", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num3", object = "character_reforged_points_pe_plate_num3", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num2", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num2" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu"
+add_layer = { name = "character_reforged_points_pe_plate_fill", object = "character_reforged_points_pe_plate_fill", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num3", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num3" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_datafile"
+add_layer = { name = "character_reforged_points_pe_plate_bar", object = "character_reforged_points_pe_plate_bar", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "soccer11_04_formation_chara_status", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "soccer11_04_formation_chara_status" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_datafile"
+add_layer = { name = "character_reforged_points_pe_plate_tag", object = "character_reforged_points_pe_plate_tag", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_bar", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_bar" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_datafile"
+add_layer = { name = "character_reforged_points_pe_plate_num", object = "character_reforged_points_pe_plate_num", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_tag", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_tag" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_datafile"
+add_layer = { name = "character_reforged_points_pe_plate_num2", object = "character_reforged_points_pe_plate_num2", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_datafile"
+add_layer = { name = "character_reforged_points_pe_plate_num3", object = "character_reforged_points_pe_plate_num3", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num2", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num2" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_datafile"
+add_layer = { name = "character_reforged_points_pe_plate_fill", object = "character_reforged_points_pe_plate_fill", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num3", groups = [
+    { group = "personal_plate_menu", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num3" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_mode_change"
+add_layer = { name = "character_reforged_points_pe_plate_bar", object = "character_reforged_points_pe_plate_bar", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "soccer11_04_formation_chara_status", groups = [
+    { group = "personal_plate_menu_for_mode_change", flags = [0, 0, 0, 0, 1, 0], after = "soccer11_04_formation_chara_status" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_mode_change"
+add_layer = { name = "character_reforged_points_pe_plate_tag", object = "character_reforged_points_pe_plate_tag", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_bar", groups = [
+    { group = "personal_plate_menu_for_mode_change", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_bar" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_mode_change"
+add_layer = { name = "character_reforged_points_pe_plate_num", object = "character_reforged_points_pe_plate_num", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_tag", groups = [
+    { group = "personal_plate_menu_for_mode_change", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_tag" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_mode_change"
+add_layer = { name = "character_reforged_points_pe_plate_num2", object = "character_reforged_points_pe_plate_num2", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num", groups = [
+    { group = "personal_plate_menu_for_mode_change", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_mode_change"
+add_layer = { name = "character_reforged_points_pe_plate_num3", object = "character_reforged_points_pe_plate_num3", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num2", groups = [
+    { group = "personal_plate_menu_for_mode_change", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num2" },
+] }
+
+[[patch]]
+menu = "personal_plate_menu_for_mode_change"
+add_layer = { name = "character_reforged_points_pe_plate_fill", object = "character_reforged_points_pe_plate_fill", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num3", groups = [
+    { group = "personal_plate_menu_for_mode_change", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num3" },
+] }
+
+# accessories screen (equip_menu, team dock -> Equipamiento): the plate soccer11_04_chara_status is in group common
+[[patch]]
+menu = "equip_menu"
+add_layer = { name = "character_reforged_points_pe_plate_bar", object = "character_reforged_points_pe_plate_bar", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "soccer11_04_chara_status", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "soccer11_04_chara_status" },
+] }
+
+[[patch]]
+menu = "equip_menu"
+add_layer = { name = "character_reforged_points_pe_plate_tag", object = "character_reforged_points_pe_plate_tag", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_bar", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_bar" },
+] }
+
+[[patch]]
+menu = "equip_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num", object = "character_reforged_points_pe_plate_num", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_tag", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_tag" },
+] }
+
+[[patch]]
+menu = "equip_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num2", object = "character_reforged_points_pe_plate_num2", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num" },
+] }
+
+[[patch]]
+menu = "equip_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num3", object = "character_reforged_points_pe_plate_num3", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num2", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num2" },
+] }
+
+[[patch]]
+menu = "equip_menu"
+add_layer = { name = "character_reforged_points_pe_plate_fill", object = "character_reforged_points_pe_plate_fill", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num3", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num3" },
+] }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "character_reforged_points_pe_plate_bar", object = "character_reforged_points_pe_plate_bar", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "soccer11_04_chara_status", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "soccer11_04_chara_status" },
+] }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "character_reforged_points_pe_plate_tag", object = "character_reforged_points_pe_plate_tag", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_bar", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_bar" },
+] }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num", object = "character_reforged_points_pe_plate_num", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_tag", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_tag" },
+] }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num2", object = "character_reforged_points_pe_plate_num2", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num" },
+] }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "character_reforged_points_pe_plate_num3", object = "character_reforged_points_pe_plate_num3", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num2", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num2" },
+] }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "character_reforged_points_pe_plate_fill", object = "character_reforged_points_pe_plate_fill", count = 1, align = ["right", "middle"], scale = 0.20000000298023224, after = "character_reforged_points_pe_plate_num3", groups = [
+    { group = "common", flags = [0, 0, 0, 0, 1, 0], after = "character_reforged_points_pe_plate_num3" },
+] }
+
+[[patch]]
+menu = "team_dock_menu"
+resources = ["#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"]
+
+[[patch]]
+menu = "personal_plate_menu"
+resources = ["#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"]
+
+[[patch]]
+menu = "personal_plate_menu_for_datafile"
+resources = ["#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"]
+
+[[patch]]
+menu = "personal_plate_menu_for_mode_change"
+resources = ["#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"]
+
+[[patch]]
+menu = "equip_menu"
+resources = ["#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"]
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+resources = ["#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"]

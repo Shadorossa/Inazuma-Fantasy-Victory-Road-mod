@@ -1,0 +1,17 @@
+schema = "VRFW.team/2"
+
+[[VRFW.DropRaritySlot]]
+Rows = "chronicle_board"
+SetBy = "ChronicleDeluxe"
+Difficulties = [1, 2]
+Rarity = 22
+Rate = 1.0
+Table = "HissatsuReforged.chronicle_books.chronicle"
+
+[[VRFW.DropRaritySlot]]
+Rows = "chronicle_board"
+SetBy = "ChronicleDeluxe"
+Difficulties = [4]
+Rarity = 22
+Rate = 2.5
+Table = "HissatsuReforged.chronicle_books.heroic"

@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Star-Spangled Unicorns · Inazuma Eleven: Orion
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c08130010"                                   # Gabriel Jax
 moves = [
-  { move = 0xB6F26F5F, level = 1 },                         # Tri-Pegasus
-  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
-  { move = 0x2A37FC88, level = 40 },                        # Revolution V
-  { move = 0x21127474, level = 65 },                        # Ultra Moon
+  { move = 0x2A37FC88, level = 1 },                         # Revolution V
+  { move = 0x21127474, level = 13 },                        # Ultra Moon
+  { move = 0xB6F26F5F, level = 20 },                        # Tri-Pegasus
+  { move = 0x64B40078, level = 30 },                        # The Phoenix
 ]
 
   [[edit.cards]]
@@ -21,10 +18,10 @@ moves = [
 [[edit]]
 target = "c08130020"                                   # Dylan Keats
 moves = [
-  { move = 0xD8851BAF, level = 1 },                         # Unicorn Boost
-  { move = 0x3EC287DE, level = 15 },                        # Bubble Gum
-  { move = 0x2A37FC88, level = 42 },                        # Revolution V
-  { move = 0x240BEDF2, level = 50 },                        # Bounce Shot
+  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
+  { move = 0x2A37FC88, level = 13 },                        # Revolution V
+  { move = 0xD8851BAF, level = 20 },                        # Unicorn Boost
+  { move = 0x94405906, level = 30 },                        # Grand Fenrir
 ]
 
   [[edit.cards]]
@@ -36,10 +33,10 @@ moves = [
 [[edit]]
 target = "c08130030"                                   # Mark Krueger
 moves = [
-  { move = 0x94405906, level = 1 },                         # Grand Fenrir
   { move = 0x3A4FFB6C, level = 1 },                         # The Ikaros
-  { move = 0x06458894, level = 1 },                         # Feint Dash
-  { move = 0xB6F26F5F, level = 45 },                        # Tri-Pegasus
+  { move = 0xB6F26F5F, level = 13 },                        # Tri-Pegasus
+  { move = 0xD8851BAF, level = 20 },                        # Unicorn Boost
+  { move = 0x94405906, level = 30 },                        # Grand Fenrir
 ]
 VRFW.MoveGrades = [
   { Move = 0x94405906, Grade = 1 },                         # Grand Fenrir
@@ -56,9 +53,9 @@ VRFW.MoveGrades = [
 target = "c08130050"                                   # Shane Pierce
 moves = [
   { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
-  { move = 0x2D68DB57, level = 1 },                         # Deceptive Step
-  { move = 0x79224D8B, level = 10 },                        # Freeze Shot
-  { move = 0xC19E2AEE, level = 65 },                        # Pegasus Shot
+  { move = 0x79224D8B, level = 13 },                        # Freeze Shot
+  { move = 0x4DDFEDE2, level = 20 },                        # Eagle Buster
+  { move = 0xC19E2AEE, level = 30 },                        # Pegasus Shot
 ]
 
   [[edit.cards]]
@@ -71,9 +68,9 @@ moves = [
 target = "c08130060"                                   # Steve Woodmark
 moves = [
   { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x6ADE9E01, level = 10 },                        # Illusory Ball
-  { move = 0x4890FB67, level = 35 },                        # Twin Boost
-  { move = 0x3A4FFB6C, level = 55 },                        # The Ikaros
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0x4890FB67, level = 20 },                        # Twin Boost
+  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -85,10 +82,10 @@ moves = [
 [[edit]]
 target = "c08130080"                                   # Drake Dynamo
 moves = [
-  { move = 0x4BD584B7, level = 1 },                         # Power Charge
-  { move = 0xDCA94D3F, level = 10 },                        # Flash Upper
-  { move = 0x67F17FA8, level = 36 },                        # Mega Quake
-  { move = 0xF64674CB, level = 70 },                        # Fist of Justice
+  { move = 0x5643C944, level = 1 },                         # Killer Slide
+  { move = 0xC66BD10D, level = 13 },                        # Zigzag Spark
+  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
+  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -102,9 +99,9 @@ moves = [
 target = "c08130090"                                   # Tony Strider
 moves = [
   { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x4BD584B7, level = 15 },                        # Power Charge
-  { move = 0xB3BD79DA, level = 30 },                        # Patriot Shot
-  { move = 0x7CACF0B0, level = 50 },                        # Horn Train
+  { move = 0xB3BD79DA, level = 13 },                        # Patriot Shot
+  { move = 0x7A67325B, level = 20 },                        # Flame Dance
+  { move = 0xB6F26F5F, level = 30 },                        # Tri-Pegasus
 ]
 
   [[edit.cards]]
@@ -117,10 +114,10 @@ moves = [
 [[edit]]
 target = "c08130100"                                   # Ted Bryant
 moves = [
-  { move = 0x4BD584B7, level = 1 },                         # Power Charge
-  { move = 0x19025F83, level = 15 },                        # Quick Draw
-  { move = 0x261BDCA8, level = 36 },                        # Moonsault
-  { move = 0x7A67325B, level = 55 },                        # Flame Dance
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
+  { move = 0x7A67325B, level = 13 },                        # Flame Dance
+  { move = 0xC19E2AEE, level = 20 },                        # Pegasus Shot
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -132,10 +129,10 @@ moves = [
 [[edit]]
 target = "c08130110"                                   # Billy Dash
 moves = [
-  { move = 0xDCA94D3F, level = 1 },                         # Flash Upper
-  { move = 0xF9B80F86, level = 1 },                         # Strong Punch
-  { move = 0xE9968761, level = 32 },                        # Rocket Kobushi
-  { move = 0x8C990270, level = 75 },                        # Gunshot
+  { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
+  { move = 0xDCA94D3F, level = 13 },                        # Flash Upper
+  { move = 0xE9968761, level = 20 },                        # Rocket Kobushi
+  { move = 0x8FBCFC3C, level = 30 },                        # Blazing Knuckle
 ]
 
   [[edit.cards]]
@@ -147,10 +144,10 @@ moves = [
 [[edit]]
 target = "c08130120"                                   # Norbert Poindexter
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x5049A011, level = 18 },                        # Spinning Shot
-  { move = 0x58E8FC83, level = 29 },                        # Rolling Hell
-  { move = 0x4CDC2C6B, level = 38 },                        # Shooting Star
+  { move = 0x5049A011, level = 1 },                         # Spinning Shot
+  { move = 0x2A37FC88, level = 13 },                        # Revolution V
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
+  { move = 0x7A67325B, level = 30 },                        # Flame Dance
 ]
 
   [[edit.cards]]
@@ -162,10 +159,10 @@ moves = [
 [[edit]]
 target = "c08130130"                                   # Petie Pooma
 moves = [
-  { move = 0x011AAF4B, level = 1 },                         # Gyro Head
-  { move = 0xC66BD10D, level = 18 },                        # Zigzag Spark
-  { move = 0xB7F1AED6, level = 35 },                        # Double Cyclone
-  { move = 0xDF70E04C, level = 40 },                        # Rodeo Clown
+  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
+  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
+  { move = 0x7A67325B, level = 20 },                        # Flame Dance
+  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -177,10 +174,10 @@ moves = [
 [[edit]]
 target = "c08130140"                                   # Alex Hawke
 moves = [
-  { move = 0xC379BE95, level = 1 },                         # Counter Strike
-  { move = 0x7B64F3D2, level = 12 },                        # Hawk Shot
-  { move = 0x592A96B4, level = 40 },                        # Afterimage
-  { move = 0x4DDFEDE2, level = 58 },                        # Eagle Buster
+  { move = 0xF08DB620, level = 1 },                         # Whirlwind
+  { move = 0xDCA94D3F, level = 13 },                        # Flash Upper
+  { move = 0xC5B27C7E, level = 20 },                        # Storm Rider
+  { move = 0xBD8A9EBE, level = 30 },                        # Infinite Wall
 ]
 
   [[edit.cards]]

@@ -1,84 +1,51 @@
-# Settings of the mod BetterQoL (read by its scripts at start; edit this file in <game>\mods\BetterQoL\ and restart
-# the game). The mod is one set, always on: no feature switches. Every value has a default: a missing key or section keeps it.
 
-[team_banks]
-# Team bank pages of the Team dock («Plantilla de equipo»): each page holds the 11 team docks of the game.
-# Number of pages, 2..32 (default 32). Lowering it never deletes a page that holds teams: such a save keeps its pages.
-pages = 32
-# A page used for the first time starts as: "empty" = every dock like an unused dock of the game (no name, no players,
-# default emblem); "copy" = a full copy of the page you are on.
-new_page = "empty"
-# Write a check of every dock to the log after each page change (the log is BetterQoL's lines in loader.log).
-verify = true
-# Game modes where pages cannot be changed (keys of the VR-Framework's game_modes.toml): story mode uses the docks
-# for its own squads. Other mods can add modes with a BetterQoL\team_banks.toml in their own folder.
+[team_templates]
+# Team templates of the Team dock (11 to 999); the game's 11 docks hold 11 of them, the others are stored with the save.
+count = 999
+# Log a check of every dock after each template swap.
+verify = false
+# Game modes that keep the game's 11 docks only (story mode uses the teams for its own squads).
 blocked_modes = ["story"]
 
 [team_name]
-# Team name of «Plantilla de equipo». Always on (no Mod options row). max_length: characters the name keyboard
-# accepts, 1..31 (default 24; the game: 12). The save keeps 128 bytes of UTF-8 per name, so 31 characters always fit.
+# max_length: characters the name keyboard accepts, 1..31 (retail 12); the save keeps 128 UTF-8 bytes per name.
 max_length = 24
-# room: the width (screen px of a 1920 x 1080 menu) the name may take in the Team Dock's header (the game's text box: 436).
-# A wider name is drawn in the next style of fit_styles (smaller, same blue, left-aligned) until it fits; the last
-# one squeezes it into the box. style = the header's own style (a name that fits gets it back).
+# room: header width in 1920x1080 px (retail text box 436).
 room = 436
 style = "fs_teamdock_name01"
 fit_styles = ["fs2_32_b_lc_2d0_002", "fs2_28_b_lc_2d0_002_sclw"]
 
 [passives]
-# «Configuración de pasivas». max_slots: how many of a player's 5 passive slots can be configured, 3..5 (out of range:
-# clamped, with a warning in the log). 3 (default) = the game's own passive inheritance limit: slot 2 (general) +
-# slots 4-5 (archetype); 4 adds slot 1 (the special passive); 5 = every slot (how Inazuma Fantasy's configurator
-# worked). Passives configured with a higher value stay in the save but are not applied (grey) until the value is
-# raised.
+# max_slots: configurable passive slots, 3..5 (clamped).
 max_slots = 5
-# unlock: "all" = every slot of a configurable player works in matches (the ability board no longer gates passives);
-# "configured" = only the configured slots are forced open.
+# unlock: "all" = every slot of a configurable player works in matches; "configured" = only configured slots.
 unlock = "all"
-# always_unlocked: a slot holding a character's own passive (own_passives columns) works even if its board piece is closed.
+# always_unlocked: a slot holding the character's own passive works even if its board piece is closed.
 always_unlocked = true
-# build_rarities / build_slots: card rarities whose build slots (1-5) keep the board's build passives instead of an
-# own passive (Hero 5-7, Diamante 8).
+# build_rarities / build_slots: rarities (Hero 5-7, Diamond 8) whose slots keep the board's build passives.
 build_rarities = [5, 6, 7, 8]
 build_slots = [4, 5]
 # log_first: log the first N slot replacements (0 = none).
 log_first = 20
-# allow_duplicates: the same passive may be chosen in several slots of a player (archetype and general slots alike);
-# each copy applies, as the game adds every slot's passive. false = each passive once per player.
+# allow_duplicates: the same passive may be chosen in several slots of a player.
 allow_duplicates = true
-# enabled = false: retail passives (no configurator; the team dock keeps «Pasivas heredadas»).
+# enabled = false: retail passives.
 enabled = true
 
 [role_medal]
-# Matches a player needs before the badge slot of his ability board takes the coach or manager medal. BetterQoL writes
-# these values into the game's own checks at start (the board's lock, slot light, «N matches left» popup and the
-# opening of the badge piece then use them with the player's real match count). The game: 30 and 10; 0 = no matches.
-# Card rarities 5-7 stay exempt, as in the game. 0..127 (higher: clamped, with a warning in the log).
 matches_required = 0
-# the same for a player created as coach or manager (the story protagonist, staff positions)
+# The same for a player created as coach or manager.
 matches_required_created_role = 0
 
 [original_names]
-# Original (Japanese / romaji) names per player: the game's «Nombres de los personajes» row (Opciones › Ajustes del
-# juego) gets the value «Por equipos»; A on the row opens the picker: the team emblems of a series page (Q / E change
-# the series: the game's series table and every series a mod declares in card_filters\), «chosen/players» under each;
-# Y switches a whole team, A on a team opens its player grid (faces; grey = dub name, normal colour = original name; A toggles a player, Y the whole
-# team, L1 / R1 the grid page, B back to the teams). The selection (one key per player) is stored in
-# mod_options\BetterQoL.json.
-# migration of the old «Solo Ares y Orión» (BetterQoL 1.0.1 - 1.2.x), once: the players of the series whose name in
-# legacy_series_lang (chara_add_info_text) ends with one of these words are chosen
-legacy_series = ["Ares", "Orion"]
-legacy_series_lang = "en"
-# text languages whose team names never change (the original names are the Japanese ones there)
 team_skip_langs = ["ja"]
-# true = the team window closes and opens again after each change (only if the game's window stops taking A)
+# true = the team window reopens after each change.
 picker_reopen = false
-# log every text load / table switch
+# Log every text load / table switch.
 log = true
 
 [original_names.team_grid]
-# the team grid (the framework's emblem grid, layers util_jpn_emblem / util_jpn_label of the settings menu): tiles a row,
-# rows a page, tile pitch (px), the grid's centre (screen px, 1920 x 1080, y down)
+# Team grid: tiles per row, rows per page, pitch (px), centre (1920x1080 px, y down).
 cols = 8
 rows = 3
 pitch_x = 210
@@ -87,8 +54,7 @@ cx = 960
 cy = 520
 
 [original_names.grid]
-# the player grid (layer util_jpn_face of the settings menu): tiles a row, rows a page, tile pitch and face size (px),
-# the grid's centre (screen px, 1920 x 1080, y down)
+# Player grid: tiles per row, rows per page, pitch and face size (px), centre (1920x1080 px, y down).
 cols = 8
 rows = 4
 pitch_x = 196
@@ -96,158 +62,118 @@ pitch_y = 180
 tile = 132
 cx = 960
 cy = 560
-# colour of a player who keeps his dub name (the card's grey-out material; 1 = normal colour)
+# Colour of a player who keeps his dub name (1 = normal).
 grey = 0.38
-# the name the player shows now (dub or original) under each tile (a name wider than the pitch is cut with «...»)
+# Show the current name under each tile.
 names = true
 
 [team_planner]
-# Team planner («Planificador de equipo»): in a squad of the Team dock, A on an empty slot offers «Añadir del banco»
-# (the game's bank) and «Planificar equipo» (the same bank listing every character of the game and the mods; an owned
-# one goes into the slot, one not owned is a semi-transparent GHOST card in the slot until the save gets him). Another mod can set the rule below with a
-# content\team_planner\*.toml in its own folder (the last one in load order wins).
+# Team planner: plan any character into a Team dock slot; unowned ones show as ghost cards.
 enabled = true
-# the rarity the characters not owned (in the plan bank and as ghosts) are drawn at (card rarity value: 0 Normal ... 4 Legendary)
+# Rarity unowned characters are drawn at (0 Normal .. 4 Legendary).
 display_rarity = 4
-# the owned copies that replace a ghost: a list of card rarities, or "any" (every copy of the character's card)
+# Owned copies that replace a ghost: card rarities, or "any".
 owned_rarities = [4]
-# chara_param col-41 values of a character's normal card (one entry per character: the first such row of his
-# chara_base); special rows (Hero 5-7, Diamante 8, mods' own) are other cards
+# chara_param col-41 values of a character's normal card.
 card_values = [0, 1, 2, 3, 4]
-# alpha of a ghost card and of a plan bank card the save does not own (1 = opaque)
+# Alpha of unowned cards (1 = opaque).
 ghost_alpha = 0.45
 
 [route_map_speed]
-# Chronicle route map (Modo Crónica's board): holding R2 moves the map cursor faster. Always on (no Mod options row).
-# R2 did nothing on that map in the game (the zoom is the right stick / mouse wheel and stays as it is).
-# factor: cursor speed multiplier while R2 is held, 1.0..5.0 (default 2.0). While the boost is on, the map's bottom
-# guide shows «R2 Velocidad del cursor» next to the game's prompts.
+# Cursor speed multiplier while R2 is held (the Players' Universe screen doubles its own: 20 to 40).
 factor = 2.0
-# keys: keyboard keys that count as R2 while the game window has the focus ("E", "Shift", "0x45"...; [] = pad only).
+# Keyboard keys that count as R2 ([] = pad only).
 keys = ["E"]
-# log each hold of R2 on the map (start and end lines in loader.log)
+# Log each R2 hold on the map.
 log = true
 
 [auto_commander]
-# «Modo Comandante automático» (row of Mod options, scripts\auto_commander.lua). Which matches it starts in Commander mode.
-# always_games: match rows (soccer_game_config keys) whose matches always start in Commander mode, the game's gate
-# open even against an unbeaten rival. Every Battle Bay match (loose match, campaign, Battle Bay Deluxe's draft and
-# tournament) plays the Battle Bay row.
+# Auto Commander mode.
 always_games = ["fbtl_bb_stadium_00"]
-# beaten_only_contexts / beaten_only_difficulties: match difficulties (contexts and names of
-# defaults\match_difficulty.toml, every active mod's) that start in Commander mode only when the game allows it (the
-# rival already beaten); the game's gate is kept. free_match = the free-match classes; Heroica / HeroicaPlus = the
-# Heroic battles.
+# Match difficulty contexts/names (match_difficulty.toml) that start in Commander mode only against a beaten rival.
 beaten_only_contexts = ["free_match"]
 beaten_only_difficulties = ["Heroica", "HeroicaPlus"]
-# never_modes: game modes (keys of the VR-Framework's game_modes.toml) where the beaten-only rule never applies.
+# Game modes where the beaten-only rule never applies.
 never_modes = ["story"]
-# speed_min / speed_max: the range the row «Velocidad del Modo Comandante automático» (BetterQoL.auto_commander_speed)
-# is clamped to (game speed factor while your team plays in Commander mode in a match the auto commander handles).
 speed_min = 1.0
 speed_max = 4.0
 
 [tech_preview]
-# Technique preview: «<RS> Previsualizar» on the special move card of the «Supertécnicas» list plays the move's cut-in
-# full screen with a player of the active squad (the button: the action «Previsualizar supertécnica» of the game's
-# «Configuración de controles», default RS / P). Always on; these are tunables. The squad's first `lineup` members are
-# the starting eleven (the performer is looked for there first, then on the bench).
+# Technique preview: plays a move's cut-in with a squad player.
 lineup = 11
-# Skill category (1 shoot, 2 dribble, 3 block, 4 catch) -> the card's main position that performs it (1 GK, 2 FW, 3 MF,
-# 4 DF).
+# Skill category (1 shoot, 2 dribble, 3 block, 4 catch) -> position (1 GK, 2 FW, 3 MF, 4 DF).
 positions = { "1" = 2, "2" = 3, "3" = 4, "4" = 1 }
-# true = a player whose card learns the move (its learn list) is preferred over the first one at the position.
+# Prefer a player whose card learns the move.
 prefer_learners = true
-# The preview plays only while one of `need_any_menu` is open (the menu-scene team dock: from the title or the main
-# hub) and none of `off_with_menus` (Chronicle / story field: their scene plays events by itself).
+# Plays only while one of need_any_menu is open and none of off_with_menus.
 need_any_menu = ["team_dock_common_top_menu", "soccer_top_menu"]
 off_with_menus = ["chronicle_mode_top_menu", "team_dock_menu_rpg_battle"]
-# Menus hidden and suspended while the cut-in plays (when open), and the header layers hidden in `bar_menus`.
+# Menus hidden while the cut-in plays; header layers hidden in bar_menus.
 hide_menus = ["ability_list_menu", "sub_window", "item_filter_menu", "ability_learning_board_menu", "personal_plate_menu", "team_dock_formation_menu", "soccer_formation_menu", "soccer_team_dock_menu", "team_dock_common_top_menu", "soccer_top_menu"]
 bar_menus = ["team_dock_common_top_menu", "soccer_top_menu", "soccer_team_dock_menu"]
 bar_layers = ["mainmenu90_01_header", "mainmenu90_03_header_rank", "mainmenu90_31_doc_item", "mainmenu90_05_content_guide_line01", "mainmenu90_06_content_guide_line03", "mainmenu01_06_base_button_guide"]
-# The one-model menu and its layer that hold the performer's model while the cut-in plays.
+# Menu and layer that hold the performer's model.
 carrier_menu = "chara_model_only_view_menu"
 carrier_layer = "rpg99_99_chara_model_only_view"
-# The menu scene's backdrop (craft object) behind the cut-in; "" = none.
+# Backdrop craft object behind the cut-in; "" = none.
 backdrop = "bg10000"
-# The prompt's offset from its place on the card (menu px, x right / y up).
+# Prompt offset on the card (menu px, x right / y up).
 hint_x = 0
 hint_y = 0
-# Fades (seconds), the longest wait for the performer's model (frames) and for the cut-in (seconds).
+# Fades (s), longest wait for the model (frames) and for the cut-in (s).
 fade_s = 0.3
 bgm_fade_s = 0.5
 model_wait_frames = 300
 max_seconds = 120
-# true = B ends the cut-in (the game's own hold-to-skip works too).
+# true = B ends the cut-in.
 back_skips = true
-# true = one log line per move a card asks about (the play itself always logs).
+# One log line per move a card asks about.
 log_queries = false
 
-# «Cambiar forma» in the retail «Ver apariencia»: the form indicator at the top right of the shown character (only
-# while he has more than one form): a dark tile with the form's glyph, then a light tile under the bound key's glyph.
-# Screen px of a 1920 x 1080 menu: badge_x = the row's right edge, badge_y = its vertical centre (y down).
+# Form indicator of «Ver apariencia» (1920x1080 px): badge_x = right edge, badge_y = vertical centre.
 [view_forms]
 badge_x = 1720
 badge_y = 230
-# Scale of the whole row (tiles, gap and key glyph).
 badge_scale = 1
-# Draw priority of the tiles (over the 3D model and the formation board); the key glyph draws one above.
+# Draw priority of the tiles; the key glyph draws one above.
 badge_priority = 690
-# The tiles' side and the gap between them (screen px at scale 1).
+# Tile side and gap (px at scale 1).
 tile_size = 52
 tile_gap = 6
-# The key glyph's text scale and its nudge inside the light tile (screen px; key_dy < 0 = up).
+# Key glyph scale and nudge inside the light tile (px; key_dy < 0 = up).
 key_scale = 0.9
 key_dx = 0
 key_dy = 0
 
 [album]
-# «Álbum de jugadores»: every player is shown as his base card (the team planner's card_values) at this rarity (card
-# rarity value: 4 Legendary) and at the level cap in effect: a mod's [VRFW.Level] Max when it raises the cap, else
-# game_level_cap (the game's own cap)
 display_rarity = 4
 game_level_cap = 99
-# «Juego» ends with «Especiales»: every card of a listed player above display_rarity (Idol, Diamond, …) at its own rarity;
-# its tab icon, a sprite of the game's list tab atlas (icon_list_tab.g4tx; its "_off" twin when not focused)
+# Tab icon of the «Especiales» page (icon_list_tab.g4tx sprite; "_off" twin when unfocused).
 special_icon = "icon_list_tab_title01"
-# «Equipo»: a team with fewer players than this (11 = a full eleven) gets no page of its own; it joins its game's
-# «Other teams» page (teams without a name too). Teams of one name in a game are one page. 1 = every team its own page
+# Teams with fewer players get no own page and join the game's «Other teams» page.
 team_page_min_players = 11
 
+[club_stats]
+# Newest matches kept in the club stats history page (each one ~100 bytes of the slot's career.json).
+history_max = 200
+
 [match_clock]
-# «Segundos por minuto de partido» (options.toml BetterQoL.match_clock, scripts\match_clock.lua): the game's clock rate
-# at its normal match speed (game seconds per real second: game_param CSoccerGlobalParam soccerElapsedTimeRate_Normal,
-# 14.1 on v7.1.2). The chosen seconds per minute give rate = current × (60 / seconds) / game_rate, so the normal
-# speed gets exactly 60 / seconds and the slow speed (12) or a mode's own clock keep their proportion.
+# Game clock rate at normal match speed (game_param soccerElapsedTimeRate_Normal); seconds per minute scale from it.
 game_rate = 14.1
 
 [prematch_skip]
-# Pre-match «(X) Ir al saque» (graft util_prematch_skip): seconds X must be held in a pre-match event to go straight
-# to the kick-off, 0..10 (default 1.0 = the retail Y hold; 0 = no X prompt). It was BetterUI's config.toml
-# prematch_skip_hold until BetterQoL 1.17.0.
+# Seconds X must be held in a pre-match event to skip to kick-off, 0..10 (0 = no prompt).
 hold = 1.0
 
 [away_kit]
-# Save adjust «Quitar las equipaciones de visitante de las actualizaciones» (Options › «Ajustar save»,
-# content\save_adjust\away_kits.toml, scripts\away_kit.lua): a kit item is an away-kit item when its key is another
-# kit item's key + `_<n>` and its uniform is that kit's away twin (the pair map of the Local / Visitante switch).
-# keep: item keys that stay although they match (a team's own kit, not an away copy of a kit).
-keep = ["uni_u041401_20"]   # «Equipación Revolucionarios»: Revolucionarios' own kit (a match prize), Kirkwood GO's twin
+keep = ["uni_u041401_20"]   # Revolucionarios' own kit, a match prize
 
 [item_type_order]
-# Inventory («Objetos») «Coleccionables» and «Consumibles» tabs (scripts\kit_emblem_order.lua, the same re-order as
-# the kits / emblems tabs): rows are grouped by item type, read from each item's item_config row (category, column 5;
-# sub_category, column 6; mods' items keep their base item's). The groups come in this order; inside a group the
-# sub_categories in their listed order (a group without the list: every sub_category of its category, lowest first),
-# then the game's catalog number, then the game's own order. A tab is re-ordered when all its rows are rows of
-# `tables` and one of them falls in a group; rows of no group go after the groups. The alphabetical sort keeps the
-# game's order.
 tables = ["item/item_consume", "item/item_important"]
 groups = [
     # Coleccionables
-    { name = "currencies", category = 220, sub_categories = [26, 49, 28, 25] },   # friendship stars / stones, BB points, victory medals, bond star
-    { name = "element tokens", category = 220, sub_categories = [47, 46, 48] },   # Unidad / Desafío / Creación, Pasión … Sueño, coins
+    { name = "currencies", category = 220, sub_categories = [26, 49, 28, 25] },
+    { name = "element tokens", category = 220, sub_categories = [47, 46, 48] },
     { name = "training badges", category = 220, sub_categories = [0] },          # «Insignia de …»
     { name = "stat beans", category = 210 },                                     # by stat (sub_category 131 … 137)
     { name = "books", category = 220, sub_categories = [45] },                   # notebook pages, quotes, diaries

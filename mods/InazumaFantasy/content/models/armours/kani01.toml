@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# The armour of the keshin Entertainer: head and back meshes per skeleton and texture (assets/models/armours/kani01).
+format = "native"
+game_path = "chr/_armd/kani01"

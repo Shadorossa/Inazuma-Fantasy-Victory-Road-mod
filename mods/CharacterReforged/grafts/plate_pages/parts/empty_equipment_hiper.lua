@@ -1,6 +1,5 @@
--- Player page block (plate_pages.lua): the empty slot, the Equipamiento page and the Hiper page's L3
-  -- ---- no player focused (empty slot): nothing of the page, back when a player is focused ---------------------
-  function G.Empty()
+-- Player page block (plate_pages.lua)
+  function G.empty()
     if not On() then
       return
     end
@@ -21,29 +20,26 @@
           Cmd(C.VIS, l, 0, false)
         end
       end
-      if type(G.BarsVisible) == "function" then
-        G.BarsVisible(false)
+      if type(G.bars_visible) == "function" then
+        G.bars_visible(false)
       end
       for i = 0, 4 do
-        G.Tile(i, false)
+        G.tile(i, false)
       end
-      if type(G.PassiveRowsHide) == "function" then
-        pcall(G.PassiveRowsHide)
+      if type(G.passive_rows_hide) == "function" then
+        pcall(G.passive_rows_hide)
       end
-      if type(EVT_PH_Hide) == "function" then
-        pcall(EVT_PH_Hide)
+      if type(CharacterReforged.hyper_page_hide) == "function" then
+        pcall(CharacterReforged.hyper_page_hide)
       end
-      pcall(G.ModPagesHide)
+      pcall(G.mod_pages_hide)
       if type(SetVisiblePersonalPlateLayerAll) == "function" then
         pcall(SetVisiblePersonalPlateLayerAll, false)
       end
     elseif empty then
-      -- 2026-10-07 (Nacho: «Sin hipertécnica» on an empty bench slot): while no player is focused the Hiper panel
-      -- stays hidden every frame (a pending redraw or a later UpdatePageInfo must not bring it back; cheap: the hide
-      -- only acts on a visible layer)
-      if type(EVT_PHI) == "table" and type(EVT_PHI.HideLayer) == "function" then
-        EVT_PH_PENDING = nil
-        pcall(EVT_PHI.HideLayer)
+      if type(CharacterReforged.hyper_page) == "table" and type(CharacterReforged.hyper_page.hide_layer) == "function" then
+        CharacterReforged.HYPER_PAGE_PENDING = nil
+        pcall(CharacterReforged.hyper_page.hide_layer)
       end
     elseif not empty and G.emptyHidden then
       G.emptyHidden = false
@@ -58,11 +54,7 @@
     end
   end
 
-  -- ---- Equipamiento: 2 x 2, no title row ------------------------------------------------------------------------
-  -- the 2 x 2 grid of an equipment item layer (soccer11_08, instances 0..3 on the page's _atc_item01..04): mine = the
-  -- grid look (items at G.EQUIP_SCALE, the fifth off), else the retail size. The player page's Equipamiento and the
-  -- skill table's set preview (graft pset_preview) draw the same grid
-  function G.EquipGrid(L, mine)
+  function G.equip_grid(L, mine)
     for k = 0, 4 do
       if Cmd(C.IS_OPEN, L, k) == true then
         if k <= 3 then
@@ -75,18 +67,17 @@
     end
   end
 
-  function G.Equip()
+  function G.equip()
     if not Exists(G.EQUIP) then
       return
     end
-    G.EquipGrid(G.EQUIP, On() and G.ptype == 0)
+    G.equip_grid(G.EQUIP, On() and G.ptype == 0)
   end
 
-  -- ---- Hiper page: L3 = the keshin a miximax gives, and back ------------------------------------------------------
-  function G.HiperL3()
+  function G.hiper_l3()
     G.frame = G.frame + 1
-    if not On() or EVT_PH_PAGE == nil or GetNowPageIdx == nil or GetNowPageIdx() ~= EVT_PH_PAGE
-        or type(EVT_PH_MxAura) ~= "function" or type(EVT_PH_Show) ~= "function" or type(funcLuaCommand) ~= "function" then
+    if not On() or CharacterReforged.HYPER_PAGE_PAGE == nil or GetNowPageIdx == nil or GetNowPageIdx() ~= CharacterReforged.HYPER_PAGE_PAGE
+        or type(CharacterReforged.hyper_page_can_switch) ~= "function" or type(CharacterReforged.hyper_page_show) ~= "function" or type(funcLuaCommand) ~= "function" then
       return
     end
     local L = G.L3
@@ -104,22 +95,11 @@
     if chara == 0 then
       return
     end
-    if type(EVT_PH_CanSwitch) == "function" then
-      -- 2026-10-12 (two Hiper slots, docs/game/hiper/hiper-two-slots.md): L3 switches the aura slot / the mix slot
-      local okc, can = pcall(EVT_PH_CanSwitch, chara)
-      if not okc or can ~= true then
-        return
-      end
-    else
-      if type(EVT_PH_Skill) == "function" and EVT_PH_Skill(chara) ~= EVT_PH_MX_CARRIER then
-        return
-      end
-      local oka, aura = pcall(EVT_PH_MxAura, chara)
-      if not oka or aura == nil then
-        return
-      end
+    local okc, can = pcall(CharacterReforged.hyper_page_can_switch, chara)
+    if not okc or can ~= true then
+      return
     end
-    EVT_PH_MX_VIEW = not EVT_PH_MX_VIEW
+    CharacterReforged.HYPER_PAGE_MIXIMAX_VIEW = not CharacterReforged.HYPER_PAGE_MIXIMAX_VIEW
     pcall(funcLuaCommand, @crc:CMND_SND_PLAY_SE@, 2500047763)      -- the plate's cursor sound
-    pcall(EVT_PH_Show, chara)
+    pcall(CharacterReforged.hyper_page_show, chara)
   end

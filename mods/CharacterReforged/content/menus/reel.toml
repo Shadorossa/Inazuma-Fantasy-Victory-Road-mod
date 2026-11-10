@@ -1,0 +1,40 @@
+schema = "VRFW.menu/2"
+
+[[object]]
+name = "souls_rework_reel_quad"
+from = "cmn01_10_new_icon"
+set = [
+    { parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 318 } },
+]
+
+[[object]]
+name = "souls_rework_reel_text"
+from = "cmn03_01_cmd_back"
+remove_block = ["MenuCollisionSetting", "MenuAnchorComponent"]
+set = [
+    { parameter = "m_drawPriority", match = { 1 = 301 }, values = { 1 = 320 } },
+]
+
+[[screen]]
+name = "character_reforged_souls_reel_menu"
+like = "tactics_roulette_menu"
+base = "tactics_roulette_menu"
+script = "assets/lua/screens/character_reforged_souls_reel_menu.lua"
+
+[screen.rows]
+layer = [
+    { layer = "souls_rework_reel_quad", object = "souls_rework_reel_quad", count = 25, scale = 0.01 },
+    { layer = "souls_rework_reel_text", object = "souls_rework_reel_text", count = 10, scale = 0.01 },
+]
+commands = []
+resources = [
+    "#/menu/02_btl/souls_rework_reel/souls_rework_reel.g4tx",
+    "#/menu/200_icon/08_icon_teambuff/<LG>/icon_teambuff.g4tx",
+]
+group_base = [
+    { layer = "souls_rework_reel_quad", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "souls_rework_reel_text", flags = [0, 1, 0, 0, 1, 0] },
+]
+group = [
+    { group = "character_reforged_souls_reel_menu", flags = [1], slice = [0, 2] },
+]

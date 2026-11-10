@@ -1,10 +1,8 @@
--- Chronicle completion, script side (game Lua side: assets\lua\menu\_all\37_chronicle.lua).
--- CMND_VRFW_CHRONICLE_PIECES() -> { { pieceId, statusFlagIndex, eventType }, ... }: board pieces of the Chronicle routes with eventType 0 (match) or 5 (gate battle) and statusFlagIndex > 0, each once.
 
 Chronicle = Chronicle or {}
 
-local Id = require "lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
 local PIECES = nil
 
@@ -15,7 +13,6 @@ local function slice(v)
   return s, n
 end
 
--- `quiet`: an unreadable table leaves the read to the first ask, without a warning
 local function load(quiet)
   if PIECES ~= nil then return PIECES end
   local okR, routes = pcall(VRFW.table.rows, "vsroute/vs_route")
@@ -53,6 +50,5 @@ function Chronicle.Pieces()
   return load() or {}
 end
 
--- read at script load instead of the first ask; if still unreadable, retried on save load, then on the first ask
 pcall(load, true)
 VRFW.on("slot_load", function() pcall(load, true) end)

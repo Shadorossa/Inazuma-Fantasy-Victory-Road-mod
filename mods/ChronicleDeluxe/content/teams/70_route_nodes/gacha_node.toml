@@ -1,33 +1,20 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: the gacha node of the Chronicle board. A [[VRFW.RouteNode]] next to Sílice (fbtl_cro06_080_010,
-# Galaxy, the red planet at (4, -20)): a dead end down-right (RD, Sílice's free direction), past the Sílice stadium,
-# then a short leg down-left (LD) onto the round plaza of the planet. It opens when Sílice's Crónica battle is won,
-# like the mod's other side nodes. It never plays a match: its command menu is the framework's gacha panel
-# (content\gacha\kizuna_coin_gacha.toml, the pool and the node, [[VRFW.GachaPool]] node = this node's name;
-# docs/framework/gacha.md) whose one row asks the question, plays the draw and shows the drawn player. The team only
-# gives the piece a game (never played), as for a chain node. Its command menu shows the pool's one row «Usar
-# Estrellas de vínculo» and banner; X opens the retail drop-rate list of the node's game: its player spirits are the pool's
-# characters (the spirit table the pool builder writes into
-# content/base_tables/gamedata/soccer/soccer_drop_config.toml), one entry at 100 % per roll (each player 100 / N %,
-# the owned ones left out while the list is open), no items. Slot 304: the next extended slot (side_nodes.toml's
-# manifest); never change or reuse it.
 default_lang = "es"
 
 [[VRFW.RouteNode]]
 Name = "galaxy_kizuna_gacha"
 Slot = 304
-After = "fbtl_cro06_080_010"           # Sílice: its Crónica win opens the node
-AfterWon = [1]                         # the Crónica (this mod's board: the Crónica win is the route-open clear)
-Dir = "RD"                             # Sílice's free direction (LD: Los Naiadi, RU: the road from Storm Wolves)
-Pos = [6.3, -23.4]                     # the centre of the red planet's round plaza (route_nodes_preview.py)
+After = "fbtl_cro06_080_010"
+AfterWon = [1]
+Dir = "RD"
+Pos = [6.3, -23.4]
 Via = [[6.85, -22.85]]                 # map-right (RD) first, then map-left (LD)
-Team = "ChronicleDeluxe.gacha_no_rival"   # an empty copy of Sílice's team (below): the game is never played, and its
+Team = "ChronicleDeluxe.gacha_no_rival"
                                        # drop-rate list's players are only the pool's (the spirit table of [[VRFW.GameDrops]])
-TemplateGame = "fbtl_cro06_080_010"    # Sílice
+TemplateGame = "fbtl_cro06_080_010"
 Difficulties = [1]                     # never played: the gacha answers the piece
 Scripts = false
-Icon = "assets/images/teams/70_route_nodes/gacha_kizuna_coin.png"   # the gacha creature's head (chronicle_deluxe_gacha_icon_build.py)
-  # the panel's title: named after the currency it takes (the retail «Estrella de vínculo», tk_st000001)
+Icon = "assets/images/teams/70_route_nodes/gacha_kizuna_coin.png"
   [VRFW.RouteNode.Title]
   es = "Gacha de Estrellas de vínculo"
   en = "Bond Star Gacha"
@@ -39,7 +26,6 @@ Icon = "assets/images/teams/70_route_nodes/gacha_kizuna_coin.png"   # the gacha 
   zh_hans = "友情辉星扭蛋"
   zh_hant = "閃緣之星扭蛋"
 
-# the node's rival: Sílice's team with no player (a team's members are spirit candidates of its game's drop-rate list)
 [[team]]
 name = "gacha_no_rival"
 based_on = "tm_cro_go3_0800"
@@ -54,11 +40,9 @@ member = [
   { slot = 16, remove = true }, { slot = 17, remove = true }, { slot = 18, remove = true },
 ]
 
-# the drop-rate list of the node's game (difficulty 1, the node's one row): the pool's characters (keys of
-# chronicle_deluxe_gacha_pool_build.py's tables), no item, no second spirit roll
 [[VRFW.GameDrops]]
-Game = "evt_rn_galaxy_kizuna_gacha"
-SpiritChara = "0x47AF81B0"             # crc32("ChronicleDeluxe.kizuna_coin_gacha.spirit_players")
-SpiritDrop = "0xBB923504"              # crc32("ChronicleDeluxe.kizuna_coin_gacha.spirit_rate"): rarity 0 at 100 %
+Game = "vrfw_node_galaxy_kizuna_gacha"
+SpiritChara = "0x47AF81B0"
+SpiritDrop = "0xBB923504"
 SpiritDrop2 = "0xE523407A"             # the game's empty spirit table
-ItemDrop = "0xF6ED1C39"                # crc32("ChronicleDeluxe.no_item_drops"): 0 % (chain matches' table)
+ItemDrop = "0xF6ED1C39"

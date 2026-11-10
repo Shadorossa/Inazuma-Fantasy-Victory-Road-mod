@@ -1,36 +1,21 @@
--- Character Reforged › the shared pairing rules and card / board helpers of the aura mods' creation flows.
--- Pure Lua over the framework: the saved character records (VRFW.character), the card index, the mods'
--- content\pairing\*.toml rules (VRFW.files.declarations) and the game's board placement (content\game\board.toml).
--- Other mods call the exported functions (mod.toml [exports]); a system's own store stays in its mod.
--- PairCheck codes (0 = the pair may be made):
---   1 the base is not an owned card       2 the partner is not an owned card     3 the same card
---   4 two cards of the same character     5 the base's rarity is denied          6 the partner's rarity is denied
---   7 the partner is the partner of another base (2nd value: that base)
---   8 the partner is a base                9 the base is the partner of another pair (2nd value: that base)
--- PairValidity codes per stored pair (the framework's miximax validity): 0 runs, 2 the partner is not an owned card
--- of that character any more, 4 the partner is used by an earlier pair.
 
 CharacterReforged = CharacterReforged or {}
 local A = CharacterReforged
 
 local band, rshift = bit32.band, bit32.rshift
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
-local hex = Id.hex
-require "VRFW/lib/basics"
+local hex = Id.hex_text
 local info = VRFW.logger("pairing")
-
--- ---------------------------------------------------------------------------------------- the rules (data)
 
 -- what a system gets when no mod declares a key (the same values as content\pairing\defaults.toml)
 local BUILTIN = { same_character = false, one_partner_per_base = true, base_may_be_partner = false, base_rarities_denied = {}, partner_rarities_denied = {}, moves = 0 }
 local RULES = nil
 local DECLARATIONS = nil
 
--- every mod's content\pairing\*.toml, read once per session (the pair rules and the create rows both come from them;
--- the create entry reads them when its list opens, so a store command never reads files on the game thread)
+-- every mod's content\pairing\*.toml, read once per session (never inside a store command)
 function A.PairingDeclarations()
   if DECLARATIONS then return DECLARATIONS end
   local ok, decl = pcall(VRFW.files.declarations, "content/pairing")
@@ -57,7 +42,6 @@ local function load_rules()
   return RULES
 end
 
--- the merged rules of a system: built-in values < `default` < the system's own table
 function A.PairRules(system)
   local r = {}
   for k, v in pairs(BUILTIN) do r[k] = v end
@@ -75,10 +59,7 @@ local function listed(list, v)
   return false
 end
 
--- ---------------------------------------------------------------------------------------- cards
-
--- the character of each card id (VRFW.character.card(param).base), read once per session: the card data does not change
--- while the game runs (cleared at game_reset with the rules)
+-- character of each card id, read once per session (cleared at game_reset)
 local CHARA_OF_PARAM = {}
 
 local function chara_of(param)
@@ -91,7 +72,6 @@ local function chara_of(param)
   return chara
 end
 
--- an owned card (container kind 0 / 7 with a save record): { hdl, param, chara, rarity, addr }; nil otherwise
 function A.Card(hdl)
   hdl = u32(hdl)
   if hdl == 0 then return nil end
@@ -104,22 +84,18 @@ function A.Card(hdl)
   return { hdl = hdl, param = param, chara = chara_of(param), rarity = tonumber(r.rarity) or 0, addr = r.addr }
 end
 
--- ---------------------------------------------------------------------------------------- pairs
-
--- may `partner` be paired with `base` under `system`'s rules? `pairs` = the system's stored pairs
--- { { base = hdl, partner = hdl, partner_chara = id }, … } (other bases' pairs; the base's own is replaced)
--- a PairCheck slower than this logs the time of each step (it runs inside a store command, on the game thread)
+-- may `partner` pair with `base` under `system`?
 local SLOW_CHECK_MS = 20
 
 function A.PairCheck(system, base, partner, pairs)
-  local started = VRFW.now()
+  local started = VRFW.now_ms()
   local r = A.PairRules(system)
-  local rules_ms = VRFW.now() - started
+  local rules_ms = VRFW.now_ms() - started
   base, partner = u32(base), u32(partner)
   local b = A.Card(base)
-  local base_ms = VRFW.now() - started
+  local base_ms = VRFW.now_ms() - started
   local p = b and A.Card(partner) or nil
-  local total = VRFW.now() - started
+  local total = VRFW.now_ms() - started
   if total >= SLOW_CHECK_MS then
     info(string.format("pair check %s + %s (%s) slow: rules %d ms, base card %d ms, partner card %d ms", hex(base), hex(partner),
       tostring(system), rules_ms, base_ms - rules_ms, total - base_ms))
@@ -163,14 +139,12 @@ function A.PairValidity(system, pairs)
   return out
 end
 
--- ---------------------------------------------------------------------------------------- the skill board
-
 local REC_PLACED, REC_NATIVE, REC_PIECE = 0x94, 0xC8, 0x165
 local BOARD_SLOTS = 9
 local HBUF = nil
 
-local Memory = require "VRFW/lib/memory"
-local read_memory = Memory.read_memory
+local Memory = VRFW.memory
+local read_memory = Memory.read
 
 local function item_of(inv)
   if inv == 0 then return 0 end
@@ -178,7 +152,6 @@ local function item_of(inv)
   return ok and u32(item or 0) or 0
 end
 
--- the board slots of an owned card: { [slot] = { inv, item, placed (bool), piece } } for slots 0..8; nil = no record
 function A.BoardItems(hdl)
   local c = A.Card(hdl)
   if not c then return nil end
@@ -213,8 +186,8 @@ function A.BoardPlace(hdl, slot, inv)
   if not b then return false, "no record" end
   local piece = b[slot].piece
   if piece >= 0x80 then return false, "slot closed" end
-  HBUF = HBUF or VRFW.mem.buffer("character_reforged_board_hdl", 8)
-  local okw = pcall(VRFW.mem.write, "u32", HBUF, hdl)
+  HBUF = HBUF or VRFW.memory.buffer("character_reforged_board_hdl", 8)
+  local okw = VRFW.memory.write("u32", HBUF, hdl)
   if not okw then return false, "buffer" end
   local ok, e = pcall(VRFW.call, "CharacterReforged.BoardPlaceByHandle", HBUF, piece, inv, 0, 1, 1)
   if not ok then return false, "place: " .. tostring(e) end
@@ -231,5 +204,4 @@ VRFW.on("game_reset", function()
   CHARA_OF_PARAM = {}
 end)
 
--- the base game's «Crear …» entry of the aura mods (graft character_reforged_board; commands content\game\create.toml)
 require "lib/create"

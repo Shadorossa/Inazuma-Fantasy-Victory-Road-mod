@@ -1,0 +1,56 @@
+schema = "VRFW.game/2"
+
+# Commands answered by scripts\friendly_zones.lua and scripts\album_price.lua.
+
+# (node name) -> zone index, title text id, stadium map crc, friendly count, BGM set id (0 = the game's music)
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_FRIENDLY_ZONE"
+handler = "ClassicRecruitment.FriendlyZone"
+
+# (zone index, i) -> key, rival team crc, team name, level, format, won, card count, cards…
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_FRIENDLY_GET"
+handler = "ClassicRecruitment.FriendlyGet"
+
+# (key) -> true: the next match is that friendly's
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_FRIENDLY_ARM"
+handler = "ClassicRecruitment.FriendlyArm"
+
+# () -> key, won of the last armed friendly's match (read once)
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_FRIENDLY_RESULT"
+handler = "ClassicRecruitment.FriendlyResult"
+
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_FRIENDLY_WON"
+handler = "ClassicRecruitment.FriendlyWon"
+
+# (key) -> true (save key won.<key>)
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_FRIENDLY_SET_WON"
+handler = "ClassicRecruitment.FriendlySetWon"
+
+# (zone index, i) -> the pose row screen's page: i = 0 the header, i >= 1 friendly i (content\pose_rows\friendlies.toml)
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_FRIENDLY_MENU"
+handler = "ClassicRecruitment.FriendlyMenu"
+
+# (team level) -> true: the base the friendlies' levels scale from (the board sets it when a zone's list opens)
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_FRIENDLY_BASE"
+handler = "ClassicRecruitment.FriendlyBase"
+
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_FRIENDLY_LEVEL"
+handler = "ClassicRecruitment.FriendlyLevel"
+
+# (card rarity, level, card) -> currency item id, count of an album signing
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_ALBUM_PRICE"
+handler = "ClassicRecruitment.AlbumPrice"
+
+# (level, "rarity:card,rarity:card") -> { count per card }, icon atlas, icon sprite of one album page
+[[VRFW.Command]]
+name = "CMND_CLASSICRECRUITMENT_ALBUM_PRICES"
+handler = "ClassicRecruitment.AlbumPrices"

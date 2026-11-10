@@ -1,0 +1,47 @@
+schema = "VRFW.character/2"
+# The looks the alternate-style outfits give their players ([[VRFW.ItemTransform]] in content/items/alternate_styles.toml); never players.
+default_lang = "en"
+
+[[character]]
+name = "edwin_alternate_style_look"
+based_on = "c11010500"
+icon = "c11010510"
+
+  [character.base]
+  id = 0xBD453120
+  name = "c91010510"
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0
+  flag_31 = 1
+
+  [character.new_model]
+  id = 0xA70CCF09
+  from = "c11010500"
+  [character.new_model.cells]
+  head_mesh_path = "_face/11_VICTORY/c11010510/c11010510.g4md"
+
+  [[character.cards]]
+  id = 0xFFF7C577
+
+[[character]]
+name = "axel_blaze_alternate_style_look"
+based_on = "c11500530"
+icon = "c11500531"
+
+  [character.base]
+  id = 0x95D9DB37
+  name = "c91500531"
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0
+  flag_31 = 1
+
+  [character.new_model]
+  id = 0x1A736B10
+  from = "c11500530"
+  [character.new_model.cells]
+  head_mesh_path = "_face/11_VICTORY/c11500531/c11500531.g4md"
+
+  [[character.cards]]
+  id = 0xFFF7C578

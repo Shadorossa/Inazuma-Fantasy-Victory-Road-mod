@@ -1,0 +1,16 @@
+# «Exportar» | «Importar» on the team dock (hook file on the soccer_team_dock_menu host): the last list row, below «Banco».
+# The row is a pair of VRFW.team_dock.half_rows (docs/framework/team-dock.md): two half-width cells, placed by the service
+# when the dock opens, so it works with and without FootballReforged's format row and BetterUI's row filter.
+# It exists only while the team templates are on (BetterQoL.team_templates.ready of the graft team_templates).
+name = "betterqol_team_file_row"
+mod = "BetterQoL"
+order = 311
+module = "lua_bridge"
+requires = ["team_templates"]
+conflicts = []
+wraps = []
+description = "Team dock: the last list row «Exportar» | «Importar» (two half-width cells) runs BetterQoL.team_file.export / import"
+
+[[hooks]]
+stem = "soccer_team_dock_menu"
+source = "betterqol_team_file_row.lua"

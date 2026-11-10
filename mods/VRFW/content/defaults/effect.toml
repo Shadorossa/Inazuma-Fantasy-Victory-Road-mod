@@ -1,4 +1,3 @@
-# Defaults for the effect build script; a mod may override keys with its own defaults\effect.toml (tables merge key by key).
 
 [shot_aura]
 # Trigger name of the plain shot.
@@ -9,20 +8,11 @@ default_like = "ega0075e"
 trigger_prefix = "vrfw_shot_aura."
 
 # Trigger lists of the character-effect controllers (eff_chr_trigger; the ball's list holds one row per own aura).
-# Every row of a built list keeps its effect pack loaded for the whole match, so the ball's list only keeps the retail
-# rows and the auras of every move the match's players can use (both teams, every keshin / armour / Mix-Max / totem /
-# mode change form, the extra-slot plates).
 [trigger_lists]
-# Most rows one list (a character's or the ball's) keeps when a controller is built. The game reads a list's rows with
-# a one-byte counter (255 rows at most); the framework's patch Effect.TriggerRows (content/game/trigger_rows.toml)
-# widens it. A list with more rows than this (or than 255 when the patch is not applied) is cut right before the build.
-# 201 rows (92 retail ball rows and 109 aura packs) load in a match; 418 rows stop the match load at its start event.
+# Most rows one list (a character's or the ball's) keeps when a controller is built.
 max_rows = 201
-# Part of each engine resource registry (effects, objects, packs, textures, meshes, skeletons, particles; capacities read
-# from the game at run time) that new ball auras leave free for what the match loads after the ball's list (0 to 1).
 pool_reserve = 0.05
 
-# `when.form` words mapped to the form they name (`none` = no active form).
 [shot_aura.form_words]
 keshin = "keshin"
 armour = "armour"
@@ -33,8 +23,6 @@ aura = "aura"
 none = "none"
 
 # Defaults for a [[shot_aura]] `fit`: the aura replay (`replay` frames, 60 fps) is stretched to the remaining flight time.
-# mode `rate` = whole replay at one speed; `sustain` = intro and end at their own speed, middle stretched; speed is clamped to [min_rate, max_rate].
-# Default `sustain` window: min(intro, replay / 3) to replay - max(outro_min, replay * outro).
 [shot_aura.fit]
 mode = "sustain"
 min_rate = 0.15
@@ -44,18 +32,12 @@ intro = 12
 outro = 0.25
 outro_min = 6
 
-# Defaults for a [[shot_aura]] `anchor = "kick"` (distance clock): the aura's clip plays the ball's distance from the
-# kick point / `drift` frames. max_rate = fastest playback speed the clock asks for (catching up after a jump of the
-# ball); launch_speed = ball speed (m/s) that counts as the kick when the shot's flight was not published.
-# default_anchor / default_drift: the clock of a rule with an `aura`, no `anchor` and no `fit` ("none" = the aura's own
-# clock); a rule opts out with anchor = "none".
 [shot_aura.anchor]
 default_anchor = "kick"
 default_drift = 0.75
 max_rate = 4.0
 launch_speed = 5.0
 
-# Event files edited by [[event_effect]] / [[attach]] / [[event_timing]] / [[event_command]] (`%s` = lower-case event name).
 [event_lists]
 eff = "data/common/event_cfg/eff/%s_eff.cfg.bin"
 evt = "data/common/event_cfg/evt/%s.cfg.bin"

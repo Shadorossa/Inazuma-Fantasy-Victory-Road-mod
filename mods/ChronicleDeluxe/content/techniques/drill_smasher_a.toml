@@ -1,0 +1,32 @@
+schema = "VRFW.technique/3"
+
+[[technique]]
+name = "drill_smasher_a"
+base = "whk00310"
+manual = true
+element = "fire"
+power_min = 85
+power_max = 540
+tp = 80
+recast = 60
+event = "ev63_99310_1"
+fail_event = "ev63_00310_2"
+description_text = "base"
+  [technique.text.es]
+  name = "Destrozataladros (A)"
+  [technique.text.en]
+  name = "Drill Smasher (A)"
+  [technique.text.fr]
+  name = "Perceuse (A)"
+  [technique.text.de]
+  name = "Bohrexperte (A)"
+  [technique.text.it]
+  name = "Trivella Spaziale (A)"
+  [technique.text.pt]
+  name = "Broca Destruidora (A)"
+  [technique.text.ja]
+  name = "ドリルスマッシャー（Ａ）"
+  [technique.text.zh_hans]
+  name = "钻头毁灭者(A)"
+  [technique.text.zh_hant]
+  name = "鑽頭毀滅者(A)"

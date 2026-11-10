@@ -1,8 +1,4 @@
 schema = "VRFW.number_fit/1"
-# The game's stat numbers next to the radar / stat chart (soccer11_06_p1_formation_status_graph_param_num: the
-# personal plate, the team dock, the formation and equipment screens): designed for 3 digits, a 4-digit stat is
-# drawn at the width of 3 (lua\menu\_all\97_number_fit.lua). Its digit slots and DispMaxValue (4 / 9999):
-# content\base_tables\menu\config\menu_graphic_number_config.toml and content\menus\stat_number_digits.toml.
 
 [[VRFW.NumberFit]]
 name = "stat_numbers"

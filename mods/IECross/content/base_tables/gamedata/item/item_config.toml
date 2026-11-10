@@ -1,13 +1,4 @@
 schema = "VRFW.base_table/1"
-# The items of Inazuma Eleven Cross's content, added BY KEY at the end of their game lists
-# (docs/framework/types/base_table.md §3), so they stand on any game version and on top of any mod's edition of
-# item_config. Same ids, catalog numbers and texts as:
-#   ITEM_SPECIAL_SKILL_INFO  the manuals of the 15 Cross moves (key = the move's key; their catalog 13002-13016 is past the 8192-bit flag array: the technique engine gives each a free number, VRFW 2.2.70)
-#   ITEM_EMBLEM_INFO         the six Cross crests (Shin Zeus, Shin Brain, KFC Pierrot, Chaos Circus, Pirates, Ramen)
-#   (crest icon_index 351-356: the emblem list orders by it, after the last retail club crest (350) and before the retail em91 crests (400+); the crest icon is the own texture em99xxxx, not the index)
-#   ITEM_FASHION_INFO        the six Cross kits (catalog 3318-3323: past the highest retail kit, 3317, so they list after every retail kit; icon_index 375-380, past the highest retail 374, is what orders the change-kit list, the icon itself is drawn by key) (clown, inverted clown, Samurai Blue, Shin Zeus, pirate, Ramen)
-# Crests and kits clone a retail row of the same series (`from`): the clone brings the row's SERIES flags and the
-# columns a game version adds (v7.2.1 added a trailing -1 to every crest row).
 
 [[keyed]]
 table = "item/item_special_skill"
@@ -130,7 +121,7 @@ table = "item/item_fashion"
   from = "uni_u030101"
   cells = { reserved_1 = 0, name_text = 0xC142DBFD, desc_text = 0, catalog_no = 3320, category = 80, sub_category = 51, max_stack = 1, reserved_8 = 0, reserved_9 = 0, reserved_10 = 0, key = "uni_u119701", rarity = 1, reserved_13 = 0, base_item = 0, icon_index = 377, reserved_16 = 0, const_17 = 1, uniform = 0x55DD7FAD }
 
-  [[keyed.add]]                         # uni_u120001 (legacy: no longer sold or won; kept so saves that own it still find the item, it is the Chaos Circus kit)
+  [[keyed.add]]
   key = 0xA7554691
   from = "uni_u030101"
   cells = { reserved_1 = 0, name_text = 0xD47FBFBF, desc_text = 0, catalog_no = 3318, category = 80, sub_category = 51, max_stack = 1, reserved_8 = 0, reserved_9 = 0, reserved_10 = 0, key = "uni_u120001", rarity = 1, reserved_13 = 0, base_item = 0, icon_index = 375, reserved_16 = 0, const_17 = 1, uniform = 0xCF5CE72B }

@@ -1,18 +1,14 @@
 schema = "VRFW.technique/3"
-# A move first shipped by a former mod merged into Hissatsu Revamp, kept as that mod built it: a retail move
-# cloned (`base`: its skill_config row, voice, banner margins, manual, event env row) with the download's numbers; its
-# event is the base's event renamed with a recoloured effect object (assets\event\ + content\base_tables\event\,
-# event_cfg\ + content\models\effects\). Fixed key (skill id = crc32(key), the download's id: a save that learned the
-# move keeps it). Names and descriptions: text\rows\skill_text.toml (the download's text ids, pinned below).
+# Hand-kept LegendaryAd move: a clone of `base` with the download's numbers, event and text ids; fixed key, kept by saves.
 
 [[technique]]
 name = "nuclear_field"           # Campo nuclear
 key = "whd92114"
-base = "whd01140"                # Campo minado (void block, 60-360, 60 TP; fail event ev62_01140_2 kept)
+base = "whd01140"
 order = 3
 name_text = 0x1A9284C0
-desc_text = 0x4F045692
-event = "ev62_92114_1"           # ev62_01140_1 renamed, effect object ev62921140
+description_text = 0x4F045692
+event = "ev62_92114_1"
 power_min = 85
 power_max = 540
 tp = 80

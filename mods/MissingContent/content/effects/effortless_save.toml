@@ -1,0 +1,9 @@
+schema = "VRFW.effect/1"
+# Impact effect of the effortless save: the retail object ev74011400 on ev71_80030.
+
+[[event_effect]]
+event = "ev71_80030"
+object = "ev74011400"
+cut = "c0020"
+clips = { c0020 = "c0200" }
+attach = { point = "point_eff", locator = "evp_eff01" }

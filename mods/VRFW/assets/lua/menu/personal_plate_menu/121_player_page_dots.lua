@@ -1,25 +1,8 @@
--- player page dots (VRFW base feature): the page dots of the player plate
--- (personal_plate_menu) built from the registry's actual page list, so a page any mod declares
--- gets its own dot and the lit dot follows it.
---
--- * Retail order (the four retail pages only): nothing changes, the status base draws its own four dots.
--- * Any other order: the status base's four dots are hidden and the row is drawn by the layer vrfw_pp_dots (copies of
---   the retail status base soccer11_05_formation_status_base, content\menus\player_page_dots.toml), each copy showing
---   its own four dot meshes (_page01..04_off, the lit one _page0N_on) and nothing else. Two copies = up to 8 dots.
---   The copies hang from the status base's _pos_base01 (attach rows vrfw_pp_dots0 / 1), so they follow its animation.
---   The row keeps the retail centre (x 1420) and pitch (28 px) whatever the page count.
--- * A mod that draws its own dots on its own plate sets VRFW_PlayerPages.DotsOwner = "<ModPrefix>" (any time, plain
---   field): the framework then leaves the dots alone. A paged plate that defines EVT_PH_Decor is
---   treated the same way until it sets the field.
--- * VRFW_PlayerPages.DotRow() gives the row as drawn (for the mods that place things next to it, e.g. Q / E
---   glyphs); VRFW_PlayerPages.StatusCopy(...) is the shared set-up of a status base copy (open once, attach, every
---   part hidden but the ones kept).
--- No engine call at load time.
-if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
-  local P = VRFW_PlayerPages
+if VRFW.player_pages ~= nil and VRFW.player_pages.row == nil then
+  local P = VRFW.player_pages
 
   local function Crc(text)
-    return VRFW_Id.Crc(text)
+    return VRFW.ids.crc32(text)
   end
 
   local function Names(list)
@@ -31,17 +14,14 @@ if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
   end
 
   local R = {
-    C = {EXIST = VRFW_Cmd.IS_EXIST_LAYER, OPEN = VRFW_Cmd.OPEN_LAYER, IS_OPEN = VRFW_Cmd.IS_OPEN_LAYER, LOADING = VRFW_Cmd.IS_LOADING_LAYER, VIS = VRFW_Cmd.SET_LAYER_VISIBLE,
-      IS_VIS = VRFW_Cmd.IS_LAYER_VISIBLE, POS = VRFW_Cmd.SET_LAYER_LOCAL_POS, MESH = VRFW_Cmd.SET_MESH_VISIBLE, TRACE = VRFW_Cmd.SET_LAYER_ATTACH_LOCATOR_TRACE, TEXT_VIS = VRFW_Cmd.SET_MENU_TEXT_VISIBLE,
+    C = {EXIST = VRFW.commands.IS_EXIST_LAYER, OPEN = VRFW.commands.OPEN_LAYER, IS_OPEN = VRFW.commands.IS_OPEN_LAYER, LOADING = VRFW.commands.IS_LOADING_LAYER, VIS = VRFW.commands.SET_LAYER_VISIBLE,
+      IS_VIS = VRFW.commands.IS_LAYER_VISIBLE, POS = VRFW.commands.SET_LAYER_LOCAL_POS, MESH = VRFW.commands.SET_MESH_VISIBLE, TRACE = VRFW.commands.SET_LAYER_ATTACH_LOCATOR_TRACE, TEXT_VIS = VRFW.commands.SET_MENU_TEXT_VISIBLE,
       NODE_VIS = 2158717427},
     L_STATUS = Crc("soccer11_05_formation_status_base"),
     LAYER = Crc("vrfw_pp_dots"),
     TRACES = {[0] = Crc("vrfw_pp_dots0"), Crc("vrfw_pp_dots1")},
     COPIES = 2,
     PER_COPY = 4,
-    -- soccer11_05.g4pkm (screen px, y down): the retail dots' top-left x 1362 + 28 k, y 949, 32 x 32; the layout's
-    -- _pos_base01 at (1358, 540) = where the copies hang (a copy's part lands at its layout place + the layer position
-    -- + (1358, -540))
     DOT_X1 = 1362, DOT_Y = 949, PITCH = 28, SIZE = 32, RETAIL = 4, BASE_X = 1358, BASE_Y = 540,
     -- the status base's parts (soccer11_05.g4pkm joints)
     OFF = Names({"_page01_off", "_page02_off", "_page03_off", "_page04_off"}),
@@ -60,7 +40,7 @@ if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
     drawn = nil,                 -- the row state last drawn ("" = hidden)
     active = false,              -- the framework draws the row (the retail dots hidden)
   }
-  P.Row = R
+  P.row = R
   R.MESH_IDS = {}
   for _, n in ipairs(R.MESHES) do
     R.MESH_IDS[n] = Crc(n)
@@ -68,14 +48,6 @@ if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
   R.TEXT_IDS = {}
   for _, n in ipairs(R.TEXTS) do
     R.TEXT_IDS[n] = Crc(n)
-  end
-
-  local function Cmd(...)
-    local ok, v = pcall(funcLuaMenuCommand, ...)
-    if ok then
-      return v
-    end
-    return nil
   end
 
   -- the four retail pages in retail order, nothing else shown
@@ -92,23 +64,18 @@ if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
   end
 
   local function Owned()
-    return P.DotsOwner ~= nil or type(EVT_PH_Decor) == "function"
+    return P.dots_owner ~= nil
   end
 
   local function StatusShown()
-    if Cmd(R.C.EXIST, R.L_STATUS) ~= true or Cmd(R.C.IS_OPEN, R.L_STATUS, 0) ~= true then
+    if VRFW.host.menu_command(R.C.EXIST, R.L_STATUS) ~= true or VRFW.host.menu_command(R.C.IS_OPEN, R.L_STATUS, 0) ~= true then
       return false
     end
-    return Cmd(R.C.IS_VIS, R.L_STATUS, 0) ~= false
+    return VRFW.host.menu_command(R.C.IS_VIS, R.L_STATUS, 0) ~= false
   end
 
-  -- One instance of a copy of the retail status base, ready to show: opened ONCE per opening of the status base (an
-  -- instance the menu closed is not opened again until the status base itself closes: a re-open during the menu's
-  -- exit would hang it), attached to the status base's _pos_base01 (`trace` = its attach row) and every part hidden
-  -- but `keep` = {"<mesh or text node name>" = true}. Returns ready (loaded and set up), fresh (set up just now, hidden:
-  -- the caller places and shows it again).
-  function P.StatusCopy(layer, k, trace, keep)
-    if Cmd(R.C.EXIST, layer) ~= true then
+  function P.status_copy(layer, k, trace, keep)
+    if VRFW.host.menu_command(R.C.EXIST, layer) ~= true then
       return false
     end
     local key = layer * 16 + k
@@ -117,50 +84,46 @@ if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
       s = {}
       R.copies[key] = s
     end
-    if Cmd(R.C.IS_OPEN, layer, k) ~= true then
+    if VRFW.host.menu_command(R.C.IS_OPEN, layer, k) ~= true then
       s.ready = false
       if not s.asked and StatusShown() then
         s.asked = true
-        Cmd(R.C.OPEN, layer, k)
+        VRFW.host.menu_command(R.C.OPEN, layer, k)
       end
       return false
     end
-    if Cmd(R.C.LOADING, layer) == true then
+    if VRFW.host.menu_command(R.C.LOADING, layer) == true then
       return false
     end
     if not s.ready then
       s.ready = true
       keep = keep or {}
-      Cmd(R.C.VIS, layer, k, false)
-      Cmd(R.C.TRACE, R.L_STATUS, 0, trace, true)
+      VRFW.host.menu_command(R.C.VIS, layer, k, false)
+      VRFW.host.menu_command(R.C.TRACE, R.L_STATUS, 0, trace, true)
       for _, n in ipairs(R.OTHER_LOCS) do
-        Cmd(R.C.NODE_VIS, layer, n, false, k)
+        VRFW.host.menu_command(R.C.NODE_VIS, layer, n, false, k)
       end
       for _, n in ipairs(R.PAGE_LOCS) do
-        Cmd(R.C.NODE_VIS, layer, n, true, k)
+        VRFW.host.menu_command(R.C.NODE_VIS, layer, n, true, k)
       end
       for _, n in ipairs(R.MESHES) do
         if not keep[n] then
-          Cmd(R.C.MESH, layer, R.MESH_IDS[n], false, k)
+          VRFW.host.menu_command(R.C.MESH, layer, R.MESH_IDS[n], false, k)
         end
       end
       for _, n in ipairs(R.TEXTS) do
-        Cmd(R.C.TEXT_VIS, layer, R.TEXT_IDS[n], keep[n] == true, k)
+        VRFW.host.menu_command(R.C.TEXT_VIS, layer, R.TEXT_IDS[n], keep[n] == true, k)
       end
       return true, true
     end
     return true, false
   end
 
-  -- the row as drawn on this plate: {count, x0 (left of the first dot), y (top), pitch, size, lit (slot or nil),
-  -- framework = the framework draws it, keys = the header's Q / E glyphs and arrows are shown (the retail
-  -- SetStatusBaseArrowAndTextVisible: off while a detail window is up or on a one-page view)}; nil = no row of ours
-  -- (another mod owns the dots, or the plate is not shown)
-  function P.DotRow()
+  function P.dot_row()
     if Owned() or not StatusShown() then
       return nil
     end
-    local o = P.Order()
+    local o = P.order()
     local n = #o
     if RetailOrder(o) then
       n = R.RETAIL
@@ -181,30 +144,27 @@ if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
       lit = lit, framework = not RetailOrder(o), keys = R.arrows ~= false}
   end
 
-  -- the status base's own dots: hidden while the framework draws the row, back when it stops
   local function RetailDots(on)
     for i = 1, R.RETAIL do
-      Cmd(R.C.MESH, R.L_STATUS, R.OFF[i], on, 0)
-      Cmd(R.C.MESH, R.L_STATUS, R.ON[i], on, 0)
+      VRFW.host.menu_command(R.C.MESH, R.L_STATUS, R.OFF[i], on, 0)
+      VRFW.host.menu_command(R.C.MESH, R.L_STATUS, R.ON[i], on, 0)
     end
     for _, m in ipairs(R.ON_RPG) do
-      Cmd(R.C.MESH, R.L_STATUS, m, on, 0)
+      VRFW.host.menu_command(R.C.MESH, R.L_STATUS, m, on, 0)
     end
   end
 
   local function HideCopies()
     for k = 0, R.COPIES - 1 do
-      if Cmd(R.C.IS_OPEN, R.LAYER, k) == true then
-        Cmd(R.C.VIS, R.LAYER, k, false)
+      if VRFW.host.menu_command(R.C.IS_OPEN, R.LAYER, k) == true then
+        VRFW.host.menu_command(R.C.VIS, R.LAYER, k, false)
       end
     end
   end
 
-  -- every frame: the row from the registry (cheap when nothing changed)
-  function R.Frame()
-    local row = P.DotRow()
+  function R.frame()
+    local row = P.dot_row()
     if row == nil or not row.framework then
-      -- (row nil = plate not shown / dots owned elsewhere: the retail dots stay as they are until the row is back)
       if row ~= nil and R.active then
         R.active = false
         RetailDots(true)
@@ -222,7 +182,7 @@ if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
     for k = 0, R.COPIES - 1 do
       local first = k * R.PER_COPY + 1
       if first <= row.count then
-        local ready, fresh = P.StatusCopy(R.LAYER, k, R.TRACES[k], {})
+        local ready, fresh = P.status_copy(R.LAYER, k, R.TRACES[k], {})
         if not ready then
           all = false
         elseif fresh then
@@ -242,15 +202,15 @@ if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
       local first = k * R.PER_COPY + 1
       if first <= row.count then
         local dx = row.x0 + (first - 1) * R.PITCH - R.DOT_X1
-        Cmd(R.C.POS, R.LAYER, dx - R.BASE_X, R.BASE_Y, 0, k)
+        VRFW.host.menu_command(R.C.POS, R.LAYER, dx - R.BASE_X, R.BASE_Y, 0, k)
         for j = 1, R.PER_COPY do
           local slot = first + j - 1
-          Cmd(R.C.MESH, R.LAYER, R.OFF[j], slot <= row.count, k)
-          Cmd(R.C.MESH, R.LAYER, R.ON[j], slot == row.lit, k)
+          VRFW.host.menu_command(R.C.MESH, R.LAYER, R.OFF[j], slot <= row.count, k)
+          VRFW.host.menu_command(R.C.MESH, R.LAYER, R.ON[j], slot == row.lit, k)
         end
-        Cmd(R.C.VIS, R.LAYER, k, true)
-      elseif Cmd(R.C.IS_OPEN, R.LAYER, k) == true then
-        Cmd(R.C.VIS, R.LAYER, k, false)
+        VRFW.host.menu_command(R.C.VIS, R.LAYER, k, true)
+      elseif VRFW.host.menu_command(R.C.IS_OPEN, R.LAYER, k) == true then
+        VRFW.host.menu_command(R.C.VIS, R.LAYER, k, false)
       end
     end
   end
@@ -269,7 +229,7 @@ if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
   Wrap("PostStep", function(orig)
     return function(...)
       local r = table.pack(orig(...))
-      pcall(R.Frame)
+      pcall(R.frame)
       return table.unpack(r, 1, r.n)
     end
   end)
@@ -289,13 +249,12 @@ if VRFW_PlayerPages ~= nil and VRFW_PlayerPages.Row == nil then
       local s = type(a1) == "number" and type(a2) == "number" and R.copies[a1 * 16 + a2] or nil
       if s ~= nil then
         s.ready = false
-        Cmd(R.C.VIS, a1, a2, false)
+        VRFW.host.menu_command(R.C.VIS, a1, a2, false)
       end
       return table.unpack(r, 1, r.n)
     end
   end)
 
-  -- the status base closing: every copy may be opened again next time
   Wrap("OnCloseLayer", function(orig)
     return function(a1, a2, ...)
       local r = table.pack(orig(a1, a2, ...))

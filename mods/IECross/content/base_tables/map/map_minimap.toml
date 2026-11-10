@@ -1,6 +1,4 @@
 schema = "VRFW.base_table/1"
-# Minimap rows of the Inazuma Eleven Cross stadiums (one placeholder hierarchy row each, as every stadium IF added),
-# at the retail list ends. IF's own rows come after these (it requires IECross, which loads first).
 
 [[list]]
 name = "m_mapHierarchyList"

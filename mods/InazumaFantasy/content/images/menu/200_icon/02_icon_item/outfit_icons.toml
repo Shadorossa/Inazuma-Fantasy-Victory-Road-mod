@@ -1,9 +1,22 @@
-# Inazuma Fantasy: the icons of its outfits (content/items/arion_sherwind_uniform.toml), new textures of icon_item09 (the
-# sheet of the `cos` key prefix, the one the game's costume lists and the shop's outfits tab draw costume icons from).
-# Arion Sherwind's military uniform = the owner's own olive-green jacket icon (outfit_icons/cos_if_arion_uniform.png).
+# Outfit icons, new textures of icon_item09 (the `cos` sheet): Arion's military uniform and the alternate styles.
 schema = "VRFW.image/1"
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
 name = "cos_if_arion_uniform"
 png = "outfit_icons/cos_if_arion_uniform.png"
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_edwin_style"
+png = "outfit_icons/cos_if_edwin_style.png"
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_axel_blaze_style"
+png = "outfit_icons/cos_if_axel_blaze_style.png"
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_celia_hills_style"
+png = "outfit_icons/cos_if_celia_hills_style.png"

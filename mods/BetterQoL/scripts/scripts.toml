@@ -1,139 +1,132 @@
-# Settings of BetterQoL's scripts (kind VRFW.script/1, docs/framework/scripts.md §2). One [[script]] per entry
-# point, each with the settings it needs; every other .lua below scripts\ (lib\) is a library for `require`.
 schema = "VRFW.script/1"
 
-# Home / Away kit: the pair map is built at load from the whole uniform_config (about 1900 rows)
+# Builds the kit pair map from uniform_config (~1900 rows) at load.
 [[script]]
 file = "away_kit.lua"
 budget = 2000000
 memory_kb = 32768
 allow = []
 
-# Match camera: only the one-time take-over of the old setting
 [[script]]
 file = "camera_option.lua"
 allow = ["save"]
 
-# Career page: the plate's first EX query reads chara_param (≈6k rows) once to know each card's main position
+# First EX query reads chara_param (~6k rows) once.
 [[script]]
 file = "career.lua"
 budget = 2000000
 memory_kb = 65536
 
-# Combo partners
 [[script]]
 file = "combo_partners.lua"
 budget = 500000
 memory_kb = 8192
 allow = []
 
-# Unlocked formations: the list is derived at load from formation_config (115 rows + their placements), item_config
-# and item_text
+# Derives the list from formation_config, item_config and item_text at load.
 [[script]]
 file = "formations.lua"
 budget = 2000000
 memory_kb = 32768
 allow = []
 
-# Original names: the catalogue reads chara_base (about 7200 rows) once at the start; each language's tables read
-# chara_text, chara_text_roma and team_text (the load gets 10 budgets)
+# Reads chara_base (~7200 rows) at start, then chara_text / chara_text_roma / team_text per language.
 [[script]]
 file = "original_names.lua"
 budget = 5000000
 memory_kb = 65536
 
-# Passive configurator: the start reads chara_param (cols 0, 1, 3, 61-65 of ~6k rows), passive_skill_config and
-# passive_skill_effect_config once; a refresh of the native tables views every configured player (5 engine slot reads
-# each)
+# Reads chara_param (~6k rows) and passive_skill tables at start; a refresh reads 5 slots per configured player.
 [[script]]
 file = "passive_config.lua"
 budget = 5000000
 memory_kb = 65536
 
-# Auto Commander mode: the match scene's first coach mode (two init hooks, content\game\auto_commander.toml); effects:
-# the rival's match AI profiles on your team in Commander mode (VRFW.ai.mirror_profiles / reset_profiles)
 [[script]]
 file = "auto_commander.lua"
 allow = ["effects"]
 
-# Chronicle route map speed (the defaults)
 [[script]]
 file = "route_map_speed.lua"
 
-# Team name length (the settings of config.toml [team_name])
 [[script]]
 file = "team_name.lua"
 allow = []
 
-# Skill board: the old [skill_board] armour_without_item key, ignored with a log line (moved to Character Reforged)
 [[script]]
 file = "skill_board.lua"
 
-# Shop filter
 [[script]]
 file = "shop_filter.lua"
 budget = 500000
 memory_kb = 8192
 allow = []
 
-# Kit and emblem order: belong_team_config and the kit / emblem rows of item_config are read once at load; each
-# inventory kits / emblems tab sort re-orders up to 0x898 row pointers
+# Copies the rows of the ability list (at most 3200) once per build while a search is on.
+[[script]]
+file = "ability_search.lua"
+budget = 500000
+memory_kb = 8192
+allow = []
+
+# Reads belong_team_config and item_config at load; a tab sort re-orders up to 0x898 rows.
 [[script]]
 file = "kit_emblem_order.lua"
 budget = 2000000
 memory_kb = 16384
 allow = []
 
-# Team bank repair (exports TeamBanksMembers / TeamBanksRepair, called by Inazuma Fantasy's «Reparar duplicados»):
-# decodes, edits and encodes the whole sidecar (up to 32 pages x 31 KB) in one call
+# Exports TeamTemplatesMembers / TeamTemplatesRepair; re-encodes the whole template file in one call.
 [[script]]
-file = "tb_repair.lua"
+file = "template_repair.lua"
 budget = 5000000
 memory_kb = 65536
 
-# Team bank pages: a page swap reads / writes the 11 live docks word by word (about 12k memory accesses and 1.3k game
-# calls) and encodes the sidecar (up to 32 pages x 31 KB): the most a call may use
+# A template swap rewrites one dock; staging re-encodes the template file (up to 999 templates x ~3 KB).
 [[script]]
-file = "team_banks.lua"
+file = "team_templates.lua"
 budget = 5000000
 memory_kb = 65536
 
-# Team planner: the start builds the original-names catalogue (chara_series / belong_team / chara_base, about 7200
-# rows) and reads chara_param (cols 0, 1, 41 of ~6k rows) once; a picker / dock call may walk the saved characters
-# (VRFW.character.saved + one record each, cached 2 s)
+# Builds the names catalogue and reads chara_param at start; picker calls walk the saved characters.
 [[script]]
 file = "team_planner.lua"
 budget = 5000000
 memory_kb = 65536
 
-# Player album: the roster is built at the first opening from chara_base (about 7200 rows), chara_param (about 6200)
-# and the original-names catalogue; each language sorts its names once
+# Builds the roster from chara_base / chara_param at first opening.
 [[script]]
 file = "album.lua"
 budget = 5000000
 memory_kb = 65536
 
-# Technique preview: the move table (skill/skill), chara_base and chara_model / chara_body are read once at load (the
-# load gets 10 budgets); a card's question reads the active squad (29 member reads + their records, their learn lists)
+# Reads skill, chara_base and chara_model / chara_body at load; a query reads the active squad.
 [[script]]
 file = "tech_preview.lua"
 budget = 2000000
 memory_kb = 65536
 allow = []
 
-# «Cambiar forma»: only the form indicator's place (config.toml [view_forms]) for CMND_BETTERQOL_VIEW_FORMS_CFG
 [[script]]
 file = "view_forms.lua"
 budget = 200000
 memory_kb = 4096
 allow = []
 
-# Match clock: «Segundos por minuto de partido» (the match info's clock rate at match start / kick-off)
 [[script]]
 file = "match_clock.lua"
 allow = []
 
-# Pre-match X skip (graft util_prematch_skip): its hold time, the native black cover and the direct jump
 [[script]]
 file = "prematch_skip.lua"
 allow = []
+
+[[script]]
+file = "set_links.lua"
+allow = []
+
+# The cross-mod entry points of the .vrmod share files (BetterQoL.VrmodFiles*); BetterQoL scripts require lib/vrmod_files.lua.
+[[script]]
+file = "vrmod_files.lua"
+budget = 2000000
+memory_kb = 16384

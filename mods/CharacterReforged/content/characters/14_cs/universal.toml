@@ -1,20 +1,17 @@
 schema = "VRFW.character/2"
-# Character Reforged · Universal · Inazuma Eleven GO Chrono Stone
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c05028060"                                   # Sol Daystar
 moves = [
-  { move = 0xAE2B3429, level = 12 },                        # Atomic Flare
-  { move = 0xB60E3C60, level = 25 },                        # Plasma Cut
-  { move = 0xFA40689A, level = 42 },                        # Solar Nexus
-  { move = 0x240BEDF2, level = 64 },                        # Bounce Shot
+  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
+  { move = 0x20D01E43, level = 16 },                        # Hey Presto
+  { move = 0xAE2B3429, level = 26 },                        # Atomic Flare
+  { move = 0xB60E3C60, level = 36 },                        # Plasma Cut
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x2F22467C, level = 1 },                         # Apolo [aura]
+  { move = 0x2F22467C, level = 20 },                        # wks00040
 ]
 
   [[edit.cards]]

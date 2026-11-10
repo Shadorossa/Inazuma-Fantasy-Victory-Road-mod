@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · Nosfanatica · Inazuma Eleven GO Chrono Stone
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c05023610_5000"                              # Vince Sizor
+moves = [
+  { move = 0x9AF2229C, level = 1 },                         # Gravity Point
+  { move = 0xFC5DC53F, level = 65 },                        # Double God Hand
+  { move = 0x93E8DBF8, level = 75 },                        # Dimensional Hand
+  { move = 0xE785D6D9, level = 85 },                        # Inferno Fist
+]
 
   [[edit.cards]]
   id = 0xBE6FC2C7                                         # GK/DF · forest
@@ -14,6 +17,12 @@ target = "c05023610_5000"                              # Vince Sizor
 
 [[edit]]
 target = "c05023620_5000"                              # Ron Innwater
+moves = [
+  { move = 0x4E22F64D, level = 47 },                        # Transporter Device
+  { move = 0x72BFA108, level = 57 },                        # Wall of Atlantis
+  { move = 0x7F15DC5F, level = 67 },                        # Desert Drift
+  { move = 0xB0F8060A, level = 77 },                        # Ozone Flayer
+]
 
   [[edit.cards]]
   id = 0x8F87D85A                                         # DF/MF · mountain
@@ -23,6 +32,12 @@ target = "c05023620_5000"                              # Ron Innwater
 
 [[edit]]
 target = "c05023660_5000"                              # Dave Walker
+moves = [
+  { move = 0x768AB9C5, level = 1 },                         # Frosticle
+  { move = 0x04941270, level = 22 },                        # Vac Attack
+  { move = 0x84385EE2, level = 65 },                        # Black Tide Ride
+  { move = 0x49933AEE, level = 75 },                        # Perfect Tower
+]
 
   [[edit.cards]]
   id = 0x7BC8FC49                                         # MF/DF · fire
@@ -33,6 +48,12 @@ target = "c05023660_5000"                              # Dave Walker
 
 [[edit]]
 target = "c05023690_5000"                              # Desmodus Drakul
+moves = [
+  { move = 0xD2E9EF37, level = 11 },                        # Bloodsucker Bite
+  { move = 0x0D368F6B, level = 25 },                        # Heaven's Time
+  { move = 0xB501FE5D, level = 58 },                        # Holy Roller
+  { move = 0xCBF2DE76, level = 81 },                        # Nocturne
+]
 
   [[edit.cards]]
   id = 0x8D808CA0                                         # MF/FW · mountain
@@ -42,6 +63,12 @@ target = "c05023690_5000"                              # Desmodus Drakul
 
 [[edit]]
 target = "c05023700_5000"                              # Woodrow Stake
+moves = [
+  { move = 0x5E5AF1A9, level = 4 },                         # Northern Impact
+  { move = 0x2B8C597E, level = 21 },                        # Fugue Wave
+  { move = 0xEDBAD1F1, level = 49 },                        # Brimstone Rain
+  { move = 0xD2E9EF37, level = 75 },                        # Bloodsucker Bite
+]
 
   [[edit.cards]]
   id = 0xD4B2C9ED                                         # FW/MF · forest
@@ -51,6 +78,12 @@ target = "c05023700_5000"                              # Woodrow Stake
 
 [[edit]]
 target = "c05023710_5000"                              # Nora Flexion
+moves = [
+  { move = 0x0DCADC54, level = 12 },                        # Emperor Penguin 7
+  { move = 0xCB79C825, level = 25 },                        # In-Line Stampede
+  { move = 0xD32B8500, level = 47 },                        # Atomic Spin
+  { move = 0x1876DB66, level = 65 },                        # Disaster Strike
+]
 
   [[edit.cards]]
   id = 0x72C5C259                                         # FW/MF · forest
@@ -62,14 +95,14 @@ target = "c05023710_5000"                              # Nora Flexion
 target = "c05023610"                                   # Vince Sizor
 moves = [
   { move = 0x9AF2229C, level = 1 },                         # Gravity Point
-  { move = 0xCB8E6D04, level = 5 },                         # Mighty Save
-  { move = 0xDCC9CCA3, level = 60 },                        # Tesla Coil
   { move = 0xFC5DC53F, level = 65 },                        # Double God Hand
+  { move = 0x93E8DBF8, level = 75 },                        # Dimensional Hand
+  { move = 0xE785D6D9, level = 85 },                        # Inferno Fist
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF1157066, level = 1 },                         # Demogorgo [aura]
+  { move = 0xF1157066, level = 43 },                        # wkk00260
 ]
 
   [[edit.cards]]
@@ -81,15 +114,15 @@ moves = [
 [[edit]]
 target = "c05023620"                                   # Ron Innwater
 moves = [
-  { move = 0x72BFA108, level = 1 },                         # Wall of Atlantis
-  { move = 0x23C3EE90, level = 1 },                         # Shoulder Tackle
-  { move = 0x7F15DC5F, level = 52 },                        # Desert Drift
-  { move = 0xB0F8060A, level = 64 },                        # Ozone Flayer
+  { move = 0x4E22F64D, level = 47 },                        # Transporter Device
+  { move = 0x72BFA108, level = 57 },                        # Wall of Atlantis
+  { move = 0x7F15DC5F, level = 67 },                        # Desert Drift
+  { move = 0xB0F8060A, level = 77 },                        # Ozone Flayer
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x687AE856, level = 1 },                         # Raiden [aura]
+  { move = 0x687AE856, level = 43 },                        # wkd00920
 ]
 
   [[edit.cards]]
@@ -102,9 +135,9 @@ moves = [
 target = "c05023630"                                   # Holly Waters
 moves = [
   { move = 0x25276CB9, level = 1 },                         # Solar Surprise
-  { move = 0x3AD8DFD1, level = 1 },                         # Curving Cut
   { move = 0xD0A1DBC3, level = 45 },                        # Bungee Ball Burst
   { move = 0x72BFA108, level = 57 },                        # Wall of Atlantis
+  { move = 0xA8215D7C, level = 67 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -119,8 +152,8 @@ target = "c05023640"                                   # Turner Fogg
 moves = [
   { move = 0x72BFA108, level = 5 },                         # Wall of Atlantis
   { move = 0xC324C788, level = 17 },                        # Blast Mine
-  { move = 0x75994916, level = 34 },                        # Cunning Pull
   { move = 0xB8A509A7, level = 54 },                        # Asterocks
+  { move = 0xA8215D7C, level = 64 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -134,8 +167,8 @@ target = "c05023650"                                   # Sid Viper
 moves = [
   { move = 0x7DD6FEF8, level = 13 },                        # Athena's Anthem
   { move = 0x0E0A3F7A, level = 22 },                        # Spatial Portal
-  { move = 0x62294D90, level = 39 },                        # Dust Kick
   { move = 0xA9A7000B, level = 43 },                        # Bouncing Bunny
+  { move = 0xC16279D1, level = 53 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -150,13 +183,13 @@ target = "c05023660"                                   # Dave Walker
 moves = [
   { move = 0x768AB9C5, level = 1 },                         # Frosticle
   { move = 0x04941270, level = 22 },                        # Vac Attack
-  { move = 0x1F5EB9D5, level = 40 },                        # Nutmeg
   { move = 0x84385EE2, level = 65 },                        # Black Tide Ride
+  { move = 0x49933AEE, level = 75 },                        # Perfect Tower
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF08A634C, level = 1 },                         # Tachión [aura]
+  { move = 0xF08A634C, level = 43 },                        # wko00480
 ]
 
   [[edit.cards]]
@@ -188,7 +221,7 @@ moves = [
   { move = 0x19BA3BFC, level = 1 },                         # Dance on Air
   { move = 0x6BA49049, level = 9 },                         # Mystic Mist
   { move = 0x15138722, level = 27 },                        # Will-o'-the-Wisp Shot
-  { move = 0x62294D90, level = 52 },                        # Dust Kick
+  { move = 0x637C031A, level = 37 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -209,7 +242,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x13046BF0, level = 1 },                         # Miximax Trans: <FUL:V GENE> [aura]
+  { move = 0x037F72A2, level = 20 },                        # wko00820
 ]
 
   [[edit.cards]]
@@ -229,7 +262,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x66A81250, level = 1 },                         # Oneiros [aura]
+  { move = 0x66A81250, level = 43 },                        # wks00530
 ]
 
   [[edit.cards]]
@@ -249,7 +282,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x8D8458C8, level = 1 },                         # Argentia [aura]
+  { move = 0x8D8458C8, level = 43 },                        # wks00880
 ]
 
   [[edit.cards]]
@@ -269,7 +302,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x037F72A2, level = 1 },                         # Glenr [aura]
+  { move = 0x037F72A2, level = 20 },                        # wko00820
 ]
 
   [[edit.cards]]

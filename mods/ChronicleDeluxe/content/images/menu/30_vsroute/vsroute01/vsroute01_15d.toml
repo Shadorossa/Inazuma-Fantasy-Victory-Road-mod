@@ -1,6 +1,3 @@
-# Chronicle Deluxe: #/menu/30_vsroute/vsroute01/vsroute01_15d/vsroute01_15d.g4tx, the blue panel of the Chronicle
-# battle-kind list (gate pieces): same nine-slice as vsroute01_15c.toml (top rows 0-43, bottom rows 428-471 keep their
-# size).
 schema = "VRFW.image/1"
 
 [[sprite]]

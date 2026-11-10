@@ -1,21 +1,14 @@
-# BetterUI (mod BetterUI): the game Lua commands its grafts ask (docs/framework/native.md §2). The answers are
-# functions of scripts\better_ui.lua. Until 1.16.0 clean_hud.dll registered them (same names, same answers).
 schema = "VRFW.game/1"
 
-# Graft ui_clean_dock_panel (team dock): the tactic row slices are in icon_tactics.g4tx. Without the command each tactic
-# box keeps its own plate.
+# Graft better_ui_dock_panel (team dock): the tactic row slices are in icon_tactics.g4tx.
 [[VRFW.Command]]
-name = "CMND_EVT_CHD_TACTIC_SLICES"
+name = "CMND_BETTERUI_TACTIC_SLICES"
 handler = "BetterUI.TacticSlices"
 
-# assets\lua\_all\better_ui.lua (every menu VM, at the first position look asked): the position type (0 goalkeeper,
-# 1 defender, 2 midfielder, 3 forward) whose card look a position takes (config.toml [position_card_looks]).
 [[VRFW.Command]]
 name = "CMND_BETTERUI_POSITION_LOOK"
 handler = "BetterUI.PositionLook"
 
-# assets\lua\_all\formation_card_spread.lua (formation screens, once per menu): the tunables of config.toml
-# [formation_card_spread] as a table, or nothing when it is turned off (the pitch cards then stay where the game puts them).
 [[VRFW.Command]]
 name = "CMND_BETTERUI_FORMATION_CARD_SPREAD"
 handler = "BetterUI.FormationCardSpread"

@@ -1,8 +1,6 @@
 schema = "VRFW.game/2"
 
-# Shared bindings: game functions, globals and structs every mod uses, bound once here. Each `name` is its `game`
-# profile name, so every mod sees it under that name (docs/framework/native.md §2): VRFW.call("Match.ActorUnit", actor),
-# VRFW.game["Event.Manager"](), VRFW.mem.read_struct("TeamRecord", p), needs = ["Match.ActorUnit"].
+# Shared bindings: game functions, globals and structs every mod uses, bound once here.
 
 # ------------------------------------------------------------------------------------------------ match
 

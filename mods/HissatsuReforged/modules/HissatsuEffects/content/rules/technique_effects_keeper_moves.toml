@@ -1,9 +1,4 @@
 schema = "VRFW.behaviour/1"
-# Hissatsu Effects › technique effects of the keeper moves: each rule acts only on the move being used (its
-# `technique` list: the move, its same-name versions and its _or / _mm / _cro variants), for any player, the CPU
-# included. `text` = the sentence the move card shows (text\en.toml, text\es.toml). Family rules: one rule per
-# teammate count (`team_family`), the multipliers multiply. Values are starting values: tune them here or in
-# ModManager.
 
 # Mano celestial (whk00010)
 [[rule]]
@@ -43,7 +38,6 @@ text = "HissatsuEffects.te_whk01090"
 when = { technique = ["whk01090"], near = { who = "teammates", radius_m = 12.0, count = { min = 2 } } }
 do = { power_mult = 1.15 }
 
-# Romance de los tres reinos (whk01100)
 [[rule]]
 id = "te_whk01100"
 on = "move_power"
@@ -67,7 +61,6 @@ text = "HissatsuEffects.te_whk01310"
 when = { technique = ["whk01310"], score = "trailing" }
 do = { power_mult = 1.18 }
 
-# Megamanos mágicas (whk01490)
 [[rule]]
 id = "te_whk01490"
 on = "move_power"
@@ -75,7 +68,6 @@ text = "HissatsuEffects.te_whk01490"
 when = { technique = ["whk01490"], aura = true }
 do = { power_mult = 1.15 }
 
-# Ultramanos mágicas (whk01660)
 [[rule]]
 id = "te_whk01660"
 on = "move_power"
@@ -83,7 +75,6 @@ text = "HissatsuEffects.te_whk01660"
 when = { technique = ["whk01660"], score_margin = { max = -2 } }
 do = { power_mult = 1.18 }
 
-# Mano celestial del tigre (whk10070)
 [[rule]]
 id = "te_whk10070"
 on = "move_power"
@@ -107,7 +98,6 @@ text = "HissatsuEffects.te_whk00490"
 when = { technique = ["whk00490"], uses = { scope = "match", result = "won", count = 0 } }
 do = { power_mult = 1.18 }
 
-# Dados de la suerte (whk00960)
 [[rule]]
 id = "te_whk00960"
 on = "move_power"
@@ -115,7 +105,6 @@ text = "HissatsuEffects.te_whk00960"
 when = { technique = ["whk00960"], chance = 0.25 }
 do = { power_mult = 1.2 }
 
-# Mano celestial de la amistad (whk01680)
 [[rule]]
 id = "te_whk01680"
 on = "move_power"
@@ -147,7 +136,6 @@ text = "HissatsuEffects.te_rhk10020"
 when = { technique = ["rhk10020"], near = { who = "teammates", radius_m = 8.0, count = { min = 1 } } }
 do = { power_mult = 1.12 }
 
-# Despeje de puño (rhk10010)
 [[rule]]
 id = "te_rhk10010"
 on = "move_power"
@@ -251,7 +239,6 @@ text = "HissatsuEffects.te_whk00150"
 when = { technique = ["whk00150"], half_fraction_from = "2/3" }
 do = { power_mult = 1.12 }
 
-# Superpuño invencible (whk00440)
 [[rule]]
 id = "te_whk00440_family_1"
 on = "move_power"
@@ -279,7 +266,6 @@ text = "HissatsuEffects.te_whk00300"
 when = { technique = ["whk00300"], half = 2, half_fraction_from = "2/3" }
 do = { power_mult = 1.12 }
 
-# Araña gigante (whk00600)
 [[rule]]
 id = "te_whk00600"
 on = "move_power"
@@ -287,7 +273,6 @@ text = "HissatsuEffects.te_whk00600"
 when = { technique = ["whk00600"], half = 2, half_fraction_from = "2/3" }
 do = { power_mult = 1.12 }
 
-# Recepción negativa (whk01020)
 [[rule]]
 id = "te_whk01020"
 on = "move_power"
@@ -295,7 +280,6 @@ text = "HissatsuEffects.te_whk01020"
 when = { technique = ["whk01020"], score_margin = { min = 2 } }
 do = { power_mult = 1.12 }
 
-# Despeje de leñador (whk00130)
 [[rule]]
 id = "te_whk00130"
 on = "move_power"
@@ -411,7 +395,6 @@ text = "HissatsuEffects.te_whk01070"
 when = { technique = ["whk01070"], chance = 0.35 }
 do = { power_mult = 1.12 }
 
-# Guardia del coliseo (whk00620)
 [[rule]]
 id = "te_whk00620"
 on = "move_power"
@@ -427,7 +410,6 @@ text = "HissatsuEffects.te_whk00810"
 when = { technique = ["whk00810"], element = "forest" }
 do = { power_mult = 1.12 }
 
-# Constelación estelar (whk00430)
 [[rule]]
 id = "te_whk00430"
 on = "move_power"
@@ -435,7 +417,6 @@ text = "HissatsuEffects.te_whk00430"
 when = { technique = ["whk00430"], half = 2, half_fraction_from = "2/3" }
 do = { power_mult = 1.15 }
 
-# Combustión (whk00450)
 [[rule]]
 id = "te_whk00450"
 on = "move_power"
@@ -459,7 +440,6 @@ text = "HissatsuEffects.te_whk01060"
 when = { technique = ["whk01060"], element = "mountain" }
 do = { power_mult = 1.12 }
 
-# Ancla de navío (whk00740)
 [[rule]]
 id = "te_whk00740"
 on = "move_power"
@@ -489,7 +469,6 @@ text = "HissatsuEffects.te_whk00640"
 when = { technique = ["whk00640"], half = 2, half_fraction_from = "2/3", score = "trailing" }
 do = { power_mult = 1.15 }
 
-# Repulsión (whk01130)
 [[rule]]
 id = "te_whk01130"
 on = "move_power"
@@ -497,7 +476,6 @@ text = "HissatsuEffects.te_whk01130"
 when = { technique = ["whk01130"], half = 2, score = "leading" }
 do = { power_mult = 1.12 }
 
-# Espiral de distorsión (whk00050)
 [[rule]]
 id = "te_whk00050"
 on = "move_power"
@@ -559,7 +537,6 @@ text = "HissatsuEffects.te_whk01280"
 when = { technique = ["whk01280"], rival = { element = "wind" } }
 do = { power_mult = 0.893 }
 
-# Mate del dragón (whk01330)
 [[rule]]
 id = "te_whk01330_family_1"
 on = "move_power"
@@ -579,7 +556,6 @@ on = "move_power"
 when = { technique = ["whk01330"], team_family = { family = "HissatsuReforged.Dragon", count = { min = 3 } } }
 do = { power_mult = 1.04 }
 
-# Mano oceánica (whk01400)
 [[rule]]
 id = "te_whk01400_family_1"
 on = "move_power"
@@ -695,7 +671,6 @@ text = "HissatsuEffects.te_whk01270"
 when = { technique = ["whk01270"], near = { who = "teammates", radius_m = 12.0, count = { min = 2 } }, score = "level" }
 do = { power_mult = 1.12 }
 
-# Boca de la verdad (whk01640)
 [[rule]]
 id = "te_whk01640"
 on = "move_power"
@@ -703,7 +678,6 @@ text = "HissatsuEffects.te_whk01640"
 when = { technique = ["whk01640"], half = 1, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Aguijón (whk00650)
 [[rule]]
 id = "te_whk00650"
 on = "move_power"
@@ -711,7 +685,6 @@ text = "HissatsuEffects.te_whk00650"
 when = { technique = ["whk00650"], half = 2, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Rotación inversa (whk00770)
 [[rule]]
 id = "te_whk00770"
 on = "move_power"
@@ -719,7 +692,6 @@ text = "HissatsuEffects.te_whk00770"
 when = { technique = ["whk00770"], half_fraction_to = "1/3", score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Dardo acuático (whk01240)
 [[rule]]
 id = "te_whk01240"
 on = "move_power"
@@ -727,7 +699,6 @@ text = "HissatsuEffects.te_whk01240"
 when = { technique = ["whk01240"], half_fraction_from = "2/3", score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Portón del castillo (whk01300)
 [[rule]]
 id = "te_whk01300"
 on = "move_power"
@@ -743,7 +714,6 @@ text = "HissatsuEffects.te_whk00180"
 when = { technique = ["whk00180"], near = { who = "teammates", radius_m = 8.0, count = { min = 1 } }, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Uñas afiladas (whk00330)
 [[rule]]
 id = "te_whk00330"
 on = "move_power"
@@ -775,7 +745,6 @@ text = "HissatsuEffects.te_whk01470"
 when = { technique = ["whk01470"], score = "level" }
 do = { cost_mult = 0.8 }
 
-# Escudo tricerátops (whk01580)
 [[rule]]
 id = "te_whk01580"
 on = "tension_pay"
@@ -791,7 +760,6 @@ text = "HissatsuEffects.te_whk01615"
 when = { technique = ["whk01615"], rival = { element = "forest" } }
 do = { power_mult = 0.893 }
 
-# Sonata del olvido (whk01670)
 [[rule]]
 id = "te_whk01670"
 on = "move_power"
@@ -817,7 +785,6 @@ on = "move_power"
 when = { technique = ["whk01670"], uses = { scope = "half", count = { min = 4 } } }
 do = { power_mult = 1.03 }
 
-# Despeje a presión (whk00090)
 [[rule]]
 id = "te_whk00090"
 on = "tension_pay"
@@ -825,7 +792,6 @@ text = "HissatsuEffects.te_whk00090"
 when = { technique = ["whk00090"], half = 1 }
 do = { cost_mult = 0.8 }
 
-# Parada múltiple (whk00320)
 [[rule]]
 id = "te_whk00320"
 on = "tension_pay"
@@ -873,7 +839,6 @@ text = "HissatsuEffects.te_whk01530"
 when = { technique = ["whk01530"], score_margin = { min = 2 } }
 do = { cost_mult = 0.8 }
 
-# Paradón satelital (whk01630)
 [[rule]]
 id = "te_whk01630"
 on = "tension_pay"
@@ -933,7 +898,6 @@ text = "HissatsuEffects.te_whk00160"
 when = { technique = ["whk00160"], half = 1, score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Salto del cisne (whk00370)
 [[rule]]
 id = "te_whk00370"
 on = "tension_pay"
@@ -957,7 +921,6 @@ text = "HissatsuEffects.te_whk00670"
 when = { technique = ["whk00670"], chance = 0.35 }
 do = { power_mult = 1.18 }
 
-# Escudo guardián (whk00920)
 [[rule]]
 id = "te_whk00920"
 on = "keeper_duel"
@@ -965,7 +928,6 @@ text = "HissatsuEffects.te_whk00920"
 when = { technique = ["whk00920"], rival = { element = "fire" } }
 do = { power_mult = 0.893 }
 
-# Presa titánica (whk00930)
 [[rule]]
 id = "te_whk00930"
 on = "tension_pay"
@@ -973,7 +935,6 @@ text = "HissatsuEffects.te_whk00930"
 when = { technique = ["whk00930"], near = { who = "teammates", radius_m = 8.0, count = { min = 1 } } }
 do = { cost_mult = 0.8 }
 
-# Cúpula carmesí (whk00970)
 [[rule]]
 id = "te_whk00970"
 on = "tension_pay"
@@ -981,7 +942,6 @@ text = "HissatsuEffects.te_whk00970"
 when = { technique = ["whk00970"], near = { who = "teammates", radius_m = 15.0, count = { min = 2 } } }
 do = { cost_mult = 0.8 }
 
-# Géiser gigante (whk01150)
 [[rule]]
 id = "te_whk01150"
 on = "tension_pay"
@@ -989,7 +949,6 @@ text = "HissatsuEffects.te_whk01150"
 when = { technique = ["whk01150"], near = { who = "teammates", radius_m = 12.0, count = 0 } }
 do = { cost_mult = 0.8 }
 
-# Defensa de muñecos (whk01160)
 [[rule]]
 id = "te_whk01160"
 on = "tension_pay"
@@ -1005,7 +964,6 @@ text = "HissatsuEffects.te_whk01200"
 when = { technique = ["whk01200"], chance = 0.25 }
 do = { cost_mult = 0.8 }
 
-# Pisotón de mamut (whk01340)
 [[rule]]
 id = "te_whk01340"
 on = "tension_pay"
@@ -1013,7 +971,6 @@ text = "HissatsuEffects.te_whk01340"
 when = { technique = ["whk01340"], chance = 0.35 }
 do = { cost_mult = 0.8 }
 
-# Pisotón de Magnatas (whk01341)
 [[rule]]
 id = "te_whk01341"
 on = "tension_pay"
@@ -1021,7 +978,6 @@ text = "HissatsuEffects.te_whk01341"
 when = { technique = ["whk01341"], element = "wind" }
 do = { cost_mult = 0.8 }
 
-# Pisotón de Dolmega (whk01342)
 [[rule]]
 id = "te_whk01342"
 on = "tension_pay"
@@ -1109,7 +1065,6 @@ text = "HissatsuEffects.te_whk01392"
 when = { technique = ["whk01392"], near = { who = "teammates", radius_m = 15.0, count = { min = 2 } }, score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Contragolpe férreo (whk01420)
 [[rule]]
 id = "te_whk01420"
 on = "tension_pay"
@@ -1117,7 +1072,6 @@ text = "HissatsuEffects.te_whk01420"
 when = { technique = ["whk01420"], near = { who = "teammates", radius_m = 12.0, count = 0 }, score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Mar de lágrimas (whk01430)
 [[rule]]
 id = "te_whk01430"
 on = "tension_pay"
@@ -1125,7 +1079,6 @@ text = "HissatsuEffects.te_whk01430"
 when = { technique = ["whk01430"], near = { who = "teammates", radius_m = 12.0, count = { min = 2 } }, score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Dimensión Kamakura (whk01500)
 [[rule]]
 id = "te_whk01500"
 on = "move_power"
@@ -1165,15 +1118,12 @@ text = "HissatsuEffects.te_whk01700"
 when = { technique = ["whk01700"], rival = { element = "mountain" } }
 do = { power_mult = 0.893 }
 
-# Gota de la quietud (whk10030)
 [[rule]]
 id = "te_whk10030"
 on = "tension_pay"
 text = "HissatsuEffects.te_whk10030"
 when = { technique = ["whk10030"], near = { who = "teammates", radius_m = 15.0, count = { min = 2 } }, score = "level" }
 do = { cost_mult = 0.8 }
-
-# ---- Hissatsu Effects 1.13.0: own effects of the moves whose v1 family line was removed by families v2
 
 # Cuchilla asesina (whk00190)
 [[rule]]
@@ -1183,7 +1133,6 @@ text = "HissatsuEffects.te_whk00190"
 when = { technique = ["whk00190"], uses = { scope = "match", count = 0 } }
 do = { power_mult = 1.15 }
 
-# Cabezonería (whk00260)
 [[rule]]
 id = "te_whk00260"
 on = "keeper_duel"
@@ -1207,7 +1156,6 @@ text = "HissatsuEffects.te_whk00460"
 when = { technique = ["whk00460"], half_fraction_to = "1/3", score = "leading" }
 do = { power_mult = 1.12 }
 
-# Tormenta del desierto (whk00560)
 [[rule]]
 id = "te_whk00560_1"
 on = "move_power"
@@ -1233,7 +1181,6 @@ text = "HissatsuEffects.te_whk00590"
 when = { technique = ["whk00590"], rival = { chained = true } }
 do = { power_mult = 0.893 }
 
-# Millón de manos (whk00630)
 [[rule]]
 id = "te_whk00630_1"
 on = "move_power"
@@ -1267,7 +1214,6 @@ text = "HissatsuEffects.te_whk00760"
 when = { technique = ["whk00760"], half_fraction_to = "1/3", half = 1, score = "leading" }
 do = { power_mult = 1.12 }
 
-# Puños certeros (whk00780)
 [[rule]]
 id = "te_whk00780"
 on = "move_power"
@@ -1299,7 +1245,6 @@ text = "HissatsuEffects.te_whk00940"
 when = { technique = ["whk00940"], half_fraction_to = "1/3", half = 1, score = "leading" }
 do = { cost_mult = 0.85 }
 
-# Ciclón oscuro (whk01040)
 [[rule]]
 id = "te_whk01040"
 on = "move_power"
@@ -1307,7 +1252,6 @@ text = "HissatsuEffects.te_whk01040"
 when = { technique = ["whk01040"], uses = { scope = "match", result = "lost", count = { min = 1 } } }
 do = { power_mult = 1.12 }
 
-# Ciclón humano (whk01080)
 [[rule]]
 id = "te_whk01080"
 on = "move_power"
@@ -1315,7 +1259,6 @@ text = "HissatsuEffects.te_whk01080"
 when = { technique = ["whk01080"], half_fraction_from = "2/3", score = "leading" }
 do = { power_mult = 1.12 }
 
-# Mano sombría (whk01140)
 [[rule]]
 id = "te_whk01140"
 on = "move_power"
@@ -1331,7 +1274,6 @@ text = "HissatsuEffects.te_whk01170"
 when = { technique = ["whk01170"], rival = { special = false } }
 do = { power_mult = 0.87 }
 
-# Cabezazo volcánico (whk01250)
 [[rule]]
 id = "te_whk01250"
 on = "tension_pay"
@@ -1394,3 +1336,11 @@ on = "move_power"
 text = "HissatsuEffects.te_whk10100"
 when = { technique = ["whk10100"], half_fraction_to = "1/3", score = "trailing" }
 do = { power_mult = 1.12 }
+
+# Mano omega (whk00690): carries the card text; the effect is MoveEffect.CriticalCatch in move_mini_effects.toml.
+[[rule]]
+id = "te_whk00690"
+on = "move_power"
+text = "HissatsuEffects.te_whk00690"
+when = { technique = ["whk00690"] }
+do = { power_mult = 1.0 }

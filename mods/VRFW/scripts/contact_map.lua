@@ -1,41 +1,26 @@
--- Contact maps (schema VRFW.contact_map/1): serves every active mod's content\contact_maps\*.toml to the screen vrfw_contact_map_menu.
--- Declarations: [[VRFW.ContactSet]], [[VRFW.ContactMap]] with its Zone / Node / Item entries. Recruiting, prices and the per-save record are the screen's.
--- A [[VRFW.ContactMap]] with a [VRFW.ContactMap.Teams] table is built from the game's teams and matches (lib/contact_teams.lua).
---   CMND_VRFW_CONTACT_SETS()          -> { {key, crc, title, maps}, ... }  every declared set
---   CMND_VRFW_CONTACT_MAPS(set, lang) -> { key, title, rc, ic, rct, ict, maps = { {key, title, kind, tex, sprite, players, excl, series}, ... }, reveal, refund, join_rarity }  (set = crc32 of "<mod>.<name>" or the text)
---   CMND_VRFW_CONTACT_MAP(map, lang)  -> { key, kind, title, tex, sprite, strict, series, zones = {... label, reqs}, items = {...}, nodes = { {kind, zone, card, face, level, price, name, x, y, links, reqs, story, notes, cards} } }  (map = key text or crc32)
--- Titles are sent as crc32 of their menu_text row id; character and team names are read from the game's chara_text / team_text in the asked language.
 
 ContactMap = ContactMap or {}
 
-require "VRFW/lib/basics"
-local GameText = require "VRFW/lib/game_text"
+local GameText = VRFW.names
 local info, warn = VRFW.logger("contact_map")
 
--- Debug view-everything mode (config.toml [debug] reveal_all): the screen draws every tile open; signing keeps its real rules and writes nothing.
--- The same key is the game_state vrfw.debug.reveal_all.
-local REVEAL_ALL = VRFW.files.config("debug.reveal_all") == true
+local REVEAL_ALL = VRFW.config("debug.reveal_all", false) == true
 if REVEAL_ALL then
   warn("[debug] reveal_all is ON: view-everything mode (contact maps, office pages) - turn it off for players")
 end
 
-local Id = require "lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
 local crc = VRFW.crc32
+local Memory = VRFW.memory
+local TableFiles = VRFW.table_files
 
 -- "0x..." / decimal text / a number -> the number; nil otherwise
 local function id_of(v)
-  if type(v) == "number" then return u32(v) end
-  if type(v) ~= "string" then return nil end
-  local h = v:match("^%s*0[xX](%x+)%s*$")
-  if h then return tonumber(h, 16) % 4294967296 end
-  if v:match("^%s*%d+%s*$") then return tonumber(v) % 4294967296 end
-  return nil
+  return Id.parse(v)
 end
 
--- An item reference: a number / "0x..." as id_of, any other name = its crc32 (a game internal name such as "tk_hr000008",
--- or a mod's item "<mod>.<name>": both are the item's id)
 local function item_id(v)
   local n = id_of(v)
   if n then return n end
@@ -43,18 +28,15 @@ local function item_id(v)
   return nil
 end
 
-local Teams = require "lib/contact_teams"   -- team pages derived from the game's data ([VRFW.ContactMap.Teams])
-
--- ---------------------------------------------------------------------------------------------- declarations
+local Teams = VRFW.teams.contact
 
 local SETS, SET_BY, MAPS, MAP_BY = nil, {}, {}, {}
--- [[VRFW.ContactBypass]] Option = "<option id>" (a test mod's own Mods options row): while that row is on, every page
--- of every set is open and signing asks no requirement and spends nothing; { {mod, option}, ... }
 local BYPASS = {}
 local KINDS = { zones = true, network = true, list = true }
 local NODE_KINDS = { player = true, gate = true, open = true, start = true }
 
 local ELEMENTS = { wind = 1, forest = 2, fire = 3, mountain = 4, void = 5 }
+local POSITIONS = { gk = 1, df = 2, mf = 3, fw = 4 }
 local POSITIONS = { GK = 1, FW = 2, MF = 3, DF = 4 }
 
 local function req_list(mod, where, list)
@@ -96,21 +78,9 @@ local function req_list(mod, where, list)
   return out
 end
 
--- ---------------------------------------------------------------------------------------------- own faces
 -- A player with no face icon of his own would be drawn with the default face, so such players are left out of every map.
--- Derived from the data: the node's `Face`, else the internal name (chara_base `name`) of its `Base` / its card's base. Cannot tell: kept.
-local Faces = require "VRFW/lib/faces"     -- the own-face check of a node's Face name (docs/framework/chara-index.md §2)
-local RealPlayers = require "VRFW/lib/real_players"   -- the one real-player rule (own face, player body, profile)
-
--- The framework's shared character index (VRFW.character): internal name and name text per chara_base id, chara_base id per card; asked per id and cached here.
-
--- Key of a game table as the game loads it: `<stem>.cfg.bin` when listed, else the newest `<stem>_<version>.cfg.bin`.
-local function table_key(stem)
-  local plain = stem .. ".cfg.bin"
-  local ok, k = pcall(VRFW.table.keys, plain)
-  if ok and type(k) == "table" and #k > 0 then return plain end
-  return stem .. "_*.cfg.bin"
-end
+local Faces = VRFW.faces
+local RealPlayers = VRFW.real_players   -- the one real-player rule (own face, player body, profile)
 
 -- A table whose missing keys are asked once from `f` (nil answers are asked again)
 local function lazy(f)
@@ -130,8 +100,8 @@ end
 local CHARA = nil
 local function chara_index()
   if CHARA ~= nil then return CHARA end
-  local t0 = VRFW.now()
-  local ok, e = pcall(VRFW.character.card, 0)     -- builds the shared index now (once per session for every script)
+  local t0 = VRFW.now_ms()
+  local ok, e = pcall(VRFW.character.card, 0)
   if not ok then warn("character index not readable: " .. tostring(e)) end
   CHARA = {
     text_of = lazy(function(b)
@@ -143,12 +113,10 @@ local function chara_index()
       return okb and type(b) == "number" and u32(b) or nil
     end),
   }
-  info(string.format("character index ready in %d ms (the framework's, shared)", math.floor(VRFW.now() - t0)))
+  info(string.format("character index ready in %d ms (the framework's, shared)", math.floor(VRFW.now_ms() - t0)))
   return CHARA
 end
 
--- true = a real player (VRFW/lib/real_players: an own face icon, a player body, a profile), false = not (e.g. the
--- engine's default face, a mascot body), nil = cannot tell; a node's Face name is checked for its own face icon too
 local function own_face(face, base, card)
   if face ~= "" and Faces.of_name(face) == false then return false end
   local b = base ~= 0 and base or chara_index().base_of[card]
@@ -156,14 +124,7 @@ local function own_face(face, base, card)
   return RealPlayers.of_character(b)
 end
 
--- ---------------------------------------------------------------------------------------------- excluded cards
--- [[VRFW.ContactSet]] `Exclude = [ ... ]`: cards a set keeps off all its maps, derived from game data. Each entry is:
---   "<mod>.<name>"                        a declared [[VRFW.CardSet]]
---   { aura_variant = { aura_type = 2 } }  a card-set rule (any key of the card-set vocabulary)
---   { AuraVariants = { AuraType = 2 } }   legacy spelling of aura_variant (0 keshin, 1 armed, 2 miximax, ...)
---   { IdealMiximaxPartners = { AuraType = n } }  legacy spelling of { ideal_miximax_partner = { aura_type = n } }; { IdealMiximaxPartners = true } = { ideal_miximax_partner = true }.
--- On every map of the set: such player nodes are removed (networks relink the tiles around them), requirements drop such cards, empty gates and zones go.
--- The cards stay in the save; the screen skips the map's `excl` when counting.
+-- [[VRFW.ContactSet]] `Exclude = [ ... ]`: cards a set keeps off all its maps, derived from game data.
 
 -- One Exclude entry as a card-set rule (a set name stays a text) and its log text; nil when not one
 local function exclude_rule(r)
@@ -243,7 +204,6 @@ local function exclude_map(M, ex)
   local list = taken
   table.sort(list)
   if next(gone) == nil then return list end
-  -- a network: each group of linked excluded tiles is replaced by links between all tiles around it
   local extra = {}
   if M.kind == "network" then
     local nb = {}
@@ -362,9 +322,6 @@ local function exclude_set(s)
     #hex > 0 and table.concat(hex, ", ") or "none on the maps"))
 end
 
--- ---------------------------------------------------------------------------------------------- names
-
--- Names are read per language for only the text ids the maps name (NEED, collected when declarations are read), at CMND_VRFW_CONTACT_MAPS, and kept per language.
 local NAMES = { lang = nil, of = {} }   -- of[text id] = the name (furigana reduced)
 local NEED = { ids = {}, list = {} }    -- the name text ids the maps use
 
@@ -399,10 +356,10 @@ local lang_of = GameText.language
 local function names_for(lang)
   chara_index()
   if NAMES.lang == lang then return end
-  local t0 = VRFW.now()
+  local t0 = VRFW.now_ms()
   NAMES.of = GameText.chara_names(NEED.list, lang)
   NAMES.lang = lang
-  info(string.format("names (%s): %d text ids read in %d ms", lang, #NEED.list, math.floor(VRFW.now() - t0)))
+  info(string.format("names (%s): %d text ids read in %d ms", lang, #NEED.list, math.floor(VRFW.now_ms() - t0)))
 end
 
 -- A game text table's row in a language (Notes); the whole table is read once per language
@@ -410,7 +367,7 @@ local function game_text(tbl, lang, id)
   return GameText.texts(tbl, lang)[id]
 end
 
--- A note's text: <VALUE1> = its value, the progress «<ACHIEVE_COUNT>/» left out, line breaks as spaces
+-- A note's text: <VALUE1> = its value, the progress "<ACHIEVE_COUNT>/" left out, line breaks as spaces
 local function note_text(nt, lang)
   local s = game_text(nt.table, lang, nt.id)
   if type(s) ~= "string" or s == "" then return nil end
@@ -433,23 +390,19 @@ end
 local function team_name(id, lang)
   if id == nil or id == 0 then return "" end
   local s = GameText.texts("team_text", lang)[id]
-  return s and GameText.no_furigana(s) or ""
+  return s and GameText.without_furigana(s) or ""
 end
 
--- [VRFW.ContactSet] ElementCurrency = { wind = card, forest = …, fire = …, mountain = …, void = … }: the spirit card a
--- team page's player of that element costs (the classic «fichas»); element number -> card
-local function element_currency(t)
+local function element_currency(t, names)
   if type(t) ~= "table" then return nil end
   local out = {}
-  for name, e in pairs(ELEMENTS) do
+  for name, e in pairs(names or ELEMENTS) do
     local id = id_of(t[name])
     if id then out[e] = id end
   end
   return next(out) and out or nil
 end
 
--- [VRFW.ContactSet] Requirements = { config = "<dotted path of the declaring mod's config>", default = … } or a
--- bool: false = the team pages' card terms ask no requirement (price only; trials stay playable); absent = asked
 local function requirements_on(v, mod)
   if type(v) == "boolean" then return v end
   if type(v) ~= "table" or type(v.config) ~= "string" then return nil end
@@ -458,12 +411,10 @@ local function requirements_on(v, mod)
   return x == true
 end
 
--- [VRFW.ContactSet] ElementCurrencyTitle = { wind = "<menu_text row>", … }: the name of each element's price spirit
--- (e.g. «Fichas de Viento»; ElementCurrencyUnit: one of them, «Ficha de viento»); element number -> crc32 of the row
-local function element_titles(t)
+local function element_titles(t, names)
   if type(t) ~= "table" then return nil end
   local out = {}
-  for name, e in pairs(ELEMENTS) do
+  for name, e in pairs(names or ELEMENTS) do
     if type(t[name]) == "string" and t[name] ~= "" then out[e] = crc(t[name]) end
   end
   return out
@@ -476,11 +427,11 @@ local TEAMS_CTX = {
   team_name = function(id) return team_name(id, "en") end,
 }
 
-local LOAD_UNREADABLE = false   -- load() could not read the declarations (that empty result is never kept)
+local LOAD_UNREADABLE = false
 
 local function load()
   if SETS ~= nil then return end
-  local t0 = VRFW.now()
+  local t0 = VRFW.now_ms()
   SETS, SET_BY, MAPS, MAP_BY = {}, {}, {}, {}
   local ok, files = pcall(VRFW.files.declarations, "content/contact_maps")
   if not ok or type(files) ~= "table" then
@@ -488,10 +439,10 @@ local function load()
     LOAD_UNREADABLE = true
     return
   end
-  local t_files = VRFW.now()
+  local t_files = VRFW.now_ms()
   chara_index()
-  local t_index = VRFW.now()
-  local DERIVED, TERMS, TRIALS = {}, {}, {}
+  local t_index = VRFW.now_ms()
+  local DERIVED, TERMS, TRIALS, POSITION_CURRENCIES = {}, {}, {}, {}
   for _, f in ipairs(files) do
     local v = type(f.data) == "table" and type(f.data.VRFW) == "table" and f.data.VRFW or {}
     for _, b in ipairs(type(v.ContactBypass) == "table" and v.ContactBypass or {}) do
@@ -526,6 +477,10 @@ local function load()
     -- per-card terms and trials of a set (team pages): read after every set is known
     for _, t in ipairs(type(v.ContactTerms) == "table" and v.ContactTerms or {}) do
       TERMS[#TERMS + 1] = { mod = f.mod, set = t.Set, list = t.Terms, where = string.format("mods/%s/%s", f.mod, f.file) }
+    end
+    for _, t in ipairs(type(v.ContactPositionCurrency) == "table" and v.ContactPositionCurrency or {}) do
+      POSITION_CURRENCIES[#POSITION_CURRENCIES + 1] = { mod = f.mod, set = t.Set, currency = element_currency(t.Currency, POSITIONS),
+        title = element_titles(t.Title, POSITIONS), unit = element_titles(t.Unit, POSITIONS), where = string.format("mods/%s/%s", f.mod, f.file) }
     end
     for _, t in ipairs(type(v.ContactTrials) == "table" and v.ContactTrials or {}) do
       TRIALS[#TRIALS + 1] = { mod = f.mod, set = t.Set, list = t.Trials }
@@ -581,7 +536,6 @@ local function load()
             node.kind = "open"
           end
           if node.kind == "player" and own_face(node.face, node.base, node.card) == false then
-            -- no real player (no face of his own, a mascot body, no profile): a network keeps the tile as a passage; elsewhere the node stays in the list as «hidden»
             node.kind = M.kind == "network" and "open" or "hidden"
             M.faceless = M.faceless or {}
             M.faceless[#M.faceless + 1] = node
@@ -595,7 +549,7 @@ local function load()
         if M.faceless ~= nil then
           if M.players == 0 then
             -- Every player of the map lacks a face: the face check is assumed wrong (for example, another game build); keep them.
-            warn(key .. ": no player has a face icon (VRFW/lib/faces): the face check is skipped for this map")
+            warn(key .. ": no player has a face icon (VRFW.faces): the face check is skipped for this map")
             for _, node in ipairs(M.faceless) do
               node.kind = "player"
               M.players = M.players + 1
@@ -623,6 +577,14 @@ local function load()
   local function set_of(mod, name)
     name = tostring(name or "")
     return SET_BY[name:find(".", 1, true) and name or (mod .. "." .. name)]
+  end
+  for _, t in ipairs(POSITION_CURRENCIES) do
+    local st = set_of(t.mod, t.set)
+    if st == nil then
+      warn(t.where .. ": [[VRFW.ContactPositionCurrency]] of an undeclared set " .. tostring(t.set) .. " (left out)")
+    else
+      st.position_currency, st.position_title, st.position_unit = t.currency, t.title, t.unit
+    end
   end
   for _, t in ipairs(TERMS) do
     local st = set_of(t.mod, t.set)
@@ -682,20 +644,18 @@ local function load()
       warn(M.key .. ": set " .. M.set .. " is not declared (map not shown)")
     end
   end
-  local t_maps = VRFW.now()
+  local t_maps = VRFW.now_ms()
   for _, s in ipairs(SETS) do
     table.sort(s.maps, function(a, b) if a.order ~= b.order then return a.order < b.order end return a.key < b.key end)
     if s.exclude ~= nil then exclude_set(s) end
     info(string.format("set %s: %d maps", s.key, #s.maps))
   end
   need_texts()
-  local t1 = VRFW.now()
+  local t1 = VRFW.now_ms()
   info(string.format("declarations read in %d ms (kept for the session): files %d, character index %d, maps + faces %d, "
     .. "exclusions + name ids %d", math.floor(t1 - t0), math.floor(t_files - t0), math.floor(t_index - t_files),
     math.floor(t_maps - t_index), math.floor(t1 - t_maps)))
 end
-
--- ---------------------------------------------------------------------------------------------- commands
 
 local function find_set(v)
   load()
@@ -709,9 +669,7 @@ local function find_map(v)
   return MAP_BY[u32(v)]
 end
 
--- CMND_VRFW_CONTACT_HUB(set) -> { menu, title }: the menu a set opens on (Hub = "free_match": the free-match list
--- soccer_vs_cpu_list_menu as the set's team hub; 0 = the contact map screen itself) and the set's title row
-local HUBS = { free_match = 1970579282 }   -- crc32("soccer_vs_cpu_list_menu")
+local HUBS = { free_match = 1970579282 }
 function ContactMap.Hub(set)
   local s = find_set(set)
   if s == nil then return nil end
@@ -733,13 +691,8 @@ function ContactMap.Find(set, game)
   return nil
 end
 
--- ---------------------------------------------------------------------------------------------- hub list filter
--- While a set's hub is open (CMND_VRFW_CONTACT_HUB_FILTER(set) from the list's OnInit; 0 from any other open and when
--- the hub closes), the free-match list's builder (hook ContactHub.ListBuild, content/game/contact_hub.toml) keeps only
--- the rows whose match has a team page: its row pointers (aggregate + 0x10) compacted, its count (+ 0x08) lowered.
 local HUBF = { games = nil, applied = false, logs = 0, bypass = false, tabs = nil }
 
--- a declared bypass switch ([[VRFW.ContactBypass]]) is on now
 local function bypass_on()
   for _, key in ipairs(BYPASS) do
     local ok, v = pcall(VRFW.option, key)
@@ -776,20 +729,12 @@ function ContactMap.HubFilter(set)
   return HUBF.applied
 end
 
-local function rd(ty, at)
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
+local rd = Memory.read
 
--- The builder (BuildRows) walks the opponent table (aggregate + 0x810: rows + 0x50, count + 0x58, 0x1C bytes: category,
--- game, sort, 4 class conditions) and appends a 12-byte entry (game, category, sort, 4 class marks) and its pointer for
--- each row of the asked tab (filter + 4) whose class is open; at most 0x100. With a bypass switch on, the rows of the tab
--- that have a page and were left out are built the same way, and the pointers are put back in the table's order.
 local ROWS = { TABLE = 0x810, ROWS = 0x50, COUNT = 0x58, STRIDE = 0x1C, ENTRY = 12, MAX = 0x100, JOVENES = 0x10C538F9 }
 
 local function tab_of_row(category, game)
-  if game == ROWS.JOVENES then return 1 end      -- the builder's own exception (the tutorial team in the IE2 tab)
+  if game == ROWS.JOVENES then return 1 end
   if category == 0 then return 8 end
   return (HUBF.tabs or {})[game] or 0
 end
@@ -822,10 +767,10 @@ local function add_locked_rows(agg, entries, filter)
       elseif HUBF.games[g] and tab_of_row(category, g) == tab and used < ROWS.MAX and #order < ROWS.MAX then
         local e = entries + used * ROWS.ENTRY
         local sort = rd("u32", at + 8) or 0
-        pcall(VRFW.mem.write, "u32", e, g)
-        pcall(VRFW.mem.write, "u8", e + 4, category % 256)
-        pcall(VRFW.mem.write, "u16", e + 6, sort % 65536)
-        for k = 0, 3 do pcall(VRFW.mem.write, "u8", e + 8 + k, 0xFF) end
+        VRFW.memory.write("u32", e, g)
+        VRFW.memory.write("u8", e + 4, category % 256)
+        VRFW.memory.write("u16", e + 6, sort % 65536)
+        for k = 0, 3 do VRFW.memory.write("u8", e + 8 + k, 0xFF) end
         used = used + 1
         added = added + 1
         order[#order + 1] = e
@@ -834,8 +779,8 @@ local function add_locked_rows(agg, entries, filter)
   end
   for _, q in pairs(have) do order[#order + 1] = q end   -- a built row the table walk did not meet: kept, at the end
   if added == 0 or #order > ROWS.MAX then return end
-  for i, q in ipairs(order) do pcall(VRFW.mem.write, "ptr", agg + 0x10 + (i - 1) * 8, q) end
-  pcall(VRFW.mem.write, "u32", agg + 8, #order)
+  for i, q in ipairs(order) do VRFW.memory.write("ptr", agg + 0x10 + (i - 1) * 8, q) end
+  VRFW.memory.write("u32", agg + 8, #order)
   if HUBF.logs < 20 then
     HUBF.logs = HUBF.logs + 1
     info(string.format("hub list: bypass switch on: %d locked team(s) of tab %d listed", added, tab))
@@ -857,7 +802,6 @@ VRFW.on("hook:ContactHub.ListBuild:post", function(ev)
   end
   local n = rd("u32", agg + 8)
   if type(n) ~= "number" or n == 0 or n > 4096 then return end
-  -- the retail layout only (pointers into the entries the builder was handed): a raised list keeps its rows
   local first = rd("ptr", agg + 0x10)
   if type(first) ~= "number" or first < entries or first >= entries + n * 12 then
     if HUBF.logs < 3 then
@@ -871,12 +815,12 @@ VRFW.on("hook:ContactHub.ListBuild:post", function(ev)
     local p = rd("ptr", agg + 0x10 + i * 8)
     local g = p and rd("u32", p)
     if g and games[u32(g)] then
-      if kept ~= i then pcall(VRFW.mem.write, "ptr", agg + 0x10 + kept * 8, p) end
+      if kept ~= i then VRFW.memory.write("ptr", agg + 0x10 + kept * 8, p) end
       kept = kept + 1
     end
   end
   if kept ~= n then
-    pcall(VRFW.mem.write, "u32", agg + 8, kept)
+    VRFW.memory.write("u32", agg + 8, kept)
     if HUBF.logs < 20 then
       HUBF.logs = HUBF.logs + 1
       info(string.format("hub list: %d of %d teams have a page", kept, n))
@@ -896,16 +840,12 @@ end
 function ContactMap.Maps(set, code)
   local s = find_set(set)
   if s == nil then return nil end
-  names_for(lang_of(code))           -- the screen opens: its maps' names, once per language (ContactMap.Map serves them)
-  -- refund: the spirits a released player gives back on a team page (ReleaseRefund, the price's spirit); join_rarity:
-  -- the rarity a signed player joins at (JoinRarity; nil = the recruit service's default)
-  -- bypass: a declared bypass switch is on now (read at each open: the row applies without a restart)
+  names_for(lang_of(code))
   local bypass = bypass_on()
   local out = { key = s.key, title = s.title, rc = s.rc, ic = s.ic, rct = s.rct, ict = s.ict, maps = {},
     reveal = REVEAL_ALL or bypass, bypass = bypass,
     refund = s.refund or 0, join_rarity = s.join_rarity }
   for _, M in ipairs(s.maps) do
-    -- series: a chara_series_id whose name (CMND_GET_CHARA_SERIES_INFO) the screen shows instead of the title
     out.maps[#out.maps + 1] = { key = M.key, title = M.title, kind = M.kind, tex = M.tex, sprite = M.sprite, players = M.players,
       excl = M.excl or {}, series = M.series or 0 }
   end
@@ -919,12 +859,23 @@ local function pay_element(s, spirit)
   end
   return 0
 end
+-- the position whose price spirit is `spirit` ([[VRFW.ContactPositionCurrency]]; 0 = none)
+local function pay_position(s, spirit)
+  for p, c in pairs(s.position_currency or {}) do
+    if c == spirit then return p end
+  end
+  return 0
+end
 local function pay_title(s, spirit)
+  local p = pay_position(s, spirit)
+  if p ~= 0 then return s.position_title and s.position_title[p] or 0 end
   local e = pay_element(s, spirit)
   return e ~= 0 and s.element_title and s.element_title[e] or 0
 end
 -- [VRFW.ContactSet] ElementCurrencyUnit: the name of ONE price spirit of that element (a team page's cost line)
 local function pay_unit(s, spirit)
+  local p = pay_position(s, spirit)
+  if p ~= 0 then return s.position_unit and s.position_unit[p] or 0 end
   local e = pay_element(s, spirit)
   return e ~= 0 and s.element_unit and s.element_unit[e] or 0
 end
@@ -941,7 +892,7 @@ function ContactMap.Map(map, code)
   for _, it in ipairs(M.items) do item_title[it.item] = it.title end
   if s.ic then item_title[s.ic] = item_title[s.ic] or s.ict end
   if s.rc then item_title[s.rc] = item_title[s.rc] or s.rct end
-  -- a «cleared» requirement (team pages): any (game, difficulty) of `games` won; `name` = the team to beat
+  -- a "cleared" requirement (team pages): any (game, difficulty) of `games` won; `name` = the team to beat
   local function cleared(r)
     return { kind = "cleared", games = r.games, count = 1, name = team_name(r.name_text, lang) }
   end
@@ -981,7 +932,7 @@ function ContactMap.Map(map, code)
       element = n.element, position = n.position, main = n.main, staff = n.staff,
       sold_at = (n.sold_at or 0) ~= 0 and team_name(n.sold_at, lang) or nil,
       sold_team = (n.sold_team or 0) ~= 0 and n.sold_team or nil, sold_map = n.sold_map,
-      pay_element = pay_element(s, n.spirit), pay_title = pay_title(s, n.spirit), pay_unit = pay_unit(s, n.spirit),
+      pay_element = pay_element(s, n.spirit), pay_position = pay_position(s, n.spirit), pay_title = pay_title(s, n.spirit), pay_unit = pay_unit(s, n.spirit),
       pay_name = (n.spirit or 0) ~= 0 and name_of_card(n.spirit) or nil }
     if n.story then
       local notes = {}
@@ -994,8 +945,6 @@ function ContactMap.Map(map, code)
   return out
 end
 
--- Body types a menu model pose has (menu_chara_model_pose_config); a menu building a 3D model sends the pose only for these.
-local POSE_STEM = "data/common/gamedata/menu/menu_chara_model_pose_config"
 local POSES = nil                      -- pose id -> { body types }
 local function scalar(v)               -- an RDBN field of length 1 may come as { value }
   if type(v) == "table" then return v[1] end
@@ -1003,10 +952,10 @@ local function scalar(v)               -- an RDBN field of length 1 may come as 
 end
 local function pose_index()
   if POSES ~= nil then return POSES end
-  local t0 = VRFW.now()
+  local t0 = VRFW.now_ms()
   POSES = {}
   local ok, e = pcall(function()
-    local key = table_key(POSE_STEM)
+    local key = TableFiles.file_name(TableFiles.MENU_CHARA_MODEL_POSE_CONFIG)
     local data = VRFW.table.raw(key, "m_BodyTypePoseDataList", { 2 }) or {}
     for _, r in ipairs(VRFW.table.raw(key, "m_MenuCharaBodyTypePoseList", { 1, 2 }) or {}) do
       local pose = u32(scalar(r[1]))
@@ -1030,15 +979,12 @@ local function pose_index()
   if not ok then warn("menu_chara_model_pose_config not readable: " .. tostring(e)) end
   local n = 0
   for _ in pairs(POSES) do n = n + 1 end
-  info(string.format("model poses: %d indexed in %d ms", n, math.floor(VRFW.now() - t0)))
+  info(string.format("model poses: %d indexed in %d ms", n, math.floor(VRFW.now_ms() - t0)))
   return POSES
 end
 
 local POSE_LOGGED = {}
--- Each player in his own team's kit: the uniform for the screen's 3D model, derived per card by lib/chara_kit.lua (0 = none: the build's default). Cached per card.
---   CMND_VRFW_CONTACT_KIT(card[, team]) -> { uniform, flags (2 = the keeper shirt), source (team / belong / own / roster / none) };
---   team = a team_config id that dresses the card (its uniform first)
-local Kit = require "lib/chara_kit"
+local Kit = VRFW.kits
 function ContactMap.Kit(card, team)
   local u, f, src = Kit.of(card, team)
   return { uniform = u, flags = f, source = src }
@@ -1054,11 +1000,8 @@ function ContactMap.PoseBodies(pose)
   return out
 end
 
--- The declarations, face check and character index are built once at script load (boot, off the game thread) and kept for the session.
--- Inputs do not change while the game runs; if the build fails, the first call builds it (its WARN says why).
--- The built sets, maps, name ids and pose index are kept between starts (VRFW.derived): a start with the same inputs reads them.
 do
-  local t0 = VRFW.now()
+  local t0 = VRFW.now_ms()
   local ok, e = pcall(function()
     chara_index()
     local kept = VRFW.derived("contact_maps", nil, function()
@@ -1078,6 +1021,6 @@ do
     SETS, CHARA, POSES = nil, nil, nil
     warn("built at load failed (" .. tostring(e) .. "): built on the screen's first call")
   else
-    info(string.format("contact maps built at load in %d ms (off the game thread)", math.floor(VRFW.now() - t0)))
+    info(string.format("contact maps built at load in %d ms (off the game thread)", math.floor(VRFW.now_ms() - t0)))
   end
 end

@@ -1,12 +1,4 @@
 schema = "VRFW.look/2"
-# Inazuma Japón (V): the game ships its textures (dx11/chr/_uniform/u001101/u112401_10.g4tx, keeper
-# u001201/u112451_10.g4tx, sleeves m000101/m112401_10, boots s000201/s112401_10, gloves g000201/g112401_10) and its
-# item icon uni_u112401, but no chara_parts or uniform_config rows. The rows below are those of the Victory Road kit
-# of the same meshes, «Equipación Crosswind-Fauxshore» (u111001_10 / keeper u111051_10, the u001101 / u001201 shirt,
-# standard n000101 shorts; boots and gloves of «Mary Times (V)», u112001), with this kit's textures and no colour
-# preset (`color` = 0, as many game kits: the game has none for u112401). Body variants as every Victory Road kit:
-# _blyR (navel), _slv (shoulders), _fld (folded sleeves), _dam (damaged); keeper _blyR, _lse / _lsa (long sleeves
-# rolled). The kit's item: content/items/unused_kits.toml (kit_inazuma_japan_v).
 
 [[clothes]]                              # field player
 model = "u112401_10"
@@ -77,8 +69,8 @@ rows = [{ texture = "_uniform/g000201/g112401_10.g4tx" }, {}, {}, {}]
 
 # the uniform: one side (home), like «Cala Pirata (V)»; every body-variant column names its model as the game's kits do
 [[kit]]
-name = "inazuma_japan_v"                 # id crc32(ChronicleDeluxe.inazuma_japan_v) = 0xA0F5F748
-from = 0x133240DC                        # Crosswind-Fauxshore (its home row: the flags and empty columns)
+name = "inazuma_japan_v"
+from = 0x133240DC
   [[kit.model]]
   type = 0
   shoes = "s112401_10"

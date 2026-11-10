@@ -1,0 +1,43 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# New synergy sf11001 (cloned from sf10001): its four members (pools of content\synergies\reworked_synergies.toml).
+
+[[item]]
+name = "four_magnificent"
+base = "sf10001"
+category = "synergy"
+icon_key = "sf11001"
+key_id = true
+  [item.text.es]
+  name = "Los cuatro magníficos"
+  [item.text.en]
+  name = "The Magnificent Four"
+  [item.text.fr]
+  name = "Les quatre magnifiques"
+  [item.text.de]
+  name = "Die vier Großartigen"
+  [item.text.it]
+  name = "I quattro magnifici"
+  [item.text.pt]
+  name = "Os quatro magníficos"
+
+[[currency]]
+name = "season_autumn_card"
+spirit = 0xB8026CDB                      # chara_param of Ted Autumn c02028510
+rarity = 4
+
+[[currency]]
+name = "season_summer_card"
+spirit = 0x864B07D0                      # chara_param of Alan Sumner c02027650
+rarity = 4
+
+[[currency]]
+name = "season_spring_card"
+spirit = 0xE7423239                      # chara_param of Verne Spring c02028970
+rarity = 4
+
+[[currency]]
+name = "season_winter_card"
+spirit = 0x468CA5C8                      # chara_param of George Winters c01003050
+rarity = 4

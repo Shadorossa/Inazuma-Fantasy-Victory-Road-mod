@@ -1,0 +1,266 @@
+schema = "VRFW.migration/1"
+id = "VRFW.cache_two_roots"
+description = "The cache keeps only VRFW and mods at its top level: the folders of the old layout go (all of them rebuild by themselves)"
+phase = "data"
+after = ["VRFW.no_compat_names"]
+
+# The framework's engines and the loader's parts (now under cache/VRFW)
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/anim_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/audio_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/changelog"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/character_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/fx_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/image_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/item_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/look_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/match_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/menu_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/mod_options"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/mode_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/model_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/mods_menu"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/rarity_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/rule_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/save_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/services"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/system_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/team_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/technique_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/telop_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/text_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/theme_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/transform_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/loader"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/lua_patch"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/mx"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/merged"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/game"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/vrfw_prebuild"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/vr_framework_prebuild"
+cache = true
+
+[[step]]
+kind = "delete_file"
+path = "{data}/cache/report.json"
+cache = true
+
+# The mods' folders (now under cache/mods)
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/AuraOverhaul"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/BattleBayDeluxe"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/BetterMenu"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/BetterQoL"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/BetterUI"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/CareerMode"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/CharacterReforged"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/ChronicleDeluxe"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/FootballReforged"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/HissatsuLevelUp"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/HissatsuReforged"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/IECross"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/InaRogue"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/InazumaFantasy"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/InazumaStrikers"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/MissingContent"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/ProfessionalKits"
+cache = true
+
+# The served files of any other mod
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/*/served"
+cache = true

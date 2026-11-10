@@ -1,10 +1,4 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: «Ases del Inazuma 2» (Inazuma '09, イナズマ'09) of IE2, a rival of the chain «Ruta del entrenador del
-# Mary Times» (content/teams/70_route_nodes/chain_ie2_marytimes.toml). Team key ct_iy_09
-# («Inazuma '09»). Here: its 11 players (the wiki lineup)
-# with each card's own moves, the formation / tactics of the retail «Ice Queens» legend team (without its CPU
-# loadouts and legend stat rates), the wiki crest (WebP -> PNG, no resize), as ct_iy_08
-# (content/teams/10_ie1/0012).
 default_lang = "en"
 
 [[team]]
@@ -12,7 +6,7 @@ name = "ct_iy_09"
 key = "evt_ct_iy_09"
 based_on = "tm_cro_legend_IE2_03"         # The Ice Queens (its tactics / team skills)
 formation = 0xC2D71727
-kit = 0xC1F231A9                          # the neutral kit of the wiki route teams (wiki: Shinkai no Wear away, not a VR kit)
+kit = 0xC1F231A9
 level = 75
 series = "IE2"
 roster = "exact"

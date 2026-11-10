@@ -1,11 +1,5 @@
-# Kit picker Local / Visitante of the mod BetterQoL, feature away_kit (docs/game/mechanics/away-kit.md; until
-# 2026-10-08 the standalone mod away_kit): CMD_FUNC3 previews the away twin, decide writes it with
-# CMND_BETTERQOL_TEAM_UNIFORM (plugin BetterQoL's old DLL). The pairs come from the plugin at run time (CMND_BETTERQOL_AK_PAIR, derived
-# from the item_config / uniform_config the game loads). The CMD_FUNC3 row of equip_uniform_menu is
-# research/mods/BetterQoL/content/menus/equip_uniform_menu.toml (menu_engine), the texts research/mods/BetterQoL/text/rows/
-# menu_text.toml (ids crc32("away_kit.home") / crc32("away_kit.away"), kept). BetterQoL is lua_early, so these whole-function
-# edits run before the mods that wrap the same functions (Inazuma Fantasy's pachanga_equip wraps OnInit). Built into
-# the mod: menu_assemble.py build --mod BetterQoL.
+# BetterQoL: Local / Visitante kit picker of equip_uniform_menu_list (pairs from CMND_BETTERQOL_AK_PAIR); X switches a kit
+# and its declared variant (CMND_VRFW_KIT_VARIANT).
 name = "away_kit"
 order = 100
 mod = "BetterQoL"
@@ -13,7 +7,7 @@ module = "lua_bridge"
 requires = []
 conflicts = []
 wraps = ["CheckTeamDockUniformEquip", "OnEnter", "OnFunction", "OnInit", "UpdateCharaModel", "UpdateItemEquipMenu"]
-description = "away_kit: Local / Visitante kit picker"
+description = "BetterQoL: Local / Visitante kit picker"
 
 [[files]]
 stem = "equip_uniform_menu_list"
@@ -23,7 +17,7 @@ stem = "equip_uniform_menu_list"
   point = "equip_uniform_menu_list.OnSetupLayer.AwayKit"
   text = '''
       -- EVT away_kit BEGIN
-      team_set_info2 = UTIL_AK_FocusUniform(team_set_info2)
+      team_set_info2 = BetterQoL.away_kit.focus_uniform(team_set_info2)
       -- EVT away_kit END
 '''
   crc = "none"
@@ -33,11 +27,18 @@ stem = "equip_uniform_menu_list"
   point = "equip_uniform_menu_list.UpdateButtonGuide.AwayKit"
   text = '''
   -- EVT away_kit BEGIN
-  if UTIL_AK_ON then
-    t5[#t5 + 1] = UTIL_AK_BtnText()
-    t6[#t6 + 1] = UTIL_AK_BTN_ICON
+  if BetterQoL.away_kit.ON then
+    t5[#t5 + 1] = BetterQoL.away_kit.btn_text()
+    t6[#t6 + 1] = BetterQoL.away_kit.BTN_ICON
     t7[#t7 + 1] = 18
-    t8[#t8 + 1] = UTIL_AK_BTN_KEY
+    t8[#t8 + 1] = BetterQoL.away_kit.BTN_KEY
+    local variant_text = BetterQoL.away_kit.variant_btn_text()
+    if variant_text ~= nil then
+      t5[#t5 + 1] = variant_text
+      t6[#t6 + 1] = BetterQoL.away_kit.VAR_BTN_ICON
+      t7[#t7 + 1] = 18
+      t8[#t8 + 1] = BetterQoL.away_kit.VAR_BTN_KEY
+    end
   end
   -- EVT away_kit END
 '''

@@ -1,0 +1,24 @@
+schema = "VRFW.item/2"
+
+[[VRFW.ItemTransform]]
+name = "CharacterReforged.AliusStone"
+item = "eq_ac0107101"                     # Piedra Alius (accessory list: equip slot 2)
+unlock = { flag = "CharacterReforged.AliusStoneUnlocked", cleared = [{ game = "fbtl_cro02_200_010" }] }
+text = { incompatible = "CharacterReforged.AliusStoneIncompatible", locked = "CharacterReforged.AliusStoneLocked" }   # text/rows/alius_stone.toml
+base_series = ["ie1", "ie2", "ie3"]
+families = [
+    { team = "0x844120FF" },
+    { team = "0xF1E3E365" },   # Royal Academy Redux
+    { team = "0xC1F58606" },   # Gemini Storm
+    { team = "0xC5629E8C" },   # Epsilon
+    { team = "0x8E1A91A5" },   # Genesis
+    { team = "0xE0D78A15" },   # Prominence
+    { team = "0xA4F89470" },   # Diamond Dust
+]
+pairs = [
+    # human identity -> Alius form, another name and no link in the tables (lore)
+    { base = "c03030060", target = "c02021100" },   # Jordan Greenway -> Janus
+    { base = "c03030070", target = "c02021210" },   # Dave Quagmire -> Dvalin
+    { base = "c03030040", target = "c02021510" },   # Xavier Foster -> Xene
+    { base = "c02029500", target = "c02021500" },   # Aquilina Schiller -> Bellatrix
+]

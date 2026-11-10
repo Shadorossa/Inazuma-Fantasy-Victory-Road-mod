@@ -1,6 +1,3 @@
-# Character Reforged: the stats panel behind the «Crear …» confirmation's stats (graft character_reforged_board,
-# pair_confirm_window_hooks.lua M.SPR.BAND): a flat light inset with a thin grey rim and rounded corners, no slant.
-# Drawn at 2x (980 x 296 on screen) so the corners keep their shape. Made at start-up; no game pixel used.
 schema = "VRFW.image/1"
 
 [[recipe]]
@@ -23,10 +20,10 @@ ops = [
 ]
 
 [[sprite]]
-atlas = "#/menu/102_team/team11/evt_cr_page/evt_cr_page.g4tx"
-name = "evt_pair_panel"
+atlas = "#/menu/102_team/team11/character_reforged_page/character_reforged_page.g4tx"
+name = "cr_pair_panel"
 recipe = "pair_panel"
-texture = "evt_cr_page"
+texture = "character_reforged_page"
 x = 0
 y = 220
 size = [490, 148]

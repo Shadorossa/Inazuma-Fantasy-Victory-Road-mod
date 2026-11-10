@@ -1,24 +1,11 @@
--- The game's name tags inside a text (<PFX:KEY>, e.g. «Secundaria <MNT:NAGUMOHARA>»): the engine replaces them only
--- in its own text widgets, so a script that shows a game text replaces them itself. The tag's KEY hashes with crc32:
--- MNT = a place name (map/map_name_tag: tag -> map_text noun; map_text_roma when the game's «Nombres de los
--- personajes» is «Originales»), the other prefixes a character (character/chara_name_tag: tag -> character, optional
--- override name text) in the character names the game loaded (a mod's served chara_text, chara_text_roma with
--- «Originales», else chara_text): FUL = the full name, FST = its first word, LST / LAF / LFC = its last word, the other
--- forms (FLC, FFC, FLA…) the short name. Tag tables are read once per script VM, on first use.
---   local NameTags = require "VRFW/lib/name_tags"
---   NameTags.expand(s, lang)  -> s with every known tag replaced; second value: true when a tag is left unresolved
---   NameTags.clean(s, lang)   -> s with every known tag replaced and the unknown ones removed, trimmed
---   NameTags.original_names() -> true when the game's «Nombres de los personajes» is «Originales»
 local M = {}
 
-require "VRFW/lib/basics"
-local GameText = require "VRFW/lib/game_text"
-local Columns = require "VRFW/lib/table_columns"
+local GameText = VRFW.names
+local Columns = VRFW.table_files
+local Memory = VRFW.memory
 local _, warn = VRFW.logger("name_tags")
 
-local CHARA_TAG_STEM = "data/common/gamedata/character/chara_name_tag"
 local CHARA_TAG_LIST = "m_charaNameTagConfigList"
-local MAP_TAG_STEM = "data/common/gamedata/map/map_name_tag"
 local MAP_TAG_LIST = "m_mapNameTagConfigList"
 local SETTINGS_GLOBAL = "Game.Settings"
 local ORIGINAL_NAMES_FIELD = "GameSettings.CharacterNames"
@@ -27,20 +14,14 @@ local CHARA_TAGS = nil -- tag id -> { chara, override }
 local MAP_TAGS = nil   -- tag id -> map_text id
 local CHARAS = nil     -- chara id -> { name_text, short_name_text }
 
+-- a cell's u32; a table cell holds it first
 local function u32(v)
   if type(v) == "table" then v = v[1] end
-  return math.floor(tonumber(v) or 0) % 4294967296
-end
-
-local function table_key(stem)
-  local plain = stem .. ".cfg.bin"
-  local ok, k = pcall(VRFW.table.keys, plain)
-  if ok and type(k) == "table" and #k > 0 then return plain end
-  return stem .. "_*.cfg.bin"
+  return VRFW.ids.unsigned(v)
 end
 
 local function rows_of(stem, list, columns, what)
-  local ok, rows = pcall(VRFW.table.raw, table_key(stem), list, columns)
+  local ok, rows = pcall(VRFW.table.raw, Columns.file_name(stem), list, columns)
   if not ok or type(rows) ~= "table" then
     warn(what .. " not readable: " .. tostring(rows))
     return {}
@@ -51,7 +32,7 @@ end
 local function chara_tags()
   if CHARA_TAGS ~= nil then return CHARA_TAGS end
   CHARA_TAGS = {}
-  for _, r in ipairs(rows_of(CHARA_TAG_STEM, CHARA_TAG_LIST, { 1, 2, 3 }, "chara_name_tag")) do
+  for _, r in ipairs(rows_of(Columns.CHARA_NAME_TAG, CHARA_TAG_LIST, { 1, 2, 3 }, "chara_name_tag")) do
     local id = u32(r[1])
     if id ~= 0 then CHARA_TAGS[id] = { chara = u32(r[2]), override = u32(r[3]) } end
   end
@@ -61,7 +42,7 @@ end
 local function map_tags()
   if MAP_TAGS ~= nil then return MAP_TAGS end
   MAP_TAGS = {}
-  for _, r in ipairs(rows_of(MAP_TAG_STEM, MAP_TAG_LIST, { 1, 2 }, "map_name_tag")) do
+  for _, r in ipairs(rows_of(Columns.MAP_NAME_TAG, MAP_TAG_LIST, { 1, 2 }, "map_name_tag")) do
     local id = u32(r[1])
     if id ~= 0 then MAP_TAGS[id] = u32(r[2]) end
   end
@@ -82,14 +63,13 @@ local function charas()
   return CHARAS
 end
 
+--- True when the original names option is on.
 function M.original_names()
   local okf, at = pcall(VRFW.game.field, ORIGINAL_NAMES_FIELD)
-  local okg, getter = pcall(function() return VRFW.game[SETTINGS_GLOBAL] end)
-  if not (okf and type(at) == "number") or not okg or type(getter) ~= "function" then return false end
-  local oks, settings = pcall(getter)
-  if not (oks and type(settings) == "number" and settings >= 0x10000) then return false end
-  local okr, b = pcall(VRFW.mem.read, "u8", settings + at)
-  return okr and type(b) == "number" and b ~= 0
+  local settings = VRFW.game.global(SETTINGS_GLOBAL)
+  if not (okf and type(at) == "number") or not settings then return false end
+  local b = Memory.read("u8", settings + at)
+  return b ~= nil and b ~= 0
 end
 
 -- one text of the character names the game loaded, nil when it has none
@@ -128,6 +108,7 @@ local function tag_name(prefix, key, lang)
   return chara_name(prefix, key, lang)
 end
 
+--- Text `s` with its name tags filled in language `lang`: text, whether a tag was left.
 function M.expand(s, lang)
   if type(s) ~= "string" or not s:find("<", 1, true) then return s, false end
   local left = false
@@ -142,11 +123,12 @@ function M.expand(s, lang)
   return out, left
 end
 
+--- Text `s` with its name tags filled and any left tag removed.
 function M.clean(s, lang)
   local out, left = M.expand(s, lang)
   if type(out) ~= "string" then return "" end
   if left then out = out:gsub("%s*<%u%u%u:[^>]*>%s*", " ") end
-  return (out:gsub("^%s+", ""):gsub("%s+$", ""))
+  return VRFW.strings.trim(out)
 end
 
 return M

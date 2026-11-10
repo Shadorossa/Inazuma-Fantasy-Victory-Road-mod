@@ -106,7 +106,6 @@ ja = "条件なし"
 zh_hans = "无条件"
 zh_hant = "無條件"
 
-# a player that can be signed now
 [[row]]
 id = "vrfw_cm_state_ready"
 es = "¡Puedes ficharlo!"
@@ -210,7 +209,6 @@ ja = "スタート"
 zh_hans = "起点"
 zh_hant = "起點"
 
-# the question before signing: name, level, price, currency
 [[row]]
 id = "vrfw_cm_ask"
 es = "¿Fichar a %s (Nv. %d) por %d %s?"
@@ -561,7 +559,6 @@ ja = "DF"
 zh_hans = "后卫"
 zh_hant = "後衛"
 
-
 # a player signed only in story mode: the card's line and the notice on Accept
 [[row]]
 id = "vrfw_cm_story_only"
@@ -575,7 +572,7 @@ ja = "ストーリーモードでスカウト"
 zh_hans = "在剧情模式中招募"
 zh_hant = "在劇情模式中招募"
 
-# mark shown in the header while the debug reveal_all mode is on
+# Mark shown in the header while the debug reveal_all mode is on.
 [[row]]
 id = "vrfw_reveal_all_mark"
 es = "MODO VISTA"
@@ -692,7 +689,6 @@ ja = "テスト"
 zh_hans = "测试"
 zh_hant = "測試"
 
-# question before a trial (its line)
 [[row]]
 id = "vrfw_cm_trial_ask"
 es = "¿Jugar la prueba?\n%s"
@@ -742,7 +738,6 @@ ja = "解雇"
 zh_hans = "解约"
 zh_hant = "解約"
 
-# question before a release (the player's name)
 [[row]]
 id = "vrfw_cm_release_q"
 es = "¿Quieres dimitir a %s? Dejará tu club."

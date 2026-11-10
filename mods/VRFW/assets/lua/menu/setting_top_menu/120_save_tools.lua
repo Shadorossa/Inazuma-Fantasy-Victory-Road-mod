@@ -1,67 +1,39 @@
--- VRFW > save adjust (docs/framework/save-adjust.md). Opciones (setting_top_menu) gets a small row «Ajustar save»
--- below «Licencias» while some enabled mod declares a save adjust action (content\save_adjust\*.toml, [[VRFW.SaveAdjust]];
--- CMND_VRFW_SAVE_TOOLS_*). Aceptar on it:
---
---   1. one confirmation (the game's yes / no window): the label of every available action, one per line in a
---      left-aligned column (more than S.LIST_LINES actions: two per line), then one line «backed up first, then the
---      title loads it. Apply?» above the buttons. The message keeps to the retail window's 7 lines (larger messages have
---      no window size there and run under the buttons); while it is up the parameter vrfw_save_tools_window tells the
---      general window to draw it left-aligned (general_window\120_save_tools_window.lua);
---   2. Sí: CMND_VRFW_SAVE_TOOLS_REQUEST("") = every available action (refused on the locked retail save, a reserved slot,
---      an empty slot, an overlay session: a message, nothing changed), the game's auto-save (wait for its job), then
---      CMND_VRFW_SLOT_RELOAD(the active slot): the save engine's load hooks run the actions in order on the slot's FILE
---      before the game reads it; the framework writes the tree back once (the slot service's backup first);
---   3. the summary: changed = one result line per action that changed something + «the game goes back to the title»
---      and the retail BackToTitle (the title loads the fixed save); nothing changed / failed = CMND_VRFW_SLOT_ABORT (the
---      reload undone: the game in memory stays as it was) and a message.
---
--- Hooks on the framework's host of this script (000_host.lua; the locals t / t2 / flag4 through VRFW_Host, EVT_DEBUG):
--- `@edit` = the entry t2[40]; after OnInit = 40 placed after «Licencias» (t2[3]) on the PC list (flag4) when there is
--- an action; around OnDecideFocus = the session (OnDecideFocus is the retail coroutine of the list's Aceptar). The row's
--- slot is data (content\menus\save_tools_row.toml: the small list's third item). Only the game's general window is
--- opened: it is modal and centred, and the list keeps its focus when it closes. Never touches the menu's input (no
--- CMND_CHANGE_MENU_INPUT_CTRL / MENU_ACTIVE). No engine call at load time. Log: «VRFW save_adjust …» lines (CMND_EVT_LOG).
+-- VRFW > save adjust (docs/framework/save-adjust.md).
+-- CMND_CHANGE_MENU_INPUT_CTRL / MENU_ACTIVE). No engine call at load time. Log: «VRFW save_adjust …» lines (CMND_VRFW_LOG).
 
-VRFW_SaveTools = VRFW_SaveTools or {}
-local S = VRFW_SaveTools
+VRFW.save_tools = VRFW.save_tools or {}
+local S = VRFW.save_tools
 
 S.ROW_TYPE = 40                       -- t2[40]: an index no other entry uses (retail 0-4, mods 5-8)
-S.LICENSES_TYPE = 3                   -- t2[3] «Licencias»
+S.LICENSES_TYPE = 3                   -- t2[3] "Licencias"
 S.SMALL_LIST = 530619243              -- mainmenu90_12_list_item_small
-S.LINE_PREFIX = "· "                  -- before each action label in the confirmation
-S.COLUMN_GAP = "      "               -- between the two labels of a line (more actions than list lines)
-S.WINDOW_LINES = 7                    -- the retail general window's largest size by line count (getInfoWinLayer)
+S.LINE_PREFIX = "· "
+S.COLUMN_GAP = "      "
+S.WINDOW_LINES = 7
 S.LIST_LINES = S.WINDOW_LINES - 2     -- the confirmation's header and footer lines take the rest
-S.WINDOW_PARAM = 401310444            -- crc32 vrfw_save_tools_window: the general window draws the question left-aligned
+S.WINDOW_PARAM = 401310444
 S.SAVE_WAIT_FRAMES = 600              -- the auto-save's job: 10 s at most
 S.C = {
-  COUNT = VRFW_Cmd.VRFW_SAVE_TOOLS_COUNT,                 -- CMND_VRFW_SAVE_TOOLS_COUNT () -> n
-  GET = VRFW_Cmd.VRFW_SAVE_TOOLS_GET,                    -- CMND_VRFW_SAVE_TOOLS_GET (i) -> key, labelId, descriptionId, available, mod, resultId
-  REQUEST = VRFW_Cmd.VRFW_SAVE_TOOLS_REQUEST,               -- CMND_VRFW_SAVE_TOOLS_REQUEST (key, "" = every available action) -> ok, why
-  RESULT = VRFW_Cmd.VRFW_SAVE_TOOLS_RESULT,                -- CMND_VRFW_SAVE_TOOLS_RESULT () -> state, count, written, resultId, text, loadRulesWrote, items
-  RESULT_ITEM = VRFW_Cmd.VRFW_SAVE_TOOLS_RESULT_ITEM,           -- CMND_VRFW_SAVE_TOOLS_RESULT_ITEM (i) -> key, labelId, count, resultId
-  CANCEL = VRFW_Cmd.VRFW_SAVE_TOOLS_CANCEL,                -- CMND_VRFW_SAVE_TOOLS_CANCEL ()
-  SLOT_ACTIVE = VRFW_Cmd.VRFW_SLOT_ACTIVE,           -- CMND_VRFW_SLOT_ACTIVE () -> slot
-  SLOT_RELOAD = VRFW_Cmd.VRFW_SLOT_RELOAD,            -- CMND_VRFW_SLOT_RELOAD (slot) -> ok
-  SLOT_ABORT = VRFW_Cmd.VRFW_SLOT_ABORT,            -- CMND_VRFW_SLOT_ABORT ()
-  LOG = VRFW_Cmd.EVT_LOG,                   -- CMND_EVT_LOG
-  TEXT_GET = VRFW_Cmd.TEXT_GET,              -- CMND_TEXT_GET (menu_text id) -> string
-  AUTO_SAVE = VRFW_Cmd.SYSTEM_AUTO_SAVE,             -- CMND_SYSTEM_AUTO_SAVE
+  COUNT = VRFW.commands.VRFW_SAVE_TOOLS_COUNT,                 -- CMND_VRFW_SAVE_TOOLS_COUNT () -> n
+  GET = VRFW.commands.VRFW_SAVE_TOOLS_GET,
+  REQUEST = VRFW.commands.VRFW_SAVE_TOOLS_REQUEST,
+  RESULT = VRFW.commands.VRFW_SAVE_TOOLS_RESULT,
+  RESULT_ITEM = VRFW.commands.VRFW_SAVE_TOOLS_RESULT_ITEM,
+  CANCEL = VRFW.commands.VRFW_SAVE_TOOLS_CANCEL,                -- CMND_VRFW_SAVE_TOOLS_CANCEL ()
+  SLOT_ACTIVE = VRFW.commands.VRFW_SLOT_ACTIVE,           -- CMND_VRFW_SLOT_ACTIVE () -> slot
+  SLOT_RELOAD = VRFW.commands.VRFW_SLOT_RELOAD,            -- CMND_VRFW_SLOT_RELOAD (slot) -> ok
+  SLOT_ABORT = VRFW.commands.VRFW_SLOT_ABORT,            -- CMND_VRFW_SLOT_ABORT ()
+  TEXT_GET = VRFW.commands.TEXT_GET,              -- CMND_TEXT_GET (menu_text id) -> string
+  AUTO_SAVE = VRFW.commands.SYSTEM_AUTO_SAVE,             -- CMND_SYSTEM_AUTO_SAVE
   SAVE_WORKING = 1979970074,          -- a save / load job is running
-  MSG_OPEN = 2289627655,              -- general window (text, kind, 0, 0, 0, 0, false)
-  MSG_BUTTONS = 2351835063,           -- (2, 0) = yes / no
-  MSG_ANSWER = 1523741473,            -- -1 while open, then the button (0 = Sí)
-  MSG_DONE = 682363669,               -- true = no general window up
-  MSG_BUSY = 898725220,               -- a general window is busy
-  SE = VRFW_Cmd.SND_PLAY_SE,
+  SE = VRFW.commands.SND_PLAY_SE,
 }
 S.SE_DECIDE = 3848881948              -- sy0000
 S.SE_ERROR = 2086672038               -- sy0003
--- menu_text rows of the framework (text\rows\save_tools.toml): id = crc32(row id); English fallback below
 S.T = {
-  ROW = 3361226603,                   -- vrfw_save_tools_row «Ajustar save»
+  ROW = 3361226603,                   -- vrfw_save_tools_row "Ajustar save"
   ROW_HELP = 1921294418,              -- vrfw_save_tools_row_help
-  CONFIRM_ALL = 2566813849,           -- vrfw_save_tools_confirm_all (the line above the action labels)
+  CONFIRM_ALL = 2566813849,
   CONFIRM = 3734088709,               -- vrfw_save_tools_confirm (%s = the action labels)
   DONE = 3674225646,                  -- vrfw_save_tools_done (%d)
   TO_TITLE = 562068050,               -- vrfw_save_tools_to_title
@@ -91,32 +63,21 @@ S.FALLBACK = {
 -- CMND_VRFW_SAVE_TOOLS_REQUEST's refusals -> the message
 S.REFUSAL_TEXT = {locked = S.T.LOCKED, reserved = S.T.RESERVED, unavailable = S.T.UNAVAILABLE}
 
-function S.Log(...)
-  pcall(funcLuaCommand, S.C.LOG, "VRFW save_adjust", ...)
-end
+S.log = VRFW.logger.new("VRFW save_adjust")
 
-function S.Call(cmd, ...)
-  local r = table.pack(pcall(funcLuaCommand, cmd, ...))
-  if not r[1] then
-    return nil
-  end
-  return table.unpack(r, 2, r.n)
-end
-
-function S.Text(id)
-  local ok, s = pcall(funcLuaCommand, S.C.TEXT_GET, id)
-  if ok and type(s) == "string" and s ~= "" then
+function S.text(id)
+  local s = VRFW.host.command(S.C.TEXT_GET, id)
+  if type(s) == "string" and s ~= "" then
     return s
   end
   return S.FALLBACK[id] or ""
 end
 
--- the actions of the enabled mods: { {key, label, description, available, mod, result} }
-function S.Actions()
-  local n = S.Call(S.C.COUNT)
+function S.actions()
+  local n = VRFW.host.command(S.C.COUNT)
   local out = {}
   for i = 1, (type(n) == "number" and n or 0) do
-    local key, label, description, available, mod, result = S.Call(S.C.GET, i)
+    local key, label, description, available, mod, result = VRFW.host.command(S.C.GET, i)
     if type(key) == "string" and key ~= "" then
       out[#out + 1] = {key = key, label = label, description = description, available = available == true, mod = mod, result = result}
     end
@@ -124,63 +85,14 @@ function S.Actions()
   return out
 end
 
--- ---- windows (inside OnDecideFocus' coroutine) -----------------------------------------------------------------------
-
--- wait until the general window that was just asked for is gone (seen first; never forever)
-function S.WaitWindowGone()
-  local k, seen, gone = 0, false, 0
-  while k < 36000 do
-    k = k + 1
-    coroutine.yield()
-    local done = S.Call(S.C.MSG_DONE)
-    if done == false then
-      seen, gone = true, 0
-    else
-      gone = gone + 1
-      if (seen and gone > 2) or (not seen and gone > 120) then
-        return seen
-      end
-    end
-  end
-  return seen
-end
-
--- a message with the game's plain window (one button)
-function S.Message(text)
-  S.Log("message", text)
-  funcLuaCommand(S.C.MSG_OPEN, text, 0, 0, 0, 0, 0, false)
-  S.WaitWindowGone()
-end
-
--- the game's yes / no window: true = Sí
-function S.Ask(text)
-  funcLuaCommand(S.C.MSG_OPEN, text, 0, 0, 0, 0, 0, false)
-  funcLuaCommand(S.C.MSG_BUTTONS, 2, 0)
-  local answer, k = -1, 0
-  while answer < 0 and k < 36000 do
-    k = k + 1
-    coroutine.yield()
-    local a = S.Call(S.C.MSG_ANSWER)
-    answer = type(a) == "number" and a or -1
-    if answer < 0 and k > 120 and S.Call(S.C.MSG_DONE) == true then
-      break                           -- the window went away without an answer
-    end
-  end
-  S.WaitWindowGone()
-  S.Log("question answered", tostring(answer))
-  return answer == 0
-end
-
--- ---- the session --------------------------------------------------------------------------------------------------
-
 -- one result line per action that changed something (its own result text, %d = its count)
-function S.SummaryLines(items)
+function S.summary_lines(items)
   local lines = {}
   for i = 1, (type(items) == "number" and items or 0) do
-    local key, _, count, result = S.Call(S.C.RESULT_ITEM, i)
+    local key, _, count, result = VRFW.host.command(S.C.RESULT_ITEM, i)
     if type(key) == "string" and type(count) == "number" and count > 0 then
-      local line = S.Text(type(result) == "number" and result ~= 0 and result or S.T.DONE)
-      if line == "" then line = S.Text(S.T.DONE) end
+      local line = S.text(type(result) == "number" and result ~= 0 and result or S.T.DONE)
+      if line == "" then line = S.text(S.T.DONE) end
       local ok, text = pcall(string.format, line, count)
       lines[#lines + 1] = ok and text or line
     end
@@ -188,14 +100,12 @@ function S.SummaryLines(items)
   return lines
 end
 
--- the confirmation: the header, the action labels (one per line; two per line past S.LIST_LINES), an empty line when
--- the window has room, then the footer (vrfw_save_tools_confirm: %s = what comes before it)
-function S.Question(actions)
+function S.question(actions)
   local labels = {}
   for _, a in ipairs(actions) do
-    labels[#labels + 1] = S.LINE_PREFIX .. S.Text(a.label)
+    labels[#labels + 1] = S.LINE_PREFIX .. S.text(a.label)
   end
-  local lines = {S.Text(S.T.CONFIRM_ALL)}
+  local lines = {S.text(S.T.CONFIRM_ALL)}
   if #labels <= S.LIST_LINES then
     for _, label in ipairs(labels) do
       lines[#lines + 1] = label
@@ -208,112 +118,105 @@ function S.Question(actions)
   if #lines + 1 < S.WINDOW_LINES then
     lines[#lines + 1] = ""
   end
-  local ok, text = pcall(string.format, S.Text(S.T.CONFIRM), table.concat(lines, "\n"))
+  local ok, text = pcall(string.format, S.text(S.T.CONFIRM), table.concat(lines, "\n"))
   return ok and text or table.concat(lines, "\n")
 end
 
 -- the general window's left-aligned look off (only while the question is up)
-function S.WindowLookOff()
-  if VRFW_Param.Has(S.WINDOW_PARAM) then
-    VRFW_Param.Clear(S.WINDOW_PARAM)
+function S.window_look_off()
+  if VRFW.param.has(S.WINDOW_PARAM) then
+    VRFW.param.clear(S.WINDOW_PARAM)
   end
 end
 
 -- every available action, after one confirmation
-function S.Run(actions)
-  VRFW_Param.Set(S.WINDOW_PARAM, 1)
-  local asked, yes = pcall(S.Ask, S.Question(actions))
-  S.WindowLookOff()
+function S.run(actions)
+  VRFW.param.set(S.WINDOW_PARAM, 1)
+  local asked, yes = pcall(VRFW.question.ask, S.question(actions))
+  S.window_look_off()
   if not asked then
     error(yes, 0)
   end
   if not yes then
     return
   end
-  local ok, why = S.Call(S.C.REQUEST, "")
+  local ok, why = VRFW.host.command(S.C.REQUEST, "")
   if ok ~= true then
-    S.Log("request refused", tostring(why))
+    S.log("request refused", tostring(why))
     funcLuaCommand(S.C.SE, S.SE_ERROR)
-    S.Message(S.Text(S.REFUSAL_TEXT[why] or S.T.BUSY))
+    VRFW.question.notice(S.text(S.REFUSAL_TEXT[why] or S.T.BUSY))
     return
   end
-  local slot = S.Call(S.C.SLOT_ACTIVE)
-  -- the game in memory to the file first: the actions work on the file, and the title loads the file
-  S.Call(S.C.AUTO_SAVE)
+  local slot = VRFW.host.command(S.C.SLOT_ACTIVE)
+  VRFW.host.command(S.C.AUTO_SAVE)
   local k = 0
   repeat
     k = k + 1
     coroutine.yield()
-  until S.Call(S.C.SAVE_WORKING) ~= true or k >= S.SAVE_WAIT_FRAMES
-  if S.Call(S.C.SAVE_WORKING) == true then
-    S.Log("the auto-save is still running after", k, "frames: not adjusted")
-    S.Call(S.C.CANCEL)
-    S.Message(S.Text(S.T.BUSY))
+  until VRFW.host.command(S.C.SAVE_WORKING) ~= true or k >= S.SAVE_WAIT_FRAMES
+  if VRFW.host.command(S.C.SAVE_WORKING) == true then
+    S.log("the auto-save is still running after", k, "frames: not adjusted")
+    VRFW.host.command(S.C.CANCEL)
+    VRFW.question.notice(S.text(S.T.BUSY))
     return
   end
-  S.Log("saved in", k, "frames; reloading slot", tostring(slot))
-  -- the save engine's switch to the same slot: its load hooks run the actions on the file (the safe point)
-  if type(slot) ~= "number" or S.Call(S.C.SLOT_RELOAD, slot) ~= true then
-    S.Log("reload of slot", tostring(slot), "refused: not adjusted")
-    S.Call(S.C.CANCEL)
-    S.Message(S.Text(S.T.BUSY))
+  S.log("saved in", k, "frames; reloading slot", tostring(slot))
+  if type(slot) ~= "number" or VRFW.host.command(S.C.SLOT_RELOAD, slot) ~= true then
+    S.log("reload of slot", tostring(slot), "refused: not adjusted")
+    VRFW.host.command(S.C.CANCEL)
+    VRFW.question.notice(S.text(S.T.BUSY))
     return
   end
-  local state, count, written, _, text, by_load_rules, items = S.Call(S.C.RESULT)
-  S.Log("result", tostring(state), "count", tostring(count), "written", tostring(written), "load rules wrote",
+  local state, count, written, _, text, by_load_rules, items = VRFW.host.command(S.C.RESULT)
+  S.log("result", tostring(state), "count", tostring(count), "written", tostring(written), "load rules wrote",
     tostring(by_load_rules), "actions", tostring(items), tostring(text))
-  -- the slot's file changed (by the actions, or first by a mod's own on-load pass of the same reload): the title must
-  -- load it; the game in memory is the old save
   if state == "done" and (written == true or by_load_rules == true) then
     funcLuaCommand(S.C.SE, S.SE_DECIDE)
-    local lines = S.SummaryLines(items)
+    local lines = S.summary_lines(items)
     if by_load_rules == true then
-      lines[#lines + 1] = S.Text(S.T.BY_LOAD_RULES)
+      lines[#lines + 1] = S.text(S.T.BY_LOAD_RULES)
     end
     if #lines == 0 then
-      local okf, done = pcall(string.format, S.Text(S.T.DONE), type(count) == "number" and count or 0)
-      lines[1] = okf and done or S.Text(S.T.DONE)
+      local okf, done = pcall(string.format, S.text(S.T.DONE), type(count) == "number" and count or 0)
+      lines[1] = okf and done or S.text(S.T.DONE)
     end
-    lines[#lines + 1] = S.Text(S.T.TO_TITLE)
-    S.Message(table.concat(lines, "\n"))
-    S.Log("back to the title: the title loads the adjusted slot", tostring(slot))
+    lines[#lines + 1] = S.text(S.T.TO_TITLE)
+    VRFW.question.notice(table.concat(lines, "\n"))
+    S.log("back to the title: the title loads the adjusted slot", tostring(slot))
     BackToTitle()
     return
   end
-  -- nothing written: the reload is undone, the game in memory is the save as it was
-  S.Call(S.C.SLOT_ABORT)
-  S.Call(S.C.CANCEL)
+  VRFW.host.command(S.C.SLOT_ABORT)
+  VRFW.host.command(S.C.CANCEL)
   if state == "done" then
-    S.Message(S.Text(S.T.NOTHING))
+    VRFW.question.notice(S.text(S.T.NOTHING))
   else
     funcLuaCommand(S.C.SE, S.SE_ERROR)
-    S.Message(string.format(S.Text(S.T.FAILED), tostring(text ~= nil and text ~= "" and text or state)))
+    VRFW.question.notice(string.format(S.text(S.T.FAILED), tostring(text ~= nil and text ~= "" and text or state)))
   end
 end
 
-function S.Session()
+function S.session()
   local available = {}
-  for _, a in ipairs(S.Actions()) do
+  for _, a in ipairs(S.actions()) do
     if a.available then
       available[#available + 1] = a
     end
   end
   if #available == 0 then
-    S.Message(S.Text(S.T.NONE))
+    VRFW.question.notice(S.text(S.T.NONE))
     return
   end
-  S.Run(available)
+  S.run(available)
 end
 
--- ---- hooks on the host of this script -------------------------------------------------------------------------------
-
-if VRFW_Host ~= nil then
-  VRFW_Host.on("setting_top_menu", "@edit", {
+if VRFW.host ~= nil then
+  VRFW.host.on("setting_top_menu", "@edit", {
     id = "VRFW.save_adjust.row",
     fn = function(L)
       local t2 = L.t2
       if type(t2) ~= "table" then
-        S.Log("no locals of setting_top_menu (EVT_DEBUG off?): no «Ajustar save» row")
+        S.log("no locals of setting_top_menu (VRFW.debug off?): no «Ajustar save» row")
         return
       end
       t2[S.ROW_TYPE] = {
@@ -327,14 +230,14 @@ if VRFW_Host ~= nil then
       }
     end,
   })
-  VRFW_Host.on("setting_top_menu", "OnInit", {
+  VRFW.host.on("setting_top_menu", "OnInit", {
     id = "VRFW.save_adjust.order",
     phase = "after",
     fn = function()
-      local L = VRFW_Host.hosts.setting_top_menu and VRFW_Host.hosts.setting_top_menu.L
+      local L = VRFW.host.hosts.setting_top_menu and VRFW.host.hosts.setting_top_menu.L
       local t, t2 = L and L.t, L and L.t2
       if type(t) ~= "table" or type(t2) ~= "table" or t2[S.ROW_TYPE] == nil or L.flag4 ~= true then
-        return                         -- no locals, or the console list (no slot for a third small row)
+        return
       end
       local at = nil
       for i, v in ipairs(t) do
@@ -342,21 +245,21 @@ if VRFW_Host ~= nil then
         if v == S.LICENSES_TYPE then at = i end
       end
       if at == nil then
-        return                         -- a list without «Licencias» (a mod's own Options rows, e.g. a field pause menu)
+        return
       end
-      local n = S.Call(S.C.COUNT)
+      local n = VRFW.host.command(S.C.COUNT)
       if type(n) ~= "number" or n < 1 then
         return
       end
       table.insert(t, at + 1, S.ROW_TYPE)
-      S.Log("«Ajustar save» row added", n, "action(s)")
+      S.log("«Ajustar save» row added", n, "action(s)")
     end,
   })
-  VRFW_Host.on("setting_top_menu", "OnDecideFocus", {
+  VRFW.host.on("setting_top_menu", "OnDecideFocus", {
     id = "VRFW.save_adjust.decide",
     fn = function(nxt, a1, a2, ...)
       if a1 == S.SMALL_LIST and type(GetLitItemType) == "function" and GetLitItemType(a1, a2) == S.ROW_TYPE then
-        return S.Session()
+        return S.session()
       end
       return nxt(a1, a2, ...)
     end,

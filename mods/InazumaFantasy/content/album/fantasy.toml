@@ -1,14 +1,11 @@
 schema = "BetterQoL.album/1"
-# Inazuma Fantasy's page in BetterQoL's «Álbum de jugadores» («Juego» view, page 2 of its bar): the series «Inazuma Eleven Fantasy»
-# (content/base_tables/gamedata/character/chara_series_config.toml, type 11; its tab icon icon_list_tab_series11 of
-# content/images). Its players: the characters this mod declares in content/characters, listed only here.
-# Read only when BetterQoL is enabled.
 
 # Arion's look with the military cap (content/characters/arion_military_cap.toml) belongs to his outfit: not a player
-exclude_cards = [0xD4B19B55]
+# The alternate-style looks (content/characters/alternate_style_looks.toml) belong to their outfits too
+exclude_cards = [0xD4B19B55, 0xFFF7C577, 0xFFF7C578]
 
 [[series]]
-series = 0xB2D2CD9B             # crc32("evt_chara_series_fantasy")
+series = 0x07F4CCC3             # crc32("inazuma_fantasy_chara_series_fantasy")
 own_characters = true
 # Nakata's basic card is a player of Orfeo (content/teams/nakata_orfeo.toml): listed under IE3, team Orfeo
 except_cards = [0xFFF7C4EE]

@@ -1,10 +1,3 @@
-# BetterQoL, feature neutral_element: the «neutro» element icon (the purple ensō) for characters of element 0 / 5 and
-# techniques of element 5, in the element-icon sprites of icon_common.g4tx. Made at the first start (and after a game
-# update) from the PLAYER'S own game files by the image type's recipes (docs/framework/types/image.md §2.1): each
-# sprite starts from the retail wind sprite of its family, the wind glyph is covered with a stretched glyph-free
-# column of the same sprite, the colour moves to the neutral purple, and our own ensō (neutral\*.png,
-# research/scripts/util_neutral_icon_parts.py) goes on top. No Level-5 pixel in the mod. Sprite names / places as
-# Inazuma Fantasy shipped them (the Lua and the office icons name them).
 schema = "VRFW.image/1"
 
 [[texture]]
@@ -12,9 +5,7 @@ atlas = "#/menu/200_icon/better_qol_own/better_qol_icon_common.g4tx"
 name = "better_qol_icon_common"
 size = [252, 64]
 
-# the framework's screens (Mods panel: technique / character lists and editors) show this icon for the elements the
-# game has none of (VR-Framework [[VRFW.ElementIcon]] of the image type): void (element 5 moves, characters) and neutral
-# (element 0 characters). Without BetterQoL those show no icon.
+# [[VRFW.ElementIcon]]: the framework's screens show these for void (element 5) and neutral (element 0) elements.
 [[VRFW.ElementIcon]]
 Element = "void"
 Atlas = "#/menu/200_icon/15_icon_common/icon_common.g4tx"
@@ -57,7 +48,7 @@ y = 0
 size = [64, 64]
 recipe = "focus"
 
-# the bare ensō with its glow: our own picture
+# the bare ensō with its glow: the mod's own picture
 [[sprite]]
 atlas = "#/menu/200_icon/better_qol_own/better_qol_icon_common.g4tx"
 name = "icon_type00"
@@ -107,8 +98,6 @@ name = "cmd_on"
 from = "cmd_on_wind"
 ops = [{ op = "paste", image = "cmd_on_strip", at = [9, 0] }, { op = "fill", rgb = [198, 135, 240] }, { op = "paste", image = "enso_cmd", at = [0, 0] }]
 
-# ---- icon_focus_type00: the gradient square + drop shadow (glyph covered by column 10), moved to purple (hue + 0.18
-# turn, saturation x 0.75, value x 0.92: the purple of neutral_element_build.purple within a few levels), white ensō
 [[recipe]]
 name = "focus_wind"
 game = "#/menu/200_icon/15_icon_common/icon_common.g4tx"

@@ -1,20 +1,9 @@
--- VRFW_CharaIcons: a card's position icon and element icon as a texture path and a sprite id, the same sprites the
--- team screen and the player bank show. Definitions only (this file runs in every menu VM, lua\_all); no engine call
--- at load. Answers are kept per card, so a screen may ask on every draw.
---   VRFW_CharaIcons.Position(card) -> { tex, sprite } | nil   the card's main position badge
---       (CMND_GET_CHARA_INFO(card, 11): 1 GK, 2 FW, 3 MF, 4 DF -> icon type 0 GK, 1 DF, 2 MF, 3 FW), sprite from the
---       game's GetSoccerCharaPositionIconByPosIconType, else the atlas sprite icon_position0<4 - type> (01 FW .. 04 GK); the atlas is
---       the language's folder of 15_icon_common2 (CMND_GET_LANGUAGE_CODE)
---   VRFW_CharaIcons.Element(card) -> { tex, sprite } | nil    the card's element icon (CMND_GET_CHARA_INFO(card, 13):
---       1..4, 0 / 5 = the neutral icon), sprite from the game's GetCharaElementIconNameByCharaParamId, else the atlas
---       sprite icon_cmd_type0<element> of 15_icon_common
---   tex is the atlas path (load it as any other menu texture), sprite the sprite's crc32.
--- One log line the first time a game function is missing in this VM and the atlas lookup is used instead.
-if VRFW_CharaIcons == nil then
+-- lua_patch.scope: used
+if VRFW.chara_icons == nil then
   local I = {
     CHARA_INFO = 4060384944,     -- CMND_GET_CHARA_INFO (card, field) -> ok, value
     LANG = 477234096,            -- CMND_GET_LANGUAGE_CODE -> the game's language table index
-    LOG = VRFW_Cmd.EVT_LOG,
+    LOG = VRFW.commands.VRFW_LOG,
     -- the game's language table index -> its folder of the per-language menu atlases
     LANG_DIR = {[0] = "ja", [1] = "en", [2] = "fr", [3] = "es", [4] = "pt", [6] = "de", [7] = "it", [16] = "zh_hant",
       [17] = "zh_hans"},
@@ -28,7 +17,7 @@ if VRFW_CharaIcons == nil then
     lang = nil,
     told = {},                   -- the missing game functions already logged
   }
-  VRFW_CharaIcons = I
+  VRFW.chara_icons = I
 
   local function crc(s)
     if type(CRC32) == "function" then
@@ -38,8 +27,8 @@ if VRFW_CharaIcons == nil then
   end
 
   local function info(card, field)
-    local okc, ok, v = pcall(funcLuaCommand, I.CHARA_INFO, card, field)
-    if okc and ok ~= false and type(v) == "number" then
+    local ok, v = VRFW.host.command(I.CHARA_INFO, card, field)
+    if ok ~= false and type(v) == "number" then
       return v
     end
     return nil
@@ -62,7 +51,8 @@ if VRFW_CharaIcons == nil then
     return I.lang
   end
 
-  function I.Position(card)
+  --- The position icon of `card`; nil when unknown.
+  function I.position(card)
     if type(card) ~= "number" or card == 0 then
       return nil
     end
@@ -90,7 +80,8 @@ if VRFW_CharaIcons == nil then
     return v or nil
   end
 
-  function I.Element(card)
+  --- The element icon of `card`; nil when unknown.
+  function I.element(card)
     if type(card) ~= "number" or card == 0 then
       return nil
     end

@@ -1,36 +1,3 @@
--- Character Reforged › the functions of the VR-Framework's save adjust.
--- remove_unobtainable_moves / remove_hidden_kits are declared in
--- content\save_adjust\character_reforged.toml; remove_duplicates by New Recruitment and normal_rarity by No More
--- Rarities (their content\save_adjust\, script = "CharacterReforged:save_tools.lua": the actions exist only while
--- those modules are on). The framework calls the functions below by name.
--- Both duplicate actions run the SAME pass as the duplicate-players hook (scripts\duplicate_players.lua: a duplicated save, and
--- every load of a player slot when a rule asks for it) with the POLICY the mods declare in content\duplicate_rules\
--- (New Recruitment: one copy per card; No More Rarities: every normal card -> rarity 4), split in two:
---   remove_duplicates   one copy per card, the exact chara_param id (keep_first decides which copy stays; the others are merged
---                       into it and leave the club and every team), the policy's rarity left out. Never released: a
---                       card the bank cannot retire or that did not join by signing (merge_pass.lua: always the one
---                       kept). Offered while a rule declares `one_card_per`.
---   normal_rarity       every normal card to the rarity the rules declare (`normal_card_rarity`; No More Rarities: 4 =
---                       5★ Leyenda), and every special card of the tiers a rule's option removes
---                       (`normalize_special_rarities`) becomes his character's base card at that rarity; when the club
---                       already has that card, its copies are merged into the one keep_first keeps (only those
---                       copies leave). Offered while a rule declares `normal_card_rarity`; the confirmation line is
---                       the option value's `save_adjust_label` when the rule names one. A rule's
---                       `save_adjust_every_saved_player` also raises every other saved character below that rarity.
--- Two more actions take out of the save what the active mods' rules make unobtainable:
---   remove_unobtainable_moves  every move no player can obtain ([[VRFW.Unobtainable]], lib/unobtainable_moves.lua;
---                              this mod's content\techniques\unobtainable_auras.toml = the awakening and bond
---                              transformation auras) out of every saved character's board and match list, the team
---                              aura entries, the invSkill stacks and the player sets (blob ss_player_sets.json).
---                              Offered while a rule names a move (lib/purge_moves.lua).
---   remove_hidden_kits         every team kit an active mod hides (item [[hide]] of a kit; this mod's
---                              content\items\hidden_away_kits.toml) out of the teams (back to their home kit), the
---                              invFashion stacks and the player sets. Offered while a mod hides a kit
---                              (lib/purge_kits.lua).
--- The framework runs every available action at the safe point of the CURRENT slot (its `slot_load` after the menu
--- saved and reloads it), writes the tree once when it changed (the slot service's backup first) and shows the counts;
--- the locked retail save and the reserved slots (a mode's own save, e.g. INAROGUE) never get here. Log: one line per
--- run «save adjust: <action>: …» plus the pass's summary.
 
 local Rules = require "lib/duplicate_players/rules"
 local CardFacts = require "lib/duplicate_players/card_facts"
@@ -38,7 +5,7 @@ local MergePass = require "lib/duplicate_players/merge_pass"
 local Unobtainable = require "lib/unobtainable_moves"
 local PurgeMoves = require "lib/purge_moves"
 local PurgeKits = require "lib/purge_kits"
-local Id = require "VRFW/lib/ids"
+local Id = VRFW.ids
 
 local PLAYER_SETS_BLOB = "ss_player_sets.json"
 
@@ -54,7 +21,6 @@ local function policy_with(changes)
   return policy
 end
 
--- the pass on `tree` with `policy`: the report (the tree patched in place; the framework writes it)
 local function run_pass(tree, policy, action)
   local report = MergePass.run(tree, CardFacts.load(policy), policy)
   log(action .. ": " .. Rules.describe(policy) .. "; " .. MergePass.summary(report))
@@ -79,7 +45,6 @@ function SaveAdjust.remove_duplicates(tree, event)
     .. " hidden cards released, " .. (report.protected or 0) .. " kept (not retirable / not signed)" }
 end
 
--- available: true, or the text key of the confirmation line the rules name for the option's current value
 function SaveAdjust.can_set_normal_rarity()
   local policy = Rules.load()
   if #policy.names == 0 or policy.normal_card_rarity == nil then return false end
@@ -87,8 +52,6 @@ function SaveAdjust.can_set_normal_rarity()
 end
 
 function SaveAdjust.normal_rarity(tree, event)
-  -- the rarity and the removed special tiers to the base card; only the copies of a converted character leave (no
-  -- one_card_per, no hidden-card release)
   local policy = policy_with({ one_card_per = false, hidden_card_sources = {}, convert_special_cards = true })
   if policy.normal_card_rarity == nil then return { error = "no duplicate rule declares normal_card_rarity" } end
   policy.raise_every_saved_player = policy.save_adjust_every_saved_player == true
@@ -98,11 +61,6 @@ function SaveAdjust.normal_rarity(tree, event)
     .. report.duplicates_merged .. " copies merged, " .. (report.protected or 0) .. " kept (not retirable / not signed)" }
 end
 
--- ---------------------------------------------------------------------------------------------- unobtainable things
-
--- the player sets of slot `slot` (blob ss_player_sets.json, scripts\player_sets.lua's layout): every stored value
--- `drop(field, value)` answers true for becomes 0 (fields: "moves", "hiper", "kit"). Returns how many; the blob is
--- written only when something changed.
 local function purge_player_sets(slot, drop, action)
   local ok, text = pcall(VRFW.save.get_blob, slot, PLAYER_SETS_BLOB)
   if not ok or type(text) ~= "string" or text == "" then return 0 end
@@ -111,7 +69,7 @@ local function purge_player_sets(slot, drop, action)
     log(action .. ": " .. PLAYER_SETS_BLOB .. " not readable: left as it is")
     return 0
   end
-  local u32 = Id.u32
+  local u32 = Id.unsigned
   local n = 0
   for _, player in pairs(file.players) do
     for _, set in pairs(type(player) == "table" and type(player.sets) == "table" and player.sets or {}) do
@@ -158,10 +116,9 @@ end
 
 function SaveAdjust.can_remove_hidden_kits()
   local ok, facts = pcall(PurgeKits.facts)
-  return ok and facts.count > 0
+  return ok and facts ~= nil and facts.count > 0
 end
 
--- a kit value of a player set: the kit item or its uniform
 local function hidden_kit_value(facts, value)
   if facts.by_item[value] then return true end
   for _, kit in pairs(facts.by_item) do
@@ -171,10 +128,12 @@ local function hidden_kit_value(facts, value)
 end
 
 function SaveAdjust.remove_hidden_kits(tree, event)
-  local facts = PurgeKits.facts()
+  local facts, why = PurgeKits.facts()
+  if not facts then return { error = why } end
   if facts.count == 0 then return { error = "no active mod hides a kit" } end
   local action = "remove_hidden_kits (slot " .. event.slot .. ")"
-  local report = PurgeKits.run(tree, facts)
+  local report, not_removed = PurgeKits.run(tree, facts)
+  if not report then return { error = not_removed } end
   log(action .. ": " .. PurgeKits.summary(report))
   for _, line in ipairs(report.lines) do log(action .. ": " .. line) end
   local sets = purge_player_sets(event.slot, function(field, value) return field == "kit" and hidden_kit_value(facts, value) end, action)

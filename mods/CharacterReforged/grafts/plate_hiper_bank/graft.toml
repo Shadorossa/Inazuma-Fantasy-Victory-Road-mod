@@ -1,10 +1,5 @@
-# Character Reforged (moved from Inazuma Fantasy 2026-10-14, docs/refactor/aura-mods-split.md «Player page»; the
-# appended common block wraps through EVT_PH_Wrap).
-# Personal plate 'Hipertécnica' page, the two player banks (research/scripts/plate_hiper_build.py patch_bank; docs/
-# game/skill-slots.md): page table {1, 0, 2, 3} -> {1, 0, 2, 3, 5, 6} (type 6 = the mod Utilities' career page «TRAYECTORIA»,
-# index 5, which Utilities declares to the VR-Framework's player page registry; was IF's graft career_page until
-# 2026-10-08), the Q/E steps through EVT_PlateHiperStep (= VRFW_PlayerPages.Step,
-# docs/framework/player-pages.md), the guide edit and the common block. Last of all (order 950, hiper-match-slot.md 16.34).
+# The Hiper page in the two player banks: page table {1, 0, 2, 3, 5, 6}, Q/E through CharacterReforged.hyper_page_plate_hyper_step, guide edit
+# and the common block (research/mods/CharacterReforged/_tools/plate_hiper_build.py patch_bank).
 name = "plate_hiper_bank"
 mod = "CharacterReforged"
 order = 950
@@ -20,8 +15,9 @@ stem = "chara_bank_menu"
   [[files.ops]]
   type = "replace"
   point = "chara_bank_menu.main.PlateHiperBank"
+  # page table: Hiper page (index 4, type 5), BetterQoL career page (index 5, type 6)
   text = '''
-local t2 = {1, 0, 2, 3, 5, 6} -- EVT plate_hiper (index 4 = Hiper page, type 5) + Utilities career page (index 5, type 6)
+local t2 = {1, 0, 2, 3, 5, 6}
 '''
   crc = "none"
 
@@ -29,7 +25,7 @@ local t2 = {1, 0, 2, 3, 5, 6} -- EVT plate_hiper (index 4 = Hiper page, type 5) 
   type = "replace"
   point = "chara_bank_menu.OnFunction.PlateHiperBank"
   text = '''
-        n12 = EVT_PlateHiperStep(n12, -1, #t2) -- EVT plate_hiper
+        n12 = CharacterReforged.hyper_page_plate_hyper_step(n12, -1, #t2) -- EVT plate_hiper
 '''
   crc = "none"
 
@@ -37,7 +33,7 @@ local t2 = {1, 0, 2, 3, 5, 6} -- EVT plate_hiper (index 4 = Hiper page, type 5) 
   type = "replace"
   point = "chara_bank_menu.OnFunction.PlateHiperBankReplace"
   text = '''
-        n12 = EVT_PlateHiperStep(n12, 1, #t2) -- EVT plate_hiper
+        n12 = CharacterReforged.hyper_page_plate_hyper_step(n12, 1, #t2) -- EVT plate_hiper
 '''
   crc = "none"
 
@@ -45,13 +41,13 @@ local t2 = {1, 0, 2, 3, 5, 6} -- EVT plate_hiper (index 4 = Hiper page, type 5) 
   type = "insert_after"
   point = "chara_bank_menu.UpdateButtonGuide.PlateHiperBank"
   text = '''
-  t15, t16, t17, t18, t19, t20 = EVT_PH_GuideEdit(flag, t15, t16, t17, t18, t19, t20) -- EVT plate_hiper
+  t15, t16, t17, t18, t19, t20 = CharacterReforged.hyper_page_guide_edit(flag, t15, t16, t17, t18, t19, t20) -- EVT plate_hiper
 '''
   crc = "none"
 
   [[files.ops]]
   type = "append_block"
-  source = "../plate_hiper_common/evt_plate_hiper_common.lua"
+  source = "../plate_hiper_common/character_reforged_plate_hiper_common.lua"
   marker = "plate_hiper common"
 
 [[files]]
@@ -60,8 +56,9 @@ stem = "chara_bank_menu_for_search"
   [[files.ops]]
   type = "replace"
   point = "chara_bank_menu_for_search.main.PlateHiperBank"
+  # page table: Hiper page (index 4, type 5), BetterQoL career page (index 5, type 6)
   text = '''
-local t3 = {1, 0, 2, 3, 5, 6} -- EVT plate_hiper (index 4 = Hiper page, type 5) + Utilities career page (index 5, type 6)
+local t3 = {1, 0, 2, 3, 5, 6}
 '''
   crc = "none"
 
@@ -69,7 +66,7 @@ local t3 = {1, 0, 2, 3, 5, 6} -- EVT plate_hiper (index 4 = Hiper page, type 5) 
   type = "replace"
   point = "chara_bank_menu_for_search.OnFunction.PlateHiperBank"
   text = '''
-        n8 = EVT_PlateHiperStep(n8, -1, #t3) -- EVT plate_hiper
+        n8 = CharacterReforged.hyper_page_plate_hyper_step(n8, -1, #t3) -- EVT plate_hiper
 '''
   crc = "none"
 
@@ -77,7 +74,7 @@ local t3 = {1, 0, 2, 3, 5, 6} -- EVT plate_hiper (index 4 = Hiper page, type 5) 
   type = "replace"
   point = "chara_bank_menu_for_search.OnFunction.PlateHiperBankReplace"
   text = '''
-        n8 = EVT_PlateHiperStep(n8, 1, #t3) -- EVT plate_hiper
+        n8 = CharacterReforged.hyper_page_plate_hyper_step(n8, 1, #t3) -- EVT plate_hiper
 '''
   crc = "none"
 
@@ -85,11 +82,11 @@ local t3 = {1, 0, 2, 3, 5, 6} -- EVT plate_hiper (index 4 = Hiper page, type 5) 
   type = "insert_before"
   point = "chara_bank_menu_for_search.UpdateButtonGuide.PlateHiperBank"
   text = '''
-  t7, t8, t9, t10, t11, t12 = EVT_PH_GuideEdit(flag, t7, t8, t9, t10, t11, t12) -- EVT plate_hiper
+  t7, t8, t9, t10, t11, t12 = CharacterReforged.hyper_page_guide_edit(flag, t7, t8, t9, t10, t11, t12) -- EVT plate_hiper
 '''
   crc = "none"
 
   [[files.ops]]
   type = "append_block"
-  source = "../plate_hiper_common/evt_plate_hiper_common.lua"
+  source = "../plate_hiper_common/character_reforged_plate_hiper_common.lua"
   marker = "plate_hiper common"

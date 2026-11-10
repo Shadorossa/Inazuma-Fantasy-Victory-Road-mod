@@ -1,6 +1,4 @@
-# Career stats («TRAYECTORIA» page of the player plate): what the feature reads from the game (nie.exe PC v7.1.2) and
-# the Lua commands it answers. The logic is scripts\career.lua (BetterQoL.Career.*). Was BetterQoL's old DLL's career
-# module.
+# Career stats of the player plate and club stats: game data read and Lua commands (logic scripts\career.lua).
 schema = "VRFW.game/2"
 
 # ---------------------------------------------------------------- game functions
@@ -19,38 +17,27 @@ name = "play_data"
 base = "game_root"
 chain = ["ROOT_PLAY_DATA"]
 
-# `[g_ballOwner]` = the ball-owner block: the site in the handler of `CMND_IS_BALL_OWNER_CHARA` 0xC2A98A.
 [[VRFW.Global]]
 name = "ball"
 game = "Ball.Global"
 
-# ---------------------------------------------------------------- Lua commands (crc32 of the name: the grafts ask
-# `@crc:NAME@`; the CMND_EVT_* names are the ones Inazuma Fantasy registered)
+# ---------------------------------------------------------------- Lua commands
 
-# CMND_BETTERQOL_CAREER_MATCH(mode) -> state (0 idle, 1 tracking, 2 recorded / done). From the match HUD (graft
-# util_career_match): 1 kick-off, 0 every frame, 2 half time, 3 full-time result.
+# CMND_BETTERQOL_CAREER_MATCH(mode) -> state (0 idle, 1 tracking, 2 done).
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_CAREER_MATCH"
-aliases = ["CMND_EVT_CAREER_MATCH"]
 handler = "BetterQoL.Career.Match"
 needs = ["Match.ActorUnit", "match_info", "Match.SoccerActors.ViaSkillUsed", "ball"]
 
-# CMND_BETTERQOL_CAREER(charaStHdl) -> ok, signed, before, matches, wins, draws, losses, goals, assists, mvp, topSkill, topUses
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_CAREER"
-aliases = ["CMND_EVT_CAREER"]
 handler = "BetterQoL.Career.Get"
 
-# CMND_BETTERQOL_CAREER_EX(charaStHdl, group) -> ok, then the numbers of a group (graft util_career_page)
+# CMND_BETTERQOL_CAREER_EX(charaStHdl, group) -> ok, then the numbers of a group
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_CAREER_EX"
-aliases = ["CMND_EVT_CAREER_EX"]
 handler = "BetterQoL.Career.Ex"
 
-# «Estadísticas del club» (the row of «Caseta del club», graft util_club_stats_row; the panel
-# assets/lua/play_guide_top_menu/150_club_stats.lua):
-# CMND_BETTERQOL_CLUB_STATS(langCode) -> ok, players, since, matches, wins, draws, losses, goalsFor, goalsAgainst,
-# cleanSheets, bestWinFor, bestWinAgainst, bestWinDay, bestWinRun, bestUnbeatenRun, storeSince, today
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_CLUB_STATS"
 handler = "BetterQoL.Career.Club"
@@ -59,3 +46,8 @@ handler = "BetterQoL.Career.Club"
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_CLUB_STATS_ROW"
 handler = "BetterQoL.Career.ClubRow"
+
+# CMND_BETTERQOL_CLUB_HISTORY_ROW(i) -> number, day, mode name, rival team name, goals for, goals against, result (1 win 2 draw 3 loss), man of the match, scorers
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_CLUB_HISTORY_ROW"
+handler = "BetterQoL.Career.ClubHistoryRow"

@@ -1,15 +1,5 @@
 schema = "VRFW.editor/1"
-# Chronicle Deluxe: the ModManager form of its teams' member rows (docs/framework/modmanager-editor-schemas.md, «Forms
-# of a type»). For every team this mod declares (the IE1 / IE2 story rivals, the chain rivals, the wiki teams), the
-# «Equipos» page shows each player's own level in the selected player's panel and on his card: the team type's member
-# key `level_offset` (member column 12, his level over the level the team plays at), shown and edited as the level he
-# plays at, from 1 to the level cap in effect. An edit is saved IN PLACE into the row of that player in the team's own
-# file. The moves, their learn levels and their grades are the team editor's own fields. Read only by ModManager: the
-# game does not read content\editor\.
-#
-# Generated files (content\teams\10_ie1\0310_ie1_story_teams.toml, 11_ie2\0310_ie2_story_teams.toml,
-# 70_route_nodes\rivals_*.toml) are written again by their builders (research/scripts/chronicle_deluxe_*_build.py):
-# an edit made there is lost when they run again, unless it is brought into the builder's data.
+# Chronicle Deluxe: the ModManager form of its teams' member rows (docs/framework/modmanager-editor-schemas.md).
 
 [[Shape]]
 Id = "team_member_level"

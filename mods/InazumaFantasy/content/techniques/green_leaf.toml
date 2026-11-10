@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Hoja verde (New Leaf): the download's move who91001, a clone of who00540 with its numbers; its event ev61_91001 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "green_leaf"

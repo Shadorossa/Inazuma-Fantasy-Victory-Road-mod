@@ -1,11 +1,11 @@
-# VR-Framework [[VRFW.RouteNode]] (Chronicle board side nodes): the one shared board rule (rn_common.lua) for every mod's
+# VRFW [[VRFW.RouteNode]] (Chronicle board side nodes): the one shared board rule (rn_common.lua) for every mod's
 # nodes, data from team_engine (CMND_VRFW_TEAM_ROUTE_NODE_* / CMND_VRFW_TEAM_ROUTE_ROAD_*; the roads' layer: framework menus/route_roads.toml).
 # A framework graft: any mod's nodes are drawn by it,
 # with no other mod needed.
 # Board: lock a never-used node slot, open nodes whose prerequisites are won (OnInit silently, after a clear with the
 # retail open effect), hide closed nodes, draw the shown nodes' roads (overlay sprites above the map tiles). Command menu:
-# only the node's shown difficulties (VRFW_RN_Rows, called by graft route_board's VRFW_RBC_Rows hook point). The
-# board scripts' hook points and their VRFW_Host hosts are graft route_board's (order 190: its host call runs after
+# only the node's shown difficulties (VRFW.route_nodes.rows, called by graft route_board's VRFW.route_board_commands.rows hook point). The
+# board scripts' hook points and their VRFW.host hosts are graft route_board's (order 190: its host call runs after
 # this graft's and route_chains' files).
 name = "route_nodes"
 mod = "VRFW"
@@ -29,8 +29,8 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.OnInit.RouteNodes"
   text = '''
-  VRFW_RN_OpenStartNeighbours() -- VRFW route_nodes
-  VRFW_RN_Sync(false) -- VRFW route_nodes
+  VRFW.route_nodes.open_start_neighbours() -- VRFW route_nodes
+  VRFW.route_nodes.sync(false) -- VRFW route_nodes
 '''
   crc = "none"
 
@@ -40,17 +40,17 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.OnSetupLayer.RouteNodes"
   text = '''
-  elseif a1 == VRFW_RN_ROAD_LAYER then -- VRFW route_nodes
-    VRFW_RN_RoadSetup(a2)
+  elseif a1 == VRFW.route_nodes.ROAD_LAYER then -- VRFW route_nodes
+    VRFW.route_nodes.road_setup(a2)
 '''
   crc = "none"
 
-  # ... and every instance again once the map is open (its layers exist)
+  # Every instance again once the map is open (its layers exist).
   [[files.ops]]
   type = "insert_after"
   point = "vs_route_town_menu.SetupTownMap.RouteNodes"
   text = '''
-  VRFW_RN_Roads() -- VRFW route_nodes
+  VRFW.route_nodes.roads() -- VRFW route_nodes
 '''
   crc = "none"
 
@@ -60,7 +60,7 @@ stem = "vs_route_town_menu"
   type = "replace"
   point = "vs_route_town_menu.OnEnter.RouteNodes"
   text = '''
-          local chronicle_lock_status = funcLuaCommand(3394595467 --[[CMND_GET_CHRONICLE_LOCK_STATUS]], ret3, 1) and not VRFW_RN_Enterable(ret3) -- VRFW route_nodes
+          local chronicle_lock_status = funcLuaCommand(3394595467 --[[CMND_GET_CHRONICLE_LOCK_STATUS]], ret3, 1) and not VRFW.route_nodes.enterable(ret3) -- VRFW route_nodes
 '''
   crc = "none"
 
@@ -70,35 +70,35 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.OnEnter.RouteNodesBefore"
   text = '''
-            s = VRFW_RN_LockedText(ret3, s) -- VRFW route_nodes
+            s = VRFW.route_nodes.locked_text(ret3, s) -- VRFW route_nodes
 '''
   crc = "none"
 
-  # ... and its board balloon shows that text (the piece's guideTextId otherwise)
+  # Its board balloon shows that text (the piece's guideTextId otherwise).
   [[files.ops]]
   type = "replace"
   point = "vs_route_town_menu.UpdatePieceAtcBalloon.RouteNodes"
   text = '''
-  local guide_text_id = VRFW_RN_GuideText(a3, GetGuideTextId(a3)) -- VRFW route_nodes
+  local guide_text_id = VRFW.route_nodes.guide_text(a3, GetGuideTextId(a3)) -- VRFW route_nodes
 '''
   crc = "none"
 
-  # the caravan follows the nodes' roads (fork point, bends), not a straight line from beside (VRFW_RN_Path), and stops on
-  # the road nearest to a road-less node (VRFW_RN_OffRoad)
+  # the caravan follows the nodes' roads (fork point, bends), not a straight line from beside (VRFW.route_nodes.path), and stops on
+  # the road nearest to a road-less node (VRFW.route_nodes.off_road)
   [[files.ops]]
   type = "replace"
   point = "vs_route_town_menu.CheckCharaMoveTownMapPiece.RouteNodes"
   text = '''
-  t9 = VRFW_RN_OffRoad(VRFW_RN_Path(funcLuaMenuVSRouteTownCommand(111188339, n14, n11))) -- VRFW route_nodes
+  t9 = VRFW.route_nodes.off_road(VRFW.route_nodes.path(funcLuaMenuVSRouteTownCommand(111188339, n14, n11))) -- VRFW route_nodes
 '''
   crc = "none"
 
-  # the map scroll (the board cursor stays centred) follows the same rails as the caravan (VRFW_RN_ScrollRail)
+  # the map scroll (the board cursor stays centred) follows the same rails as the caravan (VRFW.route_nodes.scroll_rail)
   [[files.ops]]
   type = "insert_before"
   point = "vs_route_town_menu.UpdateMapScroll.RouteNodes"
   text = '''
-  VRFW_RN_ScrollStart(n15) -- VRFW route_nodes
+  VRFW.route_nodes.scroll_start(n15) -- VRFW route_nodes
 '''
   crc = "none"
 
@@ -106,7 +106,7 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.UpdateMapScroll.RouteNodesBefore"
   text = '''
-  VRFW_RN_ScrollEnd() -- VRFW route_nodes
+  VRFW.route_nodes.scroll_end() -- VRFW route_nodes
 '''
   crc = "none"
 
@@ -114,7 +114,7 @@ stem = "vs_route_town_menu"
   type = "insert_after"
   point = "vs_route_town_menu.UpdateScrollPos.RouteNodes"
   text = '''
-  a1, a2 = VRFW_RN_ScrollRail(a1, a2) -- VRFW route_nodes
+  a1, a2 = VRFW.route_nodes.scroll_rail(a1, a2) -- VRFW route_nodes
 '''
   crc = "none"
 
@@ -124,7 +124,7 @@ stem = "vs_route_town_menu"
   type = "insert_after"
   point = "vs_route_town_menu.ScrollToPieceByDpad.RouteNodes"
   text = '''
-  if VRFW_RN_Hidden(a1) then -- VRFW route_nodes
+  if VRFW.route_nodes.hidden(a1) then -- VRFW route_nodes
     return
   end
 '''
@@ -138,19 +138,19 @@ stem = "vs_route_town_menu"
   type = "insert_after"
   point = "vs_route_town_menu.UpdatePieceFocus.RouteNodes"
   text = '''
-  if VRFW_RN_Hidden(a2) then -- VRFW route_nodes
+  if VRFW.route_nodes.hidden(a2) then -- VRFW route_nodes
     a1 = -1
     a2 = -1
   end
 '''
   crc = "none"
 
-  # `PieceScale`: a node's piece (base and crest) drawn smaller / bigger; the other pieces back at 1 (VRFW_RN_PieceScale)
+  # `PieceScale`: a node's piece (base and crest) drawn smaller / bigger; the other pieces back at 1 (VRFW.route_nodes.piece_scale)
   [[files.ops]]
   type = "insert_after"
   point = "vs_route_town_menu.UpdateTownMapPiece.RouteNodes"
   text = '''
-  VRFW_RN_PieceScale(a1, a2, a3) -- VRFW route_nodes
+  VRFW.route_nodes.piece_scale(a1, a2, a3) -- VRFW route_nodes
 '''
   crc = "none"
 
@@ -159,7 +159,7 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.UpdatePlacementPiece.RouteNodes"
   text = '''
-  if VRFW_RN_Hidden(a2) then -- VRFW route_nodes
+  if VRFW.route_nodes.hidden(a2) then -- VRFW route_nodes
     a2 = -1
     a4 = nil
     a5 = nil
@@ -169,12 +169,12 @@ stem = "vs_route_town_menu"
   crc = "none"
 
   # the retail open effect of new pieces: the roads of the route nodes among them show as they appear (their road
-  # instance is made visible, VRFW_RN_Reveal)
+  # instance is made visible, VRFW.route_nodes.reveal)
   [[files.ops]]
   type = "insert_after"
   point = "vs_route_town_menu.WaitPieceOpenEffect.RouteNodes"
   text = '''
-  VRFW_RN_RevealPieces(a1) -- VRFW route_nodes
+  VRFW.route_nodes.reveal_pieces(a1) -- VRFW route_nodes
 '''
   crc = "none"
 
@@ -183,8 +183,8 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.UpdateClearEffect.RouteNodes"
   text = '''
-  if VRFW_RN_Sync(true) then -- VRFW route_nodes
-    VRFW_RN_Roads()
+  if VRFW.route_nodes.sync(true) then -- VRFW route_nodes
+    VRFW.route_nodes.roads()
   end
 '''
   crc = "none"
@@ -192,7 +192,7 @@ stem = "vs_route_town_menu"
 [[files]]
 stem = "vs_route_town_command_select_menu"
 
-  # VRFW_RN_BySlot / VRFW_RN_Rows for the piece's rows (route_board: t3 = VRFW_RBC_Rows(...)); the functions are
+  # VRFW.route_nodes.by_slot / VRFW.route_nodes.rows for the piece's rows (route_board: t3 = VRFW.route_board_commands.rows(...)); the functions are
   # globals, defined before any call
   [[files.ops]]
   type = "insert_before"

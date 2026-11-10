@@ -1,34 +1,10 @@
--- Football Reforged › module «pressing»: the PRESS button. Settings: config.toml
--- [pressing]. The mechanisms are the VR-Framework's: VRFW.ai.move / release (a player of
--- the game's AI runs to a target, at a sprint, for a moment), VRFW.ai.focus_field_gate (a team's focus field off
--- while it does not hold the ball), VRFW.input.on (the user's input commands).
---
--- * Without the ball neither team opens its focus field (the gate); with the ball the focus field is the game's.
--- * Your team without the ball: while L2 is held (hold_commands), 2 to 4 of your AI teammates nearest to the ball
---   carrier (the ones within band_m, at least min_players, at most max_players, nobody beyond range_m; never the
---   keeper, never the player you control, never a winded one) sprint at him. Release L2 or win the ball back: they are
---   the game's AI again.
--- * The CPU without the ball presses with the same rules when one of its [[pressing.cpu_rule]] holds (carrier near
---   its goal, in its half with a player close, several players close), for press_ms, then rests rest_ms.
--- * The AI's own press ([pressing.ai]): without a team press, an AI-controlled defender of either team (never the
---   keeper, never the player you control) who is the nearest or second nearest to the carrier and within radius_m of
---   him presses on his own when his roll of chance wins, for press_ms, then waits cooldown_ms. Decided every
---   decide_ms and at every change of carrier; the order runs by itself in the framework (no per-frame refresh).
--- * The sprint bar of Aura Points (role key VRFW.sprint): a winded player does not press; the pressers' sprint is the
---   game's dash, so it drains their bar like any dash. Without Aura Points nobody is winded.
--- * The HUD: while the rival holds the ball in open play, the L2 «¡Subid!» guide shows
---   «¡Presión!» (VRFW.hud.go_ahead_guide, the sprite hud_sprite of content\images\hud); when a press starts, each
---   of your pressers shows the game's «¡Subid!» arrows pointing at the carrier (VRFW.ai.arrow), for the game's
---   «¡Subid!» time or until his press ends.
 
 Pressing = Pressing or {}
 local P = Pressing
-
-local Basics = require "VRFW/lib/basics"
 local info = VRFW.logger("pressing")
 local function press_debug(line) VRFW.debug("pressing: " .. line) end
 
-local clamp = Basics.value.clamp   -- a config number with a default, kept inside its range
+local clamp = VRFW.value.clamp   -- a config number with a default, kept inside its range
 
 local function text_setting(t, k, default)
   local v = t and t[k]
@@ -47,7 +23,7 @@ local function list_setting(t, k, default)
   return out
 end
 
-local RAW = (VRFW.files and VRFW.files.config and VRFW.files.config("pressing")) or {}
+local RAW = VRFW.config("pressing", {})
 local SETTINGS = {
   min_players = math.floor(clamp(RAW.min_players, 2, 1, 10)),
   max_players = math.floor(clamp(RAW.max_players, 4, 1, 10)),
@@ -102,40 +78,34 @@ end
 P.settings = SETTINGS
 
 -- the soccer states (the press runs only in plain open play)
-local Live = require "VRFW/lib/match_live"
+local Live = VRFW.match.live
 
--- per team: the handles pressing now (handle -> the carrier his arrows point at, or true); the CPU's press until /
--- rest until / next decision. owner: the team with the ball (nil = loose); last_owner: the last team that had it
--- (kept through passes and loose balls: the press guide on the HUD); hud: the press guide is shown.
 local State = {
   team = {
     [0] = { pressers = {}, count = 0, cpu_until = 0, cpu_rest = 0, cpu_next = 0, ai = {}, ai_next = 0 },
     [1] = { pressers = {}, count = 0, cpu_until = 0, cpu_rest = 0, cpu_next = 0, ai = {}, ai_next = 0 },
   },
   gate_set = false,
-  carrier = nil,      -- the carrier of the last frame (the AI's own presses follow him)
-  ready_at = {},      -- handle -> the time his AI press cooldown ends   -- the focus field gate is set for this match (the framework forgets it at a new match)
+  carrier = nil,
+  ready_at = {},
   owner = nil,
   last_owner = nil,
   hud = false,
 }
 
-local hex = require("VRFW/lib/ids").hex
+local hex = VRFW.ids.hex_text
 
--- a press order's options: the sprint, its speed and drain, the order's length
 local function order(ms)
   return { sprint = SETTINGS.sprint, sprint_speed = SETTINGS.sprint_speed, sprint_drain = SETTINGS.sprint_drain, ms = ms }
 end
 
--- a number in [0, 1): the synced match's stream, or math.random when no synced match runs (VRFW.match.rng gives nil)
-local function chance_roll() return VRFW.match.rng() or math.random() end
+local function chance_roll() return VRFW.random.float() end
 
 local function dist(ax, az, bx, bz)
   local dx, dz = ax - bx, az - bz
   return math.sqrt(dx * dx + dz * dz)
 end
 
--- the sprint bar: winded (or below min_sprint) = no press; no such resource (Aura Points off) = never winded
 local function winded(hdl)
   local key = SETTINGS.sprint_resource
   if not key or not VRFW.resource then return false end
@@ -146,7 +116,6 @@ local function winded(hdl)
   return SETTINGS.min_sprint > 0 and (tonumber(v.ratio) or 1) < SETTINGS.min_sprint
 end
 
--- the team's players who may press, nearest to the carrier first: { hdl, d }
 local function candidates(team, cx, cz)
   local ok, players = pcall(VRFW.ai.players, team)
   if not ok or type(players) ~= "table" then return {} end
@@ -161,7 +130,6 @@ local function candidates(team, cx, cz)
   return list
 end
 
--- the pressers: the candidates within band_m, at least min_players, at most max_players
 local function pick(list)
   local out = {}
   for _, c in ipairs(list) do
@@ -171,17 +139,14 @@ local function pick(list)
   return out
 end
 
--- the game's «¡Subid!» arrows on the pressers of `team` (arrows = "user": only your team's)
 local function arrows_for(team, user)
   return SETTINGS.arrows == "both" or (SETTINGS.arrows == "user" and team == user)
 end
 
--- a presser's arrows end with his press (mark = the carrier they point at; true = none)
 local function arrows_off(hdl, mark)
   if mark ~= true then pcall(VRFW.ai.hide_arrow, hdl) end
 end
 
--- the press guide on the L2 plate: shown while the rival had the ball last in open play
 local function set_hud(on)
   if SETTINGS.hud_sprite == "" or on == State.hud or not VRFW.hud then return end
   local ok = pcall(VRFW.hud.go_ahead_guide, on and SETTINGS.hud_sprite or nil)
@@ -266,9 +231,6 @@ local function press(team, carrier, cx, cz, who, user)
   end
 end
 
--- ---------------------------------------------------------------- the AI's own press ([pressing.ai])
-
--- end the AI's own presses of `team` (t.ai: handle -> { ends, carrier })
 local function ai_stop(team, why)
   local t = State.team[team]
   local n = 0
@@ -282,9 +244,6 @@ local function ai_stop(team, why)
   end
 end
 
--- the AI's own presses of `team` against `carrier`: drop the ended / winded ones, then the nearest `ranks` defenders
--- within radius_m may start one (a roll of chance each, outside their cooldown). Runs every decide_ms and at a change
--- of carrier (force); the orders last press_ms in the framework, no refresh.
 local function ai_decide(team, carrier, cx, cz, now, force)
   local A = SETTINGS.ai
   local t = State.team[team]
@@ -305,7 +264,6 @@ local function ai_decide(team, carrier, cx, cz, now, force)
       t.ai[hdl] = nil
       press_debug(string.format("T%d: AI press of %s ends (%s)", team, hex(hdl), why))
     elseif o.carrier ~= carrier then
-      -- a new carrier: the same press goes on against him for its remaining time
       local ok, done = pcall(VRFW.ai.move, hdl, SETTINGS.chase and { chase = carrier } or { x = cx, z = cz },
         order(math.max(math.floor(o.ends - now), 50)))
       if ok and done then o.carrier = carrier else t.ai[hdl] = nil end
@@ -330,17 +288,15 @@ local function ai_decide(team, carrier, cx, cz, now, force)
   end
 end
 
--- the user's press button: one of hold_commands is on
 local function user_holds()
-  if not VRFW.input or not VRFW.input.on then return false end
+  if not VRFW.ai.input or not VRFW.ai.input.on then return false end
   for _, c in ipairs(SETTINGS.hold_commands) do
-    local ok, on = pcall(VRFW.input.on, c)
+    local ok, on = pcall(VRFW.ai.input.on, c)
     if ok and on == true then return true end
   end
   return false
 end
 
--- one CPU rule holds now
 local function rule_holds(r, team, cx, cz, list)
   if r.carrier_to_own_goal_max_m or r.carrier_in_own_half then
     local ok, gx, gz = pcall(VRFW.ai.own_goal, team)
@@ -363,7 +319,6 @@ local function rule_holds(r, team, cx, cz, list)
   return chance_roll() < r.chance
 end
 
--- the CPU of `team` wants to press now
 local function cpu_wants(team, cx, cz, now)
   local t = State.team[team]
   if now < t.cpu_until then return true end
@@ -386,7 +341,6 @@ local function cpu_wants(team, cx, cz, now)
   return false
 end
 
--- your press button: a line when it goes on or off (what the ball was doing then)
 local function note_button(on, context)
   if on == State.user_held then return end
   State.user_held = on
@@ -400,8 +354,6 @@ local function stop_all(why)
   ai_stop(1, why)
 end
 
--- the focus field gate, once per match at its first frame (a refusal, e.g. not an offline match: logged once, the
--- match keeps the game's focus field)
 local function set_gate()
   if State.gate_set or SETTINGS.focus_field_gate == "off" then return end
   State.gate_set = true
@@ -419,7 +371,7 @@ VRFW.on("match_end", function() State.gate_set, State.ready_at, State.carrier = 
 
 VRFW.on("tick", function(ev)
   local m = ev.match or VRFW.match()
-  local now = VRFW.now()
+  local now = VRFW.now_ms()
   set_gate()
   if not m or not Live.in_play(m) then
     stop_all("play stopped")
@@ -436,7 +388,6 @@ VRFW.on("tick", function(ev)
     return nil
   end
   if State.owner ~= cteam then
-    -- possession changed: the CPU decides again from now; the press guide follows the ball
     State.owner, State.last_owner = cteam, cteam
     set_hud((user == 0 or user == 1) and cteam ~= user)
     for team = 0, 1 do
@@ -450,18 +401,20 @@ VRFW.on("tick", function(ev)
   local new_carrier = State.carrier ~= carrier
   State.carrier = carrier
   local want, who
+  local human = VRFW.ai.human(team)
   if user == team then
     want, who = user_holds(), "your press button"
     note_button(want, "the rival's carrier " .. hex(carrier))
+  elseif human then
+    want, who = false, "a human"
   else
     want, who = SETTINGS.cpu and cpu_wants(team, cx, cz, now), "CPU"
   end
   if want then
-    -- a team press: it orders its own pressers (the AI's own presses end in it)
     ai_stop(team, "a team press")
     press(team, carrier, cx, cz, who, user)
   else
-    stop(team, user == team and "press button released" or "the CPU does not press")
+    stop(team, user == team and "press button released" or (human and "a human drives the team" or "the CPU does not press"))
     if SETTINGS.ai.enabled then ai_decide(team, carrier, cx, cz, now, new_carrier) end
   end
   return nil

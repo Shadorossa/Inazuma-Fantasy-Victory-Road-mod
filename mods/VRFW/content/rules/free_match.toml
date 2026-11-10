@@ -1,7 +1,6 @@
 schema = "VRFW.rule/1"
-# Base ruleset: 11-a-side free match (VS CPU, friendlies), same as the original game; another mod may replace it (later load wins).
 id = "free_match"
-name = "Free match (original)"   # fallback; shown in the game language from the text key ruleset_free_match
+name = "Free match (original)"
 version = 1
 
 [time]

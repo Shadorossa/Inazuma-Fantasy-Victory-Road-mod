@@ -1,6 +1,5 @@
 schema = "VRFW.changelog/1"
-# BetterQoL: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
-# Rules (the parser refuses the rest): a single 
+# One general summary of the mod, shown on «Novedades de mods».
 
 [[release]]
 icon = "general"

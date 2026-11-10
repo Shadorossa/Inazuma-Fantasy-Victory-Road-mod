@@ -1,14 +1,9 @@
-# Chronicle Deluxe: #/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx, the Chronicle board's clear-dot
-# atlas. The chain «C» pieces' rank badges (PieceBadge of this mod's ranks, content\defaults\match_rank.toml): new sprites
-# of the dots' atlas (packed into a new texture of it); the VR-Framework's graft route_board (VRFW_RB_Badge,
-# docs/framework/route-board.md) sets one on the 6th dot of a chain «C» piece (its chain rank). Our own drawing. Other mods may declare other sprites of this atlas; sprite names differ, so
-# they merge.
 schema = "VRFW.image/1"
 
 [[texture]]
 atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
 name = "chronicle_deluxe_vsroute01_06b"
-size = [236, 64]
+size = [272, 64]
 
 [[sprite]]
 atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
@@ -34,10 +29,6 @@ x = 68
 y = 0
 png = "vsroute01_06b/chronicle_deluxe_rank_b.png"
 
-# The «team cleared» gauge's orb of BATALLA LEGENDARIA: a new sprite made at boot from the PLAYER'S own orbs, the
-# legendary ball's recipe (vsroute01_21.toml): the purple orb clear_icon02 blended diagonally into the blue one turned
-# cyan (clear_icon01) and the gold one turned lime (clear_icon03). The gauge's own instance shows it in place of the
-# orange clear_icon04 (the board's dots keep the retail sprite).
 [[recipe]]
 name = "chronicle_deluxe_legendary_orb_base"
 game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
@@ -62,8 +53,35 @@ ops = [{ op = "mix_gradient", image = "chronicle_deluxe_legendary_orb_cyan", wei
 
 [[sprite]]
 atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
-name = "chronicle_deluxe_legendary_orb"
+name = "chronicle_deluxe_class_orb_legendary"
 texture = "chronicle_deluxe_vsroute01_06b"
 x = 204
 y = 0
 recipe = "chronicle_deluxe_legendary_orb"
+
+# the class orbs under the names the class card atlas has them (one Orb name per class, [MatchDifficulty] Orb)
+[[recipe]]
+name = "chronicle_deluxe_class_orb_inazuma"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+sprite = "clear_icon01"
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
+name = "chronicle_deluxe_class_orb_inazuma"
+texture = "chronicle_deluxe_vsroute01_06b"
+x = 204
+y = 32
+recipe = "chronicle_deluxe_class_orb_inazuma"
+
+[[recipe]]
+name = "chronicle_deluxe_class_orb_lethal_zone"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
+sprite = "clear_icon02"
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
+name = "chronicle_deluxe_class_orb_lethal_zone"
+texture = "chronicle_deluxe_vsroute01_06b"
+x = 240
+y = 0
+recipe = "chronicle_deluxe_class_orb_lethal_zone"

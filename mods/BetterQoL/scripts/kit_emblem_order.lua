@@ -1,28 +1,5 @@
--- BetterQoL › kit and emblem order (feature kit_emblem_order, always on). In the inventory («Objetos», item_menu),
--- the kits tab and the emblems tab list their items by saga (IE1, IE2, IE3, GO, Chrono Stone, Galaxy, Ares, Orion,
--- Victory Road, then the mods' series), and inside a saga by that saga's team order; items of no team come at the end
--- of their saga, items of no saga at the very end. The «Coleccionables» and «Consumibles» tabs list their items by
--- type: the groups of config.toml [item_type_order] (category / sub_category of the item's item_config row), then the
--- catalog number. Other tabs and the alphabetical sort (sort type 5) keep the game's order. Hook and the list layout:
--- content\game\kit_emblem_order.toml.
---
--- Everything comes from the tables the game loads (the mods' rows included); the series types, eras and belong teams
--- through the framework's game catalogue (VRFW/lib/game_catalogue):
--- * saga of an item: the first series flag of its ITEM_*_INFO_SERIES row (the row after it in the file), else the
---   first series of the era column (team_kit_<era> / team_emblem_id_<era>) that names it;
--- * sagas: the series types in their column order (team_number_<x> of belong_team_config);
--- * team of an item: belong_team_config, a kit = the uniform (item_config ITEM_FASHION_INFO column `uniform`) in one
---   of the team's team_kit_<era> columns, an emblem = the item in one of its team_emblem_id_<era> columns;
--- * team order inside a saga: the team's number in that saga's team_number_<x> column; a team without one follows,
---   in table order. An item of several teams takes the best-placed one.
--- The items mods add stand where the team kit and emblem pickers show them (selector_places): those lists are the game's
--- ItemListSort with sort type 8, whose key for a kit or a crest is its icon_index. A mod's item follows the game's item
--- before it by icon_index, and one above every game item ends the list. A clone of a game row keeps that row's series
--- flags, so the flags say nothing about it. The game's items keep their order among themselves.
+local Memory = VRFW.memory
 
-local ITEM_KEY = "data/common/gamedata/item/item_config_*.cfg.bin"
-
--- the item list (the list view's +0x1E0): u32 count at +0x8, row pointers at +0x10; a row's item id at +0x8
 local LIST_COUNT, LIST_ROWS, ROW_ITEM = 0x8, 0x10, 0x8
 local MAX_ROWS = 0x898
 local SORT_ALPHABETICAL = 5
@@ -30,27 +7,11 @@ local SORT_ALPHABETICAL = 5
 local LAST = 0x7FFFFFFF
 local NO_NUMBER = 0x1000000
 
-local Id = require "VRFW/lib/ids"
-local Catalogue = require "VRFW/lib/game_catalogue"
+local Id = VRFW.ids
+local Catalogue = VRFW.catalogue
 
-local function u32(v)
-  if type(v) ~= "number" then
-    return 0
-  end
-  return Id.u32(v)
-end
+local u32 = Id.unsigned
 
--- the first value of `row` among `names`
-local function col(row, ...)
-  for _, n in ipairs({ ... }) do
-    if row[n] ~= nil then
-      return row[n]
-    end
-  end
-  return nil
-end
-
--- item id -> sort key { … }; kits, emblems and typed items apart (a tab is re-ordered when all its rows are of one)
 local kits, emblems, typed = {}, {}, {}
 local ready, typed_ready = false, false
 -- typed item ids that fall in a group of [item_type_order]
@@ -61,7 +22,7 @@ local function build()
   if #types == 0 then
     error("belong_team_config: no team_number_<x> column")
   end
-  -- the first saga an era serves (ie -> ie1, go -> go1, areori -> ares, v -> v)
+  -- first saga an era serves (ie -> ie1, go -> go1, areori -> ares)
   local function era_saga(era)
     return Catalogue.first_type_of_era(era) or LAST
   end
@@ -83,7 +44,6 @@ local function build()
       add(by_emblem, id, ti, era_saga(era))
     end
   end
-  -- a team's place in saga k: its number there, else after the numbered teams in table order
   local function place(ti, k)
     local n = teams[ti].numbers[k]
     if n and n > 0 then
@@ -92,34 +52,17 @@ local function build()
     return NO_NUMBER + ti
   end
 
-  -- series flags (the ITEM_*_INFO_SERIES row after the item's row, file order)
+  -- first saga of each item
   local flags = {}
-  local okk, key = pcall(VRFW.table.source, "item/item_fashion")
-  local ok, ents = pcall(VRFW.table.entries, okk and key or ITEM_KEY,
-    { "ITEM_FASHION_INFO", "ITEM_FASHION_INFO_SERIES", "ITEM_EMBLEM_INFO", "ITEM_EMBLEM_INFO_SERIES" }, true)
-  if ok and type(ents) == "table" then
-    local cur = nil
-    for _, e in ipairs(ents) do
-      if e.name == "ITEM_FASHION_INFO" or e.name == "ITEM_EMBLEM_INFO" then
-        cur = u32(e[1])
-      elseif e.name == "ITEM_FASHION_INFO_SERIES" or e.name == "ITEM_EMBLEM_INFO_SERIES" then
-        if cur and flags[cur] == nil then
-          for k = 1, 9 do
-            local v = e[k]
-            if v == true or (type(v) == "number" and v ~= 0) then
-              flags[cur] = k
-              break
-            end
-          end
-        end
-        cur = nil
+  for id, types in pairs(Catalogue.item_series()) do
+    for k = 1, 9 do
+      if types[k] then
+        flags[id] = k
+        break
       end
     end
-  else
-    VRFW.warn("item_config series rows not readable (" .. tostring(ents) .. "): sagas from the team's era columns")
   end
 
-  -- { saga, place }: the saga from the flags, else the owners' earliest era; the best place among the owners
   local function key_of(owners, id)
     local saga = flags[id]
     if saga == nil then
@@ -142,8 +85,6 @@ local function build()
     return { saga, best }
   end
 
-  -- the mods' rows of `table_id` get the pickers' place in `map`, which holds every row by the rules above; the game's
-  -- rows stay
   local function selector_places(table_id, rows, map)
     local okg, game_rows = pcall(VRFW.table.game_rows, table_id)
     if not okg then
@@ -152,13 +93,13 @@ local function build()
     end
     local in_game = {}
     for _, r in ipairs(game_rows) do
-      in_game[u32(col(r, "id"))] = true
+      in_game[u32(r.id)] = true
     end
     local game_items, mod_items = {}, {}
     for at, r in ipairs(rows) do
-      local id = u32(col(r, "id"))
+      local id = u32(r.id)
       if id ~= 0 then
-        local row = { id = id, icon = tonumber(col(r, "icon_index")) or 0, at = at }
+        local row = { id = id, icon = tonumber(r.icon_index) or 0, at = at }
         local list = in_game[id] and game_items or mod_items
         list[#list + 1] = row
       end
@@ -173,7 +114,7 @@ local function build()
       return a.at < b.at
     end)
     for _, m in ipairs(mod_items) do
-      -- the last game item whose icon_index is not above this one's
+      -- last game item whose icon_index is not above this one's
       local low, high = 0, #game_items
       while low < high do
         local mid = math.floor((low + high + 1) / 2)
@@ -193,24 +134,20 @@ local function build()
     end
   end
 
-  local n_kits, n_emblems = 0, 0
-  local kit_rows, emblem_rows = VRFW.table.rows("item/item_fashion"), VRFW.table.rows("item/item_emblem")
-  for _, r in ipairs(kit_rows) do
-    local id = u32(col(r, "id"))
-    if id ~= 0 then
-      kits[id] = key_of(by_uniform[u32(col(r, "uniform"))], id)
-      n_kits = n_kits + 1
+  local function keys_of(table_id, map, owners)
+    local rows, n = VRFW.table.rows(table_id), 0
+    for _, r in ipairs(rows) do
+      local id = u32(r.id)
+      if id ~= 0 then
+        map[id] = key_of(owners(r, id), id)
+        n = n + 1
+      end
     end
+    selector_places(table_id, rows, map)
+    return n
   end
-  for _, r in ipairs(emblem_rows) do
-    local id = u32(col(r, "id"))
-    if id ~= 0 then
-      emblems[id] = key_of(by_emblem[id], id)
-      n_emblems = n_emblems + 1
-    end
-  end
-  selector_places("item/item_fashion", kit_rows, kits)
-  selector_places("item/item_emblem", emblem_rows, emblems)
+  local n_kits = keys_of("item/item_fashion", kits, function(r) return by_uniform[u32(r.uniform)] end)
+  local n_emblems = keys_of("item/item_emblem", emblems, function(_, id) return by_emblem[id] end)
   ready = true
   VRFW.log(string.format("kit / emblem order: %d kits, %d emblems, %d sagas, %d teams", n_kits, n_emblems, #types,
     #teams))
@@ -223,11 +160,10 @@ end
 
 -- item id -> { group, place of the sub_category in the group, catalog number } from config.toml [item_type_order]
 local function build_types()
-  local cfg = VRFW.files.config("item_type_order")
+  local cfg = VRFW.config("item_type_order")
   if type(cfg) ~= "table" or type(cfg.groups) ~= "table" or #cfg.groups == 0 then
     error("config.toml [item_type_order]: no groups")
   end
-  -- category -> sub_category -> { group, place }; category -> group for a group of the whole category
   local by_sub, by_category = {}, {}
   for g, rule in ipairs(cfg.groups) do
     local c = tonumber(rule.category)
@@ -254,10 +190,10 @@ local function build_types()
     local okr, rows = pcall(VRFW.table.rows, t)
     if okr and type(rows) == "table" then
       for _, r in ipairs(rows) do
-        local id = u32(col(r, "id"))
+        local id = u32(r.id)
         if id ~= 0 then
-          local c, sub = tonumber(col(r, "category")) or -1, tonumber(col(r, "sub_category")) or -1
-          local catalog = tonumber(col(r, "catalog_no")) or LAST
+          local c, sub = tonumber(r.category) or -1, tonumber(r.sub_category) or -1
+          local catalog = tonumber(r.catalog_no) or LAST
           local hit = by_sub[c] and by_sub[c][sub]
           local key
           if hit then
@@ -290,7 +226,6 @@ if not okt then
   VRFW.warn("item type order off: " .. tostring(errt))
 end
 
--- the map whose keys order this tab: kits only, emblems only, or typed items only with one of them in a group
 local function tab_map(items)
   local all_kits, all_emblems, all_typed, any_grouped = ready, ready, typed_ready, false
   for _, item in ipairs(items) do
@@ -302,8 +237,6 @@ local function tab_map(items)
   return (all_kits and kits) or (all_emblems and emblems) or (all_typed and any_grouped and typed) or nil
 end
 
--- after the game sorted the inventory tab: a tab of kits only, emblems only or typed items only gets its rows by their
--- key ({ saga, place } or { group, place in the group, catalog number }), then the game's order
 local function on_sorted(ev)
   if (not ready and not typed_ready) or ev.args[2] == SORT_ALPHABETICAL then
     return nil
@@ -312,18 +245,18 @@ local function on_sorted(ev)
   if type(list) ~= "number" or list == 0 then
     return nil
   end
-  local okn, n = pcall(VRFW.mem.read, "u32", list + LIST_COUNT)
-  if not okn or n < 2 or n > MAX_ROWS then
+  local n = Memory.read("u32", list + LIST_COUNT)
+  if n == nil or n < 2 or n > MAX_ROWS then
     return nil
   end
-  local rows = VRFW.mem.read_array("ptr", list + LIST_ROWS, n)
+  local rows = VRFW.memory.read_array("ptr", list + LIST_ROWS, n)
   if not rows then
     return nil
   end
   local items = {}
   for i = 1, n do
-    local oki, item = pcall(VRFW.mem.read, "u32", rows[i] + ROW_ITEM)
-    items[i] = oki and item or 0
+    local item = Memory.read("u32", rows[i] + ROW_ITEM)
+    items[i] = item or 0
   end
   local map = tab_map(items)
   if not map then
@@ -346,7 +279,7 @@ local function on_sorted(ev)
     out[i] = rows[o.at]
     moved = moved or o.at ~= i
   end
-  if moved and not VRFW.mem.write_array("ptr", list + LIST_ROWS, out) then
+  if moved and not VRFW.memory.write_array("ptr", list + LIST_ROWS, out) then
     VRFW.warn(string.format("inventory order: list 0x%X not writable", list))
   end
   return nil

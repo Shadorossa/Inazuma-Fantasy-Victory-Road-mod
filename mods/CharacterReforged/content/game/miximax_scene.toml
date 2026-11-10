@@ -1,0 +1,16 @@
+schema = "VRFW.game/2"
+
+# (base) -> ok, event, map, partnerHdl, finalEvent, effectsOk | false, why: the scene's lists filled with the pair
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_MIXIMAX_SCENE"
+handler = "CharacterReforged.Miximaxed.Scene"
+
+# () -> pending, base, seconds
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_MIXIMAX_SCENE_STATE"
+handler = "CharacterReforged.Miximaxed.SceneState"
+
+# (why)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_MIXIMAX_SCENE_END"
+handler = "CharacterReforged.Miximaxed.SceneEnd"

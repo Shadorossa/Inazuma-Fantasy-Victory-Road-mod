@@ -1,5 +1,4 @@
 schema = "VRFW.editor/1"
-# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
 
 [[Shape]]
 Id = "settings"
@@ -20,6 +19,17 @@ For = "config"
   Label = { es = "Semilla de la Campaña", en = "Campaign seed" }
   Help = { es = "0 = sorteo nuevo en cada campaña y Draft. Otro número = mismos rivales y ofertas siempre (para pruebas).", en = "0 = a new draw every campaign and Draft. Any other number = same rivals and offers every time (for testing)." }
   [[Shape.Field]]
+  Key = "campaign_fields"
+  Type = "table"
+  Label = { es = "Campos de la Campaña", en = "Campaign fields" }
+  Help = { es = "Campos con condiciones especiales de la Campaña.", en = "The Campaign's special-conditions fields." }
+  [[Shape.Field]]
+  Key = "campaign_fields.fields"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Campos", en = "Fields" }
+  Help = { es = "Cada partido de la Campaña se juega en uno de estos campos, al azar y sin repetir en la misma Campaña.", en = "Each Campaign match is played on one of these fields, at random, none repeated within a Campaign." }
+  [[Shape.Field]]
   Key = "active_team"
   Type = "table"
   Label = { es = "Equipo activo", en = "Active team" }
@@ -34,6 +44,11 @@ For = "config"
   Type = "int"
   Label = { es = "Sincronía de nivel del equipo activo", en = "Active team level sync" }
   Help = { es = "Nivel al que juegan los jugadores por encima de él en esos partidos (0 = sin sincronía).", en = "Level players above it play at in those matches (0 = no sync)." }
+  [[Shape.Field]]
+  Key = "active_team.dock_tiles"
+  Type = "table"
+  Label = { es = "Casillas de Equipos personales", en = "Personal Teams tiles" }
+  Help = { es = "Qué casilla juega cada equipo guardado: nombre del equipo = número de dock.", en = "Which tile plays each saved team: team name = dock number." }
   [[Shape.Field]]
   Key = "difficulty"
   Type = "table"

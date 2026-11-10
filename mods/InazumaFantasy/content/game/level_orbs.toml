@@ -1,5 +1,4 @@
-# The level orbs' command (schema VRFW.game/1, docs/framework/native.md), handled by scripts\level_orbs.lua; the item
-# use menu's patch calls it (research/grafts/inazuma_fantasy_level_orbs).
+# The level orbs' command, handled by scripts\level_orbs.lua (called by graft inazuma_fantasy_level_orbs).
 schema = "VRFW.game/1"
 
 [[VRFW.Command]]

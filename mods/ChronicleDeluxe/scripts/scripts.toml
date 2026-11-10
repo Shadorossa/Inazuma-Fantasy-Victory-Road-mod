@@ -1,0 +1,18 @@
+schema = "VRFW.script/1"
+
+[[script]]
+file = "free_match_shuffle.lua"
+
+# the first Players Universe pull reads the item, shop and skill tables once: a wider budget than the default
+[[script]]
+file = "universe_prizes.lua"
+budget = 2000000
+
+# the daily advanced cards of the Players Universe (window flags per constellation)
+[[script]]
+file = "universe_days.lua"
+
+# the rate-up orb of each constellation, kept in the save slot
+[[script]]
+file = "universe_orbs.lua"
+allow = ["save"]

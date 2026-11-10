@@ -1,0 +1,13 @@
+schema = "VRFW.shop/2"
+
+# In the retail synergy shop 0x5B032CEA for 10 cards of each of Arion, Sol Daystar and Bai Long Miximax.
+[[edit]]
+target = "0x5B032CEA"
+  [[edit.entry]]
+  item = "chrono_storm"
+  stock = 1
+  costs = [
+    { currency = "arion_miximax_card", count = 10 },
+    { currency = "sol_daystar_miximax_card", count = 10 },
+    { currency = "bai_long_miximax_card", count = 10 },
+  ]

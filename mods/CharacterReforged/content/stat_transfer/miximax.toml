@@ -1,0 +1,22 @@
+schema = "CharacterReforged.stat_transfer/1"
+
+[CharacterReforged.StatTransfer]
+favoured = 0.75
+other = 0.5
+ideal_favoured = 1.0
+ideal_other = 0.5
+stamina_resource = "VRFW.stamina"
+
+# the favoured stats by the partner's position, element and gender; `never` is never favoured
+[CharacterReforged.StatTransfer.favoured_by]
+fw = ["kick", "agility"]
+mf = ["control", "technique"]
+df = ["pressure", "physical"]
+gk = ["agility", "technique"]
+wind = ["agility"]
+forest = ["technique"]
+fire = ["kick"]
+mountain = ["pressure"]
+male = ["physical", "stamina"]
+female = ["luck"]
+never = ["intelligence"]

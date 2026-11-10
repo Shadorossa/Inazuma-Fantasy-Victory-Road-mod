@@ -1,0 +1,8 @@
+schema = "BetterQoL.passive_config/1"
+
+# the Tension archetype passive of content\techniques\archetype_tension.toml, offered next to the game's own
+[[passive]]
+key = "passives_synergies_tension_on_loss"
+
+[[passive]]
+key = "passives_synergies_tension_on_hard_play"

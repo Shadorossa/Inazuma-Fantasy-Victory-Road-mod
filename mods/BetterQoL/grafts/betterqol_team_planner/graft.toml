@@ -1,0 +1,21 @@
+# BetterQoL: team planner ghost cards in the team dock squads, the planner's bank and automatic assignment.
+name = "betterqol_team_planner"
+mod = "BetterQoL"
+order = 345
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "BetterQoL: team planner (ghost cards in squads, bank listing every character, automatic assignment)"
+
+[[hooks]]
+stem = "team_dock_formation_menu"
+source = "betterqol_tp_formation.lua"
+
+[[hooks]]
+stem = "soccer_team_dock_menu"
+source = "betterqol_tp_dock.lua"
+
+[[hooks]]
+stem = "chara_bank_menu"
+source = "betterqol_tp_bank.lua"

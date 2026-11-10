@@ -1,6 +1,4 @@
 schema = "VRFW.text_key/1"
-# Hissatsu Effects › the move card's sentences of the technique effects (content\rules\technique_effects_*.toml,
-# their `text`), language de.
 
 [new]
 te_whd00170 = "+15 % Kraft mit 2 oder mehr Mitspielern im Umkreis von 15 m."
@@ -783,3 +781,4 @@ te_whs10010 = "Kostet 15 % weniger Spannung im ersten Drittel der zweiten Halbze
 te_whs10020 = "Kostet 15 % weniger Spannung im ersten Drittel der zweiten Halbzeit bei Rückstand."
 te_whs10090 = "Kostet 15 % weniger Spannung im letzten Drittel jeder Halbzeit bei Rückstand."
 te_whs10130 = "Kostet 15 % weniger Spannung im letzten Drittel der ersten Halbzeit."
+te_whk00690 = "Einmal pro Spiel hält der Torwart, der sie ausgerüstet hat, einen Schuss ohne Spannungsverbrauch."

@@ -1,0 +1,37 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+[[item]]
+name = "second_stage_children"
+base = "sf10001"
+category = "synergy"
+icon_key = "sf11003"
+key_id = true
+  [item.text.es]
+  name = "Los chicos de la Segunda Fase"
+  [item.text.en]
+  name = "Second Stage Children"
+  [item.text.fr]
+  name = "Les enfants de la seconde phase"
+  [item.text.de]
+  name = "Die Kinder der Zweiten Stufe"
+  [item.text.it]
+  name = "I ragazzi della Seconda Fase"
+  [item.text.pt]
+  name = "As crianças da Segunda Fase"
+  [item.text.ja]
+  name = "セカンドステージ・チルドレン"
+  [item.text.zh_hans]
+  name = "第二阶段儿童"
+  [item.text.zh_hant]
+  name = "第二階段兒童"
+
+[[currency]]
+name = "fei_card"
+spirit = 0xBF18D266
+rarity = 4
+
+[[currency]]
+name = "zanark_card"
+spirit = 0x19B62C9E
+rarity = 4

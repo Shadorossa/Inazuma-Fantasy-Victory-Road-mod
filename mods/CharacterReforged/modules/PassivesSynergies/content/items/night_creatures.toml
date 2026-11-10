@@ -1,0 +1,39 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# New synergy sp11003 (cloned from sp09003): one player of Aullido Lunar + one of Nosfanáticos.
+
+[[item]]
+name = "night_creatures"
+base = "sp09003"
+category = "synergy"
+icon_key = "sp11003"
+key_id = true
+  [item.text.es]
+  name = "Criaturas de la noche"
+  [item.text.en]
+  name = "Creatures of the Night"
+  [item.text.fr]
+  name = "Créatures de la nuit"
+  [item.text.de]
+  name = "Kreaturen der Nacht"
+  [item.text.it]
+  name = "Creature della notte"
+  [item.text.pt]
+  name = "Criaturas da noite"
+  [item.text.ja]
+  name = "[夜/よる]の[眷属/けんぞく]"
+  [item.text.zh_hans]
+  name = "暗夜生灵"
+  [item.text.zh_hant]
+  name = "暗夜生靈"
+
+[[currency]]
+name = "wolfram_vulpeen_card"
+spirit = 0xB3BFE415                      # chara_param of Wolfram Vulpeen c05023500 (Aullido Lunar)
+rarity = 4
+
+[[currency]]
+name = "desmodus_drakul_card"
+spirit = 0x603BE105                      # chara_param of Desmodus Drakul c05023690 (Nosfanáticos)
+rarity = 4

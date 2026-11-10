@@ -1,76 +1,55 @@
--- menu_scene (VRFW): MENU PICK. Runs in every menu VM (lua\_all, after the retail chunk); no engine call at load.
--- A menu scene's menu_pick hotspot (docs/framework/menu-scene.md §2.2.3) sets the params vrfw_menu_scene_pick_layer
--- (a list layer) and vrfw_menu_scene_pick_index (its entry + 1) and presses its tile; the title then ends. The first
--- menu that holds that layer (CMND_GET_CREATE_LAYER_NUM > 0) takes the params, keeps the screen white (the title left in
--- white over the push-in) until its list holds the focus, moves the focus to the entry and runs its own OnDecideFocus
--- for it, as a press of A (a locked entry or a first-time question plays as in the game). The white is released once the
--- press has run a while (RELEASE_FRAMES), so the menu the entry opens appears instead of the list. Wraps this VM's Step.
--- With vrfw_menu_scene_pick_option (a hotspot's pick_option + 1) the entry's own choice is answered behind the white
--- while the press runs: its sub-window's selection (SUBWIN_SELECTED) gives the option and its yes / no confirmation
--- (CONFIRM_RESULT) yes, and its yes / no window is not opened at all (the hotspot's choice is the confirmation); the white
--- stays until the menu the press opens is up (e.g. the Battle Bay campaign: continue / new, then straight into the team
--- selection). With vrfw_menu_scene_pick_return (the hotspot's return = "title"), Back from the menu the press opened does
--- not show this menu again: its fade-in back is skipped and this menu's own BackToTitle runs (the retail Back of a top
--- menu), so the title comes back (on the mode the hotspot was on, CMND_VRFW_MENU_SCENE_COME_BACK).
-if VRFW_MenuPick == nil then
+-- menu_scene (VRFW): MENU PICK.
+if VRFW.menu_pick == nil then
   local P = {
-    LOG = VRFW_Cmd.EVT_LOG,          -- CMND_EVT_LOG
     PICK_LAYER = 2283875177,   -- param vrfw_menu_scene_pick_layer
     PICK_INDEX = 3968429426,   -- param vrfw_menu_scene_pick_index (entry + 1)
     PICK_OPTION = 2481379900,   -- param vrfw_menu_scene_pick_option (option + 1)
-    PICK_RETURN = 1862198659,   -- param vrfw_menu_scene_pick_return: Back from the opened menu goes to the title
-    CONFIRM_OPEN = 2289627655,  -- (window, 0, 0): the yes / no window opened (its answer read with CONFIRM_RESULT)
-    OPEN_MENU = VRFW_Cmd.OPEN_MENU_OBJECT,      -- CMND_OPEN_MENU_OBJECT (menu, …): the press opens the next menu
-    MENU_EXISTS = VRFW_Cmd.IS_EXIST_MENU_OBJECT,   -- CMND_IS_EXIST_MENU_OBJECT (menu) (menu command)
-    BRIGHT_FADE = 609722083,    -- (0 = in | 1 = out, seconds): the screen's fade (a top menu fades in again after a menu)
-    SUBWIN_SELECTED = VRFW_Cmd.GET_SUB_WINDOW_RESULT, -- () -> the open sub-window's chosen row (-1 while none)
-    CONFIRM_RESULT = 1523741473,  -- () -> the yes / no window's answer (0 yes; -1 while none), cancelled
-    LAYER_NUM = VRFW_Cmd.GET_CREATE_LAYER_NUM,    -- CMND_GET_CREATE_LAYER_NUM (layer)
-    FOCUS_ACTIVE = VRFW_Cmd.IS_CTRL_FOCUS_ACTIVE,  -- (layer) -> the layer holds the control focus
+    PICK_RETURN = 1862198659,
+    CONFIRM_OPEN = 2289627655,
+    OPEN_MENU = VRFW.commands.OPEN_MENU_OBJECT,
+    MENU_EXISTS = VRFW.commands.IS_EXIST_MENU_OBJECT,   -- CMND_IS_EXIST_MENU_OBJECT (menu) (menu command)
+    BRIGHT_FADE = 609722083,
+    SUBWIN_SELECTED = VRFW.commands.GET_SUB_WINDOW_RESULT, -- () -> the open sub-window's chosen row (-1 while none)
+    CONFIRM_RESULT = 1523741473,
+    CONFIRM_GONE = 682363669,
+    LAYER_NUM = VRFW.commands.GET_CREATE_LAYER_NUM,    -- CMND_GET_CREATE_LAYER_NUM (layer)
+    FOCUS_ACTIVE = VRFW.commands.IS_CTRL_FOCUS_ACTIVE,  -- (layer) -> the layer holds the control focus
     FOCUS_INDEX = 2603265800,  -- (layer) -> its focused instance
     FOCUS_MARK = 1778826357,   -- (layer, instance, true): the focus moves there
     WHITE_FADE = 4011714927,   -- (alpha, seconds): the full-screen white fade (the title's)
-    READY_FRAMES = 15,         -- frames the list holds the focus before the press
-    RELEASE_FRAMES = 20,       -- frames after the press before the white goes
+    READY_FRAMES = 15,
+    RELEASE_FRAMES = 20,
     GIVE_UP_FRAMES = 600,
-    ANSWER_FRAMES = 600,       -- the option's answers (and the white) at most this long, if the opened menu never comes up
+    ANSWER_FRAMES = 600,
   }
   local st = { layer = nil, row = nil, frames = 0, ready = 0, marked = false, co = nil, after = nil, option = -1,
     answering = false, hooked = false, back_to_title = false, opened = nil, opened_up = 0, confirm_skipped = false,
     back_co = nil }
-  VRFW_MenuPick = st
+  VRFW.menu_pick = st
 
+  local logger
   local function Log(...)
-    pcall(funcLuaCommand, P.LOG, "menu_scene", "menu_pick", ...)
-  end
-  local function F(...)
-    local r = table.pack(pcall(funcLuaCommand, ...))
-    if not r[1] then return nil end
-    return table.unpack(r, 2, r.n)
-  end
-  local function M(...)
-    local r = table.pack(pcall(funcLuaMenuCommand, ...))
-    if not r[1] then return nil end
-    return table.unpack(r, 2, r.n)
+    logger = logger or VRFW.logger.new("menu_scene")
+    logger("menu_pick", ...)
   end
   local function White(on)
-    F(P.WHITE_FADE, on and 1 or 0, on and 0 or 0.3)
+    VRFW.host.command(P.WHITE_FADE, on and 1 or 0, on and 0 or 0.3)
   end
 
   local function Take()
-    if not VRFW_Param.Has(P.PICK_LAYER) then return false end
-    local layer = tonumber(VRFW_Param.Get(P.PICK_LAYER)) or 0
+    if not VRFW.param.has(P.PICK_LAYER) then return false end
+    local layer = tonumber(VRFW.param.get(P.PICK_LAYER)) or 0
     if layer < 0 then layer = layer + 4294967296 end
-    local n = M(P.LAYER_NUM, layer)
+    local n = VRFW.host.menu_command(P.LAYER_NUM, layer)
     if type(n) ~= "number" or n <= 0 then return false end     -- not this menu
-    local row = (tonumber(VRFW_Param.Get(P.PICK_INDEX)) or 0) - 1
+    local row = (tonumber(VRFW.param.get(P.PICK_INDEX)) or 0) - 1
     st.option = -1
-    if VRFW_Param.Has(P.PICK_OPTION) then st.option = (tonumber(VRFW_Param.Get(P.PICK_OPTION)) or 0) - 1 end
-    st.back_to_title = VRFW_Param.Has(P.PICK_RETURN)
-    VRFW_Param.Clear(P.PICK_LAYER)
-    VRFW_Param.Clear(P.PICK_INDEX)
-    VRFW_Param.Clear(P.PICK_OPTION)
-    if st.back_to_title then VRFW_Param.Clear(P.PICK_RETURN) end
+    if VRFW.param.has(P.PICK_OPTION) then st.option = (tonumber(VRFW.param.get(P.PICK_OPTION)) or 0) - 1 end
+    st.back_to_title = VRFW.param.has(P.PICK_RETURN)
+    VRFW.param.clear(P.PICK_LAYER)
+    VRFW.param.clear(P.PICK_INDEX)
+    VRFW.param.clear(P.PICK_OPTION)
+    if st.back_to_title then VRFW.param.clear(P.PICK_RETURN) end
     if row < 0 or row >= n then
       Log(string.format("layer 0x%08X: entry %d of %d: not picked", layer, row, n))
       return false
@@ -80,13 +59,14 @@ if VRFW_MenuPick == nil then
     return true
   end
 
-  -- the press's view of this VM's funcLuaCommand, while it runs: the entry's own choice answered (pick_option: the
-  -- sub-window's option, yes without its yes / no window), the menu it opens noted, and (return = "title") the fade-in
-  -- back to this menu once that menu is gone skipped
   local function Pressed(nxt, h, ...)
     if st.answering then
       if h == P.SUBWIN_SELECTED then return st.option end
       if h == P.CONFIRM_RESULT then return 0, false end
+      if h == P.CONFIRM_GONE and st.confirm_skipped and not st.confirm_reported then
+        st.confirm_reported = true   -- the skipped window counts as up once, so VRFW.question reads its answer
+        return false
+      end
       if h == P.CONFIRM_OPEN and not st.confirm_skipped then
         st.confirm_skipped = true
         Log("the yes / no window skipped: the hotspot's choice is the confirmation")
@@ -97,7 +77,7 @@ if VRFW_MenuPick == nil then
       st.opened = ...
       Log(string.format("the press opens menu 0x%08X", (tonumber(st.opened) or 0) % 4294967296))
     end
-    if h == P.BRIGHT_FADE and st.back_to_title and st.opened and (...) == 0 and M(P.MENU_EXISTS, st.opened) ~= true then
+    if h == P.BRIGHT_FADE and st.back_to_title and st.opened and (...) == 0 and VRFW.host.menu_command(P.MENU_EXISTS, st.opened) ~= true then
       Log("the fade back into this menu skipped: back to the title")
       return true
     end
@@ -107,17 +87,17 @@ if VRFW_MenuPick == nil then
   local function Wrap(on)
     if on and not st.hooked then
       st.hooked = true
-      VRFW_Host.HookCommand({ P.SUBWIN_SELECTED, P.CONFIRM_RESULT, P.CONFIRM_OPEN, P.OPEN_MENU, P.BRIGHT_FADE }, Pressed,
+      VRFW.host.hook_command({ P.SUBWIN_SELECTED, P.CONFIRM_RESULT, P.CONFIRM_OPEN, P.CONFIRM_GONE, P.OPEN_MENU, P.BRIGHT_FADE }, Pressed,
         "VRFW.menu_pick")
     elseif not on and st.hooked then
-      VRFW_Host.UnhookCommand("VRFW.menu_pick")
+      VRFW.host.unhook_command("VRFW.menu_pick")
       st.hooked = false
     end
   end
 
   local function Answer(on)
     if on and not st.answering then
-      st.answering, st.answer_frames, st.confirm_skipped = true, 0, false
+      st.answering, st.answer_frames, st.confirm_skipped, st.confirm_reported = true, 0, false, false
       Log("option", st.option, "answered for the entry's own choice")
     elseif not on and st.answering then
       st.answering = false
@@ -135,7 +115,7 @@ if VRFW_MenuPick == nil then
       -- the option's answers (and the white) end once the menu the press opened is up a moment, or the press ended
       if st.answering then
         st.answer_frames = (st.answer_frames or 0) + 1
-        if st.opened and M(P.MENU_EXISTS, st.opened) == true then st.opened_up = st.opened_up + 1 end
+        if st.opened and VRFW.host.menu_command(P.MENU_EXISTS, st.opened) == true then st.opened_up = st.opened_up + 1 end
         if st.co == nil or st.opened_up >= P.RELEASE_FRAMES or st.answer_frames > P.ANSWER_FRAMES then
           Answer(false)
           st.after = st.opened_up >= P.RELEASE_FRAMES and P.RELEASE_FRAMES or 0   -- the opened menu already waited
@@ -145,7 +125,7 @@ if VRFW_MenuPick == nil then
       if st.co == nil then
         Wrap(false)
         -- Back from the opened menu came here: this menu's own Back to the title (return = "title")
-        if st.back_to_title and st.opened and M(P.MENU_EXISTS, st.opened) ~= true then
+        if st.back_to_title and st.opened and VRFW.host.menu_command(P.MENU_EXISTS, st.opened) ~= true then
           st.back_to_title = false
           if type(BackToTitle) == "function" then
             st.back_co = coroutine.create(BackToTitle)
@@ -182,13 +162,13 @@ if VRFW_MenuPick == nil then
       White(false)
       return
     end
-    if M(P.FOCUS_ACTIVE, st.layer) ~= true then st.ready = 0 return end
+    if VRFW.host.menu_command(P.FOCUS_ACTIVE, st.layer) ~= true then st.ready = 0 return end
     st.ready = st.ready + 1
     if st.ready < P.READY_FRAMES then return end
-    if M(P.FOCUS_INDEX, st.layer) ~= st.row then
+    if VRFW.host.menu_command(P.FOCUS_INDEX, st.layer) ~= st.row then
       if not st.marked then
         st.marked = true
-        M(P.FOCUS_MARK, st.layer, st.row, true)
+        VRFW.host.menu_command(P.FOCUS_MARK, st.layer, st.row, true)
       end
       return
     end

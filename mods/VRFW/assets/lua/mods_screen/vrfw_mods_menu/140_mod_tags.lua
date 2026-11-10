@@ -1,20 +1,14 @@
--- mods_menu (VRFW): the «Mods» screen, the mod tags the mods declare and the keys of a list page (PageKey).
--- Runs after 100_mods_screen.lua in the same VM and takes the names it shares from VRFW_ModsScreen. No engine call at
--- load time.
-local Screen = VRFW_ModsScreen
+-- mods_menu (VRFW): the "Mods" screen, the mod tags the mods declare and the keys of a list page (PageKey).
+local Screen = VRFW.mods_screen
 if Screen == nil then
   return
 end
-local C, CE, Call, Draw, FN, G, Int = Screen.C, Screen.CE, Screen.Call, Screen.Draw, Screen.FN, Screen.G, Screen.Int
-local M, SE_MOVE, SE_NG, Str, Text = Screen.M, Screen.SE_MOVE, Screen.SE_NG, Screen.Str, Screen.Text
-local TextIdKey, mouse, ui = Screen.TextIdKey, Screen.mouse, Screen.ui
-
--- ---- mod tags: the tags the mods declare ([[VRFW.ModTag]] of their mod.toml, CMND_VRFW_MM_TAG_DEFS), read
--- once per opening of the screen (keyed on this opening's text-id cache), their labels from the declaring mod's text
--- rows (menu_text); a mod's tags come from the plugin (derived from its content + [VRFW.Mod] Tags)
+local C, CE, Call, Draw, FN, G, Int = Screen.C, Screen.CE, Screen.call, Screen.draw, Screen.FN, Screen.G, Screen.int
+local M, SE_MOVE, SE_NG, Str, Text = Screen.M, Screen.SE_MOVE, Screen.SE_NG, Screen.str, Screen.text
+local TextIdKey, mouse, ui = Screen.text_id_key, Screen.mouse, Screen.ui
 
 -- the lines of a "\n"-joined answer
-function CE.Lines(s)
+function CE.lines(s)
   local out = {}
   for l in string.gmatch(s or "", "[^\n]+") do
     out[#out + 1] = l
@@ -23,8 +17,8 @@ function CE.Lines(s)
 end
 
 -- {defs in order}, {id -> def}; def = {id, text}
-function CE.TagDefs()
-  local text_ids = Screen.TextIds()
+function CE.read_tag_defs()
+  local text_ids = Screen.text_ids()
   if CE.tag_src ~= text_ids then
     CE.tag_src, CE.tag_defs, CE.tag_by = text_ids, {}, {}
     for i = 0, Int(Call(M.TAG_DEFS)) - 1 do
@@ -40,28 +34,28 @@ function CE.TagDefs()
 end
 
 -- a text key of a mod's text rows in the game's language (menu_text), "" when the game has none
-function CE.KeyText(key)
+function CE.key_text(key)
   local id = (key or "") ~= "" and TextIdKey(key) or nil
   return id ~= nil and Str(Call(C.TEXT_GET, id)) or ""
 end
 
 -- a tag's label in the game's language (its text key in menu_text), else its id
-function CE.TagLabel(t)
+function CE.tag_label(t)
   if t.label == nil then
-    local s = CE.KeyText(t.text)
+    local s = CE.key_text(t.text)
     t.label = s ~= "" and s or t.id
   end
   return t.label
 end
 
--- «Etiquetas» of a mod: the tags of its mod.toml (`tags`) and its mod tags (CMND_VRFW_MM_MOD_TAGS), in words
-function CE.ModTags(m)
+-- "Tags" of a mod: the tags of its mod.toml (`tags`) and its mod tags (CMND_VRFW_MM_MOD_TAGS), in words
+function CE.mod_tags(m)
   if m.tag_list == nil then
-    local out = CE.Lines(Text(m, 8))
-    local _, by = CE.TagDefs()
-    for _, id in ipairs(CE.Lines(Str(Call(M.MOD_TAGS, m.id)))) do
+    local out = CE.lines(Text(m, 8))
+    local _, by = CE.read_tag_defs()
+    for _, id in ipairs(CE.lines(Str(Call(M.MOD_TAGS, m.id)))) do
       if by[id] ~= nil then
-        out[#out + 1] = CE.TagLabel(by[id])
+        out[#out + 1] = CE.tag_label(by[id])
       end
     end
     m.tag_list = out
@@ -70,7 +64,7 @@ function CE.ModTags(m)
 end
 
 -- the scrollbar held by the mouse: its page follows the pointer's y (DrawScrollbar's `set`)
-function CE.DragTo(y)
+function CE.drag_to(y)
   local d = mouse.drag
   if d == nil or type(y) ~= "number" then
     return
@@ -128,4 +122,4 @@ local function PageKey(id)
 end
 
 -- for 100_mods_screen.lua and the files after this one
-Screen.PageKey = PageKey
+Screen.page_key = PageKey

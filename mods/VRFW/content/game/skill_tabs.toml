@@ -1,8 +1,6 @@
 schema = "VRFW.game/2"
 
 # Skill tab registry (schema VRFW.skill_tab/1, content\skill_tabs\*.toml; run time scripts\skill_tabs.lua). Nothing is written unless a mod declares tabs or aura list rows (`apply = "script"`).
-# 1. Ability list tab row: built from a fixed category table (1-4 = shoot, dribble, block, catch; 100 + k = aura command type k); the count immediate is a window of it, `start << 8 | count`.
-# 2. Team aura screen list: the stub keeps the game's test and leaves out declared aura types (record +0x42) and skill ids through appended compare units.
 
 # ------------------------------------------------------------------------------------------------ the tab table
 
@@ -16,7 +14,7 @@ code = "48 8D 3D 13 00 00 00 89 E8 C1 E8 08 48 01 C7 81 E5 FF 00 00 00 E9 ?? ?? 
 tail = false
 refs = [{ at = 22, to = 0x20 }]
 
-# count immediate `start << 8 | count`, written by the script once the table is in
+# Count immediate `start << 8 | count`, written by the script once the table is in.
 [[VRFW.Patch]]
 name = "SkillTabs.Count"
 game = "Technique.SkillTabsCount"
@@ -25,7 +23,6 @@ needs = ["SkillTabs.Table"]
 
 # ------------------------------------------------------------------------------------------------ the team aura list
 
-# Stub: keeps the game's null-record test, then the appended compare units (each `je` to the next slot), then returns to the row add.
 [[VRFW.Patch]]
 name = "SkillTabs.AuraList"
 game = "Technique.AuraListSkip"
@@ -41,7 +38,6 @@ refs = [{ at = 10, branch = 0x1B }]
 name = "CMND_VRFW_SKILL_TABS"
 handler = "SkillTabs.CmdTabs"
 
-# ([group]) -> start, count: window of the tab table in force; with a group name ("" = whole table) it sets the window used when the list is next built
 [[VRFW.Command]]
 name = "CMND_VRFW_SKILL_TAB_WINDOW"
 handler = "SkillTabs.CmdWindow"
@@ -51,7 +47,6 @@ handler = "SkillTabs.CmdWindow"
 name = "CMND_VRFW_SKILL_TAB_HAS"
 handler = "SkillTabs.CmdHas"
 
-# (category) -> game index, icon, atlas, sprite, sprite off, text id, text, filter, filter group: how the list draws and filters that tab (game index 0 = no game tab; nothing while the service is off)
 [[VRFW.Command]]
 name = "CMND_VRFW_SKILL_TAB_INFO"
 handler = "SkillTabs.CmdInfo"

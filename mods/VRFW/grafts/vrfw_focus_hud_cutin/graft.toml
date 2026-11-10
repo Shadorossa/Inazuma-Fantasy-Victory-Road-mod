@@ -1,4 +1,4 @@
-# VR-Framework: the focus battle HUD hidden during an aura cut-in. Retail closes the focus battle menu's layers (the
+# VRFW: the focus battle HUD hidden during an aura cut-in. Retail closes the focus battle menu's layers (the
 # stopwatch / «¡ELIGE!» guide, the passout limit marker, the player plates, the cover line numbers) in
 # OnDecideFocusActionSkill before a special move's cut-in; an aura summon (keshin / armour / miximax / totem / mode
 # change) taken out of the duel's choice by [VRFW.DuelAura] plays its cut-in with the duel still on, so those layers

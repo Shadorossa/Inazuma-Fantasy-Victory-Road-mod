@@ -1,0 +1,22 @@
+
+[[VRFW.UpdateChannel]]
+id = "InazumaFantasy"
+title = "Inazuma Fantasy"
+raw_url = "https://raw.githubusercontent.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod/"
+index_ref = "main"
+public_key = "311b04b838548b75bb1c281dedd058d02215f3498a588a83022d245f4165691f"
+baseline = "update_baseline.signed"
+loader = true
+mods = [
+    "VRFW",
+    "InazumaFantasy",
+    "BattleBayDeluxe",
+    "BetterQoL",
+    "BetterUI",
+    "CharacterReforged",
+    "ChronicleDeluxe",
+    "FootballReforged",
+    "HissatsuReforged",
+    "IECross",
+    "MissingContent",
+]

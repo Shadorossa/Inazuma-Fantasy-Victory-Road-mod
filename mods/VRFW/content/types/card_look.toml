@@ -9,8 +9,8 @@ column = { type = "string", doc = "chara_param column holding the uniform: its i
 table = { type = "string", doc = "optional: a native table (param id -> uniform) asked when the column's cell is 0" }
 label = { type = "string", doc = "optional: menu_text row id naming the switch in «Equipamiento» (§3.1)" }
 on = { type = "strings", doc = "surfaces" }
-rarity = { type = "ints", doc = "card rarity range, inclusive (save record +0x10, v7.1.2; not re-checked; an unowned card: chara_param col 41). Omit = any card" }
-switch_bit = { type = "int", doc = "the player's switch: a bit of the record's attribute word (+0x20, v7.1.2; not re-checked); set = off for him. Omit = no switch" }
+rarity = { type = "ints", doc = "card rarity range, inclusive (save record +0x10; not re-checked on v7.2.1; an unowned card: chara_param col 41). Omit = any card" }
+switch_bit = { type = "int", doc = "the player's switch: a bit of the record's attribute word (+0x20; not re-checked on v7.2.1); set = off for him. Omit = no switch" }
 switch_default = { type = "string", doc = "with switch_bit: on (default, bit set = off) or off (a player starts off, bit set = on; a card with no record stays off)" }
 priority = { type = "int", doc = "several rules: the highest that gives the card a look wins (then load order)" }
 rarity_also = { type = "ints", doc = "more rarities" }

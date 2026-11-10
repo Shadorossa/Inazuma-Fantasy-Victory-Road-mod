@@ -1,8 +1,4 @@
 schema = "VRFW.sound/1"
-# The Cross moves' name calls in Japanese: the lines of the IEVRCROSS mod (Inazuma Eleven Cross for Victory
-# Road), each a ready HCA added to the voice bank of the character who calls it (cue <bank>_<move key>; the
-# moves' sound lists play `<key>` from the performer's bank). One file per character and move, shared by
-# the banks of that character's cards.
 
 [[voice]]
 bank = "c01001900"            # Byron Love

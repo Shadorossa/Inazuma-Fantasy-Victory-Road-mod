@@ -1,93 +1,90 @@
--- vrfw_contact_map_menu, part 6 of 7 (graft contact_map appends it to vrfw_contact_map_menu.lua; one chunk):
--- signing, buying, Accept, and the network view's zoom, pan and pointer.
--- ---- actions --------------------------------------------------------------------------------------------------------
 local function Recruit(i)
   local n = MAP.nodes[i]
   local st = State(i)
   if st == "locked" then
     funcLuaCommand(C.SE, SE_NG)
-    Message(Text(T.STATE_LOCKED))
+    Message(Kit.text(T.STATE_LOCKED))
     return
   end
   if st == "done" then
     funcLuaCommand(C.SE, SE_OK)
-    Message(Text(VRFW_Recruit.Owned(n.card) > 0 and T.OWNED or T.STATE_DONE))
+    Message(Kit.text(VRFW.recruit.owned(n.card) > 0 and T.OWNED or T.STATE_DONE))
     return
   end
   if MAP.kind == "network" and VIEW_ALL.on and not VIEW_ALL.real[i] then
     funcLuaCommand(C.SE, SE_NG)       -- view everything: a tile not open by the real order is never signed
-    Message(Text(T.STATE_LOCKED))
+    Message(Kit.text(T.STATE_LOCKED))
     return
   end
   if n.story then                     -- signed in story mode, not here
     funcLuaCommand(C.SE, SE_NG)
-    Message(Text(T.STORY_ONLY))
+    Message(Kit.text(T.STORY_ONLY))
     return
   end
-  local missing = VRFW_Recruit.Missing(n.reqs)
+  local missing = VRFW.recruit.missing(n.reqs)
   if #missing > 0 then
     funcLuaCommand(C.SE, SE_NG)
     local lines = {}
     for _, l in ipairs(ReqLines({reqs = missing})) do
       lines[#lines + 1] = l
     end
-    Message(Fmt(T.NEED_REQS, table.concat(lines, "\n")))
+    Message(Kit.format(T.NEED_REQS, table.concat(lines, "\n")))
     return
   end
-  local have = VRFW_Recruit.Wallet(CmPages.PriceOf(n))
+  local have = VRFW.recruit.wallet(CmPages.price_of(n))
   if have < Price(n) then
     funcLuaCommand(C.SE, SE_NG)
-    Message(Fmt(T.NEED_PRICE, Price(n), CmPages.PayName(n), have))
+    Message(Kit.format(T.NEED_PRICE, Price(n), CmPages.pay_name(n), have))
     return
   end
   funcLuaCommand(C.SE, SE_DECIDE)
-  if not Ask(Fmt(T.ASK, n.name, n.level, Price(n), CmPages.PayName(n))) then
+  if not Ask(Kit.format(T.ASK, n.name, n.level, Price(n), CmPages.pay_name(n))) then
     return
   end
-  local ok, why = VRFW_Recruit.Recruit({param = n.card, level = n.level, reqs = n.reqs,
-                                       rarity = SET ~= nil and SET.join_rarity or nil, price = CmPages.PriceOf(n)})
+  local ok, why = VRFW.recruit.recruit({param = n.card, level = n.level, reqs = n.reqs,
+                                       rarity = SET ~= nil and SET.join_rarity or nil, price = CmPages.price_of(n)})
   if not ok then
     Log("recruit refused", MAP.key, i, n.card, why)
     funcLuaCommand(C.SE, SE_NG)
-    Message(Text(why == "bank_full" and T.BANK_FULL or (why == "owned" and T.OWNED or T.FAILED)))
+    Message(Kit.text(why == "bank_full" and T.BANK_FULL or (why == "owned" and T.OWNED or T.FAILED)))
     return
   end
   signed[i] = true
   SaveRecord()
   CmPages.own = {}
-  CmPages.WaiveSigned()
+  CmPages.waive_signed()
   if MAP.kind == "network" then
     NetState()
   end
   Log("recruited", MAP.key, i, n.card, "level", n.level, "price", Price(n))
   DrawAll()
-  Message(Fmt(T.JOINED, n.name))
+  Message(Kit.format(T.JOINED, n.name))
 end
 
 local function Buy(it)
-  local have = VRFW_Recruit.Items(SET.ic)
+  local have = VRFW.recruit.items(SET.ic)
   if have < it.price then
     funcLuaCommand(C.SE, SE_NG)
-    Message(Fmt(T.NEED_PRICE, it.price, Text(SET.ict), have))
+    Message(Kit.format(T.NEED_PRICE, it.price, Kit.text(SET.ict), have))
     return
   end
   funcLuaCommand(C.SE, SE_DECIDE)
-  if not Ask(Fmt(T.SHOP_ASK, Text(it.title), it.price, Text(SET.ict))) then
+  if not Ask(Kit.format(T.SHOP_ASK, Kit.text(it.title), it.price, Kit.text(SET.ict))) then
     return
   end
-  if not VRFW_Recruit.Charge(SET.ic, it.price) then
+  if not VRFW.recruit.charge(SET.ic, it.price) then
     funcLuaCommand(C.SE, SE_NG)
     return
   end
-  if not VRFW_Recruit.Give(it.item, 1) then
-    VRFW_Recruit.Give(SET.ic, it.price)       -- the price back: no room
+  if not VRFW.recruit.give(it.item, 1) then
+    VRFW.recruit.give(SET.ic, it.price)       -- the price back: no room
     funcLuaCommand(C.SE, SE_NG)
-    Message(Text(T.BAG_FULL))
+    Message(Kit.text(T.BAG_FULL))
     return
   end
   Log("bought", MAP.key, it.item, "price", it.price)
   DrawAll()
-  Message(Fmt(T.SHOP_BOUGHT, Text(it.title)))
+  Message(Kit.format(T.SHOP_BOUGHT, Kit.text(it.title)))
 end
 
 local function Decide()
@@ -102,7 +99,7 @@ local function Decide()
   elseif mode == "grid" then
     local i = members[focus.grid]
     if i ~= nil and MAP.nodes[i].kind == "ghost" then
-      CmPages.GhostAsk(i)               -- signed on another page, never here: «Go» opens that page
+      CmPages.ghost_ask(i)
     elseif i ~= nil then
       Recruit(i)
     end
@@ -112,7 +109,7 @@ local function Decide()
       Recruit(focus.network)
     elseif n.kind == "gate" and not acquired[focus.network] then
       funcLuaCommand(C.SE, SE_NG)
-      Message(opened[focus.network] and Fmt(T.GATE, n.name) or Text(T.STATE_LOCKED))
+      Message(opened[focus.network] and Kit.format(T.GATE, n.name) or Kit.text(T.STATE_LOCKED))
     else
       funcLuaCommand(C.SE, SE_OK)
     end
@@ -123,10 +120,6 @@ local function Decide()
   end
 end
 
--- the network's zoom / pan (smooth; the right stick pans only): LT / RT held move the target zoom
--- NET.T continuously (ZOOM_RATE x a second), a wheel notch by WHEEL; every frame the shown scale eases to it (EASE s,
--- exponential), centred on the view as before. The right stick pans (both axes, its tilt = the speed), a mouse drag
--- pans; the cursor's tile stays in view (KeepFocusInView); redrawn only when the view moved
 function CmNetZoom(f)                -- the target only: CmNetEase shows it
   NET.T = math.max(NET.FIT, math.min(NET.MAX, (NET.T or NET.S) * f))
 end
@@ -161,12 +154,10 @@ function CmNetViewStep(free)
     NET.drag = nil
     return
   end
-  -- LT / RT held: the target zoom out / in, continuously
-  -- held (one step a press in game): CMD_FUNCL2_ON / _REPEAT / CMD_FUNCL2 each frame, a hit keeps it held for
-  -- HOLD frames (the repeat's gap)
+  -- Returns whether LT or RT is held.
   local function Held(name, cmds)
     for _, c in ipairs(cmds) do
-      if KeyOn(c) then
+      if Kit.key_pressed(c) then
         NET[name] = KEYS.frame + NET.HOLD
         break
       end
@@ -179,7 +170,7 @@ function CmNetViewStep(free)
     CmNetZoom(NET.ZOOM_RATE ^ NET.DT)
   end
   CmNetEase()
-  -- right stick (CMND_GET_ANALOG_VALUE 2 / 3, y > 0 = up): pans, speed by its tilt past DEAD
+  -- Reads the right stick (CMND_GET_ANALOG_VALUE 2 and 3, y above 0 means up).
   local okx, x = pcall(funcLuaCommand, KEYS.ANALOG, 2)
   local oky, y = pcall(funcLuaCommand, KEYS.ANALOG, 3)
   x = (okx and type(x) == "number") and x or 0
@@ -196,9 +187,9 @@ function CmNetViewStep(free)
   if px_ ~= 0 or py_ ~= 0 then
     CmNetPan(px_, py_)
   end
-  -- mouse drag (left button held on empty space): the map follows the pointer
-  local held = KeyOn(218912913 --[[CMD_EVT_MOUSE_LEFT]])
-  local px, py = Ptr.Pos()
+  -- Handles the mouse drag (left button held on empty space).
+  local held = Kit.key_pressed(749879980 --[[CMD_VRFW_MOUSE_LEFT]])
+  local px, py = Ptr.pos()
   if held and px ~= nil then
     if NET.drag == nil then
       NET.drag = {x = px, y = py}
@@ -215,19 +206,10 @@ function CmNetViewStep(free)
 end
 
 local function PollPointer()
-  Ptr.Begin()
-  for i, p in pairs(pos) do
-    Ptr.Box(p.x, p.y, p.hw, p.hh, i)
-  end
-  local ev = Ptr.Poll()
-  if evt_co ~= nil or not ready or open_guard > 0 then
+  local ev = Kit.poll_pointer(pos)
+  if vrfw_co ~= nil or not ready or open_guard > 0 then
     return
   end
-  -- (wherever the mouse rested, the selection stayed pinned under it; the pad could not move away):
-  -- hover only on a frame the pointer MOVED (ev.hover). Before, ev.hot / ev.changed after every redraw (Ptr.Forget in
-  -- DrawAll) re-selected the tile under a resting pointer, and a stick step (KEYS.Poll) never left pointer mode; a
-  -- zoom / pan moving the tiles under it did the same. Key / pad steps call Ptr.KeyStep (KEYS.Move, PageTurn): pad
-  -- mode until the pointer moves or clicks. No hover while the map is dragged.
   if type(ev.hover) == "number" and ev.hover ~= focus[mode] and NET.drag == nil then
     focus[mode] = ev.hover
     funcLuaCommand(C.SE, SE_OK)

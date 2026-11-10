@@ -1,6 +1,5 @@
 schema = "VRFW.changelog/1"
 # Football Reforged: ONE general summary of what the mod offers, shown on «Novedades de mods».
-# Rules (the parser refuses the rest): a single 
 
 [[release]]
 icon = "general"
@@ -9,6 +8,9 @@ notes = [
     "Nuevos formatos de partido",
     "Estadio local, presión y Furor",
     "Tiempo añadido y duelos de habilidad",
+    "Auras en los duelos",
+    "Equipos de pachanga 5v5",
+    "Retos de partido para otros mods",
 ]
 
 [release.en]
@@ -17,6 +19,9 @@ notes = [
     "New match formats",
     "Home stadium, pressing and Fury",
     "Stoppage time and skill duels",
+    "Auras in duels",
+    "5v5 friendly teams",
+    "Match challenges for other mods",
 ]
 
 [release.fr]
@@ -25,6 +30,9 @@ notes = [
     "Nouveaux formats de match",
     "Stade, pressing et Furie",
     "Temps additionnel et duels d'habileté",
+    "Auras dans les duels",
+    "Équipes de match amical 5v5",
+    "Défis de match pour d'autres mods",
 ]
 
 [release.de]
@@ -33,6 +41,9 @@ notes = [
     "Neue Spielformate",
     "Heimstadion, Pressing und Furor",
     "Nachspielzeit und Geschicklichkeitsduelle",
+    "Auren in Duellen",
+    "5v5-Freundschaftsteams",
+    "Spielaufgaben für andere Mods",
 ]
 
 [release.it]
@@ -41,6 +52,9 @@ notes = [
     "Nuovi formati di partita",
     "Stadio, pressing e Furore",
     "Recupero e duelli di abilità",
+    "Aure nei duelli",
+    "Squadre amichevoli 5v5",
+    "Sfide di partita per altri mod",
 ]
 
 [release.pt]
@@ -49,6 +63,9 @@ notes = [
     "Novos formatos de jogo",
     "Estádio, pressão e Furor",
     "Tempo extra e duelos de habilidade",
+    "Auras nos duelos",
+    "Equipas de amigável 5v5",
+    "Desafios de jogo para outros mods",
 ]
 
 [release.ja]
@@ -57,6 +74,9 @@ notes = [
     "新しい試合形式",
     "ホームスタジアムとプレス",
     "アディショナルタイムと技術対決",
+    "対決でのオーラ",
+    "5v5親善チーム",
+    "他のMOD向けの試合チャレンジ",
 ]
 
 [release.zh_hans]
@@ -65,6 +85,9 @@ notes = [
     "新的比赛形式",
     "主场、逼抢与狂热",
     "补时与技巧对决",
+    "对决中的灵气",
+    "5v5友谊赛队伍",
+    "供其他模组使用的比赛挑战",
 ]
 
 [release.zh_hant]
@@ -73,4 +96,7 @@ notes = [
     "新的比賽形式",
     "主場、逼搶與狂熱",
     "補時與技巧對決",
+    "對決中的靈氣",
+    "5v5友誼賽隊伍",
+    "供其他模組使用的比賽挑戰",
 ]

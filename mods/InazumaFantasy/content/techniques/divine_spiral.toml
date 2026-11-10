@@ -1,14 +1,11 @@
 schema = "VRFW.technique/3"
-# Espiral divina (Divine Spiral): the download's move who91108, a clone of who01080 with its numbers; its event ev61_91108 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "divine_spiral"
 key = "who91108"
 base = "who01080"
 event = "ev61_91108"
-manual = { icon = [162, 0] }                 # its base has no manual: a new one (generic dribble icon, as the game's
-                                            # whs02150 / who00540 manuals), so the move shop can sell it
+manual = { icon = [162, 0] }
 power_min = 85
 power_max = 540
 tp = 80

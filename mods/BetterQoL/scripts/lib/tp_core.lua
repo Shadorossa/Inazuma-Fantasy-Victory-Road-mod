@@ -1,22 +1,14 @@
--- BetterQoL › team planner: the pure part (no game access). The rule (config + mods' declarations), plan keys, the
--- store file (encode / decode), the card param of each character and the order of candidate copies.
 
 local M = {}
 
 M.BLOB = "team_planner.json"
-M.FILE_VERSION = 1
+M.FILE_VERSION = 2 -- 2: a dock squad is keyed by its team template (1: by page and team set)
 M.LEADER_SLOT = 19
 M.MAX_SLOT = 19
 
-local Id = require "VRFW/lib/ids"
+local Id = VRFW.ids
 
-local function u32(v)
-  if type(v) ~= "number" then
-    return 0
-  end
-  return Id.u32(v)
-end
-M.u32 = u32
+local u32 = Id.unsigned
 
 -- an integer or nil
 function M.int(v)
@@ -28,8 +20,6 @@ function M.int(v)
   end
   return math.ceil(v)
 end
-
--- ------------------------------------------------------------------------------------------- the rule
 
 -- a list of integers 0..15 (nil when `v` is not such a list)
 local function value_list(v)
@@ -46,8 +36,6 @@ local function value_list(v)
   return out
 end
 
--- the default rule from config.toml [team_planner] (`cfg` = that table or nil); bad values keep the built-in default
--- and are reported in `notes`
 function M.rule_from_config(cfg, notes)
   local r = { display_rarity = 4, owned_any = false, owned = { [4] = true }, card_values = { 0, 1, 2, 3, 4 },
               source = "config" }
@@ -55,12 +43,9 @@ function M.rule_from_config(cfg, notes)
     return r
   end
   M.apply(r, cfg, "config.toml [team_planner]", notes)
-  r.source = "config"
   return r
 end
 
--- apply the keys of a rule table `d` (config section or a mod's declaration) onto `r`; returns true when something
--- was applied
 function M.apply(r, d, who, notes)
   notes = notes or {}
   local any = false
@@ -122,8 +107,6 @@ function M.rule_sig(r)
   return string.format("display %d, owned %s, cards %s", r.display_rarity, table.concat(owned, "/"), table.concat(cv, "/"))
 end
 
--- the rule: config, then every mod's declaration in load order (`decls` = VRFW.files.declarations entries
--- { mod, data }), key by key: a later mod wins a key; a note only when two mods set the SAME key to other values
 local KEY_SIG = {
   display_rarity = function(r) return tostring(r.display_rarity) end,
   owned_rarities = function(r) return M.rule_sig(r):match("owned ([^,]*)") end,
@@ -132,7 +115,7 @@ local KEY_SIG = {
 function M.rule(cfg, decls, notes)
   notes = notes or {}
   local r = M.rule_from_config(cfg, notes)
-  local set_by = {}                        -- key -> { mod, value }
+  local set_by = {}
   for _, e in ipairs(decls or {}) do
     local d = type(e.data) == "table" and e.data or {}
     local probe = { display_rarity = r.display_rarity, owned_any = r.owned_any, owned = r.owned, card_values = r.card_values }
@@ -163,10 +146,6 @@ function M.qualifies(r, rarity)
   return r.owned[rarity or -1] == true
 end
 
--- ------------------------------------------------------------------------------------------- card params
-
--- chara_base id -> its card param: the first row (table order) of each base whose col-41 value is one of
--- `card_values`. `rows` = { { param, base, special }, … }. Returns the map and its count.
 function M.card_params(rows, card_values)
   local ok = {}
   for _, v in ipairs(card_values) do
@@ -183,11 +162,9 @@ function M.card_params(rows, card_values)
   return out, n
 end
 
--- ------------------------------------------------------------------------------------------- plans
-
--- the key of one squad: "<page>:<set>:<type>"
-function M.squad_key(page, set, ty)
-  return string.format("%d:%d:%d", page, set, ty)
+-- `template` > 0: a squad of that team template (set 0); 0: the squad of team set `set`, which is no dock
+function M.squad_key(template, set, ty)
+  return string.format("%d:%d:%d", template, set, ty)
 end
 
 function M.parse_squad_key(k)
@@ -203,10 +180,9 @@ function M.valid_slot(slot)
 end
 
 function M.new_file(slot)
-  return { slot = slot, plans = {}, dirty = false }
+  return { slot = slot, version = M.FILE_VERSION, plans = {}, dirty = false }
 end
 
--- set / clear (param 0) the plan of a slot; true when something changed
 function M.set(f, key, slot, param)
   local sq = f.plans[key]
   local cur = sq and sq[slot] or nil
@@ -233,8 +209,6 @@ function M.set(f, key, slot, param)
   return true
 end
 
--- moves the plan of (from_key, from_slot) to (to_key, to_slot), swapping with a plan already there, in one step; nil when
--- it cannot be done: nothing planned there, the coach slot on either side, or a squad that would plan one card twice
 function M.move(f, from_key, from_slot, to_key, to_slot)
   if from_slot == M.LEADER_SLOT or to_slot == M.LEADER_SLOT then
     return nil
@@ -284,13 +258,14 @@ function M.list_text(f, key)
   return table.concat(parts, ",")
 end
 
--- the squads of a page that hold plans: "set:type,…"
-function M.pending_text(f, page)
+-- "set:type,..." of the planned squads now in a team set; set_of(template, set) -> that team set or nil
+function M.pending_text(f, set_of)
   local out = {}
   for k in pairs(f.plans) do
     local p, s, t = M.parse_squad_key(k)
-    if p == page then
-      out[#out + 1] = { s, t }
+    local set = p and set_of(p, s)
+    if set then
+      out[#out + 1] = { set, t }
     end
   end
   table.sort(out, function(a, b)
@@ -316,7 +291,7 @@ function M.count(f)
   return n
 end
 
--- the JSON document of a file (slots as text keys: JSON objects have text keys)
+-- the JSON document of a file (slots as text keys)
 function M.encode_doc(f)
   local plans = {}
   for k, sq in pairs(f.plans) do
@@ -326,10 +301,9 @@ function M.encode_doc(f)
     end
     plans[k] = o
   end
-  return { version = M.FILE_VERSION, plans = plans }
+  return { version = f.version, plans = plans }
 end
 
--- a file from a decoded JSON document (nil doc = empty); returns file or nil, why
 function M.decode_doc(doc, slot)
   local f = M.new_file(slot)
   if doc == nil then
@@ -338,8 +312,9 @@ function M.decode_doc(doc, slot)
   if type(doc) ~= "table" then
     return nil, "not an object"
   end
+  f.version = doc.version or 1
   local v = doc.version
-  if v ~= nil and v ~= M.FILE_VERSION then
+  if v ~= nil and v ~= M.FILE_VERSION and v ~= 1 then
     return nil, "version " .. tostring(v) .. " (this BetterQoL reads " .. M.FILE_VERSION .. ")"
   end
   if type(doc.plans) ~= "table" then
@@ -359,10 +334,6 @@ function M.decode_doc(doc, slot)
   return f
 end
 
--- ------------------------------------------------------------------------------------------- candidates
-
--- the qualifying copies of `param` among `owned` ({ { h, rarity, level } … }), best first: highest level, then the
--- rarity, then the handle (stable)
 function M.candidates(r, owned)
   local out = {}
   for _, c in ipairs(owned or {}) do

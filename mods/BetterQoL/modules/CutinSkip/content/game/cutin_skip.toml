@@ -1,8 +1,13 @@
-# Technique Cut-in Skip > the command graft cutin_skip asks on a fresh press; scripts\cutin_skip.lua ends the running
-# technique event. Answers 1 ended, 2 ask again next Step, 0 nothing done.
+# The command graft cutin_skip asks on a fresh press: 1 ended, 2 ask again next Step, 0 nothing done.
 schema = "VRFW.game/2"
 
 [[VRFW.Command]]
 name = "CMND_CUTINSKIP_SKIP"
 handler = "CutinSkip.Skip"
 needs = ["Event.Manager", "Event.Seek", "Audio.StopEventSounds", "Event.TimelineSeek"]
+
+# event_menu's Step reports a fresh press it reads (device 1 pad A / 2 Enter, controller 1..3, why the skip is not asked) and one heartbeat a second.
+[[VRFW.Command]]
+name = "CMND_CUTINSKIP_MENU_REPORT"
+handler = "CutinSkip.MenuReport"
+needs = ["Event.Manager"]

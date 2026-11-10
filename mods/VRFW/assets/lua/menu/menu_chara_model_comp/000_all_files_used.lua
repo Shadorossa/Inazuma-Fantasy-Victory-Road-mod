@@ -1,4 +1,0 @@
--- lua_patch.all_files: used
--- The menu 3D model component is a new VM for every model view (each player change on a team page builds new ones): it
--- runs only the `_all` files the patch files of this folder use. A mod that needs code in it uses its own
--- menu_chara_model_comp folder.

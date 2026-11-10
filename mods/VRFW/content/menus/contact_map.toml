@@ -1,24 +1,5 @@
-# The VRFW's contact map screen vrfw_contact_map_menu (docs/framework/contact-map.md, VRFW 2.1): the IE-style
-# «contactos» / scout map of a [[VRFW.ContactSet]] declared by a mod (content\contact_maps\*.toml): the set's maps, a
-# map's zones (pins on its drawn background) / sections, a zone's players (a grid of faces), a Connection Map
-# (network: tiles, links, strict order) and the items for sale. Recruiting goes through VRFW_Recruit (the game's own
-# add-character path). Opened by a mod's entry (e.g. a market banner, graft
-# contact_map_banner) with parameter crc32("vrfw_contact_set") = the set; nothing opens it when no mod declares a set.
-# Written from the chain board screen (menus\chain_board.toml): base savedata_management_menu (background, header,
-# guide line, cursor, button guides, the off-screen input anchor) + quad pools of the framework's own objects, by draw
-# priority: vrfw_cm_back (450: the map's background), vrfw_cm_zoneart (451: a zone's own map), vrfw_cm_line (453: links), vrfw_cm_tile (455: plates / pins,
-# the mouse's hit areas), vrfw_cm_face (457: faces), vrfw_cm_tag (458: check / padlock badges), vrfw_cm_ui (459: the
-# cursor ring, page arrows), vrfw_cm_card (459: the info card), vrfw_cm_icon (461: the card's face), vrfw_cm_title +
-# vrfw_cm_cardtxt (the retail list item, 551: list rows and the card's lines). Art: the framework ships no mod's pictures; it is
-# drawn by ROLE: the sprites a mod declares in its
-# content\screen_art\*.toml (Screen = "contact_map"; e.g. a mod's contact map atlases), loaded on
-# demand by the script; a role nobody declares is a tinted shape of the framework's neutral atlas vrfw_plain (the only
-# art atlas in `res`: a mod's atlas never goes here, it may not be installed). A map's own background comes from its
-# declaration (loaded on demand). The script: graft contact_map (`menu_assemble.py build --mod VRFW`),
-# packed by framework_pack.py as assets\lua\screens\vrfw_contact_map_menu.lua.
 schema = "VRFW.menu/2"
 
-# the anchor's layout (.g4pkm): a copy of the retail save01_01 with the system line / time text moved off screen
 layout = [
     { file = "common/menu/51_save/save01/vrfw_cm_rows/vrfw_cm_rows.g4pkm", from = "common/menu/51_save/save01/save01_01/save01_01.g4pkm" },
     { file = "common/menu/51_save/save01/vrfw_cm_rows/vrfw_cm_rows.g4pkm", joint = "_system_line01", translate = [97.0, 2803.0, 0.0] },
@@ -42,10 +23,6 @@ set = [
     { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_01/save01_01.g4pkm" }, values = { 1 = "common/menu/51_save/save01/vrfw_cm_rows/vrfw_cm_rows.g4pkm" } },
 ]
 
-# the backgrounds are drawn in the BACKGROUND pass (m_drawType 1, as the retail shop01_00_background): under the 3D
-# player model of the panel; every other layer of the screen is drawn over the model
-# 454-456: above the hub's own background-pass layers (market_menu shop01_00_background 451, its market background
-# 453), which would cover them
 [[object]]
 name = "vrfw_cm_back"
 from = "cmn01_10_new_icon"
@@ -59,16 +36,12 @@ from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 455 } }]
 add = [{ block = "CMenuRenderComponent", parameter = "m_drawType", values = [1] }]
 
-# the player panel on the right: 0 its ground (art role panel_ground), 1 its old fade into the
-# map (hidden); background pass, over the map art, under the 3D model
 [[object]]
 name = "vrfw_cm_panel"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 456 } }]
 add = [{ block = "CMenuRenderComponent", parameter = "m_drawType", values = [1] }]
 
-# the panel's 3D player model: the retail shop list base (its CMenuCharaModelComponent, the shop's model camera), the
-# list / sound / collision / analog parts removed; driven by the shared EVT_CharaModelNew (evt_menu_kit.lua#CharaModel)
 [[object]]
 name = "vrfw_cm_model"
 from = "shop01_01_list_base"
@@ -108,8 +81,6 @@ name = "vrfw_cm_card"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 455 } }]
 
-# the requirement card's 4 plates + the header's counter chip (456) and the plates' progress bar tracks (460; the
-# fills are vrfw_cm_req 7-10)
 [[object]]
 name = "vrfw_cm_reqplate"
 from = "cmn01_10_new_icon"
@@ -120,8 +91,6 @@ name = "vrfw_cm_reqbar"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 460 } }]
 
-# the card's requirement icons (462: 5 rows, a team page's check box and its mark, the plates' bar fills) and their
-# met / unmet badges (463)
 [[object]]
 name = "vrfw_cm_req"
 from = "cmn01_10_new_icon"
@@ -137,10 +106,6 @@ name = "vrfw_cm_icon"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 461 } }]
 
-
-# a player's bust: the retail character
-# card's face icon, the game's miniface + kit of his chara_param (native composite, icon type 9); the screen hides
-# every other part of the card. Faces of the grid / pins / network (457, over the plates) and the info card's (461).
 [[object]]
 name = "vrfw_cm_bust"
 from = "team00_01_chara_card_for_list"
@@ -151,9 +116,6 @@ name = "vrfw_cm_busticon"
 from = "team00_01_chara_card_for_list"
 priority = 461
 
-# the header row's band: a copy of the
-# office's status plate object (soccer11_04 layout, position-coloured plate sprites) the screen squashes to the row and
-# shows only its two plate sprites (evt_menu_kit.lua#StatusPlateKeep), as the player page's evt_pp_slant; under the row (the header plate soccer11_04_formation_chara_status, retail priority 303)
 [[object]]
 name = "vrfw_cm_slant"
 from = "soccer11_04_universe_chara_stasus"
@@ -167,10 +129,6 @@ remove = [
 [[screen]]
 name = "vrfw_contact_map_menu"
 like = "language_option_menu"
-# input priority (registry column 3) above its hub: the engine's menu controller gives the pad only to the menus of the
-# highest priority in its input list; language_option_menu's 220 left the pad with the Mercado (market_menu, 230) under
-# the screen (logged as «VRFW input owners 3209C323 p230 top; 50C81DA7 p220»): no D-pad / stick / A reached it.
-# 240 (as 3 retail screens): still under the question / message windows it opens (general_window 999, sub_window 500).
 set = { priority = 240 }
 base = "savedata_management_menu"
 script = "assets/lua/screens/vrfw_contact_map_menu.lua"
@@ -203,8 +161,6 @@ layer = [
     { layer = "soccer11_04_chara_stasus", from = "shop_menu" },
     { layer = "vrfw_cm_slant", object = "vrfw_cm_slant", count = 1 },
     { layer = "soccer11_04_formation_chara_status", from = "team_dock_menu" },
-    # a team page's lineup as the team dock draws it (the pitch lines, the formation frame and the game's player cards;
-    # a UI mod's cards when one is on: its soccer_common / soccer_formation_menu_inc patches restyle them)
     { layer = "mainmenu04_10_formation_base", from = "team_dock_menu" },
     { layer = "soccer11_02_formation_frame", from = "team_dock_menu" },
     { layer = "team00_01_p1_chara_card_blank", from = "team_dock_menu" },
@@ -218,8 +174,6 @@ layer = [
     { layer = "mainmenu01_06_base_button_guide" },
     { layer = "mainmenu01_07_button_guide" },
 ]
-# arrows move (CMD_FUNCTION vrfw_cm_up / _down / _left / _right); no FUNC2 / «Objetos» (Items); FUNC3 «Prueba»
-# (vrfw_cm_trial) and FUNC4 «Dimitir» (vrfw_cm_release) on a team page's player
 commands = [
     { layer = "save01_02_list_item", input = "CMD_ENTER", command = "CMD_ENTER", flag = 1 },
     { layer = "save01_02_list_item", input = "CMD_BACK", command = "CMD_BACK", flag = 1 },
@@ -245,8 +199,6 @@ resources = [
     "#/menu/200_icon/100_num/num_menu01.g4tx",
     "#/menu/220_img/savedata_img/savedata_ch_img01.g4tx",
     "#/menu/220_img/savedata_img/savedata_story_img01.g4tx",
-    # the plain fallback shapes and the face card's mask / blank (VRFW_ScreenArt.Plain); the mods' declared art is
-    # loaded by the script on demand
     "#/menu/220_img/vrfw_plain/vrfw_plain.g4tx",
     # the panel's model and status plate (the retail shop's: soccer11_04_chara_stasus), the header row's band
     "#/menu/00_soccer/soccer11/soccer11_04/<LG>/soccer11_04.g4tx",

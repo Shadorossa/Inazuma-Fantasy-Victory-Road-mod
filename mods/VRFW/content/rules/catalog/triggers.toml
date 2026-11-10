@@ -1,7 +1,5 @@
 schema = "VRFW.rule_catalog/1"
 # Vocabulary of the behaviour rules: every trigger (`on`), effect (`do`) and condition (`when`) and what each allows.
-# [[trigger]]: name (the `on` word), id (frozen number: never renumber, only append), actor / move (facts the trigger provides, required by actor / move conditions),
-# args (words `on = "<name>:<arg>"` takes; absent = any text), fired_by (hook bus point or game function that fires it).
 
 [[trigger]]
 name = "tick"
@@ -355,7 +353,7 @@ actor = true
 args = ["none", "card"]
 fired_by = "Match.FoulRestartBuild post (0x16CEE80): the pending foul (match info +0x2BE0, no offside) became its restart; the fouled player (+0x2BE8), the rival = the offender (+0x2BE4); card = the foul gave a card"
 
-# [[effect]]: a `do` key. on = triggers it acts on (absent = all); min = lowest value; words = accepted values (first is default); sink = built-in sink, overridable by a mod sink of the same name.
+# [[effect]]: a `do` key.
 
 [[effect]]
 name = "power_mult"
@@ -498,7 +496,12 @@ name = "duel_choice"
 sink = true
 summary = "built-in sink: the duel choice service, armed on match_start (setup) or a side choice in a focus battle (docs/framework/duel-choice.md)"
 
-# [[condition]]: a `when` key. needs = the fact it reads ("actor" / "move"; only holds on a trigger that provides it).
+[[effect]]
+name = "ball_walls"
+sink = true
+summary = "built-in sink: on = true makes every kick bounce at the touchlines and goal lines (the goal mouth still lets the ball in) while its source holds it"
+
+# [[condition]]: a `when` key.
 
 [[condition]]
 name = "mode"
@@ -644,3 +647,10 @@ summary = "the part of the half played is below this fraction (\"1\" = to the en
 [[condition]]
 name = "chance"
 summary = "probability 0-1 that the rule fires"
+
+[[trigger]]
+name = "card_shown"
+id = 56
+actor = true
+args = ["yellow", "red"]
+fired_by = "Match.AddCard (0x1572670): the card bit the game just set on the member; red = sent off (the second card)"

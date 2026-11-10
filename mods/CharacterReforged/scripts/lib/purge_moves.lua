@@ -1,12 +1,3 @@
--- Character Reforged › save adjust «Quitar auras de despertar y vínculo»: the moves no player can obtain
--- (lib/unobtainable_moves.lua: the [[VRFW.Unobtainable]] rules) out of every saved character of the save tree.
---
--- For every saved character of block 5 (m_saveHumanP, m_stGuestP, m_stEditP[], m_stStoryScoutP[], handle ~= 0):
---   * board: a placed item (skillEquipInvInfo.specialSkill_0..8) or a native one (skillEquipInvInfoOverWrite) whose
---     invSkill stack holds such a move -> 0 (the piece stays open, empty)
---   * match list (skill_list): an entry with such a move -> id, rank and AI flag 0
--- Team aura entries of block 7 (auraSkillSlotInfoList) with such a move -> emptied. The invSkill stacks of those moves
--- are emptied last (no reference is left). Same size, idempotent. The patch list keeps every leaf's width.
 
 local T = require "lib/duplicate_players/save_tree"
 
@@ -20,16 +11,15 @@ local function element(array, count, i)
   return nil
 end
 
--- every saved character: { label, handle, placed (path), native (path), list (path of its skill_list array) }
 local function characters(tree)
   local permanent = T.unwrap(tree, "block5", "m_Permanent")
   local out = {}
   local humans = T.kids(tree, permanent, "m_saveHumanP")
   if humans then
     local handles = T.words(T.leaf(tree, humans, "handle") or "")
-    local lists, list_count = T.arr(tree, humans, "skill_list")
-    local placed, placed_count = T.arr(tree, humans, "skillEquipInvInfo")
-    local native, native_count = T.arr(tree, humans, "skillEquipInvInfoOverWrite")
+    local lists, list_count = T.array(tree, humans, "skill_list")
+    local placed, placed_count = T.array(tree, humans, "skillEquipInvInfo")
+    local native, native_count = T.array(tree, humans, "skillEquipInvInfoOverWrite")
     for i0, handle in ipairs(handles) do
       local i = i0 - 1
       if handle ~= 0 then
@@ -37,24 +27,24 @@ local function characters(tree)
         out[#out + 1] = {
           label = "m_saveHumanP[" .. i .. "]", handle = handle,
           placed = element(placed, placed_count, i), native = element(native, native_count, i),
-          list = list_element and T.arr(tree, list_element, "skill_list") or nil,
+          list = list_element and T.array(tree, list_element, "skill_list") or nil,
         }
       end
     end
   end
   local function record(path, label)
-    local handle = T.num(tree, path, "handle") or 0
+    local handle = T.number(tree, path, "handle") or 0
     if handle ~= 0 then
       out[#out + 1] = {
         label = label, handle = handle, placed = T.kids(tree, path, "skillEquipInvInfo"),
-        native = T.kids(tree, path, "skillEquipInvInfoOverWrite"), list = T.arr(tree, path, "skill_list"),
+        native = T.kids(tree, path, "skillEquipInvInfoOverWrite"), list = T.array(tree, path, "skill_list"),
       }
     end
   end
   local guest = T.kids(tree, permanent, "m_stGuestP")
   if guest then record(guest, "m_stGuestP") end
   for _, name in ipairs({ "m_stEditP", "m_stStoryScoutP" }) do
-    local array, count = T.arr(tree, permanent, name)
+    local array, count = T.array(tree, permanent, name)
     for i = 0, (count or 0) - 1 do record(T.at(array, i), name .. "[" .. i .. "]") end
   end
   return out
@@ -64,19 +54,17 @@ end
 local function teams(tree)
   local out = {}
   local permanent = T.unwrap(tree, "block7", "m_InfoPermanent")
-  local sets, set_count = T.arr(tree, T.kids(tree, permanent, "teamSetList"), "m_buffer")
+  local sets, set_count = T.array(tree, T.kids(tree, permanent, "teamSetList"), "m_buffer")
   for s = 0, (set_count or 0) - 1 do
-    local team_list, team_count = T.arr(tree, T.at(sets, s), "teamInfoList")
+    local team_list, team_count = T.array(tree, T.at(sets, s), "teamInfoList")
     for k = 0, (team_count or 0) - 1 do out[#out + 1] = { path = T.at(team_list, k), label = s .. "/" .. k } end
   end
   return out
 end
 
-local Id = require "VRFW/lib/ids"
-local hex = Id.hex
+local Id = VRFW.ids
+local hex = Id.hex_text
 
--- The pass on `tree` for the moves of `moves` ([move id] = true). Returns the report: players, board, list,
--- team_auras, stacks (entries emptied), removed (board + list + team auras), bytes_patched, lines.
 function PurgeMoves.run(tree, moves)
   for _, id in ipairs({ BLOCK_INVENTORY, BLOCK_CHARACTERS, BLOCK_TEAMS }) do
     if not T.has_block(tree, id) then error("block " .. id .. " not found") end
@@ -84,28 +72,26 @@ function PurgeMoves.run(tree, moves)
   local P = T.patches(tree)
   local report = { players = 0, board = 0, list = 0, team_auras = 0, stacks = 0, removed = 0, bytes_patched = 0, lines = {} }
 
-  -- the invSkill stacks: handle -> move; the stacks of the moves
   local inventory = T.unwrap(tree, "block4", "m_Permanent")
-  local stacks, stack_count = T.arr(tree, inventory, "invSkill")
+  local stacks, stack_count = T.array(tree, inventory, "invSkill")
   if not stacks then error("invSkill not found in block 4") end
   local move_of, purged_stacks = {}, {}
   for i = 0, stack_count - 1 do
     local stack = T.at(stacks, i)
-    local handle, move = T.num(tree, stack, "handle"), T.num(tree, stack, "item_id")
+    local handle, move = T.number(tree, stack, "handle"), T.number(tree, stack, "item_id")
     if handle and handle ~= 0 and move then
       move_of[handle] = move
       if moves[move] then purged_stacks[#purged_stacks + 1] = { stack, move } end
     end
   end
 
-  -- the characters: board slots and match list
   for _, character in ipairs(characters(tree)) do
     local removed = {}
     for _, board in ipairs({ character.placed or false, character.native or false }) do
       if board then
         for k = 0, BOARD_SLOTS - 1 do
           local path = board .. ".specialSkill_" .. k
-          local handle = T.num(tree, board, "specialSkill_" .. k)
+          local handle = T.number(tree, board, "specialSkill_" .. k)
           local move = handle and handle ~= 0 and move_of[handle] or nil
           if move and moves[move] then
             P:set(path, handle, 0)
@@ -118,10 +104,10 @@ function PurgeMoves.run(tree, moves)
     if character.list then
       for k = 0, tree:get(character.list).len - 1 do
         local entry = T.at(character.list, k)
-        local move = T.num(tree, entry, "id_crc")
+        local move = T.number(tree, entry, "id_crc")
         if move and moves[move] then
           P:set(entry .. ".id_crc", move, 0)
-          local rank, ai = T.num(tree, entry, "skillRank"), T.num(tree, entry, "isUnusableAI")
+          local rank, ai = T.number(tree, entry, "skillRank"), T.number(tree, entry, "isUnusableAI")
           if rank then P:set(entry .. ".skillRank", rank, 0) end
           if ai then P:set(entry .. ".isUnusableAI", ai, 0) end
           report.list = report.list + 1
@@ -137,10 +123,10 @@ function PurgeMoves.run(tree, moves)
 
   -- team aura entries
   for _, team in ipairs(teams(tree)) do
-    local auras, aura_count = T.arr(tree, team.path, "auraSkillSlotInfoList")
+    local auras, aura_count = T.array(tree, team.path, "auraSkillSlotInfoList")
     for k = 0, (aura_count or 0) - 1 do
       local entry = T.at(auras, k)
-      local holder, move = T.num(tree, entry, "charaStHdl"), T.num(tree, entry, "skillId")
+      local holder, move = T.number(tree, entry, "charaStHdl"), T.number(tree, entry, "skillId")
       if move and moves[move] then
         if holder then P:set(entry .. ".charaStHdl", holder, 0) end
         P:set(entry .. ".skillId", move, 0)
@@ -167,10 +153,6 @@ function PurgeMoves.summary(report)
     report.players, report.board, report.list, report.team_auras, report.stacks, report.bytes_patched)
 end
 
--- The pass on `tree` for auras outside the aura slots: every saved character's board slot (placed or native item) not
--- in `aura_slots` ([0-based board slot] = true) whose invSkill stack holds a move `is_aura(move)` answers true for -> 0
--- (the piece stays open, empty); its match list entries of those moves -> 0 unless another board slot of his still holds
--- the move. The stacks stay (the move may sit elsewhere). Returns the report: players, board, list, bytes_patched, lines.
 function PurgeMoves.misplaced_auras(tree, is_aura, aura_slots)
   for _, id in ipairs({ BLOCK_INVENTORY, BLOCK_CHARACTERS }) do
     if not T.has_block(tree, id) then error("block " .. id .. " not found") end
@@ -178,12 +160,12 @@ function PurgeMoves.misplaced_auras(tree, is_aura, aura_slots)
   local P = T.patches(tree)
   local report = { players = 0, board = 0, list = 0, bytes_patched = 0, lines = {} }
   local inventory = T.unwrap(tree, "block4", "m_Permanent")
-  local stacks, stack_count = T.arr(tree, inventory, "invSkill")
+  local stacks, stack_count = T.array(tree, inventory, "invSkill")
   if not stacks then error("invSkill not found in block 4") end
   local move_of = {}
   for i = 0, stack_count - 1 do
     local stack = T.at(stacks, i)
-    local handle, move = T.num(tree, stack, "handle"), T.num(tree, stack, "item_id")
+    local handle, move = T.number(tree, stack, "handle"), T.number(tree, stack, "item_id")
     if handle and handle ~= 0 and move and move ~= 0 then move_of[handle] = move end
   end
   local known = {}
@@ -196,7 +178,7 @@ function PurgeMoves.misplaced_auras(tree, is_aura, aura_slots)
     for _, board in ipairs({ character.placed or false, character.native or false }) do
       if board then
         for k = 0, BOARD_SLOTS - 1 do
-          local handle = T.num(tree, board, "specialSkill_" .. k)
+          local handle = T.number(tree, board, "specialSkill_" .. k)
           local move = handle and handle ~= 0 and move_of[handle] or nil
           if move and not aura_slots[k] and aura(move) then
             P:set(board .. ".specialSkill_" .. k, handle, 0)
@@ -212,10 +194,10 @@ function PurgeMoves.misplaced_auras(tree, is_aura, aura_slots)
     if character.list and next(dropped) then
       for k = 0, tree:get(character.list).len - 1 do
         local entry = T.at(character.list, k)
-        local move = T.num(tree, entry, "id_crc")
+        local move = T.number(tree, entry, "id_crc")
         if move and dropped[move] and not kept[move] then
           P:set(entry .. ".id_crc", move, 0)
-          local rank, ai = T.num(tree, entry, "skillRank"), T.num(tree, entry, "isUnusableAI")
+          local rank, ai = T.number(tree, entry, "skillRank"), T.number(tree, entry, "isUnusableAI")
           if rank then P:set(entry .. ".skillRank", rank, 0) end
           if ai then P:set(entry .. ".isUnusableAI", ai, 0) end
           report.list = report.list + 1

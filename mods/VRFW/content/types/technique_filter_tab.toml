@@ -1,5 +1,3 @@
-# Declares [[VRFW.TechniqueFilterTab]] (kind VRFW.technique_filter_tab/1): a tab a mod adds to the move filter window,
-# in a mod's content\technique_filter_tabs\*.toml (read by scripts\technique_filter.lua, docs/framework/technique-filter.md).
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.technique_filter_tab/1"
 folder = "content/technique_filter_tabs"

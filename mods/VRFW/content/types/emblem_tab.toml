@@ -1,0 +1,17 @@
+# Declaration schema of VRFW.emblem_tab/1 (content\emblem_tabs): a tab a mod adds to the emblem picker, on the pages after the game's series tabs (read by scripts\emblem_tabs.lua).
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.emblem_tab/1"
+folder = "content/emblem_tabs"
+label = "Emblem picker tabs"
+label_es = "Pestañas del selector de emblemas"
+doc = "A tab of the emblem picker that lists the emblems a mod adds."
+doc_es = "Una pestaña del selector de emblemas que lista los emblemas que añade un mod."
+
+[entry.EmblemTab]
+doc = "a tab of the emblem picker, shown on the pages after the game's series tabs (L2 / R2); it lists the emblems the declaring mod adds unless `emblems` names them"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+order = { type = "int", doc = "place among the mods' tabs: lower comes first (default 0), then by key" }
+icon = { type = "string", required = true, doc = "sprite name of the tab icon atlas (menu/200_icon/16_icon_list_tab/icon_list_tab) shown on the focused tab" }
+icon_off = { type = "string", doc = "sprite name of the unfocused tab (default: icon)" }
+emblems = { type = "strings", ref = "emblem", doc = "the emblems the tab lists: 0x… ids or keys (em070001); default: every emblem the mod declares (its item_emblem rows of content\\base_tables\\gamedata\\item\\item_config.toml and the emblems its teams make from an image)" }
+when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

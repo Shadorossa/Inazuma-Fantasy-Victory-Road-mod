@@ -1,27 +1,17 @@
 # Stoppage Time: its settings (read by scripts\stoppage_time.lua at the start; restart the game after a change).
 
 [stoppage_time]
-# THE PERIODS that get added time: 1 and 2 the regular halves, 3 and 4 the extra-time halves (a one-period match is
-# half 1). The shootout and a period without a clock never get any.
 halves = [1, 2, 3, 4]
-# THE ADDED TIME of a half = the seconds of its events (below) in whole minutes: "nearest" (2:29 -> 2, 2:30 -> 3) or
-# "up" (any second more is one more minute); then at least min_minutes and at most max_minutes.
 rounding = "nearest"
 min_minutes = 1
 max_minutes = 5
-# NOT IN these game modes (keys of the VR-Framework's game_modes.toml: story = the story mode's scripted matches and
-# their own clocks) nor while one of these game state keys is set (match.challenge.active = a Football Reforged
-# challenge with its own clock; match.training = a training match).
 blocked_modes = ["story"]
 blocked_states = ["match.challenge.active", "match.training"]
-# NOR in a match with one of these tags (the tags its friendly declares, `tags = [..]` of a [[friendly]]: "pachanga" =
-# the casual 5-a-side street matches, e.g. New Recruitment's pachangas).
 skip_match_tags = ["pachanga"]
 # true: one loader.log line per half (its events and its added time) and per play-on.
 log = true
 
-# GAME SECONDS each event of the half adds (the seconds of the scoreboard's clock). An event counts while the half's
-# regular time runs (from its kick-off to the «+N» telop).
+# GAME SECONDS each event of the half adds (the seconds of the scoreboard's clock).
 [stoppage_time.seconds]
 # a foul whistled (any card or none)
 foul = 15
@@ -35,48 +25,30 @@ goal = 30
 substitution = 20
 
 [stoppage_time.technique]
-# the cut-in groups that count as a technique (content\defaults\match_events.toml of the VR-Framework: shot,
-# dribble, defense, keeper, scene, other); keeper scenes are counted apart (seconds.keeper_scene)
 groups = ["shot", "dribble", "defense"]
 
 [play_on]
-# THE END OF THE HALF, by the play, when the announced time is used up (both teams, human and CPU). false: the half ends
-# with the clock. Places are parts of the pitch from the team's own goal (0) to the goal it attacks (1), read from the
-# ball's owner (the last owner while the ball is loose). Times are game seconds, the scoreboard's clock (at the game's
-# normal speed 14.1 game s = 1 real s; +1 lasts 4.3 real s).
+# THE END OF THE HALF, by the play, when the announced time is used up (both teams, human and CPU).
 enabled = true
 # OWN HALF: below this place the whistle blows at once.
 own_half_until = 0.5
-# NEAR THE GOAL: from this place on the play goes on until the team's shot resolves (goal, save, out) or it loses the ball.
 near_goal_from = 0.7
-# MIDFIELD, between the two: the same, and a pass received further back than back_pass_margin behind the furthest point
-# the play reached also ends it. Reaching near_goal_from turns it into the near-goal rule.
 back_pass_margin = 0.05
-# THE LIMITS past the announced time, whatever the half's length: near the goal (110 = 1:50, about 8 real s: in a 30'
-# half a +1 ends at 31:00 and stops at 32:50) and in midfield (45, about 3 real s). The position is read again at the limit: a midfield play now near the goal gets the longer one.
 max_overrun_seconds = 110
 midfield_max_overrun_seconds = 45
-# A RUNNING SHOT, SHOT CHAIN OR CUT-IN is never cut, even past the limits: the half is kept open wait_step_seconds at a
-# time, at most wait_max_seconds in all.
 wait_step_seconds = 30
 wait_max_seconds = 90
-# A SHOT THAT LEAVES THE BALL LOOSE (no save, goal or owner): the whistle blows this long after it.
 shot_settle_seconds = 30
-# THE PLAY ALSO ENDS when a foul is given or the game enters one of these states (12 GoalNet, 17 OutOfPlay: the ball went
-# out or the referee stopped play).
 end_states = [12, 17]
 
 [telop]
 # the «+N» under the clock, from the half's regular end until the half ends.
 enabled = true
-# Screen px of 1080p, y down. Retail scoreboard soccer00_01 (1 layout unit = 1 px, origin at the screen's top centre):
-# clock plate _base_game_time01 x -84..84, y 90..134; half label _gtxt_half01 y 98..126 (28 high); digits y 97..129 (32 high).
+# Screen px of 1080p, y down.
 center_x = 960
 # the plate's bottom (134) + half the text's height (14)
 middle_y = 148
 # the text's height (the half label's 28)
 text_height = 28
-# match states in which the half or the match ended: the text is cleared until the next half's regular end. While it
-# is set it shows and hides with the scoreboard, whatever hides it.
-# 2 End, 3 EndWait, 6 ResultEvent, 7 ResultMenu, 8 GameOver, 11 HalfTime, 22 Retire, 28 TournamentFinalGameEnd
+# match states in which the half or the match ended: the text is cleared until the next half's regular end.
 end_states = [2, 3, 6, 7, 8, 11, 22, 28]

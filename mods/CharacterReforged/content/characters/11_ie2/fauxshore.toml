@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Character Reforged · Fauxshore · Inazuma Eleven 2
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c02023810"                                   # Darren LaChance
@@ -10,58 +7,64 @@ growth = "normal"
 stats = { kick = 204, control = 209, technique = 216, pressure = 242, physical = 220, intelligence = 244, agility = 246, freedom = 355 }
 
   [[edit.cards]]
-  id = 0x156931B1    # normal card (the character's special cards keep their own set)
+  id = 0x156931B1
   moves = [
     { move = 0x5AF33BC7, level = 1 },                       # God Hand
-    { move = 0xDD6B2708, level = 1 },                       # Majin the Hand
-    { move = 0xF2CB0879, level = 1 },                       # Mugen the Hand
-    { move = 0xF7841EFC, level = 11 },                      # Fiend Hand
+    { move = 0xDD6B2708, level = 11 },                      # Majin the Hand
+    { move = 0xF2CB0879, level = 21 },                      # Mugen the Hand
+    { move = 0xF7841EFC, level = 31 },                      # Fiend Hand
   ]
 
   [[edit.cards]]
-  id = 0x393E8ED7    # normal card (the character's special cards keep their own set)
+  id = 0x393E8ED7
   moves = [
     { move = 0x5AF33BC7, level = 1 },                       # God Hand
-    { move = 0xDD6B2708, level = 1 },                       # Majin the Hand
-    { move = 0xF2CB0879, level = 1 },                       # Mugen the Hand
-    { move = 0xF7841EFC, level = 11 },                      # Fiend Hand
+    { move = 0xDD6B2708, level = 11 },                      # Majin the Hand
+    { move = 0xF2CB0879, level = 21 },                      # Mugen the Hand
+    { move = 0xF7841EFC, level = 31 },                      # Fiend Hand
   ]
 
   [[edit.cards]]
-  id = 0x67DB7889    # normal card (the character's special cards keep their own set)
+  id = 0x67DB7889
   moves = [
     { move = 0x5AF33BC7, level = 1 },                       # God Hand
-    { move = 0xDD6B2708, level = 1 },                       # Majin the Hand
-    { move = 0xF2CB0879, level = 1 },                       # Mugen the Hand
-    { move = 0xF7841EFC, level = 11 },                      # Fiend Hand
+    { move = 0xDD6B2708, level = 11 },                      # Majin the Hand
+    { move = 0xF2CB0879, level = 21 },                      # Mugen the Hand
+    { move = 0xF7841EFC, level = 31 },                      # Fiend Hand
   ]
 
   [[edit.cards]]
-  id = 0x745291A9    # normal card (the character's special cards keep their own set)
+  id = 0x745291A9
   moves = [
     { move = 0x5AF33BC7, level = 1 },                       # God Hand
-    { move = 0xDD6B2708, level = 1 },                       # Majin the Hand
-    { move = 0xF2CB0879, level = 1 },                       # Mugen the Hand
-    { move = 0xF7841EFC, level = 11 },                      # Fiend Hand
+    { move = 0xDD6B2708, level = 11 },                      # Majin the Hand
+    { move = 0xF2CB0879, level = 21 },                      # Mugen the Hand
+    { move = 0xF7841EFC, level = 31 },                      # Fiend Hand
   ]
 
   [[edit.cards]]
-  id = 0x783DFFC3    # normal card (the character's special cards keep their own set)
+  id = 0x783DFFC3
   moves = [
     { move = 0x5AF33BC7, level = 1 },                       # God Hand
-    { move = 0xDD6B2708, level = 1 },                       # Majin the Hand
-    { move = 0xF2CB0879, level = 1 },                       # Mugen the Hand
-    { move = 0xF7841EFC, level = 11 },                      # Fiend Hand
+    { move = 0xDD6B2708, level = 11 },                      # Majin the Hand
+    { move = 0xF2CB0879, level = 21 },                      # Mugen the Hand
+    { move = 0xF7841EFC, level = 31 },                      # Fiend Hand
   ]
 
   [[edit.cards]]
-  id = 0xD61D1732    # normal card (the character's special cards keep their own set)
+  id = 0xD61D1732
   moves = [
     { move = 0x5AF33BC7, level = 1 },                       # God Hand
-    { move = 0xDD6B2708, level = 1 },                       # Majin the Hand
-    { move = 0xF2CB0879, level = 1 },                       # Mugen the Hand
-    { move = 0xF7841EFC, level = 11 },                      # Fiend Hand
+    { move = 0xDD6B2708, level = 11 },                      # Majin the Hand
+    { move = 0xF2CB0879, level = 21 },                      # Mugen the Hand
+    { move = 0xF7841EFC, level = 31 },                      # Fiend Hand
   ]
+
+
+
+
+
+
 
 
 [[edit]]
@@ -106,12 +109,299 @@ VRFW.MoveGrades = [
   { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
 ]
 [[edit]]
+target = "c02023810"
+card = 0x156931B1
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x393E8ED7
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x67DB7889
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x745291A9
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x783DFFC3
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0xD61D1732
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+[[edit]]
+target = "c02023810"
+card = 0x156931B1
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x393E8ED7
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x67DB7889
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x745291A9
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x783DFFC3
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0xD61D1732
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+[[edit]]
+target = "c02023810"
+card = 0x156931B1
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x393E8ED7
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x67DB7889
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x745291A9
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x783DFFC3
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0xD61D1732
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+[[edit]]
+target = "c02023810"
+card = 0x156931B1
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x393E8ED7
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x67DB7889
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x745291A9
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x783DFFC3
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0xD61D1732
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+[[edit]]
+target = "c02023810"
+card = 0x156931B1
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x393E8ED7
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x67DB7889
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x745291A9
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x783DFFC3
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0xD61D1732
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+[[edit]]
+target = "c02023810"
+card = 0x156931B1
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x393E8ED7
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x67DB7889
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x745291A9
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x783DFFC3
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0xD61D1732
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+[[edit]]
+target = "c02023810"
+card = 0x156931B1
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x393E8ED7
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x67DB7889
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x745291A9
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0x783DFFC3
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+
+[[edit]]
+target = "c02023810"
+card = 0xD61D1732
+VRFW.MoveGrades = [
+  { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
+]
+[[edit]]
 target = "c02023820"                                   # Drancis Fake
 moves = [
-  { move = 0x23C3EE90, level = 1 },                         # Shoulder Tackle
-  { move = 0x31ABD82E, level = 1 },                         # Circus Block
-  { move = 0x74CC079C, level = 28 },                        # Big Fan
-  { move = 0xA7B451B3, level = 46 },                        # Paladin Strike
+  { move = 0x4F58F805, level = 28 },                        # Coil Turn
+  { move = 0x31ABD82E, level = 38 },                        # Circus Block
+  { move = 0x74CC079C, level = 48 },                        # Big Fan
+  { move = 0xA7B451B3, level = 58 },                        # Paladin Strike
 ]
 
   [[edit.cards]]
@@ -139,7 +429,7 @@ moves = [
 target = "c02023840"                                   # Louis Leave
 moves = [
   { move = 0x5506B694, level = 1 },                         # Utter Gutsiness Club
-  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
+  { move = 0x7CACF0B0, level = 11 },                        # Horn Train
   { move = 0x41F3CDC2, level = 35 },                        # Scorching Tackle
   { move = 0x7BA5586C, level = 61 },                        # Mad Express
 ]
@@ -154,9 +444,9 @@ moves = [
 target = "c02023850"                                   # Maurice Badgame
 moves = [
   { move = 0x7D6E9A87, level = 1 },                         # The Wall
-  { move = 0x74CC079C, level = 1 },                         # Big Fan
+  { move = 0x74CC079C, level = 11 },                        # Big Fan
   { move = 0x52CEB5F6, level = 33 },                        # Iron Wall
-  { move = 0x5E7E4775, level = 51 },                        # Table-Turner
+  { move = 0x637C031A, level = 43 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -170,9 +460,9 @@ moves = [
 target = "c02023860"                                   # Cannon Random
 moves = [
   { move = 0x19025F83, level = 1 },                         # Quick Draw
-  { move = 0x68982058, level = 1 },                         # Armadillo Circus
-  { move = 0xC0FD6AFB, level = 32 },                        # Fireball Head
+  { move = 0x68982058, level = 11 },                        # Armadillo Circus
   { move = 0xBDAE2862, level = 48 },                        # Hellfire
+  { move = 0x3663DB4C, level = 58 },                        # Utter Gutsiness Bat
 ]
 
   [[edit.cards]]
@@ -186,7 +476,7 @@ moves = [
 target = "c02023870"                                   # Ulric Richmen
 moves = [
   { move = 0x49529150, level = 1 },                         # Snake Shot
-  { move = 0x31ABD82E, level = 1 },                         # Circus Block
+  { move = 0x31ABD82E, level = 11 },                        # Circus Block
   { move = 0x29B328E6, level = 29 },                        # Spectacle Crash
   { move = 0x4E5B398C, level = 43 },                        # Acrobat Bomber
 ]
@@ -200,9 +490,9 @@ moves = [
 [[edit]]
 target = "c02023880"                                   # Dave Fate
 moves = [
-  { move = 0x240BEDF2, level = 1 },                         # Bounce Shot
-  { move = 0x3069B219, level = 1 },                         # Super Sumo Stomp
-  { move = 0x74CC079C, level = 1 },                         # Big Fan
+  { move = 0x65B7C1F1, level = 1 },                         # Sumo Stomp
+  { move = 0x3069B219, level = 11 },                        # Super Sumo Stomp
+  { move = 0x74CC079C, level = 21 },                        # Big Fan
   { move = 0x2A37FC88, level = 39 },                        # Revolution V
 ]
 
@@ -231,10 +521,10 @@ moves = [
 [[edit]]
 target = "c02023900"                                   # Jonathan Luckyman
 moves = [
-  { move = 0x6B4A7B35, level = 1 },                         # Power Shot
-  { move = 0xAC6D8A70, level = 1 },                         # Rainbow Arc
-  { move = 0xC5EF0563, level = 1 },                         # Three-Legged Rush
-  { move = 0xB039ADB4, level = 55 },                        # Inazuma Break
+  { move = 0x34256515, level = 41 },                        # Dynamite Shot
+  { move = 0xAC6D8A70, level = 51 },                        # Rainbow Arc
+  { move = 0xC5EF0563, level = 61 },                        # Three-Legged Rush
+  { move = 0xB039ADB4, level = 71 },                        # Inazuma Break
 ]
 
   [[edit.cards]]
@@ -246,10 +536,10 @@ moves = [
 [[edit]]
 target = "c02023910"                                   # Joe Poker
 moves = [
-  { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
-  { move = 0xAC6D8A70, level = 1 },                         # Rainbow Arc
-  { move = 0x627FC293, level = 33 },                        # Meteor Attack
-  { move = 0x7F2824DE, level = 53 },                        # Dual Storm
+  { move = 0xC5EF0563, level = 53 },                        # Three-Legged Rush
+  { move = 0x3663DB4C, level = 63 },                        # Utter Gutsiness Bat
+  { move = 0xAC6D8A70, level = 73 },                        # Rainbow Arc
+  { move = 0x627FC293, level = 83 },                        # Meteor Attack
 ]
 
   [[edit.cards]]
@@ -262,7 +552,7 @@ moves = [
 target = "c02023920"                                   # Wiley Cracker
 moves = [
   { move = 0xDA628FD4, level = 1 },                         # Sliding Goal
-  { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
+  { move = 0xBE0E4AD0, level = 11 },                        # Fireball Knuckle
   { move = 0xEBD03938, level = 36 },                        # Utter Gutsiness Catch
   { move = 0xC379BE95, level = 52 },                        # Counter Strike
 ]
@@ -307,7 +597,7 @@ moves = [
 [[edit]]
 target = "c02023950"                                   # Mike Passing
 moves = [
-  { move = 0x72514A74, level = 1 },                         # Low Drive
+  { move = 0xAAA6489B, level = 1 },                         # Spiral Shot
   { move = 0x011AAF4B, level = 29 },                        # Gyro Head
   { move = 0x4890FB67, level = 40 },                        # Twin Boost
   { move = 0xC5EF0563, level = 54 },                        # Three-Legged Rush
@@ -323,9 +613,9 @@ moves = [
 [[edit]]
 target = "c02023960"                                   # Knowle Bathers
 moves = [
-  { move = 0xF08DB620, level = 1 },                         # Whirlwind
-  { move = 0xC0FD6AFB, level = 1 },                         # Fireball Head
-  { move = 0x4E9A9232, level = 33 },                        # Spinning Cut
+  { move = 0xA7157B91, level = 1 },                         # Power Shield
+  { move = 0xF08DB620, level = 11 },                        # Whirlwind
+  { move = 0xC0FD6AFB, level = 21 },                        # Fireball Head
   { move = 0xEA12530F, level = 49 },                        # Double Rocket
 ]
 
@@ -355,9 +645,9 @@ moves = [
 target = "c11802030"                                   # Augustus Hargrave
 moves = [
   { move = 0x592A96B4, level = 1 },                         # Afterimage
-  { move = 0xC16279D1, level = 13 },                        # Field of Force
-  { move = 0x322F0C40, level = 20 },                        # Spider Web
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0xC16279D1, level = 11 },                        # Field of Force
+  { move = 0x322F0C40, level = 21 },                        # Spider Web
+  { move = 0x78218C02, level = 31 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -370,9 +660,9 @@ moves = [
 target = "c11802040"                                   # Windell Balding
 moves = [
   { move = 0x3F00EDE9, level = 1 },                         # Dash Storm
-  { move = 0x768AB9C5, level = 13 },                        # Frosticle
-  { move = 0xD9BB22A7, level = 20 },                        # Air Ride
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x768AB9C5, level = 11 },                        # Frosticle
+  { move = 0x49933AEE, level = 21 },                        # Perfect Tower
+  { move = 0x4F58F805, level = 31 },                        # Coil Turn
 ]
 
   [[edit.cards]]

@@ -1,6 +1,4 @@
-# BetterQoL › its action of the VR-Framework's save adjust (Options › «Ajustar save», content\save_adjust\
-# away_kits.toml, scripts\away_kit.lua): title, description and result (%d = the count the action answers). Rows of
-# menu_text, read by id = crc32(row id).
+# Away-kit save adjust texts: title, description and result (%d = count).
 schema = "VRFW.text/2"
 table = "menu_text"
 

@@ -1,0 +1,26 @@
+# BetterQoL: top bar shortcuts, title side: the title presses the item a shortcut asked for.
+name = "betterqol_top_bar"
+mod = "BetterQoL"
+order = 335
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["OnInit", "Step", "GetTitleMenuItemId", "IsEnableMenuItemButton", "SwitchCaseTitleInputWait", "SwitchCaseTitleFade",
+         "SwitchCaseTitleWaitFade", "SwitchCaseTitleEndFadeInit"]
+description = "BetterQoL: the title presses the item a top bar shortcut asked for"
+
+[[files]]
+stem = "title_menu_2"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "betterqol_title.lua"
+  marker = "betterqol top_bar title"
+
+[[files]]
+stem = "title_main"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "betterqol_title_main.lua"
+  marker = "betterqol top_bar title_main"

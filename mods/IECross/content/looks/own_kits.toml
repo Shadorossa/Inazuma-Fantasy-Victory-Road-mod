@@ -19,7 +19,7 @@ target = "0x1776374A"
   type = 1
 
 [[look]]
-target = "0x2175C658"                   # Byron Love (Cross): the Shin Zeus kit (cross_new_kits.toml kit_shin_zeus)
+target = "0x2175C658"
   [look.kit]
   id = 0x8088576A
 

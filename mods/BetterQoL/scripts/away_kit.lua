@@ -1,32 +1,14 @@
--- BetterQoL › Home / Away kit (feature away_kit).
---
--- Every retail kit uniform has two model sets: typeId 0 (worn normally) and typeId 1 (the alternate, worn only when
--- both teams have the SAME uniform id). For most kits uniform_config also has a twin uniform with the typeIds swapped,
--- so the away shirt is the default and the home shirt the alternate. The team's kit is TeamInfo.uniformId (+0x290):
--- writing the twin id there makes the team wear the away shirt everywhere, keeps the clash rule working and survives
--- without the mod (the twin is an ordinary retail uniform id).
---
--- Commands (content\game\away_kit.toml):
---   CMND_BETTERQOL_TEAM_UNIFORM(set, team [, uniform [, src_team]]) -> ok, uniformId   (alias CMND_EVT_TEAM_UNIFORM)
---   CMND_BETTERQOL_AK_PAIR(uniform) -> the away twin of a kit / the kit of a twin (0 = none)
--- src_team: copy the kit of another team of the same set (the 11v11 kit onto the kit-less 5v5 team), only when
--- `uniform` IS that team's kit. A write onto a team without a kit is refused, except the one uniform id the game_state
--- key vrfw.team_uniform.kitless answers right now (another mod provides it; 0 / none = off).
---
--- The pairs are derived from the item_config / uniform_config the game loads (mods' kits included): the mod ships
--- no kit id. A kit with two sides and no twin gets one in the served table (content\kit_twins\all_kits.toml, type kit_twin).
 
-local MAX_SET = 16 -- highest logical set (retail docks 0..15; 16 = the mode-mapped story set)
+local MAX_SET = 16
 local TEAMS = 3 -- teams per set (11v11, 5v5, ...)
 local KITLESS_KEY = "vrfw.team_uniform.kitless"
 local SEP = "\1"
 
 local writes = 0
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
--- a Lua number argument as the game's u32; nil when it is not a number
 local function arg_u32(v)
   if type(v) ~= "number" then
     return nil
@@ -34,19 +16,7 @@ local function arg_u32(v)
   return u32(v)
 end
 
-local function write_allowed(set, team, cur, new)
-  return set <= MAX_SET and team < TEAMS and cur ~= 0 and new ~= 0
-end
-
-local function kitless_allowed(set, team, cur, new, kitless)
-  return kitless ~= 0 and set <= MAX_SET and team < TEAMS and cur == 0 and new == kitless
-end
-
-local function copy_allowed(set, team, src, src_cur, new)
-  return set <= MAX_SET and team < TEAMS and src < TEAMS and src ~= team and src_cur ~= 0 and new == src_cur
-end
-
--- the TeamInfo record of (set, team), nil when the party is not there yet
+-- TeamInfo record of (set, team), nil when the party is not there yet
 local function team_info(set, team)
   local party = VRFW.game.party()
   if not party then
@@ -56,7 +26,8 @@ local function team_info(set, team)
   if not ok or not p or p < 0x10000 then
     return nil
   end
-  local ok2, rec = pcall(VRFW.mem.struct, "TeamInfo", p)
+  local rec = VRFW.memory.struct("TeamInfo", p)
+  local ok2 = rec ~= nil
   return ok2 and rec or nil
 end
 
@@ -81,12 +52,14 @@ function BetterQoL.TeamUniform(set, team, uniform, src_team)
   end
   local copy = false
   local src = arg_u32(src_team)
-  if src then
+  if src and src < TEAMS and src ~= team then
     local r = team_info(set, src)
-    copy = r ~= nil and copy_allowed(set, team, src, read_uniform(r), new)
+    local src_cur = r and read_uniform(r) or 0
+    copy = src_cur ~= 0 and new == src_cur
   end
-  local kitless = kitless_allowed(set, team, cur, new, u32(VRFW.state.get(KITLESS_KEY) or 0))
-  if not copy and not kitless and not write_allowed(set, team, cur, new) then
+  local kitless_id = u32(VRFW.state.get(KITLESS_KEY) or 0)
+  local kitless = kitless_id ~= 0 and cur == 0 and new == kitless_id
+  if not copy and not kitless and not (cur ~= 0 and new ~= 0) then
     VRFW.warn(string.format("refused set %d team %d: uniform 0x%08X -> 0x%08X", set, team, cur, new))
     return false, cur
   end
@@ -102,9 +75,6 @@ function BetterQoL.TeamUniform(set, team, uniform, src_team)
   return ok, read_uniform(rec)
 end
 
--- ---------------------------------------------------------------------------------------------- the pair map
-
--- a cell as text (arrays / records: their elements)
 local function cell_text(v)
   if type(v) == "table" then
     local parts = {}
@@ -121,8 +91,6 @@ local function cell_text(v)
   return tostring(v)
 end
 
--- uniform id -> { [0] = model typeId 0, [1] = model typeId 1 }, each { full = every field but typeId, main = the
--- fielder + keeper shirts (the first two) }, for every uniform with exactly two model rows of typeIds 0 and 1
 local function shapes()
   local uniforms = VRFW.table.rows("character/uniform")
   local models = VRFW.table.rows("character/uniform_model_info")
@@ -162,7 +130,7 @@ local function shapes()
   return out
 end
 
--- the kits: uniform id (item_config ITEM_FASHION_INFO column `uniform`) -> item key; the first item of a uniform wins
+-- uniform id of a kit item -> item key (first item of a uniform wins)
 local function kits()
   local out, n = {}, 0
   for _, row in ipairs(VRFW.table.rows("item/item_fashion")) do
@@ -175,17 +143,17 @@ local function kits()
   return out, n
 end
 
--- kit -> its twin (a twin that is a kit wins, then the lowest id); every other candidate twin -> its kit
 local function build()
   local kit, nkits = kits()
   local shape = shapes()
   local by_full, by_main = {}, {}
+  local function push(map, key, id)
+    map[key] = map[key] or {}
+    table.insert(map[key], id)
+  end
   for id, s in pairs(shape) do
-    local f, m = s[0].full .. SEP .. SEP .. s[1].full, s[0].main .. SEP .. SEP .. s[1].main
-    by_full[f] = by_full[f] or {}
-    table.insert(by_full[f], id)
-    by_main[m] = by_main[m] or {}
-    table.insert(by_main[m], id)
+    push(by_full, s[0].full .. SEP .. SEP .. s[1].full, id)
+    push(by_main, s[0].main .. SEP .. SEP .. s[1].main, id)
   end
   local order = {}
   for u, k in pairs(kit) do
@@ -268,30 +236,23 @@ function BetterQoL.AwayKitPair(uniform)
   return pair_map_now()[u] or 0
 end
 
--- built once while the framework starts (the tables the game loads are served by then)
+-- built while the framework starts (the game tables are served by then)
 pair_map_now()
 
--- ---------------------------------------------------------------------------------------------- save adjust
-
--- «Quitar equipaciones de visitante» (Options › «Ajustar save», content\save_adjust\away_kits.toml): the kit items
--- that only repeat another kit's away look (the game's «E. visitante …» items: key = the home kit item's key + `_<n>`,
--- uniform = the home kit's away twin of the pair map above) leave the save: the teams wearing one go back to the home
--- kit and the owned stacks are emptied (VRFW/lib/save_kits). The away look stays a press of Y in the kit picker.
--- config.toml [away_kit] keep: item keys that stay (a team's own kit that happens to be such a twin).
-
-local SaveKits = require "VRFW/lib/save_kits"
+local SaveKits = VRFW.save.kits
 
 local away_items_cache
 
 -- { by_item = { [item id] = entry }, count }
 local function away_items()
   if away_items_cache then return away_items_cache end
-  local cfg = (VRFW.files and VRFW.files.config and VRFW.files.config("away_kit")) or {}
+  local cfg = VRFW.config("away_kit", {})
   local keep = {}
   for _, key in ipairs(type(cfg.keep) == "table" and cfg.keep or {}) do
     if type(key) == "string" then keep[key] = true end
   end
-  local items = SaveKits.items()
+  local items, why = SaveKits.items()
+  if not items then return nil, why end
   local twins = pair_map_now()
   local found = { by_item = {}, count = 0 }
   for key, kit in pairs(items.by_key) do
@@ -310,13 +271,15 @@ BetterQoL.SaveAdjust = BetterQoL.SaveAdjust or {}
 
 function BetterQoL.SaveAdjust.can_remove_away_kits()
   local ok, found = pcall(away_items)
-  return ok and found.count > 0
+  return ok and found ~= nil and found.count > 0
 end
 
 function BetterQoL.SaveAdjust.remove_away_kits(tree, event)
-  local found = away_items()
+  local found, why = away_items()
+  if not found then return { error = why } end
   if found.count == 0 then return { error = "no away-kit item in the kit list" } end
-  local report = SaveKits.remove(tree, found.by_item)
+  local report, not_removed = SaveKits.remove(tree, found.by_item)
+  if not report then return { error = not_removed } end
   local line = string.format("save adjust: remove_away_kits (slot %s): %d away-kit item(s) removed of %d known (%s)",
     tostring(event and event.slot), report.stacks, found.count, SaveKits.summary(report))
   VRFW.log(line)

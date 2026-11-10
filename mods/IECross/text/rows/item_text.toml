@@ -1,8 +1,8 @@
-# Names of the six Cross kit items and the six Cross crest items. Added to the end of their list in declaration order.
+# Names of the six Cross kit items and the six Cross crest items.
 schema = "VRFW.text/2"
 
 [[row]]
-id = 0xD47FBFBF  # Equipación Circo Caos
+id = 0xD47FBFBF
 es = "Equipación Circo Caos"
 en = "Chaos Circus Kit"
 fr = "Maillot Cirque Chaos"
@@ -14,7 +14,7 @@ zh_hans = "异星杂技团·混沌球衣"
 zh_hant = "異星雜技團·混沌服裝"
 
 [[row]]
-id = 0xC142DBFD  # Equipación pirata
+id = 0xC142DBFD
 es = "Equipación pirata"
 en = "Pirate Kit"
 fr = "Maillot pirate"
@@ -26,7 +26,7 @@ zh_hans = "海盗球衣"
 zh_hant = "海盜服裝"
 
 [[row]]
-id = 0xB3D6448C  # Equipación Ramen
+id = 0xB3D6448C
 es = "Equipación Ramen"
 en = "Ramen Kit"
 fr = "Maillot Ramen"
@@ -38,7 +38,7 @@ zh_hans = "拉面义勇团球衣"
 zh_hant = "拉麵義勇團服裝"
 
 [[row]]
-id = 0x9D9A4156  # Equipación Ura-Zeus (uni_u912001, ウラゼウスウェア; the new Shin Zeus kit is kit_shin_zeus)
+id = 0x9D9A4156
 es = "Equipación Ura-Zeus"
 en = "Ura-Zeus Kit"
 fr = "Maillot Ura-Zeus"
@@ -50,7 +50,7 @@ zh_hans = "里·世宇子球衣"
 zh_hant = "裏·世宇子服裝"
 
 [[row]]
-id = 0xCE9FEA2B  # Equipación Japón 2026
+id = 0xCE9FEA2B
 es = "Equipación Japón 2026"
 en = "Japan 2026 Kit"
 fr = "Maillot Japon 2026"

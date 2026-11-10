@@ -1,0 +1,88 @@
+-- team kind (0 = 11v11, 1 = 5v5)
+FootballReforged = FootballReforged or {}
+do
+  local PQ = {
+    KEYS = {{3357163798, 4081600465}, {2371475758, 2898803562}},   -- (dock, kind) param pairs
+    CMDS = {[@crc:CMND_SET_TEAM_SET_INFO@] = true, [@crc:CMND_GET_TEAM_SET_INFO@] = true, [@crc:CMND_VRFW_TEAM_UNIFORM@] = true,
+      [@crc:CMND_VRFW_TEAM_UNIFORM@] = true},  -- SET / GET_TEAM_SET_INFO, EVT_TEAM_UNIFORM, VRFW_TEAM_UNIFORM
+    dock = nil, on = false, logs = 0,
+  }
+  FootballReforged.friendly_equip = PQ
+
+  function PQ.log(...)
+    if PQ.logs < 12 and type(funcLuaCommand) == "function" then
+      PQ.logs = PQ.logs + 1
+      pcall(funcLuaCommand, @crc:CMND_VRFW_LOG@, "EVT pachanga_equip", ...)
+    end
+  end
+
+  local function wrap(f)
+    if type(f) ~= "function" or (FootballReforged.friendly_equip_wrapped or {})[f] then
+      return f
+    end
+    local w = function(h, a1, a2, ...)
+      if PQ.on and PQ.CMDS[h] and a1 == PQ.dock and a2 == 0 then
+        if PQ.logs < 12 then
+          PQ.log("team 0 -> 1", h, a1, ...)
+        end
+        return f(h, a1, 1, ...)
+      end
+      return f(h, a1, a2, ...)
+    end
+    FootballReforged.friendly_equip_wrapped = FootballReforged.friendly_equip_wrapped or {}
+    FootballReforged.friendly_equip_wrapped[w] = true
+    return w
+  end
+
+  local function hook()
+    if type(rawget(_ENV, "funcLuaCommand")) == "function" then
+      rawset(_ENV, "funcLuaCommand", wrap(rawget(_ENV, "funcLuaCommand")))
+      return
+    end
+    local mt = getmetatable(_ENV)
+    if mt == nil then
+      mt = {}
+      setmetatable(_ENV, mt)
+    end
+    local prev = mt.__newindex
+    mt.__newindex = function(t, k, v)
+      if k == "funcLuaCommand" then
+        v = wrap(v)
+      end
+      if prev == nil then
+        rawset(t, k, v)
+      elseif type(prev) == "function" then
+        prev(t, k, v)
+      else
+        prev[k] = v
+      end
+    end
+  end
+  hook()
+
+  local init = rawget(_ENV, "OnInit")
+  if type(init) == "function" and not (FootballReforged.friendly_equip_wrapped or {})[init] then
+    local w = function(...)
+      PQ.on, PQ.dock = false, nil
+      local ok = pcall(function()
+        if funcLuaCommand(@crc:CMND_GET_PLAY_GAME_MODE@) == 2 then
+          return
+        end
+        for _, k in ipairs(PQ.KEYS) do
+          if VRFW.param.has(k[2]) and VRFW.param.get(k[2]) == 1 and VRFW.param.has(k[1]) then
+            PQ.dock = VRFW.param.get(k[1])
+            PQ.on = type(PQ.dock) == "number"
+            return
+          end
+        end
+      end)
+      if ok and PQ.on then
+        PQ.log("5v5 team of dock", PQ.dock)
+      end
+      return init(...)
+    end
+    FootballReforged.friendly_equip_wrapped = FootballReforged.friendly_equip_wrapped or {}
+    FootballReforged.friendly_equip_wrapped[w] = true
+    rawset(_ENV, "OnInit", w)
+  end
+end

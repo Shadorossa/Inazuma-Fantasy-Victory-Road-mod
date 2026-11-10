@@ -1,0 +1,396 @@
+# The folders and loose files of the old cache\VRFW layout go; everything here is generated and rebuilds at the next start.
+schema = "VRFW.migration/1"
+id = "VRFW.cache_layout"
+description = "The framework cache keeps seven folders: types, tex, fragments, derived, game, shaders and loader"
+phase = "data"
+after = ["VRFW.vrfw_prefix_data"]
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/anim"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/anim_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/audio_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/base_table"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/bb_talk"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/card_filter"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/celebration"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/changelog"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/character"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/character_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/effect"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/flag"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/font"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/formation"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/friendly"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/fx_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/game_shader"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/image"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/image_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/input"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/item"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/item_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/kit_twin"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/look"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/look_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/lua_patch"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/match_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/menu"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/menu_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/merged"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/mod_options"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/mode"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/mode_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/model"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/model_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/mods_menu"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/mods_screen"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/mx"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/option"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/param"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/rarity"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/rarity_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/rule"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/save_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/scene"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/script"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/served"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/services"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/shop"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/sound"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/stadium"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/system_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/table"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/table_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/talk_cast"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/team"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/team_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/technique"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/technique_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/telop"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/telop_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/text"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/text_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/theme"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/theme_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/transform"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/transform_engine"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/trigger"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/vr_framework_prebuild"
+cache = true
+
+[[step]]
+kind = "delete_folder"
+path = "{data}/cache/VRFW/vrfw_prebuild"
+cache = true
+
+[[step]]
+kind = "delete_file"
+path = "{data}/cache/VRFW/boot_list.bin"
+cache = true
+
+[[step]]
+kind = "delete_file"
+path = "{data}/cache/VRFW/boot_prewarm.json"
+cache = true
+
+[[step]]
+kind = "delete_file"
+path = "{data}/cache/VRFW/content_hashes.json"
+cache = true
+
+[[step]]
+kind = "delete_file"
+path = "{data}/cache/VRFW/modset_digests.json"
+cache = true
+
+[[step]]
+kind = "delete_file"
+path = "{data}/cache/VRFW/prebuild.log"
+cache = true
+
+[[step]]
+kind = "delete_file"
+path = "{data}/cache/VRFW/report.json"
+cache = true
+
+[[step]]
+kind = "delete_file"
+path = "{data}/cache/VRFW/reserved_names.json"
+cache = true
+
+[[step]]
+kind = "delete_file"
+path = "{data}/cache/VRFW/store_use.json"
+cache = true

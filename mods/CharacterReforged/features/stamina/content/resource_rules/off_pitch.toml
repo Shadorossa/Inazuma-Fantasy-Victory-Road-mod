@@ -1,0 +1,4 @@
+schema = "VRFW.resource_rule/1"
+
+[[VRFW.OffPitch]]
+name = "battery_out"

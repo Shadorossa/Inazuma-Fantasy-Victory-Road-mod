@@ -1,11 +1,7 @@
 schema = "VRFW.game/2"
 
-# Locked shop rows. Runtime: scripts/shop_rows.lua reads each mod's content/shop_locks/*.toml and installs the two hooks below only when a mod declares locked rows (`apply = "script"`).
-# Condition hook: a hidden row of a declared shop whose condition is a progress gate is shown as visible and recorded as locked.
-# Fill hook: maps each list-item layer instance to its row id so menu Lua can tell which instance shows a locked row.
+# Locked shop rows.
 
-# bool EvalCondition(const u8* compiled), post hook; rows the script put in ShopRows.Skip (never listed as locked) are
-# answered without the scripts (the shop status rebuild evaluates every row of every shop).
 [[VRFW.Hook]]
 name = "ShopRows.Condition"
 game = "Shop.RowCondition"
@@ -20,7 +16,6 @@ apply = "script"
 
 # --- commands ---
 
-# (shop ids...) -> live: shops whose rows are locked from now on (no argument = query).
 [[VRFW.Command]]
 name = "CMND_VRFW_SHOP_LOCK_SHOPS"
 handler = "ShopRows.Shops"

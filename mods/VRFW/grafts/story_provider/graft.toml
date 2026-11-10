@@ -1,10 +1,10 @@
-# The story-cleared provider of the VR-Framework mode engine: the global VRFW_STORY_PROVIDER (sp_provider.lua) in the VMs of the mode
-# hosts, so `[mode.unlock] story_cleared` asks CMND_VRFW_STORY_START_GET (the VR-Framework's save part):
+# The story-cleared provider of the VRFW mode engine: the global VRFW.story_provider (sp_provider.lua) in the VMs of the mode
+# hosts, so `[mode.unlock] story_cleared` asks CMND_VRFW_STORY_START_GET (the VRFW's save part):
 #   title_menu_2          title rows / lower buttons
 #   soccer_top_menu       "Game Modes"
-#   evt_save_slot_menu    the slot screen (the framework's own script: graft save_slots, new_file; order after it)
-# A VR-Framework graft: the clause works with no other mod installed.
-# Built by `menu_assemble.py build --mod vr_framework` (framework_pack.py: the save part's Lua root). Only a definition:
+#   vrfw_save_slot_menu    the slot screen (the framework's own script: graft save_slots, new_file; order after it)
+# A VRFW graft: the clause works with no other mod installed.
+# Built by `menu_assemble.py build --mod VRFW` (framework_pack.py: the save part's Lua root). Only a definition:
 # nothing runs at chunk load.
 name = "story_provider"
 mod = "VRFW"
@@ -16,7 +16,7 @@ wraps = []
 description = "Answers the mode engine's «story cleared» unlock clause from the saved story (CMND_VRFW_STORY_START_GET)"
 
 [[files]]
-path = "common/script/lua/menu/evt_save_slot_menu.lua.bin"
+path = "common/script/lua/menu/vrfw_save_slot_menu.lua.bin"
 
   [[files.ops]]
   type = "append_block"

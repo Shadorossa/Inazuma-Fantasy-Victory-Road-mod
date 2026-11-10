@@ -1,8 +1,5 @@
 schema = "VRFW.effect/1"
-# Inazuma Fantasy: the God Hand family in the retail red and blue (content\techniques\god_hand_colors.toml): recoloured copies of
-# each base object in the colours measured on the retail fire God Hand (ev63017100) and the forest one (ev63004800).
-# hue = the retail part's hue; saturation / value = retail part / mountain part of the same part. A part retail lacks takes
-# its closest retail part. KeeperHit_*, BallAura_*, smoke, dust, rocks, ground, the rainbows and the hand meshes' vertex data stay.
+# God Hand family in red and blue: each base object recoloured to the retail fire / forest God Hand colours.
 
 # ---- god_hand_ev_red (whk00490, red): ev63860000
 [[recolor]]

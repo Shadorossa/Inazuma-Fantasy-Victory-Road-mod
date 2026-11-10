@@ -1,5 +1,4 @@
-# Technique Cut-in Skip (BetterQoL's module CutinSkip, docs/game/match/cutin-skip.md): a fresh press ends the running
-# technique cut-in. Module off = this patch of event_menu is not loaded. Wrapper only; nothing runs at chunk load.
+# CutinSkip: a fresh press in event_menu ends the running technique cut-in.
 name = "cutin_skip"
 mod = "CutinSkip"
 order = 300

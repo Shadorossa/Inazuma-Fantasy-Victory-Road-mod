@@ -1,7 +1,5 @@
 schema = "VRFW.sprite_redirect/1"
-# BetterQoL: the game kit items with no icon in icon_item07.g4tx draw an empty cell in the item lists and the kit picker.
-# These keys live in the mod's own atlas (content\images\menu\200_icon\02_icon_item\better_qol_kit_icons.toml), so the
-# game's sheet gets no entry.
+# Game kit items with no icon in icon_item07.g4tx: their keys are served from the mod's own atlas.
 
 [[VRFW.SpriteRedirect]]
 name = "better_qol_kit_icons"

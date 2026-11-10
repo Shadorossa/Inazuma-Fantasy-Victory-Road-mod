@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Orion Juniors · Inazuma Eleven: Orion
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c08090160"                                   # Rion
 moves = [
-  { move = 0x14A6A879, level = 1 },                         # Regal Eagle
+  { move = 0x768AB9C5, level = 1 },                         # Frosticle
   { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
-  { move = 0x768AB9C5, level = 20 },                        # Frosticle
-  { move = 0xDE4ED944, level = 30 },                        # Snowstorm Leopard
+  { move = 0xDE4ED944, level = 20 },                        # Snowstorm Leopard
+  { move = 0x14A6A879, level = 30 },                        # Regal Eagle
 ]
 
   [[edit.cards]]
@@ -21,9 +18,9 @@ moves = [
 [[edit]]
 target = "c08090170"                                   # Van Maanen
 moves = [
-  { move = 0x316A7390, level = 1 },                         # Land Dragon
-  { move = 0x768AB9C5, level = 13 },                        # Frosticle
-  { move = 0xC6978232, level = 20 },                        # Dinosaur Roar
+  { move = 0x768AB9C5, level = 1 },                         # Frosticle
+  { move = 0xC6978232, level = 13 },                        # Dinosaur Roar
+  { move = 0x316A7390, level = 20 },                        # Land Dragon
   { move = 0x637C031A, level = 30 },                        # No Escape
 ]
 
@@ -37,10 +34,10 @@ moves = [
 [[edit]]
 target = "c08090180"                                   # Veles
 moves = [
-  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
-  { move = 0x43B5739B, level = 13 },                        # Lightning Bolt
-  { move = 0xDEB28A7B, level = 20 },                        # Monkey Turn
-  { move = 0xEFFC6FA8, level = 30 },                        # Warhead
+  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
+  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
+  { move = 0xEFFC6FA8, level = 20 },                        # Warhead
+  { move = 0x43B5739B, level = 30 },                        # Lightning Bolt
 ]
 
   [[edit.cards]]
@@ -52,10 +49,10 @@ moves = [
 [[edit]]
 target = "c08090190"                                   # Brock
 moves = [
-  { move = 0xDCF43422, level = 1 },                         # Aurora Dribble
-  { move = 0x768AB9C5, level = 13 },                        # Frosticle
-  { move = 0x2E7B2B84, level = 20 },                        # Thief's Eye
-  { move = 0x64152A5A, level = 30 },                        # Pinch and Save
+  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0x01DB04F5, level = 13 },                        # Defence Scan
+  { move = 0x768AB9C5, level = 20 },                        # Frosticle
+  { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
 ]
 
   [[edit.cards]]
@@ -68,10 +65,10 @@ moves = [
 [[edit]]
 target = "c08090200"                                   # Wolfe
 moves = [
-  { move = 0xDCF43422, level = 1 },                         # Aurora Dribble
-  { move = 0x768AB9C5, level = 13 },                        # Frosticle
-  { move = 0x78E027BC, level = 20 },                        # Shine Drive
-  { move = 0x087999EE, level = 30 },                        # Heel Drop
+  { move = 0x768AB9C5, level = 1 },                         # Frosticle
+  { move = 0x78E027BC, level = 13 },                        # Shine Drive
+  { move = 0x087999EE, level = 20 },                        # Heel Drop
+  { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
 ]
 
   [[edit.cards]]
@@ -83,10 +80,10 @@ moves = [
 [[edit]]
 target = "c11908310"                                   # Alexander Allegrov
 moves = [
-  { move = 0x0C7FF30F, level = 1 },                         # Divine Drive
-  { move = 0x14A6A879, level = 13 },                        # Regal Eagle
-  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
-  { move = 0x261BDCA8, level = 30 },                        # Moonsault
+  { move = 0x1F0836D6, level = 1 },                         # Comet Shot
+  { move = 0x6F918884, level = 13 },                        # Easy Breezy
+  { move = 0x1FC99D68, level = 20 },                        # Snow Angel
+  { move = 0xF26A225B, level = 30 },                        # RC Shot
 ]
 
   [[edit.cards]]

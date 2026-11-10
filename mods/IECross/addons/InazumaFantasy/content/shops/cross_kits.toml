@@ -1,0 +1,78 @@
+schema = "VRFW.shop/2"
+
+[[edit]]
+target = "InazumaFantasy.general_store"
+
+  [[edit.entry]]
+  item = "kit_penguin"                 # Penguin
+  price = 21
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "kit_shin_zeus"               # Shin Zeus
+  price = 21
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "kit_full_moon_festival"      # Full Moon Summer Festival
+  price = 21
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "uni_u119701"                 # Pirate
+  price = 21
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "uni_u119801"                 # Ramen
+  price = 21
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "uni_u990001"
+  price = 21
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "kit_pumpkin_devil"           # Pumpkin Devil
+  price = 28
+  currency = "tk_bb000001"
+  stock = 1
+
+[[edit]]
+target = "0x471559B5"
+if_not_mod = "InazumaFantasy"
+
+  [[edit.entry]]
+  item = "kit_penguin"                 # Penguin
+  stock = 1
+
+  [[edit.entry]]
+  item = "kit_shin_zeus"               # Shin Zeus
+  stock = 1
+
+  [[edit.entry]]
+  item = "kit_full_moon_festival"      # Full Moon Summer Festival
+  stock = 1
+
+  [[edit.entry]]
+  item = "uni_u119701"                 # Pirate
+  stock = 1
+
+  [[edit.entry]]
+  item = "uni_u119801"                 # Ramen
+  stock = 1
+
+  [[edit.entry]]
+  item = "uni_u990001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "kit_pumpkin_devil"           # Pumpkin Devil
+  stock = 1

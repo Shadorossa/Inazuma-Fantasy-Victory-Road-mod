@@ -1,7 +1,4 @@
 schema = "VRFW.text/2"
-# The mailbox's password entry (assets\lua\menu\post_menu\100_redeem_codes.lua): the window shown instead of the
-# game's «wrong password» when a code a mod declares was already redeemed in this save, and the «received» line of each
-# reward with its count (name, count). Read by id = crc32(row id).
 table = "menu_text"
 
 [[row]]

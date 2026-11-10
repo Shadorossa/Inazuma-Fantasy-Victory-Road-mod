@@ -1,10 +1,7 @@
-# Texts of BetterQoL's «Álbum de jugadores» (the row of «Caseta del club», graft util_album_row, and its page
-# util_album_menu, assets/lua/screens/util_album_menu.lua, which reads them with CMND_TEXT_GET(crc32(id))). Format:
-# «{1}» / «{2}» = values the page fills in.
+# Player album texts (graft betterqol_clubroom_rows, page betterqol_album_menu; read with CMND_TEXT_GET(crc32(id))).
 schema = "VRFW.text/2"
 table = "menu_text"
 
-# the «Caseta del club» row and the screen's header
 [[row]]
 id = "BetterQoL.Album.Row"
 es = "Álbum de jugadores"
@@ -55,9 +52,6 @@ ja = "作品"
 zh_hans = "作品"
 zh_hant = "作品"
 
-# the «Nombre» groups of the language: the first letters of each group, groups split by «,» (a name whose first
-# letter is in no group goes to «#»); empty = one group with every name
-# the game bar's last group: every special card (rarity above the album's display rarity)
 [[row]]
 id = "BetterQoL.Album.Specials"
 es = "Especiales"
@@ -95,6 +89,7 @@ ja = "{1}  ({2})"
 zh_hans = "{1}  ({2})"
 zh_hant = "{1}  ({2})"
 
+# Empty in Chinese on purpose: the game has no reading for hanzi names (chara_text_roma repeats them), so all fall in OtherGroup.
 [[row]]
 id = "BetterQoL.Album.NameGroups"
 es = "ABCD,EFGH,IJKL,MNÑOP,QRST,UVWXYZ"
@@ -103,7 +98,7 @@ fr = "ABCD,EFGH,IJKL,MNOP,QRST,UVWXYZ"
 de = "ABCD,EFGH,IJKL,MNOP,QRST,UVWXYZ"
 it = "ABCD,EFGH,IJKL,MNOP,QRST,UVWXYZ"
 pt = "ABCD,EFGH,IJKL,MNOP,QRST,UVWXYZ"
-ja = "あいうえおぁぃぅぇぉ,かきくけこがぎぐげご,さしすせそざじずぜぞ,たちつてとだぢづでどっ,なにぬねの,はひふへほばびぶべぼぱぴぷぺぽ,まみむめも,やゆよゃゅょ,らりるれろわをん"
+ja = "あいうえおぁぃぅぇアイウエオァィゥェォヴぉ,かきくけこがぎぐげカキクケコガギグゲゴヵヶご,さしすせそざじずぜサシスセソザジズゼゾぞ,たちつてとだぢづでどタチツテトダヂヅデドッっ,なにぬねナニヌネノの,はひふへほばびぶべぼぱぴぷぺハヒフヘホバビブベボパピプペポぽ,まみむめマミムメモも,やゆよゃゅヤユヨャュョょ,らりるれろわをラリルレロワヲンん"
 zh_hans = ""
 zh_hant = ""
 
@@ -233,6 +228,56 @@ ja = "未所持"
 zh_hans = "未拥有"
 zh_hant = "未擁有"
 
+# the same badge for a player of a team not beaten yet ({1} = the team; VRFW.team_beaten)
+[[row]]
+id = "BetterQoL.Album.LockChronicle"
+es = "Vence a {1} en Crónicas"
+en = "Beat {1} in Chronicle Mode"
+fr = "Bats {1} en mode Chronique"
+de = "Besiege {1} im Chronik-Modus"
+it = "Batti {1} in modalità Cronaca"
+pt = "Vence {1} no modo Crónica"
+ja = "クロニクルモードで{1}に勝つ"
+zh_hans = "在编年史模式中击败{1}"
+zh_hant = "在編年史模式中擊敗{1}"
+
+[[row]]
+id = "BetterQoL.Album.LockStory"
+es = "Vence a {1} en el modo Historia"
+en = "Beat {1} in Story Mode"
+fr = "Bats {1} en mode Histoire"
+de = "Besiege {1} im Story-Modus"
+it = "Batti {1} in modalità Storia"
+pt = "Vence {1} no modo História"
+ja = "ストーリーモードで{1}に勝つ"
+zh_hans = "在故事模式中击败{1}"
+zh_hant = "在故事模式中擊敗{1}"
+
+[[row]]
+id = "BetterQoL.Album.LockBoth"
+es = "Vence a {1} en Crónicas o en el modo Historia"
+en = "Beat {1} in Chronicle or Story Mode"
+fr = "Bats {1} en mode Chronique ou Histoire"
+de = "Besiege {1} im Chronik- oder Story-Modus"
+it = "Batti {1} in modalità Cronaca o Storia"
+pt = "Vence {1} no modo Crónica ou História"
+ja = "クロニクルかストーリーで{1}に勝つ"
+zh_hans = "在编年史或故事模式中击败{1}"
+zh_hant = "在編年史或故事模式中擊敗{1}"
+
+# {1} of the lock badge when the team has no shown name
+[[row]]
+id = "BetterQoL.Album.LockTheirTeam"
+es = "su equipo"
+en = "their team"
+fr = "son équipe"
+de = "sein Team"
+it = "la sua squadra"
+pt = "a sua equipa"
+ja = "所属チーム"
+zh_hans = "其所属球队"
+zh_hant = "其所屬球隊"
+
 # the button guide: the player plate's pages
 [[row]]
 id = "BetterQoL.Album.GuidePlate"
@@ -272,7 +317,6 @@ ja = "<CMD_FUNCL1><CMD_FUNCR1>"
 zh_hans = "<CMD_FUNCL1><CMD_FUNCR1>"
 zh_hant = "<CMD_FUNCL1><CMD_FUNCR1>"
 
-# the guide's keys: the other column, a page at the list's edge (also drawn beside «Página N/M» under the list)
 [[row]]
 id = "BetterQoL.Album.KeysPage"
 es = "<CMD_LEFT><CMD_RIGHT>"
@@ -311,6 +355,19 @@ ja = "選手を検索"
 zh_hans = "搜索球员"
 zh_hant = "搜尋球員"
 
+# the list when no player passes the filter
+[[row]]
+id = "BetterQoL.Album.FilterEmpty"
+es = "Ningún jugador coincide con el filtro."
+en = "No players match the filter."
+fr = "Aucun joueur ne correspond au filtre."
+de = "Kein Spieler entspricht dem Filter."
+it = "Nessun giocatore corrisponde al filtro."
+pt = "Nenhum jogador corresponde ao filtro."
+ja = "フィルターに一致する選手はいません。"
+zh_hans = "没有符合筛选条件的球员。"
+zh_hant = "沒有符合篩選條件的球員。"
+
 # the group bar while a search is on: {1} the text, {2} the players found
 [[row]]
 id = "BetterQoL.Album.SearchBand"
@@ -328,3 +385,53 @@ zh_hant = "搜尋: {1} ({2})"
 [[row]]
 id = "BetterQoL.Album.SearchKey"
 all = "<CMD_FUNC4>"
+
+# the album's footer
+[[row]]
+id = "BetterQoL.Album.MultiSelect"
+es = "Selección múltiple"
+en = "Multiple selection"
+fr = "Sélection multiple"
+de = "Mehrfachauswahl"
+it = "Selezione multipla"
+pt = "Seleção múltipla"
+ja = "複数選択"
+zh_hans = "多选"
+zh_hant = "多選"
+
+[[row]]
+id = "BetterQoL.Album.Mark"
+es = "Marcar"
+en = "Mark"
+fr = "Marquer"
+de = "Markieren"
+it = "Seleziona"
+pt = "Marcar"
+ja = "選択"
+zh_hans = "选择"
+zh_hant = "選擇"
+
+[[row]]
+id = "BetterQoL.Album.MultiExit"
+es = "Salir"
+en = "Exit"
+fr = "Quitter"
+de = "Beenden"
+it = "Esci"
+pt = "Sair"
+ja = "終了"
+zh_hans = "退出"
+zh_hant = "退出"
+
+# the help line in multiple selection: {1} marked, {2} total cost, {3} the balance
+[[row]]
+id = "BetterQoL.Album.MarkedLine"
+es = "Marcados: {1}  ·  Coste total: {2}  ·  Tienes: {3}"
+en = "Marked: {1}  ·  Total cost: {2}  ·  You have: {3}"
+fr = "Sélection : {1}  ·  Coût total : {2}  ·  Tu as : {3}"
+de = "Markiert: {1}  ·  Gesamtkosten: {2}  ·  Du hast: {3}"
+it = "Selezionati: {1}  ·  Costo totale: {2}  ·  Hai: {3}"
+pt = "Marcados: {1}  ·  Custo total: {2}  ·  Tens: {3}"
+ja = "選択中：{1}  ·  合計：{2}  ·  所持：{3}"
+zh_hans = "已选：{1}  ·  总价：{2}  ·  拥有：{3}"
+zh_hant = "已選：{1}  ·  總價：{2}  ·  擁有：{3}"

@@ -1,0 +1,61 @@
+schema = "VRFW.synergy/1"
+
+[[VRFW.SynergyPool]]
+name = "brain"
+teams = ["0xAEEF391C"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "farm"
+teams = ["0x2A4F780B"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "inazuma_kids_fc"
+teams = ["0x83D22BED"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "inazuma_veterans"
+teams = ["0x7ABBC40C"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "kirkwood"
+teams = ["0x49AF2634"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "occult"
+teams = ["0x4DC11E01"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "otaku"
+teams = ["0x483FAF66"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "sallys"
+teams = ["0x4BDF001D"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "shuriken"
+teams = ["0x31ABECFD"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "umbrella"
+teams = ["0x422A6D6B"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "wild"
+teams = ["0xEBCF64D8"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "zeus"
+teams = ["0x9BAD3311"]
+crest_eras = true

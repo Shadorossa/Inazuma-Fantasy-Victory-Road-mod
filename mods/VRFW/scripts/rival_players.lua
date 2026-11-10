@@ -1,150 +1,52 @@
--- VRFW › rival players: applies the rule of VRFW/lib/rival_players (content\rival_players\*.toml of every active mod)
--- to the rival players of the match being requested, for that match only (docs/framework/types/rival-players.md).
---
--- When a match is requested (match:start_request, before its players are built):
---   * the rule: the match's game, difficulty and play mode (the request's match info) -> RP.rule;
---   * the rival team: the request's rival team id when it has one, else the team of the game's difficulty row
---     (soccer_game_info SOCCER_GAME_DIFFICULTY, read once per session: a free match names its rival there);
---   * the players: the rival team's member rows as they are now (team_config in memory, so a team stand-in counts),
---     roster slots 0..18;
---   * passives: a rule with [[archetype]]s: the archetype of each player (RP.choose, the same every time) gives his last
---     2 slots, his own special stays in the first slot and the passives of his position fill the rest. Else one passive
---     set of the rule drawn with VRFW.rng for this entry; each player gets `set_passives` of it (drawn) in his last slots
---     and the passives of his position in the first ones. A [[player]] with its own passives gets those. His position
---     is his place in the rival team's formation (the record's formation as it is now, roster slot = place); a player
---     without a place (the bench) uses his card's. A list's repeat fills another slot (the engine stacks them).
---     Native table VRFW.RivalPassiveSlot (card, slot) -> { id, open };
---   * stats: a [[player]]'s stats (absolute) -> VRFW.RivalStatSet, its points -> VRFW.RivalStatAdd (card, stat);
---   * training: when the rule has one, the players, the position each one plays (his formation place's, 0 on the bench)
---     and the match go out as flags and the signal vrfw.rival_players.training; Player Training answers the stat deltas
---     of each card as flags and the signal vrfw.rival_players.trained: the deltas are added to VRFW.RivalStatAdd, a stat
---     it drained to its floor is set to that value in VRFW.RivalStatSet (the match copy's own value can differ from the
---     card's, so the delta alone could stop above the floor).
--- The tables are read natively (content\game\rival_players.toml): the slot readers, the match-copy builders and the
--- «datos» stats (CMND_GET_CHARA_INFO 14..21) of the players without a saved owner. Everything is emptied at the match
--- end, at a game reset and by a request no rule holds for.
--- The views read what the match has: the player page's stats (0x4375DC93 14..20, the character status getter), CMND_VRFW_RIVAL_STAT
--- and CMND_GET_CHARA_INFO 14..21 the match copy the builders made (VRFW.native.match_copy_stats); the passive rows, the archetype icon and the build type the
--- slots above (RivalPlayers.PlateInfo / Status / Build). No second copy of a formula.
 
 RivalPlayers = RivalPlayers or {}
 
-local RP = require "VRFW/lib/rival_players"
-local ME = require "VRFW/lib/match_equipment"
-local Id = require "VRFW/lib/ids"
-local Places = require "VRFW/lib/formation_places"
-require "VRFW/lib/basics"
+local RP = VRFW.rivals
+local ME = VRFW.match.equipment
+local Id = VRFW.ids
+local Places = VRFW.formation
+local Rows = VRFW.table_files
+local TeamConfig = VRFW.teams.config
 local info, warn = VRFW.logger("rival_players")
 
 local T_SLOT, T_SET, T_ADD = "VRFW.RivalPassiveSlot", "VRFW.RivalStatSet", "VRFW.RivalStatAdd"
-local REQUEST_RIVAL_TEAM = 0xA8       -- StartMatchRequest: the rival team id (as TeamLineup.MatchRequest reads it)
-local MEMBER_STRIDE, MEMBER_CARD, MEMBER_SLOT = 0x54, 0x20, 0x47   -- team_config member row (scripts\team_lineup.lua)
-local LAST_PLAYER_SLOT = 18            -- roster slots 19 / 20 are the staff
+local REQUEST_RIVAL_TEAM = 0xA8
+local MEMBER_CARD, MEMBER_SLOT = 0x20, 0x47   -- team_config member row (scripts\team_lineup.lua)
 local FLAG = "vrfw.rival_players"
 
-local u32 = Id.u32
+local u32 = Id.unsigned
 local ENTRY = 0                        -- requests seen this session (a word of the draw)
-local CUR = nil                        -- { rule, cards = { card, ... }, set, add = { [card] = { [i] = n } },
-                                       --   stat_set = { [card] = { [i] = n } }, flagged = n }
-local VIEW = {}                        -- [chara handle] = card | false, this match (the «datos» filter)
+local CUR = nil
+local VIEW = {}
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  return (ok and type(v) == "number") and v or nil
-end
-
--- [game id] = { [difficulty] = team id, first = team id of its first row } (read once per session)
-local GAME_TEAMS = nil
-
-local function game_teams()
-  if GAME_TEAMS then return GAME_TEAMS end
-  GAME_TEAMS = {}
-  local ok, err = pcall(function()
-    local key = VRFW.table.source("soccer/soccer_game_info")
-    local cur, slices, diffs, order = nil, {}, {}, {}
-    for _, e in ipairs(VRFW.table.entries(key, { "SOCCER_GAME_INFO", "SOCCER_GAME_INFO_REF_DIFFICULTY",
-      "SOCCER_GAME_DIFFICULTY" }, true)) do
-      if e.name == "SOCCER_GAME_INFO" then
-        cur = u32(e[1])
-        order[#order + 1] = cur
-      elseif e.name == "SOCCER_GAME_INFO_REF_DIFFICULTY" then
-        if cur then slices[cur] = { tonumber(e[1]) or 0, tonumber(e[2]) or 0 } end
-      elseif e.name == "SOCCER_GAME_DIFFICULTY" then
-        diffs[#diffs + 1] = { tonumber(e[1]) or 0, u32(e[2]), tonumber(e[3]) }
-      end
-    end
-    for _, g in ipairs(order) do
-      local sl, t = slices[g], { levels = {} }
-      if sl then
-        for k = sl[1] + 1, sl[1] + sl[2] do
-          local d = diffs[k]
-          if d and d[2] ~= 0 then
-            if t[d[1]] == nil then t[d[1]], t.levels[d[1]] = d[2], d[3] end
-            if t.first == nil then t.first = d[2] end
-          end
-        end
-      end
-      GAME_TEAMS[g] = t
-    end
-  end)
-  if not ok then warn("soccer_game_info not readable (" .. tostring(err) .. "): the rival team comes only from the request") end
-  return GAME_TEAMS
-end
+local rd = VRFW.memory.read
 
 -- the rival team of the match: the request's own id, else the game's difficulty row (its first row as a fallback)
 local function rival_team(request, game, diff)
   local id = u32(rd("u32", request + REQUEST_RIVAL_TEAM) or 0)
   if id ~= 0 then return id, "request" end
-  local t = game_teams()[u32(game or 0)]
-  if t then
-    if t[diff] then return t[diff], "game row" end
-    if t.first then return t.first, "game first row" end
-  end
-  return 0, "none"
+  local team, from = Rows.team(game, diff)
+  return team, team ~= 0 and ("game " .. from) or from
 end
 
--- the level of the class row of the match (its soccer_game_info SOCCER_GAME_DIFFICULTY row), nil when it has none
-local function class_level(game, diff)
-  local t = game_teams()[u32(game or 0)]
-  local l = t and t.levels[diff]
-  return (l and l > 0) and math.floor(l) or nil
-end
-
--- the member rows of team `id` as the game has them now: { card, ... } in roster slot order (players only), nil,
--- { [card] = roster slot }, the record's formation
 local function live_cards(id)
-  if not VRFW.is_on("RandomTeamFind") then return nil, "FindTeamConfig not resolved" end
-  local okb, recb = pcall(VRFW.mem.buffer, "rp_team_rec", 8)
-  local okc, contb = pcall(VRFW.mem.buffer, "rp_team_cont", 8)
-  local okh, hashb = pcall(VRFW.mem.buffer, "rp_team_hash", 4)
-  if not (okb and okc and okh) then return nil, "no native buffer" end
-  VRFW.mem.write("u64", recb, 0)
-  VRFW.mem.write("u64", contb, 0)
-  VRFW.mem.write("u32", hashb, id)
-  if not pcall(VRFW.call, "RandomTeamFind", recb, contb, hashb) then return nil, "FindTeamConfig faulted" end
-  local rec, cont = rd("ptr", recb) or 0, rd("ptr", contb) or 0
-  if rec < 0x10000 or cont < 0x10000 then return nil, string.format("team 0x%08X not in team_config", id) end
-  local okC, cv = pcall(VRFW.mem.read_struct, "RandomTeamConfig", cont)
-  local okR, rv = pcall(VRFW.mem.read_struct, "RandomTeamRecord", rec)
-  local base = okC and type(cv) == "table" and cv.Members or nil
-  local first = okR and type(rv) == "table" and rv.First or nil
-  local count = okR and type(rv) == "table" and rv.Count or nil
-  if not base or base < 0x10000 or not first or not count or count == 0 or count > 64 then
-    return nil, "member slice unreadable"
-  end
+  local slice, why = VRFW.catalogue.member_rows(id)
+  if not slice then return nil, why end
+  local rv = VRFW.memory.read_struct("RandomTeamRecord", slice.record)
+  local okR = rv ~= nil
+  if not okR or type(rv) ~= "table" then return nil, "team record unreadable" end
   local by_slot = {}
-  for k = 0, count - 1 do
-    local a = base + ((first % 65536) + k) * MEMBER_STRIDE
+  for _, a in ipairs(slice.rows) do
     local slot, card = rd("u8", a + MEMBER_SLOT), rd("u32", a + MEMBER_CARD)
-    if slot and card and card ~= 0 and slot <= LAST_PLAYER_SLOT and not by_slot[slot] then by_slot[slot] = u32(card) end
+    if slot and card and card ~= 0 and not TeamConfig.is_staff(slot) and not by_slot[slot] then by_slot[slot] = u32(card) end
   end
+  local slots = {}
+  for s in pairs(by_slot) do slots[#slots + 1] = s end
+  table.sort(slots)
   local out, slot_of = {}, {}
-  for s = 0, LAST_PLAYER_SLOT do
-    if by_slot[s] then
-      out[#out + 1] = by_slot[s]
-      slot_of[by_slot[s]] = s
-    end
+  for _, s in ipairs(slots) do
+    out[#out + 1] = by_slot[s]
+    slot_of[by_slot[s]] = s
   end
   return out, nil, slot_of, rv.Formation
 end
@@ -193,7 +95,7 @@ local COL_SPECIAL = 61
 local function special_of(card)
   if not SPECIALS then
     SPECIALS = {}
-    local ok, rows = pcall(VRFW.table.raw, "data/common/gamedata/character/chara_param_*.cfg.bin", "CHARA_PARAM_INFO", { 1, COL_SPECIAL + 1 })
+    local ok, rows = pcall(VRFW.table.raw, Rows.file_name("data/common/gamedata/character/chara_param"), "CHARA_PARAM_INFO", { 1, COL_SPECIAL + 1 })
     if ok and type(rows) == "table" then
       for _, r in ipairs(rows) do
         local id, own = r[1], r[COL_SPECIAL + 1]
@@ -211,8 +113,6 @@ local function position_of(card)
   return CUR.field[card] or RP.position(card)
 end
 
--- the 5 slots of a card of a rule with archetypes, in slot order: his special, the passives of his position (a list's
--- repeats stay; what his special or archetype already holds is not added), the archetype's last
 local function archetype_slots(card, rule, arch)
   local pos, out, used = RP.position(card), {}, {}
   local tail = (arch and arch.passives[pos]) or {}
@@ -278,8 +178,7 @@ local function add_points(card, i, n)
   CUR.add[card][i] = (CUR.add[card][i] or 0) + n
 end
 
--- the slot tables of the running rule. A rule with archetypes takes each player's from Player Training's answer; without
--- one (training off) they are chosen here from his position and element.
+-- the slot tables of the running rule.
 local function write_slots()
   local rule, slot_rows, lines = CUR.rule, {}, {}
   local fallback = nil
@@ -329,7 +228,7 @@ local function apply(request)
     return
   end
   ENTRY = ENTRY + 1
-  local gen = VRFW.rng("VRFW.rival_players", { game, diff, ENTRY, VRFW.now() })
+  local gen = VRFW.random("VRFW.rival_players", { game, diff, ENTRY, VRFW.random.int(0, 2147483646) })
   local set = (#rule.sets > 0) and rule.sets[gen:below(#rule.sets) + 1] or nil
   CUR = { rule = rule, cards = cards, set = set, add = {}, stat_set = {}, slots = {}, picks = {}, gen = gen,
     field = field_positions(slot_of, formation) }
@@ -341,7 +240,7 @@ local function apply(request)
     end
   end
   write_stats()
-  local level = rule.training and (rule.training.level or class_level(game, diff)) or nil
+  local level = rule.training and (rule.training.level or Rows.level(game, diff)) or nil
   info(string.format("rule %s/%s applied: game 0x%08X, rival team 0x%08X (%s), %d rival player(s), passive set %s%s",
     rule.source, rule.name, u32(game), team, from, #cards,
     set and set.name or "none", level and (", training Lv " .. level) or ""))
@@ -372,8 +271,6 @@ local function set_floor(card, i, value)
   CUR.stat_set[card] = m
 end
 
--- Player Training's answer (stats 0..7): flag vrfw.rival_players.floor.<card>.<stat> = the stat's absolute floor, else
--- vrfw.rival_players.trained.<card>.<stat> added to the stat points
 local function take_training()
   if not CUR or not CUR.flagged then return end
   local n = 0
@@ -398,7 +295,6 @@ local function take_training()
   info(string.format("rule %s/%s: training added to %d stat(s)", CUR.rule.source, CUR.rule.name, n))
 end
 
--- the stats of the match copy of a player without a saved owner, nil when none was built (cached per handle, this match)
 local COPY = {}
 
 local function copy_of(hdl)
@@ -417,8 +313,6 @@ local function copy_of(hdl)
   return nil
 end
 
--- CMND_VRFW_RIVAL_STAT(charaStHdl, idx 0..8) -> the value the match has for a player without a saved owner, -1 when the
--- page's own value holds (a saved character's, no match copy, or Suerte, which has no match copy)
 function RivalPlayers.PageStat(hdl, idx)
   hdl, idx = tonumber(hdl), tonumber(idx)
   if not hdl or not idx or idx < 0 or idx > 6 then return -1 end
@@ -437,7 +331,7 @@ local function passives_table()
   if PASSIVES then return PASSIVES end
   PASSIVES = {}
   local ok, err = pcall(function()
-    local key = "data/common/gamedata/skill/passive_skill_config_*.cfg.bin"
+    local key = Rows.file_name("data/common/gamedata/skill/passive_skill_config")
     local ids, effects, n = {}, {}, 0
     for _, e in ipairs(VRFW.table.entries(key, { "PASSIVE_SKILL_INFO", "PASSIVE_SKILL_INFO_REF_EFFECT", "PASSIVE_SKILL_EFFECT" }, true)) do
       if e.name == "PASSIVE_SKILL_INFO" then
@@ -454,7 +348,7 @@ local function passives_table()
       if x then p.def, p.value = x[1], x[2] end
     end
     local defs, cur = {}, nil
-    key = "data/common/gamedata/soccer/passive_skill_effect_config_*.cfg.bin"
+    key = Rows.file_name("data/common/gamedata/soccer/passive_skill_effect_config")
     for _, e in ipairs(VRFW.table.entries(key, { "PASSIVE_SKILL_EFFECT_INFO", "PASSIVE_SKILL_EFFECT_INFO_GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA" }, true)) do
       if e.name == "PASSIVE_SKILL_EFFECT_INFO" then
         cur = u32(e[1])
@@ -477,7 +371,7 @@ local function view_slots(hdl)
     local okR, rec = pcall(VRFW.character.record, hdl)
     local c = okR and rec and rec.param and u32(rec.param) or 0
     if CUR.slots[c] then
-      local okO, owner = pcall(VRFW.chara.owner, hdl)
+      local okO, owner = pcall(VRFW.character.owner, hdl)
       if not (okO and owner) then card = c end
     end
     VIEW[hdl] = card
@@ -485,8 +379,6 @@ local function view_slots(hdl)
   return card and CUR.slots[card] or nil
 end
 
--- CMND_GET_CHARA_TEAM_PASSIVE_INFO(hdl, slot, field, useCopy, preview): the passive rows of a rival player are his match
--- slots (field 0 id, 1 value, 2 unlocked); the command reads the game's own slots itself, the slot hooks never see it
 function RivalPlayers.PlateInfo(hdl, slot, field)
   hdl, slot, field = tonumber(hdl), tonumber(slot), tonumber(field)
   if not hdl or not slot or not field or field > 2 or slot >= RP.SLOTS then return false end
@@ -529,8 +421,6 @@ function RivalPlayers.Build(hdl)
   return true, true, b
 end
 
--- CMND_GET_CHARA_INFO after the game: fields 14..20 of a player without a saved owner show his match copy's stats, and
--- before a copy exists the rule's values added to the game's
 function RivalPlayers.CharaInfo(args, results)
   local hdl, field = tonumber(args and args[1]), tonumber(args and args[2])
   if not hdl or not field or field < 14 or field > 21 then return nil end
@@ -547,7 +437,7 @@ function RivalPlayers.CharaInfo(args, results)
     local okR, rec = pcall(VRFW.character.record, hdl)
     local c = okR and rec and rec.param and u32(rec.param) or 0
     if (CUR.stat_set[c] or CUR.add[c] or CUR.slots[c]) then
-      local okO, owner = pcall(VRFW.chara.owner, hdl)
+      local okO, owner = pcall(VRFW.character.owner, hdl)
       if not (okO and owner) then card = c end
     end
     VIEW[hdl] = card
@@ -569,7 +459,6 @@ function RivalPlayers.CharaInfo(args, results)
 end
 
 -- 0x4375DC93(hdl, 14..20) after the game: the getter the player page and the team views read a player's stats with.
--- The same answer as CMND_GET_CHARA_INFO's.
 function RivalPlayers.StatusStat(args, results)
   local field = tonumber(args and args[2])
   if not field or field < 14 or field > 20 then return nil end

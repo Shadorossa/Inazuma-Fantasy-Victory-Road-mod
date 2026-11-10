@@ -1,11 +1,7 @@
-# Texts of the Battle Bay «Draft» (graft research/grafts/bb_draft: the pick screen's guide line, positions, the quit
-# question; evt_bbd_locked = the Draft tile's unlock text, teams/50_draft.toml). The Lua asks
-# CMND_TEXT_GET(crc32(id)). The ids keep the ones they had in Inazuma Fantasy. Format: docs/framework/types/text.md
-# «Rows with fixed ids».
 schema = "VRFW.text/2"
 
 [[row]]
-id = "evt_bbd_locked"
+id = "battlebaydeluxe_locked"
 es = "El Draft se juega en la Campaña."
 en = "The Draft is played in the Campaign."
 fr = "Le Draft se joue dans la Campagne."
@@ -17,7 +13,7 @@ zh_hans = "选秀只能在战役中进行。"
 zh_hant = "選秀只能在戰役中進行。"
 
 [[row]]
-id = "evt_bbd_pos_0"
+id = "battlebaydeluxe_pos_0"
 es = "Suplente"
 en = "Substitute"
 fr = "Remplaçant"
@@ -29,7 +25,7 @@ zh_hans = "替补"
 zh_hant = "替補"
 
 [[row]]
-id = "evt_bbd_pos_1"
+id = "battlebaydeluxe_pos_1"
 es = "Portero"
 en = "Goalkeeper"
 fr = "Gardien"
@@ -41,7 +37,7 @@ zh_hans = "门将"
 zh_hant = "門將"
 
 [[row]]
-id = "evt_bbd_pos_2"
+id = "battlebaydeluxe_pos_2"
 es = "Delantero"
 en = "Forward"
 fr = "Attaquant"
@@ -53,7 +49,7 @@ zh_hans = "前锋"
 zh_hant = "前鋒"
 
 [[row]]
-id = "evt_bbd_pos_3"
+id = "battlebaydeluxe_pos_3"
 es = "Centrocampista"
 en = "Midfielder"
 fr = "Milieu"
@@ -65,7 +61,7 @@ zh_hans = "中场"
 zh_hant = "中場"
 
 [[row]]
-id = "evt_bbd_pos_4"
+id = "battlebaydeluxe_pos_4"
 es = "Defensa"
 en = "Defender"
 fr = "Défenseur"
@@ -76,11 +72,8 @@ ja = "ディフェンダー"
 zh_hans = "后卫"
 zh_hant = "後衛"
 
-# the Draft's staff places and formation step (1.96.0, graft bb_draft): the coach / manager place names (the
-# candidates' title), the label over the managers, the left panel's formation block and the guide line's key
-
 [[row]]
-id = "evt_bbd_pos_5"
+id = "battlebaydeluxe_pos_5"
 es = "Entrenador"
 en = "Coach"
 fr = "Entraîneur"
@@ -92,7 +85,7 @@ zh_hans = "教练"
 zh_hant = "教練"
 
 [[row]]
-id = "evt_bbd_pos_6"
+id = "battlebaydeluxe_pos_6"
 es = "Gerente"
 en = "Manager"
 fr = "Manager"
@@ -104,7 +97,7 @@ zh_hans = "经理"
 zh_hant = "經理"
 
 [[row]]
-id = "evt_bbd_fm_change"
+id = "battlebaydeluxe_fm_change"
 es = "Y  Cambiar alineación"
 en = "Y  Change formation"
 fr = "Y  Changer de formation"
@@ -116,67 +109,7 @@ zh_hans = "Y  更改阵型"
 zh_hant = "Y  變更陣型"
 
 [[row]]
-id = "evt_bbd_fm_key"
-es = "Y Alineación"
-en = "Y Formation"
-fr = "Y Formation"
-de = "Y Formation"
-it = "Y Formazione"
-pt = "Y Formação"
-ja = "Y フォーメーション"
-zh_hans = "Y 阵型"
-zh_hant = "Y 陣型"
-
-[[row]]
-id = "evt_bbd_short_1"
-es = "POR"
-en = "GK"
-fr = "G"
-de = "TW"
-it = "POR"
-pt = "GR"
-ja = "GK"
-zh_hans = "GK"
-zh_hant = "GK"
-
-[[row]]
-id = "evt_bbd_short_2"
-es = "DEL"
-en = "FW"
-fr = "ATT"
-de = "ST"
-it = "ATT"
-pt = "AV"
-ja = "FW"
-zh_hans = "FW"
-zh_hant = "FW"
-
-[[row]]
-id = "evt_bbd_short_3"
-es = "MED"
-en = "MF"
-fr = "MIL"
-de = "MF"
-it = "CEN"
-pt = "MED"
-ja = "MF"
-zh_hans = "MF"
-zh_hant = "MF"
-
-[[row]]
-id = "evt_bbd_short_4"
-es = "DEF"
-en = "DF"
-fr = "DÉF"
-de = "AB"
-it = "DIF"
-pt = "DEF"
-ja = "DF"
-zh_hans = "DF"
-zh_hant = "DF"
-
-[[row]]
-id = "evt_bbd_slot"
+id = "battlebaydeluxe_slot"
 es = "Elige una posición del campo o del banquillo"
 en = "Choose a position on the pitch or the bench"
 fr = "Choisis un poste sur le terrain ou le banc"
@@ -188,7 +121,7 @@ zh_hans = "选择场上或替补席的位置"
 zh_hant = "選擇場上或替補席的位置"
 
 [[row]]
-id = "evt_bbd_player"
+id = "battlebaydeluxe_player"
 es = "elige un jugador"
 en = "pick a player"
 fr = "choisis un joueur"
@@ -200,7 +133,7 @@ zh_hans = "选择一名球员"
 zh_hant = "選擇一名球員"
 
 [[row]]
-id = "evt_bbd_start"
+id = "battlebaydeluxe_start"
 es = "¿Empezar la campaña con este equipo?"
 en = "Start the campaign with this team?"
 fr = "Commencer la campagne avec cette équipe ?"
@@ -212,7 +145,7 @@ zh_hans = "用这支球队开始战役吗？"
 zh_hant = "用這支球隊開始戰役嗎？"
 
 [[row]]
-id = "evt_bbd_start_match"
+id = "battlebaydeluxe_start_match"
 es = "¿Jugar el partido con este equipo?"
 en = "Play the match with this team?"
 fr = "Jouer le match avec cette équipe ?"
@@ -224,7 +157,7 @@ zh_hans = "用这支球队进行比赛吗？"
 zh_hant = "用這支球隊進行比賽嗎？"
 
 [[row]]
-id = "evt_bbd_keys"
+id = "battlebaydeluxe_keys"
 es = "Aceptar: sí   ·   Atrás: no"
 en = "Confirm: yes   ·   Back: no"
 fr = "Valider : oui   ·   Retour : non"
@@ -236,19 +169,7 @@ zh_hans = "确定：是　·　返回：否"
 zh_hant = "確定：是　·　返回：否"
 
 [[row]]
-id = "evt_bbd_quit"
-es = "¿Abandonar el draft? Se perderán tus elecciones."
-en = "Abandon the draft? Your picks will be lost."
-fr = "Abandonner le draft ? Tes choix seront perdus."
-de = "Draft abbrechen? Deine Auswahl geht verloren."
-it = "Abbandonare il draft? Le tue scelte andranno perse."
-pt = "Abandonar o draft? As tuas escolhas serão perdidas."
-ja = "ドラフトを中断しますか？選んだ選手は失われます。"
-zh_hans = "放弃选秀？已选的球员将会丢失。"
-zh_hant = "放棄選秀？已選的球員將會遺失。"
-
-[[row]]
-id = "evt_bbd_ready"
+id = "battlebaydeluxe_ready"
 es = "¡Equipo listo! Elige la dificultad de la campaña."
 en = "Team ready! Choose the campaign difficulty."
 fr = "Équipe prête ! Choisis la difficulté de la campagne."
@@ -260,7 +181,7 @@ zh_hans = "球队已就绪！请选择战役难度。"
 zh_hant = "球隊已就緒！請選擇戰役難度。"
 
 [[row]]
-id = "evt_bbd_error"
+id = "battlebaydeluxe_error"
 es = "El Draft no está disponible (falta el cargador o sus datos)."
 en = "The Draft is not available (the loader or its data is missing)."
 fr = "Le Draft n'est pas disponible (chargeur ou données manquants)."
@@ -272,7 +193,7 @@ zh_hans = "选秀不可用（缺少加载器或数据）。"
 zh_hant = "選秀不可用（缺少載入器或資料）。"
 
 [[row]]
-id = "evt_bbd_quit_ask"
+id = "battlebaydeluxe_quit_ask"
 es = "¿Quieres abandonar el draft?\\nSe perderán tus elecciones."
 en = "Do you want to abandon the draft?\\nYour picks will be lost."
 fr = "Veux-tu abandonner le draft ?\\nTes choix seront perdus."
@@ -284,7 +205,7 @@ zh_hans = "要放弃选秀吗？\\n已选的球员将会丢失。"
 zh_hant = "要放棄選秀嗎？\\n已選的球員將會遺失。"
 
 [[row]]
-id = "evt_bbd_pick_one"
+id = "battlebaydeluxe_pick_one"
 es = "Elige uno de los 5"
 en = "Pick one of the 5"
 fr = "Choisis l'un des 5"
@@ -295,22 +216,9 @@ ja = "5人から1人を選んでください"
 zh_hans = "请从5人中选择1人"
 zh_hant = "請從5人中選擇1人"
 
-# the candidates' «pack opening» (graft bb_draft): the band's title (+ «: <position>»), the hint while the cards are
-# turned, the hint once the 5 are shown
+# the candidates' «pack opening» (graft bb_draft): the hint once the 5 are shown
 [[row]]
-id = "evt_bbd_pack_title"
-es = "Sobre de jugadores"
-en = "Player pack"
-fr = "Pack de joueurs"
-de = "Spielerpaket"
-it = "Pacchetto giocatori"
-pt = "Pacote de jogadores"
-ja = "選手パック"
-zh_hans = "球员卡包"
-zh_hant = "球員卡包"
-
-[[row]]
-id = "evt_bbd_pack_skip"
+id = "battlebaydeluxe_pack_skip"
 es = "Aceptar: mostrar todos"
 en = "Confirm: show all"
 fr = "Valider : tout afficher"
@@ -321,25 +229,10 @@ ja = "決定：すべて表示"
 zh_hans = "确定：全部显示"
 zh_hant = "確定：全部顯示"
 
-[[row]]
-id = "evt_bbd_pack_pick"
-es = "Aceptar: fichar a este jugador"
-en = "Confirm: sign this player"
-fr = "Valider : recruter ce joueur"
-de = "Bestätigen: diesen Spieler verpflichten"
-it = "Conferma: ingaggia questo giocatore"
-pt = "Confirmar: contratar este jogador"
-ja = "決定：この選手を獲得"
-zh_hans = "确定：签下该球员"
-zh_hant = "確定：簽下該球員"
-
-# the «Torneo» (graft research/grafts/bb_tournament; ids evt_bbd_tn_*;
-# moved here from text\rows\tournament_text.toml, which named no game table and so was never loaded)
+# the «Torneo» (graft research/grafts/bb_tournament; ids battlebaydeluxe_tn_*)
 
 [[row]]
-# the Campaña screen's mode selector (graft bbt_mode.lua): the Campaña pill; the Torneo pill is
-# evt_bbd_tn_mode_tournament
-id = "evt_bbd_tn_mode_campaign"
+id = "battlebaydeluxe_tn_mode_campaign"
 es = "Campaña"
 en = "Campaign"
 fr = "Campagne"
@@ -351,7 +244,7 @@ zh_hans = "战役"
 zh_hant = "戰役"
 
 [[row]]
-id = "evt_bbd_tn_mode_tournament"
+id = "battlebaydeluxe_tn_mode_tournament"
 es = "Torneo"
 en = "Tournament"
 fr = "Tournoi"
@@ -363,7 +256,7 @@ zh_hans = "锦标赛"
 zh_hant = "錦標賽"
 
 [[row]]
-id = "evt_bbd_tn_continue"
+id = "battlebaydeluxe_tn_continue"
 es = "Continuar el torneo"
 en = "Continue the tournament"
 fr = "Continuer le tournoi"
@@ -375,7 +268,7 @@ zh_hans = "继续锦标赛"
 zh_hant = "繼續錦標賽"
 
 [[row]]
-id = "evt_bbd_tn_view"
+id = "battlebaydeluxe_tn_view"
 es = "Ver el cuadro"
 en = "View the bracket"
 fr = "Voir le tableau"
@@ -387,7 +280,7 @@ zh_hans = "查看对阵表"
 zh_hant = "查看對陣表"
 
 [[row]]
-id = "evt_bbd_tn_new"
+id = "battlebaydeluxe_tn_new"
 es = "Nuevo torneo"
 en = "New tournament"
 fr = "Nouveau tournoi"
@@ -399,7 +292,7 @@ zh_hans = "新的锦标赛"
 zh_hant = "新的錦標賽"
 
 [[row]]
-id = "evt_bbd_tn_new_yes"
+id = "battlebaydeluxe_tn_new_yes"
 es = "Sí, empezar de cero (se pierde el actual)"
 en = "Yes, start over (the current one is lost)"
 fr = "Oui, recommencer (l'actuel sera perdu)"
@@ -410,9 +303,8 @@ ja = "はい、最初から（今の大会は失われます）"
 zh_hans = "是，从头开始（当前锦标赛将丢失）"
 zh_hant = "是，從頭開始（目前錦標賽將遺失）"
 
-# bbt_top_entry.lua BBT_ConfirmOverCampaign: a new Torneo / Liga while a Campaña is saved
 [[row]]
-id = "evt_bbd_tn_replace_campaign_yes"
+id = "battlebaydeluxe_tn_replace_campaign_yes"
 es = "Sí, empezar (se pierde la campaña actual)"
 en = "Yes, start (the current campaign is lost)"
 fr = "Oui, commencer (la campagne actuelle sera perdue)"
@@ -424,7 +316,7 @@ zh_hans = "是，开始（当前战役将丢失）"
 zh_hant = "是，開始（目前戰役將遺失）"
 
 [[row]]
-id = "evt_bbd_tn_new_no"
+id = "battlebaydeluxe_tn_new_no"
 es = "No, volver"
 en = "No, go back"
 fr = "Non, retour"
@@ -436,7 +328,7 @@ zh_hans = "否，返回"
 zh_hant = "否，返回"
 
 [[row]]
-id = "evt_bbd_tn_new_q"
+id = "battlebaydeluxe_tn_new_q"
 es = "¿Empezar un torneo nuevo? Se perderá el torneo en curso."
 en = "Start a new tournament? The one in progress will be lost."
 fr = "Commencer un nouveau tournoi ? Le tournoi en cours sera perdu."
@@ -448,7 +340,7 @@ zh_hans = "要开始新的锦标赛吗？进行中的锦标赛将会丢失。"
 zh_hant = "要開始新的錦標賽嗎？進行中的錦標賽將會遺失。"
 
 [[row]]
-id = "evt_bbd_tn_tree"
+id = "battlebaydeluxe_tn_tree"
 es = "Cuadro final"
 en = "Knockout bracket"
 fr = "Tableau final"
@@ -460,7 +352,7 @@ zh_hans = "淘汰赛对阵表"
 zh_hant = "淘汰賽對陣表"
 
 [[row]]
-id = "evt_bbd_tn_tree_wait"
+id = "battlebaydeluxe_tn_tree_wait"
 es = "El cuadro final se sortea tras la fase de grupos"
 en = "The bracket is drawn after the group stage"
 fr = "Le tableau est tiré après la phase de groupes"
@@ -472,7 +364,7 @@ zh_hans = "淘汰赛对阵在小组赛后决定"
 zh_hant = "淘汰賽對陣在小組賽後決定"
 
 [[row]]
-id = "evt_bbd_tn_groups"
+id = "battlebaydeluxe_tn_groups"
 es = "Fase de grupos (<VALUE>)"
 en = "Group stage (<VALUE>)"
 fr = "Phase de groupes (<VALUE>)"
@@ -485,7 +377,7 @@ zh_hant = "小組賽（<VALUE>）"
 
 # the group tables (every group on one page): the header title, the column labels, the legend
 [[row]]
-id = "evt_bbd_tn_groups_title"
+id = "battlebaydeluxe_tn_groups_title"
 es = "Fase de grupos"
 en = "Group stage"
 fr = "Phase de groupes"
@@ -497,7 +389,7 @@ zh_hans = "小组赛"
 zh_hant = "小組賽"
 
 [[row]]
-id = "evt_bbd_tn_groups_md"
+id = "battlebaydeluxe_tn_groups_md"
 es = "Fase de grupos · Jornada <VALUE> de 3"
 en = "Group stage · Matchday <VALUE> of 3"
 fr = "Phase de groupes · Journée <VALUE> sur 3"
@@ -509,7 +401,7 @@ zh_hans = "小组赛 · 第<VALUE>轮（共3轮）"
 zh_hant = "小組賽 · 第<VALUE>輪（共3輪）"
 
 [[row]]
-id = "evt_bbd_tn_col_team"
+id = "battlebaydeluxe_tn_col_team"
 es = "Equipo"
 en = "Team"
 fr = "Équipe"
@@ -521,7 +413,7 @@ zh_hans = "球队"
 zh_hant = "球隊"
 
 [[row]]
-id = "evt_bbd_tn_col_form"
+id = "battlebaydeluxe_tn_col_form"
 es = "Forma"
 en = "Form"
 fr = "Forme"
@@ -533,7 +425,7 @@ zh_hans = "近况"
 zh_hant = "近況"
 
 [[row]]
-id = "evt_bbd_tn_col_pj"
+id = "battlebaydeluxe_tn_col_pj"
 es = "PJ"
 en = "P"
 fr = "J"
@@ -545,7 +437,7 @@ zh_hans = "赛"
 zh_hant = "賽"
 
 [[row]]
-id = "evt_bbd_tn_col_g"
+id = "battlebaydeluxe_tn_col_g"
 es = "G"
 en = "W"
 fr = "G"
@@ -557,7 +449,7 @@ zh_hans = "胜"
 zh_hant = "勝"
 
 [[row]]
-id = "evt_bbd_tn_col_e"
+id = "battlebaydeluxe_tn_col_e"
 es = "E"
 en = "D"
 fr = "N"
@@ -569,7 +461,7 @@ zh_hans = "平"
 zh_hant = "平"
 
 [[row]]
-id = "evt_bbd_tn_col_p"
+id = "battlebaydeluxe_tn_col_p"
 es = "P"
 en = "L"
 fr = "P"
@@ -581,7 +473,7 @@ zh_hans = "负"
 zh_hant = "負"
 
 [[row]]
-id = "evt_bbd_tn_col_gf"
+id = "battlebaydeluxe_tn_col_gf"
 es = "GF"
 en = "GF"
 fr = "BP"
@@ -593,7 +485,7 @@ zh_hans = "进"
 zh_hant = "進"
 
 [[row]]
-id = "evt_bbd_tn_col_gc"
+id = "battlebaydeluxe_tn_col_gc"
 es = "GC"
 en = "GA"
 fr = "BC"
@@ -605,7 +497,7 @@ zh_hans = "失"
 zh_hant = "失"
 
 [[row]]
-id = "evt_bbd_tn_col_dg"
+id = "battlebaydeluxe_tn_col_dg"
 es = "DG"
 en = "GD"
 fr = "Diff"
@@ -617,7 +509,7 @@ zh_hans = "净"
 zh_hant = "淨"
 
 [[row]]
-id = "evt_bbd_tn_col_pts"
+id = "battlebaydeluxe_tn_col_pts"
 es = "Pts"
 en = "Pts"
 fr = "Pts"
@@ -629,7 +521,7 @@ zh_hans = "积分"
 zh_hant = "積分"
 
 [[row]]
-id = "evt_bbd_tn_legend_qualify_2"
+id = "battlebaydeluxe_tn_legend_qualify_2"
 es = "Clasifica a semifinales"
 en = "Qualify for the semi-finals"
 fr = "Qualifiés pour les demi-finales"
@@ -641,7 +533,7 @@ zh_hans = "晋级半决赛"
 zh_hant = "晉級準決賽"
 
 [[row]]
-id = "evt_bbd_tn_legend_qualify_3"
+id = "battlebaydeluxe_tn_legend_qualify_3"
 es = "Clasifica a cuartos"
 en = "Qualify for the quarter-finals"
 fr = "Qualifiés pour les quarts"
@@ -653,7 +545,7 @@ zh_hans = "晋级四分之一决赛"
 zh_hant = "晉級八強賽"
 
 [[row]]
-id = "evt_bbd_tn_legend_qualify_4"
+id = "battlebaydeluxe_tn_legend_qualify_4"
 es = "Clasifica a octavos"
 en = "Qualify for the round of 16"
 fr = "Qualifiés pour les huitièmes"
@@ -665,7 +557,7 @@ zh_hans = "晋级十六强赛"
 zh_hant = "晉級十六強賽"
 
 [[row]]
-id = "evt_bbd_tn_legend_qualify_5"
+id = "battlebaydeluxe_tn_legend_qualify_5"
 es = "Clasifica a dieciseisavos"
 en = "Qualify for the round of 32"
 fr = "Qualifiés pour les seizièmes"
@@ -677,7 +569,7 @@ zh_hans = "晋级三十二强赛"
 zh_hant = "晉級三十二強賽"
 
 [[row]]
-id = "evt_bbd_tn_legend_you"
+id = "battlebaydeluxe_tn_legend_you"
 es = "Tu equipo"
 en = "Your team"
 fr = "Ton équipe"
@@ -689,7 +581,7 @@ zh_hans = "你的球队"
 zh_hant = "你的球隊"
 
 [[row]]
-id = "evt_bbd_tn_legend_form"
+id = "battlebaydeluxe_tn_legend_form"
 es = "últimos partidos"
 en = "recent results"
 fr = "derniers matchs"
@@ -701,7 +593,7 @@ zh_hans = "近期战绩"
 zh_hant = "近期戰績"
 
 [[row]]
-id = "evt_bbd_tn_form_w"
+id = "battlebaydeluxe_tn_form_w"
 es = "V"
 en = "W"
 fr = "V"
@@ -713,7 +605,7 @@ zh_hans = "胜"
 zh_hant = "勝"
 
 [[row]]
-id = "evt_bbd_tn_form_d"
+id = "battlebaydeluxe_tn_form_d"
 es = "E"
 en = "D"
 fr = "N"
@@ -725,7 +617,7 @@ zh_hans = "平"
 zh_hant = "平"
 
 [[row]]
-id = "evt_bbd_tn_form_l"
+id = "battlebaydeluxe_tn_form_l"
 es = "D"
 en = "L"
 fr = "D"
@@ -737,7 +629,7 @@ zh_hans = "负"
 zh_hant = "負"
 
 [[row]]
-id = "evt_bbd_tn_md"
+id = "battlebaydeluxe_tn_md"
 es = "Jornada <VALUE>: resultados"
 en = "Matchday <VALUE>: results"
 fr = "Journée <VALUE> : résultats"
@@ -749,7 +641,7 @@ zh_hans = "第<VALUE>轮：赛果"
 zh_hant = "第<VALUE>輪：賽果"
 
 [[row]]
-id = "evt_bbd_tn_ko_1"
+id = "battlebaydeluxe_tn_ko_1"
 es = "Final: resultado"
 en = "Final: result"
 fr = "Finale : résultat"
@@ -761,7 +653,7 @@ zh_hans = "决赛：赛果"
 zh_hant = "決賽：賽果"
 
 [[row]]
-id = "evt_bbd_tn_ko_2"
+id = "battlebaydeluxe_tn_ko_2"
 es = "Semifinales: resultados"
 en = "Semi-finals: results"
 fr = "Demi-finales : résultats"
@@ -773,7 +665,7 @@ zh_hans = "半决赛：赛果"
 zh_hant = "半決賽：賽果"
 
 [[row]]
-id = "evt_bbd_tn_ko_3"
+id = "battlebaydeluxe_tn_ko_3"
 es = "Cuartos de final: resultados"
 en = "Quarter-finals: results"
 fr = "Quarts de finale : résultats"
@@ -785,7 +677,7 @@ zh_hans = "四分之一决赛：赛果"
 zh_hant = "八強賽：賽果"
 
 [[row]]
-id = "evt_bbd_tn_ko_4"
+id = "battlebaydeluxe_tn_ko_4"
 es = "Octavos de final: resultados"
 en = "Round of 16: results"
 fr = "Huitièmes de finale : résultats"
@@ -797,7 +689,7 @@ zh_hans = "十六强赛：赛果"
 zh_hant = "十六強賽：賽果"
 
 [[row]]
-id = "evt_bbd_tn_ko_5"
+id = "battlebaydeluxe_tn_ko_5"
 es = "Dieciseisavos de final: resultados"
 en = "Round of 32: results"
 fr = "Seizièmes de finale : résultats"
@@ -809,7 +701,7 @@ zh_hans = "三十二强赛：赛果"
 zh_hant = "三十二強賽：賽果"
 
 [[row]]
-id = "evt_bbd_tn_ko_6"
+id = "battlebaydeluxe_tn_ko_6"
 es = "Treintaidosavos de final: resultados"
 en = "Round of 64: results"
 fr = "Trente-deuxièmes de finale : résultats"
@@ -821,7 +713,7 @@ zh_hans = "六十四强赛：赛果"
 zh_hant = "六十四強賽：賽果"
 
 [[row]]
-id = "evt_bbd_tn_pts"
+id = "battlebaydeluxe_tn_pts"
 es = "pts"
 en = "pts"
 fr = "pts"
@@ -833,7 +725,7 @@ zh_hans = "分"
 zh_hant = "分"
 
 [[row]]
-id = "evt_bbd_tn_pen"
+id = "battlebaydeluxe_tn_pen"
 es = "pen."
 en = "pen."
 fr = "t.a.b."
@@ -845,7 +737,7 @@ zh_hans = "点球"
 zh_hant = "PK"
 
 [[row]]
-id = "evt_bbd_tn_et"
+id = "battlebaydeluxe_tn_et"
 es = "prór."
 en = "a.e.t."
 fr = "a.p."
@@ -857,7 +749,7 @@ zh_hans = "加时"
 zh_hant = "延長"
 
 [[row]]
-id = "evt_bbd_tn_next"
+id = "battlebaydeluxe_tn_next"
 es = "Siguiente partido"
 en = "Next match"
 fr = "Prochain match"
@@ -869,7 +761,7 @@ zh_hans = "下一场比赛"
 zh_hant = "下一場比賽"
 
 [[row]]
-id = "evt_bbd_tn_you"
+id = "battlebaydeluxe_tn_you"
 es = "TÚ"
 en = "YOU"
 fr = "TOI"
@@ -881,7 +773,7 @@ zh_hans = "你"
 zh_hant = "你"
 
 [[row]]
-id = "evt_bbd_tn_pages"
+id = "battlebaydeluxe_tn_pages"
 es = "Páginas"
 en = "Pages"
 fr = "Pages"
@@ -893,7 +785,7 @@ zh_hans = "页面"
 zh_hant = "頁面"
 
 [[row]]
-id = "evt_bbd_tn_champion_banner"
+id = "battlebaydeluxe_tn_champion_banner"
 es = "¡CAMPEÓN!"
 en = "CHAMPION!"
 fr = "CHAMPION !"
@@ -905,7 +797,7 @@ zh_hans = "冠军！"
 zh_hant = "冠軍！"
 
 [[row]]
-id = "evt_bbd_tn_champion"
+id = "battlebaydeluxe_tn_champion"
 es = "¡Campeones del torneo!"
 en = "Tournament champions!"
 fr = "Champions du tournoi !"
@@ -917,7 +809,7 @@ zh_hans = "锦标赛冠军！"
 zh_hant = "錦標賽冠軍！"
 
 [[row]]
-id = "evt_bbd_tn_out_groups"
+id = "battlebaydeluxe_tn_out_groups"
 es = "Eliminados en la fase de grupos"
 en = "Out in the group stage"
 fr = "Éliminés en phase de groupes"
@@ -929,7 +821,7 @@ zh_hans = "小组赛出局"
 zh_hant = "小組賽出局"
 
 [[row]]
-id = "evt_bbd_tn_out_ko_1"
+id = "battlebaydeluxe_tn_out_ko_1"
 es = "Subcampeones"
 en = "Runners-up"
 fr = "Finalistes"
@@ -941,7 +833,7 @@ zh_hans = "亚军"
 zh_hant = "亞軍"
 
 [[row]]
-id = "evt_bbd_tn_out_ko_2"
+id = "battlebaydeluxe_tn_out_ko_2"
 es = "Eliminados en semifinales"
 en = "Out in the semi-finals"
 fr = "Éliminés en demi-finale"
@@ -953,7 +845,7 @@ zh_hans = "半决赛出局"
 zh_hant = "半決賽出局"
 
 [[row]]
-id = "evt_bbd_tn_out_ko_3"
+id = "battlebaydeluxe_tn_out_ko_3"
 es = "Eliminados en cuartos de final"
 en = "Out in the quarter-finals"
 fr = "Éliminés en quart de finale"
@@ -965,7 +857,7 @@ zh_hans = "四分之一决赛出局"
 zh_hant = "八強賽出局"
 
 [[row]]
-id = "evt_bbd_tn_out_ko_4"
+id = "battlebaydeluxe_tn_out_ko_4"
 es = "Eliminados en octavos de final"
 en = "Out in the round of 16"
 fr = "Éliminés en huitième de finale"
@@ -977,7 +869,7 @@ zh_hans = "十六强赛出局"
 zh_hant = "十六強賽出局"
 
 [[row]]
-id = "evt_bbd_tn_out_ko_5"
+id = "battlebaydeluxe_tn_out_ko_5"
 es = "Eliminados en dieciseisavos"
 en = "Out in the round of 32"
 fr = "Éliminés en seizième de finale"
@@ -989,7 +881,7 @@ zh_hans = "三十二强赛出局"
 zh_hant = "三十二強賽出局"
 
 [[row]]
-id = "evt_bbd_tn_out_ko_6"
+id = "battlebaydeluxe_tn_out_ko_6"
 es = "Eliminados en treintaidosavos"
 en = "Out in the round of 64"
 fr = "Éliminés en trente-deuxième de finale"
@@ -1001,7 +893,7 @@ zh_hans = "六十四强赛出局"
 zh_hant = "六十四強賽出局"
 
 [[row]]
-id = "evt_bbd_tn_group_1"
+id = "battlebaydeluxe_tn_group_1"
 es = "Grupo A"
 en = "Group A"
 fr = "Groupe A"
@@ -1013,7 +905,7 @@ zh_hans = "A组"
 zh_hant = "A組"
 
 [[row]]
-id = "evt_bbd_tn_group_2"
+id = "battlebaydeluxe_tn_group_2"
 es = "Grupo B"
 en = "Group B"
 fr = "Groupe B"
@@ -1025,7 +917,7 @@ zh_hans = "B组"
 zh_hant = "B組"
 
 [[row]]
-id = "evt_bbd_tn_group_3"
+id = "battlebaydeluxe_tn_group_3"
 es = "Grupo C"
 en = "Group C"
 fr = "Groupe C"
@@ -1037,7 +929,7 @@ zh_hans = "C组"
 zh_hant = "C組"
 
 [[row]]
-id = "evt_bbd_tn_group_4"
+id = "battlebaydeluxe_tn_group_4"
 es = "Grupo D"
 en = "Group D"
 fr = "Groupe D"
@@ -1049,7 +941,7 @@ zh_hans = "D组"
 zh_hant = "D組"
 
 [[row]]
-id = "evt_bbd_tn_group_5"
+id = "battlebaydeluxe_tn_group_5"
 es = "Grupo E"
 en = "Group E"
 fr = "Groupe E"
@@ -1061,7 +953,7 @@ zh_hans = "E组"
 zh_hant = "E組"
 
 [[row]]
-id = "evt_bbd_tn_group_6"
+id = "battlebaydeluxe_tn_group_6"
 es = "Grupo F"
 en = "Group F"
 fr = "Groupe F"
@@ -1073,7 +965,7 @@ zh_hans = "F组"
 zh_hant = "F組"
 
 [[row]]
-id = "evt_bbd_tn_group_7"
+id = "battlebaydeluxe_tn_group_7"
 es = "Grupo G"
 en = "Group G"
 fr = "Groupe G"
@@ -1085,7 +977,7 @@ zh_hans = "G组"
 zh_hant = "G組"
 
 [[row]]
-id = "evt_bbd_tn_group_8"
+id = "battlebaydeluxe_tn_group_8"
 es = "Grupo H"
 en = "Group H"
 fr = "Groupe H"
@@ -1098,7 +990,7 @@ zh_hant = "H組"
 
 [[row]]
 # groups 9-16 (a group stage of 64 teams)
-id = "evt_bbd_tn_group_9"
+id = "battlebaydeluxe_tn_group_9"
 es = "Grupo I"
 en = "Group I"
 fr = "Groupe I"
@@ -1110,7 +1002,7 @@ zh_hans = "I组"
 zh_hant = "I組"
 
 [[row]]
-id = "evt_bbd_tn_group_10"
+id = "battlebaydeluxe_tn_group_10"
 es = "Grupo J"
 en = "Group J"
 fr = "Groupe J"
@@ -1122,7 +1014,7 @@ zh_hans = "J组"
 zh_hant = "J組"
 
 [[row]]
-id = "evt_bbd_tn_group_11"
+id = "battlebaydeluxe_tn_group_11"
 es = "Grupo K"
 en = "Group K"
 fr = "Groupe K"
@@ -1134,7 +1026,7 @@ zh_hans = "K组"
 zh_hant = "K組"
 
 [[row]]
-id = "evt_bbd_tn_group_12"
+id = "battlebaydeluxe_tn_group_12"
 es = "Grupo L"
 en = "Group L"
 fr = "Groupe L"
@@ -1146,7 +1038,7 @@ zh_hans = "L组"
 zh_hant = "L組"
 
 [[row]]
-id = "evt_bbd_tn_group_13"
+id = "battlebaydeluxe_tn_group_13"
 es = "Grupo M"
 en = "Group M"
 fr = "Groupe M"
@@ -1158,7 +1050,7 @@ zh_hans = "M组"
 zh_hant = "M組"
 
 [[row]]
-id = "evt_bbd_tn_group_14"
+id = "battlebaydeluxe_tn_group_14"
 es = "Grupo N"
 en = "Group N"
 fr = "Groupe N"
@@ -1170,7 +1062,7 @@ zh_hans = "N组"
 zh_hant = "N組"
 
 [[row]]
-id = "evt_bbd_tn_group_15"
+id = "battlebaydeluxe_tn_group_15"
 es = "Grupo O"
 en = "Group O"
 fr = "Groupe O"
@@ -1182,7 +1074,7 @@ zh_hans = "O组"
 zh_hant = "O組"
 
 [[row]]
-id = "evt_bbd_tn_group_16"
+id = "battlebaydeluxe_tn_group_16"
 es = "Grupo P"
 en = "Group P"
 fr = "Groupe P"
@@ -1194,7 +1086,7 @@ zh_hans = "P组"
 zh_hant = "P組"
 
 [[row]]
-id = "evt_bbd_tn_opt_groups_1"
+id = "battlebaydeluxe_tn_opt_groups_1"
 es = "Con fase de grupos: Sí"
 en = "Group stage: Yes"
 fr = "Phase de groupes : Oui"
@@ -1206,7 +1098,7 @@ zh_hans = "小组赛：有"
 zh_hant = "小組賽：有"
 
 [[row]]
-id = "evt_bbd_tn_opt_groups_0"
+id = "battlebaydeluxe_tn_opt_groups_0"
 es = "Con fase de grupos: No"
 en = "Group stage: No"
 fr = "Phase de groupes : Non"
@@ -1218,7 +1110,7 @@ zh_hans = "小组赛：无"
 zh_hant = "小組賽：無"
 
 [[row]]
-id = "evt_bbd_tn_opt_filter_1"
+id = "battlebaydeluxe_tn_opt_filter_1"
 es = "Sin equipos menores: Sí"
 en = "Filter minor teams: Yes"
 fr = "Filtrer les équipes mineures : Oui"
@@ -1230,7 +1122,7 @@ zh_hans = "过滤次要球队：是"
 zh_hant = "過濾次要球隊：是"
 
 [[row]]
-id = "evt_bbd_tn_opt_filter_0"
+id = "battlebaydeluxe_tn_opt_filter_0"
 es = "Sin equipos menores: No"
 en = "Filter minor teams: No"
 fr = "Filtrer les équipes mineures : Non"
@@ -1242,7 +1134,7 @@ zh_hans = "过滤次要球队：否"
 zh_hant = "過濾次要球隊：否"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_2"
+id = "battlebaydeluxe_tn_opt_size_2"
 es = "Número de equipos: 2"
 en = "Number of teams: 2"
 fr = "Nombre d'équipes : 2"
@@ -1254,7 +1146,7 @@ zh_hans = "球队数量：2"
 zh_hant = "球隊數量：2"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_4"
+id = "battlebaydeluxe_tn_opt_size_4"
 es = "Número de equipos: 4"
 en = "Number of teams: 4"
 fr = "Nombre d'équipes : 4"
@@ -1266,7 +1158,7 @@ zh_hans = "球队数量：4"
 zh_hant = "球隊數量：4"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_8"
+id = "battlebaydeluxe_tn_opt_size_8"
 es = "Número de equipos: 8"
 en = "Number of teams: 8"
 fr = "Nombre d'équipes : 8"
@@ -1278,7 +1170,7 @@ zh_hans = "球队数量：8"
 zh_hant = "球隊數量：8"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_16"
+id = "battlebaydeluxe_tn_opt_size_16"
 es = "Número de equipos: 16"
 en = "Number of teams: 16"
 fr = "Nombre d'équipes : 16"
@@ -1290,7 +1182,7 @@ zh_hans = "球队数量：16"
 zh_hant = "球隊數量：16"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_32"
+id = "battlebaydeluxe_tn_opt_size_32"
 es = "Número de equipos: 32"
 en = "Number of teams: 32"
 fr = "Nombre d'équipes : 32"
@@ -1302,7 +1194,7 @@ zh_hans = "球队数量：32"
 zh_hant = "球隊數量：32"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_64"
+id = "battlebaydeluxe_tn_opt_size_64"
 es = "Número de equipos: 64"
 en = "Number of teams: 64"
 fr = "Nombre d'équipes : 64"
@@ -1314,7 +1206,7 @@ zh_hans = "球队数量：64"
 zh_hant = "球隊數量：64"
 
 [[row]]
-id = "evt_bbd_tn_opt_ko_rules"
+id = "battlebaydeluxe_tn_opt_ko_rules"
 es = "Eliminatorias: prórroga y Juicio de Ventaja"
 en = "Knockout: extra time and Advantage Judgement"
 fr = "Élimination : prolongation et Jugement d'avantage"
@@ -1326,7 +1218,7 @@ zh_hans = "淘汰赛：加时和优势判定"
 zh_hant = "淘汰賽：延長賽和優勢判定"
 
 [[row]]
-id = "evt_bbd_tn_opt_start"
+id = "battlebaydeluxe_tn_opt_start"
 es = "Empezar el torneo"
 en = "Start the tournament"
 fr = "Commencer le tournoi"
@@ -1338,7 +1230,7 @@ zh_hans = "开始锦标赛"
 zh_hant = "開始錦標賽"
 
 [[row]]
-id = "evt_bbd_tn_start_failed"
+id = "battlebaydeluxe_tn_start_failed"
 es = "No se pudo empezar el torneo. Inténtalo de nuevo."
 en = "The tournament could not start. Please try again."
 fr = "Impossible de lancer le tournoi. Réessaie."
@@ -1351,7 +1243,7 @@ zh_hant = "無法開始錦標賽，請重試。"
 
 # the «Liga» (graft bb_tournament: the selector pill, the options, the standings, the panel, the end)
 [[row]]
-id = "evt_bbd_tn_mode_league"
+id = "battlebaydeluxe_tn_mode_league"
 es = "Liga"
 en = "League"
 fr = "Ligue"
@@ -1363,7 +1255,7 @@ zh_hans = "联赛"
 zh_hant = "聯賽"
 
 [[row]]
-id = "evt_bbd_tn_opt_double_0"
+id = "battlebaydeluxe_tn_opt_double_0"
 es = "Doble vuelta: No"
 en = "Home and away: No"
 fr = "Aller-retour : Non"
@@ -1375,7 +1267,7 @@ zh_hans = "主客场双循环：否"
 zh_hant = "主客場雙循環：否"
 
 [[row]]
-id = "evt_bbd_tn_opt_double_1"
+id = "battlebaydeluxe_tn_opt_double_1"
 es = "Doble vuelta: Sí"
 en = "Home and away: Yes"
 fr = "Aller-retour : Oui"
@@ -1387,7 +1279,7 @@ zh_hans = "主客场双循环：是"
 zh_hant = "主客場雙循環：是"
 
 [[row]]
-id = "evt_bbd_tn_opt_start_league"
+id = "battlebaydeluxe_tn_opt_start_league"
 es = "Empezar la liga"
 en = "Start the league"
 fr = "Commencer la ligue"
@@ -1399,7 +1291,7 @@ zh_hans = "开始联赛"
 zh_hant = "開始聯賽"
 
 [[row]]
-id = "evt_bbd_tn_league_title"
+id = "battlebaydeluxe_tn_league_title"
 es = "Clasificación de la liga"
 en = "League standings"
 fr = "Classement de la ligue"
@@ -1411,7 +1303,7 @@ zh_hans = "联赛积分榜"
 zh_hant = "聯賽積分榜"
 
 [[row]]
-id = "evt_bbd_tn_league_md"
+id = "battlebaydeluxe_tn_league_md"
 es = "Liga · Jornada <VALUE> de <VALUE2>"
 en = "League · Matchday <VALUE> of <VALUE2>"
 fr = "Ligue · Journée <VALUE> sur <VALUE2>"
@@ -1423,7 +1315,7 @@ zh_hans = "联赛 · 第<VALUE>轮（共<VALUE2>轮）"
 zh_hant = "聯賽 · 第<VALUE>輪（共<VALUE2>輪）"
 
 [[row]]
-id = "evt_bbd_tn_out_league"
+id = "battlebaydeluxe_tn_out_league"
 es = "Puesto final: <VALUE>.º"
 en = "Final place: <VALUE>"
 fr = "Classement final : <VALUE>"
@@ -1435,7 +1327,7 @@ zh_hans = "最终排名：第<VALUE>名"
 zh_hant = "最終排名：第<VALUE>名"
 
 [[row]]
-id = "evt_bbd_tn_champion_league"
+id = "battlebaydeluxe_tn_champion_league"
 es = "¡Campeones de la liga!"
 en = "League champions!"
 fr = "Champions de la ligue !"
@@ -1447,7 +1339,7 @@ zh_hans = "联赛冠军！"
 zh_hant = "聯賽冠軍！"
 
 [[row]]
-id = "evt_bbd_tn_continue_league"
+id = "battlebaydeluxe_tn_continue_league"
 es = "Continuar la liga"
 en = "Continue the league"
 fr = "Continuer la ligue"
@@ -1459,7 +1351,7 @@ zh_hans = "继续联赛"
 zh_hant = "繼續聯賽"
 
 [[row]]
-id = "evt_bbd_tn_view_league"
+id = "battlebaydeluxe_tn_view_league"
 es = "Ver la clasificación"
 en = "View the standings"
 fr = "Voir le classement"
@@ -1471,7 +1363,7 @@ zh_hans = "查看积分榜"
 zh_hant = "查看積分榜"
 
 [[row]]
-id = "evt_bbd_tn_new_league"
+id = "battlebaydeluxe_tn_new_league"
 es = "Nueva liga"
 en = "New league"
 fr = "Nouvelle ligue"
@@ -1483,7 +1375,7 @@ zh_hans = "新联赛"
 zh_hant = "新聯賽"
 
 [[row]]
-id = "evt_bbd_tn_legend_league_first"
+id = "battlebaydeluxe_tn_legend_league_first"
 es = "1.º: campeón"
 en = "1st: champion"
 fr = "1er : champion"
@@ -1494,9 +1386,8 @@ ja = "1位：優勝"
 zh_hans = "第1名：冠军"
 zh_hant = "第1名：冠軍"
 
-# «Número de equipos» of the league's even counts (the tournament has the powers of two)
 [[row]]
-id = "evt_bbd_tn_opt_size_6"
+id = "battlebaydeluxe_tn_opt_size_6"
 es = "Número de equipos: 6"
 en = "Number of teams: 6"
 fr = "Nombre d'équipes : 6"
@@ -1508,7 +1399,7 @@ zh_hans = "球队数量：6"
 zh_hant = "球隊數量：6"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_10"
+id = "battlebaydeluxe_tn_opt_size_10"
 es = "Número de equipos: 10"
 en = "Number of teams: 10"
 fr = "Nombre d'équipes : 10"
@@ -1520,7 +1411,7 @@ zh_hans = "球队数量：10"
 zh_hant = "球隊數量：10"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_12"
+id = "battlebaydeluxe_tn_opt_size_12"
 es = "Número de equipos: 12"
 en = "Number of teams: 12"
 fr = "Nombre d'équipes : 12"
@@ -1532,7 +1423,7 @@ zh_hans = "球队数量：12"
 zh_hant = "球隊數量：12"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_14"
+id = "battlebaydeluxe_tn_opt_size_14"
 es = "Número de equipos: 14"
 en = "Number of teams: 14"
 fr = "Nombre d'équipes : 14"
@@ -1544,7 +1435,7 @@ zh_hans = "球队数量：14"
 zh_hant = "球隊數量：14"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_18"
+id = "battlebaydeluxe_tn_opt_size_18"
 es = "Número de equipos: 18"
 en = "Number of teams: 18"
 fr = "Nombre d'équipes : 18"
@@ -1556,7 +1447,7 @@ zh_hans = "球队数量：18"
 zh_hant = "球隊數量：18"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_20"
+id = "battlebaydeluxe_tn_opt_size_20"
 es = "Número de equipos: 20"
 en = "Number of teams: 20"
 fr = "Nombre d'équipes : 20"
@@ -1568,7 +1459,7 @@ zh_hans = "球队数量：20"
 zh_hant = "球隊數量：20"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_22"
+id = "battlebaydeluxe_tn_opt_size_22"
 es = "Número de equipos: 22"
 en = "Number of teams: 22"
 fr = "Nombre d'équipes : 22"
@@ -1580,7 +1471,7 @@ zh_hans = "球队数量：22"
 zh_hant = "球隊數量：22"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_24"
+id = "battlebaydeluxe_tn_opt_size_24"
 es = "Número de equipos: 24"
 en = "Number of teams: 24"
 fr = "Nombre d'équipes : 24"
@@ -1592,7 +1483,7 @@ zh_hans = "球队数量：24"
 zh_hant = "球隊數量：24"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_26"
+id = "battlebaydeluxe_tn_opt_size_26"
 es = "Número de equipos: 26"
 en = "Number of teams: 26"
 fr = "Nombre d'équipes : 26"
@@ -1604,7 +1495,7 @@ zh_hans = "球队数量：26"
 zh_hant = "球隊數量：26"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_28"
+id = "battlebaydeluxe_tn_opt_size_28"
 es = "Número de equipos: 28"
 en = "Number of teams: 28"
 fr = "Nombre d'équipes : 28"
@@ -1616,7 +1507,7 @@ zh_hans = "球队数量：28"
 zh_hant = "球隊數量：28"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_30"
+id = "battlebaydeluxe_tn_opt_size_30"
 es = "Número de equipos: 30"
 en = "Number of teams: 30"
 fr = "Nombre d'équipes : 30"
@@ -1628,7 +1519,7 @@ zh_hans = "球队数量：30"
 zh_hant = "球隊數量：30"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_34"
+id = "battlebaydeluxe_tn_opt_size_34"
 es = "Número de equipos: 34"
 en = "Number of teams: 34"
 fr = "Nombre d'équipes : 34"
@@ -1640,7 +1531,7 @@ zh_hans = "球队数量：34"
 zh_hant = "球隊數量：34"
 
 [[row]]
-id = "evt_bbd_tn_opt_size_36"
+id = "battlebaydeluxe_tn_opt_size_36"
 es = "Número de equipos: 36"
 en = "Number of teams: 36"
 fr = "Nombre d'équipes : 36"
@@ -1653,7 +1544,7 @@ zh_hant = "球隊數量：36"
 
 # the league's career hub, its sections, the top scorers, the national sides filter
 [[row]]
-id = "evt_bbd_tn_opt_national_0"
+id = "battlebaydeluxe_tn_opt_national_0"
 es = "Sin selecciones nacionales: No"
 en = "No national teams: No"
 fr = "Sans sélections nationales : Non"
@@ -1665,7 +1556,7 @@ zh_hans = "排除国家队：否"
 zh_hant = "排除國家隊：否"
 
 [[row]]
-id = "evt_bbd_tn_opt_national_1"
+id = "battlebaydeluxe_tn_opt_national_1"
 es = "Sin selecciones nacionales: Sí"
 en = "No national teams: Yes"
 fr = "Sans sélections nationales : Oui"
@@ -1677,7 +1568,7 @@ zh_hans = "排除国家队：是"
 zh_hant = "排除國家隊：是"
 
 [[row]]
-id = "evt_bbd_tn_hub_title"
+id = "battlebaydeluxe_tn_hub_title"
 es = "Liga"
 en = "League"
 fr = "Ligue"
@@ -1689,7 +1580,7 @@ zh_hans = "联赛"
 zh_hant = "聯賽"
 
 [[row]]
-id = "evt_bbd_tn_hub_continue"
+id = "battlebaydeluxe_tn_hub_continue"
 es = "Continuar"
 en = "Continue"
 fr = "Continuer"
@@ -1701,7 +1592,7 @@ zh_hans = "继续"
 zh_hant = "繼續"
 
 [[row]]
-id = "evt_bbd_tn_hub_calendar"
+id = "battlebaydeluxe_tn_hub_calendar"
 es = "Calendario"
 en = "Fixtures"
 fr = "Calendrier"
@@ -1713,7 +1604,7 @@ zh_hans = "赛程"
 zh_hant = "賽程"
 
 [[row]]
-id = "evt_bbd_tn_hub_competition"
+id = "battlebaydeluxe_tn_hub_competition"
 es = "Competición"
 en = "Competition"
 fr = "Compétition"
@@ -1725,7 +1616,7 @@ zh_hans = "赛事"
 zh_hant = "賽事"
 
 [[row]]
-id = "evt_bbd_tn_hub_roster"
+id = "battlebaydeluxe_tn_hub_roster"
 es = "Plantilla"
 en = "Squad"
 fr = "Effectif"
@@ -1737,7 +1628,7 @@ zh_hans = "阵容"
 zh_hant = "陣容"
 
 [[row]]
-id = "evt_bbd_tn_hub_exit"
+id = "battlebaydeluxe_tn_hub_exit"
 es = "Salir"
 en = "Exit"
 fr = "Quitter"
@@ -1749,7 +1640,7 @@ zh_hans = "退出"
 zh_hant = "退出"
 
 [[row]]
-id = "evt_bbd_tn_hub_next"
+id = "battlebaydeluxe_tn_hub_next"
 es = "Próximo partido"
 en = "Next match"
 fr = "Prochain match"
@@ -1761,7 +1652,7 @@ zh_hans = "下一场比赛"
 zh_hant = "下一場比賽"
 
 [[row]]
-id = "evt_bbd_tn_hub_home"
+id = "battlebaydeluxe_tn_hub_home"
 es = "Local"
 en = "Home"
 fr = "Domicile"
@@ -1773,7 +1664,7 @@ zh_hans = "主场"
 zh_hant = "主場"
 
 [[row]]
-id = "evt_bbd_tn_hub_away"
+id = "battlebaydeluxe_tn_hub_away"
 es = "Visitante"
 en = "Away"
 fr = "Extérieur"
@@ -1785,7 +1676,7 @@ zh_hans = "客场"
 zh_hant = "客場"
 
 [[row]]
-id = "evt_bbd_tn_hub_vs"
+id = "battlebaydeluxe_tn_hub_vs"
 es = "VS"
 en = "VS"
 fr = "VS"
@@ -1797,7 +1688,7 @@ zh_hans = "VS"
 zh_hant = "VS"
 
 [[row]]
-id = "evt_bbd_tn_hub_place"
+id = "battlebaydeluxe_tn_hub_place"
 es = "Posición: <VALUE>.º · <VALUE2> pts"
 en = "Place: <VALUE> · <VALUE2> pts"
 fr = "Place : <VALUE> · <VALUE2> pts"
@@ -1809,7 +1700,7 @@ zh_hans = "第<VALUE>名 · <VALUE2>分"
 zh_hant = "第<VALUE>名 · <VALUE2>分"
 
 [[row]]
-id = "evt_bbd_tn_league_md_next"
+id = "battlebaydeluxe_tn_league_md_next"
 es = "Liga · Jornada <VALUE> de <VALUE2>"
 en = "League · Matchday <VALUE> of <VALUE2>"
 fr = "Ligue · Journée <VALUE> sur <VALUE2>"
@@ -1821,7 +1712,7 @@ zh_hans = "联赛 · 第<VALUE>轮（共<VALUE2>轮）"
 zh_hant = "聯賽 · 第<VALUE>輪（共<VALUE2>輪）"
 
 [[row]]
-id = "evt_bbd_tn_league_md_of"
+id = "battlebaydeluxe_tn_league_md_of"
 es = "Jornada <VALUE> de <VALUE2>"
 en = "Matchday <VALUE> of <VALUE2>"
 fr = "Journée <VALUE> sur <VALUE2>"
@@ -1833,7 +1724,7 @@ zh_hans = "第<VALUE>轮（共<VALUE2>轮）"
 zh_hant = "第<VALUE>輪（共<VALUE2>輪）"
 
 [[row]]
-id = "evt_bbd_tn_league_over"
+id = "battlebaydeluxe_tn_league_over"
 es = "Liga terminada"
 en = "League over"
 fr = "Ligue terminée"
@@ -1845,7 +1736,7 @@ zh_hans = "联赛已结束"
 zh_hant = "聯賽已結束"
 
 [[row]]
-id = "evt_bbd_tn_calendar_md"
+id = "battlebaydeluxe_tn_calendar_md"
 es = "Calendario · Jornada <VALUE> de <VALUE2>"
 en = "Fixtures · Matchday <VALUE> of <VALUE2>"
 fr = "Calendrier · Journée <VALUE> sur <VALUE2>"
@@ -1857,7 +1748,7 @@ zh_hans = "赛程 · 第<VALUE>轮（共<VALUE2>轮）"
 zh_hant = "賽程 · 第<VALUE>輪（共<VALUE2>輪）"
 
 [[row]]
-id = "evt_bbd_tn_scorers_title"
+id = "battlebaydeluxe_tn_scorers_title"
 es = "Máximos goleadores"
 en = "Top scorers"
 fr = "Meilleurs buteurs"
@@ -1869,7 +1760,7 @@ zh_hans = "射手榜"
 zh_hant = "射手榜"
 
 [[row]]
-id = "evt_bbd_tn_scorers_none"
+id = "battlebaydeluxe_tn_scorers_none"
 es = "Aún no hay goles"
 en = "No goals yet"
 fr = "Aucun but pour l'instant"
@@ -1881,7 +1772,7 @@ zh_hans = "尚无进球"
 zh_hant = "尚無進球"
 
 [[row]]
-id = "evt_bbd_tn_col_player"
+id = "battlebaydeluxe_tn_col_player"
 es = "Jugador"
 en = "Player"
 fr = "Joueur"
@@ -1893,7 +1784,7 @@ zh_hans = "球员"
 zh_hant = "球員"
 
 [[row]]
-id = "evt_bbd_tn_col_goals"
+id = "battlebaydeluxe_tn_col_goals"
 es = "Goles"
 en = "Goals"
 fr = "Buts"
@@ -1906,7 +1797,7 @@ zh_hant = "進球"
 
 # «Equipos: Todos | Importantes | Personalizado» (Torneo and Liga) and the team picker
 [[row]]
-id = "evt_bbd_tn_opt_teams_0"
+id = "battlebaydeluxe_tn_opt_teams_0"
 es = "Equipos: Todos"
 en = "Teams: All"
 fr = "Équipes : Toutes"
@@ -1918,7 +1809,7 @@ zh_hans = "球队：全部"
 zh_hant = "球隊：全部"
 
 [[row]]
-id = "evt_bbd_tn_opt_teams_1"
+id = "battlebaydeluxe_tn_opt_teams_1"
 es = "Equipos: Importantes"
 en = "Teams: Major"
 fr = "Équipes : Principales"
@@ -1930,7 +1821,7 @@ zh_hans = "球队：主要"
 zh_hant = "球隊：主要"
 
 [[row]]
-id = "evt_bbd_tn_opt_teams_2"
+id = "battlebaydeluxe_tn_opt_teams_2"
 es = "Equipos: Personalizado"
 en = "Teams: Custom"
 fr = "Équipes : Personnalisé"
@@ -1942,7 +1833,7 @@ zh_hans = "球队：自定义"
 zh_hant = "球隊：自訂"
 
 [[row]]
-id = "evt_bbd_tn_pick_count"
+id = "battlebaydeluxe_tn_pick_count"
 es = "<VALUE> / <VALUE2> elegidos"
 en = "<VALUE> / <VALUE2> picked"
 fr = "<VALUE> / <VALUE2> choisies"
@@ -1954,7 +1845,7 @@ zh_hans = "已选 <VALUE> / <VALUE2>"
 zh_hant = "已選 <VALUE> / <VALUE2>"
 
 [[row]]
-id = "evt_bbd_tn_pick_accept"
+id = "battlebaydeluxe_tn_pick_accept"
 es = "Aceptar"
 en = "Accept"
 fr = "Valider"
@@ -1966,7 +1857,7 @@ zh_hans = "确定"
 zh_hant = "確定"
 
 [[row]]
-id = "evt_bbd_tn_pick_club"
+id = "battlebaydeluxe_tn_pick_club"
 es = "No puedes elegir dos versiones del mismo club."
 en = "You cannot pick two versions of the same club."
 fr = "Impossible de choisir deux versions du même club."
@@ -1977,9 +1868,9 @@ ja = "同じクラブの2つのバージョンは選べません。"
 zh_hans = "不能选择同一俱乐部的两个版本。"
 zh_hant = "不能選擇同一俱樂部的兩個版本。"
 
-# the team picker's last step: the bracket in the pick order or shuffled (bbt_grid.lua BBT_GridPick)
+# the team picker's last step: the bracket in the pick order or shuffled (bbt_grid.lua BattleBayDeluxe.TournamentGridPick)
 [[row]]
-id = "evt_bbd_tn_pick_order_ask"
+id = "battlebaydeluxe_tn_pick_order_ask"
 es = "¿Usar el orden escogido o aleatorizarlo?"
 en = "Use the picked order or shuffle it?"
 fr = "Garder l'ordre choisi ou le mélanger ?"
@@ -1991,7 +1882,7 @@ zh_hans = "使用选择的顺序还是随机排列？"
 zh_hant = "使用選擇的順序還是隨機排列？"
 
 [[row]]
-id = "evt_bbd_tn_pick_order_chosen"
+id = "battlebaydeluxe_tn_pick_order_chosen"
 es = "Orden escogido"
 en = "Picked order"
 fr = "Ordre choisi"
@@ -2003,7 +1894,7 @@ zh_hans = "选择的顺序"
 zh_hant = "選擇的順序"
 
 [[row]]
-id = "evt_bbd_tn_pick_order_random"
+id = "battlebaydeluxe_tn_pick_order_random"
 es = "Aleatorizar"
 en = "Shuffle"
 fr = "Mélanger"
@@ -2014,9 +1905,8 @@ ja = "ランダム"
 zh_hans = "随机排列"
 zh_hant = "隨機排列"
 
-# the label of the selector's key in the game's «Configuración de controles» (content\inputs\mode_switch.toml)
 [[row]]
-id = "evt_bbd_mode_switch_action"
+id = "battlebaydeluxe_mode_switch_action"
 es = "Cambiar Campaña / Torneo / Liga"
 en = "Switch Campaign / Tournament / League"
 fr = "Changer Campagne / Tournoi / Ligue"
@@ -2028,7 +1918,7 @@ zh_hans = "切换战役 / 锦标赛 / 联赛"
 zh_hant = "切換戰役 / 錦標賽 / 聯賽"
 
 [[row]]
-id = "evt_bbd_roster"
+id = "battlebaydeluxe_roster"
 es = "Plantilla"
 en = "Squad"
 fr = "Effectif"
@@ -2040,7 +1930,7 @@ zh_hans = "阵容"
 zh_hant = "陣容"
 
 [[row]]
-id = "evt_bbd_roster_hint"
+id = "battlebaydeluxe_roster_hint"
 es = "Mueve el cursor para ver la ficha de cada jugador.   <CMD_FUNCL2><CMD_FUNCR2> Página"
 en = "Move the cursor to see each player's profile.   <CMD_FUNCL2><CMD_FUNCR2> Page"
 fr = "Déplace le curseur pour voir la fiche de chaque joueur.   <CMD_FUNCL2><CMD_FUNCR2> Page"
@@ -2051,12 +1941,8 @@ ja = "カーソルを動かすと各選手のプロフィールを見られま�
 zh_hans = "移动光标查看每名球员的资料。   <CMD_FUNCL2><CMD_FUNCR2> 页面"
 zh_hant = "移動游標查看每名球員的資料。   <CMD_FUNCL2><CMD_FUNCR2> 頁面"
 
-# the 16-team retail bracket's schedule panel and the final stadium's panel ------------------------
-# graft bb_tournament bbt_top.lua BBT_DrawRetail / BBT_DrawStadium: the round names without «: results» (round_N =
-# the round's distance to the final, as ko_N), the panel's lines, the final stadium's label.
-
 [[row]]
-id = "evt_bbd_tn_round_1"
+id = "battlebaydeluxe_tn_round_1"
 es = "Final"
 en = "Final"
 fr = "Finale"
@@ -2068,7 +1954,7 @@ zh_hans = "决赛"
 zh_hant = "決賽"
 
 [[row]]
-id = "evt_bbd_tn_round_2"
+id = "battlebaydeluxe_tn_round_2"
 es = "Semifinales"
 en = "Semi-finals"
 fr = "Demi-finales"
@@ -2080,7 +1966,7 @@ zh_hans = "半决赛"
 zh_hant = "準決賽"
 
 [[row]]
-id = "evt_bbd_tn_round_3"
+id = "battlebaydeluxe_tn_round_3"
 es = "Cuartos de final"
 en = "Quarter-finals"
 fr = "Quarts de finale"
@@ -2092,7 +1978,7 @@ zh_hans = "四分之一决赛"
 zh_hant = "八強賽"
 
 [[row]]
-id = "evt_bbd_tn_round_4"
+id = "battlebaydeluxe_tn_round_4"
 es = "Octavos de final"
 en = "Round of 16"
 fr = "Huitièmes de finale"
@@ -2104,7 +1990,7 @@ zh_hans = "十六强赛"
 zh_hant = "十六強賽"
 
 [[row]]
-id = "evt_bbd_tn_round_5"
+id = "battlebaydeluxe_tn_round_5"
 es = "Dieciseisavos de final"
 en = "Round of 32"
 fr = "Seizièmes de finale"
@@ -2116,7 +2002,7 @@ zh_hans = "三十二强赛"
 zh_hant = "三十二強賽"
 
 [[row]]
-id = "evt_bbd_tn_round_6"
+id = "battlebaydeluxe_tn_round_6"
 es = "Treintaidosavos de final"
 en = "Round of 64"
 fr = "Trente-deuxièmes de finale"
@@ -2128,7 +2014,7 @@ zh_hans = "六十四强赛"
 zh_hant = "六十四強賽"
 
 [[row]]
-id = "evt_bbd_tn_sched_rival_tbd"
+id = "battlebaydeluxe_tn_sched_rival_tbd"
 es = "Rival por decidir"
 en = "Opponent to be decided"
 fr = "Adversaire à déterminer"
@@ -2139,11 +2025,8 @@ ja = "対戦相手は未定"
 zh_hans = "对手待定"
 zh_hant = "對手待定"
 
-# the League hub's dashboard (evt_bbd_tn_groups_menu.lua DrawHub; key_back = the key glyph of its footer entry
-# «Salir», bbt_top.lua BBT_HubGuide)
-
 [[row]]
-id = "evt_bbd_tn_hub_nav_home"
+id = "battlebaydeluxe_tn_hub_nav_home"
 es = "Inicio"
 en = "Home"
 fr = "Accueil"
@@ -2155,7 +2038,7 @@ zh_hans = "主页"
 zh_hant = "主頁"
 
 [[row]]
-id = "evt_bbd_tn_hub_sim"
+id = "battlebaydeluxe_tn_hub_sim"
 es = "Simular"
 en = "Simulate"
 fr = "Simuler"
@@ -2167,7 +2050,7 @@ zh_hans = "模拟比赛"
 zh_hant = "模擬比賽"
 
 [[row]]
-id = "evt_bbd_tn_key_sim"
+id = "battlebaydeluxe_tn_key_sim"
 es = "<CMD_FUNC3>"
 en = "<CMD_FUNC3>"
 fr = "<CMD_FUNC3>"
@@ -2179,7 +2062,7 @@ zh_hans = "<CMD_FUNC3>"
 zh_hant = "<CMD_FUNC3>"
 
 [[row]]
-id = "evt_bbd_tn_key_play"
+id = "battlebaydeluxe_tn_key_play"
 es = "<CMD_ENTER>"
 en = "<CMD_ENTER>"
 fr = "<CMD_ENTER>"
@@ -2191,7 +2074,7 @@ zh_hans = "<CMD_ENTER>"
 zh_hant = "<CMD_ENTER>"
 
 [[row]]
-id = "evt_bbd_tn_hub_play"
+id = "battlebaydeluxe_tn_hub_play"
 es = "Jugar"
 en = "Play"
 fr = "Jouer"
@@ -2203,7 +2086,7 @@ zh_hans = "开始比赛"
 zh_hant = "開始比賽"
 
 [[row]]
-id = "evt_bbd_tn_hub_standings"
+id = "battlebaydeluxe_tn_hub_standings"
 es = "Clasificación"
 en = "Standings"
 fr = "Classement"
@@ -2215,7 +2098,7 @@ zh_hans = "积分榜"
 zh_hant = "積分榜"
 
 [[row]]
-id = "evt_bbd_tn_hub_results"
+id = "battlebaydeluxe_tn_hub_results"
 es = "Últimos resultados"
 en = "Last results"
 fr = "Derniers résultats"
@@ -2227,7 +2110,7 @@ zh_hans = "最近战绩"
 zh_hant = "最近戰績"
 
 [[row]]
-id = "evt_bbd_tn_hub_no_results"
+id = "battlebaydeluxe_tn_hub_no_results"
 es = "Aún no se ha jugado ninguna jornada"
 en = "No matchday played yet"
 fr = "Aucune journée jouée"
@@ -2239,7 +2122,7 @@ zh_hans = "尚未进行任何一轮"
 zh_hant = "尚未進行任何一輪"
 
 [[row]]
-id = "evt_bbd_tn_hub_level"
+id = "battlebaydeluxe_tn_hub_level"
 es = "Nivel <VALUE>"
 en = "Level <VALUE>"
 fr = "Niveau <VALUE>"
@@ -2251,7 +2134,7 @@ zh_hans = "等级<VALUE>"
 zh_hant = "等級<VALUE>"
 
 [[row]]
-id = "evt_bbd_tn_hub_teams"
+id = "battlebaydeluxe_tn_hub_teams"
 es = "<VALUE> equipos"
 en = "<VALUE> teams"
 fr = "<VALUE> équipes"
@@ -2263,7 +2146,7 @@ zh_hans = "<VALUE>支球队"
 zh_hant = "<VALUE>支球隊"
 
 [[row]]
-id = "evt_bbd_tn_hub_played"
+id = "battlebaydeluxe_tn_hub_played"
 es = "<VALUE> jugadas"
 en = "<VALUE> played"
 fr = "<VALUE> jouées"
@@ -2275,7 +2158,7 @@ zh_hans = "已赛<VALUE>轮"
 zh_hant = "已賽<VALUE>輪"
 
 [[row]]
-id = "evt_bbd_tn_hub_left"
+id = "battlebaydeluxe_tn_hub_left"
 es = "<VALUE> por jugar"
 en = "<VALUE> to play"
 fr = "<VALUE> à jouer"
@@ -2287,7 +2170,7 @@ zh_hans = "剩余<VALUE>轮"
 zh_hant = "剩餘<VALUE>輪"
 
 [[row]]
-id = "evt_bbd_tn_hub_points"
+id = "battlebaydeluxe_tn_hub_points"
 es = "<VALUE> pts"
 en = "<VALUE> pts"
 fr = "<VALUE> pts"
@@ -2299,7 +2182,7 @@ zh_hans = "<VALUE>分"
 zh_hant = "<VALUE>分"
 
 [[row]]
-id = "evt_bbd_tn_hub_place_label"
+id = "battlebaydeluxe_tn_hub_place_label"
 es = "Posición"
 en = "Place"
 fr = "Place"
@@ -2311,7 +2194,7 @@ zh_hans = "排名"
 zh_hant = "排名"
 
 [[row]]
-id = "evt_bbd_tn_hub_ordinal"
+id = "battlebaydeluxe_tn_hub_ordinal"
 es = "<VALUE>.º"
 en = "<VALUE>"
 fr = "<VALUE>e"
@@ -2323,7 +2206,7 @@ zh_hans = "第<VALUE>"
 zh_hant = "第<VALUE>"
 
 [[row]]
-id = "evt_bbd_tn_hub_md_short"
+id = "battlebaydeluxe_tn_hub_md_short"
 es = "J<VALUE>"
 en = "MD<VALUE>"
 fr = "J<VALUE>"
@@ -2335,7 +2218,7 @@ zh_hans = "第<VALUE>轮"
 zh_hant = "第<VALUE>輪"
 
 [[row]]
-id = "evt_bbd_tn_calendar_md_short"
+id = "battlebaydeluxe_tn_calendar_md_short"
 es = "Jornada <VALUE>"
 en = "Matchday <VALUE>"
 fr = "Journée <VALUE>"
@@ -2347,7 +2230,7 @@ zh_hans = "第<VALUE>轮"
 zh_hant = "第<VALUE>輪"
 
 [[row]]
-id = "evt_bbd_tn_hub_home_short"
+id = "battlebaydeluxe_tn_hub_home_short"
 es = "L"
 en = "H"
 fr = "D"
@@ -2359,7 +2242,7 @@ zh_hans = "主"
 zh_hant = "主"
 
 [[row]]
-id = "evt_bbd_tn_hub_away_short"
+id = "battlebaydeluxe_tn_hub_away_short"
 es = "V"
 en = "A"
 fr = "E"
@@ -2371,7 +2254,7 @@ zh_hans = "客"
 zh_hant = "客"
 
 [[row]]
-id = "evt_bbd_tn_hub_team_scorer"
+id = "battlebaydeluxe_tn_hub_team_scorer"
 es = "Máximo goleador del equipo"
 en = "Team top scorer"
 fr = "Meilleur buteur de l'équipe"
@@ -2383,7 +2266,7 @@ zh_hans = "队内最佳射手"
 zh_hant = "隊內最佳射手"
 
 [[row]]
-id = "evt_bbd_tn_hub_goals"
+id = "battlebaydeluxe_tn_hub_goals"
 es = "<VALUE> goles"
 en = "<VALUE> goals"
 fr = "<VALUE> buts"
@@ -2395,7 +2278,7 @@ zh_hans = "<VALUE>球"
 zh_hant = "<VALUE>球"
 
 [[row]]
-id = "evt_bbd_tn_key_back"
+id = "battlebaydeluxe_tn_key_back"
 es = "<CMD_BACK>"
 en = "<CMD_BACK>"
 fr = "<CMD_BACK>"
@@ -2406,10 +2289,10 @@ ja = "<CMD_BACK>"
 zh_hans = "<CMD_BACK>"
 zh_hant = "<CMD_BACK>"
 
-# the League hub's «Plantilla» page (the league team's squad, evt_bbd_tn_groups_menu.lua DrawSquad)
+# the League hub's «Plantilla» page (the league team's squad, battlebaydeluxe_tn_groups_menu.lua DrawSquad)
 
 [[row]]
-id = "evt_bbd_tn_squad_title"
+id = "battlebaydeluxe_tn_squad_title"
 es = "Plantilla de la liga"
 en = "League squad"
 fr = "Effectif de la ligue"
@@ -2421,7 +2304,7 @@ zh_hans = "联赛阵容"
 zh_hant = "聯賽陣容"
 
 [[row]]
-id = "evt_bbd_tn_squad_starters"
+id = "battlebaydeluxe_tn_squad_starters"
 es = "Titulares"
 en = "Starters"
 fr = "Titulaires"
@@ -2433,7 +2316,7 @@ zh_hans = "首发"
 zh_hant = "首發"
 
 [[row]]
-id = "evt_bbd_tn_squad_subs"
+id = "battlebaydeluxe_tn_squad_subs"
 es = "Suplentes"
 en = "Substitutes"
 fr = "Remplaçants"
@@ -2445,7 +2328,7 @@ zh_hans = "替补"
 zh_hant = "替補"
 
 [[row]]
-id = "evt_bbd_tn_squad_none"
+id = "battlebaydeluxe_tn_squad_none"
 es = "No se pudo leer la plantilla del equipo"
 en = "The team's squad could not be read"
 fr = "L'effectif de l'équipe est illisible"
@@ -2456,11 +2339,8 @@ ja = "チームのメンバーを読み込めません"
 zh_hans = "无法读取球队阵容"
 zh_hant = "無法讀取球隊陣容"
 
-# the League hub's «Plantilla» (the game's team dock for the league team, graft bb_tournament BBT_HubTeamEditor): the
-# order left in the dock was not kept (a starter place without a player of the league team, or the dock / the save
-# session could not open)
 [[row]]
-id = "evt_bbd_tn_squad_not_saved"
+id = "battlebaydeluxe_tn_squad_not_saved"
 es = "La alineación no se ha guardado: los 11 titulares deben ser jugadores del equipo de la liga."
 en = "The lineup was not saved: the 11 starters must be players of the league team."
 fr = "La composition n'a pas été enregistrée : les 11 titulaires doivent être des joueurs de l'équipe de la ligue."
@@ -2471,10 +2351,8 @@ ja = "スタメンを保存できませんでした。スタメン11人はリー
 zh_hans = "阵容未保存：11名首发必须是联赛球队的球员。"
 zh_hant = "陣容未儲存：11名首發必須是聯賽球隊的球員。"
 
-# graft bb_tournament bbt_top.lua BBT_NextBadge: the top menu's «SIGUIENTE» badge under «Campaña» while a run goes
-# (<VALUE> = the matchday, <ROUND> = evt_bbd_tn_round_N, <NAME> = the rival)
 [[row]]
-id = "evt_bbd_tn_badge_league"
+id = "battlebaydeluxe_tn_badge_league"
 es = "SIGUIENTE: Jornada <VALUE> vs <NAME>"
 en = "NEXT: Matchday <VALUE> vs <NAME>"
 fr = "SUIVANT : Journée <VALUE> contre <NAME>"
@@ -2486,7 +2364,7 @@ zh_hans = "下一场：第<VALUE>轮 vs <NAME>"
 zh_hant = "下一場：第<VALUE>輪 vs <NAME>"
 
 [[row]]
-id = "evt_bbd_tn_badge_groups"
+id = "battlebaydeluxe_tn_badge_groups"
 es = "SIGUIENTE: Grupos, jornada <VALUE> vs <NAME>"
 en = "NEXT: Groups, matchday <VALUE> vs <NAME>"
 fr = "SUIVANT : Groupes, journée <VALUE> contre <NAME>"
@@ -2498,7 +2376,7 @@ zh_hans = "下一场：小组赛第<VALUE>轮 vs <NAME>"
 zh_hant = "下一場：小組賽第<VALUE>輪 vs <NAME>"
 
 [[row]]
-id = "evt_bbd_tn_badge_ko"
+id = "battlebaydeluxe_tn_badge_ko"
 es = "SIGUIENTE: <ROUND> vs <NAME>"
 en = "NEXT: <ROUND> vs <NAME>"
 fr = "SUIVANT : <ROUND> contre <NAME>"
@@ -2509,11 +2387,8 @@ ja = "次：<ROUND> vs <NAME>"
 zh_hans = "下一场：<ROUND> vs <NAME>"
 zh_hant = "下一場：<ROUND> vs <NAME>"
 
-# «Reto diario» (graft research/grafts/bb_daily_challenge): the «Campaña» row's menu entries and the notice when the
-# day's run cannot be prepared.
-
 [[row]]
-id = "evt_bbd_dc_new"
+id = "battlebaydeluxe_dc_new"
 es = "Nueva partida"
 en = "New game"
 fr = "Nouvelle partie"
@@ -2525,7 +2400,7 @@ zh_hans = "新游戏"
 zh_hant = "新遊戲"
 
 [[row]]
-id = "evt_bbd_dc_daily"
+id = "battlebaydeluxe_dc_daily"
 es = "Reto diario"
 en = "Daily challenge"
 fr = "Défi du jour"
@@ -2537,7 +2412,7 @@ zh_hans = "每日挑战"
 zh_hant = "每日挑戰"
 
 [[row]]
-id = "evt_bbd_dc_unavailable"
+id = "battlebaydeluxe_dc_unavailable"
 es = "El reto diario no está disponible."
 en = "The daily challenge is not available."
 fr = "Le défi du jour n'est pas disponible."
@@ -2548,9 +2423,22 @@ ja = "デイリーチャレンジは利用できません。"
 zh_hans = "每日挑战暂不可用。"
 zh_hant = "每日挑戰暫不可用。"
 
+# Battle Bay grid: the tab of the player's own teams (content\battle_bay\layout.toml)
+[[row]]
+id = "battlebaydeluxe_section_personal"
+es = "Equipos personales"
+en = "Personal Teams"
+fr = "Équipes personnelles"
+de = "Persönliche Teams"
+it = "Squadre personali"
+pt = "Equipes pessoais"
+ja = "パーソナルチーム"
+zh_hans = "个人球队"
+zh_hant = "個人球隊"
+
 # Battle Bay grid: the season of the Active team and Draft tiles (content\teams\89_bb_modes_season.toml)
 [[row]]
-id = "evt_bbd_season_modes"
+id = "battlebaydeluxe_season_modes"
 es = "Modos"
 en = "Modes"
 fr = "Modes"
@@ -2560,3 +2448,112 @@ pt = "Modos"
 ja = "モード"
 zh_hans = "模式"
 zh_hant = "模式"
+
+# Draft: the filter panel (BattleBayDeluxe.draft_filters)
+[[row]]
+id = "battlebaydeluxe_draft_filter_scouts"
+es = "Scouts: {1}"
+en = "Scouts: {1}"
+fr = "Scouts : {1}"
+de = "Scouts: {1}"
+it = "Scout: {1}"
+pt = "Scouts: {1}"
+ja = "スカウト：{1}"
+zh_hans = "球探球员：{1}"
+zh_hant = "球探球員：{1}"
+
+[[row]]
+id = "battlebaydeluxe_draft_filter_gender"
+es = "Género: {1}"
+en = "Gender: {1}"
+fr = "Genre : {1}"
+de = "Geschlecht: {1}"
+it = "Genere: {1}"
+pt = "Género: {1}"
+ja = "性別：{1}"
+zh_hans = "性别：{1}"
+zh_hant = "性別：{1}"
+
+[[row]]
+id = "battlebaydeluxe_draft_filter_yes"
+es = "Sí"
+en = "Yes"
+fr = "Oui"
+de = "Ja"
+it = "Sì"
+pt = "Sim"
+ja = "はい"
+zh_hans = "是"
+zh_hant = "是"
+
+[[row]]
+id = "battlebaydeluxe_draft_filter_no"
+es = "No"
+en = "No"
+fr = "Non"
+de = "Nein"
+it = "No"
+pt = "Não"
+ja = "いいえ"
+zh_hans = "否"
+zh_hant = "否"
+
+[[row]]
+id = "battlebaydeluxe_draft_filter_gender_0"
+es = "Todos"
+en = "All"
+fr = "Tous"
+de = "Alle"
+it = "Tutti"
+pt = "Todos"
+ja = "すべて"
+zh_hans = "全部"
+zh_hant = "全部"
+
+[[row]]
+id = "battlebaydeluxe_draft_filter_gender_1"
+es = "Masculino"
+en = "Male"
+fr = "Masculin"
+de = "Männlich"
+it = "Maschile"
+pt = "Masculino"
+ja = "男性"
+zh_hans = "男"
+zh_hant = "男"
+
+[[row]]
+id = "battlebaydeluxe_draft_filter_gender_2"
+es = "Femenino"
+en = "Female"
+fr = "Féminin"
+de = "Weiblich"
+it = "Femminile"
+pt = "Feminino"
+ja = "女性"
+zh_hans = "女"
+zh_hant = "女"
+
+[[row]]
+id = "battlebaydeluxe_draft_filter_start"
+es = "Empezar el draft ({1})"
+en = "Start the draft ({1})"
+fr = "Commencer le draft ({1})"
+de = "Draft starten ({1})"
+it = "Inizia il draft ({1})"
+pt = "Começar o draft ({1})"
+ja = "ドラフト開始（{1}）"
+zh_hans = "开始选秀（{1}）"
+zh_hant = "開始選秀（{1}）"
+
+[[row]]
+id = "battlebaydeluxe_draft_filter_short"
+es = "Faltan jugadores ({1} disponibles)"
+en = "Not enough players ({1} available)"
+fr = "Pas assez de joueurs ({1} disponibles)"
+de = "Zu wenige Spieler ({1} verfügbar)"
+it = "Giocatori insufficienti ({1} disponibili)"
+pt = "Jogadores insuficientes ({1} disponíveis)"
+ja = "選手が足りません（{1}人）"
+zh_hans = "球员不足（{1}名可用）"
+zh_hant = "球員不足（{1}名可用）"

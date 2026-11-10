@@ -1,0 +1,67 @@
+schema = "VRFW.menu/2"
+
+# The team dock's template list (R3 / N): the game's team list window with pages of templates.
+# Opened by the graft team_templates, drawn by the mod's sub_window_group script 150_template_list.lua.
+
+# L2 / R2 on a row of the team list call the opener's page callback.
+[[patch]]
+menu = "sub_window"
+add_commands = [
+    { layer = "mainmenu90_31_doc_item", input = "CMD_FUNCL2", command = "CMD_FUNCTION", arg = 0x85B7BB15, arg2 = 0x7CAE15EE },
+    { layer = "mainmenu90_31_doc_item", input = "CMD_FUNCR2", command = "CMD_FUNCTION", arg = 0x85B7BB15, arg2 = 0x97825F76 },
+]
+
+# The list's page dots: the formation status base without its arrows.
+[[object]]
+name = "betterqol_template_list_pager"
+from = "soccer11_05_formation_status_base"
+remove = [
+    { parameter = "NullLayerName" },
+    { parameter = "_touch_arw01_l" },
+    { parameter = "_touch_arw01_r" },
+]
+
+[[patch]]
+menu = "sub_window"
+add_layer = { name = "betterqol_template_list_pager", object = "betterqol_template_list_pager", count = 34, align = [0, 0], scale = 1, after = "win05_15_sub_list_locator_doc", groups = [{ group = "sub_window_group", flags = [0, 0, 0, 0, 1, 0], after = "win05_15_sub_list_locator_doc" }] }
+resources = ["#/menu/00_soccer/soccer11/soccer11_05/<LG>/soccer11_05.g4tx"]
+
+# Each copy of the page dots hangs from the window's _pos_base01: locator name, node, layer, copy.
+[[object_set]]
+object = "win05_15_sub_list_locator_doc"
+add = [
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x641C7694, 0x5A709C12, 0x78B4240F, 0] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x131B4602, 0x5A709C12, 0x78B4240F, 1] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x8A1217B8, 0x5A709C12, 0x78B4240F, 2] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xFD15272E, 0x5A709C12, 0x78B4240F, 3] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x6371B28D, 0x5A709C12, 0x78B4240F, 4] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x1476821B, 0x5A709C12, 0x78B4240F, 5] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x8D7FD3A1, 0x5A709C12, 0x78B4240F, 6] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xFA78E337, 0x5A709C12, 0x78B4240F, 7] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x6AC7FEA6, 0x5A709C12, 0x78B4240F, 8] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x1DC0CE30, 0x5A709C12, 0x78B4240F, 9] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x1AC6A54B, 0x5A709C12, 0x78B4240F, 10] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x6DC195DD, 0x5A709C12, 0x78B4240F, 11] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xF4C8C467, 0x5A709C12, 0x78B4240F, 12] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x83CFF4F1, 0x5A709C12, 0x78B4240F, 13] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x1DAB6152, 0x5A709C12, 0x78B4240F, 14] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x6AAC51C4, 0x5A709C12, 0x78B4240F, 15] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xF3A5007E, 0x5A709C12, 0x78B4240F, 16] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x84A230E8, 0x5A709C12, 0x78B4240F, 17] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x141D2D79, 0x5A709C12, 0x78B4240F, 18] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x631A1DEF, 0x5A709C12, 0x78B4240F, 19] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x31EBF688, 0x5A709C12, 0x78B4240F, 20] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x46ECC61E, 0x5A709C12, 0x78B4240F, 21] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xDFE597A4, 0x5A709C12, 0x78B4240F, 22] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xA8E2A732, 0x5A709C12, 0x78B4240F, 23] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x36863291, 0x5A709C12, 0x78B4240F, 24] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x41810207, 0x5A709C12, 0x78B4240F, 25] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xD88853BD, 0x5A709C12, 0x78B4240F, 26] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xAF8F632B, 0x5A709C12, 0x78B4240F, 27] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x3F307EBA, 0x5A709C12, 0x78B4240F, 28] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x48374E2C, 0x5A709C12, 0x78B4240F, 29] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x28F0C7C9, 0x5A709C12, 0x78B4240F, 30] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x5FF7F75F, 0x5A709C12, 0x78B4240F, 31] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xC6FEA6E5, 0x5A709C12, 0x78B4240F, 32] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xB1F99673, 0x5A709C12, 0x78B4240F, 33] },
+]

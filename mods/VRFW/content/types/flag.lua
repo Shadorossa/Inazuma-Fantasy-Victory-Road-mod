@@ -1,5 +1,4 @@
--- Computed values of the type `flag`. Each function gets the [[flag]] fields (`name`, `id`, `bank`, `bit`) plus `mod`, `key`, `file`.
--- `crc32(text)` is the game's name hash.
+-- Computed values of the type `flag`.
 
 local M = {}
 

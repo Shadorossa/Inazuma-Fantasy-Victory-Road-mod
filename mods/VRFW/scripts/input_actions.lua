@@ -1,7 +1,4 @@
 -- Input actions declared by mods ([[action]]: id, command, ctrl, category, label, pad, keyboard).
--- CMND_VRFW_INPUT_ACTION(name) -> { declared = 1, id, command = crc32(command), ctrl, category, pad = <pad index>,
---   key = <keyboard index>, pad_mask = 1 << pad, vk = <virtual key of a letter key, 0 = none> } or { declared = 0 }.
--- pad_mask / vk are the default binding; a rebinding made in the game's key configuration does not change them.
 
 InputActions = InputActions or {}
 
@@ -47,7 +44,7 @@ local function load_all()
       if type(a.id) == "string" and type(a.command) == "string" then
         local pad, key = pad_index(a.pad), key_index(a.keyboard)
         local e = {
-          declared = 1, id = a.id, command = VRFW.ui.crc32(a.command), name = a.command,
+          declared = 1, id = a.id, command = VRFW.crc32(a.command), name = a.command,
           ctrl = type(a.ctrl) == "string" and a.ctrl or "MENU_CTRL", category = tostring(a.category or ""),
           pad = pad or -1, key = key or -1,
           pad_mask = pad and math.floor(2 ^ pad) or 0,
@@ -72,7 +69,6 @@ function InputActions.Binding(name)
   return c.by_id[name] or c.by_command[name]
 end
 
--- CMND_VRFW_INPUT_ACTION(name)
 function InputActions.Get(name)
   local e = InputActions.Binding(name)
   if e == nil then

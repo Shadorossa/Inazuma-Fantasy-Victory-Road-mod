@@ -1,11 +1,3 @@
-# Inazuma Fantasy: the class title «BATALLA LEGENDARIA+» of the «Rival del día» row's class card (Nv. 250), drawn by
-# the row's Banner in content/teams/free_match_section.toml. Made at boot from the player's own files:
-# the retail Chronicle title gtxt_class28 of each language file, hue-turned, with the «+» of the retail
-# «BATALLA HEROICA+» (gtxt_class26 of the es file: same glyph, size and height, right after the text), fitted onto the
-# class card as Chronicle Deluxe's BATALLA LEGENDARIA. The «+» outline is cut with daily_rival_class/legendary_plus_mask.png
-# (an alpha shape). Numbers measured by research/scripts/if_legendary_battle_plus.py (re-run it after a game update
-# that changes these sprites). A texture of its own in the class title atlas: 512 x 160 per language, 1024 x 320 in the
-# default (Japanese) file. The same title as text: InazumaFantasy.daily_rival_class.
 schema = "VRFW.image/1"
 
 [[texture]]

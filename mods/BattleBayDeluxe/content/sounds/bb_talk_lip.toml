@@ -1,11 +1,5 @@
 schema = "VRFW.sound/1"
-# Battle Bay Deluxe: the silent lip cues of the Estadio BB campaign pre-match talk. The mechanism is the framework's
-# (docs/framework/ bb-prematch.md, «Mouth»): the game moves a speaker's mouth only while the line's voice cue plays,
-# and the only bank it loads for these talks is the chapter's `ev40` (Japanese; also with English voices). A captain
-# with no retail voice line of its own speaks one of these silent cues (the one of the line's length, `[bb_talk] lip`
-# of this mod's content/defaults/bb_talk.toml), and its mouth follows the cue's viseme track
-# (assets/sound/<ja|en>/<cue>.p3lip, the [[VRFW.Talk]] lip pattern). One cue per length of `[bb_talk] lip.seconds`;
-# the sound files are silence (4 kHz, the engine converts them to the bank format).
+# Battle Bay Deluxe: the silent lip cues of the Estadio BB campaign pre-match talk.
 
 [[voice]]
 bank = "ev40"

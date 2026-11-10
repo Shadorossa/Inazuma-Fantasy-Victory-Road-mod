@@ -1,0 +1,150 @@
+schema = "VRFW.team/2"
+default_lang = "en"
+# Solely Goalies (IE3 «Lucia's Ultimate Tournament», Team Ogre team 647): roster, kit and crest of the archived Chronicles Deluxe team.
+# Left out (no VR card): Ooiwa Kurando (the archive's stand-in dropped)
+[[team]]
+name = "ct_wk_keeper_stars"
+key = "evt_ct_wk_keeper_stars"
+based_on = "tm_cro_ie3_0520"
+kit = 0xC1F231A9
+formation = 0x7DEE1594 # F-Phalanx
+level = 65
+series = "IE3"
+roster = "exact"
+
+  [[team.member]]
+  slot = 0
+  card = 0x9ED17B1B   # Seymour Hillman
+  number = 1
+  rarity_step = 1
+  captain = true
+
+  [[team.member]]
+  slot = 1
+  card = 0x86FAF9FF   # Paul Siddon
+  number = 2
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 2
+  card = 0x953CC209   # Silvia Woods
+  number = 4
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 3
+  card = 0x69C82931   # Ken Ironwall
+  number = 5
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 4
+  card = 0x7239FA4A   # Grigio Quarzo
+  number = 6
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 5
+  card = 0xF8B3FFAD   # Hector Helio
+  number = 7
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 6
+  card = 0xB630035D   # Dave Quagmire
+  number = 8
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 7
+  card = 0x53302DB7   # Zeke Valanche
+  number = 9
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 8
+  card = 0x75305296   # Alex Hawke
+  number = 10
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 9
+  card = 0x56C59206   # Falcão Da Silva
+  number = 11
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 10
+  card = 0x6D455583   # Joseph King
+  number = 12
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 11
+  card = 0xE3EE70B5   # Gene Whalon
+  number = 13
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 12
+  card = 0x6785FD78   # Émile Lazare
+  number = 14
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 13
+  card = 0x5C5BBF0C   # Gigi Blasi
+  number = 15
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 14
+  card = 0x1799DC1D   # Griffit Valiance
+  number = 16
+  rarity_step = 1
+
+[team.emblem]
+png = "assets/images/teams/emblems/512/ie3_keeper_stars.png"
+base = "em030058"
+catalog = "shared"
+
+[team.text.es]
+name = "Porteros Delanteros"
+short = "Porteros Delanteros"
+
+[team.text.en]
+name = "Solely Goalies"
+short = "Solely Goalies"
+
+[team.text.fr]
+name = "Solely Goalies"
+short = "Solely Goalies"
+
+[team.text.de]
+name = "Solely Goalies"
+short = "Solely Goalies"
+
+[team.text.it]
+name = "Portieri in esubero"
+short = "Portieri in esubero"
+
+[team.text.pt]
+name = "Solely Goalies"
+short = "Solely Goalies"
+
+[team.text.ja]
+name = "キーパースターズ"
+short = "キーパースターズ"
+
+[team.text.zh_hans]
+name = "Solely Goalies"
+short = "Solely Goalies"
+
+[team.text.zh_hant]
+name = "Solely Goalies"
+short = "Solely Goalies"
+
+# each player plays its card's first 4 moves (the engine reads them from the card; the Hiper comes from its slot 9)
+[[edit]]
+target = "ct_wk_keeper_stars"
+card_moves = 4

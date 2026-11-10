@@ -5,7 +5,7 @@
 # section's items under an inserted header row at the end of every tab and marks the row being drawn
 # (CMND_VRFW_DROP_ROW). This graft draws them:
 # * the header: the game's header row with its label picture changed (VRFW image vrfw_gtxt_auras01 of win05_38,
-#   one per language, made from menu_text vrfw_drop_list_auras by research/scripts/vrfw_drop_list_header_build.py);
+#   one per language, made from menu_text vrfw_drop_list_auras by research/mods/VRFW/_tools/vrfw_drop_list_header_build.py);
 # * an item of the section: its aura's banner, as the aura card of the game draws it (team00_30 band by aura type and
 #   element, the aura's own art on the right, the item icon on the band's square, the name, the rate).
 # A row reused by another kind of row gets the retail layout back. Always on: without a declared section the

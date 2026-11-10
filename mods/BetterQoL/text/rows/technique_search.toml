@@ -1,5 +1,4 @@
-# BetterQoL's technique name search texts: rows of menu_text in 9 languages, read by
-# assets\lua\shop_menu_buy\900_technique_search.lua by id = crc32(row id).
+# Technique name search texts of the shop and the ability list (shop_menu_buy\ and ability_list_menu\900_technique_search.lua).
 
 schema = "VRFW.text/2"
 table = "menu_text"

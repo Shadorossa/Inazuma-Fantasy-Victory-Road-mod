@@ -1,0 +1,19 @@
+schema = "VRFW.game/2"
+
+# Model pool of the match [Match.SoccerSystem], read at the first instruction of RefreshMatchCharaLook.
+[[VRFW.Global]]
+name = "missing_content_soccer_system"
+rip = { pattern = "48 8B 0D ?? ?? ?? ?? 48 85 C9 0F 84 F8 01 00 00 85 D2 0F 84 F0 01 00 00", disp_off = 3, next_ip_off = 7, rva = 0x1572E59, target_rva = 0x220D730 }
+
+# The match info block [[g_gameRoot] + 0x6A60]: the two team records.
+[[VRFW.Global]]
+name = "missing_content_match"
+base = "game_root"
+chain = ["ROOT_MATCH"]
+
+# A substitution or position change reloads a match model with the keeper flag set or cleared.
+[[VRFW.Hook]]
+name = "MissingContent.KeeperLookRefresh"
+game = "Render.RefreshMatchCharaLook"
+kind = "function"
+arguments = ["ptr", "u32"]

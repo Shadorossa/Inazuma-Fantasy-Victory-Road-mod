@@ -1,45 +1,16 @@
--- VRFW_FaceIcon: a character's miniface drawn into the face mesh of a menu layer instance with the game's chara icon
--- command (552280324, the face + kit icon of the bank and team lists). Shared by every screen that shows minifaces
--- instead of calling the command themselves. Definitions only: this file runs in every menu VM (lua\_all), no engine
--- call at load.
---   VRFW_FaceIcon.Face(layer, idx, who, mesh, slot[, opts]) -> "drawn" | "loading" | false
---     who    a chara key (number), { chara = id }, { card = chara_param id } (turned into its chara id) or
---            { handle = player handle[, kind = 255][, chara = id] }: a team player drawn from his handle (the team dock
---            cards; kind = the command's 7th argument, 0 when not given)
---     mesh   the face mesh of the instance (e.g. _icon_chr_dmy01), slot its texture slot (e.g. icon_chr_dmy01)
---     opts   { kit = 0, keeper = false, use_args = false, face_only = false }: the command's later arguments;
---            opts.coach / opts.manager = true: the staff look (the coach's or manager's own clothes, as the retail
---            team screens draw them: the command's director (13th) and manager (17th) arguments)
---     The face is asked again only when the instance shows another character. The mesh stays hidden while the face
---     loads and when it cannot be drawn: never a blank face. One log line per failure (instance + character).
---   VRFW_FaceIcon.Card(layer, idx, who, x, y, size[, opts]) -> the same answer: an instance of a copy of the retail
---     list character card (team00_01_chara_card_for_list) shown as its portrait only (every other part hidden),
---     centred on (x, y) screen px (y down), `size` px high. The caller shows the instance itself. opts.portrait = true
---     keeps the card's portrait background and its gradient (the full portrait look of the player pages) instead of
---     the bare face.
---   VRFW_FaceIcon.Request(layer, idx, who, mesh, slot[, opts]) -> true | false: one request of the face (slot reset,
---     then the command), nothing remembered and no mesh shown or hidden: for a screen that shows the mesh itself
---     (its own fade-in or its own art on the same mesh). false = no character or the command refused.
---   VRFW_FaceIcon.Pending() -> true while a face asked by this VM is still loading (its mesh hidden)
---   VRFW_FaceIcon.Settle()  the loaded faces shown; a face still loading after WAIT calls is given up (hidden, logged).
---                           Called from the screen's Step only while Pending() is true.
---   VRFW_FaceIcon.Forget(layer[, idx]) an instance (or every instance of a layer) drawn again from scratch next time:
---                           call it when the instance was hidden for good or set up again by the engine.
-if VRFW_FaceIcon == nil then
+-- lua_patch.scope: used
+if VRFW.face_icon == nil then
   local F = {
-    FACE = 552280324,            -- (layer, idx, face only, mesh, slot, handle, kind, key[, kit, keeper, use args]) -> false = not drawn
-    RESET = 4176779611,          -- (layer, idx, slot): the slot's texture back to the object's own
+    FACE = 552280324,
+    RESET = 4176779611,
     LOADING = 1277042906,        -- (layer, idx) -> true while the instance's face texture loads
-    MESH_VISIBLE = VRFW_Cmd.SET_MESH_VISIBLE,   -- (layer, mesh, on, idx)
+    MESH_VISIBLE = VRFW.commands.SET_MESH_VISIBLE,   -- (layer, mesh, on, idx)
     NODE_VISIBLE = 2158717427,   -- (layer, node, on, idx)
     TEXT_VISIBLE = 2735666188,   -- (layer, text node, on, idx)
-    SCALE = VRFW_Cmd.SET_LAYER_LOCAL_SCALE,          -- (layer, sx, sy, sz, idx)
-    POS = VRFW_Cmd.SET_LAYER_LOCAL_POS,            -- (layer, x, y, z, idx)
+    SCALE = VRFW.commands.SET_LAYER_LOCAL_SCALE,          -- (layer, sx, sy, sz, idx)
+    POS = VRFW.commands.SET_LAYER_LOCAL_POS,            -- (layer, x, y, z, idx)
     CHARA_OF_CARD = 347353059,   -- (chara_param id) -> chara id
-    LOG = VRFW_Cmd.EVT_LOG,            -- CMND_EVT_LOG
-    WAIT = 300,                  -- Settle calls a face may take to load before it is given up
-    -- the list character card's portrait: its face mesh and slot, its height and the offset of its centre from the
-    -- layer origin (px at scale 1), the name text and the parts hidden around the portrait
+    WAIT = 300,
     CARD = {
       MESH = 2828003679 --[[_icon_chr_dmy_l01]], SLOT = 21929195 --[[icon_chr_dmy_l01]], NAME = 170976702 --[[_text_chr01]],
       RH = 156, OX = 59, OY = 11,
@@ -60,22 +31,16 @@ if VRFW_FaceIcon == nil then
         2265056496 --[[_num_chr_l01]], 504059210 --[[_num_chr_l02]], 3442901805 --[[_pos_gauge_exp_l01]],
       },
     },
-    shown = {},                  -- "layer:idx" -> { key, mesh, state = "drawn" | "loading" | "failed" }
+    shown = {},
     waiting = {},                -- "layer:idx" -> { layer, idx, mesh, key, left }
-    card_key = {},               -- "layer:idx" -> the key whose card parts were hidden
+    card_key = {},
   }
-  VRFW_FaceIcon = F
+  VRFW.face_icon = F
 
+  local logger
   local function log(...)
-    pcall(funcLuaCommand, F.LOG, "vrfw.FaceIcon", ...)
-  end
-
-  local function menu(cmd, ...)
-    local ok, a = pcall(funcLuaMenuCommand, cmd, ...)
-    if ok then
-      return a
-    end
-    return nil
+    logger = logger or VRFW.logger.new("vrfw.FaceIcon")
+    logger(...)
   end
 
   -- the chara key of `who` (nil, reason when there is none); a player handle form answers key, nil, handle, kind
@@ -104,7 +69,7 @@ if VRFW_FaceIcon == nil then
   end
 
   local function fail(k, layer, idx, mesh, key, why, look)
-    menu(F.MESH_VISIBLE, layer, mesh, false, idx)
+    VRFW.host.menu_command(F.MESH_VISIBLE, layer, mesh, false, idx)
     F.waiting[k] = nil
     local s = F.shown[k]
     if s ~= nil and s.state == "failed" and s.key == key and s.look == look then
@@ -115,11 +80,10 @@ if VRFW_FaceIcon == nil then
     return false
   end
 
-  -- the face command on (layer, idx) after its slot was reset: true = asked, false = refused (ok, why)
   local function request(layer, idx, key, mesh, slot, opts, handle, kind)
     opts = opts or {}
     handle, kind = handle or 0, kind or 0
-    menu(F.RESET, layer, idx, slot)
+    VRFW.host.menu_command(F.RESET, layer, idx, slot)
     if type(SetDisableForceCharaInvalidUseTarget) == "function" then
       pcall(SetDisableForceCharaInvalidUseTarget)
     end
@@ -142,20 +106,22 @@ if VRFW_FaceIcon == nil then
     return true
   end
 
-  function F.Request(layer, idx, who, mesh, slot, opts)
+  --- Requests the face icon of `who`; answers false for no face.
+  function F.request(layer, idx, who, mesh, slot, opts)
     local key, _, handle, kind = key_of(who)
     if key == nil then
-      menu(F.RESET, layer, idx, slot)
+      VRFW.host.menu_command(F.RESET, layer, idx, slot)
       return false
     end
     return (request(layer, idx, key, mesh, slot, opts, handle, kind))
   end
 
-  function F.Face(layer, idx, who, mesh, slot, opts)
+  --- Draws the face of `who`: "drawn", "loading", or the failure's answer.
+  function F.face(layer, idx, who, mesh, slot, opts)
     local k = layer .. ":" .. idx
     local key, why, handle, kind = key_of(who)
     if key == nil then
-      menu(F.MESH_VISIBLE, layer, mesh, false, idx)
+      VRFW.host.menu_command(F.MESH_VISIBLE, layer, mesh, false, idx)
       F.waiting[k] = nil
       if why ~= "no character" then
         return fail(k, layer, idx, mesh, 0, why)
@@ -165,7 +131,7 @@ if VRFW_FaceIcon == nil then
     end
     local look = (opts and opts.coach) and "coach" or (opts and opts.manager) and "manager" or "player"
     if handle ~= nil then
-      look = look .. ":" .. handle    -- a handle form is told apart by its player, not only by its key
+      look = look .. ":" .. handle
     end
     local s = F.shown[k]
     if s ~= nil and s.key == key and s.mesh == mesh and s.look == look then
@@ -183,57 +149,60 @@ if VRFW_FaceIcon == nil then
       F.shown[k] = { key = key, mesh = mesh, look = look, state = "loading" }
       F.waiting[k] = { layer = layer, idx = idx, mesh = mesh, key = key, left = F.WAIT }
     end
-    if menu(F.LOADING, layer, idx) == true then
-      menu(F.MESH_VISIBLE, layer, mesh, false, idx)
+    if VRFW.host.menu_command(F.LOADING, layer, idx) == true then
+      VRFW.host.menu_command(F.MESH_VISIBLE, layer, mesh, false, idx)
       return "loading"
     end
     F.shown[k].state = "drawn"
     F.waiting[k] = nil
-    menu(F.MESH_VISIBLE, layer, mesh, true, idx)
+    VRFW.host.menu_command(F.MESH_VISIBLE, layer, mesh, true, idx)
     return "drawn"
   end
 
-  function F.Card(layer, idx, who, x, y, size, opts)
+  --- Draws a card face at (x, y) with `size`; answers as F.face.
+  function F.card(layer, idx, who, x, y, size, opts)
     local C = F.CARD
     local s = size / C.RH
-    menu(F.SCALE, layer, s, s, 1, idx)
-    menu(F.POS, layer, x - C.OX * s, -y - C.OY * s, 0, idx)
+    VRFW.host.menu_command(F.SCALE, layer, s, s, 1, idx)
+    VRFW.host.menu_command(F.POS, layer, x - C.OX * s, -y - C.OY * s, 0, idx)
     local k = layer .. ":" .. idx
     local mode = (opts and opts.portrait) and "portrait" or "face"
     if F.card_key[k] == nil then
       for _, m in ipairs(C.HIDE) do
-        menu(F.MESH_VISIBLE, layer, m, false, idx)
+        VRFW.host.menu_command(F.MESH_VISIBLE, layer, m, false, idx)
       end
       for _, n in ipairs(C.HIDE_NODES) do
-        menu(F.NODE_VISIBLE, layer, n, false, idx)
+        VRFW.host.menu_command(F.NODE_VISIBLE, layer, n, false, idx)
       end
-      menu(F.TEXT_VISIBLE, layer, C.NAME, false, idx)
+      VRFW.host.menu_command(F.TEXT_VISIBLE, layer, C.NAME, false, idx)
     end
     if F.card_key[k] ~= mode then
       for _, m in ipairs(C.FRAME) do
-        menu(F.MESH_VISIBLE, layer, m, mode == "portrait", idx)
+        VRFW.host.menu_command(F.MESH_VISIBLE, layer, m, mode == "portrait", idx)
       end
       if F.card_key[k] ~= nil or mode == "portrait" then
         log("card", k, "now", mode)
       end
       F.card_key[k] = mode
     end
-    return F.Face(layer, idx, who, C.MESH, C.SLOT, opts)
+    return F.face(layer, idx, who, C.MESH, C.SLOT, opts)
   end
 
-  function F.Pending()
+  --- True while a face is still loading.
+  function F.pending()
     return next(F.waiting) ~= nil
   end
 
-  function F.Settle()
+  --- Clears the faces that finished loading.
+  function F.settle()
     for k, w in pairs(F.waiting) do
-      if menu(F.LOADING, w.layer, w.idx) ~= true then
+      if VRFW.host.menu_command(F.LOADING, w.layer, w.idx) ~= true then
         F.waiting[k] = nil
         local s = F.shown[k]
         if s ~= nil then
           s.state = "drawn"
         end
-        menu(F.MESH_VISIBLE, w.layer, w.mesh, true, w.idx)
+        VRFW.host.menu_command(F.MESH_VISIBLE, w.layer, w.mesh, true, w.idx)
       else
         w.left = w.left - 1
         if w.left <= 0 then
@@ -244,7 +213,8 @@ if VRFW_FaceIcon == nil then
     end
   end
 
-  function F.Forget(layer, idx)
+  --- Forgets the face state of (layer, idx), or of every instance of `layer`.
+  function F.forget(layer, idx)
     if idx ~= nil then
       local k = layer .. ":" .. idx
       F.shown[k], F.waiting[k], F.card_key[k] = nil, nil, nil

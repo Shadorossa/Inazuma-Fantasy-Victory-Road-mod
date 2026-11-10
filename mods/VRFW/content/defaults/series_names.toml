@@ -1,4 +1,3 @@
-# Aliases for series names used by character rules (canonical names come from the chara_base in_<name> columns); mods may add more.
 
 [aliases]
 go = "go1"

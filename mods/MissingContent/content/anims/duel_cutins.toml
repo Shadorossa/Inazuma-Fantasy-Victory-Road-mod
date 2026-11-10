@@ -1,0 +1,64 @@
+schema = "VRFW.anim/2"
+owner = "match"
+
+[[event]]
+name = "duel_atk_cs_vca0005"
+from = "ev71_40010"
+sound_cue = "MissingContent_duel_charge_from20_me"
+cuts = [{ glb = "assets/anims/duel_cutins/atk_cs_vca0005.glb", action = "c0010", effects = true, sync = [[43, 0], [109, 89], [202, 182]] }]
+
+# vca0006 01 attacker wins (charge, 2.68 s): strong dodge over the sliding tackle
+[[event]]
+name = "duel_atk_cs_vca0006"
+from = "ev71_40010"
+sound_cue = "MissingContent_duel_charge_from18_me"
+cuts = [{ glb = "assets/anims/duel_cutins/atk_cs_vca0006.glb", action = "c0010", effects = true, sync = [[40, 0], [109, 91], [202, 184]] }]
+
+# vca0007 01 attacker wins (charge, 2.68 s): strong breakthrough through the block
+[[event]]
+name = "duel_atk_cs_vca0007"
+from = "ev71_40010"
+sound_cue = "MissingContent_duel_charge_from20_me"
+cuts = [{ glb = "assets/anims/duel_cutins/atk_cs_vca0007.glb", action = "c0010", effects = true, sync = [[43, 0], [109, 89], [202, 182]] }]
+
+# vca0008 01 attacker wins (charge, 2.68 s): strong breakthrough past the sliding tackle
+[[event]]
+name = "duel_atk_cs_vca0008"
+from = "ev71_40010"
+sound_cue = "MissingContent_duel_charge_from20_me"
+cuts = [{ glb = "assets/anims/duel_cutins/atk_cs_vca0008.glb", action = "c0010", effects = true, sync = [[44, 0], [109, 89], [202, 182]] }]
+
+# vca0015 01 attacker wins (charge, 2.32 s): Galaxy: dash past the defender (13 m)
+[[event]]
+name = "duel_atk_gx_vca0015"
+from = "ev71_40010"
+sound_cue = "MissingContent_duel_charge_from34_me"
+cuts = [{ glb = "assets/anims/duel_cutins/atk_gx_vca0015.glb", action = "c0010", effects = true, sync = [[51, 0], [109, 75], [202, 168]] }]
+
+# vca0009 01a defender wins (block, 2.68 s): strong block stops the dodge
+[[event]]
+name = "duel_def_cs_vca0009"
+from = "ev71_50010"
+sound_cue = "MissingContent_duel_block_gap50_me"
+cuts = [{ glb = "assets/anims/duel_cutins/def_cs_vca0009.glb", action = "c0010", effects = true, sync = [[41, 0], [96, 105], [220, 229]] }]
+
+# vca0010 01a defender wins (block, 2.68 s): strong sliding tackle wins the ball
+[[event]]
+name = "duel_def_cs_vca0010"
+from = "ev71_50010"
+sound_cue = "MissingContent_duel_block_gap50_me"
+cuts = [{ glb = "assets/anims/duel_cutins/def_cs_vca0010.glb", action = "c0010", effects = true, sync = [[41, 0], [96, 105], [220, 229]] }]
+
+# vca0011 01a defender wins (block, 2.68 s): strong block stops the breakthrough
+[[event]]
+name = "duel_def_cs_vca0011"
+from = "ev71_50010"
+sound_cue = "MissingContent_duel_block_late_me"
+cuts = [{ glb = "assets/anims/duel_cutins/def_cs_vca0011.glb", action = "c0010", effects = true, sync = [[0, 61], [96, 104], [220, 228]] }]
+
+# vca0012 01a defender wins (block, 2.68 s): strong sliding tackle on the breakthrough
+[[event]]
+name = "duel_def_cs_vca0012"
+from = "ev71_50010"
+sound_cue = "MissingContent_duel_block_gap49_me"
+cuts = [{ glb = "assets/anims/duel_cutins/def_cs_vca0012.glb", action = "c0010", effects = true, sync = [[41, 0], [96, 104], [220, 228]] }]

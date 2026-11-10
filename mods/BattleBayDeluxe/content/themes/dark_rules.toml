@@ -1,5 +1,4 @@
-# Battle Bay Deluxe's rules for the framework's dark theme (merged into every theme with id "dark"). Its other atlases
-# in the art folder (mode selector, bracket) take the default for mod atlases: only their plates change.
+# Battle Bay Deluxe's rules for the framework's dark theme (merged into every theme with id "dark").
 schema = "VRFW.theme_rules/1"
 theme = "dark"
 # the League hub (its own atlas)
@@ -7,8 +6,6 @@ include = ["dx11/menu/220_img/bbd_lg"]
 # the Draft pack opening (darkness, glows, flashes) and the bracket's score digits keep their colours
 exclude = ["dx11/menu/220_img/bbd_pk", "dx11/menu/220_img/bbd_tn_num"]
 
-# the League hub: cards (white body, navy band) take the card colour, the band stays a muted navy (hue range kept off
-# blue); side menu / bands / bar take the accent; the badge keeps its gold
 [[sprite]]
 match = "bbd_lg_hero"
 class = "surface"

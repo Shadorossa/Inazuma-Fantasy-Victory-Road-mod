@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Sub Character · Inazuma Eleven GO
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c04000350"                                   # Spotter
 moves = [
-  { move = 0xAA67E325, level = 3 },                         # Desert Blast
-  { move = 0xB58AE80E, level = 25 },                        # Silk Road
-  { move = 0xAE5C7145, level = 42 },                        # Fangtasmagoria
-  { move = 0x06458894, level = 51 },                        # Feint Dash
+  { move = 0xA9E3374B, level = 35 },                        # Cyclone Sprint
+  { move = 0xAA67E325, level = 45 },                        # Desert Blast
+  { move = 0xB58AE80E, level = 55 },                        # Silk Road
+  { move = 0xAE5C7145, level = 65 },                        # Fangtasmagoria
 ]
 
   [[edit.cards]]
@@ -40,9 +37,9 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c05026510"                                   # Nelly Evans
 moves = [
-  { move = 0x518BCA26, level = 1 },                         # Fire Tornado
-  { move = 0x6B4A7B35, level = 1 },                         # Power Shot
-  { move = 0x900C8E0A, level = 43 },                        # Maestro's Call
+  { move = 0x2A4E3349, level = 39 },                        # Heart Beat
+  { move = 0x518BCA26, level = 49 },                        # Fire Tornado
+  { move = 0x900C8E0A, level = 59 },                        # Maestro's Call
   { move = 0x87379CDF, level = 65 },                        # Fire Tornado TC
 ]
 
@@ -55,8 +52,8 @@ moves = [
 [[edit]]
 target = "c05026520"                                   # Celia Hills
 moves = [
-  { move = 0x1F5EB9D5, level = 1 },                         # Nutmeg
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x6ADE9E01, level = 11 },                        # Illusory Ball
   { move = 0xC16279D1, level = 50 },                        # Field of Force
   { move = 0x32EEA7FE, level = 70 },                        # Death Zone 2
 ]
@@ -119,8 +116,8 @@ target = "c05026570"                                   # Chester Horse Sr
 moves = [
   { move = 0x2D9F7E76, level = 1 },                         # Breath Taker
   { move = 0xE546F47E, level = 14 },                        # Dust Devil
-  { move = 0x7D6E9A87, level = 29 },                        # The Wall
   { move = 0xD471DE6C, level = 45 },                        # Snakebite
+  { move = 0xEBD03938, level = 55 },                        # Utter Gutsiness Catch
 ]
 
   [[edit.cards]]
@@ -132,10 +129,10 @@ moves = [
 [[edit]]
 target = "c05026630"                                   # Faythe Heeler
 moves = [
-  { move = 0xA37D1A41, level = 6 },                         # Hyper-Swiper
-  { move = 0x75994916, level = 17 },                        # Cunning Pull
-  { move = 0x6DD736DD, level = 37 },                        # Ribbon Shower
-  { move = 0xB0F8060A, level = 53 },                        # Ozone Flayer
+  { move = 0xBBA44137, level = 37 },                        # Great Wall
+  { move = 0xA37D1A41, level = 47 },                        # Hyper-Swiper
+  { move = 0x6DD736DD, level = 57 },                        # Ribbon Shower
+  { move = 0xB0F8060A, level = 67 },                        # Ozone Flayer
 ]
 
   [[edit.cards]]
@@ -149,8 +146,8 @@ target = "c05026640"                                   # Maia
 moves = [
   { move = 0x6BA49049, level = 1 },                         # Mystic Mist
   { move = 0x20D01E43, level = 10 },                        # Hey Presto
-  { move = 0x23C3EE90, level = 37 },                        # Shoulder Tackle
   { move = 0xEC78BBC6, level = 62 },                        # Black Ash
+  { move = 0xA2BF7076, level = 72 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -165,8 +162,8 @@ target = "c05026650"                                   # Julia Blaze
 moves = [
   { move = 0x2A4E3349, level = 1 },                         # Heart Beat
   { move = 0x0B011EBF, level = 16 },                        # Fireball Screw
-  { move = 0xB7474004, level = 29 },                        # Dough Ray Me
   { move = 0xDA3FF6C9, level = 50 },                        # Criss-Cross
+  { move = 0xB7474004, level = 60 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]
@@ -178,10 +175,10 @@ moves = [
 [[edit]]
 target = "c06037450"                                   # William Glass
 moves = [
-  { move = 0x72514A74, level = 1 },                         # Low Drive
-  { move = 0x29B328E6, level = 30 },                        # Spectacle Crash
-  { move = 0x163D8F70, level = 50 },                        # Chip Shot
-  { move = 0xBCE9DEAB, level = 75 },                        # Chaos Break
+  { move = 0x01DB04F5, level = 28 },                        # Defence Scan
+  { move = 0x61FB16FD, level = 75 },                        # Divine Arrows
+  { move = 0x29B328E6, level = 85 },                        # Spectacle Crash
+  { move = 0xBCE9DEAB, level = 95 },                        # Chaos Break
 ]
 
   [[edit.cards]]
@@ -195,8 +192,8 @@ moves = [
 target = "c06039020"                                   # Seymour Hillman
 moves = [
   { move = 0x8C382852, level = 1 },                         # God Hand
-  { move = 0x8FBCFC3C, level = 1 },                         # Blazing Knuckle
-  { move = 0xA491AFFF, level = 1 },                         # Majin the Hand
+  { move = 0x8FBCFC3C, level = 11 },                        # Blazing Knuckle
+  { move = 0xA491AFFF, level = 21 },                        # Majin the Hand
   { move = 0xF64674CB, level = 40 },                        # Fist of Justice
 ]
 
@@ -229,9 +226,9 @@ VRFW.MoveGrades = [
 target = "c06037430"                                   # Darren LaChance
 moves = [
   { move = 0x5AF33BC7, level = 1 },                         # God Hand
-  { move = 0xDD6B2708, level = 1 },                         # Majin the Hand
-  { move = 0xF2CB0879, level = 1 },                         # Mugen the Hand
-  { move = 0xF7841EFC, level = 11 },                        # Fiend Hand
+  { move = 0xDD6B2708, level = 11 },                        # Majin the Hand
+  { move = 0xF2CB0879, level = 21 },                        # Mugen the Hand
+  { move = 0xF7841EFC, level = 31 },                        # Fiend Hand
 ]
 VRFW.MoveGrades = [
   { Move = 0xF2CB0879, Grade = 1 },                         # Mugen the Hand
@@ -246,10 +243,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c06037440"                                   # Archer Hawkins
 moves = [
-  { move = 0x08EEBD53, level = 1 },                         # Feint Play
   { move = 0x142DBE2A, level = 30 },                        # Foul Offence
   { move = 0x7B64F3D2, level = 40 },                        # Hawk Shot
   { move = 0x04941270, level = 50 },                        # Vac Attack
+  { move = 0x8A52C09B, level = 60 },                        # Doomsword Slash
 ]
 
   [[edit.cards]]
@@ -263,8 +260,8 @@ moves = [
 target = "c06037460"                                   # Arion Sherwind
 moves = [
   { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
-  { move = 0x6F918884, level = 1 },                         # Easy Breezy
-  { move = 0xA37D1A41, level = 1 },                         # Hyper-Swiper
+  { move = 0x6F918884, level = 11 },                        # Easy Breezy
+  { move = 0xA37D1A41, level = 21 },                        # Hyper-Swiper
   { move = 0x7C1494CF, level = 40 },                        # Tornado Tunnel
 ]
 
@@ -276,15 +273,15 @@ moves = [
 [[edit]]
 target = "c06037380"                                   # Janison Veteran
 moves = [
-  { move = 0xCB8E6D04, level = 1 },                         # Mighty Save
   { move = 0xDF2D9951, level = 15 },                        # Close Counter
   { move = 0x50E88A33, level = 34 },                        # Fist Beam
   { move = 0xB8C5883B, level = 64 },                        # God Hand X
+  { move = 0x53E9C2A3, level = 74 },                        # Capable Hands
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x9036A3E7, level = 1 },                         # Serendipity [aura]
+  { move = 0x9036A3E7, level = 43 },                        # wkk00520
 ]
 
   [[edit.cards]]
@@ -313,9 +310,9 @@ moves = [
 target = "c06039030"                                   # Frank Wintersea
 moves = [
   { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
-  { move = 0x650FA58E, level = 14 },                        # Spin Out
   { move = 0xE196F1D1, level = 24 },                        # Burning Bomb
-  { move = 0x1C4D4906, level = 44 },                        # Whirlpool
+  { move = 0x650FA58E, level = 34 },                        # Spin Out
+  { move = 0x72BFA108, level = 44 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -344,9 +341,9 @@ moves = [
 target = "c11904030"                                   # Othello Go
 moves = [
   { move = 0xF5638A87, level = 1 },                         # Elemental Destroyer
-  { move = 0x3297683F, level = 13 },                        # Warp Step
-  { move = 0x0E4E083A, level = 20 },                        # Zero Magnum
-  { move = 0x568262FA, level = 30 },                        # Dark Tornado
+  { move = 0x0E4E083A, level = 11 },                        # Zero Magnum
+  { move = 0x3297683F, level = 21 },                        # Warp Step
+  { move = 0x568262FA, level = 31 },                        # Dark Tornado
 ]
 
   [[edit.cards]]
@@ -374,6 +371,12 @@ moves = [
 
 [[edit]]
 target = "c06037380_5000"                              # Janison Veteran
+moves = [
+  { move = 0xF8D0B98D, level = 1 },                         # Fantastic Save
+  { move = 0x44E1A25A, level = 11 },                        # Pressure Punch
+  { move = 0x836E6360, level = 21 },                        # Stillness Drip
+  { move = 0x7BC5D9F0, level = 31 },                        # Rotary Sander
+]
 
   [[edit.cards]]
   id = 0xA6A761B2                                         # GK/MF · fire

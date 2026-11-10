@@ -1,7 +1,4 @@
-# Character Reforged › its actions of the VR-Framework's save adjust.
-# The functions live in scripts\save_tools.lua; the texts in text\rows\save_tools.toml.
-# The duplicates and the rarity actions are declared by their owners (New Recruitment, No More Rarities) and run here
-# (script = "CharacterReforged:save_tools.lua": the duplicate-players pass is this mod's mechanism).
+# The mod's actions of the framework's save adjust (scripts\save_tools.lua; texts text\rows\save_tools.toml).
 schema = "VRFW.save_adjust/1"
 
 [[VRFW.SaveAdjust]]

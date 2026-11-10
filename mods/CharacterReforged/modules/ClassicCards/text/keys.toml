@@ -1,49 +1,93 @@
 schema = "VRFW.text_key/1"
-# Texts of «No More Rarities»: the «Mods»
-# screen's name and description. A language missing here falls back to English. The one-card-per-character limit is the
-# module New Recruitment's (its text\keys.toml).
+# Mods screen name / description and the option row of options.toml; a missing language falls back to English.
 default_lang = "en"
 
 [en.new]
 mod_name = "Classic Cards"
-mod_description = "Every normal player is a 5★ Legend, as in the classic Inazuma Eleven games: no 1★-4★ rarities, rarity bonuses, rarity-up or fusion, and saves are converted to 5★ cards. Normal cards are coloured by position: goalkeeper gold, defender green, midfielder blue, forward red. Only the basic rarities lose their rarity look: Hero and Diamond cards keep theirs."
-
+mod_description = "Every normal player is a 5★ Legend, as in the classic Inazuma Eleven games: no rarities, rarity-up or fusion. Cards are coloured by position, and special rarities such as Hero and Diamond keep their look by default."
+option_removed_rarities = "Cards without rarity look"
+option_removed_rarities_help = "Which rarities lose their rarity look: the basic 1★-5★ always; Idols (Héroe) and Diamonds also show the player's position. Applies after restarting the game."
+removed_basic = "Normal ones only"
+removed_basic_idol = "Normal + Idols"
+removed_basic_diamond = "Normal + Diamonds"
+removed_all = "All"
 
 [es.new]
 mod_name = "Cartas clásicas"
-mod_description = "Todo jugador normal es una Leyenda 5★, como en los Inazuma Eleven clásicos: sin rarezas 1★-4★, bonus de rareza, subida de rareza ni fusión, y las partidas se convierten a cartas 5★. Las cartas normales se colorean por posición: portero dorado, defensa verde, centrocampista azul, delantero rojo. Solo las rarezas básicas pierden su aspecto: las cartas Héroe y Diamante mantienen el suyo."
-
+mod_description = "Todo jugador normal es una Leyenda 5★, como en los Inazuma Eleven clásicos: sin rarezas, subida de rareza ni fusión. Las cartas se colorean por posición, y las rarezas especiales como Héroe y Diamante mantienen su aspecto por defecto."
+option_removed_rarities = "Cartas sin aspecto de rareza"
+option_removed_rarities_help = "Qué rarezas pierden su aspecto de rareza: las básicas 1★-5★ siempre; Ídolos (Héroe) y Diamantes también muestran la posición del jugador. Se aplica al reiniciar el juego."
+removed_basic = "Solo las normales"
+removed_basic_idol = "Normales + Ídolos"
+removed_basic_diamond = "Normales + Diamantes"
+removed_all = "Todas"
 
 [fr.new]
 mod_name = "Cartes classiques"
-mod_description = "Chaque joueur normal est une Légende 5★, comme dans les Inazuma Eleven classiques : plus de raretés 1★-4★, de bonus de rareté, de montée de rareté ni de fusion, et les sauvegardes sont converties en cartes 5★. Les cartes normales sont colorées selon le poste : gardien or, défenseur vert, milieu bleu, attaquant rouge. Seules les raretés basiques perdent leur aspect : les cartes Héros et Diamant gardent le leur."
-
+mod_description = "Tout joueur normal est une Légende 5★, comme dans les Inazuma Eleven classiques : plus de raretés, de montée de rareté ni de fusion. Les cartes sont colorées selon le poste, et les raretés spéciales comme Héros et Diamant gardent leur aspect par défaut."
+option_removed_rarities = "Raretés supprimées"
+option_removed_rarities_help = "Quelles raretés perdent leur aspect : les basiques 1★-5★ toujours ; les Idoles (Héros) et les Diamants montrent aussi le poste du joueur. Appliqué au redémarrage du jeu."
+removed_basic = "Basiques seulement"
+removed_basic_idol = "Basiques + Idoles"
+removed_basic_diamond = "Basiques + Diamants"
+removed_all = "Toutes"
 
 [de.new]
 mod_name = "Klassische Karten"
-mod_description = "Jeder normale Spieler ist eine 5★-Legende, wie in den klassischen Inazuma-Eleven-Spielen: keine Seltenheiten 1★-4★, keine Seltenheitsboni, kein Aufstufen und keine Fusion, und Spielstände werden auf 5★-Karten umgestellt. Normale Karten sind nach Position gefärbt: Torwart gold, Verteidiger grün, Mittelfeld blau, Stürmer rot. Nur die einfachen Seltenheiten verlieren ihr Aussehen: Helden- und Diamantkarten behalten ihres."
-
+mod_description = "Jeder normale Spieler ist eine 5★-Legende, wie in den klassischen Inazuma-Eleven-Spielen: keine Seltenheiten, kein Seltenheits-Aufstieg und keine Fusion. Die Karten sind nach Position gefärbt, und besondere Seltenheiten wie Held und Diamant behalten standardmäßig ihr Aussehen."
+option_removed_rarities = "Entfernte Seltenheiten"
+option_removed_rarities_help = "Welche Seltenheiten ihr Aussehen verlieren: die einfachen 1★-5★ immer; Idole (Helden) und Diamanten zeigen auch die Position des Spielers. Gilt nach einem Neustart des Spiels."
+removed_basic = "Nur einfache"
+removed_basic_idol = "Einfache + Idole"
+removed_basic_diamond = "Einfache + Diamanten"
+removed_all = "Alle"
 
 [it.new]
 mod_name = "Carte classiche"
-mod_description = "Ogni giocatore normale è una Leggenda 5★, come negli Inazuma Eleven classici: niente rarità 1★-4★, bonus di rarità, aumento di rarità né fusione, e i salvataggi vengono convertiti in carte 5★. Le carte normali sono colorate per ruolo: portiere oro, difensore verde, centrocampista blu, attaccante rosso. Solo le rarità base perdono il loro aspetto: le carte Eroe e Diamante mantengono il proprio."
-
+mod_description = "Ogni giocatore normale è una Leggenda 5★, come nei classici Inazuma Eleven: niente rarità, potenziamenti di rarità né fusioni. Le carte sono colorate per ruolo, e le rarità speciali come Eroe e Diamante mantengono per impostazione predefinita il loro aspetto."
+option_removed_rarities = "Rarità rimosse"
+option_removed_rarities_help = "Quali rarità perdono il loro aspetto: le base 1★-5★ sempre; gli Idoli (Eroe) e i Diamanti mostrano anche il ruolo del giocatore. Si applica al riavvio del gioco."
+removed_basic = "Solo base"
+removed_basic_idol = "Base + Idoli"
+removed_basic_diamond = "Base + Diamanti"
+removed_all = "Tutte"
 
 [pt.new]
 mod_name = "Cartas clássicas"
-mod_description = "Todo jogador normal é uma Lenda 5★, como nos Inazuma Eleven clássicos: sem raridades 1★-4★, bónus de raridade, subida de raridade nem fusão, e os saves são convertidos em cartas 5★. As cartas normais são coloridas por posição: guarda-redes dourado, defesa verde, médio azul, avançado vermelho. Só as raridades básicas perdem o aspeto: as cartas Herói e Diamante mantêm o seu."
-
+mod_description = "Todo o jogador normal é uma Lenda 5★, como nos Inazuma Eleven clássicos: sem raridades, subida de raridade nem fusão. As cartas são coloridas por posição, e as raridades especiais como Herói e Diamante mantêm o seu aspeto por defeito."
+option_removed_rarities = "Raridades removidas"
+option_removed_rarities_help = "Que raridades perdem o seu aspeto: as básicas 1★-5★ sempre; os Ídolos (Herói) e os Diamantes também mostram a posição do jogador. Aplica-se ao reiniciar o jogo."
+removed_basic = "Só as básicas"
+removed_basic_idol = "Básicas + Ídolos"
+removed_basic_diamond = "Básicas + Diamantes"
+removed_all = "Todas"
 
 [ja.new]
 mod_name = "クラシックカード"
-mod_description = "昔のイナズマイレブンのように、通常の選手はすべて★5レジェンド。★1～★4のレアリティ、レアリティによる能力ボーナス、レアリティアップ・合成はなく、セーブも★5のカードに変換されます。通常のカードは選手のポジションで色分け：GKは金、DFは緑、MFは青、FWは赤。見た目のレアリティがなくなるのは基本のものだけで、ヒーローとダイヤモンドのカードはそのままです。"
-
+mod_description = "通常の選手はすべて、昔のイナズマイレブンのように★5のレジェンドになります。レア度、レア度アップ、合成はなくなります。カードはポジションごとに色分けされ、ヒーローやダイヤモンドなどの特別なレア度は標準では見た目が残ります。"
+option_removed_rarities = "削除するレアリティ"
+option_removed_rarities_help = "見た目のレアリティを外す範囲：基本の★1～★5は常に、アイドル（ヒーロー）とダイヤモンドも選手のポジションの色になる。ゲームの再起動後に反映。"
+removed_basic = "基本のみ"
+removed_basic_idol = "基本＋アイドル"
+removed_basic_diamond = "基本＋ダイヤモンド"
+removed_all = "すべて"
 
 [zh_hans.new]
 mod_name = "经典卡牌"
-mod_description = "像经典的闪电十一人一样，所有普通球员都是★5传奇：没有★1～★4稀有度、稀有度加成、稀有度升级或合成，存档也会转换为★5卡。普通卡按位置着色：守门员金色、后卫绿色、中场蓝色、前锋红色。只有基础稀有度移除外观，英雄卡和钻石卡保持原样。"
-
+mod_description = "所有普通球员都是5★传奇，如同经典的《闪电十一人》：没有稀有度、稀有度提升和合成。卡片按位置着色，英雄、钻石等特殊稀有度默认保留原有外观。"
+option_removed_rarities = "移除的稀有度"
+option_removed_rarities_help = "哪些稀有度失去稀有度外观：基本的★1～★5始终如此；偶像（英雄）和钻石也显示球员位置的颜色。重启游戏后生效。"
+removed_basic = "仅基本"
+removed_basic_idol = "基本＋偶像"
+removed_basic_diamond = "基本＋钻石"
+removed_all = "全部"
 
 [zh_hant.new]
 mod_name = "經典卡牌"
-mod_description = "像經典的閃電十一人一樣，所有普通球員都是★5傳奇：沒有★1～★4稀有度、稀有度加成、稀有度升級或合成，存檔也會轉換為★5卡。普通卡按位置著色：守門員金色、後衛綠色、中場藍色、前鋒紅色。只有基礎稀有度移除外觀，英雄卡和鑽石卡保持原樣。"
+mod_description = "所有普通球員都是5★傳奇，如同經典的《閃電十一人》：沒有稀有度、稀有度提升和合成。卡片按位置著色，英雄、鑽石等特殊稀有度預設保留原有外觀。"
+option_removed_rarities = "移除的稀有度"
+option_removed_rarities_help = "哪些稀有度失去稀有度外觀：基本的★1～★5始終如此；偶像（英雄）和鑽石也顯示球員位置的顏色。重啟遊戲後生效。"
+removed_basic = "僅基本"
+removed_basic_idol = "基本＋偶像"
+removed_basic_diamond = "基本＋鑽石"
+removed_all = "全部"

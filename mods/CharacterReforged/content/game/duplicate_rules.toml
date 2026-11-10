@@ -1,0 +1,6 @@
+schema = "VRFW.game/2"
+
+# () -> 1 while the loaded save keeps one card per player, else 0 (scripts\duplicate_players.lua)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_ONE_CARD_PER_PLAYER"
+handler = "CharacterReforged.OneCardPerPlayer"

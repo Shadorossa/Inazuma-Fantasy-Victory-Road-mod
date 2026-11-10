@@ -1,0 +1,38 @@
+schema = "VRFW.match_resource/1"
+
+[[VRFW.MatchResource]]
+name = "sprint"
+aliases = ["VRFW.sprint"]          # the sprint role key (docs/framework/match-resource.md)
+max = 100
+live_states = [9, 14, 15, 16]     # in play, focus battle, scramble, zone (as the PE)
+duel_states = [14, 15]
+# + per live second, always (also while dashing: a dash costs drain.dash - regen_per_s net).
+regen_per_s = 12.0
+# no cap_by: the bar refills up to `max` for every player, human or AI, whatever PE he has left
+
+# Absolute points per live second (no per_match: the sprint bar does not follow the match length).
+[VRFW.MatchResource.drain]
+base = 0.0
+dash = 30.0
+dash_attack = 48.0
+consume_is_dash = true            # the DP consume state is the engine's dash (manual or AI)
+
+[VRFW.MatchResource.stat_scale]
+stat = "physical"
+ref = 100
+step = 0.0028
+floor = 0.01
+
+[VRFW.MatchResource.half_time]
+share = 1.0
+
+# empty: a cooldown of min_seconds live seconds without dash while the bar refills, then the dash is allowed again
+[[VRFW.MatchResource.state]]
+name = "winded"
+below = 0.0                       # entered at 0
+above = 0.0
+min_seconds = 5.0
+block_dash = true                 # a manual dash is refused
+end_dash = true                   # a running manual dash is ended
+stop_drain = true
+speed_mult_dashing = 0.72

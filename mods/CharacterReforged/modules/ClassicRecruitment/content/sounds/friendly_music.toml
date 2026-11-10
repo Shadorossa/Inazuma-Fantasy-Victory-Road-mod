@@ -1,0 +1,48 @@
+schema = "VRFW.sound/1"
+
+# The friendlies' music, one track per season (content\friendly_zones\zones.toml [[ClassicRecruitment.FriendlyMusic]]).
+# Each track gets its own match BGM set crc32("<cue>_set") (cue = classicrecruitment_<song>): the retail street-match
+# set bg30030 (the friendly game's own) with the track in place of its music. Built by _tools\friendly_music_build.py:
+# 48 kHz stereo, loudness of bg30030, the whole track loops.
+
+# ie1
+[[music]]
+category = "match"
+name = "Football Battle"
+match_set = "bg30030"
+file = "assets/sounds/music/classicrecruitment_football_battle.hca"
+
+# ie2
+[[music]]
+category = "match"
+name = "Go, Raimon!"
+match_set = "bg30030"
+file = "assets/sounds/music/classicrecruitment_go_raimon.hca"
+
+# ie3
+[[music]]
+category = "match"
+name = "Champions of the World"
+match_set = "bg30030"
+file = "assets/sounds/music/classicrecruitment_champions_of_the_world.hca"
+
+# go
+[[music]]
+category = "match"
+name = "Football Battle! (GO)"
+match_set = "bg30030"
+file = "assets/sounds/music/classicrecruitment_football_battle_go.hca"
+
+# cs
+[[music]]
+category = "match"
+name = "Bring Back Football!"
+match_set = "bg30030"
+file = "assets/sounds/music/classicrecruitment_bring_back_football.hca"
+
+# galaxy
+[[music]]
+category = "match"
+name = "Galactic Battle!"
+match_set = "bg30030"
+file = "assets/sounds/music/classicrecruitment_galactic_battle.hca"

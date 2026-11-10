@@ -1,21 +1,13 @@
 -- Recruit service, script side (game Lua side: assets/lua/menu/_all/62_recruit.lua).
---   CMND_VRFW_RECRUIT_CLUB() -> { total, element = { [1..5] = n }, position = { [1..4] = n } }: saved club characters counted by card element
---     (chara_param col 2: 1 wind, 2 forest, 3 fire, 4 mountain, 5 void) and main position (col 3: 1 GK, 2 FW, 3 MF, 4 DF)
---   CMND_VRFW_RECRUIT_HOLDERS(card, ...) -> { {handle, param, level, busy}, ... }: the saved club players of those cards
---   CMND_VRFW_RECRUIT_GAME_STADIUM(game) -> map crc (0 = none): a match row's own stadium (SOCCER_GAME_INFO col 4)
---   career counters (per save slot, read with CMND_VRFW_SAVE_GET), counted from first run:
---     "stats.matches_won"  matches the user's side ends ahead
---     "stats.goals"        goals of the user's side
 
 Recruit = Recruit or {}
 
-local Id = require "lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
 local PARAM = nil   -- card -> { element, position }
 local GAME_STADIUM = nil   -- match row id -> its stadium's map crc
 
--- CMND_VRFW_RECRUIT_GAME_STADIUM(game) -> the stadium a match row is played at in the game data (0 = unknown row)
 function Recruit.GameStadium(game)
   if GAME_STADIUM == nil then
     GAME_STADIUM = {}
@@ -32,7 +24,6 @@ function Recruit.GameStadium(game)
   return GAME_STADIUM[u32(game)] or 0
 end
 
--- a card's element and main position, from the framework's character index (VRFW.character), cached per card
 local function params()
   if PARAM then return PARAM end
   PARAM = setmetatable({}, { __index = function(t, card)
@@ -47,14 +38,14 @@ end
 
 function Recruit.Club()
   local out = { total = 0, element = { 0, 0, 0, 0, 0 }, position = { 0, 0, 0, 0 } }
-  local ok, saved = pcall(VRFW.character.saved)
-  if not ok or type(saved) ~= "table" then
-    VRFW.warn("recruit: the club is not readable (" .. tostring(saved) .. ")")
+  local ok, columns = pcall(VRFW.character.saved_columns, { "param" })
+  if not ok or type(columns) ~= "table" then
+    VRFW.warn("recruit: the club is not readable (" .. tostring(columns) .. ")")
     return out
   end
   local P = params()
-  for _, c in ipairs(saved) do
-    local p = P[u32(c.param)]
+  for _, param in ipairs(columns.param) do
+    local p = P[u32(param)]
     out.total = out.total + 1
     if p then
       if p[1] >= 1 and p[1] <= 5 then out.element[p[1]] = out.element[p[1]] + 1 end
@@ -63,8 +54,6 @@ function Recruit.Club()
   end
   return out
 end
-
--- ---- holders: the club players of some cards (a level requirement, a release)
 
 -- a miximax fusion holds the player (as its base or its partner): such a player is never released
 local function in_fusion(handle)
@@ -76,30 +65,38 @@ local function in_fusion(handle)
   return false
 end
 
--- CMND_VRFW_RECRUIT_HOLDERS(card, ...) -> { {handle, param, level, busy}, ... }: the saved club players (container 0)
--- of those cards; busy = true while a miximax fusion holds him
 function Recruit.Holders(...)
   local want = {}
   for _, c in ipairs({ ... }) do want[u32(c)] = true end
   local out = {}
-  local ok, saved = pcall(VRFW.character.saved)
-  for _, k in ipairs(ok and type(saved) == "table" and saved or {}) do
-    local h = u32(k.handle)
-    if math.floor(h / 4096) % 16 == 0 and want[u32(k.param)] then
-      out[#out + 1] = { handle = h, param = u32(k.param), level = tonumber(k.level) or 1, busy = in_fusion(h) }
+  local ok, columns = pcall(VRFW.character.saved_columns, { "handle", "param", "level" })
+  if not ok or type(columns) ~= "table" then return out end
+  for n, handle in ipairs(columns.handle) do
+    local h, param = u32(handle), u32(columns.param[n])
+    if math.floor(h / 4096) % 16 == 0 and want[param] then
+      out[#out + 1] = { handle = h, param = param, level = tonumber(columns.level[n]) or 1, busy = in_fusion(h) }
     end
   end
   return out
 end
 
--- ---- save adjust «clear_season» (content\save_adjust\recruit.toml, docs/framework/save-adjust.md)
--- Signings made before VRFW 2.66 kept the season bit CMND_ADD_PARTY leaves on the record (the bank showed them as
--- «Jugador de temporada»). The action clears it on the records the recruit paths made, and only those: a normal-bank
--- player (attribute 0x400) with the season bit, joined by the recruit service's source (addPartySource 2 scouted, 4
--- signed), whose rarity is not the retail season rarity 9, not a record with a protected attribute bit (story player, a mod's own players: content\protected_attributes).
+-- every player of the club, as Holders reads it: { param, level, rarity }; nil = the club is not readable
+function Recruit.Roster()
+  local ok, columns = pcall(VRFW.character.saved_columns, { "handle", "param", "level" })
+  if not ok or type(columns) ~= "table" then return nil end
+  local out = {}
+  for n, handle in ipairs(columns.handle) do
+    local h = u32(handle)
+    if math.floor(h / 4096) % 16 == 0 then
+      local okR, record = pcall(VRFW.character.record, h)
+      out[#out + 1] = { param = u32(columns.param[n]), level = tonumber(columns.level[n]) or 1, rarity = okR and record and record.rarity or 0 }
+    end
+  end
+  return out
+end
 
 local ATTRIBUTE_SEASON, ATTRIBUTE_NORMAL_BANK = 0x100000, 0x400
-local Protected = require "VRFW/lib/protected_attributes"   -- story / mod-owned record bits (content\protected_attributes)
+local Protected = VRFW.protected_attributes   -- story / mod-owned record bits (content\protected_attributes)
 local SEASON_RARITY = 9
 local RECRUIT_SOURCES = { [2] = true, [4] = true }
 
@@ -175,8 +172,6 @@ function Recruit.SaveAdjust.clear_season(t, ev)
   VRFW.log("save adjust: " .. log)
   return { count = cleared, log = log }
 end
-
--- ---- career counters
 
 local match = nil   -- { user, rival } goals of the match being played
 

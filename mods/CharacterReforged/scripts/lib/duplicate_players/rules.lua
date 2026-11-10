@@ -1,39 +1,9 @@
--- Character Reforged › duplicate players: the rules other mods declare as data.
--- Every active mod's content\duplicate_rules\*.toml (schema
--- CharacterReforged.duplicate_rules/1) may hold [CharacterReforged.DuplicateRules.<name>] tables; they are merged in
--- load order (inside one mod, by rule name), a later rule wins key by key. No rule = the hook does nothing.
--- Keys of a rule (all optional):
---   one_card_per = "card"                   the copy keeps one copy per card (the exact chara_param id: two cards of one
---                                           character or one name are two players); absent = no copy leaves for being
---                                           a duplicate
---   keep_first = [...]                      which copy stays: the first key that tells two copies apart decides, in
---                                           order; KEEP_ORDER_KEYS below (default: the list KEEP_ORDER_DEFAULT)
---   normal_card_rarity = 0..15              the saved rarity every normal card gets (absent = rarities unchanged); a
---                                           new club card joins at it too (scripts\new_card_rarity.lua)
---   save_adjust_every_saved_player = true   the save adjust action also raises every other saved character below
---                                           normal_card_rarity (only the rarity word; merge_pass.lua); not on load or copy
---   normalize_special_rarities = { option = "<mod>.<row>", values = { "<option value>" = { rarities = [...],
---                                  save_adjust_label = "<text key>" } } }
---                                           the special cards that get normal_card_rarity too, by the current value of
---                                           a settings row, or with config = "<path>" instead of option, of a path of
---                                           the declaring mod's config.toml (none listed for that value = none). `rarities` names rarity
---                                           ids of the rarity data (the framework's content\defaults\game_rarities.toml
---                                           and the mods' content\rarities\: an id stands for its `value` and `also`
---                                           col 41 values); a whole number is a col 41 value. `save_adjust_label` = the
---                                           line the save adjust confirmation shows for that value (scripts\save_tools.lua)
---   element_spirits_per_released_card = n   element spirits (the story's «fichas» of his element) per copy that leaves
---   release_cards_hidden_in = "<file>"      a file of the declaring mod whose [[hide]] rows / [[remove]] rows with
---                                           mode = "hide" name cards that leave the club (each declaring mod its own)
---   apply_on_load = true | false            the same pass also runs on a player slot when the save engine loads it
---                                           (scripts\duplicate_players.lua «slot_load»; a durable backup of the slot
---                                           first, once per save); absent / false = only a duplicated save
 
 local DuplicateRules = {}
 
 DuplicateRules.FOLDER = "content/duplicate_rules"
 
--- the keys keep_first accepts (a duplicated save has no fusion store nor move-use store of its own: those two keys
--- tell copies apart only in a pass that is given them, e.g. Inazuma Fantasy's load repair)
+-- keys keep_first accepts (fusion and move-use keys only tell copies apart in a pass that is given those stores)
 DuplicateRules.KEEP_ORDER_KEYS = {
   in_a_fusion = true, highest_level = true, most_experience = true, most_special_move_uses = true, in_a_team = true,
   oldest = true, lowest_handle = true,
@@ -42,12 +12,10 @@ DuplicateRules.KEEP_ORDER_DEFAULT = { "highest_level", "most_experience", "in_a_
 
 local ONE_CARD_PER = { card = true }
 local HIGHEST_RARITY = 15
--- the rarity data: the game's rarities (built into the framework) and the mods' rarity files
 local RARITY_FILES = { "content/defaults/game_rarities.toml", "content/rarities" }
 
 local function warn(message) VRFW.warn("duplicate_players: " .. message) end
 
--- rarity id -> its chara_param col 41 values ({ value, also... }), from every [[rarity]] row with an id and a value
 local function rarity_values()
   local by_id = {}
   local ok, files = pcall(VRFW.files.declarations, RARITY_FILES)
@@ -90,6 +58,9 @@ local function special_rarity_set(label, list)
   end
   return set
 end
+
+local POSITION_NAMES = { "gk", "df", "mf", "fw" }
+local ELEMENT_NUMBER = { wind = 1, forest = 2, fire = 3, mountain = 4 }
 
 local function sorted_names(table_of_rules)
   local names = {}
@@ -156,6 +127,16 @@ local function merge_rule(policy, mod_id, rule_name, rule)
       else
         warn(label .. ": element_spirits_per_released_card must be a whole number >= 0")
       end
+    elseif key == "element_spirit_of_position" then
+      local stocks = {}
+      for position, name in ipairs(POSITION_NAMES) do
+        stocks[position] = type(value) == "table" and ELEMENT_NUMBER[value[name]] or nil
+      end
+      if #stocks == #POSITION_NAMES then
+        policy.element_spirit_of_position = stocks
+      else
+        warn(label .. ": element_spirit_of_position needs gk, df, mf and fw, each wind, forest, fire or mountain")
+      end
     elseif key == "apply_on_load" then
       if type(value) == "boolean" then
         policy.apply_on_load = policy.apply_on_load or value
@@ -175,7 +156,6 @@ local function merge_rule(policy, mod_id, rule_name, rule)
   policy.names[#policy.names + 1] = label
 end
 
--- Whether a slot's save follows the rules: not the locked retail save, not a mode's reserved slot.
 function DuplicateRules.is_player_slot(slot)
   local ok_locked, locked = pcall(VRFW.slots.locked)
   if ok_locked and locked == slot then return false end
@@ -184,9 +164,6 @@ function DuplicateRules.is_player_slot(slot)
   return true
 end
 
--- The merged policy of every active mod's rules: { names = { "<mod>/<rule>" }, one_card_per, keep_first,
--- normal_card_rarity, element_spirits_per_released_card, hidden_card_sources = { { mod, file } }, apply_on_load (true
--- when any rule asks for it) }; `names` empty = no mod declares a rule.
 function DuplicateRules.load()
   local policy = {
     names = {}, keep_first = DuplicateRules.KEEP_ORDER_DEFAULT, element_spirits_per_released_card = 0,

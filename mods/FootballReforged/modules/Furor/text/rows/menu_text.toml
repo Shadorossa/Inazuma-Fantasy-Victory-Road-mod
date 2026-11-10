@@ -1,6 +1,3 @@
-# Furor › menu_text rows with fixed ids: the label of
-# the furor button in the game's «Configuración de controles» (content\inputs\phase.toml) and the button glyph
-# right of the own bar (furor_phase_key: only the command's markup, the engine draws the button bound now on the device in use).
 schema = "VRFW.text/2"
 
 [[row]]

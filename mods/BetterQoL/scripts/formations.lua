@@ -1,24 +1,12 @@
--- BetterQoL › Unlocked formations (feature formations-§8b).
---
--- Which formations (derived from the tables the game loads, mods' formations included; no id list): a row of
--- formation_config m_SoccerFormationInfoList is unlocked when
---   1. it has 11 placements (an 11-a-side formation; the five-a-side lists: 5 placements);
---   2. its noun_id has a name in item_text (NOUN_INFO);
---   3. no formation item of item_config (ITEM_FORMATION_INFO) points at it (those the game already offers);
---   4. its name is not the name of an offered formation or of an earlier unlocked row;
---   5. its placements are not identical to another candidate's (v7.1.2: 15 rows share one placeholder layout).
--- On v7.1.2 the rule gives exactly UVR's 54 (rows 0-53, «F-Raimon» .. «F-Galaxia», row order).
--- The picker's row count getter is patched to the game's count + N (content\game\formations.toml FormationCount).
--- The five-a-side lists (which 2 / 3) feed the 5v5 picker the same way (research/grafts/utilities_formations).
 
 local PLACES_11 = 11
 local PLACES_5 = 5
-local MAX_EXTRA = 248 -- the menu's own row array holds 256 rows; the game's lists have 8 (11v11) and 5 (5v5)
+local MAX_EXTRA = 248
 local SEP = "\1"
 local TEXT_LANGS = { "ja", "en", "es", "fr", "de", "it", "pt", "zh_hans", "zh_hant" } -- fallback only
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
 local function cell_text(v)
   if type(v) == "table" then
@@ -44,12 +32,19 @@ local function row_text(r)
   return table.concat(parts, SEP)
 end
 
+-- first index and count of a formation row's placements (nil when the row has none)
+local function placement_range(r)
+  local s = r.placement_info
+  if type(s) == "table" and s.start and s.count then
+    return s.start % 65536, s.count % 65536
+  end
+end
+
 -- defenders, midfielders, forwards of a formation row (the position_id bands of formation_config)
 local function layout_numbers(r, places)
   local df, mf, fw = 0, 0, 0
-  local s = r.placement_info
-  if type(s) == "table" and s.start and s.count then
-    local start, count = s.start % 65536, s.count % 65536
+  local start, count = placement_range(r)
+  if start then
     for k = start + 1, math.min(start + count, #places) do
       local p = places[k].position_id
       if p == 2 or p == 3 then
@@ -64,31 +59,25 @@ local function layout_numbers(r, places)
   return { df, mf, fw }
 end
 
--- the formations in row order: { id, noun, layout = the placement rows as text, n = placement count, lines = its
--- defenders, midfielders and forwards }
 local function formations()
   local rows = VRFW.table.rows("formation/formation")
   local places = VRFW.table.rows("formation/formation_soccer_form_placement_info")
   local out = {}
   for _, r in ipairs(rows) do
     local f = { id = u32(r.form_id), noun = u32(r.noun_id), n = 0, layout = "", lines = layout_numbers(r, places) }
-    local s = r.placement_info
-    if type(s) == "table" and s.start and s.count then
-      local start, count = s.start % 65536, s.count % 65536
-      if start + count <= #places then
-        local parts = {}
-        for k = start + 1, start + count do
-          parts[#parts + 1] = row_text(places[k])
-        end
-        f.n, f.layout = count, table.concat(parts, SEP .. SEP)
+    local start, count = placement_range(r)
+    if start and start + count <= #places then
+      local parts = {}
+      for k = start + 1, start + count do
+        parts[#parts + 1] = row_text(places[k])
       end
+      f.n, f.layout = count, table.concat(parts, SEP .. SEP)
     end
     out[#out + 1] = f
   end
   return out
 end
 
--- item_text NOUN_INFO of file `key`: noun id -> name (only the two columns are read: the table is wide and long)
 local function noun_rows(key)
   local rows = VRFW.table.raw(key, "NOUN_INFO", { 1, 6 })
   local names = {}
@@ -100,8 +89,7 @@ local function noun_rows(key)
   return names
 end
 
--- item_text NOUN_INFO: noun id -> name, from the first text language that reads (a name's presence is the same in
--- every language)
+-- noun id -> name from the first text language that reads
 local function noun_names()
   local keys = VRFW.table.keys("data/common/text/*/item_text.cfg.bin")
   if #keys == 0 then
@@ -120,7 +108,7 @@ local function noun_names()
   error(last)
 end
 
--- formIds a formation item points at (any int value of ITEM_FORMATION_INFO that is a formId)
+-- formIds any int value of ITEM_FORMATION_INFO points at.
 local function offered_ids(forms)
   local ids = {}
   for _, f in ipairs(forms) do
@@ -142,7 +130,7 @@ local function offered_ids(forms)
   return out
 end
 
-local trim = require("VRFW/lib/basics").value.trim
+local trim = VRFW.strings.trim
 
 local function unlockable(forms, offered, names, places)
   local function name(f)
@@ -179,7 +167,6 @@ local function unlockable(forms, offered, names, places)
   return out
 end
 
--- `mov eax, [rcx+9E0h]; add eax, extra; ret` + int3 padding (the getter and its padding, 16 bytes)
 local function getter_bytes(extra)
   local b = { 0x8B, 0x81, 0xE0, 0x09, 0x00, 0x00, 0x05 }
   for k = 0, 3 do
@@ -195,7 +182,6 @@ end
 local unlocked, game, unlocked5, game5, sort_rows = {}, {}, {}, {}, {}
 
 local function build()
-  -- the lists are built once and kept between starts (VRFW.derived); the patch below is applied every start
   local lists = VRFW.derived("formation_lists_by_size", nil, function()
     local forms = formations()
     local offered = offered_ids(forms)
@@ -236,12 +222,6 @@ if not ok then
   VRFW.warn("tables not read (" .. tostring(err) .. "): the formation picker lists the game's own formations")
 end
 
--- Sort groups of the pickers (built the first time a picker opens in a language and kept between starts, so a later
--- start only reads a small file once): a formation's type is the numbers of its
--- name («4-4-2», «3-5-2 F-Gemini»: the digits left to right, in their full-width form too (ja)), or, for a name without
--- numbers (the five-a-side ones, in every language), its defenders, midfielders and forwards counted from its
--- placements. Types go up number by number; formations of one type share a group, so the graft keeps their order in
--- the list. Unnamed formations have no group (the picker keeps their place).
 local FULL_DASH = "\239\188\141" -- U+FF0D
 local groups_by_lang = {}
 local groups_last = {}
@@ -262,7 +242,6 @@ local function name_numbers(name)
   return nums
 end
 
--- -1, 0, 1: number by number; when one type is the start of the other, the shorter one first
 local function compare_numbers(a, b)
   for i = 1, math.min(#a, #b) do
     if a[i] ~= b[i] then
@@ -273,15 +252,6 @@ local function compare_numbers(a, b)
     return #a < #b and -1 or 1
   end
   return 0
-end
-
--- the game's text language of language code `code` (nil: none)
-local function language_of(code)
-  if type(code) == "number" and code >= 0 and type(VRFW.files.game_languages) == "function" then
-    local ok, t = pcall(VRFW.files.game_languages)
-    return ok and type(t) == "table" and t[math.floor(code) + 1] or nil
-  end
-  return nil
 end
 
 local function names_in(lang)
@@ -324,7 +294,7 @@ local function sort_groups(code)
   if groups_by_lang[key] then
     return groups_by_lang[key]
   end
-  local lang = language_of(code)
+  local lang = VRFW.names.language(code, nil)
   local ok, out = pcall(VRFW.derived, "formation_sort_groups." .. (lang or "default"), nil, function()
     return build_groups(lang)
   end)
@@ -336,9 +306,6 @@ local function sort_groups(code)
   return out
 end
 
--- which: 0 = unlocked (11-a-side), 1 = offered by the game (every size), 2 = unlocked five-a-side, 3 = offered
--- five-a-side; i: 0 = count, 1.. = formId (0 = none); 4 = build the sort groups for language code i (returns 1 when
--- they exist, else 0), 5 = sort group of formId i in the language asked last by 4 (0 = none)
 local LISTS = {
   [0] = function() return unlocked end,
   [1] = function() return game end,
@@ -349,7 +316,7 @@ local LISTS = {
 function BetterQoL.Formation(which, i)
   i = type(i) == "number" and math.floor(i) or 0
   if which == 4 then
-    groups_last = sort_groups(i) -- i = the language code (CMND_GET_LANGUAGE_CODE)
+    groups_last = sort_groups(i) -- i = CMND_GET_LANGUAGE_CODE
     return next(groups_last) ~= nil and 1 or 0
   elseif which == 5 then
     return groups_last[u32(i)] or 0

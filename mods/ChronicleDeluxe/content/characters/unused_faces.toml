@@ -1,0 +1,732 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+# Retail character heads that no retail row or mod uses: one character each, on the head's own chara_model row.
+
+[[character]]
+name = "face_01"  # sheet number 1, head c07150010
+based_on = "c05027040"
+
+  [character.base]
+  id = 0xF9CDA8BF
+  name = "c07150010"
+  name_text = 0x9D08CC7E
+  short_name_text = 0x28A21619
+  upper_name_text = 0xC9D55927
+  model = 0x60EACEFE
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C530
+  from = 0x061964FB
+  rank = 3
+  element = "forest"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_02"  # sheet number 2, head c07150020
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0xD2E0FB7C
+  name = "c07150020"
+  name_text = 0x04019DC4
+  short_name_text = 0x194A0C84
+  upper_name_text = 0xF83D43BA
+  model = 0x4BC79D3D
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C531
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_03"  # sheet number 3, head c07150030
+based_on = "c05027040"
+
+  [character.base]
+  id = 0xCBFBCA3D
+  name = "c07150030"
+  name_text = 0x7306AD52
+  short_name_text = 0xBF3D0730
+  upper_name_text = 0x5E4A480E
+  model = 0x52DCAC7C
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C532
+  from = 0xEBCFE222
+  rank = 3
+  element = "forest"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_04"  # sheet number 4, head c07150040
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x84BA5CFA
+  name = "c07150040"
+  name_text = 0xED6238F1
+  short_name_text = 0x7A9A39BE
+  upper_name_text = 0x9BED7680
+  model = 0x1D9D3ABB
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C533
+  from = 0x3DD430EE
+  rank = 3
+  element = "wind"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_05"  # sheet number 5, head c07150050
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x9DA16DBB
+  name = "c07150050"
+  name_text = 0x9A650867
+  short_name_text = 0xDCED320A
+  upper_name_text = 0x3D9A7D34
+  model = 0x04860BFA
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C534
+  from = 0xAAAC2BF7
+  rank = 3
+  element = "wind"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "face_06"  # sheet number 6, head c07150060
+based_on = "c05027040"
+
+  [character.base]
+  id = 0xB68C3E78
+  name = "c07150060"
+  name_text = 0x036C59DD
+  short_name_text = 0xED052897
+  upper_name_text = 0x0C7267A9
+  model = 0x2FAB5839
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C535
+  from = 0x3DD430EE
+  rank = 3
+  element = "wind"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_07"  # sheet number 7, head c07150070
+based_on = "c05027040"
+
+  [character.base]
+  id = 0xAF970F39
+  name = "c07150070"
+  name_text = 0x746B694B
+  short_name_text = 0x4B722323
+  upper_name_text = 0xAA056C1D
+  model = 0x36B06978
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C536
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_08"  # sheet number 8, head c07150080
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x280F13F6
+  name = "c07150080"
+  name_text = 0xE4D474DA
+  short_name_text = 0xBD3A53CA
+  upper_name_text = 0x5C4D1CF4
+  model = 0xB12875B7
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C537
+  from = 0x85363312
+  rank = 3
+  element = "fire"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_09"  # sheet number 9, head c07150090
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x311422B7
+  name = "c07150090"
+  name_text = 0x93D3444C
+  short_name_text = 0x1B4D587E
+  upper_name_text = 0xFA3A1740
+  model = 0xA83344F6
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C538
+  from = 0x0263ADA0
+  rank = 3
+  element = "mountain"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "face_10"  # sheet number 10, head c07150100
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0xE114F3C9
+  name = "c07150100"
+  name_text = 0xF314CDA9
+  short_name_text = 0x427F1D33
+  upper_name_text = 0xA308520D
+  model = 0x78339588
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C539
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_11"  # sheet number 11, head c07170010
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0x830DFBDF
+  name = "c07170010"
+  name_text = 0x8413FD3F
+  short_name_text = 0xE4081687
+  upper_name_text = 0x057F59B9
+  model = 0x1A2A9D9E
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C53A
+  from = 0x400F98C8
+  rank = 3
+  element = "fire"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_12"  # sheet number 12, head c07170020
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0xA820A81C
+  name = "c07170020"
+  name_text = 0x1D1AAC85
+  short_name_text = 0xD5E00C1A
+  upper_name_text = 0x34974324
+  model = 0x3107CE5D
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C53B
+  from = 0x85363312
+  rank = 3
+  element = "fire"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_13"  # sheet number 13, head c07170050
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0xE7613EDB
+  name = "c07170050"
+  name_text = 0x6A1D9C13
+  short_name_text = 0x739707AE
+  upper_name_text = 0x92E04890
+  model = 0x7E46589A
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C53C
+  from = 0x061964FB
+  rank = 3
+  element = "forest"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_14"  # sheet number 14, head c07170090
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0x4BD471D7
+  name = "c07170090"
+  name_text = 0xF47909B0
+  short_name_text = 0xB6303920
+  upper_name_text = 0x5747761E
+  model = 0xD2F31796
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C53D
+  from = 0xAAAC2BF7
+  rank = 3
+  element = "wind"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "face_15"  # sheet number 15, head c07180010
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x015D6C0E
+  name = "c07180010"
+  name_text = 0x837E3926
+  short_name_text = 0x10473294
+  upper_name_text = 0xF1307DAA
+  model = 0x987A0A4F
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C53E
+  from = 0x3D9ED3F0
+  rank = 3
+  element = "mountain"
+  position = "gk"
+  sub_position = "gk"
+
+[[character]]
+name = "face_16"  # sheet number 16, head c07180020
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x2A703FCD
+  name = "c07180020"
+  name_text = 0x1A77689C
+  short_name_text = 0x21AF2809
+  upper_name_text = 0xC0D86737
+  model = 0xB357598C
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C53F
+  from = 0x603BE105
+  rank = 3
+  element = "mountain"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_17"  # sheet number 17, head c07180050
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0x6531A90A
+  name = "c07180050"
+  name_text = 0x6D70580A
+  short_name_text = 0x87D823BD
+  upper_name_text = 0x66AF6C83
+  model = 0xFC16CF4B
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C540
+  from = 0x3DD430EE
+  rank = 3
+  element = "wind"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_18"  # sheet number 18, head c07180080
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0xD09FD747
+  name = "c07180080"
+  name_text = 0xFDCF459B
+  short_name_text = 0x71905354
+  upper_name_text = 0x90E71C6A
+  model = 0x49B8B106
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C541
+  from = 0x0C08F742
+  rank = 3
+  element = "fire"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "face_19"  # sheet number 19, head c07190010
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x3C3D45BE
+  name = "c07190010"
+  name_text = 0x8AC8750D
+  short_name_text = 0xD7E758E0
+  upper_name_text = 0x369017DE
+  model = 0xA51A23FF
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C542
+  from = 0x061964FB
+  rank = 3
+  element = "forest"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_20"  # sheet number 20, head c07190050
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0x585180BA
+  name = "c07190050"
+  name_text = 0xD8399E6A
+  short_name_text = 0xCCF01AD0
+  upper_name_text = 0x2D8755EE
+  model = 0xC176E6FB
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C543
+  from = 0x3DD430EE
+  rank = 3
+  element = "wind"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_21"  # sheet number 21, head c07190110
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x3DFF2F89
+  name = "c07190110"
+  name_text = 0xAF3EAEFC
+  short_name_text = 0x6A871164
+  upper_name_text = 0x8BF05E5A
+  model = 0xA4D849C8
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C544
+  from = 0x0263ADA0
+  rank = 3
+  element = "mountain"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "face_22"  # sheet number 22, head c07240290
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0x8964ADC7
+  name = "c07240290"
+  name_text = 0x3637FF46
+  short_name_text = 0x5B6F0BF9
+  upper_name_text = 0xBA1844C7
+  model = 0x1043CB86
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C545
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_23"  # sheet number 23, head c07240370
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0x1625EA7E
+  name = "c07240370"
+  name_text = 0x4130CFD0
+  short_name_text = 0xFD18004D
+  upper_name_text = 0x1C6F4F73
+  model = 0x8F028C3F
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C546
+  from = 0x061964FB
+  rank = 3
+  element = "forest"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_24"  # sheet number 24, head c07240530
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0x76C453C8
+  name = "c07240530"
+  name_text = 0xDF545A73
+  short_name_text = 0x38BF3EC3
+  upper_name_text = 0xD9C871FD
+  model = 0xEFE33589
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C547
+  from = 0x85363312
+  rank = 3
+  element = "fire"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_25"  # sheet number 25, head c07290020
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0x918464D3
+  name = "c07290020"
+  name_text = 0xA8536AE5
+  short_name_text = 0x9EC83577
+  upper_name_text = 0x7FBF7A49
+  model = 0x08A30292
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C548
+  from = 0x04D7D484
+  rank = 3
+  element = "forest"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "face_27"  # sheet number 27, head c11030041
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x18DB7FCD
+  name = "c11030041"
+  name_text = 0x132C7119
+  short_name_text = 0x1318D195
+  upper_name_text = 0x209F6F1E
+  model = 0x81FC198C
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C549
+  from = 0x5E7A74AD
+  rank = 3
+  element = "mountain"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_28"  # sheet number 28, head c11807071
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x05D2EC0A
+  name = "c11807071"
+  name_text = 0x0E25E2DE
+  short_name_text = 0x0E114252
+  upper_name_text = 0x3D96FCD9
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [character.new_model]
+  id = 0x9B842404
+  from = 0xEBF2BADD  # row of a sibling of the head's family
+  [character.new_model.cells]
+  head_mesh_path = "_face/11_VICTORY/c11807071/c11807071.g4md"
+
+  [[character.cards]]
+  id = 0xFFF7C54A
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_29"  # sheet number 29, head c11902010
+based_on = "c05027040"
+gender = "female"
+
+  [character.base]
+  id = 0xD80D588D
+  name = "c11902010"
+  name_text = 0xA4FD66CF
+  short_name_text = 0xA4C9C643
+  upper_name_text = 0xA4FD66CF
+  model = 0x412A3ECC
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C54B
+  from = 0x0C08F742
+  rank = 3
+  element = "fire"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "face_30"  # sheet number 30, head c11902020
+based_on = "c05027040"
+
+  [character.base]
+  id = 0xF3200B4E
+  name = "c11902020"
+  name_text = 0x8FD0350C
+  short_name_text = 0x8FE49580
+  upper_name_text = 0x8FD0350C
+  model = 0x6A076D0F
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C54C
+  from = 0x5E7A74AD
+  rank = 3
+  element = "mountain"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_31"  # sheet number 31, head c11902030
+based_on = "c05027040"
+
+  [character.base]
+  id = 0xEA3B3A0F
+  name = "c11902030"
+  name_text = 0x96CB044D
+  short_name_text = 0x96FFA4C1
+  upper_name_text = 0x96CB044D
+  model = 0x731C5C4E
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C54D
+  from = 0x061964FB
+  rank = 3
+  element = "forest"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "face_32"  # sheet number 32, head c11902040
+based_on = "c05027040"
+
+  [character.base]
+  id = 0xA57AACC8
+  name = "c11902040"
+  name_text = 0xD98A928A
+  short_name_text = 0xD9BE3206
+  upper_name_text = 0xD98A928A
+  model = 0x3C5DCA89
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C54E
+  from = 0x85363312
+  rank = 3
+  element = "fire"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "face_33"  # sheet number 33, head c11905070
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x6487F724
+  name = "c11905071"
+  name_text = 0x4BFAC138
+  short_name_text = 0x4BCE61B4
+  upper_name_text = 0x7849DF3F
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [character.new_model]
+  id = 0x04D4B856
+  from = 0x93BC90B2  # row of a sibling of the head's family
+  [character.new_model.cells]
+  head_mesh_path = "_face/11_VICTORY/c11905070/c11905070.g4md"
+
+  [[character.cards]]
+  id = 0xFFF7C54F
+  from = 0x3D9ED3F0
+  rank = 3
+  element = "mountain"
+  position = "gk"
+  sub_position = "gk"

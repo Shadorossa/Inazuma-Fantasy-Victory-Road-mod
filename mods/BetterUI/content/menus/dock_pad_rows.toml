@@ -1,7 +1,3 @@
-# «Plantilla de equipo» (soccer_team_dock_menu): the direction keys of the panel and header layers go to the dock
-# panel's one pad map (graft ui_clean_dock_panel, CHD.PAD_MAP; docs/game/ui/team-dock-pad-map.md). The retail rows are
-# focus shift / focus change rows that follow the retail places. The retail UP on the header's three layers
-# (a CMD_FUNCTION row) stays.
 schema = "VRFW.menu/2"
 
 [[patch]]

@@ -1,20 +1,17 @@
 schema = "VRFW.character/2"
-# Character Reforged · Big Bang · Inazuma Eleven GO Galaxy
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c06033010"                                   # Strem Goozer
 moves = [
   { move = 0x2FD9C02F, level = 8 },                         # Bastion Block
-  { move = 0xCB8E6D04, level = 30 },                        # Mighty Save
   { move = 0xDBA0E5E3, level = 43 },                        # Gigant Wall
   { move = 0x53E9C2A3, level = 56 },                        # Capable Hands
+  { move = 0x91CEE43D, level = 66 },                        # Phalanx
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x370BEBC6, level = 1 },                         # Tótem Magnatas [aura]
+  { move = 0x370BEBC6, level = 20 },                        # wsk000340
 ]
 
   [[edit.cards]]
@@ -34,7 +31,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x951E6853, level = 1 },                         # Tótem Univolt [aura]
+  { move = 0x951E6853, level = 20 },                        # wso000320
 ]
 
   [[edit.cards]]
@@ -49,12 +46,12 @@ moves = [
   { move = 0x91CEE43D, level = 13 },                        # Phalanx
   { move = 0xCABBA212, level = 27 },                        # Menacing Glare
   { move = 0xB37CD264, level = 40 },                        # Am-Bush
-  { move = 0x75994916, level = 55 },                        # Cunning Pull
+  { move = 0x06D2AC29, level = 50 },                        # Diabolical Cut
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x8E020DE8, level = 1 },                         # Tótem Flami [aura]
+  { move = 0x8E020DE8, level = 20 },                        # wsd000330
 ]
 
   [[edit.cards]]
@@ -74,7 +71,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x8E020DE8, level = 1 },                         # Tótem Flami [aura]
+  { move = 0x8E020DE8, level = 20 },                        # wsd000330
 ]
 
   [[edit.cards]]
@@ -95,7 +92,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x8E020DE8, level = 1 },                         # Tótem Flami [aura]
+  { move = 0x8E020DE8, level = 20 },                        # wsd000330
 ]
 
   [[edit.cards]]
@@ -109,14 +106,14 @@ moves = [
 target = "c06033060"                                   # Zyne Hanging
 moves = [
   { move = 0x91CEE43D, level = 13 },                        # Phalanx
-  { move = 0x6C827857, level = 30 },                        # Rolling Steal
   { move = 0xD9BB22A7, level = 40 },                        # Air Ride
   { move = 0xC79443BB, level = 51 },                        # Waterfall
+  { move = 0xB7F1AED6, level = 61 },                        # Double Cyclone
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x951E6853, level = 1 },                         # Tótem Univolt [aura]
+  { move = 0x951E6853, level = 20 },                        # wso000320
 ]
 
   [[edit.cards]]
@@ -137,7 +134,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x951E6853, level = 1 },                         # Tótem Univolt [aura]
+  { move = 0x951E6853, level = 20 },                        # wso000320
 ]
 
   [[edit.cards]]
@@ -151,14 +148,14 @@ moves = [
 target = "c06033080"                                   # Bindal Hermit
 moves = [
   { move = 0x7D536206, level = 14 },                        # Atlas Sword
-  { move = 0x49041E53, level = 27 },                        # Crosscut Feint
   { move = 0xF7E49F60, level = 38 },                        # Magnetism
   { move = 0xC9BAEA82, level = 54 },                        # Eye of the Storm
+  { move = 0x91CEE43D, level = 64 },                        # Phalanx
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x510C5BED, level = 1 },                         # Tótem Goliger [aura]
+  { move = 0x510C5BED, level = 20 },                        # wss000360
 ]
 
   [[edit.cards]]
@@ -179,7 +176,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x510C5BED, level = 1 },                         # Tótem Goliger [aura]
+  { move = 0x510C5BED, level = 20 },                        # wss000360
 ]
 
   [[edit.cards]]
@@ -191,36 +188,36 @@ moves = [
 
 [[edit]]
 target = "c06033100"                                   # Circulus Corona
-moves = [
-  { move = 0xCD391C9D, level = 12 },                        # Loyal Heart Shot
-  { move = 0x7D536206, level = 25 },                        # Atlas Sword
-  { move = 0xDAC3A5F6, level = 47 },                        # Big Bang
-  { move = 0xFF0F7E1F, level = 75 },                        # Galactic GigaFall
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0xBE333B90, level = 1 },                         # Tótem grifo [aura]
-]
 
   [[edit.cards]]
   id = 0xB83E7FE4                                         # FW/MF · fire
   rank = 3
   growth = "normal"
   stats = { kick = 356, control = 265, technique = 269, pressure = 190, physical = 166, intelligence = 234, agility = 177, freedom = 231 }
+  moves = [
+    { move = 0xCD391C9D, level = 12 },                      # Loyal Heart Shot
+    { move = 0x7D536206, level = 25 },                      # Atlas Sword
+    { move = 0xDAC3A5F6, level = 47 },                      # Big Bang
+    { move = 0xFF0F7E1F, level = 75 },                      # Galactic GigaFall
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0xBE333B90, level = 20 },                      # wso000310
+  ]
 
 [[edit]]
 target = "c06033110"                                   # Joss Fool
 moves = [
   { move = 0x7D536206, level = 13 },                        # Atlas Sword
-  { move = 0x06458894, level = 26 },                        # Feint Dash
   { move = 0x90CD25B4, level = 42 },                        # Supernatural Strike
   { move = 0xEC78BBC6, level = 56 },                        # Black Ash
+  { move = 0xC16279D1, level = 66 },                        # Field of Force
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x510C5BED, level = 1 },                         # Tótem Goliger [aura]
+  { move = 0x510C5BED, level = 20 },                        # wss000360
 ]
 
   [[edit.cards]]

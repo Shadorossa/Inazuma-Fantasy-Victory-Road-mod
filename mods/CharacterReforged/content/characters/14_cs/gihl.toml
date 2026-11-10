@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · Gihl · Inazuma Eleven GO Chrono Stone
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c05022860_5000"                              # Tzeikh
+moves = [
+  { move = 0xF94FAAA7, level = 13 },                        # Decoy Deploy
+  { move = 0x24E5068E, level = 19 },                        # Fractal Repeller
+  { move = 0x4FE09C7A, level = 33 },                        # Acrobatic Keep
+  { move = 0x67F17FA8, level = 43 },                        # Mega Quake
+]
 
   [[edit.cards]]
   id = 0x7939FA38                                         # MF/DF · mountain
@@ -14,6 +17,12 @@ target = "c05022860_5000"                              # Tzeikh
 
 [[edit]]
 target = "c05022880_5000"                              # Mehr
+moves = [
+  { move = 0xE0DF8DB5, level = 1 },                         # No Future
+  { move = 0x2354CA2D, level = 22 },                        # Wind God's Dance
+  { move = 0xAF28F5A0, level = 35 },                        # The Tower
+  { move = 0xB0F8060A, level = 61 },                        # Ozone Flayer
+]
 
   [[edit.cards]]
   id = 0x29068165                                         # MF/DF · wind
@@ -22,6 +31,12 @@ target = "c05022880_5000"                              # Mehr
 
 [[edit]]
 target = "c05022890_5000"                              # Ghiris
+moves = [
+  { move = 0xE0DF8DB5, level = 7 },                         # No Future
+  { move = 0x0E0A3F7A, level = 17 },                        # Spatial Portal
+  { move = 0xDA3FF6C9, level = 41 },                        # Criss-Cross
+  { move = 0xB8A509A7, level = 56 },                        # Asterocks
+]
 
   [[edit.cards]]
   id = 0x8F718AD1                                         # MF/DF · fire
@@ -32,6 +47,12 @@ target = "c05022890_5000"                              # Ghiris
 
 [[edit]]
 target = "c05022900_5000"                              # Chell
+moves = [
+  { move = 0xF9C4BCF4, level = 1 },                         # Double Helix
+  { move = 0x5E5AF1A9, level = 2 },                         # Northern Impact
+  { move = 0x3C843987, level = 32 },                        # Flurry Dash
+  { move = 0x768AB9C5, level = 60 },                        # Frosticle
+]
 
   [[edit.cards]]
   id = 0xD643CF9C                                         # FW/MF · wind
@@ -46,6 +67,11 @@ moves = [
   { move = 0xF14FDC17, level = 22 },                        # Shot Pocket
   { move = 0xC7F4C227, level = 39 },                        # Shot Trap
   { move = 0xCD6AEF2D, level = 53 },                        # All-Star
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0xF5980CD4, level = 43 },                        # wkk00460
 ]
 
   [[edit.cards]]
@@ -59,8 +85,8 @@ target = "c05022820"                                   # Zohtan
 moves = [
   { move = 0x62BE692D, level = 3 },                         # Whirlwind Force
   { move = 0x530CDFC1, level = 17 },                        # Mystifying Mist
-  { move = 0x23C3EE90, level = 31 },                        # Shoulder Tackle
   { move = 0x0E0A3F7A, level = 53 },                        # Spatial Portal
+  { move = 0xF94FAAA7, level = 63 },                        # Decoy Deploy
 ]
 
   [[edit.cards]]
@@ -75,8 +101,8 @@ target = "c05022830"                                   # Mustah
 moves = [
   { move = 0x414BA9BD, level = 6 },                         # Pincer Pinch
   { move = 0x05567847, level = 7 },                         # Runaway Train
-  { move = 0x75994916, level = 36 },                        # Cunning Pull
   { move = 0x25276CB9, level = 50 },                        # Solar Surprise
+  { move = 0xDA3FF6C9, level = 60 },                        # Criss-Cross
 ]
 
   [[edit.cards]]
@@ -91,8 +117,8 @@ target = "c05022840"                                   # Mohrir
 moves = [
   { move = 0x0D0B77EA, level = 1 },                         # Floral Fiesta
   { move = 0x6BA49049, level = 10 },                        # Mystic Mist
-  { move = 0x3AD8DFD1, level = 29 },                        # Curving Cut
   { move = 0x0E0A3F7A, level = 58 },                        # Spatial Portal
+  { move = 0x20D01E43, level = 68 },                        # Hey Presto
 ]
 
   [[edit.cards]]
@@ -107,8 +133,8 @@ target = "c05022850"                                   # Ghimus
 moves = [
   { move = 0xF94FAAA7, level = 15 },                        # Decoy Deploy
   { move = 0x17110E3B, level = 24 },                        # Jumbo Sandwich
-  { move = 0x1F5EB9D5, level = 36 },                        # Nutmeg
   { move = 0x64CDCFB9, level = 58 },                        # Rising Dragon
+  { move = 0x485150D9, level = 68 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -124,12 +150,12 @@ moves = [
   { move = 0xF94FAAA7, level = 13 },                        # Decoy Deploy
   { move = 0x24E5068E, level = 19 },                        # Fractal Repeller
   { move = 0x4FE09C7A, level = 33 },                        # Acrobatic Keep
-  { move = 0x06458894, level = 47 },                        # Feint Dash
+  { move = 0x67F17FA8, level = 43 },                        # Mega Quake
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x701BD75F, level = 1 },                         # León [aura]
+  { move = 0x701BD75F, level = 43 },                        # wko00070
 ]
 
   [[edit.cards]]
@@ -166,7 +192,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x86D81FF5, level = 1 },                         # Los enamorados ♀ [aura]
+  { move = 0x86D81FF5, level = 20 },                        # wks00780
 ]
 
   [[edit.cards]]
@@ -185,7 +211,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x8C4632FF, level = 1 },                         # Los enamorados ♂ [aura]
+  { move = 0x8C4632FF, level = 20 },                        # wks00980
 ]
 
   [[edit.cards]]
@@ -206,7 +232,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x29904B56, level = 1 },                         # Baihu [aura]
+  { move = 0x29904B56, level = 43 },                        # wko00910
 ]
 
   [[edit.cards]]
@@ -222,6 +248,11 @@ moves = [
   { move = 0x518BCA26, level = 15 },                        # Fire Tornado
   { move = 0x2A4E3349, level = 29 },                        # Heart Beat
   { move = 0x910F4F83, level = 53 },                        # Fire Tornado DD
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0x4A8CE94F, level = 43 },                        # wks00100
 ]
 
   [[edit.cards]]
@@ -236,7 +267,7 @@ moves = [
   { move = 0x07704782, level = 11 },                        # Rejection
   { move = 0xC13F00CC, level = 21 },                        # Flower Power
   { move = 0xB01D1B68, level = 26 },                        # Power Spike
-  { move = 0xD2955C45, level = 52 },                        # Power Catch
+  { move = 0xB907E20C, level = 36 },                        # Procyon Net
 ]
 
   [[edit.cards]]
@@ -249,9 +280,9 @@ moves = [
 target = "c05022930"                                   # Darehn
 moves = [
   { move = 0x0D0B77EA, level = 4 },                         # Floral Fiesta
-  { move = 0x6C827857, level = 8 },                         # Rolling Steal
   { move = 0xAF28F5A0, level = 31 },                        # The Tower
   { move = 0x04941270, level = 46 },                        # Vac Attack
+  { move = 0x0D368F6B, level = 56 },                        # Heaven's Time
 ]
 
   [[edit.cards]]
@@ -299,7 +330,7 @@ moves = [
   { move = 0xF9C4BCF4, level = 4 },                         # Double Helix
   { move = 0xBBE07677, level = 11 },                        # Sidewinder
   { move = 0x4FE09C7A, level = 32 },                        # Acrobatic Keep
-  { move = 0x6B4A7B35, level = 47 },                        # Power Shot
+  { move = 0xD0A1DBC3, level = 42 },                        # Bungee Ball Burst
 ]
 
   [[edit.cards]]
@@ -310,6 +341,12 @@ moves = [
 
 [[edit]]
 target = "c05022810_5000"                              # Bhufa
+moves = [
+  { move = 0x07704782, level = 12 },                        # Rejection
+  { move = 0xF14FDC17, level = 22 },                        # Shot Pocket
+  { move = 0xC7F4C227, level = 39 },                        # Shot Trap
+  { move = 0xCD6AEF2D, level = 53 },                        # All-Star
+]
 
   [[edit.cards]]
   id = 0xBC9EC4B6                                         # GK/MF · wind
@@ -319,6 +356,12 @@ target = "c05022810_5000"                              # Bhufa
 
 [[edit]]
 target = "c05022910_5000"                              # Zetoh
+moves = [
+  { move = 0xF9C4BCF4, level = 1 },                         # Double Helix
+  { move = 0x518BCA26, level = 15 },                        # Fire Tornado
+  { move = 0x2A4E3349, level = 29 },                        # Heart Beat
+  { move = 0x910F4F83, level = 53 },                        # Fire Tornado DD
+]
 
   [[edit.cards]]
   id = 0x7034C428                                         # FW/MF · fire

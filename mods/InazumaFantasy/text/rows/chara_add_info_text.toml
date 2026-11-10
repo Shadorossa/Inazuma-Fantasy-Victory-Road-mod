@@ -1,6 +1,5 @@
 schema = "VRFW.text/2"
-# Name of the «Inazuma Eleven Fantasy» character series (content/base_tables/gamedata/character/chara_series_config.toml).
-# Added to the end of their list.
+# Name of the «Inazuma Eleven Fantasy» character series, added at the end of the list.
 
 [[row]]
 id = 0x790903A3  # Inazuma Eleven Fantasy

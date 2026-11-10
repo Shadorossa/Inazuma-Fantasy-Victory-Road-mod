@@ -1,7 +1,4 @@
-# Descriptions of formations the game left in Japanese in every language whose text is a real description, translated
-# from the game's Japanese text in the wording of the offered formations' descriptions (the placeholders, only the
-# formation's name, get a description built from the layout in content/formations/unlocked_formation_texts.toml).
-# Format:
+# Descriptions of formations the game left in Japanese, translated from that text.
 schema = "VRFW.text/2"
 table = "item_text"
 
@@ -18,7 +15,7 @@ zh_hans = "攻守平衡的基础阵型。\n虽无突出特点，但中规中矩�
 zh_hant = "攻守平衡的基本陣型。\n雖無突出特點，但中規中矩，容易上手。"
 
 [[row]]
-id = 0x85063A22  # formation 0xC2D71727 (F-Básico) description
+id = 0x85063A22
 fallback = false
 es = "Una formación con las posiciones colocadas\nde forma clara y sencilla. La utilizan\nmuchos equipos."
 en = "A formation with clearly laid-out positions.\nUsed by many teams."

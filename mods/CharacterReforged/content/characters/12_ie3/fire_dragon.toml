@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Fire Dragon · Inazuma Eleven 3
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c03030710"                                   # Bryce Whitingale
 moves = [
-  { move = 0x163D8F70, level = 1 },                         # Chip Shot
   { move = 0x46FA651E, level = 1 },                         # Water Veil
   { move = 0x5E5AF1A9, level = 10 },                        # Northern Impact
   { move = 0x09C23C18, level = 50 },                        # Fire Blizzard
+  { move = 0x19C3F43D, level = 60 },                        # Eternal Blizzard
 ]
 VRFW.MoveGrades = [
   { Move = 0x46FA651E, Grade = 1 },                         # Water Veil
@@ -23,10 +20,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03030690"                                   # Claude Beacons
 moves = [
-  { move = 0x163D8F70, level = 1 },                         # Chip Shot
   { move = 0x5FE1545F, level = 1 },                         # Flame Veil
   { move = 0xAE2B3429, level = 10 },                        # Atomic Flare
   { move = 0x111B676E, level = 50 },                        # Fire Blizzard
+  { move = 0x44BCDB47, level = 60 },                        # Pyroclastic
 ]
 VRFW.MoveGrades = [
   { Move = 0x5FE1545F, Grade = 1 },                         # Flame Veil
@@ -42,8 +39,8 @@ target = "c03030610"                                   # Jeongsu Cho
 moves = [
   { move = 0x5B3151F0, level = 1 },                         # Nitro Slap
   { move = 0x47657634, level = 20 },                        # Flame Breath
-  { move = 0xEF5D458A, level = 20 },                        # Burnout
-  { move = 0xF9B80F86, level = 47 },                        # Strong Punch
+  { move = 0xEF5D458A, level = 30 },                        # Burnout
+  { move = 0x5E7E4775, level = 40 },                        # Table-Turner
 ]
 VRFW.MoveGrades = [
   { Move = 0x5B3151F0, Grade = 1 },                         # Nitro Slap
@@ -105,8 +102,8 @@ target = "c03030650"                                   # Songhwan Ko
 moves = [
   { move = 0x79E3E635, level = 1 },                         # Racing Flame
   { move = 0x3663DB4C, level = 16 },                        # Utter Gutsiness Bat
-  { move = 0xEBD03938, level = 23 },                        # Utter Gutsiness Catch
-  { move = 0x23C3EE90, level = 42 },                        # Shoulder Tackle
+  { move = 0x316A7390, level = 26 },                        # Land Dragon
+  { move = 0x5781A373, level = 36 },                        # Hurricane Arrows
 ]
 
   [[edit.cards]]
@@ -119,9 +116,9 @@ moves = [
 target = "c03030660"                                   # Paekyeong Park
 moves = [
   { move = 0x79E3E635, level = 1 },                         # Racing Flame
-  { move = 0x5FE1545F, level = 1 },                         # Flame Veil
+  { move = 0x5FE1545F, level = 11 },                        # Flame Veil
   { move = 0x41F3CDC2, level = 20 },                        # Scorching Tackle
-  { move = 0x1F5EB9D5, level = 46 },                        # Nutmeg
+  { move = 0xABA58912, level = 30 },                        # Ignited Steal
 ]
 VRFW.MoveGrades = [
   { Move = 0x79E3E635, Grade = 1 },                         # Racing Flame
@@ -137,9 +134,9 @@ VRFW.MoveGrades = [
 target = "c03030680"                                   # Eunyeong Kim
 moves = [
   { move = 0x087999EE, level = 1 },                         # Heel Drop
-  { move = 0x5FE1545F, level = 1 },                         # Flame Veil
-  { move = 0x06458894, level = 1 },                         # Feint Dash
+  { move = 0x5FE1545F, level = 11 },                        # Flame Veil
   { move = 0x58E8FC83, level = 20 },                        # Rolling Hell
+  { move = 0x41F3CDC2, level = 30 },                        # Scorching Tackle
 ]
 VRFW.MoveGrades = [
   { Move = 0x087999EE, Grade = 1 },                         # Heel Drop
@@ -155,9 +152,9 @@ VRFW.MoveGrades = [
 target = "c03030700"                                   # Changsu Choi
 moves = [
   { move = 0x087999EE, level = 1 },                         # Heel Drop
-  { move = 0x62294D90, level = 1 },                         # Dust Kick
   { move = 0xB4B4D106, level = 20 },                        # Dragon Cannon
   { move = 0x316A7390, level = 63 },                        # Land Dragon
+  { move = 0x457EB170, level = 73 },                        # Pyrokinetic
 ]
 
   [[edit.cards]]
@@ -172,8 +169,8 @@ target = "c03030720"                                   # Chi-Won Ho
 moves = [
   { move = 0x5B3151F0, level = 1 },                         # Nitro Slap
   { move = 0x8FBCFC3C, level = 25 },                        # Blazing Knuckle
-  { move = 0xD2955C45, level = 36 },                        # Power Catch
   { move = 0xEF5D458A, level = 50 },                        # Burnout
+  { move = 0xBFCC20E7, level = 60 },                        # Wood Chopper
 ]
 
   [[edit.cards]]
@@ -217,8 +214,8 @@ target = "c03030750"                                   # Sung-Jin Noh
 moves = [
   { move = 0x5FE1545F, level = 1 },                         # Flame Veil
   { move = 0x259F08C6, level = 12 },                        # Whirlwind Twister
-  { move = 0x6B4A7B35, level = 43 },                        # Power Shot
   { move = 0x4DDFEDE2, level = 72 },                        # Eagle Buster
+  { move = 0x41F3CDC2, level = 82 },                        # Scorching Tackle
 ]
 
   [[edit.cards]]
@@ -246,10 +243,10 @@ moves = [
 [[edit]]
 target = "c11803030"                                   # Lee Ji Seong
 moves = [
-  { move = 0xC4701649, level = 1 },                         # Ice Block
-  { move = 0x49933AEE, level = 13 },                        # Perfect Tower
-  { move = 0xAF28F5A0, level = 20 },                        # The Tower
-  { move = 0x96A7CD7D, level = 30 },                        # Tsunami Wall
+  { move = 0x49933AEE, level = 1 },                         # Perfect Tower
+  { move = 0xAF28F5A0, level = 11 },                        # The Tower
+  { move = 0x1FC99D68, level = 21 },                        # Snow Angel
+  { move = 0x82788A5A, level = 31 },                        # Straight Counter
 ]
 
   [[edit.cards]]

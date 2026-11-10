@@ -1,8 +1,6 @@
 schema = "VRFW.game/2"
 
-# BetterQoL › Home / Away kit (feature away_kit). The kit picker's Lua (graft research/grafts/away_kit) calls
-# CMND_BETTERQOL_TEAM_UNIFORM / CMND_BETTERQOL_AK_PAIR and shows Local / Visitante when module mask bit 19 (524288) is
-# lit. The logic is scripts\away_kit.lua; this file only names what it uses in the game.
+# Home / Away kit: game data and commands used by graft away_kit (shown when module mask bit 19 is lit).
 
 # [[g_gameRoot] + 0x69A8] = CGDDPartyStatus (team sets at +0x17B8)
 [[VRFW.Global]]
@@ -10,19 +8,15 @@ name = "party"
 base = "game_root"
 chain = ["ROOT_PARTY"]
 
-# TeamInfo (0x2D0 bytes, saved as teamInfoList[] of block 0x07): +0x290 uniformId (the kit every consumer reads:
-# CMND_GET_TEAM_SET_INFO field 7, face icons, dock 3D view, Kizuna town, match team record), +0x294 uniformInvHdl (the
-# owned kit item, field 12; only the kit picker and the dock kit icon read it).
+# TeamInfo (0x2D0 bytes): +0x290 uniformId (read by every consumer), +0x294 uniformInvHdl (owned kit item; picker only).
 [[VRFW.Struct]]
 name = "TeamInfo"
 size = 0x2D0
 fields = { uniform = { at = 0x290, type = "u32" }, uniform_item = { at = 0x294, type = "u32" } }
 
-# set, team [, uniform [, src_team]] -> ok, uniformId (the old name: Inazuma Fantasy's pachanga / INAROGUE Lua and the
-# VR-Framework's pachanga_core call it)
+# set, team [, uniform [, src_team]] -> ok, uniformId (also called by other mods' Lua)
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_TEAM_UNIFORM"
-aliases = ["CMND_EVT_TEAM_UNIFORM"]
 handler = "BetterQoL.TeamUniform"
 needs = ["Team.SetStruct", "party", "TeamInfo"]
 
@@ -32,7 +26,7 @@ name = "CMND_BETTERQOL_AK_PAIR"
 handler = "BetterQoL.AwayKitPair"
 needs = ["Team.SetStruct", "party", "TeamInfo"]
 
-# the kit picker's Lua tests mods / 524288 % 2: it must never move (was IF's MOD_AWAY_KIT)
+# the kit picker's Lua tests mods / 524288 % 2: must never move
 [[VRFW.ModuleMask]]
 bit = 19
 needs = ["CMND_BETTERQOL_TEAM_UNIFORM", "CMND_BETTERQOL_AK_PAIR"]

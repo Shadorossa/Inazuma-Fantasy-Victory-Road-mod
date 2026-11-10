@@ -1,0 +1,52 @@
+schema = "VRFW.technique/3"
+# Last Eclipse: a solo neutral shot, Solar Nexus's sun (whs02130) cut into Dark Star's eclipse and night (whs01690); power 140-800, TP 100, recast 90 s.
+
+[[technique]]
+name = "last_eclipse"
+base = "whs01690"
+manual = true
+users = 1
+element = "void"
+power_min = 140
+power_max = 800
+tp = 100
+recast = 90
+  [technique.text.en]
+  name = "Last Eclipse"
+  description = "The sun is swallowed by darkness and\nfalls as a black star with a golden corona."
+  [technique.text.es]
+  name = "Último eclipse"
+  description = "La oscuridad devora el sol y este\ncae como astro negro de corona dorada."
+  [technique.text.fr]
+  name = "Dernière éclipse"
+  description = "Les ténèbres dévorent le soleil, qui\nchute en astre noir à couronne dorée."
+  [technique.text.de]
+  name = "Letzte Finsternis"
+  description = "Die Dunkelheit verschlingt die Sonne: ein\nschwarzer Stern mit goldener Korona fällt."
+  [technique.text.it]
+  name = "Ultima Eclissi"
+  description = "Le tenebre divorano il sole, che cade\ncome astro nero dalla corona dorata."
+  [technique.text.pt]
+  name = "Último Eclipse"
+  description = "A escuridão devora o sol, que cai\ncomo astro negro de coroa dourada."
+  [technique.text.ja]
+  name = "ラストエクリプス"
+  description = "闇が太陽を飲み込み\n黄金の冠を持つ黒き星が落ちる！"
+  [technique.text.zh_hans]
+  name = "最后的日食"
+  description = "黑暗吞噬太阳，\n化作金冕黑星坠落。"
+  [technique.text.zh_hant]
+  name = "最後的日食"
+  description = "黑暗吞噬太陽，\n化作金冕黑星墜落。"
+  [technique.animation]
+  from = "ev60_01690"
+  id = "ev60_81690"
+  sound_cue = "ev60_81690_me"
+  cuts = [
+    { from_event = "ev60_02130", cut = "c0010", slot = "c0010", warp = [[0, 0], [70, 20], [179, 120]], sync = [[0, 0], [70, 20], [179, 120]], whole = true },
+    { from_event = "ev60_02130", cut = "c0020", frames = [0, 97], slot = "c0030", whole = true, hide = ["s00"] },
+    { from_event = "ev60_01690", cut = "c0010", slot = "c0010", frames = [107, 129], sync = [[107, 0], [129, 22]], whole = true },
+    { from_event = "ev60_01690", cut = "c0020", slot = "c0020", frames = [0, 54], whole = true },
+    { from_event = "ev60_01690", cut = "c0030", slot = "c0030", frames = [0, 128], whole = true },
+    { from_event = "ev60_01690", cut = "c0040", slot = "c0040", frames = [0, 96], whole = true },
+  ]

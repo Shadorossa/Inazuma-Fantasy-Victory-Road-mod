@@ -1,20 +1,17 @@
 schema = "VRFW.character/2"
-# Character Reforged · Fertilia Eleven · Inazuma Eleven GO Galaxy
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c06032010"                                   # Ceram Longicorn
 moves = [
   { move = 0x78410D9E, level = 1 },                         # Venus Balltrap
   { move = 0xF5A22139, level = 25 },                        # Bindweed
-  { move = 0xD2955C45, level = 36 },                        # Power Catch
-  { move = 0xF9B80F86, level = 53 },                        # Strong Punch
+  { move = 0x9AF2229C, level = 35 },                        # Gravity Point
+  { move = 0xF309624E, level = 45 },                        # Dual Smash
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x79881736, level = 1 },                         # Tótem Mosfi [aura]
+  { move = 0x79881736, level = 20 },                        # wsk000230
 ]
 
   [[edit.cards]]
@@ -27,9 +24,9 @@ moves = [
 target = "c06032020"                                   # Romborina Drohn
 moves = [
   { move = 0xF5A22139, level = 8 },                         # Bindweed
-  { move = 0x78410D9E, level = 22 },                        # Venus Balltrap
   { move = 0x5739C70C, level = 31 },                        # Guided Collide
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
+  { move = 0xD1E62D0A, level = 60 },                        # Mushroom Hop
 ]
 
   [[edit.cards]]
@@ -60,8 +57,8 @@ target = "c06032040"                                   # Formica Anz
 moves = [
   { move = 0xD1E62D0A, level = 1 },                         # Mushroom Hop
   { move = 0x5739C70C, level = 17 },                        # Guided Collide
-  { move = 0x2D68DB57, level = 32 },                        # Deceptive Step
   { move = 0xB37CD264, level = 48 },                        # Am-Bush
+  { move = 0x21127474, level = 58 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -92,8 +89,8 @@ target = "c06032060"                                   # Lepidoptera Flutterby
 moves = [
   { move = 0xD1E62D0A, level = 2 },                         # Mushroom Hop
   { move = 0xF5A22139, level = 7 },                         # Bindweed
-  { move = 0x2D68DB57, level = 33 },                        # Deceptive Step
   { move = 0x2C3D95DD, level = 46 },                        # Sleeping Dust
+  { move = 0x49933AEE, level = 56 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -124,7 +121,7 @@ moves = [
   { move = 0xAB1367C0, level = 10 },                        # Giant Beanstalk
   { move = 0xD1E62D0A, level = 22 },                        # Mushroom Hop
   { move = 0xF5A22139, level = 37 },                        # Bindweed
-  { move = 0x62294D90, level = 46 },                        # Dust Kick
+  { move = 0x3F00EDE9, level = 47 },                        # Dash Storm
 ]
 
   [[edit.cards]]
@@ -145,7 +142,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x94DC0264, level = 1 },                         # Tótem Gusfi [aura]
+  { move = 0x94DC0264, level = 20 },                        # wso000220
 ]
 
   [[edit.cards]]
@@ -195,14 +192,14 @@ target = "c06032120"                                   # Ruger Baran
   stats = { kick = 294, control = 232, technique = 251, pressure = 231, physical = 154, intelligence = 236, agility = 201, freedom = 305 }
   moves = [
     { move = 0xB04EE8D8, level = 12 },                      # Scream of Eden
-    { move = 0x3D10DCB3, level = 26 },                      # Curve Shot
     { move = 0x6ADE9E01, level = 40 },                      # Illusory Ball
-    { move = 0x6B4A7B35, level = 54 },                      # Power Shot
+    { move = 0xC513565C, level = 50 },                      # Doom Spear
+    { move = 0x79224D8B, level = 60 },                      # Freeze Shot
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
-    { move = 0x1B02DBAF, level = 1 },                       # Tótem Pelion [aura]
+    { move = 0x1B02DBAF, level = 20 },                      # wss000410
   ]
 
 [[edit]]
@@ -214,14 +211,14 @@ target = "c06032130"                                   # Gandares Baran
   stats = { kick = 302, control = 238, technique = 255, pressure = 190, physical = 197, intelligence = 205, agility = 188, freedom = 351 }
   moves = [
     { move = 0xB04EE8D8, level = 13 },                      # Scream of Eden
-    { move = 0x3D10DCB3, level = 28 },                      # Curve Shot
     { move = 0x660EED1E, level = 43 },                      # Low Scythe Slice
-    { move = 0x240BEDF2, level = 56 },                      # Bounce Shot
+    { move = 0x8B90AAAC, level = 53 },                      # Fortissimo
+    { move = 0xF9C4BCF4, level = 63 },                      # Double Helix
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
-    { move = 0x62F85358, level = 1 },                       # Tótem Belion [aura]
+    { move = 0x62F85358, level = 20 },                      # wss000240
   ]
 
 [[edit]]
@@ -245,8 +242,8 @@ target = "c06035790"                                   # Elater Clicka
 moves = [
   { move = 0x4E22F64D, level = 1 },                         # Transporter Device
   { move = 0x2CFC3E63, level = 18 },                        # Dragon Crash
-  { move = 0x3D10DCB3, level = 28 },                        # Curve Shot
-  { move = 0x6B4A7B35, level = 38 },                        # Power Shot
+  { move = 0x21127474, level = 28 },                        # Ultra Moon
+  { move = 0xF5A22139, level = 38 },                        # Bindweed
 ]
 
   [[edit.cards]]
@@ -274,9 +271,9 @@ moves = [
 target = "c11806060"                                   # Simeur Feromont
 moves = [
   { move = 0x19C3F43D, level = 1 },                         # Eternal Blizzard
-  { move = 0x613ABD43, level = 13 },                        # Dawnrise
-  { move = 0x4E9A9232, level = 20 },                        # Spinning Cut
-  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
+  { move = 0x613ABD43, level = 11 },                        # Dawnrise
+  { move = 0x4E9A9232, level = 21 },                        # Spinning Cut
+  { move = 0xB0F8060A, level = 31 },                        # Ozone Flayer
 ]
 
   [[edit.cards]]

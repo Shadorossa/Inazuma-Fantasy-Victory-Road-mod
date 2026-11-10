@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Kirkwood · Inazuma Eleven
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c01001610"                                   # John Neville
 moves = [
   { move = 0x8DFA4265, level = 1 },                         # Toughness Block
-  { move = 0xC379BE95, level = 1 },                         # Counter Strike
-  { move = 0x1E0BF75F, level = 45 },                        # Mega Wall
+  { move = 0xC379BE95, level = 11 },                        # Counter Strike
   { move = 0xDBA0E5E3, level = 65 },                        # Gigant Wall
+  { move = 0xBFCC20E7, level = 75 },                        # Wood Chopper
 ]
 
   [[edit.cards]]
@@ -21,9 +18,9 @@ moves = [
 [[edit]]
 target = "c01001620"                                   # Malcolm Night
 moves = [
-  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x6C827857, level = 39 },                        # Rolling Steal
+  { move = 0x1ECA5CE1, level = 39 },                        # Wrath Shot
+  { move = 0x73C5AF40, level = 49 },                        # Dash Accelerator
+  { move = 0x4E9A9232, level = 59 },                        # Spinning Cut
   { move = 0xB6F26F5F, level = 60 },                        # Tri-Pegasus
 ]
 
@@ -37,7 +34,7 @@ moves = [
 target = "c01001630"                                   # Alfred Meenan
 moves = [
   { move = 0x19025F83, level = 1 },                         # Quick Draw
-  { move = 0x5781A373, level = 1 },                         # Hurricane Arrows
+  { move = 0x5781A373, level = 11 },                        # Hurricane Arrows
   { move = 0x261BDCA8, level = 50 },                        # Moonsault
   { move = 0xA7B451B3, level = 58 },                        # Paladin Strike
 ]
@@ -66,10 +63,10 @@ moves = [
 [[edit]]
 target = "c01001650"                                   # Ricky Clover
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x5781A373, level = 1 },                         # Hurricane Arrows
+  { move = 0x4F58F805, level = 1 },                         # Coil Turn
+  { move = 0x4E9A9232, level = 11 },                        # Spinning Cut
+  { move = 0x5781A373, level = 21 },                        # Hurricane Arrows
   { move = 0x4AD6453E, level = 45 },                        # Back Tornado
-  { move = 0x52CEB5F6, level = 70 },                        # Iron Wall
 ]
 
   [[edit.cards]]
@@ -82,7 +79,7 @@ moves = [
 target = "c01001660"                                   # Toby Damian
 moves = [
   { move = 0x261BDCA8, level = 1 },                         # Moonsault
-  { move = 0x4AD6453E, level = 1 },                         # Back Tornado
+  { move = 0x4AD6453E, level = 11 },                        # Back Tornado
   { move = 0x4CDC2C6B, level = 48 },                        # Shooting Star
   { move = 0x5049A011, level = 56 },                        # Spinning Shot
 ]
@@ -111,7 +108,7 @@ moves = [
 [[edit]]
 target = "c01001680"                                   # Zachary Moore
 moves = [
-  { move = 0x49041E53, level = 1 },                         # Crosscut Feint
+  { move = 0x7B64F3D2, level = 1 },                         # Hawk Shot
   { move = 0x6ADE9E01, level = 42 },                        # Illusory Ball
   { move = 0x4890FB67, level = 53 },                        # Twin Boost
   { move = 0x7207C577, level = 58 },                        # Boost Glider
@@ -126,10 +123,10 @@ moves = [
 [[edit]]
 target = "c01001690"                                   # Marvin Murdock
 moves = [
-  { move = 0x3D10DCB3, level = 1 },                         # Curve Shot
-  { move = 0x2F78EA0D, level = 1 },                         # Triangle Z
-  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
-  { move = 0x6ADE9E01, level = 37 },                        # Illusory Ball
+  { move = 0x7207C577, level = 70 },                        # Boost Glider
+  { move = 0x2F78EA0D, level = 80 },                        # Triangle Z
+  { move = 0x35E70F22, level = 90 },                        # Grenade Shot
+  { move = 0x6ADE9E01, level = 100 },                       # Illusory Ball
 ]
 
   [[edit.cards]]
@@ -141,8 +138,8 @@ moves = [
 [[edit]]
 target = "c01001700"                                   # Thomas Murdock
 moves = [
-  { move = 0x6B4A7B35, level = 1 },                         # Power Shot
-  { move = 0x4AD6453E, level = 1 },                         # Back Tornado
+  { move = 0x261BDCA8, level = 1 },                         # Moonsault
+  { move = 0x4AD6453E, level = 11 },                        # Back Tornado
   { move = 0x2F78EA0D, level = 35 },                        # Triangle Z
   { move = 0x36A270F2, level = 55 },                        # Rolling Slide
 ]
@@ -157,8 +154,8 @@ moves = [
 target = "c01001710"                                   # Tyler Murdock
 moves = [
   { move = 0x4AD6453E, level = 1 },                         # Back Tornado
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x2F78EA0D, level = 10 },                        # Triangle Z
+  { move = 0x4E9A9232, level = 11 },                        # Spinning Cut
+  { move = 0x2F78EA0D, level = 21 },                        # Triangle Z
   { move = 0x3BF45E9A, level = 65 },                        # Triple Boost
 ]
 
@@ -171,8 +168,8 @@ moves = [
 [[edit]]
 target = "c01001720"                                   # Simon Calier
 moves = [
-  { move = 0xF9B80F86, level = 1 },                         # Strong Punch
-  { move = 0xA6D711A6, level = 1 },                         # Full Power Shield
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0xA6D711A6, level = 11 },                        # Full Power Shield
   { move = 0x7EEA4EE9, level = 22 },                        # Blade Attack
   { move = 0xF5C2A0A5, level = 66 },                        # Capoeira Grab
 ]
@@ -186,10 +183,10 @@ moves = [
 [[edit]]
 target = "c01001730"                                   # Brody Gloom
 moves = [
-  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
-  { move = 0x78E027BC, level = 1 },                         # Shine Drive
+  { move = 0x142DBE2A, level = 1 },                         # Foul Offence
+  { move = 0x73C5AF40, level = 11 },                        # Dash Accelerator
+  { move = 0x78E027BC, level = 21 },                        # Shine Drive
   { move = 0x7207C577, level = 49 },                        # Boost Glider
-  { move = 0xE854ED56, level = 55 },                        # Warp Space
 ]
 
   [[edit.cards]]
@@ -248,9 +245,9 @@ moves = [
 target = "c11801120"                                   # Seth Nichols
 moves = [
   { move = 0x518BCA26, level = 1 },                         # Fire Tornado
-  { move = 0x49933AEE, level = 13 },                        # Perfect Tower
-  { move = 0xAF28F5A0, level = 20 },                        # The Tower
-  { move = 0x5781A373, level = 30 },                        # Hurricane Arrows
+  { move = 0xAF28F5A0, level = 11 },                        # The Tower
+  { move = 0x49933AEE, level = 21 },                        # Perfect Tower
+  { move = 0x5781A373, level = 31 },                        # Hurricane Arrows
 ]
 
   [[edit.cards]]

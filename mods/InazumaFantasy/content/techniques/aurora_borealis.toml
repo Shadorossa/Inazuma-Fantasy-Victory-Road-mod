@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Aurora boreal (Aurora Borealis): the download's move whs90003, a clone of whs01100 with its numbers; its event ev60_90003 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "aurora_borealis"

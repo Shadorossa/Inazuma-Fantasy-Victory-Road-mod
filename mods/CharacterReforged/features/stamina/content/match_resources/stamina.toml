@@ -1,0 +1,48 @@
+schema = "VRFW.match_resource/1"
+
+[[VRFW.MatchResource]]
+name = "stamina"
+aliases = ["VRFW.stamina"]   # the stamina role key
+max = 134
+pe_provider = true
+live_states = [9, 14, 15, 16]     # in play, focus battle, scramble, zone
+duel_states = [14, 15]            # the exhausted speed in a duel: focus battle, scramble
+
+[VRFW.MatchResource.drain]
+per_match = true
+base = 0.35
+running = 0.7                     # unused while consume_is_dash
+dash = 4.2                        # 0.35 x 5.2 = 1.82 bars per match of dashing (6.0: 2.45)
+dash_attack = 8.4
+# the match length without a match clock (2 x 30' at the clock rate 14.1) and the shortest one used (real seconds)
+match_seconds_fallback = 255
+match_seconds_min = 30
+consume_is_dash = true
+transformed = 5.4                 # 0.35 x 6.4 = 2.25 bars per match transformed
+transformed_auras = ["soul", "bond"]
+
+[VRFW.MatchResource.stat_scale]
+stat = "physical"
+ref = 100
+step = 0.0028
+floor = 0.01
+
+[VRFW.MatchResource.scale]
+keeper = 0.5                      # goalkeepers (formation position 0)
+rival = 1.0                       # the CPU team
+global = 0.5
+
+[VRFW.MatchResource.half_time]
+share = 0.30
+jitter = 0.0
+halves = [2, 3, 4]                # the second half, the two halves of extra time
+shares = [0.30, 0.25, 0.25]       # per entry of halves
+
+[[VRFW.MatchResource.state]]
+name = "exhausted"
+below = 0.10
+above = 0.15
+speed_mult = 0.46                 # 15 % faster than 0.4
+speed_mult_duel = 0.805           # 15 % faster than 0.7
+block_dash = true
+end_dash = true

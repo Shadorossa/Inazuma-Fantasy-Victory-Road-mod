@@ -1,145 +1,24 @@
 id = "InazumaFantasy"
-# name / description: the English fallback; the screen shows the text keys mod_name / mod_description in the
-# game's language (text\keys.toml).
+# name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "Inazuma Fantasy"
-version = "0.2.4"
+version = "0.3.0"
 author = "Fantasy Team"
-author_steam = "76561199013321372"
-description = "Inazuma Fantasy. The Market gets its own shops, priced in Passion Points that every match pays: a general store, a training shop and two special move shops, with a padlock on what is not unlocked yet. It adds Fantasy Idol cards, the Inazuma Fantasy title screen, a free match section with two mod teams and a daily legendary rival. New special moves, including 30 by LegendaryAd and God Strike, and an Arion military outfit are sold in the shops."
+description = "The Market gets its own shops priced in Passion Points that every match pays: a general store, a training shop and two special move shops. It adds Fantasy Idol cards, the Inazuma Fantasy title screen, a free match section with two mod teams and a daily legendary rival, and sells new special moves, including 30 by LegendaryAd and God Strike, and an Arion military outfit."
 priority = 0
 tags = ["Gameplay"]
-updated = "2026-11-06"
+updated = "2026-11-09"
 prefix = "InazumaFantasy"
 folder = "InazumaFantasy"
-# A new mod. The earlier Inazuma Fantasy (id inazuma_fantasy) is kept apart in research/mods/_aside/; this
-# id is new so that its saved data, its grafts and the other mods' `if_mod = "inazuma_fantasy"` rows stay with it.
-#   content\base_tables\gamedata\post\post_notice_config.toml  the notices of «Información»: the first one shows the
-#                                       mod's banner (content\images\menu\220_img\banner_img, GENERATED:
-#                                       research/scripts/inazuma_fantasy_notice_banner.py), the compensation one is out
-#   content\base_tables\gamedata\post\advent_calendar_config.toml  the advent calendar gets a big card on 05/11 with the
-#                                       mod's art, the retail cards stay (content\images\menu\220_img\calendar_img,
-#                                       GENERATED: research/scripts/inazuma_fantasy_advent_card.py), loaded with the
-#                                       menu by content\menus\advent_calendar_menu.toml
-#   _general_store.toml                 the shops' rule (developer file, not installed)
-#   content\shops\general_store.toml, training_shop.toml, technique_shop.toml
-#                                       GENERATED (research/scripts/inazuma_fantasy_general_store.py): the three shops
-#   content\shop_tabs\technique_shop*.toml  GENERATED: their moves tab split per move type (VRFW [[VRFW.ShopTab]])
-#   content\shops\moved_rows.toml       GENERATED: the retail rows they replace, hidden (story shops untouched)
-#   content\shop_redirects\emptied_shops.toml  GENERATED: the emptied retail shops open the General Store (VRFW redirect)
-#   content\menus\market_menu.toml      GENERATED: the Mercado's bar count, one per shop
-#   assets\menu\150_shop\...\shop01_20.g4pkm   GENERATED: research/scripts/inazuma_fantasy_market_bar.py
-#   text\rows\shop_text.toml            GENERATED: the bars' names and the split tabs' titles
-#   content\items\level_orbs.toml, scripts\level_orbs.lua, content\game\level_orbs.toml, config.toml [level_orbs.levels]
-#                                       the level orbs (ex0001 .. ex0003); the use: research/grafts/inazuma_fantasy_level_orbs
-#   _advent_calendar.toml, content\shops\advent_calendar.toml  the advent calendar's rewards: rule (developer file) and
-#                                       GENERATED tables (research/scripts/inazuma_fantasy_advent_build.py)
-#   content\items\currencies.toml       Puntos de pasión (tk_bb000001): retail item renamed, the match rule that pays
-#                                       it (config.toml [match_drops.passion]); its icon in content\images\...\currencies*.
-#                                       Puntos de amistad (tk_hr000008) are Character Reforged's ClassicRecruitment module's
-#                                       (content\items\friendship_points.toml)
-#   content\items\arion_sherwind_uniform.toml  Arion Sherwind's Inazuma Fantasy uniform: an outfit ([[VRFW.Outfit]]) only
-#                                       the game's Arion wears (kit in content\looks\, model in content\models\kits\),
-#                                       sold in the General Store (content\shops\arion_sherwind_uniform.toml)
-#                                       and shows him with his military cap (its [[VRFW.ItemTransform]] to
-#                                       content\characters\arion_military_cap.toml: head c90400081 + cap exmesh i90400081,
-#                                       content\models\, assets\models\, face icon c90400081_l)
-#   content\base_tables\...\chara_series_config.toml, text\rows\chara_add_info_text.toml  the «Inazuma Eleven
-#                                       Fantasy» series (the free-match section's name)
-#   content\characters\idols.toml       the Idol cards: each replaces a game Idol card of the same player (same card id);
-#                                       Hidetoshi Nakata and Tom Skipper (no game Idol) are new cards, not obtainable yet
-#   _cs_miximax_idols.toml, content\characters\cs_miximax_idols.toml, content\items\cs_miximax_idol_titles.toml,
-#   content\techniques\cs_miximax_idols.toml   Chrono Stone's Mix-Max forms as Idols, each on a game Idol card a player had
-#                                       to spare: rule (developer file) and GENERATED (research/scripts/inazuma_fantasy_cs_idols_build.py)
-#   content\characters\nakata_hidetoshi.toml, content\teams\nakata_orfeo.toml   Hidetoshi Nakata's basic card, in Orfeo's slot 8
-#   content\teams\byron_love_idol_fire_dragon.toml   Dragones de Fuego (IE3, tm_cro_ie3_0500 / _0520) fields
-#                                       the Byron Love Idol card in Byron Love's slot
-# content\teams\crossed_japan.toml (key evt_ct_ft_crossed_japan): an Inazuma Japan squad on
-#                                       game cards, from the earlier Inazuma Fantasy; listed by the free-match picker
-#   content\techniques\idols.toml       their move whs00010_solo and their ability boards
-#   content\items\idol_titles.toml      their titles
-#   assets\menu\200_icon\10_icon_chr\face\c900001*_l.g4tx   their face icons
-#   content\shop_locks\all_shops.toml  every shop lists its locked rows (VRFW shop locks); text\rows\shop_locks.toml
-#   content\images\menu\50_title\title_art.toml   the title logo (press-start, mode menu, ending logo) and the
-#                                       press-start key art, PNGs in title_art\; config.toml [VRFW.TitleArt] own = true
-#   _tezcat_arion_miximax.toml         the Tezcat x Arion miximax rule (developer file, not installed); GENERATED from it
-#                                       by research/scripts/inazuma_fantasy_tezcat_arion_build.py:
-# content\techniques\tezcat_arion_miximax.toml Tezcat may use the miximax item (wmm00210)
-#   content\characters\tezcat_arion_miximax.toml   the look he takes (variant c90370080) and the same look as a player
-# of his own, (c90370081, at the Office on Tezcat's page);
-#                                       tezcat_arion_miximax_reforged.toml: Character Reforged's values of Tezcat's card
-#   content\models\characters\c90370080.toml + assets\models\characters\c90370080\   the head
-#   content\models\characters\c90000146.toml + assets\models\characters\c90000146\   the Byron Love Idol head (red eyes, pale blond hair, toothy grin, angled brows)
-#   assets\menu\200_icon\10_icon_chr\face\c9037008{0,1}_l.g4tx   their face icons
-#   content\techniques\god_strike.toml  God Strike (Remate divino), a solo wind shot: the god half of Penguin Reckoning
-#                                       (whs03250) as its own cut-in ev60_83250; content\effects\god_strike.toml its copy of
-#                                       the effect object (ev600325gs, devil half hidden); content\shops\own_skills.toml its
-#                                       manual in the Special Moves shop (Shot tab)
-#   content\techniques\god_hand_colors.toml  the God Hand family in the retail red and blue: God Hand EV, Double, Triple, Super (both),
-#                                       Infinite Hands and Fist of Fury (blue): each its base's numbers, the element of its colour;
-#                                       content\anims\god_hand_colors.toml their cut-ins, content\effects\god_hand_colors.toml the recoloured
-#                                       objects (ev63860000 .. ev63860180); content\shops\own_skills.toml their manuals
-#   content\techniques\dark_tornado_a.toml  Dark Tornado (A): Fire Tornado A's numbers and flags, Dark Tornado's element and description;
-#                                       content\anims\dark_tornado_a.toml its cut-in, content\effects\dark_tornado_a.toml the recoloured
-#                                       object (ev60860000); content\shops\own_skills.toml its manual
-#   content\techniques\dark_fire_storm.toml  Dark Fireball Storm: Fireball Storm's numbers and flags, Dark Tornado's element and description;
-#                                       content\anims\dark_fire_storm.toml its cut-in, content\effects\dark_fire_storm.toml the recoloured object (ev60861000),
-#                                       giant (ev60_86101, content\characters\dark_fire_storm_model.toml) and ball aura; content\shops\own_skills.toml its manual
-#   content\techniques\tiger_fang.toml  Colmillo del Tigre: Colmillo de pantera's numbers and flags, Remate del tigre's element;
-#                                       content\anims\tiger_fang.toml its cut-ins, content\effects\tiger_fang.toml the actor they load,
-#                                       content\models\props\tiger_fang + content\characters\tiger_fang_model.toml the tiger (ev63_86020),
-#                                       made by research/scripts/tiger_fang_model_build.py (_deploy.toml); content\shops\own_skills.toml its manual
-# LegendaryAd's thirty skills (formerly the mod Hissatsu Revamp, merged here; same keys whs9xxxx / who9xxxx / whd9xxxx /
-# whk9xxxx, so learned skills stay), written by research/scripts/hissatsu_revamp_build.py from the download; names in
-# the nine languages: _hissatsu_revamp_names.toml (developer file):
-#   content\techniques\<name>.toml      one file per skill, each a clone of a retail skill
-#   assets\event\, assets\event_cfg\    their events (packs, cameras, light files, evt / eff / snd lists), native;
-#                                       content\base_tables\event\, event_cfg\ the light / command deltas of four of them
-#   content\models\effects|props|items\ + assets\models\...   effect objects, ball auras, skill models, native
-#   content\base_tables\gamedata\character\   the skill models' chara_base / chara_model rows
-#   content\base_tables\gamedata\skill\, content\base_tables\effect\   four own ball colours (colour rows 10-13)
-#   content\effects\auras.toml          aura statuses (recolour copies of retail auras)
-#   content\telops\any\, en\            the name banners; text\rows\skill_text.toml the pinned names of four of them
-#   content\shops\own_skills.toml       their manuals in the Special Moves shop, tab of their skill type
-# content\gacha\chronicle_deluxe_kizuna_coin.toml in Chronicle Deluxe's board gacha (1.8.0;
-#                                       nothing without Chronicle Deluxe); content\base_tables\gamedata\soccer\soccer_drop_config.toml:
-# his character in that gacha's drop-rate list (if_mod ChronicleDeluxe)
-# the IE3 / Galaxy formations moved to Better QoL (BetterQoL\content\formations\series_formations.toml)
-# Graft (research/grafts): inazuma_fantasy_general_store (the Mercado entries, market_menu: its shops first, a retail
-# shop whose every row is hidden left out).
-# lua_early: the graft is a merge-path patch of market_menu; early, the later wrappers of that script stay on top of it.
-lua_early = true
-# 2.3: the «Rival del día» row shows a «?» crest and «?» player cards (content\images\menu\102_team\daily_rival_unknown.toml,
-# assets\images\teams\emblems\daily_rival_unknown.png), no BetterMenu pitch players for it, and beating the day's
-# rival pays config.toml [daily_legendary_rival] reward Puntos de pasión once per day (shown in its guide line).
-# 2.2: the «Rival del día» row hides the day's team in the list (own name, no crest, blank player slots); the stand-in
-# happens when the row is chosen, so only the VS screen and the match show it.
-# 2.1 (VRFW 3.8: [VRFW.RivalLevel], per-team free-match classes): the Daily Legendary Rival, first row of the free-match
-# section: one rival a day for everyone (UTC day, VRFW.rng), BATALLA LEGENDARIA only, Nv. 250 (scripts\daily_legendary_rival.lua,
-# content\teams\daily_legendary_rival.toml, assets\lua\soccer_vs_cpu_list_menu\280_daily_legendary_rival.lua).
-# 1.32.2 (VRFW 2.475.74: MatchExp to_level_cap / win_only): a win against Punishment at Nv. 50 gives every player of the
-# match result the EXP to the level cap (content\match_exp\punishment_exp.toml). Removed in 2.34: a win there pays the game's EXP.
-# 1.30.0: the free-match section's classes are INAZUMA Nv. 50, ZONA LETAL Nv. 99 and Nv. 200 (rows 6 / 7 / 9), as Chronicle Deluxe's.
-# 1.29.0: the free-match section lists only Punishment and Crossed Japan; the Leyenda Viva and Llama Eterna teams are removed.
-# 1.27.0 (VRFW 2.274.0: section pages): the section on page 2 of
-# (content\teams\free_match_section.toml) with Leyenda Viva, Llama Eterna, Punishment (ported from the earlier IF)
-# and Crossed Japan, classes 7 / 8 / 9 at Nv. 50 / 125 / 200, listed from the start.
-# 1.6.0: the crests the game's Batalla heroica gives (first clear, difficulty 4) are no longer sold in the General Store;
-# with Chronicle Deluxe, every crest its battles give is sold only while that mod is off (_general_store.toml [sources]).
-# 1.5.0 (VRFW 2.4.142: [[VRFW.MatchDropRemove]] AllSources): no Piedra de la victoria from any match prize,
-# drop or other grant (content\items\currencies.toml).
-# 1.4.3 (VRFW 2.4.147: [[VRFW.ShopRedirect]]): the emptied shops' menu entries open the General Store.
-# 1.4.2 (VRFW 2.4.146: [[VRFW.ShopTab]], [[edit]] hide_unknown_items): one move shop with a tab per move type;
-# the titles in the General Store. 1.4.1 (VRFW 2.4.141: [[edit]] hide_spirits): the player spirit rows hidden.
-# 1.3.3 (VRFW 2.4.133: [[VRFW.MatchDropExtra]]): every match pays Puntos de pasión at its end.
-# 1.16.0 (VRFW 2.140.0: [[VRFW.DropFilter]] Sources = ["chests"], Exclude = "unused_shop_currencies"): no chest gives a
-# shop currency no shop charges any more (content\items\currencies.toml).
-requires = ["VRFW>=0.2.4"]
-optional = ["AuraOverhaul", "BattleBayDeluxe", "BetterMenu", "BetterQoL", "CharacterReforged", "ChronicleDeluxe", "ClassicRecruitment"]
+requires = ["VRFW>=0.3.0"]
+optional = ["BattleBayDeluxe", "BetterMenu", "BetterQoL", "CharacterReforged", "ClassicRecruitment"]
 conflicts = []
-loader_modules = ["lua_bridge"]
-loader_min = "1.7.0"
 # native access of content\game: [[VRFW.Command]] (the Daily Legendary Rival commands)
 permissions = ["command"]
+loader_modules = ["lua_bridge"]
+loader_min = "1.7.0"
+# its graft patches market_menu's merge path; early, the later wrappers of that script stay on top of it
+lua_early = true
+# File map: docs/game/mods/inazuma-fantasy.md
 
 [exports]
 functions = []

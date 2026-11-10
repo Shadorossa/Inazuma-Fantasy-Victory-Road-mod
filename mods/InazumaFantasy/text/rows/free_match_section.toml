@@ -1,5 +1,4 @@
 schema = "VRFW.text/2"
-# The name of Inazuma Fantasy's section of the free-match section bar (content\teams\free_match_section.toml).
 table = "menu_text"
 
 [[row]]

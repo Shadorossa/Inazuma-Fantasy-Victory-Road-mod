@@ -1,20 +1,14 @@
-# Hand-maintained. Clean HUD's pre-match lineup buttons (graft research/grafts/prematch_lineups): the layer
-# evt_pm_left_button («Editar» / «Datos», the retail «Siguiente» mirrored at the bottom left: objbin + layout in
-# files\data, research/scripts/prematch_buttons_build.py) in the lineup group, and its commands; CMD_FUNC3 on
-# «Siguiente» too, so the key works with either button focused (CMD_FUNCTION crc32("evt_pm_btn"), the graft's
-# EVT_PMB.FN). Online the layer is never opened and the CMD_FUNC3 rows reach nothing (no option row since 1.14.6:
-# always on offline).
 schema = "VRFW.menu/2"
 
 [[patch]]
 menu = "soccer_battle_setting_flow_vs_menu"
-add_layer = { name = "evt_pm_left_button", object = "cmn03_01_cmd_back_evt_l", count = 1, after = "cmn03_01_next_button", groups = [{ group = "soccer_battle_setting_flow_formation_menu", flags = [1, 0, 0, 0, 1, 0] }], focus = {} }
+add_layer = { name = "better_ui_pm_left_button", object = "cmn03_01_cmd_back_bui_l", count = 1, after = "cmn03_01_next_button", groups = [{ group = "soccer_battle_setting_flow_formation_menu", flags = [1, 0, 0, 0, 1, 0] }], focus = {} }
 
 [[patch]]
 menu = "soccer_battle_setting_flow_vs_menu"
 add_commands = [
     { layer = "cmn03_01_next_button", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = 0xF99E5503, arg2 = 0, flag = 1 },
-    { layer = "evt_pm_left_button", input = 0x62704075, command = "CMD_ENTER" },
-    { layer = "evt_pm_left_button", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = 0xF99E5503, arg2 = 0, flag = 1 },
-    { layer = "evt_pm_left_button", input = "CMD_FUNC4", command = "CMD_FUNCTION", arg = 0xDCB1DFE6, arg2 = 0, flag = 1 },
+    { layer = "better_ui_pm_left_button", input = 0x62704075, command = "CMD_ENTER" },
+    { layer = "better_ui_pm_left_button", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = 0xF99E5503, arg2 = 0, flag = 1 },
+    { layer = "better_ui_pm_left_button", input = "CMD_FUNC4", command = "CMD_FUNCTION", arg = 0xDCB1DFE6, arg2 = 0, flag = 1 },
 ]

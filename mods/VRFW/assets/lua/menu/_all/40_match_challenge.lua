@@ -1,73 +1,40 @@
--- menu_engine: match challenges («desafíos», VRFW service).
--- Definitions only (this file runs in every script VM, lua\_all; no engine call at load time). The ONE place that
--- checks the player's team against a match's challenge (`[[VRFW.MatchChallenge]]` of the team type, named by a route
--- node, a chain tile, a free-match tab or by the challenge's own `Games`). Called where a match is chosen: the
--- Chronicle board's command menu (its label line, vs_route_town_command_select_menu/110_match_challenge.lua) and VS screen
--- (the kick-off, vs_route_town_vs_team_menu/110_match_challenge.lua), the chain board screen (vrfw_chain_board_menu)
--- and the free-match list (soccer_vs_cpu_list_menu/110_match_challenge.lua). Nothing here
--- names a challenge, a team or a mod: the conditions come from the mods' TOML, the texts from the framework's
--- menu_text rows (text\rows\match_challenge.toml) and the mod's own rows (the challenge's Title / Description / Short).
---
---   VRFW_MC.Of(game, diff)         -> challenge index (0-based) of a match game, nil = none. A challenge with
---                                     `Difficulties` applies only to those rows: nil when `diff` (the row's
---                                     difficulty, when the caller knows it) is not listed or not given
---   VRFW_MC.Info(i)                -> {i, name, mod, title, description, short (text ids), scope, nreq, diffs, required} (cached;
---                                     required = {{count, places = {codes}, until_first_clear, text, label}, ...})
---   VRFW_MC.TitleOf(game, diff)    -> the challenge's title text of a match, nil = none (guide lines)
---   VRFW_MC.RequiredTexts(i, cleared) -> the text ids of its required starters that apply (a `UntilFirstClear` one
---                                     stops once the row is won), for the match info; generated ones and those with a
---                                     `Label` (shown in the challenge's one-line label instead) are left out
---   VRFW_MC.Players(scope, tt)     -> the active dock's players in scope: {{hdl, card, level, rarity, pos, place, avatar}, ...}
---                                     (place: a starter's formation place, 1 GK / 2 FW / 3 MF / 4 DF, 0 unknown; nil
---                                     on the bench; avatar: true = the save's avatar)
---   VRFW_MC.Check(i, tt, cleared)  -> ok, failed {1-based conditions; required starter k = nreq + k}, offenders
---                                     {players}, players
---   VRFW_MC.Refusal(game, tt, diff, cleared) -> nil when the team may play, else the message text (title, description,
---                                     the failed conditions, who breaks them)
---   VRFW_MC.Gate(game, tt, diff, cleared) -> true = play (the match's aura rule armed, VRFW_MC.ArmAuras); false =
---                                     refused (error sound + the message window, fire and forget like the retail team
---                                     check, for OnEnter handlers that return 1)
---   VRFW_MC.ArmAuras(game, diff)   -> the kick-off of a match: its challenge's aura rule (`[VRFW.MatchChallenge.Auras]`)
---                                     is armed for the match (CMND_VRFW_MATCH_AURAS_ARM), else none (_DISARM)
---   VRFW_MC.Status(game, tt, diff, cleared) -> nil when the match has no challenge, else {ok, label (the challenge's
---                                     `Short` text, else its title, plus « + <Label>» of each required starter that
---                                     applies and of the aura rule), offenders (count), i}: the Chronicle board's
---                                     command menu (its label line) and the VS screen's kick-off
--- tt = the dock's team (0 = the 11-a-side team, default; 1 = the 5-a-side team). cleared = the launcher knows the
--- match row was won before (true); nil / false = not won or unknown (a `UntilFirstClear` required starter applies).
--- A team the framework cannot read (no DLL, no command) is never refused.
-if VRFW_MC == nil then
+-- lua_patch.scope: used
+-- VRFW.match_challenge.of(game, diff)         -> challenge index (0-based) of a match game, nil = none.
+if VRFW.match_challenge == nil then
   local MC = {
+    CLEAR_FLAG = VRFW.commands.GET_SOCCER_GAME_CLEAR_FLAG,   -- CMND_GET_SOCCER_GAME_CLEAR_FLAG (game, difficulty) -> won
     CMD = {
-      OF = VRFW_Cmd.VRFW_TEAM_CHALLENGE_OF,         -- CMND_VRFW_TEAM_CHALLENGE_OF (game) -> i / -1
-      GET = VRFW_Cmd.VRFW_TEAM_CHALLENGE_GET,       -- CMND_VRFW_TEAM_CHALLENGE_GET (i) -> name, mod, title, description, scope, conditions,
-                              --   difficulties ("4", "1,4"; "" = every row), required starters, short (0 = the title)
-      REQ = VRFW_Cmd.VRFW_TEAM_CHALLENGE_REQ,       -- CMND_VRFW_TEAM_CHALLENGE_REQ (i, "2/1") -> kind, at least, at most, text, inner, filter
-      CHECK = VRFW_Cmd.VRFW_TEAM_CHALLENGE_CHECK,     -- CMND_VRFW_TEAM_CHALLENGE_CHECK (i, "card:level:rarity[:place[:avatar]];...", cleared 0 / 1)
-                              --   -> ok, failed, offenders
-      REQUIRED = VRFW_Cmd.VRFW_TEAM_CHALLENGE_REQUIRED,   -- CMND_VRFW_TEAM_CHALLENGE_REQUIRED (i, k) -> characters, places "2,3", until first
-                              --   clear, own text id, label suffix text id
-      AURAS = VRFW_Cmd.VRFW_TEAM_CHALLENGE_AURAS,     -- CMND_VRFW_TEAM_CHALLENGE_AURAS (i) -> ruled, allowed kinds "keshin,totem" ("" = none),
-                              --   sides, label suffix text id
+      OF = VRFW.commands.VRFW_TEAM_CHALLENGE_OF,         -- CMND_VRFW_TEAM_CHALLENGE_OF (game) -> i / -1
+      GET = VRFW.commands.VRFW_TEAM_CHALLENGE_GET,
+                              -- difficulties ("4", "1,4"; "" = every row), required starters, short (0 = the title)
+      REQ = VRFW.commands.VRFW_TEAM_CHALLENGE_REQ,
+      CHECK = VRFW.commands.VRFW_TEAM_CHALLENGE_CHECK,
+                              -- -> ok, failed, offenders
+      REQUIRED = VRFW.commands.VRFW_TEAM_CHALLENGE_REQUIRED,
+                              -- clear, own text id, label suffix text id
+      AURAS = VRFW.commands.VRFW_TEAM_CHALLENGE_AURAS,
+                              -- sides, label suffix text id
+      MOVES = VRFW.commands.VRFW_TEAM_CHALLENGE_MOVES,
+                              -- (i) -> ruled, banned categories ("shoot,keeper"), sides, label suffix text id
     },
-    AURAS_ARM = VRFW_Cmd.VRFW_MATCH_AURAS_ARM,   -- CMND_VRFW_MATCH_AURAS_ARM (allowed kinds, sides): the next match's aura rule
-    AURAS_DISARM = VRFW_Cmd.VRFW_MATCH_AURAS_DISARM, -- CMND_VRFW_MATCH_AURAS_DISARM (): the next match has none
-    VS_SET = VRFW_Cmd.GET_VS_USE_TEAM_SET,      -- CMND_GET_VS_USE_TEAM_SET
+    AURAS_ARM = VRFW.commands.VRFW_MATCH_AURAS_ARM,
+    AURAS_DISARM = VRFW.commands.VRFW_MATCH_AURAS_DISARM, -- CMND_VRFW_MATCH_AURAS_DISARM (): the next match has none
+    MOVES_ARM = VRFW.commands.VRFW_MATCH_MOVES_ARM, -- CMND_VRFW_MATCH_MOVES_ARM (banned categories, sides): the next match's move rule
+    VS_SET = VRFW.commands.GET_VS_USE_TEAM_SET,      -- CMND_GET_VS_USE_TEAM_SET
     MEMBER = 1720957768,      -- (set, team, i, 0 hdl / 1 position)
     STATUS = 1131797651,      -- (hdl, 0 level / 4 chara_param / 12 rarity)
-    IS_AVATAR = VRFW_Cmd.GET_IS_AVATAR_CHARA,  -- CMND_GET_IS_AVATAR_CHARA (chara_param, not the handle) -> bool
-    HAS_ATTRIBUTE = 29506568, -- (hdl, mask) -> bool: only for the dock log line (ATTRIBUTE_AVATAR, as chara_bank_menu)
+    IS_AVATAR = VRFW.commands.GET_IS_AVATAR_CHARA,
+    HAS_ATTRIBUTE = 29506568,
     ATTRIBUTE_AVATAR = 4096,
-    TEAM_SET_INFO = VRFW_Cmd.GET_TEAM_SET_INFO, -- CMND_GET_TEAM_SET_INFO (set, team, 4) -> ok, formation id
-    FORMATION_INFO = VRFW_Cmd.GET_SOCCER_FORMATION_INFO, -- CMND_GET_SOCCER_FORMATION_INFO (6, formation, place) -> ok, scPosType bits
+    TEAM_SET_INFO = VRFW.commands.GET_TEAM_SET_INFO, -- CMND_GET_TEAM_SET_INFO (set, team, 4) -> ok, formation id
+    FORMATION_INFO = VRFW.commands.GET_SOCCER_FORMATION_INFO,
     -- scPosType bit (16 GK, 32 DF, 64 MF, 128 FW) -> position code
     PLACE_BITS = {{16, 1}, {32, 4}, {64, 3}, {128, 2}},
-    NAME = VRFW_Cmd.GET_CHARA_NAME_TEXT,        -- CMND_GET_CHARA_NAME_TEXT (hdl)
-    SERIES = VRFW_Cmd.GET_CHARA_SERIES_INFO,       -- CMND_GET_CHARA_SERIES_INFO (1, series) -> ok, name (menu VMs)
-    TEXT_GET = VRFW_Cmd.TEXT_GET,    -- CMND_TEXT_GET
+    NAME = VRFW.commands.GET_CHARA_NAME_TEXT,        -- CMND_GET_CHARA_NAME_TEXT (hdl)
+    SERIES = VRFW.commands.GET_CHARA_SERIES_INFO,
+    TEXT_GET = VRFW.commands.TEXT_GET,    -- CMND_TEXT_GET
     MSG_OPEN = 2289627655,
-    SE = VRFW_Cmd.SND_PLAY_SE, SE_NG = 2086672038 --[[sy0003]],
-    LOG = VRFW_Cmd.EVT_LOG,
+    SE = VRFW.commands.SND_PLAY_SE, SE_NG = 2086672038 --[[sy0003]],
     -- the framework's menu_text rows (crc32 of the row id)
     T = {
       HEAD = 2317620035, REFUSED = 1303940226, EVERY = 3039376359, NONE = 1380443408, AT_LEAST = 2356225541,
@@ -84,34 +51,30 @@ if VRFW_MC == nil then
     -- the dock's positions (team 0: 0-10 starters, 11-18 bench, 19 coach, 20-28 reserves; team 1: 0-4, 5-15)
     LAST = {[0] = {starters = 10, squad = 18}, [1] = {starters = 4, squad = 15}},
     MAX_NAMES = 4,
-    info = {},
+    SUPPLY_ROW = 1,           -- the difficulty row (retail: the fixed line-up row) a restricted chain match plays with a supplied squad
+    info_cache = {},
   }
-  VRFW_MC = MC
+  VRFW.match_challenge = MC
 
-  local function call(cmd, ...)
-    local r = table.pack(pcall(funcLuaCommand, cmd, ...))
-    if r[1] then
-      return table.unpack(r, 2, r.n)
-    end
-    return nil
-  end
+  local function u32(v) return VRFW.ids.unsigned(v) end
 
-  local function u32(v) return VRFW_Id.u32(v) end
-
-  function MC.Log(...)
+  local logger
+  --- Logs the arguments with the challenge tag.
+  function MC.log(...)
     local parts = {}
     for i = 1, select("#", ...) do
       parts[#parts + 1] = tostring((select(i, ...)))
     end
-    pcall(funcLuaCommand, MC.LOG, "VRFW match_challenge " .. table.concat(parts, " "))
+    logger = logger or VRFW.logger.new("VRFW match_challenge")
+    logger(table.concat(parts, " "))
   end
 
   local function text(id)
     if type(id) ~= "number" or id == 0 then
       return ""
     end
-    local ok, s = pcall(funcLuaCommand, MC.TEXT_GET, id)
-    if ok and type(s) == "string" then
+    local s = VRFW.host.command(MC.TEXT_GET, id)
+    if type(s) == "string" then
       return s
     end
     return ""
@@ -125,28 +88,48 @@ if VRFW_MC == nil then
     return text(id)
   end
 
-  function MC.Of(game, diff)
+  --- The challenge index of a match row; nil when it has none.
+  function MC.of(game, diff)
     if type(game) ~= "number" or game == 0 then
       return nil
     end
-    local i = call(MC.CMD.OF, u32(game))
+    local i = VRFW.host.command(MC.CMD.OF, u32(game))
     if type(i) ~= "number" or i < 0 then
       return nil
     end
-    local c = MC.Info(i)
+    local c = MC.details(i)
     if c ~= nil and next(c.diffs) ~= nil and not (type(diff) == "number" and c.diffs[diff]) then
       return nil
     end
     return i
   end
 
-  function MC.Info(i)
-    if MC.info[i] ~= nil then
-      return MC.info[i] or nil
+  --- Whether the match row was won: the game's clear bit of the row; beaten = the launcher's own record (a chain tile won with its supplied squad).
+  function MC.won(game, diff, beaten)
+    if beaten == true then
+      return true
     end
-    local name, mod, title, desc, scope, nreq, diffs, nrequired, short = call(MC.CMD.GET, i)
+    return type(game) == "number" and type(diff) == "number" and VRFW.host.command(MC.CLEAR_FLAG, game, diff) == true
+  end
+
+  --- The challenge in force on a match row, nil = none: one declared UntilFirstClear is off once the row was won.
+  function MC.applies(game, diff, beaten)
+    local i = MC.of(game, diff)
+    local c = i ~= nil and MC.details(i) or nil
+    if c ~= nil and c.until_first_clear and MC.won(game, diff, beaten) then
+      return nil
+    end
+    return i
+  end
+
+  --- The challenge info table of index i (cached); nil when there is none.
+  function MC.details(i)
+    if MC.info_cache[i] ~= nil then
+      return MC.info_cache[i] or nil
+    end
+    local name, mod, title, desc, scope, nreq, diffs, nrequired, short, until_first_clear = VRFW.host.command(MC.CMD.GET, i)
     if type(name) ~= "string" or name == "" then
-      MC.info[i] = false
+      MC.info_cache[i] = false
       return nil
     end
     local set = {}
@@ -155,7 +138,7 @@ if VRFW_MC == nil then
     end
     local required = {}
     for k = 1, (type(nrequired) == "number" and nrequired or 0) do
-      local count, places, until_first_clear, own, label = call(MC.CMD.REQUIRED, i, k)
+      local count, places, until_first_clear, own, label = VRFW.host.command(MC.CMD.REQUIRED, i, k)
       local codes = {}
       for x in string.gmatch(type(places) == "string" and places or "", "%d+") do
         codes[#codes + 1] = tonumber(x)
@@ -164,21 +147,28 @@ if VRFW_MC == nil then
                      label = type(label) == "number" and label or 0}
     end
     local auras = nil
-    local ruled, allowed, sides, alabel = call(MC.CMD.AURAS, i)
+    local ruled, allowed, sides, alabel = VRFW.host.command(MC.CMD.AURAS, i)
     if ruled == true then
       auras = {allowed = type(allowed) == "string" and allowed or "", sides = type(sides) == "string" and sides or "both",
                label = type(alabel) == "number" and alabel or 0}
     end
+    local moves = nil
+    local mruled, banned, msides, mlabel = VRFW.host.command(MC.CMD.MOVES, i)
+    if mruled == true then
+      moves = {banned = type(banned) == "string" and banned or "", sides = type(msides) == "string" and msides or "both",
+               label = type(mlabel) == "number" and mlabel or 0}
+    end
     local c = {i = i, name = name, mod = mod, title = title or 0, description = desc or 0,
                short = type(short) == "number" and short or 0, scope = scope or "squad", nreq = nreq or 0,
-               diffs = set, required = required, auras = auras}
-    MC.info[i] = c
+               diffs = set, required = required, auras = auras, moves = moves, until_first_clear = until_first_clear == true}
+    MC.info_cache[i] = c
     return c
   end
 
-  function MC.TitleOf(game, diff)
-    local i = MC.Of(game, diff)
-    local c = i and MC.Info(i)
+  --- The title text of the challenge on a match row; nil when there is none.
+  function MC.title_of(game, diff, beaten)
+    local i = MC.applies(game, diff, beaten)
+    local c = i and MC.details(i)
     if c == nil then
       return nil
     end
@@ -189,8 +179,9 @@ if VRFW_MC == nil then
     return t
   end
 
-  function MC.RequiredTexts(i, cleared)
-    local c = MC.Info(i)
+  --- The texts of the required starters of challenge i.
+  function MC.required_texts(i, cleared)
+    local c = MC.details(i)
     local out = {}
     for _, r in ipairs(c and c.required or {}) do
       if not (r.until_first_clear and cleared) and r.label == 0 and type(r.text) == "number" and r.text ~= 0 then
@@ -213,38 +204,39 @@ if VRFW_MC == nil then
     return 0
   end
 
-  function MC.Players(scope, tt)
+  --- The players of `scope` ("starters" or the squad) for team type tt.
+  function MC.players(scope, tt)
     tt = tt or 0
     local limits = MC.LAST[tt] or MC.LAST[0]
     local last = limits[scope == "starters" and "starters" or "squad"]
-    local set = call(MC.VS_SET)
+    local set = VRFW.host.command(MC.VS_SET)
     local out = {}
     if type(set) ~= "number" then
       return out
     end
-    local okF, formation = call(MC.TEAM_SET_INFO, set, tt, 4)
+    local okF, formation = VRFW.host.command(MC.TEAM_SET_INFO, set, tt, 4)
     if not okF then
       formation = nil
     end
     for k = 0, 28 do
-      local ok, hdl = call(MC.MEMBER, set, tt, k, 0)
+      local ok, hdl = VRFW.host.command(MC.MEMBER, set, tt, k, 0)
       if ok and type(hdl) == "number" and hdl ~= 0 then
-        local okP, pos = call(MC.MEMBER, set, tt, k, 1)
+        local okP, pos = VRFW.host.command(MC.MEMBER, set, tt, k, 1)
         if okP and type(pos) == "number" and pos >= 0 and pos <= last then
           local place = nil
           if pos <= limits.starters then
             place = 0
             if type(formation) == "number" then
-              local okP2, bits = call(MC.FORMATION_INFO, 6, formation, pos)
+              local okP2, bits = VRFW.host.command(MC.FORMATION_INFO, 6, formation, pos)
               if okP2 then
                 place = place_of(bits)
               end
             end
           end
-          local chara_param = call(MC.STATUS, hdl, 4)
-          out[#out + 1] = {hdl = hdl, card = u32(chara_param), level = tonumber(call(MC.STATUS, hdl, 0)) or 0,
-                           rarity = tonumber(call(MC.STATUS, hdl, 12)) or -1, pos = pos, place = place,
-                           avatar = call(MC.IS_AVATAR, chara_param) == true}
+          local chara_param = VRFW.host.command(MC.STATUS, hdl, 4)
+          out[#out + 1] = {hdl = hdl, card = u32(chara_param), level = tonumber(VRFW.host.command(MC.STATUS, hdl, 0)) or 0,
+                           rarity = tonumber(VRFW.host.command(MC.STATUS, hdl, 12)) or -1, pos = pos, place = place,
+                           avatar = VRFW.host.command(MC.IS_AVATAR, chara_param) == true}
         end
       end
     end
@@ -259,7 +251,6 @@ if VRFW_MC == nil then
     return t
   end
 
-  -- one line per challenge and dock: how many players were flagged as the avatar, and the check's answer
   local function log_dock(c, tt, dock, ps, ok, failed)
     if MC.logged_dock ~= dock then
       MC.logged_dock = dock
@@ -274,27 +265,28 @@ if VRFW_MC == nil then
       if p.avatar then
         avatars = avatars + 1
       end
-      if call(MC.HAS_ATTRIBUTE, p.hdl, MC.ATTRIBUTE_AVATAR) == true then
+      if VRFW.host.command(MC.HAS_ATTRIBUTE, p.hdl, MC.ATTRIBUTE_AVATAR) == true then
         attributes = attributes + 1
       end
     end
-    MC.Log("dock team", tt or 0, c.name, "players", #ps, "avatars", avatars, "avatar_attribute", attributes,
+    MC.log("dock team", tt or 0, c.name, "players", #ps, "avatars", avatars, "avatar_attribute", attributes,
            "ok", ok, "failed", failed ~= "" and failed or "-")
   end
 
-  function MC.Check(i, tt, cleared)
-    local c = MC.Info(i)
+  --- Checks challenge i against the squad; answers ok, failed, bad, players.
+  function MC.check(i, tt, cleared)
+    local c = MC.details(i)
     if c == nil then
       return true, {}, {}, {}
     end
-    local ps = MC.Players(c.scope, tt)
+    local ps = MC.players(c.scope, tt)
     local parts = {}
     for _, p in ipairs(ps) do
       -- not "%d": card ids >= 2^31 (32-bit `long`); the place only for starters
       parts[#parts + 1] = string.format("%.0f:%.0f:%.0f:%.0f:%d", p.card, p.level, p.rarity, p.place or -1, p.avatar and 1 or 0)
     end
     local dock = table.concat(parts, ";")
-    local ok, failed, bad = call(MC.CMD.CHECK, i, dock, cleared and 1 or 0)
+    local ok, failed, bad = VRFW.host.command(MC.CMD.CHECK, i, dock, cleared and 1 or 0)
     log_dock(c, tt, tostring(tt or 0) .. "|" .. dock, ps, ok, tostring(failed or ""))
     if ok == nil then
       return true, {}, {}, ps
@@ -302,7 +294,53 @@ if VRFW_MC == nil then
     return ok == true, csv(failed), csv(bad), ps
   end
 
-  -- ---- descriptions --------------------------------------------------------------------------------------------
+  --- The row a restricted match plays with its supplied squad: its challenge covers `diff` and leaves SUPPLY_ROW out (nil = none).
+  function MC.supply_row(game, diff)
+    local i = MC.of(game, diff)
+    local c = i and MC.details(i)
+    if c == nil or next(c.diffs) == nil or not c.diffs[diff] or c.diffs[MC.SUPPLY_ROW] or diff == MC.SUPPLY_ROW then
+      return nil
+    end
+    return MC.SUPPLY_ROW
+  end
+
+  local function dock_of(list)
+    local parts = {}
+    for _, p in ipairs(list) do
+      parts[#parts + 1] = string.format("%.0f:%.0f:%.0f:-1:%d", u32(p.param), p.level, p.rarity, VRFW.host.command(MC.IS_AVATAR, p.param) == true and 1 or 0)
+    end
+    return table.concat(parts, ";")
+  end
+
+  --- Whether the whole club can field challenge i: the club minus every player the rules reject still fills the starters and passes.
+  function MC.club_can_field(i, tt, cleared)
+    local roster = VRFW.recruit ~= nil and VRFW.recruit.roster() or nil
+    if roster == nil then
+      return true   -- the club cannot be read: the challenge's normal refusal stands
+    end
+    local need = (MC.LAST[tt or 0] or MC.LAST[0]).starters + 1
+    local cflag = cleared and 1 or 0
+    local ok, _, bad = VRFW.host.command(MC.CMD.CHECK, i, dock_of(roster), cflag)
+    local rejected = {}
+    for _, k in ipairs(csv(bad)) do
+      rejected[k] = true
+    end
+    local eligible = {}
+    for k, p in ipairs(roster) do
+      if not rejected[k] then
+        eligible[#eligible + 1] = p
+      end
+    end
+    if #eligible < need then
+      MC.log("club", i, "players", #roster, "eligible", #eligible, "cannot field")
+      return false
+    end
+    if ok ~= true then
+      ok = VRFW.host.command(MC.CMD.CHECK, i, dock_of(eligible), cflag)
+    end
+    MC.log("club", i, "players", #roster, "eligible", #eligible, ok == true and "can field" or "cannot field")
+    return ok == true
+  end
 
   -- split "a=1;b=(x;y);c=(p)|(q)" at top-level `;`
   local function parts_of(s)
@@ -341,8 +379,8 @@ if VRFW_MC == nil then
   local function series_names(list)
     local t = {}
     for _, v in ipairs(csv(list)) do
-      local ok, okc, name = pcall(funcLuaMenuCommand, MC.SERIES, 1, v)
-      if ok and okc and type(name) == "string" and name ~= "" then
+      local okc, name = VRFW.host.menu_command(MC.SERIES, 1, v)
+      if okc and type(name) == "string" and name ~= "" then
         t[#t + 1] = name
       end
     end
@@ -354,8 +392,8 @@ if VRFW_MC == nil then
     return tonumber(a), tonumber(z)
   end
 
-  -- the filter description (CMND_VRFW_TEAM_CHALLENGE_REQ's last value) in words
-  function MC.Filter(desc)
+  --- The filter description (CMND_VRFW_TEAM_CHALLENGE_REQ's last value) in words.
+  function MC.filter(desc)
     local out = {}
     for _, part in ipairs(parts_of(desc)) do
       local k, v = part:match("^(%a+)=(.*)$")
@@ -389,11 +427,11 @@ if VRFW_MC == nil then
       elseif k == "avatar" then
         out[#out + 1] = v == "1" and text(MC.T.F_AVATAR) or fmt(MC.T.F_NOT, text(MC.T.F_AVATAR))
       elseif k == "not" then
-        out[#out + 1] = fmt(MC.T.F_NOT, MC.Filter(inner(v)))
+        out[#out + 1] = fmt(MC.T.F_NOT, MC.filter(inner(v)))
       elseif k == "any" then
         local alts = {}
         for alt in string.gmatch(v, "%b()") do
-          alts[#alts + 1] = MC.Filter(inner(alt))
+          alts[#alts + 1] = MC.filter(inner(alt))
         end
         out[#out + 1] = table.concat(alts, text(MC.T.OR))
       end
@@ -404,10 +442,10 @@ if VRFW_MC == nil then
     return table.concat(out, text(MC.T.AND))
   end
 
-  -- the lines of condition `path` ("2", "2/1") of challenge i, indented by depth
-  function MC.Lines(i, path, depth, lines)
+  --- Appends the requirement lines of challenge i at `path` to `lines`; answers `lines`.
+  function MC.lines(i, path, depth, lines)
     lines = lines or {}
-    local kind, lo, hi, own, nsub, desc = call(MC.CMD.REQ, i, path)
+    local kind, lo, hi, own, nsub, desc = VRFW.host.command(MC.CMD.REQ, i, path)
     if type(kind) ~= "string" or kind == "" then
       return lines
     end
@@ -416,7 +454,7 @@ if VRFW_MC == nil then
       lines[#lines + 1] = pad .. text(own)
       return lines
     end
-    local what = MC.Filter(desc)
+    local what = MC.filter(desc)
     if kind == "every" then
       lines[#lines + 1] = pad .. fmt(MC.T.EVERY, what)
     elseif kind == "none" then
@@ -432,15 +470,15 @@ if VRFW_MC == nil then
     elseif kind == "any" or kind == "all" then
       lines[#lines + 1] = pad .. text(kind == "any" and MC.T.ANY_OF or MC.T.ALL_OF)
       for k = 1, nsub or 0 do
-        MC.Lines(i, path .. "/" .. k, (depth or 0) + 1, lines)
+        MC.lines(i, path .. "/" .. k, (depth or 0) + 1, lines)
       end
     end
     return lines
   end
 
-  -- the line of required starter k (1-based) of challenge i
-  function MC.RequiredLine(i, k)
-    local c = MC.Info(i)
+  --- The line of required starter k (1-based) of challenge i.
+  function MC.required_line(i, k)
+    local c = MC.details(i)
     local r = c and c.required[k]
     if r == nil then
       return nil
@@ -456,14 +494,15 @@ if VRFW_MC == nil then
     return pad .. fmt(MC.T.REQUIRED_PLACES, who, words(MC.T.POSITION, table.concat(r.places, ",")))
   end
 
-  function MC.Refusal(game, tt, diff, cleared)
-    local i = MC.Of(game, diff)
+  --- The refusal text of a match row's challenge; nil when it is allowed.
+  function MC.refusal(game, tt, diff, beaten)
+    local i = MC.applies(game, diff, beaten)
     if i == nil then
       return nil
     end
-    local ok, failed, bad, ps = MC.Check(i, tt, cleared)
-    local c = MC.Info(i)
-    MC.Log("check", c and c.name or i, "game", game, ok and "ok" or "refused", "failed", table.concat(failed, ","), "players", #ps, "offenders", #bad)
+    local ok, failed, bad, ps = MC.check(i, tt, MC.won(game, diff, beaten))
+    local c = MC.details(i)
+    MC.log("check", c and c.name or i, "game", game, ok and "ok" or "refused", "failed", table.concat(failed, ","), "players", #ps, "offenders", #bad)
     if ok or c == nil then
       return nil
     end
@@ -476,9 +515,9 @@ if VRFW_MC == nil then
     lines[#lines + 1] = text(MC.T.REFUSED) .. (c.scope == "starters" and (" " .. text(MC.T.STARTERS)) or "")
     for _, k in ipairs(failed) do
       if k > c.nreq then
-        lines[#lines + 1] = MC.RequiredLine(i, k - c.nreq)
+        lines[#lines + 1] = MC.required_line(i, k - c.nreq)
       else
-        MC.Lines(i, tostring(k), 0, lines)
+        MC.lines(i, tostring(k), 0, lines)
       end
     end
     if #bad > 0 then
@@ -488,7 +527,7 @@ if VRFW_MC == nil then
           break
         end
         local p = ps[k]
-        local nm = p and call(MC.NAME, p.hdl)
+        local nm = p and VRFW.host.command(MC.NAME, p.hdl)
         names[#names + 1] = type(nm) == "string" and nm or "?"
       end
       local s = table.concat(names, text(MC.T.AND))
@@ -500,13 +539,15 @@ if VRFW_MC == nil then
     return table.concat(lines, "\n")
   end
 
-  function MC.Status(game, tt, diff, cleared)
-    local i = MC.Of(game, diff)
-    local c = i ~= nil and MC.Info(i) or nil
+  --- The challenge status of a match row as a table; nil when there is none.
+  function MC.status(game, tt, diff, beaten)
+    local i = MC.applies(game, diff, beaten)
+    local c = i ~= nil and MC.details(i) or nil
     if c == nil then
       return nil
     end
-    local ok, _, bad = MC.Check(i, tt, cleared)
+    local cleared = MC.won(game, diff, beaten)
+    local ok, _, bad = MC.check(i, tt, cleared)
     local label = text(c.short)
     if label == "" then
       label = text(c.title)
@@ -524,24 +565,33 @@ if VRFW_MC == nil then
     if aura_suffix ~= "" then
       label = fmt(MC.T.WITH_REQUIRED, label, aura_suffix)
     end
+    local move_suffix = c.moves ~= nil and text(c.moves.label) or ""
+    if move_suffix ~= "" then
+      label = fmt(MC.T.WITH_REQUIRED, label, move_suffix)
+    end
     return {i = i, ok = ok, offenders = #bad, label = label}
   end
 
-  function MC.ArmAuras(game, diff)
-    local i = MC.Of(game, diff)
-    local c = i ~= nil and MC.Info(i) or nil
+  --- Arms the aura and move rules the challenge on a match row declares.
+  function MC.arm_auras(game, diff, beaten)
+    local i = MC.applies(game, diff, beaten)
+    local c = i ~= nil and MC.details(i) or nil
+    pcall(funcLuaCommand, MC.AURAS_DISARM)
     if c ~= nil and c.auras ~= nil then
-      MC.Log("auras", c.name, "game", game, "allowed", c.auras.allowed == "" and "none" or c.auras.allowed, "sides", c.auras.sides)
+      MC.log("auras", c.name, "game", game, "allowed", c.auras.allowed == "" and "none" or c.auras.allowed, "sides", c.auras.sides)
       pcall(funcLuaCommand, MC.AURAS_ARM, c.auras.allowed, c.auras.sides)
-    else
-      pcall(funcLuaCommand, MC.AURAS_DISARM)
+    end
+    if c ~= nil and c.moves ~= nil then
+      MC.log("moves", c.name, "game", game, "banned", c.moves.banned, "sides", c.moves.sides)
+      pcall(funcLuaCommand, MC.MOVES_ARM, c.moves.banned, c.moves.sides)
     end
   end
 
-  function MC.Gate(game, tt, diff, cleared)
-    local msg = MC.Refusal(game, tt, diff, cleared)
+  --- True when the match row's challenge lets the match start; a refusal shows its text.
+  function MC.gate(game, tt, diff, beaten)
+    local msg = MC.refusal(game, tt, diff, beaten)
     if msg == nil then
-      MC.ArmAuras(game, diff)
+      MC.arm_auras(game, diff, beaten)
       return true
     end
     pcall(funcLuaCommand, MC.SE, MC.SE_NG)

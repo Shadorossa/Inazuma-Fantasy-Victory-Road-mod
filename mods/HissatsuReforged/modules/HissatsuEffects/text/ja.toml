@@ -1,6 +1,4 @@
 schema = "VRFW.text_key/1"
-# Hissatsu Effects › the move card's sentences of the technique effects (content\rules\technique_effects_*.toml,
-# their `text`), language ja.
 
 [new]
 te_whd00170 = "１５ｍ以内に味方が２人以上いるとき　威力＋１５％"
@@ -783,3 +781,4 @@ te_whs10010 = "後半の序盤３分の１で（同点時）　消費テンシ�
 te_whs10020 = "後半の序盤３分の１で（ビハインド時）　消費テンション－１５％"
 te_whs10090 = "各ハーフの終盤３分の１で（ビハインド時）　消費テンション－１５％"
 te_whs10130 = "前半の終盤３分の１で　消費テンション－１５％"
+te_whk00690 = "１試合に１回　装備中のキーパーが　テンションを消費せずにシュートを止める"

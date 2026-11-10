@@ -1,0 +1,12 @@
+schema = "VRFW.rule/1"
+# Challenge ruleset (Football Reforged's base, the former module Challenges): steal the ball once.
+id = "challenge_steal"
+name = "Challenge: steal the ball"
+version = 1
+
+[teams]
+players = 5
+
+[challenge]
+kind = "steals"
+count = 1

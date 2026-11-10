@@ -1,0 +1,41 @@
+schema = "CharacterReforged.pairing/1"
+
+[CharacterReforged.PairRules.miximax]
+same_character = false
+one_partner_per_base = true
+base_may_be_partner = false
+base_rarities_denied = []
+partner_rarities_denied = []
+moves = 1
+partner_needs_learned_move = true
+
+[CharacterReforged.Create.miximax]
+item = "wmm_character_reforged_create"
+label = "CharacterReforged.miximax_create_label"
+store = "CMND_CHARACTERREFORGED_MIXIMAX_SET"
+carrier = "wmm_evt"
+pair_codes = 10
+order = 10
+confirm = "CharacterReforged.miximax_create_confirm"
+# the Mix-Max glyph between the base's and the partner's cards of that confirmation (icon_common sprite)
+confirm_icon = "icon_sp_area07"
+# the stats that confirmation shows (the base's and what the miximax adds: scripts\lib\miximax_stat_transfer.lua)
+preview = "CMND_CHARACTERREFORGED_MIXIMAX_PREVIEW"
+check = "CMND_CHARACTERREFORGED_MIXIMAX_CHECK"
+prohibited_codes = [20]
+scene = true
+
+# CMND_CHARACTERREFORGED_MIXIMAX_SET's own codes (scripts/miximax.lua) -> the refusal window's text
+[CharacterReforged.Create.miximax.refusals]
+"1" = "CharacterReforged.create_refused_off"
+"20" = "CharacterReforged.create_refused_no_look"
+"21" = "CharacterReforged.create_refused_store"
+"22" = "CharacterReforged.create_refused_store"
+
+[CharacterReforged.PartnerLock.miximax]
+badge_sprite = "all_miximaxed_partner_badge"
+badge_text = "CharacterReforged.miximax_partner_badge"
+order = 10
+status_badge = "character_reforged_status_miximax"
+status_badge_in_team = "character_reforged_status_miximax_team"
+status_aura_type = 2

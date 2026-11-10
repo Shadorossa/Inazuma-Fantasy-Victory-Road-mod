@@ -1,0 +1,16 @@
+# Recruitment office atlas: the panel ground.
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_ground.g4tx"
+name = "classic_recruitment_office_ground"
+size = [720, 1080]
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_ground.g4tx"
+name = "classic_recruitment_office_panel_ground"
+texture = "classic_recruitment_office_ground"
+x = 0
+y = 0
+size = [720, 1080]
+png = "classic_recruitment_office/classic_recruitment_office_panel_ground.png"

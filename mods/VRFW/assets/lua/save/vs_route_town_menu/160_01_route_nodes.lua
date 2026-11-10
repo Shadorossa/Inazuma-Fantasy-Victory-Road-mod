@@ -122,8 +122,8 @@ function OnInit()
     funcLuaCommand(1563721075)
     funcLuaCommand(1891570685 --[[CMND_SET_CHRONICLE_CLEAR_STATUS?]], 0, true, 1)
   end
-  VRFW_RN_OpenStartNeighbours() -- VRFW route_nodes
-  VRFW_RN_Sync(false) -- VRFW route_nodes
+  VRFW.route_nodes.open_start_neighbours() -- VRFW route_nodes
+  VRFW.route_nodes.sync(false) -- VRFW route_nodes
   local temp_bit_flag = funcLuaCommand(2283097588 --[[CMND_GET_TEMP_BIT_FLAG]], 2136027977)
   if not temp_bit_flag then
     funcLuaCommand(3964465990 --[[CMND_SET_TEMP_BIT_FLAG]], 2136027977, true)
@@ -139,45 +139,23 @@ function OnInit()
     flag19 = false
   end
 end
--- VRFW route_nodes BEGIN
--- VR-Framework [[route_node]]: optional side nodes of the Chronicle board. Any mod declares them (team type); the framework draws them, with or without
--- another mod. The engine (team_engine) builds the pieces, games and road sprites; this is the one shared rule that
--- runs them:
---   * a node's save slot (271-299) that no save has used yet (nothing cleared, nothing locked) is locked like a new
---     piece of the retail board (all six difficulties);
---   * a node is OPEN once every prerequisite is won (its route-open clear, difficulty 2, or a shown difficulty of a
---     node prerequisite): its first shown difficulty is unlocked. One prerequisite also has a native unlock link
---     (retail open effect); several are opened here with the same effect (WaitPieceOpenEffect);
---   * a closed node is not drawn (no piece, no lock ring) and its road stays hidden; a node with a
---     `LockedTitle` (lockedGuide ~= 0) is drawn while closed as a retail locked piece (lock ring, its road), its
---     balloon and the Accept message show that text (what opens it);
---   * its command menu lists only its shown difficulties (VRFW_RN_Rows); a mod's "Go to the field" reads node.field;
---   * `gates` (a node inserted before retail pieces): a gated piece opens from the node's win (native unlock link on
---     the node, moved there by the build). Saves from before the node: while the node is not won, a gated piece that
---     has nothing cleared is locked again (all six difficulties); a gated piece already played (any clear) is never
---     touched. Once the node is won, a still-locked gated piece gets its difficulty 1 unlocked (the native link does it
---     on a route-open clear; this covers a node won some other way, e.g. its Heroica only).
--- Data: CMND_VRFW_TEAM_ROUTE_NODE_COUNT / _GET, CMND_VRFW_TEAM_ROUTE_ROAD_COUNT / _GET (the team type; the legacy part
--- answers CMND_EVT_ROUTE_*). Loaded lazily, never at Lua load (only from OnInit / Step / layer callbacks).
--- API for mods (any script that has it: vs_route_town_menu, vs_route_town_command_select_menu): VRFW_RN_Load() ->
--- {nodes = {{i, piece, slot, parents, diffs, game, field, linked, idx, gates, hub, lockedGuide, pieceScale}}, bySlot, byIdx, roads}, VRFW_RN_BySlot(slot)
--- (hub = a chain hub's chain indices, 0-based; slot may be an extended slot >= 300, VRFW_RouteSlots of the menu part).
-VRFW_RN = nil
-VRFW_RN_DIFFS = {1, 2, 3, 4, 10, 11}
-VRFW_RN_CMD = {NODE_COUNT = {1208701503, 3004181703}, NODE_GET = {3986876567, 1705651873}, ROAD_COUNT = {2601399945, 1612007537}, ROAD_GET = {2870703344, 588493510}}
-VRFW_RN_CMD_CLEAR = 4034518619     -- (slot, difficulty)
-VRFW_RN_CMD_LOCK = 3394595467      -- (slot, difficulty)
-VRFW_RN_CMD_SET_LOCK = 1778321182  -- (slot, locked, difficulty)
-VRFW_RN_CMD_PIECE_IDX = 1064555639 -- pieceId -> ok, piece index
+-- VRFW route_nodes BEGIN VRFW [[route_node]]
+VRFW.route_nodes = VRFW.route_nodes or {}
+VRFW.route_nodes.map = nil
+VRFW.route_nodes.DIFFS = {1, 2, 3, 4, 10, 11}
+VRFW.route_nodes.CMD = {NODE_COUNT = 1208701503, NODE_GET = 3986876567, ROAD_COUNT = 2601399945, ROAD_GET = 2870703344}
+VRFW.route_nodes.CMD_CLEAR = 4034518619     -- (slot, difficulty)
+VRFW.route_nodes.CMD_LOCK = 3394595467      -- (slot, difficulty)
+VRFW.route_nodes.CMD_SET_LOCK = 1778321182  -- (slot, locked, difficulty)
+VRFW.route_nodes.CMD_PIECE_IDX = 1064555639 -- pieceId -> ok, piece index
 
--- loader.log lines "LUAPRINT … VRFW_RN …" (PRINT exists only under the lua_patch loader)
-function VRFW_RN_Log(...)
+function VRFW.route_nodes.log(...)
   if PRINT ~= nil then
-    pcall(PRINT, "VRFW_RN", ...)
+    pcall(PRINT, "VRFW.route_nodes.map", ...)
   end
 end
 
-function VRFW_RN_Csv(s)
+function VRFW.route_nodes.csv(s)
   local t = {}
   for x in string.gmatch(s or "", "[^,]+") do
     t[#t + 1] = tonumber(x)
@@ -185,32 +163,23 @@ function VRFW_RN_Csv(s)
   return t
 end
 
--- The team type's command, else the legacy part's: ok + its results.
-function VRFW_RN_Call(cmd, ...)
-  local r = table.pack(pcall(funcLuaCommand, cmd[1], ...))
-  if r[1] and r[2] ~= nil then
-    return table.unpack(r, 1, r.n)
+function VRFW.route_nodes.load()
+  if VRFW.route_nodes.map ~= nil then
+    return VRFW.route_nodes.map
   end
-  return pcall(funcLuaCommand, cmd[2], ...)
-end
-
-function VRFW_RN_Load()
-  if VRFW_RN ~= nil then
-    return VRFW_RN
+  VRFW.route_nodes.map = {nodes = {}, bySlot = {}, byIdx = {}, roads = {}}
+  if VRFW.route_slots ~= nil then
+    VRFW.route_slots.install() -- extended slots: normally in already, from the script's OnInit
   end
-  VRFW_RN = {nodes = {}, bySlot = {}, byIdx = {}, roads = {}}
-  if VRFW_RouteSlots ~= nil then
-    VRFW_RouteSlots.Install() -- extended slots: normally in already, from the script's OnInit
-  end
-  local ok, n = VRFW_RN_Call(VRFW_RN_CMD.NODE_COUNT)
-  if not ok or type(n) ~= "number" then
-    return VRFW_RN
+  local n = VRFW.host.command(VRFW.route_nodes.CMD.NODE_COUNT)
+  if type(n) ~= "number" then
+    return VRFW.route_nodes.map
   end
   for i = 0, n - 1 do
-    local ok2, piece, slot, parents, diffs, game, field, linked, beside, path, gates, hub, lockedGuide, scalePct = VRFW_RN_Call(VRFW_RN_CMD.NODE_GET, i)
-    if ok2 and type(slot) == "number" and slot > 0 then
-      local node = {i = i, piece = piece, slot = slot, parents = {}, diffs = VRFW_RN_Csv(diffs), game = game, field = field, linked = linked == true, idx = -1, beside = beside, bidx = -1, path = {}, gates = VRFW_RN_Csv(type(gates) == "string" and gates or ""),
-                    hub = VRFW_RN_Csv(type(hub) == "string" and hub or ""), lockedGuide = type(lockedGuide) == "number" and lockedGuide or 0,
+    local piece, slot, parents, diffs, game, field, linked, beside, path, gates, hub, lockedGuide, scalePct = VRFW.host.command(VRFW.route_nodes.CMD.NODE_GET, i)
+    if type(slot) == "number" and slot > 0 then
+      local node = {i = i, piece = piece, slot = slot, parents = {}, diffs = VRFW.route_nodes.csv(diffs), game = game, field = field, linked = linked == true, idx = -1, beside = beside, bidx = -1, path = {}, gates = VRFW.route_nodes.csv(type(gates) == "string" and gates or ""),
+                    hub = VRFW.route_nodes.csv(type(hub) == "string" and hub or ""), lockedGuide = type(lockedGuide) == "number" and lockedGuide or 0,
                     pieceScale = (type(scalePct) == "number" and scalePct > 0) and scalePct / 100 or 1}
       for part in string.gmatch(type(path) == "string" and path or "", "[^;]+") do
         local x, y = string.match(part, "^([^,]+),(.+)$")
@@ -219,7 +188,7 @@ function VRFW_RN_Load()
         end
       end
       if type(beside) == "number" and beside ~= 0 then
-        local okB, bidx = funcLuaCommand(VRFW_RN_CMD_PIECE_IDX, beside)
+        local okB, bidx = funcLuaCommand(VRFW.route_nodes.CMD_PIECE_IDX, beside)
         if okB and type(bidx) == "number" then
           node.bidx = bidx
         end
@@ -227,79 +196,76 @@ function VRFW_RN_Load()
       for part in string.gmatch(parents or "", "[^;]+") do
         local s, d = string.match(part, "^(%d+):(.*)$")
         if s ~= nil then
-          node.parents[#node.parents + 1] = {slot = tonumber(s), diffs = VRFW_RN_Csv(d)}
+          node.parents[#node.parents + 1] = {slot = tonumber(s), diffs = VRFW.route_nodes.csv(d)}
         end
       end
       if #node.diffs == 0 then
         node.diffs = {1, 4}
       end
-      local okI, idx = funcLuaCommand(VRFW_RN_CMD_PIECE_IDX, piece)
+      local okI, idx = funcLuaCommand(VRFW.route_nodes.CMD_PIECE_IDX, piece)
       if okI and type(idx) == "number" then
         node.idx = idx
-        VRFW_RN.byIdx[idx] = node
+        VRFW.route_nodes.map.byIdx[idx] = node
       end
-      VRFW_RN.nodes[#VRFW_RN.nodes + 1] = node
-      VRFW_RN.bySlot[slot] = node
+      VRFW.route_nodes.map.nodes[#VRFW.route_nodes.map.nodes + 1] = node
+      VRFW.route_nodes.map.bySlot[slot] = node
     end
   end
-  local okR, nr = VRFW_RN_Call(VRFW_RN_CMD.ROAD_COUNT)
-  if okR and type(nr) == "number" then
+  local nr = VRFW.host.command(VRFW.route_nodes.CMD.ROAD_COUNT)
+  if type(nr) == "number" then
     for i = 0, nr - 1 do
-      local ok3, node, sprite, x, y, w, h = VRFW_RN_Call(VRFW_RN_CMD.ROAD_GET, i)
-      if ok3 and type(node) == "number" and node >= 0 and type(sprite) == "string" and sprite ~= "" and type(w) == "number" and w > 0 then
-        VRFW_RN.roads[#VRFW_RN.roads + 1] = {node = node, sprite = sprite, x = x, y = y, w = w, h = h}
+      local node, sprite, x, y, w, h = VRFW.host.command(VRFW.route_nodes.CMD.ROAD_GET, i)
+      if type(node) == "number" and node >= 0 and type(sprite) == "string" and sprite ~= "" and type(w) == "number" and w > 0 then
+        VRFW.route_nodes.map.roads[#VRFW.route_nodes.map.roads + 1] = {node = node, sprite = sprite, x = x, y = y, w = w, h = h}
       end
     end
   end
-  -- one summary line per load (the per-node dump was 59 lines per open of the route town)
   local linked, gated = 0, 0
-  for i = 1, #VRFW_RN.nodes do
-    local nd = VRFW_RN.nodes[i]
+  for i = 1, #VRFW.route_nodes.map.nodes do
+    local nd = VRFW.route_nodes.map.nodes[i]
     if nd.linked then linked = linked + 1 end
     if #nd.gates > 0 then gated = gated + 1 end
   end
-  VRFW_RN_Log("load", "nodes", #VRFW_RN.nodes, "roads", #VRFW_RN.roads, "linked", linked, "with gates", gated)
-  VRFW_RN_WrapChara()
-  return VRFW_RN
+  VRFW.route_nodes.log("load", "nodes", #VRFW.route_nodes.map.nodes, "roads", #VRFW.route_nodes.map.roads, "linked", linked, "with gates", gated)
+  VRFW.route_nodes.wrap_chara()
+  return VRFW.route_nodes.map
 end
 
--- `PieceScale` (a small point node): the board piece instance `inst` of the piece layer, now showing piece index
--- `idx`, is drawn at its node's scale (base and crest); any other piece on that instance at 1 (instances are reused
--- while the map scrolls). Called at the top of UpdateTownMapPiece; a scale is only sent when it changes.
-VRFW_RN_PIECE_LAYER = 4002479583 --[[vsroute00_05_town_map_piece]]
-VRFW_RN_PIECE_SCALES = {}
-function VRFW_RN_PieceScale(layer, inst, idx)
-  if layer ~= VRFW_RN_PIECE_LAYER or type(inst) ~= "number" then
+-- `idx`, is drawn at its node's scale (base and crest)
+VRFW.route_nodes.PIECE_LAYER = 4002479583 --[[vsroute00_05_town_map_piece]]
+VRFW.route_nodes.PIECE_SCALES = {}
+function VRFW.route_nodes.piece_scale(layer, inst, idx)
+  if layer ~= VRFW.route_nodes.PIECE_LAYER or type(inst) ~= "number" then
     return
   end
   local s = 1
   if type(idx) == "number" and idx ~= -1 then
-    local node = VRFW_RN_Load().byIdx[idx]
+    local node = VRFW.route_nodes.load().byIdx[idx]
     if node ~= nil and node.pieceScale ~= nil then
       s = node.pieceScale
     end
   end
-  if (VRFW_RN_PIECE_SCALES[inst] or 1) == s then
+  if (VRFW.route_nodes.PIECE_SCALES[inst] or 1) == s then
     return
   end
-  VRFW_RN_PIECE_SCALES[inst] = s
+  VRFW.route_nodes.PIECE_SCALES[inst] = s
   pcall(funcLuaMenuCommand, 3778714801, layer, s, s, 1, inst)
-  VRFW_RN_Log("piece scale", "inst", inst, "piece", idx, "scale", s)
+  VRFW.route_nodes.log("piece scale", "inst", inst, "piece", idx, "scale", s)
 end
 
-function VRFW_RN_Clear(slot, d)
-  return funcLuaCommand(VRFW_RN_CMD_CLEAR, slot, d) == true
+function VRFW.route_nodes.clear(slot, d)
+  return funcLuaCommand(VRFW.route_nodes.CMD_CLEAR, slot, d) == true
 end
 
-function VRFW_RN_Locked(slot, d)
-  return funcLuaCommand(VRFW_RN_CMD_LOCK, slot, d) == true
+function VRFW.route_nodes.locked(slot, d)
+  return funcLuaCommand(VRFW.route_nodes.CMD_LOCK, slot, d) == true
 end
 
-function VRFW_RN_Ready(node)
+function VRFW.route_nodes.ready(node)
   for i = 1, #node.parents do
     local p, won = node.parents[i], false
     for k = 1, #p.diffs do
-      if VRFW_RN_Clear(p.slot, p.diffs[k]) then
+      if VRFW.route_nodes.clear(p.slot, p.diffs[k]) then
         won = true
         break
       end
@@ -311,86 +277,79 @@ function VRFW_RN_Ready(node)
   return true
 end
 
-function VRFW_RN_IsOpen(node)
-  for i = 1, #VRFW_RN_DIFFS do
-    if not VRFW_RN_Locked(node.slot, VRFW_RN_DIFFS[i]) then
+function VRFW.route_nodes.is_open(node)
+  for i = 1, #VRFW.route_nodes.DIFFS do
+    if not VRFW.route_nodes.locked(node.slot, VRFW.route_nodes.DIFFS[i]) then
       return true
     end
   end
   return false
 end
 
--- Debug (the framework's config [debug] all_chains, docs/framework/debug-flags.md): a chain node (its piece opens a
--- chain board) is shown and enterable whatever its prerequisites; the save's lock flags are only read, never written.
-function VRFW_RN_DebugChain(node)
+-- Debug (the framework's config [debug] all_chains, docs/framework/debug-flags.md)
+function VRFW.route_nodes.debug_chain(node)
   if node.debugChain == nil then
-    node.debugChain = VRFW_Chain ~= nil and VRFW_Chain.DebugAll ~= nil and VRFW_Chain.DebugAll() == true
-      and VRFW_Chain.OfPiece(node.piece) ~= nil
+    node.debugChain = VRFW.chain ~= nil and VRFW.chain.debug_all ~= nil and VRFW.chain.debug_all() == true
+      and VRFW.chain.of_piece(node.piece) ~= nil
   end
   return node.debugChain
 end
 
--- Drawn (piece and road): its prerequisites are won and a difficulty is open (also right on a first board visit,
--- before VRFW_RN_Sync has initialised a never-used slot), or a chain node in the debug mode above.
-function VRFW_RN_Shown(node)
-  return VRFW_RN_DebugChain(node) or (VRFW_RN_IsOpen(node) and VRFW_RN_Ready(node))
+-- Returns whether the node is drawn (piece and road).
+function VRFW.route_nodes.shown(node)
+  return VRFW.route_nodes.debug_chain(node) or (VRFW.route_nodes.is_open(node) and VRFW.route_nodes.ready(node))
 end
 
--- A node piece that must not be drawn yet (closed; a node with a `LockedTitle` is drawn locked). Unknown pieces: false.
-function VRFW_RN_Hidden(idx)
+function VRFW.route_nodes.hidden(idx)
   if idx == nil or idx < 0 then
     return false
   end
-  local node = VRFW_RN_Load().byIdx[idx]
-  if node ~= nil and VRFW_RN_GroupHidden(node) then
+  local node = VRFW.route_nodes.load().byIdx[idx]
+  if node ~= nil and VRFW.route_nodes.group_hidden(node) then
     return true
   end
-  return node ~= nil and node.lockedGuide == 0 and not VRFW_RN_Shown(node)
+  return node ~= nil and node.lockedGuide == 0 and not VRFW.route_nodes.shown(node)
 end
 
--- Hideable board groups ([[VRFW.BoardGroup]], content\board_groups\*.toml, scripts\board_group.lua): a mod lists board
--- nodes that a switch hides at once, visually only (not drawn, not focusable, the d-pad skips them; their data and
--- save state stay). The switch lives for the game session (CMND_VRFW_BOARD_HIDE); a mod's key or button calls
--- VRFW_RN_SetHide. A group's `hidden` conditions (CMND_VRFW_BOARD_HIDDEN) hide its nodes whatever the switch.
--- VRFW_RN_GROUPS = {pieces = {[pieceId] = true}, always = {[pieceId] = true}, n}: read once per board VM.
-VRFW_RN_GROUPS = nil
-VRFW_RN_CMD_GROUP_PIECES = 3067101002   -- () -> { pieceId, … } of the hideable groups
-VRFW_RN_CMD_HIDE = 2817173096           -- () -> on; ("set", 0 | 1) -> on
-VRFW_RN_CMD_HIDDEN = 3470847879       -- () -> { pieceId, … } of the groups hidden by their conditions
+-- Hideable board groups ([[VRFW.BoardGroup]], content\board_groups\*.toml, scripts\board_group.lua)
+VRFW.route_nodes.GROUPS = nil
+VRFW.route_nodes.CMD_GROUP_PIECES = 3067101002
+VRFW.route_nodes.CMD_HIDE = 2817173096
+VRFW.route_nodes.CMD_HIDDEN = 3470847879
 
-function VRFW_RN_Groups()
-  if VRFW_RN_GROUPS ~= nil then
-    return VRFW_RN_GROUPS
+function VRFW.route_nodes.groups()
+  if VRFW.route_nodes.GROUPS ~= nil then
+    return VRFW.route_nodes.GROUPS
   end
-  VRFW_RN_GROUPS = {pieces = {}, always = {}, n = 0, hidden = 0, on = false}
-  local okd, ruled = pcall(funcLuaCommand, VRFW_RN_CMD_HIDDEN)
+  VRFW.route_nodes.GROUPS = {pieces = {}, always = {}, n = 0, hidden = 0, on = false}
+  local okd, ruled = pcall(funcLuaCommand, VRFW.route_nodes.CMD_HIDDEN)
   if okd and type(ruled) == "table" then
     for _, p in ipairs(ruled) do
-      if type(p) == "number" and not VRFW_RN_GROUPS.always[p % 4294967296] then
-        VRFW_RN_GROUPS.always[p % 4294967296] = true
-        VRFW_RN_GROUPS.hidden = VRFW_RN_GROUPS.hidden + 1
+      if type(p) == "number" and not VRFW.route_nodes.GROUPS.always[p % 4294967296] then
+        VRFW.route_nodes.GROUPS.always[p % 4294967296] = true
+        VRFW.route_nodes.GROUPS.hidden = VRFW.route_nodes.GROUPS.hidden + 1
       end
     end
   end
-  local ok, list = pcall(funcLuaCommand, VRFW_RN_CMD_GROUP_PIECES)
+  local ok, list = pcall(funcLuaCommand, VRFW.route_nodes.CMD_GROUP_PIECES)
   if ok and type(list) == "table" then
     for _, p in ipairs(list) do
-      -- a node its group's conditions hide is not the switch's: the switch's count leaves it out
-      if type(p) == "number" and not VRFW_RN_GROUPS.always[p % 4294967296] then
-        VRFW_RN_GROUPS.pieces[p % 4294967296] = true
-        VRFW_RN_GROUPS.n = VRFW_RN_GROUPS.n + 1
+      -- A node its group's conditions hide is not the switch's.
+      if type(p) == "number" and not VRFW.route_nodes.GROUPS.always[p % 4294967296] then
+        VRFW.route_nodes.GROUPS.pieces[p % 4294967296] = true
+        VRFW.route_nodes.GROUPS.n = VRFW.route_nodes.GROUPS.n + 1
       end
     end
   end
-  local okh, on = pcall(funcLuaCommand, VRFW_RN_CMD_HIDE)
-  VRFW_RN_GROUPS.on = okh and on == true
-  VRFW_RN_Log("groups: hideable pieces", VRFW_RN_GROUPS.n, "hidden", tostring(VRFW_RN_GROUPS.on),
-    "always hidden", VRFW_RN_GROUPS.hidden)
-  return VRFW_RN_GROUPS
+  local okh, on = pcall(funcLuaCommand, VRFW.route_nodes.CMD_HIDE)
+  VRFW.route_nodes.GROUPS.on = okh and on == true
+  VRFW.route_nodes.log("groups: hideable pieces", VRFW.route_nodes.GROUPS.n, "hidden", tostring(VRFW.route_nodes.GROUPS.on),
+    "always hidden", VRFW.route_nodes.GROUPS.hidden)
+  return VRFW.route_nodes.GROUPS
 end
 
-function VRFW_RN_GroupHidden(node)
-  local G = VRFW_RN_Groups()
+function VRFW.route_nodes.group_hidden(node)
+  local G = VRFW.route_nodes.groups()
   if node.piece == nil then
     return false
   end
@@ -398,50 +357,47 @@ function VRFW_RN_GroupHidden(node)
   return G.always[piece] == true or (G.on and G.pieces[piece] == true)
 end
 
--- how many board nodes a hide switch would hide (0: no mod declares a hideable group)
-function VRFW_RN_HideableCount()
-  return VRFW_RN_Groups().n
+function VRFW.route_nodes.hideable_count()
+  return VRFW.route_nodes.groups().n
 end
 
-function VRFW_RN_HideOn()
-  return VRFW_RN_Groups().on
+function VRFW.route_nodes.hide_on()
+  return VRFW.route_nodes.groups().on
 end
 
--- the switch: on = the hideable groups' nodes hidden (saved for the session); the pieces in view are placed again
-function VRFW_RN_SetHide(on)
-  local G = VRFW_RN_Groups()
+-- Sets the hide switch.
+function VRFW.route_nodes.set_hide(on)
+  local G = VRFW.route_nodes.groups()
   on = on == true
   if G.on == on then
     return
   end
   G.on = on
-  pcall(funcLuaCommand, VRFW_RN_CMD_HIDE, "set", on and 1 or 0)
-  for _, node in ipairs(VRFW_RN_Load().nodes) do
+  pcall(funcLuaCommand, VRFW.route_nodes.CMD_HIDE, "set", on and 1 or 0)
+  for _, node in ipairs(VRFW.route_nodes.load().nodes) do
     if node.idx >= 0 and G.pieces[node.piece % 4294967296] then
-      local ok, inst = pcall(funcLuaMenuVSRouteTownCommand, VRFW_RN_CMD_PIECE_INSTANCE, node.idx)
+      local ok, inst = pcall(funcLuaMenuVSRouteTownCommand, VRFW.route_nodes.CMD_PIECE_INSTANCE, node.idx)
       if ok and type(inst) == "number" and inst >= 0 then
-        UpdatePlacementPiece(inst, VRFW_RN_Hidden(node.idx) and -1 or node.idx)
+        UpdatePlacementPiece(inst, VRFW.route_nodes.hidden(node.idx) and -1 or node.idx)
       end
     end
   end
-  VRFW_RN_Log("groups: hidden", tostring(on))
+  VRFW.route_nodes.log("groups: hidden", tostring(on))
 end
 
--- The board balloon's text id of piece `idx` (UpdatePieceAtcBalloon): a closed node drawn locked shows its
--- `LockedTitle` (what opens it); anything else keeps `id` (the piece's guideTextId).
-function VRFW_RN_GuideText(idx, id)
-  local node = idx ~= nil and idx >= 0 and VRFW_RN_Load().byIdx[idx] or nil
-  if node ~= nil and node.lockedGuide ~= 0 and not VRFW_RN_Shown(node) then
+-- The board balloon's text id of piece `idx` (UpdatePieceAtcBalloon)
+function VRFW.route_nodes.guide_text(idx, id)
+  local node = idx ~= nil and idx >= 0 and VRFW.route_nodes.load().byIdx[idx] or nil
+  if node ~= nil and node.lockedGuide ~= 0 and not VRFW.route_nodes.shown(node) then
     return node.lockedGuide
   end
   return id
 end
 
--- Accept on a locked piece (retail OnEnter, the lock message `s`): a closed node drawn locked says its `LockedTitle`
--- instead of the retail "beat the previous square's route-unlock battle" (slot = the piece's save slot).
-function VRFW_RN_LockedText(slot, s)
-  local node = VRFW_RN_BySlot(slot)
-  if node ~= nil and node.lockedGuide ~= 0 and not VRFW_RN_Shown(node) then
+-- Accept on a locked piece (retail OnEnter, the lock message `s`)
+function VRFW.route_nodes.locked_text(slot, s)
+  local node = VRFW.route_nodes.by_slot(slot)
+  if node ~= nil and node.lockedGuide ~= 0 and not VRFW.route_nodes.shown(node) then
     local ok, t = pcall(funcLuaCommand, 4074371074, node.lockedGuide)
     if ok and type(t) == "string" and t ~= "" then
       return t
@@ -450,114 +406,101 @@ function VRFW_RN_LockedText(slot, s)
   return s
 end
 
--- The node of a save slot (command menu: the piece's statusFlagIndex), or nil.
-function VRFW_RN_BySlot(slot)
+function VRFW.route_nodes.by_slot(slot)
   if slot == nil then
     return nil
   end
-  return VRFW_RN_Load().bySlot[slot]
+  return VRFW.route_nodes.load().bySlot[slot]
 end
 
--- The board's Accept on a piece (retail OnEnter) refuses a piece whose difficulty 1 (Chronicle) is locked with the retail
--- message "You must beat the previous square's route-unlock battle...". A shown node may have no
--- Chronicle difficulty at all (Heroica-only side nodes, chain "C" pieces: their difficulty 1 stays locked), so a shown node is
--- enterable whatever its difficulty 1 says (its command menu / chain board lists what it has). Unknown slots: false.
-function VRFW_RN_Enterable(slot)
-  local node = VRFW_RN_BySlot(slot)
-  return node ~= nil and VRFW_RN_Shown(node)
+-- The board's Accept on a piece (retail OnEnter) refuses a piece whose difficulty 1 (Chronicle) is locked
+function VRFW.route_nodes.enterable(slot)
+  local node = VRFW.route_nodes.by_slot(slot)
+  return node ~= nil and VRFW.route_nodes.shown(node)
 end
 
--- A node is WON (for its gated pieces) when its route-open clear (2) or one of its shown difficulties is cleared.
-function VRFW_RN_Won(node)
-  if VRFW_RN_Clear(node.slot, 2) then
+function VRFW.route_nodes.won(node)
+  if VRFW.route_nodes.clear(node.slot, 2) then
     return true
   end
   for k = 1, #node.diffs do
-    if VRFW_RN_Clear(node.slot, node.diffs[k]) then
+    if VRFW.route_nodes.clear(node.slot, node.diffs[k]) then
       return true
     end
   end
   return false
 end
 
--- The pieces a node gates (`gates`): locked while the node is not won and they have nothing cleared; difficulty 1
--- unlocked once it is won (they open from its win, not from their retail predecessor). Returns true when one opened.
-function VRFW_RN_SyncGates(node, effect)
+-- The pieces a node gates (`gates`)
+function VRFW.route_nodes.sync_gates(node, effect)
   if #node.gates == 0 then
     return false
   end
-  local won = VRFW_RN_Won(node)
+  local won = VRFW.route_nodes.won(node)
   local opened = false
   for g = 1, #node.gates do
     local gs = node.gates[g]
     local played, open = false, false
-    for k = 1, #VRFW_RN_DIFFS do
-      local d = VRFW_RN_DIFFS[k]
-      if VRFW_RN_Clear(gs, d) then
+    for k = 1, #VRFW.route_nodes.DIFFS do
+      local d = VRFW.route_nodes.DIFFS[k]
+      if VRFW.route_nodes.clear(gs, d) then
         played = true
       end
-      if not VRFW_RN_Locked(gs, d) then
+      if not VRFW.route_nodes.locked(gs, d) then
         open = true
       end
     end
     if not played then
       if not won and open then
-        for k = 1, #VRFW_RN_DIFFS do
-          funcLuaCommand(VRFW_RN_CMD_SET_LOCK, gs, true, VRFW_RN_DIFFS[k])
+        for k = 1, #VRFW.route_nodes.DIFFS do
+          funcLuaCommand(VRFW.route_nodes.CMD_SET_LOCK, gs, true, VRFW.route_nodes.DIFFS[k])
         end
-        VRFW_RN_Log("gate", "slot", gs, "locked until node", node.slot, "is won")
+        VRFW.route_nodes.log("gate", "slot", gs, "locked until node", node.slot, "is won")
       elseif won and not open then
-        funcLuaCommand(VRFW_RN_CMD_SET_LOCK, gs, false, 1)
+        funcLuaCommand(VRFW.route_nodes.CMD_SET_LOCK, gs, false, 1)
         opened = true
-        VRFW_RN_Log("gate", "slot", gs, "opened by node", node.slot, "effect", tostring(effect))
+        VRFW.route_nodes.log("gate", "slot", gs, "opened by node", node.slot, "effect", tostring(effect))
       end
     end
   end
   return opened
 end
 
--- The retail one-time lock set-up of a save (OnInit, CMND 0x5D347D73) locks every piece and unlocks difficulty 1 of
--- the pieces whose move row reaches the start piece (eventType 6): on the first Chronicle visit that is the first
--- battle (Royal Academy), the piece the tutorial (byte flag 0xBBDFB830 = 3, trigger 504) waits for. With route nodes
--- on the board that piece stayed locked, and the first visit's cutscenes (trigger 505) lock it again after OnInit. The
--- same rule, from the board's own data: a start neighbour that is no route node, has nothing cleared and every
--- difficulty locked gets difficulty 1 unlocked, at OnInit and again while the board runs (VRFW_RN_StartNeighboursStep);
--- its board piece is redrawn (the board draws its pieces before OnInit's change shows). A stuck save recovers at the
--- next board visit. Route nodes keep their own rule (VRFW_RN_Sync).
-VRFW_RN_START_EVENT = 6            -- eventType of the start piece
-VRFW_RN_FIRST_DIFFICULTY = 1       -- the difficulty the retail set-up unlocks
-VRFW_RN_CMD_PIECE_INFO = 126049514 -- (piece index, field): 3 = move row (LU, LD, RU, RD piece ids), 6 = statusFlagIndex
-VRFW_RN_CMD_PIECE_INSTANCE = 1350631190 -- funcLuaMenuVSRouteTownCommand: piece index -> its board piece instance (-1 = not placed)
-VRFW_RN_CMD_TRIGGER_RUNNING = 3500708916
-VRFW_RN_CLEAR_ICON_LAYER = 2638032167 --[[vsroute01_06c_town_map_piece_clear_icon]]
-VRFW_RN_START_CHECK_FRAMES = 30    -- frames between two checks while the board runs
-VRFW_RN_START = nil                -- {{idx, slot}} of the start neighbours (built on first use)
-VRFW_RN_START_REDRAW = {}          -- piece index -> true: opened here, its board piece not redrawn yet
-VRFW_RN_START_FRAME = VRFW_RN_START_CHECK_FRAMES - 1 -- the first board frame checks at once
+-- The retail one-time lock set-up of a save (OnInit, CMND 0x5D347D73) locks every piece and unlocks
+VRFW.route_nodes.START_EVENT = 6            -- eventType of the start piece
+VRFW.route_nodes.FIRST_DIFFICULTY = 1       -- the difficulty the retail set-up unlocks
+VRFW.route_nodes.CMD_PIECE_INFO = 126049514
+VRFW.route_nodes.CMD_PIECE_INSTANCE = 1350631190
+VRFW.route_nodes.CMD_TRIGGER_RUNNING = 3500708916
+VRFW.route_nodes.CLEAR_ICON_LAYER = 2638032167 --[[vsroute01_06c_town_map_piece_clear_icon]]
+VRFW.route_nodes.START_CHECK_FRAMES = 30    -- frames between two checks while the board runs
+VRFW.route_nodes.START = nil
+VRFW.route_nodes.START_REDRAW = {}          -- piece index -> true: opened here, its board piece not redrawn yet
+VRFW.route_nodes.START_FRAME = VRFW.route_nodes.START_CHECK_FRAMES - 1 -- the first board frame checks at once
 
--- The start neighbours that follow the rule: {idx, slot} (no route node, not a start or eventType 4 piece).
-function VRFW_RN_StartNeighbours()
-  if VRFW_RN_START ~= nil then
-    return VRFW_RN_START
+-- The start neighbours that follow the rule
+function VRFW.route_nodes.start_neighbours()
+  if VRFW.route_nodes.START ~= nil then
+    return VRFW.route_nodes.START
   end
-  local rn = VRFW_RN_Load()
+  local rn = VRFW.route_nodes.load()
   local list, seen = {}, {}
   for i = 0, 4095 do
-    if not funcLuaCommand(VRFW_RN_CMD_PIECE_INFO, i, 6) then
+    if not funcLuaCommand(VRFW.route_nodes.CMD_PIECE_INFO, i, 6) then
       break
     end
     local okS, kindS = GetTownMapResourceEvent(i, 1, false, false)
-    if okS and kindS == VRFW_RN_START_EVENT then
-      local move = table.pack(funcLuaCommand(VRFW_RN_CMD_PIECE_INFO, i, 3))
+    if okS and kindS == VRFW.route_nodes.START_EVENT then
+      local move = table.pack(funcLuaCommand(VRFW.route_nodes.CMD_PIECE_INFO, i, 3))
       for k = 3, move[1] == true and move.n or 0 do
         local id = move[k]
         if type(id) == "number" and id ~= 0 then
-          local okI, j = funcLuaCommand(VRFW_RN_CMD_PIECE_IDX, id)
+          local okI, j = funcLuaCommand(VRFW.route_nodes.CMD_PIECE_IDX, id)
           if okI and type(j) == "number" and j >= 0 and not seen[j] and rn.byIdx[j] == nil then
             seen[j] = true
             local okE, kind = GetTownMapResourceEvent(j, 1, false, false)
-            local okF, slot = funcLuaCommand(VRFW_RN_CMD_PIECE_INFO, j, 6)
-            if okE and okF and type(slot) == "number" and kind ~= VRFW_RN_START_EVENT and kind ~= 4 then
+            local okF, slot = funcLuaCommand(VRFW.route_nodes.CMD_PIECE_INFO, j, 6)
+            if okE and okF and type(slot) == "number" and kind ~= VRFW.route_nodes.START_EVENT and kind ~= 4 then
               list[#list + 1] = {idx = j, slot = slot, start = i}
             end
           end
@@ -565,244 +508,218 @@ function VRFW_RN_StartNeighbours()
       end
     end
   end
-  VRFW_RN_START = list
+  VRFW.route_nodes.START = list
   return list
 end
 
--- Unlock difficulty 1 of every start neighbour with nothing cleared and every difficulty locked. Returns the number
--- of pieces opened; each is marked for a redraw (VRFW_RN_StartRedraw).
-function VRFW_RN_OpenStartNeighbours()
+-- Unlock difficulty 1 of every start neighbour with nothing cleared and every difficulty locked.
+function VRFW.route_nodes.open_start_neighbours()
   local opened = 0
-  local list = VRFW_RN_StartNeighbours()
+  local list = VRFW.route_nodes.start_neighbours()
   for n = 1, #list do
     local p = list[n]
     local any_clear, all_locked = false, true
-    for d = 1, #VRFW_RN_DIFFS do
-      if VRFW_RN_Clear(p.slot, VRFW_RN_DIFFS[d]) then
+    for d = 1, #VRFW.route_nodes.DIFFS do
+      if VRFW.route_nodes.clear(p.slot, VRFW.route_nodes.DIFFS[d]) then
         any_clear = true
       end
-      if not VRFW_RN_Locked(p.slot, VRFW_RN_DIFFS[d]) then
+      if not VRFW.route_nodes.locked(p.slot, VRFW.route_nodes.DIFFS[d]) then
         all_locked = false
       end
     end
     if not any_clear and all_locked then
-      funcLuaCommand(VRFW_RN_CMD_SET_LOCK, p.slot, false, VRFW_RN_FIRST_DIFFICULTY)
-      VRFW_RN_START_REDRAW[p.idx] = true
+      funcLuaCommand(VRFW.route_nodes.CMD_SET_LOCK, p.slot, false, VRFW.route_nodes.FIRST_DIFFICULTY)
+      VRFW.route_nodes.START_REDRAW[p.idx] = true
       opened = opened + 1
-      VRFW_RN_Log("start neighbour opened", "idx", p.idx, "slot", p.slot, "start", p.start)
+      VRFW.route_nodes.log("start neighbour opened", "idx", p.idx, "slot", p.slot, "start", p.start)
     end
   end
   return opened
 end
 
 -- Redraw the board pieces opened here once they are placed (crest and clear dots of the piece's instance).
-function VRFW_RN_StartRedraw()
-  for idx in pairs(VRFW_RN_START_REDRAW) do
-    local ok, inst = pcall(funcLuaMenuVSRouteTownCommand, VRFW_RN_CMD_PIECE_INSTANCE, idx)
+function VRFW.route_nodes.start_redraw()
+  for idx in pairs(VRFW.route_nodes.START_REDRAW) do
+    local ok, inst = pcall(funcLuaMenuVSRouteTownCommand, VRFW.route_nodes.CMD_PIECE_INSTANCE, idx)
     if ok and type(inst) == "number" and inst >= 0 then
-      UpdateTownMapPiece(VRFW_RN_PIECE_LAYER, inst, idx)
+      UpdateTownMapPiece(VRFW.route_nodes.PIECE_LAYER, inst, idx)
       if UpdatePieceClearIcon ~= nil then
-        UpdatePieceClearIcon(VRFW_RN_CLEAR_ICON_LAYER, inst, idx)
+        UpdatePieceClearIcon(VRFW.route_nodes.CLEAR_ICON_LAYER, inst, idx)
       end
-      VRFW_RN_START_REDRAW[idx] = nil
-      VRFW_RN_Log("start neighbour redrawn", "idx", idx, "instance", inst)
+      VRFW.route_nodes.START_REDRAW[idx] = nil
+      VRFW.route_nodes.log("start neighbour redrawn", "idx", idx, "instance", inst)
     end
   end
 end
 
--- Every VRFW_RN_START_CHECK_FRAMES frames of the board (end of PreStep, graft route_board), while no route trigger
--- runs: the rule again (the first visit's cutscenes lock the piece after OnInit) and the redraw of the opened pieces.
-function VRFW_RN_StartNeighboursStep()
-  VRFW_RN_START_FRAME = VRFW_RN_START_FRAME + 1
-  if VRFW_RN_START_FRAME < VRFW_RN_START_CHECK_FRAMES then
+-- Every VRFW.route_nodes.START_CHECK_FRAMES frames of the board (end of PreStep, graft route_board), while no
+function VRFW.route_nodes.start_neighbours_step()
+  VRFW.route_nodes.START_FRAME = VRFW.route_nodes.START_FRAME + 1
+  if VRFW.route_nodes.START_FRAME < VRFW.route_nodes.START_CHECK_FRAMES then
     return
   end
-  VRFW_RN_START_FRAME = 0
-  if funcLuaCommand(VRFW_RN_CMD_TRIGGER_RUNNING) then
+  VRFW.route_nodes.START_FRAME = 0
+  if funcLuaCommand(VRFW.route_nodes.CMD_TRIGGER_RUNNING) then
     return
   end
-  VRFW_RN_OpenStartNeighbours()
-  VRFW_RN_StartRedraw()
+  VRFW.route_nodes.open_start_neighbours()
+  VRFW.route_nodes.start_redraw()
 end
 
--- Save state of every node: first use of the slot -> locked; open (prerequisites won) -> its first shown difficulty
--- unlocked; its gated pieces (VRFW_RN_SyncGates). `effect`: nodes without a native link that open now play the retail open effect (inside the clear-effect
--- coroutine only). Returns true when a node opened.
-function VRFW_RN_Sync(effect)
-  local rn = VRFW_RN_Load()
+-- Save state of every node
+function VRFW.route_nodes.sync(effect)
+  local rn = VRFW.route_nodes.load()
   local opened = false
   for i = 1, #rn.nodes do
     local node = rn.nodes[i]
     local any_clear, all_open = false, true
-    for k = 1, #VRFW_RN_DIFFS do
-      local d = VRFW_RN_DIFFS[k]
-      if VRFW_RN_Clear(node.slot, d) then
+    for k = 1, #VRFW.route_nodes.DIFFS do
+      local d = VRFW.route_nodes.DIFFS[k]
+      if VRFW.route_nodes.clear(node.slot, d) then
         any_clear = true
       end
-      if VRFW_RN_Locked(node.slot, d) then
+      if VRFW.route_nodes.locked(node.slot, d) then
         all_open = false
       end
     end
-    local ready = VRFW_RN_Ready(node)
-    if not any_clear and (all_open or (not ready and VRFW_RN_IsOpen(node))) then
-      -- a never-used slot, or a node opened before its prerequisites (`After`) are won: the retail one-time lock set-up
-      -- of a save unlocks difficulty 1 of every piece whose move row reaches the start piece, so a node `Beside` the
-      -- start (a fork off the first rail) would be open from the first board visit
-      for k = 1, #VRFW_RN_DIFFS do
-        funcLuaCommand(VRFW_RN_CMD_SET_LOCK, node.slot, true, VRFW_RN_DIFFS[k])
+    local ready = VRFW.route_nodes.ready(node)
+    if not any_clear and (all_open or (not ready and VRFW.route_nodes.is_open(node))) then
+      for k = 1, #VRFW.route_nodes.DIFFS do
+        funcLuaCommand(VRFW.route_nodes.CMD_SET_LOCK, node.slot, true, VRFW.route_nodes.DIFFS[k])
       end
     end
     if ready then
-      local was_open = VRFW_RN_IsOpen(node)
+      local was_open = VRFW.route_nodes.is_open(node)
       if not was_open and effect and node.idx >= 0 and WaitPieceOpenEffect ~= nil then
         WaitPieceOpenEffect({node.idx}, {true})
       end
       local shown = false
       for k = 1, #node.diffs do
-        if not VRFW_RN_Locked(node.slot, node.diffs[k]) then
+        if not VRFW.route_nodes.locked(node.slot, node.diffs[k]) then
           shown = true
         end
       end
       if not shown then
-        funcLuaCommand(VRFW_RN_CMD_SET_LOCK, node.slot, false, node.diffs[1])
+        funcLuaCommand(VRFW.route_nodes.CMD_SET_LOCK, node.slot, false, node.diffs[1])
       end
       if not was_open then
         opened = true
-        VRFW_RN_Log("open", "slot", node.slot, "idx", node.idx, "effect", tostring(effect))
+        VRFW.route_nodes.log("open", "slot", node.slot, "idx", node.idx, "effect", tostring(effect))
       end
     end
-    if VRFW_RN_SyncGates(node, effect) then
+    if VRFW.route_nodes.sync_gates(node, effect) then
       opened = true
     end
   end
   return opened
 end
 
--- The nodes' roads, drawn at RUN TIME above the map tiles (the per-combination tile copies are gone): each
--- road is one overlay sprite of the emblem atlas (team type: CMND_VRFW_TEAM_ROUTE_ROAD_GET -> node, sprite, centre x / y
--- in the route map layer, w, h) shown on an instance of the layer vrfw_route_road (framework menus\route_roads.toml: a
--- one-quad object attached to the map's _pos_base01 like the pieces, so it pans and zooms with the map; priority 50,
--- above the tiles, under the pieces). An instance is visible while its node is shown (open, or drawn locked); a node
--- that opens while the board is shown gets its road at once (VRFW_RN_Reveal). Main board only. Cost: one quad per road.
-VRFW_RN_ROAD_LAYER = 922325769 --[[vrfw_route_road]]
-VRFW_RN_ROAD_SHEET = 1895945654 --[[#/menu/200_icon/01_icon_emblem/vsroute/icon_vsroute_emblem/vsroute_emblem.g4tx]]
-VRFW_RN_ROAD_NODE = 1909474081 --[[icon_new01: the quad's sprite node]]
-VRFW_RN_ROAD_QUAD = 36 -- the quad's size in px (cmn01_10 _icon_new01, centred on the layer's origin)
-VRFW_RN_ROAD_SHOWN = {}
+-- The nodes' roads, drawn at RUN TIME above the map tiles (the per-combination tile copies are gone)
+VRFW.route_nodes.ROAD_LAYER = 922325769 --[[vrfw_route_road]]
+VRFW.route_nodes.ROAD_SHEET = 1895945654 --[[#/menu/200_icon/01_icon_emblem/vsroute/icon_vsroute_emblem/vsroute_emblem.g4tx]]
+VRFW.route_nodes.ROAD_NODE = 1909474081 --[[icon_new01: the quad's sprite node]]
+VRFW.route_nodes.ROAD_QUAD = 36
+VRFW.route_nodes.ROAD_SHOWN = {}
 
-function VRFW_RN_MainBoard()
+function VRFW.route_nodes.main_board()
   return n9 == nil or n9 == 0 or n9 == 364708540 --[[vs_route_town_menu]]
 end
 
--- The roads' instances on the board (the layer's created count; nil = the layer is not there).
-function VRFW_RN_RoadPool()
-  local ok, n = pcall(funcLuaMenuCommand, 1175615627, VRFW_RN_ROAD_LAYER)
+function VRFW.route_nodes.road_pool()
+  local ok, n = pcall(funcLuaMenuCommand, 1175615627, VRFW.route_nodes.ROAD_LAYER)
   if ok and type(n) == "number" and n > 0 then
     return n
   end
   return nil
 end
 
--- Instance `i` (0-based) shows road `road` (nil / not shown: hidden; the quad's own sprite is the retail "new" badge).
-function VRFW_RN_RoadSet(i, road, shown)
+function VRFW.route_nodes.road_set(i, road, shown)
   if road == nil or not shown then
-    pcall(funcLuaMenuCommand, 711242136, VRFW_RN_ROAD_LAYER, i, false)
-    VRFW_RN_ROAD_SHOWN[i] = false
+    pcall(funcLuaMenuCommand, 711242136, VRFW.route_nodes.ROAD_LAYER, i, false)
+    VRFW.route_nodes.ROAD_SHOWN[i] = false
     return
   end
-  local q = VRFW_RN_ROAD_QUAD
-  pcall(funcLuaMenuCommand, 558735651, VRFW_RN_ROAD_LAYER, VRFW_RN_ROAD_SHEET, CALC_CRC(road.sprite), VRFW_RN_ROAD_NODE, 0, i)
-  pcall(funcLuaMenuCommand, 1389957207, VRFW_RN_ROAD_LAYER, road.x, road.y, 0, i)
-  pcall(funcLuaMenuCommand, 3778714801, VRFW_RN_ROAD_LAYER, road.w / q, road.h / q, 1, i)
-  pcall(funcLuaMenuCommand, 711242136, VRFW_RN_ROAD_LAYER, i, true)
-  if VRFW_RN_ROAD_SHOWN[i] ~= true then
-    VRFW_RN_Log("road", i, "node", road.node, road.sprite, "at", road.x, road.y, "size", road.w, road.h)
+  local q = VRFW.route_nodes.ROAD_QUAD
+  pcall(funcLuaMenuCommand, 558735651, VRFW.route_nodes.ROAD_LAYER, VRFW.route_nodes.ROAD_SHEET, CALC_CRC(road.sprite), VRFW.route_nodes.ROAD_NODE, 0, i)
+  pcall(funcLuaMenuCommand, 1389957207, VRFW.route_nodes.ROAD_LAYER, road.x, road.y, 0, i)
+  pcall(funcLuaMenuCommand, 3778714801, VRFW.route_nodes.ROAD_LAYER, road.w / q, road.h / q, 1, i)
+  pcall(funcLuaMenuCommand, 711242136, VRFW.route_nodes.ROAD_LAYER, i, true)
+  if VRFW.route_nodes.ROAD_SHOWN[i] ~= true then
+    VRFW.route_nodes.log("road", i, "node", road.node, road.sprite, "at", road.x, road.y, "size", road.w, road.h)
   end
-  VRFW_RN_ROAD_SHOWN[i] = true
+  VRFW.route_nodes.ROAD_SHOWN[i] = true
 end
 
--- Whether road `road` is drawn: its node is shown, or drawn locked (LockedTitle), or is `extra` (being revealed).
-function VRFW_RN_RoadShown(road, extra)
-  local node = VRFW_RN_Load().nodes[road.node + 1]
-  return node ~= nil and (node == extra or VRFW_RN_Shown(node) or node.lockedGuide ~= 0)
+-- Whether road `road` is drawn
+function VRFW.route_nodes.road_shown(road, extra)
+  local node = VRFW.route_nodes.load().nodes[road.node + 1]
+  return node ~= nil and (node == extra or VRFW.route_nodes.shown(node) or node.lockedGuide ~= 0)
 end
 
--- Set up instance `i` of the road layer (OnSetupLayer).
-function VRFW_RN_RoadSetup(i)
-  if not VRFW_RN_MainBoard() then
+function VRFW.route_nodes.road_setup(i)
+  if not VRFW.route_nodes.main_board() then
     return
   end
-  local road = VRFW_RN_Load().roads[i + 1]
-  VRFW_RN_RoadSet(i, road, road ~= nil and VRFW_RN_RoadShown(road))
+  local road = VRFW.route_nodes.load().roads[i + 1]
+  VRFW.route_nodes.road_set(i, road, road ~= nil and VRFW.route_nodes.road_shown(road))
 end
 
--- Every road instance again (the map opened; nodes opened in this visit). `extra`: a node counted as shown.
-function VRFW_RN_Roads(extra)
-  if not VRFW_RN_MainBoard() then
+function VRFW.route_nodes.roads(extra)
+  if not VRFW.route_nodes.main_board() then
     return
   end
-  local rn = VRFW_RN_Load()
-  local pool = VRFW_RN_RoadPool()
+  local rn = VRFW.route_nodes.load()
+  local pool = VRFW.route_nodes.road_pool()
   if pool == nil then
     if #rn.roads > 0 then
-      VRFW_RN_Log("roads: the layer vrfw_route_road is not on this board (menus route_roads.toml not built?)", #rn.roads, "roads not drawn")
+      VRFW.route_nodes.log("roads: the layer vrfw_route_road is not on this board (menus route_roads.toml not built?)", #rn.roads, "roads not drawn")
     end
     return
   end
   if #rn.roads > pool then
-    VRFW_RN_Log("WARN roads:", #rn.roads, "roads, the layer has", pool, "instances: the last", #rn.roads - pool, "are not drawn")
+    VRFW.route_nodes.log("WARN roads:", #rn.roads, "roads, the layer has", pool, "instances: the last", #rn.roads - pool, "are not drawn")
   end
   for i = 0, pool - 1 do
     local road = rn.roads[i + 1]
-    VRFW_RN_RoadSet(i, road, road ~= nil and VRFW_RN_RoadShown(road, extra))
+    VRFW.route_nodes.road_set(i, road, road ~= nil and VRFW.route_nodes.road_shown(road, extra))
   end
 end
 
--- A node opens while the board is shown (its unlock effect): its road shows at once (the instance is made visible).
-function VRFW_RN_Reveal(node)
-  if not VRFW_RN_MainBoard() then
+-- A node opens while the board is shown (its unlock effect)
+function VRFW.route_nodes.reveal(node)
+  if not VRFW.route_nodes.main_board() then
     return
   end
-  local rn = VRFW_RN_Load()
-  local pool = VRFW_RN_RoadPool() or 0
+  local rn = VRFW.route_nodes.load()
+  local pool = VRFW.route_nodes.road_pool() or 0
   for k = 1, math.min(#rn.roads, pool) do
     local road = rn.roads[k]
     if rn.nodes[road.node + 1] == node then
-      VRFW_RN_Log("reveal", "node", road.node, road.sprite)
-      VRFW_RN_RoadSet(k - 1, road, true)
+      VRFW.route_nodes.log("reveal", "node", road.node, road.sprite)
+      VRFW.route_nodes.road_set(k - 1, road, true)
     end
   end
 end
 
--- The retail open effect (WaitPieceOpenEffect: native unlock links, and the nodes VRFW_RN_Sync opens): the roads of the
--- route nodes among the pieces it opens show as they appear.
-function VRFW_RN_RevealPieces(idxs)
+function VRFW.route_nodes.reveal_pieces(idxs)
   if idxs == nil then
     return
   end
-  local rn = VRFW_RN_Load()
+  local rn = VRFW.route_nodes.load()
   for i = 1, #idxs do
     local node = rn.byIdx[idxs[i]]
-    if node ~= nil and not VRFW_RN_IsOpen(node) then
-      VRFW_RN_Reveal(node)
+    if node ~= nil and not VRFW.route_nodes.is_open(node) then
+      VRFW.route_nodes.reveal(node)
     end
   end
 end
 
--- The caravan's rails (the bus drove straight from Big Waves to C1 across the houses). The game's
--- move path between two pieces (vs_route_town_menu: t9 = funcLuaMenuVSRouteTownCommand(111188339, from, to), a flat
--- list x1, y1, x2, y2, … of the map layer's positions) joins the pieces of the d-pad graph with straight lines, so a
--- node's own road (a fork from the middle of another road, bends) was not followed. VRFW_RN_Path puts every node's
--- rail (the team type's `path`: beside, road_from, via, node, grid units) in place of a straight beside <-> node leg,
--- then drops a piece the bus would pass and come back to (a fork point on the road beside it: trials -> Big Waves ->
--- fork -> C1 becomes trials -> fork -> C1). Grid -> layer: a per-axis linear fit of the nodes' and their beside
--- pieces' positions (GetTownMapResourcePiecePos), made once. Generic: every [[VRFW.RouteNode]] with a fork or bends;
--- a straight road (no road_from / via) keeps the game's path. Kill switch VRFW_RN_RAILS.
-VRFW_RN_RAILS = true
-VRFW_RN_FIT = nil
-VRFW_RN_EPS = 3
+-- The caravan's rails (the bus drove straight from Big Waves to C1 across the houses).
+VRFW.route_nodes.RAILS = true
+VRFW.route_nodes.FIT = nil
+VRFW.route_nodes.EPS = 3
 
-function VRFW_RN_LayerPos(idx)
+function VRFW.route_nodes.layer_pos(idx)
   local ok, x, y = pcall(funcLuaMenuVSRouteTownCommand, 1731060169, idx)
   if ok and type(x) == "number" and type(y) == "number" then
     return x, y
@@ -810,19 +727,19 @@ function VRFW_RN_LayerPos(idx)
   return nil
 end
 
--- per axis: layer = o + k * grid, least squares over the nodes' and beside pieces' positions (nil: not enough data)
-function VRFW_RN_Fit()
-  if VRFW_RN_FIT ~= nil then
-    return VRFW_RN_FIT or nil
+-- Fits the board per axis.
+function VRFW.route_nodes.fit()
+  if VRFW.route_nodes.FIT ~= nil then
+    return VRFW.route_nodes.FIT or nil
   end
   local pts = {}
-  for _, node in ipairs(VRFW_RN_Load().nodes) do
+  for _, node in ipairs(VRFW.route_nodes.load().nodes) do
     local p = node.path
     if #p >= 2 then
       local ends = {{node.bidx, p[1]}, {node.idx, p[#p]}}
       for _, e in ipairs(ends) do
         if e[1] >= 0 then
-          local lx, ly = VRFW_RN_LayerPos(e[1])
+          local lx, ly = VRFW.route_nodes.layer_pos(e[1])
           if lx ~= nil then
             pts[#pts + 1] = {e[2][1], e[2][2], lx, ly}
           end
@@ -844,21 +761,21 @@ function VRFW_RN_Fit()
   end
   local fx, fy = axis(1, 3), axis(2, 4)
   if fx == nil or fy == nil then
-    VRFW_RN_FIT = false
-    VRFW_RN_Log("rails: no grid -> layer fit (points", #pts, ")")
+    VRFW.route_nodes.FIT = false
+    VRFW.route_nodes.log("rails: no grid -> layer fit (points", #pts, ")")
     return nil
   end
-  VRFW_RN_FIT = {fx, fy}
-  VRFW_RN_Log("rails: fit x", fx[1], fx[2], "y", fy[1], fy[2], "points", #pts)
-  return VRFW_RN_FIT
+  VRFW.route_nodes.FIT = {fx, fy}
+  VRFW.route_nodes.log("rails: fit x", fx[1], fx[2], "y", fy[1], fy[2], "points", #pts)
+  return VRFW.route_nodes.FIT
 end
 
-function VRFW_RN_Near(a, b)
-  return math.abs(a[1] - b[1]) <= VRFW_RN_EPS and math.abs(a[2] - b[2]) <= VRFW_RN_EPS
+function VRFW.route_nodes.near(a, b)
+  return math.abs(a[1] - b[1]) <= VRFW.route_nodes.EPS and math.abs(a[2] - b[2]) <= VRFW.route_nodes.EPS
 end
 
--- c on the segment a-b (strictly between, within VRFW_RN_EPS of the line)
-function VRFW_RN_On(c, a, b)
+-- c on the segment a-b (strictly between, within VRFW.route_nodes.EPS of the line)
+function VRFW.route_nodes.on(c, a, b)
   local dx, dy = b[1] - a[1], b[2] - a[2]
   local l2 = dx * dx + dy * dy
   if l2 < 1 then
@@ -869,15 +786,15 @@ function VRFW_RN_On(c, a, b)
     return false
   end
   local px, py = a[1] + t * dx - c[1], a[2] + t * dy - c[2]
-  return px * px + py * py <= VRFW_RN_EPS * VRFW_RN_EPS * 4
+  return px * px + py * py <= VRFW.route_nodes.EPS * VRFW.route_nodes.EPS * 4
 end
 
-function VRFW_RN_Path(t)
-  if not VRFW_RN_RAILS or type(t) ~= "table" or #t < 4 then
+function VRFW.route_nodes.path(t)
+  if not VRFW.route_nodes.RAILS or type(t) ~= "table" or #t < 4 then
     return t
   end
   local ok, out = pcall(function()
-    local fit = VRFW_RN_Fit()
+    local fit = VRFW.route_nodes.fit()
     if fit == nil then
       return t
     end
@@ -886,11 +803,11 @@ function VRFW_RN_Path(t)
       P[#P + 1] = {t[k], t[k + 1]}
     end
     local changed = false
-    for _, node in ipairs(VRFW_RN_Load().nodes) do
+    for _, node in ipairs(VRFW.route_nodes.load().nodes) do
       local p = node.path
       if #p >= 3 and node.idx >= 0 and node.bidx >= 0 then
-        local bx, by = VRFW_RN_LayerPos(node.bidx)
-        local nx, ny = VRFW_RN_LayerPos(node.idx)
+        local bx, by = VRFW.route_nodes.layer_pos(node.bidx)
+        local nx, ny = VRFW.route_nodes.layer_pos(node.idx)
         if bx ~= nil and nx ~= nil then
           local B, N = {bx, by}, {nx, ny}
           local inner = {}
@@ -901,12 +818,12 @@ function VRFW_RN_Path(t)
           for k = 1, #P do
             Q[#Q + 1] = P[k]
             local nxt = P[k + 1]
-            if nxt ~= nil and VRFW_RN_Near(P[k], B) and VRFW_RN_Near(nxt, N) then
+            if nxt ~= nil and VRFW.route_nodes.near(P[k], B) and VRFW.route_nodes.near(nxt, N) then
               for j = 1, #inner do
                 Q[#Q + 1] = inner[j]
               end
               changed = true
-            elseif nxt ~= nil and VRFW_RN_Near(P[k], N) and VRFW_RN_Near(nxt, B) then
+            elseif nxt ~= nil and VRFW.route_nodes.near(P[k], N) and VRFW.route_nodes.near(nxt, B) then
               for j = #inner, 1, -1 do
                 Q[#Q + 1] = inner[j]
               end
@@ -920,10 +837,10 @@ function VRFW_RN_Path(t)
     if not changed then
       return t
     end
-    -- a piece passed and come back from: (a, b, c) with c on a-b or a on b-c -> a, c
+    -- Handles a piece that was passed and come back from.
     local k = 1
     while k + 2 <= #P do
-      if VRFW_RN_On(P[k + 2], P[k], P[k + 1]) or VRFW_RN_On(P[k], P[k + 1], P[k + 2]) then
+      if VRFW.route_nodes.on(P[k + 2], P[k], P[k + 1]) or VRFW.route_nodes.on(P[k], P[k + 1], P[k + 2]) then
         table.remove(P, k + 1)
       else
         k = k + 1
@@ -934,55 +851,49 @@ function VRFW_RN_Path(t)
       r[#r + 1] = q[1]
       r[#r + 1] = q[2]
     end
-    VRFW_RN_Log("rails: path", #t / 2, "->", #P, "points")
+    VRFW.route_nodes.log("rails: path", #t / 2, "->", #P, "points")
     return r
   end)
   if ok and type(out) == "table" then
     return out
   end
-  VRFW_RN_Log("rails: error", tostring(out))
+  VRFW.route_nodes.log("rails: error", tostring(out))
   return t
 end
 
--- Road-less nodes (`Road = false`: a point beside the board with no road of its own) never take the caravan off the
--- roads: it stops at the node's beside piece, the road point the node hangs from, and leaves from there.
--- VRFW_RN_OffRoad(t) (the move path, flat x1, y1, x2, y2, … of the map layer, after VRFW_RN_Path): a path that ends
--- or starts at a road-less node ends / starts at its beside piece instead. VRFW_RN_CharaPiece(idx): the piece the
--- caravan stands on for board piece `idx` (UpdateCharaPos, wrapped once by VRFW_RN_WrapChara). A node is road-less when
--- the team type gives it a rail (beside -> node) but no road sprite. Kill switch VRFW_RN_RAILS.
-VRFW_RN_OFFROAD = nil
+VRFW.route_nodes.off_road_map = nil
 
-function VRFW_RN_OffRoadNodes()
-  if VRFW_RN_OFFROAD ~= nil then
-    return VRFW_RN_OFFROAD
+function VRFW.route_nodes.off_road_nodes()
+  if VRFW.route_nodes.off_road_map ~= nil then
+    return VRFW.route_nodes.off_road_map
   end
-  local L = VRFW_RN_Load()
+  local L = VRFW.route_nodes.load()
   local drawn = {}
   for _, r in ipairs(L.roads) do
     drawn[r.node] = true
   end
-  VRFW_RN_OFFROAD = {byIdx = {}, n = 0}
+  VRFW.route_nodes.off_road_map = {byIdx = {}, n = 0}
   for _, node in ipairs(L.nodes) do
     if node.idx >= 0 and node.bidx >= 0 and #node.path >= 2 and not drawn[node.i] then
-      VRFW_RN_OFFROAD.byIdx[node.idx] = node
-      VRFW_RN_OFFROAD.n = VRFW_RN_OFFROAD.n + 1
+      VRFW.route_nodes.off_road_map.byIdx[node.idx] = node
+      VRFW.route_nodes.off_road_map.n = VRFW.route_nodes.off_road_map.n + 1
     end
   end
-  VRFW_RN_Log("rails: road-less nodes", VRFW_RN_OFFROAD.n)
-  return VRFW_RN_OFFROAD
+  VRFW.route_nodes.log("rails: road-less nodes", VRFW.route_nodes.off_road_map.n)
+  return VRFW.route_nodes.off_road_map
 end
 
--- the piece the caravan stands on for board piece idx: a road-less node's beside piece, else idx
-function VRFW_RN_CharaPiece(idx)
-  if not VRFW_RN_RAILS or type(idx) ~= "number" or idx < 0 then
+-- Returns the piece the caravan stands on for board piece idx.
+function VRFW.route_nodes.chara_piece(idx)
+  if not VRFW.route_nodes.RAILS or type(idx) ~= "number" or idx < 0 then
     return idx
   end
-  local node = VRFW_RN_OffRoadNodes().byIdx[idx]
+  local node = VRFW.route_nodes.off_road_nodes().byIdx[idx]
   return node ~= nil and node.bidx or idx
 end
 
-function VRFW_RN_OffRoad(t)
-  if not VRFW_RN_RAILS or type(t) ~= "table" or #t < 4 then
+function VRFW.route_nodes.off_road(t)
+  if not VRFW.route_nodes.RAILS or type(t) ~= "table" or #t < 4 then
     return t
   end
   local ok, out = pcall(function()
@@ -991,24 +902,24 @@ function VRFW_RN_OffRoad(t)
       P[#P + 1] = {t[k], t[k + 1]}
     end
     local changed, last = false, nil
-    for idx, node in pairs(VRFW_RN_OffRoadNodes().byIdx) do
-      local nx, ny = VRFW_RN_LayerPos(idx)
-      local bx, by = VRFW_RN_LayerPos(node.bidx)
+    for idx, node in pairs(VRFW.route_nodes.off_road_nodes().byIdx) do
+      local nx, ny = VRFW.route_nodes.layer_pos(idx)
+      local bx, by = VRFW.route_nodes.layer_pos(node.bidx)
       if nx ~= nil and bx ~= nil then
         local N, B = {nx, ny}, {bx, by}
-        if VRFW_RN_Near(P[#P], N) or VRFW_RN_Near(P[1], N) then
+        if VRFW.route_nodes.near(P[#P], N) or VRFW.route_nodes.near(P[1], N) then
           last = {N = N, B = B}
         end
-        if VRFW_RN_Near(P[#P], N) then        -- going to the node: the caravan stops at its beside piece
+        if VRFW.route_nodes.near(P[#P], N) then        -- going to the node: the caravan stops at its beside piece
           table.remove(P)
-          if #P == 0 or not VRFW_RN_Near(P[#P], B) then
+          if #P == 0 or not VRFW.route_nodes.near(P[#P], B) then
             P[#P + 1] = B
           end
           changed = true
         end
-        if #P > 0 and VRFW_RN_Near(P[1], N) then   -- leaving the node: from its beside piece
+        if #P > 0 and VRFW.route_nodes.near(P[1], N) then   -- leaving the node: from its beside piece
           table.remove(P, 1)
-          if #P == 0 or not VRFW_RN_Near(P[1], B) then
+          if #P == 0 or not VRFW.route_nodes.near(P[1], B) then
             table.insert(P, 1, B)
           end
           changed = true
@@ -1018,17 +929,16 @@ function VRFW_RN_OffRoad(t)
     if not changed then
       return t
     end
-    -- no leg of no length: the board's move divides by each leg's length (a zero leg gave the caravan a NaN place,
-    -- drawn huge over the board: install 265, from the piece beside a pachanga point)
+    -- Skips a leg of no length.
     local Q = {P[1]}
     for k = 2, #P do
-      if not VRFW_RN_Near(P[k], Q[#Q]) then
+      if not VRFW.route_nodes.near(P[k], Q[#Q]) then
         Q[#Q + 1] = P[k]
       end
     end
     P = Q
     if #P < 2 then
-      -- the caravan is already at the road point: a step of a hair towards the node (it turns to face it, stays put)
+      -- The caravan is already at the road point.
       local a, n = P[1], last and last.N or P[1]
       local dx, dy = n[1] - a[1], n[2] - a[2]
       local l = math.sqrt(dx * dx + dy * dy)
@@ -1042,52 +952,44 @@ function VRFW_RN_OffRoad(t)
       r[#r + 1] = q[1]
       r[#r + 1] = q[2]
     end
-    VRFW_RN_Log("rails: road-less end", #t / 2, "->", #P, "points")
+    VRFW.route_nodes.log("rails: road-less end", #t / 2, "->", #P, "points")
     return r
   end)
   if ok and type(out) == "table" then
     return out
   end
-  VRFW_RN_Log("rails: road-less error", tostring(out))
+  VRFW.route_nodes.log("rails: road-less error", tostring(out))
   return t
 end
 
--- the caravan's place on the board (retail UpdateCharaPos(piece index), every idle frame): a road-less node's beside
--- piece instead of the node; wrapped once, from the board's OnInit (VRFW_RN_Load's first call)
-VRFW_RN_CHARA_WRAPPED = false
-function VRFW_RN_WrapChara()
-  if VRFW_RN_CHARA_WRAPPED or type(UpdateCharaPos) ~= "function" then
+-- Places the caravan on the board (retail UpdateCharaPos(piece index), every idle frame).
+VRFW.route_nodes.CHARA_WRAPPED = false
+function VRFW.route_nodes.wrap_chara()
+  if VRFW.route_nodes.CHARA_WRAPPED or type(UpdateCharaPos) ~= "function" then
     return
   end
-  VRFW_RN_CHARA_WRAPPED = true
+  VRFW.route_nodes.CHARA_WRAPPED = true
   local prev = UpdateCharaPos
   UpdateCharaPos = function(a1, ...)
-    return prev(VRFW_RN_CharaPiece(a1), ...)
+    return prev(VRFW.route_nodes.chara_piece(a1), ...)
   end
 end
 
--- The board cursor follows the same rails (the green cursor still slid straight from Big Waves to
--- C1). The cursor stays in the middle of the screen while the map scrolls to the next piece: the game's scroll
--- (UpdateMapScroll -> CMND_SCROLL_MAP) moves the map on the straight line and reports each frame's position through
--- UpdateScrollPos(x, y) (n5 = -x, n6 = -y; a piece P is centred at x = n23 * P, the map's zoom). VRFW_RN_ScrollStart
--- (before the scroll) takes the rail of that leg (VRFW_RN_Path of the two pieces' positions) when it has bends, and
--- VRFW_RN_ScrollRail moves each reported position from the straight line onto the rail at the same fraction of the
--- way (arc length). Off the expected line (a free-cursor scroll, another zoom rule): left alone. Kill switch:
--- VRFW_RN_RAILS.
-VRFW_RN_SCROLL = nil
+-- The board cursor follows the same rails (the green cursor still slid straight from Big Waves to C1).
+VRFW.route_nodes.SCROLL = nil
 
-function VRFW_RN_ScrollStart(target)
-  VRFW_RN_SCROLL = nil
-  if not VRFW_RN_RAILS or n11 == nil or n11 < 0 or target == nil or target < 0 or n11 == target then
+function VRFW.route_nodes.scroll_start(target)
+  VRFW.route_nodes.SCROLL = nil
+  if not VRFW.route_nodes.RAILS or n11 == nil or n11 < 0 or target == nil or target < 0 or n11 == target then
     return
   end
   local ok, err = pcall(function()
-    local sx, sy = VRFW_RN_LayerPos(n11)
-    local tx, ty = VRFW_RN_LayerPos(target)
+    local sx, sy = VRFW.route_nodes.layer_pos(n11)
+    local tx, ty = VRFW.route_nodes.layer_pos(target)
     if sx == nil or tx == nil then
       return
     end
-    local rail = VRFW_RN_Path({sx, sy, tx, ty})
+    local rail = VRFW.route_nodes.path({sx, sy, tx, ty})
     if type(rail) ~= "table" or #rail <= 4 then
       return
     end
@@ -1105,20 +1007,20 @@ function VRFW_RN_ScrollStart(target)
     if len[#pts] < 1 then
       return
     end
-    VRFW_RN_SCROLL = {S = S, T = T, pts = pts, len = len}
-    VRFW_RN_Log("rails: scroll", n11, "->", target, "points", #pts)
+    VRFW.route_nodes.SCROLL = {S = S, T = T, pts = pts, len = len}
+    VRFW.route_nodes.log("rails: scroll", n11, "->", target, "points", #pts)
   end)
   if not ok then
-    VRFW_RN_Log("rails: scroll error", tostring(err))
+    VRFW.route_nodes.log("rails: scroll error", tostring(err))
   end
 end
 
-function VRFW_RN_ScrollEnd()
-  VRFW_RN_SCROLL = nil
+function VRFW.route_nodes.scroll_end()
+  VRFW.route_nodes.SCROLL = nil
 end
 
-function VRFW_RN_ScrollRail(x, y)
-  local r = VRFW_RN_SCROLL
+function VRFW.route_nodes.scroll_rail(x, y)
+  local r = VRFW.route_nodes.SCROLL
   if r == nil or type(x) ~= "number" or type(y) ~= "number" then
     return x, y
   end
@@ -1130,8 +1032,8 @@ function VRFW_RN_ScrollRail(x, y)
   local t = ((x - r.S[1]) * dx + (y - r.S[2]) * dy) / l2
   local ox, oy = r.S[1] + t * dx - x, r.S[2] + t * dy - y
   if ox * ox + oy * oy > l2 * 0.01 + 16 then
-    VRFW_RN_Log("rails: scroll off the line, left alone")
-    VRFW_RN_SCROLL = nil
+    VRFW.route_nodes.log("rails: scroll off the line, left alone")
+    VRFW.route_nodes.SCROLL = nil
     return x, y
   end
   if t <= 0 then
@@ -1151,10 +1053,8 @@ function VRFW_RN_ScrollRail(x, y)
   return r.pts[#r.pts][1], r.pts[#r.pts][2]
 end
 
--- The command menu's rows of a piece (VRFW_RBC_Rows of graft route_board, after the mods' own filters): a node lists
--- only its shown difficulties (the rows kept when none of them is listed).
-function VRFW_RN_Rows(rows, slot)
-  local node = VRFW_RN_BySlot(slot)
+function VRFW.route_nodes.rows(rows, slot)
+  local node = VRFW.route_nodes.by_slot(slot)
   if node == nil or rows == nil then
     return rows
   end
@@ -1172,145 +1072,105 @@ function VRFW_RN_Rows(rows, slot)
   return rows
 end
 -- VRFW route_nodes END
--- VRFW route_board BEGIN
--- VR-Framework: the Chronicle route board's hook points (the board
--- grafts move to the framework). The framework owns the one patch of vs_route_town_menu (route_nodes, route_chains,
--- this graft: one merged file, so the board's main-chunk locals exist once) and makes the script a VRFW_Host host
--- (the host call at the end of this graft's file). A mod changes the board's rules with VRFW_Host handlers on the
--- hook points below (its own hook file, [[hooks]] stem = "vs_route_town_menu"), never with a second text patch of the
--- script. Without handlers every point keeps the retail behaviour (plus the framework's nodes, chains and badges).
--- Hook points (global functions; `c` = the clear context of a won match, state 10 of PreStep):
---   VRFW_RB_IsCommand(item) -> bool              a command-menu result (parameter 2612514222) that is a mod's item
---   VRFW_RB_Command(item, piece) -> bool         run it (OpenCommandSelect); false = refused (error sound, back to the
---                                                command menu)
---   VRFW_RB_PieceOpen(piece) -> bool             a piece was picked (OpenCommandSelect, before its menu opens): true
---                                                = the piece ran its own flow instead of the command menu (the board
---                                                goes back as after «back»); default: a mod's node menu
---                                                (VRFW_NodeMenu.OpenPiece, a [[VRFW.NodeMenu]] node), else false
---   VRFW_RB_MenuClosed(piece)                    the piece's command menu just closed, before its result is read: a
---                                                mod's row that wrote no retail result runs here (the board then goes
---                                                back as after «back»); default: the framework's gacha node
---                                                (VRFW_Gacha.AfterMenu: its «insert a coin» row runs the draw)
---   VRFW_RB_BackOnBoard()                        back on the board after a match (state 8), before the retail result
---   VRFW_RB_Clear(c)                             the clear handling starts: c = {diff, piece, slot, kind, ok, wait,
---                                                force}; set c.wait (the retail clear is skipped: a mod's event runs
---                                                first, the board waits, state 4) or c.force (cleared again even when
---                                                that difficulty was cleared before)
---   VRFW_RB_Cleared(c)                           the clear bit was set (before the clear effect)
---   VRFW_RB_UnlockNext(c) -> bool                true = the mod unlocked what this clear opens (the retail "next
---                                                difficulty» unlock is skipped)
---   VRFW_RB_OpenEffect(open) -> bool             the route-open effect after the clear (retail: the difficulty-2 clear)
---   VRFW_RB_DotShown(kind, difficulty) -> bool   a cleared difficulty's dot on the piece (kind 0 normal, 5 gate)
---   VRFW_RB_Rank(slot) -> rank Id | nil           the rank badge of a piece's save slot (a VRFW_MatchRank Id);
---                                                default: a chain node's chain rank (route_chains), nil on a plain piece
---   VRFW_RB_MatchRank() -> rank Id, for, against the rank of the chain tile just won; default:
---                                                the declared ranks VRFW_MatchRank (defaults\match_rank.toml)
--- The board's locals a handler may read / write: VRFW_RB.L.<name> (decompile names of the retail chunk, served by
--- this patch: the locals it promoted). A mod that needs another one asks for it here (one line in VRFW_RB_LOCALS).
--- Retail globals of the script (OnInit, PreStep, ...) are hook points too (VRFW_Host.on(stem, "OnInit", ...)).
-VRFW_RB = VRFW_RB or {}
-VRFW_RB.STEM = "vs_route_town_menu"
-VRFW_RB_LOCALS = {
+-- VRFW route_board BEGIN VRFW
+VRFW.route_board = VRFW.route_board or {}
+VRFW.route_board.STEM = "vs_route_town_menu"
+VRFW.route_board.LOCALS = {
   n9 = {function() return n9 end, function(v) n9 = v end},       -- the board's menu object (vs_route_town_menu ...)
   n21 = {function() return n21 end, function(v) n21 = v end},    -- PreStep state (4 = an event plays, 6 = clear effect)
   flag5 = {function() return flag5 end, function(v) flag5 = v end},     -- closing for a reserved map jump
   flag16 = {function() return flag16 end, function(v) flag16 = v end}   -- FinalizeMenu sets temp bit 1255964678
 }
-VRFW_RB.L = setmetatable({}, {
+VRFW.route_board.L = setmetatable({}, {
   __index = function(_, k)
-    local a = VRFW_RB_LOCALS[k]
+    local a = VRFW.route_board.LOCALS[k]
     if a == nil then
-      error("VRFW_RB.L: the board serves no local " .. tostring(k), 2)
+      error("VRFW.route_board.L: the board serves no local " .. tostring(k), 2)
     end
     return a[1]()
   end,
   __newindex = function(_, k, v)
-    local a = VRFW_RB_LOCALS[k]
+    local a = VRFW.route_board.LOCALS[k]
     if a == nil then
-      error("VRFW_RB.L: the board serves no local " .. tostring(k), 2)
+      error("VRFW.route_board.L: the board serves no local " .. tostring(k), 2)
     end
     a[2](v)
   end
 })
 
-function VRFW_RB_IsCommand(item)
+function VRFW.route_board.is_command(item)
   return false
 end
 
-function VRFW_RB_Command(item, piece)
+function VRFW.route_board.command(item, piece)
   return false
 end
 
-function VRFW_RB_PieceOpen(piece)
-  if VRFW_NodeMenu ~= nil and VRFW_NodeMenu.OpenPiece ~= nil then
-    return VRFW_NodeMenu.OpenPiece(piece) == true
+function VRFW.route_board.piece_open(piece)
+  if VRFW.node_menu ~= nil and VRFW.node_menu.open_piece ~= nil then
+    return VRFW.node_menu.open_piece(piece) == true
   end
   return false
 end
 
-function VRFW_RB_MenuClosed(piece)
-  if VRFW_Gacha ~= nil and VRFW_Gacha.AfterMenu ~= nil then
-    VRFW_Gacha.AfterMenu(piece)
+function VRFW.route_board.menu_closed(piece)
+  if VRFW.node_menu ~= nil and VRFW.node_menu.after_menu ~= nil then
+    VRFW.node_menu.after_menu(piece)
   end
 end
 
-function VRFW_RB_BackOnBoard()
+function VRFW.route_board.back_on_board()
 end
 
-function VRFW_RB_Clear(c)
+function VRFW.route_board.clear(c)
 end
 
-function VRFW_RB_Cleared(c)
+function VRFW.route_board.cleared(c)
 end
 
-function VRFW_RB_UnlockNext(c)
+function VRFW.route_board.unlock_next(c)
   return false
 end
 
-function VRFW_RB_OpenEffect(open)
+function VRFW.route_board.open_effect(open)
   return open
 end
 
-function VRFW_RB_DotShown(kind, difficulty)
+function VRFW.route_board.dot_shown(kind, difficulty)
   return true
 end
 
-function VRFW_RB_Rank(slot)
-  if VRFW_RCH_RankOf ~= nil then
-    return VRFW_RCH_RankOf(slot)
+function VRFW.route_board.rank(slot)
+  if (VRFW.route_chains ~= nil and VRFW.route_chains.rank_of ~= nil) then
+    return VRFW.route_chains.rank_of(slot)
   end
   return nil
 end
 
--- the rank of the match just won: the framework's rule (VRFW_MatchRank, menu part); B when it is missing
-function VRFW_RB_MatchRank()
-  if VRFW_MatchRank ~= nil then
-    return VRFW_MatchRank.Last()
+-- Returns the rank of the match just won.
+function VRFW.route_board.match_rank()
+  if VRFW.match_rank ~= nil then
+    return VRFW.match_rank.last()
   end
   return "B", -1, -1
 end
 
--- The rank badge of a chain piece (end of UpdatePieceClearIcon(layer, instance, piece)): the clear-icon layer of the piece
--- (vsroute01_06c, attached at the piece's origin) has a 6th difficulty dot (_pos_clear08_01, Legendaria;
--- _pos_clear08_02 on gate pieces). With a rank it becomes the badge: moved over the crest's lower-right corner, its
--- picture = the rank's PieceBadge (defaults\match_rank.toml: a sprite a mod adds to the dots' atlas vsroute01_06b,
--- e.g. a mod's chronicle_deluxe_rank_{s,a,b}; the framework declares no rank and ships no badge).
--- Without a rank, or a rank without a PieceBadge, nothing changes.
-VRFW_RB_BADGE_POS = {x = 40, y = -6} -- badge centre, piece coordinates (crest: 128 px centred at (0, 38))
-VRFW_RB_BADGE_TEX = 2855820778 --[[crc32("#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx")]]
-VRFW_RB_BADGE_TEXREF = 516486421 --[[clear_icon08: the picture of both Legendaria dots]]
--- per eventType of the piece: the dot used as badge and the effect / ring meshes kept hidden on it
-VRFW_RB_BADGE_DOT = {
+-- The rank badge of a chain piece (end of UpdatePieceClearIcon(layer, instance, piece))
+VRFW.route_board.BADGE_POS = {x = 40, y = -6} -- badge centre, piece coordinates (crest: 128 px centred at (0, 38))
+VRFW.route_board.BADGE_TEX = 2855820778 --[[crc32("#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx")]]
+VRFW.route_board.BADGE_TEXREF = 516486421 --[[clear_icon08: the picture of both Legendaria dots]]
+-- Badge dots per eventType of the piece.
+VRFW.route_board.BADGE_DOT = {
   [0] = {pos = 2027773323 --[[_pos_clear08_01]], hide = {760159382 --[[_clear_icon08_01_add01]], 3024506156 --[[_clear_icon08_01_add02]], 3008808285 --[[_clear_ring08_01]]}},
   [5] = {pos = 3788770353 --[[_pos_clear08_02]], hide = {480708107 --[[_clear_icon08_02_add01]], 2242795441 --[[_clear_icon08_02_add02]], 710907111 --[[_clear_ring08_02]]}}
 }
 
-function VRFW_RB_Badge(a1, a2, a3)
+function VRFW.route_board.badge(a1, a2, a3)
   if a3 == nil or a3 == -1 then
     return
   end
   local okE, evType = GetTownMapResourceEvent(a3, 1, true)
-  local dot = okE and VRFW_RB_BADGE_DOT[evType] or nil
+  local dot = okE and VRFW.route_board.BADGE_DOT[evType] or nil
   if dot == nil then
     return
   end
@@ -1318,18 +1178,18 @@ function VRFW_RB_Badge(a1, a2, a3)
   if not ok then
     return
   end
-  -- the rank's PieceBadge (defaults\match_rank.toml): a sprite of the dots' atlas vsroute01_06b
-  local rank = VRFW_RB_Rank(sfi)
-  local def = VRFW_MatchRank ~= nil and VRFW_MatchRank.ById(rank) or nil
+  -- Returns the rank's PieceBadge (defaults\match_rank.toml).
+  local rank = VRFW.route_board.rank(sfi)
+  local def = VRFW.match_rank ~= nil and VRFW.match_rank.by_id(rank) or nil
   local sprite = nil
   if def ~= nil and def.piece ~= "" then
     sprite = CRC32(def.piece)
   end
   if sprite == nil then
-    return -- no rank (or a rank without a piece badge): the retail loop already set the dot
+    return
   end
-  funcLuaMenuCommand(558735651, a1, VRFW_RB_BADGE_TEX, sprite, VRFW_RB_BADGE_TEXREF, 0, a2)
-  funcLuaMenuCommand(1856671416 --[[node translation]], a1, a2, dot.pos, VRFW_RB_BADGE_POS.x, VRFW_RB_BADGE_POS.y, 0)
+  funcLuaMenuCommand(558735651, a1, VRFW.route_board.BADGE_TEX, sprite, VRFW.route_board.BADGE_TEXREF, 0, a2)
+  funcLuaMenuCommand(1856671416 --[[node translation]], a1, a2, dot.pos, VRFW.route_board.BADGE_POS.x, VRFW.route_board.BADGE_POS.y, 0)
   funcLuaMenuCommand(2158717427, a1, dot.pos, true, a2)
   for i = 1, #dot.hide do
     funcLuaMenuCommand(3405944500, a1, dot.hide[i], false, a2)
@@ -1337,12 +1197,7 @@ function VRFW_RB_Badge(a1, a2, a3)
   funcLuaMenuCommand(629267548, a1, a2)
 end
 
--- The retail invite check at the end of PreStep (CheckAndReserveGeneralWindowForInviteNotJoined, include
--- network_invite_menu_inc) waits with coroutine.yield while a general window is busy (CMND 682363669 false). PreStep is
--- not a coroutine here, so every frame a message window was up logged "LUAERR … attempt to yield from outside a
--- coroutine» (e.g. hundreds of lines in 30 s while the board's lock message showed). Called when it can wait (inside a
--- coroutine) or will not wait (no window busy); otherwise it runs again next frame, as the retail wait would.
-function VRFW_RB_InviteCheck()
+function VRFW.route_board.invite_check()
   local _, main = coroutine.running()
   if main == false or funcLuaCommand(682363669) then
     return CheckAndReserveGeneralWindowForInviteNotJoined()
@@ -1351,7 +1206,7 @@ function VRFW_RB_InviteCheck()
 end
 -- VRFW route_board END
 function FinalizeMenu()
-  VRFW_RCH_NewIcon(true) -- VRFW route_chains
+  VRFW.route_chains.new_icon(true) -- VRFW route_chains
   if n14 >= 0 then
     local ret2 = funcLuaCommand(4239813130, n14)
     funcLuaCommand(102293411, ret2)
@@ -1389,8 +1244,8 @@ function OnSetupLayer(a1, a2)
     UpdatePieceClearIcon(a1, a2, -1)
   elseif a1 == 1632548965 then
     UpdatePieceAtcBalloon(a1, a2, -1)
-  elseif a1 == VRFW_RN_ROAD_LAYER then -- VRFW route_nodes
-    VRFW_RN_RoadSetup(a2)
+  elseif a1 == VRFW.route_nodes.ROAD_LAYER then -- VRFW route_nodes
+    VRFW.route_nodes.road_setup(a2)
   elseif a1 == 283637042 then
     for i = 0, 5 do
       for i2 = 0, 5 do
@@ -1472,7 +1327,7 @@ function OnEnter(a1, a2)
       if IsSoccerBattle(town_map_resource_event2) then
         local ret2, ret3 = funcLuaCommand(126049514, n11, 6)
         if ret2 then
-          local chronicle_lock_status = funcLuaCommand(3394595467 --[[CMND_GET_CHRONICLE_LOCK_STATUS]], ret3, 1) and not VRFW_RN_Enterable(ret3) -- VRFW route_nodes
+          local chronicle_lock_status = funcLuaCommand(3394595467 --[[CMND_GET_CHRONICLE_LOCK_STATUS]], ret3, 1) and not VRFW.route_nodes.enterable(ret3) -- VRFW route_nodes
           if chronicle_lock_status then
             local ret4, ret5 = funcLuaCommand(126049514, n11, 13)
             local ret6, ret7 = funcLuaMenuVSRouteTownCommand(3069531246, n14)
@@ -1484,7 +1339,7 @@ function OnEnter(a1, a2)
             else
               s = funcLuaCommand(4074371074 --[[CMND_TEXT_GET]], 2347024869)
             end
-            s = VRFW_RN_LockedText(ret3, s) -- VRFW route_nodes
+            s = VRFW.route_nodes.locked_text(ret3, s) -- VRFW route_nodes
             local n34 = 0
             funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
             funcLuaCommand(2289627655, s, n34, 0, 0, 0, 0, false)
@@ -1586,9 +1441,9 @@ function PreStep()
     if not flag12 then
       return
     end
-    VRFW_RCH_AfterMatch() -- VRFW route_chains
+    VRFW.route_chains.after_match() -- VRFW route_chains
     n21 = 0
-    VRFW_RB_BackOnBoard() -- VRFW route_board
+    VRFW.route_board.back_on_board() -- VRFW route_board
     if funcLuaCommand(2283097588 --[[CMND_GET_TEMP_BIT_FLAG]], 1388584433) then
       local ret2 = funcLuaCommand(3146838638)
       local n34 = 0
@@ -1691,14 +1546,14 @@ function PreStep()
     local ret15 = funcLuaMenuVSRouteTownCommand(1350631190, ret14)
     local ret16, ret17 = funcLuaCommand(126049514, ret14, 6)
     local vrfw_c = {diff = ret13, piece = ret14, slot = ret17, kind = town_map_resource_event4, ok = ret16 == true, wait = false, force = false} -- VRFW route_board
-    VRFW_RB_Clear(vrfw_c)
+    VRFW.route_board.clear(vrfw_c)
     if ret16 then
       if vrfw_c.wait then -- VRFW route_board
       elseif not funcLuaCommand(4034518619 --[[CMND_GET_CHRONICLE_CLEAR_STATUS]], ret17, ret13) or vrfw_c.force then
         funcLuaCommand(1891570685 --[[CMND_SET_CHRONICLE_CLEAR_STATUS?]], ret17, true, ret13)
-        VRFW_RB_Cleared(vrfw_c) -- VRFW route_board
+        VRFW.route_board.cleared(vrfw_c) -- VRFW route_board
         ClearNewRouteEffect(ret14)
-        if not VRFW_RB_UnlockNext(vrfw_c) then -- VRFW route_board
+        if not VRFW.route_board.unlock_next(vrfw_c) then -- VRFW route_board
           local game_difficulty_array_idx = GetGameDifficultyArrayIdx(ret13, town_map_resource_event4)
           local game_difficulty_array = GetGameDifficultyArray(town_map_resource_event4)
           if game_difficulty_array_idx < #game_difficulty_array then
@@ -1791,13 +1646,13 @@ function PreStep()
   end
   StepMap()
   StepCharaModel()
-  if VRFW_RN_StartNeighboursStep ~= nil then -- VRFW route_nodes: the start's neighbours stay open on a fresh Chronicle
-    VRFW_RN_StartNeighboursStep()
+  if (VRFW.route_nodes ~= nil and VRFW.route_nodes.start_neighbours_step ~= nil) then -- VRFW route_nodes: the start's neighbours stay open on a fresh Chronicle
+    VRFW.route_nodes.start_neighbours_step()
   end
-  VRFW_RB_InviteCheck() -- VRFW route_board
+  VRFW.route_board.invite_check() -- VRFW route_board
 end
 function Step()
-  VRFW_RCH_NewIconStep() -- VRFW route_chains
+  VRFW.route_chains.new_icon_step() -- VRFW route_chains
   if l7 ~= nil then
     coroutine.resume(l7)
   end
@@ -1913,7 +1768,7 @@ function UpdateClearEffect()
   WaitCoroutine(n27)
   UpdatePieceClearIcon(2638032167, ret3, ret2)
   local ret4 = funcLuaCommand(3146838638)
-  local vrfw_open = VRFW_RB_OpenEffect(ret4 == 2) == true -- VRFW route_board
+  local vrfw_open = VRFW.route_board.open_effect(ret4 == 2) == true -- VRFW route_board
   local town_map_resource_event, town_map_resource_event2 = GetTownMapResourceEvent(ret2, 1, true)
   if not town_map_resource_event then
     town_map_resource_event2 = 0
@@ -1939,8 +1794,8 @@ function UpdateClearEffect()
     end
     funcLuaMenuVSRouteTownCommand(1083929583, ret2)
   end
-  if VRFW_RN_Sync(true) then -- VRFW route_nodes
-    VRFW_RN_Roads()
+  if VRFW.route_nodes.sync(true) then -- VRFW route_nodes
+    VRFW.route_nodes.roads()
   end
   if TriggerNewOpenConditionMetPiece(false) then
     return
@@ -1976,7 +1831,7 @@ function OnAroundPieceUnlock(a1, a2)
   end
 end
 function WaitPieceOpenEffect(a1, a2)
-  VRFW_RN_RevealPieces(a1) -- VRFW route_nodes
+  VRFW.route_nodes.reveal_pieces(a1) -- VRFW route_nodes
   n19 = -1
   for i = 1, #a1 do
     local l8 = a1[i]
@@ -2222,8 +2077,8 @@ function SetupButtonGuideInfo(a1, a2)
   t20 = {0, 0}
   t21 = {0, 0}
   t22 = {3421673595 --[[CMD_FUNC3]], 3147328756}
-  if VRFW_FooterPrompts ~= nil then -- VRFW route_board: footer prompts
-    VRFW_FooterPrompts.Apply("vs_route_town_menu", t17, t18, t19, t20, t21, t22)
+  if VRFW.footer_prompts ~= nil then -- VRFW route_board: footer prompts
+    VRFW.footer_prompts.apply("vs_route_town_menu", t17, t18, t19, t20, t21, t22)
   end
   funcLuaMenuCommand(2209673388, n9, a1, t17, t18, t19, t20, t21)
   funcLuaMenuCommand(452337289, n9, a1, t22)
@@ -2261,13 +2116,13 @@ function ResetButtonGuide(a1, a2)
   funcLuaMenuCommand(452337289, n9, a1, t22)
 end
 function SetupTownMap(a1, a2)
-  VRFW_RN_Roads() -- VRFW route_nodes
+  VRFW.route_nodes.roads() -- VRFW route_nodes
   n10 = funcLuaMenuCommand(1175615627 --[[CMND_GET_CREATE_LAYER_NUM?]], 4002479583)
   SetupCharaModel(1021315501, 0, 2733743293)
   funcLuaMenuCommand(629267548 --[[CMND_OPEN_LAYER]], 2296367164 --[[cmn05_01_cursor]])
 end
 function UpdateTownMapPiece(a1, a2, a3)
-  VRFW_RN_PieceScale(a1, a2, a3) -- VRFW route_nodes
+  VRFW.route_nodes.piece_scale(a1, a2, a3) -- VRFW route_nodes
   if a3 == -1 then
     funcLuaMenuCommand(1380315136, a1, a2, 636006542, 2, 1956513355)
     funcLuaMenuCommand(1389957207 --[[CMND_SET_LAYER_LOCAL_POS?]], a1, -100000, -100000, 0, a2)
@@ -2330,7 +2185,7 @@ function UpdateTownMapPiece(a1, a2, a3)
 end
 function UpdatePieceAtcBalloon(a1, a2, a3)
   local town_map_resource_team_and_c, town_map_resource_team_and_c2 = GetTownMapResourceTeamAndCharaId(a3)
-  if not VRFW_RCH_BalloonFace(a3) then -- VRFW route_chains
+  if not VRFW.route_chains.balloon_face(a3) then -- VRFW route_chains
     town_map_resource_team_and_c2 = 0
   end
   if town_map_resource_team_and_c ~= 0 and town_map_resource_team_and_c2 ~= 0 then
@@ -2347,7 +2202,7 @@ function UpdatePieceAtcBalloon(a1, a2, a3)
   else
     SetPieceAtcCharaIconVisible(a1, a2, false)
   end
-  local guide_text_id = VRFW_RN_GuideText(a3, GetGuideTextId(a3)) -- VRFW route_nodes
+  local guide_text_id = VRFW.route_nodes.guide_text(a3, GetGuideTextId(a3)) -- VRFW route_nodes
   if guide_text_id ~= 0 then
     local text_get = funcLuaCommand(4074371074 --[[CMND_TEXT_GET]], guide_text_id)
     SetPieceAtcText(a1, a2, text_get)
@@ -2434,7 +2289,7 @@ function CheckCharaMoveTownMapPiece()
     return
   end
   local flag23 = false
-  t9 = VRFW_RN_OffRoad(VRFW_RN_Path(funcLuaMenuVSRouteTownCommand(111188339, n14, n11))) -- VRFW route_nodes
+  t9 = VRFW.route_nodes.off_road(VRFW.route_nodes.path(funcLuaMenuVSRouteTownCommand(111188339, n14, n11))) -- VRFW route_nodes
   if t9 == nullptr then
     return
   end
@@ -2642,7 +2497,7 @@ function GetTownMapPieceAttachCursorLocatorPos(a1)
   return l8, l9, l10
 end
 function UpdateScrollPos(a1, a2)
-  a1, a2 = VRFW_RN_ScrollRail(a1, a2) -- VRFW route_nodes
+  a1, a2 = VRFW.route_nodes.scroll_rail(a1, a2) -- VRFW route_nodes
   flag = true
   n5 = -a1
   n6 = -a2
@@ -2651,7 +2506,7 @@ function UpdatePlacementPiece(a1, a2, a3, a4, a5, a6)
   if flag22 then
     return
   end
-  if VRFW_RN_Hidden(a2) then -- VRFW route_nodes
+  if VRFW.route_nodes.hidden(a2) then -- VRFW route_nodes
     a2 = -1
     a4 = nil
     a5 = nil
@@ -2835,7 +2690,7 @@ function UpdateWarpEffect()
   end
 end
 function UpdatePieceFocus(a1, a2)
-  if VRFW_RN_Hidden(a2) then -- VRFW route_nodes
+  if VRFW.route_nodes.hidden(a2) then -- VRFW route_nodes
     a1 = -1
     a2 = -1
   end
@@ -3186,7 +3041,7 @@ function WarpToPiece(a1, a2, a3, a4)
   funcLuaMenuCommand(711242136 --[[CMND_SET_LAYER_VISIBLE]], 2296367164 --[[cmn05_01_cursor]], 0, true)
 end
 function ScrollToPieceByDpad(a1)
-  if VRFW_RN_Hidden(a1) then -- VRFW route_nodes
+  if VRFW.route_nodes.hidden(a1) then -- VRFW route_nodes
     return
   end
   if l4 ~= nil then
@@ -3223,12 +3078,12 @@ function UpdateMapScroll()
   if not flag10 and flag3 then
     funcLuaMenuCommand(711242136 --[[CMND_SET_LAYER_VISIBLE]], 2296367164 --[[cmn05_01_cursor]], 0, false)
   end
-  VRFW_RN_ScrollStart(n15) -- VRFW route_nodes
+  VRFW.route_nodes.scroll_start(n15) -- VRFW route_nodes
   funcLuaMenuVSRouteTownCommand(4187885333, n15, n17, n18)
   while funcLuaMenuVSRouteTownCommand(3329136553) do
     coroutine.yield()
   end
-  VRFW_RN_ScrollEnd() -- VRFW route_nodes
+  VRFW.route_nodes.scroll_end() -- VRFW route_nodes
   local ret2 = funcLuaMenuVSRouteTownCommand(1350631190, n15)
   UpdatePieceFocus(ret2, n15)
   if not flag10 and flag3 then
@@ -3279,32 +3134,32 @@ function OpenCommandSelect(a1)
   if not is_open_layer then
     funcLuaMenuCommand(629267548 --[[CMND_OPEN_LAYER]], 139522149, 0)
   end
-  local evt_rch_menu = VRFW_RCH_MenuFor(a1) -- VRFW route_chains
-  if VRFW_RB_PieceOpen ~= nil and VRFW_RB_PieceOpen(a1) then -- VRFW route_board: the piece ran its own flow (a gacha node)
-    evt_rch_menu = nil
+  local vrfw_route_chain_menu = VRFW.route_chains.menu_for(a1) -- VRFW route_chains
+  if (VRFW.route_board ~= nil and VRFW.route_board.piece_open ~= nil) and VRFW.route_board.piece_open(a1) then -- VRFW route_board: the piece ran its own flow (a gacha node)
+    vrfw_route_chain_menu = nil
   else
-    funcLuaCommand(433545986 --[[CMND_OPEN_MENU_OBJECT]], evt_rch_menu)
-    VRFW_RCH_ParentUi(evt_rch_menu, false)
+    funcLuaCommand(433545986 --[[CMND_OPEN_MENU_OBJECT]], vrfw_route_chain_menu)
+    VRFW.route_chains.parent_ui(vrfw_route_chain_menu, false)
   end
   funcLuaMenuCommand(2171393651, 1423637364 --[[rpg00_05_menu_button_guide]], false)
   coroutine.yield()
   waitFalse(function()
-    return evt_rch_menu ~= nil and funcLuaMenuCommand(2231168902 --[[CMND_IS_EXIST_MENU_OBJECT?]], evt_rch_menu) -- VRFW route_chains
+    return vrfw_route_chain_menu ~= nil and funcLuaMenuCommand(2231168902 --[[CMND_IS_EXIST_MENU_OBJECT?]], vrfw_route_chain_menu) -- VRFW route_chains
   end)
   coroutine.yield()
-  if VRFW_RB_MenuClosed ~= nil then
-    VRFW_RB_MenuClosed(a1) -- VRFW route_board: a mod's command row that wrote no retail result (the gacha's draw)
+  if (VRFW.route_board ~= nil and VRFW.route_board.menu_closed ~= nil) then
+    VRFW.route_board.menu_closed(a1) -- VRFW route_board: a mod's command row that wrote no retail result (the gacha's draw)
   end
-  local evt_rch_g, evt_rch_d = VRFW_RCH_Picked(a1) -- VRFW route_chains
-  if evt_rch_g ~= nil then
+  local vrfw_rch_g, vrfw_rch_d = VRFW.route_chains.picked(a1) -- VRFW route_chains
+  if vrfw_rch_g ~= nil then
     funcLuaMenuCommand(2171393651, 1138543975 --[[mainmenu01_06_base_button_guide]], false)
     funcLuaMenuCommand(2323943931 --[[CMND_CLOSE_LAYER_ARRAY?]], 1423637364 --[[rpg00_05_menu_button_guide]])
     funcLuaMenuCommand(2323943931 --[[CMND_CLOSE_LAYER_ARRAY?]], 9396745 --[[mainmenu01_07_button_guide]])
     funcLuaMenuCommand(1273612389 --[[CMND_CLOSE_LAYER]], 3905678584)
     funcLuaMenuCommand(1273612389 --[[CMND_CLOSE_LAYER]], 139522149)
-    n7 = evt_rch_d
+    n7 = vrfw_rch_d
     n8 = 0
-    n25 = evt_rch_g
+    n25 = vrfw_rch_g
     funcLuaCommand(2565779025, 2437536560, n25)
     funcLuaCommand(2565779025, 2950461036, n7)
     funcLuaCommand(2565779025, 808875126, 0)
@@ -3352,8 +3207,8 @@ function OpenCommandSelect(a1)
     OpenKizunaMainMenu(613075359)
     coroutine.yield()
     goto L0
-  elseif VRFW_RB_IsCommand(n34) then -- VRFW route_board
-    if not VRFW_RB_Command(n34, a1) then
+  elseif VRFW.route_board.is_command(n34) then -- VRFW route_board
+    if not VRFW.route_board.command(n34, a1) then
       funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
       goto L0
     end

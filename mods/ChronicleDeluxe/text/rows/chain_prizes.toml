@@ -1,6 +1,3 @@
-# Chronicle Deluxe: the label the chain board's team card shows for a rank reward whose item is another mod's
-# ([[VRFW.Chain.RankReward]] Text; VRFW chain-board.md §2d). Hissatsu Level Up's «Mejora de supertécnica», the retail
-# abl_000001 it renames (its item texts, research/mods/HissatsuReforged/modules/HissatsuLevelUp/content/items/rank_items.toml), the rank S reward of the chains.
 schema = "VRFW.text/2"
 table = "menu_text"
 

@@ -1,32 +1,26 @@
-# BetterUI › duel power counter: a screen of its own, betterui_power_counter_menu, a copy of soccer_shoot_catch_info_menu
-# (the same plates, resources and registry row as the game's shot readout: layout soccer10_25 with BetterUI's smaller,
-# raised banners). scripts\duel_readout.lua opens it when a cut-in of the duel starts and closes it when the cut-in ends.
-# Script: assets\lua\screens\betterui_power_counter_menu.lua.
-# Left plate = the player's side, right plate = the rival's, each with its player's 3D bust (the retail objects' capture
-# component and portrait mesh). The plates' picture labels («TOTAL AT» / «PP») are hidden and
-# replaced by a text label under the digits: the move's name, or «Dribbling» / «Defending» / «Power Charge» /
-# «Power Block» (text keys of text\keys.toml) for a side without a move's name.
 schema = "VRFW.menu/2"
 
-# the label's layout: a copy of the corner button's with a text box wide enough for any name on one line (retail 368 px;
-# the game squeezes a line wider than its box, and a layer's scale scales the box too)
 [[layout]]
-file = "common/menu/20_cmn/cmn03/evt_bui_power_counter_label/evt_bui_power_counter_label.g4pkm"
+file = "common/menu/20_cmn/cmn03/better_ui_power_counter_label/better_ui_power_counter_label.g4pkm"
 from = "common/menu/20_cmn/cmn03/cmn03_01/cmn03_01.g4pkm"
 
 [[layout]]
-file = "common/menu/20_cmn/cmn03/evt_bui_power_counter_label/evt_bui_power_counter_label.g4pkm"
+file = "common/menu/20_cmn/cmn03/better_ui_power_counter_label/better_ui_power_counter_label.g4pkm"
 joint = "_text_cmd_back01"
 scale = [840.0, 76.0, 1.0]
 
-# the label: the retail corner button's text node only (its plates hidden by the script), no collision and no anchor
-# (placed by the script), drawn over the plates (310)
+# the plate mesh at the size of the «critical» tag sprite (the tag layer shows it; the move-name labels hide it)
+[[layout]]
+file = "common/menu/20_cmn/cmn03/better_ui_power_counter_label/better_ui_power_counter_label.g4pkm"
+joint = "_cmd_back_base01"
+scale = [180.0, 96.0, 1.0]
+
 [[object]]
 name = "betterui_power_counter_label"
 from = "cmn03_01_cmd_back"
 remove_block = ["MenuCollisionSetting", "MenuAnchorComponent"]
 set = [
-    { parameter = "SkeletonAnime", match = { 1 = "common/menu/20_cmn/cmn03/cmn03_01/cmn03_01.g4pkm" }, values = { 1 = "common/menu/20_cmn/cmn03/evt_bui_power_counter_label/evt_bui_power_counter_label.g4pkm" } },
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/20_cmn/cmn03/cmn03_01/cmn03_01.g4pkm" }, values = { 1 = "common/menu/20_cmn/cmn03/better_ui_power_counter_label/better_ui_power_counter_label.g4pkm" } },
     { parameter = "m_drawPriority", match = { 1 = 301 }, values = { 1 = 312 } },
 ]
 add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/20_cmn/cmn03/cmn03_01/cmn03_01.g4tx"] }]
@@ -42,12 +36,26 @@ layer = [
     { layer = "soccer10_25_at_kp_power_info_telop_self" },
     { layer = "soccer10_25_at_kp_power_info_telop_enemy" },
     { layer = "betterui_power_counter_label", object = "betterui_power_counter_label", count = 2 },
+    { layer = "betterui_power_counter_crit", object = "betterui_power_counter_label", count = 2 },
 ]
 group_base = [
     { layer = "soccer10_25_at_kp_power_info_telop_self", flags = [0, 1, 0, 0, 1, 0] },
     { layer = "soccer10_25_at_kp_power_info_telop_enemy", flags = [0, 1, 0, 0, 1, 0] },
     { layer = "betterui_power_counter_label", flags = [0, 0, 0, 0, 1, 0] },
+    { layer = "betterui_power_counter_crit", flags = [0, 0, 0, 0, 1, 0] },
 ]
 group = [
-    { group = "betterui_power_counter_menu", flags = [1], slice = [0, 3] },
+    { group = "betterui_power_counter_menu", flags = [1], slice = [0, 4] },
 ]
+
+# the TOTAL DF picture and the «critical» tag (content/images/menu/00_soccer/power_counter.toml)
+[[patch]]
+menu = "betterui_power_counter_menu"
+resources = ["#/menu/00_soccer/better_ui_power_counter/better_ui_power_counter.g4tx",
+    "#/menu/00_soccer/better_ui_power_counter/<LG>/better_ui_power_counter_crit.g4tx"]
+
+# the shot readout's «critical» tags (graft better_ui_shot_readout)
+[[patch]]
+menu = "soccer_shoot_catch_info_menu"
+resources = ["#/menu/00_soccer/better_ui_power_counter/<LG>/better_ui_power_counter_crit.g4tx"]
+add_layer = { name = "betterui_power_counter_crit", object = "betterui_power_counter_label", count = 2, groups = [{ group = "soccer_shoot_catch_info_menu", flags = [0, 0, 0, 0, 1, 0] }] }

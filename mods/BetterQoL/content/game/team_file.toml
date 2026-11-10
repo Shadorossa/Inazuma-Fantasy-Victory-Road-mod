@@ -1,0 +1,32 @@
+# Team files: the Lua commands of the «Exportar | Importar» row of the team dock (logic scripts\team_file.lua).
+schema = "VRFW.game/2"
+
+# (team set) -> true, file, area; false, why
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEAM_FILE_EXPORT"
+handler = "BetterQoL.TeamFile.Export"
+
+# (team set) -> true when the shown team has no member and no name
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEAM_FILE_EMPTY"
+handler = "BetterQoL.TeamFile.Empty"
+
+# -> count, area (the area's team files, newest first)
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEAM_FILE_LIST"
+handler = "BetterQoL.TeamFile.List"
+
+# (index) -> file, label
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEAM_FILE_ENTRY"
+handler = "BetterQoL.TeamFile.Entry"
+
+# (index) -> true, checksum ok, missing mods text; false, why
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEAM_FILE_CHECK"
+handler = "BetterQoL.TeamFile.Check"
+
+# (index, team set) -> true, members placed, members skipped, their names, fields kept; false, why
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEAM_FILE_APPLY"
+handler = "BetterQoL.TeamFile.Apply"

@@ -1,5 +1,3 @@
-# The ATRIBUTOS stats of a player without a saved owner are the ones his match copy was built with (VRFW rival players).
-# Any other player: no answer, the page's own value.
 schema = "VRFW.menu/2"
 
 [[entry]]

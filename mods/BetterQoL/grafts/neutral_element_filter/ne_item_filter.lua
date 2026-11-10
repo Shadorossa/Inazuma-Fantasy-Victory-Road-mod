@@ -1,12 +1,9 @@
--- BetterQoL neutral element: item filter window, element tab (list item type 4). Retail draws the fifth entry
--- («Neutro», value 5) as a plain name on the text row; the name gets the neutral text icon (a tile like the element icons) in front of it and the neutral
--- purple ([CMODE02]) as the four element rows show theirs. The label is the retail text of that entry.
-local UTIL_NE_prev_FilterUpdateItem = UpdateItem
-local UTIL_NE_FILTER_NEUTRAL_TEXT = 3339176265
+local BETTERQOL_NE_prev_FilterUpdateItem = UpdateItem
+local BETTERQOL_NE_FILTER_NEUTRAL_TEXT = 3339176265
 function UpdateItem(a1, a2, a3, a4, a5)
-  local r = table.pack(UTIL_NE_prev_FilterUpdateItem(a1, a2, a3, a4, a5))
+  local r = table.pack(BETTERQOL_NE_prev_FilterUpdateItem(a1, a2, a3, a4, a5))
   if a3 == 4 and a4 == 5 then
-    local label = funcLuaCommand(@crc:CMND_TEXT_GET@, UTIL_NE_FILTER_NEUTRAL_TEXT)
+    local label = funcLuaCommand(@crc:CMND_TEXT_GET@, BETTERQOL_NE_FILTER_NEUTRAL_TEXT)
     if type(label) ~= "string" then
       label = ""
     end

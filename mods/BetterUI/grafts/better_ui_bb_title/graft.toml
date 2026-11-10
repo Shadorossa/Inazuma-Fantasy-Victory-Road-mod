@@ -1,0 +1,17 @@
+# BetterUI: blanks the mode title text of the Battle Bay header bar (logo, icon and bar stay).
+name = "better_ui_bb_title"
+order = 962
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = ["Step"]
+description = "BetterUI: no mode title text in the Battle Bay header bar"
+
+[[files]]
+stem = "bb_stadium_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "bb_title.lua"
+  marker = "better_ui_bb_title"

@@ -1,5 +1,4 @@
 schema = "VRFW.team/2"
-# The team Inazuma Japón Implacable A (bb_24_team_senshinjapan_a) in every match.
 
 [[edit]]
 target = "bb_24_team_senshinjapan_a"

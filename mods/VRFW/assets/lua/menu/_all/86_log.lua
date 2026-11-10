@@ -1,22 +1,13 @@
--- VRFW_Log: the one logger of the menu scripts (lines go to the loader's log through CMND_EVT_LOG). A screen makes
--- one logger with its tag instead of its own Log function. Definitions only: no engine call at load.
---   local log = VRFW_Log.New(tag)   -- tag: "<mod>.<feature>" or the screen's short name
---   log(...)                        -- one line: the tag, then every argument (as CMND_EVT_LOG joins them)
---   log.once(key, ...)              -> true when written: the line only the first time `key` is used in this VM
---                                      (an error inside Step logs once, not every frame)
---   log.changed(key, value, ...)    -> true when written: the line only when `value` differs from the last value
---                                      given with `key` in this VM (the first call writes)
---   log.debug(...)                  the same line at debug level (CMND_EVT_LOG_DEBUG): per-action details
---   log.tag                         the tag
--- Every write is in pcall: a logger never stops its caller.
-if VRFW_Log == nil then
-  local LOG = VRFW_Cmd.EVT_LOG
-  local LOG_DEBUG = VRFW_Cmd.EVT_LOG_DEBUG
-  local NONE = {}                    -- the «no value yet» mark of log.changed
+-- VRFW.logger: the one logger of the menu scripts (lines go to the loader's log through CMND_VRFW_LOG).
+if VRFW.logger == nil then
+  local LOG = VRFW.commands.VRFW_LOG
+  local LOG_DEBUG = VRFW.commands.VRFW_LOG_DEBUG
+  local NONE = {}                    -- the "no value yet" mark of log.changed
 
   local L = {}
 
-  function L.New(tag)
+  --- A logger for `tag`: call it to log; it has debug, once and changed.
+  function L.new(tag)
     tag = tostring(tag or "log")
     local once_seen = {}
     local last_value = {}
@@ -29,6 +20,7 @@ if VRFW_Log == nil then
       end
     end
 
+    --- Logs the arguments at debug level.
     function logger.debug(...)
       local f = _ENV.funcLuaCommand
       if type(f) == "function" then
@@ -36,6 +28,7 @@ if VRFW_Log == nil then
       end
     end
 
+    --- Logs once per key; answers true when it logged.
     function logger.once(key, ...)
       if once_seen[key] then
         return false
@@ -45,8 +38,9 @@ if VRFW_Log == nil then
       return true
     end
 
+    --- Logs when the value of `key` changed; answers true when it logged.
     function logger.changed(key, value, ...)
-      local stored = last_value[key]   -- nil = the key was never given
+      local stored = last_value[key]
       local now = value
       if now == nil then
         now = NONE
@@ -62,5 +56,5 @@ if VRFW_Log == nil then
     return setmetatable(logger, { __call = function(_, ...) write(...) end })
   end
 
-  VRFW_Log = L
+  VRFW.logger = L
 end

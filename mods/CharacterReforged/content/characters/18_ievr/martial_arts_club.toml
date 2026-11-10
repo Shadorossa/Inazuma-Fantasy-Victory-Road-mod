@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Martial Arts Club · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c11500100"                                   # Douglass Serve
 moves = [
   { move = 0x322F0C40, level = 1 },                         # Spider Web
-  { move = 0xE854ED56, level = 13 },                        # Warp Space
-  { move = 0xF2CB0879, level = 20 },                        # Mugen the Hand
-  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x0E0A3F7A, level = 13 },                        # Spatial Portal
+  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
+  { move = 0x1755397B, level = 30 },                        # Dark Energy Star
 ]
 
   [[edit.cards]]
@@ -22,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11718010"                                   # Colter Fairburn
 moves = [
-  { move = 0xC21AFE80, level = 1 },                         # Whirlwind Drop
+  { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
   { move = 0x3C843987, level = 13 },                        # Flurry Dash
   { move = 0xE0549BE6, level = 20 },                        # Easy Breezy Kid
-  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0xC21AFE80, level = 30 },                        # Whirlwind Drop
 ]
 
   [[edit.cards]]
@@ -38,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11718020"                                   # Fang Arzola
 moves = [
-  { move = 0x737DCB3F, level = 1 },                         # Pancake Defence
+  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
   { move = 0x2FB941B3, level = 13 },                        # Stone Prison
-  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
-  { move = 0xDEB28A7B, level = 30 },                        # Monkey Turn
+  { move = 0x737DCB3F, level = 20 },                        # Pancake Defence
+  { move = 0x72BFA108, level = 30 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -54,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11718030"                                   # Benoni Espinoza
 moves = [
-  { move = 0x2A4E3349, level = 1 },                         # Heart Beat
-  { move = 0x0597D3F9, level = 13 },                        # Dragon Tornado
-  { move = 0xB7474004, level = 20 },                        # Dough Ray Me
-  { move = 0xBDAE2862, level = 30 },                        # Hellfire
+  { move = 0xBDAE2862, level = 1 },                         # Hellfire
+  { move = 0x2A4E3349, level = 13 },                        # Heart Beat
+  { move = 0x0597D3F9, level = 20 },                        # Dragon Tornado
+  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]
@@ -70,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11718040"                                   # Trip Cresta
 moves = [
-  { move = 0x637C031A, level = 1 },                         # No Escape
-  { move = 0x485150D9, level = 13 },                        # Body Shield
-  { move = 0x84385EE2, level = 20 },                        # Black Tide Ride
-  { move = 0x6B1CF436, level = 30 },                        # Bewildered
+  { move = 0x6B1CF436, level = 1 },                         # Bewildered
+  { move = 0x637C031A, level = 13 },                        # No Escape
+  { move = 0x485150D9, level = 20 },                        # Body Shield
+  { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
 ]
 
   [[edit.cards]]
@@ -86,9 +83,9 @@ moves = [
 [[edit]]
 target = "c11718050"                                   # Aram Manton
 moves = [
-  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
+  { move = 0x039DBAAC, level = 1 },                         # Land of Ice
   { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0x039DBAAC, level = 20 },                        # Land of Ice
+  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
   { move = 0x49933AEE, level = 30 },                        # Perfect Tower
 ]
 
@@ -102,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11718060"                                   # Hiatt Heddon
 moves = [
-  { move = 0x93E8DBF8, level = 1 },                         # Dimensional Hand
-  { move = 0x91AE65A1, level = 13 },                        # Giant Spider
-  { move = 0xACAC21CE, level = 20 },                        # Fake Ball
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
+  { move = 0xACAC21CE, level = 13 },                        # Fake Ball
+  { move = 0x91AE65A1, level = 20 },                        # Giant Spider
+  { move = 0x93E8DBF8, level = 30 },                        # Dimensional Hand
 ]
 
   [[edit.cards]]
@@ -118,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11718070"                                   # Danica Wynn
 moves = [
-  { move = 0x9B916289, level = 1 },                         # Jurassic Jaws
+  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
   { move = 0xDD0BA694, level = 13 },                        # Okehazama Ravine
   { move = 0xA8215D7C, level = 20 },                        # The Mountain
-  { move = 0xD8851BAF, level = 30 },                        # Unicorn Boost
+  { move = 0x9B916289, level = 30 },                        # Jurassic Jaws
 ]
 
   [[edit.cards]]
@@ -134,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11718080"                                   # Chiana Fielder
 moves = [
-  { move = 0x21127474, level = 1 },                         # Ultra Moon
-  { move = 0x7748D3F2, level = 13 },                        # Devil Ball
-  { move = 0x06130797, level = 20 },                        # Rolling Kick
-  { move = 0x4E5B398C, level = 30 },                        # Acrobat Bomber
+  { move = 0x06130797, level = 1 },                         # Rolling Kick
+  { move = 0x4E5B398C, level = 13 },                        # Acrobat Bomber
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
+  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -150,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11718090"                                   # Sara Lyle
 moves = [
-  { move = 0x52CEB5F6, level = 1 },                         # Iron Wall
-  { move = 0x67F17FA8, level = 13 },                        # Mega Quake
-  { move = 0x2FB941B3, level = 20 },                        # Stone Prison
-  { move = 0x2D9F7E76, level = 30 },                        # Breath Taker
+  { move = 0x2FB941B3, level = 1 },                         # Stone Prison
+  { move = 0x52CEB5F6, level = 13 },                        # Iron Wall
+  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
+  { move = 0xBA221C40, level = 30 },                        # Dragon's Tail
 ]
 
   [[edit.cards]]
@@ -167,9 +164,9 @@ moves = [
 target = "c11718100"                                   # Kali Seaborn
 moves = [
   { move = 0x087999EE, level = 1 },                         # Heel Drop
-  { move = 0x3A4FFB6C, level = 13 },                        # The Ikaros
-  { move = 0xEE3E059F, level = 20 },                        # Celestial Smash
-  { move = 0xD0A1DBC3, level = 30 },                        # Bungee Ball Burst
+  { move = 0xD0A1DBC3, level = 13 },                        # Bungee Ball Burst
+  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
+  { move = 0xEE3E059F, level = 30 },                        # Celestial Smash
 ]
 
   [[edit.cards]]
@@ -183,9 +180,9 @@ moves = [
 target = "c11718110"                                   # Nolan Ashby
 moves = [
   { move = 0x2FB941B3, level = 1 },                         # Stone Prison
-  { move = 0x9D236FA3, level = 13 },                        # Sword of the King
+  { move = 0xDD0BA694, level = 13 },                        # Okehazama Ravine
   { move = 0x67F17FA8, level = 20 },                        # Mega Quake
-  { move = 0x73C5AF40, level = 30 },                        # Dash Accelerator
+  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -198,10 +195,10 @@ moves = [
 [[edit]]
 target = "c11718120"                                   # Arin Fairey
 moves = [
-  { move = 0x7DD6FEF8, level = 1 },                         # Athena's Anthem
-  { move = 0x2CFC3E63, level = 13 },                        # Dragon Crash
-  { move = 0xDBFD9CFE, level = 20 },                        # Big Ball Trick
-  { move = 0xE937AD43, level = 30 },                        # Dragon Slayer
+  { move = 0x2CFC3E63, level = 1 },                         # Dragon Crash
+  { move = 0xDBFD9CFE, level = 13 },                        # Big Ball Trick
+  { move = 0x17A96A44, level = 20 },                        # Clone Faker
+  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -214,10 +211,10 @@ moves = [
 [[edit]]
 target = "c11718130"                                   # Hanah Keller
 moves = [
-  { move = 0x3B8D915B, level = 1 },                         # Meteor Shower
-  { move = 0xF02C9C02, level = 13 },                        # Tiger Storm
-  { move = 0x3663DB4C, level = 20 },                        # Utter Gutsiness Bat
-  { move = 0x4741C0E8, level = 30 },                        # Steeple Shot
+  { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
+  { move = 0x4741C0E8, level = 13 },                        # Steeple Shot
+  { move = 0x3B8D915B, level = 20 },                        # Meteor Shower
+  { move = 0xF02C9C02, level = 30 },                        # Tiger Storm
 ]
 
   [[edit.cards]]

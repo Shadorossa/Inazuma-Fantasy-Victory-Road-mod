@@ -1,11 +1,4 @@
-# «Modo Comandante» button guide (D-pad down) of the match HUD, hidden while the mode cannot be used (rival not beaten
-# yet). Layer soccer00_67_change_ai_mode_button, instance 1 (soccer_common_text 536261781 «Modo Comandante»), drawn by
-# soccer_inplay_menu_inc (SetupChangeCoachAIModeButton / UpdateViewChangeCoachAIModeButton / SetVisibleChangeCoachAIModeButton,
-# called by name from the engine). Only wrappers of those three globals; docs/game/ui/comandante-guia.md.
-# Both inplay menus (soccer_inplay_menu = normal match, soccer_battle_inplay_menu = VS battle) include the same file.
-# Separate from the subid_bajad work (soccer_command_action_menu / soccer_battle_command_action_menu are not touched).
-# Mod BetterQoL since 2026-10-13 (was Inazuma Fantasy's; it lives with BetterQoL's «Modo Comandante automático»,
-# whose gate the guide follows: the engine gate open = guide shown). Behaviour unchanged.
+# BetterQoL: the «Modo Comandante» HUD guide is hidden while the engine gate of the mode is closed.
 name = "comandante_guia"
 mod = "BetterQoL"
 order = 310
@@ -13,7 +6,7 @@ module = ""
 requires = []
 conflicts = []
 wraps = ["SetupChangeCoachAIModeButton", "UpdateViewChangeCoachAIModeButton", "SetVisibleChangeCoachAIModeButton", "Step", "PostStep"]
-description = "comandante_guia: hide the 'Modo Comandante' HUD guide while the rival has not been beaten (the engine gate open = shown)"
+description = "BetterQoL: the «Modo Comandante» HUD guide follows the mode's engine gate"
 
 [[files]]
 stem = "soccer_inplay_menu"
@@ -31,7 +24,7 @@ stem = "soccer_battle_inplay_menu"
   source = "comandante_guia.lua"
   marker = "comandante_guia"
 
-# twin of soccer_inplay_menu: the loader may hand the match VM this folder (hud_layout round 3 finding)
+# twin of soccer_inplay_menu: the loader may hand the match VM this script
 [[files]]
 stem = "soccer_training_inplay_menu"
 
@@ -40,7 +33,7 @@ stem = "soccer_training_inplay_menu"
   source = "comandante_guia.lua"
   marker = "comandante_guia"
 
-# twin of soccer_inplay_menu: the loader may hand the match VM this folder (hud_layout round 3 finding)
+# twin of soccer_inplay_menu: the loader may hand the match VM this script
 [[files]]
 stem = "soccer_zigzag_dribble_training_inplay_menu"
 

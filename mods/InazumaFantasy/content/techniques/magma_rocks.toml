@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Rocas magmáticas (Magma Rocks): the download's move whd92060, a clone of whd00600 with its numbers; its event ev62_92060 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "magma_rocks"

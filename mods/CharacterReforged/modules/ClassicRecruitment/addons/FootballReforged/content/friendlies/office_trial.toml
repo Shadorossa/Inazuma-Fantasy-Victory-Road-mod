@@ -1,0 +1,35 @@
+schema = "VRFW.friendly/1"
+# Recruitment office trials («Prueba»): 5v5 friendlies; a pass is the key office.{tag}.{sub}.
+
+[[friendly]]
+id = "classic_recruitment_office_trial"
+name = "Recruitment office trial"
+game = "sbtl_rojiura_01"
+ruleset = "friendly_5v5_no_tactics_or_referee"
+team = "active_friendly"
+kit_from_11 = true
+pre_match = true
+rival_home = true
+challenge = "ctx"
+save = "sink"
+return = "menus"
+pass = "challenge"
+passed_key = "office.{tag}.{sub}"
+before = [{ op = "fade_encounter", frames = 120 }]
+
+# the same trial with the active match team when no active friendly team is set
+[[friendly]]
+id = "classic_recruitment_office_trial_active_team"
+name = "Recruitment office trial (active team)"
+game = "sbtl_rojiura_01"
+ruleset = "friendly_5v5_no_tactics_or_referee"
+team = "current"
+kit_from_11 = true
+pre_match = true
+rival_home = true
+challenge = "ctx"
+save = "sink"
+return = "menus"
+pass = "challenge"
+passed_key = "office.{tag}.{sub}"
+before = [{ op = "fade_encounter", frames = 120 }]

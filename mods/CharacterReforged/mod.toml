@@ -1,261 +1,35 @@
 id = "CharacterReforged"
-# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
-# game's language (text\keys.toml)
+# name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "Character Reforged"
-version = "0.2.4"
+version = "0.3.0"
 author = "Fantasy Team"
-author_steam = "76561199013321372"
-# player page 3D model: a shown card the VR-Framework dresses in his own clothes (VRFW_PlateMember.Kit -> 0,
-# "own") wears them, as his miniface (graft plate_model).
-# «Quitar equipaciones ocultas» and the duplicate passes use the VR-Framework's save_tree / save_kits libraries.
-description = "The shared base of the character mods. Every character gets his own stats, growth and moveset, the level cap rises to 200 (up to 999 in the config), and the skill board becomes an expanded table with 6 special moves, an aura slot and a mix slot. It also adds a paged player page with the 3D model, stat gauges and a Hyper page, the custom pairing screen, and lets Idol and Diamond cards wear the kit of their moment. Works with the VR-Framework alone."
+description = "The base of the character mods. Every character gets his own stats and moveset, the level cap rises to 200, and the skill board becomes an expanded table with 6 special moves, an aura slot and a mix slot. It also adds a paged player page with a 3D model and stat gauges, stat training with free points, a miximax between any two players and every keshin with its armour, and options for item transformations, keshin and totems on points instead of time and a stamina bar for every player."
 priority = 0
 tags = ["Gameplay", "Characters"]
-updated = "2026-11-05"
-# Comment links to existing docs
-# module Signature Passives 1.14.0: the own passives of the 9 design docs (IE1 to IEVR), with
-# tension gain, stamina recovery, shots blocked, fouls suffered, chain shots, set pieces and «the only <trait>».
-# module Signature Passives 1.13.0: the own passive of every IE1 character from the design doc,
-#built from blocks; archetype tags, team groups and caps.
-# module Aura Points 1.1.5 (one rule «nothing pays with the hyper gauge»: the gauge hidden and its
-# gains off; mode change, kizuna trans and awakening power start free while it holds; the rival on the same points)
-# This mod's own names (TOML keys [CharacterReforged.X], Lua CharacterReforged.X, commands CMND_CHARACTERREFORGED_*); never VRFW.
+updated = "2026-11-09"
 prefix = "CharacterReforged"
 folder = "CharacterReforged"
-# The aura mods split out
-# of Inazuma Fantasy share their code here and `require` this mod (its «plugins»). Engine-generic mechanisms (the
-# transform engine's look, the fusion store, the transform run time) stay in the VR-Framework. Standard mod layout.
-# content\transforms\aura_stack.toml [rules] stack = keshin, aura, miximax, armour: the
-# Mix-Max starts while a keshin, an armour, a totem or an awakening power is out (under the armour: the armour keeps
-# its look and time, the fusion adds its stats and partner moves and ends with it; VRFW 2.357.0)
-# module Aura Reworked 1.10.0: the totem's skill carousel inside the cut-in of its own
-# move (a screen of its own, VRFW.ui.open_menu of VRFW 2.151.0), replacing the reel under the scoreboard
-# content\transforms\aura_stack.toml [rules] stack = keshin, aura, miximax: the Mix-Max
-# starts while the keshin or the totem is out and the spirit is summoned over a running Mix-Max (VRFW 2.149.0)
-# option «Cooldown entre auras» (options.toml aura_cooldown: off / 5 / 10 / 15 / 20 / 30 s,
-# default 10; content\transforms\aura_cooldown.toml [rules] team_aura_cooldown_option of VRFW 2.105.0)
-# option «Máx. auras por equipo» (options.toml team_aura_max, default 3; content\transforms\team_limit.toml
-# [rules] team_aura_max_option of VRFW 2.8.44)
-# the «Piedra Alius» moved to its own mod Transformation Items (TransformationItems)
-# the duel aura rule ([VRFW.DuelAura], an aura is never a duel's choice) moved to Football
-# Reforged's module Duel Auras (DuelAuras), always on; the skill set's RB+B in a duel needs it (without it the press is
-# the duel's command, as in retail)
-# Transformation Items (TransformationItems) is one of its embedded modules
-# (modules\TransformationItems\)
-# the skill table's custom passive button is back, [ save ][ custom passive ][ Entrenar ]
-# (CMND_CHARACTERREFORGED_SIX_SENSE, scripts\board_slots.lua; read only with the module Signature Passives, which
-# was Special Players)
-# content\sounds\voice_fill.toml - every voice bank a card plays gets the technique / aura
-# shouts and in-match lines the other banks of the same character have and it lacks
-# the voice fill groups a character by its Japanese and English names, an adult bank
-# only takes adult banks' cues and a youth bank youth banks' (chara_base age group), and a technique's other keys come
-# from the bank's own cue of it (God Hand whk00010 -> whk00480, whk01710; VRFW 2.44.0)
-requires = ["VRFW>=0.2.4"]
-# optional: mods it works with when they are on (BetterQoL view forms, passive slots and role medal rules;
-# BetterUI's compact bank card)
-optional = ["BetterQoL", "BetterUI"]
+# BetterQoL owns the .vrmod share files the player sets are exported to and imported from.
+requires = ["VRFW>=0.3.0", "BetterQoL>=0.3.0"]
+# the battery-out kneel clip of the stamina points (MissingContent.aura_end_kneel)
+optional = ["FootballReforged", "InazumaFantasy", "MissingContent"]
 conflicts = []
-# hook / state: the per-character stats (content\game\stats.toml: GetCharaParamStatus, the specialty type, the
-# run speed; scripts\stats.lua's state keys); memory: the card records / board slots it reads (and the board branch it keeps on branch 1); call: the game's board placement (content\game\board.toml); command: the create entry's and the skill set's
-# commands; hook: its native tables (MixSlot, MovesetDefault: the match side of the new set)
-permissions = ["memory", "call", "command", "hook", "state"]
-# lua_bridge: its Lua grafts (the skill table: ss2_menus, ss2_dock, ss2_pc_rows, pset_preview, cr_bank_skill_table,
-# board_entry,
-# skill_table_host + skill_table_host_hooks (its extension point), skill_table_role_slot (the role medal slot above
-# the player card; the custom passive and role buttons removed); the match plates: hiper_btn; the player page:
-# plate_pages, plate_pages_dock, plate_pages_bank, plate_pages_skill_host, plate_model, plate_no_view,
-# plate_hiper_common, plate_hiper_plate, plate_hiper_bank);
-# loader 1.7.0: patches of INCLUDE\'d scripts
+permissions = ["memory", "call", "command", "hook", "patch", "state"]
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"
-# lua_early: its merge-path patches (ss2_dock on team_dock_formation_menu, ss2_menus, hiper_btn,
-# the board) redefine whole retail functions with promoted locals. They must run BEFORE the VR-Framework's host
-# patches: run after them, ss2_dock dropped every dispatcher of the team dock's
-# Formación (UpdateViewChara3DModel, PostStep, OnFunction, ...), so no other mod's handler ran there (Utilities'
-# «Cambiar forma» in «Ver apariencia», the framework's outfit model). Early, the hosts sit on top of these functions
-# and serve their promoted locals (VRFW 2.4.11).
-# lua_early alone did not help where another lua_early mod loads first (Utilities, before this mod in
-# load order): ss2_menus' patch of ability_list_menu redefined OnSetupLayer / OnChangeFocus / OnFunction /
-# UpdateSkillDetailWindow / Step and dropped Utilities' «RS Previsualizar» wrappers; the board patch dropped
-# Utilities' combo partner hooks. Both now only wrap (ss2_menus reads no chunk local of ability_list_menu; the
-# board's create entry is a hook file). Still merge-path: hiper_btn.
-# ss2_dock is a hook file. No edit of
-# the popup «PERSONAJE» any more (no OnDecideFocus copy, no «Mover» filter, no greying edit); the team dock's «Tabla de
-# habilidades» becomes the skill table where the retail branch opens the board (CharacterReforged.
-# InstallBoardOpenRedirect, assets\lua\_all\character_reforged_skill_table_entry.lua). «Mover» is BetterUI's now.
 lua_early = true
-# Layout:
-#   content\characters\**         the per-card stats (Lv 200 values, growth, growth pattern, rank) and movesets (learn
-#                                lists: 4 moves + the aura in slot 9) of the retail characters;
-# layout.toml (param_columns 58), level.toml (the cap:
-#                                [VRFW.Level] MaxConfig = config.toml [level] cap), learn_levels.toml (the learn levels)
-#                                mod_cards\<mod>.toml: the cards of chronicles_deluxe / iecross (if_mod-gated); no `luck`:
-#                                Suerte is derived (stats_curve.lua derived_luck)
-#   scripts\stats.lua + lib\stats_curve.lua / chara_view.lua, content\game\stats.toml / chara_records.toml
-#                                the stats' curve and the game's stat reads (config.toml [stats]); exports StatsReady /
-#                                HasStats / StatCard / StatAt / Libertad / CharaStat / LevelCap / StatCurve /
-#                                LevelFactor / StatTotalMax (no PE: that stat is the mod Stamina Points')
-#   scripts\moveset.lua            CharacterReforged.Moveset(card): 4 moves, aura, mix (content\movesets\*.toml)
-#   content\menus\level_digits.toml  the level numbers with 3 digits
-#   scripts\pairing.lua          CharacterReforged.PairRules / PairCheck / PairValidity / Card / BoardItems / BoardSlotOf /
-#                                BoardPlace (the creation flows' shared rules and board helpers)
-#   content\pairing\defaults.toml  [CharacterReforged.PairRules.default]: the pairing rules every system starts from
-#   content\game\board.toml      the game's board placement (Board.PlaceByHandle, CanEquip, SkillPieces)
-#   scripts\board_slots.lua      the skill table's aura slot (board slot 8) without Inazuma Fantasy's board service:
-#                                CMND_CHARACTERREFORGED_BOARD_PIECE / _PLACE / _CLEAR (IF's CMND_EVT_BOARD_* arguments
-#                                and answers)
-#   content\menus\skill_table_hold_ring.toml  the skill table's V / Y hold ring (tap Restablecer, held Eliminar)
-#   scripts\lib\create.lua + content\game\create.toml   the base game's «Crear …» entry on the skill board: one row per
-#                                system any mod declares ([CharacterReforged.Create.<system>] in content\pairing\*.toml;
-#                                graft character_reforged_board), the refusal window's texts (text\keys.toml create_refused_*)
-#   content\menus\skill_table.toml the skill table screen evt_skill_slot_menu (registry row, setting, objects, layouts)
-#   assets\menu\                  its art (+ content\images\menu\102_team\team02\team02_02\plate_peg.toml: the PEG look of
-#                                its move panels); text\rows\skill_table.toml its texts (table menu_text); grafts (research/grafts, mod =
-#                                CharacterReforged): ss2_menus, ss2_dock, ss2_pc_rows, pset_preview, cr_bank_skill_table,
-#                                board_entry; assets\lua\_all\character_reforged_skill_table_entry.lua: which screen
-#                                every entry opens (the option read + one log line per use)
-#   content\menus\skill_table_host.toml  the skill table's extension point:
-# the hosts
-#                                CharacterReforged.skill_table.row_action (a key on the focused move row: True
-#                                Hissatsu's book) and .footer_button (the button next to «Set de jugador»: Player
-#                                Training's «Entrenar»); other mods declare [[entry]] rows there and give a Lua function
-#   scripts\skill_set.lua         CharacterReforged.CanPlace / AddPlaceRule / RemovePlaceRule / SkillSetRules (what each
-#                                slot accepts; other mods veto); content\skill_set\*.toml its data;
-#                                content\game\skill_set.toml CMND_CHARACTERREFORGED_CAN_PLACE / _PLACE_RULES (other
-#                                mods' place rules as data: [CharacterReforged.PlaceRules.<name>])
-#   scripts\mix_slots.lua        the new set over the retail data: the per-save MIX slot store (blob hiper_slots.json,
-#                                imported once from Inazuma Fantasy), native tables MixSlot / MovesetDefault, the
-#                                overflow log, the branch rule (branch 1 while the set is on); THE projection
-#                                CharacterReforged.ProjectSkillSet (read only: list auras shown in the aura / mix slot,
-#                                nothing written); content\game\mix_slots.toml CMND_CHARACTERREFORGED_MIX_GET / _MIX_SET /
-#                                _SLOT_OF / _PROJECT_SKILL_SET + the save import
-#   content\transforms\form_source.toml  [miximax] form_source = FormContext: the form viewer reads each card's aura /
-#                                mix from scripts\mix_slots.lua (the view in use), not from a board scan
-#   content\extra_slots\skill_set.toml  the set in matches: the VR-Framework's plates slot CharacterReforged.skill_set,
-#                                only while the option is on (RB+B the aura command: aura / mix, RB+D-pad switches;
-#                                RB+A the special moves they grant; the match list leaves the auras out); the aura mods and
-#                                Inazuma Fantasy extend it ([[VRFW.ExtraSlotExtend]])
-#   content\menus\hyper_plates.toml + assets\menu\00_soccer\soccer08, assets\gamedata\menu\obj   the HUD plates of
-#                                those buttons (graft hiper_btn)
-#   content\menus\player_header.toml  the one-row player header (Inazuma Fantasy's, the base's; GENERATED
-#                                by research/scripts/if_plate_row_build.py): the layout copy evt_soccer11_04pp, the retail
-#                                page's band squashed, the header object evt_soccer11_04pp_pp on every screen with the
-#                                header
-#   content\menus\player_header_host.toml + assets\lua\_all\character_reforged_header.lua   the header SLOT: the host
-#                                CharacterReforged.header (other mods' [[entry]] = a piece drawn in the free strip of
-#                                the row, left to right), CharacterReforged.Header (every menu VM with the plate functions)
-#   content\menus\player_page_layout.toml (GENERATED by research/scripts/if_plate_row_build.py) + player_page_layers.toml
-#   + player_page_view_forms.toml (only with Utilities), content\images\menu\player_page.toml, plate_form_badges.toml,
-#   00_soccer\soccer11\soccer11_05.toml / evt_passive_plates.toml, 102_team\team02\team02_02\plate_peg.toml,
-#   assets\menu\00_soccer\soccer11\evt_soccer11_05 / _06_9 / _06_9x / _07_9 / evt_ph_*, assets\menu\102_team\team02\
-#   evt_ph_peg_pill, assets\gamedata\menu\obj\evt_soccer11_0* / evt_ph_*, text\rows\player_page.toml
-#                                the paged player page:
-# PERFIL + 3D model, ATRIBUTOS, the Hyper
-#                                page, the radar copies, the
-#                                Hyper card layers; Lua research/grafts/plate_pages* / plate_model / plate_no_view /
-#                                plate_hiper_* (mod = CharacterReforged)
-#   content\menus\player_page_host.toml + assets\lua\_all\character_reforged_page.lua   the page's SLOTS: hosts
-#                                CharacterReforged.page_stat / page_luck_bonus / page_stat_max / page_stat_gain
-#                                (other mods' [[entry]] action = { command = "CMND_..." }: a stat, a Suerte bonus, a
-#                                gauge's top, a form's gains), CharacterReforged.Page (Stat, LuckBonus, StatTop, GainsRaw,
-#                                MixOf)
+# File map and extension points: docs/game/mods/character-reforged.md
 
-#   scripts\duplicate_players.lua + lib\duplicate_players\   the duplicate-players hook: on the VR-Framework's
-#                                slot copy («X: duplicar») the pass of merge_pass.lua runs with the POLICY other mods
-#                                declare as data ([CharacterReforged.DuplicateRules.<name>] in their
-#                                content\duplicate_rules\*.toml, schema CharacterReforged.duplicate_rules/1: keys in
-#                                lib\duplicate_players\rules.lua); no rule = nothing done. Report: blob duplicate_players.txt.
-#                                With a rule's apply_on_load = true (No More Rarities, New Recruitment) also on the save engine's slot load
-#                                (a player slot, before the game reads it): a durable copy of the save first, once per
-#                                save (global blob save-backup-slot<N>-<stamp>-before-duplicate-rules.bin, marker
-#                                duplicate_players_backup.txt), report blob duplicate_players_load.txt; left to Inazuma
-#                                Fantasy's load repair while that one is on
-#   scripts\new_card_rarity.lua + content\game\new_card_rarity.toml   the rule's normal_card_rarity at the one writer of
-#                                a live player's rarity (Chara.SetRarity): a club card joins at it, whatever path adds it
-#   scripts\save_tools.lua        the functions of its VR-Framework save adjust actions (Options › «Ajustar save»,
-#                                declared in content\save_adjust\character_reforged.toml)
-#  and «Igualar la rareza» on the CURRENT save, the same pass with the
-#                                duplicate rules' policy split in two (text\rows\save_tools.toml); «Quitar auras de
-#                                despertar y vínculo» (lib\purge_moves.lua) and «Quitar equipaciones de visitante»
-#                                (lib\purge_kits.lua)
-#   content\techniques\unobtainable_auras.toml  the VR-Framework rule [[VRFW.Unobtainable]] AuraTypes 4 / 5 / 7: the
-#                                awakening and bond transformation auras leave every learn list and the shops (team
-#                                loadouts keep them: opponents only); scripts\lib\unobtainable_moves.lua reads the
-#                                same rule (the skill table refuses them, scripts\skill_set.lua; the save adjust)
-#   content\skill_tabs\unobtainable_tabs.toml  the «Habilidades» list without its tabs 104 / 105 and the team aura
-#                                screen without rows of aura types 4 / 5 / 7
-#   content\items\hidden_away_kits.toml  [[hide]] of the 5 «E. visitante» kits the game's shops sell (out of the shops)
-#   scripts\scripts.toml          the script caps (the hook holds a whole save)
-#   scripts\player_sets.lua + content\game\player_sets.toml   player sets: named builds of one player (6 moves, aura,
-#                                mix slot, equipment, custom passive, passives, role, kit), 5 per player and save slot
-#                                (blob ss_player_sets.json, imported once from Inazuma Fantasy's), saved / loaded /
-#                                renamed / deleted / exported to .vrmod from the skill table's save-icon button
-#                                (grafts ss2_menus, pset_preview; config.toml [player_sets]; icons
-#                                content\images\menu\200_icon\15_icon_common\player_set_icons.toml)
-#   content\skill_tabs\armour_tab.toml  the «Habilidades» list without its «Armadura» tab:
-# armours are worn through the keshin (the board's armed slot)
-#   scripts\board_role.lua + content\game\board_role.toml   the coach / manager role of the skill table's role medal
-#                                slot: CMND_CHARACTERREFORGED_GET_ROLE / _SET_ROLE (the board's badge equip / unequip)
-#   scripts\player_page_capture.lua + content\game\player_page_capture.toml   the player page's 3D model in a match:
-#                                config.toml [player_page] for graft plate_model and a loader.log report of the engine's
-#                                capture state (CMND_CHARACTERREFORGED_PAGE_CAPTURE_CONFIG / _REPORT)
-#   scripts\armour_slot.lua + content\game\armour_slot.toml   the skill board's keshin armour slot without the armour
-#                                item: OFF unless an active mod declares
-#                                [CharacterReforged.SkillBoard] armour_without_item = true (All Keshin Armed does)
-#   scripts\partner_lock.lua + content\game\partner_lock.toml + content\menus\partner_badge.toml   partner locks: a card
-#                                used as the partner of another card's pair ([CharacterReforged.PartnerLock.<system>] in
-#                                any mod's content\pairing\*.toml; the system's mod sends its pairs with PartnerLockSet)
-#                                is never placed from the player bank into a team (filters on the place commands) and
-#                                wears the system's plate on his bank card
-#   modules\<Module>\           the embedded module mods, shipped in this folder:
-# AuraOverhaul (All Keshin Armed, All Miximaxed, Custom Change Mode and Souls Rework
-#                                in one mod), SpiritStaminaPoints,
-#                                TeamKeshinSummons, ClassicCards, ClassicRecruitment, ClassicTraining, PersonalPassives,
-#                                TransformationItems (since 1.11.0), BetterEquipment (since 1.43.0). Each keeps its own mod.toml
-#                                (id, prefix, saves, options, grafts) and is switched on / off on this mod's «Mods» page
-#                                (enabled.toml; applies after a restart); a module that is off loads nothing
-
-# What the aura mods call.
 [exports]
-functions = ["PairRules", "PairCheck", "PairValidity", "Card", "BoardItems", "BoardSlotOf", "BoardPlace", "CanPlace", "AddPlaceRule", "RemovePlaceRule", "SkillSetRules", "MixGet", "MixSet", "SlotOf", "StatsReady", "HasStats", "StatCard", "StatAt", "Libertad", "DerivedLuck", "CharaStat", "LevelCap", "StatCurve", "LevelFactor", "StatTotalMax", "Moveset", "DuplicatePolicy", "EraKitOf", "MixAddsStats", "PartnerLockSet", "BoardRoleState", "BoardRoleSetWithoutMatches", "BoardRoleCodes"]
-# [CharacterReforged.PairRules.<system>] and [CharacterReforged.Create.<system>] in any mod's content\pairing\*.toml (schema
-# CharacterReforged.pairing/1); [CharacterReforged.DuplicateRules.<name>] in any mod's content\duplicate_rules\*.toml
-# (schema CharacterReforged.duplicate_rules/1: the duplicate-players hook; DuplicatePolicy() = the merged policy);
-# [CharacterReforged.SkillBoard] armour_without_item in any mod's content\skill_board\*.toml (schema
-# CharacterReforged.skill_board/1: the board's armour slot without the item, scripts\armour_slot.lua; off by default,
-# All Keshin Armed switches it on)
-# [CharacterReforged.EraKit] in any mod's content\era_kits\*.toml (schema CharacterReforged.era_kit/1): how
-# scripts\era_kits.lua derives the ídolos' era kits (native table CharacterReforged.EraKit; EraKitOf(card) = the kit)
-# [CharacterReforged.PlaceRules.<name>] in any mod's content\skill_set\*.toml (schema CharacterReforged.skill_set/1):
-# a mod's placement rule for the skill set (scripts\skill_set.lua; Hissatsu Level Up's one copy per set)
-keys = ["PairRules", "Create", "DuplicateRules", "SkillBoard", "EraKit", "PartnerLock", "PlaceRules"]
-# its native tables other mods' answers may read as "CharacterReforged/<name>" (the cards with per-character
-# values: Inazuma Fantasy's trained-points modifier)
-# Passive.RarityTier: read by the VR-Framework's passive rarity detours (content\game\passive_tier.toml)
-tables = ["CharacterReforged.StatRow", "CharacterReforged.EraKit", "Passive.RarityTier"]
-# game_lua: CharacterReforged.Header = the player header's slot (assets\lua\_all\character_reforged_header.lua): SLOT,
-# Items(). A mod hangs a piece there as data: [[entry]] host = "CharacterReforged.header",
-# action = { lua = "<Prefix>.<fn>" } (f(phase, ctx), content\menus\player_header_host.toml); its layers attach to the
-# header object evt_soccer11_04pp_pp ([[object_set]]). Stamina Points' max PE is one. BandColour(layer, inst, hdl) =
-# the player page's slanted header band: the band colours of the host CharacterReforged.header_band (No More Rarities'
-# position colour), else RarityBand = the retail rarity look.
-# ShowsRarity(hdl) = the row's rarity title: the rules of the host CharacterReforged.header_rarity (No More Rarities:
-# only Ídolo and mod-declared rarities), else the retail title.
-# CharacterReforged.SkillTable = the skill table's extension point (graft skill_table_host, the screen
-# evt_skill_slot_menu): its entries' helpers (Chara, MoveName, Confirm, Message, Sound, Refresh), L = the screen chunk's
-# locals by name, Env(globals) = an _ENV over them; the script is also the VRFW_Host host «evt_skill_slot_menu».
-# CharacterReforged.Page = the player page's slots (assets\lua\_all\character_reforged_page.lua): Stat(hdl, idx),
-# LuckBonus(hdl), StatTop(hdl, idx), GainsRaw(hdl), Providers(host), MixOf(card), ModeChangePartner(card).
-# A mod adds a value as data: [[entry]] host = "CharacterReforged.page_stat" | ".page_luck_bonus" | ".page_stat_max" |
-# ".page_stat_gain" | ".mode_change_partner" (the partner of the equipped «Modo cambio»: Custom Change Mode, Inazuma Fantasy),
-# action = { command = "CMND_<PREFIX>_..." } (content\menus\player_page_host.toml): Player Training (gauge tops,
-# committed Suerte), Inazuma Fantasy (its stat command, the miximax gains). Pages: the VR-Framework's registry
-# (VRFW_PlayerPages.Add).
-# CharacterReforged.Parts = what its modules hand to its pages (assets of the module: PassiveDisplay, CardLook,
-# TrainingMode); nil fields = that module is off
-game_lua = ["CharacterReforged.Header", "CharacterReforged.SkillTable", "CharacterReforged.Page", "CharacterReforged.Parts"]
+functions = ["PairRules", "PairCheck", "PairValidity", "Card", "BoardItems", "BoardSlotOf", "BoardPlace", "CanPlace", "AddPlaceRule", "RemovePlaceRule", "SkillSetRules", "MixGet", "MixSet", "SlotOf", "StatsReady", "HasStats", "StatCard", "StatAt", "Libertad", "DerivedLuck", "CharaStat", "LevelCap", "StatCurve", "LevelFactor", "StatTotalMax", "Moveset", "DuplicatePolicy", "EraKitOf", "MixAddsStats", "PartnerLockSet", "BoardRoleState", "BoardRoleSetWithoutMatches", "BoardRoleCodes", "SetRoleMedalThresholds", "TrainingLuckDelta", "MixFusions", "MixStoreBlob", "ChangeOn", "ChangeItems", "ChangeAdd", "ChangeList", "ChangeItem", "ChangeEquip", "ChangeDelete", "ChangeGet", "ChangeReservation", "ChangePartnerOk", "ChangeCandidateRows", "ChangeReservedBy", "ChangeIsBase", "ChangePairs", "ChangeCarrier"]
+# [CharacterReforged.<key>] tables other mods declare in their content (schemas in docs/game/mods/character-reforged.md)
+keys = ["PairRules", "Create", "DuplicateRules", "SkillBoard", "EraKit", "PartnerLock", "PlaceRule", "Totem", "Skill"]
+tables = ["CharacterReforged.SoulsPlayer", "CharacterReforged.StatRow", "CharacterReforged.EraKit", "Passive.RarityTier", "CharacterReforged.PointsAura", "CharacterReforged.PointsPlayer", "CharacterReforged.PointsPair", "CharacterReforged.PointsTeam", "CharacterReforged.PointsStaminaAura", "CharacterReforged.PointsStaminaPlayer", "CharacterReforged.PointsStaminaTeam", "Resource.OffPitch"]
+game_lua = ["CharacterReforged.one_card_per_player", "CharacterReforged.header", "CharacterReforged.skill_table", "CharacterReforged.page", "CharacterReforged.parts", "CharacterReforged.training_mode", "CharacterReforged.training_skill_table_button", "CharacterReforged_PointsHud", "CharacterReforged_PointsStamina"]
 
-# its own content/ folder read only by its scripts (the pairing rules every mod may declare): vrfw check's layout lint
-# accepts it
+[content.languages]
+telops = ["es", "en", "fr", "de", "it", "pt", "zh_hans", "zh_hant"]
+
+# content folders read only by its scripts
 [layout]
-script_folders = ["pairing", "skill_set", "movesets"]
+script_folders = ["pairing", "skill_set", "movesets", "stat_transfer", "passive_blocks", "special_passives"]

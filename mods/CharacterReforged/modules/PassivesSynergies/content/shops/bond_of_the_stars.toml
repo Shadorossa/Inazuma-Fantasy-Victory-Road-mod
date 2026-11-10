@@ -1,0 +1,12 @@
+schema = "VRFW.shop/2"
+
+# In the retail synergy shop 0x5B032CEA for 10 cards of each of Philip Star + Lucas Star.
+[[edit]]
+target = "0x5B032CEA"
+  [[edit.entry]]
+  item = "bond_of_the_stars"
+  stock = 1
+  costs = [
+    { currency = "philip_star_card", count = 10 },
+    { currency = "lucas_star_card", count = 10 },
+  ]

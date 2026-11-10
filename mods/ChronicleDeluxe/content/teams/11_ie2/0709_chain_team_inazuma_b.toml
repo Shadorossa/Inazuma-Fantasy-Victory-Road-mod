@@ -1,16 +1,11 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: a rival of the secret warehouse's route on the board «Ruta de la madre de Suzette»
-# (content/teams/70_route_nodes/chain_ie2_rika.toml, its `w_` tiles). Built from the wiki lineup
-# (research/build/wiki/lineups_IE2.csv, «Game opponent») with the VR cards of (every player has one). Not in the
-# Battle Bay grid (no `appears`).
 default_lang = "en"
 # Team Inazuma B (IE2, «Maniya Saito's route #7»).
-# Roster: wiki lineup «IE2 |  | Game opponent», https://inazuma-eleven.fandom.com/wiki/Team_Inazuma_B
 [[team]]
 name = "ct_wk_team_inazuma_b"
 key = "evt_ct_wk_team_inazuma_b"
-based_on = "tm_cro_ie2_2020" # Dark Emperors: formation, kit, tactics (the wiki formation is not mapped)
-kit = 0xC1F231A9                          # the neutral kit of the wiki route teams (team_kits_from_wiki.py: no VR kit)
+based_on = "tm_cro_ie2_2020"
+kit = 0xC1F231A9
 level = 60
 series = "IE2"
 roster = "exact"

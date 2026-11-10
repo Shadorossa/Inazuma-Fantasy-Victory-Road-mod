@@ -1,31 +1,8 @@
-# VRFW › the block types of the passive engine (kind VRFW.passive_block/1). A block is one reusable piece of a
-# passive, declared once by name in a mod's content\passive_blocks\*.toml and used by name by any number of passives
-# (content\special_passives\, kind VRFW.passive/1). A passive reads as a sentence:
-#   «When <event> of <who> → <effects> to <targets> · nullified when <event> of <who>»
-# Roles:
-#   trigger    the event that turns the passive on (one more stack each time with a Stack block); a passive without
-#              any trigger is always on
-#   stack      how the stacks build up: maximum, how long each lasts, back to 0 at each half
-#   reset      the event that nullifies it (its stacks back to 0)
-#   condition  what must hold (when it counts and when it applies)
-#   trait      a set of players (tags, element, position, gender, series, team group, carried moves, keshin /
-#              miximax, or relative to the carrier): named by the Present, Count, By and Holder conditions and the
-#              effects' `trait` key
-#   effect     what it does to its targets while it is on, × its stacks: technique power by move kind, stat parameters,
-#              tension cost, move speed, recast, critical chance; or at once on the trigger (tension, tension max, refuse); or the game passive of the
-#              own passive slot (GamePassive)
-# Each [entry.<Type>] is one block type. Its plain keys describe it: `role`, `text` (the text key of its description
-# in text\keys.toml; `{<key>}` = the block's value of <key>), `needs` (the fact it reads: actor / move), `apply` (how
-# the interpreter uses an effect), `hooks` (the triggers a lasting effect is answered on), `answer` (the
-# behaviour-rule effect it answers) and `amount_key` (the key holding the amount). Its table keys are the block's keys:
-# { type, required, default, min, max, values, words, ref, doc } (`values` = the allowed words; `words` = the text key
-# prefix of those words; `ref` = what the value names, for the editors). The tables after the entries are data the
-# interpreter and the editors share. vrfw check validates the block files against this file;
-# scripts\passives.lua (lib\passives.lua) runs them.
+# VRFW › the block types of the passive engine (kind VRFW.passive_block/1).
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.passive_block/1"
 folder = "content/passive_blocks"
-former_kinds = ["SignaturePassives.passive_block/1"]   # the kind while the engine was Signature Passives' (still read)
+former_kinds = ["SignaturePassives.passive_block/1"]
 
 # ------------------------------------------------------------------------------------------------ when / stacks / reset
 
@@ -209,8 +186,8 @@ needs = "actor"
 doc = "the carrier stands in an area of the pitch (metres, match coordinates; the rule engine's zone convention)"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
 x = { type = "numbers", default = [], doc = "[from, to] across the pitch (empty = any)" }
-z = { type = "numbers", default = [], doc = "[from, to] along the pitch (empty = any); with frame = team, negative = his own half" }
-frame = { type = "string", default = "team", values = ["team", "pitch"], words = "zone_frame", doc = "team: z mirrored for team 1, so one area fits both sides; pitch: as is" }
+z = { type = "numbers", default = [], doc = "[from, to] along the pitch (empty = any); with frame = team, from the halfway line toward the goal his team attacks: negative = his own half" }
+frame = { type = "string", default = "team", values = ["team", "pitch"], words = "zone_frame", doc = "team: z follows his team's attack direction (the game's ends), so one area fits both sides and both halves; pitch: as is" }
 
 [entry.SpiritsOut]
 provides = "block"
@@ -234,6 +211,18 @@ needs = "actor"
 doc = "the passive's effects reach only targets within this distance of the carrier"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
 metres = { type = "number", required = true, min = 1, max = 60, doc = "the distance in metres" }
+
+[entry.TargetZone]
+provides = "block"
+role = "condition"
+filter = "target"
+text = "block_target_zone"
+needs = "actor"
+doc = "the passive's effects reach only targets standing in an area of the pitch, each one checked at his own position (metres, match coordinates)"
+name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
+x = { type = "numbers", default = [], doc = "[from, to] across the pitch (empty = any)" }
+z = { type = "numbers", default = [], doc = "[from, to] along the pitch (empty = any); with frame = team, from the halfway line toward the goal the target's team attacks: negative = his own half" }
+frame = { type = "string", default = "team", values = ["team", "pitch"], words = "zone_frame", doc = "team: z follows the target's team's attack direction (the game's ends), so one area fits both sides and both halves; pitch: as is" }
 
 # ------------------------------------------------------------------------------------------------ traits (who)
 
@@ -323,10 +312,6 @@ needs = "actor"
 doc = "the carrier took the last restart of these kinds (behaviour-rule trigger set_piece) and no other player has had the ball since (possession): his own set piece's play (a direct free kick, a corner kicked into the box…)"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
 kinds = { type = "strings", default = ["free_kick", "corner", "penalty"], values = ["throw_in", "corner", "goal_kick", "free_kick", "offside", "penalty"], words = "set_piece", doc = "the restart kinds (the set_piece trigger's words)" }
-
-# ------------------------------------------------------------------------------------------------ more conditions
-# `label` / `help`: the text keys (text\passive.toml) of the block type's name and one-line help in the editors;
-# `group`: the editor group (player, team, match, technique, event, logic).
 
 [entry.Carrier]
 provides = "block"
@@ -524,7 +509,7 @@ text = "block_any_of"
 label = "label_any_of"
 help = "help_any_of"
 group = "logic"
-doc = "at least one of these condition blocks holds (OR). The blocks named are plain conditions (not Count / SpiritsOut / Near, not another AnyOf / NoneOf)"
+doc = "at least one of these condition blocks holds (OR). The blocks named are plain conditions (not Count / SpiritsOut / Near / TargetZone, not another AnyOf / NoneOf)"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
 conditions = { type = "strings", required = true, ref = "block", doc = "the condition blocks" }
 
@@ -535,7 +520,7 @@ text = "block_none_of"
 label = "label_none_of"
 help = "help_none_of"
 group = "logic"
-doc = "none of these condition blocks holds (NOT). The blocks named are plain conditions (not Count / SpiritsOut / Near, not another AnyOf / NoneOf)"
+doc = "none of these condition blocks holds (NOT). The blocks named are plain conditions (not Count / SpiritsOut / Near / TargetZone, not another AnyOf / NoneOf)"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
 conditions = { type = "strings", required = true, ref = "block", doc = "the condition blocks" }
 
@@ -663,6 +648,7 @@ target = { type = "string", default = "self", values = ["self", "teammates", "te
 positions = { type = "strings", default = [], values = ["gk", "fw", "mf", "df"], words = "position", doc = "only targets of these positions (empty = any)" }
 elements = { type = "strings", default = [], values = ["wind", "forest", "fire", "mountain", "void"], words = "element", doc = "only targets of these elements (empty = any)" }
 trait = { type = "string", default = "", ref = "block", doc = "only targets of this Trait block (empty = any)" }
+plays = { type = "strings", default = [], values = ["focus_lost"], doc = "only the gains of these plays ([tension_plays]: the game's gain kinds); empty = every gain" }
 
 [entry.StaminaRecovery]
 provides = "block"
@@ -765,6 +751,14 @@ doc = "at once, each time the trigger happens: seconds added to the carrier's ru
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
 seconds = { type = "number", required = true, min = 1, max = 120, doc = "seconds added" }
 
+[entry.BallWalls]
+provides = "block"
+role = "effect"
+text = "fx_ball_walls"
+apply = "ball_walls"
+doc = "while the passive holds (a spirit passive: while its spirit is out): every kick bounces off the touchlines and goal lines, for both teams; only the goal mouth lets the ball out (rule engine built-in sink ball_walls: the game's own wall box of the free ball, Ball.FieldWallSet). A kick already in flight keeps its path; a carried ball is not stopped"
+name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
+
 [entry.GamePassive]
 provides = "block"
 role = "effect"
@@ -777,8 +771,6 @@ unlock = { type = "string", default = "board", values = ["board", "always"], wor
 
 # ------------------------------------------------------------------------------------------------ shared data
 
-# the move kinds of TechniquePower: skill table `category` (1 shoot, 2 dribble, 3 block, 4 keeper) and the
-# `skill_effect_bit_flag` bits (shoot: 4 long shot, 8 chain; block: 16 shot block; keeper: 1 catch, 2 punch)
 [move_kinds]
 shoot = { category = 1 }
 long_shoot = { category = 1, flag = 4 }
@@ -794,8 +786,13 @@ punch = { category = 4, flag = 2 }
 succeeds = ["won", "saved"]
 fails = ["lost", "beaten"]
 
-# the passive level of a player (value_by_level): the first level whose player level he has reached. The game has no
-# level for the special passives: this table is the mod's choice (14 levels over the game's 99).
+# the plays of a TensionGain block's `plays`: the gain kinds of Tension.GainRequest (request +0x10, the tension_gain argument)
+# focus_lost: FocusBattle_ExecResult 0x150D3F0, the request of the losing side (+0xAA1)
+# (the winner's request there: kind 2 for a power action won by the ball side, 3 for one won by the other side and for result kinds 2 / 3)
+[tension_plays]
+focus_lost = [4]
+
+# the passive level of a player (value_by_level): the first level whose player level he has reached.
 [levels]
 from_player_level = [1, 8, 15, 22, 29, 36, 43, 50, 57, 64, 71, 78, 85, 92]
 
@@ -810,12 +807,8 @@ df = 4
 [keeper_duel]
 shot_window_s = 8
 
-# the spirit pools PoolRestore / PoolCost use are the mods' [[VRFW.PassivePool]] (content\types\passive_pool.toml);
-# [points] pool_resources / cost_flag here are still read (older files), empty by default
 [points]
 
-# the match unit's move slots (Trait `moves` / `families`): `count` entries from `first`, `stride` bytes apart; the
-# move id is at +0, or at +`id_kind3` when the entry's kind byte (at +`kind`) is 3
 [unit_moves]
 first = 0x30
 stride = 0x1C
@@ -823,12 +816,6 @@ count = 6
 kind = 8
 id_kind3 = 4
 
-# when the on-pitch player list is read again (no timer): at a match start, at a soccer state change that is not
-# between two of these live play states (a restart, a half, a substitution happen out of them), after a
-# metamorphosis / summon command (command type `aura_command` of event_build), a declared form's start / end
-# (transform), a match resource event (a spirit pool emptied) and the signal `vrfw.passives.refresh` (a mod that
-# grants passives or changes a lineup may send it). Spirits and granted passives are checked again after an answered
-# event (at most once per frame).
 [refresh]
 live_states = [9, 14, 15, 16]
 aura_command = 22
@@ -838,7 +825,7 @@ aura_command = 22
 male = 1
 female = 2
 
-# the aura bits of a match unit (the byte at [spirit] unit_aura_bits of passive.toml) per AuraActive kind
+# the aura bits of a match unit (VRFW.players.aura_flags) per AuraActive kind
 [aura_bits]
 keshin = 1
 armour = 2

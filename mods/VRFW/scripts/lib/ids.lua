@@ -1,16 +1,7 @@
--- The one way to read a game id (a crc, a chara_param, a handle) as a number in a mod script. Game ids are unsigned
--- 32-bit; the engine may hand them over as negative numbers (-1 for 4294967295). The menu side has the same functions
--- (assets\lua\menu\_all\84_ids.lua, VRFW_Id).
---   local Id = require "VRFW/lib/ids"        -- any mod's scripts (the framework's own: require "lib/ids")
---   Id.u32(v)          -> 0..4294967295: a number or numeric text, floored, modulo 2^32; true = 1, false = 0;
---                         nil, NaN, infinities and any other value = 0
---   Id.u32_or(v, none) -> as u32, but `none` (any value, nil included) when v is not a number, numeric text or boolean
---   Id.s32(v)          -> -2147483648..2147483647: u32(v) read as a signed 32-bit number
---   Id.is_none(v)      -> true for nil, -1 and 4294967295 (the engine's «no id»); 0 is an id
---   Id.hex(v)          -> "0x%04X%04X" of u32(v) (e.g. "0xC4DC849A")
--- Requiring it also sets VRFW.id to the same table in that script's VM.
+-- The one way to read a game id (a crc, a chara_param, a handle) as a number in a mod script.
 local TWO_32 = 4294967296
 local TWO_31 = 2147483648
+local MAX_U32 = TWO_32 - 1
 
 local function number_of(v)
   local t = type(v)
@@ -29,7 +20,8 @@ end
 
 local M = {}
 
-function M.u32_or(v, none)
+--- `v` as an unsigned 32-bit id; `none` when it is not a number.
+function M.unsigned_or(v, none)
   local n = number_of(v)
   if n == nil then
     return none
@@ -37,18 +29,21 @@ function M.u32_or(v, none)
   return math.floor(n) % TWO_32
 end
 
-function M.u32(v)
-  return M.u32_or(v, 0)
+--- `v` as an unsigned 32-bit id (0 when it is not a number).
+function M.unsigned(v)
+  return M.unsigned_or(v, 0)
 end
 
-function M.s32(v)
-  local n = M.u32(v)
+--- `v` as a signed 32-bit number.
+function M.signed(v)
+  local n = M.unsigned(v)
   if n >= TWO_31 then
     return n - TWO_32
   end
   return n
 end
 
+--- True when `v` means no id (nil, -1 or the unsigned -1).
 function M.is_none(v)
   if v == nil then
     return true
@@ -57,13 +52,85 @@ function M.is_none(v)
   return n == -1 or n == TWO_32 - 1
 end
 
-function M.hex(v)
-  local n = M.u32(v)
+--- The hex text of id `v`.
+function M.hex_text(v)
+  local n = M.unsigned(v)
   return string.format("0x%04X%04X", math.floor(n / 65536), n % 65536)
 end
 
-if type(VRFW) == "table" and rawget(VRFW, "id") == nil then
-  pcall(rawset, VRFW, "id", M)
+-- a whole number in -2^31..2^32-1 -> its u32; nil otherwise (fractions, NaN, infinities, more than 32 bits)
+local function whole_id(n)
+  if n ~= math.floor(n) or n < -TWO_31 or n > MAX_U32 then
+    return nil
+  end
+  return n % TWO_32
+end
+
+-- digits of one class with single "_" between them -> the digits alone; nil when written otherwise
+local function digits_of(s, class)
+  if s == "" or s:find("^_") or s:find("_$") or s:find("__", 1, true) or s:find("[^" .. class .. "_]") then
+    return nil
+  end
+  return (s:gsub("_", ""))
+end
+
+--- A number, "0x..." or decimal text as an id; other text is its crc32 when `options.hash_names` is set.
+function M.parse(v, options)
+  local t = type(v)
+  if t == "number" then
+    return whole_id(v)
+  end
+  if t ~= "string" then
+    return nil
+  end
+  local s = v:match("^%s*(.-)%s*$")
+  if s == "" then
+    return nil
+  end
+  local hex = s:match("^0[xX](.*)$")
+  if hex ~= nil then
+    local digits = digits_of(hex, "%x")
+    if digits ~= nil then
+      return whole_id(tonumber(digits, 16))
+    end
+  else
+    local sign, decimal = s:match("^(%-?)(.*)$")
+    local digits = digits_of(decimal, "%d")
+    if digits ~= nil then
+      local n = tonumber(digits)
+      if sign == "-" then
+        n = -n
+      end
+      return whole_id(n)
+    end
+  end
+  if options ~= nil and options.hash_names then
+    return M.unsigned(VRFW.crc32(s))
+  end
+  return nil
+end
+
+-- the id a framework resolver gives a key (0 or no answer = unknown), else Id.parse(ref, options)
+local function resolved(resolver_name, ref, options)
+  local resolver = type(VRFW) == "table" and VRFW[resolver_name] or nil
+  if type(ref) == "string" and ref ~= "" and resolver ~= nil then
+    local ok, id = pcall(resolver, ref)
+    local n = ok and (type(id) == "number" or type(id) == "string") and M.unsigned_or(id, nil) or nil
+    if n ~= nil and n ~= 0 then
+      return n
+    end
+  end
+  return M.parse(ref, options)
+end
+
+--- The chara_base id of `ref`.
+function M.character(ref, options)
+  return resolved("character", ref, options)
+end
+
+--- The move id of `ref`.
+function M.technique(ref, options)
+  return resolved("technique", ref, options)
 end
 
 return M

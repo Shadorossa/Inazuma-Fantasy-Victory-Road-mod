@@ -1,34 +1,18 @@
--- BattleBayDeluxe bb_net_room, Battle Bay top menu: the «Multijugador» row opens the «Sala privada» (BBN_Entry of
--- bbn_common.lua, appended before this block) while gameplay mods are enabled; otherwise the retail row.
--- The first Step of the menu gives the Campaña's block back when a room match borrowed it (CMND_BBD_NET_RESTORE: a
--- no-op when none is kept) and hides the framework's compatibility window layers.
--- A Steam invite its host welcomed (CMND_VRFW_NET_INVITE_TARGET names this menu): the menu decides its own
--- «Multijugador» row once its list has the focus, so the room opens by the row's own flow (BBN_EntryRun joins the invite).
+-- Battle Bay top menu: the "Multiplayer" row opens the mod's room (NetRoomEntry) while gameplay mods are enabled; a Steam
+-- invite whose host welcomed this game decides that row by itself once its list has the focus.
 -- ------------------------------------------------------------------------------------------------ invite
-BBN_AUTO = { rev = nil, wanted = false, frames = 0, co = nil }
-BBN_AUTO_MENU = "bb_stadium_top_menu"
-BBN_AUTO_READY_FRAMES = 20
-BBN_AUTO_MAX_FRAMES = 600
+BattleBayDeluxe = type(BattleBayDeluxe) == "table" and BattleBayDeluxe or {}
+BattleBayDeluxe.net_room_invite = { rev = nil, wanted = false, frames = 0, co = nil }
+BattleBayDeluxe.net_room_invite_menu = "bb_stadium_top_menu"
+BattleBayDeluxe.net_room_invite_ready_frames = 20
+BattleBayDeluxe.net_room_invite_max_frames = 600
 
--- the row's list layer and index
-function BBN_AutoRow()
-  for _, layer in ipairs({ BattleBayDeluxe.NetRoom.LIST_MID, BattleBayDeluxe.NetRoom.LIST_SMALL }) do
-    for i = 0, (GetNumUsedButtons(layer) or 0) - 1 do
-      local info = GetLitItemInfo(layer, i)
-      if info ~= nil and info.menuObjectName == BattleBayDeluxe.NetRoom.ROW then
-        return layer, i
-      end
-    end
-  end
-  return nil
-end
-
-function BBN_AutoStep()
-  local A = BBN_AUTO
+function BattleBayDeluxe.net_room_invite_step()
+  local A = BattleBayDeluxe.net_room_invite
   if A.co ~= nil then
     local ok, err = coroutine.resume(A.co)
     if not ok then
-      BBN_Log("invite: row error", tostring(err))
+      BattleBayDeluxe.net_room_log("invite: row error", tostring(err))
     end
     if not ok or coroutine.status(A.co) == "dead" then
       A.co = nil
@@ -36,35 +20,36 @@ function BBN_AutoStep()
     return
   end
   A.frames = A.frames + 1
-  local okr, rev = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.REVISION)
-  if okr and rev ~= A.rev then
+  local rev = VRFW.host.command(BattleBayDeluxe.net_room.REVISION)
+  if rev ~= nil and rev ~= A.rev then
     A.rev = rev
-    local okt, code, menu = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.INVITE_TARGET)
-    local wanted = okt and type(code) == "string" and code ~= "" and menu == BBN_AUTO_MENU
+    local code, menu = VRFW.host.command(BattleBayDeluxe.net_room.INVITE_TARGET)
+    local wanted = type(code) == "string" and code ~= "" and menu == BattleBayDeluxe.net_room_invite_menu
     if wanted and not A.wanted then
-      BBN_Log("invite: welcomed, this menu opens the room", code)
+      BattleBayDeluxe.net_room_log("invite: welcomed, this menu opens the room", code)
       A.frames = 0
     end
     A.wanted = wanted
   end
-  if not A.wanted or A.frames < BBN_AUTO_READY_FRAMES then
+  if not A.wanted or A.frames < BattleBayDeluxe.net_room_invite_ready_frames then
     return
   end
-  if A.frames > BBN_AUTO_MAX_FRAMES then
-    BBN_Log("invite: the list never got ready, the row stays for the player")
+  if A.frames > BattleBayDeluxe.net_room_invite_max_frames then
+    BattleBayDeluxe.net_room_log("invite: the list never got ready, the row stays for the player")
     A.wanted = false
     return
   end
-  local Q = type(BetterQoL) == "table" and type(BetterQoL.TopBar) == "table" and BetterQoL.TopBar.BbRows or nil
+  -- BetterQoL's top bar is deciding a Battle Bay row: wait for it
+  local Q = type(BetterQoL) == "table" and type(BetterQoL.top_bar) == "table" and BetterQoL.top_bar.bb_rows or nil
   if Q ~= nil and (Q.row ~= nil or Q.co ~= nil) then
     return
   end
-  if BBN_Open(BBN_Status()) then
-    BBN_Log("invite: a room is open here, it stays pending")
+  if BattleBayDeluxe.net_room_open(BattleBayDeluxe.net_room_status()) then
+    BattleBayDeluxe.net_room_log("invite: a room is open here, it stays pending")
     A.wanted = false
     return
   end
-  local layer, idx = BBN_AutoRow()
+  local layer, idx = BattleBayDeluxe.net_room_find_row()
   if layer == nil or funcLuaMenuCommand(@crc:CMND_IS_CTRL_FOCUS_ACTIVE@, layer) ~= true then
     return
   end
@@ -73,34 +58,33 @@ function BBN_AutoStep()
     return
   end
   A.wanted = false
-  local okn, n, key = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.NOTICE)
-  if okn and key == "vrfw_net_invite_ready" then
-    pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.NOTICE_TAKE, n)
+  local n, key = VRFW.host.command(BattleBayDeluxe.net_room.NOTICE)
+  if key == "vrfw_net_invite_ready" then
+    VRFW.host.command(BattleBayDeluxe.net_room.NOTICE_TAKE, n)
   end
-  BBN_Log("invite: deciding the row", layer, idx)
+  BattleBayDeluxe.net_room_log("invite: deciding the row", layer, idx)
   funcLuaMenuCommand(1778826357, layer, idx, true)
   funcLuaMenuCommand(@crc:CMND_SET_CURSOR_LOCATOR@, layer, 3313461902 --[[cursor]], idx, GetNumUsedButtons(layer) or 0)
   pcall(SelectListItem, layer)
-  BBN_AUTO_JOIN = true
+  BattleBayDeluxe.net_room_invite_accepted = true
   A.co = coroutine.create(function()
     OnDecideFocus(layer, idx)
   end)
-  BBN_AutoStep()
+  BattleBayDeluxe.net_room_invite_step()
 end
 
 -- ------------------------------------------------------------------------------------------------ wraps
-BattleBayDeluxe = type(BattleBayDeluxe) == "table" and BattleBayDeluxe or {}
 
 do
   local decide = OnDecideFocus
   function OnDecideFocus(a1, a2, ...)
-    if a1 == BattleBayDeluxe.NetRoom.LIST_MID or a1 == BattleBayDeluxe.NetRoom.LIST_SMALL then
+    if a1 == BattleBayDeluxe.net_room.LIST_MID or a1 == BattleBayDeluxe.net_room.LIST_SMALL then
       local okl, info = pcall(GetLitItemInfo, a1, a2)
-      if okl and info ~= nil and info.menuObjectName == BattleBayDeluxe.NetRoom.ROW then
-        BBN_LAYER = a1 -- the row's list layer (the retail WaitExecOtherMenu's second argument)
-        local ok, handled = pcall(BBN_Entry)
+      if okl and info ~= nil and info.menuObjectName == BattleBayDeluxe.net_room.ROW then
+        BattleBayDeluxe.net_room_layer = a1 -- the row's list layer (the retail WaitExecOtherMenu's second argument)
+        local ok, handled = pcall(BattleBayDeluxe.net_room_entry)
         if not ok then
-          BBN_Log("entry error", tostring(handled))
+          BattleBayDeluxe.net_room_log("entry error", tostring(handled))
           return 1
         end
         if handled then
@@ -115,19 +99,19 @@ end
 do
   local step = Step
   function Step(...)
-    if not BBN_RESTORED then
-      BBN_RESTORED = true
-      pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.RESTORE)
-      -- the framework's compatibility window (content\menus\online_compat.toml layers) hidden until it opens
-      if type(VRFW_OnlineCompat) == "table" then
-        pcall(VRFW_OnlineCompat.Hide)
+    -- first Step: the Campaña's block back from a room match, the framework's compatibility window hidden
+    if not BattleBayDeluxe.net_room_restored then
+      BattleBayDeluxe.net_room_restored = true
+      VRFW.host.command(BattleBayDeluxe.net_room.RESTORE)
+      if type(VRFW.online_compat) == "table" then
+        pcall(VRFW.online_compat.hide)
       end
     end
     local r = table.pack(step(...))
-    local ok, err = pcall(BBN_AutoStep)
+    local ok, err = pcall(BattleBayDeluxe.net_room_invite_step)
     if not ok then
-      BBN_Log("invite: error", tostring(err))
-      BBN_AUTO.wanted, BBN_AUTO.co = false, nil
+      BattleBayDeluxe.net_room_log("invite: error", tostring(err))
+      BattleBayDeluxe.net_room_invite.wanted, BattleBayDeluxe.net_room_invite.co = false, nil
     end
     return table.unpack(r, 1, r.n)
   end

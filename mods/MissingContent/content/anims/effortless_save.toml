@@ -1,0 +1,20 @@
+schema = "VRFW.anim/2"
+owner = "match"
+# Effortless save cut-in: the retail one-hand catch ev74_01140 on the keeper scene ev71_31010, for every body type.
+
+[[event]]
+name = "effortless_save"
+from = "ev71_31010"
+id = "ev71_80030"
+sound = "ev74_01140"
+cuts = [
+    { from = "ev74_01140", cut = "c0100", body = "c000401" },
+    { from = "ev74_01140", cut = "c0200", body = "c000401" },
+]
+
+[[reach]]
+event = "effortless_save"
+cut = "c0020"
+bone = "l_wph_1_0"
+rig = "c000401"
+frames = [21, 136]

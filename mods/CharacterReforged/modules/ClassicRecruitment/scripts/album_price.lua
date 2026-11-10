@@ -1,23 +1,9 @@
--- New Recruitment › the price of a player signed from BetterQoL's album (option «Fichajes» = «Álbum»;
--- assets\lua\_all\new_recruitment_album.lua). Rule: config.toml [album] (the game sells no player for its currency):
--- (base + per_value × his value + per_level × min(level, level_cap)) × rarity_factor[rarity], in the item `currency`.
--- His value: his card's price in fichas at the old office (the file `value_file`, [[VRFW.ContactTerms]] Terms Card /
--- Price); a card not listed there takes the median of the listed ones.
--- A mod can give its own cards a value: root album_values = [{ card, value }] in content/album/*.toml (read only here: no
--- office page, no contact map).
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_CLASSICRECRUITMENT_ALBUM_PRICE | card rarity, level he joins at, card (chara_param) | currency item id, count (nothing = no rule: free) |
--- | CMND_CLASSICRECRUITMENT_ALBUM_PRICES | level he joins at, cards as text "rarity:card,rarity:card" | { count per card }, the currency's icon atlas, its sprite |
-
 ClassicRecruitment = ClassicRecruitment or {}
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("album_price")
 
-local RULE = nil   -- { item, base, per_value, per_level, level_cap, factor = { [rarity] = n }, value = { [card] = n }, median }
+local RULE = nil
 
--- card -> his old office price in fichas, and the median of those prices
 local function card_values(file)
   local value, prices = {}, {}
   if type(file) ~= "string" or file == "" then return value, 0 end
@@ -56,8 +42,8 @@ end
 local function rule()
   if RULE ~= nil then return RULE end
   RULE = false
-  local ok, cfg = pcall(VRFW.files.config, "album")
-  if not ok or type(cfg) ~= "table" or type(cfg.currency) ~= "string" or cfg.currency == "" then
+  local cfg = VRFW.config("album")
+  if type(cfg) ~= "table" or type(cfg.currency) ~= "string" or cfg.currency == "" then
     warn("config.toml [album] has no currency: album signings are free")
     return RULE
   end
@@ -88,14 +74,11 @@ function ClassicRecruitment.AlbumPrice(rarity, level, card)
   return r.item, count
 end
 
--- CMND_CLASSICRECRUITMENT_ALBUM_PRICES(level, cards) -> { count per card }, icon atlas, icon sprite: a page of album rows
--- in one command (a command's arguments are numbers and strings only)
 function ClassicRecruitment.AlbumPrices(level, cards)
   local counts = {}
   local r = rule()
   if not r then return counts end
-  -- one entry, one count: a card that fails counts 0 (no label) and the others keep their place
-  for entry in string.gmatch(tostring(cards), "[^,]+") do
+  for _, entry in ipairs(VRFW.strings.split(cards, ",")) do
     local rarity, card = string.match(entry, "^(-?%d+):(-?%d+)$")
     local ok, _, count = pcall(ClassicRecruitment.AlbumPrice, tonumber(rarity), level, tonumber(card))
     if not ok then warn(string.format("no album price for %s: %s", entry, tostring(_))) end

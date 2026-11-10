@@ -1,14 +1,9 @@
--- Header shifts: every active mod's content/header_shift/*.toml (`VRFW.header_shift/1`). A [[VRFW.HeaderShift]] names
--- root layers of one menu script that move up by `dy` (content/game/header_shift.toml):
---   CMND_VRFW_HEADER_SHIFT   (stem crc, i) -> layer crc, dy, scale, x, y of the stem's layer i (1-based); scale 0 =
---                            moved only; layer 0 past the end
--- The menus read the list once per script VM (lua\menu\_all\98_header_shift.lua).
+-- Header shifts: every active mod's content/header_shift/*.toml (`VRFW.header_shift/1`).
 
 HeaderShift = HeaderShift or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("header_shift")
 
 local BY_STEM = nil            -- stem crc -> { { layer, dy, scale, x, y } … }

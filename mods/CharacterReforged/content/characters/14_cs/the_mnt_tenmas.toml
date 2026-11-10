@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · The <MNT:TENMAS> · Inazuma Eleven GO Chrono Stone
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c05020110_5000"                              # Fei Rune
+moves = [
+  { move = 0xA9A7000B, level = 7 },                         # Bouncing Bunny
+  { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
+  { move = 0xB0F8060A, level = 40 },                        # Ozone Flayer
+  { move = 0x00AF8010, level = 52 },                        # Splitting Hares
+]
 
   [[edit.cards]]
   id = 0x8D27F71B                                         # FW/MF · forest
@@ -13,6 +16,12 @@ target = "c05020110_5000"                              # Fei Rune
 
 [[edit]]
 target = "c05020120_5000"                              # Vladimir Blade
+moves = [
+  { move = 0xF4A1E0B0, level = 1 },                         # Entropic Arrows
+  { move = 0x3C843987, level = 2 },                         # Flurry Dash
+  { move = 0x0B011EBF, level = 39 },                        # Fireball Screw
+  { move = 0x19B4B151, level = 56 },                        # Great Blaster
+]
 
   [[edit.cards]]
   id = 0xBCCFED86                                         # FW/MF · fire
@@ -22,10 +31,10 @@ target = "c05020120_5000"                              # Vladimir Blade
 [[edit]]
 target = "c05020010"                                   # Biggsy
 moves = [
-  { move = 0x2D9F7E76, level = 2 },                         # Breath Taker
-  { move = 0xE4849E49, level = 15 },                        # Wild Dunk
-  { move = 0xDBA0E5E3, level = 21 },                        # Gigant Wall
-  { move = 0xE6C22010, level = 40 },                        # Claw de Force
+  { move = 0xB01D1B68, level = 12 },                        # Power Spike
+  { move = 0x62DEE8B1, level = 42 },                        # Jumping Whack
+  { move = 0x2D9F7E76, level = 52 },                        # Breath Taker
+  { move = 0xE4849E49, level = 62 },                        # Wild Dunk
 ]
 
   [[edit.cards]]
@@ -37,10 +46,10 @@ moves = [
 [[edit]]
 target = "c05020020"                                   # Smiley
 moves = [
-  { move = 0x24E5068E, level = 1 },                         # Fractal Repeller
-  { move = 0x75994916, level = 9 },                         # Cunning Pull
-  { move = 0xD0AF516E, level = 24 },                        # Asteride
-  { move = 0x867EE0BB, level = 48 },                        # Verdure Vortex
+  { move = 0x0E0A3F7A, level = 47 },                        # Spatial Portal
+  { move = 0x24E5068E, level = 57 },                        # Fractal Repeller
+  { move = 0xD0AF516E, level = 67 },                        # Asteride
+  { move = 0x867EE0BB, level = 77 },                        # Verdure Vortex
 ]
 
   [[edit.cards]]
@@ -70,9 +79,9 @@ moves = [
 target = "c05020040"                                   # Smarty
 moves = [
   { move = 0x24E5068E, level = 1 },                         # Fractal Repeller
-  { move = 0x23C3EE90, level = 10 },                        # Shoulder Tackle
   { move = 0xC2E6ADBF, level = 19 },                        # Log Roll
   { move = 0xA4B51923, level = 43 },                        # The Typhoon
+  { move = 0x21127474, level = 53 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -118,9 +127,9 @@ moves = [
 target = "c05020070"                                   # Hairy
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0x501F2F12, level = 5 },                         # Heel Flick
   { move = 0x62BE692D, level = 30 },                        # Whirlwind Force
   { move = 0x2296A01A, level = 47 },                        # Southern Cross
+  { move = 0x24E5068E, level = 57 },                        # Fractal Repeller
 ]
 
   [[edit.cards]]
@@ -135,8 +144,8 @@ target = "c05020090"                                   # Spikey
 moves = [
   { move = 0x6ADE9E01, level = 4 },                         # Illusory Ball
   { move = 0xA37D1A41, level = 16 },                        # Hyper-Swiper
-  { move = 0x1F5EB9D5, level = 35 },                        # Nutmeg
   { move = 0x4A17EE80, level = 48 },                        # Hunter's Net
+  { move = 0x1C4D4906, level = 58 },                        # Whirlpool
 ]
 
   [[edit.cards]]
@@ -149,10 +158,10 @@ moves = [
 [[edit]]
 target = "c05020100"                                   # Creepy
 moves = [
-  { move = 0xF6E75EE9, level = 3 },                         # Headbanger
-  { move = 0x240BEDF2, level = 9 },                         # Bounce Shot
-  { move = 0xF5A22139, level = 31 },                        # Bindweed
-  { move = 0x1876DB66, level = 43 },                        # Disaster Strike
+  { move = 0xA9A7000B, level = 23 },                        # Bouncing Bunny
+  { move = 0xF6E75EE9, level = 33 },                        # Headbanger
+  { move = 0xF5A22139, level = 43 },                        # Bindweed
+  { move = 0x1876DB66, level = 53 },                        # Disaster Strike
 ]
 
   [[edit.cards]]
@@ -178,7 +187,7 @@ growth = "normal"
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
-    { move = 0x5E03436E, level = 1 },                       # Miximax Trans: Big [aura]
+    { move = 0x185B327B, level = 20 },                      # wks00760
   ]
 
   [[edit.cards]]
@@ -193,7 +202,7 @@ growth = "normal"
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
-    { move = 0x0859E4E8, level = 1 },                       # Miximax Trans: Tiranosaurio [aura]
+    { move = 0x185B327B, level = 38 },                      # wks00760
   ]
 
 [[edit]]
@@ -207,7 +216,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x2374B72B, level = 1 },                         # Miximax Trans: <FLC:TSURUGI> [aura]
+  { move = 0x29E98497, level = 20 },                        # wks00540
 ]
 
   [[edit.cards]]
@@ -226,7 +235,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x185B327B, level = 1 },                         # Robin [aura]
+  { move = 0x185B327B, level = 20 },                        # wks00760
 ]
 
   [[edit.cards]]
@@ -245,7 +254,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x29E98497, level = 1 },                         # Pendragón [aura]
+  { move = 0x29E98497, level = 20 },                        # wks00540
 ]
 
   [[edit.cards]]
@@ -264,32 +273,21 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x185B327B, level = 1 },                         # Robin [aura]
+  { move = 0x185B327B, level = 20 },                        # wks00760
 ]
 
   [[edit.cards]]
   id = 0xB3B71AB6                                         # FW/MF · forest
   growth = "normal"
   stats = { kick = 270, control = 243, technique = 219, pressure = 162, physical = 185, intelligence = 178, agility = 215, freedom = 317 }
-  moves = [
-    { move = 0xA9A7000B, level = 1 },                       # Bouncing Bunny
-    { move = 0x19BA3BFC, level = 8 },                       # Dance on Air
-    { move = 0xB0F8060A, level = 39 },                      # Ozone Flayer
-    { move = 0x00AF8010, level = 47 },                      # Splitting Hares
-    { move = 0, level = 0 },                                # (empty)
-    { move = 0, level = 0 },                                # (empty)
-    { move = 0, level = 0 },                                # (empty)
-    { move = 0, level = 0 },                                # (empty)
-    { move = 0x185B327B, level = 1 },                       # Robin [aura]
-  ]
 
 [[edit]]
 target = "c06039120"                                   # Clark von Wunderbar
 moves = [
-  { move = 0x72514A74, level = 1 },                         # Low Drive
   { move = 0xA9A7000B, level = 15 },                        # Bouncing Bunny
-  { move = 0x163D8F70, level = 34 },                        # Chip Shot
   { move = 0xE29933EC, level = 77 },                        # Dimensional Deluge
+  { move = 0x07D16DA0, level = 87 },                        # Inazuma-1
+  { move = 0xDB01CFC1, level = 97 },                        # Thunder Beast
 ]
 
   [[edit.cards]]

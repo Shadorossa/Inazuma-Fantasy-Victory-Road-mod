@@ -1,0 +1,844 @@
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "head_autumn"
+game = "#/menu/200_icon/10_icon_chr/face/c02028510_l.g4tx"
+ops = [{ op = "crop", box = [44, 36, 212, 204] }, { op = "resize", size = [27, 27] }]
+
+[[recipe]]
+name = "rim_autumn"
+from = "head_autumn"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "head_summer"
+game = "#/menu/200_icon/10_icon_chr/face/c02027650_l.g4tx"
+ops = [{ op = "crop", box = [44, 36, 212, 204] }, { op = "resize", size = [27, 27] }]
+
+[[recipe]]
+name = "rim_summer"
+from = "head_summer"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "head_spring"
+game = "#/menu/200_icon/10_icon_chr/face/c02028970_l.g4tx"
+ops = [{ op = "crop", box = [44, 36, 212, 204] }, { op = "resize", size = [27, 27] }]
+
+[[recipe]]
+name = "rim_spring"
+from = "head_spring"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "head_winter"
+game = "#/menu/200_icon/10_icon_chr/face/c01003050_l.g4tx"
+ops = [{ op = "crop", box = [44, 36, 212, 204] }, { op = "resize", size = [27, 27] }]
+
+[[recipe]]
+name = "rim_winter"
+from = "head_winter"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "four_heads"
+canvas = [56, 56]
+ops = [
+  { op = "paste", image = "rim_autumn", at = [0, 2] },
+  { op = "paste", image = "rim_autumn", at = [4, 2] },
+  { op = "paste", image = "rim_autumn", at = [2, 0] },
+  { op = "paste", image = "rim_autumn", at = [2, 4] },
+  { op = "paste", image = "rim_autumn", at = [1, 1] },
+  { op = "paste", image = "rim_autumn", at = [3, 1] },
+  { op = "paste", image = "rim_autumn", at = [1, 3] },
+  { op = "paste", image = "rim_autumn", at = [3, 3] },
+  { op = "paste", image = "rim_summer", at = [25, 2] },
+  { op = "paste", image = "rim_summer", at = [29, 2] },
+  { op = "paste", image = "rim_summer", at = [27, 0] },
+  { op = "paste", image = "rim_summer", at = [27, 4] },
+  { op = "paste", image = "rim_summer", at = [26, 1] },
+  { op = "paste", image = "rim_summer", at = [28, 1] },
+  { op = "paste", image = "rim_summer", at = [26, 3] },
+  { op = "paste", image = "rim_summer", at = [28, 3] },
+  { op = "paste", image = "rim_spring", at = [0, 27] },
+  { op = "paste", image = "rim_spring", at = [4, 27] },
+  { op = "paste", image = "rim_spring", at = [2, 25] },
+  { op = "paste", image = "rim_spring", at = [2, 29] },
+  { op = "paste", image = "rim_spring", at = [1, 26] },
+  { op = "paste", image = "rim_spring", at = [3, 26] },
+  { op = "paste", image = "rim_spring", at = [1, 28] },
+  { op = "paste", image = "rim_spring", at = [3, 28] },
+  { op = "paste", image = "rim_winter", at = [25, 27] },
+  { op = "paste", image = "rim_winter", at = [29, 27] },
+  { op = "paste", image = "rim_winter", at = [27, 25] },
+  { op = "paste", image = "rim_winter", at = [27, 29] },
+  { op = "paste", image = "rim_winter", at = [26, 26] },
+  { op = "paste", image = "rim_winter", at = [28, 26] },
+  { op = "paste", image = "rim_winter", at = [26, 28] },
+  { op = "paste", image = "rim_winter", at = [28, 28] },
+  { op = "paste", image = "head_autumn", at = [2, 2] },
+  { op = "paste", image = "head_summer", at = [27, 2] },
+  { op = "paste", image = "head_spring", at = [2, 27] },
+  { op = "paste", image = "head_winter", at = [27, 27] },
+]
+
+# Icons of the synergies of 2026-11-10, composed from retail emblems, face icons and synergy icons.
+
+[[recipe]]
+name = "syn_dark_angel_em030028"
+game = "#/menu/200_icon/01_icon_emblem/em030028.g4tx"
+ops = [{ op = "alpha_crop" }, { op = "fit", box = [48, 48] }]
+
+[[recipe]]
+name = "syn_dark_angel_em030028_rim"
+from = "syn_dark_angel_em030028"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "syn_dark_angel_icon"
+canvas = [56, 56]
+ops = [
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [27.0, 28.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [28.0, 27.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [28.0, 29.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [29.0, 28.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [26.0, 27.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [26.0, 28.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [26.0, 29.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [27.0, 26.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [27.0, 30.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [28.0, 26.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [28.0, 30.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [29.0, 26.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [29.0, 30.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [30.0, 27.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [30.0, 28.0] },
+  { op = "paste", image = "syn_dark_angel_em030028_rim", centre = [30.0, 29.0] },
+  { op = "paste", image = "syn_dark_angel_em030028", centre = [28.0, 28.0] },
+]
+
+[[recipe]]
+name = "syn_chaos_em020049"
+game = "#/menu/200_icon/01_icon_emblem/em020049.g4tx"
+ops = [{ op = "alpha_crop" }, { op = "fit", box = [48, 48] }]
+
+[[recipe]]
+name = "syn_chaos_em020049_rim"
+from = "syn_chaos_em020049"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "syn_chaos_icon"
+canvas = [56, 56]
+ops = [
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [27.0, 28.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [28.0, 27.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [28.0, 29.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [29.0, 28.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [26.0, 27.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [26.0, 28.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [26.0, 29.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [27.0, 26.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [27.0, 30.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [28.0, 26.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [28.0, 30.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [29.0, 26.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [29.0, 30.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [30.0, 27.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [30.0, 28.0] },
+  { op = "paste", image = "syn_chaos_em020049_rim", centre = [30.0, 29.0] },
+  { op = "paste", image = "syn_chaos_em020049", centre = [28.0, 28.0] },
+]
+
+[[recipe]]
+name = "syn_ogre_vanguard_em030029"
+game = "#/menu/200_icon/01_icon_emblem/em030029.g4tx"
+ops = [{ op = "alpha_crop" }, { op = "fit", box = [48, 48] }]
+
+[[recipe]]
+name = "syn_ogre_vanguard_em030029_rim"
+from = "syn_ogre_vanguard_em030029"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "syn_ogre_vanguard_icon"
+canvas = [56, 56]
+ops = [
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [27.0, 28.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [28.0, 27.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [28.0, 29.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [29.0, 28.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [26.0, 27.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [26.0, 28.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [26.0, 29.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [27.0, 26.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [27.0, 30.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [28.0, 26.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [28.0, 30.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [29.0, 26.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [29.0, 30.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [30.0, 27.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [30.0, 28.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029_rim", centre = [30.0, 29.0] },
+  { op = "paste", image = "syn_ogre_vanguard_em030029", centre = [28.0, 28.0] },
+]
+
+[[recipe]]
+name = "syn_chrono_storm_em050242"
+game = "#/menu/200_icon/01_icon_emblem/em050242.g4tx"
+ops = [{ op = "alpha_crop" }, { op = "fit", box = [48, 48] }]
+
+[[recipe]]
+name = "syn_chrono_storm_em050242_rim"
+from = "syn_chrono_storm_em050242"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "syn_chrono_storm_icon"
+canvas = [56, 56]
+ops = [
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [27.0, 28.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [28.0, 27.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [28.0, 29.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [29.0, 28.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [26.0, 27.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [26.0, 28.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [26.0, 29.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [27.0, 26.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [27.0, 30.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [28.0, 26.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [28.0, 30.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [29.0, 26.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [29.0, 30.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [30.0, 27.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [30.0, 28.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242_rim", centre = [30.0, 29.0] },
+  { op = "paste", image = "syn_chrono_storm_em050242", centre = [28.0, 28.0] },
+]
+
+[[recipe]]
+name = "syn_night_lunar"
+game = "#/menu/200_icon/01_icon_emblem/em050214.g4tx"
+ops = [
+  { op = "alpha_crop" },
+  { op = "resize", size = [46, 46] },
+  { op = "crop", box = [0, 0, 23, 46] },
+]
+
+[[recipe]]
+name = "syn_night_nosf"
+game = "#/menu/200_icon/01_icon_emblem/em050215.g4tx"
+ops = [
+  { op = "alpha_crop" },
+  { op = "resize", size = [46, 46] },
+  { op = "crop", box = [23, 0, 46, 46] },
+]
+
+[[recipe]]
+name = "syn_night_split"
+canvas = [46, 46]
+ops = [{ op = "paste", image = "syn_night_lunar", at = [0, 0] }, { op = "paste", image = "syn_night_nosf", at = [23, 0] }]
+
+[[recipe]]
+name = "syn_night_split_rim"
+from = "syn_night_split"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "syn_night_creatures_icon"
+canvas = [56, 56]
+ops = [
+  { op = "paste", image = "syn_night_split_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [27.0, 28.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [28.0, 27.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [28.0, 29.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [29.0, 28.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [26.0, 27.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [26.0, 28.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [26.0, 29.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [27.0, 26.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [27.0, 30.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [28.0, 26.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [28.0, 30.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [29.0, 26.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [29.0, 30.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [30.0, 27.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [30.0, 28.0] },
+  { op = "paste", image = "syn_night_split_rim", centre = [30.0, 29.0] },
+  { op = "paste", image = "syn_night_split", centre = [28.0, 28.0] },
+]
+
+[[recipe]]
+name = "syn_layton_hat"
+game = "#/menu/200_icon/10_icon_chr/face/c05029710_l.g4tx"
+ops = [
+  { op = "crop", box = [30, 0, 226, 100] },
+  { op = "alpha_crop" },
+  { op = "fit", box = [44, 30] },
+]
+
+[[recipe]]
+name = "syn_luke_cap"
+game = "#/menu/200_icon/10_icon_chr/face/c05029720_l.g4tx"
+ops = [
+  { op = "crop", box = [49, 35, 212, 110] },
+  { op = "alpha_crop" },
+  { op = "fit", box = [36, 22] },
+]
+
+[[recipe]]
+name = "syn_layton_hat_rim"
+from = "syn_layton_hat"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "syn_layton_hat_ink"
+from = "syn_layton_hat"
+ops = [{ op = "fill", rgb = [28, 26, 44] }]
+
+[[recipe]]
+name = "syn_luke_cap_rim"
+from = "syn_luke_cap"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "syn_luke_cap_ink"
+from = "syn_luke_cap"
+ops = [{ op = "fill", rgb = [28, 26, 44] }]
+
+[[recipe]]
+name = "syn_professor_apprentice_icon"
+canvas = [56, 56]
+ops = [
+  { op = "paste", image = "syn_layton_hat_rim", centre = [25.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [25.0, 18.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [25.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [26.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [26.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [27.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [27.0, 18.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [27.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [24.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [24.0, 18.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [24.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [25.0, 16.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [25.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [25.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [25.0, 20.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [26.0, 16.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [26.0, 20.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [27.0, 16.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [27.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [27.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [27.0, 20.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [28.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [28.0, 18.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [28.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [23.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [23.0, 18.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [23.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [24.0, 16.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [24.0, 20.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [25.0, 15.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [25.0, 21.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [26.0, 15.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [26.0, 21.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [27.0, 15.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [27.0, 21.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [28.0, 16.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [28.0, 20.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [29.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [29.0, 18.0] },
+  { op = "paste", image = "syn_layton_hat_rim", centre = [29.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_ink", centre = [25.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_ink", centre = [25.0, 18.0] },
+  { op = "paste", image = "syn_layton_hat_ink", centre = [25.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_ink", centre = [26.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_ink", centre = [26.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat_ink", centre = [27.0, 17.0] },
+  { op = "paste", image = "syn_layton_hat_ink", centre = [27.0, 18.0] },
+  { op = "paste", image = "syn_layton_hat_ink", centre = [27.0, 19.0] },
+  { op = "paste", image = "syn_layton_hat", centre = [26.0, 18.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [31.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [31.0, 41.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [31.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [32.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [32.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [33.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [33.0, 41.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [33.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [30.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [30.0, 41.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [30.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [31.0, 39.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [31.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [31.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [31.0, 43.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [32.0, 39.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [32.0, 43.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [33.0, 39.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [33.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [33.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [33.0, 43.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [34.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [34.0, 41.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [34.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [29.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [29.0, 41.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [29.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [30.0, 39.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [30.0, 43.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [31.0, 38.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [31.0, 44.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [32.0, 38.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [32.0, 44.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [33.0, 38.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [33.0, 44.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [34.0, 39.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [34.0, 43.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [35.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [35.0, 41.0] },
+  { op = "paste", image = "syn_luke_cap_rim", centre = [35.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_ink", centre = [31.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_ink", centre = [31.0, 41.0] },
+  { op = "paste", image = "syn_luke_cap_ink", centre = [31.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_ink", centre = [32.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_ink", centre = [32.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap_ink", centre = [33.0, 40.0] },
+  { op = "paste", image = "syn_luke_cap_ink", centre = [33.0, 41.0] },
+  { op = "paste", image = "syn_luke_cap_ink", centre = [33.0, 42.0] },
+  { op = "paste", image = "syn_luke_cap", centre = [32.0, 41.0] },
+]
+
+[[recipe]]
+name = "syn_stars_em080001"
+game = "#/menu/200_icon/01_icon_emblem/em080001.g4tx"
+ops = [{ op = "alpha_crop" }, { op = "fit", box = [42, 42] }]
+
+[[recipe]]
+name = "syn_stars_star"
+game = "#/menu/200_icon/30_icon_synergy/icon_synergy.g4tx"
+sprite = "sp08001"
+ops = [{ op = "alpha_crop" }, { op = "fit", box = [28, 28] }]
+
+[[recipe]]
+name = "syn_stars_em080001_rim"
+from = "syn_stars_em080001"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "syn_bond_of_the_stars_icon"
+canvas = [56, 56]
+ops = [
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [23.0, 24.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [23.0, 25.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [23.0, 26.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [24.0, 24.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [24.0, 26.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [25.0, 24.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [25.0, 25.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [25.0, 26.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [22.0, 24.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [22.0, 25.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [22.0, 26.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [23.0, 23.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [23.0, 24.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [23.0, 26.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [23.0, 27.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [24.0, 23.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [24.0, 27.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [25.0, 23.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [25.0, 24.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [25.0, 26.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [25.0, 27.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [26.0, 24.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [26.0, 25.0] },
+  { op = "paste", image = "syn_stars_em080001_rim", centre = [26.0, 26.0] },
+  { op = "paste", image = "syn_stars_em080001", centre = [24.0, 25.0] },
+  { op = "paste", image = "syn_stars_star", centre = [42.0, 42.0] },
+]
+
+[[recipe]]
+name = "syn_thunder_flame"
+game = "#/menu/200_icon/08_icon_teambuff/icon_teambuff.g4tx"
+sprite = "icon_teambuff08"
+ops = [
+  { op = "alpha_crop" },
+  { op = "fit", box = [46, 46] },
+  { op = "fill", rgb = [238, 92, 28] },
+]
+
+[[recipe]]
+name = "syn_thunder_bolt"
+game = "#/menu/200_icon/08_icon_teambuff/icon_teambuff.g4tx"
+sprite = "icon_teambuff15"
+ops = [
+  { op = "alpha_crop" },
+  { op = "fit", box = [26, 26] },
+  { op = "fill", rgb = [255, 222, 40] },
+]
+
+[[recipe]]
+name = "syn_thunder_flame_rim"
+from = "syn_thunder_flame"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "syn_thunder_flame_ink"
+from = "syn_thunder_flame"
+ops = [{ op = "fill", rgb = [28, 26, 44] }]
+
+[[recipe]]
+name = "syn_thunder_bolt_ink"
+from = "syn_thunder_bolt"
+ops = [{ op = "fill", rgb = [28, 26, 44] }]
+
+[[recipe]]
+name = "syn_thunder_and_blaze_icon"
+canvas = [56, 56]
+ops = [
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [27.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [28.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [28.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [29.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [26.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [26.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [26.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [27.0, 26.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [27.0, 30.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [28.0, 26.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [28.0, 30.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [29.0, 26.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [29.0, 30.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [30.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [30.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [30.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [25.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [25.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [25.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [26.0, 26.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [26.0, 30.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [27.0, 25.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [27.0, 31.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [28.0, 25.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [28.0, 31.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [29.0, 25.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [29.0, 31.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [30.0, 26.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [30.0, 30.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [31.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [31.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [31.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [24.0, 26.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [24.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [24.0, 30.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [25.0, 25.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [25.0, 31.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [26.0, 24.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [26.0, 32.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [28.0, 24.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [28.0, 32.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [30.0, 24.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [30.0, 32.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [31.0, 25.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [31.0, 31.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [32.0, 26.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [32.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_rim", centre = [32.0, 30.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [27.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [28.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [28.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [29.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [26.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [26.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [26.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [27.0, 26.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [27.0, 30.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [28.0, 26.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [28.0, 30.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [29.0, 26.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [29.0, 30.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [30.0, 27.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [30.0, 28.0] },
+  { op = "paste", image = "syn_thunder_flame_ink", centre = [30.0, 29.0] },
+  { op = "paste", image = "syn_thunder_flame", centre = [28.0, 28.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [27.0, 31.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [27.0, 32.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [27.0, 33.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [28.0, 31.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [28.0, 33.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [29.0, 31.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [29.0, 32.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [29.0, 33.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [26.0, 31.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [26.0, 32.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [26.0, 33.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [27.0, 30.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [27.0, 31.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [27.0, 33.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [27.0, 34.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [28.0, 30.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [28.0, 34.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [29.0, 30.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [29.0, 31.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [29.0, 33.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [29.0, 34.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [30.0, 31.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [30.0, 32.0] },
+  { op = "paste", image = "syn_thunder_bolt_ink", centre = [30.0, 33.0] },
+  { op = "paste", image = "syn_thunder_bolt", centre = [28.0, 32.0] },
+]
+
+[[recipe]]
+name = "syn_divine_zeus"
+game = "#/menu/200_icon/01_icon_emblem/em010010.g4tx"
+ops = [
+  { op = "alpha_crop" },
+  { op = "resize", size = [46, 46] },
+  { op = "crop", box = [0, 0, 23, 46] },
+]
+
+[[recipe]]
+name = "syn_divine_solaria"
+game = "#/menu/200_icon/01_icon_emblem/em110015.g4tx"
+ops = [
+  { op = "alpha_crop" },
+  { op = "resize", size = [46, 46] },
+  { op = "crop", box = [23, 0, 46, 46] },
+]
+
+[[recipe]]
+name = "syn_divine_split"
+canvas = [46, 46]
+ops = [{ op = "paste", image = "syn_divine_zeus", at = [0, 0] }, { op = "paste", image = "syn_divine_solaria", at = [23, 0] }]
+
+[[recipe]]
+name = "syn_divine_split_rim"
+from = "syn_divine_split"
+ops = [{ op = "fill", rgb = [255, 255, 255] }]
+
+[[recipe]]
+name = "syn_born_of_the_divine_icon"
+canvas = [56, 56]
+ops = [
+  { op = "paste", image = "syn_divine_split_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [27.0, 28.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [28.0, 27.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [28.0, 29.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [29.0, 28.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [26.0, 27.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [26.0, 28.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [26.0, 29.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [27.0, 26.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [27.0, 27.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [27.0, 29.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [27.0, 30.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [28.0, 26.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [28.0, 30.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [29.0, 26.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [29.0, 27.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [29.0, 29.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [29.0, 30.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [30.0, 27.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [30.0, 28.0] },
+  { op = "paste", image = "syn_divine_split_rim", centre = [30.0, 29.0] },
+  { op = "paste", image = "syn_divine_split", centre = [28.0, 28.0] },
+]
+
+[[texture]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "passives_synergies_icons"
+size = [896, 56]
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sf11001"
+texture = "passives_synergies_icons"
+x = 0
+y = 0
+size = [56, 56]
+recipe = "four_heads"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sf11002"
+texture = "passives_synergies_icons"
+x = 60
+y = 0
+size = [56, 56]
+png = "passives_synergies/shadow_japan.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sf11003"
+texture = "passives_synergies_icons"
+x = 120
+y = 0
+size = [56, 56]
+png = "passives_synergies/second_stage_children.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sf11004"
+texture = "passives_synergies_icons"
+x = 180
+y = 0
+size = [56, 56]
+png = "passives_synergies/five_blackley_brothers.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sp11001"
+texture = "passives_synergies_icons"
+x = 240
+y = 0
+size = [56, 56]
+png = "passives_synergies/five_whitely_brothers.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sp11002"
+texture = "passives_synergies_icons"
+x = 300
+y = 0
+size = [56, 56]
+png = "passives_synergies/chess_board.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sf11005"
+texture = "passives_synergies_icons"
+x = 360
+y = 0
+size = [56, 56]
+recipe = "syn_dark_angel_icon"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sf11006"
+texture = "passives_synergies_icons"
+x = 420
+y = 0
+size = [56, 56]
+recipe = "syn_chaos_icon"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sf11008"
+texture = "passives_synergies_icons"
+x = 480
+y = 0
+size = [56, 56]
+recipe = "syn_ogre_vanguard_icon"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sf11009"
+texture = "passives_synergies_icons"
+x = 540
+y = 0
+size = [56, 56]
+recipe = "syn_chrono_storm_icon"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sp11003"
+texture = "passives_synergies_icons"
+x = 600
+y = 0
+size = [56, 56]
+recipe = "syn_night_creatures_icon"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sp11004"
+texture = "passives_synergies_icons"
+x = 660
+y = 0
+size = [56, 56]
+recipe = "syn_professor_apprentice_icon"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sp11005"
+texture = "passives_synergies_icons"
+x = 720
+y = 0
+size = [56, 56]
+recipe = "syn_bond_of_the_stars_icon"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sf11007"
+texture = "passives_synergies_icons"
+x = 780
+y = 0
+size = [56, 56]
+recipe = "syn_thunder_and_blaze_icon"
+
+[[sprite]]
+atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+name = "sf11010"
+texture = "passives_synergies_icons"
+x = 840
+y = 0
+size = [56, 56]
+recipe = "syn_born_of_the_divine_icon"

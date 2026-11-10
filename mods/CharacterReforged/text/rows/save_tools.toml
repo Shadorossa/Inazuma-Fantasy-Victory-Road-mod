@@ -1,6 +1,4 @@
-# Character Reforged › its actions of the VR-Framework's save tools:
-# title, description (shown in the question before the action) and result (%d = the
-# count the action answers). Rows of menu_text, read by id = crc32(row id).
+# The mod's save tools texts: title, description and result (%d = the count).
 schema = "VRFW.text/2"
 table = "menu_text"
 

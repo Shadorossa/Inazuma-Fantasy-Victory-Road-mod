@@ -1,13 +1,12 @@
 schema = "VRFW.anim/2"
-# Inazuma Fantasy: Sierra celestial, cut version: the retail cut-in of Sierra celestial (ev60_02910) with the kick played three times from
-# three cameras before the flight. Each replay runs from 38 frames before contact to 0.1 s after it (kick 3: to the end of the base cut).
-# The shout (sh010) sounds on the first kick only. The kick cameras come from assets\anims\celestial_saw_cuts.glb.
 owner = "match"
 
 [[event]]
 name = "celestial_saw_cuts"
 from = "ev60_02910"
 id = "ev60_86001"
+# The move sound effect repeats its kick with the three kick cuts (content/sounds/celestial_saw_cuts.toml).
+sound_cue = "ev60_86001_me"
 cuts = [
   "c0010",
   "c0020",

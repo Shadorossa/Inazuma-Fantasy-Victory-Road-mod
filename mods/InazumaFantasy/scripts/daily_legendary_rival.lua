@@ -1,34 +1,9 @@
--- Inazuma Fantasy › the Daily Legendary Rival: one rival team a day, the same for every player that day (no server),
--- played in the mod's free-match section (content\teams\free_match_section.toml) at BATALLA LEGENDARIA Nv. 250.
---
--- The draw: the menu gives the UTC day (VRFW_Daily.Period("day"), days since 1970-01-01), the same day gives the same team.
--- The pool, by config.toml [daily_legendary_rival]: the teams of the free-match list as the game loads it, the enabled
--- mods' rows included (VRFW/lib/game_catalogue free_match_teams, each listed game's rival of the row's class), with at
--- least `min_players` player rows, not in `exclude`, not the slot team. The draw walks that list with a seeded step
--- (VRFW/lib/daily Cycle): the next day is never the same team and none repeats before the whole list went by.
--- The stadium: the rival plays at home (rival_stadium below), derived from the tables the game loads, the enabled mods'
--- rows included: the team's declared home stadium, its Battle Bay stadium, its most used Chronicle venue (these two by
--- team name, the copies of a team share it), the stadium of its own free-match game. A team with none of them keeps the
--- row's stadium. It replaces only the reservation of this row; the HomeStadium save is never read or written.
--- The win: the game's own result (VRFW lib/match_result, signal vrfw.match_result) of the row's game won at its class
--- marks the day as beaten in the save blob if_daily_legendary_rival.json of the slot.
--- The reward: a beaten day pays `reward` of `reward_item` (Puntos de pasión) once; the free-match list gives it
--- (CMND_INAZUMAFANTASY_DAILY_RIVAL_REWARD, then CMND_INAZUMAFANTASY_DAILY_RIVAL_PAID once the bag took it).
---
--- | Command | Args -> answers |
--- |---|---|
--- | CMND_INAZUMAFANTASY_DAILY_RIVAL | day -> table { ok, why, day, team, cards = { card, ... }, coach, level, done, paid, reward, pool } |
--- | CMND_INAZUMAFANTASY_DAILY_RIVAL_STADIUM | team, declared home stadium (0 = none), row's stadium -> map crc (0 = keep the row's), source |
--- | CMND_INAZUMAFANTASY_DAILY_RIVAL_REWARD | day -> item, count (0, 0 = nothing due: not beaten, already paid, no reward) |
--- | CMND_INAZUMAFANTASY_DAILY_RIVAL_PAID | day -> true once the day's reward is marked paid |
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("daily legendary rival")
 
 local BLOB = "if_daily_legendary_rival.json"
 local DOC_VERSION = 1
-local STAFF_SLOT = 19                                  -- roster slots 19 / 20 are the staff
-local SLOT_TEAM_PLAYERS = 16                           -- player rows of the slot team (content\teams\daily_legendary_rival.toml)
+local SLOT_TEAM_PLAYERS = 16
 
 local function settings()
   local s = {
@@ -51,12 +26,11 @@ local function settings()
   return s
 end
 
--- ------------------------------------------------------------------------------------------------ the pool
-
-local Id = require "VRFW/lib/ids"
-local Catalogue = require "VRFW/lib/game_catalogue"
-local Daily = require "VRFW/lib/daily"
-local u32 = Id.u32
+local Id = VRFW.ids
+local Catalogue = VRFW.catalogue
+local TeamConfig = VRFW.teams.config
+local Daily = VRFW.daily
+local u32 = Id.unsigned
 
 local POOL = nil   -- the eligible team ids, sorted
 
@@ -64,8 +38,8 @@ local POOL = nil   -- the eligible team ids, sorted
 local function players_of(team)
   local list, coach = {}, 0
   for _, m in ipairs(Catalogue.members(team)) do
-    if m.card ~= 0 and m.slot < STAFF_SLOT then list[#list + 1] = { card = m.card, slot = m.slot } end
-    if m.card ~= 0 and m.slot == STAFF_SLOT then coach = m.card end
+    if m.card ~= 0 and not TeamConfig.is_staff(m.slot) then list[#list + 1] = { card = m.card, slot = m.slot } end
+    if m.card ~= 0 and m.slot == TeamConfig.COACH_SLOT then coach = m.card end
   end
   table.sort(list, function(a, b) return a.slot < b.slot end)
   local cards = {}
@@ -92,9 +66,8 @@ local function pool(s)
   return ids
 end
 
--- the day's team: { team, cards, coach } or nil
 local function pick(s, day)
-  local team, why = Daily.Cycle({ salt = s.salt, version = s.version, pool = pool(s) }, day)
+  local team, why = Daily.cycle({ salt = s.salt, version = s.version, pool = pool(s) }, day)
   if not team then
     warn(string.format("day %d: no rival (%s), the row keeps its own team", day, tostring(why)))
     return nil
@@ -104,8 +77,6 @@ local function pick(s, day)
 end
 
 local PICKED = {}   -- [day] = the day's pick (one per session)
-
--- ------------------------------------------------------------------------------------------------ the stadium
 
 local VENUES = nil   -- what the tables say about stadiums, read once
 
@@ -120,7 +91,6 @@ local function map_id(v)
   return u32(v)
 end
 
--- the first value with the highest count of each key: counts[key][value] += 1
 local function count_best(counts, best, key, value)
   local c = counts[key]
   if not c then
@@ -169,7 +139,6 @@ local function read_battle_bay(names)
   return best
 end
 
--- every game of soccer_game_info in file order, { id, key, map, rows = { { class, team }, ... } }, and by id
 local function read_games()
   local key = VRFW.table.source("soccer/soccer_game_info")
   local list, by_id, cur, diffs = {}, {}, nil, {}
@@ -212,8 +181,7 @@ local function read_venues(s)
         end
       end
     end
-    -- the team's own free-match game, in list order. A game made from a template carries the template's stadium, the
-    -- same as the daily row's own: rival_stadium ignores that one, it says nothing about the team
+    -- the team's own free-match game, in list order.
     for _, r in ipairs(VRFW.table.rows("soccer/soccer_opponent_info")) do
       local g = by_id[u32(tonumber(scalar(r.battleId or r[2])) or 0)]
       if g and g.map then
@@ -234,8 +202,6 @@ local function venues(s)
   return VENUES
 end
 
--- the rival's own stadium: map crc, source; nil, "none" = it has none. A map missing from the map table (its mod off)
--- does not count.
 local function rival_stadium(s, team, declared)
   local v = venues(s)
   local name = v.names[team]
@@ -258,8 +224,6 @@ end
 
 local CENSUS_DONE = false
 
--- once per session, at the first match: the pool's teams without a stadium in the tables (a declared one is only known
--- to the menu's command, so it can still give one of them a stadium)
 local function census(s)
   if CENSUS_DONE then return end
   CENSUS_DONE = true
@@ -276,12 +240,7 @@ local function census(s)
     #without > 0 and table.concat(without, ", ") or "-"))
 end
 
--- ------------------------------------------------------------------------------------------------ the save
-
-require "VRFW/lib/save_doc"
-
--- the record of the slot, read once per slot; a file of another version is left as it is and a new record used
-local STORE = VRFW.save.doc(BLOB, {
+local STORE = VRFW.save.doc.new(BLOB, {
   aside = false,
   log = "daily legendary rival",
   default = function() return { v = DOC_VERSION, days = {}, paid = {} } end,
@@ -309,8 +268,6 @@ local function save(keep)
   if not ok then warn(BLOB .. " not written: " .. tostring(why)) end
 end
 
--- ------------------------------------------------------------------------------------------------ the commands
-
 local LAST_DAY = nil   -- the day the menu last asked for (the day a win counts for)
 
 InazumaFantasy = InazumaFantasy or {}
@@ -326,7 +283,7 @@ function InazumaFantasy.DailyRival(day)
   end
   local doc = load()
   if not got then
-    return { ok = false, why = "no team", reward = s.reward, done = doc.days[tostring(day)] == true }
+    return { ok = false, why = "no team", level = s.level, reward = s.reward, done = doc.days[tostring(day)] == true }
   end
   LAST_DAY = day
   return { ok = true, day = day, team = got.team, cards = got.cards, coach = got.coach, level = s.level,
@@ -334,7 +291,6 @@ function InazumaFantasy.DailyRival(day)
     pool = #pool(s) }
 end
 
--- the stadium of the row's match: map crc (0 = the row keeps its own), source; one log line per match
 function InazumaFantasy.DailyRivalStadium(team, declared, row_map)
   local s = settings()
   team = u32(tonumber(team) or 0)
@@ -347,7 +303,6 @@ function InazumaFantasy.DailyRivalStadium(team, declared, row_map)
   return map or 0, source
 end
 
--- the day's reward still due: item id, count (0, 0 = none)
 function InazumaFantasy.DailyRivalReward(day)
   local key = tostring(math.floor(tonumber(day) or -1))
   local s = settings()
@@ -368,9 +323,8 @@ function InazumaFantasy.DailyRivalPaid(day)
   return true
 end
 
--- the row's game won at its class: the day is beaten
 VRFW.on("signal:vrfw.match_result", function()
-  local last = require("VRFW/lib/match_result").last()
+  local last = VRFW.match.results.last()
   if type(last) ~= "table" or LAST_DAY == nil then return nil end
   local s = settings()
   if last.game ~= VRFW.crc32(s.game) or last.difficulty ~= s.class or last.outcome ~= "win" then return nil end

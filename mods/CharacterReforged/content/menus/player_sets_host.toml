@@ -1,0 +1,6 @@
+# ctx = {key, chara (charaStHdl), set (the set row), filled (the set is saved)}; phases available, text, row_text, press.
+schema = "VRFW.menu/2"
+
+[[host]]
+id = "CharacterReforged.player_sets.row_action"
+label = { es = "Sets del jugador: acción de fila", en = "Player sets: row action", fr = "Sets du joueur : action de ligne", de = "Spieler-Sets: Zeilenaktion", it = "Set del giocatore: azione di riga", pt = "Conjuntos do jogador: ação de linha", ja = "選手セット：行のアクション", zh_hans = "球员配置：行操作", zh_hant = "球員配置：行操作" }

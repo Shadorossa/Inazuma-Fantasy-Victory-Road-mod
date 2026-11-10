@@ -1,0 +1,60 @@
+schema = "VRFW.menu/2"
+
+# A team number shows a template number (1..999): the number primitives take 3 digits.
+# Digit slots: content\base_tables\menu\config\menu_graphic_number_config.toml. Drawn by assets\lua\_all\betterqol_template_numbers.lua.
+
+# team dock: the number between the L1 / R1 arrows (plain, active team)
+[[object_set]]
+object = "team01_05_team_dock_no"
+set = [
+    { parameter = "DispMaxValue", match = { 1 = 0x1865A3C1 }, values = { 2 = 999 } },
+    { parameter = "DispMaxValue", match = { 1 = 0x816CF27B }, values = { 2 = 999 } },
+]
+
+# lineup screens: the number of the L1 / R1 guide (both formation frames)
+[[object_set]]
+object = "team14_04_team_dock_change_guide"
+set = [
+    { parameter = "DispMaxValue", match = { 1 = 0x19C575B9 }, values = { 2 = 999 } },
+    { parameter = "DispMaxValue", match = { 1 = 0x6EC2452F }, values = { 2 = 999 } },
+]
+
+# team plate (header, team lists): its number (plain, active team)
+[[object_set]]
+object = "mainmenu90_31_doc_item"
+set = [
+    { parameter = "DispMaxValue", match = { 1 = 0xEE61E814 }, values = { 2 = 999 } },
+    { parameter = "DispMaxValue", match = { 1 = 0x7768B9AE }, values = { 2 = 999 } },
+]
+
+# Three digits are wider than the retail two: each number is drawn smaller inside its retail place.
+# The sizes below are layout units of the retail files (digit cell; gap between digits: menu_graphic_number_config column 7).
+
+# team dock: 3 digits of 90 x 131 (gap 5) are 280 wide and reached the «team dock» label, which ends 219 left of the
+# number's right edge; at 0.75 they are 210 wide, on the same base line (the node hangs from its top: 130 - 131 x 0.25).
+[[layout]]
+file = "common/menu/102_team/team01/team01_05/team01_05.g4pkm"
+joint = "_num_teamdock01"
+translate = [0.0, 97.25, 0.0]
+scale = [0.75, 0.75, 1.0]
+
+# team plate: 3 digits of 51 x 73 (gap -1) are 151 wide and covered the emblem, which ends 112 left of the number's
+# right edge; at 0.7 they are 106 wide, centred on the same height (-22 - 73 x 0.15).
+[[layout]]
+file = "common/menu/100_mainmenu/mainmenu90/mainmenu90_31/mainmenu90_31.g4pkm"
+joint = "_pos_num_sdock01"
+translate = [220.0, -32.95, 0.0]
+scale = [0.7, 0.7, 1.0]
+
+# lineup screens: 3 digits of 26 x 38 (gap 1) are 80 wide and covered the dock icon; at 0.85 they are 68 wide, centred
+# on the same height (18 - 38 x 0.075), and the icon moves 17 to the left, half way to the L1 key.
+[[layout]]
+file = "common/menu/102_team/team14/team14_04/team14_04.g4pkm"
+joint = "_num_teamdock_s01"
+translate = [51.0, 15.15, 0.0]
+scale = [0.85, 0.85, 1.0]
+
+[[layout]]
+file = "common/menu/102_team/team14/team14_04/team14_04.g4pkm"
+joint = "_icon_teamdock01"
+translate = [-62.0, 23.0, 0.0]

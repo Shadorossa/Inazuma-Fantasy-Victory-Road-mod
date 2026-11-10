@@ -1,0 +1,128 @@
+schema = "VRFW.game/2"
+
+# Training commands, match modifiers and bean removal (handlers in scripts\training.lua).
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TRAINING_INFO"
+handler = "CharacterReforged.Training.Info"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TRAINING_STAT"
+handler = "CharacterReforged.Training.Stat"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TRAINING_SET"
+handler = "CharacterReforged.Training.Set"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TRAINING_COMMIT"   # (charaStHdl) -> ok, status
+handler = "CharacterReforged.Training.Commit"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TRAINING_CANCEL"   # (charaStHdl, 0 = every session) -> ok
+handler = "CharacterReforged.Training.Cancel"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TRAINING_RESET"    # (charaStHdl) -> ok, libAvail
+handler = "CharacterReforged.Training.Reset"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TRAINING_POSITION"
+handler = "CharacterReforged.Training.Position"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TRAINING_SET_POSITION"
+handler = "CharacterReforged.Training.SetPosition"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TRAINING_LUCK_DELTA"   # (charaStHdl) -> the committed Suerte delta (0 = none)
+handler = "CharacterReforged.TrainingLuckDelta"
+needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
+
+# ------------------------------------------------------------------------------------------------ the match copy
+
+[[VRFW.State]]
+key = "CharacterReforged.training_active"     # 1 = the training runs
+
+[[VRFW.MatchStat]]
+name = "CharacterReforged.TrainedPoints"
+order = 10
+when = [
+  { state = "CharacterReforged.training_active", equals = 1 },
+  { value = "mask(args[2], 0xF000)", not = 0 },
+  { value = ["[record(args[2]) + 4]:u32"], in_table = "CharacterReforged/CharacterReforged.StatRow" },
+]
+stat = "clamp(args[4] + [record(args[2]) + 0x24 + i * 4]:i32, 1, 9999)"
+[[VRFW.Hook]]
+name = "CharacterReforged.TrainedStatMinimum"
+game = "Chara.GetStatusStat"
+kind = "function"
+[[VRFW.Hook.answer]]
+phase = "post"
+value = "if(args[2] < 8, if((ret == 0) + (ret > 2147483647), 1, ret), ret)"
+write = "ret"
+
+[[VRFW.MatchStat]]
+name = "CharacterReforged.RivalTraining"
+order = 10
+owned = false
+npc = true
+stat = "clamp(args[4] + lookup_or(CharacterReforged.RivalTrainingAdd, 0, args[3], i), 1, 9999)"
+
+# Match info and play data blocks the framework's match libraries read.
+[[VRFW.Global]]
+name = "match_equipment_info"
+base = "game_root"
+chain = ["Game.RootMatch"]
+
+[[VRFW.Global]]
+name = "match_equipment_play_data"
+base = "game_root"
+chain = ["Game.RootPlayData"]
+
+# ------------------------------------------------------------------------------------------------ the training beans
+
+[[VRFW.Hook]]
+name = "CharacterReforged.BeansGiveNothing"
+game = "Board.RefreshBeansParam"
+kind = "function"
+
+[[VRFW.Hook.answer]]
+phase = "post"
+each = { count = "8", max = 8 }
+when = { value = "[args[1] + 0x10]", not = 0 }
+value = "0"
+write = "[[args[1] + 0x10] + 0x90 + i * 4]:i32"
+
+[[VRFW.Hook]]
+name = "CharacterReforged.NoBeanAutoEquip"
+game = "Board.TeamAutoEquipBeans"
+kind = "function"
+
+[[VRFW.Hook.answer]]
+phase = "pre"
+value = "256"
+write = "ret"
+
+[[VRFW.CommandFilter]]
+name = "CharacterReforged.AutoBeansGet"
+command = 0x2086CD04
+handler = "CharacterReforged.Training.AutoBeansGet"
+
+[[VRFW.CommandFilter]]
+name = "CharacterReforged.AutoBeansSet"
+command = 0x799BDB53
+handler = "CharacterReforged.Training.AutoBeansSet"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TRAINING_BEANS_OFF"
+handler = "CharacterReforged.Training.BeansOff"
+needs = ["CharacterReforged.BeansGiveNothing"]

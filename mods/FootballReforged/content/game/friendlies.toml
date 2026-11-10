@@ -1,0 +1,71 @@
+schema = "VRFW.game/2"
+
+[[VRFW.Global]]
+name = "friendly_party"
+base = "game_root"
+chain = ["ROOT_PARTY"]
+
+[[VRFW.Global]]
+name = "friendly_play_data"
+base = "game_root"
+chain = ["ROOT_PLAY_DATA"]
+
+# CMND_FOOTBALLREFORGED_FRIENDLIES_INFO -> ok, active dock (-1 none), 5v5 members of it, bank (1-based), slot
+[[VRFW.Command]]
+name = "CMND_FOOTBALLREFORGED_FRIENDLIES_INFO"
+handler = "FootballReforged.Friendlies.Info"
+needs = ["Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+# CMND_FOOTBALLREFORGED_FRIENDLIES_SET(dock 2..12, -1 = none) -> ok, code
+[[VRFW.Command]]
+name = "CMND_FOOTBALLREFORGED_FRIENDLIES_SET"
+handler = "FootballReforged.Friendlies.Set"
+needs = ["Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+[[VRFW.Command]]
+name = "CMND_FOOTBALLREFORGED_FRIENDLIES_CAPTAIN"
+handler = "FootballReforged.Friendlies.Captain"
+needs = ["Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+[[VRFW.Command]]
+name = "CMND_FOOTBALLREFORGED_FRIENDLIES_NOTE"
+handler = "FootballReforged.Friendlies.Note"
+
+# CMND_FOOTBALLREFORGED_FRIENDLIES_FLAGS -> dock bits put back on 11v11 / 5v5 members (-1 = not ready)
+[[VRFW.Command]]
+name = "CMND_FOOTBALLREFORGED_FRIENDLIES_FLAGS"
+handler = "FootballReforged.Friendlies.Flags"
+needs = ["Party.SetOrganizedFlagBit", "Party.LogicalToPhysical", "friendly_party"]
+
+[[VRFW.Command]]
+name = "CMND_FOOTBALLREFORGED_FRIENDLIES_MIRROR"
+handler = "FootballReforged.Friendlies.Mirror"
+needs = ["Party.SetOrganizedFlagBit", "Party.RecountTeamInfo", "Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+[[VRFW.Command]]
+name = "CMND_FOOTBALLREFORGED_FRIENDLIES_TEAMSWAP"
+handler = "FootballReforged.Friendlies.TeamSwap"
+needs = ["Party.RecountTeamInfo", "Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+[[VRFW.CommandFilter]]
+name = "FriendliesGameReset"
+command = "CMND_GAME_RESET"
+handler = "FootballReforged.Friendlies.OnGameReset"
+needs = ["Party.RecountTeamInfo", "Party.LogicalToPhysical", "friendly_party"]
+
+[[VRFW.CommandFilter]]
+name = "FriendliesSplitPre"
+command = 0x0B8B8595
+handler = "FootballReforged.Friendlies.SplitPre"
+needs = ["Party.SetOrganizedFlagBit", "Party.RecountTeamInfo", "Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+[[VRFW.CommandFilter]]
+name = "FriendliesSplitPost"
+command = 0x0B8B8595
+phase = "after"
+handler = "FootballReforged.Friendlies.SplitPost"
+needs = ["Party.SetOrganizedFlagBit", "Party.RecountTeamInfo", "Party.LogicalToPhysical", "friendly_party", "friendly_play_data"]
+
+[[VRFW.Command]]
+name = "CMND_FOOTBALLREFORGED_FRIENDLIES_UPVAL"
+builtin = "lua_upvalues"

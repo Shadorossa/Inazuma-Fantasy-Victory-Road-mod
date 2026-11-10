@@ -1,5 +1,4 @@
-# Character Reforged › the skill table's texts (menu_text rows by id, 9 languages): the rows whose ids the screen's Lua uses
-# (grafts ss2_menus / ss2_pc_rows / pset_preview / ss2_dock and the shared Hyper card).
+# The skill table's texts (menu_text rows by id, 9 languages) used by the screen's Lua.
 schema = "VRFW.text/2"
 # the game's text table these rows go into (without it the file name is taken as the table and every row is skipped)
 table = "menu_text"
@@ -18,7 +17,7 @@ zh_hans = "脚力 +<VALUE>"
 zh_hant = "腳力 +<VALUE>"
 
 [[row]]
-id = "evt_pl_role_0"
+id = "character_reforged_pl_role_0"
 es = "Sin rol"
 en = "No role"
 fr = "Aucun rôle"
@@ -30,7 +29,7 @@ zh_hans = "无职责"
 zh_hant = "無職責"
 
 [[row]]
-id = "evt_pl_role_1"
+id = "character_reforged_pl_role_1"
 es = "Entrenador"
 en = "Manager"
 fr = "Entraîneur"
@@ -42,7 +41,7 @@ zh_hans = "教练"
 zh_hant = "教練"
 
 [[row]]
-id = "evt_pl_role_2"
+id = "character_reforged_pl_role_2"
 es = "Gerente"
 en = "Coordinator"
 fr = "Manageur"
@@ -54,7 +53,7 @@ zh_hans = "经理"
 zh_hant = "經理"
 
 [[row]]
-id = "evt_pl_role_desc_0"
+id = "character_reforged_pl_role_desc_0"
 es = "Juega solo como futbolista."
 en = "Plays as a footballer only."
 fr = "Joue uniquement comme footballeur."
@@ -66,7 +65,7 @@ zh_hans = "仅作为球员参赛。"
 zh_hant = "僅作為球員參賽。"
 
 [[row]]
-id = "evt_pl_role_desc_1"
+id = "character_reforged_pl_role_desc_1"
 es = "Dirige al equipo desde la banda."
 en = "Leads the team from the sidelines."
 fr = "Dirige l'équipe depuis le bord du terrain."
@@ -78,7 +77,7 @@ zh_hans = "在场边指挥球队。"
 zh_hant = "在場邊指揮球隊。"
 
 [[row]]
-id = "evt_pl_role_desc_2"
+id = "character_reforged_pl_role_desc_2"
 es = "Apoya al equipo desde el banquillo."
 en = "Supports the team from the bench."
 fr = "Soutient l'équipe depuis le banc."
@@ -90,7 +89,7 @@ zh_hans = "在替补席支援球队。"
 zh_hant = "在替補席支援球隊。"
 
 [[row]]
-id = "evt_pl_role_eff_0"
+id = "character_reforged_pl_role_eff_0"
 es = "No ocupa ningún puesto del cuerpo técnico."
 en = "Does not take a staff slot."
 fr = "N'occupe aucun poste d'encadrement."
@@ -102,7 +101,7 @@ zh_hans = "不占用教练组席位。"
 zh_hant = "不佔用教練組席位。"
 
 [[row]]
-id = "evt_pl_role_eff_1"
+id = "character_reforged_pl_role_eff_1"
 es = "Puede ocupar el puesto de entrenador del equipo. Sus 5 huecos de pasiva admiten pasivas de entrenador."
 en = "Can fill the team's manager slot. Their 5 passive slots take manager passives."
 fr = "Peut occuper le poste d'entraîneur de l'équipe. Ses 5 emplacements de passif acceptent les passifs d'entraîneur."
@@ -114,7 +113,7 @@ zh_hans = "可担任球队的教练。5个被动技能栏可装备教练被动�
 zh_hant = "可擔任球隊的教練。5個被動技能欄可裝備教練被動技能。"
 
 [[row]]
-id = "evt_pl_role_eff_2"
+id = "character_reforged_pl_role_eff_2"
 es = "Puede ocupar el puesto de gerente del equipo. Sus 5 huecos de pasiva admiten pasivas de gerente."
 en = "Can fill the team's coordinator slot. Their 5 passive slots take coordinator passives."
 fr = "Peut occuper le poste de manageur de l'équipe. Ses 5 emplacements de passif acceptent les passifs de manageur."
@@ -126,7 +125,7 @@ zh_hans = "可担任球队的经理。5个被动技能栏可装备经理被动�
 zh_hant = "可擔任球隊的經理。5個被動技能欄可裝備經理被動技能。"
 
 [[row]]
-id = "evt_pl_role_guide"
+id = "character_reforged_pl_role_guide"
 es = "Elige el rol de este jugador."
 en = "Choose this player's role."
 fr = "Choisis le rôle de ce joueur."
@@ -138,7 +137,7 @@ zh_hans = "选择该球员的职责。"
 zh_hant = "選擇該球員的職責。"
 
 [[row]]
-id = "evt_pl_role_title"
+id = "character_reforged_pl_role_title"
 es = "Rol del jugador"
 en = "Player role"
 fr = "Rôle du joueur"
@@ -150,7 +149,7 @@ zh_hans = "球员职责"
 zh_hant = "球員職責"
 
 [[row]]
-id = "evt_pl_role_now"
+id = "character_reforged_pl_role_now"
 es = "Rol: <VALUE>"
 en = "Role: <VALUE>"
 fr = "Rôle : <VALUE>"
@@ -162,7 +161,7 @@ zh_hans = "职责：<VALUE>"
 zh_hant = "職責：<VALUE>"
 
 [[row]]
-id = "evt_pl_role_fail"
+id = "character_reforged_pl_role_fail"
 es = "No se pudo cambiar el rol (código <VALUE>)."
 en = "The role could not be changed (code <VALUE>)."
 fr = "Impossible de changer le rôle (code <VALUE>)."
@@ -174,7 +173,7 @@ zh_hans = "无法更改职责（代码<VALUE>）。"
 zh_hant = "無法變更職責（代碼<VALUE>）。"
 
 [[row]]
-id = "evt_pl_loader"
+id = "character_reforged_pl_loader"
 es = "Esta función necesita un mod que no está activo."
 en = "This feature needs a mod that is not active."
 fr = "Cette fonction nécessite un mod qui n'est pas actif."
@@ -186,7 +185,7 @@ zh_hans = "此功能需要一个未启用的模组。"
 zh_hant = "此功能需要一個未啟用的模組。"
 
 [[row]]
-id = "evt_pl_set_btn"
+id = "character_reforged_pl_set_btn"
 es = "Set de jugador"
 en = "Player sets"
 fr = "Sets du joueur"
@@ -198,7 +197,7 @@ zh_hans = "球员套装"
 zh_hant = "球員套裝"
 
 [[row]]
-id = "evt_pl_set_btn_guide"
+id = "character_reforged_pl_set_btn_guide"
 es = "Sets de jugador: guarda, carga, renombra y borra sets completos de este jugador."
 en = "Player sets: save, load, rename and delete complete sets for this player."
 fr = "Sets du joueur : sauvegarde, charge, renomme et supprime des sets complets de ce joueur."
@@ -210,7 +209,7 @@ zh_hans = "球员套装：保存、读取、重命名或删除该球员的完整
 zh_hant = "球員套裝：儲存、讀取、重新命名或刪除該球員的完整套裝。"
 
 [[row]]
-id = "evt_pl_set_guide"
+id = "character_reforged_pl_set_guide"
 es = "Elige un set de este jugador."
 en = "Choose one of this player's sets."
 fr = "Choisis un set de ce joueur."
@@ -222,7 +221,7 @@ zh_hans = "请选择一个套装。"
 zh_hant = "請選擇一個套裝。"
 
 [[row]]
-id = "evt_pl_set_n"
+id = "character_reforged_pl_set_n"
 es = "#<VALUE>"
 en = "#<VALUE>"
 fr = "#<VALUE>"
@@ -234,7 +233,7 @@ zh_hans = "#<VALUE>"
 zh_hant = "#<VALUE>"
 
 [[row]]
-id = "evt_pl_set_empty"
+id = "character_reforged_pl_set_empty"
 es = "Vacío"
 en = "Empty"
 fr = "Vide"
@@ -246,7 +245,7 @@ zh_hans = "空"
 zh_hant = "空"
 
 [[row]]
-id = "evt_pl_btn_load"
+id = "character_reforged_pl_btn_load"
 es = "Cargar"
 en = "Load"
 fr = "Charger"
@@ -258,7 +257,7 @@ zh_hans = "读取"
 zh_hant = "讀取"
 
 [[row]]
-id = "evt_pl_btn_delete"
+id = "character_reforged_pl_btn_delete"
 es = "Borrar"
 en = "Delete"
 fr = "Supprimer"
@@ -270,7 +269,7 @@ zh_hans = "删除"
 zh_hant = "刪除"
 
 [[row]]
-id = "evt_pl_btn_rename"
+id = "character_reforged_pl_btn_rename"
 es = "Renombrar"
 en = "Rename"
 fr = "Renommer"
@@ -282,7 +281,7 @@ zh_hans = "重命名"
 zh_hant = "重新命名"
 
 [[row]]
-id = "evt_pl_kb_title"
+id = "character_reforged_pl_kb_title"
 es = "Nombre del set"
 en = "Set name"
 fr = "Nom du set"
@@ -294,7 +293,7 @@ zh_hans = "套装名称"
 zh_hant = "套裝名稱"
 
 [[row]]
-id = "evt_pl_sum_moves"
+id = "character_reforged_pl_sum_moves"
 es = "Supertécnicas: <VALUE>"
 en = "Special Moves: <VALUE>"
 fr = "Techniques spéciales : <VALUE>"
@@ -306,7 +305,7 @@ zh_hans = "必杀技：<VALUE>"
 zh_hant = "必殺技：<VALUE>"
 
 [[row]]
-id = "evt_pl_sum_hiper"
+id = "character_reforged_pl_sum_hiper"
 es = "Hipertécnica: <VALUE>"
 en = "Hyper Move: <VALUE>"
 fr = "Hyper technique : <VALUE>"
@@ -318,7 +317,7 @@ zh_hans = "超次元技能：<VALUE>"
 zh_hant = "超次元技：<VALUE>"
 
 [[row]]
-id = "evt_pl_sum_mix"
+id = "character_reforged_pl_sum_mix"
 es = "Miximax: <VALUE>"
 en = "Miximax: <VALUE>"
 fr = "Miximax : <VALUE>"
@@ -330,7 +329,7 @@ zh_hans = "混合最大化：<VALUE>"
 zh_hant = "混合最大化：<VALUE>"
 
 [[row]]
-id = "evt_pl_sum_equip"
+id = "character_reforged_pl_sum_equip"
 es = "Equipamiento: <VALUE>"
 en = "Equipment: <VALUE>"
 fr = "Équipement : <VALUE>"
@@ -342,7 +341,7 @@ zh_hans = "装备：<VALUE>"
 zh_hant = "裝備：<VALUE>"
 
 [[row]]
-id = "evt_pl_sum_passive"
+id = "character_reforged_pl_sum_passive"
 es = "Pasiva: <VALUE>"
 en = "Passive: <VALUE>"
 fr = "Passif : <VALUE>"
@@ -354,7 +353,7 @@ zh_hans = "被动技能：<VALUE>"
 zh_hant = "被動技能：<VALUE>"
 
 [[row]]
-id = "evt_pl_ask_over"
+id = "character_reforged_pl_ask_over"
 es = "¿Sobrescribir el set #<VALUE> con la configuración actual?"
 en = "Overwrite set #<VALUE> with the current setup?"
 fr = "Remplacer le set #<VALUE> par la configuration actuelle ?"
@@ -366,7 +365,7 @@ zh_hans = "要用当前配置覆盖套装#<VALUE>吗？"
 zh_hant = "要用目前配置覆蓋套裝#<VALUE>嗎？"
 
 [[row]]
-id = "evt_pl_ask_del"
+id = "character_reforged_pl_ask_del"
 es = "¿Borrar el set #<VALUE>?"
 en = "Delete set #<VALUE>?"
 fr = "Supprimer le set #<VALUE> ?"
@@ -378,7 +377,7 @@ zh_hans = "要删除套装#<VALUE>吗？"
 zh_hant = "要刪除套裝#<VALUE>嗎？"
 
 [[row]]
-id = "evt_pl_ask_name"
+id = "character_reforged_pl_ask_name"
 es = "¿Usar «<VALUE>» como nombre del set?"
 en = "Use “<VALUE>” as the set name?"
 fr = "Utiliser « <VALUE> » comme nom du set ?"
@@ -390,7 +389,7 @@ zh_hans = "要使用“<VALUE>”作为套装名称吗？"
 zh_hant = "要使用「<VALUE>」作為套裝名稱嗎？"
 
 [[row]]
-id = "evt_pl_kb_fail"
+id = "character_reforged_pl_kb_fail"
 es = "No se pudo abrir el teclado."
 en = "The keyboard could not be opened."
 fr = "Impossible d'ouvrir le clavier."
@@ -402,7 +401,7 @@ zh_hans = "无法打开键盘。"
 zh_hant = "無法開啟鍵盤。"
 
 [[row]]
-id = "evt_pl_loaded_skip"
+id = "character_reforged_pl_loaded_skip"
 es = "Set cargado. No se aplicó:\\n<VALUE>"
 en = "Set loaded. Not applied:\\n<VALUE>"
 fr = "Set chargé. Non appliqué :\\n<VALUE>"
@@ -414,7 +413,7 @@ zh_hans = "已读取套装。未应用：\\n<VALUE>"
 zh_hant = "已讀取套裝。未套用：\\n<VALUE>"
 
 [[row]]
-id = "evt_pl_skip_prime"
+id = "character_reforged_pl_skip_prime"
 es = "supertécnicas (carta Prime: fijas)"
 en = "special moves (Prime card: fixed)"
 fr = "techniques spéciales (carte Prime : fixes)"
@@ -426,7 +425,7 @@ zh_hans = "必杀技（Prime卡：固定）"
 zh_hant = "必殺技（Prime卡：固定）"
 
 [[row]]
-id = "evt_pl_skip_row"
+id = "character_reforged_pl_skip_row"
 es = "<VALUE> (fila bloqueada)"
 en = "<VALUE> (slot locked)"
 fr = "<VALUE> (emplacement verrouillé)"
@@ -438,7 +437,7 @@ zh_hans = "<VALUE>（栏位未解锁）"
 zh_hant = "<VALUE>（欄位未解鎖）"
 
 [[row]]
-id = "evt_pl_skip_idol"
+id = "character_reforged_pl_skip_idol"
 es = "<VALUE> (fija en la carta Ídolo)"
 en = "<VALUE> (fixed on the Idol card)"
 fr = "<VALUE> (fixe sur la carte Idole)"
@@ -450,7 +449,7 @@ zh_hans = "<VALUE>（偶像卡固定）"
 zh_hant = "<VALUE>（偶像卡固定）"
 
 [[row]]
-id = "evt_pl_skip_notown"
+id = "character_reforged_pl_skip_notown"
 es = "<VALUE> (no la tiene)"
 en = "<VALUE> (not owned)"
 fr = "<VALUE> (non possédé)"
@@ -462,7 +461,7 @@ zh_hans = "<VALUE>（未拥有）"
 zh_hant = "<VALUE>（未擁有）"
 
 [[row]]
-id = "evt_pl_skip_inuse"
+id = "character_reforged_pl_skip_inuse"
 es = "<VALUE> (todas las copias en uso)"
 en = "<VALUE> (all copies in use)"
 fr = "<VALUE> (tous les exemplaires utilisés)"
@@ -474,7 +473,7 @@ zh_hans = "<VALUE>（全部在使用中）"
 zh_hant = "<VALUE>（全部在使用中）"
 
 [[row]]
-id = "evt_pl_skip_fail"
+id = "character_reforged_pl_skip_fail"
 es = "<VALUE> (no se pudo equipar)"
 en = "<VALUE> (could not be equipped)"
 fr = "<VALUE> (impossible d'équiper)"
@@ -486,7 +485,7 @@ zh_hans = "<VALUE>（无法装备）"
 zh_hant = "<VALUE>（無法裝備）"
 
 [[row]]
-id = "evt_pl_skip_locked"
+id = "character_reforged_pl_skip_locked"
 es = "<VALUE> (aún bloqueada)"
 en = "<VALUE> (still locked)"
 fr = "<VALUE> (encore verrouillé)"
@@ -498,7 +497,7 @@ zh_hans = "<VALUE>（尚未解锁）"
 zh_hant = "<VALUE>（尚未解鎖）"
 
 [[row]]
-id = "evt_pl_set_hint_1"
+id = "character_reforged_pl_set_hint_1"
 es = "Set vacío: guarda aquí la configuración actual del jugador:"
 en = "Empty set: save the player's current setup here:"
 fr = "Set vide : enregistre ici la configuration actuelle du joueur :"
@@ -510,7 +509,7 @@ zh_hans = "空套装：可在此保存该球员的当前配置："
 zh_hant = "空套裝：可在此儲存該球員的目前配置："
 
 [[row]]
-id = "evt_pl_set_hint_2"
+id = "character_reforged_pl_set_hint_2"
 es = "supertécnicas, equipamiento, pasivas y rol."
 en = "special moves, equipment, passives and role."
 fr = "techniques spéciales, équipement, passifs et rôle."
@@ -522,7 +521,7 @@ zh_hans = "必杀技、装备、被动技能和职责。"
 zh_hant = "必殺技、裝備、被動技能和職責。"
 
 [[row]]
-id = "evt_pl_set_old"
+id = "character_reforged_pl_set_old"
 es = "no guardado en este set"
 en = "not saved in this set"
 fr = "non enregistré dans ce set"
@@ -534,7 +533,7 @@ zh_hans = "此套装未保存"
 zh_hant = "此套裝未儲存"
 
 [[row]]
-id = "evt_pl_pv_title"
+id = "character_reforged_pl_pv_title"
 es = "Pasivas: <VALUE>"
 en = "Passives: <VALUE>"
 fr = "Passifs : <VALUE>"
@@ -546,7 +545,7 @@ zh_hans = "被动技能：<VALUE>"
 zh_hant = "被動技能：<VALUE>"
 
 [[row]]
-id = "evt_pl_pv_slot"
+id = "character_reforged_pl_pv_slot"
 es = "Pasiva <VALUE>"
 en = "Passive <VALUE>"
 fr = "Passif <VALUE>"
@@ -558,7 +557,7 @@ zh_hans = "被动技能<VALUE>"
 zh_hant = "被動技能<VALUE>"
 
 [[row]]
-id = "evt_pl_ss_guide"
+id = "character_reforged_pl_ss_guide"
 es = "Elige la pasiva personalizada de este jugador. La marca indica la que lleva."
 en = "Choose this player's custom passive. The tick marks the one he has."
 fr = "Choisis le passif personnalisé de ce joueur. La coche indique celui qu'il porte."
@@ -570,7 +569,7 @@ zh_hans = "选择该球员的自定义被动技能。勾选的是当前装备的
 zh_hant = "選擇該球員的自訂被動技能。勾選的是目前裝備的。"
 
 [[row]]
-id = "evt_pl_ss_quit"
+id = "character_reforged_pl_ss_quit"
 es = "Quitar la pasiva personalizada"
 en = "Remove the custom passive"
 fr = "Retirer le passif personnalisé"
@@ -582,7 +581,7 @@ zh_hans = "卸下自定义被动技能"
 zh_hant = "卸下自訂被動技能"
 
 [[row]]
-id = "evt_pl_ss_btn_guide"
+id = "character_reforged_pl_ss_btn_guide"
 es = "Pasiva personalizada: pulsa para equipar una."
 en = "Custom passive: press to equip one."
 fr = "Passif personnalisé : appuie pour en équiper un."
@@ -594,7 +593,7 @@ zh_hans = "自定义被动技能：按下以装备。"
 zh_hant = "自訂被動技能：按下以裝備。"
 
 [[row]]
-id = "evt_pl_ss_btn_equipped"
+id = "character_reforged_pl_ss_btn_equipped"
 es = "Pasiva personalizada equipada. Aceptar: cambiar; Eliminar: quitar."
 en = "Custom passive equipped. Confirm: change; Remove: take it off."
 fr = "Passif personnalisé équipé. Valider : changer ; Retirer : l'enlever."
@@ -606,7 +605,7 @@ zh_hans = "已装备自定义被动技能。确认：更换；卸下：取下。
 zh_hant = "已裝備自訂被動技能。確認：更換；卸下：取下。"
 
 [[row]]
-id = "evt_pl_ss_none"
+id = "character_reforged_pl_ss_none"
 es = "No tienes ninguna pasiva personalizada."
 en = "You have no custom passive."
 fr = "Tu n'as aucun passif personnalisé."
@@ -618,7 +617,7 @@ zh_hans = "没有任何自定义被动技能。"
 zh_hant = "沒有任何自訂被動技能。"
 
 [[row]]
-id = "evt_pl_sig_guide"
+id = "character_reforged_pl_sig_guide"
 es = "Pasiva propia del jugador: no se puede cambiar."
 en = "The player's Signature Passive: it cannot be changed."
 fr = "Passif exclusif du joueur : il ne peut pas être changé."
@@ -630,7 +629,7 @@ zh_hans = "该球员的专属被动技能，无法更换。"
 zh_hant = "該球員的專屬被動技能，無法更換。"
 
 [[row]]
-id = "evt_pl_sig_none"
+id = "character_reforged_pl_sig_none"
 es = "Este jugador no tiene pasiva propia."
 en = "This player has no Signature Passive."
 fr = "Ce joueur n'a pas de passif exclusif."
@@ -642,7 +641,7 @@ zh_hans = "该球员没有专属被动技能。"
 zh_hant = "該球員沒有專屬被動技能。"
 
 [[row]]
-id = "evt_pl_role_story"
+id = "character_reforged_pl_role_story"
 es = "Jugador del modo historia: su rol lo decide la historia y no se cambia aquí."
 en = "Story mode player: the story sets their role, it cannot be changed here."
 fr = "Joueur du mode histoire : son rôle est fixé par l'histoire et ne se change pas ici."
@@ -654,7 +653,7 @@ zh_hans = "剧情模式球员：职责由剧情决定，无法在此更改。"
 zh_hant = "劇情模式球員：職責由劇情決定，無法在此變更。"
 
 [[row]]
-id = "evt_pl_role_norec"
+id = "character_reforged_pl_role_norec"
 es = "Este jugador no está en tu plantilla: su rol no se puede cambiar aquí."
 en = "This player is not in your squad: their role cannot be changed here."
 fr = "Ce joueur n'est pas dans ton effectif : son rôle ne peut pas être changé ici."
@@ -665,33 +664,8 @@ ja = "この選手はチームに所属していないため、役割を変更�
 zh_hans = "该球员不在你的阵容中，无法在此更改职责。"
 zh_hant = "該球員不在你的陣容中，無法在此變更職責。"
 
-# skill table, a miximax with an attached aura: the R3 guide entry
 [[row]]
-id = "evt_pl_mx_view_aura"
-es = "Ver aura"
-en = "View aura"
-fr = "Voir l'aura"
-de = "Aura ansehen"
-it = "Vedi aura"
-pt = "Ver aura"
-ja = "オーラを見る"
-zh_hans = "查看灵气"
-zh_hant = "查看靈氣"
-
-[[row]]
-id = "evt_pl_mx_view_mx"
-es = "Ver Miximax"
-en = "View Miximax"
-fr = "Voir le Miximax"
-de = "Miximax ansehen"
-it = "Vedi Miximax"
-pt = "Ver Miximax"
-ja = "ミキシマックスを見る"
-zh_hans = "查看混合最大化"
-zh_hant = "查看混合最大化"
-
-[[row]]
-id = "evt_pl_export_done"
+id = "character_reforged_pl_export_done"
 es = "Set exportado: <VALUE>"
 en = "Set exported: <VALUE>"
 fr = "Set exporté : <VALUE>"
@@ -703,7 +677,7 @@ zh_hans = "套装已导出：<VALUE>"
 zh_hant = "套裝已匯出：<VALUE>"
 
 [[row]]
-id = "evt_pl_export_fail"
+id = "character_reforged_pl_export_fail"
 es = "No se pudo exportar el set (detalles en loader.log)."
 en = "The set could not be exported (details in loader.log)."
 fr = "Impossible d'exporter le set (détails dans loader.log)."
@@ -715,7 +689,7 @@ zh_hans = "无法导出套装（详情见loader.log）。"
 zh_hant = "無法匯出套裝（詳情見loader.log）。"
 
 [[row]]
-id = "evt_pl_set_export_row"
+id = "character_reforged_pl_set_export_row"
 es = "Exportar"
 en = "Export"
 fr = "Exporter"
@@ -727,7 +701,7 @@ zh_hans = "导出"
 zh_hant = "匯出"
 
 [[row]]
-id = "evt_pl_set_import_row"
+id = "character_reforged_pl_set_import_row"
 es = "Importar"
 en = "Import"
 fr = "Importer"
@@ -739,7 +713,7 @@ zh_hans = "导入"
 zh_hant = "匯入"
 
 [[row]]
-id = "evt_pl_export_desc"
+id = "character_reforged_pl_export_desc"
 es = "Guarda el Set #<VALUE> en un archivo .vrmod para compartirlo."
 en = "Save Set #<VALUE> to a .vrmod file to share it."
 fr = "Enregistre le Set #<VALUE> dans un fichier .vrmod pour le partager."
@@ -751,7 +725,7 @@ zh_hans = "将套装#<VALUE>保存为.vrmod文件以便分享。"
 zh_hant = "將套裝#<VALUE>儲存為.vrmod檔案以便分享。"
 
 [[row]]
-id = "evt_pl_import_desc"
+id = "character_reforged_pl_import_desc"
 es = "Carga un archivo .vrmod en el Set #<VALUE>."
 en = "Load a .vrmod file into Set #<VALUE>."
 fr = "Charge un fichier .vrmod dans le Set #<VALUE>."
@@ -763,7 +737,7 @@ zh_hans = "将.vrmod文件读入套装#<VALUE>。"
 zh_hant = "將.vrmod檔案讀入套裝#<VALUE>。"
 
 [[row]]
-id = "evt_pl_export_empty"
+id = "character_reforged_pl_export_empty"
 es = "El Set #<VALUE> está vacío: no hay nada que exportar."
 en = "Set #<VALUE> is empty: there is nothing to export."
 fr = "Le Set #<VALUE> est vide : rien à exporter."
@@ -775,7 +749,7 @@ zh_hans = "套装#<VALUE>为空，没有可导出的内容。"
 zh_hant = "套裝#<VALUE>為空，沒有可匯出的內容。"
 
 [[row]]
-id = "evt_pl_import_none"
+id = "character_reforged_pl_import_none"
 es = "No hay archivos .vrmod en <VALUE>."
 en = "There are no .vrmod files in <VALUE>."
 fr = "Aucun fichier .vrmod dans <VALUE>."
@@ -787,7 +761,7 @@ zh_hans = "<VALUE>中没有.vrmod文件。"
 zh_hant = "<VALUE>中沒有.vrmod檔案。"
 
 [[row]]
-id = "evt_pl_import_guide"
+id = "character_reforged_pl_import_guide"
 es = "Elige el archivo .vrmod que quieres importar."
 en = "Choose the .vrmod file to import."
 fr = "Choisis le fichier .vrmod à importer."
@@ -799,7 +773,7 @@ zh_hans = "请选择要导入的.vrmod文件。"
 zh_hant = "請選擇要匯入的.vrmod檔案。"
 
 [[row]]
-id = "evt_pl_import_bad"
+id = "character_reforged_pl_import_bad"
 es = "No se pudo importar este archivo .vrmod (detalles en loader.log)."
 en = "This .vrmod file could not be imported (details in loader.log)."
 fr = "Impossible d'importer ce fichier .vrmod (détails dans loader.log)."
@@ -811,7 +785,7 @@ zh_hans = "无法导入此.vrmod文件（详情见loader.log）。"
 zh_hant = "無法匯入此.vrmod檔案（詳情見loader.log）。"
 
 [[row]]
-id = "evt_pl_import_sum"
+id = "character_reforged_pl_import_sum"
 es = "Este archivo ha sido modificado o está dañado. ¿Importarlo igualmente?"
 en = "This file was modified or is damaged. Import it anyway?"
 fr = "Ce fichier a été modifié ou est endommagé. L'importer quand même ?"
@@ -823,7 +797,7 @@ zh_hans = "此文件已被修改或已损坏。仍要导入吗？"
 zh_hant = "此檔案已被修改或已損壞。仍要匯入嗎？"
 
 [[row]]
-id = "evt_pl_import_other"
+id = "character_reforged_pl_import_other"
 es = "Este set es de otro jugador y tiene supertécnicas que este jugador no puede usar: no se importa."
 en = "This set belongs to another player and has moves this player cannot use: it is not imported."
 fr = "Ce set appartient à un autre joueur et contient des supertechniques que ce joueur ne peut pas utiliser : il n'est pas importé."
@@ -835,7 +809,7 @@ zh_hans = "此套装属于其他球员，包含该球员无法使用的必杀技
 zh_hant = "此套裝屬於其他球員，包含該球員無法使用的必殺技，無法匯入。"
 
 [[row]]
-id = "evt_pl_import_done"
+id = "character_reforged_pl_import_done"
 es = "Set importado en el Set #<VALUE>."
 en = "Set imported into Set #<VALUE>."
 fr = "Set importé dans le Set #<VALUE>."
@@ -847,7 +821,7 @@ zh_hans = "已导入到套装#<VALUE>。"
 zh_hant = "已匯入到套裝#<VALUE>。"
 
 [[row]]
-id = "evt_pl_import_skip"
+id = "character_reforged_pl_import_skip"
 es = "Set importado. No se importó: <VALUE>"
 en = "Set imported. Not imported: <VALUE>"
 fr = "Set importé. Non importé : <VALUE>"
@@ -860,7 +834,7 @@ zh_hant = "已匯入。未匯入：<VALUE>"
 
 # the picker refused an armour for the aura slot
 [[row]]
-id = "evt_hs_armour_alone"
+id = "character_reforged_hs_armour_alone"
 fallback = false
 es = "Una armadura no va sola en la Hiper: equipa su keshin y la armadura saldrá de él en el partido."
 en = "An armour can't fill the Hyper alone: equip its keshin and the armour comes from it in the match."
@@ -872,9 +846,9 @@ ja = "アームドだけはハイパーに入れられません。化身を装�
 zh_hans = "铠甲不能单独放入超级栏：请装备其化身，比赛中由化身进行铠甲化。"
 zh_hant = "鎧甲不能單獨放入超級欄：請裝備其化身，比賽中由化身進行鎧甲化。"
 
-# R3 on the Hyper row: show the mix slot (the other way evt_pl_mx_view_aura)
+# R3 on the Hyper row: show the mix slot
 [[row]]
-id = "evt_hs_view_mix"
+id = "character_reforged_hs_view_mix"
 fallback = false
 es = "Ver Modo cambio"
 en = "View Change Mode"
@@ -887,7 +861,7 @@ zh_hans = "查看转换模式"
 zh_hant = "查看轉換模式"
 
 [[row]]
-id = "evt_hs_mix_fail"
+id = "character_reforged_hs_mix_fail"
 fallback = false
 es = "No se pudo guardar la ranura Modo cambio."
 en = "The Change Mode slot could not be saved."
@@ -899,22 +873,8 @@ ja = "チェンジモード枠を保存できませんでした。"
 zh_hans = "无法保存转换模式栏位。"
 zh_hant = "無法儲存轉換模式欄位。"
 
-# a new Mix-Max is now the player's mix slot (<VALUE> = the partner)
 [[row]]
-id = "evt_hs_mx_assigned"
-fallback = false
-es = "Mix-Max con <VALUE> asignado."
-en = "Mix-Max with <VALUE> assigned."
-fr = "Mix-Max avec <VALUE> attribué."
-de = "Mix-Max mit <VALUE> zugewiesen."
-it = "Mix-Max con <VALUE> assegnato."
-pt = "Mix-Max com <VALUE> atribuído."
-ja = "<VALUE>とのミキシマックスをセットしました。"
-zh_hans = "已设置与<VALUE>的混合最大化。"
-zh_hant = "已設定與<VALUE>的混合最大化。"
-
-[[row]]
-id = "evt_hs_ask_mx"
+id = "character_reforged_hs_ask_mx"
 fallback = false
 es = "¿Quitar el Mix-Max con <VALUE>?"
 en = "Remove the Mix-Max with <VALUE>?"
@@ -927,22 +887,7 @@ zh_hans = "要移除与<VALUE>的混合最大化吗？"
 zh_hant = "要移除與<VALUE>的混合最大化嗎？"
 
 [[row]]
-id = "evt_hs_ask_mc_delete"
-fallback = false
-es = "¿Borrar también el cambio a <VALUE>?"
-en = "Also delete the change to <VALUE>?"
-fr = "Supprimer aussi le changement en <VALUE> ?"
-de = "Den Wechsel zu <VALUE> auch löschen?"
-it = "Eliminare anche il cambio in <VALUE>?"
-pt = "Apagar também a mudança para <VALUE>?"
-ja = "<VALUE>へのチェンジも削除しますか？"
-zh_hans = "也删除转换为<VALUE>吗？"
-zh_hant = "也刪除轉換為<VALUE>嗎？"
-
-# the aura half's name on the Supertécnicas Hyper row without the totem's wording: the language's totem name formats,
-# "|"-separated, <VALUE> = the totem's own name (es «Tótem águila calva» -> «Águila calva»; graft ss2_menus PL.HsShortName)
-[[row]]
-id = "evt_hs_totem_short"
+id = "character_reforged_hs_totem_short"
 fallback = false
 es = "Tótem <VALUE>"
 en = "<VALUE> Totem"
@@ -956,7 +901,7 @@ zh_hant = "魂獸·<VALUE>"
 
 # a greyed move row: the move sits on the board slot but not in the match list (graft ss2_menus, PL.BoardOnlyGuide)
 [[row]]
-id = "evt_ss_board_only"
+id = "character_reforged_ss_board_only"
 es = "Esta supertécnica está en el tablero pero no en la lista del partido: no se usará. Equípala de nuevo para usarla."
 en = "This move is on the board but not in the match list: it will not be used. Equip it again to use it."
 fr = "Cette supertechnique est sur le tableau mais pas dans la liste du match : elle ne sera pas utilisée. Équipe-la à nouveau pour l'utiliser."
@@ -979,18 +924,6 @@ pt = "Selecione a supertécnica que deseja trocar."
 ja = "変更する必殺技を選んでください。"
 zh_hans = "请选择要更换的必杀技。"
 zh_hant = "請選擇要更換的必殺技。"
-
-[[row]]
-id = "skill_table_prime_guide"
-es = "Carta Prime: sus supertécnicas son fijas y se desbloquean por nivel."
-en = "Prime card: its special moves are fixed and unlock by level."
-fr = "Carte Prime : ses supertechniques sont fixes et se débloquent par niveau."
-de = "Prime-Karte: Ihre Spezialtechniken sind fest und werden mit dem Level freigeschaltet."
-it = "Carta Prime: le sue supertecniche sono fisse e si sbloccano con il livello."
-pt = "Carta Prime: suas supertécnicas são fixas e desbloqueiam por nível."
-ja = "プライムカード：必殺技は固定で、レベルで解放されます。"
-zh_hans = "Prime卡：必杀技固定，随等级解锁。"
-zh_hant = "Prime卡：必殺技固定，隨等級解鎖。"
 
 [[row]]
 id = "skill_table_idol_guide"
@@ -1053,150 +986,6 @@ zh_hans = "自定义被动：确定＝装备，返回＝返回。"
 zh_hant = "自訂被動：確定＝裝備，返回＝返回。"
 
 [[row]]
-id = "skill_table_error_code"
-es = "Error <VALUE>"
-en = "Error <VALUE>"
-fr = "Erreur <VALUE>"
-de = "Fehler <VALUE>"
-it = "Errore <VALUE>"
-pt = "Erro <VALUE>"
-ja = "エラー <VALUE>"
-zh_hans = "错误 <VALUE>"
-zh_hant = "錯誤 <VALUE>"
-
-[[row]]
-id = "skill_table_base_card_missing"
-es = "No se encuentra la carta base."
-en = "The base card can't be found."
-fr = "La carte de base est introuvable."
-de = "Die Basiskarte wurde nicht gefunden."
-it = "Impossibile trovare la carta base."
-pt = "A carta base não foi encontrada."
-ja = "ベースのカードが見つかりません。"
-zh_hans = "找不到基础卡。"
-zh_hant = "找不到基礎卡。"
-
-[[row]]
-id = "skill_table_mx_off"
-es = "El módulo miximax del vr-loader está desactivado."
-en = "The miximax module is switched off."
-fr = "Le module miximax est désactivé."
-de = "Das Miximax-Modul ist ausgeschaltet."
-it = "Il modulo miximax è disattivato."
-pt = "O módulo miximax está desativado."
-ja = "ミキシマックスのモジュールがオフになっています。"
-zh_hans = "混合最大化模块已关闭。"
-zh_hant = "混合最大化模組已關閉。"
-
-[[row]]
-id = "skill_table_mx_prime"
-es = "Una carta Prime no puede ser base de un miximax."
-en = "A Prime card can't be the base of a miximax."
-fr = "Une carte Prime ne peut pas être la base d'un miximax."
-de = "Eine Prime-Karte kann keine Miximax-Basis sein."
-it = "Una carta Prime non può essere la base di un miximax."
-pt = "Uma carta Prime não pode ser a base de um miximax."
-ja = "プライムカードはミキシマックスのベースになれません。"
-zh_hans = "Prime卡不能作为混合最大化的基础。"
-zh_hant = "Prime卡不能作為混合最大化的基礎。"
-
-[[row]]
-id = "skill_table_mx_prime_or_partner"
-es = "Una carta Prime no puede ser base de un miximax. (o ya es compañero de otro miximax)"
-en = "A Prime card can't be the base of a miximax. (or it is already the partner of another miximax)"
-fr = "Une carte Prime ne peut pas être la base d'un miximax. (ou elle est déjà partenaire d'un autre miximax)"
-de = "Eine Prime-Karte kann keine Miximax-Basis sein. (oder sie ist schon Partner eines anderen Miximax)"
-it = "Una carta Prime non può essere la base di un miximax. (oppure è già partner di un altro miximax)"
-pt = "Uma carta Prime não pode ser a base de um miximax. (ou já é parceira de outro miximax)"
-ja = "プライムカードはミキシマックスのベースになれません。（または別のミキシマックスのパートナーです）"
-zh_hans = "Prime卡不能作为混合最大化的基础。（或已是其他混合最大化的搭档）"
-zh_hant = "Prime卡不能作為混合最大化的基礎。（或已是其他混合最大化的搭檔）"
-
-[[row]]
-id = "skill_table_mx_not_owned"
-es = "No tienes ese jugador."
-en = "You don't have that player."
-fr = "Vous n'avez pas ce joueur."
-de = "Du hast diesen Spieler nicht."
-it = "Non hai quel giocatore."
-pt = "Você não tem esse jogador."
-ja = "その選手を持っていません。"
-zh_hans = "你没有这名球员。"
-zh_hant = "你沒有這名球員。"
-
-[[row]]
-id = "skill_table_mx_self"
-es = "No se puede fusionar una carta consigo misma."
-en = "A card can't be fused with itself."
-fr = "Une carte ne peut pas fusionner avec elle-même."
-de = "Eine Karte kann nicht mit sich selbst verschmelzen."
-it = "Una carta non può fondersi con se stessa."
-pt = "Uma carta não pode se fundir consigo mesma."
-ja = "同じカード同士は融合できません。"
-zh_hans = "卡片不能与自己融合。"
-zh_hant = "卡片不能與自己融合。"
-
-[[row]]
-id = "skill_table_mx_in_use"
-es = "Ese jugador ya forma parte de otro miximax (o esta carta es compañera de otro)."
-en = "That player is already part of another miximax (or this card is another one's partner)."
-fr = "Ce joueur fait déjà partie d'un autre miximax (ou cette carte est la partenaire d'un autre)."
-de = "Dieser Spieler ist schon Teil eines anderen Miximax (oder diese Karte ist Partner eines anderen)."
-it = "Quel giocatore fa già parte di un altro miximax (o questa carta è partner di un altro)."
-pt = "Esse jogador já faz parte de outro miximax (ou esta carta é parceira de outro)."
-ja = "その選手はすでに別のミキシマックスに参加しています（またはこのカードが別のパートナーです）。"
-zh_hans = "该球员已属于其他混合最大化（或此卡已是其他人的搭档）。"
-zh_hant = "該球員已屬於其他混合最大化（或此卡已是其他人的搭檔）。"
-
-[[row]]
-id = "skill_table_mx_save_failed"
-es = "No se pudo guardar el miximax."
-en = "The miximax could not be saved."
-fr = "Le miximax n'a pas pu être enregistré."
-de = "Der Miximax konnte nicht gespeichert werden."
-it = "Impossibile salvare il miximax."
-pt = "Não foi possível salvar o miximax."
-ja = "ミキシマックスを保存できませんでした。"
-zh_hans = "无法保存混合最大化。"
-zh_hant = "無法保存混合最大化。"
-
-[[row]]
-id = "skill_table_mx_overdrive"
-es = "Modo Overdrive: este jugador no puede usar miximax."
-en = "Overdrive mode: this player can't use a miximax."
-fr = "Mode Overdrive : ce joueur ne peut pas utiliser de miximax."
-de = "Overdrive-Modus: Dieser Spieler kann kein Miximax nutzen."
-it = "Modalità Overdrive: questo giocatore non può usare il miximax."
-pt = "Modo Overdrive: este jogador não pode usar miximax."
-ja = "オーバードライブモード：この選手はミキシマックスを使えません。"
-zh_hans = "超载模式：该球员无法使用混合最大化。"
-zh_hant = "超載模式：該球員無法使用混合最大化。"
-
-[[row]]
-id = "skill_table_mx_partner_refused"
-es = "Ese jugador no puede ser el compañero de este miximax."
-en = "That player can't be the partner of this miximax."
-fr = "Ce joueur ne peut pas être le partenaire de ce miximax."
-de = "Dieser Spieler kann nicht Partner dieses Miximax sein."
-it = "Quel giocatore non può essere il partner di questo miximax."
-pt = "Esse jogador não pode ser o parceiro deste miximax."
-ja = "その選手はこのミキシマックスのパートナーになれません。"
-zh_hans = "该球员不能作为此混合最大化的搭档。"
-zh_hant = "該球員不能作為此混合最大化的搭檔。"
-
-[[row]]
-id = "skill_table_mx_no_candidates"
-es = "No hay jugadores disponibles para el miximax."
-en = "No players are available for the miximax."
-fr = "Aucun joueur n'est disponible pour le miximax."
-de = "Keine Spieler für den Miximax verfügbar."
-it = "Nessun giocatore disponibile per il miximax."
-pt = "Não há jogadores disponíveis para o miximax."
-ja = "ミキシマックスに使える選手がいません。"
-zh_hans = "没有可用于混合最大化的球员。"
-zh_hant = "沒有可用於混合最大化的球員。"
-
-[[row]]
 id = "skill_table_mx_partner_guide"
 es = "Miximax: elige el compañero. Aceptar = elegir, atrás = volver."
 en = "Miximax: choose the partner. Confirm = choose, Back = return."
@@ -1219,18 +1008,6 @@ pt = "<VALUE>  (já conhece)"
 ja = "<VALUE>  (習得済み)"
 zh_hans = "<VALUE>  (已掌握)"
 zh_hant = "<VALUE>  (已掌握)"
-
-[[row]]
-id = "skill_table_mx_partner_no_moves"
-es = "Ese jugador no tiene supertécnicas que aprender."
-en = "That player has no special moves to learn."
-fr = "Ce joueur n'a aucune supertechnique à apprendre."
-de = "Dieser Spieler hat keine Spezialtechniken zum Lernen."
-it = "Quel giocatore non ha supertecniche da imparare."
-pt = "Esse jogador não tem supertécnicas para aprender."
-ja = "その選手には覚えられる必殺技がありません。"
-zh_hans = "该球员没有可学习的必杀技。"
-zh_hant = "該球員沒有可學習的必殺技。"
 
 [[row]]
 id = "skill_table_mx_move_guide"
@@ -1281,18 +1058,6 @@ zh_hans = "已设置与<VALUE>的混合最大化。"
 zh_hant = "已設定與<VALUE>的混合最大化。"
 
 [[row]]
-id = "skill_table_mx_saved_not_set"
-es = "El miximax se guardó pero no se pudo poner como hipertécnica."
-en = "The miximax was saved but could not be set as the Hyper move."
-fr = "Le miximax a été enregistré mais n'a pas pu être placé en hypertechnique."
-de = "Der Miximax wurde gespeichert, konnte aber nicht als Hypertechnik gesetzt werden."
-it = "Il miximax è stato salvato ma non è stato possibile impostarlo come ipertecnica."
-pt = "O miximax foi salvo, mas não pôde ser definido como hipertécnica."
-ja = "ミキシマックスは保存されましたが、ハイパー技に設定できませんでした。"
-zh_hans = "混合最大化已保存，但无法设为超级技。"
-zh_hant = "混合最大化已保存，但無法設為超級技。"
-
-[[row]]
 id = "skill_table_mx_ask_remove"
 es = "¿Quitar el miximax con <VALUE>?"
 en = "Remove the miximax with <VALUE>?"
@@ -1303,138 +1068,6 @@ pt = "Remover o miximax com <VALUE>?"
 ja = "<VALUE>とのミキシマックスを外しますか？"
 zh_hans = "要移除与<VALUE>的混合最大化吗？"
 zh_hant = "要移除與<VALUE>的混合最大化嗎？"
-
-[[row]]
-id = "skill_table_mc_off"
-es = "El modo cambio está desactivado (vr-loader)."
-en = "Change Mode is switched off."
-fr = "Le mode changement est désactivé."
-de = "Der Wechselmodus ist ausgeschaltet."
-it = "La modalità cambio è disattivata."
-pt = "O modo troca está desativado."
-ja = "モードチェンジがオフになっています。"
-zh_hans = "模式切换已关闭。"
-zh_hant = "模式切換已關閉。"
-
-[[row]]
-id = "skill_table_mc_not_usable"
-es = "Ese jugador no se puede usar como cambio."
-en = "That player can't be used as a change."
-fr = "Ce joueur ne peut pas servir de changement."
-de = "Dieser Spieler kann nicht als Wechsel genutzt werden."
-it = "Quel giocatore non può essere usato come cambio."
-pt = "Esse jogador não pode ser usado como troca."
-ja = "その選手はチェンジに使えません。"
-zh_hans = "该球员不能用作切换。"
-zh_hant = "該球員不能用作切換。"
-
-[[row]]
-id = "skill_table_mc_self"
-es = "Un jugador no puede cambiar a sí mismo."
-en = "A player can't change into himself."
-fr = "Un joueur ne peut pas se changer en lui-même."
-de = "Ein Spieler kann sich nicht in sich selbst verwandeln."
-it = "Un giocatore non può cambiare in se stesso."
-pt = "Um jogador não pode trocar para si mesmo."
-ja = "選手は自分自身にチェンジできません。"
-zh_hans = "球员不能切换成自己。"
-zh_hant = "球員不能切換成自己。"
-
-[[row]]
-id = "skill_table_mc_full"
-es = "Este jugador ya tiene 8 cambios: quita uno antes (Eliminar en la fila de la hipertécnica)."
-en = "This player already has 8 changes: remove one first (Delete on the Hyper row)."
-fr = "Ce joueur a déjà 8 changements : retirez-en un d'abord (Supprimer sur la ligne d'hypertechnique)."
-de = "Dieser Spieler hat schon 8 Wechsel: Entferne zuerst einen (Löschen in der Hypertechnik-Zeile)."
-it = "Questo giocatore ha già 8 cambi: rimuovine uno prima (Elimina sulla riga dell'ipertecnica)."
-pt = "Este jogador já tem 8 trocas: remova uma antes (Excluir na linha da hipertécnica)."
-ja = "この選手はすでにチェンジを8つ持っています。先に1つ外してください（ハイパー技の行で削除）。"
-zh_hans = "该球员已有8个切换：请先移除一个（在超级技一行删除）。"
-zh_hant = "該球員已有8個切換：請先移除一個（在超級技一行刪除）。"
-
-[[row]]
-id = "skill_table_mc_save_failed"
-es = "No se pudo guardar el cambio."
-en = "The change could not be saved."
-fr = "Le changement n'a pas pu être enregistré."
-de = "Der Wechsel konnte nicht gespeichert werden."
-it = "Impossibile salvare il cambio."
-pt = "Não foi possível salvar a troca."
-ja = "チェンジを保存できませんでした。"
-zh_hans = "无法保存切换。"
-zh_hant = "無法保存切換。"
-
-[[row]]
-id = "skill_table_mc_pick_bank"
-es = "Elige un jugador de tu banco."
-en = "Choose a player from your bench."
-fr = "Choisissez un joueur de votre banc."
-de = "Wähle einen Spieler von deiner Bank."
-it = "Scegli un giocatore dalla tua panchina."
-pt = "Escolha um jogador do seu banco."
-ja = "控えから選手を選んでください。"
-zh_hans = "请从替补中选择一名球员。"
-zh_hant = "請從替補中選擇一名球員。"
-
-[[row]]
-id = "skill_table_mc_no_data"
-es = "No se encuentran los datos de ese jugador."
-en = "That player's data can't be found."
-fr = "Les données de ce joueur sont introuvables."
-de = "Die Daten dieses Spielers wurden nicht gefunden."
-it = "Impossibile trovare i dati di quel giocatore."
-pt = "Os dados desse jogador não foram encontrados."
-ja = "その選手のデータが見つかりません。"
-zh_hans = "找不到该球员的数据。"
-zh_hant = "找不到該球員的資料。"
-
-[[row]]
-id = "skill_table_mc_has_aura"
-es = "Ese jugador tiene una aura asignada: quítala antes."
-en = "That player has an aura assigned: remove it first."
-fr = "Ce joueur a une aura attribuée : retirez-la d'abord."
-de = "Dieser Spieler hat eine Aura zugewiesen: Entferne sie zuerst."
-it = "Quel giocatore ha un'aura assegnata: rimuovila prima."
-pt = "Esse jogador tem uma aura atribuída: remova-a antes."
-ja = "その選手にはオーラが設定されています。先に外してください。"
-zh_hans = "该球员已设置灵气：请先移除。"
-zh_hant = "該球員已設定靈氣：請先移除。"
-
-[[row]]
-id = "skill_table_mc_reserved"
-es = "Ese jugador ya está reservado como aura."
-en = "That player is already reserved as an aura."
-fr = "Ce joueur est déjà réservé comme aura."
-de = "Dieser Spieler ist schon als Aura reserviert."
-it = "Quel giocatore è già riservato come aura."
-pt = "Esse jogador já está reservado como aura."
-ja = "その選手はすでにオーラとして使われています。"
-zh_hans = "该球员已被预留为灵气。"
-zh_hant = "該球員已被預留為靈氣。"
-
-[[row]]
-id = "skill_table_mc_in_team"
-es = "Ese jugador está en un equipo: muévelo al banco primero."
-en = "That player is in a team: move him to the bench first."
-fr = "Ce joueur est dans une équipe : placez-le d'abord sur le banc."
-de = "Dieser Spieler ist in einem Team: Setze ihn zuerst auf die Bank."
-it = "Quel giocatore è in una squadra: spostalo prima in panchina."
-pt = "Esse jogador está em um time: mova-o para o banco primeiro."
-ja = "その選手はチームに入っています。先に控えに移してください。"
-zh_hans = "该球员在队伍中：请先将其移到替补。"
-zh_hant = "該球員在隊伍中：請先將其移到替補。"
-
-[[row]]
-id = "skill_table_mc_no_candidates"
-es = "No hay jugadores para el modo cambio."
-en = "No players are available for Change Mode."
-fr = "Aucun joueur n'est disponible pour le mode changement."
-de = "Keine Spieler für den Wechselmodus verfügbar."
-it = "Nessun giocatore disponibile per la modalità cambio."
-pt = "Não há jogadores para o modo troca."
-ja = "モードチェンジに使える選手がいません。"
-zh_hans = "没有可用于模式切换的球员。"
-zh_hant = "沒有可用於模式切換的球員。"
 
 [[row]]
 id = "skill_table_mc_pick_guide"
@@ -1461,42 +1094,6 @@ zh_hans = "要创建切换为<VALUE>吗？只改变外观：能力、招式和�
 zh_hant = "要建立切換為<VALUE>嗎？只改變外觀：能力、招式和道具保持不變。"
 
 [[row]]
-id = "skill_table_mc_assigned"
-es = "Modo cambio a <VALUE> asignado como hipertécnica."
-en = "Change Mode to <VALUE> set as the Hyper move."
-fr = "Mode changement en <VALUE> attribué comme hypertechnique."
-de = "Wechselmodus zu <VALUE> als Hypertechnik gesetzt."
-it = "Modalità cambio in <VALUE> assegnata come ipertecnica."
-pt = "Modo troca para <VALUE> definido como hipertécnica."
-ja = "<VALUE>へのモードチェンジをハイパー技に設定しました。"
-zh_hans = "已将切换为<VALUE>设为超级技。"
-zh_hant = "已將切換為<VALUE>設為超級技。"
-
-[[row]]
-id = "skill_table_mc_saved_not_set"
-es = "El cambio se guardó pero no se pudo poner como hipertécnica."
-en = "The change was saved but could not be set as the Hyper move."
-fr = "Le changement a été enregistré mais n'a pas pu être placé en hypertechnique."
-de = "Der Wechsel wurde gespeichert, konnte aber nicht als Hypertechnik gesetzt werden."
-it = "Il cambio è stato salvato ma non è stato possibile impostarlo come ipertecnica."
-pt = "A troca foi salva, mas não pôde ser definida como hipertécnica."
-ja = "チェンジは保存されましたが、ハイパー技に設定できませんでした。"
-zh_hans = "切换已保存，但无法设为超级技。"
-zh_hant = "切換已保存，但無法設為超級技。"
-
-[[row]]
-id = "skill_table_mc_name"
-es = "Modo cambio"
-en = "Change Mode"
-fr = "Mode changement"
-de = "Wechselmodus"
-it = "Modalità cambio"
-pt = "Modo troca"
-ja = "モードチェンジ"
-zh_hans = "模式切换"
-zh_hant = "模式切換"
-
-[[row]]
 id = "skill_table_mx_create"
 es = "Crear miximax"
 en = "Create miximax"
@@ -1521,42 +1118,6 @@ zh_hans = "将该球员与你的另一名球员融合：选择搭档及其一个
 zh_hant = "將該球員與你的另一名球員融合：選擇搭檔及其一個必殺技。"
 
 [[row]]
-id = "skill_table_mx_trans"
-es = "Miximax Trans: <VALUE>"
-en = "Miximax Trans: <VALUE>"
-fr = "Miximax Trans : <VALUE>"
-de = "Miximax Trans: <VALUE>"
-it = "Miximax Trans: <VALUE>"
-pt = "Miximax Trans: <VALUE>"
-ja = "ミキシトランス：<VALUE>"
-zh_hans = "混合最大化变身：<VALUE>"
-zh_hant = "混合最大化變身：<VALUE>"
-
-[[row]]
-id = "skill_table_mx_two_moves"
-es = "<MOVE> y <MOVE2>"
-en = "<MOVE> and <MOVE2>"
-fr = "<MOVE> et <MOVE2>"
-de = "<MOVE> und <MOVE2>"
-it = "<MOVE> e <MOVE2>"
-pt = "<MOVE> e <MOVE2>"
-ja = "<MOVE>と<MOVE2>"
-zh_hans = "<MOVE>和<MOVE2>"
-zh_hant = "<MOVE>和<MOVE2>"
-
-[[row]]
-id = "skill_table_mx_fusion_desc"
-es = "Fusión con <NAME>. Aprende <MOVE>."
-en = "Fusion with <NAME>. Learns <MOVE>."
-fr = "Fusion avec <NAME>. Apprend <MOVE>."
-de = "Fusion mit <NAME>. Lernt <MOVE>."
-it = "Fusione con <NAME>. Impara <MOVE>."
-pt = "Fusão com <NAME>. Aprende <MOVE>."
-ja = "<NAME>と融合。<MOVE>を覚える。"
-zh_hans = "与<NAME>融合。学会<MOVE>。"
-zh_hant = "與<NAME>融合。學會<MOVE>。"
-
-[[row]]
 id = "skill_table_pick_passive_guide"
 es = "Elige una pasiva personalizada."
 en = "Choose a custom passive."
@@ -1567,18 +1128,6 @@ pt = "Escolha uma passiva personalizada."
 ja = "カスタムパッシブを選んでください。"
 zh_hans = "请选择自定义被动。"
 zh_hant = "請選擇自訂被動。"
-
-[[row]]
-id = "skill_table_pick_hiper_overdrive_guide"
-es = "Elige la hipertécnica. Modo Overdrive: este jugador no puede usar miximax."
-en = "Choose the Hyper move. Overdrive mode: this player can't use a miximax."
-fr = "Choisissez l'hypertechnique. Mode Overdrive : ce joueur ne peut pas utiliser de miximax."
-de = "Wähle die Hypertechnik. Overdrive-Modus: Dieser Spieler kann kein Miximax nutzen."
-it = "Scegli l'ipertecnica. Modalità Overdrive: questo giocatore non può usare il miximax."
-pt = "Escolha a hipertécnica. Modo Overdrive: este jogador não pode usar miximax."
-ja = "ハイパー技を選んでください。オーバードライブモード：この選手はミキシマックスを使えません。"
-zh_hans = "请选择超级技。超载模式：该球员无法使用混合最大化。"
-zh_hant = "請選擇超級技。超載模式：該球員無法使用混合最大化。"
 
 [[row]]
 id = "skill_table_pick_hiper_prime_guide"

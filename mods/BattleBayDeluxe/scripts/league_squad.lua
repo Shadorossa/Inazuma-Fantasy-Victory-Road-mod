@@ -1,64 +1,27 @@
--- Battle Bay Deluxe: the League team's own lineup. The hub copies the team into the retail dock through the
--- VR-Framework's team editor (VRFW_TeamEditor: a temporary copy inside a save session that is thrown away when the
--- dock closes) and sends back the order the player left there (CMND_BBD_LEAGUE_SQUAD_SET). The order is kept in the
--- run (tournament.lua, run.lineup) and written over the team in memory before every league match and every squad
--- page: who plays which roster slot (the member rows' chara_param, its copy and its move set, as the Draft writes its
--- picks) and the formation of its team record (+0x18). Only the order changes: the team keeps its own players.
---
--- A team the session touched and the running league no longer edits (a new league, another team) gets its order and
--- formation as first seen this session back.
 
 local U = require "lib/util"
+local TeamConfig = VRFW.teams.config
 local Draft = require "draft"
 
 local L = {}
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("league squad")
 
-L.LAST_SLOT = 18          -- 0-10 starters in formation order, 11-18 bench; 19 coach and 20 manager are left as they are
+L.LAST_SLOT = 18
 L.COACH_SLOT = 19
 L.STARTERS = 11
 
--- team -> { order = { [slot] = param }, formation } as first seen this session, before any write
 local ORIGINAL = {}
-
--- a team's record in memory (the game's FindTeamConfig), nil + why
-local function team_record(team)
-  if not VRFW.is_on("FindTeamConfig") then
-    return nil, "FindTeamConfig not resolved"
-  end
-  local okb, recb = pcall(VRFW.mem.buffer, "bbd_league_rec", 8)
-  local okc, contb = pcall(VRFW.mem.buffer, "bbd_league_cont", 8)
-  local okh, hashb = pcall(VRFW.mem.buffer, "bbd_league_hash", 4)
-  if not (okb and okc and okh) then
-    return nil, "no native buffer"
-  end
-  U.wr("u64", recb, 0)
-  U.wr("u64", contb, 0)
-  U.wr("u32", hashb, team)
-  local ok, e = U.call("FindTeamConfig", recb, contb, hashb)
-  if not ok then
-    return nil, "FindTeamConfig faulted (" .. tostring(e) .. ")"
-  end
-  local rec = U.rd("ptr", recb) or 0
-  if rec < 0x10000 then
-    return nil, "team " .. U.hex(team) .. " is not in team_config"
-  end
-  return rec
-end
 
 -- the formation of a team's record in memory (0 = unreadable)
 function L.formation(team)
-  local rec = team_record(team)
+  local rec = TeamConfig.find(team)
   local r = rec and U.struct("LeagueTeamRecord", rec)
   return U.u32(U.get(r, "formation") or 0)
 end
 
--- the team's own record as the game has it, for the team dock: { kit, emblem, coach } (0 = none). The kit and the
--- emblem are its team_config record's (+0x1C, +0x20), the coach its member row of slot 19.
 function L.record(team)
-  local rec = team_record(team)
+  local rec = TeamConfig.find(team)
   local r = rec and U.struct("LeagueTeamRecord", rec)
   local out = { kit = U.u32(U.get(r, "kit") or 0), emblem = U.u32(U.get(r, "emblem") or 0), coach = 0 }
   for _, m in ipairs(Draft.member_rows(team) or {}) do
@@ -70,7 +33,7 @@ function L.record(team)
 end
 
 local function set_formation(team, formation)
-  local rec, why = team_record(team)
+  local rec, why = TeamConfig.find(team)
   local r = rec and U.struct("LeagueTeamRecord", rec)
   if not r then
     return false, why or "struct off"
@@ -83,7 +46,6 @@ local function set_formation(team, formation)
   end))
 end
 
--- the player rows (slots 0-18) of the team in memory: { { slot, param, uid, loadout, addr } … }, nil + why
 local function player_rows(team)
   local rows, why = Draft.member_rows(team)
   if not rows then
@@ -131,7 +93,6 @@ function L.decode(text)
   return out
 end
 
--- the team's players in slot order: { { slot, param } … }, nil + why
 function L.members(team)
   local rows, why = player_rows(team)
   if not rows then
@@ -145,9 +106,6 @@ function L.members(team)
   return out
 end
 
--- The order the dock gave ({ { position, param } … } of the team's players) as the team's slots: the starters (dock
--- positions 0-10) on their slots; the rest of the team (the bench in dock position order, then the players the dock
--- left in the club bank, in their old slot order) on the bench slots in ascending order. -> order, nil + why
 function L.from_dock(team, placed)
   local rows, why = player_rows(team)
   if not rows then
@@ -232,8 +190,6 @@ function L.from_dock(team, placed)
   return order
 end
 
--- the team's rows made to hold `order` ({ [slot] = param }: every player of the team once, on the team's own slots)
--- and its record `formation` (0 = left as it is). -> rows rewritten, nil + why
 function L.apply(team, order, formation)
   local rows, why = player_rows(team)
   if not rows then
@@ -285,8 +241,6 @@ function L.apply(team, order, formation)
   return changed
 end
 
--- before a league match or a squad page: the run's lineup on its team, and every other team this session touched back
--- to its first order. `lineup` = run.lineup ({ team, formation, order = "slot:param,…" } or nil)
 function L.ensure(lineup)
   local team = type(lineup) == "table" and U.u32(lineup.team or 0) or 0
   for t, orig in pairs(ORIGINAL) do

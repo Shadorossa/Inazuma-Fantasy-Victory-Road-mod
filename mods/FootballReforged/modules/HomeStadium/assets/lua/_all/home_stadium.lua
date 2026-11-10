@@ -1,43 +1,36 @@
--- Home Stadium (module of Football Reforged): the home stadium provider of the framework's friendly executor, in every
--- menu VM. VRFW_PACHANGA.start asks VRFW_HomeStadium (the framework's providers) when a friendly's stadium is left open (no stadium from the
--- caller, the rules or the rival's home): the answer is the team's chosen stadium (scripts\home_stadium.lua, saved
--- per team dock), 0 = none. Also the stadiums the player owns, for the team dock's selector. No engine call at load
--- time.
 HomeStadium = type(HomeStadium) == "table" and HomeStadium or {}
 do
   local H = HomeStadium
   H.CMD = {
-    LIST = VRFW_Cmd.HOMESTADIUM_LIST,          -- CMND_HOMESTADIUM_LIST () -> { { map, item }, … }
-    GET = VRFW_Cmd.HOMESTADIUM_GET,           -- CMND_HOMESTADIUM_GET (set) -> map
-    SET = VRFW_Cmd.HOMESTADIUM_SET,           -- CMND_HOMESTADIUM_SET (set, map) -> ok
-    ITEM_NUM = VRFW_Cmd.GET_ITEM_NUM,      -- CMND_GET_ITEM_NUM (item) -> count (a key item: 1 while its condition holds)
-    MAP_NAME = VRFW_Cmd.GET_MAP_NAME,      -- CMND_GET_MAP_NAME (map) -> name
-    LOG = VRFW_Cmd.EVT_LOG,           -- CMND_EVT_LOG
+    LIST = VRFW.commands.HOMESTADIUM_LIST,          -- CMND_HOMESTADIUM_LIST () -> { { map, item }, … }
+    GET = VRFW.commands.HOMESTADIUM_GET,           -- CMND_HOMESTADIUM_GET (set) -> map
+    SET = VRFW.commands.HOMESTADIUM_SET,           -- CMND_HOMESTADIUM_SET (set, map) -> ok
+    ITEM_NUM = VRFW.commands.GET_ITEM_NUM,
+    MAP_NAME = VRFW.commands.GET_MAP_NAME,      -- CMND_GET_MAP_NAME (map) -> name
+    LOG = VRFW.commands.VRFW_LOG,           -- CMND_VRFW_LOG
   }
 
   function H.log(...)
-    pcall(funcLuaCommand, H.CMD.LOG, "home_stadium", ...)
+    VRFW.host.command(H.CMD.LOG, "home_stadium", ...)
   end
 
   -- the team dock's home stadium (map crc), 0 = none
   function H.get(set)
     if type(set) ~= "number" or set < 0 then return 0 end
-    local ok, map = pcall(funcLuaCommand, H.CMD.GET, set)
-    if ok and type(map) == "number" then return map % 4294967296 end
+    local map = VRFW.host.command(H.CMD.GET, set)
+    if type(map) == "number" then return map % 4294967296 end
     return 0
   end
 
   function H.set(set, map)
-    local ok, done = pcall(funcLuaCommand, H.CMD.SET, set, map or 0)
-    return ok and done == true
+    local done = VRFW.host.command(H.CMD.SET, set, map or 0)
+    return done == true
   end
 
-  -- the stadiums of the game's stadium list the player owns, in list order: { { map, name }, … }. Owned = no ticket
-  -- needed, or the ticket item held (the key item count; a row with another condition is not offered).
   function H.owned()
     local out = {}
-    local ok, list = pcall(funcLuaCommand, H.CMD.LIST)
-    if not ok or type(list) ~= "table" then
+    local list = VRFW.host.command(H.CMD.LIST)
+    if type(list) ~= "table" then
       H.log("no stadium list from the module's script")
       return out
     end
@@ -45,19 +38,18 @@ do
       local map, item = tonumber(st.map), tonumber(st.item)
       local have = item == 0
       if item ~= nil and item > 0 then
-        local okn, n = pcall(funcLuaCommand, H.CMD.ITEM_NUM, item)
-        have = okn and type(n) == "number" and n > 0
+        local n = VRFW.host.command(H.CMD.ITEM_NUM, item)
+        have = type(n) == "number" and n > 0
       end
       if map ~= nil and map ~= 0 and have then
-        local okm, name = pcall(funcLuaCommand, H.CMD.MAP_NAME, map)
-        out[#out + 1] = { map = map, name = (okm and type(name) == "string") and name or "" }
+        local name = VRFW.host.command(H.CMD.MAP_NAME, map)
+        out[#out + 1] = { map = map, name = (type(name) == "string") and name or "" }
       end
     end
     return out
   end
 
-  -- the provider of the framework's home matches (VRFW_HomeStadium, framework menu _all: defined before this root)
-  if type(VRFW_HomeStadium) == "table" and type(VRFW_HomeStadium.Register) == "function" then
-    VRFW_HomeStadium.Register("HomeStadium.dock", function(set) return H.get(set) end)
+  if type(VRFW.home_stadium) == "table" and type(VRFW.home_stadium.register) == "function" then
+    VRFW.home_stadium.register("HomeStadium.dock", function(set) return H.get(set) end)
   end
 end

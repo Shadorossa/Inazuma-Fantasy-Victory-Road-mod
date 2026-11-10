@@ -1,11 +1,3 @@
--- Chronicle Deluxe: the class orb on each free-match class card. With [VRFW.FreeMatch] ClearTicks = false
--- (content\teams\90_rules\free_match.toml) the framework hides the card's clear / advantage-win marks and their box.
--- Each card then shows the orb of its class's colour, the colour the Competition list's «team cleared» orbs use
--- (INAZUMA blue, ZONA LETAL purple, BATALLA LEGENDARIA green-cyan): a fixed colour legend, never a cleared state. The
--- orb is drawn as retail draws the advantage-win mark: a sprite of the card's atlas swapped into the tick slot
--- list_icon_state_comp01 and the tick mesh shown (content\images\menu\30_vsroute\ vsroute01\vsroute01_21.toml makes
--- the sprites; content\menus\free_match_class_orbs.toml centres the quad on the box). Runs after the framework's
--- class setup of each row (OnSetupLayer); no engine call at load time.
 do
   local setup = OnSetupLayer
   local CARD = 1809045795           -- vsroute01_21_sub_list: the class cards
@@ -13,16 +5,11 @@ do
   local TICK_SLOT = 2107860330      -- list_icon_state_comp01
   local TICK_MESH = 3583161402      -- _list_icon_state_comp01
   local SET_SPRITE = 558735651      -- (layer, atlas, sprite, slot, 0, item)
-  local SET_MESH_VISIBLE = VRFW_Cmd.SET_MESH_VISIBLE
-  local ORB_BY_CLASS = {
-    [6] = 1950977645,               -- chronicle_deluxe_class_orb_inazuma
-    [7] = 3816657784,               -- chronicle_deluxe_class_orb_lethal_zone
-    [9] = 1137654499,               -- chronicle_deluxe_class_orb_legendary
-  }
+  local SET_MESH_VISIBLE = VRFW.commands.SET_MESH_VISIBLE
   local function show_orb(a1, a2)
-    local classes = VRFW_FMC and VRFW_FMC.cache   -- the classes the opponent offers, read by this row's setup
+    local classes = VRFW.free_match_classes and VRFW.free_match_classes.cache   -- the classes the opponent offers, read by this row's setup
     if type(classes) ~= "table" or type(a2) ~= "number" then return end
-    local orb = ORB_BY_CLASS[classes[a2 + 1]]
+    local orb = VRFW.match_difficulty.class_orb(VRFW.free_match_classes.game, classes[a2 + 1])   -- the class's declared Orb on this game
     if orb == nil then return end
     funcLuaMenuCommand(SET_SPRITE, a1, CARD_ATLAS, orb, TICK_SLOT, 0, a2)
     funcLuaMenuCommand(SET_MESH_VISIBLE, a1, TICK_MESH, true, a2)

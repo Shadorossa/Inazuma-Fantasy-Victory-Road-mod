@@ -1,0 +1,2253 @@
+schema = "PassivesSynergies.passive_icon/1"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120010_corazon_de_barrio"
+icon = "personal_passives_icon_shoot_self_count"
+
+# Gibson Forte: Crescendo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120020_crescendo"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120030_gol_que_enciende_al_equipo"
+icon = "personal_passives_icon_tension_self_event"
+
+# Sheila Threadwell: Hilo invisible
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120040_hilo_invisible"
+icon = "personal_passives_icon_shoot_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120050_calma_en_el_vestuario"
+icon = "personal_passives_icon_tension_cost_team"
+
+# Lorcan Oxfield: Fuerza de buey
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120060_fuerza_de_buey"
+icon = "personal_passives_icon_physical_team"
+
+# Newman Wiford: Cada duelo suma
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120070_cada_duelo_suma"
+icon = "personal_passives_icon_tension_self_event"
+
+# Mirina Mackrell: Red de pescadera
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120080_red_de_pescadera"
+icon = "personal_passives_icon_block_self_present"
+
+# Marlin Sharkey: Aleta al acecho
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120090_aleta_al_acecho"
+icon = "personal_passives_icon_tension_self_event"
+
+# Brandy Ryehart: Hornada de coraje
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120100_hornada_de_coraje"
+icon = "personal_passives_icon_shoot_self_trailing"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120110_edicion_de_ultima_hora"
+icon = "personal_passives_icon_speed_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120120_gran_funcion"
+icon = "personal_passives_icon_speed_self_event"
+
+# Yelena Poplawska: Negocio familiar
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120130_negocio_familiar"
+icon = "personal_passives_icon_block_self_count"
+
+# Pattie Whitfield: Dulce pero firme
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120140_dulce_pero_firme"
+icon = "personal_passives_icon_shoot_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120150_cabeza_del_equipo"
+icon = "personal_passives_icon_intelligence_team"
+
+# He Liu: Última trinchera
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120160_ultima_trinchera"
+icon = "personal_passives_icon_shoot_block_team_clock"
+
+# Joon Kim: Plato fuerte
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120500_plato_fuerte"
+icon = "personal_passives_icon_catch_self_leading"
+
+# Daria Poplawska: Relevo generacional
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11120510_relevo_generacional"
+icon = "personal_passives_icon_tension_cost_self_ball"
+
+# Rockson Grohl: Muro de sonido
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700560_muro_de_sonido"
+icon = "personal_passives_icon_shoot_block_team"
+
+# Sadley Lonsom: Balada en solitario
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700730_balada_en_solitario"
+icon = "personal_passives_icon_shoot_self_count"
+
+# Blossom Laine: Taconeo flamenco
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11733010_taconeo_flamenco"
+icon = "personal_passives_icon_dribble_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11733020_zumbido_hipnotico"
+icon = "personal_passives_icon_pressure_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11733030_pelea_que_cuenta"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11733040_fondo_fisico"
+icon = "personal_passives_icon_physical_team_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11733050_parada_que_enciende"
+icon = "personal_passives_icon_tension_self_event"
+
+# Raya Sixstring: Dedos veloces
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11733060_dedos_veloces"
+icon = "personal_passives_icon_recast_self"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11733070_pequeno_gran_cuerpo"
+icon = "personal_passives_icon_physical_self_leading"
+
+# Cleara Sounds: Tono perfecto
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11733080_tono_perfecto"
+icon = "personal_passives_icon_technique_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11733090_bailarin_de_sombras"
+icon = "personal_passives_icon_agility_self_count"
+
+# Bang Revell: Bang y adelante
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11733100_bang_y_adelante"
+icon = "personal_passives_icon_shoot_self_count"
+
+# Colleen Evenholm: Titular de portada
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500450_titular_de_portada"
+icon = "personal_passives_icon_technique_self_count"
+
+# Veronica Camry: Salir enchufados
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700180_salir_enchufados"
+icon = "personal_passives_icon_tension_self_event"
+
+# Cora Inkton: Tinta indeleble
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700190_tinta_indeleble"
+icon = "personal_passives_icon_block_team"
+
+# Uriah Goldfield: Primicia exclusiva
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700200_primicia_exclusiva"
+icon = "personal_passives_icon_dribble_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700570_lleva_la_batuta"
+icon = "personal_passives_icon_technique_team_ball"
+
+# Aldus Ogden: Archivo bajo llave
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11734010_archivo_bajo_llave"
+icon = "personal_passives_icon_catch_self"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11734020_corre_la_noticia"
+icon = "personal_passives_icon_speed_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11734030_fuente_anonima"
+icon = "personal_passives_icon_technique_rival_count"
+
+# Tito De Core: Reportaje de campo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11734040_reportaje_de_campo"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11734050_tecnica_afinada"
+icon = "personal_passives_icon_recast_team"
+
+# Nance Meridian: Noticia de peso
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11734060_noticia_de_peso"
+icon = "personal_passives_icon_physical_self_leading"
+
+# Memo Rize: Pie de foto
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11734070_pie_de_foto"
+icon = "personal_passives_icon_technique_self_present"
+
+# Jorna Privinski: Fiesta de gol
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160010_fiesta_de_gol"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160020_guardian_del_palacio"
+icon = "personal_passives_icon_catch_self_count"
+
+# Aurelio Auditus: Gala de gol
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160030_gala_de_gol"
+icon = "personal_passives_icon_shoot_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160050_resistir_hasta_el_final"
+icon = "personal_passives_icon_shoot_block_team_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160060_el_balon_piensa"
+icon = "personal_passives_icon_technique_team_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160040_memorias_de_una_dama"
+icon = "personal_passives_icon_dribble_self_clock"
+
+# Elric Spiech: Armadura de gala
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160070_armadura_de_gala"
+icon = "personal_passives_icon_block_self_leading"
+
+# Staton Folhard: Pirueta cortesana
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160100_pirueta_cortesana"
+icon = "personal_passives_icon_speed_self_event"
+
+# Histrion Etcher: Fuego de chimenea
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160080_fuego_de_chimenea"
+icon = "personal_passives_icon_tension_cost_self_clock"
+
+# Nelvin Dustrie: Bien nacido
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160090_bien_nacido"
+icon = "personal_passives_icon_block_self_present"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160110_lujo_acrobatico"
+icon = "personal_passives_icon_chain_shoot_self_count"
+
+# Basil Wanderbilt: Heredero impaciente
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160120_heredero_impaciente"
+icon = "personal_passives_icon_shoot_self_trailing"
+
+# Odell Farley: Viento de ceremonia
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160130_viento_de_ceremonia"
+icon = "personal_passives_icon_speed_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160140_mecenas_del_equipo"
+icon = "personal_passives_icon_tension_cost_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160150_proteger_la_ventaja"
+icon = "personal_passives_icon_block_team_leading"
+
+# Barney Snellman: Respirar hondo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160160_respirar_hondo"
+icon = "personal_passives_icon_tension_cost_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160510_duelo_de_salon"
+icon = "personal_passives_icon_shoot_self_present"
+
+# Maynard Giddings: Pago de deudas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11160500_pago_de_deudas"
+icon = "personal_passives_icon_shoot_self_zone"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030010_amanecer_del_norte"
+icon = "personal_passives_icon_shoot_self_count"
+
+# Nikas Himmelstein: Ligereza contagiosa
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030011_ligereza_contagiosa"
+icon = "personal_passives_icon_agility_team"
+
+# Ivan Mercer: Flecha patriota
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030020_flecha_patriota"
+icon = "personal_passives_icon_shoot_self_event"
+
+# Erdem Barath: Resplandor compartido
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030030_resplandor_compartido"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030040_aguantar_el_tipo"
+icon = "personal_passives_icon_shoot_block_team_clock"
+
+# Taliesin Greenhunt: Pase seguro
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030050_pase_seguro"
+icon = "personal_passives_icon_control_team"
+
+# Bodhi Field: Estrella fugaz
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030060_estrella_fugaz"
+icon = "personal_passives_icon_recast_self"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030070_halcon_de_las_nieves"
+icon = "personal_passives_icon_agility_self_count"
+
+# Chase Winthrop: Cruce de flechas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030080_cruce_de_flechas"
+icon = "personal_passives_icon_speed_team"
+
+# Everett Shipman: Chispa contagiosa
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030090_chispa_contagiosa"
+icon = "personal_passives_icon_tension_self_event"
+
+# Denzel Harvest: Disparo reflejado
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030100_disparo_reflejado"
+icon = "personal_passives_icon_shoot_self_trailing"
+
+# Conley Quiver: Carcaj sin fondo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030110_carcaj_sin_fondo"
+icon = "personal_passives_icon_block_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030120_escudo_del_capitan"
+icon = "personal_passives_icon_catch_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030130_ballesta_del_norte"
+icon = "personal_passives_icon_long_shoot_self_zone"
+
+# Peake Fletcher: Cola de fuego
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030140_cola_de_fuego"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030150_roca_de_la_frontera"
+icon = "personal_passives_icon_shoot_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030160_carga_de_caballeria"
+icon = "personal_passives_icon_shoot_self_count"
+
+# Neil Turner: Tornado de fuego helado
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030500_tornado_de_fuego_helado"
+icon = "personal_passives_icon_kick_self_ball"
+
+# Raz Pond: Arranque en caliente
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11030510_arranque_en_caliente"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500430_hechizo_de_la_tarde"
+icon = "personal_passives_icon_speed_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700540_voz_de_la_sesion"
+icon = "personal_passives_icon_technique_self_present"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700660_brasa_de_la_vela_negra"
+icon = "personal_passives_icon_block_self_leading"
+
+# Fuyo Catcher: Mano de ultratumba
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11730010_mano_de_ultratumba"
+icon = "personal_passives_icon_speed_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11730020_corriente_de_aire_frio"
+icon = "personal_passives_icon_agility_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11730030_saltar_al_campo_con_fuego"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11730040_espiritu_guardian"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11730050_red_de_las_animas"
+icon = "personal_passives_icon_tension_cost_team_clock"
+
+# Ferdy Fenwick: Ahorro colectivo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11730060_ahorro_colectivo"
+icon = "personal_passives_icon_tension_cost_team"
+
+# Hazel Woodrow: Candado puesto
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11730070_candado_puesto"
+icon = "personal_passives_icon_block_team_leading"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11730080_maldicion_volcanica"
+icon = "personal_passives_icon_shoot_block_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110010_telon_de_seda"
+icon = "personal_passives_icon_shoot_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110020_lujo_y_pasion"
+icon = "personal_passives_icon_kick_self_event"
+
+# Adelina Gearhart: Pasos de baile
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110030_pasos_de_baile"
+icon = "personal_passives_icon_agility_team"
+
+# Eliza Florence: Primer aliento
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110040_primer_aliento"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110050_reinado_efimero"
+icon = "personal_passives_icon_technique_self_count"
+
+# Galia Flair: Garra colectiva
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110060_garra_colectiva"
+icon = "personal_passives_icon_tension_self_event"
+
+# Selene Trance: Danza en trance
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110070_danza_en_trance"
+icon = "personal_passives_icon_agility_self_zone"
+
+# Margie Frostveil: Velo de escarcha
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110080_velo_de_escarcha"
+icon = "personal_passives_icon_pressure_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110090_aliento_gelido"
+icon = "personal_passives_icon_block_self_present"
+
+# Elara Silvane: Bordado de sombras
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110100_bordado_de_sombras"
+icon = "personal_passives_icon_block_self_count"
+
+# Lilia Charmont: Guardia de honor
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110110_guardia_de_honor"
+icon = "personal_passives_icon_catch_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110120_cerrar_el_partido"
+icon = "personal_passives_icon_block_team_leading"
+
+# Kiyora Asakiri: Piernas frescas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110130_piernas_frescas"
+icon = "personal_passives_icon_speed_team_clock"
+
+# Lenora Graves: Sombra de tumba
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110140_sombra_de_tumba"
+icon = "personal_passives_icon_shoot_self_present"
+
+# Liliane Alban: Lecho de rosas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110150_lecho_de_rosas"
+icon = "personal_passives_icon_tension_cost_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110160_guardia_multiple_de_la_reina"
+icon = "personal_passives_icon_forest_self"
+element = "forest"
+
+# Apia Crownwell: Corona ardiente
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110500_corona_ardiente"
+icon = "personal_passives_icon_shoot_self_leading"
+
+# Melissa Hivewood: Colmena en alerta
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11110510_colmena_en_alerta"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210010_sabiduria_de_las_arenas"
+icon = "personal_passives_icon_technique_self_count"
+
+# Orpheus Clayridge: Lira de Orfeo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210030_lira_de_orfeo"
+icon = "personal_passives_icon_control_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210040_petalos_de_la_academia"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210050_teorema_del_bosque"
+icon = "personal_passives_icon_intelligence_self_present"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210060_calculo_exacto"
+icon = "personal_passives_icon_block_self_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210070_eco_de_la_caverna"
+icon = "personal_passives_icon_catch_self"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210080_fuerza_de_heroe_troyano"
+icon = "personal_passives_icon_block_self_trailing"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210090_cocina_de_la_academia"
+icon = "personal_passives_icon_tension_cost_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210100_dialogo_socratico"
+icon = "personal_passives_icon_technique_self_ball"
+
+# Eon McKeane: Pase al pie
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210110_pase_al_pie"
+icon = "personal_passives_icon_control_team"
+
+# Eosram Reeves: Segundo aire
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210120_segundo_aire"
+icon = "personal_passives_icon_stamina_team"
+
+# Nikolaos Menandros: Comedia de enredos
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210130_comedia_de_enredos"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210140_salvada_que_contagia"
+icon = "personal_passives_icon_tension_self_event"
+
+# Gilia Dandrel: Lectura colectiva
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210150_lectura_colectiva"
+icon = "personal_passives_icon_intelligence_team"
+
+# Hugo Severian: Rayo de Hugo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210160_rayo_de_hugo"
+icon = "personal_passives_icon_shoot_self_event"
+
+# Muriela Stone: Piedra filosofal
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210510_piedra_filosofal"
+icon = "personal_passives_icon_technique_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11600010_mascara_de_cripta"
+icon = "personal_passives_icon_shoot_self"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11600020_conejo_de_la_suerte"
+icon = "personal_passives_icon_kick_self_present"
+
+# Torin Sandels: Lecciones al atardecer
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210210_lecciones_al_atardecer"
+icon = "personal_passives_icon_speed_team"
+
+# Orpheus Clayridge: Concierto de campo abierto
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210230_concierto_de_campo_abierto"
+icon = "personal_passives_icon_control_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210240_jardin_cerrado"
+icon = "personal_passives_icon_block_self_leading"
+
+# Miles Euclid: Bosque de ecuaciones
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210250_bosque_de_ecuaciones"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210260_algebra_del_contragolpe"
+icon = "personal_passives_icon_speed_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210270_voz_de_la_gruta"
+icon = "personal_passives_icon_punch_self_trailing"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210280_ira_del_campeon"
+icon = "personal_passives_icon_block_self_zone"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210290_despensa_del_gimnasio"
+icon = "personal_passives_icon_physical_team"
+
+# Dariusius Henletos: Calentando motores
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210300_calentando_motores"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210310_juego_de_salon"
+icon = "personal_passives_icon_control_team"
+
+# Eosram Reeves: Duda razonable
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210320_duda_razonable"
+icon = "personal_passives_icon_technique_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210330_alegria_desbordada"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210340_luz_de_la_atalaya"
+icon = "personal_passives_icon_catch_self_count"
+
+# Gilia Dandrel: Entrenamiento conjunto
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210350_entrenamiento_conjunto"
+icon = "personal_passives_icon_recast_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210360_gran_canonazo"
+icon = "personal_passives_icon_long_shoot_self_zone"
+
+# Muriela Stone: Un duelo, un impulso
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11210710_un_duelo_un_impulso"
+icon = "personal_passives_icon_tension_self_event"
+
+# Victorio Cryptix: Segunda piel
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11600090_segunda_piel"
+icon = "personal_passives_icon_agility_self_present"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700640_regencia_del_tablero"
+icon = "personal_passives_icon_technique_self_count"
+
+# Niro Vannaburg: Pregunta trampa
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500300_pregunta_trampa"
+icon = "personal_passives_icon_shoot_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700320_manos_que_inspiran"
+icon = "personal_passives_icon_tension_self_event"
+
+# Harrey Tagebard: Premio gordo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700790_premio_gordo"
+icon = "personal_passives_icon_tension_self_event"
+
+# Olivier Gourmand: Culto al conocimiento
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11705010_culto_al_conocimiento"
+icon = "personal_passives_icon_dribble_self_present"
+
+# Felicia Felton: Agujero de memoria
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11705050_agujero_de_memoria"
+icon = "personal_passives_icon_intelligence_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11713030_pista_del_enigma"
+icon = "personal_passives_icon_technique_self_count"
+
+# Pietro Olley: Toque de confianza
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11713040_toque_de_confianza"
+icon = "personal_passives_icon_control_team"
+
+# Taxter Coilschmidt: Tres pistas de ventaja
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11713050_tres_pistas_de_ventaja"
+icon = "personal_passives_icon_control_self_count"
+
+# Bridget Steepen: Respuesta acertada
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11713070_respuesta_acertada"
+icon = "personal_passives_icon_tension_self_event"
+
+# Margo Versier: Bote de preguntas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11713080_bote_de_preguntas"
+icon = "personal_passives_icon_block_self_zone"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11713090_guardar_la_renta"
+icon = "personal_passives_icon_block_team_leading"
+
+# Montoodle Wixley: Voz de mando en defensa
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11713100_voz_de_mando_en_defensa"
+icon = "personal_passives_icon_block_team"
+
+# Enna Flashette: Final de infarto
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11713110_final_de_infarto"
+icon = "personal_passives_icon_catch_self_count"
+
+# Harper Evans: Chispa de un nuevo comienzo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020010_chispa_de_un_nuevo_comienzo"
+icon = "personal_passives_icon_shoot_self_event"
+
+# Darian Moonward: Ola de entusiasmo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020020_ola_de_entusiasmo"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020030_presion_asfixiante"
+icon = "personal_passives_icon_dribble_rival"
+
+# Jazmine Carmine: Niebla de mil caras
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020040_niebla_de_mil_caras"
+icon = "personal_passives_icon_dribble_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020050_linea_bien_ordenada"
+icon = "personal_passives_icon_block_team"
+
+# Viorain Maleby: Ahorro final
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020060_ahorro_final"
+icon = "personal_passives_icon_tension_cost_team_clock"
+
+# Clement Mariner: Marea creciente
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020070_marea_creciente"
+icon = "personal_passives_icon_block_self_event"
+
+# Eleanor Estrella: Aire de primavera
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020080_aire_de_primavera"
+icon = "personal_passives_icon_agility_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020090_dragon_desatado"
+icon = "personal_passives_icon_shoot_self_count"
+
+# Maddock Jackson: Rabia contenida
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020100_rabia_contenida"
+icon = "personal_passives_icon_kick_self_event"
+
+# Mama Sigdale: Abrazo sagrado
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020110_abrazo_sagrado"
+icon = "personal_passives_icon_catch_self"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020120_aliento_para_el_equipo"
+icon = "personal_passives_icon_stamina_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020130_triangulo_de_fuego"
+icon = "personal_passives_icon_shoot_self_count"
+
+# Hortensia Raintree: Torre de vigilancia
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020140_torre_de_vigilancia"
+icon = "personal_passives_icon_block_self_present"
+
+# Milan McGrath: Salto de potro
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020150_salto_de_potro"
+icon = "personal_passives_icon_block_self_present"
+
+# Kaeo Springfield: Espejismo de verano
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020160_espejismo_de_verano"
+icon = "personal_passives_icon_dribble_self_ball"
+
+# Addison Norris: Cima inamovible
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020500_cima_inamovible"
+icon = "personal_passives_icon_shoot_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11020510_hielo_bajo_los_pies"
+icon = "personal_passives_icon_speed_team"
+
+# Ruelle Neurivieu: Reverencia ilusoria
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080010_reverencia_ilusoria"
+icon = "personal_passives_icon_control_self_count"
+
+# Solan Brightmoor: Fortaleza real
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080020_fortaleza_real"
+icon = "personal_passives_icon_shoot_self_present"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080030_balon_con_destino"
+icon = "personal_passives_icon_control_team"
+
+# Hudson Headland: Corte de pingüinos
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080040_corte_de_pinguinos"
+icon = "personal_passives_icon_shoot_self"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080050_septimo_cielo"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080060_peso_de_la_corona"
+icon = "personal_passives_icon_block_self_leading"
+
+# Ciel Natcherall: Sudor compartido
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080070_sudor_compartido"
+icon = "personal_passives_icon_tension_self_event"
+
+# Kyo Seestar: Desfile real
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080080_desfile_real"
+icon = "personal_passives_icon_shoot_self_event"
+
+# Vex Frieden: Honor herido
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080090_honor_herido"
+icon = "personal_passives_icon_block_self_present"
+
+# Theon Stillcliffe: Cetro de lava
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080100_cetro_de_lava"
+icon = "personal_passives_icon_fire_self"
+element = "fire"
+
+# Ashlan Panoptos: Escudo real
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080110_escudo_real"
+icon = "personal_passives_icon_catch_self_count"
+
+# Lenox Grinder: Doble filo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080120_doble_filo"
+icon = "personal_passives_icon_shoot_self_event"
+
+# Ophelia Ennercourt: Corona de espinas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080130_corona_de_espinas"
+icon = "personal_passives_icon_shoot_block_rival_count"
+
+# Riggs Fornstrut: Estrategia de pizarra
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080140_estrategia_de_pizarra"
+icon = "personal_passives_icon_intelligence_team"
+
+# Leticia Legatus: Ventaja bajo llave
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080150_ventaja_bajo_llave"
+icon = "personal_passives_icon_block_team_leading"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080160_heredero_del_trono"
+icon = "personal_passives_icon_tension_cost_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080500_sala_del_trono"
+icon = "personal_passives_icon_dribble_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11080510_practica_en_comun"
+icon = "personal_passives_icon_recast_team"
+
+# Bartholomew Blitzer: Placaje de campeonato
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700360_placaje_de_campeonato"
+icon = "personal_passives_icon_block_self_zone"
+
+# Heathcliff Humbold: Pase de heredero
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709010_pase_de_heredero"
+icon = "personal_passives_icon_physical_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709020_eco_del_gol"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709030_linea_de_golpeo"
+icon = "personal_passives_icon_shoot_block_team"
+
+# Lysander Trimore: Barranco sin salida
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709040_barranco_sin_salida"
+icon = "personal_passives_icon_block_self_count"
+
+# Hapleigh Mistakian: Ensayo de fuego
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709050_ensayo_de_fuego"
+icon = "personal_passives_icon_kick_self_event"
+
+# Seph T.
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709060_salto_de_gorila"
+icon = "personal_passives_icon_chain_shoot_self_count"
+
+# Cuthbert Obelidge: Desastre anunciado
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709070_desastre_anunciado"
+icon = "personal_passives_icon_shoot_self_trailing"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709080_montana_en_marcha"
+icon = "personal_passives_icon_physical_self_present"
+
+# Isolde Bourgeon: Pulso tranquilo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709090_pulso_tranquilo"
+icon = "personal_passives_icon_tension_cost_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709100_magnetismo_del_escuadron"
+icon = "personal_passives_icon_dribble_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709110_trote_de_recuperacion"
+icon = "personal_passives_icon_stamina_team"
+
+# Zacharias Klutchett: Libertad de movimiento
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709120_libertad_de_movimiento"
+icon = "personal_passives_icon_agility_team"
+
+# Adele Lettante: Pantalla de seda
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11709130_pantalla_de_seda"
+icon = "personal_passives_icon_block_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700130_reglamento_al_pie_de_la_letra"
+icon = "personal_passives_icon_block_self_present"
+
+# Rhianna Wardholdt: Alboroto de grada
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700140_alboroto_de_grada"
+icon = "personal_passives_icon_tension_self_event"
+
+# Coraline Quisittor: Interrogatorio
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700150_interrogatorio"
+icon = "personal_passives_icon_dribble_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700160_acta_de_la_reunion"
+icon = "personal_passives_icon_technique_self_ball"
+
+# Lawton Dappermann: Ronda de vigilancia
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700170_ronda_de_vigilancia"
+icon = "personal_passives_icon_speed_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140010_plegaria_de_la_bahia"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140020_ley_de_la_marea"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140030_ancla_en_la_proa"
+icon = "personal_passives_icon_long_shoot_self_zone"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140040_rumbo_a_la_costa"
+icon = "personal_passives_icon_shoot_self_event"
+
+# Plume Hathaway: Vuelo rasante
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140050_vuelo_rasante"
+icon = "personal_passives_icon_speed_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140060_flechas_del_faro"
+icon = "personal_passives_icon_catch_self_count"
+
+# Swae Talltree: Bajamar
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140070_bajamar"
+icon = "personal_passives_icon_block_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140080_sol_sobre_el_muelle"
+icon = "personal_passives_icon_fire_self_half"
+element = "fire"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140090_imagen_en_el_agua"
+icon = "personal_passives_icon_dribble_self_count"
+
+# Garrison Hayfield: Cierra filas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140100_cierra_filas"
+icon = "personal_passives_icon_block_team"
+
+# Seon Gulliver: Brisa de alta mar
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140110_brisa_de_alta_mar"
+icon = "personal_passives_icon_agility_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140120_cabeza_fria_para_todos"
+icon = "personal_passives_icon_tension_cost_team"
+
+# Chilton Churner: Casco de acero
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140130_casco_de_acero"
+icon = "personal_passives_icon_block_self_leading"
+
+# Kata Caballo: Recarga coral
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140140_recarga_coral"
+icon = "personal_passives_icon_recast_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140150_perla_de_la_costa"
+icon = "personal_passives_icon_technique_self_ball"
+
+# Quip Netley: Director de orquesta
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140160_director_de_orquesta"
+icon = "personal_passives_icon_technique_team_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140500_cresta_de_la_ola"
+icon = "personal_passives_icon_speed_self_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140510_muro_que_anima"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140520_llama_sobre_el_agua"
+icon = "personal_passives_icon_tension_cost_self_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11140530_tormenta_en_el_muelle"
+icon = "personal_passives_icon_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150010_energia_de_reserva"
+icon = "personal_passives_icon_tension_cost_team_clock"
+
+# Atol Lasalle: Pelota bendecida
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150020_pelota_bendecida"
+icon = "personal_passives_icon_technique_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150030_trueno_en_el_olimpo"
+icon = "personal_passives_icon_wind_self_count"
+element = "wind"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150040_carrera_del_olimpo"
+icon = "personal_passives_icon_dribble_self_event"
+
+# Revea Ristair: Canto de Atenea
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150050_canto_de_atenea"
+icon = "personal_passives_icon_control_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150060_hoja_de_odin"
+icon = "personal_passives_icon_mountain_self_level"
+element = "mountain"
+
+# Garrick Loventhal: Aurora de gracia
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150070_aurora_de_gracia"
+icon = "personal_passives_icon_block_self_clock"
+
+# Iskandar Tarusian: Ritmo de taller
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150080_ritmo_de_taller"
+icon = "personal_passives_icon_recast_team"
+
+# Sampa Eonius: Flecha divina
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150090_flecha_divina"
+icon = "personal_passives_icon_block_self_present"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150100_defender_el_marcador"
+icon = "personal_passives_icon_block_team_leading"
+
+# Burke Forzane: Muro de Zeus
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150110_muro_de_zeus"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150120_rayo_de_ganimedes"
+icon = "personal_passives_icon_shoot_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150130_ojo_tactico"
+icon = "personal_passives_icon_intelligence_team"
+
+# Kenard Montemar: Cosecha divina
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150140_cosecha_divina"
+icon = "personal_passives_icon_physical_self_count"
+
+# Cate Heckel: Lluvia de estrellas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150150_lluvia_de_estrellas"
+icon = "personal_passives_icon_tension_self_event"
+
+# Ciro Zealon: Corcel celeste
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150160_corcel_celeste"
+icon = "personal_passives_icon_speed_team"
+
+# Malik Keos: Red de Procyon
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150500_red_de_procyon"
+icon = "personal_passives_icon_catch_self"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11150510_aguantar_el_cansancio"
+icon = "personal_passives_icon_physical_team_clock"
+
+# Raymond Galak: Gravedad cero
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700040_gravedad_cero"
+icon = "personal_passives_icon_agility_rival_count"
+
+# Luceus Cloudstrider: Sangre caliente al salir
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700050_sangre_caliente_al_salir"
+icon = "personal_passives_icon_tension_self_event"
+
+# Cosmo Starward: Todos al remate
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700060_todos_al_remate"
+icon = "personal_passives_icon_shoot_team_clock"
+
+# Starry Durant: Polvo de estrellas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700430_polvo_de_estrellas"
+icon = "personal_passives_icon_forest_self_present"
+element = "forest"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11720010_pared_del_tiempo"
+icon = "personal_passives_icon_catch_self_trailing"
+
+# Jackson Bover: Experimento fallido
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11720020_experimento_fallido"
+icon = "personal_passives_icon_technique_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11720040_balon_con_cabeza"
+icon = "personal_passives_icon_control_team"
+
+# Ashe Connelly: Órbita estable
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11720050_orbita_estable"
+icon = "personal_passives_icon_speed_self_count"
+
+# Nova Holloway: Martillazo de gravedad
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11720060_martillazo_de_gravedad"
+icon = "personal_passives_icon_catch_self"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11720070_luz_del_triangulo"
+icon = "personal_passives_icon_forest_self"
+element = "forest"
+
+# Altair Aldrin: Despegue
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11749010_despegue"
+icon = "personal_passives_icon_shoot_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070010_aullido_de_la_cresta"
+icon = "personal_passives_icon_dribble_self_count"
+
+# Kaz Bloomfield: Sombra pegada
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070020_sombra_pegada"
+icon = "personal_passives_icon_pressure_rival_count"
+
+# Govin Castlehoven: Muralla colectiva
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070030_muralla_colectiva"
+icon = "personal_passives_icon_shoot_block_team_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070040_conejo_en_el_cristal"
+icon = "personal_passives_icon_dribble_self_present"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070050_numero_de_magia"
+icon = "personal_passives_icon_speed_self_event"
+
+# Elijah Singleton: Pulmones compartidos
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070060_pulmones_compartidos"
+icon = "personal_passives_icon_stamina_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070070_todos_atras"
+icon = "personal_passives_icon_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070080_coloso_de_la_cresta"
+icon = "personal_passives_icon_block_self_count"
+
+# Rohan Snatchett: Ganar y volver a ganar
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070090_ganar_y_volver_a_ganar"
+icon = "personal_passives_icon_tension_self_event"
+
+# Marinus Courier: Rayo de mensajero
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070100_rayo_de_mensajero"
+icon = "personal_passives_icon_shoot_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070110_giro_del_vendaval"
+icon = "personal_passives_icon_shoot_self_ball"
+
+# Zelane Whitlow: Mente despejada
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070120_mente_despejada"
+icon = "personal_passives_icon_tension_cost_team"
+
+# Rael Abbeybogy: Peso muerto
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070130_peso_muerto"
+icon = "personal_passives_icon_physical_self_count"
+
+# Dawsey Geistfeld: Mirada de espanto
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070140_mirada_de_espanto"
+icon = "personal_passives_icon_shoot_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070150_manada_multiple"
+icon = "personal_passives_icon_forest_self"
+element = "forest"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070160_tropiezo_en_la_sombra"
+icon = "personal_passives_icon_block_self_zone"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070500_clones_sobre_la_cresta"
+icon = "personal_passives_icon_forest_self"
+element = "forest"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11070510_puente_hacia_la_nada"
+icon = "personal_passives_icon_block_self_count"
+
+# Cane Fangley: Aullido callejero
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700620_aullido_callejero"
+icon = "personal_passives_icon_agility_self_count"
+
+# Fenric Wulfgang: Colmillo y fuego
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700630_colmillo_y_fuego"
+icon = "personal_passives_icon_shoot_self_trailing"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11740010_mano_del_presidente"
+icon = "personal_passives_icon_pressure_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11740020_orden_del_dia"
+icon = "personal_passives_icon_tension_cost_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11260010_estrella_de_la_ciudad"
+icon = "personal_passives_icon_shoot_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11270010_pasos_de_dios_del_viento"
+icon = "personal_passives_icon_speed_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500010_fuente_de_la_niebla"
+icon = "personal_passives_icon_pressure_rival_count"
+
+# Rina Eastvale: Pulso ganado
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500050_pulso_ganado"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500110_cabeza_de_escaner"
+icon = "personal_passives_icon_block_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500120_orden_con_el_balon"
+icon = "personal_passives_icon_control_team"
+
+# Howell Bloomhurst: Ensayo general
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500130_ensayo_general"
+icon = "personal_passives_icon_recast_team"
+
+# Ibuto Shinohara: Plan de juego
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500140_plan_de_juego"
+icon = "personal_passives_icon_intelligence_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500150_artes_del_viento"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500170_vision_de_campo"
+icon = "personal_passives_icon_technique_team_ball"
+
+# Donnie Summerfield: Salto inicial
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500180_salto_inicial"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500500_defender_la_ventaja"
+icon = "personal_passives_icon_shoot_block_team_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500510_rosas_en_la_sombra"
+icon = "personal_passives_icon_dribble_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500520_estratega_del_campo"
+icon = "personal_passives_icon_intelligence_self_count"
+
+# Axel Blaze: Tormenta de fuego
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500530_tormenta_de_fuego"
+icon = "personal_passives_icon_shoot_self_present"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500540_llama_que_se_hereda"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500680_eco_del_guardian"
+icon = "personal_passives_icon_physical_self_present"
+
+# Olive Mapleton: Pompas de colores
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500690_pompas_de_colores"
+icon = "personal_passives_icon_dribble_self_count"
+
+# Serina Shelby: Velo de sirena
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500870_velo_de_sirena"
+icon = "personal_passives_icon_catch_self"
+
+# Ah Dackchin: Doble cara
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500920_doble_cara"
+icon = "personal_passives_icon_catch_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500930_puno_de_cristal"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500990_bate_de_pura_valentia"
+icon = "personal_passives_icon_shoot_self_trailing"
+
+# Misty: Dulce de carnaval
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11600100_dulce_de_carnaval"
+icon = "personal_passives_icon_kick_self_count"
+
+# Victorio Cryptix: Baile entre conejos
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11600110_baile_entre_conejos"
+icon = "personal_passives_icon_agility_self_ball"
+
+# Lumina: Cortina de luz
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11600120_cortina_de_luz"
+icon = "personal_passives_icon_catch_self_leading"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700100_empuje_del_dohyo"
+icon = "personal_passives_icon_catch_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700110_peso_pluma_enganoso"
+icon = "personal_passives_icon_block_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700120_sal_en_el_ring"
+icon = "personal_passives_icon_shoot_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700380_mina_bajo_la_arena"
+icon = "personal_passives_icon_shoot_self_present"
+
+# Jakell Wardly: Combate de sombras
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11712010_combate_de_sombras"
+icon = "personal_passives_icon_dribble_self_count"
+
+# Bechet Ardevout: Golpe de abanico
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11712020_golpe_de_abanico"
+icon = "personal_passives_icon_kick_self_event"
+
+# Argion Boneback: Cuerno de unicornio
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11712030_cuerno_de_unicornio"
+icon = "personal_passives_icon_forest_self"
+element = "forest"
+
+# Sahl Saltzman: Cintura de equipo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11712040_cintura_de_equipo"
+icon = "personal_passives_icon_agility_team"
+
+# Fermin Dealitz: Ventisca de verano
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11712050_ventisca_de_verano"
+icon = "personal_passives_icon_shoot_self_event"
+
+# Ricemond Chowen: Banquete de arroz
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11712060_banquete_de_arroz"
+icon = "personal_passives_icon_physical_self_count"
+
+# Vergil Turnaraud: Pase medido
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11712070_pase_medido"
+icon = "personal_passives_icon_control_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11712080_precision_de_reloj"
+icon = "personal_passives_icon_technique_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11712090_un_respiro_para_todos"
+icon = "personal_passives_icon_tension_self_event"
+
+# Darrell Dignard: Torre de carne
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11712100_torre_de_carne"
+icon = "personal_passives_icon_block_self_present"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500420_cresta_del_tubo"
+icon = "personal_passives_icon_chain_shoot_self_count"
+
+# Ryden Waverley: Rumbo al horizonte
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700330_rumbo_al_horizonte"
+icon = "personal_passives_icon_dribble_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706010_mariposa_de_la_playa"
+icon = "personal_passives_icon_speed_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706020_pizarra_en_la_cabeza"
+icon = "personal_passives_icon_intelligence_team"
+
+# Davis Tarvish: Resorte de arena
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706030_resorte_de_arena"
+icon = "personal_passives_icon_shoot_self_event"
+
+# Bastian Brineford: Marea gravitacional
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706040_marea_gravitacional"
+icon = "personal_passives_icon_block_self_count"
+
+# Kenneth Frostner: Descanso activo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706050_descanso_activo"
+icon = "personal_passives_icon_stamina_team"
+
+# Ripley Swaydon: Ángel de nieve y espuma
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706060_angel_de_nieve_y_espuma"
+icon = "personal_passives_icon_block_self_ball"
+
+# Kyle Flaggard: Rayo de verano
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706070_rayo_de_verano"
+icon = "personal_passives_icon_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706080_delfin_veloz"
+icon = "personal_passives_icon_speed_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706090_cerrar_el_ultimo_tramo"
+icon = "personal_passives_icon_shoot_block_team_clock"
+
+# Niles Gawkerson: Tabla de roble
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706100_tabla_de_roble"
+icon = "personal_passives_icon_block_self_clock"
+
+# Cecilia Alabaster: Nervios de acero
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706110_nervios_de_acero"
+icon = "personal_passives_icon_tension_cost_team"
+
+# Pinn Persica: Pinza de langosta
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11706120_pinza_de_langosta"
+icon = "personal_passives_icon_block_self_trailing"
+
+# Jayden Durance: Pulido en grupo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500330_pulido_en_grupo"
+icon = "personal_passives_icon_recast_team"
+
+# Finley Brooks: Remolino de verano
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700520_remolino_de_verano"
+icon = "personal_passives_icon_agility_self_event"
+
+# Alonzo Readdie: Brazada de seda
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700750_brazada_de_seda"
+icon = "personal_passives_icon_control_self_count"
+
+# Galina Chilvers: Tacto de seda
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728010_tacto_de_seda"
+icon = "personal_passives_icon_control_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728020_rayo_de_sol_bajo_el_agua"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728030_el_grito_del_portero"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728040_vision_de_conjunto"
+icon = "personal_passives_icon_intelligence_team"
+
+# Wale Gambon: Zambullida sin red
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728050_zambullida_sin_red"
+icon = "personal_passives_icon_block_self_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728060_corriente_electrica"
+icon = "personal_passives_icon_agility_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728070_dique_de_contencion"
+icon = "personal_passives_icon_block_self_zone"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728080_chapuzon_de_fuego"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728090_estela_de_la_lancha"
+icon = "personal_passives_icon_block_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728100_bombazo_desde_el_trampolin"
+icon = "personal_passives_icon_long_shoot_self_zone"
+
+# Cheery Allende: Pozo sin fondo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11728110_pozo_sin_fondo"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500380_smash_relampago"
+icon = "personal_passives_icon_shoot_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700450_reves_real"
+icon = "personal_passives_icon_shoot_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700770_tras_la_valla"
+icon = "personal_passives_icon_shoot_block_team_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11722010_saque_con_efecto"
+icon = "personal_passives_icon_shoot_self_event"
+
+# Curven Rallye: Red de cuerda
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11722020_red_de_cuerda"
+icon = "personal_passives_icon_tension_self_event"
+
+# Ryker Strive: Muro de ping-pong
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11722030_muro_de_ping_pong"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11722040_replica_instantanea"
+icon = "personal_passives_icon_speed_self_ball"
+
+# Gavin Mallory: Sprint final colectivo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11722050_sprint_final_colectivo"
+icon = "personal_passives_icon_speed_team_clock"
+
+# Mira Fiendish: Rally infinito
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11722060_rally_infinito"
+icon = "personal_passives_icon_control_self_present"
+
+# Carly Veneer: Puertas cerradas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11722070_puertas_cerradas"
+icon = "personal_passives_icon_block_team_leading"
+
+# Ponny Grace: Golpe de brisa
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11722080_golpe_de_brisa"
+icon = "personal_passives_icon_speed_self_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11722090_sin_espacio_para_regatear"
+icon = "personal_passives_icon_dribble_rival"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11722100_remate_en_la_red"
+icon = "personal_passives_icon_dribble_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500360_pausa_que_repone"
+icon = "personal_passives_icon_stamina_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700420_infusion_de_sombras"
+icon = "personal_passives_icon_dribble_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11716010_dulzura_enganosa"
+icon = "personal_passives_icon_technique_rival_count"
+
+# Caddy Chamomile: Pausa y jugada
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11716020_pausa_y_jugada"
+icon = "personal_passives_icon_tension_cost_self_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11716030_guardian_animoso"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11716040_cosecha_del_te_frio"
+icon = "personal_passives_icon_intelligence_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11716050_brisa_del_jardin"
+icon = "personal_passives_icon_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11716060_pastel_del_corazon"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11716070_corazon_del_juego"
+icon = "personal_passives_icon_technique_team_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11716080_doble_terron"
+icon = "personal_passives_icon_shoot_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11716090_te_con_trampa"
+icon = "personal_passives_icon_dribble_self_event"
+
+# Alara Belmont: Saque de campeona
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700480_saque_de_campeona"
+icon = "personal_passives_icon_long_shoot_self_zone"
+
+# Lyla Loveland: Campo de fuerza
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700680_campo_de_fuerza"
+icon = "personal_passives_icon_block_self_leading"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724010_reves_acrobatico"
+icon = "personal_passives_icon_block_self_count"
+
+# Dasher Ballard: Salto de doble falta
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724020_salto_de_doble_falta"
+icon = "personal_passives_icon_chain_shoot_self_count"
+
+# Javor Bonnaire: Torbellino de cancha
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724030_torbellino_de_cancha"
+icon = "personal_passives_icon_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724040_mano_de_la_grada"
+icon = "personal_passives_icon_catch_self"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724050_orden_en_la_zaga"
+icon = "personal_passives_icon_block_team"
+
+# Dyne Amic: Buen pase, buen juego
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724060_buen_pase_buen_juego"
+icon = "personal_passives_icon_control_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724070_bumeran_de_tigre"
+icon = "personal_passives_icon_mountain_self"
+element = "mountain"
+
+# Neve Paisley: Pelota de fuego
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724080_pelota_de_fuego"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724090_vacio_de_la_pista"
+icon = "personal_passives_icon_block_self_zone"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724100_primera_linea_de_fuego"
+icon = "personal_passives_icon_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724110_recuperar_el_resuello"
+icon = "personal_passives_icon_stamina_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724120_bambu_en_la_tormenta"
+icon = "personal_passives_icon_physical_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11724130_canon_de_la_linea_de_fondo"
+icon = "personal_passives_icon_long_shoot_self_present"
+
+# Emery Hillmere: Campo abierto
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500460_campo_abierto"
+icon = "personal_passives_icon_speed_team"
+
+# Cassiel Longstaff: Relevo de niebla
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700490_relevo_de_niebla"
+icon = "personal_passives_icon_block_self_ball"
+
+# Farran Corsa: Vallas a toda velocidad
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700780_vallas_a_toda_velocidad"
+icon = "personal_passives_icon_speed_team"
+
+# Geri Spears: Salida falsa
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725010_salida_falsa"
+icon = "personal_passives_icon_shoot_self_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725020_salto_con_pertiga"
+icon = "personal_passives_icon_chain_shoot_self_count"
+
+# Leero Pard: Guepardo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725030_guepardo"
+icon = "personal_passives_icon_speed_self_event"
+
+# Russ Radcliff: Mira antes de dar
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725040_mira_antes_de_dar"
+icon = "personal_passives_icon_intelligence_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725050_valla_de_bambu"
+icon = "personal_passives_icon_block_self_leading"
+
+# Jett Allegri: Disparo de salida
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725060_disparo_de_salida"
+icon = "personal_passives_icon_shoot_self_present"
+
+# Ralya Chersey: Pista embrujada
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725070_pista_embrujada"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725080_atras_sin_miedo"
+icon = "personal_passives_icon_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725090_carrera_de_mascaras"
+icon = "personal_passives_icon_dribble_self_count"
+
+# Calina Breezer: Foso de arena
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725100_foso_de_arena"
+icon = "personal_passives_icon_agility_rival_count"
+
+# Lace Tangler: Movimiento coral
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11725110_movimiento_coral"
+icon = "personal_passives_icon_agility_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090010_raiz_y_copa"
+icon = "personal_passives_icon_dribble_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090020_anochecer_en_el_bosque"
+icon = "personal_passives_icon_dribble_self_clock"
+
+# Lachlan Hartwood: Sin ataduras
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090030_sin_ataduras"
+icon = "personal_passives_icon_speed_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090050_cuerda_del_equipo"
+icon = "personal_passives_icon_technique_team_ball"
+
+# Lila Glosswood: Resina ardiente
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090040_resina_ardiente"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090060_tren_de_lena"
+icon = "personal_passives_icon_shoot_self_trailing"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090070_aguantar_con_calma"
+icon = "personal_passives_icon_tension_cost_team_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090080_rio_abajo"
+icon = "personal_passives_icon_block_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090090_danza_de_la_corriente"
+icon = "personal_passives_icon_speed_team"
+
+# Lydia Trailwood: Hamaca entre pinos
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090100_hamaca_entre_pinos"
+icon = "personal_passives_icon_agility_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090110_llano_de_la_sabiduria"
+icon = "personal_passives_icon_intelligence_self_ball"
+
+# Rowland Brightwood: Bosque de clones
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090120_bosque_de_clones"
+icon = "personal_passives_icon_forest_self"
+element = "forest"
+
+# Vearn Dashwood: Camino de piedra
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090130_camino_de_piedra"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090140_equipo_agil"
+icon = "personal_passives_icon_agility_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090150_pase_con_ojos"
+icon = "personal_passives_icon_control_team"
+
+# Calvin Sixwood: Seis maderos
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090160_seis_maderos"
+icon = "personal_passives_icon_catch_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090500_amanecer_del_bosque"
+icon = "personal_passives_icon_shoot_self_zone"
+
+# Mabel Greenwood: Corteza dura
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11090510_corteza_dura"
+icon = "personal_passives_icon_block_self_zone"
+
+# Jeremy Yung: Sin bandera
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500230_sin_bandera"
+icon = "personal_passives_icon_dribble_self_count"
+
+# Huxley Tagg: Lobo solitario
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500240_lobo_solitario"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500320_viajero_del_viento"
+icon = "personal_passives_icon_block_self_event"
+
+# Sami Wampovich: Rematar corriendo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500370_rematar_corriendo"
+icon = "personal_passives_icon_speed_team_clock"
+
+# Fergus Lougdon: Baile de brasas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500900_baile_de_brasas"
+icon = "personal_passives_icon_tension_cost_self_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11748020_inspiracion_repentina"
+icon = "personal_passives_icon_shoot_self_ball"
+
+# Lacie Pawford: Sombra errante
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11748040_sombra_errante"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11748060_terco_como_una_mula"
+icon = "personal_passives_icon_physical_self_leading"
+
+# Ignacio Gerhardt: Carga de brasas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11748080_carga_de_brasas"
+icon = "personal_passives_icon_block_self_zone"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11748100_dragon_de_fuego"
+icon = "personal_passives_icon_shoot_self_count"
+
+# Crag Bolderin: Aire de libertad
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11748110_aire_de_libertad"
+icon = "personal_passives_icon_physical_team"
+
+# Bowie Buffoon: Último aliento
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11748120_ultimo_aliento"
+icon = "personal_passives_icon_tension_cost_team_clock"
+
+# Margot Napier: Equipo de goma
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11748130_equipo_de_goma"
+icon = "personal_passives_icon_agility_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500340_red_de_la_cancha"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700440_remate_en_el_aire"
+icon = "personal_passives_icon_shoot_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11721010_puno_de_la_libera"
+icon = "personal_passives_icon_catch_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11721020_saque_con_rabia"
+icon = "personal_passives_icon_pressure_self_event"
+
+# Naya Prism: Colocadora de estrellas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11721030_colocadora_de_estrellas"
+icon = "personal_passives_icon_chain_shoot_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11721040_rotacion_de_brisa"
+icon = "personal_passives_icon_speed_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11721050_linea_de_pase_limpia"
+icon = "personal_passives_icon_control_team"
+
+# Rylan Spiker: Remate de tigre
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11721060_remate_de_tigre"
+icon = "personal_passives_icon_mountain_self_event"
+element = "mountain"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11721070_empujon_final"
+icon = "personal_passives_icon_shoot_team_clock"
+
+# Landon Crosser: Bloqueo a dos manos
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11721080_bloqueo_a_dos_manos"
+icon = "personal_passives_icon_catch_self"
+
+# Duarte Wilde: Brincos de equipo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11721090_brincos_de_equipo"
+icon = "personal_passives_icon_agility_team"
+
+# Finnard Grit: Bloqueo de hierro
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11721100_bloqueo_de_hierro"
+icon = "personal_passives_icon_block_self_count"
+
+# Rafton Calmers: Tiro de bola mojada
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700530_tiro_de_bola_mojada"
+icon = "personal_passives_icon_shoot_self_ball"
+
+# Ballmer Netting: Red de pelo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700760_red_de_pelo"
+icon = "personal_passives_icon_shoot_block_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729010_apretar_los_dientes"
+icon = "personal_passives_icon_pressure_team_trailing"
+
+# Davey Lockers: Lluvia de meteoros
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729020_lluvia_de_meteoros"
+icon = "personal_passives_icon_fire_self_count"
+element = "fire"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729030_gestion_del_esfuerzo"
+icon = "personal_passives_icon_tension_cost_team_clock"
+
+# Divar Deepwell: Hundimiento
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729040_hundimiento"
+icon = "personal_passives_icon_physical_self_present"
+
+# Cleon Balogh: Juego sin cadenas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729050_juego_sin_cadenas"
+icon = "personal_passives_icon_agility_team"
+
+# Credence Throwe: Espejismo de agua
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729060_espejismo_de_agua"
+icon = "personal_passives_icon_block_self_count"
+
+# Ivo Woodward: Boya anclada
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729070_boya_anclada"
+icon = "personal_passives_icon_block_self_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729080_cazador_de_nenufares"
+icon = "personal_passives_icon_kick_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729090_ballena_de_las_sombras"
+icon = "personal_passives_icon_catch_self"
+
+# Lior Morrissey: Torpedo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729100_torpedo"
+icon = "personal_passives_icon_shoot_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729110_fuerza_en_la_adversidad"
+icon = "personal_passives_icon_pressure_team_trailing"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11729120_telarana_del_fondo"
+icon = "personal_passives_icon_tension_self_event"
+
+# Edvan Trodden: Pasillo secreto
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050010_pasillo_secreto"
+icon = "personal_passives_icon_block_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050020_telarana_en_la_biblioteca"
+icon = "personal_passives_icon_agility_rival_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050030_arreon_colectivo"
+icon = "personal_passives_icon_shoot_team_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050040_contra_las_cuerdas_todos"
+icon = "personal_passives_icon_kick_team_trailing"
+
+# Laymark Starwyn: Mirada de mayordomo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050050_mirada_de_mayordomo"
+icon = "personal_passives_icon_shoot_self_ball"
+
+# Moby Tidbitt: Banquete interminable
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050060_banquete_interminable"
+icon = "personal_passives_icon_physical_self_count"
+
+# Edgard Loathe: Dosificar fuerzas
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050070_dosificar_fuerzas"
+icon = "personal_passives_icon_tension_cost_team_clock"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050080_carrera_por_el_pasillo"
+icon = "personal_passives_icon_shoot_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050090_cosecha_de_la_finca"
+icon = "personal_passives_icon_physical_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050100_baile_de_salon"
+icon = "personal_passives_icon_dribble_self_ball"
+
+# Drever Olflaire: Ojo de aguja
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050110_ojo_de_aguja"
+icon = "personal_passives_icon_dribble_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050120_campana_de_jardin"
+icon = "personal_passives_icon_agility_self_count"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050130_orgullo_de_la_casa"
+icon = "personal_passives_icon_shoot_self_trailing"
+
+# Breppo Terrey: Orgullo de equipo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050140_orgullo_de_equipo"
+icon = "personal_passives_icon_kick_team_trailing"
+
+# Frie Sorbet: Postre helado
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050150_postre_helado"
+icon = "personal_passives_icon_tension_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050160_lenador_de_la_finca"
+icon = "personal_passives_icon_tension_self_event"
+
+# Waddell Homely: Vuelo libre
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050500_vuelo_libre"
+icon = "personal_passives_icon_speed_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11050510_lucecita_del_desvan"
+icon = "personal_passives_icon_technique_self_ball"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11500480_soplo_de_cojin"
+icon = "personal_passives_icon_technique_self_count"
+
+# Flaurine Woodwind: Flauta travesera
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700550_flauta_travesera"
+icon = "personal_passives_icon_control_team_half"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11700740_concierto_de_camara"
+icon = "personal_passives_icon_control_self_count"
+
+# Louise Basson: Pulso de hierro
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731010_pulso_de_hierro"
+icon = "personal_passives_icon_physical_team_clock"
+
+# Claudette Clackenoff: Platillazo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731020_platillazo"
+icon = "personal_passives_icon_kick_self_event"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731030_oboe_del_viento"
+icon = "personal_passives_icon_block_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731040_trompa_del_dragon"
+icon = "personal_passives_icon_forest_self"
+element = "forest"
+
+# Penelope Mozartin: Clarinete bajo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731050_clarinete_bajo"
+icon = "personal_passives_icon_block_self_zone"
+
+# Brianna Summing: Gran muralla musical
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731060_gran_muralla_musical"
+icon = "personal_passives_icon_block_self_count"
+
+# Henrietta Kettingham: Nunca rendirse
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731070_nunca_rendirse"
+icon = "personal_passives_icon_kick_team_trailing"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731080_aliento_en_la_nuca"
+icon = "personal_passives_icon_dribble_rival"
+
+# Dizzy Fumbleton: Marcaje de equipo
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731090_marcaje_de_equipo"
+icon = "personal_passives_icon_dribble_rival"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731100_trompeta_de_laton"
+icon = "personal_passives_icon_speed_team"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731110_corazon_de_dragon"
+icon = "personal_passives_icon_shoot_self_present"
+
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731120_gorjeo_de_flautin"
+icon = "personal_passives_icon_block_self_ball"
+
+# Francesca Fintootle: Taladro de metal
+[[PassivesSynergies.PassiveIcon]]
+passive = "c11731130_taladro_de_metal"
+icon = "personal_passives_icon_tension_cost_team"

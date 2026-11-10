@@ -1,18 +1,18 @@
-# Move-row icons (Nacho 2026-10-06; docs/framework/technique.md §4c, sprites research/scripts/move_icons_build.py):
+# Move-row icons ( docs/internal/types/technique.md §4c, sprites research/mods/_aside/InazumaFantasy/_tools/move_icons_build.py):
 # every badge of a special move's icon set (technique engine CMND_VRFW_MOVE_ICONS: long shot, counter shot, shot
-# block), side by side, in every move list, through ONE shared row function (EVT_MoveIconsRow): the «double icon» of a
+# block), side by side, in every move list, through ONE shared row function (HissatsuReforged.move_icons_row): the «double icon» of a
 # move with two properties (e.g. long shot + counter shot). Mod Hissatsu Reforged since 2026-10-14 (was Inazuma Fantasy's
 # part move_icons): its sprites are in research/mods/HissatsuReforged/content/images/menu/. Other mods add badges /
-# card changes through EVT_MI.SPRITE / SECOND / TAG and EVT_MI_PP.CardHooks (Inazuma Fantasy's graft move_icons_clear:
+# card changes through HissatsuReforged.move_icons.SPRITE / SECOND / TAG and HissatsuReforged.move_icons_plate.card_hooks (Inazuma Fantasy's graft move_icons_clear:
 # the keeper clear «P», the card's category section removed).
-#   * soccer_common: EVT_MI library + the row function; SetupCommandActionSkillInfoCategoryIcon (the retail badge pass of
+#   * soccer_common: HissatsuReforged.move_icons library + the row function; SetupCommandActionSkillInfoCategoryIcon (the retail badge pass of
 #     the match command rows, player page / bank skill rows, ability lists, ability boards, IF's own lists) wrapped:
 #     retail first, then the set (1st badge in the slot, 2nd on the row's spare armed-logo mesh).
 #   * personal_plate_inc: SetupPersonalPlateCharaSkillItem / SetupCharaSkillItem set the armed mesh's visibility after
 #     the badge pass: the 2nd badge is shown again after them.
 #   * personal_plate_inc SetupPersonalPlateSkillDetailInfo (the single-move detail card, every screen): the tag above
-#     the banner (a long + counter shot: both words, evt_gtxt_long_counter01; a registered badge's tag); one tag slot,
-#     the retail priority (long shot, then counter) otherwise; then the EVT_MI_PP.CardHooks of other grafts, also on
+#     the banner (a long + counter shot: both words, hr_gtxt_long_counter01; a registered badge's tag); one tag slot,
+#     the retail priority (long shot, then counter) otherwise; then the HissatsuReforged.move_icons_plate.card_hooks of other grafts, also on
 #     the empty-slot card (SetupPersonalPlateSkillEnptyDetailInfo).
 #   * chara_edit_parts_menu_status(_ability_learning): own inline badge logic: the set drawn after UpdateSkillInfo.
 # Wrappers only (retail first, its results returned); no engine call at load.

@@ -1,0 +1,32 @@
+schema = "VRFW.migration/1"
+id = "CharacterReforged.team_keshin_summons_in_base"
+description = "Team keshin summons are part of Character Reforged: the module's list entries go and its event names keep their numbers"
+phase = "data"
+after = ["VRFW.no_compat_names", "CharacterReforged.totem_reel_always_on"]
+
+# the summon and move events were declared by Missing Content
+[[step]]
+kind = "rename_id_keep_number"
+space = "event"
+from = "MissingContent.griffin_trio"
+to = "CharacterReforged.griffin_trio"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "event"
+from = "MissingContent.arthur_duo"
+to = "CharacterReforged.arthur_duo"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "event"
+from = "MissingContent.flamberge_trio"
+to = "CharacterReforged.flamberge_trio"
+if_target = "keep_target"
+
+# the module had no options and no save data
+[[step]]
+kind = "remove_from_mod_lists"
+id = "TeamKeshinSummons"

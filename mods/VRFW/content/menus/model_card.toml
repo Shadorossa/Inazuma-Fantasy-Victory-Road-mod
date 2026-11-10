@@ -1,15 +1,3 @@
-# Model cards (VRFW UI piece, Lua lua\_all\91_model_card.lua `VRFW_ModelCard`; docs/framework/model-card.md):
-# the objects its layers use. A screen that shows a model card adds these layers to its own rows (or with [[patch]]
-# add_layer), flags [0, 1, 1, 0, 1, 0] for the backdrop and [0, 1, 0, 0, 1, 0] for the others.
-#   vrfw_model_card            the 3D model: the retail shop list base (its CMenuCharaModelComponent and the shop's
-#                              model camera) with one model slot, no self rotation, its list / sound / collision /
-#                              analog parts removed
-#   vrfw_model_card_backdrop   the game's menu background drawn in the BACKGROUND pass (m_drawType 1, as the transfer
-#                              office's shop01_00_background): shown in place of the screen's mainmenu90_00_background
-#                              while a model card is up, so the model (3D pass) is drawn over it and every normal 2D
-#                              layer over the model
-#   vrfw_model_card_ground     a plain quad in the background pass (the card's own colour behind the model), over the
-#                              backdrop
 schema = "VRFW.menu/2"
 
 [[object]]

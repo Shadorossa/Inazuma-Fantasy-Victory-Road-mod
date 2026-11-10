@@ -1,0 +1,4 @@
+schema = "VRFW.item/2"
+[[VRFW.MatchDropRemove]]
+SubCategories = [177]
+AllSources = true

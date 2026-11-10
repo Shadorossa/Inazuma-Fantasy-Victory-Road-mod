@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Caída tramposa (Trick Fall): the download's move whd92002, a clone of whd00710 with its numbers; its event ev62_92002 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "trick_fall"

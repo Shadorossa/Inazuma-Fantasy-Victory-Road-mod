@@ -1,5 +1,5 @@
 schema = "VRFW.catalog/1"
-# Framework-owned hosts: where mods' menu entries and modes appear. Other hosts are declared by the mod that owns the screen.
+# Framework-owned hosts: where mods' menu entries and modes appear.
 
 [menu]
 # Hosts for [[entry]] / [[hide]]; scene_archive_tab adds a tab to the scene archive.

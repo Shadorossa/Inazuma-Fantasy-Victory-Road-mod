@@ -1,15 +1,10 @@
--- Character Reforged › the rarity a new club card joins at (content\game\new_card_rarity.toml).
--- A rule's normal_card_rarity (content\duplicate_rules\*.toml of a mod; Classic Cards: 4) replaces any lower normal
--- rarity written to a club player at the game's one rarity writer, whatever path adds the card. No rule = the detour
--- is not installed. A reserved or locked slot keeps the game's rarities, as the load pass does. The load pass of
--- duplicate_players.lua still corrects the cards a save already holds.
 
 local Rules = require "lib/duplicate_players/rules"
 
 local HOOK = "CharacterReforged.SetRarity"
 local HANDLE_KIND_UNIT = 4096   -- a handle's kind is its bits 12-15
 local HANDLE_KINDS = 16
-local KIND_CLUB = 0             -- saved club players; avatars, story bank and match copies have other kinds
+local KIND_CLUB = 0  -- saved club players only
 
 local ok_rules, policy = pcall(Rules.load)
 local rule_rarity = ok_rules and policy.normal_card_rarity or nil

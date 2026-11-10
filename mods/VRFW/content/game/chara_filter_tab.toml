@@ -1,0 +1,79 @@
+schema = "VRFW.game/2"
+
+# The player filter window's season slot as a tab a mod declares (docs/framework/chara-filter-tab.md).
+# Written only by scripts/chara_filter_tab.lua, when a mod declares a [[VRFW.CharaFilterTab]].
+
+# ------------------------------------------------------------------------------------------------ the ticked rows
+
+# Stub: a row value <= 31 sets its bit of the u32 at +0xA84; the first one of a compile clears it; +0xA80 counts them.
+[[VRFW.Patch]]
+name = "CharaFilterTab.Store"
+game = "Card.BankFilterSeasonStore"
+kind = "stub"
+apply = "script"
+code = "48 8B 14 24 48 C1 EA 20 83 FA 1F 77 20 83 B9 80 0A 00 00 00 75 0A C7 81 84 0A 00 00 00 00 00 00 0F AB 91 84 0A 00 00 FF 81 80 0A 00 00"
+
+# ------------------------------------------------------------------------------------------------ the test
+
+# Stub: category on and rows ticked -> CharaFilterTab.Pass(card, row mask); 0 = the card is not listed.
+# The script appends the callback's address (8 bytes) read by the `call [rip+0x11]`.
+[[VRFW.Patch]]
+name = "CharaFilterTab.Test"
+game = "Card.BankFilterSeasonCategory"
+kind = "stub"
+apply = "script"
+code = "41 80 BE D0 15 00 00 00 0F 84 ?? ?? ?? ?? 41 8B 86 80 0A 00 00 85 C0 0F 84 ?? ?? ?? ?? 48 8B 45 50 31 C9 48 85 C0 74 02 8B 08 41 8B 96 84 0A 00 00 48 83 EC 20 FF 15 11 00 00 00 48 83 C4 20 84 C0 0F 84 ?? ?? ?? ?? E9 ?? ?? ?? ??"
+tail = false
+refs = [{ at = 10, to = 0x58 }, { at = 25, branch = 0x13 }, { at = 67, branch = 0x13 }, { at = 72, to = 0x58 }]
+needs = ["CharaFilterTab.Store"]
+
+[[VRFW.Hook]]
+name = "CharaFilterTab.Pass"
+kind = "callback"
+arguments = ["u32", "u32"]
+returns = "u8"
+fallback = 1
+
+# ------------------------------------------------------------------------------------------------ the rows
+
+# The row count of the season tab (script bytes: one byte, the number of rows).
+[[VRFW.Patch]]
+name = "CharaFilterTab.RowsTab"
+game = "Card.SeasonFilterRowsTab"
+apply = "script"
+needs = ["CharaFilterTab.Test"]
+
+[[VRFW.Patch]]
+name = "CharaFilterTab.RowsRebuild"
+game = "Card.SeasonFilterRowsRebuild"
+apply = "script"
+needs = ["CharaFilterTab.Test"]
+
+# ------------------------------------------------------------------------------------------------ the album's tabs
+
+# Stub over the lea of the album's tab type list (the window in the players' album): a list in the cave, the
+# script's append = the game's album list + the season slot's type (read from the code at start).
+[[VRFW.Patch]]
+name = "CharaFilterTab.AlbumTypes"
+game = "Card.CharaFilterTabTypes"
+kind = "stub"
+apply = "script"
+code = "48 8D 0D 05 00 00 00 E9 ?? ?? ?? ??"
+tail = false
+refs = [{ at = 8, to = 0x16 }]
+needs = ["CharaFilterTab.Test"]
+
+# The album's tab count (script bytes: one byte, the new count).
+[[VRFW.Patch]]
+name = "CharaFilterTab.AlbumCount"
+game = "Card.CharaFilterTabCount"
+apply = "script"
+needs = ["CharaFilterTab.AlbumTypes"]
+
+# ------------------------------------------------------------------------------------------------ commands
+
+# () -> n, tab text key, icon crc, icon_off crc, symbol crc, album (1 = the album lists it), then per row: text key, name
+# (0 = no tab)
+[[VRFW.Command]]
+name = "CMND_VRFW_CHARA_FILTER_TAB"
+handler = "CharaFilterTab.CmdTab"

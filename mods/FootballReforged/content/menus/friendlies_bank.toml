@@ -1,0 +1,5 @@
+schema = "VRFW.menu/2"
+
+[[patch]]
+menu = "chara_bank_menu"
+add_layer = { name = "fr_bank5_field", object = "fr_bank5_field", count = 1, scale = 1.0, after = "team14_03_formation_frame", groups = [{ group = "chara_bank_menu", flags = [0, 0, 0, 0, 1, 0], after = "team14_03_formation_frame" }] }

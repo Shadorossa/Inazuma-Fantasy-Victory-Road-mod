@@ -1,44 +1,29 @@
--- Random team service. A mod declares in content/random_teams/*.toml (`VRFW.random_team/1`) a player pool (card filters), rules (slot teams, formations, strength per stage, element mix) and a presentation pool.
--- A build draws the roster deterministically for (rule, seed, node) and writes it over the member rows of one of the rule's slot teams in game memory, plus that team's formation, level, name, emblem and kit. Nothing is saved.
--- Commands (content/game/random_team.toml):
---   CMND_VRFW_RANDOM_TEAM_BUILD(rule, seed, node, stage, slot) -> ok, team, level, members, why
---   CMND_VRFW_RANDOM_TEAM_PREVIEW(rule, seed, node, stage, slot) -> the same, nothing written
---   CMND_VRFW_RANDOM_TEAM_MEMBER(i) -> card id, roster slot, card position (member i, 1-based, of the last build / preview)
---   CMND_VRFW_RANDOM_TEAM_LOOK()     -> name text, emblem, kit, formation, theme element (the last build / preview)
---   CMND_VRFW_RANDOM_TEAM_LOOK_OF(rule, seed, node, stage) -> name text, emblem, kit, name text key (no build)
---   CMND_VRFW_RANDOM_TEAM_INFO(rule) -> ok, version, slot teams, stage rows
---   CMND_VRFW_RANDOM_TEAM_RESTORE(team) -> ok, rows: the slot team's placeholders back (team 0 = every slot touched)
+-- Random team service.
 
 RandomTeam = RandomTeam or {}
 
-local C = require "lib/random_team_core"
-local TeamIds = require "lib/team_ids"
-local Places = require "VRFW/lib/formation_places"
+local C = VRFW.teams.random
+local TeamIds = VRFW.teams.ids
+local Places = VRFW.formation
+local TeamConfig = VRFW.teams.config
+local Id = VRFW.ids
 
 local floor = math.floor
 local u32, hex = C.u32, C.hex
 
-local MEMBER_STRIDE = 0x54
 local RECORD_STRIDE = 0x50
 local REC_FIRST, REC_COUNT = 0x28, 0x2C
-local STARTER_SLOTS, BENCH_LAST = 11, 18   -- roster slots 0-10 starters, 11-18 bench, 19 / 20 staff (never written)
+local STARTER_SLOTS, BENCH_LAST = 11, 18
 local SCHEMA = "VRFW.random_team/1"
 
-
-require "VRFW/lib/basics"
 local info, warn, err = VRFW.logger("random_team")
 
 local crc = VRFW.crc32
 
--- a declared id: a number, "0x…", decimal text, `<mod>.<name>` (a mod's team for kind `team`, else the id space of
--- `kind`, else its crc32), any other text = its crc32 (the game's key hash)
 local function id_of(kind, v)
-  if type(v) == "number" then return u32(v) end
-  if type(v) ~= "string" then return nil end
-  local h = v:match("^%s*0[xX](%x+)%s*$")
-  if h then return tonumber(h, 16) % 4294967296 end
-  if v:match("^%s*%d+%s*$") then return tonumber(v) % 4294967296 end
-  local s = v:match("^%s*(.-)%s*$")
+  local written = Id.parse(v)
+  if written ~= nil or type(v) ~= "string" then return written end
+  local s = VRFW.strings.trim(v)
   if kind == "team" and s:find(".", 1, true) then
     local id = TeamIds.of(s)
     if id then return u32(id) end
@@ -50,28 +35,10 @@ local function id_of(kind, v)
   return crc(s)
 end
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok and type(v) == "number" then return v end
-  return nil
-end
-
-local function wr(ty, at, v)
-  if type(at) ~= "number" or at < 0x10000 then return false end
-  return (pcall(VRFW.mem.write, ty, at, v))
-end
+local rd = VRFW.memory.read
 
 local function set_field(s, field, v)
   return (pcall(function() s[field] = v end))
-end
-
--- the key of a game table as the game loads it (`<stem>.cfg.bin`, else its newest versioned file)
-local function table_key(stem)
-  local plain = stem .. ".cfg.bin"
-  local ok, k = pcall(VRFW.table.keys, plain)
-  if ok and type(k) == "table" and #k > 0 then return plain end
-  return stem .. "_*.cfg.bin"
 end
 
 local function active_mods()
@@ -84,8 +51,6 @@ local function active_mods()
   end
   return out
 end
-
--- ------------------------------------------------------------------------------------------------ declarations
 
 local RULES, POOLS, LOOKS = nil, {}, {}
 local RULE_LIST = {}
@@ -115,7 +80,7 @@ end
 
 local function list_of(v) return VRFW.value.list(v, {}) end
 
--- the keys of a number set (C.num_set) as a sorted list; nil for none
+-- the keys of a number set (C.number_set) as a sorted list; nil for none
 local function keys_of(set)
   if set == nil then return nil end
   local a = {}
@@ -124,7 +89,7 @@ local function keys_of(set)
   return a
 end
 
--- a filter row as a framework card-set rule, evaluated by VRFW.character.select; nil when IfMod names an inactive mod. Series = source series, AppearsIn = in_* membership flags, Set = [[VRFW.CardSet]] names.
+-- a filter row as a framework card-set rule, evaluated by VRFW.character.select; nil when IfMod names an inactive mod.
 local function compile_filter(where, f)
   unknown_keys(where, f, FILTER_KEYS)
   if type(f.IfMod) == "string" and f.IfMod ~= "" and not MODS[f.IfMod] then
@@ -132,14 +97,14 @@ local function compile_filter(where, f)
     return nil
   end
   local out = {}
-  out.element = keys_of(C.num_set(f.Element))
-  out.position = keys_of(C.num_set(f.Position, function(x)
+  out.element = keys_of(C.number_set(f.Element))
+  out.position = keys_of(C.number_set(f.Position, function(x)
     if type(x) == "number" then return floor(x) end
     if type(x) == "string" then return POSITION_WORD[x:upper()] end
     return nil
   end))
-  out.rarity = keys_of(C.num_set(f.Rarity))
-  out.gender = keys_of(C.num_set(f.Gender))
+  out.rarity = keys_of(C.number_set(f.Rarity))
+  out.gender = keys_of(C.number_set(f.Gender))
   if f.Series ~= nil then out.series = list_of(f.Series) end
   if f.AppearsIn ~= nil then out.appears_in = list_of(f.AppearsIn) end
   if f.Set ~= nil then
@@ -149,9 +114,9 @@ local function compile_filter(where, f)
     end
     out.set = sets
   end
-  out.team = keys_of(C.num_set(f.Team, function(x) return id_of("team", x) end))
-  out.cards = keys_of(C.num_set(f.Cards, function(x) return id_of("chara", x) end))
-  out.characters = keys_of(C.num_set(f.Characters, function(x) return id_of("character", x) end))
+  out.team = keys_of(C.number_set(f.Team, function(x) return id_of("team", x) end))
+  out.cards = keys_of(C.number_set(f.Cards, function(x) return id_of("chara", x) end))
+  out.characters = keys_of(C.number_set(f.Characters, function(x) return id_of("character", x) end))
   if f.Mod ~= nil then
     local m = {}
     for _, x in ipairs(list_of(f.Mod)) do
@@ -310,16 +275,13 @@ local function load_decls()
     #RULE_LIST > 0 and (": " .. table.concat(RULE_LIST, ", ")) or ""))
 end
 
--- ------------------------------------------------------------------------------------------------ game data
-
 local CARDS = nil         -- every playable card, by id order
-local TEAM_ROWS = nil     -- team id -> { name, formation, kit, emblem, level } (team_config as served)
+local TEAM_ROWS = nil
 
--- The cards from the framework's character index (VRFW.character.cards), with the chara_param column the tiers name (`TierColumn`). Playable = a main position 1..4.
 local function load_cards()
   if CARDS then return CARDS end
   CARDS = {}
-  local t0 = VRFW.now()
+  local t0 = VRFW.now_ms()
   local cols = {}
   for col in pairs(NEED_COLS) do
     local ok, at = pcall(VRFW.character.param_column, col)
@@ -343,7 +305,7 @@ local function load_cards()
     end
   end
   table.sort(CARDS, function(a, b) return a.id < b.id end)
-  info(string.format("%d playable cards taken in %d ms (the framework's character index)", #CARDS, floor(VRFW.now() - t0)))
+  info(string.format("%d playable cards taken in %d ms (the framework's character index)", #CARDS, floor(VRFW.now_ms() - t0)))
   return CARDS
 end
 
@@ -368,49 +330,18 @@ local function team_row(id)
   return TEAM_ROWS[id]
 end
 
--- ------------------------------------------------------------------------------------------------ team memory
+local SLOTS = {}
 
--- the team_config record and container of team `id` (FindTeamConfig, the game's own lookup): rec, cont; nil, why
-local function find_team(id)
-  if not VRFW.is_on("RandomTeamFind") then return nil, "FindTeamConfig not resolved" end
-  local okb, recb = pcall(VRFW.mem.buffer, "rt_team_rec", 8)
-  local okc, contb = pcall(VRFW.mem.buffer, "rt_team_cont", 8)
-  local okh, hashb = pcall(VRFW.mem.buffer, "rt_team_hash", 4)
-  if not (okb and okc and okh) then return nil, "no native buffer" end
-  wr("u64", recb, 0)
-  wr("u64", contb, 0)
-  wr("u32", hashb, id)
-  local ok, e = pcall(VRFW.call, "RandomTeamFind", recb, contb, hashb)
-  if not ok then return nil, "FindTeamConfig faulted (" .. tostring(e) .. ")" end
-  local rec, cont = rd("ptr", recb) or 0, rd("ptr", contb) or 0
-  if rec < 0x10000 or cont < 0x10000 then return nil, "team " .. hex(id) .. " not in team_config (not installed?)" end
-  return rec, cont
-end
-
-local SLOTS = {}          -- slot team id -> its state this session (rows, placeholders, record, layout check)
-
--- the slot team's rows and record, checked once per session: { rec, rows = { {addr, slot, placeholder} }, starters,
--- bench, orig, layout_ok }; nil, why
 local function slot_state(id)
   local s = SLOTS[id]
-  local rec, cont = find_team(id)
-  if not rec then return nil, cont end
-  local okr, rv = pcall(VRFW.mem.read_struct, "RandomTeamRecord", rec)
-  local okc, cv = pcall(VRFW.mem.read_struct, "RandomTeamConfig", cont)
-  if not okr or not okc or type(rv) ~= "table" or type(cv) ~= "table" then return nil, "team record unreadable" end
-  local first, count = rv.First, rv.Count
-  local base, n = cv.Members, cv.MemberCount
-  if not first or not count or not base or base < 0x10000 or not n then return nil, "team record unreadable" end
-  first = first % 65536
-  if count == 0 or count > 64 or first + count > n then
-    return nil, string.format("member slice %d+%d of %d rows", first, count, n)
-  end
+  local slice, why = VRFW.catalogue.member_rows(id)
+  if not slice then return nil, why end
+  local rec, first, count = slice.record, slice.first, slice.count
   if s and s.rec == rec and s.first == first and s.count == count then return s end
-  -- first touch (or the table was reloaded): read and check the rows
   local rows = {}
-  for k = 0, count - 1 do
-    local a = base + (first + k) * MEMBER_STRIDE
-    local okm, m = pcall(VRFW.mem.read_struct, "RandomTeamMember", a)
+  for k, a in ipairs(slice.rows) do
+    local m = VRFW.memory.read_struct("RandomTeamMember", a)
+    local okm = m ~= nil
     if not okm or type(m) ~= "table" or m.Param == nil or m.Uid == nil or m.Slot == nil then
       return nil, "member row " .. k .. " unreadable"
     end
@@ -434,15 +365,20 @@ local function slot_state(id)
   end
   if #starters == 0 then return nil, "no starter row" end
   -- no other team may share these rows (team_config slices can be shared): every record's slice is checked
+  local cv = VRFW.memory.read_struct("RandomTeamConfig", slice.container)
+  if type(cv) ~= "table" then return nil, "team record unreadable" end
   local recs, nrec = cv.Records, cv.RecordCount
   if recs and recs >= 0x10000 and nrec and nrec > 0 then
     local done = 0
     while done < nrec do
       local take = math.min(4096, nrec - done)
       local at = recs + done * RECORD_STRIDE
-      local ok1, ids = pcall(VRFW.mem.read_array, "u32", at, take, RECORD_STRIDE)
-      local ok2, fs = pcall(VRFW.mem.read_array, "u32", at + REC_FIRST, take, RECORD_STRIDE)
-      local ok3, cs = pcall(VRFW.mem.read_array, "u32", at + REC_COUNT, take, RECORD_STRIDE)
+      local ids = VRFW.memory.read_array("u32", at, take, RECORD_STRIDE)
+      local ok1 = ids ~= nil
+      local fs = VRFW.memory.read_array("u32", at + REC_FIRST, take, RECORD_STRIDE)
+      local ok2 = fs ~= nil
+      local cs = VRFW.memory.read_array("u32", at + REC_COUNT, take, RECORD_STRIDE)
+      local ok3 = cs ~= nil
       if not (ok1 and ok2 and ok3) or type(ids) ~= "table" or type(fs) ~= "table" or type(cs) ~= "table" then
         warn("team " .. hex(id) .. ": the record table is unreadable, row sharing not checked")
         break
@@ -462,7 +398,7 @@ local function slot_state(id)
     warn("team " .. hex(id) .. ": the record table is unreadable, row sharing not checked")
   end
   -- the record's fields this service writes, checked against the team's own row (team_config as served)
-  local r = VRFW.mem.struct("RandomTeamRecord", rec)
+  local r = VRFW.memory.struct("RandomTeamRecord", rec)
   local orig = { level = r.Level, name = r.NameText, formation = r.Formation, kit = r.Uniform, emblem = r.Emblem }
   local row = team_row(id)
   local layout_ok = row ~= nil and u32(orig.name) == row.name and u32(orig.formation) == row.formation
@@ -497,8 +433,6 @@ local function slot_state(id)
   return s
 end
 
--- ------------------------------------------------------------------------------------------------ the build
-
 local POOL_CACHE = {}     -- pool key -> cards
 
 local function pool_cards(rule)
@@ -507,8 +441,6 @@ local function pool_cards(rule)
   local cached = POOL_CACHE[p.key]
   if cached then return cached end
   local cards = load_cards()
-  -- the pool's card set (the framework's selector: some Include row, no Exclude row; no Include = every card), kept
-  -- to the playable cards in id order
   local ok, ids = pcall(VRFW.character.select, { include = #p.include > 0 and p.include or nil,
     exclude = #p.exclude > 0 and p.exclude or nil })
   if not ok or type(ids) ~= "table" then return nil, "pool " .. p.key .. ": not evaluated (" .. tostring(ids) .. ")" end
@@ -528,8 +460,6 @@ local function pool_cards(rule)
   return out
 end
 
--- the stage row of `stage` (its range holds it; else the highest row that starts below; else the first), merged over
--- the rule's own keys
 local function stage_of(rule, stage)
   local pick
   for _, st in ipairs(rule.stages) do
@@ -572,9 +502,9 @@ local function draw_look(rule, words, own)
     local e = lp.entries[look_rng:below(#lp.entries) + 1]
     look.n, look.text = e.n, e.text
     if e.team then
-      local trec = find_team(e.team)
+      local trec = TeamConfig.find(e.team)
       if trec then
-        local t = VRFW.mem.struct("RandomTeamRecord", trec)
+        local t = VRFW.memory.struct("RandomTeamRecord", trec)
         look.name, look.emblem, look.kit = u32(t.NameText), u32(t.Emblem), u32(t.Uniform)
       else
         warn(rule.key .. ": look entry #" .. e.n .. ": team " .. hex(e.team) .. " not found")
@@ -592,7 +522,7 @@ local function seed_words(rule, seed, node, stage)
   return { hi, lo, node_id(node), rule.crc, rule.version, stage }, hi, lo
 end
 
--- build (write = false: preview). Returns ok, team, level, members, why
+-- build (write = false: preview).
 local function build(rule_arg, seed, node, stage, slot, write)
   local rule = find_rule(rule_arg)
   if not rule then
@@ -694,7 +624,7 @@ local function build(rule_arg, seed, node, stage, slot, write)
   local wrote = 0
   if write then
     for _, m in ipairs(members) do
-      local ms = VRFW.mem.struct("RandomTeamMember", m.row.addr)
+      local ms = VRFW.memory.struct("RandomTeamMember", m.row.addr)
       local ok = set_field(ms, "Param", m.card.id) and set_field(ms, "Uid", m.card.id) and set_field(ms, "Skill", 0)
         and set_field(ms, "LevelOffset", m.offset)
       if ok and st.step ~= nil then ok = set_field(ms, "Step", st.step) end
@@ -705,7 +635,7 @@ local function build(rule_arg, seed, node, stage, slot, write)
       wrote = wrote + 1
     end
     if s.layout_ok then
-      local r = VRFW.mem.struct("RandomTeamRecord", s.rec)
+      local r = VRFW.memory.struct("RandomTeamRecord", s.rec)
       local ok = set_field(r, "Level", level) and set_field(r, "Formation", form_id) and set_field(r, "NameText", look.name)
         and set_field(r, "Uniform", look.kit) and set_field(r, "Emblem", look.emblem)
       if not ok then warn(rule.key .. ": slot team " .. hex(team) .. ": record write failed (level / look not set)") end
@@ -726,8 +656,6 @@ local function build(rule_arg, seed, node, stage, slot, write)
   LAST = { team = team, members = members, look = look, formation = form_id, theme = res.theme or 0, level = level }
   return 1, team, level, #members, ""
 end
-
--- ------------------------------------------------------------------------------------------------ commands
 
 -- a build never raises into the command (an uncaught error would switch the whole script off): 0 + the error
 local function guarded(rule, seed, node, stage, slot, write)
@@ -758,8 +686,6 @@ function RandomTeam.Look()
   return LAST.look.name, LAST.look.emblem, LAST.look.kit, LAST.formation, LAST.theme
 end
 
--- the name text, emblem, kit and name text key ("" = none) a build of (rule, seed, node, stage) will show, without
--- drawing the roster or touching a slot team (a map shows a node's rival before the match). 0 = the slot team's own.
 function RandomTeam.LookOf(rule_arg, seed, node, stage)
   local ok, rule = pcall(find_rule, rule_arg)
   if not ok or not rule then return 0, 0, 0, "" end
@@ -788,10 +714,10 @@ local function restore(team)
   local done, rows = true, 0
   for id, s in pairs(SLOTS) do
     if (want == nil or want == id) and s.written then
-      local rec = find_team(id)
+      local rec = TeamConfig.find(id)
       if rec == s.rec then
         for _, r in ipairs(s.rows) do
-          local ms = VRFW.mem.struct("RandomTeamMember", r.addr)
+          local ms = VRFW.memory.struct("RandomTeamMember", r.addr)
           local ok = set_field(ms, "Param", r.placeholder) and set_field(ms, "Uid", r.uid)
           if r.skill ~= nil then ok = ok and set_field(ms, "Skill", r.skill) end
           if r.level_offset ~= nil then ok = ok and set_field(ms, "LevelOffset", r.level_offset) end
@@ -800,7 +726,7 @@ local function restore(team)
           rows = rows + 1
         end
         if s.layout_ok then
-          local rs = VRFW.mem.struct("RandomTeamRecord", rec)
+          local rs = VRFW.memory.struct("RandomTeamRecord", rec)
           set_field(rs, "Level", s.orig.level)
           set_field(rs, "Formation", s.orig.formation)
           set_field(rs, "NameText", s.orig.name)

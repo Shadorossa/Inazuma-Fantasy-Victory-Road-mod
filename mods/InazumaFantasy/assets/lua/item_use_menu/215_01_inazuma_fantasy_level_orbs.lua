@@ -149,7 +149,7 @@ function OnDecideFocus(a1, a2)
       return
     end
     if InazumaFantasyLevelOrb.levels > 0 then
-      InazumaFantasyLevelOrb.OpenAmountWindow()
+      InazumaFantasyLevelOrb.open_amount_window()
       return
     end
     CloseLevelupPopup()
@@ -405,7 +405,7 @@ function CheckIsEnableUseItem()
 end
 function CalcNextLevelAndNextExp(a1)
   if InazumaFantasyLevelOrb.levels > 0 then
-    return InazumaFantasyLevelOrb.PreviewOneOrb(a1)
+    return InazumaFantasyLevelOrb.preview_one_orb(a1)
   end
   local ret = funcLuaCommand(1131797651, a1, 0)
   local ret2 = funcLuaCommand(1131797651, a1, 29)
@@ -470,11 +470,10 @@ function UpdateParentMenuHeaderTeamDock()
 end
 
 -- ===== EVT InazumaFantasy level_orbs BEGIN =====
--- Inazuma Fantasy level orbs: the item use menu's side (graft.toml). The amount window reads what it shows from three
--- menu params (num_shop_window_level_orbs.lua) set only while the window of an orb is open.
+-- Inazuma Fantasy level orbs
 InazumaFantasyLevelOrb = { levels = 0 }
 
-function InazumaFantasyLevelOrb.SetWindowParams(from, per_orb, cap)
+function InazumaFantasyLevelOrb.set_window_params(from, per_orb, cap)
   funcLuaCommand(3363400568, 3597201477)
   funcLuaCommand(3860611758, 3597201477, 0, from, 1)
   funcLuaCommand(3363400568, 4218745323)
@@ -483,14 +482,14 @@ function InazumaFantasyLevelOrb.SetWindowParams(from, per_orb, cap)
   funcLuaCommand(3860611758, 1528124263, 0, cap, 1)
 end
 
-function InazumaFantasyLevelOrb.ClearWindowParams()
+function InazumaFantasyLevelOrb.clear_window_params()
   funcLuaCommand(3363400568, 3597201477)
   funcLuaCommand(3363400568, 4218745323)
   funcLuaCommand(3363400568, 1528124263)
 end
 
--- the menu's gauge: one orb lands at the start of the target level
-function InazumaFantasyLevelOrb.PreviewOneOrb(chara)
+-- Previews one orb on the menu's gauge.
+function InazumaFantasyLevelOrb.preview_one_orb(chara)
   local level = funcLuaCommand(1131797651, chara, 0)
   local cap = funcLuaCommand(1131797651, chara, 29)
   local target = math.min(level + InazumaFantasyLevelOrb.levels, cap)
@@ -500,21 +499,21 @@ function InazumaFantasyLevelOrb.PreviewOneOrb(chara)
   return target, funcLuaMenuCommand(2018907327, chara, target)
 end
 
--- OnDecideFocus: CheckIsEnableUseItem (OnEnter) already refused a player at his cap and an empty stock
-function InazumaFantasyLevelOrb.OpenAmountWindow()
+-- Handles OnDecideFocus.
+function InazumaFantasyLevelOrb.open_amount_window()
   local level = funcLuaCommand(1131797651, n5, 0)
   local cap = funcLuaCommand(1131797651, n5, 29)
   local per_orb = InazumaFantasyLevelOrb.levels
   local most = math.min(n8, math.ceil((cap - level) / per_orb))
-  InazumaFantasyLevelOrb.SetWindowParams(level, per_orb, cap)
+  InazumaFantasyLevelOrb.set_window_params(level, per_orb, cap)
   MENU_DEF.OpenNumWindow("InazumaFantasyLevelOrbAmountDone", "", 1, most, 2906066357, 1, 1956876983 --[[num_shop_window]])
   funcLuaCommand(3694408893, l2, 0, n8, false)
 end
 
--- the amount window's answer: -1 = cancelled. The rest is OnDecideFocus's retail use with `count` orbs.
+-- Receives the amount window's answer.
 function InazumaFantasyLevelOrbAmountDone(count)
   funcLuaCommand(320421347 --[[CMND_CLOSE_MENU_OBJECT]], 1956876983 --[[num_shop_window]])
-  InazumaFantasyLevelOrb.ClearWindowParams()
+  InazumaFantasyLevelOrb.clear_window_params()
   if count == -1 then
     funcLuaMenuCommand(1558704558, 2384748956 --[[item_use_menu]], true)
     SetListItemCollisionEnable(true)

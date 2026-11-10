@@ -1,0 +1,31 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+[[character]]
+name = "miximax_carrier"                                     # Mark Evans
+based_on = "c05029460"                                    # template: Mark Evans
+order = 46
+
+  [character.base]
+  id = 0x30EB17FE
+  name = "cr_mx"
+  flag_31 = 0
+
+  [[character.cards]]
+  id = 0x8493F412                                         # MF/DF · mountain
+  from = 0x8B9AC9C0                                       # template: Mark Evans (c05029460)
+  order = 58
+  growth_pattern = 1
+  growth = "normal"
+  stats = { kick = 247, control = 269, technique = 213, pressure = 235, physical = 184, intelligence = 278, agility = 215, luck = 186, freedom = 225 }  # own stats: copy of c05029460 (GX)
+  moves = [
+    { move = 0x501F2F12, level = 1 },                     # Heel Flick
+    { move = 0x6F918884, level = 13 },                    # Easy Breezy
+    { move = 0x6C6C932B, level = 20 },                    # Megaton Head
+    { move = 0x9349F1DA, level = 30 },                    # Zephyr Shot
+    { move = 0xA9E3374B, level = 38 },                    # Cyclone Sprint
+    { move = 0xC755E805, level = 43 },                    # Triple Threat
+    { move = 0, level = 0 },                              # (empty)
+    { move = 0, level = 0 },                              # (empty)
+    { move = 0x62256EE2, level = 1 },                     # Arch Pegasus [aura]
+  ]

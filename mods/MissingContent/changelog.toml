@@ -1,49 +1,57 @@
 schema = "VRFW.changelog/1"
-# Missing Content: ONE general summary of what the mod offers (docs/framework/types/changelog.md). Each module keeps
-# its own changelog.
+# One general summary of the mod (docs/internal/types/changelog.md).
 
 [[release]]
 icon = "general"
 notes = [
-    "Escenas perdidas, voces que faltan y openings de DS en un solo mod",
+    "Escenas perdidas, voces que faltan, openings de DS, supertácticas de 3DS y la bufanda de Harper en un solo mod",
+    "El portero suplente lleva la otra equipación de portero",
 ]
 
 [release.en]
 notes = [
-    "Lost scenes, missing voices and DS openings in one mod",
+    "Lost scenes, missing voices, DS openings, 3DS supertactics and Harper's scarf in one mod",
+    "A substitute goalkeeper wears the team's other keeper kit",
 ]
 
 [release.fr]
 notes = [
-    "Scènes perdues, voix manquantes et génériques DS dans un seul mod",
+    "Scènes perdues, voix manquantes, génériques DS et l'écharpe de Harper dans un seul mod",
+    "Le gardien remplaçant porte l'autre tenue de gardien",
 ]
 
 [release.de]
 notes = [
-    "Verlorene Szenen, fehlende Stimmen und DS-Openings in einem Mod",
+    "Verlorene Szenen, fehlende Stimmen, DS-Openings und Harpers Schal in einem Mod",
+    "Der eingewechselte Torwart trägt das andere Torwarttrikot",
 ]
 
 [release.it]
 notes = [
-    "Scene perdute, voci mancanti e sigle DS in un solo mod",
+    "Scene perdute, voci mancanti, sigle DS e la sciarpa di Harper in un solo mod",
+    "Il portiere subentrato indossa l'altra divisa da portiere",
 ]
 
 [release.pt]
 notes = [
-    "Cenas perdidas, vozes que faltavam e aberturas de DS num só mod",
+    "Cenas perdidas, vozes que faltavam, aberturas de DS e o cachecol de Harper num só mod",
+    "O guarda-redes suplente usa o outro equipamento de guarda-redes",
 ]
 
 [release.ja]
 notes = [
-    "失われたシーン、足りないボイス、DSオープニングをひとつのMODに",
+    "失われたシーン、足りないボイス、DSオープニング、ハルのマフラーをひとつのMODに",
+    "交代で入ったキーパーはもう一方のキーパーユニフォームを着る",
 ]
 
 [release.zh_hans]
 notes = [
-    "失落的场景、缺失的语音和DS片头合为一个模组",
+    "失落的场景、缺失的语音、DS片头和哈珀的围巾合为一个模组",
+    "替补门将穿另一套门将球衣",
 ]
 
 [release.zh_hant]
 notes = [
-    "失落的場景、缺失的語音和DS片頭合為一個模組",
+    "失落的場景、缺失的語音、DS片頭和哈珀的圍巾合為一個模組",
+    "替補門將穿另一套門將球衣",
 ]

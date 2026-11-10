@@ -1,8 +1,5 @@
 # Framework defaults for match challenges; a ruleset's [challenge] or a mod's defaults/challenge.toml may override keys.
 
-# `outfield_formation`: formation_config row name used by 5v5 outfield challenges; unset keeps the teams' own formation.
-
-# `keepaway_ai`: knob name -> value for the rival AI during keepaway challenges; global knobs are restored afterwards, unlisted knobs keep the game value.
 [keepaway_ai]
 # Ball carrier looks for a pass every 0.1-0.4 s (seconds).
 passLotteryIntervalMin = 0.1

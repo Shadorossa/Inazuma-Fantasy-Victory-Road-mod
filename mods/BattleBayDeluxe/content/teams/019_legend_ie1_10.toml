@@ -72,6 +72,8 @@ key = "bbcr_legend_ie1_10_bb"
 name_text = 0x934DFCE7
 level = 40
 series = "IE1"
+music = "auto"
+goal_jingle = "auto"
 stadium_fallback = "s41g001"
 stadium_image = "ev_chronicle_img/ev_ch_s41g001_0501.g4tx"
 appears = [{ list = "bb_stadium", category = "secondary", season = "series_01", row = { copy = false, stadium = 0x4F44DDA6, image = "ev_chronicle_img/ev_ch_s41g001_0501.g4tx", image_name = "ev_ch_s41g001_0501", bgm = 0x6C1E6CDD } }]

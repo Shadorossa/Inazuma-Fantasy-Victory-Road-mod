@@ -1,0 +1,13 @@
+schema = "VRFW.rule/1"
+# Challenge ruleset (Football Reforged's base, the former module Challenges): score 3 goals in 45 s.
+id = "challenge_goals"
+name = "Challenge: 3 goals in 45 s"
+version = 1
+
+[teams]
+players = 5
+
+[challenge]
+kind = "goals"
+seconds = 45
+count = 3

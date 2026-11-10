@@ -1,42 +1,27 @@
 -- ===== EVT Furor banner BEGIN =====
--- EVT furor_banner (mod Furor, a module of Football Reforged; docs/game/mechanics/furor.md §3.4): when a team's furor
--- phase starts, an ENTRY banner: a full-width red strip under the scoreboard with the text «Fase de furor activa»
--- slides in from the left, stays, then slides out to the right (Inazuma Eleven 3's phase banner: no scene, no cut-in).
--- Its timing and sizes are the mod's: CMND_FUROR_BANNER (scripts\banner.lua, config.toml [furor_banner]) answers every
--- frame whether it shows and its offset (negative = to the left). Layer furor_banner (the mod's content\menus\furor_banner.toml, 2 instances of the
--- retail AI-camera telop soccer00_71: one quad and one text node):
---   instance 0  the strip: the quad's sprite swapped for the mod's own red strip (content\images\menu\02_btl\
---               furor_banner.toml), text empty, stretched wider than the screen
---   instance 1  the text: the quad hidden, the text key Furor.phase_banner (text\keys.toml, 9 languages), centred
--- Placement is measured as the furor gauges' (research/grafts/furor_hud): each instance's local -> screen mapping is
--- probed once with CMND_GET_MESH_GLOBAL_POSITION of its node, the target comes from the scoreboard's keeper bar
--- locators _pos_hp01 / _pos_hp02 (their midpoint = the screen centre, their distance = the layout scale). The mappings
--- are measured while a match runs (CMND_VRFW_TEAM_MOMENTUM("Furor.gauge") answers), hidden, before the first phase. Engine
--- calls only from the wrapped UpdateScoreboardKeeperHp (every frame from StepSoccerConstantMenu), each through pcall.
--- loader.log: the first lines «FUROR_BANNER ...».
-FUROR_BANNER = true                           -- false: no banner
-FUROR_BANNER_KEY = "Furor.gauge"
-FUROR_BANNER_CMD = @crc:CMND_VRFW_TEAM_MOMENTUM@
-FUROR_BANNER_TIMING = @crc:CMND_FUROR_BANNER@
-FUROR_BANNER_TEXT_KEY = "Furor.phase_banner"
-FUROR_BANNER_ATLAS_PATH = "#/menu/02_btl/furor_banner/furor_banner.g4tx"
-FUROR_BANNER_ATLAS = 3721170083 --[[#/menu/02_btl/furor_banner/furor_banner.g4tx]]
-FUROR_BANNER_SPRITE = @crc:furor_banner_strip@
--- layout units of the keeper bar locators' space (_pos_hp01 (-335, -107), _pos_hp02 (335, -107), 670 apart): the
--- strip's width (wider than any screen: the ends are off screen); its top, height and slide come from
--- CMND_FUROR_BANNER (config.toml [furor_banner]), these are the fallbacks
-FUROR_BANNER_LOCATOR_SPAN = 670
-FUROR_BANNER_TOP = 40
-FUROR_BANNER_HEIGHT = 56
-FUROR_BANNER_SLIDE = 3000
-FUROR_BANNER_WIDTH = 3000
-FUROR_BANNER_TEXT_SCALE = 0.9
-FUROR_BANNER_PROBE_STEP = 100
-FUROR_BANNER_PROBE_WAIT = 2
-FUROR_BANNER_SETTLE = 1
-FUROR_BANNER_SNAP = 2
-FUROR_BANNER_LOGS = 0
-FUROR_BANNER_MAX_LOGS = 30
+Furor = Furor or {}
+Furor.banner = Furor.banner or {}
+Furor.banner.ENABLED = true                           -- false: no banner
+Furor.banner.KEY = "Furor.gauge"
+Furor.banner.CMD = @crc:CMND_VRFW_TEAM_MOMENTUM@
+Furor.banner.TIMING = @crc:CMND_FUROR_BANNER@
+Furor.banner.TEXT_KEY = "Furor.phase_banner"
+Furor.banner.ATLAS_PATH = "#/menu/02_btl/furor_banner/furor_banner.g4tx"
+Furor.banner.ATLAS = 3721170083 --[[#/menu/02_btl/furor_banner/furor_banner.g4tx]]
+Furor.banner.SPRITE = @crc:furor_banner_strip@
+-- Layout units of the keeper bar locators' space (_pos_hp01 (-335, -107), _pos_hp02 (335, -107), 670 apart).
+Furor.banner.LOCATOR_SPAN = 670
+Furor.banner.TOP = 40
+Furor.banner.HEIGHT = 56
+Furor.banner.SLIDE = 3000
+Furor.banner.WIDTH = 3000
+Furor.banner.TEXT_SCALE = 0.9
+Furor.banner.PROBE_STEP = 100
+Furor.banner.PROBE_WAIT = 2
+Furor.banner.SETTLE = 1
+Furor.banner.SNAP = 2
+Furor.banner.LOGS = 0
+Furor.banner.MAX_LOGS = 30
 
 -- one local for the whole block (the chunk's local budget is shared)
 local furor_banner = {
@@ -62,42 +47,21 @@ local furor_banner = {
   SWAP_TEXTURE = 558735651 --[[swap a mesh texture for an atlas sprite]],
   TEXT_ID = @crc:CMND_VRFW_TEXT_ID@,
   TEXT_GET = @crc:CMND_TEXT_GET@,
-  -- per instance (1 strip, 2 text): mapping, probe, placement, shown, set up
+  -- Per-instance state (1 strip, 2 text).
   mapping = {}, probe = {}, place = {}, shown = {}, ready = {},
-  texture = 0,                                -- the strip atlas: 0 not asked, 1 loading, 2 in
+  texture = 0,
   text = nil,                                 -- the banner text (read once per HUD)
   init = false,
   why = nil,
 }
 
-function FurorBanner_Menu(...)
-  if type(funcLuaMenuCommand) ~= "function" then
-    return nil
-  end
-  local r = table.pack(pcall(funcLuaMenuCommand, ...))
-  if not r[1] then
-    return nil
-  end
-  return table.unpack(r, 2, r.n)
-end
-
-function FurorBanner_Command(...)
-  if type(funcLuaCommand) ~= "function" then
-    return nil
-  end
-  local r = table.pack(pcall(funcLuaCommand, ...))
-  if not r[1] then
-    return nil
-  end
-  return table.unpack(r, 2, r.n)
-end
-
 function FurorBanner_Log(...)
-  if FUROR_BANNER_LOGS >= FUROR_BANNER_MAX_LOGS then
+  if Furor.banner.LOGS >= Furor.banner.MAX_LOGS then
     return
   end
-  FUROR_BANNER_LOGS = FUROR_BANNER_LOGS + 1
-  FurorBanner_Command(@crc:CMND_EVT_LOG_DEBUG@, "FUROR_BANNER", ...)
+  Furor.banner.LOGS = Furor.banner.LOGS + 1
+  Furor.banner.logger = Furor.banner.logger or VRFW.logger.new("Furor.banner.ENABLED")
+  Furor.banner.logger.debug(...)
 end
 
 function FurorBanner_Why(why)
@@ -107,10 +71,10 @@ function FurorBanner_Why(why)
   end
 end
 
--- a match runs: the furor gauge answers for a side (no answer = no match / module off)
+-- Returns whether a match runs.
 function FurorBanner_InMatch()
   for _, side in ipairs({-1, -2}) do
-    local has = FurorBanner_Command(FUROR_BANNER_CMD, FUROR_BANNER_KEY, side)
+    local has = VRFW.host.command(Furor.banner.CMD, Furor.banner.KEY, side)
     if has == true then
       return true
     end
@@ -118,23 +82,22 @@ function FurorBanner_InMatch()
   return false
 end
 
--- the entry banner now: nil (hidden) or { offset = 0 in place, -1 / 1 off to the left / right, slide, top, height }
 function FurorBanner_Timing()
-  local shown, offset, slide, top, height = FurorBanner_Command(FUROR_BANNER_TIMING)
+  local shown, offset, slide, top, height = VRFW.host.command(Furor.banner.TIMING)
   if shown ~= true then
     return nil
   end
-  return {offset = tonumber(offset) or 0, slide = tonumber(slide) or FUROR_BANNER_SLIDE,
-    top = tonumber(top) or FUROR_BANNER_TOP, height = tonumber(height) or FUROR_BANNER_HEIGHT}
+  return {offset = tonumber(offset) or 0, slide = tonumber(slide) or Furor.banner.SLIDE,
+    top = tonumber(top) or Furor.banner.TOP, height = tonumber(height) or Furor.banner.HEIGHT}
 end
 
 function FurorBanner_Text()
   if furor_banner.text == nil then
-    local id = FurorBanner_Command(furor_banner.TEXT_ID, FUROR_BANNER_TEXT_KEY)
+    local id = VRFW.host.command(furor_banner.TEXT_ID, Furor.banner.TEXT_KEY)
     if type(id) ~= "number" or id == 0 then
       id = @crc:Furor.phase_banner@
     end
-    local s = FurorBanner_Command(furor_banner.TEXT_GET, id)
+    local s = VRFW.host.command(furor_banner.TEXT_GET, id)
     furor_banner.text = type(s) == "string" and s or ""
     FurorBanner_Log("text", furor_banner.text)
   end
@@ -147,14 +110,14 @@ function FurorBanner_Node(slot)
 end
 
 function FurorBanner_Global(layer, index, node)
-  local x, y = FurorBanner_Menu(furor_banner.GLOBAL_POS, layer, index, node)
+  local x, y = VRFW.host.menu_command(furor_banner.GLOBAL_POS, layer, index, node)
   if type(x) ~= "number" or type(y) ~= "number" then
     return nil
   end
   return x, y
 end
 
--- measures a slot's mapping: screen = origin + unit * (position + scale * node point) (as the furor gauges' probe)
+-- Measures a slot's mapping.
 function FurorBanner_Probe(slot)
   if furor_banner.mapping[slot] ~= nil then
     return furor_banner.mapping[slot] ~= false
@@ -162,9 +125,9 @@ function FurorBanner_Probe(slot)
   local layer, i, node = furor_banner.LAYER, slot - 1, FurorBanner_Node(slot)
   local p = furor_banner.probe[slot]
   if p == nil then
-    furor_banner.probe[slot] = {stage = 1, wait = FUROR_BANNER_PROBE_WAIT}
-    FurorBanner_Menu(furor_banner.SET_SCALE, layer, 1, 1, 1, i)
-    FurorBanner_Menu(furor_banner.SET_POS, layer, 0, 0, 0, i)
+    furor_banner.probe[slot] = {stage = 1, wait = Furor.banner.PROBE_WAIT}
+    VRFW.host.menu_command(furor_banner.SET_SCALE, layer, 1, 1, 1, i)
+    VRFW.host.menu_command(furor_banner.SET_POS, layer, 0, 0, 0, i)
     return false
   end
   if p.wait > 0 then
@@ -177,16 +140,16 @@ function FurorBanner_Probe(slot)
     FurorBanner_Log("slot", slot, "no global position for its node: hidden")
     return false
   end
-  local step = FUROR_BANNER_PROBE_STEP
+  local step = Furor.banner.PROBE_STEP
   if p.stage == 1 then
-    p.x1, p.y1, p.stage, p.wait = x, y, 2, FUROR_BANNER_PROBE_WAIT
-    FurorBanner_Menu(furor_banner.SET_POS, layer, step, step, 0, i)
+    p.x1, p.y1, p.stage, p.wait = x, y, 2, Furor.banner.PROBE_WAIT
+    VRFW.host.menu_command(furor_banner.SET_POS, layer, step, step, 0, i)
     return false
   end
   if p.stage == 2 then
-    p.x2, p.y2, p.stage, p.wait = x, y, 3, FUROR_BANNER_PROBE_WAIT
-    FurorBanner_Menu(furor_banner.SET_POS, layer, 0, 0, 0, i)
-    FurorBanner_Menu(furor_banner.SET_SCALE, layer, 2, 2, 1, i)
+    p.x2, p.y2, p.stage, p.wait = x, y, 3, Furor.banner.PROBE_WAIT
+    VRFW.host.menu_command(furor_banner.SET_POS, layer, 0, 0, 0, i)
+    VRFW.host.menu_command(furor_banner.SET_SCALE, layer, 2, 2, 1, i)
     return false
   end
   local unit_x, unit_y = (p.x2 - p.x1) / step, (p.y2 - p.y1) / step
@@ -203,22 +166,21 @@ function FurorBanner_Probe(slot)
   return true
 end
 
--- the screen box of the banner: centre x, top y and the scoreboard's px per layout unit (x, y), or nil
+-- Returns the screen box of the banner.
 function FurorBanner_Box()
   local own_x, own_y = FurorBanner_Global(furor_banner.KEEPER_BARS, 0, furor_banner.LOCATORS[1])
   local rival_x = FurorBanner_Global(furor_banner.KEEPER_BARS, 0, furor_banner.LOCATORS[2])
   if own_x == nil or rival_x == nil then
     return nil
   end
-  local board_x = (rival_x - own_x) / FUROR_BANNER_LOCATOR_SPAN
+  local board_x = (rival_x - own_x) / Furor.banner.LOCATOR_SPAN
   if math.abs(board_x) < 0.05 then
     return nil
   end
   return (own_x + rival_x) / 2, own_y, board_x
 end
 
--- a slot's local position and scale so that its node's box (width x height layout units of the scoreboard) has its
--- top-left corner at the target, or nil
+-- Computes a slot's local position and scale so that its node's box (width x height layout units of the scoreboard) fits.
 function FurorBanner_Target(slot, map, look)
   local centre_x, locator_y, board_x = FurorBanner_Box()
   if centre_x == nil then
@@ -227,16 +189,16 @@ function FurorBanner_Target(slot, map, look)
   local board_y = board_x * map.unit_y / map.unit_x
   local width, height, source_w, source_h
   if slot == 1 then
-    width, height = FUROR_BANNER_WIDTH, look.height
+    width, height = Furor.banner.WIDTH, look.height
     source_w, source_h = furor_banner.QUAD_W, furor_banner.QUAD_H
   else
-    width = furor_banner.TEXT_W * FUROR_BANNER_TEXT_SCALE
-    height = furor_banner.TEXT_H * FUROR_BANNER_TEXT_SCALE
+    width = furor_banner.TEXT_W * Furor.banner.TEXT_SCALE
+    height = furor_banner.TEXT_H * Furor.banner.TEXT_SCALE
     source_w, source_h = furor_banner.TEXT_W, furor_banner.TEXT_H
   end
   -- the text box centred on the strip
   local top = look.top + (slot == 1 and 0 or (look.height - height) / 2)
-  -- the slide: `offset` of the way to the right (negative: to the left)
+  -- Applies the slide.
   local target_x = centre_x + (look.offset * look.slide - width / 2) * board_x
   local target_y = locator_y - top * board_y
   local sx = width * board_x / (map.unit_x * source_w)
@@ -246,8 +208,7 @@ function FurorBanner_Target(slot, map, look)
   return px, py, sx, sy
 end
 
--- places a slot; true once it sits on its target. While it slides (`look.offset` changes) it is moved every frame, the
--- drift correction only runs while it stands still.
+-- Places a slot.
 function FurorBanner_Place(slot, look)
   local layer, i = furor_banner.LAYER, slot - 1
   local map = furor_banner.mapping[slot]
@@ -257,10 +218,10 @@ function FurorBanner_Place(slot, look)
     if px == nil then
       return false
     end
-    FurorBanner_Menu(furor_banner.SET_SCALE, layer, sx, sy, 1, i)
-    FurorBanner_Menu(furor_banner.SET_POS, layer, px, py, 0, i)
+    VRFW.host.menu_command(furor_banner.SET_SCALE, layer, sx, sy, 1, i)
+    VRFW.host.menu_command(furor_banner.SET_POS, layer, px, py, 0, i)
     place.px, place.py, place.sx, place.sy, place.offset = px, py, sx, sy, look.offset
-    place.wait, place.frames = FUROR_BANNER_SETTLE, (place.frames or 0) + 1
+    place.wait, place.frames = Furor.banner.SETTLE, (place.frames or 0) + 1
     return place.frames > 1
   end
   if place and place.wait > 0 then
@@ -273,7 +234,7 @@ function FurorBanner_Place(slot, look)
       local origin_x = x - map.unit_x * place.px - place.sx * map.node_x
       local origin_y = y - map.unit_y * place.py - place.sy * map.node_y
       local error_x, error_y = origin_x - map.origin_x, origin_y - map.origin_y
-      if math.abs(error_x) <= FUROR_BANNER_SNAP and math.abs(error_y) <= FUROR_BANNER_SNAP then
+      if math.abs(error_x) <= Furor.banner.SNAP and math.abs(error_y) <= Furor.banner.SNAP then
         place.settled = true
       end
       if math.abs(error_x) > 0.5 or math.abs(error_y) > 0.5 then
@@ -287,35 +248,35 @@ function FurorBanner_Place(slot, look)
   end
   if place == nil or math.abs(place.px - px) > 0.05 or math.abs(place.py - py) > 0.05 or math.abs(place.sx - sx) > 0.0005
       or math.abs(place.sy - sy) > 0.0005 then
-    FurorBanner_Menu(furor_banner.SET_SCALE, layer, sx, sy, 1, i)
-    FurorBanner_Menu(furor_banner.SET_POS, layer, px, py, 0, i)
+    VRFW.host.menu_command(furor_banner.SET_SCALE, layer, sx, sy, 1, i)
+    VRFW.host.menu_command(furor_banner.SET_POS, layer, px, py, 0, i)
     if place == nil then
       FurorBanner_Log("slot", slot, "pos scale", string.format("%.1f %.1f / %.3f %.3f", px, py, sx, sy))
     end
-    place = {px = px, py = py, sx = sx, sy = sy, wait = FUROR_BANNER_SETTLE, settled = place ~= nil and place.settled,
+    place = {px = px, py = py, sx = sx, sy = sy, wait = Furor.banner.SETTLE, settled = place ~= nil and place.settled,
       offset = look.offset, frames = place ~= nil and place.frames or 0}
     furor_banner.place[slot] = place
   end
   return place.settled or place.frames > 1
 end
 
--- a slot's look: the strip's sprite and no text, or the text and no quad
+-- Prepares a slot's look.
 function FurorBanner_Prepare(slot)
   local layer, i = furor_banner.LAYER, slot - 1
   furor_banner.ready[slot] = true
   if slot == 1 then
-    FurorBanner_Menu(furor_banner.SWAP_TEXTURE, layer, FUROR_BANNER_ATLAS, FUROR_BANNER_SPRITE, furor_banner.TEXTURE_SLOT, 0, i)
-    FurorBanner_Menu(furor_banner.SET_TEXT, layer, furor_banner.TEXT, "", i)
+    VRFW.host.menu_command(furor_banner.SWAP_TEXTURE, layer, Furor.banner.ATLAS, Furor.banner.SPRITE, furor_banner.TEXTURE_SLOT, 0, i)
+    VRFW.host.menu_command(furor_banner.SET_TEXT, layer, furor_banner.TEXT, "", i)
   else
-    FurorBanner_Menu(furor_banner.MESH_VISIBLE, layer, furor_banner.QUAD, false, i)
-    FurorBanner_Menu(furor_banner.SET_TEXT, layer, furor_banner.TEXT, FurorBanner_Text(), i)
+    VRFW.host.menu_command(furor_banner.MESH_VISIBLE, layer, furor_banner.QUAD, false, i)
+    VRFW.host.menu_command(furor_banner.SET_TEXT, layer, furor_banner.TEXT, FurorBanner_Text(), i)
   end
 end
 
 function FurorBanner_Hide(slot)
   if furor_banner.shown[slot] then
     furor_banner.shown[slot] = false
-    FurorBanner_Menu(furor_banner.LAYER_VISIBLE, furor_banner.LAYER, slot - 1, false)
+    VRFW.host.menu_command(furor_banner.LAYER_VISIBLE, furor_banner.LAYER, slot - 1, false)
   end
 end
 
@@ -325,25 +286,25 @@ function FurorBanner_HideAll()
   end
 end
 
--- the strip atlas (the mod's own G4TX) is in memory: asked once, then polled
+-- Returns whether the strip atlas (the mod's own G4TX) is in memory.
 function FurorBanner_TextureReady()
   if furor_banner.texture == 0 then
-    FurorBanner_Menu(furor_banner.LOAD_TEXTURE, FUROR_BANNER_ATLAS_PATH)
+    VRFW.host.menu_command(furor_banner.LOAD_TEXTURE, Furor.banner.ATLAS_PATH)
     furor_banner.texture = 1
     return false
   end
   if furor_banner.texture == 1 and type(funcLuaCommand) == "function" then
-    local ok, loading = pcall(funcLuaCommand, furor_banner.TEXTURE_LOADING, FUROR_BANNER_ATLAS)
+    local ok, loading = pcall(funcLuaCommand, furor_banner.TEXTURE_LOADING, Furor.banner.ATLAS)
     if ok and not loading then
       furor_banner.texture = 2
-      FurorBanner_Log("atlas in", FUROR_BANNER_ATLAS_PATH)
+      FurorBanner_Log("atlas in", Furor.banner.ATLAS_PATH)
     end
   end
   return furor_banner.texture == 2
 end
 
 function FurorBanner_Step()
-  if not FUROR_BANNER or FurorBanner_Menu(furor_banner.IS_OPEN, furor_banner.KEEPER_BARS, 0) ~= true then
+  if not Furor.banner.ENABLED or VRFW.host.menu_command(furor_banner.IS_OPEN, furor_banner.KEEPER_BARS, 0) ~= true then
     FurorBanner_Why("keeper bar layer closed")
     FurorBanner_HideAll()
     return
@@ -353,25 +314,25 @@ function FurorBanner_Step()
     FurorBanner_HideAll()
     return
   end
-  if FurorBanner_Menu(furor_banner.IS_OPEN, furor_banner.LAYER) ~= true then
+  if VRFW.host.menu_command(furor_banner.IS_OPEN, furor_banner.LAYER) ~= true then
     for slot = 1, 2 do
       furor_banner.ready[slot], furor_banner.shown[slot] = false, false
       furor_banner.mapping[slot], furor_banner.probe[slot], furor_banner.place[slot] = nil, nil, nil
     end
     furor_banner.init, furor_banner.text = false, nil
-    FurorBanner_Menu(furor_banner.OPEN_ARRAY, furor_banner.LAYER)
+    VRFW.host.menu_command(furor_banner.OPEN_ARRAY, furor_banner.LAYER)
     FurorBanner_Why("opening the layer")
     return
   end
-  if FurorBanner_Menu(furor_banner.IS_LOADING, furor_banner.LAYER) == true then
+  if VRFW.host.menu_command(furor_banner.IS_LOADING, furor_banner.LAYER) == true then
     FurorBanner_Why("layer loading")
     return
   end
-  -- the layer opens with its instances visible at the retail telop's own place: hide both until placed
+  -- Opens the layer with its instances visible at the retail telop's own place.
   if not furor_banner.init then
     furor_banner.init = true
     for slot = 1, 2 do
-      FurorBanner_Menu(furor_banner.LAYER_VISIBLE, furor_banner.LAYER, slot - 1, false)
+      VRFW.host.menu_command(furor_banner.LAYER_VISIBLE, furor_banner.LAYER, slot - 1, false)
       furor_banner.shown[slot] = false
     end
     FurorBanner_Log("layer open: instances hidden")
@@ -381,7 +342,6 @@ function FurorBanner_Step()
     FurorBanner_HideAll()
     return
   end
-  -- the mappings are measured while hidden, before the first phase
   for slot = 1, 2 do
     if not furor_banner.ready[slot] then
       FurorBanner_Prepare(slot)
@@ -403,13 +363,13 @@ function FurorBanner_Step()
   for slot = 1, 2 do
     if furor_banner.mapping[slot] and FurorBanner_Place(slot, look) and not furor_banner.shown[slot] then
       furor_banner.shown[slot] = true
-      FurorBanner_Menu(furor_banner.LAYER_VISIBLE, furor_banner.LAYER, slot - 1, true)
+      VRFW.host.menu_command(furor_banner.LAYER_VISIBLE, furor_banner.LAYER, slot - 1, true)
       FurorBanner_Log("shown", slot)
     end
   end
 end
 
--- every frame of the match HUD: a subscriber of the framework's hud:frame (one wrap of UpdateScoreboardKeeperHp)
+-- Runs every frame of the match HUD.
 @HUD_FRAME@
-VRFW_OnHudFrame(function() FurorBanner_Step() end)
+VRFW.hud_frame.on(function() FurorBanner_Step() end)
 -- ===== EVT Furor banner END =====

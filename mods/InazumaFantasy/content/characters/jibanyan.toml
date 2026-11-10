@@ -1,0 +1,104 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+# Jibanyan: forward, fire, his own body (model row with force_kit 1: no team kit replaces his own clothes).
+# Stats rolled once (seed 20261109) inside the range of the 21 kick-led idol cards of this mod (kick 300 or more).
+[[character]]
+name = "jibanyan"
+based_on = "c05029720"  # template: Luke Triton (own clothes, no kit)
+order = 200
+
+  [character.base]
+  id = 0x951B50F3  # crc32("c90620000")
+  name = "c90620000"
+  name_text = 0xDBDA19FC  # crc32("c90620000_name")
+  short_name_text = 0xD2C572C7  # crc32("c90620000_short")
+  upper_name_text = 0x33B23DF9  # crc32("c90620000_upper")
+  description_text = 0x27B86E76  # crc32("c90620000_description")
+  model = 0x8A7890BC
+  # album only: not on any team, so Luke's belong team is cleared
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0
+
+  [character.new_model]
+  id = 0x8A7890BC  # crc32("c90620000_model")
+  from = "c05029720"
+  [character.new_model.cells]
+  skeleton_path = "_face/90_FANTASY/c90620000/c90620000.objbin"
+  body = 0x5E516C48  # crc32("c90620000_body"), content/tables/common/gamedata/character/chara_model.toml
+  head_mesh_path = "_face/90_FANTASY/c90620000/c90620000.g4md"
+  clothes = 0x1C5C9639  # crc32("u90620000_10"), content/looks/jibanyan.toml
+  shoes = 0
+  gloves = 0
+  force_kit = 1
+
+  [character.text.ja]
+  name = "ジバニャン"
+  short = "ジバニャン"
+  upper = "JIBANYAN"
+  description = "[二/ふた]つの[尻尾/しっぽ]と[鈴/すず]をつけた\n[猫/ねこ]の[妖怪/ようかい]。"
+
+  [character.text.en]
+  name = "Jibanyan"
+  short = "Jibanyan"
+  upper = "JIBANYAN"
+  description = "A two-tailed cat Yo-kai\nwith a bell on his collar."
+
+  [character.text.es]
+  name = "Jibanyan"
+  short = "Jibanyan"
+  upper = "JIBANYAN"
+  description = "Un gato yo-kai de dos colas\ncon un cascabel al cuello."
+
+  [character.text.fr]
+  name = "Jibanyan"
+  short = "Jibanyan"
+  upper = "JIBANYAN"
+  description = "Un chat yo-kai à deux queues\navec un grelot au cou."
+
+  [character.text.de]
+  name = "Jibanyan"
+  short = "Jibanyan"
+  upper = "JIBANYAN"
+  description = "Ein zweischwänziger Katzen-Yo-kai\nmit einem Glöckchen am Halsband."
+
+  [character.text.it]
+  name = "Jibanyan"
+  short = "Jibanyan"
+  upper = "JIBANYAN"
+  description = "Un gatto yo-kai a due code\ncon un campanello al collo."
+
+  [character.text.pt]
+  name = "Jibanyan"
+  short = "Jibanyan"
+  upper = "JIBANYAN"
+  description = "Um gato yo-kai de duas caudas\ncom um guizo no pescoço."
+
+  [character.text.zh_hans]
+  name = "吉胖喵"
+  short = "吉胖喵"
+  upper = "JIBANYAN"
+  description = "戴着铃铛的\n双尾猫妖怪。"
+
+  [character.text.zh_hant]
+  name = "吉胖喵"
+  short = "吉胖喵"
+  upper = "JIBANYAN"
+  description = "戴著鈴鐺的\n雙尾貓妖怪。"
+
+  [[character.cards]]
+  id = 0x93EDFF29  # crc32("c90620000_card")
+  from = 0xEDB0B29D  # template: Luke Triton's card
+  order = 200
+  element = "fire"
+  position = "fw"
+  rank = 3
+  growth = "normal"
+  stats = { kick = 328, control = 230, technique = 269, pressure = 172, physical = 232, intelligence = 193, agility = 163, luck = 151, freedom = 0 }
+  moves = [
+    { move = 0x518BCA26, level = 1 },                     # Fire Tornado (shot, fire, 360)
+    { move = 0x427719AC, level = 20 },                    # Gale Dash (dribble, fire, 440)
+    { move = 0x5F1FEB23, level = 38 },                    # Meteoric Fire Tornado (shot, fire, 540)
+    { move = 0x99250542, level = 60 },                    # Volcanic Lightning (shot, fire, 640)
+  ]

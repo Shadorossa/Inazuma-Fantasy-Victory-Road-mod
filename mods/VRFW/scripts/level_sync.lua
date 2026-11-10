@@ -1,13 +1,10 @@
--- Level sync of the user's team, script side (docs/framework/level-sync.md). Declarations: every active mod's
--- content\level_sync\*.toml (`VRFW.level_sync/1`, keys content\types\level_sync.toml).
--- At start: the tables VRFW.LevelSync.Raise / .Cap ({ game, row } -> level, 0 = any), the native block whose address the state key
--- VRFW.level_sync.request holds, and the two detours of content\game\level_sync.toml. In a match the answers
--- are native: the match request writes its difficulty row and game into the block, and each saved player's match copy gets the
--- stats of the row's level. The block is cleared at the end of every match (a «Salir» too) and at a title return.
+-- Level sync of the user's team, script side (docs/framework/level-sync.md).
 
 LevelSync = LevelSync or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
+local Memory = VRFW.memory
+local Difficulty = VRFW.match.difficulty
 
 local function info(text) VRFW.log("level_sync: " .. text) end
 local function warn(text) VRFW.warn("level_sync: " .. text) end
@@ -15,50 +12,20 @@ local function warn(text) VRFW.warn("level_sync: " .. text) end
 local TABLE_RAISE, TABLE_CAP = "VRFW.LevelSync.Raise", "VRFW.LevelSync.Cap"
 local STATE_KEY = "VRFW.level_sync.request"
 local HOOKS = { "LevelSync.MatchRequest", "LevelSync.StatLevel" }
+-- the game's reads of the level a screen shows; the stats and the moves never go through them
+local SHOWN_HOOKS = { "LevelSync.ShownTeamLevel", "LevelSync.ShownCharaInfo", "LevelSync.ShownMainStatus",
+  "LevelSync.ShownDetailStatus", "LevelSync.ShownUseChara", "LevelSync.ShownCharaCard" }
 
-local RULES = {}          -- "game:row" -> { game, row, level, raise, key } (game / row 0 = any)
-local BLOCK = nil         -- the native block: +0 u8 difficulty row, +4 u32 game of the match request
+local RULES = {}
+local BLOCK = nil
 local LIVE = false
 
-local hex = require("lib/ids").hex
+local hex = VRFW.ids.hex_text
 
 local function pair_text(game, row)
   local g = game == 0 and "any game" or "game " .. hex(game)
   local r = row == 0 and "any difficulty" or "difficulty " .. row
   return g .. ", " .. r
-end
-
--- the difficulty rows whose declared class level is `level` (every active mod's content\defaults\match_difficulty.toml,
--- [MatchDifficulty.<Id>] merged by Id in load order; Enabled = false left out)
-local LEVEL_ROWS = nil
-local function rows_at_level(level)
-  if LEVEL_ROWS == nil then
-    LEVEL_ROWS = {}
-    local by = {}
-    local ok, files = pcall(VRFW.files.declarations, "content/defaults/match_difficulty.toml")
-    if ok and type(files) == "table" then
-      for _, f in ipairs(files) do
-        local md = type(f.data) == "table" and f.data.MatchDifficulty or nil
-        if type(md) == "table" then
-          for id, t in pairs(md) do
-            if type(t) == "table" then
-              by[id] = by[id] or {}
-              for k, x in pairs(t) do by[id][k] = x end
-            end
-          end
-        end
-      end
-    end
-    for _, m in pairs(by) do
-      local row, lv = tonumber(m.Difficulty), tonumber(m.Level)
-      if row and lv and m.Enabled ~= false then
-        LEVEL_ROWS[lv] = LEVEL_ROWS[lv] or {}
-        table.insert(LEVEL_ROWS[lv], row)
-      end
-    end
-    for _, list in pairs(LEVEL_ROWS) do table.sort(list) end
-  end
-  return LEVEL_ROWS[level] or {}
 end
 
 local function load_rules()
@@ -76,7 +43,7 @@ local function load_rules()
     if v.difficulty_level then
       rows = {}
       for _, row in ipairs(v.difficulties or {}) do rows[#rows + 1] = row end
-      for _, row in ipairs(rows_at_level(v.difficulty_level)) do rows[#rows + 1] = row end
+      for _, row in ipairs(Difficulty.rows_at_level(v.difficulty_level)) do rows[#rows + 1] = row end
       info(string.format("%s: difficulty rows at Nv. %d: %s", d.key or d.where, v.difficulty_level,
         #rows > 0 and table.concat(rows, ", ") or "none"))
     end
@@ -122,9 +89,8 @@ end
 
 local function request()
   if not BLOCK then return nil end
-  local ok1, row = pcall(VRFW.mem.read, "u8", BLOCK)
-  local ok2, game = pcall(VRFW.mem.read, "u32", BLOCK + 4)
-  if not (ok1 and ok2) then return nil end
+  local row, game = Memory.read("u8", BLOCK), Memory.read("u32", BLOCK + 4)
+  if row == nil or game == nil then return nil end
   return row, game
 end
 
@@ -132,8 +98,8 @@ end
 local function clear(why)
   local row, game = request()
   if row == nil or (row == 0 and game == 0) then return end
-  pcall(VRFW.mem.write, "u8", BLOCK, 0)
-  pcall(VRFW.mem.write, "u32", BLOCK + 4, 0)
+  VRFW.memory.write("u8", BLOCK, 0)
+  VRFW.memory.write("u32", BLOCK + 4, 0)
   if rule_of(game, row) then info(string.format("%s: sync off (%s)", pair_text(game, row), why)) end
 end
 
@@ -144,21 +110,16 @@ VRFW.on("match_start", function()
   if r then
     info(string.format("this match (%s): the user's players play at Nv. %d%s (%s); their moves stay as they are",
       pair_text(game, row), r.level, r.raise and "" or " (only the players above it)", r.key))
+  elseif row ~= nil then
+    info(string.format("this match (request game %s, difficulty %d): no rule: the user's players play at their own levels",
+      hex(game), row))
+  else
+    warn("this match: the request block is not readable: no level sync")
   end
 end)
 
 VRFW.on("match_end", function() clear("match end") end)
 VRFW.on("game_reset", function() clear("title return") end)
-
--- CMND_VRFW_LEVEL_SYNC () -> level, raise (1 / 0) of the current match request's rule; 0 = no sync. The VS screen
--- (assets/lua/menu/soccer_battle_setting_flow_vs_menu/200_level_sync.lua) shows the synced team level with it.
-function LevelSync.Cmd()
-  if not LIVE then return 0, 0 end
-  local row, game = request()
-  local r = row ~= nil and rule_of(game, row)
-  if not r then return 0, 0 end
-  return r.level, r.raise and 1 or 0
-end
 
 local function start()
   if load_rules() == 0 then return end
@@ -170,7 +131,8 @@ local function start()
       return
     end
   end
-  local okb, block = pcall(VRFW.mem.buffer, "level_sync_request", 8)
+  local block = VRFW.memory.buffer("level_sync_request", 8)
+  local okb = block ~= nil
   if not okb or type(block) ~= "number" or not pcall(VRFW.state.set, STATE_KEY, block) then
     warn("the request block is not set up: no level sync")
     return
@@ -181,6 +143,12 @@ local function start()
     if not (ok and done == true) then
       warn(string.format("detour %s not installed (%s): no level sync (%s)", name, tostring(ok and e or done), describe()))
       return
+    end
+  end
+  for _, name in ipairs(SHOWN_HOOKS) do
+    local ok, done, e = pcall(VRFW.hook.apply, name)
+    if not (ok and done == true) then
+      warn(string.format("detour %s not installed (%s): that level still shows the real number", name, tostring(ok and e or done)))
     end
   end
   LIVE = true

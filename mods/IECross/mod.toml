@@ -1,105 +1,18 @@
 id = "IECross"
-# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
-# game's language (text\keys.toml) «IECross»: the same name in every language; the id stays.
 name = "IECross"
-version = "0.2.4"
+version = "0.3.0"
 author = "LiLKi"
-author_steam = "76561199013321372"
-description = "Inazuma Eleven Cross in Victory Road: its 11 teams with crests, kits and moves, the Cross cards with their heads and outfits, 15 Cross special moves, new kits, extra Office characters and eight Cross stadiums for matches. It adds its own Inazuma Eleven Cross tabs to the bot matches, Battle Bay and the player bank, and the Cross intros as goal celebrations. Always on: no options. Authors: LiLKi."
+description = "Inazuma Eleven Cross in Victory Road: its 11 teams, the Cross cards, 15 special moves, new kits, extra Office characters and eight stadiums, with their own tabs in bot matches, the Battle Bay and the player bank. Authors: LiLKi."
 priority = 0
 tags = ["Teams", "Characters", "Techniques"]
-updated = "2026-11-06"
-# This mod's own names (TOML keys [[IECross.X]], Lua IECross.X, any later text, command or key; older texts keep
-# their iecross_ ids); never VRFW.
+updated = "2026-11-09"
 prefix = "IECross"
 folder = "IECross"
-# The «Inazuma Eleven Cross» content (teams, characters, techniques, kits, stadiums, celebrations). Data only: no plugin, no Lua, no options. Standard mod layout
-# (docs/framework/mod-layout.md): declarations in content\<type>\, texts in text\, game-shaped files in
-# assets\data\, binaries in assets\ (the image PNGs in assets\images\…, the.glb / textures in assets\models\…: same
-# sub-path as their declaration, found through the image / model types' assets\ fallback):
-#   content\teams\0001-0011_*.toml   the 11 Cross teams (team type; keys evt_ct_cx_*: ids = crc32(key), as before)
-#   content\teams\00_loadouts.toml   their CPU loadouts (169, only they use them)
-#   content\teams\90_estadio_bb.toml four of them in the Estadio BB (level-40 copies, keys <key>_bb)
-#   content\characters\<season>\<team>.toml
-#                                    the 7 Cross characters (fixed ids: chara_base / card / model ids unchanged)
-#   content\characters\10_ie1\ievrcross_characters.toml
-#                                    the 3 characters of the IEVRCROSS mod (own ids, its heads, at the Office)
-#   content\celebrations\cross_intros.toml + content\characters\celebrations*.toml + content\base_tables\event\ev71\,
-#   event_cfg\*\ev71_18* + assets\event\ev71\, assets\effect\event\ev71\
-#                                    the 30 Cross goal celebrations (26 «Auto» ones of
-#                                    their characters, open to every player, and 4 poses; celebration type + character claims:
-#                                    celebrations_game_characters.toml the game's characters, celebrations.toml this
-#                                    mod's own); event files Level-5-derived: research/recipes/celebrations/iecross.toml,
-#                                    never committed (.gitignore, _deploy.toml overlays)
-#   content\looks\                   the 14 Cross kits, the Cross characters' own kits, outfits, shoes, items; cross_new_kits.toml
-#                                    the 4 kits of the IEVRCROSS mod (Penguin, Shin Zeus, Full Moon, Pumpkin Devil)
-#   content\models\                  every model, one address each (docs/framework/mod-layout.md «Models»): 2 .glb
-#                                    (pirate Xavier's head and shoes: if_models_to_glb.py)
-#                                    and 49 native ones (format = "native", game_path: the Cross heads, items, own
-#                                    outfits / shoes, kit textures and meshes, the move models); files in assets\models\<kind>\<id>\
-    #   assets\data\…                     events, effect objects, crests,
-#   content\techniques\new.toml      the 15 Cross moves (keys whs95000…whd95120: skill ids = crc32(key), as before)
-#   content\base_tables\event\…, event_cfg\…
-#                                    the moves' light / event / effect / sound lists
-#   content\base_tables\gamedata\item\item_config.toml
-#                                    manuals, crest items, kit items (same ids / catalog numbers)
-#   content\base_tables\gamedata\character\…
-#                                    the Cross belong team and series, chara scale rows
-#   text\rows\                       team / crest / kit / series names (9 languages)
-#   content\images\menu\200_icon\02_icon_item\icon_item07
-#                                    the six Cross kit item icons
-#   assets\data\…                     events, effect objects, move models, Cross heads, outfits, kit textures, crests,
-#                                    face icons, kit mini-faces (Level-5 / Cross derived, tracked as they were in IF)
-#   assets\data\{common,dx11}\map\s\s9{1,1b,1c,2,3,4,8,9}g001 + content\base_tables\map\s\…
-#   + content\base_tables\map\map_minimap.toml + content\tables\common\map\map_data.toml
-#   + images\menu\220_img\stadium\img_room_* + text\rows\map_text.toml
-#                                    the eight Cross stadium ports (maps, env / effect tables, minimap and map-list rows,
-#                                    list and VS-screen pictures, names)
-#   content\teams\cross_tab.toml + content\teams\0012_royal_academy_cross.toml
-#   + content\base_tables\gamedata\soccer\{soccer_game_config,soccer_prize_config,soccer_opponent_info}.toml
-#   + content\base_tables\gamedata\vsroute\…
-#                                    (1.1.0) the «Inazuma Eleven Cross» tab of «Competir contra bots»: its 11 games,
-#                                    prizes, hidden piece evt_cross_piece ([[keyed]] rows by key on top
-#                                    of Inazuma Fantasy's whole tables), the cross_tab list and Royal Academy (Cross);
-#   content\shops\cross_techniques.toml
-#                                    the 15 Cross moves in Inazuma Fantasy's Special Moves shop (if_mod; generated by
-#                                    research/scripts/iecross_technique_shop.py)
-#   content\items\ + content\shops\cross_stadiums.toml
-#                                    the eight stadium tickets and their Tienda general rows
-#   content\stadiums\cross_stadiums.toml
-#                                    (1.3.17) the eight stadiums in every stadium picker ([[stadium]], VR-Framework
-# with [[alias]]es (VR-Framework 2.0.1): game
-#                                    evt_cm_te_322299, ticket item ids / catalog bits / purchase counters unchanged.
-#   content\teams\free_match_tab.toml + text\rows\menu_text.toml + images\menu\200_icon\16_icon_list_tab\
-#                                    (1.1.1) the Cross tab of «Competir contra bots» ([[VRFW.FreeMatchTab]]: the
-#                                    VR-Framework 2.0.1 draws it, with or without Inazuma Fantasy) and the Cross season of
-#                                    the Bahía Batalla grid ([[VRFW.Season]] series_10, its 5 Cross teams), the X icon
-#
-#   content\card_filters\cross.toml  (1.2.0) the player bank's «Inazuma Eleven Cross» tab ([[bank_tab]], VR-Framework
-# filter ([[series]], exclusive); both
-# README.md, _deploy.toml and _split.toml are developer files, never installed. NOT here (Inazuma Fantasy keeps them,
-# it requires this mod): the Office scouts / shop rows that sell Cross cards and the Japan 2026 kit, the
-# spirit list's Cross tab (graft series_tabs; the bank's Cross tab is this mod's since 1.2.0), INAROGUE's use of the
-# Cross teams, the Lv200 stats / growth / INAROGUE rarity of the Cross cards (IF's EVT layout: IF's
-# characters\iecross_cards.toml). Celebrations: with the same events; the old keys new_animations.cross_* are
-# [[alias]]es in content\celebrations\cross_intros.toml (VRFW 2.45.0: the players' saved picks keep their
-# performanceId; old claims resolve).
-requires = ["VRFW>=0.2.4"]
-# All Miximaxed (AuraOverhaul): with it, the red-haired Axel Blaze is the Axel x Torch ideal miximax
-# (content\transforms\axel_torch_miximax.toml, if_mod = "all_miximaxed").
-# Its Miximax also needs the colour keys and eye zones of the Cross heads: content\miximax_palettes\cross.toml +
-# assets\mx_zones\ (same gate, research/scripts/iecross_mx_palettes.py); every Cross character mixes as base and partner.
-# Inazuma Fantasy: the Cross moves and kits in its shops (content\shops\, if_mod = "InazumaFantasy").
-optional = ["AuraOverhaul", "BetterQoL", "InazumaFantasy"]
+# The «Inazuma Eleven Cross» content (teams, characters, techniques, kits, stadiums, celebrations).
+requires = ["VRFW>=0.3.0"]
+optional = ["BattleBayDeluxe", "BetterQoL", "CharacterReforged", "InazumaFantasy"]
 conflicts = []
 
-# What other mods may use under the prefix (docs/framework/native.md §5): nothing yet (no Lua functions, no
-# [[IECross.X]] keys). What other mods use today are content ids, public by id with requires = ["IECross"]:
-# the free-match tab `cross` ([[VRFW.FreeMatchTab]], content\teams\free_match_tab.toml), the
-# Bahía Batalla season `series_10` ([[VRFW.Season]], same file), the player bank tab `cross` and the bank filter value
-# `cross` (content\card_filters\cross.toml), the list `IECross.cross_tab`, the teams `IECross.ct_cx_*`, the characters
-# `IECross.*`, the series / belong team rows (crc32 evt_chara_series_cross / evt_belong_team_cross) and the text row
-# iecross_series_cross.
 [exports]
 functions = []
 keys = []

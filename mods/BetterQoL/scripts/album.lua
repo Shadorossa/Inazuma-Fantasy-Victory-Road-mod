@@ -1,97 +1,73 @@
--- BetterQoL › player album («Álbum de jugadores»): every player of the game and the enabled mods, grouped by name or
--- by game, with a tick for the ones the club has. The page is util_album_menu (content\menus\album.toml,
--- assets\lua\screens\util_album_menu.lua), opened from «Caseta del club» (graft util_album_row).
---
--- The roster (built once, at the first opening):
---   * a chara_base row of kind 10 (a player), with a serial number (0 = the avatars), a name, a series and a normal
---     card (chara_param: the team planner's rule, config.toml [team_planner] card_values), and a real player
---     (VRFW/lib/real_players: an own face icon, a body that wears a kit or own clothes, a profile; e.g. a keshin armour
---     form drawn with Mark Evans' default face, a mascot body are left out of every tab and count);
---   * one row per face: every base with a face icon of his own is a row in his own series, whatever voice bank or model
---     he shares with another character (Tod Ironside of Ares is not Tod of IE1); only bases with the same internal
---     name (the face id) and the same name text are one row.
--- «Juego» lists a series' players team by team (belong_team_config teamNumber_<X>, the original-names catalogue's team
--- order), each team by chara_base sort_order (0 = none: after the others), then serial_no; a player's team = the first of
--- team_1..3 numbered in his series, else the first he has. «Nombre» sorts every player by name, then season, and groups
--- him by his first letter (the groups are a text of the page's language, passed by the page).
---
--- «Juego» also lists the album categories other mods declare in content\album\*.toml ([[series]]: series =
--- <chara_series_config id> names the tab and gives its logo, the series type's tab icon; its members are the cards
--- of `cards` = card-set rules as VRFW.character.select reads them (docs/framework/chara-index.md §4: team, mod, set, …)
--- and / or of the characters in the belong team `team`, and / or with `own_characters = true` the characters the
--- declaring mod declares in content\characters; only characters with a card at or below the shown rarity). Each
--- member character is a row of its own, shown as its own card (its model, outfit and stats), never folded into the
--- character it copies (voice bank / model; members of one category sharing a look are one row); `page` = N puts
--- its tab on page N of the group bar (its own album page: «<» / «>» in the bar's end caps, LB / RB cross pages); with
--- `exclusive` (default true) it is listed only under its category, not under the series it was cloned from. Its 3D
--- model wears the kit of the declaring mod's first team (content	eams [[team]], id = crc32(key)) whose roster lists
--- his card (`kit_from_own_teams`, default true; the plate's VRFW.plate_card_team), else his own team's kit.
--- Own rows: a root own_row_cards = [cards] in content/album/*.toml keeps each card's character as a row of his own in
--- his series: he is not folded into the character whose voice bank or model he shares.
--- Hidden rarities: a mod's contentlbum [[hide_rarities]] (option = a full option row key, when = [{ values = [option
--- values], rarities = [card rarities] }, …]; or config = a dotted path of the declaring mod's config.toml instead of
--- option) keeps the cards of those rarities out of the album while its option row or config has one of those values (e.g. No More Rarities' removed Ídolo / Diamante tiers); the roster is rebuilt when the
--- value in force changes.
--- Last, «Especiales»: every card of a listed player whose rarity is above [album] display_rarity (Idol, Diamond, …),
--- listed by the character name alone. A character whose cards are all above it (a mod's Idol with a character of its own,
--- the card moved to it with `adopt`) has no row in the other tabs, only his cards here, with his own face and name.
---
--- Commands (content\game\album.toml):
---   CMND_BETTERQOL_ALBUM_OPEN(lang code, name groups text, label of the other names) -> { total, owned, groups = { [1] = name groups, [2] = game
---     groups } } with each group { label, total, owned, series type (game groups), emblem, name, icon, bar page }; false = no roster
---   CMND_BETTERQOL_ALBUM_PAGE(kind, group, page, rows a page) -> { page, pages, total, owned, rows = { { chara_base, param,
---     name, team, series name, owned, level, rarity } … } }; param / level / rarity = the shown card (shown_card); kind 1 = name, 2 = game; group / page 1-based
 
 local C = require "lib/tp_core"
 local Cat = require "lib/original_names_catalogue"
-local Catalogue = require "VRFW/lib/game_catalogue"
-local RealPlayers = require "VRFW/lib/real_players"
+local Catalogue = VRFW.catalogue
+local RealPlayers = VRFW.real_players
 local T = require "lib/original_names_tables"
-local GameText = require "VRFW/lib/game_text"
+local GameText = VRFW.names
+local Fold = VRFW.text_fold
 
 BetterQoL = BetterQoL or {}
 BetterQoL.Album = BetterQoL.Album or {}
 
 local PLAYER_KIND = 10
-local DECL_PATHS = { "content/team_planner", "team_planner" }
-local ALBUM_DECL_PATHS = { "content/album" }
-local TEAM_DECL_PATHS = { "content/teams" }
--- the rarity files (the framework's game rarities and any mod's [[rarity]]): their labels name the special cards
+local DEFAULT_TEAM_PAGE_MIN_PLAYERS = 11
+local SEARCH_KIND = 4
+local NO_RANK = math.huge
+local UTF8_CHAR = "[%z\1-\127\194-\244][\128-\191]*"
 
-local int, u32 = C.int, C.u32
+local int, u32 = C.int, VRFW.ids.unsigned
+local chars, fold = Fold.chars, Fold.fold_upper
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("album")
 
--- the «Especiales» group's tab icon (a sprite of the game's list tab atlas; config.toml [album] special_icon)
-local function special_icon()
-  local ok, v = pcall(VRFW.files.config, "album.special_icon")
-  return ok and type(v) == "string" and v or ""
-end
-
--- «Equipo»: a team with fewer players than this gets no page of its own (config.toml [album] team_page_min_players)
-local DEFAULT_TEAM_PAGE_MIN_PLAYERS = 11
-local function team_page_min_players()
-  local ok, v = pcall(VRFW.files.config, "album.team_page_min_players")
-  return (ok and int(v)) or DEFAULT_TEAM_PAGE_MIN_PLAYERS
-end
-
-local roster = nil       -- { entries = { e … }, by_base = { [base] = e }, of_param = { [param] = e } }
-local bases = {}         -- [lang] = the language's names of the roster: { name rows, team rows, series rows, keys, sorted }
-local names = {}         -- [lang] = { group spec, name rows, team rows, series rows, groups, sorted }
+local roster = nil
+local bases = {}         -- [lang] = language_base(lang)
+local names = {}         -- [lang] = language(...)
 local view = nil         -- the opening's language state
-local view_owned = nil   -- the club's cards read at the opening (owned())
-local view_level, view_rarity, view_counts = 1, 0, {}   -- the opening's shown card (shown_card) and group tick counts
+local view_owned = nil   -- the club's cards read at the opening
+local view_level, view_rarity, view_counts = 1, 0, {}
+local search_group = nil
+local view_groups = nil   -- the opening's groups under the filter in force (nil: no filter)
 
--- ---------------------------------------------------------------------------------------------- the roster
+-- t[key] when it is a table, else an empty one
+local function list_of(t, key)
+  local v = type(t) == "table" and t[key] or nil
+  return type(v) == "table" and v or {}
+end
+
+local function declarations(paths)
+  local ok, decls = pcall(VRFW.files.declarations, paths)
+  return ok and type(decls) == "table" and decls or {}
+end
+
+local function album_config()
+  return VRFW.config("album", {})
+end
+
+local function first_team(teams)
+  for _, t in ipairs(teams) do
+    if t ~= 0 then
+      return t
+    end
+  end
+  return nil
+end
+
+local function count(list, have)
+  local n = 0
+  for _, e in ipairs(list) do
+    if have[e] then
+      n = n + 1
+    end
+  end
+  return n
+end
 
 local function card_values()
-  local okc, cfg = pcall(VRFW.files.config, "team_planner")
-  local okd, decls = pcall(VRFW.files.declarations, DECL_PATHS)
-  return C.rule(okc and cfg or nil, okd and decls or {}).card_values
+  return C.rule(VRFW.config("team_planner"), declarations({ "content/team_planner", "team_planner" })).card_values
 end
 
--- the chara_series_config row of a series id (Cat.series_rows), nil when there is none
 local function series_row(series_id)
   for _, r in ipairs(Cat.series_rows()) do
     if r.id == series_id then
@@ -101,22 +77,13 @@ local function series_row(series_id)
   return nil
 end
 
--- The album categories the mods declare (content/album/*.toml [[series]]): { row, mod, exclusive, bases = { [base] =
--- true } } each, in declaration order. A member base = the character of a card the `cards` rules select, a
--- character one of whose chara_base team_1..3 is `team`, or (`own_characters = true`) a character the declaring mod
--- declares in content/characters ([[character]], its base.id, else crc32 of its base.name). Only a character with a
--- card at or below the shown rarity is claimed (`normal_base`); special cards stay in «Especiales». A base two
--- categories claim stays in the first one.
-local CHARACTER_DECL_PATHS = { "content/characters" }
-
--- [mod] = { character ids } of the [[character]] entries each mod declares in content/characters
+-- [mod] = { character ids } of its content/characters [[character]] entries (base.id, else crc32 of base.name)
 local function declared_characters()
   local out = {}
-  local ok, decls = pcall(VRFW.files.declarations, CHARACTER_DECL_PATHS)
-  for _, d in ipairs(ok and type(decls) == "table" and decls or {}) do
+  for _, d in ipairs(declarations({ "content/characters" })) do
     local list = out[d.mod] or {}
     out[d.mod] = list
-    for _, ch in ipairs(type(d.data) == "table" and type(d.data.character) == "table" and d.data.character or {}) do
+    for _, ch in ipairs(list_of(d.data, "character")) do
       local base = type(ch.base) == "table" and ch.base or {}
       local id = u32(base.id)
       if (id == nil or id == 0) and type(base.name) == "string" then id = u32(VRFW.crc32(base.name)) end
@@ -126,12 +93,12 @@ local function declared_characters()
   return out
 end
 
-local function declared_categories(declarations, base_rows, base_of, normal_base)
+-- the [[series]] categories: members from `cards` rules, `team` and `own_characters`; a base stays in the first claim
+local function declared_categories(decls, base_rows, base_of, normal_base)
   local categories, category_of_base = {}, {}
   local mod_characters = nil
-  for _, d in ipairs(declarations) do
-    local data = type(d.data) == "table" and d.data or {}
-    for _, sd in ipairs(type(data.series) == "table" and data.series or {}) do
+  for _, d in ipairs(decls) do
+    for _, sd in ipairs(list_of(d.data, "series")) do
       local series_id, team = u32(sd.series), u32(sd.team)
       local row = series_row(series_id)
       local has_rules = type(sd.cards) == "table"
@@ -160,9 +127,8 @@ local function declared_categories(declarations, base_rows, base_of, normal_base
           end
         end
         if own then
-          -- except_cards: characters the mod declares that stay under the series and team of their own chara_base
           local excepted = {}
-          for _, card_id in ipairs(type(sd.except_cards) == "table" and sd.except_cards or {}) do
+          for _, card_id in ipairs(list_of(sd, "except_cards")) do
             excepted[base_of[u32(card_id)] or 0] = true
           end
           mod_characters = mod_characters or declared_characters()
@@ -186,17 +152,15 @@ local function declared_categories(declarations, base_rows, base_of, normal_base
   return categories, category_of_base
 end
 
--- [card] = the team that dresses it: the first [[team]] of the mod `mod` (content/teams, in file order) whose roster
--- lists the card; its id = crc32 of its key, as the team type numbers it
+-- [card] = crc32(key) of the first content/teams [[team]] of `mod` whose roster lists the card
 local function own_team_of_cards(mod)
   local out = {}
-  local ok, decls = pcall(VRFW.files.declarations, TEAM_DECL_PATHS)
-  for _, d in ipairs(ok and type(decls) == "table" and decls or {}) do
-    if d.mod == mod and type(d.data) == "table" then
-      for _, team in ipairs(type(d.data.team) == "table" and d.data.team or {}) do
+  for _, d in ipairs(declarations({ "content/teams" })) do
+    if d.mod == mod then
+      for _, team in ipairs(list_of(d.data, "team")) do
         local team_id = type(team.key) == "string" and u32(VRFW.crc32(team.key)) or 0
         if team_id ~= 0 then
-          for _, member in ipairs(type(team.member) == "table" and team.member or {}) do
+          for _, member in ipairs(list_of(team, "member")) do
             local card_id = u32(member.card)
             if card_id ~= 0 and out[card_id] == nil then
               out[card_id] = team_id
@@ -209,13 +173,10 @@ local function own_team_of_cards(mod)
   return out
 end
 
--- The card rarities the mods' [[hide_rarities]] hide now: { [rarity] = true }, and a signature of the option values
--- read (the roster is rebuilt when it changes)
-local function hidden_rarities(declarations)
+local function hidden_rarities(decls)
   local hidden, signature = {}, {}
-  for _, d in ipairs(declarations) do
-    local data = type(d.data) == "table" and d.data or {}
-    for _, rule in ipairs(type(data.hide_rarities) == "table" and data.hide_rarities or {}) do
+  for _, d in ipairs(decls) do
+    for _, rule in ipairs(list_of(d.data, "hide_rarities")) do
       local key = type(rule.option) == "string" and rule.option or ""
       local ok, value
       if type(rule.config) == "string" then
@@ -223,20 +184,16 @@ local function hidden_rarities(declarations)
         ok, value = pcall(VRFW.files.config, key, tostring(d.mod))
       else
         ok, value = pcall(VRFW.option, key)
-        if not (ok and value ~= nil) and key ~= "" then
-          -- the declaring mod's own row under its current id (the key may name a former id)
-          ok, value = pcall(VRFW.option, tostring(d.mod) .. "." .. (key:match("([^.]+)$") or key))
-        end
       end
       value = ok and value or nil
       signature[#signature + 1] = key .. "=" .. tostring(value)
-      for _, case in ipairs(type(rule.when) == "table" and rule.when or {}) do
+      for _, case in ipairs(list_of(rule, "when")) do
         local applies = false
-        for _, v in ipairs(type(case.values) == "table" and case.values or {}) do
+        for _, v in ipairs(list_of(case, "values")) do
           if value ~= nil and (v == value or (tonumber(v) ~= nil and tonumber(v) == tonumber(value))) then applies = true end
         end
         if applies then
-          for _, rarity in ipairs(type(case.rarities) == "table" and case.rarities or {}) do
+          for _, rarity in ipairs(list_of(case, "rarities")) do
             hidden[int(rarity) or -1] = true
           end
         end
@@ -246,59 +203,46 @@ local function hidden_rarities(declarations)
   return hidden, table.concat(signature, ",")
 end
 
--- the mods' content/album declarations: read from disk once (the files are fixed for the session)
 local album_decls = nil
 local function album_declarations()
-  if album_decls == nil then
-    local ok, decls = pcall(VRFW.files.declarations, ALBUM_DECL_PATHS)
-    album_decls = ok and type(decls) == "table" and decls or {}
-  end
+  album_decls = album_decls or declarations({ "content/album" })
   return album_decls
 end
 
--- THE album filter: a chara_base row the album may list as a player: a player (kind 10) with a serial number (0 = the
--- avatars) and a name; build() then keeps only real players (VRFW/lib/real_players: an own face icon, a player body,
--- a profile), so every tab (Nombre / Juego / Equipo) and every count comes from the same rows
+-- a chara_base row the album may list: a player with a serial number (0 = the avatars) and a name
 local function is_album_player(r)
   return int(r.kind) == PLAYER_KIND and (int(r.serial_no) or 0) > 0 and u32(r.name_text) ~= 0
 end
 
 local function build()
-  -- the cards as the game loads them (the framework's character index: chara-index.md)
-  local params = {}
-  local base_of = {}
-  -- cards a mod keeps out of the album (content/album/*.toml exclude_cards: e.g. cards of one mode only)
-  local excluded = {}
+  local params, base_of, excluded = {}, {}, {}
   local edecls = album_declarations()
   local hidden, hidden_signature = hidden_rarities(edecls)
   for _, d in ipairs(edecls) do
-    local data = type(d.data) == "table" and d.data or {}
-    for _, id in ipairs(type(data.exclude_cards) == "table" and data.exclude_cards or {}) do
+    for _, id in ipairs(list_of(d.data, "exclude_cards")) do
       excluded[u32(id)] = true
     end
   end
-  local okc, acfg = pcall(VRFW.files.config, "album")
-  local shown_rarity = (okc and type(acfg) == "table" and int(acfg.display_rarity)) or 0
-  local special_cards = {}        -- { param, base, rarity } of the cards above the shown rarity, in card order
-  local is_special = {}           -- [param] = true: a card of «Especiales»: its own row has the tick, not the player's
+  local shown_rarity = int(album_config().display_rarity) or 0
+  local special_cards = {}        -- { param, base, rarity } of the cards above the shown rarity
+  local is_special = {}
   for _, c in ipairs(VRFW.character.cards()) do
     local p, b = u32(c.id), u32(c.base)
     local rar = int(c.rarity) or 0
-    if p ~= 0 and b ~= 0 and not excluded[p] and hidden[rar] then
-      base_of[p] = b               -- a hidden rarity's card: no row of its own; owning it still ticks its player
-    elseif p ~= 0 and b ~= 0 and not excluded[p] then
-      params[#params + 1] = { p, b, rar }
+    if p ~= 0 and b ~= 0 and not excluded[p] then
       base_of[p] = b
-      if rar > shown_rarity then
-        special_cards[#special_cards + 1] = { p, b, rar }
-        is_special[p] = true
+      if not hidden[rar] then
+        params[#params + 1] = { p, b, rar }
+        if rar > shown_rarity then
+          special_cards[#special_cards + 1] = { p, b, rar }
+          is_special[p] = true
+        end
       end
     end
   end
-  local own_row = {}              -- [base] = true: content/album/*.toml own_row_cards
+  local own_row = {}
   for _, d in ipairs(edecls) do
-    local data = type(d.data) == "table" and d.data or {}
-    for _, id in ipairs(type(data.own_row_cards) == "table" and data.own_row_cards or {}) do
+    for _, id in ipairs(list_of(d.data, "own_row_cards")) do
       local b = base_of[u32(id)]
       if b then own_row[b] = true end
     end
@@ -326,8 +270,10 @@ local function build()
       end
     end
   end
+  -- one row per face (internal name + name text); a category's character folds only into his own category
   local entries, by_base, by_face, fold_into = {}, {}, {}, {}
-  local order_of = {}             -- [entry] = his place inside a team: chara_base sort_order, serial_no, table order
+  local order_of = {}
+  local folded = 0
   for _, r in ipairs(rows) do
     local b = u32(r.id)
     if listed[b] then
@@ -335,8 +281,6 @@ local function build()
       local category = category_of_base[b]
       local into = nil
       local face = tostring(r.name) .. "\0" .. u32(r.name_text)
-      -- a declared category's character is his own row (his own card, model and outfit); nothing outside his
-      -- category folds into him, and he folds only into a character of the same category (one look, one row)
       if own_row[b] then
         into = nil
       elseif category then
@@ -351,6 +295,7 @@ local function build()
       end
       if into then
         fold_into[b] = into
+        folded = folded + 1
       else
         local e = { base = b, param = card[b], name_text = u32(r.name_text), si = series_of[u32(r.series)],
                     teams = { u32(r.team_1), u32(r.team_2), u32(r.team_3) }, bases = { b }, category = category,
@@ -358,15 +303,16 @@ local function build()
         entries[#entries + 1] = e
         by_base[b] = e
         order_of[e] = { sort = int(r.sort_order) or 0, serial = int(r.serial_no) or 0, index = #entries }
-        if category and model ~= 0 and not own_row[b] then
-          category.by_model[model] = b
-        elseif not category and not own_row[b] then
-          by_face[face] = b
+        if not own_row[b] then
+          if category then
+            if model ~= 0 then category.by_model[model] = b end
+          else
+            by_face[face] = b
+          end
         end
       end
     end
   end
-  -- the team that dresses a category's card (its mod's own team listing it)
   for _, category in ipairs(categories) do
     if category.kit_from_own_teams then
       category.team_of_card = own_team_of_cards(category.mod)
@@ -377,11 +323,6 @@ local function build()
       end
     end
   end
-  -- an entry listed under the series it was cloned from too: a non-exclusive category's, or one of no category
-  local function in_source_series(e)
-    return e.category == nil or not e.category.exclusive
-  end
-  -- a folded base whose own target was folded too: the row it ended in
   for b, into in pairs(fold_into) do
     local e = by_base[into]
     local hops = 0
@@ -395,9 +336,7 @@ local function build()
       by_base[b] = e
     end
   end
-  -- A character whose cards are all special has no normal card, so no row of his own: his cards go to «Especiales»
-  -- under his own face and name. Same filter as a listed player; only a hidden rarity's card of his ticks the player
-  -- his voice bank names.
+  -- a character with only special cards has no row: his cards go to "Specials" under his own face and name
   local has_card = {}
   for _, b in pairs(base_of) do
     has_card[b] = true
@@ -410,12 +349,7 @@ local function build()
         and RealPlayers.of_character(b) ~= false then
       local e = { base = b, name_text = u32(r.name_text), si = si, voice = u32(r.voice_bank),
                   teams = { u32(r.team_1), u32(r.team_2), u32(r.team_3) } }
-      for _, t in ipairs(e.teams) do
-        if t ~= 0 then
-          e.team = t
-          break
-        end
-      end
+      e.team = first_team(e.teams)
       special_only[b] = e
       special_players[#special_players + 1] = e
     end
@@ -429,14 +363,13 @@ local function build()
         e = player
       end
     end
-    -- a special card is another card of the club (the game holds both): it ticks its own «Especiales» row only
+    -- a special card ticks its own "Specials" row only
     if e and (not is_special[p] or e.param == p) then
       of_param[p] = e
     end
   end
-  -- «Juego»: each series' players team by team (the series' team order), inside a team by order_of
+  -- "Game": each series' players by the series' team order, then sort_order (0 last), serial_no, table order
   local series = {}
-  local NO_RANK = math.huge
   for si, s in ipairs(cat.series) do
     local team_rank = {}
     for i, t in ipairs(s.teams) do
@@ -444,7 +377,7 @@ local function build()
     end
     local list, rank = {}, {}
     for _, e in ipairs(entries) do
-      if e.si == si and in_source_series(e) then
+      if e.si == si and (e.category == nil or not e.category.exclusive) then
         local first, numbered = 0, 0
         for _, t in ipairs(e.teams) do
           if t ~= 0 then
@@ -471,17 +404,9 @@ local function build()
     end
   end
   for _, e in ipairs(entries) do
-    if not e.team then
-      for _, t in ipairs(e.teams) do
-        if t ~= 0 then
-          e.team = t
-          break
-        end
-      end
-    end
+    e.team = e.team or first_team(e.teams)
   end
-  -- «Equipo»: one group per team of each series (a team row serves several eras: its players of one series are one
-  -- group), in the series' team order (a player under his first team; no team = team 0)
+  -- "Team": one group per team of each series, in the series' team order
   local teams = {}
   for _, s in ipairs(series) do
     local of_team = {}
@@ -496,7 +421,6 @@ local function build()
       g.list[#g.list + 1] = e
     end
   end
-  -- the categories the mods declare (content/album/*.toml [[series]]): their own characters, each as his own card
   for _, category in ipairs(categories) do
     local list = {}
     for _, e in ipairs(entries) do
@@ -510,9 +434,9 @@ local function build()
                                page = category.page }
     end
   end
-  -- «Especiales»: the special cards of the listed players (entries of their own: the card, its rarity, his name)
-  local specials, special_of_param = {}, {}
+  local specials, special_of_param, base_of_special = {}, {}, {}
   for _, c in ipairs(special_cards) do
+    base_of_special[c[1]] = c[2]
     local e = by_base[c[2]] or special_only[c[2]]
     if e then
       local sp = { base = e.base, param = c[1], rarity = c[3], name_text = e.name_text, si = e.si, team = e.team,
@@ -522,23 +446,18 @@ local function build()
       special_of_param[c[1]] = sp
     end
   end
-  -- «Especiales» in season order: the series of the card's own character (chara_series_config order, the first game
-  -- first; a series of no row last), then the character id (chara_base name), then the card id
+  -- "Specials" in season order (the card's own character's series), then chara_base name, then card id
   local season_of, chara_id_of = {}, {}
   for _, r in ipairs(rows) do
     local b = u32(r.id)
     if season_of[b] == nil then
-      season_of[b] = series_of[u32(r.series)] or math.huge
+      season_of[b] = series_of[u32(r.series)] or NO_RANK
       chara_id_of[b] = tostring(r.name or "")
     end
   end
-  local base_of_special = {}
-  for _, c in ipairs(special_cards) do
-    base_of_special[c[1]] = c[2]
-  end
   table.sort(specials, function(a, b)
     local ba, bb = base_of_special[a.param], base_of_special[b.param]
-    local sa, sb = season_of[ba] or math.huge, season_of[bb] or math.huge
+    local sa, sb = season_of[ba] or NO_RANK, season_of[bb] or NO_RANK
     if sa ~= sb then
       return sa < sb
     end
@@ -552,20 +471,16 @@ local function build()
              specials = specials, special_of_param = special_of_param, special_players = special_players,
              hidden_signature = hidden_signature }
   info(string.format("roster: %d players (%d bases folded into them, %d characters left out as no real player), %d games",
-    #entries, (function() local n = 0 for _ in pairs(fold_into) do n = n + 1 end return n end)(), not_real, #series))
+    #entries, folded, not_real, #series))
 end
 
 local function ensure_roster()
-  if roster ~= nil then
-    local _, signature = hidden_rarities(album_declarations())
-    if signature ~= roster.hidden_signature then
-      info("hidden rarities changed (" .. tostring(roster.hidden_signature) .. " -> " .. signature .. "): roster rebuilt")
-      roster, names, bases = nil, {}, {}
-    end
+  local _, signature = hidden_rarities(album_declarations())
+  if roster ~= nil and signature ~= roster.hidden_signature then
+    info("hidden rarities changed (" .. tostring(roster.hidden_signature) .. " -> " .. signature .. "): roster rebuilt")
+    roster, names, bases = nil, {}, {}
   end
   if roster == nil then
-    -- built once and kept between starts (VRFW.derived), keyed on the hidden-rarity option values too
-    local _, signature = hidden_rarities(album_declarations())
     local ok, err = pcall(function()
       roster = VRFW.derived("album_roster", signature, function()
         build()
@@ -580,39 +495,29 @@ local function ensure_roster()
   return roster
 end
 
--- ---------------------------------------------------------------------------------------------- the club
-
--- [entry] = { param, level, handle } of the club's best copy (highest level) of each row (the tick); read once per
--- opening (CMND_BETTERQOL_ALBUM_OPEN, also sent again by the page after an action changed the club)
+-- [entry] = { param, level, handle } of the club's highest-level copy of each row
 local function owned()
   local out = {}
-  local ok, list = pcall(VRFW.character.saved)
-  if ok and type(list) == "table" then
-    for _, c in ipairs(list) do
-      local p = u32(c.param)
-      local e = roster.of_param[p]
-      local lv = int(c.level) or 0
-      if e and (out[e] == nil or lv > out[e].level) then
-        out[e] = { param = p, level = lv, handle = int(c.handle) }
-      end
-      local sp = roster.special_of_param[p]
-      if sp and (out[sp] == nil or lv > out[sp].level) then
-        out[sp] = { param = p, level = lv, handle = int(c.handle) }
+  local ok, columns = pcall(VRFW.character.saved_columns, { "param", "level", "handle" })
+  if ok and type(columns) == "table" then
+    for n, param in ipairs(columns.param) do
+      local p = u32(param)
+      local lv = int(columns.level[n]) or 0
+      for _, e in ipairs({ roster.of_param[p] or false, roster.special_of_param[p] or false }) do
+        if e and (out[e] == nil or lv > out[e].level) then
+          out[e] = { param = p, level = lv, handle = int(columns.handle[n]) }
+        end
       end
     end
   else
-    warn("saved characters not read (" .. tostring(list) .. ")")
+    warn("saved characters not read (" .. tostring(columns) .. ")")
   end
   return out
 end
 
--- ---------------------------------------------------------------------------------------------- the shown card
-
--- every row is shown as the character's base card at the level cap in effect, never the club's copy: the cap a mod's
--- [VRFW.Level] raised (game_state level.max), else config.toml [album] game_level_cap; the rarity [album] display_rarity
+-- every row shows the base card at the level cap in force ([VRFW.Level] raised cap, else [album] game_level_cap)
 local function shown_card()
-  local okc, cfg = pcall(VRFW.files.config, "album")
-  cfg = okc and type(cfg) == "table" and cfg or {}
+  local cfg = album_config()
   local level = int(cfg.game_level_cap) or 1
   local okr, raised = pcall(VRFW.state.get, "level.raised")
   local okm, max = pcall(VRFW.state.get, "level.max")
@@ -622,21 +527,7 @@ local function shown_card()
   return math.max(1, level), int(cfg.display_rarity) or 0
 end
 
--- ---------------------------------------------------------------------------------------------- names and groups
-
-local function lang_of(code)
-  local c = int(code)
-  if c and c >= 0 and type(VRFW.files.game_languages) == "function" then
-    local ok, t = pcall(VRFW.files.game_languages)
-    local l = ok and type(t) == "table" and t[c + 1] or nil
-    if type(l) == "string" then
-      return l
-    end
-  end
-  return "en"
-end
-
--- the rows `ids` of a text table (only those become Lua values: chara_text has ~21k rows)
+-- only the rows `ids` of a text table (chara_text has ~21k rows)
 local function text_rows(lang, tbl, ids)
   local ok, rows = pcall(VRFW.files.text_rows, T.text_key(lang, tbl), ids)
   if ok and type(rows) == "table" then
@@ -648,7 +539,6 @@ local function text_rows(lang, tbl, ids)
   return {}
 end
 
--- the text ids the album reads: character names, team names and game names of the roster
 local function roster_text_ids()
   if roster.text_ids then
     return roster.text_ids
@@ -680,22 +570,25 @@ local function roster_text_ids()
   return roster.text_ids
 end
 
-local function text_of(rows, id)
+local function raw_text_of(rows, id)
   local r = rows and rows[id]
   local s = r and r[0]
   if type(s) == "string" and s ~= "" and s:sub(1, 1) ~= "<" then
-    return T.strip_furigana(s)
+    return s
   end
   return nil
 end
 
--- the rows `ids` of the character names the game shows (T.shown_chara_key); an id that table has no name for (the
--- retail romaji table has no mod's names) from the game language's own table
+local function text_of(rows, id)
+  local s = raw_text_of(rows, id)
+  return s and T.strip_furigana(s)
+end
+
+-- the character names the game shows; ids that table lacks (mod names) from the language's own chara table
 local function shown_chara_rows(lang, ids)
-  local own = T.text_key(lang, T.CHARA)
   local key = T.shown_chara_key(lang)
   local ok, rows = false, nil
-  if key ~= own then
+  if key ~= T.text_key(lang, T.CHARA) then
     ok, rows = pcall(VRFW.files.text_rows, key, ids)
   end
   if not ok or type(rows) ~= "table" then
@@ -713,15 +606,7 @@ local function shown_chara_rows(lang, ids)
   return rows
 end
 
--- the UTF-8 characters of s; a text (or one character) without accents, upper case (the framework's folding table)
-local Fold = require "VRFW/lib/text_fold"
-local chars, fold, fold_char = Fold.chars, Fold.fold_upper, Fold.fold_upper
-
-local UTF8_CHAR = "[%z\1-\127\194-\244][\128-\191]*"
-
--- the roster's names in one language, as the game shows them (its text files read once per language and loaded tables:
--- a changed names option reloads the game's texts): built at a save load for the game's language, else at the first
--- opening
+-- the roster's names in one language as the game shows them; rebuilt when the shown text tables change
 local function language_base(lang)
   local tables = T.shown_chara_key(lang) .. "|" .. (GameText.shown_key(lang, T.TEAM) or "")
   local B = bases[lang]
@@ -730,8 +615,8 @@ local function language_base(lang)
   end
   local ids = roster_text_ids()
   local crows = shown_chara_rows(lang, ids.chara)
-  B = { tables = tables, name = {}, key = {}, team_rows = text_rows(lang, T.TEAM, ids.other), series_rows = text_rows(lang, T.SERIES_TEXT, ids.other) }
-  -- the team names as the game shows them: the team names the engine loaded, name tags (<FST:...>, <MNT:...>) replaced
+  B = { tables = tables, name = {}, key = {}, reading = {}, reading_order = {}, team_rows = text_rows(lang, T.TEAM, ids.other),
+        series_rows = text_rows(lang, T.SERIES_TEXT, ids.other) }
   local team_text_ids = {}
   for _, text_id in pairs(roster.cat.team_names or {}) do
     if u32(text_id) ~= 0 then team_text_ids[#team_text_ids + 1] = u32(text_id) end
@@ -742,15 +627,19 @@ local function language_base(lang)
     local n = text_of(crows, e.name_text) or ""
     B.name[e] = n
     B.key[e] = fold(n)
+    local raw = raw_text_of(crows, e.name_text)
+    B.reading[e] = raw and fold(T.furigana_reading(raw)) or B.key[e]
   end
   for _, e in ipairs(roster.special_players) do
     B.name[e] = text_of(crows, e.name_text) or ""
   end
-  -- sorted by name, then season, then base: plain string keys (key, NUL, series, base) sort without a Lua comparator
+  -- name, season, base as one plain string key: sorts without a Lua comparator
   local sort_keys, of_sort_key = {}, {}
   for _, e in ipairs(roster.entries) do
     if B.name[e] ~= "" then
-      local k = B.key[e] .. "\0" .. string.format("%03d%010d", e.si or 999, e.base)
+      local tie_break = string.format("%03d%010d", e.si or 999, e.base)
+      local k = B.key[e] .. "\0" .. tie_break
+      B.reading_order[e] = B.reading[e] .. "\0" .. tie_break
       sort_keys[#sort_keys + 1] = k
       of_sort_key[k] = e
     end
@@ -764,7 +653,7 @@ local function language_base(lang)
   return B
 end
 
--- a team's name as the game shows it in the language of B (language_base); nil = none (no text, or only tags)
+-- a team's shown name; nil when it has none or only tags
 local function team_name(B, team)
   local s = team and team ~= 0 and B.team_names[u32(roster.cat.team_names[team] or 0)]
   if type(s) == "string" and s ~= "" and not s:find("<", 1, true) then
@@ -773,29 +662,27 @@ local function team_name(B, team)
   return nil
 end
 
--- the «Equipo» pages of one series from its team groups (in the series' team order): the teams of one shown name are
--- one page (one team under several ids); a team whose own crest in the series' era is an earlier page's joins that
--- page; a team with fewer than `min_players` players, without a name or no team at all joins the series' «other
--- teams» page, the last one
+local function append(into, list)
+  for _, e in ipairs(list) do into[#into + 1] = e end
+end
+
 local function team_pages(raw, min_players, others_label)
   local merged, by_label, by_crest = {}, {}, {}
   for _, g in ipairs(raw) do
     local into = (g.label and by_label[g.label]) or (g.crest ~= 0 and by_crest[g.crest]) or nil
-    if into then
-      for _, e in ipairs(g.list) do into.list[#into.list + 1] = e end
-    else
+    if not into then
       into = { label = g.label, list = {}, si = g.si, emblem = g.emblem }
-      for _, e in ipairs(g.list) do into.list[#into.list + 1] = e end
       merged[#merged + 1] = into
       if g.label then by_label[g.label] = into end
     end
+    append(into.list, g.list)
     if g.crest ~= 0 and by_crest[g.crest] == nil then by_crest[g.crest] = into end
   end
   local pages, others = {}, nil
   for _, g in ipairs(merged) do
     if g.label == nil or #g.list < min_players then
       others = others or { label = others_label, list = {}, si = g.si, emblem = 0 }
-      for _, e in ipairs(g.list) do others.list[#others.list + 1] = e end
+      append(others.list, g.list)
     else
       pages[#pages + 1] = g
     end
@@ -804,9 +691,19 @@ local function team_pages(raw, min_players, others_label)
   return pages
 end
 
--- the language's state: names, the «Nombre» groups (spec: first letters of each group, split by «,»)
+local function named(L, list)
+  local out = {}
+  for _, e in ipairs(list) do
+    if L.name[e] ~= "" then
+      out[#out + 1] = e
+    end
+  end
+  return out
+end
+
+-- the language's state: names and the name / game / team groups (spec: first letters of each name group, comma-split)
 local function language(code, spec, other_label, special_label, other_teams_label)
-  local lang = lang_of(code)
+  local lang = GameText.language(code)
   spec = tostring(spec or "")
   local L = names[lang]
   local B = language_base(lang)
@@ -818,28 +715,32 @@ local function language(code, spec, other_label, special_label, other_teams_labe
       and L.other_teams == other_teams_label then
     return L
   end
-  local trows, srows, sorted = B.team_rows, B.series_rows, B.sorted
+  local trows, srows = B.team_rows, B.series_rows
   L = { base = B, lang = lang, spec = spec, other = other_label, special = special_label, other_teams = other_teams_label,
-        name = B.name, key = B.key, team_rows = trows, series_rows = srows,
+        name = B.name, key = B.key, series_rows = srows,
         team_name = function(t) return team_name(B, t) end }
   local groups, of_char = {}, {}
   for g in spec:gmatch("[^,]+") do
     local cs = chars(g)
-    groups[#groups + 1] = { label = (#cs > 1) and (fold_char(cs[1]) .. "-" .. fold_char(cs[#cs])) or fold_char(cs[1] or "?"),
+    groups[#groups + 1] = { label = (#cs > 1) and (fold(cs[1]) .. "-" .. fold(cs[#cs])) or fold(cs[1] or "?"),
                             list = {} }
     for _, ch in ipairs(cs) do
-      of_char[fold_char(ch)] = of_char[fold_char(ch)] or #groups
+      of_char[fold(ch)] = of_char[fold(ch)] or #groups
     end
   end
   local other = { label = other_label ~= "" and other_label or "#", list = {} }
-  for _, e in ipairs(sorted) do
-    local first = L.key[e]:match("^" .. UTF8_CHAR)
+  for _, e in ipairs(B.sorted) do
+    local first = B.reading[e]:match("^" .. UTF8_CHAR)
     local g = first and of_char[first]
-    if g then
-      local l = groups[g].list
-      l[#l + 1] = e
-    else
-      other.list[#other.list + 1] = e
+    local l = g and groups[g].list or other.list
+    l[#l + 1] = e
+    if g and not of_char[L.key[e]:match("^" .. UTF8_CHAR) or ""] then
+      groups[g].by_reading = true
+    end
+  end
+  for _, g in ipairs(groups) do
+    if g.by_reading then
+      table.sort(g.list, function(a, b) return B.reading_order[a] < B.reading_order[b] end)
     end
   end
   local name_groups = {}
@@ -854,29 +755,21 @@ local function language(code, spec, other_label, special_label, other_teams_labe
   local game_groups = {}
   for _, s in ipairs(roster.series) do
     local label = text_of(srows, s.name_text) or text_of(trows, s.name_text) or string.format("0x%08X", s.name_text)
-    local list = {}
-    for _, e in ipairs(s.list) do
-      if L.name[e] ~= "" then
-        list[#list + 1] = e
-      end
-    end
+    local list = named(L, s.list)
     if #list > 0 then
       game_groups[#game_groups + 1] = { label = label, ty = s.ty, list = list, page = s.page or 1 }
     end
   end
-  local special_list = {}
   for _, sp in ipairs(roster.specials) do
     L.name[sp] = L.name[sp.of] or ""
-    if L.name[sp] ~= "" then
-      special_list[#special_list + 1] = sp
-    end
   end
+  local special_list = named(L, roster.specials)
   if #special_list > 0 then
-    game_groups[#game_groups + 1] = { label = special_label, ty = 0, icon = special_icon(), list = special_list, page = 1 }
+    local icon = album_config().special_icon
+    game_groups[#game_groups + 1] = { label = special_label, ty = 0, icon = type(icon) == "string" and icon or "",
+                                      list = special_list, page = 1 }
   end
-  -- the bar pages: a mod category's `page` (2, 3, …) puts its tab on that page of the bar (its own album page);
-  -- page 1 = the games, the categories without a page and «Especiales». Stable order inside a page. Pages are never
-  -- empty: they are renumbered 1, 2, … in order.
+  -- bar pages: stable order inside a page, pages renumbered 1, 2, … so none is empty
   for i, g in ipairs(game_groups) do g.order = i end
   table.sort(game_groups, function(a, b)
     if a.page ~= b.page then return a.page < b.page end
@@ -887,8 +780,7 @@ local function language(code, spec, other_label, special_label, other_teams_labe
     if g.page ~= last then renumbered, last = renumbered + 1, g.page end
     g.page = renumbered
   end
-  -- «Equipo»: the pages of each series (team_pages), series after series
-  local min_players = team_page_min_players()
+  local min_players = int(album_config().team_page_min_players) or DEFAULT_TEAM_PAGE_MIN_PLAYERS
   local team_groups, raw, raw_si = {}, {}, nil
   local function flush()
     for _, g in ipairs(team_pages(raw, min_players, other_teams_label)) do
@@ -898,12 +790,7 @@ local function language(code, spec, other_label, special_label, other_teams_labe
     raw = {}
   end
   for _, t in ipairs(roster.teams) do
-    local list = {}
-    for _, e in ipairs(t.list) do
-      if L.name[e] ~= "" then
-        list[#list + 1] = e
-      end
-    end
+    local list = named(L, t.list)
     if #list > 0 then
       if t.si ~= raw_si then
         flush()
@@ -917,7 +804,7 @@ local function language(code, spec, other_label, special_label, other_teams_labe
     end
   end
   flush()
-  -- a name several groups share: «team · game»
+  -- a name several groups share: "team · game"
   local uses = {}
   for _, g in ipairs(team_groups) do
     uses[g.label] = (uses[g.label] or 0) + 1
@@ -933,20 +820,19 @@ local function language(code, spec, other_label, special_label, other_teams_labe
   return L
 end
 
-local function count(list, have)
-  local n = 0
-  for _, e in ipairs(list) do
-    if have[e] then
-      n = n + 1
+-- the groups as the page reads them
+local function groups_out(group_lists, have)
+  local out = {}
+  for kind, gl in ipairs(group_lists) do
+    local o = {}
+    for i, g in ipairs(gl) do
+      o[i] = { g.label, #g.list, count(g.list, have), g.ty or 0, g.emblem or 0, g.name or g.label, g.icon or "", g.page or 1 }
     end
+    out[kind] = o
   end
-  return n
+  return out
 end
 
--- ---------------------------------------------------------------------------------------------- commands
-
--- CMND_BETTERQOL_ALBUM_OPEN(lang code, name groups text, label of the other names, label of the specials, label of a
--- game's other teams)
 function BetterQoL.Album.Open(code, spec, other_label, special_label, other_teams_label)
   if ensure_roster() == nil then
     return false
@@ -957,14 +843,8 @@ function BetterQoL.Album.Open(code, spec, other_label, special_label, other_team
   view_owned = have
   view_level, view_rarity = shown_card()
   view_counts = {}
-  local out = { total = 0, owned = 0, groups = {} }
-  for kind, gl in ipairs(L.groups) do
-    local o = {}
-    for i, g in ipairs(gl) do
-      o[i] = { g.label, #g.list, count(g.list, have), g.ty or 0, g.emblem or 0, g.name or g.label, g.icon or "", g.page or 1 }
-    end
-    out.groups[kind] = o
-  end
+  view_groups = nil
+  local out = { total = 0, owned = 0, groups = groups_out(L.groups, have) }
   for _, e in ipairs(roster.entries) do
     if L.name[e] ~= "" then
       out.total = out.total + 1
@@ -978,11 +858,7 @@ function BetterQoL.Album.Open(code, spec, other_label, special_label, other_team
   return out
 end
 
--- the page's player search: the rows of the last CMND_BETTERQOL_ALBUM_SEARCH that found someone (Page's kind 4)
-local SEARCH_KIND, search_group = 4, nil
-
--- CMND_BETTERQOL_ALBUM_SEARCH(text) -> how many players of the name groups have the text in their name, in the same
--- folding as the groups' keys; 0 keeps the last results. One pass over the opening's names, no engine command
+-- CMND_BETTERQOL_ALBUM_SEARCH(text) -> matches among the name groups (page kind 4); 0 keeps the last results
 function BetterQoL.Album.Search(text)
   local L = view
   if L == nil or roster == nil then
@@ -993,7 +869,7 @@ function BetterQoL.Album.Search(text)
     return 0
   end
   local found = {}
-  for _, g in ipairs(L.groups[1]) do
+  for _, g in ipairs((view_groups or L.groups)[1]) do
     for _, e in ipairs(g.list) do
       if L.key[e]:find(query, 1, true) ~= nil then
         found[#found + 1] = e
@@ -1006,13 +882,24 @@ function BetterQoL.Album.Search(text)
   return #found
 end
 
--- CMND_BETTERQOL_ALBUM_PAGE(kind, group, page, rows a page)
+-- an entry's teams with their shown names: { { team, name }, ... } (the page's team-beaten rule reads them)
+local function row_teams(L, e)
+  local out = {}
+  for _, t in ipairs(e.teams or {}) do
+    if t ~= 0 then
+      out[#out + 1] = { t, L.team_name(t) or "" }
+    end
+  end
+  return out
+end
+
+-- CMND_BETTERQOL_ALBUM_PAGE(kind, group, page, rows a page); kind 1 = name, 2 = game, 3 = team, 4 = search
 function BetterQoL.Album.Page(kind, group, page, per)
   local L = view
   if L == nil or roster == nil then
     return false
   end
-  local gl = L.groups[int(kind) or 0]
+  local gl = (view_groups or L.groups)[int(kind) or 0]
   local g = gl and gl[int(group) or 0]
   if int(kind) == SEARCH_KIND then
     g = search_group
@@ -1024,8 +911,7 @@ function BetterQoL.Album.Page(kind, group, page, per)
   local pages = math.max(1, math.ceil(#g.list / per))
   page = math.max(1, math.min(pages, int(page) or 1))
   local have = view_owned or {}
-  local level, rarity = view_level, view_rarity
-  -- the group's ticks counted once per opening: its list can hold thousands of players
+  -- counted once per opening: a group can hold thousands of players
   view_counts[g] = view_counts[g] or count(g.list, have)
   local out = { page = page, pages = pages, total = #g.list, owned = view_counts[g], rows = {} }
   for k = 1, per do
@@ -1033,21 +919,184 @@ function BetterQoL.Album.Page(kind, group, page, per)
     if e == nil then
       break
     end
-    local o = have[e]
-    local rar = e.special and e.rarity or rarity
     local source_series = e.si and roster.cat.series[e.si]
     local game_name_text = e.game_name_text or (source_series and source_series.name_text)
-    out.rows[k] = { e.base, e.param, L.name[e], (e.team and L.team_name(e.team)) or "", (game_name_text and text_of(L.series_rows, game_name_text)) or "", o ~= nil,
-                    level, rar, e.dress_team or 0 }
+    out.rows[k] = { e.base, e.param, L.name[e], (e.team and L.team_name(e.team)) or "",
+                    (game_name_text and text_of(L.series_rows, game_name_text)) or "", have[e] ~= nil,
+                    view_level, e.special and e.rarity or view_rarity, e.dress_team or 0, row_teams(L, e) }
   end
   return out
 end
 
--- ---------------------------------------------------------------------------------------------- start
+-- the filter window's data ------------------------------------------------------------------------------------------
+
+-- chara_body.body_group -> the filter's build value (the game's own grouping, nie.exe 0x1123250)
+local BODY_BUILD = { [0] = 1, 1, 2, 6, 4, 5, 3, 5, 5, 3, 2, 6, 3, 3, 4, 5, 5, 5 }
+local GENDER_OTHER = 3
+
+local filter_attributes, filter_attributes_roster = nil, nil
+
+-- [entry] = { position, element, gender, build }, read once per roster from the served tables (mods' characters included)
+local function attributes()
+  if filter_attributes ~= nil and filter_attributes_roster == roster then
+    return filter_attributes
+  end
+  -- only the columns read below: whole rows of these four tables do not fit the script's memory together
+  local function by_id(table_id, columns)
+    local out = {}
+    local ok, rows = pcall(VRFW.table.rows, table_id, columns)
+    if ok and type(rows) == "table" then
+      for _, r in ipairs(rows) do out[u32(r.id)] = r end
+    else
+      warn("table not read for the filter: " .. table_id .. ": " .. tostring(rows))
+    end
+    return out
+  end
+  local params, chara_bases = by_id("character/chara_param", { "id", "main_position", "element" }),
+    by_id("character/chara_base", { "id", "model", "gender" })
+  local models, bodies = by_id("character/chara_model", { "id", "body" }), by_id("character/chara_body", { "id", "body_group" })
+  local out = {}
+  local function add(e)
+    local param, base = params[u32(e.param or 0)], chara_bases[u32(e.base or 0)]
+    local model = base and models[u32(base.model)] or nil
+    local body = model and bodies[u32(model.body)] or nil
+    local gender = base and int(base.gender) or 0
+    out[e] = { position = param and int(param.main_position) or 0, element = param and int(param.element) or 0,
+               gender = (gender == 1 or gender == 2) and gender or GENDER_OTHER,
+               build = body and BODY_BUILD[int(body.body_group) or -1] or 0 }
+  end
+  for _, e in ipairs(roster.entries) do add(e) end
+  for _, e in ipairs(roster.specials) do add(e) end
+  filter_attributes, filter_attributes_roster = out, roster
+  return out
+end
+
+-- the language state's sagas: the "Game" groups, each with its row's teams in row order; [entry] = saga index
+local function filter_sagas(L)
+  if L.filter_sagas ~= nil then return L.filter_sagas, L.filter_saga_of end
+  local sagas, saga_of = {}, {}
+  for i, g in ipairs(L.groups[2]) do
+    local teams, seen = {}, {}
+    for _, e in ipairs(g.list) do
+      saga_of[e] = i
+      for _, t in ipairs(e.teams or {}) do
+        if t ~= 0 and not seen[t] then
+          seen[t] = true
+          local name = L.team_name(t)
+          if name then teams[#teams + 1] = { t, name } end
+        end
+      end
+    end
+    sagas[i] = { g.label, teams }
+  end
+  L.filter_sagas, L.filter_saga_of = sagas, saga_of
+  return sagas, saga_of
+end
+
+local FILTER_FIELDS = { position = true, element = true, gender = true, build = true }
+
+-- the window's selection: position=1,2;teams=1:11,12/3:  (a category left out is complete; "" is no filter)
+local function parse_filter(spec)
+  local filter = { fields = {} }
+  local any = false
+  for key, value in tostring(spec or ""):gmatch("(%a+)=([^;]*)") do
+    any = true
+    if key == "teams" then
+      filter.teams = {}
+      for saga, list in value:gmatch("(%d+):([^/]*)") do
+        local set = {}
+        for n in list:gmatch("%d+") do set[u32(tonumber(n))] = true end
+        filter.teams[tonumber(saga)] = set
+      end
+    elseif FILTER_FIELDS[key] then
+      local set = {}
+      for n in value:gmatch("%d+") do set[tonumber(n)] = true end
+      filter.fields[key] = set
+    end
+  end
+  return any and filter or nil
+end
+
+local function passes_filter(e, filter, attrs, saga_of)
+  local a = attrs[e]
+  if a == nil then return false end
+  for field, set in pairs(filter.fields) do
+    if not set[a[field]] then return false end
+  end
+  local set = filter.teams and filter.teams[saga_of[e] or 0] or nil
+  if set == nil then return true end
+  for _, t in ipairs(e.teams or {}) do
+    if set[t] then return true end
+  end
+  return false
+end
+
+-- the same groups with only the rows that pass; a group left empty is gone, the bar pages renumbered
+local function filtered_groups(L, filter)
+  local attrs = attributes()
+  local _, saga_of = filter_sagas(L)
+  local out = {}
+  for kind, gl in ipairs(L.groups) do
+    local kept, renumbered, last = {}, 0, nil
+    for _, g in ipairs(gl) do
+      local list = {}
+      for _, e in ipairs(g.list) do
+        if passes_filter(e, filter, attrs, saga_of) then list[#list + 1] = e end
+      end
+      if #list > 0 then
+        local page = g.page
+        if page ~= nil then
+          if page ~= last then renumbered, last = renumbered + 1, page end
+          page = renumbered
+        end
+        kept[#kept + 1] = { label = g.label, ty = g.ty, emblem = g.emblem, name = g.name, icon = g.icon, page = page, list = list }
+      end
+    end
+    out[kind] = kept
+  end
+  return out
+end
+
+-- CMND_BETTERQOL_ALBUM_FILTER_INFO() -> { total, sagas = { { label, { { team, name }, ... } }, ... } }
+function BetterQoL.Album.FilterInfo()
+  local L = view
+  if L == nil or roster == nil then return false end
+  local sagas = filter_sagas(L)
+  local total = 0
+  for _, e in ipairs(roster.entries) do
+    if L.name[e] ~= "" then total = total + 1 end
+  end
+  return { total = total, sagas = sagas }
+end
+
+-- CMND_BETTERQOL_ALBUM_FILTER_COUNT(selection) -> the album's players that pass
+function BetterQoL.Album.FilterCount(spec)
+  local L = view
+  if L == nil or roster == nil then return 0 end
+  local filter = parse_filter(spec)
+  local attrs = attributes()
+  local _, saga_of = filter_sagas(L)
+  local shown = 0
+  for _, e in ipairs(roster.entries) do
+    if L.name[e] ~= "" and (filter == nil or passes_filter(e, filter, attrs, saga_of)) then shown = shown + 1 end
+  end
+  return shown
+end
+
+-- CMND_BETTERQOL_ALBUM_FILTER_SET(selection) -> { groups } of the album's lists under it ("" lifts the filter)
+function BetterQoL.Album.FilterSet(spec)
+  local L = view
+  if L == nil or roster == nil then return false end
+  local filter = parse_filter(spec)
+  view_groups = filter and filtered_groups(L, filter) or nil
+  view_counts = {}
+  search_group = nil
+  return { groups = groups_out(view_groups or L.groups, view_owned or {}) }
+end
 
 ensure_roster()
 
--- a save load (behind the loading screen) builds the names of the game's language: the first opening only groups them
+-- a save load (behind the loading screen) builds the game language's names, so the first opening only groups them
 VRFW.on("slot_load", function()
   local ok, lang = pcall(VRFW.files.game_language)
   if ok and type(lang) == "string" and lang ~= "" and roster ~= nil then

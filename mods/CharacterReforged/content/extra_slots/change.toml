@@ -1,0 +1,43 @@
+# Custom Change Mode in a match: the framework's plates slot with only its mix slot (`mix_only`).
+schema = "VRFW.extra_slot/1"
+
+[[VRFW.ExtraSlot]]
+name = "change"                      # key CharacterReforged.change
+kind = "plates"
+fallback = true
+states = [9, 14, 16]                 # open play, duel, zone
+plate_states = [9, 14, 16]
+lend_slot = "auto"
+start_timeout_s = 15
+restore_delay_s = 1.0
+disguise = true
+preload = true
+
+# RB + up (keyboard I): the swap, both ways
+[[VRFW.ExtraSlot.direct]]
+pages = ["mix"]
+pad = "RB+UP"
+key = "I"
+xinput = true
+pass_when_empty = true
+
+[VRFW.ExtraSlot.source]
+team_aura = true
+mix_only = true
+mix_table = "ModeChangeMix"
+team_commands = ["mix"]
+
+[VRFW.ExtraSlot.commands]
+swap_gauge = "CMND_CHARACTERREFORGED_CHANGE_SWAP_GAUGE"
+
+[VRFW.ExtraSlot.swap]
+carriers = "wmc_evt{k}"
+count = 8
+cooldown_s = 60.0                    # seconds between two swaps, either way
+permanent = true                     # no time limit: the partner form stays until the next press
+states = [9, 14, 16]
+free_lent_slot = true
+cpu = false
+become_partner = true                # he becomes the partner card: look, stats and moves
+release_button = false
+change_table = "ModeChange"

@@ -1,14 +1,8 @@
 -- ===== EVT pachanga field BEGIN =====
--- Fallback of return = "title" (rules field_net): a pachanga is a street
--- battle, and when the loader's route did not send the match straight to the title (the patch is not live) the engine
--- goes back to a story field. On the three menus that only exist there (activity_telop_menu = the field HUD, main_menu =
--- Start, map_menu = Select): with a pachanga still running (its save sink is on: nothing of this field is written) and
--- no match, black at once and the retail way to the title; the title ends the way back (pachanga_title.lua: the save
--- read again, the origin). Story street battles have no pachanga running: retail. No funcLua* call at chunk load.
 do
   local G = {steps = 0, done = false}
   local function tick(where, now)
-    local P = VRFW_PACHANGA
+    local P = VRFW.friendly_match
     if G.done or type(P) ~= "table" then
       return
     end
@@ -32,7 +26,7 @@ do
     pcall(funcLuaCommand, @crc:CMND_GAME_RESET@)
     pcall(funcLuaCommand, 769636339, 0.5)
   end
-  VRFW_PACHANGA_FieldTick = tick
+  VRFW.friendly_match_field_tick = tick
   local init = OnInit
   function OnInit(...)
     local r = table.pack(init and init(...))

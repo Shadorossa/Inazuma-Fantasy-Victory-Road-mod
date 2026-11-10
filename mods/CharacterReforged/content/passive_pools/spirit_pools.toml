@@ -1,0 +1,11 @@
+schema = "VRFW.passive_pool/1"
+
+[[VRFW.PassivePool]]
+name = "keshin_points"
+resource = "CharacterReforged.keshin_points"
+cost_flag = "CharacterReforged.cost_pct"
+
+[[VRFW.PassivePool]]
+name = "totem_points"
+resource = "CharacterReforged.totem_points"
+cost_flag = "CharacterReforged.cost_pct"

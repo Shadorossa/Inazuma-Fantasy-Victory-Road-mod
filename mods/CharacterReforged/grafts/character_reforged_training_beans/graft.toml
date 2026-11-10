@@ -1,0 +1,14 @@
+# The skill board's bean slot (ability_learning_board_menu) shows «the beans have no effect» instead of the bean menu
+# while CharacterReforged.BeansGiveNothing is on. Hook file; no engine call at chunk load.
+name = "character_reforged_training_beans"
+mod = "CharacterReforged"
+order = 340
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "Character Reforged training: the skill board's bean slot shows «the beans have no effect» instead of the bean menu"
+
+[[hooks]]
+stem = "ability_learning_board_menu"
+source = "training_beans_hooks.lua"

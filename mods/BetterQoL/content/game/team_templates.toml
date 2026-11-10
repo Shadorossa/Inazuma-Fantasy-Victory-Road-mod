@@ -1,0 +1,111 @@
+# Team templates: game data and Lua commands (logic scripts\team_templates.lua, file format scripts\lib\template_store.lua).
+schema = "VRFW.game/2"
+
+# ---------------------------------------------------------------- game functions
+
+[[VRFW.Function]]
+name = "TT_IsJobPending"
+game = "Save.IsJobPending"
+
+# ---------------------------------------------------------------- globals
+
+[[VRFW.Global]]
+name = "team_template_party"
+base = "game_root"
+chain = ["ROOT_PARTY"]
+
+[[VRFW.Global]]
+name = "team_template_game_data_backup"
+game = "Save.GameDataBackup"
+
+# ---------------------------------------------------------------- Lua commands
+
+# -> usable (a slot 2+ save outside the blocked modes), template count, slot; false when not ready
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_INFO"
+handler = "BetterQoL.TeamTemplates.Info"
+needs = ["Party.LogicalToPhysical", "team_template_party"]
+
+# (team set) -> the template number that dock holds; nil when the set is no dock
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_OF_DOCK"
+handler = "BetterQoL.TeamTemplates.OfDock"
+needs = ["Party.LogicalToPhysical", "team_template_party"]
+
+# (template) -> "docked" / "stored" / "empty", the team set holding it when docked
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_STATE"
+handler = "BetterQoL.TeamTemplates.State"
+needs = ["Party.LogicalToPhysical", "team_template_party"]
+
+# -> the numbers of the templates that are not empty as "1,2,...", how many they are (a list asks once, not per template)
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_LIST"
+handler = "BetterQoL.TeamTemplates.List"
+needs = ["Party.LogicalToPhysical", "team_template_party"]
+
+# (template) -> the template's team set as bytes, members that left emptied; nil when the template is empty
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_WORDS"
+handler = "BetterQoL.TeamTemplates.Words"
+needs = ["Party.LogicalToPhysical", "team_template_party"]
+
+# (template) -> captain chara_param, lineup "position:chara_param,...", team set (-1 = stored), emblem, uniform, name,
+# formation, tactic 1..3 of team 0, every member "position:handle,...", the captain's handle; nil when empty
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_CARD"
+handler = "BetterQoL.TeamTemplates.Card"
+needs = ["Party.LogicalToPhysical", "team_template_party"]
+
+# (template, owner, 1 = online squad shown) -> the team set holding it, kept in its dock for owner; nil, refusal code
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_USE"
+handler = "BetterQoL.TeamTemplates.Use"
+needs = ["Party.SetOrganizedFlagBit", "Party.RecountTeamInfo", "Party.LogicalToPhysical", "TT_IsJobPending", "team_template_party", "team_template_game_data_backup"]
+
+# (owner) -> ok: the template the owner kept may leave its dock again
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_LET_GO"
+handler = "BetterQoL.TeamTemplates.LetGo"
+
+# -> a menu that plays against templates may use the rival team set: nothing is in it
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_RIVAL_FREE"
+handler = "BetterQoL.TeamTemplates.RivalFree"
+needs = ["Party.SetOrganizedFlagBit", "Party.RecountTeamInfo", "Party.LogicalToPhysical", "TT_IsJobPending", "team_template_party", "team_template_game_data_backup"]
+
+# (template) -> the team set holding its copy for one match, nil = refused
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_RIVAL"
+handler = "BetterQoL.TeamTemplates.Rival"
+needs = ["Party.SetOrganizedFlagBit", "Party.RecountTeamInfo", "Party.LogicalToPhysical", "TT_IsJobPending", "team_template_party", "team_template_game_data_backup"]
+
+# (1 = the team dock opened, 0 = it closed) -> the feature is ready
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_MENU"
+handler = "BetterQoL.TeamTemplates.Menu"
+needs = ["Party.SetOrganizedFlagBit", "Party.RecountTeamInfo", "Party.LogicalToPhysical", "TT_IsJobPending", "team_template_party", "team_template_game_data_backup"]
+
+# -> crc32 of the 11 live docks, dock-bit errors, team-0 members (and a log block); -1 x 3 when not readable
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_DUMP"
+handler = "BetterQoL.TeamTemplates.Dump"
+needs = ["Party.LogicalToPhysical", "team_template_party"]
+
+# the dock Lua tests mods / 2097152 % 2: must never move
+[[VRFW.ModuleMask]]
+bit = 21
+needs = ["CMND_BETTERQOL_TEMPLATE_INFO", "CMND_BETTERQOL_TEMPLATE_USE", "CMND_BETTERQOL_TEMPLATE_MENU"]
+
+# ---------------------------------------------------------------- game_state keys (set by the script)
+
+[[VRFW.State]]
+key = "BetterQoL.team_templates.count"
+fallback = 0
+needs = ["CMND_BETTERQOL_TEMPLATE_INFO"]
+
+# 1 while stored templates can be used (a player slot 2+ and no blocked game mode)
+[[VRFW.State]]
+key = "BetterQoL.team_templates.active"
+fallback = 0
+needs = ["CMND_BETTERQOL_TEMPLATE_INFO"]

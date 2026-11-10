@@ -1,0 +1,8 @@
+schema = "VRFW.sound/1"
+# The 3DS tactics replace the first shot of ev65_20060: its sounds up to frame 66; the sound starting at frame 67 opens the next shot.
+
+[[sfx]]
+add = "MissingContent_tactic_opening_me"
+from = "ev65_20060_me"
+bank = "waza_stream"
+segments = [[0, 66]]

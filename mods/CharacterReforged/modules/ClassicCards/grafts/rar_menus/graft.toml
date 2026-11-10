@@ -1,9 +1,5 @@
-# Rarity removal, spirit / summon menus (research/scripts/rar_build.py build_spirit / build_summon;
-# docs/game/characters/rarity-removal.md): no fusion / auto-fusion, sub-window options 3-4 and the rarity-up button
-# greyed and refused. The team dock part is rar_dock. Its points never touch the lines Inazuma Fantasy's fichajes edits
-# (OnFunction / OpenSpiritSubWindow of the summon menu: each graft at its own retail line), so neither requires the other.
-# Mod No More Rarities since 2026-10-14 (docs/refactor/aura-mods-split.md «No More Rarities»): every point is retail
-# text.
+# ClassicCards spirit / summon menus: no fusion, no auto-fusion, sub-window options 3-4 and the rarity-up button refused
+# (docs/game/characters/rarity-removal.md). Each point sits at its own retail line, apart from Inazuma Fantasy's edits.
 name = "rar_menus"
 mod = "ClassicCards"
 order = 110
@@ -20,7 +16,7 @@ stem = "soccer_spirit_menu"
   type = "insert_before"
   point = "soccer_spirit_menu.MixChara.RarMenus"
   text = '''
-  if EVT_RARITY_UP_DISABLED then -- EVT rarity: no fusion
+  if ClassicCards.rarity_up_disabled then -- ClassicCards rarity: no fusion
     funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
     return
   end
@@ -31,7 +27,7 @@ stem = "soccer_spirit_menu"
   type = "insert_after"
   point = "soccer_spirit_menu.OpenMixSameCharaConfirmDialog.RarMenus"
   text = '''
-  if EVT_RARITY_UP_DISABLED then -- EVT rarity: no auto-fusion
+  if ClassicCards.rarity_up_disabled then -- ClassicCards rarity: no auto-fusion
     funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
     return
   end
@@ -42,8 +38,9 @@ stem = "soccer_spirit_menu"
   type = "append_block"
   text = '''
 
--- EVT rarity: normal mode has no rarity-up (docs/game/rarity-removal.md). false = retail behaviour.
-EVT_RARITY_UP_DISABLED = true
+-- ClassicCards rarity: normal mode has no rarity-up (docs/game/rarity-removal.md). false = retail behaviour.
+ClassicCards = ClassicCards or {}
+ClassicCards.rarity_up_disabled = true
 '''
   crc = "none"
 
@@ -55,7 +52,7 @@ stem = "soccer_summon_menu"
   type = "insert_after"
   point = "soccer_summon_menu.OnFunction.RarMenus"
   text = '''
-    if EVT_RARITY_UP_DISABLED then -- EVT rarity: the rarity-up screen is closed
+    if ClassicCards.rarity_up_disabled then -- ClassicCards rarity: the rarity-up screen is closed
       funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
       return
     end
@@ -67,7 +64,7 @@ stem = "soccer_summon_menu"
   type = "insert_after"
   point = "soccer_summon_menu.OpenSpiritSubWindow.RarMenus"
   text = '''
-  if EVT_RARITY_UP_DISABLED then -- EVT rarity
+  if ClassicCards.rarity_up_disabled then -- ClassicCards rarity
     l8 = 0
     l9 = 0
   end
@@ -78,7 +75,7 @@ stem = "soccer_summon_menu"
   type = "insert_after"
   point = "soccer_summon_menu.CallBackSpirit.RarMenus"
   text = '''
-  if EVT_RARITY_UP_DISABLED and (a1 == 3 or a1 == 4) then -- EVT rarity
+  if ClassicCards.rarity_up_disabled and (a1 == 3 or a1 == 4) then -- ClassicCards rarity
     funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
     a1 = -1
   end
@@ -89,7 +86,8 @@ stem = "soccer_summon_menu"
   type = "append_block"
   text = '''
 
--- EVT rarity: normal mode has no rarity-up (docs/game/rarity-removal.md). false = retail behaviour.
-EVT_RARITY_UP_DISABLED = true
+-- ClassicCards rarity: normal mode has no rarity-up (docs/game/rarity-removal.md). false = retail behaviour.
+ClassicCards = ClassicCards or {}
+ClassicCards.rarity_up_disabled = true
 '''
   crc = "none"

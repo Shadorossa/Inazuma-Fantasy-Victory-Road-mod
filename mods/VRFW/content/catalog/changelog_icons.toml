@@ -1,6 +1,5 @@
 schema = "VRFW.catalog/1"
-# Icons for mod changelog summaries (retail update-notes textures and colour tags). Built into the framework.
-# [icon.<name>]: <name> is the `icon` value in changelog.toml; texture = retail textureName, color = retail colour tag.
+# Icons for mod changelog summaries (retail update-notes textures and colour tags).
 
 [icon.story]
 texture = 840982734

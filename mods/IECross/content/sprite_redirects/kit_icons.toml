@@ -1,7 +1,4 @@
 schema = "VRFW.sprite_redirect/1"
-# Inazuma Eleven Cross: the game draws a kit's item icon from icon_item07.g4tx by the item key (the key prefix
-# picks the sheet); these keys live in the mod's own atlas (content\images\menu\200_icon\02_icon_item\
-# icon_item07.toml), so the game's sheet gets no entry.
 
 [[VRFW.SpriteRedirect]]
 name = "kit_icons"

@@ -1,0 +1,35 @@
+schema = "BetterQoL.album/1"
+own_row_cards = [
+  0xFFF7C530,  # sheet number 1, head c07150010
+  0xFFF7C531,  # sheet number 2, head c07150020
+  0xFFF7C532,  # sheet number 3, head c07150030
+  0xFFF7C533,  # sheet number 4, head c07150040
+  0xFFF7C534,  # sheet number 5, head c07150050
+  0xFFF7C535,  # sheet number 6, head c07150060
+  0xFFF7C536,  # sheet number 7, head c07150070
+  0xFFF7C537,  # sheet number 8, head c07150080
+  0xFFF7C538,  # sheet number 9, head c07150090
+  0xFFF7C539,  # sheet number 10, head c07150100
+  0xFFF7C53A,  # sheet number 11, head c07170010
+  0xFFF7C53B,  # sheet number 12, head c07170020
+  0xFFF7C53C,  # sheet number 13, head c07170050
+  0xFFF7C53D,  # sheet number 14, head c07170090
+  0xFFF7C53E,  # sheet number 15, head c07180010
+  0xFFF7C53F,  # sheet number 16, head c07180020
+  0xFFF7C540,  # sheet number 17, head c07180050
+  0xFFF7C541,  # sheet number 18, head c07180080
+  0xFFF7C542,  # sheet number 19, head c07190010
+  0xFFF7C543,  # sheet number 20, head c07190050
+  0xFFF7C544,  # sheet number 21, head c07190110
+  0xFFF7C545,  # sheet number 22, head c07240290
+  0xFFF7C546,  # sheet number 23, head c07240370
+  0xFFF7C547,  # sheet number 24, head c07240530
+  0xFFF7C548,  # sheet number 25, head c07290020
+  0xFFF7C549,  # sheet number 27, head c11030041
+  0xFFF7C54A,  # sheet number 28, head c11807071
+  0xFFF7C54B,  # sheet number 29, head c11902010
+  0xFFF7C54C,  # sheet number 30, head c11902020
+  0xFFF7C54D,  # sheet number 31, head c11902030
+  0xFFF7C54E,  # sheet number 32, head c11902040
+  0xFFF7C54F,  # sheet number 33, head c11905070
+]

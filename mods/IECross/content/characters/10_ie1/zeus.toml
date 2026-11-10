@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Inazuma Eleven Cross · Zeus · Inazuma Eleven: the Cross version(s) of this team's characters (fixed ids, created by
-# their `order`; series «Inazuma Eleven Cross»: chara_base team_3 = crc32("evt_belong_team_cross")). Inazuma Fantasy's
-# EVT fields of their cards (growth, Lv200 stats, INAROGUE rarity) are IF's characters\iecross_cards.toml.
 default_lang = "en"
 
 [[character]]
@@ -13,7 +10,7 @@ order = 42
   id = 0x2175C658
   name = "c90000120"
   voice_bank = 0x37D7ACFB
-  team_3 = 0x1E5DC7AA
+  team_3 = 0x1002688A
   in_ie1 = 0
   in_ie2 = 1
   in_ie3 = 0
@@ -34,7 +31,7 @@ order = 42
   order = 52
   growth_pattern = 1
   moves = [
-    { move = 0xC3D894B7, level = 1 },                     # The Dawn
+    { move = 0x725E6924, level = 1 },                     # God Knows Machina
     { move = 0x1C8CE2B8, level = 13 },                    # God Knows
     { move = 0x0D368F6B, level = 20 },                    # Heaven's Time
     { move = 0x7577A26A, level = 30 },                    # God Break
@@ -42,5 +39,5 @@ order = 42
     { move = 0x61FB16FD, level = 43 },                    # Divine Arrows
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
-    { move = 0x725E6924, level = 1 },                     # God Knows Machina
+    { move = 0, level = 0 },                              # (empty)
   ]

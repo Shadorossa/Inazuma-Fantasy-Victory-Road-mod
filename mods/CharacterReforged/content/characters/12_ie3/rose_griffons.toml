@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Character Reforged · Rose Griffons · Inazuma Eleven 3
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c03032410"                                   # Roger Pialat
@@ -9,7 +6,7 @@ moves = [
   { move = 0xECD991E4, level = 1 },                         # The Stinger
   { move = 0x88B554E0, level = 55 },                        # Galatyn
   { move = 0xEE9F2FBD, level = 60 },                        # God Catch
-  { move = 0xD2955C45, level = 61 },                        # Power Catch
+  { move = 0x5AF33BC7, level = 70 },                        # God Hand
 ]
 
   [[edit.cards]]
@@ -24,7 +21,7 @@ moves = [
   { move = 0x43B5739B, level = 1 },                         # Lightning Bolt
   { move = 0x232D05EC, level = 18 },                        # Tiger Drive
   { move = 0xB13A6C3D, level = 33 },                        # Zigzag Flame
-  { move = 0x3AD8DFD1, level = 54 },                        # Curving Cut
+  { move = 0xB633C4E1, level = 43 },                        # Photon Crash
 ]
 
   [[edit.cards]]
@@ -53,8 +50,8 @@ target = "c03032440"                                   # Francis Poujol
 moves = [
   { move = 0x7D6E9A87, level = 1 },                         # The Wall
   { move = 0x67F17FA8, level = 12 },                        # Mega Quake
-  { move = 0xA6D711A6, level = 26 },                        # Full Power Shield
   { move = 0x52CEB5F6, level = 53 },                        # Iron Wall
+  { move = 0x49933AEE, level = 63 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -79,7 +76,7 @@ moves = [
   stats = { kick = 171, control = 227, technique = 250, pressure = 200, physical = 197, intelligence = 302, agility = 177, freedom = 293 }
 
 [[edit]]
-target = "c03032460"                                   # Roland Pérec
+target = "c03032460"
 moves = [
   { move = 0x5B6C28ED, level = 7 },                         # Invisible Fake
   { move = 0x132416F6, level = 20 },                        # Dog Run
@@ -99,7 +96,7 @@ moves = [
   { move = 0x4C1D87D5, level = 1 },                         # Bed of Roses
   { move = 0xB633C4E1, level = 8 },                         # Photon Crash
   { move = 0xB6F26F5F, level = 53 },                        # Tri-Pegasus
-  { move = 0x06458894, level = 65 },                        # Feint Dash
+  { move = 0x8B90AAAC, level = 63 },                        # Fortissimo
 ]
 
   [[edit.cards]]
@@ -110,7 +107,7 @@ moves = [
   stats = { kick = 231, control = 259, technique = 284, pressure = 180, physical = 167, intelligence = 232, agility = 176, freedom = 263 }
 
 [[edit]]
-target = "c03032480"                                   # Stéphane Hinault
+target = "c03032480"
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0x4C1D87D5, level = 10 },                        # Bed of Roses
@@ -129,8 +126,8 @@ target = "c03032490"                                   # Romuald Huysmans
 moves = [
   { move = 0xA7B451B3, level = 20 },                        # Paladin Strike
   { move = 0xB633C4E1, level = 29 },                        # Photon Crash
-  { move = 0x501F2F12, level = 53 },                        # Heel Flick
   { move = 0xB6F26F5F, level = 55 },                        # Tri-Pegasus
+  { move = 0x4683AADF, level = 65 },                        # Space Penguin
 ]
 
   [[edit.cards]]
@@ -140,12 +137,12 @@ moves = [
   stats = { kick = 234, control = 277, technique = 302, pressure = 167, physical = 150, intelligence = 238, agility = 163, freedom = 279 }
 
 [[edit]]
-target = "c03032500"                                   # Jérôme Hervaud
+target = "c03032500"
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0x105C91A7, level = 20 },                        # Slingshot
   { move = 0x8EDFBC29, level = 61 },                        # Double Jaw
-  { move = 0x6B4A7B35, level = 67 },                        # Power Shot
+  { move = 0x35E70F22, level = 71 },                        # Grenade Shot
 ]
 
   [[edit.cards]]
@@ -158,7 +155,7 @@ moves = [
 target = "c03032510"                                   # Alain Favreau
 moves = [
   { move = 0x316A7390, level = 1 },                         # Land Dragon
-  { move = 0x2B343D01, level = 1 },                         # Cyclone
+  { move = 0x2B343D01, level = 11 },                        # Cyclone
   { move = 0x132416F6, level = 33 },                        # Dog Run
   { move = 0xB6F26F5F, level = 59 },                        # Tri-Pegasus
 ]
@@ -174,8 +171,8 @@ target = "c03032520"                                   # Émile Lazare
 moves = [
   { move = 0xECD991E4, level = 20 },                        # The Stinger
   { move = 0x8AF3EAB9, level = 42 },                        # Hammer of Fury
-  { move = 0x4C1D87D5, level = 52 },                        # Bed of Roses
   { move = 0xF14FDC17, level = 55 },                        # Shot Pocket
+  { move = 0xBD8A9EBE, level = 65 },                        # Infinite Wall
 ]
 
   [[edit.cards]]
@@ -185,12 +182,12 @@ moves = [
   stats = { kick = 155, control = 203, technique = 194, pressure = 221, physical = 250, intelligence = 217, agility = 284, freedom = 225 }
 
 [[edit]]
-target = "c03032530"                                   # André Pinson
+target = "c03032530"
 moves = [
   { move = 0xB4757AB8, level = 6 },                         # Divine Stamp
   { move = 0x7A67325B, level = 17 },                        # Flame Dance
   { move = 0x592A96B4, level = 28 },                        # Afterimage
-  { move = 0x46A71C03, level = 47 },                        # Black Hole
+  { move = 0x0A3F27B7, level = 38 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -203,9 +200,9 @@ moves = [
 target = "c03032540"                                   # Jean Gutain
 moves = [
   { move = 0x4D1E465C, level = 1 },                         # Fake Bomber
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0x6ADE9E01, level = 11 },                        # Illusory Ball
   { move = 0x06D2AC29, level = 48 },                        # Diabolical Cut
-  { move = 0x23C3EE90, level = 65 },                        # Shoulder Tackle
+  { move = 0xC16279D1, level = 58 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -220,7 +217,7 @@ moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0x261BDCA8, level = 12 },                        # Moonsault
   { move = 0x0D368F6B, level = 34 },                        # Heaven's Time
-  { move = 0x1F5EB9D5, level = 53 },                        # Nutmeg
+  { move = 0xDCF43422, level = 44 },                        # Aurora Dribble
 ]
 
   [[edit.cards]]
@@ -235,7 +232,7 @@ moves = [
   { move = 0x039DBAAC, level = 1 },                         # Land of Ice
   { move = 0xB1FBC783, level = 21 },                        # Reflect Buster
   { move = 0x97C48D68, level = 35 },                        # Astro Gate
-  { move = 0x88B554E0, level = 46 },                        # Galatyn
+  { move = 0x1FC99D68, level = 45 },                        # Snow Angel
 ]
 
   [[edit.cards]]

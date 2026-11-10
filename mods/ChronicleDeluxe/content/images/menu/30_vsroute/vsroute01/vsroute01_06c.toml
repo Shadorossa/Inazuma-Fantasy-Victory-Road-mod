@@ -1,17 +1,9 @@
-# Chronicle Deluxe: #/menu/30_vsroute/vsroute01/vsroute01_06c/vsroute01_06c.g4tx, the clear-icon layer of a Chronicle
-# piece (the board and the team list). The orb bar with one socket per difficulty the piece offers:
-# chronicle_deluxe_orb_bar_<context>_<count>, made at build from the PLAYER'S retail pill (route: clear_base01_02, 6
-# sockets 18 px apart; gate: clear_base02_2, 3 sockets): its left end with the first socket, <count> - 2 copies of one
-# socket period, its right end with the last socket; a 1-socket bar = the halves of the first and the last socket.
-# Width = retail width - 18 per missing socket. No Level-5 pixel ships with the mod.
 schema = "VRFW.image/1"
 
 [[texture]]
 atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06c.g4tx"
 name = "chronicle_deluxe_vsroute01_06c"
 size = [464, 32]
-
-# ---------------------------------------------------------------- route pieces (retail clear_base01_02, 124 x 32, 6 sockets)
 
 [[recipe]]
 name = "orb_bar_route_left"

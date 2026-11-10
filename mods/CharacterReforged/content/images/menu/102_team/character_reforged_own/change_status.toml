@@ -1,0 +1,67 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_change_status_badges.g4tx"
+name = "character_reforged_change_status_badges"
+size = [100, 56]
+
+[[recipe]]
+name = "character_reforged_change_status_glyph"
+game = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx"
+sprite = "icon_list_tab_sp_area11"
+ops = [
+    { op = "crop", box = [32, 8, 112, 88] },
+    { op = "fit", box = [48, 48] },
+    { op = "fill", rgb = [24, 72, 232] },
+]
+
+# the white under the cut-out figure of a glyph
+[[recipe]]
+name = "character_reforged_change_status_figure"
+canvas = [48, 48]
+ops = [
+    { op = "opaque" },
+    { op = "fill", rgb = [255, 255, 255] },
+    { op = "round_corners", radius = 8 },
+]
+
+[[recipe]]
+name = "character_reforged_change_status_team_mark"
+game = "#/menu/102_team/team00/team00_01/team00_01.g4tx"
+sprite = "icon_teamdock01"
+ops = [{ op = "alpha_crop" }]
+
+[[recipe]]
+name = "character_reforged_change_status_badge"
+canvas = [48, 56]
+ops = [
+    { op = "paste", image = "character_reforged_change_status_figure", centre = [24, 28] },
+    { op = "paste", image = "character_reforged_change_status_glyph", centre = [24, 28] },
+]
+
+[[recipe]]
+name = "character_reforged_change_status_badge_team"
+canvas = [48, 56]
+ops = [
+    { op = "paste", image = "character_reforged_change_status_figure", centre = [24, 24] },
+    { op = "paste", image = "character_reforged_change_status_glyph", centre = [24, 24] },
+    { op = "paste", image = "character_reforged_change_status_team_mark", centre = [36, 42] },
+]
+
+[[sprite]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_change_status_badges.g4tx"
+name = "character_reforged_status_change"
+recipe = "character_reforged_change_status_badge"
+texture = "character_reforged_change_status_badges"
+x = 0
+y = 0
+size = [48, 56]
+
+[[sprite]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_change_status_badges.g4tx"
+name = "character_reforged_status_change_team"
+recipe = "character_reforged_change_status_badge_team"
+texture = "character_reforged_change_status_badges"
+x = 52
+y = 0
+size = [48, 56]

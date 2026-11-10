@@ -1,0 +1,12 @@
+schema = "VRFW.menu/2"
+
+[[entry]]
+host = "CharacterReforged.skill_table.footer_button"
+id = "training"
+text = "character_reforged_tr_btn"
+order = 100
+action = { lua = "CharacterReforged.training_skill_table_button" }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+resources = ["#/menu/102_team/character_reforged_training/character_reforged_training.g4tx"]

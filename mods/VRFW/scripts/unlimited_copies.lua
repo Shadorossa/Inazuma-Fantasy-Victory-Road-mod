@@ -15,9 +15,8 @@
 
 UnlimitedCopies = UnlimitedCopies or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("unlimited_copies")
 
 local SLOT_OK, SLOT_RESERVED, SLOT_UNKNOWN = 1, -1, -2
@@ -38,18 +37,15 @@ local KIND_OF = nil      -- item id -> its sub-category (only the sub-categories
 local SFI = nil          -- pieceId -> statusFlagIndex
 local BY_ITEM = {}       -- item id -> the command's answer (cached)
 
-local function int(v) return VRFW.value.int(v, 0) end
+local function int(v) return VRFW.value.integer(v, 0) end
 
-local Id = require "lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
-local hex = Id.hex
+local hex = Id.hex_text
+local Rows = VRFW.table_files
 
-local function rd(ty, addr)
-  local ok, v = pcall(VRFW.mem.read, ty, addr)
-  if ok then return v end
-  return nil
-end
+local rd = VRFW.memory.read
 
 local function load_rules()
   if RULES ~= nil then return RULES end
@@ -80,7 +76,7 @@ local function kinds()
     for k in pairs(r.kinds) do want[k] = true end
   end
   if next(want) == nil then return KIND_OF end
-  local ok, rows = pcall(VRFW.table.raw, "data/common/gamedata/item/item_config_*.cfg.bin", "ITEM_SPECIAL_SKILL_INFO", { 1, 7 })
+  local ok, rows = pcall(VRFW.table.raw, Rows.file_name("data/common/gamedata/item/item_config"), "ITEM_SPECIAL_SKILL_INFO", { 1, 7 })
   if not ok or type(rows) ~= "table" or #rows == 0 then
     ok, rows = pcall(VRFW.table.rows, "item/item_special_skill")
   end
@@ -203,7 +199,7 @@ function UnlimitedCopies.Cap(inv, item_arg, num, target)
   if plan == false then
     status = code
   elseif plan then
-    if pcall(VRFW.mem.write, "u32", rec + REC_EQUIPPED, plan) then
+    if VRFW.memory.write("u32", rec + REC_EQUIPPED, plan) then
       local _, _, now = counts(rec)
       after = now
     else

@@ -1,8 +1,4 @@
 schema = "VRFW.base_table/1"
-# BetterUI > the miximax partner busts (content/images/menu/200_icon/10_icon_chr/aura_mixi_partners.toml): one
-# chara_menu_resource_info row per partner character id (the base id and its armour / filler variants), keyed by crc32 of
-# the id like the retail rows (cn0221 is the row of c05020270), whose aura_mixi picture columns (c12 small, c13 large)
-# name the new g4tx.
 
 [[keyed]]
 table = "menu/chara_menu_resource_info"

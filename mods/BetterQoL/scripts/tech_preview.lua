@@ -1,92 +1,68 @@
--- BetterQoL › technique preview: on the special move card of the «Supertécnicas» list (ability_list_menu, card
--- team02_02_skill_detail_info) the prompt «<RS> Previsualizar» plays the move's cut-in full screen, performed by a
--- player of the ACTIVE squad, and comes back to the list as it was. This script answers WHAT to play (the move's
--- event, its category, the performer, his character name and body rig); the menu side (graft
--- research/grafts/util_tech_preview, assets\lua\_all\utilities_tech_preview.lua) plays it with the VR-Framework's
--- live player (CMND_VRFW_ANIM_PREVIEW + CMND_RESERVE_EVENT + CMND_VRFW_ANIM_LIVE_*, the path the Mods screen's
--- technique viewer and Inazuma Fantasy's miximax scene use).
---
--- Nothing is named here: the move's event and category come from the served skill table (skill/skill: event_id_name,
--- category, partner_type), the learn lists from the framework's learn-level service (VRFW.learn), the squad from the game's
--- party (the active vs set, the layout of lib/tb_store), the character name / body from the framework's character
--- index and chara_model / chara_body. Tunables: config.toml [tech_preview].
---
--- Commands (content\game\tech_preview.toml; crc32 of the name):
---   CMND_BETTERQOL_TECH_PREVIEW(skill) -> ok (0 / 1), event, performer handle, chara name, body (1-4), category, why
---   CMND_BETTERQOL_TECH_PREVIEW_CFG()  -> a table of the menu side's tunables (crc32 of the menu / layer names, numbers)
-
-local S = require "lib/tb_store"
 
 BetterQoL = BetterQoL or {}
 BetterQoL.TechPreview = BetterQoL.TechPreview or {}
 local TP = BetterQoL.TechPreview
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("tech_preview")
 
-local Id = require "VRFW/lib/ids"
-local u32, hex = Id.u32, Id.hex
-
--- ---------------------------------------------------------------------------------------- settings
+local Id = VRFW.ids
+local u32, hex = Id.unsigned, Id.hex_text
 
 local cfg = {
-  -- the squad's first `lineup` members are the starting eleven (the rest: the bench)
+  -- the squad's first `lineup` members are the starters
   lineup = 11,
-  -- skill category (skill_config `category`: 1 shoot, 2 offense, 3 defense, 4 keeper) -> card main position
-  -- (chara_param `main_position`: 1 GK, 2 FW, 3 MF, 4 DF)
   positions = { ["1"] = 2, ["2"] = 3, ["3"] = 4, ["4"] = 1 },
-  -- prefer a player whose card learns the move (chara_param learn list) over the first one at the position
+  -- prefer a player whose card learns the move
   prefer_learners = true,
-  -- the menus that must exist for the preview (the menu-scene team dock: from the title or the main hub) and the ones
-  -- that turn it off (Chronicle / story field menus: their scene runs the game's own event dispatcher)
   need_any_menu = { "team_dock_common_top_menu", "soccer_top_menu" },
   off_with_menus = { "chronicle_mode_top_menu", "team_dock_menu_rpg_battle" },
-  -- the menus hidden (and suspended) while the cut-in plays, if open, in this order; shown again in reverse
   hide_menus = { "ability_list_menu", "sub_window", "item_filter_menu", "ability_learning_board_menu",
     "personal_plate_menu", "team_dock_formation_menu", "soccer_formation_menu", "soccer_team_dock_menu",
     "team_dock_common_top_menu", "soccer_top_menu" },
-  -- the header / guide layers hidden in those menus' own context (assets\lua\_all\utilities_tech_preview.lua)
+  -- header / guide layers hidden in those menus
   bar_menus = { "team_dock_common_top_menu", "soccer_top_menu", "soccer_team_dock_menu" },
   bar_layers = { "mainmenu90_01_header", "mainmenu90_03_header_rank", "mainmenu90_31_doc_item",
     "mainmenu90_05_content_guide_line01", "mainmenu90_06_content_guide_line03", "mainmenu01_06_base_button_guide" },
-  -- the one-model menu that holds the performer's model while the cut-in plays (an event over the menus only binds
-  -- actors to models a menu holds:-9.12) and its model layer
+  -- menu holding the performer's model (an event over the menus only binds actors to models a menu holds)
   carrier_menu = "chara_model_only_view_menu",
   carrier_layer = "rpg99_99_chara_model_only_view",
-  -- the menu scene's blue backdrop (craft object) put behind the cut-in, as the miximax scene does; "" = none
   backdrop = "bg10000",
-  -- prompt offset from the place of the card's retail page guide (menu px, x right / y up)
+  -- prompt offset from the card's retail page guide (menu px, x right / y up)
   hint_x = 0,
   hint_y = 0,
-  -- seconds: fade out / in around the cut-in, BGM fade, the longest wait for the model and for the scene
   fade_s = 0.3,
   bgm_fade_s = 0.5,
   model_wait_frames = 300,
   max_seconds = 120,
-  -- B (CMD_CANCEL) during the cut-in ends it (the game's own hold-to-skip of the event works too)
+  -- B ends the cut-in.
   back_skips = true,
-  -- log every answer of CMND_BETTERQOL_TECH_PREVIEW (one line per move asked; the play itself always logs)
+  -- log every answer of CMND_BETTERQOL_TECH_PREVIEW
   log_queries = false,
 }
 
 do
-  local ok, c = pcall(VRFW.files.config, "tech_preview")
-  if ok and type(c) == "table" then
+  local c = VRFW.config("tech_preview")
+  if type(c) == "table" then
     for k, v in pairs(c) do
       if cfg[k] ~= nil and type(v) == type(cfg[k]) then cfg[k] = v end
     end
   end
 end
 
--- ---------------------------------------------------------------------------------------- the moves
+-- a served table's rows, or nil and the error
+local function table_rows(path)
+  local ok, rows = pcall(VRFW.table.rows, path)
+  if ok and type(rows) == "table" then return rows end
+  return nil, rows
+end
 
 local MOVES = nil     -- skill id -> { event, category, players }
 local function moves()
   if MOVES then return MOVES end
   MOVES = {}
-  local ok, rows = pcall(VRFW.table.rows, "skill/skill")
-  if not ok or type(rows) ~= "table" then
-    warn("skill/skill not readable: " .. tostring(rows) .. " (no preview)")
+  local rows, err = table_rows("skill/skill")
+  if not rows then
+    warn("skill/skill not readable: " .. tostring(err) .. " (no preview)")
     return MOVES
   end
   local n = 0
@@ -101,8 +77,7 @@ local function moves()
   return MOVES
 end
 
--- does card `param` learn move `skill`? (the framework's learn-level service: the card's effective learn list, mods'
--- learn lists included); nil when the service has no answer
+-- does card `param` learn move `skill`?
 local function learns(param, skill)
   if not (VRFW.learn and VRFW.learn.learnset) then return nil end
   local ok, set = pcall(VRFW.learn.learnset, param)
@@ -112,8 +87,6 @@ local function learns(param, skill)
   end
   return false
 end
-
--- ---------------------------------------------------------------------------------------- body rigs
 
 local MODEL_BODY = nil   -- chara_model id -> rig 1-4
 local function rig_of_path(p)
@@ -125,18 +98,15 @@ end
 local function model_bodies()
   if MODEL_BODY then return MODEL_BODY end
   MODEL_BODY = {}
-  local okb, bodies = pcall(VRFW.table.rows, "character/chara_body")
   local by_body = {}
-  if okb and type(bodies) == "table" then
-    for _, b in ipairs(bodies) do by_body[u32(b.id)] = rig_of_path(b.skeleton_path) end
-  end
-  local okm, models = pcall(VRFW.table.rows, "character/chara_model")
-  if okm and type(models) == "table" then
+  for _, b in ipairs(table_rows("character/chara_body") or {}) do by_body[u32(b.id)] = rig_of_path(b.skeleton_path) end
+  local models, err = table_rows("character/chara_model")
+  if models then
     for _, m in ipairs(models) do
       MODEL_BODY[u32(m.id)] = by_body[u32(m.body)] or rig_of_path(m.skeleton_path)
     end
   else
-    warn("character/chara_model not readable: " .. tostring(models) .. " (body rig 1 for everyone)")
+    warn("character/chara_model not readable: " .. tostring(err) .. " (body rig 1 for everyone)")
   end
   return MODEL_BODY
 end
@@ -145,52 +115,38 @@ local BASE_MODEL = nil   -- chara_base id -> chara_model id
 local function base_model(base)
   if not BASE_MODEL then
     BASE_MODEL = {}
-    local ok, rows = pcall(VRFW.table.rows, "character/chara_base")
-    if ok and type(rows) == "table" then
-      for _, r in ipairs(rows) do
-        local id = u32(r.id)
-        if id ~= 0 and BASE_MODEL[id] == nil then BASE_MODEL[id] = u32(r.model) end
-      end
+    for _, r in ipairs(table_rows("character/chara_base") or {}) do
+      local id = u32(r.id)
+      if id ~= 0 and BASE_MODEL[id] == nil then BASE_MODEL[id] = u32(r.model) end
     end
   end
   return BASE_MODEL[u32(base)]
 end
 
--- ---------------------------------------------------------------------------------------- the active squad
+local Memory = VRFW.memory
+local Squads = VRFW.squads
 
-local Memory = require "VRFW/lib/memory"
-local read_memory = Memory.read_memory
-
--- the active squad's members in slot order: { { hdl, param, base, position } } (nil, why when unreadable)
 local function squad()
-  local okp, party = pcall(VRFW.game.team_bank_party)
-  if not okp or type(party) ~= "number" or party < 0x10000 then return nil, "no party" end
-  local logical = read_memory("u8", party + S.ACTIVE_OFF)
-  if logical == nil or logical > 15 then return nil, "no active squad" end
-  local okm, phys = pcall(VRFW.call, "Party.LogicalToPhysical", 0, logical)
-  if not okm or type(phys) ~= "number" or phys < 0 or phys > 15 then return nil, "no physical squad" end
-  local data = read_memory("ptr", party + S.PARTY_SET_DATA)
-  if data == nil then return nil, "no squad data" end
-  local team = data + phys * S.SET_SIZE
+  local party = VRFW.game.global("team_template_party")
+  if party == nil then return nil, "no party" end
+  local logical = Squads.active(party)
+  if logical == nil or logical >= Squads.layout().set_count then return nil, "no active squad" end
+  local team = Squads.squad(logical, party)
+  if team == nil then return nil, "no squad data" end
   local out = {}
-  for k = 0, S.MEMBERS - 1 do
-    local h = read_memory("u32", team + S.MEMBER_LIST + k * S.MEMBER_STRIDE)
-    if h ~= nil and h ~= 0 then
-      local okr, r = pcall(VRFW.character.record, h)
-      if okr and type(r) == "table" and type(r.param) == "number" then
-        local okc, card = pcall(VRFW.character.card, r.param)
-        card = okc and card or nil
-        out[#out + 1] = { hdl = h, param = u32(r.param), base = card and card.base or nil,
-          position = card and tonumber(card.position) or 0, slot = k }
-      end
+  for _, member in ipairs(Squads.members(team, 0)) do
+    local okr, r = pcall(VRFW.character.record, member.handle)
+    if okr and type(r) == "table" and type(r.param) == "number" then
+      local okc, card = pcall(VRFW.character.card, r.param)
+      card = okc and card or nil
+      out[#out + 1] = { hdl = member.handle, param = u32(r.param), base = card and card.base or nil,
+        position = card and tonumber(card.position) or 0, slot = member.slot }
     end
   end
   if #out == 0 then return nil, "the active squad is empty" end
   return out
 end
 
--- the performer: a starter at the position who learns the move, a starter who learns it, a starter at the position,
--- the same on the bench, else the first starter
 local function pick(members, skill, want)
   local lineup = math.max(1, tonumber(cfg.lineup) or 11)
   local known = {}
@@ -214,8 +170,6 @@ local function pick(members, skill, want)
   end
   return nil, "no member with a character"
 end
-
--- ---------------------------------------------------------------------------------------- commands
 
 local last_logged = nil
 
@@ -269,11 +223,8 @@ function TP.Config()
   }
 end
 
--- the tables are read at load (the load gets 10 budgets); a table that was not readable then is read again when a card
--- asks
 do
   local ok, e = pcall(function()
-    -- built once and kept between starts (VRFW.derived)
     local t = VRFW.derived("tech_preview_tables", nil, function()
       moves(); model_bodies(); base_model(0)
       return { moves = MOVES, model_body = MODEL_BODY, base_model = BASE_MODEL }

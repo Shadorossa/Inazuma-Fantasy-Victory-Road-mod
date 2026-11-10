@@ -1,13 +1,9 @@
 schema = "VRFW.base_table/1"
-# The hidden piece evt_cross_piece of the Chronicle route table: routeType 9 = the 10th tab of «Competir contra bots»
-# (the Cross tab: content/teams/free_match_tab.toml declares it, the VR-Framework draws it and writes this routeType
-# from the tab's place; X icon), its event list = the 11 Cross games (the team type appends Royal Academy (Cross)'s
-# game to it). By key, its events as the eventInfoRef slice. (docs/release/iecross.md §6).
 
-[[keyed]]                                 # the hidden piece evt_cross_piece (routeType 9 = the Cross tab) and its games
+[[keyed]]
 table = "vsroute/vs_route_piece"
   [[keyed.add]]
-  key = 0xB85A2223                        # evt_cross_piece
+  key = 0x0EDC7C1C                        # iecross_piece
   cells = { routeType = 9, eventType = 0, statusFlagIndex = 2, routeProgressIndex = 14, addDlcNo = 5, piecePos = [10.0, 7.0], piecePosOffset = [0.0, 0.0], IconInfoId = 0x5224C80A, guideTextId = 0, IconInfoIndex = 0, bgmId = 0x628A4DD8, bgmId_futureMapCleared = 0x628A4DD8, canObtainGateKey = false, gateKeyUsePieceId = 0, gateOpenInfoId = 0, gateOpenInfoIndex = 0, openEvent = false, moveRouteInfo = [0, 0], unlockPieceInfo = [0, 0], showNewRouteEffect = false, needUpdate = false, updateLockPieceId = 0, lockedGlobalBitFlagId = 0, opponentListTab = 12, teamSelectType = 2, eventInfoRef = { set = [
     { paramCrc1 = 0x81D0CDFF, paramCrc2 = 0x00000000, paramNum1 = 0x00000000, paramNum2 = 0x00000000 },
     { paramCrc1 = 0x540B3077, paramCrc2 = 0x00000000, paramNum1 = 0x00000000, paramNum2 = 0x00000000 },

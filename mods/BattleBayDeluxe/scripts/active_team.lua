@@ -1,54 +1,28 @@
--- Battle Bay Deluxe: the «Active team» tile, the first tile of «Equipos principales», right before the Draft.
--- Deciding it plays the player's active team as it is (the team the game uses outside the Battle Bay), with no draft
--- and no team pick.
---
--- The tile is the team of config.toml [active_team] team (content\teams\51_active_team.toml, placeholder players).
--- The match itself is turned into the game's own «player's team» match natively (content\game\active_team.toml: the
--- hook StartMatchRequest writes 0 = the active VS team over the request's player team when it is this tile's team);
--- this script only:
---   * fills the hook's table BattleBayDeluxe.ActiveTeam with the tile's team id at start;
---   * answers which decides of the grid are allowed (campaign.lua's Decide hook): the tile is the PLAYER's side only
---     (the 1 vs 1's rival pick refuses it: a CPU side would play the placeholders) and never in a network session
---     (the peer builds the other side from the tile's own team);
---   * lets the Campaña / Torneo draws leave it out as a rival (campaign.lua);
--- * 1.5.64:
---     CMND_BBD_ACTIVE_TEAM_MIRROR (graft research/grafts/bb_active_team, whenever the grid draws the tile or a Battle
---     Bay hub opens) writes the active team set's line-up over the tile's member rows IN MEMORY (position -> the
---     player's chara_param, as the Draft writes its picks) and its captain as the tile's Battle Bay row leader: the
---     panel, the big portrait, the campaign scene and its pre-match talk speaker show the active team; a place the
---     active team leaves empty gets one of the tile's own placeholders no active player uses;
---   * logs each Battle Bay match request that carries the tile (hook StartMatchRequest): whether the native answer
---     turned it into the active team set (player team 0), and does it when the answer did not;
--- * 1.5.66: the
---     mirror also writes the active team's emblem and kit over the tile's team record in memory and publishes the
---     active team set (table BattleBayDeluxe.ActiveSet); the request handler writes the active VS team set into the
---     request's team set byte (+0xC0: the Battle Bay fills it with its own online team set) and sets the level sync
---     of the match (config.toml [active_team] level_sync, table BattleBayDeluxe.LevelSync: the stats level of the
---     active team's players, content\game\active_team.toml MatchStatLevel; their moves stay as they are);
--- * 1.5.77: the mirror also gives the
---     Draft team the active team's kit (its team record) and its name in the match (hook TeamLookBuild); the Draft's
---     crest stays its own ([team.emblem]), because the grid draws its tile from that same record.
 
 local U = require "lib/util"
 local G = require "lib/game"
+local TeamConfig = VRFW.teams.config
 local Draft = require "draft"
 
 local A = {}
 
 local TABLE = "BattleBayDeluxe.ActiveTeam"
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("active team")
 
-local TEAM_NAME = U.trim(tostring(U.config("active_team.team", "active_team")))
+local TEAM_NAME = VRFW.strings.trim(tostring(U.config("active_team.team", "active_team")))
 
--- the key of the [[team]] named `name` in the mod's own team files (content\teams); nil, why when there is none
+local TEAM_FILES = nil
+
 local function find_key(name)
-  local ok, list = pcall(VRFW.files.declarations, "content/teams")
-  if not ok or type(list) ~= "table" then
+  if TEAM_FILES == nil then
+    local ok, read = pcall(VRFW.files.declarations, "content/teams")
+    TEAM_FILES = ok and type(read) == "table" and read or false
+  end
+  if not TEAM_FILES then
     return nil, "content\\teams not readable"
   end
-  for _, e in ipairs(list) do
+  for _, e in ipairs(TEAM_FILES) do
     local teams = e.mod == VRFW.mod and type(e.data) == "table" and e.data.team
     if type(teams) == "table" then
       for _, t in ipairs(teams) do
@@ -65,7 +39,7 @@ local function find_key(name)
 end
 
 local KEY, KEY_ERR = find_key(TEAM_NAME)
-local TEAM = KEY and U.crc32(KEY) or 0
+local TEAM = KEY and VRFW.crc32(KEY) or 0
 
 if TEAM == 0 then
   warn("off (" .. tostring(KEY_ERR) .. "): the Active team tile plays its placeholder players")
@@ -82,15 +56,58 @@ else
   end
 end
 
--- The tile's team id (0 = none: no declaration).
+-- team id -> team set of each Personal Teams tile (config.toml [active_team] dock_tiles)
+local DOCK_OF = {}
+local DOCK_READY = {}
+local DOCK_LIST = {}
+
+if TEAM ~= 0 then
+  for name, dock in pairs(U.config("active_team.dock_tiles", {})) do
+    local key, why = find_key(name)
+    local team = key and VRFW.crc32(key) or 0
+    if team ~= 0 and pcall(VRFW.native.table_set, TABLE, team, 1)
+      and pcall(VRFW.native.table_set, "BattleBayDeluxe.ActiveSet", team, dock) then
+      DOCK_OF[team] = dock
+      DOCK_LIST[#DOCK_LIST + 1] = string.format("%.0f:%d", team, dock)
+    else
+      warn("Personal Teams tile " .. tostring(name) .. " is off: " .. tostring(why or "the hook's tables not written"))
+    end
+  end
+  table.sort(DOCK_LIST)
+end
+
 function A.team()
   return TEAM
 end
 
--- ------------------------------------------------------------------------------------------------ the mirror
+-- True for the Active team tile and every Personal Teams tile.
+function A.is_tile(team)
+  return team ~= 0 and (team == TEAM or DOCK_OF[team] ~= nil)
+end
 
--- the tile's own placeholder of each member place (slot -> chara_param), as first seen this session
+-- The last seen state of a Personal Teams tile's dock: true = 11 starters, false = not, nil = not such a tile or not read yet.
+function A.dock_ready(team)
+  return DOCK_READY[team]
+end
+
+-- CMND_BATTLEBAYDELUXE_PERSONAL_DOCKS -> "team:dock,..."
+function BattleBayDeluxe.PersonalDocks()
+  return table.concat(DOCK_LIST, ",")
+end
+
+-- CMND_BATTLEBAYDELUXE_PERSONAL_DOCK_READY (team, 1 = 11 starters)
+function BattleBayDeluxe.PersonalDockReady(team, ready)
+  team = U.u32(tonumber(team) or 0) or 0
+  if DOCK_OF[team] == nil then
+    return false
+  end
+  DOCK_READY[team] = U.int(ready, 0) ~= 0
+  return true
+end
+
+-- each tile's own placeholder of its member places (team -> slot -> chara_param), as first seen this session
 local PLACEHOLDER = {}
+local DRAFT_UNCHANGED = "Draft crest and kit unchanged, Draft name unchanged"
 
 -- "position:param,…" -> { [position] = param }
 local function parse_lineup(text)
@@ -104,7 +121,6 @@ local function parse_lineup(text)
   return out
 end
 
--- the leader the tile's row names: the captain when he is one of the rows, else the player of place 0, else the first
 local function leader_of(final, captain)
   local first
   for slot, id in pairs(final) do
@@ -121,41 +137,13 @@ local function leader_of(final, captain)
   return first and final[first], "first place"
 end
 
--- the active VS team set last mirrored (0..15), nil before the first mirror
 local ACTIVE_SET = nil
 
--- a team's record in memory (FindTeamConfig; default the tile's), nil + why
-local function team_record(team)
-  if not VRFW.is_on("FindTeamConfig") then
-    return nil, "FindTeamConfig not resolved"
-  end
-  local okb, recb = pcall(VRFW.mem.buffer, "bbd_active_rec", 8)
-  local okc, contb = pcall(VRFW.mem.buffer, "bbd_active_cont", 8)
-  local okh, hashb = pcall(VRFW.mem.buffer, "bbd_active_hash", 4)
-  if not (okb and okc and okh) then
-    return nil, "no native buffer"
-  end
-  U.wr("u64", recb, 0)
-  U.wr("u64", contb, 0)
-  U.wr("u32", hashb, team or TEAM)
-  local ok, e = U.call("FindTeamConfig", recb, contb, hashb)
-  if not ok then
-    return nil, "FindTeamConfig faulted (" .. tostring(e) .. ")"
-  end
-  local rec = U.rd("ptr", recb) or 0
-  if rec < 0x10000 then
-    return nil, "team " .. U.hex(team or TEAM) .. " is not in team_config"
-  end
-  return rec
-end
-
--- an emblem and a kit over a team record, 0 = leave that field (the grid's crest and model and the match setup read
--- it) -> note; `label` names the team in the log
 local function write_look(team, label, emblem, uniform)
   if emblem == 0 and uniform == 0 then
     return "no emblem / kit to write"
   end
-  local rec, why = team_record(team)
+  local rec, why = TeamConfig.find(team or TEAM)
   local r = rec and U.struct("ActiveTeamRecord", rec)
   if not r then
     warn("mirror: the " .. label .. "'s team record not read: " .. tostring(why or "struct off"))
@@ -180,15 +168,10 @@ local function write_look(team, label, emblem, uniform)
   return label .. " " .. table.concat(done, ", ")
 end
 
--- the Draft team carries the active team's kit and name in its matches; its crest stays its own. Kit: write_look over
--- the Draft's record. Name: the hook TeamLookBuild (content\game\active_team.toml) gives the match team set of every team in the
--- table BattleBayDeluxe.TeamName the name held in this native block (NUL-terminated); the grid keeps the tile's own
--- text.
 local NAME_TABLE = "BattleBayDeluxe.TeamName"
 local NAME_BLOCK, NAME_BYTES = "bbd_active_team_name", 128
 local name_written = nil
 
--- `text` cut to at most `max` bytes without splitting a UTF-8 character
 local function utf8_cut(text, max)
   if #text <= max then
     return text
@@ -216,14 +199,16 @@ local function write_name(team, name)
   if name_written == name then
     return "name unchanged"
   end
-  local okb, block = pcall(VRFW.mem.buffer, NAME_BLOCK, NAME_BYTES)
+  local block = VRFW.memory.buffer(NAME_BLOCK, NAME_BYTES)
+  local okb = block ~= nil
   if not okb or type(block) ~= "number" or block == 0 then
     warn("mirror: no native block for the team name")
     return "name NOT written"
   end
   local bytes = { name:byte(1, -1) }
   bytes[#bytes + 1] = 0
-  local okw, written = pcall(VRFW.mem.write_array, "u8", block, bytes)
+  local written = VRFW.memory.write_array("u8", block, bytes)
+  local okw = written ~= nil
   if not okw or written == false then
     warn("mirror: the team name NOT written")
     return "name NOT written"
@@ -245,27 +230,30 @@ local function write_draft_identity(uniform, name)
   return write_look(draft, "Draft", 0, uniform) .. ", Draft " .. write_name(draft, name)
 end
 
--- CMND_BBD_ACTIVE_TEAM_MIRROR(captain, lineup[, set, emblem, uniform, name]): the active team set onto the tile's member
--- rows, row leader and team record (crest, kit), and its kit and name onto the Draft team. -> ok, what was done
--- (text)
-function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform, name)
-  if TEAM == 0 then
+-- `tile` (optional): the Personal Teams tile to mirror onto; none = the Active team tile.
+function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform, name, tile)
+  local dock_tile = U.u32(tonumber(tile) or 0) or 0
+  local team = dock_tile ~= 0 and dock_tile or TEAM
+  if team == 0 then
     return false, "no Active team tile"
   end
+  if dock_tile ~= 0 and DOCK_OF[dock_tile] == nil then
+    return false, "not a Personal Teams tile"
+  end
   set = tonumber(set)
-  if set and set >= 0 and set < 16 then
+  if dock_tile == 0 and set and set >= 0 and set < 16 then
     ACTIVE_SET = math.floor(set)
-    pcall(VRFW.native.table_set, "BattleBayDeluxe.ActiveSet", 0, ACTIVE_SET)
+    pcall(VRFW.native.table_set, "BattleBayDeluxe.ActiveSet", TEAM, ACTIVE_SET)
   end
   emblem, uniform = U.u32(tonumber(emblem) or 0) or 0, U.u32(tonumber(uniform) or 0) or 0
-  local look = write_look(TEAM, "tile", emblem, uniform)
-  local draft_look = write_draft_identity(uniform, name)
+  local look = write_look(team, "tile", emblem, uniform)
+  local draft_look = dock_tile ~= 0 and DRAFT_UNCHANGED or write_draft_identity(uniform, name)
   captain = U.u32(tonumber(captain) or 0) or 0
   local want = parse_lineup(lineup)
   if next(want) == nil then
     return false, "empty line-up"
   end
-  local rows, why = Draft.member_rows(TEAM)
+  local rows, why = Draft.member_rows(team)
   if not rows then
     warn("mirror: the tile's member rows not read: " .. tostring(why))
     return false, "member rows: " .. tostring(why)
@@ -274,14 +262,15 @@ function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform,
   for _, id in pairs(want) do
     used[id] = true
   end
+  PLACEHOLDER[team] = PLACEHOLDER[team] or {}
+  local holders = PLACEHOLDER[team]
   for _, r in ipairs(rows) do
-    if PLACEHOLDER[r.slot] == nil then
-      PLACEHOLDER[r.slot] = r.param
+    if holders[r.slot] == nil then
+      holders[r.slot] = r.param
     end
   end
-  -- the places the active team leaves empty: a placeholder of the tile no active player uses (never a duplicate)
   local spare = {}
-  for _, id in pairs(PLACEHOLDER) do
+  for _, id in pairs(holders) do
     if id ~= 0 and not used[id] then
       spare[#spare + 1] = id
     end
@@ -292,7 +281,7 @@ function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform,
     local to = want[r.slot]
     if to == nil then
       empty = empty + 1
-      to = PLACEHOLDER[r.slot]
+      to = holders[r.slot]
       if used[to] then
         to = table.remove(spare, 1) or to
       end
@@ -309,7 +298,7 @@ function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform,
   end
   local lead, lead_why = leader_of(final, captain)
   local leader_note = "leader unchanged"
-  local row = lead and G.enjoy_row(TEAM)
+  local row = lead and G.enjoy_row(team)
   local er = row and U.struct("EnjoyRow", row)
   if er then
     local old = U.get(er, "leader") or 0
@@ -329,20 +318,15 @@ function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform,
   local note = string.format("%d of %d member rows written, %d place(s) the active team leaves empty, %s, %s, %s, team set %s",
     written, #rows, empty, leader_note, look, draft_look, tostring(ACTIVE_SET))
   if written > 0 or leader_note ~= "leader unchanged" or look ~= "tile crest and kit unchanged"
-    or draft_look ~= "Draft crest and kit unchanged, Draft name unchanged" then
+    or draft_look ~= DRAFT_UNCHANGED then
     info("mirror: the active team onto the tile: " .. note)
   end
   return true, note
 end
 
--- ------------------------------------------------------------------------------------------------ the match request
-
--- StartMatchRequest(scene, request): +0xA0 (u8) 1 = the Battle Bay's explicit teams, +0xA4 the player's team, +0xA8
--- the rival. The native answer (content\game\active_team.toml) runs first; this handler sees its result.
-local REQUEST_EXPLICIT, REQUEST_PLAYER, REQUEST_RIVAL = 0xA0, 0xA4, 0xA8
--- +0xC0 (u8): the team set the player's side is built from (0x16B59D0 -> setup +4)
+local REQUEST_EXPLICIT, REQUEST_PLAYER, REQUEST_RIVAL = G.REQUEST_EXPLICIT, G.REQUEST_PLAYER, G.REQUEST_RIVAL
 local REQUEST_TEAM_SET = 0xC0
--- party block: the VS team set in use (+0x9F13 in play mode 2: session +0x2CAC6F), as CMND_GET_VS_USE_TEAM_SET
+local REQUEST_GAME, REQUEST_DIFFICULTY = 0x6C, 0x7D
 local PARTY_VS_SET, PARTY_VS_SET_STORY, SESSION_PLAY_MODE = 0x9F10, 0x9F13, 0x2CAC6F
 
 local SYNC_TABLE = "BattleBayDeluxe.LevelSync"
@@ -378,27 +362,31 @@ local function set_sync(level)
   end
 end
 
--- the native block the hook's first answers fill with the request's address when the request carries the tile, else 0
--- (content\game\active_team.toml). Player's team 0 alone is not the tile: other modes (a free match) send their own
--- requests with explicit teams and player 0.
 local REQUEST_MARK_KEY = "BattleBayDeluxe.active_team.request_mark"
-local request_mark = nil
+local REQUEST_TILE_KEY = "BattleBayDeluxe.active_team.request_tile"
+local request_mark, request_tile = nil, nil
 
--- true when this request carries the Active team tile (marked natively before the answer turned the tile into 0)
 local function is_tile_request(req, player)
-  if player == TEAM then
+  if A.is_tile(player) then
     return true
   end
   return request_mark ~= nil and U.rd("ptr", request_mark) == req
 end
 
 if TEAM ~= 0 then
-  local okb, block = pcall(VRFW.mem.buffer, "bbd_active_request_mark", 8)
+  local block = VRFW.memory.buffer("bbd_active_request_mark", 8)
+  local okb = block ~= nil
   if okb and type(block) == "number" and pcall(VRFW.state.set, REQUEST_MARK_KEY, block) then
     request_mark = block
   else
     warn("the request mark is not set up: the active team's team set and level sync only apply to a request the " ..
       "native answer did not turn")
+  end
+  local tile_block = VRFW.memory.buffer("bbd_active_request_tile", 8)
+  if type(tile_block) == "number" and pcall(VRFW.state.set, REQUEST_TILE_KEY, tile_block) then
+    request_tile = tile_block
+  else
+    warn("the request's tile is not recorded: a Personal Teams tile turned by the native answer plays the active team set")
   end
 
   VRFW.on("game_reset", function()
@@ -415,12 +403,16 @@ if TEAM ~= 0 then
     local player = U.rd("u32", req + REQUEST_PLAYER)
     local rival = U.rd("u32", req + REQUEST_RIVAL)
     if not is_tile_request(req, player) then
-      -- any other match (free match, Chronicle, story...): the player's own team as the game built the request
+      info(string.format("match request: not the Active team tile (player's team %s, explicit flag %s, game %s, marked %s): " ..
+        "no level sync from the tile", U.hex(player or 0), tostring(explicit), U.hex(U.rd("u32", req + REQUEST_GAME) or 0),
+        tostring(request_mark ~= nil and U.rd("ptr", request_mark) == req)))
       set_sync(nil)
       return nil
     end
-    -- the active team's match: its team set and level sync
-    local set = active_set()
+    info(string.format("match request: the Active team tile (player's team %s, game %s, difficulty %s): stats synced to Nv. %d",
+      U.hex(player or 0), U.hex(U.rd("u32", req + REQUEST_GAME) or 0), tostring(U.rd("u8", req + REQUEST_DIFFICULTY)), LEVEL_SYNC))
+    local tile = player ~= 0 and player or (request_tile and U.rd("u32", request_tile)) or 0
+    local set = DOCK_OF[tile] or active_set()
     local had = U.rd("u8", req + REQUEST_TEAM_SET)
     if set == nil then
       warn("match request: the active team set is unknown: the request keeps team set " .. tostring(had))
@@ -432,11 +424,10 @@ if TEAM ~= 0 then
       end
     end
     set_sync(LEVEL_SYNC)
-    if player == TEAM then
-      -- the answer did not turn it (another request layout): the player's side = the active team set all the same
+    if A.is_tile(player) then
       if U.wr("u32", req + REQUEST_PLAYER, 0) then
         info(string.format("match request: the tile %s as the player's team with explicit flag %s: turned into the " ..
-          "active team set here (the native answer did not)", U.hex(TEAM), tostring(explicit)))
+          "active team set here (the native answer did not)", U.hex(player), tostring(explicit)))
       else
         warn("match request: the tile as the player's team NOT turned into the active team set (write failed)")
       end
@@ -453,9 +444,6 @@ function A.playable()
   return TEAM ~= 0 and VRFW.is_on("StartMatchRequest")
 end
 
--- A decide on the tile: nil = allowed, else why it is refused. `campaign` = the grid is the Campaña's (or the
--- Torneo's), `player_one_decided` = the 1 vs 1's player side is already picked (this decide picks the rival),
--- `network` = IsNetworkSession (nil = unknown).
 function A.refusal(campaign, player_one_decided, network)
   if not A.playable() then
     return "the hook StartMatchRequest is off (the tile would play its placeholder players)"

@@ -1,42 +1,38 @@
-# Texts of IECross (format of the text engine: docs/framework/types/text.md); new texts get the id
-# crc32("IECross.<name>"): the mod's name and description on the «Mods» screen, in the game's language.
-# A language missing here falls back to English. (The names of its teams, crests, kits, series and moves are game
-# text rows / technique texts: text\rows\, content\techniques\new.toml.)
 schema = "VRFW.text_key/1"
 default_lang = "en"
 
 [en.new]
 mod_name = "IECross"
-mod_description = "Inazuma Eleven Cross in Victory Road: its 11 teams with crests, kits and moves, the Cross cards with their heads and outfits, 15 Cross special moves, new kits, extra Office characters and eight Cross stadiums for matches. It adds its own Inazuma Eleven Cross tabs to the bot matches, Battle Bay and the player bank, and the Cross intros as goal celebrations. Always on: no options. Authors: LiLKi."
+mod_description = "Inazuma Eleven Cross in Victory Road: its 11 teams, the Cross cards, 15 special moves, new kits, extra Office characters and eight stadiums, with their own tabs in bot matches, the Battle Bay and the player bank. Authors: LiLKi."
 
 [es.new]
 mod_name = "IECross"
-mod_description = "Inazuma Eleven Cross en Victory Road: sus 11 equipos con emblemas, equipaciones y técnicas, las cartas de Cross con sus cabezas y trajes, 15 supertécnicas de Cross, equipaciones nuevas, personajes extra en la Oficina y ocho estadios de Cross para jugar. Añade pestañas propias de Inazuma Eleven Cross a los partidos contra bots, Bahía Batalla y el banco de jugadores, y las presentaciones de Cross como celebraciones de gol. Siempre activo: sin opciones. Autores: LiLKi."
+mod_description = "Inazuma Eleven Cross en Victory Road: sus 11 equipos, las cartas de Cross, 15 supertécnicas, equipaciones nuevas, personajes extra en la Oficina y ocho estadios, con pestañas propias en los partidos contra bots, Bahía Batalla y el banco de jugadores. Autores: LiLKi."
 
 [fr.new]
 mod_name = "IECross"
-mod_description = "Inazuma Eleven Cross dans Victory Road : ses 11 équipes avec emblèmes, maillots et techniques, les cartes Cross avec leurs têtes et tenues, 15 supertechniques de Cross, de nouveaux maillots, des personnages en plus au Bureau et huit stades de Cross pour jouer. Il ajoute ses propres onglets Inazuma Eleven Cross aux matchs contre des bots, à la Baie des batailles et à la banque de joueurs, et les intros de Cross comme célébrations de but. Toujours actif : sans options. Auteurs: LiLKi."
+mod_description = "Inazuma Eleven Cross dans Victory Road : ses 11 équipes, les cartes Cross, 15 supertechniques, de nouveaux maillots, des personnages en plus au Bureau et huit stades, avec leurs propres onglets dans les matchs contre bots, la Baie Bataille et la banque de joueurs. Auteurs : LiLKi."
 
 [de.new]
 mod_name = "IECross"
-mod_description = "Inazuma Eleven Cross in Victory Road: seine 11 Teams mit Emblemen, Trikots und Techniken, die Cross-Karten mit ihren Köpfen und Outfits, 15 Cross-Spezialtechniken, neue Trikots, zusätzliche Figuren im Büro und acht Cross-Stadien für Spiele. Es fügt eigene Inazuma-Eleven-Cross-Reiter zu den Bot-Spielen, zur Battle Bay und zur Spielerbank hinzu sowie die Cross-Intros als Torjubel. Immer aktiv: keine Optionen. Autoren: LiLKi."
+mod_description = "Inazuma Eleven Cross in Victory Road: seine 11 Teams, die Cross-Karten, 15 Spezialtechniken, neue Trikots, zusätzliche Büro-Charaktere und acht Stadien, mit eigenen Reitern in Bot-Spielen, der Kampfbucht und der Spielerbank. Autoren: LiLKi."
 
 [it.new]
 mod_name = "IECross"
-mod_description = "Inazuma Eleven Cross in Victory Road: le sue 11 squadre con stemmi, divise e tecniche, le carte Cross con le loro teste e i loro abiti, 15 supertecniche di Cross, nuove divise, personaggi extra all'Ufficio e otto stadi di Cross per giocare. Aggiunge schede proprie di Inazuma Eleven Cross alle partite contro bot, alla Baia Battaglia e alla banca dei giocatori, e le presentazioni di Cross come esultanze dopo il gol. Sempre attivo: senza opzioni. Autori: LiLKi."
+mod_description = "Inazuma Eleven Cross in Victory Road: le sue 11 squadre, le carte Cross, 15 supertecniche, nuove divise, personaggi extra nell'Ufficio e otto stadi, con schede proprie nelle partite contro bot, nella Baia Battaglia e nella banca giocatori. Autori: LiLKi."
 
 [pt.new]
 mod_name = "IECross"
-mod_description = "Inazuma Eleven Cross no Victory Road: as suas 11 equipas com emblemas, equipamentos e técnicas, as cartas Cross com as suas cabeças e trajes, 15 supertécnicas de Cross, equipamentos novos, personagens extra no Escritório e oito estádios de Cross para jogar. Acrescenta separadores próprios de Inazuma Eleven Cross aos jogos contra bots, à Baía Batalha e ao banco de jogadores, e as apresentações de Cross como celebrações de golo. Sempre ativo: sem opções. Autores: LiLKi."
+mod_description = "Inazuma Eleven Cross no Victory Road: as suas 11 equipas, as cartas Cross, 15 supertécnicas, novos equipamentos, personagens extra no Escritório e oito estádios, com separadores próprios nos jogos contra bots, na Baía Batalha e no banco de jogadores. Autores: LiLKi."
 
 [ja.new]
 mod_name = "IECross"
-mod_description = "ヴィクトリーロードにイナズマイレブンCROSSを追加します。CROSSの11チーム（エンブレム・ユニフォーム・必殺技付き）、頭部と衣装つきのCROSSカード、15のCROSS必殺技、新しいユニフォーム、オフィスの追加キャラクター、試合で使える8つのCROSSスタジアム。ボット対戦、バトルベイ、選手バンクに専用のイナズマイレブンCROSSタブが加わり、CROSSの登場演出はゴールパフォーマンスとして使えます。常に有効：オプションはありません。作者：LiLKi。"
+mod_description = "ヴィクトリーロードにイナズマイレブンCROSSを追加します。11チーム、CROSSのカード、15の必殺技、新しいユニフォーム、オフィスの追加キャラクター、8つのスタジアムが入り、ボット戦、BBスタジアム、選手バンクに専用のタブが加わります。制作：LiLKi。"
 
 [zh_hans.new]
 mod_name = "IECross"
-mod_description = "将闪电十一人 CROSS 加入胜利之路：11 支 CROSS 球队（含队徽、队服和招式）、带 CROSS 头部和服装的 CROSS 卡牌、15 个 CROSS 必杀技、新队服、办公室新增角色，以及 8 座可用于比赛的 CROSS 球场。在对战电脑、对战湾和球员银行中新增专属的闪电十一人 CROSS 分页，并将 CROSS 的登场演出作为进球庆祝。始终开启：没有选项。作者：LiLKi。"
+mod_description = "将《闪电十一人 CROSS》加入胜利之路：11支球队、CROSS卡片、15个必杀技、新球衣、办公室的额外角色和八座球场，并在机器人对战、BB体育场和球员库中加入专属标签页。作者：LiLKi。"
 
 [zh_hant.new]
 mod_name = "IECross"
-mod_description = "將閃電十一人 CROSS 加入勝利之路：11 支 CROSS 球隊（含隊徽、隊服和招式）、帶 CROSS 頭部和服裝的 CROSS 卡牌、15 個 CROSS 必殺技、新隊服、辦公室新增角色，以及 8 座可用於比賽的 CROSS 球場。在對戰電腦、對戰灣和球員銀行中新增專屬的閃電十一人 CROSS 分頁，並將 CROSS 的登場演出作為進球慶祝。始終開啟：沒有選項。作者：LiLKi。"
+mod_description = "將《閃電十一人 CROSS》加入勝利之路：11支球隊、CROSS卡片、15個必殺技、新球衣、辦公室的額外角色和八座球場，並在機器人對戰、BB體育場和球員庫中加入專屬標籤頁。作者：LiLKi。"

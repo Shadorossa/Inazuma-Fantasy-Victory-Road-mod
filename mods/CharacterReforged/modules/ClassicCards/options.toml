@@ -1,0 +1,17 @@
+schema = "VRFW.option/2"
+# Which rarities lose their rarity look.
+
+[[option]]
+id = "removed_rarities"                        # row key ClassicCards.removed_rarities
+type = "list"
+label = "option_removed_rarities"              # text\keys.toml, 9 languages
+help = "option_removed_rarities_help"
+values = [
+    { value = 0, name = "removed_basic", text = "Basic only" },
+    { value = 1, name = "removed_basic_idol", text = "Basic + Idols" },
+    { value = 2, name = "removed_basic_diamond", text = "Basic + Diamonds" },
+    { value = 3, name = "removed_all", text = "All" },
+]
+default = 0                                    # basic only
+order = 170
+restart = true

@@ -1,0 +1,35 @@
+schema = "VRFW.theme_rules/1"
+theme = "dark"
+# the emblem picker's own atlas (content/images/menu/102_team/betterui_emblem_art.toml): the grey hex stays grey and
+# the white fade bands stay white (the graft tints them with the theme's background at run time)
+# The plates and icons of the four boxes of the Chronicle top menu (atlas better_ui_chr_box) follow the theme.
+include = ["dx11/menu/102_team/betterui_emblem_art", "dx11/menu/100_mainmenu/mainmenu90/better_ui_chr_box"]
+
+[[sprite]]
+match = "betterui_emblem_*"
+class = "keep"
+file = "betterui_emblem_art/"
+
+# The idle box plate takes the card colour, and the focused and chosen plates take the accent.
+[[sprite]]
+match = "bui_comp_box_tex_off"
+class = "surface"
+file = "better_ui_chr_box/"
+[[sprite]]
+match = "bui_comp_box_tex_on"
+class = "accent"
+file = "better_ui_chr_box/"
+[[sprite]]
+match = "bui_comp_box_tex_ok"
+class = "accent"
+file = "better_ui_chr_box/"
+# The cyan focus frame keeps its colour.
+[[sprite]]
+match = "bui_comp_box_tex_ol"
+class = "keep"
+file = "better_ui_chr_box/"
+# The dark grey ink of the box icons becomes the text colour of the theme, and the white stays.
+[[sprite]]
+match = "*"
+class = "ink"
+file = "better_ui_chr_box/"

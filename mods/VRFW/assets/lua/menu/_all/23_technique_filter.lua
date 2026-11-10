@@ -1,32 +1,21 @@
--- menu_engine: the saved filters of the move lists with the framework's tension and family rows
--- (scripts\technique_filter.lua).
--- Runs in every script VM that includes the item filter (LUA_ITEM_FILTER_MENU_INC: SaveFilterData, LoadFilterData,
--- OpenFilter, OnAfterReceiveFilterParamCommon). The game's save holds six tension rows of a filter, so while the
--- framework serves the rows (CMND_VRFW_TECHNIQUE_FILTER_VALUES):
--- * save: the ticked tension and family rows are kept by the framework by value (CMND_VRFW_TECHNIQUE_FILTER_KEEP) and
---   the game saves «all tension rows» in their place;
--- * load: the kept values are ticked again by row (CMND_VRFW_TECHNIQUE_FILTER_KEPT); a saved filter with no kept
---   values gets «all tension rows» (game rows saved before are not the same values).
--- Framework off: the game's functions run unchanged. No engine call at load time.
-if VRFW_TechniqueFilterSave == nil and type(SaveFilterData) == "function" and type(LoadFilterData) == "function"
+VRFW.technique_filter = VRFW.technique_filter or {}
+if VRFW.technique_filter.save == nil and type(SaveFilterData) == "function" and type(LoadFilterData) == "function"
     and type(OpenFilter) == "function" and type(OnAfterReceiveFilterParamCommon) == "function"
     and type(GetFilterParamArray) == "function" and type(CreateSendFilterParamArray) == "function"
     and type(InsertFilterParam) == "function" then
   local TS = {
-    CMD_VALUES = VRFW_Cmd.VRFW_TECHNIQUE_FILTER_VALUES,   -- CMND_VRFW_TECHNIQUE_FILTER_VALUES(list item type) -> n, value 1, ... (0 = off)
-    CMD_FAMILIES = VRFW_Cmd.VRFW_TECHNIQUE_FILTER_FAMILIES, -- CMND_VRFW_TECHNIQUE_FILTER_FAMILIES() -> first row, n, ... (0 = no family rows)
-    FAMILY_CODE = 256,         -- a family row's kept value: FAMILY_CODE + its index (0-based; tension values are bytes)
-    CMD_KEEP = VRFW_Cmd.VRFW_TECHNIQUE_FILTER_KEEP,     -- CMND_VRFW_TECHNIQUE_FILTER_KEEP(save id, n, value 1, ...) (n < 0 = forget)
-    CMD_KEPT = VRFW_Cmd.VRFW_TECHNIQUE_FILTER_KEPT,     -- CMND_VRFW_TECHNIQUE_FILTER_KEPT(save id) -> n, value 1, ... (-1 = none)
-    CMD_SAVE = 3666261249,     -- the game's save of a filter (save id, n, list item type / value / option triples)
+    CMD_VALUES = VRFW.commands.VRFW_TECHNIQUE_FILTER_VALUES,
+    CMD_FAMILIES = VRFW.commands.VRFW_TECHNIQUE_FILTER_FAMILIES,
+    FAMILY_CODE = 256,
+    CMD_KEEP = VRFW.commands.VRFW_TECHNIQUE_FILTER_KEEP,
+    CMD_KEPT = VRFW.commands.VRFW_TECHNIQUE_FILTER_KEPT,
+    CMD_SAVE = 3666261249,
     TENSION = 3,               -- list item type of the tension tab
-    ALL = 8,                   -- list item type «all rows of a tab» (value = the tab's type)
-    loading = nil,             -- save id of the load in flight (its params arrive through OnAfterReceive…)
+    ALL = 8,                   -- list item type "all rows of a tab" (value = the tab's type)
+    loading = nil,
   }
-  VRFW_TechniqueFilterSave = TS
+  VRFW.technique_filter.save = TS
 
-  -- the served row values by row (the tension values, then FAMILY_CODE + index of each family row), or nil while the
-  -- framework keeps the game's rows
   local function served()
     local r = table.pack(pcall(funcLuaCommand, TS.CMD_VALUES, TS.TENSION))
     if not r[1] or type(r[2]) ~= "number" or r[2] <= 0 then
@@ -50,6 +39,7 @@ if VRFW_TechniqueFilterSave == nil and type(SaveFilterData) == "function" and ty
   end
 
   local game_save = SaveFilterData
+  --- Retail override: saves the filter data, using the framework's values when it serves them.
   function SaveFilterData(a1)
     local values = served()
     if values == nil then
@@ -81,18 +71,21 @@ if VRFW_TechniqueFilterSave == nil and type(SaveFilterData) == "function" and ty
   end
 
   local game_load = LoadFilterData
+  --- Retail override: remembers the filter id, then loads it.
   function LoadFilterData(a1, a2)
     TS.loading = a1
     return game_load(a1, a2)
   end
 
   local game_open = OpenFilter
+  --- Retail override: clears the remembered filter id, then opens the filter.
   function OpenFilter(...)
     TS.loading = nil
     return game_open(...)
   end
 
   local game_after = OnAfterReceiveFilterParamCommon
+  --- Retail override: applies the served filter after the common filter params arrive.
   function OnAfterReceiveFilterParamCommon(...)
     local id = TS.loading
     TS.loading = nil

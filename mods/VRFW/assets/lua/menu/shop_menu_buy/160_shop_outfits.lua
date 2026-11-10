@@ -1,29 +1,23 @@
--- VRFW › shop outfits, menu side. Handlers of the framework's shop_menu_buy host (VRFW_Host, 000_host.lua); no engine call at load time.
---
--- A new outfit ([[VRFW.Outfit]] with Name: a costume item that wears a kit, CMND_VRFW_OUTFIT_IS second answer) is previewed on the right as
--- the game previews kits: the game's costume preview (ChangeCharaModels, item category 140) poses the model with the costume pose of its
--- story-model costumes. The model is the outfit's wearer when its equip condition names characters (the game's own pick for a character
--- costume), else the kit models; every other item keeps the game's preview.
--- The wearer icon under the preview (UpdateSelectItemInfo) has a picture only for the game's own equip conditions (its table t17): for a
--- condition a mod added it is hidden instead of drawn without a picture.
--- An item that transforms its wearer ([[VRFW.ItemTransform]]) is previewed on the character he becomes.
-if VRFW_Host ~= nil then
+-- VRFW › shop outfits, menu side.
+if VRFW.host ~= nil then
   local STEM = "shop_menu_buy"
   local ID = "VRFW.shop_outfits_"
 
   local CMD = {
-    IS = VRFW_Cmd.VRFW_OUTFIT_IS,     -- CMND_VRFW_OUTFIT_IS(item) -> declared, new outfit
+    IS = VRFW.commands.VRFW_OUTFIT_IS,     -- CMND_VRFW_OUTFIT_IS(item) -> declared, new outfit
     ITEM_PARAM = 1883585771,          -- (item, 2) -> category
     UNIFORM = 845816129,              -- (item) -> has, uniform (item col 18)
     VIEW_CHARA = 1852689012,          -- (item) -> the item's own preview character (0 none)
     COND = 2421738681,                -- (item) -> has, equip condition
     COND_CHARA = 2389691295,          -- (equip condition) -> has, its character
-    XFORM_TARGET = VRFW_Cmd.VRFW_ITEM_XFORM_TARGET,  -- (item, character) -> the character he becomes wearing it (0 none)
+    BODIES = 3358195198,              -- (uniform) -> has, its body types
+    CHARA_INFO = VRFW.commands.GET_CHARA_INFO,  -- (character, 22, 0) -> has, his body type
+    XFORM_TARGET = VRFW.commands.VRFW_ITEM_XFORM_TARGET,
   }
   local COSTUME = 140                 -- item category of costumes
+  local BODY_INFO = 22                -- GET_CHARA_INFO field of the body type
+  local COND_MALE, COND_FEMALE = 3, 4 -- equip conditions of male / female wearers
   local WEARER_ICON = 2394257302      -- the layer of the wearer / body type icon under the preview
-  -- the game's kit preview (ChangeCharaModels, non-costume items): look flags per model slot (the view character's
-  -- slot takes the second row), jersey number and poses per model count
   local FLAGS = { 0, 2, 1, 3 }
   local FLAGS_VIEW = { 8, 10, 9, 11 }
   local NUMBER = 10
@@ -36,54 +30,82 @@ if VRFW_Host ~= nil then
   local POSE_DEFAULT = 1325728155
 
   local function L()
-    local h = VRFW_Host.hosts[STEM]
+    local h = VRFW.host.hosts[STEM]
     return h and h.L or {}
-  end
-
-  local function call(...)
-    local r = table.pack(pcall(funcLuaCommand, ...))
-    if not r[1] then return nil end
-    return table.unpack(r, 2, r.n)
   end
 
   -- true for a new outfit of a mod
   local function own_outfit(item)
     if type(item) ~= "number" or item == 0 then return false end
-    if call(CMD.ITEM_PARAM, item, 2) ~= COSTUME then return false end
-    local declared, own = call(CMD.IS, item)
+    if VRFW.host.command(CMD.ITEM_PARAM, item, 2) ~= COSTUME then return false end
+    local declared, own = VRFW.host.command(CMD.IS, item)
     return declared == true and own == true
   end
 
   -- the condition's character, 0 when it names none
   local function wearer(item)
-    local has, cond = call(CMD.COND, item)
+    local has, cond = VRFW.host.command(CMD.COND, item)
     if has ~= true or type(cond) ~= "number" or not IsCharacterIconType(cond) then return 0, cond end
-    local ok, chara = call(CMD.COND_CHARA, cond)
+    local ok, chara = VRFW.host.command(CMD.COND_CHARA, cond)
     if ok == true and type(chara) == "number" and chara ~= 0 then return chara, cond end
     return 0, cond
   end
 
-  VRFW_Host.on(STEM, "ChangeCharaModels", { id = ID .. "preview", phase = "around", fn = function(nxt, a1, ...)
+  -- the body types the uniform has a mesh for, nil when the game lists none
+  local function bodies(uniform)
+    local has, list = VRFW.host.command(CMD.BODIES, uniform)
+    if has ~= true or type(list) ~= "table" or #list == 0 then return nil end
+    return list
+  end
+
+  -- true when the character's body type is one of the list
+  local function fits(chara, list)
+    local has, body = VRFW.host.command(CMD.CHARA_INFO, chara, BODY_INFO, 0)
+    if has ~= true then return false end
+    for _, b in ipairs(list) do
+      if b == body then return true end
+    end
+    return false
+  end
+
+  -- the game's preview model of the first listed body type the condition allows (its costume rule), 0 none
+  local function body_model(list, cond)
+    local h = L()
+    local models, male = h.t14, h.t15
+    if type(models) ~= "table" or type(male) ~= "table" then return 0 end
+    for _, b in ipairs(list) do
+      local k = b + 1
+      if (cond ~= COND_MALE or male[k] == true) and (cond ~= COND_FEMALE or male[k] == false) then return models[k] or 0 end
+    end
+    return 0
+  end
+
+  VRFW.host.on(STEM, "ChangeCharaModels", { id = ID .. "preview", phase = "around", fn = function(nxt, a1, ...)
     if not own_outfit(a1) then return nxt(a1, ...) end
-    local has, uniform = call(CMD.UNIFORM, a1)
+    local has, uniform = VRFW.host.command(CMD.UNIFORM, a1)
     if has ~= true or type(uniform) ~= "number" or uniform == 0 then return nxt(a1, ...) end
     local h = L()
     local count, views = h.n5, h.t2
     if type(count) ~= "number" or type(views) ~= "table" then return nxt(a1, ...) end
     local same = a1 == h.n9
     h.n9 = a1
-    local who = wearer(a1)
+    local who, cond = wearer(a1)
     if who ~= 0 then
-      local target = call(CMD.XFORM_TARGET, a1, who)
+      local target = VRFW.host.command(CMD.XFORM_TARGET, a1, who)
       if type(target) == "number" and target ~= 0 then who = target end
     end
-    local own_view = call(CMD.VIEW_CHARA, a1)
+    local list = bodies(uniform)
+    if who ~= 0 and list ~= nil and not fits(who, list) then who = 0 end
+    local model = (who == 0 and list ~= nil) and body_model(list, cond) or 0
+    local own_view = VRFW.host.command(CMD.VIEW_CHARA, a1)
     local poses = POSES[count] or {}
     for i = 0, count - 1 do
       local k = i + 1
       local chara = views[k]
       if who ~= 0 then
         chara = who
+      elseif model ~= 0 then
+        chara = model
       elseif type(own_view) == "number" and own_view ~= 0 and i == 0 then
         chara = own_view
       end
@@ -93,14 +115,14 @@ if VRFW_Host ~= nil then
     end
   end })
 
-  VRFW_Host.on(STEM, "UpdateSelectItemInfo", { id = ID .. "wearer_icon", phase = "after", fn = function(r, a1, a2, a3)
+  VRFW.host.on(STEM, "UpdateSelectItemInfo", { id = ID .. "wearer_icon", phase = "after", fn = function(r, a1, a2, a3)
     if a3 ~= COSTUME or not own_outfit(a2) then return end
     local who, cond = wearer(a2)
     if who == 0 then return end
     local icons = L().t17
     local pic = type(icons) == "table" and icons[cond] or nil
     if pic == nil or pic == 0 then
-      pcall(funcLuaMenuCommand, VRFW_Cmd.SET_LAYER_VISIBLE, WEARER_ICON, 0, false)
+      VRFW.host.menu_command(VRFW.commands.SET_LAYER_VISIBLE, WEARER_ICON, 0, false)
     end
   end })
 end

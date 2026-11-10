@@ -1,118 +1,89 @@
--- BattleBayDeluxe bb_tournament, the Campaña team grid (enjoy_team_select_menu_campaign; docs/game/modes/bb-tournament.md
--- §4). Only while a tournament is armed (the Battle Bay top menu's «Torneo» row): the grid is the Campaña's own (pick
--- the team, the Draft tile too; then the difficulty window), with two steps of the tournament:
---   * the team's decide first opens the tournament options: BBD 1.5.10, the retail two-row L / R sub window with a
---     button (layout 3, as the online room's rank condition window: centred, no icon slot): «Con fase de grupos» Sí /
---     No, «Número de equipos» (powers of two, 1.5.15), «Filtrar equipos poco importantes» Sí / No (1.5.16: a third L / R
---     row, the window's own 3-row locator: bbt_common.lua BBT_SW_ThirdRow); left / right (OnMoveSubIndex callback BBT_GridOptMove) and Accept on a row
---     (the sub window's OnEnter, bbt_common.lua, through the parameter store) change the value in place; the button
---     «Empezar el torneo» confirms them (CMND_BBD_TOURN_ARM(fmt, size, 1, filter)) and goes on with the retail decide (the
---     difficulty window; the Draft screen for the Draft tile); Back = back to the grid. The «Liga» (format 2) has its
---     own rows in the same window (BBT_GRID_ROWS.league): «Número de equipos» (even counts), «Sin equipos menores»,
---     «Ida y vuelta» Sí / No, and the button «Empezar la liga». (1.5.4-1.5.9: a list window of
---     layout 20, the Campaña's continue window: top left, the Campaña team's crest, Accept closed it.)
---   * the difficulty window's start draws the tournament: scripts\campaign.lua's Decide hook refuses the game's own
---     start and keeps the drawn run, this file sends the difficulty (GetSelectDifficultyIdx() + 1, as the native getter
---     answers) with CMND_BBD_TOURN_START, the grid closes and the top menu shows the bracket (match 1 = its Enter). If
---     the game started its own campaign anyway (the scripts were busy for the Decide hook), the retail start goes on (a
---     plain Campaña: logged).
--- The tournament's state is the last CMND_BBD_TOURN_INFO, refreshed from Step (the commands may find the scripts busy).
--- Globals only (BattleBayDeluxe.TournamentGrid*); nothing runs at chunk load.
+-- Campaign team grid while a tournament is armed
 BattleBayDeluxe = type(BattleBayDeluxe) == "table" and BattleBayDeluxe or {}
-BattleBayDeluxe.Tournament.ARM = @crc:CMND_BBD_TOURN_ARM@
-BattleBayDeluxe.Tournament.START = @crc:CMND_BBD_TOURN_START@
-BattleBayDeluxe.Tournament.GRID = 106197494 --[[vs01_43_enjoy_team_select_emblem_icon]]
-BattleBayDeluxe.Tournament.START_BTN = 336167129 --[[cmn03_05_cmn_button_b_graphic_text]]
-BattleBayDeluxe.Tournament.GRID_MENU = 786045682 --[[enjoy_team_select_menu]]
-BattleBayDeluxe.TournamentGrid = { co = nil, frames = 0, fmt = 0, size = 16, filter = 0, double = 0, national = 0 }
--- 1.5.64: the Torneo's group-stage menu (bbt_top.lua BattleBayDeluxe.Tournament.GM) never belongs over this grid: closed when found here
-BattleBayDeluxe.Tournament.GROUPS_MENU = @crc:evt_bbd_tn_groups_menu@
-BattleBayDeluxe.Tournament.OPT_ROWS = 3   -- the options' L / R rows: group stage, team count, minor teams filter (1.5.16)
--- the options' rows per mode, top to bottom (the window has BattleBayDeluxe.Tournament.OPT_ROWS L / R rows) and the start button's text key:
--- groups = «Con fase de grupos», size = «Número de equipos», filter = «Equipos: Todos | Importantes | Personalizado»
--- (1.49.0; was «Sin equipos menores»: 0 all, 1 the minor teams filter, 2 the teams picked by hand, BBT_GridPick),
--- double = «Doble vuelta», national = «Sin selecciones nacionales»
-BBT_GRID_ROWS = {
+BattleBayDeluxe.tournament.ARM = @crc:CMND_BATTLEBAYDELUXE_TOURNAMENT_ARM@
+BattleBayDeluxe.tournament.START = @crc:CMND_BATTLEBAYDELUXE_TOURNAMENT_START@
+BattleBayDeluxe.tournament.GRID = 106197494 --[[vs01_43_enjoy_team_select_emblem_icon]]
+BattleBayDeluxe.tournament.START_BTN = 336167129 --[[cmn03_05_cmn_button_b_graphic_text]]
+BattleBayDeluxe.tournament.GRID_MENU = 786045682 --[[enjoy_team_select_menu]]
+BattleBayDeluxe.tournament_grid = { co = nil, frames = 0, fmt = 0, size = 16, filter = 0, double = 0, national = 0 }
+-- The group-stage menu never belongs over this grid
+BattleBayDeluxe.tournament.GROUPS_MENU = @crc:battlebaydeluxe_tn_groups_menu@
+-- Option rows per mode, top to bottom, and the start button's text key.
+BattleBayDeluxe.tournament_grid_rows = {
   tournament = { rows = { "groups", "size", "filter" }, start = "opt_start" },
-  -- 1.48.0: + «Sin selecciones nacionales» (national; the window's 4-row locator, bbt_common.lua BBT_SW_LOC4)
   league = { rows = { "size", "filter", "national", "double" }, start = "opt_start_league" },
 }
 
--- the options' L / R row count of the current mode
-function BBT_GridRowCount()
-  return #BBT_GRID_ROWS[BBT_GridMode()].rows
+-- Option row count of the current mode.
+function BattleBayDeluxe.tournament_grid_row_count()
+  return #BattleBayDeluxe.tournament_grid_rows[BattleBayDeluxe.tournament_grid_mode()].rows
 end
 
-BattleBayDeluxe.Tournament.SUB_LR_TEXT = 348737310   -- a row's value text of the L / R sub window (row, text id, "", true)
-BattleBayDeluxe.Tournament.P_OPEN = @crc:evt_bbd_tn_panel_open@     -- parameter store: the options panel is open (read by the sub window)
-BattleBayDeluxe.Tournament.P_ENTER = @crc:evt_bbd_tn_panel_enter@   -- parameter store: Accept on a row (row + 1), written by the sub window
--- 1.5.15 (owner: no byes, ever): the team counts offered = the tournament's own list for the format (powers of two,
--- capped by the teams the last campaign pool fields: CMND_BBD_TOURN_INFO .sizes); never a list of its own here
-BattleBayDeluxe.TournamentGrid.sizes = { knockout = {}, groups = {}, league = {} }
-BattleBayDeluxe.TournamentGrid.FORMATS = { [0] = "knockout", [1] = "groups", [2] = "league" }
+BattleBayDeluxe.tournament.SUB_LR_TEXT = 348737310
+BattleBayDeluxe.tournament.P_OPEN = @crc:battlebaydeluxe_tn_panel_open@     -- parameter: the options panel is open (its row count)
+BattleBayDeluxe.tournament.P_ENTER = @crc:battlebaydeluxe_tn_panel_enter@   -- parameter: Accept on a row (row + 1), written by the sub window
+-- Team counts offered per format, from INFO .sizes (no byes).
+BattleBayDeluxe.tournament_grid.sizes = { knockout = {}, groups = {}, league = {} }
+BattleBayDeluxe.tournament_grid.FORMATS = { [0] = "knockout", [1] = "groups", [2] = "league" }
 
--- the options' mode: "league" (format 2) or "tournament" (knockout / groups)
-function BBT_GridMode()
-  return BattleBayDeluxe.TournamentGrid.fmt == 2 and "league" or "tournament"
+-- Returns the options mode.
+function BattleBayDeluxe.tournament_grid_mode()
+  return BattleBayDeluxe.tournament_grid.fmt == 2 and "league" or "tournament"
 end
 
--- what row `row` (0-based) of the options shows in the current mode
-function BBT_GridRow(row)
-  return BBT_GRID_ROWS[BBT_GridMode()].rows[row + 1]
+-- What option the 0-based row shows in the current mode.
+function BattleBayDeluxe.tournament_grid_row(row)
+  return BattleBayDeluxe.tournament_grid_rows[BattleBayDeluxe.tournament_grid_mode()].rows[row + 1]
 end
 
-function BBT_GridSizes()
-  local key = BattleBayDeluxe.TournamentGrid.FORMATS[BattleBayDeluxe.TournamentGrid.fmt] or "knockout"
-  -- 1.48.0: a league without the national sides offers the counts the rest of the pool fills
-  if key == "league" and BattleBayDeluxe.TournamentGrid.national == 1 and type(BattleBayDeluxe.TournamentGrid.sizes.league_no_national) == "table" then
+function BattleBayDeluxe.tournament_grid_sizes()
+  local key = BattleBayDeluxe.tournament_grid.FORMATS[BattleBayDeluxe.tournament_grid.fmt] or "knockout"
+  -- A league without national teams offers the counts the rest of the pool fills.
+  if key == "league" and BattleBayDeluxe.tournament_grid.national == 1 and type(BattleBayDeluxe.tournament_grid.sizes.league_no_national) == "table" then
     key = "league_no_national"
   end
-  local l = BattleBayDeluxe.TournamentGrid.sizes[key]
+  local l = BattleBayDeluxe.tournament_grid.sizes[key]
   if type(l) ~= "table" then
     return {}
   end
   return l
 end
 
--- the size snapped to the format's list: kept when offered, else the largest offered not above it, else the smallest
-function BBT_GridSnapSize()
-  local l = BBT_GridSizes()
+-- Snaps the size to the format's list
+function BattleBayDeluxe.tournament_grid_snap_size()
+  local l = BattleBayDeluxe.tournament_grid_sizes()
   if #l == 0 then
     return
   end
   local best = nil
   for _, v in ipairs(l) do
-    if v == BattleBayDeluxe.TournamentGrid.size then
+    if v == BattleBayDeluxe.tournament_grid.size then
       return
     end
-    if v <= BattleBayDeluxe.TournamentGrid.size then
+    if v <= BattleBayDeluxe.tournament_grid.size then
       best = v
     end
   end
-  BattleBayDeluxe.TournamentGrid.size = best or l[1]
+  BattleBayDeluxe.tournament_grid.size = best or l[1]
 end
 
-function BBT_GParamDel(k)
-  VRFW_Param.Clear(k)
-end
-
-function BBT_GridOptId(row)
-  local what = BBT_GridRow(row)
+function BattleBayDeluxe.tournament_grid_option_id(row)
+  local what = BattleBayDeluxe.tournament_grid_row(row)
   if what == "groups" then
-    return BBT_Id("opt_groups_" .. tostring(BattleBayDeluxe.TournamentGrid.fmt))
+    return BattleBayDeluxe.tournament_id("opt_groups_" .. tostring(BattleBayDeluxe.tournament_grid.fmt))
   elseif what == "filter" then
-    return BBT_Id("opt_teams_" .. tostring(BattleBayDeluxe.TournamentGrid.filter))
+    return BattleBayDeluxe.tournament_id("opt_teams_" .. tostring(BattleBayDeluxe.tournament_grid.filter))
   elseif what == "double" then
-    return BBT_Id("opt_double_" .. tostring(BattleBayDeluxe.TournamentGrid.double))
+    return BattleBayDeluxe.tournament_id("opt_double_" .. tostring(BattleBayDeluxe.tournament_grid.double))
   elseif what == "national" then
-    return BBT_Id("opt_national_" .. tostring(BattleBayDeluxe.TournamentGrid.national))
+    return BattleBayDeluxe.tournament_id("opt_national_" .. tostring(BattleBayDeluxe.tournament_grid.national))
   end
-  return BBT_Id("opt_size_" .. tostring(BattleBayDeluxe.TournamentGrid.size))
+  return BattleBayDeluxe.tournament_id("opt_size_" .. tostring(BattleBayDeluxe.tournament_grid.size))
 end
 
--- the row (0-based) that shows `what` in the current mode, nil when none
-function BBT_GridRowOf(what)
-  for i, w in ipairs(BBT_GRID_ROWS[BBT_GridMode()].rows) do
+-- 0-based row showing `what` in the current mode, nil when none.
+function BattleBayDeluxe.tournament_grid_row_of(what)
+  for i, w in ipairs(BattleBayDeluxe.tournament_grid_rows[BattleBayDeluxe.tournament_grid_mode()].rows) do
     if w == what then
       return i - 1
     end
@@ -120,22 +91,26 @@ function BBT_GridRowOf(what)
   return nil
 end
 
--- the sub window's L / R callback (MENU_DEF move-sub-index; dir 1 = right) and Accept on a row (dir 1): the value
--- changes in place
-function BBT_GridOptMove(row, dir)
-  local G = BattleBayDeluxe.TournamentGrid
-  local what = BBT_GridRow(row)
+-- Snaps the size after a format or pool change and refreshes the size row when it changed.
+function BattleBayDeluxe.tournament_grid_resnap_size_row()
+  local G = BattleBayDeluxe.tournament_grid
+  local before = G.size
+  BattleBayDeluxe.tournament_grid_snap_size()
+  local srow = BattleBayDeluxe.tournament_grid_row_of("size")
+  if G.size ~= before and srow ~= nil then
+    funcLuaMenuCommand(BattleBayDeluxe.tournament.SUB_LR_TEXT, srow, BattleBayDeluxe.tournament_grid_option_id(srow), "", true)
+  end
+end
+
+function BattleBayDeluxeTournamentGridOptionMove(row, dir)
+  local G = BattleBayDeluxe.tournament_grid
+  local what = BattleBayDeluxe.tournament_grid_row(row)
   if what == "groups" then
     G.fmt = 1 - G.fmt
-    -- the other format may not offer the count shown (a group stage needs 8 or more): its row follows
-    local before = G.size
-    BBT_GridSnapSize()
-    local srow = BBT_GridRowOf("size")
-    if G.size ~= before and srow ~= nil then
-      funcLuaMenuCommand(BattleBayDeluxe.Tournament.SUB_LR_TEXT, srow, BBT_GridOptId(srow), "", true)
-    end
+    -- The other format may not offer the count shown (a group stage needs 8 or more).
+    BattleBayDeluxe.tournament_grid_resnap_size_row()
   elseif what == "size" then
-    local l = BBT_GridSizes()
+    local l = BattleBayDeluxe.tournament_grid_sizes()
     local n, k = #l, 1
     if n == 0 then
       return
@@ -158,76 +133,131 @@ function BBT_GridOptMove(row, dir)
     G.double = 1 - G.double
   elseif what == "national" then
     G.national = 1 - G.national
-    -- the pool without the national sides may not fill the count shown: its row follows
-    local before = G.size
-    BBT_GridSnapSize()
-    local srow = BBT_GridRowOf("size")
-    if G.size ~= before and srow ~= nil then
-      funcLuaMenuCommand(BattleBayDeluxe.Tournament.SUB_LR_TEXT, srow, BBT_GridOptId(srow), "", true)
-    end
+    -- The pool without national teams may not fill the count shown.
+    BattleBayDeluxe.tournament_grid_resnap_size_row()
   else
     return
   end
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 3791946501 --[[sy0004]])
-  funcLuaMenuCommand(BattleBayDeluxe.Tournament.SUB_LR_TEXT, row, BBT_GridOptId(row), "", true)
+  funcLuaMenuCommand(BattleBayDeluxe.tournament.SUB_LR_TEXT, row, BattleBayDeluxe.tournament_grid_option_id(row), "", true)
 end
 
--- the sub window's list-item refresh (MENU_DEF update-list-item callback): the panel's dress again (1.5.12)
-function BBT_GridOptItem(a1, a2)
-  pcall(funcLuaCommand, 830228314 --[[cross-menu call]], BattleBayDeluxe.Tournament.SUB_WINDOW, "BBT_SW_PanelDress", BBT_GridRowCount())
+-- Sub window list-item refresh callback (called by name)
+function BattleBayDeluxeTournamentGridOptionItem(a1, a2)
+  VRFW.host.command(830228314 --[[cross-menu call]], BattleBayDeluxe.tournament.SUB_WINDOW, "BattleBayDeluxeTournamentSubWindowPanelDress", BattleBayDeluxe.tournament_grid_row_count())
 end
 
--- the sub window's end: -1 = Back (the window closes itself), else the button (closed here, as the retail room window)
-function BBT_GridOptDone(r)
-  BattleBayDeluxe.TournamentGrid.opt_result = r
+-- Sub window end callback (called by name)
+function BattleBayDeluxeTournamentGridOptionDone(r)
+  BattleBayDeluxe.tournament_grid.opt_result = r
   if r ~= -1 then
-    funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, BattleBayDeluxe.Tournament.SUB_WINDOW)
+    funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, BattleBayDeluxe.tournament.SUB_WINDOW)
   end
 end
 
--- the grid menu's own cursor arrow shown / hidden (called from the grid's script: the popup is another menu)
-function BBT_GridCursor(on)
-  pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_VISIBLE@, 2296367164 --[[cmn05_01_cursor]], 0, on)
+-- Shows or hides the grid menu's own cursor arrow (the popup is another menu).
+function BattleBayDeluxe.tournament_grid_cursor(on)
+  VRFW.host.menu_command(@crc:CMND_SET_LAYER_VISIBLE@, 2296367164 --[[cmn05_01_cursor]], 0, on)
 end
 
--- the options panel; true = confirmed (the tournament armed with them). Runs in a coroutine. «Personalizado»: the
--- confirmation opens the team picker for the chosen «Número de equipos» (BBT_GridPick); its order answer arms the
--- tournament; Back in the picker = the options again with the values kept
-function BBT_GridOptions()
-  local G = BattleBayDeluxe.TournamentGrid
+-- Options panel in a coroutine
+function BattleBayDeluxe.tournament_grid_options()
+  local G = BattleBayDeluxe.tournament_grid
   G.keep = false
   G.new_picks = true
   while true do
-    local r = BBT_GridOptionsOnce()
+    local r = BattleBayDeluxe.tournament_grid_options_once()
     if r ~= "pick" then
       G.keep = false
       return r
     end
     G.keep = true
-    local order = BBT_GridPick(G.size)
+    local order = BattleBayDeluxe.tournament_grid_pick(G.size)
     if order ~= nil then
       G.keep = false
-      return BBT_GridArm(G.size, order == "chosen" and 1 or 0)
+      return BattleBayDeluxe.tournament_grid_arm(G.size, order == "chosen" and 1 or 0)
     end
   end
 end
 
--- the options confirmed: CMND_BBD_TOURN_ARM with them; true = armed
-function BBT_GridArm(size, ordered)
-  local G = BattleBayDeluxe.TournamentGrid
-  local ok, why = BBT_Call(BattleBayDeluxe.Tournament.ARM, G.fmt, size, 1, G.filter, G.double, G.national, ordered or 0)
+-- Arms the tournament with the confirmed options
+function BattleBayDeluxe.tournament_grid_arm(size, ordered)
+  local G = BattleBayDeluxe.tournament_grid
+  local ok, why = BattleBayDeluxe.tournament_call(BattleBayDeluxe.tournament.ARM, G.fmt, size, 1, G.filter, G.double, G.national, ordered or 0)
   if ok == true then
-    BBT_Log("options: start", G.fmt, size, G.filter, G.double, G.national, ordered or 0)
-    BBT_Info()
+    BattleBayDeluxe.tournament_log("options: start", G.fmt, size, G.filter, G.double, G.national, ordered or 0)
+    BattleBayDeluxe.tournament_info()
     return true
   end
-  BBT_Log("options not armed", tostring(ok), tostring(why))
+  BattleBayDeluxe.tournament_log("options not armed", tostring(ok), tostring(why))
   return false
 end
 
-function BBT_GridOptionsOnce()
-  local info = BBT_Info()
-  local G = BattleBayDeluxe.TournamentGrid
+-- Sets the bottom button's label of the open options panel.
+function BattleBayDeluxe.options_panel_set_start(text)
+  VRFW.host.command(830228314 --[[cross-menu call]], BattleBayDeluxe.tournament.SUB_WINDOW, "UpdateTextSubListItemLR", 0, text, text,
+    funcLuaCommand(@crc:CMND_TEXT_GET@, 932232033), funcLuaCommand(@crc:CMND_TEXT_GET@, 2223530141))
+end
+
+-- Runs the retail left / right sub window with spec.rows rows and a start button, in a coroutine; returns its result.
+-- spec: state (.opt_result), rows, ids, move_cb / item_cb / done_cb (global names), refresh(row), start_text(), accept(row), waiting(frames).
+function BattleBayDeluxe.options_panel_run(spec)
+  local state = spec.state
+  state.opt_result = nil
+  VRFW.param.clear(BattleBayDeluxe.tournament.P_ENTER)
+  VRFW.param.clear(BattleBayDeluxe.tournament.P_OPEN)
+  VRFW.param.set(BattleBayDeluxe.tournament.P_OPEN, spec.rows, "plain")
+  funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 3848881948 --[[sy0000]])
+  MENU_DEF.SetSubWindowCallback_MoveSubIndex(spec.move_cb)
+  MENU_DEF.SetSubwindowCallback_UpdateListItem(spec.item_cb)
+  BattleBayDeluxe.tournament_grid_cursor(false)
+  local enabled = {}
+  for row = 1, spec.rows do
+    enabled[row] = 1
+  end
+  MENU_DEF.OpenSubWindow(spec.done_cb, "", spec.rows, spec.ids, 5, 0, enabled, 0, false, false, 3)
+  local f = 0
+  while funcLuaCommand(@crc:CMND_IS_OPEN_MENU_OBJECT@, BattleBayDeluxe.tournament.SUB_WINDOW, 2296367164 --[[cmn05_01_cursor]])
+    ~= true and f < 120 do
+    f = f + 1
+    coroutine.yield()
+  end
+  for row = 0, spec.rows - 1 do
+    spec.refresh(row)
+  end
+  BattleBayDeluxe.options_panel_set_start(spec.start_text())
+  -- Dress the panel (BattleBayDeluxeTournamentSubWindowPanelDress in the sub window).
+  VRFW.host.command(830228314 --[[cross-menu call]], BattleBayDeluxe.tournament.SUB_WINDOW, "BattleBayDeluxeTournamentSubWindowPanelDress", spec.rows)
+  local waited = 0
+  while state.opt_result == nil and funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.tournament.SUB_WINDOW) do
+    BattleBayDeluxe.tournament_grid_cursor(false)
+    -- Waits for the player.
+    waited = waited + 1
+    if spec.waiting ~= nil and waited % 300 == 0 then
+      spec.waiting(waited)
+    end
+    if VRFW.param.has(BattleBayDeluxe.tournament.P_ENTER) then
+      local v = VRFW.param.get(BattleBayDeluxe.tournament.P_ENTER)
+      VRFW.param.clear(BattleBayDeluxe.tournament.P_ENTER)
+      if type(v) == "number" and v >= 1 then
+        spec.accept(v - 1)
+      end
+    end
+    coroutine.yield()
+  end
+  BattleBayDeluxe.tournament_grid_cursor(true)
+  VRFW.param.clear(BattleBayDeluxe.tournament.P_OPEN)
+  VRFW.param.clear(BattleBayDeluxe.tournament.P_ENTER)
+  MENU_DEF.SetSubWindowCallback_MoveSubIndex("OnMoveSubIndex")
+  MENU_DEF.SetSubwindowCallback_UpdateListItem("OnSubWindowUpdateListItem")
+  local r = state.opt_result
+  state.opt_result = nil
+  return r
+end
+
+function BattleBayDeluxe.tournament_grid_options_once()
+  local info = BattleBayDeluxe.tournament_info()
+  local G = BattleBayDeluxe.tournament_grid
   if G.keep then
     info = { sizes = G.sizes }
   end
@@ -242,113 +272,73 @@ function BBT_GridOptionsOnce()
     end
   end
   G.want_pick = false
-  BBT_GridSnapSize()
-  G.opt_result = nil
-  BBT_GParamDel(BattleBayDeluxe.Tournament.P_ENTER)
-  BBT_GParamDel(BattleBayDeluxe.Tournament.P_OPEN)
-  -- the panel's L / R row count (the sub window opens its third row and its 3-row locator from it, bbt_common.lua)
-  local nrows = BBT_GridRowCount()
-  VRFW_Param.Set(BattleBayDeluxe.Tournament.P_OPEN, nrows, "plain")
-  funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 3848881948 --[[sy0000]])
-  MENU_DEF.SetSubWindowCallback_MoveSubIndex("BBT_GridOptMove")
-  MENU_DEF.SetSubwindowCallback_UpdateListItem("BBT_GridOptItem")
-  -- 1.5.43 (owner): the team grid's own cursor arrow (cmn05_01_cursor of the grid menu) stayed drawn over the popup,
-  -- a second green arrow beside the popup's own: hidden while the popup is open (again every frame, the grid's focus
-  -- may show it), shown again when it closes
-  BBT_GridCursor(false)
-  local ids, enabled = {}, {}
+  BattleBayDeluxe.tournament_grid_snap_size()
+  -- The panel's row count
+  local nrows = BattleBayDeluxe.tournament_grid_row_count()
+  local ids = {}
   for row = 0, nrows - 1 do
-    ids[row + 1], enabled[row + 1] = BBT_GridOptId(row), 1
+    ids[row + 1] = BattleBayDeluxe.tournament_grid_option_id(row)
   end
-  MENU_DEF.OpenSubWindow("BBT_GridOptDone", "", nrows, ids, 5, 0, enabled, 0, false, false, 3)
-  local f = 0
-  while funcLuaCommand(@crc:CMND_IS_OPEN_MENU_OBJECT@, BattleBayDeluxe.Tournament.SUB_WINDOW, 2296367164 --[[cmn05_01_cursor]])
-    ~= true and f < 120 do
-    f = f + 1
-    coroutine.yield()
-  end
-  for row = 0, nrows - 1 do
-    funcLuaMenuCommand(BattleBayDeluxe.Tournament.SUB_LR_TEXT, row, BBT_GridOptId(row), "", true)
-  end
-  local start = BBT_Text(BBT_GRID_ROWS[BBT_GridMode()].start)
-  pcall(funcLuaCommand, 830228314 --[[cross-menu call]], BattleBayDeluxe.Tournament.SUB_WINDOW, "UpdateTextSubListItemLR", 0, start, start,
-    funcLuaCommand(@crc:CMND_TEXT_GET@, 932232033), funcLuaCommand(@crc:CMND_TEXT_GET@, 2223530141))
-  -- 1.5.12: the online window's leftovers off (the rank icon slot of each row drew a white box) and its title
-  -- «EQUIPOS» swapped for the retail «settings» title (bbt_common.lua BBT_SW_PanelDress)
-  pcall(funcLuaCommand, 830228314 --[[cross-menu call]], BattleBayDeluxe.Tournament.SUB_WINDOW, "BBT_SW_PanelDress", BBT_GridRowCount())
-  local waited = 0
-  while G.opt_result == nil and funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.Tournament.SUB_WINDOW) do
-    BBT_GridCursor(false)
-    -- 1.5.64: the options window waiting for the player; every 5 s the state in the log (a freeze is seen there)
-    waited = waited + 1
-    if waited % 300 == 0 then
-      BBT_Log("options: window still open after", waited, "frames; group tables menu open",
-        funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.Tournament.GROUPS_MENU) == true)
-      pcall(BBT_GridCloseGroups, "options window waiting")
-    end
-    if VRFW_Param.Has(BattleBayDeluxe.Tournament.P_ENTER) then
-      local v = VRFW_Param.Get(BattleBayDeluxe.Tournament.P_ENTER)
-      BBT_GParamDel(BattleBayDeluxe.Tournament.P_ENTER)
-      if type(v) == "number" and v >= 1 then
-        if BBT_GridRow(v - 1) == "filter" and G.filter == 2 then
-          -- «Personalizado» + Accept = the team picker on the grid, as the confirmation
-          G.want_pick = true
-          funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 3848881948 --[[sy0000]])
-          funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, BattleBayDeluxe.Tournament.SUB_WINDOW)
-        else
-          BBT_GridOptMove(v - 1, 1)
-        end
+  local r = BattleBayDeluxe.options_panel_run({
+    state = G,
+    rows = nrows,
+    ids = ids,
+    move_cb = "BattleBayDeluxeTournamentGridOptionMove",
+    item_cb = "BattleBayDeluxeTournamentGridOptionItem",
+    done_cb = "BattleBayDeluxeTournamentGridOptionDone",
+    refresh = function(row)
+      funcLuaMenuCommand(BattleBayDeluxe.tournament.SUB_LR_TEXT, row, BattleBayDeluxe.tournament_grid_option_id(row), "", true)
+    end,
+    start_text = function()
+      return BattleBayDeluxe.tournament_text(BattleBayDeluxe.tournament_grid_rows[BattleBayDeluxe.tournament_grid_mode()].start)
+    end,
+    accept = function(row)
+      if BattleBayDeluxe.tournament_grid_row(row) == "filter" and G.filter == 2 then
+        -- Accept on the filter row with "picked by hand" opens the team picker, like the confirmation.
+        G.want_pick = true
+        funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 3848881948 --[[sy0000]])
+        funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, BattleBayDeluxe.tournament.SUB_WINDOW)
+      else
+        BattleBayDeluxeTournamentGridOptionMove(row, 1)
       end
-    end
-    coroutine.yield()
-  end
-  BBT_GridCursor(true)
-  BBT_GParamDel(BattleBayDeluxe.Tournament.P_OPEN)
-  BBT_GParamDel(BattleBayDeluxe.Tournament.P_ENTER)
-  MENU_DEF.SetSubWindowCallback_MoveSubIndex("OnMoveSubIndex")
-  MENU_DEF.SetSubwindowCallback_UpdateListItem("OnSubWindowUpdateListItem")
-  local r = G.opt_result
-  G.opt_result = nil
+    end,
+    waiting = function(waited)
+      BattleBayDeluxe.tournament_log("options: window still open after", waited, "frames; group tables menu open",
+        funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.tournament.GROUPS_MENU) == true)
+      pcall(BattleBayDeluxe.tournament_grid_close_groups, "options window waiting")
+    end,
+  })
   if G.want_pick then
     G.want_pick = false
     return "pick"
   end
   if r == nil or r == -1 then
-    BBT_Log("options: back to the grid")
+    BattleBayDeluxe.tournament_log("options: back to the grid")
     return false
   end
-  -- picked by hand: the picker first, for exactly the chosen count (BBT_GridOptions)
+  -- The player picked by hand.
   if G.filter == 2 then
     return "pick"
   end
-  return BBT_GridArm(G.size, 0)
+  return BattleBayDeluxe.tournament_grid_arm(G.size, 0)
 end
 
--- ------------------------------------------------------------------------------------------------ the team picker
 
--- «Equipos: Personalizado»: the player picks exactly the chosen «Número de equipos» on the Campaña grid itself (its
--- pages, categories and seasons as ever). Accept on a tile picks it (its pick number on the tile, over a check mark)
--- or unpicks it (the later numbers move up); the header says «N / M elegidos · <key> Aceptar». The player's own team
--- is pick 1 (always in, not removable); two versions of one club are refused (the header says so). When the count is
--- reached (or the key with the count full) a centred panel asks «Orden escogido» / «Aleatorizar» (the question in the
--- header); its Back = picking again. Back in the picker = the options again, the picks stay for this options visit; a
--- new visit starts with no picks. The scripts keep the picks (CMND_BBD_TOURN_PICK; the confirmed ones in the save blob
--- bb_picks.json of the slot, for the run's start). No retail general window
--- over this grid: it never takes its answer there (the grid keeps the keys), only the sub window panels.
-BattleBayDeluxe.Tournament.PICK = @crc:CMND_BBD_TOURN_PICK@
-BattleBayDeluxe.TournamentPicker = {
-  MARK = @crc:evt_bbd_pick_mark@, SPR = @crc:bbd_md_check@, ATLAS = "#/menu/220_img/bbd_md/bbd_md.g4tx",
-  NUMBER = @crc:evt_bbd_pick_number@,
-  N = 40,                    -- instances of the mark and number layers (content\menus\bb_tournament.toml)
+-- Hand-picked teams on the campaign grid
+BattleBayDeluxe.tournament.PICK = @crc:CMND_BATTLEBAYDELUXE_TOURNAMENT_PICK@
+BattleBayDeluxe.tournament_picker = {
+  MARK = @crc:battlebaydeluxe_pick_mark@, SPR = @crc:bbd_md_check@, ATLAS = "#/menu/220_img/bbd_md/bbd_md.g4tx",
+  NUMBER = @crc:battlebaydeluxe_pick_number@,
+  N = 40,                    -- instances of the mark and number layers
   DX = 30, DY = -30, SIZE = 40, Q = 36, NODE_QUAD = 1909474081 --[[icon_new01]], MESH_QUAD = 312193881,
   NUMBER_DX = -34, NUMBER_SCALE = 0.8, NUMBER_PRIORITY = 698,   -- the pick number: left of the check mark
   KEY = @crc:CMD_BBD_MODE_SWITCH@,
 }
 
--- the pick order of the scripts' list (the player's team = 1, then the picks in order)
-function BBT_GridPickOrder(pk, teams)
+-- Pick order from the scripts' list (the player's team = 1).
+function BattleBayDeluxe.tournament_grid_pick_order(pk, teams)
   pk.order = {}
-  local player = BattleBayDeluxe.TournamentGrid.player or 0
+  local player = BattleBayDeluxe.tournament_grid.player or 0
   if player ~= 0 then
     pk.order[player] = 1
   end
@@ -357,9 +347,8 @@ function BBT_GridPickOrder(pk, teams)
   end
 end
 
--- one tile's pick number (instance i of the number layer); shown only when its state changed
-function BBT_GridPickNumber(i, on, number, x, y)
-  local P, M = BattleBayDeluxe.TournamentPicker, BattleBayDeluxe.TournamentModeSelector
+function BattleBayDeluxe.tournament_grid_pick_number(i, on, number, x, y)
+  local P, M = BattleBayDeluxe.tournament_picker, BattleBayDeluxe.tournament_mode_selector
   P.number_opened = P.number_opened or {}
   if on and not P.number_opened[i] then
     P.number_opened[i] = true
@@ -382,22 +371,22 @@ function BBT_GridPickNumber(i, on, number, x, y)
   funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, P.NUMBER, M.PLATE_BASE, false, i)
 end
 
--- the marks and pick numbers on the grid's tiles (written only when a tile's state changes)
-function BBT_GridPickMarks(show)
-  local P, pk = BattleBayDeluxe.TournamentPicker, BattleBayDeluxe.TournamentGrid.pick
+-- Marks and pick numbers on the grid tiles (written only when a tile's state changes).
+function BattleBayDeluxe.tournament_grid_pick_marks(show)
+  local P, pk = BattleBayDeluxe.tournament_picker, BattleBayDeluxe.tournament_grid.pick
   P.state = P.state or {}
   P.opened = P.opened or {}
   if P.atlas == nil then
-    P.atlas = BBT_Crc(P.ATLAS)
+    P.atlas = BattleBayDeluxe.tournament_crc(P.ATLAS)
   end
-  local tiles = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, BattleBayDeluxe.Tournament.GRID) or 0
+  local tiles = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, BattleBayDeluxe.tournament.GRID) or 0
   for i = 0, P.N - 1 do
     local on, x, y, number = false, 0, 0, 0
-    if show and pk and i < tiles and funcLuaMenuCommand(@crc:CMND_IS_OPEN_LAYER@, BattleBayDeluxe.Tournament.GRID, i) == true then
-      local team = BBD_ROSTER_TeamOf(i)
+    if show and pk and i < tiles and funcLuaMenuCommand(@crc:CMND_IS_OPEN_LAYER@, BattleBayDeluxe.tournament.GRID, i) == true then
+      local team = BattleBayDeluxe.roster_team_of(i)
       number = team ~= 0 and pk.order[team] or nil
       if number then
-        local gx, gy = funcLuaMenuCommand(4002164178 --[[GPOS]], BattleBayDeluxe.Tournament.GRID, i)
+        local gx, gy = funcLuaMenuCommand(4002164178 --[[GPOS]], BattleBayDeluxe.tournament.GRID, i)
         if type(gx) == "number" and type(gy) == "number" then
           on, x, y = true, gx + P.DX, -gy + P.DY
         end
@@ -419,27 +408,26 @@ function BBT_GridPickMarks(show)
         funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, P.MARK, x, -y, 0, i)
         funcLuaMenuCommand(@crc:CMND_SET_PRIM_COLOR@, P.MARK, i, P.MESH_QUAD, 1, 1, 1)
       end
-      pcall(BBT_GridPickNumber, i, on, number, x, y)
+      pcall(BattleBayDeluxe.tournament_grid_pick_number, i, on, number, x, y)
     end
   end
 end
 
--- a tile decided while picking: its team picked / unpicked (the scripts check the player's team and the clubs);
--- the count reached = the order question next (BBT_GridPick)
-function BBT_GridPickTile(tile)
-  local pk = BattleBayDeluxe.TournamentGrid.pick
-  local team = BBD_ROSTER_TeamOf(tile)
-  if team == 0 or (type(BBCR_DRAFT) == "table" and team == BBCR_DRAFT.TEAM) then
+-- A tile decided while picking
+function BattleBayDeluxe.tournament_grid_pick_tile(tile)
+  local pk = BattleBayDeluxe.tournament_grid.pick
+  local team = BattleBayDeluxe.roster_team_of(tile)
+  if team == 0 or (type(BattleBayDeluxe.draft) == "table" and team == BattleBayDeluxe.draft.TEAM) then
     funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2086672038 --[[sy0003]])
     return
   end
-  local r = BBT_Call(BattleBayDeluxe.Tournament.PICK, 1, BattleBayDeluxe.TournamentGrid.fmt, team, BattleBayDeluxe.TournamentGrid.player or 0)
+  local r = BattleBayDeluxe.tournament_call(BattleBayDeluxe.tournament.PICK, 1, BattleBayDeluxe.tournament_grid.fmt, team, BattleBayDeluxe.tournament_grid.player or 0)
   if type(r) ~= "table" then
     funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2086672038 --[[sy0003]])
     return
   end
   if r.ok then
-    BBT_GridPickOrder(pk, r.teams)
+    BattleBayDeluxe.tournament_grid_pick_order(pk, r.teams)
     pk.n = r.n or pk.n
     pk.notice = nil
     funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 3791946501 --[[sy0004]])
@@ -450,29 +438,28 @@ function BBT_GridPickTile(tile)
     funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2086672038 --[[sy0003]])
     pk.notice = r.why == "club" and "pick_club" or nil
   end
-  BBT_Log("picker: tile", tile, "team", VRFW_Id.hex(team), r.ok and (r.on and "in" or "out")
+  BattleBayDeluxe.tournament_log("picker: tile", tile, "team", VRFW.ids.hex_text(team), r.ok and (r.on and "in" or "out")
     or ("refused " .. tostring(r.why)), "count", pk.n)
 end
 
--- the picker (in the grid's options coroutine) for `need` teams (the player's included): "chosen" (the pick order)
--- or "random" once the count is picked and the order answered, nil = Back (the picks as they were)
-function BBT_GridPick(need)
-  local G = BattleBayDeluxe.TournamentGrid
-  local r = BBT_Call(BattleBayDeluxe.Tournament.PICK, G.new_picks and 5 or 0, G.fmt, need, G.player or 0)
+-- Picker for `need` teams (the player's included), in the options coroutine
+function BattleBayDeluxe.tournament_grid_pick(need)
+  local G = BattleBayDeluxe.tournament_grid
+  local r = BattleBayDeluxe.tournament_call(BattleBayDeluxe.tournament.PICK, G.new_picks and 5 or 0, G.fmt, need, G.player or 0)
   if type(r) ~= "table" then
-    BBT_Log("picker: the scripts did not answer")
+    BattleBayDeluxe.tournament_log("picker: the scripts did not answer")
     return nil
   end
   G.new_picks = false
   local pk = { order = {}, n = r.n or 1, max = r.max or need, done = nil, prev = true }
-  BBT_GridPickOrder(pk, r.teams)
+  BattleBayDeluxe.tournament_grid_pick_order(pk, r.teams)
   G.pick = pk
-  BBT_GridCursor(true)
-  BBT_Log("picker open: format", G.fmt, "count", pk.n, "of", pk.max)
+  BattleBayDeluxe.tournament_grid_cursor(true)
+  BattleBayDeluxe.tournament_log("picker open: format", G.fmt, "count", pk.n, "of", pk.max)
   local answer = nil
   while answer == nil do
     while pk.done == nil do
-      local key = funcLuaCommand(@crc:CMND_CHECK_INPUT_CMD@, 1332654303 --[[MENU_CTRL]], BattleBayDeluxe.TournamentPicker.KEY) == true
+      local key = funcLuaCommand(@crc:CMND_CHECK_INPUT_CMD@, 1332654303 --[[MENU_CTRL]], BattleBayDeluxe.tournament_picker.KEY) == true
       if key and not pk.prev then
         if pk.n >= pk.max then
           pk.done = "full"
@@ -481,19 +468,19 @@ function BBT_GridPick(need)
         end
       end
       pk.prev = key
-      pcall(BBT_GridPickMarks, true)
+      pcall(BattleBayDeluxe.tournament_grid_pick_marks, true)
       coroutine.yield()
     end
     if pk.done ~= "full" then
       break
     end
-    pcall(BBT_GridPickMarks, true)
-    BBT_Log("picker: count reached", pk.n, "of", pk.max)
+    pcall(BattleBayDeluxe.tournament_grid_pick_marks, true)
+    BattleBayDeluxe.tournament_log("picker: count reached", pk.n, "of", pk.max)
     pk.asking = true
-    BBT_GridCursor(false)
-    local c = BBT_Choose({ BBT_Id("pick_order_chosen"), BBT_Id("pick_order_random") }, 0)
+    BattleBayDeluxe.tournament_grid_cursor(false)
+    local c = BattleBayDeluxe.tournament_choose({ BattleBayDeluxe.tournament_id("pick_order_chosen"), BattleBayDeluxe.tournament_id("pick_order_random") }, 0)
     pk.asking = false
-    BBT_GridCursor(true)
+    BattleBayDeluxe.tournament_grid_cursor(true)
     if c == 0 then
       answer = "chosen"
     elseif c == 1 then
@@ -501,120 +488,113 @@ function BBT_GridPick(need)
     else
       pk.done, pk.prev = nil, true
     end
-    BBT_Log("picker: order", answer or "back to the picks")
+    BattleBayDeluxe.tournament_log("picker: order", answer or "back to the picks")
   end
-  local c = BBT_Call(BattleBayDeluxe.Tournament.PICK, answer and 2 or 3, G.fmt, 0, G.player or 0)
+  local c = BattleBayDeluxe.tournament_call(BattleBayDeluxe.tournament.PICK, answer and 2 or 3, G.fmt, 0, G.player or 0)
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, answer and 3848881948 --[[sy0000]] or 202039849 --[[sy0006]])
   G.pick = nil
-  pcall(BBT_GridPickMarks, false)
-  BBT_Log("picker closed:", answer or "cancel", "count", type(c) == "table" and c.n or "?")
+  pcall(BattleBayDeluxe.tournament_grid_pick_marks, false)
+  BattleBayDeluxe.tournament_log("picker closed:", answer or "cancel", "count", type(c) == "table" and c.n or "?")
   return answer
 end
 
--- the start: the difficulty to the tournament, then the grid closes (the bracket shows on the top menu).
--- BBD 1.5.11: the start button's press never reaches this Lua when the tournament takes it: scripts\campaign.lua's
--- Decide hook draws the run and skips the native decide, which is what calls OnDecideFocus. So Step starts this
--- when CMND_BBD_TOURN_INFO says pending (drawn, waiting for the difficulty). Any failure = a message window.
-function BBT_GridStart(a1, a2, prev)
+-- Sends the difficulty to the tournament, then closes the grid.
+function BattleBayDeluxe.tournament_grid_start(a1, a2, prev)
   local idx = 0
   local okd, d = pcall(GetSelectDifficultyIdx)
   if okd and type(d) == "number" then
     idx = d
   end
-  local r = BBT_Call(BattleBayDeluxe.Tournament.START, idx + 1)
-  BBT_Log("start: difficulty", idx + 1, type(r) == "table" and tostring(r.ok) or "busy")
+  local r = BattleBayDeluxe.tournament_call(BattleBayDeluxe.tournament.START, idx + 1)
+  BattleBayDeluxe.tournament_log("start: difficulty", idx + 1, type(r) == "table" and tostring(r.ok) or "busy")
   if type(r) == "table" and r.ok == false and not r.waiting then
-    BBT_GridFail("start refused: " .. tostring(r.why))
+    BattleBayDeluxe.tournament_grid_fail("start refused: " .. tostring(r.why))
     return
   end
   local info
   for _ = 1, 120 do
-    info = BBT_Info()
+    info = BattleBayDeluxe.tournament_info()
     if info.active or info.campaign then
       break
     end
     coroutine.yield()
   end
   if info.active then
-    BBT_Log("start: the tournament runs, the grid closes (the bracket on the top menu)")
+    BattleBayDeluxe.tournament_log("start: the tournament runs, the grid closes (the bracket on the top menu)")
     funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 3848881948 --[[sy0000]])
-    funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, BattleBayDeluxe.Tournament.GRID_MENU)
+    funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, BattleBayDeluxe.tournament.GRID_MENU)
     return
   end
   if info.campaign and prev ~= nil then
-    BBT_Log("the game started its own campaign (the Decide hook did not run): a plain Campaña")
+    BattleBayDeluxe.tournament_log("the game started its own campaign (the Decide hook did not run): a plain campaign")
     prev(a1, a2)
     return
   end
-  BBT_GridFail("no tournament after the start (log of scripts/tournament.lua)")
+  BattleBayDeluxe.tournament_grid_fail("no tournament after the start (log of scripts/tournament.lua)")
 end
 
--- 1.5.64 (owner 2026-10-14: after the Torneo, its group tables stayed drawn over this grid and the next team pick
--- froze): the group-stage menu found open over the grid is closed (VRFW_ChildMenu.Close: its own close call, the
--- engine's close); logged once per leftover. true = it was there.
-function BBT_GridCloseGroups(why)
-  if not VRFW_ChildMenu.Close(BattleBayDeluxe.Tournament.GROUPS_MENU, "over the team grid") then
-    BattleBayDeluxe.TournamentGrid.groups_left = nil
+function BattleBayDeluxe.tournament_grid_close_groups(why)
+  if not VRFW.child_menu.close(BattleBayDeluxe.tournament.GROUPS_MENU, "over the team grid") then
+    BattleBayDeluxe.tournament_grid.groups_left = nil
     return false
   end
-  if not BattleBayDeluxe.TournamentGrid.groups_left then
-    BattleBayDeluxe.TournamentGrid.groups_left = true
-    BBT_Log("grid: the Torneo's group tables were still open over the team grid (" .. tostring(why) .. "): closed")
+  if not BattleBayDeluxe.tournament_grid.groups_left then
+    BattleBayDeluxe.tournament_grid.groups_left = true
+    BattleBayDeluxe.tournament_log("grid: the group tables were still open over the team grid (" .. tostring(why) .. "): closed")
   end
   return true
 end
 
--- a failed start: logged and shown (the retail message window), never a silent no-op
-function BBT_GridFail(why)
-  BBT_Log("start failed:", tostring(why))
-  -- a centred panel, the message and its Accept row: a retail general window over this grid never takes its answer,
-  -- and the panel's smallest size has two rows (one id left the second row without a label)
-  pcall(BBT_Choose, { BBT_Id("start_failed"), BBT_Id("pick_accept") }, 1)
+-- Handles a failed start.
+function BattleBayDeluxe.tournament_grid_fail(why)
+  BattleBayDeluxe.tournament_log("start failed:", tostring(why))
+  -- Two rows (message and Accept)
+  pcall(BattleBayDeluxe.tournament_choose, { BattleBayDeluxe.tournament_id("start_failed"), BattleBayDeluxe.tournament_id("pick_accept") }, 1)
 end
 
 do
   local decide = OnDecideFocus
   function OnDecideFocus(a1, a2, ...)
-    local info = BBT_INFO or {}
-    -- 1.49.0: the team picker has the tiles
-    if BattleBayDeluxe.TournamentGrid.pick then
-      if BattleBayDeluxe.TournamentGrid.pick.asking then
+    local info = BattleBayDeluxe.tournament_last_info or {}
+    -- The team picker owns the tiles.
+    if BattleBayDeluxe.tournament_grid.pick then
+      if BattleBayDeluxe.tournament_grid.pick.asking then
         return 1
       end
-      if a1 == BattleBayDeluxe.Tournament.GRID then
-        pcall(BBT_GridPickTile, a2)
+      if a1 == BattleBayDeluxe.tournament.GRID then
+        pcall(BattleBayDeluxe.tournament_grid_pick_tile, a2)
       else
         funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2086672038 --[[sy0003]])
       end
       return 1
     end
-    -- 1.5.64: the accept path in the log (layer, index, the tournament's state, menus over the grid)
-    if a1 == BattleBayDeluxe.Tournament.GRID or a1 == BattleBayDeluxe.Tournament.START_BTN then
+    -- Log the accept path (layer, index, tournament state, menus over the grid).
+    if a1 == BattleBayDeluxe.tournament.GRID or a1 == BattleBayDeluxe.tournament.START_BTN then
       pcall(function()
-        local groups = BBT_GridCloseGroups("team accept")
-        BBT_Log("grid accept: layer " .. tostring(a1) .. " index " .. tostring(a2) .. ", armed " .. tostring(info.armed) ..
+        local groups = BattleBayDeluxe.tournament_grid_close_groups("team accept")
+        BattleBayDeluxe.tournament_log("grid accept: layer " .. tostring(a1) .. " index " .. tostring(a2) .. ", armed " .. tostring(info.armed) ..
           ", configured " .. tostring(info.configured) .. ", pending " .. tostring(info.pending) .. ", running coroutine " ..
-          tostring(BattleBayDeluxe.TournamentGrid.co ~= nil) .. ", group tables were open " .. tostring(groups) .. ", sub window open " ..
-          tostring(funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.Tournament.SUB_WINDOW) == true))
+          tostring(BattleBayDeluxe.tournament_grid.co ~= nil) .. ", group tables were open " .. tostring(groups) .. ", sub window open " ..
+          tostring(funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.tournament.SUB_WINDOW) == true))
       end)
     end
-    if BattleBayDeluxe.TournamentGrid.co == nil and info.armed then
-      if a1 == BattleBayDeluxe.Tournament.GRID and not info.configured then
-        -- 1.49.0: the player's team (always in the picks of «Personalizado»)
-        local okp, team = pcall(BBD_ROSTER_TeamOf, a2)
-        BattleBayDeluxe.TournamentGrid.player = okp and team or 0
+    if BattleBayDeluxe.tournament_grid.co == nil and info.armed then
+      if a1 == BattleBayDeluxe.tournament.GRID and not info.configured then
+        -- The player's team (always in the hand-picked list).
+        local okp, team = pcall(BattleBayDeluxe.roster_team_of, a2)
+        BattleBayDeluxe.tournament_grid.player = okp and team or 0
         local args = table.pack(a1, a2, ...)
-        BattleBayDeluxe.TournamentGrid.co = coroutine.create(function()
-          if BBT_GridOptions() then
+        BattleBayDeluxe.tournament_grid.co = coroutine.create(function()
+          if BattleBayDeluxe.tournament_grid_options() then
             decide(table.unpack(args, 1, args.n))
           end
         end)
         return 1
       end
-      if a1 == BattleBayDeluxe.Tournament.START_BTN and info.configured then
-        BattleBayDeluxe.TournamentGrid.start_sent = true
-        BattleBayDeluxe.TournamentGrid.co = coroutine.create(function()
-          BBT_GridStart(a1, a2, decide)
+      if a1 == BattleBayDeluxe.tournament.START_BTN and info.configured then
+        BattleBayDeluxe.tournament_grid.start_sent = true
+        BattleBayDeluxe.tournament_grid.co = coroutine.create(function()
+          BattleBayDeluxe.tournament_grid_start(a1, a2, decide)
         end)
         return 1
       end
@@ -624,9 +604,9 @@ do
 
   local back = OnBack
   function OnBack(a1, ...)
-    if BattleBayDeluxe.TournamentGrid.pick then
-      if not BattleBayDeluxe.TournamentGrid.pick.asking then
-        BattleBayDeluxe.TournamentGrid.pick.done = "cancel"
+    if BattleBayDeluxe.tournament_grid.pick then
+      if not BattleBayDeluxe.tournament_grid.pick.asking then
+        BattleBayDeluxe.tournament_grid.pick.done = "cancel"
       end
       return 1
     end
@@ -636,25 +616,24 @@ do
   local step = Step
   function Step(...)
     local r = table.pack(step(...))
-    local G = BattleBayDeluxe.TournamentGrid
+    local G = BattleBayDeluxe.tournament_grid
     if G.co ~= nil then
       local ok, err = coroutine.resume(G.co)
       if not ok then
-        BBT_Log("grid error", tostring(err))
+        BattleBayDeluxe.tournament_log("grid error", tostring(err))
       end
       if not ok or coroutine.status(G.co) == "dead" then
         G.co = nil
       end
     else
-      -- the tournament's state for the decides (the scripts may be busy at the decide itself); every 10 frames
-      -- once the options are confirmed (the start press is seen through it: pending)
+      -- Refresh the tournament state for the decides (scripts may be busy then)
       G.frames = G.frames + 1
-      local info = BBT_INFO or {}
+      local info = BattleBayDeluxe.tournament_last_info or {}
       local every = (info.armed and info.configured) and 10 or 30
-      if BBT_INFO == nil or G.frames % every == 1 then
-        local t = BBT_Call(BattleBayDeluxe.Tournament.INFO)
+      if BattleBayDeluxe.tournament_last_info == nil or G.frames % every == 1 then
+        local t = BattleBayDeluxe.tournament_call(BattleBayDeluxe.tournament.INFO)
         if type(t) == "table" then
-          BBT_INFO = t
+          BattleBayDeluxe.tournament_last_info = t
           info = t
         end
       end
@@ -663,15 +642,15 @@ do
       end
       if info.pending and not G.start_sent then
         G.start_sent = true
-        BBT_Log("start: the run is drawn (the start pressed), the difficulty goes to the tournament")
+        BattleBayDeluxe.tournament_log("start: the run is drawn (the start pressed), the difficulty goes to the tournament")
         G.co = coroutine.create(function()
-          BBT_GridStart(nil, nil, nil)
+          BattleBayDeluxe.tournament_grid_start(nil, nil, nil)
         end)
       elseif type(info.failed) == "string" and info.failed ~= "" then
         local why = info.failed
         info.failed = nil
         G.co = coroutine.create(function()
-          BBT_GridFail(why)
+          BattleBayDeluxe.tournament_grid_fail(why)
         end)
       end
     end

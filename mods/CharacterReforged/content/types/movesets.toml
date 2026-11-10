@@ -23,10 +23,13 @@ StoryLevelStep = { type = "int" }
 SagaGames = { type = "strings" }
 SagaSource = { type = "string" }
 ModernSource = { type = "string" }
-GreySeed = { type = "string" }
-GreyCategoryByPosition = { type = "table" }
+KeeperCategory = { type = "int" }
+FillSeed = { type = "string" }
+FillCategoryByPosition = { type = "table" }
+FillPowerCap = { type = "int" }
 NameFamily = { type = "bool" }
 PreferOwnElement = { type = "bool" }
 GreyMove = { type = "table" }
 VoiceOrder = { type = "table" }
+Forms = { type = "table" }
 StartingGrades = { type = "table" }

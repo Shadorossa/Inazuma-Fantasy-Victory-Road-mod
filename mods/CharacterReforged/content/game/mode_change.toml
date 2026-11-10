@@ -1,0 +1,61 @@
+# Custom Change Mode: the commands of the custom «Modo cambio».
+schema = "VRFW.game/1"
+
+# () -> enabled, cooldown s, create item id
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_ON"
+handler = "CharacterReforged.Changed.Mc.On"
+
+# () -> create id, the 8 carrier ids (crc32 of wmc_evt0..7)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_ITEMS"
+handler = "CharacterReforged.Changed.Mc.Items"
+
+# (base, start[, perCall]) -> total, n, n x (hdl, param, chara, element, position, allowed)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_CANDIDATES"
+handler = "CharacterReforged.Changed.Mc.Candidates"
+
+# (base, partner) -> ok, code, index (the new change is equipped)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_ADD"
+handler = "CharacterReforged.Changed.Mc.Add"
+
+# (base) -> count, equipped (-1 = none)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_LIST"
+handler = "CharacterReforged.Changed.Mc.List"
+
+# (base, index) -> exists, partnerHdl, partnerParam, partnerChara
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_ITEM"
+handler = "CharacterReforged.Changed.Mc.Item"
+
+# (base, index | -1) -> ok
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_EQUIP"
+handler = "CharacterReforged.Changed.Mc.Equip"
+
+# (base, index) -> ok
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_DELETE"
+handler = "CharacterReforged.Changed.Mc.Delete"
+
+# (base) -> exists, partnerParam, partnerChara, partnerHdl (the equipped change)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_GET"
+handler = "CharacterReforged.Changed.Mc.Get"
+
+# (card) -> kind (0 free, 2 mode change partner), base
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_RESERVATION"
+handler = "CharacterReforged.Changed.Mc.Reservation"
+
+# (base, partner) -> ok, code
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_PARTNER_OK"
+handler = "CharacterReforged.Changed.Mc.PartnerOk"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CHANGE_CREATE"
+handler = "CharacterReforged.Changed.Mc.Create"

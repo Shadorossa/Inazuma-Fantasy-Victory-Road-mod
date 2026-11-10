@@ -1,5 +1,3 @@
-# Texts for outfits ([[VRFW.Outfit]]) and switchable card looks ([[VRFW.CardLook]]): menu_text rows in 9 languages;
-# a missing row leaves the label blank.
 
 schema = "VRFW.text/2"
 table = "menu_text"
@@ -30,8 +28,6 @@ ja = "アイドルユニフォーム着用中"
 zh_hans = "偶像队服已启用"
 zh_hant = "偶像隊服已啟用"
 
-# Row of a card look the player can switch ([[VRFW.CardLook]] with switch_bit) in the equipment menu; {label} = the
-# rule's label text (vrfw_card_look_name when it declares none).
 [[row]]
 id = "vrfw_card_look_on"
 es = "{label}: Activada"

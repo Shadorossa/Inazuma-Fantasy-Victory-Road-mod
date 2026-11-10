@@ -1,15 +1,4 @@
 schema = "VRFW.technique/3"
-# Hissatsu overhaul V2: power_min / power_max (Potencia mínima / máxima), tp (Tensión) and recast (Recast (s)) of
-# retail base moves. Matched by the move's Spanish name: exact, then ignoring upper / lower case, a name shared with
-# override / Mixi Max variants -> the base move only, a name shared by several base moves -> the first base move of
-# the sheet's category, plus manual mappings (Remate Triple = Empuje trillizo, Rayo oscuro 1 / 2, Ventisca de
-# fuego and Fuego cruzado F / V by element). The variants (_or / _mm / _cro / _solo) keep their values. Grade power
-# (+10 % per grade) stays retail. Only REAL changes are kept, checked
-# against the retail skill_config (v7.1.2 dump, m_skillInfoList): each entry lists only the keys that differ from
-# retail (683 moves). Dropped: 13 unfilled sheet rows (0 / 0 / 0 TP / 30 s: whd00970, whs00580, whs03030, whs03060,
-# whs03080, whs03090, whs03110, whs03120, whs03140, whs03150, whs03220, whs03230, whs03240) and 1 row equal to retail
-# (whs03270). Retail values: research/scripts/hb_skill_dump.py load(True). Mods that load later (Hissatsu Effects,
-# Inazuma Fantasy...) win key by key.
 
 [[edit]]
 target = "rhs10020"

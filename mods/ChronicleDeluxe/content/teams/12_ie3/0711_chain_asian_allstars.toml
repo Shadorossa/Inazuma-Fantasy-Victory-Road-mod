@@ -1,0 +1,155 @@
+schema = "VRFW.team/2"
+default_lang = "en"
+# Asian Allstars (IE3 «Dave's Ultimate Tournament», Team Ogre team 569): roster, kit and crest of the archived Chronicles Deluxe team.
+# Added from the Team Ogre line-up (left out of the archived roster, VR cards now): Jeongsu Cho; Songhwan Ko; Paekyeong Park; Eunyeong Kim
+[[team]]
+name = "ct_wk_asia_senbatsu"
+key = "evt_ct_wk_asia_senbatsu"
+based_on = "tm_cro_ie3_1920"
+kit = { home = 0x1813F4FF, flip = true }
+level = 40
+series = "IE3"
+roster = "exact"
+
+  [[team.member]]
+  slot = 0
+  card = 0xC9014941   # Quincy Horace
+  number = 1
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 1
+  card = 0x9A14F842   # Jamila Wali
+  number = 2
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 2
+  card = 0xC8C32376   # David Waterman
+  number = 3
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 3
+  card = 0xD1D81237   # Sonny Shore
+  number = 4
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 4
+  card = 0xCC4E5FC4   # Faraz Farooq
+  number = 5
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 5
+  card = 0x2FBA860F   # Mansur Jasim
+  number = 6
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 6
+  card = 0xB139AB81   # Sulayk Sulaiman
+  number = 7
+  rarity_step = 1
+  captain = true
+
+  [[team.member]]
+  slot = 7
+  card = 0xE22C1A82   # Joe Dawes
+  number = 8
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 8
+  card = 0x322CCBFC   # Hank Tennyson
+  number = 9
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 9
+  card = 0xE6A16630   # Majdi Ismail
+  number = 10
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 10
+  card = 0x99902C2C   # Minho Cho
+  number = 11
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 11
+  card = 0xB5B4D733   # Matt Fischer
+  number = 12
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 12
+  player = "c03030610"   # Jeongsu Cho
+  number = 13
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 13
+  player = "c03030650"   # Songhwan Ko
+  number = 14
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 14
+  player = "c03030660"   # Paekyeong Park
+  number = 15
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 15
+  player = "c03030680"   # Eunyeong Kim
+  number = 16
+  rarity_step = 1
+
+[team.emblem]
+png = "assets/images/teams/emblems/512/ie3_asia_senbatsu.png"
+base = "em030058"
+catalog = "shared"
+
+[team.text.es]
+name = "Astros Asiáticos"
+short = "Astros Asiáticos"
+
+[team.text.en]
+name = "Asian Allstars"
+short = "Asian Allstars"
+
+[team.text.fr]
+name = "Asian Allstars"
+short = "Asian Allstars"
+
+[team.text.de]
+name = "Asian Allstars"
+short = "Asian Allstars"
+
+[team.text.it]
+name = "Allstars d'Asia"
+short = "Allstars d'Asia"
+
+[team.text.pt]
+name = "Asian Allstars"
+short = "Asian Allstars"
+
+[team.text.ja]
+name = "アジア選抜"
+short = "アジア選抜"
+
+[team.text.zh_hans]
+name = "Asian Allstars"
+short = "Asian Allstars"
+
+[team.text.zh_hant]
+name = "Asian Allstars"
+short = "Asian Allstars"
+
+# each player plays its card's first 4 moves (the engine reads them from the card; the Hiper comes from its slot 9)
+[[edit]]
+target = "ct_wk_asia_senbatsu"
+card_moves = 4

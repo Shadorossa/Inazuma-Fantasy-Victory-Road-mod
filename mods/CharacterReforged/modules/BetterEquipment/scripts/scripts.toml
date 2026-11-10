@@ -1,9 +1,0 @@
-schema = "VRFW.script/1"
-
-# «Equipar óptimo» walks the inventory and scores up to [optimizer] max_plans (rules.toml) inside one command: the
-# default budget (200000) ended the script at the first press, and the item card's pages with it.
-[settings]
-budget = 5000000
-
-[[script]]
-file = "better_equipment.lua"

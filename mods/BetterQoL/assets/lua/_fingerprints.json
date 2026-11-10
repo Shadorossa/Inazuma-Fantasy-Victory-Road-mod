@@ -6,7 +6,7 @@
   "Step",
   "OnFunction",
   "ActivateAuraSkill",
-  "EVT_OpenOriginalBoard"
+  "CharacterReforgedSkillTableOpenOriginalBoard"
  ],
  "ability_list_menu": {
   "script": "ability_list_menu_5.00.29.00",
@@ -339,6 +339,14 @@
   "forbid": [],
   "ambiguous": []
  },
+ "soccer_vs_mydock_menu": {
+  "script": "soccer_vs_mydock_menu_7.02.01.00",
+  "require": [
+   "SetListControlEnabled"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
  "team_dock_formation_menu": {
   "script": "team_dock_formation_menu_7.00.09.00",
   "require": [
@@ -363,11 +371,11 @@
   "forbid": [],
   "ambiguous": []
  },
- "evt_skill_slot_menu": {
-  "script": "evt_skill_slot_menu",
+ "vrfw_skill_slot_menu": {
+  "script": "vrfw_skill_slot_menu",
   "require": [
-   "EVT_OpenOriginalBoard",
-   "EVT_PickCoroutine"
+   "CharacterReforgedSkillTableOpenOriginalBoard",
+   "CharacterReforgedSkillTablePickCoroutine"
   ],
   "forbid": [],
   "ambiguous": []

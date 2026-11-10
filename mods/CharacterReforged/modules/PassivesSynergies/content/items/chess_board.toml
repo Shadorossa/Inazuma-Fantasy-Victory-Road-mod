@@ -1,0 +1,47 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+[[item]]
+name = "chess_board"
+base = "sp09003"
+category = "synergy"
+icon_key = "sp11002"
+key_id = true
+  [item.text.es]
+  name = "Tablero de Ajedrez"
+  [item.text.en]
+  name = "Chessboard"
+  [item.text.fr]
+  name = "Échiquier"
+  [item.text.de]
+  name = "Schachbrett"
+  [item.text.it]
+  name = "Scacchiera"
+  [item.text.pt]
+  name = "Tabuleiro de Xadrez"
+  [item.text.ja]
+  name = "チェス[盤/ばん]"
+  [item.text.zh_hans]
+  name = "国际象棋棋盘"
+  [item.text.zh_hant]
+  name = "國際象棋棋盤"
+
+[[currency]]
+name = "quentin_cinquedea_card"
+spirit = 0x735C9B05                      # chara_param of Quentin Cinquedea c04003210
+rarity = 4
+
+[[currency]]
+name = "aime_quintet_card"
+spirit = 0x5871C8C6
+rarity = 4
+
+[[currency]]
+name = "eljas_viisi_card"
+spirit = 0x416AF987                      # chara_param of Eljas Viisi c04003230
+rarity = 4
+
+[[currency]]
+name = "ferdinand_delafunfe_card"
+spirit = 0x3C1D0DC2                      # chara_param of Ferdinand Delafünfe c04003260
+rarity = 4

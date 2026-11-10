@@ -1,0 +1,68 @@
+# BetterQoL: holding X in a pre-match event skips to the kick-off; state in the parameter store (_src/better_qol/cutin_skip.lua).
+name = "betterqol_prematch_skip"
+mod = "BetterQoL"
+order = 300
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["OnSetupLayer", "OpenButtonGuideUI", "ResetSkippedState", "Step", "GoToFormationScreen",
+         "CloseChronicleModeSoccerVsMenu", "CloseSoccerBattleVsMenu", "OnLayerLoadCompleted",
+         "InitializeKickoffButton_Callback", "InitializeRestartButton_Callback", "DecideRestartButton", "OnInit"]
+description = "BetterQoL: hold X in a pre-match event to go straight to the kick-off"
+
+[[files]]
+stem = "event_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "xs_event.lua"
+  marker = "betterqol prematch skip event"
+
+
+[[files]]
+stem = "soccer_battle_setting_flow_vs_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "xs_vs.lua"
+  marker = "betterqol prematch skip vs"
+
+[[files]]
+stem = "chronicle_mode_soccer_vs_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "xs_chronicle.lua"
+  marker = "betterqol prematch skip chronicle vs"
+
+[[files]]
+stem = "soccer_battle_vs_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "xs_vs_small.lua"
+  marker = "betterqol prematch skip small vs"
+
+[[files]]
+stem = "soccer_battle_setting_flow_formation_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "xs_lineup.lua"
+  marker = "betterqol prematch skip lineups"
+
+[[files]]
+stem = "soccer_restart_guide_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "xs_restart.lua"
+  marker = "betterqol prematch skip kick-off"
+
+[[files]]
+stem = "soccer_half_time_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "xs_half_time.lua"
+  marker = "betterqol prematch skip half time"

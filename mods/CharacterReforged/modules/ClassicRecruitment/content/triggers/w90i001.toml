@@ -1,6 +1,3 @@
-# The Chronicle hub map's trigger script with the gacha point closed: the
-# four retail rows (type 22, the map points) and the retail functions, RunCmd_Map2 (the gacha) doing nothing while New
-# Recruitment's rules apply.
 schema = "VRFW.trigger/1"
 
 [[trigger]]

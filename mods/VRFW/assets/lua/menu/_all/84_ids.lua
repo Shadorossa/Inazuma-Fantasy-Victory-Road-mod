@@ -1,18 +1,5 @@
--- VRFW_Id: the one way to read a game id (a crc, a chara_param, a handle) as a number. Game ids are unsigned 32-bit;
--- the engine may hand them over as negative numbers (-1 for 4294967295). Every screen uses these functions instead of
--- its own copy. The script side has the same functions (scripts\lib\ids.lua). Definitions only: no engine call at load.
---   VRFW_Id.u32(v)          -> 0..4294967295: a number or numeric text, floored, modulo 2^32; true = 1, false = 0;
---                              nil, NaN, infinities and any other value = 0
---   VRFW_Id.u32_or(v, none) -> as u32, but `none` (any value, nil included) when v is not a number, numeric text or
---                              boolean (for callers whose old helper answered nil for nil)
---   VRFW_Id.s32(v)          -> -2147483648..2147483647: u32(v) read as a signed 32-bit number
---   VRFW_Id.is_none(v)      -> true for nil, -1 and 4294967295 (the engine's «no id»); 0 is an id
---   VRFW_Id.hex(v)          -> "0x%04X%04X" of u32(v) (e.g. "0xC4DC849A")
---   VRFW_Id.Crc(text)       -> the CRC-32 of a text (0..4294967295, VRFW_Crc32), kept per text in this VM: the id of
---                              a game name (a layer, a texture, a sprite, a text key, a command)
--- Files that run before this one in a VM (the _all files of lua_early mods, the framework roots before menu, include
--- patches, whole screen scripts) use VRFW_Id inside functions only.
-if VRFW_Id == nil then
+-- VRFW.ids: the one way to read a game id (a crc, a chara_param, a handle) as a number.
+if VRFW.ids == nil then
   local TWO_32 = 4294967296
   local TWO_31 = 2147483648
 
@@ -33,7 +20,8 @@ if VRFW_Id == nil then
 
   local I = {}
 
-  function I.u32_or(v, none)
+  --- v as an unsigned 32-bit number; `none` when it is no number.
+  function I.unsigned_or(v, none)
     local n = number_of(v)
     if n == nil then
       return none
@@ -41,18 +29,21 @@ if VRFW_Id == nil then
     return math.floor(n) % TWO_32
   end
 
-  function I.u32(v)
-    return I.u32_or(v, 0)
+  --- v as an unsigned 32-bit number; 0 when it is no number.
+  function I.unsigned(v)
+    return I.unsigned_or(v, 0)
   end
 
-  function I.s32(v)
-    local n = I.u32(v)
+  --- v as a signed 32-bit number.
+  function I.signed(v)
+    local n = I.unsigned(v)
     if n >= TWO_31 then
       return n - TWO_32
     end
     return n
   end
 
+  --- True for nil or the -1 / 0xFFFFFFFF "no id" value.
   function I.is_none(v)
     if v == nil then
       return true
@@ -61,21 +52,23 @@ if VRFW_Id == nil then
     return n == -1 or n == TWO_32 - 1
   end
 
-  function I.hex(v)
-    local n = I.u32(v)
+  --- v as 0xXXXXXXXX text.
+  function I.hex_text(v)
+    local n = I.unsigned(v)
     return string.format("0x%04X%04X", math.floor(n / 65536), n % 65536)
   end
 
   local crc_of_text = {}
 
-  function I.Crc(text)
+  --- The CRC-32 of text (cached).
+  function I.crc32(text)
     local crc = crc_of_text[text]
     if crc == nil then
-      crc = VRFW_Crc32(text)
+      crc = VRFW.crc32(text)
       crc_of_text[text] = crc
     end
     return crc
   end
 
-  VRFW_Id = I
+  VRFW.ids = I
 end

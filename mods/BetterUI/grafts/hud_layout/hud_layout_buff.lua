@@ -1,15 +1,9 @@
--- EVT hud_layout, soccer_team_buff_icon_list_menu (docs/game/ui-redesign.md §11.1z5): the row of team buff / aura
--- icons (DF 60 %, boot, glove, ...) sits at the BOTTOM CENTRE of the screen and grows symmetrically from the centre.
--- Retail: every icon hangs from the locator _atc_teambuff01 (x 65, y 75) of soccer00_50_team_buff_icon_attach_locator
--- (anchored bottom-left) and Step places icon k at CMND_SET_LAYER_LOCAL_POS x = 68 * k (auras, super tactic, technical
--- combo, then the active buffs). ui_clean_hud scales that step and the icons by 0.85 (and shifts them -5.4 in x).
--- Here the anchor layer itself is moved: x = centre - 65 - (centre of the visible icons), re-computed after every Step
--- from the number of visible icons (tracked from the CMND_SET_LAYER_VISIBLE calls of the retail script; nothing is
--- rewritten, so the order of the funcLuaMenuCommand wrappers of this menu does not matter).
--- Runs as a bytecode child at the end of the chunk; engine calls only from Step / OnSetupLayer.
+-- hud_layout, soccer_team_buff_icon_list_menu
+BetterUI.hud_layout = BetterUI.hud_layout or {}
+BetterUI = type(BetterUI) == "table" and BetterUI or {}
 
-EVT_HL_BUFF_CENTER_X = 960        -- layout units from the left edge (screen centre of a 1920-wide layout)
-EVT_HL_BUFF_UP = 0                -- layout units up from the retail row (the guide row above it is at y 110..162)
+BetterUI.hud_layout.BUFF_CENTER_X = 960
+BetterUI.hud_layout.BUFF_UP = 0
 
 local HLB_ANCHOR = 827370890 --[[soccer00_50_team_buff_icon_attach_locator]]
 local HLB_LOC_X = 65 --[[_atc_teambuff01 x]]
@@ -27,9 +21,6 @@ local HLB_count = 0
 local HLB_last = nil
 local HLB_tick = 0
 
-local function HLB_Pack(...)
-  return {n = select("#", ...), ...}
-end
 
 -- observe the visibility of the icon layers (arguments are passed through untouched)
 local function HLB_Observe(id, layer, idx, on)
@@ -49,20 +40,20 @@ local function HLB_Observe(id, layer, idx, on)
   end
 end
 
-EVT_HL_WRAPPED = EVT_HL_WRAPPED or {}
+BetterUI.hud_layout.WRAPPED = BetterUI.hud_layout.WRAPPED or {}
 local function HLB_WrapCommand(f)
-  if type(f) ~= "function" or EVT_HL_WRAPPED[f] then
+  if type(f) ~= "function" or BetterUI.hud_layout.WRAPPED[f] then
     return f
   end
   local w = function(id, ...)
     pcall(HLB_Observe, id, ...)
     return f(id, ...)
   end
-  EVT_HL_WRAPPED[w] = true
+  BetterUI.hud_layout.WRAPPED[w] = true
   return w
 end
 
--- the engine registers funcLuaMenuCommand after the chunk ran: hook the global assignment (chains any earlier hook)
+-- The engine registers funcLuaMenuCommand after the chunk ran.
 if type(rawget(_ENV, "funcLuaMenuCommand")) == "function" then
   rawset(_ENV, "funcLuaMenuCommand", HLB_WrapCommand(rawget(_ENV, "funcLuaMenuCommand")))
 else
@@ -86,10 +77,10 @@ else
   end
 end
 
--- step and x shift of the icons as drawn: ui_clean_hud's buff_icons (UI_BUFF_S / UI_BUFF_DX) when it is on
+-- Returns the step and x shift of the icons as drawn.
 local function HLB_UiStep()
-  local flags = rawget(_ENV, "EVT_UI_FLAGS")
-  if rawget(_ENV, "EVT_UI_PRESET") ~= "off" and type(flags) == "table" and flags.buff_icons == true then
+  local flags = BetterUI.flags
+  if BetterUI.preset ~= "off" and type(flags) == "table" and flags.buff_icons == true then
     return HLB_STEP * 0.85, -5.4
   end
   return HLB_STEP, 0
@@ -102,33 +93,23 @@ local function HLB_Apply(force)
   local step, dx0 = HLB_UiStep()
   local n = HLB_count > 0 and HLB_count or 1
   local mid = dx0 + (n - 1) * step / 2
-  local x = EVT_HL_BUFF_CENTER_X - HLB_LOC_X - mid
-  local key = x * 4096 + EVT_HL_BUFF_UP
+  local x = BetterUI.hud_layout.BUFF_CENTER_X - HLB_LOC_X - mid
+  local key = x * 4096 + BetterUI.hud_layout.BUFF_UP
   if force or key ~= HLB_last then
     HLB_last = key
-    pcall(funcLuaMenuCommand, HLB_CMND_POS, HLB_ANCHOR, x, EVT_HL_BUFF_UP, 0, 0)
+    pcall(funcLuaMenuCommand, HLB_CMND_POS, HLB_ANCHOR, x, BetterUI.hud_layout.BUFF_UP, 0, 0)
   end
 end
 
-local function HLB_Wrap(name, after)
-  local prev = rawget(_ENV, name)
-  if type(prev) ~= "function" then
-    return
-  end
-  rawset(_ENV, name, function(...)
-    local r = HLB_Pack(prev(...))
-    pcall(after, ...)
-    return table.unpack(r, 1, r.n)
-  end)
-end
+--@lib vrfw_block_helpers.lua#WrapAfter
 
-HLB_Wrap("OnSetupLayer", function(a1)
+WrapAfter("BetterUI.hud_layout.buff", "OnSetupLayer", function(a1)
   if a1 == HLB_ANCHOR then
     HLB_Apply(true)
   end
 end)
 
-HLB_Wrap("Step", function()
+WrapAfter("BetterUI.hud_layout.buff", "Step", function()
   HLB_tick = HLB_tick + 1
   HLB_Apply(HLB_tick % 60 == 1)
 end)

@@ -25,7 +25,7 @@
  "vrfw_mods_menu": {
   "script": "vrfw_mods_menu",
   "require": [
-   "VRFW_ModsMenuStub"
+   "vrfw_mods_menu_stub"
   ],
   "forbid": [],
   "ambiguous": []

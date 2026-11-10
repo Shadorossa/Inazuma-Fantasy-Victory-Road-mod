@@ -1,19 +1,7 @@
 -- Shot / zone rules (content/shot_rules/*.toml, schema VRFW.shot_rule/1); native side: content/game/shot_rules.toml.
---   * [[VRFW.ZoneArea]] area = "penalty_box" / "goal_area" (both teams; user_area / rival_area per side when the match has a user side):
---     IsInZoneArea / IsInAnyZoneArea are answered natively; this script refreshes their data 10 times a second on the match clock:
---       - table ShotZone.Box: team 0 / 1 = the area that team attacks, 10 / 11 = the field's halves 0 / 1 ({ x0, x1, z0, z1 } with margin; team records add { cz, sg, hz });
---         a side on "retail" gets the game's full-width band past the zone line (zoneLineFieldRateZ) as its rectangle;
---       - scale: the box's width (about its centre) and depth (from the goal line toward the centre) x this, before the margin;
---       - state keys vrfw.shot_zone.ball / .setpiece / .play_flags / .line / .chain_retail feed the retail answers
---         (while a zone runs or a shot chain window is open / taken, chain_area = "retail": every position gets the game's own band).
---     No valid field data (no match, loading pitch) = empty table: every query answers false.
---     Scale: scale, or the mod's config value at scale_config. Margin: margin_m, or the mod's config value at margin_config (0..20 m); extra_state = state key prefix, <prefix>.0 / .1 = extra metres around the box team 0 / 1 attacks (total within 0..20 m).
---     With several mods, each key the later mod (load order) gives wins.
---   * [[VRFW.LongShot]] all_moves_flag = "<flag>": while the flag is non-zero in a match, every shot move passes the long-shot checks of SkillSituationOk; the game's bytes return when it is 0, at match end and at the title.
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("shot_rules")
 
 local BOX = "ShotZone.Box"
@@ -24,9 +12,6 @@ local PLAY_FLAGS_FIELD = "Match.PlayControlFlags"
 local ZONE_HOOKS = { "ShotZone.Area", "ShotZone.AreaAny" }
 local ANY_FIRST = 10
 
--- the field data and match info records (game profile structs FieldData, FieldBox, MatchInfo, MatchTeam):
--- field boxes 0 / 1 = the penalty boxes, 2 / 3 = the goal areas (FieldBuild 0x1615350); MatchTeam.AttackSign = the
--- team's attack direction
 local GOAL_AREA_FIRST = 2
 local AREAS = { retail = true, penalty_box = true, goal_area = true }
 local BAND = 1e9
@@ -44,12 +29,7 @@ local LONG_PATCHES = {
   { name = "ShotRules.LongShotKeep", on = "B0 01 90 90 90 90 90 90", off = "8B 46 08 C1 E8 02 24 01" },
 }
 
-local function rd(ty, at)
-  if not at or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
+local rd = VRFW.memory.read
 
 local LAYOUT = nil
 local function layout()
@@ -67,15 +47,9 @@ local function layout()
   return LAYOUT
 end
 
-local function global(name)
-  local ok, p = pcall(VRFW.game[name])
-  if ok and type(p) == "number" and p >= 0x10000 then return p end
-  return nil
-end
+local global = VRFW.game.global
 
--- ---- declarations
-
-local ZONE = nil        -- { margin, scale, area, user_area, rival_area, chain_retail, extra = prefix or nil } while some side is not "retail"
+local ZONE = nil
 local LONG_FLAGS = {}   -- { flag, mod } of every [[VRFW.LongShot]]
 
 local function config_value(mod, path)
@@ -92,12 +66,10 @@ local zone_hooks_in = false
 -- with the detours in and no zone declared by a mod that is on: every side answers with the game's band
 local RETAIL_ZONE = { margin = 0, scale = 1, area = "retail", user_area = "retail", rival_area = "retail", chain_retail = true }
 
--- ZONE from the declarations of the mods on now (a live-toggle mod switched off gives nothing): the later mod wins per
--- key; config paths are read on the mod that gave them
 local function pick_zone()
   local z = {}
   for _, d in ipairs(ZONE_DECLS) do
-    if VRFW.mod_on_now(d.mod) then
+    if VRFW.mod_is_on_now(d.mod) then
       local v = d.v
       for _, k in ipairs({ "area", "user_area", "rival_area", "scale", "scale_config", "margin_m", "margin_config", "chain_area", "chain_area_config", "extra_state" }) do
         if d.given[k] or z[k] == nil then z[k] = { value = v[k], mod = d.mod, given = d.given[k] } end
@@ -185,8 +157,6 @@ end
 
 start()
 
--- ---- zone area
-
 local chain_published, play_flags_off = false, nil
 
 local EXTRA = { [0] = 0, [1] = 0 }   -- the extras of the last read (one table, filled again)
@@ -206,25 +176,42 @@ local function extras()
   return out
 end
 
--- the field record's f32 values in one read (every f32 offset of the layout is 4-aligned): a function offset -> value,
--- nil when they cannot be read at once (then they are read one by one)
-local FIELD_SPAN = nil   -- f32 count from the record's start, false = the layout is not 4-aligned
-local function field_values(f, L)
-  if FIELD_SPAN == nil then
-    local offs = { L.half_z, L.centre_z }
-    local last = L.boxes + 3 * L.box
-    for _, k in ipairs({ L.box_x0, L.box_z0, L.box_x1, L.box_z1, L.box_cz }) do offs[#offs + 1] = last + k end
-    local top, aligned = 0, L.box % 4 == 0 and L.boxes % 4 == 0
-    for _, o in ipairs(offs) do
-      if o % 4 ~= 0 then aligned = false end
-      top = math.max(top, o)
-    end
-    FIELD_SPAN = aligned and (top / 4 + 1) or false
+-- the f32 run from the lowest to the highest of `offsets`; false when one is not 4-aligned
+local function f32_run(offsets)
+  local low, high = offsets[1], offsets[1]
+  for _, o in ipairs(offsets) do
+    if o % 4 ~= 0 then return false end
+    low, high = math.min(low, o), math.max(high, o)
   end
-  if not FIELD_SPAN then return nil end
-  local ok, arr = pcall(VRFW.mem.read_array, "f32", f, FIELD_SPAN)
-  if not ok or type(arr) ~= "table" then return nil end
-  return function(at) return arr[(at - f) / 4 + 1] end
+  return { at = low, count = (high - low) / 4 + 1 }
+end
+
+-- the record's head fields and its boxes lie far apart: one array read per run; false = the layout is not 4-aligned
+local FIELD_RUNS = nil
+local function field_values(f, L)
+  if FIELD_RUNS == nil then
+    local in_boxes, last = {}, L.boxes + 3 * L.box
+    for _, k in ipairs({ L.box_x0, L.box_z0, L.box_x1, L.box_z1, L.box_cz }) do
+      in_boxes[#in_boxes + 1] = L.boxes + k
+      in_boxes[#in_boxes + 1] = last + k
+    end
+    local head, boxes = f32_run({ L.half_z, L.centre_z }), f32_run(in_boxes)
+    FIELD_RUNS = head and boxes and L.box % 4 == 0 and { head, boxes } or false
+  end
+  if not FIELD_RUNS then return nil end
+  local values = {}
+  for i, run in ipairs(FIELD_RUNS) do
+    local arr = VRFW.memory.read_array("f32", f + run.at, run.count)
+    if type(arr) ~= "table" then return nil end
+    values[i] = arr
+  end
+  return function(at)
+    local offset = at - f
+    for i, run in ipairs(FIELD_RUNS) do
+      if offset >= run.at and offset < run.at + run.count * 4 then return values[i][(offset - run.at) / 4 + 1] end
+    end
+    return nil
+  end
 end
 
 local function read_field()
@@ -250,8 +237,6 @@ local function sign_of(mi, team)
   return rd("i8", mi + L.teams + team * L.team + L.team_sign) or 0
 end
 
--- the box of one kind (first = 0: penalty boxes, GOAL_AREA_FIRST: goal areas) a team with attack sign `sign` shoots at
--- (its attacking side of the centre)
 local function attacked(field, sign, first)
   if sign == 0 then return nil end
   for i = (first or 0) + 1, (first or 0) + 2 do
@@ -265,7 +250,8 @@ end
 local LINE_ADDR = nil
 local function zone_line()
   if not LINE_ADDR then
-    local ok, a = pcall(VRFW.mem.global_addr, "shot_zone_line")
+    local a = VRFW.memory.global_addr("shot_zone_line")
+    local ok = a ~= nil
     if ok and type(a) == "number" and a >= 0x10000 then LINE_ADDR = a end
   end
   return rd("f32", LINE_ADDR)
@@ -322,7 +308,8 @@ local function publish_chain()
   if not chain_published then
     chain_published = true
     local retail = ZONE.chain_retail
-    local ok, line = pcall(VRFW.mem.global_addr, "shot_zone_line")
+    local line = VRFW.memory.global_addr("shot_zone_line")
+    local ok = line ~= nil
     if ok and type(line) == "number" and line >= 0x10000 then
       pcall(VRFW.state.set, KEY_LINE, line)
     else
@@ -346,9 +333,8 @@ local function publish_chain()
 end
 
 local last_sig, field_logs, filled = nil, 0, false
-local SIG_NOW = {}   -- this frame's inputs of the zone boxes (one table, filled again)
+local SIG_NOW = {}
 
--- the inputs changed since the boxes were written last (NaN equals NaN: an unchanged unreadable value)
 local function sig_changed(now, n)
   if last_sig == nil then return true end
   for i = 1, n do
@@ -421,8 +407,6 @@ local function refresh(ev)
   end
 end
 
--- ---- long shots
-
 local long_on = false
 
 local function long_wanted()
@@ -443,10 +427,6 @@ local function set_long(on, why)
   info("long shots: every shot move " .. (on and "ON" or "off") .. " (" .. why .. ")")
 end
 
--- ---- events
-
--- the zone data and the long-shot flags change slowly (pointers per match, attack signs per half, mod flags):
--- they are read at REFRESH_SECONDS on the match clock (or every REFRESH_FRAMES frames while the clock stands still)
 local REFRESH_SECONDS, REFRESH_FRAMES = 0.1, 10
 local since_refresh, frames_since_refresh = REFRESH_SECONDS, REFRESH_FRAMES
 
@@ -463,7 +443,7 @@ end
 -- which zone mods are on: a change (a live-toggle mod switched) picks the zone again at the next match start
 local function zone_mods_on()
   local on = {}
-  for _, d in ipairs(ZONE_DECLS) do on[#on + 1] = tostring(VRFW.mod_on_now(d.mod)) end
+  for _, d in ipairs(ZONE_DECLS) do on[#on + 1] = tostring(VRFW.mod_is_on_now(d.mod)) end
   return table.concat(on, ",")
 end
 local zone_mods_seen = zone_mods_on()

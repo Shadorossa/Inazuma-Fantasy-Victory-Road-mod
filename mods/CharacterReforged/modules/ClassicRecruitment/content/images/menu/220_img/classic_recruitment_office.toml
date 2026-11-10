@@ -1,0 +1,151 @@
+# Recruitment office atlas: requirement icons, badges, cost card and plates (content\screen_art\contact_map.toml).
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office"
+size = [512, 512]
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_requirement_level"
+texture = "classic_recruitment_office"
+x = 0
+y = 0
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_requirement_level.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_requirement_wins"
+texture = "classic_recruitment_office"
+x = 100
+y = 0
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_requirement_wins.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_requirement_goals"
+texture = "classic_recruitment_office"
+x = 200
+y = 0
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_requirement_goals.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_requirement_item"
+texture = "classic_recruitment_office"
+x = 300
+y = 0
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_requirement_item.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_requirement_player"
+texture = "classic_recruitment_office"
+x = 400
+y = 0
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_requirement_player.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_requirement_position_1"
+texture = "classic_recruitment_office"
+x = 0
+y = 100
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_requirement_position_1.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_requirement_position_2"
+texture = "classic_recruitment_office"
+x = 100
+y = 100
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_requirement_position_2.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_requirement_position_3"
+texture = "classic_recruitment_office"
+x = 200
+y = 100
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_requirement_position_3.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_requirement_position_4"
+texture = "classic_recruitment_office"
+x = 300
+y = 100
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_requirement_position_4.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_badge_met"
+texture = "classic_recruitment_office"
+x = 400
+y = 100
+size = [48, 48]
+png = "classic_recruitment_office/classic_recruitment_office_badge_met.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_badge_unmet"
+texture = "classic_recruitment_office"
+x = 452
+y = 100
+size = [48, 48]
+png = "classic_recruitment_office/classic_recruitment_office_badge_unmet.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_card_panel"
+texture = "classic_recruitment_office"
+x = 0
+y = 200
+size = [48, 48]
+png = "classic_recruitment_office/classic_recruitment_office_card_panel.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_panel_fade"
+texture = "classic_recruitment_office"
+x = 52
+y = 200
+size = [48, 48]
+png = "classic_recruitment_office/classic_recruitment_office_panel_fade.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_player_plate"
+texture = "classic_recruitment_office"
+x = 104
+y = 200
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_player_plate.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_plate_unmet"
+texture = "classic_recruitment_office"
+x = 0
+y = 356
+size = [392, 72]
+png = "classic_recruitment_office/classic_recruitment_office_plate_unmet.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx"
+name = "classic_recruitment_office_counter"
+texture = "classic_recruitment_office"
+x = 0
+y = 300
+size = [176, 52]
+png = "classic_recruitment_office/classic_recruitment_office_counter.png"

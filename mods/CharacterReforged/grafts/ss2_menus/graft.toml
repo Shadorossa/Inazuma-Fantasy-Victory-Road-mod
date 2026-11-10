@@ -1,30 +1,21 @@
-# Skill slots v2 menus (research/scripts/ss2_build.py build_lua_menu / build_lua_pick / build_lua_blue;
-# docs/game/skill-slots.md): the new evt_skill_slot_menu (a copy of the retail equip_menu_select decompile in
-# evt_skill_slot_menu.lua + the EVT feature blocks in blocks/, filled in by the include placeholders), the pick block of ability_list_menu and the six-sense hand-back of ability_list_menu_on_bluebg. The dock part is ss2_dock; the move
-# list tabs are the VR-Framework's skill tab registry. Layouts / setting / registry stay in ss2_build.py.
-# Mod Character Reforged since 2026-10-14 (owner: the new skill table = 6 moves + the aura slot + the mix slot is the
-# aura mods' base and replaces the game's ability board everywhere; docs/refactor/aura-mods-split.md «Skill
-# table»). The screen's registry row, objects, layouts, art and texts are research/mods/CharacterReforged
-# (content/menus/skill_table.toml, assets/, text/rows/skill_table.toml). The picker blocks below carry a copy guard
-# (EVT_SS2_PICK_GEN / EVT_SS2_BLUE_GEN: only the last copy in a VM acts). The Hiper card component
-# (@HIPER_CARD@) is still the file of IF's graft folder plate_hiper_plate (shared with IF's plate).
+# The skill table vrfw_skill_slot_menu (retail equip_menu_select copy + feature blocks), the ability list pick block
+# and the six-sense hand-back of ability_list_menu_on_bluebg (research/mods/CharacterReforged/_tools/ss2_build.py; docs/game/skill-slots.md).
 name = "ss2_menus"
 mod = "CharacterReforged"
 order = 100
 module = "lua_bridge"
 requires = []
 conflicts = []
-wraps = ["CreateEquipTypeTable", "EVT_Equip", "EVT_OpenOriginalBoard", "EVT_PickCoroutine", "EVT_RestoreCoroutine", "EVT_SS_PickCoroutine", "GetEquipItemIdByLayerIdx", "GetEquipListItemInfo", "GetEquipType", "GetEquipTypeNum", "OnAfterReceiveFilterParam", "OnBack", "OnChangeFocus", "OnDecideFocus", "OnEnter", "OnFunction", "OnInit", "OnOpenLayer", "OnSetupLayer", "SendSkillIdToLua", "Step", "UpdateButtonGuide", "UpdateEquipCondition", "UpdateEquipItemInfo", "UpdateEquipListItem", "UpdateEquippedVisibleCheck", "UpdateListItem", "UpdateSkillDetailWindow"]
-description = "Skill slots v2: evt_skill_slot_menu + ability list picks"
+wraps = ["CharacterReforgedSkillTableOpenOriginalBoard", "CharacterReforgedSkillTablePickCoroutine", "CreateEquipTypeTable", "GetEquipItemIdByLayerIdx", "GetEquipListItemInfo", "GetEquipType", "GetEquipTypeNum", "OnAfterReceiveFilterParam", "OnBack", "OnChangeFocus", "OnDecideFocus", "OnEnter", "OnFunction", "OnInit", "OnOpenLayer", "OnSetupLayer", "SendSkillIdToLua", "Step", "UpdateButtonGuide", "UpdateEquipCondition", "UpdateEquipItemInfo", "UpdateEquipListItem", "UpdateEquippedVisibleCheck", "UpdateListItem", "UpdateSkillDetailWindow"]
+description = "Skill table vrfw_skill_slot_menu and the ability list picks"
 
 [[files]]
-path = "common/script/lua/menu/evt_skill_slot_menu.lua.bin"
+path = "common/script/lua/menu/vrfw_skill_slot_menu.lua.bin"
 
   [[files.ops]]
   type = "new_file"
-  source = "evt_skill_slot_menu.lua"
-  # the screen's feature blocks (one file each under blocks/, in this order), then the Hiper card, which one of
-  # them includes: the placeholders are filled in the order listed
+  source = "vrfw_skill_slot_menu.lua"
+  # the feature blocks, filled in the order listed; the Hiper card is included by one of them
   [files.ops.include]
   "@BLOCK_SKILL_SLOTS@" = "blocks/skill_slots.lua"
   "@BLOCK_PLAYER_SET_ROLE@" = "blocks/player_set_role.lua"
@@ -32,7 +23,6 @@ path = "common/script/lua/menu/evt_skill_slot_menu.lua.bin"
   "@BLOCK_CUSTOM_PASSIVE_PICKER@" = "blocks/custom_passive_picker.lua"
   "@BLOCK_HIPER_MIXIMAX@" = "blocks/hiper_miximax.lua"
   "@BLOCK_MIXIMAX_SCENE@" = "blocks/miximax_scene.lua"
-  "@BLOCK_MODE_CHANGE@" = "blocks/mode_change.lua"
   "@BLOCK_RESET_DELETE@" = "blocks/reset_delete.lua"
   "@BLOCK_COMPACT_DETAIL@" = "blocks/compact_detail.lua"
   "@BLOCK_TWO_HIPER_SLOTS@" = "blocks/two_hiper_slots.lua"
@@ -46,7 +36,7 @@ path = "common/script/lua/menu/evt_skill_slot_menu.lua.bin"
   "@BLOCK_FANTASY_SLOT_FALLBACKS@" = "blocks/fantasy_slot_fallbacks.lua"
   "@BLOCK_HIPER_ROW_RESET_DELETE@" = "blocks/hiper_row_reset_delete.lua"
   "@BLOCK_BOARD_CLOSE_GUARD@" = "blocks/board_close_guard.lua"
-  "@HIPER_CARD@" = "../plate_hiper_plate/evt_hiper_card.lua"
+  "@HIPER_CARD@" = "../plate_hiper_plate/character_reforged_hiper_card.lua"
 
 [[files]]
 stem = "ability_list_menu"

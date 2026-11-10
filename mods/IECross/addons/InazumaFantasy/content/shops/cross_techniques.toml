@@ -1,0 +1,79 @@
+schema = "VRFW.shop/2"
+
+[[edit]]
+target = "InazumaFantasy.technique_shop"
+
+  [[edit.entry]]
+  technique = "whs95000"    # Inferno Penguin: shot, 360
+  price = 6
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs95010"    # Ocean Birth: shot, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs95020"    # God Knows Machina: shot, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs95030"    # Chaos Illusion: shot, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs95100"    # Samurai Penguin No. 2: shot, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs95110"    # Samurai Shot: shot, 300
+  price = 3
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs95120"    # Bouncing Bunny (Fireworks): shot, 400
+  price = 8
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs95130"    # Dough Ray Me (Fireworks): shot, 480
+  price = 13
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "who95100"    # Samurai Feint: dribble, 300
+  price = 3
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "who95110"    # Dance on Air (Fireworks): dribble, 400
+  price = 8
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whd95100"    # Blue Cyclone: block, 360
+  price = 6
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whd95110"    # Goopy Gloopy Goo (Fireworks): block, 400
+  price = 8
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whs95140"    # Clone Penguin (Halloween): shot, 540
+  price = 18
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "who95120"    # Wind God's Dance (Halloween): dribble, 440
+  price = 10
+  currency = "tk_bb000001"
+
+  [[edit.entry]]
+  technique = "whd95120"    # Diabolical Cut (Halloween): block, 440
+  price = 10
+  currency = "tk_bb000001"

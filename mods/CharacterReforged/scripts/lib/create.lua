@@ -1,66 +1,18 @@
--- Character Reforged › the base game's «Crear …» entry of the aura mods:
--- ONE flow on the retail skill board (graft character_reforged_board) with one row per SYSTEM a
--- mod declares. An aura piece's list shows the «create» item of every declared system (All Miximaxed «Crear miximax»,
--- Custom Change Mode «Crear nuevo cambio»); the player picks one, the retail bank picker gives the partner, the system's own
--- store command keeps the pair and this flow puts the system's carrier on that board slot. A refused or cancelled
--- pick gives the slot back what it held; a refusal shows a retail info window (a text key per refusal code).
--- A system is data: any active mod's content\pairing\*.toml (schema CharacterReforged.pairing/1)
---   [CharacterReforged.Create.<system>]       # <system> = the pairing rules' system name (CharacterReforged.PairCheck)
---   item = "wmm_evt_create"                 # the «create» row of the aura list (the item's own name is the row)
---   label = "AuraOverhaul.miximax_create_label" # text key: the system's name in the refusal window (default: the item's name)
---   store = "CMND_AURAOVERHAUL_MIXIMAX_SET"  # command (base, partner[, move1, move2]) -> code (0 = stored)[, carrier index k]
---   carrier = "wmm_evt"                     # the carrier put on the slot ("wmc_evt{k}": k = the store's 2nd value)
---   pair_codes = 10                         # store code = pair_codes + PairCheck code (1..9) for a pair-rule refusal
---   order = 10                              # row order of the systems (lower first; then the system's name)
---   confirm = "AuraOverhaul.miximax_create_confirm" # text key of the bank's Sí / No after the partner's moves ({base}
---                                           # {partner} {moves}; default CharacterReforged.create_confirm)
---   confirm_icon = "icon_sp_area07"         # sprite of icon_common drawn between the two players' cards of that
---                                           # confirmation (the base and the partner; none = the cards only)
---   preview = "CMND_AURAOVERHAUL_MIXIMAX_PREVIEW" # command (base, partner, move) -> ok, favouredMask, g0 .. g8, kind, peGain,
---                                           # peFavoured, peBase: the stats the confirmation panel shows (none = no stats)
---   check = "CMND_AURAOVERHAUL_MIXIMAX_CHECK" # command (base, partner) -> code (0 = may): what can not become a pair is
---                                           # greyed (partner 0: the base's «create» row; else a partner in the bank)
---   prohibited_codes = [20]                 # `check` codes of a partner that can never be paired (no look for the
---                                           # pair): greyed in the bank with the prohibited corner badge
---   scene = true                            # the skill table plays the miximax creation scene after a stored pair
---                                           # (its PL.MxScenePlay; the scene's commands are the declaring mod's)
---   off = false                             # true: this system has no row (a game mode may switch one off)
---   [CharacterReforged.Create.<system>.refusals]
---   "20" = "CharacterReforged.create_refused_not_allowed"   # the store's own codes -> text keys
--- The bank's corner badges ([CharacterReforged.PartnerStatus], content\pairing\partner_status.toml of this mod):
---   no_move_badge = "icon_lock01"          # sprite of a partner without a learned move that is not grey
---   prohibited_badge = "character_reforged_status_prohibited" # sprite of a card that can not be used (the avatar
---                                           # refused by the rules, a `prohibited_codes` check code)
--- Keys merge over the mods in load order (the later mod wins key by key, `refusals` code by code), as PairRules do.
--- The store is a COMMAND (not a Lua export): this base does not `require` its plugins, so it can not see their
--- exports; the game-Lua graft calls the command by its id.
--- Partner moves: a system whose pairing
--- rules ask `moves = n` (> 0; All Miximaxed's miximax: 1) picks them in the retail bank, as Inazuma Fantasy's «Crear
--- miximax» did: Aceptar on a card puts the cursor on that card's special moves on the plate, Aceptar on a move (not
--- one the base has) asks the system's
--- confirmation (card window, Sí / No); Sí closes the bank with the partner and the moves. The graft passes the base and
--- the row to the bank (param keys character_reforged_create_base / _row; bank_create_moves_hooks.lua) and the picked
--- moves to the store command: (base, partner, move1, move2). CMND_CHARACTERREFORGED_CREATE_MOVES(row) answers n.
--- Refusal window text: the system's label, then the reason: PairCheck code n -> CharacterReforged.create_refused_<n>,
--- a declared `refusals` code -> its key, anything else -> CharacterReforged.create_refused_other; the carrier not
--- placed (graft code -2) -> CharacterReforged.create_refused_place.
 
 CharacterReforged = CharacterReforged or {}
 local A = CharacterReforged
 A.Create = A.Create or {}
-local K = A.Create  -- (functions declared by full name: vrfw check finds the command handlers by text)
+local K = A.Create
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
-local hex = Id.hex
-require "VRFW/lib/basics"
+local hex = Id.hex_text
 local info = VRFW.logger("create")
 
 local MOD = "CharacterReforged"
 local PLACE_FAILED = -2
--- the create flow refused a partner without a learned move that is not grey (rule partner_needs_learned_move; the menus
--- hold the move rows' lock rule)
+-- refusal of a partner without a learned non-grey move (rule partner_needs_learned_move)
 local NO_LEARNED_MOVE = -5
 -- the partner refusals of the bank that are not a system's check code -> their text keys (the bank's B.REASON)
 local BANK_REASONS = {
@@ -72,13 +24,7 @@ local BANK_REASONS = {
   [-10] = "create_refused_other",
 }
 
-local function id_of(k)
-  if type(k) == "number" then return u32(k) end
-  if type(k) == "string" and k ~= "" then return u32(VRFW.crc32(k)) end
-  return 0
-end
-
--- ---------------------------------------------------------------------------------------- the systems (data)
+local function id_of(k) return Id.parse(k, { hash_names = true }) or 0 end
 
 local SYSTEMS = nil
 
@@ -132,12 +78,10 @@ local function load_systems()
     info(string.format("row %d: system %s (%s): item %s %s, store %s, carrier %s, pair codes %d", i, s.system, s.mod, s.item_key, hex(s.item), s.store_name, tostring(s.carrier), s.pair_codes))
   end
   SYSTEMS = list
-  -- the pair rules of each system read now (the list is opening), not inside the store command later
   for _, s in ipairs(list) do A.PairRules(s.pair_system) end
   return list
 end
 
--- the bank's prohibited corner badge ([CharacterReforged.PartnerStatus] prohibited_badge; the later mod wins)
 local PROHIBITED_BADGE = nil
 local NO_MOVE_BADGE = 0
 
@@ -157,11 +101,9 @@ local function prohibited_badge()
   return PROHIBITED_BADGE
 end
 
--- ---------------------------------------------------------------------------------------- the flow (commands)
-
 local SNAP = {}
 
--- (charaHdl) -> n, create item 1 .. n: the board slots remembered (the slot a refusal gives back), the rows to list
+-- (charaHdl) -> n, create item 1 ..
 function CharacterReforged.Create.Begin(hdl)
   hdl = u32(hdl)
   local list = load_systems()
@@ -184,8 +126,7 @@ function CharacterReforged.Create.Begin(hdl)
   return table.unpack(out)
 end
 
--- () -> n, create item 1 .. n: the rows of every declared system, nothing remembered (the «Fantasy» skill table's
--- picker: graft character_reforged_board's hook file of evt_skill_slot_menu grants a free copy of each before it opens)
+-- () -> n, create item 1 ..
 function CharacterReforged.Create.Items()
   local out = { 0 }
   for _, s in ipairs(load_systems()) do out[#out + 1] = s.item end
@@ -193,8 +134,7 @@ function CharacterReforged.Create.Items()
   return table.unpack(out)
 end
 
--- (item) -> row (0 = not a create item), the system's store command id, scene, the system's check
--- command id (0 = none), the partner needs a learned move: the row a picked create item stands for
+-- (item) -> row (0 = not a create item), store command id, scene, check command id, partner needs a learned move
 function CharacterReforged.Create.Row(item)
   item = u32(item)
   for i, s in ipairs(load_systems()) do
@@ -207,7 +147,6 @@ function CharacterReforged.Create.Row(item)
   return 0, 0, false, 0
 end
 
--- (charaHdl) -> row (0 = no create item was picked), board slot, store command id
 function CharacterReforged.Create.Picked(hdl)
   hdl = u32(hdl)
   local list = load_systems()
@@ -219,7 +158,6 @@ function CharacterReforged.Create.Picked(hdl)
     end
     return 0
   end
-  -- a slot that changed while the list was open and now holds a create item (the one just picked)
   for slot = 0, 8 do
     local cur = now[slot]
     local prev = before and before[slot] or nil
@@ -231,7 +169,6 @@ function CharacterReforged.Create.Picked(hdl)
       end
     end
   end
-  -- nothing changed: a create item placed earlier (the list kept it, e.g. a slot that held nothing before)
   if before then
     for i, s in ipairs(list) do
       local slot = A.BoardSlotOf(hdl, s.item)
@@ -246,7 +183,6 @@ function CharacterReforged.Create.Picked(hdl)
   return 0, -1, 0
 end
 
--- (row, k) -> the carrier item id of that system (k: the store's carrier index, «{k}» in the declared key)
 function CharacterReforged.Create.Carrier(i, k)
   local s = load_systems()[math.floor(tonumber(i) or 0)]
   if not s then return 0 end
@@ -257,7 +193,6 @@ function CharacterReforged.Create.Carrier(i, k)
   return id
 end
 
--- (charaHdl, slot, inv) -> ok: the carrier on the board slot (the game's own placement)
 function CharacterReforged.Create.Place(hdl, slot, inv)
   hdl = u32(hdl)
   local ok, why = A.BoardPlace(hdl, slot, inv)
@@ -266,7 +201,6 @@ function CharacterReforged.Create.Place(hdl, slot, inv)
   return ok == true
 end
 
--- (charaHdl, slot) -> ok: the slot gets back what it held before the aura list (a refused or cancelled creation)
 function CharacterReforged.Create.Restore(hdl, slot)
   hdl, slot = u32(hdl), math.floor(tonumber(slot) or -1)
   local prev = SNAP[hdl] and SNAP[hdl][slot]
@@ -289,13 +223,6 @@ end
 -- the most partner moves a pair carries (the framework's miximax keeps 1 or 2)
 local MAX_MOVES = 2
 
--- (row) -> n (partner moves to pick in the bank, 0 = none), confirmId, confirmText, confirmIcon, previewCommand,
--- checkCommand (the system's `check`, 0 = none: the bank greys the partners it refuses),
--- prohibitedCodes (a list of check codes of a partner that can never be paired), prohibitedBadge (sprite id): the
--- system's pairing rule `moves`, the text of the bank's confirmation (id for the game's own lookup, the text as the
--- fallback), the sprite between the two cards of that window (crc32 of `confirm_icon`, 0 = none) and the command id of
--- its stat preview (crc32 of `preview`, 0 = none), partnerNeedsLearnedMove (the rule partner_needs_learned_move: at least
--- one learned move that is not grey), noMoveBadge (sprite id)
 function CharacterReforged.Create.Moves(i)
   local s = load_systems()[math.floor(tonumber(i) or 0)]
   if not s then return 0, 0, "", 0, 0, 0, {}, prohibited_badge(), false, 0 end
@@ -308,8 +235,6 @@ function CharacterReforged.Create.Moves(i)
     NO_MOVE_BADGE
 end
 
--- (row, code) -> labelId, reasonId, labelText, reasonText: the refusal window's two texts (ids for the game's own text
--- lookup in its language; the texts as the framework's fallback). code 0 = no window (0, 0, "", "").
 function CharacterReforged.Create.Refusal(i, code)
   local s = load_systems()[math.floor(tonumber(i) or 0)]
   code = math.floor(tonumber(code) or -1)
@@ -333,7 +258,6 @@ function CharacterReforged.Create.Refusal(i, code)
   return label_id, id_of(reason), label_text, text_of(reason)
 end
 
--- (step, values…): one loader.log line per step of the graft (the first in-game run confirms the path)
 function CharacterReforged.Create.Log(step, ...)
   local parts = {}
   for i = 1, select("#", ...) do

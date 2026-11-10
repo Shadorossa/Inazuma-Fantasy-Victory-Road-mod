@@ -1,0 +1,27 @@
+# BetterUI: the pause «Finalizar partido» prompt moves to the bottom right; the end-of-match prompt is raised.
+name = "better_ui_retire_guide"
+order = 907
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = ["UpdateRetireButtonGuide", "UpdateGameEndButtonGuide"]
+description = "BetterUI: retire prompt at the bottom right, end-of-match prompt at the restart button height"
+
+[[files]]
+stem = "soccer_constant_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "retire_guide_right.lua"
+  marker = "better_ui retire guide"
+  crc = "none"
+
+[[files]]
+stem = "soccer_battle_constant_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "retire_guide_right.lua"
+  marker = "better_ui retire guide"
+  crc = "none"

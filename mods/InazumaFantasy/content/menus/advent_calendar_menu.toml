@@ -1,7 +1,5 @@
 schema = "VRFW.menu/2"
-# Inazuma Fantasy: the calendar's card of 05/11 names its pictures by row (content\base_tables\gamedata\post\
-# advent_calendar_config.toml) and the game sets them from atlases the menu has already loaded: its setting lists each
-# retail card's atlas, so the mod's atlases are listed the same way. An atlas not listed draws nothing in the card.
+# The advent menu loads the mod's card atlases like the retail ones (an unlisted atlas draws nothing).
 
 [[patch]]
 menu = "advent_calendar_menu"

@@ -1,0 +1,11 @@
+schema = "VRFW.anim/2"
+owner = "match"
+# This technique is off for this version, and removing the comment marks brings it back.
+# ```
+#
+# # Shell of Oblivion: Fortaleza desesperada with the warrior spirit me000010 (content\effects\caparazon_olvido.toml).
+# [[event]]
+# name = "caparazon_olvido"
+# from = "ev62_10050"
+# id = "ev62_81050"
+# ```

@@ -1,6 +1,5 @@
 schema = "VRFW.rule_binding/1"
 # Base match-mode -> ruleset table of the match engine; a mod's own rules\matches.toml replaces it.
-# Modes come from the engine's play-mode byte plus match type; type 2 (small match) uses the _small suffix.
 [modes]
 free = "free_match"                 # VS CPU, friendlies, free matches (type 1: 11 vs 11)
 free_small = "friendly_5v5"         # friendlies / free small matches (type 2: 5-a-side)

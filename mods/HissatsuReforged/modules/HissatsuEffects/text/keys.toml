@@ -1,41 +1,39 @@
 schema = "VRFW.text_key/1"
-# Texts of «Hissatsu Effects» (format: docs/framework/types/text.md): the «Mods» screen's name and description. The
-# move card page's texts are the menu_text rows of text\rows\skill_card.toml. A language missing here falls back to
-# English.
+# Texts of «Hissatsu Effects» (format: docs/internal/types/text.md): the «Mods» screen's name and description.
 default_lang = "en"
 
 [en.new]
 mod_name = "Hissatsu Effects"
-mod_description = "Gameplay effects for the game's own special moves: Excalibur grows stronger the farther it flies, Doom Rain splits into 7 balls that blocks take away, Electric Trap locks the shot it stops, Needle Hammer steals tension, and Double Tornado takes the elements of its two performers. Almost every other special move gets an effect of its own, for every player. In the Habilidades list, Q / E (LT / RT) turn the move card to a page that explains the effect."
+mod_description = "Gives almost every special move an effect of its own: Excalibur grows stronger the farther it flies, Doom Rain splits into 7 balls, Electric Trap locks the shot it stops. In the Skills list, Q / E turn a move's card to a page that explains its effect."
 
 [es.new]
 mod_name = "Efectos de supertécnicas"
-mod_description = "Efectos de juego para supertécnicas del propio juego: Excálibur gana potencia cuanto más lejos vuela, Diluvio letal se divide en 7 balones que los bloqueos van quitando, Malla eléctrica bloquea el tiro que para, Martillo defensor roba tensión y Tornado doble toma los elementos de sus dos ejecutores. Casi todas las demás supertécnicas tienen un efecto propio, para todos los jugadores. En la lista de Habilidades, Q / E (LT / RT) pasan la tarjeta de la técnica a una página que explica su efecto."
+mod_description = "Da a casi todas las supertécnicas un efecto propio: Excálibur gana potencia cuanto más lejos vuela, Diluvio letal se divide en 7 balones, Malla eléctrica bloquea el tiro que para. En la lista de Habilidades, Q / E pasan la tarjeta de una técnica a una página que explica su efecto."
 
 [fr.new]
 mod_name = "Effets des supertechniques"
-mod_description = "Effets de jeu pour les techniques spéciales du jeu : Excalibur gagne en puissance plus elle vole loin, Pluie fatale se divise en 7 ballons que les blocages enlèvent, le Piège électrique bloque le tir qu'il arrête, le Marteau protecteur vole de la tension et Double Tornade prend les éléments de ses deux exécutants. Presque toutes les autres techniques spéciales ont un effet propre, pour tous les joueurs. Dans la liste Habilidades, Q / E (LT / RT) font passer la carte de la technique à une page qui explique son effet."
+mod_description = "Donne à presque toutes les supertechniques un effet propre : Excalibur gagne en puissance plus elle vole loin, Pluie fatale se divise en 7 ballons, Piège électrique verrouille le tir qu'il arrête. Dans la liste des Compétences, Q / E font passer la carte d'une technique à une page qui explique son effet."
 
 [de.new]
 mod_name = "Spezialtechnik-Effekte"
-mod_description = "Spieleffekte für die Spezialtechniken des Spiels: Excalibur wird stärker, je weiter sie fliegt, Doom Rain teilt sich in 7 Bälle, die Blocks wegnehmen, Electric Trap sperrt den gehaltenen Schuss, Needle Hammer stiehlt Spannung und Double Tornado übernimmt die Elemente seiner beiden Ausführenden. Fast jede andere Spezialtechnik bekommt einen eigenen Effekt, für alle Spieler. In der Habilidades-Liste drehen Q / E (LT / RT) die Technikkarte auf eine Seite, die den Effekt erklärt."
+mod_description = "Gibt fast jeder Spezialtechnik einen eigenen Effekt: Excalibur wird stärker, je weiter es fliegt, Doom Rain teilt sich in 7 Bälle, Electric Trap sperrt den Schuss, den es stoppt. In der Fähigkeitenliste blättern Q / E die Karte einer Technik zu einer Seite um, die ihren Effekt erklärt."
 
 [it.new]
 mod_name = "Effetti delle supertecniche"
-mod_description = "Effetti di gioco per le tecniche speciali del gioco: Excalibur diventa più potente quanto più lontano vola, Pioggia letale si divide in 7 palloni che i blocchi tolgono, Trappola elettrica blocca il tiro che para, Martello difensore ruba tensione e Doppio tornado prende gli elementi dei suoi due esecutori. Quasi tutte le altre tecniche speciali hanno un effetto proprio, per tutti i giocatori. Nella lista Habilidades, Q / E (LT / RT) portano la scheda della tecnica a una pagina che ne spiega l'effetto."
+mod_description = "Dà a quasi tutte le supertecniche un effetto proprio: Excalibur diventa più forte quanto più vola lontano, Pioggia fatale si divide in 7 palloni, Trappola elettrica blocca il tiro che ferma. Nell'elenco delle Abilità, Q / E portano la carta di una tecnica a una pagina che ne spiega l'effetto."
 
 [pt.new]
 mod_name = "Efeitos das supertécnicas"
-mod_description = "Efeitos de jogo para as supertécnicas do jogo: Excalibur ganha potência quanto mais longe voa, Chuva da Perdição divide-se em 7 bolas que os bloqueios vão tirando, Armadilha Elétrica bloqueia o remate que defende, Martelo Defensor rouba tensão e Tornado Duplo toma os elementos dos seus dois executores. Quase todas as outras supertécnicas têm um efeito próprio, para todos os jogadores. Na lista Habilidades, Q / E (LT / RT) passam a ficha da técnica para uma página que explica o efeito."
+mod_description = "Dá a quase todas as supertécnicas um efeito próprio: Excalibur ganha força quanto mais longe voa, Chuva fatal divide-se em 7 bolas, Armadilha elétrica bloqueia o remate que pára. Na lista de Habilidades, Q / E passam a carta de uma técnica para uma página que explica o seu efeito."
 
 [ja.new]
 mod_name = "必殺技の効果"
-mod_description = "ゲームの必殺技にゲーム効果を追加：遠くから撃つほど強くなるエクスカリバー、ブロックで1つずつ減る7つのボールに分かれるシュート、止めたシュートを封じるキーパー技、テンションを奪う技、2人の属性を取り入れるダブルトルネード。他のほとんどの必殺技にも固有の効果があり、全選手に適用される。わざ一覧でQ / E（LT / RT）を押すと、技のカードが効果を説明するページに切り替わる。"
+mod_description = "ほぼすべての必殺技に固有の効果を付けます：エクスカリバーは遠くへ飛ぶほど強くなり、ドゥームレインは7つのボールに分かれ、エレクトリックトラップは止めたシュートを封じます。スキル一覧で Q / E を押すと、技のカードがその効果を説明するページに切り替わります。"
 
 [zh_hans.new]
 mod_name = "必杀技效果"
-mod_description = "为游戏自带的必杀技加入玩法效果：飞得越远越强的Excalibur、分成7个球并被封锁逐个夺走的Doom Rain、封锁被扑住射门的Electric Trap、夺取气势的Needle Hammer，以及取两名执行者属性的Double Tornado。其他几乎所有必杀技也有各自的效果，对所有球员生效。在技能列表中按 Q / E（LT / RT）可将技能卡片翻到说明效果的一页。"
+mod_description = "为几乎所有必杀技加上专属效果：王者之剑飞得越远越强，毁灭之雨会分裂成7个球，电击陷阱会锁住被它拦下的射门。在技能列表中按 Q / E，可把招式卡片翻到说明其效果的页面。"
 
 [zh_hant.new]
 mod_name = "必殺技效果"
-mod_description = "為遊戲內建的必殺技加入玩法效果：飛得越遠越強的Excalibur、分成7個球並被封鎖逐個奪走的Doom Rain、封鎖被撲住射門的Electric Trap、奪取氣勢的Needle Hammer，以及取兩名執行者屬性的Double Tornado。其他幾乎所有必殺技也有各自的效果，對所有球員生效。在技能列表中按 Q / E（LT / RT）可將技能卡片翻到說明效果的一頁。"
+mod_description = "為幾乎所有必殺技加上專屬效果：王者之劍飛得越遠越強，毀滅之雨會分裂成7個球，電擊陷阱會鎖住被它攔下的射門。在技能列表中按 Q / E，可把招式卡片翻到說明其效果的頁面。"

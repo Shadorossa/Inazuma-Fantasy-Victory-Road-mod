@@ -1,10 +1,9 @@
-# New Recruitment › the recruitment office's titles (content\contact_maps\office.toml). Rows of menu_text, read by
-# id = crc32(row id).
+# Recruitment office texts (menu_text, id = crc32(row id)).
 schema = "VRFW.text/2"
 table = "menu_text"
 
 [[row]]
-id = "new_recruitment_office_title"
+id = "classic_recruitment_office_title"
 es = "Oficina de fichajes"
 en = "Recruitment Office"
 fr = "Bureau des recrues"
@@ -16,7 +15,7 @@ zh_hans = "球员签约处"
 zh_hant = "球員簽約處"
 
 [[row]]
-id = "new_recruitment_office_route"
+id = "classic_recruitment_office_route"
 es = "Ruta de la Crónica"
 en = "Chronicle route"
 fr = "Route de la Chronique"
@@ -28,7 +27,7 @@ zh_hans = "编年史路线"
 zh_hant = "編年史路線"
 
 [[row]]
-id = "new_recruitment_office_story"
+id = "classic_recruitment_office_story"
 es = "Historia y otros equipos"
 en = "Story and other teams"
 fr = "Histoire et autres équipes"
@@ -41,7 +40,7 @@ zh_hant = "劇情與其他隊伍"
 
 # the office's prices: the element spirits of the player's element («fichas»), by element
 [[row]]
-id = "new_recruitment_office_fichas_wind"
+id = "classic_recruitment_office_fichas_wind"
 es = "Fichas de Viento"
 en = "Wind Tokens"
 fr = "Jetons Vent"
@@ -53,7 +52,7 @@ zh_hans = "风之代币"
 zh_hant = "風之代幣"
 
 [[row]]
-id = "new_recruitment_office_fichas_forest"
+id = "classic_recruitment_office_fichas_forest"
 es = "Fichas de Bosque"
 en = "Forest Tokens"
 fr = "Jetons Forêt"
@@ -65,7 +64,7 @@ zh_hans = "林之代币"
 zh_hant = "林之代幣"
 
 [[row]]
-id = "new_recruitment_office_fichas_fire"
+id = "classic_recruitment_office_fichas_fire"
 es = "Fichas de Fuego"
 en = "Fire Tokens"
 fr = "Jetons Feu"
@@ -77,7 +76,7 @@ zh_hans = "火之代币"
 zh_hant = "火之代幣"
 
 [[row]]
-id = "new_recruitment_office_fichas_mountain"
+id = "classic_recruitment_office_fichas_mountain"
 es = "Fichas de Montaña"
 en = "Mountain Tokens"
 fr = "Jetons Montagne"
@@ -90,7 +89,7 @@ zh_hant = "山之代幣"
 
 # one «ficha» (the cost line of a team page), by element
 [[row]]
-id = "new_recruitment_office_ficha_wind"
+id = "classic_recruitment_office_ficha_wind"
 es = "Ficha de viento"
 en = "Wind Token"
 fr = "Jeton Vent"
@@ -102,7 +101,7 @@ zh_hans = "风之代币"
 zh_hant = "風之代幣"
 
 [[row]]
-id = "new_recruitment_office_ficha_forest"
+id = "classic_recruitment_office_ficha_forest"
 es = "Ficha de bosque"
 en = "Forest Token"
 fr = "Jeton Forêt"
@@ -114,7 +113,7 @@ zh_hans = "林之代币"
 zh_hant = "林之代幣"
 
 [[row]]
-id = "new_recruitment_office_ficha_fire"
+id = "classic_recruitment_office_ficha_fire"
 es = "Ficha de fuego"
 en = "Fire Token"
 fr = "Jeton Feu"
@@ -126,7 +125,7 @@ zh_hans = "火之代币"
 zh_hant = "火之代幣"
 
 [[row]]
-id = "new_recruitment_office_ficha_mountain"
+id = "classic_recruitment_office_ficha_mountain"
 es = "Ficha de montaña"
 en = "Mountain Token"
 fr = "Jeton Montagne"

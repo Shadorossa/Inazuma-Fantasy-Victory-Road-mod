@@ -1,0 +1,10 @@
+# Every fused player of both teams starts the match in his miximax, as in IE GO Galaxy.
+schema = "VRFW.extra_slot/1"
+if_mod = "MiximaxFromKickoff.start_in_form"     # the row of options.toml: off = this file is not read
+
+[[VRFW.ExtraSlotExtend]]
+slot = "CharacterReforged.skill_set"
+
+[VRFW.ExtraSlotExtend.fusion]
+start_in_form_states = [10, 9]       # the kick-off restart and open play
+release_button = false               # the form cannot be released

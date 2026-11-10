@@ -1,5 +1,3 @@
--- The framework's debug switches for game Lua (docs/framework/debug-flags.md): CMND_VRFW_DEBUG_SWITCH(name) answers
--- config.toml [debug] <name> (true / false). The merged config already holds the values the debug flags force.
 
 DebugSwitch = DebugSwitch or {}
 

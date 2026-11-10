@@ -1,16 +1,12 @@
 schema = "VRFW.team/2"
-# Dragones de Fuego (IE3) fields Inazuma Fantasy's Byron Love Idol (content\characters\idols.toml, card 0x209B996D)
-# in place of the game's Byron Love (card 0x9E23A289). Same slot, shirt number, captaincy, level offset and rarity
-# step: only the card changes. The member plays the Idol card's own learn list (loadout 0).
-# tm_cro_ie3_0500: the team of (game fbtl_cro03_050_010, classes 6-9) and of its Crónica /
-# Heroica rows; tm_cro_ie3_0520: the same roster, the game's row of difficulty 10.
+# Dragones de Fuego (tm_cro_ie3_0500 / _0520) field the Byron Love Idol card in Byron Love's slot; only the card changes.
 
 [[edit]]
 target = "tm_cro_ie3_0500"           # Dragones de Fuego
   [[edit.member]]
   slot = 8
   patch = true
-  card = 0x209B996D                  # InazumaFantasy.byron_love_idol
+  card = 0x209B996D
   uid = 0x209B996D
   loadout = 0
 
@@ -19,6 +15,6 @@ target = "tm_cro_ie3_0520"           # Dragones de Fuego (difficulty 10 row)
   [[edit.member]]
   slot = 8
   patch = true
-  card = 0x209B996D                  # InazumaFantasy.byron_love_idol
+  card = 0x209B996D
   uid = 0x209B996D
   loadout = 0

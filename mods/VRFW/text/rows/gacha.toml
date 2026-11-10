@@ -1,5 +1,3 @@
-# Texts of the VR-Framework's gacha service (docs/framework/gacha.md): rows of menu_text in the framework's 9 languages,
-# read by the gacha's game Lua (assets\lua\menu\_all\74_gacha.lua) with CMND_TEXT_GET by id = crc32(row id).
 
 schema = "VRFW.text/2"
 table = "menu_text"
@@ -43,7 +41,6 @@ ja = "ガチャを回す"
 zh_hans = "转扭蛋"
 zh_hant = "轉扭蛋"
 
-# the drawn player was signed (%s = his name); crc32("vrfw_gacha_obtained")
 [[row]]
 id = "vrfw_gacha_obtained"
 es = "¡Has obtenido a %s!"
@@ -56,8 +53,6 @@ ja = "%sを獲得した！"
 zh_hans = "获得了%s！"
 zh_hant = "獲得了%s！"
 
-# a draw of several players found fewer than the row's number (%d = how many it signed): only those are paid;
-# crc32("vrfw_gacha_fewer_left")
 [[row]]
 id = "vrfw_gacha_fewer_left"
 es = "Solo se han podido sacar %d jugadores: pagas solo por ellos."

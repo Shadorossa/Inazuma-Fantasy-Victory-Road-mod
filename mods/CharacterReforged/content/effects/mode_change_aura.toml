@@ -1,0 +1,29 @@
+# Custom Change Mode › the green aura of a CREATED mode change.
+schema = "VRFW.effect/1"
+
+[[recolor]]
+effect = "ega0540a"
+copy = "egv0540a"
+hue = 125
+mode = "set"
+
+[[recolor]]
+effect = "ega0541a"
+copy = "egv0541a"
+hue = 125
+mode = "set"
+
+[[effect]]
+name = "custom_change_mode_aura_a"
+from = "ega0540a"
+object = "egv0540a"
+
+[[effect]]
+name = "custom_change_mode_aura_b"
+from = "ega0541a"
+object = "egv0541a"
+
+[[chr_trigger]]
+name = "custom_change_mode_custom_aura"
+like = "0xEDB6AD9B"
+effects = { ega0540a = "custom_change_mode_aura_a", ega0541a = "custom_change_mode_aura_b" }

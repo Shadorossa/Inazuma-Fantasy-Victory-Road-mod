@@ -1,14 +1,11 @@
 schema = "VRFW.technique/3"
-# Cyberremate (Cyber Shot): the download's move whs90006, a clone of whs02390 with its numbers; its event ev60_90006 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "cyber_shot"
 key = "whs90006"
 base = "whs02390"
 event = "ev60_90006"
-manual = { icon = [161, 0] }                 # its base has no manual: a new one (generic shot icon, as the game's
-                                            # whs02150 / who00540 manuals), so the move shop can sell it
+manual = { icon = [161, 0] }
 element = "forest"
 color = 3
   [technique.text.es]

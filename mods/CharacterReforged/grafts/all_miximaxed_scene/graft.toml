@@ -1,0 +1,36 @@
+# All Miximaxed: the miximax creation scene's parts in the other menus, called by Character Reforged's skill table. Hook files.
+name = "all_miximaxed_scene"
+mod = "CharacterReforged"
+order = 975
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "All Miximaxed: the miximax creation scene's menu parts (A skips it, header bars hidden, the partner's model kept loaded)"
+
+# A skips the scene while it plays
+[[hooks]]
+stem = "event_menu"
+source = "scene_skip_hooks.lua"
+
+# the header, rank and guide lines hidden during the scene (CharacterReforged_MiximaxSceneBars, called by the skill table)
+[[hooks]]
+stem = "team_dock_common_top_menu"
+source = "scene_bars_hooks.lua"
+
+[[hooks]]
+stem = "soccer_top_menu"
+source = "scene_bars_hooks.lua"
+
+[[hooks]]
+stem = "kizuna_town_mainmenu"
+source = "scene_bars_hooks.lua"
+
+[[hooks]]
+stem = "chronicle_mode_top_menu"
+source = "scene_bars_hooks.lua"
+
+# the partner's 3D model kept loaded in the one-model view menu (CharacterReforged_MiximaxSceneModel*, called by the skill table)
+[[hooks]]
+stem = "chara_model_only_view_menu"
+source = "scene_model_hooks.lua"

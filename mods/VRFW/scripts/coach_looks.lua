@@ -1,18 +1,15 @@
--- Coach clothes rules (content/coach_looks/*.toml, schema VRFW.coach_look/1); native hook CoachLooks.CostumeLookup is installed only when a mod declares a rule.
--- While a rule holds (a game_state key is 1, a UI flag has one of its values, or always), a costume lookup without the coach/manager flags is re-run with the coach flag
--- for characters previously dressed under it, and that costume is returned when found.
---   CMND_VRFW_COACH_LOOK() -> active, live
 
 CoachLooks = CoachLooks or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
+local Memory = VRFW.memory
+local hex = VRFW.ids.hex_text
 
 local band, bor = bit32.band, bit32.bor
 local HOOK = "CoachLooks.CostumeLookup"
 local FLAG_COACH, FLAG_STAFF = 0x10, 0x30
 local MAX_FIX_LINES = 60
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("coach_looks")
 
 local RULES = {}         -- { key, states, flags, values (set | nil), always }
@@ -23,21 +20,11 @@ local coaches = {}
 local fix_lines = 0
 
 local function rd32(at)
-  if not at or at < 0x10000 then return 0 end
-  local ok, v = pcall(VRFW.mem.read, "u32", at)
-  if ok and v then return v end
-  return 0
+  return Memory.read("u32", at) or 0
 end
 
 local function wr32(at, v)
-  if not at or at < 0x10000 then return false end
-  return (pcall(VRFW.mem.write, "u32", at, v))
-end
-
--- "%08X" of a u32 (split in halves: Lua 5.2 on Windows formats through a 32-bit long)
-local function hex(v)
-  v = v or 0
-  return string.format("%04X%04X", math.floor(v / 65536) % 65536, v % 65536)
+  return Memory.write("u32", at, v)
 end
 
 local function holds(r)
@@ -66,8 +53,6 @@ local function active()
   return false
 end
 
--- ---- hook
-
 local function on_lookup_post(ev)
   local out, pchara, flags, puni = ev.args[1], ev.args[2], ev.args[3] or 0, ev.args[4]
   local f = band(flags, 0xFF)
@@ -87,8 +72,8 @@ local function on_lookup_post(ev)
   if not on then return nil end
   local uni = rd32(puni)
   if uni == 0 then uni = cuni end
-  local tmp = VRFW.mem.buffer("coach_looks.out", 32)
-  local unib = VRFW.mem.buffer("coach_looks.uniform", 8)
+  local tmp = VRFW.memory.buffer("coach_looks.out", 32)
+  local unib = VRFW.memory.buffer("coach_looks.uniform", 8)
   for i = 0, 28, 4 do wr32(tmp + i, 0) end
   wr32(unib, uni)
   local ok, r2 = pcall(VRFW.hook.original, HOOK, tmp, pchara, bor(flags, FLAG_COACH), unib)
@@ -101,14 +86,12 @@ local function on_lookup_post(ev)
   end
   if fix_lines < MAX_FIX_LINES then
     fix_lines = fix_lines + 1
-    VRFW.log(string.format("coach_looks: chara 0x%s flags 0x%02X uniform 0x%s (%s): coach lookup (uniform 0x%s) -> %d costume 0x%s%s",
+    VRFW.log(string.format("coach_looks: chara %s flags 0x%02X uniform %s (%s): coach lookup (uniform %s) -> %d costume %s%s",
       hex(chara), f, hex(rd32(puni)), rule.key, hex(uni), band(r2 or 0, 0xFF), hex(costume), fixed and ": coach clothes returned" or ": kept the player look"))
   end
   if fixed then return { ret = r2 } end
   return nil
 end
-
--- ---- declarations
 
 local function start()
   local schema, why = D.schema("coach_look")

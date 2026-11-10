@@ -1,58 +1,6 @@
--- menu_engine: the in-match settings window. A game-style list window a mod opens over
--- a match (or any menu): a title bar, rows «label      ‹ value ›», a highlighted row, a line of button hints. The
--- framework draws it and reads the input; the mod gives the rows and decides what a row does. Runs in every script VM
--- (lua\_all) but only defines the table VRFW_MatchPanel: nothing happens until a mod's Lua calls
--- VRFW_MatchPanel.open(spec) from a callback of a menu that has the panel's two layers (a mod adds them with [[patch]]
--- add_layer, objects of the framework's content\menus\match_panel.toml), then VRFW_MatchPanel.step() every frame of
--- that menu.
---
--- Look: the retail options screen's own sprites
--- (108_option: option01_23 the slanted list cells, their cyan focus frame and the arrow buttons; option01_02 the blue
--- title bar), so the window looks like the game's options list. A mod may pass its own sprites (`style`, below).
--- Values are drawn next to two arrow sprites, never with «<» «>» characters: the game's text markup reads those as a
--- tag and the value vanished (training field).
---
--- Layers (added by the host mod, never a retail object swapped):
---   vrfw_mp_plate  cmn01_10_new_icon quads re-skinned with the style's sprites, drawn in instance order: 0, 1 the
---                  window (twice: the retail cell is a 30 % black, too light over a running HUD), 2 .. ROWS_MAX + 1 the
---                  row cells, then the title bar, the hint strip, the focus fill, the focus frame and the two arrows
---                  (PLATES = ROWS_MAX + 8 = 28 instances)
---   vrfw_mp_label  the retail corner button's text node (cmn03_01_cmd_back, its plates hidden): 0 the title, 1 .. 4
---                  the hint segments, then two per row (label, value): LABELS = 5 + 2 x ROWS_MAX = 45 instances
--- Input: no menu controller is active over a paused match, so the window reads the game pad and the keyboard itself
--- (CMND_VRFW_INPUT_PAD / CMND_VRFW_INPUT_KEY): D-pad / arrows UP DOWN = row, LEFT RIGHT = change the value (held:
--- repeat), A / Enter = the row's action (a toggle flips, a list steps right), B / Esc / BACK (Select) = close.
--- Pause: `pause = true` holds the game's own pause while the window is open (CMND_VRFW_GAME_PAUSE), the previous state
--- back at close.
---
--- spec = {
---   id = "<mod>.<name>",                       -- log name
---   title = "text",                            -- shown on the title bar (already in the game's language)
---   hint = "text" | { "text", … },             -- the button hints under the rows (up to 4 segments, spread)
---   rows = function() return { { label = "text", value = "text", disabled = false, cycle = true }, … } end,
---   change = function(i, dir) end,             -- row i (1-based) LEFT (-1) / RIGHT (+1)
---   decide = function(i) end,                  -- row i A / Enter (default: change(i, 1))
---   closed = function(why) end,                -- "back" | "closed" | "error" | the mod's reason
---   style = { <part> = { "#/menu/…g4tx", "<sprite>" }, … },   -- parts: panel, row, title, hint, focus, frame,
---                                              -- arrow_l, arrow_r (a part left out: the retail default below); the
---                                              -- the old form { atlas, back, hover } still works (back = row, hover = focus)
---   pause = true,
---   width = 1040, row_h = 46, top = nil,       -- screen px (1920 x 1080); top nil = centred
--- }
--- TABLE MODE (a read-only list with columns and buttons, e.g. VRFW_OnlineCompat): spec.columns given.
---   columns = { { x = 0, w = 0.4 }, … },       -- each column's left edge and width, fractions of the inner width
---   head = { "text", … },                      -- the column titles (one row over the list, never scrolled)
---   rows = function() return { { cells = { "text", … } }, … } end,   -- any number: the list scrolls
---   visible = 12,                              -- rows shown at once (1 .. ROWS_MAX - 3)
---   buttons = { { label = "text", hint = "text", disabled = false }, … },   -- up to 2, under the list
---   press = function(i) end,                   -- button i (1-based) chosen with A / Enter
---   hint = "text",                             -- shown when no button hint is
--- Input: UP / DOWN scroll the list (held: repeat), LEFT / RIGHT pick the button, A press it, B / Esc = close("back").
--- Instances: the plates as above; the labels 1 + HINTS_MAX + #columns x (visible + 1) + #buttons
--- (VRFW_MatchPanel.labels_needed(spec)).
--- A row: `cycle ~= false`, not disabled and with a value = the focused row shows the two arrows around its value;
--- `value` nil = a label only (an action). Engine calls only from OnInit / Step / layer callbacks (nothing at chunk load).
-if VRFW_MatchPanel == nil then
+-- lua_patch.scope: used
+-- menu_engine: the in-match settings window.
+if VRFW.match_panel == nil then
   local MP = {
     ROWS_MAX = 20, HINTS_MAX = 4, REPEAT_WAIT = 18, REPEAT_EVERY = 5, OPEN_GUARD = 8, TEX_MAX = 300,
     LABEL_LEFT = -384, LABEL_MID_Y = 144,    -- the corner button's text node in its object (px)
@@ -61,7 +9,7 @@ if VRFW_MatchPanel == nil then
     open_now = false, spec = nil, sel = 1, rows = {}, prev = 0, prev_keys = {}, hold = 0, hold_dir = nil,
     guard = 0, paused_before = nil, tex = {}, tex_ok = false, tex_t = 0, logn = 0, drawn = false,
   }
-  VRFW_MatchPanel = MP
+  VRFW.match_panel = MP
 
   -- the retail options screen's sprites (data\dx11\menu\108_option): the default look
   local ATL_CELL = "#/menu/108_option/option01/option01_23/option01_23.g4tx"
@@ -85,7 +33,6 @@ if VRFW_MatchPanel == nil then
   local Q = 36                         -- cmn01_10 quad size
   local TEXT_NODE = 378327766          -- _text_cmd_back01
   local TEXT_MESHES = {298211823 --[[_cmd_back_base01]], 2853207670 --[[_cmd_back_base01_add]]}
-  -- plate instances (drawn in this order: later ones over earlier ones)
   local P_PANEL = 0                     -- and P_PANEL + 1
   local P_ROW0 = 2                      -- rows 1 .. ROWS_MAX
   local P_TITLE = MP.ROWS_MAX + 2
@@ -101,35 +48,35 @@ if VRFW_MatchPanel == nil then
   local T_ROW0 = 1 + MP.HINTS_MAX       -- row k: label T_ROW0 + 2 (k - 1), value + 1
   MP.LABELS = T_ROW0 + 2 * MP.ROWS_MAX
   local C = {
-    LOG = VRFW_Cmd.EVT_LOG, LAYER_NUM = VRFW_Cmd.GET_CREATE_LAYER_NUM, VISIBLE = VRFW_Cmd.SET_LAYER_VISIBLE, SCALE = VRFW_Cmd.SET_LAYER_LOCAL_SCALE, POS = VRFW_Cmd.SET_LAYER_LOCAL_POS,
-    SPRITE = 558735651, MESH_VISIBLE = VRFW_Cmd.SET_MESH_VISIBLE, TEXT = VRFW_Cmd.SET_MENU_TEXT_STRING, LOAD_TEX = VRFW_Cmd.LOAD_MENU_RES_TEXTURE, TEX_LOADING = 1506186496,
-    PAD = VRFW_Cmd.VRFW_INPUT_PAD, KEY = VRFW_Cmd.VRFW_INPUT_KEY,
-    PAUSE = VRFW_Cmd.VRFW_GAME_PAUSE,
-    SE = VRFW_Cmd.SND_PLAY_SE, SE_MOVE = 3848881948, SE_GO = 766561556 --[[sy0080]], SE_BACK = 202039849 --[[sy0006]],
+    LAYER_NUM = VRFW.commands.GET_CREATE_LAYER_NUM, VISIBLE = VRFW.commands.SET_LAYER_VISIBLE, SCALE = VRFW.commands.SET_LAYER_LOCAL_SCALE, POS = VRFW.commands.SET_LAYER_LOCAL_POS,
+    SPRITE = 558735651, MESH_VISIBLE = VRFW.commands.SET_MESH_VISIBLE, TEXT = VRFW.commands.SET_MENU_TEXT_STRING, LOAD_TEX = VRFW.commands.LOAD_MENU_RES_TEXTURE, TEX_LOADING = 1506186496,
+    PAD = VRFW.commands.VRFW_INPUT_PAD, KEY = VRFW.commands.VRFW_INPUT_KEY,
+    PAUSE = VRFW.commands.VRFW_GAME_PAUSE,
+    SE = VRFW.commands.SND_PLAY_SE, SE_MOVE = 3848881948, SE_GO = 766561556 --[[sy0080]], SE_BACK = 202039849 --[[sy0006]],
     SE_NO = 2086672038 --[[sy0003]],
   }
   -- the game pad (Steam / PS layout masks of vr_sigs::input) and the Windows virtual keys
   local PAD = {BACK = 0x1, UP = 0x10, RIGHT = 0x20, DOWN = 0x40, LEFT = 0x80, B = 0x2000, A = 0x4000}
   local VK = {UP = 0x26, DOWN = 0x28, LEFT = 0x25, RIGHT = 0x27, ENTER = 0x0D, ESC = 0x1B, BACKSPACE = 0x08}
 
+  local logger
   local function Log(...)
     if MP.logn >= 80 then return end
     MP.logn = MP.logn + 1
-    local p = {}
-    for i = 1, select("#", ...) do p[#p + 1] = tostring((select(i, ...))) end
-    pcall(funcLuaCommand, C.LOG, "VRFW match_panel " .. tostring(MP.spec and MP.spec.id) .. " " .. table.concat(p, " "))
+    logger = logger or VRFW.logger.new("VRFW match_panel")
+    logger(tostring(MP.spec and MP.spec.id), ...)
   end
 
-  local function M(...)
-    local r = table.pack(pcall(funcLuaMenuCommand, ...))
-    if not r[1] then return nil end
-    return table.unpack(r, 2, r.n)
+  local function Call(fn, ...)
+    if type(fn) ~= "function" then return end
+    local ok, err = pcall(fn, ...)
+    if not ok then Log("callback error", tostring(err)) end
   end
 
   local function Se(id) pcall(funcLuaCommand, C.SE, id) end
 
   local function Count(layer)
-    local n = M(C.LAYER_NUM, layer)
+    local n = VRFW.host.menu_command(C.LAYER_NUM, layer)
     return type(n) == "number" and n or 0
   end
 
@@ -154,42 +101,40 @@ if VRFW_MatchPanel == nil then
   end
 
   local function HideQuad(idx)
-    M(C.VISIBLE, L_PLATE, idx, false)
-    M(C.POS, L_PLATE, -4000, 4000, 0, idx)
+    VRFW.host.menu_command(C.VISIBLE, L_PLATE, idx, false)
+    VRFW.host.menu_command(C.POS, L_PLATE, -4000, 4000, 0, idx)
   end
 
-  -- a quad of `part` centred at (x, y), w x h screen px (hidden until the style's atlases are loaded: a quad without
-  -- its sprite would show the retail red «new» badge stretched)
   local function Quad(idx, part, x, y, w, h)
     local sp = part and MP.style and MP.style[part]
     if sp == nil or not MP.tex_ok then return HideQuad(idx) end
-    M(C.VISIBLE, L_PLATE, idx, true)
-    M(C.SCALE, L_PLATE, w / Q, h / Q, 1, idx)
-    M(C.SPRITE, L_PLATE, CRC32(sp[1]), CRC32(sp[2]), NODE_QUAD, 0, idx)
-    M(C.POS, L_PLATE, x, -y, 0, idx)
+    VRFW.host.menu_command(C.VISIBLE, L_PLATE, idx, true)
+    VRFW.host.menu_command(C.SCALE, L_PLATE, w / Q, h / Q, 1, idx)
+    VRFW.host.menu_command(C.SPRITE, L_PLATE, CRC32(sp[1]), CRC32(sp[2]), NODE_QUAD, 0, idx)
+    VRFW.host.menu_command(C.POS, L_PLATE, x, -y, 0, idx)
   end
 
   -- a text at (x = its left edge, y = its centre line), or hidden
   local function Text(idx, s, x, y, scale)
     if idx >= Count(L_LABEL) then return end
     if type(s) ~= "string" or s == "" then
-      M(C.VISIBLE, L_LABEL, idx, false)
-      M(C.POS, L_LABEL, -4000, 4000, 0, idx)
+      VRFW.host.menu_command(C.VISIBLE, L_LABEL, idx, false)
+      VRFW.host.menu_command(C.POS, L_LABEL, -4000, 4000, 0, idx)
       return
     end
     scale = scale or MP.SCALE_ROW
-    for _, m in ipairs(TEXT_MESHES) do M(C.MESH_VISIBLE, L_LABEL, m, false, idx) end
-    M(C.TEXT, L_LABEL, TEXT_NODE, s, idx)
-    M(C.SCALE, L_LABEL, scale, scale, 1, idx)
-    M(C.POS, L_LABEL, x - MP.LABEL_LEFT * scale, -y - MP.LABEL_MID_Y * scale, 0, idx)
-    M(C.VISIBLE, L_LABEL, idx, true)
+    for _, m in ipairs(TEXT_MESHES) do VRFW.host.menu_command(C.MESH_VISIBLE, L_LABEL, m, false, idx) end
+    VRFW.host.menu_command(C.TEXT, L_LABEL, TEXT_NODE, s, idx)
+    VRFW.host.menu_command(C.SCALE, L_LABEL, scale, scale, 1, idx)
+    VRFW.host.menu_command(C.POS, L_LABEL, x - MP.LABEL_LEFT * scale, -y - MP.LABEL_MID_Y * scale, 0, idx)
+    VRFW.host.menu_command(C.VISIBLE, L_LABEL, idx, true)
   end
 
   local function HideAll()
     for i = 0, Count(L_PLATE) - 1 do HideQuad(i) end
     for i = 0, Count(L_LABEL) - 1 do
-      M(C.VISIBLE, L_LABEL, i, false)
-      M(C.POS, L_LABEL, -4000, 4000, 0, i)
+      VRFW.host.menu_command(C.VISIBLE, L_LABEL, i, false)
+      VRFW.host.menu_command(C.POS, L_LABEL, -4000, 4000, 0, i)
     end
     MP.drawn = false
   end
@@ -242,11 +187,11 @@ if VRFW_MatchPanel == nil then
     return out
   end
 
-  -- a cell's text cut to its column (VRFW_Text.Fit when present)
+  -- a cell's text cut to its column (VRFW.text_fold.fit when present)
   local function Fit(s, px, scale)
     s = tostring(s or "")
-    if type(VRFW_Text) == "table" and type(VRFW_Text.Fit) == "function" then
-      local ok, t = pcall(VRFW_Text.Fit, s, px, 32 * scale)
+    if type(VRFW.text_fold) == "table" and type(VRFW.text_fold.fit) == "function" then
+      local ok, t = pcall(VRFW.text_fold.fit, s, px, 32 * scale)
       if ok and type(t) == "string" then return t end
     end
     return s
@@ -449,15 +394,15 @@ if VRFW_MatchPanel == nil then
     end
   end
 
-  -- the pad's held mask (-1 = not resolved) and the keys, as one set of «buttons» this frame
+  -- the pad's held mask (-1 = not resolved) and the keys, as one set of "buttons" this frame
   local function Buttons()
     local ok, held = pcall(funcLuaCommand, C.PAD)
     held = (ok and type(held) == "number" and held >= 0) and held or 0
     local b = {}
     local function pad(m) return math.floor(held / m) % 2 == 1 end
     local function key(vk)
-      local okk, v = pcall(funcLuaCommand, C.KEY, vk)
-      return okk and v == true
+      local v = VRFW.host.command(C.KEY, vk)
+      return v == true
     end
     b.up = pad(PAD.UP) or key(VK.UP)
     b.down = pad(PAD.DOWN) or key(VK.DOWN)
@@ -468,23 +413,17 @@ if VRFW_MatchPanel == nil then
     return b
   end
 
-  local function Call(fn, ...)
-    if type(fn) ~= "function" then return end
-    local ok, err = pcall(fn, ...)
-    if not ok then Log("callback error", tostring(err)) end
-  end
-
   -- public -----------------------------------------------------------------------------------------------------------
 
+  --- True while the panel is open.
   function MP.is_open() return MP.open_now end
 
-  -- the two layers open with their menu's group: the host hides their instances once when the menu opens (the quads
-  -- would show the retail «new» icon, the texts the corner button)
+  --- Hides the panel's parts while it is closed.
   function MP.hide()
     if not MP.open_now then HideAll() end
   end
 
-  -- labels a spec needs (table mode: title, hints, the cells of the head and visible rows, the buttons)
+  --- Labels a spec needs (table mode: title, hints, the cells of the head and visible rows, the buttons).
   function MP.labels_needed(spec)
     if type(spec) ~= "table" or type(spec.columns) ~= "table" then return MP.LABELS end
     local vis = math.max(1, math.min(tonumber(spec.visible) or 12, MP.ROWS_MAX - 3))
@@ -492,20 +431,21 @@ if VRFW_MatchPanel == nil then
     return T_ROW0 + #spec.columns * (vis + 1) + nb
   end
 
-  -- the host menu has the two layers (a mod's [[patch]] add_layer) with enough instances (for `spec`, if given)
+  --- The host menu has the two layers (a mod's [[patch]] add_layer) with enough instances (for `spec`, if given).
   function MP.available(spec)
     return Count(L_PLATE) >= MP.PLATES and Count(L_LABEL) >= MP.labels_needed(spec)
   end
 
+  --- Opens the panel with spec; answers true, or false, why.
   function MP.open(spec)
-    if MP.open_now then return false end
-    if type(spec) ~= "table" or type(spec.rows) ~= "function" then return false end
+    if MP.open_now then return false, "already open" end
+    if type(spec) ~= "table" or type(spec.rows) ~= "function" then return false, "a spec with rows expected" end
     MP.spec = spec
     if not MP.available(spec) then
       Log("refused: the host menu needs the layers vrfw_mp_plate x" .. MP.PLATES .. " / vrfw_mp_label x" .. MP.labels_needed(spec) ..
         " (has " .. Count(L_PLATE) .. " / " .. Count(L_LABEL) .. ")")
       MP.spec = nil
-      return false
+      return false, "the host menu lacks the panel layers"
     end
     MP.open_now, MP.sel, MP.guard, MP.hold, MP.hold_dir = true, 1, MP.OPEN_GUARD, 0, nil
     MP.first, MP.button = 1, 1
@@ -515,7 +455,7 @@ if VRFW_MatchPanel == nil then
     for _, k in ipairs(PARTS) do
       local a = MP.style[k][1]
       if MP.tex[a] == nil then
-        M(C.LOAD_TEX, a)
+        VRFW.host.menu_command(C.LOAD_TEX, a)
         MP.tex[a] = CRC32(a)
       end
     end
@@ -526,6 +466,7 @@ if VRFW_MatchPanel == nil then
     return true
   end
 
+  --- Closes the panel; `why` goes to its close callback.
   function MP.close(why)
     if not MP.open_now then return end
     MP.open_now, MP.suspended = false, nil
@@ -537,8 +478,7 @@ if VRFW_MatchPanel == nil then
     if s ~= nil then Call(s.closed, why or "closed") end
   end
 
-  -- another window over this one (a mod's picker, e.g. VRFW_EmblemGrid with input = "pad"): the window is hidden
-  -- and its input stops, the pause stays; `title` (optional) stays shown on top. suspend(false) draws it again.
+  --- Suspends the panel (on) or resumes it; `title` shows while suspended.
   function MP.suspend(on, title)
     if not MP.open_now then return end
     MP.suspended = on and true or nil
@@ -552,11 +492,12 @@ if VRFW_MatchPanel == nil then
     end
   end
 
-  -- the rows changed outside (a mod's own state): read and draw them again
+  --- The rows changed outside (a mod's own state): read and draw them again.
   function MP.refresh()
     if MP.open_now then Refresh() end
   end
 
+  --- One frame of the open panel.
   function MP.step()
     if not MP.open_now or MP.suspended then return end
     if not MP.tex_ok then

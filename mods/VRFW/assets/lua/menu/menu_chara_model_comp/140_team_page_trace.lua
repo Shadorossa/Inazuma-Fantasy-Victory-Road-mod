@@ -1,23 +1,16 @@
--- menu_engine: a 3D model view (menu_chara_model_comp) while a team page or foreign team dock is open (the team
--- editor's cross-menu param VRFW_team_editor_foreign, read here without the team editor library): its setup, camera
--- registration, first model and end logged once each per component, so the log shows how many model views are up and
--- which one takes the menu camera. Wrappers by assignment (the script has
--- no VRFW_Host host); no engine call at load.
-if VRFW_TeamPageModelTrace == nil and type(Setup) == "function" and type(End) == "function" then
-  local T = { LOG = VRFW_Cmd.EVT_LOG, logged = {}, id = tostring({}):match("%x+$") or "?" }
-  VRFW_TeamPageModelTrace = T
+if VRFW.team_page_model_trace == nil and type(Setup) == "function" and type(End) == "function" then
+  local T = { id = tostring({}):match("%x+$") or "?" }
+  VRFW.team_page_model_trace = T
 
   local function team_page()
-    T.foreign = T.foreign or VRFW_Crc32("VRFW_team_editor_foreign")
-    return VRFW_Param.Has(T.foreign)
+    T.foreign = T.foreign or VRFW.crc32("VRFW_team_editor_foreign")
+    return VRFW.param.has(T.foreign)
   end
 
+  local log = VRFW.logger.new("VRFW team editor")
   local function log_once(step, ...)
-    if T.logged[step] or not team_page() then return end
-    T.logged[step] = true
-    local parts = { "model view", T.id .. ":", step }
-    for i = 1, select("#", ...) do parts[#parts + 1] = tostring((select(i, ...))) end
-    pcall(funcLuaCommand, T.LOG, "VRFW team editor", table.concat(parts, " "))
+    if not team_page() then return end
+    log.once(step, "model view", T.id .. ":", step, ...)
   end
 
   local setup = Setup

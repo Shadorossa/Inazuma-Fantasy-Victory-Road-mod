@@ -1,6 +1,4 @@
--- vs_route_town_vs_team_menu: the player's side of the Chronicle VS screen (graft.toml). Two retail drawers:
--- SetFormation (a team row: a Chronicle battle, also a node's forced own team, Cronica.OwnTeam) and
--- SetTeamDockFormation (the VS dock's 11-a-side team). Each one runs as retail, then VRFW_VSF.Apply.
+-- SetTeamDockFormation (the VS dock's 11-a-side team). Each one runs as retail, then VRFW.small_format.apply.
 do
 @COMMON@
   local vrfw_vsf_set_formation = SetFormation
@@ -15,7 +13,7 @@ do
           used[p] = true
         end
       end
-      VRFW_VSF.Apply(used, a5, a6, a7, VRFW_VSF.LEADER_BLANK, "own team row")
+      VRFW.small_format.apply(used, a5, a6, a7, VRFW.small_format.LEADER_BLANK, "own team row")
     end
     return table.unpack(r, 1, r.n)
   end
@@ -35,7 +33,7 @@ do
           end
         end
       end
-      VRFW_VSF.Apply(used, a2, a3, a4, VRFW_VSF.LEADER_BLANK, "own dock")
+      VRFW.small_format.apply(used, a2, a3, a4, VRFW.small_format.LEADER_BLANK, "own dock")
     end
     return table.unpack(r, 1, r.n)
   end

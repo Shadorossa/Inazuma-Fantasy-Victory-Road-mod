@@ -1,11 +1,3 @@
-# VRFW: the match challenge label of the Chronicle board's command menu (docs/framework/match-challenge.md §4;
-# Lua assets\lua\menu\vs_route_town_command_select_menu\110_match_challenge.lua). While a row with a match challenge
-# is focused, one line under the battle-kind list says the challenge's condition, blue when the active dock meets it
-# and red when not.
-#   vrfw_mc_text  1 x vrfw_mc_label: a copy of the board's own row (vsroute01_16_sub_list), so the line has the rows'
-#                 text style and size; without its pointer zone and its attach rows (cursor, lock): only its text shows
-#                 (the Lua hides the rest).
-# Not opened with the group: the Lua opens it on the first draw.
 schema = "VRFW.menu/2"
 
 [[object]]

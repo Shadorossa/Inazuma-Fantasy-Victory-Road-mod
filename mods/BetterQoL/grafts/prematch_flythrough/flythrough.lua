@@ -1,108 +1,95 @@
 -- ===== EVT prematch_flythrough BEGIN =====
--- Pre-match stadium fly-through (docs/game/media/camaras-fifa.md §6; mod BetterQoL, feature camera). While
--- soccer_formation_menu is open before kick-off (native SetupOpenFromBeforeSoccerStart) the soccer camera cycles
--- through the fixed-position shots UTIL_CAM_SHOTS (SOCCER_FIX_POS_CAMERA_INFO rows of BetterQoL's
--- base_tables/common/gamedata/soccer/soccer_camera_config.toml) with the retail CMND_CHANGE_SOCCER_CAMERA_TYPE(21, 0,
--- 0, 0, id) (= SetFixPosSoccerCamera of the match triggers). Each row dollies by itself (moveVecOffset / offsetLength /
--- offsetTime); the Lua only cuts to the next shot every UTIL_CAM_SHOT_S seconds. The retail chase camera comes back
--- (type 0 + CMND_CAMERA_RESET) when the screen really closes. Inazuma Fantasy's prematch_lineups (opponent view on the
--- same screen, EVT_PmSkipEditorOn / EVT_PmEnemyOn) may wrap the same callbacks before or after this block: the close
--- wrapper stops the shots only after a close that did not leave the opponent view on screen. Offline only; half-time
--- / pause openings have no "before soccer start" callback and are untouched.
-UTIL_PREMATCH_FLYTHROUGH = true           -- false = retail static camera behind the lineup screen
-UTIL_CAM_SHOT_S = 7.0                     -- seconds per shot (< offsetTime 8 s of the rows, so a dolly never stops)
-UTIL_CAM_SHOTS = {
+BetterQoL = BetterQoL or {}
+BetterQoL.flythrough = BetterQoL.flythrough or {}
+BetterQoL.flythrough.SHOT_S = 7.0
+BetterQoL.flythrough.SHOTS = {
   2638571594 --[[evt_cam_fly_01: high side stand, tracking along the touchline]],
   72104432 --[[evt_cam_fly_02: low behind the goal, sliding sideways]],
   1934297446 --[[evt_cam_fly_03: aerial over the far goal, descending]],
   3979320517 --[[evt_cam_fly_04: corner, closing in on the centre circle]],
 }
-if UTIL_CAM_WRAPPED == nil then
-  UTIL_CAM_WRAPPED = {}
+if BetterQoL.flythrough.WRAPPED == nil then
+  BetterQoL.flythrough.WRAPPED = {}
 end
-utilCamFly = false                        -- fly-through running (this lua_State only)
-utilCamShot = 0                           -- index of the current shot (1..#UTIL_CAM_SHOTS)
-utilCamT = 0                              -- seconds since the current shot started
-utilCamSet = false                        -- a fixed camera was set: the chase camera must be restored
-function UTIL_CamLog(...)
-  pcall(funcLuaCommand, @crc:CMND_EVT_LOG@, ...)
+betterqolCamFly = false                        -- fly-through running (this lua_State only)
+betterqolCamShot = 0
+betterqolCamT = 0
+betterqolCamSet = false
+function BetterQoL.flythrough.log(...)
+  pcall(funcLuaCommand, @crc:CMND_VRFW_LOG@, ...)
 end
-function UTIL_CamOnline()                 -- network match / observer: never change anything
+function BetterQoL.flythrough.online()                 -- network match / observer: never change anything
   return funcLuaCommand(3959907440) == true or funcLuaCommand(1191545622) == true
 end
-function UTIL_CamWrap(name, make)         -- wrap a global once (never a wrapper of ours twice)
+function BetterQoL.flythrough.wrap(name, make)         -- wrap a global once (never a wrapper of ours twice)
   local cur = _ENV[name]
-  if type(cur) ~= "function" or UTIL_CAM_WRAPPED[cur] then
+  if type(cur) ~= "function" or BetterQoL.flythrough.WRAPPED[cur] then
     return false
   end
   local w = make(cur)
-  UTIL_CAM_WRAPPED[w] = true
+  BetterQoL.flythrough.WRAPPED[w] = true
   _ENV[name] = w
   return true
 end
-function UTIL_CamStart()
-  if not UTIL_PREMATCH_FLYTHROUGH or #UTIL_CAM_SHOTS == 0 or UTIL_CamOnline() then
+function BetterQoL.flythrough.start()
+  if #BetterQoL.flythrough.SHOTS == 0 or BetterQoL.flythrough.online() then
     return
   end
-  if type(EVT_PmSkipEditorOn) == "function" and EVT_PmSkipEditorOn() then
-    UTIL_CamLog("UTIL camera: pre-match editor skipped (prematch_lineups) -> no fly-through")
-    return
-  end
-  utilCamFly = true
-  utilCamShot = 0
-  utilCamT = UTIL_CAM_SHOT_S               -- the first PostStep cuts to shot 1 at once
-  UTIL_CamLog("UTIL camera: pre-match fly-through start", "shots", #UTIL_CAM_SHOTS, "seconds", UTIL_CAM_SHOT_S)
+  betterqolCamFly = true
+  betterqolCamShot = 0
+  betterqolCamT = BetterQoL.flythrough.SHOT_S               -- the first PostStep cuts to shot 1 at once
+  BetterQoL.flythrough.log("BetterQoL camera: pre-match fly-through start", "shots", #BetterQoL.flythrough.SHOTS, "seconds", BetterQoL.flythrough.SHOT_S)
 end
-function UTIL_CamNext()
-  utilCamShot = utilCamShot % #UTIL_CAM_SHOTS + 1
-  utilCamT = 0
-  local id = UTIL_CAM_SHOTS[utilCamShot]
+function BetterQoL.flythrough.next()
+  betterqolCamShot = betterqolCamShot % #BetterQoL.flythrough.SHOTS + 1
+  betterqolCamT = 0
+  local id = BetterQoL.flythrough.SHOTS[betterqolCamShot]
   local ok = funcLuaCommand(@crc:CMND_CHANGE_SOCCER_CAMERA_TYPE@, 21, 0, 0, 0, id)
-  utilCamSet = true
-  UTIL_CamLog("UTIL camera: shot", utilCamShot, id, ok)
+  betterqolCamSet = true
+  BetterQoL.flythrough.log("BetterQoL camera: shot", betterqolCamShot, id, ok)
 end
-function UTIL_CamTick()
-  if not utilCamFly then
+function BetterQoL.flythrough.tick()
+  if not betterqolCamFly then
     return
   end
-  utilCamT = utilCamT + funcLuaCommand(1549797111)   -- frame delta, seconds (retail menu timers)
-  if utilCamT >= UTIL_CAM_SHOT_S then
-    UTIL_CamNext()
+  betterqolCamT = betterqolCamT + funcLuaCommand(1549797111)   -- frame delta, seconds (retail menu timers)
+  if betterqolCamT >= BetterQoL.flythrough.SHOT_S then
+    BetterQoL.flythrough.next()
   end
 end
-function UTIL_CamStop(why)
-  if not utilCamFly then
+function BetterQoL.flythrough.stop(why)
+  if not betterqolCamFly then
     return
   end
-  utilCamFly = false
-  if utilCamSet then
-    utilCamSet = false
+  betterqolCamFly = false
+  if betterqolCamSet then
+    betterqolCamSet = false
     funcLuaCommand(@crc:CMND_CHANGE_SOCCER_CAMERA_TYPE@, 0, 0, 0, 0)   -- retail chase camera
-    funcLuaCommand(@crc:CMND_CAMERA_RESET@, true)                       -- as prog_common.ReserveBallGet
+    funcLuaCommand(@crc:CMND_CAMERA_RESET@, true)
   end
-  UTIL_CamLog("UTIL camera: fly-through stop", why)
+  BetterQoL.flythrough.log("BetterQoL camera: fly-through stop", why)
 end
-UTIL_CamWrap("SetupOpenFromBeforeSoccerStart", function(orig)
+BetterQoL.flythrough.wrap("SetupOpenFromBeforeSoccerStart", function(orig)
   return function(...)
     local r = orig(...)
-    UTIL_CamStart()
+    BetterQoL.flythrough.start()
     return r
   end
 end)
-UTIL_CamWrap("CloseFormationMenu", function(orig)
+BetterQoL.flythrough.wrap("CloseFormationMenu", function(orig)
   return function(...)
-    local live = utilCamFly and IsEnableProcStateEvent()   -- the retail close returns early otherwise; keep flying then
+    local live = betterqolCamFly and IsEnableProcStateEvent()   -- the retail close returns early otherwise; keep flying then
     local r = table.pack(orig(...))
-    -- prematch_lineups (inner wrapper) may turn this close into its opponent view: keep flying behind it
-    if live and not (type(EVT_PmEnemyOn) == "function" and EVT_PmEnemyOn()) then
-      UTIL_CamStop("close")
+    -- The close may have turned into the opponent view.
+    if live and not ((BetterUI ~= nil and BetterUI.prematch ~= nil and type(BetterUI.prematch.enemy_on) == "function") and BetterUI.prematch.enemy_on()) then
+      BetterQoL.flythrough.stop("close")
     end
     return table.unpack(r, 1, r.n)
   end
 end)
-local UTIL_Cam_PostStep_prev = PostStep
+local BETTERQOL_Cam_PostStep_prev = PostStep
 function PostStep()
-  UTIL_Cam_PostStep_prev()
-  UTIL_CamTick()
+  BETTERQOL_Cam_PostStep_prev()
+  BetterQoL.flythrough.tick()
 end
 -- ===== EVT prematch_flythrough END =====

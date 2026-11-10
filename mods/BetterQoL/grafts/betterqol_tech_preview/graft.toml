@@ -1,0 +1,25 @@
+# BetterQoL: RS on a special move card of the ability list plays its cut-in full screen.
+name = "betterqol_tech_preview"
+mod = "BetterQoL"
+order = 330
+module = "lua_patch"
+requires = []
+conflicts = []
+wraps = ["UpdateSkillDetailWindow", "OnChangeFocus", "OnSetupLayer", "OnFunction", "Step"]
+description = "BetterQoL: special move cut-in preview from the ability list"
+
+[[files]]
+stem = "ability_list_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "betterqol_tp_card.lua"
+  marker = "betterqol_tech_preview"
+
+[[files]]
+stem = "ability_list_menu_on_bluebg"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "betterqol_tp_card.lua"
+  marker = "betterqol_tech_preview"

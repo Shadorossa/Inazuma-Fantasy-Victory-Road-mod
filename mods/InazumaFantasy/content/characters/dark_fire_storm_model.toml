@@ -1,5 +1,4 @@
 schema = "VRFW.character/2"
-# The giant of Tormenta de fuego oscura (contenteffectsdark_fire_storm.toml): the game finds a `_waza` model through its chara_base row (id = crc32(name)) and that row's chara_model row.
 default_lang = "en"
 
 [[character]]

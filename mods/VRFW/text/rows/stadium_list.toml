@@ -1,5 +1,3 @@
-# Texts of the stadium list pages (menu_text rows, 9 languages): the first and last row of a page when the list of a
-# stadium picker is longer than one window (assets\lua\menu\_all\69_stadium_pages.lua).
 
 schema = "VRFW.text/2"
 table = "menu_text"

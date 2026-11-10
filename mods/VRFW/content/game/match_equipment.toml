@@ -1,8 +1,5 @@
 schema = "VRFW.game/2"
 
-# The match equipment (scripts\lib\match_equipment.lua): the passive engine gives the rival players the equipment a mod
-# declares for their match (content\match_equipment\*.toml). These are the two blocks the library reads.
-
 # The match info block [[g_gameRoot]+Game.RootMatch] (MatchInfo.Game, MatchInfo.Difficulty).
 [[VRFW.Global]]
 name = "match_equipment_info"

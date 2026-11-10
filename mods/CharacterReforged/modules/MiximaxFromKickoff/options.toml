@@ -1,0 +1,12 @@
+schema = "VRFW.option/2"
+# The module's row on the Mods screen's «Ajustes» and in Options > «Mod options».
+
+# Gates content\extra_slots\start_in_form.toml, which the extra slot service reads once per start.
+[[option]]
+id = "start_in_form"                           # row key MiximaxFromKickoff.start_in_form
+type = "toggle"
+label = "option_start_in_form"                 # text\keys.toml, 9 languages
+help = "option_start_in_form_help"
+default = 1
+order = 148
+restart = true

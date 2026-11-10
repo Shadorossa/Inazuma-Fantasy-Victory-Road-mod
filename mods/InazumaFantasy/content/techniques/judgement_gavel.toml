@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Mazo del juez (Judgement Gavel): the download's move whd92004, a clone of whd10110 with its numbers; its event ev62_92004 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "judgement_gavel"

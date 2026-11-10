@@ -1,6 +1,4 @@
 schema = "VRFW.look/2"
-# Arion Sherwind's Inazuma Fantasy uniform: an outfit of the game's Arion Sherwind (content/items/arion_sherwind_uniform.toml,
-# the «Atuendo» row of «Equipamiento»). Files: content/models/kits/u90400080.toml, the cap content/models/items/i90400081.toml.
 
 # the uniform (shirt, trousers and boots in one mesh), fitted to Arion's body (body variant 0, as c000101)
 [[clothes]]
@@ -23,7 +21,6 @@ from = 0x252CE113
   fielder = "u90400080"
   keeper = "u90400080"
 
-# the military cap: an extra mesh (content/models/items/i90400081.toml), the exmesh_1 of content/characters/arion_military_cap.toml
 [[exmesh]]
 model = "i90400081"
 rows = [

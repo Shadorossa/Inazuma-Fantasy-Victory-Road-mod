@@ -1,10 +1,8 @@
-# Technique Cut-in Skip: its settings (read by scripts\cutin_skip.lua at each press).
+# Technique Cut-in Skip settings, read at each press.
 
 [cutin_skip]
-# Event name prefixes it applies to: shot, dribble, defence and keeper techniques. Transform, Keshin, Armed and Miximax
-# cut-ins (ev80_ to ev85_, their commit runs after them) and the keeper-gauge scenes of basic catches are not listed.
-events = ["ev60_", "ev61_", "ev62_", "ev63_"]
-# Prefixes it never applies to: the technique preview slots of the menus.
+# Event name prefixes it applies to: techniques (ev60_ to ev63_) and Keshin, Armed, Miximax and transformation cut-ins (ev80_ to ev85_).
+events = ["ev60_", "ev61_", "ev62_", "ev63_", "ev80_", "ev81_", "ev82_", "ev83_", "ev84_", "ev85_"]
+# Prefixes it never applies to: the menus' technique preview slot.
 not_events = ["ev60_9999"]
-# Seconds of the cut-in that must have played before a press counts.
 min_seconds = 0.25

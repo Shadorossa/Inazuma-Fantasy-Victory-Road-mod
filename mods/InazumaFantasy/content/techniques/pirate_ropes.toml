@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Lianas pirata (Pirate Ropes): the download's move whs90004, a clone of whs00330 with its numbers; its event ev60_90004 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "pirate_ropes"

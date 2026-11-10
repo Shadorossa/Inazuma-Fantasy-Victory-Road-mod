@@ -1,4 +1,4 @@
-# Declaration schema of VRFW.redeem_code/1 (content\redeem_codes\**\*.toml; docs/framework/types/redeem_code.md): [[VRFW.RedeemCode]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+# Declaration schema of VRFW.redeem_code/1 (content\redeem_codes\**\*.toml; docs/internal/types/redeem_code.md): [[VRFW.RedeemCode]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.redeem_code/1"
 folder = "content/redeem_codes"

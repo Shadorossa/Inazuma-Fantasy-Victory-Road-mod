@@ -1,0 +1,15 @@
+schema = "VRFW.migration/1"
+id = "InazumaFantasy.desmodus_card_moved"
+description = "Players owning the Desmodus Drakul Idol keep him on his new card id (only the player rows move; the game's save allows several rows of one card)"
+phase = "game_save"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE_*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["param_id_crc", "captainParamId"]
+from = "h2_para_c01001900"
+to = "h2_para_c06038020"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"

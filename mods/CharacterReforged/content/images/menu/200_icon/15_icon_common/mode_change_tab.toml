@@ -1,0 +1,22 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/200_icon/character_reforged_own/character_reforged_change_icon_common.g4tx"
+name = "character_reforged_change_icon_common"
+size = [292, 96]
+
+[[sprite]]
+atlas = "#/menu/200_icon/character_reforged_own/character_reforged_change_icon_common.g4tx"
+name = "cr_mode_change_tab_on"
+texture = "character_reforged_change_icon_common"
+x = 148
+y = 0
+png = "mode_change_tab/cr_mode_change_tab_on.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/character_reforged_own/character_reforged_change_icon_common.g4tx"
+name = "cr_mode_change_tab_off"
+texture = "character_reforged_change_icon_common"
+x = 0
+y = 0
+png = "mode_change_tab/cr_mode_change_tab_off.png"

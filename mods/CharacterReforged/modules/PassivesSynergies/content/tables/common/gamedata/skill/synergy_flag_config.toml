@@ -1,0 +1,198 @@
+schema = "VRFW.table/1"
+table = "skill/synergy_flag"
+
+[[add]]
+key = "sf11001"
+from = "sf10001"
+cells = { REF_EFFECT = { set = [
+  { effect = -1473100456, value = 3, flag_9 = 1 },
+  { effect = 911659259, value = 4, flag_9 = 1 },
+  { effect = -1611085049, value = 2, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = 301359785 },   # Ted Autumn
+  { chara = 801048994 },   # Alan Sumner
+  { chara = 1320565835 },   # Verne Spring
+  { chara = -277304390 },   # George Winters
+] } }
+
+[[set]]
+key = "sf08001"
+cells = { REF_EFFECT = { set = [
+  { effect = 1071684816, value = 6, flag_9 = 1 },
+  { effect = 411529189, value = 3, flag_9 = 0 },
+] } }
+
+[[add]]
+key = "sf11002"
+from = "sf10001"
+cells = { REF_EFFECT = { set = [
+  { effect = -1473100456, value = 2, flag_9 = 1 },
+  { effect = 911659259, value = 3, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = 532942127 },    # Dave Quagmire c03030070
+  { chara = 1461484648 },   # Caleb Stonewall c06039230
+] } }
+
+[[add]]
+key = "sf11003"
+from = "sf10001"
+cells = { REF_EFFECT = { set = [
+  { effect = -2121384353, value = 4, flag_9 = 1 },
+  { effect = 411529189, value = 3, flag_9 = 1 },
+  { effect = -1611085049, value = 2, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = 384621588 },    # Fei c05020110
+  { chara = -1337842964 },  # Zanark c05021500
+] } }
+
+[[add]]
+key = "sf11004"
+from = "sf10001"
+cells = { REF_EFFECT = { set = [
+  { effect = 911659259, value = 4, flag_9 = 1 },
+  { effect = -1352695487, value = 3, flag_9 = 1 },
+  { effect = -1611085049, value = 2, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = -216967689 },   # Uno Blackley c04015030
+  { chara = -1135557840 },  # Due Blackley c04015040
+  { chara = 854605392 },    # Tre Blackley c04011140
+  { chara = -1521749391 },  # Quattro Blackley c04015050
+  { chara = -1905876558 },  # Cinque Blackley c04015060
+] } }
+
+[[add]]
+key = "sp11001"
+from = "sp09003"
+cells = { REF_EFFECT = { set = [
+  { effect = -665275945, value = 5, flag_9 = 1 },
+  { effect = -550144562, value = 2, flag_9 = 1 },
+  { effect = 2017519104, value = 5, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = -1753378573 },  # Eins Whitely c04015070
+  { chara = 283479100 },    # Zwei Whitely c04015080
+  { chara = -1234605553 },  # Drei Whitely c04010960
+  { chara = 167689597 },    # Vier Whitely c04015090
+  { chara = -637637629 },   # Fünf Whitely c04015100
+] } }
+
+[[add]]
+key = "sp11002"
+from = "sp09003"
+cells = { REF_EFFECT = { set = [
+  { effect = -665275945, value = 5, flag_9 = 1 },
+  { effect = -1352695487, value = 3, flag_9 = 1 },
+  { effect = 2017519104, value = 5, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = -626485897 },   # Quentin Cinquedea c04003210 (White King)
+  { chara = -242891084 },
+  { chara = -392235019 },   # Eljas Viisi c04003230 (White Rook)
+  { chara = -1779891280 },  # Ferdinand Delafünfe c04003260 (White Knight)
+] } }
+
+[[add]]
+key = "sf11005"
+from = "sf10001"
+cells = { REF_EFFECT = { set = [
+  { effect = -1473100456, value = 2, flag_9 = 1 },
+  { effect = 911659259, value = 3, flag_9 = 1 },
+  { effect = 1911990827, value = 5, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = -952215607 },   # Sael c03034110 (Sky Team)
+  { chara = -994409561 },   # Destra c03034310 (Dark Team)
+] } }
+
+[[add]]
+key = "sf11006"
+from = "sf10001"
+cells = { REF_EFFECT = { set = [
+  { effect = 1223142470, value = 3, flag_9 = 1 },
+  { effect = -2121384353, value = 5, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = 339956509 },    # Gazelle c02020890 (Diamond Dust)
+  { chara = -1002208669 },  # Torch c02020900 (Prominence)
+] } }
+
+[[add]]
+key = "sp11003"
+from = "sp09003"
+cells = { REF_EFFECT = { set = [
+  { effect = 1596396853, value = 5, flag_9 = 1 },
+  { effect = -1611085049, value = 2, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = 441182823 },    # Wolfram Vulpeen c05023500 (Aullido Lunar)
+  { chara = -909119625 },   # Desmodus Drakul c05023690 (Nosfanáticos)
+] } }
+
+[[add]]
+key = "sp11004"
+from = "sp09003"
+cells = { REF_EFFECT = { set = [
+  { effect = -550144562, value = 2, flag_9 = 1 },
+  { effect = -1352695487, value = 4, flag_9 = 1 },
+  { effect = 2017519104, value = 5, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = 1869213484 },   # Hershel Layton c05029710
+  { chara = 1145355503 },   # Luke Triton c05029720
+] } }
+
+[[add]]
+key = "sf11007"
+from = "sf10001"
+cells = { REF_EFFECT = { set = [
+  { effect = 1223142470, value = 2, flag_9 = 1 },
+  { effect = 911659259, value = 4, flag_9 = 1 },
+  { effect = -2121384353, value = 5, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = -956517709 },   # Bai Long c04003500
+  { chara = 2002398386 },   # Sol Daystar c04002900
+] } }
+
+[[add]]
+key = "sf11008"
+from = "sf10001"
+cells = { REF_EFFECT = { set = [
+  { effect = 1223142470, value = 3, flag_9 = 1 },
+  { effect = 1071684816, value = 5, flag_9 = 1 },
+  { effect = -158789943, value = 10, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = -1753222147 },  # Bash Lancer c03033690
+  { chara = 2081192303 },   # Escavan Malice c04018060
+  { chara = 283635506 },    # Mystral Callous c03033660
+] } }
+
+[[add]]
+key = "sf11009"
+from = "sf10001"
+cells = { REF_EFFECT = { set = [
+  { effect = 911659259, value = 5, flag_9 = 1 },
+  { effect = -2121384353, value = 4, flag_9 = 1 },
+  { effect = -1611085049, value = 2, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = -512846215 },   # Arion Sherwind Miximax c05028130
+  { chara = -1646589941 },  # Sol Daystar Miximax c05028060
+  { chara = -1372651330 },  # Bai Long Miximax c05028140
+] } }
+
+[[add]]
+key = "sp11005"
+from = "sp09003"
+cells = { REF_EFFECT = { set = [
+  { effect = -550144562, value = 2, flag_9 = 1 },
+  { effect = -970046321, value = 4, flag_9 = 1 },
+  { effect = 1911990827, value = 5, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = 827960627 },    # Philip Star c08010010
+  { chara = 443875056 },    # Lucas Star c08010020
+] } }
+
+[[add]]
+key = "sf11010"
+from = "sf10001"
+cells = { REF_EFFECT = { set = [
+  { effect = 1223142470, value = 2, flag_9 = 1 },
+  { effect = 911659259, value = 4, flag_9 = 1 },
+  { effect = -2121384353, value = 5, flag_9 = 0 },
+] }, REF_EXEC_COND = { set = [
+  { chara = 936881403 },    # Byron Love c01001900 (Zeus)
+  { chara = 2086184175 },   # Thaddeus Bellefax c11150120 (Solaria-Zeus)
+] } }

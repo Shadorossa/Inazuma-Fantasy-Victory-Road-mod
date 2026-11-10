@@ -1,0 +1,22 @@
+schema = "HissatsuReforged.rules/1"
+# Hissatsu Reforged › grade animations: from a grade on, a special move plays the cut-in of its evolution.
+
+[[HissatsuReforged.GradeAnimation]]
+technique = "whk00010"
+grade = 5
+animation_of = "whk00490"
+
+[[HissatsuReforged.GradeAnimation]]
+technique = "whk00550"
+grade = 5
+animation_of = "whk00555"
+
+[[HissatsuReforged.GradeAnimation]]
+technique = "whk00440"
+grade = 5
+animation_of = "HissatsuReforged.fist_of_justice_g5"
+
+[[HissatsuReforged.GradeAnimation]]
+technique = "whk00480"
+grade = 5
+animation_of = "HissatsuReforged.god_hand_forest_g5"

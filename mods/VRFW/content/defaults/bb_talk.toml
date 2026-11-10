@@ -1,62 +1,15 @@
-# Defaults of the Estadio BB (Bahía Batalla) campaign pre-match talk (docs/framework/bb-prematch.md; pure part
-# vr_framework::bb_talk, run time winmm.dll bb_talk_rt; vr_framework::defaults: `defaults/bb_talk.toml` of every
-# mod, merged in load order, a later mod overrides a key). Only what the game data cannot give.
-#
-# The game plays one talk per pair, `ev40_<player><rival>0` (numbers = the enjoy rows' col 3), and ships it for its own
-# 28 x 28 pairs. A pair it does not cover gets a talk built at run time: the player captain's line, then the rival
-# captain's. Each side, in this order: the lines a mod declares for its team (below), else the team's own retail talk
-# (a game row: its line, voice and pose), else these defaults. Every side then gets what a retail captain has, derived
-# from its captain (the row's leader): the name panel (its chara_base name), a retail captain's talk pose for its motion
-# set (when the team has none of its own), and a moving mouth (its own voice line, else a silent lip cue a mod declares, `lip` below).
 
 [bb_talk]
-# Line of a team with no line of its own: a line of a retail talk (`talk` = its text file, `line` = 1 the player
-# team's line, 2 the rival's: every language the game has) or texts by language ({ es = "...", en = "..." }).
-player = { talk = "ev40_07070", line = 1 }   # «¡Vamos a por todas!» / «Let's get out there and win!»
-rival = { talk = "ev40_13130", line = 2 }    # «¡Ganaremos, pase lo que pase!» / «We will win, no matter what!»
-# Generic lines instead (a mod's own): text keys, one per team and side, always the same (crc32 of team id and side):
-#   pool = ["<mod>.<key>", ...]   rival_pool = [...]   (the rival side picks from both)
-# Pose of a captain with no retail pose of its own when no retail captain's pose fits its motion set either (all three
-# beats): a talk motion alias of defaults/talk.toml [motion] with no pose pack (every body has it), a retail motion name
-# or a 0x... id; `face` = a [face] alias / name.
+player = { talk = "ev40_07070", line = 1 }
+rival = { talk = "ev40_13130", line = 2 }
 idle = { motion = "stand", face = "serious" }
-# Pose packs every captain has loaded with no pack named (suffixes of common/chr/<set>/<set>_<suffix>.g4pk; the retail
-# blocks with no pack play the menu clips of p010). A retail block is only taken for a captain when each of its motions
-# is in the block's own packs or in one of these of the captain's motion set: the male body's clips on a big body bend
-# it (head sunk into the torso, no face). Leave it empty and the blocks are not checked.
 resident = ["p010"]
-# Synthetic talk numbers (the byte the game prints for each side): one player number per pair seen in the session,
-# from `first`, `count` of them in turn; the rival number. Outside 1..28 (the game's own talks).
 synthetic = { first = 100, count = 100, rival = 99 }
 # The retail talk whose files shape the built ones (default: the `player` line's talk).
-# proto = "ev40_07070"
-# Lip sync of a line with no voice of its own: `lip = { cue = "<cue with {tenths}>", seconds = [...] }`, the silent cues a
-# mod adds to the talks' voice bank `ev40` (its content/sounds/*.toml, with their viseme tracks
-# assets/sound/<ja|en>/<cue>.p3lip), one per length; `{tenths}` = the length in tenths of a second. A line takes the
-# shortest length that covers it (about 13 characters a second). The framework ships none (mods declare
-# them): with no `lip` those mouths stay still.
 
-# Motions a retail line's pose may not keep and the fixed pose that replaces them (a mod's; none here):
-#   moving = ["<retail motion name or 0x... id>", ...]
-#   challenge = { motions = ["<best motion>", "<next>"], packs = ["p010", "p200"] }   # the first one the captain's set holds
-
-# Retail lines of a captain whose team has no line of its own (vr_framework::bb_talk_lines; docs/framework/bb-prematch.md
-# «Retail lines»): off until a mod lists its `sources` in its own defaults/bb_talk.toml:
-#   sources = ["bb_captain", "pre_match_own", "pre_match", "chronicle"]   # in this order; any subset
-#   voice_sources = ["pre_match_own", "pre_match"]   # their voiced lines' cues are copied into the talks' bank at start
-#   reject = ["<", "?"]   prefer_end = ["!"]   prefer_voiced = true   max_rows = 2   max_chars = 90   min_chars = 10
-#   reject_words = [...]   (whole words or phrases, same case)   require_end = ["!"]   require_words = [...]   (any case)
-#   require_voiced = true   check_langs = ["es"]   (reject / reject_words also on these languages' text)
-# The framework only sets what the game fixes: the voice bank the BB talks load (with English voices too) and the
-# language whose text the filters read.
 [bb_talk.retail]
 voice_bank = "ev40"
 voice_lang = "ja"
 judge_lang = "en"
 
-# A team's own lines (any mod, in its own defaults/bb_talk.toml). Key = a framework team key "<mod>.<name>", a game
-# team key (also matches its Estadio BB copy "<key>_bb") or a "0x..." team id. Each field optional:
-# [bb_talk.team."my_mod.my_team"]
-# player = { es = "¡A por ellos!", en = "Let's get them!" }   # when it is the player team
-# rival = { talk = "ev40_02020", line = 2 }                  # when it is the rival
-# idle = { motion = "stand", face = "angry" }                # its captain's pose
+# A team's own lines (any mod, in its own defaults/bb_talk.toml).

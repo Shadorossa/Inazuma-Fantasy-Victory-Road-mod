@@ -1,10 +1,6 @@
-# Chronicle Deluxe: the texts of the Chronicle board's gacha node (content/gacha/kizuna_coin_gacha.toml; VRFW
-# docs/framework/gacha.md).
 schema = "VRFW.text/2"
 table = "menu_text"
 
-# the node panel's two command rows (the battle rows' place): «x1 - 5» / «x12 - 60» + the bond star icon (%d = what the row costs;
-# the icon is the text icon content/images/font/gaiji_game.toml makes from the retail item icon); no words, so no translation
 [[row]]
 id = "chronicle_deluxe_gacha_draw_1"
 es = "x1 - %d[$gaiji_chronicle_deluxe_bond_star]"
@@ -42,7 +38,6 @@ ja = "キズナスターを使う"
 zh_hans = "使用友情辉星"
 zh_hant = "使用閃緣之星"
 
-# the command row without enough bond stars (the retail «Estrella de vínculo», tk_st000001): nothing is drawn
 [[row]]
 id = "chronicle_deluxe_gacha_no_stars"
 es = "No tienes suficientes Estrellas de vínculo."

@@ -1,0 +1,335 @@
+schema = "VRFW.migration/1"
+id = "VRFW.celebration_picks"
+description = "Celebration picks saved under the old Cross celebration names keep their celebration"
+phase = "game_save"
+after = ["VRFW.no_compat_names"]
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_endo"
+to = "IECross.cross_endo"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_kazemaru"
+to = "IECross.cross_kazemaru"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_goenji"
+to = "IECross.cross_goenji"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_kidou"
+to = "IECross.cross_kidou"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_fubuki"
+to = "IECross.cross_fubuki"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_someoka"
+to = "IECross.cross_someoka"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_tachimukai"
+to = "IECross.cross_tachimukai"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_kabeyama"
+to = "IECross.cross_kabeyama"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_kiyama"
+to = "IECross.cross_kiyama"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_fudou"
+to = "IECross.cross_fudou"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_sakuma"
+to = "IECross.cross_sakuma"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_afuro"
+to = "IECross.cross_afuro"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_burn"
+to = "IECross.cross_burn"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_gazel"
+to = "IECross.cross_gazel"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_matsukaze"
+to = "IECross.cross_matsukaze"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_tsurugi"
+to = "IECross.cross_tsurugi"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_shindo"
+to = "IECross.cross_shindo"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_kirino"
+to = "IECross.cross_kirino"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_fei"
+to = "IECross.cross_fei"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_nanobana"
+to = "IECross.cross_nanobana"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_raimon"
+to = "IECross.cross_raimon"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_otonashi"
+to = "IECross.cross_otonashi"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_kino"
+to = "IECross.cross_kino"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_goenji_royal"
+to = "IECross.cross_goenji_royal"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_ulvida"
+to = "IECross.cross_ulvida"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_toko"
+to = "IECross.cross_toko"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_pose_cheerful"
+to = "IECross.cross_pose_cheerful"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_pose_cool"
+to = "IECross.cross_pose_cool"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_pose_daring"
+to = "IECross.cross_pose_daring"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["performanceId"]
+from = "new_animations.cross_pose_elegant"
+to = "IECross.cross_pose_elegant"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"

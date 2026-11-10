@@ -1,33 +1,22 @@
--- Shop list refresh. Declarations: content\game\shop_list.toml (two vtable hooks of the game's shop list view).
--- The shop list view refills every visible row when it scrolls or its layout moves (Update -> Refresh(force) ->
--- UpdateItem(force) per row), and each refill draws the row's icons again, so they blink on every cursor move. A forced
--- refill is kept only for a row instance whose row changed; when the rows themselves changed (dirty flag, new row
--- count) or a refresh comes from outside Update, every row is refilled as the game does.
--- Log (on change only): «shop_list: forced refresh (<cause>): <kept> of <rows> row(s) kept».
+-- Shop list refresh.
 
 local band = bit32.band
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("shop_list")
 
--- shop list view fields (v7.1.2 and v7.2.1)
+-- shop list view fields (v7.2.1)
 local DIRTY = 0x1B0          -- u8: rows changed, set by a tab change / list command
 local LAST_COUNT = 0x140     -- u32: row count Update saw last
 local COUNT = 0x1E0          -- u32: row count
 local ROWS, ROW_STRIDE = 0x1E8, 0x18  -- row pointer of row index i: this + ROWS + i * ROW_STRIDE
-local SCROLL_A, SCROLL_B = 0xDC, 0x130 -- the two scroll positions Update compares (updated before Refresh)
+local SCROLL_A, SCROLL_B = 0xDC, 0x130
 local MAX_ROWS = 0x140
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
+local rd = VRFW.memory.read
 
-local view = 0               -- the list view the cache belongs to
-local shown = {}             -- item layer address -> { row = row pointer, index = row index } it shows
-local frame = nil            -- the Update running: { content, scroll_a, scroll_b, forced, kept }
+local view = 0               -- The list view the cache belongs to.
+local shown = {}
+local frame = nil
 local last_logged = nil
 
 local function row_of(this, index)

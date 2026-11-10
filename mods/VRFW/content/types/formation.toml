@@ -2,15 +2,6 @@
 schema = "VRFW.table_map/1"
 
 # [[formation]]: a new formation row.
-#   name      own name (a-z 0-9 _); row key = crc32("<mod>.<name>"), pinned in ids/formation.json
-#   id        fixed row key (number, 0x…, or a name hashed with crc32)
-#   based_on  formation to clone
-#   after     insert after this formation (default: at the end)
-#   places    placement rows (replaces slice placement_info)
-#   cells     other cells by column name
-#   title     the name shown in the formation menu, per language (`{ es = "…", en = "…" }`): a new item_text noun row
-#   description  its description per language: a new item_text text row
-# References (based_on, after, targets) are a game id, a name (crc32), or `<mod>.<name>`.
 [[map]]
 entry = "formation"
 table = "formation/formation"
@@ -30,8 +21,6 @@ description = { column = "desc_id", text = "item_text", text_id = "{mod}.{key}.d
 based_on = "formation"
 after = "formation"
 
-# [[edit]]: cells of an existing formation (`target`), `places` = all its placement rows, `title` / `description` =
-# new texts of its own (the other formations sharing the old text rows keep them).
 [[map]]
 entry = "edit"
 table = "formation/formation"

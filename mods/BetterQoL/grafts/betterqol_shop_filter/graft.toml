@@ -1,0 +1,25 @@
+# BetterQoL: Tab in shop tabs opens the item filter window for that tab's goods; the shop banner stays hidden.
+name = "betterqol_shop_filter"
+mod = "BetterQoL"
+order = 320
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["OnInit", "UpdateItemCount", "OnFunction", "OnAfterReceiveFilterParam", "Step"]
+description = "BetterQoL: shop tab filter through the game's item filter window"
+
+[[hooks]]
+stem = "shop_menu_buy"
+source = "betterqol_sf_shop.lua"
+
+[[hooks]]
+stem = "shop_menu_basara_top"
+source = "betterqol_sf_banner_basara.lua"
+
+[[files]]
+stem = "item_filter_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "betterqol_sf_window.lua"
+  marker = "betterqol_shop_filter window"

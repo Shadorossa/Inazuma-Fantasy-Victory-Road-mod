@@ -1,0 +1,6 @@
+schema = "VRFW.menu/2"
+
+[[entry]]
+host = "CharacterReforged.page_stat_gain"
+id = "all_miximaxed_gains"
+action = { command = "CMND_CHARACTERREFORGED_MIXIMAX_GAINS" }

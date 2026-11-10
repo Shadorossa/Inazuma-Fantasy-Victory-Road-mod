@@ -1,81 +1,29 @@
 id = "BetterQoL"
-# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the game's language (text\keys.toml)
+# name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "BetterQoL"
-version = "0.2.4"
+version = "0.3.0"
 author = "Fantasy Team"
-author_steam = "76561199013321372"
-description = "Quality-of-life tools for any save: Team Dock pages, a passive configurator, home / away kits, a visual style option, unlocked and extra formations, a shop filter and technique search, a Player album and Club stats in the Clubroom, a team planner with ghost cards, career stats on each player, shortcuts in the top bar to the game's modes, and more small conveniences."
+description = "Everyday conveniences for any save: Team Dock pages, home and away kits, extra formations, a shop filter and technique search, a Player album and Club stats in the Clubroom, a team planner and career stats on each player."
 
 priority = 0
 tags = ["Gameplay", "Interface"]
-updated = "2026-11-06"
-# its texts (text\rows\, 9 languages), menu rows (menus\) and options come from the VR-Framework's engines; `requires`
-# also makes it load after the framework. The match camera is data (cameras\side.toml, schema
-# VRFW.match_camera/1) on the framework's match camera service (docs/framework/camera.md).
-# [[VRFW.ElementIcon]] of the image type (its neutral enso for the Mods panel); the team emblem grid (VRFW_EmblemGrid,
-# objects vrfw_emblem_tile / vrfw_tile_label) of the original-names picker and the team planner.
-requires = ["VRFW>=0.2.4", "VRFW.text", "VRFW.menu"]
+updated = "2026-11-09"
+requires = ["VRFW>=0.3.0", "VRFW.text", "VRFW.menu"]
+optional = ["BetterUI", "CharacterReforged"]
 conflicts = []
-# the standalone mod away_kit 1.0 is a feature of BetterQoL now: an installed away_kit is replaced by it (same Lua
-# commands, same mask bit, same kit ids in the save) the same for the standalone mod visual_presets 1.0.0: its row is
-# BetterQoL's BetterQoL.visual_style now
-provides = ["away_kit=1.0.0", "visual_presets=1.0.0", "TechniqueSearch=1.1.0"]
-# One set, always on (content\game\ + scripts\, docs/framework/native.md; no switches): team_banks (CMND_BETTERQOL_TEAMBANK_*, mask bit 2097152, party Load hook),
-# away_kit (CMND_BETTERQOL_TEAM_UNIFORM + CMND_EVT_TEAM_UNIFORM, CMND_BETTERQOL_AK_PAIR, mask bit 524288), role_medal
-# (7 patched immediates, game_state BetterQoL.role_medal.*), formations (CMND_BETTERQOL_FORMATION + the picker's row
-# count; the 5v5 list too), level_badges (stars sprites by the Mods options row), route_map_speed (CVSRouteTownMenu update hook,
-# CMND_BETTERQOL_ROUTE_MAP_SPEED), combo_partners (CMND_BETTERQOL_COMBO_* / CMND_BETTERQOL_PAD_HELD + the CMND_EVT_*
-# names, BuildEventCast hook, blob skill_partners.json), shop_filter (CMND_BETTERQOL_SHOP_FILTER_* /
-# CMND_BETTERQOL_SHOP_NEW_* / CMND_BETTERQOL_SHOP_NAME_* of the technique search, the tab builder's call hook), career (CMND_BETTERQOL_CAREER_*), original_names
-# (CMND_BETTERQOL_NAMES_*, the settings row hooks), camera (the old setting's take-over), passive_config (the slot
-# readers GetTeamPassiveId / IsTeamPassiveUnlocked answered natively from tables the script fills,
-# [[VRFW.Hook.answer]]; 7 retail command filters; CMND_BETTERQOL_PC_*; blob passive_config.json per slot),
-# team_planner (CMND_BETTERQOL_TP_*, blob team_planner.json per slot). No DLL: «Estilo visual» is data on the VR-Framework's shader presets
-# (content\shaders\visual_style.toml + assets\shaders\*.hlsl, docs/framework/shaders.md). The neutral element icon is
-# Lua + image recipes + the shop rows' void check (content\game\neutral_element.toml).
-# Its module is an embedded module mod, a card on this mod's page in Mods (on / off in enabled.toml):
-#   modules\CutinSkip\   CutinSkip (CutinSkip.X): a fresh A press ends the running technique cut-in in a match
 folder = "BetterQoL"
-# the mod's own names (docs/framework/native.md §5): Lua functions BetterQoL.*, TOML keys [[BetterQoL.*]]
 prefix = "BetterQoL"
-# native access of content/game (docs/framework/native.md §4)
 permissions = ["memory", "call", "patch", "command", "state", "hook"]
-# passive_config: the player's archetype follows his archetype slots' passives with BetterQoL alone
-# (content\passive_config\player_archetype.toml [player_archetype]; a mod's [slots] archetype = true keeps its
-# stricter rule; one rule, scripts\lib\pc_core.lua player_rule); the double archetype's second icon in Character
-# Reforged's header: content\menus\archetype_header.toml (if_mod CharacterReforged, host CharacterReforged.header) +
-# assets\lua\_all\utilities_archetype_header.lua (BetterQoL.ArchetypeHeader). Lua: research/grafts/* with `mod =
-# "BetterQoL"` (menu_assemble.py build --mod BetterQoL). lua_early: the away kit's edits of equip_uniform_menu_list
-# must run BEFORE the mods that wrap those functions (Inazuma Fantasy's pachanga_equip); the team dock pages are
-# EVT_Host handlers of the framework's soccer_team_dock_menu host, so they run around every lua_early patch of that
-# screen whatever the order.
 lua_early = true
 loader_modules = ["lua_bridge", "lua_patch"]
-# EVT_DEBUG for the Lua (the team dock's locals) and patches of INCLUDE'd scripts: ModLoader 1.7.0
 loader_min = "1.7.0"
+# word that names this mod's byte edits in the game profile (research/scripts/profile_extract.py)
+profile_edit_word = "Skip"
 
-# What other mods may call (docs/framework/native.md §5; mods that `require` BetterQoL): Career.Params(slot) = the
-# chara_param ids of a save slot's career records, comma-separated (Inazuma Fantasy's office «signed once» seed);
-# TeamBanksMembers(slot) / TeamBanksRepair(slot, plan) = the team bank pages' stored members and their repair after a
-# one-card merge (scripts\tb_repair.lua over lib\tb_store.lua; Inazuma Fantasy's «Reparar duplicados»);
-# RunningEvent() = the running event of the event manager, its name read from its env row (module CutinSkip);
-# TopBarOn / TopBarOnBoard = the game Lua gates of the top bar hosts (BetterQoL.TopBarOn in every menu VM; other mods'
-# [[top_bar_host]] name them, e.g. Inazuma Fantasy's soccer_top_menu). A mod adds an icon to the bar with its own
-# [[entry]] host = "top_bar" (docs/framework/top-bar.md §2), a row of the «Battle Bay» dropdown with group = "battle_bay"
 [exports]
-functions = ["Career.Params", "TeamBanksMembers", "TeamBanksRepair", "TopBarOn", "TopBarOnBoard", "RunningEvent"]
-# game_lua: BetterQoL.ViewForms = «Cambiar forma», the key that cycles the shown character's forms
-# (assets\lua\_all\utilities_view_forms.lua; action BetterQoL.ViewForms.Cycle, CMD_UTIL_VIEW_FORMS, default RS / G,
-# content\inputs\view_forms.toml): Declared(stem), Pressed(), Down(stem), Forms(hdl), GLYPH. A mod applies it to its own
-# screens as data: [[entry]] host = "BetterQoL.view_forms", menus = ["<stem>"], action = { lua = "<press fn>" }
-# (content\menus\view_forms.toml; Inazuma Fantasy's player page). BetterQoL's own: the retail «Ver apariencia» (graft
-# util_view_forms). BetterQoL.AlbumActions: actions on the selected player of the «Álbum de jugadores» page,
-# list of {id, guide = menu_text id of the A label, On -> offered now, Run(row) -> true when the club changed}; Run
-# runs in a coroutine of the page (row = {base, param, name, owned, level}); a mod appends its entry from its own Lua
-# while the table BetterQoL exists
-game_lua = ["BetterQoL.ViewForms", "BetterQoL.AlbumActions"]
+functions = ["Career.Params", "TeamTemplatesMembers", "TeamTemplatesRepair", "TemplateOfDock", "TopBarOn", "TopBarOnBoard", "RunningEvent", "VrmodFilesReference", "VrmodFilesNeed", "VrmodFilesWrite", "VrmodFilesList", "VrmodFilesEntry", "VrmodFilesRead", "VrmodFilesResolve"]
+game_lua = ["BetterQoL.view_forms", "BetterQoL.album_actions"]
 
-# its own content\ folders read only by its scripts (no framework type): vrfw check's layout lint accepts them
-# (docs/framework/mod-layout.md, [layout] script_folders)
+# content folders read only by the mod's scripts
 [layout]
 script_folders = ["original_names", "passive_config"]

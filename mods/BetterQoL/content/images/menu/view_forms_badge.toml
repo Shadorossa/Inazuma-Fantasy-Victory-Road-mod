@@ -1,79 +1,65 @@
-# BetterQoL › «Cambiar forma»: the art of the form indicator of the retail «Ver apariencia» (graft
-# research/grafts/util_view_forms, layers util_vf_tile of content\menus\view_forms.toml form-viewer.md §8.3). Two
-# square tiles side by side, as Inazuma Fantasy's player page showed the form: a near-black tile with the shown form's
-# white glyph, then a light tile under the bound key's glyph (the key itself is game text, <CMD_UTIL_VIEW_FORMS>: the
-# pad's button on a pad, the key's letter on a keyboard). A NEW atlas
-# (#/menu/102_team/util_view_forms/util_view_forms.g4tx), made at the first start (and after a game update) from the
-# PLAYER'S own game files: the glyphs are the game's own monochrome tab icons (icon_list_tab.g4tx: the skill list's
-# aura tabs icon_list_tab_sp_area06 armour / 07 Mix-Max / 11 «Modo cambio», and the player bust
-# icon_list_tab_datafile05). No Level-5 pixel ships. Which tile a form shows: the graft's FORM_TILES (form ids of the
-# VR-Framework's form viewer: 0 Normal, 1 Miximax, 2 Armour, 3 the miximax's own armour + Miximax, 4 the aura slot's
-# armour + Miximax; 3 and 4 = the armour glyph with a small Mix-Max mark). util_vf_tile_mode («Modo cambio») is made
-# for a later form kind: the viewer lists none today.
 schema = "VRFW.image/1"
 
 [[texture]]
-atlas = "#/menu/102_team/util_view_forms/util_view_forms.g4tx"
-name = "util_view_forms"
+atlas = "#/menu/102_team/betterqol_view_forms/betterqol_view_forms.g4tx"
+name = "betterqol_view_forms"
 size = [204, 136]
 
 # ---- the tiles (64 x 64 each, 3 per row) -----------------------------------------------------------------------------
 [[sprite]]
-atlas = "#/menu/102_team/util_view_forms/util_view_forms.g4tx"
-name = "util_vf_tile_normal"
-texture = "util_view_forms"
+atlas = "#/menu/102_team/betterqol_view_forms/betterqol_view_forms.g4tx"
+name = "betterqol_vf_tile_normal"
+texture = "betterqol_view_forms"
 x = 0
 y = 0
 size = [64, 64]
 recipe = "tile_normal"
 
 [[sprite]]
-atlas = "#/menu/102_team/util_view_forms/util_view_forms.g4tx"
-name = "util_vf_tile_miximax"
-texture = "util_view_forms"
+atlas = "#/menu/102_team/betterqol_view_forms/betterqol_view_forms.g4tx"
+name = "betterqol_vf_tile_miximax"
+texture = "betterqol_view_forms"
 x = 68
 y = 0
 size = [64, 64]
 recipe = "tile_miximax"
 
 [[sprite]]
-atlas = "#/menu/102_team/util_view_forms/util_view_forms.g4tx"
-name = "util_vf_tile_armour"
-texture = "util_view_forms"
+atlas = "#/menu/102_team/betterqol_view_forms/betterqol_view_forms.g4tx"
+name = "betterqol_vf_tile_armour"
+texture = "betterqol_view_forms"
 x = 136
 y = 0
 size = [64, 64]
 recipe = "tile_armour"
 
 [[sprite]]
-atlas = "#/menu/102_team/util_view_forms/util_view_forms.g4tx"
-name = "util_vf_tile_armour_miximax"
-texture = "util_view_forms"
+atlas = "#/menu/102_team/betterqol_view_forms/betterqol_view_forms.g4tx"
+name = "betterqol_vf_tile_armour_miximax"
+texture = "betterqol_view_forms"
 x = 0
 y = 68
 size = [64, 64]
 recipe = "tile_armour_miximax"
 
 [[sprite]]
-atlas = "#/menu/102_team/util_view_forms/util_view_forms.g4tx"
-name = "util_vf_tile_mode"
-texture = "util_view_forms"
+atlas = "#/menu/102_team/betterqol_view_forms/betterqol_view_forms.g4tx"
+name = "betterqol_vf_tile_mode"
+texture = "betterqol_view_forms"
 x = 68
 y = 68
 size = [64, 64]
 recipe = "tile_mode"
 
 [[sprite]]
-atlas = "#/menu/102_team/util_view_forms/util_view_forms.g4tx"
-name = "util_vf_tile_key"
-texture = "util_view_forms"
+atlas = "#/menu/102_team/betterqol_view_forms/betterqol_view_forms.g4tx"
+name = "betterqol_vf_tile_key"
+texture = "betterqol_view_forms"
 x = 136
 y = 68
 size = [64, 64]
 recipe = "tile_key"
 
-# ---- recipes -----------------------------------------------------------------------------------------------------------
-# the form tile's back: a 64 x 64 near-black square, corner radius 6
 [[recipe]]
 name = "dark_plate"
 canvas = [64, 64]
@@ -151,8 +137,6 @@ name = "tile_mode"
 from = "dark_plate"
 ops = [{ op = "paste", image = "glyph_mode", centre = [32, 32] }]
 
-# armour + Miximax (forms 3 and 4): the armour glyph a little up-left, a small Mix-Max glyph on its lower right over a
-# dark rim, so it stands apart from the armour glyph
 [[recipe]]
 name = "glyph_armour_small"
 from = "glyph_armour"

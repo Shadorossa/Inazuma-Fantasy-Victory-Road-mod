@@ -1,0 +1,12 @@
+schema = "VRFW.anim/2"
+owner = "match"
+
+[[event]]
+name = "god_hand_forest_g5"
+from = "ev63_00490_1"
+id = "ev63_80480"
+
+[[event]]
+name = "god_hand_forest_g5_fail"
+from = "ev63_00490_2"
+id = "ev63_80481"

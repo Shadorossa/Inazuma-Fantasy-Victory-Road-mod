@@ -1,27 +1,4 @@
-# Character Reforged › the skill table's extension point: the two hosts other mods
-# add to with an [[entry]] (read by the block of graft skill_table_host in the screen evt_skill_slot_menu):
-#
-#   [[entry]]
-#   host = "CharacterReforged.skill_table.row_action"   # a key on the focused move row (CMD_FUNC1)
-#   id = "rank_items"                                    # key <mod>.<id>
-#   text = "HissatsuLevelUp.RankItemGuide"                  # the guide entry (a text row of the mod)
-#   action = { lua = "HissatsuLevelUp.SkillTableRankItem" } # f(phase, ctx): "available" -> true / false, "press"
-#
-#   [[entry]]
-#   host = "CharacterReforged.skill_table.x_action"     # the same on X (CMD_FUNC4): Utilities' partner picker of
-#   id = "partners"                                      # combination moves; not taken while Inazuma Fantasy's own
-#   text = "<guide text row>"                            # block (its partner picker) is in the screen
-#   action = { lua = "BetterQoL.SkillTablePartners" }
-#
-#   [[entry]]
-#   host = "CharacterReforged.skill_table.footer_button" # the button between «Set de jugador» and «Pasiva
-#   id = "training"                                       # personalizada»: one slot (the first entry by order)
-#   text = "evt_tr_btn"                                   # its label
-#   action = { lua = "ClassicTraining.SkillTableButton" }  # f(phase, ctx): "guide" -> the guide line, "press"
-#
-# ctx = {key, chara (charaStHdl), row / slot (0 the aura / mix row, 1-6 the moves; nil on the button), move}. The
-# functions live in the mod's own hook file of the stem evt_skill_slot_menu (or a lua\_all file). Order: `order`
-# (default 1000), then load order; `module` hides an entry while that mod / part is off.
+# ctx = {key, chara (charaStHdl), row / slot (0 the aura / mix row, 1-6 the moves; nil on the button), move}.
 schema = "VRFW.menu/2"
 
 [[host]]

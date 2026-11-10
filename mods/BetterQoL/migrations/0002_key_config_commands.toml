@@ -1,0 +1,22 @@
+# The game's key-config screen stores a remapped command by the crc32 of its name.
+schema = "VRFW.migration/1"
+id = "BetterQoL.key_config_commands"
+description = "Keys remapped to the renamed BetterQoL commands keep their command"
+phase = "game_save"
+after = ["BetterQoL.former_utilities_ids"]
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-SYSTEMLIVE"
+entry = "SYSTEM_data.bin"
+records = ["m_Permanent.m_keyConfigAssignRpg", "m_Permanent.m_keyConfigAssignSoccer", "m_Permanent.m_keyConfigAssignKizunaTown"]
+from = "CMD_UTIL_VIEW_FORMS"
+to = "CMD_BETTERQOL_VIEW_FORMS"
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-SYSTEMLIVE"
+entry = "SYSTEM_data.bin"
+records = ["m_Permanent.m_keyConfigAssignRpg", "m_Permanent.m_keyConfigAssignSoccer", "m_Permanent.m_keyConfigAssignKizunaTown"]
+from = "CMD_UTIL_TECH_PREVIEW"
+to = "CMD_BETTERQOL_TECH_PREVIEW"

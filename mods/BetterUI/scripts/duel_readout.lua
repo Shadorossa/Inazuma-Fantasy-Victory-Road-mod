@@ -1,12 +1,5 @@
--- BetterUI › duel power counter: the totals the game compares in a special-move / power-action duel, shown during the
--- cut-ins on the shot zone's plates (content\game\duel_readout.toml). The mid hook DuelClashResult runs when the resolver
--- posts its result, before the performance. The screen betterui_power_counter_menu opens when a cut-in of that duel starts
--- and closes when the cut-in ends, never on the clash banner. A duel with no cut-in shows nothing, as in retail. The
--- hook also keeps each side's chara handle: the screen draws that player's 3D bust on the plate.
--- Nothing runs at load but the handler registration.
 
 local SCREEN = "betterui_power_counter_menu"
-local OPTION = "duel_readout"
 
 local KIND_SPECIAL_MOVE = 5
 local KIND_POWER_ACTION = 6
@@ -18,29 +11,17 @@ local LABEL_POWER_CHARGE = 3
 local LABEL_POWER_BLOCK = 4
 
 local counters = nil                 -- the running duel's counters; nil = no duel with counters
-local duel_running = false           -- the result is known and not applied yet: its cut-ins open the screen
+local duel_running = false
 local screen_open = false
-local close_next_tick = false        -- a cut-in ended; the next one may start in the same frame and keep the screen
+local close_next_tick = false
 
 local function read_struct(name, address)
-  local ok, value = pcall(VRFW.mem.read_struct, name, address)
+  local value = VRFW.memory.read_struct(name, address)
+  local ok = value ~= nil
   if ok and type(value) == "table" then
     return value
   end
   return nil
-end
-
--- the side the player controls, or nil (no player side: a CPU match, the data not readable)
-local function user_side()
-  local ok, match = pcall(VRFW.game.DuelMatchData)
-  if not ok or type(match) ~= "number" or match == 0 then
-    return nil
-  end
-  local sides = read_struct("DuelMatchSides", match)
-  if sides == nil or sides.user_side > 1 then
-    return nil
-  end
-  return sides.user_side
 end
 
 local function label_of(is_offense, power_action)
@@ -50,9 +31,9 @@ local function label_of(is_offense, power_action)
   return power_action and LABEL_POWER_BLOCK or LABEL_DEFENSE
 end
 
-local function option_on()
-  local ok, value = pcall(VRFW.option, OPTION)
-  return not ok or (value ~= 0 and value ~= false)
+-- The only read of the joint option; the shot readout graft asks through CMND_BETTERUI_DUEL_AND_SHOT_COUNTERS_ON.
+function BetterUI.DuelAndShotCountersOn()
+  return VRFW.option("duel_and_shot_counters") == 1
 end
 
 local function close_screen()
@@ -94,7 +75,6 @@ VRFW.on("hook:DuelClashResult", function(ev)
   if result == nil or (result.kind ~= KIND_SPECIAL_MOVE and result.kind ~= KIND_POWER_ACTION) then
     return nil
   end
-  -- a side without a command has power 0 in the game's comparison: its plate stays hidden
   if result.winner_side > 1 or result.winner_power <= 0 then
     return nil
   end
@@ -110,20 +90,20 @@ VRFW.on("hook:DuelClashResult", function(ev)
   local power_action = { [0] = duel.power_action_side0 ~= 0, [1] = duel.power_action_side1 ~= 0 }
   local move = { [0] = duel.move_side0, [1] = duel.move_side1 }
   local chara = { [0] = duel.chara_side0, [1] = duel.chara_side1 }
-  local left = user_side() or duel.offense_side
+  -- the side this PC shows on the left (its own side in a synced match); none = the offense
+  local left = VRFW.match.viewer_team() or duel.offense_side
   local right = 1 - left
   counters = {
     left_power = power[left],
     left_label = label_of(left == duel.offense_side, power_action[left]),
     right_power = power[right],
     right_label = label_of(right == duel.offense_side, power_action[right]),
-    -- a power charge / power block is not a move: its plate keeps its label
     left_move = power_action[left] and 0 or move[left],
     right_move = power_action[right] and 0 or move[right],
     left_chara = chara[left],
     right_chara = chara[right],
   }
-  duel_running = option_on()
+  duel_running = BetterUI.DuelAndShotCountersOn()
   return nil
 end)
 
@@ -151,28 +131,31 @@ end)
 VRFW.on("duel_won", end_duel)
 VRFW.on("match_end", end_duel)
 
--- CMND_BETTERUI_DUEL_READOUT() -> left power, left label, right power, right label, left move, right move, left chara,
--- right chara; asked once by the screen when it opens. Left = the player's side, right = the rival's; a power of 0 = that
--- side has no plate; a move of 0 = the plate shows its label; a chara of 0 = that plate has no bust.
+-- the last keeper battle: the keeper, his move, the shooter and the shot (the shot readout's critical tags)
+local keeper_battle = nil
+
+VRFW.on("keeper_duel", function(ev)
+  local keeper, shooter = ev.actor and ev.actor.handle, ev.rival and ev.rival.handle
+  if keeper == nil or shooter == nil then
+    return nil
+  end
+  keeper_battle = { keeper = keeper, keeper_move = ev.skill or 0, shooter = shooter, shot = ev.rival.skill or 0 }
+  return nil
+end)
+
+-- CMND_BETTERUI_SHOT_MOVES(shooter, keeper) -> the shot's move, the keeper's move (0 = none or another battle)
+function BetterUI.ShotMoves(shooter, keeper)
+  local b = keeper_battle
+  if b == nil or b.shooter ~= shooter or b.keeper ~= keeper then
+    return 0, 0
+  end
+  return b.shot, b.keeper_move
+end
+
 function BetterUI.DuelReadout()
   if counters == nil then
     return 0, 0, 0, 0, 0, 0, 0, 0
   end
   return counters.left_power, counters.left_label, counters.right_power, counters.right_label, counters.left_move,
     counters.right_move, counters.left_chara, counters.right_chara
-end
-
-local PLATE_LAYOUT_KEYS = { "left_number_x", "right_number_x", "label_room", "bust_settle_frames" }
-
--- CMND_BETTERUI_DUEL_PLATE_LAYOUT() -> the tunables of config.toml [duel_counter], or nil when one is missing.
-function BetterUI.DuelPlateLayout()
-  local layout = {}
-  for _, key in ipairs(PLATE_LAYOUT_KEYS) do
-    local value = VRFW.files.config("duel_counter." .. key)
-    if type(value) ~= "number" then
-      return nil
-    end
-    layout[key] = value
-  end
-  return layout
 end

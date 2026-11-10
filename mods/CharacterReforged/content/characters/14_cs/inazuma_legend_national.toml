@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Character Reforged · Inazuma Legend National · Inazuma Eleven GO Chrono Stone
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c05024650"                                   # Nathan Swift
@@ -25,9 +22,9 @@ VRFW.MoveGrades = [
 target = "c05024630"                                   # Jack Wallside
 moves = [
   { move = 0x7D6E9A87, level = 1 },                         # The Wall
-  { move = 0x4031A7F5, level = 12 },                        # Mole Fake
   { move = 0x1B44E1DA, level = 23 },                        # Stone Wall
   { move = 0xA8215D7C, level = 35 },                        # The Mountain
+  { move = 0x72BFA108, level = 56 },                        # Wall of Atlantis
 ]
 VRFW.MoveGrades = [
   { Move = 0x7D6E9A87, Grade = 1 },                         # The Wall
@@ -43,14 +40,14 @@ VRFW.MoveGrades = [
 target = "c05024710"                                   # Axel Blaze
 moves = [
   { move = 0x518BCA26, level = 1 },                         # Fire Tornado
-  { move = 0x00D8C57C, level = 1 },                         # Fireball Storm
-  { move = 0x0B011EBF, level = 11 },                        # Fireball Screw
-  { move = 0xEAB3792D, level = 21 },                        # Grand Fire
+  { move = 0x00D8C57C, level = 11 },                        # Fireball Storm
+  { move = 0x0B011EBF, level = 21 },                        # Fireball Screw
+  { move = 0xEAB3792D, level = 31 },                        # Grand Fire
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x7978E1FA, level = 1 },                         # Lancelot [aura]
+  { move = 0x7978E1FA, level = 1 },                         # wks00020
 ]
 VRFW.MoveGrades = [
   { Move = 0x518BCA26, Grade = 1 },                         # Fire Tornado
@@ -85,8 +82,8 @@ target = "c05024690"                                   # Xavier Schiller
 moves = [
   { move = 0x65766A4F, level = 1 },                         # Meteor Blade
   { move = 0x1755397B, level = 16 },                        # Dark Energy Star
-  { move = 0xC3D894B7, level = 37 },                        # The Dawn
   { move = 0x00A10ABD, level = 50 },                        # Ball Lightning
+  { move = 0xDAC3A5F6, level = 60 },                        # Big Bang
 ]
 
   [[edit.cards]]
@@ -97,10 +94,10 @@ moves = [
 [[edit]]
 target = "c05024700"                                   # Shawn Froste
 moves = [
-  { move = 0x19C3F43D, level = 1 },                         # Eternal Blizzard
-  { move = 0xDCF43422, level = 1 },                         # Aurora Dribble
-  { move = 0x7E2BE557, level = 1 },                         # Legendary Wolf
-  { move = 0x1FC99D68, level = 11 },                        # Snow Angel
+  { move = 0x039DBAAC, level = 1 },                         # Land of Ice
+  { move = 0x19C3F43D, level = 11 },                        # Eternal Blizzard
+  { move = 0x7E2BE557, level = 21 },                        # Legendary Wolf
+  { move = 0x1FC99D68, level = 31 },                        # Snow Angel
 ]
 
   [[edit.cards]]
@@ -112,7 +109,7 @@ moves = [
 target = "c05024660"                                   # Caleb Stonewall
 moves = [
   { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x71831119, level = 1 },                         # Foul Offence 2
+  { move = 0x71831119, level = 11 },                        # Foul Offence 2
   { move = 0xBF6D0AC5, level = 50 },                        # Emperor Penguin No. 3
   { move = 0xC16279D1, level = 60 },                        # Field of Force
 ]
@@ -129,10 +126,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c05024640"                                   # Hurley Kane
 moves = [
-  { move = 0x6C827857, level = 1 },                         # Rolling Steal
   { move = 0x2BF596BF, level = 1 },                         # Tsunami Boost
   { move = 0xB2BEB853, level = 28 },                        # Whale Guard
   { move = 0xA4B51923, level = 38 },                        # The Typhoon
+  { move = 0x1C4D4906, level = 48 },                        # Whirlpool
 ]
 VRFW.MoveGrades = [
   { Move = 0x2BF596BF, Grade = 1 },                         # Tsunami Boost

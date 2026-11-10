@@ -1,55 +1,26 @@
--- title_save_lower (VRFW): the retail «Guardar» button on the title's LOWER row, right before «Mods».
--- The retail button leaves the upper row (menus\title_row.toml, [[hide]] of title item `save`); the mods_menu plugin
--- serves the title files with one more lower button for it (CMND_VRFW_MM_STATE, values 10..13: lower position, label
--- name instance, the upper button above it, the upper buttons whose «down» goes to it). Art, label, players mark and
--- press are the retail ones, read from the retail position of the button through VRFW_TitleRow.retail.
--- Handlers of the framework's title_menu_2 host (VRFW_Host), each one passes on (nxt) for anything that is not its
--- button. No engine call at load time: everything below runs from the game's callbacks.
 
-local function SV_Crc(s)
-  local crc = 0xFFFFFFFF
-  for i = 1, #s do
-    crc = bit32.bxor(crc, string.byte(s, i))
-    for _ = 1, 8 do
-      if bit32.band(crc, 1) ~= 0 then
-        crc = bit32.bxor(bit32.rshift(crc, 1), 0xEDB88320)
-      else
-        crc = bit32.rshift(crc, 1)
-      end
-    end
-  end
-  return bit32.bxor(crc, 0xFFFFFFFF)
-end
 
 local SV = {
-  STATE = SV_Crc("CMND_VRFW_MM_STATE"),
+  STATE = VRFW.ids.crc32("CMND_VRFW_MM_STATE"),
   T = "title_menu_2",
   ID = "title_save.lower",
   UPPER = 2250456639,       -- title00_07_item_button_upper
   L_LOWER = 3873872512,     -- title00_07_item_button_lower
-  SAVE = SV_Crc("save"),    -- the retail «Guardar» title item
-  IDX = 41,                 -- its item list index on the lower row (the game uses 1..11, «Mods» 40)
-  LOG = VRFW_Cmd.EVT_LOG,         -- CMND_EVT_LOG
+  SAVE = VRFW.ids.crc32("save"),    -- the retail "Guardar" title item
+  IDX = 41,
+  LOG = VRFW.commands.VRFW_LOG,         -- CMND_VRFW_LOG
 }
 
 local sv = {
-  state = nil,              -- nil = not asked yet; false = no button; table = {pos, name, above, down}
+  state = nil,
   retail_pos = nil,         -- the button's position in the retail upper row
-  reach = nil,              -- while a retail answer is read: the upper count that reaches the retail position
+  reach = nil,
 }
-
-local function SV_Call(cmd, ...)
-  local r = table.pack(pcall(funcLuaCommand, cmd, ...))
-  if not r[1] then
-    return nil
-  end
-  return table.unpack(r, 2, r.n)
-end
 
 local function SV_State()
   if sv.state == nil then
     sv.state = false
-    local title, _, _, _, _, _, _, _, _, pos, name, above, down = SV_Call(SV.STATE)
+    local title, _, _, _, _, _, _, _, _, pos, name, above, down = VRFW.host.command(SV.STATE)
     if title == 1 and type(pos) == "number" and pos >= 0 and type(name) == "number" and name > 0 then
       local set = {}
       if type(down) == "string" then
@@ -63,7 +34,6 @@ local function SV_State()
   return sv.state or nil
 end
 
--- the lower button exists (the row was served with it and the layer has its instance)
 local function SV_Own()
   local s = SV_State()
   return s ~= nil and type(GetItemButtonNum) == "function" and GetItemButtonNum(false) > s.pos
@@ -76,8 +46,8 @@ end
 
 -- runs fn on the title's own tables (the title row's handlers pass on meanwhile)
 local function SV_Retail(fn, ...)
-  if type(VRFW_TitleRow) == "table" and type(VRFW_TitleRow.retail) == "function" then
-    return VRFW_TitleRow.retail(fn, ...)
+  if type(VRFW.title_row) == "table" and type(VRFW.title_row.retail) == "function" then
+    return VRFW.title_row.retail(fn, ...)
   end
   return fn(...)
 end
@@ -99,7 +69,7 @@ local function SV_RetailPos()
       end
     end)
     if sv.retail_pos == false then
-      pcall(funcLuaCommand, SV.LOG, "title_save", "WARN the retail Guardar button was not found in the title's upper row")
+      VRFW.host.command(SV.LOG, "title_save", "WARN the retail Guardar button was not found in the title's upper row")
     end
   end
   return sv.retail_pos or nil
@@ -129,11 +99,11 @@ end
 
 local function on(point, fn)
   if type(_ENV[point]) == "function" then
-    VRFW_Host.on(SV.T, point, { id = SV.ID, phase = "around", fn = fn })
+    VRFW.host.on(SV.T, point, { id = SV.ID, phase = "around", fn = fn })
   end
 end
 
-if VRFW_Host ~= nil and type(GetItemListIdx) == "function" and type(OnEnter) == "function" then
+if VRFW.host ~= nil and type(GetItemListIdx) == "function" and type(OnEnter) == "function" then
   on("OnInit", function(nxt, ...)
     sv.state, sv.retail_pos = nil, nil
     return nxt(...)
@@ -221,7 +191,7 @@ if VRFW_Host ~= nil and type(GetItemListIdx) == "function" and type(OnEnter) == 
     return nxt(a1)
   end)
 
-  -- up from the button -> the upper button above it; down from the uppers between it and «Mods» -> the button
+  -- up from the button -> the upper button above it; down from the uppers between it and "Mods" -> the button
   on("GetItemButtonNextFocusIdx", function(nxt, a1, a2)
     local s = SV_State()
     if s ~= nil and SV_Own() then
@@ -260,7 +230,7 @@ if VRFW_Host ~= nil and type(GetItemListIdx) == "function" and type(OnEnter) == 
     if a1 == SV.L_LOWER and SV_IsOurs(a2, false) then
       local pos = SV_RetailPos()
       if pos == nil then
-        funcLuaCommand(VRFW_Cmd.SND_PLAY_SE, 2086672038)     -- sy0003: buzzer
+        funcLuaCommand(VRFW.commands.SND_PLAY_SE, 2086672038)     -- sy0003: buzzer
         return 1
       end
       return SV_Retail(nxt, SV.UPPER, pos)

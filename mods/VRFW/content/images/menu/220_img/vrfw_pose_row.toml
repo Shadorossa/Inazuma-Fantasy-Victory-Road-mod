@@ -1,6 +1,3 @@
-# VRFW: the pose row screen's own sprites (#/menu/220_img/vrfw_pose_row/vrfw_pose_row.g4tx, a NEW atlas;
-# docs/framework/pose-row.md). vrfw_pose_row_row: the Chronicle board's list row (vsroute01_16 list_base01_off) with
-# its alpha scaled so the body is opaque (the retail row lets the board show through); the node panel style's `row`.
 schema = "VRFW.image/1"
 
 [[texture]]

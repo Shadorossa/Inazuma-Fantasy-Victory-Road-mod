@@ -1,6 +1,4 @@
-# Declaration schema of the pose rows (content\pose_rows\*.toml, docs/framework/pose-row.md): [[VRFW.PoseRow]] (a list
-# screen whose selected entry shows its players as 3D models posing in a row). An unknown key, wrong type or
-# out-of-range value drops that declaration with a warning.
+# Declaration schema of the pose rows (content\pose_rows\*.toml, docs/framework/pose-row.md): [[VRFW.PoseRow]].
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.pose_row/1"
 folder = "content/pose_rows"

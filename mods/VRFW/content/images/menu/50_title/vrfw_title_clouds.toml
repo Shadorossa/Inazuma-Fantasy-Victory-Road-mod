@@ -1,13 +1,5 @@
 # VRFW: the two cloud layers of the framework's own title screen (the ring and the frame around the key art).
-#
-# Derived from Level-5 art like vrfw_title_art.toml: never committed. research/scripts/vrfw_title_art.py (called by framework_pack.py)
-# reads vrfw_title_ring.webp (or .png) + vrfw_title_frame.webp (or .png) from research/build/owner_art/ (or the folder
-# of the env VRFW_OWNER_ART) and writes them as PNGs under the packed mod's assets\images\menu\50_title\vrfw_title_art\;
-# without them this file is left out of the pack with a warning and the retail clouds stay.
-#
-# bg_cloud01_st (4952 x 4952, the ring) and bg_cloud02_st (4064 x 3752, the frame with a round hole) are whole textures
-# of title00_01_st: each picture is scaled to its texture's size (codec and mips kept by the image type).
-# Off with the rest of the title art while a mod serves its own ([VRFW.TitleArt] own = true in its config.toml).
+# Derived from Level-5 art like vrfw_title_art.toml: never committed.
 schema = "VRFW.image/1"
 when = { config = "*.VRFW.TitleArt.own", equals = false, default = false }
 

@@ -1,44 +1,26 @@
 schema = "VRFW.option/2"
-# Settings of the mod BetterQoL in Opciones › «Opciones de mods» (parser vr_framework::options, built into
-# the game's settings list by the mod_options plugin). Row keys «BetterQoL.<id>». Texts: text\rows\*.toml (menu_text
-# rows, 9 languages). One block per feature, in the order of the tab; append new rows at the end of their feature's
-# block (or a new block at the end of the file).
 
-# ---------------------------------------------------------------- camera (data: cameras\side.toml + graft camera_side)
-
-# «Cámara del partido: Original / Lateral». The framework stores the value (mod_options\BetterQoL.json, key camera);
-# at match start BetterQoL's Lua (graft camera_side) reads it and requests the framework camera preset BetterQoL.side
-# (cameras\side.toml) or releases it. The value used to live in the global blob camera.json (storage =
-# "command"): the plugin takes it over once. row_key = the SETTING_INFO id this row has always had (Inazuma
-# Fantasy's), so an old copy is adopted, never doubled.
 [[option]]
 id = "camera"
-visual = true                                 # only what this player sees / hears: not compared in online rooms
+visual = true                                 # local only: not compared in online rooms
 type = "toggle"
-# «Tipo de cámara en partido». A child of the framework's «Ajustes de juego» (mod_options.game_settings): off there =
-# the game's camera, the value kept.
 label = "camera_type"
 help = "camera_type_help"
 parent = "mod_options.game_settings"
-off = { key = "evt_set_camera_side_off", text = "Original" }
-on = { key = "evt_set_camera_side_on", text = "Side" }
+off = { key = "better_qol_set_camera_side_off", text = "Original" }
+on = { key = "better_qol_set_camera_side_on", text = "Side" }
 default = 0
-row_key = "evt_set_camera_side"
-order = 102
+row_key = "better_qol_set_camera_side"
+order = 105
+category = "category_camera_interface"
 
-# «Cámara en los tiros» (the side view while a shot flies) is not an option of this mod.
-
-# ---------------------------------------------------------------- visual style (content\shaders\visual_style.toml)
-
-# «Estilo visual»: the look of the 3D image, switched live (no restart). Every value but 0 is a [[VRFW.ShaderPreset]]
-# of content\shaders\visual_style.toml (`option.value`); 0 = the game's own look (the default).
+# Visual style: 0 = retail look; every other value is a [[VRFW.ShaderPreset]] of content\shaders\visual_style.toml.
 [[option]]
-id = "visual_style"                            # row key BetterQoL.visual_style
-visual = true                                 # only what this player sees / hears: not compared in online rooms
+id = "visual_style"
+visual = true
 type = "list"
-label = "visual_style"                         # «Shaders personalizados» (text\keys.toml, 9 languages)
+label = "visual_style"
 help = "visual_style_help"
-# a child of the framework's «Estilo personalizado» (off there = the game's own look, the value kept)
 parent = "mod_options.custom_style"
 values = [
     { value = 0, name = "vs_retail", text = "Original" },
@@ -50,26 +32,15 @@ values = [
 ]
 default = 2
 order = 123
+category = "category_visual"
 
-# ---------------------------------------------------------------- original names (BetterQoL's old DLL, module original_names)
-
-# No row here (since BetterQoL 1.3.0): the choice is the game's own «Nombres de los personajes» row of «Ajustes del
-# juego» (Doblaje / Por equipos / Originales; A opens the team / series picker), stored as names.* values of
-# mod_options\BetterQoL.json. The row «Nombres originales para equipos internacionales de Ares y Orión» of 1.0.1 - 1.2.x
-# is gone: a ticked team shows its original name.
-
-# ---------------------------------------------------------------- level badges (BetterQoL's old DLL, module level_badges)
-
-# «Nivel de técnica: +1 / +2 / +3 / Estrellas»: with «Estrellas» the +1 / +2 / +3 sprites of every language show stars:
-# the row switches features\level_badges\ (image declarations over the player's own atlases, read at the start). The
-# Spanish +4 badge file also follows the row (content\game\level_badges.toml). Default: the game's art.
+# Technique level badges: «Stars» switches the +1/+2/+3 sprites to features\level_badges\ (read at start).
 [[option]]
-id = "level_badges"                            # row key BetterQoL.level_badges
-visual = true                                 # only what this player sees / hears: not compared in online rooms
+id = "level_badges"
+visual = true
 type = "list"
-label = "level_badges"                         # «Nivel de supertécnica personalizado» (text\keys.toml, 9 languages)
+label = "level_badges"
 help = "level_badges_help"
-# a child of the framework's «Mostrar rótulos» (off there = the game's badges, the value kept)
 parent = "VRFW.telop.show_banners"
 values = [
     { value = 0, name = "lb_retail", text = "+1 / +2 / +3" },
@@ -78,32 +49,24 @@ values = [
 default = 0
 restart = true                                # the feature folder is read at the start
 order = 114
+category = "category_camera_interface"
 
-# ---------------------------------------------------------------- auto commander (content\game\auto_commander.toml)
-
-# «Modo Comandante automático» (match simulations): on = Battle Bay matches always
-# start in Commander mode (gate open even against an unbeaten rival); free matches and Heroic battles start in it
-# only against a beaten rival; every other match keeps the game's rules (config.toml [auto_commander]). Read live
-# by scripts\auto_commander.lua at each match init (a change applies from the next match).
+# Auto Commander mode (config.toml [auto_commander]); read at each match init.
 [[option]]
-id = "auto_commander"                          # row key BetterQoL.auto_commander
+id = "auto_commander"
 type = "toggle"
-label = "auto_commander"                       # text\keys.toml, 9 languages
+label = "auto_commander"
 help = "auto_commander_help"
 default = 0
-# a child of the framework's «Ajustes de juego» (off there = the game's rules, the value kept)
 parent = "mod_options.game_settings"
 order = 103
+category = "category_match"
 
-# «Velocidad del Modo Comandante automático»: the game speed while your team plays in Commander mode in a match the
-# auto commander handles (the row above on). x1 (the default) = normal speed, whatever the game's own «Modo Comandante
-# veloz»; x1.5 / x2 / x3 / x4 = that speed. Other matches and the row above off: the game's own rule. Clamped by
-# config.toml [auto_commander] speed_min / speed_max. Read at each match init by scripts\auto_commander.lua. Right
-# after «Modo comandante automático» (same order, file order; one child level only).
+# Game speed while your team plays in Commander mode under the auto commander; x1 = normal speed.
 [[option]]
-id = "auto_commander_speed"                    # row key BetterQoL.auto_commander_speed
+id = "auto_commander_speed"
 type = "list"
-label = "auto_commander_speed"                 # text\keys.toml, 9 languages
+label = "auto_commander_speed"
 help = "auto_commander_speed_help"
 parent = "mod_options.game_settings"
 values = [
@@ -115,25 +78,20 @@ values = [
 ]
 default = 1.0
 order = 103
+category = "category_match"
 
-# ---------------------------------------------------------------- match clock (scripts\match_clock.lua)
-
-# «Segundos por minuto de partido»: the real seconds one game minute of the match clock lasts at the game's normal
-# speed, 2.0 to 15.0 by 0.1. 0 = «Original» (the default, listed at its place between 4.2 and 4.3): the game's own rate (game_param
-# soccerElapsedTimeRate_Normal 14.1 = 4.26 s on v7.1.2), nothing written. Applied at each match start and kick-off by
-# scripts\match_clock.lua (the match info's clock rate); both teams, every match mode; the half length in game minutes
-# stays. A change applies from the next match.
+# Real seconds per game minute at normal match speed, 2.0..15.0; 0 = retail rate.
 [[option]]
-id = "match_clock"                             # row key BetterQoL.match_clock
-visual = true                                 # only what this player sees / hears: not compared in online rooms
+id = "match_clock"
+visual = true
 type = "list"
-label = "match_clock"                          # text\keys.toml, 9 languages
+label = "match_clock"
 help = "match_clock_help"
 parent = "mod_options.game_settings"
 values = [
     2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5,
     3.6, 3.7, 3.8, 3.9, 4.0, 4.1, 4.2,
-    { value = 0, name = "match_clock_retail", text = "Original" },  # the game's own 4.26 s, between 4.2 and 4.3
+    { value = 0, name = "match_clock_retail", text = "Original" },  # retail 4.26 s, sorted between 4.2 and 4.3
     4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5.0, 5.1,
     5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 6.0, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7,
     6.8, 6.9, 7.0, 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.0, 8.1, 8.2, 8.3,
@@ -145,3 +103,4 @@ values = [
 ]
 default = 0
 order = 104
+category = "category_match"

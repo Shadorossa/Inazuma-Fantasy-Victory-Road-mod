@@ -6,7 +6,7 @@
 #   never refused. The item's native equip condition (built by the item type) already limits it to compatible players.
 # * equip_menu_select: after an equip / remove / swap the 3D preview and the chara card miniface are rebuilt at
 #   once when the transformation target of the shown player changed (CMND_VRFW_ITEM_XFORM_STATE).
-# Lua globals VRFW_ItemXform.
+# Lua globals VRFW.item_transform.
 name = "vrfw_item_xform"
 mod = "VRFW"
 order = 300

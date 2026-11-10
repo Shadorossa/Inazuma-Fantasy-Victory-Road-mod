@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · The Cape Crusaders · Inazuma Eleven 3
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c03033010"                                   # Zolani Baloi
 moves = [
   { move = 0xF5C2A0A5, level = 1 },                         # Capoeira Grab
   { move = 0x8FBCFC3C, level = 8 },                         # Blazing Knuckle
-  { move = 0x4BD584B7, level = 37 },                        # Power Charge
-  { move = 0xD2955C45, level = 53 },                        # Power Catch
+  { move = 0x8DFA4265, level = 18 },                        # Toughness Block
+  { move = 0xDBA0E5E3, level = 28 },                        # Gigant Wall
 ]
 
   [[edit.cards]]
@@ -40,8 +37,8 @@ target = "c03033030"                                   # Jake Fana
 moves = [
   { move = 0x36A270F2, level = 4 },                         # Rolling Slide
   { move = 0x41F3CDC2, level = 16 },                        # Scorching Tackle
-  { move = 0xA6D711A6, level = 31 },                        # Full Power Shield
-  { move = 0x6C827857, level = 59 },                        # Rolling Steal
+  { move = 0xABA58912, level = 26 },                        # Ignited Steal
+  { move = 0x0A3F27B7, level = 36 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -56,7 +53,7 @@ moves = [
   { move = 0x28B0E96F, level = 1 },                         # Heavy Mettle
   { move = 0x427719AC, level = 21 },                        # Gale Dash
   { move = 0xC0A013E6, level = 46 },                        # Liar Shot
-  { move = 0x6C827857, level = 57 },                        # Rolling Steal
+  { move = 0x70417B2E, level = 56 },                        # Deceptor Dribble
 ]
 
   [[edit.cards]]
@@ -70,9 +67,9 @@ moves = [
 target = "c03033050"                                   # Cassius Tobler
 moves = [
   { move = 0x322F0C40, level = 1 },                         # Spider Web
-  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
+  { move = 0x7CACF0B0, level = 11 },                        # Horn Train
   { move = 0x0B011EBF, level = 48 },                        # Fireball Screw
-  { move = 0x9765A74A, level = 55 },                        # Beast Fang
+  { move = 0x7C6D5B0E, level = 58 },                        # Astro Break
 ]
 
   [[edit.cards]]
@@ -148,7 +145,7 @@ moves = [
   { move = 0xC0A013E6, level = 1 },                         # Liar Shot
   { move = 0x43B5739B, level = 28 },                        # Lightning Bolt
   { move = 0x62BE692D, level = 40 },                        # Whirlwind Force
-  { move = 0x72514A74, level = 54 },                        # Low Drive
+  { move = 0x3F00EDE9, level = 50 },                        # Dash Storm
 ]
 
   [[edit.cards]]
@@ -178,7 +175,7 @@ moves = [
   { move = 0xC0A013E6, level = 7 },                         # Liar Shot
   { move = 0xBDAE2862, level = 38 },                        # Hellfire
   { move = 0x427719AC, level = 47 },                        # Gale Dash
-  { move = 0x240BEDF2, level = 61 },                        # Bounce Shot
+  { move = 0x0CF4E55C, level = 57 },                        # Double Touch
 ]
 
   [[edit.cards]]
@@ -194,7 +191,7 @@ moves = [
   { move = 0xB37CD264, level = 10 },                        # Am-Bush
   { move = 0x36A270F2, level = 16 },                        # Rolling Slide
   { move = 0x087999EE, level = 34 },                        # Heel Drop
-  { move = 0x23C3EE90, level = 52 },                        # Shoulder Tackle
+  { move = 0xDCF43422, level = 44 },                        # Aurora Dribble
 ]
 
   [[edit.cards]]
@@ -226,7 +223,7 @@ moves = [
   { move = 0xC2BBD4A2, level = 1 },                         # Wild Claw
   { move = 0xF5C2A0A5, level = 10 },                        # Capoeira Grab
   { move = 0x91AE65A1, level = 39 },                        # Giant Spider
-  { move = 0x4BD584B7, level = 47 },                        # Power Charge
+  { move = 0x8E7E960B, level = 49 },                        # Drill Smasher
 ]
 
   [[edit.cards]]

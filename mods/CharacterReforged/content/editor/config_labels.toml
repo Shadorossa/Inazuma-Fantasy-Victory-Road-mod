@@ -1,5 +1,4 @@
 schema = "VRFW.editor/1"
-# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
 
 [[Shape]]
 Id = "settings"
@@ -164,3 +163,756 @@ For = "config"
   Type = "int"
   Label = { es = "Fotogramas perdidos", en = "Lost frames" }
   Help = { es = "Fotogramas sin dibujo tras los que se considera perdido el modelo (depuración).", en = "Frames without a draw after which the model counts as lost (debug)." }
+  [[Shape.Field]]
+  Key = "training"
+  Type = "table"
+  Label = { es = "Entrenamiento", en = "Training" }
+  Help = { es = "Reglas del entrenamiento de jugadores (reinicia el juego tras cambiarlas).", en = "Player training rules (restart the game after a change)." }
+  [[Shape.Field]]
+  Key = "training.rule"
+  Type = "string"
+  Label = { es = "Regla de entrenamiento", en = "Training rule" }
+  Help = { es = "\"trade\": con Libertad agotada, subir una estadística baja su opuesta uno a uno. \"pool\": un solo fondo de puntos.", en = "\"trade\": with no Libertad left, raising a stat lowers its counterpart one for one. \"pool\": one pool of points." }
+  [[Shape.Field]]
+  Key = "training.floor_percent"
+  Type = "int"
+  Label = { es = "Mínimo de una estadística drenada", en = "Drained stat floor" }
+  Help = { es = "Lo más bajo que puede llegar una estadística, en % de su base sin entrenar (0 = hasta 1).", en = "Lowest a drained stat can go, in % of its untrained base (0 = down to 1)." }
+  [[Shape.Field]]
+  Key = "training.max_value"
+  Type = "int"
+  Label = { es = "Valor máximo entrenado", en = "Max trained value" }
+  Help = { es = "Valor base máximo entrenado de una estadística.", en = "Highest trained base value of a stat." }
+  [[Shape.Field]]
+  Key = "training.locked_rarities"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Rarezas sin entrenamiento", en = "Untrainable rarities" }
+  Help = { es = "Rarezas de carta que no se pueden entrenar (por ejemplo [8, 10]); vacío = todas se entrenan.", en = "Card rarities that cannot be trained (e.g. [8, 10]); empty = all train." }
+  [[Shape.Field]]
+  Key = "training.budget_percent"
+  Type = "int"
+  Label = { es = "Presupuesto de Libertad", en = "Libertad budget" }
+  Help = { es = "Ajuste del total de puntos de Libertad por nivel, como en IE3.", en = "Adjusts the total Libertad points per level, as in IE3." }
+  [[Shape.Field]]
+  Key = "stat_effects"
+  Type = "table"
+  Label = { es = "Efectos de la Suerte", en = "Luck effects" }
+  Help = { es = "Qué hace la Suerte durante un partido.", en = "What Luck does in a match." }
+  [[Shape.Field]]
+  Key = "stat_effects.critical_catch_base_percent"
+  Type = "int"
+  Label = { es = "Parada crítica base (%)", en = "Base critical catch (%)" }
+  Help = { es = "Probabilidad base de parada crítica del portero en cada tiro.", en = "Base critical catch chance of the keeper on each shot." }
+  [[Shape.Field]]
+  Key = "stat_effects.critical_catch_per_luck"
+  Type = "float"
+  Label = { es = "Parada crítica por Suerte", en = "Critical catch per Luck" }
+  Help = { es = "Probabilidad extra de parada crítica por cada punto de Suerte.", en = "Extra critical catch chance per point of Luck." }
+  [[Shape.Field]]
+  Key = "stat_effects.critical_catch_cap_percent"
+  Type = "int"
+  Label = { es = "Tope de parada crítica (%)", en = "Critical catch cap (%)" }
+  Help = { es = "Máxima probabilidad de parada crítica.", en = "Highest critical catch chance." }
+  [[Shape.Field]]
+  Key = "stat_effects.move_critical_base_percent"
+  Type = "float"
+  Label = { es = "Crítico de técnicas base (%)", en = "Base move critical (%)" }
+  Help = { es = "Probabilidad base de golpe crítico en las supertécnicas.", en = "Base critical hit chance of special moves." }
+  [[Shape.Field]]
+  Key = "stat_effects.move_critical_per_luck"
+  Type = "float"
+  Label = { es = "Crítico de técnicas por Suerte", en = "Move critical per Luck" }
+  Help = { es = "Probabilidad extra de crítico por cada punto de Suerte.", en = "Extra critical chance per point of Luck." }
+  [[Shape.Field]]
+  Key = "stat_effects.move_critical_cap_percent"
+  Type = "float"
+  Label = { es = "Tope de crítico de técnicas (%)", en = "Move critical cap (%)" }
+  Help = { es = "Máxima probabilidad de crítico en las supertécnicas.", en = "Highest critical chance of special moves." }
+  [[Shape.Field]]
+  Key = "stat_effects.move_critical_power_multiplier"
+  Type = "float"
+  Label = { es = "Multiplicador de potencia crítica", en = "Critical power multiplier" }
+  Help = { es = "Multiplicador de potencia de un crítico que aplica este mod; 1,0 lo deja a otros mods.", en = "Power multiplier of a critical hit this mod answers; 1.0 leaves it to other mods." }
+  [[Shape.Field]]
+  Key = "rival_training"
+  Type = "table"
+  Label = { es = "Entrenamiento de rivales", en = "Rival training" }
+  Help = { es = "Rivales que un mod declara entrenados al máximo para un partido.", en = "Rival players a mod declares fully trained for a match." }
+  [[Shape.Field]]
+  Key = "rival_training.spread"
+  Type = "string"
+  Label = { es = "Reparto de puntos", en = "Point spread" }
+  Help = { es = "\"priority\": cada estadística de la lista toma toda la Libertad; \"even\": se reparte por igual.", en = "\"priority\": each stat in list order takes all the Libertad; \"even\": split evenly." }
+  [[Shape.Field]]
+  Key = "rival_training.GK"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Prioridad de porteros", en = "Keeper priority" }
+  Help = { es = "Estadísticas de portero de mayor a menor prioridad.", en = "Keeper stats, highest priority first." }
+  [[Shape.Field]]
+  Key = "points"
+  Type = "table"
+  Label = { es = "Puntos PEG y SP", en = "PEG and SP points" }
+  Help = { es = "Reservas de puntos de espíritu de lucha (PEG) y de espíritu (SP) del partido.", en = "Fighting-spirit (PEG) and spirit (SP) point pools in a match." }
+  [[Shape.Field]]
+  Key = "points.move_tension_free"
+  Type = "bool"
+  Label = { es = "Supertécnicas sin tensión", en = "Moves cost no tension" }
+  Help = { es = "El rival (CPU) usa siempre los mismos sistemas de puntos que el jugador y las técnicas no gastan tensión.", en = "The CPU team plays by the same point systems as the player; moves spend no tension." }
+  [[Shape.Field]]
+  Key = "points.cost_model"
+  Type = "string"
+  Label = { es = "Modelo de coste de armadura", en = "Armour cost model" }
+  Help = { es = "«cs» usa las reglas de Chrono Stone (costes por cs_scale); «if» las reglas antiguas.", en = "\"cs\" uses Chrono Stone rules (costs times cs_scale); \"if\" the older rules." }
+  [[Shape.Field]]
+  Key = "points.cost_scale"
+  Type = "float"
+  Label = { es = "Escala de coste (CS)", en = "Cost scale (CS)" }
+  Help = { es = "Multiplicador de todos los costes del modelo «cs».", en = "Multiplier of every cost in the \"cs\" model." }
+  [[Shape.Field]]
+  Key = "points.armour_boost"
+  Type = "float"
+  Label = { es = "Aumento al ponerse armadura (IF)", en = "Armour boost (IF)" }
+  Help = { es = "Modelo «if»: la reserva se multiplica por esto cada vez que se pone la armadura.", en = "\"if\" model: the pool is multiplied by this each time the armour goes on." }
+  [[Shape.Field]]
+  Key = "points.armour_drain_per_s"
+  Type = "float"
+  Label = { es = "Gasto de armadura por segundo (IF)", en = "Armour drain per second (IF)" }
+  Help = { es = "Modelo «if»: PEG que se gastan por segundo de juego con armadura.", en = "\"if\" model: PEG spent per second of live play under armour." }
+  [[Shape.Field]]
+  Key = "points.armour_drain_factor"
+  Type = "float"
+  Label = { es = "Factor de gasto de armadura (CS)", en = "Armour drain factor (CS)" }
+  Help = { es = "Modelo «cs»: PEG por segundo = (reserva + ATK) por este factor y por la escala.", en = "\"cs\" model: PEG per second = (pool + ATK) times this factor and the scale." }
+  [[Shape.Field]]
+  Key = "points.armour_goalkeeper_zone_multiplier"
+  Type = "float"
+  Label = { es = "Gasto de armadura en zona de portero (CS)", en = "Armour drain in keeper zone (CS)" }
+  Help = { es = "Multiplicador del gasto de armadura mientras el jugador está en su zona de portería.", en = "Armour drain multiplier while the player is in his goal zone." }
+  [[Shape.Field]]
+  Key = "points.default_atk"
+  Type = "int"
+  Label = { es = "ATK por defecto", en = "Default ATK" }
+  Help = { es = "ATK de un keshin que no figura en la tabla.", en = "ATK of a keshin missing from the table." }
+  [[Shape.Field]]
+  Key = "points.armour_first_refill"
+  Type = "float"
+  Label = { es = "Recarga de la primera armadura (CS)", en = "First armour refill (CS)" }
+  Help = { es = "La primera armadura del partido restaura esta fracción del PEG máximo; las siguientes nada.", en = "The first armour of the match restores this share of max PEG; later ones nothing." }
+  [[Shape.Field]]
+  Key = "points.armour_moves_free"
+  Type = "bool"
+  Label = { es = "Técnicas gratis con armadura (CS)", en = "Free moves under armour (CS)" }
+  Help = { es = "Las supertécnicas bajo la armadura no cuestan PEG.", en = "Special moves under the armour cost no PEG." }
+  [[Shape.Field]]
+  Key = "points.keshin_moves_cost"
+  Type = "string"
+  Label = { es = "Coste de técnicas con keshin (CS)", en = "Keshin move cost (CS)" }
+  Help = { es = "Con el keshin fuera sin armadura, «own» cobra PEG solo por las técnicas de su espíritu guerrero.", en = "With the keshin out and no armour, \"own\" charges PEG only for moves of his warrior spirit." }
+  [[Shape.Field]]
+  Key = "points.armour_keshin_move"
+  Type = "bool"
+  Label = { es = "Técnica del keshin con armadura (CS)", en = "Keshin move under armour (CS)" }
+  Help = { es = "Permite al jugador con armadura usar la técnica propia de su keshin.", en = "Lets the armoured player use his keshin's own move." }
+  [[Shape.Field]]
+  Key = "stamina"
+  Type = "table"
+  Label = { es = "Costes de transformación (PE)", en = "Transformation costs (PE)" }
+  Help = { es = "Cuánta PE cuestan las transformaciones; el miximax paga mientras dura.", en = "How much PE transformations cost; miximax pays while it runs." }
+  [[Shape.Field]]
+  Key = "stamina.enabled"
+  Type = "bool"
+  Label = { es = "PE activada", en = "PE enabled" }
+  Help = { es = "Activa el sistema de PE.", en = "Turns the PE system on." }
+  [[Shape.Field]]
+  Key = "stamina.cost_model"
+  Type = "string"
+  Label = { es = "Modelo de coste de PE", en = "PE cost model" }
+  Help = { es = "«cs» usa el modelo de PE de Chrono Stone; «if» las reglas antiguas.", en = "\"cs\" uses Chrono Stone's PE model; \"if\" the older rules." }
+  [[Shape.Field]]
+  Key = "stamina.cost_scale"
+  Type = "float"
+  Label = { es = "Escala de coste de PE (CS)", en = "PE cost scale (CS)" }
+  Help = { es = "Multiplica todos los costes de PE de Chrono Stone (0,75 = un 25 % más baratos).", en = "Multiplies every Chrono Stone PE cost (0.75 = 25 % cheaper)." }
+  [[Shape.Field]]
+  Key = "stamina.stamina_free_while_out"
+  Type = "bool"
+  Label = { es = "PE gratis con keshin fuera (CS)", en = "Free PE while out (CS)" }
+  Help = { es = "Mientras hay un keshin o armadura fuera, la PE del jugador no se gasta.", en = "While a keshin or armour is out the player's PE does not drain." }
+  [[Shape.Field]]
+  Key = "stamina.end_stamina_factor"
+  Type = "float"
+  Label = { es = "Factor de PE al terminar (CS)", en = "End PE factor (CS)" }
+  Help = { es = "Al terminar, la PE se cobra una vez: este factor por la reserva, reducido por el Físico.", en = "At the end PE is charged once: this factor times the pool, reduced by Physical." }
+  [[Shape.Field]]
+  Key = "stamina.end_stat_factor"
+  Type = "float"
+  Label = { es = "Reducción por Físico al terminar (CS)", en = "End Physical reduction (CS)" }
+  Help = { es = "Cuánto reduce cada punto de Físico el cobro final de PE.", en = "How much each Physical point reduces the final PE charge." }
+  [[Shape.Field]]
+  Key = "stamina.end_armour_multiplier"
+  Type = "float"
+  Label = { es = "Multiplicador final con armadura (CS)", en = "End armour multiplier (CS)" }
+  Help = { es = "Multiplica el cobro final de PE cuando había armadura.", en = "Multiplies the final PE charge when there was armour." }
+  [[Shape.Field]]
+  Key = "stamina.end_grace_ms"
+  Type = "int"
+  Label = { es = "Margen antes del cobro final (ms)", en = "End charge grace (ms)" }
+  Help = { es = "Milisegundos de margen antes de cobrar la PE final.", en = "Milliseconds of grace before the final PE charge." }
+  [[Shape.Field]]
+  Key = "stamina.end_follows_level"
+  Type = "bool"
+  Label = { es = "Cobro final según nivel", en = "End charge follows level" }
+  Help = { es = "El cobro final sigue la proporción de barra del nivel del jugador.", en = "The end charge follows the share of the player's level bar." }
+  [[Shape.Field]]
+  Key = "stamina.keshin_points_default"
+  Type = "int"
+  Label = { es = "Reserva por defecto", en = "Default pool size" }
+  Help = { es = "Tamaño de reserva PEG que se usa si el keshin no tiene uno propio.", en = "PEG pool size used when the keshin has none." }
+  [[Shape.Field]]
+  Key = "stamina.chrono_stone_miximax_stamina_multiplier"
+  Type = "float"
+  Label = { es = "Multiplicador de PE del miximax (CS)", en = "Miximax PE multiplier (CS)" }
+  Help = { es = "Multiplica todos los costes de PE con miximax, con o sin armadura.", en = "Multiplies every PE cost under miximax, with or without armour." }
+  [[Shape.Field]]
+  Key = "stamina.drain_log_s"
+  Type = "float"
+  Label = { es = "Intervalo del registro de gasto (s)", en = "Drain log interval (s)" }
+  Help = { es = "Cada cuántos segundos se anota el gasto de PE en el registro (depuración).", en = "Seconds between PE drain log lines (debug)." }
+  [[Shape.Field]]
+  Key = "stamina.free_activation"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Activaciones sin gasto de hiper", en = "Free activations" }
+  Help = { es = "Tipos de transformación cuyo inicio no gasta el indicador de hiper.", en = "Transformation kinds whose start spends no hyper gauge." }
+  [[Shape.Field]]
+  Key = "stamina.no_start_check"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Activaciones sin requisito de hiper", en = "No start check" }
+  Help = { es = "Tipos de transformación que no necesitan indicador de hiper para empezar.", en = "Transformation kinds that need no hyper gauge to start." }
+  [[Shape.Field]]
+  Key = "stamina.miximax_untimed"
+  Type = "bool"
+  Label = { es = "Miximax sin límite de tiempo", en = "Untimed miximax" }
+  Help = { es = "El miximax no tiene límite y termina al llegar la PE a 0.", en = "Miximax has no time limit and ends at 0 PE." }
+  [[Shape.Field]]
+  Key = "stamina.miximax_end_stamina"
+  Type = "float"
+  Label = { es = "PE final del miximax", en = "Miximax end PE" }
+  Help = { es = "PE con la que termina el miximax.", en = "PE at which miximax ends." }
+  [[Shape.Field]]
+  Key = "stamina.miximax_stamina_multiplier"
+  Type = "float"
+  Label = { es = "Multiplicador de PE del miximax (IF)", en = "Miximax PE multiplier (IF)" }
+  Help = { es = "Modelo «if»: multiplica el gasto de PE mientras dura el miximax.", en = "\"if\" model: multiplies PE drain during miximax." }
+  [[Shape.Field]]
+  Key = "stamina.miximax_armour_stamina_multiplier"
+  Type = "float"
+  Label = { es = "Multiplicador de PE miximax con armadura (IF)", en = "Miximax plus armour PE multiplier (IF)" }
+  Help = { es = "Modelo «if»: multiplicador de PE con miximax y armadura a la vez.", en = "\"if\" model: PE multiplier with miximax and armour together." }
+  [[Shape.Field]]
+  Key = "stamina.armour_stamina_multiplier"
+  Type = "float"
+  Label = { es = "Multiplicador de PE de armadura (IF)", en = "Armour PE multiplier (IF)" }
+  Help = { es = "Modelo «if»: multiplica el gasto de PE con armadura.", en = "\"if\" model: multiplies PE drain under armour." }
+  [[Shape.Field]]
+  Key = "stamina.clip_gauge_end"
+  Type = "string"
+  Label = { es = "Animación al agotar la pila", en = "Battery-out clip" }
+  Help = { es = "Animación al quedarse sin batería cuando la regla del rasgo no indica ninguna.", en = "Clip played when the battery runs out and the trait names none." }
+  [[Shape.Field]]
+  Key = "stamina.miximax_carriers"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Auras con miximax", en = "Miximax carriers" }
+  Help = { es = "Auras de otros mods que empiezan con un miximax aunque su fila diga otra cosa.", en = "Aura rows from other mods that start as a miximax whatever their row says." }
+  [[Shape.Field]]
+  Key = "stamina.trait"
+  Type = "table"
+  Label = { es = "Rasgos de PE", en = "PE traits" }
+  Help = { es = "Reglas especiales de PE para androides y robots.", en = "Special PE rules for androids and robots." }
+  [[Shape.Field]]
+  Key = "stamina.trait.android"
+  Type = "table"
+  Label = { es = "Androides", en = "Androids" }
+  Help = { es = "Reglas de PE de los androides con keshin.", en = "PE rules of androids with keshin." }
+  [[Shape.Field]]
+  Key = "stamina.trait.android.keshins"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Keshins androides", en = "Android keshins" }
+  Help = { es = "Identificadores de los keshins que cuentan como androides.", en = "Ids of the keshins counted as androids." }
+  [[Shape.Field]]
+  Key = "stamina.trait.android.gauge_drain"
+  Type = "bool"
+  Label = { es = "Gasto de hiper", en = "Gauge drain" }
+  Help = { es = "Si el androide gasta el indicador de hiper.", en = "Whether the android spends the hyper gauge." }
+  [[Shape.Field]]
+  Key = "stamina.trait.android.stamina_multiplier"
+  Type = "float"
+  Label = { es = "Multiplicador de PE", en = "PE multiplier" }
+  Help = { es = "Multiplica el gasto de PE del androide.", en = "Multiplies the android's PE drain." }
+  [[Shape.Field]]
+  Key = "stamina.trait.android.battery_out"
+  Type = "string"
+  Label = { es = "Cuándo se agota la batería", en = "Battery-out rule" }
+  Help = { es = "Cuándo se queda sin batería al llegar a 0 PE.", en = "When the battery runs out at 0 PE." }
+  [[Shape.Field]]
+  Key = "stamina.trait.android.battery_keep_armour"
+  Type = "bool"
+  Label = { es = "Conservar armadura sin batería", en = "Keep armour on battery out" }
+  Help = { es = "La armadura se mantiene al agotarse la batería.", en = "The armour stays when the battery runs out." }
+  [[Shape.Field]]
+  Key = "stamina.trait.android.battery_clip"
+  Type = "string"
+  Label = { es = "Animación sin batería", en = "Battery-out clip" }
+  Help = { es = "Animación que se reproduce al agotarse la batería.", en = "Clip played when the battery runs out." }
+  [[Shape.Field]]
+  Key = "stamina.trait.android.battery_hold"
+  Type = "string"
+  Label = { es = "Pose sin batería", en = "Battery-out hold" }
+  Help = { es = "Conjunto de movimiento que mantiene al jugador sin batería.", en = "Motion set that holds the player with no battery." }
+  [[Shape.Field]]
+  Key = "stamina.trait.android.battery_hold_after_ms"
+  Type = "int"
+  Label = { es = "Retraso de la pose (ms)", en = "Hold delay (ms)" }
+  Help = { es = "Milisegundos tras la animación antes de mantener la pose.", en = "Milliseconds after the clip before the hold starts." }
+  [[Shape.Field]]
+  Key = "stamina.trait.robot"
+  Type = "table"
+  Label = { es = "Robots", en = "Robots" }
+  Help = { es = "Reglas de PE de los robots.", en = "PE rules of robots." }
+  [[Shape.Field]]
+  Key = "stamina.trait.robot.battery_out"
+  Type = "string"
+  Label = { es = "Cuándo se agota la batería", en = "Battery-out rule" }
+  Help = { es = "Cuándo se queda sin batería: «always» al llegar a 0 PE.", en = "When the battery runs out: \"always\" at 0 PE." }
+  [[Shape.Field]]
+  Key = "stamina.trait.robot.battery_clip"
+  Type = "string"
+  Label = { es = "Animación sin batería", en = "Battery-out clip" }
+  Help = { es = "Animación que se reproduce al agotarse la batería.", en = "Clip played when the battery runs out." }
+  [[Shape.Field]]
+  Key = "stamina.trait.robot.battery_hold"
+  Type = "string"
+  Label = { es = "Pose sin batería", en = "Battery-out hold" }
+  Help = { es = "Conjunto de movimiento que mantiene al robot sin batería.", en = "Motion set that holds the robot with no battery." }
+  [[Shape.Field]]
+  Key = "stamina.trait.robot.battery_hold_after_ms"
+  Type = "int"
+  Label = { es = "Retraso de la pose (ms)", en = "Hold delay (ms)" }
+  Help = { es = "Milisegundos tras la animación antes de mantener la pose.", en = "Milliseconds after the clip before the hold starts." }
+  [[Shape.Field]]
+  Key = "tired_motion"
+  Type = "table"
+  Label = { es = "Movimiento de cansancio", en = "Tired motion" }
+  Help = { es = "Cómo corren y se quedan quietos los jugadores con la PE casi vacía.", en = "How players run and idle with nearly empty PE." }
+  [[Shape.Field]]
+  Key = "tired_motion.enabled"
+  Type = "bool"
+  Label = { es = "Activado", en = "Enabled" }
+  Help = { es = "Activa el movimiento de cansancio.", en = "Turns tired motion on." }
+  [[Shape.Field]]
+  Key = "tired_motion.run_below"
+  Type = "float"
+  Label = { es = "Cansado por debajo de", en = "Tired below" }
+  Help = { es = "Fracción de PE por debajo de la cual el jugador corre cansado.", en = "PE share below which the player runs tired." }
+  [[Shape.Field]]
+  Key = "tired_motion.run_recover"
+  Type = "float"
+  Label = { es = "Recuperado por encima de", en = "Recovered above" }
+  Help = { es = "Fracción de PE por encima de la cual vuelve a correr normal.", en = "PE share above which he runs normally again." }
+  [[Shape.Field]]
+  Key = "tired_motion.run_sets"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Estilos de carrera cansada", en = "Tired run styles" }
+  Help = { es = "Conjuntos de movimiento; se sortea uno al empezar el cansancio.", en = "Motion sets; one is drawn when tiredness starts." }
+  [[Shape.Field]]
+  Key = "tired_motion.run_weights"
+  Type = "list"
+  Label = { es = "Pesos de los estilos", en = "Style weights" }
+  Help = { es = "Probabilidad relativa de cada estilo de carrera cansada.", en = "Relative chance of each tired run style." }
+  [[Shape.Field]]
+  Key = "tired_motion.reroll"
+  Type = "string"
+  Label = { es = "Nuevo sorteo", en = "Reroll" }
+  Help = { es = "Cuándo se vuelve a sortear el estilo (por ejemplo cada episodio).", en = "When the style is drawn again (for example each episode)." }
+  [[Shape.Field]]
+  Key = "tired_motion.idle_set"
+  Type = "string"
+  Label = { es = "Pose cansada parado", en = "Tired idle set" }
+  Help = { es = "Conjunto de movimiento del jugador cansado cuando está parado.", en = "Motion set of the tired player when standing." }
+  [[Shape.Field]]
+  Key = "tired_motion.idle_at"
+  Type = "float"
+  Label = { es = "PE para pose parada", en = "Idle PE threshold" }
+  Help = { es = "Fracción de PE por debajo de la cual aparece la pose parada.", en = "PE share below which the idle pose appears." }
+  [[Shape.Field]]
+  Key = "tired_motion.idle_every_s"
+  Type = "list"
+  Label = { es = "Cada cuánto jadea (s)", en = "Idle interval (s)" }
+  Help = { es = "Rango en segundos entre dos poses cansadas.", en = "Range in seconds between two tired idle poses." }
+  [[Shape.Field]]
+  Key = "tired_motion.idle_for_s"
+  Type = "list"
+  Label = { es = "Duración de la pose (s)", en = "Idle duration (s)" }
+  Help = { es = "Rango en segundos que dura cada pose cansada.", en = "Range in seconds each tired idle pose lasts." }
+  [[Shape.Field]]
+  Key = "tired_motion.idle_speed"
+  Type = "float"
+  Label = { es = "Velocidad máxima parado", en = "Idle speed limit" }
+  Help = { es = "Velocidad máxima del jugador para considerarlo parado.", en = "Top speed at which the player counts as standing." }
+  [[Shape.Field]]
+  Key = "tired_motion.idle_states"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Estados de juego válidos", en = "Idle game states" }
+  Help = { es = "Estados del partido en los que puede aparecer la pose parada.", en = "Match states in which the idle pose may appear." }
+  [[Shape.Field]]
+  Key = "tired_motion.keepers"
+  Type = "bool"
+  Label = { es = "Incluir porteros", en = "Include keepers" }
+  Help = { es = "Aplica el cansancio también a los porteros.", en = "Applies tiredness to keepers too." }
+  [[Shape.Field]]
+  Key = "tired_motion.cpu"
+  Type = "bool"
+  Label = { es = "Incluir al rival", en = "Include CPU" }
+  Help = { es = "Aplica el cansancio también al equipo rival (CPU).", en = "Applies tiredness to the CPU team too." }
+  [[Shape.Field]]
+  Key = "hud_hidden_layers"
+  Type = "table"
+  Label = { es = "Capas de HUD ocultas", en = "Hidden HUD layers" }
+  Help = { es = "Capas del HUD del partido que se ocultan mientras nada se paga con el indicador de hiper.", en = "Match HUD layers hidden while nothing pays with the hyper gauge." }
+  [[Shape.Field]]
+  Key = "hud_hidden_layers.hidden_layers"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Lista de capas", en = "Layer list" }
+  Help = { es = "Capas del HUD que se ocultan.", en = "HUD layers that are hidden." }
+  [[Shape.Field]]
+  Key = "mode_change"
+  Type = "table"
+  Label = { es = "Modo de cambio personalizado", en = "Custom change mode" }
+  Help = { es = "Cambios de modo creados por el jugador.", en = "Change modes created by the player." }
+  [[Shape.Field]]
+  Key = "mode_change.enabled"
+  Type = "bool"
+  Label = { es = "Activado", en = "Enabled" }
+  Help = { es = "Si se desactiva no se pueden crear ni equipar cambios; los guardados siguen en la partida sin efecto.", en = "When off no change can be created or equipped; stored ones stay in the save but do nothing." }
+  [[Shape.Field]]
+  Key = "souls"
+  Type = "table"
+  Label = { es = "Tótems de alma", en = "Soul totems" }
+  Help = { es = "Ajustes de los tótems y sus habilidades.", en = "Settings of the totems and their skills." }
+  [[Shape.Field]]
+  Key = "souls.spirit_points"
+  Type = "table"
+  Label = { es = "Puntos de aura (SP)", en = "Aura points (SP)" }
+  Help = { es = "Reserva SP por tótem de Character Reforged, con su opción de puntos para tótems activa.", en = "Character Reforged's per-totem SP pool, with its totem points option on." }
+  [[Shape.Field]]
+  Key = "souls.spirit_points.resource"
+  Type = "string"
+  Label = { es = "Recurso SP", en = "SP resource" }
+  Help = { es = "Recurso de Character Reforged que hace de reserva del tótem (interno).", en = "Character Reforged resource used as the totem's pool (internal)." }
+  [[Shape.Field]]
+  Key = "souls.spirit_points.start_flag"
+  Type = "string"
+  Label = { es = "Marca de SP inicial", en = "Starting SP flag" }
+  Help = { es = "Prefijo de la marca con el SP del tótem a nivel 1; la barra empieza ahí en partidos y menús (interno).", en = "Flag prefix holding the totem's SP at level 1; its bar starts there in matches and menus (internal)." }
+  [[Shape.Field]]
+  Key = "souls.stamina"
+  Type = "table"
+  Label = { es = "Aguante", en = "Stamina" }
+  Help = { es = "Aguante del partido que recuperan las habilidades de recuperación.", en = "Match stamina refilled by recovery skills." }
+  [[Shape.Field]]
+  Key = "souls.stamina.resource"
+  Type = "string"
+  Label = { es = "Recurso de aguante", en = "Stamina resource" }
+  Help = { es = "Recurso de Character Reforged usado como aguante (interno).", en = "Character Reforged resource used as stamina (internal)." }
+  [[Shape.Field]]
+  Key = "souls.reel"
+  Type = "table"
+  Label = { es = "Carrusel de habilidades", en = "Skill carousel" }
+  Help = { es = "Carrusel que se muestra sobre la supertécnica del tótem con sus 6 habilidades.", en = "Carousel shown over the totem's move with its 6 skills." }
+  [[Shape.Field]]
+  Key = "souls.reel.open_s"
+  Type = "float"
+  Label = { es = "Aparición (s)", en = "Fade in (s)" }
+  Help = { es = "Segundos que tarda en aparecer el carrusel.", en = "Seconds the carousel takes to fade in." }
+  [[Shape.Field]]
+  Key = "souls.reel.spin_s"
+  Type = "float"
+  Label = { es = "Giro (s)", en = "Spin (s)" }
+  Help = { es = "Segundos que gira el carrusel, frenando poco a poco.", en = "Seconds the carousel spins, slowing down." }
+  [[Shape.Field]]
+  Key = "souls.reel.settle_s"
+  Type = "float"
+  Label = { es = "Asentado (s)", en = "Settle (s)" }
+  Help = { es = "Segundos que tarda en asentarse sobre el resultado.", en = "Seconds to settle on the result." }
+  [[Shape.Field]]
+  Key = "souls.reel.hold_s"
+  Type = "float"
+  Label = { es = "Pausa en el resultado (s)", en = "Hold on result (s)" }
+  Help = { es = "Segundos que se queda mostrando el resultado.", en = "Seconds it stays on the result." }
+  [[Shape.Field]]
+  Key = "souls.reel.close_s"
+  Type = "float"
+  Label = { es = "Desaparición (s)", en = "Fade out (s)" }
+  Help = { es = "Segundos que tarda en desaparecer.", en = "Seconds it takes to fade out." }
+  [[Shape.Field]]
+  Key = "souls.reel.loops"
+  Type = "int"
+  Label = { es = "Vueltas", en = "Loops" }
+  Help = { es = "Vueltas completas a las 6 tarjetas antes de parar en el resultado.", en = "Whole turns over the 6 cards before the result." }
+  [[Shape.Field]]
+  Key = "souls.reel.settle_cards"
+  Type = "float"
+  Label = { es = "Recorrido final (tarjetas)", en = "Overshoot (cards)" }
+  Help = { es = "Cuántas tarjetas se pasa del resultado antes de volver a él.", en = "How many cards it runs past the result before settling." }
+  [[Shape.Field]]
+  Key = "souls.reel.center_x"
+  Type = "int"
+  Label = { es = "Posición X central", en = "Centre X" }
+  Help = { es = "Posición horizontal del centro de la tarjeta central, en píxeles de 1080p.", en = "Horizontal position of the centre card's centre, in 1080p pixels." }
+  [[Shape.Field]]
+  Key = "souls.reel.center_y"
+  Type = "int"
+  Label = { es = "Posición Y central", en = "Centre Y" }
+  Help = { es = "Posición vertical del centro de la tarjeta central, en píxeles de 1080p.", en = "Vertical position of the centre card's centre, in 1080p pixels." }
+  [[Shape.Field]]
+  Key = "souls.reel.spacing"
+  Type = "int"
+  Label = { es = "Separación entre tarjetas", en = "Card spacing" }
+  Help = { es = "Distancia entre los centros de dos tarjetas.", en = "Distance between card centres." }
+  [[Shape.Field]]
+  Key = "souls.reel.card_width"
+  Type = "int"
+  Label = { es = "Ancho de tarjeta", en = "Card width" }
+  Help = { es = "Ancho de la tarjeta central en píxeles.", en = "Width of the centre card in pixels." }
+  [[Shape.Field]]
+  Key = "souls.reel.card_height"
+  Type = "int"
+  Label = { es = "Alto de tarjeta", en = "Card height" }
+  Help = { es = "Alto de la tarjeta central en píxeles.", en = "Height of the centre card in pixels." }
+  [[Shape.Field]]
+  Key = "souls.reel.side_scale"
+  Type = "float"
+  Label = { es = "Escala de tarjetas laterales", en = "Side card scale" }
+  Help = { es = "Tamaño de las tarjetas laterales respecto a la central.", en = "Size of side cards relative to the centre one." }
+  [[Shape.Field]]
+  Key = "souls.reel.side_alpha"
+  Type = "float"
+  Label = { es = "Opacidad de tarjetas laterales", en = "Side card opacity" }
+  Help = { es = "Opacidad de las tarjetas laterales (0 a 1).", en = "Opacity of side cards (0 to 1)." }
+  [[Shape.Field]]
+  Key = "souls.reel.icon_size"
+  Type = "int"
+  Label = { es = "Tamaño del icono", en = "Icon size" }
+  Help = { es = "Tamaño del icono dentro de la tarjeta.", en = "Icon size inside a card." }
+  [[Shape.Field]]
+  Key = "souls.reel.icon_gap"
+  Type = "int"
+  Label = { es = "Hueco del icono", en = "Icon gap" }
+  Help = { es = "Espacio entre el icono y los textos.", en = "Gap between the icon and the texts." }
+  [[Shape.Field]]
+  Key = "souls.reel.name_size"
+  Type = "int"
+  Label = { es = "Tamaño del nombre", en = "Name size" }
+  Help = { es = "Altura del texto del nombre.", en = "Height of the name text." }
+  [[Shape.Field]]
+  Key = "souls.reel.level_size"
+  Type = "int"
+  Label = { es = "Tamaño del nivel", en = "Level size" }
+  Help = { es = "Altura del texto del nivel.", en = "Height of the level text." }
+  [[Shape.Field]]
+  Key = "souls.reel.diamond_size"
+  Type = "int"
+  Label = { es = "Tamaño de los rombos", en = "Diamond size" }
+  Help = { es = "Tamaño de los rombos de nivel.", en = "Size of the level diamonds." }
+  [[Shape.Field]]
+  Key = "souls.reel.diamond_spacing"
+  Type = "int"
+  Label = { es = "Separación de los rombos", en = "Diamond spacing" }
+  Help = { es = "Distancia entre los rombos de nivel.", en = "Distance between level diamonds." }
+  [[Shape.Field]]
+  Key = "souls.reel.line_gap"
+  Type = "int"
+  Label = { es = "Espacio entre líneas", en = "Line gap" }
+  Help = { es = "Espacio entre las líneas de texto de la tarjeta.", en = "Gap between a card's text lines." }
+  [[Shape.Field]]
+  Key = "souls.reel.cutin_window_s"
+  Type = "int"
+  Label = { es = "Ventana de la secuencia (s)", en = "Cut-in window (s)" }
+  Help = { es = "La primera secuencia que empiece en estos segundos tras la orden de la técnica muestra el carrusel.", en = "The first cut-in to start within these seconds of the move command shows the carousel." }
+  [[Shape.Field]]
+  Key = "souls.reel.element_colors"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Colores de elemento", en = "Element colours" }
+  Help = { es = "Color de la tarjeta de cada elemento del tótem (viento, bosque, fuego, montaña, vacío).", en = "Card colour of each totem element (wind, forest, fire, mountain, void)." }
+  [[Shape.Field]]
+  Key = "souls.reel.neutral_color"
+  Type = "string"
+  Label = { es = "Color neutro", en = "Neutral colour" }
+  Help = { es = "Color de la tarjeta sin elemento.", en = "Card colour with no element." }
+  [[Shape.Field]]
+  Key = "souls.reel.miss_color"
+  Type = "string"
+  Label = { es = "Color de fallo", en = "Miss colour" }
+  Help = { es = "Color de la tarjeta cuando la tirada falla.", en = "Card colour when the roll fails." }
+  [[Shape.Field]]
+  Key = "souls.reel.icon_atlas"
+  Type = "string"
+  Label = { es = "Atlas de iconos", en = "Icon atlas" }
+  Help = { es = "Atlas de los iconos de las tarjetas (interno).", en = "Atlas of the card icons (internal)." }
+  [[Shape.Field]]
+  Key = "souls.level_pop"
+  Type = "table"
+  Label = { es = "Aviso de subida de nivel", en = "Level-up pop" }
+  Help = { es = "Globo sobre el jugador con «+Nv.2» al subir de nivel el tótem.", en = "Speech bubble over the player with «+Lv.2» when the totem levels up." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.show"
+  Type = "bool"
+  Label = { es = "Mostrar aviso", en = "Show pop" }
+  Help = { es = "Si se desactiva no aparece el globo.", en = "When off no bubble appears." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.cpu"
+  Type = "bool"
+  Label = { es = "También rival", en = "Also CPU" }
+  Help = { es = "El rival (CPU) también muestra el aviso.", en = "The CPU team shows the pop too." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.appear_s"
+  Type = "float"
+  Label = { es = "Aparición (s)", en = "Appear (s)" }
+  Help = { es = "Segundos que tarda en aparecer el globo.", en = "Seconds the bubble takes to appear." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.hold_s"
+  Type = "float"
+  Label = { es = "Duración (s)", en = "Hold (s)" }
+  Help = { es = "Segundos que se queda a tamaño completo sobre el jugador.", en = "Seconds it stays at full size over the player." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.out_s"
+  Type = "float"
+  Label = { es = "Desaparición (s)", en = "Fade out (s)" }
+  Help = { es = "Segundos que tarda en desvanecerse.", en = "Seconds it takes to fade out." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.body_height"
+  Type = "int"
+  Label = { es = "Alto del globo", en = "Bubble height" }
+  Help = { es = "Altura del cuerpo del globo.", en = "Height of the bubble body." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.tail_height"
+  Type = "int"
+  Label = { es = "Alto de la cola", en = "Tail height" }
+  Help = { es = "Altura de la cola del globo.", en = "Height of the bubble tail." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.lift"
+  Type = "int"
+  Label = { es = "Elevación", en = "Lift" }
+  Help = { es = "Distancia entre la punta de la cola y la cabeza del jugador.", en = "Distance from the tail tip to the player's head." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.text_scale"
+  Type = "float"
+  Label = { es = "Escala del texto", en = "Text scale" }
+  Help = { es = "Tamaño del texto (1 = tamaño del rótulo original).", en = "Text size (1 = the retail caption size)." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.pad_x"
+  Type = "int"
+  Label = { es = "Margen lateral", en = "Side padding" }
+  Help = { es = "Espacio a izquierda y derecha del texto dentro del globo.", en = "Room left and right of the text inside the bubble." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.bubble_widths"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Anchos del globo", en = "Bubble widths" }
+  Help = { es = "Anchos disponibles del globo; se usa el más estrecho que cabe el texto.", en = "Available bubble widths; the narrowest that holds the text is used." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.char_width"
+  Type = "int"
+  Label = { es = "Ancho de carácter", en = "Character width" }
+  Help = { es = "Ancho de un carácter a escala 1, solo si el juego no mide el texto.", en = "Width of a character at scale 1, used only when the game does not measure the text." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.text_offset_y"
+  Type = "int"
+  Label = { es = "Desplazamiento vertical del texto", en = "Text vertical offset" }
+  Help = { es = "Sube (+) o baja (-) el texto dentro del globo.", en = "Moves the text up (+) or down (-) inside the bubble." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.text_markup"
+  Type = "string"
+  Label = { es = "Formato del texto", en = "Text markup" }
+  Help = { es = "Marcas de color alrededor del texto; {text} es el texto.", en = "Colour markup around the text; {text} is the text." }
+  [[Shape.Field]]
+  Key = "souls.level_pop.rise"
+  Type = "int"
+  Label = { es = "Ascenso al desvanecerse", en = "Rise" }
+  Help = { es = "Cuánto sube el globo mientras se desvanece.", en = "How far the bubble rises while fading out." }
+  [[Shape.Field]]
+  Key = "souls.levels"
+  Type = "table"
+  Label = { es = "Niveles del tótem", en = "Totem levels" }
+  Help = { es = "Cómo gana puntos de nivel (LP) y niveles el tótem mientras está fuera.", en = "How a totem gains level points (LP) and levels while out." }
+  [[Shape.Field]]
+  Key = "souls.levels.thresholds"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Puntos para cada nivel", en = "Level thresholds" }
+  Help = { es = "LP totales para llegar a los niveles 2, 3, 4 y 5; bájalos para subir antes.", en = "Total LP to reach levels 2, 3, 4 and 5; lower them to level up faster." }
+  [[Shape.Field]]
+  Key = "souls.levels.per_second"
+  Type = "float"
+  Label = { es = "LP por segundo", en = "LP per second" }
+  Help = { es = "Puntos de nivel por segundo de juego.", en = "Level points per second of live play." }
+  [[Shape.Field]]
+  Key = "souls.levels.per_duel_won"
+  Type = "float"
+  Label = { es = "LP por duelo ganado", en = "LP per duel won" }
+  Help = { es = "Puntos de nivel al ganar un duelo de enfoque.", en = "Level points when winning a focus duel." }
+  [[Shape.Field]]
+  Key = "souls.levels.per_goal"
+  Type = "float"
+  Label = { es = "LP por gol", en = "LP per goal" }
+  Help = { es = "Puntos de nivel cuando el jugador marca.", en = "Level points when the player scores." }
+  [[Shape.Field]]
+  Key = "souls.levels.per_own_move"
+  Type = "float"
+  Label = { es = "LP por técnica propia", en = "LP per own move" }
+  Help = { es = "Puntos de nivel al usar la técnica del tótem.", en = "Level points when using the totem's own move." }
+  [[Shape.Field]]
+  Key = "souls.levels.time_scale"
+  Type = "float"
+  Label = { es = "Escala del tiempo extra", en = "Extra time scale" }
+  Help = { es = "Sin los puntos de tótem de Character Reforged: tiempo extra de invocación = tiempo total x subida de SP relativa x esto.", en = "Without Character Reforged's totem points: extra summon time = full time x relative SP gain x this." }
+  [[Shape.Field]]
+  Key = "souls.levels.cpu"
+  Type = "bool"
+  Label = { es = "También rival", en = "Also CPU" }
+  Help = { es = "Los tótems del rival (CPU) también suben de nivel y tiran el carrusel (sin mostrarlo).", en = "The CPU team's totems also level up and roll the carousel (never shown)." }
+  [[Shape.Field]]
+  Key = "souls.levels.no_release"
+  Type = "bool"
+  Label = { es = "Sin soltar tótem", en = "No release" }
+  Help = { es = "El botón de soltar no hace nada mientras hay un tótem fuera.", en = "The release button does nothing while a totem is out." }
+  [[Shape.Field]]
+  Key = "souls.levels.live_states"
+  Type = "list"
+  Of = "int"
+  Label = { es = "Estados de juego activo", en = "Live states" }
+  Help = { es = "Estados del partido en los que cuentan los puntos por segundo.", en = "Match states in which points per second count." }
+  [[Shape.Field]]
+  Key = "souls.effects"
+  Type = "table"
+  Label = { es = "Efectos", en = "Effects" }
+  Help = { es = "Ajustes de los efectos de las habilidades del carrusel.", en = "Settings for the carousel skills' effects." }
+  [[Shape.Field]]
+  Key = "souls.effects.grant_flag"
+  Type = "string"
+  Label = { es = "Marca de concesión de pasivas", en = "Passive grant flag" }
+  Help = { es = "Prefijo de marca del motor de pasivas del framework para el efecto «passive» (interno).", en = "Framework passive engine flag prefix for the \"passive\" effect (internal)." }
+  [[Shape.Field]]
+  Key = "souls.effects.knockdown_clip"
+  Type = "string"
+  Label = { es = "Animación de derribo", en = "Knock-down clip" }
+  Help = { es = "Animación que se reproduce al rival al derribarlo; vacío = solo la ralentización.", en = "Clip played on the opponent on a knock-down; empty = only the slow-down." }

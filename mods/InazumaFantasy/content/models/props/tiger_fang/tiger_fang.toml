@@ -1,7 +1,4 @@
 schema = "VRFW.model/1"
-# Inazuma Fantasy: Colmillo del Tigre's tiger: Remate del tigre's model refitted to Colmillo de pantera's skeleton, so that
-# move's motion packs still play it. The .glb and PNGs under assets\models\props\tiger_fang\ are made by
-# research/scripts/tiger_fang_model_build.py (_deploy.toml).
 name = "tiger_fang"
 kind = "prop"
 target = "chr/_waza/ev63_86020/ev63_86020.g4pkm"

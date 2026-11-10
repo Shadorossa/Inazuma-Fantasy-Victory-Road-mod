@@ -1,0 +1,10 @@
+schema = "VRFW.migration/1"
+id = "InazumaFantasy.desmodus_card_number_released"
+description = "The Desmodus Drakul Idol's name lets go of the card number it had before his card moved"
+phase = "data"
+
+# The character type records his new card under this name on its next build.
+[[step]]
+kind = "delete_key"
+file = "{state}/ids/chara.json"
+key = 'entries."InazumaFantasy.desmodus_v_gene_idol#card"'

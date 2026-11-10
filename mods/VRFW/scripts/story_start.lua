@@ -1,23 +1,3 @@
--- The story-complete start's data (content\story_start\*.toml, [[VRFW.StoryStart]], written by
--- research/scripts/story_start_build.py), served to the game Lua by CMND_VRFW_STORY_START_DATA (content\game\
--- story_start.toml). The game Lua side is assets\lua\menu\_all\88_story.lua (VRFW_Story.Data, VRFW_Story.CompleteFlags)
--- and the graft story_start (the one-time apply on the title).
---
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_VRFW_STORY_START_DATA | — | the data table below; nothing when no active mod declares [[VRFW.StoryStart]] |
---
--- The data table (lists in declaration order; several [[VRFW.StoryStart]] entries add their lists in load order, the
--- last one gives the settings):
---   VERSION, LEVEL, NORMAL_LEVEL, PHASE = { phase, step }
---   BITS = the flags set, the story-clear flag LAST; BITS_OFF = the flags cleared
---   BYTES = { { flag, value } … }; HELP = { help … }; QUESTS = { { quest, state } … }; WORDS = { word … }
---   GAMES = { match … }; ITEMS = { { item, count } … }
---   TEAM_INFO = { { arguments of 0xE7D71E16 } … }; TEAM_SET = { { arguments of CMND_SET_TEAM_SET_INFO } … }
---   ADDS = { { card, arg3, arg4, story_bank, arg8, arg9, team_set, slot, arg12, arg16, arg19 } … }
---   SCOUTS = { { card, character, join_flag, team_set } … }; NORMAL = { card … }
---   CHARACTER_OF = { [card] = character }; CHARACTER_CARDS = { [character] = { card … } }
---   TROPHIES = { { trophy, tier } … }
 
 StoryStart = StoryStart or {}
 

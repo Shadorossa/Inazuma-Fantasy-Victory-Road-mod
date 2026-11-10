@@ -1,8 +1,3 @@
--- Technique families for the menus: the families a move belongs to, each with its display text key, its icon and every
--- move of the family. The families are every active mod's [[VRFW.TechniqueFamily]] declarations (technique files); the
--- moves of each are the framework's (VRFW.technique_family: the moves' `families` lists of every mod).
--- CMND_HISSATSUREFORGED_MOVE_FAMILIES(move) -> { count = n, [1..n] = { key, text, icon, count = m, moves = { [1..m] = id } } }
--- (count = 0: the move is in no family).
 
 HissatsuReforged = HissatsuReforged or {}
 HissatsuReforged.Families = HissatsuReforged.Families or {}
@@ -12,10 +7,8 @@ local FOLDERS = { "techniques", "content/techniques", "features/*/content/techni
 
 local cache = nil
 
-local u32 = require("VRFW/lib/ids").u32
+local u32 = VRFW.ids.unsigned
 
--- the family's text key as the text engine knows it: the key as written, else the same key under the declaring mod's
--- internal id (`[new] family_x` of HissatsuReforged is registered as <internal id>.family_x); "" = none
 local function text_key(t, mod)
   if t == "" then
     return ""
@@ -35,7 +28,6 @@ local function text_key(t, mod)
   return t
 end
 
--- every declared family (load order, a later declaration of the same key replaces the earlier one) and move -> families
 local function load_all()
   if cache ~= nil then
     return cache
@@ -87,7 +79,6 @@ VRFW.on("slot_load", function()
   load_all()
 end)
 
--- CMND_HISSATSUREFORGED_MOVE_FAMILIES(move)
 function Families.OfMove(move)
   local c = load_all()
   local out = { count = 0 }

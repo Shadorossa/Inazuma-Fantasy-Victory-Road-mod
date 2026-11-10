@@ -1,4 +1,3 @@
-# ev62_92114_1 evt list: ev62_01140_1's (whd01140) with the banner object renamed (soccer10_01_whd92114)
 schema = "VRFW.base_table/1"
 file = "data/common/event_cfg/evt/ev62_92114_1.cfg.bin"
 from = "data/common/event_cfg/evt/ev62_01140_1.cfg.bin"
@@ -12,16 +11,6 @@ args = ["common/event/ev62/ev62_92114/ev62_92114_camera.g4cm"]
 command = "LOAD_LIGHT_LIST"
 at = 12
 args = ["common\\event\\ev62/ev62_92114\\ev62_92114_light\\light_list.cfg.bin"]
-
-[[entry]]
-command = "TELOP_OBJ_LOAD"
-at = 13
-args = ["soccer10_01_whd92114", 1, 1, 1, 1, "NONE", "soccer10_01_whd92114"]
-
-[[entry]]
-command = "TELOP_OBJ_REGISTER"
-at = 14
-args = ["soccer10_01_whd92114"]
 
 [[entry]]
 command = "LOAD_ACTOR_MOTION"
@@ -94,24 +83,6 @@ command = "LOAD_ACTOR_MOTION"
 at = 82
 frame = 1
 args = ["point_s90", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0201/load/point_s90##配置ポイント/", "c0201"]
-
-[[entry]]
-command = "TELOP_OBJ_MOT"
-at = 83
-frame = 28
-args = [0, "soccer10_01_whd92114"]
-
-[[entry]]
-command = "TELOP_OBJ_PLAY"
-at = 84
-frame = 28
-args = [1, "soccer10_01_whd92114"]
-
-[[entry]]
-command = "TELOP_OBJ_OPTION"
-at = 85
-frame = 28
-args = [0, 0, "soccer10_01_whd92114"]
 
 [[entry]]
 command = "ACTOR_PLAY_ANIM"
@@ -274,9 +245,3 @@ command = "ACTOR_PLAY_ANIM"
 at = 218
 frame = 346
 args = ["point_s90", "c0401", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
-
-[[entry]]
-command = "TELOP_OBJ_MOT"
-at = 224
-frame = 380
-args = [1, "soccer10_01_whd92114"]

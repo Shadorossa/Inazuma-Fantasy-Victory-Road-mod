@@ -1,17 +1,9 @@
--- Team momentum: a team gauge (a per = "team" match resource) filled by time and by match events, with levels and a phase started at full.
--- Declarations: every active mod's content\team_momentum\*.toml (VRFW.team_momentum/1, content\types\team_momentum.toml); docs/framework/team-momentum.md.
--- Effects are rule responses: rule flags <key>.<side>.full / .phase / .level<N> (side = user / rival) and signals <key>.full / .phase / .phase_end / .level (actor = a player of that team).
--- A player who comes on by substitution during his team's phase gets the signal <key>.phase_join (actor = him): the phase's effects for him alone.
--- A phase ends when the gauge is empty and at the match end (signal <key>.phase_end each time); it goes on into the second half.
--- drain_only_in_play: the phase drains only in play_states (open play), so it stands still in half time, goal scenes and cut-ins.
--- A phase starts on the signal <key>.start (its actor's team) or CMND_VRFW_TEAM_MOMENTUM_START(key, side); it drains the gauge to 0 over phase_seconds of live play.
 
 TeamMomentum = TeamMomentum or {}
 
-local D = require "lib/declarations"
-local Live = require "VRFW/lib/match_live"
+local D = VRFW.declarations
+local Live = VRFW.match.live
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("team_momentum")
 
 local LIST = {}            -- momentums in load order
@@ -22,8 +14,6 @@ local SCORE = nil          -- { team 0, team 1 } at the last tick
 local USER = nil           -- the user's team
 
 local EPS = 1e-6
-
--- ---------------------------------------------------------------------------------------------- declarations
 
 local function load_declarations()
   local schema, why = D.schema("team_momentum")
@@ -44,7 +34,7 @@ local function load_declarations()
         local m = {
           key = d.key, resource = d.v.resource, option = d.v.option, fill = d.v.fill_per_s, behind = d.v.behind_per_s,
           live = live, play = play, drain_only_in_play = d.v.drain_only_in_play == true, levels = math.floor(d.v.levels), start_at = d.v.start_at, phase_seconds = d.v.phase_seconds,
-          gains_in_phase = d.v.gains_in_phase, gain_count = 0, flags = {}, pending = { [0] = 0, [1] = 0 },
+          gains_in_phase = d.v.gains_in_phase, button = d.v.button or "", gain_count = 0, flags = {}, pending = { [0] = 0, [1] = 0 },
           team = { [0] = { cur = 0, max = 0, phase = false, level = 0, full = false }, [1] = { cur = 0, max = 0, phase = false, level = 0, full = false } },
           option_at = -1e18, option_on = true, was_on = nil,
         }
@@ -70,8 +60,6 @@ local function load_declarations()
     end
   end
 end
-
--- ---------------------------------------------------------------------------------------------- helpers
 
 local function option_on(v)
   if v == nil then return true end
@@ -179,11 +167,19 @@ local function behind(team)
   return own ~= nil and other ~= nil and own < other
 end
 
--- ---------------------------------------------------------------------------------------------- per frame
+-- synced match: each team's phase starts from its own player's button in that team's lockstep command of this frame
+local function button_step(m)
+  if m.button == "" or m.phase_seconds <= 0 then return end
+  for team = 0, 1 do
+    local _, pressed = VRFW.match.team_command(team, m.button)
+    -- the phase start line names the frame: both PCs log it at the same one
+    if pressed then start_phase(m, team, string.format("lockstep button, frame %d", VRFW.match.frame() or -1)) end
+  end
+end
 
 local function step(m, match, dt)
   local state = tonumber(match.soccer_state) or -1
-  local live = Live.live_dt(match, m.live) > 0
+  local live = Live.live_time_step(match, m.live) > 0
   -- drain_only_in_play: the phase stands still outside open play (its gauge and its effects stay)
   local drains = live and (not m.drain_only_in_play or m.play[state] == true)
   for team = 0, 1 do
@@ -246,7 +242,10 @@ VRFW.on("tick", function(ev)
       end
       m.was_on = on
     end
-    if on then step(m, match, dt) end
+    if on then
+      if VRFW.match.synced() then button_step(m) end
+      step(m, match, dt)
+    end
   end
   return nil
 end)
@@ -273,9 +272,6 @@ end)
 VRFW.on("possession", function(ev) remember(ev) return nil end)
 VRFW.on("select", function(ev) remember(ev) return nil end)
 
--- ---------------------------------------------------------------------------------------------- gains
-
--- the team an event counts for: the actor's team; a goal: the team whose score rose (an own goal counts for the other side)
 local function event_team(ev)
   local team = ev.actor and ev.actor.team
   if ev.trigger == "goal" and ev.match and ev.match.score then
@@ -315,18 +311,16 @@ local function on_gain(on)
   end
 end
 
--- ---------------------------------------------------------------------------------------------- substitutions
-
-local SUBSTITUTION_EVENT = 318   -- the effect event of a player coming on (Match.SubstitutionEvent's NotifyEffectEvent)
+local SUBSTITUTION_EVENT = 318
 
 -- match:substitution post, once per player who comes on: args[1] = the effect event, args[2] = u32* his handle.
--- During his team's phase he joins it: the signal <key>.phase_join with him as the actor.
 local function on_substitution(ev)
   local args = ev.args or {}
   if (tonumber(args[1]) or 0) % 4294967296 ~= SUBSTITUTION_EVENT then return nil end
   local ptr = (tonumber(args[2]) or 0) % 18446744073709551616
   if ptr < 0x10000 then return nil end
-  local ok, hdl = pcall(VRFW.mem.read, "u32", ptr)
+  local hdl = VRFW.memory.read("u32", ptr)
+  local ok = hdl ~= nil
   hdl = ok and (tonumber(hdl) or 0) % 4294967296 or 0
   if hdl == 0 then return nil end
   local found, actor = pcall(VRFW.actor, hdl)
@@ -342,8 +336,6 @@ local function on_substitution(ev)
   return nil
 end
 
--- ---------------------------------------------------------------------------------------------- commands
-
 local function team_of_side(side)
   side = tonumber(side) or -1
   if side == 0 or side == 1 then return side end
@@ -352,7 +344,6 @@ local function team_of_side(side)
   return USER
 end
 
--- CMND_VRFW_TEAM_MOMENTUM(key, side) -> ok, ratio (0..1), phase (0/1), level, team, user (0/1), full (0/1); side 0 / 1, -1 the user's team, -2 the rival's
 function TeamMomentum.Get(key, side)
   local m = BY_KEY[tostring(key)]
   if not m or not enabled(m) or not VRFW.in_match() then return false end
@@ -367,12 +358,12 @@ end
 function TeamMomentum.Start(key, side)
   local m = BY_KEY[tostring(key)]
   if not m or not enabled(m) or not VRFW.in_match() then return false end
+  -- a synced match starts phases only inside its lockstep frames (button_step): a call from a menu step would run on one PC
+  if VRFW.match.synced() then return false end
   local team = team_of_side(side)
   if team == nil then return false end
   return start_phase(m, team, "command")
 end
-
--- ---------------------------------------------------------------------------------------------- load
 
 load_declarations()
 for on in pairs(GAINS) do

@@ -1,0 +1,147 @@
+# Souls Rework › the reel's skill families.
+schema = "CharacterReforged.soul/1"
+
+# Galaxy: Shoot Up +100 / +150 / +250 shoot power
+[[CharacterReforged.Skill]]
+name = "shoot_up"
+text = "CharacterReforged.reel_shoot_up"
+icon = "icon_teambuff02"
+effect = "passive"
+passive = "CharacterReforged.reel_shoot_up"
+levels = 3
+galaxy = "ShootUp"
+
+# Galaxy: Dribble Up +100 / +150 / +250 dribble power
+[[CharacterReforged.Skill]]
+name = "dribble_up"
+text = "CharacterReforged.reel_dribble_up"
+icon = "icon_teambuff03"
+effect = "passive"
+passive = "CharacterReforged.reel_dribble_up"
+levels = 3
+galaxy = "DribbleUp"
+
+# Galaxy: Block Up +100 / +150 / +250 block power
+[[CharacterReforged.Skill]]
+name = "block_up"
+text = "CharacterReforged.reel_block_up"
+icon = "icon_teambuff13"
+effect = "passive"
+passive = "CharacterReforged.reel_block_up"
+levels = 3
+galaxy = "BlockUp"
+
+# Galaxy: Catch Up +100 / +150 / +250 catch power
+[[CharacterReforged.Skill]]
+name = "catch_up"
+text = "CharacterReforged.reel_catch_up"
+icon = "icon_teambuff14"
+effect = "passive"
+passive = "CharacterReforged.reel_catch_up"
+levels = 3
+galaxy = "CatchUp"
+
+# Galaxy: SP Setsuyaku −20 / −35 / −50 % SP costs
+[[CharacterReforged.Skill]]
+name = "sp_saving"
+text = "CharacterReforged.reel_sp_saving"
+icon = "icon_teambuff18"
+effect = "passive"
+passive = "CharacterReforged.reel_sp_saving"
+levels = 3
+galaxy = "SPSetsuyaku"
+
+# Galaxy: Shibire Plus +20 / +35 / +50 numbness damage dealt
+[[CharacterReforged.Skill]]
+name = "numbness_plus"
+text = "CharacterReforged.reel_numbness_plus"
+icon = "icon_teambuff15"
+effect = "passive"
+passive = "CharacterReforged.reel_numbness_plus"
+levels = 3
+galaxy = "ShibirePlus"
+
+# Galaxy: Shibire Minus −20 / −35 / −50 numbness damage taken
+[[CharacterReforged.Skill]]
+name = "numbness_minus"
+text = "CharacterReforged.reel_numbness_minus"
+icon = "icon_teambuff24"
+effect = "passive"
+passive = "CharacterReforged.reel_numbness_minus"
+levels = 3
+galaxy = "ShibireMinus"
+
+# Galaxy: Level P Plus ×1.2 / ×1.5 / ×2.0 level-up speed
+[[CharacterReforged.Skill]]
+name = "level_points_plus"
+text = "CharacterReforged.reel_level_points_plus"
+icon = "icon_teambuff35"
+effect = "level_points"
+values = [20, 50, 100]
+galaxy = "LevelPPlus"
+
+# Galaxy: GP Kaifuku 10 / 20 / 30 % of the team's GP
+[[CharacterReforged.Skill]]
+name = "stamina_recovery"
+text = "CharacterReforged.reel_stamina_recovery"
+icon = "icon_teambuff32"
+effect = "team_stamina"
+values = [10, 20, 30]
+fallback = "tension_recovery"
+galaxy = "GPKaifuku"
+
+# Galaxy: TP Kaifuku 10 / 20 / 30 % of the team's TP
+[[CharacterReforged.Skill]]
+name = "tension_recovery"
+text = "CharacterReforged.reel_tension_recovery"
+icon = "icon_teambuff38"
+effect = "team_tension"
+units = [1, 2, 3]
+galaxy = "TPKaifuku"
+
+# Galaxy: GP TP Kaifuku 5 / 10 / 15 % of the team's GP and TP
+[[CharacterReforged.Skill]]
+name = "stamina_tension_recovery"
+text = "CharacterReforged.reel_stamina_tension_recovery"
+icon = "icon_teambuff37"
+effect = "team_stamina_tension"
+values = [5, 10, 15]
+units = [1, 1, 2]
+galaxy = "GPTPKaifuku"
+
+# Galaxy: Super Dash, faster for 3 / 5 / 7 s
+[[CharacterReforged.Skill]]
+name = "super_dash"
+text = "CharacterReforged.reel_super_dash"
+icon = "icon_teambuff28"
+effect = "passive"
+passive = "CharacterReforged.reel_super_dash"
+seconds = [3, 5, 7]
+galaxy = "SuperDash"
+
+# Galaxy: Muteki Dribble, invincible for 3 / 4 / 5 s
+[[CharacterReforged.Skill]]
+name = "invincible"
+text = "CharacterReforged.reel_invincible"
+icon = "icon_teambuff40"
+effect = "untouchable"
+seconds = [3, 4, 5]
+galaxy = "MutekiDribble"
+
+# Galaxy: Fukitobashi, paralyses the opponent for 5 / 6 / 7 s
+[[CharacterReforged.Skill]]
+name = "knockdown"
+text = "CharacterReforged.reel_knockdown"
+icon = "icon_teambuff34"
+effect = "knockdown"
+values = [-90, -90, -90]
+seconds = [5, 6, 7]
+galaxy = "Fukitobashi"
+
+# Galaxy: Miss!, no effect
+[[CharacterReforged.Skill]]
+name = "miss"
+text = "CharacterReforged.reel_miss"
+icon = "icon_teambuff23"
+effect = "none"
+galaxy = "Miss"

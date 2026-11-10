@@ -1,5 +1,3 @@
-# Texts of the team editor (lua\menu\_all\81_team_editor.lua, docs/framework/team-editor.md): the button guide entry of
-# Y on the dock with spec.inline_card_actions, A on a crest / kit with spec.identity_choices (soccer_team_dock_menu\130_foreign_team.lua asks crc32(id)).
 
 schema = "VRFW.text/2"
 table = "menu_text"

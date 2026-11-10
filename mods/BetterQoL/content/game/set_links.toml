@@ -1,0 +1,18 @@
+# Player sets linked to teams: Lua commands (logic scripts\set_links.lua, menus assets\lua\_all\betterqol_set_links.lua).
+schema = "VRFW.game/2"
+
+# (charaStHdl, set, dock) -> the set is the player's linked set in the team of `dock`
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_SET_LINK_STATE"
+handler = "BetterQoL.SetLinks.State"
+
+# (charaStHdl, set, dock) -> linked now; nil = refused
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_SET_LINK_TOGGLE"
+handler = "BetterQoL.SetLinks.Toggle"
+
+# (dock, why) -> count, handles, sets of the team's linked members
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_SET_LINK_PLAN"
+handler = "BetterQoL.SetLinks.Plan"
+needs = ["Party.LogicalToPhysical", "team_template_party"]

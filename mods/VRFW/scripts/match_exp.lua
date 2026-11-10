@@ -1,27 +1,20 @@
--- Match EXP, script side (docs/framework/match-exp.md). Declarations: every active mod's content\match_exp\*.toml
--- (`VRFW.match_exp/1`, keys content\types\match_exp.toml).
--- At the end of a match the game's result builder (hook MatchExp.Result, after Match.EndPrizes) has written each
--- player's EXP in the result entries; the result screen shows them and the apply step adds them to the players. When
--- the match's game and difficulty row match a declaration, each entry of the user's team is rewritten:
---   levels = levels × gap rate (player level - rival team level) × rank rate, clamped to min_levels .. max_levels
---   EXP    = the EXP to rise `levels` levels from the player's level and EXP (his rarity's EXP rate), stopped at the
---            rival team's level for a player below it (cap_at_rival), × his share of the game's own EXP (retail_share)
--- A rule with to_level_cap gives each player the EXP from his level to the level cap in effect instead (the table's
--- rows up to the cap, his rarity's rate); with win_only a match not won keeps the game's EXP.
--- One log line per match, and one per player when a rule applies.
+-- Match EXP, script side (docs/framework/match-exp.md).
 
 MatchExp = MatchExp or {}
 -- The finished match's result (signal vrfw.match_result) is scripts\match_result.lua's, on the same hook.
 
-local D = require "lib/declarations"
-local ExpTable = require "lib/exp_table"
+local D = VRFW.declarations
+local Memory = VRFW.memory
+local Curve = VRFW.curve
+local Difficulty = VRFW.match.difficulty
+local ExpTable = VRFW.experience
 
 local function info(text) VRFW.log("match_exp: " .. text) end
 local function warn(text) VRFW.warn("match_exp: " .. text) end
 
 local HOOK = "MatchExp.Result"
 local EXP_MAX = 99999999
-local EXP_MAX_TO_CAP = 0x7FFFFFFF   -- to_level_cap: the game's EXP entry and AddExp amount are 32-bit
+local EXP_MAX_TO_CAP = 0x7FFFFFFF
 
 -- result block (MatchExpResultBlock): 30 entries of 20 B (+0 match handle, +0xC EXP), the total EXP, the result flags
 local ENTRIES, ENTRY_SIZE, ENTRY_COUNT, ENTRY_EXP = 0xAFC, 0x14, 30, 0xC
@@ -31,7 +24,6 @@ local RESULT_OVERRIDE_FLAGS, RESULT_OVERRIDE_WON, RESULT_WON = 0xD74, 0xD75, 0xD
 local RESULT_OVERRIDE_LOST, RESULT_OVERRIDE_DRAWN, RESULT_LOST, RESULT_DRAWN = 0xD76, 0xD77, 0xDE9, 0xDEA
 -- match info (MatchExpInfo)
 local INFO_GAME, INFO_DIFFICULTY, INFO_USER_TEAM, INFO_SCORES, INFO_SCORE_SIDE = 4, 0x15, 0x4C, 0x2C26, 0x2C29
--- match teams (MatchExpParty): the team array pointer, the team stride, the member slots (16 B: match handle, saved handle)
 local TEAMS, TEAM_SIZE, MEMBERS_FROM, MEMBERS_TO, MEMBER_SIZE = 0x1E0, 0x4A8, 0x80, 0x250, 0x10
 -- character record (VRFW.character.record(hdl).addr): the EXP inside the current level
 local RECORD_EXP = 8
@@ -44,30 +36,20 @@ local GAME_NAME = nil     -- game id -> name
 local PIECE_SLOT = nil    -- pieceId -> statusFlagIndex
 local RANKS = nil         -- the match ranks, best first
 local LIVE = false
-local LAST = nil          -- { block, game, written = { [entry address] = exp } } of the last rewrite
+local LAST = nil
 
-require "VRFW/lib/basics"
-local function int(v) return VRFW.value.int(v, 0) end
+local function int(v) return VRFW.value.integer(v, 0) end
 
-local Id = require "lib/ids"
+local Id = VRFW.ids
 -- the champions' celebration (signal vrfw.trophy, CMND_VRFW_TROPHY_INFO) runs in this VM, next to the result builder hook
-Trophy = require "lib/trophy"
-local u32 = Id.u32
+Trophy = VRFW.trophy
+local u32 = Id.unsigned
 
-local hex = Id.hex
+local hex = Id.hex_text
 
-local function rd(ty, addr)
-  if not addr or addr < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, addr)
-  if ok then return v end
-  return nil
-end
+local rd = Memory.read
 
-local function global(name)
-  local ok, p = pcall(VRFW.game[name])
-  if ok and type(p) == "number" and p >= 0x10000 then return p end
-  return nil
-end
+local global = VRFW.game.global
 
 -- a name glob (`*` any run, `?` one character) as an anchored Lua pattern
 local function glob_pattern(g)
@@ -80,20 +62,6 @@ local function points(xs, ys)
   for i = 1, math.min(#xs, #ys) do out[#out + 1] = { xs[i], ys[i] } end
   table.sort(out, function(a, b) return a[1] < b[1] end)
   return out
-end
-
--- the rate at x: straight lines between the points, the end rates beyond the ends (no point = 1)
-local function rate_at(pts, x)
-  if #pts == 0 then return 1 end
-  if x <= pts[1][1] then return pts[1][2] end
-  for i = 2, #pts do
-    local a, b = pts[i - 1], pts[i]
-    if x <= b[1] then
-      if b[1] == a[1] then return b[2] end
-      return a[2] + (b[2] - a[2]) * (x - a[1]) / (b[1] - a[1])
-    end
-  end
-  return pts[#pts][2]
 end
 
 local function load_rules()
@@ -175,7 +143,6 @@ local function piece_slot(piece)
   return PIECE_SLOT[u32(piece)]
 end
 
--- the clear bit of a Chronicle piece at a difficulty in the save in use (nil = unknown)
 local function piece_cleared(piece, difficulty)
   local sfi = piece_slot(piece)
   if sfi == nil or sfi >= CLEAR_STATUS_SIZE then return nil end
@@ -214,34 +181,6 @@ local function ranks()
   return RANKS
 end
 
--- the declared level of each difficulty row (every active mod's defaults\match_difficulty.toml [MatchDifficulty.<Id>]
--- Difficulty / Level, merged by Id in load order): row -> level
-local DIFFICULTY_LEVEL = nil
-local function difficulty_level(row)
-  if DIFFICULTY_LEVEL == nil then
-    DIFFICULTY_LEVEL = {}
-    local by = {}
-    local ok, files = pcall(VRFW.files.declarations, "content/defaults/match_difficulty.toml")
-    if ok and type(files) == "table" then
-      for _, f in ipairs(files) do
-        local md = type(f.data) == "table" and f.data.MatchDifficulty or nil
-        if type(md) == "table" then
-          for id, t in pairs(md) do
-            if type(t) == "table" then
-              by[id] = by[id] or {}
-              for k, x in pairs(t) do by[id][k] = x end
-            end
-          end
-        end
-      end
-    end
-    for _, t in pairs(by) do
-      if tonumber(t.Difficulty) and tonumber(t.Level) then DIFFICULTY_LEVEL[int(t.Difficulty)] = int(t.Level) end
-    end
-  end
-  return DIFFICULTY_LEVEL[row]
-end
-
 -- the rank Id of the match (the best rank whose conditions hold), nil = none
 local function rank_of(won, f, a)
   for _, r in ipairs(ranks()) do
@@ -262,7 +201,7 @@ local function rule_for(name, difficulty)
     for _, p in ipairs(r.games) do
       if name:match(p) then hit = true break end
     end
-    if hit and (r.any_difficulty or r.difficulties[difficulty] or r.level_rows[difficulty_level(difficulty) or -1]) then
+    if hit and (r.any_difficulty or r.difficulties[difficulty] or r.level_rows[Difficulty.level_of(difficulty) or -1]) then
       local done = false
       for _, piece in ipairs(r.until_pieces) do
         local c = piece_cleared(piece, r.until_difficulty)
@@ -316,7 +255,6 @@ local function level_cap(need)
   return top
 end
 
--- the EXP to rise `levels` levels from `level` + `now_exp` (each level's own size), stopped at `stop_level` (nil = no stop)
 local function exp_to_rise(need, rate, level, now_exp, levels, stop_level)
   local total, lv, have, left = 0, level, now_exp, levels
   while left > 1e-9 do
@@ -410,7 +348,7 @@ local function rewrite()
         lines[#lines + 1] = string.format("%s Lv %d (+%d EXP): up to the level cap Lv %d -> %d EXP (game %d)", hex(p.m.saved), lv,
           now, cap, exp, p.e.exp)
       else
-        local levels = rule.levels * rate_at(rule.gap, gap) * rank_rate
+        local levels = rule.levels * Curve.value_at(rule.gap, gap, 1) * rank_rate
         levels = math.max(rule.min_levels, math.min(rule.max_levels, levels))
         local share = 1
         if rule.retail_share then share = top > 0 and p.e.exp / top or 0 end
@@ -423,14 +361,14 @@ local function rewrite()
     else
       lines[#lines + 1] = string.format("%s: record not readable, the game's %d EXP", hex(p.m.saved), exp)
     end
-    if exp ~= p.e.exp and not pcall(VRFW.mem.write, "u32", p.e.at, exp) then
+    if exp ~= p.e.exp and not VRFW.memory.write("u32", p.e.at, exp) then
       warn(string.format("%s: EXP not writable: the game's %d EXP", hex(p.m.saved), p.e.exp))
       exp = p.e.exp
     end
     written[p.e.at] = exp
     total = total + exp
   end
-  pcall(VRFW.mem.write, "u32", block + TOTAL_EXP, math.min(cap and EXP_MAX_TO_CAP or EXP_MAX, total))
+  VRFW.memory.write("u32", block + TOTAL_EXP, math.min(cap and EXP_MAX_TO_CAP or EXP_MAX, total))
   LAST = { block = block, game = game, written = written }
   info(string.format("match %s (difficulty %d), rule %s: rival Lv %d, %s %d-%d, rank %s (rate %.2f): %d player(s), EXP %d -> %d",
     name, difficulty, rule.key, rival, won and "won" or "not won", f, a, rank or "none", rank_rate, #list, old_total, total))
@@ -443,8 +381,6 @@ VRFW.on("hook:" .. HOOK .. ":post", function(ev)
   return nil
 end)
 
--- the detour always: the match result service (scripts\match_result.lua) answers it for every match; the EXP rewrite
--- only where a rule is declared
 local function start()
   local ok, done, e = pcall(VRFW.hook.apply, HOOK)
   LIVE = ok and done == true

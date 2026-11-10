@@ -1,5 +1,4 @@
 # Declares [[VRFW.FaceIcon]] (kind VRFW.face_icon/1): face icon rules in a mod's content\face_icons\*.toml.
-# Unknown keys, wrong types or out-of-range values drop that declaration with a warning.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.face_icon/1"
 folder = "content/face_icons"

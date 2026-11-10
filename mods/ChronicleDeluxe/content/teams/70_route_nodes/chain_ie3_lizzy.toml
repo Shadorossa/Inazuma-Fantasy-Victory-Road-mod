@@ -1,0 +1,258 @@
+schema = "VRFW.team/2"
+default_lang = "es"
+
+# IE3 «Lucia's Ultimate Tournament» (Team Ogre board PracticeGame9F.dat): its tiles, links, rivals and chests as in the original; rivals at their IE3 level + 81 (the IE3 story shift).
+[[VRFW.RouteNode]]
+Name = "ie3_chain_lizzy"
+Slot = 293
+After = "fbtl_cro03_190_010"             # Raimon equipo B (the IE3 final): its win opens the node
+Beside = "fbtl_cro03_180_010"            # Pequeños Gigantes: the move link
+Dir = "RD"
+Pos = [-4.2, 28.2]                       # the big stadium's entrance, a short RD road from the Pequeños Gigantes pad
+Team = "tm_cro_legend_ie1_10"         # only gives the piece a game (never played)
+TemplateGame = "fbtl_cro03_190_010"
+Difficulties = [4]                     # cleared when every match of the chain is won
+Icon = "assets/images/teams/70_route_nodes/chain_ie3_lizzy.png"   # Lizzy (c06037370, in the blouse u11808080) face bust (chain_icon_build.py)
+Chain = "ie3_lizzy"
+  [VRFW.RouteNode.Title]
+  es = "Torneo especial de Lizzy"
+  en = "Lucia's Ultimate Tournament"
+  fr = "Tournoi spécial de Lizzy"
+  de = "Lizzys Spezialturnier"
+  it = "Super torneo di Lacey"
+  pt = "Torneio especial da Lizzy"
+  ja = "ルシェの特別大会"
+  zh_hans = "露榭的特别大赛"
+  zh_hant = "露榭的特別大賽"
+
+[[VRFW.Chain]]
+Name = "ie3_lizzy"
+TemplateGame = "fbtl_cro03_190_010"
+Difficulty = 4
+RivalStats = "normal"
+Rules = "chronicle_deluxe_chain"
+  [VRFW.Chain.Title]
+  es = "Torneo especial de Lizzy"
+  en = "Lucia's Ultimate Tournament"
+  fr = "Tournoi spécial de Lizzy"
+  de = "Lizzys Spezialturnier"
+  it = "Super torneo di Lacey"
+  pt = "Torneio especial da Lizzy"
+  ja = "ルシェの特別大会"
+  zh_hans = "露榭的特别大赛"
+  zh_hant = "露榭的特別大賽"
+  [VRFW.Chain.Board]
+  Cols = 3
+  Rows = 5
+
+  [[VRFW.Chain.Page]]
+    Title = { es = "Duelo", en = "Duel", fr = "Duel", de = "Duell", it = "Sfida", pt = "Duelo", ja = "たいせん", zh_hans = "对战", zh_hant = "對戰" }
+  [[VRFW.Chain.Page]]
+    Title = { es = "Duelo", en = "Duel", fr = "Duel", de = "Duell", it = "Sfida", pt = "Duelo", ja = "たいせん", zh_hans = "对战", zh_hant = "對戰" }
+
+  [[VRFW.Chain.RankReward]]
+  Rank = "A"
+  Rival = "emblem"
+  [[VRFW.Chain.RankReward]]
+  Rank = "S"
+  Item = "abl_000001"
+  IfMod = "HissatsuReforged"
+  Text = "chronicle_deluxe_chain_prize_upgrade_book"
+
+  [[VRFW.Chain.Tile]]
+  Id = "start"
+  Kind = "start"
+  Pos = [1, 4]
+  Links = ["specialists"]
+
+  # 1: Los Especialistas / The Specialists (IE3 level 54)
+  [[VRFW.Chain.Tile]]
+  Id = "specialists"
+  Kind = "match"
+  Pos = [1, 2]
+  Team = "ChronicleDeluxe.ct_wk_specials"
+  Level = 135
+  Links = ["tiki_taka_troupe"]
+
+  # 2: Maestros Tiki-taka / The Tiki-Taka Troupe (IE3 level 59)
+  [[VRFW.Chain.Tile]]
+  Id = "tiki_taka_troupe"
+  Kind = "match"
+  Pos = [2, 2]
+  Team = "ChronicleDeluxe.ct_wk_skill_stars"
+  Level = 140
+  Links = ["bolting_beaus"]
+
+  # 3: Galanes Electrizantes / The Bolting Beaus (IE3 level 59)
+  [[VRFW.Chain.Tile]]
+  Id = "bolting_beaus"
+  Kind = "match"
+  Pos = [2, 4]
+  Team = "ChronicleDeluxe.ct_wk_ikemen_sparks"
+  Level = 140
+  Links = ["liquid_football"]
+  Challenge = "ChronicleDeluxe.GirlsOnly"   # IE3 Team Ogre board condition (ClearCondition 5): girls only
+
+  # 4: Fútbol Líquido / Liquid Football (IE3 level 65)
+  [[VRFW.Chain.Tile]]
+  Id = "liquid_football"
+  Kind = "match"
+  Pos = [3, 4]
+  Team = "ChronicleDeluxe.ct_wk_water_boys"
+  Level = 146
+  Links = ["solely_goalies"]
+
+  # 5: Porteros Delanteros / Solely Goalies (IE3 level 65)
+  [[VRFW.Chain.Tile]]
+  Id = "solely_goalies"
+  Kind = "match"
+  Pos = [3, 1]
+  Team = "ChronicleDeluxe.ct_wk_keeper_stars"
+  Level = 146
+  Links = ["absolute_legends"]
+  Challenge = "ChronicleDeluxe.NoKeeperMoves"   # IE3 Team Ogre board condition (ClearCondition 10): no goalkeeping special moves
+
+  # 6: Leyendas de Antaño / The Absolute Legends (IE3 level 70)
+  [[VRFW.Chain.Tile]]
+  Id = "absolute_legends"
+  Kind = "match"
+  Page = 2
+  Pos = [1, 1]
+  Team = "ChronicleDeluxe.ct_wk_inazuma_legend"
+  Level = 151
+  Links = ["bombshells"]
+
+  # 7: Chicas Explosivas / The Bombshells (IE3 level 73)
+  [[VRFW.Chain.Tile]]
+  Id = "bombshells"
+  Kind = "match"
+  Page = 2
+  Pos = [1, 4]
+  Team = "ChronicleDeluxe.ct_wk_oiroke_bombers"
+  Level = 154
+  Links = ["2010_champs"]
+  Challenge = "ChronicleDeluxe.BoysOnly"   # IE3 Team Ogre board condition (ClearCondition 6): boys only
+
+  # 8: Campeones de 2010 / The 2010 Champs (IE3 level 77)
+  [[VRFW.Chain.Tile]]
+  Id = "2010_champs"
+  Kind = "match"
+  Page = 2
+  Pos = [2, 3]
+  Team = "ChronicleDeluxe.ct_wk_2010_champs"
+  Level = 158
+  Links = ["neo_raimon"]
+
+  # 9: Neo Raimon / Neo Raimon (IE3 level 80)
+  [[VRFW.Chain.Tile]]
+  Id = "neo_raimon"
+  Kind = "match"
+  Page = 2
+  Pos = [2, 5]
+  Team = "tm_cro_legend_ie1_10"
+  Level = 161
+  Links = ["intl_allstars"]
+
+  # 10: Sel. Mundial Redux / Int'l Allstars Redux (IE3 level 84)
+  [[VRFW.Chain.Tile]]
+  Id = "intl_allstars"
+  Kind = "match"
+  Page = 2
+  Pos = [3, 5]
+  Team = "ChronicleDeluxe.ct_wk_shin_sekai_senbatsu"
+  Level = 165
+  Links = ["chest_1"]
+
+  # chest: IE3 reward «Vagueza» (no VR item: empty)
+  [[VRFW.Chain.Tile]]
+  Id = "chest_1"
+  Kind = "chest"
+  Page = 2
+  Pos = [3, 3]
+  Links = ["s_chest_1"]
+
+  # the S chest (every match of its branch won with rank S): IE3 reward «Mano espiritual»
+  [[VRFW.Chain.Tile]]
+  Id = "s_chest_1"
+  Kind = "schest"
+  Page = 2
+  Pos = [3, 1]
+    [[VRFW.Chain.Tile.Reward]]   # Mano espiritual (manual)
+    Item = 0xA1DEB97A
+
+# no in-match drops in this chain's matches (the rewards are the end-of-match win prizes above)
+# ChronicleDeluxe.NoKeeperMoves: declared by chain_ie3_david.toml; GirlsOnly / BoysOnly: chain_ares_legend.toml
+
+# the line-up this match plays when the club cannot field its challenge (docs/framework/match-challenge.md, supplied squad)
+[[VRFW.GameRival]]
+Game = "vrfw_chain_match_ie3_lizzy_03"
+Difficulties = [1]
+OwnTeam = "tm_cro_legend_IE2_03"
+OwnLevel = 140
+
+# the line-up this match plays when the club cannot field its challenge (docs/framework/match-challenge.md, supplied squad)
+[[VRFW.GameRival]]
+Game = "vrfw_chain_match_ie3_lizzy_07"
+Difficulties = [1]
+OwnTeam = "bb_01_team_raimon"
+OwnLevel = 154
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_lizzy_01"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_lizzy_02"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_lizzy_03"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_lizzy_04"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_lizzy_05"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_lizzy_06"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_lizzy_07"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_lizzy_08"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_lizzy_09"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_lizzy_10"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"

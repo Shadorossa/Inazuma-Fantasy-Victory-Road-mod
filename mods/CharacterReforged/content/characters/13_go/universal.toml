@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · Universal · Inazuma Eleven GO
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c04002810_5000"                              # Ringo Saturn
+moves = [
+  { move = 0xE647BCEE, level = 62 },                        # God Hand V
+  { move = 0xCD6AEF2D, level = 72 },                        # All-Star
+  { move = 0x53E9C2A3, level = 82 },                        # Capable Hands
+  { move = 0xD471DE6C, level = 92 },                        # Snakebite
+]
 
   [[edit.cards]]
   id = 0x23CE58E4                                         # GK/MF · mountain
@@ -14,6 +17,12 @@ target = "c04002810_5000"                              # Ringo Saturn
 
 [[edit]]
 target = "c04002900_5000"                              # Sol Daystar
+moves = [
+  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
+  { move = 0x20D01E43, level = 16 },                        # Hey Presto
+  { move = 0xAE2B3429, level = 26 },                        # Atomic Flare
+  { move = 0xB60E3C60, level = 36 },                        # Plasma Cut
+]
 
   [[edit.cards]]
   id = 0x491353CE                                         # FW/MF · fire
@@ -22,6 +31,12 @@ target = "c04002900_5000"                              # Sol Daystar
 
 [[edit]]
 target = "c04002910_5000"                              # Triton Nettuno
+moves = [
+  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
+  { move = 0x82788A5A, level = 11 },                        # Straight Counter
+  { move = 0x20D01E43, level = 18 },                        # Hey Presto
+  { move = 0xFD49C046, level = 47 },                        # Bubble Trouble
+]
 
   [[edit.cards]]
   id = 0xEF64587A                                         # FW/MF · wind
@@ -32,15 +47,15 @@ target = "c04002910_5000"                              # Triton Nettuno
 [[edit]]
 target = "c04002810"                                   # Ringo Saturn
 moves = [
-  { move = 0xCD6AEF2D, level = 1 },                         # All-Star
-  { move = 0xF9B80F86, level = 28 },                        # Strong Punch
-  { move = 0xCB8E6D04, level = 41 },                        # Mighty Save
-  { move = 0x53E9C2A3, level = 60 },                        # Capable Hands
+  { move = 0xE647BCEE, level = 62 },                        # God Hand V
+  { move = 0xCD6AEF2D, level = 72 },                        # All-Star
+  { move = 0x53E9C2A3, level = 82 },                        # Capable Hands
+  { move = 0xD471DE6C, level = 92 },                        # Snakebite
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF5980CD4, level = 1 },                         # Gargantúa [aura]
+  { move = 0xF5980CD4, level = 20 },                        # wkk00460
 ]
 
   [[edit.cards]]
@@ -52,10 +67,10 @@ moves = [
 [[edit]]
 target = "c04002820"                                   # Auberon Ouranos
 moves = [
-  { move = 0x25276CB9, level = 6 },                         # Solar Surprise
-  { move = 0xA23AEC88, level = 13 },                        # Copy Cut
-  { move = 0x08EEBD53, level = 26 },                        # Feint Play
-  { move = 0x75994916, level = 43 },                        # Cunning Pull
+  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
+  { move = 0x25276CB9, level = 23 },                        # Solar Surprise
+  { move = 0xA23AEC88, level = 33 },                        # Copy Cut
+  { move = 0x514A6198, level = 43 },                        # Asteroid Belt
 ]
 
   [[edit.cards]]
@@ -68,10 +83,10 @@ moves = [
 [[edit]]
 target = "c04002830"                                   # Manning Moon
 moves = [
-  { move = 0x25276CB9, level = 4 },                         # Solar Surprise
-  { move = 0x23C3EE90, level = 23 },                        # Shoulder Tackle
-  { move = 0x5643C944, level = 39 },                        # Killer Slide
-  { move = 0xD1E62D0A, level = 51 },                        # Mushroom Hop
+  { move = 0x039DBAAC, level = 43 },                        # Land of Ice
+  { move = 0x25276CB9, level = 53 },                        # Solar Surprise
+  { move = 0x5643C944, level = 63 },                        # Killer Slide
+  { move = 0xD1E62D0A, level = 73 },                        # Mushroom Hop
 ]
 
   [[edit.cards]]
@@ -84,10 +99,10 @@ moves = [
 [[edit]]
 target = "c04002840"                                   # Terran Gaea
 moves = [
-  { move = 0x25276CB9, level = 2 },                         # Solar Surprise
-  { move = 0x75994916, level = 17 },                        # Cunning Pull
-  { move = 0x650FA58E, level = 37 },                        # Spin Out
-  { move = 0x4FE09C7A, level = 48 },                        # Acrobatic Keep
+  { move = 0x2354CA2D, level = 35 },                        # Wind God's Dance
+  { move = 0x25276CB9, level = 45 },                        # Solar Surprise
+  { move = 0x650FA58E, level = 55 },                        # Spin Out
+  { move = 0x4FE09C7A, level = 65 },                        # Acrobatic Keep
 ]
 
   [[edit.cards]]
@@ -116,9 +131,9 @@ moves = [
 [[edit]]
 target = "c04002860"                                   # Nix Pluto
 moves = [
-  { move = 0x2B8C597E, level = 1 },                         # Fugue Wave
-  { move = 0x3EC287DE, level = 21 },                        # Bubble Gum
-  { move = 0x2D68DB57, level = 37 },                        # Deceptive Step
+  { move = 0x39CB2F02, level = 20 },                        # Dragster
+  { move = 0x2B8C597E, level = 30 },                        # Fugue Wave
+  { move = 0x3EC287DE, level = 40 },                        # Bubble Gum
   { move = 0x2CFC3E63, level = 46 },                        # Dragon Crash
 ]
 
@@ -134,8 +149,8 @@ target = "c04002870"                                   # Neith Venus
 moves = [
   { move = 0x2B8C597E, level = 1 },                         # Fugue Wave
   { move = 0x8B90AAAC, level = 20 },                        # Fortissimo
-  { move = 0x06458894, level = 27 },                        # Feint Dash
   { move = 0x6BA49049, level = 48 },                        # Mystic Mist
+  { move = 0x0D368F6B, level = 58 },                        # Heaven's Time
 ]
 
   [[edit.cards]]
@@ -148,10 +163,10 @@ moves = [
 [[edit]]
 target = "c04002880"                                   # Callis Jove
 moves = [
-  { move = 0x2B8C597E, level = 1 },                         # Fugue Wave
-  { move = 0x20D01E43, level = 22 },                        # Hey Presto
-  { move = 0xF626F557, level = 33 },                        # Electric Impedance
-  { move = 0x06458894, level = 46 },                        # Feint Dash
+  { move = 0x530CDFC1, level = 31 },                        # Mystifying Mist
+  { move = 0x2B8C597E, level = 41 },                        # Fugue Wave
+  { move = 0x20D01E43, level = 51 },                        # Hey Presto
+  { move = 0xF626F557, level = 61 },                        # Electric Impedance
 ]
 
   [[edit.cards]]
@@ -163,8 +178,8 @@ moves = [
 [[edit]]
 target = "c04002890"                                   # Deimos Mars
 moves = [
-  { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
-  { move = 0x501F2F12, level = 17 },                        # Heel Flick
+  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
+  { move = 0xDDCA0D2A, level = 11 },                        # Bouncing Bomb
   { move = 0x44BCDB47, level = 43 },                        # Pyroclastic
   { move = 0xB2085681, level = 58 },                        # Volcanic Rock
 ]
@@ -178,15 +193,15 @@ moves = [
 [[edit]]
 target = "c04002900"                                   # Sol Daystar
 moves = [
-  { move = 0xAE2B3429, level = 12 },                        # Atomic Flare
-  { move = 0xB60E3C60, level = 25 },                        # Plasma Cut
-  { move = 0xFA40689A, level = 42 },                        # Solar Nexus
-  { move = 0x240BEDF2, level = 64 },                        # Bounce Shot
+  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
+  { move = 0x20D01E43, level = 16 },                        # Hey Presto
+  { move = 0xAE2B3429, level = 26 },                        # Atomic Flare
+  { move = 0xB60E3C60, level = 36 },                        # Plasma Cut
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x6C3521EC, level = 1 },                         # Miximax Trans: Zhuge Liang [aura]
+  { move = 0x2F22467C, level = 20 },                        # wks00040
 ]
 
   [[edit.cards]]
@@ -197,15 +212,15 @@ moves = [
 [[edit]]
 target = "c04002910"                                   # Triton Nettuno
 moves = [
-  { move = 0x82788A5A, level = 1 },                         # Straight Counter
+  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
+  { move = 0x82788A5A, level = 11 },                        # Straight Counter
   { move = 0x20D01E43, level = 18 },                        # Hey Presto
-  { move = 0x6B4A7B35, level = 40 },                        # Power Shot
   { move = 0xFD49C046, level = 47 },                        # Bubble Trouble
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x3130DFE1, level = 1 },                         # Neptuno [aura]
+  { move = 0x3130DFE1, level = 20 },                        # wks00450
 ]
 
   [[edit.cards]]
@@ -218,9 +233,9 @@ moves = [
 target = "c04002920"                                   # Astro Ceres
 moves = [
   { move = 0x5AF33BC7, level = 1 },                         # God Hand
-  { move = 0xCB8E6D04, level = 21 },                        # Mighty Save
-  { move = 0xF9B80F86, level = 42 },                        # Strong Punch
   { move = 0xCD6AEF2D, level = 56 },                        # All-Star
+  { move = 0xD471DE6C, level = 66 },                        # Snakebite
+  { move = 0x89773ED7, level = 76 },                        # Celestial Zone
 ]
 
   [[edit.cards]]
@@ -232,8 +247,8 @@ moves = [
 [[edit]]
 target = "c04002930"                                   # Chiron Vestal
 moves = [
-  { move = 0x9B916289, level = 13 },                        # Jurassic Jaws
-  { move = 0x240BEDF2, level = 18 },                        # Bounce Shot
+  { move = 0xBBE07677, level = 15 },                        # Sidewinder
+  { move = 0x9B916289, level = 25 },                        # Jurassic Jaws
   { move = 0x5DA7EA06, level = 30 },                        # Boomerang Bluff
   { move = 0x8D5B6847, level = 44 },                        # Odin Sword
 ]
@@ -248,8 +263,8 @@ moves = [
 [[edit]]
 target = "c04002940"                                   # Xeno Eris
 moves = [
-  { move = 0x49041E53, level = 6 },                         # Crosscut Feint
-  { move = 0xA3392D01, level = 18 },                        # Rainbow Bubble Burst
+  { move = 0x0DCADC54, level = 26 },                        # Emperor Penguin 7
+  { move = 0xA3392D01, level = 36 },                        # Rainbow Bubble Burst
   { move = 0xF88DC090, level = 37 },                        # Z Slash
   { move = 0x737DCB3F, level = 54 },                        # Pancake Defence
 ]
@@ -264,10 +279,10 @@ moves = [
 [[edit]]
 target = "c04002950"                                   # Namak Haumea
 moves = [
-  { move = 0x5643C944, level = 17 },                        # Killer Slide
-  { move = 0x3AD8DFD1, level = 22 },                        # Curving Cut
-  { move = 0xAA67E325, level = 41 },                        # Desert Blast
-  { move = 0x23C3EE90, level = 44 },                        # Shoulder Tackle
+  { move = 0x1C4D4906, level = 19 },                        # Whirlpool
+  { move = 0x62BE692D, level = 39 },                        # Whirlwind Force
+  { move = 0x5643C944, level = 49 },                        # Killer Slide
+  { move = 0xAA67E325, level = 59 },                        # Desert Blast
 ]
 
   [[edit.cards]]
@@ -280,10 +295,10 @@ moves = [
 [[edit]]
 target = "c04002960"                                   # Mac Emake
 moves = [
-  { move = 0xDDCA0D2A, level = 15 },                        # Bouncing Bomb
-  { move = 0x457EB170, level = 22 },                        # Pyrokinetic
-  { move = 0x179492C5, level = 28 },                        # Center Scythe Slice
-  { move = 0x6C827857, level = 36 },                        # Rolling Steal
+  { move = 0x05567847, level = 27 },                        # Runaway Train
+  { move = 0xDDCA0D2A, level = 37 },                        # Bouncing Bomb
+  { move = 0x457EB170, level = 47 },                        # Pyrokinetic
+  { move = 0x179492C5, level = 57 },                        # Center Scythe Slice
 ]
 
   [[edit.cards]]
@@ -297,9 +312,9 @@ moves = [
 target = "c11804080"                                   # Hailey Cometti
 moves = [
   { move = 0x50E88A33, level = 1 },                         # Fist Beam
-  { move = 0x53E9C2A3, level = 13 },                        # Capable Hands
-  { move = 0xDDCA0D2A, level = 20 },                        # Bouncing Bomb
-  { move = 0x8A52C09B, level = 30 },                        # Doomsword Slash
+  { move = 0x53E9C2A3, level = 11 },                        # Capable Hands
+  { move = 0xB01D1B68, level = 21 },                        # Power Spike
+  { move = 0xDDCA0D2A, level = 31 },                        # Bouncing Bomb
 ]
 
   [[edit.cards]]

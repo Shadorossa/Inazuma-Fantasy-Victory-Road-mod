@@ -1,0 +1,121 @@
+schema = "VRFW.game/2"
+
+# Match modifiers, the equipment commands and the classic items' Suerte (logic: scripts\equipment.lua).
+
+[[VRFW.MatchStat]]
+name = "Equipment.Bonus"
+order = 30
+stat = "clamp(args[4] + lookup_or(Equipment.StatAdd, lookup_or(Equipment.StatAdd, 0, owner(args[2]), i), args[2], i), 1, 9999)"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_ITEM_PAGE"
+handler = "Equipment.ItemPage"
+
+# the 8 stat points of the worn items' affinity and sets, as Equipment.Bonus adds them in the match
+[[VRFW.Command]]
+name = "CMND_EQUIPMENT_STAT_BONUS"
+handler = "Equipment.StatBonus"
+
+# the item card's «Conjunto» page: the item's set, its pieces in order and its bonus tiers (nil = in no set)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_ITEM_SET"
+handler = "Equipment.ItemSet"
+
+[[VRFW.MatchStat]]
+name = "Equipment.RivalBonus"
+order = 30
+owned = false
+npc = true
+stat = "clamp(args[4] + lookup_or(Equipment.RivalAdd, 0, args[3], i), 1, 9999)"
+
+[[VRFW.Global]]
+name = "match_equipment_info"
+base = "game_root"
+chain = ["Game.RootMatch"]
+
+[[VRFW.Global]]
+name = "match_equipment_play_data"
+base = "game_root"
+chain = ["Game.RootPlayData"]
+
+[[VRFW.CommandFilter]]
+name = "Equipment.RivalEquipHandle"
+command = 0x07AB2BC2
+handler = "Equipment.RivalEquipHandle"
+
+[[VRFW.CommandFilter]]
+name = "Equipment.RivalInventoryField"
+command = 0x9EAD709F
+handler = "Equipment.RivalInventoryField"
+
+[[VRFW.CommandFilter]]
+name = "Equipment.EquipOptimal"
+command = 0x8E2B81D9
+handler = "Equipment.EquipOptimal"
+needs = ["Equipment.HasFreeCopy", "Equipment.CharaCanEquip", "Equipment.InventoryUsable",
+  "Equipment.EquipStats", "Equipment.EquipToSlot", "Equipment.CharaEquipRole",
+  "Equipment.EquipInvHdl", "equipment_items"]
+
+[[VRFW.Function]]
+name = "Equipment.HasFreeCopy"
+game = "Item.HasFreeCopy"
+
+[[VRFW.Function]]
+name = "Equipment.CharaCanEquip"
+game = "Item.CharaCanEquip"
+
+[[VRFW.Function]]
+name = "Equipment.InventoryUsable"
+game = "Item.InventoryUsable"
+
+[[VRFW.Function]]
+name = "Equipment.EquipStats"
+game = "Item.EquipStats"
+
+[[VRFW.Function]]
+name = "Equipment.EquipToSlot"
+game = "Item.EquipToSlot"
+
+[[VRFW.Function]]
+name = "Equipment.CharaEquipRole"
+game = "Item.CharaEquipRole"
+
+[[VRFW.Function]]
+name = "Equipment.EquipInvHdl"
+game = "Item.GetEquipInvHdl"
+
+# [g_gameRoot] + Game.RootItems = the inventory the optimizer walks
+[[VRFW.Global]]
+name = "equipment_items"
+base = "game_root"
+chain = ["Game.RootItems"]
+
+# The «Family» tab of the shop's filter window (assets\lua\item_filter_menu\300_shop_families.lua).
+[[VRFW.Command]]
+name = "CMND_EQUIPMENT_SHOP_FAMILIES"
+handler = "Equipment.ShopFamilies"
+
+[[VRFW.Patch]]
+name = "Equipment.ShopFamilyGroups"
+kind = "stub"
+apply = "script"
+pattern = "48 3D 00 00 01 00 74 16 48 3D 00 00 02 00 75 62 C7 02 01 00 00 00 48 8D 05 ?? ?? ?? ?? C3 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? B9 00 00 00 80"
+offset = 0x1E
+expect = "C7 02 01 00 00 00 48 8D 05 ?? ?? ?? ?? C3"
+code = "48 8B 05 0E 00 00 00 8B 00 89 02 48 8D 05 01 00 00 00 C3"
+tail = false
+
+[[VRFW.Patch]]
+name = "Equipment.ShopFamilyRows"
+kind = "stub"
+apply = "script"
+pattern = "33 ED 48 8B F9 89 A9 30 9F 01 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 48 8B CF E8 ?? ?? ?? ?? 48 8D 15"
+offset = 0xB
+expect = "B3 01 0F 1F 40 00 66 0F 1F 84 00 00 00 00 00 44 0F B6 CB 48 8B CF 41 8B D1 E8 ?? ?? ?? ?? FE C3 80 FB 0A 72 EA"
+code = "48 8B 87 50 9F 01 00 A9 00 E0 01 00 74 22 31 DB 48 8B 05 36 00 00 00 3B 58 04 73 2C 0F B6 54 18 08 41 89 D9 48 8B CF E8 ?? ?? ?? ?? FF C3 EB E0 B3 01 44 0F B6 CB 48 8B CF 41 8B D1 E8 ?? ?? ?? ?? FE C3 80 FB 0A 72 EA E9 ?? ?? ?? ??"
+tail = false
+refs = [{ at = 40, branch = 0x24 }, { at = 61, branch = 0x24 }, { at = 73, to = 0x30 }]
+
+[[VRFW.Command]]
+name = "CMND_EQUIPMENT_LUCK"
+handler = "Equipment.Luck"

@@ -1,34 +1,13 @@
--- Character Reforged: every «Tabla de habilidades» entry opens the skill table evt_skill_slot_menu (6 special moves +
--- the aura slot + the mix slot); the game's own ability board is never opened.
--- One mechanism for every entry, in every menu VM (this file is in `_all`):
---   * the team dock's player popup «PERSONAJE» (graft ss2_dock, a hook file since 1.7.9): Character Reforged does not
---     touch the popup; its retail «Tabla de habilidades» branch opens the board with CMND_OPEN_MENU_OBJECT, and
---     CharacterReforged.InstallBoardOpenRedirect (below) turns that open into the skill table at the target (and the
---     retail wait for the board into a wait for the skill table);
---   * the story field dock team_dock_menu_rpg_battle and the scout screen rpg_select_scout_chara_menu (graft
---     board_entry: their retail open functions ExecAbilityBoardMenu / OpenAbilityLearningBoard);
---   * Utilities' Banco COMANDOS popup (graft cr_bank_skill_table).
--- Definitions only, no engine call at load.
 CharacterReforged = type(CharacterReforged) == "table" and CharacterReforged or {}
-CharacterReforged.LOG_COMMAND = 3661580131                                   -- crc32("CMND_EVT_LOG"): the loader log
-CharacterReforged.SKILL_TABLE_MENU = 1041963128                              -- evt_skill_slot_menu
+CharacterReforged.LOG_COMMAND = 519897777                                   -- crc32("CMND_VRFW_LOG"): the loader log
+CharacterReforged.SKILL_TABLE_MENU = 2221030314                              -- vrfw_skill_slot_menu
 CharacterReforged.ABILITY_BOARD_MENU = 1810526795                            -- ability_learning_board_menu
 
--- ---- the open target ------------------------------------------------------------------------------------------------
--- A screen whose retail code opens the ability board itself (funcLuaCommand(CMND_OPEN_MENU_OBJECT,
--- ability_learning_board_menu), then waits while funcLuaMenuCommand(CMND_IS_EXIST_MENU_OBJECT, the board) is true):
--- once per VM (from the screen's own OnInit handler: funcLuaCommand exists only then), the two commands are wrapped so
---   * the open of the board (one log line per use) runs open_skill_table() (the screen's parameters for
---     evt_skill_slot_menu) and opens the skill table instead;
---   * the retail wait for the board waits for the skill table; when it is gone, after_close() runs once;
---   * «is the board unlocked» (command 347870658 with the board) answers true, so the retail code does not grey the
---     entry out before the board is unlocked.
--- Every other call passes through unchanged.
 CharacterReforged.OPEN_MENU_COMMAND = 433545986        -- CMND_OPEN_MENU_OBJECT (funcLuaCommand)
 CharacterReforged.MENU_EXISTS_COMMAND = 2231168902     -- CMND_IS_EXIST_MENU_OBJECT (funcLuaMenuCommand)
 CharacterReforged.MENU_UNLOCKED_COMMAND = 347870658    -- is a menu unlocked (funcLuaCommand)
 
-function CharacterReforged.InstallBoardOpenRedirect(entry_name, open_skill_table, after_close)
+function CharacterReforged.install_board_open_redirect(entry_name, open_skill_table, after_close)
   if CharacterReforged.boardOpenRedirect ~= nil or type(funcLuaCommand) ~= "function"
       or type(funcLuaMenuCommand) ~= "function" then
     return false
@@ -44,7 +23,7 @@ function CharacterReforged.InstallBoardOpenRedirect(entry_name, open_skill_table
     if menu == board and select("#", ...) == 2 then
       if id == CharacterReforged.OPEN_MENU_COMMAND then
         pcall(command, CharacterReforged.LOG_COMMAND, "Character Reforged skill table entry", tostring(entry_name),
-          "opens evt_skill_slot_menu")
+          "opens vrfw_skill_slot_menu")
         open_skill_table()
         redirect.waiting = true
         return command(CharacterReforged.OPEN_MENU_COMMAND, skill_table)

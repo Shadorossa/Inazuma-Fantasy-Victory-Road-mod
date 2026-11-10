@@ -1,51 +1,26 @@
 -- ===== EVT prematch BEGIN =====
---@lib evt_prematch.lua#Head
--- Team editor (soccer_formation_menu) in the pre-match flow; a Clean HUD feature (Inazuma Fantasy's graft until
--- 2026-10-08). Only globals are wrapped (SetupOpenFromBeforeSoccerStart, SetupFormationMenuCommon, CloseFormationMenu,
--- Step, OnSetupCloseButtonLayer, AddButtonGuideInfo and the input callbacks OnEnter / OnDecideFocus / OnFunction), at
--- chunk load, so another mod's wrappers of the same callbacks (Inazuma Fantasy's Pachanga formation screen) are kept
--- whichever mod loads first; a wrapper is never wrapped twice (EVT_PM_WRAPPED). Entry points:
--- 1. Rev 4 (docs/game/ui/prematch-lineups.md): the lineup screens after the walk-in open this menu with the retail
---    CMND_OPEN_FORMATION_MENU after setting the parameter EVT_PM_SUB_MODE: 1 = «Editar» (own team; the close commits
---    like the half-time editor, not as an in-play change), 2 = «Datos» (the RIVAL team in this screen, read-only; the
---    close restores the own mapping and commits nothing).
--- 2. Rev 2 (docs/game/modes/prematch-lineups.md §11, off since rev 4): the editor the native opens before the walk-in
---    (SetupOpenFromBeforeSoccerStart) showed the rival after its first close (EVT_PREMATCH_ENEMY_VIEW).
--- Half-time / pause openings without the parameter are untouched. The editor the native opens right after the VS is
--- not opened at all in offline matches: Clean HUD's plugin (clean_hud.dll, docs/game/modes/prematch-lineups.md §14;
--- the rev 5 Lua skip that closed it under a black screen was removed 2026-10-08).
-EVT_PREMATCH_ENEMY_VIEW = false          -- true: rev 2 rival view after the first close of the pre-kick-off editor
-EVT_PM_EDIT_INPLAY = false               -- true: «Editar» commits as the retail pause editor (in-play change)
-EVT_PM_SUB_KEY = 438809976               -- parameter crc32("EVT_PM_SUB_MODE"), written by the lineup screens
-EVT_PM_DATA_WAIT = 3.0                   -- s max to wait for the open animations before switching to the rival
-if EVT_PM_WRAPPED == nil then
-  EVT_PM_WRAPPED = {}
-end
-evtPmBefore = false                      -- opened before kick-off (this lua_State only)
-evtPmStage = 0                           -- 0 own lineup, 1 rival shown (read-only), 2 closing, 3 rival pending (read-only)
-evtPmSub = 0                             -- 0 retail / rev 2, 1 «Editar» from the lineup, 2 «Datos» from the lineup
+--@lib vrfw_prematch.lua#Head
+BetterUI = BetterUI or {}
+BetterUI.prematch = BetterUI.prematch or {}
+BetterUI.prematch.ENEMY_VIEW = false          -- true: rival view after the first close of the pre-kick-off editor
+BetterUI.prematch.EDIT_INPLAY = false               -- true: the edit commits as the retail pause editor (in-play change)
+BetterUI.prematch.SUB_KEY = 4273778482               -- parameter crc32("BetterUI.prematch_sub_mode"), written by the lineup screens
+BetterUI.prematch.DATA_WAIT = 3.0
+evtPmBefore = false
+evtPmStage = 0
+evtPmSub = 0                             -- 0 retail, 1 edit from the lineup, 2 rival data from the lineup
 evtPmWaitT = 0
 evtPmOwn = 0
 evtPmOwnForm = 0
 evtPmSnap = {}
-function EVT_PmWrap(name, make)
-  local cur = _ENV[name]
-  if type(cur) ~= "function" or EVT_PM_WRAPPED[cur] then
-    return false
-  end
-  local w = make(cur)
-  EVT_PM_WRAPPED[w] = true
-  _ENV[name] = w
-  return true
-end
-function EVT_PmEnemyOn()
+function BetterUI.prematch.enemy_on()
   return evtPmStage == 1 or evtPmStage == 3
 end
-function EVT_PmToEnemy()
+function BetterUI.prematch.to_enemy()
   local okO, own = GetSoccerTeamInfo(0)
   local okE, enemy = GetSoccerTeamInfo(1)
   if not okO or not okE or own == 255 or enemy == 255 then
-    EVT_PmLog("EVT prematch: no opponent team handle -> retail close", okO, own, okE, enemy)
+    VRFW.prematch.log("EVT prematch: no opponent team handle -> retail close", okO, own, okE, enemy)
     return false
   end
   local okF, form = funcLuaCommand(@crc:CMND_GET_SOCCER_FORMATION_INFO@, 0, enemy)
@@ -55,7 +30,7 @@ function EVT_PmToEnemy()
   evtPmOwn = own
   evtPmOwnForm = GetApplyFormationId()
   evtPmSnap = {}
-  for i = 0, 19 do                       -- the user's slot mapping (menu slot store, written back when leaving)
+  for i = 0, 19 do
     local h = funcLuaCommand(3043510230, i)
     if IsInvalidSoccerCharaHdl(h) then
       h = 0
@@ -68,10 +43,10 @@ function EVT_PmToEnemy()
   pcall(UpdateSelectCharaInfo)
   pcall(UpdatePageInfo)
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2500047763 --[[sy0005]])
-  EVT_PmLog("EVT prematch: opponent lineup (read-only)", "team", enemy, "formation", form, "own", own, "own formation", evtPmOwnForm)
+  VRFW.prematch.log("EVT prematch: opponent lineup (read-only)", "team", enemy, "formation", form, "own", own, "own formation", evtPmOwnForm)
   return true
 end
-function EVT_PmRestoreOwn()
+function BetterUI.prematch.restore_own()
   if evtPmOwn == 0 then
     return
   end
@@ -81,13 +56,13 @@ function EVT_PmRestoreOwn()
   end
   pcall(UpdateFormationNameCommon)
 end
-function EVT_PmBackAndClose(orig, ...)
+function BetterUI.prematch.back_and_close(orig, ...)
   evtPmStage = 2
-  EVT_PmRestoreOwn()
-  EVT_PmLog("EVT prematch: opponent view closed -> own lineup committed, retail close")
+  BetterUI.prematch.restore_own()
+  VRFW.prematch.log("EVT prematch: opponent view closed -> own lineup committed, retail close")
   return orig(...)
 end
-function EVT_PmCloseMenus()              -- the retail tail of CloseFormationMenu (pause path)
+function BetterUI.prematch.close_menus()              -- the retail tail of CloseFormationMenu (pause path)
   CloseCommonTimer()
   SetupFormationMenuLimitTime(0)
   funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, 3330353786 --[[team_build_explanation_menu]])
@@ -95,13 +70,13 @@ function EVT_PmCloseMenus()              -- the retail tail of CloseFormationMen
   funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, 2049316981 --[[soccer_formation_menu]])
   funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, 1427722143 --[[personal_plate_menu]], true)
 end
-function EVT_PmDataClose()               -- «Datos»: nothing is committed
+function BetterUI.prematch.data_close()               -- rival data: nothing is committed
   evtPmStage = 2
-  EVT_PmRestoreOwn()
-  EVT_PmLog("EVT prematch: rival data closed (nothing committed)")
-  EVT_PmCloseMenus()
+  BetterUI.prematch.restore_own()
+  VRFW.prematch.log("EVT prematch: rival data closed (nothing committed)")
+  BetterUI.prematch.close_menus()
 end
-function EVT_PmEditClose()               -- «Editar»: retail CloseFormationMenu with flag13 = false (as the half-time editor)
+function BetterUI.prematch.edit_close()
   local busy = funcLuaCommand(4121193818) or funcLuaCommand(3422043367)
   local ok, team = GetSoccerTeamInfo(0)
   if busy == false and ok and team ~= 255 then
@@ -122,130 +97,116 @@ function EVT_PmEditClose()               -- «Editar»: retail CloseFormationMen
     if GetApplyFormationId() ~= 0 then
       funcLuaCommand(4004409795, team, GetApplyFormationId())
     end
-    EVT_PmLog("EVT prematch: edit from the lineup committed", "team", team, "formation", GetApplyFormationId())
+    VRFW.prematch.log("EVT prematch: edit from the lineup committed", "team", team, "formation", GetApplyFormationId())
   else
-    EVT_PmLog("EVT prematch: edit from the lineup NOT committed", "busy", busy, "team", team)
+    VRFW.prematch.log("EVT prematch: edit from the lineup NOT committed", "busy", busy, "team", team)
   end
-  EVT_PmCloseMenus()
+  BetterUI.prematch.close_menus()
 end
-EVT_PmWrap("SetupOpenFromBeforeSoccerStart", function(orig)
-  return function(...)
-    evtPmBefore = true
-    evtPmStage = 0
-    EVT_PmLog("EVT prematch: formation menu opened before kick-off", "online", tostring(EVT_PmOnline()))
-    return orig(...)
-  end
+VRFW.host.wrap_once("SetupOpenFromBeforeSoccerStart", "BetterUI.prematch", function(orig, ...)
+  evtPmBefore = true
+  evtPmStage = 0
+  VRFW.prematch.log("EVT prematch: formation menu opened before kick-off", "online", tostring(VRFW.prematch.online()))
+  return orig(...)
 end)
-EVT_PmWrap("SetupFormationMenuCommon", function(orig)
-  return function(...)
-    local r = orig(...)
-    if VRFW_Param.Has(EVT_PM_SUB_KEY) then
-      evtPmSub = VRFW_Param.Get(EVT_PM_SUB_KEY) or 0
-      VRFW_Param.Clear(EVT_PM_SUB_KEY)
-      if not EVT_PREMATCH_LINEUPS or EVT_PmOnline() or (evtPmSub ~= 1 and evtPmSub ~= 2) then
-        evtPmSub = 0
-      end
-      if evtPmSub == 2 then
-        evtPmStage = 3                   -- read-only from the first frame; the rival is drawn once the screen is open
-        evtPmWaitT = 0
-      end
-      EVT_PmLog("EVT prematch: formation menu opened from the lineup", "mode", evtPmSub)
-      EVT_PmCloseLabel()
+VRFW.host.wrap_once("SetupFormationMenuCommon", "BetterUI.prematch", function(orig, ...)
+  local r = orig(...)
+  if VRFW.param.has(BetterUI.prematch.SUB_KEY) then
+    evtPmSub = VRFW.param.get(BetterUI.prematch.SUB_KEY) or 0
+    VRFW.param.clear(BetterUI.prematch.SUB_KEY)
+    if not (VRFW.prematch ~= nil and VRFW.prematch.lineups) or VRFW.prematch.online() or (evtPmSub ~= 1 and evtPmSub ~= 2) then
+      evtPmSub = 0
     end
-    return r
-  end
-end)
-EVT_PmWrap("Step", function(orig)
-  return function(...)
-    local r = orig(...)
-    if evtPmStage == 3 then
-      evtPmWaitT = evtPmWaitT + (funcLuaCommand(1549797111) or 0)
-      local okA, done = pcall(IsEndOpenAnimeAllDelayInLayers)
-      if (okA and done) or evtPmWaitT >= EVT_PM_DATA_WAIT then
-        if not EVT_PmToEnemy() then
-          evtPmStage = 1                 -- still read-only (own team shown, nothing to restore)
-          evtPmOwn = 0
-        end
-        EVT_PmCloseLabel()
-        pcall(SetupDefaultFormationButtonGuide)
-      end
-    end
-    EVT_PmReadOnlyLook()
-    return r
-  end
-end)
-EVT_PmWrap("CloseFormationMenu", function(orig)
-  return function(...)
     if evtPmSub == 2 then
-      if evtPmStage == 2 or not IsEnableProcStateEvent() then
-        return
-      end
-      return EVT_PmDataClose()
+      evtPmStage = 3
+      evtPmWaitT = 0
     end
-    if evtPmSub == 1 and not EVT_PM_EDIT_INPLAY then
-      if evtPmStage == 2 or not IsEnableProcStateEvent() then
-        return
-      end
-      evtPmStage = 2
-      return EVT_PmEditClose()
-    end
-    if evtPmStage == 1 then
-      return EVT_PmBackAndClose(orig, ...)
-    end
-    if evtPmStage == 0 and evtPmBefore and EVT_PREMATCH_LINEUPS and EVT_PREMATCH_ENEMY_VIEW
-        and not EVT_PmOnline()
-        and IsEnableProcStateEvent() then
-      if EVT_PmToEnemy() then
-        return
-      end
-    end
-    return orig(...)
+    VRFW.prematch.log("EVT prematch: formation menu opened from the lineup", "mode", evtPmSub)
+    BetterUI.prematch.close_label()
   end
+  return r
 end)
--- read-only look («Datos»): the big close button says «Cerrar» (retail menu_text 3032739625, 9 languages) instead of
--- «Terminar edición», the guide keeps only «Aceptar» (CMD_ENTER) and the «Bonific. de equipo» guide (our team's
--- bonus) is hidden. «Editar» keeps the retail look.
-EVT_PM_CLOSE_TEXT = 3032739625           -- «Cerrar» / «Close»
-EVT_PM_TEAM_PARAM_GUIDE = 3159119257     -- mainmenu01_18_team_parameter_button_guide («V Bonific. de equipo»)
-function EVT_PmReadOnly()
-  return evtPmSub == 2 or EVT_PmEnemyOn()
+VRFW.host.wrap_once("Step", "BetterUI.prematch", function(orig, ...)
+  local r = orig(...)
+  if evtPmStage == 3 then
+    evtPmWaitT = evtPmWaitT + (funcLuaCommand(1549797111) or 0)
+    local okA, done = pcall(IsEndOpenAnimeAllDelayInLayers)
+    if (okA and done) or evtPmWaitT >= BetterUI.prematch.DATA_WAIT then
+      if not BetterUI.prematch.to_enemy() then
+        evtPmStage = 1                 -- still read-only (own team shown, nothing to restore)
+        evtPmOwn = 0
+      end
+      BetterUI.prematch.close_label()
+      pcall(SetupDefaultFormationButtonGuide)
+    end
+  end
+  BetterUI.prematch.read_only_look()
+  return r
+end)
+VRFW.host.wrap_once("CloseFormationMenu", "BetterUI.prematch", function(orig, ...)
+  if evtPmSub == 2 then
+    if evtPmStage == 2 or not IsEnableProcStateEvent() then
+      return
+    end
+    return BetterUI.prematch.data_close()
+  end
+  if evtPmSub == 1 and not BetterUI.prematch.EDIT_INPLAY then
+    if evtPmStage == 2 or not IsEnableProcStateEvent() then
+      return
+    end
+    evtPmStage = 2
+    return BetterUI.prematch.edit_close()
+  end
+  if evtPmStage == 1 then
+    return BetterUI.prematch.back_and_close(orig, ...)
+  end
+  if evtPmStage == 0 and evtPmBefore and (VRFW.prematch ~= nil and VRFW.prematch.lineups) and BetterUI.prematch.ENEMY_VIEW
+      and not VRFW.prematch.online()
+      and IsEnableProcStateEvent() then
+    if BetterUI.prematch.to_enemy() then
+      return
+    end
+  end
+  return orig(...)
+end)
+-- Read-only look: the close button shows the retail "Close" text, the guide keeps only CMD_ENTER and the team bonus guide is hidden.
+BetterUI.prematch.CLOSE_TEXT = 3032739625
+BetterUI.prematch.TEAM_PARAM_GUIDE = 3159119257     -- mainmenu01_18_team_parameter_button_guide
+function BetterUI.prematch.read_only()
+  return evtPmSub == 2 or BetterUI.prematch.enemy_on()
 end
-function EVT_PmCloseLabel()
+function BetterUI.prematch.close_label()
   if evtPmSub ~= 2 then
     return
   end
-  local s = funcLuaCommand(@crc:CMND_TEXT_GET@, EVT_PM_CLOSE_TEXT)
+  local s = funcLuaCommand(@crc:CMND_TEXT_GET@, BetterUI.prematch.CLOSE_TEXT)
   if type(s) ~= "string" or s == "" then
     return
   end
   pcall(funcLuaMenuCommand, @crc:CMND_SET_MENU_TEXT_STRING@, 2785518701 --[[cmn03_05_cmn_button_formation_close]], 1317518280 --[[_text_cmd_on01]], s, 0)
   pcall(funcLuaMenuCommand, @crc:CMND_SET_MENU_TEXT_STRING@, 2785518701 --[[cmn03_05_cmn_button_formation_close]], 2729666850 --[[_text_cmd_off01]], s, 0)
 end
-function EVT_PmReadOnlyLook()            -- once when the rival is drawn, and every frame for the param guide
-  if not EVT_PmReadOnly() then
+function BetterUI.prematch.read_only_look()            -- once when the rival is drawn, and every frame for the param guide
+  if not BetterUI.prematch.read_only() then
     return
   end
-  funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, EVT_PM_TEAM_PARAM_GUIDE, 0, false, 2049316981 --[[soccer_formation_menu]])
+  funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, BetterUI.prematch.TEAM_PARAM_GUIDE, 0, false, 2049316981 --[[soccer_formation_menu]])
 end
-EVT_PmWrap("OnSetupCloseButtonLayer", function(orig)
-  return function(...)
-    local r = orig(...)
-    EVT_PmCloseLabel()
-    return r
-  end
+VRFW.host.wrap_once("OnSetupCloseButtonLayer", "BetterUI.prematch", function(orig, ...)
+  local r = orig(...)
+  BetterUI.prematch.close_label()
+  return r
 end)
-EVT_PmWrap("AddButtonGuideInfo", function(orig)
-  return function(a1, a2, a3, a4, a5, a6, ...)
-    if EVT_PmReadOnly() and a6 ~= 1981080283 --[[CMD_ENTER]] then
-      return
-    end
-    return orig(a1, a2, a3, a4, a5, a6, ...)
+VRFW.host.wrap_once("AddButtonGuideInfo", "BetterUI.prematch", function(orig, a1, a2, a3, a4, a5, a6, ...)
+  if BetterUI.prematch.read_only() and a6 ~= 1981080283 --[[CMD_ENTER]] then
+    return
   end
+  return orig(a1, a2, a3, a4, a5, a6, ...)
 end)
 -- read-only guards of the input callbacks (wrappers below)
-EVT_PM_ALLOW_FUNC = {[2053629800] = true, [3033167124] = true, [3108586762] = true, [318865860] = true}  -- left, right, detail, close
-function EVT_PmBlockEnter(a1)
-  if not EVT_PmEnemyOn() then
+BetterUI.prematch.ALLOW_FUNC = {[2053629800] = true, [3033167124] = true, [3108586762] = true, [318865860] = true}  -- left, right, detail, close
+function BetterUI.prematch.block_enter(a1)
+  if not BetterUI.prematch.enemy_on() then
     return false
   end
   if a1 == 2785518701 --[[cmn03_05_cmn_button_formation_close]] then
@@ -254,32 +215,28 @@ function EVT_PmBlockEnter(a1)
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2086672038 --[[sy0003]])
   return true
 end
-function EVT_PmBlockFunc(a1)
-  if not EVT_PmEnemyOn() then
+function BetterUI.prematch.block_func(a1)
+  if not BetterUI.prematch.enemy_on() then
     return false
   end
-  if EVT_PM_ALLOW_FUNC[a1] then
+  if BetterUI.prematch.ALLOW_FUNC[a1] then
     return false
   end
-  EVT_PmLog("EVT prematch: opponent view, blocked function", a1)
+  VRFW.prematch.log("EVT prematch: opponent view, blocked function", a1)
   return true
 end
 for _, cb in ipairs({"OnEnter", "OnDecideFocus"}) do
-  EVT_PmWrap(cb, function(orig)
-    return function(a1, ...)
-      if EVT_PmBlockEnter(a1) then       -- opponent view is read-only
-        return 1
-      end
-      return orig(a1, ...)
-    end
-  end)
-end
-EVT_PmWrap("OnFunction", function(orig)
-  return function(a1, ...)
-    if EVT_PmBlockFunc(a1) then
+  VRFW.host.wrap_once(cb, "BetterUI.prematch", function(orig, a1, ...)
+    if BetterUI.prematch.block_enter(a1) then       -- opponent view is read-only
       return 1
     end
     return orig(a1, ...)
+  end)
+end
+VRFW.host.wrap_once("OnFunction", "BetterUI.prematch", function(orig, a1, ...)
+  if BetterUI.prematch.block_func(a1) then
+    return 1
   end
+  return orig(a1, ...)
 end)
 -- ===== EVT prematch END =====

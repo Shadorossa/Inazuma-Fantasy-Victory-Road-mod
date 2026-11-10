@@ -1,0 +1,13 @@
+# BetterQoL: declares the route map cursor speed prompt to the framework footer prompts (hook file).
+name = "betterqol_route_map_speed"
+mod = "BetterQoL"
+order = 330
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "BetterQoL: Chronicle route map cursor speed prompt"
+
+[[hooks]]
+stem = "vs_route_town_menu"
+source = "betterqol_rms_board.lua"

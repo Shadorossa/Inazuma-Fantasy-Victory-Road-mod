@@ -1,18 +1,13 @@
 schema = "VRFW.technique/3"
-# The two Zanark Mix-Max items first made by the mod Ultimate Victory Road 1.4 (third party; source note:
-# docs/game/hiper/hiper-two-slots.md section 7). All looks are the game's: each command's variant card (chara_param)
-# already exists in the game with its own model; no files come from that mod.
-# One command per user, cloned from the game's wmm00080 (same cost, time and buffs). The item is the first command of
-# each list; its [[aura_change]] names which command each user's card runs. The moves are the base move with the
-# higher power of a miximax move, as the game's own *_mm rows.
+# Two Zanark Mix-Max items: one command per user cloned from wmm00080, each user's own game variant card and look.
 
-[[technique]]  # Caída planetaria: whs02110 at the power of a miximax move
+[[technique]]
 name = "mix_falling_planet"
 base = "whs02110"
 power_min = 85
 power_max = 540
 name_text = "base"
-desc_text = "base"
+description_text = "base"
 manual = false
 
 [[technique]]  # Salto explosivo: who00990 at the power of a miximax move
@@ -21,7 +16,7 @@ base = "who00990"
 power_min = 85
 power_max = 540
 name_text = "base"
-desc_text = "base"
+description_text = "base"
 manual = false
 
 [[technique]]  # Barreno de fuego: whd01070 at the power of a miximax move
@@ -30,7 +25,7 @@ base = "whd01070"
 power_min = 85
 power_max = 540
 name_text = "base"
-desc_text = "base"
+description_text = "base"
 manual = false
 
 [[technique]]  # Corte de arena: whk01060 at the power of a miximax move
@@ -39,7 +34,7 @@ base = "whk01060"
 power_min = 120
 power_max = 640
 name_text = "base"
-desc_text = "base"
+description_text = "base"
 manual = false
 
 [[technique]]  # Golpe cataclismo: whs02080 at the power of a miximax move
@@ -48,7 +43,7 @@ base = "whs02080"
 power_min = 100
 power_max = 640
 name_text = "base"
-desc_text = "base"
+description_text = "base"
 manual = false
 
 [[aura_command]]  # Gamma (c05020800), look c05028300
@@ -135,7 +130,7 @@ technique = "mix_disaster_strike"
 cells = { name_text = 0xBA10F2C2, desc_text = 0xEF862090, aura_chara = 0xB1644051, chara_param = 0x1DBB24C3, order = 41612, flag_18 = 1 }
 charas = [[0xC4BA83A7]]  # c03034310
 
-[[aura_command]]  # Huracán Zeta (c06037500), look c11250020
+[[aura_command]]
 key = "wmm_zanark_avalonic_zeta"
 from = "wmm00080"
 technique = "mix_disaster_strike"

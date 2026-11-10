@@ -1,0 +1,17 @@
+# BetterQoL: top bar step chronicle_board goes straight to the Chronicle route board.
+name = "betterqol_top_bar_board"
+mod = "BetterQoL"
+order = 960
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["OnInit", "OnOpenLayer", "Step"]
+description = "BetterQoL: top bar step chronicle_board opens the Chronicle route board"
+
+[[files]]
+stem = "chronicle_mode_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "betterqol_board.lua"
+  marker = "betterqol_top_bar_board"

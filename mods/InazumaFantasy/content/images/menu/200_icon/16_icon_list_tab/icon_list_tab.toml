@@ -1,7 +1,3 @@
-# Inazuma Fantasy: the section icon of the free-match section bar (the outlined F; lit and
-# unfocused), for content\teams\free_match_section.toml. The sprites live in the mod's own atlas; the game's tab atlas
-# asks for them by name through content\sprite_redirects\own_atlases.toml. Ported from the earlier Inazuma Fantasy
-# (research/mods/_aside/InazumaFantasy, same sprites).
 schema = "VRFW.image/1"
 
 [[texture]]

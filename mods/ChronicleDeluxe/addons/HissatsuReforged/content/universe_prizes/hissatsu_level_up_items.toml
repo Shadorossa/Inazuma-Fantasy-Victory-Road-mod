@@ -1,0 +1,9 @@
+schema = "ChronicleDeluxe.universe_prize/1"
+
+[[ChronicleDeluxe.UniversePrize]]
+item = "abl_000001"
+weight = 5.0
+
+[[ChronicleDeluxe.UniversePrize]]
+item = "abl_ue000001"
+weight = 1.0

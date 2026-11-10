@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · Almighty Faith · Inazuma Eleven GO
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c04001010_5000"                              # Aum Nirvana
+moves = [
+  { move = 0x41AEB4DF, level = 43 },                        # Crystal Barrier
+  { move = 0xA9062A29, level = 53 },                        # Ultrasonic
+  { move = 0x37009B59, level = 63 },                        # Burnout Burst
+  { move = 0x4AF2F3E2, level = 73 },                        # Bridge to Nowhere
+]
 
   [[edit.cards]]
   id = 0xC9A67F94                                         # GK/MF · wind
@@ -14,6 +17,12 @@ target = "c04001010_5000"                              # Aum Nirvana
 
 [[edit]]
 target = "c04001100_5000"                              # Maxim Millennium
+moves = [
+  { move = 0x15138722, level = 56 },                        # Will-o'-the-Wisp Shot
+  { move = 0xDDCA0D2A, level = 66 },                        # Bouncing Bomb
+  { move = 0x5DA7EA06, level = 76 },                        # Boomerang Bluff
+  { move = 0x035C1112, level = 86 },                        # Gungnir
+]
 
   [[edit.cards]]
   id = 0xA37B74BE                                         # FW/MF · forest
@@ -24,15 +33,15 @@ target = "c04001100_5000"                              # Maxim Millennium
 [[edit]]
 target = "c04001010"                                   # Aum Nirvana
 moves = [
-  { move = 0xA9062A29, level = 1 },                         # Ultrasonic
-  { move = 0xCB8E6D04, level = 10 },                        # Mighty Save
-  { move = 0x37009B59, level = 43 },                        # Burnout Burst
-  { move = 0x4AF2F3E2, level = 62 },                        # Bridge to Nowhere
+  { move = 0x41AEB4DF, level = 43 },                        # Crystal Barrier
+  { move = 0xA9062A29, level = 53 },                        # Ultrasonic
+  { move = 0x37009B59, level = 63 },                        # Burnout Burst
+  { move = 0x4AF2F3E2, level = 73 },                        # Bridge to Nowhere
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF353CE3F, level = 1 },                         # Goliat [aura]
+  { move = 0xF353CE3F, level = 20 },                        # wkk00160
 ]
 
   [[edit.cards]]
@@ -44,10 +53,10 @@ moves = [
 [[edit]]
 target = "c04001020"                                   # Adamant Walhalla
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
-  { move = 0x08EEBD53, level = 10 },                        # Feint Play
-  { move = 0xAA67E325, level = 35 },                        # Desert Blast
-  { move = 0x23C3EE90, level = 40 },                        # Shoulder Tackle
+  { move = 0x6A66FA7E, level = 35 },                        # Killer Whale
+  { move = 0x17110E3B, level = 45 },                        # Jumbo Sandwich
+  { move = 0xAA67E325, level = 55 },                        # Desert Blast
+  { move = 0x1C4D4906, level = 65 },                        # Whirlpool
 ]
 
   [[edit.cards]]
@@ -60,9 +69,9 @@ moves = [
 [[edit]]
 target = "c04001030"                                   # Omega Elysium
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
-  { move = 0x79E3E635, level = 17 },                        # Racing Flame
-  { move = 0x6C827857, level = 35 },                        # Rolling Steal
+  { move = 0x05567847, level = 17 },                        # Runaway Train
+  { move = 0x17110E3B, level = 27 },                        # Jumbo Sandwich
+  { move = 0x79E3E635, level = 37 },                        # Racing Flame
   { move = 0x7D6E9A87, level = 62 },                        # The Wall
 ]
 
@@ -76,10 +85,10 @@ moves = [
 [[edit]]
 target = "c04001040"                                   # Fürimmer Jung
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
-  { move = 0x6C827857, level = 13 },                        # Rolling Steal
-  { move = 0x179492C5, level = 39 },                        # Center Scythe Slice
-  { move = 0x5739C70C, level = 56 },                        # Guided Collide
+  { move = 0x4A17EE80, level = 39 },                        # Hunter's Net
+  { move = 0x17110E3B, level = 49 },                        # Jumbo Sandwich
+  { move = 0x179492C5, level = 59 },                        # Center Scythe Slice
+  { move = 0x5739C70C, level = 69 },                        # Guided Collide
 ]
 
   [[edit.cards]]
@@ -91,9 +100,9 @@ moves = [
 [[edit]]
 target = "c04001050"                                   # Zenith Shangrila
 moves = [
-  { move = 0x8917BF4B, level = 1 },                         # Willy-Willy
+  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0x8917BF4B, level = 11 },                        # Willy-Willy
   { move = 0x5DA7EA06, level = 17 },                        # Boomerang Bluff
-  { move = 0x75994916, level = 30 },                        # Cunning Pull
   { move = 0xECB91078, level = 48 },                        # Volcanic Flight
 ]
 
@@ -106,10 +115,10 @@ moves = [
 [[edit]]
 target = "c04001060"                                   # Optimum Limbo
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
-  { move = 0x332CCDC9, level = 14 },                        # Heel Kick
-  { move = 0xCABBA212, level = 26 },                        # Menacing Glare
-  { move = 0x2D68DB57, level = 41 },                        # Deceptive Step
+  { move = 0xF6E75EE9, level = 14 },                        # Headbanger
+  { move = 0x5DA7EA06, level = 24 },                        # Boomerang Bluff
+  { move = 0x332CCDC9, level = 34 },                        # Heel Kick
+  { move = 0xCABBA212, level = 44 },                        # Menacing Glare
 ]
 
   [[edit.cards]]
@@ -121,10 +130,10 @@ moves = [
 [[edit]]
 target = "c04001070"                                   # Panacea Utopia
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
-  { move = 0x06458894, level = 15 },                        # Feint Dash
-  { move = 0x5643C944, level = 31 },                        # Killer Slide
-  { move = 0xD0A1DBC3, level = 42 },                        # Bungee Ball Burst
+  { move = 0x530CDFC1, level = 31 },                        # Mystifying Mist
+  { move = 0x5DA7EA06, level = 41 },                        # Boomerang Bluff
+  { move = 0x5643C944, level = 51 },                        # Killer Slide
+  { move = 0xD0A1DBC3, level = 61 },                        # Bungee Ball Burst
 ]
 
   [[edit.cards]]
@@ -137,9 +146,9 @@ moves = [
 [[edit]]
 target = "c04001080"                                   # Acme Rapture
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
-  { move = 0x332CCDC9, level = 12 },                        # Heel Kick
-  { move = 0x1F5EB9D5, level = 40 },                        # Nutmeg
+  { move = 0xDDCA0D2A, level = 12 },                        # Bouncing Bomb
+  { move = 0x5DA7EA06, level = 22 },                        # Boomerang Bluff
+  { move = 0x332CCDC9, level = 32 },                        # Heel Kick
   { move = 0x141046AB, level = 46 },                        # Overnight Fortress
 ]
 
@@ -169,15 +178,15 @@ moves = [
 [[edit]]
 target = "c04001100"                                   # Maxim Millennium
 moves = [
-  { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
-  { move = 0x163D8F70, level = 10 },                        # Chip Shot
-  { move = 0x5DA7EA06, level = 27 },                        # Boomerang Bluff
-  { move = 0x035C1112, level = 56 },                        # Gungnir
+  { move = 0x15138722, level = 56 },                        # Will-o'-the-Wisp Shot
+  { move = 0xDDCA0D2A, level = 66 },                        # Bouncing Bomb
+  { move = 0x5DA7EA06, level = 76 },                        # Boomerang Bluff
+  { move = 0x035C1112, level = 86 },                        # Gungnir
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x2EE02C4B, level = 1 },                         # Trickster [aura]
+  { move = 0x2EE02C4B, level = 20 },                        # wks00140
 ]
 
   [[edit.cards]]
@@ -189,10 +198,10 @@ moves = [
 [[edit]]
 target = "c04001110"                                   # Infinity Beyond
 moves = [
-  { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
-  { move = 0x5DA7EA06, level = 12 },                        # Boomerang Bluff
-  { move = 0x6B4A7B35, level = 20 },                        # Power Shot
-  { move = 0xFB8202AD, level = 48 },                        # Gaussian Goal
+  { move = 0xF4A1E0B0, level = 60 },                        # Entropic Arrows
+  { move = 0xDDCA0D2A, level = 70 },                        # Bouncing Bomb
+  { move = 0x5DA7EA06, level = 80 },                        # Boomerang Bluff
+  { move = 0xFB8202AD, level = 90 },                        # Gaussian Goal
 ]
 
   [[edit.cards]]
@@ -204,10 +213,10 @@ moves = [
 [[edit]]
 target = "c04001120"                                   # Apex Paradiso
 moves = [
-  { move = 0xA7157B91, level = 4 },                         # Power Shield
-  { move = 0xD2955C45, level = 20 },                        # Power Catch
-  { move = 0x457EB170, level = 27 },                        # Pyrokinetic
+  { move = 0xC636A810, level = 4 },                         # Combustion Catch
+  { move = 0xA7157B91, level = 14 },                        # Power Shield
   { move = 0xED1BFBD3, level = 56 },                        # Fingers of Gaia
+  { move = 0xF14FDC17, level = 66 },                        # Shot Pocket
 ]
 
   [[edit.cards]]
@@ -220,10 +229,10 @@ moves = [
 [[edit]]
 target = "c04001130"                                   # Pearl Gates
 moves = [
-  { move = 0x6B4A7B35, level = 8 },                         # Power Shot
-  { move = 0x332CCDC9, level = 22 },                        # Heel Kick
-  { move = 0x457EB170, level = 27 },                        # Pyrokinetic
-  { move = 0x163D8F70, level = 35 },                        # Chip Shot
+  { move = 0xDDCA0D2A, level = 22 },                        # Bouncing Bomb
+  { move = 0x332CCDC9, level = 32 },                        # Heel Kick
+  { move = 0x457EB170, level = 42 },                        # Pyrokinetic
+  { move = 0x592A96B4, level = 52 },                        # Afterimage
 ]
 
   [[edit.cards]]
@@ -235,10 +244,10 @@ moves = [
 [[edit]]
 target = "c04001140"                                   # Perpetuo Xanadu
 moves = [
-  { move = 0x5DA7EA06, level = 15 },                        # Boomerang Bluff
-  { move = 0x06458894, level = 24 },                        # Feint Dash
-  { move = 0x660EED1E, level = 40 },                        # Low Scythe Slice
-  { move = 0x1F5EB9D5, level = 48 },                        # Nutmeg
+  { move = 0x4FE09C7A, level = 48 },                        # Acrobatic Keep
+  { move = 0x5DA7EA06, level = 58 },                        # Boomerang Bluff
+  { move = 0x660EED1E, level = 68 },                        # Low Scythe Slice
+  { move = 0x2AF65736, level = 78 },                        # Bamboo Pattern
 ]
 
   [[edit.cards]]
@@ -251,10 +260,10 @@ moves = [
 [[edit]]
 target = "c04001150"                                   # Sempiterno Bliss
 moves = [
-  { move = 0x2D68DB57, level = 8 },                         # Deceptive Step
-  { move = 0x5DA7EA06, level = 22 },                        # Boomerang Bluff
-  { move = 0xA9E3374B, level = 35 },                        # Cyclone Sprint
-  { move = 0xB60E3C60, level = 50 },                        # Plasma Cut
+  { move = 0x3297683F, level = 60 },                        # Warp Step
+  { move = 0x5DA7EA06, level = 70 },                        # Boomerang Bluff
+  { move = 0xA9E3374B, level = 80 },                        # Cyclone Sprint
+  { move = 0xB60E3C60, level = 90 },                        # Plasma Cut
 ]
 
   [[edit.cards]]
@@ -267,9 +276,9 @@ moves = [
 [[edit]]
 target = "c04001160"                                   # Myriad Arcadia
 moves = [
-  { move = 0xED7B7A4F, level = 6 },                         # Defence Equation
+  { move = 0x2E7B2B84, level = 6 },                         # Thief's Eye
+  { move = 0xED7B7A4F, level = 16 },                        # Defence Equation
   { move = 0x5DA7EA06, level = 22 },                        # Boomerang Bluff
-  { move = 0x75994916, level = 40 },                        # Cunning Pull
   { move = 0x414BA9BD, level = 52 },                        # Pincer Pinch
 ]
 
@@ -283,9 +292,9 @@ moves = [
 target = "c11804030"                                   # Primo Eden
 moves = [
   { move = 0x6BA49049, level = 1 },                         # Mystic Mist
-  { move = 0x4E22F64D, level = 13 },                        # Transporter Device
-  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
-  { move = 0xDCC9CCA3, level = 30 },                        # Tesla Coil
+  { move = 0x4E22F64D, level = 11 },                        # Transporter Device
+  { move = 0x72BFA108, level = 21 },                        # Wall of Atlantis
+  { move = 0xDCC9CCA3, level = 31 },                        # Tesla Coil
 ]
 
   [[edit.cards]]

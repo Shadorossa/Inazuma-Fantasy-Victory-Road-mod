@@ -1,4 +1,3 @@
--- Shared helpers of the build scripts: ids, sorted iteration, texts, notes and row helpers (find / where / clone / add / set / set_where / remove / move_slice).
 local U = {}
 
 local TWO32 = 4294967296
@@ -67,8 +66,6 @@ function U.opt(v)
   return "Some(" .. tostring(v) .. ")"
 end
 
--- ------------------------------------------------------------------------------------------------- row helpers
-
 -- First row of list `row` whose column `col` holds `value` (an id or a string).
 function U.find(t, row, col, value)
   if type(value) == "string" then return t:find_text(row, col, value) end
@@ -112,19 +109,17 @@ function U.set(t, i, cells)
   for c, v in pairs(cells) do t:set(i, c, v) end
 end
 
--- Set `cells` on every row of list `row` matching `match` (across every parent / list of the file). Returns how many.
+-- Set `cells` on every row of list `row` matching `match` (across every parent / list of the file).
 function U.set_where(t, row, match, cells)
   local hits = U.where(t, row, match)
   for _, i in ipairs(hits) do U.set(t, i, cells) end
   return #hits
 end
 
--- Remove entries i..j-1 that were `n` rows of the list whose _LIST_BEG is at `begin`.
 function U.remove(t, begin, i, j, n)
   return t:remove_range(begin, i, j, n)
 end
 
--- Move entries i..j-1 to before entry `to` (positions before the move). Returns the new start.
 function U.move_slice(t, i, j, to)
   return t:move_slice(i, j, to)
 end

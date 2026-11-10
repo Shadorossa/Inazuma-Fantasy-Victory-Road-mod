@@ -1,4 +1,4 @@
-# Defaults of a ruleset's [pitch]; sizes are set per ruleset. A mod may ship its own defaults\pitch.toml to override keys.
+# Defaults of a ruleset's [pitch]; sizes are set per ruleset.
 
 # Move and scale the visible goals with the pitch logic; false keeps them drawn at retail place and size.
 visual_goals = true

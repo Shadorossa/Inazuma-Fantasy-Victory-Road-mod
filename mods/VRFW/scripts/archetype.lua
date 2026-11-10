@@ -1,21 +1,12 @@
--- Archetypes declared by mods: reads every mod's content/archetypes/*.toml (`VRFW.archetype/1`); native side in content/game/archetype.toml, menus / HUD in assets/lua/archetype/.
--- Pick: when the engine picks a team's build, a declared archetype scores the sum of the engine's per-passive counts (the u32 at +0xC of each list entry) over its passives (starters + staff).
---   It wins with strictly more points than each of the game's six builds and every other declared one (at least 1); a tie at the top stays «Libertad» (Freedom).
--- Charge (match): per side, from events `shot_on_target`, `goal`, `conceded`, `shot`, `no_shot` (every `every_s` live seconds without a shot); rank = `rank_charges` thresholds reached (0-5).
--- Effects (passive effect rows with loader event 951; a definition's team cap limits what one player gets):
---   vrfw_eff_focus_per_team_event     carrier's focus AT / DF + value % per event of his side (EFFECT_DATA p1: 1 shot_on_target, 2 goal, 3 shot)
---   vrfw_eff_team_shot_at_per_rank    side's players on the pitch: shot AT + value % x rank while the side's archetype is the passive's
---   vrfw_eff_resource_drain_per_rank  carrier's match resource drain x (1 - value % x rank), same condition (p1 = crc32 of the resource key)
 
 Archetype = Archetype or {}
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("archetype")
 
 local INVALID = 0xC4DC849A
 local LOADER_EVENT = 951
 local N_SLOTS = 5
-local N_GAME = 6                     -- the game's builds 0-5; 6 = «Libertad» (Freedom)
+local N_GAME = 6                     -- the game's builds 0-5; 6 = "Libertad" (Freedom)
 local FREEDOM = 6
 local MAX_NUMBER = 63
 local EVENTS = { shot_on_target = true, goal = true, conceded = true, shot = true, no_shot = true }
@@ -23,31 +14,21 @@ local EVENT_CODE = { [1] = "shot_on_target", [2] = "goal", [3] = "shot" }
 local REFRESH_S = 3.0
 local SOURCE = "archetype"
 
-local Id = require "lib/ids"
-local u32 = Id.u32
-local Actors = require "lib/actors"
-local Live = require "VRFW/lib/match_live"
+local Id = VRFW.ids
+local u32 = Id.unsigned
+local Actors = VRFW.players
+local Live = VRFW.match.live
 
 local crc = VRFW.crc32
+local Memory = VRFW.memory
+local TableFiles = VRFW.table_files
 
 -- "0x…" / decimal / a number → the number, any other text → crc32 of it
 local function id_of(v)
-  if type(v) == "number" then return u32(v) end
-  if type(v) ~= "string" then return nil end
-  local h = v:match("^%s*0[xX](%x+)%s*$")
-  if h then return tonumber(h, 16) % 4294967296 end
-  if v:match("^%s*%d+%s*$") then return tonumber(v) % 4294967296 end
-  return crc(v)
+  return Id.parse(v, { hash_names = true })
 end
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
-
--- ---------------------------------------------------------------------------------------------- declarations
+local rd = Memory.read
 
 local DECL = {}          -- number -> archetype
 local LIST = {}          -- archetypes in declaration order
@@ -68,8 +49,6 @@ local function read_decl(mod, file, a, i)
   if not n or n ~= math.floor(n) or n <= FREEDOM or n > MAX_NUMBER then
     return nil, string.format("%s %s: number = %s: 7..%d (0-5 are the game's builds, 6 «Libertad»)", where, a.name, tostring(a.number), MAX_NUMBER)
   end
-  -- picked by a game_state key: the user's team takes this archetype while `pick_state` equals `pick_value`; its rank
-  -- is then the key `rank_state` (no charge rules), so rank_charges may be left out (ranks 1-5)
   local pick = nil
   if a.pick_state ~= nil then
     local v = tonumber(a.pick_value)
@@ -146,15 +125,13 @@ end
 
 load_decls()
 
--- ---------------------------------------------------------------------------------------------- passive tables
-
 local EFF_FOCUS = crc("vrfw_eff_focus_per_team_event")
 local EFF_TEAM_AT = crc("vrfw_eff_team_shot_at_per_rank")
 local EFF_DRAIN = crc("vrfw_eff_resource_drain_per_rank")
 
 local ROWS = {}          -- passive id -> { { def, value } }
-local DEFS = {}          -- def id -> { event, target, cap, effects = { { basic, p1 } } }
-local BY_DEF = {}        -- def id -> archetype number (a declared passive's first effect row)
+local DEFS = {}
+local BY_DEF = {}
 local RES_KEY = {}       -- crc32(resource key) -> key
 local ANY_FX = false     -- some passive has a row of the framework's archetype effects
 
@@ -165,7 +142,7 @@ local function number(v)
 end
 
 local function load_tables()
-  local pk = "data/common/gamedata/skill/passive_skill_config_*.cfg.bin"
+  local pk = TableFiles.file_name("data/common/gamedata/skill/passive_skill_config")
   local ents = VRFW.table.entries(pk, { "PASSIVE_SKILL_EFFECT", "PASSIVE_SKILL_INFO", "PASSIVE_SKILL_INFO_REF_EFFECT" }, true)
   local rows = {}
   for _, e in ipairs(ents) do
@@ -188,7 +165,7 @@ local function load_tables()
     end
   end
   ents, rows = nil, nil
-  local ek = "data/common/gamedata/soccer/passive_skill_effect_config_*.cfg.bin"
+  local ek = TableFiles.file_name("data/common/gamedata/soccer/passive_skill_effect_config")
   local P = "PASSIVE_SKILL_EFFECT_INFO"
   local ee = VRFW.table.entries(ek, { P, P .. "_EXEC_TIMING_DATA", P .. "_TARGET_DATA", P .. "_EFFECT_DATA", P .. "_GRAND_TOTAL_INFO", P .. "_LIST_END" }, true)
   local cur
@@ -248,8 +225,6 @@ local function load_tables()
   end
 end
 
--- ---------------------------------------------------------------------------------------------- team picks
-
 local PENDING = nil      -- the selector of the pick being counted: { key, side }
 local PICK = {}          -- selector key -> { build, points }
 local LAST_MENU = nil    -- the last menu pick's key
@@ -262,9 +237,6 @@ local function sel_key(addr)
   return { key = "d" .. b0 .. "_" .. b1 }
 end
 
--- the engine's winner rule over counts c[0..n]: strictly most points, at least 1; else FREEDOM
--- a declared archetype picked by a game_state key (pick_state = pick_value) for the user's team: its number, else nil.
--- A menu pick is the user's team; a match side only when it is the user's side.
 local function forced_pick(sel)
   if not sel then return nil end
   if sel.side ~= nil then
@@ -324,7 +296,7 @@ if #LIST > 0 then
     local forced = forced_pick(sel)
     if forced then build = forced end
     if build > FREEDOM then
-      for b = 0, N_GAME - 1 do pcall(VRFW.mem.write, "u32", rbp + 7 + 4 * b, 0) end
+      for b = 0, N_GAME - 1 do VRFW.memory.write("u32", rbp + 7 + 4 * b, 0) end
     end
     if sel then
       PICK[sel.key] = { build = build, points = all[build] or 0 }
@@ -345,8 +317,6 @@ if #LIST > 0 then
     return nil
   end)
 end
-
--- ---------------------------------------------------------------------------------------------- match state
 
 local SIDE = {}          -- side -> { build, charge, rank, idle, events = { name = n } }
 local last_owner_side = nil
@@ -457,8 +427,6 @@ local function reset_match()
   dirty, since = true, 0
 end
 
--- ---------------------------------------------------------------------------------------------- effects
-
 local ID_CACHE = {}      -- actor handle -> { chara, ids }
 local BUF_ID, BUF_VER, BUF_OUT
 local applied_mult = {}  -- "key|hdl" -> mult
@@ -470,22 +438,22 @@ local function slot_ids(chara)
   local rec = VRFW.character.record(chara)
   if not rec then return nil end
   if not BUF_ID then
-    BUF_ID = VRFW.mem.buffer("arch_pid", 4)
-    BUF_VER = VRFW.mem.buffer("arch_pver", 4)
-    BUF_OUT = VRFW.mem.buffer("arch_pout", 8)
+    BUF_ID = VRFW.memory.buffer("arch_pid", 4)
+    BUF_VER = VRFW.memory.buffer("arch_pver", 4)
+    BUF_OUT = VRFW.memory.buffer("arch_pout", 8)
   end
   local out = {}
   for k = 0, N_SLOTS - 1 do
     out[k + 1] = 0
     local ok, unlocked = pcall(VRFW.call, "ArchPassiveUnlocked", chara, k, 1)
     if ok and unlocked ~= 0 then
-      VRFW.mem.write("u32", BUF_ID, 0)
+      VRFW.memory.write("u32", BUF_ID, 0)
       if pcall(VRFW.call, "ArchPassiveId", BUF_ID, chara, k, 1) then
         local id = rd("u32", BUF_ID) or 0
         if id ~= 0 then
           local v = id
-          VRFW.mem.write("u32", BUF_VER, id)
-          VRFW.mem.write("ptr", BUF_OUT, 0)
+          VRFW.memory.write("u32", BUF_VER, id)
+          VRFW.memory.write("ptr", BUF_OUT, 0)
           if pcall(VRFW.call, "ArchPassiveRarity", BUF_OUT, BUF_VER, rec.rarity or 0) then
             local p = rd("ptr", BUF_OUT) or 0
             local x = p >= 0x10000 and (rd("u32", p) or 0) or 0
@@ -537,8 +505,6 @@ local function rank_for(side, arch)
   return s.rank
 end
 
--- per definition and target: the sum of its carriers' contributions, capped by the definition's team cap
--- (GRAND_TOTAL_INFO column 2, in the effect's unit; 0 = no cap), then summed over the definitions
 local function capped(acc, def, target, add)
   local t = acc[target]
   if not t then t = {}; acc[target] = t end
@@ -612,8 +578,6 @@ local function clear_effects()
   applied_mult, ID_CACHE = {}, {}
 end
 
--- ---------------------------------------------------------------------------------------------- match events
-
 local function start()
   if #LIST == 0 then return false end
   local ok, e = pcall(load_tables)
@@ -662,8 +626,6 @@ if ON then
   end)
 end
 
--- the tick counts the live seconds without a shot (no_shot rules) and refreshes the effects: none of them declared,
--- no per-frame handler
 local function needs_tick()
   if ANY_FX then return true end
   for _, x in ipairs(LIST) do
@@ -678,7 +640,7 @@ if ON and needs_tick() then
   VRFW.on("tick", function(ev)
     local m = ev.match or {}
     local dt = tonumber(m.dt) or 0
-    local live_dt = Live.live_dt(m)
+    local live_dt = Live.live_time_step(m)
     if live_dt > 0 then
       for side = 0, 1 do
         local s = SIDE[side]
@@ -704,12 +666,7 @@ if ON and needs_tick() then
   end)
 end
 
--- ---------------------------------------------------------------------------------------------- S6: shared passive entries
--- Service S6: VRFW owns one detour on each passive entry (content/game/archetype.toml); answers come from tables other mods export (mod.toml [exports], read as `*/<name>`, last loaded first).
--- Exec condition resolver (Passive.ResolveExecCondition) order: unmigrated mods' own detours, exported Passive.ExecCondition tables, VRFW's 910 / 911, then the game's table.
--- The boot log shows that order and warns when an id is answered twice (first in run order wins).
-
-local E = require "lib/game_entries"
+local E = VRFW.entries
 
 local EXEC_ENTRY = "Passive.ResolveExecCondition"
 local EXEC_TABLE = "Passive.ExecCondition"
@@ -776,9 +733,6 @@ do
   if not ok then warn("shared passive entries not reported: " .. tostring(e)) end
 end
 
--- ---------------------------------------------------------------------------------------------- commands
-
--- CMND_VRFW_ARCHETYPE_TEAM(dock, party) -> build (0-6 the game's, 7+ declared), points; no args = last menu pick; -1 = not picked yet
 function Archetype.CmdTeam(dock, party)
   local key = LAST_MENU
   if dock ~= nil and party ~= nil then key = "d" .. math.floor(tonumber(dock) or 0) .. "_" .. math.floor(tonumber(party) or 0) end
@@ -787,7 +741,6 @@ function Archetype.CmdTeam(dock, party)
   return p.build, p.points
 end
 
--- CMND_VRFW_ARCHETYPE_MATCH(side) -> build, rank, charge, max charge (-1 = no match / not picked)
 function Archetype.CmdMatch(side)
   local s = SIDE[math.floor(tonumber(side) or -1)]
   if not s then return -1, 0, 0, 0 end

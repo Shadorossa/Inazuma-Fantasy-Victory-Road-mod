@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Pingüino demoniaco (Demon Penguin): the download's move whs90022, a clone of whs03250 with its numbers; its event ev60_90022 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "demon_penguin"

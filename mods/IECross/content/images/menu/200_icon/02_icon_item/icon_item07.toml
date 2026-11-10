@@ -1,9 +1,3 @@
-# Inazuma Eleven Cross: the Cross kit item icons (the six of IECross 1.x, then the IEVRCROSS mod's Penguin, Shin Zeus,
-# Full Moon Summer Festival and Pumpkin Devil kit icons from its icon sheet, 128 px scaled to 256), in the mod's own atlas iecross_kit_icons (never the game's
-# icon_item07.g4tx: the game asks that sheet for them, content\sprite_redirects\kit_icons.toml serves them from here;
-# new 256x256 textures named by the item key, content\base_tables\gamedata\item\item_config.toml ITEM_FASHION_INFO).
-# uni_u990001 = Equipación Japón 2026: the Japan 2026 shirt (research\assets_src\iecross\ japan_2026_kit_icon.png)
-# fitted into 240x240 and centred, like retail kit icons (1.2.1).
 schema = "VRFW.image/1"
 
 [[texture]]

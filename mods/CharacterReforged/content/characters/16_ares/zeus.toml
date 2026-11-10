@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Character Reforged · Zeus · Inazuma Eleven: Ares
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c07080020"                                   # Ross Siddon
@@ -21,9 +18,9 @@ moves = [
 [[edit]]
 target = "c07080040"                                   # Hadrian Diesel
 moves = [
-  { move = 0xB4757AB8, level = 1 },                         # Divine Stamp
-  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0x61FB16FD, level = 20 },                        # Divine Arrows
+  { move = 0x61FB16FD, level = 1 },                         # Divine Arrows
+  { move = 0xB4757AB8, level = 13 },                        # Divine Stamp
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
   { move = 0x613ABD43, level = 30 },                        # Dawnrise
 ]
 
@@ -37,9 +34,9 @@ moves = [
 target = "c07080110"                                   # Percy Hurst
 moves = [
   { move = 0xC6655BA0, level = 1 },                         # Celestial Saw
-  { move = 0x0D368F6B, level = 13 },                        # Heaven's Time
-  { move = 0x1C8CE2B8, level = 20 },                        # God Knows
-  { move = 0x613ABD43, level = 30 },                        # Dawnrise
+  { move = 0x1C8CE2B8, level = 13 },                        # God Knows
+  { move = 0x613ABD43, level = 20 },                        # Dawnrise
+  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
 ]
 
   [[edit.cards]]
@@ -51,10 +48,10 @@ moves = [
 [[edit]]
 target = "c07080030"                                   # Apollo Light
 moves = [
-  { move = 0xB4757AB8, level = 1 },                         # Divine Stamp
-  { move = 0x78E027BC, level = 36 },                        # Shine Drive
-  { move = 0x7F2824DE, level = 40 },                        # Dual Storm
-  { move = 0x3F00EDE9, level = 71 },                        # Dash Storm
+  { move = 0x78E027BC, level = 1 },                         # Shine Drive
+  { move = 0xB4757AB8, level = 13 },                        # Divine Stamp
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
+  { move = 0x6E53E2B3, level = 30 },                        # Angel Ball
 ]
 
   [[edit.cards]]
@@ -67,10 +64,10 @@ moves = [
 [[edit]]
 target = "c07080050"                                   # Lane War
 moves = [
-  { move = 0xB4757AB8, level = 1 },                         # Divine Stamp
-  { move = 0x18C035B4, level = 45 },                        # Ghost Pull
-  { move = 0x4BD584B7, level = 55 },                        # Power Charge
-  { move = 0x58E8FC83, level = 70 },                        # Rolling Hell
+  { move = 0x18C035B4, level = 1 },                         # Ghost Pull
+  { move = 0xB4757AB8, level = 13 },                        # Divine Stamp
+  { move = 0x58E8FC83, level = 20 },                        # Rolling Hell
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
 ]
 
   [[edit.cards]]
@@ -83,10 +80,10 @@ moves = [
 [[edit]]
 target = "c07080060"                                   # Danny Wood
 moves = [
-  { move = 0x6C827857, level = 1 },                         # Rolling Steal
-  { move = 0x67F17FA8, level = 1 },                         # Mega Quake
-  { move = 0x1E0BF75F, level = 50 },                        # Mega Wall
-  { move = 0x60F8D774, level = 64 },                        # Gravestone
+  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
+  { move = 0xB1FBC783, level = 13 },                        # Reflect Buster
+  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
 ]
 
   [[edit.cards]]
@@ -99,10 +96,10 @@ moves = [
 [[edit]]
 target = "c07080070"                                   # Artie Mishman
 moves = [
-  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
-  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
-  { move = 0x6ADE9E01, level = 36 },                        # Illusory Ball
-  { move = 0x61FB16FD, level = 60 },                        # Divine Arrows
+  { move = 0x61FB16FD, level = 1 },                         # Divine Arrows
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0x613ABD43, level = 20 },                        # Dawnrise
+  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
 ]
 
   [[edit.cards]]
@@ -115,10 +112,10 @@ moves = [
 [[edit]]
 target = "c07080080"                                   # Arion Matlock
 moves = [
-  { move = 0x62294D90, level = 1 },                         # Dust Kick
-  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
-  { move = 0xB4757AB8, level = 40 },                        # Divine Stamp
-  { move = 0xA3980723, level = 58 },                        # Colosseum Guard
+  { move = 0x2B343D01, level = 1 },                         # Cyclone
+  { move = 0xB4757AB8, level = 13 },                        # Divine Stamp
+  { move = 0x613ABD43, level = 20 },                        # Dawnrise
+  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
 ]
 
   [[edit.cards]]
@@ -131,10 +128,10 @@ moves = [
 [[edit]]
 target = "c07080090"                                   # Wesley Knox
 moves = [
-  { move = 0x3F00EDE9, level = 1 },                         # Dash Storm
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x0710C61E, level = 45 },                        # Perimeter Zone
-  { move = 0xAEEA9F97, level = 55 },                        # Sigma Zone
+  { move = 0x245D62F1, level = 1 },                         # Attack Scan
+  { move = 0xB1FBC783, level = 13 },                        # Reflect Buster
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
+  { move = 0x613ABD43, level = 30 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -147,10 +144,10 @@ moves = [
 [[edit]]
 target = "c07080100"                                   # Jonas Demetrius
 moves = [
-  { move = 0x240BEDF2, level = 1 },                         # Bounce Shot
-  { move = 0x10A0C298, level = 1 },                         # Warp Drive
-  { move = 0xB1FBC783, level = 10 },                        # Reflect Buster
-  { move = 0x61FB16FD, level = 58 },                        # Divine Arrows
+  { move = 0xB1FBC783, level = 1 },                         # Reflect Buster
+  { move = 0x61FB16FD, level = 13 },                        # Divine Arrows
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
+  { move = 0x6E53E2B3, level = 30 },                        # Angel Ball
 ]
 
   [[edit.cards]]
@@ -162,10 +159,10 @@ moves = [
 [[edit]]
 target = "c07080010"                                   # Byron Love
 moves = [
-  { move = 0x1F5EB9D5, level = 1 },                         # Nutmeg
   { move = 0x1C8CE2B8, level = 1 },                         # God Knows
-  { move = 0x7577A26A, level = 50 },                        # God Break
-  { move = 0x3A4FFB6C, level = 66 },                        # The Ikaros
+  { move = 0x0D368F6B, level = 13 },                        # Heaven's Time
+  { move = 0x7577A26A, level = 20 },                        # God Break
+  { move = 0xDF7E6AE1, level = 30 },                        # God Alone Knows
 ]
 
   [[edit.cards]]
@@ -177,10 +174,10 @@ moves = [
 [[edit]]
 target = "c11807100"                                   # Alexander Scrivener
 moves = [
-  { move = 0x62DEE8B1, level = 1 },                         # Jumping Whack
-  { move = 0xDBA0E5E3, level = 13 },                        # Gigant Wall
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0x62DEE8B1, level = 13 },                        # Jumping Whack
   { move = 0xBFCC20E7, level = 20 },                        # Wood Chopper
-  { move = 0x73C5AF40, level = 30 },                        # Dash Accelerator
+  { move = 0xDBA0E5E3, level = 30 },                        # Gigant Wall
 ]
 
   [[edit.cards]]
@@ -193,10 +190,10 @@ moves = [
 [[edit]]
 target = "c11807110"                                   # Deirdre Staples
 moves = [
-  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
-  { move = 0x568262FA, level = 13 },                        # Dark Tornado
-  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
-  { move = 0x79224D8B, level = 30 },                        # Freeze Shot
+  { move = 0x79224D8B, level = 1 },                         # Freeze Shot
+  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
+  { move = 0x568262FA, level = 20 },                        # Dark Tornado
+  { move = 0x67F17FA8, level = 30 },                        # Mega Quake
 ]
 
   [[edit.cards]]

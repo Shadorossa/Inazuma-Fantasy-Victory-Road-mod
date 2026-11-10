@@ -1,11 +1,4 @@
 schema = "VRFW.character/2"
-# Inazuma Eleven Cross characters of the IEVRCROSS mod that IECross did not have: Axel Blaze with his red Cross hair,
-# and David Samford and Nathan Swift in the Pumpkin Devil kit (pumpkin mask). Its Tyron Rock was the game's Tyron in the
-# Shin Zeus kit (same head, face and card): left out, the kit is sold (content\items\cross_kits.toml).
-# Own ids (pinned): character crc32(internal name), card crc32("IECross.<name>#card"), model
-# crc32("IECross.<name>.look"). Heads: content\models\characters\ (the mod's files, chr\_face\90_CROSS\);
-# kits: content\looks\cross_new_kits.toml. Names, voice and moves are the template's; element and positions
-# are the Cross card's; each card is a copy of the template's first card. Recruited at the Office on the template's page (its office row cloned).
 default_lang = "en"
 
 [[character]]
@@ -16,7 +9,7 @@ order = 76
   [character.base]
   id = 0x77011C7E
   name = "c90000170"
-  team_3 = 0x1E5DC7AA
+  team_3 = 0x1002688A
 
   [character.new_model]
   id = 0x2CE900BB
@@ -47,7 +40,7 @@ order = 77
   [character.base]
   id = 0xF09900B1
   name = "c90000180"
-  team_1 = 0x1E5DC7AA                                     # the Cross belong team first: it has no kit, so lists dress him in his own clothes
+  team_1 = 0x1002688A
   team_2 = 0x699E68EC                                     # Royal Academy (his team of origin)
   team_3 = 0x6E8EFF55                                     # the template's team_2
 
@@ -69,7 +62,7 @@ order = 77
   position = "fw"
   sub_position = "mf"
   growth_pattern = 1
-  moment_kit = 0x30503B87                                 # Pumpkin Devil, worn by rule: content\card_looks\own_kit.toml
+  moment_kit = 0x30503B87
 
   [character.recruit]
   beside = "c01000310"
@@ -82,7 +75,7 @@ order = 78
   [character.base]
   id = 0xE98231F0
   name = "c90000190"
-  team_1 = 0x1E5DC7AA                                     # the Cross belong team first: it has no kit, so lists dress him in his own clothes
+  team_1 = 0x1002688A
   team_2 = 0xF01BB293                                     # Raimon (his team of origin)
   team_3 = 0x6E8EFF55                                     # the template's team_2
 
@@ -104,7 +97,7 @@ order = 78
   position = "df"
   sub_position = "mf"
   growth_pattern = 0
-  moment_kit = 0x30503B87                                 # Pumpkin Devil, worn by rule: content\card_looks\own_kit.toml
+  moment_kit = 0x30503B87
 
   [character.recruit]
   beside = "c01000020"

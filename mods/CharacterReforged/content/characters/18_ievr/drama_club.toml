@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Drama Club · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c11710010"                                   # Casper Forman
 moves = [
-  { move = 0x21127474, level = 1 },                         # Ultra Moon
-  { move = 0xC5D2FDE2, level = 13 },                        # Oglitteration
-  { move = 0xF7E49F60, level = 20 },                        # Magnetism
-  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+  { move = 0xF7E49F60, level = 1 },                         # Magnetism
+  { move = 0x21127474, level = 13 },                        # Ultra Moon
+  { move = 0x7DD6FEF8, level = 20 },                        # Athena's Anthem
+  { move = 0xC5D2FDE2, level = 30 },                        # Oglitteration
 ]
 
   [[edit.cards]]
@@ -38,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11710030"                                   # Lester Bawlund
 moves = [
-  { move = 0xA7157B91, level = 1 },                         # Power Shield
-  { move = 0x49933AEE, level = 13 },                        # Perfect Tower
-  { move = 0x79E3E635, level = 20 },                        # Racing Flame
-  { move = 0xBA833662, level = 30 },                        # Million Hands
+  { move = 0x79E3E635, level = 1 },                         # Racing Flame
+  { move = 0xB13A6C3D, level = 13 },                        # Zigzag Flame
+  { move = 0x86F5F6E8, level = 20 },                        # Cupid's Arrow
+  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -54,9 +51,9 @@ moves = [
 [[edit]]
 target = "c11710040"                                   # Hernan Rippett
 moves = [
-  { move = 0x1C8CE2B8, level = 1 },                         # God Knows
-  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0x768AB9C5, level = 20 },                        # Frosticle
+  { move = 0x768AB9C5, level = 1 },                         # Frosticle
+  { move = 0x1C8CE2B8, level = 13 },                        # God Knows
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
   { move = 0xD9BB22A7, level = 30 },                        # Air Ride
 ]
 
@@ -70,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11710050"                                   # Cosette Lyricotte
 moves = [
-  { move = 0x4FE09C7A, level = 1 },                         # Acrobatic Keep
-  { move = 0x64CDCFB9, level = 13 },                        # Rising Dragon
-  { move = 0x53CD747F, level = 20 },                        # Tarzan Kick
-  { move = 0x5E233E68, level = 30 },                        # Super Elastico
+  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
+  { move = 0x4FE09C7A, level = 13 },                        # Acrobatic Keep
+  { move = 0x5E233E68, level = 20 },                        # Super Elastico
+  { move = 0x64CDCFB9, level = 30 },                        # Rising Dragon
 ]
 
   [[edit.cards]]
@@ -86,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11710060"                                   # Winifred Wardrow
 moves = [
-  { move = 0x7748D3F2, level = 1 },                         # Devil Ball
-  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
-  { move = 0xDBFD9CFE, level = 20 },                        # Big Ball Trick
-  { move = 0x322F0C40, level = 30 },                        # Spider Web
+  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0x322F0C40, level = 13 },                        # Spider Web
+  { move = 0x7748D3F2, level = 20 },                        # Devil Ball
+  { move = 0x78218C02, level = 30 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -102,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11710070"                                   # Sona Sondheim
 moves = [
-  { move = 0xB7F1AED6, level = 1 },                         # Double Cyclone
-  { move = 0x613ABD43, level = 13 },                        # Dawnrise
-  { move = 0x1FC99D68, level = 20 },                        # Snow Angel
-  { move = 0xC66BD10D, level = 30 },                        # Zigzag Spark
+  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
+  { move = 0x1FC99D68, level = 13 },                        # Snow Angel
+  { move = 0xB7F1AED6, level = 20 },                        # Double Cyclone
+  { move = 0x613ABD43, level = 30 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -118,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11710080"                                   # Iza Improvelli
 moves = [
-  { move = 0x00A10ABD, level = 1 },                         # Ball Lightning
-  { move = 0xABA58912, level = 13 },                        # Ignited Steal
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0xAF150D21, level = 30 },                        # Swallow Counter
+  { move = 0xABA58912, level = 1 },                         # Ignited Steal
+  { move = 0xAF150D21, level = 13 },                        # Swallow Counter
+  { move = 0x00A10ABD, level = 20 },                        # Ball Lightning
+  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -134,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11710090"                                   # Carole Meine
 moves = [
-  { move = 0x232D05EC, level = 1 },                         # Tiger Drive
-  { move = 0x73C5AF40, level = 13 },                        # Dash Accelerator
-  { move = 0x9D236FA3, level = 20 },                        # Sword of the King
-  { move = 0x64CDCFB9, level = 30 },                        # Rising Dragon
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0x232D05EC, level = 13 },                        # Tiger Drive
+  { move = 0x64CDCFB9, level = 20 },                        # Rising Dragon
+  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -151,9 +148,9 @@ moves = [
 target = "c11710100"                                   # Coco Lajoie
 moves = [
   { move = 0x1A868BED, level = 1 },                         # Clone Defence
-  { move = 0x06D2AC29, level = 13 },                        # Diabolical Cut
-  { move = 0x93E8DBF8, level = 20 },                        # Dimensional Hand
-  { move = 0xDCC9CCA3, level = 30 },                        # Tesla Coil
+  { move = 0xDCC9CCA3, level = 13 },                        # Tesla Coil
+  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
+  { move = 0x1755397B, level = 30 },                        # Dark Energy Star
 ]
 
   [[edit.cards]]
@@ -166,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11710110"                                   # Orlando Sterlight
 moves = [
-  { move = 0x4AF2F3E2, level = 1 },                         # Bridge to Nowhere
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
   { move = 0x906C0F96, level = 13 },                        # Electric Trap
   { move = 0x1FA91CF4, level = 20 },                        # Negative Feedback
-  { move = 0x613ABD43, level = 30 },                        # Dawnrise
+  { move = 0x4AF2F3E2, level = 30 },                        # Bridge to Nowhere
 ]
 
   [[edit.cards]]
@@ -182,10 +179,10 @@ moves = [
 [[edit]]
 target = "c11710120"                                   # Wentworth Wiggins
 moves = [
-  { move = 0x8E7E960B, level = 1 },                         # Drill Smasher
+  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
   { move = 0x4CDC2C6B, level = 13 },                        # Shooting Star
-  { move = 0xA2BF7076, level = 20 },                        # Side Swipe
-  { move = 0x9765A74A, level = 30 },                        # Beast Fang
+  { move = 0x585098FC, level = 20 },                        # Slice and Dice
+  { move = 0xA2BF7076, level = 30 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -198,10 +195,10 @@ moves = [
 [[edit]]
 target = "c11710130"                                   # Pina Propp
 moves = [
-  { move = 0x029E7B25, level = 1 },                         # Gaia Break
-  { move = 0x64CDCFB9, level = 13 },                        # Rising Dragon
-  { move = 0x19BA3BFC, level = 20 },                        # Dance on Air
-  { move = 0x5E233E68, level = 30 },                        # Super Elastico
+  { move = 0x19BA3BFC, level = 1 },                         # Dance on Air
+  { move = 0x5E233E68, level = 13 },                        # Super Elastico
+  { move = 0x64CDCFB9, level = 20 },                        # Rising Dragon
+  { move = 0x029E7B25, level = 30 },                        # Gaia Break
 ]
 
   [[edit.cards]]
@@ -214,10 +211,10 @@ moves = [
 [[edit]]
 target = "c11710140"                                   # Mika Upton
 moves = [
-  { move = 0x141046AB, level = 1 },                         # Overnight Fortress
+  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
   { move = 0x00A10ABD, level = 13 },                        # Ball Lightning
-  { move = 0x49933AEE, level = 20 },                        # Perfect Tower
-  { move = 0xAF150D21, level = 30 },                        # Swallow Counter
+  { move = 0x141046AB, level = 20 },                        # Overnight Fortress
+  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
 ]
 
   [[edit.cards]]

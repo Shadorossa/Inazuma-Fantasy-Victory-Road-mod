@@ -1,0 +1,95 @@
+schema = "VRFW.game/2"
+
+# Hissatsu Reforged › the engine entries of the special-move levels and the one-copy-per-set rule.
+
+[[VRFW.Function]]
+name = "HissatsuReforged.OpenSkillTelop"
+game = "Technique.OpenSkillTelop"
+
+# [g_gameRoot] + Game.RootSkillTable = the skill table SkillInfoFind takes
+[[VRFW.Global]]
+name = "hissatsu_level_up_skill_table"
+base = "game_root"
+chain = ["Game.RootSkillTable"]
+
+# The match info block [[g_gameRoot]+0x6A58] (+0x2C29 = the user's team).
+[[VRFW.Global]]
+name = "hissatsu_level_up_match"
+base = "game_root"
+chain = ["ROOT_MATCH"]
+
+[[VRFW.Global]]
+name = "match_equipment_info"
+base = "game_root"
+chain = ["Game.RootMatch"]
+
+[[VRFW.Global]]
+name = "match_equipment_play_data"
+base = "game_root"
+chain = ["Game.RootPlayData"]
+
+[[VRFW.Hook]]
+name = "HissatsuReforged.SkillUsed"
+game = "Technique.SkillUsed"
+kind = "function"
+order = 0
+
+# BuildSkillListFromBoard(CharaObj* obj, {entries, count}* list, u8, u8) 0xD83370.
+[[VRFW.Hook]]
+name = "HissatsuReforged.BuildSkillList"
+game = "Technique.BuildSkillListFromBoard"
+kind = "function"
+
+# bool MatchSkillInstall(Unit* unit, u8 slot, const u32* skillId, const InstallArgs* a) 0x1606470.
+[[VRFW.Hook]]
+name = "HissatsuReforged.MatchSkillInstall"
+game = "Technique.MatchSkillInstall"
+kind = "function"
+post_when = { value = "mask(ret, 0xFF)", not = 0 }
+
+# u8 CanEquip(u32 charaHdl, u32 invHdl, u8 needFree, u8 flag, u8 targetSlot) 0xE7D310: «may this item go on this board».
+[[VRFW.Hook]]
+name = "HissatsuReforged.CanEquip"
+game = "Board.CanEquip"
+kind = "function"
+post_when = { value = "mask(ret, 0xFF)", not = 0 }
+
+# ------------------------------------------------------------------------------------------------ commands
+
+[[VRFW.Command]]
+name = "CMND_HISSATSUREFORGED_USES"
+handler = "HissatsuReforged.Cmd.Uses"
+
+[[VRFW.Command]]
+name = "CMND_HISSATSUREFORGED_RANK_SET"   # (charaStHdl, skillId, grade 0..5) -> ok, grade (admin)
+handler = "HissatsuReforged.Cmd.Set"
+
+[[VRFW.Command]]
+name = "CMND_HISSATSUREFORGED_RANK_BOOST"
+handler = "HissatsuReforged.Cmd.Boost"
+
+[[VRFW.Command]]
+name = "CMND_HISSATSUREFORGED_RANK_POPUP"
+handler = "HissatsuReforged.Cmd.Popup"
+
+[[VRFW.Command]]
+name = "CMND_HISSATSUREFORGED_RANK_ITEMS"
+handler = "HissatsuReforged.Cmd.Items"
+
+[[VRFW.Command]]
+name = "CMND_HISSATSUREFORGED_RANK_ITEM"
+handler = "HissatsuReforged.Cmd.Item"
+
+[[VRFW.Command]]
+name = "CMND_HISSATSUREFORGED_CAN_PLACE"
+handler = "HissatsuReforged.Cmd.CanPlace"
+
+[[VRFW.Command]]
+name = "CMND_HISSATSUREFORGED_RETAIL_STOCK"
+handler = "HissatsuReforged.Cmd.RetailStock"
+
+[[VRFW.CommandFilter]]
+name = "HissatsuReforged.SetSkillGrade"
+command = "CMND_SET_SKILL"
+handler = "HissatsuReforged.AfterSetSkill"
+phase = "after"

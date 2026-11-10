@@ -1,0 +1,10 @@
+schema = "VRFW.shop/2"
+
+[[edit]]
+target = "0x9BE09172"           # Tienda Vs (retail)
+if_not_mod = "InazumaFantasy"
+
+  [[edit.entry]]
+  item = "ultimate_evolution_manual"
+  price = 200
+  currency = "tk_hr000008"

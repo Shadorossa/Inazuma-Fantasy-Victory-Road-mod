@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Sub Character · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c11260010"                                   # Harper Evans
 moves = [
-  { move = 0xB039ADB4, level = 1 },                         # Inazuma Break
-  { move = 0x5F1FEB23, level = 13 },                        # Meteoric Fire Tornado
-  { move = 0x6CEBE396, level = 20 },                        # Unify
-  { move = 0x41F3CDC2, level = 30 },                        # Scorching Tackle
+  { move = 0x518BCA26, level = 1 },                         # Fire Tornado
+  { move = 0x6C6C932B, level = 13 },                        # Megaton Head
+  { move = 0x00D8C57C, level = 20 },                        # Fireball Storm
+  { move = 0x7A67325B, level = 30 },                        # Flame Dance
 ]
 
   [[edit.cards]]
@@ -20,10 +17,10 @@ moves = [
 [[edit]]
 target = "c11270010"                                   # Ayle Holland
 moves = [
-  { move = 0x2354CA2D, level = 1 },                         # Wind God's Dance
-  { move = 0xB501FE5D, level = 13 },                        # Holy Roller
-  { move = 0x8B90AAAC, level = 20 },                        # Fortissimo
-  { move = 0x530CDFC1, level = 30 },                        # Mystifying Mist
+  { move = 0x8B90AAAC, level = 1 },                         # Fortissimo
+  { move = 0x530CDFC1, level = 13 },                        # Mystifying Mist
+  { move = 0x2354CA2D, level = 20 },                        # Wind God's Dance
+  { move = 0xB501FE5D, level = 30 },                        # Holy Roller
 ]
 
   [[edit.cards]]
@@ -35,9 +32,9 @@ moves = [
 target = "c11500010"                                   # Elaine Sereno
 moves = [
   { move = 0x530CDFC1, level = 1 },                         # Mystifying Mist
-  { move = 0x6BA49049, level = 13 },                        # Mystic Mist
-  { move = 0x7577A26A, level = 20 },                        # God Break
-  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
+  { move = 0xB0F8060A, level = 13 },                        # Ozone Flayer
+  { move = 0x6BA49049, level = 20 },                        # Mystic Mist
+  { move = 0x7577A26A, level = 30 },                        # God Break
 ]
 
   [[edit.cards]]
@@ -49,10 +46,10 @@ moves = [
 [[edit]]
 target = "c11500050"                                   # Rina Eastvale
 moves = [
-  { move = 0x7DAF3139, level = 1 },                         # Emperor Penguin No. 2
-  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0x12E67CC1, level = 1 },                         # Future Eye
+  { move = 0x7238D1B5, level = 13 },                        # Foil Formula
   { move = 0xF9C4BCF4, level = 20 },                        # Double Helix
-  { move = 0x7238D1B5, level = 30 },                        # Foil Formula
+  { move = 0x7DAF3139, level = 30 },                        # Emperor Penguin No. 2
 ]
 
   [[edit.cards]]
@@ -64,9 +61,9 @@ moves = [
 [[edit]]
 target = "c11500110"                                   # Terrell Brightley
 moves = [
-  { move = 0x6C6C932B, level = 1 },                         # Megaton Head
+  { move = 0x245D62F1, level = 1 },                         # Attack Scan
   { move = 0x5E233E68, level = 13 },                        # Super Elastico
-  { move = 0x245D62F1, level = 20 },                        # Attack Scan
+  { move = 0x6C6C932B, level = 20 },                        # Megaton Head
   { move = 0x07D16DA0, level = 30 },                        # Inazuma-1
 ]
 
@@ -82,8 +79,8 @@ target = "c11500120"                                   # Verity Billows
 moves = [
   { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
   { move = 0xAF28F5A0, level = 13 },                        # The Tower
-  { move = 0x6BA49049, level = 20 },                        # Mystic Mist
-  { move = 0x47380F29, level = 30 },                        # Echo Ball
+  { move = 0x47380F29, level = 20 },                        # Echo Ball
+  { move = 0x6BA49049, level = 30 },                        # Mystic Mist
 ]
 
   [[edit.cards]]
@@ -96,9 +93,9 @@ moves = [
 target = "c11500130"                                   # Howell Bloomhurst
 moves = [
   { move = 0x23AA7551, level = 1 },                         # Force Flash
-  { move = 0x5EDD8114, level = 13 },                        # Spring Thunderclap
-  { move = 0xB7F1AED6, level = 20 },                        # Double Cyclone
-  { move = 0x3BF45E9A, level = 30 },                        # Triple Boost
+  { move = 0xB7F1AED6, level = 13 },                        # Double Cyclone
+  { move = 0x3BF45E9A, level = 20 },                        # Triple Boost
+  { move = 0x5EDD8114, level = 30 },                        # Spring Thunderclap
 ]
 
   [[edit.cards]]
@@ -111,10 +108,10 @@ moves = [
 [[edit]]
 target = "c11500140"                                   # Ibuto Shinohara
 moves = [
-  { move = 0x592A96B4, level = 1 },                         # Afterimage
-  { move = 0xAF150D21, level = 13 },                        # Swallow Counter
-  { move = 0x322F0C40, level = 20 },                        # Spider Web
-  { move = 0x3AB14410, level = 30 },                        # Swirly Shot
+  { move = 0x3AB14410, level = 1 },                         # Swirly Shot
+  { move = 0x592A96B4, level = 13 },                        # Afterimage
+  { move = 0xAF150D21, level = 20 },                        # Swallow Counter
+  { move = 0x322F0C40, level = 30 },                        # Spider Web
 ]
 
   [[edit.cards]]
@@ -126,10 +123,10 @@ moves = [
 [[edit]]
 target = "c11500150"                                   # Nerida Neuland
 moves = [
-  { move = 0xC42D6F54, level = 1 },                         # Aikido
-  { move = 0x7F2824DE, level = 13 },                        # Dual Storm
-  { move = 0x2B343D01, level = 20 },                        # Cyclone
-  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0x7EEA4EE9, level = 1 },                         # Blade Attack
+  { move = 0x2B343D01, level = 13 },                        # Cyclone
+  { move = 0xC42D6F54, level = 20 },                        # Aikido
+  { move = 0x7F2824DE, level = 30 },                        # Dual Storm
 ]
 
   [[edit.cards]]
@@ -141,10 +138,10 @@ moves = [
 [[edit]]
 target = "c11500170"                                   # Chester Horse Jr
 moves = [
-  { move = 0x6B1CF436, level = 5 },                         # Bewildered
-  { move = 0x01DB04F5, level = 15 },                        # Defence Scan
-  { move = 0x29B328E6, level = 29 },                        # Spectacle Crash
-  { move = 0x47380F29, level = 44 },                        # Echo Ball
+  { move = 0x6B1CF436, level = 1 },                         # Bewildered
+  { move = 0xDEB28A7B, level = 13 },                        # Monkey Turn
+  { move = 0x01DB04F5, level = 20 },                        # Defence Scan
+  { move = 0x3663DB4C, level = 30 },                        # Utter Gutsiness Bat
 ]
 
   [[edit.cards]]
@@ -156,10 +153,10 @@ moves = [
 [[edit]]
 target = "c11500180"                                   # Donnie Summerfield
 moves = [
-  { move = 0x07D16DA0, level = 1 },                         # Inazuma-1
-  { move = 0x47380F29, level = 13 },                        # Echo Ball
-  { move = 0xB039ADB4, level = 20 },                        # Inazuma Break
-  { move = 0x245D62F1, level = 30 },                        # Attack Scan
+  { move = 0x47380F29, level = 1 },                         # Echo Ball
+  { move = 0x2B8C597E, level = 13 },                        # Fugue Wave
+  { move = 0x07D16DA0, level = 20 },                        # Inazuma-1
+  { move = 0xB039ADB4, level = 30 },                        # Inazuma Break
 ]
 
   [[edit.cards]]
@@ -175,149 +172,56 @@ growth_pattern = 1
 rank = 3
 growth = "normal"
 stats = { kick = 163, control = 278, technique = 194, pressure = 176, physical = 193, intelligence = 165, agility = 200, freedom = 209 }
+moves = [
+  { move = 0x20D01E43, level = 1 },                         # Hey Presto
+  { move = 0x568262FA, level = 13 },                        # Dark Tornado
+  { move = 0x5F989B9E, level = 20 },                        # Wyvern Crash
+  { move = 0xC16279D1, level = 30 },                        # Field of Force
+]
 
   [[edit.cards]]
   id = 0x8AB1DD55                                         # FW/MF · forest
-  moves = [
-    { move = 0x6B4A7B35, level = 1 },                     # Power Shot
-    { move = 0x592A96B4, level = 13 },                    # Afterimage
-    { move = 0x2D3E5454, level = 20 },                    # Clone Shot
-    { move = 0x4E5B398C, level = 30 },                    # Acrobat Bomber
-    { move = 0xF9C4BCF4, level = 38 },                    # Double Helix
-    { move = 0x21127474, level = 43 },                    # Ultra Moon
-  ]
 
   [[edit.cards]]
   id = 0xFF01726E                                         # FW/MF · forest
-  moves = [
-    { move = 0x163D8F70, level = 1 },                     # Chip Shot
-    { move = 0x6ADE9E01, level = 13 },                    # Illusory Ball
-    { move = 0x0455B9CE, level = 20 },                    # Run Ball Run
-    { move = 0x2D3E5454, level = 30 },                    # Clone Shot
-    { move = 0x1755397B, level = 38 },                    # Dark Energy Star
-    { move = 0xDBFD9CFE, level = 43 },                    # Big Ball Trick
-  ]
 
   [[edit.cards]]
   id = 0x362F6511                                         # FW/MF · forest
-  moves = [
-    { move = 0x72514A74, level = 1 },                     # Low Drive
-    { move = 0x20D01E43, level = 13 },                    # Hey Presto
-    { move = 0x568262FA, level = 20 },                    # Dark Tornado
-    { move = 0x2D3E5454, level = 30 },                    # Clone Shot
-    { move = 0x5F989B9E, level = 38 },                    # Wyvern Crash
-    { move = 0x750E6DAB, level = 43 },                    # Matador Feint
-  ]
 
   [[edit.cards]]
   id = 0xD230648A                                         # FW/MF · forest
-  moves = [
-    { move = 0x240BEDF2, level = 1 },                     # Bounce Shot
-    { move = 0x4E22F64D, level = 13 },                    # Transporter Device
-    { move = 0x4C1D87D5, level = 20 },                    # Bed of Roses
-    { move = 0x4E5B398C, level = 30 },                    # Acrobat Bomber
-    { move = 0xC513565C, level = 38 },                    # Doom Spear
-    { move = 0xDBFD9CFE, level = 43 },                    # Big Ball Trick
-  ]
 
   [[edit.cards]]
   id = 0x4B393530                                         # FW/MF · forest
-  moves = [
-    { move = 0x240BEDF2, level = 1 },                     # Bounce Shot
-    { move = 0x12E67CC1, level = 13 },                    # Future Eye
-    { move = 0x79224D8B, level = 20 },                    # Freeze Shot
-    { move = 0x4C1D87D5, level = 30 },                    # Bed of Roses
-    { move = 0xE937AD43, level = 38 },                    # Dragon Slayer
-    { move = 0x21127474, level = 43 },                    # Ultra Moon
-  ]
 
   [[edit.cards]]
   id = 0x3C3E05A6                                         # FW/MF · forest
-  moves = [
-    { move = 0x72514A74, level = 1 },                     # Low Drive
-    { move = 0x4E22F64D, level = 13 },                    # Transporter Device
-    { move = 0x568262FA, level = 20 },                    # Dark Tornado
-    { move = 0xC19E2AEE, level = 30 },                    # Pegasus Shot
-    { move = 0xE937AD43, level = 38 },                    # Dragon Slayer
-    { move = 0xDBFD9CFE, level = 43 },                    # Big Ball Trick
-  ]
 
   [[edit.cards]]
   id = 0xA25A9005                                         # FW/MF · forest
-  moves = [
-    { move = 0x3D10DCB3, level = 1 },                     # Curve Shot
-    { move = 0x4E22F64D, level = 13 },                    # Transporter Device
-    { move = 0xC19E2AEE, level = 20 },                    # Pegasus Shot
-    { move = 0x0455B9CE, level = 30 },                    # Run Ball Run
-    { move = 0xADAFE047, level = 38 },                    # Dual Strike
-    { move = 0x21127474, level = 43 },                    # Ultra Moon
-  ]
 
   [[edit.cards]]
   id = 0xA34BE7DE                                         # FW/MF · forest
-  moves = [
-    { move = 0x163D8F70, level = 1 },                     # Chip Shot
-    { move = 0x12E67CC1, level = 13 },                    # Future Eye
-    { move = 0x2D3E5454, level = 20 },                    # Clone Shot
-    { move = 0xC19E2AEE, level = 30 },                    # Pegasus Shot
-    { move = 0xB27F13ED, level = 38 },                    # Death Zone
-    { move = 0x750E6DAB, level = 43 },                    # Matador Feint
-  ]
 
   [[edit.cards]]
   id = 0x3A42B664                                         # FW/MF · forest
-  moves = [
-    { move = 0x72514A74, level = 1 },                     # Low Drive
-    { move = 0x6ADE9E01, level = 13 },                    # Illusory Ball
-    { move = 0x8B90AAAC, level = 20 },                    # Fortissimo
-    { move = 0xC19E2AEE, level = 30 },                    # Pegasus Shot
-    { move = 0xC513565C, level = 38 },                    # Doom Spear
-    { move = 0x21127474, level = 43 },                    # Ultra Moon
-  ]
 
   [[edit.cards]]
   id = 0xD476C9C8                                         # FW/MF · forest
-  moves = [
-    { move = 0x240BEDF2, level = 1 },                     # Bounce Shot
-    { move = 0x592A96B4, level = 13 },                    # Afterimage
-    { move = 0x4E5B398C, level = 20 },                    # Acrobat Bomber
-    { move = 0x4C1D87D5, level = 30 },                    # Bed of Roses
-    { move = 0x5F989B9E, level = 38 },                    # Wyvern Crash
-    { move = 0x750E6DAB, level = 43 },                    # Matador Feint
-  ]
 
   [[edit.cards]]
   id = 0xB3E5FA36                                         # FW/MF · forest
-  moves = [
-    { move = 0x163D8F70, level = 1 },                     # Chip Shot
-    { move = 0x592A96B4, level = 13 },                    # Afterimage
-    { move = 0x0455B9CE, level = 20 },                    # Run Ball Run
-    { move = 0x74B5C85D, level = 30 },                    # Security Shot
-    { move = 0xE937AD43, level = 38 },                    # Dragon Slayer
-    { move = 0x750E6DAB, level = 43 },                    # Matador Feint
-  ]
 
   [[edit.cards]]
   id = 0xBF6F85F7                                         # FW/MF · forest
-  moves = [
-    { move = 0x240BEDF2, level = 1 },                     # Bounce Shot
-    { move = 0x6ADE9E01, level = 13 },                    # Illusory Ball
-    { move = 0x121A2FFE, level = 20 },                    # Mirage Shot
-    { move = 0x4E5B398C, level = 30 },                    # Acrobat Bomber
-    { move = 0xE937AD43, level = 38 },                    # Dragon Slayer
-    { move = 0x17A96A44, level = 43 },                    # Clone Faker
-  ]
 
 [[edit]]
 target = "c11500500"                                   # Mark Evans
 moves = [
-  { move = 0xF64674CB, level = 1 },                         # Fist of Justice
-  { move = 0xEE9F2FBD, level = 11 },                        # God Catch
-  { move = 0x8AF3EAB9, level = 21 },                        # Hammer of Fury
-  { move = 0x93E8DBF8, level = 31 },                        # Dimensional Hand
-]
-VRFW.MoveGrades = [
-  { Move = 0xF64674CB, Grade = 1 },                         # Fist of Justice
+  { move = 0x8C382852, level = 1 },                         # God Hand
+  { move = 0xE647BCEE, level = 13 },                        # God Hand V
+  { move = 0xEE9F2FBD, level = 20 },                        # God Catch
+  { move = 0x406CDEE8, level = 30 },                        # Omega Hand
 ]
 
   [[edit.cards]]
@@ -328,10 +232,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c11500510"                                   # Nelly Evans
 moves = [
-  { move = 0xB576BB31, level = 1 },                         # The Earth
-  { move = 0x4C1D87D5, level = 13 },                        # Bed of Roses
-  { move = 0x750E6DAB, level = 20 },                        # Matador Feint
-  { move = 0x7C93E472, level = 30 },                        # Ghoulish Glare
+  { move = 0x4C1D87D5, level = 1 },                         # Bed of Roses
+  { move = 0x750E6DAB, level = 13 },                        # Matador Feint
+  { move = 0x7C93E472, level = 20 },                        # Ghoulish Glare
+  { move = 0xB576BB31, level = 30 },                        # The Earth
 ]
 
   [[edit.cards]]
@@ -342,10 +246,10 @@ moves = [
 [[edit]]
 target = "c11500520"                                   # Jude Sharp
 moves = [
-  { move = 0xC42D6F54, level = 1 },                         # Aikido
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0xB039ADB4, level = 1 },                         # Inazuma Break
-  { move = 0x32EEA7FE, level = 55 },                        # Death Zone 2
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0x7DAF3139, level = 13 },                        # Emperor Penguin No. 2
+  { move = 0xC16279D1, level = 20 },                        # Field of Force
+  { move = 0xC9B4602F, level = 30 },                        # Final Death Zone
 ]
 
   [[edit.cards]]
@@ -358,9 +262,9 @@ moves = [
 target = "c11500530"                                   # Axel Blaze
 moves = [
   { move = 0x518BCA26, level = 1 },                         # Fire Tornado
-  { move = 0x00D8C57C, level = 1 },                         # Fireball Storm
-  { move = 0x0B011EBF, level = 11 },                        # Fireball Screw
-  { move = 0xEAB3792D, level = 21 },                        # Grand Fire
+  { move = 0x00D8C57C, level = 13 },                        # Fireball Storm
+  { move = 0x0B011EBF, level = 20 },                        # Fireball Screw
+  { move = 0xEAB3792D, level = 30 },                        # Grand Fire
 ]
 VRFW.MoveGrades = [
   { Move = 0x518BCA26, Grade = 1 },                         # Fire Tornado
@@ -374,10 +278,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c11500540"                                   # Maeve Smith
 moves = [
-  { move = 0x00D8C57C, level = 1 },                         # Fireball Storm
-  { move = 0x910F4F83, level = 13 },                        # Fire Tornado DD
+  { move = 0x518BCA26, level = 1 },                         # Fire Tornado
+  { move = 0x00D8C57C, level = 13 },                        # Fireball Storm
   { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0x518BCA26, level = 30 },                        # Fire Tornado
+  { move = 0x910F4F83, level = 30 },                        # Fire Tornado DD
 ]
 
   [[edit.cards]]
@@ -390,9 +294,9 @@ moves = [
 [[edit]]
 target = "c11500680"                                   # eshin
 moves = [
-  { move = 0x1876DB66, level = 1 },                         # Disaster Strike
-  { move = 0x7D6E9A87, level = 13 },                        # The Wall
-  { move = 0x7FE98F60, level = 20 },                        # Ganymede Ray
+  { move = 0x7D6E9A87, level = 1 },                         # The Wall
+  { move = 0x7FE98F60, level = 13 },                        # Ganymede Ray
+  { move = 0x1876DB66, level = 20 },                        # Disaster Strike
   { move = 0x67F17FA8, level = 30 },                        # Mega Quake
 ]
 
@@ -406,10 +310,10 @@ moves = [
 [[edit]]
 target = "c11500690"                                   # Olive Mapleton
 moves = [
-  { move = 0xA3392D01, level = 1 },                         # Rainbow Bubble Burst
-  { move = 0xE29933EC, level = 13 },                        # Dimensional Deluge
+  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
+  { move = 0xA3392D01, level = 13 },                        # Rainbow Bubble Burst
   { move = 0x4E5B398C, level = 20 },                        # Acrobat Bomber
-  { move = 0x3EC287DE, level = 30 },                        # Bubble Gum
+  { move = 0xE29933EC, level = 30 },                        # Dimensional Deluge
 ]
 
   [[edit.cards]]
@@ -425,19 +329,19 @@ rank = 3
 growth = "normal"
 stats = { kick = 225, control = 192, technique = 186, pressure = 240, physical = 242, intelligence = 273, agility = 196, freedom = 209 }
 moves = [
-  { move = 0x31ABD82E, level = 1 },                         # Circus Block
-  { move = 0xEEFFAE21, level = 13 },                        # Jungle Jam
-  { move = 0x7238D1B5, level = 20 },                        # Foil Formula
-  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0x7238D1B5, level = 1 },                         # Foil Formula
+  { move = 0x31ABD82E, level = 13 },                        # Circus Block
+  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
+  { move = 0xEEFFAE21, level = 30 },                        # Jungle Jam
 ]
 
 [[edit]]
 target = "c11500870"                                   # Serina Shelby
 moves = [
-  { move = 0x338DE7EB, level = 1 },                         # Mermaid's Veil
-  { move = 0x2A96D6AA, level = 13 },                        # Maelstrom the Hand
-  { move = 0x422A60B1, level = 20 },                        # Barrier Reef
-  { move = 0x96A7CD7D, level = 30 },                        # Tsunami Wall
+  { move = 0x422A60B1, level = 1 },                         # Barrier Reef
+  { move = 0x96A7CD7D, level = 13 },                        # Tsunami Wall
+  { move = 0x2A96D6AA, level = 20 },                        # Maelstrom the Hand
+  { move = 0x338DE7EB, level = 30 },                        # Mermaid's Veil
 ]
 
   [[edit.cards]]
@@ -453,47 +357,101 @@ growth_pattern = 1
 rank = 3
 growth = "normal"
 moves = [
-  { move = 0xF94FAAA7, level = 1 },                         # Decoy Deploy
+  { move = 0x2D9F7E76, level = 1 },                         # Breath Taker
   { move = 0x1E6B76C3, level = 13 },                        # Penguin the Hand
   { move = 0x35462500, level = 20 },                        # Crescent Cross
-  { move = 0x2D9F7E76, level = 30 },                        # Breath Taker
+  { move = 0xF94FAAA7, level = 30 },                        # Decoy Deploy
 ]
 
   [[edit.cards]]
   id = 0x8CAFB760                                         # FW/MF · forest
   stats = { kick = 174, control = 285, technique = 205, pressure = 169, physical = 177, intelligence = 176, agility = 189, freedom = 209 }
+  moves = [
+    { move = 0xB60E3C60, level = 1 },                       # Plasma Cut
+    { move = 0x6E53E2B3, level = 13 },                      # Angel Ball
+    { move = 0xBB21DDC9, level = 20 },                      # Trina Tumble
+    { move = 0xF94FAAA7, level = 30 },                      # Decoy Deploy
+  ]
 
   [[edit.cards]]
   id = 0x15A6E6DA                                         # FW/MF · forest
   stats = { kick = 174, control = 285, technique = 205, pressure = 169, physical = 177, intelligence = 176, agility = 189, freedom = 209 }
+  moves = [
+    { move = 0xB60E3C60, level = 1 },                       # Plasma Cut
+    { move = 0x6E53E2B3, level = 13 },                      # Angel Ball
+    { move = 0xBB21DDC9, level = 20 },                      # Trina Tumble
+    { move = 0xF94FAAA7, level = 30 },                      # Decoy Deploy
+  ]
 
   [[edit.cards]]
   id = 0x62A1D64C                                         # FW/MF · forest
   stats = { kick = 174, control = 285, technique = 205, pressure = 169, physical = 177, intelligence = 176, agility = 189, freedom = 209 }
+  moves = [
+    { move = 0xB60E3C60, level = 1 },                       # Plasma Cut
+    { move = 0x6E53E2B3, level = 13 },                      # Angel Ball
+    { move = 0xBB21DDC9, level = 20 },                      # Trina Tumble
+    { move = 0xF94FAAA7, level = 30 },                      # Decoy Deploy
+  ]
 
   [[edit.cards]]
   id = 0xFCC543EF                                         # FW/MF · forest
   stats = { kick = 174, control = 285, technique = 205, pressure = 169, physical = 177, intelligence = 176, agility = 189, freedom = 209 }
+  moves = [
+    { move = 0xB60E3C60, level = 1 },                       # Plasma Cut
+    { move = 0x6E53E2B3, level = 13 },                      # Angel Ball
+    { move = 0xBB21DDC9, level = 20 },                      # Trina Tumble
+    { move = 0xF94FAAA7, level = 30 },                      # Decoy Deploy
+  ]
 
   [[edit.cards]]
   id = 0x8BC27379                                         # FW/MF · forest
   stats = { kick = 174, control = 285, technique = 205, pressure = 169, physical = 177, intelligence = 176, agility = 189, freedom = 209 }
+  moves = [
+    { move = 0xB60E3C60, level = 1 },                       # Plasma Cut
+    { move = 0x6E53E2B3, level = 13 },                      # Angel Ball
+    { move = 0xBB21DDC9, level = 20 },                      # Trina Tumble
+    { move = 0xF94FAAA7, level = 30 },                      # Decoy Deploy
+  ]
 
   [[edit.cards]]
   id = 0x12CB22C3                                         # FW/MF · forest
   stats = { kick = 174, control = 285, technique = 205, pressure = 169, physical = 177, intelligence = 176, agility = 189, freedom = 209 }
+  moves = [
+    { move = 0xB60E3C60, level = 1 },                       # Plasma Cut
+    { move = 0x6E53E2B3, level = 13 },                      # Angel Ball
+    { move = 0xBB21DDC9, level = 20 },                      # Trina Tumble
+    { move = 0xF94FAAA7, level = 30 },                      # Decoy Deploy
+  ]
 
   [[edit.cards]]
   id = 0x65CC1255                                         # FW/MF · forest
   stats = { kick = 174, control = 285, technique = 205, pressure = 169, physical = 177, intelligence = 176, agility = 189, freedom = 209 }
+  moves = [
+    { move = 0xB60E3C60, level = 1 },                       # Plasma Cut
+    { move = 0x6E53E2B3, level = 13 },                      # Angel Ball
+    { move = 0xBB21DDC9, level = 20 },                      # Trina Tumble
+    { move = 0xF94FAAA7, level = 30 },                      # Decoy Deploy
+  ]
 
   [[edit.cards]]
   id = 0xF5730FC4                                         # FW/MF · forest
   stats = { kick = 174, control = 285, technique = 205, pressure = 169, physical = 177, intelligence = 176, agility = 189, freedom = 209 }
+  moves = [
+    { move = 0xB60E3C60, level = 1 },                       # Plasma Cut
+    { move = 0x6E53E2B3, level = 13 },                      # Angel Ball
+    { move = 0xBB21DDC9, level = 20 },                      # Trina Tumble
+    { move = 0xF94FAAA7, level = 30 },                      # Decoy Deploy
+  ]
 
   [[edit.cards]]
   id = 0x82743F52                                         # FW/MF · forest
   stats = { kick = 174, control = 285, technique = 205, pressure = 169, physical = 177, intelligence = 176, agility = 189, freedom = 209 }
+  moves = [
+    { move = 0xB60E3C60, level = 1 },                       # Plasma Cut
+    { move = 0x6E53E2B3, level = 13 },                      # Angel Ball
+    { move = 0xBB21DDC9, level = 20 },                      # Trina Tumble
+    { move = 0xF94FAAA7, level = 30 },                      # Decoy Deploy
+  ]
 
   [[edit.cards]]
   id = 0x725E8515                                         # GK/MF · void
@@ -542,10 +500,10 @@ moves = [
 [[edit]]
 target = "c11500920"                                   # Ah Dackchin
 moves = [
-  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
-  { move = 0x93E8DBF8, level = 13 },                        # Dimensional Hand
-  { move = 0xF309624E, level = 20 },                        # Dual Smash
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0xF309624E, level = 1 },                         # Dual Smash
+  { move = 0x06B22DB5, level = 13 },                        # Gyro-Blocker
+  { move = 0x70417B2E, level = 20 },                        # Deceptor Dribble
+  { move = 0x93E8DBF8, level = 30 },                        # Dimensional Hand
 ]
 
   [[edit.cards]]
@@ -558,10 +516,10 @@ moves = [
 [[edit]]
 target = "c11500930"                                   # KOTA
 moves = [
-  { move = 0x650FA58E, level = 1 },                         # Spin Out
-  { move = 0xF64674CB, level = 13 },                        # Fist of Justice
-  { move = 0xC42D6F54, level = 20 },                        # Aikido
-  { move = 0x41AEB4DF, level = 30 },                        # Crystal Barrier
+  { move = 0xF08DB620, level = 1 },                         # Whirlwind
+  { move = 0x41AEB4DF, level = 13 },                        # Crystal Barrier
+  { move = 0x650FA58E, level = 20 },                        # Spin Out
+  { move = 0xF64674CB, level = 30 },                        # Fist of Justice
 ]
 
   [[edit.cards]]
@@ -574,10 +532,10 @@ moves = [
 [[edit]]
 target = "c11500990"                                   # Josephine
 moves = [
-  { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
-  { move = 0xF94FAAA7, level = 13 },                        # Decoy Deploy
-  { move = 0xC66BD10D, level = 20 },                        # Zigzag Spark
-  { move = 0x7C1494CF, level = 30 },                        # Tornado Tunnel
+  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
+  { move = 0x07D16DA0, level = 13 },                        # Inazuma-1
+  { move = 0xC42D6F54, level = 20 },                        # Aikido
+  { move = 0xC21AFE80, level = 30 },                        # Whirlwind Drop
 ]
 
   [[edit.cards]]
@@ -590,10 +548,10 @@ moves = [
 [[edit]]
 target = "c11600100"                                   # Misty
 moves = [
-  { move = 0xB7474004, level = 1 },                         # Dough Ray Me
-  { move = 0x8A936B25, level = 13 },                        # Goopy Gloopy Goo
-  { move = 0x0D0B77EA, level = 20 },                        # Floral Fiesta
-  { move = 0x86F5F6E8, level = 30 },                        # Cupid's Arrow
+  { move = 0x8A936B25, level = 1 },                         # Goopy Gloopy Goo
+  { move = 0x86F5F6E8, level = 13 },                        # Cupid's Arrow
+  { move = 0xB7474004, level = 20 },                        # Dough Ray Me
+  { move = 0x0D0B77EA, level = 30 },                        # Floral Fiesta
 ]
 
   [[edit.cards]]
@@ -605,10 +563,10 @@ moves = [
 [[edit]]
 target = "c11600110"                                   # Victorio Cryptix
 moves = [
-  { move = 0xF806D6C3, level = 1 },                         # Shell Burst
+  { move = 0xA9A7000B, level = 1 },                         # Bouncing Bunny
   { move = 0x00AF8010, level = 13 },                        # Splitting Hares
   { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
-  { move = 0x19BA3BFC, level = 30 },                        # Dance on Air
+  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]
@@ -619,10 +577,10 @@ moves = [
 [[edit]]
 target = "c11600120"                                   # Lumina
 moves = [
-  { move = 0x34844F37, level = 1 },                         # White Hole
-  { move = 0xD9E65BBA, level = 13 },                        # Aurora Curtain
+  { move = 0xD9E65BBA, level = 1 },                         # Aurora Curtain
+  { move = 0x41AEB4DF, level = 13 },                        # Crystal Barrier
   { move = 0x324F8DDC, level = 20 },                        # Force Shield
-  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
+  { move = 0x34844F37, level = 30 },                        # White Hole
 ]
 
   [[edit.cards]]

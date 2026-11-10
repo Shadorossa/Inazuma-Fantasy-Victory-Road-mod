@@ -1,12 +1,6 @@
--- Kit diagnostic: one log line per match team, the first time a player of that team is dressed in a match.
--- Line: «kit diag: side S (user|cpu) team 0x… declared kit 0x… match uniform 0x… dressed typeId T (alternative bit A,
--- team alternate flag F) rival kit 0x… (declared 0x…)».
--- Sources: the match teams of the last match request (state VRFW.team_lineup.match_teams: +0 the player's team,
--- +4 the rival), their team_config records (FindTeamConfig, ActiveTeamRecord.uniform), the match team blocks
--- ([[g_gameRoot]+Game.RootMatch]+0x60 + side * 0x1130: +0x1040 uniform, +0x1101 alternate flag; +0x2C29 the user's side)
--- and the look flags of each dressed player (hook VRFW.MatchLook, bit 1 = the alternate model row, typeId 1).
 
 local U = require "lib/util"
+local TeamConfig = VRFW.teams.config
 
 local M = {}
 
@@ -17,30 +11,19 @@ local STAFF_FLAGS = 0x30
 
 local logged = {}
 
-require "VRFW/lib/basics"
 local log = VRFW.logger("kit diag")
 
 local function declared_kit(team)
-  if not team or team == 0 or not VRFW.is_on("FindTeamConfig") then
+  if not team or team == 0 then
     return 0
   end
-  local okb, recb = pcall(VRFW.mem.buffer, "bbd_kit_diag_rec", 8)
-  local okc, contb = pcall(VRFW.mem.buffer, "bbd_kit_diag_cont", 8)
-  local okh, hashb = pcall(VRFW.mem.buffer, "bbd_kit_diag_hash", 4)
-  if not (okb and okc and okh) then
+  local rec = TeamConfig.find(team)
+  if not rec then
     return 0
   end
-  U.wr("u64", recb, 0)
-  U.wr("u64", contb, 0)
-  U.wr("u32", hashb, team)
-  if not U.call("FindTeamConfig", recb, contb, hashb) then
-    return 0
-  end
-  local rec = U.rd("ptr", recb) or 0
   return U.u32(U.get(U.struct("ActiveTeamRecord", rec), "uniform") or 0)
 end
 
--- the request's teams by match side: { [side] = team id }
 local function teams_by_side(match)
   local ok, block = pcall(VRFW.state.get, MATCH_TEAMS_KEY)
   if not ok or type(block) ~= "number" or block < 0x10000 then

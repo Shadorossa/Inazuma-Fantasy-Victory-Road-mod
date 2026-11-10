@@ -1,0 +1,48 @@
+schema = "VRFW.changelog/1"
+# Ares Kits Without Sponsors: what the mod offers.
+
+[[release]]
+icon = "general"
+notes = [
+    "Equipaciones de Ares sin publicidad: X en el selector de equipación",
+]
+
+[release.en]
+notes = [
+    "Ares kits without sponsors: X in the kit picker",
+]
+
+[release.fr]
+notes = [
+    "Tenues d'Ares sans sponsors : X dans le choix de tenue",
+]
+
+[release.de]
+notes = [
+    "Ares-Trikots ohne Sponsoren: X in der Trikotauswahl",
+]
+
+[release.it]
+notes = [
+    "Divise di Ares senza sponsor: X nella scelta della divisa",
+]
+
+[release.pt]
+notes = [
+    "Equipamentos de Ares sem patrocínio: X na escolha de equipamento",
+]
+
+[release.ja]
+notes = [
+    "スポンサーなしのアレスのユニフォーム：ユニフォーム選択でX",
+]
+
+[release.zh_hans]
+notes = [
+    "无赞助商的阿瑞斯球衣：球衣选择中按 X",
+]
+
+[release.zh_hant]
+notes = [
+    "無贊助商的阿瑞斯球衣：球衣選擇中按 X",
+]

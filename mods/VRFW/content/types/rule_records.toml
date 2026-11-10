@@ -1,6 +1,6 @@
 # Schema of the rulebooks (kind VRFW.rule/1, a mod's content\rules\**\*.toml, one rulebook per file): the rules of
 # an offline match. The rule type parses them (strict, match_engine::ruleset); this schema describes the same keys for
-# the checker and the editors. Keys that take "row" also accept the word "row": the match row's own value.
+# the checker and the editors.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.rule/1"
 folder = "content/rules"
@@ -11,9 +11,8 @@ doc_es = "El libro de reglas de un partido: su duración, equipos, reglas de jue
 
 [entry.Rulebook]
 file_root = true
-doc = "the rulebook: its id, name and former ids"
+doc = "the rulebook: its id and name"
 id = { type = "string", doc = "the rulebook's id (default: the file name)" }
-aliases = { type = "strings", doc = "former ids: selections, bindings and friendlies naming one still find it" }
 name = { type = "string", doc = "fallback name (the Mods screen shows the text <mod>.ruleset_<id>)" }
 version = { type = "int", min = 0, doc = "the rulebook's version" }
 training = { type = "bool", default = false, doc = "a training match: state key match.training = 1 while it runs" }
@@ -32,13 +31,18 @@ single = true
 doc = "who kicks off"
 always = { type = "any", doc = "\"user\" / \"player\" | \"rival\": that side kicks off every kick-off" }
 
+[entry.Music]
+entry_table = "music"
+single = true
+doc = "the match music"
+set = { type = "any", doc = "the match BGM set of every phase (a soccer_game_bgm_config set name or id) or \"row\"" }
+
 [entry.Teams]
 entry_table = "teams"
 single = true
 doc = "the sides: players, keepers, formations"
 players = { type = "any", doc = "players per side (a number or \"row\")" }
-goalkeeper = { type = "any", doc = "keepers on the pitch (true / false or \"row\"; also written keepers)" }
-keepers = { type = "any", doc = "the same as goalkeeper" }
+goalkeeper = { type = "any", doc = "keepers on the pitch (true / false or \"row\")" }
 fill = { type = "any", doc = "a hole of the built line-up gets a bench player, the keeper's spot first" }
 user = { type = "table", doc = "the user's side: players, formation, goalkeeper, fill, team" }
 rival = { type = "table", doc = "the rival's side: players, formation, goalkeeper, fill, team" }
@@ -75,6 +79,7 @@ penalties_order = { type = "string", values = ["forwards_first", "lineup"], defa
 penalties_first = { type = "string", values = ["user", "rival"], default = "user" }
 penalties_final_score = { type = "string", values = ["winner_plus_one", "sum"], default = "winner_plus_one" }
 extended_vgoal = { type = "any", doc = "true / false or \"row\"" }
+advance_win_goals = { type = "any", doc = "first-half goals of the leading side that end the match with an advance win (1-60; the game: 4) or \"row\"" }
 
 [entry.Challenge]
 entry_table = "challenge"

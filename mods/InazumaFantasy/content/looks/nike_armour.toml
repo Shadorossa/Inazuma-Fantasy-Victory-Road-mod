@@ -1,0 +1,26 @@
+schema = "VRFW.look/2"
+# The armour of the keshin Nike, head and back pieces: one extra mesh per skeleton, as retail accessories.
+
+[[exmesh]]
+model = "knik01"
+rows = [
+  ["_armd/knik01/knik01.g4md", "_armd/knik01/knik01_10.g4tx", 0],
+]
+
+[[exmesh]]
+model = "knik01_p1"
+rows = [
+  ["_armd/knik01/knik01_g2.g4md", "_armd/knik01/knik01_10.g4tx", 1],
+]
+
+[[exmesh]]
+model = "knik01_p2"
+rows = [
+  ["_armd/knik01/knik01_g4.g4md", "_armd/knik01/knik01_10.g4tx", 2],
+]
+
+[[exmesh]]
+model = "knik01_p3"
+rows = [
+  ["_armd/knik01/knik01_g5.g4md", "_armd/knik01/knik01_10.g4tx", 3],
+]

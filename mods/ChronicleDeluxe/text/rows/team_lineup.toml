@@ -1,6 +1,3 @@
-# Chronicle Deluxe: the button under the team lineup of the Chronicle board's «MI EQUIPO» panel (content\menus\
-# team_lineup.toml, research/grafts/chronicle_deluxe_board/cd_lineup.lua). <CMD_FUNC3> is the game's Y button glyph
-# (its keyboard key on a keyboard); the name is the retail one of the team dock in each language.
 schema = "VRFW.text/2"
 table = "menu_text"
 

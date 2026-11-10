@@ -1,0 +1,16 @@
+schema = "VRFW.game/2"
+
+# (is_last_star 1 / 0) -> the item ids a Players Universe pull adds, or nothing (scripts\universe_prizes.lua)
+[[VRFW.Command]]
+name = "CMND_CHRONICLEDELUXE_ROLL_UNIVERSE_PRIZE"
+handler = "ChronicleDeluxe.RollUniversePrize"
+
+# (is_last_star 1 / 0) -> { text id, chance percent, item count, most likely item, ... } per pool, for the rate window
+[[VRFW.Command]]
+name = "CMND_CHRONICLEDELUXE_UNIVERSE_PRIZE_RATES"
+handler = "ChronicleDeluxe.UniversePrizeRates"
+
+# (upper) -> a whole number from 1 to upper (assets\lua\_all\chronicle_deluxe_universe_pool.lua)
+[[VRFW.Command]]
+name = "CMND_CHRONICLEDELUXE_UNIVERSE_ROLL"
+handler = "ChronicleDeluxe.UniverseRoll"

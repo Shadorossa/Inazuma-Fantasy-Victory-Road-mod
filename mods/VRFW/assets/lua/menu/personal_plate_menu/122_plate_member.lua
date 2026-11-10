@@ -1,46 +1,26 @@
--- plate member (VRFW base feature, docs/framework/player-pages.md «Plate member»): a screen that shows a team's
--- member on the player plate as a temporary character (players-universe mode, e.g. a line-up viewer) names him with the
--- game parameters VRFW.plate_team (team id) and VRFW.plate_slot (member slot) while its page is up, and clears them
--- after. Then:
--- * the plate's equipment rows show the items of that member's row of the team (CMND_VRFW_TEAM_MEMBER_GEAR: boots,
---   bracelet, pendant, special as the team build wrote them; the match equips the same items itself);
--- * VRFW_PlateMember.Kit() gives his team's kit (the page's 3D model wears it);
--- * a screen that shows a card (no team member) names it with VRFW.plate_card (chara_param id) while its page is up:
---   VRFW_PlateMember.Kit() then gives that card's own team kit, derived from the data by CMND_VRFW_CONTACT_KIT (the
---   contact map's kit: his chara_base's belong team, its kit of his era, the game's own lookup that his miniface uses;
---   that team without a kit for the era: his own clothes; no belong team: the first team listing him), so the page's
---   3D model wears what his miniface shows (the keeper shirt comes from the plate model's own position check);
---   VRFW.plate_card_team (a team_config id) names the team that dresses that card instead (its uniform first, e.g. a
---   mod card's own team);
--- * the page shows his set as the match plays it (CMND_VRFW_TEAM_MEMBER_MOVES: his loadout's special moves and auras,
---   all available, never padlocked by a learn level): the move, learn table, learn level, board and skill set reads
---   of the plate answer from it; VRFW_PlateMember.SkillSet(hdl) gives its aura / mix for the pages that show them.
--- * a team editor's temporary player (VRFW_TeamEditor.TemporaryCard, any mode's team screen: a career club, a league
---   team) shows his card's set as the match plays it: his card's own learn list (CMND_VRFW_CHARACTER_LEARNSET; moves
---   above his level padlocked by the plate's learn level read), its auras in the aura / mix slots; the same builder.
--- Without the parameters nothing changes. No engine call at load time.
-VRFW_PlateMember = type(VRFW_PlateMember) == "table" and VRFW_PlateMember or {}
-if VRFW_PlateMember.Gear == nil then
-  local M = VRFW_PlateMember
+VRFW.plate_member = type(VRFW.plate_member) == "table" and VRFW.plate_member or {}
+if VRFW.plate_member.gear == nil then
+  local M = VRFW.plate_member
   M.P_TEAM = 1930590710                 -- crc32 of VRFW.plate_team
   M.P_SLOT = 469565326                  -- crc32 of VRFW.plate_slot
   M.P_CARD = 2716223290                 -- crc32 of VRFW.plate_card
   M.P_CARD_TEAM = 1860450077            -- crc32 of VRFW.plate_card_team
+  M.P_HANDLE = 139464907                -- crc32 of VRFW.plate_handle
+  M.P_KIT = 387402342                   -- crc32 of VRFW.plate_kit
   M.C = {
-    GEAR = VRFW_Cmd.VRFW_TEAM_MEMBER_GEAR,                  -- CMND_VRFW_TEAM_MEMBER_GEAR(team, slot) -> found, kit, 4 items
+    GEAR = VRFW.commands.VRFW_TEAM_MEMBER_GEAR,
     INV_OF_SLOT = 128658370,            -- (charaStHdl, equip slot) -> the inventory handle worn there
     ITEM_OF_INV = 2662166687,           -- (inventory handle, 0) -> its item id
-    CARD_KIT = VRFW_Cmd.VRFW_CONTACT_KIT,              -- CMND_VRFW_CONTACT_KIT(card[, team]) -> { uniform, flags, source }
+    CARD_KIT = VRFW.commands.VRFW_CONTACT_KIT,
   }
-  M.ITEM_SLOTS = 4                      -- equip slots 0-3 (boots, bracelet, pendant, special); 4 (costume) is not in a row
+  M.ITEM_SLOTS = 4
 
   local function Param(k)
-    local v = VRFW_Param.Get(k)
+    local v = VRFW.param.get(k)
     return type(v) == "number" and v or nil
   end
 
-  -- the named member: team id, slot; nil = none
-  function M.Member()
+  function M.member()
     local team, slot = Param(M.P_TEAM), Param(M.P_SLOT)
     if team == nil or slot == nil or team == 0 then
       return nil
@@ -48,47 +28,71 @@ if VRFW_PlateMember.Gear == nil then
     return team, slot
   end
 
-  -- the named member's team kit and his items (indexed by equip slot 0-3); nil = no member / unknown team
-  function M.Gear()
-    local team, slot = M.Member()
+  -- The live character a line-up viewer shows (VRFW.plate_handle) and the kit of his team (VRFW.plate_kit, 0 = none).
+  function M.handle()
+    local hdl = VRFW.ids.unsigned(Param(M.P_HANDLE))
+    if hdl == 0 then
+      return nil
+    end
+    return hdl, VRFW.ids.unsigned(Param(M.P_KIT))
+  end
+
+  -- The items a live character wears in his 4 equipment slots (0 = none).
+  local function HandleItems(hdl)
+    local real = (type(VRFW.host) == "table" and type(VRFW.host.real_command) == "function") and VRFW.host.real_command
+      or funcLuaCommand
+    local items = {}
+    for k = 0, M.ITEM_SLOTS - 1 do
+      local ok, inv = pcall(real, M.C.INV_OF_SLOT, hdl, k)
+      local item = 0
+      if ok and type(inv) == "number" and inv ~= 0 then
+        local oki, id = pcall(real, M.C.ITEM_OF_INV, inv, 0)
+        item = (oki and type(id) == "number") and id or 0
+      end
+      items[k] = item
+    end
+    return items
+  end
+
+  function M.gear()
+    local hdl, kit = M.handle()
+    if hdl ~= nil then
+      return kit, HandleItems(hdl)
+    end
+    local team, slot = M.member()
     if team == nil then
       return nil
     end
-    local ok, found, kit, a, b, c, d = pcall(funcLuaCommand, M.C.GEAR, team, slot)
-    if not (ok and found == true) then
+    local found, kit, a, b, c, d = VRFW.host.command(M.C.GEAR, team, slot)
+    if not (found == true) then
       return nil
     end
     return kit, {[0] = a or 0, b or 0, c or 0, d or 0}
   end
 
-  -- the kit of the named card's own team -> uniform, source ("own": 0 = his own clothes); nil = no card named / no kit
-  -- in the data (the plate model's default)
-  function M.CardKit()
+  function M.card_kit()
     local card = Param(M.P_CARD)
     if card == nil or card == 0 then
       return nil
     end
-    local ok, r = pcall(funcLuaCommand, M.C.CARD_KIT, card, Param(M.P_CARD_TEAM) or 0)
-    if ok and type(r) == "table" and r.source == "own" then
+    local r = VRFW.host.command(M.C.CARD_KIT, card, Param(M.P_CARD_TEAM) or 0)
+    if type(r) == "table" and r.source == "own" then
       return 0, "own"
     end
-    if ok and type(r) == "table" and type(r.uniform) == "number" and r.uniform ~= 0 then
+    if type(r) == "table" and type(r.uniform) == "number" and r.uniform ~= 0 then
       return r.uniform, r.source
     end
     return nil
   end
 
-  -- the shown member's / card's kit -> uniform, source; uniform 0 with source "own" = his own clothes
-  function M.Kit()
-    local kit = M.Gear()
+  function M.kit()
+    local kit = M.gear()
     if type(kit) == "number" and kit ~= 0 then
       return kit, "member"
     end
-    return M.CardKit()
+    return M.card_kit()
   end
 
-  -- the retail row drawer (personal_plate_inc): while a member is named, its two equipment reads answer from his row
-  -- (the temporary character wears nothing); every other call is the game's
   local function Wrap(name, make)
     local cur = _ENV[name]
     if type(cur) ~= "function" or M.wrapped == cur then
@@ -99,7 +103,7 @@ if VRFW_PlateMember.Gear == nil then
   end
   Wrap("SetupPersonalPlateEquipItem", function(orig)
     return function(i, hdl, ...)
-      local kit, items = M.Gear()
+      local kit, items = M.gear()
       if items == nil then
         return orig(i, hdl, ...)
       end
@@ -122,35 +126,32 @@ if VRFW_PlateMember.Gear == nil then
         end
         return nxt(cmd, a, b, ...)
       end
-      return (VRFW_Host.WithCommands({ [M.C.INV_OF_SLOT] = slot_item, [M.C.ITEM_OF_INV] = token_item }, orig, i, hdl,
+      return (VRFW.host.with_commands({ [M.C.INV_OF_SLOT] = slot_item, [M.C.ITEM_OF_INV] = token_item }, orig, i, hdl,
         ...))
     end
   end)
 end
 
-if VRFW_PlateMember.SkillSet == nil then
-  local M = VRFW_PlateMember
+if VRFW.plate_member.skill_set == nil then
+  local M = VRFW.plate_member
   M.MC = {
-    MOVES = VRFW_Cmd.VRFW_TEAM_MEMBER_MOVES,                  -- CMND_VRFW_TEAM_MEMBER_MOVES(team, slot) -> found, 6 moves, 6 levels
-    LEARNSET = VRFW_Cmd.VRFW_CHARACTER_LEARNSET,              -- CMND_VRFW_CHARACTER_LEARNSET(charaStHdl) -> ok, {9 moves}, {9 levels}
+    MOVES = VRFW.commands.VRFW_TEAM_MEMBER_MOVES,
+    LEARNSET = VRFW.commands.VRFW_CHARACTER_LEARNSET,
     GET_SKILL = 903078840,              -- (charaStHdl, list position 0-5) -> move
     LEARNABLE = 3475351727,             -- (charaStHdl) -> ok, {move per slot}, {learn level per slot}
-    LEARN_LEVEL = VRFW_Cmd.VRFW_CHARACTER_LEARN_LEVEL,              -- CMND_VRFW_CHARACTER_LEARN_LEVEL(charaStHdl, move) -> level needed, player's level
+    LEARN_LEVEL = VRFW.commands.VRFW_CHARACTER_LEARN_LEVEL,
     BOARD_INV = 632801955,              -- (charaStHdl, board slot, kind) -> inventory handle
-    SKILL_SET = VRFW_Cmd.VRFW_SKILL_SET,              -- CMND_VRFW_SKILL_SET(charaStHdl) -> answered, aura, mix, aura_from, mix_from, rows, techniques
-    SKILL_INFO = VRFW_Cmd.GET_SOCCER_SKILL_INFO,            -- (move, 9) -> ok, category (8 = aura); (move, 13) -> ok, aura type
-    LOG = VRFW_Cmd.EVT_LOG,                   -- CMND_EVT_LOG
+    SKILL_SET = VRFW.commands.VRFW_SKILL_SET,
+    SKILL_INFO = VRFW.commands.GET_SOCCER_SKILL_INFO,
+    LOG = VRFW.commands.VRFW_LOG,                   -- CMND_VRFW_LOG
   }
   M.MIX_TYPES = {[2] = true, [6] = true} -- aura types of the mix slot: Mix-Max, mode change
   M.ROWS = 6
-  M.set = nil                           -- {key, moves, aura, mix, aura_from, mix_from, rows, techniques}
-  M.temporary = {}                      -- charaStHdl -> false: a handle that is no team editor temporary player
+  M.set_cache = nil
+  M.temporary = {}
 
-  local function U32(v) return VRFW_Id.u32(v) end
+  local function U32(v) return VRFW.ids.unsigned(v) end
 
-  -- THE set builder of a shown team member and of a team editor's temporary player: `moves` in their order (auras
-  -- included) -> the first keshin / totem / armour in the aura slot, the first Mix-Max / «Modo cambio» in the mix slot,
-  -- the other moves on the rows (at most 6, in order); `position(i)` = the list position the plate reads move i at
   local function Build(call, set, moves, position)
     for i, m in ipairs(moves) do
       local okc, known, category = pcall(call, M.MC.SKILL_INFO, m, 9)
@@ -174,17 +175,14 @@ if VRFW_PlateMember.SkillSet == nil then
       mix_from = -1}
   end
 
-  -- the card of a team editor's temporary player (VRFW_TeamEditor.TemporaryCard: a parameter the editor sets while its
-  -- session runs, so any menu VM reads it); nil = a player of the save. A "no" is kept while this plate lives; a
-  -- "yes" is asked again (the session's end clears it, and the game may give the handle to a player of the save then).
   local function TemporaryCard(hdl)
     if type(hdl) ~= "number" or hdl == 0 or M.temporary[hdl] == false then
       return nil
     end
-    local editor = VRFW_TeamEditor
+    local editor = VRFW.team_editor
     local ok, card = false, nil
-    if type(editor) == "table" and type(editor.TemporaryCard) == "function" then
-      ok, card = pcall(editor.TemporaryCard, hdl)
+    if type(editor) == "table" and type(editor.temporary_card) == "function" then
+      ok, card = pcall(editor.temporary_card, hdl)
     end
     if ok and type(card) == "number" and card ~= 0 then
       return card
@@ -193,23 +191,19 @@ if VRFW_PlateMember.SkillSet == nil then
     return nil
   end
 
-  -- a team editor's temporary player: his card's set as the match plays it (the card's own learn list,
-  -- CMND_VRFW_CHARACTER_LEARNSET: what a team member row without a loadout plays), read with the commands under every
-  -- handler (VRFW_Host.RealCommand); a move above the player's level stays on its row and the plate's learn level read
-  -- (not answered here) padlocks it, the list read answers 0 there (the match holds it back)
   local function TemporarySet(hdl)
     local card = TemporaryCard(hdl)
     if card == nil then
       return nil
     end
     local key = "temporary:" .. tostring(hdl) .. ":" .. tostring(card)
-    if M.set ~= nil and M.set.key == key then
-      return M.set.found and M.set or nil
+    if M.set_cache ~= nil and M.set_cache.key == key then
+      return M.set_cache.found and M.set_cache or nil
     end
-    local real = (type(VRFW_Host) == "table" and type(VRFW_Host.RealCommand) == "function") and VRFW_Host.RealCommand
+    local real = (type(VRFW.host) == "table" and type(VRFW.host.real_command) == "function") and VRFW.host.real_command
       or funcLuaCommand
     local set = NewSet(key)
-    M.set = set                         -- a read below that comes back through the hook answers the game's own
+    M.set_cache = set
     local ok, answered, moves, levels = pcall(real, M.MC.LEARNSET, hdl)
     if ok and answered == true and type(moves) == "table" then
       local list = {}
@@ -235,15 +229,38 @@ if VRFW_PlateMember.SkillSet == nil then
     return set.found and set or nil
   end
 
-  -- the named member's set ({moves[1..6], aura, mix, ...}); nil = no member, or he plays his card's own list
+  -- The moves a live character has set in his 6 move slots.
+  local function HandleSet(hdl)
+    local key = "handle:" .. tostring(hdl)
+    if M.set_cache ~= nil and M.set_cache.key == key then
+      return M.set_cache.found and M.set_cache or nil
+    end
+    local real = (type(VRFW.host) == "table" and type(VRFW.host.real_command) == "function") and VRFW.host.real_command
+      or funcLuaCommand
+    local set = NewSet(key)
+    local list = {}
+    for i = 1, M.ROWS do
+      local ok, m = pcall(real, M.MC.GET_SKILL, hdl, i - 1)
+      list[i] = ok and U32(m) or 0
+      set.moves[i] = list[i]
+      set.found = set.found or list[i] ~= 0
+    end
+    Build(real, set, list, function(i) return i - 1 end)
+    M.set_cache = set
+    pcall(real, M.MC.LOG, "VRFW plate member", string.format("live character %s: %s", tostring(hdl),
+      set.found and string.format("his own set: %d technique(s), aura 0x%08X, mix 0x%08X", #set.techniques, set.aura,
+        set.mix) or "no move set: the card's own set kept"))
+    return set.found and set or nil
+  end
+
   local function MemberSet(call)
-    local team, slot = M.Member()
+    local team, slot = M.member()
     if team == nil then
       return nil
     end
     local key = tostring(team) .. ":" .. tostring(slot)
-    if M.set ~= nil and M.set.key == key then
-      return M.set.found and M.set or nil
+    if M.set_cache ~= nil and M.set_cache.key == key then
+      return M.set_cache.found and M.set_cache or nil
     end
     local r = {pcall(call, M.MC.MOVES, team, slot)}
     local set = NewSet(key)
@@ -256,38 +273,36 @@ if VRFW_PlateMember.SkillSet == nil then
       end
       Build(call, set, list, function(i) return i - 1 end)
     end
-    M.set = set
-    -- one line per member shown: what the page answers from
+    M.set_cache = set
     pcall(call, M.MC.LOG, "VRFW plate member", string.format("team 0x%08X slot %s: %s", team % 4294967296, tostring(slot),
       set.found and string.format("team set applied: %d technique(s), aura 0x%08X, mix 0x%08X", #set.techniques, set.aura,
         set.mix) or ("card's own set kept (" .. tostring(r[3]) .. ")")))
     return set.found and set or nil
   end
 
-  -- the set the plate shows for `hdl`: a named team member's (any handle: the plate shows that member), else the team
-  -- editor's temporary player's (only that handle); nil = the game's own reads
-  function M.Set(call, hdl)
-    local team = M.Member()
+  function M.set(call, hdl)
+    local live = M.handle()
+    if live ~= nil then
+      return HandleSet(live), false
+    end
+    local team = M.member()
     if team ~= nil then
       return MemberSet(call), false
     end
     return TemporarySet(hdl), true
   end
 
-  -- {aura, mix, aura_from, mix_from} of the set shown for card `hdl` (the named member's, a temporary player's); nil = none
-  function M.SkillSet(hdl)
+  function M.skill_set(hdl)
     if type(funcLuaCommand) ~= "function" then
       return nil
     end
-    local set = M.Set(funcLuaCommand, hdl)
+    local set = M.set(funcLuaCommand, hdl)
     if set == nil then
       return nil
     end
     return {aura = set.aura, mix = set.mix, aura_from = set.aura_from, mix_from = set.mix_from}
   end
 
-  -- while a member is named / a temporary player is read, the plate's set reads answer from his set (every other
-  -- command is the game's); a temporary player keeps the game's learn table and learn level (his own level)
   local answer = {
     [M.MC.GET_SKILL] = function(set, a, b)
       return set.moves[(tonumber(b) or -1) + 1] or 0
@@ -318,16 +333,14 @@ if VRFW_PlateMember.SkillSet == nil then
         techniques[1], techniques[2], techniques[3], techniques[4], techniques[5], techniques[6]
     end,
   }
-  -- installed when the menu starts (OnInit: the engine's funcLuaCommand exists then), once per VM. M.Set's own
-  -- reads (moves, learn list, move info, log) are not hooked here, so they go through the global.
   local function answer_member(nxt, cmd, a, b, ...)
-    local ok, set, temporary = pcall(M.Set, funcLuaCommand, a)
+    local ok, set, temporary = pcall(M.set, funcLuaCommand, a)
     if ok and set ~= nil then
       return answer[cmd](set, a, b, nxt, temporary)
     end
     return nxt(cmd, a, b, ...)
   end
-  function M.Install()
+  function M.install()
     if M.installed or type(funcLuaCommand) ~= "function" then
       return
     end
@@ -335,14 +348,14 @@ if VRFW_PlateMember.SkillSet == nil then
     for cmd in pairs(answer) do
       ids[#ids + 1] = cmd
     end
-    M.installed = VRFW_Host.HookCommand(ids, answer_member, "VRFW.plate_member")
+    M.installed = VRFW.host.hook_command(ids, answer_member, "VRFW.plate_member")
   end
-  if VRFW_Host ~= nil then
-    VRFW_Host.on("personal_plate_menu", "OnInit", {id = "vrfw.plate_member.install", phase = "before", create = true,
+  if VRFW.host ~= nil then
+    VRFW.host.on("personal_plate_menu", "OnInit", {id = "vrfw.plate_member.install", phase = "before", create = true,
       fn = function()
-        M.set = nil
+        M.set_cache = nil
         M.temporary = {}
-        M.Install()
+        M.install()
       end})
   end
 end

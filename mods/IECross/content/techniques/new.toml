@@ -1,13 +1,4 @@
 schema = "VRFW.technique/3"
-# The 15 Inazuma Eleven Cross special moves: 4 converted from Cross (own animation, camera, lights, voices, effects)
-# and 8 retail events cloned with Cross's effects. Own events in content\base_tables\event_cfg +
-# assets\data\common\event\ev6x\ev6x_95NNN (research/scripts/cross_waza_build.py -> technique_create_build.py, which
-# deploy here: _split.toml), own texts, manuals (their item rows; catalog numbers from the item type's allocator, VRFW
-# 13002-13013 were past the 8192-bit flag array): content\base_tables\gamedata\item\item_config.toml). Fixed keys
-# (skill id = crc32 of the key): saves hold them. "none": a text written in some languages replaces only those (no
-# default-language fallback)
-# whs95000-whs95030, whs95100, whs95110, whs95140, who95100, who95120, whd95100, whd95120 are the IEVRCROSS mod's versions
-# (events in assets\event + assets\event_cfg, stats as that mod has them): docs/game/mods/iecross-missing-from-ievrcross.md.
 default_lang = "none"
 
 [[technique]]
@@ -16,7 +7,7 @@ key = "whs95000"
 base = "whs02470"
 order = 25
 name_text = 0xD8F83E29
-desc_text = 0x8D6EEC7B
+description_text = 0x8D6EEC7B
 manual = { icon = [161, 246] }
 event = "ev60_95000"
 power_min = 60
@@ -59,7 +50,7 @@ key = "whs95010"
 base = "whs00020"
 order = 26
 name_text = 0x7E8F359D
-desc_text = 0x2B19E7CF
+description_text = 0x2B19E7CF
 manual = true
 event = "ev60_95010"
 power_min = 85
@@ -85,7 +76,7 @@ cells = { seriesIdCrc = 0x8CE625A3 }
   name = "Ozeangeburt"
   description = "Two players ride a giant wave and strike\nwith the whole power of the ocean."
   [technique.text.it]
-  name = "Nascita Oceanica"
+  name = "Aurora Oceanica"
   description = "Two players ride a giant wave and strike\nwith the whole power of the ocean."
   [technique.text.pt]
   name = "Nascimento Oceânico"
@@ -103,7 +94,7 @@ key = "whs95020"
 base = "whs00340"
 order = 27
 name_text = 0x4F672F00
-desc_text = 0x1AF1FD52
+description_text = 0x1AF1FD52
 manual = true
 event = "ev60_95020"
   [technique.text.ja]
@@ -140,7 +131,7 @@ key = "whs95030"
 base = "whs02640"
 order = 28
 name_text = 0xE91024B4
-desc_text = 0xBC86F6E6
+description_text = 0xBC86F6E6
 manual = { icon = [161, 20] }
 event = "ev60_95030"
 power_min = 70
@@ -184,7 +175,7 @@ key = "whs95100"
 base = "whs00040"
 order = 29
 name_text = 0x14523EB7
-desc_text = 0x41C4ECE5
+description_text = 0x41C4ECE5
 manual = { icon = [161, 21] }
 event = "ev60_95100"
 power_min = 85
@@ -227,7 +218,7 @@ key = "whs95110"
 base = "whs00170"
 order = 30
 name_text = 0xB2253503
-desc_text = 0xE7B3E751
+description_text = 0xE7B3E751
 manual = { icon = [161, 7] }
 event = "ev60_95110"
 power_min = 50
@@ -271,7 +262,7 @@ key = "whs95120"
 base = "whs01940"
 order = 31
 name_text = 0x83CD2F9E
-desc_text = 0xD65BFDCC
+description_text = 0xD65BFDCC
 manual = true
 event = "ev60_95120"
 power_min = 65
@@ -311,7 +302,7 @@ key = "whs95130"
 base = "whs02240"
 order = 32
 name_text = 0x25BA242A
-desc_text = 0x702CF678
+description_text = 0x702CF678
 manual = true
 event = "ev60_95130"
 power_min = 75
@@ -351,7 +342,7 @@ key = "who95100"
 base = "who00010"
 order = 33
 name_text = 0xB0BE68BB
-desc_text = 0xE528BAE9
+description_text = 0xE528BAE9
 manual = true
 event = "ev61_95100"
 element = "wind"
@@ -390,7 +381,7 @@ key = "who95110"
 base = "who00810"
 order = 34
 name_text = 0x16C9630F
-desc_text = 0x435FB15D
+description_text = 0x435FB15D
 manual = true
 event = "ev61_95110"
 power_min = 65
@@ -430,7 +421,7 @@ key = "whd95100"
 base = "who00220"
 order = 35
 name_text = 0x939FEFFF
-desc_text = 0xC6093DAD
+description_text = 0xC6093DAD
 manual = { icon = [163, 696] }
 event = "ev62_95100"
 power_min = 60
@@ -472,7 +463,7 @@ key = "whd95110"
 base = "whd01060"
 order = 36
 name_text = 0x35E8E44B
-desc_text = 0x607E3619
+description_text = 0x607E3619
 manual = true
 event = "ev62_95110_1"
 fail_event = "ev62_95110_2"
@@ -513,7 +504,7 @@ key = "whs95140"
 base = "whs01450"
 order = 37
 name_text = 0xE01D1AA4
-desc_text = 0xB58BC8F6
+description_text = 0xB58BC8F6
 manual = true
 event = "ev60_95140"
 power_min = 85
@@ -556,7 +547,7 @@ key = "who95120"
 base = "who00530"
 order = 38
 name_text = 0x27217992
-desc_text = 0x72B7ABC0
+description_text = 0x72B7ABC0
 manual = true
 event = "ev61_95120"
   [technique.text.ja]
@@ -593,7 +584,7 @@ key = "whd95120"
 base = "whd00540"
 order = 39
 name_text = 0x0400FED6
-desc_text = 0x51962C84
+description_text = 0x51962C84
 manual = true
 event = "ev62_95120_1"
 fail_event = "ev62_95120_2"

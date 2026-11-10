@@ -1,0 +1,8 @@
+schema = "VRFW.look/2"
+# Jinpei Jiba's own full-body clothes model, on the c000101 body profile.
+
+[[clothes]]
+model = "u90630000_10"
+rows = [
+  ["_uniform/u90630000/u90630000.g4md", "_uniform/u90630000/u90630000_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0],
+]

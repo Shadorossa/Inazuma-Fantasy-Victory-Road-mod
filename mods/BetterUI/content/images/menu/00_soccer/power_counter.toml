@@ -1,0 +1,69 @@
+schema = "VRFW.image/1"
+
+# The power counters' own pictures (duel screen betterui_power_counter_menu and the shot readout soccer_shoot_catch_info_menu).
+
+# «TOTAL DF»: retail TOTAL AT art with the D and F of the retail soccer08_24 gtxt_df01 in the same style; the size of the retail TOTAL AT sprite.
+[[texture]]
+atlas = "#/menu/00_soccer/better_ui_power_counter/better_ui_power_counter.g4tx"
+name = "better_ui_pc_total_df"
+size = [368, 192]
+
+[[sprite]]
+atlas = "#/menu/00_soccer/better_ui_power_counter/better_ui_power_counter.g4tx"
+name = "better_ui_gtxt_total_df01"
+texture = "better_ui_pc_total_df"
+x = 0
+y = 0
+png = "power_counter/better_ui_gtxt_total_df01.png"
+
+# «¡Crítico!»: the ic_critical sprite of the GO / Galaxy (3DS) battle screen, 3 x its size; languages without their own copy show the English one.
+[[texture]]
+atlas = "#/menu/00_soccer/better_ui_power_counter/<LG>/better_ui_power_counter_crit.g4tx"
+name = "better_ui_pc_critical"
+size = [180, 96]
+lang = ["", "en", "es", "fr", "de", "it", "pt", "zh_hans", "zh_hant"]
+
+[[sprite]]
+atlas = "#/menu/00_soccer/better_ui_power_counter/<LG>/better_ui_power_counter_crit.g4tx"
+name = "better_ui_gtxt_critical01"
+texture = "better_ui_pc_critical"
+x = 0
+y = 0
+png = "power_counter/en/better_ui_gtxt_critical01.png"
+lang = ["", "en", "pt", "zh_hans", "zh_hant"]
+
+[[sprite]]
+atlas = "#/menu/00_soccer/better_ui_power_counter/<LG>/better_ui_power_counter_crit.g4tx"
+name = "better_ui_gtxt_critical01"
+texture = "better_ui_pc_critical"
+x = 0
+y = 0
+png = "power_counter/es/better_ui_gtxt_critical01.png"
+lang = "es"
+
+[[sprite]]
+atlas = "#/menu/00_soccer/better_ui_power_counter/<LG>/better_ui_power_counter_crit.g4tx"
+name = "better_ui_gtxt_critical01"
+texture = "better_ui_pc_critical"
+x = 0
+y = 0
+png = "power_counter/fr/better_ui_gtxt_critical01.png"
+lang = "fr"
+
+[[sprite]]
+atlas = "#/menu/00_soccer/better_ui_power_counter/<LG>/better_ui_power_counter_crit.g4tx"
+name = "better_ui_gtxt_critical01"
+texture = "better_ui_pc_critical"
+x = 0
+y = 0
+png = "power_counter/de/better_ui_gtxt_critical01.png"
+lang = "de"
+
+[[sprite]]
+atlas = "#/menu/00_soccer/better_ui_power_counter/<LG>/better_ui_power_counter_crit.g4tx"
+name = "better_ui_gtxt_critical01"
+texture = "better_ui_pc_critical"
+x = 0
+y = 0
+png = "power_counter/it/better_ui_gtxt_critical01.png"
+lang = "it"

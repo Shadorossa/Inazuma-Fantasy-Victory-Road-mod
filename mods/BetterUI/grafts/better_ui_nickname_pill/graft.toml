@@ -1,0 +1,35 @@
+# BetterUI: nickname pill hidden and its key ignored.
+name = "better_ui_nickname_pill"
+order = 905
+module = "lua_bridge"
+mod = "BetterUI"
+requires = ["better_ui_team_param_guide"]
+conflicts = []
+wraps = []
+description = "Nickname pill hidden and its key ignored"
+
+[[files]]
+stem = "soccer_team_dock_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "nickname_pill.lua"
+  marker = "better_ui nickname_pill"
+  crc = "none"
+  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
+  generator_arguments = { part = "better_ui_nickname_pill.lua", tag = "team_dock_np", name = "nickname_pill", scope = "BetterUI" }
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "team_dock_np" }
+
+[[files]]
+stem = "soccer_vs_cpu_list_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "nickname_pill.lua"
+  marker = "better_ui nickname_pill"
+  crc = "none"
+  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
+  generator_arguments = { part = "better_ui_nickname_pill.lua", tag = "vs_cpu_list_np", name = "nickname_pill", scope = "BetterUI" }
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "vs_cpu_list_np" }

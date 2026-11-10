@@ -1,0 +1,13 @@
+# Bank COMANDOS popup: «Tabla de habilidades» opens the skill table (declared into VRFW.bank_commands, no handler).
+name = "character_reforged_bank_skill_table"
+mod = "CharacterReforged"
+order = 340
+module = ""
+requires = []
+conflicts = []
+wraps = []
+description = "Bank COMANDOS popup: the skill table (VRFW.bank_commands)"
+
+[[hooks]]
+stem = "chara_bank_menu"
+source = "bank_skill_table.lua"

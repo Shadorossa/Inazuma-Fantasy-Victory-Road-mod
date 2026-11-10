@@ -1,8 +1,4 @@
 schema = "VRFW.table/1"
-# The Inazuma Eleven Cross stadiums in the map list (m_MapInfoList, key map_id = crc32 of the map name): each a copy
-# of the retail template its port was built on (s11g001: map type 4; s30g001: type 8, light 0), its own name and paths
-# (research/scripts/cross_stadium_build.py). Row deltas by key, applied after the base tables: Inazuma Fantasy ships
-# the whole list as a base table (rows of every map it adds), which a base-table splice of this mod would not survive.
 # `light` is a record (its one field dirRotY, schemas/map/map.toml): `light = [0.0]` was refused and the row skipped.
 list = "m_MapInfoList"
 

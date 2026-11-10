@@ -1,13 +1,5 @@
 schema = "VRFW.game/2"
 
-# BetterUI > technique books: a move drawn as an item takes its category's book; every plate keeps the retail icon.
-#
-# Native (nie.exe v7.2.1): an item icon of category 160 asks 0x10FA3C0 (out, category, sub-category) for its sprite in
-# icon_common: sub-category 161-164 = icon_sp_area01-04. Callers: the item icon command 0xD057D0, the native list icon
-# 0x10144B0 and 0x10FC200 (its icon_category part has no such sprite, with or without this hook). The plates name
-# icon_sp_area01-04 from Lua with the sprite command, so they never pass here. The sub-category is the item row's, so
-# a mod's move has the one of the move it is cloned from. The new names are served by the mod's sprite redirect.
-# Prologue: 14 bytes without a relative operand, up to the `ja` of the switch.
 [[VRFW.Hook]]
 name = "TechniqueItemSprite"
 kind = "function"

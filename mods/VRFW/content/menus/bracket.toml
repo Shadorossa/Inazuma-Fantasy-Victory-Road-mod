@@ -1,16 +1,5 @@
-# VRFW: the knockout bracket screen vrfw_bracket_menu (script assets\lua\screens\vrfw_bracket_menu.lua), a
-# draw-only child menu (registry priority 0: its host keeps the pad; no input layer, no focus group, no command row)
-# opened over any host menu by VRFW_Bracket (assets\lua\menu\_all\90_bracket.lua). It draws the view of its host's
-# view command (kind "tree", scripts\lib\competition.lua bracket_view): the generic lines of any size, the Victory
-# Road 16-team art, the advance, the final stadium's panel. The host keeps its keys, header and background.
-# Every layer is in the screen's group with the «not opened with the group» flags; the script places each instance in
-# screen px from the top left (align [1, 8] + scale 0.2: CMND_SET_LAYER_LOCAL_POS x, -y) and sizes it.
 schema = "VRFW.menu/2"
 
-# ---- objects -----------------------------------------------------------------------------------------------------
-# a team's plate, left side: the emblem list's row (team06_02_emblem_list_item) on a narrower copy of its layout
-# (520 px: plate, crest slot 22 px from the left edge, the name after it); no hit zone, no attach to the emblem list's
-# locators; its atlas named (a renamed layout takes the atlas of its own name else)
 [[object]]
 name = "vrfw_bracket_row_l"
 from = "team06_02_emblem_list_item"
@@ -18,8 +7,6 @@ remove_block = ["MenuCollisionSetting", "CMenuAttachLocator"]
 set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team06/team06_02/team06_02.g4pkm" }, values = { 1 = "common/menu/102_team/team06/vrfw_bracket_row_l/vrfw_bracket_row_l.g4pkm" } }]
 add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/102_team/team06/team06_02/team06_02.g4tx"] }]
 
-# the right side's plate: the same row mirrored: the crest on the outer (right) edge, the name right-aligned
-# (the retail styles' right-aligned twins: fs_32_w_rc_2d0_001_at2 / fs_32_b_rc_2d0_001_at2)
 [[object]]
 name = "vrfw_bracket_row_r"
 from = "team06_02_emblem_list_item"
@@ -49,26 +36,17 @@ name = "vrfw_bracket_icon"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 554 } }]
 
-# the round panel: the retail vroad04_09 (the same rounded navy plate and text styles) with its three lines one under
-# the other (the round in the title style, the matches played, the next match) and its two clocks hidden; only its
-# layout's translate / scale changed
 [[object]]
 name = "vrfw_bracket_sched"
 from = "vroad04_09_schedule_for_spectator"
 set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/75_vroad/vroad04/vroad04_09/vroad04_09.g4pkm" }, values = { 1 = "common/menu/75_vroad/vroad04/vrfw_bracket_sched/vrfw_bracket_sched.g4pkm" } }]
 add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/75_vroad/vroad04/vroad04_09/vroad04_09.g4tx"] }]
 
-# the final stadium's box: the same panel with two lines (the label in the round title's style, the stadium in the next
-# match line's), centred on the layer's origin (the script places it at the bottom centre)
 [[object]]
 name = "vrfw_bracket_stadium"
 from = "vroad04_09_schedule_for_spectator"
 set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/75_vroad/vroad04/vroad04_09/vroad04_09.g4pkm" }, values = { 1 = "common/menu/75_vroad/vroad04/vrfw_bracket_stadium/vrfw_bracket_stadium.g4pkm" } }]
 add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/75_vroad/vroad04/vroad04_09/vroad04_09.g4tx"] }]
-
-# ---- layouts -----------------------------------------------------------------------------------------------------
-# team06_02 (retail: plate 888 x 72 from x -98, crest 68 px at x 44, name box 584 x 54 at x 119) -> a 520 x 72 plate
-# from x 0 (the layer's origin = the plate's left edge, vertical centre)
 
 [[layout]]
 file = "common/menu/102_team/team06/vrfw_bracket_row_l/vrfw_bracket_row_l.g4pkm"
@@ -263,16 +241,6 @@ file = "common/menu/75_vroad/vroad04/vrfw_bracket_stadium/vrfw_bracket_stadium.g
 joint = "_text_time01_02"
 scale = [0.0, 0.0, 1.0]
 
-# ---- the screen --------------------------------------------------------------------------------------------------
-# * Pools (the script's N: change both together): line 400 (a 64-team tree: 251 pieces + up to ~70 more chunks of its long straight runs + 62 pairs + the final's 2
-#   digits + up to 15 shoot-out digits), row_l 33 (32 plates + the champion's), row_r 32, box 36 (the player's frame, at
-#   most 32 stars, the stadium's picture), crest 32, icon 1 (the crown), the stadium panel 1.
-# * The retail art with its retail layer names (the tree base attaches the strips, the trophy, the scores and the panel
-#   to its nodes by layer name; each strip attaches the star instance of its slot): base 1, strips 16, stars 16, trophy
-#   1, scores 8 + 4 + 2 + 1, the schedule panel 1 = 50. Its draw priorities are the retail ones (197-203); a host
-#   whose background draws above them asks a lift (parameter vrfw_bracket_lift; the script raises each layer).
-# * Total 535 + 50 = 585 instances, opened with the menu's group; the script hides each as the engine sets it up and
-#   draws once all are.
 [[screen]]
 name = "vrfw_bracket_menu"
 like = "language_option_menu"

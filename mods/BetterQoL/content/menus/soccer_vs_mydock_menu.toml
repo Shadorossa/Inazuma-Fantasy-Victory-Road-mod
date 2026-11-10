@@ -1,0 +1,16 @@
+schema = "VRFW.menu/2"
+
+# The rival list's page dots: the formation status base without its arrows.
+[[object]]
+name = "betterqol_rival_pager"
+from = "soccer11_05_formation_status_base"
+remove = [
+    { parameter = "NullLayerName" },
+    { parameter = "_touch_arw01_l" },
+    { parameter = "_touch_arw01_r" },
+]
+
+[[patch]]
+menu = "soccer_vs_mydock_menu"
+add_layer = { name = "betterqol_rival_pager", object = "betterqol_rival_pager", count = 34, align = [0, 0], scale = 1, after = "mainmenu90_31_doc_item", groups = [{ group = "soccer_vs_mydock_menu", flags = [0, 0, 0, 0, 1, 0], after = "mainmenu90_31_doc_item" }] }
+resources = ["#/menu/00_soccer/soccer11/soccer11_05/<LG>/soccer11_05.g4tx"]

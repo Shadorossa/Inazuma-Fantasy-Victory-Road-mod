@@ -5,7 +5,7 @@
   "OnInit",
   "Step",
   "OnFunction",
-  "VRFW_ModsMenuStub"
+  "vrfw_mods_menu_stub"
  ],
  "ability_learning_board_menu": {
   "script": "ability_learning_board_menu_7.00.00.00",
@@ -35,6 +35,22 @@
   "script": "chronicle_mode_top_menu_6.00.06.00",
   "require": [
    "WaitCaravanModelLoad"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "equip_emblem_menu_list": {
+  "script": "equip_emblem_menu_list_5.01.07.00",
+  "require": [
+   "CheckTeamDockEmblemEquip"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "equip_uniform_menu_list": {
+  "script": "equip_uniform_menu_list_5.01.07.00",
+  "require": [
+   "CheckTeamDockUniformEquip"
   ],
   "forbid": [],
   "ambiguous": []
@@ -358,7 +374,7 @@
  "vrfw_mods_menu": {
   "script": "vrfw_mods_menu",
   "require": [
-   "VRFW_ModsMenuStub"
+   "vrfw_mods_menu_stub"
   ],
   "forbid": [],
   "ambiguous": []

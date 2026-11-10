@@ -1,0 +1,8 @@
+schema = "VRFW.script/1"
+
+# Reads uniform_config (about 1900 rows) once.
+[[script]]
+file = "second_keeper_kit.lua"
+budget = 2000000
+memory_kb = 32768
+allow = []

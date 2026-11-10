@@ -1,16 +1,8 @@
--- Paged free-match tabs (content/free_match_pages/*.toml, schema VRFW.free_match_page/1) and the slots of the section
--- bar's later pages (docs/framework/team-sections.md); native hook FreeMatch.SetTab is installed only when a mod declares
--- a paged tab or a later section page is shown.
---   * Page k of a tab lists the rows of tab index `pages[k]`; every title return resets to page 1.
---   * CMND_VRFW_FM_PAGE(tab, delta) -> page (1-based), pages, live
---   * CMND_VRFW_FM_SECTION_SLOTS(index of slot 0, index of slot 1, ...) -> live: the tab index each bar slot lists
---     while a later section page is shown; no argument = page 1 (every slot lists its own index).
 
 FreeMatchPages = FreeMatchPages or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("free_match_pages")
 
 local T_PAGE = "VRFW.FreeMatch.Page"
@@ -18,7 +10,7 @@ local KEY_RESETS = "vrfw.game_resets"
 
 local TABS = {}          -- bar tab index -> { key, mod, pages = { tab index … } }
 local PAGE = {}          -- bar tab index -> current page (0-based)
-local SLOTS = nil        -- bar slot (0-based) -> tab index, while a later section page is shown
+local SLOTS = nil
 local LIVE = false
 local hook_tried = false
 local seen_epoch = nil

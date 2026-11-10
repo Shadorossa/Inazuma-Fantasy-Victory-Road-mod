@@ -1,0 +1,255 @@
+schema = "VRFW.migration/1"
+id = "BetterQoL.former_utilities_ids"
+description = "The mods merged into BetterQoL keep their player data"
+phase = "data"
+
+# Mod lists, loader config sections, option file, save folders and id registry keys of each former mod.
+[[step]]
+kind = "rename_mod_id"
+from = "utilities"
+to = "BetterQoL"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "away_kit"
+to = "BetterQoL"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "visual_presets"
+to = "BetterQoL"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "TechniqueSearch"
+to = "BetterQoL"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_gemini"
+to = "BetterQoL.ie3_gemini"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_epsilon"
+to = "BetterQoL.ie3_epsilon"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_genesis"
+to = "BetterQoL.ie3_genesis"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_aegis"
+to = "BetterQoL.ie3_aegis"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_three_top"
+to = "BetterQoL.ie3_three_top"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_neo"
+to = "BetterQoL.ie3_neo"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_empire"
+to = "BetterQoL.ie3_empire"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_orpheus"
+to = "BetterQoL.ie3_orpheus"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_bullet"
+to = "BetterQoL.ie3_bullet"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_little_gigantes"
+to = "BetterQoL.ie3_little_gigantes"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_pantheon"
+to = "BetterQoL.ie3_pantheon"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_pandemonium"
+to = "BetterQoL.ie3_pandemonium"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_shadow"
+to = "BetterQoL.ie3_shadow"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_dark_angels"
+to = "BetterQoL.ie3_dark_angels"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_ogre"
+to = "BetterQoL.ie3_ogre"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.ie3_chaos"
+to = "BetterQoL.ie3_chaos"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.galaxy_b_flat_back"
+to = "BetterQoL.galaxy_b_flat_back"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.galaxy_b_cube"
+to = "BetterQoL.galaxy_b_cube"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.galaxy_b_train"
+to = "BetterQoL.galaxy_b_train"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.galaxy_b_breakthrough"
+to = "BetterQoL.galaxy_b_breakthrough"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.galaxy_b_dia"
+to = "BetterQoL.galaxy_b_dia"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.galaxy_b_basic"
+to = "BetterQoL.galaxy_b_basic"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.galaxy_b_flat_line"
+to = "BetterQoL.galaxy_b_flat_line"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.galaxy_b_left_wing"
+to = "BetterQoL.galaxy_b_left_wing"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.galaxy_b_right_wing"
+to = "BetterQoL.galaxy_b_right_wing"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy_2.galaxy_b_standard"
+to = "BetterQoL.galaxy_b_standard"
+if_target = "keep_target"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.utilities"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.away_kit"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.visual_presets"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.TechniqueSearch"
+
+[[step]]
+kind = "delete_file"
+path = "{saves}/global/BetterQoL/original_names.json"
+
+[[step]]
+kind = "delete_option_row"
+id = "BetterQoL.names.format"
+
+[[step]]
+kind = "delete_option_row"
+id = "BetterQoL.names.s.*"
+
+[[step]]
+kind = "delete_option_row"
+id = "BetterQoL.names.t.*"
+
+# Team files exported in the Utilities era name the old file schema
+[[step]]
+kind = "replace_value"
+files = ["{game}/modloader_exports/**/*.vrmod"]
+format = "toml"
+from = "utilities.vrmod/1"
+to = "CharacterReforged.vrmod/1"

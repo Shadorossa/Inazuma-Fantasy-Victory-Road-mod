@@ -1,7 +1,5 @@
 schema = "VRFW.menu/2"
-# Held-item counters show up to 999999: only the display maximum per layer (retail 999 or 99999). An item's own
-# max_stack still decides what it can reach. Digit slots and spacing:
-# content\base_tables\menu\config\menu_graphic_number_config.toml.
+# Held-item counters show up to 999999: only the display maximum per layer (retail 999 or 99999).
 
 [[object_set]]
 object = "team00_20_item_detail_l"

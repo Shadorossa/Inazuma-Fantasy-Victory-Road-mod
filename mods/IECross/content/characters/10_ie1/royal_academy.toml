@@ -1,8 +1,4 @@
 schema = "VRFW.character/2"
-# Inazuma Eleven Cross · Royal Academy · Inazuma Eleven: the Cross version(s) of this team's characters (fixed ids,
-# created by their `order`; series «Inazuma Eleven Cross»: chara_base team_3 = crc32("evt_belong_team_cross")).
-# Inazuma Fantasy's EVT fields of their cards (growth, Lv200 stats, INAROGUE rarity) are IF's
-# characters\iecross_cards.toml.
 default_lang = "en"
 
 [[character]]
@@ -16,7 +12,7 @@ order = 47
   voice_bank = 0x81789A26
   team_1 = 0x699E68EC
   team_2 = 0x00000000
-  team_3 = 0x1E5DC7AA
+  team_3 = 0x1002688A
   in_ie1 = 0
   in_ie2 = 1
   in_ie3 = 0
@@ -26,9 +22,10 @@ order = 47
   from = 0x85363312                                       # template: Axel Blaze (c01000100)
   order = 59
   moves = [
-    { move = 0x518BCA26, level = 1 },                     # Fire Tornado
-    { move = 0x41F3CDC2, level = 13 },                    # Scorching Tackle
-    { move = 0x00D8C57C, level = 20 },                    # Fireball Storm
-    { move = 0x0B011EBF, level = 30 },                    # Fireball Screw (Axel Blaze's own IE3 set)
+    { move = 0x40680BA6, level = 1 },                     # Inferno Penguin
+    { move = 0x518BCA26, level = 13 },                    # Fire Tornado
+    { move = 0x41F3CDC2, level = 20 },                    # Scorching Tackle
+    { move = 0x00D8C57C, level = 30 },                    # Fireball Storm
+    { move = 0x0B011EBF, level = 38 },                    # Fireball Screw
   ]
   cells = { flag_36 = 0 }

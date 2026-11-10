@@ -1,44 +1,7 @@
--- Battle Bay «Draft», a library of campaign.lua (one VM: the Decide hook asks it for the Draft team, the leader sync
--- and the campaign start). Since 1.3.0 it replaces the former DLL's draft.rs, pool.rs and draft_rt.rs with
--- the same behaviour. Declarations: content\game\draft.toml.
---
--- The first tile of «Equipos principales» is the team `evt_bbd_draft` (content\teams\50_draft.toml, found by
--- config.toml [draft] team): in the Campaña the player chooses a formation, then picks 1 of 5 candidates for each of
--- its 20 roster places (the 11 positions of its formation, 5 bench places of any position, the 3 managers and the
--- coach from the game's staff cards, in any order) and plays the retail campaign with that team. The drafted players are written over the team's member rows IN MEMORY (MemberRow param / uid of its
--- team_config rows, under a layout guard); the match builder creates them at the team level (40) and never stores
--- them; the placeholders go back when the campaign ends or the draft is abandoned. The roster of a running draft
--- campaign is the save blob `bb_draft.json` of the active slot (VRFW.save.blob); the DLL's
--- `<loader data dir>\bb_draft_slot<N>.json` is imported once per slot (VRFW.data.import_once; the old file is never
--- deleted or written again).
---
--- Pool (its game tables read at script load, the squads at the save load, else derived by the first command): every
--- member (slots 0-18) of every other Battle Bay team as the game holds it in memory (enjoy rows, FindTeamConfig),
--- whose chara_param row exists, has a position (1 GK, 2 FW, 3 MF, 4 DF) and is no special card ([draft]
--- special_rarities, chara_param col 41) nor in [draft] exclude; one card per character (same name in [draft]
--- name_language, else the same chara_base): the variant in most squads, then the first in table order. A new draft
--- leaves out the squads of the teams the VR-Framework's «win it to unlock it» rule still locks (when the rest still
--- fills the 16 places).
---
--- | Command | Args -> answers |
--- |---|---|
--- | CMND_BBCR_DRAFT_INFO | -> ok, team, phase (0 none, 1 picking, 2 complete, 3 campaign), filled, total |
--- | CMND_BBCR_DRAFT_BEGIN | -> ok, total: a new draft (placeholders written back first) |
--- | CMND_BBCR_DRAFT_SLOTS | -> ok, n: the number of places |
--- | CMND_BBCR_DRAFT_SLOT | k -> ok, slot, pos, x, y, param or 0, placeholder (one place per call: the engine caps the answers) |
--- | CMND_BBCR_DRAFT_CANDS | k -> ok, k, slot, pos, n, (param, pos, team) x n: the offer of place k (stable until picked) |
--- | CMND_BBCR_DRAFT_PICK | k, i -> ok, done, slot, param, filled: candidate i of place k taken, the rows written |
--- | CMND_BBCR_DRAFT_ABANDON | -> true: placeholders back, no draft (a running draft campaign is kept) |
--- | CMND_BBD_DRAFT_PACK | -> ok, 12 numbers, 4 sound hashes: the candidates' «pack opening» look ([draft.pack]) |
--- | CMND_BBD_DRAFT_MOUSE | -> ok, on: the Draft screen's mouse switch ([draft] mouse, default true) |
--- | CMND_BBD_FORMATION_PLACE | formation, slot -> ok, pos, x, y: a starter slot's placement (the «Plantilla» viewer) |
--- | CMND_BBD_DRAFT_FORMATIONS | start -> ok, total, current, up to 12 formation ids (the 5 drawn for this draft) |
--- | CMND_BBD_DRAFT_SET_FORMATION | formation -> ok: the draft plays it (starter places move, picks stay on their slots) |
--- | CMND_BBD_DRAFT_PITCH | -> ok, card scale, width, height, gap, edge margin, same row distance, symmetry tolerance |
--- | CMND_BBCR_DRAFT_SYNC | active (1/0), playerTeam (the BB top menu's campaign info) -> phase |
 
 local U = require "lib/util"
 local G = require "lib/game"
+local TeamConfig = VRFW.teams.config
 
 local D = {}
 
@@ -46,32 +9,32 @@ local floor = math.floor
 
 local CANDIDATES = 5
 local POS_ANY, POS_GK, POS_DF = 0, 1, 4
-local STAFF_SLOT, STARTERS = 19, 11
--- the staff places: the managers (roster slots 16-18) and the coach (slot 19), their place kinds (CMND_BBCR_DRAFT_SLOT)
-local STAFF = { managers_from = 16, coach = 5, manager = 6 }
+local STARTERS = 11
+local STAFF = { coach = 5, manager = 6 }
 local NONE, PICKING, COMPLETE, CAMPAIGN = 0, 1, 2, 3
 local PHASE_NAME = { [0] = "None", "Picking", "Complete", "Campaign" }
 
 local ROSTER_VERSION = 1
 local BLOB = "bb_draft.json"               -- the roster of a running draft campaign, per save slot
-local IMPORTS = "bb_draft_imports.json"    -- global: the slots whose old loader-data file was dealt with
-local MEMBER_STRIDE = 0x54
+local FILTER_BLOB = "bb_draft_filters.json" -- the last choices of the Draft's filter panel, per save slot
+local FILTER_ROWS = { "scouts", "gender" }
+local GENDER_ALL, GENDER_MALE, GENDER_FEMALE = 0, 1, 2 -- The filter's «all» value and the chara_gender values of a person.
+-- The values each filter row offers, the default first (scouts: 1 = in the pool, 0 = out).
+local FILTER_CHOICES = { scouts = { 1, 0 }, gender = { GENDER_ALL, GENDER_MALE, GENDER_FEMALE } }
+local FILTERS = { scouts = 1, gender = GENDER_ALL }
+local FILTER_SLOT = nil
 local OBJ_SIZE = 0x8A0                     -- the grid object image of the BB pages service (record pass)
 
 local KEY_TEAM = "BattleBayDeluxe.draft.team"
 local KEY_PHASE = "BattleBayDeluxe.draft.phase"
 
-local FORMATION_STEM = "data/common/gamedata/formation/formation_config"
 local TEXT_ROOT = "data/common/text"
 
-require "VRFW/lib/basics"
 local info, warn, err = VRFW.logger("draft")
 
 local function fail(msg)
   error(msg, 0)
 end
-
--- ------------------------------------------------------------------------------------------------ config
 
 local function num_set(list)
   local s = {}
@@ -100,23 +63,15 @@ end
 local CFG = {
   team = tostring(U.config("draft.team", "draft")),
   special = num_set(U.config("draft.special_rarities", { 5, 6, 7, 8, 10 })),
-  lang = U.trim(tostring(U.config("draft.name_language", "es"))),
+  lang = VRFW.strings.trim(tostring(U.config("draft.name_language", "es"))),
   exclude = num_set_u32(U.config("draft.exclude", {})),
   seed = tonumber(U.config("campaign.seed", 0)) or 0,
 }
 
--- ------------------------------------------------------------------------------------------------ the declaration
-
 local function toml_u32(v)
-  if type(v) == "number" then
-    return U.u32(v)
-  elseif type(v) == "string" then
-    return U.crc32(U.trim(v))
-  end
-  return nil
+  return VRFW.ids.parse(v, { hash_names = true })
 end
 
--- the [[team]] named `name` of one team declaration file (nil = not in it; nil, why = broken)
 local function draft_decl(data, name)
   local teams = type(data) == "table" and data.team
   if type(teams) ~= "table" then
@@ -152,34 +107,25 @@ local function draft_decl(data, name)
   return nil
 end
 
--- the Draft team's declaration in the mod's own team files (content\teams, the old teams\ when that is the install)
+-- the Draft team's declaration in the mod's own team files (content\teams)
 local function find_decl(name)
-  for _, rel in ipairs({ "content/teams", "teams" }) do
-    local ok, list = pcall(VRFW.files.declarations, rel)
-    local mine = false
-    if ok and type(list) == "table" then
-      for _, e in ipairs(list) do
-        if e.mod == VRFW.mod then
-          mine = true
-          local d, why = draft_decl(e.data, name)
-          if why then
-            return nil, tostring(e.file) .. ": " .. why
-          end
-          if d then
-            return d
-          end
-        end
+  local ok, list = pcall(VRFW.files.declarations, "content/teams")
+  for _, e in ipairs(ok and type(list) == "table" and list or {}) do
+    if e.mod == VRFW.mod then
+      local d, why = draft_decl(e.data, name)
+      if why then
+        return nil, tostring(e.file) .. ": " .. why
       end
-    end
-    if mine then
-      return nil, 'no [[team]] name = "' .. name .. '" in ' .. rel
+      if d then
+        return d
+      end
     end
   end
   return nil, 'no [[team]] name = "' .. name .. '" in content\\teams'
 end
 
 local DECL, DECL_ERR = find_decl(CFG.team)
-local TEAM = DECL and U.crc32(DECL.key) or 0
+local TEAM = DECL and VRFW.crc32(DECL.key) or 0
 
 if DECL then
   info(string.format("team %s = %s (%s), %d members, formation %s, level %d", CFG.team, DECL.key, U.hex(TEAM),
@@ -190,21 +136,16 @@ end
 pcall(VRFW.state.set, KEY_TEAM, TEAM)
 pcall(VRFW.state.set, KEY_PHASE, NONE)
 
--- The Draft team hash (0 = the Draft is off: no declaration, or its commands are off).
 function D.team()
-  if TEAM == 0 or not VRFW.is_on("CMND_BBCR_DRAFT_INFO") then
+  if TEAM == 0 or not VRFW.is_on("CMND_BATTLEBAYDELUXE_DRAFT_INFO") then
     return 0
   end
   return TEAM
 end
 
--- ------------------------------------------------------------------------------------------------ the pool rule
-
--- chara_param: { [id] = { base, element, pos, card } } (card = its special_rarity), from the framework's ONE character
--- index (VRFW.character.cards: chara_param read once natively, by column name, for every script; VRFW 2.3)
 local function parse_params()
   local out, n = {}, 0
-  for _, c in ipairs(VRFW.character.cards()) do
+  for _, c in ipairs(VRFW.character.cards({ character = true })) do
     out[U.u32(c.id)] = {
       base = U.u32(c.base),
       element = U.u32(c.element) % 256,
@@ -212,6 +153,7 @@ local function parse_params()
       card = floor(c.rarity),
       coach = c.coach == true,
       manager = c.manager == true,
+      gender = floor(c.gender or 0),
     }
     n = n + 1
   end
@@ -224,12 +166,11 @@ end
 -- { [chara_base id] = name } from chara_base (col 3 = its name text) and one language's chara_text (NOUN_INFO form 0)
 local function parse_names(lang)
   local txt = {}
-  for _, r in ipairs(VRFW.table.raw(U.table_key(TEXT_ROOT .. "/" .. lang .. "/chara_text"), "NOUN_INFO", { 1, 2, 6 })) do
+  for _, r in ipairs(VRFW.table.raw(VRFW.table_files.file_name(TEXT_ROOT .. "/" .. lang .. "/chara_text"), "NOUN_INFO", { 1, 2, 6 })) do
     if type(r[1]) == "number" and r[2] == 0 and type(r[6]) == "string" then
-      txt[U.u32(r[1])] = U.trim(r[6])
+      txt[U.u32(r[1])] = VRFW.strings.trim(r[6])
     end
   end
-  -- the characters' name texts: the framework's character index (VRFW.character.characters)
   local out = {}
   for _, c in ipairs(VRFW.character.characters()) do
     local n = txt[U.u32(c.name_text)]
@@ -240,7 +181,6 @@ local function parse_names(lang)
   return out
 end
 
--- a formation placement's positionId as a position class: 1 keeper, 2-3 defence, 4-7 midfield, else forward
 local function position_class(id)
   if id == 1 then
     return 1
@@ -252,12 +192,10 @@ local function position_class(id)
   return 2
 end
 
--- formation_config's formations and placements (the game's and the active mods'), read once per VM: every formation
--- asked later is a lookup, not two more reads of the file
 local FORMATION_LISTS = nil   -- { forms, places }
 local function formation_lists()
   if FORMATION_LISTS == nil then
-    local key = U.table_key(FORMATION_STEM)
+    local key = VRFW.table_files.file_name(VRFW.table_files.FORMATION_CONFIG)
     local forms = VRFW.table.raw(key, "m_SoccerFormationInfoList")
     local places = VRFW.table.raw(key, "m_SoccerFormPlacementInfoList")
     FORMATION_LISTS = { forms, places }
@@ -265,8 +203,6 @@ local function formation_lists()
   return FORMATION_LISTS[1], FORMATION_LISTS[2]
 end
 
--- the placements of formation `id` by positionNo: { [no] = { pos, x, y } } (startPos x 1000: x lateral, y 0 = the
--- rival goal … 1000 = own goal)
 local function formation_places(id)
   local forms, places = formation_lists()
   local row
@@ -302,14 +238,12 @@ local function formation_places(id)
   return out
 end
 
--- the Draft's places (slot order): starters get their formation placement, the bench any position, the managers
--- (slots 16-18) and the coach (19) their staff kind
 local function slot_specs(decl, places)
   local members = {}
   for i, m in ipairs(decl.members) do
     members[i] = m
   end
-  U.stable_sort(members, function(m)
+  VRFW.lists.stable_sort(members, function(m)
     return m.slot
   end)
   local out = {}
@@ -322,9 +256,9 @@ local function slot_specs(decl, places)
       out[#out + 1] = { slot = m.slot, pos = p.pos, placeholder = m.card, x = p.x, y = p.y }
     else
       local pos = POS_ANY
-      if m.slot >= STAFF_SLOT then
+      if m.slot == TeamConfig.COACH_SLOT then
         pos = STAFF.coach
-      elseif m.slot >= STAFF.managers_from then
+      elseif TeamConfig.is_staff(m.slot) then
         pos = STAFF.manager
       end
       out[#out + 1] = { slot = m.slot, pos = pos, placeholder = m.card, x = 0, y = 0 }
@@ -333,27 +267,23 @@ local function slot_specs(decl, places)
   return out
 end
 
--- the character of a chara_param row: CRC-32 of "name:" + its name, without a name its chara_base (else the row id)
 local function character_key(param, inf, names)
   local n = names[inf.base]
   if n and n ~= "" then
-    return U.crc32("name:" .. n)
+    return VRFW.crc32("name:" .. n)
   elseif inf.base ~= 0 then
     return inf.base
   end
   return param
 end
 
--- the draftable members of one squad ({ { slot, param } … }, table order): { { param, k } … } (k = the member's place
--- in the squad, the «first in table order» tie-break); `st` counts the members left out. Done once per squad when
--- the pool is derived: a new draft's smaller pool (open_pool) only counts these lists again.
 local function eligible(squad, params, rule, st)
   local out = {}
   for k, m in ipairs(squad) do
     st.members = st.members + 1
     local slot, p = m[1], m[2]
     local inf = params[p]
-    if slot >= STAFF_SLOT then
+    if TeamConfig.is_staff(slot) then
       st.staff = st.staff + 1
     elseif not inf then
       st.unknown = st.unknown + 1
@@ -370,9 +300,6 @@ local function eligible(squad, params, rule, st)
   return out
 end
 
--- the draftable players of the eligible lists (one per squad, squad order), sorted by (position, id): per character
--- (`keys`: chara_param id -> character key) the most frequent variant, then the first in table order. -> players,
--- variants merged
 local function pool_from(lists, params, keys)
   local count, first, order = {}, {}, {}
   for t, list in ipairs(lists) do
@@ -401,8 +328,6 @@ local function pool_from(lists, params, keys)
   local out = {}
   for ch, b in pairs(best) do
     local inf = params[b.p]
-    -- loadout (1.5.76): the move set of the squad row the variant was taken from (its own team's moves)
-    -- team: the squad the row was taken from (the first squad holding this variant, the same one as the loadout)
     out[#out + 1] = { param = b.p, pos = inf.pos, chara = ch, element = inf.element, loadout = b.lo,
       team = lists[b.t].team }
   end
@@ -415,9 +340,6 @@ local function pool_from(lists, params, keys)
   return out, #order - nbest
 end
 
--- the staff candidates: every card the game marks as a coach / a manager (chara_param staff flags, the framework's
--- character index), one per character (the first card in table order), no special card nor [draft] exclude; a card
--- marked as both is a coach. { { param, pos = STAFF.coach | STAFF.manager, chara } … }, sorted by (kind, id)
 local function staff_from(params, keys, rule)
   local out, seen = {}, {}
   for p, inf in pairs(params) do
@@ -445,17 +367,12 @@ local function staff_from(params, keys, rule)
   return out
 end
 
--- The game's tables of the pool (formation, chara_param, chara_base + chara_text names): read once, at script load
--- (the boot thread) when they are readable then, else by the first build. In a loader.log: the first
--- CMND_BBCR_DRAFT_INFO took 831 ms on the game thread, «pool build: tables 695 ms, squads 70 ms, pool 59 ms». {
--- slots, params, keys = { [chara_param id] = character key } }
 local STATIC = nil
 local function static_tables()
   if STATIC then
     return STATIC
   end
-  -- kept between starts (VRFW.derived): game tables, the mod's declarations and config only
-  STATIC = VRFW.derived("draft_pool_tables_2", nil, function()
+  STATIC = VRFW.derived("draft_pool_tables_3", nil, function()
     local places = formation_places(DECL.formation)
     local slots = slot_specs(DECL, places)
     local params = parse_params()
@@ -484,8 +401,6 @@ local function index_players(pool)
   pool.by = by
 end
 
--- structural checks: places unique with a placeholder, starters 0-10 with a position, players unique by id and by
--- character, and enough players for every pick (5 per pick, picks never repeat a player)
 local function validate(pool)
   if pool.team == 0 then
     return "no team"
@@ -574,51 +489,17 @@ local function validate(pool)
   return nil
 end
 
--- ------------------------------------------------------------------------------------------------ roster rows in memory
-
--- the member rows of `team` in game memory (team_config, found by hash with the game's own FindTeamConfig):
--- { { slot, param, uid, addr } … }; nil, why
 local function read_rows(team)
-  if not VRFW.is_on("FindTeamConfig") then
-    return nil, "FindTeamConfig not resolved"
+  local slice, why = VRFW.catalogue.member_rows(team)
+  if not slice then
+    return nil, why
   end
-  local okb, recb = pcall(VRFW.mem.buffer, "bbd_team_rec", 8)
-  local okc, contb = pcall(VRFW.mem.buffer, "bbd_team_cont", 8)
-  local okh, hashb = pcall(VRFW.mem.buffer, "bbd_team_hash", 4)
-  if not (okb and okc and okh) then
-    return nil, "no native buffer"
-  end
-  U.wr("u64", recb, 0)
-  U.wr("u64", contb, 0)
-  U.wr("u32", hashb, team)
-  local ok, e = U.call("FindTeamConfig", recb, contb, hashb)
-  if not ok then
-    return nil, "FindTeamConfig faulted (" .. tostring(e) .. ")"
-  end
-  local rec, cont = U.rd("ptr", recb) or 0, U.rd("ptr", contb) or 0
-  if rec < 0x10000 or cont < 0x10000 then
-    return nil, "team " .. U.hex(team) .. " not in team_config (data not installed?)"
-  end
-  local r, c = U.struct("TeamRecord", rec), U.struct("TeamConfig", cont)
-  local first, count = U.get(r, "first"), U.get(r, "count")
-  local base, n = U.get(c, "members"), U.get(c, "member_count")
-  if first == nil or count == nil then
-    return nil, "record unreadable"
-  end
-  if not base or base < 0x10000 then
-    return nil, "member rows unreadable"
-  end
-  if n == nil then
-    return nil, "member count unreadable"
-  end
-  if first < 0 or count == 0 or count > 64 or first + count > n then
-    return nil, "member slice " .. first .. "+" .. count .. " of " .. n .. " rows"
-  end
+  local rec = slice.record
   local out = {}
-  for k = 0, count - 1 do
-    local a = base + (first + k) * MEMBER_STRIDE
+  for _, a in ipairs(slice.rows) do
     -- the whole row in one guarded read (the pool build reads ~9000 rows of 600 squads)
-    local okm, m = pcall(VRFW.mem.read_struct, "MemberRow", a)
+    local m = VRFW.memory.read_struct("MemberRow", a)
+    local okm = m ~= nil
     if not okm then
       m = nil
     end
@@ -632,8 +513,6 @@ local function read_rows(team)
   return out
 end
 
--- any team's member rows as the match builder reads them: { { slot, param, loadout } … }; nil, why (the campaign's
--- match check, the pool's squads)
 function D.roster(team)
   local rows, why = read_rows(team)
   if not rows then
@@ -646,7 +525,6 @@ function D.roster(team)
   return out
 end
 
--- one row written: param = uid = id; loadout = the move set to play, nil = left as it is
 local function write_row(row, id, loadout)
   local m = U.struct("MemberRow", row.addr)
   if not m then
@@ -667,8 +545,6 @@ local function write_row(row, id, loadout)
   return a and b and c
 end
 
--- a team's member rows in memory ({ { slot, param, uid, addr } … }; nil, why) and one row written (param = uid = id),
--- for the Active team tile's mirror (active_team.lua): one reader / writer of the rows
 function D.member_rows(team)
   return read_rows(team)
 end
@@ -686,10 +562,6 @@ local function placeholder_of(pool, slot)
   return nil
 end
 
--- the writes that make the rows hold `want` (slot -> id; other places their placeholder): { { row, id } … }.
--- Layout guard: refused (nil, why) unless the rows are exactly the pool's places, each once, and every row holds
--- param == uid equal to its placeholder or to what was written last (`written`).
--- each placeholder row's own move set (slot -> loadout id), as the team build left it
 local PH_LOADOUT = {}
 
 local function plan_writes(rows, pool, written, want)
@@ -715,8 +587,6 @@ local function plan_writes(rows, pool, written, want)
     if to == 0 then
       return nil, "slot " .. r.slot .. ": id 0"
     end
-    -- the move set: a placeholder its own row's (kept the first time the row is seen holding it; unknown = left as
-    -- it is), a drafted player the set of the squad row he was taken from (0 = his card's own learn list)
     if r.param == ph and PH_LOADOUT[r.slot] == nil and type(r.loadout) == "number" then
       PH_LOADOUT[r.slot] = r.loadout
     end
@@ -734,13 +604,10 @@ local function plan_writes(rows, pool, written, want)
   return out
 end
 
--- ------------------------------------------------------------------------------------------------ one draft
-
 local function new_draft(rng, n)
   return { rng = rng, picks = {}, n = n, offers = {}, shown = {}, formation = nil, slots = nil }
 end
 
--- the places of draft d: those of its chosen formation (draft_formation), else the pool's (the team's own formation)
 local function draft_slots(d, pool)
   return (d and d.slots) or pool.slots
 end
@@ -750,8 +617,6 @@ local function is_staff_kind(pos)
   return pos == STAFF.coach or pos == STAFF.manager
 end
 
--- draft d plays formation `id`: its starter places take that formation's placements (picks stay on their roster
--- slots); an open offer of a place whose position changed is dropped. true; nil, why
 local function draft_formation(d, pool, id)
   if id == 0 or id == pool.formation then
     d.formation, d.slots = nil, nil
@@ -800,9 +665,28 @@ local function done(d)
   return filled(d) == d.n
 end
 
--- the candidates of place k (1-based, pool order): up to 5 distinct players of its position (any on the bench), never
--- one already picked, preferring players not offered before in this draft; drawn on the first call, the same until
--- the place is picked (a player another place took meanwhile is replaced). Empty when picked / no such place.
+-- per position: the players still free minus the open places of that position
+local function spare_players(d, pool)
+  local slots = draft_slots(d, pool)
+  local picked, left = {}, {}
+  for kk = 1, d.n do
+    if d.picks[kk] then
+      picked[d.picks[kk]] = true
+    end
+  end
+  for _, p in ipairs(pool.players) do
+    if not picked[p.param] then
+      left[p.pos] = (left[p.pos] or 0) + 1
+    end
+  end
+  for kk, s in ipairs(slots) do
+    if not d.picks[kk] and s.pos >= POS_GK and s.pos <= POS_DF then
+      left[s.pos] = (left[s.pos] or 0) - 1
+    end
+  end
+  return left
+end
+
 local function candidates(d, pool, k)
   local spec = draft_slots(d, pool)[k]
   if not spec or d.picks[k] then
@@ -814,22 +698,25 @@ local function candidates(d, pool, k)
       picked[d.picks[kk]] = true
     end
   end
-  local offer, in_offer = {}, {}
-  for _, id in ipairs(d.offers[k] or {}) do
-    if not picked[id] then
-      offer[#offer + 1] = id
-      in_offer[id] = true
-    end
-  end
   local source = is_staff_kind(spec.pos) and (pool.staff or {}) or pool.players
   local of = {}
   for _, p in ipairs(source) do
     of[p.param] = p
   end
-  if #offer < CANDIDATES then
-    local function fits(p)
-      return (spec.pos == POS_ANY or p.pos == spec.pos) and not picked[p.param]
+  -- a bench place cannot take the last player of a position that still has open places
+  local spare = spec.pos == POS_ANY and spare_players(d, pool) or nil
+  local function fits(p)
+    return (spec.pos == POS_ANY or p.pos == spec.pos) and not picked[p.param]
+      and (spare == nil or (spare[p.pos] or 0) > 0)
+  end
+  local offer, in_offer = {}, {}
+  for _, id in ipairs(d.offers[k] or {}) do
+    if not picked[id] and (spare == nil or (of[id] and fits(of[id]))) then
+      offer[#offer + 1] = id
+      in_offer[id] = true
     end
+  end
+  if #offer < CANDIDATES then
     local fresh = {}
     for _, p in ipairs(source) do
       if fits(p) and not d.shown[p.param] and not in_offer[p.param] then
@@ -842,7 +729,6 @@ local function candidates(d, pool, k)
       fresh[i] = nil
     end
     if #fresh < need then
-      -- not enough unseen players: complete with players offered before (never picked ones)
       local seen = {}
       for _, p in ipairs(source) do
         if fits(p) and d.shown[p.param] and not in_offer[p.param] then
@@ -875,7 +761,6 @@ local function candidates(d, pool, k)
   return out
 end
 
--- take candidate i (0-based) of place k (1-based): spec, id; nil, why
 local function draft_pick(d, pool, k, i)
   local spec = draft_slots(d, pool)[k]
   if not spec then
@@ -905,8 +790,6 @@ local function draft_roster(d, pool)
   return out
 end
 
--- ------------------------------------------------------------------------------------------------ the roster blob
-
 local function roster_doc(pool, d)
   local roster = {}
   for k, s in ipairs(pool.slots) do
@@ -933,7 +816,6 @@ local function roster_picks(doc, pool)
       by[e[1]] = U.u32(e[2])
     end
   end
-  -- a roster stored before the staff places (16 entries) keeps the staff placeholders
   local staff = 0
   for _, s in ipairs(pool.slots) do
     if is_staff_kind(s.pos) and by[s.slot] == nil then
@@ -961,76 +843,22 @@ local function blob_desc(n)
   return BLOB .. " (slot " .. n .. ")"
 end
 
-require "VRFW/lib/save_doc"
-
--- the import marker (global): read and written now, never cached; an unreadable file is left as it is
-local IMPORTS_STORE = VRFW.save.doc(IMPORTS, {
-  scope = "global",
-  aside = false,
-  log = "draft imports",
-  default = function() return {} end,
-})
-
-local function imported_slots()
-  return (IMPORTS_STORE:load())
-end
-
--- slot n's old loader-data file must never come back (the blob is the truth from now on)
-local function mark_imported(n)
-  local t = imported_slots()
-  if t[tostring(n)] then
-    return
-  end
-  t[tostring(n)] = true
-  local written, why = IMPORTS_STORE:write(t, nil, true)
-  if not written then
-    warn("import marker not written (" .. tostring(why) .. ")")
-  end
-end
-
--- the DLL's `<loader data dir>\bb_draft_slot<N>.json` into the blob, once per slot (the file is kept as it is)
-local function import_old(n)
-  if imported_slots()[tostring(n)] then
-    return
-  end
-  local file = "bb_draft_slot" .. n .. ".json"
-  local ok, done_, why = pcall(VRFW.data.import_once, file, BLOB, n)
-  if not ok then
-    warn(file .. " not imported (" .. tostring(done_) .. ")")
-    return
-  end
-  why = tostring(why or "")
-  if done_ then
-    info(file .. " imported into " .. blob_desc(n) .. " (the old file is kept)")
-  elseif not (string.find(why, "no such file", 1, true) or string.find(why, "exists already", 1, true)) then
-    warn(file .. " not imported (" .. why .. "): tried again next time")
-    return
-  end
-  mark_imported(n)
-end
-
 local function save_roster(r)
   if not r.draft then
     return
   end
   local n = VRFW.slots.active()
-  mark_imported(n)
-  local ok, done_, why = pcall(VRFW.save.blob_write, BLOB, VRFW.json.encode(roster_doc(r.pool, r.draft), true), n)
-  if ok and done_ then
+  local done_, why = VRFW.save.doc.write_text(BLOB, VRFW.json.encode(roster_doc(r.pool, r.draft), true), n)
+  if done_ then
     info("roster kept in " .. tostring(why) .. " (campaign running)")
   else
-    warn(blob_desc(n) .. " not written (" .. tostring(ok and why or done_) .. "): after a restart the campaign plays the placeholders")
+    warn(blob_desc(n) .. " not written (" .. tostring(why) .. "): after a restart the campaign plays the placeholders")
   end
 end
 
--- the stored roster of the active slot: doc; nil, why
 local function load_roster(slot)
   local n = slot or VRFW.slots.active()
-  import_old(n)
-  local ok, b, why = pcall(VRFW.save.blob, BLOB, n)
-  if not ok then
-    return nil, blob_desc(n) .. ": " .. tostring(b)
-  end
+  local b, why = VRFW.save.doc.read_text(BLOB, n)
   if type(b) ~= "string" then
     return nil, blob_desc(n) .. ": " .. tostring(why or "none")
   end
@@ -1041,24 +869,20 @@ local function load_roster(slot)
   return doc
 end
 
-local function drop_roster()
+local function drop_roster(why)
   local n = VRFW.slots.active()
-  mark_imported(n)
-  local ok, b = pcall(VRFW.save.blob, BLOB, n)
-  if ok and type(b) == "string" then
-    local ok2, where = pcall(VRFW.save.blob_aside, BLOB, n)
+  if type(VRFW.save.doc.read_text(BLOB, n)) == "string" then
+    local ok2, where = VRFW.save.doc.set_aside(BLOB, n)
     if ok2 then
-      info(blob_desc(n) .. " removed (campaign over): " .. tostring(where))
+      info(blob_desc(n) .. " removed (" .. why .. "): " .. tostring(where))
     else
       warn(blob_desc(n) .. " not removed (" .. tostring(where) .. ")")
     end
   end
 end
 
--- ------------------------------------------------------------------------------------------------ the session
-
 local RT = nil       -- { pool, draft, phase, written, src }
-local FAILED = false -- the pool could not be derived (logged once): no Draft this session
+local FAILED = false
 local BEGUN = 0
 
 local function set_phase(r, p)
@@ -1066,9 +890,6 @@ local function set_phase(r, p)
   pcall(VRFW.state.set, KEY_PHASE, p)
 end
 
--- every Battle Bay squad but the Draft's, as the game holds it: { { team, { { slot, param } … } } … }, the unlock
--- conditions of every team's enjoy rows ({ [team] = { cond … } }, static game data: a new draft evaluates only those
--- of the teams it may leave out) and the number of teams whose member rows were not readable
 local function bb_squads(draft)
   local rows, why = G.enjoy_rows()
   if not rows then
@@ -1098,20 +919,18 @@ local function bb_squads(draft)
   return out, conds, unread
 end
 
--- the pool and a fresh session (phase NONE). `quiet` (a preparation: "script load" / "save load", its label): a
--- failure only defers the build to the first Draft command (logged as info), it does not turn the Draft off. The
--- script-load preparation runs before the commands are bound (VRFW.is_on not answered yet): it checks the team only.
+-- the pool and a fresh session (phase NONE).
 local function build(quiet)
   if not DECL or (quiet == "script load" and TEAM or D.team()) == 0 then
     return nil
   end
-  local t0 = VRFW.now()
+  local t0 = VRFW.now_ms()
   local ok, res = pcall(function()
     local sx = static_tables()
     local slots, params = sx.slots, sx.params
-    local t1 = VRFW.now()
+    local t1 = VRFW.now_ms()
     local squads, conds, unread = bb_squads(TEAM)
-    local t2 = VRFW.now()
+    local t2 = VRFW.now_ms()
     local rule = { special = CFG.special, exclude = CFG.exclude }
     local st = { squads = #squads, members = 0, staff = 0, unknown = 0, special = 0, no_position = 0, excluded = 0 }
     local lists = {}
@@ -1126,7 +945,7 @@ local function build(quiet)
       .. "formation %s", #players, st.squads, st.members, st.staff, st.unknown, st.special, st.no_position, st.excluded,
       merged, #slots, U.hex(DECL.formation)))
     info(string.format("pool build%s: tables %d ms, squads %d ms (%d team(s) without readable member rows), pool %d ms",
-      quiet and (" (" .. quiet .. ")") or "", t1 - t0, t2 - t1, unread, VRFW.now() - t2))
+      quiet and (" (" .. quiet .. ")") or "", t1 - t0, t2 - t1, unread, VRFW.now_ms() - t2))
     local staff = staff_from(params, sx.keys, rule)
     info(string.format("staff pool: %d coach / manager cards", #staff))
     local pool = { team = TEAM, formation = DECL.formation, level = DECL.level, slots = slots, players = players,
@@ -1162,24 +981,19 @@ local function with()
   return RT
 end
 
--- The game's tables now (script load, the boot thread): the first Draft command only reads the squads.
 if DECL then
-  local t0 = VRFW.now()
+  local t0 = VRFW.now_ms()
   local ok, e = pcall(static_tables)
   if ok then
-    info(string.format("pool tables read at load in %d ms (%d slots)", VRFW.now() - t0, #e.slots))
+    info(string.format("pool tables read at load in %d ms (%d slots)", VRFW.now_ms() - t0, #e.slots))
   else
     info("pool tables not read at load (" .. tostring(e) .. "): read by the first build")
   end
-  -- the squads and the pool too (the boot thread): the save engine's slot_load below only runs on a slot switch,
-  -- never for the boot's own load
   if ok and RT == nil and not FAILED then
     RT = build("script load")
   end
 end
 
--- The squads and the pool at the save load (the loading screen, off the game thread), so opening the Draft costs no
--- pool build; anything not ready yet leaves it to the first Draft command (quiet build).
 VRFW.on("slot_load", function(ev)
   if RT == nil and not FAILED and D.team() ~= 0 then
     local r = build("save load")
@@ -1194,8 +1008,6 @@ VRFW.on("slot_load", function(ev)
   end
 end)
 
--- make the rows hold `want` (slot -> id; other places their placeholder); nothing written when the layout guard
--- refuses: rows written; nil, why
 local function apply(r, want)
   local now, why = read_rows(r.pool.team)
   if not now then
@@ -1249,9 +1061,6 @@ local function campaign_started(r)
   return false
 end
 
--- ------------------------------------------------------------------------------------------------ enjoy row leader
-
--- the leader the Draft row must name: the member in slot 0 (the captain row), else the first row
 local function leader_of(rows)
   local pick = rows[1]
   for _, r in ipairs(rows) do
@@ -1266,9 +1075,6 @@ local function leader_of(rows)
   return nil
 end
 
--- Keeps the Draft row's leader (EnjoyRow.leader) on a member of the team (estadio-bb.md §14.14): the campaign scene
--- setup (0xF1A8E0) looks the player team's leader up among its member rows; a leader that is no member any more never
--- finished loading the first campaign match. After every roster write and before the campaign.
 local function sync_leader(why)
   local team = D.team()
   if team == 0 then
@@ -1303,16 +1109,8 @@ local function sync_leader(why)
   return nil
 end
 
--- ------------------------------------------------------------------------------------------------ runs that play the Draft
--- The drafted squad only lives on the team's rows in memory; after a restart only the top menu's sync put it back,
--- and that sync was grafted on bb_stadium_top_menu, which the Battle Bay no longer opens (Inazuma Fantasy's «Modos de
--- juego» hosts it on soccer_top_menu), and it knew only the Campaña (a Torneo with the Draft was «another team»: its
--- roster discarded). Now: a run owns the drafted squad when the Campaña's block or the Torneo's run
--- (D.tournament_team, set by campaign.lua) plays the Draft team; the squad comes back at the save load (from the
--- slot's blob), at every top-menu sync (both menus) and before every Torneo match, and every restore is checked (each
--- row a placeholder or a pool player, the row's leader a member) with the placeholders as the safe fallback.
+-- The drafted squad only lives on the team's rows in memory.
 
--- the Draft team hash of the running Torneo's player (0 = none); campaign.lua sets it
 D.tournament_team = nil
 
 local function tournament_owns(team)
@@ -1323,8 +1121,6 @@ local function tournament_owns(team)
   return ok and type(t) == "number" and t ~= 0 and U.u32(t) == team
 end
 
--- the rows of the Draft team as the match builder will read them, checked: every row a placeholder or a pool player
--- (chara_param), the enjoy row's leader one of them. true; false, why
 local function rows_sane(r)
   local rows, why = read_rows(r.pool.team)
   if not rows then
@@ -1349,10 +1145,9 @@ local function rows_sane(r)
   return true
 end
 
--- the stored roster of a run back on the rows (phase CAMPAIGN); a failure leaves the placeholders (never a half
--- written or unknown squad: the match would build it). rows written; nil, why
 local function restore_run(r, why, slot)
   local n, e
+  local lost = false
   if r.phase == CAMPAIGN and r.draft then
     n, e = apply(r, draft_roster(r.draft, r.pool))
   else
@@ -1361,6 +1156,7 @@ local function restore_run(r, why, slot)
     if doc then
       picks, e = roster_picks(doc, r.pool)
     end
+    lost = picks == nil
     if picks then
       local d = draft_from_picks(picks, r.pool, type(doc.formation) == "number" and U.u32(doc.formation) or nil)
       n, e = apply(r, draft_roster(d, r.pool))
@@ -1382,14 +1178,19 @@ local function restore_run(r, why, slot)
   e = n and ("check failed: " .. tostring(serr)) or e
   local back = restore(r)
   sync_leader(why .. ", fallback")
-  err(string.format("%s: the run's drafted squad NOT restored (%s): %s", why, tostring(e),
-    back and "placeholders on the rows" or "placeholders not written either"))
-  return nil, e
+  if lost then
+    info(string.format("%s: no stored drafted squad (%s): %s", why, tostring(e),
+      back and "placeholders on the rows" or "placeholders not written either"))
+  else
+    err(string.format("%s: the run's drafted squad NOT restored (%s; phase %s, draft in run %s, rows written %s): %s",
+      why, tostring(e), tostring(r.phase), tostring(r.draft ~= nil), tostring(n),
+      back and "placeholders on the rows" or "placeholders not written either"))
+  end
+  return nil, e, lost
 end
 
-local SLOT_DONE = nil -- the save slot whose stored run roster was dealt with (D.slot_roster)
+local SLOT_DONE = nil
 
--- the save load: the loaded slot's running draft run (its blob) on the rows; a draft of another slot / session off
 function D.slot_roster(slot)
   if D.team() == 0 or FAILED then
     return
@@ -1397,10 +1198,9 @@ function D.slot_roster(slot)
   local has = false
   local n = slot or VRFW.slots.active()
   SLOT_DONE = n
-  local ok, b = pcall(VRFW.save.blob, BLOB, n)
-  has = ok and type(b) == "string"
+  has = type(VRFW.save.doc.read_text(BLOB, n)) == "string"
   if not has and RT == nil then
-    return -- nothing written this session, nothing stored: the placeholders stand
+    return
   end
   local r = with()
   if not r then
@@ -1418,8 +1218,6 @@ function D.slot_roster(slot)
   end
 end
 
--- The save engine's slot_load never runs for the boot's own load (only on a slot switch): the first Draft command /
--- top-menu sync / Torneo match of a slot does what it would have done (once per slot).
 local function ensure_slot()
   local ok, n = pcall(VRFW.slots.active)
   if not ok or type(n) ~= "number" or n == 0 then
@@ -1435,8 +1233,6 @@ local function ensure_slot()
   end
 end
 
--- before a Torneo match with the Draft team (TournPrepare): the drafted squad on the rows, checked. true when the
--- rows are safe to build (the drafted squad, or the placeholders as the fallback)
 function D.before_run_match(why)
   local team = D.team()
   if team == 0 then
@@ -1458,15 +1254,12 @@ function D.before_run_match(why)
   return true
 end
 
--- ------------------------------------------------------------------------------------------------ for the Decide hook
-
 -- a complete draft is on the rows (the campaign may start with it)
 function D.ready_to_play()
   local r = with()
   return r ~= nil and (r.phase == COMPLETE or r.phase == CAMPAIGN)
 end
 
--- the Campaña is about to start with the Draft team (Decide pre-phase): leader synced, the roster in the log
 function D.before_campaign()
   local team = D.team()
   if team == 0 then
@@ -1500,8 +1293,6 @@ function D.campaign_started()
   end
 end
 
--- ------------------------------------------------------------------------------------------------ the commands
-
 function BattleBayDeluxe.DraftInfo()
   ensure_slot()
   local r = with()
@@ -1512,11 +1303,6 @@ function BattleBayDeluxe.DraftInfo()
   return true, r.pool.team, r.phase, n, #r.pool.slots
 end
 
--- the pool of a new draft: every squad but those of the teams the «win it to unlock it» rule still locks in this
--- save slot (a rule team whose chain tile is won, or whose row condition holds, is in). Without the rule / the
--- evaluator, or when the smaller pool cannot fill the places: every player (logged).
--- the teams of `pending` whose unlock condition is not met right now (any of their enjoy rows); nil = the evaluator is
--- not available. Only these teams' rows are evaluated.
 local function locked_of(src, pending)
   if not VRFW.is_on("EvalCondition") then
     return nil
@@ -1583,20 +1369,193 @@ local function open_pool(r)
       warn("the unlock conditions cannot be evaluated: every squad is used")
     end
   end
+  src.base = players
   if r.pool.players ~= players then
     r.pool.players = players
     index_players(r.pool)
   end
 end
 
-function BattleBayDeluxe.DraftBegin()
+local function filters_load()
+  local n = VRFW.save.doc.slot()
+  if FILTER_SLOT == n then
+    return
+  end
+  FILTER_SLOT = n
+  for _, k in ipairs(FILTER_ROWS) do
+    FILTERS[k] = FILTER_CHOICES[k][1]
+  end
+  local b = VRFW.save.doc.read_text(FILTER_BLOB, n)
+  if type(b) == "string" then
+    local doc = VRFW.json.decode(b)
+    if type(doc) == "table" then
+      for _, k in ipairs(FILTER_ROWS) do
+        if type(doc[k]) == "number" then
+          FILTERS[k] = doc[k]
+        end
+      end
+    end
+  end
+end
+
+local function filters_save()
+  local ok, why = VRFW.save.doc.write_text(FILTER_BLOB, VRFW.json.encode(FILTERS, true), VRFW.save.doc.slot())
+  if not ok then
+    warn(FILTER_BLOB .. " not written: " .. tostring(why))
+  end
+end
+
+-- the characters (chara_base ids) that speak with a generic scout voice: the scouts
+local SCOUT_BASES = nil
+local function scout_bases()
+  if SCOUT_BASES then
+    return SCOUT_BASES
+  end
+  local voices, v = VRFW.table_files.read("character/general_battle_voice", "m_generalBattleVoice", { "voice_id" })
+  local bases, b = VRFW.table_files.read("character/chara_base", "CHARA_BASE_INFO", { "id", "voice_bank" })
+  if not (voices and bases) then
+    fail("scout voices unreadable: " .. tostring(v or b))
+  end
+  local generic = {}
+  for _, r in ipairs(voices) do
+    generic[U.u32(r[v.voice_id])] = true
+  end
+  SCOUT_BASES = {}
+  for _, r in ipairs(bases) do
+    if generic[U.u32(r[b.voice_bank])] then
+      SCOUT_BASES[U.u32(r[b.id])] = true
+    end
+  end
+  return SCOUT_BASES
+end
+
+-- one row's next value (dir 1 / -1), wrapping; a stored value the row no longer offers shows as its first
+local function filter_step(key, dir)
+  local list, at = FILTER_CHOICES[key], 0
+  for i, v in ipairs(list) do
+    if v == FILTERS[key] then
+      at = i
+    end
+  end
+  if at == 0 then
+    FILTERS[key], at = list[1], 1
+  end
+  if dir ~= 0 then
+    FILTERS[key] = list[(at - 1 + (dir > 0 and 1 or -1)) % #list + 1]
+  end
+end
+
+local function filtered_players(src)
+  local scouts = FILTERS.scouts ~= 0 and {} or scout_bases()
+  local out = {}
+  for _, p in ipairs(src.base or src.all) do
+    local inf = src.params[p.param]
+    local person = inf and (inf.gender == GENDER_MALE or inf.gender == GENDER_FEMALE)
+    if person and (FILTERS.gender == GENDER_ALL or inf.gender == FILTERS.gender) and not scouts[inf.base] then
+      out[#out + 1] = p
+    end
+  end
+  return out
+end
+
+-- can `players` fill the places of `slots` still open (`picks` by place index)?
+local function slots_feasible(slots, players, picks)
+  local picked, have, need = {}, {}, {}
+  local free, open = 0, 0
+  for _, id in pairs(picks) do
+    picked[id] = true
+  end
+  for _, p in ipairs(players) do
+    if not picked[p.param] then
+      have[p.pos] = (have[p.pos] or 0) + 1
+      free = free + 1
+    end
+  end
+  for k, s in ipairs(slots) do
+    if not picks[k] and s.pos <= POS_DF then
+      open = open + 1
+      if s.pos >= POS_GK then
+        need[s.pos] = (need[s.pos] or 0) + 1
+      end
+    end
+  end
+  for pos, n in pairs(need) do
+    if (have[pos] or 0) < n then
+      return false
+    end
+  end
+  return free >= open
+end
+
+local formation_list -- defined with the formation offer, below
+
+local FORMATION_SLOTS = {}
+local function formation_slots(id)
+  if FORMATION_SLOTS[id] == nil then
+    local ok, places = pcall(formation_places, id)
+    local ok2, slots = false, nil
+    if ok then
+      ok2, slots = pcall(slot_specs, DECL, places)
+    end
+    FORMATION_SLOTS[id] = ok2 and slots or false
+  end
+  return FORMATION_SLOTS[id] or nil
+end
+
+-- the pool the player's filters leave fills a draft: true (and the formation to start in, when the team's own cannot be filled)
+local function pool_fillable(r, players)
+  if slots_feasible(r.pool.slots, players, {}) then
+    return true
+  end
+  local ok, list = pcall(formation_list)
+  if ok then
+    for _, id in ipairs(list) do
+      local slots = formation_slots(id)
+      if slots and slots_feasible(slots, players, {}) then
+        return true, id
+      end
+    end
+  end
+  return false
+end
+
+-- row (-1 = read), dir -> ok, the row values, the filtered pool fills a draft, its size
+function BattleBayDeluxe.DraftFilters(row, dir)
+  local r = with()
+  if not r then
+    return false
+  end
+  filters_load()
+  open_pool(r)
+  row, dir = U.int(row, -1), U.int(dir, 0)
+  for i, key in ipairs(FILTER_ROWS) do
+    filter_step(key, (i - 1 == row) and dir or 0)
+  end
+  local players = filtered_players(r.src)
+  local fine = pool_fillable(r, players)
+  return true, FILTERS.scouts, FILTERS.gender, fine, #players
+end
+
+function BattleBayDeluxe.DraftBegin(filtered)
   local r = with()
   local total = nil
   if r then
     open_pool(r)
-    if r.phase == CAMPAIGN then
-      -- a new campaign replaces the running one (the game's «Nueva campaña»): its roster goes
-      drop_roster()
+    local start_formation = nil
+    if U.int(filtered, 0) == 1 then
+      filters_load()
+      local players = filtered_players(r.src)
+      local fine, alt = pool_fillable(r, players)
+      if not fine then
+        warn(string.format("the filters leave %d players: not enough for a draft", #players))
+        return false, 0
+      end
+      start_formation = alt
+      if r.pool.players ~= players then
+        r.pool.players = players
+        index_players(r.pool)
+      end
+      filters_save()
     end
     local n = BEGUN
     BEGUN = BEGUN + 1
@@ -1610,6 +1569,9 @@ function BattleBayDeluxe.DraftBegin()
     local ok, why = restore(r)
     if ok then
       r.draft = new_draft(U.rng(h, l), #r.pool.slots)
+      if start_formation then
+        draft_formation(r.draft, r.pool, start_formation)
+      end
       set_phase(r, PICKING)
       total = #r.pool.slots
       info(string.format("begin (seed %s:%s, %d picks, %d players)", U.hex(h), U.hex(l), total, #r.pool.players))
@@ -1642,9 +1604,6 @@ function BattleBayDeluxe.DraftSlot(k)
   return true, s.slot, s.pos, s.x, s.y, e.pick or 0, s.placeholder
 end
 
--- CMND_BBD_FORMATION_PLACE formation, slot -> ok, pos, x, y: the placement of a starter slot (0-10) of any formation
--- (formation_config, the units of CMND_BBCR_DRAFT_SLOT); the «Plantilla» viewer of the Campaña grid lays a team's
--- starters out with it (graft bb_draft, bbd_roster.lua). Each formation is read once.
 local PLACES = {}
 
 function BattleBayDeluxe.FormationPlace(formation, slot)
@@ -1669,7 +1628,7 @@ function BattleBayDeluxe.FormationPlace(formation, slot)
   return true, p.pos, p.x, p.y
 end
 
-function BattleBayDeluxe.DraftCands(k)
+function BattleBayDeluxe.DraftCandidates(k)
   k = U.int(k, -1)
   local r = with()
   if not r or r.phase ~= PICKING or k < 0 or not r.draft then
@@ -1735,9 +1694,6 @@ function BattleBayDeluxe.DraftPick(k, i)
   return false
 end
 
--- the formations a draft may play: every formation of 11 places with one keeper in the served formation_config (the
--- game's and the active mods'), table order, one per name text (a formation without a name text is listed too), none
--- with two places on one attacking spot (an unfilled table row: nowhere to draw its cards)
 local FORMATION_LIST = nil
 local SPOT_PRECISION = 100
 local function two_on_one_spot(places, s)
@@ -1755,7 +1711,7 @@ local function two_on_one_spot(places, s)
   return false
 end
 
-local function formation_list()
+formation_list = function()
   if FORMATION_LIST then
     return FORMATION_LIST
   end
@@ -1791,8 +1747,6 @@ local function formation_list()
   return out
 end
 
--- the formation step is a draft too: 5 formations of the list drawn with the draft's own random numbers, once per
--- draft (the same 5 when Y opens the step again)
 local FORMATION_OFFER = 5
 local function formation_offer(d, list)
   if not d then
@@ -1812,8 +1766,6 @@ local function formation_offer(d, list)
   return d.fm_offer
 end
 
--- CMND_BBD_DRAFT_FORMATIONS start -> ok, total, current, up to 12 formation ids from index `start` (0-based): the
--- formations offered by the Draft's formation step (5 drawn per draft; the graft pages through the answer)
 function BattleBayDeluxe.DraftFormations(start)
   start = math.max(0, U.int(start, 0))
   local r = with()
@@ -1825,6 +1777,17 @@ function BattleBayDeluxe.DraftFormations(start)
     return false
   end
   local current = (r.draft and r.draft.formation) or r.pool.formation
+  if r.pool.players ~= (r.src.base or r.src.all) then
+    -- a filtered pool offers the formations it can fill
+    local can = {}
+    for _, id in ipairs(list) do
+      local slots = formation_slots(id)
+      if slots and slots_feasible(slots, r.pool.players, {}) then
+        can[#can + 1] = id
+      end
+    end
+    list = can
+  end
   list = formation_offer(r.draft, list)
   local out = { true, #list, current }
   for i = start + 1, math.min(#list, start + 12) do
@@ -1833,13 +1796,19 @@ function BattleBayDeluxe.DraftFormations(start)
   return table.unpack(out)
 end
 
--- CMND_BBD_DRAFT_SET_FORMATION formation -> ok: the draft being picked plays this formation (its starter places move,
--- the picks stay on their roster slots; the team record's formation written with the rows)
 function BattleBayDeluxe.DraftSetFormation(formation)
   local id = U.u32(formation)
   local r = with()
   if not r or (r.phase ~= PICKING and r.phase ~= COMPLETE) or not r.draft or id == 0 then
     return false
+  end
+  if r.pool.players ~= (r.src.base or r.src.all) then
+    -- a filtered pool must still fill the open places in the new formation
+    local slots = (id == r.pool.formation) and r.pool.slots or formation_slots(id)
+    if not slots or not slots_feasible(slots, r.pool.players, r.draft.picks) then
+      info("formation " .. U.hex(id) .. " not set: the filtered pool cannot fill it")
+      return false
+    end
   end
   local ok, why = draft_formation(r.draft, r.pool, id)
   if ok then
@@ -1854,8 +1823,6 @@ function BattleBayDeluxe.DraftSetFormation(formation)
 end
 
 function BattleBayDeluxe.DraftAbandon()
-  -- only a Draft of this session can be in progress (a freshly derived pool starts at NONE): no pool is derived just
-  -- to abandon nothing
   local r = RT
   if r and (r.phase == PICKING or r.phase == COMPLETE) then
     local ok, why = restore(r)
@@ -1869,9 +1836,6 @@ function BattleBayDeluxe.DraftAbandon()
   return true
 end
 
--- The «pack opening» look of the candidates (config.toml [draft.pack], read once): the graft bb_draft asks it when
--- the Draft screen opens. Answers, in this order: ok, intro, deal, deal_stagger, flip, settle, flash, gap, suspense,
--- outro (seconds), dim (0..1), scale, spacing (px), and the crc32 of the 4 sound names (open, deal, reveal, best).
 local PACK = nil
 local PACK_KEYS = {
   { "intro", 0.25 }, { "deal", 0.22 }, { "deal_stagger", 0.07 }, { "flip", 0.22 }, { "settle", 0.12 },
@@ -1906,10 +1870,10 @@ local function pack_look()
   end
   for _, kv in ipairs(PACK_SE) do
     local v = get(kv[1], kv[2])
-    if type(v) ~= "string" or U.trim(v) == "" then
+    if type(v) ~= "string" or VRFW.strings.trim(v) == "" then
       v = kv[2]
     end
-    out[#out + 1] = U.crc32(U.trim(v))
+    out[#out + 1] = VRFW.crc32(VRFW.strings.trim(v))
   end
   PACK = out
   info("pack opening look: " .. #out .. " values from [draft.pack]")
@@ -1943,39 +1907,31 @@ function BattleBayDeluxe.DraftPitch()
   return true, table.unpack(out)
 end
 
--- the Draft screen's mouse (config.toml [draft] mouse): hover selects, a click confirms; asked at every opening
 function BattleBayDeluxe.DraftMouse()
   local v = U.config("draft.mouse", true)
   return true, v ~= false
 end
 
-function BattleBayDeluxe.DraftSync(active, player)
+function D.sync(active, player)
   ensure_slot()
-  active = U.int(active, 0) ~= 0
-  -- a team hash (negative numbers wrap like the engine's (u32) cast)
-  player = U.u32(U.int(player, 0))
   local team0 = D.team()
   local owned = (active and player ~= 0 and player == team0) or (team0 ~= 0 and tournament_owns(team0))
   if RT == nil and not FAILED and not owned then
-    -- no pool yet and no campaign with the Draft team: nothing was written this session (the rows hold the
-    -- placeholders), so only a stale stored roster goes; the pool (every Battle Bay squad, chara_param, names) is
-    -- derived when the Draft is used
     if D.team() == 0 then
-      return -1
+      return -1, false
     end
-    drop_roster()
+    drop_roster(string.format("top menu sync: no campaign with the Draft team (campaign %s, player team %s)", tostring(active), U.hex(player)))
     sync_leader("sync")
-    return NONE
+    return NONE, false
   end
   local r = with()
   local phase = -1
+  local lost = false
   if r then
     local was = r.phase
     local team = r.pool.team
-    -- the Campaña's block or the Torneo's run plays the Draft team (1.5.42: the Torneo too)
     local ours = team ~= 0 and ((active and player == team) or tournament_owns(team))
     if ours and (was == COMPLETE or was == CAMPAIGN) then
-      -- keep (and write the roster again: the rows may have been reloaded)
       local want = r.draft and draft_roster(r.draft, r.pool) or {}
       campaign_started(r)
       local ok, why = apply(r, want)
@@ -1987,10 +1943,9 @@ function BattleBayDeluxe.DraftSync(active, player)
         err("campaign running but the roster was not written again: " .. tostring(why))
       end
     elseif ours then
-      -- restart during a draft run (or the rows reloaded): the stored roster, checked (placeholders as the fallback)
-      restore_run(r, "top menu sync")
+      local _, _, gone = restore_run(r, "top menu sync")
+      lost = gone == true
     else
-      -- campaign won / lost, another team, no campaign; with no draft a stale roster still goes
       local ok, why = true, nil
       local n = 0
       if was ~= NONE then
@@ -2004,22 +1959,18 @@ function BattleBayDeluxe.DraftSync(active, player)
       else
         err("discarded, placeholders NOT written back (" .. tostring(why) .. ")")
       end
-      drop_roster()
+      drop_roster(string.format("top menu sync: campaign over or another team (campaign %s, player team %s, phase %d)", tostring(active), U.hex(player), was))
     end
     phase = r.phase
   end
   sync_leader("sync")
-  return phase
+  return phase, lost
 end
 
--- ------------------------------------------------------------------------------------------------ the Draft tile model
--- The team panel shows the hovered slot's leader as its 3D model. The Draft team's leader is a placeholder: the
--- grid records of the Draft tile get the player's own avatar instead (estadio-bb.md §14.10), on every grid page the
--- VR-Framework's BB pages service builds. Only the grid image changes, never the table row.
+-- The team panel shows the hovered slot's leader as its 3D model.
 
 local AVATAR_LOGGED = nil
 
--- the status object (FindCharaRecord result; persistent data at +8) of a character handle
 local function record_object(hdl)
   if not VRFW.is_on("FindCharaRecord") or hdl == 0 or hdl % 65536 >= 0xD000 then
     return nil
@@ -2030,7 +1981,8 @@ local function record_object(hdl)
   if not cont then
     return nil
   end
-  local okb, hb = pcall(VRFW.mem.buffer, "bbd_avatar_hdl", 4)
+  local hb = VRFW.memory.buffer("bbd_avatar_hdl", 4)
+  local okb = hb ~= nil
   if not okb or not U.wr("u32", hb, hdl) then
     return nil
   end
@@ -2041,8 +1993,6 @@ local function record_object(hdl)
   return nil
 end
 
--- the player's avatar as a chara_param id: the Kizuna town avatar (a chara handle, index 0 only) through its save
--- record; nil when the save has no usable avatar
 local function avatar_param()
   local kz = U.struct("Kizuna", U.global("kizuna"))
   local hdl, idx = U.get(kz, "avatar"), U.get(kz, "avatar_index")

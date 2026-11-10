@@ -1,6 +1,3 @@
-# VRFW: the knockout bracket screen's score digits (#/menu/220_img/vrfw_bracket_num/vrfw_bracket_num.g4tx): the
-# stacked pairs of the joints, single digits, brackets and the extra-time mark. An atlas of its own (a g4tx holds at
-# most 255 sprites). Read by assets\lua\screens\vrfw_bracket_menu.lua (sprites bound by the crc32 of their names).
 schema = "VRFW.image/1"
 
 [[texture]]

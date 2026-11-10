@@ -1,0 +1,134 @@
+schema = "VRFW.menu/2"
+
+# Team emblem picker as a full-width honeycomb (research/grafts/better_ui_emblem_grid): the retail list stays, its layers get new objects.
+# The grid layout is built by research/mods/BetterUI/_tools/emblem_grid_build.py from [emblem_grid] of _menu_build.toml.
+# Screen rows under BetterUI's short header, top to bottom: series tab bar centred (84-160), grid (167 to the screen's bottom, 7 rows to 987); the footer prompts draw over the grid's bottom fade (the retail help line is hidden by the graft).
+
+# The tile: the retail team select emblem tile at 0.85; its touch zone at 105 px (89 px after the 0.85) stays inside one column pitch.
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tile/betterui_emblem_tile.g4pkm"
+from = "common/menu/107_vs/vs01/vs01_43/vs01_43.g4pkm"
+
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tile/betterui_emblem_tile.g4pkm"
+joint = "_pos_base01"
+scale = [0.85, 0.85, 1.0]
+
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tile/betterui_emblem_tile.g4pkm"
+joint = "_touch_list01"
+scale = [105.0, 105.0, 1.0]
+
+# The series tabs: the retail horizontal tab bar of cmn06_01 centred on the screen, its base from x 442 to 1478, y 84 to 160.
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tabs/betterui_emblem_tabs.g4pkm"
+from = "common/menu/20_cmn/cmn06/cmn06_01/cmn06_01.g4pkm"
+
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tabs/betterui_emblem_tabs.g4pkm"
+joint = "_pos_base01"
+translate = [960.0, -122.0]
+
+# The LB / RB prompts in the bar's dark end caps (38 px glyph boxes, centred on the bar's height).
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tabs/betterui_emblem_tabs.g4pkm"
+joint = "_text_btn_l01"
+translate = [-461.0, 19.0]
+
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tabs/betterui_emblem_tabs.g4pkm"
+joint = "_text_btn_r01"
+translate = [423.0, 19.0]
+
+# The sort icon and its prompt leave the right end cap to the RB prompt: they sit right of the bar.
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tabs/betterui_emblem_tabs.g4pkm"
+joint = "_icon_sort01"
+translate = [534.0, 16.0]
+
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tabs/betterui_emblem_tabs.g4pkm"
+joint = "_touch_sort01"
+translate = [534.0, 24.0]
+
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tabs/betterui_emblem_tabs.g4pkm"
+joint = "_text_btn01"
+translate = [586.0, 19.0]
+
+[[layout]]
+file = "common/menu/102_team/team06/betterui_emblem_tabs/betterui_emblem_tabs.g4pkm"
+joint = "_atc_sort01"
+translate = [644.0, -30.0]
+
+# The grid object: list counts for 18 columns x 9 locator rows (7 shown); drawn over the tiles for its fade bands, under the footer prompts (draw priority 654).
+[[object]]
+name = "betterui_emblem_grid"
+from = "team06_01_emblem_list"
+priority = 552
+set = [
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team06/team06_01/team06_01.g4pkm" }, values = { 1 = "common/menu/102_team/team06/betterui_emblem_grid/betterui_emblem_grid.g4pkm" } },
+    { parameter = "mViewNum", values = { 1 = 7 } },
+    { parameter = "mLocatorStartName", values = { 1 = 1435943202 } },
+    { parameter = "mLocatorNum", values = { 1 = 162 } },
+]
+# the fade bands' two materials form the colour preset betterui_emblem_fade (the graft tints it with the theme's background)
+add_block = [{ block = "CMenuChangeMaterialColor", after = "CMenuAnimation" }]
+add = [
+    { block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/102_team/team04/team04_02/<LG>/team04_02.g4tx"] },
+    { block = "CMenuChangeMaterialColor", parameter = "betterui_emblem_fade", values = [-187720355] },   # spirit_list_base01_mat_01
+    { block = "CMenuChangeMaterialColor", parameter = "betterui_emblem_fade", values = [414285050] },    # gtxt_spirit01_mat_01
+    { block = "CMenuListViewEquip", parameter = "mLineNum", values = [18] },
+    { block = "CMenuListViewEquip", parameter = "mScrollVert", values = [1] },
+    { block = "CMenuListViewEquip", parameter = "mLineOver", values = [1] },
+    { block = "CMenuListViewEquip", parameter = "m_isDisableMoveLine", values = [1] },
+    { block = "CMenuListViewEquip", parameter = "m_isEnableRemainLineMove", values = [1] },
+    { block = "CMenuListViewEquip", parameter = "mMatrixLocaterRootBaseName", values = ["_pos_atc_list"] },
+    { block = "CMenuListViewEquip", parameter = "mMatrixLocaterRootBaseDigitNum", values = [2] },
+]
+
+[[object]]
+name = "betterui_emblem_tile"
+from = "vs01_43_enjoy_team_select_emblem_icon"
+priority = 551
+set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/107_vs/vs01/vs01_43/vs01_43.g4pkm" }, values = { 1 = "common/menu/102_team/team06/betterui_emblem_tile/betterui_emblem_tile.g4pkm" } }]
+
+# The bar's atlas: the retail object names none and this menu never loads it (its bar and sort icon stayed undrawn).
+[[object]]
+name = "betterui_emblem_tabs"
+from = "cmn06_01_list_tab_attach"
+set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/20_cmn/cmn06/cmn06_01/cmn06_01.g4pkm" }, values = { 1 = "common/menu/102_team/team06/betterui_emblem_tabs/betterui_emblem_tabs.g4pkm" } }]
+add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/20_cmn/cmn06/cmn06_01/cmn06_01.g4tx"] }]
+
+[[patch]]
+menu = "equip_emblem_menu"
+layer = "team06_01_emblem_list"
+object = "betterui_emblem_grid"
+# the picker's own atlas: the grey hex and the fade bands (content/images/menu/102_team/betterui_emblem_art.toml)
+resources = ["#/menu/102_team/betterui_emblem_art/betterui_emblem_art.g4tx"]
+# L2 / R2 turn the tab bar's page (the mods' emblem tabs follow the series tabs): the graft's OnFunction takes them.
+add_commands = [
+    { layer = "team06_01_emblem_list", input = "CMD_FUNCL2", command = "CMD_FUNCTION", arg = 0x77497B3B },   # betterui_emblem_page_prev
+    { layer = "team06_01_emblem_list", input = "CMD_FUNCR2", command = "CMD_FUNCTION", arg = 0xCF84E352 },   # betterui_emblem_page_next
+]
+
+[[patch]]
+menu = "equip_emblem_menu"
+layer = "team06_02_emblem_list_item"
+object = "betterui_emblem_tile"
+count = 162
+
+[[patch]]
+menu = "equip_emblem_menu"
+layer = "cmn06_01_list_tab_attach"
+object = "betterui_emblem_tabs"
+
+# The series tabs: 10 instances («Todos» + the 9 retail series), the retail tab bindings of the character bank (LB / RB).
+[[patch]]
+menu = "equip_emblem_menu"
+layer = "cmn06_20_list_tab_item"
+count = 10
+add_commands = [
+    { layer = "cmn06_20_list_tab_item", input = 0xEC67D0A2, command = "CMD_FCS_BACK" },
+    { layer = "cmn06_20_list_tab_item", input = 0x3826EF7D, command = "CMD_FCS_NEXT" },
+]

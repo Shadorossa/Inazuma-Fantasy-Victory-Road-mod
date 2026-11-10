@@ -1,0 +1,174 @@
+
+schema = "VRFW.anim/2"
+if_mod = "CharacterReforged.keshin_points"
+owner = "match"   # played by the aura rules of content\transforms\team_keshin_summons.toml
+
+# Team keshin summons: the every-participant copies of the retail summon and move events, built at the start.
+# Adding a group summon takes three entries:
+#   1. here: an [[event]] copied `from` the keshin's retail summon event, `seats` = participants, a free pinned
+#      `id` (evGG_8NNNN), and one [[cut]] per added seat and cut (`event = "CharacterReforged.<name>"`).
+#      A move that shows every participant gets its own [[event]] the same way.
+#   2. content\transforms\team_keshin_summons.toml: an [[aura_rule]] with `cut_in` = that id (and `move_event`).
+#   3. content\techniques\auras\team_keshin_cutins.toml: an [[aura]] with `cells = { event = crc32("<id>") }`.
+# Keys: docs/internal/types/anim.md, docs/internal/types/transform.md; feature page: docs/game/mods/group-summons.md.
+
+# ---------------------------------------------------------------- Griffin (Grifo, 3 seats)
+
+[[event]]
+name = "griffin_trio"
+from = "ev80_00040"
+id = "ev80_80300"
+seats = 3
+assigned = ["k000300"]
+cuts = [
+    { from = "ev80_00040", cut = "c0010", copies = { s01 = "s00", s02 = "s00" } },
+    { from = "ev80_00040", cut = "c0020", copies = { s01 = "s00", s02 = "s00" } },
+]
+
+[[cut]]
+event = "CharacterReforged.griffin_trio"
+cut = "c0010"
+actor = "s01"
+source = { event = "ev80_00040", cut = "c0010", actor = "s00" }
+offset = [-0.8, 0.0, -0.5]
+trim = [3, 161]
+
+[[cut]]
+event = "CharacterReforged.griffin_trio"
+cut = "c0010"
+actor = "s02"
+source = { event = "ev80_00040", cut = "c0010", actor = "s00" }
+offset = [0.8, 0.0, -0.5]
+# no mirror here: the mirrored summon motion of c0010 tilts the body off its placement
+trim = [5, 161]
+
+[[cut]]
+event = "CharacterReforged.griffin_trio"
+cut = "c0020"
+actor = "s00"
+source = { event = "ev80_00050", cut = "c0020", actor = "s00" }
+
+[[cut]]
+event = "CharacterReforged.griffin_trio"
+cut = "c0020"
+actor = "s01"
+source = { event = "ev80_00040", cut = "c0020", actor = "s00" }
+offset = [-0.8, 0.0, -0.5]
+
+[[cut]]
+event = "CharacterReforged.griffin_trio"
+cut = "c0020"
+actor = "s02"
+source = { event = "ev80_00040", cut = "c0020", actor = "s00" }
+offset = [0.8, 0.0, -0.5]
+mirror = true
+
+# ---------------------------------------------------------------- Arthur (Arturo, 2 seats)
+
+[[event]]
+name = "arthur_duo"
+from = "ev80_00060"          # Arthur's retail cut-in (shared with wks00540)
+id = "ev80_80240"
+seats = 2
+assigned = ["k000240"]       # Arthur's own keshin motion
+cuts = [
+    { from = "ev80_00060", cut = "c0010", copies = { s01 = "s00" } },
+    { from = "ev80_00060", cut = "c0020", copies = { s01 = "s00" } },
+]
+
+[[cut]]
+event = "CharacterReforged.arthur_duo"
+cut = "c0010"
+actor = "s01"
+source = { event = "ev80_00060", cut = "c0010", actor = "s00" }
+offset = [0.8, 0.0, -0.4]
+mirror = true
+trim = [4, 161]
+
+[[cut]]
+event = "CharacterReforged.arthur_duo"
+cut = "c0020"
+actor = "s01"
+source = { event = "ev80_00060", cut = "c0020", actor = "s00" }
+offset = [0.8, 0.0, -0.4]
+mirror = true
+
+# ---------------------------------------------------------------- Flamberge (Griffin's move, 3 seats)
+
+[[event]]
+name = "flamberge_trio"
+from = "ev60_01900"
+id = "ev60_81900"
+seats = 3
+cuts = [
+    { from = "ev60_01900", cut = "c0100", copies = { s01 = "s00", s02 = "s00" } },
+    { from = "ev60_01900", cut = "c0200", copies = { s01 = "s00", s02 = "s00" } },
+    { from = "ev60_01900", cut = "c0300", copies = { s01 = "s00", s02 = "s00" } },
+    { from = "ev60_01900", cut = "c0400", copies = { s01 = "s00", s02 = "s00" } },
+]
+
+[[cut]]
+event = "CharacterReforged.flamberge_trio"
+cut = "c0010"
+actor = "s01"
+source = { event = "ev60_01900", cut = "c0100", actor = "s00" }
+offset = [-0.8, 0.0, -0.5]
+trim = [3, 89]
+
+[[cut]]
+event = "CharacterReforged.flamberge_trio"
+cut = "c0010"
+actor = "s02"
+source = { event = "ev60_01900", cut = "c0100", actor = "s00" }
+offset = [0.8, 0.0, -0.5]
+trim = [5, 89]
+
+[[cut]]
+event = "CharacterReforged.flamberge_trio"
+cut = "c0020"
+actor = "s01"
+source = { event = "ev60_01900", cut = "c0200", actor = "s00" }
+offset = [-0.8, 0.0, -0.5]
+
+[[cut]]
+event = "CharacterReforged.flamberge_trio"
+cut = "c0020"
+actor = "s02"
+source = { event = "ev60_01900", cut = "c0200", actor = "s00" }
+offset = [0.8, 0.0, -0.5]
+
+[[cut]]
+event = "CharacterReforged.flamberge_trio"
+cut = "c0030"
+actor = "s01"
+source = { event = "ev60_01900", cut = "c0300", actor = "s00" }
+mirror = true                        # left foot: the body on the -X side of the ball
+yaw = 60.0
+pivot = [1.67, 0.0, 3.89]            # the mirrored ball (mirror plane x = 0)
+offset = [-3.34, 0.0, 0.0]           # back onto the real ball
+
+[[cut]]
+event = "CharacterReforged.flamberge_trio"
+cut = "c0030"
+actor = "s02"
+source = { event = "ev60_01900", cut = "c0300", actor = "s00" }
+yaw = -60.0
+pivot = [-1.67, 0.0, 3.89]           # the ball where the summoner strikes it
+
+[[cut]]
+event = "CharacterReforged.flamberge_trio"
+cut = "c0040"
+actor = "s01"
+source = { event = "ev60_01900", cut = "c0400", actor = "s00" }
+mirror = true                        # left foot: the body on the -X side of the ball
+yaw = 60.0
+pivot = [1.67, 0.0, 3.89]            # the mirrored ball (mirror plane x = 0)
+offset = [-3.34, 0.0, 0.0]           # back onto the real ball
+
+[[cut]]
+event = "CharacterReforged.flamberge_trio"
+cut = "c0040"
+actor = "s02"
+source = { event = "ev60_01900", cut = "c0400", actor = "s00" }
+yaw = -60.0
+pivot = [-1.67, 0.0, 3.89]           # the ball where the summoner strikes it

@@ -1,8 +1,4 @@
 schema = "VRFW.base_table/1"
-# Inazuma Fantasy: the notices list of «Información». Its first notice shows the mod's own banner, without the retail
-# title and overview over it (a text id of 0 leaves the text empty, as the retail Cross notice does), and the
-# «Objetos de compensación» notice leaves the list. The picture: content\images\menu\220_img\banner_img\
-# inazuma_fantasy_notice_banner.toml. The game loads a notice's picture by the path of its background row.
 
 [[keyed]]
 list = "m_PostNoticeBannerBgInfoList"
@@ -23,8 +19,8 @@ list = "m_PostNoticeBannerImgInfoList"
 list = "m_PostNoticeInfoList"
 
   [[keyed.set]]
-  key = 0x82005946                      # «Disculpas a todos los jugadores / Disculpas por el error»
-  cells = { banner_img_id_crc = "InazumaFantasy_notice_banner_image", banner_title_text_id_crc = 0, banner_overview_one_line_text_id_crc = 0 }
+  key = 0x82005946
+  cells = { banner_img_id_crc = "InazumaFantasy_notice_banner_image", banner_title_text_id_crc = 0, banner_overview_one_line_text_id_crc = 0, detail_window_title_txt_id_crc = "InazumaFantasy.NoticeTitle", detail_window_main_txt_id_crc = "InazumaFantasy.NoticeBody" }
 
   [[keyed.delete]]
-  key = 0xBD2B3B0E                      # «Aviso a todos los jugadores / Aviso: Objetos de compensación»
+  key = 0xBD2B3B0E

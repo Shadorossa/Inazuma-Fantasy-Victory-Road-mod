@@ -1,0 +1,44 @@
+schema = "VRFW.effect/1"
+# Final Phoenix (content/techniques/final_phoenix.toml): Tornado dragón's fire tornado (ev60003500) in the rise and spin cuts without its charged ball and without the dragon, its blue ball trail in the fire hue; the ball is Fénix's own fire ball (ev60004100) from the rise to the flight.
+
+[[recolor]]
+object = "ev60003500"
+copy = "ev60080410"
+hue = 22
+mode = "set"
+mask_hue = [150, 290]
+vertex_colors = "all"
+particles = true
+
+  [[recolor.tint]]
+  mesh = ["balllight", "ball_aura_light", "aura_tama", "ball_tama", "ball_abi", "ball_wave"]
+  alpha = 0.0
+
+[[event_effect]]
+event = "ev60_80410"
+object = "ev60080410"
+cuts = ["c0040", "c0050"]
+clips = { c0040 = "c0300", c0050 = "c0400" }
+attach = { point = "point_eff", locator = "evp_eff01" }
+
+# The fire ball that rises after the cross in Fénix (ev60004100, clip c0400, its frames before the phoenix opens) rides the ball through the rise, the spin and the leg swing.
+[[event_effect]]
+event = "ev60_80410"
+object = "ev60004100"
+actor = "ev60004100_ball"
+cuts = ["c0040", "c0050", "c0060"]
+clips = { c0040 = "c0400", c0050 = "c0400", c0060 = "c0400" }
+clip_frames = [2, 26]
+attach = { point = "point_eff", locator = "evp_eff01" }
+follow = { nodes = ["ball_pos", "PLPos_pointLight2"] }
+
+# From the frame the ball leaves the foot, the fire of the flight (clip c0900) rides the ball until the flight cut.
+[[event_effect]]
+event = "ev60_80410"
+object = "ev60004100"
+actor = "ev60004100_ball"
+cut = "c0060"
+offset = 15
+clips = { c0060 = "c0900" }
+attach = { point = "point_eff", locator = "evp_eff01" }
+follow = { nodes = ["ball_pos", "PLPos_pointLight2"] }

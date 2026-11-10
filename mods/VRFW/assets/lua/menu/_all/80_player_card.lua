@@ -1,30 +1,17 @@
--- VRFW_PlayerCard: the game's player card (the team screen's large card: the plate in the card's colour, the face, the
--- element icon on its framed base, the position badge) on an instance of a layer whose object is the retail soccer
--- card team00_01_chara_card_for_soccer, or a mod's redirect of it (a restyled card keeps working: the parts are found
--- by the game's own names). Filled by the game's card fill by chara_param id (2339877830) after the retail name
--- setting of a soccer card (NameSetting_CharaCardForSoccer of soccer_formation_menu_inc), so the card command hooks
--- of other mods (card colours) apply as on every retail card screen. Definitions only: this file runs in every menu VM
--- (lua\_all), no engine call at load.
---   VRFW_PlayerCard.Draw(layer, idx, card, x, y, size[, opts]) -> true | false
---     card   chara_param id; x, y the card's centre (screen px, y down); size the card's height in px
---     opts   { level = n (the level drawn on the card) | nil (no level), name = true (the card's name line; default
---              off), captain = false, uniform = 0 (the kit the face wears; 0 = his own), rarity = 0 (0 = his own),
---              priority = n (the instance's draw priority, with its children) }
---     The game fills the card again only when the card or its rules change; placing is cheap and runs every call.
---     false = the card could not be filled (no name setting in this VM, or the game refused the card): the caller
---     draws its own fallback and hides the instance.
---   VRFW_PlayerCard.Forget(layer[, idx]) an instance (or every instance of a layer) filled again next time: call it when
---     the engine set the instance up again (OnSetupLayer). The name setting is never written twice on one instance.
---   VRFW_PlayerCard.Name(layer, idx) -> true | false  the retail name setting of a soccer card on the instance, once
---     (for a caller that fills the card itself with the game's card commands: without it the fill finds no parts and
---     the instance shows the bare card object). Call it when the instance opens (OnOpenLayer), as the game does.
-if VRFW_PlayerCard == nil then
+if VRFW.player_card == nil then
   local P = {
-    FILL = 2339877830,          -- (layer, idx, chara_param, big, force leader, position type, 0, level, captain, false,
-                                --  rarity, uniform): the card by chara_param id (native 0xCC2080)
+    FILL = 2339877830,
     PRIM_VISIBLE = 1233047821,  -- (layer, idx, number prim, on)
     NODE_VISIBLE = 2158717427,  -- (layer, node, on, idx)
-    LOG = VRFW_Cmd.EVT_LOG,
+    -- the layers created from the game's team00_01 card objbins (all menus)
+    CARD_LAYERS = {
+      [1973487846] = true, [1658289671] = true,
+      [3241819447] = true, [1791816279] = true,
+      [1774956026] = true, [3003299608] = true, [3825623416] = true,
+      [2344757061] = true, [3940198160] = true,
+      [3578260017] = true, [1690405657] = true,
+      [2276833727] = true
+    },
     -- the large card's body from the layer origin (layout px, y up): its height and centre
     BODY = { H = 132, CX = 0, CY = -6 },
     NAME = 170976702,           -- _text_chr01
@@ -74,22 +61,19 @@ if VRFW_PlayerCard == nil then
       {"pos_gauge_exp_L", "_pos_gauge_exp_l01"}, {"pos_gauge_exp_S", "_pos_gauge_exp_s01"},
       {"hidden_exp_gauge", "true"}, {"material_rarity_color", "rarity_color"},
     },
-    named = {},                 -- "layer:idx" -> true (the name setting is written once per instance, never again)
+    named = {},
     filled = {},                -- "layer:idx" -> the key of the fill shown (card and rules)
     told = {},                  -- the failures already logged
   }
-  VRFW_PlayerCard = P
+  VRFW.player_card = P
 
+  -- Layers that mods add so that their cards count as formation cards.
+  VRFW.formation_card_extra = VRFW.formation_card_extra or {}
+
+  local logger
   local function log(...)
-    pcall(funcLuaCommand, P.LOG, "vrfw.PlayerCard", ...)
-  end
-
-  local function menu(cmd, ...)
-    local ok, a = pcall(funcLuaMenuCommand, cmd, ...)
-    if ok then
-      return a
-    end
-    return nil
+    logger = logger or VRFW.logger.new("vrfw.PlayerCard")
+    logger(...)
   end
 
   local function tell(what, ...)
@@ -126,29 +110,35 @@ if VRFW_PlayerCard == nil then
   -- the parts the rules leave out
   local function hide_parts(layer, idx, opts)
     for _, m in ipairs(P.HIDE) do
-      menu(VRFW_Cmd.SET_MESH_VISIBLE, layer, m, false, idx)
+      VRFW.host.menu_command(VRFW.commands.SET_MESH_VISIBLE, layer, m, false, idx)
     end
     for _, n in ipairs(P.HIDE_NODES) do
-      menu(P.NODE_VISIBLE, layer, n, false, idx)
+      VRFW.host.menu_command(P.NODE_VISIBLE, layer, n, false, idx)
     end
     if opts.name ~= true then
-      menu(VRFW_Cmd.SET_MENU_TEXT_VISIBLE, layer, P.NAME, false, idx)
-      menu(P.NODE_VISIBLE, layer, P.NAME, false, idx)
+      VRFW.host.menu_command(VRFW.commands.SET_MENU_TEXT_VISIBLE, layer, P.NAME, false, idx)
+      VRFW.host.menu_command(P.NODE_VISIBLE, layer, P.NAME, false, idx)
     end
     if type(opts.level) ~= "number" then
       for _, m in ipairs(P.LEVEL_MESHES) do
-        menu(VRFW_Cmd.SET_MESH_VISIBLE, layer, m, false, idx)
+        VRFW.host.menu_command(VRFW.commands.SET_MESH_VISIBLE, layer, m, false, idx)
       end
       for _, n in ipairs(P.LEVEL_NODES) do
-        menu(P.NODE_VISIBLE, layer, n, false, idx)
+        VRFW.host.menu_command(P.NODE_VISIBLE, layer, n, false, idx)
       end
       for _, pr in ipairs(P.LEVEL_PRIMS) do
-        menu(P.PRIM_VISIBLE, layer, idx, pr, false)
+        VRFW.host.menu_command(P.PRIM_VISIBLE, layer, idx, pr, false)
       end
     end
   end
 
-  function P.Draw(layer, idx, card, x, y, size, opts)
+  --- Answers whether `layer` holds formation cards: a card layer of the game or one in `VRFW.formation_card_extra`.
+  function P.is_formation_card_layer(layer)
+    return P.CARD_LAYERS[layer] == true or VRFW.formation_card_extra[layer] == true
+  end
+
+  --- Draws a player card; answers true, or false for no card.
+  function P.draw(layer, idx, card, x, y, size, opts)
     opts = opts or {}
     local k = layer .. ":" .. idx
     if type(card) ~= "number" or card == 0 then
@@ -157,8 +147,8 @@ if VRFW_PlayerCard == nil then
     end
     local B = P.BODY
     local s = size / B.H
-    menu(VRFW_Cmd.SET_LAYER_LOCAL_SCALE, layer, s, s, 1, idx)
-    menu(VRFW_Cmd.SET_LAYER_LOCAL_POS, layer, x - B.CX * s, -y - B.CY * s, 0, idx)
+    VRFW.host.menu_command(VRFW.commands.SET_LAYER_LOCAL_SCALE, layer, s, s, 1, idx)
+    VRFW.host.menu_command(VRFW.commands.SET_LAYER_LOCAL_POS, layer, x - B.CX * s, -y - B.CY * s, 0, idx)
     local key = table.concat({ card, tostring(opts.level), tostring(opts.name == true), tostring(opts.captain == true),
       opts.uniform or 0, opts.rarity or 0, opts.priority or 0 }, ",")
     if P.filled[k] == key then
@@ -170,7 +160,7 @@ if VRFW_PlayerCard == nil then
     if type(SetDisableForceCharaInvalidUseTarget) == "function" then
       pcall(SetDisableForceCharaInvalidUseTarget)
     end
-    local done = menu(P.FILL, layer, idx, card, true, false, 0, 0, type(opts.level) == "number" and opts.level or 1,
+    local done = VRFW.host.menu_command(P.FILL, layer, idx, card, true, false, 0, 0, type(opts.level) == "number" and opts.level or 1,
       opts.captain == true, false, opts.rarity or 0, opts.uniform or 0)
     if type(SetEnableForceCharaInvalidUseTarget) == "function" then
       pcall(SetEnableForceCharaInvalidUseTarget)
@@ -182,20 +172,22 @@ if VRFW_PlayerCard == nil then
     end
     hide_parts(layer, idx, opts)
     if type(opts.priority) == "number" then
-      menu(VRFW_Cmd.SET_DRAW_PRIORITY, layer, idx, opts.priority, true)
+      VRFW.host.menu_command(VRFW.commands.SET_DRAW_PRIORITY, layer, idx, opts.priority, true)
     end
     P.filled[k] = key
     return true
   end
 
-  function P.Name(layer, idx)
+  --- Sets the card name of (layer, idx); answers true, or false.
+  function P.name(layer, idx)
     if type(layer) ~= "number" or type(idx) ~= "number" then
       return false
     end
     return name_card(layer, idx, layer .. ":" .. idx)
   end
 
-  function P.Forget(layer, idx)
+  --- Forgets the card state of (layer, idx), or of `layer`.
+  function P.forget(layer, idx)
     if idx ~= nil then
       P.filled[layer .. ":" .. idx] = nil
       return

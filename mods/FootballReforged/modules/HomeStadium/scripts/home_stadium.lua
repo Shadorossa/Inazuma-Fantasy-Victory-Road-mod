@@ -1,17 +1,6 @@
--- Home Stadium (module of Football Reforged): the home stadium of each player team.
--- The stadiums offered are the rows of the game's stadium list (soccer_game_option SOCCER_OPTION_FIELD_INFO, mods'
--- rows included) in list order, each with the ticket item its unlock condition asks for. The choice is kept per team
--- dock in the mod's save data of the active slot (key dock.<set>). The game Lua (assets\lua) asks these commands:
---
---   CMND_HOMESTADIUM_LIST()          -> { { map, item }, … }: every stadium of the list in list order; item = the
---                                       ticket of GetGlobalItemGetBitFlag(item) == 1, 0 = always listed, -1 = another
---                                       condition (not offered)
---   CMND_HOMESTADIUM_GET(set)        -> the map crc of the team dock's home stadium, 0 = none (or no longer listed)
---   CMND_HOMESTADIUM_SET(set, map)   -> ok: the team dock's home stadium (0 clears it)
 
 HomeStadium = HomeStadium or {}
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("home_stadium")
 local crc32 = VRFW.crc32
 
@@ -48,10 +37,6 @@ local function u32(bytes, i)
   return ((bytes[i] * 256 + bytes[i + 1]) * 256 + bytes[i + 2]) * 256 + bytes[i + 3]
 end
 
--- The ticket of a row's unlock condition: 0 = none (always listed), the item of the game's one-call condition
--- GetGlobalItemGetBitFlag(item) == 1, or -1 for any other condition. That condition is 00 | u32 length 24 | body:
--- 05 35 <crc32 GetGlobalItemGetBitFlag> 00 0A 01 28 00 06 02 34 <item> 32 00000001 78 (every retail row, and the
--- framework's stadium type writes the same: VRFW content\types\stadium.lua).
 local function ticket_of(cell)
   if cell == nil or cell == 0 then return 0 end
   local text = type(cell) == "table" and cell.text or cell
@@ -80,7 +65,7 @@ local function load_list()
       local entry = { map = map, item = ticket_of(r.c2 or r[3]), order = tonumber(r.c1 or r[2]) or 0, index = index }
       if entry.item < 0 then other = other + 1 end
       if by_map[map] ~= nil then
-        stadiums[by_map[map]] = entry          -- a later row of the same map replaces the earlier one
+        stadiums[by_map[map]] = entry
       else
         stadiums[#stadiums + 1] = entry
         by_map[map] = #stadiums
@@ -140,7 +125,6 @@ function HomeStadium.Set(set, map)
   return ok
 end
 
--- the save's loading screen: the stadium list read here instead of on the first team dock drawn
 VRFW.on("slot_load", function()
   pcall(load_list)
   return nil

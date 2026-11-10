@@ -1,14 +1,4 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: in «Competir contra bots» the second Royal Academy game of the IE1 tab (fbtl_cro01_070_010,
-# Football Frontier) plays with Ray Dark as its coach, and the team's own coach (Stephen Black) moves to the manager's
-# place. Only there: the Chronicle (Crónica, Heroica) keeps the game's team as it is.
-#
-# How: the free-match classes of this mod are FlatRivalLevel classes (content/defaults/match_difficulty.toml), so the
-# framework gives every free-match row of a class the copy of its rival team without member level offsets, keyed
-# `<team key>_flat` (docs/framework/free-match-tabs.md §8 «FlatRivalLevel»), and a team a mod declares under that key
-# IS that copy. This file declares Royal Academy's copy with the two staff changes and every member at level offset
-# 0 (the whole line-up at the class level, as the framework's own copies). The game's team (tm_cro_ie1_0700) plays
-# only on this game, so no other opponent changes.
 default_lang = "en"
 
 [[team]]
@@ -24,7 +14,7 @@ series = "IE1"
   level_offset = 0
   [[team.member]]                       # manager: Stephen Black, the game's coach of this team
   player = "c11801030"
-  slot = 20
+  slot = 16
   number = 0
   level_offset = 0
 

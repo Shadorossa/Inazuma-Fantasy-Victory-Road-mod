@@ -1,10 +1,7 @@
 -- Party / team sets (native side: content\game\party.toml).
--- Publishes the number of party loads since boot as game_state vrfw.party.loads (a load whose handler was skipped is not counted).
--- Logs at boot, per party entry of the profile, who declares it.
 
-local E = require "lib/game_entries"
+local E = VRFW.entries
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("party")
 
 local KEY_LOADS = "vrfw.party.loads"

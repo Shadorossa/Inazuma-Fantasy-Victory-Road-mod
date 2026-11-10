@@ -16,7 +16,7 @@ local t = {
   {tabType = 0, seriesId = 3829247907, seriesType = 8, tabIconType = 50},
   {tabType = 0, seriesId = 3782736944, seriesType = 9, tabIconType = 51}
 }
-local t2 = {1, 0, 2, 3, 5, 6, 8, 9} -- Character Reforged player page: Hiper page (index 4, type 5), Utilities career page (index 5, type 6), PERFIL (6, type 8), ATRIBUTOS (7, type 9)
+local t2 = {1, 0, 2, 3, 5, 6, 8, 9} -- Character Reforged player page: Hiper page (index 4, type 5), BetterQoL career page (index 5, type 6), PERFIL (6, type 8), ATRIBUTOS (7, type 9)
 local t3 = {4, 5, 6, 3}
 local t4 = {2221096985, 403917556, 2071327193, 3481709645}
 local t5 = {98789097, 409032760, 3920039248, 3488923265}
@@ -695,7 +695,7 @@ function OnFunction(a1, a2)
         return
       end
       if a2 == 3168962645 then
-        n12 = EVT_PlateHiperStep(n12, -1, #t2) -- EVT plate_hiper
+        n12 = CharacterReforged.hyper_page_plate_hyper_step(n12, -1, #t2) -- EVT plate_hiper
         if n13 == 0 then
           funcLuaMenuCommand(117636272 --[[CMND_SET_PERSONAL_PLATE_PAGE_FROM_CHARA_BANK]], n12, t2[n12 + 1], false)
         else
@@ -703,7 +703,7 @@ function OnFunction(a1, a2)
           funcLuaMenuCommand(3297841487 --[[CMND_UPDATE_PERSONAL_PLATE_PAGE_INFO]])
         end
       elseif a2 == 70193212 --[[next]] then
-        n12 = EVT_PlateHiperStep(n12, 1, #t2) -- EVT plate_hiper
+        n12 = CharacterReforged.hyper_page_plate_hyper_step(n12, 1, #t2) -- EVT plate_hiper
         if n13 == 0 then
           funcLuaMenuCommand(117636272 --[[CMND_SET_PERSONAL_PLATE_PAGE_FROM_CHARA_BANK]], n12, t2[n12 + 1], true)
         else
@@ -2201,7 +2201,7 @@ function UpdateButtonGuide()
       1435897304 --[[CMD_FUNC4]]
     }
   end
-  t15, t16, t17, t18, t19, t20 = EVT_PH_GuideEdit(flag, t15, t16, t17, t18, t19, t20) -- EVT plate_hiper
+  t15, t16, t17, t18, t19, t20 = CharacterReforged.hyper_page_guide_edit(flag, t15, t16, t17, t18, t19, t20) -- EVT plate_hiper
   funcLuaMenuCommand(2209673388, n19, 1138543975 --[[mainmenu01_06_base_button_guide]], t15, t16, t17, t18, t19)
   funcLuaMenuCommand(452337289, n19, 1138543975 --[[mainmenu01_06_base_button_guide]], t20)
   funcLuaMenuCommand(1432240275, n19, 1138543975 --[[mainmenu01_06_base_button_guide]], false)
@@ -2500,77 +2500,45 @@ function OpenTeamBuildExplanationMenu()
 end
 
 -- ===== EVT plate_hiper common BEGIN =====
--- Personal plate (team dock / formation / bank player panel): the page "Hipertécnica" after the moves page. Built by
--- research/scripts/plate_hiper_build.py, docs/game/skill-slots.md ("Hiper page on the personal plate"). Plain Lua 5.2.
--- The page is index 4 (page type 5), declared to the VR-Framework's player page registry (VRFW_PlayerPages,
--- docs/framework/player-pages.md: CharacterReforged.Hiper after vrfw.Moves). Character Reforged's since 2026-10-14
--- (moved from Inazuma Fantasy; docs/refactor/aura-mods-split.md «Player page»): the framework owns the order, the
--- index -> type map and the Q/E steps of the parents and the plate (2026-10-09; this block's own step wrappers are
--- gone).
--- This block is appended to the parent menus and the banks (plain Lua) and grafted into personal_plate_menu. A wrapper
--- is never wrapped twice (EVT_PH_WRAPPED), and a fresh retail definition (chunk run again) is wrapped again.
-if EVT_PLATE_HIPER == nil then
-  EVT_PLATE_HIPER = true            -- false: no Hiper page
+CharacterReforged = type(CharacterReforged) == "table" and CharacterReforged or {}
+if CharacterReforged.PLATE_HYPER == nil then
+  CharacterReforged.PLATE_HYPER = true            -- false: no Hiper page
 end
-EVT_PH_PAGE = 4                     -- page index of the Hiper page
-EVT_PH_TYPE = 5                     -- its personal-plate page type (retail types 0-4)
-if EVT_PH_WRAPPED == nil then
-  EVT_PH_WRAPPED = {}
-end
+CharacterReforged.HYPER_PAGE_PAGE = 4                     -- page index of the Hiper page
+CharacterReforged.HYPER_PAGE_TYPE = 5
 
--- The Hiper page: the page of the skill set's aura / mix slots.
-if VRFW_PlayerPages ~= nil then
-  VRFW_PlayerPages.Add({Name = "CharacterReforged.Hiper", Index = EVT_PH_PAGE, Type = EVT_PH_TYPE, After = "vrfw.Moves",
-    Enabled = function()
-      return EVT_PLATE_HIPER
+-- Adds the Hiper page.
+if VRFW.player_pages ~= nil then
+  VRFW.player_pages.add({name = "CharacterReforged.Hiper", index = CharacterReforged.HYPER_PAGE_PAGE, type = CharacterReforged.HYPER_PAGE_TYPE, after = "vrfw.Moves",
+    enabled = function()
+      return CharacterReforged.PLATE_HYPER
     end})
 end
 
--- next page index from `cur` in direction dir (+1 E / -1 Q); `count` = the rows of the caller's page table (chara
--- bank: #t2). The registry's step (the banks' page code, graft plate_hiper_bank, calls this name).
-function EVT_PlateHiperStep(cur, dir, count)
-  if VRFW_PlayerPages ~= nil then
-    return VRFW_PlayerPages.Step(cur, dir, count)
+-- Returns the next page index from `cur` in direction dir (+1 E, -1 Q).
+function CharacterReforged.hyper_page_plate_hyper_step(cur, dir, count)
+  if VRFW.player_pages ~= nil then
+    return VRFW.player_pages.step(cur, dir, count)
   end
   return cur
 end
 
-function EVT_PH_Wrap(name, make)
-  if type(VRFW_Host) == "table" and type(VRFW_Host.wrap) == "function" then
-    local ok = VRFW_Host.wrap(name, make, {level = 2})   -- survives a later patch that redefines the function
-    return ok
-  end
-  local cur = _ENV[name]
-  if type(cur) ~= "function" or EVT_PH_WRAPPED[cur] then
-    return false
-  end
-  local w = make(cur)
-  EVT_PH_WRAPPED[w] = true
-  _ENV[name] = w
-  return true
+if CharacterReforged.HYPER_PAGE_GUIDE == nil then
+  CharacterReforged.HYPER_PAGE_GUIDE = true
 end
--- ---- bottom button guide (2026-09-24): no "Aceptar", one "<Q><E> Desplazarte" entry for the plate pages ---------
--- The formation / team dock default guide (SetupDefaultFormationButtonGuide) adds "Aceptar" (menu_text 1847312674,
--- CMD_ENTER); it is dropped (Enter / mouse / A still work). Our entry: label menu_text crc32("evt_ph_guide_scroll")
--- = "Desplazarte", keys crc32("evt_ph_guide_keys") = "<CMD_FUNCL2><CMD_FUNCR2>" (Q E on keyboard, LT RT on a pad),
--- both added to common/text/es/menu_text by the builder. The Q/E glyphs next to the plate arrows are hidden in the
--- plate script. The chara bank calls EVT_PH_GuideEdit on its own guide arrays (patched in by the builder).
-if EVT_PH_GUIDE == nil then
-  EVT_PH_GUIDE = true
-end
-EVT_PH_GUIDE_ACCEPT = 1847312674        -- "Aceptar"
-EVT_PH_GUIDE_TEXT = 1622554036          -- "Desplazarte"
-EVT_PH_GUIDE_KEYS = 249694208           -- "<CMD_FUNCL2><CMD_FUNCR2>"
-EVT_PH_CMD_ENTER = 1981080283
+CharacterReforged.HYPER_PAGE_GUIDE_ACCEPT = 1847312674        -- "Aceptar"
+CharacterReforged.HYPER_PAGE_GUIDE_TEXT = 3855527655          -- "Desplazarte"
+CharacterReforged.HYPER_PAGE_GUIDE_KEYS = 309935632           -- "<CMD_FUNCL2><CMD_FUNCR2>"
+CharacterReforged.HYPER_PAGE_COMMAND_ENTER = 1981080283
 
--- chara bank: guide arrays (texts, keys, offsets, t18, greyout, commands); `plate` = the personal plate is open
-function EVT_PH_GuideEdit(plate, texts, keys, offs, t18, grey, cmds)
-  if not EVT_PH_GUIDE or not plate then
+-- Edits the guide of the chara bank.
+function CharacterReforged.hyper_page_guide_edit(plate, texts, keys, offs, t18, grey, cmds)
+  if not CharacterReforged.HYPER_PAGE_GUIDE or not plate then
     return texts, keys, offs, t18, grey, cmds
   end
   local n = #texts
   for k = n, 1, -1 do
-    if texts[k] == EVT_PH_GUIDE_ACCEPT and (cmds == nil or cmds[k] == nil or cmds[k] == EVT_PH_CMD_ENTER) then
+    if texts[k] == CharacterReforged.HYPER_PAGE_GUIDE_ACCEPT and (cmds == nil or cmds[k] == nil or cmds[k] == CharacterReforged.HYPER_PAGE_COMMAND_ENTER) then
       local all = {texts, keys, offs, t18, grey, cmds}
       for i = 1, 6 do
         local arr = all[i]
@@ -2580,55 +2548,52 @@ function EVT_PH_GuideEdit(plate, texts, keys, offs, t18, grey, cmds)
       end
     end
   end
-  -- 2026-09-25 (user): no "Desplazarte" entry any more; the plate shows the Q / E glyphs by its page dots
   return texts, keys, offs, t18, grey, cmds
 end
 
-EVT_PH_Wrap("AddButtonGuideInfo", function(orig)
+VRFW.host.wrap("AddButtonGuideInfo", function(orig)
   return function(a1, a2, a3, a4, a5, a6, ...)
-    if EVT_PH_IN_GUIDE and EVT_PH_GUIDE and a1 == EVT_PH_GUIDE_ACCEPT and a6 == EVT_PH_CMD_ENTER then
+    if CharacterReforged.HYPER_PAGE_IN_GUIDE and CharacterReforged.HYPER_PAGE_GUIDE and a1 == CharacterReforged.HYPER_PAGE_GUIDE_ACCEPT and a6 == CharacterReforged.HYPER_PAGE_COMMAND_ENTER then
       return
     end
     return orig(a1, a2, a3, a4, a5, a6, ...)
   end
 end)
 
--- "<L3> Miximax" (2026-09-25): while the personal plate shows the Atributos page of a player with a fusion, the plate
--- sets the loader UI flag evt_r9_mx_hint; the parent menu (team dock / formation) adds the entry to its guide and
--- rebuilds the guide when the flag changes. Not in the plate menu itself (it has no SetupDefault... guide of its own).
-EVT_PH_MX_HINT_KEY = 1361529897         -- crc32("evt_r9_mx_hint")
-EVT_PH_MX_TEXT = 3716432925             -- menu_text "Miximax"
-EVT_PH_MX_KEYS = 3378555688             -- menu_text "<CMD_FUNC5>"
-EVT_PH_UI_FLAG_GET = 100903117
+-- The parent menu adds the entry to its guide and rebuilds it when the flag changes.
+CharacterReforged.HYPER_PAGE_MIXIMAX_HINT_KEY = 1041400877
+CharacterReforged.HYPER_PAGE_MIXIMAX_TEXT = 3902883977             -- menu_text "Miximax"
+CharacterReforged.HYPER_PAGE_MIXIMAX_KEYS = 3590036792             -- menu_text "<CMD_FUNC5>"
+CharacterReforged.HYPER_PAGE_UI_FLAG_GET = 347960022
 
-function EVT_PH_MxHint()
-  local ok, v = pcall(funcLuaCommand, EVT_PH_UI_FLAG_GET, EVT_PH_MX_HINT_KEY)
+function CharacterReforged.hyper_page_miximax_hint()
+  local ok, v = pcall(funcLuaCommand, CharacterReforged.HYPER_PAGE_UI_FLAG_GET, CharacterReforged.HYPER_PAGE_MIXIMAX_HINT_KEY)
   return ok and type(v) == "number" and v ~= 0
 end
 
-EVT_PH_Wrap("UpdateButtonGuideParam", function(orig)
+VRFW.host.wrap("UpdateButtonGuideParam", function(orig)
   return function(...)
-    if EVT_PH_IN_GUIDE and EVT_PH_GUIDE and not EVT_PH_GUIDE_ADDED then
-      EVT_PH_GUIDE_ADDED = true
-      -- 2026-09-25 (user): no "Desplazarte" entry (the plate shows Q / E by its page dots); only the L3 hint
-      if SetPersonalPlateType == nil and EVT_PH_MxHint() then
-        pcall(AddButtonGuideInfo, EVT_PH_MX_TEXT, EVT_PH_MX_KEYS, 18, 0, 0, 0)
+    if CharacterReforged.HYPER_PAGE_IN_GUIDE and CharacterReforged.HYPER_PAGE_GUIDE and not CharacterReforged.HYPER_PAGE_GUIDE_ADDED then
+      CharacterReforged.HYPER_PAGE_GUIDE_ADDED = true
+      -- only the L3 hint
+      if SetPersonalPlateType == nil and CharacterReforged.hyper_page_miximax_hint() then
+        pcall(AddButtonGuideInfo, CharacterReforged.HYPER_PAGE_MIXIMAX_TEXT, CharacterReforged.HYPER_PAGE_MIXIMAX_KEYS, 18, 0, 0, 0)
       end
     end
     return orig(...)
   end
 end)
 
--- parent menus only: rebuild the guide when the plate's flag changes (polled once per frame)
+-- Applies to parent menus only.
 if SetPersonalPlateType == nil and SetupDefaultFormationButtonGuide ~= nil then
   for _, fname in ipairs({"PostStep", "Step"}) do
-    EVT_PH_Wrap(fname, function(orig)
+    VRFW.host.wrap(fname, function(orig)
       return function(...)
         local r = orig(...)
-        local on = EVT_PH_MxHint()
-        if on ~= (EVT_PH_MX_HINT_LAST == true) then
-          EVT_PH_MX_HINT_LAST = on
-          pcall(SetupDefaultFormationButtonGuide, EVT_PH_GUIDE_ARG)
+        local on = CharacterReforged.hyper_page_miximax_hint()
+        if on ~= (CharacterReforged.HYPER_PAGE_MIXIMAX_HINT_LAST == true) then
+          CharacterReforged.HYPER_PAGE_MIXIMAX_HINT_LAST = on
+          pcall(SetupDefaultFormationButtonGuide, CharacterReforged.HYPER_PAGE_GUIDE_ARG)
         end
         return r
       end
@@ -2636,13 +2601,13 @@ if SetPersonalPlateType == nil and SetupDefaultFormationButtonGuide ~= nil then
   end
 end
 
-EVT_PH_Wrap("SetupDefaultFormationButtonGuide", function(orig)
+VRFW.host.wrap("SetupDefaultFormationButtonGuide", function(orig)
   return function(...)
-    EVT_PH_GUIDE_ARG = ...
-    EVT_PH_IN_GUIDE = true
-    EVT_PH_GUIDE_ADDED = false
+    CharacterReforged.HYPER_PAGE_GUIDE_ARG = ...
+    CharacterReforged.HYPER_PAGE_IN_GUIDE = true
+    CharacterReforged.HYPER_PAGE_GUIDE_ADDED = false
     local ok, r = pcall(orig, ...)
-    EVT_PH_IN_GUIDE = false
+    CharacterReforged.HYPER_PAGE_IN_GUIDE = false
     if not ok then
       error(r, 0)
     end

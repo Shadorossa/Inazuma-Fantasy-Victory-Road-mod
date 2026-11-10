@@ -1,27 +1,12 @@
--- Chronicle Deluxe, the battle kinds of the Chronicle board's command menu (docs/game/mods/chronicle-deluxe.md §8). A
--- hook file of the VR-Framework's command menu script (graft route_board, docs/framework/route-board.md §3). Nothing
 -- runs at load but the definitions and the registrations (no engine call).
---   * rows: only the difficulties that exist (VRFW_MatchDifficulty, this mod's content\defaults\match_difficulty.toml:
---     a normal piece Crónica and Heroica, a gate piece its gate battle), before the framework's node filter.
---   * panel fit: the blue panel of the battle-kind list («MI EQUIPO»; layout vsroute01_15c on normal pieces, 15d on
---     gate pieces, one quad _list_base01 / _list_base02) is sized for every retail row slot (8 / 5, 70 px each). With
---     fewer rows it is cut to them: height = retail - 70 * (slots - rows), top edge kept (the banner and the rows do not
---     move), so the margin under the last row equals the one over the first (VRFW_RBC_ListLayer). The panel sprites
---     get nine-slice guides (content\images\menu\30_vsroute\vsroute01\vsroute01_15c.toml / 15d.toml) so the rounded
---     corners and the shadow keep their size. The bands under the last row (VRFW_RBC_PanelExtra = their sum: the
---     match challenge line, this mod's team lineup) are added to that height while they are shown.
---   * team lineup (cd_lineup.lua, 1.8.0): a band under the rows with the active team's starters on a mini pitch and the
---     «Y Plantilla de equipo» button that opens the team dock from the board.
--- With Inazuma Fantasy's Chronicle redesign active (its global EVT_ChrFrameFit, the same fit with its own layouts and
--- the same guides) the fit is IF's: one implementation.
 ChronicleDeluxe = ChronicleDeluxe or {}
-ChronicleDeluxe.Command = ChronicleDeluxe.Command or {}
+ChronicleDeluxe.command = ChronicleDeluxe.command or {}
 @LINEUP@
-local K = ChronicleDeluxe.Command
+local K = ChronicleDeluxe.command
 
--- kind 1 = a gate piece; no set declared = every row
-function K.Rows(rows, kind)
-  local s = VRFW_MatchDifficulty ~= nil and VRFW_MatchDifficulty.Set(kind == 1 and "gate" or "route") or nil
+-- Returns the rows for kind (1 is a gate piece).
+function K.rows(rows, kind)
+  local s = VRFW.match_difficulty ~= nil and VRFW.match_difficulty.set(kind == 1 and "gate" or "route") or nil
   if s == nil or rows == nil then
     return rows
   end
@@ -34,7 +19,7 @@ function K.Rows(rows, kind)
   return keep
 end
 
--- per list layer kind (0 normal, 1 gate): the panel quad and its retail size (layouts vsroute01_15c / 15d, v7.1.2)
+-- Panel layout per list layer kind (0 normal, 1 gate).
 K.PANEL = {
   [0] = {node = 785322415 --[[_list_base01]], width = 700, height = 644, slots = 8},
   [1] = {node = 3083223061 --[[_list_base02]], width = 700, height = 472, slots = 5}
@@ -42,50 +27,105 @@ K.PANEL = {
 K.ROW_HEIGHT = 70
 K.NODE_SCALE = 2885415772         -- (layer, instance, node, width, height): a quad's size in px
 
-function K.FitPanel(layer, kind, rows, extra)
+function K.fit_panel(layer, kind, rows, extra)
   local p = K.PANEL[kind]
   if p == nil or rows == nil or rows < 1 then
     return
   end
-  if rows > p.slots then
-    rows = p.slots
-  end
   funcLuaMenuCommand(K.NODE_SCALE, layer, 0, p.node, p.width, p.height - K.ROW_HEIGHT * (p.slots - rows) + (extra or 0))
 end
 
--- a framework service's piece (a gacha node: its one command row, no lineup, no team level, no «Plantilla de equipo»)
-function K.ServicePiece()
-  return VRFW_RBC_ServicePiece ~= nil and VRFW_RBC_ServicePiece()
+function K.service_piece()
+  return (VRFW.route_board_commands ~= nil and VRFW.route_board_commands.service_piece ~= nil) and VRFW.route_board_commands.service_piece()
 end
 
--- this mod fits the panel to the rows (not Inazuma Fantasy's redesign; the mod's difficulty set is declared, or the
--- piece is a framework service's: its panel is cut to its own rows too)
-function K.FitsPanel(kind)
-  return EVT_ChrFrameFit == nil and VRFW_MatchDifficulty ~= nil
-    and (VRFW_MatchDifficulty.Set(kind == 1 and "gate" or "route") ~= nil or K.ServicePiece())
+function K.fits_panel(kind)
+  return EVT_ChrFrameFit == nil and VRFW.match_difficulty ~= nil
+    and (VRFW.match_difficulty.set(kind == 1 and "gate" or "route") ~= nil or K.service_piece())
 end
 
--- this mod's match panel (the team lineup band): a fitted panel that is not a framework service's piece
-function K.OwnsPanel(kind)
-  return K.FitsPanel(kind) and not K.ServicePiece()
+-- Returns whether this mod's match panel (the team lineup band) owns the panel.
+function K.owns_panel(kind)
+  return K.fits_panel(kind) and not K.service_piece()
 end
 
-if VRFW_Host ~= nil then
-  VRFW_Host.on("vs_route_town_command_select_menu", "VRFW_RBC_Rows", {id = "ChronicleDeluxe.board", phase = "around",
+-- Autocomplete: Select on the Chronicle row asks the board (vs_route_town_menu) to record the win.
+K.SELECT_FUNCTION = 692387310     -- the CMD_FUNCTION of CMD_FUNC2 in this menu's setting (Select, keyboard Tab)
+K.SELECT_INPUT = 3170216173 --[[CMD_FUNC2]]
+K.SELECT_GLYPH = 3401540579       -- the guide glyph retail pairs with CMD_FUNC2 on this menu
+K.AUTOCOMPLETE_TEXT = 3847662389  -- crc32("chronicle_deluxe_autocomplete_prompt")
+K.AUTOCOMPLETE_REQUEST = 1168198373 -- crc32("chronicle_deluxe_autocomplete_request"): read by the board
+K.CHRONICLE = 1                   -- the Chronicle row's difficultyType
+K.ROWS = 284009563                -- vsroute01_16_sub_list
+K.MENU = 1193383590               -- vs_route_town_command_select_menu
+K.GUIDE_LAYER = 1138543975        -- mainmenu01_06_base_button_guide
+K.CMD = {
+  GET_CLEAR = 4034518619,         -- CMND_GET_CHRONICLE_CLEAR_STATUS (slot, difficulty)
+  GET_LOCK = 3394595467,          -- CMND_GET_CHRONICLE_LOCK_STATUS (slot, difficulty)
+  FOCUSED_ROW = 2603265800,       -- (list layer) -> focused row, from 0
+  GUIDE_EXTRA = 2190844859,       -- (parent menu, guide layer, 0, on): retail turns it on for a guide with two entries
+  SOUND = 1917805374,
+  SOUND_DECIDE = 3848881948,      -- sy0000
+  CLOSE_MENU = 320421347,         -- CMND_CLOSE_MENU_OBJECT
+}
+
+-- Returns the focused battle row.
+function K.focused_row()
+  return VRFW.route_board_commands.L.t3[VRFW.host.menu_command(K.CMD.FOCUSED_ROW, K.ROWS) + 1]
+end
+
+-- Returns whether a row is an open, not yet beaten Chronicle battle.
+function K.can_autocomplete(row)
+  if row == nil or row.difficultyType ~= K.CHRONICLE or K.service_piece() then
+    return false
+  end
+  local slot = VRFW.route_board_commands.L.n2
+  return not funcLuaCommand(K.CMD.GET_LOCK, slot, K.CHRONICLE) and not funcLuaCommand(K.CMD.GET_CLEAR, slot, K.CHRONICLE)
+end
+
+-- Closes the menu with the board's request written (no retail result: the board goes back as after Back).
+function K.request_autocomplete()
+  local L = VRFW.route_board_commands.L
+  funcLuaCommand(K.CMD.SOUND, K.CMD.SOUND_DECIDE)
+  ChronicleDeluxe.lineup.hide()
+  SetupButtonGuide()
+  VRFW.param.replace(K.AUTOCOMPLETE_REQUEST, 1)
+  funcLuaCommand(K.CMD.CLOSE_MENU, K.MENU)
+  L.flag = true
+end
+
+if VRFW.host ~= nil then
+  VRFW.host.on("vs_route_town_command_select_menu", "VRFW.route_board_commands.rows", {id = "ChronicleDeluxe.board", phase = "around",
     fn = function(nxt, rows, kind, slot)
-      return nxt(K.Rows(rows, kind), kind, slot)
+      return nxt(K.rows(rows, kind), kind, slot)
     end})
-  VRFW_Host.on("vs_route_town_command_select_menu", "VRFW_RBC_ListLayer", {id = "ChronicleDeluxe.panel_fit",
+  VRFW.host.on("vs_route_town_command_select_menu", "VRFW.route_board_commands.list_layer", {id = "ChronicleDeluxe.panel_fit",
     phase = "after", fn = function(r, layer, kind, rows)
-      if K.FitsPanel(kind) then
-        K.FitPanel(layer, kind, rows, VRFW_RBC ~= nil and VRFW_RBC.panel.extra or 0)
+      if K.fits_panel(kind) then
+        K.fit_panel(layer, kind, rows, VRFW.route_board_commands ~= nil and VRFW.route_board_commands.panel.extra or 0)
       end
     end})
-  VRFW_Host.on("vs_route_town_command_select_menu", "VRFW_RBC_PanelExtra", {id = "ChronicleDeluxe.panel_band",
+  VRFW.host.on("vs_route_town_command_select_menu", "VRFW.route_board_commands.panel_extra", {id = "ChronicleDeluxe.panel_band",
     phase = "after", fn = function(r, layer, kind, rows, extra)
-      if layer ~= nil and K.FitsPanel(kind) then
-        K.FitPanel(layer, kind, rows, extra)
+      if layer ~= nil and K.fits_panel(kind) then
+        K.fit_panel(layer, kind, rows, extra)
       end
     end})
-  ChronicleDeluxe.Lineup.Register("vs_route_town_command_select_menu", K.OwnsPanel)
+  VRFW.host.on("vs_route_town_command_select_menu", "VRFW.route_board_commands.guide", {id = "ChronicleDeluxe.autocomplete",
+    phase = "after", fn = function(r, item, icons, texts, commands)
+      if K.can_autocomplete(item) then
+        icons[#icons + 1], texts[#texts + 1], commands[#commands + 1] = K.SELECT_GLYPH, K.AUTOCOMPLETE_TEXT, K.SELECT_INPUT
+        VRFW.host.menu_command(K.CMD.GUIDE_EXTRA, VRFW.route_board_commands.L.n12, K.GUIDE_LAYER, 0, true)
+      end
+    end})
+  VRFW.host.on("vs_route_town_command_select_menu", "OnFunction", {id = "ChronicleDeluxe.autocomplete",
+    phase = "before", fn = function(a1)
+      local L = VRFW.route_board_commands.L
+      if a1 ~= K.SELECT_FUNCTION or L.flag or L.flag2 or not K.can_autocomplete(K.focused_row()) then
+        return
+      end
+      K.request_autocomplete()
+      return VRFW.host.HALT
+    end})
+  ChronicleDeluxe.lineup.register("vs_route_town_command_select_menu", K.owns_panel)
 end

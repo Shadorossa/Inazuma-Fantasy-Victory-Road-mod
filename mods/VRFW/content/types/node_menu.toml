@@ -1,6 +1,4 @@
 # Declaration schema of the board node menus (content\node_menus\*.toml, docs/framework/node-menu.md): [[VRFW.NodeMenu]]
-# (Chronicle board nodes whose piece runs a mod's own menu instead of the command menu). An unknown key, wrong type or
-# out-of-range value drops that declaration with a warning.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.node_menu/1"
 folder = "content/node_menus"
@@ -10,8 +8,10 @@ doc = "Chronicle board nodes that open a mod's menu instead of the command menu.
 doc_es = "Nodos del tablero de la Crónica que abren el menú de un mod en lugar del menú de comandos."
 
 [entry.NodeMenu]
-doc = "Chronicle board nodes that open a mod's menu: picking one of their pieces calls the handler instead of opening the command menu"
+doc = "Chronicle board nodes that open a mod's menu: picking one of their pieces calls the handler instead of opening the command menu, or with rows, the command menu lists those rows and the handler runs with the picked one"
 name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
 nodes = { type = "strings", required = true, doc = "the [[VRFW.RouteNode]] Names of the nodes (any mod's)" }
-handler = { type = "string", required = true, doc = "a Lua function of the board script's VM (vs_route_town_menu), `Name` or `Table.Name`: handler(piece index, node name, menu key) -> true when it ran its flow (false = the piece's command menu opens as usual)" }
+handler = { type = "string", required = true, doc = "a Lua function of the board script's VM (vs_route_town_menu), `Name` or `Table.Name`. Without rows: handler(piece index, node name, menu key) -> true when it ran its flow (false = the piece's command menu opens as usual). With rows: handler(row, piece index, node name, menu key) runs once the player picked a row (row = {index, level, min, max, game})" }
+rows = { type = "records", fields = { text = { type = "string", doc = "the row's text: a text key or id; %d in it = the row's shown level" }, unlock = { type = "string", doc = "a game id or name: the row is listed once that game's Crónica (difficulty 1) is won; none = always" }, level = { type = "int", min = 1, max = 999, doc = "the level shown on the row (the team level number)" }, levels = { type = "ints", min = 1, max = 999, doc = "[lowest, highest]: the shown level is the club's team level kept inside this band (VRFW.recruit.team_level); replaces level" }, game = { type = "string", doc = "the game whose drop-rate list the X key shows (its Crónica row); default unlock, else the node's game" } }, doc = "the node's command menu lists these rows instead of the battle rows (the retail «MI EQUIPO» row layout); a row with a level shows its text left and the level right" }
+banner = { type = "string", default = "", doc = "with rows: the command menu's banner picture instead of the team's (a VRFW image name of the mod); none = the retail banner" }
 when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

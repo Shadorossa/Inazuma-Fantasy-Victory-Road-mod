@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# The armour of the keshin Robin: meshes per body group and texture (assets/models/armours/krobin01).
+format = "native"
+game_path = "chr/_armd/krobin01"

@@ -1,0 +1,26 @@
+# Maps [[help_entry]] (content\help_entries\**\*.toml) to HELP_LIST_INFO rows of the game's help list (docs/wiki/Help-Entries.md).
+schema = "VRFW.table_map/1"
+
+[[map]]
+entry = "help_entry"
+table = "help/help_list_info"
+mode = "append"
+key = "key"
+row_key = { crc32 = "{mod}.{key}" }
+order = "order"
+unique = true
+count = "help entries"
+
+[map.fields]
+key = { type = "string", check = "key", required = true, max_len = 64 }
+title = { column = "c4", type = "id", check = "text_id", required = true }   # text key of the list label and page title
+body = { column = "c5", type = "id", check = "text_id", required = true }    # text key of the page text
+icon = { type = "string", default = "question" }                             # question | mouse
+order = { type = "int", default = 100 }                                      # sort inside the Mods tab (default 100)
+
+[map.derive]
+c1 = 7                                 # the Mods tab: categories 0-6 are the game's
+c2 = 65535                             # no read mark: the game keeps them for its own rows only
+c3 = "{title}"
+c9 = { lua = "help_entry.lua:icon" }
+HELP_LIST_INFO_REF_IMAGE = { set = [] }   # no pictures: the page shows only its text

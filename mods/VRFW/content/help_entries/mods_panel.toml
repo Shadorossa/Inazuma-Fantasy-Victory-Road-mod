@@ -1,0 +1,8 @@
+# The first page of the Help screen's Mods tab: what the Mods panel is.
+schema = "VRFW.help_entry/1"
+
+[[help_entry]]
+key = "mods_panel"
+title = "help_mods_panel_title"
+body = "help_mods_panel_body"
+order = 10

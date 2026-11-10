@@ -1,0 +1,7 @@
+schema = "VRFW.menu/2"
+
+[[entry]]
+host = "CharacterReforged.header"
+id = "double_archetype"
+order = 10
+action = { lua = "BetterQoL.archetype_header.piece" }

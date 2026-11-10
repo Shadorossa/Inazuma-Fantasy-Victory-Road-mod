@@ -1,9 +1,9 @@
 schema = "VRFW.option/2"
-# Theme engine setting (Mods options tab); stored in mod_options/theme_engine.json. Only value 0 (off) is declared here; one value per theme accent is added at boot.
+# Theme engine setting (Mods options tab); stored in mod_options/theme_engine.json.
 
 [[option]]
 id = "ui_theme"                               # row key theme_engine.ui_theme
-visual = true                                 # only what this player sees / hears: not compared in online rooms
+visual = true
 type = "list"
 label = "ui_theme"                            # text key
 help = "ui_theme_help"

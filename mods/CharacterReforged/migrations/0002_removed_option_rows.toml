@@ -1,0 +1,37 @@
+schema = "VRFW.migration/1"
+id = "CharacterReforged.removed_option_rows"
+description = "Stored values of removed Character Reforged option rows are cleaned up"
+phase = "data"
+after = ["VRFW.no_compat_names", "CharacterReforged.module_merges"]
+
+[[step]]
+kind = "delete_option_row"
+id = "AuraOverhaul.keshin_own_move_only"
+
+[[step]]
+kind = "delete_option_row"
+id = "AuraOverhaul.souls_rival_levels"
+
+[[step]]
+kind = "delete_option_row"
+id = "CharacterReforged.skill_set_view"
+
+[[step]]
+kind = "delete_option_row"
+id = "CharacterReforged.first_touch"
+
+[[step]]
+kind = "delete_option_row"
+id = "ClassicTraining.first_touch"
+
+[[step]]
+kind = "delete_option_row"
+id = "PlayerTraining.first_touch"
+
+[[step]]
+kind = "delete_option_row"
+id = "ClassicRecruitment.recruit_source"
+
+[[step]]
+kind = "delete_option_row"
+id = "NewRecruitment.recruit_source"

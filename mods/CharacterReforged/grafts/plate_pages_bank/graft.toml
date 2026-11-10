@@ -1,9 +1,4 @@
-# Character Reforged: the player page's part in the two character banks (chara_bank_menu, _for_search): their page
-# table (a chunk local) gets the pages of plate_hiper_bank / Utilities' career page / plate_pages (index 6 PERFIL type 8,
-# 7 ATRIBUTOS type 9), the common block (Q / E through the VR-Framework's player page registry, the Pasivas cursor
-# mode, the pointer) and the bank's own lineup hidden while the page is over it. Split out of plate_pages on
-# 2026-10-14 (docs/refactor/aura-mods-split.md «Player page»): every wrapper goes through EVT_PPG_Wrap (one per
-# function, a fresh definition wrapped again) and the page declarations replace themselves by name.
+# The player page's part in the two character banks: their page table, the common block and the bank lineup hide.
 # Sources: the files of research/grafts/plate_pages.
 name = "plate_pages_bank"
 mod = "CharacterReforged"
@@ -22,7 +17,7 @@ stem = "chara_bank_menu"
   type = "replace"
   point = "chara_bank_menu.main.PlatePages"
   text = '''
-local t2 = {1, 0, 2, 3, 5, 6, 8, 9} -- Character Reforged player page: Hiper page (index 4, type 5), Utilities career page (index 5, type 6), PERFIL (6, type 8), ATRIBUTOS (7, type 9)
+local t2 = {1, 0, 2, 3, 5, 6, 8, 9} -- Character Reforged player page: Hiper page (index 4, type 5), BetterQoL career page (index 5, type 6), PERFIL (6, type 8), ATRIBUTOS (7, type 9)
 '''
   crc = "none"
 
@@ -43,7 +38,7 @@ stem = "chara_bank_menu_for_search"
   type = "replace"
   point = "chara_bank_menu_for_search.main.PlatePages"
   text = '''
-local t3 = {1, 0, 2, 3, 5, 6, 8, 9} -- Character Reforged player page: Hiper page (index 4, type 5), Utilities career page (index 5, type 6), PERFIL (6, type 8), ATRIBUTOS (7, type 9)
+local t3 = {1, 0, 2, 3, 5, 6, 8, 9} -- Character Reforged player page: Hiper page (index 4, type 5), BetterQoL career page (index 5, type 6), PERFIL (6, type 8), ATRIBUTOS (7, type 9)
 '''
   crc = "none"
 

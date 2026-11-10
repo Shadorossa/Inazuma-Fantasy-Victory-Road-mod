@@ -1,6 +1,4 @@
 schema = "VRFW.changelog/1"
-# Battle Bay Deluxe: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
-# Rules (the parser refuses the rest): a single 
 
 [[release]]
 icon = "stadium"
@@ -8,7 +6,7 @@ notes = [
     "Equipos de Crónica en Bahía Batalla",
     "Nuevo modo Draft de jugadores",
     "Torneo, Liga y Reto diario",
-    "Campaña con rivales aleatorios",
+    "Campaña con rivales y campos aleatorios",
     "Multijugador en sala privada",
 ]
 
@@ -17,7 +15,7 @@ notes = [
     "Chronicle teams in Battle Bay",
     "New player Draft mode",
     "Tournament, League and Daily Challenge",
-    "Campaign with random rivals",
+    "Campaign with random rivals and fields",
     "Private room multiplayer",
 ]
 
@@ -26,7 +24,7 @@ notes = [
     "Équipes Chronique dans Baie Bataille",
     "Nouveau mode Draft de joueurs",
     "Tournoi, Ligue et Défi quotidien",
-    "Campagne à rivaux aléatoires",
+    "Campagne à rivaux et terrains aléatoires",
     "Multijoueur en salon privé",
 ]
 
@@ -35,7 +33,7 @@ notes = [
     "Chronik-Teams in der Kampfbucht",
     "Neuer Spieler-Draft-Modus",
     "Turnier, Liga und Tagesherausforderung",
-    "Kampagne mit Zufallsgegnern",
+    "Kampagne mit Zufallsgegnern und -feldern",
     "Mehrspieler im privaten Raum",
 ]
 
@@ -44,7 +42,7 @@ notes = [
     "Squadre Cronaca nella Baia Battaglia",
     "Nuova modalità Draft giocatori",
     "Torneo, Lega e Sfida giornaliera",
-    "Campagna con rivali casuali",
+    "Campagna con rivali e campi casuali",
     "Multigiocatore in stanza privata",
 ]
 
@@ -53,7 +51,7 @@ notes = [
     "Equipas da Crónica na Baía Batalha",
     "Novo modo Draft de jogadores",
     "Torneio, Liga e Desafio diário",
-    "Campanha com rivais aleatórios",
+    "Campanha com rivais e campos aleatórios",
     "Multijogador em sala privada",
 ]
 
@@ -62,7 +60,7 @@ notes = [
     "バトルベイに年代記のチームが登場",
     "新モード：選手ドラフト",
     "トーナメント、リーグ、デイリー挑戦",
-    "ランダムな相手とのキャンペーン",
+    "ランダムな相手とフィールドのキャンペーン",
     "プライベートルームで対戦",
 ]
 
@@ -71,7 +69,7 @@ notes = [
     "战斗湾加入编年史球队",
     "新增球员选秀模式",
     "锦标赛、联赛和每日挑战",
-    "随机对手的战役",
+    "随机对手与场地的战役",
     "私人房间多人对战",
 ]
 
@@ -80,6 +78,6 @@ notes = [
     "戰鬥灣加入編年史球隊",
     "新增球員選秀模式",
     "錦標賽、聯賽和每日挑戰",
-    "隨機對手的戰役",
+    "隨機對手與場地的戰役",
     "私人房間多人對戰",
 ]

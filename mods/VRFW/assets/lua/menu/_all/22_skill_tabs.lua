@@ -1,59 +1,39 @@
--- menu_engine: the Lua side of the skill tab registry (VRFW service S3).
--- Definitions only (this file runs in every script VM, lua\_all): the move list's handler file
--- (lua\ability_list_menu\110_skill_tabs.lua) calls VRFW_SkillTabs.Attach(stem). Nothing here names a tab or a mod: the
--- tabs come from the mods' content\skill_tabs\*.toml through the framework's commands.
---
--- * The tab row of the «Habilidades» / «Técnicas» list is native (the game's tab table, which the registry rewrites:
---   a game tab hidden, a new category added, a window of one group). The list's Lua only paints the icons and titles
---   and picks the filter from three tables parallel to the game's table: `t` (tab icon types), `t4` (filter window
---   configs), `t5` (saved filter groups). When the registry is on (CMND_VRFW_SKILL_TABS() > 0), @edit rebuilds the
---   three in place from the native list's window (CMND_VRFW_SKILL_TAB_WINDOW()): a game tab keeps its own icon /
---   filter, a declared look (CMND_VRFW_SKILL_TAB_INFO) gets a marker icon type (MARK + category). So icons, titles,
---   Z / C and the filters always agree with the native list.
--- * LISTVIEW.SetupTabIcon: a marker draws the plate of the declared game icon type, then the declared sprite on the
---   focused / unfocused icon meshes. LISTVIEW.SetupTabText: a marker writes the declared title (the game's text lookup
---   of its id, else the framework's text).
--- * The tab layer has a fixed number of plate instances (10): a plate past the list is hidden with its «!» badge, its
---   click zone and its hover focus (OnSetupLayer / OnOpenLayer); UpdateTabNewIcon never lights one.
--- * Registry off (no declaration, or another mod patches the tab sites itself): nothing is touched.
--- No engine call at load time.
-if VRFW_SkillTabs == nil then
+-- lua_patch.scope: used
+if VRFW.skill_tabs == nil then
   local ST = {
-    CMD_TABS = VRFW_Cmd.VRFW_SKILL_TABS,     -- CMND_VRFW_SKILL_TABS() -> n, category 1 … n (0 = off)
-    CMD_WINDOW = VRFW_Cmd.VRFW_SKILL_TAB_WINDOW,   -- CMND_VRFW_SKILL_TAB_WINDOW() -> start, count of the window in force
-    CMD_INFO = VRFW_Cmd.VRFW_SKILL_TAB_INFO,       -- CMND_VRFW_SKILL_TAB_INFO(category) -> game index, icon, atlas, sprite, sprite off,
-                               --   text id, text, filter, filter group
-    TEXT_GET = VRFW_Cmd.TEXT_GET,     -- CMND_TEXT_GET(text id) -> the text in the game's language
-    LOG = VRFW_Cmd.EVT_LOG,          -- CMND_EVT_LOG
-    SET_TEXT = VRFW_Cmd.SET_MENU_TEXT_STRING,     -- CMND_SET_MENU_TEXT_STRING
-    VISIBLE = VRFW_Cmd.SET_LAYER_VISIBLE,       -- CMND_SET_LAYER_VISIBLE
+    CMD_TABS = VRFW.commands.VRFW_SKILL_TABS,
+    CMD_WINDOW = VRFW.commands.VRFW_SKILL_TAB_WINDOW,
+    CMD_INFO = VRFW.commands.VRFW_SKILL_TAB_INFO,
+                               -- text id, text, filter, filter group
+    TEXT_GET = VRFW.commands.TEXT_GET,     -- CMND_TEXT_GET(text id) -> the text in the game's language
+    SET_TEXT = VRFW.commands.SET_MENU_TEXT_STRING,     -- CMND_SET_MENU_TEXT_STRING
+    VISIBLE = VRFW.commands.SET_LAYER_VISIBLE,       -- CMND_SET_LAYER_VISIBLE
     SET_SPRITE = 558735651,
     COLLISION = 855005857,     -- a layer instance's click zone on / off
-    HOVER = VRFW_Cmd.SET_ON_CHANGE_FOCUS_MOUSE,        -- a layer instance's hover focus on / off
+    HOVER = VRFW.commands.SET_ON_CHANGE_FOCUS_MOUSE,        -- a layer instance's hover focus on / off
     TAB_ITEM = 4044286600,     -- cmn06_20_list_tab_item (one plate instance per tab)
-    TAB_NEW = 2834115499,      -- cmn01_10_new_icon_tab (the «!» badge, one instance per plate)
+    TAB_NEW = 2834115499,
     TAB_BAR = 1887158505,      -- the tab bar layer (its title text)
     TAB_TEXT = 3029561990,     -- _text_list_tab01
-    DMY_ON = 3229351341,       -- icon_list_tab_dmy01_on
+    DMY_ON = 3229351341,       -- `icon_list_tab_dmy01_on`
     DMY_OFF = 380437824,       -- icon_list_tab_dmy01_off
-    MARK = 1448280064,         -- marker icon type base (0x56530000 + category): never a game icon type
-    on = false,                -- the tables were rebuilt from the native list (this VM)
+    MARK = 1448280064,
+    on = false,
     count = 0,                 -- tabs shown
-    looks = {},                -- marker -> { icon, atlas, sprite, sprite_off, text_id, text, category }
+    looks = {},
     wrapped = false,
     logs = 0,
   }
 
-  function ST.Log(...)
+  local logger
+  --- Logs through the skill-tabs logger, at most 20 lines.
+  function ST.log(...)
     if ST.logs >= 20 then
       return
     end
     ST.logs = ST.logs + 1
-    local parts = {}
-    for i = 1, select("#", ...) do
-      parts[#parts + 1] = tostring((select(i, ...)))
-    end
-    pcall(funcLuaCommand, ST.LOG, "VRFW skill_tabs " .. table.concat(parts, " "))
+    logger = logger or VRFW.logger.new("VRFW skill_tabs")
+    logger(...)
   end
 
   local function number_or(v, default)
@@ -63,8 +43,8 @@ if VRFW_SkillTabs == nil then
     return default
   end
 
-  -- the native list in force: its categories (the window of the registry's list), or nil when the registry is off
-  function ST.NativeTabs()
+  --- The engine's skill tabs, or nil when it has none.
+  function ST.native_tabs()
     local r = table.pack(pcall(funcLuaCommand, ST.CMD_TABS))
     if not r[1] or type(r[2]) ~= "number" or r[2] <= 0 then
       return nil
@@ -84,21 +64,19 @@ if VRFW_SkillTabs == nil then
     return out
   end
 
-  -- rebuild the screen's three tab tables in place (the functions of the script hold them as upvalues)
-  function ST.Apply(t, t4, t5)
+  --- Rebuild the screen's three tab tables in place (the functions of the script hold them as upvalues).
+  function ST.apply(t, t4, t5)
     if ST.on or type(t) ~= "table" or type(t4) ~= "table" or type(t5) ~= "table" then
       return
     end
-    local cats = ST.NativeTabs()
+    local cats = ST.native_tabs()
     if cats == nil then
       return
     end
-    -- the game's tables, parallel to the game's tab table (copied before they are rewritten)
     local game_icon, game_filter, game_group = {}, {}, {}
     for i = 1, #t do
       game_icon[i], game_filter[i], game_group[i] = t[i], t4[i], t5[i]
     end
-    -- the first game tab of a kind (move categories 1-4: the first; aura categories: the first aura tab, index 5)
     local function kind_index(category)
       if category >= 100 and #t >= 5 then
         return 5
@@ -134,11 +112,11 @@ if VRFW_SkillTabs == nil then
       t[i], t4[i], t5[i] = nt[i], n4[i], n5[i]
     end
     ST.on, ST.count = true, #nt
-    ST.Log("tabs", #nt, table.concat(shown, " "))
+    ST.log("tabs", #nt, table.concat(shown, " "))
   end
 
-  -- LISTVIEW wrappers (once per VM): the marker icon types' plates and titles
-  function ST.Wrap()
+  --- Wraps the retail list-view icons for the skill tabs, once.
+  function ST.wrap()
     if ST.wrapped or type(LISTVIEW) ~= "table" then
       return
     end
@@ -185,8 +163,8 @@ if VRFW_SkillTabs == nil then
     end
   end
 
-  -- a tab plate (or its «!» badge) past the shown tabs: hidden, with its click zone and hover focus
-  function ST.HideSpare(layer, instance)
+  --- Hides a spare tab instance of the skill bar; answers true when it did.
+  function ST.hide_spare(layer, instance)
     if not ST.on or (layer ~= ST.TAB_ITEM and layer ~= ST.TAB_NEW) or type(instance) ~= "number"
         or instance < ST.count then
       return false
@@ -199,43 +177,42 @@ if VRFW_SkillTabs == nil then
     return true
   end
 
-  function ST.Attach(stem)
-    if VRFW_Host == nil then
+  --- Installs the skill tabs on menu `stem` through VRFW.host.
+  function ST.attach(stem)
+    if VRFW.host == nil then
       return
     end
     local id = "menu_engine.skill_tabs"
-    VRFW_Host.on(stem, "@edit", {
+    VRFW.host.on(stem, "@edit", {
       id = id,
       fn = function(L)
         local ok, t, t4, t5 = pcall(function() return L.t, L.t4, L.t5 end)
         if not ok then
-          ST.Log(stem, "tab tables not readable:", t)
+          ST.log(stem, "tab tables not readable:", t)
           return
         end
-        ST.Apply(t, t4, t5)
+        ST.apply(t, t4, t5)
         if ST.on then
-          ST.Wrap()
+          ST.wrap()
         end
       end,
     })
-    -- the spare plates: no game setup (their icon type would be nil), hidden
-    VRFW_Host.on(stem, "OnSetupLayer", {
+    VRFW.host.on(stem, "OnSetupLayer", {
       id = id, phase = "around",
       fn = function(nxt, layer, instance, ...)
-        if ST.HideSpare(layer, instance) then
+        if ST.hide_spare(layer, instance) then
           return
         end
         return nxt(layer, instance, ...)
       end,
     })
-    VRFW_Host.on(stem, "OnOpenLayer", {
+    VRFW.host.on(stem, "OnOpenLayer", {
       id = id, phase = "after",
       fn = function(r, layer, instance)
-        ST.HideSpare(layer, instance)
+        ST.hide_spare(layer, instance)
       end,
     })
-    -- the engine sets the «!» badge of every tab of its own list (native index = plate index); never a spare one
-    VRFW_Host.on(stem, "UpdateTabNewIcon", {
+    VRFW.host.on(stem, "UpdateTabNewIcon", {
       id = id, phase = "around",
       fn = function(nxt, index, lit, ...)
         if ST.on and type(index) == "number" and index >= ST.count then
@@ -246,5 +223,5 @@ if VRFW_SkillTabs == nil then
     })
   end
 
-  VRFW_SkillTabs = ST
+  VRFW.skill_tabs = ST
 end

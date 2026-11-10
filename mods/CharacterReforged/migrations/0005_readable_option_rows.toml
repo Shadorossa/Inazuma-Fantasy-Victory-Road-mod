@@ -1,0 +1,206 @@
+schema = "VRFW.migration/1"
+id = "CharacterReforged.readable_option_rows"
+description = "Character Reforged option rows and config keys get readable names: the saved values are kept"
+phase = "data"
+after = ["VRFW.no_compat_names", "CharacterReforged.totems_in_base"]
+
+# option rows: stamina_points first, so a current value wins over an old pe row
+[[step]]
+kind = "rename_option_row"
+from = "CharacterReforged.stamina_points"
+to = "CharacterReforged.stamina"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_option_row"
+from = "CharacterReforged.peg"
+to = "CharacterReforged.keshin_points"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_option_row"
+from = "CharacterReforged.sp"
+to = "CharacterReforged.totem_points"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_option_row"
+from = "CharacterReforged.pe"
+to = "CharacterReforged.stamina"
+if_target = "keep_target"
+
+# the player's [mods.CharacterReforged] overrides in the loader's config.toml
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.pe"
+to = "mods.CharacterReforged.stamina"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.points.peg"
+to = "mods.CharacterReforged.points.keshin_points"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.points.sp"
+to = "mods.CharacterReforged.points.totem_points"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.points.cs_scale"
+to = "mods.CharacterReforged.points.cost_scale"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.points.cs_armour_drain_k"
+to = "mods.CharacterReforged.points.armour_drain_factor"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.points.cs_armour_gk_zone_mult"
+to = "mods.CharacterReforged.points.armour_goalkeeper_zone_multiplier"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.points.cs_armour_first_refill"
+to = "mods.CharacterReforged.points.armour_first_refill"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.points.cs_armour_moves_free"
+to = "mods.CharacterReforged.points.armour_moves_free"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.points.cs_keshin_moves_cost"
+to = "mods.CharacterReforged.points.keshin_moves_cost"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.points.cs_armour_keshin_move"
+to = "mods.CharacterReforged.points.armour_keshin_move"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.cs_scale"
+to = "mods.CharacterReforged.stamina.cost_scale"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.cs_pe_free_while_out"
+to = "mods.CharacterReforged.stamina.stamina_free_while_out"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.cs_end_pe_k"
+to = "mods.CharacterReforged.stamina.end_stamina_factor"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.cs_end_stat_k"
+to = "mods.CharacterReforged.stamina.end_stat_factor"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.cs_end_armour_mult"
+to = "mods.CharacterReforged.stamina.end_armour_multiplier"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.cs_end_grace_ms"
+to = "mods.CharacterReforged.stamina.end_grace_ms"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.cs_end_follows_level"
+to = "mods.CharacterReforged.stamina.end_follows_level"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.kp_default"
+to = "mods.CharacterReforged.stamina.keshin_points_default"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.cs_miximax_pe_mult"
+to = "mods.CharacterReforged.stamina.chrono_stone_miximax_stamina_multiplier"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.miximax_pe_mult"
+to = "mods.CharacterReforged.stamina.miximax_stamina_multiplier"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.miximax_armour_pe_mult"
+to = "mods.CharacterReforged.stamina.miximax_armour_stamina_multiplier"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.armour_pe_mult"
+to = "mods.CharacterReforged.stamina.armour_stamina_multiplier"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.miximax_end_pe"
+to = "mods.CharacterReforged.stamina.miximax_end_stamina"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.trait.android.pe_mult"
+to = "mods.CharacterReforged.stamina.trait.android.stamina_multiplier"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.CharacterReforged.stamina.trait.robot.pe_mult"
+to = "mods.CharacterReforged.stamina.trait.robot.stamina_multiplier"
+if_target = "keep_target"

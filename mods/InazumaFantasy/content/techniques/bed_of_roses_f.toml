@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Lecho de rosas F (Bed of Roses F): the download's move whs90001, a clone of whs00620 with its numbers; its event ev60_90001 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "bed_of_roses_f"

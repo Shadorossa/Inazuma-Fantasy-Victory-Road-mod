@@ -1,31 +1,21 @@
--- VRFW › locked shop rows, menu side. Handlers of the framework's shop_menu_buy host (VRFW_Host, 000_host.lua); no engine call at load time.
---
--- A shop row whose progress condition fails is listed when a mod declares its shop ([[VRFW.ShopLock]], scripts\shop_rows.lua).
--- This file draws such a row: greyed card (material preset list_base of shop01_02_list_item at 0.5, as retail greys a locked
--- special move), the row's own icons as the game draws them, what unlocks it as the row's name, the price as retail shows
--- it, no detail card, no model preview, a button guide with Accept only, and Accept refused with the retail «cannot»
--- sound and a notice.
--- The sentence: CMND_VRFW_SHOP_LOCK_SOURCE names the chapter, match, opponent or flag text; the framework's text rows
--- vrfw_shop_lock_* (text\rows\shop_locks.toml) give it in the game's language.
--- shop01_02_list_item has 8 recycled instances: CMND_VRFW_SHOP_LOCKED(instance) tells which one shows a locked row.
-if VRFW_Host ~= nil then
+-- VRFW › locked shop rows, menu side.
+if VRFW.host ~= nil then
   local STEM = "shop_menu_buy"
   local ID = "VRFW.shop_locks_"
 
   local CMD = {
-    LOCK_ON = VRFW_Cmd.VRFW_SHOP_LOCK_ON,       -- CMND_VRFW_SHOP_LOCK_ON(shop) -> bool
-    LOCKED = VRFW_Cmd.VRFW_SHOP_LOCKED,        -- CMND_VRFW_SHOP_LOCKED(instance) -> locked, row, kind, a, b
-    LOCKED_ITEM = VRFW_Cmd.VRFW_SHOP_LOCKED_ITEM,   -- CMND_VRFW_SHOP_LOCKED_ITEM(item) -> locked, kind, a, b
-    SOURCE = VRFW_Cmd.VRFW_SHOP_LOCK_SOURCE,        -- CMND_VRFW_SHOP_LOCK_SOURCE(kind, a, b, language) -> form, name, number, text id
-    TEXT_GET = VRFW_Cmd.TEXT_GET,      -- CMND_TEXT_GET(text id) -> text
-    LANGUAGE = VRFW_Cmd.GET_LANGUAGE_CODE,       -- CMND_GET_LANGUAGE_CODE
-    LOG = VRFW_Cmd.EVT_LOG,           -- CMND_EVT_LOG
-    PLAY_SE = VRFW_Cmd.SND_PLAY_SE,
+    LOCK_ON = VRFW.commands.VRFW_SHOP_LOCK_ON,       -- CMND_VRFW_SHOP_LOCK_ON(shop) -> bool
+    LOCKED = VRFW.commands.VRFW_SHOP_LOCKED,        -- CMND_VRFW_SHOP_LOCKED(instance) -> locked, row, kind, a, b
+    LOCKED_ITEM = VRFW.commands.VRFW_SHOP_LOCKED_ITEM,   -- CMND_VRFW_SHOP_LOCKED_ITEM(item) -> locked, kind, a, b
+    SOURCE = VRFW.commands.VRFW_SHOP_LOCK_SOURCE,
+    TEXT_GET = VRFW.commands.TEXT_GET,      -- CMND_TEXT_GET(text id) -> text
+    LANGUAGE = VRFW.commands.GET_LANGUAGE_CODE,       -- CMND_GET_LANGUAGE_CODE
+    PLAY_SE = VRFW.commands.SND_PLAY_SE,
     FOCUS_INSTANCE = 2603265800,
     MATERIAL_COLOR = 801406373,
-    SET_TEXT = VRFW_Cmd.SET_MENU_TEXT_STRING,
-    LAYER_VISIBLE = VRFW_Cmd.IS_LAYER_VISIBLE, -- CMND_IS_LAYER_VISIBLE
-    SET_LAYER_VISIBLE = VRFW_Cmd.SET_LAYER_VISIBLE,
+    SET_TEXT = VRFW.commands.SET_MENU_TEXT_STRING,
+    LAYER_VISIBLE = VRFW.commands.IS_LAYER_VISIBLE, -- CMND_IS_LAYER_VISIBLE
+    SET_LAYER_VISIBLE = VRFW.commands.SET_LAYER_VISIBLE,
     SET_OBJECT_VISIBLE = 2171393651,
     GUIDE_SET = 2209673388,
     GUIDE_KEYS = 452337289,
@@ -37,8 +27,7 @@ if VRFW_Host ~= nil then
   local LIST_BASE = 2569990914  -- shop01_01_list_base
   local BG = 717014739          -- shop01_00_background: its close = the shop is going
   local GREY = 0.5              -- retail grey of a locked special move
-  local MATERIAL = 2239373704   -- list_base: CMenuChangeMaterialColor preset of shop01_02_list_item
-  -- the row's name nodes: item rows use _text_list01, character / aura rows _text_coach01
+  local MATERIAL = 2239373704
   local NAME_NODES = { 931545948, 3705682548, 1059092884, 1230493388 }
   -- detail card layers (retail UpdateSelectItemInfo / ClearNotUseUpdateSelectInfoLayer)
   local DETAIL_LAYERS = {
@@ -57,7 +46,7 @@ if VRFW_Host ~= nil then
   }
   -- keys of the preview / detail that do nothing on a locked row
   local DEAD_KEYS = {
-    [2027013857] = true,  -- details / try on
+    [2027013857] = true,  -- Details / try on.
     [2870443176] = true,  -- rotate characters
     [3887644467] = true,  -- camera zoom
     [3484753847] = true,  -- camera up / down
@@ -76,7 +65,7 @@ if VRFW_Host ~= nil then
   local KEY_ENTER, GUIDE_ENTER_A, GUIDE_ENTER_B = 1981080283, 1847312674, 2750714971
 
   local SL = {}
-  VRFW_ShopLocks = SL
+  VRFW.shop_locks = SL
 
   local function reset()
     SL.on_by_shop = {}      -- shop id -> rows listed as locked
@@ -89,14 +78,10 @@ if VRFW_Host ~= nil then
   end
   reset()
 
-  local function Log(...)
-    local t = {}
-    for i = 1, select("#", ...) do t[#t + 1] = tostring((select(i, ...))) end
-    pcall(funcLuaCommand, CMD.LOG, "vrfw.ShopLocks " .. table.concat(t, " "))
-  end
+  local Log = VRFW.logger.new("vrfw.ShopLocks")
 
   local function L()
-    local h = VRFW_Host.hosts[STEM]
+    local h = VRFW.host.hosts[STEM]
     return h and h.L or {}
   end
   local function local_of(name)
@@ -105,18 +90,15 @@ if VRFW_Host ~= nil then
     return nil
   end
 
-  local function menu(...)
-    return pcall(funcLuaMenuCommand, ...)
-  end
 
   -- rows of the open shop are listed as locked
-  function SL.On()
+  function SL.on()
     local ok, id = pcall(GetShopId)
     if not ok or type(id) ~= "number" then return false end
     local on = SL.on_by_shop[id]
     if on == nil then
-      local okc, r = pcall(funcLuaCommand, CMD.LOCK_ON, id)
-      on = okc and r == true
+      local r = VRFW.host.command(CMD.LOCK_ON, id)
+      on = r == true
       SL.on_by_shop[id] = on
       if on then Log("shop", id, "lists locked rows") end
     end
@@ -124,8 +106,8 @@ if VRFW_Host ~= nil then
   end
 
   local function text(id)
-    local ok, s = pcall(funcLuaCommand, CMD.TEXT_GET, id)
-    if ok and type(s) == "string" and s ~= "" then return s end
+    local s = VRFW.host.command(CMD.TEXT_GET, id)
+    if type(s) == "string" and s ~= "" then return s end
     return nil
   end
 
@@ -138,13 +120,13 @@ if VRFW_Host ~= nil then
   end
 
   -- what a locked row waits for, as a sentence in the game's language
-  function SL.Phrase(kind, a, b)
+  function SL.phrase(kind, a, b)
     local key = tostring(kind) .. ":" .. tostring(a) .. ":" .. tostring(b)
     local s = SL.phrases[key]
     if s ~= nil then return s end
-    local okc, code = pcall(funcLuaCommand, CMD.LANGUAGE)
-    local ok, form, name, num, tid = pcall(funcLuaCommand, CMD.SOURCE, kind or 0, a or 0, b or 0, okc and code or -1)
-    if ok then
+    local code = VRFW.host.command(CMD.LANGUAGE)
+    local form, name, num, tid = VRFW.host.command(CMD.SOURCE, kind or 0, a or 0, b or 0, code or -1)
+    if form ~= nil then
       local named = type(name) == "string" and name ~= ""
       if form == "text" then
         s = text(tid)
@@ -161,50 +143,47 @@ if VRFW_Host ~= nil then
     return s
   end
 
-  -- a list instance: locked, kind, a, b, row (row 0 = the framework knows no row for it)
-  function SL.InstanceInfo(inst)
-    if type(inst) ~= "number" or inst < 0 or not SL.On() then return false end
-    local ok, locked, row, kind, a, b = pcall(funcLuaCommand, CMD.LOCKED, inst)
-    if not ok then return false end
+  function SL.instance_info(inst)
+    if type(inst) ~= "number" or inst < 0 or not SL.on() then return false end
+    local locked, row, kind, a, b = VRFW.host.command(CMD.LOCKED, inst)
+    if locked == nil then return false end
     return locked == true, kind, a, b, row
   end
 
-  function SL.ItemInfo(item)
-    if type(item) ~= "number" or item == 0 or not SL.On() then return false end
-    local ok, locked, kind, a, b = pcall(funcLuaCommand, CMD.LOCKED_ITEM, item)
-    if ok and locked == true then return true, kind, a, b end
+  function SL.item_info(item)
+    if type(item) ~= "number" or item == 0 or not SL.on() then return false end
+    local locked, kind, a, b = VRFW.host.command(CMD.LOCKED_ITEM, item)
+    if locked == true then return true, kind, a, b end
     return false
   end
 
   local function focus_instance()
-    local ok, inst = menu(CMD.FOCUS_INSTANCE, LIST)
-    if ok and type(inst) == "number" and inst >= 0 then return inst end
+    local inst = VRFW.host.menu_command(CMD.FOCUS_INSTANCE, LIST)
+    if type(inst) == "number" and inst >= 0 then return inst end
     return SL.focus
   end
 
-  -- the focused row: locked, kind, a, b (by its instance when the framework knows its row, else by the item)
-  function SL.FocusInfo(item)
-    if not SL.On() then return false end
-    local l, kind, a, b, row = SL.InstanceInfo(focus_instance())
+  function SL.focus_info(item)
+    if not SL.on() then return false end
+    local l, kind, a, b, row = SL.instance_info(focus_instance())
     if type(row) == "number" and row ~= 0 then return l, kind, a, b end
     if type(item) ~= "number" then
       local ok, it = pcall(GetShopListItemInfo, 0)
       item = ok and it or nil
     end
-    return SL.ItemInfo(item)
+    return SL.item_info(item)
   end
 
   -- the focused row of the list (not the token / coin pickers) is locked
-  function SL.FocusList(item)
-    if not SL.On() then return false end
+  function SL.focus_list(item)
+    if not SL.on() then return false end
     if local_of("flag") == true or local_of("flag10") == true then return false end
-    return (SL.FocusInfo(item)) == true
+    return (SL.focus_info(item)) == true
   end
 
-  -- the card colour of a row (material preset list_base): grey or back to normal
-  function SL.GreyRow(layer, inst, on)
+  function SL.grey_row(layer, inst, on)
     local f = on and GREY or 1
-    menu(CMD.MATERIAL_COLOR, layer, inst, MATERIAL, f, f, f)
+    VRFW.host.menu_command(CMD.MATERIAL_COLOR, layer, inst, MATERIAL, f, f, f)
     SL.tint[inst] = on or nil
   end
 
@@ -216,41 +195,38 @@ if VRFW_Host ~= nil then
     if not SL.detail_hidden then
       SL.card_visible = {}
       for _, l in ipairs(cards) do
-        local ok, vis = menu(CMD.LAYER_VISIBLE, l, 0)
-        if ok and vis == true then SL.card_visible[l] = true end
+        local vis = VRFW.host.menu_command(CMD.LAYER_VISIBLE, l, 0)
+        if vis == true then SL.card_visible[l] = true end
       end
       if type(n24) == "number" and n24 ~= 0 then
-        local ok, vis = menu(CMD.LAYER_VISIBLE, n24, 0)
-        if ok and vis == true then SL.card_visible[n24] = true end
+        local vis = VRFW.host.menu_command(CMD.LAYER_VISIBLE, n24, 0)
+        if vis == true then SL.card_visible[n24] = true end
       end
     end
     SL.detail_hidden = true
-    for _, l in ipairs(cards) do menu(CMD.SET_LAYER_VISIBLE, l, 0, false) end
-    if type(n24) == "number" and n24 ~= 0 then menu(CMD.SET_LAYER_VISIBLE, n24, 0, false) end
-    for _, l in ipairs(DETAIL_LAYERS) do menu(CMD.SET_LAYER_VISIBLE, l, 0, false) end
+    for _, l in ipairs(cards) do VRFW.host.menu_command(CMD.SET_LAYER_VISIBLE, l, 0, false) end
+    if type(n24) == "number" and n24 ~= 0 then VRFW.host.menu_command(CMD.SET_LAYER_VISIBLE, n24, 0, false) end
+    for _, l in ipairs(DETAIL_LAYERS) do VRFW.host.menu_command(CMD.SET_LAYER_VISIBLE, l, 0, false) end
     pcall(SetVisibleAllAuraDetailInfo, false)
     pcall(SetHideSynergyDetail)
-    menu(CMD.SET_OBJECT_VISIBLE, 2394257302 --[[shop01_10_body_type_item]], false)
-    menu(CMD.SET_OBJECT_VISIBLE, 858725131 --[[mainmenu01_08_chara_3d_shadow]], false)
+    VRFW.host.menu_command(CMD.SET_OBJECT_VISIBLE, 2394257302 --[[shop01_10_body_type_item]], false)
+    VRFW.host.menu_command(CMD.SET_OBJECT_VISIBLE, 858725131 --[[mainmenu01_08_chara_3d_shadow]], false)
     pcall(function() funcLuaMenuCommand(CMD.SET_LAYER_VISIBLE, GetShopHomeAwayLayerName(), 0, false) end)
     for i = 0, 3 do pcall(SetCharaModelVisible, i, false) end
   end
 
-  -- a normal row after a locked one: the generic card retail does not show again by itself (kits 80 / 140, auras, moves:
-  -- retail shows theirs)
   local function show_detail(kind_of_item)
     if not SL.detail_hidden then return end
     SL.detail_hidden = false
     if kind_of_item == 80 or kind_of_item == 140 then return end
     local n24 = local_of("n24")
-    if type(n24) == "number" and SL.card_visible[n24] then menu(CMD.SET_LAYER_VISIBLE, n24, 0, true) end
+    if type(n24) == "number" and SL.card_visible[n24] then VRFW.host.menu_command(CMD.SET_LAYER_VISIBLE, n24, 0, true) end
   end
 
   local function closing() return SL.closing == true end
 
-  -- ---------------------------------------------------------------------------------------------- handlers
   local function on(point, phase, fn, create)
-    VRFW_Host.on(STEM, point, { id = ID .. point, phase = phase, fn = fn, create = create })
+    VRFW.host.on(STEM, point, { id = ID .. point, phase = phase, fn = fn, create = create })
   end
 
   on("OnShopInit", "before", function(...)
@@ -265,33 +241,31 @@ if VRFW_Host ~= nil then
     SL.closing = true
   end, true)
 
-  -- engine fill of each row (end of the list item fill): a locked row greyed with what unlocks it as its name (its icons
-  -- stay the game's), a recycled one back to normal colour
   on("SetupGrayout", "around", function(nxt, a1, a2, a3)
     if a1 ~= LIST then return nxt(a1, a2, a3) end
-    local locked, kind, pa, pb = SL.InstanceInfo(a2)
+    local locked, kind, pa, pb = SL.instance_info(a2)
     if locked then
       nxt(a1, a2, GREY)
-      SL.GreyRow(a1, a2, true)
-      local s = SL.Phrase(kind, pa, pb)
-      for _, node in ipairs(NAME_NODES) do menu(CMD.SET_TEXT, a1, node, s, a2) end
+      SL.grey_row(a1, a2, true)
+      local s = SL.phrase(kind, pa, pb)
+      for _, node in ipairs(NAME_NODES) do VRFW.host.menu_command(CMD.SET_TEXT, a1, node, s, a2) end
       return
     end
-    if SL.tint[a2] then SL.GreyRow(a1, a2, false) end
+    if SL.tint[a2] then SL.grey_row(a1, a2, false) end
     return nxt(a1, a2, a3)
   end)
 
   on("OnChangeFocus", "before", function(a1, a2)
     if a1 == LIST then
-      local ok, inst = menu(CMD.FOCUS_INSTANCE, a1)
-      if ok and type(inst) == "number" then SL.focus = inst end
+      local inst = VRFW.host.menu_command(CMD.FOCUS_INSTANCE, a1)
+      if type(inst) == "number" then SL.focus = inst end
     end
   end)
 
   on("UpdateSelectItemInfo", "after", function(r, a1, a2, a3, ...)
-    if closing() or not SL.On() then return end
+    if closing() or not SL.on() then return end
     local was = SL.detail_hidden
-    if SL.FocusList(a2) then
+    if SL.focus_list(a2) then
       hide_detail()
       pcall(ResetCharaModelAll)
     else
@@ -302,26 +276,25 @@ if VRFW_Host ~= nil then
   end)
 
   on("OnFunction", "around", function(nxt, a1, a2, ...)
-    if DEAD_KEYS[a1] and SL.FocusList() then return end
+    if DEAD_KEYS[a1] and SL.focus_list() then return end
     local r = table.pack(nxt(a1, a2, ...))
-    if SL.detail_hidden and not closing() and SL.FocusList() then hide_detail() end
+    if SL.detail_hidden and not closing() and SL.focus_list() then hide_detail() end
     return table.unpack(r, 1, r.n)
   end)
 
-  -- Accept on a locked row: the retail «cannot» sound and a notice through the shop's own general window
   on("OnEnter", "around", function(nxt, a1, a2)
     if a1 == LIST_BASE then
-      local locked, kind, pa, pb = SL.FocusInfo()
+      local locked, kind, pa, pb = SL.focus_info()
       if locked then
-        pcall(funcLuaCommand, CMD.PLAY_SE, SE_CANNOT)
-        local phrase = SL.Phrase(kind, pa, pb)
+        VRFW.host.command(CMD.PLAY_SE, SE_CANNOT)
+        local phrase = SL.phrase(kind, pa, pb)
         local msg = text(TX.notice)
         msg = msg and msg:gsub("<TEXT>", (phrase:gsub("%%", "%%%%"))) or phrase
         local okw = type(GENERAL_WINDOW) == "table" and type(GENERAL_WINDOW.ReserveGeneralWindow) == "function"
           and pcall(GENERAL_WINDOW.ReserveGeneralWindow, "", "", "", msg, 0)
         if not okw then
-          pcall(funcLuaCommand, CMD.MESSAGE, msg, 0, 0, 0, 0, 0, false)
-          pcall(funcLuaCommand, CMD.MESSAGE_WAIT, 1, 0)
+          VRFW.host.command(CMD.MESSAGE, msg, 0, 0, 0, 0, 0, false)
+          VRFW.host.command(CMD.MESSAGE_WAIT, 1, 0)
         end
         return 1
       end
@@ -330,14 +303,14 @@ if VRFW_Host ~= nil then
   end)
 
   on("CheckSufficientFunds", "around", function(nxt, a1, ...)
-    if SL.On() and (SL.FocusInfo()) == true then return false end
+    if SL.on() and (SL.focus_info()) == true then return false end
     return nxt(a1, ...)
   end)
 
   -- no kit preview (4 characters wearing it) for a locked row
   on("ChangeCharaModels", "around", function(nxt, a1, ...)
     if closing() then return end
-    if a1 ~= nil and a1 ~= 0 and SL.FocusList(a1) then
+    if a1 ~= nil and a1 ~= 0 and SL.focus_list(a1) then
       pcall(ResetCharaModelAll)
       return
     end
@@ -345,13 +318,12 @@ if VRFW_Host ~= nil then
   end)
 
   on("ChangeUniformModelInfoVisible", "around", function(nxt, a1, a2, ...)
-    if a1 == true and SL.FocusList() then a1 = false end
+    if a1 == true and SL.focus_list() then a1 = false end
     return nxt(a1, a2, ...)
   end)
 
-  -- button guide of a locked row: Accept only
   on("UpdateButtonGuide", "around", function(nxt, a1, a2, ...)
-    if a1 and SL.FocusList() then
+    if a1 and SL.focus_list() then
       local layer, base, line = local_of("n"), 1138543975 --[[mainmenu01_06_base_button_guide]], 9396745 --[[mainmenu01_07_button_guide]]
       if local_of("flag3") == true then
         layer, base, line = 3170360552 --[[shop_menu]], 2062970623 --[[shopmenu01_06_base_button_guide]], 362164101 --[[shopmenu01_07_button_guide]]

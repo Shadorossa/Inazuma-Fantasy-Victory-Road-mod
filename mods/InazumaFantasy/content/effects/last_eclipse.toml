@@ -1,0 +1,278 @@
+schema = "VRFW.effect/1"
+# Last Eclipse: gold and black copy of Dark Star's object, and Solar Nexus's object without its face, its flames part purple.
+
+[[recolor]]
+object = "ev60016900"
+copy = "ev600169ec"
+hue = 45
+mode = "set"
+colorize = 0.85
+saturation = 1.1
+keep_whites = 0.97
+vertex_colors = "all"
+particles = true
+
+  [[recolor.fade]]
+  meshes = ["back_doom", "_sky_"]
+  axis = "origin"
+  stops = [[0.0, 0.05], [1.0, 0.05]]
+
+  [[recolor.fade]]
+  meshes = ["auraline"]
+  axis = "origin"
+  stops = [[0.0, 0.25], [1.0, 0.25]]
+
+  [[recolor.fade]]
+  meshes = ["fakePar_06"]
+  axis = "origin"
+  stops = [[0.0, 0.0], [1.0, 0.0]]
+
+  [[recolor.tint]]
+  mesh = ["ball_wave", "back_doom", "_sky_"]
+  alpha = 0.1
+  op = "multiply"
+
+[recolor.per_texture."whs0027_ef_04"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_13"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_17"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_24"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_25"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_28"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_29"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_40"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_41"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_16"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_19"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_26"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_27"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_06"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_38"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_39"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_32"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_34"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_18"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_22"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_31"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_35"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_36"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_03"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_23"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_07"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_05"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_17dummy"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_24dummy"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_01"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[recolor.per_texture."whs0027_ef_02"]
+hue = 240
+mode = "set"
+colorize = 0.7
+saturation = 0.8
+value = 0.012
+
+[[recolor]]
+object = "ev60021300"
+copy = "ev600213ec"
+
+  [[recolor.fade]]
+  meshes = ["_thunder_", "_flash_"]
+  axis = "origin"
+  stops = [[0.0, 0.0], [1.0, 0.0]]
+
+[recolor.per_texture."ev60021300_ef_12"]
+hue = 272
+mode = "set"
+saturation = 1.0
+keep_whites = 0.97
+mask_hue = [0, 40]
+
+[[event_command]]
+event = "ev60_81690"
+command = "CMD_799A1EBA"
+args = ["ev60021300"]
+set = ["ev60021300", "common/effect/event/ev60/ev600213ec/ev600213ec.objbin"]
+
+[[event_command]]
+event = "ev60_81690"
+command = "CMD_799A1EBA"
+args = ["ev60016900"]
+set = ["ev60016900", "common/effect/event/ev60/ev600169ec/ev600169ec.objbin"]

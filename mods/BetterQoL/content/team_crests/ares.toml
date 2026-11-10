@@ -1,13 +1,6 @@
-# Team crests (VRFW.team_crest/1, docs/framework/game-catalogue.md «White plates»): the crest a belong team shows
-# where BetterQoL draws team crests (the original-names team grid). A declared crest wins over the team's own
-# belong_team_config crest ids, then come its era crest, the crest of a team record with its Japanese name, its other
-# eras' crests, the generic emblem. Any mod may declare its own in content/team_crests/*.toml; the first declaration
-# of a team wins.
 schema = "VRFW.team_crest/1"
 
-# Isla Remota (伊那国中, belong 0x1FBFA767, Ares): its teamEmblemId_AREORI 0x86D317FE has no item_emblem row. The plain
-# Raimon Isla Remota crest em070001, as Career Mode's club (content/career/clubs.toml) and Synergies Reworked's Ares
-# Raimon crest show it (the same-name Chronicle record tm_cro_legend_ARES_11 wears em070012).
+# Isla Remota (伊那国中, belong 0x1FBFA767): its teamEmblemId_AREORI 0x86D317FE has no item_emblem row; use em070001.
 [[VRFW.TeamCrest]]
 team = "0x1FBFA767"
 emblem = "0x5AEB1450"     # em070001

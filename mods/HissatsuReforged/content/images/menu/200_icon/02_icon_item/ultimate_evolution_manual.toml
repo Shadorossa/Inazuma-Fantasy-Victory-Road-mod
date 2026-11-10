@@ -1,0 +1,7 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/hissatsu_level_up_item_icons.g4tx"
+name = "abl_ue000001"
+png = "ultimate_evolution_manual/abl_ue000001.png"
+mips = 1

@@ -1,0 +1,6 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/102_team/team11/character_reforged_page/character_reforged_page.g4tx"
+name = "character_reforged_page"
+size = [2048, 980]

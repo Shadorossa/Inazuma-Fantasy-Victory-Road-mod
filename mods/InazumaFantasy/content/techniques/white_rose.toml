@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Rosa blanca (White Rose): the download's move whs90009, a clone of whs02150 with its numbers; its event ev60_90009 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "white_rose"

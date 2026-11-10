@@ -1,8 +1,5 @@
 schema = "VRFW.shop/2"
-# Mix-Max auras no retail shop sells, added to the Training Shop's auras tab beside the game's own (training_shop.toml
-# is GENERATED, so they stay here). Price: the category's rule in _general_store.toml, moves_keshin_and_others
-# min_price = 30 Puntos de pasión: an aura has no power value. No unlock condition: no retail row to take one from.
-# An aura stays limited to its owner or its per-card list (the framework's rule). A Chronicle drop can also give some.
+# Mix-Max auras no retail shop sells, in the Training Shop's auras tab (category min_price, no unlock condition).
 
 [[edit]]
 target = "InazumaFantasy.training_shop"
@@ -38,7 +35,7 @@ target = "InazumaFantasy.training_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  item = "wmm00140"    # Papá
+  item = "wmm00140"
   price = 30
   currency = "tk_bb000001"
 

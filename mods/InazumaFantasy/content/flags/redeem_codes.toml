@@ -1,7 +1,10 @@
 schema = "VRFW.flag/1"
-# The flags of Inazuma Fantasy's redeem codes (content\redeem_codes\): on once the code's rewards were given, kept in
-# the save, so each code works once per save. Bank 0 without `bit`: the framework gives the bit.
+# Once-per-save flags of the redeem codes (content\redeem_codes\); bank 0 without `bit`: the framework assigns it.
 
 [[flag]]
 name = "InazumaFantasy.RedeemedFantasy26"
+bank = 0
+
+[[flag]]
+name = "InazumaFantasy.RedeemedVictoriaFtsy"
 bank = 0

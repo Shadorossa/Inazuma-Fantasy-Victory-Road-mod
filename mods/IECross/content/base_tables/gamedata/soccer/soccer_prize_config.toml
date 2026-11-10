@@ -1,7 +1,4 @@
 schema = "VRFW.base_table/1"
-# The win / first-clear prizes of the 11 Cross games (the crest and kit items of each Cross team, beans, stadium
-# items): ITBL_BASE rows by key with their items as the REF_ITEMS slice (appended to ITBL_ITEMS by the framework).
-# soccer_prize_config (docs/release/iecross.md §6). Conditions keep their encoded text ({ text = "…" }).
 
 [[keyed]]
 table = "soccer/soccer_prize_itbl_base"
@@ -176,7 +173,7 @@ table = "soccer/soccer_prize_itbl_base"
     { item = 0x93EE2273, count = 1, c2 = 1, c3 = { text = "AAAAACEFNY12ZtgAEwIoAAYCNJPuInMoAAYCMgAAAAEyAAAAAHg=" }, c4 = 0 },
   ] } }
 
-  [[keyed.add]]                         # first-clear / win prizes of evt_cm_cx_japan_2026
+  [[keyed.add]]
   key = 0xB59065E7
   cells = { REF_ITEMS = { set = [
     { item = 0xE91BFBDD, count = 1, c2 = 1, c3 = 0, c4 = 0 },

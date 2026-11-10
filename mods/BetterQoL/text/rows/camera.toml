@@ -1,10 +1,9 @@
-# Texts of BetterQoL's match camera. Format: The evt_set_camera_side_* ids are the ones the row had in Inazuma Fantasy
-# (same texts, so the two mods never disagree while IF still declares them).
+# Match camera texts (better_qol_set_camera_side_* keep the row's existing ids).
 schema = "VRFW.text/2"
 table = "menu_text"
 
 [[row]]
-id = "evt_set_camera_side_btn"
+id = "better_qol_set_camera_side_btn"
 fallback = false
 es = "Cámara del partido"
 en = "Match camera"
@@ -17,7 +16,7 @@ zh_hans = "比赛镜头"
 zh_hant = "比賽鏡頭"
 
 [[row]]
-id = "evt_set_camera_side_expl"
+id = "better_qol_set_camera_side_expl"
 fallback = false
 es = "Original (la del juego) o Lateral: desde la banda y siguiendo el balón, como en FIFA. Vale desde el próximo partido (en el partido también puedes cambiarla en la opción de cámara de la pausa). Necesita el cargador del mod (módulo camera)."
 en = "Original (the game's) or Side: from the touchline, following the ball, like in FIFA. Applies from the next match (in a match you can also change it in the camera option of the pause menu). Needs the mod's loader (camera module)."
@@ -30,7 +29,7 @@ zh_hans = "原版（游戏原有）或侧面：像FIFA一样从边线跟随足�
 zh_hant = "原版（遊戲原有）或側面：像FIFA一樣從邊線跟隨足球。從下一場比賽起生效（比賽中也可在暫停選單的鏡頭選項中更改）。需要模組的載入器（camera模組）。"
 
 [[row]]
-id = "evt_set_camera_side_off"
+id = "better_qol_set_camera_side_off"
 es = "Original"
 en = "Original"
 fr = "Originale"
@@ -42,7 +41,7 @@ zh_hans = "原版"
 zh_hant = "原版"
 
 [[row]]
-id = "evt_set_camera_side_on"
+id = "better_qol_set_camera_side_on"
 es = "Lateral"
 en = "Side"
 fr = "Latérale"

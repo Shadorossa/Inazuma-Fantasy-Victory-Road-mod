@@ -1,5 +1,4 @@
 schema = "VRFW.rule/1"
-# Base ruleset for Bond Town matches: every rule follows the match row (original game); a mod may replace it (same id) or bind another.
 id = "kizuna"
 name = "Bond Town (original)"   # fallback; localized via text key ruleset_kizuna
 version = 1

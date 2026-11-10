@@ -1,0 +1,39 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# New synergy sf11006 (cloned from sf10001): one player of Diamond Dust + one of Prominence; name = the game's name of their merged team (belong team 0x13E73915).
+
+[[item]]
+name = "chaos"
+base = "sf10001"
+category = "synergy"
+icon_key = "sf11006"
+key_id = true
+  [item.text.es]
+  name = "Caos"
+  [item.text.en]
+  name = "Chaos"
+  [item.text.fr]
+  name = "Chaos"
+  [item.text.de]
+  name = "Chaos"
+  [item.text.it]
+  name = "Chaos"
+  [item.text.pt]
+  name = "Caos"
+  [item.text.ja]
+  name = "カオス"
+  [item.text.zh_hans]
+  name = "混沌纪元"
+  [item.text.zh_hant]
+  name = "混沌紀元"
+
+[[currency]]
+name = "gazelle_card"
+spirit = 0xBDB75D6F                      # chara_param of Gazelle c02020890 (Diamond Dust)
+rarity = 4
+
+[[currency]]
+name = "torch_card"
+spirit = 0x6DB78C11                      # chara_param of Torch c02020900 (Prominence)
+rarity = 4

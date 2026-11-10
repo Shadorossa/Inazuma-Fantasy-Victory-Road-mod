@@ -1,122 +1,143 @@
-# BetterQoL's «Álbum de jugadores»: a page of its own, util_album_menu, opened from «Caseta del club»
-# (play_guide_top_menu) the way that menu opens its «Archivo de escenas» (scene_archive_menu): the Caseta keeps its
-# header (title swapped), button guide and return arrow; this menu draws its own background (the Caseta's is hidden by
-# the opener), the album list on the left half, opens the game's player plate (personal_plate_menu) on the right half
-# and closes with B / Esc / right click. Layers: the page's background (util_alb_backdrop, drawn before the 3D pass),
-# the retail content guide line of the archive (the selected player's team and game), one retail list row of «Guardar»
-# kept off screen as the input anchor (every key of the page comes to it: MENU_CMD_INFO rows -> OnFunction / OnBack),
-# and the page's drawing pools: quads of cmn01_10_new_icon for the game's list plates, list cursor, check box
-# (team16_03) and series tab icons (icon_list_tab), the retail list character card for the kit minifaces, the retail
-# back-button text for the texts. Script: assets/lua/screens/util_album_menu.lua.
 schema = "VRFW.menu/2"
-# Draw priorities 741-744: over the Caseta's retail art and the VRFW prompts (700), under the game's keyboard (dimmer 875,
-# window 880-885) so the player search's text entry is drawn over the list, as the retail screens stack them.
+# Draw priorities 741-744: over the Caseta's art and VRFW prompts (700), under the game's keyboard (875-885).
 
 [[object]]
-name = "util_alb_plate"
+name = "betterqol_alb_plate"
 from = "cmn01_10_new_icon"
 set = [
     { parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 741 } },
 ]
 
 [[object]]
-name = "util_alb_icon"
+name = "betterqol_alb_icon"
 from = "cmn01_10_new_icon"
 set = [
     { parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 742 } },
 ]
 
 [[object]]
-name = "util_alb_face"
+name = "betterqol_alb_face"
 from = "team00_01_chara_card_for_list"
 priority = 743
 
 [[object]]
-name = "util_alb_text"
+name = "betterqol_alb_text"
 from = "cmn03_01_cmd_back"
 remove_block = ["MenuCollisionSetting", "MenuAnchorComponent"]
 set = [
     { parameter = "m_drawPriority", match = { 1 = 301 }, values = { 1 = 744 } },
 ]
 
-# a team crest: the game's emblem list row (team06_02), only its emblem quad shown (the Lua hides the rest); no hit
-# zone, no attach to the emblem list's locators; its atlas named
+# a team crest: the emblem list row (team06_02), only its emblem quad shown; no hit zone; its atlas named
 [[object]]
-name = "util_alb_crest"
+name = "betterqol_alb_crest"
 from = "team06_02_emblem_list_item"
 remove_block = ["MenuCollisionSetting", "CMenuAttachLocator"]
 priority = 743
 add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/102_team/team06/team06_02/team06_02.g4tx"] }]
 
-# the page's background in the BACKGROUND pass (m_drawType 1, as the office's shop01_00_background): the game's menu
-# background drawn before the 3D pass, so the player plate's 3D model (Character Reforged's plate model, on its normal
-# menu-camera layer) is drawn over it and every normal 2D layer over the model. Priority 200: under the player plate's
-# own page body (its background-pass copy, 300). Shown only while the plate is up, in the same step as the Caseta's
-# normal-pass background is hidden (util_album_menu.lua Cover); both swapped back when the page closes.
+# the filter window's layers, above the page
 [[object]]
-name = "util_alb_backdrop"
+name = "betterqol_alb_fw_plate"
+from = "cmn01_10_new_icon"
+set = [
+    { parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 745 } },
+]
+
+[[object]]
+name = "betterqol_alb_fw_icon"
+from = "cmn01_10_new_icon"
+set = [
+    { parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 746 } },
+]
+
+[[object]]
+name = "betterqol_alb_fw_text"
+from = "cmn03_01_cmd_back"
+remove_block = ["MenuCollisionSetting", "MenuAnchorComponent"]
+set = [
+    { parameter = "m_drawPriority", match = { 1 = 301 }, values = { 1 = 747 } },
+]
+
+# page background in the BACKGROUND pass (m_drawType 1), so the plate's 3D model draws over it.
+[[object]]
+name = "betterqol_alb_backdrop"
 from = "mainmenu90_00_background_draw_type_before"
 set = [
     { parameter = "m_drawPriority", match = { 1 = 450 }, values = { 1 = 200 } },
 ]
 
 [[screen]]
-name = "util_album_menu"
-like = "scene_archive_menu"                # registry row: a child page of «Caseta del club», as the archive
+name = "betterqol_album_menu"
+like = "scene_archive_menu"
 base = "scene_archive_menu"
-script = "assets/lua/screens/util_album_menu.lua"
+script = "assets/lua/screens/betterqol_album_menu.lua"
 
 [screen.rows]
 layer = [
     { layer = "save01_02_list_item", from = "savedata_management_menu", count = 1 },
     { layer = "mainmenu90_05_content_guide_line01" },
-    { layer = "util_alb_plate", object = "util_alb_plate", count = 132, scale = 0.01 },
-    { layer = "util_alb_icon", object = "util_alb_icon", count = 96, scale = 0.01 },
-    { layer = "util_alb_face", object = "util_alb_face", count = 20, scale = 0.01 },
-    { layer = "util_alb_text", object = "util_alb_text", count = 68, scale = 0.01 },
-    { layer = "util_alb_crest", object = "util_alb_crest", count = 2, scale = 0.01 },
-    { layer = "util_alb_backdrop", object = "util_alb_backdrop", count = 1 },
+    { layer = "betterqol_alb_plate", object = "betterqol_alb_plate", count = 132, scale = 0.01 },
+    { layer = "betterqol_alb_icon", object = "betterqol_alb_icon", count = 136, scale = 0.01 },
+    { layer = "betterqol_alb_face", object = "betterqol_alb_face", count = 20, scale = 0.01 },
+    { layer = "betterqol_alb_text", object = "betterqol_alb_text", count = 68, scale = 0.01 },
+    { layer = "betterqol_alb_crest", object = "betterqol_alb_crest", count = 2, scale = 0.01 },
+    { layer = "betterqol_alb_backdrop", object = "betterqol_alb_backdrop", count = 1 },
+    { layer = "betterqol_alb_fw_plate", object = "betterqol_alb_fw_plate", count = 16, scale = 0.01 },
+    { layer = "betterqol_alb_fw_icon", object = "betterqol_alb_fw_icon", count = 72, scale = 0.01 },
+    { layer = "betterqol_alb_fw_text", object = "betterqol_alb_fw_text", count = 40, scale = 0.01 },
 ]
-# the anchor takes every key: B / Esc / right click close the page (CMD_BACK), up / down move, left / right the other
-# column (a page at the list's edge), Y the type, LB / RB the group, L2 / R2 the player plate's pages, A the
-# selected player's action of another mod (BetterQoL.AlbumActions; e.g. New Recruitment's «Fichar»), X the player search
 commands = [
     { layer = "save01_02_list_item", input = "CMD_BACK", command = "CMD_BACK", flag = 1 },
     { layer = "save01_02_list_item", input = "CMD_MOUSE_RIGHT_CLICK", command = "CMD_BACK", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_ENTER", command = "CMD_FUNCTION", arg = "util_alb_accept", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_UP", command = "CMD_FUNCTION", arg = "util_alb_up", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_DOWN", command = "CMD_FUNCTION", arg = "util_alb_down", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_LEFT", command = "CMD_FUNCTION", arg = "util_alb_left", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_RIGHT", command = "CMD_FUNCTION", arg = "util_alb_right", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = "util_alb_type_next", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_FUNCL1", command = "CMD_FUNCTION", arg = "util_alb_group_prev", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_FUNCR1", command = "CMD_FUNCTION", arg = "util_alb_group_next", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_FUNCL2", command = "CMD_FUNCTION", arg = "util_alb_plate_prev", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_FUNCR2", command = "CMD_FUNCTION", arg = "util_alb_plate_next", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_FUNC4", command = "CMD_FUNCTION", arg = "util_alb_search", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_ENTER", command = "CMD_FUNCTION", arg = "betterqol_alb_accept", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_UP", command = "CMD_FUNCTION", arg = "betterqol_alb_up", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_DOWN", command = "CMD_FUNCTION", arg = "betterqol_alb_down", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_LEFT", command = "CMD_FUNCTION", arg = "betterqol_alb_left", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_RIGHT", command = "CMD_FUNCTION", arg = "betterqol_alb_right", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = "betterqol_alb_type_next", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_FUNCL1", command = "CMD_FUNCTION", arg = "betterqol_alb_group_prev", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_FUNCR1", command = "CMD_FUNCTION", arg = "betterqol_alb_group_next", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_FUNCL2", command = "CMD_FUNCTION", arg = "betterqol_alb_plate_prev", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_FUNCR2", command = "CMD_FUNCTION", arg = "betterqol_alb_plate_next", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_FUNC4", command = "CMD_FUNCTION", arg = "betterqol_alb_multi", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_FUNC1", command = "CMD_FUNCTION", arg = "betterqol_alb_filter", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_FUNC2", command = "CMD_FUNCTION", arg = "betterqol_alb_select_key", flag = 1 },
 ]
 resources = [
-    "#/menu/220_img/util_club_stats/util_club_stats.g4tx",
+    "#/menu/220_img/betterqol_club_stats/betterqol_club_stats.g4tx",
     "#/menu/51_save/save01/save01_02/save01_02.g4tx",
     "#/menu/20_cmn/cmn05/cmn05_01/cmn05_01.g4tx",
-    "#/menu/102_team/team16/team16_03/team16_03.g4tx",
     "#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx",
     "#/menu/102_team/team06/team06_02/team06_02.g4tx",
     "#/menu/20_cmn/cmn06/cmn06_01/cmn06_01.g4tx",
     "#/menu/20_cmn/cmn06/cmn06_20/cmn06_20.g4tx",
+    "#/menu/10_win/win07/win07_01/<LG>/win07_01.g4tx",
+    "#/menu/10_win/win07/win07_03/win07_03.g4tx",
+    "#/menu/10_win/win07/win07_04/win07_04.g4tx",
+    "#/menu/10_win/win07/win07_10/win07_10.g4tx",
+    "#/menu/10_win/win07/win07_11/win07_11.g4tx",
+    "#/menu/20_cmn/cmn03/cmn03_10/cmn03_10.g4tx",
+    "#/menu/20_cmn/cmn06/cmn06_04/cmn06_04.g4tx",
+    "#/menu/200_icon/16_icon_list_tab_filter/<LG>/icon_list_tab_filter.g4tx",
+    "#/menu/200_icon/15_icon_common/icon_common.g4tx",
+    "#/menu/200_icon/15_icon_common2/<LG>/icon_common2.g4tx",
 ]
 group_base = [
     { layer = "save01_02_list_item", flags = [1, 1, 0, 0, 1, 0] },
     { layer = "mainmenu90_05_content_guide_line01", flags = [0, 1, 1, 0, 1, 0] },
-    { layer = "util_alb_plate", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "util_alb_icon", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "util_alb_face", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "util_alb_text", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "util_alb_crest", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "util_alb_backdrop", flags = [0, 1, 1, 0, 1, 0] },
+    { layer = "betterqol_alb_plate", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "betterqol_alb_icon", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "betterqol_alb_face", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "betterqol_alb_text", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "betterqol_alb_crest", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "betterqol_alb_backdrop", flags = [0, 1, 1, 0, 1, 0] },
+    { layer = "betterqol_alb_fw_plate", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "betterqol_alb_fw_icon", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "betterqol_alb_fw_text", flags = [0, 1, 0, 0, 1, 0] },
 ]
 group = [
-    { group = "util_album_menu", flags = [1], slice = [0, 8] },
+    { group = "betterqol_album_menu", flags = [1], slice = [0, 11] },
 ]
 focus_base = [[0x3A06AC3D, 0, 0]]
 focus_group = [

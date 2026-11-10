@@ -1,8 +1,4 @@
 schema = "VRFW.game/2"
-# Character Reforged › one passive value per class: rarities 0-3 (1 to 4 stars) read the Legendary version (rarity 4).
-# Idol (5-7) and Basara (8) are not listed: they keep the game's version. It covers players, coaches and managers,
-# whose passives all resolve through the rarity table. The VR-Framework's detours read this table
-# (Passive.RarityVersion and Passive.RarityValue); without this mod nobody exports it and the game answers.
 [[VRFW.Table]]
 name = "Passive.RarityTier"
 rows = [

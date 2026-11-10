@@ -1,6 +1,3 @@
--- vrfw_contact_map_menu, part 5 of 7 (graft contact_map appends it to vrfw_contact_map_menu.lua; one chunk):
--- opening and leaving views, moving the focus (keys, stick).
--- ---- navigation -----------------------------------------------------------------------------------------------------
 local function SetMode(m)
   mode = m
   UpdateTitle()
@@ -8,9 +5,7 @@ local function SetMode(m)
   DrawAll()
 end
 
--- a network opened (one map, no pages): its span (the camera's bounds), the zoom range (FIT: the whole map
--- in VIEW, but never wider than about NET.CAP tiles in view: the tile pool; it opens at S0 or fitted to the width),
--- the cursor on its first player open and not signed
+-- Handles a network that is opened (one map, no pages).
 local function NetOpen()
   local minx, maxx, miny, maxy = nil, nil, nil, nil
   for _, n in ipairs(MAP.nodes) do
@@ -41,16 +36,13 @@ local function NetOpen()
   N.full = false
 end
 
--- zones with requirements (team pages: a match against the team won) that are not met yet leave the map: their players
--- become "hidden" (node numbers kept), the other zones are numbered again. View-everything mode keeps them all.
--- Returns the number of zones left.
-function CmPages.HideLockedZones()
+function CmPages.hide_locked_zones()
   if VIEW_ALL.on then
     return #MAP.zones
   end
   local keep, new = {}, {}
   for z, zz in ipairs(MAP.zones) do
-    if type(zz.reqs) ~= "table" or #VRFW_Recruit.Missing(zz.reqs) == 0 then
+    if type(zz.reqs) ~= "table" or #VRFW.recruit.missing(zz.reqs) == 0 then
       keep[#keep + 1] = zz
       new[z] = #keep
     end
@@ -98,22 +90,22 @@ local function OpenMap(i)
     end
   end
   CmPages.own = {}
-  CmPages.LoadSeen()
-  if #MAP.zones > 0 and not CmPages.direct and not CmPages.going and CmPages.HideLockedZones() == 0 then
+  CmPages.load_seen()
+  if #MAP.zones > 0 and not CmPages.direct and not CmPages.going and CmPages.hide_locked_zones() == 0 then
     MAP = nil
     funcLuaCommand(C.SE, SE_NG)
-    Message(Text(T.TEAMS_NONE))
+    Message(Kit.text(T.TEAMS_NONE))
     return
   end
-  CmPages.all = CmPages.going == true       -- every page kept (a ghost's «Go»: his home page may still be locked)
+  CmPages.all = CmPages.going == true
   LoadRecord()
-  CmPages.WaiveSigned()
+  CmPages.waive_signed()
   if MAP.kind == "network" then
     NetOpen()
     SetMode("network")
   elseif MAP.kind == "list" and #MAP.zones == 1 then
     zone = 1
-    members = MAP.pitch and CmPages.Members(1) or ZoneMembers(1)
+    members = MAP.pitch and CmPages.members(1) or ZoneMembers(1)
     focus.grid = 1
     SetMode("grid")
   else
@@ -125,7 +117,7 @@ end
 
 local function OpenZone(z)
   zone = z
-  members = MAP.pitch and CmPages.Members(z) or ZoneMembers(z)
+  members = MAP.pitch and CmPages.members(z) or ZoneMembers(z)
   focus.grid = 1
   for g, i in ipairs(members) do
     if MAP.nodes[i].kind == "player" and not IsSigned(i) then
@@ -144,8 +136,8 @@ local function OpenZone(z)
   SetMode("grid")
 end
 
--- opened on one team page: the page of the match the hub chose (CMND_VRFW_CONTACT_FIND)
-function CmPages.OpenDirect()
+-- Opens one team page directly.
+function CmPages.open_direct()
   local f = Call(@crc:CMND_VRFW_CONTACT_FIND@, SET.key, CmPages.direct)
   if type(f) ~= "table" or f.map == nil then
     Log("direct", "no team page for game", CmPages.direct)
@@ -164,9 +156,8 @@ function CmPages.OpenDirect()
   return false
 end
 
--- a team page by its map and team (zone.team): the map opened again (all = its locked pages kept), then that page.
--- false: no such map or page (the screen may be on that map's list then)
-function CmPages.OpenPage(map_key, team, all)
+-- Opens a team page by its map and team (zone.team).
+function CmPages.open_page(map_key, team, all)
   for mi, m in ipairs(SET.maps) do
     if m.key == map_key then
       CmPages.going = all
@@ -189,12 +180,9 @@ function CmPages.OpenPage(map_key, team, all)
   return false
 end
 
--- a ghost (a starter of this page signed on another page): the game's yes / no window with «Go» / «Close» (labels by
--- the framework's general window, parameters vrfw_window_yes_text / _no_text). Go opens his home page on this screen
--- (from the recruit data: the node's sold_map / sold_team), the cursor on him; Back returns here (CmPages.trail).
-function CmPages.GhostAsk(i)
+function CmPages.ghost_ask(i)
   local n = MAP.nodes[i]
-  local text = Fmt(T.SOLD_AT, (n.sold_at or "") ~= "" and n.sold_at or Text(T.UNKNOWN))
+  local text = Kit.format(T.SOLD_AT, (n.sold_at or "") ~= "" and n.sold_at or Kit.text(T.UNKNOWN))
   local from_team = MAP.zones[zone] and MAP.zones[zone].team or nil
   if n.sold_map == nil or (n.sold_team or 0) == 0 or from_team == nil then
     funcLuaCommand(C.SE, SE_NG)
@@ -202,18 +190,18 @@ function CmPages.GhostAsk(i)
     return
   end
   funcLuaCommand(C.SE, SE_DECIDE)
-  VRFW_Param.Set(4261573565 --[[vrfw_window_yes_text]], T.GO)
-  VRFW_Param.Set(1121728934 --[[vrfw_window_no_text]], T.CLOSE)
+  VRFW.param.set(4261573565 --[[vrfw_window_yes_text]], T.GO)
+  VRFW.param.set(1121728934 --[[vrfw_window_no_text]], T.CLOSE)
   local go = Ask(text)
-  VRFW_Param.Clear(4261573565)
-  VRFW_Param.Clear(1121728934)
+  VRFW.param.clear(4261573565)
+  VRFW.param.clear(1121728934)
   if not go then
     return
   end
   local from = {map = MAP.key, team = from_team, grid = focus.grid, all = CmPages.all}
-  if not CmPages.OpenPage(n.sold_map, n.sold_team, true) then
+  if not CmPages.open_page(n.sold_map, n.sold_team, true) then
     Log("go", "no page", n.sold_map, n.sold_team, "for card", n.card)
-    CmPages.OpenPage(from.map, from.team, from.all)
+    CmPages.open_page(from.map, from.team, from.all)
     focus.grid = from.grid
     DrawAll()
     funcLuaCommand(C.SE, SE_NG)
@@ -236,10 +224,9 @@ function CmPages.GhostAsk(i)
   Log("go", "card", n.card, "to", n.sold_map, n.sold_team, "from", from.map, from.team, "depth", #CmPages.trail)
 end
 
--- Back on a page «Go» opened: the page the player came from, the cursor where it was. false: none (a normal Back)
-function CmPages.GoBack()
+function CmPages.go_back()
   local from = table.remove(CmPages.trail)
-  if from == nil or not CmPages.OpenPage(from.map, from.team, from.all) then
+  if from == nil or not CmPages.open_page(from.map, from.team, from.all) then
     return false
   end
   focus.grid = from.grid
@@ -255,22 +242,7 @@ local function OpenShop()
   SetMode("shop")
 end
 
--- the pad / keyboard polled for what the screen's input rows do not carry: LB / RB (no row), and Back as a fallback
--- (Esc did nothing over the Market; a polled Back acts only when OnBack did not come within 2 frames)
--- Controller (the pad did not move on the map): the hub under the screen (the Market) switches the
--- engine's free cursor on (CMND_SET_ENABLE_FREE_CURSOR_FOR_VIRTUAL_MOUSE): the stick drove an invisible virtual mouse
--- and the pad's moves / A went to it. The screen switches it off while it is up (as retail screens with their own
--- cursor do, ability_learning_board_menu) and back on when it leaves. On top, the moves are polled: the D-pad and the
--- stick's menu moves (CMD_UP / DOWN / LEFT / RIGHT on MENU_CTRL / MENU_CTRL_WITH_ANALOG_MOVE_FOCUS) and the left stick
--- itself (CMND_GET_ANALOG_VALUE 0 / 1, y > 0 = up: past 0.5 a step, held = repeat), A (CMD_ENTER) and X (CMD_FUNC2).
--- A polled press acts only when its callback (OnFunction / OnDecideFocus / OnEnter / the pointer's click) did not come
--- within 2 frames, so the keyboard and a pad the input rows already serve never move twice.
--- The game's green pointer must show, not the Windows cursor: the free cursor is ON again, the
--- retail hubs' call (879521569(true, false, true), market / soccer_top / team_dock). With it on, the engine's free
--- cursor component hides the Windows cursor and shows its own pointer (free_cursor_menu
--- cmn05_01_free_cursor): shown while the mouse or the left stick moves it, hidden on a button press (D-pad / A), and
--- with the stick at rest it keeps MENU_CTRL selected (the D-pad reaches the input rows). As in retail hubs, the left
--- stick drives that pointer (hover = EVT_PointerNew); the polled stick steps (KEYS.StickDir) only run while it is off.
+-- Keys polled from the pad and keyboard for what the screen's input rows do not carry.
 local KEYS = {L1 = 3966226594, R1 = 942075773, BACK = 3011112225,
               held = {}, frame = 0, back_cb = -100, back_poll = nil, logs = 0,
               NAV = {UP = 1197218715, DOWN = 3259546669, LEFT = 2765147006, RIGHT = 2075023265,
@@ -280,9 +252,7 @@ local KEYS = {L1 = 3966226594, R1 = 942075773, BACK = 3011112225,
               FREE_CURSOR = @crc:CMND_SET_ENABLE_FREE_CURSOR_FOR_VIRTUAL_MOUSE@, free_off = false,
               cb = {}, press = {}, owned = {}, next_rep = {}, stick = nil, co_was = false,
               REPEAT_FIRST = 18, REPEAT = 6}
--- the menu this screen opened over (its header, button guides, token panel): hidden while the screen is up, given back
--- before it closes (VRFW_HubYield, assets\lua\menu\_all\63_hub_yield.lua, run in the hub's own VM); HUB is declared
--- with the screen's state (DrawBack reads it)
+-- Yields to the menu this screen opened over (its header, button guides, token panel).
 local function HubYield(on)
   if on == HUB.on then
     return
@@ -299,34 +269,34 @@ local function HubYield(on)
     Log("hub yield", tostring(on), "no parent menu")
     return
   end
-  local ok, err = pcall(funcLuaCommand, C.MENU_CALL, HUB.menu, "VRFW_HubYield", on, MENU)
+  local ok, err = pcall(funcLuaCommand, C.MENU_CALL, HUB.menu, "vrfw_hub_yield", on, MENU)
   Log("hub yield", tostring(on), "menu", HUB.menu, tostring(ok), tostring(err))
 end
 
--- every way out of the screen: the hub gets its layers back first
+-- Handles every way out of the screen.
 local function Leave(result)
   if Model ~= nil then
-    Model.Hide()
+    Model.hide()
   end
-  KEYS.Free(true)
+  KEYS.free(true)
   HubYield(false)
-  HEADROW.Free()
-  if Model ~= nil and Model.cam then        -- the shared menu model camera back (Model.Place's fallback)
+  HEADROW.free()
+  if Model ~= nil and Model.cam then        -- the shared menu model camera back (Model.place's fallback)
     pcall(funcLuaCommand, 284729675, 1752770328, 0, 0, 0)
     Model.cam = nil
   end
   Close(result)
 end
 
-CmPages.Leave = Leave
-CmPages.Recruited = function()
+CmPages.leave = Leave
+CmPages.recruited = function()
   if MAP ~= nil and mode == "grid" then
     DrawAll()
   end
 end
 
 local function Back()
-  if mode == "grid" and #CmPages.trail > 0 and CmPages.GoBack() then
+  if mode == "grid" and #CmPages.trail > 0 and CmPages.go_back() then
     return
   end
   if CmPages.direct and mode ~= "shop" then
@@ -394,7 +364,7 @@ local function MoveGrid(dx, dy)
     return
   end
   if MAP.pitch then
-    local g = CmPages.PitchMove(dx, dy)
+    local g = CmPages.pitch_move(dx, dy)
     if g ~= nil then
       focus.grid = g
       funcLuaCommand(C.SE, SE_OK)
@@ -426,7 +396,7 @@ local function MoveList(dy, count)
   DrawAll()
 end
 
--- LB / RB: a page of the grid (24 players), or of the list of maps / the shelf
+-- Handles LB and RB.
 local function PageTurn(d)
   local per, count, key
   if mode == "grid" and MAP.pitch then
@@ -461,36 +431,26 @@ local function PageTurn(d)
     end
   end
   focus[key] = k
-  Ptr.KeyStep()
+  Ptr.key_step()
   funcLuaCommand(C.SE, SE_OK)
   DrawAll()
   return true
 end
 
-local function KeyOn(k)
-  for _, ctrl in ipairs({1332654303 --[[MENU_CTRL]], 2748927068 --[[MENU_CTRL_WITH_ANALOG_MOVE_FOCUS]]}) do
-    local ok, r = pcall(funcLuaCommand, C.CHECK_INPUT, ctrl, k)
-    if ok and r == true then
-      return true
-    end
-  end
-  return false
-end
 local function KeyEdge(name)
-  local on = KeyOn(KEYS[name])
+  local on = Kit.key_pressed(KEYS[name])
   local edge = on and not KEYS.held[name]
   KEYS.held[name] = on
   return edge
 end
--- the first presses the menu's callbacks get (log: "input <key> <view>", 8 at most)
-function KEYS.Seen(name)
+function KEYS.note_seen(name)
   KEYS.seen = (KEYS.seen or 0) + 1
   if KEYS.seen <= 8 then
     Log("input", name, mode)
   end
 end
--- the engine's free cursor (virtual mouse, the game's pointer): on while the screen is up, as the retail hubs
-function KEYS.Free(on, force)
+-- Switches the engine's free cursor (virtual mouse, the game's pointer).
+function KEYS.free(on, force)
   if not force and KEYS.free_off == not on then
     return
   end
@@ -500,8 +460,7 @@ function KEYS.Free(on, force)
     Log("free cursor", tostring(on), tostring(ok))
   end
 end
--- the left stick as a direction: past 0.5 on its main axis, kept until it falls under 0.3
-function KEYS.StickDir()
+function KEYS.stick_dir()
   local okx, x = pcall(funcLuaCommand, KEYS.ANALOG, 0)
   local oky, y = pcall(funcLuaCommand, KEYS.ANALOG, 1)
   x = (okx and type(x) == "number") and x or 0
@@ -523,8 +482,8 @@ function KEYS.StickDir()
   return d
 end
 -- one step in a direction, as the arrows' input rows do (OnFunction)
-function KEYS.Move(dx, dy)
-  Ptr.KeyStep()           -- the pad / keys own the selection until the pointer moves again (see PollPointer)
+function KEYS.move(dx, dy)
+  Ptr.key_step()
   if mode == "list" then
     MoveList(dy ~= 0 and dy or dx, #SET.maps)
   elseif mode == "zones" then

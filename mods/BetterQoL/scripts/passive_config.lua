@@ -1,65 +1,45 @@
--- BetterQoL › «Configuración de pasivas» (feature passive_config).
---
--- Every player has 5 passive slots. The player picks which passive some of them hold (the team dock's
--- «Configuración de pasivas», research/grafts/passive_config); the choice is stored per player instance in the save
--- engine blob passive_config.json (per save slot, mod BetterQoL: the same JSON BetterQoL's old DLL wrote) and applied by
--- the two slot readers of the game (content/game/passive_config.toml):
---
---   * GetTeamPassiveId / IsTeamPassiveUnlocked are answered NATIVELY ([[VRFW.Hook.answer]]): this script fills the
---     lookup tables (VRFW.native.table_*), the detours read them on every call (many per frame), no Lua call there:
--- PassiveConfig.Slots -> passive id the applied choice (and, with slot
---                                                                                   rules a mod declares, the defaults),
---                                                                                   at the version of the player's rarity
---       PassiveConfig.Own      (param, slot)                    -> passive id    own passives (chara_param 61-65)
---       PassiveConfig.OwnKept  (rarity, slot)                   -> 1             build slots of the build rarities
--- PassiveConfig.Unlock -> 0 / 1 forced locked / open
---       PassiveConfig.AllOpen  (save slot)                      -> 1             [passives] unlock = "all"
---       PassiveConfig.OwnOpen  (param, slot)                    -> 1             [passives] always_unlocked
---       PassiveConfig.OffMode  (current mode id)                -> 0             [[off_mode]]: no passive at all
---   * the retail commands that read the slots themselves (the plate, the inheritance gate / trash, the archetype
---     getters) are filtered here ([[VRFW.CommandFilter]]), and the screen's commands CMND_BETTERQOL_PC_* are functions here.
---
--- Mods add their own passives with declaration files passive_config\*.toml (mod root, or a feature's
--- content\passive_config\; schema BetterQoL.passive_config/1, lib/pc_core.lua add_decl). Saved data of a slot a mode
--- reserved (INAROGUE) is never touched there: its passives are the mode's.
-
+local Memory = VRFW.memory
 local C = require "lib/pc_core"
+local Id = VRFW.ids
 
 BetterQoL.PassiveConfig = BetterQoL.PassiveConfig or {}
 local PC = BetterQoL.PassiveConfig
 
-require "VRFW/lib/basics"
 local info, warn, err = VRFW.logger("passive_config")
 
 local N = C.N_SLOTS
 local FIELD_BUILD, FIELD_PARAM_BUILD = 36, 20
-local DIAMOND_RARITY = 8
+local DECL_DIRS = { "passive_config", "content/passive_config", "features/*/content/passive_config" }
 
 local CFG, LAYOUT, RULES, UNLOCK = nil, nil, nil, "configured"
--- the rule of the player's archetype (pc_core player_rule): nil = the game's archetype untouched, else
--- { slots, without, origin }: BetterQoL's own [player_archetype] (content\passive_config\player_archetype.toml) or a
--- mod's typed [slots] archetype = true. Read once, the same rule for every answer (no second derivation anywhere).
 local PLAYER = nil
 local CAT, DECL, VALUES = nil, nil, {}
-local resolve_version       -- a passive's version at a rarity (the game's resolver)
+local resolve_version
 local OWN, POS, BASES = {}, {}, {}
-local ROLE_OF_ITEM = {}     -- role badge item id -> staff role (pc_core ROLES) whose passives the catalogue offers
-local ROLE_OF_BADGE = {}    -- badge inventory handle -> staff role (false = not a role badge)
+local ROLE_OF_ITEM = {}
+local ROLE_OF_BADGE = {}
 local ACTIVE = false
 local STORE = nil           -- the active save slot's store
-local LIST = nil            -- the list the menu pages through { hdl, slot, category, rarity, ids }
-local ROW1 = 0              -- the character of the last plate query for slot 1 (CMND_BETTERQOL_PC_SPECIAL)
--- a watermark scan is due: set when the store is loaded and on every slot, mode or match event (archetype mode)
+local LIST = nil
+local ROW1 = 0
 local WATERMARK_DUE, LAST_SEQ = true, -1
 local INACTIVE_LOGGED = {}
-local LOGGED_ANSWER = {}    -- last logged plate / archetype answer per query key (log on change only)
+local LOGGED_ANSWER = {}
 local BUF
 
--- ---------------------------------------------------------------------------------------------- arguments
+local function count_keys(t)
+  local n = 0
+  for _ in pairs(t) do n = n + 1 end
+  return n
+end
+
+local function readers_on()
+  return VRFW.is_on("GetTeamPassiveId") and VRFW.is_on("IsTeamPassiveUnlocked")
+end
 
 local function arg_u32(v)
   if type(v) ~= "number" then return nil end
-  return C.u32(v)
+  return Id.unsigned(v)
 end
 
 local function arg_int(v)
@@ -74,11 +54,9 @@ local function arg_slot(v)
   return nil
 end
 
--- ---------------------------------------------------------------------------------------------- tables
-
 local function load_tables()
   local d = C.new_decl()
-  local files = VRFW.files.declarations({ "passive_config", "content/passive_config", "features/*/content/passive_config" })
+  local files = VRFW.files.declarations(DECL_DIRS)
   for _, f in ipairs(files) do
     local w, why = C.add_decl(d, f.mod, f.data)
     if w then
@@ -88,7 +66,6 @@ local function load_tables()
       info("declarations: " .. f.mod .. "/" .. f.file .. ": " .. why .. " (file ignored)")
     end
   end
-  -- the mods' declared archetypes (VRFW.archetype/1): their numbers and passives (docs/framework/archetype.md §7)
   local archetype_of, n_custom = {}, 0
   local oka, afiles = pcall(VRFW.files.declarations, "content/archetypes")
   for _, f in ipairs(oka and type(afiles) == "table" and afiles or {}) do
@@ -98,7 +75,7 @@ local function load_tables()
       if n and n == math.floor(n) and type(a.name) == "string" and C.register_archetype(n, tostring(f.mod) .. "." .. a.name) then
         n_custom = n_custom + 1
         for _, p in ipairs(type(a.passives) == "table" and a.passives or {}) do
-          local id = C.id_of(p)
+          local id = Id.parse(p, { hash_names = true })
           if id then archetype_of[id] = n end
         end
       end
@@ -110,20 +87,19 @@ local function load_tables()
     table.sort(names)
     info("declared archetype(s): " .. table.concat(names, ", "))
   end
-  -- chara_param: cols 0 (id), 1 (chara_base), 3 (main position), 61-65 (own passives)
-  local ck = "data/common/gamedata/character/chara_param_*.cfg.bin"
+  local ck = VRFW.table_files.file_name("data/common/gamedata/character/chara_param")
   local rows = VRFW.table.raw(ck, "CHARA_PARAM_INFO", { 1, 2, 4, 62, 63, 64, 65, 66 })
   local own, pos, bases, n_rows, n_own, own_ids = {}, {}, {}, 0, 0, {}
   for _, r in ipairs(rows) do
     n_rows = n_rows + 1
     if type(r[1]) == "number" then
-      local id = C.u32(r[1])
+      local id = Id.unsigned(r[1])
       if type(r[4]) == "number" then pos[id] = r[4] end
-      if type(r[2]) == "number" then bases[id] = C.u32(r[2]) end
+      if type(r[2]) == "number" then bases[id] = Id.unsigned(r[2]) end
       if r[62] ~= nil and own[id] == nil then
         local s, any = {}, false
         for k = 1, N do
-          s[k] = type(r[61 + k]) == "number" and C.u32(r[61 + k]) or 0
+          s[k] = type(r[61 + k]) == "number" and Id.unsigned(r[61 + k]) or 0
           any = any or s[k] ~= 0
         end
         if any then
@@ -137,18 +113,17 @@ local function load_tables()
     end
   end
   rows = nil
-  -- passive_skill_config (entries in file order: an INFO row is followed by its REF_EFFECT slice)
-  local pk = "data/common/gamedata/skill/passive_skill_config_*.cfg.bin"
+  local pk = VRFW.table_files.file_name("data/common/gamedata/skill/passive_skill_config")
   local ents = VRFW.table.entries(pk, { "PASSIVE_SKILL_EFFECT", "PASSIVE_SKILL_INFO", "PASSIVE_SKILL_INFO_REF_EFFECT" }, false)
   local effects, raws = {}, {}
   for _, e in ipairs(ents) do
     if e.name == "PASSIVE_SKILL_EFFECT" then
-      effects[#effects + 1] = { C.u32(tonumber(e[1]) or 0), tonumber(e[2]) or 0 }
+      effects[#effects + 1] = { Id.unsigned(tonumber(e[1]) or 0), tonumber(e[2]) or 0 }
     end
   end
   for i, e in ipairs(ents) do
     if e.name == "PASSIVE_SKILL_INFO" and type(e[1]) == "number" then
-      local r = { id = C.u32(e[1]), kind = tonumber(e[5]) or 0, key = type(e[7]) == "string" and e[7] or "", defs = {}, value = 0 }
+      local r = { id = Id.unsigned(e[1]), kind = tonumber(e[5]) or 0, key = type(e[7]) == "string" and e[7] or "", defs = {}, value = 0 }
       for j = i + 1, math.min(i + 2, #ents) do
         local x = ents[j]
         if x.name == "PASSIVE_SKILL_INFO_REF_EFFECT" then
@@ -168,18 +143,17 @@ local function load_tables()
   end
   ents = nil
   if #raws == 0 then error("passive_skill_config: no PASSIVE_SKILL_INFO rows") end
-  -- passive_skill_effect_config: definition → category, archetype icons, basic effects
-  local ek = "data/common/gamedata/soccer/passive_skill_effect_config_*.cfg.bin"
+  local ek = VRFW.table_files.file_name("data/common/gamedata/soccer/passive_skill_effect_config")
   local defs, cur, n_defs = {}, nil, 0
   local dents = VRFW.table.entries(ek, { "PASSIVE_SKILL_EFFECT_INFO", "PASSIVE_SKILL_EFFECT_INFO_EFFECT_DATA", "PASSIVE_SKILL_EFFECT_INFO_GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA", "PASSIVE_SKILL_EFFECT_INFO_LIST_END" })
   for _, e in ipairs(dents) do
     if e.name == "PASSIVE_SKILL_EFFECT_INFO" then
-      local id = C.u32(tonumber(e[1]) or 0)
+      local id = Id.unsigned(tonumber(e[1]) or 0)
       defs[id] = { category = math.min(math.max(tonumber(e[2]) or 0, 0), 255), builds = {}, effects = {} }
       n_defs = n_defs + 1
       cur = id
     elseif e.name == "PASSIVE_SKILL_EFFECT_INFO_EFFECT_DATA" then
-      if cur and type(e[1]) == "number" then table.insert(defs[cur].effects, C.u32(e[1])) end
+      if cur and type(e[1]) == "number" then table.insert(defs[cur].effects, Id.unsigned(e[1])) end
     elseif e.name == "PASSIVE_SKILL_EFFECT_INFO_GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA" then
       if cur and type(e[1]) == "number" and e[1] >= 0 and e[1] < C.N_ARCHETYPES then table.insert(defs[cur].builds, e[1]) end
     elseif e.name == "PASSIVE_SKILL_EFFECT_INFO_LIST_END" then
@@ -188,14 +162,13 @@ local function load_tables()
   end
   dents = nil
   if n_defs == 0 then error("passive_skill_effect_config: no PASSIVE_SKILL_EFFECT_INFO rows") end
-  -- «Recompensas»: basic effect ids of the reward handlers (soccer_basic_effect_config, else the declared ids)
   local rewards, basic_from = nil, "not readable: the declared reward effect ids"
-  local bk = "data/common/gamedata/soccer/soccer_basic_effect_config_*.cfg.bin"
+  local bk = VRFW.table_files.file_name("data/common/gamedata/soccer/soccer_basic_effect_config")
   local ok, list = pcall(VRFW.table.raw, bk, "m_soccerBasicEffectInfoList")
   if ok and type(list) == "table" then
     local function first(v)
       if type(v) == "table" then v = v[1] end
-      return type(v) == "number" and C.u32(v) or nil
+      return type(v) == "number" and Id.unsigned(v) or nil
     end
     local set, n = {}, 0
     for _, r in ipairs(list) do
@@ -217,32 +190,29 @@ local function load_tables()
   for _, id in ipairs(C.set_restricted_specials(cat, d.restricted_specials)) do
     warn(string.format("declared special 0x%08X is not a passive of passive_skill_config (ignored)", id))
   end
-  -- the staff roles' passives: the passives of the items their role equips (item_config ITEM_SPECIAL_SKILL_INFO:
-  -- col 0 id, col 6 item kind, col 16 the passive)
   local role_of_kind, staff_ids, role_of_item = {}, {}, {}
   for role, r in pairs(C.ROLES) do
     role_of_kind[r.item_kind] = role
     staff_ids[role] = {}
   end
-  local oki, items = pcall(VRFW.table.raw, "data/common/gamedata/item/item_config_*.cfg.bin", "ITEM_SPECIAL_SKILL_INFO", { 1, 7, 17 })
+  local oki, items = pcall(VRFW.table.raw, VRFW.table_files.file_name("data/common/gamedata/item/item_config"), "ITEM_SPECIAL_SKILL_INFO", { 1, 7, 17 })
   if oki and type(items) == "table" then
     for _, r in ipairs(items) do
       local role = type(r[7]) == "number" and role_of_kind[r[7]] or nil
-      if role and type(r[17]) == "number" and r[17] ~= 0 then table.insert(staff_ids[role], C.u32(r[17])) end
+      if role and type(r[17]) == "number" and r[17] ~= 0 then table.insert(staff_ids[role], Id.unsigned(r[17])) end
     end
   else
     warn("item_config not readable: coaches and managers keep their equipped passives (" .. tostring(items) .. ")")
   end
-  -- rarity versions of the passives (m_passiveSkillRarityTableList idList[0..5], keyed by idList[0]): the grade a
-  -- staff card gets from his rarity
+  -- rarity versions of the passives (idList[0..5], keyed by idList[0])
   local versions = {}
-  local okv, vrows = pcall(VRFW.table.raw, "data/common/gamedata/skill/passive_skill_rarity_table_config_*.cfg.bin", "m_passiveSkillRarityTableList")
+  local okv, vrows = pcall(VRFW.table.raw, VRFW.table_files.file_name("data/common/gamedata/skill/passive_skill_rarity_table_config"), "m_passiveSkillRarityTableList")
   if okv and type(vrows) == "table" then
     for _, r in ipairs(vrows) do
       local l = r.idList or r[1]
       if type(l) == "table" and type(l[1]) == "number" and l[1] ~= 0 then
         local row = {}
-        for i = 1, 6 do row[i] = type(l[i]) == "number" and C.u32(l[i]) or 0 end
+        for i = 1, 6 do row[i] = type(l[i]) == "number" and Id.unsigned(l[i]) or 0 end
         if versions[row[1]] == nil then versions[row[1]] = row end
       end
     end
@@ -254,7 +224,7 @@ local function load_tables()
   for role, r in pairs(C.ROLES) do
     local unknown = C.set_staff(cat, role, staff_ids[role])
     if #unknown > 0 then warn(string.format("%d %s passive(s) of item_config are not match passives (not offered)", #unknown, r.name)) end
-    if C.staff_count(cat, role) > 0 then role_of_item[C.id_of(r.badge)] = role end
+    if C.staff_count(cat, role) > 0 then role_of_item[Id.parse(r.badge, { hash_names = true })] = role end
     staff_log[#staff_log + 1] = string.format("%s %d at rarity 4, %d at Diamante (of %d items)", r.name, #(C.staff_list(cat, role, 4)),
       #(C.staff_list(cat, role, C.BASARA_RARITY)), #staff_ids[role])
   end
@@ -287,16 +257,14 @@ local function load_tables()
   LAYOUT = C.with_order(LAYOUT, rules.order)
   info("slot rules: " .. C.describe(rules))
   info("player archetype: " .. C.describe_player_rule(PLAYER))
-  local general, n_by_id, rewards_n = 0, 0, 0
-  for _ in pairs(cat.by_id) do n_by_id = n_by_id + 1 end
+  local general, n_by_id, rewards_n = 0, count_keys(cat.by_id), 0
   for _, id in ipairs(cat.list) do
     if cat.by_id[id].archetype == nil then general = general + 1 end
     if cat.by_id[id].category == C.CAT_REWARD then rewards_n = rewards_n + 1 end
   end
   local per = {}
   for a = 0, C.N_ARCHETYPES - 1 do per[#per + 1] = C.ARCH_NAMES[a] .. " " .. #C.archetype_defaults(cat, a) end
-  local n_ex = 0
-  for _ in pairs(cat.exclusive) do n_ex = n_ex + 1 end
+  local n_ex = count_keys(cat.exclusive)
   local sp = {}
   for _, x in ipairs(cat.specials) do sp[#sp + 1] = string.format("%08X", x) end
   info(string.format("tables: chara_param (%d rows, %d with own passives), passive_skill_config, passive_skill_effect_config, soccer_basic_effect_config %s",
@@ -305,14 +273,11 @@ local function load_tables()
     n_by_id, #cat.list, general, rewards_n, #cat.list - general, table.concat(per, ", "), d.n_passives, n_ex, table.concat(sp, ", "), #cat.restricted, unlock, LAYOUT.max, C.BLOB))
 end
 
--- ---------------------------------------------------------------------------------------------- characters
-
 local function mode_slot()
   local s = VRFW.slots.active()
   return VRFW.slots.reserved(s) == true
 end
 
--- the saved character behind a handle: itself (kinds 0 and 7) or the owner of a match copy
 local function owner_of(hdl)
   if hdl == nil or hdl == 0 or C.list_index(hdl) then return nil end
   local k = C.kind_of_handle(hdl)
@@ -328,7 +293,8 @@ local function record(hdl)
 end
 
 local function extra(rec)
-  local ok, x = pcall(VRFW.mem.struct, "PassiveCharaRecord", rec.addr)
+  local x = VRFW.memory.struct("PassiveCharaRecord", rec.addr)
+  local ok = x ~= nil
   if not ok then return 0, 0, 0 end
   local okb, badge = pcall(function() return x.badge end)
   local okr, b1 = pcall(function() return x.build end)
@@ -348,14 +314,13 @@ local function role_of_badge(badge)
     return VRFW.call("Board.InvRecord", items, badge)
   end)
   if not ok or not p or p < 0x10000 then return nil end
-  local okr, item = pcall(VRFW.mem.read, "u32", p + 4)
-  if not okr or not item then return nil end
+  local item = Memory.read("u32", p + 4)
+  if not item then return nil end
   local role = ROLE_OF_ITEM[item] or false
   ROLE_OF_BADGE[badge] = role
   return role or nil
 end
 
--- own passive of (handle, slot 1-5): id, param — or nil
 local function own_for(hdl, k)
   if next(OWN) == nil or k < 1 or k > N then return nil end
   local rec = record(hdl)
@@ -373,14 +338,12 @@ local function rarity_of(hdl)
   return rec and rec.rarity or 0
 end
 
--- the engine's slot (the hook's original: never our answer)
 local function engine_slot(hdl, k, copy)
-  VRFW.mem.write("u32", BUF, 0)
+  VRFW.memory.write("u32", BUF, 0)
   if not pcall(VRFW.hook.original, "GetTeamPassiveId", BUF, hdl, k - 1, copy or 0) then return 0 end
-  return VRFW.mem.read("u32", BUF)
+  return VRFW.memory.read("u32", BUF)
 end
 
--- the five slots before the configurator: the own passive of a slot or the engine's id
 local function base_slots(hdl, copy)
   local out = {}
   for k = 1, N do
@@ -391,20 +354,19 @@ end
 
 resolve_version = function(id, rarity)
   if id == 0 or not VRFW.is_on("Passive.RarityVersion") then return id end
-  local out, idb = VRFW.mem.buffer("pc_rv_out", 8), VRFW.mem.buffer("pc_rv_id", 4)
-  VRFW.mem.write("ptr", out, 0)
-  VRFW.mem.write("u32", idb, id)
+  local out, idb = VRFW.memory.buffer("pc_rv_out", 8), VRFW.memory.buffer("pc_rv_id", 4)
+  VRFW.memory.write("ptr", out, 0)
+  VRFW.memory.write("u32", idb, id)
   if not pcall(VRFW.call, "Passive.RarityVersion", out, idb, rarity) then return id end
-  local p = VRFW.mem.read("ptr", out)
+  local p = VRFW.memory.read("ptr", out)
   if p and p >= 0x10000 then
-    local ok, v = pcall(VRFW.mem.read, "u32", p)
-    if ok and v and v ~= 0 then return v end
+    local v = Memory.read("u32", p)
+    if v and v ~= 0 then return v end
   end
   return id
 end
 
--- the version of a passive the player's rarity gets, as the game's own slots hold it (teamPassiveInfo keeps the
--- rarity version, so readers that do not resolve it again see the right grade); per (id, rarity), the game's resolver
+-- the version of a passive at the player's rarity, as the game's own slots hold it (cached per id and rarity)
 local VERSION_AT = {}
 local function applied_version(id, rarity)
   if id == 0 then return 0 end
@@ -427,37 +389,33 @@ local function unlocked_retail(hdl, k)
   return v ~= 0
 end
 
--- ---------------------------------------------------------------------------------------------- store
-
 local function save_store()
   if not STORE then return end
   if STORE.unread then
-    -- the blob could not be read (the save engine not ready?): never replace it with an empty store
     err(string.format("slot %d: %s was not readable: the change is not written (retried at the next read)", STORE.slot, C.BLOB))
     return false, "not readable"
   end
-  local ok, where = VRFW.save.blob_write(C.BLOB, VRFW.json.encode(C.store_doc(STORE), true), STORE.slot)
+  local ok, where = VRFW.save.doc.write_text(C.BLOB, VRFW.json.encode(C.store_doc(STORE), true), STORE.slot)
   if not ok then err("cannot write the store: " .. tostring(where)) end
   return ok, where
 end
 
 local function load_store(slot)
-  local text, why = VRFW.save.blob(C.BLOB, slot)
+  local text, why = VRFW.save.doc.read_text(C.BLOB, slot)
   local st
   if text == nil and why == nil then
     st = C.new_store(slot)
   elseif text == nil then
-    -- a read error (not a bad file): nothing is set aside; read again next time, never written over
     err(string.format("slot %d %s: %s (read again later)", slot, C.BLOB, tostring(why)))
     st = C.new_store(slot)
-    st.unread = VRFW.now()
+    st.unread = VRFW.now_ms()
     return st
   else
     local doc, e = nil, why
     if text then doc, e = VRFW.json.decode(text) end
     if doc then st, e = C.store_from(doc, slot) end
     if not st then
-      local kept = VRFW.save.blob_aside(C.BLOB, slot)
+      local _, kept = VRFW.save.doc.set_aside(C.BLOB, slot)
       err(string.format("slot %d %s: %s; kept as %s; starting empty", slot, C.BLOB, tostring(e), tostring(kept)))
       return C.new_store(slot)
     end
@@ -484,24 +442,22 @@ end
 -- the store of the active save slot (reloaded when the slot changed), the watermark set once (archetype mode)
 local function ensure_store()
   local slot = VRFW.slots.active()
-  if not STORE or STORE.slot ~= slot or (STORE.unread and VRFW.now() - STORE.unread > 2000) then
+  if not STORE or STORE.slot ~= slot or (STORE.unread and VRFW.now_ms() - STORE.unread > 2000) then
     STORE = load_store(slot)
     WATERMARK_DUE = true
   end
   if not WATERMARK_DUE or STORE.watermark ~= nil or mode_slot() or not C.archetype_mode(RULES) then return end
   WATERMARK_DUE = false
-  local v = VRFW.character.saved()
-  if #v == 0 then return end
+  local orders = VRFW.character.saved_columns({ "get_order" }).get_order
+  if #orders == 0 then return end
   local max = 0
-  for _, r in ipairs(v) do max = math.max(max, r.get_order or 0) end
+  for _, order in ipairs(orders) do max = math.max(max, order) end
   STORE.watermark = max
   local ok, where = save_store()
   if ok then
-    info(string.format("slot %d: watermark get_order %d (%d saved characters): they keep their old archetype as 2 archetype passives; players obtained later start without archetype (%s)", slot, max, #v, tostring(where)))
+    info(string.format("slot %d: watermark get_order %d (%d saved characters): they keep their old archetype as 2 archetype passives; players obtained later start without archetype (%s)", slot, max, #orders, tostring(where)))
   end
 end
-
--- ---------------------------------------------------------------------------------------------- player view
 
 local function probe(hdl)
   local owner = owner_of(hdl)
@@ -510,7 +466,7 @@ local function probe(hdl)
   if not rec then return nil end
   local badge, b1, b2 = extra(rec)
   local rarity = rec.rarity or 0
-  local rolled = (rarity == DIAMOND_RARITY) and b2 or b1
+  local rolled = (rarity == C.BASARA_RARITY) and b2 or b1
   if rolled >= C.N_ARCHETYPES then rolled = nil end
   local role = role_of_badge(badge)
   local card = mode_slot() and C.BLOCKED or C.card_of(rarity, badge, role)
@@ -561,15 +517,8 @@ local function view(hdl, copy)
   return pr, eff, cfgd
 end
 
--- ---------------------------------------------------------------------------------------------- native tables
-
 local T_SLOTS, T_OWN, T_KEPT, T_UNLOCK, T_ALL, T_OWN_OPEN =
   "PassiveConfig.Slots", "PassiveConfig.Own", "PassiveConfig.OwnKept", "PassiveConfig.Unlock", "PassiveConfig.AllOpen", "PassiveConfig.OwnOpen"
-
--- ---------------------------------------------------------------------------------------------- modes without passives
--- [[off_mode]] mode = "<key>" in any mod's declaration file: while that mode is the current mode, every slot of every
--- player reads «no passive» (the slot readers' first answers, keyed by the current mode id) and the plate rows hide.
--- Nothing in the store changes: outside the mode the configuration applies as before.
 
 local T_OFF = "PassiveConfig.OffMode"
 local OFF_KEYS = {}         -- mode key -> declaring mod
@@ -578,7 +527,7 @@ local OFF_FILLED = 0        -- how many keys have an id in T_OFF
 local OFF_SIGNATURE = nil   -- the ids last written to T_OFF
 
 local function load_off_modes()
-  local files = VRFW.files.declarations({ "passive_config", "content/passive_config", "features/*/content/passive_config" })
+  local files = VRFW.files.declarations(DECL_DIRS)
   for _, f in ipairs(files) do
     local keys, w = C.off_modes(f.data)
     for _, x in ipairs(w) do warn("declarations: " .. f.mod .. "/" .. f.file .. ": " .. x) end
@@ -588,7 +537,6 @@ local function load_off_modes()
   end
 end
 
--- the ids of the off modes (known once the mode service registered the keys; retried on every mode change)
 local function fill_off_modes()
   local entries, ids, n, total, sig = {}, {}, 0, 0, {}
   for k in pairs(OFF_KEYS) do
@@ -615,27 +563,21 @@ local function fill_off_modes()
   end
 end
 
--- a declared off mode is the current mode: the game_state key BetterQoL.passives_off (content/game/passive_config.toml),
--- the one test every reader uses
 local function passives_off()
   if OFF_FILLED == 0 then return false end
   local ok, v = pcall(VRFW.state.get, "BetterQoL.passives_off")
   return ok and tonumber(v) == 1
 end
 
--- a framework signature-only mode runs (vrfw.passive.slots_off): the 5 slots are empty, the custom passive slot stays
 local function slots_off()
   local ok, v = pcall(VRFW.state.get, "vrfw.passive.slots_off")
   return ok and tonumber(v) == 1
 end
 
--- the slot rules need every saved player's slots in the tables (a special slot holds his own special, the archetype
--- mode derives defaults), not only the configured ones
 local function rules_touch_everyone()
   return C.special_slot(RULES) ~= nil or C.archetype_mode(RULES)
 end
 
--- the static tables: own passives (by param), the build slots they leave alone
 local function fill_static()
   local own, kept, open = {}, {}, {}
   for param, s in pairs(OWN) do
@@ -651,16 +593,13 @@ local function fill_static()
       if k >= 1 and k <= N then kept[#kept + 1] = { { r, k - 1 }, 1 } end
     end
   end
-  -- OwnKept first: the own answer's condition reads it
   VRFW.native.table_replace(T_KEPT, nil, kept)
   VRFW.native.table_replace(T_OWN, nil, own)
   VRFW.native.table_replace(T_OWN_OPEN, nil, open)
-  info(string.format("native tables: %d own passive slot(s) of %d card(s), %d kept build slot(s)%s", #own, (function() local n = 0 for _ in pairs(OWN) do n = n + 1 end return n end)(), #kept,
+  info(string.format("native tables: %d own passive slot(s) of %d card(s), %d kept build slot(s)%s", #own, count_keys(OWN), #kept,
     CFG.always_unlocked and ", own slots always unlocked" or ""))
 end
 
--- the entries of one saved player (slot entries + unlock entries) into `slots` / `unlock`
--- false = the character's record cannot be read now (nothing computed); true = `slots` / `unlock` hold his entries
 local function player_entries(S, hdl, slots, unlock)
   local pr, eff, cfgd = view(hdl, 0)
   if not pr then return false end
@@ -682,31 +621,36 @@ local function player_entries(S, hdl, slots, unlock)
   return true
 end
 
--- The tables of the active save slot are kept INCREMENTALLY. Per save slot a cache keeps each player's signature: his
--- record (param, rarity, level, get_order), his badge / builds and the engine's five slots. A scan (cheap: no view)
--- queues only the players whose signature changed (new, changed or not seen yet) and drops the entries of players
--- gone; the queue is worked off in time slices: up to SLICE_MS per mode / match trigger, up to SLICE_GAME_MS at most
--- every PUMP_EVERY_MS from the commands on the game thread. A changed choice (set / reset / clear) rewrites that
--- player at once. The cache restarts when the slot's store is read again or its watermark is set (both change every
--- player's defaults). A player whose record cannot be read at that moment (the game reading / writing the save around
--- a match) keeps the entries he had: they are rewritten only from a readable record, and he is scanned again
--- (RETRY_EVERY_MS from the commands, every mode / match trigger). Every trigger scans (match_end too: a Chronicle
--- match changes no mode).
 local SLICE_MS, SLICE_GAME_MS, PUMP_EVERY_MS, RETRY_EVERY_MS = 40, 3, 100, 1000
 local RETRY = false         -- a player could not be written: scan again
 local LAST_RETRY = 0
 local UNREADABLE_LOGGED = 0
-local CACHE = {}            -- [save slot] = { store, wm, sig = {hdl -> signature}, todo = {}, head, tail, queued = {}, done, why }
+local CACHE = {}
 local LAST_PUMP = -PUMP_EVERY_MS
-local PUMPING = false       -- a game-thread command nested in a parked mode handler leaves the queue to it
-local ARCH = {}             -- [handle] = { archetype, name } / false (the game's own): archetype_of's answers until a change
-local INFO = {}             -- [handle] = PC.Info's answer until a change (the plate header asks it on every refresh)
+local PUMPING = false
+local ARCH = {}
+local INFO = {}
 
 local function clear_player(S, hdl)
   for k = 0, N - 1 do
     VRFW.native.table_set(T_SLOTS, { S, hdl, k }, nil)
     VRFW.native.table_set(T_UNLOCK, { S, hdl, k }, nil)
   end
+end
+
+local function clear_slot_tables(S)
+  VRFW.native.table_clear(T_SLOTS, S)
+  VRFW.native.table_clear(T_UNLOCK, S)
+end
+
+-- the handles of the store's configured players
+local function configured_set()
+  local set = {}
+  for key in pairs(STORE.players) do
+    local hdl = tonumber(key, 16)
+    if hdl then set[hdl] = true end
+  end
+  return set
 end
 
 -- what a player's entries depend on besides the store and the static tables
@@ -722,25 +666,22 @@ end
 local function cache_of(S)
   local c = CACHE[S]
   if c == nil then
-    -- first fill of this save slot in this VM: nothing in the tables is ours to keep
-    VRFW.native.table_clear(T_SLOTS, S)
-    VRFW.native.table_clear(T_UNLOCK, S)
+    clear_slot_tables(S)
     c = { sig = {}, todo = {}, head = 1, tail = 0, queued = {}, done = 0 }
     CACHE[S] = c
   end
   if c.store ~= STORE or c.wm ~= STORE.watermark then
-    c.store, c.wm, c.sig = STORE, STORE.watermark, {}   -- every player again (his entries are rewritten in place)
+    c.store, c.wm, c.sig = STORE, STORE.watermark, {}
   end
   return c
 end
 
--- one player's entries again (after a change of his choices, or a changed signature)
--- false only when the saved list is readable and does not hold the handle (the player left the save)
+-- false only when the saved list is readable and does not hold the handle
 local function still_saved(hdl)
-  local ok, all = pcall(VRFW.character.saved)
-  if not ok or type(all) ~= "table" or #all == 0 then return true end
-  for _, r in ipairs(all) do
-    if r.handle == hdl then return true end
+  local ok, columns = pcall(VRFW.character.saved_columns, { "handle" })
+  if not ok or type(columns) ~= "table" or #columns.handle == 0 then return true end
+  for _, handle in ipairs(columns.handle) do
+    if handle == hdl then return true end
   end
   return false
 end
@@ -753,7 +694,6 @@ local function write_player(S, hdl, c, why)
       clear_player(S, hdl)
       return false
     end
-    -- unreadable now: his entries stay as they are (never cleared from a failed read), scanned again later
     RETRY = true
     UNREADABLE_LOGGED = UNREADABLE_LOGGED + 1
     if UNREADABLE_LOGGED <= 12 then
@@ -768,11 +708,16 @@ local function write_player(S, hdl, c, why)
   return true
 end
 
+-- the cache of save slot S when it belongs to the current store
+local function current_cache(S)
+  local c = CACHE[S]
+  return c ~= nil and c.store == STORE and c or nil
+end
+
 local function refresh_player(hdl)
   ARCH[hdl], INFO[hdl] = nil, nil
   local S = VRFW.slots.active()
-  local c = CACHE[S]
-  write_player(S, hdl, c ~= nil and c.store == STORE and c or nil, "choice changed")
+  write_player(S, hdl, current_cache(S), "choice changed")
 end
 
 -- work off the queue for up to `ms` milliseconds
@@ -780,7 +725,7 @@ local function pump(S, ms)
   local c = CACHE[S]
   if c == nil or c.head > c.tail or PUMPING then return end
   PUMPING = true
-  local t0 = VRFW.now()
+  local t0 = VRFW.now_ms()
   local ok, e = pcall(function()
     while c.head <= c.tail do
       local hdl = c.todo[c.head]
@@ -788,7 +733,7 @@ local function pump(S, ms)
       c.head = c.head + 1
       c.queued[hdl] = nil
       if write_player(S, hdl, c, c.why) then c.done = c.done + 1 end
-      if VRFW.now() - t0 >= ms then break end
+      if VRFW.now_ms() - t0 >= ms then break end
     end
   end)
   PUMPING = false
@@ -802,19 +747,15 @@ local function pump(S, ms)
   end
 end
 
--- the players of the active save slot whose entries must be (re)computed: every configured player (with declared slot
--- rules: every saved player); queued, then a first slice
 local function refresh(why, ms)
   if not ACTIVE then return end
   ARCH, INFO = {}, {}
   RETRY = false
-  LAST_RETRY = VRFW.now()
+  LAST_RETRY = VRFW.now_ms()
   local S = VRFW.slots.active()
   local ok, e = pcall(function()
     if mode_slot() then
-      -- a mode's reserved slot: its passives are the mode's
-      VRFW.native.table_clear(T_SLOTS, S)
-      VRFW.native.table_clear(T_UNLOCK, S)
+      clear_slot_tables(S)
       VRFW.native.table_set(T_ALL, S, nil)
       CACHE[S] = nil
       return
@@ -838,16 +779,12 @@ local function refresh(why, ms)
         queued = queued + 1
       end
     end
-    for key, _ in pairs(STORE.players) do
-      local hdl = tonumber(key, 16)
-      if hdl then consider(hdl) end
-    end
+    for hdl in pairs(configured_set()) do consider(hdl) end
     local saved_read = true
     if rules_touch_everyone() then
-      local all = VRFW.character.saved()
-      -- no saved character readable (the save being read): nobody is «gone» now
-      if #all == 0 then saved_read = false; RETRY = true end
-      for _, r in ipairs(all) do consider(r.handle) end
+      local handles = VRFW.character.saved_columns({ "handle" }).handle
+      if #handles == 0 then saved_read = false; RETRY = true end
+      for _, handle in ipairs(handles) do consider(handle) end
     end
     local gone = 0
     if saved_read then
@@ -871,8 +808,6 @@ local function refresh(why, ms)
   pump(S, ms or SLICE_MS)
 end
 
--- a slot event (load / switch / new game) since the last call: the tables of the new slot; else a short slice of the
--- queue now and then (the commands run on the game thread)
 local function follow_slots()
   local seq = VRFW.slots.event_seq()
   if seq ~= LAST_SEQ then
@@ -881,10 +816,10 @@ local function follow_slots()
     refresh("slot event", SLICE_GAME_MS)
   elseif STORE and STORE.slot ~= VRFW.slots.active() then
     refresh("slot changed", SLICE_GAME_MS)
-  elseif RETRY and VRFW.now() - LAST_RETRY >= RETRY_EVERY_MS then
+  elseif RETRY and VRFW.now_ms() - LAST_RETRY >= RETRY_EVERY_MS then
     refresh("retry", SLICE_GAME_MS)
   else
-    local now = VRFW.now()
+    local now = VRFW.now_ms()
     if now - LAST_PUMP >= PUMP_EVERY_MS then
       LAST_PUMP = now
       pump(VRFW.slots.active(), SLICE_GAME_MS)
@@ -892,44 +827,22 @@ local function follow_slots()
   end
 end
 
--- ---------------------------------------------------------------------------------------------- live check
--- What the two slot readers really answer (their hooked entry points, these native answers included) against the
--- entries the tables should hold. After every mode / match trigger: the saved configured players (a difference is
--- logged and the player written again). At match start / end also the match copies of the configured players (the
--- match builder reads the copies): the log says whether the configuration is what the match reads.
-
--- the match teams of the party block (Party.MatchTeams: a pointer to two [struct.PartyMatchTeam], members
--- [struct.PartyMatchMember]) and the user's match team (MatchInfo.UserTeam): offsets from the game profile
+-- game profile offsets of the party block's match teams and the user's match team
 local LIVE_LAYOUT_NAMES = {
   match_teams = "Party.MatchTeams", team_size = "PartyMatchTeam", team_members = "PartyMatchTeam.Members",
   member_size = "PartyMatchMember", member_handle = "PartyMatchMember.Handle", member_count = "Party.MatchTeamMemberCount",
   user_team = "MatchInfo.UserTeam",
 }
 local LIVE_LAYOUT, LIVE_LAYOUT_DONE = nil, false
-local LIVE_BUF, LIVE_ON = nil, nil
+local LIVE_ON = nil
 
 local function live_ready()
   if LIVE_ON == nil then
     LIVE_ON = VRFW.is_on("Passive.TeamPassiveId") and VRFW.is_on("Passive.TeamPassiveUnlocked")
-    if LIVE_ON then LIVE_BUF = VRFW.mem.buffer("pc_live_out", 8) end
   end
   return LIVE_ON
 end
 
-local function truthy(v)
-  return v == true or (type(v) == "number" and v ~= 0)
-end
-
--- the readers' answer for (handle, slot 1-5): id, unlocked; nil when a call failed
-local function live_slot(hdl, k, copy)
-  local oku, u = pcall(VRFW.call, "Passive.TeamPassiveUnlocked", hdl, k - 1, copy)
-  VRFW.mem.write("u32", LIVE_BUF, 0)
-  local oki = pcall(VRFW.call, "Passive.TeamPassiveId", LIVE_BUF, hdl, k - 1, copy)
-  if not (oku and oki) then return nil end
-  return VRFW.mem.read("u32", LIVE_BUF), truthy(u)
-end
-
--- the entries `owner` should have: id by slot, unlocked by slot (nil = no entry); nil when his record is unreadable
 local function expected_of(S, owner)
   local slots, unlock = {}, {}
   if not player_entries(S, owner, slots, unlock) then return nil end
@@ -939,14 +852,13 @@ local function expected_of(S, owner)
   return id, open
 end
 
--- the readers through `hdl` (the saved player or his match copy) against `owner`'s entries: slots checked, differing
 local function compare(S, hdl, owner, copy, details)
   local id, open = expected_of(S, owner)
   if not id then return 0, 0 end
   local checked, bad = 0, 0
   for k = 1, N do
     if id[k] ~= nil or open[k] ~= nil then
-      local got, unlocked = live_slot(hdl, k, copy)
+      local got, unlocked = VRFW.passives.slot_passive(hdl, k - 1, copy)
       if got ~= nil then
         checked = checked + 1
         if (id[k] ~= nil and got ~= id[k]) or (open[k] ~= nil and unlocked ~= open[k]) then
@@ -965,7 +877,6 @@ local function compare(S, hdl, owner, copy, details)
   return checked, bad
 end
 
--- the profile's numbers of the live check (nil when one is missing: warned once)
 local function live_layout()
   if not LIVE_LAYOUT_DONE then
     LIVE_LAYOUT_DONE = true
@@ -986,15 +897,15 @@ end
 local function team_members(team)
   local L = live_layout()
   if not L then return nil end
-  local okg, sets = pcall(VRFW.game.better_qol_team_sets)
-  if not okg or not sets or sets < 0x10000 then return nil end
-  local okb, base = pcall(VRFW.mem.read, "ptr", sets + L.match_teams)
-  if not okb or not base or base < 0x10000 then return nil end
+  local sets = VRFW.game.global("better_qol_team_sets")
+  if sets == nil then return nil end
+  local base = Memory.read_pointer(sets + L.match_teams)
+  if base == nil then return nil end
   base = base + team * L.team_size
   local out = {}
   for j = 0, L.member_count - 1 do
-    local okm, h = pcall(VRFW.mem.read, "u32", base + L.team_members + j * L.member_size + L.member_handle)
-    if okm and h and h ~= 0 then out[#out + 1] = h end
+    local h = Memory.read("u32", base + L.team_members + j * L.member_size + L.member_handle)
+    if h and h ~= 0 then out[#out + 1] = h end
   end
   return out
 end
@@ -1002,14 +913,13 @@ end
 local function user_team()
   local L = live_layout()
   if not L then return nil end
-  local okg, mi = pcall(VRFW.game.better_qol_match_info)
-  if not okg or not mi or mi < 0x10000 then return nil end
-  local ok, t = pcall(VRFW.mem.read, "u8", mi + L.user_team)
-  if ok and t and t <= 1 then return t end
+  local mi = VRFW.game.global("better_qol_match_info")
+  if mi == nil then return nil end
+  local t = Memory.read("u8", mi + L.user_team)
+  if t and t <= 1 then return t end
   return nil
 end
 
--- the match copies of the configured players: is what the match reads their configuration?
 local function match_check(why, S, configured)
   local details, copies, checked, bad, unowned, seen = {}, 0, 0, 0, 0, 0
   for team = 0, 1 do
@@ -1023,8 +933,8 @@ local function match_check(why, S, configured)
         local c1, b1 = compare(S, m, owner, (kind == 0 or kind == 7) and 0 or 1, details)
         checked, bad = checked + c1, bad + b1
       elseif not owner then
-        local okw, weak = pcall(VRFW.character.owner_weak, m)
-        if okw and weak and configured[weak] then
+        local weak = VRFW.character.copy_owner(m)
+        if weak and configured[weak] then
           unowned = unowned + 1
           if #details < 6 then
             details[#details + 1] = string.format("0x%08X (team %d): only a card match with the configured 0x%08X, no owner: the readers answer the game's own passives for it", m, team, weak)
@@ -1049,11 +959,7 @@ local function live_check(why, in_match)
   if not ACTIVE or not STORE or passives_off() or mode_slot() or not live_ready() then return end
   local S = VRFW.slots.active()
   if STORE.slot ~= S then return end
-  local configured = {}
-  for key, _ in pairs(STORE.players) do
-    local hdl = tonumber(key, 16)
-    if hdl then configured[hdl] = true end
-  end
+  local configured = configured_set()
   if next(configured) == nil then return end
   local details, checked, bad, rewrite = {}, 0, 0, {}
   for hdl in pairs(configured) do
@@ -1063,15 +969,13 @@ local function live_check(why, in_match)
   end
   if bad > 0 then
     warn(string.format("live check (%s): %d of %d configured slot(s) answer something else: %s; written again", why, bad, checked, table.concat(details, "; ")))
-    local c = CACHE[S]
+    local c = current_cache(S)
     for _, hdl in ipairs(rewrite) do
-      write_player(S, hdl, c ~= nil and c.store == STORE and c or nil, "live check")
+      write_player(S, hdl, c, "live check")
     end
   end
   if in_match then match_check(why, S, configured) end
 end
-
--- ---------------------------------------------------------------------------------------------- views of one slot
 
 local function default_for(hdl, k)
   if not ACTIVE or k < 1 or k > N then return nil end
@@ -1079,8 +983,6 @@ local function default_for(hdl, k)
   if not pr or pr.card == C.BLOCKED or not active_of(pr, cfgd)[k] then return nil end
   return def[k]
 end
-
--- ---------------------------------------------------------------------------------------------- the plate (retail filter)
 
 -- logs an answer only when it differs from the last one logged for the same query key
 local function log_on_change(key, value, fmt, ...)
@@ -1099,11 +1001,9 @@ local function plate_value(field, id, ver, unlocked)
   return unlocked
 end
 
--- CMND_GET_CHARA_TEAM_PASSIVE_INFO(hdl, slot, field, useCopy, preview)
 function PC.PlateInfo(h, slot, field, _copy, preview)
   h, slot, field = arg_u32(h), arg_u32(slot), arg_u32(field)
   if not (h and slot and field) or field > 2 then return false end
-  -- a rival player whose slots a VRFW rival players rule fills: VRFW answers (RivalPlayers.PlateInfo)
   if (tonumber(VRFW.flag("vrfw.rival_players.count")) or 0) > 0 then
     local rec = record(h)
     if rec and rec.param and VRFW.flag(string.format("vrfw.rival_players.slots.%d", rec.param % 4294967296)) then
@@ -1120,7 +1020,7 @@ function PC.PlateInfo(h, slot, field, _copy, preview)
   follow_slots()
   if li then
     local id = LIST and LIST.ids[li + 1] or 0
-    local ver = id == 0 and 0 or resolve_version(id, LIST and LIST.rarity or 0)
+    local ver = resolve_version(id, LIST and LIST.rarity or 0)
     return true, true, plate_value(field, id, ver, true)
   end
   if slot >= N then return false end
@@ -1130,7 +1030,7 @@ function PC.PlateInfo(h, slot, field, _copy, preview)
   if preview then
     local id = default_for(h, k)
     if id == nil then return false end
-    local ver = id == 0 and 0 or resolve_version(id, rarity_of(h))
+    local ver = resolve_version(id, rarity_of(h))
     return true, true, plate_value(field, id, ver, true)
   end
   local own = own_for(h, k)
@@ -1144,11 +1044,10 @@ function PC.PlateInfo(h, slot, field, _copy, preview)
   end
   local id, what
   if conf then id, what = conf, "configured" elseif own then id, what = own, "own" else return false end
-  -- a configured slot equal to the engine's own id and not force-unlocked: the retail answer is the same
   if conf and not own and not forced then
     if engine_slot(h, k, 0) == applied_version(id, rarity_of(h)) then return false end
   end
-  local ver = id == 0 and 0 or resolve_version(id, rarity_of(h))
+  local ver = resolve_version(id, rarity_of(h))
   local unlocked = true
   if field == 2 then
     local locked = pr ~= nil and pr.card ~= C.BLOCKED and C.kind(RULES, k) == C.SPECIAL and not C.slot_open(RULES, pr.card, pr.rarity, k) and eff[k] == 0
@@ -1158,9 +1057,6 @@ function PC.PlateInfo(h, slot, field, _copy, preview)
   return true, true, plate_value(field, id, ver, unlocked)
 end
 
--- ---------------------------------------------------------------------------------------------- commands
-
--- CMND_BETTERQOL_PC_OFF() → true while a declared off mode or a framework signature-only mode runs (the plate hides its passive rows)
 function PC.Off()
   return passives_off() or slots_off()
 end
@@ -1191,8 +1087,6 @@ function PC.InfoOf(h)
   return true, mode, a, b, max, cfgd and #C.inactive(LAYOUT, cfgd, open_of(pr)) or 0
 end
 
--- CMND_BETTERQOL_PC_SLOT(hdl, slot) → id, configured, locked, inactive stored id, kind code, lock reason (0 open, 1 the
--- card / slot rules: Ídolo, Prime, an unresolved staff badge..., 2 only the configurable-slot limit [passives] max_slots keeps it closed)
 function PC.Slot(h, slot)
   h, slot = arg_u32(h), arg_slot(slot)
   if not (h and slot) then return 0, false, true, 0, 0, 1 end
@@ -1216,7 +1110,6 @@ function PC.Slot(h, slot)
   return eff[slot], stored ~= 0 and on, reason ~= 0, on and 0 or stored, C.KIND_CODE[kind] or 0, reason
 end
 
--- CMND_BETTERQOL_PC_LIST(hdl, slot, category) → count, category used, index of the slot's current passive (-1)
 function PC.List(h, slot, cat)
   h, slot = arg_u32(h), arg_slot(slot)
   if not (h and slot) then return 0, 0 end
@@ -1244,7 +1137,6 @@ function PC.List(h, slot, cat)
   return #ids, category, cur and (cur - 1) or -1
 end
 
--- CMND_BETTERQOL_PC_LIST_ID(index) → id of the current list (0 past its end)
 function PC.ListId(i)
   i = arg_int(i) or -1
   if i < 0 or not LIST then return 0 end
@@ -1270,7 +1162,6 @@ function PC.CatNext(h, slot, cur, dir)
   return cats[j + 1]
 end
 
--- CMND_BETTERQOL_PC_SET(hdl, slot, id) → ok, code (0 ok, 1-7 the set error)
 function PC.Set(h, slot, id)
   h = arg_u32(h)
   if not h then return false, C.E_NOT_ALLOWED end
@@ -1298,7 +1189,6 @@ function PC.Set(h, slot, id)
   return true, 0
 end
 
--- CMND_BETTERQOL_PC_RESET(hdl) → ok (the player had a configuration and it was removed)
 function PC.Reset(h)
   h = arg_u32(h)
   if not h or not ACTIVE then return false end
@@ -1314,7 +1204,6 @@ function PC.Reset(h)
   return changed
 end
 
--- CMND_BETTERQOL_PC_SPECIAL([hdl]) → has special, title text key, special tile sprite, special slot (0-4, -1 = none)
 function PC.Special(h)
   h = arg_u32(h)
   if not h or h == 0 then h = ROW1 end
@@ -1328,15 +1217,11 @@ function PC.Special(h)
   return id ~= nil, title, RULES and RULES.special_tile or 0, sp and (sp - 1) or -1
 end
 
--- CMND_BETTERQOL_PC_EFF_ICON(effect) → the sprite the declarations give that effect definition (0 = the retail icon)
 function PC.EffIcon(e)
   e = arg_u32(e)
   return (e and DECL and DECL.effect_icons[e]) or 0
 end
 
--- ---------------------------------------------------------------------------------------------- retail filters
-
--- 0x40A079E0(hdl): the per-player window offers «Configuración de pasivas» to every player the configurator handles
 function PC.CanInherit(h)
   if not ACTIVE then return false end
   h = arg_u32(h)
@@ -1346,7 +1231,6 @@ function PC.CanInherit(h)
   return true, pr.card ~= C.BLOCKED
 end
 
--- 0xE1611D0F(hdl, slot) → ok, the configured id of the slot (0 = default; an inactive one reads 0)
 function PC.InheritId(h, slot)
   if not ACTIVE then return false end
   h, slot = arg_u32(h), arg_int(slot)
@@ -1359,7 +1243,6 @@ function PC.InheritId(h, slot)
   return true, true, (on and cfgd) and cfgd[slot + 1] or 0
 end
 
--- 0xB5948BCF(hdl, slot): the retail clear menu clears the configured slot (back to its default)
 function PC.InheritClear(h, slot)
   if not ACTIVE then return false end
   h, slot = arg_u32(h), arg_int(slot)
@@ -1375,10 +1258,6 @@ function PC.InheritClear(h, slot)
   return true, was ~= 0
 end
 
--- the player's archetype for the build getters: (archetype, name) or nil = the game's own answer (no rule, not a
--- saved player, or no archetype passive in the archetype slots with [player_archetype] without = "game")
--- The game's screens ask it every frame for every shown card: kept per handle in ARCH until a change (a refresh
--- trigger, a slot event, a player's choice changed).
 local function archetype_of(h)
   if not PLAYER then return nil end
   local hit = ARCH[h]
@@ -1400,7 +1279,6 @@ local function archetype_of(h)
   return a, name
 end
 
--- 0x4375DC93(hdl, 36): the player's archetype icon = his derived archetype; the list's pseudo handles get 0
 function PC.CharaStatus(h, field)
   if not ACTIVE then return false end
   h, field = arg_u32(h), arg_u32(field)
@@ -1413,7 +1291,6 @@ function PC.CharaStatus(h, field)
   return true, a
 end
 
--- 0x2B16FA30(hdl, …) → ok, build type: the same answer as field 36
 function PC.CharaBuild(h)
   if not ACTIVE or not PLAYER then return false end
   h = arg_u32(h)
@@ -1423,9 +1300,6 @@ function PC.CharaBuild(h)
   return true, true, a
 end
 
--- CMND_GET_PASSIVE_EFFECT_INFO(def, 3) → ok, 1 / (def, 4, i) → ok, archetype: the passive definition of an archetype a
--- mod declares (VRFW.archetype/1) has no build icon in the game's data (docs/framework/archetype.md §1); its rows
--- (the picker, the plate) show its archetype badge as the game's archetype passives do
 function PC.EffBuild(def, field, _i)
   if not CAT or not CAT.custom_defs then return false end
   local a = CAT.custom_defs[arg_u32(def) or 0]
@@ -1436,17 +1310,14 @@ function PC.EffBuild(def, field, _i)
   return false
 end
 
--- CMND_GET_CHARA_INFO(param, 20) → ok, 6 (archetype mode: a chara_param row has no archetype any more)
 function PC.ParamBuild(_param, field)
   if not ACTIVE or not C.archetype_mode(RULES) or arg_u32(field) ~= FIELD_PARAM_BUILD then return false end
   return true, true, C.NO_ARCHETYPE
 end
 
--- ---------------------------------------------------------------------------------------------- start
-
--- the off modes need only the slot reader hooks, not the configurator ([passives] enabled = false keeps them)
+-- the off modes need only the slot reader hooks, not the configurator
 local function start_off_modes()
-  if not (VRFW.is_on("GetTeamPassiveId") and VRFW.is_on("IsTeamPassiveUnlocked")) then return end
+  if not readers_on() then return end
   local ok, e = pcall(load_off_modes)
   if not ok then
     err("off modes: " .. tostring(e) .. " (player passives apply in every mode)")
@@ -1457,7 +1328,7 @@ local function start_off_modes()
 end
 
 local function start()
-  local raw = VRFW.files.config("passives")
+  local raw = VRFW.config("passives")
   local w
   CFG, w = C.config(raw)
   if w then warn(w) end
@@ -1468,11 +1339,11 @@ local function start()
   local lw
   LAYOUT, lw = C.layout(CFG.max_slots, nil)
   if lw then warn(lw) end
-  if not (VRFW.is_on("GetTeamPassiveId") and VRFW.is_on("IsTeamPassiveUnlocked")) then
+  if not readers_on() then
     err("the slot reader hooks are off (see «Problemas» / console native): «Configuración de pasivas» off (retail passives)")
     return
   end
-  BUF = VRFW.mem.buffer("pc_slot_out", 8)
+  BUF = VRFW.memory.buffer("pc_slot_out", 8)
   local ok, e = pcall(load_tables)
   if not ok then
     err(tostring(e) .. ": «Configuración de pasivas» off (retail passives)")
@@ -1487,9 +1358,6 @@ end
 start()
 start_off_modes()
 
--- the active save slot's tables follow the game: a mode change (title, menus, a match), a match start and end (a
--- Chronicle match changes no mode); each trigger scans (a scan + one slice; what is left goes on at the next trigger /
--- command), then checks what the readers answer
 for _, trig in ipairs({ "mode_enter", "mode_leave", "match_start", "match_end" }) do
   VRFW.on(trig, function()
     if next(OFF_KEYS) ~= nil then fill_off_modes() end

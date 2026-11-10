@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# Jinpei Jiba's school uniform, shoes and watch: one full-body clothes model, his own clothes and never a team kit.
+format = "native"
+game_path = "chr/_uniform/u90630000"

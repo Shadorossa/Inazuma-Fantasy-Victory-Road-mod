@@ -1,26 +1,19 @@
--- Shop redirect. Declarations: every active mod's content\shop_redirects\*.toml (`VRFW.shop_redirect/1`); menu side:
--- assets\lua\menu\_all\70_shop_redirect.lua. A menu opens a shop by handing its id to shop_menu (the param store key
--- 0xCE4A397E); a redirected id is handed as the declared target instead, so every menu entry of the shop opens the target.
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_VRFW_SHOP_REDIRECTS | | n, from 1, to 1, …: a shop id (number) or a mod's shop key (text) each |
--- | CMND_VRFW_SHOP_SCREENS | | n, from 1, set 1, …: a shop (as above) and the crc32 of the contact set (`contact_set`) whose screen opens instead |
+-- Shop redirect.
 
 ShopRedirects = ShopRedirects or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("shop_redirects")
 
 local PAIRS = {}  -- { from, to }: a number (shop id) or a text (shop key)
-local SCREENS = {} -- { from, set crc }: the shop opens the contact map screen on that set
+local SCREENS = {}
 
 -- "0x…" -> the id; any other text stays a key (a mod's shop, resolved by the menu)
 local function ref(s)
   if type(s) ~= "string" then return nil end
   if s:match("^%s*0[xX]%x+%s*$") then return D.id_of(s) end
-  local t = s:match("^%s*(.-)%s*$")
+  local t = VRFW.strings.trim(s)
   if t == "" then return nil end
   return t
 end
@@ -50,7 +43,7 @@ local function start()
   end
   for _, d in ipairs(D.load(schema, warn)) do
     local to = ref(d.v.to)
-    local set = type(d.v.contact_set) == "string" and d.v.contact_set:match("^%s*(.-)%s*$") or ""
+    local set = type(d.v.contact_set) == "string" and VRFW.strings.trim(d.v.contact_set) or ""
     if to ~= nil and set ~= "" then
       warn(string.format("%s: both `to` and `contact_set`: left out", d.key))
     elseif set ~= "" then

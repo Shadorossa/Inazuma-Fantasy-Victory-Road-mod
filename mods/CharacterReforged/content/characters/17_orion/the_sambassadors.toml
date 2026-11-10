@@ -1,14 +1,11 @@
 schema = "VRFW.character/2"
-# Character Reforged · The Sambassadors · Inazuma Eleven: Orion
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c08100010"                                   # Rio
 moves = [
-  { move = 0xDCF43422, level = 1 },                         # Aurora Dribble
-  { move = 0x78E027BC, level = 13 },                        # Shine Drive
-  { move = 0x768AB9C5, level = 20 },                        # Frosticle
+  { move = 0x78E027BC, level = 1 },                         # Shine Drive
+  { move = 0x768AB9C5, level = 13 },                        # Frosticle
+  { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
   { move = 0x2690CAFB, level = 30 },                        # Beyond the Sambadrome
 ]
 
@@ -22,10 +19,10 @@ moves = [
 [[edit]]
 target = "c08100020"                                   # Alegre
 moves = [
-  { move = 0x2690CAFB, level = 1 },                         # Beyond the Sambadrome
-  { move = 0x2752A0CC, level = 13 },                        # Capoeira Kick
-  { move = 0x13D845C9, level = 20 },                        # Samba Strike
-  { move = 0x78E027BC, level = 30 },                        # Shine Drive
+  { move = 0x13D845C9, level = 1 },                         # Samba Strike
+  { move = 0x78E027BC, level = 13 },                        # Shine Drive
+  { move = 0x2690CAFB, level = 20 },                        # Beyond the Sambadrome
+  { move = 0x2752A0CC, level = 30 },                        # Capoeira Kick
 ]
 
   [[edit.cards]]
@@ -36,12 +33,12 @@ moves = [
   stats = { kick = 356, control = 243, technique = 221, pressure = 180, physical = 167, intelligence = 201, agility = 174, freedom = 267 }
 
 [[edit]]
-target = "c08100030"                                   # André
+target = "c08100030"
 moves = [
-  { move = 0x2690CAFB, level = 1 },                         # Beyond the Sambadrome
-  { move = 0xD9BB22A7, level = 13 },                        # Air Ride
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x5E233E68, level = 30 },                        # Super Elastico
+  { move = 0x5E233E68, level = 1 },                         # Super Elastico
+  { move = 0x2690CAFB, level = 13 },                        # Beyond the Sambadrome
+  { move = 0xD9BB22A7, level = 20 },                        # Air Ride
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
 ]
 
   [[edit.cards]]
@@ -54,10 +51,10 @@ moves = [
 [[edit]]
 target = "c08100040"                                   # Manaus
 moves = [
-  { move = 0x2690CAFB, level = 1 },                         # Beyond the Sambadrome
-  { move = 0xD9BB22A7, level = 13 },                        # Air Ride
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x5E233E68, level = 30 },                        # Super Elastico
+  { move = 0x5E233E68, level = 1 },                         # Super Elastico
+  { move = 0x2690CAFB, level = 13 },                        # Beyond the Sambadrome
+  { move = 0xD9BB22A7, level = 20 },                        # Air Ride
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
 ]
 
   [[edit.cards]]
@@ -69,9 +66,9 @@ moves = [
 [[edit]]
 target = "c08100050"                                   # Iguaçu
 moves = [
-  { move = 0x2690CAFB, level = 1 },                         # Beyond the Sambadrome
-  { move = 0x427719AC, level = 13 },                        # Gale Dash
-  { move = 0x68982058, level = 20 },                        # Armadillo Circus
+  { move = 0x68982058, level = 1 },                         # Armadillo Circus
+  { move = 0x2690CAFB, level = 13 },                        # Beyond the Sambadrome
+  { move = 0x427719AC, level = 20 },                        # Gale Dash
   { move = 0x21127474, level = 30 },                        # Ultra Moon
 ]
 
@@ -85,9 +82,9 @@ moves = [
 [[edit]]
 target = "c08100060"                                   # Belo
 moves = [
-  { move = 0x21127474, level = 1 },                         # Ultra Moon
-  { move = 0x5E233E68, level = 13 },                        # Super Elastico
-  { move = 0x25276CB9, level = 20 },                        # Solar Surprise
+  { move = 0x5E233E68, level = 1 },                         # Super Elastico
+  { move = 0x25276CB9, level = 13 },                        # Solar Surprise
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
   { move = 0x2752A0CC, level = 30 },                        # Capoeira Kick
 ]
 
@@ -99,12 +96,12 @@ moves = [
   stats = { kick = 271, control = 224, technique = 217, pressure = 180, physical = 180, intelligence = 193, agility = 182, freedom = 238 }
 
 [[edit]]
-target = "c08100070"                                   # Luís
+target = "c08100070"
 moves = [
-  { move = 0x2690CAFB, level = 1 },                         # Beyond the Sambadrome
-  { move = 0x2296A01A, level = 13 },                        # Southern Cross
-  { move = 0x70417B2E, level = 20 },                        # Deceptor Dribble
-  { move = 0x5E233E68, level = 30 },                        # Super Elastico
+  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
+  { move = 0x5E233E68, level = 13 },                        # Super Elastico
+  { move = 0x2690CAFB, level = 20 },                        # Beyond the Sambadrome
+  { move = 0x2296A01A, level = 30 },                        # Southern Cross
 ]
 
   [[edit.cards]]
@@ -117,9 +114,9 @@ moves = [
 [[edit]]
 target = "c08100080"                                   # João
 moves = [
-  { move = 0x7A67325B, level = 1 },                         # Flame Dance
+  { move = 0x6A66FA7E, level = 1 },                         # Killer Whale
   { move = 0x5E233E68, level = 13 },                        # Super Elastico
-  { move = 0x6A66FA7E, level = 20 },                        # Killer Whale
+  { move = 0x7A67325B, level = 20 },                        # Flame Dance
   { move = 0x2690CAFB, level = 30 },                        # Beyond the Sambadrome
 ]
 
@@ -131,11 +128,11 @@ moves = [
   stats = { kick = 231, control = 178, technique = 151, pressure = 221, physical = 207, intelligence = 235, agility = 208, freedom = 267 }
 
 [[edit]]
-target = "c08100090"                                   # Maceió
+target = "c08100090"
 moves = [
-  { move = 0x7A67325B, level = 1 },                         # Flame Dance
-  { move = 0x2296A01A, level = 13 },                        # Southern Cross
-  { move = 0xB633C4E1, level = 20 },                        # Photon Crash
+  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
+  { move = 0x7A67325B, level = 13 },                        # Flame Dance
+  { move = 0x2296A01A, level = 20 },                        # Southern Cross
   { move = 0x21127474, level = 30 },                        # Ultra Moon
 ]
 
@@ -148,10 +145,10 @@ moves = [
 [[edit]]
 target = "c08100100"                                   # Bernardo
 moves = [
-  { move = 0x7A67325B, level = 1 },                         # Flame Dance
-  { move = 0x2296A01A, level = 13 },                        # Southern Cross
-  { move = 0xB633C4E1, level = 20 },                        # Photon Crash
-  { move = 0x34844F37, level = 30 },                        # White Hole
+  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
+  { move = 0x5E233E68, level = 13 },                        # Super Elastico
+  { move = 0x7A67325B, level = 20 },                        # Flame Dance
+  { move = 0x2296A01A, level = 30 },                        # Southern Cross
 ]
 
   [[edit.cards]]
@@ -164,10 +161,10 @@ moves = [
 [[edit]]
 target = "c08100110"                                   # Gonçalo
 moves = [
-  { move = 0x4063C70A, level = 1 },                         # Sauced-up Marinara Barrier
+  { move = 0x44E1A25A, level = 1 },                         # Pressure Punch
   { move = 0x30093385, level = 13 },                        # Marinara Barrier
-  { move = 0x44E1A25A, level = 20 },                        # Pressure Punch
-  { move = 0xF309624E, level = 30 },                        # Dual Smash
+  { move = 0xF309624E, level = 20 },                        # Dual Smash
+  { move = 0x4063C70A, level = 30 },                        # Sauced-up Marinara Barrier
 ]
 
   [[edit.cards]]
@@ -177,12 +174,12 @@ moves = [
   stats = { kick = 234, control = 185, technique = 144, pressure = 230, physical = 207, intelligence = 198, agility = 254, freedom = 271 }
 
 [[edit]]
-target = "c08100120"                                   # Belém
+target = "c08100120"
 moves = [
-  { move = 0x2690CAFB, level = 1 },                         # Beyond the Sambadrome
-  { move = 0x2DFFFFEA, level = 13 },                        # Ground Quake
+  { move = 0x6A66FA7E, level = 1 },                         # Killer Whale
+  { move = 0x2690CAFB, level = 13 },                        # Beyond the Sambadrome
   { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x07704782, level = 30 },                        # Rejection
+  { move = 0x2DFFFFEA, level = 30 },                        # Ground Quake
 ]
 
   [[edit.cards]]
@@ -195,8 +192,8 @@ moves = [
 target = "c08100130"                                   # Paulo
 moves = [
   { move = 0x28B0E96F, level = 1 },                         # Heavy Mettle
-  { move = 0xB633C4E1, level = 13 },                        # Photon Crash
-  { move = 0x00196EC2, level = 20 },                        # Earthquake
+  { move = 0x00196EC2, level = 13 },                        # Earthquake
+  { move = 0xB633C4E1, level = 20 },                        # Photon Crash
   { move = 0x2690CAFB, level = 30 },                        # Beyond the Sambadrome
 ]
 
@@ -209,10 +206,10 @@ moves = [
 [[edit]]
 target = "c11808120"                                   # Cristiano Dabola
 moves = [
-  { move = 0x427719AC, level = 1 },                         # Gale Dash
-  { move = 0xB633C4E1, level = 13 },                        # Photon Crash
-  { move = 0x2690CAFB, level = 20 },                        # Beyond the Sambadrome
-  { move = 0x5E233E68, level = 30 },                        # Super Elastico
+  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
+  { move = 0x5E233E68, level = 13 },                        # Super Elastico
+  { move = 0x427719AC, level = 20 },                        # Gale Dash
+  { move = 0x2690CAFB, level = 30 },                        # Beyond the Sambadrome
 ]
 
   [[edit.cards]]

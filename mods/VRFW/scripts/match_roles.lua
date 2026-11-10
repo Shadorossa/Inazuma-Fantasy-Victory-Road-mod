@@ -1,25 +1,6 @@
--- Match roles (docs/framework/match-role.md): which role each player of the user's team sets plays, kept in the save,
--- and handed to the match run time. The roles themselves are the mods' data (content\rules\ai\roles\*.toml, kind
--- VRFW.match_role/1); this script only stores who has which one and asks nothing of a role.
---
--- Save (the framework's data of the active slot): key "match_roles" = { ["<team set>.<team type>"] = { ["<character
--- handle>"] = "<role name>", … }, … }. A name no mod declares any more is kept (a mod switched off and on again finds
--- it) and ignored.
---
--- The game Lua (menus) asks these commands (content\game\match_roles.toml):
---   CMND_VRFW_MATCH_ROLE_LIST(handle)              -> { { name, text, help }, … }: the roles of the player's position
---                                                     (his card's main position); text / help = the text ids of the
---                                                     role's keys (crc32("<mod>.<key>"), 0 = none)
---   CMND_VRFW_MATCH_ROLE_GET(set, type, handle)    -> name ("" = none), text key crc32 (0 = none)
---   CMND_VRFW_MATCH_ROLE_SET(set, type, handle, name) -> ok: the player's role in that team set ("" clears it)
---
--- In a match: the match run time sends the signal VRFW.match_roles.assign once the players are on the pitch (and a
--- substitution asks again): every player of a side built from a team set whose character has a stored role gets it
--- (VRFW.ai.set_role).
 
 MatchRoles = MatchRoles or {}
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("match_roles")
 local crc32 = VRFW.crc32
 
@@ -54,15 +35,12 @@ local function declared_by_name()
   return by
 end
 
--- the text id of a role's text key: a new key of the declaring mod is crc32("<mod>.<key>") (text engine), a key
--- given whole ("<mod>.<key>") is used as it is
 local function text_id(mod, key)
   if type(key) ~= "string" or key == "" then return 0 end
   if key:find(".", 1, true) == nil and type(mod) == "string" and mod ~= "" then key = mod .. "." .. key end
   return crc32(key)
 end
 
--- the card's main position of a character handle (nil = unknown)
 local function card_position(handle)
   local ok, rec = pcall(VRFW.character.record, handle)
   if not ok or type(rec) ~= "table" or rec.param == nil then return nil end

@@ -1,14 +1,3 @@
--- Character Reforged › each card's moveset:
--- the 4 special moves, the aura (keshin / totem) and the mix of a card, for the mods that fill a set by default (the
--- skill table's aura / mix slots).
---
---   CharacterReforged.Moveset(card) -> nil (unknown card) or
---     { card, techniques = { { move, level }, … } (up to 4: learn list slots 1-8 in slot order, empty slots skipped),
---       aura, aura_level (learn list slot 9 when not 0, else nil), mix (declared, else nil) }
---
--- The learn list is the chara_param the game reads (cols 11-28, 9 x (move, level)): the cards' `moves` of every mod's
--- content\characters\** (Character Reforged's own: the retail cards' movesets). The mix is data: any mod's
--- content\movesets\*.toml `[CharacterReforged.Mix]` "<card id>" = <aura command id> (later mods win key by key).
 
 CharacterReforged = CharacterReforged or {}
 
@@ -20,8 +9,8 @@ local COL_FIRST = 11           -- slot k: move col 11 + 2 (k - 1), level col 12 
 local LISTS = nil              -- [u32 card] = { {move, level} x 9 }
 local MIX = nil                -- [u32 card] = aura command id
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
 local function load_lists()
   if LISTS then return LISTS end
@@ -31,7 +20,7 @@ local function load_lists()
     pos[#pos + 1] = COL_FIRST + 2 * (k - 1) + 1
     pos[#pos + 1] = COL_FIRST + 2 * (k - 1) + 2
   end
-  local ok, rows = pcall(VRFW.table.raw, "data/common/gamedata/character/chara_param_*.cfg.bin", "CHARA_PARAM_INFO", pos)
+  local ok, rows = pcall(VRFW.table.raw, VRFW.table_files.file_name(VRFW.table_files.CHARA_PARAM), "CHARA_PARAM_INFO", pos)
   if not ok or type(rows) ~= "table" then
     VRFW.warn("moveset: chara_param unreadable: " .. tostring(rows))
     return LISTS

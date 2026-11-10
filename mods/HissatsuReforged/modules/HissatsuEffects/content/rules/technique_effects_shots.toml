@@ -1,8 +1,4 @@
 schema = "VRFW.behaviour/1"
-# Hissatsu Effects › technique effects of the shots: each rule acts only on the move being used (its `technique` list:
-# the move, its same-name versions and its _or / _mm / _cro variants), for any player, the CPU included. `text` = the
-# sentence the move card shows (text\en.toml, text\es.toml). Family rules: one rule per teammate count
-# (`team_family`), the multipliers multiply. Values are starting values: tune them here or in ModManager.
 
 # Tornado de fuego (whs00030)
 [[rule]]
@@ -12,7 +8,6 @@ text = "HissatsuEffects.te_whs00030"
 when = { technique = ["whs00030"], score = "leading" }
 do = { power_mult = 1.12 }
 
-# Triángulo letal (whs00080)
 [[rule]]
 id = "te_whs00080"
 on = "move_power"
@@ -28,7 +23,6 @@ text = "HissatsuEffects.te_whs00320"
 when = { technique = ["whs00320"], score = "trailing" }
 do = { power_mult = 1.15 }
 
-# Trampolín relámpago (whs00010)
 [[rule]]
 id = "te_whs00010"
 on = "move_power"
@@ -66,7 +60,6 @@ text = "HissatsuEffects.te_whs00810"
 when = { technique = ["whs00810"], score_margin = { max = -2 } }
 do = { power_mult = 1.18 }
 
-# Ruptura relámpago (whs00380)
 [[rule]]
 id = "te_whs00380"
 on = "move_power"
@@ -80,7 +73,6 @@ on = "move_power"
 when = { technique = ["whs00380", "whs10180", "whs00380_mm"], partners = { count = 2 } }
 do = { power_mult = 1.05 }
 
-# Supertrampolín relámpago (whs00690)
 [[rule]]
 id = "te_whs00690"
 on = "move_power"
@@ -112,7 +104,6 @@ text = "HissatsuEffects.te_whs02750"
 when = { technique = ["whs02750"], half = 1, score = "leading" }
 do = { power_mult = 1.15 }
 
-# Fénix (whs00410)
 [[rule]]
 id = "te_whs00410"
 on = "move_power"
@@ -120,7 +111,6 @@ text = "HissatsuEffects.te_whs00410"
 when = { technique = ["whs00410"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" } }
 do = { power_mult = 1.12 }
 
-# Fénix oscuro (whs00860)
 [[rule]]
 id = "te_whs00860"
 on = "move_power"
@@ -168,7 +158,6 @@ text = "HissatsuEffects.te_whs02340"
 when = { technique = ["whs02340", "whs02340_mm"], score_margin = { min = 2 } }
 do = { power_mult = 1.18 }
 
-# Uno para todos (whs03120)
 [[rule]]
 id = "te_whs03120"
 on = "move_power"
@@ -192,7 +181,6 @@ text = "HissatsuEffects.te_whs02790"
 when = { technique = ["whs02790"], near = { who = "teammates", radius_m = 12.0, count = 0 } }
 do = { power_mult = 1.15 }
 
-# Último recurso: Dragón (whs03290)
 [[rule]]
 id = "te_whs03290"
 on = "move_power"
@@ -248,7 +236,6 @@ text = "HissatsuEffects.te_whs01510"
 when = { technique = ["whs01510"], half = 1 }
 do = { power_mult = 1.12 }
 
-# Tiro con rebote (rhs10030)
 [[rule]]
 id = "te_rhs10030"
 on = "move_power"
@@ -264,7 +251,6 @@ text = "HissatsuEffects.te_rhs10010"
 when = { technique = ["rhs10010"], half = 2, half_fraction_from = "2/3" }
 do = { power_mult = 1.12 }
 
-# Tiro con efecto (rhs10020)
 [[rule]]
 id = "te_rhs10020"
 on = "move_power"
@@ -288,7 +274,6 @@ text = "HissatsuEffects.te_whs01530"
 when = { technique = ["whs01530"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" } }
 do = { power_mult = 1.12 }
 
-# Balón de plasma (whs01970)
 [[rule]]
 id = "te_whs01970"
 on = "move_power"
@@ -336,7 +321,6 @@ text = "HissatsuEffects.te_whs01950"
 when = { technique = ["whs01950"], half = 1, score = "level" }
 do = { power_mult = 1.12 }
 
-# Balón rodante (whs00250)
 [[rule]]
 id = "te_whs00250"
 on = "move_power"
@@ -388,7 +372,6 @@ on = "move_power"
 when = { technique = ["whs00430"], uses = { scope = "half", result = "won", count = { min = 3 } } }
 do = { power_mult = 1.04 }
 
-# Tiro sónico (whs01610)
 [[rule]]
 id = "te_whs01610"
 on = "move_power"
@@ -428,7 +411,6 @@ text = "HissatsuEffects.te_whs00180"
 when = { technique = ["whs00180"], near = { who = "teammates", radius_m = 15.0, count = { min = 2 } } }
 do = { power_mult = 1.12 }
 
-# Técnica kung-fu (whs00530)
 [[rule]]
 id = "te_whs00530"
 on = "move_power"
@@ -460,7 +442,6 @@ text = "HissatsuEffects.te_whs00500"
 when = { technique = ["whs00500"], half = 2, half_fraction_from = "2/3" }
 do = { power_mult = 1.15 }
 
-# Remate Tarzán (whs00330)
 [[rule]]
 id = "te_whs00330"
 on = "move_power"
@@ -468,7 +449,6 @@ text = "HissatsuEffects.te_whs00330"
 when = { technique = ["whs00330"], uses = { scope = "half", count = 0 } }
 do = { power_mult = 1.12 }
 
-# Bomba acrobática (whs00520)
 [[rule]]
 id = "te_whs00520"
 on = "move_power"
@@ -524,7 +504,6 @@ text = "HissatsuEffects.te_whs02240"
 when = { technique = ["whs02240"], half = 2, score = "leading" }
 do = { power_mult = 1.12 }
 
-# Doble hélice (whs02330)
 [[rule]]
 id = "te_whs02330"
 on = "move_power"
@@ -532,7 +511,6 @@ text = "HissatsuEffects.te_whs02330"
 when = { technique = ["whs02330"], half_fraction_to = "1/3", score = "leading" }
 do = { power_mult = 1.12 }
 
-# Caída planetaria (whs02110)
 [[rule]]
 id = "te_whs02110"
 on = "move_power"
@@ -540,7 +518,6 @@ text = "HissatsuEffects.te_whs02110"
 when = { technique = ["whs02110"], half_fraction_from = "2/3", score = "leading" }
 do = { power_mult = 1.12 }
 
-# Cañonazo (whs01170)
 [[rule]]
 id = "te_whs01170"
 on = "move_power"
@@ -548,7 +525,6 @@ text = "HissatsuEffects.te_whs01170"
 when = { technique = ["whs01170"], half = 2, half_fraction_from = "2/3", score = "leading" }
 do = { power_mult = 1.12 }
 
-# Disparo con rebotes (whs00280)
 [[rule]]
 id = "te_whs00280"
 on = "move_power"
@@ -564,7 +540,6 @@ text = "HissatsuEffects.te_whs00800"
 when = { technique = ["whs00800"], partners = { count = 1 } }
 do = { power_mult = 1.12 }
 
-# Ataque de paladín (whs01140)
 [[rule]]
 id = "te_whs01140"
 on = "move_power"
@@ -632,7 +607,6 @@ text = "HissatsuEffects.te_whs02080"
 when = { technique = ["whs02080"], near = { who = "teammates", radius_m = 8.0, count = { min = 1 } }, score = "leading" }
 do = { power_mult = 1.12 }
 
-# Remate múltiple (whs00160)
 [[rule]]
 id = "te_whs00160"
 on = "move_power"
@@ -676,7 +650,6 @@ text = "HissatsuEffects.te_whs00210"
 when = { technique = ["whs00210"], chain = { after_same_element = true } }
 do = { power_mult = 1.12 }
 
-# Arcoíris luminoso (whs00490)
 [[rule]]
 id = "te_whs00490"
 on = "move_power"
@@ -700,7 +673,6 @@ text = "HissatsuEffects.te_whs00760"
 when = { technique = ["whs00760"], partners = { count = 1 } }
 do = { cost_mult = 0.8 }
 
-# Gran tifón (whs00990)
 [[rule]]
 id = "te_whs00990"
 on = "move_power"
@@ -722,7 +694,6 @@ on = "keeper_duel"
 when = { rival = { technique = ["whs01190"] } }
 do = { power_mult = 1.087 }
 
-# Torbellino trampolín (whs01000)
 [[rule]]
 id = "te_whs01000"
 on = "move_power"
@@ -762,7 +733,6 @@ text = "HissatsuEffects.te_whs00130"
 when = { technique = ["whs00130"], half = 2, score = "trailing" }
 do = { power_mult = 1.15 }
 
-# Megadragón (whs01030)
 [[rule]]
 id = "te_whs01030_family_1"
 on = "move_power"
@@ -782,7 +752,6 @@ on = "move_power"
 when = { technique = ["whs01030"], team_family = { family = "HissatsuReforged.Dragon", count = { min = 3 } } }
 do = { power_mult = 1.04 }
 
-# Megalodón (whs01130)
 [[rule]]
 id = "te_whs01130"
 on = "move_power"
@@ -790,7 +759,6 @@ text = "HissatsuEffects.te_whs01130"
 when = { technique = ["whs01130"], zone = { x = [-40.0, -20.0], both_sides = true, frame = "team" }, score = "level" }
 do = { power_mult = 1.12 }
 
-# Aguijón letal (whs01580)
 [[rule]]
 id = "te_whs01580"
 on = "move_power"
@@ -798,7 +766,6 @@ text = "HissatsuEffects.te_whs01580"
 when = { technique = ["whs01580", "whs01580_mm"], near = { who = "opponents", radius_m = 5.0, count = 0 }, score = "level" }
 do = { power_mult = 1.12 }
 
-# Cabezazo megatón (whs00910)
 [[rule]]
 id = "te_whs00910"
 on = "move_power"
@@ -850,7 +817,6 @@ text = "HissatsuEffects.te_whs00040"
 when = { technique = ["whs00040"], near = { who = "teammates", radius_m = 8.0, count = { min = 1 } }, score = "level" }
 do = { power_mult = 1.12 }
 
-# Cañón de agua (whs01160)
 [[rule]]
 id = "te_whs01160"
 on = "move_power"
@@ -858,7 +824,6 @@ text = "HissatsuEffects.te_whs01160"
 when = { technique = ["whs01160"], near = { who = "teammates", radius_m = 15.0, count = { min = 2 } }, score = "level" }
 do = { power_mult = 1.12 }
 
-# Mandíbulas dobles (whs01270)
 [[rule]]
 id = "te_whs01270"
 on = "move_power"
@@ -874,7 +839,6 @@ text = "HissatsuEffects.te_whs02050"
 when = { technique = ["whs02050"], half = 1, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Balón iceberg (whs00930)
 [[rule]]
 id = "te_whs00930"
 on = "move_power"
@@ -882,7 +846,6 @@ text = "HissatsuEffects.te_whs00930"
 when = { technique = ["whs00930"], half = 2, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Lanza de Odín (whs00650)
 [[rule]]
 id = "te_whs00650"
 on = "move_power"
@@ -890,7 +853,6 @@ text = "HissatsuEffects.te_whs00650"
 when = { technique = ["whs00650"], half_fraction_to = "1/3", score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Remate del águila (whs00720)
 [[rule]]
 id = "te_whs00720"
 on = "move_power"
@@ -906,7 +868,6 @@ text = "HissatsuEffects.te_whs01430"
 when = { technique = ["whs01430"], uses = { scope = "half", count = 0 } }
 do = { power_mult = 1.12 }
 
-# Remate dragón (whs00060)
 [[rule]]
 id = "te_whs00060_family_1"
 on = "move_power"
@@ -950,7 +911,6 @@ text = "HissatsuEffects.te_whs02320"
 when = { technique = ["whs02320"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" }, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Tornado dragón (whs00350)
 [[rule]]
 id = "te_whs00350"
 on = "move_power"
@@ -958,7 +918,6 @@ text = "HissatsuEffects.te_whs00350"
 when = { technique = ["whs00350", "whs00350_or"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" } }
 do = { power_mult = 1.12 }
 
-# Triángulo ZZ (whs01550)
 [[rule]]
 id = "te_whs01550"
 on = "move_power"
@@ -974,7 +933,6 @@ text = "HissatsuEffects.te_whs02460"
 when = { technique = ["whs02460"], zone = { z = [-55.0, 25.0], frame = "team" }, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Tormenta del tigre (whs01020)
 [[rule]]
 id = "te_whs01020_family_1"
 on = "move_power"
@@ -1012,7 +970,6 @@ text = "HissatsuEffects.te_whs02280"
 when = { technique = ["whs02280"], zone = { x = [-10.0, 10.0], frame = "team" }, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Grito del Edén (whs02640)
 [[rule]]
 id = "te_whs02640"
 on = "move_power"
@@ -1028,7 +985,6 @@ text = "HissatsuEffects.te_whs01660"
 when = { technique = ["whs01660"], zone = { x = [-40.0, -20.0], both_sides = true, frame = "team" }, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Rizo de dragón (whs01990)
 [[rule]]
 id = "te_whs01990_family_1"
 on = "move_power"
@@ -1048,7 +1004,6 @@ on = "move_power"
 when = { technique = ["whs01990"], team_family = { family = "HissatsuReforged.Dragon", count = { min = 3 } } }
 do = { power_mult = 1.04 }
 
-# Giro atómico (whs02200)
 [[rule]]
 id = "te_whs02200"
 on = "move_power"
@@ -1064,7 +1019,6 @@ text = "HissatsuEffects.te_whs00770"
 when = { technique = ["whs00770", "whs00770_or"], near = { who = "opponents", radius_m = 8.0, count = { min = 2 } }, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Chut prehistórico (whs01960)
 [[rule]]
 id = "te_whs01960"
 on = "move_power"
@@ -1096,7 +1050,6 @@ text = "HissatsuEffects.te_whs03030"
 when = { technique = ["whs03030"], score = "level" }
 do = { cost_mult = 0.8 }
 
-# Triángulo Z (whs00260)
 [[rule]]
 id = "te_whs00260"
 on = "tension_pay"
@@ -1120,7 +1073,6 @@ text = "HissatsuEffects.te_whs00460"
 when = { technique = ["whs00460"], half = 1 }
 do = { cost_mult = 0.8 }
 
-# Balón de petróleo (whs02490)
 [[rule]]
 id = "te_whs02490"
 on = "tension_pay"
@@ -1128,7 +1080,6 @@ text = "HissatsuEffects.te_whs02490"
 when = { technique = ["whs02490"], half = 2 }
 do = { cost_mult = 0.8 }
 
-# Fiebre del oro (whs02510)
 [[rule]]
 id = "te_whs02510"
 on = "tension_pay"
@@ -1144,7 +1095,6 @@ text = "HissatsuEffects.te_whs00570"
 when = { technique = ["whs00570"], half_fraction_from = "2/3" }
 do = { cost_mult = 0.8 }
 
-# Remate caótico (whs01250)
 [[rule]]
 id = "te_whs01250"
 on = "tension_pay"
@@ -1168,7 +1118,6 @@ text = "HissatsuEffects.te_whs01480"
 when = { technique = ["whs01480"], zone = { z = [-55.0, 37.9], frame = "team" } }
 do = { power_mult = 1.12 }
 
-# Gran explosión (whs02180)
 [[rule]]
 id = "te_whs02180"
 on = "tension_pay"
@@ -1176,7 +1125,6 @@ text = "HissatsuEffects.te_whs02180"
 when = { technique = ["whs02180", "whs02180_mm"], score_margin = { min = 2 } }
 do = { cost_mult = 0.8 }
 
-# Bala de cañón (whs03080)
 [[rule]]
 id = "te_whs03080"
 on = "tension_pay"
@@ -1184,7 +1132,6 @@ text = "HissatsuEffects.te_whs03080"
 when = { technique = ["whs03080"], score_margin = { max = -2 } }
 do = { cost_mult = 0.8 }
 
-# Dragón terrestre (whs00670)
 [[rule]]
 id = "te_whs00670_family_1"
 on = "move_power"
@@ -1204,7 +1151,6 @@ on = "move_power"
 when = { technique = ["whs00670"], team_family = { family = "HissatsuReforged.Dragon", count = { min = 3 } } }
 do = { power_mult = 1.04 }
 
-# Impulso del equipo definitivo (whs02350)
 [[rule]]
 id = "te_whs02350"
 on = "tension_pay"
@@ -1236,7 +1182,6 @@ text = "HissatsuEffects.te_whs01700"
 when = { technique = ["whs01700", "whs01700_mm", "whs01700_or"], half = 1, score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Frente frío (whs02930)
 [[rule]]
 id = "te_whs02930"
 on = "tension_pay"
@@ -1284,7 +1229,6 @@ text = "HissatsuEffects.te_whs10040"
 when = { technique = ["whs10040"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" } }
 do = { cost_mult = 0.8 }
 
-# Cañón X (whs01330)
 [[rule]]
 id = "te_whs01330"
 on = "tension_pay"
@@ -1300,7 +1244,6 @@ text = "HissatsuEffects.te_whs02620"
 when = { technique = ["whs02620"], zone = { x = [-40.0, -20.0], both_sides = true, frame = "team" } }
 do = { cost_mult = 0.8 }
 
-# Caída galáctica (whs02630)
 [[rule]]
 id = "te_whs02630"
 on = "tension_pay"
@@ -1356,7 +1299,6 @@ text = "HissatsuEffects.te_whs03140"
 when = { technique = ["whs03140"], chance = 0.25 }
 do = { cost_mult = 0.8 }
 
-# Cabezazo gigatón (whs02070)
 [[rule]]
 id = "te_whs02070"
 on = "tension_pay"
@@ -1400,7 +1342,6 @@ text = "HissatsuEffects.te_whs10120"
 when = { technique = ["whs10120"], element = "wind" }
 do = { cost_mult = 0.8 }
 
-# Triángulo letal 2 (whs00470)
 [[rule]]
 id = "te_whs00470"
 on = "tension_pay"
@@ -1416,7 +1357,6 @@ text = "HissatsuEffects.te_whs00640"
 when = { technique = ["whs00640", "whs00640_or"], element = "mountain" }
 do = { cost_mult = 0.8 }
 
-# Furia de los elementos (whs01720)
 [[rule]]
 id = "te_whs01720"
 on = "tension_pay"
@@ -1484,7 +1424,6 @@ text = "HissatsuEffects.te_whs00480"
 when = { technique = ["whs00480"], half = 2, half_fraction_from = "2/3", score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Cabezazo yoyó (whs00550)
 [[rule]]
 id = "te_whs00550"
 on = "tension_pay"
@@ -1516,7 +1455,6 @@ text = "HissatsuEffects.te_whs00170"
 when = { technique = ["whs00170"], chain = { chained = true }, score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Cañón dragón (whs00580)
 [[rule]]
 id = "te_whs00580_family_1"
 on = "move_power"
@@ -1552,7 +1490,6 @@ text = "HissatsuEffects.te_whs02450"
 when = { technique = ["whs02450"], zone = { x = [-40.0, -20.0], both_sides = true, frame = "team" }, score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Ímpetu de dragón (whs02990)
 [[rule]]
 id = "te_whs02990_family_1"
 on = "move_power"
@@ -1580,7 +1517,6 @@ text = "HissatsuEffects.te_whs03240"
 when = { technique = ["whs03240"], near = { who = "opponents", radius_m = 5.0, count = 0 }, score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Polvo de réquiem (whs03300)
 [[rule]]
 id = "te_whs03300"
 on = "tension_pay"
@@ -1604,7 +1540,6 @@ text = "HissatsuEffects.te_whs01520"
 when = { technique = ["whs01520"], near = { who = "teammates", radius_m = 15.0, count = { min = 2 } }, score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Burbujas arcoíris (whs01740)
 [[rule]]
 id = "te_whs01740"
 on = "tension_pay"
@@ -1612,7 +1547,6 @@ text = "HissatsuEffects.te_whs01740"
 when = { technique = ["whs01740"], near = { who = "teammates", radius_m = 12.0, count = 0 }, score = "leading" }
 do = { cost_mult = 0.8 }
 
-# Impulso efímero (whs02040)
 [[rule]]
 id = "te_whs02040"
 on = "move_power"
@@ -1626,7 +1560,6 @@ on = "move_power"
 when = { technique = ["whs02040", "whs02040_mm"], uses = { scope = "half", count = { min = 1 } } }
 do = { power_mult = 0.95 }
 
-# Tiro centrífugo (whs02860)
 [[rule]]
 id = "te_whs02860"
 on = "tension_pay"
@@ -1702,7 +1635,6 @@ on = "move_power"
 when = { technique = ["whs01310"], team_family = { family = "HissatsuReforged.Penguin", count = { min = 3 } } }
 do = { power_mult = 1.04 }
 
-# Coletazo de dragón (whs01750)
 [[rule]]
 id = "te_whs01750_family_1"
 on = "move_power"
@@ -1722,7 +1654,6 @@ on = "move_power"
 when = { technique = ["whs01750"], team_family = { family = "HissatsuReforged.Dragon", count = { min = 3 } } }
 do = { power_mult = 1.04 }
 
-# Triángulo letal final (whs02010)
 [[rule]]
 id = "te_whs02010"
 on = "tension_pay"
@@ -1730,7 +1661,6 @@ text = "HissatsuEffects.te_whs02010"
 when = { technique = ["whs02010", "whs02010_or"], zone = { x = [-40.0, -20.0], both_sides = true, frame = "team" }, score = "level" }
 do = { cost_mult = 0.8 }
 
-# Tiro magnético (whs02030)
 [[rule]]
 id = "te_whs02030"
 on = "tension_pay"
@@ -1754,7 +1684,6 @@ text = "HissatsuEffects.te_whs02480"
 when = { technique = ["whs02480"], near = { who = "teammates", radius_m = 8.0, count = { min = 1 } }, score = "level" }
 do = { cost_mult = 0.8 }
 
-# Amplificador mágico (whs02580)
 [[rule]]
 id = "te_whs02580"
 on = "move_power"
@@ -1830,7 +1759,6 @@ text = "HissatsuEffects.te_whs00890"
 when = { technique = ["whs00890"], half_fraction_to = "1/3", score = "trailing" }
 do = { cost_mult = 0.8 }
 
-# Tiro a reacción (whs01220)
 [[rule]]
 id = "te_whs01220"
 on = "tension_pay"
@@ -1838,7 +1766,6 @@ text = "HissatsuEffects.te_whs01220"
 when = { technique = ["whs01220"], half_fraction_from = "2/3", score = "trailing" }
 do = { cost_mult = 0.8 }
 
-# Cañón celestial (whs01340)
 [[rule]]
 id = "te_whs01340_family_1"
 on = "move_power"
@@ -1858,7 +1785,6 @@ on = "move_power"
 when = { technique = ["whs01340"], team_family = { family = "HissatsuReforged.GodHand", count = { min = 3 } } }
 do = { power_mult = 1.03 }
 
-# Triángulo múltiple (whs01440)
 [[rule]]
 id = "te_whs01440"
 on = "tension_pay"
@@ -1898,7 +1824,6 @@ text = "HissatsuEffects.te_whs10030"
 when = { technique = ["whs10030"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" }, score = "trailing" }
 do = { cost_mult = 0.8 }
 
-# Impulso de resolución (whs10140)
 [[rule]]
 id = "te_whs10140"
 on = "move_power"
@@ -1906,7 +1831,6 @@ text = "HissatsuEffects.te_whs10140"
 when = { technique = ["whs10140"], chain = { chained = true } }
 do = { power_mult = 1.12 }
 
-# Marlín volador (whs10150)
 [[rule]]
 id = "te_whs10150"
 on = "tension_pay"
@@ -1930,7 +1854,6 @@ text = "HissatsuEffects.te_whs01300"
 when = { technique = ["whs01300"], near = { who = "opponents", radius_m = 8.0, count = { min = 2 } }, score = "trailing" }
 do = { cost_mult = 0.8 }
 
-# Pingüino múltiple (whs01450)
 [[rule]]
 id = "te_whs01450_family_1"
 on = "move_power"
@@ -1958,7 +1881,6 @@ text = "HissatsuEffects.te_whs01780"
 when = { technique = ["whs01780"], near = { who = "teammates", radius_m = 8.0, count = { min = 1 } }, score = "trailing" }
 do = { cost_mult = 0.8 }
 
-# Movimientos armónicos (whs01790)
 [[rule]]
 id = "te_whs01790"
 on = "move_power"
@@ -1984,7 +1906,6 @@ on = "move_power"
 when = { technique = ["whs01790"], uses = { scope = "half", count = { min = 4 } } }
 do = { power_mult = 1.03 }
 
-# Lanza de carámbanos (whs01830)
 [[rule]]
 id = "te_whs01830"
 on = "tension_pay"
@@ -1992,7 +1913,6 @@ text = "HissatsuEffects.te_whs01830"
 when = { technique = ["whs01830"], near = { who = "teammates", radius_m = 12.0, count = 0 }, score = "trailing" }
 do = { cost_mult = 0.8 }
 
-# Asalto aéreo (whs01840)
 [[rule]]
 id = "te_whs01840"
 on = "move_power"
@@ -2016,7 +1936,6 @@ text = "HissatsuEffects.te_whs01870"
 when = { technique = ["whs01870"], score = "trailing" }
 do = { power_mult = 1.1 }
 
-# Hacha del Azote negro (whs01880)
 [[rule]]
 id = "te_whs01880"
 on = "move_power"
@@ -2072,7 +1991,6 @@ text = "HissatsuEffects.te_whs02370"
 when = { technique = ["whs02370"], score_margin = { min = 2 } }
 do = { power_mult = 1.1 }
 
-# Prisión escarlata (whs02380)
 [[rule]]
 id = "te_whs02380"
 on = "move_power"
@@ -2088,7 +2006,6 @@ text = "HissatsuEffects.te_whs02410"
 when = { technique = ["whs02410"], half = 2, score = "trailing" }
 do = { power_mult = 1.1 }
 
-# Ataque de corazón (whs02420)
 [[rule]]
 id = "te_whs02420"
 on = "move_power"
@@ -2096,7 +2013,6 @@ text = "HissatsuEffects.te_whs02420"
 when = { technique = ["whs02420", "whs02430"], half = 2, score = "level" }
 do = { power_mult = 1.1 }
 
-# Habichuelas mágicas (whs02550)
 [[rule]]
 id = "te_whs02550"
 on = "move_power"
@@ -2146,7 +2062,6 @@ text = "HissatsuEffects.te_whs02702"
 when = { technique = ["whs02702"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" } }
 do = { power_mult = 1.1 }
 
-# Rugido de león (whs02710)
 [[rule]]
 id = "te_whs02710"
 on = "move_power"
@@ -2194,7 +2109,6 @@ text = "HissatsuEffects.te_whs02722"
 when = { technique = ["whs02722"], zone = { x = [-40.0, -20.0], both_sides = true, frame = "team" } }
 do = { power_mult = 1.1 }
 
-# Cañonazo de Ixaal (whs02730)
 [[rule]]
 id = "te_whs02730"
 on = "move_power"
@@ -2202,7 +2116,6 @@ text = "HissatsuEffects.te_whs02730"
 when = { technique = ["whs02730"], near = { who = "opponents", radius_m = 5.0, count = 0 } }
 do = { power_mult = 1.1 }
 
-# Cañonazo de Vairaas (whs02731)
 [[rule]]
 id = "te_whs02731"
 on = "move_power"
@@ -2218,7 +2131,6 @@ text = "HissatsuEffects.te_whs02820"
 when = { technique = ["whs02820"], near = { who = "teammates", radius_m = 8.0, count = { min = 1 } } }
 do = { power_mult = 1.1 }
 
-# Tiro aéreo triple (whs03020)
 [[rule]]
 id = "te_whs03020"
 on = "move_power"
@@ -2226,7 +2138,6 @@ text = "HissatsuEffects.te_whs03020"
 when = { technique = ["whs03020"], near = { who = "teammates", radius_m = 15.0, count = { min = 2 } } }
 do = { power_mult = 1.1 }
 
-# Tiburón abisal (whs03100)
 [[rule]]
 id = "te_whs03100"
 on = "move_power"
@@ -2234,7 +2145,6 @@ text = "HissatsuEffects.te_whs03100"
 when = { technique = ["whs03100"], near = { who = "teammates", radius_m = 12.0, count = 0 } }
 do = { power_mult = 1.1 }
 
-# Cabezazo supermegatón (whs03110)
 [[rule]]
 id = "te_whs03110"
 on = "move_power"
@@ -2242,7 +2152,6 @@ text = "HissatsuEffects.te_whs03110"
 when = { technique = ["whs03110"], chance = 0.25 }
 do = { power_mult = 1.1 }
 
-# Triángulo letal triturador (whs03180)
 [[rule]]
 id = "te_whs03180"
 on = "move_power"
@@ -2278,7 +2187,6 @@ text = "HissatsuEffects.te_whs03260"
 when = { technique = ["whs03260"], element = "wind" }
 do = { power_mult = 1.1 }
 
-# Pingüino emperador n.º 2 + Tiburón (whs03330)
 [[rule]]
 id = "te_whs03330_family_1"
 on = "move_power"
@@ -2298,7 +2206,6 @@ on = "move_power"
 when = { technique = ["whs03330", "whs03330_or"], team_family = { family = "HissatsuReforged.Penguin", count = { min = 3 } } }
 do = { power_mult = 1.04 }
 
-# Lanza gélida (whs03360)
 [[rule]]
 id = "te_whs03360"
 on = "move_power"
@@ -2306,7 +2213,6 @@ text = "HissatsuEffects.te_whs03360"
 when = { technique = ["whs03360", "whs03360_or"], element = "forest" }
 do = { power_mult = 1.1 }
 
-# Ruptura relámpago CG (whs03380)
 [[rule]]
 id = "te_whs03380_family_1"
 on = "move_power"
@@ -2334,8 +2240,6 @@ text = "HissatsuEffects.te_whs10200"
 when = { technique = ["whs10200"], element = "fire" }
 do = { power_mult = 1.1 }
 
-# ---- Hissatsu Effects 1.13.0: own effects of the moves whose v1 family line was removed by families v2
-
 # Ataque meteorito (whs00110)
 [[rule]]
 id = "te_whs00110"
@@ -2360,7 +2264,6 @@ text = "HissatsuEffects.te_whs00310"
 when = { technique = ["whs00310"], aura = true }
 do = { cost_mult = 0.8 }
 
-# Tiro galáctico (whs00390)
 [[rule]]
 id = "te_whs00390"
 on = "move_power"
@@ -2368,7 +2271,6 @@ text = "HissatsuEffects.te_whs00390"
 when = { technique = ["whs00390"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" } }
 do = { power_mult = 1.15 }
 
-# Relámpago saltón (whs00710)
 [[rule]]
 id = "te_whs00710"
 on = "move_power"
@@ -2376,7 +2278,6 @@ text = "HissatsuEffects.te_whs00710"
 when = { technique = ["whs00710"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" } }
 do = { power_mult = 1.1 }
 
-# Neotiro galáctico (whs00880)
 [[rule]]
 id = "te_whs00880"
 on = "move_power"
@@ -2392,7 +2293,6 @@ text = "HissatsuEffects.te_whs00980"
 when = { technique = ["whs00980"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" } }
 do = { power_mult = 1.1 }
 
-# Círculo de espadas (whs01040)
 [[rule]]
 id = "te_whs01040"
 on = "move_power"
@@ -2400,7 +2300,6 @@ text = "HissatsuEffects.te_whs01040"
 when = { technique = ["whs01040"], half_fraction_to = "1/3", score = "level" }
 do = { power_mult = 1.12 }
 
-# Huracán (whs01120)
 [[rule]]
 id = "te_whs01120_1"
 on = "move_power"
@@ -2466,7 +2365,6 @@ text = "HissatsuEffects.te_whs01500"
 when = { technique = ["whs01500"], zone = { x = [-20.0, 20.0], z = [38.0, 55.0], frame = "team" } }
 do = { power_mult = 1.12 }
 
-# Ciclón blanco (whs01670)
 [[rule]]
 id = "te_whs01670"
 on = "move_power"
@@ -2482,7 +2380,6 @@ text = "HissatsuEffects.te_whs01690"
 when = { technique = ["whs01690"], uses = { scope = "match", result = "lost", count = { min = 1 } } }
 do = { power_mult = 1.12 }
 
-# Leopardo de la ventisca (whs01710)
 [[rule]]
 id = "te_whs01710"
 on = "move_power"
@@ -2498,7 +2395,6 @@ text = "HissatsuEffects.te_whs01860"
 when = { technique = ["whs01860"], half_fraction_to = "1/3", half = 1, score = "leading" }
 do = { power_mult = 1.12 }
 
-# Estocada samurái (whs01865)
 [[rule]]
 id = "te_whs01865"
 on = "tension_pay"
@@ -2506,7 +2402,6 @@ text = "HissatsuEffects.te_whs01865"
 when = { technique = ["whs01865"], half_fraction_to = "1/3", score = "level" }
 do = { cost_mult = 0.85 }
 
-# Desolación eterna (whs01930)
 [[rule]]
 id = "te_whs01930"
 on = "move_power"
@@ -2538,7 +2433,6 @@ text = "HissatsuEffects.te_whs02140"
 when = { technique = ["whs02140"], half_fraction_to = "1/3", half = 1, score = "level" }
 do = { power_mult = 1.12 }
 
-# Tormenta eléctrica (whs02210)
 [[rule]]
 id = "te_whs02210"
 on = "move_power"
@@ -2546,7 +2440,6 @@ text = "HissatsuEffects.te_whs02210"
 when = { technique = ["whs02210", "whs02210_mm"], half_fraction_to = "1/3", score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Cañonazo de fragmentos (whs02230)
 [[rule]]
 id = "te_whs02230"
 on = "move_power"
@@ -2554,7 +2447,6 @@ text = "HissatsuEffects.te_whs02230"
 when = { technique = ["whs02230"], zone = { z = [-55.0, 37.9], frame = "team" } }
 do = { power_mult = 1.1 }
 
-# Tiro sombrío (whs02390)
 [[rule]]
 id = "te_whs02390"
 on = "tension_pay"
@@ -2570,7 +2462,6 @@ text = "HissatsuEffects.te_whs02400"
 when = { technique = ["whs02400"], half_fraction_from = "2/3", half = 2, score = "leading" }
 do = { power_mult = 1.12 }
 
-# Fuego rápido (whs02470)
 [[rule]]
 id = "te_whs02470"
 on = "tension_pay"
@@ -2578,7 +2469,6 @@ text = "HissatsuEffects.te_whs02470"
 when = { technique = ["whs02470"], half_fraction_to = "1/3", half = 1, score = "leading" }
 do = { cost_mult = 0.85 }
 
-# Roca volcánica (whs02540)
 [[rule]]
 id = "te_whs02540"
 on = "tension_pay"
@@ -2586,7 +2476,6 @@ text = "HissatsuEffects.te_whs02540"
 when = { technique = ["whs02540"], half_fraction_from = "2/3", score = "leading" }
 do = { cost_mult = 0.85 }
 
-# Relámpago volcánico (whs02570)
 [[rule]]
 id = "te_whs02570"
 on = "tension_pay"
@@ -2602,7 +2491,6 @@ text = "HissatsuEffects.te_whs02590"
 when = { technique = ["whs02590"], half_fraction_from = "2/3", score = "trailing" }
 do = { power_mult = 1.12 }
 
-# Tiro del corazón real (whs02610)
 [[rule]]
 id = "te_whs02610"
 on = "tension_pay"
@@ -2618,7 +2506,6 @@ text = "HissatsuEffects.te_whs02670"
 when = { technique = ["whs02670"], half_fraction_to = "1/3", half = 1, score = "trailing" }
 do = { power_mult = 1.12 }
 
-# ¡Tormenta, tornado, huracán! (whs02680)
 [[rule]]
 id = "te_whs02680"
 on = "tension_pay"
@@ -2642,7 +2529,6 @@ text = "HissatsuEffects.te_whs02770"
 when = { technique = ["whs02770", "whs02770_or"], half_fraction_to = "1/3", score = "leading" }
 do = { cost_mult = 0.85 }
 
-# Tiro meteórico (whs02780)
 [[rule]]
 id = "te_whs02780"
 on = "move_power"
@@ -2716,7 +2602,6 @@ text = "HissatsuEffects.te_whs03050"
 when = { technique = ["whs03050"], half_fraction_to = "1/3", half = 2, score = "level" }
 do = { power_mult = 1.12 }
 
-# Sombra de Orión (whs03060)
 [[rule]]
 id = "te_whs03060"
 on = "move_power"
@@ -2748,7 +2633,6 @@ text = "HissatsuEffects.te_whs03210"
 when = { technique = ["whs03210"], half_fraction_from = "2/3", half = 1 }
 do = { power_mult = 1.12 }
 
-# Campo umbrío (whs03220)
 [[rule]]
 id = "te_whs03220"
 on = "move_power"

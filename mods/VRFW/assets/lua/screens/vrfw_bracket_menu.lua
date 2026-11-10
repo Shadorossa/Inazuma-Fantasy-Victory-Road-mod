@@ -1,31 +1,8 @@
 -- vrfw_bracket_menu: the knockout bracket screen (its [[screen]] in content\menus\bracket.toml).
--- A draw-only child menu (registry priority 0: it never takes the pad), opened over its host by VRFW_Bracket
--- (assets\lua\menu\_all\90_bracket.lua). The host keeps the keys, its header and its background; this menu draws the
--- view its host's view command answers, of kind "tree" (scripts\lib\competition.lua bracket_view: rounds = R,
--- leaves[1 .. 2^R] = { team, me, out, won, strip }, matches[r][m] = { w, score = false | { ga, gb, pa, pb, et } },
--- champion; optional fmt, outcome, place, next, final_stadium = { map, id }):
---   * a knockout of exactly 16 teams on the Victory Road «決勝トーナメント» art (the retail vroad04_* objects with
---     their retail layer names: the tree base attaches the 16 gold path strips, the trophy, the per-round scores and
---     the schedule panel to its nodes; each strip attaches the star of its slot): the team plates at the base's name
---     nodes, each strip's «move» rate 0.25 a round won (DrawRetail);
---   * every other size on the generic lines (DrawTree): plates of a side share the height, the joints of round r at
---     xe + (CX - xe) * r / R, rounded stubs, the winners' crests standing big on the joints, the scores stacked past
---     them, the retail trophy over the final, the champion's plate above it; a bye (a first-round match with one
---     team and an empty leaf) draws no line and no empty row: its team's plate stands at the first-round joint from
---     the start, pre-advanced into the next round's slot;
---   * the stadium of the final in the round panel's box at the bottom (the view's final_stadium);
---   * the advance (animate): the round just played walks (crests along the lines / strips growing), eased and
---     staggered; the host's Enter skips it (parameter vrfw_bracket_skip or VRFW_Bracket_Skip).
--- Handshake: VRFW_ChildMenu (menu\_all\89_child_menu.lua: page, host, redraw, close); parameters (crc32 of
--- vrfw_bracket_<name>) view_hi / view_lo (the view command), top (the first screen row the bracket may use; 0 = the
--- default layout), lift (draw priority added to the retail art), busy (set by the host for an advance, cleared here
--- when it ends), skip. Cross-menu call: VRFW_Bracket_Skip.
--- Rule: no engine call at top level (funcLuaCommand only exists inside callbacks).
 INCLUDE("LUA_PROG_BASE")
 
--- ---- crc32 (names are kept readable; VRFW_Id.Crc keeps each crc) --------------------------------------------------------
 local function Crc(text)
-  return VRFW_Id.Crc(text)
+  return VRFW.ids.crc32(text)
 end
 
 local MENU_NAME = "vrfw_bracket_menu"
@@ -55,18 +32,17 @@ local function M(name, ...)
   return funcLuaMenuCommand(K(name), ...)
 end
 
--- ---- the pools (their instance counts N are the [[screen]] rows', read from the engine: ReadCounts) ---------------------
 local POOL_NAME = {
-  line = "vrfw_bracket_line",       -- connector pieces, score digits (quads of vrfw_bracket / vrfw_bracket_num)
-  row_l = "vrfw_bracket_row_l",     -- a team plate, crest left of the name (left side; the champion's)
+  line = "vrfw_bracket_line",
+  row_l = "vrfw_bracket_row_l",
   row_r = "vrfw_bracket_row_r",     -- the mirrored plate (right side)
-  box = "vrfw_bracket_box",         -- the player's frame, the stars at the joints, the final stadium's picture
-  crest = "vrfw_bracket_crest",     -- a crest alone (the left plate, plate and name hidden): the winners at the joints
+  box = "vrfw_bracket_box",
+  crest = "vrfw_bracket_crest",
   icon = "vrfw_bracket_icon",       -- the champion's crown (a tree without the retail trophy)
-  stadium_panel = "vrfw_bracket_stadium",   -- the final stadium's panel (a two-line copy of the round panel)
+  stadium_panel = "vrfw_bracket_stadium",
 }
 local N = {}
-local ROW_CHAMP = -1              -- row_l instance of the champion's plate: the pool's last one (ReadCounts)
+local ROW_CHAMP = -1
 
 -- the retail art's layers (retail layer names: the base attaches them by name) and their retail draw priorities
 local RETAIL_NAME = {
@@ -79,15 +55,13 @@ local RETAIL_PRIO = { base = 197, line = 201, star = 201, score = 202, trophy = 
 
 local RETAIL = {
   ROUNDS = 4, STARS = 16, SCORES = { 8, 4, 2, 1 },
-  RATE_MOVE = 4013832056,          -- the strips' MenuRateSetting «move»
+  RATE_MOVE = 4013832056,          -- the strips' MenuRateSetting "move"
   ANIM_LINE = "line",              -- its animation group
-  NUM_A = 2710162575, NUM_B = 947952949,   -- the score objects' two number settings (upper / lower entrant)
+  NUM_A = 2710162575, NUM_B = 947952949,
   FLAG = { left = { "_icon_flag_l01", "_icon_flag_l02" }, right = { "_icon_flag_r01", "_icon_flag_r02" } },
   FLAG_FINAL = { "_icon_flag_l01", "_icon_flag_r01" },
   FLAG_ALL = { "_icon_flag_l01", "_icon_flag_l02", "_icon_flag_r01", "_icon_flag_r02" },
   TXT_ROUND = "_text_time01_01", TXT_PLAYED = "_text_time01_02", TXT_NEXT = "_text_now01", TXT_SPARE = "_text_time02",
-  -- the base's layout in screen px (placed at the origin): name nodes x 363 / 1557, y 288 + 72 a slot; a strip
-  -- starts 137 px inside its node
   NAME_X_L = 363, NAME_X_R = 1557, NAME_Y0 = 288, NAME_STEP = 72, STRIP_IN = 137,
   PLATE_S = 0.6, PLATE_GAP = 6,
   MESH_TREE = "_tournament01",     -- the base's unlit 16-team bracket mesh
@@ -95,9 +69,9 @@ local RETAIL = {
   CHAMP_Y = 206,                   -- the champion's plate, above the trophy
 }
 
-local ART = 3201721854             -- crc32("#/menu/220_img/vrfw_bracket/vrfw_bracket.g4tx"): the bracket's drawings
-local ART_NUM = 4021109445         -- crc32("#/menu/220_img/vrfw_bracket_num/vrfw_bracket_num.g4tx"): the score digits
-local PLATE_ATLAS = 143680280      -- crc32("#/menu/102_team/team06/team06_02/team06_02.g4tx")
+local ART = 3201721854
+local ART_NUM = 4021109445
+local PLATE_ATLAS = 143680280
 local NODE_QUAD, MESH_QUAD = "icon_new01", "_icon_new01"
 local WHITE = { 1, 1, 1 }
 
@@ -108,13 +82,8 @@ local G = {
   CROWN_H = 54, DIM = 0.5,
   TROPHY_Y = 300, STAR = 1.8, STAR_MIN = 32, STAR_MAX = 64,
   TURN_R = 8, TURN_LEN = 120, TROPHY_CUP_BOTTOM = 38, PRIO_BACK = 546,
-  -- joints: a straight piece after a rounded corner starts this many px inside the corner's straight end; a long
-  -- straight run is laid as quads of about CHUNK px (a stretched quad's end texel fades over half a texel, i.e. a tenth
-  -- of its length: long pieces left a dim gap at every joint), each overlapping the previous by that fade
   CORNER_OVERLAP = 4, CHUNK = 48,
 }
--- the score digits (vrfw_bracket_num): a played match's pair stacked past its joint, a shoot-out's kicks beside it, the
--- final's goals below the centre
 local NUM = { W = 22, H = 29, GAP = 32, PAIR_H = 90, HEIGHT = 0.55, H_MIN = 13, H_MAX = 26, SPACE = 4, ADV = 0.78,
   PEN_S = 0.75, FINAL_S = 1.3, PRIO = 548 }
 -- the advance and the crests at the joints
@@ -123,7 +92,7 @@ local ADV = {
   CREST_W = 68, CREST_X = 56, CREST_X_R = 464, OUT_ALPHA = 0.45,
   BIG_OF = 0.5, BIG_GAP = 8, BIG_MIN = 24, BIG_MAX = 72, CREST_PRIO = 550,
 }
-local LINE_PRIO, BOX_PRIO = 549, 552   -- the connector pool's own priority; a box-pool quad without its own
+local LINE_PRIO, BOX_PRIO = 549, 552
 -- the final stadium's panel
 local STADIUM = { Y = 958, PANEL_W = 394, THUMB_W = 128, THUMB_H = 72, PAD = 8, LOAD_MIN = 10, LOAD_MAX = 600,
   PICTURE_DIR = "#/menu/220_img/stadium/img_room_" }
@@ -131,7 +100,7 @@ local STADIUM = { Y = 958, PANEL_W = 394, THUMB_W = 128, THUMB_H = 72, PAD = 8, 
 -- the team plate (vrfw_bracket_row_l = team06_02): its looks, crest, name nodes
 local PLATE = { off = "_list_base_xs01_off", on = "_list_base_xs01_on", ok = "_list_base_xs01_ok", ol = "_list_base_xs01_ol" }
 local PLATE_SPRITE = "list_base_xs01_off"
-local MESH_EMBLEM = "_icon_emblem_dmy01"   -- the plate's crest quad (its crest: VRFW_Team.Emblem)
+local MESH_EMBLEM = "_icon_emblem_dmy01"   -- the plate's crest quad (its crest: VRFW.team.emblem)
 local TXT_ON, TXT_OFF = "_text_list01_on", "_text_list01_off"
 -- the bracket's sprites (content\images\menu\220_img\vrfw_bracket.toml)
 local SPR = {
@@ -145,7 +114,6 @@ local SPR_STRIP = { "vrfw_bracket_strip_red", "vrfw_bracket_strip_orange", "vrfw
   "vrfw_bracket_strip_silver" }
 local FRAME_GROW = { w = 408 / 392, h = 88 / 72 }
 
--- ---- state of this opening ---------------------------------------------------------------------------------------------
 local S = {
   page = -1, host = nil, view_cmd = nil, top = 0, lift = 0, need = 0, got = 0, seen = {}, frame = 0, drawn = false,
   want = false, animate = false, used = {}, taken = {}, emb = {}, strip = {}, prio = {}, crest_prio = {}, lifted = {},
@@ -153,11 +121,11 @@ local S = {
   pic_load = nil, logged = {}, stuck = false,
 }
 local L, KEY_OF, RL = {}, {}, nil
-local C   -- the child side of the handshake (VRFW_ChildMenu.Child), made in OnInit
+local C
 
 local logger
 local function Log(...)
-  logger = logger or VRFW_Log.New("VRFW.bracket")
+  logger = logger or VRFW.logger.new("VRFW.bracket")
   logger(...)
 end
 
@@ -208,22 +176,19 @@ local function RetailEach(f)
   end
 end
 
--- ---- helpers --------------------------------------------------------------------------------------------------------------
 local function Text(key)
-  local ok, t = pcall(funcLuaCommand, K("TEXT_GET"), Crc("vrfw_bracket_" .. key))
-  return ok and type(t) == "string" and t or ""
+  local t = VRFW.host.command(K("TEXT_GET"), Crc("vrfw_bracket_" .. key))
+  return type(t) == "string" and t or ""
 end
 
 local function TextValue(key, a)
   local t = Text(key)
-  local ok, r = pcall(funcLuaCommand, N_CMD.TEXT_VALUE, t, "VALUE", a or 0, 0, 0, true)
-  return ok and r or t
+  local r = VRFW.host.command(N_CMD.TEXT_VALUE, t, "VALUE", a or 0, 0, 0, true)
+  return r or t
 end
 
 local function TextValue2(key, a, b)
-  local t = TextValue(key, a)
-  local ok, r = pcall(funcLuaCommand, N_CMD.TEXT_VALUE, t, "VALUE2", b or 0, 0, 0, true)
-  return ok and r or t
+  return VRFW.bracket.text_value2(Text(key), a, b or 0)
 end
 
 local function Hide(layer, i)
@@ -240,16 +205,7 @@ local function Begin()
 end
 
 local function Take(layer, fixed)
-  local i = fixed
-  if i == nil then
-    i = S.used[layer] or 0
-    while S.taken[tostring(layer) .. ":" .. i] do
-      i = i + 1
-    end
-    S.used[layer] = i + 1
-  end
-  S.taken[tostring(layer) .. ":" .. i] = true
-  return i
+  return VRFW.bracket.take(S, layer, fixed)
 end
 
 local function End()
@@ -262,8 +218,6 @@ local function End()
   end
 end
 
--- a tinted quad of the bracket's drawings: centre (x, y), w x h px; prio = the instance's draw priority (connector and
--- box pools, set when it changes); atlas = another loaded atlas (crc32 of its path)
 local function Quad(k, spr, x, y, w, h, col, prio, atlas)
   local layer = L[k]
   local i = Take(layer)
@@ -286,8 +240,6 @@ local function Quad(k, spr, x, y, w, h, col, prio, atlas)
   return i
 end
 
--- a stub from xs to its joint xj on line y turning on a rounded corner towards the joint (sprite
--- vrfw_bracket_turn_<look>_<toward>_<side> stretched so that the corner's vertical end stands on the joint)
 local function RoundedTurn(xs, xj, y, toward, right, t, look)
   local half = t / 2
   local sprite_w = math.floor(G.TURN_LEN + half)
@@ -299,8 +251,6 @@ local function RoundedTurn(xs, xj, y, toward, right, t, look)
     WHITE)
 end
 
--- a straight run of one sprite along its axis from c0 to c1 (vertical: the line x = pos; horizontal: y = pos), thickness t:
--- equal chunks of about G.CHUNK px, each overlapping the previous one by its own end fade (a tenth of its length)
 local function Run(spr, vertical, c0, c1, pos, t)
   local lo, hi = math.min(c0, c1), math.max(c0, c1)
   local n = math.max(1, math.ceil((hi - lo) / G.CHUNK))
@@ -317,10 +267,6 @@ local function Run(spr, vertical, c0, c1, pos, t)
   end
 end
 
--- an axis-aligned connector piece from (x0, y0) to (x1, y1); lit = thicker; st = its state (plain / lit / me / out /
--- out_me); a lit / me piece is its direction's halo sprite; shape = { toward, right }: a stub with its rounded turn;
--- shape = { trim = "start" / "end" }: a vertical piece that ends at that end inside the rounded corner (CORNER_OVERLAP
--- px of the corner's straight end), no thickness past it
 local function Seg(x0, y0, x1, y1, lit, st, shape)
   local t = lit and G.LINE_LIT or G.LINE
   local look = st or (lit and "lit" or "plain")
@@ -356,14 +302,12 @@ local function PlateStrip(l, i, spr)
   end
   S.strip[k] = want
   if spr then
-    pcall(funcLuaMenuCommand, N_CMD.SPRITE, l, ART, Crc(spr), Crc(PLATE_SPRITE), 0, i)
+    VRFW.host.menu_command(N_CMD.SPRITE, l, ART, Crc(spr), Crc(PLATE_SPRITE), 0, i)
   else
-    pcall(funcLuaMenuCommand, N_CMD.SPRITE, l, PLATE_ATLAS, Crc(PLATE_SPRITE), Crc(PLATE_SPRITE), 0, i)
+    VRFW.host.menu_command(N_CMD.SPRITE, l, PLATE_ATLAS, Crc(PLATE_SPRITE), Crc(PLATE_SPRITE), 0, i)
   end
 end
 
--- a team plate: p = { team, me, out, strip }, (x, y) = its left edge / vertical centre, scale s; right = mirrored;
--- champ = the champion's look; fixed = the instance to use (the champion's)
 local function Plate(p, x, y, s, right, champ, fixed)
   local k = right and "row_r" or "row_l"
   local l = L[k]
@@ -384,7 +328,7 @@ local function Plate(p, x, y, s, right, champ, fixed)
   for name, mesh in pairs(PLATE) do
     M("MESH_VISIBLE", l, Crc(mesh), name == look, i)
   end
-  local name = VRFW_Team.Name(p.team)
+  local name = VRFW.team.name(p.team)
   M("TEXT", l, Crc(TXT_ON), white and name or "", i)
   M("TEXT", l, Crc(TXT_OFF), white and "" or name, i)
   M("TEXT_VISIBLE", l, Crc(TXT_ON), white, i)
@@ -393,7 +337,7 @@ local function Plate(p, x, y, s, right, champ, fixed)
   M("PRIM_COLOR", l, i, Crc(PLATE[look]), c, c, c)
   M("PRIM_COLOR", l, i, Crc(MESH_EMBLEM), c, c, c)
   Alpha(l, i, (p.out and not champ) and ADV.OUT_ALPHA or 1)
-  VRFW_Team.Emblem(l, i, p.team, S.emb)
+  VRFW.team.emblem(l, i, p.team, S.emb)
 end
 
 -- the player's gold frame behind his plate (left edge x, centre y, scale s)
@@ -419,24 +363,13 @@ end
 
 -- the parts of number n (style gold / blue / white) at height h appended to parts; wrap = in brackets
 local function NumParts(parts, n, style, h, wrap)
-  if wrap then
-    parts[#parts + 1] = { "vrfw_bracket_d_lp", h }
-  end
-  for c in tostring(math.max(0, math.floor(tonumber(n) or 0))):gmatch("%d") do
-    parts[#parts + 1] = { "vrfw_bracket_d_" .. style .. "_" .. c, h }
-  end
-  if wrap then
-    parts[#parts + 1] = { "vrfw_bracket_d_rp", h }
-  end
-  return parts
+  return VRFW.bracket.number_parts("vrfw_bracket_d_", parts, n, style, h, wrap)
 end
 
 local function RowW(k, h)
   return NUM.W * h / NUM.H * (1 + NUM.ADV * (k - 1))
 end
 
--- a played match's result at its joint (xj, ym) of the left side (right = mirrored): the pair just past the joint
--- (lead px further: the big crest on the joint), a shoot-out's kicks after it
 local function TreeScore(m, xj, ym, right, pitch, lead)
   local sc = m and (m.w or 0) ~= 0 and m.score or nil
   if not sc then
@@ -476,8 +409,6 @@ local function TreeScore(m, xj, ym, right, pitch, lead)
   return used + space
 end
 
--- the final's result below the centre: the left finalist's goals left of it, the right one's right of it (a
--- shoot-out: the kicks in brackets below each)
 local function FinalScore(m, ymid, pitch)
   local sc = m and (m.w or 0) ~= 0 and m.score or nil
   if not sc then
@@ -524,7 +455,7 @@ local function Crest(c, x, y, sc)
   M("SCALE", l, sc, sc, 1, i)
   M("POS", l, x - ADV.CREST_X * sc, -y, 0, i)
   local lf = (S.view and S.view.leaves or {})[c.leaf] or {}
-  VRFW_Team.Emblem(l, i, lf.team or 0, S.emb)
+  VRFW.team.emblem(l, i, lf.team or 0, S.emb)
   return i
 end
 
@@ -546,7 +477,6 @@ local function Outcome(v)
   return ""
 end
 
--- ---- the generic tree (every size but the 16-team art) ----------------------------------------------------------------
 -- the top row (S.top) moves the whole tree down by dy; the bottom row stays
 local function DrawTree(v)
   local R = tonumber(v.rounds) or 0
@@ -603,7 +533,6 @@ local function DrawTree(v)
       Plate(p, x, y, s, right, false)
     end
   end
-  -- a piece walked by leaf `l`: plain before its match is played, lit while that team is still in, dark once out
   local segs = {}
   local function seg(x0, y0, x1, y1, l, played, won, shape)
     local p = leaves[l] or {}
@@ -715,7 +644,6 @@ local function DrawTree(v)
   end
 end
 
--- ---- the retail 16-team art ---------------------------------------------------------------------------------------------
 local function RetailReady()
   if S.retail_ok ~= nil then
     return S.retail_ok
@@ -753,8 +681,6 @@ local function GlowMeshes()
   return S.glow
 end
 
--- every other tree shows the retail trophy in place of the crown: the base without its 16-team mesh (and its glow
--- meshes), moved so its trophy node stands at TROPHY_Y (+ the top's shift); alone = false: the base back for the art
 local function TrophyPlace(alone, dy)
   M("MESH_VISIBLE", RL.base, Crc(RETAIL.MESH_TREE), not alone, 0)
   for _, mesh in ipairs(GlowMeshes()) do
@@ -767,7 +693,7 @@ local function TrophyPlace(alone, dy)
   end
 end
 
--- a strip's lit length: rate 0 (unlit) .. 1 (to the centre); the star at its head shown while the rate is above 0
+-- a strip's lit length: rate 0 (unlit) ..
 local function RetailRate(k, rate)
   local l = RL.lines[k]
   local g = M("GROUP_INDEX", l, 0, Crc(RETAIL.ANIM_LINE))
@@ -824,7 +750,7 @@ local function RetailPanel(v)
   if tail ~= "" then
     next_txt = tail
   elseif cur ~= nil then
-    local rival = (v.next or 0) ~= 0 and VRFW_Team.Name(v.next) or Text("sched_rival_tbd")
+    local rival = (v.next or 0) ~= 0 and VRFW.team.name(v.next) or Text("sched_rival_tbd")
     next_txt = Text("sched_next") .. "  ·  " .. rival
   else
     next_txt = ""
@@ -837,7 +763,6 @@ local function RetailPanel(v)
   return cur
 end
 
--- the 16-team tree on the retail art; S.retail keeps each slot's rate and its rate before the last round played
 local function DrawRetail(v)
   local leaves = v.leaves
   local dy = S.top > 0 and (S.top - G.TOP) or 0
@@ -867,7 +792,6 @@ local function DrawRetail(v)
     local won = tonumber(p.won) or 0
     local rate = (not p.out and (p.team or 0) ~= 0) and math.min(1, won / RETAIL.ROUNDS) or 0
     rates[k] = rate
-    -- before the last round: one round less for its winner; its loser was lit by the rounds it had won
     local before = rate
     local t = math.floor((k - 1) / 2 ^ last) + 1
     local m = (v.matches[last] or {})[t]
@@ -901,13 +825,12 @@ local function DrawRetail(v)
       lit = lit + 1
     end
   end
-  local okb, bx, by = pcall(funcLuaMenuCommand, N_CMD.GLOBAL_POS, RL.base, 0)
-  local okl, lx, ly = pcall(funcLuaMenuCommand, N_CMD.GLOBAL_POS, RL.lines[1], 0)
+  local bx, by = VRFW.host.menu_command(N_CMD.GLOBAL_POS, RL.base, 0)
+  local lx, ly = VRFW.host.menu_command(N_CMD.GLOBAL_POS, RL.lines[1], 0)
   return string.format("retail bracket: %d path(s) lit, last round played %d, panel round %s; base at %s,%s, l01 strip at %s,%s",
-    lit, last, tostring(cur), tostring(okb and bx), tostring(okb and by), tostring(okl and lx), tostring(okl and ly))
+    lit, last, tostring(cur), tostring(bx), tostring(by), tostring(lx), tostring(ly))
 end
 
--- ---- the final stadium ---------------------------------------------------------------------------------------------------
 -- the picture of a map: { path, tex, sprite, st = 0 not asked / 1 loading / 2 in / -1 none }
 local function StadiumPicture(map)
   local pic = S.pics[map]
@@ -933,8 +856,8 @@ local function StadiumLoadStep()
     return
   end
   pic.t = pic.t + 1
-  local ok, busy = pcall(funcLuaCommand, N_CMD.TEX_LOADING, pic.tex)
-  if not ok or pic.t > STADIUM.LOAD_MAX then
+  local busy = VRFW.host.command(N_CMD.TEX_LOADING, pic.tex)
+  if pic.t > STADIUM.LOAD_MAX then
     pic.st, S.pic_load = -1, nil
     Log("final stadium picture: never loaded (name only)", pic.path)
     return
@@ -946,16 +869,14 @@ local function StadiumLoadStep()
   end
 end
 
--- the stadium of the final on the round panel's object: «Estadio de la final», the stadium's name, the picture left
--- of the panel; nothing when the view has no final_stadium
 local function DrawStadium(v)
   local fs = v.final_stadium
   if type(fs) ~= "table" or type(fs.map) ~= "string" or fs.map == "" then
     return
   end
   local id = type(fs.id) == "number" and fs.id or Crc(fs.map)
-  local okn, name = pcall(funcLuaCommand, K("MAP_NAME"), id)
-  if not okn or type(name) ~= "string" then
+  local name = VRFW.host.command(K("MAP_NAME"), id)
+  if type(name) ~= "string" then
     name = ""
   end
   local l = L.stadium_panel
@@ -981,7 +902,6 @@ local function DrawStadium(v)
   end
 end
 
--- ---- the advance ---------------------------------------------------------------------------------------------------------
 -- the point at fraction f (0..1) of a polyline's length
 local function Along(path, f)
   local total, lens = 0, {}
@@ -1062,7 +982,7 @@ local function Param(name)
 end
 
 local function AnimFinish(why)
-  VRFW_Param.Clear(Param("busy"))
+  VRFW.param.clear(Param("busy"))
   local an = S.anim
   if not an then
     return
@@ -1125,8 +1045,8 @@ local function AnimStep()
   if not an then
     return
   end
-  local ok, dt = pcall(funcLuaCommand, N_CMD.FRAME_TIME)
-  if not ok or type(dt) ~= "number" or dt <= 0 or dt > 0.5 then
+  local dt = VRFW.host.command(N_CMD.FRAME_TIME)
+  if type(dt) ~= "number" or dt <= 0 or dt > 0.5 then
     dt = 1 / 60
   end
   an.t = an.t + dt
@@ -1137,19 +1057,18 @@ local function AnimStep()
   AnimApply()
 end
 
--- ---- the page --------------------------------------------------------------------------------------------------------------
 local function ParamInt(name)
-  return tonumber(VRFW_Param.Get(Param(name)))
+  return tonumber(VRFW.param.get(Param(name)))
 end
 
 local function ParamU32(name)
-  return VRFW_Param.GetU32("vrfw_bracket_" .. name)
+  return VRFW.param.get_u32("vrfw_bracket_" .. name)
 end
 
 -- the host's handshake parameters (at the opening and at every redraw request)
 local function ReadParams()
-  S.page = C.Page() or S.page or -1
-  S.host = C.Host() or S.host
+  S.page = C.page() or S.page or -1
+  S.host = C.host() or S.host
   S.view_cmd = ParamU32("view") or S.view_cmd
   S.top = ParamInt("top") or 0
   S.lift = ParamInt("lift") or 0
@@ -1180,8 +1099,8 @@ local function Draw()
     Log("bracket menu: no view command from the host; nothing drawn")
     return true
   end
-  local ok, v = pcall(funcLuaCommand, S.view_cmd, S.page or -1)
-  if not ok or type(v) ~= "table" then
+  local v = VRFW.host.command(S.view_cmd, S.page or -1)
+  if type(v) ~= "table" then
     return false
   end
   Lift()
@@ -1214,7 +1133,7 @@ local function Draw()
   End()
   local skip = ParamInt("skip") ~= nil
   if skip then
-    VRFW_Param.Clear(Param("skip"))
+    VRFW.param.clear(Param("skip"))
   end
   if S.animate and not skip then
     local oka, erra = pcall(AnimStart, v)
@@ -1235,7 +1154,7 @@ local function Draw()
   S.drawn = true
   local u = S.used
   local line = string.format("bracket drawn on %s (kind %s, rounds %s, top %d, lift %d; plates %d+%d, lines %d, crests %d) %s",
-    VRFW_Id.hex(S.host or 0), tostring(v.kind), tostring(v.rounds), S.top, S.lift, u[L.row_l] or 0, u[L.row_r] or 0,
+    VRFW.ids.hex_text(S.host or 0), tostring(v.kind), tostring(v.rounds), S.top, S.lift, u[L.row_l] or 0, u[L.row_r] or 0,
     u[L.line] or 0, u[L.crest] or 0, note)
   if S.logged.last ~= line then
     S.logged.last = line
@@ -1258,14 +1177,14 @@ local function HideAll()
   end
 end
 
--- closing (the host's close): every piece hidden at once, no draw any more; VRFW_ChildMenu closes this menu
+-- closing (the host's close): every piece hidden at once, no draw any more; VRFW.child_menu closes this menu
 local function OnClose()
   S.want, S.drawn, S.anim = false, false, nil
-  VRFW_Param.Clear(Param("busy"))
+  VRFW.param.clear(Param("busy"))
   HideAll()
 end
 
--- the host's redraw (VRFW_ChildMenu): the page again, an advance when asked
+-- the host's redraw (VRFW.child_menu): the page again, an advance when asked
 local function OnRedraw(page, animate)
   ReadParams()
   S.page = page or S.page
@@ -1273,9 +1192,8 @@ local function OnRedraw(page, animate)
   S.want = true
 end
 
--- ---- the host's calls (cross-menu call) -----------------------------------------------------------------------------------
-function VRFW_Bracket_Skip()
-  VRFW_Param.Clear(Param("skip"))
+function vrfw_bracket_skip()
+  VRFW.param.clear(Param("skip"))
   AnimFinish("skipped")
 end
 
@@ -1290,12 +1208,11 @@ local function ReadCounts()
   ROW_CHAMP = N.row_l - 1
 end
 
--- ---- engine callbacks -----------------------------------------------------------------------------------------------------
 function OnInit()
   Layers()
-  C = VRFW_ChildMenu.Child(MENU_NAME, { prefix = "vrfw_bracket_", on_redraw = OnRedraw, on_close = OnClose,
+  C = VRFW.child_menu.child(MENU_NAME, { prefix = "vrfw_bracket_", on_redraw = OnRedraw, on_close = OnClose,
     log = function(...) Log("bracket menu:", ...) end })
-  C.Init()
+  C.init()
   S.page, S.host, S.view_cmd = -1, nil, nil
   ReadParams()
   S.need, S.got, S.seen, S.frame = 0, 0, {}, 0
@@ -1305,8 +1222,6 @@ function OnInit()
   ReadCounts()
 end
 
--- every instance hidden as the engine sets it up (opened with the menu's group); one set up after the page was drawn:
--- the page again
 function OnSetupLayer(a1, a2)
   Layers()
   local pool = KEY_OF[a1]
@@ -1341,7 +1256,7 @@ end
 
 function Step()
   S.frame = S.frame + 1
-  if C.Step() then
+  if C.step() then
     return   -- closing
   end
   if S.want and (S.got >= S.need or S.frame >= 120) then
@@ -1371,6 +1286,6 @@ end
 
 function FinalizeMenu()
   if C then
-    C.Finalize()
+    C.finalize()
   end
 end

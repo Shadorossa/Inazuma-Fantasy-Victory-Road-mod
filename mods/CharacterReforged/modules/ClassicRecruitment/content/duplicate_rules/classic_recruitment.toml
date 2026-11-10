@@ -1,0 +1,10 @@
+schema = "CharacterReforged.duplicate_rules/1"
+
+[CharacterReforged.DuplicateRules.classic_recruitment]
+# one copy per chara_param id (a normal card and its miximax form are two players)
+one_card_per = "card"
+# the copy kept: the first criterion that tells two copies apart; the others merge into it and leave the club
+keep_first = ["in_a_fusion", "highest_level", "most_experience", "most_special_move_uses", "in_a_team", "oldest", "lowest_handle"]
+# element spirits given back per released copy
+element_spirits_per_released_card = 3
+apply_on_load = true

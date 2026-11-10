@@ -1,0 +1,4 @@
+schema = "VRFW.flag/1"
+[[flag]]
+name = "CharacterReforged.AliusStoneUnlocked"
+bank = 0                   # global bit flags

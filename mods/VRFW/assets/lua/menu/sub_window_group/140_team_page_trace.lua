@@ -1,21 +1,17 @@
--- menu_engine: the sub window (sub_window_group) of a team page or foreign team dock (VRFW_TeamEditor.Foreign()): its
--- setup, its window layer's open, open end and close logged once each per window. Wrappers by assignment (the script
--- has no VRFW_Host host); no engine call at load.
-if VRFW_TeamPageSubWindowTrace == nil and type(SetupWindowParams) == "function" and type(OnOpenLayer) == "function" then
-  local T = { LOG = VRFW_Cmd.EVT_LOG, logged = {} }
-  VRFW_TeamPageSubWindowTrace = T
+if VRFW.team_page_sub_window_trace == nil and type(SetupWindowParams) == "function" and type(OnOpenLayer) == "function" then
+  local T = { logged = {} }
+  VRFW.team_page_sub_window_trace = T
 
   local function team_page()
-    local editor = VRFW_TeamEditor
-    return type(editor) == "table" and type(editor.Foreign) == "function" and editor.Foreign() ~= nil
+    local editor = VRFW.team_editor
+    return type(editor) == "table" and type(editor.foreign) == "function" and editor.foreign() ~= nil
   end
 
+  local log = VRFW.logger.new("VRFW team editor")
   local function log_once(step, ...)
     if T.logged[step] or not team_page() then return end
     T.logged[step] = true
-    local parts = { "sub window:", step }
-    for i = 1, select("#", ...) do parts[#parts + 1] = tostring((select(i, ...))) end
-    pcall(funcLuaCommand, T.LOG, "VRFW team editor", table.concat(parts, " "))
+    log("sub window:", step, ...)
   end
 
   local function window_layer(layer)

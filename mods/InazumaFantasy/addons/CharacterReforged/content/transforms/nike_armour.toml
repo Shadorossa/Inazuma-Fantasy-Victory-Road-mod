@@ -1,0 +1,14 @@
+schema = "VRFW.transform/2"
+# The armed form of the keshin Niké (wks02060): no owner, CharacterReforged's armour_wearers = "anyone" gives it to every bearer with a mesh.
+
+[[transform]]
+name = "was_fantasy_k002060"
+kind = "armour"
+source = { spirit = "wks02060" }
+techniques = { keep_spirit = true }
+trigger = { cpu = true }
+stats = { mode = "own" }
+look = { keep_uniform = true }
+audio = { voice = "wearer" }
+ui = { plate = "armour" }
+text = { de = { tag = "Rüstung" }, en = { tag = "Armour" }, es = { tag = "Armadura" }, fr = { tag = "Armure" }, it = { tag = "Armatura" }, ja = { tag = "アームド" }, pt = { tag = "Armadura" }, zh_hans = { tag = "化身武装" }, zh_hant = { tag = "化身武裝" } }

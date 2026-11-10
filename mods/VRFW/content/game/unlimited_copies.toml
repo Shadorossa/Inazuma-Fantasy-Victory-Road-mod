@@ -1,8 +1,5 @@
 schema = "VRFW.game/2"
 
-# Unlimited copies: items of which one owned copy serves every player, as mods declare them (content\unlimited_copies\*.toml,
-# docs/framework/unlimited-copies.md). Runtime: scripts\unlimited_copies.lua; game Lua side: lua\menu\_all\39_unlimited_copies.lua.
-
 # ItemRecord* InvRecord(ItemContainer*, u32 invHdl): item id at +4, stock +0x10, equipped +0x14.
 [[VRFW.Function]]
 name = "UnlimitedCopiesRecord"
@@ -14,8 +11,6 @@ name = "UnlimitedCopiesItems"
 base = "game_root"
 chain = ["Game.RootItems"]
 
-# ([item]) -> { rule, … }, each rule a flat list { chroniclesDifficulty, nKeys, keyItem…, nClears, statusFlagIndex,
-# difficulty, … }: the declared rules (those covering the item's sub-category when an item is given).
 [[VRFW.Command]]
 name = "CMND_VRFW_UNLIMITED_COPIES_RULES"
 handler = "UnlimitedCopies.Rules"
@@ -25,9 +20,6 @@ handler = "UnlimitedCopies.Rules"
 name = "CMND_VRFW_UNLIMITED_COPIES_SLOT"
 handler = "UnlimitedCopies.Slot"
 
-# (invHdl, item, num, target) -> status, equippedBefore, equippedAfter: caps the stack's equipped count at `target` (the
-# owned count before an equip) so CMND_DELETE_ITEM can take the extra copies back. Status 1 ok, -1 off (reserved or
-# unknown slot, or no rule covers the item), -2 bad arguments, -3 stack mismatch, -4 write failed.
 [[VRFW.Command]]
 name = "CMND_VRFW_UNLIMITED_COPIES_CAP"
 handler = "UnlimitedCopies.Cap"

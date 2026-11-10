@@ -1,0 +1,9 @@
+schema = "VRFW.redeem_code/1"
+
+[[VRFW.RedeemCode]]
+name = "InazumaFantasy.VictoriaFtsy"
+code = "VICTORIAFTSY"
+flag = "InazumaFantasy.RedeemedVictoriaFtsy"
+rewards = [
+    { item = "wks_fantasy_k002011", count = 1 },   # Victoria, sombra del triunfo
+]

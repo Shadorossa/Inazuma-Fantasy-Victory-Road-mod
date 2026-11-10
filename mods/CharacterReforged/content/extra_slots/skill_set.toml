@@ -1,34 +1,8 @@
-# Character Reforged › the new skill set in a match: every player has, beside his 6 special moves, the AURA slot and the MIX slot
-# of the set:
-#   RB + B (key J)       the AURA COMMAND: the transformation of the selected slot, the AURA slot (his keshin / totem
-#                        summon; with the keshin out, its armour) or the MIX slot (his Mix-Max, his «Modo cambio» both
-#                        ways)
-#   RB + D-pad (key K)   switches the selected slot aura <-> mix (only with both filled; reset to the aura at every match)
-#   RB + A (key H)       the SPECIAL MOVES the running aura / mix grants: the keshin's / totem's own move (also kept
-#                        under its armour), a fusion's partner move; when both grant one, the selected slot's
-# The match move list (the 6 techniques) leaves out every aura of the user's players' technique list ([source]
-# list_auras_out): those positions stay empty this match; an EMPTY position takes his board slot of the same position
-# ([source] list_board_fill), the table's rule, so the match uses the table's 6 rows; the save is not touched.
-# The VR-Framework's plates slot (one in all mods). The aura mods add their pieces to this slot with [[VRFW.ExtraSlotExtend]] (All Miximaxed the
-# fusion, Custom Change Mode the swap) and a game mode its rules (Inazuma Fantasy: its Hyper controls, rules and commands).
-# Who has what (the projection over the game's own data, nothing written for it; the same rule as the skill table's
-# CharacterReforged.ProjectSkillSet, scripts\mix_slots.lua):
-#   aura slot = his team aura rows, board slot 8 (the learnset's slot 9 aura), then the first aura of his technique
-#               list in list order (left out of the match list), the auras of his match skill list (a Battle Bay /
-#               preset team's own set), an aura on a normal board slot; the first entry of each kind
-#   mix slot  = his saved mix (native table MixSlot: scripts\mix_slots.lua, the per-save store; for a card with nothing
-#               stored the projection's: the first Mix-Max / «Modo cambio» of his technique list, else of his board),
-#               then the same sources as the aura slot
-#   last      = his character's own moveset (native table MovesetDefault, chara_param -> aura / mix): only for a slot
-#               nothing above filled
-# The user's players take keshin / totem / awakening (power 5, change 7) in the aura slot (an armour alone stands for
-# its keshin); rivals and preset teams take any aura by its type. An awakening is a single generic command with no
-# partner (no change_aura_skill_config row), so it is the aura slot's, never the mix slot's; a mod rule that keeps
-# awakenings out of matches ([[VRFW.Unobtainable]] Matches, e.g. Football Reforged's Furor) drops it here too.
+# The skill set in a match: the AURA and MIX slots beside the 6 special moves (the framework's plates slot).
 schema = "VRFW.extra_slot/1"
 
 [[VRFW.ExtraSlot]]
-name = "skill_set"                   # key CharacterReforged.skill_set
+name = "skill_set"
 kind = "plates"
 states = [9, 14, 16]                 # open play, duel, zone
 summon_states = [9, 14, 16]
@@ -40,28 +14,43 @@ cooldown_s = 15
 disguise = true
 preload = true
 row_parity = true
-aura_row = true                      # the aura slot's move in the retail aura row with a live state; its press = the aura slot
+aura_row = true
 
-# ---- THE BUTTONS. The roles are fixed by the plate (plate 0 = the special moves, plate 1 = the aura
-# command); to swap the two buttons swap the `key` / `pad` values of these two blocks (nothing else refers to them).
-# plate 0 = SPECIAL MOVES BUTTON: the moves the running aura / mix grants
-[VRFW.ExtraSlot.input]
-key = "H"
-pad = "RB+A"
+# The transformation cross: one entry per D-pad arrow while RB is held (keyboard: `I` `J` `K` `L`).
+# An entry shows its transformation; once that form runs it shows the technique the form grants.
+# The first page of `pages` that has something for the player is the entry; an empty entry passes its arrow to the game.
+
+# RB + up: the Mix-Max or the mode change, then the fusion's partner technique
+[[VRFW.ExtraSlot.direct]]
+pages = ["mix"]
+pad = "RB+UP"
+key = "I"
 xinput = true
+pass_when_empty = true
 
-# plate 1 = AURA COMMAND BUTTON: the selected slot's transformation (aura or mix)
-[[VRFW.ExtraSlot.plate]]
+# RB + left: the armour of the keshin (summoned first when it is not out), then the technique kept under the armour
+[[VRFW.ExtraSlot.direct]]
+pages = ["armour"]
+pad = "RB+LEFT"
 key = "J"
-pad = "RB+B"
 xinput = true
+pass_when_empty = true
 
-# the slot selector of the aura command (any D-pad direction while RB is held; the D-pad is held back from the game
-# only while RB is held, so the retail D-pad keeps its own uses)
-[VRFW.ExtraSlot.select]
-key = "K"
-pad = "RB+DPAD"
+# RB + right: the group keshin its summoned components complete, else the keshin or totem inherited through the Mix-Max
+[[VRFW.ExtraSlot.direct]]
+pages = ["group", "inherited"]
+pad = "RB+RIGHT"
+key = "L"
 xinput = true
+pass_when_empty = true
+
+# RB + down: the keshin or totem, then its own technique
+[[VRFW.ExtraSlot.direct]]
+pages = ["aura"]
+pad = "RB+DOWN"
+key = "K"
+xinput = true
+pass_when_empty = true
 
 # the rival (CPU) uses his aura / mix slot through the same plate decision: open play, while no aura of his runs
 [VRFW.ExtraSlot.cpu]
@@ -82,25 +71,23 @@ mix_table = "MixSlot"
 team_commands = ["aura", "mix"]
 skill_list = true
 default_table = "MovesetDefault"
-# VRFW 2.4.29: the user's players' match move list leaves out the auras of their technique list (they are this slot's;
-# the positions stay empty); rivals keep their list
+# the user's players' match move list leaves out the auras of their technique list; rivals keep theirs
 list_auras_out = true
-# VRFW 2.4.43: an EMPTY
-# position of their technique list takes, in the match only, the move on the board slot of the same position (the
-# table's rule: an empty list position shows its board slot; an aura there is not taken); nothing saved
+# an empty position of the technique list takes, in the match only, the move on the board slot of the same position
 list_board_fill = true
 
 # around the running keshin: plate 0 its armour, its own move on plate 1 while the mix slot is idle
 [VRFW.ExtraSlot.spirit]
 armour = true
+# RB + left without the keshin out: the press summons it and the armour goes on as soon as it is out
+armour_direct = true
 own_move = true
 inherit = true
 inherit_grace_s = 3.0
 move_hold_s = 4.0
 zone_retry_s = 2.0
 
-# the base's own command names (graft hiper_btn: the button plates; other mods' grafts keep their own names through
-# their extension, both answer)
+# the base's own command names (graft hiper_btn)
 [VRFW.ExtraSlot.commands]
 plates = "CMND_CHARACTERREFORGED_PLATES"
 label = "CMND_CHARACTERREFORGED_PLATE_LABEL"
@@ -108,7 +95,4 @@ swap_gauge = "CMND_CHARACTERREFORGED_SWAP_GAUGE"
 fusion_stack = "CMND_CHARACTERREFORGED_FUSION_STACK"
 fusion_partner = "CMND_CHARACTERREFORGED_FUSION_PARTNER"
 
-# In a focus battle (duel) the aura command is never the duel's choice (the keshin summon and the
-# armour usable AT ANY MOMENT, focus battles included): that rule ([VRFW.DuelAura]) is Football Reforged's module
-# Duel Auras (DuelAuras, modules\DuelAuras\content\extra_slots\duel_auras.toml) since Character Reforged 1.10.0,
-# always on. Without it RB+B in a duel is the duel's command (refused outside the duel's choice window).
+# Duel auras are the rule [VRFW.DuelAura] of another mod; without it an entry's press in a duel is the duel's command.

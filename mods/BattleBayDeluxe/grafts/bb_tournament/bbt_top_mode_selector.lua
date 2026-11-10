@@ -1,22 +1,17 @@
--- BattleBayDeluxe bb_tournament, top menu part: this menu's side of the Campaña / Torneo mode selector.
--- Appended after bbt_top.lua in graft.toml's order: the parts share one chunk and its locals.
+-- Top menu part
 BattleBayDeluxe = type(BattleBayDeluxe) == "table" and BattleBayDeluxe or {}
 
--- ------------------------------------------------------------------------------------------------ the mode selector
--- (bbt_mode.lua draws it; this menu's side: «Torneo» lit while the bracket / its panel is up)
 
--- the team grid (enjoy_team_select_menu) seen open, then closed: what the grid left for this menu. Only for a grid
--- this file did not open itself (BBT_NewRun shows its own bracket): the header's «Torneo» with a run (parameter
--- evt_bbd_mode_go_tournament) = the Torneo here; a tournament started in it = its bracket; an armed leftover disarmed.
-BBT_MODE_P_GO_T = @crc:evt_bbd_mode_go_tournament@
-function BBT_ModeAfterGrid()
-  local S = BattleBayDeluxe.TournamentState
+-- After a team grid this file did not open closes
+BattleBayDeluxe.tournament_mode_go_tournament_param = @crc:battlebaydeluxe_mode_go_tournament@
+function BattleBayDeluxe.tournament_mode_after_grid()
+  local S = BattleBayDeluxe.tournament_state
   local exists = funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, 786045682 --[[enjoy_team_select_menu]]) == true
   if exists then
     if not S.grid_seen then
       S.grid_seen = true
       S.grid_own = S.newrun == true
-      S.grid_active = BBT_Info().active == true
+      S.grid_active = BattleBayDeluxe.tournament_info().active == true
     end
     return
   end
@@ -27,77 +22,72 @@ function BBT_ModeAfterGrid()
   if S.grid_own then
     return
   end
-  if VRFW_Param.Has(BBT_MODE_P_GO_T) then
-    VRFW_Param.Clear(BBT_MODE_P_GO_T)
+  if VRFW.param.has(BattleBayDeluxe.tournament_mode_go_tournament_param) then
+    VRFW.param.clear(BattleBayDeluxe.tournament_mode_go_tournament_param)
     S.after_grid, S.frames_after = "tournament", 0
-    BBT_Log("grid closed: the Torneo asked from its header")
+    BattleBayDeluxe.tournament_log("grid closed: the tournament asked from its header")
     return
   end
-  local info = BBT_Info()
+  local info = BattleBayDeluxe.tournament_info()
   if info.active and not S.grid_active then
     S.after_grid, S.frames_after = "bracket", 0
-    BBT_Log("grid closed: a tournament started in it, its bracket")
+    BattleBayDeluxe.tournament_log("grid closed: a tournament started in it, its bracket")
   elseif info.armed then
-    BBT_Call(BattleBayDeluxe.Tournament.DISARM)
-    pcall(funcLuaCommand, BattleBayDeluxe.Tournament.RULE_SELECT, "")
+    BattleBayDeluxe.tournament_call(BattleBayDeluxe.tournament.DISARM)
+    VRFW.host.command(BattleBayDeluxe.tournament.RULE_SELECT, "")
   end
 end
 
--- what waits for the menu's focus after a grid / a mode switch
-function BBT_ModeAfterStep()
-  local S = BattleBayDeluxe.TournamentState
+-- Action waiting for the menu focus after a grid or a mode switch.
+function BattleBayDeluxe.tournament_mode_after_step()
+  local S = BattleBayDeluxe.tournament_state
   if S.after_grid == nil or S.co ~= nil or S.open or S.entry then
     return
   end
   S.frames_after = (S.frames_after or 0) + 1
   if S.frames_after > 600 then
-    BBT_Log("mode: gave up waiting for the menu:", S.after_grid)
+    BattleBayDeluxe.tournament_log("mode: gave up waiting for the menu:", S.after_grid)
     S.after_grid = nil
     return
   end
-  if S.frames_after < 6 or not BattleBayDeluxe.TournamentHost.ready() or funcLuaCommand(@crc:CMND_BRIGHT_IS_FADE@) == true
-    or funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.Tournament.SUB_WINDOW) == true then
+  if S.frames_after < 6 or not BattleBayDeluxe.tournament_host.ready() or funcLuaCommand(@crc:CMND_BRIGHT_IS_FADE@) == true
+    or funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.tournament.SUB_WINDOW) == true then
     return
   end
   local what = S.after_grid
   S.after_grid = nil
   if what == "bracket" then
-    if BBT_Info().fmt == 2 then
-      S.co = coroutine.create(BBT_LeagueHub)
+    if BattleBayDeluxe.tournament_info().fmt == 2 then
+      S.co = coroutine.create(BattleBayDeluxe.tournament_league_hub)
     else
-      BBT_Open(BBT_EntryPage())
+      BattleBayDeluxe.tournament_open(BattleBayDeluxe.tournament_entry_page())
     end
   elseif what == "tournament" or what == "campaign" then
-    BBT_DecideCampaignRow(what)
+    BattleBayDeluxe.tournament_decide_campaign_row(what)
   end
 end
 
--- bbt_mode.lua's Step hook in this menu: the grid watch, the waiting switch. The selector is never shown here (owner
--- 2026-10-13: only on the team-select grid before a run starts; a Torneo up here is a run in progress): kept hidden
-function BBT_ModeTopStep()
-  if BattleBayDeluxe.TournamentHost.name ~= "bb_stadium_top_menu" then
+-- Step hook of this menu
+function BattleBayDeluxe.tournament_mode_top_step()
+  if BattleBayDeluxe.tournament_host.name ~= "bb_stadium_top_menu" then
     return
   end
-  local S = BattleBayDeluxe.TournamentState
-  BBT_ModeAfterGrid()
-  BBT_ModeAfterStep()
-  -- 1.5.57: the selector's layers are no longer in this menu (the grid's own only): nothing drawn here
-  BBT_ModePoll(false)   -- keeps the key / click edges current
+  local S = BattleBayDeluxe.tournament_state
+  BattleBayDeluxe.tournament_mode_after_grid()
+  BattleBayDeluxe.tournament_mode_after_step()
+  -- The selector layers live only in the grid menu
+  BattleBayDeluxe.tournament_mode_poll(false)   -- keeps the key / click edges current
 end
 
--- 1.5.57 diagnosis (the white Battle Bay top menu of 2026-10-13: the menu past the engine's layer instance limit never
--- finished opening). Once per opening, BBT_SETUP_FRAMES Steps after OnInit: the instances the engine created of each
--- overlay pool (CMND_GET_CREATE_LAYER_NUM) against the menu file's counts, whether the background
--- (mainmenu90_00_background) is open and whether the screen is still covered by a fade (2259183189). A short pool
--- or «covered true» = the menu is still too big.
-BBT_SETUP_FRAMES = 180
-function BBT_SetupCheck()
-  if BattleBayDeluxe.TournamentHost.name ~= "bb_stadium_top_menu" then
+-- Diagnostics, once per opening TournamentSetupFrames Steps after OnInit
+BattleBayDeluxe.tournament_setup_frames = 180
+function BattleBayDeluxe.tournament_setup_check()
+  if BattleBayDeluxe.tournament_host.name ~= "bb_stadium_top_menu" then
     return
   end
   local parts, short = {}, 0
-  for k, n in pairs(BattleBayDeluxe.Tournament.N) do
-    local got = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, BattleBayDeluxe.Tournament.L[k])
+  for k, n in pairs(BattleBayDeluxe.tournament.N) do
+    local got = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, BattleBayDeluxe.tournament.L[k])
     got = type(got) == "number" and got or -1
     if got < n then
       short = short + 1
@@ -107,6 +97,6 @@ function BBT_SetupCheck()
   table.sort(parts)
   local bg = funcLuaMenuCommand(@crc:CMND_IS_OPEN_LAYER@, 367379312 --[[mainmenu90_00_background]], 0)
   local covered = funcLuaCommand(2259183189) == true
-  BBT_Log(string.format("top menu setup: %s; background open %s, covered %s (%s)", table.concat(parts, ", "),
+  BattleBayDeluxe.tournament_log(string.format("top menu setup: %s; background open %s, covered %s (%s)", table.concat(parts, ", "),
     tostring(bg), tostring(covered), (short > 0 or covered) and "STUCK? pools short or screen covered" or "ok"))
 end

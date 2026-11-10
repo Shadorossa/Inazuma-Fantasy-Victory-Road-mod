@@ -1,4 +1,4 @@
-# Texts of the Battle Bay pages (menu_text rows, 9 languages): page label, framework categories and series seasons. A mod adding a series / category ships the rows its declaration names.
+# Texts of the Battle Bay pages (menu_text rows, 9 languages): page label, framework categories and series seasons.
 
 schema = "VRFW.text/2"
 table = "menu_text"
@@ -16,7 +16,6 @@ ja = "P."
 zh_hans = "页"
 zh_hant = "頁"
 
-# Category "main teams" (rule game).
 [[row]]
 id = "vrfw_bb_cat_main"
 es = "Equipos principales"

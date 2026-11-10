@@ -1,0 +1,74 @@
+schema = "VRFW.sound/1"
+
+[[music]]
+add = "if_op_ie3_ja"
+file = "assets/sounds/music/if_op_ie3_ja.hca"
+loop = false
+
+[[music]]
+add = "if_op_ie3_es"
+file = "assets/sounds/music/if_op_ie3_es.hca"
+loop = false
+
+[[music]]
+add = "if_op_ie3_en"
+file = "assets/sounds/music/if_op_ie3_en.hca"
+loop = false
+
+[[music]]
+add = "if_op_ie3_it"
+file = "assets/sounds/music/if_op_ie3_it.hca"
+loop = false
+
+[[music]]
+add = "if_op_ie1_ja"
+file = "assets/sounds/music/if_op_ie1_ja.hca"
+loop = false
+
+[[music]]
+add = "if_op_ie2_ja"
+file = "assets/sounds/music/if_op_ie2_ja.hca"
+loop = false
+
+[[music]]
+add = "if_op_ie2_es"
+file = "assets/sounds/music/if_op_ie2_es.hca"
+loop = false
+
+[[music]]
+add = "if_op_vr_op1"
+file = "assets/sounds/music/if_op_vr_op1.hca"
+loop = false
+
+[[music]]
+add = "if_op_vr_op2"
+file = "assets/sounds/music/if_op_vr_op2.hca"
+loop = false
+
+[[music]]
+add = "if_op_vr_chronicle"
+file = "assets/sounds/music/if_op_vr_chronicle.hca"
+loop = false
+
+# The DS title menu theme TITLE.SAD (same file in IE2 and IE3), loop baked (research/mods/MissingContent/_tools/ds_menu_music_build.py).
+[[music]]
+add = "exop_menu_ie23"
+name = "Inazuma Eleven 2 / 3"
+file = "assets/sounds/music/exop_menu_ie23.hca"
+
+# A theme of the framework's «Menu music» row (docs/framework/menu-music.md).
+[[VRFW.MenuMusic]]
+Name = "MissingContent.MenuIE23"
+Music = "exop_menu_ie23"
+Text = "menu_music_ie23"
+
+# «The Inazuma TM Bus», one loop of the whole track.
+[[music]]
+add = "exop_menu_tm_bus"
+name = "The Inazuma TM Bus"
+file = "assets/sounds/music/exop_menu_tm_bus.hca"
+
+[[VRFW.MenuMusic]]
+Name = "MissingContent.MenuTMBus"
+Music = "exop_menu_tm_bus"
+Text = "menu_music_tm_bus"

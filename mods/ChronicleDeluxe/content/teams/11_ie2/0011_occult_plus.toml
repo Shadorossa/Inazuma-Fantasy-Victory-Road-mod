@@ -1,14 +1,9 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: a rival of the chain «Ruta del entrenador del Mary Times» (content/teams/70_route_nodes/
-# chain_ie2_marytimes.toml, tile l02). Its own team, built from the IE2 DS record
-# (research/data/ie2ds/chain_teams.json, PracticeGame3B tile 6, team.pkb 530 «Occult Plus», level 45): the same eleven
-# players, kit numbers, positions and captain, with the cards of the Chronicle's Occult (tm_cro_ie1_0300). Not in the
-# Battle Bay grid (no `appears`).
 default_lang = "en"
 [[team]]
 name = "ct_wk_occult_plus"
 key = "evt_ct_wk_occult_plus"
-based_on = "tm_cro_ie1_0300" # Occult (the same school's team): formation, kit, crest, tactics
+based_on = "tm_cro_ie1_0300"
 level = 45
 series = "IE2"
 roster = "exact"

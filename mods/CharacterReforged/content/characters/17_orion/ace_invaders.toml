@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Ace Invaders · Inazuma Eleven: Orion
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c08080010"                                   # Hellion
 moves = [
-  { move = 0x4DDFEDE2, level = 1 },                         # Eagle Buster
-  { move = 0x53CD747F, level = 13 },                        # Tarzan Kick
-  { move = 0xEEFFAE21, level = 20 },                        # Jungle Jam
-  { move = 0xA0CABC03, level = 30 },                        # Cannonball
+  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
+  { move = 0x4DDFEDE2, level = 13 },                        # Eagle Buster
+  { move = 0xA0CABC03, level = 20 },                        # Cannonball
+  { move = 0xEEFFAE21, level = 30 },                        # Jungle Jam
 ]
 
   [[edit.cards]]
@@ -22,10 +19,10 @@ moves = [
 [[edit]]
 target = "c08080020"                                   # Moai
 moves = [
-  { move = 0x4DDFEDE2, level = 1 },                         # Eagle Buster
-  { move = 0xA0CABC03, level = 13 },                        # Cannonball
-  { move = 0xEEFFAE21, level = 20 },                        # Jungle Jam
-  { move = 0xB37CD264, level = 30 },                        # Am-Bush
+  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
+  { move = 0x4DDFEDE2, level = 13 },                        # Eagle Buster
+  { move = 0xA0CABC03, level = 20 },                        # Cannonball
+  { move = 0xEEFFAE21, level = 30 },                        # Jungle Jam
 ]
 
   [[edit.cards]]
@@ -38,10 +35,10 @@ moves = [
 [[edit]]
 target = "c08080030"                                   # Mop
 moves = [
-  { move = 0xA0CABC03, level = 1 },                         # Cannonball
-  { move = 0xEEFFAE21, level = 13 },                        # Jungle Jam
-  { move = 0x695A4A6F, level = 20 },                        # Magic
-  { move = 0xD9BB22A7, level = 30 },                        # Air Ride
+  { move = 0x695A4A6F, level = 1 },                         # Magic
+  { move = 0xA0CABC03, level = 13 },                        # Cannonball
+  { move = 0xD9BB22A7, level = 20 },                        # Air Ride
+  { move = 0xEEFFAE21, level = 30 },                        # Jungle Jam
 ]
 
   [[edit.cards]]
@@ -54,10 +51,10 @@ moves = [
 [[edit]]
 target = "c08080040"                                   # Yoga
 moves = [
-  { move = 0xC7A9BB3A, level = 1 },                         # Whirlwind Cut
-  { move = 0xA0CABC03, level = 13 },                        # Cannonball
-  { move = 0x695A4A6F, level = 20 },                        # Magic
-  { move = 0x8C990270, level = 30 },                        # Gunshot
+  { move = 0x695A4A6F, level = 1 },                         # Magic
+  { move = 0x8C990270, level = 13 },                        # Gunshot
+  { move = 0xC7A9BB3A, level = 20 },                        # Whirlwind Cut
+  { move = 0xA0CABC03, level = 30 },                        # Cannonball
 ]
 
   [[edit.cards]]
@@ -69,10 +66,10 @@ moves = [
 [[edit]]
 target = "c08080050"                                   # Cobra
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
-  { move = 0xA0CABC03, level = 13 },                        # Cannonball
-  { move = 0xDD365E15, level = 20 },                        # Mole Shuffle
-  { move = 0x322F0C40, level = 30 },                        # Spider Web
+  { move = 0xA0CABC03, level = 1 },                         # Cannonball
+  { move = 0xDD365E15, level = 13 },                        # Mole Shuffle
+  { move = 0x322F0C40, level = 20 },                        # Spider Web
+  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
 ]
 
   [[edit.cards]]
@@ -101,8 +98,8 @@ target = "c08080070"                                   # Judge
 moves = [
   { move = 0x36A270F2, level = 1 },                         # Rolling Slide
   { move = 0xAD6E4BF9, level = 13 },                        # Harvest
-  { move = 0x0A3F27B7, level = 20 },                        # Foul Offence 3
-  { move = 0x142DBE2A, level = 30 },                        # Foul Offence
+  { move = 0x142DBE2A, level = 20 },                        # Foul Offence
+  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -114,8 +111,8 @@ moves = [
 [[edit]]
 target = "c08080080"                                   # Smokestack
 moves = [
-  { move = 0x36A270F2, level = 1 },                         # Rolling Slide
-  { move = 0x7EEA4EE9, level = 13 },                        # Blade Attack
+  { move = 0x7EEA4EE9, level = 1 },                         # Blade Attack
+  { move = 0x36A270F2, level = 13 },                        # Rolling Slide
   { move = 0xA0CABC03, level = 20 },                        # Cannonball
   { move = 0x4D1E465C, level = 30 },                        # Fake Bomber
 ]
@@ -146,9 +143,9 @@ moves = [
 [[edit]]
 target = "c08080100"                                   # Charmer
 moves = [
-  { move = 0x52CEB5F6, level = 1 },                         # Iron Wall
-  { move = 0x7EEA4EE9, level = 13 },                        # Blade Attack
-  { move = 0xA0CABC03, level = 20 },                        # Cannonball
+  { move = 0x7EEA4EE9, level = 1 },                         # Blade Attack
+  { move = 0xA0CABC03, level = 13 },                        # Cannonball
+  { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
   { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
 ]
 
@@ -161,10 +158,10 @@ moves = [
 [[edit]]
 target = "c08080110"                                   # Bigman
 moves = [
-  { move = 0x023F5107, level = 1 },                         # Aegis Protocol
+  { move = 0x4523C86D, level = 1 },                         # Killer Blade
   { move = 0xECD991E4, level = 13 },                        # The Stinger
-  { move = 0xB907E20C, level = 20 },                        # Procyon Net
-  { move = 0x4523C86D, level = 30 },                        # Killer Blade
+  { move = 0x023F5107, level = 20 },                        # Aegis Protocol
+  { move = 0xB907E20C, level = 30 },                        # Procyon Net
 ]
 
   [[edit.cards]]
@@ -176,10 +173,10 @@ moves = [
 [[edit]]
 target = "c08080120"                                   # Switch
 moves = [
-  { move = 0xA0CABC03, level = 1 },                         # Cannonball
-  { move = 0xC6978232, level = 13 },                        # Dinosaur Roar
-  { move = 0x7EEA4EE9, level = 20 },                        # Blade Attack
-  { move = 0xACAC21CE, level = 30 },                        # Fake Ball
+  { move = 0x7EEA4EE9, level = 1 },                         # Blade Attack
+  { move = 0xACAC21CE, level = 13 },                        # Fake Ball
+  { move = 0xA0CABC03, level = 20 },                        # Cannonball
+  { move = 0xC6978232, level = 30 },                        # Dinosaur Roar
 ]
 
   [[edit.cards]]
@@ -191,10 +188,10 @@ moves = [
 [[edit]]
 target = "c08080130"                                   # Wizard
 moves = [
-  { move = 0xA0CABC03, level = 1 },                         # Cannonball
-  { move = 0x695A4A6F, level = 13 },                        # Magic
-  { move = 0xDDCA0D2A, level = 20 },                        # Bouncing Bomb
-  { move = 0x36C2F16E, level = 30 },                        # Dark Reversal
+  { move = 0x695A4A6F, level = 1 },                         # Magic
+  { move = 0xDDCA0D2A, level = 13 },                        # Bouncing Bomb
+  { move = 0xA0CABC03, level = 20 },                        # Cannonball
+  { move = 0x36A270F2, level = 30 },                        # Rolling Slide
 ]
 
   [[edit.cards]]
@@ -207,10 +204,10 @@ moves = [
 [[edit]]
 target = "c08080140"                                   # Howler
 moves = [
-  { move = 0x91AE65A1, level = 1 },                         # Giant Spider
-  { move = 0xBC48F489, level = 13 },                        # Claw Slash
-  { move = 0xA0CABC03, level = 20 },                        # Cannonball
-  { move = 0xDBA0E5E3, level = 30 },                        # Gigant Wall
+  { move = 0xBC48F489, level = 1 },                         # Claw Slash
+  { move = 0x91AE65A1, level = 13 },                        # Giant Spider
+  { move = 0xDBA0E5E3, level = 20 },                        # Gigant Wall
+  { move = 0x49F3BB72, level = 30 },                        # Psychlone
 ]
 
   [[edit.cards]]
@@ -220,12 +217,12 @@ moves = [
   stats = { kick = 235, control = 196, technique = 177, pressure = 200, physical = 193, intelligence = 188, agility = 244, freedom = 247 }
 
 [[edit]]
-target = "c11808100"                                   # René Gadé
+target = "c11808100"
 moves = [
-  { move = 0xA0CABC03, level = 1 },                         # Cannonball
-  { move = 0x38094535, level = 13 },                        # Sub-Terfuge
-  { move = 0x119EFB90, level = 20 },                        # Doom Rain
-  { move = 0x332CCDC9, level = 30 },                        # Heel Kick
+  { move = 0x332CCDC9, level = 1 },                         # Heel Kick
+  { move = 0xA0CABC03, level = 13 },                        # Cannonball
+  { move = 0x38094535, level = 20 },                        # Sub-Terfuge
+  { move = 0x119EFB90, level = 30 },                        # Doom Rain
 ]
 
   [[edit.cards]]

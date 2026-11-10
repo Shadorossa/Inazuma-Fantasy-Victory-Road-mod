@@ -1,0 +1,98 @@
+schema = "VRFW.menu/2"
+
+# Team kit picker as a honeycomb of kit icons beside the four models (research/grafts/better_ui_kit_grid): the retail list stays, its layers get new objects.
+# Same pieces as the emblem picker (equip_emblem_menu.toml): its tile (betterui_emblem_tile), its tab bar (betterui_emblem_tabs) and its atlas.
+# The grid layout is built by research/mods/BetterUI/_tools/emblem_grid_build.py from [kit_grid] of _menu_build.toml.
+# Screen parts under BetterUI's short header: series tab bar centred (84-160), grid on the left (x 36-976, 167 to the screen's bottom, 7 rows), the four retail models on the right, the kit's name plate under them (796-924); the footer prompts draw over the grid's bottom fade (the retail help line is hidden by the graft).
+
+# The name plate: the retail kit detail card at 0.85 under the models, its window 880 x 150, its text right of the accent line (its two icon quads are hidden by the graft).
+[[layout]]
+file = "common/menu/102_team/team07/betterui_kit_name/betterui_kit_name.g4pkm"
+from = "common/menu/102_team/team07/team07_03/team07_03.g4pkm"
+
+[[layout]]
+file = "common/menu/102_team/team07/betterui_kit_name/betterui_kit_name.g4pkm"
+joint = "_pos_base01"
+translate = [1520.0, -860.0]
+scale = [0.85, 0.85, 1.0]
+
+[[layout]]
+file = "common/menu/102_team/team07/betterui_kit_name/betterui_kit_name.g4pkm"
+joint = "_win_uniform01"
+translate = [-440.0, 75.0]
+scale = [880.0, 150.0, 1.0]
+
+[[layout]]
+file = "common/menu/102_team/team07/betterui_kit_name/betterui_kit_name.g4pkm"
+joint = "_detail_line01"
+translate = [-416.0, 52.0]
+scale = [8.0, 104.0, 1.0]
+
+[[layout]]
+file = "common/menu/102_team/team07/betterui_kit_name/betterui_kit_name.g4pkm"
+joint = "_text_detail01"
+translate = [-384.0, 40.0]
+
+# The grid object: list counts for 10 columns x 9 locator rows (7 shown); drawn over the tiles for its fade bands, under the footer prompts (draw priority 654).
+[[object]]
+name = "betterui_kit_grid"
+from = "team06_01_uniform_list"
+priority = 552
+set = [
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team06/team06_01/team06_01.g4pkm" }, values = { 1 = "common/menu/102_team/team06/betterui_kit_grid/betterui_kit_grid.g4pkm" } },
+    { parameter = "mViewNum", values = { 1 = 7 } },
+    { parameter = "mLocatorStartName", values = { 1 = 1435943202 } },
+    { parameter = "mLocatorNum", values = { 1 = 90 } },
+]
+# the fade bands' two materials form the colour preset betterui_emblem_fade (the graft tints it with the theme's background)
+add_block = [{ block = "CMenuChangeMaterialColor", after = "CMenuAnimation" }]
+add = [
+    { block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/102_team/team04/team04_02/<LG>/team04_02.g4tx"] },
+    { block = "CMenuChangeMaterialColor", parameter = "betterui_emblem_fade", values = [-187720355] },   # spirit_list_base01_mat_01
+    { block = "CMenuChangeMaterialColor", parameter = "betterui_emblem_fade", values = [414285050] },    # gtxt_spirit01_mat_01
+    { block = "CMenuListViewEquip", parameter = "mLineNum", values = [10] },
+    { block = "CMenuListViewEquip", parameter = "mScrollVert", values = [1] },
+    { block = "CMenuListViewEquip", parameter = "mLineOver", values = [1] },
+    { block = "CMenuListViewEquip", parameter = "m_isDisableMoveLine", values = [1] },
+    { block = "CMenuListViewEquip", parameter = "m_isEnableRemainLineMove", values = [1] },
+    { block = "CMenuListViewEquip", parameter = "mMatrixLocaterRootBaseName", values = ["_pos_atc_list"] },
+    { block = "CMenuListViewEquip", parameter = "mMatrixLocaterRootBaseDigitNum", values = [2] },
+]
+
+[[object]]
+name = "betterui_kit_name"
+from = "team07_03_uniform_info"
+set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team07/team07_03/team07_03.g4pkm" }, values = { 1 = "common/menu/102_team/team07/betterui_kit_name/betterui_kit_name.g4pkm" } }]
+
+[[patch]]
+menu = "equip_uniform_menu"
+layer = "team06_01_uniform_list"
+object = "betterui_kit_grid"
+# the pickers' atlas: the grey hex and the fade bands (content/images/menu/102_team/betterui_emblem_art.toml)
+resources = ["#/menu/102_team/betterui_emblem_art/betterui_emblem_art.g4tx"]
+
+[[patch]]
+menu = "equip_uniform_menu"
+layer = "team07_02_uniform_list_item"
+object = "betterui_emblem_tile"
+count = 90
+
+[[patch]]
+menu = "equip_uniform_menu"
+layer = "team07_03_uniform_info"
+object = "betterui_kit_name"
+
+[[patch]]
+menu = "equip_uniform_menu"
+layer = "cmn06_01_list_tab_attach"
+object = "betterui_emblem_tabs"
+
+# The series tabs: 10 instances («Todos» + the 9 retail series), the retail tab bindings of the character bank (LB / RB).
+[[patch]]
+menu = "equip_uniform_menu"
+layer = "cmn06_20_list_tab_item"
+count = 10
+add_commands = [
+    { layer = "cmn06_20_list_tab_item", input = 0xEC67D0A2, command = "CMD_FCS_BACK" },
+    { layer = "cmn06_20_list_tab_item", input = 0x3826EF7D, command = "CMD_FCS_NEXT" },
+]

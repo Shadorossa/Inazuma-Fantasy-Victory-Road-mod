@@ -1,0 +1,27 @@
+# The conditions of the IE3 chains (David, Lizzy) that no other chain declares.
+schema = "VRFW.text/2"
+table = "menu_text"
+
+[[row]]
+id = "chronicle_deluxe_mc_no_shoot_moves"
+es = "Sin supertécnicas de tiro"
+en = "No shooting special moves"
+fr = "Pas de supertechniques de tir"
+de = "Keine Schuss-Spezialtechniken"
+it = "Niente supertecniche di tiro"
+pt = "Sem supertécnicas de remate"
+ja = "シュート技の使用禁止"
+zh_hans = "禁用射门必杀技"
+zh_hant = "禁用射門必殺技"
+
+[[row]]
+id = "chronicle_deluxe_mc_no_keeper_moves"
+es = "Sin supertécnicas de portero"
+en = "No goalkeeping special moves"
+fr = "Pas de supertechniques de gardien"
+de = "Keine Torwart-Spezialtechniken"
+it = "Niente supertecniche da portiere"
+pt = "Sem supertécnicas de guarda-redes"
+ja = "キーパー技の使用禁止"
+zh_hans = "禁用守门必杀技"
+zh_hant = "禁用守門必殺技"

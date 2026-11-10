@@ -1,41 +1,10 @@
--- VRFW_Host command hooks: the one wrapper of this VM's funcLuaCommand / funcLuaMenuCommand. A screen that must see,
--- answer or change one engine command registers a handler here instead of replacing the global itself; a screen
--- that needs other answers only around one call uses WithCommands. Definitions only: no engine call at load (the
--- command functions are registered after the chunk; a hook registered at load goes on when the engine stores them).
---   VRFW_Host.Command(id, ...)     -> funcLuaCommand(id, ...) in pcall: its results, nil when it fails
---   VRFW_Host.MenuCommand(id, ...) -> the same with funcLuaMenuCommand
---   VRFW_Host.RealCommand(id, ...) / VRFW_Host.RealMenuCommand(id, ...) -> the command under every handler (the one
---     the first dispatcher of this VM wrapped, the engine's): a handler's own calls of other commands that must not
---     pass through the handlers. Errors are raised as the command raises them.
---   VRFW_Host.HookCommand(id, fn, owner[, opts]) -> true when the dispatcher is in place (false: the command function
---     does not exist yet in this VM, e.g. a call at chunk load; the handler stays registered and the dispatcher goes on
---     the moment the engine stores the command function, through a __newindex of the globals chained onto any
---     earlier one, or at the next HookCommand / WithCommands call; the install line is logged at its first call)
---       id     a command crc, a list of crcs, or "*" (every command)
---       fn     fn(nxt, ...): `...` = the call's arguments exactly as the caller gave them (the command id first).
---              Return nxt(...) to go on (arguments may be changed), or return the handler's own answer.
---              Inside a handler call nxt, never the global function for the same command.
---       owner  "<mod>.<feature>": one handler per owner and id (a second call replaces the first); its install line is
---              logged once per VM only while the framework's config [debug] command_hooks is on
---       opts   { menu = true (hook funcLuaMenuCommand), post = true (hook funcLuaMenuPostCommand),
---                priority = 0 (lower = called first, outermost) }
---              VRFW_Host.INNERMOST = right over the command, under every other handler
---     A handler error is logged once per owner; the call then goes on as if the handler had called nxt.
---   VRFW_Host.UnhookCommand(owner[, opts]) -> the owner's handlers removed (opts.menu / opts.post as above)
---   VRFW_Host.WithCommands(overrides, fn, ...) -> the results of fn(...), run with temporary answers:
---       overrides = { [crc] = answer | function(nxt, ...) … , menu = { [crc] = … } (funcLuaMenuCommand),
---                     post = { [crc] = … } (funcLuaMenuPostCommand) }
---       a plain value is returned as the command's only answer; a function is a handler as above. The answers are
---       removed when fn returns or fails (its error is raised again after that); nested calls: the inner one is outer.
--- One dispatcher per command function per VM. When another script replaced the global after it, the next
--- HookCommand / WithCommands call wraps the new global again; a call that passes through two of our dispatchers runs
--- the handlers once.
-VRFW_Host = VRFW_Host or {}
-if VRFW_Host.HookCommand == nil then
-  local H = VRFW_Host
-  local LOG = VRFW_Cmd.EVT_LOG
+-- VRFW.host command hooks: the one wrapper of this VM's funcLuaCommand / funcLuaMenuCommand.
+VRFW.host = VRFW.host or {}
+if VRFW.host.hook_command == nil then
+  local H = VRFW.host
+  local LOG = VRFW.commands.VRFW_LOG
   local PRIORITY_TEMPORARY = -1000000000
-  H.INNERMOST = 1000000000           -- opts.priority of a filter that sits right over the command (called last)
+  H.INNERMOST = 1000000000
   local pack, unpack = table.pack, table.unpack
 
   local SLOTS = {}                   -- function name -> slot
@@ -61,8 +30,6 @@ if VRFW_Host.HookCommand == nil then
     end
   end
 
-  -- the install lines: only while the framework's config [debug] command_hooks is on (read once per VM, at the first
-  -- line, when funcLuaCommand exists)
   local trace_on = nil
   local function trace(...)
     if trace_on == nil then
@@ -70,7 +37,7 @@ if VRFW_Host.HookCommand == nil then
       if type(f) ~= "function" then
         return
       end
-      local ok, on = pcall(f, VRFW_Cmd.VRFW_DEBUG_SWITCH, "command_hooks")
+      local ok, on = pcall(f, VRFW.commands.VRFW_DEBUG_SWITCH, "command_hooks")
       trace_on = ok and (on == true or on == 1)
     end
     if trace_on then
@@ -86,7 +53,6 @@ if VRFW_Host.HookCommand == nil then
     return string.format("0x%04X%04X", math.floor(c / 65536), c % 65536)
   end
 
-  -- the install lines of handlers registered before the command existed: written at its first call
   local function flush_pending(s)
     if type(_ENV.funcLuaCommand) ~= "function" then
       return
@@ -124,8 +90,6 @@ if VRFW_Host.HookCommand == nil then
     return list
   end
 
-  -- a call without a command id (a caller's constant that does not exist): logged once per caller, then the call
-  -- goes to the command function as it is
   local last_nil_caller = nil
   local function note_nil_command(s)
     local where = "?"
@@ -175,7 +139,7 @@ if VRFW_Host.HookCommand == nil then
       return unpack(r, 2, r.n)
     end
     if called and results == nil then
-      error(r[2], 0)                 -- the command under the handler failed: its error goes on
+      error(r[2], 0)                 -- The command under the handler failed: its error goes on.
     end
     if not h.failed then
       h.failed = true
@@ -197,7 +161,7 @@ if VRFW_Host.HookCommand == nil then
     end
     local real = current
     if s.base == nil then
-      s.base = real                  -- the command under the first dispatcher: what RealCommand calls
+      s.base = real
     end
     local dispatch
     dispatch = function(...)
@@ -267,9 +231,6 @@ if VRFW_Host.HookCommand == nil then
     s.gen = s.gen + 1
   end
 
-  -- the engine registers the command functions after every patch of the script ran: a __newindex of the globals
-  -- (chained onto any earlier one) puts the dispatcher on a command function the moment it is stored. Defines a
-  -- metamethod only: no engine call. false when the globals' metatable is protected.
   local globals_watched = false
   local function watch_registration()
     if globals_watched then
@@ -305,11 +266,12 @@ if VRFW_Host.HookCommand == nil then
 
   local LOGGED = {}
 
-  function H.HookCommand(id, fn, owner, opts)
+  --- Adds a command hook for `owner`; answers true, or false, why.
+  function H.hook_command(id, fn, owner, opts)
     opts = opts or {}
     if type(fn) ~= "function" or type(owner) ~= "string" or owner == "" then
       log("HookCommand: a handler function and an owner text are required", tostring(owner))
-      return false
+      return false, "a handler function and an owner text are required"
     end
     local s = slot_of(opts.post and "post" or opts.menu)
     for _, c in ipairs(ids_of(id)) do
@@ -335,8 +297,6 @@ if VRFW_Host.HookCommand == nil then
     return ok
   end
 
-  -- the command under the first dispatcher of this VM (the engine's), past every handler; the global when no
-  -- dispatcher is in place yet. Errors are raised as the command raises them.
   local NO_HANDLERS = {}
   local function real_call(s, ...)
     local base = s.base
@@ -346,15 +306,18 @@ if VRFW_Host.HookCommand == nil then
     return run(s, NO_HANDLERS, 1, base, ...)
   end
 
-  function H.RealCommand(...)
+  --- Calls funcLuaCommand underneath every hook.
+  function H.real_command(...)
     return real_call(slot_of(false), ...)
   end
 
-  function H.RealMenuCommand(...)
+  --- Calls funcLuaMenuCommand underneath every hook.
+  function H.real_menu_command(...)
     return real_call(slot_of(true), ...)
   end
 
-  function H.UnhookCommand(owner, opts)
+  --- Removes the hooks of `owner`.
+  function H.unhook_command(owner, opts)
     remove(slot_of(opts and (opts.post and "post" or opts.menu)), owner)
   end
 
@@ -367,7 +330,8 @@ if VRFW_Host.HookCommand == nil then
     end
   end
 
-  function H.WithCommands(overrides, fn, ...)
+  --- Runs fn(...) with command overrides; answers fn's results.
+  function H.with_commands(overrides, fn, ...)
     with_depth = with_depth + 1
     seq = seq + 1
     local owner = "with_commands#" .. seq
@@ -405,7 +369,8 @@ if VRFW_Host.HookCommand == nil then
     return unpack(r, 2, r.n)
   end
 
-  function H.Command(id, ...)
+  --- Runs funcLuaCommand under pcall; answers its results, or nil when it failed.
+  function H.command(id, ...)
     local r = pack(pcall(_ENV.funcLuaCommand, id, ...))
     if not r[1] then
       return nil
@@ -413,7 +378,8 @@ if VRFW_Host.HookCommand == nil then
     return unpack(r, 2, r.n)
   end
 
-  function H.MenuCommand(id, ...)
+  --- Runs funcLuaMenuCommand under pcall; answers its results, or nil when it failed.
+  function H.menu_command(id, ...)
     local r = pack(pcall(_ENV.funcLuaMenuCommand, id, ...))
     if not r[1] then
       return nil

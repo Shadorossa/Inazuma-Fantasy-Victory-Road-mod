@@ -1,0 +1,16 @@
+# Football Reforged: its settings.
+
+[skill_duel]
+reach_min_m = 1.8
+reach_max_m = 3.6
+hand_scale_min = 1.0
+hand_scale_max = 1.4
+# HOW MUCH THE STATS MOVE IT: 0 = every duel at the middle of the band (2.7 m, hand 1.2), 1 = the whole band.
+stat_weight = 1.0
+
+# THE CONTACT: when the attacker's path crosses the defender's body, arm or hand (he read the side), the defender wins.
+contact_slip_per_point = 0.2
+contact_slip_max_percent = 0
+
+# true: one loader.log line per new DF / AT pair (the reach the duel gets) and per duel result the contact rule changes.
+log = true

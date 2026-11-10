@@ -1,26 +1,7 @@
--- Technique filter values: the tension tab of the move filter window (item_filter_menu, list item type 3) lists one row
--- per tension cost present in the technique table after mods, in ascending order, through
--- content/game/technique_filter.toml. A technique matches the row of its own value. Same values as the game's rows and
--- no technique family: nothing is written.
--- A mod may add a tab of its own to the move lists ([[VRFW.TechniqueFilterTab]], content\technique_filter_tabs):
--- `rows = "families"` lists one row per technique family ([[VRFW.TechniqueFamily]] of any active mod) in that tab. The
--- tab is the game's tension group once more at the end of the move lists' group list (TechniqueFilter.Groups); its rows
--- follow the tension rows in the same row space (at most 64 rows in all) and the row builder builds only the rows of the
--- tab shown (TechniqueFilter.RowLoop). A technique passes the family rows when none or all of them are ticked, else when one of its families
--- is ticked (the match stub asks the callback TechniqueFilter.FamilyPass); with no tension row ticked and a family row
--- ticked, the tension rows do not filter.
--- The ticked rows of a saved filter are kept here by value (the game's save holds six rows only); for the session. A
--- family row is kept as 256 + its index, 0-based (assets/lua/menu/_all/23_technique_filter.lua).
--- CMND_VRFW_TECHNIQUE_FILTER_VALUES(list item type) -> n, value 1, ..., value n (0 = the game's own rows)
--- CMND_VRFW_TECHNIQUE_FILTER_FAMILIES() -> first row, n, tab index, tab text key, icon, icon off, symbol, text 1,
---   name 1, ..., text n, name n (0 = no family rows)
--- CMND_VRFW_TECHNIQUE_FILTER_KEEP(save id, n, value 1, ..., value n) -> true (n < 0 = forget)
--- CMND_VRFW_TECHNIQUE_FILTER_KEPT(save id) -> n, value 1, ..., value n (-1 = none kept)
 
 TechniqueFilter = TechniqueFilter or {}
 TechniqueFilter.kept = TechniqueFilter.kept or {}
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("technique_filter")
 
 -- the game's numeric tab: its list item type and the technique table column it filters (record byte +0x31)
@@ -45,12 +26,8 @@ local NO_TAB = 0xFFFFFFFF
 -- the callback the match stub calls for the family rows
 local FAMILY_PASS = "TechniqueFilter.FamilyPass"
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
+local rd = VRFW.memory.read
+local u32 = VRFW.ids.unsigned
 
 local function apply(name, arg)
   local ok, r = pcall(VRFW.patch.apply, name, arg)
@@ -61,7 +38,6 @@ local function apply(name, arg)
   return r == true
 end
 
--- the game's row values, read from the code before anything is written; nil, why when not the game's
 local function game_rows()
   local ok1, match = pcall(VRFW.game.symbol, "Technique.FilterTensionMatch")
   local ok2, rows = pcall(VRFW.game.symbol, "Technique.FilterTensionRows")
@@ -75,8 +51,6 @@ local function game_rows()
   return values
 end
 
--- the move lists' filter groups (a list of group bytes), read from the getter's answer before anything is written; nil
--- when the site is not on this build
 local function game_groups()
   local ok, site = pcall(VRFW.game.symbol, "Technique.FilterGroupsMoves")
   if not ok or not site then return nil end
@@ -111,7 +85,6 @@ local function table_values()
   return list
 end
 
--- every declared family in load order ({ key, text, name }); a later declaration of the same key replaces the earlier one
 local function declared_families()
   local ok, files = pcall(VRFW.files.declarations, FAMILY_FOLDERS)
   if not ok or type(files) ~= "table" then
@@ -175,7 +148,7 @@ local function push_u64(out, v)
   end
 end
 
--- 8 little-endian bytes of the mask of rows first .. first + n - 1 (each below 64), appended to `out`
+-- 8 little-endian bytes of the mask of rows first ..
 local function push_row_mask(out, first, n)
   local bytes = { 0, 0, 0, 0, 0, 0, 0, 0 }
   for row = first, first + n - 1 do
@@ -289,8 +262,6 @@ local function start()
     #families, where))
 end
 
--- skill id -> the family rows it belongs to ({ [index] = true }, index 0-based); nil until the moves of the families
--- are published
 local function family_index()
   if TechniqueFilter.of_skill then return TechniqueFilter.of_skill end
   local families = TechniqueFilter.families
@@ -301,7 +272,7 @@ local function family_index()
     if ok and type(moves) == "table" then
       any = true
       for _, id in ipairs(moves) do
-        local m = math.floor(tonumber(id) or 0) % 4294967296
+        local m = u32(id)
         of[m] = of[m] or {}
         of[m][i - 1] = true
       end
@@ -317,14 +288,13 @@ VRFW.on("slot_load", function()
   pcall(family_index)
 end)
 
--- (skill id, filter block) -> 1 when the skill belongs to a ticked family row of the block. The match stub calls it
--- only while some family rows are ticked and some are not.
+-- (skill id, filter block) -> 1 when the skill belongs to a ticked family row of the block.
 VRFW.on("hook:" .. FAMILY_PASS, function(ev)
   local skill, block = ev.args[1], ev.args[2]
   local values = TechniqueFilter.values
   local of = family_index()
   if not of or not values then return { ret = 1 } end
-  local mine = of[math.floor(tonumber(skill) or 0) % 4294967296]
+  local mine = of[u32(skill)]
   if not mine then return { ret = 0 } end
   local lo, hi = rd("u32", block + 4), rd("u32", block + 8)
   if not lo or not hi then return { ret = 1 } end
@@ -336,15 +306,13 @@ VRFW.on("hook:" .. FAMILY_PASS, function(ev)
   return { ret = 0 }
 end)
 
--- (list item type) -> n, value 1, ... (0 = the game's own rows)
+-- (list item type) -> n, value 1, ...
 function TechniqueFilter.CmdValues(list_item_type)
   local values = TechniqueFilter.values
   if tonumber(list_item_type) ~= TENSION.list_item_type or not values then return 0 end
   return #values, table.unpack(values)
 end
 
--- () -> first row, n, tab index, tab text key, icon, icon off, symbol, text 1, name 1, ..., text n, name n (0 = no
--- family rows)
 function TechniqueFilter.CmdFamilies()
   local families, values, tab = TechniqueFilter.families, TechniqueFilter.values, TechniqueFilter.tab
   if not families or #families == 0 or not values or not tab then return 0 end
@@ -373,7 +341,7 @@ function TechniqueFilter.CmdKeep(save_id, n, ...)
   return true
 end
 
--- (save id) -> n, value 1, ... (-1 = none kept)
+-- (save id) -> n, value 1, ...
 function TechniqueFilter.CmdKept(save_id)
   local values = TechniqueFilter.kept[tonumber(save_id) or -1]
   if not values then return -1 end

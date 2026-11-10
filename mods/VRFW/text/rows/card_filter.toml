@@ -1,4 +1,3 @@
-# Character bank filter header texts (menu_text rows, 9 languages, read with CMND_TEXT_GET by id = crc32(row id)); value names come from the declarations.
 
 schema = "VRFW.text/2"
 table = "menu_text"

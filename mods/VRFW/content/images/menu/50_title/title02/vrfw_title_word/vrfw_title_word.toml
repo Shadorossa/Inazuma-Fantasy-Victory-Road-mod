@@ -1,0 +1,17 @@
+# VRFW: the word of the title version label (generated at pack time by research/mods/VRFW/_tools/title_word_art.py
+# from measurements of the retail label; our own glyphs; docs/internal/lua-hosts.md §6.1). A new atlas: the one
+# the copied layout vrfw_title_word reads from its own folder; its sprite gtxt_ver01 is the word.
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/50_title/title02/vrfw_title_word/vrfw_title_word.g4tx"
+name = "vrfw_title_word"
+size = [240, 72]
+
+[[sprite]]
+atlas = "#/menu/50_title/title02/vrfw_title_word/vrfw_title_word.g4tx"
+name = "gtxt_ver01"
+texture = "vrfw_title_word"
+x = 0
+y = 0
+png = "vrfw_title_word/gtxt_ver01.png"

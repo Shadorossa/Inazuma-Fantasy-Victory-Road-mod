@@ -1,0 +1,14 @@
+schema = "VRFW.migration/1"
+id = "CharacterReforged.totem_reel_always_on"
+description = "The totem skill reel is always shown: its stored option row and config override are cleaned up"
+phase = "data"
+after = ["VRFW.no_compat_names", "CharacterReforged.totems_in_base", "CharacterReforged.readable_option_rows"]
+
+[[step]]
+kind = "delete_option_row"
+id = "CharacterReforged.souls_reel"
+
+[[step]]
+kind = "delete_key"
+file = "{data}/config.toml"
+key = "mods.CharacterReforged.souls.reel.show"

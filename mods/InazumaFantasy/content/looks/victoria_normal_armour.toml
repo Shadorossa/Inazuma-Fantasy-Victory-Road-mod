@@ -1,0 +1,24 @@
+schema = "VRFW.look/2"
+# The armour of the keshin Victoria: the armour of Victoria (Shadow) in its colours, one row per body group.
+
+[[clothes]]
+model = "kvct02"
+rows = [
+  ["_armd/kvct02/kvct02.g4md", "_armd/kvct02/kvct02_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g1.g4md", "_armd/kvct02/kvct02_10.g4tx", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g2.g4md", "_armd/kvct02/kvct02_10.g4tx", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g3.g4md", "_armd/kvct02/kvct02_10.g4tx", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g4.g4md", "_armd/kvct02/kvct02_10.g4tx", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g5.g4md", "_armd/kvct02/kvct02_10.g4tx", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g6.g4md", "_armd/kvct02/kvct02_10.g4tx", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g4.g4md", "_armd/kvct02/kvct02_10.g4tx", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g5.g4md", "_armd/kvct02/kvct02_10.g4tx", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g6.g4md", "_armd/kvct02/kvct02_10.g4tx", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g2.g4md", "_armd/kvct02/kvct02_10.g4tx", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g3.g4md", "_armd/kvct02/kvct02_10.g4tx", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g6.g4md", "_armd/kvct02/kvct02_10.g4tx", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g6.g4md", "_armd/kvct02/kvct02_10.g4tx", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g4.g4md", "_armd/kvct02/kvct02_10.g4tx", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g4.g4md", "_armd/kvct02/kvct02_10.g4tx", 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/kvct02/kvct02_g5.g4md", "_armd/kvct02/kvct02_10.g4tx", 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+]

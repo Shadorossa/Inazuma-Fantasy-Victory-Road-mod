@@ -1,6 +1,4 @@
 schema = "VRFW.text_key/1"
-# Hissatsu Effects › the move card's sentences of the technique effects (content\rules\technique_effects_*.toml,
-# their `text`), language fr.
 
 [new]
 te_whd00170 = "+15 % de puissance avec 2 coéquipiers ou plus à moins de 15 m."
@@ -783,3 +781,4 @@ te_whs10010 = "Coûte 15 % de Tension en moins dans le premier tiers de la secon
 te_whs10020 = "Coûte 15 % de Tension en moins dans le premier tiers de la seconde mi-temps si son équipe est menée."
 te_whs10090 = "Coûte 15 % de Tension en moins dans le dernier tiers de chaque mi-temps si son équipe est menée."
 te_whs10130 = "Coûte 15 % de Tension en moins dans le dernier tiers de la première mi-temps."
+te_whk00690 = "Une fois par match, le gardien qui l'a équipée réussit un arrêt imparable sans dépenser de Tension."

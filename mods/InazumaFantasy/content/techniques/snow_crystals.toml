@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Cristales nevados (Icicle Bomb): the download's move who91002, a clone of who00780 with its numbers; its event ev61_91002 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "snow_crystals"

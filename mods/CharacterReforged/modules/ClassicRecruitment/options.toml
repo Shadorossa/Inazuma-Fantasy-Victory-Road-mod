@@ -1,0 +1,12 @@
+schema = "VRFW.option/2"
+# Classic Recruitment's rows on the Mods screen's «Ajustes» and in Options > «Mod options».
+
+# Read by ClassicRecruitment.gacha_removed (Lua) and the hub map's function point table (built at start).
+[[option]]
+id = "remove_gacha"                            # row key ClassicRecruitment.remove_gacha
+type = "toggle"
+label = "option_remove_gacha"                  # text\keys.toml, 9 languages
+help = "option_remove_gacha_help"
+default = 1
+order = 175
+restart = true

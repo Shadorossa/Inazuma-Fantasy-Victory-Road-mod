@@ -1,7 +1,4 @@
 schema = "VRFW.effect/1"
-# The aura statuses the moves' event lists attach (ATTACH_AURA): new effect_status_define rows, each a recolour copy
-# of the retail aura whose row it was made from (same anims but the ones written here: colour = charaStatusColor,
-# rim = charaStatusRimColor, keys [time, r, g, b, a]).
 
 [[recolor]]
 aura = "ball_aura_koutei_penguin_x"
@@ -23,4 +20,3 @@ aura = "body_aura_ev82000100_1"
 copy = "ball_aura_viento_negro_90007"
 color = [[0.0, 1.0, 0.94, 0.94, 0.94]]
 rim = [[0.0, 3.0, 0.1, 0.1, 0.1]]
-# NOT carried: rim power anim [[0.0, 2.0, 0.0, 0.0, 0.0]] (the type writes colour and rim only; the copy keeps body_aura_ev82000100_1's)

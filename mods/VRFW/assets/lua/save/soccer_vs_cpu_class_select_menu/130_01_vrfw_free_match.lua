@@ -14,178 +14,156 @@ local n2 = 0
 local n3 = 0
 local n4 = 6
 local n6 = 0
--- VRFW free-match classes -----------------
--- The class menu lists the classes the opponent offers (CMND_VRFW_FM_DIFFICULTIES: the mods' [VRFW.FreeMatch]
--- Difficulties that the game has a SOCCER_GAME_DIFFICULTY row for, ascending; LEGENDARY HERO, row 9, last). Row k
--- shows the retail class of its difficulty (ball: the class's declared Ball, else lv_base00..03; title: the class's
--- game's or declared Banner, CMND_VRFW_FM_CLASS, else gtxt_class01..04; "Lv." average of the team of the game's row of that class,
--- VRFW_FMC.Team: the real level, 3 digits with number settings); the clear /
--- advantage-win marks and their box only with ClearTicks (default: retail); locks: the retail rule per class, or none with
--- Unlock = "together" (the list already checked the opponent). Without an answer from the DLL: the 4 retail rows.
--- No engine call at load time; the functions take the game / story bytes from the callbacks (no chunk local here).
-VRFW_FMC = VRFW_FMC or {}
-VRFW_FMC.RULES = 2045239528
-VRFW_FMC.DIFFS = 1129484790
-VRFW_FMC.CLASS = 490102859
-VRFW_FMC.ATLAS = 1103995203   -- #/menu/200_icon/06_icon_class/<LG>/icon_class.g4tx (the retail class titles)
-VRFW_FMC.BALLS = 3795985350   -- #/menu/30_vsroute/vsroute01/vsroute01_21/vsroute01_21.g4tx (the level balls lv_base00..03)
-VRFW_FMC.cache = nil
-VRFW_FMC.banners = VRFW_FMC.banners or {}
-VRFW_FMC.game_banners = VRFW_FMC.game_banners or {}
+-- VRFW free-match classes ----------------- The class menu lists the classes the opponent offers
+VRFW.free_match_classes = VRFW.free_match_classes or {}
+VRFW.free_match_classes.RULES = 2045239528
+VRFW.free_match_classes.DIFFS = 1129484790
+VRFW.free_match_classes.CLASS = 490102859
+VRFW.free_match_classes.ATLAS = 1103995203
+VRFW.free_match_classes.BALLS = 3795985350
+VRFW.free_match_classes.cache = nil
+VRFW.free_match_classes.banners = VRFW.free_match_classes.banners or {}
+VRFW.free_match_classes.game_banners = VRFW.free_match_classes.game_banners or {}
+VRFW.free_match_classes.game_balls = VRFW.free_match_classes.game_balls or {}
 
--- {ticks, together} (retail when the DLL does not answer)
-function VRFW_FMC.Rules()
-  if VRFW_FMC.rules == nil then
-    local r = {pcall(funcLuaCommand, VRFW_FMC.RULES)}
-    if r[1] and r[2] == true then
-      VRFW_FMC.rules = {ticks = r[3] ~= false, together = r[6] == true}
+function VRFW.free_match_classes.rules()
+  if VRFW.free_match_classes.rules_cache == nil then
+    local r = {VRFW.host.command(VRFW.free_match_classes.RULES)}
+    if r[1] == true then
+      VRFW.free_match_classes.rules_cache = {ticks = r[2] ~= false, together = r[5] == true}
     else
-      VRFW_FMC.rules = {ticks = true, together = false}
+      VRFW.free_match_classes.rules_cache = {ticks = true, together = false}
     end
   end
-  return VRFW_FMC.rules
+  return VRFW.free_match_classes.rules_cache
 end
--- the classes `game` offers (read once per open: OnInit clears the cache)
-function VRFW_FMC.List(game)
-  if VRFW_FMC.cache == nil then
+function VRFW.free_match_classes.list(game)
+  if VRFW.free_match_classes.cache == nil then
     local t = {}
-    local r = {pcall(funcLuaCommand, VRFW_FMC.DIFFS, game)}
-    if r[1] and r[2] == true and type(r[3]) == "number" then
-      for i = 1, r[3] do
-        if type(r[3 + i]) == "number" then
-          t[#t + 1] = r[3 + i]
+    local r = {VRFW.host.command(VRFW.free_match_classes.DIFFS, game)}
+    if r[1] == true and type(r[2]) == "number" then
+      for i = 1, r[2] do
+        if type(r[2 + i]) == "number" then
+          t[#t + 1] = r[2 + i]
         end
       end
     end
     if #t == 0 then
       t = {6, 7, 8, 9}
     end
-    VRFW_FMC.cache = t
+    VRFW.free_match_classes.cache = t
+    VRFW.free_match_classes.game = game
   end
-  return VRFW_FMC.cache
+  return VRFW.free_match_classes.cache
 end
 -- class index 0..3 (row 6 + c) shown on menu row a2
-function VRFW_FMC.Cls(game, a2)
-  local l = VRFW_FMC.List(game)
+function VRFW.free_match_classes.cls(game, a2)
+  local l = VRFW.free_match_classes.list(game)
   local d = l[a2 + 1] or l[#l]
   return d - 6
 end
--- menu row a2 beyond the offered list: hidden, not focusable
-function VRFW_FMC.Hidden(game, a2)
-  return a2 >= #VRFW_FMC.List(game)
+-- Menu row a2 beyond the offered list.
+function VRFW.free_match_classes.hidden(game, a2)
+  return a2 >= #VRFW.free_match_classes.list(game)
 end
--- retail lock rule of class c (OnSetupLayer, moved into a function); story = byte 150829411 (1 = not the Story tab)
-function VRFW_FMC.RetailLocked(game, story, c)
-  local flag = true
-  local ret, ret2 = funcLuaMenuCommand(1984141647, game, c + 6)
-  if not ret then
-    ret2 = -1
-  end
-  if ret2 == -1 then
-    if story == 1 then
-      if game == 281360633 --[[fbtl_free_001]] then
-        flag = false
-      else
-        local ok, sfi = funcLuaCommand(2610596259, game)
-        if ok then
-          flag = not funcLuaCommand(4034518619, sfi, c + 1)
-        end
-        local ok2, ev = funcLuaCommand(2610596259, game, 1)
-        if ok2 and ev > 0 then
-          flag = false
-        end
-      end
-    else
-      flag = false
-    end
-  elseif ret2 == 0 then
-    flag = false
-  end
-  return flag
-end
-function VRFW_FMC.Locked(game, story, c)
-  if VRFW_FMC.Rules().together then
+function VRFW.free_match_classes.locked(game, story, c)
+  if VRFW.free_match_classes.rules().together then
     return false
   end
-  return VRFW_FMC.RetailLocked(game, story, c)
+  return VRFW.free_match_lock.retail_locked(game, story, c)
 end
--- the art of class index c (0..3), read once: {banner = {atlas, sprite} or false, ball = {atlas, sprite} or false}
-function VRFW_FMC.Art(c)
-  local b = VRFW_FMC.banners[c]
+-- The art of class index c (0..3), read once.
+function VRFW.free_match_classes.art(c)
+  local b = VRFW.free_match_classes.banners[c]
   if type(b) ~= "table" or b.ball == nil then
     b = {banner = false, ball = false}
-    local r = {pcall(funcLuaCommand, VRFW_FMC.CLASS, c + 6)}
-    if r[1] and r[2] == true then
-      if type(r[4]) == "number" and r[4] ~= 0 and type(r[5]) == "number" and r[5] ~= 0 then
-        b.banner = {r[4], r[5]}
+    local r = {VRFW.host.command(VRFW.free_match_classes.CLASS, c + 6)}
+    if r[1] == true then
+      if type(r[3]) == "number" and r[3] ~= 0 and type(r[4]) == "number" and r[4] ~= 0 then
+        b.banner = {r[3], r[4]}
       end
-      if type(r[6]) == "number" and r[6] ~= 0 and type(r[7]) == "number" and r[7] ~= 0 then
-        b.ball = {r[6], r[7]}
+      if type(r[5]) == "number" and r[5] ~= 0 and type(r[6]) == "number" and r[6] ~= 0 then
+        b.ball = {r[5], r[6]}
       end
     end
-    VRFW_FMC.banners[c] = b
+    VRFW.free_match_classes.banners[c] = b
   end
   return b
 end
--- the title of class index c (0..3) on game `game`, read once: {atlas, sprite} (the game's own Banner, else the class's)
--- or false (the retail title)
-function VRFW_FMC.GameBanner(game, c)
-  local per_game = VRFW_FMC.game_banners[game]
+-- The title of class index c (0..3) on game `game`, read once.
+function VRFW.free_match_classes.game_banner(game, c)
+  local per_game = VRFW.free_match_classes.game_banners[game]
   if per_game == nil then
     per_game = {}
-    VRFW_FMC.game_banners[game] = per_game
+    VRFW.free_match_classes.game_banners[game] = per_game
   end
   local b = per_game[c]
   if b == nil then
     b = false
-    local r = {pcall(funcLuaCommand, VRFW_FMC.CLASS, c + 6, game)}
-    if r[1] and r[2] == true and type(r[4]) == "number" and r[4] ~= 0 and type(r[5]) == "number" and r[5] ~= 0 then
-      b = {r[4], r[5]}
+    local r = {VRFW.host.command(VRFW.free_match_classes.CLASS, c + 6, game)}
+    if r[1] == true and type(r[3]) == "number" and r[3] ~= 0 and type(r[4]) == "number" and r[4] ~= 0 then
+      b = {r[3], r[4]}
     end
     per_game[c] = b
   end
   return b
 end
--- the title of class index c (0..3) on game `game`: (atlas, sprite) declared for the game or the class, else the
--- retail one (`retail` sprite)
-function VRFW_FMC.Banner(c, retail, game)
+-- The title of class index c (0..3) on game `game`.
+function VRFW.free_match_classes.banner(c, retail, game)
   local b
   if game ~= nil then
-    b = VRFW_FMC.GameBanner(game, c)
+    b = VRFW.free_match_classes.game_banner(game, c)
   else
-    b = VRFW_FMC.Art(c).banner
+    b = VRFW.free_match_classes.art(c).banner
   end
   if b then
     return b[1], b[2]
   end
-  return VRFW_FMC.ATLAS, retail
+  return VRFW.free_match_classes.ATLAS, retail
 end
--- the level ball of class index c: the class's (MatchDifficulty Ball, or the ball of the retail class whose title it
--- shows), else the retail one (`retail` sprite, lv_base00..03)
-function VRFW_FMC.Ball(c, retail)
-  local b = VRFW_FMC.Art(c).ball
+-- The level ball of class index c on game `game`, read once.
+function VRFW.free_match_classes.game_ball(game, c)
+  local per_game = VRFW.free_match_classes.game_balls[game]
+  if per_game == nil then
+    per_game = {}
+    VRFW.free_match_classes.game_balls[game] = per_game
+  end
+  local b = per_game[c]
+  if b == nil then
+    b = false
+    local r = {VRFW.host.command(VRFW.free_match_classes.CLASS, c + 6, game)}
+    if r[1] == true and type(r[5]) == "number" and r[5] ~= 0 and type(r[6]) == "number" and r[6] ~= 0 then
+      b = {r[5], r[6]}
+    end
+    per_game[c] = b
+  end
+  return b
+end
+-- The level ball of class index c on game `game`.
+function VRFW.free_match_classes.ball(c, retail, game)
+  local b = VRFW.free_match_classes.game_ball(game, c)
   if b then
     return b[1], b[2]
   end
-  return VRFW_FMC.BALLS, retail
+  return VRFW.free_match_classes.BALLS, retail
 end
 -- the row's mark box (_list_state_base01) hidden without ClearTicks (the marks are never shown there)
-function VRFW_FMC.Box(layer, a2)
-  if not VRFW_FMC.Rules().ticks then
+function VRFW.free_match_classes.box(layer, a2)
+  if not VRFW.free_match_classes.rules().ticks then
     funcLuaMenuCommand(3405944500, layer, 1445391659 --[[_list_state_base01]], false, a2)
   end
 end
--- the team of `game`'s row of difficulty d (0x836C9C28(game, d)); `fallback` (the first row's, retail) without one
-function VRFW_FMC.Team(game, d, fallback)
-  local ok, has, team = pcall(funcLuaCommand, 2204933160, game, d)
-  if ok and has and type(team) == "number" and team ~= 0 then
+-- The team of `game`'s row of difficulty d (0x836C9C28(game, d)).
+function VRFW.free_match_classes.team(game, d, fallback)
+  local has, team = VRFW.host.command(2204933160, game, d)
+  if has and type(team) == "number" and team ~= 0 then
     return team
   end
   return fallback
 end
 -- the clear mark and the advantage-win mark of class c (none without ClearTicks)
-function VRFW_FMC.Marks(game, c)
-  if not VRFW_FMC.Rules().ticks then
+function VRFW.free_match_classes.marks(game, c)
+  if not VRFW.free_match_classes.rules().ticks then
     return false, false
   end
   return funcLuaCommand(989257499, game, 6 + c), funcLuaCommand(479325357, game, 6 + c)
@@ -194,7 +172,7 @@ end
 function OnInit()
   if funcLuaCommand(2947612279, 1132742822) then
     n2 = funcLuaCommand(3522198769, 1132742822)
-    VRFW_FMC.cache = nil -- VRFW the opponent's classes, read again for this opponent
+    VRFW.free_match_classes.cache = nil -- VRFW the opponent's classes, read again for this opponent
     funcLuaCommand(3363400568, 1132742822)
     local ret, ret2 = funcLuaCommand(2204933160, n2)
     if ret then
@@ -216,22 +194,22 @@ function OnInit()
 end
 function OnSetupLayer(a1, a2)
   if a1 == 1809045795 --[[vsroute01_21_sub_list]] then
-    if VRFW_FMC.Hidden(n2, a2) then                                          -- VRFW row past the offered classes
+    if VRFW.free_match_classes.hidden(n2, a2) then                                          -- VRFW row past the offered classes
       funcLuaMenuCommand(711242136 --[[CMND_SET_LAYER_VISIBLE]], a1, a2, false)
       funcLuaMenuCommand(711242136 --[[CMND_SET_LAYER_VISIBLE]], 892105257 --[[mainmenu90_30_lock_icon]], a2, false)
       return
     end
-    local c = VRFW_FMC.Cls(n2, a2)                                           -- VRFW class shown on this row
-    local ball_atlas, ball = VRFW_FMC.Ball(c, t4[c])                         -- VRFW the class's ball (its title's colour)
+    local c = VRFW.free_match_classes.cls(n2, a2)                                           -- VRFW class shown on this row
+    local ball_atlas, ball = VRFW.free_match_classes.ball(c, t4[c], n2)                     -- VRFW the game's or class's ball (its title's colour)
     funcLuaMenuCommand(558735651, a1, ball_atlas, ball, 3432748829 --[[lv_base00]], 0, a2)
-    local atlas, sprite = VRFW_FMC.Banner(c, t[c], n2)                       -- VRFW the card's title (game's, class's or retail)
+    local atlas, sprite = VRFW.free_match_classes.banner(c, t[c], n2)                       -- VRFW the card's title (game's, class's or retail)
     funcLuaMenuCommand(558735651, a1, atlas, sprite, 1361148396 --[[dmy_icon_class01]], 0, a2)
-    VRFW_FMC.Box(a1, a2)                                                     -- VRFW no mark box without ClearTicks
+    VRFW.free_match_classes.box(a1, a2)                                                     -- VRFW no mark box without ClearTicks
     local l1 = c + 6
-    local flag = VRFW_FMC.Locked(n2, n, c)                                   -- VRFW retail rule, or open (together)
+    local flag = VRFW.free_match_classes.locked(n2, n, c)                                   -- VRFW retail rule, or open (together)
     local flag2 = false
     local ret3 = false
-    flag2, ret3 = VRFW_FMC.Marks(n2, c)                                      -- VRFW clear / advantage marks (ClearTicks)
+    flag2, ret3 = VRFW.free_match_classes.marks(n2, c)                                      -- VRFW clear / advantage marks (ClearTicks)
     if ret3 then
       funcLuaMenuCommand(558735651, a1, 3795985350, 3836359888 --[[list_icon_state_comp02]], 2107860330 --[[list_icon_state_comp01]], 0, a2)
       flag2 = true
@@ -239,7 +217,7 @@ function OnSetupLayer(a1, a2)
     funcLuaMenuCommand(3405944500 --[[CMND_SET_MESH_VISIBLE]], a1, 3583161402 --[[_list_icon_state_comp01]], flag2, a2)
     if not flag then
       local search_prim_index = funcLuaMenuCommand(1927054058 --[[CMND_SEARCH_PRIM_INDEX?]], a1, 0, 2858393312)
-      local main_member_level_average = CalcMainMemberLevelAverage(VRFW_FMC.Team(n2, l1, n6), n2, l1)   -- VRFW this class's team
+      local main_member_level_average = CalcMainMemberLevelAverage(VRFW.free_match_classes.team(n2, l1, n6), n2, l1)   -- VRFW this class's team
       if search_prim_index then
         funcLuaMenuCommand(3609943765, a1, a2, search_prim_index, main_member_level_average)
       end
@@ -248,7 +226,7 @@ function OnSetupLayer(a1, a2)
     funcLuaMenuCommand(711242136 --[[CMND_SET_LAYER_VISIBLE]], 892105257 --[[mainmenu90_30_lock_icon]], a2, flag)
   elseif a1 == 892105257 --[[mainmenu90_30_lock_icon]] then
     funcLuaMenuCommand(2158717427, a1, 1205262648 --[[_pos_lock_guide01]], false, a2)
-    if VRFW_FMC.Hidden(n2, a2) then                                          -- VRFW
+    if VRFW.free_match_classes.hidden(n2, a2) then                                          -- VRFW
       funcLuaMenuCommand(711242136 --[[CMND_SET_LAYER_VISIBLE]], a1, a2, false)
     end
   end
@@ -258,7 +236,7 @@ function OnOpenLayer(a1, a2)
     funcLuaMenuCommand(1389957207 --[[CMND_SET_LAYER_LOCAL_POS?]], a1, 638, -352, 0, a2)
   elseif a1 == 1809045795 --[[vsroute01_21_sub_list]] and a2 == 0 then
     funcLuaMenuCommand(3518307824 --[[CMND_SET_ENABLE_CTRL_FOCUS?]], a1, true)
-    funcLuaMenuCommand(3252599449, a1, #VRFW_FMC.List(n2))                   -- VRFW one item per offered class
+    funcLuaMenuCommand(3252599449, a1, #VRFW.free_match_classes.list(n2))                   -- VRFW one item per offered class
     funcLuaMenuCommand(1778826357, a1, a2, true)
   end
 end
@@ -267,12 +245,12 @@ function OnChangeFocus(a1, a2)
     local ret = funcLuaMenuCommand(2603265800, a1)
     funcLuaMenuCommand(1778826357, a1, ret, true)
     funcLuaMenuCommand(381797568 --[[CMND_SET_CURSOR_LOCATOR?]], a1, 3313461902 --[[cursor]], ret, 4)
-    funcLuaMenuCommand(1223842288, 6 + VRFW_FMC.Cls(n2, ret))                -- VRFW
+    funcLuaMenuCommand(1223842288, 6 + VRFW.free_match_classes.cls(n2, ret))                -- VRFW
   end
 end
 function OnDecideFocus(a1, a2)
   if a1 == 1809045795 --[[vsroute01_21_sub_list]] then
-    n4 = 6 + VRFW_FMC.Cls(n2, a2)                                            -- VRFW
+    n4 = 6 + VRFW.free_match_classes.cls(n2, a2)                                            -- VRFW
     local n7 = 0
     funcLuaCommand(2289627655, 2509321689, n7, 0, 0, 0, 0, false)
     funcLuaCommand(2351835063, 2, 0, n7)

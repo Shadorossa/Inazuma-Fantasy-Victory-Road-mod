@@ -1,50 +1,21 @@
--- menu_engine: the TEAM EMBLEM GRID (VRFW UI piece `VRFW_EmblemGrid`). Definitions
--- only (this file runs in every script VM, lua\_all; no engine call at load time). A picker of teams drawn as the Battle
--- Bay grid's emblem tiles, several a row, each with its name and a count under it; the caller owns what a team means.
---
--- Layers: a mod adds two layers to the menu it opens the grid in (its menus TOML), with the framework's objects
--- (research/mods/VRFW/content/menus/emblem_grid.toml):
---   <tile layer>   object vrfw_emblem_tile  (the retail BB emblem tile vs01_43: 136 px plate, 84 px emblem), count >= per
---   <label layer>  object vrfw_tile_label   (the retail character card's name text only), count >= 2 x per
---
---   local g = VRFW_EmblemGrid.New{ tile = crc32(tile layer), label = crc32(label layer) | nil,
---     cols = 8, rows = 3, px = 210, py = 236, cx = 960, cy = 540, scale = 1, prio = nil | draw priority base,
---     log = function(...) end }
---   g:Open(items[, sel])   items[i] = { name = "Raimon", count = "5/16", emblem = <item_emblem id, 0 = none>,
---                                       full = <the check mark>, dim = <greyed>,
---                                       image = { texture = "#/menu/…/x.g4tx", sprite = "name" } | nil,
---                                       generic = false | nil };
---                          sel = 1-based (default 1). `image` (a picture the caller serves, e.g. a Steam avatar) takes
---                          the emblem's place: the texture is loaded and its sprite set on the emblem's texture slot.
---                          No emblem and no image = the framework's generic emblem (GENERIC_EMBLEM; generic = false:
---                          the plain plate). A name wider than the tile pitch is drawn smaller, then cut («...»)
---   g:Set(i, item)         one item changed (redrawn)
---   g:Step() -> ev | nil   per frame: moves (arrows, L2 / R2 page, wheel, pointer hover) are handled here; returns
---                          { act = "decide" | "all" | "series" | "back", index = i, dir = -1 / 1 } for the caller:
---                          A / click = decide, Y (CMD_FUNC3) = all, L1 / R1 (LB / RB) = series, B / right click = back
---   g:Sel() -> i           g:Page() -> page, pages      g:Hide()  (every instance hidden)      g:Close()
---   g:Built(layer, inst)   the menu's OnOpenLayer for those layers (an emblem is asked for once its instance is built,
---                          else 30 frames after it was opened)
--- Keys are polled with CMND_CHECK_INPUT_CMD on the menu controls (the caller turns its menu's own input off while the
--- grid shows). `input = "pad"`: no menu controller is active (a grid over a paused match): the game pad and
--- the keyboard are read directly (CMND_VRFW_INPUT_PAD / _KEY; L1 / R1 = Page Up / Down, L2 / R2 = Q / E). Positions: layer space from the screen's top left, y up (1920 x 1080); the rows a page uses are
--- centred on (cx, cy).
-if VRFW_EmblemGrid == nil then
+-- lua_patch.scope: used
+-- menu_engine: the TEAM EMBLEM GRID (VRFW UI piece `VRFW.emblem_grid`).
+if VRFW.emblem_grid == nil then
   local EG = {
     C = {
-      CHECK_INPUT = VRFW_Cmd.CHECK_INPUT_CMD, LAYER_VISIBLE = VRFW_Cmd.SET_LAYER_VISIBLE, OPEN_LAYER = VRFW_Cmd.OPEN_LAYER, LOCAL_POS = VRFW_Cmd.SET_LAYER_LOCAL_POS,
-      LOCAL_SCALE = VRFW_Cmd.SET_LAYER_LOCAL_SCALE, MESH_VISIBLE = VRFW_Cmd.SET_MESH_VISIBLE, NODE_VISIBLE = 2158717427, TEXT_VISIBLE = 2735666188,
-      SET_TEXT = VRFW_Cmd.SET_MENU_TEXT_STRING, COLOR = 801406373, EMBLEM = 3190452549, LOADING = 1277042906, SET_PRIO = VRFW_Cmd.SET_DRAW_PRIORITY,
-      POINTER = 558229292, POINTER_MOVED = 3272825600, SND = VRFW_Cmd.SND_PLAY,
-      SPRITE = 558735651,          -- (layer, texture crc, sprite crc, texture slot crc, 0, instance)
-      LOAD_TEX = VRFW_Cmd.LOAD_MENU_RES_TEXTURE,        -- CMND_LOAD_MENU_RES_TEXTURE (path)
+      CHECK_INPUT = VRFW.commands.CHECK_INPUT_CMD, LAYER_VISIBLE = VRFW.commands.SET_LAYER_VISIBLE, OPEN_LAYER = VRFW.commands.OPEN_LAYER, LOCAL_POS = VRFW.commands.SET_LAYER_LOCAL_POS,
+      LOCAL_SCALE = VRFW.commands.SET_LAYER_LOCAL_SCALE, MESH_VISIBLE = VRFW.commands.SET_MESH_VISIBLE, NODE_VISIBLE = 2158717427, TEXT_VISIBLE = 2735666188,
+      SET_TEXT = VRFW.commands.SET_MENU_TEXT_STRING, COLOR = 801406373, EMBLEM = 3190452549, LOADING = 1277042906, SET_PRIO = VRFW.commands.SET_DRAW_PRIORITY,
+      POINTER = 558229292, POINTER_MOVED = 3272825600, SND = VRFW.commands.SND_PLAY,
+      SPRITE = 558735651,
+      LOAD_TEX = VRFW.commands.LOAD_MENU_RES_TEXTURE,        -- CMND_LOAD_MENU_RES_TEXTURE (path)
       TEX_LOADING = 1506186496,    -- (texture crc) -> true while still loading
     },
     CTRLS = {1332654303 --[[MENU_CTRL]], 2748927068 --[[MENU_CTRL_WITH_ANALOG_MOVE_FOCUS]]},
     KEYS = {up = 1197218715, down = 3259546669, left = 2765147006, right = 2075023265, enter = 1981080283,
             back = 3011112225 --[[CMD_BACK]], all = 3421673595 --[[CMD_FUNC3]], l1 = 3966226594, r1 = 942075773,
             l2 = 1970176280 --[[CMD_FUNCL2]], r2 = 2704260807 --[[CMD_FUNCR2]],
-            rclick = 3473063670, click = 218912913 --[[CMD_EVT_MOUSE_LEFT]], wup = 1942756954, wdown = 1623431741},
+            rclick = 3473063670, click = 749879980 --[[CMD_VRFW_MOUSE_LEFT]], wup = 2649361876, wdown = 1098743808},
     REPEAT_FIRST = 18, REPEAT_EVERY = 5, BUILD_WAIT = 30, LOAD_WAIT = 120, FOCUS_SCALE = 1.1,
     SY_MOVE = 2500047763,          -- sy0005
     -- the tile (vs01_43): plate quads, the emblem quad / texture slot, the outline (cursor), the check mark (full)
@@ -61,14 +32,8 @@ if VRFW_EmblemGrid == nil then
     -- the label (team00_01 card): only its name text _text_chr01 (190 x 34, centre (0, -39) from the card's origin)
     LABEL_TEXT = 170976702,
     LABEL_DY = 39,
-    -- name fitting: the text box is LABEL_W px wide and the game squeezes a longer text into it; a name wider than the
-    -- tile pitch (minus LABEL_GAP) is drawn smaller with its own proportions, down to LABEL_MIN_SCALE, then cut with
-    -- CUT_MARK. GLYPH_W = average glyph width at scale 1 (a CJK / full-width glyph counts twice)
     LABEL_W = 190, LABEL_GAP = 12, LABEL_MIN_SCALE = 0.66, GLYPH_W = 13.5, CUT_MARK = "...",
-    -- the picture of a tile without an emblem: the framework's own generic emblem (the save slot screen's atlas,
-    -- research/mods/VRFW/content/images/menu/220_img/evt_slot/evt_slot_base.toml); an item with generic = false keeps
-    -- the plain plate
-    GENERIC_EMBLEM = {texture = "#/menu/220_img/evt_slot/evt_slot_base.g4tx", sprite = "evt_slot_emblem_generic"},
+    GENERIC_EMBLEM = {texture = "#/menu/220_img/vrfw_slot/vrfw_slot_base.g4tx", sprite = "vrfw_slot_emblem_generic"},
     LABEL_HIDE = {"_icon_chr_base_l01", "_icon_chr_dmy_l01", "_icon_chr_gradation_l01", "_seasonal_frame_l01",
       "_avatar_frame_l01", "_icon_chr_focus_l01", "_icon_chr_position_dmy_l01", "_icon_base_l01", "_icon_chr_type_dmy_l01",
       "_icon_lock01", "_icon_captain01", "_icon_ai_role_dmy01", "_gtxt_lv_l01", "_icon_card01", "_icon_chr_def01_l",
@@ -77,15 +42,7 @@ if VRFW_EmblemGrid == nil then
     LABEL_HIDE_NODES = {"_pos_base02", "_pos_leader01", "_pos_ai_role01", "_num_chr_l01", "_num_chr_l02",
       "_pos_gauge_exp_l01"},
   }
-  VRFW_EmblemGrid = EG
-
-  local function M(cmd, ...)
-    local ok, a, b = pcall(funcLuaMenuCommand, cmd, ...)
-    if ok then
-      return a, b
-    end
-    return nil
-  end
+  VRFW.emblem_grid = EG
 
   local function crc(s)
     if type(CRC32) == "function" then
@@ -96,27 +53,48 @@ if VRFW_EmblemGrid == nil then
 
   local function In(input)
     for _, c in ipairs(EG.CTRLS) do
-      local ok, r = pcall(funcLuaCommand, EG.C.CHECK_INPUT, c, input)
-      if ok and r == true then
+      local r = VRFW.host.command(EG.C.CHECK_INPUT, c, input)
+      if r == true then
         return true
       end
     end
     return false
   end
 
-  -- `input = "pad"`: each key name as pad masks (the PS-style layout of vr_sigs::input) and Windows virtual keys
   EG.PAD = {up = {0x10}, down = {0x40}, left = {0x80}, right = {0x20}, enter = {0x4000}, back = {0x2000, 0x1},
             all = {0x1000}, l1 = {0x400}, r1 = {0x800}, l2 = {0x100}, r2 = {0x200}}
   EG.VK = {up = {0x26}, down = {0x28}, left = {0x25}, right = {0x27}, enter = {0x0D}, back = {0x1B, 0x08},
            l1 = {0x21}, r1 = {0x22}, l2 = {0x51}, r2 = {0x45}}
-  EG.C.PAD = VRFW_Cmd.VRFW_INPUT_PAD
-  EG.C.KEY = VRFW_Cmd.VRFW_INPUT_KEY
+  EG.C.PAD = VRFW.commands.VRFW_INPUT_PAD
+  EG.C.KEY = VRFW.commands.VRFW_INPUT_KEY
+
+  --- Shows only the plate of tile (layer, k): the other plates, the badges and the lock are hidden.
+  function EG.dress_tile(layer, k)
+    VRFW.host.menu_command(EG.C.NODE_VISIBLE, layer, crc("_pos_enjoy_list01"), true, k)
+    for _, m in ipairs(EG.TILE_HIDE_NODES) do
+      VRFW.host.menu_command(EG.C.NODE_VISIBLE, layer, crc(m), false, k)
+    end
+    for _, m in ipairs(EG.TILE_HIDE) do
+      VRFW.host.menu_command(EG.C.MESH_VISIBLE, layer, crc(m), false, k)
+    end
+    VRFW.host.menu_command(EG.C.MESH_VISIBLE, layer, crc(EG.PLATE), true, k)
+  end
+
+  --- Shows or hides the cursor outline of tile (layer, k).
+  function EG.highlight_tile(layer, k, on)
+    VRFW.host.menu_command(EG.C.MESH_VISIBLE, layer, crc(EG.OUTLINE), on, k)
+  end
+
+  --- Shows or hides the check mark of tile (layer, k).
+  function EG.mark_tile(layer, k, on)
+    VRFW.host.menu_command(EG.C.MESH_VISIBLE, layer, crc(EG.CHECK), on, k)
+  end
 
   local G = {}
   G.__index = G
 
-  -- the input `name` is held this frame (the menu controls, or the pad / keyboard with `input = "pad"`)
-  function G:Down(name)
+  --- The input `name` is held this frame (the menu controls, or the pad / keyboard with `input = "pad"`).
+  function G:down(name)
     if not self.pad then
       local input = EG.KEYS[name]
       return input ~= nil and In(input)
@@ -143,18 +121,19 @@ if VRFW_EmblemGrid == nil then
     return false
   end
 
-  function EG.New(o)
+  --- A new emblem grid for options o.
+  function EG.new(o)
     local g = setmetatable({}, G)
     g.tile, g.label = o.tile, o.label
     g.cols, g.rows = o.cols or 8, o.rows or 3
     g.px, g.py, g.cx, g.cy = o.px or 210, o.py or 236, o.cx or 960, o.cy or 540
     g.scale, g.prio, g.log = o.scale or 1, o.prio, o.log or function() end
     g.pad = o.input == "pad"
-    local have = M(VRFW_Cmd.GET_CREATE_LAYER_NUM, g.tile)
+    local have = VRFW.host.menu_command(VRFW.commands.GET_CREATE_LAYER_NUM, g.tile)
     g.per = math.max(1, math.min(g.cols * g.rows, type(have) == "number" and have or 0))
     g.ok = type(have) == "number" and have > 0
     if g.label ~= nil then
-      local hl = M(VRFW_Cmd.GET_CREATE_LAYER_NUM, g.label)
+      local hl = VRFW.host.menu_command(VRFW.commands.GET_CREATE_LAYER_NUM, g.label)
       g.label_ok = type(hl) == "number" and hl >= 2 * g.per
     end
     g.items, g.sel, g.frame = {}, 0, 0
@@ -163,23 +142,27 @@ if VRFW_EmblemGrid == nil then
     return g
   end
 
-  function G:Sel()
+  --- The selected item's position, 1-based.
+  function G:selected_index()
     return self.sel + 1
   end
 
-  function G:Page()
+  --- The current page and the page count, 0-based page first.
+  function G:page()
     return math.floor(self.sel / self.per), math.max(1, math.ceil(#self.items / self.per))
   end
 
-  function G:KeysReset()
+  --- Treats the keys held now as already pressed.
+  function G:keys_reset()
     for name in pairs(EG.KEYS) do
-      self.held[name] = self:Down(name) and 1000 or 0
+      self.held[name] = self:down(name) and 1000 or 0
     end
-    self.ptr_x, self.ptr_y = M(EG.C.POINTER)
+    self.ptr_x, self.ptr_y = VRFW.host.menu_command(EG.C.POINTER)
   end
 
-  function G:Pressed(name, repeats)
-    local now = self:Down(name)
+  --- True on a press of `name`; `repeats` adds the auto-repeat while held.
+  function G:pressed(name, repeats)
+    local now = self:down(name)
     local h = self.held[name] or 0
     if not now then
       self.held[name] = 0
@@ -196,8 +179,8 @@ if VRFW_EmblemGrid == nil then
     return repeats and h >= EG.REPEAT_FIRST and (h - EG.REPEAT_FIRST) % EG.REPEAT_EVERY == 0
   end
 
-  -- centre of cell k of the page (layer space, y up)
-  function G:Cell(k)
+  --- Centre of cell k of the page (layer space, y up).
+  function G:cell(k)
     local c, r = k % self.cols, math.floor(k / self.cols)
     local page = math.floor(self.sel / self.per)
     local used = math.max(1, math.min(self.rows, math.ceil(math.min(self.per, #self.items - page * self.per) / self.cols)))
@@ -227,9 +210,8 @@ if VRFW_EmblemGrid == nil then
     return (table.concat(out):gsub("%s+$", "")) .. EG.CUT_MARK
   end
 
-  -- a name that fits the tile pitch: the text, its x and y scale (the box is scaled with the text, so x makes up for
-  -- the game's own squeeze into LABEL_W)
-  function G:FitName(s)
+  --- Fits a label to its tile: answers text, x scale, y scale.
+  function G:fit_name(s)
     local room = math.max(EG.LABEL_W, self.px - EG.LABEL_GAP)
     local width = GlyphUnits(s) * EG.GLYPH_W
     if width <= 0 or width <= EG.LABEL_W then
@@ -245,81 +227,73 @@ if VRFW_EmblemGrid == nil then
     return s, sy / squeeze, sy
   end
 
-  function G:Label(j, x, y, s, fit)
+  --- Draws label j at (x, y) with text s and fit `fit`.
+  function G:draw_label(j, x, y, s, fit)
     local L = self.label
     if L == nil or not self.label_ok then
       return
     end
     if s == nil then
       if self.lopened[j] then
-        M(EG.C.LAYER_VISIBLE, L, j, false)
+        VRFW.host.menu_command(EG.C.LAYER_VISIBLE, L, j, false)
       end
       return
     end
     if not self.lopened[j] then
-      M(EG.C.OPEN_LAYER, L, j)
+      VRFW.host.menu_command(EG.C.OPEN_LAYER, L, j)
       self.lopened[j] = true
     end
     local sx, sy = 1, 1
     if fit then
-      s, sx, sy = self:FitName(s)
+      s, sx, sy = self:fit_name(s)
     end
-    M(EG.C.LOCAL_SCALE, L, sx, sy, 1, j)
-    M(EG.C.LOCAL_POS, L, x, y + EG.LABEL_DY * sy, 0, j)
+    VRFW.host.menu_command(EG.C.LOCAL_SCALE, L, sx, sy, 1, j)
+    VRFW.host.menu_command(EG.C.LOCAL_POS, L, x, y + EG.LABEL_DY * sy, 0, j)
     if self.prio then
-      M(EG.C.SET_PRIO, L, j, self.prio + 2)
+      VRFW.host.menu_command(EG.C.SET_PRIO, L, j, self.prio + 2)
     end
-    M(EG.C.LAYER_VISIBLE, L, j, true)
+    VRFW.host.menu_command(EG.C.LAYER_VISIBLE, L, j, true)
     for _, m in ipairs(EG.LABEL_HIDE) do
-      M(EG.C.MESH_VISIBLE, L, crc(m), false, j)
+      VRFW.host.menu_command(EG.C.MESH_VISIBLE, L, crc(m), false, j)
     end
     for _, m in ipairs(EG.LABEL_HIDE_NODES) do
-      M(EG.C.NODE_VISIBLE, L, crc(m), false, j)
+      VRFW.host.menu_command(EG.C.NODE_VISIBLE, L, crc(m), false, j)
     end
-    M(EG.C.TEXT_VISIBLE, L, EG.LABEL_TEXT, true, j)
-    M(EG.C.SET_TEXT, L, EG.LABEL_TEXT, s, j)
+    VRFW.host.menu_command(EG.C.TEXT_VISIBLE, L, EG.LABEL_TEXT, true, j)
+    VRFW.host.menu_command(EG.C.SET_TEXT, L, EG.LABEL_TEXT, s, j)
   end
 
-  -- tile k shows item d (1-based; nil = hidden)
-  function G:Tile(k, d)
+  --- Tile k shows item d (1-based; nil = hidden).
+  function G:draw_tile(k, d)
     local L = self.tile
     local it = d and self.items[d] or nil
     if it == nil then
       if self.opened[k] then
-        M(EG.C.LAYER_VISIBLE, L, k, false)
+        VRFW.host.menu_command(EG.C.LAYER_VISIBLE, L, k, false)
       end
-      self:Label(2 * k, 0, 0, nil)
-      self:Label(2 * k + 1, 0, 0, nil)
+      self:draw_label(2 * k, 0, 0, nil)
+      self:draw_label(2 * k + 1, 0, 0, nil)
       self.drawn[k], self.asked[k], self.wait[k] = nil, nil, nil
       return
     end
     if not self.opened[k] then
-      M(EG.C.OPEN_LAYER, L, k)
+      VRFW.host.menu_command(EG.C.OPEN_LAYER, L, k)
       self.opened[k] = self.frame
     end
     local focus = (d - 1) == self.sel
     local s = self.scale * (focus and EG.FOCUS_SCALE or 1)
-    local x, y = self:Cell(k)
-    M(EG.C.LOCAL_SCALE, L, s, s, 1, k)
-    M(EG.C.LOCAL_POS, L, x, y, 0, k)
+    local x, y = self:cell(k)
+    VRFW.host.menu_command(EG.C.LOCAL_SCALE, L, s, s, 1, k)
+    VRFW.host.menu_command(EG.C.LOCAL_POS, L, x, y, 0, k)
     if self.prio then
-      M(EG.C.SET_PRIO, L, k, self.prio + (focus and 1 or 0))
+      VRFW.host.menu_command(EG.C.SET_PRIO, L, k, self.prio + (focus and 1 or 0))
     end
-    M(EG.C.LAYER_VISIBLE, L, k, true)
-    -- a node's visibility is set on every mesh under it: the parent node first, then the hides (shown last, it
-    -- re-showed every plate / add / ok quad under it)
-    M(EG.C.NODE_VISIBLE, L, crc("_pos_enjoy_list01"), true, k)
-    for _, m in ipairs(EG.TILE_HIDE_NODES) do
-      M(EG.C.NODE_VISIBLE, L, crc(m), false, k)
-    end
-    for _, m in ipairs(EG.TILE_HIDE) do
-      M(EG.C.MESH_VISIBLE, L, crc(m), false, k)
-    end
-    M(EG.C.MESH_VISIBLE, L, crc(EG.PLATE), true, k)
-    M(EG.C.MESH_VISIBLE, L, crc(EG.OUTLINE), focus, k)
-    M(EG.C.MESH_VISIBLE, L, crc(EG.CHECK), it.full == true, k)
+    VRFW.host.menu_command(EG.C.LAYER_VISIBLE, L, k, true)
+    EG.dress_tile(L, k)
+    EG.highlight_tile(L, k, focus)
+    EG.mark_tile(L, k, it.full == true)
     local v = it.dim and 0.3 or 1
-    M(EG.C.COLOR, L, k, EG.GRAY, v, v, v)
+    VRFW.host.menu_command(EG.C.COLOR, L, k, EG.GRAY, v, v, v)
     local emblem = type(it.emblem) == "number" and it.emblem or 0
     local img = type(it.image) == "table" and type(it.image.texture) == "string" and type(it.image.sprite) == "string"
       and it.image or nil
@@ -330,17 +304,16 @@ if VRFW_EmblemGrid == nil then
     if self.drawn[k] ~= want then
       self.drawn[k], self.asked[k], self.wait[k] = want, nil, nil
       self.img[k] = img
-      M(EG.C.MESH_VISIBLE, L, EG.ICON_MESH, false, k)
+      VRFW.host.menu_command(EG.C.MESH_VISIBLE, L, EG.ICON_MESH, false, k)
     end
-    self:Ask(k)
+    self:ask(k)
     local ly = y - EG.TILE_HALF * s
-    self:Label(2 * k, x, ly - 22, it.name or "", true)
-    self:Label(2 * k + 1, x, ly - 52, it.count or "")
+    self:draw_label(2 * k, x, ly - 22, it.name or "", true)
+    self:draw_label(2 * k + 1, x, ly - 52, it.count or "")
   end
 
-  -- the emblem of tile k: asked for once its instance is built (or BUILD_WAIT frames after it was opened); no emblem =
-  -- the neutral plate
-  function G:Ask(k)
+  --- Requests the picture of tile k when it has not been asked for yet.
+  function G:ask(k)
     local e = self.drawn[k]
     if e == nil or e == 0 or self.asked[k] then
       return
@@ -350,7 +323,7 @@ if VRFW_EmblemGrid == nil then
     end
     local img = self.img[k]
     if img ~= nil then
-      -- a caller's picture: its texture loaded once per path, its sprite on the emblem's texture slot when it is in
+      -- A caller's picture: its texture loaded once per path, its sprite on the emblem's texture slot when it is in.
       local tc = crc(img.texture)
       if not self.loaded[tc] then
         pcall(funcLuaMenuCommand, EG.C.LOAD_TEX, img.texture)   -- CMND_LOAD_MENU_RES_TEXTURE is a menu command
@@ -360,66 +333,74 @@ if VRFW_EmblemGrid == nil then
       if okl and loading == true and self.frame - self.loaded[tc] < EG.LOAD_WAIT then
         return
       end
-      M(EG.C.SPRITE, self.tile, tc, crc(img.sprite), EG.ICON_TEX, 0, k)
+      VRFW.host.menu_command(EG.C.SPRITE, self.tile, tc, crc(img.sprite), EG.ICON_TEX, 0, k)
       self.asked[k] = self.frame
-      M(EG.C.MESH_VISIBLE, self.tile, EG.ICON_MESH, true, k)
+      VRFW.host.menu_command(EG.C.MESH_VISIBLE, self.tile, EG.ICON_MESH, true, k)
       return
     end
-    M(EG.C.EMBLEM, self.tile, k, EG.ICON_MESH, EG.ICON_TEX, e, 0)
+    VRFW.host.menu_command(EG.C.EMBLEM, self.tile, k, EG.ICON_MESH, EG.ICON_TEX, e, 0)
     self.asked[k], self.wait[k] = self.frame, EG.LOAD_WAIT
   end
 
-  function G:Built(layer, inst)
+  --- Records that tile instance inst of `layer` was built.
+  function G:on_tile_built(layer, inst)
     if layer == self.tile and type(inst) == "number" then
       self.built[inst] = self.frame
       self.asked[inst] = nil
     end
   end
 
-  function G:Draw()
+  --- Draws the visible page.
+  function G:draw()
     local page = math.floor(self.sel / self.per)
     for k = 0, self.per - 1 do
       local d = page * self.per + k + 1
-      self:Tile(k, d <= #self.items and d or nil)
+      self:draw_tile(k, d <= #self.items and d or nil)
     end
   end
 
-  function G:Open(items, sel)
+  --- Opens the grid on `items` with item `sel` selected.
+  function G:open(items, sel)
     self.items = items or {}
     self.sel = math.max(0, math.min((sel or 1) - 1, #self.items - 1))
-    self:KeysReset()
-    self:Draw()
+    self:keys_reset()
+    self:draw()
     self.log(string.format("emblem grid opened: %d team(s), %d a page%s", #self.items, self.per,
       self.label_ok == false and " (no label layer)" or ""))
   end
 
-  function G:Set(i, item)
+  --- Replaces item i and redraws.
+  function G:set(i, item)
     self.items[i] = item
-    self:Draw()
+    self:draw()
   end
 
-  function G:Hide()
+  --- Hides every tile.
+  function G:hide()
     for k = 0, self.per - 1 do
-      self:Tile(k, nil)
+      self:draw_tile(k, nil)
     end
   end
 
-  function G:Close()
-    self:Hide()
+  --- Hides the grid and drops its items.
+  function G:close()
+    self:hide()
     self.items = {}
   end
 
-  function G:Move(to)
+  --- Moves the selection to `to`; answers true when it moved.
+  function G:move(to)
     if to < 0 or to >= #self.items or to == self.sel then
       return false
     end
     self.sel = to
-    pcall(funcLuaCommand, EG.C.SND, EG.SY_MOVE)
-    self:Draw()
+    VRFW.host.command(EG.C.SND, EG.SY_MOVE)
+    self:draw()
     return true
   end
 
-  function G:Hit(x, y)
+  --- The item under (x, y); nil when there is none.
+  function G:hit(x, y)
     if type(x) ~= "number" or type(y) ~= "number" then
       return nil
     end
@@ -427,7 +408,7 @@ if VRFW_EmblemGrid == nil then
     for k = 0, self.per - 1 do
       local d = page * self.per + k
       if d < #self.items then
-        local cx, cy = self:Cell(k)
+        local cx, cy = self:cell(k)
         if math.abs(x - cx) <= self.px / 2 and math.abs(y + cy) <= self.py / 2 then
           return d
         end
@@ -436,17 +417,18 @@ if VRFW_EmblemGrid == nil then
     return nil
   end
 
-  function G:Step()
+  --- One frame of the grid; answers an action table or nil.
+  function G:step()
     self.frame = self.frame + 1
     for k = 0, self.per - 1 do
       if self.drawn[k] ~= nil and not self.asked[k] then
-        self:Ask(k)
+        self:ask(k)
       end
     end
     for k, left in pairs(self.wait) do
-      local loading = M(EG.C.LOADING, self.tile, k) == true
+      local loading = VRFW.host.menu_command(EG.C.LOADING, self.tile, k) == true
       if not loading or left <= 0 then
-        M(EG.C.MESH_VISIBLE, self.tile, EG.ICON_MESH, true, k)
+        VRFW.host.menu_command(EG.C.MESH_VISIBLE, self.tile, EG.ICON_MESH, true, k)
         self.wait[k] = nil
       else
         self.wait[k] = left - 1
@@ -454,10 +436,10 @@ if VRFW_EmblemGrid == nil then
     end
     local P = {}
     for _, k in ipairs({"back", "rclick", "click", "enter", "all", "l1", "r1", "l2", "r2", "wup", "wdown"}) do
-      P[k] = self:Pressed(k)
+      P[k] = self:pressed(k)
     end
     for _, k in ipairs({"left", "right", "up", "down"}) do
-      P[k] = self:Pressed(k, true)
+      P[k] = self:pressed(k, true)
     end
     if P.back or P.rclick then
       return {act = "back"}
@@ -465,17 +447,17 @@ if VRFW_EmblemGrid == nil then
     if P.l1 or P.r1 then
       return {act = "series", dir = P.l1 and -1 or 1}
     end
-    local x, y = M(EG.C.POINTER)
-    local moved = M(EG.C.POINTER_MOVED) == true
+    local x, y = VRFW.host.menu_command(EG.C.POINTER)
+    local moved = VRFW.host.menu_command(EG.C.POINTER_MOVED) == true
     if type(x) == "number" and (moved or x ~= self.ptr_x or y ~= self.ptr_y) then
       self.ptr_x, self.ptr_y = x, y
-      local d = self:Hit(x, y)
+      local d = self:hit(x, y)
       if d ~= nil then
-        self:Move(d)
+        self:move(d)
       end
     end
     if P.click then
-      local d = self:Hit(x, y)
+      local d = self:hit(x, y)
       if d ~= nil then
         self.sel = d
         return {act = "decide", index = d + 1}
@@ -488,17 +470,17 @@ if VRFW_EmblemGrid == nil then
       return nil
     end
     if P.left then
-      self:Move(col > 0 and self.sel - 1 or math.min(self.sel + c - 1, n - 1))
+      self:move(col > 0 and self.sel - 1 or math.min(self.sel + c - 1, n - 1))
     elseif P.right then
-      self:Move((col < c - 1 and self.sel + 1 < n) and self.sel + 1 or self.sel - col)
+      self:move((col < c - 1 and self.sel + 1 < n) and self.sel + 1 or self.sel - col)
     elseif P.up then
-      self:Move(self.sel - c >= 0 and self.sel - c or self.sel)
+      self:move(self.sel - c >= 0 and self.sel - c or self.sel)
     elseif P.down then
-      self:Move(math.min(self.sel + c, n - 1))
+      self:move(math.min(self.sel + c, n - 1))
     elseif P.l2 or P.wup then
-      self:Move(math.max(self.sel - self.per, 0))
+      self:move(math.max(self.sel - self.per, 0))
     elseif P.r2 or P.wdown then
-      self:Move(math.min(self.sel + self.per, n - 1))
+      self:move(math.min(self.sel + self.per, n - 1))
     elseif P.enter then
       return {act = "decide", index = self.sel + 1}
     elseif P.all then

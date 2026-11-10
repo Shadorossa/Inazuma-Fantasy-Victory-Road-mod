@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# El Geiser (The Geyser): the download's move whd92003, a clone of whd00700 with its numbers; its event ev62_92003 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "the_geyser"

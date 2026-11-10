@@ -1,41 +1,3 @@
--- Character Reforged › the partner's special moves in the retail bank picker (chara_bank_menu_for_search) of the aura
--- mods' «Crear …» flow (graft character_reforged_board; docs/refactor/aura-mods-split.md «The base game's create entry»,
--- 1.7.22, owner 2026-10-14: «no me deja elegir las supertécnicas como en IF»). The same steps as Inazuma Fantasy's
--- «Crear miximax» bank (its graft mx_bank), for any system whose pairing rules ask partner moves (`moves = n`, All
--- Miximaxed's miximax: 1):
---   * the create flow (table_create_entry_hooks.lua) writes the base and the system's
---     row to the parameter store before it opens the bank; OnInit reads and clears them and asks Character Reforged
---     how many moves the row wants (CMND_CHARACTERREFORGED_CREATE_MOVES). 0 / no keys = the retail bank;
---   * the base's own card is greyed; the personal plate opens by itself and follows the cursor;
---   * a card that can not be the base's partner is greyed (the retail disabled card: the cursor passes over it, Aceptar
---     plays the error sound): the system's check command refuses the pair (All Miximaxed: same character, the partner
---     or the base of another miximax, no look for the pair, …), or, for a system with partner moves, none of his
---     special moves can be learnt by the base (each card asked once per bank: B.PartnerStatus);
---   * the partner status (B.PartnerStatus, the one answer for the grey, the corner badge and the refusal log): a card
---     that can not be used wears a corner badge ON the retail «in a team» icon of its card (the mesh _icon_teamdock01
---     shown with the badge's sprite, served from the declaring mod's own atlas by a sprite redirect of team00_01.g4tx;
---     given back to the retail sprite when the instance shows another card). Priority: prohibited (the avatar
---     refused by the rules, a check code of the system's `prohibited_codes`: no look for the pair) > a card used by a
---     pairing system, partner or base (CMND_CHARACTERREFORGED_PARTNER_USES: the system's `status_badge`, the lower
---     `order` first: miximax 10, mode change 20) > no learned move that is not grey (rule
---     `partner_needs_learned_move`, CR_MOVE_ROWS.LearnedCounts, the lock badge) > other refusals (grey, no badge). The
---     painting and the uses are the player bank's too (CharacterReforged_PartnerLock.PaintCorner / .Uses, graft
---     cr_partner_lock);
---   * Aceptar on a card: the cursor goes to that card's special moves on the plate (the retail «Confirmación de
---     supertécnica» mode); back there = the grid again;
---   * a move row picked with Aceptar or a mouse click (the plate reports it, plate_create_moves_hooks.lua; the retail
---     move-order drag of the plate is off meanwhile);
---   * Aceptar on a move: refused when it is a hyper technique / aura, a goalkeeper move for a base who is not a
---     goalkeeper, or a move the base already has (or picked); else (all `n` moves picked) the system's confirmation
---     (the retail card window with the base, Sí / No; its text key from the system, {base} {partner} {moves};
---     the shipped keys ask only the question: the move is on the confirmation's move plate);
---   * Sí: the partner in the retail result (temp int 2524660062), the moves in character_reforged_create_move1 / 2,
---     the bank closes (the create flow reads them); No: the partner's moves again.
--- While the move step shows a window, the bank's own Aceptar / Atrás / function presses are not passed to it (the
--- menu's active / input state is never touched). The team dock's plate is given back as the bank found it.
--- HOOK file (graft [[hooks]], shipped as is): VRFW_Host handlers on the VR-Framework's host of this script (its locals
--- `flag` (plate open), `flag2`, `flag7`, `n8`, `t3` through VRFW_Host.hosts.chara_bank_menu_for_search.L); command ids
--- written as numbers, their names in the comments. Definitions only at chunk load (no engine call).
 do
   CharacterReforged_BankMoves = CharacterReforged_BankMoves or {}
   local B = CharacterReforged_BankMoves
@@ -44,32 +6,25 @@ do
   B.KEY_BASE = 2918576166                            -- character_reforged_create_base
   B.KEY_ROW = 416963278                              -- character_reforged_create_row
   B.KEY_MOVES = {892911027, 2888952841}              -- character_reforged_create_move1 / _move2
-  -- the move step on the plate (plate_create_moves_hooks.lua in personal_plate_menu): while KEY_PICKING is set, a
-  -- decide on a move row (Aceptar or a mouse click) writes row + 1 to KEY_PICKED_ROW instead of starting the retail
-  -- move-order drag
+  -- Keys of the plate move step (plate_create_moves_hooks.lua).
   B.KEY_PICKING = 2195309509                         -- character_reforged_create_pick_moves
   B.KEY_PICKED_ROW = 2315084405                      -- character_reforged_create_pick_row
   B.KEY_PICK_MASK = 1309442123                     -- character_reforged_create_pick_mask: bit r = row r can be picked
   B.KEY_PLATE_RELEASE = 2526449858                  -- character_reforged_create_plate_release
   B.DUPLICATE_FRAMES = 2                             -- frames a second report of the same press is ignored
-  B.MOVES = 201707600                                -- CMND_CHARACTERREFORGED_CREATE_MOVES (row) -> n, confirmId, confirmText,
-                                                     -- confirmIcon, previewCommand, checkCommand,
-                                                     -- prohibitedCodes, prohibitedBadge, partnerNeedsLearnedMove,
-                                                     -- noMoveBadge
+  B.MOVES = 201707600
   B.CHECK_ATTRIBUTE = 29506568                       -- (charaStHdl, mask) -> the card's attribute has those bits
   B.RETAIL_GREY_ATTRIBUTE = 262144                   -- the bank's IsGrayOutBankChara greys a card with this bit
-  -- the confirmation panel (pair_confirm_window_hooks.lua in general_window reads and clears these): the two cards,
-  -- the move, the base's stats and what the pair adds (the system's preview command), the glyph
+  -- Confirmation panel keys (read and cleared by pair_confirm_window_hooks.lua).
   B.PAIR = @PAIR_HANDOFF_KEYS@
-  B.CHARA_STAT = 1938088826                          -- CMND_CHARACTERREFORGED_CHARA_STAT (charaStHdl, stat) -> value
+  B.CHARA_STAT = 1938088826
   B.STAT_COUNT = 9
-  B.LOG = 2743311895                                 -- CMND_CHARACTERREFORGED_CREATE_LOG (step, values…)
+  B.LOG = 2743311895
   B.TEMP_SET = 2565779025
   B.BANK_RESULT = 2524660062                         -- the bank's pick (retail temp int)
   B.TEXT_GET = 4074371074                            -- CMND_TEXT_GET (text id)
-  -- the move refusals' text keys: crc32("CharacterReforged.create_move_refused_<x>")
   B.REFUSED = {none = 1158902640, known = 555889516}
-  B.REFUSAL = 3947752921                             -- CMND_CHARACTERREFORGED_CREATE_REFUSAL (row, code) -> labelId, reasonId, labelText, reasonText
+  B.REFUSAL = 3947752921
   -- the partner refusals that are not a check code (scripts\lib\create.lua names their texts)
   B.REASON = {no_learned_move = -5, only_grey = -6, in_use = -7, no_move_for_base = -8, himself = -9, other = -10}
   B.BANK = 1981996040                                -- chara_bank_menu_for_search
@@ -82,11 +37,6 @@ do
   B.CHARA = 1131797651                               -- (charaStHdl, field): 1 chara, 4 param
   B.CHARA_INFO = 4060384944                          -- CMND_GET_CHARA_INFO (id, field): 10 name
   B.CARD_WINDOW = 191                                -- the retail card window (general window type 191)
-  B.MSG_OPEN = 2289627655
-  B.MSG_KIND = 2351835063
-  B.MSG_RESULT = 1523741473
-  B.MSG_BUSY = 898725220
-  B.MSG_DONE = 682363669
   B.SOUND = 1917805374
   B.SE_DECIDE = 3848881948                           -- sy0000
   B.SE_REFUSED = 2086672038                          -- sy0003
@@ -99,34 +49,34 @@ do
   B.PLATE_IN_SKILL_MODE = 2100229437
   B.FOCUS_INDEX = 2603265800                         -- (layer[, inst, menu]) -> the focused row
   B.PLATE_PAGE = 117636272                           -- CMND_SET_PERSONAL_PLATE_PAGE_FROM_CHARA_BANK (page, layer, anim)
-  B.PLATE_LIST_MODE = 1135875531                     -- the plate shows the card the bank sends (false = back to its owner)
+  B.PLATE_LIST_MODE = 1135875531
   B.EXIST_MENU = 2231168902
   B.MENU_SUSPEND = 1129326309
   B.QUIET_FRAMES = 10                                -- frames the bank's presses stay held back after a window closed
 
-  function B.Reset()
+  function B.reset()
     B.on, B.base, B.row, B.moves, B.confirm_id, B.confirm_text, B.confirm_icon = false, 0, 0, 0, 0, "", 0
     B.preview = 0
     B.check = 0                                      -- the system's check command (base, partner) -> code (0 = may)
-    B.status = {}                                    -- card -> { ok, why, badge } (B.PartnerStatus)
+    B.status = {}                                    -- card -> { ok, why, badge } (B.partner_status)
     B.prohibited_codes, B.prohibited_badge = {}, 0   -- the system's check codes shown as prohibited, their badge
     B.needs_learned_move, B.no_move_badge = false, 0 -- rule partner_needs_learned_move, its badge
     B.reason = {}                                    -- card -> the refusal code of his partner status
-    B.refusal_logged = {}                            -- card -> its refusal is in the log (B.LogRefused)
+    B.refusal_logged = {}                            -- card -> its refusal is in the log (B.log_refused)
     B.base_moves = nil                               -- the base's moves (read once per bank)
     B.keep_plate, B.plate_done, B.co, B.pick, B.quiet, B.busy = false, false, nil, 0, 0, false
-    B.created = false                                -- opened by a «Crear …» flow (any row, with or without moves)
+    B.created = false
   end
-  B.Reset()
+  B.reset()
 
-  function B.Log(step, ...)
+  function B.log(step, ...)
     pcall(funcLuaCommand, B.LOG, "bank " .. tostring(step), ...)
   end
 
   -- the retail locals through the framework's host (nil without it)
-  function B.Get(name)
+  function B.get(name)
     local ok, v = pcall(function()
-      return VRFW_Host.hosts[B.STEM].L[name]
+      return VRFW.host.hosts[B.STEM].L[name]
     end)
     if ok then
       return v
@@ -134,13 +84,13 @@ do
     return nil
   end
 
-  function B.Set(name, value)
+  function B.set(name, value)
     return pcall(function()
-      VRFW_Host.hosts[B.STEM].L[name] = value
+      VRFW.host.hosts[B.STEM].L[name] = value
     end)
   end
 
-  function B.Text(id, fallback)
+  function B.text(id, fallback)
     if type(id) == "number" and id ~= 0 then
       local ok, s = pcall(funcLuaCommand, B.TEXT_GET, id)
       if ok and type(s) == "string" and s ~= "" then
@@ -150,7 +100,7 @@ do
     return fallback or ""
   end
 
-  function B.Name(hdl)
+  function B.name(hdl)
     local chara = funcLuaCommand(B.CHARA, hdl, 1)
     local ok, a, b = pcall(funcLuaCommand, B.CHARA_INFO, chara, 10)
     if ok and type(b) == "string" then
@@ -161,7 +111,7 @@ do
     return "?"
   end
 
-  function B.MoveName(skill)
+  function B.move_name(skill)
     local okc, ok, name_id = pcall(funcLuaCommand, B.SKILL_INFO, skill, 4)
     if okc and ok and name_id then
       local s = funcLuaCommand(B.NAME_TEXT, name_id)
@@ -172,52 +122,42 @@ do
     return string.format("%08X", skill)
   end
 
-  -- the moves the plate's 6 rows show for card `hdl` (row 1 .. 6). The plate shows the skill
-  -- table's rows, not the list positions (Character Reforged's player page, plate_pages_common.lua
-  -- EVT_PPG_FANTASY_MOVES.Rows: an empty list position shows its board slot's move, auras go last): a row is read
-  -- the same way or the rows past the list's moves answered 0 (owner 2026-10-14: «solo puedo elegir las 2 primeras»).
-  function B.RowMoves(hdl)
+  function B.row_moves(hdl)
     local moves = {}
-    local rows = CR_MOVE_ROWS.Rows(funcLuaCommand, hdl)
-    for r = 1, CR_MOVE_ROWS.ROW_COUNT do
+    local rows = CharacterReforged.move_rows.rows(funcLuaCommand, hdl)
+    for r = 1, CharacterReforged.move_rows.ROW_COUNT do
       moves[r] = type(rows[r]) == "table" and (rows[r].move or 0) or 0
     end
     return moves
   end
 
   -- the base's own moves (asked once per bank)
-  function B.BaseMoves()
+  function B.read_base_moves()
     if B.base_moves == nil then
-      B.base_moves = B.RowMoves(B.base)
+      B.base_moves = B.row_moves(B.base)
     end
     return B.base_moves
   end
 
-  -- one log line per greyed card while this bank is open: the card and why it can not be the base's partner
-  function B.LogRefused(hdl, why)
+  -- Logs one line per greyed card while this bank is open.
+  function B.log_refused(hdl, why)
     if B.refusal_logged[hdl] then
       return
     end
     B.refusal_logged[hdl] = true
-    B.Log("partner refused", "base", B.base, "card", hdl, why)
+    B.log("partner refused", "base", B.base, "card", hdl, why)
   end
 
-  -- the refusal of row `row` (CR_MOVE_ROWS.Rows) for the base: nil = he may pick it, else the refusal's text id. Empty,
-  -- locked and grey rows are never a pick
-  function B.RowRefused(hdl, row, picked)
-    if not CR_MOVE_ROWS.IsLearned(funcLuaCommand, hdl, row) or CR_MOVE_ROWS.IsGrey(funcLuaCommand, row.move) then
+  -- Returns the refusal of row `row` for the base.
+  function B.row_refused(hdl, row, picked)
+    if not CharacterReforged.move_rows.is_learned(funcLuaCommand, hdl, row) or CharacterReforged.move_rows.is_grey(funcLuaCommand, row.move) then
       return B.REFUSED.none
     end
-    return B.MoveRefused(row.move, picked)
+    return B.move_refused(row.move, picked)
   end
 
-  -- the partner status of card `hdl` for this bank's base: ok, why (nil when ok), badge (sprite id, 0 = none), the
-  -- badge of a card also in a team (0 = the same).
-  -- The one rule of the grey, the corner badge and the refusal log; asked once per card while this bank is open.
-  -- Order = priority: the base himself; prohibited (a check code of
-  -- `prohibited_codes`); used by a pairing system (its badge); no learned move that is not grey; another check refusal;
-  -- no move the base may learn
-  function B.PartnerStatus(hdl)
+  -- Returns the partner status of card `hdl` for this base.
+  function B.partner_status(hdl)
     if not B.created or type(hdl) ~= "number" or hdl == 0 then
       return true, nil, 0, 0
     end
@@ -237,11 +177,11 @@ do
         code = c
       end
     end
-    local uses = CharacterReforged_PartnerLock.Uses()
+    local uses = CharacterReforged_PartnerLock.read_uses()
     local use = uses ~= nil and uses[hdl] or nil
     local learned, real = 1, 1
     if B.needs_learned_move then
-      learned, real = CR_MOVE_ROWS.LearnedCounts(funcLuaCommand, hdl)
+      learned, real = CharacterReforged.move_rows.learned_counts(funcLuaCommand, hdl)
     end
     if code ~= 0 and B.prohibited_codes[code] then
       ok, why, badge = false, "pair check code " .. tostring(code) .. " (prohibited: no look for the pair)", B.prohibited_badge
@@ -258,8 +198,8 @@ do
     elseif B.moves > 0 then
       ok, reason = false, B.REASON.no_move_for_base
       local counts = {empty = 0, known = 0}
-      for _, row in ipairs(CR_MOVE_ROWS.Rows(funcLuaCommand, hdl)) do
-        local refused = B.RowRefused(hdl, row, {})
+      for _, row in ipairs(CharacterReforged.move_rows.rows(funcLuaCommand, hdl)) do
+        local refused = B.row_refused(hdl, row, {})
         if refused == nil then
           ok, reason = true, nil
           break
@@ -276,30 +216,29 @@ do
       end
     end
     B.reason[hdl] = reason
-    -- the uses not read yet: the answer is not kept (asked again once they are)
+    -- Leaves the status unset for uses that are not read yet.
     if uses ~= nil then
       B.status[hdl] = {ok = ok, why = why, badge = badge, team_badge = team_badge}
       if not ok then
-        B.LogRefused(hdl, why)
+        B.log_refused(hdl, why)
       end
     end
     return ok, why, badge, team_badge
   end
 
-  -- a press on a card that can not be the partner: the error sound and a window with the reason (mouse and Aceptar)
-  function B.ShowRefusal(hdl)
+  -- Handles a press on a card that cannot be the partner.
+  function B.show_refusal(hdl)
     local code = B.reason[hdl] or B.REASON.other
     local _, reason_id, _, reason_text = funcLuaCommand(B.REFUSAL, B.row, code)
-    local text = B.Text(reason_id, type(reason_text) == "string" and reason_text or "")
-    B.Log("partner press refused", "card", hdl, "code", code, text)
+    local text = B.text(reason_id, type(reason_text) == "string" and reason_text or "")
+    B.log("partner press refused", "card", hdl, "code", code, text)
     funcLuaCommand(B.SOUND, B.SE_REFUSED)
     B.co = coroutine.create(function()
-      B.Message(text, false)
+      B.message(text, false)
     end)
   end
 
-  -- the press on list layer `layer`: true when it was a refused card (the window is on its way)
-  function B.RefusedPress(layer)
+  function B.refused_press(layer)
     if not B.created or layer ~= B.LIST then
       return false
     end
@@ -307,26 +246,25 @@ do
     if hdl == nil or hdl == 0 or not IsGrayOutBankChara(hdl) then
       return false
     end
-    B.ShowRefusal(hdl)
+    B.show_refusal(hdl)
     return true
   end
 
-  -- the corner badge of list card `instance`: this bank's rule (the partner status), the player bank's painter
-  function B.PaintBadge(layer, instance, card)
+  -- Paints the corner badge of list card `instance`.
+  function B.paint_badge(layer, instance, card)
     local badge, team_badge = 0, 0
     if B.created then
-      local _, _, b, t = B.PartnerStatus(card)
+      local _, _, b, t = B.partner_status(card)
       badge, team_badge = b or 0, t or 0
     end
-    CharacterReforged_PartnerLock.PaintCorner(layer, instance, card, badge, team_badge)
+    CharacterReforged_PartnerLock.paint_corner(layer, instance, card, badge, team_badge)
   end
 
-  -- nil = the base may learn it, else the refusal's text id
-  function B.MoveRefused(skill, picked)
+  function B.move_refused(skill, picked)
     if skill == nil or skill == 0 then
       return B.REFUSED.none
     end
-    for _, move in ipairs(B.BaseMoves()) do
+    for _, move in ipairs(B.read_base_moves()) do
       if move == skill then
         return B.REFUSED.known
       end
@@ -339,35 +277,21 @@ do
     return nil
   end
 
-  -- a message window (the bank's presses held back meanwhile); yes_no = Sí / No (true = Sí), card = the card window's
-  -- player (nil = the plain window)
-  function B.Message(text, yes_no, card)
+  function B.message(text, yes_no, card)
     B.busy = true
-    funcLuaCommand(B.MSG_OPEN, text, card ~= nil and B.CARD_WINDOW or 0, 0, card or 0, 0, 0, false)
-    local r = 0
+    local opts = card ~= nil and {window = B.CARD_WINDOW, object = card} or nil
+    local yes = false
     if yes_no then
-      funcLuaCommand(B.MSG_KIND, 2, 0)
-      coroutine.yield()
-      r = -1
-      while r == nil or r < 0 do
-        r = funcLuaCommand(B.MSG_RESULT)
-        coroutine.yield()
-      end
+      yes = VRFW.question.ask(text, opts)
     else
-      funcLuaCommand(B.MSG_KIND, 1, 0)
-      while funcLuaCommand(B.MSG_BUSY) do
-        coroutine.yield()
-      end
-    end
-    while not funcLuaCommand(B.MSG_DONE) do
-      coroutine.yield()
+      VRFW.question.notice(text, opts)
     end
     B.busy = false
     B.quiet = B.QUIET_FRAMES
-    return r == 0
+    return yes
   end
 
-  function B.Pressed(command)
+  function B.pressed(command)
     for _, device in ipairs(B.INPUT_DEVICES) do
       if funcLuaCommand(B.CHECK_INPUT, device, command) == true then
         return true
@@ -376,69 +300,67 @@ do
     return false
   end
 
-  function B.InMoveMode()
+  function B.in_move_mode()
     return funcLuaMenuCommand(B.PLATE_IN_SKILL_MODE) == true
   end
 
-  function B.MoveMode(on)
+  function B.move_mode(on)
     if on then
       funcLuaMenuCommand(B.PLATE_SKILL_MODE, true, B.BANK)
-      B.Set("flag7", true)
+      B.set("flag7", true)
     else
-      if B.InMoveMode() then
+      if B.in_move_mode() then
         funcLuaMenuCommand(B.PLATE_SKILL_MODE, false, B.BANK)
       end
-      B.Set("flag7", false)
+      B.set("flag7", false)
     end
   end
 
   -- card `hdl` on the plate, its Atributos page (the move rows)
-  function B.ShowPlate(hdl)
-    if not B.Get("flag") then
+  function B.show_plate(hdl)
+    if not B.get("flag") then
       OpenPersonalPlate()
       B.plate_done = true
     end
-    local page = B.Get("n8")
+    local page = B.get("n8")
     if type(page) == "number" and page ~= 0 then
-      B.Set("n8", 0)
-      local pages = B.Get("t3")
+      B.set("n8", 0)
+      local pages = B.get("t3")
       funcLuaMenuCommand(B.PLATE_PAGE, 0, type(pages) == "table" and pages[1] or 0, false)
     end
     UpdatePersonalPlate(hdl)
   end
 
   -- the plate's move rows answer as a pick (true) or as the retail move-order drag (false)
-  function B.PickRows(on)
-    VRFW_Param.Clear(B.KEY_PICKED_ROW)
-    VRFW_Param.Clear(B.KEY_PICKING)
-    VRFW_Param.Clear(B.KEY_PICK_MASK)
+  function B.pick_rows(on)
+    VRFW.param.clear(B.KEY_PICKED_ROW)
+    VRFW.param.clear(B.KEY_PICKING)
+    VRFW.param.clear(B.KEY_PICK_MASK)
     if on then
-      VRFW_Param.Set(B.KEY_PICKING, 1)
+      VRFW.param.set(B.KEY_PICKING, 1)
     end
   end
 
-  -- tell the plate which rows of card `hdl` can be picked now (bit r = row r)
-  function B.SendPickMask(hdl, picked)
+  function B.send_pick_mask(hdl, picked)
     local mask, bit = 0, 1
-    local rows = CR_MOVE_ROWS.Rows(funcLuaCommand, hdl)
-    for r = 1, CR_MOVE_ROWS.ROW_COUNT do
-      if B.RowRefused(hdl, rows[r], picked) == nil then
+    local rows = CharacterReforged.move_rows.rows(funcLuaCommand, hdl)
+    for r = 1, CharacterReforged.move_rows.ROW_COUNT do
+      if B.row_refused(hdl, rows[r], picked) == nil then
         mask = mask + bit
       end
       bit = bit * 2
     end
-    VRFW_Param.Clear(B.KEY_PICK_MASK)
-    VRFW_Param.Set(B.KEY_PICK_MASK, mask)
-    B.Log("pick mask", "partner", hdl, "rows", mask)
+    VRFW.param.clear(B.KEY_PICK_MASK)
+    VRFW.param.set(B.KEY_PICK_MASK, mask)
+    B.log("pick mask", "partner", hdl, "rows", mask)
   end
 
-  -- the row the plate reported as decided (0 .. 5), or nil
-  function B.TakePickedRow()
-    if not VRFW_Param.Has(B.KEY_PICKED_ROW) then
+  function B.take_picked_row()
+    if not VRFW.param.has(B.KEY_PICKED_ROW) then
       return nil
     end
-    local v = VRFW_Param.Get(B.KEY_PICKED_ROW)
-    VRFW_Param.Clear(B.KEY_PICKED_ROW)
+    local v = VRFW.param.get(B.KEY_PICKED_ROW)
+    VRFW.param.clear(B.KEY_PICKED_ROW)
     if type(v) ~= "number" or v < 1 then
       return nil
     end
@@ -446,11 +368,11 @@ do
   end
 
   -- one move of card `hdl` picked on the plate (nil = back)
-  function B.PickMove(hdl, picked)
+  function B.pick_move(hdl, picked)
     funcLuaCommand(B.SOUND, B.SE_OPEN)
-    B.PickRows(true)
-    B.SendPickMask(hdl, picked)
-    B.MoveMode(true)
+    B.pick_rows(true)
+    B.send_pick_mask(hdl, picked)
+    B.move_mode(true)
     UpdateButtonGuide()
     local frames = 0
     local ignore = 0
@@ -460,18 +382,18 @@ do
       if ignore > 0 then
         ignore = ignore - 1
       end
-      if frames > 3 and not B.InMoveMode() then
-        B.PickRows(false)
-        B.Set("flag7", false)
+      if frames > 3 and not B.in_move_mode() then
+        B.pick_rows(false)
+        B.set("flag7", false)
         UpdateButtonGuide()
         return nil
       end
       -- the plate's report (mouse click or Aceptar on a row), else Aceptar seen by this menu
-      local row = B.TakePickedRow()
+      local row = B.take_picked_row()
       if row ~= nil and ignore > 0 then
         row = nil
       end
-      if row == nil and frames > 8 and B.Pressed(B.CMD_ENTER) then
+      if row == nil and frames > 8 and B.pressed(B.CMD_ENTER) then
         row = funcLuaMenuCommand(B.FOCUS_INDEX, B.SKILL_ROWS, 0, B.PLATE)
         if type(row) ~= "number" then
           row = funcLuaMenuCommand(B.FOCUS_INDEX, B.SKILL_ROWS)
@@ -482,65 +404,61 @@ do
       end
       if row ~= nil then
         ignore = B.DUPLICATE_FRAMES
-        local cell = (type(row) == "number" and row >= 0 and row <= 5) and CR_MOVE_ROWS.Rows(funcLuaCommand, hdl)[row + 1] or nil
+        local cell = (type(row) == "number" and row >= 0 and row <= 5) and CharacterReforged.move_rows.rows(funcLuaCommand, hdl)[row + 1] or nil
         local skill = type(cell) == "table" and (cell.move or 0) or 0
-        local why = B.RowRefused(hdl, cell, picked)
-        B.Log("move", "partner", hdl, "row", row, "move", skill, "refused text", why or 0)
+        local why = B.row_refused(hdl, cell, picked)
+        B.log("move", "partner", hdl, "row", row, "move", skill, "refused text", why or 0)
         if why == nil then
-          B.MoveMode(false)
+          B.move_mode(false)
           local wait = 0
-          while B.InMoveMode() and wait < 30 do
+          while B.in_move_mode() and wait < 30 do
             coroutine.yield()
             wait = wait + 1
           end
-          B.PickRows(false)
+          B.pick_rows(false)
           return skill
         end
-        -- refused: the retail error sound only, the cursor stays on the moves (owner 2026-10-14: no blocking window
-        -- with «Sí» over the screen; the reason is in the log line above, its text key in B.REFUSED)
+        -- The press was refused.
         funcLuaCommand(B.SOUND, B.SE_REFUSED)
         frames = 3
       end
     end
   end
 
-  function B.Question(hdl, picked)
+  function B.question(hdl, picked)
     local names = {}
     for i, m in ipairs(picked) do
-      names[i] = B.MoveName(m)
+      names[i] = B.move_name(m)
     end
-    local s = B.Text(B.confirm_id, B.confirm_text)
+    local s = B.text(B.confirm_id, B.confirm_text)
     if s == "" then
       s = "{base} + {partner}"                       -- the move is on the confirmation's move plate
     end
-    s = s:gsub("{base}", function() return B.Name(B.base) end)
-    s = s:gsub("{partner}", function() return B.Name(hdl) end)
+    s = s:gsub("{base}", function() return B.name(B.base) end)
+    s = s:gsub("{partner}", function() return B.name(hdl) end)
     s = s:gsub("{moves}", function() return table.concat(names, ", ") end)
     return s
   end
 
-  function B.Param(key, value)
-    VRFW_Param.Clear(key)
-    VRFW_Param.Set(key, value)
+  function B.param(key, value)
+    VRFW.param.clear(key)
+    VRFW.param.set(key, value)
   end
 
-  -- the base's stat `i` (Character Reforged's per-character stats, as its player page shows them); 0 = not readable
-  function B.BaseStat(i)
+  function B.base_stat(i)
     local ok, v = pcall(funcLuaCommand, B.CHARA_STAT, B.base, i)
     v = ok and tonumber(v) or 0
     return v > 0 and v or 0
   end
 
-  -- what the pair (base, partner) adds with `move`: the system's preview command (All Miximaxed:
-  -- CMND_ALLMIXIMAXED_PREVIEW -> ok, favouredMask, g0 .. g8, kind (0 normal, 1 best match, 2 overdrive), peGain,
-  -- peFavoured, peBase); nil = no preview (none declared, or another mod owns the rule)
-  function B.Preview(partner, move)
+  -- Returns what the pair adds with `move`.
+  function B.pair_preview(partner, move)
     if B.preview == 0 then
       return nil
     end
     local r = {pcall(funcLuaCommand, B.preview, B.base, partner, move or 0)}
     if not (r[1] and r[2] == true and type(r[3]) == "number") then
-      B.Log("preview", "partner", partner, "move", move or 0, "no answer")
+      B.log("preview", "partner", partner, "move", move or 0, "no answer")
       return nil
     end
     local p = {mask = tonumber(r[3]) or 0, g = {}, ideal = (tonumber(r[13]) or 0) > 0,
@@ -549,58 +467,55 @@ do
     for i = 0, B.STAT_COUNT - 1 do
       p.g[i] = tonumber(r[4 + i]) or 0
     end
-    B.Log("preview", "partner", partner, "move", move or 0, "mask", p.mask, "ideal", tostring(p.ideal), "pe", p.pe_s, p.pe_g)
+    B.log("preview", "partner", partner, "move", move or 0, "mask", p.mask, "ideal", tostring(p.ideal), "pe", p.pe_s, p.pe_g)
     return p
   end
 
-  -- the confirmation panel (owner 2026-10-14, as Inazuma Fantasy's: «esas estadísticas se tienen que ver a la hora
-  -- de hacer miximax»): BOTH players' cards with the system's glyph, the move, the base's stats and the gains. The
-  -- general window's hook (pair_confirm_window_hooks.lua) takes these keys when the card window opens instead of the
-  -- retail single card
-  function B.PairCards(partner, picked)
+  -- Sets the confirmation panel keys.
+  function B.pair_cards(partner, picked)
     local K = B.PAIR
     local move = picked ~= nil and picked[1] or 0
-    local p = B.Preview(partner, move)
-    B.Param(K.BASE, B.base)
-    B.Param(K.PARTNER, partner)
-    B.Param(K.MOVE, move or 0)
-    B.Param(K.ICON, B.confirm_icon or 0)
-    B.Param(K.KIND, p ~= nil and (p.ideal and 2 or 1) or 0)
-    B.Param(K.MASK, p ~= nil and p.mask or 0)
+    local p = B.pair_preview(partner, move)
+    B.param(K.BASE, B.base)
+    B.param(K.PARTNER, partner)
+    B.param(K.MOVE, move or 0)
+    B.param(K.ICON, B.confirm_icon or 0)
+    B.param(K.KIND, p ~= nil and (p.ideal and 2 or 1) or 0)
+    B.param(K.MASK, p ~= nil and p.mask or 0)
     for i = 0, B.STAT_COUNT - 1 do
-      B.Param(K.S[i], p ~= nil and B.BaseStat(i) or 0)
-      B.Param(K.G[i], p ~= nil and p.g[i] or 0)
+      B.param(K.S[i], p ~= nil and B.base_stat(i) or 0)
+      B.param(K.G[i], p ~= nil and p.g[i] or 0)
     end
-    B.Param(K.PE_S, p ~= nil and p.pe_s or 0)
-    B.Param(K.PE_G, p ~= nil and p.pe_g or 0)
-    B.Param(K.PE_F, p ~= nil and p.pe_f or 0)
-    B.Param(K.N, 1)
+    B.param(K.PE_S, p ~= nil and p.pe_s or 0)
+    B.param(K.PE_G, p ~= nil and p.pe_g or 0)
+    B.param(K.PE_F, p ~= nil and p.pe_f or 0)
+    B.param(K.N, 1)
   end
 
-  -- keys the window did not take (its hook missing): never left for another window
-  function B.PairCardsClear()
+  -- Clears the keys the window did not take (its hook is missing).
+  function B.pair_cards_clear()
     local K = B.PAIR
     for _, key in ipairs({K.N, K.BASE, K.PARTNER, K.MOVE, K.ICON, K.KIND, K.MASK, K.PE_S, K.PE_G, K.PE_F}) do
-      VRFW_Param.Clear(key)
+      VRFW.param.clear(key)
     end
     for i = 0, B.STAT_COUNT - 1 do
-      VRFW_Param.Clear(K.S[i])
-      VRFW_Param.Clear(K.G[i])
+      VRFW.param.clear(K.S[i])
+      VRFW.param.clear(K.G[i])
     end
   end
 
-  -- Aceptar on a card: his moves, then the confirmation (a coroutine resumed from Step)
-  function B.MoveStage()
+  -- Handles Aceptar on a card.
+  function B.move_stage()
     local hdl = B.pick
-    B.Log("pick", "partner", hdl, "moves wanted", B.moves)
-    B.ShowPlate(hdl)
+    B.log("pick", "partner", hdl, "moves wanted", B.moves)
+    B.show_plate(hdl)
     coroutine.yield()
     local picked = {}
     while true do
-      local skill = B.PickMove(hdl, picked)
+      local skill = B.pick_move(hdl, picked)
       if skill == nil then
-        if #picked == 0 then                         -- back: the grid, the cursor where it was
-          B.Log("back to grid")
+        if #picked == 0 then
+          B.log("back to grid")
           return
         end
         picked[#picked] = nil                        -- back: the previous move again
@@ -609,17 +524,17 @@ do
       end
       if #picked >= B.moves then
         UpdatePersonalPlate(B.base)                  -- the base's card behind the confirmation
-        B.PairCards(hdl, picked)
-        local yes = B.Message(B.Question(hdl, picked), true, B.base)
-        B.PairCardsClear()
+        B.pair_cards(hdl, picked)
+        local yes = B.message(B.question(hdl, picked), true, B.base)
+        B.pair_cards_clear()
         if yes then
           funcLuaCommand(B.SOUND, B.SE_DECIDE)
           funcLuaCommand(B.TEMP_SET, B.BANK_RESULT, hdl)
           for i, key in ipairs(B.KEY_MOVES) do
-            VRFW_Param.Clear(key)
-            VRFW_Param.Set(key, picked[i] or 0)
+            VRFW.param.clear(key)
+            VRFW.param.set(key, picked[i] or 0)
           end
-          B.Log("confirmed", "partner", hdl, "moves", picked[1] or 0, picked[2] or 0)
+          B.log("confirmed", "partner", hdl, "moves", picked[1] or 0, picked[2] or 0)
           B.co = nil
           CloseMenu()
           return
@@ -631,63 +546,60 @@ do
     end
   end
 
-  -- after an error in the coroutine: the plate out of the move mode, the guide back
-  function B.Recover()
+  -- Recovers after an error in the coroutine.
+  function B.recover()
     B.busy = false
-    pcall(B.MoveMode, false)
-    pcall(B.PickRows, false)
+    pcall(B.move_mode, false)
+    pcall(B.pick_rows, false)
     pcall(UpdateButtonGuide)
   end
 
   -- the team dock's plate given back as the bank found it (suspended, list mode off), never closed
-  function B.ReleasePlate()
-    B.MoveMode(false)
-    -- the plate forgets the bank's card (its own chara 0) and shows the dock's focused member again
-    -- (plate_create_moves_hooks.lua answers the empty card while KEY_PLATE_RELEASE is set, and clears it)
-    B.Param(B.KEY_PLATE_RELEASE, 1)
+  function B.release_plate()
+    B.move_mode(false)
+    -- the plate forgets the bank's card and shows the dock's focused member again (KEY_PLATE_RELEASE)
+    B.param(B.KEY_PLATE_RELEASE, 1)
     pcall(UpdatePersonalPlate, 0)
     pcall(funcLuaMenuCommand, B.PLATE_LIST_MODE, false)
-    local opened = B.Get("flag") == true
+    local opened = B.get("flag") == true
     if opened then
       funcLuaMenuCommand(B.MENU_SUSPEND, B.PLATE)
-      B.Set("flag", false)
+      B.set("flag", false)
     end
-    B.Log("plate released", "move mode after", tostring(B.InMoveMode()), "suspended", tostring(opened))
+    B.log("plate released", "move mode after", tostring(B.in_move_mode()), "suspended", tostring(opened))
   end
 
-  -- the bank's close (Sí, or the player left it): our state off; a plate the team dock owned is kept. The retail
-  -- CloseMenu / FinalizeCharaBankForSearch close personal_plate_menu unless `flag2`: every bank a create flow opened
-  -- over the team dock keeps the dock's plate, also a row without partner moves (All Changed's mode change)
-  function B.Close(nxt, ...)
+  -- Handles the bank's close.
+  function B.close(nxt, ...)
     B.co = nil
     if B.on then
-      pcall(B.PickRows, false)                       -- the plate's move rows answer as in the game again
+      pcall(B.pick_rows, false)                       -- the plate's move rows answer as in the game again
     end
-    if not ((B.on or B.created) and B.keep_plate) or B.Get("flag2") == nil then
+    if not ((B.on or B.created) and B.keep_plate) or B.get("flag2") == nil then
       if B.on then
-        pcall(B.MoveMode, false)
+        pcall(B.move_mode, false)
       end
       return nxt(...)
     end
-    B.ReleasePlate()
-    local before = B.Get("flag2")
-    B.Set("flag2", true)                             -- the retail close leaves the plate alone (passive-inherit rule)
+    B.release_plate()
+    local before = B.get("flag2")
+    B.set("flag2", true)                             -- the retail close leaves the plate alone (passive-inherit rule)
     local r = table.pack(nxt(...))
-    B.Set("flag2", before)
+    B.set("flag2", before)
     return table.unpack(r, 1, r.n)
   end
 
-  if VRFW_Host ~= nil then
-    VRFW_Host.on(B.STEM, "OnInit", {id = B.ID .. ".init", phase = "before", fn = function()
-      B.Reset()
-      VRFW_Param.Clear(B.KEY_PLATE_RELEASE)
-      if not VRFW_Param.Has(B.KEY_BASE) or not VRFW_Param.Has(B.KEY_ROW) then
+  if VRFW.host ~= nil then
+    VRFW.host.on(B.STEM, "OnInit", {id = B.ID .. ".init", phase = "before", fn = function()
+      B.reset()
+      VRFW.param.clear(B.KEY_PLATE_RELEASE)
+      if not VRFW.param.has(B.KEY_BASE) or not VRFW.param.has(B.KEY_ROW) then
         return
       end
-      local base = VRFW_Param.Get(B.KEY_BASE)
-      local row = VRFW_Param.Get(B.KEY_ROW)
-      VRFW_Param.Clear(B.KEY_BASE)
-      VRFW_Param.Clear(B.KEY_ROW)
+      local base = VRFW.param.get(B.KEY_BASE)
+      local row = VRFW.param.get(B.KEY_ROW)
+      VRFW.param.clear(B.KEY_BASE)
+      VRFW.param.clear(B.KEY_ROW)
       if type(base) ~= "number" or base == 0 or type(row) ~= "number" or row <= 0 then
         return
       end
@@ -717,37 +629,33 @@ do
         local okc, code = pcall(funcLuaCommand, B.check, base, 0)
         base_code = okc and code or "no answer"
       end
-      B.Log("open", "base", base, "row", row, "moves", B.moves, "keep plate", B.keep_plate, "base check", base_code)
+      B.log("open", "base", base, "row", row, "moves", B.moves, "keep plate", B.keep_plate, "base check", base_code)
     end})
 
-    VRFW_Host.on(B.STEM, "IsBankCharaEnabled", {id = B.ID .. ".base_greyed", phase = "around", fn = function(nxt, card, ...)
-      -- a card that can not be the base's partner (B.PartnerStatus: the base, the avatar, a card in use, the check, the
-      -- moves)
-      if B.created and not B.PartnerStatus(card) then
+    VRFW.host.on(B.STEM, "IsBankCharaEnabled", {id = B.ID .. ".base_greyed", phase = "around", fn = function(nxt, card, ...)
+      if B.created and not B.partner_status(card) then
         return false
       end
       local enabled = nxt(card, ...)
-      -- the game's own bank rules (IsBankCharaEnabled; IsGrayOutBankChara: attribute B.RETAIL_GREY_ATTRIBUTE)
       if B.created and type(card) == "number" and card ~= 0 and not B.refusal_logged[card] then
         if not enabled then
-          B.LogRefused(card, "the game's bank refuses him (left the club)")
+          B.log_refused(card, "the game's bank refuses him (left the club)")
         else
           local okg, grey = pcall(funcLuaCommand, B.CHECK_ATTRIBUTE, card, B.RETAIL_GREY_ATTRIBUTE)
           if okg and grey == true then
-            B.LogRefused(card, "the game greys him (card attribute 0x40000)")
+            B.log_refused(card, "the game greys him (card attribute 0x40000)")
           end
         end
       end
       return enabled
     end})
 
-    -- the corner badge of each list card (the retail card refresh; the status is asked once per card)
-    VRFW_Host.on(B.STEM, "UpdateCharaCard", {id = B.ID .. ".badge", phase = "after", fn = function(r, layer, instance, card)
-      B.PaintBadge(layer, instance, card)
+    VRFW.host.on(B.STEM, "UpdateCharaCard", {id = B.ID .. ".badge", phase = "after", fn = function(r, layer, instance, card)
+      B.paint_badge(layer, instance, card)
     end})
 
-    VRFW_Host.on(B.STEM, "OnChangeFocus", {id = B.ID .. ".plate", phase = "after", fn = function(r, layer)
-      if B.on and B.co == nil and not B.plate_done and layer == B.CARD and not B.Get("flag")
+    VRFW.host.on(B.STEM, "OnChangeFocus", {id = B.ID .. ".plate", phase = "after", fn = function(r, layer)
+      if B.on and B.co == nil and not B.plate_done and layer == B.CARD and not B.get("flag")
         and GetSelectedCharaStHdl() ~= 0 and CanUsePersonalPlate() then
         B.plate_done = true
         OpenPersonalPlate()
@@ -756,21 +664,21 @@ do
     end})
 
     -- a press on a refused card (the retail OnEnter would only play the error sound)
-    VRFW_Host.on(B.STEM, "OnEnter", {id = B.ID .. ".enter", phase = "around", fn = function(nxt, layer, ...)
+    VRFW.host.on(B.STEM, "OnEnter", {id = B.ID .. ".enter", phase = "around", fn = function(nxt, layer, ...)
       if B.created and (B.co ~= nil or B.busy or B.quiet > 0) then
         return 1
       end
-      if B.RefusedPress(layer) then
+      if B.refused_press(layer) then
         return 1
       end
       return nxt(layer, ...)
     end})
 
-    VRFW_Host.on(B.STEM, "OnDecideFocus", {id = B.ID .. ".decide", phase = "around", fn = function(nxt, layer, ...)
+    VRFW.host.on(B.STEM, "OnDecideFocus", {id = B.ID .. ".decide", phase = "around", fn = function(nxt, layer, ...)
       if B.created and (B.co ~= nil or B.busy or B.quiet > 0) then
         return
       end
-      if B.RefusedPress(layer) then
+      if B.refused_press(layer) then
         return
       end
       if not B.on or layer ~= B.LIST then
@@ -782,12 +690,11 @@ do
         return
       end
       B.pick = hdl
-      B.co = coroutine.create(B.MoveStage)
+      B.co = coroutine.create(B.move_stage)
     end})
 
-    -- Atrás / the function buttons while a window of the move step is up: not the bank's
     for _, point in ipairs({"OnBack", "OnFunction"}) do
-      VRFW_Host.on(B.STEM, point, {id = B.ID .. ".hold", phase = "around", fn = function(nxt, ...)
+      VRFW.host.on(B.STEM, point, {id = B.ID .. ".hold", phase = "around", fn = function(nxt, ...)
         if B.created and (B.busy or B.quiet > 0) then
           return
         end
@@ -795,7 +702,7 @@ do
       end})
     end
 
-    VRFW_Host.on(B.STEM, "Step", {id = B.ID .. ".step", phase = "after", fn = function()
+    VRFW.host.on(B.STEM, "Step", {id = B.ID .. ".step", phase = "after", fn = function()
       if B.quiet > 0 then
         B.quiet = B.quiet - 1
       end
@@ -805,20 +712,20 @@ do
       end
       local ok, err = coroutine.resume(co)
       if not ok then
-        B.Log("error", tostring(err))
+        B.log("error", tostring(err))
         B.co = nil
-        B.Recover()
+        B.recover()
       elseif coroutine.status(co) == "dead" and B.co == co then
         B.co = nil
       end
     end})
 
-    VRFW_Host.on(B.STEM, "CloseMenu", {id = B.ID .. ".close", phase = "around", fn = function(nxt, ...)
-      return B.Close(nxt, ...)
+    VRFW.host.on(B.STEM, "CloseMenu", {id = B.ID .. ".close", phase = "around", fn = function(nxt, ...)
+      return B.close(nxt, ...)
     end})
 
-    VRFW_Host.on(B.STEM, "FinalizeCharaBankForSearch", {id = B.ID .. ".finalize", phase = "around", fn = function(nxt, ...)
-      local r = table.pack(B.Close(nxt, ...))
+    VRFW.host.on(B.STEM, "FinalizeCharaBankForSearch", {id = B.ID .. ".finalize", phase = "around", fn = function(nxt, ...)
+      local r = table.pack(B.close(nxt, ...))
       B.on, B.created = false, false
       return table.unpack(r, 1, r.n)
     end})

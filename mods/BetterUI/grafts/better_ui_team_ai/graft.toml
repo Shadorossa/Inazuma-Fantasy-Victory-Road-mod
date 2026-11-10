@@ -1,0 +1,24 @@
+# BetterUI: team-wide AI role settings, a row of the team commands window that opens the goal celebration list in AI-role mode.
+name = "better_ui_team_ai"
+order = 907
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = []   # the celebration menu's OnInit / InitPerformanceChangeMenuInfo / OnSetupLayer / UpdateListItem /
+             # OnDecideFocus are wrapped by assignment at run time (bytecode child); the dock part only registers
+             # VRFW.host handlers and a VRFW.list_rows rule
+description = "BetterUI: AI role settings for the whole team in the team commands window"
+
+[[hooks]]
+stem = "team_dock_formation_menu"
+source = "team_ai_dock.lua"
+
+[[files]]
+stem = "soccer_performance_change_menu"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "team_ai_menu.lua"
+  marker = "better_ui team_ai"
+  crc = "at"

@@ -1,0 +1,11 @@
+schema = "VRFW.game/2"
+
+# (constellation) -> { normal pulls, rate-up orb, orb of the rate-up pull in progress } (scripts\universe_orbs.lua)
+[[VRFW.Command]]
+name = "CMND_CHRONICLEDELUXE_UNIVERSE_ORB_STATE"
+handler = "ChronicleDeluxe.UniverseOrbState"
+
+# (constellation, orb) -> 1 when the confirmed pull is the rate-up orb, else 0
+[[VRFW.Command]]
+name = "CMND_CHRONICLEDELUXE_UNIVERSE_ORB_PULL"
+handler = "ChronicleDeluxe.UniverseOrbPull"

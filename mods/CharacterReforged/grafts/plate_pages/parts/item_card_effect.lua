@@ -1,14 +1,4 @@
--- Player page block (plate_pages.lua): the item detail card's «Efecto» page
-    -- the «Efecto» page from Better Equipment's answer: its rows, then the affinity row «<label>  [badge]  [element]
-    -- <value>» (the badge = the position's sprite, drawn by G.ItemCardPageIcons in the room left by spaces after the
-    -- label). A text answer (older Better Equipment) is used as it is.
-    -- ---- the «Efecto» page (host table item_card.effect): two rows of icons, chips and short texts ---------------------
-    -- Row 1: [bond icon] | chip «Supertécnica [element] +N %» (the item's passive)   [emblem icon] | [position badge]
-    -- [✓] + [element] [✓]   chip «[raised stats] x one % / both %» (blue; green when both match the wearer).
-    -- Row 2: [boot icon] | the set's slot icons (green where worn) «a/b»   the tier chips to the right edge, each its
-    -- reward over N bars (filled by the pieces worn; green when reached). Every value from Better Equipment's answer
-    -- (CMND_BETTEREQUIPMENT_ITEM_PAGE with the shown player) and the set page's data; sprites from the card's own atlas
-    -- evt_eq_fx (copies of retail icons, loaded by the icon layer's object).
+    -- row 1 the item's passive chip, position / element badges and raised stats
     local function EffWidth(text, style)
       local E = IC.effect
       local st = E.styles[style] or E.styles.white
@@ -24,7 +14,7 @@
       return {IC.effect.atlas, CALC_CRC(name)}
     end
 
-    -- a chip's content: {text = s} or {sprite = name} pieces of one effect (a passive or a tier reward)
+    -- Returns the content of a chip.
     local function EffPieces(part, on)
       local E = IC.effect
       local p = {}
@@ -33,7 +23,7 @@
         if n ~= nil then
           p[#p + 1] = {sprite = string.format(E.sprites.stat, n)}
         end
-        local name = G.ItemCardStatName(part.stat_index) or part.stat_name or part.stat
+        local name = G.item_card_stat_name(part.stat_index) or part.stat_name or part.stat
         p[#p + 1] = {text = tostring(name)}
         p[#p + 1] = {text = tostring(part.value)}
         return p
@@ -49,7 +39,7 @@
         elseif part.family ~= nil then
           p[#p + 1] = {text = tostring(part.family)}
         elseif part.element ~= nil then
-          p[#p + 1] = {text = tostring(G.ItemCardElementName(part.element) or part.element_name or part.element)}
+          p[#p + 1] = {text = tostring(G.item_card_element_name(part.element) or part.element_name or part.element)}
         end
         p[#p + 1] = {text = tostring(part.value)}
         return p
@@ -58,10 +48,8 @@
       return p
     end
 
-    -- the game's own name of stat si (0..6): its equipment bonus text «<stat> +<VALUE>» (include/menu/equip_menu_inc,
-    -- the texts the stats' bonus lines use) without the value; nil = no answer
     G.statNames = G.statNames or {}
-    function G.ItemCardStatName(si)
+    function G.item_card_stat_name(si)
       si = tonumber(si)
       local id = si ~= nil and IC.effect.stat_texts[si + 1] or nil
       if id == nil then
@@ -75,9 +63,8 @@
       return G.statNames[si] or nil
     end
 
-    -- the game's own name of an element (host table effect.element_texts: menu_text ids), nil = none
     G.elementNames = G.elementNames or {}
-    function G.ItemCardElementName(element)
+    function G.item_card_element_name(element)
       local id = element ~= nil and IC.effect.element_texts[element] or nil
       if id == nil then
         return nil
@@ -145,13 +132,13 @@
       out[#out + 1] = {kind = "sprite", x = x, y = y - h / 2, value = {sp[1], sp[2], w, h, under = true}}
     end
 
-    function G.ItemCardEffectItems(rect)
+    function G.item_card_effect_items(rect)
       local E, F = IC.effect, G.icEffect
       local out = {}
       local x0, y0 = rect[1], rect[2]
       local r1, r2 = y0 + E.row1, y0 + E.row2
       local check = Spr(E.sprites.check)
-      -- row 1, left: the passive
+      -- Draws row 1, left.
       local x = Section(out, x0 + E.left, r1, E.sprites.bond)
       if type(F.passive) == "table" then
         local pieces = EffPieces(F.passive, true)
@@ -160,13 +147,12 @@
         Chip(out, x, r1, w, E.sprites.chip_on)
         DrawPieces(out, pieces, x + (w - pw) / 2, r1, "", "white")
       end
-      -- row 1, right: the affinity
+      -- Draws row 1, right.
       local A = F.affinity
       if type(A) == "table" then
         x = Section(out, x0 + E.split, r1, E.sprites.emblem)
         local pos = A.position ~= nil and E.positions[A.position] or nil
         if pos ~= nil then
-          -- a position whose game badge has no plate of its own (GK: dark letters on white) uses the card's own badge
           local own = type(E.position_own) == "table" and E.position_own[A.position] or nil
           local sp = (A.pos_ok or IC.no_player)
             and (own ~= nil and Spr(own) or {IC.badges.atlas, CALC_CRC(string.format(E.sprites.position, pos))})
@@ -184,7 +170,7 @@
           if pos ~= nil then
             x = DrawPieces(out, {{text = E.plus}}, x, r1, "", "ink") + E.gap
           end
-          x = DrawPieces(out, {{text = G.ItemCardElementName(A.element) or A.element}}, x, r1, "", "ink") + E.gap
+          x = DrawPieces(out, {{text = G.item_card_element_name(A.element) or A.element}}, x, r1, "", "ink") + E.gap
         end
         if el ~= nil or ext ~= nil then
           if pos ~= nil then
@@ -212,13 +198,14 @@
           rate = "one"                         -- the requirement and both rates: the neutral (blue) chip
         end
         local chip = rate == "both" and E.sprites.chip_on or (rate == "one" and E.sprites.chip_blue or E.sprites.chip_off)
-        local pw = PiecesWidth(pieces, "white")
+        local style = rate == "none" and "ink" or "white"   -- the off plate is light: the card's dark text
+        local pw = PiecesWidth(pieces, style)
         local w = math.max(pw + 2 * E.chip_pad, E.affinity_w)
         local cx = math.max(x + E.gap, x0 + E.right - w)
         Chip(out, cx, r1, w, chip)
-        DrawPieces(out, pieces, cx + (w - pw) / 2, r1, rate == "none" and E.off_tag or "", "white")
+        DrawPieces(out, pieces, cx + (w - pw) / 2, r1, "", style)
       end
-      -- row 2: the set
+      -- Draws row 2.
       local S = G.icSet
       if type(F.tiers) == "table" and #F.tiers > 0 and type(S) == "table" then
         x = Section(out, x0 + E.left, r2, E.sprites.equip)
@@ -240,8 +227,9 @@
         for i, t in ipairs(F.tiers) do
           local on = not IC.no_player and (S.nworn or 0) >= (tonumber(t.pieces) or 99)
           local pieces = EffPieces(t.reward or {}, on)
-          local w = math.max(PiecesWidth(pieces, "white", E.tier_scale), E.tier_min) + 2 * E.chip_pad
-          nat[i] = {pieces = pieces, w = w, on = on, need = tonumber(t.pieces) or 2}
+          local style = (on or IC.no_player) and "white" or "ink"   -- the off plate is light: the card's dark text
+          local w = math.max(PiecesWidth(pieces, style, E.tier_scale), E.tier_min) + 2 * E.chip_pad
+          nat[i] = {pieces = pieces, w = w, on = on, style = style, need = tonumber(t.pieces) or 2}
           total = total + w
         end
         local room = (x0 + E.right) - x - (#nat - 1) * E.tier_gap
@@ -251,12 +239,12 @@
             E.tier_h)
           -- the reward centred, its text shrunk to fit the chip (down to tier_scale_min)
           local sc = E.tier_scale
-          local pw = PiecesWidth(t.pieces, "white", sc)
+          local pw = PiecesWidth(t.pieces, t.style, sc)
           if pw > w - 2 * E.chip_pad then
             sc = math.max(E.tier_scale_min, sc * (w - 2 * E.chip_pad) / pw)
-            pw = PiecesWidth(t.pieces, "white", sc)
+            pw = PiecesWidth(t.pieces, t.style, sc)
           end
-          DrawPieces(out, t.pieces, x + (w - pw) / 2, r2 + E.reward_dy, (t.on or IC.no_player) and "" or E.off_tag, "white", sc)
+          DrawPieces(out, t.pieces, x + (w - pw) / 2, r2 + E.reward_dy, "", t.style, sc)
           local bx0, bx1 = x + E.bar_pad, x + w - E.bar_pad
           local bw = (bx1 - bx0 - E.bar_gap * (t.need - 1)) / t.need
           for i = 1, t.need do
@@ -271,8 +259,7 @@
       return out
     end
 
-    -- a row centred on the card: spaces before it for half of the room it leaves in the text box (its width measured)
-    function G.ItemCardCentred(text)
+    function G.item_card_centred(text)
       local B = IC.badges
       local w = TextWidth(text)
       local sw = TextWidth(string.rep(".", 10))
@@ -285,13 +272,13 @@
       return string.rep(" ", math.max(0, math.floor(pad / sw + 0.5))) .. text
     end
 
-    -- the stat page (a card without a player): the item's every stat change, [icon] game name +N (green) / -N (red)
-    function G.ItemCardStatParts(item)
+    -- Returns the parts of the stat page (a card without a player).
+    function G.item_card_stat_parts(item)
       local E, parts = IC.effect, {}
       for si = 0, 7 do
         local ok, has, v = pcall(funcLuaCommand, @crc:CMND_GET_EQUIP_PARAM@, item, si)
         v = ok and has ~= false and tonumber(v) or 0
-        local name = v ~= 0 and G.ItemCardStatName(si) or nil
+        local name = v ~= 0 and G.item_card_stat_name(si) or nil
         if name ~= nil then
           local key = IC.stat_by_index ~= nil and IC.stat_by_index[si + 1] or nil
           local icon = key ~= nil and E.stat_icons[key] or nil
@@ -301,9 +288,8 @@
       return parts
     end
 
-    -- the shown page's texts drawn on the icon layer: the stat row (centred, shrunk to the body's width) or the set's
-    -- title row (centred)
-    function G.ItemCardTextItems(rect)
+    -- Returns the shown page's texts drawn on the icon layer.
+    function G.item_card_text_items(rect)
       local E, out = IC.effect, {}
       local width = rect[3] - rect[1] - 2 * (IC.set_icons.margin or 0)
       if G.icStatPage ~= nil and G.icPage == G.icStatPage then
@@ -348,7 +334,7 @@
       return out
     end
 
-    function G.ItemCardEffectPage(effect)
+    function G.item_card_effect_page(effect)
       if type(effect) == "string" then
         return effect
       end
@@ -372,7 +358,6 @@
           local sw = (dots ~= nil and both ~= nil and both > dots) and (both - dots) / 10 or B.space_px
           local spaces = math.ceil((B.size[1] + 2 * B.gap) / sw)
           row = label .. string.rep(" ", spaces)
-          -- the badge in the middle of the spaces' room: the same gap before and after it
           local start = lw or #label * B.char_px
           G.icAffinity = {row = #lines + 1, sprite = sprite, x = start + (spaces * sw - B.size[1]) / 2}
         end
@@ -384,18 +369,18 @@
       return table.concat(lines, "\n")
     end
 
-    function G.ItemCardPages(item)
+    function G.item_card_pages(item)
       G.icPages, G.icSetPage, G.icStatPage, G.icPageNames, G.icSetTitle = {}, nil, nil, {}, nil
-      if item == nil or item == 0 or not G.ItemCardOn() then
+      if item == nil or item == 0 or not G.item_card_on() then
         return
       end
       G.icAffinity, G.icEffectPage, G.icEffect, G.icSet = nil, nil, nil, nil
       local hdl = (not IC.no_player and type(G.hdl) == "number") and G.hdl or 0
-      local ok, set = pcall(G.ItemCardSetPage, item)      -- first: the «Efecto» page uses the set's slots too
-      local effect = Command(IC.page_command, item, hdl)
+      local ok, set = pcall(G.item_card_set_page, item)
+      local effect = IC.page_command ~= nil and VRFW.host.command(IC.page_command, item, hdl)
       local names = type(effect) == "table" and type(effect.page_names) == "table" and effect.page_names or {}
       if IC.stat_page then
-        G.icStats = G.ItemCardStatParts(item)
+        G.icStats = G.item_card_stat_parts(item)
         if #G.icStats > 0 then
           G.icPages[#G.icPages + 1] = ""
           G.icStatPage = #G.icPages
@@ -405,11 +390,11 @@
       if type(effect) == "table" and (type(effect.passive) == "table" or type(effect.affinity) == "table"
           or (type(effect.tiers) == "table" and #effect.tiers > 0)) then
         G.icEffect = effect
-        G.icPages[#G.icPages + 1] = ""                    -- drawn by G.ItemCardEffectItems, no text
+        G.icPages[#G.icPages + 1] = ""                    -- drawn by G.item_card_effect_items, no text
         G.icEffectPage = #G.icPages
         G.icPageNames[#G.icPages] = names.effect
       else
-        local body = G.ItemCardEffectPage(effect)
+        local body = G.item_card_effect_page(effect)
         if body ~= nil and body ~= "" then
           G.icPages[#G.icPages + 1] = body
           G.icEffectPage = #G.icPages
@@ -420,9 +405,8 @@
         G.icSetPage = #G.icPages
         G.icPageNames[#G.icPages] = names.set
       end
-      -- no «Efecto» or «Conjunto» page (no data for the item, or no module answers): its stat row, drawn like the pages
       if #G.icPages == 0 and not IC.stat_page then
-        G.icStats = G.ItemCardStatParts(item)
+        G.icStats = G.item_card_stat_parts(item)
         if #G.icStats > 0 then
           G.icPages[1] = ""
           G.icStatPage = 1
@@ -434,7 +418,7 @@
       end
     end
 
-    function G.ItemCard()
+    function G.item_card()
       local L, i = IC.layer, 0
       if not Exists(L) or Cmd(C.IS_OPEN, L, i) ~= true then
         G.itemCardPending = true
@@ -444,10 +428,9 @@
       if IC.relayout == false then
         return
       end
-      local rect = G.ItemCardRect()
+      local rect = G.item_card_rect()
       local h = rect[4] - rect[2]
-      -- the base sits at the card's `anchor`: the name / bonus texts keep their layout offsets from it (their own node
-      -- moves are not drawn), every other node is placed from the card's top-left
+      -- The base sits at the card's `anchor`.
       local ax, ay = IC.anchor[1], IC.anchor[2]
       local x0, y0 = rect[1], rect[2]
       Cmd(C.NODE_POS, L, i, IC.base, 0, x0 + ax - IC.root[1])
@@ -463,27 +446,26 @@
           Cmd(C.NODE_SCALE, L, i, n[1], w, hh)
         end
       end
-      -- the retail body mesh off (its drop shadow); the white body is the stats panel's own (the host's card rect runs
-      -- up under the item card: one panel), else a body layer of our own (IC.body_bottom)
+      -- Hides the retail body mesh (its drop shadow).
       Cmd(C.MESH, L, IC.body_mesh, false, i)
       if IC.body_bottom == nil then
-        G.Try("ItemCardBody", nil, false)
+        G.try("item_card_body", nil, false)
       else
         local body = {rect[1], rect[2], rect[3], math.max(rect[4], IC.body_bottom)}
-        if not G.ItemCardBody(body, true) then
+        if not G.item_card_body(body, true) then
           G.itemCardPending = true
         end
       end
       if not G.icDumped then
         G.icDumped = true
-        G.Try("ItemCardDump")
+        G.try("item_card_dump")
       end
     end
 
-    -- once: where the card's nodes are drawn (CMND_GET_MESH_GLOBAL_POSITION), to loader.log
-    function G.ItemCardDump()
+    -- Dumps once.
+    function G.item_card_dump()
       for _, n in ipairs(IC.dump or {}) do
         local ok, x, y = pcall(funcLuaMenuCommand, @crc:CMND_GET_MESH_GLOBAL_POSITION@, IC.layer, 0, n[1])
-        pcall(funcLuaCommand, C.LOG, "EVT_PPG item card node", n[2], tostring(ok and x), tostring(ok and y))
+        pcall(funcLuaCommand, C.LOG, "PlayerPage item card node", n[2], tostring(ok and x), tostring(ok and y))
       end
     end

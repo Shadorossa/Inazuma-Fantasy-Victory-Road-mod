@@ -1,0 +1,31 @@
+# BetterUI: compact player cards (no name or level on the formation card layout).
+name = "better_ui_player_cards"
+mod = "BetterUI"
+order = 910
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []   # the formation card functions are wrapped at run time (BetterUI.player_card_wrap_formation)
+description = "Compact player cards: no name or level on the formation card layout"
+
+[[files]]
+stem = "soccer_common"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "pc_soccer_common.lua"
+  marker = "better_ui player_cards"
+  crc = "none"
+  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_child"
+  generator_arguments = { part = "better_ui_player_cards.lua", tag = "player_cards", scope = "BetterUI" }
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "player_cards" }
+
+[[files]]
+stem = "soccer_formation_menu_inc"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "pc_formation.lua"
+  marker = "better_ui player_cards formation"
+  crc = "none"

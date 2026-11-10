@@ -1,5 +1,3 @@
 schema = "VRFW.model/1"
-# Effect object ev60900050 of a move's event: game files served as they are, from assets\models\effects\ev60900050\{common,dx11}\ to data\{common,dx11}\effect\event\ev60\ev60900050\
-# (native: the object carries its own animation banks and materials). research/scripts/hissatsu_revamp_build.py.
 format = "native"
 game_path = "effect/event/ev60/ev60900050"

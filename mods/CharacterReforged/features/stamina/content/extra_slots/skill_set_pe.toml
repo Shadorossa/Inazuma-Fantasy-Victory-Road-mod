@@ -1,0 +1,7 @@
+schema = "VRFW.extra_slot/1"
+
+[[VRFW.ExtraSlotExtend]]
+slot = "CharacterReforged.skill_set"
+
+[VRFW.ExtraSlotExtend.rules]
+start_free = [[{ table = "CharacterReforged.PointsStaminaAura", key = ["skill"], field = "waived", is = "set" }]]

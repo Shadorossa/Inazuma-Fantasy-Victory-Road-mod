@@ -1,0 +1,31 @@
+schema = "VRFW.item/2"
+
+# Bond Stars (Players Universe's currency) paid at the end of every won match; one rule per battle kind, the Win amounts are the quantities.
+# The Difficulty table only selects the row: a match has one difficulty, so at most one rule pays.
+
+# Batalla de cronica: difficulty row 1 of the Chronicle board and its chains.
+[[VRFW.MatchDropExtra]]
+Item = "tk_st000001"
+Win = 5
+Modes = ["chronicle"]
+DifficultyDefault = 0.0
+  [VRFW.MatchDropExtra.Difficulty]
+  Cronica = 1.0
+
+# Batalla heroica: difficulty row 4 of the Chronicle board and its chains.
+[[VRFW.MatchDropExtra]]
+Item = "tk_st000001"
+Win = 10
+Modes = ["chronicle"]
+DifficultyDefault = 0.0
+  [VRFW.MatchDropExtra.Difficulty]
+  Heroica = 1.0
+
+# Batalla legendaria: the Free Match class of difficulty row 9; a Free Match has no mode key of its own, so every other mode that holds a row 9 is left out.
+[[VRFW.MatchDropExtra]]
+Item = "tk_st000001"
+Win = 20
+ExceptModes = ["chronicle", "story", "free_walk", "victory_road", "battle_bay", "pachanga", "InaRogue.run", "careermode.career"]
+DifficultyDefault = 0.0
+  [VRFW.MatchDropExtra.Difficulty]
+  Class4 = 1.0

@@ -1,16 +1,9 @@
--- Shop aura cards. Declarations: every active mod's content\shop_aura_cards\*.toml (`VRFW.shop_aura_card/1`); command: content\game\shop_aura_cards.toml;
--- menu side: assets\lua\menu\shop_menu_buy\150_shop_aura_cards.lua. Switch: config.toml [shop] aura_cards (default on).
--- The game's shop draws the aura card on the right only for the special-move items of sub-kinds 125 and 171-176. A declared sub-kind is drawn with
--- the card of its aura type; with the switch off its rows keep the game's look, and the declared card layers are still kept hidden.
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_VRFW_SHOP_AURA_CARDS | | on, n, item sub-kind 1, aura type 1, layer id 1, … |
+-- Shop aura cards.
 
 ShopAuraCards = ShopAuraCards or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("shop_aura_cards")
 
 local ON = false

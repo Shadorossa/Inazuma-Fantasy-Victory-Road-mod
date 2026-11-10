@@ -1,9 +1,4 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: Street Sally's as an IE1 team: the rival of the Chronicle side node «Sally's»
-# (Chronicle Deluxe, content/teams/70_route_nodes/side_nodes.toml `ie1_sallys`), like Umbrella
-# (0300_umbrella_ie1.toml). Roster = the retail legend team tm_cro_legend_ie1_06 (its formation, kit and crest through
-# based_on), the line-up of the Estadio BB clone bb_204; every player plays his
-# card's own moveset (loadout 0), no aura / Hiper. Its level comes from its game (the node's rows).
 default_lang = "en"
 
 [[team]]

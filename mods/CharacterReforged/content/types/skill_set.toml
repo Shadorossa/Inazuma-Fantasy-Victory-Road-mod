@@ -13,6 +13,9 @@ mix_types = { type = "ints" }
 mix_stat_types = { type = "ints" }
 moveset_export = { type = "string" }
 
-[entry.PlaceRules]
-single = true
-hissatsu_level_up = { type = "table" }
+[entry.PlaceRule]
+doc = "one placement rule: a command that answers whether a move may be placed in a slot"
+name = { type = "name", required = true, doc = "the rule's name; a later mod's rule of the same name merges over it" }
+command = { type = "string", required = true, doc = "the CMND_* command asked (charaHdl, slot, move) -> ok, reason" }
+slot = { type = "string", default = "board", values = ["board", "set"], doc = "the slot number the command receives" }
+off = { type = "bool", default = false, doc = "turns this rule off" }

@@ -1,7 +1,4 @@
 schema = "VRFW.base_table/1"
-# The trigger rows that play the moves' ball auras (effect_define.toml, same folder) on the ball (CB_SkillShootBallAura)
-# while their colour row's statuses are on: each the retail aura's row with the effect (#0) and the status (#8)
-# changed, in the ball's definition (DEF #0 = 0x6439C5A6).
 
 [[keyed]]
 list = "EFFECT_CHR_TRIGGER_DEFINE_DEF_INFO"

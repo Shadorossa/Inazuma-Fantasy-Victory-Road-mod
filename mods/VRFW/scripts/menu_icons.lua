@@ -1,18 +1,13 @@
--- Menu icons by meaning: a series' icon and a staff role's icon as a texture sheet + sprite pair (content/defaults/menu_icons.toml, every mod's, load order).
--- A menu script draws the pair on any quad with the sprite command 558735651(layer, sheet, sprite, texture node, 0, instance).
---   CMND_VRFW_SERIES_ICON(series name, alias or number[, style "on"]) -> ok, sheet hash, sprite hash
---   CMND_VRFW_ROLE_ICON(role "manager" / "coach") -> ok, sheet hash, sprite hash
 
 MenuIcons = MenuIcons or {}
 
-require "VRFW/lib/basics"
 local _, warn = VRFW.logger("menu_icons")
 
-local Id = require "lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 local crc = VRFW.crc32
 
-local SERIES = { sheet = nil, sprite = nil, sprite_on = nil }  -- sprite_on: the white «on» look (style "on")
+local SERIES = { sheet = nil, sprite = nil, sprite_on = nil }  -- sprite_on: the white "on" look (style "on")
 local BY_NAME = {}                                              -- series name / alias -> { sheet, sprite }
 local ROLES = { sheet = nil }                                   -- sheet + [role] = sprite name
 
@@ -64,7 +59,7 @@ local function series_number(v)
   return nil
 end
 
-local CACHE = {}         -- "<series number>:<style>" -> { sheet hash, sprite hash } | false
+local CACHE = {}
 
 local function series_icon(v, style)
   local t = series_number(v)

@@ -1,7 +1,4 @@
 schema = "VRFW.base_table/1"
-# The ball auras of the moves' own colour rows (gamedata\skill\skill_config.toml): pooled effects <tag>a / b / c
-# (shot, chain shot, long shot) on the recoloured copies the mod ships (content\models\effects\), each the retail
-# ball aura of the colour row its row was copied from. Effect id = crc32(name).
 
 [[keyed]]
 table = "effect/effect_define"

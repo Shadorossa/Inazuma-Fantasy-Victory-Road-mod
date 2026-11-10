@@ -1,30 +1,70 @@
-# Character Reforged › its rows in Opciones › «Opciones de mods» and on the Mods screen's «Ajustes».
-# Values: <data dir>\mod_options\character_reforged.json.
+# The mod's rows in Opciones › «Opciones de mods» and on the Mods screen's «Ajustes».
 
-# «Máx. auras por equipo»:
-# how many players of each team may run an aura at once in a match (keshin, totem, armour, miximax, mode change:
-# every form of the framework's transform run time). Both teams; a start over the limit is refused like the game's own
-# limit (the aura command answers «not available»). 0 = no limit. Read at every match start (no restart):
-# content\transforms\team_limit.toml [rules] team_aura_max_option.
 [[option]]
-id = "team_aura_max"                          # row key CharacterReforged.team_aura_max
+id = "team_aura_max"
 type = "list"
 label = "team_aura_max"                       # text\keys.toml, 9 languages
 help = "team_aura_max_help"
 values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, { value = 0, name = "team_aura_max_none", text = "No limit" }]
 default = 3
 order = 141
+category = "category_auras"
 
-# «Cooldown entre auras»:
-# seconds of match time after a team starts any aura (keshin, totem, armour, miximax, mode change...) before
-# that team may start another. Per team, both teams (the CPU too); paused time and the half-time break do not count.
-# 0 = off. Read at every match start (no restart): content\transforms\aura_cooldown.toml [rules]
-# team_aura_cooldown_option.
 [[option]]
-id = "aura_cooldown"                          # row key CharacterReforged.aura_cooldown
+id = "aura_cooldown"
 type = "list"
 label = "aura_cooldown"                       # text\keys.toml, 9 languages
 help = "aura_cooldown_help"
 values = [{ value = 0, name = "aura_cooldown_off", text = "Off" }, { value = 5, text = "5 s" }, { value = 10, text = "10 s" }, { value = 15, text = "15 s" }, { value = 20, text = "20 s" }, { value = 30, text = "30 s" }]
 default = 10
 order = 142
+category = "category_auras"
+
+[[option]]
+id = "transformation_items"
+type = "toggle"
+label = "transformation_items"                # text\keys.toml, 9 languages
+help = "transformation_items_help"
+default = 1
+order = 143
+category = "category_auras"
+restart = true
+
+[[option]]
+id = "keshin_points"
+type = "toggle"
+label = "keshin_points"                       # text\keys.toml, 9 languages
+help = "keshin_points_help"
+default = 1
+restart = true
+order = 144
+category = "category_points"
+
+[[option]]
+id = "totem_points"
+type = "toggle"
+label = "totem_points"
+help = "totem_points_help"
+default = 1
+restart = true
+order = 145
+category = "category_points"
+
+[[option]]
+id = "souls_top_level"
+type = "toggle"
+label = "souls_top_level"
+help = "souls_top_level_help"
+default = 0
+order = 147
+category = "category_totems"
+
+[[option]]
+id = "stamina"
+type = "toggle"
+label = "stamina_points"
+help = "stamina_points_help"
+default = 1
+restart = true
+order = 146
+category = "category_points"

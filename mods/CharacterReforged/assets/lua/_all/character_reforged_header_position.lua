@@ -1,35 +1,27 @@
--- Character Reforged: on the screens that ask for it (the per-screen file character_reforged_header_position.lua of
--- personal_plate_menu, evt_skill_slot_menu and equip_menu sets CharacterReforged.HeaderPositionWanted), the player
--- header's badge shows the player's OWN position (VRFW_UI.HeaderRow.Natural: the card's main position), not the
--- position of the formation slot he stands in. The retail header fill draws the slot's badge; right after each fill of
--- a header plate the badge is set again. Coaches / managers and unknown characters keep the retail badge. Wraps
--- UpdateCharaStatusPlateInfoByCharaStHdl once per VM; no engine call at load time. The per-screen file and this one
--- load in either order: whichever comes second enables it.
 CharacterReforged = type(CharacterReforged) == "table" and CharacterReforged or {}
-if CharacterReforged.HeaderPosition == nil and type(rawget(_ENV, "UpdateCharaStatusPlateInfoByCharaStHdl")) == "function" then
+if CharacterReforged.header_position == nil and type(rawget(_ENV, "UpdateCharaStatusPlateInfoByCharaStHdl")) == "function" then
   local P = {
     -- soccer11_04_formation_chara_status, soccer11_04_chara_status (the header plates)
     LAYERS = {[1844915256] = true, [607716004] = true},
     wrapped = false,
   }
-  CharacterReforged.HeaderPosition = P
+  CharacterReforged.header_position = P
 
-  -- the badge of the header plate (layer, inst) filled with the status handle hdl: the player's own position
-  function P.AfterFill(layer, inst, hdl)
+  function P.after_fill(layer, inst, hdl)
     if not P.LAYERS[layer] then
       return
     end
-    local rows = type(VRFW_UI) == "table" and VRFW_UI.HeaderRow or nil
+    local rows = type(VRFW.ui_plates) == "table" and VRFW.ui_plates.header_row or nil
     if rows == nil then
       return
     end
-    local staff, icon = rows.Natural(hdl)
+    local staff, icon = rows.natural(hdl)
     if staff == false and icon ~= nil then
-      rows.Badge(layer, inst or 0, icon)
+      rows.badge(layer, inst or 0, icon)
     end
   end
 
-  function CharacterReforged.EnableHeaderPosition()
+  function CharacterReforged.enable_header_position()
     if P.wrapped then
       return
     end
@@ -37,12 +29,12 @@ if CharacterReforged.HeaderPosition == nil and type(rawget(_ENV, "UpdateCharaSta
     P.previousFill = UpdateCharaStatusPlateInfoByCharaStHdl
     function UpdateCharaStatusPlateInfoByCharaStHdl(layer, inst, hdl, ...)
       local result = table.pack(P.previousFill(layer, inst, hdl, ...))
-      pcall(P.AfterFill, layer, inst, hdl)
+      pcall(P.after_fill, layer, inst, hdl)
       return table.unpack(result, 1, result.n)
     end
   end
 
-  if CharacterReforged.HeaderPositionWanted then
-    CharacterReforged.EnableHeaderPosition()
+  if CharacterReforged.header_position_wanted then
+    CharacterReforged.enable_header_position()
   end
 end

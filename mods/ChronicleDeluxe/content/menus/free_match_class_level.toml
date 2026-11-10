@@ -1,11 +1,4 @@
 schema = "VRFW.menu/2"
-# Chronicle Deluxe: the free-match class card's level ball shows the class level with 3 digits (Lv 200 of BATALLA
-# LEGENDARIA). The card's number 0xAA5F9EE0 (num_menu01b_02_ of vsroute01_21_sub_list) is drawn at most 99 by retail
-# (DispMaxValue 99, 2 digit slots: the slots are the base table
-# content/base_tables/menu/config/menu_graphic_number_config.toml). At the retail 17 x 23 digit slot «200» is 53 px on
-# the ball's 44 px disc, so the digit slot _num_enemy_lv_dmy01 of vsroute01_21.g4pkm takes the size of the retail
-# condensed slot _num_enemy_lv_dmy02 of the Chronicle difficulty list (vsroute01_16: 13 x 23 at -6.5, the same ball
-# and digits): 3 digits = 41 px, 2 digits = 27 px, centred. Values from the v7.1.2 layouts.
 
 [[object_set]]
 object = "vsroute01_21_sub_list"

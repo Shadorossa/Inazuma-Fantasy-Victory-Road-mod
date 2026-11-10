@@ -1,20 +1,3 @@
--- Seeded daily picks of the scripts: one draw from a candidate list that is the same on every PC for a period id
--- (docs/framework/daily.md, «Daily picks in scripts»). The seed is VRFW.rng(salt, { period id, version }).
---   local Daily = require "VRFW/lib/daily"      (also VRFW_Daily.Pick in the script's VM)
---   Daily.Pick(rule, id) -> list of picks in draw order; nil, why
--- rule = {
---   salt = "Mod.Feature",    -- the generator's key (keep it: a new salt changes every past and future pick)
---   version = 1,             -- second seed word (raise it to draw a new sequence)
---   pool = { ... },          -- the candidates, in a fixed order (sorted by the caller, e.g. a game_catalogue pool)
---   picks = 1,               -- how many picks
---   distinct = true,         -- true: n different candidates (forward partial Fisher-Yates with rng:below);
---                            -- false: per pick, an index drawn again (at most `tries` times) until `accept` takes it
---   accept = fn(candidate),  -- distinct = false only: the value kept for the candidate, or nil / false to draw again
---   tries = 64,              -- distinct = false only
--- }
---   Daily.Cycle(rule, id) -> one candidate of rule.pool: a seeded walk over the list, so two consecutive period ids never
---                            give the same candidate (a list of 2 or more) and none comes back before the whole list
---                            went by; nil, why for an empty list. rule = { salt, version, pool }
 
 local M = {}
 
@@ -63,7 +46,8 @@ local function greatest_divisor(a, b)
   return a
 end
 
-function M.Cycle(rule, id)
+--- The pool entry of day `id` going through the pool in order; nil, why on a bad rule.
+function M.cycle(rule, id)
   if type(rule) ~= "table" or type(rule.pool) ~= "table" then
     return nil, "rule"
   end
@@ -75,7 +59,7 @@ function M.Cycle(rule, id)
   if n == 1 then
     return pool[1]
   end
-  local rng = VRFW.rng(tostring(rule.salt or ""), { n, int(rule.version, 1) })
+  local rng = VRFW.random(tostring(rule.salt or ""), { n, int(rule.version, 1) })
   local start = rng:below(n)
   local step = rng:below(n - 1) + 1
   while greatest_divisor(step, n) ~= 1 do
@@ -84,7 +68,8 @@ function M.Cycle(rule, id)
   return pool[(start + (int(id, 0) % n) * step) % n + 1]
 end
 
-function M.Pick(rule, id)
+--- The entries of `rule` drawn for day `id`; nil, why on a bad rule.
+function M.pick(rule, id)
   if type(rule) ~= "table" or type(rule.pool) ~= "table" then
     return nil, "rule"
   end
@@ -93,7 +78,7 @@ function M.Pick(rule, id)
   if n < 1 then
     return nil, "picks"
   end
-  local rng = VRFW.rng(tostring(rule.salt or ""), { int(id, 0), int(rule.version, 1) })
+  local rng = VRFW.random(tostring(rule.salt or ""), { int(id, 0), int(rule.version, 1) })
   if rule.distinct == false then
     if #pool == 0 then
       return nil, "empty pool"
@@ -110,8 +95,5 @@ function M.Pick(rule, id)
   end
   return draw_distinct(rng, pool, n)
 end
-
-VRFW_Daily = rawget(_G, "VRFW_Daily") or {}
-VRFW_Daily.Pick = M.Pick
 
 return M

@@ -1,16 +1,11 @@
--- BattleBayDeluxe bb_draft, the 1 vs 1's match settings without the difficulty row while a mod owns the AI
--- difficulty (enjoy_team_select_menu_offline; bbd_difficulty_common.lua). The settings list (its 4 rows: difficulty,
--- stadium, BGM, commentator) opens with the focus on row 0, the difficulty, whose decide opens the difficulty sub
--- window. With an owned difficulty, when the list's last row opened: row 0 is hidden, without its click zone and
--- focus, and the focus starts on row 1; a focus that reaches row 0 (Up, a wrap) goes to row 1; a decide on row 0 does
--- nothing. The match start reads GetSelectDifficultyIdx, which answers the owned index. Globals only; nothing runs at
--- chunk load.
-BBD_DIFFICULTY.FIRST_ROW = 1 -- the first row shown: the stadium
-BBD_DIFFICULTY.CURSOR = 3313461902 --[[cursor: the attach of the list rows]]
+-- Free-match settings list
+BattleBayDeluxe = type(BattleBayDeluxe) == "table" and BattleBayDeluxe or {}
+BattleBayDeluxe.difficulty.FIRST_ROW = 1 -- the first row shown: the stadium
+BattleBayDeluxe.difficulty.CURSOR = 3313461902 --[[cursor: the attach of the list rows]]
 
 -- the focus (and the cursor) on row `row` of the settings list
-function BBD_DifficultyFocusRow(row)
-  local L = BBD_DIFFICULTY.OPTIONS
+function BattleBayDeluxe.difficulty_focus_row(row)
+  local L = BattleBayDeluxe.difficulty.OPTIONS
   local n = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, L)
   if type(n) ~= "number" or row >= n then
     return
@@ -19,29 +14,29 @@ function BBD_DifficultyFocusRow(row)
   funcLuaMenuCommand(@crc:CMND_PLAY_ANIME_TYPE@ --[[focus look]], L, 0, 2734777837, 2, 973515837)
   funcLuaMenuCommand(1778826357 --[[control focus (layer, idx, on)]], L, row, true)
   funcLuaMenuCommand(@crc:CMND_PLAY_ANIME_TYPE@ --[[focus look]], L, row, 2734777837, 0, 973515837)
-  funcLuaMenuCommand(@crc:CMND_SET_CURSOR_LOCATOR@, L, BBD_DIFFICULTY.CURSOR, row, n)
+  funcLuaMenuCommand(@crc:CMND_SET_CURSOR_LOCATOR@, L, BattleBayDeluxe.difficulty.CURSOR, row, n)
 end
 
 -- the difficulty row hidden, the focus on the first row shown
-function BBD_DifficultyHideRow()
-  local L = BBD_DIFFICULTY.OPTIONS
+function BattleBayDeluxe.difficulty_hide_row()
+  local L = BattleBayDeluxe.difficulty.OPTIONS
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, L, 0, false)
   funcLuaMenuCommand(855005857 --[[click zone]], L, 0, false)
-  BBD_DifficultyFocusRow(BBD_DIFFICULTY.FIRST_ROW)
-  BBD_DifficultyLog("match settings: the difficulty row hidden")
+  BattleBayDeluxe.difficulty_focus_row(BattleBayDeluxe.difficulty.FIRST_ROW)
+  BattleBayDeluxe.difficulty_log("match settings: the difficulty row hidden")
 end
 
 do
   local open = OnOpenLayer
   function OnOpenLayer(a1, a2, ...)
     local r = table.pack(open(a1, a2, ...))
-    if a1 == BBD_DIFFICULTY.OPTIONS then
+    if a1 == BattleBayDeluxe.difficulty.OPTIONS then
       local okn, n = pcall(funcLuaMenuCommand, @crc:CMND_GET_CREATE_LAYER_NUM@, a1)
-      local ok, owned = pcall(BBD_DifficultyOwned)
+      local ok, owned = pcall(BattleBayDeluxe.difficulty_owned)
       if okn and type(n) == "number" and a2 == n - 1 and ok and owned ~= nil then
-        local okh, err = pcall(BBD_DifficultyHideRow)
+        local okh, err = pcall(BattleBayDeluxe.difficulty_hide_row)
         if not okh then
-          BBD_DifficultyLog("match settings error", tostring(err))
+          BattleBayDeluxe.difficulty_log("match settings error", tostring(err))
         end
       end
     end
@@ -50,10 +45,10 @@ do
 
   local change = OnChangeFocus
   function OnChangeFocus(a1, a2, ...)
-    if a1 == BBD_DIFFICULTY.OPTIONS then
-      local ok, owned = pcall(BBD_DifficultyOwned)
+    if a1 == BattleBayDeluxe.difficulty.OPTIONS then
+      local ok, owned = pcall(BattleBayDeluxe.difficulty_owned)
       if ok and owned ~= nil and funcLuaMenuCommand(2603265800 --[[focus index]], a1) == 0 then
-        pcall(BBD_DifficultyFocusRow, BBD_DIFFICULTY.FIRST_ROW)
+        pcall(BattleBayDeluxe.difficulty_focus_row, BattleBayDeluxe.difficulty.FIRST_ROW)
         return
       end
     end
@@ -62,8 +57,8 @@ do
 
   local decide = OnDecideFocus
   function OnDecideFocus(a1, a2, ...)
-    if a1 == BBD_DIFFICULTY.OPTIONS and a2 == 0 then
-      local ok, owned = pcall(BBD_DifficultyOwned)
+    if a1 == BattleBayDeluxe.difficulty.OPTIONS and a2 == 0 then
+      local ok, owned = pcall(BattleBayDeluxe.difficulty_owned)
       if ok and owned ~= nil then
         return
       end

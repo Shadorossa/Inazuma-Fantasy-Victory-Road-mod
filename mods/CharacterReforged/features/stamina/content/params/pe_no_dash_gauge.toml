@@ -1,0 +1,7 @@
+schema = "VRFW.param/1"
+
+[game_param.CSoccerGlobalParam]
+teamCharaManualDashActiveTime = 3600.0       # fuel max of a manual dash (s); retail 4, IF 8
+teamCharaManualDashRecastTime = 0.0          # lock-out after the fuel ran dry (s); retail 5, IF 9
+teamCharaManualDashRecastDelayTime = 0.0
+ctrlCharaDashModeActiveTime = 3600.0         # fuel on a kickoff / restart reset (s); retail 4

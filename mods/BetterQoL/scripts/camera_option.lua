@@ -1,10 +1,3 @@
--- BetterQoL › «Cámara del partido» (feature camera). The side camera is the preset BetterQoL.side of the mod's
--- cameras\side.toml on the VR-Framework's match camera service (docs/framework/camera.md), requested by the Lua of
--- graft research/grafts/camera_side while the option row BetterQoL.camera (storage = "mod_options") says «Lateral».
---
--- This script only takes over the old setting once: the row's value used to live in BetterQoL's global blob
--- camera.json ({ "side_view": true/false, … }). When mod_options\BetterQoL.json has no `camera` value yet, the old
--- side_view becomes it (1 = Lateral, 0 = Original); the old blob is left where it is.
 
 local OPTION = "camera"
 local BLOB = "camera.json"
@@ -13,7 +6,7 @@ local function take_over()
   if VRFW.options.values()[OPTION] ~= nil then
     return
   end
-  local bytes = VRFW.save.blob(BLOB, "global")
+  local bytes = VRFW.save.doc.read_text(BLOB, "global")
   if bytes == nil then
     return
   end

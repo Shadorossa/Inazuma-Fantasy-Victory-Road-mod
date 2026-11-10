@@ -1,0 +1,1468 @@
+schema = "VRFW.migration/1"
+id = "VRFW.generated_names"
+description = "Route node, chain, INAROGUE and element passive game names renamed: every stored id kept"
+phase = "data"
+after = ["VRFW.no_compat_names", "BetterQoL.former_utilities_ids"]
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "team"
+from = "ChronicleDeluxe.cro_ie1_own_evt_rn_ie1_umbrella"
+to = "ChronicleDeluxe.cro_ie1_own_vrfw_node_ie1_umbrella"
+if_target = "keep_source"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "team"
+from = "ChronicleDeluxe.cro_ie1_own_evt_rn_ie1_sallys"
+to = "ChronicleDeluxe.cro_ie1_own_vrfw_node_ie1_sallys"
+if_target = "keep_source"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "team"
+from = "ChronicleDeluxe.cro_ie2_own_evt_rn_ie2_forest"
+to = "ChronicleDeluxe.cro_ie2_own_vrfw_node_ie2_forest"
+if_target = "keep_source"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "team"
+from = "ChronicleDeluxe.cro_galaxy_own_evt_rn_galaxy_raimon"
+to = "ChronicleDeluxe.cro_galaxy_own_vrfw_node_galaxy_raimon"
+if_target = "keep_source"
+
+# Free-match clear bits of the route node games (keys free_match.<game>.<class>): same bits, won classes stay won.
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "vrfw.clear_bit"
+from = "free_match.evt_rn_ie1_umbrella"
+to = "free_match.vrfw_node_ie1_umbrella"
+if_target = "keep_source"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "vrfw.clear_bit"
+from = "free_match.evt_rn_ie1_sallys"
+to = "free_match.vrfw_node_ie1_sallys"
+if_target = "keep_source"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "vrfw.clear_bit"
+from = "free_match.evt_rn_ie2_forest"
+to = "free_match.vrfw_node_ie2_forest"
+if_target = "keep_source"
+
+# INAROGUE save files and the match journal store rival games / teams / team names by crc32(name).
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_ancient_darkness"
+to = "inarogue_boss_ancient_darkness"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_big_bang"
+to = "inarogue_boss_big_bang"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_chaos"
+to = "inarogue_boss_chaos"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_chrono_crisis"
+to = "inarogue_boss_chrono_crisis"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_dark_angel"
+to = "inarogue_boss_dark_angel"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_dark_team"
+to = "inarogue_boss_dark_team"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_demon_horn"
+to = "inarogue_boss_demon_horn"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_diamond_dust_c"
+to = "inarogue_boss_diamond_dust_c"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_eternal_light"
+to = "inarogue_boss_eternal_light"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_fire_heroes"
+to = "inarogue_boss_fire_heroes"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_forest_heroes"
+to = "inarogue_boss_forest_heroes"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_galactic_dynasty"
+to = "inarogue_boss_galactic_dynasty"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_gar"
+to = "inarogue_boss_gar"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_gir"
+to = "inarogue_boss_gir"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_golden_bears"
+to = "inarogue_boss_golden_bears"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_l5_heroes_cs"
+to = "inarogue_boss_l5_heroes_cs"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_l5_heroes_gx"
+to = "inarogue_boss_l5_heroes_gx"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_lunar_howl"
+to = "inarogue_boss_lunar_howl"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_mountain_heroes"
+to = "inarogue_boss_mountain_heroes"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_night_creatures"
+to = "inarogue_boss_night_creatures"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_night_vipers"
+to = "inarogue_boss_night_vipers"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_north_fang"
+to = "inarogue_boss_north_fang"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_nosfanatics"
+to = "inarogue_boss_nosfanatics"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_prominence_c"
+to = "inarogue_boss_prominence_c"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_ragnah"
+to = "inarogue_boss_ragnah"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_scarlet_hounds"
+to = "inarogue_boss_scarlet_hounds"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_sky_team"
+to = "inarogue_boss_sky_team"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_south_claw"
+to = "inarogue_boss_south_claw"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_supernova"
+to = "inarogue_boss_supernova"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_team_zero"
+to = "inarogue_boss_team_zero"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_true_legends"
+to = "inarogue_boss_true_legends"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_ultra_mega_ivy"
+to = "inarogue_boss_ultra_mega_ivy"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_waterfowl"
+to = "inarogue_boss_waterfowl"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_wind_heroes"
+to = "inarogue_boss_wind_heroes"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_winter_ermines"
+to = "inarogue_boss_winter_ermines"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_b_zan"
+to = "inarogue_boss_zan"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro01_020"
+to = "inarogue_chronicle_cro01_020"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro01_030"
+to = "inarogue_chronicle_cro01_030"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro01_040"
+to = "inarogue_chronicle_cro01_040"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro01_050"
+to = "inarogue_chronicle_cro01_050"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro01_060"
+to = "inarogue_chronicle_cro01_060"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro01_090"
+to = "inarogue_chronicle_cro01_090"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro01_100"
+to = "inarogue_chronicle_cro01_100"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro01_110"
+to = "inarogue_chronicle_cro01_110"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro01_120"
+to = "inarogue_chronicle_cro01_120"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro01_130"
+to = "inarogue_chronicle_cro01_130"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro02_010"
+to = "inarogue_chronicle_cro02_010"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro02_020"
+to = "inarogue_chronicle_cro02_020"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro02_040"
+to = "inarogue_chronicle_cro02_040"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro02_070"
+to = "inarogue_chronicle_cro02_070"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro02_090"
+to = "inarogue_chronicle_cro02_090"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro02_150"
+to = "inarogue_chronicle_cro02_150"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro02_160"
+to = "inarogue_chronicle_cro02_160"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro02_180"
+to = "inarogue_chronicle_cro02_180"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro02_190"
+to = "inarogue_chronicle_cro02_190"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro02_200"
+to = "inarogue_chronicle_cro02_200"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro03_050"
+to = "inarogue_chronicle_cro03_050"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro03_060"
+to = "inarogue_chronicle_cro03_060"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro03_080"
+to = "inarogue_chronicle_cro03_080"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro03_090"
+to = "inarogue_chronicle_cro03_090"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro03_100"
+to = "inarogue_chronicle_cro03_100"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro03_110"
+to = "inarogue_chronicle_cro03_110"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro03_180"
+to = "inarogue_chronicle_cro03_180"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro04_010"
+to = "inarogue_chronicle_cro04_010"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro04_030"
+to = "inarogue_chronicle_cro04_030"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro04_040"
+to = "inarogue_chronicle_cro04_040"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro04_050"
+to = "inarogue_chronicle_cro04_050"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro04_070"
+to = "inarogue_chronicle_cro04_070"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro04_140"
+to = "inarogue_chronicle_cro04_140"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro05_010"
+to = "inarogue_chronicle_cro05_010"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro05_080"
+to = "inarogue_chronicle_cro05_080"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro05_190"
+to = "inarogue_chronicle_cro05_190"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro05_230"
+to = "inarogue_chronicle_cro05_230"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro06_130"
+to = "inarogue_chronicle_cro06_130"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro06_160"
+to = "inarogue_chronicle_cro06_160"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro07_020"
+to = "inarogue_chronicle_cro07_020"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro07_130"
+to = "inarogue_chronicle_cro07_130"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_f_cro08_120"
+to = "inarogue_chronicle_cro08_120"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_art_01"
+to = "inarogue_friendly_art_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_bareboru_01"
+to = "inarogue_friendly_bareboru_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_basketball_01"
+to = "inarogue_friendly_basketball_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_batominntonn_01"
+to = "inarogue_friendly_batominntonn_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_bodybuild_01"
+to = "inarogue_friendly_bodybuild_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_dance_01"
+to = "inarogue_friendly_dance_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_dennshikeisannki_01"
+to = "inarogue_friendly_dennshikeisannki_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_enngeki_01"
+to = "inarogue_friendly_enngeki_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_esport_01"
+to = "inarogue_friendly_esport_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_gasshou_01"
+to = "inarogue_friendly_gasshou_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_hakuren_01"
+to = "inarogue_friendly_hakuren_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_handball_01"
+to = "inarogue_friendly_handball_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_houreikan_01"
+to = "inarogue_friendly_houreikan_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_hyakuninnisshu_01"
+to = "inarogue_friendly_hyakuninnisshu_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_idol_01"
+to = "inarogue_friendly_idol_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_igo_01"
+to = "inarogue_friendly_igo_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_ijin_01"
+to = "inarogue_friendly_ijin_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_juudou_01"
+to = "inarogue_friendly_juudou_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_kaiyouseibutsu_01"
+to = "inarogue_friendly_kaiyouseibutsu_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_kakutougi_01"
+to = "inarogue_friendly_kakutougi_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_kamome_02"
+to = "inarogue_friendly_kamome_02"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_keionngaku_01"
+to = "inarogue_friendly_keionngaku_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_kenndou_01"
+to = "inarogue_friendly_kenndou_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_kuizu_01"
+to = "inarogue_friendly_kuizu_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_magic_01"
+to = "inarogue_friendly_magic_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_manga_01"
+to = "inarogue_friendly_manga_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_metal_01"
+to = "inarogue_friendly_metal_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_news_01"
+to = "inarogue_friendly_news_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_nihonnbuyou_01"
+to = "inarogue_friendly_nihonnbuyou_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_okaruto_01"
+to = "inarogue_friendly_okaruto_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_ragubi_01"
+to = "inarogue_friendly_ragubi_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_rikujou_01"
+to = "inarogue_friendly_rikujou_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_rojiura_01"
+to = "inarogue_friendly_rojiura_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_sadou_01"
+to = "inarogue_friendly_sadou_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_safinn_01"
+to = "inarogue_friendly_safinn_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_shopkeeper_02"
+to = "inarogue_friendly_shopkeeper_02"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_space_01"
+to = "inarogue_friendly_space_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_suiei_01"
+to = "inarogue_friendly_suiei_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_suikyuu_01"
+to = "inarogue_friendly_suikyuu_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_suisougaku_01"
+to = "inarogue_friendly_suisougaku_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_sumou_01"
+to = "inarogue_friendly_sumou_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_takkyuu_01"
+to = "inarogue_friendly_takkyuu_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_s_tennis_01"
+to = "inarogue_friendly_tennis_01"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_t_001"
+to = "inarogue_random_001"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_t_NNN"
+to = "inarogue_random_NNN"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tm_001"
+to = "inarogue_team_001"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tm_NNN"
+to = "inarogue_team_NNN"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_001"
+to = "inarogue_team_name_001"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_002"
+to = "inarogue_team_name_002"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_003"
+to = "inarogue_team_name_003"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_004"
+to = "inarogue_team_name_004"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_005"
+to = "inarogue_team_name_005"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_006"
+to = "inarogue_team_name_006"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_007"
+to = "inarogue_team_name_007"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_008"
+to = "inarogue_team_name_008"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_009"
+to = "inarogue_team_name_009"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_010"
+to = "inarogue_team_name_010"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_011"
+to = "inarogue_team_name_011"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_012"
+to = "inarogue_team_name_012"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_013"
+to = "inarogue_team_name_013"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_014"
+to = "inarogue_team_name_014"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_015"
+to = "inarogue_team_name_015"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_016"
+to = "inarogue_team_name_016"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_017"
+to = "inarogue_team_name_017"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_018"
+to = "inarogue_team_name_018"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_019"
+to = "inarogue_team_name_019"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_020"
+to = "inarogue_team_name_020"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_021"
+to = "inarogue_team_name_021"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_022"
+to = "inarogue_team_name_022"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_023"
+to = "inarogue_team_name_023"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_024"
+to = "inarogue_team_name_024"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_025"
+to = "inarogue_team_name_025"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_026"
+to = "inarogue_team_name_026"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_027"
+to = "inarogue_team_name_027"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_028"
+to = "inarogue_team_name_028"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_029"
+to = "inarogue_team_name_029"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_030"
+to = "inarogue_team_name_030"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_031"
+to = "inarogue_team_name_031"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_032"
+to = "inarogue_team_name_032"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_033"
+to = "inarogue_team_name_033"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_034"
+to = "inarogue_team_name_034"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_035"
+to = "inarogue_team_name_035"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_036"
+to = "inarogue_team_name_036"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_037"
+to = "inarogue_team_name_037"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_038"
+to = "inarogue_team_name_038"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_039"
+to = "inarogue_team_name_039"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_040"
+to = "inarogue_team_name_040"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_041"
+to = "inarogue_team_name_041"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_042"
+to = "inarogue_team_name_042"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_043"
+to = "inarogue_team_name_043"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_044"
+to = "inarogue_team_name_044"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_045"
+to = "inarogue_team_name_045"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_046"
+to = "inarogue_team_name_046"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_047"
+to = "inarogue_team_name_047"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_048"
+to = "inarogue_team_name_048"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_049"
+to = "inarogue_team_name_049"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_050"
+to = "inarogue_team_name_050"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_051"
+to = "inarogue_team_name_051"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_052"
+to = "inarogue_team_name_052"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_053"
+to = "inarogue_team_name_053"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_054"
+to = "inarogue_team_name_054"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_055"
+to = "inarogue_team_name_055"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_056"
+to = "inarogue_team_name_056"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_057"
+to = "inarogue_team_name_057"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_058"
+to = "inarogue_team_name_058"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_059"
+to = "inarogue_team_name_059"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_060"
+to = "inarogue_team_name_060"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_061"
+to = "inarogue_team_name_061"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_062"
+to = "inarogue_team_name_062"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_063"
+to = "inarogue_team_name_063"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_064"
+to = "inarogue_team_name_064"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_065"
+to = "inarogue_team_name_065"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_066"
+to = "inarogue_team_name_066"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_067"
+to = "inarogue_team_name_067"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_068"
+to = "inarogue_team_name_068"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_069"
+to = "inarogue_team_name_069"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_070"
+to = "inarogue_team_name_070"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_071"
+to = "inarogue_team_name_071"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_072"
+to = "inarogue_team_name_072"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_073"
+to = "inarogue_team_name_073"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_074"
+to = "inarogue_team_name_074"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_075"
+to = "inarogue_team_name_075"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_076"
+to = "inarogue_team_name_076"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_077"
+to = "inarogue_team_name_077"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_078"
+to = "inarogue_team_name_078"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_079"
+to = "inarogue_team_name_079"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_080"
+to = "inarogue_team_name_080"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_081"
+to = "inarogue_team_name_081"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_082"
+to = "inarogue_team_name_082"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_083"
+to = "inarogue_team_name_083"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_084"
+to = "inarogue_team_name_084"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_085"
+to = "inarogue_team_name_085"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_086"
+to = "inarogue_team_name_086"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_087"
+to = "inarogue_team_name_087"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_088"
+to = "inarogue_team_name_088"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_089"
+to = "inarogue_team_name_089"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_090"
+to = "inarogue_team_name_090"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_091"
+to = "inarogue_team_name_091"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_092"
+to = "inarogue_team_name_092"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_093"
+to = "inarogue_team_name_093"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_094"
+to = "inarogue_team_name_094"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_095"
+to = "inarogue_team_name_095"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_096"
+to = "inarogue_team_name_096"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_097"
+to = "inarogue_team_name_097"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_098"
+to = "inarogue_team_name_098"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_099"
+to = "inarogue_team_name_099"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_100"
+to = "inarogue_team_name_100"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_NNN"
+to = "inarogue_team_name_NNN"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_tmname_unknown"
+to = "inarogue_team_name_unknown"
+
+# INAROGUE random-pool games: the name is the prefix + the 6 last digits of the team registry number of its key.
+
+[[step]]
+kind = "rehash_registry_names"
+space = "team"
+registry_key = "*@InaRogue.rivals_5v5#game"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_t_te######"
+to = "inarogue_random_te######"
+
+[[step]]
+kind = "rehash_registry_names"
+space = "team"
+registry_key = "*@InaRogue.rivals_11v11#game"
+files = ["{saves}/*/inarogue/*.json", "{saves}/global/match_engine/friendly_journal.json"]
+from = "evt_rl_t_tf######"
+to = "inarogue_random_tf######"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/BetterQoL/passive_config.json", "{saves}/*/VRFW/board_pieces.json"]
+from = "evt_ps_aire_plus"
+to = "character_reforged_wind_plus"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/BetterQoL/passive_config.json", "{saves}/*/VRFW/board_pieces.json"]
+from = "evt_ps_bosque_plus"
+to = "character_reforged_forest_plus"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/BetterQoL/passive_config.json", "{saves}/*/VRFW/board_pieces.json"]
+from = "evt_ps_fuego_plus"
+to = "character_reforged_fire_plus"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/BetterQoL/passive_config.json", "{saves}/*/VRFW/board_pieces.json"]
+from = "evt_ps_montana_plus"
+to = "character_reforged_mountain_plus"
+
+[[step]]
+kind = "rehash_name"
+files = ["{saves}/*/BetterQoL/passive_config.json", "{saves}/*/VRFW/board_pieces.json"]
+from = "evt_ps_neutro_plus"
+to = "character_reforged_neutral_plus"

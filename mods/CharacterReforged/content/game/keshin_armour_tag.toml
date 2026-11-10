@@ -1,0 +1,5 @@
+schema = "VRFW.game/2"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_KESHIN_HYPER_ARMOUR"
+handler = "CharacterReforged.KeshinArmed.HyperArmour"

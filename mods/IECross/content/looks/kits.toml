@@ -1,6 +1,4 @@
 schema = "VRFW.look/2"
-# the Cross team kits: the clown kit (Chaos Circus and KFC Pierrot), Samurai Blue (Japan 2026), Shin Zeus, pirate (one per pirate team),
-# Ramen (one per Ramen team) and the kits of the Cross characters' own outfits
 
 [[kit]]
 id = 0xCF5CE72B

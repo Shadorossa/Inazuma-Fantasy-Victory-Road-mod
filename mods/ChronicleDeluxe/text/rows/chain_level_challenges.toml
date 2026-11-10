@@ -1,5 +1,3 @@
-# The titles of Chronicle Deluxe's chain challenges on the players' level and gender ([[VRFW.MatchChallenge]] Title):
-# the IE2 «Players with levels <= 50» (90 with the IE2 saga shift; the 50 row is the builder's template) and «a team of boys» matches of content/teams/70_route_nodes/chain_ie2_marytimes.toml.
 schema = "VRFW.text/2"
 table = "menu_text"
 

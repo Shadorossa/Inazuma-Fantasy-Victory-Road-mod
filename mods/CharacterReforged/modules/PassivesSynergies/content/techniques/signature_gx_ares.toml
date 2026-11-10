@@ -1,0 +1,4244 @@
+schema = "VRFW.technique/3"
+default_lang = "none"
+
+[[passive]]
+key = "signature_c06030010"
+from = "ps10020"
+cells = { desc_text = 3907552808 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030020"
+from = "ps10020"
+cells = { desc_text = 3284522475 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030030"
+from = "ps10020"
+cells = { desc_text = 3672040618 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030040"
+from = "ps10020"
+cells = { desc_text = 2510254701 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030050"
+from = "ps10020"
+cells = { desc_text = 2357478188 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030060"
+from = "ps10020"
+cells = { desc_text = 2812874991 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030070"
+from = "ps10020"
+cells = { desc_text = 3199345070 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030110"
+from = "ps10020"
+cells = { desc_text = 3911904287 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030120"
+from = "ps10020"
+cells = { desc_text = 3255287772 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030210"
+from = "ps10020"
+cells = { desc_text = 3949744710 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030220"
+from = "ps10020"
+cells = { desc_text = 3225485701 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039290"
+from = "ps10020"
+cells = { desc_text = 1589483460 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030410"
+from = "ps10020"
+cells = { desc_text = 4024512244 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030420"
+from = "ps10020"
+cells = { desc_text = 3301735735 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030430"
+from = "ps10020"
+cells = { desc_text = 3721874550 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030440"
+from = "ps10020"
+cells = { desc_text = 2459359921 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030450"
+from = "ps10020"
+cells = { desc_text = 2341334000 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030460"
+from = "ps10020"
+cells = { desc_text = 2694887475 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030470"
+from = "ps10020"
+cells = { desc_text = 3116075378 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030480"
+from = "ps10020"
+cells = { desc_text = 1042519485 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030490"
+from = "ps10020"
+cells = { desc_text = 658023676 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030500"
+from = "ps10020"
+cells = { desc_text = 4147672450 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030510"
+from = "ps10020"
+cells = { desc_text = 3995288771 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11806070"
+from = "ps10020"
+cells = { desc_text = 958904543 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030610"
+from = "ps10020"
+cells = { desc_text = 3966106266 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030620"
+from = "ps10020"
+cells = { desc_text = 3343427929 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030630"
+from = "ps10020"
+cells = { desc_text = 3730020376 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030640"
+from = "ps10020"
+cells = { desc_text = 2433879775 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030650"
+from = "ps10020"
+cells = { desc_text = 2282307486 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030660"
+from = "ps10020"
+cells = { desc_text = 2737073245 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030670"
+from = "ps10020"
+cells = { desc_text = 3124714780 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030680"
+from = "ps10020"
+cells = { desc_text = 1034371539 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030690"
+from = "ps10020"
+cells = { desc_text = 616329362 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030700"
+from = "ps10020"
+cells = { desc_text = 4106002924 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030710"
+from = "ps10020"
+cells = { desc_text = 3987181741 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11806010"
+from = "ps10020"
+cells = { desc_text = 1870471001 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030810"
+from = "ps10020"
+cells = { desc_text = 3875264400 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030820"
+from = "ps10020"
+cells = { desc_text = 3453387859 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030830"
+from = "ps10020"
+cells = { desc_text = 3570251026 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030840"
+from = "ps10020"
+cells = { desc_text = 2609652693 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030850"
+from = "ps10020"
+cells = { desc_text = 2190938772 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030860"
+from = "ps10020"
+cells = { desc_text = 2847555927 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030870"
+from = "ps10020"
+cells = { desc_text = 2963370006 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030880"
+from = "ps10020"
+cells = { desc_text = 926510297 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030890"
+from = "ps10020"
+cells = { desc_text = 774004120 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030900"
+from = "ps10020"
+cells = { desc_text = 4263677158 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030910"
+from = "ps10020"
+cells = { desc_text = 3879320999 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11806020"
+from = "ps10020"
+cells = { desc_text = 1146113178 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031010"
+from = "ps10020"
+cells = { desc_text = 1347739981 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031020"
+from = "ps10020"
+cells = { desc_text = 2071573134 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031030"
+from = "ps10020"
+cells = { desc_text = 1650623439 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031040"
+from = "ps10020"
+cells = { desc_text = 757273864 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031050"
+from = "ps10020"
+cells = { desc_text = 876094537 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031060"
+from = "ps10020"
+cells = { desc_text = 521500554 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031070"
+from = "ps10020"
+cells = { desc_text = 101598923 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031080"
+from = "ps10020"
+cells = { desc_text = 2174114308 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031090"
+from = "ps10020"
+cells = { desc_text = 2559404869 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031100"
+from = "ps10020"
+cells = { desc_text = 1217247803 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031110"
+from = "ps10020"
+cells = { desc_text = 1368820602 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11806030"
+from = "ps10020"
+cells = { desc_text = 1565228507 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039230"
+from = "ps10020"
+cells = { desc_text = 2756869966 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031210"
+from = "ps10020"
+cells = { desc_text = 1406154019 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031220"
+from = "ps10020"
+cells = { desc_text = 2029872864 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031230"
+from = "ps10020"
+cells = { desc_text = 1642485665 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031240"
+from = "ps10020"
+cells = { desc_text = 782745958 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031250"
+from = "ps10020"
+cells = { desc_text = 935129127 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031260"
+from = "ps10020"
+cells = { desc_text = 479306724 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031270"
+from = "ps10020"
+cells = { desc_text = 92967589 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031280"
+from = "ps10020"
+cells = { desc_text = 2182254186 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031290"
+from = "ps10020"
+cells = { desc_text = 2601107243 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031300"
+from = "ps10020"
+cells = { desc_text = 1258909269 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031310"
+from = "ps10020"
+cells = { desc_text = 1376935700 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11806080"
+from = "ps10020"
+cells = { desc_text = 3200230416 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031410"
+from = "ps10020"
+cells = { desc_text = 1465731473 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031420"
+from = "ps10020"
+cells = { desc_text = 2087721554 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031430"
+from = "ps10020"
+cells = { desc_text = 1701522195 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031440"
+from = "ps10020"
+cells = { desc_text = 707444180 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031450"
+from = "ps10020"
+cells = { desc_text = 858885269 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031460"
+from = "ps10020"
+cells = { desc_text = 404545366 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031470"
+from = "ps10020"
+cells = { desc_text = 17296919 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031480"
+from = "ps10020"
+cells = { desc_text = 2258629336 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031490"
+from = "ps10020"
+cells = { desc_text = 2676278169 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031500"
+from = "ps10020"
+cells = { desc_text = 1334055655 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031510"
+from = "ps10020"
+cells = { desc_text = 1453269926 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031520"
+from = "ps10020"
+cells = { desc_text = 2108846181 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11806040"
+from = "ps10020"
+cells = { desc_text = 302705436 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031610"
+from = "ps10020"
+cells = { desc_text = 1423547903 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031620"
+from = "ps10020"
+cells = { desc_text = 2146750012 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031630"
+from = "ps10020"
+cells = { desc_text = 1727004541 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031640"
+from = "ps10020"
+cells = { desc_text = 699296186 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031650"
+from = "ps10020"
+cells = { desc_text = 817191163 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031660"
+from = "ps10020"
+cells = { desc_text = 462949176 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031670"
+from = "ps10020"
+cells = { desc_text = 42154617 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031680"
+from = "ps10020"
+cells = { desc_text = 2233149110 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031690"
+from = "ps10020"
+cells = { desc_text = 2617251831 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031700"
+from = "ps10020"
+cells = { desc_text = 1275119241 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031710"
+from = "ps10020"
+cells = { desc_text = 1427896264 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031720"
+from = "ps10020"
+cells = { desc_text = 2117510155 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11806050"
+from = "ps10020"
+cells = { desc_text = 185719389 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031810"
+from = "ps10020"
+cells = { desc_text = 1581756661 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031820"
+from = "ps10020"
+cells = { desc_text = 1969939254 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031830"
+from = "ps10020"
+cells = { desc_text = 1819398775 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031840"
+from = "ps10020"
+cells = { desc_text = 590365872 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031850"
+from = "ps10020"
+cells = { desc_text = 975926769 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031860"
+from = "ps10020"
+cells = { desc_text = 285615666 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031870"
+from = "ps10020"
+cells = { desc_text = 136124275 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031880"
+from = "ps10020"
+cells = { desc_text = 2407861180 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031890"
+from = "ps10020"
+cells = { desc_text = 2526952189 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031900"
+from = "ps10020"
+cells = { desc_text = 1184820099 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031910"
+from = "ps10020"
+cells = { desc_text = 1602607810 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06031920"
+from = "ps10020"
+cells = { desc_text = 1957202177 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11806090"
+from = "ps10020"
+cells = { desc_text = 2812581201 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032010"
+from = "ps10020"
+cells = { desc_text = 1122061987 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032020"
+from = "ps10020"
+cells = { desc_text = 1774984544 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032030"
+from = "ps10020"
+cells = { desc_text = 1893149729 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032040"
+from = "ps10020"
+cells = { desc_text = 1066842854 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032050"
+from = "ps10020"
+cells = { desc_text = 646810535 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032060"
+from = "ps10020"
+cells = { desc_text = 228644964 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032070"
+from = "ps10020"
+cells = { desc_text = 347859237 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032080"
+from = "ps10020"
+cells = { desc_text = 2468607466 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032090"
+from = "ps10020"
+cells = { desc_text = 2318976171 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032100"
+from = "ps10020"
+cells = { desc_text = 1513625045 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032110"
+from = "ps10020"
+cells = { desc_text = 1126376596 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032120"
+from = "ps10020"
+cells = { desc_text = 1745778519 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032130"
+from = "ps10020"
+cells = { desc_text = 1897219606 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032140"
+from = "ps10020"
+cells = { desc_text = 1045745873 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035790"
+from = "ps10020"
+cells = { desc_text = 312535703 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035800"
+from = "ps10020"
+cells = { desc_text = 3359512291 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11806060"
+from = "ps10020"
+cells = { desc_text = 540838302 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032610"
+from = "ps10020"
+cells = { desc_text = 1181495825 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032620"
+from = "ps10020"
+cells = { desc_text = 1833001426 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032640"
+from = "ps10020"
+cells = { desc_text = 991675988 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032650"
+from = "ps10020"
+cells = { desc_text = 570488597 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032670"
+from = "ps10020"
+cells = { desc_text = 272012695 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032700"
+from = "ps10020"
+cells = { desc_text = 1588947303 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032810"
+from = "ps10020"
+cells = { desc_text = 1290936091 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032820"
+from = "ps10020"
+cells = { desc_text = 1742687448 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032830"
+from = "ps10020"
+cells = { desc_text = 2126806425 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032840"
+from = "ps10020"
+cells = { desc_text = 830860126 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032850"
+from = "ps10020"
+cells = { desc_text = 681499167 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032860"
+from = "ps10020"
+cells = { desc_text = 62097884 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032870"
+from = "ps10020"
+cells = { desc_text = 447264925 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032880"
+from = "ps10020"
+cells = { desc_text = 2637210706 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032890"
+from = "ps10020"
+cells = { desc_text = 2217448723 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032900"
+from = "ps10020"
+cells = { desc_text = 1412121709 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06032910"
+from = "ps10020"
+cells = { desc_text = 1295021356 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033010"
+from = "ps10020"
+cells = { desc_text = 4200409542 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033020"
+from = "ps10020"
+cells = { desc_text = 3513809413 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033030"
+from = "ps10020"
+cells = { desc_text = 3362474820 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033040"
+from = "ps10020"
+cells = { desc_text = 2267733379 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033050"
+from = "ps10020"
+cells = { desc_text = 2654072002 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033060"
+from = "ps10020"
+cells = { desc_text = 3038560001 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033070"
+from = "ps10020"
+cells = { desc_text = 2886176320 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033080"
+from = "ps10020"
+cells = { desc_text = 731878031 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033090"
+from = "ps10020"
+cells = { desc_text = 847553486 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033100"
+from = "ps10020"
+cells = { desc_text = 3800330928 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033110"
+from = "ps10020"
+cells = { desc_text = 4221518833 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033210"
+from = "ps10020"
+cells = { desc_text = 4191813032 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033220"
+from = "ps10020"
+cells = { desc_text = 3539250795 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033230"
+from = "ps10020"
+cells = { desc_text = 3421478698 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033240"
+from = "ps10020"
+cells = { desc_text = 2225998317 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033250"
+from = "ps10020"
+cells = { desc_text = 2645899436 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033260"
+from = "ps10020"
+cells = { desc_text = 3063442287 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033270"
+from = "ps10020"
+cells = { desc_text = 2944621102 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033280"
+from = "ps10020"
+cells = { desc_text = 672876257 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033290"
+from = "ps10020"
+cells = { desc_text = 822114208 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033300"
+from = "ps10020"
+cells = { desc_text = 3774916318 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06033310"
+from = "ps10020"
+cells = { desc_text = 4162557855 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039330"
+from = "ps10020"
+cells = { desc_text = 2777683321 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039240"
+from = "ps10020"
+cells = { desc_text = 3943950729 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039170"
+from = "ps10020"
+cells = { desc_text = 3262645267 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030140"
+from = "ps10020"
+cells = { desc_text = 2489129050 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030230"
+from = "ps10020"
+cells = { desc_text = 3646566596 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06030240"
+from = "ps10020"
+cells = { desc_text = 2518394371 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06038030"
+from = "ps10020"
+cells = { desc_text = 527092805 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039280"
+from = "ps10020"
+cells = { desc_text = 1202103941 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039300"
+from = "ps10020"
+cells = { desc_text = 2394769082 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039130"
+from = "ps10020"
+cells = { desc_text = 2786378007 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039140"
+from = "ps10020"
+cells = { desc_text = 3914684368 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039150"
+from = "ps10020"
+cells = { desc_text = 4031669905 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039160"
+from = "ps10020"
+cells = { desc_text = 3680712018 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039180"
+from = "ps10020"
+cells = { desc_text = 1172314332 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039190"
+from = "ps10020"
+cells = { desc_text = 1559964061 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039200"
+from = "ps10020"
+cells = { desc_text = 2407476365 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039210"
+from = "ps10020"
+cells = { desc_text = 2523143628 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039220"
+from = "ps10020"
+cells = { desc_text = 3175697935 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039250"
+from = "ps10020"
+cells = { desc_text = 4060666056 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039260"
+from = "ps10020"
+cells = { desc_text = 3643116299 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039270"
+from = "ps10020"
+cells = { desc_text = 3225336394 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039390"
+from = "ps10020"
+cells = { desc_text = 1602223603 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039410"
+from = "ps10020"
+cells = { desc_text = 2464768382 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010010"
+from = "ps10020"
+cells = { desc_text = 878698236 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010020"
+from = "ps10020"
+cells = { desc_text = 527600959 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010030"
+from = "ps10020"
+cells = { desc_text = 107592830 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010040"
+from = "ps10020"
+cells = { desc_text = 1227369145 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010050"
+from = "ps10020"
+cells = { desc_text = 1345526776 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010060"
+from = "ps10020"
+cells = { desc_text = 2065582139 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010070"
+from = "ps10020"
+cells = { desc_text = 1644525946 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010080"
+from = "ps10020"
+cells = { desc_text = 3852297653 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010090"
+from = "ps10020"
+cells = { desc_text = 4236662004 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010100"
+from = "ps10020"
+cells = { desc_text = 747013514 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010110"
+from = "ps10020"
+cells = { desc_text = 899527883 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07010120"
+from = "ps10020"
+cells = { desc_text = 514909960 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07120070"
+from = "ps10020"
+cells = { desc_text = 4009349135 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07120040"
+from = "ps10020"
+cells = { desc_text = 3319038924 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07120020"
+from = "ps10020"
+cells = { desc_text = 2475566154 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07120050"
+from = "ps10020"
+cells = { desc_text = 3704599181 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07120080"
+from = "ps10020"
+cells = { desc_text = 1768017088 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07120010"
+from = "ps10020"
+cells = { desc_text = 3097720713 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07120030"
+from = "ps10020"
+cells = { desc_text = 2325026059 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07120060"
+from = "ps10020"
+cells = { desc_text = 4158841166 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07120090"
+from = "ps10020"
+cells = { desc_text = 1887108481 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807010"
+from = "ps10020"
+cells = { desc_text = 3619780668 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807020"
+from = "ps10020"
+cells = { desc_text = 4243336191 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807030"
+from = "ps10020"
+cells = { desc_text = 3858176702 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807210"
+from = "ps10020"
+cells = { desc_text = 3561335890 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11808150"
+from = "ps10020"
+cells = { desc_text = 3926706009 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020010"
+from = "ps10020"
+cells = { desc_text = 1946133548 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020020"
+from = "ps10020"
+cells = { desc_text = 1490221039 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020030"
+from = "ps10020"
+cells = { desc_text = 1103742638 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020040"
+from = "ps10020"
+cells = { desc_text = 243814505 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020050"
+from = "ps10020"
+cells = { desc_text = 395534632 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020060"
+from = "ps10020"
+cells = { desc_text = 1019097835 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020070"
+from = "ps10020"
+cells = { desc_text = 631571370 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020080"
+from = "ps10020"
+cells = { desc_text = 2721914725 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020090"
+from = "ps10020"
+cells = { desc_text = 3139841572 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020100"
+from = "ps10020"
+cells = { desc_text = 1797717850 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020110"
+from = "ps10020"
+cells = { desc_text = 1916653083 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020120"
+from = "ps10020"
+cells = { desc_text = 1494261208 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020130"
+from = "ps10020"
+cells = { desc_text = 1074506905 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020140"
+from = "ps10020"
+cells = { desc_text = 256522846 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020150"
+from = "ps10020"
+cells = { desc_text = 374410015 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07020160"
+from = "ps10020"
+cells = { desc_text = 1031559388 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807140"
+from = "ps10020"
+cells = { desc_text = 2876565070 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807150"
+from = "ps10020"
+cells = { desc_text = 2993673999 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807250"
+from = "ps10020"
+cells = { desc_text = 2955503958 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030010"
+from = "ps10020"
+cells = { desc_text = 1319079324 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030020"
+from = "ps10020"
+cells = { desc_text = 1706221151 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030030"
+from = "ps10020"
+cells = { desc_text = 2091511582 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030040"
+from = "ps10020"
+cells = { desc_text = 870873561 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030050"
+from = "ps10020"
+cells = { desc_text = 720586904 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030060"
+from = "ps10020"
+cells = { desc_text = 31333211 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030070"
+from = "ps10020"
+cells = { desc_text = 415574554 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030080"
+from = "ps10020"
+cells = { desc_text = 2673686229 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030090"
+from = "ps10020"
+cells = { desc_text = 2252736404 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030100"
+from = "ps10020"
+cells = { desc_text = 1447483114 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030110"
+from = "ps10020"
+cells = { desc_text = 1331554219 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030120"
+from = "ps10020"
+cells = { desc_text = 1685107816 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030130"
+from = "ps10020"
+cells = { desc_text = 2104198441 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030140"
+from = "ps10020"
+cells = { desc_text = 841618414 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030150"
+from = "ps10020"
+cells = { desc_text = 724640431 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07030160"
+from = "ps10020"
+cells = { desc_text = 1864044 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807160"
+from = "ps10020"
+cells = { desc_text = 2571273420 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040010"
+from = "ps10020"
+cells = { desc_text = 4240396684 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040020"
+from = "ps10020"
+cells = { desc_text = 3616670287 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040030"
+from = "ps10020"
+cells = { desc_text = 3465097998 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040040"
+from = "ps10020"
+cells = { desc_text = 2177410505 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040050"
+from = "ps10020"
+cells = { desc_text = 2564002952 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040060"
+from = "ps10020"
+cells = { desc_text = 3019818827 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040070"
+from = "ps10020"
+cells = { desc_text = 2867197450 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040080"
+from = "ps10020"
+cells = { desc_text = 763226821 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040090"
+from = "ps10020"
+cells = { desc_text = 879156100 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040100"
+from = "ps10020"
+cells = { desc_text = 3831892730 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040110"
+from = "ps10020"
+cells = { desc_text = 4252842939 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040130"
+from = "ps10020"
+cells = { desc_text = 3477821753 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040140"
+from = "ps10020"
+cells = { desc_text = 2148192254 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040150"
+from = "ps10020"
+cells = { desc_text = 2568093375 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040160"
+from = "ps10020"
+cells = { desc_text = 2990321020 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07040120"
+from = "ps10020"
+cells = { desc_text = 3595593848 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807170"
+from = "ps10020"
+cells = { desc_text = 2153362829 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807180"
+from = "ps10020"
+cells = { desc_text = 130132290 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807190"
+from = "ps10020"
+cells = { desc_text = 517642243 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050050"
+from = "ps10020"
+cells = { desc_text = 2780020024 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050130"
+from = "ps10020"
+cells = { desc_text = 4062933129 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050140"
+from = "ps10020"
+cells = { desc_text = 3177899598 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050010"
+from = "ps10020"
+cells = { desc_text = 3252647996 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050060"
+from = "ps10020"
+cells = { desc_text = 2392780539 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050070"
+from = "ps10020"
+cells = { desc_text = 2542133178 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050080"
+from = "ps10020"
+cells = { desc_text = 270386037 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050090"
+from = "ps10020"
+cells = { desc_text = 151450164 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050100"
+from = "ps10020"
+cells = { desc_text = 3641058122 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050110"
+from = "ps10020"
+cells = { desc_text = 3223130635 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050120"
+from = "ps10020"
+cells = { desc_text = 3945808328 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050020"
+from = "ps10020"
+cells = { desc_text = 3941739519 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050030"
+from = "ps10020"
+cells = { desc_text = 4092140222 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07050040"
+from = "ps10020"
+cells = { desc_text = 3165162617 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807090"
+from = "ps10020"
+cells = { desc_text = 521728564 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807280"
+from = "ps10020"
+cells = { desc_text = 92739355 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060040"
+from = "ps10020"
+cells = { desc_text = 4211668649 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060050"
+from = "ps10020"
+cells = { desc_text = 3792947176 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060070"
+from = "ps10020"
+cells = { desc_text = 3492128106 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060090"
+from = "ps10020"
+cells = { desc_text = 1319536868 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060100"
+from = "ps10020"
+cells = { desc_text = 2661702042 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060110"
+from = "ps10020"
+cells = { desc_text = 2277337307 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060010"
+from = "ps10020"
+cells = { desc_text = 2256470764 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060060"
+from = "ps10020"
+cells = { desc_text = 3376321579 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060080"
+from = "ps10020"
+cells = { desc_text = 1472051621 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060020"
+from = "ps10020"
+cells = { desc_text = 2907853103 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07060030"
+from = "ps10020"
+cells = { desc_text = 3024707694 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807070"
+from = "ps10020"
+cells = { desc_text = 2174476218 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807080"
+from = "ps10020"
+cells = { desc_text = 100909941 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070120"
+from = "ps10020"
+cells = { desc_text = 2448429736 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070010"
+from = "ps10020"
+cells = { desc_text = 3139382108 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070130"
+from = "ps10020"
+cells = { desc_text = 2297111529 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070030"
+from = "ps10020"
+cells = { desc_text = 2301184478 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070040"
+from = "ps10020"
+cells = { desc_text = 3328761625 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070050"
+from = "ps10020"
+cells = { desc_text = 3748916824 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070060"
+from = "ps10020"
+cells = { desc_text = 4099849627 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070070"
+from = "ps10020"
+cells = { desc_text = 3980758234 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070080"
+from = "ps10020"
+cells = { desc_text = 1792905237 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070090"
+from = "ps10020"
+cells = { desc_text = 1942397268 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070100"
+from = "ps10020"
+cells = { desc_text = 2747691050 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070020"
+from = "ps10020"
+cells = { desc_text = 2419226783 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07070110"
+from = "ps10020"
+cells = { desc_text = 3135062379 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807040"
+from = "ps10020"
+cells = { desc_text = 2864090233 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807230"
+from = "ps10020"
+cells = { desc_text = 3866349264 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080020"
+from = "ps10020"
+cells = { desc_text = 308473678 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080040"
+from = "ps10020"
+cells = { desc_text = 1144539336 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080110"
+from = "ps10020"
+cells = { desc_text = 948819642 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080030"
+from = "ps10020"
+cells = { desc_text = 192536079 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080050"
+from = "ps10020"
+cells = { desc_text = 1562605961 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080060"
+from = "ps10020"
+cells = { desc_text = 1980639818 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080070"
+from = "ps10020"
+cells = { desc_text = 1863654155 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080080"
+from = "ps10020"
+cells = { desc_text = 3901556676 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080090"
+from = "ps10020"
+cells = { desc_text = 4053153413 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080100"
+from = "ps10020"
+cells = { desc_text = 563537915 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07080010"
+from = "ps10020"
+cells = { desc_text = 961526925 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807100"
+from = "ps10020"
+cells = { desc_text = 3474465610 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807110"
+from = "ps10020"
+cells = { desc_text = 3590525451 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090010"
+from = "ps10020"
+cells = { desc_text = 70227261 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090020"
+from = "ps10020"
+cells = { desc_text = 788711166 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090130"
+from = "ps10020"
+cells = { desc_text = 937139592 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090140"
+from = "ps10020"
+cells = { desc_text = 2023361359 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090100"
+from = "ps10020"
+cells = { desc_text = 485936715 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090090"
+from = "ps10020"
+cells = { desc_text = 3438681909 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090070"
+from = "ps10020"
+cells = { desc_text = 1383412411 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090110"
+from = "ps10020"
+cells = { desc_text = 99483402 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090080"
+from = "ps10020"
+cells = { desc_text = 3589090932 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090050"
+from = "ps10020"
+cells = { desc_text = 1615024185 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090060"
+from = "ps10020"
+cells = { desc_text = 1265501178 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090040"
+from = "ps10020"
+cells = { desc_text = 2035835256 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090030"
+from = "ps10020"
+cells = { desc_text = 907671487 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07090120"
+from = "ps10020"
+cells = { desc_text = 784379081 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807120"
+from = "ps10020"
+cells = { desc_text = 4247667144 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807130"
+from = "ps10020"
+cells = { desc_text = 3828707465 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100090"
+from = "ps10020"
+cells = { desc_text = 180006625 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100060"
+from = "ps10020"
+cells = { desc_text = 2367861294 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100070"
+from = "ps10020"
+cells = { desc_text = 2486797167 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100100"
+from = "ps10020"
+cells = { desc_text = 3669655455 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100030"
+from = "ps10020"
+cells = { desc_text = 4032120427 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100130"
+from = "ps10020"
+cells = { desc_text = 4053216348 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100050"
+from = "ps10020"
+cells = { desc_text = 2786058733 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100010"
+from = "ps10020"
+cells = { desc_text = 3261277417 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100020"
+from = "ps10020"
+cells = { desc_text = 3914233642 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100120"
+from = "ps10020"
+cells = { desc_text = 3901496605 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100110"
+from = "ps10020"
+cells = { desc_text = 3282128606 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100080"
+from = "ps10020"
+cells = { desc_text = 329359264 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100040"
+from = "ps10020"
+cells = { desc_text = 3205812396 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07100140"
+from = "ps10020"
+cells = { desc_text = 3201743515 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807200"
+from = "ps10020"
+cells = { desc_text = 3445529875 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110010"
+from = "ps10020"
+cells = { desc_text = 4278390105 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110030"
+from = "ps10020"
+cells = { desc_text = 3442831323 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110040"
+from = "ps10020"
+cells = { desc_text = 2188704028 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110050"
+from = "ps10020"
+cells = { desc_text = 2607794269 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110060"
+from = "ps10020"
+cells = { desc_text = 2957155230 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110070"
+from = "ps10020"
+cells = { desc_text = 2841225951 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110080"
+from = "ps10020"
+cells = { desc_text = 784446992 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110090"
+from = "ps10020"
+cells = { desc_text = 937068369 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110100"
+from = "ps10020"
+cells = { desc_text = 3889845807 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110110"
+from = "ps10020"
+cells = { desc_text = 4274087790 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110120"
+from = "ps10020"
+cells = { desc_text = 3589026989 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110130"
+from = "ps10020"
+cells = { desc_text = 3438740972 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110140"
+from = "ps10020"
+cells = { desc_text = 2209780523 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110150"
+from = "ps10020"
+cells = { desc_text = 2595070570 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110160"
+from = "ps10020"
+cells = { desc_text = 2978017705 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07110020"
+from = "ps10020"
+cells = { desc_text = 3559808666 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807270"
+from = "ps10020"
+cells = { desc_text = 2183072724 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807260"
+from = "ps10020"
+cells = { desc_text = 2600745621 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130040"
+from = "ps10020"
+cells = { desc_text = 4172589692 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130050"
+from = "ps10020"
+cells = { desc_text = 3786382141 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130060"
+from = "ps10020"
+cells = { desc_text = 3397568766 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130070"
+from = "ps10020"
+cells = { desc_text = 3550083519 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130080"
+from = "ps10020"
+cells = { desc_text = 1409410416 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130090"
+from = "ps10020"
+cells = { desc_text = 1293603889 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130100"
+from = "ps10020"
+cells = { desc_text = 2635728207 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130120"
+from = "ps10020"
+cells = { desc_text = 2938922957 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130130"
+from = "ps10020"
+cells = { desc_text = 3057079948 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11807220"
+from = "ps10020"
+cells = { desc_text = 4285071249 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130010"
+from = "ps10020"
+cells = { desc_text = 2244173369 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130020"
+from = "ps10020"
+cells = { desc_text = 2934836730 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130030"
+from = "ps10020"
+cells = { desc_text = 3086302395 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07130110"
+from = "ps10020"
+cells = { desc_text = 2214671374 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160010"
+from = "ps10020"
+cells = { desc_text = 1294192969 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160020"
+from = "ps10020"
+cells = { desc_text = 1712226954 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160030"
+from = "ps10020"
+cells = { desc_text = 2132128715 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160040"
+from = "ps10020"
+cells = { desc_text = 810820876 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160050"
+from = "ps10020"
+cells = { desc_text = 693048397 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160060"
+from = "ps10020"
+cells = { desc_text = 39995278 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160070"
+from = "ps10020"
+cells = { desc_text = 460945103 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160080"
+from = "ps10020"
+cells = { desc_text = 2632018432 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160090"
+from = "ps10020"
+cells = { desc_text = 2247777089 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160100"
+from = "ps10020"
+cells = { desc_text = 1442482751 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160110"
+from = "ps10020"
+cells = { desc_text = 1289862014 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160120"
+from = "ps10020"
+cells = { desc_text = 1741482173 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160130"
+from = "ps10020"
+cells = { desc_text = 2128075260 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160140"
+from = "ps10020"
+cells = { desc_text = 831934267 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160150"
+from = "ps10020"
+cells = { desc_text = 680361594 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160160"
+from = "ps10020"
+cells = { desc_text = 60829113 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c07160500"
+from = "ps10020"
+cells = { desc_text = 1391665891 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11908080"
+from = "ps10020"
+cells = { desc_text = 2503737478 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11907050"
+from = "ps10020"
+cells = { desc_text = 2029088413 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11907060"
+from = "ps10020"
+cells = { desc_text = 1406942558 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11907080"
+from = "ps10020"
+cells = { desc_text = 3445559504 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c11907070"
+from = "ps10020"
+cells = { desc_text = 1254558751 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035010"
+from = "ps10020"
+cells = { desc_text = 3744888346 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035020"
+from = "ps10020"
+cells = { desc_text = 4095419865 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035030"
+from = "ps10020"
+cells = { desc_text = 3976205464 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035040"
+from = "ps10020"
+cells = { desc_text = 2722202207 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035050"
+from = "ps10020"
+cells = { desc_text = 3143283486 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035060"
+from = "ps10020"
+cells = { desc_text = 2423775453 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035070"
+from = "ps10020"
+cells = { desc_text = 2305610140 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035080"
+from = "ps10020"
+cells = { desc_text = 250924371 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035090"
+from = "ps10020"
+cells = { desc_text = 401603602 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035100"
+from = "ps10020"
+cells = { desc_text = 3354340716 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035110"
+from = "ps10020"
+cells = { desc_text = 3740539949 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035120"
+from = "ps10020"
+cells = { desc_text = 4124659694 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035130"
+from = "ps10020"
+cells = { desc_text = 3972169391 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035140"
+from = "ps10020"
+cells = { desc_text = 2743330920 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035150"
+from = "ps10020"
+cells = { desc_text = 3130579241 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035160"
+from = "ps10020"
+cells = { desc_text = 2444593898 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035170"
+from = "ps10020"
+cells = { desc_text = 2293152683 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035180"
+from = "ps10020"
+cells = { desc_text = 255240036 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035190"
+from = "ps10020"
+cells = { desc_text = 372086309 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035200"
+from = "ps10020"
+cells = { desc_text = 3316224821 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035210"
+from = "ps10020"
+cells = { desc_text = 3702694516 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035220"
+from = "ps10020"
+cells = { desc_text = 4154454455 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035230"
+from = "ps10020"
+cells = { desc_text = 4001677558 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035240"
+from = "ps10020"
+cells = { desc_text = 2714064433 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035250"
+from = "ps10020"
+cells = { desc_text = 3101583216 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035260"
+from = "ps10020"
+cells = { desc_text = 2482189491 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035270"
+from = "ps10020"
+cells = { desc_text = 2330461682 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035280"
+from = "ps10020"
+cells = { desc_text = 225450301 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035290"
+from = "ps10020"
+cells = { desc_text = 342567036 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035300"
+from = "ps10020"
+cells = { desc_text = 3295410434 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035310"
+from = "ps10020"
+cells = { desc_text = 3715156035 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035320"
+from = "ps10020"
+cells = { desc_text = 4133329792 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035330"
+from = "ps10020"
+cells = { desc_text = 4014385857 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035340"
+from = "ps10020"
+cells = { desc_text = 2684828678 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035350"
+from = "ps10020"
+cells = { desc_text = 3105623367 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035360"
+from = "ps10020"
+cells = { desc_text = 2452708996 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035370"
+from = "ps10020"
+cells = { desc_text = 2334814149 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035380"
+from = "ps10020"
+cells = { desc_text = 213021450 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035390"
+from = "ps10020"
+cells = { desc_text = 363414091 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035400"
+from = "ps10020"
+cells = { desc_text = 3240423303 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035410"
+from = "ps10020"
+cells = { desc_text = 3628064454 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035420"
+from = "ps10020"
+cells = { desc_text = 4078079237 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035430"
+from = "ps10020"
+cells = { desc_text = 3926506564 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035440"
+from = "ps10020"
+cells = { desc_text = 2772970115 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035450"
+from = "ps10020"
+cells = { desc_text = 3159563202 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035460"
+from = "ps10020"
+cells = { desc_text = 2541635585 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035470"
+from = "ps10020"
+cells = { desc_text = 2389014848 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035480"
+from = "ps10020"
+cells = { desc_text = 167601551 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035490"
+from = "ps10020"
+cells = { desc_text = 283530446 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035500"
+from = "ps10020"
+cells = { desc_text = 3236332976 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035510"
+from = "ps10020"
+cells = { desc_text = 3657282801 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035520"
+from = "ps10020"
+cells = { desc_text = 4073776946 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035530"
+from = "ps10020"
+cells = { desc_text = 3956004467 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035540"
+from = "ps10020"
+cells = { desc_text = 2760523956 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035550"
+from = "ps10020"
+cells = { desc_text = 3180425717 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035560"
+from = "ps10020"
+cells = { desc_text = 2528911926 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035570"
+from = "ps10020"
+cells = { desc_text = 2410091383 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035580"
+from = "ps10020"
+cells = { desc_text = 138350520 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035590"
+from = "ps10020"
+cells = { desc_text = 287588089 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035600"
+from = "ps10020"
+cells = { desc_text = 3265281001 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035610"
+from = "ps10020"
+cells = { desc_text = 3686468264 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035620"
+from = "ps10020"
+cells = { desc_text = 4036385131 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035630"
+from = "ps10020"
+cells = { desc_text = 3918358570 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035640"
+from = "ps10020"
+cells = { desc_text = 2798452461 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035650"
+from = "ps10020"
+cells = { desc_text = 3218591660 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035660"
+from = "ps10020"
+cells = { desc_text = 2499452015 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035670"
+from = "ps10020"
+cells = { desc_text = 2380377390 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035680"
+from = "ps10020"
+cells = { desc_text = 175747553 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035690"
+from = "ps10020"
+cells = { desc_text = 325222560 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035700"
+from = "ps10020"
+cells = { desc_text = 3278000606 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035710"
+from = "ps10020"
+cells = { desc_text = 3665387679 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035720"
+from = "ps10020"
+cells = { desc_text = 4048827228 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035730"
+from = "ps10020"
+cells = { desc_text = 3897491997 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035740"
+from = "ps10020"
+cells = { desc_text = 2802750682 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035750"
+from = "ps10020"
+cells = { desc_text = 3189089691 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035760"
+from = "ps10020"
+cells = { desc_text = 2503538264 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035770"
+from = "ps10020"
+cells = { desc_text = 2351154969 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035780"
+from = "ps10020"
+cells = { desc_text = 196860886 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035810"
+from = "ps10020"
+cells = { desc_text = 3508873122 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035820"
+from = "ps10020"
+cells = { desc_text = 4194858081 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035830"
+from = "ps10020"
+cells = { desc_text = 3809690912 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035840"
+from = "ps10020"
+cells = { desc_text = 2891109351 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035850"
+from = "ps10020"
+cells = { desc_text = 3041518246 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035860"
+from = "ps10020"
+cells = { desc_text = 2657399141 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035870"
+from = "ps10020"
+cells = { desc_text = 2273280036 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035880"
+from = "ps10020"
+cells = { desc_text = 15178987 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035890"
+from = "ps10020"
+cells = { desc_text = 435989930 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035900"
+from = "ps10020"
+cells = { desc_text = 3388767444 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035910"
+from = "ps10020"
+cells = { desc_text = 3504819605 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035920"
+from = "ps10020"
+cells = { desc_text = 4224327254 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035930"
+from = "ps10020"
+cells = { desc_text = 3805359895 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035940"
+from = "ps10020"
+cells = { desc_text = 2911943120 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035950"
+from = "ps10020"
+cells = { desc_text = 3029043345 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035960"
+from = "ps10020"
+cells = { desc_text = 2678512466 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035970"
+from = "ps10020"
+cells = { desc_text = 2260593171 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035980"
+from = "ps10020"
+cells = { desc_text = 19265244 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06035990"
+from = "ps10020"
+cells = { desc_text = 406767517 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036000"
+from = "ps10020"
+cells = { desc_text = 3566790837 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036010"
+from = "ps10020"
+cells = { desc_text = 3447970292 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036020"
+from = "ps10020"
+cells = { desc_text = 3870198327 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036030"
+from = "ps10020"
+cells = { desc_text = 4290100086 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036040"
+from = "ps10020"
+cells = { desc_text = 2968792497 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036050"
+from = "ps10020"
+cells = { desc_text = 2851020016 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036060"
+from = "ps10020"
+cells = { desc_text = 2193772339 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036070"
+from = "ps10020"
+cells = { desc_text = 2614722162 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036080"
+from = "ps10020"
+cells = { desc_text = 474047165 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036090"
+from = "ps10020"
+cells = { desc_text = 89805820 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036100"
+from = "ps10020"
+cells = { desc_text = 3579478658 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036110"
+from = "ps10020"
+cells = { desc_text = 3426857923 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036120"
+from = "ps10020"
+cells = { desc_text = 3882672128 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036130"
+from = "ps10020"
+cells = { desc_text = 4269265217 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036140"
+from = "ps10020"
+cells = { desc_text = 2973124486 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036150"
+from = "ps10020"
+cells = { desc_text = 2821551815 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036160"
+from = "ps10020"
+cells = { desc_text = 2197824772 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036170"
+from = "ps10020"
+cells = { desc_text = 2585465925 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036180"
+from = "ps10020"
+cells = { desc_text = 495126666 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036190"
+from = "ps10020"
+cells = { desc_text = 77085131 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036200"
+from = "ps10020"
+cells = { desc_text = 3608952027 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036210"
+from = "ps10020"
+cells = { desc_text = 3456568730 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036220"
+from = "ps10020"
+cells = { desc_text = 3844759129 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036230"
+from = "ps10020"
+cells = { desc_text = 4231098136 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036240"
+from = "ps10020"
+cells = { desc_text = 3010525663 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036250"
+from = "ps10020"
+cells = { desc_text = 2859190430 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036260"
+from = "ps10020"
+cells = { desc_text = 2168888157 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036270"
+from = "ps10020"
+cells = { desc_text = 2556275228 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036280"
+from = "ps10020"
+cells = { desc_text = 533051091 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036290"
+from = "ps10020"
+cells = { desc_text = 115246994 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036300"
+from = "ps10020"
+cells = { desc_text = 3604895468 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036310"
+from = "ps10020"
+cells = { desc_text = 3485820845 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036320"
+from = "ps10020"
+cells = { desc_text = 3840423022 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036330"
+from = "ps10020"
+cells = { desc_text = 4260562223 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036340"
+from = "ps10020"
+cells = { desc_text = 2998047720 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036350"
+from = "ps10020"
+cells = { desc_text = 2880021161 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036360"
+from = "ps10020"
+cells = { desc_text = 2156196202 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036370"
+from = "ps10020"
+cells = { desc_text = 2577383467 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036380"
+from = "ps10020"
+cells = { desc_text = 503831780 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036390"
+from = "ps10020"
+cells = { desc_text = 119336357 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036400"
+from = "ps10020"
+cells = { desc_text = 3549511785 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036410"
+from = "ps10020"
+cells = { desc_text = 3398070568 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036420"
+from = "ps10020"
+cells = { desc_text = 3785827051 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036430"
+from = "ps10020"
+cells = { desc_text = 4173075370 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036440"
+from = "ps10020"
+cells = { desc_text = 3086845293 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036450"
+from = "ps10020"
+cells = { desc_text = 2934354988 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036460"
+from = "ps10020"
+cells = { desc_text = 2244732911 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036470"
+from = "ps10020"
+cells = { desc_text = 2630932142 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036480"
+from = "ps10020"
+cells = { desc_text = 457755233 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036490"
+from = "ps10020"
+cells = { desc_text = 39058208 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036500"
+from = "ps10020"
+cells = { desc_text = 3528665694 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036510"
+from = "ps10020"
+cells = { desc_text = 3410500383 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036520"
+from = "ps10020"
+cells = { desc_text = 3764734172 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036530"
+from = "ps10020"
+cells = { desc_text = 4185815453 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036540"
+from = "ps10020"
+cells = { desc_text = 3057643354 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036550"
+from = "ps10020"
+cells = { desc_text = 2938428955 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036560"
+from = "ps10020"
+cells = { desc_text = 2215218648 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036570"
+from = "ps10020"
+cells = { desc_text = 2635250841 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036580"
+from = "ps10020"
+cells = { desc_text = 445292630 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036590"
+from = "ps10020"
+cells = { desc_text = 59871511 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036600"
+from = "ps10020"
+cells = { desc_text = 3491075079 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036610"
+from = "ps10020"
+cells = { desc_text = 3373180230 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036620"
+from = "ps10020"
+cells = { desc_text = 3794007685 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036630"
+from = "ps10020"
+cells = { desc_text = 4214802372 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036640"
+from = "ps10020"
+cells = { desc_text = 3027849475 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036650"
+from = "ps10020"
+cells = { desc_text = 2908905538 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036660"
+from = "ps10020"
+cells = { desc_text = 2253337473 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036670"
+from = "ps10020"
+cells = { desc_text = 2673083072 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036680"
+from = "ps10020"
+cells = { desc_text = 416030223 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036690"
+from = "ps10020"
+cells = { desc_text = 30879566 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036700"
+from = "ps10020"
+cells = { desc_text = 3520593456 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036710"
+from = "ps10020"
+cells = { desc_text = 3368865649 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036720"
+from = "ps10020"
+cells = { desc_text = 3823213746 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036730"
+from = "ps10020"
+cells = { desc_text = 4210732531 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036740"
+from = "ps10020"
+cells = { desc_text = 3048946484 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036750"
+from = "ps10020"
+cells = { desc_text = 2896169589 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036760"
+from = "ps10020"
+cells = { desc_text = 2274187702 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036770"
+from = "ps10020"
+cells = { desc_text = 2660657399 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036780"
+from = "ps10020"
+cells = { desc_text = 420377656 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036790"
+from = "ps10020"
+cells = { desc_text = 1394041 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036800"
+from = "ps10020"
+cells = { desc_text = 3666589965 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06036810"
+from = "ps10020"
+cells = { desc_text = 3281029196 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06037880"
+from = "ps10020"
+cells = { desc_text = 2867745888 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06037890"
+from = "ps10020"
+cells = { desc_text = 3019203873 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06037900"
+from = "ps10020"
+cells = { desc_text = 1677046879 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06037910"
+from = "ps10020"
+cells = { desc_text = 2062451998 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06037920"
+from = "ps10020"
+cells = { desc_text = 1371789021 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06037930"
+from = "ps10020"
+cells = { desc_text = 1222174620 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06037940"
+from = "ps10020"
+cells = { desc_text = 127496539 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06037950"
+from = "ps10020"
+cells = { desc_text = 511852570 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06037960"
+from = "ps10020"
+cells = { desc_text = 900666329 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039420"
+from = "ps10020"
+cells = { desc_text = 3116643005 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039430"
+from = "ps10020"
+cells = { desc_text = 2698970108 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039440"
+from = "ps10020"
+cells = { desc_text = 4020147515 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "signature_c06039450"
+from = "ps10020"
+cells = { desc_text = 4135953530 }
+effects = []
+buff_icons = []

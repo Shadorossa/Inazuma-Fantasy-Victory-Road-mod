@@ -1,22 +1,17 @@
 schema = "VRFW.rule/1"
-# Ruleset «Inazuma Street» (Football Reforged): 3 vs 3,
-# no keepers, no referee. The engine only sets the players per side; pitch and goals are the row's. No keepers = the
-# keeper shift (positions + 1): places 1-3 of formation 0x3285EB55 = crc32("if_form_street_3")
-# (content\formations\formation_config.toml: 1 defender + 2 forwards, no place 0; 2 kicks off, 3 receives). No referee:
-# no fouls, cards, offside or advantage. Clock and halves: the row's. Used by a mode
-# (CMND_VRFW_RULE_ENGINE_SELECT("inazuma_street")), a friendly (`ruleset = "inazuma_street"`) or a binding.
+# Ruleset «Inazuma Street» (Football Reforged): 3 vs 3, no keepers, no referee.
 id = "inazuma_street"
-name = "Inazuma Street (3 vs 3, no keepers or referee)"   # fallback; the game shows the text key FootballReforged.ruleset_inazuma_street
+name = "Inazuma Street (3 vs 3, no keepers or referee)"
 version = 1
 
 [teams]
 players = 3
-keepers = false            # = goalkeeper = false: every player outfield
+goalkeeper = false         # every player outfield
 user  = { formation = 0x3285EB55 }   # if_form_street_3
 rival = { formation = 0x3285EB55 }
 
 [play]
-referee = false            # no referee: no fouls, cards, penalties for fouls or offside
+referee = false
 
 [end]
 extra_time = false

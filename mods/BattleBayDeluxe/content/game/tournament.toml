@@ -1,116 +1,86 @@
-# The Battle Bay «Torneo» as native data (schema VRFW.game/1, docs/framework/native.md), handled by
-# scripts\tournament.lua (required by campaign.lua: one VM with the Campaña's Decide hook and the Draft). The session
-# block `session` and its struct are declared in campaign.toml (one name space per mod). The graft
-# research/grafts/bb_tournament calls these commands from the Battle Bay top menu, the campaign end window and the
-# screens that read CMND_GET_BB_STADIUM_CAMPAIGN_INFO.
+# The Battle Bay «Torneo» as native data (schema VRFW.game/1, docs/internal/native.md).
 schema = "VRFW.game/1"
 
 [[VRFW.Command]]
-# -> table { active, ended, armed, campaign (another campaign holds the block), defaults { fmt, size }, fmt (0
-# knockout, 1 groups), size, k (matches played), matches (the champion's matches), stage, outcome, rules (the
-# rulebook of the next match: "" = the row's own), rival (the next rival's team hash), ends_run (the won match just
-# played leaves the player no match: the end window shows only «Next») }
-name = "CMND_BBD_TOURN_INFO"
-handler = "BattleBayDeluxe.TournInfo"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_INFO"
+handler = "BattleBayDeluxe.TournamentInfo"
 needs = ["session"]
 
 [[VRFW.Command]]
-# fmt (0 knockout, 1 groups), size (a power of two), configured, filter (1 = filter minor teams, 2 = picked by hand),
-# double, no_national, ordered (1 = the picked teams in their pick order) -> ok, why: the next campaign start in the
-# grid is a tournament
-name = "CMND_BBD_TOURN_ARM"
-handler = "BattleBayDeluxe.TournArm"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_ARM"
+handler = "BattleBayDeluxe.TournamentArm"
 needs = ["session"]
 
 [[VRFW.Command]]
-name = "CMND_BBD_TOURN_DISARM"
-handler = "BattleBayDeluxe.TournDisarm"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_DISARM"
+handler = "BattleBayDeluxe.TournamentDisarm"
 needs = ["session"]
 
 [[VRFW.Command]]
-# the values of CMND_VRFW_RULE_ENGINE_STATE (phase, rulebook, goals for, against, shoot-out for, against, winner,
-# extra time) -> table { event = "none" | "result" | "out" | "champion" | "ended" | "abandoned", show, rules }
-name = "CMND_BBD_TOURN_SYNC"
-handler = "BattleBayDeluxe.TournSync"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_SYNC"
+handler = "BattleBayDeluxe.TournamentSync"
 needs = ["session"]
 
 [[VRFW.Command]]
 # page (-1 = the first) -> the overlay's view (scripts/lib/tourney_view.lua)
-name = "CMND_BBD_TOURN_VIEW"
-handler = "BattleBayDeluxe.TournView"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_VIEW"
+handler = "BattleBayDeluxe.TournamentView"
 needs = ["session"]
 
 [[VRFW.Command]]
-# sub, i -> handled, value: CMND_GET_BB_STADIUM_CAMPAIGN_INFO 1 (match number) / 3 (rival i) as the tournament shows it;
-# sub 4 (1.5.47) -> true, the loading telop's path length (a tournament match: its format's match count, else the
-# Campaña block's 7)
-name = "CMND_BBD_TOURN_CAMPAIGN_INFO"
-handler = "BattleBayDeluxe.TournCampaignInfo"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_CAMPAIGN_INFO"
+handler = "BattleBayDeluxe.TournamentCampaignInfo"
 needs = ["session"]
 
 [[VRFW.Command]]
-name = "CMND_BBD_TOURN_ABANDON"
-handler = "BattleBayDeluxe.TournAbandon"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_ABANDON"
+handler = "BattleBayDeluxe.TournamentAbandon"
 needs = ["session"]
 
 [[VRFW.Command]]
-name = "CMND_BBD_TOURN_CLOSE"
-handler = "BattleBayDeluxe.TournClose"
+# -> true: an ended run (champion / out) shown once, forgotten (its blob went when it ended)
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_CLOSE"
+handler = "BattleBayDeluxe.TournamentClose"
 needs = ["session"]
 
 [[VRFW.Command]]
 # -> table { event = "step" | "over" | "none" }: after an elimination, the next remaining round simulated and saved
-name = "CMND_BBD_TOURN_STEP"
-handler = "BattleBayDeluxe.TournStep"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_STEP"
+handler = "BattleBayDeluxe.TournamentStep"
 needs = ["session"]
 
 [[VRFW.Command]]
 # -> table { ok, why, event, gf, ga }: the League hub's «Simular»: the player's next league match simulated and saved
-name = "CMND_BBD_TOURN_SIM"
-handler = "BattleBayDeluxe.TournSim"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_SIM"
+handler = "BattleBayDeluxe.TournamentSim"
 needs = ["session"]
 
 [[VRFW.Command]]
-# difficulty byte (GetSelectDifficultyIdx() + 1) -> table { ok, waiting }: 1.5.4, the grid's start; with the run the
-# Decide hook drew (the game's own start refused) the campaign block is written and the run saved
-name = "CMND_BBD_TOURN_START"
-handler = "BattleBayDeluxe.TournStart"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_START"
+handler = "BattleBayDeluxe.TournamentStart"
 needs = ["session"]
 
 [[VRFW.Command]]
-# -> table { ok, rules }: 1.5.5, Enter on the bracket: the Campaña's block fields kept (save blob
-# bb_tournament_campaign.json), the next tournament match written into the block (index 0)
-name = "CMND_BBD_TOURN_PREPARE"
-handler = "BattleBayDeluxe.TournPrepare"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_PREPARE"
+handler = "BattleBayDeluxe.TournamentPrepare"
 # a league home match reads the player team's enjoy row (its own stadium)
 needs = ["session", "enjoy", "EnjoyTable", "EnjoyRow"]
 
 [[VRFW.Command]]
-# -> true: the match request failed: the Campaña's block fields back at once
-name = "CMND_BBD_TOURN_UNLOAD"
-handler = "BattleBayDeluxe.TournUnload"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_UNLOAD"
+handler = "BattleBayDeluxe.TournamentUnload"
 needs = ["session"]
 
 [[VRFW.Command]]
-# -> true: the tournament match just lost / drawn is a group-stage match that leaves the player in the run (the
-# game-over telop is skipped: graft bb_tournament bbt_over.lua); false: the defeat ends the run, or no tournament match
-name = "CMND_BBD_TOURN_STILL_IN"
-handler = "BattleBayDeluxe.TournStillIn"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_STILL_IN"
+handler = "BattleBayDeluxe.TournamentStillIn"
 needs = ["session"]
 
 [[VRFW.Command]]
-# «Equipos: Personalizado», the teams picked by hand: op (5 begin a new tournament, 0 begin again in the same options
-# visit, 1 toggle, 2 keep, 3 Back, 4 count), fmt, team (op 5 and 0: the count to pick),
-# player -> table { teams, n, max, ok, on, why } (scripts\tournament.lua BattleBayDeluxe.TournPick)
-name = "CMND_BBD_TOURN_PICK"
-handler = "BattleBayDeluxe.TournPick"
+name = "CMND_BATTLEBAYDELUXE_TOURNAMENT_PICK"
+handler = "BattleBayDeluxe.TournamentPick"
 needs = ["session"]
 
-# the League hub's «Plantilla» opens the game's team dock for the league team (scripts\league_squad.lua, graft
-# bb_tournament BBT_HubTeamEditor over the VR-Framework's VRFW_TeamEditor); the order left there is written over the
-# team in memory before every league match: its member rows (the Draft's MemberRow layout, draft.toml) and its
-# record's formation (team_config col 4 at +0x18 in memory, docs/framework/random-team.md).
-# the dock shows the team's own kit (+0x1C, team_config col 5) and emblem (+0x20, col 6) too.
 [[VRFW.Struct]]
 name = "LeagueTeamRecord"
 size = 0x30
@@ -118,12 +88,12 @@ fields = { formation = { at = 0x18, type = "u32" }, kit = { at = 0x1C, type = "u
 
 [[VRFW.Command]]
 # -> table { ok, why, kind ("copy" / "own" / "draft"), team, formation, level, emblem, members = { { slot, param } … } }
-name = "CMND_BBD_LEAGUE_SQUAD"
+name = "CMND_BATTLEBAYDELUXE_LEAGUE_SQUAD"
 handler = "BattleBayDeluxe.LeagueSquad"
-needs = ["session", "FindTeamConfig", "RosterRowsCode", "RosterParamCode", "RosterSlotCode", "TeamRecord", "TeamConfig", "MemberRow", "LeagueTeamRecord"]
+needs = ["session", "Team.FindConfig", "RosterRowsCode", "RosterParamCode", "RosterSlotCode", "TeamRecord", "TeamConfig", "MemberRow", "LeagueTeamRecord"]
 
 [[VRFW.Command]]
 # formation, "position:param,…" (dock positions 0-18 of the team's players) -> table { ok, why, changed }
-name = "CMND_BBD_LEAGUE_SQUAD_SET"
+name = "CMND_BATTLEBAYDELUXE_LEAGUE_SQUAD_SET"
 handler = "BattleBayDeluxe.LeagueSquadSet"
-needs = ["session", "FindTeamConfig", "RosterRowsCode", "RosterParamCode", "RosterSlotCode", "TeamRecord", "TeamConfig", "MemberRow", "LeagueTeamRecord"]
+needs = ["session", "Team.FindConfig", "RosterRowsCode", "RosterParamCode", "RosterSlotCode", "TeamRecord", "TeamConfig", "MemberRow", "LeagueTeamRecord"]

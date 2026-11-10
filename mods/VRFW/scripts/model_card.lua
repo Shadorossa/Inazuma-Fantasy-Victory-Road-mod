@@ -1,16 +1,6 @@
--- Model cards, script side (game Lua side: assets\lua\menu\_all\91_model_card.lua `VRFW_ModelCard`;
--- docs/framework/model-card.md). One player's 3D model posed inside a box of a menu screen; this file picks the clip
--- the player's motion set holds and loads extra motion packs onto the built model.
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_VRFW_MODEL_CARD_CLIP | motion set (c000101 …), clips "pack:clip|pack:clip|…" | { clip = crc32 of the clip name, name, pack = game path of its pack, attach = the pack must be loaded onto the model first, camera = content\defaults\model_card.toml [camera], fit = its [fit] } |
--- | CMND_VRFW_MODEL_CARD_PACK | model handle, pack path | true, or false + why: the pack loaded onto the model |
--- A clip counts as held when its pack file of that motion set exists and names the clip. The list always ends with the
--- stand clip of [clips] stand (the base pack's), so a player never gets a clip his model cannot play.
 
 ModelCard = ModelCard or {}
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("model_card")
 
 local crc = VRFW.crc32
@@ -33,7 +23,6 @@ local function clips_config()
   }
 end
 
--- pack path -> { [clip name] = true | false } (what was looked up), or false when the file is missing
 local HELD = {}
 
 local function pack_path(set, pack)

@@ -1,20 +1,9 @@
--- Passive slot modes: every active mod's content/passive_slots/*.toml (`VRFW.passive_slots/1`). A [[VRFW.SignatureOnly]]
--- names a game_state key; while it is 1 every player keeps only his signature passive (custom passive slot, board equip
--- slot 9). The effect is native (content/game/archetype.toml, tables Passive.SlotsOff / Signature* the mods export);
--- this script gives the menus and the other scripts the same picture (content/game/passive_slots.toml):
---   state key vrfw.passive.slots_off              1 while a declared mode runs (set on slot / mode / match events)
---   CMND_GET_CHARA_TEAM_PASSIVE_INFO (filter)     the plate's 5 passive rows read empty
---   CMND_VRFW_PASSIVE_SLOTS_OFF                   () -> true while a declared mode runs
---   CMND_VRFW_SIGNATURE_PASSIVE                   (hdl) -> passive id, open, mode on: what the slot 9 readers answer
--- A [[VRFW.NoPassives]] names a game_state key that is 1 while no player carries any passive (the declaring mod answers
--- the slot readers); its readers test one key:
---   state key vrfw.passive.all_off                1 while such a mode runs (set on slot / mode / match events)
+-- Passive slot modes: every active mod's content/passive_slots/*.toml (`VRFW.passive_slots/1`).
 
 PassiveSlots = PassiveSlots or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("passive_slots")
 
 local KEY_OFF = "vrfw.passive.slots_off"
@@ -25,10 +14,12 @@ local LIST_HANDLE_BASE, LIST_HANDLE_MASK = 0xE000, 0xFFFFF000
 local MODES = {}               -- [[VRFW.SignatureOnly]]: { key, state }
 local NO_PASSIVE_MODES = {}    -- [[VRFW.NoPassives]]: { key, state }
 local PUBLISHED = {}           -- state key -> the value last written
-local BUF_ID, BUF_HDL
 
-local Id = require "lib/ids"
-local function u32(v) return Id.u32_or(v, nil) end
+local Id = VRFW.ids
+local Passives = VRFW.passives
+-- the bindings that answer slot 9 of a character handle
+local LIVE_READERS = { id = "VRFW.SignatureSlotIdLive", open = "VRFW.SignaturePieceOpenLive" }
+local function u32(v) return Id.unsigned_or(v, nil) end
 
 local function load()
   local schema, why = D.schema("passive_slot_mode")
@@ -52,7 +43,6 @@ local function load()
   end
 end
 
--- the mode of `list` running now, or nil
 local function running_of(list)
   for _, m in ipairs(list) do
     local ok, v = pcall(VRFW.state.get, m.state)
@@ -61,7 +51,6 @@ local function running_of(list)
   return nil
 end
 
--- the declared signature-only mode running now, or nil
 local function running()
   return running_of(MODES)
 end
@@ -85,8 +74,6 @@ local function publish(why)
   publish_key(KEY_ALL_OFF, NO_PASSIVE_MODES, why)
 end
 
--- ---------------------------------------------------------------------------------------------- filters and commands
-
 -- CMND_GET_CHARA_TEAM_PASSIVE_INFO(hdl, slot, field, useCopy, preview): a real player's 5 rows read empty
 function PassiveSlots.PlateInfo(h, slot, field)
   h, slot, field = u32(h), u32(slot), u32(field)
@@ -101,29 +88,13 @@ function PassiveSlots.CmdOff()
   return running() ~= nil
 end
 
--- the answer of the slot 9 readers for a character handle: passive id, open
-local function signature_of(hdl)
-  if not BUF_ID then
-    BUF_ID = VRFW.mem.buffer("passive_slots_id", 8)
-    BUF_HDL = VRFW.mem.buffer("passive_slots_hdl", 4)
-  end
-  VRFW.mem.write("u32", BUF_ID, 0)
-  if not pcall(VRFW.call, "VRFW.SignatureSlotIdLive", BUF_ID, hdl) then return 0, false end
-  local id = VRFW.mem.read("u32", BUF_ID) or 0
-  VRFW.mem.write("u32", BUF_HDL, hdl)
-  local ok, open = pcall(VRFW.call, "VRFW.SignaturePieceOpenLive", BUF_HDL)
-  return id, ok and tonumber(open) ~= nil and tonumber(open) % 256 ~= 0
-end
-
 function PassiveSlots.CmdSignature(hdl)
   hdl = u32(hdl)
   local on = running() ~= nil
   if not hdl or hdl == 0 then return 0, false, on end
-  local id, open = signature_of(hdl)
+  local id, open = Passives.signature_passive(hdl, LIVE_READERS)
   return id, open, on
 end
-
--- ---------------------------------------------------------------------------------------------- start
 
 do
   local ok, e = pcall(load)

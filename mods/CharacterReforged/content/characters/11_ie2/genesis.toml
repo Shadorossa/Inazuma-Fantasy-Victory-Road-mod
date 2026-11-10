@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Character Reforged · Genesis · Inazuma Eleven 2
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c02021410"                                   # Nero
@@ -10,10 +7,10 @@ rank = 3
 growth = "normal"
 stats = { kick = 211, control = 208, technique = 219, pressure = 244, physical = 227, intelligence = 246, agility = 238, freedom = 217 }
 moves = [
-  { move = 0xB907E20C, level = 1 },                         # Procyon Net
-  { move = 0xA01CD34D, level = 35 },                        # Temporal Wall
-  { move = 0xF9B80F86, level = 44 },                        # Strong Punch
-  { move = 0xCB8E6D04, level = 60 },                        # Mighty Save
+  { move = 0xE854ED56, level = 53 },                        # Warp Space
+  { move = 0xB907E20C, level = 63 },                        # Procyon Net
+  { move = 0xA01CD34D, level = 73 },                        # Temporal Wall
+  { move = 0x9B3048AB, level = 83 },                        # Shadow Catch
 ]
 
 [[edit]]
@@ -35,9 +32,9 @@ growth = "normal"
 stats = { kick = 217, control = 181, technique = 201, pressure = 265, physical = 239, intelligence = 290, agility = 198, freedom = 221 }
 moves = [
   { move = 0x43B5739B, level = 1 },                         # Lightning Bolt
-  { move = 0x6633159F, level = 1 },                         # Gravitation
-  { move = 0xB907E20C, level = 52 },                        # Procyon Net
+  { move = 0x6633159F, level = 11 },                        # Gravitation
   { move = 0x8C990270, level = 62 },                        # Gunshot
+  { move = 0x7C6D5B0E, level = 72 },                        # Astro Break
 ]
 
 [[edit]]
@@ -45,15 +42,15 @@ target = "c02021440"                                   # Zohen
 rank = 3
 growth = "normal"
 stats = { kick = 208, control = 189, technique = 200, pressure = 250, physical = 258, intelligence = 290, agility = 197, freedom = 230 }
+moves = [
+  { move = 0x29728358, level = 1 },                         # Planet Shield
+  { move = 0xAD6E4BF9, level = 11 },                        # Harvest
+  { move = 0x00196EC2, level = 21 },                        # Earthquake
+  { move = 0x7207C577, level = 67 },                        # Boost Glider
+]
 
   [[edit.cards]]
-  id = 0xB9BFBD23    # normal card (the character's special cards keep their own set)
-  moves = [
-    { move = 0x6C827857, level = 1 },                       # Rolling Steal
-    { move = 0xAD6E4BF9, level = 1 },                       # Harvest
-    { move = 0x00196EC2, level = 10 },                      # Earthquake
-    { move = 0x7207C577, level = 67 },                      # Boost Glider
-  ]
+  id = 0xB9BFBD23
 
 [[edit]]
 target = "c02021450"                                   # Hauser
@@ -61,15 +58,15 @@ growth_pattern = 1
 rank = 3
 growth = "normal"
 stats = { kick = 212, control = 190, technique = 208, pressure = 248, physical = 255, intelligence = 293, agility = 193, freedom = 242 }
+moves = [
+  { move = 0x28B0E96F, level = 1 },                         # Heavy Mettle
+  { move = 0x3069B219, level = 38 },                        # Super Sumo Stomp
+  { move = 0x29728358, level = 51 },                        # Planet Shield
+  { move = 0x1B854A64, level = 60 },                        # Cosmic Blast
+]
 
   [[edit.cards]]
-  id = 0xA0A48C62    # normal card (the character's special cards keep their own set)
-  moves = [
-    { move = 0x28B0E96F, level = 1 },                       # Heavy Mettle
-    { move = 0x3069B219, level = 38 },                      # Super Sumo Stomp
-    { move = 0x29728358, level = 51 },                      # Planet Shield
-    { move = 0x1B854A64, level = 60 },                      # Cosmic Blast
-  ]
+  id = 0xA0A48C62
 
 [[edit]]
 target = "c02021460"                                   # Kormer
@@ -114,7 +111,7 @@ rank = 3
 growth = "normal"
 stats = { kick = 277, control = 248, technique = 244, pressure = 215, physical = 182, intelligence = 231, agility = 178, freedom = 234 }
 moves = [
-  { move = 0x6B4A7B35, level = 1 },                         # Power Shot
+  { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
   { move = 0x7FE98F60, level = 10 },                        # Ganymede Ray
   { move = 0xB4757AB8, level = 40 },                        # Divine Stamp
   { move = 0x6DAEF91C, level = 55 },                        # Supernova
@@ -125,12 +122,51 @@ target = "c02021500"                                   # Bellatrix
 rank = 3
 growth = "normal"
 stats = { kick = 281, control = 257, technique = 293, pressure = 190, physical = 182, intelligence = 258, agility = 169, freedom = 230 }
-moves = [
-  { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
-  { move = 0x3B8D915B, level = 1 },                         # Meteor Shower
-  { move = 0x4683AADF, level = 35 },                        # Space Penguin
-  { move = 0xC66BD10D, level = 55 },                        # Zigzag Spark
-]
+
+  [[edit.cards]]
+  id = 0x567A9D31    # normal card (the character's special cards keep their own set)
+  moves = [
+    { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
+    { move = 0x3B8D915B, level = 11 },                      # Meteor Shower
+    { move = 0x4683AADF, level = 35 },                      # Space Penguin
+    { move = 0xC66BD10D, level = 55 },                      # Zigzag Spark
+  ]
+
+  [[edit.cards]]
+  id = 0x5A15F35B    # normal card (the character's special cards keep their own set)
+  moves = [
+    { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
+    { move = 0x3B8D915B, level = 11 },                      # Meteor Shower
+    { move = 0x4683AADF, level = 35 },                      # Space Penguin
+    { move = 0xC66BD10D, level = 55 },                      # Zigzag Spark
+  ]
+
+  [[edit.cards]]
+  id = 0x6DD77DAB    # normal card (the character's special cards keep their own set)
+  moves = [
+    { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
+    { move = 0x3B8D915B, level = 11 },                      # Meteor Shower
+    { move = 0x4683AADF, level = 35 },                      # Space Penguin
+    { move = 0xC66BD10D, level = 55 },                      # Zigzag Spark
+  ]
+
+  [[edit.cards]]
+  id = 0x82F4E44E    # normal card (the character's special cards keep their own set)
+  moves = [
+    { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
+    { move = 0x3B8D915B, level = 11 },                      # Meteor Shower
+    { move = 0x4683AADF, level = 35 },                      # Space Penguin
+    { move = 0xC66BD10D, level = 55 },                      # Zigzag Spark
+  ]
+
+  [[edit.cards]]
+  id = 0xDC111210    # normal card (the character's special cards keep their own set)
+  moves = [
+    { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
+    { move = 0x3B8D915B, level = 11 },                      # Meteor Shower
+    { move = 0x4683AADF, level = 35 },                      # Space Penguin
+    { move = 0xC66BD10D, level = 55 },                      # Zigzag Spark
+  ]
 
 [[edit]]
 target = "c02021510"                                   # Xene
@@ -138,7 +174,7 @@ growth = "normal"
 stats = { kick = 329, control = 250, technique = 257, pressure = 212, physical = 193, intelligence = 231, agility = 167, freedom = 213 }
 
   [[edit.cards]]
-  id = 0x430EC21A    # normal card (the character's special cards keep their own set)
+  id = 0x430EC21A
   moves = [
     { move = 0x65766A4F, level = 1 },                       # Meteor Blade
     { move = 0x1162A8AF, level = 22 },                      # Bewilder Blast
@@ -147,7 +183,7 @@ stats = { kick = 329, control = 250, technique = 257, pressure = 212, physical =
   ]
 
   [[edit.cards]]
-  id = 0x4F61AC70    # normal card (the character's special cards keep their own set)
+  id = 0x4F61AC70
   moves = [
     { move = 0x65766A4F, level = 1 },                       # Meteor Blade
     { move = 0x1162A8AF, level = 22 },                      # Bewilder Blast
@@ -156,7 +192,7 @@ stats = { kick = 329, control = 250, technique = 257, pressure = 212, physical =
   ]
 
   [[edit.cards]]
-  id = 0x74CC4CEA    # normal card (the character's special cards keep their own set)
+  id = 0x74CC4CEA
   moves = [
     { move = 0x65766A4F, level = 1 },                       # Meteor Blade
     { move = 0x1162A8AF, level = 22 },                      # Bewilder Blast
@@ -165,7 +201,7 @@ stats = { kick = 329, control = 250, technique = 257, pressure = 212, physical =
   ]
 
   [[edit.cards]]
-  id = 0x9BEFD50F    # normal card (the character's special cards keep their own set)
+  id = 0x9BEFD50F
   moves = [
     { move = 0x65766A4F, level = 1 },                       # Meteor Blade
     { move = 0x1162A8AF, level = 22 },                      # Bewilder Blast
@@ -174,7 +210,7 @@ stats = { kick = 329, control = 250, technique = 257, pressure = 212, physical =
   ]
 
   [[edit.cards]]
-  id = 0xC50A2351    # normal card (the character's special cards keep their own set)
+  id = 0xC50A2351
   moves = [
     { move = 0x65766A4F, level = 1 },                       # Meteor Blade
     { move = 0x1162A8AF, level = 22 },                      # Bewilder Blast

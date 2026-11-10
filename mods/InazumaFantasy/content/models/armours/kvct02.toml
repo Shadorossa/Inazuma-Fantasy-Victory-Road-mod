@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# The armour of the keshin Victoria: meshes per body group and texture (assets/models/armours/kvct02).
+format = "native"
+game_path = "chr/_armd/kvct02"

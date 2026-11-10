@@ -1,0 +1,13 @@
+schema = "VRFW.passive/1"
+
+# the Tension archetype passive: the tension the team earns when it loses a focus duel, +12 %
+[[VRFW.Passive]]
+name = "tension_on_loss"
+blocks = ["team_tension_gain_focus_lost_12"]
+carried_by = ["passives_synergies_tension_on_loss"]
+
+# the Tension archetype passive: each focus duel he wins with a hard attack or a hard block, 6 tension points for his team
+[[VRFW.Passive]]
+name = "tension_on_hard_play"
+blocks = ["won_hard_attack", "won_hard_block", "tension_6_actor"]
+carried_by = ["passives_synergies_tension_on_hard_play"]

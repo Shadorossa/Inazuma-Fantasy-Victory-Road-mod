@@ -1,0 +1,77 @@
+schema = "VRFW.migration/1"
+id = "HissatsuReforged.level_up_in_base"
+description = "Hissatsu Level Up is part of Hissatsu Reforged: its save files, config, registry numbers and list entries move"
+phase = "data"
+after = ["VRFW.no_compat_names"]
+
+# the technique clones were registered with the old name twice in one key part
+[[step]]
+kind = "rename_id_keep_number"
+space = "all"
+from = "HissatsuLevelUp.HissatsuLevelUp.*"
+to = "HissatsuReforged.HissatsuReforged.*"
+if_target = "keep_target"
+
+# the learned levels and use counts of every save slot
+[[step]]
+kind = "move_file"
+from = "{saves}/*/HissatsuLevelUp/*.json"
+to = "{saves}/*/HissatsuReforged/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/*/HissatsuLevelUp/.backup/*"
+to = "{saves}/*/HissatsuReforged/.backup/*"
+if_target = "keep_target"
+
+# the player's tuned rules: moved key by key because the base can already have a section
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.HissatsuLevelUp.ranks"
+to = "mods.HissatsuReforged.ranks"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.HissatsuLevelUp.duplicates"
+to = "mods.HissatsuReforged.duplicates"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "HissatsuLevelUp.ranks"
+to = "HissatsuReforged.ranks"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "HissatsuLevelUp.duplicates"
+to = "HissatsuReforged.duplicates"
+if_target = "keep_target"
+
+# the base is not a module: no list entry follows it
+[[step]]
+kind = "remove_from_mod_lists"
+id = "HissatsuLevelUp"
+
+# what is left: the save folder, every HissatsuLevelUp.* registry key and save id map entry (numbers kept)
+[[step]]
+kind = "rename_mod_id"
+from = "HissatsuLevelUp"
+to = "HissatsuReforged"
+if_target = "keep_target"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.HissatsuLevelUp"
+
+# the module folder of the previous version would load as a second copy of the feature
+[[step]]
+kind = "delete_folder"
+path = "{game}/mods/HissatsuReforged/modules/HissatsuLevelUp"

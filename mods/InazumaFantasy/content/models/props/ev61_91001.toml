@@ -1,5 +1,3 @@
 schema = "VRFW.model/1"
-# Technique model ev61_91001: game files served as they are, from assets\models\props\ev61_91001\{common,dx11}\ to data\{common,dx11}\chr\_waza\ev61_91001\
-# (native: the object carries its own animation banks and materials). research/scripts/hissatsu_revamp_build.py.
 format = "native"
 game_path = "chr/_waza/ev61_91001"

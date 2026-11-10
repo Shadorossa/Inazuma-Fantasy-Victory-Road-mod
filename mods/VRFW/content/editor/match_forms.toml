@@ -1,8 +1,6 @@
 # The forms of the framework's match declarations: [[VRFW.RouteNode]], [[VRFW.MatchChallenge]], [[VRFW.GameDrops]] and
 # [[VRFW.LevelMap]] (docs/framework/modmanager-editor-schemas.md). ModManager's match page («Eventos» > a match) edits
-# every mod's records of these tables with them, in place. `For` names the table a root shape is the form of.
-# The keys are the team type's (team_engine: decl.rs, challenge.rs); a save is read back by its strict parser first.
-# Read only by ModManager: the game does not read content\editor\.
+# every mod's records of these tables with them, in place.
 schema = "VRFW.editor/1"
 
 # ---------------------------------------------------------------------------------------------- [[VRFW.RouteNode]]
@@ -171,6 +169,11 @@ For = "VRFW.MatchChallenge"
   Values = ["squad", "starters"]
   ValueLabels = { squad = { es = "Titulares y banquillo", en = "Starters and bench" }, starters = { es = "Solo titulares", en = "Starters only" } }
   Label = { es = "A quién mira", en = "Who it checks" }
+  [[Shape.Field]]
+  Key = "UntilFirstClear"
+  Type = "bool"
+  Label = { es = "Solo hasta la primera victoria", en = "Only until the first win" }
+  Help = { es = "Ganado el partido, el desafío entero deja de aplicarse al repetirlo.", en = "Once the match is won, the whole challenge is off on replays." }
   [[Shape.Field]]
   Key = "Games"
   Type = "list"

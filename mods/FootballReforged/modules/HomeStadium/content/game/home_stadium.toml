@@ -1,10 +1,7 @@
 schema = "VRFW.game/2"
 
-# Home Stadium: the commands the game Lua asks (assets\lua). The logic is
-# scripts\home_stadium.lua (HomeStadium.*).
+# Home Stadium: the commands the game Lua asks (assets\lua).
 
-# () -> { { map, item }, … }: the game's stadium list in list order; item = its ticket (0 = always listed, -1 = another
-# unlock condition: not offered)
 [[VRFW.Command]]
 name = "CMND_HOMESTADIUM_LIST"
 handler = "HomeStadium.List"

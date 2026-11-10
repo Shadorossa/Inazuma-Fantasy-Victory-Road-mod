@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · <FST:ZANARK>'s Outsiders · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c11600030"                                   # Zanark Avalonic
 moves = [
-  { move = 0x1876DB66, level = 3 },                         # Disaster Strike
-  { move = 0xD0A1DBC3, level = 18 },                        # Bungee Ball Burst
-  { move = 0x93885A64, level = 48 },                        # Fire Drill
-  { move = 0x3D10DCB3, level = 81 },                        # Curve Shot
+  { move = 0xD0A1DBC3, level = 1 },                         # Bungee Ball Burst
+  { move = 0x1876DB66, level = 13 },                        # Disaster Strike
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
+  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]
@@ -20,15 +17,15 @@ moves = [
 [[edit]]
 target = "c11250010"                                   # Zanark Avalonic
 moves = [
-  { move = 0x1876DB66, level = 3 },                         # Disaster Strike
-  { move = 0xD0A1DBC3, level = 18 },                        # Bungee Ball Burst
-  { move = 0x93885A64, level = 48 },                        # Fire Drill
-  { move = 0x3D10DCB3, level = 81 },                        # Curve Shot
+  { move = 0xC5EF0563, level = 1 },                         # Three-Legged Rush
+  { move = 0x5E233E68, level = 13 },                        # Super Elastico
+  { move = 0x1876DB66, level = 20 },                        # Disaster Strike
+  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xD99B5FA1, level = 1 },                         # Miximax Trans: Zeta [aura]
+  { move = 0x9E014483, level = 20 },                        # wks00690
 ]
 
   [[edit.cards]]
@@ -39,15 +36,15 @@ moves = [
 [[edit]]
 target = "c11250020"                                   # Hurricane Zeta
 moves = [
-  { move = 0xB6852A33, level = 5 },                         # I Am the Almighty
-  { move = 0x6B4A7B35, level = 10 },                        # Power Shot
-  { move = 0xA4B51923, level = 40 },                        # The Typhoon
-  { move = 0x7C1494CF, level = 60 },                        # Tornado Tunnel
+  { move = 0x7EEA4EE9, level = 1 },                         # Blade Attack
+  { move = 0xA4B51923, level = 13 },                        # The Typhoon
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
+  { move = 0xB6852A33, level = 30 },                        # I Am the Almighty
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x7C37F77F, level = 1 },                         # Sombra de plasma TI [aura]
+  { move = 0x7C37F77F, level = 43 },                        # wks00720
 ]
 
   [[edit.cards]]
@@ -59,21 +56,19 @@ moves = [
 [[edit]]
 target = "c11250030"                                   # Dvalin
 moves = [
-  { move = 0x8B31808E, level = 1 },                         # Wormhole
-  { move = 0x8E7E960B, level = 1 },                         # Drill Smasher
-  { move = 0x035C1112, level = 1 },                         # Gungnir
-  { move = 0x7FE98F60, level = 1 },                         # Ganymede Ray
+  { move = 0xB3BD79DA, level = 1 },                         # Patriot Shot
+  { move = 0x8B31808E, level = 13 },                        # Wormhole
+  { move = 0x8E7E960B, level = 20 },                        # Drill Smasher
+  { move = 0xB8C5883B, level = 30 },                        # God Hand X
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x0ABB2633, level = 1 },                         # Sombra de plasma PA [aura]
+  { move = 0x0ABB2633, level = 20 },                        # wkk00723
 ]
 VRFW.MoveGrades = [
   { Move = 0x8B31808E, Grade = 1 },                         # Wormhole
   { Move = 0x8E7E960B, Grade = 1 },                         # Drill Smasher
-  { Move = 0x035C1112, Grade = 1 },                         # Gungnir
-  { Move = 0x7FE98F60, Grade = 1 },                         # Ganymede Ray
 ]
 
   [[edit.cards]]
@@ -84,13 +79,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c11250040"                                   # Caleb Stonewall
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x71831119, level = 1 },                         # Foul Offence 2
-  { move = 0xBF6D0AC5, level = 50 },                        # Emperor Penguin No. 3
-  { move = 0xC16279D1, level = 60 },                        # Field of Force
-]
-VRFW.MoveGrades = [
-  { Move = 0x5643C944, Grade = 1 },                         # Killer Slide
+  { move = 0x79E3E635, level = 1 },                         # Racing Flame
+  { move = 0x6730D416, level = 13 },                        # Emperor Penguin No. 1
+  { move = 0xE0DF8DB5, level = 20 },                        # No Future
+  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -103,14 +95,14 @@ VRFW.MoveGrades = [
 target = "c11250050"                                   # Destra
 moves = [
   { move = 0xBD2BB49C, level = 1 },                         # Dark Matter
-  { move = 0x6633159F, level = 32 },                        # Gravitation
-  { move = 0x9606E75F, level = 60 },                        # Shadow Ray
-  { move = 0xBDAE2862, level = 75 },                        # Hellfire
+  { move = 0x7748D3F2, level = 13 },                        # Devil Ball
+  { move = 0x029E7B25, level = 20 },                        # Gaia Break
+  { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x4A8CE94F, level = 1 },                         # Surtur [aura]
+  { move = 0x4A8CE94F, level = 43 },                        # wks00100
 ]
 
   [[edit.cards]]
@@ -121,15 +113,15 @@ moves = [
 [[edit]]
 target = "c11250060"                                   # Bash Lancer
 moves = [
-  { move = 0xDC08671D, level = 1 },                         # Doom Break
   { move = 0xC513565C, level = 1 },                         # Doom Spear
-  { move = 0x72514A74, level = 57 },                        # Low Drive
-  { move = 0xC16279D1, level = 63 },                        # Field of Force
+  { move = 0xC324C788, level = 13 },                        # Blast Mine
+  { move = 0xC16279D1, level = 20 },                        # Field of Force
+  { move = 0xDC08671D, level = 30 },                        # Doom Break
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x8013DD1E, level = 1 },                         # Azote negro [aura]
+  { move = 0x8013DD1E, level = 43 },                        # wks00280
 ]
 
   [[edit.cards]]
@@ -140,15 +132,15 @@ moves = [
 [[edit]]
 target = "c11250070"                                   # Ryoma Nishiki
 moves = [
-  { move = 0x4FE09C7A, level = 1 },                         # Acrobatic Keep
-  { move = 0xC4D13C6B, level = 25 },                        # Katana Kick
-  { move = 0x64CDCFB9, level = 34 },                        # Rising Dragon
-  { move = 0x501F2F12, level = 51 },                        # Heel Flick
+  { move = 0x64CDCFB9, level = 1 },                         # Rising Dragon
+  { move = 0x8D5B6847, level = 13 },                        # Odin Sword
+  { move = 0x141046AB, level = 20 },                        # Overnight Fortress
+  { move = 0xF5638A87, level = 30 },                        # Elemental Destroyer
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x3639773D, level = 1 },                         # Musashi [aura]
+  { move = 0x3639773D, level = 43 },                        # wks00050
 ]
 
   [[edit.cards]]
@@ -159,10 +151,10 @@ moves = [
 [[edit]]
 target = "c11250080"                                   # Grisley Bear
 moves = [
-  { move = 0xE196F1D1, level = 1 },                         # Burning Bomb
-  { move = 0xF6E75EE9, level = 18 },                        # Headbanger
-  { move = 0x72514A74, level = 25 },                        # Low Drive
-  { move = 0x44BCDB47, level = 56 },                        # Pyroclastic
+  { move = 0x41F3CDC2, level = 1 },                         # Scorching Tackle
+  { move = 0x17110E3B, level = 13 },                        # Jumbo Sandwich
+  { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
+  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
 ]
 
   [[edit.cards]]
@@ -175,9 +167,9 @@ moves = [
 target = "c11250090"                                   # Sapta
 moves = [
   { move = 0xD0A1DBC3, level = 1 },                         # Bungee Ball Burst
-  { move = 0x9B916289, level = 9 },                         # Jurassic Jaws
-  { move = 0x62BE692D, level = 28 },                        # Whirlwind Force
-  { move = 0xB9A6C82E, level = 56 },                        # Triangle ZZ
+  { move = 0x322F0C40, level = 13 },                        # Spider Web
+  { move = 0x087999EE, level = 20 },                        # Heel Drop
+  { move = 0x0C08B663, level = 30 },                        # Doom Dive Drive
 ]
 
   [[edit.cards]]
@@ -189,10 +181,10 @@ moves = [
 [[edit]]
 target = "c11250100"                                   # Panca
 moves = [
-  { move = 0xD0A1DBC3, level = 4 },                         # Bungee Ball Burst
-  { move = 0x2D68DB57, level = 8 },                         # Deceptive Step
-  { move = 0xC66BD10D, level = 22 },                        # Zigzag Spark
-  { move = 0x501F2F12, level = 46 },                        # Heel Flick
+  { move = 0xD0A1DBC3, level = 1 },                         # Bungee Ball Burst
+  { move = 0x93885A64, level = 13 },                        # Fire Drill
+  { move = 0x62BE692D, level = 20 },                        # Whirlwind Force
+  { move = 0x613ABD43, level = 30 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -204,15 +196,15 @@ moves = [
 [[edit]]
 target = "c11250110"                                   # Cao Cao
 moves = [
-  { move = 0x0E0A3F7A, level = 2 },                         # Spatial Portal
-  { move = 0x23C3EE90, level = 26 },                        # Shoulder Tackle
-  { move = 0xC6978232, level = 62 },                        # Dinosaur Roar
-  { move = 0xB8A509A7, level = 86 },                        # Asterocks
+  { move = 0x0E0A3F7A, level = 1 },                         # Spatial Portal
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0x64CDCFB9, level = 20 },                        # Rising Dragon
+  { move = 0xC41097D5, level = 30 },                        # Acrobotics
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x1E515B2E, level = 1 },                         # Xuan-Wu [aura]
+  { move = 0x1E515B2E, level = 43 },                        # wkd00670
 ]
 
   [[edit.cards]]
@@ -223,10 +215,10 @@ moves = [
 [[edit]]
 target = "c11250120"                                   # Gele
 moves = [
-  { move = 0xAEEA9F97, level = 1 },                         # Sigma Zone
-  { move = 0xAA67E325, level = 28 },                        # Desert Blast
-  { move = 0x43B5739B, level = 53 },                        # Lightning Bolt
-  { move = 0x34E4CEAB, level = 65 },                        # Barbarian Shield
+  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
+  { move = 0xC324C788, level = 13 },                        # Blast Mine
+  { move = 0x6E53E2B3, level = 20 },                        # Angel Ball
+  { move = 0xAEEA9F97, level = 30 },                        # Sigma Zone
 ]
 
   [[edit.cards]]
@@ -239,9 +231,9 @@ moves = [
 target = "c11250130"                                   # Arachne
 moves = [
   { move = 0x7748D3F2, level = 1 },                         # Devil Ball
-  { move = 0x2C3D95DD, level = 1 },                         # Sleeping Dust
-  { move = 0x06D2AC29, level = 59 },                        # Diabolical Cut
-  { move = 0xEAB3792D, level = 72 },                        # Grand Fire
+  { move = 0x3B8D915B, level = 13 },                        # Meteor Shower
+  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
+  { move = 0xA1BE38E6, level = 30 },                        # La Flamme
 ]
 
   [[edit.cards]]
@@ -253,15 +245,15 @@ moves = [
 [[edit]]
 target = "c11250140"                                   # Lars Luceafăr
 moves = [
-  { move = 0x5977EFA9, level = 1 },                         # High Voltage
-  { move = 0xBB415C55, level = 1 },                         # Needle Hammer
   { move = 0x906C0F96, level = 1 },                         # Electric Trap
-  { move = 0xD2955C45, level = 46 },                        # Power Catch
+  { move = 0xBB415C55, level = 13 },                        # Needle Hammer
+  { move = 0x4AF2F3E2, level = 20 },                        # Bridge to Nowhere
+  { move = 0x5977EFA9, level = 30 },                        # High Voltage
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xBC1258F8, level = 1 },                         # Gigante [aura]
+  { move = 0xBC1258F8, level = 43 },                        # wkk00110
 ]
 VRFW.MoveGrades = [
   { Move = 0x5977EFA9, Grade = 2 },                         # High Voltage
@@ -277,10 +269,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c11250150"                                   # Baron Oxford
 moves = [
-  { move = 0x08EEBD53, level = 1 },                         # Feint Play
-  { move = 0xDA3FF6C9, level = 17 },                        # Criss-Cross
-  { move = 0x6C827857, level = 35 },                        # Rolling Steal
-  { move = 0xECB91078, level = 44 },                        # Volcanic Flight
+  { move = 0x19BA3BFC, level = 1 },                         # Dance on Air
+  { move = 0x17110E3B, level = 13 },                        # Jumbo Sandwich
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x78218C02, level = 30 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -292,15 +284,15 @@ moves = [
 [[edit]]
 target = "c11250160"                                   # Venom Braggard
 moves = [
-  { move = 0xB8A509A7, level = 1 },                         # Asterocks
-  { move = 0x2296A01A, level = 22 },                        # Southern Cross
-  { move = 0x4A17EE80, level = 41 },                        # Hunter's Net
-  { move = 0xEEFFAE21, level = 52 },                        # Jungle Jam
+  { move = 0x4A17EE80, level = 1 },                         # Hunter's Net
+  { move = 0xB9676390, level = 13 },                        # Particle Accelerator
+  { move = 0x2296A01A, level = 20 },                        # Southern Cross
+  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x1E515B2E, level = 1 },                         # Xuan-Wu [aura]
+  { move = 0x1E515B2E, level = 43 },                        # wkd00670
 ]
 
   [[edit.cards]]

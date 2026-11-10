@@ -1,0 +1,22 @@
+# BetterUI: player bank without the sort-mode footer prompt.
+name = "better_ui_bank_sort_guide"
+order = 900
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = []
+description = "Player bank without the sort-mode footer prompt"
+
+[[files]]
+stem = "chara_bank_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "bank.lua"
+  marker = "better_ui bank_sort_guide"
+  crc = "none"
+  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
+  generator_arguments = { part = "better_ui_bank_guide.lua", tag = "bank", name = "bank_sort_guide", scope = "BetterUI" }
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "bank" }

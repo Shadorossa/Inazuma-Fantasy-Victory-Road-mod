@@ -1,39 +1,39 @@
-# Texts of Technique Cut-in Skip, a module of BetterQoL: the name and description of its card on BetterQoL's page in Mods.
+# Technique Cut-in Skip's card texts.
 schema = "VRFW.text_key/1"
 default_lang = "en"
 
 [en.new]
 mod_name = "Technique Cut-in Skip"
-mod_description = "A fresh A / Enter press ends the running technique cut-in in a match, and the match carries on with the same result. Transform, Keshin, Armed and Miximax cut-ins always play. Never in a network match."
+mod_description = "Press A / Enter to skip a special move's cut-in during a match; the match carries on with the same result. Keshin, Armed, Miximax and transformation cut-ins can be skipped too. It never works in network matches."
 
 [es.new]
 mod_name = "Saltar supertécnicas"
-mod_description = "Pulsar A / Intro termina la animación de la supertécnica en curso en un partido, y el partido sigue con el mismo resultado. Las animaciones de transformación, Keshin, Armadura y Miximax siempre se reproducen. Nunca en partidos en red."
+mod_description = "Pulsa A / Intro para saltar la animación de una supertécnica durante un partido; el partido sigue con el mismo resultado. También se saltan las animaciones de transformación, Keshin, Armadura y Miximax. Nunca funciona en partidos en red."
 
 [fr.new]
 mod_name = "Passer les techniques"
-mod_description = "Appuyer sur A / Entrée met fin à l'animation de la technique spéciale en cours pendant un match, et le match continue avec le même résultat. Les animations de transformation, Keshin, Armure et Miximax sont toujours jouées. Jamais en match en ligne."
+mod_description = "Appuie sur A / Entrée pour passer l'animation d'une supertechnique pendant un match ; le match continue avec le même résultat. Les animations de transformation, Keshin, Armure et Miximax se passent aussi. Cela ne marche jamais en match en réseau."
 
 [de.new]
 mod_name = "Techniken überspringen"
-mod_description = "Ein Druck auf A / Enter beendet im Spiel die laufende Animation einer Spezialtechnik, und das Spiel geht mit demselben Ergebnis weiter. Animationen von Verwandlung, Keshin, Rüstung und Miximax laufen immer. Nie in Online-Spielen."
+mod_description = "Drücke A / Enter, um die Zwischensequenz einer Spezialtechnik im Spiel zu überspringen; das Spiel geht mit demselben Ergebnis weiter. Auch die Sequenzen von Transformation, Keshin, Rüstung und Miximax lassen sich überspringen. Im Netzwerkspiel funktioniert es nie."
 
 [it.new]
 mod_name = "Salta le tecniche"
-mod_description = "Premere A / Invio termina l'animazione della tecnica speciale in corso durante una partita, e la partita continua con lo stesso risultato. Le animazioni di trasformazione, Keshin, Armatura e Miximax vengono sempre riprodotte. Mai nelle partite online."
+mod_description = "Premi A / Invio per saltare l'animazione di una supertecnica durante la partita; la partita prosegue con lo stesso risultato. Si saltano anche le animazioni di trasformazione, Keshin, Armatura e Miximax. Non funziona mai nelle partite in rete."
 
 [pt.new]
 mod_name = "Saltar supertécnicas"
-mod_description = "Premir A / Enter termina a animação da supertécnica em curso num jogo, e o jogo continua com o mesmo resultado. As animações de transformação, Keshin, Armadura e Miximax são sempre reproduzidas. Nunca em jogos online."
+mod_description = "Carrega em A / Enter para saltar a animação de uma supertécnica durante a partida; a partida continua com o mesmo resultado. Também se saltam as animações de transformação, Keshin, Armadura e Miximax. Nunca funciona em partidas em rede."
 
 [ja.new]
 mod_name = "必殺技演出スキップ"
-mod_description = "試合中にA / Enterを押すと、再生中の必殺技演出を終了します。試合は同じ結果のまま続きます。変身、化身、アームド、ミキシマックスの演出は必ず再生されます。ネットワーク対戦では無効です。"
+mod_description = "試合中に A / Enter を押すと、必殺技のカットインをスキップできます。試合は同じ結果のまま進みます。変身・化身・アームド・ミキシマックスのカットインもスキップできます。ネットワーク対戦では使えません。"
 
 [zh_hans.new]
 mod_name = "跳过必杀技演出"
-mod_description = "比赛中按下 A / Enter 可结束正在播放的必杀技演出，比赛以相同的结果继续。变身、化身、化身铠甲和混合最大的演出始终播放。联网比赛中无效。"
+mod_description = "比赛中按 A / Enter 即可跳过必杀技的演出，比赛结果不变。变身、化身、铠甲和融合的演出也可以跳过。网络对战中不会生效。"
 
 [zh_hant.new]
 mod_name = "跳過必殺技演出"
-mod_description = "比賽中按下 A / Enter 可結束正在播放的必殺技演出，比賽以相同的結果繼續。變身、化身、化身鎧甲和混合最大的演出始終播放。連線比賽中無效。"
+mod_description = "比賽中按 A / Enter 即可跳過必殺技的演出，比賽結果不變。變身、化身、鎧甲和融合的演出也可以跳過。網路對戰中不會生效。"

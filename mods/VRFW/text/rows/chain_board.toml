@@ -1,7 +1,3 @@
-# Texts of the VR-Framework's chain board screen (vrfw_chain_board_menu, docs/framework/chain-board.md): rows of
-# menu_text in the framework's 9 languages, read by the screen's script with CMND_TEXT_GET by id = crc32(row id).
-# The chain's / pages' titles, the rival names and levels come from the declarations (team type), not from here.
-# %s / %d are filled by the script (string.format).
 
 schema = "VRFW.text/2"
 table = "menu_text"
@@ -132,7 +128,6 @@ ja = "近日公開"
 zh_hans = "敬请期待"
 zh_hant = "敬請期待"
 
-# the question before a match (rival name, level)
 [[row]]
 id = "vrfw_chain_ask_match"
 es = "¿Jugar contra %s (Nv. %d)?"
@@ -196,8 +191,6 @@ ja = "このマスはまだ閉じています。\nつながったマスで勝つ
 zh_hans = "这个格子尚未打开。\n赢下与之相连的格子即可打开。"
 zh_hant = "這個格子尚未打開。\n贏下與之相連的格子即可打開。"
 
-# ---- the team card above the board the focused tile's card --------------------------------
-# a match tile's level (under the team's name)
 [[row]]
 id = "vrfw_chain_card_level"
 es = "Nv. %d"
@@ -236,7 +229,7 @@ ja = "条件：なし"
 zh_hans = "条件：无"
 zh_hant = "條件：無"
 
-# an open match tile's third line: the save's wins against its team (VRFW_Stats.WinsVs)
+# an open match tile's third line: the save's wins against its team (VRFW.stats.wins_against)
 [[row]]
 id = "vrfw_chain_card_wins"
 es = "Victorias: %d"
@@ -456,7 +449,6 @@ ja = "ダブル宝箱"
 zh_hans = "双重宝箱"
 zh_hant = "雙重寶箱"
 
-# ... its rule (third line)
 [[row]]
 id = "vrfw_chain_dchest_rule"
 es = "Ábrelo; con S en toda la rama, ábrelo otra vez."
@@ -469,7 +461,6 @@ ja = "開けよう。枝の全試合でSならもう一度開けられる。"
 zh_hans = "打开它；整条分支取得S后可再次打开。"
 zh_hant = "打開它；整條分支取得S後可再次打開。"
 
-# ... opened once without S (card line and Accept message)
 [[row]]
 id = "vrfw_chain_dchest_half"
 es = "Consigue S en toda la rama para abrirlo otra vez."
@@ -482,7 +473,6 @@ ja = "枝の全試合でSを取ると、もう一度開けられる。"
 zh_hans = "在整条分支中取得S即可再次打开。"
 zh_hant = "在整條分支中取得S即可再次打開。"
 
-# ... with an A tier ([[VRFW.Chain.Tile.AReward]]): its rule (third line)
 [[row]]
 id = "vrfw_chain_dchest_rule_a"
 es = "Ábrelo; con A o más en toda la rama, otra vez; con S, una más."
@@ -495,7 +485,6 @@ ja = "開けよう。枝の全試合でA以上ならもう一度、Sならさら
 zh_hans = "打开它；整条分支取得A或以上可再次打开；取得S可再开一次。"
 zh_hant = "打開它；整條分支取得A或以上可再次打開；取得S可再開一次。"
 
-# ... opened once, its A reward still to give (card line and Accept message)
 [[row]]
 id = "vrfw_chain_dchest_half_a"
 es = "Consigue A o más en toda la rama para abrirlo otra vez."
@@ -508,7 +497,6 @@ ja = "枝の全試合でA以上を取ると、もう一度開けられる。"
 zh_hans = "在整条分支中取得A或以上即可再次打开。"
 zh_hant = "在整條分支中取得A或以上即可再次打開。"
 
-# ... no base reward, waiting for its A tier (card line and Accept message)
 [[row]]
 id = "vrfw_chain_card_achest_rule"
 es = "Consigue A o más en toda la rama."
@@ -521,7 +509,6 @@ ja = "この枝の全試合でA以上を取ろう。"
 zh_hans = "在整条分支中取得A或以上。"
 zh_hant = "在整條分支中取得A或以上。"
 
-# ... no reward declared: disabled (card line and Accept message)
 [[row]]
 id = "vrfw_chain_dchest_empty"
 es = "Este cofre está vacío por ahora."
@@ -611,3 +598,15 @@ pt = "Não tens espaço para o prémio de nível.\nFaz espaço e volta a abrir e
 ja = "ランク報酬を受け取る空きがありません。\n空きを作ってからこのルートを開き直してください。"
 zh_hans = "没有空间领取评级奖励。\n请腾出空间后重新打开此路线。"
 zh_hant = "沒有空間領取評級獎勵。\n請騰出空間後重新開啟此路線。"
+
+[[row]]
+id = "vrfw_chain_chest_bank_full"
+es = "Tu club está lleno: este jugador te espera en el cofre. Haz sitio y vuelve."
+en = "Your club is full: this player waits in the chest. Make room and come back."
+fr = "Votre club est complet : ce joueur vous attend dans le coffre. Faites de la place et revenez."
+de = "Dein Kader ist voll: Dieser Spieler wartet in der Truhe. Mach Platz und komm zurück."
+it = "La tua rosa è piena: questo giocatore ti aspetta nel forziere. Fai spazio e torna."
+pt = "O teu clube está cheio: este jogador espera no cofre. Liberta espaço e volta."
+ja = "クラブがいっぱいです。この選手は宝箱で待っています。空きを作ってからまた来てください。"
+zh_hans = "俱乐部已满：此球员在宝箱中等你。请腾出位置后再来。"
+zh_hant = "俱樂部已滿：此球員在寶箱中等你。請騰出位置後再來。"

@@ -1,27 +1,18 @@
 id = "HissatsuEffects"
-# «Hissatsu Effects». Split out of Inazuma Fantasy (its _phases.toml part technique_fx + the move card's effect page
-# of its part skill_table): gameplay mini-effects of RETAIL special moves, framework keys only (technique / effect
-# types, no DLL), and the «Habilidades» move card page that shows them. name / description: the English fallback; the
-# «Mods» screen shows the text keys mod_name / mod_description (text\keys.toml) in the game's language.
+# «Hissatsu Effects».
 name = "Hissatsu Effects"
 prefix = "HissatsuEffects"
 folder = "HissatsuEffects"
-version = "0.2.4"
+version = "0.3.0"
 author = "Fantasy Team"
-author_steam = "76561199013321372"
-description = "Gameplay effects for the game's own special moves: Excalibur grows stronger the farther it flies, Doom Rain splits into 7 balls that blocks take away, Electric Trap locks the shot it stops, Needle Hammer steals tension, and Double Tornado takes the elements of its two performers. Almost every other special move gets an effect of its own, for every player. In the Habilidades list, Q / E (LT / RT) turn the move card to a page that explains the effect."
+description = "Gives almost every special move an effect of its own: Excalibur grows stronger the farther it flies, Doom Rain splits into 7 balls, Electric Trap locks the shot it stops. In the Skills list, Q / E turn a move's card to a page that explains its effect."
 priority = 0
 tags = ["Gameplay"]
-updated = "2026-11-04"
-requires = ["VRFW>=0.2.4", "HissatsuReforged>=0.2.4"]
+updated = "2026-11-09"
+requires = ["VRFW>=0.3.0", "HissatsuReforged>=0.3.0"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"
-# lua_early: its move card patch of ability_list_menu (graft skill_card) promotes the script's locals and redefines
-# OnInit / OnSetupLayer / OnChangeFocus /... It must run BEFORE the VR-Framework's host of that script
-# (docs/framework/lua-hosts.md §2, §5): run after it, it dropped the host's dispatchers, so the framework's skill tab
-# handlers (menu lua _all/22_skill_tabs.lua: icons / titles / filters of the declared tabs, the spare tab plates)
-# never ran. Early, the host sits on top of these functions and serves their promoted locals.
 lua_early = true
 permissions = ["command"]
 
@@ -29,9 +20,6 @@ permissions = ["command"]
 functions = []
 keys = []
 
-# A MODULE of Hissatsu Reforged: shipped in HissatsuReforged\modules\HissatsuEffects\; the Mods screen, the ModManager
-# and `vrfw list` show it inside Hissatsu Reforged's entry («Módulos y ajustes»: on / off); switching Hissatsu
-# Reforged off switches it off too. Its name there: its mod_name (text\keys.toml).
 [module]
 of = "HissatsuReforged"
 order = 10

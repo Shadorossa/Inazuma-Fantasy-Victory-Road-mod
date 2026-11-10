@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# El anochecer (Nightfall): the download's move whk93027, a clone of whk00270 with its numbers; its event ev63_93027_1 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "nightfall"

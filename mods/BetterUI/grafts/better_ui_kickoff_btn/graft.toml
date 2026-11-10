@@ -1,0 +1,18 @@
+# BetterUI: smaller kick-off / restart button without glow, «(Y) Formación» kept centred above it.
+name = "better_ui_kickoff_btn"
+order = 908
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = ["OnSetupLayer", "Step", "DecideRestartButton"]
+description = "BetterUI: discreet kick-off / restart button (smaller, no glow)"
+
+[[files]]
+stem = "soccer_restart_guide_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "kickoff_btn.lua"
+  marker = "better_ui kickoff button"
+  crc = "none"

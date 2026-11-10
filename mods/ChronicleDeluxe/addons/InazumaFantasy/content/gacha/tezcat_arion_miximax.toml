@@ -1,0 +1,5 @@
+schema = "VRFW.gacha/1"
+
+[[VRFW.GachaAdd]]
+pool = "ChronicleDeluxe.kizuna_coin_gacha"
+cards = ["0x8D17A147"]

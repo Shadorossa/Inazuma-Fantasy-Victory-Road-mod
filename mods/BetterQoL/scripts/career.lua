@@ -1,35 +1,16 @@
--- Career stats of BetterQoL: per player and save slot, the signing date, matches, wins / draws / losses, goals,
--- assists, «Jugador del partido», shots, balls won, saves, clean sheets, the last match, the first goal / first MVP
--- dates, the best match and a per-mode split, shown on the player plate's page «TRAYECTORIA» (graft
--- util_career_page).
---
--- Fed by the match HUD (graft util_career_match): CMND_BETTERQOL_CAREER_MATCH 1 kick-off (soccer_menu OnInit), 0
--- every frame (soccer_menu Step), 2 half time, 3 full-time result. Each call reads the engine's own match data (no
--- hook): the ball owner (assists), the score bytes and the per-team goal list (the scorer's actor), and every 30
--- frames the user's team record (members on the pitch) and the per-actor match records. A match is recorded once, on
--- the full-time result (3) or when the scene reaches the result states 6 / 7. Match copies are mapped to their saved
--- owner with VRFW.character.owner (strong identity match). The store (blob career.json per slot) is staged with the
--- game's save (VRFW.save.blob_stage) when the slot service runs, else written at once. A match in a slot a mod
--- reserved for its own mode is not recorded.
---
--- Declarations: content\game\career.toml. Was BetterQoL's old DLL's career module; the exports other plugins called
--- (career_on_match / _moves / _reload) are gone: the move-use groups answer zeros.
 
 local S = require "lib/career_store"
-local Actors = require "VRFW/lib/actors"
+local Actors = VRFW.players
+local OwnerChain = VRFW.match.owner_chain
 
 BetterQoL = BetterQoL or {}
 BetterQoL.Career = BetterQoL.Career or {}
 
--- ---------------------------------------------------------------------------------------- data layout
-
--- The match data's offsets and record sizes, from the game profile (VRFW game\<build>\structs.toml, globals.toml):
--- match info (team records, goal lists, per-actor records, score, user's team), the team members, the ball owner and
--- the play mode. Read once; a name the running build's profile lacks turns the tracking off.
 local PROFILE_NAMES = {
   info_type = "MatchInfo.MatchType", info_half_length = "MatchInfo.HalfLength", info_teams = "MatchInfo.Teams",
   info_goal_lists = "MatchInfo.GoalLists", info_actor_records = "MatchInfo.ActorRecords",
-  info_score = "MatchInfo.Score", info_user_team = "MatchInfo.UserTeam",
+  info_score = "MatchInfo.Score", info_user_team = "MatchInfo.UserTeam", info_game = "MatchInfo.Game",
+  info_difficulty = "MatchInfo.Difficulty",
   team_size = "MatchTeam", team_members = "MatchTeam.Members", team_on_pitch = "MatchTeam.OnPitch",
   member_slots = "Match.TeamMemberSlots", member_size = "MatchTeamMember", member_chara = "MatchTeamMember.Chara",
   member_position = "MatchTeamMember.Position", member_flags = "MatchTeamMember.Flags",
@@ -40,26 +21,20 @@ local PROFILE_NAMES = {
   record_technique_uses = "MatchActorRecord.TechniqueUses",
   ball_owner = "Ball.Owner", ball_owner_team = "Ball.OwnerTeam", play_mode = "Game.PlayMode",
 }
-local P = nil         -- the resolved numbers
-local P_MISSING = nil -- the first name that did not resolve
--- the per-actor record fields the tracker samples, in its order: shots, balls won, keeper blocks, technique uses
-local RECORD_FIELDS = nil
+local P = nil
+local P_MISSING = nil
+local RECORD_FIELDS = nil -- shots, balls won, keeper blocks, technique uses
 local STATE_RESULT_EVENT, STATE_RESULT_MENU = 6, 7
 local PITCH_EVERY = 30
 local SCAN_EVERY_MS = 60000
 
--- ---------------------------------------------------------------------------------------- helpers
+local Memory = VRFW.memory
+local read_memory, game_global = Memory.read, VRFW.game.global
 
-local Memory = require "VRFW/lib/memory"
-local read_memory, game_global = Memory.read_memory, Memory.game_global
+local hex = VRFW.ids.hex_text
 
-local hex = require("VRFW/lib/ids").hex
-
-require "VRFW/lib/basics"
-require "VRFW/lib/save_doc"
 local info, warn = VRFW.logger("career")
 
--- the profile's numbers (nil when one is missing: warned once)
 local function profile()
   if P ~= nil or P_MISSING ~= nil then return P end
   local out = {}
@@ -106,11 +81,10 @@ local function actor_chara(hdl)
   return a.chara, a.team
 end
 
-local current_slot = require("VRFW/lib/save_doc").slot
+local current_slot = VRFW.save.doc.slot
 
 local function is_reserved(slot) return VRFW.slots.reserved(slot) end
 
--- the saved character behind a handle (itself, or the owner of a match copy)
 local function owner(hdl)
   if not hdl or hdl == 0 then return nil end
   local ok, o = pcall(VRFW.character.owner, hdl)
@@ -118,18 +92,15 @@ local function owner(hdl)
   return nil
 end
 
--- param, get_order of a saved character
+-- param, get_order, record of a saved character
 local function ident(hdl)
   local ok, r = pcall(VRFW.character.record, hdl)
   if ok and r then return r.param, r.get_order, r end
   return nil
 end
 
--- ---------------------------------------------------------------------------------------- store
-
--- the career file of a slot: read again after a load, copy, delete, new game or reset of that slot (the slot events,
--- which drop the numbers the game never saved); staged with the game's next save of the slot
-local DOC = VRFW.save.doc(S.BLOB, {
+-- the career file of a slot, staged with the game's next save of the slot
+local DOC = VRFW.save.doc.new(S.BLOB, {
   text = true,
   decode = S.decode,
   encode = S.encode,
@@ -149,17 +120,23 @@ local DOC = VRFW.save.doc(S.BLOB, {
         .. c.wins .. "-" .. c.draws .. "-" .. c.losses .. ", goals " .. c.goals_for .. "-" .. c.goals_against
         .. ", since " .. c.since .. "); written with the next change")
     end
-    if f.migrated_from then
-      info("slot " .. slot .. ": " .. S.BLOB .. " version " .. f.migrated_from .. " read as version " .. S.FILE_VERSION
-        .. " (first goal / first MVP dates and best matches derived where the numbers allow; written with the next change)")
-    end
   end,
 })
 
-local store = nil -- the active slot's file
-local last_scan = nil -- VRFW.now() of the last signing-date scan of this store
+local store = nil
+local last_scan = nil
 
--- The store of the active slot (nil in a mod's reserved slot); read again when the slot changed.
+-- the newest matches the club history keeps (config [club_stats] history_max)
+local function history_max()
+  local n = tonumber(VRFW.config("club_stats", {}).history_max)
+  if n == nil then
+    warn("config [club_stats] history_max is missing: the club history keeps every match")
+    return math.huge
+  end
+  return math.max(1, math.floor(n))
+end
+
+-- the active slot's store (nil in a mod's reserved slot)
 local function ensure_store()
   local slot = current_slot()
   if is_reserved(slot) then return nil end
@@ -172,7 +149,6 @@ local function ensure_store()
   return store
 end
 
--- Stage the store with the game's next save of its slot (written at once without the slot service).
 local function commit(why)
   if not store or not store.dirty then return end
   local ok, where = DOC:write(store, store.slot)
@@ -183,25 +159,24 @@ local function commit(why)
   end
 end
 
--- Watermark (first time) and signing dates of the players signed since the last scan.
 local function scan_and_date(force)
-  local now = VRFW.now()
+  local now = VRFW.now_ms()
   if not force and last_scan and now - last_scan < SCAN_EVERY_MS then return end
   local st = ensure_store()
   if not st then return end
-  local ok, recs = pcall(VRFW.character.saved)
-  if not ok or not recs or #recs == 0 then return end -- no save loaded yet (title screen): later
+  local ok, columns = pcall(VRFW.character.saved_columns, { "handle", "param", "get_order" })
+  if not ok or not columns or #columns.handle == 0 then return end -- no save loaded yet (title screen): later
   last_scan = now
   local day = VRFW.ui.today()
   local max = 0
-  for _, r in ipairs(recs) do if r.get_order > max then max = r.get_order end end
+  for _, order in ipairs(columns.get_order) do if order > max then max = order end end
   if S.set_watermark(st, max, day) then
     st.dirty = true
-    info("slot " .. st.slot .. ": watermark get_order " .. max .. " (" .. #recs .. " saved characters): they show «Fichado antes del " .. day .. "»; players signed later are dated when they are first seen")
+    info("slot " .. st.slot .. ": watermark get_order " .. max .. " (" .. #columns.handle .. " saved characters): they show «Fichado antes del " .. day .. "»; players signed later are dated when they are first seen")
   end
   local new = {}
-  for _, r in ipairs(recs) do
-    if S.observe(st, r.handle, r.param, r.get_order, day) then new[#new + 1] = hex(r.handle) end
+  for n, handle in ipairs(columns.handle) do
+    if S.observe(st, handle, columns.param[n], columns.get_order[n], day) then new[#new + 1] = hex(handle) end
   end
   if #new > 0 then
     st.dirty = true
@@ -210,9 +185,6 @@ local function scan_and_date(force)
   commit("signing dates")
 end
 
--- The main position of a card (chara_param `main_position`), from the framework's shared character index
--- (VRFW.character.card, docs/framework/chara-index.md): no chara_param read in this VM (it cost ~160 ms on the first
--- plate page). Remembered per card.
 local positions = {}
 local index_warned = false
 local function position_of(param)
@@ -232,15 +204,13 @@ local function position_of(param)
   return p
 end
 
--- ---------------------------------------------------------------------------------------- match tracking
-
 local t = { phase = "idle", match_no = 0 }
 
 local function new_tracker(match_no)
   return {
     phase = "idle", match_no = match_no, excluded = nil, slot = 0, user = 0xFF, mi = 0, ticks = 0,
-    chain = S.chain_new(), last_owner = 0, seen = { 0, 0 }, goals = {}, own_goals_for = 0,
-    pitch = {}, logged_pitch = false, mode = S.MODE_FREE, rec = S.rec_new(), keeper_now = 0,
+    chain = OwnerChain.new(), last_owner = 0, seen = { 0, 0 }, goals = {}, own_goals_for = 0,
+    pitch = {}, logged_pitch = false, mode = S.MODE_FREE, rec = S.rec_new(), keeper_now = 0, rival = 0,
   }
 end
 
@@ -262,6 +232,10 @@ local function begin(why)
   local slot = current_slot()
   t.slot = slot
   t.excluded = S.exclusion(typ, half, t.user, is_reserved(slot))
+  -- the rival team: the team of the match's game row at its difficulty (0 when the game has none)
+  local game, diff = read_memory("u32", mi + P.info_game), read_memory("u8", mi + P.info_difficulty)
+  local ok_team, team = pcall(VRFW.table_files.team, game, diff)
+  t.rival = (ok_team and type(team) == "number") and team or 0
   local pd = game_global("play_data")
   local play_mode = (pd and read_memory("u8", pd + P.play_mode)) or 0xFF
   t.mode = S.mode_index(play_mode)
@@ -313,7 +287,6 @@ local function sample_pitch()
   end
 end
 
--- new entries of the goal lists since the last call
 local function check_goals()
   for team = 0, 1 do
     local n = score(t.mi, team)
@@ -338,7 +311,7 @@ local function check_goals()
           if c then
             if tm == team then s = c else own = true end
           end
-          local assist_actor = S.chain_assist(t.chain, actor, team)
+          local assist_actor = OwnerChain.assist(t.chain, actor, team)
           local a = 0
           if assist_actor then
             local ac, at = actor_chara(assist_actor)
@@ -374,21 +347,20 @@ local function sample_records()
   end
 end
 
--- ball owner of this frame into the chain
 local function poll_owner()
   local ball = game_global("ball")
   if not ball or ball < 0x10000 then return end
   local o = read_memory("u32", ball + P.ball_owner) or 0
   if o == t.last_owner then return end
   t.last_owner = o
-  S.chain_push(t.chain, o, read_memory("u8", ball + P.ball_owner_team) or 0xFF)
+  local owner_team = read_memory("u8", ball + P.ball_owner_team) or 0xFF
+  if o ~= 0 and owner_team <= 1 then OwnerChain.push(t.chain, o, owner_team) end
 end
 
 local function tick()
   if t.phase == "idle" then
     begin("first tick")
   elseif t.phase == "done" and match_info() == t.mi then
-    -- a rematch that keeps the HUD (no new OnInit): the score went back down
     if score(t.mi, 0) + score(t.mi, 1) < t.seen[1] + t.seen[2] then begin("score reset (rematch)") end
   end
   if t.phase ~= "tracking" then return false end
@@ -401,7 +373,7 @@ local function tick()
   local b1, b2 = t.seen[1], t.seen[2]
   check_goals()
   if t.seen[1] ~= b1 or t.seen[2] ~= b2 then
-    t.chain = S.chain_new()
+    t.chain = OwnerChain.new()
     t.last_owner = 0
   end
   poll_owner()
@@ -448,15 +420,10 @@ local function finalize(why)
     if o then
       local e = per[o]
       if not e then
-        e = { shots = 0, steals = 0, saves = 0, skill_uses = 0, hiper_uses = 0, conceded = 0, keeper = false }
+        e = S.new_per()
         per[o] = e
       end
-      e.shots = e.shots + pm.shots
-      e.steals = e.steals + pm.steals
-      e.saves = e.saves + pm.saves
-      e.skill_uses = e.skill_uses + pm.skill_uses
-      e.hiper_uses = e.hiper_uses + pm.hiper_uses
-      e.conceded = e.conceded + pm.conceded
+      for _, k in ipairs(S.PER_FIELDS) do e[k] = e[k] + pm[k] end
       e.keeper = e.keeper or pm.keeper
     end
   end
@@ -477,11 +444,13 @@ local function finalize(why)
     return
   end
   local day = VRFW.ui.today()
-  local n, mvp, contrib = S.apply_match(st, { outcome = outcome, gf = gf, ga = ga, players = players, goals = goals, mode = t.mode, per = per },
+  local match = { outcome = outcome, gf = gf, ga = ga, players = players, goals = goals, mode = t.mode, per = per, rival = t.rival }
+  local n, mvp, contrib = S.apply_match(st, match,
     function(o)
       local param, order = ident(o)
       return param, order
     end, day)
+  S.history_push(st, S.history_entry(match, contrib, mvp, ident, st.recorded, day), history_max())
   st.dirty = true
   local scorers = {}
   for p, c in pairs(contrib) do scorers[#scorers + 1] = hex(p) .. " " .. c[1] .. "G " .. c[2] .. "A" end
@@ -492,21 +461,14 @@ local function finalize(why)
     .. ", " .. n .. " player(s) credited, goals [" .. table.concat(scorers, ", ") .. "], own goals of the rival " .. t.own_goals_for
     .. ", jugador del partido " .. (mvp and hex(mvp) or "-") .. tail)
   commit("match")
-  -- players signed during the match session get their date now
   scan_and_date(true)
 end
 
--- ---------------------------------------------------------------------------------------- commands
-
--- CMND_BETTERQOL_CAREER_MATCH(mode) -> state (0 idle, 1 tracking, 2 recorded / done)
 function BetterQoL.Career.Match(mode)
   mode = tonumber(mode) or 0
   if mode == 1 then
-    -- soccer_menu has a twin (soccer_menu_replay): a replay or a reopened HUD during a live match must not restart it
-    local st = soccer_state()
-    if t.phase == "tracking" and match_info() == t.mi and live_state(st) then
-      -- HUD init in a live scene state: ignored
-    else
+    -- a replay HUD (soccer_menu_replay) or a reopened HUD during a live match must not restart it
+    if not (t.phase == "tracking" and match_info() == t.mi and live_state(soccer_state())) then
       begin("kick-off")
     end
   elseif mode == 2 then
@@ -523,7 +485,6 @@ function BetterQoL.Career.Match(mode)
   return 0
 end
 
--- of the player a plate command names
 local function plate_player(hdl)
   hdl = tonumber(hdl) or 0
   if hdl == 0 then return nil end
@@ -540,7 +501,6 @@ local function empty(n)
   return table.unpack(r)
 end
 
--- CMND_BETTERQOL_CAREER(charaStHdl) -> ok, signed, before, matches, wins, draws, losses, goals, assists, mvp, topSkill, topUses
 function BetterQoL.Career.Get(hdl)
   local o, param, order = plate_player(hdl)
   if not o then return empty(11) end
@@ -548,26 +508,15 @@ function BetterQoL.Career.Get(hdl)
   local st = ensure_store()
   if not st then return empty(11) end
   local day = VRFW.ui.today()
-  -- a player signed since the last scan: dated the first time the plate shows him
   if st.watermark and S.observe(st, o, param, order, day) then
     st.dirty = true
     info("slot " .. st.slot .. ": player " .. hex(o) .. " dated " .. day .. " (first seen on the plate)")
     commit("signing date")
   end
   local v = S.view(st, o, param, order)
-  -- the most used move: a mod that counts move uses gave it to the old DLL; none now
   return true, v.signed, v.before, v.matches, v.wins, v.draws, v.losses, v.goals, v.assists, v.mvp, 0, 0
 end
 
--- CMND_BETTERQOL_CAREER_EX(charaStHdl, group): ok, then
--- * group 0: signed, before, source, role, matches, wins, draws, losses, goals, assists, mvp, shots, steals, saves,
---   conceded, cleanSheets, gkMatches, skillUses, hiperUses, firstGoal, lastDay, lastResult, lastGf, lastGa;
--- * group 1: skill1, uses1, skill2, uses2, skill3, uses3 (zeros: no move-use counter);
--- * group 2: firstMvp, bestGoals, bestGoalsExact, bestGoalsDay, bestSaves, bestSavesExact, bestSavesDay, today
---   (days as yyyymmdd; 0 = not yet, -1 = unknown: a record from before the store's version 2);
--- * group 10 + m (m = 0 story, 1 Chronicle, 2 free matches, 3 Victory Road, 4 Kizuna town, 5 Battle Bay): matches,
---   wins, draws, losses, goals, assists, mvp, saves (mvp / saves of the matches before version 2 are not split).
--- ok = false (and zeros) in a mod's reserved slot, for players without a saved record.
 function BetterQoL.Career.Ex(hdl, group)
   group = tonumber(group) or 0
   local o, param, order, rec = plate_player(hdl)
@@ -599,14 +548,11 @@ function BetterQoL.Career.Ex(hdl, group)
     x.clean_sheets, x.gk_matches, x.skill_uses, x.hiper_uses, x.first_goal, x.last.day, x.last.result, x.last.gf, x.last.ga
 end
 
--- Exported (mod.toml [exports], called by other mods as BetterQoL["Career.Params"](slot)): the chara_param ids of the
--- career records of save slot `slot` (default: the active one), comma-separated ("" = none or unreadable). Inazuma
--- Fantasy's office seeds its «signed once» set with it (every card with a record was in the club at some point).
 function BetterQoL.Career.Params(slot)
   slot = math.floor(tonumber(slot) or current_slot())
   local f = store
   if not f or f.slot ~= slot then
-    local text, err = VRFW.save.blob(S.BLOB, slot)
+    local text, err = VRFW.save.doc.read_text(S.BLOB, slot)
     if err or not text then return "" end
     f = S.decode(text, slot)
     if not f then return "" end
@@ -619,27 +565,12 @@ function BetterQoL.Career.Params(slot)
   return table.concat(out, ",")
 end
 
--- ---------------------------------------------------------------------------------------- club statistics screen
-
--- «Estadísticas del club» (row of «Caseta del club», graft util_club_stats_row, opening the page util_club_stats_menu
--- from assets/lua/play_guide_top_menu/150_club_stats.lua): the club totals of the store and one row per saved
--- character of the save (any squad, the bank) who played at least one counted match.
 local T = require "lib/original_names_tables"
 
 local club_rows = {}
+local history_rows = {}
 local club_names = { lang = nil, rows = {}, asked = {}, base = {}, text = {} }
 
-local function club_lang(code)
-  local c = type(code) == "number" and math.floor(code) or nil
-  if c and c >= 0 and type(VRFW.files.game_languages) == "function" then
-    local ok, t = pcall(VRFW.files.game_languages)
-    local l = ok and type(t) == "table" and t[c + 1] or nil
-    if type(l) == "string" then return l end
-  end
-  return "en"
-end
-
--- the name rows `ids` of chara_text in `lang` not read yet (only those rows: the table has ~21k)
 local function club_load_names(lang, ids)
   if club_names.lang ~= lang then
     club_names = { lang = lang, rows = {}, asked = {}, base = club_names.base, text = club_names.text }
@@ -661,7 +592,6 @@ local function club_load_names(lang, ids)
   end
 end
 
--- the character (chara_base) of a card, cached; nil = unknown
 local function club_base_of(param)
   local b = club_names.base[param]
   if b == nil then
@@ -672,7 +602,6 @@ local function club_base_of(param)
   return b or nil
 end
 
--- the name text id of a character, cached; nil = unknown
 local function club_name_text_of(base)
   if not base then return nil end
   local id = club_names.text[base]
@@ -684,6 +613,14 @@ local function club_name_text_of(base)
   return id or nil
 end
 
+-- the character params a history row names (man of the match, scorers)
+local function history_params(e)
+  local out = {}
+  if e.mvp ~= 0 then out[#out + 1] = e.mvp end
+  for _, sc in ipairs(e.scorers) do out[#out + 1] = sc[1] end
+  return out
+end
+
 local function club_name_of(base)
   local id = club_name_text_of(base)
   local r = id and club_names.rows[id]
@@ -692,10 +629,6 @@ local function club_name_of(base)
   return ""
 end
 
--- CMND_BETTERQOL_CLUB_STATS(langCode) -> ok, players, since, matches, wins, draws, losses, goalsFor, goalsAgainst,
--- cleanSheets, bestWinFor, bestWinAgainst, bestWinDay, bestWinRun, bestUnbeatenRun, storeSince, today. Days as
--- yyyymmdd (0 = none yet); storeSince = the day the career store started (players signed before it have no date).
--- Builds the player list CMND_BETTERQOL_CLUB_STATS_ROW reads. ok = false in a mod's reserved slot or without a save.
 function BetterQoL.Career.Club(code)
   club_rows = {}
   local today = VRFW.ui.today()
@@ -715,9 +648,35 @@ function BetterQoL.Career.Club(code)
       end
     end
   end
-  club_load_names(club_lang(tonumber(code)), name_ids)
+  local hist = st.history or {}
+  local teams, team_seen = {}, {}
+  for _, e in ipairs(hist) do
+    for _, param in ipairs(history_params(e)) do
+      local name_id = club_name_text_of(club_base_of(param))
+      if name_id then name_ids[#name_ids + 1] = name_id end
+    end
+    if e.rival ~= 0 and not team_seen[e.rival] then
+      team_seen[e.rival] = true
+      teams[#teams + 1] = e.rival
+    end
+  end
+  local lang = VRFW.names.language(code)
+  club_load_names(lang, name_ids)
   for _, r in ipairs(club_rows) do
     r.name = club_name_of(r.base ~= 0 and r.base or nil)
+  end
+  local ok_teams, team_names = pcall(VRFW.names.shown_team_names, teams, lang)
+  if not ok_teams or type(team_names) ~= "table" then team_names = {} end
+  history_rows = {}
+  for i = #hist, 1, -1 do
+    local e = hist[i]
+    local scorers = {}
+    for _, sc in ipairs(e.scorers) do
+      local name = club_name_of(club_base_of(sc[1]))
+      if name ~= "" then scorers[#scorers + 1] = sc[2] > 1 and (name .. " (" .. sc[2] .. ")") or name end
+    end
+    history_rows[#history_rows + 1] = { e = e, rival = team_names[e.rival] or "",
+      mvp = e.mvp ~= 0 and club_name_of(club_base_of(e.mvp)) or "", scorers = table.concat(scorers, ", ") }
   end
   table.sort(club_rows, function(a, b)
     if a.s.goals ~= b.s.goals then return a.s.goals > b.s.goals end
@@ -725,13 +684,19 @@ function BetterQoL.Career.Club(code)
     return a.name < b.name
   end)
   local c = st.club or S.club_new()
-  info("club stats: " .. #club_rows .. " player(s), club totals since " .. c.since .. " (" .. c.matches .. " match(es))")
+  info("club stats: " .. #club_rows .. " player(s), club totals since " .. c.since .. " (" .. c.matches .. " match(es)), "
+    .. #history_rows .. " match(es) in the history")
   return true, #club_rows, c.since, c.matches, c.wins, c.draws, c.losses, c.goals_for, c.goals_against, c.clean_sheets,
-    c.best_win_for, c.best_win_against, c.best_win_day, c.best_win_run, c.best_unbeaten_run, st.since, today
+    c.best_win_for, c.best_win_against, c.best_win_day, c.best_win_run, c.best_unbeaten_run, st.since, today, #history_rows
 end
 
--- CMND_BETTERQOL_CLUB_STATS_ROW(i) (1-based) -> chara_base (portrait key, 0 = none), name, matches, wins, draws, losses,
--- goals, assists, mvp, signed (yyyymmdd; 0 = signed before the career store started). "" past the end.
+function BetterQoL.Career.ClubHistoryRow(i)
+  local r = history_rows[math.floor(tonumber(i) or 0)]
+  if not r then return "" end
+  local e = r.e
+  return e.number, e.day, S.MODES[math.min(math.max(e.mode, 1), #S.MODES)], r.rival, e.gf, e.ga, e.result, r.mvp, r.scorers
+end
+
 function BetterQoL.Career.ClubRow(i)
   local r = club_rows[math.floor(tonumber(i) or 0)]
   if not r then return "" end
@@ -739,4 +704,4 @@ function BetterQoL.Career.ClubRow(i)
   return r.base, r.name, s.matches, s.wins, s.draws, s.losses, s.goals, s.assists, s.mvp, s.signed
 end
 
-info("active; store blob " .. S.BLOB .. " per slot (staged with the game's save); fed by the match HUD (CMND_BETTERQOL_CAREER_MATCH, graft util_career_match); plate page CMND_BETTERQOL_CAREER_EX (graft util_career_page)")
+info("active; store blob " .. S.BLOB .. " per slot")

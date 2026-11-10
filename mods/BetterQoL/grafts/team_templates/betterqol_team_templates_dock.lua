@@ -1,0 +1,422 @@
+--@lib vrfw_menu_kit.lua#Keys
+-- Team dock: L1 / R1 walk the team templates 1..N and R3 / N opens the template list; the dock that holds the template is the one shown.
+do
+  local STEM = "soccer_team_dock_menu"
+  local T = {
+    INFO = @crc:CMND_BETTERQOL_TEMPLATE_INFO@,       -- -> usable, template count, slot
+    USE = @crc:CMND_BETTERQOL_TEMPLATE_USE@,         -- (template, owner, 1 = online squad) -> team set; nil, refusal code
+    MENU = @crc:CMND_BETTERQOL_TEMPLATE_MENU@,       -- (1 = the dock opened, 0 = it closed) -> ready
+    OWNER = "team_dock",
+    VERSION = 3277307410,            -- CMND_VRFW_LOADER_VERSION -> api, module mask
+    MODULE_BIT = 2097152,            -- module mask bit 21 = team templates
+    WALK = 2294853123,               -- OnFunction id of L1 / R1
+    STEPS = { [2053629800] = -1, [3033167124] = 1 },   -- its direction argument: left, right
+    WALK_RIGHT = 3033167124,
+    DOCK_NUMBER = 1308042914,        -- team01_05_team_dock_no
+    NUMBER_PRIMITIVES = { 409314241, 2171400827 },     -- its number: plain, active team
+    SEARCH_PRIMITIVE = 1927054058,   -- (layer, instance, primitive name) -> primitive index
+    SET_NUMBER = 3609943765,         -- (layer, instance, primitive index, value)
+    TEXT_VALUE = 910683996,          -- (text, tag, value) -> text with the tag replaced
+    TEXT_GET = 4074371074,           -- (text id) -> text
+    PLAY_SOUND = 1917805374,
+    SOUND_REFUSED = 2086672038,      -- sy0003
+    SOUND_OPEN = 3848881948,         -- sy0000
+    SOUND_PAGE = 2629173176,         -- sy0009
+    MENU_INPUT = 1558704558,         -- (menu, on)
+    MENU_ID = 937147172,             -- soccer_team_dock_menu
+    REFUSED_TEXT = { [4] = @crc:better_qol_template_refused_busy@ },   -- refusal code -> text row
+    REFUSED_TEXT_OTHER = @crc:better_qol_template_refused_error@,
+    ACTIVE_SET = 3713813716,         -- CMND_GET_VS_USE_TEAM_SET -> the team set of the active team
+    LIST_KEY = 3147328756,           -- CMD_FUNC6 (pad R3, keyboard N)
+    LIST_GLYPH = 2453951505,         -- menu_text "<CMD_FUNC6>"
+    LIST_TEXT = @crc:better_qol_template_list@,
+    LIST_ROWS = 10,                  -- templates per page of the list
+    LIST_EVENT = "BetterQoL.TemplateListPage",   -- (first template - 1, pages, page, rows, focused row or -1, active template) to the window's script
+    LIST_PICKED = "BetterQoL.team_templates.list_picked",   -- the window's callbacks, called by their global names
+    LIST_PAGED = "BetterQoL.team_templates.list_paged",
+    RETAIL_PAGED = "OnSubWindowPressZLZREvent",
+    PAGE_LEFT = 2091783662, PAGE_RIGHT = 2541903734,   -- the directions the window's L2 / R2 rows send
+    TEAM_LIST_WINDOW = 2,            -- the sub window type of the team list
+    SUB_WINDOW = 968210065,
+    CURSOR = 2296367164,             -- cmn05_01_cursor
+    WINDOW_X = 960, WINDOW_Y = -273, -- the list's place, as in the free match
+    WINDOW_POSITION = 63483614,
+    IS_OPEN_MENU_OBJECT = 3693934564,
+    IS_CLOSE_MENU_OBJECT = 1521844538,
+    CLOSE_MENU_OBJECT = 320421347,
+    SET_LAYER_VISIBLE = 711242136,
+    IS_MENU_THERE = 2231168902,
+    FORMATION_MENU = 2049316981,     -- the lineup screen and the player page a card opens
+    GUIDE = 1138543975,              -- mainmenu01_06_base_button_guide
+    ACCEPT_TEXT = 1847312674,        -- menu_text «Aceptar»
+    ACCEPT_GLYPH = 2750714971,       -- menu_text "<CMD_ENTER>"
+    ACCEPT_KEY = 1981080283,         -- CMD_ENTER
+    WAIT_FRAMES = 600,               -- the longest wait for the window to open or close
+    LISTENER_FRAMES = 30,            -- frames the window's script gets to subscribe
+    count = 0, opened = false, log = nil, jump = nil, redraw = nil, list = nil, action = nil, press = nil,
+    flows = setmetatable({}, {__mode = "k"}),
+  }
+
+  local function log(...)
+    T.log = T.log or VRFW.logger.new("BetterQoL team templates, dock")
+    T.log(...)
+  end
+
+  -- the retail script's locals (VRFW.host)
+  local function locals()
+    local host = VRFW.host.hosts ~= nil and VRFW.host.hosts[STEM] or nil
+    return host ~= nil and host.L or nil
+  end
+
+  -- the stored templates can be walked: the player's own offline docks, the module runs, a save that has them
+  local function ready()
+    if VRFW.team_dock.is_owned() or VRFW.team_dock.online() then
+      return false
+    end
+    local _, modules = VRFW.host.command(T.VERSION)
+    if type(modules) ~= "number" or math.floor(modules / T.MODULE_BIT) % 2 ~= 1 then
+      return false
+    end
+    local usable, count = VRFW.host.command(T.INFO)
+    if usable ~= true or type(count) ~= "number" or count < 1 then
+      return false
+    end
+    T.count = count
+    return true
+  end
+
+  BetterQoL = type(BetterQoL) == "table" and BetterQoL or {}
+  BetterQoL.team_templates = type(BetterQoL.team_templates) == "table" and BetterQoL.team_templates or {}
+  --- True when the stored templates can be walked on this dock.
+  BetterQoL.team_templates.ready = ready
+
+  --- Draws the shown team again from its dock, the way a walk onto its template does.
+  function BetterQoL.team_templates.redraw_shown()
+    T.redraw = true
+    OnFunction(T.WALK, T.WALK_RIGHT)
+    T.redraw = nil
+  end
+
+  -- the template number of the dock on screen (nil: the dock numbers are the retail ones)
+  local function template_shown()
+    local L = locals()
+    return L ~= nil and BetterQoL.template_numbers.of_team_set(L.n5) or nil
+  end
+
+  local function refuse(template, code)
+    log("template", template, "refused, code", tostring(code))
+    VRFW.host.command(T.PLAY_SOUND, T.SOUND_REFUSED)
+    local text = VRFW.host.command(T.TEXT_GET, T.REFUSED_TEXT[code] or T.REFUSED_TEXT_OTHER)
+    if type(text) == "string" and text ~= "" then
+      funcLuaMenuCommand(T.MENU_INPUT, T.MENU_ID, false)
+      VRFW.question.notice(text)
+      funcLuaMenuCommand(T.MENU_INPUT, T.MENU_ID, true)
+    end
+  end
+
+  -- Runs a retail callback; while it waits for a sub menu, its coroutine counts as an open flow of the screen.
+  local function tracked(retail, ...)
+    local running, is_main = coroutine.running()
+    if running == nil or is_main then
+      return retail(...)
+    end
+    T.flows[running] = true
+    local results = table.pack(retail(...))
+    T.flows[running] = nil
+    return table.unpack(results, 1, results.n)
+  end
+
+  local function alive(thread)
+    return type(thread) == "thread" and coroutine.status(thread) ~= "dead"
+  end
+
+  -- why the template list cannot open now; nil when it can
+  local function list_blocked(L)
+    if alive(L.l1) then
+      return "member move"
+    elseif alive(L.l5) then
+      return "fade"
+    elseif alive(L.l6) then
+      return "team command list"
+    elseif alive(L.l7) then
+      return "training"
+    elseif type(IsChangeMemberMode) == "function" and IsChangeMemberMode() then
+      return "member change"
+    elseif funcLuaMenuCommand(T.IS_MENU_THERE, T.FORMATION_MENU) == true then
+      return "formation screen"
+    end
+    for flow in pairs(T.flows) do
+      if alive(flow) then
+        return "sub menu open"
+      end
+    end
+    return nil
+  end
+
+  local function window_is_open()
+    return funcLuaCommand(T.IS_OPEN_MENU_OBJECT, T.SUB_WINDOW, T.CURSOR) == true
+  end
+
+  local function window_is_closed()
+    return funcLuaCommand(T.IS_CLOSE_MENU_OBJECT, T.SUB_WINDOW) == true
+  end
+
+  -- waits inside the list's coroutine; answers false when `condition` never came true
+  local function wait_until(condition)
+    for _ = 1, T.WAIT_FRAMES do
+      if condition() then
+        return true
+      end
+      coroutine.yield()
+    end
+    return condition()
+  end
+
+  -- the page of the list to the window's script; answers how many scripts heard it
+  local function send_page(page, focused_row)
+    return VRFW.menu_event.emit(T.LIST_EVENT, page.first, page.count, page.index, page.rows, focused_row or -1, page.active)
+  end
+
+  -- `index`: the page, `rows` templates each; the last page ends on the last template
+  local function turn_to(page, index)
+    page.index = index
+    page.first = math.max(0, math.min((index - 1) * page.rows, T.count - page.rows))
+  end
+
+  local function open_window(page, shown)
+    local enabled = {}
+    for row = 1, page.rows do
+      enabled[row] = 1
+    end
+    MENU_DEF.SetSubwindowCallback_PressZLZREvent(T.LIST_PAGED)
+    MENU_DEF.OpenSubWindow(T.LIST_PICKED, "", page.rows, {}, 1, 0, enabled, 0, false, false, T.TEAM_LIST_WINDOW)
+    funcLuaMenuCommand(T.SET_LAYER_VISIBLE, T.CURSOR, 0, false)
+    -- the window's script subscribes when its window is set up: it gets the page before its rows are drawn
+    local heard = false
+    for _ = 1, T.LISTENER_FRAMES do
+      heard = send_page(page) > 0
+      if heard then
+        break
+      end
+      coroutine.yield()
+    end
+    if not heard or not wait_until(window_is_open) then
+      log("template list: the window did not open, its script heard the page:", tostring(heard))
+      return false
+    end
+    funcLuaCommand(T.WINDOW_POSITION, T.WINDOW_X, T.WINDOW_Y)
+    VRFW.footer_prompts.set(nil, g_parentMenuId,
+      { {text = T.ACCEPT_TEXT, icon = T.ACCEPT_GLYPH, command = T.ACCEPT_KEY} }, {guide = T.GUIDE, declared = false})
+    send_page(page, shown - page.first - 1)
+    return true
+  end
+
+  -- waits for the player in the open list; answers the template picked, nil for Back
+  local function browse(page)
+    T.press.reset()
+    while true do
+      T.action = nil
+      repeat
+        coroutine.yield()
+        local left, right = T.press.pressed(VRFW.keys.L2), T.press.pressed(VRFW.keys.R2)
+        if T.action == nil then
+          if left then
+            T.action = {turn = -1}
+          elseif right then
+            T.action = {turn = 1}
+          elseif window_is_closed() then
+            T.action = {}
+          end
+        end
+      until T.action ~= nil
+      local action = T.action
+      if action.turn == nil then
+        return action.row ~= nil and page.first + action.row + 1 or nil
+      end
+      if page.count > 1 then
+        turn_to(page, (page.index - 1 + action.turn) % page.count + 1)
+        VRFW.host.command(T.PLAY_SOUND, T.SOUND_PAGE)
+        send_page(page)
+      end
+    end
+  end
+
+  -- The template list: pages of LIST_ROWS templates read from the store; a pick shows that template as L1 / R1 would reach it.
+  local function template_list()
+    local shown = template_shown()
+    local rows = math.min(T.LIST_ROWS, T.count)
+    local page = {rows = rows, count = math.ceil(T.count / rows),
+      active = BetterQoL.template_numbers.of_team_set(funcLuaCommand(T.ACTIVE_SET)) or 0}
+    turn_to(page, math.ceil(shown / rows))
+    funcLuaMenuCommand(T.MENU_INPUT, T.MENU_ID, false)
+    funcLuaMenuCommand(T.SET_LAYER_VISIBLE, T.CURSOR, 0, false, T.MENU_ID)
+    VRFW.host.command(T.PLAY_SOUND, T.SOUND_OPEN)
+    log("template list open: page", page.index, "of", page.count, "shown", shown, "active", page.active)
+    local picked = open_window(page, shown) and browse(page) or nil
+    VRFW.menu_event.emit(T.LIST_EVENT, 0, 0, 0, 0, -1, 0)
+    if not window_is_closed() then
+      funcLuaCommand(T.CLOSE_MENU_OBJECT, T.SUB_WINDOW)
+      wait_until(window_is_closed)
+    end
+    MENU_DEF.SetSubwindowCallback_PressZLZREvent(T.RETAIL_PAGED)
+    funcLuaMenuCommand(T.SET_LAYER_VISIBLE, T.CURSOR, 0, true, T.MENU_ID)
+    SetupButtonGuideText()
+    log("template list closed: picked", tostring(picked))
+    if picked ~= nil and picked ~= shown then
+      T.jump = picked
+      OnFunction(T.WALK, T.WALK_RIGHT)
+    end
+    funcLuaMenuCommand(T.MENU_INPUT, T.MENU_ID, true)
+  end
+
+  local function resume_list()
+    local ok, problem = coroutine.resume(T.list)
+    if not ok then
+      log("template list error", tostring(problem))
+      MENU_DEF.SetSubwindowCallback_PressZLZREvent(T.RETAIL_PAGED)
+      funcLuaMenuCommand(T.MENU_INPUT, T.MENU_ID, true)
+    end
+    if not ok or coroutine.status(T.list) == "dead" then
+      T.list, T.jump = nil, nil
+    end
+  end
+
+  -- The game calls a sub window's callbacks by their exact global names.
+  rawset(_ENV, T.LIST_PICKED, function(row)
+    if T.list ~= nil then
+      T.action = type(row) == "number" and row >= 0 and {row = row} or T.action or {}
+    end
+  end)
+  rawset(_ENV, T.LIST_PAGED, function(first, second)
+    if T.list ~= nil and T.action == nil then
+      if first == T.PAGE_LEFT or second == T.PAGE_LEFT then
+        T.action = {turn = -1}
+      elseif first == T.PAGE_RIGHT or second == T.PAGE_RIGHT then
+        T.action = {turn = 1}
+      end
+    end
+  end)
+
+  VRFW.footer_prompts.add({
+    name = "BetterQoL.TemplateList",
+    menu = STEM,
+    text = T.LIST_TEXT,
+    icon = T.LIST_GLYPH,
+    command = T.LIST_KEY,
+    order = 100,
+    when = function()
+      return T.opened
+    end,
+  })
+  VRFW.footer_prompts.attach(STEM, "SetupButtonGuideText")
+
+  VRFW.host.on(STEM, "OnInit", {id = "BetterQoL.team_templates.open", phase = "after", fn = function()
+    T.list, T.jump, T.action = nil, nil, nil
+    T.press = VRFW.keys.new_press()
+    T.press.reset()
+    T.opened = ready() and VRFW.host.command(T.MENU, 1) == true
+    log("open", T.opened and "templates " .. T.count or "retail docks", "shown", tostring(template_shown()))
+  end})
+
+  VRFW.host.on(STEM, "FuncOnBack", {id = "BetterQoL.team_templates.close", phase = "before", fn = function()
+    if T.opened then
+      T.opened = false
+      VRFW.host.command(T.MENU, 0)
+    end
+  end})
+
+  VRFW.host.on(STEM, "OnFunction", {id = "BetterQoL.team_templates.walk", phase = "around", fn = function(retail, id, direction, ...)
+    local step = id == T.WALK and T.STEPS[direction] or nil
+    local jump = step ~= nil and T.jump or nil
+    local redraw = step ~= nil and T.redraw == true
+    if step ~= nil then
+      T.jump, T.redraw = nil, nil
+    end
+    local L = locals()
+    -- a player being moved to another dock (l1) walks the 11 docks: no template enters or leaves a dock under the move
+    if step == nil or L == nil or L.l1 ~= nil or not ready() then
+      if jump ~= nil or redraw then
+        return
+      end
+      return tracked(retail, id, direction, ...)
+    end
+    local shown = BetterQoL.template_numbers.of_team_set(L.n5)
+    if shown == nil then
+      if jump ~= nil or redraw then
+        return
+      end
+      return tracked(retail, id, direction, ...)
+    end
+    -- a redraw mounts nothing: retail steps back onto the shown dock and draws it again
+    if redraw then
+      VRFW.team_dock.emit("page_changing")
+      L.n5 = L.n5 - step
+      local results = table.pack(retail(id, direction, ...))
+      VRFW.team_dock.emit("page_changed")
+      return table.unpack(results, 1, results.n)
+    end
+    -- the template list jumps straight to its pick; L1 / R1 step to the next or the previous template
+    local template = jump or (shown - 1 + step) % T.count + 1
+    VRFW.team_dock.emit("page_changing")
+    local team_set, code = VRFW.host.command(T.USE, template, T.OWNER, 0)
+    if type(team_set) ~= "number" then
+      refuse(template, code)
+      return
+    end
+    -- retail steps one dock from the shown one and redraws the screen: it starts one dock before the template's
+    L.n5 = team_set - step
+    local results = table.pack(retail(id, direction, ...))
+    VRFW.team_dock.emit("page_changed")
+    return table.unpack(results, 1, results.n)
+  end})
+
+  VRFW.host.on(STEM, "OnEnter", {id = "BetterQoL.team_templates.flow", phase = "around", fn = tracked})
+  VRFW.host.on(STEM, "OnDecideFocus", {id = "BetterQoL.team_templates.flow", phase = "around", fn = tracked})
+
+  VRFW.host.on(STEM, "Step", {id = "BetterQoL.team_templates.list", phase = "after", fn = function()
+    if T.list ~= nil then
+      resume_list()
+      return
+    end
+    if not T.opened or not T.press.pressed(T.LIST_KEY) then
+      return
+    end
+    local L = locals()
+    if L == nil or not ready() or template_shown() == nil then
+      return
+    end
+    local why = list_blocked(L)
+    if why ~= nil then
+      log("template list not opened:", why)
+      return
+    end
+    T.list = coroutine.create(template_list)
+    resume_list()
+  end})
+
+  VRFW.host.on(STEM, "UpdateTeamDockNo", {id = "BetterQoL.team_templates.number", phase = "after", fn = function()
+    local template = template_shown()
+    if template == nil then
+      return
+    end
+    for _, primitive in ipairs(T.NUMBER_PRIMITIVES) do
+      local index = funcLuaMenuCommand(T.SEARCH_PRIMITIVE, T.DOCK_NUMBER, 0, primitive)
+      funcLuaMenuCommand(T.SET_NUMBER, T.DOCK_NUMBER, 0, index, template)
+    end
+  end})
+
+  -- the «team N is now the active team» message: N is the template
+  VRFW.host.on(STEM, "OpenChangeTeamDockMessage", {id = "BetterQoL.team_templates.message", phase = "around", fn = function(retail, ...)
+    local template = template_shown()
+    if template == nil then
+      return retail(...)
+    end
+    -- the message's own VALUE only: the override stays while the window waits
+    return VRFW.host.with_commands({[T.TEXT_VALUE] = function(convert, id, text, tag, value, ...)
+      if template ~= nil and tag == "VALUE" then
+        value, template = template, nil
+      end
+      return convert(id, text, tag, value, ...)
+    end}, retail, ...)
+  end})
+end

@@ -1,9 +1,4 @@
 schema = "VRFW.team/2"
-# Mar de Árboles for the Chronicle side node «ie2_forest» (content/teams/70_route_nodes/side_nodes.toml): the retail
-# legend team tm_cro_legend_IE2_09 (roster, loadouts, formation, kit, crest through based_on) with an ordinary team's
-# stats. The legend team has the Batalla legendaria profile (stat rates x9 on every stat, cols 14-19 set); the node's
-# Crónica, Heroica and free-match classes play this copy, with the ordinary profile (cols 14-19 = -1, rates 1: the
-# empty lists are the defaults). Chronicle Deluxe 1.11.13, Its level comes from its game.
 default_lang = "en"
 
 [[team]]

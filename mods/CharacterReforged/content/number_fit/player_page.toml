@@ -1,8 +1,6 @@
 schema = "VRFW.number_fit/1"
-# Character Reforged: the 8 stat values of the player page's ATRIBUTOS rows (evt_pp_num_host, between each gauge and
-# its position tags): a 4-digit stat is drawn at the width of 3 (VRFW number fit).
 
 [[VRFW.NumberFit]]
 name = "player_page_stats"
-layer = "evt_pp_num_host"
+layer = "cr_pp_num_host"
 digits = 3

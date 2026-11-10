@@ -1,0 +1,13 @@
+# Original names picker and text reload of a saved change (hook file on the setting_menu host).
+name = "betterqol_original_names"
+mod = "BetterQoL"
+order = 330
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "Original names: team / player picker of the character names setting and the text reload of a saved change"
+
+[[hooks]]
+stem = "setting_menu"
+source = "betterqol_on_setting.lua"

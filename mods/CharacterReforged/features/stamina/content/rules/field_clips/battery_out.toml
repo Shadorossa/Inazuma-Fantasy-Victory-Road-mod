@@ -1,0 +1,5 @@
+schema = "VRFW.field_clip/1"
+
+[[locomotion]]
+name = "battery_out"
+actions = { STAND = "MissingContent.aura_end_kneel_hold", WALK = "MissingContent.aura_end_kneel_hold", RUN = "MissingContent.aura_end_kneel_hold" }

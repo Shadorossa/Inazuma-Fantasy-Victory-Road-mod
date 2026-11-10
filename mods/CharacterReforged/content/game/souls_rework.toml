@@ -1,0 +1,43 @@
+schema = "VRFW.game/2"
+
+# ------------------------------------------------------------------------------------------------ globals / structs
+
+[[VRFW.Struct]]
+name = "SrActor"
+size = 0x570
+fields = { hdl = { at = 0x94, type = "u32" }, team = { at = 0xD0, type = "u8" }, summon_skill = { at = 0x358, type = "u32" }, summon_full = { at = 0x360, type = "f32" }, summon_left = { at = 0x370, type = "f32" }, summon_state = { at = 0x374, type = "u8" }, in_play = { at = 0x497, type = "u8" } }
+
+# ------------------------------------------------------------------------------------------------ release button
+
+# bool RequestAuraRelease(?, ctrl) 0x15702F0 (the aura release button; actor = [ctrl + 0x78]).
+[[VRFW.Hook]]
+name = "Sr_AuraRelease"
+game = "Stamina.AuraRelease"
+kind = "function"
+order = 12
+
+[[VRFW.Hook.answer]]
+phase = "pre"
+table = "CharacterReforged.SoulsPlayer"
+field = "no_release"
+key = ["[[args[2] + 0x78] + 0x94]:u32"]
+
+# ------------------------------------------------------------------------------------------------ reel command
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_SOULS_TOTEM_LEVEL"
+handler = "CharacterReforged.Souls.TotemLevel"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_SOULS_REEL"
+handler = "CharacterReforged.Souls.Reel"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_SOULS_REEL_LANDED"
+handler = "CharacterReforged.Souls.ReelLanded"
+
+# ------------------------------------------------------------------------------------------------ level-up pop command
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_SOULS_LEVEL_POP"
+handler = "CharacterReforged.Souls.LevelPop"

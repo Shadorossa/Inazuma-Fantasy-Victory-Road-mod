@@ -1,11 +1,9 @@
 schema = "VRFW.text_key/1"
-# Texts of «Hissatsu Reforged» (format: docs/framework/types/text.md): the «Mods» screen's name and description. A
-# language missing here falls back to English.
 default_lang = "en"
 
 [en.new]
 mod_name = "Hissatsu Reforged"
-mod_description = "Rebalances the game's special moves: new minimum and maximum power, tension cost and recast time for 683 moves, while the power each grade adds stays the game's. A move with two properties (long shot and counter shot) shows both icons in every move list. Special moves can land a critical hit, and the Breach team build becomes the Critical build. The base of Hissatsu Effects and Hissatsu Level Up."
+mod_description = "Rebalances 683 special moves with new power, tension cost and recast time. Moves with two properties show both icons in every list, and special moves can now land critical hits. Special moves level up the classic way: each move grows with the times a player uses it in matches, and a banner says when it levels up. The last level needs the Ultimate Evolution Manual from the general shop, and a player can no longer carry the same special move twice."
 # technique families ([[VRFW.TechniqueFamily]], content\techniques\families.toml)
 family_god_hand = "God Hand"
 family_triangle = "Death Zone"
@@ -25,7 +23,7 @@ filter_tab_families = "Families"
 
 [es.new]
 mod_name = "Hissatsu Reforged"
-mod_description = "Reequilibra las supertécnicas del juego: nueva potencia mínima y máxima, coste de tensión y tiempo de recarga de 683 supertécnicas, y la potencia que añade cada grado sigue siendo la del juego. Una supertécnica con dos propiedades (tiro largo y tiro de contraataque) muestra los dos iconos en todas las listas. Las supertécnicas pueden lograr un golpe crítico, y la configuración Brecha pasa a ser Crítico. Es la base de Hissatsu Effects y Hissatsu Level Up."
+mod_description = "Reequilibra 683 supertécnicas con nueva potencia, coste de tensión y tiempo de recarga. Las supertécnicas con dos propiedades muestran los dos iconos en todas las listas, y pueden lograr golpes críticos. Las supertécnicas suben de nivel a la manera clásica: cada técnica crece con las veces que el jugador la usa en los partidos, y un aviso dice cuándo sube. El último nivel necesita el Cuaderno de evolución definitiva de la Tienda general, y un jugador ya no puede llevar la misma supertécnica dos veces."
 # technique families ([[VRFW.TechniqueFamily]], content\techniques\families.toml)
 family_god_hand = "Mano Celestial"
 family_triangle = "Triángulo Letal"
@@ -45,7 +43,7 @@ filter_tab_families = "Familias"
 
 [fr.new]
 mod_name = "Hissatsu Reforged"
-mod_description = "Rééquilibre les supertechniques du jeu : nouvelle puissance minimale et maximale, coût de tension et temps de recharge pour 683 supertechniques, tandis que la puissance ajoutée par chaque rang reste celle du jeu. Une supertechnique à deux propriétés (tir de loin et contre-attaque) montre les deux icônes dans toutes les listes. Les supertechniques peuvent infliger un coup critique, et la configuration Brèche devient Critique. La base de Hissatsu Effects et Hissatsu Level Up."
+mod_description = "Rééquilibre 683 supertechniques avec une nouvelle puissance, un nouveau coût de tension et un nouveau temps de recharge. Les supertechniques à deux propriétés affichent les deux icônes dans toutes les listes, et peuvent infliger des coups critiques. Les supertechniques montent de niveau à la manière classique : chaque technique progresse avec le nombre de fois que le joueur l'utilise en match, et un message annonce la montée. Le dernier niveau demande le Livre d'évolution ultime de la boutique générale, et un joueur ne peut plus porter deux fois la même supertechnique."
 # technique families ([[VRFW.TechniqueFamily]], content\techniques\families.toml)
 family_god_hand = "Main céleste"
 family_triangle = "Triangle de la mort"
@@ -65,7 +63,7 @@ filter_tab_families = "Familles"
 
 [de.new]
 mod_name = "Hissatsu Reforged"
-mod_description = "Gleicht die Spezialtechniken des Spiels neu aus: neue minimale und maximale Stärke, Spannungskosten und Abklingzeit für 683 Techniken, während die Stärke, die jede Stufe hinzufügt, die des Spiels bleibt. Eine Technik mit zwei Eigenschaften (Fernschuss und Konterschuss) zeigt beide Symbole in jeder Liste. Spezialtechniken können einen kritischen Treffer landen, und der Durchbruch-Teamaufbau wird zum Kritisch-Aufbau. Die Basis von Hissatsu Effects und Hissatsu Level Up."
+mod_description = "Gleicht 683 Spezialtechniken mit neuer Stärke, Spannungskosten und Wiederaufladezeit aus. Techniken mit zwei Eigenschaften zeigen in allen Listen beide Symbole, und Spezialtechniken können kritische Treffer landen. Spezialtechniken steigen auf klassische Weise auf: Jede Technik wächst mit den Einsätzen des Spielers in Spielen, und eine Meldung zeigt den Aufstieg an. Die letzte Stufe braucht das Buch der ultimativen Evolution aus dem allgemeinen Laden, und ein Spieler kann dieselbe Spezialtechnik nicht mehr doppelt tragen."
 # technique families ([[VRFW.TechniqueFamily]], content\techniques\families.toml)
 family_god_hand = "Himmelshand"
 family_triangle = "Todesdreieck"
@@ -85,7 +83,7 @@ filter_tab_families = "Familien"
 
 [it.new]
 mod_name = "Hissatsu Reforged"
-mod_description = "Ribilancia le supertecniche del gioco: nuova potenza minima e massima, costo di tensione e tempo di ricarica per 683 supertecniche, mentre la potenza aggiunta da ogni grado resta quella del gioco. Una supertecnica con due proprietà (tiro da lontano e contropiede) mostra entrambe le icone in ogni lista. Le supertecniche possono mettere a segno un colpo critico, e la configurazione Breccia diventa Critico. La base di Hissatsu Effects e Hissatsu Level Up."
+mod_description = "Riequilibra 683 supertecniche con nuova potenza, costo di tensione e tempo di ricarica. Le supertecniche con due proprietà mostrano entrambe le icone in tutte le liste, e possono mettere a segno colpi critici. Le supertecniche salgono di livello alla maniera classica: ogni tecnica cresce con le volte che il giocatore la usa in partita, e un avviso segnala quando sale. L'ultimo livello richiede il Libro dell'evoluzione suprema del negozio generale, e un giocatore non può più avere due volte la stessa supertecnica."
 # technique families ([[VRFW.TechniqueFamily]], content\techniques\families.toml)
 family_god_hand = "Mano di Luce"
 family_triangle = "Zona Micidiale"
@@ -105,7 +103,7 @@ filter_tab_families = "Famiglie"
 
 [pt.new]
 mod_name = "Hissatsu Reforged"
-mod_description = "Reequilibra as supertécnicas do jogo: nova potência mínima e máxima, custo de tensão e tempo de recarga de 683 supertécnicas, e a potência que cada grau adiciona continua a do jogo. Uma supertécnica com duas propriedades (chute de longe e contra-ataque) mostra os dois ícones em todas as listas. As supertécnicas podem acertar um golpe crítico, e a configuração Brecha passa a ser Crítico. É a base de Hissatsu Effects e Hissatsu Level Up."
+mod_description = "Reequilibra 683 supertécnicas com nova potência, custo de tensão e tempo de recarga. As supertécnicas com duas propriedades mostram os dois ícones em todas as listas, e podem causar golpes críticos. As supertécnicas sobem de nível à maneira clássica: cada técnica cresce com as vezes que o jogador a usa nas partidas, e um aviso mostra quando sobe. O último nível precisa do Livro da evolução suprema da loja geral, e um jogador já não pode levar a mesma supertécnica duas vezes."
 # technique families ([[VRFW.TechniqueFamily]], content\techniques\families.toml)
 family_god_hand = "Mão Fantasma"
 family_triangle = "Zona Mortal"
@@ -125,7 +123,7 @@ filter_tab_families = "Famílias"
 
 [ja.new]
 mod_name = "Hissatsu Reforged"
-mod_description = "ゲームの必殺技683個のバランスを調整する：最小・最大威力、テンション消費、リキャスト時間。ランクごとに上がる威力はゲームのまま。2つの特性（ロングシュートとカウンターシュート）を持つ技は、すべてのリストで両方のアイコンを表示。必殺技はクリティカルを出すことがあり、ひっさつビルドはクリティカルビルドになる。Hissatsu EffectsとHissatsu Level Upのベース。"
+mod_description = "683種類の必殺技のパワー、テンション消費、再使用時間を調整し直します。2つの属性を持つ技はどの一覧でも両方のアイコンが表示され、必殺技でクリティカルヒットが出るようになります。必殺技が昔のシリーズのように成長します。選手がその技を試合で使った回数に応じて成長し、進化するとお知らせが出ます。最終段階にはよろず屋の究極進化の書が必要で、同じ必殺技を2つ装備することはできなくなります。"
 # technique families ([[VRFW.TechniqueFamily]], content\techniques\families.toml)
 family_god_hand = "ゴッドハンド"
 family_triangle = "デスゾーン"
@@ -145,7 +143,7 @@ filter_tab_families = "ファミリー"
 
 [zh_hans.new]
 mod_name = "Hissatsu Reforged"
-mod_description = "重新平衡游戏中的683个必杀技：新的最小与最大威力、气势消耗和冷却时间，每个等级增加的威力保持游戏原样。拥有两种属性（远射与反击射门）的必杀技在所有列表中显示两个图标。必杀技可能打出暴击，必杀流派改为暴击流派。是 Hissatsu Effects 与 Hissatsu Level Up 的基础。"
+mod_description = "重新平衡683个必杀技的威力、气势消耗和冷却时间。拥有两种属性的招式会在所有列表中显示两个图标，必杀技还能打出暴击。必杀技以经典方式成长：每个招式随球员在比赛中使用的次数进化，进化时会有提示。最终阶段需要杂货店的究极进化之书，同一名球员也不能再装备两个相同的必杀技。"
 # technique families ([[VRFW.TechniqueFamily]], content\techniques\families.toml)
 family_god_hand = "神之手"
 family_triangle = "死亡领域"
@@ -165,7 +163,7 @@ filter_tab_families = "系列"
 
 [zh_hant.new]
 mod_name = "Hissatsu Reforged"
-mod_description = "重新平衡遊戲中的683個必殺技：新的最小與最大威力、氣勢消耗和冷卻時間，每個等級增加的威力保持遊戲原樣。擁有兩種屬性（遠射與反擊射門）的必殺技在所有列表中顯示兩個圖示。必殺技可能打出暴擊，必殺隊伍流派改為暴擊隊伍流派。是 Hissatsu Effects 與 Hissatsu Level Up 的基礎。"
+mod_description = "重新平衡683個必殺技的威力、氣勢消耗和冷卻時間。擁有兩種屬性的招式會在所有列表中顯示兩個圖示，必殺技還能打出暴擊。必殺技以經典方式成長：每個招式隨球員在比賽中使用的次數進化，進化時會有提示。最終階段需要雜貨店的究極進化之書，同一名球員也不能再裝備兩個相同的必殺技。"
 # technique families ([[VRFW.TechniqueFamily]], content\techniques\families.toml)
 family_god_hand = "神之手"
 family_triangle = "死亡領域"

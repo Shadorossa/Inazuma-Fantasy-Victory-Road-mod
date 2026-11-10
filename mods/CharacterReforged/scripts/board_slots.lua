@@ -1,29 +1,3 @@
--- Character Reforged › the skill board writes of the skill table's AURA SLOT (board slot 8: a keshin / totem / armour)
--- when Inazuma Fantasy's board service (CMND_EVT_BOARD_*, IF's scripts\board.lua) is not there (the
--- aura half of the «Fantasy» table did nothing without IF). Commands (content\game\board.toml), the same arguments and
--- answers as IF's, so the table's code calls either one:
---   CMND_CHARACTERREFORGED_BOARD_PIECE(charaStHdl, boardSlot)            -> piece, effectiveInv, placedInv, nativeInv
---   CMND_CHARACTERREFORGED_BOARD_PLACE(charaStHdl, invHdl, boardSlot)    -> status, effectiveInv (opens a closed piece)
---   CMND_CHARACTERREFORGED_BOARD_CLEAR(charaStHdl, boardSlot[, keepOpen]) -> status, effectiveInv (keepOpen 0: a slot
---                                                                          without a native item is not emptied (-6);
---                                                                          1: emptied, stays open; 3: the native item
---                                                                          off too, open and empty)
---   CMND_CHARACTERREFORGED_SIX_SENSE(charaStHdl, op, invHdl, pieceIdx) -> status, invHdl, itemId: the custom passive
---                                                                          slot (board equip slot 9); op 0 reads it, op 1
---                                                                          puts invHdl there (0 = take it off) through
---                                                                          Board.EquipSlot; pieceIdx is not used
--- Status: 1 done and verified, 0 refused by the game's CanEquip (no free copy / a duplicate rule such as True
--- Hissatsu's), 2 read back different, -1 bad arguments, -2 not ready, -3 closed without a definition piece, -4 the
--- game call raised, -5 no record, -6 would close the piece. Only the game's own board functions are used (CanEquip,
--- PlaceByHandle, the board definition); nothing else of the board (layout, branch, list) is touched: the table's
--- rows stay the projection of the list (scripts\mix_slots.lua).
--- The aura slot on every card: a card whose board definition has no ninth skill piece (an explicit
--- hero / legend board with 6 pieces: PLACE answered -3) gets a free aura slot by rule: board slot 8's piece byte is
--- opened with an effect index his board does not use, and the item goes straight on the slot through Board.EquipSlot
--- 0xE7AA10 (PlaceByHandle maps a piece to a slot through the definition, so it can not reach that slot). His own
--- pieces are untouched; the slot is open at once, as the definition's own aura piece is when PLACE opens it.
--- Record rec8 = VRFW.character.record(hdl).addr, the game profile's [struct.CharaData]: PlacedSkills + 4*slot placed item,
--- NativeSkills + 4*slot native item, BoardPieces + slot piece effect index (byte; >= 0x80 closed).
 
 CharacterReforged = CharacterReforged or {}
 CharacterReforged.BoardSlots = CharacterReforged.BoardSlots or {}
@@ -36,21 +10,16 @@ local LAST_SLOT = 8
 
 local handle_buffer, pieces_buffer = nil, nil
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
-local hex = Id.hex
-require "VRFW/lib/basics"
+local Id = VRFW.ids
+local u32 = Id.unsigned
+local hex = Id.hex_text
 local info, warn = VRFW.logger("board slots")
 
-local function read(ty, address)
-  local ok, v = pcall(VRFW.mem.read, ty, address)
-  if ok then return v end
-  return nil
-end
+local read = VRFW.memory.read
 
 local function buffers()
-  handle_buffer = handle_buffer or VRFW.mem.buffer("character_reforged_board_slots_handle", 8)
-  pieces_buffer = pieces_buffer or VRFW.mem.buffer("character_reforged_board_slots_pieces", 16)
+  handle_buffer = handle_buffer or VRFW.memory.buffer("character_reforged_board_slots_handle", 8)
+  pieces_buffer = pieces_buffer or VRFW.memory.buffer("character_reforged_board_slots_pieces", 16)
 end
 
 local function slot_argument(v)
@@ -61,15 +30,9 @@ local function slot_argument(v)
   return nil
 end
 
--- the game profile's offset of a struct field (game\<build>\structs.toml), nil when the running build lacks it
-local function profile_field(name)
-  local ok, v = pcall(VRFW.game.field, name)
-  if ok and type(v) == "number" then return v end
-  return nil
-end
+-- the game profile's value of a name (lib/profile.lua)
+local profile_field = require("lib/profile").field
 
--- the character data's board fields (profile [struct.CharaData]: the piece bytes, the placed and the native items of
--- each board slot), read once; nil when the running build's profile lacks one
 local BOARD = nil
 local board_warned = false
 local function board_layout()
@@ -108,12 +71,11 @@ end
 local function is_closed(s) return s.piece >= 0x80 end
 local function effective(s) if s.placed ~= 0 then return s.placed end return s.native end
 
--- the board definition: { [slot] = piece } of its skill pieces and their count (.n), nil when unreadable
 local function definition(hdl)
   buffers()
-  pcall(VRFW.mem.write, "u32", handle_buffer, hdl)
-  pcall(VRFW.mem.write, "u64", pieces_buffer, 0)
-  pcall(VRFW.mem.write, "u64", pieces_buffer + 8, 0)
+  VRFW.memory.write("u32", handle_buffer, hdl)
+  VRFW.memory.write("u64", pieces_buffer, 0)
+  VRFW.memory.write("u64", pieces_buffer + 8, 0)
   local ok = pcall(VRFW.call, "CharacterReforged.BoardSkillPieces", pieces_buffer, handle_buffer)
   if not ok then return nil end
   local list, count = read("ptr", pieces_buffer), read("u64", pieces_buffer + 8)
@@ -136,9 +98,8 @@ local function definition_piece(hdl, slot)
   return nil
 end
 
--- ---------------------------------------------------------------------------------------- the free aura slot
 local AURA_SLOT = LAST_SLOT
-local LAST_EFFECT = 59                -- openedEffectPieceList holds 60 effects: the free piece stays inside it
+local LAST_EFFECT = 59
 local LAST_MOVE_SLOT = 5               -- board slots 0-5 are the skill table's move rows
 
 -- is `piece` on board slot 8 the free aura piece (not a piece of the card's board definition)?
@@ -168,7 +129,6 @@ local function free_aura_piece(data, hdl)
   return nil
 end
 
--- Board.EquipSlot(hdl, inv, slot, native): the item on the slot itself (the old one's use given back)
 local function equip_slot(hdl, inv, slot, native)
   local ok, e = pcall(VRFW.call, "CharacterReforged.BoardEquipSlot", hdl, inv, slot, native and 1 or 0)
   if not ok then
@@ -178,11 +138,9 @@ local function equip_slot(hdl, inv, slot, native)
   return nil
 end
 
--- Board.PlaceByHandle(&hdl, piece, inv, native, 1, 1): the last 1 = clearing a native slot takes its item off
--- (always so on v7.1.2, an argument since v7.2.1)
 local function place_by_handle(hdl, piece, inv, native)
   buffers()
-  pcall(VRFW.mem.write, "u32", handle_buffer, hdl)
+  VRFW.memory.write("u32", handle_buffer, hdl)
   local ok, e = pcall(VRFW.call, "CharacterReforged.BoardPlaceByHandle", handle_buffer, piece, inv, native and 1 or 0, 1, 1)
   if not ok then
     warn(string.format("PlaceByHandle(%s, piece %d, %s, native %s) raised: %s", hex(hdl), piece, hex(inv), tostring(native), tostring(e)))
@@ -210,7 +168,7 @@ local function put(data, hdl, inv, slot)
   local st
   if free then
     if is_closed(before) then
-      pcall(VRFW.mem.write, "u8", data + BOARD.pieces + slot, piece)
+      VRFW.memory.write("u8", data + BOARD.pieces + slot, piece)
       info(string.format("aura slot of %s opened with the free piece %d (his board has no aura piece)", hex(hdl), piece))
     end
     st = equip_slot(hdl, inv, slot, false)
@@ -225,7 +183,7 @@ local function put(data, hdl, inv, slot)
   if ok and not free and slot <= LAST_MOVE_SLOT and piece <= LAST_EFFECT then
     local flag = data + BOARD.pieces + LAST_SLOT + 1 + piece
     local was = read("u8", flag)
-    if was == 0 then pcall(VRFW.mem.write, "u8", flag, 1) end
+    if was == 0 then VRFW.memory.write("u8", flag, 1) end
     if was ~= 1 then info(string.format("slot %d of %s: piece %d opened flag %s -> %s", slot, hex(hdl), piece, tostring(was), tostring(read("u8", flag)))) end
   end
   if not ok then
@@ -234,14 +192,12 @@ local function put(data, hdl, inv, slot)
   return ok and STATUS_OK or STATUS_MISMATCH, effective(after)
 end
 
--- keep_open: the slot ends open even without a native item; drop_native: the native item is taken off too
 local function clear(data, hdl, slot, keep_open, drop_native)
   local before = read_slot(data, slot)
   if not before then return STATUS_NOT_READY, 0 end
   if is_closed(before) then return STATUS_CLOSED, effective(before) end
   local piece = before.piece
   if is_free_aura(hdl, slot, piece) then
-    -- the free aura piece: the slot itself is emptied; the piece stays open (no native item to fall back to)
     if drop_native and before.native ~= 0 then
       local st = equip_slot(hdl, 0, slot, true)
       if st then return st, effective(before) end
@@ -260,7 +216,7 @@ local function clear(data, hdl, slot, keep_open, drop_native)
     if st then return st, effective(before) end
     local now = read_slot(data, slot)
     if not now then return STATUS_NOT_READY, 0 end
-    if is_closed(now) then pcall(VRFW.mem.write, "u8", data + BOARD.pieces + slot, piece) end
+    if is_closed(now) then VRFW.memory.write("u8", data + BOARD.pieces + slot, piece) end
     before = read_slot(data, slot) or now
     keep_open = true
   end
@@ -271,7 +227,7 @@ local function clear(data, hdl, slot, keep_open, drop_native)
   local after = read_slot(data, slot)
   if not after then return STATUS_NOT_READY, 0 end
   if is_closed(after) and keep_open and after.placed == 0 and after.native == 0 then
-    pcall(VRFW.mem.write, "u8", data + BOARD.pieces + slot, piece)
+    VRFW.memory.write("u8", data + BOARD.pieces + slot, piece)
     after = read_slot(data, slot) or after
   end
   local ok = after.placed == 0 and not is_closed(after)
@@ -288,23 +244,12 @@ function BoardSlots.Piece(hdl, slot)
   return s.piece, effective(s), s.placed, s.native
 end
 
--- ------------------------------------------------------------------------------------- cells whose stack was freed
--- Saves written before 2026-11-07: the skill table deleted the copy it had just placed, so a board cell can keep the
--- handle of a freed stack, and the next item added takes that handle on every such cell (docs/game/skill-slots.md
--- «Inventory stacks»). Once per save load: each such cell gets the move of the same list position with a copy of its
--- own, or is emptied. A cell whose stack holds an item is never touched: an item already taken over stays until
--- «Restablecer», nothing here can tell it from a real placement.
 local TECHNIQUE_LIST_ENTRY_BYTES = 8
 local add_buffer = nil
 
-local function stack_is_free(inv)
-  local ok, item = pcall(VRFW.item.of_inv, inv)
-  return ok and (item == nil or u32(item) == 0)
-end
-
 local function added_copy_of(item)
-  add_buffer = add_buffer or VRFW.mem.buffer("character_reforged_board_item_add", 64)
-  pcall(VRFW.mem.write, "u32", add_buffer, 0)
+  add_buffer = add_buffer or VRFW.memory.buffer("character_reforged_board_item_add", 64)
+  VRFW.memory.write("u32", add_buffer, 0)
   if not pcall(VRFW.call, "CharacterReforged.ItemAdd", add_buffer, item, 1, 0) then return 0 end
   return u32(read("u32", add_buffer) or 0)
 end
@@ -323,44 +268,68 @@ local function repair_cell(data, hdl, slot, cell, list_at)
   return true, 0
 end
 
--- false: no save is in memory yet
-local function repair_freed_cells()
-  if not board_layout() then return true end
-  local ok, cards = pcall(VRFW.character.saved)
-  if not ok or type(cards) ~= "table" or #cards == 0 then return false end
-  local list_at = profile_field("CharaData.TechniqueList")
-  local free, restored, emptied, failed = {}, 0, 0, 0
-  for _, card in ipairs(cards) do
-    local data, hdl = card.addr, u32(card.handle)
-    if data and data >= 0x10000 then
-      for slot = 0, LAST_SLOT do
-        local cell = read_slot(data, slot)
-        if cell and cell.placed ~= 0 then
-          if free[cell.placed] == nil then free[cell.placed] = stack_is_free(cell.placed) end
-          if free[cell.placed] then
-            local done, move = repair_cell(data, hdl, slot, cell, list_at)
-            if not done then
-              failed = failed + 1
-            elseif move ~= 0 then
-              restored = restored + 1
-            else
-              emptied = emptied + 1
-            end
-            info(string.format("freed stack: %s slot %d handle %s -> %s", hex(hdl), slot, hex(cell.placed),
-              done and hex(move) or "left as it is"))
-          end
-        end
+-- Freed stacks repaired per call: the walk over the cells is the framework's, so one call stays within the script budget.
+local FREED_STACKS_PER_CALL = 64
+local repair_tried = {}
+
+-- Inventory handles on the boards whose stack is free and not tried yet, at most FREED_STACKS_PER_CALL; nil before the roster loads.
+local function freed_stacks()
+  local ok, cell_count, handles = pcall(VRFW.character.board_freed_handles)
+  if not ok or type(handles) ~= "table" or cell_count == 0 then return nil end
+  local freed, more = {}, false
+  for _, inv in ipairs(handles) do
+    if not repair_tried[inv] then
+      if #freed == FREED_STACKS_PER_CALL then
+        more = true
+        break
       end
+      freed[#freed + 1] = inv
     end
   end
-  info(string.format("freed stacks on boards of %d player(s): %d move(s) back with their own copy, %d cell(s) emptied, %d left",
-    #cards, restored, emptied, failed))
-  return true
+  return freed, more, cell_count
+end
+
+-- Repairs one freed stack on every placed cell that names it.
+local function repair_stack(inv, list_at, counts)
+  local ok, cells = pcall(VRFW.character.board_holders, inv)
+  if not ok or type(cells) ~= "table" then return end
+  for _, c in ipairs(cells) do
+    local hdl, slot = u32(c.holder), c.slot - 1
+    local data = c.kind == "placed" and character_data(hdl)
+    local cell = data and read_slot(data, slot)
+    if cell and cell.placed == inv then
+      local done, move = repair_cell(data, hdl, slot, cell, list_at)
+      if not done then
+        counts.failed = counts.failed + 1
+      elseif move ~= 0 then
+        counts.restored = counts.restored + 1
+      else
+        counts.emptied = counts.emptied + 1
+      end
+      info(string.format("freed stack: %s slot %d handle %s -> %s", hex(hdl), slot, hex(inv),
+        done and hex(move) or "left as it is"))
+    end
+  end
+end
+
+local function repair_freed_cells()
+  if not board_layout() then return true end
+  local freed, more, cell_count = freed_stacks()
+  if not freed then return false end
+  local list_at = profile_field("CharaData.TechniqueList")
+  local counts = { restored = 0, emptied = 0, failed = 0 }
+  for _, inv in ipairs(freed) do
+    repair_tried[inv] = true
+    repair_stack(inv, list_at, counts)
+  end
+  info(string.format("freed stacks on %d board cell(s): %d move(s) back with their own copy, %d cell(s) emptied, %d left%s",
+    cell_count, counts.restored, counts.emptied, counts.failed, more and "; more on the next menu" or ""))
+  return not more
 end
 
 local repair_due = false
 VRFW.on("slot_load", function()
-  repair_due = true
+  repair_due, repair_tried = true, {}
   return nil
 end)
 VRFW.on("menu:open:post", function()
@@ -368,7 +337,7 @@ VRFW.on("menu:open:post", function()
   return nil
 end)
 VRFW.on("game_reset", function()
-  repair_due = false
+  repair_due, repair_tried = false, {}
   return nil
 end)
 
@@ -402,10 +371,7 @@ function BoardSlots.Clear(hdl, slot, mode)
   return st, now
 end
 
-
--- ------------------------------------------------------------------------------------- the custom passive slot
--- Board equip slot 9 (skillEquipInvInfo.sixSense, CharaData.PlacedSkills + 9 * 4): the skill table's custom passive button reads
--- and writes it here (graft ss2_menus); the game's own slot writer gives the old item's use back.
+-- Board equip slot 9 (CharaData.PlacedSkills + 9 * 4), read and written for the skill table's custom passive button.
 local SIX_SENSE_SLOT = 9
 
 function BoardSlots.SixSense(hdl, op, inv, piece)

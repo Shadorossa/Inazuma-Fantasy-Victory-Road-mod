@@ -1,26 +1,17 @@
--- BetterUI's pre-kick-off editor decision: the handler of the mid hook PrematchEditor
--- (content\game\prematch_editor.toml). Until 1.16.3 clean_hud.dll decided the same, with the same log lines.
--- At load: the handler registration and the config read below.
 
 local EDITOR_FLAG = 0x2000000      -- match info flags: the retail pre-kick-off editor opens
 local skips = 0
 
--- config.toml skip_prematch_editor (developer kill switch; default true), read once at script load: the mod's config
--- is loaded from disk by its first read, which made the first kick-off's hook take 43.7 ms on the game thread; the
--- config does not change while the game runs.
 local ENABLED = true
 do
   local ok, v = pcall(VRFW.files.config, "skip_prematch_editor")
   ENABLED = not (ok and v == false)
 end
-local function enabled()
-  return ENABLED
-end
 
--- mi = the match info (rax at the site). true = skip the editor (the retail bit-off path), false = the retail editor.
--- Skipped only in a readable, offline, non-observer match with the editor flag set; anything unreadable keeps it.
+-- mi = the match info (rax at the site).
 function BetterUI.SkipEditor(mi)
-  local ok, info = pcall(VRFW.mem.struct, "MatchInfo", mi)
+  local info = VRFW.memory.struct("MatchInfo", mi)
+  local ok = info ~= nil
   if not ok then
     return false
   end
@@ -42,9 +33,8 @@ function BetterUI.SkipEditor(mi)
   return false
 end
 
--- BattleSettingFlow state 6, before its `test dword [rax], 2000000h`: skip = resume at the je target (continue_at).
 VRFW.on("hook:PrematchEditor", function(ev)
-  if not enabled() then
+  if not ENABLED then
     return nil
   end
   if BetterUI.SkipEditor(ev.regs.rax) then

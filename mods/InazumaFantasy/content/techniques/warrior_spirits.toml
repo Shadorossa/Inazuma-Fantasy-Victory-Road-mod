@@ -1,0 +1,90 @@
+schema = "VRFW.technique/3"
+# Four warrior spirits on the game's unused keshin models. Cloned from wks02010 (summon event ev80_00020); no owner; k002011 keeps the move of wks02010 (whs10200).
+
+[[aura_command]]
+key = "wks_fantasy_k002011"
+from = "wks02010"
+manual = true
+cells = { name_text = 0xEC078783, desc_text = 0xB99155D1, aura_chara = 0x584CAA78, order = 107 }
+charas = []
+
+# This warrior spirit is off for this version, and removing the comment marks brings it back.
+# ```
+# [[aura_command]]
+# key = "wks_fantasy_kx000010"
+# from = "wks02010"
+# manual = true
+# cells = { name_text = 0x99F4F169, desc_text = 0xCC62233B, linked_skill = 0x944CA8F2, aura_chara = 0xA6BB68CC, order = 108 }
+# charas = []
+# ```
+
+# These two warrior spirits are off for this version, and removing the comment marks brings them back.
+# ```
+# [[aura_command]]
+# key = "wks_fantasy_me000010"
+# from = "wks02010"
+# manual = true
+# cells = { name_text = 0xABA6C2A6, desc_text = 0xFE3010F4, linked_skill = 0xD5A60BF2, aura_chara = 0x66DD9C45, order = 109 }
+# charas = []
+#
+# [[aura_command]]
+# key = "wks_fantasy_mx000010"
+# from = "wks02010"
+# manual = true
+# cells = { name_text = 0x39112EB4, desc_text = 0x6C87FCE6, linked_skill = 0x16C6DBA5, aura_chara = 0x60D4614B, order = 110 }
+# charas = []
+# ```
+
+# The game's default group sends k002011 to k002010's packs; this event ships k002011's own.
+[[event_env]]
+event = "ev80_00020"
+tag_words = { set = { k002011 = "k002011" } }
+
+# The armour of wks_fantasy_k002011 (no player owns it: CharacterReforged lets every bearer arm it).
+[[aura_command]]
+key = "was_fantasy_k002011"
+from = "was00220"
+cells = { name_text = 0xEC078783, desc_text = 0xB99155D1, aura_chara = 0x584CAA78, chara_param = 0x448719CB, order = 111 }
+charas = []
+
+# The armour of the keshin Niké (wks02060, no retail armour: CharacterReforged lets every bearer arm it).
+[[aura_command]]
+key = "was_fantasy_k002060"
+from = "was00220"
+cells = { name_text = 0xD30DB060, desc_text = 0x530BDB68, aura_chara = 0x600A0C29, chara_param = 0x404B71CE, order = 112 }
+charas = []
+
+# The armour of the keshin Victoria (wks02010, no retail armour: CharacterReforged lets every bearer arm it).
+[[aura_command]]
+key = "was_fantasy_k002010"
+from = "was00220"
+cells = { name_text = 0x9C4C26A7, desc_text = 0x1C4A4DAF, aura_chara = 0x2F4B9AEE, chara_param = 0xC2136B65, order = 113 }
+charas = []
+
+# The armour of the keshin Crystal Rabbit (wks02020, no retail armour: CharacterReforged lets every bearer arm it).
+[[aura_command]]
+key = "was_fantasy_k002020"
+from = "was00220"
+cells = { name_text = 0xB7617564, desc_text = 0x37671E6C, aura_chara = 0x0466C92D, chara_param = 0x1D7E9729, order = 114 }
+charas = []
+
+# The armour of the keshin Warborg (wkd02040, no retail armour: CharacterReforged lets every bearer arm it).
+[[aura_command]]
+key = "was_fantasy_k002040"
+from = "was00220"
+cells = { name_text = 0xFFE8E0C1, desc_text = 0x7FEE8BC9, aura_chara = 0x523C6EAB, chara_param = 0x4E0A507E, order = 115 }
+charas = []
+
+# The armour of the keshin Robin (wks02050, no retail armour: CharacterReforged lets every bearer arm it).
+[[aura_command]]
+key = "was_fantasy_k002050"
+from = "was00220"
+cells = { name_text = 0xF820E3A3, desc_text = 0x782688AB, aura_chara = 0x4B275FEA, chara_param = 0xE7F6615E, order = 116 }
+charas = []
+
+# The armour of the keshin Entertainer (wko02030, no retail armour: CharacterReforged lets every bearer arm it).
+[[aura_command]]
+key = "was_fantasy_k002030"
+from = "was00220"
+cells = { name_text = 0xDA6E86C5, desc_text = 0x5A68EDCD, aura_chara = 0x1D7DF86C, chara_param = 0x970440F7, order = 117 }
+charas = []

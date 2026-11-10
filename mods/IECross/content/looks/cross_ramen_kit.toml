@@ -1,7 +1,4 @@
 schema = "VRFW.look/2"
-# The Ramen kit (u119801, keeper u119851) as the IEVRCROSS mod has it: its shirts and their sleeve / belly variants,
-# keeper shirts, boots, gloves and armbands (chara_parts rows as that mod has them). Worn by the three Ramen teams'
-# kits (kits.toml); textures in content\models\kits\u119801.toml and cross_<folder>.toml.
 
 [[clothes]]
 model = "u119801_10"

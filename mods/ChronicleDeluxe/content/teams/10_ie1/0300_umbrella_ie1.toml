@@ -1,9 +1,4 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: Umbrella (Kasamino) as an IE1 team: the rival of the Chronicle side node after
-# Inazuma Kids FC (content/teams/70_route_nodes/side_nodes.toml). Roster = the IE1 Kasamino line-up of the wiki (16
-# players, captain Idemae You = Lou Edmonds), which is the roster of the retail legend team tm_cro_legend_IE2_01 (VR
-# files it under IE2): same cards, loadouts, formation, kit uni_u011201, emblem em010012. Its level comes from its
-# game (the node's rows: Inazuma Kids FC's levels).
 default_lang = "en"
 
 [[team]]
@@ -13,10 +8,7 @@ based_on = "tm_cro_legend_IE2_01"      # Umbrella (legend team: the Kasamino ros
 name_text = 0xEFE452DE                 # Umbrella (the game's name text)
 series = "IE1"
 
-# Moves: every player plays his card's own moveset (loadout 0: the characters' TOML), no aura / Hiper. Stats: an
-# ordinary team's profile (cols 14-19 = -1, stat rates 1: the empty lists are the defaults). The retail legend team
-# has the Batalla legendaria rates (x9 on every stat), which based_on would carry into the Crónica, the Heroica and
-# the free-match classes.
+# Moves: every player plays his card's own moveset (loadout 0: the characters' TOML), no aura / Hiper.
 [[edit]]
 target = "cro_ie1_umbrella"
 member = [

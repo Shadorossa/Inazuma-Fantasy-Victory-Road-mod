@@ -1,104 +1,93 @@
--- ===================================================================================================
--- 2026-09-24: the original board screen is gone (docs/game/skill-board-original.md §8). Its button is now "Set de
--- jugador" (per-player builds: moves + Hiper + Equipamiento items + custom passive); Alt (CMD_FUNC1) does nothing.
--- A 4th square button = the ROLE badge; its picker shows the board's three badge slots in a row (none / coach /
--- manager). The custom-passive button opens the retail six-sense equip menu. All state lives in PL fields (main chunk
--- at the 200-locals limit).
--- ===================================================================================================
-PL.L_BTN_ROLE = 2356951558
-PL.L_ROLE_OPT = 3990407289       -- 3 badge tiles (layer with no focus; input read here)
+PL.L_BTN_ROLE = 2399949423
+PL.L_ROLE_OPT = 4004028432       -- 3 badge tiles (layer with no focus; input read here)
 PL.ROW_ICON_ROLE = 11
-PL.ROLE_ITEM = {[1] = 2607368153, [2] = 3966662479}   -- coach / manager badge items
--- 2026-09-28: every string of the role picker and of «Set de jugador» is a menu_text row in the 9 languages
--- (research/scripts/ss2_popup_text_build.py; `--lua` prints this table, a dry run checks it against the graft).
--- Retail rows: BTN_SAVE «Guardar», BTN_BACK «Volver», BTN_SELECT «Elegir», PASSIVE «Pasiva personalizada».
--- (built in a function: 88 more constants in the main chunk pushed the key of PL.SS_ITEMS past RK 255, and the
--- assembler's decompile round trip no longer recognised that table constructor)
-function PL.TxTable()
+-- coach / manager badge items (the shared set writer owns the ids)
+PL.ROLE_ITEM = setmetatable({}, {__index = function(_, k) return CharacterReforged.player_sets.ROLE_ITEM[k] end})
+function PL.tx_table()
   return {
-  ASK_DEL = 23924234, -- evt_pl_ask_del
-  ASK_NAME = 2124515251, -- evt_pl_ask_name
-  ASK_OVER = 2491308780, -- evt_pl_ask_over
+  ASK_DEL = 1851311630, -- character_reforged_pl_ask_del
+  ASK_NAME = 2040755810, -- character_reforged_pl_ask_name
+  ASK_OVER = 2474421053, -- character_reforged_pl_ask_over
   BTN_BACK = 430212020, -- retail
-  BTN_DELETE = 2692191470, -- evt_pl_btn_delete
-  BTN_LOAD = 509719926, -- evt_pl_btn_load
+  BTN_DELETE = 4075726136, -- character_reforged_pl_btn_delete
+  BTN_LOAD = 425936039, -- character_reforged_pl_btn_load
   BTN_REMOVE = 3961481199, -- retail
-  BTN_RENAME = 1140374567, -- evt_pl_btn_rename
+  BTN_RENAME = 291606001, -- character_reforged_pl_btn_rename
   BTN_RESET = 108624977, -- retail
   BTN_SAVE = 2306442081, -- retail
   BTN_SELECT = 2563379934, -- retail
-  EXPORT_DESC = 10942846, -- evt_pl_export_desc
-  EXPORT_DONE = 457094529, -- evt_pl_export_done
-  EXPORT_EMPTY = 3010979655, -- evt_pl_export_empty
-  EXPORT_FAIL = 2369027683, -- evt_pl_export_fail
-  IMPORT_BAD = 3066746244, -- evt_pl_import_bad
-  IMPORT_DESC = 3409649941, -- evt_pl_import_desc
-  IMPORT_DONE = 3500371434, -- evt_pl_import_done
-  IMPORT_GUIDE = 3414505662, -- evt_pl_import_guide
-  IMPORT_NONE = 3206450574, -- evt_pl_import_none
-  IMPORT_OTHER = 3628321451, -- evt_pl_import_other
-  IMPORT_SKIP = 955832380, -- evt_pl_import_skip
-  IMPORT_SUM = 4233917234, -- evt_pl_import_sum
-  KB_FAIL = 510371056, -- evt_pl_kb_fail
-  KB_TITLE = 2568175564, -- evt_pl_kb_title
-  LOADED_SKIP = 170151676, -- evt_pl_loaded_skip
-  LOADER = 2110802885, -- evt_pl_loader
+  EXPORT_DESC = 1866733486, -- character_reforged_pl_export_desc
+  EXPORT_DONE = 1960598353, -- character_reforged_pl_export_done
+  EXPORT_EMPTY = 902551421, -- character_reforged_pl_export_empty
+  EXPORT_FAIL = 3805712563, -- character_reforged_pl_export_fail
+  IMPORT_BAD = 3830703186, -- character_reforged_pl_import_bad
+  IMPORT_DESC = 2765737925, -- character_reforged_pl_import_desc
+  IMPORT_DONE = 3208741690, -- character_reforged_pl_import_done
+  IMPORT_GUIDE = 1295583364, -- character_reforged_pl_import_guide
+  IMPORT_NONE = 3506201438, -- character_reforged_pl_import_none
+  IMPORT_OTHER = 1593834129, -- character_reforged_pl_import_other
+  IMPORT_SKIP = 1461335788, -- character_reforged_pl_import_skip
+  IMPORT_SUM = 2932163300, -- character_reforged_pl_import_sum
+  KB_FAIL = 1902013684, -- character_reforged_pl_kb_fail
+  KB_TITLE = 2651967005, -- character_reforged_pl_kb_title
+  LOADED_SKIP = 1707515948, -- character_reforged_pl_loaded_skip
+  LOADER = 4168068627, -- character_reforged_pl_loader
   PASSIVE = 498819128, -- retail
-  PV_SLOT = 3386648423, -- evt_pl_pv_slot
-  PV_TITLE = 726903404, -- evt_pl_pv_title
-  ROLE_0 = 182412289, -- evt_pl_role_0
-  ROLE_1 = 2111329431, -- evt_pl_role_1
-  ROLE_2 = 3838903597, -- evt_pl_role_2
-  ROLE_DESC_0 = 3708853662, -- evt_pl_role_desc_0
-  ROLE_DESC_1 = 2853678344, -- evt_pl_role_desc_1
-  ROLE_DESC_2 = 857668786, -- evt_pl_role_desc_2
-  ROLE_EFF_0 = 2303575434, -- evt_pl_role_eff_0
-  ROLE_EFF_1 = 4266325276, -- evt_pl_role_eff_1
-  ROLE_EFF_2 = 1732486310, -- evt_pl_role_eff_2
-  ROLE_FAIL = 3191266877, -- evt_pl_role_fail
-  ROLE_GUIDE = 2647548901, -- evt_pl_role_guide
-  ROLE_NOREC = 1332833930, -- evt_pl_role_norec
-  ROLE_NOW = 1480268909, -- evt_pl_role_now
-  ROLE_STORY = 3154551016, -- evt_pl_role_story
-  ROLE_TITLE = 2087115963, -- evt_pl_role_title
-  SET_BTN = 2135514294, -- evt_pl_set_btn
-  SET_BTN_GUIDE = 3362243025, -- evt_pl_set_btn_guide
-  SET_EMPTY = 2056799810, -- evt_pl_set_empty
-  SET_EXPORT_ROW = 1908066842, -- evt_pl_set_export_row
-  SET_GUIDE = 3636575411, -- evt_pl_set_guide
-  SET_HINT_1 = 561136091, -- evt_pl_set_hint_1
-  SET_HINT_2 = 3095072865, -- evt_pl_set_hint_2
-  SET_IMPORT_ROW = 2379296170, -- evt_pl_set_import_row
-  SET_N = 3829380039, -- evt_pl_set_n
-  SET_OLD = 358596258, -- evt_pl_set_old
-  SKIP_FAIL = 740587531, -- evt_pl_skip_fail
-  SKIP_IDOL = 618007856, -- evt_pl_skip_idol
-  SKIP_INUSE = 2054247591, -- evt_pl_skip_inuse
-  SKIP_LOCKED = 3674165083, -- evt_pl_skip_locked
-  SKIP_NOTOWN = 3318853735, -- evt_pl_skip_notown
-  SKIP_PRIME = 3425905848, -- evt_pl_skip_prime
-  SKIP_ROW = 2368727989, -- evt_pl_skip_row
-  SIG_GUIDE = 3646435247, -- evt_pl_sig_guide
-  SIG_NONE = 3588279511, -- evt_pl_sig_none
-  SS_BTN_EQUIPPED = 3181239823, -- evt_pl_ss_btn_equipped
-  SS_BTN_GUIDE = 2616371171, -- evt_pl_ss_btn_guide
-  SS_GUIDE = 374095222, -- evt_pl_ss_guide
-  SS_NONE = 2070383841, -- evt_pl_ss_none
-  SS_QUIT = 1197300667, -- evt_pl_ss_quit
-  SUM_EQUIP = 1859211264, -- evt_pl_sum_equip
-  SUM_HIPER = 1201407754, -- evt_pl_sum_hiper
-  SUM_MIX = 294335918, -- evt_pl_sum_mix
-  SUM_MOVES = 3650984834, -- evt_pl_sum_moves
-  SUM_PASSIVE = 4213968171, -- evt_pl_sum_passive
+  PV_SLOT = 2800349027, -- character_reforged_pl_pv_slot
+  PV_TITLE = 743529405, -- character_reforged_pl_pv_title
+  ROLE_0 = 2405466583, -- character_reforged_pl_role_0
+  ROLE_1 = 4167545153, -- character_reforged_pl_role_1
+  ROLE_2 = 1634656507, -- character_reforged_pl_role_2
+  ROLE_DESC_0 = 3002233678, -- character_reforged_pl_role_desc_0
+  ROLE_DESC_1 = 3321185240, -- character_reforged_pl_role_desc_1
+  ROLE_DESC_2 = 1560023650, -- character_reforged_pl_role_desc_2
+  ROLE_EFF_0 = 3688166492, -- character_reforged_pl_role_eff_0
+  ROLE_EFF_1 = 2899559626, -- character_reforged_pl_role_eff_1
+  ROLE_EFF_2 = 903517552, -- character_reforged_pl_role_eff_2
+  ROLE_FAIL = 1340423822, -- character_reforged_pl_role_fail
+  ROLE_GUIDE = 3478606387, -- character_reforged_pl_role_guide
+  ROLE_NOREC = 501768028, -- character_reforged_pl_role_norec
+  ROLE_NOW = 1597631932, -- character_reforged_pl_role_now
+  ROLE_STORY = 4003434814, -- character_reforged_pl_role_story
+  ROLE_TITLE = 788524397, -- character_reforged_pl_role_title
+  SET_BTN = 276599986, -- character_reforged_pl_set_btn
+  SET_BTN_GUIDE = 250455123, -- character_reforged_pl_set_btn_guide
+  SET_EMPTY = 2336990961, -- character_reforged_pl_set_empty
+  SET_EXPORT_ROW = 1925882483, -- character_reforged_pl_set_export_row
+  SET_GUIDE = 689069056, -- character_reforged_pl_set_guide
+  SET_HINT_1 = 1944809485, -- character_reforged_pl_set_hint_1
+  SET_HINT_2 = 3940688311, -- character_reforged_pl_set_hint_2
+  SET_IMPORT_ROW = 2392933827, -- character_reforged_pl_set_import_row
+  SET_N = 1055571349, -- character_reforged_pl_set_n
+  SET_OLD = 2053797542, -- character_reforged_pl_set_old
+  SKIP_FAIL = 3723991224, -- character_reforged_pl_skip_fail
+  SKIP_IDOL = 3573935491, -- character_reforged_pl_skip_idol
+  SKIP_INUSE = 686318961, -- character_reforged_pl_skip_inuse
+  SKIP_LOCKED = 3038617995, -- character_reforged_pl_skip_locked
+  SKIP_NOTOWN = 2855493303, -- character_reforged_pl_skip_notown
+  SKIP_PRIME = 2661948782, -- character_reforged_pl_skip_prime
+  SKIP_ROW = 2318211684, -- character_reforged_pl_skip_row
+  SIG_GUIDE = 680251164, -- character_reforged_pl_sig_guide
+  SIG_NONE = 3538042118, -- character_reforged_pl_sig_none
+  SS_BTN_EQUIPPED = 2314237851, -- character_reforged_pl_ss_btn_equipped
+  SS_BTN_GUIDE = 491689945, -- character_reforged_pl_ss_btn_guide
+  SS_GUIDE = 290376871, -- character_reforged_pl_ss_guide
+  SS_NONE = 340935909, -- character_reforged_pl_ss_none
+  SS_QUIT = 677942207, -- character_reforged_pl_ss_quit
+  SUM_EQUIP = 2667753651, -- character_reforged_pl_sum_equip
+  SUM_HIPER = 3058689977, -- character_reforged_pl_sum_hiper
+  SUM_MIX = 2126445994, -- character_reforged_pl_sum_mix
+  SUM_MOVES = 676231985, -- character_reforged_pl_sum_moves
+  SUM_PASSIVE = 2496586747, -- character_reforged_pl_sum_passive
   }
 end
-PL.TX = PL.TxTable()
+PL.TX = PL.tx_table()
 PL.ROLE_TX = {[0] = PL.TX.ROLE_0, [1] = PL.TX.ROLE_1, [2] = PL.TX.ROLE_2}
 PL.ROLE_DESC_TX = {[0] = PL.TX.ROLE_DESC_0, [1] = PL.TX.ROLE_DESC_1, [2] = PL.TX.ROLE_DESC_2}
 PL.ROLE_EFF_TX = {[0] = PL.TX.ROLE_EFF_0, [1] = PL.TX.ROLE_EFF_1, [2] = PL.TX.ROLE_EFF_2}
 
--- menu_text row (CMND_TEXT_GET) with <VALUE> replaced; "" when the row is missing (text files not installed)
-function PL.Txt(id, value)
+-- Returns a menu_text row (CMND_TEXT_GET) with <VALUE> replaced.
+function PL.txt(id, value)
   local ok, s = pcall(funcLuaCommand, @crc:CMND_TEXT_GET@, id)
   if not ok or type(s) ~= "string" then
     s = ""
@@ -119,10 +108,10 @@ function PL.Txt(id, value)
   return s
 end
 
-function PL.RoleName(r)
-  return PL.Txt(PL.ROLE_TX[r] or PL.TX.ROLE_0)
+function PL.role_name(r)
+  return PL.txt(PL.ROLE_TX[r] or PL.TX.ROLE_0)
 end
-PL.TEX_BADGE = 1461205148                       -- #/menu/102_team/team13/team13_05c/team13_05c.g4tx (board badge slot)
+PL.TEX_BADGE = 1461205148
 PL.BADGE_SPR = {[0] = 1212007845, [1] = 2386695893, [2] = 2633480507}
 PL.BTN_SLOTS = {0x68DA0494, 0x060694A0}         -- cmn03_07 base quads (off / on + add): texture-slot hashes
 PL.ICON_NODE = 3165767436       -- mesh of the row-layer icon
@@ -136,26 +125,21 @@ PL.EQUIPPED_NUM = 556568075                     -- (invHdl) -> copies equipped (
 PL.REMOVE_EQUIP = @crc:CMND_REMOVE_EQUIP@                     -- (chara, type)
 PL.EQUIP_ITEM = @crc:CMND_EQUIP_ITEM@                       -- (chara, invHdl, type)
 PL.SIX_MENU = 3858305496        -- retail "Pasiva personalizada" equip menu (menu registry row)
--- 2026-11-03 (owner: L1 / R1 turn pages of saved sets): the set list in pages of Character Reforged's config
--- [player_sets] (sets_per_page, pages), asked once per VM (CMND_CHARACTERREFORGED_PLAYER_SET_PAGES); the page
--- indicator follows the guide as the banks show theirs («<L1> Pág. k/N <R1>», the framework's page word)
-function PL.PagerDef()
+function PL.pager_def()
   return {
   PAGES = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_PAGES@,
-  WORD = 80343219,            -- vrfw_bb_page «Pág.» (VR-Framework text rows)
+  WORD = 80343219,
   K_PREV = 3966226594,        -- CMD_FUNCL1
   K_NEXT = 942075773,         -- CMD_FUNCR1
   }
 end
-PL.PAGER = PL.PagerDef()
+PL.PAGER = PL.pager_def()
 PL.set_page = 1
 PL.role_frames = 0
 PL.role_shown = nil
 PL.role_open = false
 
--- CMND_CHARACTERREFORGED_GET_ROLE -> role (0 none, 1 coach, 2 manager, 3 unresolved badge, -5 not a saved player; -1 = no loader),
--- native (creation-time staff bit: 1 coach / 2 manager, e.g. the story protagonist Destin Billows), lock (1 = story copy)
-function PL.Role()
+function PL.role()
   local ok, r, _, _, native, lock = pcall(funcLuaCommand, @crc:CMND_CHARACTERREFORGED_GET_ROLE@, n)
   if not ok or type(r) ~= "number" then
     return -1, 0, 0
@@ -163,55 +147,49 @@ function PL.Role()
   return r, type(native) == "number" and native or 0, type(lock) == "number" and lock or 0
 end
 
--- 2026-09-30 (Destin Billows): the picker never refuses silently. Every refusal names its reason: no loader, not a
--- saved player, a story-mode copy (its role belongs to the story), or the loader status of a failed change.
-function PL.RoleWhy(r, lock)
+-- Returns the reason of a refusal, so every refusal names its reason.
+function PL.role_why(r, lock)
   if r == -1 then
-    return PL.Txt(PL.TX.LOADER)
+    return PL.txt(PL.TX.LOADER)
   elseif lock == 1 then
-    return PL.Txt(PL.TX.ROLE_STORY)
+    return PL.txt(PL.TX.ROLE_STORY)
   elseif r < 0 then
-    return PL.Txt(PL.TX.ROLE_NOREC)
+    return PL.txt(PL.TX.ROLE_NOREC)
   end
   return nil
 end
 
--- badge icon on the role button: the board's badge slot sprite for the current role
-function PL.RoleIcon()
+-- Returns the badge icon on the role button.
+function PL.role_icon()
   local k = PL.ROW_ICON_ROLE
-  local r = PL.Role()
-  -- v3: slot plate on _teambuff_base01 + the badge item's medal on the icon node (as the board's badge piece)
-  EVT_ButtonIcon(k, PL.TEX_ITEM01, PL.ROLE_ITEM[r] or PL.ROLE_ITEM[1])
+  local r = PL.role()
+  -- slot plate on _teambuff_base01 + the badge item's medal on the icon node (as the board's badge piece)
+  ButtonIcon(k, PL.TEX_ITEM01, PL.ROLE_ITEM[r] or PL.ROLE_ITEM[1])
   funcLuaMenuCommand(C.MESH_VISIBLE, L_PV_ROW, 3877027080, true, k)
   funcLuaMenuCommand(C.SPRITE, L_PV_ROW, PL.TEX_BADGE, PL.BADGE_SPR[r] or PL.BADGE_SPR[0], PL.PLATE_SLOT, 0, k)
   funcLuaMenuCommand(C.MESH_VISIBLE, L_PV_ROW, PL.ICON_NODE, PL.ROLE_ITEM[r] ~= nil, k)
   funcLuaMenuCommand(C.TEXT, PL.L_BTN_ROLE, 950238781 --[[_text_btn01]], "", 0)
   funcLuaMenuCommand(C.TEXT, PL.L_BTN_ROLE, 625330766 --[[_text_cmd01]], "", 0)
-  funcLuaMenuCommand(C.LAYER_VISIBLE, L_PV_ROW, k, not evt_pv_open and not PL.role_open)
+  funcLuaMenuCommand(C.LAYER_VISIBLE, L_PV_ROW, k, not character_reforged_pv_open and not PL.role_open)
   return r
 end
 
-function PL.Guide(t)
+function PL.guide(t)
   funcLuaMenuCommand(C.TEXT, 3078308064 --[[mainmenu90_05_content_guide_line01]], 378156699 --[[_text_guide01]], t, 0)
 end
 
-function PL.RoleGuide()
-  local r, _, lock = PL.Role()
-  PL.Guide(PL.RoleWhy(r, lock) or PL.Txt(PL.TX.ROLE_NOW, PL.RoleName(r)))
+function PL.role_guide()
+  local r, _, lock = PL.role()
+  PL.guide(PL.role_why(r, lock) or PL.txt(PL.TX.ROLE_NOW, PL.role_name(r)))
 end
 
-function PL.Pick(rows, init)
-  return PL.List("", rows, init)
+function PL.pick(rows, init)
+  return PL.list("", rows, init)
 end
 
--- ---- our own list window (v3) ----------------------------------------------------------------------------------------
--- The retail sub window could not be used from this menu: in game it opened clipped off the left edge whatever
--- position was sent, and its row texts landed on our move rows. Our list = the "Pasivas de la rama" panel (own layers
--- evt_passive_panel + the passive row clone, 9 rows, centred, dim background): header = title, rows = strings, the
--- selected row marked "▶" and fully opaque, up/down scroll through longer lists, Aceptar = choose, back = -1.
 PL.LIST_ROWS = 9
-function PL.ListShow(show, title, rows, first, sel)
-  for k = 0, EVT_BG_COUNT - 1 do
+function PL.list_show(show, title, rows, first, sel)
+  for k = 0, BG_COUNT - 1 do
     funcLuaMenuCommand(C.LAYER_VISIBLE, L_BLACKBG, k, show)
     if show then
       funcLuaMenuCommand(@crc:CMND_PLAY_ANIME_TYPE@, L_BLACKBG, k, 3371859161, 0, 753088835 --[[Default]])
@@ -223,122 +201,111 @@ function PL.ListShow(show, title, rows, first, sel)
     local t = show and rows[i + 1] or nil
     if t ~= nil then
       local L = L_PV_ROW
-      EVT_Row_Reset(k)
-      funcLuaMenuCommand(C.SPRITE, L, EVT_TEX_SOCCER11_20, 1729678359 --[[passive_base01]], 1729678359, 0, k)
+      RowReset(k)
+      funcLuaMenuCommand(C.SPRITE, L, TEXTURE_SOCCER11_20, 1729678359 --[[passive_base01]], 1729678359, 0, k)
       funcLuaMenuCommand(C.TEXT, L, 1868134834 --[[_text_passive01]], (i == sel and "▶  " or "     ") .. t, k)
       pcall(funcLuaMenuCommand, C.TEXT_ALPHA, L, k, 1868134834, i == sel and 1 or 0.55)
     end
     funcLuaMenuCommand(C.LAYER_VISIBLE, L_PV_ROW, k, t ~= nil)
   end
   if show then
-    local more = #rows > PL.LIST_ROWS and "   " .. PL.Txt(2544447647 --[[skill_table_list_range]],
+    local more = #rows > PL.LIST_ROWS and "   " .. PL.txt(2544447647 --[[skill_table_list_range]],
       {FIRST = first + 1, LAST = math.min(#rows, first + PL.LIST_ROWS), TOTAL = #rows}) or ""
     funcLuaMenuCommand(C.TEXT, L_PV_PANEL, 760999068 --[[_text_page01]], title .. more, 0)
   end
 end
 
-function PL.List(title, rows, init)
+function PL.list(title, rows, init)
   local sel = math.max(0, math.min(#rows - 1, init or 0))
   local first = math.max(0, math.min(sel, #rows - PL.LIST_ROWS))
-  evt_pv_open = true
-  PL.ListShow(true, title, rows, first, sel)
+  character_reforged_pv_open = true
+  PL.list_show(true, title, rows, first, sel)
   coroutine.yield()
   local function key(k)
-    return funcLuaCommand(@crc:CMND_CHECK_INPUT_CMD@, EVT_MENU_CTRL, k)
+    return funcLuaCommand(@crc:CMND_CHECK_INPUT_CMD@, MENU_CTRL, k)
       or funcLuaCommand(@crc:CMND_CHECK_INPUT_CMD@, 2748927068 --[[MENU_CTRL_WITH_ANALOG_MOVE_FOCUS]], k)
   end
   local result = -1
-  local P = PL.PtrStart()
+  local P = PL.ptr_start()
   while true do
     coroutine.yield()
-    local pact, pfirst, psel, owns = PL.PtrStep(P, L_PV_ROW, PL.LIST_ROWS, PL.PTR_PV, first, sel, #rows)
-    if key(EVT_CMD_BACK) then
+    local pact, pfirst, psel, owns = PL.ptr_step(P, L_PV_ROW, PL.LIST_ROWS, PL.PTR_PV, first, sel, #rows)
+    if key(COMMAND_BACK) then
       funcLuaCommand(C.SE, SE_BACK)
       break
-    elseif pact == "pick" or (not owns and (key(EVT_CMD_ENTER) or key(1651523701 --[[CMD_ENTER_CLICK]]))) then
+    elseif pact == "pick" or (not owns and (key(COMMAND_ENTER) or key(1651523701 --[[CMD_ENTER_CLICK]]))) then
       funcLuaCommand(C.SE, SE_DECIDE)
       result = pact == "pick" and psel or sel
       break
-    elseif key(EVT_CMD_DOWN) and sel < #rows - 1 then
+    elseif key(COMMAND_DOWN) and sel < #rows - 1 then
       sel = sel + 1
       if sel >= first + PL.LIST_ROWS then
         first = first + 1
       end
       funcLuaCommand(C.SE, 2500047763 --[[sy0005 cursor]])
-      PL.ListShow(true, title, rows, first, sel)
-    elseif key(EVT_CMD_UP) and sel > 0 then
+      PL.list_show(true, title, rows, first, sel)
+    elseif key(COMMAND_UP) and sel > 0 then
       sel = sel - 1
       if sel < first then
         first = first - 1
       end
       funcLuaCommand(C.SE, 2500047763)
-      PL.ListShow(true, title, rows, first, sel)
+      PL.list_show(true, title, rows, first, sel)
     elseif pact == "moved" then
       first, sel = pfirst, psel
       funcLuaCommand(C.SE, 2500047763)
-      PL.ListShow(true, title, rows, first, sel)
+      PL.list_show(true, title, rows, first, sel)
     end
   end
-  PL.ListShow(false, title, rows, first, sel)
-  evt_pv_open = false
-  coroutine.yield()                              -- the closing input must not reach our menu
-  EVT_RefreshRows()
-  evt_icon_frames = math.max(evt_icon_frames, 3)
+  PL.list_show(false, title, rows, first, sel)
+  character_reforged_pv_open = false
+  coroutine.yield()                              -- the closing input must not reach the mod's menu
+  RefreshRows()
+  character_reforged_icon_frames = math.max(character_reforged_icon_frames, 3)
   PL.role_frames = math.max(PL.role_frames, 3)
   return result
 end
 
--- ---- role picker (v5, 2026-09-28): the retail list window ---------------------------------------------------------
--- User: the floating badge tiles and the debug-like guide line looked out of place. The picker is now the same retail
--- window as the custom-passive picker (board picker list frame team08_01 = layer evt_ss_list, rows
--- team08_02_ability_list_item, the blue backdrop over the left column): 3 rows «Sin rol / Entrenador / Gerente», each
--- with the board's badge piece (slot plate on _icon_sp_area_dmy01, the badge item's medal on _icon_sixth_dmy01) and the
--- retail check mark on the current role. The focused role is shown in the integrated panel on the right (band, the
--- medal as the big icon, name, one-line description + what the role does: coach / manager slot). Guide line = one
--- sentence; the retail button guide shows <CMD_ENTER> Elegir and <CMD_BACK> Volver. Texts: PL.TX (menu_text, 9
--- languages). The old tile layers (evt_role_badge, evt_cmn03_07_role_opt) stay in the setting, always hidden.
-PL.L_BADGE = 3849871607
+PL.L_BADGE = 2320345331
 PL.TEX_ITEM01 = 2868599811                      -- #/menu/200_icon/02_icon_item/icon_item01.g4tx
 PL.PLATE_SLOT = 2597149412                      -- teambuff_base01 (texture slot of _teambuff_base01)
 PL.SLOT_AREA = 566439826                        -- icon_sp_area_dmy01 (texture slot; list row 50 px, panel 170 px)
-PL.SLOT_SIXTH = 669321680                       -- icon_sixth_dmy01 (texture slot; list row 38 px, inside the 50 px one)
-PL.MESH_AREA = 2164615260                       -- _icon_sp_area_dmy01
-PL.MESH_SIXTH = 2384755812                      -- _icon_sixth_dmy01
+PL.SLOT_SIXTH = 669321680
+PL.MESH_AREA = 2164615260
+PL.MESH_SIXTH = 2384755812
 PL.BAND_ROLE = {[0] = 6, [1] = 5, [2] = 5}               -- PL.BAND index: grey for none, purple (no element motif) for staff
--- retail button guide (equip_menu_inc UpdateEquipButtonGuide: texts, icons, offsets; then the commands)
--- (one assignment per line: a multiple assignment at main level broke the assembler's decompile round trip)
 PL.K_ENTER = 1981080283
 PL.K_BACK = 3011112225
 PL.K_FUNC1 = 637335895
 PL.K_FUNC3 = 3421673595
 PL.K_FUNC4 = 1435897304
+PL.K_FUNC2 = 3170216173                          -- CMD_FUNC2
 PL.I_ENTER = 2750714971                         -- <CMD_ENTER>
 PL.I_BACK = 1582778933                          -- <CMD_BACK>
 PL.I_FUNC1 = 203473330                          -- <CMD_FUNC1>
 PL.I_FUNC3 = 3794706590                         -- <CMD_FUNC3>
 PL.I_FUNC4 = 2085238077                         -- <CMD_FUNC4>
+PL.I_FUNC2 = 2387151820                         -- <CMD_FUNC2>
 
-function PL.GuideKeys(keys)
+function PL.guide_keys(keys)
   local list = {}
   for k, e in ipairs(keys) do
-    list[k] = {Text = e.text, Icon = e.icon, Command = e.cmd, Offset = k == 1 and 0 or 18}
+    list[k] = {text = e.text, icon = e.icon, command = e.cmd, offset = k == 1 and 0 or 18}
   end
-  VRFW_FooterPrompts.Set("evt_skill_slot_menu", n12, list, 1138543975 --[[mainmenu01_06_base_button_guide]])
+  VRFW.footer_prompts.set("vrfw_skill_slot_menu", n12, list, 1138543975 --[[mainmenu01_06_base_button_guide]])
 end
 
-function PL.Key(k)
-  return funcLuaCommand(@crc:CMND_CHECK_INPUT_CMD@, EVT_MENU_CTRL, k)
+function PL.key(k)
+  return funcLuaCommand(@crc:CMND_CHECK_INPUT_CMD@, MENU_CTRL, k)
     or funcLuaCommand(@crc:CMND_CHECK_INPUT_CMD@, 2748927068 --[[MENU_CTRL_WITH_ANALOG_MOVE_FOCUS]], k)
 end
 
--- the integrated panel without the move parts: the screen's one card (mode "plain", PL.CARD_PLAIN) with the band as
--- its banner, the icon 64 px (drawn by `icon(L)`) and the name on it, the description right under it. A one-paragraph
--- description is wrapped into balanced lines over the card's width (PL.PLAIN.line_units, at most PL.PLAIN.lines).
-function PL.PanelPlain(band, name, desc, icon)
+-- Draws the integrated panel without the move parts.
+function PL.panel_plain(band, name, desc, icon)
   if not funcLuaMenuCommand(@crc:CMND_IS_EXIST_LAYER@, L_DETAIL) then
     return
   end
-  PL.DetailHideAll()
+  PL.detail_hide_all()
   for _, pos in ipairs(PL.DETAIL_MOVE_POS) do
     funcLuaMenuCommand(2158717427 --[[locator visible]], L_DETAIL, pos, false, 0)
   end
@@ -357,7 +324,7 @@ function PL.PanelPlain(band, name, desc, icon)
   funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, 1125548721 --[[_sp_base01]], true, 0)
   funcLuaMenuCommand(C.SPRITE, L_DETAIL, PL.PARTS_TEX, PL.BAND[band] or PL.BAND[5], 243934124 --[[sp_base01]], 0, 0)
   if not string.find(desc, "\n", 1, true) then
-    desc = PL.WrapBalanced(desc, PL.PLAIN.line_units, PL.PLAIN.lines)
+    desc = PL.wrap_balanced(desc, PL.PLAIN.line_units, PL.PLAIN.lines)
   end
   funcLuaMenuCommand(C.TEXT, L_DETAIL, 1704438437 --[[_text_name01]], name, 0)
   funcLuaMenuCommand(C.TEXT, L_DETAIL, 691026122 --[[_text_flavor01]], desc, 0)
@@ -366,23 +333,17 @@ function PL.PanelPlain(band, name, desc, icon)
   end
   funcLuaMenuCommand(2735666188 --[[text visible]], L_DETAIL, 1704438437 --[[_text_name01]], true, 0)
   funcLuaMenuCommand(2735666188 --[[text visible]], L_DETAIL, 691026122 --[[_text_flavor01]], desc ~= "", 0)
-  -- 2026-11-03 (owner: a grey strip on the card's left): the retail window base and its quote bar stay off
+  -- the retail window base and its quote bar stay off
   funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, 3303013605 --[[_sp_win_base01]], false, 0)
   funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, PL.PLAIN.quote_line, false, 0)
-  pcall(PL.SetDetailLayout, "plain")
+  pcall(PL.set_detail_layout, "plain")
   funcLuaMenuCommand(C.LAYER_VISIBLE, L_DETAIL, 0, true)
-  evt_detail_on = true
+  character_reforged_detail_on = true
 end
 
--- A list in the retail window with guide keys: mode = {row = fn(k, e, sel), focus = fn(e), guide = text,
--- keys = fn(e) -> {{text, icon, cmd, act}, ...}, act = fn(act, e, i) -> "close" | "stay" (may yield: messages),
--- refresh = fn() -> new list (after "stay" and after a page turn), turn = fn(dir) -> true when L1 / R1 turned the
--- mode's page (the list is refreshed, the cursor keeps its row)}. Returns the index (0-based) and the act that closed it, or -1.
--- 2026-10-13: a mode may bring its own frame / rows (PL.ListLayers): list_layer, row_layer, rows (visible rows),
--- ptr (pointer rect {x, w, h} of a row); default = the shared evt_ss_list / team08_02 rows (PL.SSROWS, PL.PTR_SS).
--- «<L1>   Pág. k/N   <R1>»: the page indicator of a paged list (the key glyphs follow the input device)
-function PL.PageText(page, pages)
-  local word = PL.Txt(PL.PAGER.WORD)
+-- A list in the retail window with guide keys
+function PL.page_text(page, pages)
+  local word = PL.txt(PL.PAGER.WORD)
   local n = tostring(page) .. "/" .. tostring(pages)
   if word ~= "" then
     n = word .. " " .. n
@@ -390,24 +351,23 @@ function PL.PageText(page, pages)
   return "<CMD_FUNCL1>   " .. n .. "   <CMD_FUNCR1>"
 end
 
--- L1 / R1 of a paged list mode: -1, 1 or nil
-function PL.PageKey()
-  if PL.Key(PL.PAGER.K_PREV) then
+-- L1 / R1 of a paged list mode
+function PL.page_key()
+  if PL.key(PL.PAGER.K_PREV) then
     return -1
-  elseif PL.Key(PL.PAGER.K_NEXT) then
+  elseif PL.key(PL.PAGER.K_NEXT) then
     return 1
   end
   return nil
 end
 
-function PL.ListLayers(mode)
+function PL.list_layers(mode)
   mode = mode or {}
   return mode.list_layer or PL.L_SSLIST, mode.row_layer or PL.L_SSROW, mode.rows or PL.SSROWS, mode.ptr or PL.PTR_SS
 end
 
--- the row Up / Down goes to (nil = none): mode.vert(list, sel, dir) may answer an index or false (stay), nil = the
--- next / previous row (2026-10-13: two entries drawn side by side on one row, «Exportar set | Importar set»)
-function PL.ListVert(mode, list, sel, dir)
+-- Returns the row that Up or Down goes to (nil means none).
+function PL.list_vert(mode, list, sel, dir)
   if mode ~= nil and mode.vert ~= nil then
     local to = mode.vert(list, sel, dir)
     if to == false then
@@ -423,46 +383,46 @@ function PL.ListVert(mode, list, sel, dir)
   return to
 end
 
-function PL.PopList(list, init, mode)
-  local _, RL, NR, PR = PL.ListLayers(mode)
+function PL.pop_list(list, init, mode)
+  local _, RL, NR, PR = PL.list_layers(mode)
   local sel = math.max(0, math.min(#list - 1, init or 0))
   local first = math.max(0, math.min(sel, #list - NR))
   local keys = {}
   local function show()
     PL.list_mode = mode
-    PL.SSListShow(true, list, first, sel)
+    PL.ss_list_show(true, list, first, sel)
     keys = mode.keys(list[sel + 1]) or {}
-    pcall(PL.GuideKeys, keys)
+    pcall(PL.guide_keys, keys)
   end
   show()
   coroutine.yield()
   local result, act = -1, nil
-  local P = PL.PtrStart()
+  local P = PL.ptr_start()
   while true do
     coroutine.yield()
-    local pact, pfirst, psel, owns = PL.PtrStep(P, RL, NR, PR, first, sel, #list)
+    local pact, pfirst, psel, owns = PL.ptr_step(P, RL, NR, PR, first, sel, #list)
     if pact == "pick" and (psel ~= sel or PL.ptr_resync) then
       PL.ptr_resync = nil
       first, sel = pfirst, psel                    -- the clicked row first (its keys / act)
       show()
     end
     if mode.tick ~= nil then
-      pcall(mode.tick)                             -- 2026-10-13: per-frame upkeep (the split set row's geometry)
+      pcall(mode.tick)                             -- per-frame upkeep (the split set row's geometry)
     end
     local hit = nil
     for _, kk in ipairs(keys) do
       local enter = kk.cmd == PL.K_ENTER
       if kk.act ~= nil and ((enter and pact == "pick")
-          or (not (enter and owns) and (PL.Key(kk.cmd) or (enter and PL.Key(1651523701 --[[CMD_ENTER_CLICK]]))))) then
+          or (not (enter and owns) and (PL.key(kk.cmd) or (enter and PL.key(1651523701 --[[CMD_ENTER_CLICK]]))))) then
         hit = kk
         break
       end
     end
     local side = nil
     if hit == nil and mode.side ~= nil then
-      side = mode.side(list, sel)                  -- 2026-10-13: left / right between two entries of one row
+      side = mode.side(list, sel)                  -- left / right between two entries of one row
     end
-    if PL.Key(EVT_CMD_BACK) then
+    if PL.key(COMMAND_BACK) then
       funcLuaCommand(C.SE, SE_BACK)
       break
     elseif side ~= nil then
@@ -483,23 +443,22 @@ function PL.PopList(list, init, mode)
         list = mode.refresh()
       end
       show()
-    elseif mode.turn ~= nil and PL.PageKey() ~= nil and mode.turn(PL.PageKey()) then
+    elseif mode.turn ~= nil and PL.page_key() ~= nil and mode.turn(PL.page_key()) then
       list = mode.refresh()
       sel = math.max(0, math.min(sel, #list - 1))
       first = math.max(0, math.min(first, sel))
       funcLuaCommand(C.SE, 2500047763)
       show()
     elseif mode.step ~= nil and mode.step(list[sel + 1]) then
-      -- 2026-09-28: the mode's own keys (graft pset_preview: Q / E page the set preview); it redraws itself
-    elseif PL.Key(EVT_CMD_DOWN) and PL.ListVert(mode, list, sel, 1) ~= nil then
-      sel = PL.ListVert(mode, list, sel, 1)
+    elseif PL.key(COMMAND_DOWN) and PL.list_vert(mode, list, sel, 1) ~= nil then
+      sel = PL.list_vert(mode, list, sel, 1)
       if sel >= first + NR then
         first = sel - NR + 1
       end
       funcLuaCommand(C.SE, 2500047763 --[[sy0005 cursor]])
       show()
-    elseif PL.Key(EVT_CMD_UP) and PL.ListVert(mode, list, sel, -1) ~= nil then
-      sel = PL.ListVert(mode, list, sel, -1)
+    elseif PL.key(COMMAND_UP) and PL.list_vert(mode, list, sel, -1) ~= nil then
+      sel = PL.list_vert(mode, list, sel, -1)
       if sel < first then
         first = sel
       end
@@ -511,24 +470,20 @@ function PL.PopList(list, init, mode)
       show()
     end
   end
-  PL.SSListShow(false, list, first, sel)
+  PL.ss_list_show(false, list, first, sel)
   PL.list_mode = nil
-  coroutine.yield()                              -- the closing input must not reach our menu
-  EVT_RefreshRows()
+  coroutine.yield()                              -- the closing input must not reach the mod's menu
+  RefreshRows()
   pcall(UpdateEquipItemInfo)                     -- the screen's own button guide and panel again
-  evt_icon_frames = math.max(evt_icon_frames, 3)
+  character_reforged_icon_frames = math.max(character_reforged_icon_frames, 3)
   PL.role_frames = math.max(PL.role_frames, 3)
   return result, act
 end
 
-function PL.RoleRow(k, e, selected)
+function PL.role_row(k, e, selected)
   local L = PL.L_SSROW
-  PL.MxRowBase(L, k, {name = e.name, check = e.current}, selected)
-  -- 2026-10-06: the row's slot icon (_icon_sp_area_dmy01): the plain blue slot plate for «Sin rol», the role's
-  -- gold / silver medal IN the slot (same quad, same size) for staff; the small quad (_icon_sixth_dmy01) sat off the
-  -- plate's bottom-right corner, so it stays hidden in this list
-  -- 2026-10-07: release a miniface another list (combo partner picker, miximax lists) bound to this slot first: a
-  -- bound face icon outlives the sprite swap (Nacho saw Mercury / Flora faces instead of the medals)
+  PL.mx_row_base(L, k, {name = e.name, check = e.current}, selected)
+  -- The small quad (_icon_sixth_dmy01) stays hidden in this list; release a miniface that another list bound to it.
   pcall(funcLuaMenuCommand, 4176779611 --[[ResetFaceIcon]], L, k, PL.SLOT_AREA)
   local medal = PL.ROLE_ITEM[e.role]
   if medal ~= nil then
@@ -541,7 +496,7 @@ function PL.RoleRow(k, e, selected)
 end
 
 -- the width of a text in wrap units (a letter 1, a CJK / kana glyph 2)
-function PL.TextUnits(text)
+function PL.text_units(text)
   local w = 0
   for ch in text:gmatch("[%z\1-\127\194-\244][\128-\191]*") do
     w = w + (#ch >= 3 and 2 or 1)
@@ -549,23 +504,21 @@ function PL.TextUnits(text)
   return w
 end
 
--- text in the fewest lines of at most `units` (up to `lines`), the lines as even as the words allow: the narrowest
--- width that still fits that line count
-function PL.WrapBalanced(text, units, lines)
-  local total = PL.TextUnits(text)
+-- Wraps text in the fewest lines of at most `units` (up to `lines`), the lines as even as the words allow.
+function PL.wrap_balanced(text, units, lines)
+  local total = PL.text_units(text)
   local n = math.max(1, math.min(lines, math.ceil(total / units)))
   for w = math.ceil(total / n), units do
-    local s = PL.WrapText(text, w)
+    local s = PL.wrap_text(text, w)
     local _, breaks = s:gsub("\n", "")
     if breaks + 1 <= n then
       return s
     end
   end
-  return PL.WrapText(text, units)
+  return PL.wrap_text(text, units)
 end
 
--- text broken into lines of at most `units` width (a letter 1, a CJK / kana glyph 2) at spaces (or anywhere without any)
-function PL.WrapText(text, units)
+function PL.wrap_text(text, units)
   local out = {}
   for para in (text .. "\n"):gmatch("(.-)\n") do
     local line, width = "", 0
@@ -590,9 +543,9 @@ function PL.WrapText(text, units)
   return table.concat(out, "\n")
 end
 
-function PL.RoleFocus(e)
-  local desc, eff = PL.Txt(PL.ROLE_DESC_TX[e.role]), PL.Txt(PL.ROLE_EFF_TX[e.role])
-  PL.PanelPlain(PL.BAND_ROLE[e.role], e.name, (desc ~= "" and eff ~= "") and (desc .. " " .. eff) or (desc .. eff),
+function PL.role_focus(e)
+  local desc, eff = PL.txt(PL.ROLE_DESC_TX[e.role]), PL.txt(PL.ROLE_EFF_TX[e.role])
+  PL.panel_plain(PL.BAND_ROLE[e.role], e.name, (desc ~= "" and eff ~= "") and (desc .. " " .. eff) or (desc .. eff),
     function(L)
       local medal = PL.ROLE_ITEM[e.role]
       if medal ~= nil then
@@ -603,8 +556,7 @@ function PL.RoleFocus(e)
     end)
 end
 
--- the screen's 3D model and its shadow (retail SetCharaModelVisible: the model of soccer11_05_equip_status_base)
-function PL.ModelVisible(visible)
+function PL.model_visible(visible)
   local h = funcLuaMenuCommand(3895705890 --[[model of a layer]], 2917320188 --[[soccer11_05_equip_status_base]], 0, 0)
   if type(h) == "number" and h ~= 0 then
     funcLuaCommand(1890282463 --[[chara model visible]], h, visible)
@@ -612,29 +564,28 @@ function PL.ModelVisible(visible)
   funcLuaMenuCommand(C.LAYER_VISIBLE, 858725131 --[[mainmenu01_08_chara_3d_shadow]], 0, visible)
 end
 
-function PL.RoleCoroutine()
+function PL.role_coroutine()
   funcLuaMenuCommand(C.MENU_ACTIVE, EVT_MENU, false)
-  local cur, native, lock = PL.Role()
-  local why = PL.RoleWhy(cur, lock)
+  local cur, native, lock = PL.role()
+  local why = PL.role_why(cur, lock)
   if why ~= nil then
     funcLuaCommand(C.SE, SE_NG)
-    EVT_Message(why)
+    VRFW.question.notice(why)
     funcLuaMenuCommand(C.MENU_ACTIVE, EVT_MENU, true)
     return
   end
   funcLuaCommand(C.SE, SE_DECIDE)
   local list = {}
   for r = 0, 2 do
-    list[#list + 1] = {role = r, name = PL.RoleName(r), current = r == cur}
+    list[#list + 1] = {role = r, name = PL.role_name(r), current = r == cur}
   end
   PL.role_open = true
-  -- 2026-10-15 (owner: «arregla la interfaz en el selector de rol»): only «Elegir» in the guide (the corner return guide
-  -- mainmenu01_10 already shows Esc: «Volver» twice before), the 3D model hidden under the list, the header titled
+  -- Shows only "Select" in the guide (the corner return guide mainmenu01_10 already shows Esc), hides the 3D model under the list and titles the header.
   local keys = {{text = PL.TX.BTN_SELECT, icon = PL.I_ENTER, cmd = PL.K_ENTER, act = "pick"}}
-  pcall(PL.ModelVisible, false)
-  PL.HeaderTitle(PL.Txt(PL.TX.ROLE_TITLE))
-  local okp, pick = pcall(PL.PopList, list, math.max(0, math.min(2, cur)), {
-    row = PL.RoleRow, focus = PL.RoleFocus, guide = PL.Txt(PL.TX.ROLE_GUIDE),
+  pcall(PL.model_visible, false)
+  PL.header_title(PL.txt(PL.TX.ROLE_TITLE))
+  local okp, pick = pcall(PL.pop_list, list, math.max(0, math.min(2, cur)), {
+    row = PL.role_row, focus = PL.role_focus, guide = PL.txt(PL.TX.ROLE_GUIDE),
     keys = function()
       return keys
     end,
@@ -643,45 +594,37 @@ function PL.RoleCoroutine()
       return "close"
     end})
   PL.role_open = false
-  PL.HeaderTitle(nil)
-  pcall(PL.ModelVisible, true)
+  PL.header_title(nil)
+  pcall(PL.model_visible, true)
   if not okp then
     error(pick, 0)
   end
-  -- «Sin rol» also runs when the badge is already gone but the creation-time staff bit is still on (native ~= 0)
   if pick >= 0 and (pick ~= cur or (pick == 0 and native ~= 0)) then
     if pick ~= 0 then
       funcLuaCommand(PL.ADD_ITEM, PL.ROLE_ITEM[pick], 1, false)   -- a free copy for the equip (retail shares stacks)
     end
-    local st, now = EVT_Call(@crc:CMND_CHARACTERREFORGED_SET_ROLE@, n, pick)
-    EVT_Log("role", n, cur, "->", pick, "native", native, "status", st, "now", now)
+    local st, now = Call(@crc:CMND_CHARACTERREFORGED_SET_ROLE@, n, pick)
+    Log("role", n, cur, "->", pick, "native", native, "status", st, "now", now)
     if st == 1 then
       funcLuaCommand(C.SE, SE_DECIDE)
     else
       funcLuaCommand(C.SE, SE_NG)
-      -- 2026-09-30: never a silent refusal (story copy -9, not a saved player -5, else the status code)
-      -- 2026-10-08: -10 = below the matches of the mod Utilities' config.toml [role_medal] (default 0: never; now =
-      -- how many are missing); its text is Utilities' row util_role_need_matches; the free copy goes back
+      -- Never a silent refusal: story copy -9, not a saved player -5, else the status code; -10 means below the role medal match count and the free copy goes back.
       if st == -10 and pick ~= 0 then
         funcLuaCommand(PL.DEL_ITEM, PL.ROLE_ITEM[pick], 1)
       end
-      local msg = (st == -9 and PL.RoleWhy(0, 1)) or (st == -5 and PL.RoleWhy(-5, 0))
-        or (st == -10 and PL.Txt(3953080041 --[[util_role_need_matches]], now)) or PL.Txt(PL.TX.ROLE_FAIL, st)
-      EVT_Message(msg)
+      local msg = (st == -9 and PL.role_why(0, 1)) or (st == -5 and PL.role_why(-5, 0))
+        or (st == -10 and PL.txt(3953080041 --[[betterqol_role_need_matches]], now)) or PL.txt(PL.TX.ROLE_FAIL, st)
+      VRFW.question.notice(msg)
     end
   end
-  PL.RoleIcon()
-  PL.RoleGuide()
+  PL.role_icon()
+  PL.role_guide()
   UpdateCharaStatus()
-  coroutine.yield()                              -- the confirming input must not reach our menu
+  coroutine.yield()                              -- the confirming input must not reach the mod's menu
   funcLuaMenuCommand(C.MENU_ACTIVE, EVT_MENU, true)
 end
 
--- ---- custom passive (v3): our own list of the owned "Pasiva personalizada" items -----------------------------------
--- In game the board's list group listed moves (it reads the open board) and the retail equip_six_sense_menu opened
--- blank (its native list is never set up outside the board / formation flow). Our list: the 37 six-sense items
--- (item kind 177 = ss_ps50001 … ss_ps50037, docs/game/passives.md), those the save owns (CMND_GET_ITEM_NUM > 0),
--- with their names, "(equipada)" / "(sin copia libre)", plus "Quitar"; equip with CMND_CHARACTERREFORGED_SIX_SENSE (slot 9).
 PL.SS_ITEMS = {3910925277, 1880271463, 118856433, 2574323538, 4000726980, 2004840062,
   7888616, 2428978041, 3888149487, 2265446922, 4026583708, 1762237222, 504277936,
   2154446355, 4151119493, 1852071743, 425947049, 2312925752, 4275782318, 2888477129,
@@ -689,62 +632,36 @@ PL.SS_ITEMS = {3910925277, 1880271463, 118856433, 2574323538, 4000726980, 200484
   2733711867, 3589673325, 3039926408, 3258361886, 1530919332, 741919026, 2992397457,
   3311102983, 1548893629, 726994219}
 
--- ---- Player sets: per-player builds (Character Reforged's store: scripts\player_sets.lua, blob ss_player_sets.json) --
--- Opened by the save-icon button (the screen's bottom button layer L_BTN, square skin, PL.SAVE_BUTTON). A set also
--- keeps the mix slot (PL.HsMix / PL.HsMixPut): saved, compared, loaded and exported with the rest.
--- v4 (2026-09-28, user: plain white bars on a grey box): the retail list window of the custom-passive picker (as the
--- role picker). Rows = "Set N · <name>" / "Set N · Vacío" (greyed), the first move's category + element icons, the
--- retail check mark on the set equal to the player's current build. The focused set is summed up in the integrated
--- panel (moves, Hipertécnica, equipment count, custom passive; the first move's icon as the big icon). Retail button
--- guide: <CMD_ENTER> Cargar (empty set: Guardar), <CMD_FUNC4> Guardar (overwrite, Sí/No), <CMD_FUNC1> Renombrar (the
--- game keyboard, as the save-slot screen), <CMD_FUNC3> Borrar (Sí/No), <CMD_BACK> Volver. Saving, renaming and deleting
--- keep the window open; loading closes it and lists what could not be applied. Texts: PL.TX (menu_text, 9 languages).
-function PL.EquipIds()
-  local e = {}
-  for t = 0, 4 do
-    local ok, id = pcall(GetEquipItemid, n, t)
-    e[t + 1] = (ok and type(id) == "number") and EVT_U32(id) or 0
-  end
-  return e
+function PL.equip_ids()
+  return CharacterReforged.player_sets.equip_ids(n)
 end
 
-function PL.SetGet(i)
-  local r = {pcall(funcLuaCommand, @crc:CMND_CHARACTERREFORGED_PLAYER_SET_GET@, n, i)}
-  if not r[1] or r[2] ~= true then
-    return nil
-  end
-  local p = {name = r[3] or "", moves = {}, hiper = EVT_U32(r[10] or 0), equip = {}, sixsense = EVT_U32(r[16] or 0)}
-  for k = 1, 6 do
-    p.moves[k] = EVT_U32(r[3 + k] or 0)
-  end
-  for k = 1, 5 do
-    p.equip[k] = EVT_U32(r[10 + k] or 0)
-  end
-  return p
+function PL.set_get(i)
+  return CharacterReforged.player_sets.read(n, i)
 end
 
 -- the player's current build in the set format (rows that cannot take a move count as empty)
-function PL.SetCurrent()
-  local cur = {moves = {}, equip = PL.EquipIds()}
-  for r = 0, EVT_ROW_NUM - 1 do
-    local s = (r == 0 or not EVT_IsLocked(r)) and EVT_Skill(r) or 0
+function PL.set_current()
+  local cur = {moves = {}, equip = PL.equip_ids()}
+  for r = 0, ROW_NUM - 1 do
+    local s = (r == 0 or not CharacterReforged.skill_table_is_locked(r)) and Skill(r) or 0
     if r == 0 then
-      cur.hiper = EVT_U32(s or 0)
+      cur.hiper = to_u32(s or 0)
     else
-      cur.moves[r] = EVT_U32(s or 0)
+      cur.moves[r] = to_u32(s or 0)
     end
   end
-  local _, ss = EVT_SS_Get()
-  cur.sixsense = EVT_U32(ss or 0)
-  -- 2026-10-13: the kit (uniformId) of the team this screen edits, kept with a saved set for its row's miniface
+  local _, ss = SkillSlotGet()
+  cur.sixsense = to_u32(ss or 0)
+  -- the kit (uniformId) of the team this screen edits, kept with a saved set for its row's miniface
   local okk, has, kit = pcall(funcLuaCommand, @crc:CMND_GET_TEAM_SET_INFO@, n3, n17, 7)
-  cur.kit = (okk and has and type(kit) == "number") and EVT_U32(kit) or 0
-  local okm, mix = pcall(PL.HsMix)                  -- the mix slot (0 = empty or no mix store)
+  cur.kit = (okk and has and type(kit) == "number") and to_u32(kit) or 0
+  local okm, mix = pcall(PL.hs_mix)                  -- the mix slot (0 = empty or no mix store)
   cur.mix = (okm and type(mix) == "number") and mix or 0
   return cur
 end
 
-function PL.SetSame(p, cur)
+function PL.set_same(p, cur)
   if p == nil then
     return false
   end
@@ -764,20 +681,19 @@ function PL.SetSame(p, cur)
   return p.hiper == cur.hiper and p.sixsense == cur.sixsense
 end
 
-function PL.ItemName(id)
+function PL.item_name(id)
   local nm = funcLuaCommand(@crc:CMND_GET_ITEM_PARAM@, id, 0)
   return type(nm) == "string" and nm or string.format("%08X", id)
 end
 
--- sets per page and pages (config [player_sets]); per page at most the list's set rows (the file row sits at
--- PL.FILE_BTN.SLOT)
-function PL.SetPages()
+-- Reads the sets per page and pages (config [player_sets]).
+function PL.read_set_pages()
   if PL.set_pages == nil then
     local ok, per, pages = pcall(funcLuaCommand, PL.PAGER.PAGES)
     per = ok and tonumber(per) or nil
     pages = ok and tonumber(pages) or nil
     if per == nil or pages == nil then
-      EVT_Log("player sets pages missing", tostring(per), tostring(pages))
+      Log("player sets pages missing", tostring(per), tostring(pages))
       per, pages = PL.FILE_BTN.SLOT, 1
     end
     PL.set_pages = {per = math.max(1, math.min(math.floor(per), PL.FILE_BTN.SLOT)), pages = math.max(1, math.floor(pages))}
@@ -785,20 +701,20 @@ function PL.SetPages()
   return PL.set_pages.per, PL.set_pages.pages
 end
 
--- the page holding the set equal to the player's current build (1 when none): one bounded walk when the list opens
-function PL.SetCurrentPage()
-  local per, pages = PL.SetPages()
-  local cur = PL.SetCurrent()
+-- Returns the page holding the set equal to the player's current build (1 when none).
+function PL.set_current_page()
+  local per, pages = PL.read_set_pages()
+  local cur = PL.set_current()
   for i = 0, per * pages - 1 do
-    if PL.SetSame(PL.SetGet(i), cur) then
+    if PL.set_same(PL.set_get(i), cur) then
       return math.floor(i / per) + 1
     end
   end
   return 1
 end
 
-function PL.SetTurn(dir)
-  local _, pages = PL.SetPages()
+function PL.set_turn(dir)
+  local _, pages = PL.read_set_pages()
   if pages <= 1 then
     return false
   end
@@ -806,26 +722,26 @@ function PL.SetTurn(dir)
   return true
 end
 
-function PL.SetGuide()
-  local _, pages = PL.SetPages()
-  local g = PL.Txt(PL.TX.SET_GUIDE)
+function PL.set_guide()
+  local _, pages = PL.read_set_pages()
+  local g = PL.txt(PL.TX.SET_GUIDE)
   if pages > 1 then
-    g = g .. "     " .. PL.PageText(PL.set_page, pages)
+    g = g .. "     " .. PL.page_text(PL.set_page, pages)
   end
   return g
 end
 
-function PL.SetList()
-  local cur = PL.SetCurrent()
+function PL.build_set_list()
+  local cur = PL.set_current()
   local list = {}
-  local per, pages = PL.SetPages()
+  local per, pages = PL.read_set_pages()
   PL.set_page = math.max(1, math.min(PL.set_page or 1, pages))
   for i = (PL.set_page - 1) * per, PL.set_page * per - 1 do
-    local p = PL.SetGet(i)
-    local e = {i = i, p = p, first = 0, current = PL.SetSame(p, cur)}
-    local title = PL.Txt(PL.TX.SET_N, i + 1)
+    local p = PL.set_get(i)
+    local e = {i = i, p = p, first = 0, current = PL.set_same(p, cur)}
+    local title = PL.txt(PL.TX.SET_N, i + 1)
     if p == nil then
-      e.name = title .. " · " .. PL.Txt(PL.TX.SET_EMPTY)
+      e.name = title .. " · " .. PL.txt(PL.TX.SET_EMPTY)
     else
       for k = 1, 6 do
         if e.first == 0 and p.moves[k] ~= 0 then
@@ -833,57 +749,55 @@ function PL.SetList()
         end
       end
       e.name = p.name ~= "" and (title .. " · " .. p.name) or title
+      local action = PL.set_action(e)
+      local state = action ~= nil and PL.set_action_call(action, "row_text") or nil
+      if type(state) == "string" and state ~= "" then
+        e.name = e.name .. "  " .. state
+      end
     end
     list[#list + 1] = e
   end
-  -- 2026-10-13 (owner: «mueve el icono de exportar abajo de la ranura 5, y haz uno de importar .vrmod»; «… en una
-  -- sola fila»): one row under #5, «Exportar | Importar» (PL.VrmRow: two buttons of the layer evt_pset_file_btn); it
-  -- acts on the last set row the cursor was on (PL.set_sel)
-  list[#list + 1] = {kind = "vrm", name = PL.Txt(PL.TX.SET_EXPORT_ROW),
-    names = {PL.Txt(PL.TX.SET_EXPORT_ROW), PL.Txt(PL.TX.SET_IMPORT_ROW)}}
+  list[#list + 1] = {kind = "vrm", name = PL.txt(PL.TX.SET_EXPORT_ROW),
+    names = {PL.txt(PL.TX.SET_EXPORT_ROW), PL.txt(PL.TX.SET_IMPORT_ROW)}}
   PL.set_list = list
   return list
 end
 
--- 2026-10-13 (owner: «debería salirte la miniface con la equipación que tenías puesto en el equipo que le guardaste el
--- set al jugador, no el icono de tiro»): the player's face icon as the bank / dock lists draw it (552280324, type 9 =
--- face + kit, VRFW_FaceIcon from his handle) with the kit stored with the set (0 = an old set: the kit of his current
--- team, resolved by the game)
-function PL.SetFace(L, k, kit)
+function PL.set_face(L, k, kit)
   local param = funcLuaCommand(C.CHARA_GET, n, 4) or 0
   local key = funcLuaCommand(C.CHARA_GET, n, 1) or 0
   local okk, keeper = pcall(MENU_DEF.IsKeeper, param)
-  VRFW_FaceIcon.Request(L, k, {handle = n, kind = 255, chara = key}, PL.MESH_AREA, PL.SLOT_AREA,
+  VRFW.face_icon.request(L, k, {handle = n, kind = 255, chara = key}, PL.MESH_AREA, PL.SLOT_AREA,
     {kit = kit or 0, keeper = okk and keeper == true})
   funcLuaMenuCommand(C.MESH_VISIBLE, L, PL.MESH_AREA, true, k)
 end
 
-function PL.SetRowDraw(k, e, selected)
+function PL.set_row_draw(k, e, selected)
   if e.kind == "vrm" then
-    PL.VrmRow(k, e, selected)
+    PL.vrm_row(k, e, selected)
     return
   end
   local L = PL.L_SSROW
-  PL.MxRowBase(L, k, {name = e.name, grey = e.p == nil, check = e.current}, selected)
+  PL.mx_row_base(L, k, {name = e.name, grey = e.p == nil, check = e.current}, selected)
   pcall(funcLuaMenuCommand, 4176779611 --[[ResetFaceIcon]], L, k, PL.SLOT_AREA)
   if e.p ~= nil then
-    pcall(PL.SetFace, L, k, e.p.kit)
+    pcall(PL.set_face, L, k, e.p.kit)
   end
 end
 
-function PL.SetSummary(p)
+function PL.set_summary(p)
   local mv = {}
   for k = 1, 6 do
     if p.moves[k] ~= 0 then
-      mv[#mv + 1] = EVT_Name(p.moves[k])
+      mv[#mv + 1] = Name(p.moves[k])
     end
   end
-  local lines = {PL.Txt(PL.TX.SUM_MOVES, #mv > 0 and table.concat(mv, ", ") or "-")}
+  local lines = {PL.txt(PL.TX.SUM_MOVES, #mv > 0 and table.concat(mv, ", ") or "-")}
   if p.hiper ~= 0 then
-    lines[#lines + 1] = PL.Txt(PL.TX.SUM_HIPER, EVT_Name(p.hiper))
+    lines[#lines + 1] = PL.txt(PL.TX.SUM_HIPER, Name(p.hiper))
   end
   if (p.mix or 0) ~= 0 then
-    lines[#lines + 1] = PL.Txt(PL.TX.SUM_MIX, EVT_Name(p.mix))
+    lines[#lines + 1] = PL.txt(PL.TX.SUM_MIX, Name(p.mix))
   end
   local eq = 0
   for k = 1, 5 do
@@ -891,50 +805,78 @@ function PL.SetSummary(p)
       eq = eq + 1
     end
   end
-  local tail = PL.Txt(PL.TX.SUM_EQUIP, eq)
+  local tail = PL.txt(PL.TX.SUM_EQUIP, eq)
   if p.sixsense ~= 0 then
-    tail = tail .. "  ·  " .. PL.Txt(PL.TX.SUM_PASSIVE, PL.ItemName(p.sixsense))
+    tail = tail .. "  ·  " .. PL.txt(PL.TX.SUM_PASSIVE, PL.item_name(p.sixsense))
   end
   lines[#lines + 1] = tail
   return table.concat(lines, "\n")
 end
 
-function PL.SetFocus(e)
+function PL.set_focus(e)
   if e.kind ~= nil then
-    local exp = PL.SetKind(e) == "export"
-    PL.PanelPlain(6, e.names[exp and 1 or 2], PL.Txt(exp and PL.TX.EXPORT_DESC or PL.TX.IMPORT_DESC, (PL.set_sel or 0) + 1))
+    local exp = PL.set_kind(e) == "export"
+    PL.panel_plain(6, e.names[exp and 1 or 2], PL.txt(exp and PL.TX.EXPORT_DESC or PL.TX.IMPORT_DESC, (PL.set_sel or 0) + 1))
     return
   end
   PL.set_sel = e.i
   if e.p == nil then
-    PL.PanelPlain(6, e.name, PL.Txt(PL.TX.SET_BTN_GUIDE))
+    PL.panel_plain(6, e.name, PL.txt(PL.TX.SET_BTN_GUIDE))
     return
   end
-  PL.PanelPlain(5, e.name, PL.SetSummary(e.p), e.first ~= 0 and function(L)
+  PL.panel_plain(5, e.name, PL.set_summary(e.p), e.first ~= 0 and function(L)
     SetupCommandActionSkillInfoCategoryIcon(L, 0, e.first)
   end or nil)
 end
 
--- (no «Volver» entry: the screen's corner return guide mainmenu01_10 already shows Esc; 2026-10-15 it showed twice)
-function PL.SetKeys(e)
+function PL.set_keys(e)
   if e ~= nil and e.kind ~= nil then
-    local kind = PL.SetKind(e)
+    local kind = PL.set_kind(e)
     local tx = kind == "export" and PL.TX.SET_EXPORT_ROW or PL.TX.SET_IMPORT_ROW
     return {{text = tx, icon = PL.I_ENTER, cmd = PL.K_ENTER, act = kind}}
   end
   if e == nil or e.p == nil then
     return {{text = PL.TX.BTN_SAVE, icon = PL.I_ENTER, cmd = PL.K_ENTER, act = "save"}}
   end
-  return {{text = PL.TX.BTN_LOAD, icon = PL.I_ENTER, cmd = PL.K_ENTER, act = "load"},
+  local keys = {{text = PL.TX.BTN_LOAD, icon = PL.I_ENTER, cmd = PL.K_ENTER, act = "load"},
     {text = PL.TX.BTN_SAVE, icon = PL.I_FUNC4, cmd = PL.K_FUNC4, act = "save"},
     {text = PL.TX.BTN_RENAME, icon = PL.I_FUNC1, cmd = PL.K_FUNC1, act = "rename"},
     {text = PL.TX.BTN_DELETE, icon = PL.I_FUNC3, cmd = PL.K_FUNC3, act = "delete"}}
+  local action = PL.set_action(e)
+  if action ~= nil then
+    local text = PL.set_action_call(action, "text")
+    text = type(text) == "number" and text or CharacterReforged.skill_table.text_id(action.entry.text)
+    if text ~= 0 then
+      keys[#keys + 1] = {text = text, icon = PL.I_FUNC2, cmd = PL.K_FUNC2, act = "row_action"}
+    end
+  end
+  return keys
 end
 
--- write set i: p = nil saves the current build (name = its first move), else p with `name`
-function PL.SetWrite(i, p, name)
+-- The set rows' declared action (host CharacterReforged.player_sets.row_action, key CMD_FUNC2): the first entry
+-- whose `available` phase answers true for the row; nil without one. Phases: available, text, row_text, press.
+PL.SET_ACTION_HOST = "CharacterReforged.player_sets.row_action"
+function PL.set_action(e)
+  local host = CharacterReforged.skill_table
+  if e == nil or e.i == nil or type(host) ~= "table" or type(host.host_entries) ~= "function" then
+    return nil
+  end
+  for _, entry in ipairs(host.host_entries(PL.SET_ACTION_HOST)) do
+    local ctx = {key = entry.key, chara = n, set = e.i, filled = e.p ~= nil}
+    if host.call(entry, "available", ctx) == true then
+      return {entry = entry, ctx = ctx}
+    end
+  end
+  return nil
+end
+
+function PL.set_action_call(action, phase)
+  return CharacterReforged.skill_table.call(action.entry, phase, action.ctx)
+end
+
+function PL.set_write(i, p, name)
   if p == nil then
-    local cur = PL.SetCurrent()
+    local cur = PL.set_current()
     local first = 0
     for r = 1, 6 do
       if first == 0 and cur.moves[r] ~= 0 then
@@ -942,44 +884,41 @@ function PL.SetWrite(i, p, name)
       end
     end
     p = cur
-    name = name or (first ~= 0 and EVT_Name(first) or PL.Txt(PL.TX.SET_N, i + 1))
+    name = name or (first ~= 0 and Name(first) or PL.txt(PL.TX.SET_N, i + 1))
   end
   local m, e = p.moves, p.equip
-  local ok = EVT_Call(@crc:CMND_CHARACTERREFORGED_PLAYER_SET_SAVE@, n, i, EVT_Cut(name or "", 26), m[1], m[2],
+  local ok = Call(@crc:CMND_CHARACTERREFORGED_PLAYER_SET_SAVE@, n, i, Cut(name or "", 26), m[1], m[2],
     m[3], m[4], m[5], m[6], p.hiper,
     e[1], e[2], e[3], e[4], e[5], p.sixsense or 0)
-  EVT_Log("player set save", i, name, ok)
+  Log("player set save", i, name, ok)
   return ok
 end
 
--- the default name of a new set: its first move, else «#N»
-function PL.SetDefaultName(i)
-  local cur = PL.SetCurrent()
+function PL.set_default_name(i)
+  local cur = PL.set_current()
   for r = 1, 6 do
     if cur.moves[r] ~= 0 then
-      return EVT_Name(cur.moves[r])
+      return Name(cur.moves[r])
     end
   end
-  return PL.Txt(PL.TX.SET_N, i + 1)
+  return PL.txt(PL.TX.SET_N, i + 1)
 end
 
--- 2026-10-13 (owner: «al guardar un set te tiene que preguntar por el nombre del set»): the game keyboard (PL.AskName,
--- the save-slot rename's arguments) prefilled with the default; cancel / no keyboard = the default
-function PL.SetSave(i)
-  local name = PL.SetDefaultName(i)
-  local nm = PL.AskName(name)
+-- Opens the game keyboard (PL.ask_name, the save-slot rename's arguments) prefilled with the default.
+function PL.set_save(i)
+  local name = PL.set_default_name(i)
+  local nm = PL.ask_name(name)
   if type(nm) == "string" and nm ~= "" then
     name = nm
   end
-  local ok = PL.SetWrite(i, nil, name)
+  local ok = PL.set_write(i, nil, name)
   funcLuaCommand(C.SE, ok and SE_DECIDE or SE_NG)
 end
 
--- the game keyboard (arguments of GENERAL_WINDOW.WaitAndSwkbWindowCoroutine, as the save-slot screen's rename):
--- string, nil (cancelled / empty) or false (the keyboard did not open)
+-- Arguments of the game keyboard (GENERAL_WINDOW.WaitAndSwkbWindowCoroutine, as the save-slot screen's rename).
 PL.KB = {OPEN = 962493425, ACTIVE = 422535539, TEXT = 1487869455, CANCELLED = 1447363287, FORCE_END = 3351189333,
   STR_SPACES = 2431241294, MAX = 20}
-function PL.AskName(initial)
+function PL.ask_name(initial)
   if funcLuaCommand(PL.KB.ACTIVE) then
     funcLuaCommand(PL.KB.FORCE_END, "")
     coroutine.yield()
@@ -987,7 +926,7 @@ function PL.AskName(initial)
   local opened = false
   for _ = 1, 2 do
     funcLuaCommand(PL.KB.OPEN, 0, initial or "", PL.TX.KB_TITLE, 0, PL.KB.MAX, 0, 0, 0, 0, 0, 0, true, true, 2,
-      PL.Txt(PL.TX.KB_TITLE), 0, false, false)
+      PL.txt(PL.TX.KB_TITLE), 0, false, false)
     for _ = 1, 10 do
       if funcLuaCommand(PL.KB.ACTIVE) == true then
         opened = true
@@ -1012,9 +951,9 @@ function PL.AskName(initial)
   end
   local text = funcLuaCommand(PL.KB.TEXT)
   local cancelled = funcLuaCommand(PL.KB.CANCELLED) == true
-  EVT_Log("player set keyboard", "cancelled", tostring(cancelled), "text", tostring(text), "live", live)
+  Log("player set keyboard", "cancelled", tostring(cancelled), "text", tostring(text), "live", live)
   if (type(text) ~= "string" or text == "") and live ~= "" then
-    return PL.MxAsk(PL.Txt(PL.TX.ASK_NAME, live)) and live or nil
+    return VRFW.question.ask(PL.txt(PL.TX.ASK_NAME, live)) and live or nil
   end
   if cancelled or type(text) ~= "string" or text == "" or funcLuaCommand(PL.KB.STR_SPACES, text) == true then
     return nil
@@ -1022,36 +961,40 @@ function PL.AskName(initial)
   return text
 end
 
-function PL.SetAct(act, e, row)
+function PL.set_act(act, e, row)
   local i = e ~= nil and e.i or row                 -- the set's own index (the list shows one page)
   if act == "export" then
-    PL.SetExport(PL.set_sel or 0)
+    PL.set_export(PL.set_sel or 0)
     return "stay"
   elseif act == "import" then
-    PL.SetImport(PL.set_sel or 0)
+    PL.set_import(PL.set_sel or 0)
     return "stay"
   elseif act == "load" then
     funcLuaCommand(C.SE, SE_DECIDE)
     return "close"
+  elseif act == "row_action" then
+    local action = PL.set_action(e)
+    local done = action ~= nil and PL.set_action_call(action, "press") == true
+    funcLuaCommand(C.SE, done and SE_DECIDE or SE_NG)
   elseif act == "save" then
-    if e.p ~= nil and not PL.MxAsk(PL.Txt(PL.TX.ASK_OVER, i + 1)) then
+    if e.p ~= nil and not VRFW.question.ask(PL.txt(PL.TX.ASK_OVER, i + 1)) then
       funcLuaCommand(C.SE, SE_BACK)
       return "stay"
     end
-    PL.SetSave(i)
+    PL.set_save(i)
   elseif act == "rename" then
     funcLuaCommand(C.SE, SE_DECIDE)
-    local nm = PL.AskName(e.p.name)
+    local nm = PL.ask_name(e.p.name)
     if nm == false then
       funcLuaCommand(C.SE, SE_NG)
-      EVT_Message(PL.Txt(PL.TX.KB_FAIL))
+      VRFW.question.notice(PL.txt(PL.TX.KB_FAIL))
     elseif nm ~= nil then
-      local ok = PL.SetWrite(i, e.p, nm)
+      local ok = PL.set_write(i, e.p, nm)
       funcLuaCommand(C.SE, ok and SE_DECIDE or SE_NG)
     end
   elseif act == "delete" then
-    if PL.MxAsk(PL.Txt(PL.TX.ASK_DEL, i + 1)) then
-      local ok = EVT_Call(@crc:CMND_CHARACTERREFORGED_PLAYER_SET_DELETE@, n, i)
+    if VRFW.question.ask(PL.txt(PL.TX.ASK_DEL, i + 1)) then
+      local ok = Call(@crc:CMND_CHARACTERREFORGED_PLAYER_SET_DELETE@, n, i)
       funcLuaCommand(C.SE, ok and SE_REMOVE or SE_NG)
     else
       funcLuaCommand(C.SE, SE_BACK)
@@ -1060,152 +1003,67 @@ function PL.SetAct(act, e, row)
   return "stay"
 end
 
--- invHdl of an owned item with a free copy (moves / equipment / six sense share this): CMND_ADD_ITEM_ONLY returns the
--- item's stack handle (the extra copy is deleted again right away). Third value: the reason as a PL.TX skip row.
-function PL.FreeHandle(item)
-  local num = funcLuaCommand(PL.ITEM_NUM, item)
-  if type(num) ~= "number" or num <= 0 then
-    return 0, "not owned", PL.TX.SKIP_NOTOWN
-  end
-  local h = funcLuaCommand(PL.ADD_ITEM, item, 1, false)
-  funcLuaCommand(PL.DEL_ITEM, item, 1)
-  if h == nil or h == 0 then
-    return 0, "no item", PL.TX.SKIP_FAIL
-  end
-  local used = funcLuaCommand(PL.EQUIPPED_NUM, h)
-  if type(used) == "number" and used >= num then
-    return 0, "every copy in use", PL.TX.SKIP_INUSE
-  end
-  return h, nil, nil
+-- Returns the invHdl of an owned item with a free copy (moves, equipment and six sense share this).
+function PL.free_handle(item)
+  local h, why = CharacterReforged.player_sets.free_handle(item)
+  local tx = ({["not owned"] = PL.TX.SKIP_NOTOWN, ["no item"] = PL.TX.SKIP_FAIL,
+    ["every copy in use"] = PL.TX.SKIP_INUSE})[why]
+  return h, why, tx
 end
 
--- apply set p: everything valid is applied, the rest is listed
-function PL.SetLoad(p)
+-- The text of one piece the shared set writer left out (its reason, kind and value).
+PL.SKIP_TX = {prime = "SKIP_PRIME", row = "SKIP_ROW", idol = "SKIP_IDOL", notown = "SKIP_NOTOWN", inuse = "SKIP_INUSE",
+  fail = "SKIP_FAIL", locked = "SKIP_LOCKED"}
+function PL.skip_text(reason, kind, value)
+  local tx = PL.TX[PL.SKIP_TX[reason] or "SKIP_FAIL"]
+  local label = nil
+  if kind == "move" then
+    label = Name(value)
+  elseif kind == "item" then
+    label = PL.item_name(value)
+  elseif kind == "passive" then
+    label = PL.txt(PL.TX.PASSIVE)
+  elseif kind == "role" then
+    label = PL.role_name(value)
+  elseif kind == "pv_slot" then
+    label = PL.txt(PL.TX.PV_SLOT, value)
+  end
+  return PL.txt(tx, label)
+end
+
+-- Applies set p.
+function PL.set_load(p)
   local skipped = {}
-  local prime = EVT_IsPrime()
-  local function skip(tx, what)
-    skipped[#skipped + 1] = PL.Txt(tx, what)
+  local ctx = PL.set_ctx()
+  ctx.skip = function(reason, kind, value)
+    skipped[#skipped + 1] = PL.skip_text(reason, kind, value)
   end
-  local function has(skill)
-    if EVT_Active(skill) then
-      return true
-    end
-    for b = 0, 8 do
-      if EVT_BoardSkill(b) == skill then
-        return true
-      end
-    end
-    local num = funcLuaCommand(PL.ITEM_NUM, skill)
-    return type(num) == "number" and num > 0
+  local ok, err = pcall(CharacterReforged.player_sets.apply, n, p, ctx)
+  ctx.skip = nil
+  if not ok then
+    Log("player set load failed", tostring(err))
   end
-  if prime then
-    skip(PL.TX.SKIP_PRIME)
-  else
-    for r = 1, 6 do
-      local s = p.moves[r]
-      if s ~= 0 and EVT_Skill(r) ~= s then
-        if EVT_IsLocked(r) then
-          skip(PL.TX.SKIP_ROW, EVT_Name(s))
-        elseif PL.IdolFixed(r) then
-          skip(PL.TX.SKIP_IDOL, EVT_Name(s))
-        elseif not has(s) then
-          skip(PL.TX.SKIP_NOTOWN, EVT_Name(s))
-        else
-          local ok = pcall(EVT_Equip, r, s, 0, nil)
-          if not ok then
-            skip(PL.TX.SKIP_FAIL, EVT_Name(s))
-          end
-        end
-      end
-    end
-    if p.hiper ~= 0 and EVT_Skill(0) ~= p.hiper then
-      if PL.IdolFixed(0) then
-        skip(PL.TX.SKIP_IDOL, EVT_Name(p.hiper))
-      elseif has(p.hiper) and EVT_IsSpecial(p.hiper) then
-        pcall(EVT_Equip, 0, p.hiper, 0, nil)
-      else
-        skip(PL.TX.SKIP_NOTOWN, EVT_Name(p.hiper))
-      end
-    end
-    -- the mix slot (a stored empty slot leaves the current one as it is, as every other field)
-    local mix = p.mix or 0
-    local okm, now = pcall(PL.HsMix)
-    if mix ~= 0 and okm and now ~= mix then
-      if PL.IdolFixed(0) then
-        skip(PL.TX.SKIP_IDOL, EVT_Name(mix))
-      elseif not has(mix) then
-        skip(PL.TX.SKIP_NOTOWN, EVT_Name(mix))
-      elseif not PL.HsMixPut(mix) then
-        skip(PL.TX.SKIP_FAIL, EVT_Name(mix))
-      end
-    end
-  end
-  -- equipment (Equipamiento items), as the retail equip list commits
-  local cur = PL.EquipIds()
-  for t = 0, 4 do
-    local want = p.equip[t + 1]
-    if want ~= 0 and want ~= cur[t + 1] then
-      local h, _, why = PL.FreeHandle(want)
-      local label = PL.ItemName(want)
-      if h ~= 0 then
-        if cur[t + 1] ~= 0 then
-          funcLuaCommand(PL.REMOVE_EQUIP, n, t)
-        end
-        funcLuaCommand(PL.EQUIP_ITEM, n, h, t)
-        if PL.EquipIds()[t + 1] ~= want then
-          skip(PL.TX.SKIP_FAIL, label)
-        end
-      else
-        skip(why, label)
-      end
-    end
-  end
-  -- custom passive (six-sense slot)
-  local _, ss = EVT_SS_Get()
-  if p.sixsense ~= 0 and p.sixsense ~= ss then
-    local locked = EVT_SS_Lock()
-    local h, _, why = PL.FreeHandle(p.sixsense)
-    local label = PL.Txt(PL.TX.PASSIVE)
-    if locked then
-      skip(PL.TX.SKIP_LOCKED, label)
-    elseif h == 0 then
-      skip(why, label)
-    else
-      local st = EVT_Call(@crc:CMND_CHARACTERREFORGED_SIX_SENSE@, n, 1, h, -1)
-      if st ~= 1 then
-        skip(PL.TX.SKIP_FAIL, label)
-      end
-    end
-  end
-  -- 2026-09-28: role + configured passives of the set (graft pset_preview defines PL.SetLoadExtra)
-  if PL.SetLoadExtra ~= nil then
-    local okx, errx = pcall(PL.SetLoadExtra, p, skip)
-    if not okx then
-      EVT_Log("player set load extra", tostring(errx))
-    end
-  end
-  EVT_AfterChange()
-  EVT_SS_ButtonRefresh()
+  CharacterReforged.skill_table_after_change()
+  SkillSlotButtonRefresh()
   UpdateCharaStatus()
-  EVT_Log("player set load", p.name, "skipped", #skipped)
   if #skipped > 0 then
-    EVT_Message(PL.Txt(PL.TX.LOADED_SKIP, table.concat(skipped, ", ")))
+    VRFW.question.notice(PL.txt(PL.TX.LOADED_SKIP, table.concat(skipped, ", ")))
   else
     funcLuaCommand(C.SE, SE_DECIDE)
   end
 end
 
-function PL.SetsCoroutine()
+function PL.sets_coroutine()
   funcLuaMenuCommand(C.MENU_ACTIVE, EVT_MENU, false)
-  if not PL.HasService("player_sets") then
+  if not PL.has_service("player_sets") then
     funcLuaCommand(C.SE, SE_NG)
-    EVT_Message(PL.Txt(PL.TX.LOADER))
+    VRFW.question.notice(PL.txt(PL.TX.LOADER))
     funcLuaMenuCommand(C.MENU_ACTIVE, EVT_MENU, true)
     return
   end
   funcLuaCommand(C.SE, SE_DECIDE)
-  PL.set_page = PL.SetCurrentPage()
-  local list = PL.SetList()
+  PL.set_page = PL.set_current_page()
+  local list = PL.build_set_list()
   local init = 0
   for k, e in ipairs(list) do
     if e.current then
@@ -1214,82 +1072,64 @@ function PL.SetsCoroutine()
   end
   PL.set_sel = list[init + 1] ~= nil and list[init + 1].i or 0
   PL.vrm_half = 0
-  local mode = {row = PL.SetRowDraw, focus = PL.SetFocus, guide = PL.SetGuide(), keys = PL.SetKeys, act = PL.SetAct,
-    refresh = PL.SetList, side = PL.SetSide, vert = PL.SetVert}
+  local mode = {row = PL.set_row_draw, focus = PL.set_focus, guide = PL.set_guide(), keys = PL.set_keys, act = PL.set_act,
+    refresh = PL.build_set_list, side = PL.set_side, vert = PL.set_vert}
   mode.turn = function(dir)
-    if not PL.SetTurn(dir) then
+    if not PL.set_turn(dir) then
       return false
     end
-    mode.guide = PL.SetGuide()
+    mode.guide = PL.set_guide()
     return true
   end
-  local pick, act = PL.PopList(list, init, mode)
+  local pick, act = PL.pop_list(list, init, mode)
   local picked = PL.set_list ~= nil and PL.set_list[pick + 1] or nil
   if pick >= 0 and act == "load" and picked ~= nil and picked.i ~= nil then
-    local p = PL.SetGet(picked.i)
+    local p = PL.set_get(picked.i)
     if p ~= nil then
-      PL.SetLoad(p)
+      PL.set_load(p)
     end
   end
   funcLuaMenuCommand(C.MENU_ACTIVE, EVT_MENU, true)
 end
 
--- ---- «Exportar set» / «Importar set» (2026-10-13): .vrmod files of one set -----------------------------------------
--- Rows 6-7 of the «Set de jugador» list (PL.SetList), acting on the last set row the cursor was on (PL.set_sel).
--- Files: Character Reforged's scripts\player_sets.lua (CMND_CHARACTERREFORGED_PLAYER_SET_EXPORT / _IMPORT_LIST /
--- _IMPORT_ENTRY / _IMPORT_READ), TOML schema utilities.vrmod/1 kind "character" in
--- <game>\modloader_exports\<config [player_sets] export_area>\.
--- docs/game/ui/vrmod-export.md §2.4. No input switch: messages are the general window (EVT_Message / PL.MxAsk).
--- (built in a function, as PL.TxTable: these numbers stay out of the main chunk's constant table)
-function PL.VrmDef()
+function PL.vrm_def()
   return {
-  -- the retail header clouds (icon_header_sub_upload01 / download01) cut and centred, white for the selected blue row,
-  -- navy for the light rows: Character Reforged content/images/menu/200_icon/15_icon_common/player_set_icons.toml
+  -- The retail header clouds (icon_header_sub_upload01 and download01).
   TEX = 2320109963,           -- #/menu/200_icon/15_icon_common/icon_common.g4tx
-  UP = {[true] = 3273312901 --[[evt_vrm_up_white]], [false] = 1886212399 --[[evt_vrm_up_dark]]},
-  DOWN = {[true] = 3165484893 --[[evt_vrm_down_white]], [false] = 2916954723 --[[evt_vrm_down_dark]]},
-  EXPORT = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_EXPORT@,        -- CMND_CHARACTERREFORGED_PLAYER_SET_EXPORT
-  LIST = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_LIST@,          -- CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_LIST
-  ENTRY = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_ENTRY@,         -- CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_ENTRY
-  READ = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_READ@,           -- CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_READ
+  UP = {[true] = 877508820 --[[cr_vrm_up_white]], [false] = 1162370491 --[[cr_vrm_up_dark]]},
+  DOWN = {[true] = 2701589519 --[[cr_vrm_down_white]], [false] = 2974155891 --[[cr_vrm_down_dark]]},
+  EXPORT = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_EXPORT@,
+  LIST = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_LIST@,
+  ENTRY = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_ENTRY@,
+  READ = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_READ@,
   K_LEFT = 2765147006,        -- CMD_LEFT
   K_RIGHT = 2075023265,       -- CMD_RIGHT
   }
 end
-PL.VRM = PL.VrmDef()
+PL.VRM = PL.vrm_def()
 
--- 2026-10-13 (owner: «deberían ser exportar set | importar set en una sola fila»; in game the 7th list row only
--- showed after a scroll): ONE list entry under #5 (kind "vrm"), so the list has 6 rows.
--- 2026-10-15 (owner: «dos placas del mismo estilo lado a lado, cada una con su icono y texto»): the two halves are the
--- two instances of an own layer, evt_pset_file_btn (Character Reforged content/menus/skill_table.toml: object
--- evt_pset_file_btn = the team08_02 row with the half-width layout evt_pset_file_btn.g4pkm, plates 417 x 104 at x -98,
--- icon 46 px at x -49, text at x 22, cursor locator at x -42), attached by evt_pc_list at the row slot of instance 5
--- (_list06, left) and _list06_right (490 right). The list row instance under them is blanked. Why not inside the
--- row instance (CR 1.7.33 .. 1.8.2): the row's own G4RA keeps the _list_base_xs01_ok material hidden (type «OK», loop
--- _sma_hide_mat_01: the plate only flashes on a decide), so the right plate never showed, and a text box does not
--- follow a runtime node move (docs/game/mechanics/combo-partners.md), so both labels stayed at the row's text x.
--- Pointer: the row registers two zones (PL.ptr_split; the right half's id is k + 0.5).
-function PL.FileBtnDef()
+-- One list entry under #5 (kind "vrm")
+function PL.file_btn_def()
   return {
-  L = 3123481048 --[[evt_pset_file_btn]],
-  SLOT = 5,                   -- the list row instance the layer is attached over (evt_pc_list _list06)
-  PLATE_X = -98, HALF = 417, GAP = 11,   -- 2026-11-03: plates 417 wide, the right one at 428 (skill_table.toml)
+  L = 3904223246 --[[character_reforged_pset_file_btn]],
+  SLOT = 5,
+  PLATE_X = -98, HALF = 417, GAP = 11,   -- plates 417 wide, the right one at 428 (skill_table.toml)
   }
 end
-PL.FILE_BTN = PL.FileBtnDef()
+PL.FILE_BTN = PL.file_btn_def()
 PL.row_split = {}
 PL.vrm_half = 0
 PL.file_btn_shown = false
 
--- a row instance no longer drawn as the export / import row
-function PL.RowFull(L, k)
+-- a row instance not drawn as the export / import row
+function PL.row_full(L, k)
   if L == PL.L_SSROW then
     PL.row_split[k] = nil
   end
 end
 
 -- the two export / import buttons off (the set list closed or another list drawn)
-function PL.FileBtnHide()
+function PL.file_btn_hide()
   if not PL.file_btn_shown then
     return
   end
@@ -1301,27 +1141,26 @@ function PL.FileBtnHide()
   pcall(funcLuaMenuCommand, C.CURSOR_LOC, F.L, 3313461902 --[[cursor]], 2, 2)
 end
 
--- one button: instance h of evt_pset_file_btn (0 = export, 1 = import), on = it has the focus
-function PL.FileBtnDraw(h, text, on)
+-- Draws one button.
+function PL.file_btn_draw(h, text, on)
   local F = PL.FILE_BTN
-  PL.Open(F.L, h)
+  PL.open(F.L, h)
   funcLuaMenuCommand(C.LAYER_VISIBLE, F.L, h, true)
-  PL.MxRowBase(F.L, h, {name = text}, on)
+  PL.mx_row_base(F.L, h, {name = text}, on)
   local spr = h == 0 and PL.VRM.UP[on] or PL.VRM.DOWN[on]
   funcLuaMenuCommand(C.SPRITE, F.L, PL.VRM.TEX, spr, PL.SLOT_AREA, 0, h)
   funcLuaMenuCommand(C.MESH_VISIBLE, F.L, PL.MESH_AREA, true, h)
 end
 
--- «Exportar | Importar» for row instance k (selected = the row has the focus; PL.vrm_half = which half)
-function PL.VrmRow(k, e, selected)
+function PL.vrm_row(k, e, selected)
   local L, F = PL.L_SSROW, PL.FILE_BTN
   if k ~= F.SLOT then
-    -- the layer sits over one row slot only; elsewhere (not reached: the list has 6 entries) one plain row
-    PL.MxRowBase(L, k, {name = e.names[1] .. "  |  " .. e.names[2]}, selected)
+    -- The layer sits over one row slot only.
+    PL.mx_row_base(L, k, {name = e.names[1] .. "  |  " .. e.names[2]}, selected)
     return
   end
-  -- the list row under the buttons stays empty: no plate, text, icon or mark
-  PL.MxRowBase(L, k, {name = ""}, false)
+  -- The list row under the buttons stays empty.
+  PL.mx_row_base(L, k, {name = ""}, false)
   PL.row_split[k] = true
   funcLuaMenuCommand(C.MESH_VISIBLE, L, PL.SSROW_BASE_ON, false, k)
   funcLuaMenuCommand(C.MESH_VISIBLE, L, PL.SSROW_BASE_OFF, false, k)
@@ -1329,38 +1168,37 @@ function PL.VrmRow(k, e, selected)
   funcLuaMenuCommand(2735666188 --[[text visible]], L, PL.SSROW_TEXT_OFF, false, k)
   pcall(funcLuaMenuCommand, 4176779611 --[[ResetFaceIcon]], L, k, PL.SLOT_AREA)
   PL.file_btn_shown = true
-  PL.FileBtnDraw(0, e.names[1], selected == true and PL.vrm_half == 0)
-  PL.FileBtnDraw(1, e.names[2], selected == true and PL.vrm_half == 1)
+  PL.file_btn_draw(0, e.names[1], selected == true and PL.vrm_half == 0)
+  PL.file_btn_draw(1, e.names[2], selected == true and PL.vrm_half == 1)
 end
 
--- the list cursor on the focused button while the export / import row has the focus (PL.SSListShow)
-function PL.FileBtnCursor(RL, NR)
+-- the list cursor on the focused button while the export / import row has the focus (PL.ss_list_show)
+function PL.file_btn_cursor(RL, NR)
   local F = PL.FILE_BTN
   pcall(funcLuaMenuCommand, C.CURSOR_LOC, RL, 3313461902 --[[cursor]], NR, NR)
   pcall(funcLuaMenuCommand, C.CURSOR_LOC, F.L, 3313461902 --[[cursor]], PL.vrm_half == 1 and 1 or 0, 2)
 end
 
--- the pointer zones of the export / import row: {left rect, right rect} ({x, w, h} from the row instance origin)
-function PL.SetPtrSplit(k)
+-- Declares the pointer zones of the export and import row.
+function PL.set_ptr_split(k)
   if PL.row_split[k] then
     local F = PL.FILE_BTN
     return {{F.PLATE_X, F.HALF, PL.PTR_SS[3]}, {F.PLATE_X + F.HALF + F.GAP, F.HALF, PL.PTR_SS[3]}}
   end
   return nil
 end
-PL.ptr_split = PL.SetPtrSplit
+PL.ptr_split = PL.set_ptr_split
 
--- the entry's action: the selected half of the split row
-function PL.SetKind(e)
+-- Returns the entry's action.
+function PL.set_kind(e)
   if e ~= nil and e.kind == "vrm" then
     return PL.vrm_half == 1 and "import" or "export"
   end
   return e and e.kind
 end
 
--- Up / Down: Down from #5 lands on «Exportar set» (left half); Down on the split row stays; Up from it goes back to
--- the last set row
-function PL.SetVert(list, sel, dir)
+-- Up and Down: Down from #5 lands on "Export set" (left half), Down on the split row stays, Up from it goes back to the last set row.
+function PL.set_vert(list, sel, dir)
   local e = list[sel + 1]
   if e == nil then
     return nil
@@ -1383,62 +1221,57 @@ function PL.SetVert(list, sel, dir)
   return false
 end
 
--- Left / Right on the split row: the other half (same entry, redrawn); nil on a set row (its own left / right page
--- the set preview, graft pset_preview)
-function PL.SetSide(list, sel)
+-- Left / Right on the split row
+function PL.set_side(list, sel)
   local e = list[sel + 1]
   if e == nil or e.kind ~= "vrm" then
     return nil
   end
-  if PL.vrm_half == 0 and PL.Key(PL.VRM.K_RIGHT) then
+  if PL.vrm_half == 0 and PL.key(PL.VRM.K_RIGHT) then
     PL.vrm_half = 1
     return sel
-  elseif PL.vrm_half == 1 and PL.Key(PL.VRM.K_LEFT) then
+  elseif PL.vrm_half == 1 and PL.key(PL.VRM.K_LEFT) then
     PL.vrm_half = 0
     return sel
   end
   return nil
 end
 
-function PL.SetExport(i)
-  local p = PL.SetGet(i)
+function PL.set_export(i)
+  local p = PL.set_get(i)
   if p == nil then
     funcLuaCommand(C.SE, SE_NG)
-    EVT_Message(PL.Txt(PL.TX.EXPORT_EMPTY, i + 1))
+    VRFW.question.notice(PL.txt(PL.TX.EXPORT_EMPTY, i + 1))
     return
   end
   local m, e = p.moves, p.equip
   local pv, cf = p.passives or {}, p.pcfg or {}
-  local name = PL.MxCharaName(funcLuaCommand(C.CHARA_GET, n, 4))
+  local name = PL.mx_chara_name(funcLuaCommand(C.CHARA_GET, n, 4))
   local level = funcLuaCommand(C.CHARA_GET, n, 0) or 0
   local r = {pcall(funcLuaCommand, PL.VRM.EXPORT, n, name, level, m[1] or 0, m[2] or 0, m[3] or 0, m[4] or 0,
     m[5] or 0, m[6] or 0, p.hiper or 0, e[1] or 0, e[2] or 0, e[3] or 0, e[4] or 0, e[5] or 0, p.sixsense or 0,
     p.role or -1, p.name or "", pv[1] or 0, pv[2] or 0, pv[3] or 0, pv[4] or 0, pv[5] or 0,
     cf[1] or 0, cf[2] or 0, cf[3] or 0, cf[4] or 0, cf[5] or 0, p.kit or 0, p.mix or 0)}
-  EVT_Log("player set export", i, tostring(r[1]), tostring(r[2]), tostring(r[3]), tostring(r[4]))
+  Log("player set export", i, tostring(r[1]), tostring(r[2]), tostring(r[3]), tostring(r[4]))
   if r[1] and r[2] == true and type(r[3]) == "string" then
     funcLuaCommand(C.SE, SE_DECIDE)
-    -- forward slashes: a backslash before a letter could read as a text escape in the game's window
-    EVT_Message(PL.Txt(PL.TX.EXPORT_DONE, "modloader_exports/" .. tostring(r[4] or "") .. "/" .. r[3]))
+    VRFW.question.notice(PL.txt(PL.TX.EXPORT_DONE, "modloader_exports/" .. tostring(r[4] or "") .. "/" .. r[3]))
   else
     funcLuaCommand(C.SE, SE_NG)
-    EVT_Message(PL.Txt(PL.TX.EXPORT_FAIL))
+    VRFW.question.notice(PL.txt(PL.TX.EXPORT_FAIL))
   end
 end
 
-function PL.ImportRow(k, e, selected)
+function PL.import_row(k, e, selected)
   local L = PL.L_SSROW
-  PL.MxRowBase(L, k, {name = e.name}, selected)
+  PL.mx_row_base(L, k, {name = e.name}, selected)
   pcall(funcLuaMenuCommand, 4176779611 --[[ResetFaceIcon]], L, k, PL.SLOT_AREA)
   funcLuaMenuCommand(C.SPRITE, L, PL.VRM.TEX, PL.VRM.DOWN[selected == true], PL.SLOT_AREA, 0, k)
   funcLuaMenuCommand(C.MESH_VISIBLE, L, PL.MESH_AREA, true, k)
 end
 
--- a move of the file, checked against this install and this player. Returns the id to keep (0 = dropped) and true
--- when the move is valid. The game's rules: the Hiper row takes only special (category 8) moves, the other rows never;
--- the id must be a move of this install. From another player's file (`other`) the Hiper must also be one this player
--- already has (an active / board skill): auras and miximaxes are bound to their characters.
-function PL.ImportMove(id, hiper, other)
+-- Imports a move of the file, checked against this install and this player.
+function PL.import_move(id, hiper, other)
   if id == 0 then
     return 0, true
   end
@@ -1446,13 +1279,13 @@ function PL.ImportMove(id, hiper, other)
   if not ok or nameId == nil then
     return 0, false
   end
-  if EVT_IsSpecial(id) ~= hiper then
+  if IsSpecial(id) ~= hiper then
     return 0, false
   end
   if hiper and other then
-    local own = EVT_Active(id)
+    local own = Active(id)
     for b = 0, 8 do
-      own = own or EVT_BoardSkill(b) == id
+      own = own or BoardSkill(b) == id
     end
     if not own then
       return 0, false
@@ -1461,7 +1294,7 @@ function PL.ImportMove(id, hiper, other)
   return id, true
 end
 
-function PL.ImportItem(id)
+function PL.import_item(id)
   if id == 0 then
     return 0, true
   end
@@ -1472,11 +1305,11 @@ function PL.ImportItem(id)
   return id, true
 end
 
-function PL.SetImport(i)
+function PL.set_import(i)
   local okc, count, area = pcall(funcLuaCommand, PL.VRM.LIST)
   if not okc or type(count) ~= "number" or count <= 0 then
     funcLuaCommand(C.SE, SE_NG)
-    EVT_Message(PL.Txt(PL.TX.IMPORT_NONE, "modloader_exports/" .. tostring(area or "")))
+    VRFW.question.notice(PL.txt(PL.TX.IMPORT_NONE, "modloader_exports/" .. tostring(area or "")))
     return
   end
   local files = {}
@@ -1487,9 +1320,9 @@ function PL.SetImport(i)
     end
   end
   funcLuaCommand(C.SE, SE_DECIDE)
-  local pick = PL.PopList(files, 0, {row = PL.ImportRow, guide = PL.Txt(PL.TX.IMPORT_GUIDE),
+  local pick = PL.pop_list(files, 0, {row = PL.import_row, guide = PL.txt(PL.TX.IMPORT_GUIDE),
     focus = function(f)
-      PL.PanelPlain(6, f.name, f.file)
+      PL.panel_plain(6, f.name, f.file)
     end,
     keys = function()
       return {{text = PL.TX.SET_IMPORT_ROW, icon = PL.I_ENTER, cmd = PL.K_ENTER, act = "pick"}}
@@ -1501,24 +1334,23 @@ function PL.SetImport(i)
     return
   end
   local r = {pcall(funcLuaCommand, PL.VRM.READ, files[pick + 1].idx, n)}
-  EVT_Log("player set import read", files[pick + 1].file, tostring(r[1]), tostring(r[2]), tostring(r[3]))
+  Log("player set import read", files[pick + 1].file, tostring(r[1]), tostring(r[2]), tostring(r[3]))
   if not r[1] or r[2] ~= true then
     funcLuaCommand(C.SE, SE_NG)
-    EVT_Message(PL.Txt(PL.TX.IMPORT_BAD))
+    VRFW.question.notice(PL.txt(PL.TX.IMPORT_BAD))
     return
   end
-  -- ok, set name, chara_param of the file, checksum ok, missing ids (text), m1..m6, hiper, e1..e5, six sense, role,
-  -- p1..p5, c1..c5 (-1 = no passives stored), kit, mix
+  -- Reads the file fields: ok, set name, chara_param of the file, checksum ok, missing ids (text), m1..m6, hiper, e1..e5, six sense.
   local v = {}
   for k = 7, 37 do
     v[k - 6] = tonumber(r[k]) or 0
   end
-  local setname, fparam, sumok, missing = r[3], EVT_U32(tonumber(r[4]) or 0), r[5] == true, r[6]
-  if not sumok and not PL.MxAsk(PL.Txt(PL.TX.IMPORT_SUM)) then
+  local setname, fparam, sumok, missing = r[3], to_u32(tonumber(r[4]) or 0), r[5] == true, r[6]
+  if not sumok and not VRFW.question.ask(PL.txt(PL.TX.IMPORT_SUM)) then
     funcLuaCommand(C.SE, SE_BACK)
     return
   end
-  local mine = EVT_U32(funcLuaCommand(C.CHARA_GET, n, 4) or 0)
+  local mine = to_u32(funcLuaCommand(C.CHARA_GET, n, 4) or 0)
   local other = fparam ~= 0 and fparam ~= mine
   local skipped = {}
   if type(missing) == "string" and missing ~= "" then
@@ -1527,36 +1359,36 @@ function PL.SetImport(i)
   local p = {name = type(setname) == "string" and setname or "", moves = {}, equip = {}}
   local bad = false
   for k = 1, 6 do
-    local id, ok = PL.ImportMove(EVT_U32(v[k]), false, other)
+    local id, ok = PL.import_move(to_u32(v[k]), false, other)
     p.moves[k] = id
     if not ok then
       bad = true
-      skipped[#skipped + 1] = EVT_Name(EVT_U32(v[k]))
+      skipped[#skipped + 1] = Name(to_u32(v[k]))
     end
   end
-  local hid, hok = PL.ImportMove(EVT_U32(v[7]), true, other)
+  local hid, hok = PL.import_move(to_u32(v[7]), true, other)
   p.hiper = hid
   if not hok then
     bad = true
-    skipped[#skipped + 1] = EVT_Name(EVT_U32(v[7]))
+    skipped[#skipped + 1] = Name(to_u32(v[7]))
   end
   if other and bad then
-    -- another player's set: only when every move is valid for this one
+    -- Handles another player's set.
     funcLuaCommand(C.SE, SE_NG)
-    EVT_Message(PL.Txt(PL.TX.IMPORT_OTHER))
+    VRFW.question.notice(PL.txt(PL.TX.IMPORT_OTHER))
     return
   end
   for t = 1, 5 do
-    local id, ok = PL.ImportItem(EVT_U32(v[7 + t]))
+    local id, ok = PL.import_item(to_u32(v[7 + t]))
     p.equip[t] = id
     if not ok then
-      skipped[#skipped + 1] = string.format("%08X", EVT_U32(v[7 + t]))
+      skipped[#skipped + 1] = string.format("%08X", to_u32(v[7 + t]))
     end
   end
-  local six, sok = PL.ImportItem(EVT_U32(v[13]))
+  local six, sok = PL.import_item(to_u32(v[13]))
   p.sixsense = six
   if not sok then
-    skipped[#skipped + 1] = PL.Txt(PL.TX.PASSIVE)
+    skipped[#skipped + 1] = PL.txt(PL.TX.PASSIVE)
   end
   if v[14] >= 0 and v[14] <= 2 then
     p.role = v[14]
@@ -1564,97 +1396,88 @@ function PL.SetImport(i)
   if v[15] >= 0 then
     p.passives, p.pcfg = {}, {}
     for k = 1, 5 do
-      p.passives[k] = EVT_U32(v[14 + k])
-      p.pcfg[k] = EVT_U32(v[19 + k])
+      p.passives[k] = to_u32(v[14 + k])
+      p.pcfg[k] = to_u32(v[19 + k])
     end
   end
-  p.kit = EVT_U32(v[25])                          -- the kit the set was saved in (0 = none: the current team's)
-  local mix, mix_ok = PL.ImportMove(EVT_U32(v[26]), true, other)
+  p.kit = to_u32(v[25])
+  local mix, mix_ok = PL.import_move(to_u32(v[26]), true, other)
   p.mix = mix
   if not mix_ok then
-    skipped[#skipped + 1] = EVT_Name(EVT_U32(v[26]))
+    skipped[#skipped + 1] = Name(to_u32(v[26]))
   end
-  if PL.SetGet(i) ~= nil and not PL.MxAsk(PL.Txt(PL.TX.ASK_OVER, i + 1)) then
+  if PL.set_get(i) ~= nil and not VRFW.question.ask(PL.txt(PL.TX.ASK_OVER, i + 1)) then
     funcLuaCommand(C.SE, SE_BACK)
     return
   end
-  local name = p.name ~= "" and p.name or PL.Txt(PL.TX.SET_N, i + 1)
-  local ok = PL.SetWrite(i, p, name)
-  EVT_Log("player set import", i, name, "ok", tostring(ok), "other", tostring(other), "skipped", #skipped)
+  local name = p.name ~= "" and p.name or PL.txt(PL.TX.SET_N, i + 1)
+  local ok = PL.set_write(i, p, name)
+  Log("player set import", i, name, "ok", tostring(ok), "other", tostring(other), "skipped", #skipped)
   if not ok then
     funcLuaCommand(C.SE, SE_NG)
-    EVT_Message(PL.Txt(PL.TX.IMPORT_BAD))
+    VRFW.question.notice(PL.txt(PL.TX.IMPORT_BAD))
   elseif #skipped > 0 then
     funcLuaCommand(C.SE, SE_DECIDE)
-    EVT_Message(PL.Txt(PL.TX.IMPORT_SKIP, table.concat(skipped, ", ")))
+    VRFW.question.notice(PL.txt(PL.TX.IMPORT_SKIP, table.concat(skipped, ", ")))
   else
     funcLuaCommand(C.SE, SE_DECIDE)
-    EVT_Message(PL.Txt(PL.TX.IMPORT_DONE, i + 1))
+    VRFW.question.notice(PL.txt(PL.TX.IMPORT_DONE, i + 1))
   end
 end
 
--- the former "Tabla de habilidades original" button: player sets (the original board is no longer opened)
-function EVT_OpenOriginalBoard()
-  if evt_co ~= nil then
+function CharacterReforgedSkillTableOpenOriginalBoard()
+  if vrfw_co ~= nil then
     return
   end
-  evt_co = coroutine.create(function()
-    PL.SetsCoroutine()
+  vrfw_co = coroutine.create(function()
+    PL.sets_coroutine()
   end)
 end
 
--- ---- wrappers ---------------------------------------------------------------------------------------------------
-PL.PrevInit2 = OnInit
+PL.prev_init2 = OnInit
 function OnInit()
-  if VRFW_Param.Has(813466851) then       -- formation id (team dock; kept for the six-sense menu)
-    PL.formation = VRFW_Param.Get(813466851)
+  if VRFW.param.has(813466851) then       -- formation id (team dock; kept for the six-sense menu)
+    PL.formation = VRFW.param.get(813466851)
   end
-  PL.PrevInit2()
+  PL.prev_init2()
 end
 
-function PL.ClearAltGlyph()
+function PL.clear_alt_glyph()
   funcLuaMenuCommand(C.TEXT, L_BTN, 950238781 --[[_text_btn01 key glyph]], "", 0)
   funcLuaMenuCommand(C.TEXT, L_BTN, 625330766 --[[_text_cmd01 label: the button is an icon]], "", 0)
 end
 
--- The player-sets button: the screen's bottom button layer (L_BTN) with the square skin of the other icon buttons and a
--- save icon on top: instance PL.SAVE_BUTTON.ICON of the passive-row layer (the slot of the removed passives button's
--- icon), drawn as the six-sense / role icons are (EVT_ButtonIcon). The icon follows the button's visibility (the list
--- covers and the screen modes hide the button). The hint is the guide line (PL.TX.SET_BTN_GUIDE).
--- (built in a function: these numbers stay out of the main chunk's constant table)
-function PL.SaveButtonDef()
+-- Returns the player-sets button definition.
+function PL.save_button_def()
   return {
-  ICON = EVT_ROW_ICON_PV,     -- row-layer instance attached at the button (_pos_btn_ico02)
+  ICON = ROW_ICON_PREVIEW,     -- row-layer instance attached at the button (_pos_btn_ico02)
   TEX = 2320109963,           -- #/menu/200_icon/15_icon_common/icon_common.g4tx
-  SPRITE = 4128237245,        -- character_reforged_player_sets_icon (Character Reforged content\images)
-  PRIORITY = 560,             -- as the other button icons
+  SPRITE = 4128237245,
+  PRIORITY = 560,
   IS_VISIBLE = @crc:CMND_IS_LAYER_VISIBLE@,    -- CMND_IS_LAYER_VISIBLE (layer, idx)
   CURSOR = 3313461902,        -- the button's cursor attach (off, as on the other square buttons)
   }
 end
-PL.SAVE_BUTTON = PL.SaveButtonDef()
+PL.SAVE_BUTTON = PL.save_button_def()
 
-function PL.SaveIcon()
+function PL.save_icon()
   local B = PL.SAVE_BUTTON
-  EVT_ButtonIcon(B.ICON, B.TEX, B.SPRITE)
-  B.shown = nil                                    -- PL.SaveIconFollow sets the visibility on the next frame
+  ButtonIcon(B.ICON, B.TEX, B.SPRITE)
+  B.shown = nil                                    -- PL.save_icon_follow sets the visibility on the next frame
 end
 
--- the icon shown exactly while the button is (one check per frame; the layer command only on a change)
-function PL.SaveIconFollow()
+function PL.save_icon_follow()
   local B = PL.SAVE_BUTTON
   local ok, visible = pcall(funcLuaMenuCommand, B.IS_VISIBLE, L_BTN, 0)
-  local show = ok and visible ~= false and not evt_pv_open
+  local show = ok and visible ~= false and not character_reforged_pv_open
   if show ~= B.shown then
     B.shown = show
     funcLuaMenuCommand(C.LAYER_VISIBLE, L_PV_ROW, B.ICON, show)
   end
 end
 
--- 2026-10-12 (owner): the «Pasivas de la rama» button between «Pasiva personalizada» and «Rol» is gone; «Rol» and its
--- icon move one square button pitch left into its place (the buttons' locators: ss2_build.py BTN_ICON_DX / BTN_ROLE_DX)
 PL.ROLE_SHIFT_X = -80
-PL.PrevSetupLayer = OnSetupLayer
+PL.prev_setup_layer = OnSetupLayer
 function OnSetupLayer(a1, a2)
   if a1 == PL.L_BTN_ROLE then
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, a1, PL.ROLE_SHIFT_X, 0, 0, a2)
@@ -1663,34 +1486,34 @@ function OnSetupLayer(a1, a2)
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, a1, a2, 3313461902 --[[cursor]], false)
     return
   elseif a1 == PL.L_BADGE then
-    funcLuaMenuCommand(EVT_PRIORITY, a1, a2, 906, true)
+    funcLuaMenuCommand(Priority, a1, a2, 906, true)
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
     return
   elseif a1 == PL.L_ROLE_OPT then
-    funcLuaMenuCommand(EVT_PRIORITY, a1, a2, 895, true)
+    funcLuaMenuCommand(Priority, a1, a2, 895, true)
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, a1, a2, 3313461902 --[[cursor]], false)
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
     return
   elseif a1 == L_PV_ROW and a2 == PL.ROW_ICON_ROLE then
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, a1, PL.ROLE_SHIFT_X, 0, 0, a2)
-    funcLuaMenuCommand(EVT_PRIORITY, a1, a2, 560, true)
-    pcall(PL.RoleIcon)
+    funcLuaMenuCommand(Priority, a1, a2, 560, true)
+    pcall(PL.role_icon)
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, true)
     return
   elseif a1 == L_PV_ROW and a2 == PL.SAVE_BUTTON.ICON then
-    funcLuaMenuCommand(EVT_PRIORITY, a1, a2, PL.SAVE_BUTTON.PRIORITY, true)
-    pcall(PL.SaveIcon)
+    funcLuaMenuCommand(Priority, a1, a2, PL.SAVE_BUTTON.PRIORITY, true)
+    pcall(PL.save_icon)
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, true)
     return
   end
-  PL.PrevSetupLayer(a1, a2)
+  PL.prev_setup_layer(a1, a2)
   if a1 == L_BTN then
-    PL.ClearAltGlyph()                               -- no key glyph and no label: the button is an icon
+    PL.clear_alt_glyph()                               -- no key glyph and no label: the button is an icon
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, a1, a2, PL.SAVE_BUTTON.CURSOR, false)
   end
 end
 
-PL.PrevOpenLayer = OnOpenLayer
+PL.prev_open_layer = OnOpenLayer
 function OnOpenLayer(a1, a2)
   if a1 == PL.L_BTN_ROLE then
     funcLuaMenuCommand(@crc:CMND_PLAY_ANIME_TYPE@, a1, a2, 2734777837 --[[Focus]], 2, 973515837 --[[button]])
@@ -1705,59 +1528,59 @@ function OnOpenLayer(a1, a2)
     PL.role_frames = 10                            -- the open restores mesh visibility: re-apply the icons
     return
   end
-  PL.PrevOpenLayer(a1, a2)
+  PL.prev_open_layer(a1, a2)
   if a1 == L_BTN then
-    PL.ClearAltGlyph()
+    PL.clear_alt_glyph()
   end
 end
 
-PL.PrevChangeFocus = OnChangeFocus
+PL.prev_change_focus = OnChangeFocus
 function OnChangeFocus(a1, a2)
   if a1 == PL.L_BTN_ROLE then
     n14 = L_BTN
     UpdateEquipItemInfo()
-    pcall(PL.RoleGuide)
+    pcall(PL.role_guide)
     return
   end
-  PL.PrevChangeFocus(a1, a2)
+  PL.prev_change_focus(a1, a2)
   if a1 == L_BTN then
-    PL.Guide(PL.Txt(PL.TX.SET_BTN_GUIDE))
+    PL.guide(PL.txt(PL.TX.SET_BTN_GUIDE))
   end
 end
 
-PL.PrevDecide = OnDecideFocus
+PL.prev_decide = OnDecideFocus
 function OnDecideFocus(a1, a2)
   if a1 == PL.L_BTN_ROLE then
-    if evt_co == nil then
-      evt_co = coroutine.create(function()
-        PL.RoleCoroutine()
+    if vrfw_co == nil then
+      vrfw_co = coroutine.create(function()
+        PL.role_coroutine()
       end)
     end
     return
   end
-  PL.PrevDecide(a1, a2)
+  PL.prev_decide(a1, a2)
 end
 
-PL.PrevFunction = OnFunction
+PL.prev_function = OnFunction
 function OnFunction(a1, a2)
   if a1 == 3918588344 then                       -- CMD_FUNC1 (Alt): free (it opened the original board)
     return
   end
-  PL.PrevFunction(a1, a2)
+  PL.prev_function(a1, a2)
 end
 
-PL.PrevStep = Step
+PL.prev_step = Step
 function Step()
-  PL.PrevStep()
-  if n ~= nil and n ~= PL.role_shown and evt_co == nil then
+  PL.prev_step()
+  if n ~= nil and n ~= PL.role_shown and vrfw_co == nil then
     PL.role_shown = n
     PL.role_frames = math.max(PL.role_frames, 3)
   end
-  if PL.role_frames > 0 and evt_co == nil and not evt_pv_open then
+  if PL.role_frames > 0 and vrfw_co == nil and not character_reforged_pv_open then
     PL.role_frames = PL.role_frames - 1
-    pcall(PL.RoleIcon)
-    pcall(PL.SaveIcon)
-    pcall(PL.ClearAltGlyph)
+    pcall(PL.role_icon)
+    pcall(PL.save_icon)
+    pcall(PL.clear_alt_glyph)
   end
-  pcall(PL.SaveIconFollow)
+  pcall(PL.save_icon_follow)
 end

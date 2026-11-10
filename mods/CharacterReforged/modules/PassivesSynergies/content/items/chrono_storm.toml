@@ -1,0 +1,44 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# New synergy sf11009 (cloned from sf10001): any 3 persons of the Chrono Storm players in Miximax form + Bai Long Miximax Zhuge Liang; name = the game's team name (belong team 0xE7EAEBA2).
+
+[[item]]
+name = "chrono_storm"
+base = "sf10001"
+category = "synergy"
+icon_key = "sf11009"
+key_id = true
+  [item.text.es]
+  name = "Chrono Storm"
+  [item.text.en]
+  name = "Chrono Storm"
+  [item.text.fr]
+  name = "Chrono Storm"
+  [item.text.de]
+  name = "Chrono Storm"
+  [item.text.it]
+  name = "Chrono Storm"
+  [item.text.pt]
+  name = "Tempestade Crono"
+  [item.text.ja]
+  name = "クロノストーム"
+  [item.text.zh_hans]
+  name = "时空风暴"
+  [item.text.zh_hant]
+  name = "時空風暴"
+
+[[currency]]
+name = "arion_miximax_card"
+spirit = 0x489A980B                      # chara_param of Arion Sherwind Miximax c05028130
+rarity = 4
+
+[[currency]]
+name = "sol_daystar_miximax_card"
+spirit = 0x342F0679                      # chara_param of Sol Daystar Miximax c05028060
+rarity = 4
+
+[[currency]]
+name = "bai_long_miximax_card"
+spirit = 0x07DB0ECC                      # chara_param of Bai Long Miximax c05028140
+rarity = 4

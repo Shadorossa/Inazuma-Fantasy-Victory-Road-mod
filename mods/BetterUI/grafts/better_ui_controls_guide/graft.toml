@@ -1,0 +1,27 @@
+# BetterUI: the controls guide of mode top menus with hidden corner buttons as a footer prompt and its CMD_FUNC3 key.
+name = "better_ui_controls_guide"
+order = 916
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = ["UpdateButtonGuide", "OnFunction"]
+description = "BetterUI: controls guide as a footer prompt instead of the corner button"
+
+[[files]]
+stem = "bb_stadium_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "controls_guide.lua"
+  marker = "better_ui_controls_guide"
+  vars = { "@MENU@" = "bb_stadium_top_menu" }
+
+[[files]]
+stem = "chronicle_mode_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "controls_guide.lua"
+  marker = "better_ui_controls_guide"
+  vars = { "@MENU@" = "chronicle_mode_top_menu" }

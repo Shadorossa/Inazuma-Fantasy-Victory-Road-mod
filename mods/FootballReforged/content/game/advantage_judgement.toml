@@ -7,7 +7,7 @@ name = "football_reforged_match_info"
 base = "game_root"
 chain = ["ROOT_MATCH"]
 
-# mi+0: the match's rule bits. Bit 2 = a level match ends in the Advantage Judgement (docs/game/mechanics/advantage-judgement.md).
+# mi+0: the match's rule bits.
 [[VRFW.Struct]]
 name = "FootballReforgedMatchRules"
 size = 0x4

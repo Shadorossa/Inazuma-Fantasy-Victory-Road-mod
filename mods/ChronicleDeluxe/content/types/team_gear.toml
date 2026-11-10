@@ -1,5 +1,5 @@
 # Declaration schema of ChronicleDeluxe.team_gear/1 (content\team_gear): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
-# A mod's items a rival team drops with its own boots (read by research/scripts/chronicle_deluxe_drops_build.py).
+# A mod's items a rival team drops with its own boots (read by research/mods/ChronicleDeluxe/_tools/chronicle_deluxe_drops_build.py).
 schema = "VRFW.decl_schema/1"
 kind = "ChronicleDeluxe.team_gear/1"
 folder = "content/team_gear"

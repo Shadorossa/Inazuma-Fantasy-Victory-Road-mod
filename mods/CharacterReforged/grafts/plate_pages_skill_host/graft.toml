@@ -1,6 +1,4 @@
-# Character Reforged: the player page's shared header row / white card on the skill table (evt_skill_slot_menu, the new
-# file of ss2_menus): the block of research/grafts/plate_pages with the host table host_skill.lua (no pages, fixed type
-# 9, no chart). Split out of plate_pages on 2026-10-14 (docs/refactor/aura-mods-split.md «Player page»).
+# The player page's header row and white card on the skill table (host table host_skill.lua).
 name = "plate_pages_skill_host"
 mod = "CharacterReforged"
 order = 975
@@ -11,33 +9,30 @@ wraps = ["ChangePersonalPlatePageByCharaHdl", "ChangePersonalPlatePageByCharaPar
          "UpdateCharaParameterGraphByCharaStHdl", "SwapPersonalPlateTexture", "PostStep", "OnCloseLayer",
          "SetPersonalPlateType", "OnSetupPersonalPlateLayer", "ChangeActiveUI", "OpenPersonalPlate",
          "ClosePersonalPlate", "SetNameSearchInputEnabled",
-         "Step"]   # 2026-10-14: the page's per-frame body runs after the screen's Step (no PostStep there; host_skill.lua)
-description = "Player page: header row and card on the skill table (evt_skill_slot_menu)"
+         "Step"]   # the page's per-frame body runs after the screen's Step (no PostStep there; host_skill.lua)
+description = "Player page: header row and card on the skill table (vrfw_skill_slot_menu)"
 
-[[files]]
-path = "common/script/lua/menu/evt_skill_slot_menu.lua.bin"
-
-  [[files.ops]]
-  type = "append_block"
-  source = "../plate_pages/plate_pages.lua"
-  marker = "plate_pages plate"
-
-    [files.ops.include]   # the block's own pieces (parts\*.lua) after the host's
-    "@COMMON@" = "../plate_pages/plate_pages_common.lua"
-    "@HOST@" = "../plate_pages/host_skill.lua"
-    "@PP_BAND@" = "../plate_pages/parts/band.lua"
-    "@PP_DOTS@" = "../plate_pages/parts/dots.lua"
-    "@PP_MOVES@" = "../plate_pages/parts/moves.lua"
-    "@PP_PASSIVES@" = "../plate_pages/parts/passives.lua"
-    "@PP_MOD_PAGES@" = "../plate_pages/parts/mod_pages.lua"
-    "@PP_HOST_CHART@" = "../plate_pages/parts/host_chart.lua"
-    "@PP_EMPTY_EQUIPMENT_HIPER@" = "../plate_pages/parts/empty_equipment_hiper.lua"
-    "@PP_STAT_ROWS@" = "../plate_pages/parts/stat_rows.lua"
-    "@PP_FORMS@" = "../plate_pages/parts/forms.lua"
-    "@PP_GAUGE_COPIES@" = "../plate_pages/parts/gauge_copies.lua"
-    "@PP_POINTER@" = "../plate_pages/parts/pointer.lua"
-    "@PP_ITEM_CARD@" = "../plate_pages/parts/item_card.lua"
-    "@PP_ITEM_CARD_LAYERS@" = "../plate_pages/parts/item_card_layers.lua"
-    "@PP_ITEM_CARD_EFFECT@" = "../plate_pages/parts/item_card_effect.lua"
-    "@PP_ITEM_CARD_STAT_ROWS@" = "../plate_pages/parts/item_card_stat_rows.lua"
-    "@PP_ITEM_CARD_SHOW@" = "../plate_pages/parts/item_card_show.lua"
+[[hooks]]
+stem = "vrfw_skill_slot_menu"
+source = "../plate_pages/plate_pages.lua"
+require = ["CharacterReforgedSkillTableOpenOriginalBoard", "CharacterReforgedSkillTablePickCoroutine"]
+# A hook file runs after the VRFW library: this block calls VRFW.host at load, and a new script's main chunk runs before it.
+[hooks.include]
+"@COMMON@" = "../plate_pages/plate_pages_common.lua"
+"@HOST@" = "../plate_pages/host_skill.lua"
+"@PP_BAND@" = "../plate_pages/parts/band.lua"
+"@PP_DOTS@" = "../plate_pages/parts/dots.lua"
+"@PP_MOVES@" = "../plate_pages/parts/moves.lua"
+"@PP_PASSIVES@" = "../plate_pages/parts/passives.lua"
+"@PP_MOD_PAGES@" = "../plate_pages/parts/mod_pages.lua"
+"@PP_HOST_CHART@" = "../plate_pages/parts/host_chart.lua"
+"@PP_EMPTY_EQUIPMENT_HIPER@" = "../plate_pages/parts/empty_equipment_hiper.lua"
+"@PP_STAT_ROWS@" = "../plate_pages/parts/stat_rows.lua"
+"@PP_FORMS@" = "../plate_pages/parts/forms.lua"
+"@PP_GAUGE_COPIES@" = "../plate_pages/parts/gauge_copies.lua"
+"@PP_POINTER@" = "../plate_pages/parts/pointer.lua"
+"@PP_ITEM_CARD@" = "../plate_pages/parts/item_card.lua"
+"@PP_ITEM_CARD_LAYERS@" = "../plate_pages/parts/item_card_layers.lua"
+"@PP_ITEM_CARD_EFFECT@" = "../plate_pages/parts/item_card_effect.lua"
+"@PP_ITEM_CARD_STAT_ROWS@" = "../plate_pages/parts/item_card_stat_rows.lua"
+"@PP_ITEM_CARD_SHOW@" = "../plate_pages/parts/item_card_show.lua"

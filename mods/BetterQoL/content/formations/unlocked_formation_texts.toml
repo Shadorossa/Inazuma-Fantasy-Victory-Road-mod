@@ -1,9 +1,4 @@
-# Better QoL › Unlocked formations: the names and descriptions of the formations the game has but never offers, in
-# the 9 languages. Each name is the game's own name of that language with its DF-MC-DL shape first (position_id 2-3 /
-# 4-7 / 8-10), written as that language writes the offered formations; where the game left only a Japanese placeholder
-# for the description, it is built from the layout by research/scripts/formation_descriptions.py. The formations with
-# a layout of their own in series_formations.toml carry their texts there; the two descriptions translated from the
-# game's Japanese text (F-Raimon, F-Basic) are text rows (text/rows/formation_descriptions.toml).
+# Names and descriptions (9 languages) of the formations the game has but never offers.
 schema = "VRFW.formation/1"
 
 # formation 0x2CD9760B (4-3-3 F-Raimon)
@@ -124,7 +119,6 @@ target = 0x69E8241F
 title = { ja = "２－６－２　F-アルバトロス", en = "2-6-2 F-Albatross", es = "2-6-2 F-Albatros", fr = "2-6-2 F-Albatros", de = "2-6-2 F-Albatros", it = "2-6-2 F-Albatro", pt = "2-6-2 F-Albatroz", zh_hans = "2-6-2 F-信天翁", zh_hant = "2-6-2 F-信天翁" }
 description = { ja = "中盤に６人を置いた　守備的な陣形。\n中央からの攻撃が得意。\nチャンスを作るには忍耐が必要。", en = "A defence-minded formation with six players crowding\nthe midfield. Its play goes mainly through the\nmiddle. Creating chances takes patience.", es = "Una formación defensiva con seis centrocampistas en\nel medio. Su juego pasa sobre todo por el centro.\nCrear ocasiones requiere paciencia.", fr = "Une formation défensive avec six joueurs au milieu de\nterrain. Son jeu passe surtout par l'axe. Il faut de la\npatience pour se créer des occasions.", de = "Eine defensive Aufstellung mit sechs Spielern im\nMittelfeld. Das Spiel läuft vor allem durch die Mitte.\nTorchancen erfordern Geduld.", it = "Una formazione difensiva con sei centrocampisti in\nmezzo. Il gioco passa soprattutto per il centro. Creare\noccasioni richiede pazienza.", pt = "Formação defensiva com seis jogadores no meio-campo.\nO jogo passa principalmente pelo meio. Criar chances\nexige paciência.", zh_hans = "中场布置六名球员的防守型阵型。\n擅长中路进攻。\n创造机会需要耐心。", zh_hant = "中場佈置六名球員的防守型陣型。\n擅長中路進攻。\n創造機會需要耐心。" }
 
-# formation 0x1EEF1489 (6-2-2 F-Legacy)
 [[edit]]
 target = 0x1EEF1489
 title = { ja = "６－２－２　F-レガシー", en = "6-2-2 F-Legacy", es = "6-2-2 F-Legado", fr = "6-2-2 F-Héritage", de = "6-2-2 F-Vermächtnis", it = "6-2-2 F-Eredità", pt = "6-2-2 F-Legado", zh_hans = "6-2-2 F-传承", zh_hant = "6-2-2 F-傳承" }

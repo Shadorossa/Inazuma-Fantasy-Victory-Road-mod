@@ -87,6 +87,8 @@ key = "bbcr_legend_ares_08_bb"
 name_text = 0x251D3247
 level = 40
 series = "ARES"
+music = "auto"
+goal_jingle = "auto"
 stadium_fallback = "s23g001"
 stadium_image = "ev_chronicle_img/ev_ch_s23g001_0116.g4tx"
 appears = [{ list = "bb_stadium", category = "secondary", season = "series_07", row = { copy = false, stadium = 0xE3DD6DDB, image = "ev_chronicle_img/ev_ch_s23g001_0116.g4tx", image_name = "ev_ch_s23g001_0116", bgm = 0x6C1E6CDD } }]

@@ -3,7 +3,7 @@ schema = "VRFW.option/2"
 
 [[option]]
 id = "voice_pack"
-visual = true                                 # only what this player sees / hears: not compared in online rooms
+visual = true
 # Values: "None" plus the installed voice packs; custom row driven by lua/setting_menu/110_voice_pack.lua.
 type = "lua"
 label = "voice_pack"
@@ -15,15 +15,14 @@ parent = "mod_options.game_settings"
 # Names the Lua shows (value 0, loader off).
 texts = ["voice_pack_none", "voice_pack_off"]
 # Setting id of an older equivalent row, adopted instead of duplicated.
-row_key = "evt_set_voice_lang"
+row_key = "vrfw_set_voice_lang"
 # First child of "Game settings".
 order = 101
 
-# Menu music: BGM played by the menus (framework mechanism, hook menu_music). Only the retail value is declared here;
-# the other values are published at boot from the enabled mods' [[VRFW.MenuMusic]] themes. Hidden when none is declared.
+# Menu music: BGM played by the menus (framework mechanism, hook menu_music).
 [[option]]
 id = "menu_music"
-visual = true                                 # only what this player sees / hears: not compared in online rooms
+visual = true
 type = "list"
 hook = "menu_music"
 label = "menu_music"

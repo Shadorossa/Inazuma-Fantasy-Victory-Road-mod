@@ -1,0 +1,9 @@
+schema = "VRFW.extra_slot/1"
+
+[[VRFW.ExtraSlotExtend]]
+slot = "CharacterReforged.skill_set"
+
+[VRFW.ExtraSlotExtend.fusion]
+carrier = "wmm_evt"
+carrier_text = "Miximax Trans"
+moves = 1                            # the partner's move on the mix plate once the miximax runs

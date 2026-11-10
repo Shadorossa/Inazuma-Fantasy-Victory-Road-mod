@@ -1,6 +1,4 @@
--- Inazuma Fantasy level orbs: the amount window's side. Only while the item use menu has set the three params
--- (item_use_level_orbs.lua) the window's label shows the result level and the window draws over that menu; a shop opens
--- it without the params and nothing changes.
+-- Inazuma Fantasy level orbs
 local level_orb_window = nil
 
 local function read_param(key)

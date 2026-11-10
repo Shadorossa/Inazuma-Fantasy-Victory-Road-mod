@@ -1,0 +1,5 @@
+# Settings of Football Reforged's scripts (kind VRFW.script/1).
+schema = "VRFW.script/1"
+
+[settings]
+budget = 5000000

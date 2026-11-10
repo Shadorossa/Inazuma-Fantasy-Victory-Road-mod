@@ -1,0 +1,49 @@
+schema = "VRFW.gallery/1"
+# The scene archive's «Inazuma Eleven» tab and the three DS openings, also offered in the «Opening» row.
+
+[[VRFW.GalleryTab]]
+Name = "inazuma_eleven"
+Text = { ja = "イナズマイレブン", en = "Inazuma Eleven", es = "Inazuma Eleven", fr = "Inazuma Eleven", de = "Inazuma Eleven", it = "Inazuma Eleven", pt = "Inazuma Eleven", zh_hans = "闪电十一人", zh_hant = "閃電十一人" }
+Order = 100
+
+[[VRFW.Video]]
+Name = "ie1"
+Title = { ja = "IE1 | Tachiagariyo", en = "IE1 | Tachiagariyo", es = "IE1 | Tachiagariyo", fr = "IE1 | Tachiagariyo", de = "IE1 | Tachiagariyo", it = "IE1 | Tachiagariyo", pt = "IE1 | Tachiagariyo", zh_hans = "IE1 | Tachiagariyo", zh_hant = "IE1 | Tachiagariyo" }
+File = "if_op_ie1.usm"
+Songs = { ja = "if_op_ie1_ja" }
+DefaultLanguage = "ja"
+Tab = "inazuma_eleven"
+Opening = true
+Order = 99
+ArchiveKey = "if_vt_op_ie1"
+OpeningKey = "if_op_ie1"
+TemplateMovie = "ev74_01190"
+TemplateEvent = "ev01_00050"
+
+[[VRFW.Video]]
+Name = "ie2"
+Title = { ja = "IE2 | Tsunagariyo", en = "IE2 | Tsunagariyo", es = "IE2 | Tsunagariyo", fr = "IE2 | Tsunagariyo", de = "IE2 | Tsunagariyo", it = "IE2 | Tsunagariyo", pt = "IE2 | Tsunagariyo", zh_hans = "IE2 | Tsunagariyo", zh_hant = "IE2 | Tsunagariyo" }
+File = "if_op_ie2.usm"
+Songs = { ja = "if_op_ie2_ja", es = "if_op_ie2_es" }
+DefaultLanguage = "ja"
+Tab = "inazuma_eleven"
+Opening = true
+Order = 100
+ArchiveKey = "if_vt_op_ie2"
+OpeningKey = "if_op_ie2"
+TemplateMovie = "ev74_01190"
+TemplateEvent = "ev01_00050"
+
+[[VRFW.Video]]
+Name = "ie3"
+Title = { ja = "IE3 | Kiai de Hurricane", en = "IE3 | Kiai de Hurricane", es = "IE3 | Kiai de Hurricane", fr = "IE3 | Kiai de Hurricane", de = "IE3 | Kiai de Hurricane", it = "IE3 | Kiai de Hurricane", pt = "IE3 | Kiai de Hurricane", zh_hans = "IE3 | Kiai de Hurricane", zh_hant = "IE3 | Kiai de Hurricane" }
+File = "if_op_ie3.usm"
+Songs = { ja = "if_op_ie3_ja", es = "if_op_ie3_es", en = "if_op_ie3_en", it = "if_op_ie3_it" }
+DefaultLanguage = "en"
+Tab = "inazuma_eleven"
+Opening = true
+Order = 103
+ArchiveKey = "if_vt_op_ie3"
+OpeningKey = "if_op_ie3"
+TemplateMovie = "ev74_01190"
+TemplateEvent = "ev01_00050"

@@ -1,6 +1,3 @@
-# Aura Reworked › the spirit passives: the blocks of the warrior spirits' passives (block types: Signature Passives' content\types\
-# passive_block.toml). Each block is declared once and used by name by any number of passives
-# (content\special_passives\spirits.toml). Edited in ModManager «Pasivas» or by hand.
 schema = "VRFW.passive_block/1"
 
 [[VRFW.TechniquePower]]
@@ -72,9 +69,8 @@ name = "stack_1_8s"
 max = 1
 duration_s = 8
 
-[[VRFW.TensionCost]]
-name = "tension_cost_m40"
-percent = -40
+[[VRFW.BallWalls]]
+name = "ball_walls"
 
 [[VRFW.HasBall]]
 name = "has_ball"
@@ -234,7 +230,6 @@ value = 8
 
 [[VRFW.Clock]]
 name = "clock_last_third"
-# relative to the half's real length (2/3 to the end); needs the half-fraction form of the Clock block
 half_fraction_from = "2/3"
 half_fraction_to = "1"
 
@@ -378,9 +373,23 @@ name = "stack_1_10s"
 max = 1
 duration_s = 10
 
+[[VRFW.TargetZone]]
+name = "targets_own_half"
+z = [-80, 0]
+
+[[VRFW.TargetZone]]
+name = "targets_rival_half"
+z = [0, 80]
+
 [[VRFW.MoveSpeed]]
-name = "speed_25"
-percent = 25
+name = "speed_15_team"
+percent = 15
+target = "team"
+
+[[VRFW.MoveSpeed]]
+name = "speed_7_5_team"
+percent = 7.5
+target = "team"
 
 [[VRFW.Stat]]
 name = "stat_technique_10"
@@ -524,7 +533,6 @@ percent = -25
 
 [[VRFW.Clock]]
 name = "clock_first_third"
-# relative to the half's real length (start to 1/3); needs the half-fraction form of the Clock block
 half_fraction_from = "0"
 half_fraction_to = "1/3"
 

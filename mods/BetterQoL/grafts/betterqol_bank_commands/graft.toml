@@ -1,0 +1,18 @@
+# Bank player popup commands (hook files on chara_bank_menu and ability_learning_board_menu).
+name = "betterqol_bank_commands"
+mod = "BetterQoL"
+order = 340
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "Bank player popup: skill table, equipment and passives entries, quick retire with auto save"
+
+[[hooks]]
+stem = "chara_bank_menu"
+source = "betterqol_bank_commands.lua"
+
+# the ability board opened from the bank for a player outside the dock
+[[hooks]]
+stem = "ability_learning_board_menu"
+source = "betterqol_bank_board.lua"

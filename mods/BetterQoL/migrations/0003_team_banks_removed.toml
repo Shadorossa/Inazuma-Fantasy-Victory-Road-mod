@@ -1,0 +1,20 @@
+schema = "VRFW.migration/1"
+id = "BetterQoL.team_banks_removed"
+description = "Team bank pages are gone (team templates replace them): their per-slot files are removed (backed up)"
+phase = "saves"
+
+[[step]]
+kind = "delete_file"
+path = "{saves}/slot*/BetterQoL/team_banks.bin"
+
+[[step]]
+kind = "delete_file"
+path = "{saves}/slot*/BetterQoL/team_banks.best.bin"
+
+[[step]]
+kind = "delete_file"
+path = "{saves}/slot*/BetterQoL/team_banks.borrow"
+
+[[step]]
+kind = "delete_file"
+path = "{saves}/slot*/BetterQoL/team_banks.rival"

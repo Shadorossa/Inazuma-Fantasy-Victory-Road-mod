@@ -1,0 +1,19 @@
+# Declaration schema of ChronicleDeluxe.universe_prize/1 (content\universe_prizes): the items a Players Universe pull can add on top of its cards. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "ChronicleDeluxe.universe_prize/1"
+folder = "content/universe_prizes"
+label = "Universe prizes"
+label_es = "Premios del Universo"
+doc = "Items a Players Universe pull can add on top of its cards. The odds are in Chronicle Deluxe's config.toml [universe_prizes]; the weights share them out."
+doc_es = "Objetos que un sobre del Universo puede añadir a sus cartas. La probabilidad está en config.toml [universe_prizes] de Chronicle Deluxe; los pesos la reparten."
+
+[entry.UniversePrize]
+doc = "one item, or a category of the item table, a pull can add"
+kind = { type = "string", doc = "item (default) or category" }
+pool = { type = "string", doc = "the pool that rolls it: config.toml [universe_prizes.<pool>]; default items" }
+weight = { type = "number", required = true, doc = "its share inside the pool, above 0" }
+item = { type = "string", ref = "item", doc = "kind item: the item's key string (its crc32 is the item id)" }
+list = { type = "string", doc = "kind category: the item_config list, e.g. ITEM_SPECIAL_SKILL_INFO" }
+sub_categories = { type = "ints", doc = "kind category: the list's rows with these sub-categories (column 6)" }
+sold_in_shop = { type = "bool", doc = "kind category: only items a shop sells; a row a mod hid does not count" }
+weight_by_skill_power = { type = "bool", doc = "kind category: rows are moves' manuals; stronger moves are rarer (power_exponent of the pool)" }

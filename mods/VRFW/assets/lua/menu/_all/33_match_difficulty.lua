@@ -1,22 +1,19 @@
--- menu_engine: the match difficulties that exist with the active mods, VRFW_MatchDifficulty (VRFW). Definitions only (this
--- file runs in every script VM, lua\_all; no engine call at load: the set is read at the first use).
--- The difficulties are the active mods' defaults\match_difficulty.toml ([MatchDifficulty.<Id>]: Difficulty, Contexts,
--- Enabled, Badge, BadgeAtlas, Name, Level, Order; merged by Id in load order), served per context by the team type:
--- CMND_VRFW_TEAM_DIFFICULTY_COUNT(ctx) / _GET(ctx, i). Contexts: "route" (normal board pieces), "gate" (gate pieces),
--- "chain", "free_match". Readers: a mod's board rules (e.g. a chronicle redesign: dots, battle-kind rows,
--- team-list orbs) instead of their own copies.
-if VRFW_MatchDifficulty == nil then
+-- lua_patch.scope: used
+if VRFW.match_difficulty == nil then
   local D = {
-    LOG = VRFW_Cmd.EVT_LOG,            -- CMND_EVT_LOG
-    COUNT = VRFW_Cmd.VRFW_TEAM_DIFFICULTY_COUNT,          -- CMND_VRFW_TEAM_DIFFICULTY_COUNT
-    GET = VRFW_Cmd.VRFW_TEAM_DIFFICULTY_GET,            -- CMND_VRFW_TEAM_DIFFICULTY_GET
-    sets = {},                   -- ctx -> {[difficulty] = true}, or false = nothing declared (every difficulty exists)
-    lists = {},                  -- ctx -> {{difficulty, id, level, atlas, sprite}, ...} in order
+    COUNT = VRFW.commands.VRFW_TEAM_DIFFICULTY_COUNT,          -- CMND_VRFW_TEAM_DIFFICULTY_COUNT
+    GET = VRFW.commands.VRFW_TEAM_DIFFICULTY_GET,            -- CMND_VRFW_TEAM_DIFFICULTY_GET
+    CLASS = VRFW.commands.VRFW_FM_CLASS,                     -- CMND_VRFW_FM_CLASS
+    sets = {},
+    lists = {},
+    orbs = {},
   }
-  VRFW_MatchDifficulty = D
+  VRFW.match_difficulty = D
 
+  local logger
   local function log(...)
-    pcall(funcLuaCommand, D.LOG, "vrfw.MatchDifficulty", ...)
+    logger = logger or VRFW.logger.new("vrfw.MatchDifficulty")
+    logger(...)
   end
 
   local function load(ctx)
@@ -42,21 +39,40 @@ if VRFW_MatchDifficulty == nil then
     log(ctx, n)
   end
 
-  -- {[difficulty] = true} of context ctx; nil = nothing declared (every difficulty exists: keep the retail behaviour)
-  function D.Set(ctx)
+  --- The difficulty set of context ctx; nil when none is declared.
+  function D.set(ctx)
     load(ctx)
     return D.sets[ctx] or nil
   end
 
-  -- does difficulty d exist in context ctx (true when nothing is declared)
-  function D.Exists(ctx, d)
-    local s = D.Set(ctx)
+  --- Does difficulty d exist in context ctx (true when nothing is declared).
+  function D.exists(ctx, d)
+    local s = D.set(ctx)
     return s == nil or s[d] == true
   end
 
-  -- the difficulties of context ctx in order ({difficulty, id, level, atlas, sprite}; empty when nothing is declared)
-  function D.List(ctx)
+  --- The declared difficulties of context ctx, in order.
+  function D.list(ctx)
     load(ctx)
     return D.lists[ctx]
+  end
+
+  --- The clear orb sprite crc32 of free-match class d on game `game` (its own Orb, else the class's), nil = none declared; read once.
+  function D.class_orb(game, d)
+    if type(game) ~= "number" or type(d) ~= "number" then
+      return nil
+    end
+    local per_game = D.orbs[game]
+    if per_game == nil then
+      per_game = {}
+      D.orbs[game] = per_game
+    end
+    local orb = per_game[d]
+    if orb == nil then
+      local r = {VRFW.host.command(D.CLASS, d, game)}
+      orb = r[1] == true and type(r[7]) == "number" and r[7] ~= 0 and r[7] or false
+      per_game[d] = orb
+    end
+    return orb or nil
   end
 end

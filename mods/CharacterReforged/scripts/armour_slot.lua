@@ -1,23 +1,11 @@
--- Character Reforged › the skill board's keshin armour slot without the armour item.
--- OFF by default: on only while an active mod declares, in its content\skill_board\*.toml (schema
--- CharacterReforged.skill_board/1),
---   [CharacterReforged.SkillBoard]
---   armour_without_item = true
--- (All Keshin Armed does; later mods win key by key). Without such a mod the slot needs the armour item, as in the
--- retail game.
--- When the ability board's armour slot beside a keshin piece is set, the game looks for the player's copy of the armour
--- item (ArmedItemHandle) and does nothing without one. After that look-up, when it found none: the armour the game's
--- change_aura_skill_config names for (keshin, card) gets one copy (Item.Add) and the look-up runs again, so the game's
--- own decide goes on with the new copy. No id is named here.
 
 CharacterReforged = CharacterReforged or {}
 
 local RULES = nil
 
-local Id = require "VRFW/lib/ids"
-local hex = Id.hex
+local Id = VRFW.ids
+local hex = Id.hex_text
 
--- the merged [CharacterReforged.SkillBoard] of the active mods (read once, at the first board decide)
 local function rules()
   if RULES then return RULES end
   RULES = { armour_without_item = false, from = nil }
@@ -38,13 +26,7 @@ end
 
 local BUF_ARMED, BUF_ADD
 
-local function u32_at(p)
-  if not p or p == 0 then
-    return 0
-  end
-  local ok, v = pcall(VRFW.mem.read, "u32", p)
-  return ok and v or 0
-end
+local function u32_at(p) return VRFW.memory.read("u32", p) or 0 end
 
 VRFW.on("hook:CharacterReforged.ArmedSlotItem:post", function(ev)
   if not rules().armour_without_item then
@@ -54,9 +36,9 @@ VRFW.on("hook:CharacterReforged.ArmedSlotItem:post", function(ev)
   if u32_at(out) ~= 0 then
     return nil -- the player owns a copy: the game's rule
   end
-  BUF_ARMED = BUF_ARMED or VRFW.mem.buffer("character_reforged_armed_of_card", 16)
-  BUF_ADD = BUF_ADD or VRFW.mem.buffer("character_reforged_item_add", 64)
-  pcall(VRFW.mem.write, "u32", BUF_ARMED, 0)
+  BUF_ARMED = BUF_ARMED or VRFW.memory.buffer("character_reforged_armed_of_card", 16)
+  BUF_ADD = BUF_ADD or VRFW.memory.buffer("character_reforged_item_add", 64)
+  VRFW.memory.write("u32", BUF_ARMED, 0)
   if not pcall(VRFW.call, "CharacterReforged.AuraChangeOfCard", BUF_ARMED, keshin_p, card_p) then
     return nil
   end

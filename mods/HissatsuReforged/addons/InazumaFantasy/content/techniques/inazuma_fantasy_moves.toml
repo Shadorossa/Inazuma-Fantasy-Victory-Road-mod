@@ -1,0 +1,33 @@
+schema = "VRFW.technique/3"
+
+# the numbers it gives Sierra celestial
+[[edit]]
+target = "InazumaFantasy.celestial_saw_cuts"
+power_min = 60
+power_max = 380
+tp = 60
+recast = 60
+
+# the numbers it gives Tormenta de fuego: this move is never the weaker one
+[[edit]]
+target = "InazumaFantasy.dark_fire_storm"
+power_min = 75
+power_max = 480
+tp = 75
+recast = 60
+
+# the numbers it gives Tornado de fuego A: this move is never the weaker one
+[[edit]]
+target = "InazumaFantasy.dark_tornado_a"
+power_min = 50
+power_max = 320
+tp = 50
+recast = 60
+
+# the numbers it gives Colmillo de pantera: this move is never the weaker one
+[[edit]]
+target = "InazumaFantasy.tiger_fang"
+power_min = 100
+power_max = 640
+tp = 100
+recast = 90

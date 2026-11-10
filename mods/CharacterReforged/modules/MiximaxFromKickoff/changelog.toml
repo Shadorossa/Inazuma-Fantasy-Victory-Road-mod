@@ -1,0 +1,48 @@
+schema = "VRFW.changelog/1"
+# One general summary of the module, shown on «Novedades de mods».
+
+[[release]]
+icon = "general"
+notes = [
+    "Miximax activo desde el saque",
+]
+
+[release.en]
+notes = [
+    "Miximax active from kick-off",
+]
+
+[release.fr]
+notes = [
+    "Miximax actif dès le coup d'envoi",
+]
+
+[release.de]
+notes = [
+    "Miximax aktiv ab Anstoß",
+]
+
+[release.it]
+notes = [
+    "Miximax attivo dal calcio d'inizio",
+]
+
+[release.pt]
+notes = [
+    "Miximax ativo desde o pontapé de saída",
+]
+
+[release.ja]
+notes = [
+    "キックオフからミキシマックス発動",
+]
+
+[release.zh_hans]
+notes = [
+    "开球即超级合体",
+]
+
+[release.zh_hant]
+notes = [
+    "開球即超級合體",
+]

@@ -1,22 +1,13 @@
--- menu_engine: per-save match statistics (VRFW base feature).
--- Definitions only (this file runs in every script VM, lua\_all). The ONE place that keeps how many times the player beat
--- a team, per save slot: the save service (owner "VRFW"), key "stats.wins.<team id>" (the team's numeric id as
--- the team type gives it, e.g. a chain tile's `team`), a decimal string.
---
--- Fed by whoever sees a won match (VRFW_Stats.AddWin): currently the chain boards (VRFW_Chain.Win, every opener). A floor
--- provider (VRFW_Stats.AddFloor) answers what an older save already proves (a chain tile won before this counter existed
--- = at least 1 win); the first AddWin of a team starts from that floor, so the count never goes backwards.
--- Lua API: VRFW_Stats.WinsVs(team) -> n, VRFW_Stats.AddWin(team) -> n, VRFW_Stats.AddFloor(fn(team) -> n).
--- No engine call at load time.
-if VRFW_Stats == nil then
+-- lua_patch.scope: used
+if VRFW.stats == nil then
   local ST = {
-    SAVE_GET = VRFW_Cmd.VRFW_SAVE_GET,   -- CMND_VRFW_SAVE_GET (owner, key, default)
-    SAVE_SET = VRFW_Cmd.VRFW_SAVE_SET,   -- CMND_VRFW_SAVE_SET (owner, key, value, commit)
-    LOG = VRFW_Cmd.EVT_LOG,        -- CMND_EVT_LOG
+    SAVE_GET = VRFW.commands.VRFW_SAVE_GET,
+    SAVE_SET = VRFW.commands.VRFW_SAVE_SET,
+    LOG = VRFW.commands.VRFW_LOG,        -- CMND_VRFW_LOG
     OWNER = "VRFW",
     floors = {},
   }
-  VRFW_Stats = ST
+  VRFW.stats = ST
 
   local function key(team)
     if type(team) ~= "number" or team == 0 then
@@ -26,15 +17,15 @@ if VRFW_Stats == nil then
   end
 
   local function stored(k)
-    local ok, s = pcall(funcLuaCommand, ST.SAVE_GET, ST.OWNER, k, "")
-    if ok then
+    local s = VRFW.host.command(ST.SAVE_GET, ST.OWNER, k, "")
+    if s ~= nil then
       return tonumber(s)
     end
     return nil
   end
 
-  -- a provider of a lower bound: fn(team) -> wins the save already proves (0 / nil = none)
-  function ST.AddFloor(fn)
+  --- Adds a function that answers a floor for the win counts.
+  function ST.add_floor(fn)
     if type(fn) == "function" then
       ST.floors[#ST.floors + 1] = fn
     end
@@ -51,8 +42,8 @@ if VRFW_Stats == nil then
     return n
   end
 
-  -- the wins against a team in this save slot (0 = never beaten, or not tracked yet)
-  function ST.WinsVs(team)
+  --- The wins against a team in this save slot (0 = never beaten, or not tracked yet).
+  function ST.wins_against(team)
     local k = key(team)
     if k == nil then
       return 0
@@ -62,13 +53,13 @@ if VRFW_Stats == nil then
     return f > n and f or n
   end
 
-  -- one more win against a team; returns the new count
-  function ST.AddWin(team)
+  --- Adds one win against `team`; answers the new count, 0 when the team has no key.
+  function ST.add_win(team)
     local k = key(team)
     if k == nil then
       return 0
     end
-    local n = ST.WinsVs(team) + 1
+    local n = ST.wins_against(team) + 1
     pcall(funcLuaCommand, ST.SAVE_SET, ST.OWNER, k, tostring(n), 1)
     pcall(funcLuaCommand, ST.LOG, "stats", "win vs", k, n)
     return n

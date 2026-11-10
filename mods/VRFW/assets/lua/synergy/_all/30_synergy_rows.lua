@@ -1,87 +1,38 @@
--- VRFW › team synergies declared by mods: the rows of a synergy detail panel (rows
--- team16_03_synergy_chara_condition_list), shared by every menu that shows one: the synergy list
--- (equip_synergy_menu_list/300_synergy.lua), the shop (shop_menu_buy/310_synergy_shop.lua) and the team dock's Formación
--- (team_dock_formation_menu/320_synergy_dock.lua). This file defines the
--- functions only (VRFW_Synergy.ApplyPanel / Built / HideExtras); each menu's file calls them from its own events. The engine
--- draws the rows of a player itself (the framework's hook on its row builder: the nexus, the members that fill the
--- slots); a row without a player's face (an open slot, a team group, a staff slot) is written as 0 there, so the game
--- draws nothing and asks no face for it, and VRFW_Synergy.ApplyPanel draws it with a row clone. For a declared synergy
--- only (the same rules in every menu; texts in the normal colour, the check boxes as the game draws them unless
--- rules.checks = false):
---   * a named player's row (a filler, the nexus): his face, his name, the check box as the game draws them; the nexus
---     row's line orange, the other allowed persons of a several-person nexus as minifaces at the row's end; a missing
---     nexus (team known): his face grey and translucent;
---   * an open slot of a pool: the small check box and the empty grey square (no face, no text); every row of the pool
---     shows all its candidates (its named players' minifaces, then its teams' crests, layers vrfw_syn_face /
---     vrfw_syn_crest) on one line at its right end; a pool with nothing to show: the slot's hint;
---   * an open team group (`slot_members`): the team's crest inside the grey square, the team's name and its players'
---     minifaces at the row's end;
---   * a filled slot (a team group's too): the game's row as drawn (the filler's face, name, check box and series
---     icons), nothing else;
---   * a staff slot (a pool with a role): the role's icon in the face square, the required series' icons
---     right-aligned (CMND_VRFW_ROLE_ICON / CMND_VRFW_SERIES_ICON drawn with the sprite command), the role's short name;
---   * a synergy with 4 to 6 rows: a 2-column grid of 2 or 3 lines; the framework writes its odd rows (1st, 3rd, 5th) to the
---     game's row builder (the left column, the game's own rows) and the even rows are row clones (layer vrfw_syn_row) beside them;
---     each cell shows its own slot's candidates right after its square, inside the cell.
--- No per-frame code: the extra pieces (row clones, crests, minifaces, icons) are set, placed and shown when the panel
--- is filled (the menu's selection change) and, for an instance built later, in its own OnOpenLayer (its look sent, its
--- picture asked, placed, shown). The game's rows are never hidden as whole instances (the engine then redraws the panel
--- every frame). A row clone (vrfw_syn_row: its own grey plate, no face asked, its face mesh hidden, its text in the
--- normal colour) is the first extra layer, so crests, minifaces and icons draw over it.
--- Row places: the panel's own attach joints, where the game hangs its rows (team16_02 / team16_05 layouts:
--- _atc_list02_01 / 02 for 1 or 2 rows, _atc_list03_01 .. 03 for 3 rows), read with CMND_GET_MESH_GLOBAL_POSITION on
--- the detail layer (it takes any joint of the layer's skeleton). The layout is the panel's declared row count, not the
--- count the game drew: a 3-row panel with rows written as 0 gets the game's 2-row attach locators from the row builder,
--- so its 3-row locators are put back (CMND_SET_LAYER_ATTACH_LOCATOR_TRACE, the builder's own locator ids from the
--- framework) and the game's rows hang on the 3-row places again.
--- Only the rows the game drew this time are put back to the game's look (tints, alpha, check box) and dressed: a row
--- the game hid is never touched (showing one of its meshes or texts again showed the last panel's names, lines and faces
--- under the new rows). Extras the new panel does not use are hidden (always sent, not only when the kept state says
--- shown).
--- One fill for every menu that shows the panel: S.ApplyPanel(item, rules); rules.checks = false: no check box on any
--- row (the shop: no team is checked); rules.detail: the detail layer (default the synergy screen's team16_02);
--- rules.hide_undrawn = true: every row instance the framework wrote as 0 is hidden (the shop's builder keeps it on
--- screen with its last content).
--- An extra instance's look (which tile / row meshes it hides) is set again once it is built (OnOpenLayer).
--- The crest tile's node is shown FIRST, then its plates hidden: CMND_SET_NODE_VISIBLE sets the flag on every mesh under
--- the node (the retail SetupEmblemIcon hides _pos_enjoy_list01, the parent of the emblem quad, then shows the quad and
--- the outline one by one). Showing _pos_enjoy_list01 after the hides re-showed every plate under it: the red / pink
--- team-colour hexagons and the cyan cursor outline around each crest (twice).
--- No engine call at load time; every call guarded.
+-- lua_patch.scope: used
 
-VRFW_Synergy = VRFW_Synergy or {}
-local S = VRFW_Synergy
-if S.ApplyPanel ~= nil then return end     -- defined once per menu VM
-S.CMD_PANEL = S.CMD_PANEL or VRFW_Cmd.VRFW_SYNERGY_PANEL
-local CMD_TEXT_GET = VRFW_Cmd.TEXT_GET
-local CMD_LANGUAGE = VRFW_Cmd.GET_LANGUAGE_CODE
-local CMD_ITEM_OF_INV = 2662166687         -- (inventory handle, 0) -> the item id (the retail script's own call)
-local SET_TEXT = VRFW_Cmd.SET_MENU_TEXT_STRING                -- (layer, node, text, instance)
-local SET_MESH_VISIBLE = VRFW_Cmd.SET_MESH_VISIBLE        -- (layer, mesh, visible, instance)
-local PRIM_COLOR = VRFW_Cmd.SET_PRIM_COLOR               -- (layer, instance, mesh, r, g, b) (multiplier 0..1)
-local PRIM_ALPHA = VRFW_Cmd.SET_PRIM_ALPHA              -- (layer, instance, mesh, alpha)
+VRFW.synergy = VRFW.synergy or {}
+local S = VRFW.synergy
+if S.apply_panel ~= nil then return end     -- defined once per menu VM
+S.CMD_PANEL = S.CMD_PANEL or VRFW.commands.VRFW_SYNERGY_PANEL
+local CMD_TEXT_GET = VRFW.commands.TEXT_GET
+local CMD_LANGUAGE = VRFW.commands.GET_LANGUAGE_CODE
+local CMD_ITEM_OF_INV = 2662166687
+local SET_TEXT = VRFW.commands.SET_MENU_TEXT_STRING                -- (layer, node, text, instance)
+local SET_MESH_VISIBLE = VRFW.commands.SET_MESH_VISIBLE        -- (layer, mesh, visible, instance)
+local PRIM_COLOR = VRFW.commands.SET_PRIM_COLOR               -- (layer, instance, mesh, r, g, b) (multiplier 0..1)
+local PRIM_ALPHA = VRFW.commands.SET_PRIM_ALPHA              -- (layer, instance, mesh, alpha)
 local C = {
-  IS_EXIST_LAYER = VRFW_Cmd.IS_EXIST_LAYER,              -- (layer) -> true when the menu has it
-  OPEN_LAYER = VRFW_Cmd.OPEN_LAYER,                  -- (layer, instance)
-  LAYER_VISIBLE = VRFW_Cmd.SET_LAYER_VISIBLE,               -- (layer, instance, visible)
-  LOCAL_POS = VRFW_Cmd.SET_LAYER_LOCAL_POS,                  -- (layer, x, y, z, instance): screen px from the top left, y up
-  LOCAL_SCALE = VRFW_Cmd.SET_LAYER_LOCAL_SCALE,                -- (layer, sx, sy, sz, instance)
+  IS_EXIST_LAYER = VRFW.commands.IS_EXIST_LAYER,              -- (layer) -> true when the menu has it
+  OPEN_LAYER = VRFW.commands.OPEN_LAYER,                  -- (layer, instance)
+  LAYER_VISIBLE = VRFW.commands.SET_LAYER_VISIBLE,               -- (layer, instance, visible)
+  LOCAL_POS = VRFW.commands.SET_LAYER_LOCAL_POS,
+  LOCAL_SCALE = VRFW.commands.SET_LAYER_LOCAL_SCALE,                -- (layer, sx, sy, sz, instance)
   NODE_VISIBLE = 2158717427,               -- (layer, node, visible, instance)
-  TEXT_VISIBLE = VRFW_Cmd.SET_MENU_TEXT_VISIBLE,               -- (layer, text node, visible, instance)
-  GPOS = VRFW_Cmd.GET_MESH_GLOBAL_POSITION,                        -- CMND_GET_MESH_GLOBAL_POSITION (layer, instance, mesh) -> x, y, z
+  TEXT_VISIBLE = VRFW.commands.SET_MENU_TEXT_VISIBLE,               -- (layer, text node, visible, instance)
+  GPOS = VRFW.commands.GET_MESH_GLOBAL_POSITION,
   EMBLEM = 3190452549,                     -- (layer, instance, mesh, texture slot, item_emblem id, 0)
   RESET_FACE = 4176779611,                 -- (layer, instance, texture slot)
 }
 
 local ROW = 4041512772                     -- team16_03_synergy_chara_condition_list
 local N_ROWS = 3                           -- the panel's largest layout
-local DETAIL = 1473585342                  -- team16_02_synergy_item_detail (the synergy screen's detail; rules.detail else)
+local DETAIL = 1473585342
 -- the detail layouts' attach joints the game's rows hang on (the same names in team16_02 and team16_05), per layout
 local ROW_JOINTS = {
   [2] = { 4288612777, 1721128979 },               -- _atc_list02_01 / _atc_list02_02 (1 or 2 rows drawn)
   [3] = { 1193504460, 3727310710, 2838302688 },   -- _atc_list03_01 .. _atc_list03_03 (3 rows drawn)
 }
-local LOCATOR_TRACE = VRFW_Cmd.SET_LAYER_ATTACH_LOCATOR_TRACE   -- (layer, instance, locator, on)
+local LOCATOR_TRACE = VRFW.commands.SET_LAYER_ATTACH_LOCATOR_TRACE   -- (layer, instance, locator, on)
 local TEXT_NAME = 1704438437               -- _text_name01 (row name; the detail's title)
 local FACE = 478320441                     -- _icon_chr_dmy01 (the face icon's mesh)
 local FACE_SLOT = 3237726902               -- icon_chr_dmy01 (its texture slot)
@@ -92,74 +43,59 @@ local CHECK = 2309656400                   -- _icon_check01
 local SERIES = { 3231997250, 1504513272, 782908526 }   -- _icon_series_dmy01..03
 local TXT_MISSING = 787277494              -- VRFW.SynergyNexusMissing
 local TXT_ROLE = { manager = 172090118, coach = 3665956829 }   -- VRFW.SynergyRoleManager / VRFW.SynergyRoleCoach
-local CMD_SERIES_ICON = VRFW_Cmd.VRFW_SERIES_ICON          -- (series) -> ok, sheet, sprite
-local CMD_ROLE_ICON = VRFW_Cmd.VRFW_ROLE_ICON           -- (role) -> ok, sheet, sprite
-local SPRITE = 558735651                   -- sprite command (layer, sheet, sprite, texture node, 0, instance) -> true once applied
+local CMD_SERIES_ICON = VRFW.commands.VRFW_SERIES_ICON          -- (series) -> ok, sheet, sprite
+local CMD_ROLE_ICON = VRFW.commands.VRFW_ROLE_ICON           -- (role) -> ok, sheet, sprite
+local SPRITE = 558735651
 local ORANGE = { 1.0, 0.55, 0.12 }         -- the nexus row's tint (the name: [CMODE03] = 247 107 0)
 local GHOST = { 0.62, 0.62, 0.62 }         -- a missing nexus's face / an empty slot's plate: grey ...
-local GHOST_ALPHA = 0.45                   -- ... and translucent
+local GHOST_ALPHA = 0.45                   -- Translucent.
 local WHITE = { 1, 1, 1 }
 local KIND_NEXUS, KIND_NEXUS_MISSING, KIND_FILLED, KIND_EMPTY = 1, 2, 3, 4
 
--- the extra layers (content\menus\synergy_panel.toml) and the row geometry they are placed by (team16_03, row-local
--- units, y up: check box centred on the origin, the face plate 64 at x 31..95, the series icons x 592..764)
-local L_CREST, N_CREST = 527765702, 36     -- vrfw_syn_crest (vrfw_emblem_tile): every row's full candidate crests
-local L_FACE, N_FACE = 734603085, 72       -- vrfw_syn_face (team16_03 itself): every row's full candidate minifaces
-local L_ICON, N_ICON = 1263105521, 24      -- vrfw_syn_icon (team16_03 itself): one series / role icon per instance
-local L_ROW, N_CLONES = 3982581158, 6       -- vrfw_syn_row (team16_03 itself): a whole row over an open slot / a grid cell
-local GRID_MIN, GRID_MAX = 4, 6            -- rows drawn as a 2-column grid (2 lines for 4, 3 lines for 5-6)
-local GRID_COLS = 0.5                      -- a grid column's share of the row width (cells at the rows' own scale and places)
-local ROW_WIDTH = 800                      -- a row's width in its own units (check box to the series icons' end)
-local LOG_CMD = VRFW_Cmd.EVT_LOG                 -- CMND log (loader.log lines «lua log: …»)
+local L_CREST, N_CREST = 527765702, 36
+local L_FACE, N_FACE = 734603085, 72
+local L_ICON, N_ICON = 1263105521, 24
+local L_ROW, N_CLONES = 3982581158, 6
+local GRID_MIN, GRID_MAX = 4, 6
+local GRID_COLS = 0.5
+local ROW_WIDTH = 800
+local log = VRFW.logger.new("VRFW synergy rows")
 local ROW_RIGHT = 764                      -- the right edge of the series icons: the extras end there
 local ANCHOR_A, ANCHOR_AX, ANCHOR_AY = 4051829508, -16, 16   -- _icon_check_box01 at (-16, 16)
 local ANCHOR_B, ANCHOR_BX, ANCHOR_BY = 3231997250, 706, 14   -- _icon_series_dmy01 at (706, 14)
-local CREST_PX, CREST_STEP = 52, 56        -- crest size / pitch, row units: the series icons' size, 4 apart
-local SQUARE_CREST_PX = 52                 -- a team group's crest inside the grey face square (the plate 64: x 31..95)
+local CREST_PX, CREST_STEP = 52, 56
+local SQUARE_CREST_PX = 52
 local EMBLEM_PX = 84                       -- the tile's emblem quad
 local TILE_MESH, TILE_SLOT = 1926542734, 618311715   -- _enjoy_list_icon_dmy01 / enjoy_list_icon_dmy01
--- every plate / frame / cursor / check part of the retail tile (the emblem grid hides the same: 58_emblem_grid.lua): only
--- the emblem quad stays, so a crest is the plain picture. Before, only three were hidden: the team-colour hexagon
--- frames (p1 / p2 plates) and their add / ok quads showed as frames with white rectangles around the crest.
 local TILE_HIDE = { 2668225226, 1751802610, 3159751709, 155260060, 688408036, 2291119251, 1323396684, 294053161,
                     2968134629, 100709232, 1763834249 }
 -- the plates' nodes (under _pos_enjoy_list01: _p1 / _p2 hold the two team-colour hexagon sets) and the player tags
 local TILE_HIDE_NODES = { 3808539401, 2047402675, 1061671357, 2790162439 }   -- _pos_enjoy_list01_p1 / _p2, _pos_1p01 / 02
-local TILE_NODE = 3933090681               -- _pos_enjoy_list01 (parent of the plates, the outline and the emblem quad)
+local TILE_NODE = 3933090681
 local FACE_SCALE, FACE_STEP = 0.6, 44      -- a candidate's plate (64) and face at 0.6, pitch in row units
 local FACE_X0, FACE_X1 = 31, 95            -- the plate's x extent in the row object
-local IS_VISIBLE = VRFW_Cmd.IS_LAYER_VISIBLE             -- (layer, instance) -> true when shown
--- an icon instance shows only its first series quad (_icon_series_dmy01: top left 706, 14, 58 x 38 in the row object;
--- the series quads' pitch 57) with the asked sprite on its texture node icon_series_dmy01
+local IS_VISIBLE = VRFW.commands.IS_LAYER_VISIBLE             -- (layer, instance) -> true when shown
 local ICON_MESH, ICON_SLOT = 3231997250, 201452450
 local ICON_W, ICON_PITCH = 58, 57
 local ICON_CX, ICON_CY = 706 + 58 / 2, 14 - 38 / 2   -- the quad's centre in the row object
 local SERIES_ROW_Y = ICON_CY               -- the row's own series icons' centre line
-local ROLE_SCALE = 1.25                    -- the role icon in the face square (plate 64 x 64 at x 31..95, centre y 0)
-local MAX_STRIP = 6                        -- series icons of one row (room between the name and the row's end)
+local ROLE_SCALE = 1.25
+local MAX_STRIP = 6
 
 local function text(id)
-  local ok, s = pcall(funcLuaCommand, CMD_TEXT_GET, id)
-  if ok and type(s) == "string" then return s end
+  local s = VRFW.host.command(CMD_TEXT_GET, id)
+  if type(s) == "string" then return s end
   return ""
 end
 
-S.noted = S.noted or {}
 local function note(msg)
-  if not S.noted[msg] then
-    S.noted[msg] = true
-    pcall(funcLuaCommand, LOG_CMD, "VRFW synergy rows: " .. msg)
-  end
+  log.once(msg, msg)
 end
 
-local function M(cmd, ...)
-  local ok, a, b, c = pcall(funcLuaMenuCommand, cmd, ...)
-  if ok then return a, b, c end
-  return nil
-end
+local M = VRFW.host.menu_command
 
 local function tint(layer, inst, mesh, c)
-  pcall(funcLuaMenuCommand, PRIM_COLOR, layer, inst, mesh, c[1], c[2], c[3])
+  VRFW.host.menu_command(PRIM_COLOR, layer, inst, mesh, c[1], c[2], c[3])
 end
 
 local function split_ids(s)
@@ -172,10 +108,6 @@ local function split_ids(s)
   return out
 end
 
--- ------------------------------------------------------------------------------------------------ the extra layers
-
--- per layer: opened instances, what each shows (want: the instance's content and look; used = in the panel drawn last),
--- built (OnOpenLayer seen), shown (the instance's visibility as last set)
 S.ex = S.ex or {}
 local function ex(layer)
   local e = S.ex[layer]
@@ -187,8 +119,8 @@ local function ex(layer)
 end
 
 local function has_layer(layer)
-  local ok, r = pcall(funcLuaMenuCommand, C.IS_EXIST_LAYER, layer)
-  return ok and r == true
+  local r = VRFW.host.menu_command(C.IS_EXIST_LAYER, layer)
+  return r == true
 end
 
 -- an extra instance on or off (a call only when it changes)
@@ -210,15 +142,11 @@ local function row_frame(inst)
   return ax - ANCHOR_AX * s, ay - ANCHOR_AY * s, s
 end
 
--- a game row's part off (a plate, never the face: see the header). The game's rows are never hidden as whole instances:
--- the engine draws the panel again when one of its row instances is hidden, every frame
+-- a game row's part off (a plate, never the face: see the header).
 local function hide_part(inst, mesh)
   M(SET_MESH_VISIBLE, ROW, mesh, false, inst)
 end
 
--- instance k's look: on a crest only the emblem quad (every plate / frame / cursor / check of the tile hidden), on a
--- miniface only its plate (tinted) and face, on a row clone the look its row asks for (w.id face, w.plate, w.line,
--- w.box, w.check, w.text). Sent when the content is set, when the instance is built (lost before) and when it is shown
 local function dress(layer, k)
   local w = ex(layer).want[k]
   if not w then return end
@@ -229,7 +157,6 @@ local function dress(layer, k)
     M(PRIM_ALPHA, layer, k, ICON_MESH, 1)
     M(SET_MESH_VISIBLE, layer, ICON_MESH, w.done == true, k)
   elseif layer == L_ROW then
-    -- a row clone: a face only when one was asked for (no request, no picture that loads and shows later)
     M(SET_MESH_VISIBLE, layer, LINE, true, k)
     M(SET_MESH_VISIBLE, layer, CHECK_BOX, w.box ~= false, k)
     M(SET_MESH_VISIBLE, layer, CHECK, w.check == true, k)
@@ -267,8 +194,6 @@ local function ask(layer, k)
   local w = e.want[k]
   if not w or not e.built[k] or w.asked then return end
   if layer == L_ICON then
-    -- the sprite command answers false (and draws nothing) while the sheet or the instance's model is not ready: asked
-    -- again at the next panel fill or OnOpenLayer
     w.done = M(SPRITE, layer, w.sheet, w.sprite, ICON_SLOT, 0, k) == true
     w.asked = w.done
     w.ready = true
@@ -279,7 +204,7 @@ local function ask(layer, k)
   if layer == L_CREST then
     M(C.EMBLEM, layer, k, TILE_MESH, TILE_SLOT, w.id, 0)
   elseif w.id ~= 0 then
-    VRFW_FaceIcon.Request(layer, k, w.id, FACE, FACE_SLOT)
+    VRFW.face_icon.request(layer, k, w.id, FACE, FACE_SLOT)
   end
 end
 
@@ -310,8 +235,6 @@ local function open_instance(layer, k)
   end
 end
 
--- instance k of `layer` shows icon `id` at row `row` (row-local centre lx, size px), or nothing (id nil); a miniface's
--- plate is tinted `plate` (default orange: a nexus's; false = no plate). The same icon again keeps its loaded picture
 local function show(layer, k, id, row, lx, px, plate, grey)
   local e = ex(layer)
   if not id then
@@ -337,8 +260,6 @@ local function show(layer, k, id, row, lx, px, plate, grey)
   S.extras = true
 end
 
--- icon instance k shows sprite (sheet, sprite) centred on row `row`'s (lx, ly) at `scale` x the row's own series icon
--- (sheet nil: nothing)
 local function show_icon(k, sheet, sprite, row, lx, ly, scale)
   local e = ex(L_ICON)
   if not sheet then
@@ -363,9 +284,6 @@ local function show_icon(k, sheet, sprite, row, lx, ly, scale)
   S.extras = true
 end
 
--- row clone k (layer vrfw_syn_row: the row object itself), a cell of a 2-column grid (4-6 rows): placed by frame `row`
--- (the grid cell's 100 + k + 1), its face drawn for chara `id` (0: no face, nothing requested). Its look:
--- the fields of `look` (plate, line, box, check, face_tint, face_alpha, plate_alpha), its text set by set_row_text
 local function open_clone(k, id, row, look)
   local e = ex(L_ROW)
   open_instance(L_ROW, k)
@@ -388,13 +306,11 @@ end
 
 -- a series' / role's icon: sheet, sprite (nil when the framework has none)
 local function icon_of(cmd, v)
-  local ok, has, sheet, sprite = pcall(funcLuaCommand, cmd, v)
-  if ok and has == true and type(sheet) == "number" and type(sprite) == "number" then return sheet, sprite end
+  local has, sheet, sprite = VRFW.host.command(cmd, v)
+  if has == true and type(sheet) == "number" and type(sprite) == "number" then return sheet, sprite end
   return nil
 end
 
--- the series icons `list` (series numbers, at most MAX_STRIP: the last ones) in a row, the last one's right edge at row
--- x `right`; returns the next free icon instance
 local function series_strip(ii, inst, list, right)
   local n = math.min(#list, MAX_STRIP)
   for j = 1, n do
@@ -409,9 +325,6 @@ end
 
 local EXTRA_LAYERS = { L_ROW, L_CREST, L_FACE, L_ICON }
 
--- the panel's row places now (S.layout = { detail, rows = 2 / 3, grid, scale }): frames[i] = { x, y, scale } of row i
--- (0-based) from the layout's attach joints; a grid: frames[100 + cell] (the right column half a row width to
--- the right of the left one). A joint the layer does not answer: the game's row's own place when it drew that row
 S.logged_places = S.logged_places or {}
 local function layout_frames()
   local L = S.layout
@@ -441,13 +354,11 @@ local function layout_frames()
     for i = 0, L.rows - 1 do
       parts[#parts + 1] = f[i] and string.format("%.1f,%.1f", f[i][1], f[i][2]) or "-"
     end
-    pcall(funcLuaCommand, LOG_CMD, "VRFW synergy rows: layer", L.detail, "layout", L.rows, "row places", table.concat(parts, " "), "scale", s)
+    log("layer", L.detail, "layout", L.rows, "row places", table.concat(parts, " "), "scale", s)
   end
   return f
 end
 
--- every extra instance of the panel at its row's place (layout_frames: read again each time, the panel may have moved
--- since it was filled)
 local function place_all()
   local frames = layout_frames()
   for _, layer in ipairs(EXTRA_LAYERS) do
@@ -484,8 +395,6 @@ local function place_all()
   end
 end
 
--- every extra instance off; what each one shows is kept (the same picture shows again at once when a later panel asks
--- for it)
 local function hide_extras()
   for _, layer in ipairs(EXTRA_LAYERS) do
     local e = ex(layer)
@@ -496,26 +405,21 @@ local function hide_extras()
   S.layout = nil
 end
 
--- ------------------------------------------------------------------------------------------------ the rows
-
 -- a game row back to the game's look (it may have been a nexus / empty row of another synergy's panel)
 local function reset_row(inst)
-  pcall(funcLuaMenuCommand, SET_MESH_VISIBLE, ROW, FACE_BASE, true, inst)
-  pcall(funcLuaMenuCommand, SET_MESH_VISIBLE, ROW, CHECK_BOX, true, inst)
-  pcall(funcLuaMenuCommand, SET_MESH_VISIBLE, ROW, LINE, true, inst)
+  VRFW.host.menu_command(SET_MESH_VISIBLE, ROW, FACE_BASE, true, inst)
+  VRFW.host.menu_command(SET_MESH_VISIBLE, ROW, CHECK_BOX, true, inst)
+  VRFW.host.menu_command(SET_MESH_VISIBLE, ROW, LINE, true, inst)
   M(C.TEXT_VISIBLE, ROW, TEXT_NAME, true, inst)
   if S.sprite_rows and S.sprite_rows[inst] then
     M(C.RESET_FACE, ROW, inst, FACE_SLOT)      -- an older version's nexus icon off the face mesh
     S.sprite_rows[inst] = nil
   end
-  -- the series icons are left to the game: its row draw (just before this patch runs) shows a character's series and
-  -- hides the unused slots (a row is reused by characters of 1-3 series). Forcing all three on here showed the unused
-  -- slot as a white quad left of the saga icons on member rows
   tint(ROW, inst, FACE, WHITE)
   tint(ROW, inst, FACE_BASE, WHITE)
   tint(ROW, inst, LINE, WHITE)
-  pcall(funcLuaMenuCommand, PRIM_ALPHA, ROW, inst, FACE, 1)
-  pcall(funcLuaMenuCommand, PRIM_ALPHA, ROW, inst, FACE_BASE, 1)
+  VRFW.host.menu_command(PRIM_ALPHA, ROW, inst, FACE, 1)
+  VRFW.host.menu_command(PRIM_ALPHA, ROW, inst, FACE_BASE, 1)
 end
 
 -- the rows the game drew for this panel (row instances it shows; it hides the others itself), back to the game's look
@@ -534,8 +438,6 @@ local function no_checks(drawn)
   end
 end
 
--- the 3-row attach locators of the detail layer back on (the row builder put its 2-row ones on: it drew fewer than 3
--- rows of a 3-row panel); locators = { off = "ids", on = "ids" } from the framework (the builder's own ids)
 local function locators_3_rows(detail, locators)
   if type(locators) ~= "table" then
     note("no row locators from the framework: the game's rows keep its 2-row places")
@@ -545,21 +447,14 @@ local function locators_3_rows(detail, locators)
   for _, id in ipairs(split_ids(locators.on)) do M(LOCATOR_TRACE, detail, 0, id, true) end
 end
 
--- the rows of the panel of `item` the game just drew: the rows it drew put back to its look, then, for a declared
--- synergy, dressed (nothing more for any other synergy). An open slot: the grey square over its face square. A synergy
--- of 4-6 rows: a 2-column grid, the game's 2-3 rows on the left, row clones beside them. The extra pieces are placed and shown at once (reveal),
--- an instance built later in its OnOpenLayer. rules: { checks = false (no check box on any row) }
-function S.ApplyPanel(item, rules)
+function S.apply_panel(item, rules)
   rules = type(rules) == "table" and rules or {}
   local p = nil
   if type(item) == "number" and item ~= 0 then
-    local okc, code = pcall(funcLuaCommand, CMD_LANGUAGE)
-    local ok, v = pcall(funcLuaCommand, S.CMD_PANEL, item, okc and code or -1)
-    if ok and type(v) == "table" and type(v.rows) == "table" then p = v end
+    local code = VRFW.host.command(CMD_LANGUAGE)
+    local v = VRFW.host.command(S.CMD_PANEL, item, code or -1)
+    if type(v) == "table" and type(v.rows) == "table" then p = v end
   end
-  -- the rows the game drew: for a declared synergy the framework's own list (p.drawn, "1" per drawn row instance);
-  -- else the row instances shown. A row the game hid is never touched (a mesh shown again on it brings back its last
-  -- name and face: in the shop, the active team's players of the game's own team draw)
   local drawn, is_drawn = {}, {}
   local known = p ~= nil and type(p.drawn) == "string" and #p.drawn >= N_ROWS
   for i = 0, N_ROWS - 1 do
@@ -572,9 +467,6 @@ function S.ApplyPanel(item, rules)
   end
   reset_all(drawn)
   if rules.checks == false then no_checks(drawn) end
-  -- rules.hide_undrawn (the shop): a row instance the framework wrote as 0 this time is hidden, as the retail shop hides
-  -- its rows itself (OnSetupLayer, SetHideSynergyDetail); its builder leaves such a row on screen with the last name,
-  -- face, check and series icons drawn into it (the active team's members of the game's own draw)
   if rules.hide_undrawn and known then
     for i = 0, N_ROWS - 1 do
       if not is_drawn[i] then M(C.LAYER_VISIBLE, ROW, i, false) end
@@ -590,8 +482,6 @@ function S.ApplyPanel(item, rules)
   local clone_ok = has_layer(L_ROW)
   local ci, fi, ii = 0, 0, 0
   local grid = #p.rows >= GRID_MIN and clone_ok
-  -- the panel's layout from its declared rows (the game picks its 3-row places only when it draws 3 rows): a 3-row
-  -- panel the game drew fewer rows of gets its 3-row locators back. The row scale: a drawn row's, else the last one
   local n_rows = grid and math.ceil(math.min(#p.rows, GRID_MAX) / 2) or math.min(#p.rows, N_ROWS)
   local layout = n_rows == 3 and 3 or 2
   local detail = tonumber(rules.detail) or DETAIL
@@ -603,10 +493,6 @@ function S.ApplyPanel(item, rules)
   S.layout = { detail = detail, rows = layout, grid = grid, scale = S.row_scale or 1, drawn = is_drawn }
   local ROWR = grid and (ROW_WIDTH * GRID_COLS - 24) or ROW_RIGHT      -- the right edge of a row / grid cell, row units
   local ri = 0                             -- the next row clone
-  -- the candidates of an open slot: its pool's named players' minifaces, then its teams' crests (every row of the pool
-  -- shows them all)
-  -- the one candidate order: minifaces then crests, each by series (IE1 ... Victory Road, then the story order inside a
-  -- series: the rank the rows hook computes from the game's tables); equal or unknown ranks keep their given order
   local function order_items(items)
     for i, it in ipairs(items) do it.seq = i end
     table.sort(items, function(a, b)
@@ -630,8 +516,6 @@ function S.ApplyPanel(item, rules)
     end
     return order_items(items)
   end
-  -- minifaces / crests in one line, right-aligned at the row's end and centred on the row's line (row `fr`), all of
-  -- them: scaled down together when they do not fit between `left` and the row's end
   local function right_strip(fr, items, left, right)
     right = right or ROWR
     local need = 0
@@ -659,10 +543,8 @@ function S.ApplyPanel(item, rules)
       end
     end
   end
-  local LEFT_BARE = FACE_X1 + 30           -- a row with no text: the strip starts right of the face square
+  local LEFT_BARE = FACE_X1 + 30
   local LEFT_TEXT = 440                    -- a row with a name: the strip starts right of it
-  -- a strip: a 1-column panel right-aligns it at the row's end; a grid cell (one slot, 400 wide) shows its OWN
-  -- slot's candidates right after its square (or its name), starting there and kept inside the cell
   local function strip(fr, items, left)
     if not grid then
       right_strip(fr, items, left)
@@ -696,8 +578,6 @@ function S.ApplyPanel(item, rules)
       else
         branch = "filled"
       end
-      -- a row without a player's face: the framework wrote it as 0, the game drew nothing there (its row instance is
-      -- hidden and never touched)
       local faceless = branch == "members" or branch == "pool" or branch == "staff"
       -- a player's row the game did not draw (it hid that instance) is not touched
       if game_row and not faceless and not is_drawn[game_row] then goto next_row end
@@ -718,19 +598,17 @@ function S.ApplyPanel(item, rules)
           hide_part(inst, FACE_BASE)
         else
           tint(ROW, inst, FACE_BASE, c)
-          pcall(funcLuaMenuCommand, PRIM_ALPHA, ROW, inst, FACE_BASE, a or 1)
+          VRFW.host.menu_command(PRIM_ALPHA, ROW, inst, FACE_BASE, a or 1)
         end
       end
       local series_hidden = false
       local function series_off()
         series_hidden = true
         if not cw then
-          for _, m in ipairs(SERIES) do pcall(funcLuaMenuCommand, SET_MESH_VISIBLE, ROW, m, false, inst) end
+          for _, m in ipairs(SERIES) do VRFW.host.menu_command(SET_MESH_VISIBLE, ROW, m, false, inst) end
         end
       end
       if branch == "members" then
-        -- an open team group (slot_members): the team's crest inside the grey square, the team's name, its players'
-        -- minifaces at the row's end
         if ci < N_CREST then
           show(L_CREST, ci, big, fr, (FACE_X0 + FACE_X1) / 2, SQUARE_CREST_PX)
           ci = ci + 1
@@ -741,8 +619,6 @@ function S.ApplyPanel(item, rules)
         for _, id in ipairs(face_ok and split_ids(faces) or {}) do items[#items + 1] = { face = id } end
         strip(fr, items, LEFT_TEXT)
       elseif branch == "pool" then
-        -- an open slot of a pool: the empty grey square, no text, all the pool's candidates on the right (a pool with
-        -- none to show: the slot's hint)
         series_off()
         local items = candidates(row)
         if #items > 0 then
@@ -753,8 +629,6 @@ function S.ApplyPanel(item, rules)
           s = (string.gsub(text(row.hint), "{team}", function() return tn end))
         end
       elseif branch == "staff" then
-        -- a staff slot: the role's icon in the face square (else the grey square), the required series' icons
-        -- right-aligned, the role's short name
         series_off()
         local rsheet, rsprite = nil, nil
         if role ~= "" and icon_ok then rsheet, rsprite = icon_of(CMD_ROLE_ICON, role) end
@@ -772,8 +646,6 @@ function S.ApplyPanel(item, rules)
         end
         s = label
       elseif branch == "nexus" then
-        -- the game's own row (the nexus's face, his name, the retail check box), only the line orange; the other
-        -- allowed persons of a several-person nexus as minifaces at the row's end; missing (team known): his face grey
         if cw then
           cw.line = ORANGE
         else
@@ -796,7 +668,7 @@ function S.ApplyPanel(item, rules)
             cw.face_tint, cw.face_alpha = GHOST, GHOST_ALPHA
           else
             tint(ROW, inst, FACE, GHOST)
-            pcall(funcLuaMenuCommand, PRIM_ALPHA, ROW, inst, FACE, GHOST_ALPHA)
+            VRFW.host.menu_command(PRIM_ALPHA, ROW, inst, FACE, GHOST_ALPHA)
           end
           if #items == 0 and not face_ok and not (row.single == 1 or row.single == true) then
             s = s .. "  (" .. text(TXT_MISSING) .. ")"
@@ -824,7 +696,7 @@ function S.ApplyPanel(item, rules)
             ii = series_strip(ii, fr, split_ids(row.series), ROWR)
           end
         end
-        pcall(funcLuaMenuCommand, SET_TEXT, ROW, TEXT_NAME, s or "", inst)
+        VRFW.host.menu_command(SET_TEXT, ROW, TEXT_NAME, s or "", inst)
       end
     end
     ::next_row::
@@ -842,9 +714,7 @@ function S.ApplyPanel(item, rules)
   end
 end
 
--- an extra layer's instance is built (its OnOpenLayer): its look sent, its picture asked, placed and shown when this
--- panel uses it
-function S.Built(layer, inst)
+function S.built(layer, inst)
   if (layer == L_CREST or layer == L_FACE or layer == L_ICON or layer == L_ROW) and type(inst) == "number" then
     local e = ex(layer)
     e.built[inst] = true
@@ -859,9 +729,7 @@ function S.Built(layer, inst)
   end
 end
 
--- every extra piece (crests, minifaces, icons, row clones) off, the rows left as drawn: a page of the panel without the
--- condition rows (the shop's effects page) or a detail that is not a synergy. The next ApplyPanel shows them again
-function S.HideExtras()
+function S.hide_extras()
   hide_extras()
 end
 

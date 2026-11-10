@@ -1,4 +1,3 @@
-# ev63_93113_1 eff list: ev63_01130_1's (whk01130) with the effect object renamed (ev63011300 -> ev63931130, the recoloured copy)
 schema = "VRFW.base_table/1"
 file = "data/common/event_cfg/eff/ev63_93113_1_eff.cfg.bin"
 from = "data/common/event_cfg/eff/ev63_01130_1_eff.cfg.bin"

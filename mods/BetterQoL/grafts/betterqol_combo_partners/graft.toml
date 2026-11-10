@@ -1,0 +1,22 @@
+# BetterQoL: combo partner picker on the retail ability board and on Character Reforged's skill table, plus its confirm popup.
+name = "betterqol_combo_partners"
+mod = "BetterQoL"
+order = 320
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "BetterQoL: X «Compañeros» combo partner picker on the skill board and skill table, with performer cards in the confirm popup"
+
+[[hooks]]
+stem = "ability_learning_board_menu"
+source = "betterqol_cp_board.lua"
+
+[[hooks]]
+stem = "vrfw_skill_slot_menu"
+source = "betterqol_cp_skill_table.lua"
+require = ["CharacterReforgedSkillTableOpenOriginalBoard", "CharacterReforgedSkillTablePickCoroutine"]
+
+[[hooks]]
+stem = "general_window"
+source = "betterqol_cp_gw.lua"

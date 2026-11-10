@@ -1,0 +1,75 @@
+schema = "VRFW.character/2"
+# Game Idol cards turned into another game character (his own model, face and voice): each card keeps its id.
+
+[[edit]]
+target = "c07080010"  # Byron Love of Ares and Orion
+  [[edit.cards]]
+  id = 0x09532D9F  # replaces the game's Byron Love Idol card, rarity 5
+  adopt = true
+  rank = 3
+  ability_board = 0x15C6DA3F
+  growth_pattern = 1
+  title = "InazumaFantasy.byron_ares_idol_title"
+  growth = "normal"
+  stats = { kick = 294, control = 254, technique = 274, pressure = 211, physical = 153, intelligence = 263, agility = 166, luck = 209, freedom = 0 }
+  moves = [
+    { move = 0x1C8CE2B8, level = 1 },
+    { move = 0x0D368F6B, level = 13 },
+    { move = 0x7577A26A, level = 20 },
+    { move = 0xDF7E6AE1, level = 30 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+  ]
+  moment_kit = 0xCF536BCA
+  cells = { c6 = 6 }
+
+[[edit]]
+target = "c03033660"  # Mystral Callous
+  [[edit.cards]]
+  id = 0xBCDFC454  # replaces the game's Gandares Baran Idol card, rarity 5
+  adopt = true
+  element = "mountain"
+  rank = 3
+  title = "InazumaFantasy.mystral_callous_idol_title"
+  growth = "normal"
+  stats = { kick = 304, control = 234, technique = 311, pressure = 150, physical = 173, intelligence = 162, agility = 159, luck = 339, freedom = 0 }
+  moves = [
+    { move = 0xC513565C, level = 1 },
+    { move = 0x119EFB90, level = 41 },
+    { move = 0x71831119, level = 53 },
+    { move = 0x7748D3F2, level = 54 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+  ]
+  moment_kit = 0x7362C53B
+  cells = { c6 = 10, performance_genre = 0x0A373ABD }
+
+[[edit]]
+target = "c04018060"  # Escavan Malice
+  [[edit.cards]]
+  id = 0xA5C4F515  # replaces the game's Ruger Baran Idol card, rarity 5
+  adopt = true
+  element = "mountain"
+  rank = 3
+  title = "InazumaFantasy.escavan_malice_idol_title"
+  growth = "normal"
+  stats = { kick = 298, control = 234, technique = 242, pressure = 235, physical = 190, intelligence = 227, agility = 167, luck = 271, freedom = 0 }
+  moves = [
+    { move = 0x119EFB90, level = 1 },
+    { move = 0x6E53E2B3, level = 11 },
+    { move = 0x1162A8AF, level = 48 },
+    { move = 0xC513565C, level = 67 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+    { move = 0x00000000, level = 0 },
+  ]
+  moment_kit = 0x7362C53B
+  cells = { c6 = 7, performance_genre = 0x0BF5508A }

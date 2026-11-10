@@ -1,0 +1,29 @@
+schema = "VRFW.migration/1"
+id = "CharacterReforged.change_mode_in_base"
+description = "The custom change mode of Aura Overhaul is part of Character Reforged: its rows go and its data moves"
+phase = "data"
+after = ["VRFW.no_compat_names", "CharacterReforged.removed_option_rows"]
+
+# the feature is always on: its two option rows are gone
+[[step]]
+kind = "delete_option_row"
+id = "AuraOverhaul.custom_change_mode"
+
+[[step]]
+kind = "delete_option_row"
+id = "AuraOverhaul.change_aura"
+
+# the store of the created changes
+[[step]]
+kind = "move_file"
+from = "{saves}/slot*/AuraOverhaul/mode_change.json"
+to = "{saves}/slot*/CharacterReforged/mode_change.json"
+if_target = "keep_target"
+
+# the green aura's effect ids (numbers kept)
+[[step]]
+kind = "rename_id_keep_number"
+space = "effect"
+from = "AuraOverhaul.custom_change_mode_aura_*"
+to = "CharacterReforged.custom_change_mode_aura_*"
+if_target = "keep_target"

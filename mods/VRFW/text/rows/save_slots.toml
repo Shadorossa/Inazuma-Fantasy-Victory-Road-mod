@@ -1,12 +1,10 @@
-# Save slot screen texts (evt_save_slot_menu, save_slots) and the title-screen slot switch (save_slots_inc): menu_text rows in the 9 framework languages.
-# Read with CMND_TEXT_GET by id = crc32(row id); a missing row falls back to the English literal in the script. Placeholders are string.format ones, in the same order in every language.
 
 schema = "VRFW.text/2"
 table = "menu_text"
 
 # the button guide's 'Duplicate' entry (X / CMD_FUNC4)
 [[row]]
-id = "evt_slot_dup_text"
+id = "vrfw_slot_dup_text"
 es = "Duplicar"
 en = "Duplicate"
 fr = "Dupliquer"
@@ -19,7 +17,7 @@ zh_hant = "複製"
 
 # screen header
 [[row]]
-id = "evt_slot_header"
+id = "vrfw_slot_header"
 es = "Ranuras de guardado"
 en = "Save Slots"
 fr = "Emplacements de sauvegarde"
@@ -32,7 +30,7 @@ zh_hant = "存檔欄位"
 
 # guide line under the header
 [[row]]
-id = "evt_slot_guide"
+id = "vrfw_slot_guide"
 es = "Elige la ranura con la que quieres jugar."
 en = "Choose the slot you want to play with."
 fr = "Choisissez l'emplacement avec lequel vous voulez jouer."
@@ -45,7 +43,7 @@ zh_hant = "請選擇要遊玩的存檔欄位。"
 
 # card band: %d = slot number
 [[row]]
-id = "evt_slot_tab"
+id = "vrfw_slot_tab"
 es = "Ranura %d"
 en = "Slot %d"
 fr = "Emplacement %d"
@@ -58,7 +56,7 @@ zh_hant = "欄位%d"
 
 # card band of the unnamed locked slot: %d = slot number
 [[row]]
-id = "evt_slot_tab_locked"
+id = "vrfw_slot_tab_locked"
 es = "Ranura %d · Original"
 en = "Slot %d · Original"
 fr = "Emplacement %d · Original"
@@ -71,7 +69,7 @@ zh_hant = "欄位%d · 原始"
 
 # empty card title
 [[row]]
-id = "evt_slot_new_game"
+id = "vrfw_slot_new_game"
 es = "Nueva partida"
 en = "New Game"
 fr = "Nouvelle partie"
@@ -84,7 +82,7 @@ zh_hant = "新遊戲"
 
 # empty card line / empty date
 [[row]]
-id = "evt_slot_empty"
+id = "vrfw_slot_empty"
 es = "Ranura vacía"
 en = "Empty slot"
 fr = "Emplacement vide"
@@ -97,7 +95,7 @@ zh_hant = "空欄位"
 
 # empty card hint line
 [[row]]
-id = "evt_slot_hint_empty"
+id = "vrfw_slot_hint_empty"
 es = "Aceptar: nueva partida · X: duplicar aquí"
 en = "Confirm: new game · X: duplicate here"
 fr = "Valider : nouvelle partie · X : dupliquer ici"
@@ -110,7 +108,7 @@ zh_hant = "確定：新遊戲 · X：複製到此處"
 
 # locked card hint line
 [[row]]
-id = "evt_slot_hint_locked"
+id = "vrfw_slot_hint_locked"
 es = "Bloqueado"
 en = "Locked"
 fr = "Verrouillé"
@@ -123,7 +121,7 @@ zh_hant = "已鎖定"
 
 # card title when the save names no team
 [[row]]
-id = "evt_slot_no_team"
+id = "vrfw_slot_no_team"
 es = "Sin equipo"
 en = "No team"
 fr = "Aucune équipe"
@@ -136,7 +134,7 @@ zh_hant = "無隊伍"
 
 # card level line: %d = the team level (the rounded-up average level of the saved team, as the game counts it)
 [[row]]
-id = "evt_slot_level_line"
+id = "vrfw_slot_level_line"
 es = "Nv. %d"
 en = "Lv. %d"
 fr = "Niv. %d"
@@ -149,7 +147,7 @@ zh_hant = "Lv.%d"
 
 # card row label 1
 [[row]]
-id = "evt_slot_story"
+id = "vrfw_slot_story"
 es = "Historia"
 en = "Story"
 fr = "Histoire"
@@ -162,7 +160,7 @@ zh_hant = "劇情"
 
 # card row label 2
 [[row]]
-id = "evt_slot_chronicle"
+id = "vrfw_slot_chronicle"
 es = "Crónica"
 en = "Chronicle"
 fr = "Chronique"
@@ -175,7 +173,7 @@ zh_hant = "編年史"
 
 # card row 2 value: %d = chronicle matches
 [[row]]
-id = "evt_slot_matches"
+id = "vrfw_slot_matches"
 es = "%d partidos"
 en = "%d matches"
 fr = "%d matchs"
@@ -188,7 +186,7 @@ zh_hant = "%d場比賽"
 
 # card row label 3
 [[row]]
-id = "evt_slot_victories"
+id = "vrfw_slot_victories"
 es = "Victorias"
 en = "Victories"
 fr = "Victoires"
@@ -201,7 +199,7 @@ zh_hant = "勝場"
 
 # card row label 4
 [[row]]
-id = "evt_slot_play_time"
+id = "vrfw_slot_play_time"
 es = "Tiempo total"
 en = "Play time"
 fr = "Temps de jeu"
@@ -214,7 +212,7 @@ zh_hant = "遊戲時間"
 
 # card row label 5
 [[row]]
-id = "evt_slot_saved"
+id = "vrfw_slot_saved"
 es = "Guardado"
 en = "Saved"
 fr = "Sauvegardé"
@@ -227,7 +225,7 @@ zh_hant = "儲存時間"
 
 # question: %d = slot number
 [[row]]
-id = "evt_slot_ask_load"
+id = "vrfw_slot_ask_load"
 es = "¿Cargar la Ranura %d?\nLo que no hayas guardado en la ranura actual se perderá."
 en = "Load Slot %d?\nAnything not saved in the current slot will be lost."
 fr = "Charger l'emplacement %d ?\nTout ce qui n'a pas été sauvegardé dans l'emplacement actuel sera perdu."
@@ -240,7 +238,7 @@ zh_hant = "要讀取欄位%d嗎？\n目前欄位中未儲存的內容將會遺�
 
 # question: %d = slot number
 [[row]]
-id = "evt_slot_ask_new"
+id = "vrfw_slot_ask_new"
 es = "La Ranura %d está vacía.\n¿Empezar una partida nueva en esta ranura?"
 en = "Slot %d is empty.\nStart a new game in this slot?"
 fr = "L'emplacement %d est vide.\nCommencer une nouvelle partie dans cet emplacement ?"
@@ -253,7 +251,7 @@ zh_hant = "欄位%d為空。\n要在此欄位開始新遊戲嗎？"
 
 # message on Confirm over the locked slot (older save engine)
 [[row]]
-id = "evt_slot_locked_msg"
+id = "vrfw_slot_locked_msg"
 es = "La Ranura 1 (partida original) está bloqueada. Duplícala en la Ranura 2 o 3 para jugar con mods."
 en = "Slot 1 (the original save) is locked. Duplicate it into Slot 2 or 3 to play with mods."
 fr = "L'emplacement 1 (sauvegarde d'origine) est verrouillé. Dupliquez-le dans l'emplacement 2 ou 3 pour jouer avec des mods."
@@ -266,7 +264,7 @@ zh_hant = "欄位1（原始存檔）已鎖定。請將其複製到欄位2或3後
 
 # question on Confirm over the locked slot
 [[row]]
-id = "evt_slot_ask_dup_locked"
+id = "vrfw_slot_ask_dup_locked"
 es = "La Ranura 1 (partida original) está bloqueada: solo se puede duplicar.\n¿Duplicarla en otra ranura?"
 en = "Slot 1 (the original save) is locked: it can only be duplicated.\nDuplicate it into another slot?"
 fr = "L'emplacement 1 (sauvegarde d'origine) est verrouillé : il peut seulement être dupliqué.\nLe dupliquer dans un autre emplacement ?"
@@ -279,7 +277,7 @@ zh_hant = "欄位1（原始存檔）已鎖定，只能複製。\n要複製到其
 
 # message: %d = source slot
 [[row]]
-id = "evt_slot_no_empty_for"
+id = "vrfw_slot_no_empty_for"
 es = "No hay ninguna ranura vacía donde copiar la Ranura %d."
 en = "There is no empty slot to copy Slot %d into."
 fr = "Aucun emplacement vide où copier l'emplacement %d."
@@ -292,7 +290,7 @@ zh_hant = "沒有可複製欄位%d的空欄位。"
 
 # message
 [[row]]
-id = "evt_slot_no_empty"
+id = "vrfw_slot_no_empty"
 es = "No hay ninguna ranura vacía.\nElimina antes la partida de la Ranura 2 o 3 (Eliminar)."
 en = "There is no empty slot.\nFirst delete the save in Slot 2 or 3 (Delete)."
 fr = "Aucun emplacement vide.\nSupprimez d'abord la sauvegarde de l'emplacement 2 ou 3 (Supprimer)."
@@ -305,7 +303,7 @@ zh_hant = "沒有空欄位。\n請先刪除欄位2或3的存檔（刪除）。"
 
 # question: both %d = target slot
 [[row]]
-id = "evt_slot_copied"
+id = "vrfw_slot_copied"
 es = "Partida duplicada en la Ranura %d.\n¿Jugar ahora con la Ranura %d?"
 en = "Save duplicated into Slot %d.\nPlay with Slot %d now?"
 fr = "Sauvegarde dupliquée dans l'emplacement %d.\nJouer maintenant avec l'emplacement %d ?"
@@ -316,9 +314,9 @@ ja = "スロット%dに複製しました。\n今すぐスロット%dでプレ�
 zh_hans = "已复制到栏位%d。\n现在使用栏位%d游玩吗？"
 zh_hant = "已複製到欄位%d。\n現在使用欄位%d遊玩嗎？"
 
-# message: %d = result code (a reason row evt_slot_code_<n> follows)
+# message: %d = result code (a reason row vrfw_slot_code_<n> follows)
 [[row]]
-id = "evt_slot_copy_fail"
+id = "vrfw_slot_copy_fail"
 es = "No se ha podido duplicar la partida (código %d)."
 en = "The save could not be duplicated (code %d)."
 fr = "Impossible de dupliquer la sauvegarde (code %d)."
@@ -331,7 +329,7 @@ zh_hant = "無法複製存檔（代碼%d）。"
 
 # question (cursor on No)
 [[row]]
-id = "evt_slot_ask_delete"
+id = "vrfw_slot_ask_delete"
 es = "¿Seguro que quieres eliminar esta partida guardada? Esta acción no se puede deshacer."
 en = "Are you sure you want to delete this save? This cannot be undone."
 fr = "Voulez-vous vraiment supprimer cette sauvegarde ? Cette action est irréversible."
@@ -344,7 +342,7 @@ zh_hant = "確定要刪除此存檔嗎？此操作無法復原。"
 
 # message: %d = slot number (the save engine backs the save up first)
 [[row]]
-id = "evt_slot_deleted"
+id = "vrfw_slot_deleted"
 es = "Partida de la Ranura %d eliminada.\n(Se ha guardado una copia de seguridad.)"
 en = "The save in Slot %d was deleted.\n(A backup copy was kept.)"
 fr = "La sauvegarde de l'emplacement %d a été supprimée.\n(Une copie de secours a été conservée.)"
@@ -355,9 +353,9 @@ ja = "スロット%dのセーブデータを削除しました。\n（バック�
 zh_hans = "已删除栏位%d的存档。\n（已保留备份。）"
 zh_hant = "已刪除欄位%d的存檔。\n（已保留備份。）"
 
-# message: %d = result code (a reason row evt_slot_code_<n> follows)
+# message: %d = result code (a reason row vrfw_slot_code_<n> follows)
 [[row]]
-id = "evt_slot_delete_fail"
+id = "vrfw_slot_delete_fail"
 es = "No se ha podido eliminar la partida (código %d)."
 en = "The save could not be deleted (code %d)."
 fr = "Impossible de supprimer la sauvegarde (code %d)."
@@ -370,7 +368,7 @@ zh_hant = "無法刪除存檔（代碼%d）。"
 
 # message: the save engine lacks the slot commands
 [[row]]
-id = "evt_slot_need_update"
+id = "vrfw_slot_need_update"
 es = "Esta función necesita una versión más reciente del VRFW."
 en = "This feature needs a newer version of the VRFW."
 fr = "Cette fonction nécessite une version plus récente du VRFW."
@@ -383,7 +381,7 @@ zh_hant = "此功能需要更新版本的VRFW。"
 
 # keyboard guide: %d = the name's maximum length
 [[row]]
-id = "evt_slot_kb_guide"
+id = "vrfw_slot_kb_guide"
 es = "Nombre de la ranura (máx. %d caracteres)"
 en = "Slot name (max. %d characters)"
 fr = "Nom de l'emplacement (%d caractères max.)"
@@ -394,9 +392,8 @@ ja = "スロットの名前（最大%d文字）"
 zh_hans = "栏位名称（最多%d个字符）"
 zh_hant = "欄位名稱（最多%d個字元）"
 
-# message before the preset name list
 [[row]]
-id = "evt_slot_kb_failed"
+id = "vrfw_slot_kb_failed"
 es = "No se ha podido abrir el teclado.\nElige un nombre de la lista."
 en = "The keyboard could not be opened.\nChoose a name from the list."
 fr = "Impossible d'ouvrir le clavier.\nChoisissez un nom dans la liste."
@@ -409,7 +406,7 @@ zh_hant = "無法開啟鍵盤。\n請從列表中選擇名稱。"
 
 # question: %s = the name typed
 [[row]]
-id = "evt_slot_use_name"
+id = "vrfw_slot_use_name"
 es = "¿Usar «%s» como nombre de la ranura?"
 en = "Use \"%s\" as the slot name?"
 fr = "Utiliser « %s » comme nom de l'emplacement ?"
@@ -422,7 +419,7 @@ zh_hant = "將「%s」用作欄位名稱嗎？"
 
 # list option
 [[row]]
-id = "evt_slot_cancel"
+id = "vrfw_slot_cancel"
 es = "Cancelar"
 en = "Cancel"
 fr = "Annuler"
@@ -435,7 +432,7 @@ zh_hant = "取消"
 
 # list option: %d = slot number, %s = " · name" or nothing
 [[row]]
-id = "evt_slot_option"
+id = "vrfw_slot_option"
 es = "Ranura %d%s"
 en = "Slot %d%s"
 fr = "Emplacement %d%s"
@@ -448,7 +445,7 @@ zh_hant = "欄位%d%s"
 
 # fallback list as chained Yes/No questions: %s = the option
 [[row]]
-id = "evt_slot_option_ask"
+id = "vrfw_slot_option_ask"
 es = "¿%s?"
 en = "%s?"
 fr = "%s ?"
@@ -461,7 +458,7 @@ zh_hant = "%s？"
 
 # preset slot name 1 (keyboard unavailable)
 [[row]]
-id = "evt_slot_preset_1"
+id = "vrfw_slot_preset_1"
 es = "Principal"
 en = "Main"
 fr = "Principale"
@@ -474,7 +471,7 @@ zh_hant = "主存檔"
 
 # preset slot name 2
 [[row]]
-id = "evt_slot_preset_2"
+id = "vrfw_slot_preset_2"
 es = "Historia"
 en = "Story"
 fr = "Histoire"
@@ -487,7 +484,7 @@ zh_hant = "劇情"
 
 # preset slot name 3
 [[row]]
-id = "evt_slot_preset_3"
+id = "vrfw_slot_preset_3"
 es = "Crónica"
 en = "Chronicle"
 fr = "Chronique"
@@ -500,7 +497,7 @@ zh_hant = "編年史"
 
 # preset slot name 4
 [[row]]
-id = "evt_slot_preset_4"
+id = "vrfw_slot_preset_4"
 es = "Pruebas"
 en = "Testing"
 fr = "Tests"
@@ -513,7 +510,7 @@ zh_hant = "測試"
 
 # preset slot name 5
 [[row]]
-id = "evt_slot_preset_5"
+id = "vrfw_slot_preset_5"
 es = "Secundaria"
 en = "Secondary"
 fr = "Secondaire"
@@ -526,7 +523,7 @@ zh_hant = "副存檔"
 
 # preset slot name 6
 [[row]]
-id = "evt_slot_preset_6"
+id = "vrfw_slot_preset_6"
 es = "Partida nueva"
 en = "New game"
 fr = "Nouvelle partie"
@@ -539,7 +536,7 @@ zh_hant = "新遊戲"
 
 # list option: back to the default name
 [[row]]
-id = "evt_slot_clear_name"
+id = "vrfw_slot_clear_name"
 es = "(sin nombre)"
 en = "(no name)"
 fr = "(sans nom)"
@@ -552,7 +549,7 @@ zh_hant = "（無名稱）"
 
 # name shown for the unnamed locked slot
 [[row]]
-id = "evt_slot_original"
+id = "vrfw_slot_original"
 es = "Partida original"
 en = "Original save"
 fr = "Sauvegarde d'origine"
@@ -565,7 +562,7 @@ zh_hant = "原始存檔"
 
 # reason of save engine result code 2
 [[row]]
-id = "evt_slot_code_2"
+id = "vrfw_slot_code_2"
 es = "la Ranura 1 está bloqueada"
 en = "Slot 1 is locked"
 fr = "l'emplacement 1 est verrouillé"
@@ -578,7 +575,7 @@ zh_hant = "欄位1已鎖定"
 
 # reason of result code 3
 [[row]]
-id = "evt_slot_code_3"
+id = "vrfw_slot_code_3"
 es = "la ranura de destino no está vacía"
 en = "the target slot is not empty"
 fr = "l'emplacement de destination n'est pas vide"
@@ -591,7 +588,7 @@ zh_hant = "目標欄位不為空"
 
 # reason of result code 4
 [[row]]
-id = "evt_slot_code_4"
+id = "vrfw_slot_code_4"
 es = "la ranura de origen está vacía"
 en = "the source slot is empty"
 fr = "l'emplacement source est vide"
@@ -604,7 +601,7 @@ zh_hant = "來源欄位為空"
 
 # reason of result code 5
 [[row]]
-id = "evt_slot_code_5"
+id = "vrfw_slot_code_5"
 es = "el juego está guardando o cargando"
 en = "the game is saving or loading"
 fr = "le jeu est en train de sauvegarder ou de charger"
@@ -617,7 +614,7 @@ zh_hant = "遊戲正在儲存或讀取"
 
 # reason of result code 6
 [[row]]
-id = "evt_slot_code_6"
+id = "vrfw_slot_code_6"
 es = "error de lectura"
 en = "read error"
 fr = "erreur de lecture"
@@ -630,7 +627,7 @@ zh_hant = "讀取錯誤"
 
 # reason of result code 7
 [[row]]
-id = "evt_slot_code_7"
+id = "vrfw_slot_code_7"
 es = "error de escritura (¿cuota de Steam Cloud?)"
 en = "write error (Steam Cloud quota?)"
 fr = "erreur d'écriture (quota Steam Cloud ?)"
@@ -643,7 +640,7 @@ zh_hant = "寫入錯誤（Steam 雲端儲存配額？）"
 
 # reason of result code 8
 [[row]]
-id = "evt_slot_code_8"
+id = "vrfw_slot_code_8"
 es = "la copia no coincide al releerla"
 en = "the copy does not match when read back"
 fr = "la copie ne correspond pas à la relecture"
@@ -656,7 +653,7 @@ zh_hant = "重新讀取時副本不一致"
 
 # reason of result code 9
 [[row]]
-id = "evt_slot_code_9"
+id = "vrfw_slot_code_9"
 es = "Steam no está listo"
 en = "Steam is not ready"
 fr = "Steam n'est pas prêt"
@@ -667,9 +664,8 @@ ja = "Steamの準備ができていません"
 zh_hans = "Steam 尚未就绪"
 zh_hant = "Steam 尚未就緒"
 
-# title screen (save_slots_inc): the switch was refused while a save job runs
 [[row]]
-id = "evt_slot_switch_busy"
+id = "vrfw_slot_switch_busy"
 es = "El juego está guardando o cargando. Inténtalo de nuevo en unos segundos."
 en = "The game is saving or loading. Try again in a few seconds."
 fr = "Le jeu est en train de sauvegarder ou de charger. Réessayez dans quelques secondes."
@@ -682,7 +678,7 @@ zh_hant = "遊戲正在儲存或讀取。請幾秒後再試。"
 
 # title screen: the save engine refused the switch, %d = slot number
 [[row]]
-id = "evt_slot_switch_refused"
+id = "vrfw_slot_switch_refused"
 es = "No se ha podido cambiar a la Ranura %d."
 en = "Could not switch to Slot %d."
 fr = "Impossible de passer à l'emplacement %d."
@@ -695,7 +691,7 @@ zh_hant = "無法切換到欄位%d。"
 
 # title screen: loading the slot failed, %d = slot number
 [[row]]
-id = "evt_slot_switch_load_failed"
+id = "vrfw_slot_switch_load_failed"
 es = "No se han podido cargar los datos de la Ranura %d. Se mantiene la ranura actual."
 en = "The data of Slot %d could not be loaded. The current slot is kept."
 fr = "Impossible de charger les données de l'emplacement %d. L'emplacement actuel est conservé."
@@ -708,7 +704,7 @@ zh_hant = "無法讀取欄位%d的資料。保持目前欄位。"
 
 # screen header while the player slots take more than one page (config [save.slots] count > 3): %d = page, %d = pages
 [[row]]
-id = "evt_slot_header_page"
+id = "vrfw_slot_header_page"
 es = "Ranuras de guardado · %d/%d"
 en = "Save Slots · %d/%d"
 fr = "Emplacements de sauvegarde · %d/%d"
@@ -719,10 +715,8 @@ ja = "セーブスロット · %d/%d"
 zh_hans = "存档栏位 · %d/%d"
 zh_hant = "存檔欄位 · %d/%d"
 
-# the story-complete start's question after 'New game' on an empty slot (yes = the slot starts with the Victory Road story completed);
-# one short line per item: the popup does not wrap
 [[row]]
-id = "evt_slot_story_ask"
+id = "vrfw_slot_story_ask"
 es = "¿Te has pasado la historia de Victory Road?\n・Historia completada (Nv. 50).\n・Logros de historia completados.\n・Los 15 jugadores opcionales de la selección.\nTodo lo demás empieza de cero."
 en = "Have you already finished the Victory Road story?\n・Story completed (Lv. 50).\n・Story achievements completed.\n・The 15 optional national team players.\nEverything else starts from zero."
 fr = "As-tu déjà terminé l'histoire de Victory Road ?\n・Histoire terminée (Nv 50).\n・Succès de l'histoire obtenus.\n・Les 15 joueurs optionnels de la sélection.\nTout le reste repart de zéro."

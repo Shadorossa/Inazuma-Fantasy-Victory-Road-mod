@@ -1,7 +1,4 @@
 schema = "VRFW.base_table/1"
-# The moves' own ball colours: new rows of the move colours (m_skillColorInfoList; the technique sets colorIdx through
-# `cells`: the type's `color` key stops at 9), each a retail row of the same gradation with the download's effect tag
-# and three ball-aura statuses, which eff_chr_trigger maps to the tag's a / b / c effects (content\base_tables\effect\).
 
 [[keyed]]
 list = "m_skillColorInfoList"

@@ -1,8 +1,3 @@
-# Chronicle Deluxe: the chain board's art. Our own drawings of the IE3 chain screen (research/scripts/
-# chain_board_art.py, no Level-5 pixel): page panel, title tab, cursor brackets, tiles locked / open / done / start /
-# «?», start flag, chests (closed, open, padlocked; the IE3 «S» chest too), lock, check, «?», link bar, page arrows.
-# The framework's chain board draws them by role (content\screen_art\chain_board.toml). Generated: rerun the script,
-# do not edit by hand.
 schema = "VRFW.image/1"
 
 [[texture]]

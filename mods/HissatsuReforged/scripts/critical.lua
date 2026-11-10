@@ -1,31 +1,18 @@
--- Hissatsu Reforged › the critical hit of special moves. The framework's critical stage (rule engine triggers
--- crit_check / crit, docs/framework/rules.md §3.7) asks once per execution of a move; this script answers the chance,
--- the cap and the multiplier from config.toml [critical]:
---   * a base chance for every special move;
---   * the «Crítico» archetype (the game's team build 0, retail «Brecha»): its four build passives as team-wide bonuses
---     (chance, chance when level or behind, critical power per rank, tension on a critical; the keepers' chance per
---     rank) and its charge: ranks 1..#levels, +1 per rank_up_seconds of match clock without a critical of the team,
---     -rank_down_on_crit on one; each rank multiplies the team's chance (levels) and its keepers' (keeper_levels).
--- Same rules for both teams (user and CPU). Nothing here names a move or a player; nothing calls the game at load.
 
 HissatsuReforged = HissatsuReforged or {}
 HissatsuReforged.Critical = HissatsuReforged.Critical or {}
 local Critical = HissatsuReforged.Critical
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("critical")
 
 local ARCHETYPE_STATE = "VRFW.archetype.team"   -- + match side: the side's team build (VRFW archetype service)
-local RANK_STATE = "HissatsuReforged.critical_rank"     -- + match side: the «Crítico» rank this script keeps
+local RANK_STATE = "HissatsuReforged.critical_rank"
 
-local u32 = require("VRFW/lib/ids").u32
+local u32 = VRFW.ids.unsigned
 
--- a value of this mod's merged config [critical]: a number, or a list of numbers when `default` is a table
 local function setting(key, default)
-  local ok, v = pcall(VRFW.files.config, "critical." .. key)
-  if not ok or v == nil then return default end
+  local v = VRFW.config("critical." .. key, default)
   if type(default) == "table" then
-    if type(v) ~= "table" then return default end
     local out = {}
     for i, x in ipairs(v) do
       if type(x) ~= "number" then return default end
@@ -33,8 +20,7 @@ local function setting(key, default)
     end
     return #out > 0 and out or default
   end
-  if type(v) == "number" then return v end
-  return default
+  return v
 end
 
 local config = nil
@@ -69,27 +55,22 @@ local function settings()
   return config
 end
 
--- ------------------------------------------------------------------------------------------------ moves
-
-local moves = nil   -- [skill id] = skill table category
-
-local function move_category(skill)
-  if moves == nil then
-    moves = {}
-    for _, id in ipairs({ "skill/skill", "skill" }) do
-      local ok, rows = pcall(VRFW.table.rows, id)
-      if ok and type(rows) == "table" and #rows > 0 then
-        for _, r in ipairs(rows) do
-          if r.skill_id then moves[u32(r.skill_id)] = tonumber(r.category) or 0 end
-        end
-        break
-      end
+-- [skill id] = skill table category, read once at script load (the boot thread, a data read)
+local moves = {}
+do
+  local ok, rows = pcall(VRFW.table.rows, "skill/skill")
+  if ok then
+    for _, r in ipairs(rows) do
+      if r.skill_id then moves[u32(r.skill_id)] = tonumber(r.category) or 0 end
     end
+  else
+    warn("skill/skill not readable: " .. tostring(rows) .. ": no move gets a critical")
   end
-  return moves[u32(skill)]
 end
 
--- ------------------------------------------------------------------------------------------------ the team
+local function move_category(skill)
+  return moves[u32(skill)]
+end
 
 local function on_archetype(side)
   local ok, v = pcall(VRFW.state.get, ARCHETYPE_STATE .. tostring(side))
@@ -104,9 +85,7 @@ local function level_or_behind(ev, side)
   return own <= other
 end
 
--- ------------------------------------------------------------------------------------------------ the charge
-
-local CHARGE = {}   -- [side] = { rank, half, clock }: the rank and the match clock it was last set at
+local CHARGE = {}
 
 local function clock_of(ev)
   local m = ev.match or VRFW.match() or {}
@@ -118,8 +97,6 @@ local function publish(side, rank, why)
   info(string.format("side %d rank %d (%s)", side, rank, why))
 end
 
--- the side's rank now: the last one + the full rank_up_seconds since (the match clock of this half; a new half counts
--- from its start)
 local function rank_now(side, ev)
   local c = settings()
   local top = #c.levels
@@ -154,9 +131,6 @@ local function on_team_crit(side, ev)
   if s.rank ~= r then publish(side, s.rank, "critical hit") end
 end
 
--- ------------------------------------------------------------------------------------------------ the answers
-
--- the chance of this execution, in percent (before the cap), and the power multiplier of a hit
 function Critical.Answer(ev)
   local c = settings()
   local a = ev.actor
@@ -176,9 +150,8 @@ end
 
 VRFW.on("match_start", function()
   CHARGE = {}
-  -- the move table and the settings are read here (the mode watcher's thread), not by the match's first move
+  -- the settings here, not by the match's first move
   settings()
-  move_category(0)
   return nil
 end)
 
@@ -188,7 +161,6 @@ VRFW.on("crit_check", function(ev)
   return { crit_chance = chance, crit_mult = mult, crit_cap = settings().cap }
 end)
 
--- a hit: the log line (the framework logs the roll and the power it multiplies), the «Crítico» charge and its tension
 VRFW.on("crit", function(ev)
   local a = ev.actor
   if not a or not ev.skill or move_category(ev.skill) == nil then return nil end

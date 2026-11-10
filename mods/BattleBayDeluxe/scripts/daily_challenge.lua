@@ -1,34 +1,10 @@
--- Battle Bay Deluxe «Reto diario»: a run of matches that is the same for every player on a given UTC day, with no
--- server. A library of campaign.lua (one VM). Declarations: content\game\ daily_challenge.toml (the commands),
--- config.toml [daily_challenge] (the rules of the draw: the team pool, the match count, the difficulty of each match,
--- the seed's salt and version); the screens: graft research/grafts/ bb_daily_challenge (the «Campaña» row's menu, the
--- campaign end window).
---
--- The draw: the menu gives the UTC date (VRFW_Daily.Period("day"), the framework's clock) as YYYYMMDD; the seed is the
--- framework's one seeded generator VRFW.rng(salt, { date, version }) (fnv1a64 + SplitMix64 + PCG32, integer only). The
--- pool = the team table rows whose level and key match [daily_challenge.pool], that the Battle Bay lists (enjoy rows),
--- one per team name, sorted by team key; then distinct picks (VRFW/lib/daily Pick, rng:below): the player's loaned team
--- first, then one rival per match. Same mod version + same date = the same run on every PC.
--- The matches are the game's own Battle Bay campaign matches on the lent campaign block (lib/campaign_block.lua): the
--- player team, the run's rivals in order, the index = the next match. The result: the game's own (VRFW lib/match_result,
--- signal vrfw.match_result). A loss keeps the run on that match (unlimited retries); the run is complete when every
--- match is won. The save blob bb_daily_challenge.json of the slot keeps today's run and, per day, done + the best run
--- (matches won, then goals for, then fewer goals against).
---
--- | Command | Args -> answers |
--- |---|---|
--- | CMND_BBD_DAILY_INFO | date (YYYYMMDD) -> table { ok, why, date, team, rivals, matches, k, results, done, best, loaded, last } |
--- | CMND_BBD_DAILY_PREPARE | date -> table { ok, why, k }: the Campaña's block kept, the run's next match written |
--- | CMND_BBD_DAILY_UNLOAD | -> true: the match request failed, the Campaña's block back |
--- | CMND_BBD_DAILY_SYNC | -> table { event = "none" | "won" | "lost" | "completed", gf, ga, k }: after a run match |
--- | CMND_BBD_DAILY_LOADED | -> true while a run match holds the block |
 
 local U = require "lib/util"
 local Block = require "lib/campaign_block"
 local G = require "lib/game"
 local Trophy = require "lib/trophy_celebration"
-local Catalogue = require "VRFW/lib/game_catalogue"
-local Daily = require "VRFW/lib/daily"
+local Catalogue = VRFW.catalogue
+local Daily = VRFW.daily
 
 local D = {}
 
@@ -36,10 +12,7 @@ local BLOB = "bb_daily_challenge.json"
 local CAMP_BLOB = "bb_daily_campaign.json"
 local DOC_VERSION = 1
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("daily challenge")
-
--- ------------------------------------------------------------------------------------------------ config
 
 local function cfg(key, default)
   return U.config("daily_challenge." .. key, default)
@@ -83,8 +56,6 @@ local function settings()
   return s
 end
 
--- ------------------------------------------------------------------------------------------------ the pool
-
 -- a glob of a team key (`*` any run of characters, `?` one character) as a Lua pattern
 local function glob_pattern(g)
   local p = tostring(g):gsub("[%^%$%(%)%%%.%[%]%+%-]", "%%%0"):gsub("%*", ".*"):gsub("%?", ".")
@@ -103,8 +74,6 @@ local function key_matches(key, patterns)
   return false
 end
 
--- the candidates { { team, key } } sorted by key: team table rows of the pool's level and keys, listed by the Battle Bay
--- (an enjoy row), one per team name text (the first key of a name); nil, why
 local function pool(s)
   local rows = Catalogue.pool({ level = s.level })
   if not rows then
@@ -147,9 +116,6 @@ local function pool(s)
   return uniq
 end
 
--- ------------------------------------------------------------------------------------------------ the draw
-
--- the run of `date` (YYYYMMDD): { date, team, rivals = { … }, difficulty = { … }, seed }; nil, why
 local PLANS = {}
 function D.plan(date)
   date = U.int(date, 0)
@@ -167,7 +133,7 @@ function D.plan(date)
   if #cands < s.matches + 1 then
     return nil, string.format("pool of %d team(s), %d needed", #cands, s.matches + 1)
   end
-  local picks = Daily.Pick({ salt = s.salt, version = s.version, pool = cands, picks = s.matches + 1 }, date)
+  local picks = Daily.pick({ salt = s.salt, version = s.version, pool = cands, picks = s.matches + 1 }, date)
   local p = { date = date, team = picks[1].team, rivals = {}, difficulty = s.difficulty, matches = s.matches }
   local names = { picks[1].key }
   for i = 2, #picks do
@@ -180,12 +146,7 @@ function D.plan(date)
   return p
 end
 
--- ------------------------------------------------------------------------------------------------ the save
-
-require "VRFW/lib/save_doc"
-
--- the record of the slot, read once per slot; a file of another version is left as it is and a new record used
-local STORE = VRFW.save.doc(BLOB, {
+local STORE = VRFW.save.doc.new(BLOB, {
   aside = false,
   log = "daily challenge",
   default = function() return { v = DOC_VERSION, days = {} } end,
@@ -200,7 +161,6 @@ local function load()
   return (STORE:get())
 end
 
--- the days kept: the newest keep_days (keys sorted, never the table's iteration order)
 local function prune(doc, keep)
   local keys = {}
   for k in pairs(doc.days) do
@@ -249,7 +209,6 @@ local function totals(results)
   return gf, ga
 end
 
--- a better run: more matches won, then more goals for, then fewer goals against
 local function better(won, gf, ga, best)
   if won ~= best.won then
     return won > best.won
@@ -260,10 +219,6 @@ local function better(won, gf, ga, best)
   return ga < best.ga
 end
 
--- ------------------------------------------------------------------------------------------------ match events
-
--- one finished run match recorded: res = { gf, ga, outcome } (the game's outcome: "win", "draw", "loss"); a win moves
--- the run on and may raise the day's best run; a draw or a loss keeps the run on that match. Returns the event.
 local function record(doc, r, res)
   local p = D.plan(r.date)
   local matches = p and p.matches or (#r.results + 1)
@@ -292,7 +247,7 @@ local function record(doc, r, res)
   return event
 end
 
-local LIVE = false   -- the match being played is the run's next match (match_start saw the lent block)
+local LIVE = false
 
 VRFW.on("match_start", function()
   LIVE = false
@@ -304,14 +259,12 @@ VRFW.on("match_start", function()
   return nil
 end)
 
--- the framework's match result (VRFW lib/match_result, sent at the game's result builder, before the result screen and
--- before a game over): recorded at once, so the run is right whatever screen comes next
 VRFW.on("signal:vrfw.match_result", function()
   if not LIVE then
     return nil
   end
   LIVE = false
-  local last = require("VRFW/lib/match_result").last()
+  local last = VRFW.match.results.last()
   local doc = load()
   local r = doc.run
   if type(last) ~= "table" or type(r) ~= "table" or not r.loaded then
@@ -320,7 +273,6 @@ VRFW.on("signal:vrfw.match_result", function()
   r.seen = true
   local event = record(doc, r, { gf = U.int(last.score_for, 0), ga = U.int(last.score_against, 0),
     outcome = last.outcome })
-  -- the run's last match won: the day's challenge is complete, the champions' celebration after its full time
   if event == "completed" then
     Trophy.play("daily_challenge", last)
   end
@@ -332,8 +284,6 @@ VRFW.on("slot_load", function()
   LIVE = false
   return nil
 end)
-
--- ------------------------------------------------------------------------------------------------ commands
 
 function BattleBayDeluxe.DailyInfo(date)
   local p, why = D.plan(date)
@@ -361,7 +311,6 @@ function BattleBayDeluxe.DailyPrepare(date)
   end
   local doc = load()
   local r = run_of(doc, p)
-  -- a completed run starts again from the first match (unlimited retries; the day keeps its best run)
   if r.k >= p.matches then
     r.k, r.results = 0, {}
     info(string.format("%d: the run starts again", p.date))
@@ -397,7 +346,6 @@ function BattleBayDeluxe.DailySync()
   local doc = load()
   local r = doc.run
   if type(r) ~= "table" or not r.loaded then
-    -- a kept Campaña block without a lent run (a crash between the two writes): back to the Campaña
     if Block.has_snapshot(CAMP_BLOB) then
       Block.restore(CAMP_BLOB)
     end
@@ -411,7 +359,6 @@ function BattleBayDeluxe.DailySync()
     save()
     return { event = r.last.event, gf = r.last.gf, ga = r.last.ga, k = r.k }
   end
-  -- no game result seen: the block tells a win (the index moved on) from a loss (zeroed); untouched = not played
   local touched = b ~= nil and (b.player ~= r.team or b.index ~= r.k or (b.rivals[1] or 0) == 0)
   if not touched then
     save()

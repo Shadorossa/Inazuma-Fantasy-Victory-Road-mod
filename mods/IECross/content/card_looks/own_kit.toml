@@ -1,10 +1,5 @@
 schema = "VRFW.card_look/1"
 
-# IECross › a normal card with a kit of its own: the Halloween David Samford and Nathan Swift wear the Pumpkin Devil kit
-# (their chara_param moment_kit, content\characters\10_ie1\ievrcross_characters.toml) in matches, menu 3D models and face icons, over the team
-# kit, while the player's switch is on. Keeper and away variants follow the match flags. The switch is the retail «hide
-# equipment» bit (set = off, on by default, saved with the player): the row in «Equipamiento», or the eye key on its
-# «Atuendo» row. A worn «Atuendo» outfit wins. Higher rarities are Character Reforged's era_kit rule.
 [[VRFW.CardLook]]
 name = "own_kit"
 column = "moment_kit"

@@ -1,9 +1,0 @@
-schema = "VRFW.gacha/1"
-# Inazuma Fantasy: its (content/characters/tezcat_arion_miximax.toml, tezcat_mixi_max_arion;
-# docs/game/characters/tezcat-arion-miximax.md) in Chronicle Deluxe's board gacha (the Mix-Max forms pool,
-# ChronicleDeluxe.kizuna_coin_gacha: exported by Chronicle Deluxe's mod.toml). Without Chronicle Deluxe the pool is not
-# declared and nothing is added (VRFW docs/framework/gacha.md).
-
-[[VRFW.GachaAdd]]
-pool = "ChronicleDeluxe.kizuna_coin_gacha"
-cards = ["0x8D17A147"]   # tezcat_mixi_max_arion's pinned card: a number needs no ids registry lookup

@@ -1,0 +1,1412 @@
+@PH_COMMON@
+
+-- ===== EVT plate_hiper plate BEGIN =====
+
+CharacterReforged.HYPER_PAGE_INTEGRATED = true
+CharacterReforged.hyper_page = {L = 2979991327, TEX = 2815298114 --[[team00_30.g4tx]], TEX_T02 = 3964676290 --[[team02_02.g4tx]],
+  BAND_EMPTY = 2575257044 --[[sp_base_blank02]], ROW = 1981802733, FACE = 500530241}
+@HIPER_CARD@
+CharacterReforged.HYPER_PAGE_BANDS = CharacterReforged.hyper_card.BANDS        -- shared card component (character_reforged_hiper_card.lua)
+
+CharacterReforged.HYPER_PAGE_ON_PAGE = true
+CharacterReforged.HYPER_PAGE_TYPE_IN_NAME = true          -- "Lancelot (Keshin)"
+CharacterReforged.HYPER_PAGE_EMPTY_NAME_ID = 3573892934
+function CharacterReforged.hyper_page_text(id)
+  local ok, s = pcall(funcLuaCommand, @crc:CMND_TEXT_GET@, id)
+  if ok and type(s) == "string" and s ~= "" then
+    return s
+  end
+  return ""
+end
+-- Text of the aura type's name by SKILL_INFO 13.
+CharacterReforged.HYPER_PAGE_TYPE_TEXT = {[0] = 3355725879 --[[character_reforged_ph_aura_type_keshin]], 1189211136 --[[game: Armadura]],
+  1866899706 --[[character_reforged_ph_aura_type_miximax]], 3874130844 --[[character_reforged_ph_aura_type_totem]], 233210732 --[[game: Vínculo]],
+  1380425546 --[[character_reforged_ph_aura_type_awakening_power]], 3203377297 --[[character_reforged_ph_aura_type_mode_change]],
+  3823808964 --[[game: Despertar]]}
+
+local L_STATUS = 730911947          -- soccer11_05_formation_status_base (holds the attach labels)
+local L_DETAIL = 2628045944         -- team02_02_skill_detail_info
+local L_GUIDE = 1921826160          -- team00_40_change_page_guide (aura window page guide)
+local AURA_WIN = {[0] = 2651268807, 395833588, 3679282495, 576015315, 3635526425, 1305553269, 3131422953}
+local AURA_LIST = {3305013191, 469529772, 2518547969}   -- armed / miximax chara list items of the aura windows
+local HYPER_PAGE_ATTACH = {
+  {2628045944, 3582151293, 469331039, 3794660660, true},   -- team02_02_skill_detail_info
+  {2651268807, 100208928, 292829657, 2066005134, false},   -- team00_30_aura_keshin_detail_info
+  {395833588, 3614520464, 2835829491, 203656216, false},   -- team00_30_aura_keshin_armed_detail_info
+  {3679282495, 156154064, 3817422277, 2454133179, false},   -- team00_30_aura_mixi_max_detail_info
+  {576015315, 2010198621, 1367082907, 3846187309, false},   -- team00_30_aura_soul_detail_info
+  {3635526425, 1317134987, 980681138, 2085189783, false},   -- team00_30_aura_kizuna_trans_detail_info
+  {1305553269, 2809849850, 3248645642, 189679617, false},   -- team00_30_aura_awakening_power_detail_info
+  {3131422953, 3719784747, 2053488477, 2616284560, false},   -- team00_30_aura_mode_change_detail_info
+}
+
+local C = {
+  LAYER_VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@, IS_LAYER_VISIBLE = @crc:CMND_IS_LAYER_VISIBLE@, EXIST_LAYER = @crc:CMND_IS_EXIST_LAYER@,
+  IS_OPEN_LAYER = @crc:CMND_IS_OPEN_LAYER@, OPEN_LAYER = @crc:CMND_OPEN_LAYER@, TRACE = @crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, LOC_VISIBLE = 2158717427,
+  MESH_VISIBLE = @crc:CMND_SET_MESH_VISIBLE@, TEXT = @crc:CMND_SET_MENU_TEXT_STRING@, TEXT_VISIBLE = @crc:CMND_SET_MENU_TEXT_VISIBLE@, TEXT_PLATE = @crc:CMND_UPDATE_TEXT_PLATE@,
+  SPRITE = 558735651, LIST_VISIBLE = 2171393651, PRIM_VISIBLE = 1233047821,
+  SKILL_INFO = @crc:CMND_GET_SOCCER_SKILL_INFO@, NAME_TEXT = 720417636, BOARD_INV = 632801955, INV_ITEM = 2662166687,
+  GET_SKILL = 903078840, TENSION_SCALE = 3413028567, VRFW_LOG = @crc:CMND_VRFW_LOG@,
+}
+local TX_TEAM02_02 = 3964676290     -- #/menu/102_team/team02/team02_02/<LG>/team02_02.g4tx
+
+local character_reforged_ph_on = false             -- the mod's window is shown / labels switched
+local character_reforged_ph_plate_type = 0         -- SetPersonalPlateType (2 = rpg locator set)
+local character_reforged_ph_detail_dirty = false
+
+local function HyperPageLog(...)
+end
+
+local function HyperPageIsSpecial(skill)
+  if skill == nil or skill == 0 then
+    return false
+  end
+  local ok, cat = funcLuaCommand(C.SKILL_INFO, skill, 9)
+  return ok and cat == 8
+end
+
+-- move on a board skill slot (0x25B7CAA3 kind 1 = placed item, kind 0 = native item), as the skill slot screen
+local function HyperPageBoard(chara, bslot)
+  local inv = funcLuaCommand(C.BOARD_INV, chara, bslot, 1)
+  if inv == nil or inv == 0 then
+    inv = funcLuaCommand(C.BOARD_INV, chara, bslot, 0)
+  end
+  if inv == nil or inv == 0 then
+    return 0
+  end
+  return VRFW.ids.unsigned(funcLuaCommand(C.INV_ITEM, inv, 0))
+end
+
+-- Two slots per player (docs/game/hiper/hiper-two-slots.md)
+function CharacterReforged.hyper_page_projection(chara)
+  local page = type(CharacterReforged) == "table" and CharacterReforged.page or nil
+  if chara == nil or chara == 0 or type(page) ~= "table" or type(page.projection) ~= "function" then
+    return nil
+  end
+  return page.projection(chara)
+end
+
+function CharacterReforged.hyper_page_mix_of(chara)
+  if chara == nil or chara == 0 then
+    return 0
+  end
+  local proj = CharacterReforged.hyper_page_projection(chara)
+  if proj ~= nil then
+    return VRFW.ids.unsigned(proj.mix)
+  end
+  local page = type(CharacterReforged) == "table" and CharacterReforged.page or nil
+  if type(page) ~= "table" or type(page.mix_of) ~= "function" then
+    return 0
+  end
+  return VRFW.ids.unsigned(page.mix_of(chara))
+end
+
+-- L3 on the Hiper page
+function CharacterReforged.hyper_page_can_switch(chara)
+  return CharacterReforged.hyper_page_mix_of(chara) ~= 0 and CharacterReforged.hyper_page_aura_of(chara) ~= 0
+end
+
+-- Returns the page's move.
+function CharacterReforged.hyper_page_skill(chara)
+  if chara == nil or chara == 0 then
+    return 0
+  end
+  local aura = CharacterReforged.hyper_page_aura_of(chara)
+  local mix = CharacterReforged.hyper_page_mix_of(chara)
+  if mix ~= 0 and (aura == 0 or CharacterReforged.HYPER_PAGE_MIXIMAX_VIEW) then
+    return mix
+  end
+  return aura
+end
+
+function CharacterReforged.hyper_page_aura_of(chara)
+  if chara == nil or chara == 0 then
+    return 0
+  end
+  local proj = CharacterReforged.hyper_page_projection(chara)
+  if proj ~= nil then
+    return VRFW.ids.unsigned(proj.aura)
+  end
+  local s = HyperPageBoard(chara, 8)
+  if HyperPageIsSpecial(s) then
+    return s
+  end
+  for pos = 0, 5 do
+    s = VRFW.ids.unsigned(funcLuaCommand(C.GET_SKILL, chara, pos))
+    if HyperPageIsSpecial(s) then
+      return s
+    end
+  end
+  for _, b in ipairs({5, 6, 7}) do
+    s = HyperPageBoard(chara, b)
+    if HyperPageIsSpecial(s) then
+      return s
+    end
+  end
+  return 0
+end
+
+if CharacterReforged.HYPER_PAGE_SKILL_RETAIL == nil and type(SetSkillItemLayerName) == "function" then
+  CharacterReforged.HYPER_PAGE_SKILL_RETAIL = SetSkillItemLayerName
+end
+VRFW.host.wrap("SetSkillItemLayerName", function(orig)
+  CharacterReforged.HYPER_PAGE_SKILL_RETAIL = CharacterReforged.HYPER_PAGE_SKILL_RETAIL or orig
+  return function(...)
+    CharacterReforged.hyper_page.skl = {...}
+    return orig(...)
+  end
+end)
+CharacterReforged.hyper_page.origSkl = CharacterReforged.HYPER_PAGE_SKILL_RETAIL
+
+local function HyperPageExists(layer)
+  return funcLuaMenuCommand(C.EXIST_LAYER, layer) == true
+end
+
+-- A layer opened here is not usable in the same frame (IS_LAYER_VISIBLE answers false after the fill).
+local function HyperPageOpen(layer, inst)
+  inst = inst or 0
+  if HyperPageExists(layer) and not funcLuaMenuCommand(C.IS_OPEN_LAYER, layer, inst) then
+    funcLuaMenuCommand(C.OPEN_LAYER, layer, inst)
+    CharacterReforged.hyper_page.opened = true
+    return true
+  end
+  return false
+end
+
+local function HyperPageTeamInfo()
+  local ok, ti = GetSoccerTeamInfo(0)
+  if not ok or ti == nil or ti == 255 then
+    return nil
+  end
+  local ok2 = funcLuaCommand(C.TENSION_SCALE, ti, true)
+  if not ok2 then
+    return nil
+  end
+  return ti
+end
+
+local function HyperPageName(skill, style)
+  local ok, nameId = funcLuaCommand(C.SKILL_INFO, skill, 4)
+  if not ok or nameId == nil then
+    return nil
+  end
+  if style ~= nil then
+    return funcLuaCommand(C.NAME_TEXT, nameId, style)
+  end
+  return funcLuaCommand(C.NAME_TEXT, nameId)
+end
+
+local function HyperPageAuraType(skill)
+  local ok, t = funcLuaCommand(C.SKILL_INFO, skill, 13)
+  if ok and type(t) == "number" then
+    return t
+  end
+  return nil
+end
+
+local function HyperPageNameWithType(name, skill)
+  local t = HyperPageAuraType(skill)
+  local label = (CharacterReforged.HYPER_PAGE_TYPE_IN_NAME and name ~= nil and t ~= nil and CharacterReforged.HYPER_PAGE_TYPE_TEXT[t] ~= nil)
+    and CharacterReforged.hyper_page_text(CharacterReforged.HYPER_PAGE_TYPE_TEXT[t]) or ""
+  if label ~= "" then
+    return string.format("%s (%s)", name, label)
+  end
+  return name
+end
+
+CharacterReforged.HYPER_PAGE_DOTS = true
+local DOT_OFF = {3784855471 --[[_page01_off]], 2788701567 --[[_page02_off]], 2606243023 --[[_page03_off]],
+  695779551 --[[_page04_off]], 1007698216 --[[_page02_on_rpg, off material]]}
+-- Lit dot per page TYPE.
+local DOT_ON = {[1] = 2540064569 --[[`_page01_on`]], [5] = 2996782795 --[[_page01_on_rpg]], [0] = 2245255383 --[[`_page02_on`]],
+  [2] = 1030719410 --[[`_page03_on`]], [3] = 2696462091 --[[`_page04_on`]]}
+local M_SIXTH_TITLE = 1621221814
+local M_SIXTH_BASE = 2682382918
+local LOC_PAGE04 = 3145665477
+local TX_S1105 = 1156047165         -- #/menu/00_soccer/soccer11/soccer11_05/<LG>/soccer11_05.g4tx
+local SP_SIXTH_TITLE = 2885965654   -- gtxt_sixthsense01 (sprite the title mesh is built with = swap node)
+local SP_HIPER_TITLE = 3437796065
+
+function CharacterReforged.hyper_page_decor(ptype)
+  if not CharacterReforged.HYPER_PAGE_DOTS or not HyperPageExists(L_STATUS) then
+    return
+  end
+  local L = L_STATUS
+  -- Places the locator first.
+  local hiper = CharacterReforged.PLATE_HYPER and ptype == CharacterReforged.HYPER_PAGE_TYPE
+  if hiper then
+    funcLuaMenuCommand(C.LOC_VISIBLE, L, LOC_PAGE04, true, 0)
+  end
+  for _, m in ipairs(DOT_OFF) do
+    funcLuaMenuCommand(C.MESH_VISIBLE, L, m, true, 0)
+  end
+  for t, m in pairs(DOT_ON) do
+    funcLuaMenuCommand(C.MESH_VISIBLE, L, m, t == ptype, 0)
+  end
+  funcLuaMenuCommand(C.SPRITE, L, hiper and 3705043947 --[[#/menu/00_soccer/soccer11/character_reforged_titles/<LG>/character_reforged_titles.g4tx]] or TX_S1105,
+    hiper and SP_HIPER_TITLE or SP_SIXTH_TITLE, SP_SIXTH_TITLE, 0, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, M_SIXTH_TITLE, hiper or ptype == 3, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, M_SIXTH_BASE, ptype == 3, 0)
+  CharacterReforged.hyper_page_hide_arrow_keys()
+end
+
+CharacterReforged.HYPER_PAGE_HIDE_ARROW_KEYS = false
+function CharacterReforged.hyper_page_hide_arrow_keys()
+  if not CharacterReforged.HYPER_PAGE_HIDE_ARROW_KEYS or not HyperPageExists(L_STATUS) then
+    return
+  end
+  funcLuaMenuCommand(2735666188, L_STATUS, 355816102 --[[_text_btn_l01]], false, 0)
+  funcLuaMenuCommand(2735666188, L_STATUS, 59628764 --[[_text_btn_r01]], false, 0)
+end
+
+local function HyperPageTrace(label, on)
+  if label ~= nil and label ~= 0 then
+    funcLuaMenuCommand(C.TRACE, L_STATUS, 0, label, on)
+  end
+end
+
+-- the mod's labels on (page) or off with the retail state back
+local function HyperPageAttach(on)
+  if not CharacterReforged.HYPER_PAGE_ON_PAGE or not HyperPageExists(L_STATUS) then
+    return
+  end
+  local rpg = character_reforged_ph_plate_type == 2
+  for _, a in ipairs(HYPER_PAGE_ATTACH) do
+    if on then
+      HyperPageTrace(a[2], false)
+      HyperPageTrace(a[3], false)
+      HyperPageTrace(a[4], true)
+    else
+      HyperPageTrace(a[4], false)
+      if a[5] then
+        HyperPageTrace(a[2], not rpg)
+        HyperPageTrace(a[3], rpg)
+      else
+        HyperPageTrace(a[2], true)
+        HyperPageTrace(a[3], true)
+      end
+    end
+  end
+end
+
+local function HyperPageHideWindows()
+  for t = 0, 6 do
+    if HyperPageExists(AURA_WIN[t]) then
+      funcLuaMenuCommand(C.LAYER_VISIBLE, AURA_WIN[t], 0, false)
+    end
+  end
+  for _, l in ipairs(AURA_LIST) do
+    if HyperPageExists(l) then
+      funcLuaMenuCommand(C.LIST_VISIBLE, l, false)
+    end
+  end
+  if HyperPageExists(L_DETAIL) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, L_DETAIL, 0, false)
+  end
+  if HyperPageExists(L_GUIDE) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, L_GUIDE, 0, false)
+  end
+  if HyperPageExists(CharacterReforged.hyper_page.L) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, CharacterReforged.hyper_page.L, 0, false)
+  end
+  if HyperPageExists(CharacterReforged.hyper_page.ROW) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, CharacterReforged.hyper_page.ROW, 0, false)
+  end
+  if HyperPageExists(CharacterReforged.hyper_page.FACE) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, CharacterReforged.hyper_page.FACE, 0, false)
+  end
+end
+
+-- nodes of team02_02 that the "empty" drawing hides and the retail fill does not show again
+local function HyperPageResetDetail()
+  if not character_reforged_ph_detail_dirty or not HyperPageExists(L_DETAIL) then
+    return
+  end
+  funcLuaMenuCommand(C.LOC_VISIBLE, L_DETAIL, 923022909 --[[_pos_tension01]], true, 0)
+  funcLuaMenuCommand(C.LOC_VISIBLE, L_DETAIL, 4081284803 --[[_pos_at01]], true, 0)
+  funcLuaMenuCommand(C.PRIM_VISIBLE, L_DETAIL, 0, 3424269865, true)
+  funcLuaMenuCommand(C.PRIM_VISIBLE, L_DETAIL, 0, 2223127589, true)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, 3516146179 --[[_area_base01]], true, 0)
+  funcLuaMenuCommand(C.TEXT_VISIBLE, L_DETAIL, 1899787537 --[[_text_area01]], true, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, 2164615260 --[[_icon_sp_area_dmy01]], true, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, 3543352325 --[[_icon_sp_area01_off]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L_DETAIL, 656425078 --[[_item_win_line01]], true, 0)
+  character_reforged_ph_detail_dirty = false
+end
+
+local function HyperPageShowAura(skill, chara)
+  local t = HyperPageAuraType(skill)
+  local win = t ~= nil and AURA_WIN[t] or nil
+  if win == nil or not HyperPageExists(win) or UpdateAuraSkillDetailInfo == nil then
+    return false, "no aura window", t
+  end
+  HyperPageOpen(win)
+  local ok, err = pcall(UpdateAuraSkillDetailInfo, skill, chara, nil, HyperPageTeamInfo(), 0)
+  if not ok then
+    return false, err, t
+  end
+  if not funcLuaMenuCommand(C.IS_LAYER_VISIBLE, win, 0) then
+    return false, "window not shown", t
+  end
+  -- Applies to page 1 of the window only.
+  if HyperPageExists(L_GUIDE) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, L_GUIDE, 0, false)
+  end
+  funcLuaMenuCommand(C.LOC_VISIBLE, win, 1307475940 --[[_pos_list01]], false, 0)
+  funcLuaMenuCommand(C.LOC_VISIBLE, win, 3571920478 --[[_pos_list02]], false, 0)
+  local name = HyperPageNameWithType(HyperPageName(skill, 11), skill)
+  if name ~= nil then
+    funcLuaMenuCommand(C.TEXT, win, 2915321899 --[[_text_fs01]], name, 0)
+  end
+  return true, "aura", t
+end
+
+local function HyperPageShowDetail(skill, chara)
+  if not HyperPageExists(L_DETAIL) or SetupPersonalPlateSkillDetailInfo == nil then
+    return false, "no detail window"
+  end
+  HyperPageResetDetail()
+  HyperPageOpen(L_DETAIL)
+  local ok, err = pcall(SetupPersonalPlateSkillDetailInfo, skill, chara, nil, HyperPageTeamInfo(), nil, true)
+  if not ok then
+    return false, err
+  end
+  if not funcLuaMenuCommand(C.IS_LAYER_VISIBLE, L_DETAIL, 0) then
+    return false, "window not shown"
+  end
+  local name = HyperPageNameWithType(HyperPageName(skill), skill)
+  if name ~= nil then
+    funcLuaMenuCommand(C.TEXT, L_DETAIL, 1704438437 --[[_text_name01]], name, 0)
+  end
+  return true, "detail"
+end
+
+local function HyperPageShowEmpty()
+  if not HyperPageExists(L_DETAIL) then
+    return false
+  end
+  HyperPageOpen(L_DETAIL)
+  local L = L_DETAIL
+  character_reforged_ph_detail_dirty = true
+  funcLuaMenuCommand(C.LAYER_VISIBLE, L, 0, false)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 3543352325 --[[_icon_sp_area01_off]], true, 0)
+  funcLuaMenuCommand(C.SPRITE, L, TX_TEAM02_02, 2255856907 --[[icon_sp_area05_off]], 1945437131 --[[icon_sp_area01_off]], 0, 0)
+  funcLuaMenuCommand(C.TEXT, L, 1899787537 --[[_text_area01]], "", 0)
+  funcLuaMenuCommand(C.TEXT, L, 1704438437 --[[_text_name01]], CharacterReforged.hyper_page_text(CharacterReforged.HYPER_PAGE_EMPTY_NAME_ID), 0)
+  funcLuaMenuCommand(C.TEXT, L, 691026122 --[[_text_flavor01]], "", 0)   -- banner only, no hint text
+  funcLuaMenuCommand(C.SPRITE, L, TX_TEAM02_02, 2575257044 --[[sp_base_blank02]], 243934124 --[[sp_base01]], 0, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 2164615260 --[[_icon_sp_area_dmy01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 1220252763 --[[_gtxt_longshoot01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 559600405 --[[_icon_sp_sub_dmy01]], false, 0)
+  funcLuaMenuCommand(C.LOC_VISIBLE, L, 923022909 --[[_pos_tension01]], false, 0)
+  funcLuaMenuCommand(C.LOC_VISIBLE, L, 4081284803 --[[_pos_at01]], false, 0)
+  funcLuaMenuCommand(C.PRIM_VISIBLE, L, 0, 3424269865, false)
+  funcLuaMenuCommand(C.PRIM_VISIBLE, L, 0, 2223127589, false)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 3516146179 --[[_area_base01]], false, 0)
+  funcLuaMenuCommand(C.TEXT_VISIBLE, L, 1899787537 --[[_text_area01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 563708378 --[[_gtxt_cmd_at01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 3384915402 --[[_wlv_base01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 1013569271 --[[_ai_use01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 656425078 --[[_item_win_line01]], false, 0)   -- no description: no quote bar
+  funcLuaMenuCommand(C.LAYER_VISIBLE, L, 0, true)
+  return true
+end
+
+function CharacterReforged.hyper_page.fill(fn, ...)
+  local a = CharacterReforged.hyper_page.skl or {g_useFormationCharaSkillLayer, L_DETAIL, 0, 1803124851, 0, g_useFormationCharaSkillBlankLayer,
+    g_useSkillAIUseMarkLayer}
+  CharacterReforged.hyper_page.origSkl(a[1], CharacterReforged.hyper_page.L, 0, a[4], a[5], a[6], a[7])
+  local ok, err = pcall(fn, ...)
+  CharacterReforged.hyper_page.origSkl(a[1], a[2], a[3], a[4], a[5], a[6], a[7])
+  return ok, err
+end
+
+-- Hides what the page style never shows.
+function CharacterReforged.hyper_page.clean(L)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 3303013605 --[[_sp_win_base01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 2164615260 --[[_icon_sp_area_dmy01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 3543352325 --[[_icon_sp_area01_off]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 3384915402 --[[_wlv_base01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 1013569271 --[[_ai_use01]], false, 0)
+  funcLuaMenuCommand(C.LOC_VISIBLE, L, 1417578953 --[[_pos_atc_check01]], false, 0)
+  funcLuaMenuCommand(C.LOC_VISIBLE, L, 3447183475 --[[_pos_atc_check02]], false, 0)
+end
+
+-- Reuses the aura character's portrait, as the retail aura windows draw it.
+CharacterReforged.HYPER_PAGE_FACE_BY_TYPE = CharacterReforged.hyper_card.FACE_BY_TYPE   -- one table (research/grafts/plate_hiper_plate/character_reforged_hiper_card.lua)
+CharacterReforged.HYPER_PAGE_TYPE_ICON = CharacterReforged.hyper_card.TYPE_ICON
+CharacterReforged.HYPER_PAGE_MIXIMAX_CARRIER = 2450842569 --[[wmm_evt]]
+function CharacterReforged.hyper_page.mx_ask(chara)
+  local ok, exists, partner, m1, m2, pchara, best, phdl = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_MIXIMAX_FUSION_GET"), chara)
+  return ok, exists == true, partner, m1, m2, pchara, best, phdl
+end
+
+function CharacterReforged.hyper_page.mx_get(chara)
+  if chara == nil or chara == 0 then
+    return nil
+  end
+  local ok, exists, partner, m1, m2, pchara, best, page_phdl = CharacterReforged.hyper_page.mx_ask(chara)
+  if not ok or not exists then
+    return nil
+  end
+  local f = {partner = partner or 0, move = m1 or 0, chara = pchara or 0, best = best == true or best == 1}
+  if type(page_phdl) == "number" and page_phdl ~= 0 then
+    f.phdl = page_phdl
+  else
+    local okh, phdl = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_MIXIMAX_GET"), chara)
+    f.phdl = okh and type(phdl) == "number" and phdl or 0
+  end
+  -- the face-icon key retail uses for a miximax partner (the retail miximax window path), not the chara id
+  local okk, face = pcall(funcLuaCommand, 347353059, f.partner)
+  f.face = (okk and type(face) == "number" and face ~= 0) and face or f.chara
+  local okn, a, b = pcall(funcLuaCommand, @crc:CMND_GET_CHARA_INFO@, f.chara, 10)
+  f.name = (okn and type(b) == "string" and b) or (okn and type(a) == "string" and a) or nil
+  return f
+end
+
+CharacterReforged.HYPER_PAGE_MODE_CHANGE_TYPE = CharacterReforged.hyper_card.MC_TYPE
+CharacterReforged.hyper_page.mc_get = CharacterReforged.hyper_card.mc_get         -- shared card component (character_reforged_hiper_card.lua)
+
+-- Draws the aura band under the move row (face layer instance 1).
+CharacterReforged.HYPER_PAGE_QUOTE_MESH = {656425078 --[[_item_win_line01]]}
+function CharacterReforged.hyper_page.quote_bar(L, on)
+  for _, m in ipairs(CharacterReforged.HYPER_PAGE_QUOTE_MESH) do
+    funcLuaMenuCommand(C.MESH_VISIBLE, L, m, on, 0)
+  end
+end
+
+function CharacterReforged.hyper_page.aura_band(aura, inst)
+  local F = CharacterReforged.hyper_page.FACE
+  inst = inst or 1
+  if not HyperPageExists(F) or inst >= CharacterReforged.hyper_page.read_slots().face then
+    return
+  end
+  if aura == nil or aura == 0 then
+    if funcLuaMenuCommand(C.IS_OPEN_LAYER, F, inst) then
+      funcLuaMenuCommand(C.LAYER_VISIBLE, F, inst, false)
+    end
+    return
+  end
+  HyperPageOpen(F, inst)
+  local t = HyperPageAuraType(aura)
+  local name = HyperPageName(aura)
+  -- Handles PEG mode.
+  if not HyperPageExists(CharacterReforged.hyper_page.POOL) then
+    name = CharacterReforged.hyper_card.pool_name(name, CharacterReforged.hyper_page.peg_info(aura))
+  end
+  CharacterReforged.hyper_card.header(F, aura, name, inst)
+  funcLuaMenuCommand(C.MESH_VISIBLE, F, 2449339029 --[[_icon_fs_dmy01]], false, inst)
+  funcLuaMenuCommand(C.MESH_VISIBLE, F, 478320441 --[[_icon_chr_dmy01]], false, inst)
+  funcLuaMenuCommand(4176779611 --[[clear face icon]], F, inst, 1051570875 --[[icon_fs_dmy01]])
+  funcLuaMenuCommand(4176779611 --[[clear face icon]], F, inst, 3237726902 --[[icon_chr_dmy01]])
+  local okc, cid = funcLuaCommand(C.SKILL_INFO, aura, 17)
+  local face = t ~= nil and CharacterReforged.HYPER_PAGE_FACE_BY_TYPE[t] or nil
+  if okc and cid ~= nil and cid ~= 0 and face ~= nil then
+    funcLuaMenuCommand(C.MESH_VISIBLE, F, face[1], true, inst)
+    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], F, inst, face[1], face[2], cid, 0, face[3], true, true, true, 5)
+  end
+  funcLuaMenuCommand(C.LAYER_VISIBLE, F, inst, true)
+  HyperPageLog("aura band", inst, string.format("%08X", aura), tostring(t), tostring(cid),
+    tostring(funcLuaMenuCommand(C.IS_LAYER_VISIBLE, F, inst)))
+end
+
+CharacterReforged.hyper_page.GEO = {
+  BAND_H = 88, BAND_TOP = 160, BAND_X = -473,     -- face layer: band top / left inside the layer (PH_BAND_TOP, PH_X0)
+  ROW_X = -453,                                    -- the rows' left edge on the page (PH_X0 + 20)
+  TENS_J = {[1] = {225, -175}, [2] = {225, -380}},
+  -- Layout of the band (origin) and the tag size factor on the retail 120 x 48 badge (0.8).
+  BAND_W = 930, TAG_J = {0, 0}, TAG_K = 0.8, TAG_PRIO = 580,
+}
+CharacterReforged.hyper_page.TENS = 309454530
+CharacterReforged.hyper_page.TAG = 1033927205
+-- Position of the PEG pool on the header spirit card.
+CharacterReforged.hyper_page.POOL = 1109875106
+CharacterReforged.hyper_page.POOL_K, CharacterReforged.hyper_page.POOL_CX, CharacterReforged.hyper_page.POOL_CY, CharacterReforged.hyper_page.POOL_PRIO = 3.0, 180, -7, 575
+CharacterReforged.hyper_page.POOL_DX, CharacterReforged.hyper_page.POOL_DY = 0, 0
+CharacterReforged.hyper_page.POOL_LOGS = 0
+C.DRAW_PRIORITY = @crc:CMND_SET_DRAW_PRIORITY@        -- (layer, inst, prio, bool)
+C.MESH_POSE = @crc:CMND_GET_MESH_POSE@            -- (layer, inst, node) -> x, y, z, found
+C.LOCAL_POS = @crc:CMND_SET_LAYER_LOCAL_POS@            -- (layer, x, y, z, inst)
+C.LOCAL_SCALE = @crc:CMND_SET_LAYER_LOCAL_SCALE@          -- (layer, sx, sy, sz, inst)
+
+-- Returns the pose y of a node of the instances the installed data has.
+local function HyperPagePoseY(L, node)
+  local ok, _, y = pcall(funcLuaMenuCommand, C.MESH_POSE, L, 0, node)
+  return ok and type(y) == "number" and y or nil
+end
+function CharacterReforged.hyper_page.read_slots()
+  if CharacterReforged.hyper_page.slots ~= nil then
+    return CharacterReforged.hyper_page.slots
+  end
+  local L = CharacterReforged.hyper_page.L
+  if HyperPageExists(L) and funcLuaMenuCommand(C.IS_OPEN_LAYER, L, 0) then
+    local y1 = HyperPagePoseY(L, @crc:_atc_cr_face01@)
+    local y3 = HyperPagePoseY(L, @crc:_atc_cr_face03@)
+    local yt = HyperPagePoseY(L, @crc:_atc_cr_tens02@)
+    if y1 ~= nil and y3 ~= nil and y1 - y3 > 300 then
+      local tens = (yt ~= nil and y1 - yt > 100 and HyperPageExists(CharacterReforged.hyper_page.TENS)) and 2 or 0
+      CharacterReforged.hyper_page.slots = {face = 3, row = 3, tens = tens}
+      HyperPageLog("layout", "3 extra slots", "tension", tens, y1, y3, tostring(yt))
+      return CharacterReforged.hyper_page.slots
+    end
+  end
+  return {face = 2, row = 1, tens = 0}
+end
+
+-- the extra instances (face 1.., row 1.., tension 0..) hidden
+function CharacterReforged.hyper_page.hide_extras()
+  local n = CharacterReforged.hyper_page.read_slots()
+  for i = 1, n.face - 1 do
+    pcall(CharacterReforged.hyper_page.aura_band, nil, i)
+  end
+  for _, lt in ipairs({{CharacterReforged.hyper_page.ROW, 1, n.row - 1}, {CharacterReforged.hyper_page.TENS, 0, n.tens - 1}, {CharacterReforged.hyper_page.TAG, 0, 0},
+      {CharacterReforged.hyper_page.POOL, 0, 2}}) do
+    if HyperPageExists(lt[1]) then
+      for i = lt[2], lt[3] do
+        if funcLuaMenuCommand(C.IS_OPEN_LAYER, lt[1], i) then
+          funcLuaMenuCommand(C.LAYER_VISIBLE, lt[1], i, false)
+        end
+      end
+    end
+  end
+end
+
+function CharacterReforged.hyper_page.armour_tag(at, s)
+  local T = CharacterReforged.hyper_page.TAG
+  if not HyperPageExists(T) then
+    return false
+  end
+  if at == nil then
+    if funcLuaMenuCommand(C.IS_OPEN_LAYER, T, 0) then
+      funcLuaMenuCommand(C.LAYER_VISIBLE, T, 0, false)
+    end
+    if CharacterReforged.hyper_page.armourAt ~= nil then
+      CharacterReforged.hyper_page.armourAt = nil
+      pcall(CharacterReforged.hyper_page.peg_tag_place)
+    end
+    return true
+  end
+  local G = CharacterReforged.hyper_page.GEO
+  HyperPageOpen(T, 0)
+  CharacterReforged.hyper_page.armourAt = at                             -- the pool plate goes left of the badge
+  pcall(CharacterReforged.hyper_page.peg_tag_place)
+  local k = (s or 1) * G.TAG_K
+  funcLuaMenuCommand(C.MESH_VISIBLE, T, 1206374040 --[[_gtxt_cmd_armed01]], true, 0)
+  funcLuaMenuCommand(C.LOCAL_SCALE, T, k, k, 1, 0)
+  funcLuaMenuCommand(C.LOCAL_POS, T, at[1] - G.TAG_J[1], at[2] - G.TAG_J[2], 0, 0)
+  pcall(funcLuaMenuCommand, C.DRAW_PRIORITY, T, 0, G.TAG_PRIO, true)
+  funcLuaMenuCommand(C.LAYER_VISIBLE, T, 0, true)
+  HyperPageLog("armour tag", string.format("%.1f", at[1]), string.format("%.1f", at[2]), string.format("%.2f", k))
+  return true
+end
+
+function CharacterReforged.hyper_page.hiper_armour_tag(skill, chara)
+  if HyperPageAuraType(skill) ~= 0 or chara == nil or chara == 0 then
+    return false
+  end
+  local cmd = CALC_CRC("CMND_CHARACTERREFORGED_KESHIN_HYPER_ARMOUR")
+  local ok, armour, param = pcall(funcLuaCommand, cmd, chara, skill)
+  local has = ok and type(armour) == "number" and armour ~= 0
+  HyperPageLog("hiper armour", string.format("%08X", skill), tostring(armour), tostring(param))
+  if not has then
+    return false
+  end
+  local G = CharacterReforged.hyper_page.GEO
+  return CharacterReforged.hyper_page.armour_tag({G.BAND_X + G.BAND_W / 2, G.BAND_TOP - G.BAND_H}, 1)
+end
+
+-- Position of the pool tag on the header card.
+CharacterReforged.hyper_page.PEG_TAG = CALC_CRC("character_reforged_ph_peg_tag")
+-- = from the right edge.
+CharacterReforged.hyper_page.PEG_TAG_K, CharacterReforged.hyper_page.PEG_TAG_DX, CharacterReforged.hyper_page.PEG_TAG_DY = 0.55, 0, 0
+CharacterReforged.hyper_page.PEG_GAP, CharacterReforged.hyper_page.PEG_RIGHT = 170, 110
+CharacterReforged.hyper_page.pegState, CharacterReforged.hyper_page.armourAt = nil, nil
+function CharacterReforged.hyper_page.peg_tag_place()
+  local T, st = CharacterReforged.hyper_page.PEG_TAG, CharacterReforged.hyper_page.pegState
+  if st == nil or not HyperPageExists(T) then
+    return
+  end
+  local peg = st.peg
+  HyperPageOpen(T, 0)
+  local key = CALC_CRC(peg.kind == 2 and "character_reforged_ph_sp_label" or "character_reforged_ph_peg_label")
+  local okt, unit = pcall(funcLuaCommand, @crc:CMND_TEXT_GET@, key)
+  if not okt or type(unit) ~= "string" or unit == "" then
+    unit = peg.kind == 2 and "SP" or "PEG"
+  end
+  local text = string.format("%d %s", math.floor(peg.pool + 0.5), unit)
+  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, T, 1899787537 --[[_text_area01]], text, 0)
+  funcLuaMenuCommand(2735666188, T, 1899787537, true, 0)
+  local c = peg.kind == 2 and CharacterReforged.hyper_card.SP_RGB or CharacterReforged.hyper_card.PEG_RGB
+  pcall(funcLuaMenuCommand, @crc:CMND_SET_PRIM_COLOR@, T, 0, 3516146179 --[[_area_base01]], c[1], c[2], c[3])
+  local G, s = CharacterReforged.hyper_page.GEO, st.s or 1
+  local x, y
+  local a = CharacterReforged.hyper_page.armourAt
+  if a ~= nil then
+    x, y = a[1] - CharacterReforged.hyper_page.PEG_GAP, a[2]
+  else
+    x, y = G.BAND_X + G.BAND_W * s - CharacterReforged.hyper_page.PEG_RIGHT, (st.top or G.BAND_TOP) - G.BAND_H * s
+  end
+  local k = CharacterReforged.hyper_page.PEG_TAG_K
+  funcLuaMenuCommand(C.LOCAL_SCALE, T, k, k, 1, 0)
+  funcLuaMenuCommand(C.LOCAL_POS, T, x + CharacterReforged.hyper_page.PEG_TAG_DX, y + CharacterReforged.hyper_page.PEG_TAG_DY, 0, 0)
+  pcall(funcLuaMenuCommand, C.DRAW_PRIORITY, T, 0, G.TAG_PRIO, true)
+  funcLuaMenuCommand(C.LAYER_VISIBLE, T, 0, true)
+  if (CharacterReforged.hyper_page.PEG_TAG_LOGS or 0) < 6 then
+    CharacterReforged.hyper_page.PEG_TAG_LOGS = (CharacterReforged.hyper_page.PEG_TAG_LOGS or 0) + 1
+    HyperPageLog("peg plate", text, string.format("%.1f", x), string.format("%.1f", y), tostring(a ~= nil))
+  end
+end
+
+function CharacterReforged.hyper_page.peg_tag(peg, inst, cardTop, cardScale)
+  local T = CharacterReforged.hyper_page.PEG_TAG
+  if peg == nil then
+    local st = CharacterReforged.hyper_page.pegState
+    if inst ~= nil and st ~= nil and st.inst ~= inst then
+      return
+    end
+    CharacterReforged.hyper_page.pegState = nil
+    if HyperPageExists(T) and funcLuaMenuCommand(C.IS_OPEN_LAYER, T, 0) then
+      funcLuaMenuCommand(C.LAYER_VISIBLE, T, 0, false)
+    end
+    return
+  end
+  CharacterReforged.hyper_page.pegState = {peg = peg, inst = inst or 0, top = cardTop, s = cardScale or 1}
+  CharacterReforged.hyper_page.peg_tag_place()
+end
+
+-- Draws the pool of a card.
+function CharacterReforged.hyper_page.pool_tag(peg, inst, cardTop, cardScale)
+  inst = inst or 0
+  local P = CharacterReforged.hyper_page.POOL
+  if HyperPageExists(P) and funcLuaMenuCommand(C.IS_OPEN_LAYER, P, inst) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, P, inst, false)
+  end
+  pcall(CharacterReforged.hyper_page.peg_tag, peg, inst, cardTop, cardScale)
+  return HyperPageExists(P)
+end
+
+function CharacterReforged.hyper_page.portrait(L, skill, fusion, mc)
+  local F = CharacterReforged.hyper_page.FACE
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 2164615260 --[[_icon_sp_area_dmy01]], false, 0)
+  if not HyperPageExists(F) then
+    return false
+  end
+  HyperPageOpen(F)
+  funcLuaMenuCommand(C.LAYER_VISIBLE, F, 0, false)
+  local t = HyperPageAuraType(skill)
+  local name = CharacterReforged.hyper_card.title(HyperPageName(skill), fusion, mc)
+  if fusion == nil and mc == nil and not HyperPageExists(CharacterReforged.hyper_page.POOL) then
+    name = CharacterReforged.hyper_card.pool_name(name, CharacterReforged.hyper_page.peg_info(skill))          -- older data: the pool in the name
+  end
+  local icon = CharacterReforged.hyper_card.header(F, skill, name, 0)
+  -- Hides the panel's own band, name and type line.
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 1125548721 --[[_sp_base01]], false, 0)
+  funcLuaMenuCommand(C.TEXT_VISIBLE, L, 1704438437 --[[_text_name01]], false, 0)
+  funcLuaMenuCommand(C.TEXT_VISIBLE, L, 1899787537 --[[_text_area01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 3516146179 --[[_area_base01]], false, 0)
+  local cid = CharacterReforged.hyper_card.portrait(F, skill, fusion, mc, "plate_page", 0)
+  funcLuaMenuCommand(C.LAYER_VISIBLE, F, 0, true)
+  -- the power ("AT" + number) sits at the band's right end, under the portrait
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 563708378 --[[_gtxt_cmd_at01]], false, 0)
+  funcLuaMenuCommand(C.PRIM_VISIBLE, L, 0, 2223127589, false)
+  HyperPageLog("face", string.format("%08X", skill), tostring(t), tostring(cid), tostring(icon),
+    tostring(funcLuaMenuCommand(C.IS_LAYER_VISIBLE, F, 0)))
+  return true
+end
+
+-- Reuses the spirit's own move as a move row.
+CharacterReforged.hyper_page.aura_move = CharacterReforged.hyper_card.aura_move     -- shared card component (no move for a mode change)
+
+CharacterReforged.HYPER_PAGE_PEG_RGB = CharacterReforged.hyper_card.PEG_RGB
+CharacterReforged.HYPER_PAGE_TEAM02 = 3964676290 --[[#/menu/102_team/team02/team02_02/<LG>/team02_02.g4tx]]
+CharacterReforged.hyper_page.peg_info = CharacterReforged.hyper_card.peg_info
+CharacterReforged.hyper_page.peg_look = CharacterReforged.hyper_card.peg_look
+-- Draws the keshin's PEG (or the totem's SP) at the band's right end, where retail draws a move's power.
+CharacterReforged.hyper_page.peg_pool = CharacterReforged.hyper_card.peg_pool
+
+CharacterReforged.hyper_page.POOL_ROW_K, CharacterReforged.hyper_page.POOL_ROW_GAP, CharacterReforged.hyper_page.POOL_ROW_RIGHT, CharacterReforged.hyper_page.POOL_ROW_DY = 0.72, 14, 6, 0
+CharacterReforged.hyper_page.POOL_ROW_W = 227
+CharacterReforged.hyper_page.TENS_NODE = 923022909
+CharacterReforged.hyper_page.TENS_LABEL = CALC_CRC("_gtxt_tension01")
+CharacterReforged.hyper_page.TENS_X0 = 225                    -- plate_hiper_build.py PH_TENS_X: the retail place of the move gauge
+CharacterReforged.hyper_page.pool_gauge_on = false
+
+function CharacterReforged.hyper_page.pool_gauge(L, peg, skill)
+  local P, G = CharacterReforged.hyper_page.POOL, CharacterReforged.hyper_page.GEO
+  local on = peg ~= nil and CharacterReforged.HYPER_PAGE_POOL_GAUGE ~= false and HyperPageExists(P) and type(VRFW.ui_plates) == "table"
+  if not on then
+    if HyperPageExists(P) and funcLuaMenuCommand(C.IS_OPEN_LAYER, P, 0) then
+      funcLuaMenuCommand(C.LAYER_VISIBLE, P, 0, false)
+    end
+    if CharacterReforged.hyper_page.pool_gauge_on then
+      CharacterReforged.hyper_page.pool_gauge_on = false
+      funcLuaMenuCommand(2575768773 --[[NODE_POS]], L, 0, CharacterReforged.hyper_page.TENS_NODE, 0, CharacterReforged.hyper_page.TENS_X0)
+      funcLuaMenuCommand(2885415772 --[[NODE_SCALE]], L, 0, CharacterReforged.hyper_page.TENS_NODE, 1, 1)
+      funcLuaMenuCommand(C.MESH_VISIBLE, L, CharacterReforged.hyper_page.TENS_LABEL, true, 0)
+    end
+    return false
+  end
+  local k, w = CharacterReforged.hyper_page.POOL_ROW_K, CharacterReforged.hyper_page.POOL_ROW_W * CharacterReforged.hyper_page.POOL_ROW_K
+  local right = G.ROW_X - 20 + G.BAND_W - CharacterReforged.hyper_page.POOL_ROW_RIGHT      -- the card's right end (page x)
+  local xp = right - w                                                -- the pool gauge's origin
+  local xm = xp - CharacterReforged.hyper_page.POOL_ROW_GAP - w                            -- the move gauge's origin
+  -- Draws the move's gauge (this panel's own group).
+  CharacterReforged.hyper_page.pool_gauge_on = true
+  funcLuaMenuCommand(2575768773 --[[NODE_POS]], L, 0, CharacterReforged.hyper_page.TENS_NODE, 0, xm)
+  funcLuaMenuCommand(2885415772 --[[NODE_SCALE]], L, 0, CharacterReforged.hyper_page.TENS_NODE, k, k)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, CharacterReforged.hyper_page.TENS_LABEL, false, 0)
+  -- Draws the pool's gauge.
+  HyperPageOpen(P, 0)
+  local tj = G.TENS_J[1]                                              -- the layer's attach point (page coords)
+  local mainY = tj[2] + 205                                           -- the move gauge's line (GEO.TENS_J: -205 / row)
+  funcLuaMenuCommand(C.LOCAL_SCALE, P, k, k, 1, 0)
+  funcLuaMenuCommand(C.LOCAL_POS, P, xp - tj[1], mainY - tj[2] + CharacterReforged.hyper_page.POOL_ROW_DY, 0, 0)
+  VRFW.ui_plates.move_plate.tension(P, 0, peg.pool, {scale = peg.pool, look = function(l, i)
+    pcall(CharacterReforged.hyper_page.peg_look, l, i, true, peg.kind)
+    funcLuaMenuCommand(C.MESH_VISIBLE, l, CharacterReforged.hyper_page.TENS_LABEL, false, i)
+  end})
+  funcLuaMenuCommand(C.LAYER_VISIBLE, P, 0, true)
+  local okp, px, py = pcall(funcLuaMenuCommand, C.MESH_POSE, P, 0, CharacterReforged.hyper_page.TENS_NODE)
+  local okm, mx, my = pcall(funcLuaMenuCommand, C.MESH_POSE, L, 0, CharacterReforged.hyper_page.TENS_NODE)
+  HyperPageLog("hiper pool gauge", math.floor(peg.pool + 0.5), tostring(peg.kind), "main", string.format("%.0f", xm),
+    "pool", string.format("%.0f", xp), string.format("%.0f", mainY), "pose", tostring(px), tostring(py), "main pose",
+    tostring(mx), tostring(my))
+  return true
+end
+
+function CharacterReforged.hyper_page.spirit_move(L, skill, chara, fusion)
+  local R = CharacterReforged.hyper_page.ROW
+  CharacterReforged.hyper_page.spiritRow = false               -- set when the move row (and its gauge) is drawn
+  local ok, move = CharacterReforged.hyper_page.aura_move(skill)
+  if fusion ~= nil then
+    -- the fusion's chosen move, drawn with the partner's handle (his element colour, not the "not owned" grey)
+    ok, move = fusion.move ~= 0, fusion.move
+    if fusion.phdl ~= 0 then
+      chara = fusion.phdl
+    end
+  end
+  if not ok or move == nil or move == 0 or not HyperPageExists(R) or SetupCharaSkillItem == nil or type(VRFW.ui_plates) ~= "table" then
+    if HyperPageExists(R) then
+      funcLuaMenuCommand(C.LAYER_VISIBLE, R, 0, false)
+    end
+    funcLuaMenuCommand(C.LOC_VISIBLE, L, 923022909 --[[_pos_tension01]], false, 0)
+    funcLuaMenuCommand(C.PRIM_VISIBLE, L, 0, 3424269865, false)
+    for i = 1, 10 do
+      funcLuaMenuCommand(C.MESH_VISIBLE, L, CALC_CRC(string.format("_tension_on%02d", i)), false, 0)
+    end
+    return
+  end
+  local a = CharacterReforged.hyper_page.skl or {g_useFormationCharaSkillLayer, L_DETAIL, 0, 1803124851, 0, g_useFormationCharaSkillBlankLayer,
+    g_useSkillAIUseMarkLayer}
+  local okf, err = VRFW.ui_plates.move_plate.fill(R, 0, chara, move, {set = CharacterReforged.hyper_page.origSkl, page = a[2], page_inst = a[3],
+    point = a, restore = a, open = HyperPageOpen})
+  if not okf then
+    HyperPageLog("spirit move row failed", string.format("%08X", move), tostring(err))
+    return
+  end
+  CharacterReforged.hyper_page.spiritRow = true
+  -- Uses the match team's scale, else team 0 or 1, else none lit.
+  local okc, cost = funcLuaCommand(C.SKILL_INFO, move, 11)
+  local steps, scale = 0, nil
+  local peg = fusion == nil and CharacterReforged.hyper_page.peg_info(skill) or nil
+  pcall(CharacterReforged.hyper_page.peg_pool, L, peg)
+  if peg ~= nil then
+    okc, cost, scale = true, peg.cost, peg.pool
+  end
+  if okc and type(cost) == "number" then
+    -- Uses the global scale (team 255 with the flag set).
+    steps, scale = VRFW.ui_plates.move_plate.tension(L, 0, cost, {scale = scale, teams = table.pack(HyperPageTeamInfo(), 255),
+      look = function(l, i)
+        pcall(CharacterReforged.hyper_page.peg_look, l, i, peg ~= nil, peg and peg.kind)
+      end})
+  end
+  HyperPageLog("spirit move", string.format("%08X", skill), string.format("%08X", move), okc and cost or -1,
+    tostring(scale), steps)
+end
+
+-- Reuses the band sprite of an aura skill.
+CharacterReforged.hyper_page.band = CharacterReforged.hyper_card.band
+
+if CharacterReforged.HYPER_PAGE_MIXIMAX_VIEW == nil then
+  CharacterReforged.HYPER_PAGE_MIXIMAX_VIEW = false
+end
+
+function CharacterReforged.hyper_page.show_skill(skill, chara)
+  local L = CharacterReforged.hyper_page.L
+  if not HyperPageExists(L) or SetupPersonalPlateSkillDetailInfo == nil or CharacterReforged.hyper_page.origSkl == nil then
+    return false, "no integrated panel"
+  end
+  HyperPageOpen(L)
+  -- the tags / meshes the empty drawing hides
+  funcLuaMenuCommand(C.LOC_VISIBLE, L, 923022909 --[[_pos_tension01]], true, 0)
+  funcLuaMenuCommand(C.LOC_VISIBLE, L, 4081284803 --[[_pos_at01]], true, 0)
+  local ok, err = CharacterReforged.hyper_page.fill(SetupPersonalPlateSkillDetailInfo, skill, chara, nil, HyperPageTeamInfo(), nil, true)
+  if not ok then
+    return false, err
+  end
+  if not funcLuaMenuCommand(C.IS_LAYER_VISIBLE, L, 0) then
+    -- A miximax row's first fill after the page opens can leave the panel hidden.
+    return false, "panel not shown"
+  end
+  -- Draws the header (retail band of the aura type and element, type icon, name, masked portrait).
+  CharacterReforged.hyper_page.clean(L)
+  local fusion = skill == CharacterReforged.HYPER_PAGE_MIXIMAX_CARRIER and CharacterReforged.hyper_page.mx_get(chara) or nil
+  local mc = fusion == nil and CharacterReforged.hyper_page.mc_get(chara, skill) or nil
+  if not CharacterReforged.hyper_page.portrait(L, skill, fusion, mc) then
+    local band = CharacterReforged.hyper_page.band(skill)
+    if band ~= nil then
+      funcLuaMenuCommand(C.SPRITE, L, CharacterReforged.hyper_page.TEX, band, 243934124 --[[sp_base01]], 0, 0)
+    end
+    funcLuaMenuCommand(C.MESH_VISIBLE, L, 1125548721 --[[_sp_base01]], true, 0)
+    local name = HyperPageName(skill)
+    if name ~= nil then
+      funcLuaMenuCommand(C.TEXT, L, 1704438437 --[[_text_name01]], name, 0)
+    end
+    funcLuaMenuCommand(C.TEXT_VISIBLE, L, 1899787537 --[[_text_area01]], false, 0)
+    funcLuaMenuCommand(C.MESH_VISIBLE, L, 3516146179 --[[_area_base01]], false, 0)
+  end
+  CharacterReforged.hyper_page.spirit_move(L, skill, chara, fusion)
+  pcall(CharacterReforged.hyper_page.hide_extras)
+  -- the pool on the header card (after HideExtras, which hides it with the extra layers)
+  pcall(CharacterReforged.hyper_page.pool_tag, (fusion == nil and mc == nil) and CharacterReforged.hyper_page.peg_info(skill) or nil)
+  -- the keshin's pool as a second gauge right of its move's PEG (after PoolTag, which hides instance 0)
+  pcall(CharacterReforged.hyper_page.pool_gauge, L, (fusion == nil and mc == nil and CharacterReforged.hyper_page.spiritRow) and CharacterReforged.hyper_page.peg_info(skill) or nil, skill)
+  pcall(CharacterReforged.hyper_page.quote_bar, L, true)
+  if fusion == nil then
+    pcall(CharacterReforged.hyper_page.hiper_armour_tag, skill, chara)
+  end
+  if fusion ~= nil then
+    local pname = fusion.name or "?"
+    -- no stat-gains text (the gains are on Atributos)
+    funcLuaMenuCommand(C.TEXT, L, 691026122 --[[_text_flavor01]], "", 0)
+    -- The description's quote bar has nothing to mark.
+    pcall(CharacterReforged.hyper_page.quote_bar, L, false)
+    HyperPageLog("fusion", string.format("%08X", fusion.partner), tostring(fusion.face), tostring(fusion.phdl),
+      string.format("%08X", fusion.move), pname)
+  end
+  if CharacterReforged.HYPER_PAGE_NO_DESCRIPTION ~= false then
+    -- no description on the Hiper page (the card and its move only)
+    funcLuaMenuCommand(C.TEXT, L, 691026122 --[[_text_flavor01]], "", 0)
+    pcall(CharacterReforged.hyper_page.quote_bar, L, false)
+  end
+  return true, "integrated"
+end
+
+function CharacterReforged.hyper_page.show_empty()
+  pcall(CharacterReforged.hyper_page.hide_extras)
+  local L = CharacterReforged.hyper_page.L
+  if not HyperPageExists(L) then
+    return false
+  end
+  HyperPageOpen(L)
+  funcLuaMenuCommand(C.LAYER_VISIBLE, L, 0, false)
+  if HyperPageExists(CharacterReforged.hyper_page.FACE) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, CharacterReforged.hyper_page.FACE, 0, false)
+  end
+  funcLuaMenuCommand(C.SPRITE, L, CharacterReforged.hyper_page.TEX_T02, CharacterReforged.hyper_page.BAND_EMPTY, 243934124 --[[sp_base01]], 0, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 1125548721 --[[_sp_base01]], true, 0)
+  funcLuaMenuCommand(C.TEXT_VISIBLE, L, 1704438437 --[[_text_name01]], true, 0)
+  funcLuaMenuCommand(C.TEXT, L, 1704438437 --[[_text_name01]], CharacterReforged.hyper_page_text(CharacterReforged.HYPER_PAGE_EMPTY_NAME_ID), 0)
+  funcLuaMenuCommand(C.TEXT, L, 691026122 --[[_text_flavor01]], "", 0)   -- banner only, no hint text
+  funcLuaMenuCommand(C.TEXT, L, 1899787537 --[[_text_area01]], "", 0)
+  funcLuaMenuCommand(C.TEXT_VISIBLE, L, 1899787537 --[[_text_area01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 3516146179 --[[_area_base01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 1220252763 --[[_gtxt_longshoot01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 559600405 --[[_icon_sp_sub_dmy01]], false, 0)
+  funcLuaMenuCommand(C.MESH_VISIBLE, L, 563708378 --[[_gtxt_cmd_at01]], false, 0)
+  funcLuaMenuCommand(C.LOC_VISIBLE, L, 923022909 --[[_pos_tension01]], false, 0)
+  funcLuaMenuCommand(C.LOC_VISIBLE, L, 4081284803 --[[_pos_at01]], false, 0)
+  funcLuaMenuCommand(C.PRIM_VISIBLE, L, 0, 3424269865, false)
+  funcLuaMenuCommand(C.PRIM_VISIBLE, L, 0, 2223127589, false)
+  -- the empty page has no description, so no quote bar _item_win_line01
+  pcall(CharacterReforged.hyper_page.quote_bar, L, false)
+  CharacterReforged.hyper_page.clean(L)
+  funcLuaMenuCommand(C.LAYER_VISIBLE, L, 0, true)
+  return true
+end
+
+CharacterReforged.HYPER_PAGE_IN_SHOW = false
+CharacterReforged.HYPER_PAGE_RETRY_FRAMES = 30
+CharacterReforged.HYPER_PAGE_PENDING = nil
+function CharacterReforged.hyper_page_show(chara, retry)
+  if not CharacterReforged.PLATE_HYPER or not HyperPageExists(L_STATUS) then
+    return
+  end
+  -- never re-entered from a layer callback fired by this block's drawing (show -> fill -> callback -> show)
+  if CharacterReforged.HYPER_PAGE_IN_SHOW then
+    HyperPageLog("show re-entered: ignored", VRFW.ids.unsigned(chara))
+    return
+  end
+  CharacterReforged.HYPER_PAGE_IN_SHOW = true
+  CharacterReforged.HYPER_PAGE_PENDING = nil
+  local okr, err = pcall(CharacterReforged.hyper_page_show_inner, chara, retry)
+  CharacterReforged.HYPER_PAGE_IN_SHOW = false
+  if not okr then
+    HyperPageLog("show failed", tostring(err))
+  end
+end
+
+-- Retries on PostStep.
+function CharacterReforged.hyper_page_retry()
+  local p = CharacterReforged.HYPER_PAGE_PENDING
+  if p == nil or CharacterReforged.HYPER_PAGE_IN_SHOW then
+    return
+  end
+  local page = GetNowPageIdx ~= nil and GetNowPageIdx() or -1
+  if not (character_reforged_ph_on and CharacterReforged.PLATE_HYPER and page == CharacterReforged.HYPER_PAGE_PAGE) then
+    CharacterReforged.HYPER_PAGE_PENDING = nil
+    return
+  end
+  CharacterReforged.hyper_page_show(p.chara, p)
+end
+
+function CharacterReforged.hyper_page_show_inner(chara, retry)
+  HyperPageHideWindows()
+  HyperPageAttach(true)
+  character_reforged_ph_on = true
+  CharacterReforged.hyper_page.opened = false
+  local skill = CharacterReforged.hyper_page_skill(chara)
+  local shown, how, t = false, "none", nil
+  if CharacterReforged.HYPER_PAGE_INTEGRATED then
+    if skill ~= 0 then
+      shown, how = CharacterReforged.hyper_page.show_skill(skill, chara)
+      if not shown then
+        HyperPageLog("integrated panel failed", string.format("%08X", skill), tostring(how))
+        local left = retry ~= nil and retry.left or CharacterReforged.HYPER_PAGE_RETRY_FRAMES
+        if left > 0 then
+          pcall(CharacterReforged.hyper_page.hide_layer)
+          CharacterReforged.HYPER_PAGE_PENDING = {chara = chara, left = left - 1, settle = retry ~= nil and retry.settle or nil}
+          HyperPageLog("show", VRFW.ids.unsigned(chara), string.format("%08X", skill), "waiting for the panel", left)
+          return
+        end
+      end
+    elseif CharacterReforged.hyper_page.show_empty() then
+      shown, how = true, "empty"
+    end
+    if shown then
+      if CharacterReforged.hyper_page.opened and (retry == nil or not retry.settle) then
+        CharacterReforged.HYPER_PAGE_PENDING = {chara = chara, left = CharacterReforged.HYPER_PAGE_RETRY_FRAMES, settle = true}
+        how = how .. " (redraw next frame: layer opened)"
+      end
+      HyperPageLog("show", VRFW.ids.unsigned(chara), string.format("%08X", skill), how, HyperPageAuraType(skill) or -1, character_reforged_ph_plate_type)
+      return
+    end
+    pcall(CharacterReforged.hyper_page.hide_layer)
+    HyperPageHideWindows()
+  end
+  if skill ~= 0 then
+    shown, how, t = HyperPageShowAura(skill, chara)
+    if not shown then
+      HyperPageLog("aura window failed", string.format("%08X", skill), tostring(how))
+      HyperPageHideWindows()
+      shown, how = HyperPageShowDetail(skill, chara)
+    end
+  end
+  if not shown then
+    if skill ~= 0 then
+      HyperPageLog("detail window failed", string.format("%08X", skill), tostring(how))
+    end
+    HyperPageShowEmpty()
+    how = "empty"
+  end
+  HyperPageLog("show", VRFW.ids.unsigned(chara), string.format("%08X", skill), how, t or -1, character_reforged_ph_plate_type)
+end
+
+-- the mod's panel is visible only while the Hiper page shows (the plate opens every layer of the menu)
+function CharacterReforged.hyper_page.hide_layer()
+  pcall(CharacterReforged.hyper_page.hide_extras)
+  pcall(CharacterReforged.hyper_page.peg_tag, nil)
+  if HyperPageExists(CharacterReforged.hyper_page.L) and funcLuaMenuCommand(C.IS_LAYER_VISIBLE, CharacterReforged.hyper_page.L, 0) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, CharacterReforged.hyper_page.L, 0, false)
+  end
+  if HyperPageExists(CharacterReforged.hyper_page.ROW) and funcLuaMenuCommand(C.IS_LAYER_VISIBLE, CharacterReforged.hyper_page.ROW, 0) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, CharacterReforged.hyper_page.ROW, 0, false)
+  end
+  if HyperPageExists(CharacterReforged.hyper_page.FACE) and funcLuaMenuCommand(C.IS_LAYER_VISIBLE, CharacterReforged.hyper_page.FACE, 0) then
+    funcLuaMenuCommand(C.LAYER_VISIBLE, CharacterReforged.hyper_page.FACE, 0, false)
+  end
+end
+
+function CharacterReforged.hyper_page.guard()
+  if CharacterReforged.HYPER_PAGE_IN_SHOW then
+    return
+  end
+  local page = GetNowPageIdx ~= nil and GetNowPageIdx() or -1
+  if not (character_reforged_ph_on and CharacterReforged.PLATE_HYPER and page == CharacterReforged.HYPER_PAGE_PAGE) then
+    CharacterReforged.hyper_page.hide_layer()
+  end
+end
+
+function CharacterReforged.hyper_page_hide()
+  CharacterReforged.HYPER_PAGE_PENDING = nil
+  pcall(CharacterReforged.hyper_page.hide_layer)
+  if not character_reforged_ph_on then
+    return
+  end
+  character_reforged_ph_on = false
+  HyperPageHideWindows()
+  HyperPageResetDetail()
+  HyperPageAttach(false)
+end
+
+local function HyperPageSelectedChara(fallback)
+  local ch = 0
+  if GetPersonalPlateSelectCharaStHdlAuto ~= nil then
+    local ok, v = pcall(GetPersonalPlateSelectCharaStHdlAuto)
+    if ok and v ~= nil and v ~= false then
+      ch = v
+    end
+  end
+  if (ch == nil or ch == 0) and fallback ~= nil and fallback ~= false then
+    ch = fallback
+  end
+  return ch or 0
+end
+
+for _, fname in ipairs({"OnSetupLayer", "OnOpenLayer", "OnOpenEndLayer", "OnCloseLayer", "PostStep"}) do
+  VRFW.host.wrap(fname, function(orig)
+    return function(...)
+      local r = orig(...)
+      if fname == "OnSetupLayer" and CharacterReforged.stat_radar ~= nil and (...) == CharacterReforged.stat_radar.EXTRA then
+        pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_VISIBLE@, CharacterReforged.stat_radar.EXTRA, 0, false)
+      end
+      pcall(CharacterReforged.hyper_page.guard)
+      if fname == "PostStep" and CharacterReforged.HYPER_PAGE_PENDING ~= nil then
+        pcall(CharacterReforged.hyper_page_retry)
+      end
+      if fname == "PostStep" and CharacterReforged.stat_radar ~= nil then
+        pcall(CharacterReforged.stat_radar.step)
+      elseif fname == "OnCloseLayer" and CharacterReforged.stat_radar ~= nil and CharacterReforged.stat_radar.set_hint ~= nil then
+        pcall(CharacterReforged.stat_radar.set_hint, 0)
+        CharacterReforged.stat_radar.fusion = {}
+      end
+      return r
+    end
+  end)
+end
+
+VRFW.host.wrap("SetPersonalPlateType", function(orig)
+  return function(a1, ...)
+    character_reforged_ph_plate_type = a1 or 0
+    return orig(a1, ...)
+  end
+end)
+
+-- The mod's attach labels start switched on (objbin).
+VRFW.host.wrap("OnSetupStatusBaseLayer", function(orig)
+  return function(a1, a2, ...)
+    local r = orig(a1, a2, ...)
+    if a1 == L_STATUS and (a2 == nil or a2 == 0) and CharacterReforged.stat_radar ~= nil then
+      pcall(CharacterReforged.stat_radar.trace, a1, a2 or 0)
+    end
+    if a1 == L_STATUS and (a2 == nil or a2 == 0) then
+      character_reforged_ph_on = false
+      CharacterReforged.HYPER_PAGE_PENDING = nil
+      pcall(CharacterReforged.hyper_page.hide_layer)
+      for _, a in ipairs(HYPER_PAGE_ATTACH) do
+        pcall(HyperPageTrace, a[4], false)
+      end
+    end
+    return r
+  end
+end)
+
+VRFW.host.wrap("SetVisibleGraphLayer", function(orig)
+  return function(a1, ...)
+    local r = orig(a1, ...)
+    if CharacterReforged.stat_radar ~= nil and CharacterReforged.stat_radar.visible ~= nil then
+      pcall(CharacterReforged.stat_radar.visible, a1 == true)
+    end
+    return r
+  end
+end)
+
+VRFW.host.wrap("SetStatusBaseArrowAndTextVisible", function(orig)
+  return function(...)
+    local r = orig(...)
+    pcall(CharacterReforged.hyper_page_hide_arrow_keys)
+    return r
+  end
+end)
+
+VRFW.host.wrap("ChangePersonalPlatePageByCharaHdl", function(orig)
+  return function(a1, a2, ...)
+    local r = orig(a1, a2, ...)
+    pcall(CharacterReforged.hyper_page_decor, a2)
+    if CharacterReforged.PLATE_HYPER and a2 == CharacterReforged.HYPER_PAGE_TYPE then
+      local ch = HyperPageSelectedChara(a1)
+      if ch == 0 then
+        pcall(CharacterReforged.hyper_page_hide)                  -- no player focused (empty slot): nothing of the page
+        return r
+      end
+      local ok, err = pcall(CharacterReforged.hyper_page_show, ch)
+      if not ok then
+        HyperPageLog("show error", tostring(err))
+      end
+    else
+      pcall(CharacterReforged.hyper_page_hide)
+    end
+    return r
+  end
+end)
+
+VRFW.host.wrap("ChangePersonalPlatePageByCharaParamId", function(orig)
+  return function(a1, a2, ...)
+    local r = orig(a1, a2, ...)
+    pcall(CharacterReforged.hyper_page_decor, a2)
+    if CharacterReforged.PLATE_HYPER and a2 == CharacterReforged.HYPER_PAGE_TYPE then
+      pcall(CharacterReforged.hyper_page_show, 0)
+    else
+      pcall(CharacterReforged.hyper_page_hide)
+    end
+    return r
+  end
+end)
+
+VRFW.host.wrap("UpdatePageInfo", function(orig)
+  return function(...)
+    if CharacterReforged.PLATE_HYPER and GetNowPageIdx ~= nil and GetNowPageIdx() == CharacterReforged.HYPER_PAGE_PAGE then
+      local ch = HyperPageSelectedChara(nil)
+      if ch == 0 then
+        pcall(CharacterReforged.hyper_page_hide)
+        return
+      end
+      local ok, err = pcall(CharacterReforged.hyper_page_show, ch)
+      if not ok then
+        HyperPageLog("show error", tostring(err))
+      end
+      return
+    end
+    local r = orig(...)
+    pcall(CharacterReforged.hyper_page_hide)
+    return r
+  end
+end)
+
+-- Handles the native next and previous page requests.
+
+CharacterReforged.stat_radar = CharacterReforged.stat_radar or {}
+CharacterReforged.stat_radar.RADAR = 3868632847 --[[soccer11_07_formation_status_graph]]
+CharacterReforged.stat_radar.EXTRA = 1008264200 --[[cr_soccer11_06_9x_formation_status_graph_extra]]
+CharacterReforged.stat_radar.N = 8                                       -- axes
+CharacterReforged.stat_radar.STAT = {0, 2, 5, 6, 4, 3, 1, 8}             -- label group g -> stat idx of the page slot (8 = Suerte)
+CharacterReforged.stat_radar.RATES = {2460373999, 196018773, 2091397827, 3805063008, 2513147894, 214091340, 2076571354, 3950701387}                         -- graph01..graph08
+CharacterReforged.stat_radar.MENU_CTRL, CharacterReforged.stat_radar.MENU_CTRL_AN, CharacterReforged.stat_radar.CHECK_INPUT = 1332654303, 2748927068, @crc:CMND_CHECK_INPUT_CMD@
+CharacterReforged.stat_radar.CMD_TOGGLE = 579943758
+                                                    -- Applies to the dock and the formation menus.
+CharacterReforged.stat_radar.HINT_KEY = 1041400877                        -- UI flag "character_reforged_r9_mx_hint": L3 can toggle (dock / formation guide)
+CharacterReforged.stat_radar.hint = CharacterReforged.stat_radar.hint or 0
+CharacterReforged.stat_radar.mx = CharacterReforged.stat_radar.mx or false
+CharacterReforged.stat_radar.frame = CharacterReforged.stat_radar.frame or 0
+CharacterReforged.stat_radar.last = CharacterReforged.stat_radar.last or -100
+
+CharacterReforged.stat_radar.TRACE = {{4047450161, 0}, {3860701432, 0}, {3839308931, 0}, {4092961866, 0}, {919387844, 1}, {569257485, 1}, {1942683662, 1}, {1693028551, 1}}
+function CharacterReforged.stat_radar.trace(layer, inst)
+  local rpg = character_reforged_ph_plate_type == 2
+  for _, t in ipairs(CharacterReforged.stat_radar.TRACE) do
+    funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, layer, inst, t[1], (t[2] == 1) == rpg)
+  end
+end
+
+CharacterReforged.stat_radar.log = VRFW.logger.new("radar9").debug
+
+function CharacterReforged.stat_radar.gains(chara)
+  local page = type(CharacterReforged) == "table" and CharacterReforged.page or nil
+  local r = (type(page) == "table" and type(page.gains_raw) == "function") and page.gains_raw(chara) or {false}
+  if not r[1] or not r[2] or type(r[4]) ~= "number" then
+    return nil, 0
+  end
+  local g = {}
+  for _, i in ipairs({1, 2, 3, 4, 5, 6, 7, 9}) do   -- 8 stats (slot 8 unused)
+    g[i] = tonumber(r[3 + i]) or 0
+  end
+  return g, tonumber(r[3]) or 0
+end
+
+function CharacterReforged.stat_radar.values(chara, l5)
+  local v = {}
+  for grp = 1, CharacterReforged.stat_radar.N do
+    local si = CharacterReforged.stat_radar.STAT[grp]
+    local val = 0
+    if si <= 6 then
+      val = funcLuaCommand(1131797651, chara, 14 + si, true, l5)
+    else
+      local page = type(CharacterReforged) == "table" and CharacterReforged.page or nil
+      local x = (type(page) == "table" and type(page.stat) == "function") and page.stat(chara, si) or nil
+      val = type(x) == "number" and x or 0
+    end
+    v[grp] = type(val) == "number" and val or 0
+  end
+  return v
+end
+
+function CharacterReforged.stat_radar.set_rates(l1, inst, vals, top)
+  for grp = 1, CharacterReforged.stat_radar.N do
+    local rate = CharacterReforged.stat_radar.RATES[(CharacterReforged.stat_radar.N - (grp - 1)) % CharacterReforged.stat_radar.N + 1]
+    if not funcLuaMenuCommand(1203687233, l1, rate, 0, inst) then
+      local gi = funcLuaMenuCommand(@crc:CMND_GET_GROUP_INDEX@, l1, inst, rate)
+      funcLuaMenuCommand(541357333, l1, rate, gi, inst)
+    end
+    funcLuaMenuCommand(1595998683, l1, rate, 0, vals[grp] / top * 0.75, inst)
+  end
+end
+
+function CharacterReforged.stat_radar.draw(l1, l2, l3, chara, a5, l4, l5)
+  if not funcLuaMenuCommand(@crc:CMND_IS_EXIST_LAYER@, CharacterReforged.stat_radar.EXTRA) then
+    return
+  end
+  CharacterReforged.stat_radar.chara = chara
+  local base = CharacterReforged.stat_radar.values(chara, l5)
+  local gains, mask = nil, 0
+  if CharacterReforged.stat_radar.mx then
+    gains, mask = CharacterReforged.stat_radar.gains(chara)
+    if gains == nil then
+      CharacterReforged.stat_radar.mx = false
+    end
+  end
+  local shown = {}
+  for grp = 1, CharacterReforged.stat_radar.N do
+    shown[grp] = base[grp] + (gains and gains[CharacterReforged.stat_radar.STAT[grp] + 1] or 0)
+  end
+  -- Draws the 8 numbers with the retail number calls (instances 0..7 of soccer11_06_p1) and the number styles of soccer11_06_p1.
+  local n3 = l4 and 45479350 or 2612831244
+  local STYLES = {2612831244, 45479350, 563832214, 1261127012}
+  for grp = 1, CharacterReforged.stat_radar.N do
+    local inst = grp - 1
+    local style = n3
+    if gains ~= nil and (gains[CharacterReforged.stat_radar.STAT[grp] + 1] or 0) > 0 then
+      style = 563832214
+    end
+    funcLuaMenuCommand(2158717427, l2, 1597519943, false, inst)
+    funcLuaMenuCommand(2158717427, l2, 1233172029, false, inst)
+    for _, st in ipairs(STYLES) do
+      if st ~= style then
+        funcLuaMenuCommand(1233047821, l2, inst, st, false)
+      end
+    end
+    local prim = funcLuaMenuCommand(@crc:CMND_SEARCH_PRIM_INDEX@, l2, inst, style)
+    funcLuaMenuCommand(3609943765, l2, inst, prim, shown[grp])
+    funcLuaMenuCommand(551395392, l2, inst, false)
+    funcLuaMenuCommand(1233047821, l2, inst, style, true)
+  end
+  -- Updates the extra layer.
+  local E = CharacterReforged.stat_radar.EXTRA
+  CharacterReforged.stat_radar.visible(CharacterReforged.stat_radar.radar_shown())
+  if l4 then
+    funcLuaMenuCommand(801406373, E, 0, 3659653428, 1, 1, 1)
+  else
+    funcLuaMenuCommand(801406373, E, 0, 3659653428, 0.0784313725490196, 0.29411764705882354, 0.5098039215686274)
+  end
+  -- the rates (scale = the largest shown value, or the caller's)
+  local top = a5 or 0
+  if top == 0 then
+    for grp = 1, CharacterReforged.stat_radar.N do
+      if shown[grp] > top then
+        top = shown[grp]
+      end
+    end
+  end
+  if top == 0 then
+    top = 200
+  end
+  CharacterReforged.stat_radar.set_rates(l1, 0, shown, top)
+  -- Handles the Miximax view.
+  if funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, l1) ~= nil and (tonumber(funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, l1)) or 1) > 1 then
+    funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, l1, 1, CharacterReforged.stat_radar.mx == true)
+    if CharacterReforged.stat_radar.mx then
+      CharacterReforged.stat_radar.set_rates(l1, 1, base, top)
+      funcLuaMenuCommand(801406373, l1, 1, 2038497104, 1, 1, 1)
+      funcLuaMenuCommand(801406373, l1, 0, 2038497104, 1, 0.78, 0.25)
+    end
+  end
+  local drawn = table.concat({tostring(chara), CharacterReforged.stat_radar.mx and "miximax" or "normal", tostring(mask), table.concat(shown, ","),
+    tostring(top)}, " ")
+  if drawn ~= CharacterReforged.stat_radar.last_drawn then
+    CharacterReforged.stat_radar.last_drawn = drawn
+    CharacterReforged.stat_radar.log("draw", tostring(chara), CharacterReforged.stat_radar.mx and "miximax" or "normal", tostring(mask), table.concat(shown, ","),
+      "radar", tostring(funcLuaMenuCommand(@crc:CMND_IS_EXIST_LAYER@, l1)), tostring(CharacterReforged.stat_radar.radar_shown()),
+      tostring(funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, l1)), "top", tostring(top))
+  end
+end
+
+VRFW.host.wrap("UpdateCharaParameterGraphByCharaStHdl", function(orig)
+  return function(a1, a2, a3, a4, a5, a6, a7, a8)
+    local r = orig(a1, a2, a3, a4, a5, a6, a7, a8)
+    if a1 == CharacterReforged.stat_radar.RADAR and not IsInvalidSoccerCharaHdl(a3) then
+      CharacterReforged.stat_radar.args = {a1, a2, a3, a4, a5, a6, a7, a8}
+      local ok, err = pcall(CharacterReforged.stat_radar.draw, a1 or 0, a2 or 0, a4 or 1572892955, a3, a5, a6 or false, a8 or false)
+      if not ok then
+        CharacterReforged.stat_radar.log("draw error", tostring(err))
+      end
+    end
+    return r
+  end
+end)
+
+-- The extra layer (Suerte label) and radar instance 1 follow the retail graph layers exactly.
+function CharacterReforged.stat_radar.visible(on)
+  if funcLuaMenuCommand(@crc:CMND_IS_EXIST_LAYER@, CharacterReforged.stat_radar.EXTRA) then
+    funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, CharacterReforged.stat_radar.EXTRA, 0, on == true)
+  end
+  if on ~= true or not CharacterReforged.stat_radar.mx then
+    funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, CharacterReforged.stat_radar.RADAR, 1, false)
+  end
+end
+
+function CharacterReforged.stat_radar.radar_shown()
+  return funcLuaMenuCommand(@crc:CMND_IS_LAYER_VISIBLE@ --[[IS_LAYER_VISIBLE]], CharacterReforged.stat_radar.RADAR, 0) == true
+end
+
+-- Sets the guide hint of the parent menu (team dock or formation).
+function CharacterReforged.stat_radar.set_hint(v)
+  if v ~= CharacterReforged.stat_radar.hint then
+    CharacterReforged.stat_radar.hint = v
+    pcall(funcLuaCommand, CALC_CRC("CMND_VRFW_UI_FLAG_SET"), CharacterReforged.stat_radar.HINT_KEY, v)
+    CharacterReforged.stat_radar.log("hint", tostring(v))
+  end
+end
+
+CharacterReforged.stat_radar.fusion = CharacterReforged.stat_radar.fusion or {}
+function CharacterReforged.stat_radar.has_fusion(chara)
+  local f = CharacterReforged.stat_radar.fusion[chara]
+  if f == nil then
+    local skill = CharacterReforged.hyper_page_skill ~= nil and CharacterReforged.hyper_page_skill(chara) or 0
+    local kind = skill ~= 0 and HyperPageAuraType(skill) or nil
+    f = kind == 2 and CharacterReforged.stat_radar.gains(chara) ~= nil
+    CharacterReforged.stat_radar.fusion[chara] = f
+    CharacterReforged.stat_radar.log("fusion?", tostring(chara), string.format("%08X", skill), tostring(kind), f and "yes" or "no")
+  end
+  return f
+end
+
+-- L3 / B on the Atributos page
+function CharacterReforged.stat_radar.step()
+  CharacterReforged.stat_radar.frame = CharacterReforged.stat_radar.frame + 1
+  -- The labels follow the retail radar's own visibility on every page and screen that shows it.
+  local shown = CharacterReforged.stat_radar.args ~= nil and CharacterReforged.stat_radar.radar_shown()
+  CharacterReforged.stat_radar.visible(shown)
+  -- Checks the radar's page.
+  local radarPage = (CharacterReforged.PLATE_PAGES == true and CharacterReforged.PLAYER_PAGE_STATS ~= nil) and CharacterReforged.PLAYER_PAGE_STATS or 0
+  if not shown or GetNowPageIdx == nil or GetNowPageIdx() ~= radarPage then
+    CharacterReforged.stat_radar.set_hint(0)
+    return
+  end
+  CharacterReforged.stat_radar.set_hint(CharacterReforged.stat_radar.has_fusion(CharacterReforged.stat_radar.args[3]) and 1 or 0)
+  local pressed = funcLuaCommand(CharacterReforged.stat_radar.CHECK_INPUT, CharacterReforged.stat_radar.MENU_CTRL, CharacterReforged.stat_radar.CMD_TOGGLE) == true
+    or funcLuaCommand(CharacterReforged.stat_radar.CHECK_INPUT, CharacterReforged.stat_radar.MENU_CTRL_AN, CharacterReforged.stat_radar.CMD_TOGGLE) == true
+  if not pressed or CharacterReforged.stat_radar.frame - CharacterReforged.stat_radar.last < 8 then
+    return
+  end
+  CharacterReforged.stat_radar.last = CharacterReforged.stat_radar.frame
+  local chara = CharacterReforged.stat_radar.args[3]
+  if not CharacterReforged.stat_radar.mx and not CharacterReforged.stat_radar.has_fusion(chara) then
+    CharacterReforged.stat_radar.log("L3", tostring(chara), "no fusion: nothing")
+    return
+  end
+  CharacterReforged.stat_radar.mx = not CharacterReforged.stat_radar.mx
+  CharacterReforged.stat_radar.log("L3", tostring(chara), CharacterReforged.stat_radar.mx and "miximax view" or "normal view")
+  local a = CharacterReforged.stat_radar.args
+  UpdateCharaParameterGraphByCharaStHdl(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8])
+end
+
+-- ===== EVT plate_hiper plate END =====

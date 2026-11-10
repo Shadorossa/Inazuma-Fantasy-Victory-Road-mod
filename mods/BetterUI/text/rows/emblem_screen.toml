@@ -1,0 +1,27 @@
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# The footer prompts of the emblem picker's tab pages (graft better_ui_emblem_grid).
+[[row]]
+id = "betterui_emblem_page_prev"
+es = "Página anterior"
+en = "Previous page"
+fr = "Page précédente"
+de = "Vorherige Seite"
+it = "Pagina precedente"
+pt = "Página anterior"
+ja = "前のページ"
+zh_hans = "上一页"
+zh_hant = "上一頁"
+
+[[row]]
+id = "betterui_emblem_page_next"
+es = "Página siguiente"
+en = "Next page"
+fr = "Page suivante"
+de = "Nächste Seite"
+it = "Pagina successiva"
+pt = "Página seguinte"
+ja = "次のページ"
+zh_hans = "下一页"
+zh_hant = "下一頁"

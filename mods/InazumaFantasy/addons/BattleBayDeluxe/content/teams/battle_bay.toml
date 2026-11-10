@@ -1,0 +1,90 @@
+schema = "VRFW.team/2"
+default_lang = "en"
+
+# Their only matches are Fantasy free-match games (hidden pieces, on no Chronicle route): never locked by a roster match (bb-pages.md §8.1).
+[VRFW.BbUnlock]
+Open = ["ct_ft_punishment_bb", "ct_ft_inazuma_battle_eleven_bb", "ct_ft_inazuma_best_eleven_bb"]
+
+# ---- Eternal Punishment
+[[team]]
+name = "ct_ft_punishment_bb"
+key = "evt_ct_ft_punishment_bb"
+based_on = "InazumaFantasy.ct_ft_punishment"
+level = 40
+card_moves = 6                            # every player plays the first 6 moves of its card, all at level 1
+same_as = ["InazumaFantasy.ct_ft_punishment"]
+appears = [{ list = "bb_stadium", season = "series_11", row = { copy = false } }]   # the Fantasy season of the grid
+
+[[edit]]
+target = "InazumaFantasy.ct_ft_punishment_bb"
+member = [
+  { slot = 0, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 1, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 2, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 3, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 4, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 5, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 6, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 7, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 8, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 9, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 10, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 19, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+]
+
+# ---- Inazuma Battle Eleven
+[[team]]
+name = "ct_ft_inazuma_battle_eleven_bb"
+key = "evt_ct_ft_inazuma_battle_eleven_bb"
+based_on = "InazumaFantasy.ct_ft_inazuma_battle_eleven"
+level = 40
+card_moves = 6                            # every player plays the first 6 moves of its card, all at level 1
+same_as = ["InazumaFantasy.ct_ft_inazuma_battle_eleven"]
+appears = [{ list = "bb_stadium", season = "series_11", row = { copy = false } }]   # the Fantasy season of the grid
+
+[[edit]]
+target = "InazumaFantasy.ct_ft_inazuma_battle_eleven_bb"
+member = [
+  { slot = 0, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 1, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 2, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 3, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 4, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 5, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 6, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 7, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 8, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 9, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 10, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 11, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 19, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+]
+
+# ---- Inazuma Best Eleven
+[[team]]
+name = "ct_ft_inazuma_best_eleven_bb"
+key = "evt_ct_ft_inazuma_best_eleven_bb"
+based_on = "InazumaFantasy.ct_ft_inazuma_best_eleven"
+level = 40
+card_moves = 6                            # every player plays the first 6 moves of its card, all at level 1
+same_as = ["InazumaFantasy.ct_ft_inazuma_best_eleven"]
+appears = [{ list = "bb_stadium", season = "series_11", row = { copy = false } }]   # the Fantasy season of the grid
+
+[[edit]]
+target = "InazumaFantasy.ct_ft_inazuma_best_eleven_bb"
+member = [
+  { slot = 0, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 1, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 2, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 3, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 4, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 5, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 6, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 7, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 8, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 9, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 10, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 11, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 19, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+  { slot = 16, patch = true, rarity_step = 4, level_offset = 0, c14_19 = [-1, -1, -1, -1, -1, -1], rates = [1, 1, 1, 1, 1, 1, 1, 1] },
+]

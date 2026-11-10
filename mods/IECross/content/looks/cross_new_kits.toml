@@ -1,8 +1,4 @@
 schema = "VRFW.look/2"
-# The kits of the IEVRCROSS mod that IECross did not have: Penguin, Shin Zeus, Full Moon Summer
-# Festival and Pumpkin Devil (home / away, field and keeper shirts, boots, gloves). Rows as that mod has them
-# (chara_parts / uniform_config); textures and meshes in assets\models\kits\ (content\models\kits\).
-# Sold as kits (content\items\cross_kits.toml); worn by the new Cross characters.
 
 [[clothes]]
 model = "u119601_10"
@@ -678,7 +674,7 @@ id = 0xB60649A2                       # crc32("IECross.kit_shin_zeus"): Shin Zeu
   cells = { uniformDirectorModelIdCrc = 0, uniformManagerModelIdCrc = 0, uniformFielderShoulderBaringModelIdCrc = 0xDEAF02B7, uniformKeeperShoulderBaringModelIdCrc = 0, uniformFielderShortSleeveRollUpArmModelIdCrc = 0x37FB1264, uniformKeeperShortSleeveRollUpArmModelIdCrc = 0, uniformFielderShoulderBaringPatternedModelIdCrc = 0xF80D00E3, uniformKeeperShoulderBaringPatternedModelIdCrc = 0, uniformFielderHalfSleeveModelIdCrc = 0, uniformKeeperHalfSleeveModelIdCrc = 0, uniformFielderLongSleeveRollUpArmModelIdCrc = 0, uniformKeeperLongSleeveRollUpArmModelIdCrc = 0, uniformFielderLongSleeveRollUpSleeveModelIdCrc = 0, uniformKeeperLongSleeveRollUpSleeveModelIdCrc = 0, uniformFielderNavelBaringModelIdCrc = 0, uniformKeeperNavelBaringModelIdCrc = 0x8BA8B109, shoesKeeperModelIdCrc = 0x51BDA31D, shoesDirectorModelIdCrc = 0, shoesManagerModelIdCrc = 0, shoesModelAttr = 0, uniformNgModelAttr = 0 }
 
 [[kit]]
-id = 0xD85CB1F4                       # crc32("IECross.kit_full_moon_festival"): Full Moon Summer Festival
+id = 0xD85CB1F4
 
   [[kit.model]]
   type = 0

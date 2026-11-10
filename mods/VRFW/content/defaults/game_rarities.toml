@@ -1,40 +1,39 @@
-# The game's own rarities, in the format of a mod's `[[rarity]]` file; mods remove, edit or add over them.
-# value = chara_param column 41; frame = card-frame sprite group; order = value x 10.
+# ja/fr/de/it/pt/zh labels: the game's own rarity texts (system_text, menu_text); es/en are the mod's wording.
 
 [[rarity]]
 id = "normal"
 value = 0
 frame = 1
 order = 0
-label = { es = "Futbolista común", en = "Normal" }
+label = { es = "Futbolista común", en = "Normal", fr = "Joueur normal", de = "Gewöhnlicher Spieler", it = "Giocatore comune", pt = "Atleta Comum", ja = "NORMAL PLAYER", zh_hans = "普通球员", zh_hant = "普通選手" }
 
 [[rarity]]
 id = "growing"
 value = 1
 frame = 2
 order = 10
-label = { es = "Emergente", en = "Growing" }
+label = { es = "Emergente", en = "Growing", fr = "Joueur en progression", de = "Aufstrebender Spieler", it = "Giocatore in crescita", pt = "Atleta Promissor", ja = "GROWING PLAYER", zh_hans = "潜力球员", zh_hant = "潛力選手" }
 
 [[rarity]]
 id = "advanced"
 value = 2
 frame = 3
 order = 20
-label = { es = "De élite", en = "Advanced" }
+label = { es = "De élite", en = "Advanced", fr = "Joueur expérimenté", de = "Erfahrener Spieler", it = "Giocatore esperto", pt = "Atleta Destaque", ja = "ADVANCED PLAYER", zh_hans = "资深球员", zh_hant = "資深選手" }
 
 [[rarity]]
 id = "top"
 value = 3
 frame = 4
 order = 30
-label = { es = "Estrella", en = "Top" }
+label = { es = "Estrella", en = "Top", fr = "Joueur émérite", de = "Spitzenspieler", it = "Giocatore super", pt = "Atleta Fenômeno", ja = "TOP PLAYER", zh_hans = "超凡球员", zh_hant = "超凡選手" }
 
 [[rarity]]
 id = "legendary"
 value = 4
 frame = 5
 order = 40
-label = { es = "Leyenda del fútbol", en = "Legendary" }
+label = { es = "Leyenda del fútbol", en = "Legendary", fr = "Joueur légendaire", de = "Legendärer Spieler", it = "Giocatore leggendario", pt = "Atleta Lenda", ja = "LEGENDARY PLAYER", zh_hans = "传奇球员", zh_hant = "傳奇選手" }
 
 [[rarity]]
 id = "hero"
@@ -43,7 +42,7 @@ also = [6, 7]
 frame = 6
 order = 50
 team_limit = 2
-label = { es = "Ídolo", en = "Hero" }
+label = { es = "Ídolo", en = "Hero", fr = "Héros", de = "Held", it = "Eroe", pt = "Atleta Ícone", ja = "HERO", zh_hans = "英雄球员", zh_hant = "英雄選手" }
 
 [[rarity]]
 id = "fabled"
@@ -51,11 +50,11 @@ value = 8
 frame = 10
 order = 80
 team_limit = 1
-label = { es = "Diamante", en = "Fabled" }
+label = { es = "Diamante", en = "Fabled", fr = "Basara", de = "Basara", it = "Mito", pt = "Atleta Titã", ja = "BASARA", zh_hans = "无双球员", zh_hant = "無雙選手" }
 
 [[rarity]]
 id = "seasonal"
 value = 9
 frame = 9
 order = 90
-label = { es = "De temporada", en = "Seasonal" }
+label = { es = "De temporada", en = "Seasonal", fr = "Joueur saisonnier", de = "Saisonaler Spieler", it = "Giocatore stagionale", pt = "Atleta da Temporada", ja = "シーズナル選手", zh_hans = "赛季限定球员", zh_hant = "賽季限定選手" }

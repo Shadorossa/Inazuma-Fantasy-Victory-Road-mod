@@ -1,5 +1,4 @@
 schema = "VRFW.team/2"
-# The team Inazuma Japón (bb_07_team_japan) in every match.
 
 [[edit]]
 target = "bb_07_team_japan"

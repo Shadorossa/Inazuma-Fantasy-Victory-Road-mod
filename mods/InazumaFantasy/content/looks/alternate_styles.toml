@@ -1,0 +1,43 @@
+schema = "VRFW.look/2"
+
+# Retail clothes and boots of each variant as a kit (uniform_config), the look its outfit names.
+
+[[kit]]
+id = "inazumafantasy_uni_edwin_style"
+from = 0x252CE113
+  [[kit.model]]
+  type = 0
+  fielder = "u11010510"
+  keeper = "u11010510"
+  shoes = "s11010510"
+  [[kit.model]]
+  type = 1
+  fielder = "u11010510"
+  keeper = "u11010510"
+  shoes = "s11010510"
+
+[[kit]]
+id = "inazumafantasy_uni_axel_blaze_style"
+from = 0x252CE113
+  [[kit.model]]
+  type = 0
+  fielder = "u11500530"
+  keeper = "u11500530"
+  shoes = "s11500530"
+  [[kit.model]]
+  type = 1
+  fielder = "u11500530"
+  keeper = "u11500530"
+  shoes = "s11500530"
+
+# This kit has no base kit, because the retail look wears no separate boots and has no sleeve variants.
+[[kit]]
+id = "inazumafantasy_uni_celia_hills_style"
+  [[kit.model]]
+  type = 0
+  fielder = "u02024741"
+  keeper = "u02024741"
+  [[kit.model]]
+  type = 1
+  fielder = "u02024741"
+  keeper = "u02024741"

@@ -1,0 +1,51 @@
+schema = "VRFW.text/2"
+table = "system_text"
+
+# the names of the four element spirits: with Classic Cards they are the position stocks
+[[row]]
+id = 0x2E449F04
+es = "Portero"
+en = "Goalkeeper"
+fr = "Gardien"
+de = "Torwart"
+it = "Portiere"
+pt = "Guarda-redes"
+ja = "ゴールキーパー"
+zh_hans = "守门员"
+zh_hant = "守門員"
+
+[[row]]
+id = 0x212C6021
+es = "Defensa"
+en = "Defender"
+fr = "Défenseur"
+de = "Verteidiger"
+it = "Difensore"
+pt = "Defesa"
+ja = "ディフェンダー"
+zh_hans = "后卫"
+zh_hant = "後衛"
+
+[[row]]
+id = 0x5E0FBFDD
+es = "Centrocampista"
+en = "Midfielder"
+fr = "Milieu"
+de = "Mittelfeld"
+it = "Centrocampista"
+pt = "Médio"
+ja = "ミッドフィルダー"
+zh_hans = "中场"
+zh_hant = "中場"
+
+[[row]]
+id = 0x27DAE2EC
+es = "Delantero"
+en = "Forward"
+fr = "Attaquant"
+de = "Stürmer"
+it = "Attaccante"
+pt = "Avançado"
+ja = "フォワード"
+zh_hans = "前锋"
+zh_hant = "前鋒"

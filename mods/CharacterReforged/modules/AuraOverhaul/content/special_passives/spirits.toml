@@ -1,7 +1,4 @@
-# Aura Reworked › the spirit passives: the warrior spirits (keshin) and their passives (kind VRFW.passive/1).
-# [[VRFW.Spirit]]: a player carries `passive` (and `synergy`) while that keshin is his running summon
-# WITHOUT armour, the rival's players too. [[VRFW.SpiritFamily]]: a named set of spirits the SpiritsOut
-# block counts (a family bonus). Edited in ModManager or by hand.
+# Aura Overhaul › the spirit passives: the warrior spirits (keshin) and their passives (kind VRFW.passive/1).
 schema = "VRFW.passive/1"
 
 # ---- families
@@ -61,8 +58,8 @@ name = "tidal_surge"
 blocks = ["score_trailing", "power_shoot_12"]
 
 [[VRFW.Passive]]
-name = "sleight_of_hand"
-blocks = ["on_technique_result", "kind_dribble", "outcome_succeeds", "stack_1_8s", "tension_cost_m40"]
+name = "illusion_walls"
+blocks = ["ball_walls"]
 
 [[VRFW.Passive]]
 name = "white_gallop"
@@ -226,7 +223,7 @@ blocks = ["stat_physical_12"]
 
 [[VRFW.Passive]]
 name = "supersonic"
-blocks = ["speed_10"]
+blocks = ["targets_own_half", "speed_15_team"]
 
 [[VRFW.Passive]]
 name = "living_nightmare"
@@ -250,7 +247,7 @@ blocks = ["near_8m", "stat_pressure_m10_opponents"]
 
 [[VRFW.Passive]]
 name = "light_barrier"
-blocks = ["on_carried", "stack_1_10s", "speed_25"]
+blocks = ["targets_rival_half", "speed_7_5_team"]
 
 [[VRFW.Passive]]
 name = "whirlwind_blade"
@@ -533,7 +530,7 @@ passive = "tidal_surge"
 # Trickster
 [[VRFW.Spirit]]
 aura = "wks00140"
-passive = "sleight_of_hand"
+passive = "illusion_walls"
 
 # White Knight
 [[VRFW.Spirit]]

@@ -1,7 +1,6 @@
 schema = "VRFW.game/2"
 
 # Card-type registry sites (scripts/card_types.lua); written only when a mod declares card types (apply = "script").
-# The rarity tab of the character and spirit filter windows is built by a loop; the patches below extend it by one extra item.
 
 # ---- functions
 
@@ -151,8 +150,6 @@ needs = ["CardTypes.SpiritRebuild.Extra"]
 [[VRFW.State]]
 key = "VRFW.card_types.every_filter"
 
-# bool CharaBankFilter(ctx, hdl, paramId, Filter*): adds the rarities of `every_filter` card types to the filter's rarity set
-#   Filter: +0x15CB u8 rarity test on, +0xA44 u32 set size, +0xA48 u8[16] set
 [[VRFW.Hook]]
 name = "CardTypes.BankFilter"
 game = "Card.BankFilter"

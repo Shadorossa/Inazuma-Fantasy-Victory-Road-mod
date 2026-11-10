@@ -1,0 +1,112 @@
+schema = "VRFW.menu/2"
+
+[[patch]]
+menu = "chara_pack_probability_list_menu"
+layer = "universe01_31_rarity_rate_item"
+count = 9
+
+[[patch]]
+menu = "chara_pack_probability_list_menu"
+add_layer = { name = "chronicle_deluxe_universe_prize_row", object = "chronicle_deluxe_universe_prize_row", count = 3, after = "universe01_31_rarity_rate_item", groups = [{ group = "chara_pack_probability_list_menu", flags = [0, 0, 0, 0, 1, 0], after = "universe01_31_rarity_rate_item" }] }
+resources = ["#/menu/103_item/item01/item01_02/<LG>/item01_02.g4tx"]
+
+# the delivery list's item row without its own attaches (its cursor and spirit icon layers are not on this screen)
+[[object]]
+name = "chronicle_deluxe_universe_prize_row"
+from = "info01_23_delivery_detail_item"
+remove_block = ["CMenuAttachLocator"]
+
+[[object_set]]
+object = "universe01_30_rarity_rate_window"
+copy = [
+    { parameter = "NullLayerName", match = { 3 = 3591108357, 4 = 0 }, values = { 1 = 3080886681, 2 = 3080886681, 4 = 8 } },
+    { parameter = "NullLayerName", match = { 3 = 3591108357, 4 = 0 }, values = { 1 = 3232082191, 2 = 3232082191, 4 = 7 } },
+    { parameter = "NullLayerName", match = { 3 = 3591108357, 4 = 0 }, values = { 1 = 1504508085, 2 = 1504508085, 4 = 6 } },
+    { parameter = "NullLayerName", match = { 3 = 3591108357, 4 = 0 }, values = { 1 = 1541207062, 2 = 1541207062, 3 = 2524577816, 4 = 2 } },
+    { parameter = "NullLayerName", match = { 3 = 3591108357, 4 = 0 }, values = { 1 = 752600192, 2 = 752600192, 3 = 2524577816, 4 = 1 } },
+    { parameter = "NullLayerName", match = { 3 = 3591108357, 4 = 0 }, values = { 1 = 3050476858, 2 = 3050476858, 3 = 2524577816, 4 = 0 } },
+]
+
+# a taller window (704 -> 896 px, top 188 -> 92): title and rarity rows up 96 px at a step of 80, prize rows below at 78
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_rarity_offer_win01"
+translate = [566.0, -92.0]
+scale = [788.0, 896.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_rarity_offer_line01"
+translate = [632.0, -149.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_text_rarity_offer_title01"
+translate = [652.0, -149.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_rarity01"
+translate = [960.0, -252.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_rarity02"
+translate = [960.0, -332.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_rarity03"
+translate = [960.0, -412.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_rarity04"
+translate = [960.0, -492.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_rarity05"
+translate = [960.0, -572.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_rarity06"
+translate = [960.0, -652.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_chronicle_deluxe_prize01"
+parent = "_pos_rarity01"
+translate = [960.0, -736.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_chronicle_deluxe_prize02"
+parent = "_pos_rarity01"
+translate = [960.0, -814.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_chronicle_deluxe_prize03"
+parent = "_pos_rarity01"
+translate = [960.0, -892.0]
+
+# the item row's icon 10 px inside the rate row's left edge (at the row's 0.7 scale, its count clear of the percent)
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_chronicle_deluxe_prize_item01"
+parent = "_pos_rarity01"
+translate = [689.0, -736.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_chronicle_deluxe_prize_item02"
+parent = "_pos_rarity01"
+translate = [689.0, -814.0]
+
+[[layout]]
+file = "common/menu/31_universe/universe01/universe01_30/universe01_30.g4pkm"
+joint = "_atc_chronicle_deluxe_prize_item03"
+parent = "_pos_rarity01"
+translate = [689.0, -892.0]

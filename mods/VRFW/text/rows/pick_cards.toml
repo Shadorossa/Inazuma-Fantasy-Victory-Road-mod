@@ -1,5 +1,3 @@
-# The pick cards screen (vrfw_pick_cards_menu, docs/framework/pick-cards.md): the button guide's Accept and the default
-# label of the «skip» choice. Rows of menu_text, read by id = crc32(row id).
 schema = "VRFW.text/2"
 table = "menu_text"
 

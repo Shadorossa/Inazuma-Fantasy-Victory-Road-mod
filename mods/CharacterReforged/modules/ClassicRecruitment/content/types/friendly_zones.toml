@@ -1,0 +1,40 @@
+# Declaration schema of ClassicRecruitment.friendly_zones/1 (content\friendly_zones), for `vrfw check` and the ModManager.
+schema = "VRFW.decl_schema/1"
+kind = "ClassicRecruitment.friendly_zones/1"
+folder = "content/friendly_zones"
+label = "Friendly zones"
+label_es = "Pachangas"
+doc = "Friendly zones on the Chronicle board and their friendlies."
+doc_es = "Zonas de pachangas en el tablero de la Crónica y sus amistosos."
+
+[entry.FriendlyZone]
+doc = "a friendly zone: one Chronicle board node whose list holds the zone's friendlies"
+name = { type = "name", required = true, doc = "the zone's name (a-z 0-9 _); the friendlies name it in zone" }
+game = { type = "string", values = ["ie1", "ie2", "ie3", "go", "cs", "galaxy"], doc = "the saga the zone belongs to" }
+node = { type = "string", required = true, ref = "route_node", doc = "the [[VRFW.RouteNode]] Name of the zone's board node" }
+title = { type = "string", ref = "text_key", doc = "the text row id of the zone's name (menu_text)" }
+chronicle = { type = "string", ref = "match", doc = "the Chronicle match whose piece the zone's node hangs from" }
+stadium = { type = "string", ref = "stadium", doc = "the map the zone's friendlies are played on" }
+
+[entry.Friendly]
+doc = "a friendly: a friendly against a team of the zone"
+name = { type = "name", required = true, doc = "the friendly's name (a-z 0-9 _)" }
+zone = { type = "string", required = true, ref = "entry:FriendlyZone", doc = "the zone whose list shows it" }
+level_offset = { type = "int", default = 0, doc = "added to the friendly's base level (scripts/friendly_zones.lua)" }
+team = { type = "string", required = true, ref = "team", doc = "the rival team (a mod team key or a game team)" }
+team_name = { type = "string", doc = "the team's name shown when its team has none" }
+level = { type = "int", min = 1, max = 999, doc = "the rival players' level" }
+format = { type = "string", values = ["5v5", "11v11"], default = "5v5", doc = "the match format" }
+cards = { type = "ids", ref = "any:variant", doc = "the rival players' cards (chara_param keys), goalkeeper first" }
+
+[entry.FriendlyMusic]
+doc = "the match music of a season's friendlies (scripts/friendly_zones.lua)"
+game = { type = "string", required = true, values = ["ie1", "ie2", "ie3", "go", "cs", "galaxy"], doc = "the saga whose zones play it" }
+set = { type = "string", required = true, doc = "the match BGM set: a retail set name (bg30160) or a library track's own set (<cue>_set)" }
+
+[entry.FriendlyLevel]
+single = true
+doc = "how the friendly levels scale (one per file; scripts/friendly_zones.lua)"
+scale = { type = "string", default = "data" }
+min = { type = "int", default = 1 }
+max = { type = "int", default = 200 }

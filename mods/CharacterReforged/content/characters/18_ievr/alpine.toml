@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Alpine · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c11190040"                                   # Anastasia Mingler
 moves = [
   { move = 0x19C3F43D, level = 1 },                         # Eternal Blizzard
   { move = 0x039DBAAC, level = 13 },                        # Land of Ice
-  { move = 0x96A7CD7D, level = 20 },                        # Tsunami Wall
-  { move = 0x768AB9C5, level = 30 },                        # Frosticle
+  { move = 0x768AB9C5, level = 20 },                        # Frosticle
+  { move = 0x1FC99D68, level = 30 },                        # Snow Angel
 ]
 
   [[edit.cards]]
@@ -21,10 +18,10 @@ moves = [
 [[edit]]
 target = "c11190060"                                   # Hail Homestead
 moves = [
-  { move = 0xDCF43422, level = 1 },                         # Aurora Dribble
-  { move = 0x46FA651E, level = 13 },                        # Water Veil
-  { move = 0x2354CA2D, level = 20 },                        # Wind God's Dance
-  { move = 0x039DBAAC, level = 30 },                        # Land of Ice
+  { move = 0x46FA651E, level = 1 },                         # Water Veil
+  { move = 0x039DBAAC, level = 13 },                        # Land of Ice
+  { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
+  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]
@@ -36,9 +33,9 @@ moves = [
 [[edit]]
 target = "c11190070"                                   # Lev Langvil
 moves = [
-  { move = 0xDE4ED944, level = 1 },                         # Snowstorm Leopard
-  { move = 0x2354CA2D, level = 13 },                        # Wind God's Dance
-  { move = 0x19C3F43D, level = 20 },                        # Eternal Blizzard
+  { move = 0x19C3F43D, level = 1 },                         # Eternal Blizzard
+  { move = 0xDE4ED944, level = 13 },                        # Snowstorm Leopard
+  { move = 0x2354CA2D, level = 20 },                        # Wind God's Dance
   { move = 0x21127474, level = 30 },                        # Ultra Moon
 ]
 
@@ -53,9 +50,9 @@ moves = [
 target = "c11190010"                                   # Arlo Galbrash
 moves = [
   { move = 0xEFFC6FA8, level = 1 },                         # Warhead
-  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
-  { move = 0x4683AADF, level = 20 },                        # Space Penguin
-  { move = 0x18019E0A, level = 30 },                        # Double Grenade
+  { move = 0x18019E0A, level = 13 },                        # Double Grenade
+  { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
+  { move = 0x4683AADF, level = 30 },                        # Space Penguin
 ]
 
   [[edit.cards]]
@@ -68,9 +65,9 @@ moves = [
 [[edit]]
 target = "c11190020"                                   # Berta Brunche
 moves = [
-  { move = 0x637C031A, level = 1 },                         # No Escape
-  { move = 0x50880BAF, level = 13 },                        # Frozen Steal
-  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
+  { move = 0x50880BAF, level = 1 },                         # Frozen Steal
+  { move = 0x17110E3B, level = 13 },                        # Jumbo Sandwich
+  { move = 0x637C031A, level = 20 },                        # No Escape
   { move = 0x9D236FA3, level = 30 },                        # Sword of the King
 ]
 
@@ -84,8 +81,8 @@ moves = [
 target = "c11190030"                                   # Targan Snowbringer
 moves = [
   { move = 0x039DBAAC, level = 1 },                         # Land of Ice
-  { move = 0xC42D6F54, level = 13 },                        # Aikido
-  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0xC42D6F54, level = 20 },                        # Aikido
   { move = 0x7C1494CF, level = 30 },                        # Tornado Tunnel
 ]
 
@@ -98,9 +95,9 @@ moves = [
 [[edit]]
 target = "c11190050"                                   # Gael Vehemaint
 moves = [
-  { move = 0xC4701649, level = 1 },                         # Ice Block
-  { move = 0x6E53E2B3, level = 13 },                        # Angel Ball
-  { move = 0xF08DB620, level = 20 },                        # Whirlwind
+  { move = 0xF08DB620, level = 1 },                         # Whirlwind
+  { move = 0x822B79EA, level = 13 },                        # Somersault Stamp
+  { move = 0xC4701649, level = 20 },                        # Ice Block
   { move = 0x41AEB4DF, level = 30 },                        # Crystal Barrier
 ]
 
@@ -113,10 +110,10 @@ moves = [
 [[edit]]
 target = "c11190080"                                   # Mateo Potensio
 moves = [
-  { move = 0x637C031A, level = 1 },                         # No Escape
+  { move = 0x00196EC2, level = 1 },                         # Earthquake
   { move = 0x50880BAF, level = 13 },                        # Frozen Steal
-  { move = 0x00196EC2, level = 20 },                        # Earthquake
-  { move = 0x72BFA108, level = 30 },                        # Wall of Atlantis
+  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
+  { move = 0x637C031A, level = 30 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -129,10 +126,10 @@ moves = [
 [[edit]]
 target = "c11190110"                                   # Fergat Silverpine
 moves = [
-  { move = 0xDCF43422, level = 1 },                         # Aurora Dribble
+  { move = 0x12E67CC1, level = 1 },                         # Future Eye
   { move = 0x768AB9C5, level = 13 },                        # Frosticle
   { move = 0x4FE09C7A, level = 20 },                        # Acrobatic Keep
-  { move = 0x12E67CC1, level = 30 },                        # Future Eye
+  { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
 ]
 
   [[edit.cards]]
@@ -145,9 +142,9 @@ moves = [
 [[edit]]
 target = "c11190090"                                   # Wren Habilton
 moves = [
-  { move = 0xDE4ED944, level = 1 },                         # Snowstorm Leopard
-  { move = 0x19C3F43D, level = 13 },                        # Eternal Blizzard
-  { move = 0xE8F5C774, level = 20 },                        # Megalodon
+  { move = 0x19C3F43D, level = 1 },                         # Eternal Blizzard
+  { move = 0xE8F5C774, level = 13 },                        # Megalodon
+  { move = 0xDE4ED944, level = 20 },                        # Snowstorm Leopard
   { move = 0x67F17FA8, level = 30 },                        # Mega Quake
 ]
 
@@ -162,9 +159,9 @@ moves = [
 target = "c11190100"                                   # Fifi Frostkin
 moves = [
   { move = 0xF08DB620, level = 1 },                         # Whirlwind
-  { move = 0xC4701649, level = 13 },                        # Ice Block
-  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
-  { move = 0xF14FDC17, level = 30 },                        # Shot Pocket
+  { move = 0xF14FDC17, level = 13 },                        # Shot Pocket
+  { move = 0xB01D1B68, level = 20 },                        # Power Spike
+  { move = 0xC4701649, level = 30 },                        # Ice Block
 ]
 
   [[edit.cards]]
@@ -177,10 +174,10 @@ moves = [
 [[edit]]
 target = "c11190140"                                   # Yetzy Klaus
 moves = [
-  { move = 0x84385EE2, level = 1 },                         # Black Tide Ride
+  { move = 0xA9E3374B, level = 1 },                         # Cyclone Sprint
   { move = 0x18C035B4, level = 13 },                        # Ghost Pull
   { move = 0x4A17EE80, level = 20 },                        # Hunter's Net
-  { move = 0xA9E3374B, level = 30 },                        # Cyclone Sprint
+  { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
 ]
 
   [[edit.cards]]
@@ -195,8 +192,8 @@ target = "c11190160"                                   # Elon Entremet
 moves = [
   { move = 0x1A868BED, level = 1 },                         # Clone Defence
   { move = 0x36A270F2, level = 13 },                        # Rolling Slide
-  { move = 0x9D236FA3, level = 20 },                        # Sword of the King
-  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
+  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -210,9 +207,9 @@ moves = [
 target = "c11190120"                                   # Zain Blizzard
 moves = [
   { move = 0x1A868BED, level = 1 },                         # Clone Defence
-  { move = 0xA2BF7076, level = 13 },                        # Side Swipe
-  { move = 0x79E3E635, level = 20 },                        # Racing Flame
-  { move = 0x6C6C932B, level = 30 },                        # Megaton Head
+  { move = 0x79E3E635, level = 13 },                        # Racing Flame
+  { move = 0xC324C788, level = 20 },                        # Blast Mine
+  { move = 0xA2BF7076, level = 30 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -226,9 +223,9 @@ moves = [
 target = "c11190130"                                   # Ivar Trialton
 moves = [
   { move = 0x039DBAAC, level = 1 },                         # Land of Ice
-  { move = 0xC41097D5, level = 13 },                        # Acrobotics
-  { move = 0x31ABD82E, level = 20 },                        # Circus Block
-  { move = 0x2FB941B3, level = 30 },                        # Stone Prison
+  { move = 0x31ABD82E, level = 13 },                        # Circus Block
+  { move = 0x2FB941B3, level = 20 },                        # Stone Prison
+  { move = 0xC41097D5, level = 30 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -242,9 +239,9 @@ moves = [
 target = "c11190150"                                   # Bayard Boreas
 moves = [
   { move = 0xBBE07677, level = 1 },                         # Sidewinder
-  { move = 0xE35B59DB, level = 13 },                        # Twin Sun Smash
-  { move = 0x9D236FA3, level = 20 },                        # Sword of the King
-  { move = 0x2A37FC88, level = 30 },                        # Revolution V
+  { move = 0x2A37FC88, level = 13 },                        # Revolution V
+  { move = 0xE35B59DB, level = 20 },                        # Twin Sun Smash
+  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -257,10 +254,10 @@ moves = [
 [[edit]]
 target = "c11190500"                                   # Clifford Chillard
 moves = [
-  { move = 0x3B8D915B, level = 1 },                         # Meteor Shower
-  { move = 0xA8215D7C, level = 13 },                        # The Mountain
-  { move = 0x79E3E635, level = 20 },                        # Racing Flame
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0x79E3E635, level = 1 },                         # Racing Flame
+  { move = 0x8A936B25, level = 13 },                        # Goopy Gloopy Goo
+  { move = 0x3B8D915B, level = 20 },                        # Meteor Shower
+  { move = 0xA8215D7C, level = 30 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -273,10 +270,10 @@ moves = [
 [[edit]]
 target = "c11190510"                                   # Adovis Albleicher
 moves = [
-  { move = 0x6BA49049, level = 1 },                         # Mystic Mist
-  { move = 0x78218C02, level = 13 },                        # Duskfall
-  { move = 0x4A17EE80, level = 20 },                        # Hunter's Net
-  { move = 0x12E67CC1, level = 30 },                        # Future Eye
+  { move = 0x12E67CC1, level = 1 },                         # Future Eye
+  { move = 0x4A17EE80, level = 13 },                        # Hunter's Net
+  { move = 0x6BA49049, level = 20 },                        # Mystic Mist
+  { move = 0x78218C02, level = 30 },                        # Duskfall
 ]
 
   [[edit.cards]]

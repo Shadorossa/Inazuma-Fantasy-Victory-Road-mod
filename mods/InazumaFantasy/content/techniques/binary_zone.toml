@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Zona binaria (Binary Zone): the download's move whd92001, a clone of whd00440 with its numbers; its event ev62_92001 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "binary_zone"

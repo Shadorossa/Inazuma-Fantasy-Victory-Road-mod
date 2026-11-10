@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Occult · Inazuma Eleven
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c01000410"                                   # Nathan Jones
 moves = [
-  { move = 0xF9B80F86, level = 1 },                         # Strong Punch
-  { move = 0x4523C86D, level = 1 },                         # Killer Blade
-  { move = 0xE854ED56, level = 1 },                         # Warp Space
-  { move = 0x88B554E0, level = 50 },                        # Galatyn
+  { move = 0xF08DB620, level = 55 },                        # Whirlwind
+  { move = 0x4523C86D, level = 65 },                        # Killer Blade
+  { move = 0xE854ED56, level = 75 },                        # Warp Space
+  { move = 0x88B554E0, level = 85 },                        # Galatyn
 ]
 
   [[edit.cards]]
@@ -51,10 +48,10 @@ moves = [
 [[edit]]
 target = "c01000440"                                   # Ken Furan
 moves = [
-  { move = 0xC0FD6AFB, level = 10 },                        # Fireball Head
-  { move = 0xEA12530F, level = 30 },                        # Double Rocket
-  { move = 0x8FBCFC3C, level = 42 },                        # Blazing Knuckle
-  { move = 0xC379BE95, level = 56 },                        # Counter Strike
+  { move = 0x67F17FA8, level = 1 },                         # Mega Quake
+  { move = 0x637C031A, level = 11 },                        # No Escape
+  { move = 0x18C035B4, level = 21 },                        # Ghost Pull
+  { move = 0x00196EC2, level = 31 },                        # Earthquake
 ]
 
   [[edit.cards]]
@@ -66,7 +63,7 @@ moves = [
 [[edit]]
 target = "c01000450"                                   # Jerry Fulton
 moves = [
-  { move = 0x23C3EE90, level = 1 },                         # Shoulder Tackle
+  { move = 0x33ED6677, level = 1 },                         # Doppelganger
   { move = 0xAB6422AC, level = 12 },                        # Phantom Shot
   { move = 0x10A0C298, level = 44 },                        # Warp Drive
   { move = 0xB5B7108F, level = 50 },                        # Shadow Stitch
@@ -98,10 +95,10 @@ moves = [
 [[edit]]
 target = "c01000470"                                   # Robert Mayer
 moves = [
-  { move = 0x18C035B4, level = 1 },                         # Ghost Pull
-  { move = 0x09BBF3D9, level = 23 },                        # Dark Whirlwind
-  { move = 0x322F0C40, level = 35 },                        # Spider Web
-  { move = 0xE854ED56, level = 44 },                        # Warp Space
+  { move = 0x3D4653B0, level = 33 },                        # Poison Fog
+  { move = 0x18C035B4, level = 43 },                        # Ghost Pull
+  { move = 0x09BBF3D9, level = 53 },                        # Dark Whirlwind
+  { move = 0x322F0C40, level = 63 },                        # Spider Web
 ]
 
   [[edit.cards]]
@@ -146,7 +143,7 @@ moves = [
 target = "c01000500"                                   # Troy Moon
 moves = [
   { move = 0x695A4A6F, level = 1 },                         # Magic
-  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
+  { move = 0xAB6422AC, level = 11 },                        # Phantom Shot
   { move = 0x21127474, level = 40 },                        # Ultra Moon
   { move = 0x7E2BE557, level = 75 },                        # Legendary Wolf
 ]
@@ -160,9 +157,9 @@ moves = [
 [[edit]]
 target = "c01000510"                                   # Burt Wolf
 moves = [
-  { move = 0x06458894, level = 1 },                         # Feint Dash
-  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
-  { move = 0x3D4653B0, level = 17 },                        # Poison Fog
+  { move = 0x695A4A6F, level = 22 },                        # Magic
+  { move = 0xAB6422AC, level = 32 },                        # Phantom Shot
+  { move = 0x3D4653B0, level = 42 },                        # Poison Fog
   { move = 0x34E4CEAB, level = 52 },                        # Barbarian Shield
 ]
 
@@ -176,7 +173,7 @@ moves = [
 target = "c01000520"                                   # Rob Crombie
 moves = [
   { move = 0x65B7C1F1, level = 1 },                         # Sumo Stomp
-  { move = 0xE854ED56, level = 1 },                         # Warp Space
+  { move = 0xE854ED56, level = 11 },                        # Warp Space
   { move = 0xE9968761, level = 28 },                        # Rocket Kobushi
   { move = 0xC379BE95, level = 47 },                        # Counter Strike
 ]
@@ -254,14 +251,9 @@ moves = [
 target = "c11801040"                                   # Hekyll Jyde
 moves = [
   { move = 0x18C035B4, level = 1 },                         # Ghost Pull
-  { move = 0x4890FB67, level = 13 },                        # Twin Boost
-  { move = 0xB5B7108F, level = 20 },                        # Shadow Stitch
-  { move = 0x592A96B4, level = 30 },                        # Afterimage
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0x0312FC4D, level = 1 },                         # Modo Brutal [aura]
+  { move = 0x4890FB67, level = 11 },                        # Twin Boost
+  { move = 0xB5B7108F, level = 21 },                        # Shadow Stitch
+  { move = 0x592A96B4, level = 31 },                        # Afterimage
 ]
 
   [[edit.cards]]
@@ -275,9 +267,9 @@ moves = [
 target = "c11801050"                                   # Hekyll Jyde
 moves = [
   { move = 0x18C035B4, level = 1 },                         # Ghost Pull
-  { move = 0x4890FB67, level = 13 },                        # Twin Boost
-  { move = 0xB5B7108F, level = 20 },                        # Shadow Stitch
-  { move = 0x592A96B4, level = 30 },                        # Afterimage
+  { move = 0x4890FB67, level = 11 },                        # Twin Boost
+  { move = 0xB5B7108F, level = 21 },                        # Shadow Stitch
+  { move = 0x592A96B4, level = 31 },                        # Afterimage
 ]
 
   [[edit.cards]]
@@ -290,10 +282,10 @@ moves = [
 [[edit]]
 target = "c11807050"                                   # Lanny Tern
 moves = [
-  { move = 0x21127474, level = 1 },                         # Ultra Moon
-  { move = 0xA01CD34D, level = 13 },                        # Temporal Wall
-  { move = 0x53E9C2A3, level = 20 },                        # Capable Hands
-  { move = 0xE854ED56, level = 30 },                        # Warp Space
+  { move = 0x53E9C2A3, level = 1 },                         # Capable Hands
+  { move = 0xA01CD34D, level = 11 },                        # Temporal Wall
+  { move = 0xE854ED56, level = 21 },                        # Warp Space
+  { move = 0x21127474, level = 31 },                        # Ultra Moon
 ]
 
   [[edit.cards]]

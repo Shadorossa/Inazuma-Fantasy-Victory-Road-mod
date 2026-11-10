@@ -1,48 +1,48 @@
 schema = "VRFW.changelog/1"
-# Technique Cut-in Skip: ONE general summary of what the mod offers, shown on «Novedades de mods».
+# Technique Cut-in Skip: what the mod offers.
 
 [[release]]
 icon = "general"
 notes = [
-    "A termina la animación de la supertécnica",
+    "A termina la animación de supertécnicas, Keshin, Armaduras, Miximax y transformaciones",
 ]
 
 [release.en]
 notes = [
-    "A ends the technique cut-in",
+    "A ends technique, Keshin, Armed, Miximax and transformation cut-ins",
 ]
 
 [release.fr]
 notes = [
-    "A met fin à l'animation de la technique",
+    "A met fin aux animations de technique, Keshin, Armure, Miximax et transformation",
 ]
 
 [release.de]
 notes = [
-    "A beendet die Technik-Animation",
+    "A beendet die Sequenzen von Technik, Keshin, Rüstung, Miximax und Transformation",
 ]
 
 [release.it]
 notes = [
-    "A termina l'animazione della tecnica",
+    "A termina le animazioni di tecnica, Keshin, Armatura, Miximax e trasformazione",
 ]
 
 [release.pt]
 notes = [
-    "A termina a animação da supertécnica",
+    "A termina as animações de supertécnica, Keshin, Armadura, Miximax e transformação",
 ]
 
 [release.ja]
 notes = [
-    "Aで必殺技演出を終了",
+    "Aで必殺技・化身・アームド・ミキシマックス・変身の演出を終了",
 ]
 
 [release.zh_hans]
 notes = [
-    "按 A 结束必杀技演出",
+    "按 A 结束必杀技、化身、铠甲、融合和变身的演出",
 ]
 
 [release.zh_hant]
 notes = [
-    "按 A 結束必殺技演出",
+    "按 A 結束必殺技、化身、鎧甲、融合和變身的演出",
 ]

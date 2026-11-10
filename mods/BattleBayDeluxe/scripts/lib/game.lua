@@ -1,20 +1,20 @@
--- Battle Bay Deluxe: the Battle Bay's game layout shared by the Campaign and the Draft. Declarations:
--- content\game\campaign.toml (enjoy, EnjoyTable, EnjoyRow, EvalCondition).
 
 local U = require "lib/util"
 
 local G = {}
 
 -- the grid menu (EnjoySelectTeamMenu)
-G.GRID_LAYER = 0x065471F6          -- the grid layer's hash (FindChildByHash; a decide's button on the grid)
-G.BTN_CAMPAIGN_START = 0x140980D9  -- the button that starts the Campaña
-G.SLOTS = 28                       -- grid slot records: this + GridMenu.Slots + i * 0x38 (GridSlot)
+G.GRID_LAYER = 0x065471F6
+G.BTN_CAMPAIGN_START = 0x140980D9
+G.SLOTS = 28
 G.SLOT_STRIDE = 0x38
-G.RIVALS = 7                       -- Session +0x2CA6F0: the Campaña's 7 rivals (u32)
+G.RIVALS = 7
 G.S_RIVALS = 0x2CA6F0
 
--- where the grid's slot records start in the menu on the running build (game profile field GridMenu.Slots); nil
--- when the profile does not name it
+-- Match.StartRequest request fields (+0x88 = match info +0x20, the stadium)
+G.REQUEST_EXPLICIT, G.REQUEST_PLAYER, G.REQUEST_RIVAL = 0xA0, 0xA4, 0xA8
+G.REQUEST_STADIUM = 0x88
+
 local slot_base
 function G.slot_base()
   if not slot_base then
@@ -26,7 +26,6 @@ function G.slot_base()
   return slot_base
 end
 
--- the address of grid slot record `i` of `menu`; nil when the slot base is unknown on this build
 function G.slot_addr(menu, i)
   local base = G.slot_base()
   if not base then
@@ -35,8 +34,6 @@ function G.slot_addr(menu, i)
   return menu + base + i * G.SLOT_STRIDE
 end
 
--- the enjoy_mode_team_config rows in memory, table order: { { team, cond, addr } … } (cond 0 = no unlock
--- condition); nil, why when the table is not readable
 function G.enjoy_rows()
   local tblp = U.global("enjoy")
   if not tblp then
@@ -77,7 +74,6 @@ function G.enjoy_row(team)
   return nil
 end
 
--- the game's unlock-condition evaluator (0xDCB560, the grid ctor's): true / false, nil when it could not run
 function G.eval(cond)
   if not VRFW.is_on("EvalCondition") then
     return nil
@@ -89,8 +85,6 @@ function G.eval(cond)
   return U.truthy(v)
 end
 
--- the VR-Framework's «win it to unlock it» rule (docs/framework/bb-pages.md §8): -1 not under it, 0 locked,
--- 1 unlocked; nil when the BB pages service is not there
 function G.unlock_rule(team)
   local ok, r = pcall(VRFW.battle_bay.unlock_rule, team)
   if ok and type(r) == "number" then

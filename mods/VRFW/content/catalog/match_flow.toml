@@ -1,16 +1,6 @@
 schema = "VRFW.catalog/1"
 # Node kinds of a match flow (schema VRFW.catalog/1): category, ports and arguments of each kind. Built into the framework.
-# Each kind is implemented by name in the framework's match_flow.lua; a new kind needs code there (a new trigger kind
-# does not: every trigger.* kind only starts a run).
-# [category.<cat>]: default ins/outs ports (all flow ports): trigger, cond, action, scene, rule, end, note.
-# [[kind]]: kind, cat, row (trigger type; -1 = the node's own `type` argument), args = [{ name, type, default }].
-# Argument types: int, num, bool, team (user/rival), member (soccer member id), id (number, 0x.. or text -> crc32), text,
-# enum (+ values; + codes = what each value writes into a trigger row), list (call arguments: a TOML array).
-# A trigger kind's `target` / `sub` name the arguments written into the row's target / sub columns (a member / id 0 or an
-# empty text = any); `clauses` turn arguments into `if` clauses of the row's condition; `alias` = more names an
-# [[event]]'s `when` accepts (the kind's name without `trigger.` always works).
-# [[clause]]: the readable `if` clauses, each compiled into the game's condition bytecode with the function names of
-# schemas/conditions.toml. [events]: how [[event]] tables are lowered into nodes (docs/framework/types/trigger.md §9).
+# schemas/conditions.toml. [events]: how [[event]] tables are lowered into nodes (docs/internal/types/trigger.md §9).
 
 [category.trigger]
 ins = []
@@ -40,8 +30,7 @@ outs = ["out"]
 ins = []
 outs = []
 
-# ---- triggers
-# Team keys of the trigger rows: crc32("0") = 4108050209 (the user), crc32("1") = 2212294583 (the rival).
+# ---- triggers Team keys of the trigger rows: crc32("0") = 4108050209 (the user), crc32("1") = 2212294583 (the rival).
 [[kind]]
 kind = "trigger.match_init"
 cat = "trigger"
@@ -150,7 +139,6 @@ args = [
     { name = "member", type = "member", default = "0" },
 ]
 
-# `n` passes in a row.
 [[kind]]
 kind = "trigger.passes"
 cat = "trigger"
@@ -202,7 +190,6 @@ args = [
     { name = "team", type = "team", default = "user" },
 ]
 
-# A goal by `member`; `technique` = the technique id it was scored with (empty = any).
 [[kind]]
 kind = "trigger.goal_by"
 cat = "trigger"
@@ -301,8 +288,7 @@ args = [
     { name = "cond", type = "text", default = "" },
 ]
 
-# ---- conditions
-# `op` has / lacks: every / no bit of `value` set in the byte flag (the bits `act.set_bits` sets)
+# ---- conditions `op` has / lacks: every / no bit of `value` set in the byte flag (the bits `act.set_bits` sets)
 [[kind]]
 kind = "cond.step"
 cat = "cond"
@@ -496,8 +482,6 @@ args = [
     { name = "on", type = "bool", default = true },
 ]
 
-# aura skill started (`on`) or ended on a player; `slot` 1-6 first equips it in that match slot,
-# `event` plays its cut-in, `refill` fills the team's HDP gauge first
 [[kind]]
 kind = "act.aura"
 cat = "action"
@@ -519,9 +503,6 @@ args = [
     { name = "args", type = "text", default = "" },
 ]
 
-# A function of the game's prog_common Lua by its name (`fn`) with `args` (a TOML array: numbers, true / false,
-# texts, { id = "<name>" } = its crc32, { team = "user" / "rival" } = the team key). The build checks the name and the
-# argument count against the game's own prog_common file.
 [[kind]]
 kind = "act.call"
 cat = "action"
@@ -593,10 +574,7 @@ args = [
 ]
 
 # ---- readable `if` clauses (a trigger node's `if` argument, an [[event]]'s `if`)
-# key = the clause name; call = the function (schemas/conditions.toml); args = its arguments: "value" (the clause's
-# value, typed by `value`: int, member, id) or "quest" (the flow's objective list, or the clause's own `quest`).
-# is = the fixed comparison ("== 1"); without it the clause's value is the compared number (20 = "== 20", ">= 20").
-# choice = word values, each its own comparison (`int` = against a number, `against` = against another function).
+# key = the clause name; call = the function (schemas/conditions.toml); args = its arguments: "value".
 [[clause]]
 key = "minute"
 call = "GetSoccerElapsedTime"
@@ -681,6 +659,4 @@ is = "== 1"
 
 # ---- [[event]] tables: each event becomes a trigger node, its step checks, its talks and its actions
 [events]
-# the byte flags that hold the events' done bits (8 per byte: one bit per event that is `once` or named in an
-# `after`); a flow's own `step_flags` replaces the list
 step_flags = ["0x97FCB2EF", "0x0EF5E355"]

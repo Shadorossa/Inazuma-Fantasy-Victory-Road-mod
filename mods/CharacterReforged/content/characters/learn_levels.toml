@@ -1,23 +1,12 @@
-# Character Reforged · the move learn levels,
-# read by the VR-Framework's learn-level service.
-# * Every owned player learns each move of his card at its learn level (chara_param learn list): the framework holds a
-#   move back from the match list until then, and the personal plate / skill screens show the same level.
-# * Cards that only repeat the game's ladder (1/13/20/30/38/43) get a level by the move's power_max:
-#   max(slot floor, tier level); the starter move (slot 1) and moves without power stay at the floor. Cards with their
-#   own levels (the movesets of content\characters\**, other mods' custom cards) keep them.
-# * Slots 7-8 (branch 2 of the retail board) are not part of a moveset (4 moves + the aura in slot 9): dropped from
-#   every card.
-# * The level belongs to the list position (the row), not to the move in it: rows 1-4 open at the level of learn list
-#   slots 1-4, rows 5-6 never need a level, so a move placed there works at once. The skill table and the plates apply
-#   the same rule (research/grafts/_lib/cr_move_rows.lua).
-# * Slot 9 is the only slot that may hold an aura (any aura_skill_config command: keshin, armour, totem, Mix-Max, power):
-#   an aura in a technique slot moves to slot 9 when it is empty, else it is dropped (one log line per case).
+# Move learn levels, read by the framework's learn-level service.
 schema = "VRFW.character/2"
 
 [VRFW.LearnLevels]
 Enforce = true
 UnusedSlots = [7, 8]
 AuraSlots = [9]
+# keshin and totem hold slot 9 over any other aura type, as in generator_rules.toml Forms.AuraTypes
+AuraSlotPriority = [0, 3]
 StarterAtFloor = true
 FreeListSlots = [5, 6]
 Tiers = [

@@ -1,13 +1,5 @@
-# Character Reforged › the aura mods' «Crear …» rows in the skill table (evt_skill_slot_menu; docs/refactor/
-# aura-mods-split.md «The base game's create entry»): table_create_entry_hooks.lua gives its aura / mix row's picker the
-# «create» item of every system the active mods declare ([CharacterReforged.Create.<system>] in content\pairing\*.toml:
-# All Miximaxed «Crear miximax», All Changed «Crear nuevo cambio»; a free copy of each before the picker opens); a picked
-# one -> the retail bank picker (chara_bank_menu_for_search) for the partner, the system's store command, its carrier in
-# the player's mix slot; a refusal shows a retail info window (its text key per refusal code). With Inazuma Fantasy its
-# own flow runs. The partner's special moves: a system whose pairing rules ask `moves` (All Miximaxed's miximax) picks
-# them in the bank (bank_create_moves_hooks.lua: Aceptar on a card -> his moves on the plate -> the system's Sí / No);
-# the moves go to the system's store command. HOOK files only (no retail function replaced, no engine call at chunk
-# load). Item ids, store commands and carriers come from Character Reforged's script (CMND_CHARACTERREFORGED_CREATE_*).
+# The «Crear …» rows of the skill table's aura / mix picker: partner and moves from the bank, the system's store command,
+# its carrier on the slot, refusal windows. Hook files only; systems come from CMND_CHARACTERREFORGED_CREATE_*.
 name = "character_reforged_board"
 mod = "CharacterReforged"
 order = 965
@@ -18,9 +10,9 @@ wraps = []
 description = "Character Reforged: the aura mods' «Crear …» rows in the skill table's aura / mix picker (partner and his moves from the bank, carrier on the slot)"
 
 [[hooks]]
-stem = "evt_skill_slot_menu"
+stem = "vrfw_skill_slot_menu"
 source = "table_create_entry_hooks.lua"
-require = ["EVT_OpenOriginalBoard", "EVT_PickCoroutine"]
+require = ["CharacterReforgedSkillTableOpenOriginalBoard", "CharacterReforgedSkillTablePickCoroutine"]
 
 # the partner's special moves in the bank picker (a system with pairing rule `moves` > 0)
 [[hooks]]
@@ -28,22 +20,18 @@ stem = "chara_bank_menu_for_search"
 source = "bank_create_moves_hooks.lua"
 include = { "@PAIR_HANDOFF_KEYS@" = "pair_handoff_keys.lua" }   # the pairing confirmation's keys, shared with the window
 
-# the plate's move rows during that move step: a decide (mouse click or Aceptar) picks the row for the bank, the
-# retail move-order drag never starts
+# the plate's move rows during that move step: a decide picks the row for the bank
 [[hooks]]
 stem = "personal_plate_menu"
 source = "plate_create_moves_hooks.lua"
 
-# the «Crear …» confirmation window: the base's and the partner's cards with the system's glyph, the move and the
-# stats the pair adds (a port of Inazuma Fantasy's Mix-Max confirmation panel; owner
-# 2026-10-14; layers: content\menus\10_win\pair_confirm.toml)
+# the «Crear …» confirmation window: both cards, the system's glyph, the move and the stats the pair adds
 [[hooks]]
 stem = "general_window"
 source = "pair_confirm_window_hooks.lua"
 include = { "@PAIR_HANDOFF_KEYS@" = "pair_handoff_keys.lua" }
 
-# the skill table's move picker: a picked «Crear …» row opens the partner bank at once (no skill table in between;
-# owner 2026-10-14)
+# the skill table's move picker: a picked «Crear …» row opens the partner bank at once
 [[hooks]]
 stem = "ability_list_menu"
 source = "table_picker_create_hooks.lua"

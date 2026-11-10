@@ -1,0 +1,28 @@
+schema = "VRFW.migration/1"
+id = "CharacterReforged.module_merges"
+description = "Equipment and PassivesSynergies keep the data of the modules merged into them"
+phase = "data"
+
+[[step]]
+kind = "rename_mod_id"
+from = "BetterEquipment"
+to = "Equipment"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "ClassicEquipment"
+to = "Equipment"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "PersonalPassives"
+to = "PassivesSynergies"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "SynergiesReworked"
+to = "PassivesSynergies"
+if_target = "keep_target"

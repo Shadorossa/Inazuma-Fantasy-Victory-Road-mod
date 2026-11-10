@@ -1,0 +1,9 @@
+schema = "VRFW.shop/2"
+
+[[edit]]
+target = "InazumaFantasy.general_store"
+
+  [[edit.entry]]
+  item = "ultimate_evolution_manual"
+  price = 20
+  currency = "tk_bb000001"

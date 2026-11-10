@@ -1,6 +1,4 @@
 schema = "VRFW.base_table/1"
-# The chara_model rows of the technique models (chara_base.toml, same folder): the objbin each one loads,
-# a copy of the retail model row of the same kind with the path changed.
 
 [[keyed]]
 table = "character/chara_model"

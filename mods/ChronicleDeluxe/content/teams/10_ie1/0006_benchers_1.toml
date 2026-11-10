@@ -1,15 +1,11 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: a rival of the chain «Ruta prémium de Sonny» (content/teams/70_route_nodes/ chain_sonny.toml). Generated
-# by research/scripts/wiki_teams_build.py from the wiki lineup. Not in the Battle Bay grid here (no `appears`).
 default_lang = "en"
-# Source: research/scripts/wiki_teams_build.py Benchers 1 (IE, «Sonny Raimon's route» #3; report
-# status: missing). Roster: wiki lineup «IE2 | | Game opponent», https://inazuma-eleven.fandom.com/wiki/Benchers_1
-# Left out (over 16 players): Hitogata Gen; Tsuburaya Michi; Kurogami Noroi
+# Source: research/mods/_aside/InazumaFantasy/_tools/wiki_teams_build.py Benchers 1 (IE, «Sonny Raimon's route» #3; report status: missing).
 [[team]]
 name = "ct_wk_benchers_1"
 key = "evt_ct_wk_benchers_1"
-based_on = "tm_cro_ie1_1320" # Team Ogre: formation, kit, tactics (the wiki formation is not mapped)
-kit = 0xC1F231A9                          # team_kits_from_wiki.py: neutral (needs a kit) (was 0x7362C53B)
+based_on = "tm_cro_ie1_1320"
+kit = 0xC1F231A9
 level = 45
 series = "IE"
 roster = "exact"

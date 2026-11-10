@@ -1,0 +1,746 @@
+# Outfit icons of the VR characters' clothes: cells of one sheet, new textures of icon_item09 (the `cos` sheet).
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "vr_character_outfit_icons"
+png = "vr_character_outfit_icons.png"
+
+[[recipe]]
+name = "cos_if_sturm_schwartzkopf"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [0, 0, 256, 256] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_sturm_schwartzkopf"
+recipe = "cos_if_sturm_schwartzkopf"
+
+[[recipe]]
+name = "cos_if_wilder_bigfoot_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [256, 0, 512, 256] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_wilder_bigfoot_outfit"
+recipe = "cos_if_wilder_bigfoot_outfit"
+
+[[recipe]]
+name = "cos_if_hans_sleight_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [512, 0, 768, 256] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_hans_sleight_outfit"
+recipe = "cos_if_hans_sleight_outfit"
+
+[[recipe]]
+name = "cos_if_hailey_cometti_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [768, 0, 1024, 256] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_hailey_cometti_outfit"
+recipe = "cos_if_hailey_cometti_outfit"
+
+[[recipe]]
+name = "cos_if_bete_noire_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1024, 0, 1280, 256] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_bete_noire_outfit"
+recipe = "cos_if_bete_noire_outfit"
+
+[[recipe]]
+name = "cos_if_orlando_sherman_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1280, 0, 1536, 256] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_orlando_sherman_outfit"
+recipe = "cos_if_orlando_sherman_outfit"
+
+[[recipe]]
+name = "cos_if_murshid_amir_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1536, 0, 1792, 256] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_murshid_amir_outfit"
+recipe = "cos_if_murshid_amir_outfit"
+
+[[recipe]]
+name = "cos_if_rashiri_saran_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1792, 0, 2048, 256] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_rashiri_saran_outfit"
+recipe = "cos_if_rashiri_saran_outfit"
+
+[[recipe]]
+name = "cos_if_zundar_zand_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2048, 0, 2304, 256] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_zundar_zand_outfit"
+recipe = "cos_if_zundar_zand_outfit"
+
+[[recipe]]
+name = "cos_if_porco_umir_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2304, 0, 2560, 256] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_porco_umir_outfit"
+recipe = "cos_if_porco_umir_outfit"
+
+[[recipe]]
+name = "cos_if_simeur_feromont_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [0, 256, 256, 512] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_simeur_feromont_outfit"
+recipe = "cos_if_simeur_feromont_outfit"
+
+[[recipe]]
+name = "cos_if_changsu_choi_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [256, 256, 512, 512] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_changsu_choi_outfit"
+recipe = "cos_if_changsu_choi_outfit"
+
+[[recipe]]
+name = "cos_if_nikolai_gagarin_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [512, 256, 768, 512] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_nikolai_gagarin_outfit"
+recipe = "cos_if_nikolai_gagarin_outfit"
+
+[[recipe]]
+name = "cos_if_caldera_dorne_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [768, 256, 1024, 512] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_caldera_dorne_outfit"
+recipe = "cos_if_caldera_dorne_outfit"
+
+[[recipe]]
+name = "cos_if_regina_mulgrave_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1024, 256, 1280, 512] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_regina_mulgrave_outfit"
+recipe = "cos_if_regina_mulgrave_outfit"
+
+[[recipe]]
+name = "cos_if_mister_yi_outfit_1"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1280, 256, 1536, 512] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_mister_yi_outfit_1"
+recipe = "cos_if_mister_yi_outfit_1"
+
+[[recipe]]
+name = "cos_if_mister_yi_outfit_2"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1536, 256, 1792, 512] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_mister_yi_outfit_2"
+recipe = "cos_if_mister_yi_outfit_2"
+
+[[recipe]]
+name = "cos_if_dean_rush_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1792, 256, 2048, 512] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_dean_rush_outfit"
+recipe = "cos_if_dean_rush_outfit"
+
+[[recipe]]
+name = "cos_if_emperio_n_guinn_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2048, 256, 2304, 512] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_emperio_n_guinn_outfit"
+recipe = "cos_if_emperio_n_guinn_outfit"
+
+[[recipe]]
+name = "cos_if_lanny_tern_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2304, 256, 2560, 512] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_lanny_tern_outfit"
+recipe = "cos_if_lanny_tern_outfit"
+
+[[recipe]]
+name = "cos_if_flammie_gonzalez_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [0, 512, 256, 768] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_flammie_gonzalez_outfit"
+recipe = "cos_if_flammie_gonzalez_outfit"
+
+[[recipe]]
+name = "cos_if_jethro_mackin_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [256, 512, 512, 768] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_jethro_mackin_outfit"
+recipe = "cos_if_jethro_mackin_outfit"
+
+[[recipe]]
+name = "cos_if_des_pott_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [512, 512, 768, 768] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_des_pott_outfit"
+recipe = "cos_if_des_pott_outfit"
+
+[[recipe]]
+name = "cos_if_lynn_tambelle_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [768, 512, 1024, 768] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_lynn_tambelle_outfit"
+recipe = "cos_if_lynn_tambelle_outfit"
+
+[[recipe]]
+name = "cos_if_alexander_scrivener"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1024, 512, 1280, 768] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_alexander_scrivener"
+recipe = "cos_if_alexander_scrivener"
+
+[[recipe]]
+name = "cos_if_deirdre_staples_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1280, 512, 1536, 768] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_deirdre_staples_outfit"
+recipe = "cos_if_deirdre_staples_outfit"
+
+[[recipe]]
+name = "cos_if_mila_simmering_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1536, 512, 1792, 768] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_mila_simmering_outfit"
+recipe = "cos_if_mila_simmering_outfit"
+
+[[recipe]]
+name = "cos_if_robert_cottontail_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1792, 512, 2048, 768] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_robert_cottontail_outfit"
+recipe = "cos_if_robert_cottontail_outfit"
+
+[[recipe]]
+name = "cos_if_percival_travis_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2048, 512, 2304, 768] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_percival_travis_outfit"
+recipe = "cos_if_percival_travis_outfit"
+
+[[recipe]]
+name = "cos_if_dominic_hewitt_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2304, 512, 2560, 768] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_dominic_hewitt_outfit"
+recipe = "cos_if_dominic_hewitt_outfit"
+
+[[recipe]]
+name = "cos_if_curt_gale_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [0, 768, 256, 1024] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_curt_gale_outfit"
+recipe = "cos_if_curt_gale_outfit"
+
+[[recipe]]
+name = "cos_if_bastiana_chateau_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [256, 768, 512, 1024] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_bastiana_chateau_outfit"
+recipe = "cos_if_bastiana_chateau_outfit"
+
+[[recipe]]
+name = "cos_if_fortnum_pile_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [512, 768, 768, 1024] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_fortnum_pile_outfit"
+recipe = "cos_if_fortnum_pile_outfit"
+
+[[recipe]]
+name = "cos_if_skinner_lankley_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [768, 768, 1024, 1024] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_skinner_lankley_outfit"
+recipe = "cos_if_skinner_lankley_outfit"
+
+[[recipe]]
+name = "cos_if_aquilina_schiller_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1024, 768, 1280, 1024] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_aquilina_schiller_outfit"
+recipe = "cos_if_aquilina_schiller_outfit"
+
+[[recipe]]
+name = "cos_if_aurelia_dingle_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1280, 768, 1536, 1024] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_aurelia_dingle_outfit"
+recipe = "cos_if_aurelia_dingle_outfit"
+
+[[recipe]]
+name = "cos_if_alessio_ganonti_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1536, 768, 1792, 1024] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_alessio_ganonti_outfit"
+recipe = "cos_if_alessio_ganonti_outfit"
+
+[[recipe]]
+name = "cos_if_an_min_su_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1792, 768, 2048, 1024] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_an_min_su_outfit"
+recipe = "cos_if_an_min_su_outfit"
+
+[[recipe]]
+name = "cos_if_grant_grimoire_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2048, 768, 2304, 1024] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_grant_grimoire_outfit"
+recipe = "cos_if_grant_grimoire_outfit"
+
+[[recipe]]
+name = "cos_if_baz_azel_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2304, 768, 2560, 1024] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_baz_azel_outfit"
+recipe = "cos_if_baz_azel_outfit"
+
+[[recipe]]
+name = "cos_if_ballet_burkhanov_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [0, 1024, 256, 1280] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_ballet_burkhanov_outfit"
+recipe = "cos_if_ballet_burkhanov_outfit"
+
+[[recipe]]
+name = "cos_if_carrie_ogrova_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [256, 1024, 512, 1280] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_carrie_ogrova_outfit"
+recipe = "cos_if_carrie_ogrova_outfit"
+
+[[recipe]]
+name = "cos_if_anqa_qushchi_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [512, 1024, 768, 1280] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_anqa_qushchi_outfit"
+recipe = "cos_if_anqa_qushchi_outfit"
+
+[[recipe]]
+name = "cos_if_roc_nasr_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [768, 1024, 1024, 1280] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_roc_nasr_outfit"
+recipe = "cos_if_roc_nasr_outfit"
+
+[[recipe]]
+name = "cos_if_lucy_wongfu_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1024, 1024, 1280, 1280] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_lucy_wongfu_outfit"
+recipe = "cos_if_lucy_wongfu_outfit"
+
+[[recipe]]
+name = "cos_if_wilson_ip_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1280, 1024, 1536, 1280] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_wilson_ip_outfit"
+recipe = "cos_if_wilson_ip_outfit"
+
+[[recipe]]
+name = "cos_if_rene_gade_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1536, 1024, 1792, 1280] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_rene_gade_outfit"
+recipe = "cos_if_rene_gade_outfit"
+
+[[recipe]]
+name = "cos_if_baton_maystrov_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1792, 1024, 2048, 1280] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_baton_maystrov_outfit"
+recipe = "cos_if_baton_maystrov_outfit"
+
+[[recipe]]
+name = "cos_if_cristiano_dabola_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2048, 1024, 2304, 1280] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_cristiano_dabola_outfit"
+recipe = "cos_if_cristiano_dabola_outfit"
+
+[[recipe]]
+name = "cos_if_marsilio_magno_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2304, 1024, 2560, 1280] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_marsilio_magno_outfit"
+recipe = "cos_if_marsilio_magno_outfit"
+
+[[recipe]]
+name = "cos_if_vladimir_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [0, 1280, 256, 1536] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_vladimir_outfit"
+recipe = "cos_if_vladimir_outfit"
+
+[[recipe]]
+name = "cos_if_li_kobun_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [256, 1280, 512, 1536] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_li_kobun_outfit"
+recipe = "cos_if_li_kobun_outfit"
+
+[[recipe]]
+name = "cos_if_jim_trainer_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [512, 1280, 768, 1536] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_jim_trainer_outfit"
+recipe = "cos_if_jim_trainer_outfit"
+
+[[recipe]]
+name = "cos_if_pepe_ballester_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [768, 1280, 1024, 1536] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_pepe_ballester_outfit"
+recipe = "cos_if_pepe_ballester_outfit"
+
+[[recipe]]
+name = "cos_if_tom_dark_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1024, 1280, 1280, 1536] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_tom_dark_outfit"
+recipe = "cos_if_tom_dark_outfit"
+
+[[recipe]]
+name = "cos_if_chester_horse_sr_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1280, 1280, 1536, 1536] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_chester_horse_sr_outfit"
+recipe = "cos_if_chester_horse_sr_outfit"
+
+[[recipe]]
+name = "cos_if_suzette_hartland_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1536, 1280, 1792, 1536] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_suzette_hartland_outfit"
+recipe = "cos_if_suzette_hartland_outfit"
+
+[[recipe]]
+name = "cos_if_gammon_checker_outfit_1"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1792, 1280, 2048, 1536] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_gammon_checker_outfit_1"
+recipe = "cos_if_gammon_checker_outfit_1"
+
+[[recipe]]
+name = "cos_if_gammon_checker_outfit_2"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2048, 1280, 2304, 1536] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_gammon_checker_outfit_2"
+recipe = "cos_if_gammon_checker_outfit_2"
+
+[[recipe]]
+name = "cos_if_gammon_checker_outfit_3"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2304, 1280, 2560, 1536] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_gammon_checker_outfit_3"
+recipe = "cos_if_gammon_checker_outfit_3"
+
+[[recipe]]
+name = "cos_if_gammon_checker_outfit_4"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [0, 1536, 256, 1792] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_gammon_checker_outfit_4"
+recipe = "cos_if_gammon_checker_outfit_4"
+
+[[recipe]]
+name = "cos_if_othman_laspic_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [256, 1536, 512, 1792] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_othman_laspic_outfit"
+recipe = "cos_if_othman_laspic_outfit"
+
+[[recipe]]
+name = "cos_if_niall_lund_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [512, 1536, 768, 1792] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_niall_lund_outfit"
+recipe = "cos_if_niall_lund_outfit"
+
+[[recipe]]
+name = "cos_if_hunter_foster_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [768, 1536, 1024, 1792] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_hunter_foster_outfit"
+recipe = "cos_if_hunter_foster_outfit"
+
+[[recipe]]
+name = "cos_if_xavier_schiller_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1024, 1536, 1280, 1792] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_xavier_schiller_outfit"
+recipe = "cos_if_xavier_schiller_outfit"
+
+[[recipe]]
+name = "cos_if_faith_winter_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1280, 1536, 1536, 1792] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_faith_winter_outfit"
+recipe = "cos_if_faith_winter_outfit"
+
+[[recipe]]
+name = "cos_if_massimo_donati_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1536, 1536, 1792, 1792] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_massimo_donati_outfit"
+recipe = "cos_if_massimo_donati_outfit"
+
+[[recipe]]
+name = "cos_if_heath_moore_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [1792, 1536, 2048, 1792] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_heath_moore_outfit"
+recipe = "cos_if_heath_moore_outfit"
+
+[[recipe]]
+name = "cos_if_duske_grayling_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2048, 1536, 2304, 1792] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_duske_grayling_outfit"
+recipe = "cos_if_duske_grayling_outfit"
+
+[[recipe]]
+name = "cos_if_carl_volton_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [2304, 1536, 2560, 1792] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_carl_volton_outfit"
+recipe = "cos_if_carl_volton_outfit"
+
+[[recipe]]
+name = "cos_if_master_li_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [0, 1792, 256, 2048] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_master_li_outfit"
+recipe = "cos_if_master_li_outfit"
+
+[[recipe]]
+name = "cos_if_yekaterina_stronov"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [256, 1792, 512, 2048] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_yekaterina_stronov"
+recipe = "cos_if_yekaterina_stronov"
+
+[[recipe]]
+name = "cos_if_philip_star_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [512, 1792, 768, 2048] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_philip_star_outfit"
+recipe = "cos_if_philip_star_outfit"
+
+[[recipe]]
+name = "cos_if_lucas_star_outfit"
+from = "vr_character_outfit_icons"
+ops = [{ op = "crop", box = [768, 1792, 1024, 2048] }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+name = "cos_if_lucas_star_outfit"
+recipe = "cos_if_lucas_star_outfit"

@@ -1,0 +1,27 @@
+# The grey last line of a stacking passive's card: its value in the active lineup ({value}; menu_text rows, 9 languages).
+schema = "VRFW.text/2"
+table = "menu_text"
+
+[[row]]
+id = 2518574393  # signature_passives_current_percent: a percent value
+es = "Actual: {value} %"
+en = "Current: {value}%"
+fr = "Actuel : {value} %"
+de = "Aktuell: {value} %"
+it = "Attuale: {value}%"
+pt = "Atual: {value}%"
+ja = "現在：{value}％"
+zh_hans = "当前：{value}%"
+zh_hant = "目前：{value}%"
+
+[[row]]
+id = 2808706569  # signature_passives_current_flat: a value in points
+es = "Actual: {value}"
+en = "Current: {value}"
+fr = "Actuel : {value}"
+de = "Aktuell: {value}"
+it = "Attuale: {value}"
+pt = "Atual: {value}"
+ja = "現在：{value}"
+zh_hans = "当前：{value}"
+zh_hant = "目前：{value}"

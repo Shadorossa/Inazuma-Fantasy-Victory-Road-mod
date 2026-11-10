@@ -1,0 +1,17 @@
+# BetterUI: hides the player name line on the post-match experience result cards.
+name = "better_ui_exp_names"
+order = 930
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = ["OnOpenLayer", "UpdateAllCharaCard"]
+description = "BetterUI: no player names on the post-match experience result cards"
+
+[[files]]
+stem = "soccer_result_menu_exp"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "exp_names.lua"
+  marker = "better_ui_exp_names"

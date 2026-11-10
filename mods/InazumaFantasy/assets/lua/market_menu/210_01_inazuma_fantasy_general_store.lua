@@ -390,7 +390,7 @@ end
 do
   local REG_FIND = 2175579023           -- CMND_VRFW_REG_FIND (type, key) -> id (-1)
   local SHOP_REDIRECTS = 2445086479     -- CMND_VRFW_SHOP_REDIRECTS () -> n, from 1, to 1, ...: shops opened as another shop
-  local LOG = 3661580131                -- CMND_EVT_LOG
+  local LOG = 519897777                -- CMND_VRFW_LOG
   -- the bars of this mod, in Mercado order: shop key, bar name (shop_text row "InazumaFantasy.<name>_name"), art set
   local BARS = {
     { key = "InazumaFantasy.general_store", name = 713514104,          -- art market04 (Tienda vínculo)

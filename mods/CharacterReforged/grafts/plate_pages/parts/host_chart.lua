@@ -1,13 +1,7 @@
--- Player page block (plate_pages.lua): the stat chart and numbers on the hosts without pages
-  -- round 11b: the dock lineup behind a bank's plate is hidden by the dock menus themselves (plate_dock_hide.lua);
-  -- round 11's menu command 1558704558 here was MENU_ACTIVE (input), not visibility, and broke the dock
+-- Player page block (plate_pages.lua)
 
-  -- a host without pages: the 8th value (Suerte, CMND_EVT_CHARA_STAT 8) on number instance 7 (the retail graph
-  -- writes 7; plate_hiper's EVT_R9 writes all 8 only in personal_plate_menu)
-  -- 2026-10-06 (hosts: added layers only) the chart = our layers placed on the card (G.CHART_AT), the retail radar
-  -- pieces off; (Nacho: the skill table's card shows only the selected technique's plate) G.H.chart = false = no
-  -- chart on that host: our chart layers are never opened there (only hidden if open), the bars follow
-  function G.HostChart()
+  -- Draws the chart for a host without pages.
+  function G.host_chart()
     local x, y = G.CHART_AT[1], -G.CHART_AT[2]
     if G.H.chart == false and G.override == nil then
       for _, l in ipairs({G.GRAPH, G.EXTRA, G.NUM}) do
@@ -35,8 +29,8 @@
         end
       end
     end
-    if G.KeepRadar() then
-      return                                -- a panel of the host draws on the retail radar now: left to it
+    if G.keep_radar() then
+      return                                -- a host panel draws on the retail radar: left to it
     end
     for _, l in ipairs({G.RETAIL_GRAPH, G.RETAIL_NUM, G.RADAR}) do        -- the retail radar pieces off
       if Exists(l) then
@@ -49,9 +43,8 @@
     end
   end
 
-  -- 2026-10-14: a host whose own panels draw on the retail radar (the skill table's set preview and training view)
-  -- answers G.H.keep_radar() = true while they show it; the page then leaves the radar (and its polygon) alone
-  function G.KeepRadar()
+  -- A host whose panels draw on the retail radar answers G.H.keep_radar() = true.
+  function G.keep_radar()
     if G.H.pages or type(G.H.keep_radar) ~= "function" then
       return false
     end
@@ -59,10 +52,8 @@
     return ok and keep == true
   end
 
-  -- a host panel that previews another build of the player (the skill table's set preview, graft pset_preview): the
-  -- chart shows `vals` (8 values in the chart's group order, G.Values) on the card, also where the host has no chart;
-  -- nil = the player's own values again. The retail fill (labels, position tags) runs once for the player `hdl`
-  function G.ShowValues(vals, hdl)
+  -- Shows values for a host panel that previews another build of the player (the skill table's set preview, graft pset_preview).
+  function G.show_values(vals, hdl)
     G.override = vals
     G.overrideDrawn = false
     G.vals = vals
@@ -71,8 +62,7 @@
     end
   end
 
-  -- the shown build's 8 numbers over the fill's (once per fill; the number instance of group g is g - 1)
-  function G.OverrideNumbers()
+  function G.override_numbers()
     if G.override == nil or G.overrideDrawn or not Exists(G.NUM) then
       return
     end
@@ -90,12 +80,12 @@
     G.overrideDrawn = true
   end
 
-  G.HOST_CHART = true                    -- the chart on the hosts' card (attach rows in player_page_layout.toml)
-  function G.HostNumbers()
+  G.HOST_CHART = true
+  function G.host_numbers()
     if G.HOST_CHART then
-      pcall(G.HostChart)
+      pcall(G.host_chart)
     end
-    pcall(G.OverrideNumbers)
+    pcall(G.override_numbers)
     if G.vals == nil or not Exists(G.NUM) or Cmd(C.IS_OPEN, G.NUM, 7) ~= true then
       return
     end

@@ -1,7 +1,4 @@
 schema = "VRFW.telop_list/2"
-# The Cross moves' name banners, the same picture in every text language (folder `any`): the Japanese pictures of the
-# IEVRCROSS mod (Inazuma Eleven Cross for Victory Road), <id>.png beside this list; `from` = the move's base, whose
-# menu object the new banner clones.
 
 [[telop]]
 id = "whs95000"                 # インフェルノペンギン

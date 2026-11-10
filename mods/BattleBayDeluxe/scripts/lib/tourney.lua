@@ -1,26 +1,8 @@
--- Battle Bay Deluxe: the Torneo's rules, pure (no game access): the draw, the group stage, the knockout tree, the
--- simulated matches and the player's progress. scripts\tournament.lua owns the run (save blob, the campaign session
--- block, the commands); this file only turns numbers into numbers. The round robin, the standings, the goal draws and
--- the seed order are the framework's (VRFW/lib/competition); the rules (3 / 1 / 0 points, the tie-breaks, the match
--- model) are this file's.
---
--- A run is one plain table (JSON in the save blob, arrays dense, no nil holes):
---   v, fmt ("knockout" | "groups" | "league"), size (a power of two, T.sizes; a league: an even count), seed { hi, lo },
---   player (the player's entrant id), double (league: every pairing twice, home and away),
---   teams[e] (team hash of entrant e), str[e] (strength), lot[e] (tie-break lot),
---   groups[g] = { e1, e2, e3, e4 } (groups only), gm[g] = { match × 6 } (groups only),
---   ko[r] = { match … } (round r of the knockout tree; built when its entrants are known),
---   stage ("groups" | "league" | "ko" | "over"), md (matchday 1..mds), mds (the round robin's matchdays: 3 in a group,
---   size - 1 in a league, twice that with double), kr (knockout round), k (player matches played),
---   outcome (false | "champion" | "out"), place { stage, round, pos }, last { stage, round } (the round just played).
--- A match: { a, b, ga, gb, pa, pb, et, w, done, md } (a / b entrant ids or 0 = not known yet; pa / pb the shoot-out;
--- et = extra time played; w = the winner's entrant id, 0 = draw / not played).
 
-local Competition = require "VRFW/lib/competition"
+local Competition = VRFW.competition
 
 local T = {}
 
--- the round-robin stages: their matches live in run.gm[g] by matchday (a league is ONE group of every entrant)
 local function round_robin(stage)
   return stage == "groups" or stage == "league"
 end
@@ -29,16 +11,9 @@ T.round_robin = round_robin
 local floor, exp, min, max = math.floor, math.exp, math.min, math.max
 
 T.FORMATS = { knockout = true, groups = true, league = true }
--- the format numbers of the commands (CMND_BBD_TOURN_ARM / INFO): 0 knockout, 1 groups, 2 league
 T.FORMAT_IDS = { knockout = 0, groups = 1, league = 2 }
 T.FORMAT_OF = { [0] = "knockout", [1] = "groups", [2] = "league" }
--- the league: an even number of teams (every matchday pairs them all), MIN .. MAX in steps of STEP
 T.LEAGUE = { MIN = 4, MAX = 36, STEP = 2 }
--- the number of teams is always a power of two, from MIN_SIZE to MAX_SIZE (the bracket screen shows every team at
--- once: 64 = 32 rows per side, 1.5.44: 4.. 64); a group stage needs at least 2 groups of 4. 1.5.47: no cap from the
--- campaign block's 7 rivals any more (a tournament match is always written at the block's index 0 since 1.5.5, its
--- path is the run's own: the loading telop's nodes come from CMND_BBD_TOURN_CAMPAIGN_INFO), so a group stage of 64 (3
--- + 5 = 8 player matches) is offered too.
 T.MIN_SIZE, T.MAX_SIZE, T.MIN_GROUPS_SIZE = 4, 64, 8
 
 -- the defaults of config.toml [tournament] (the in-game setup step overrides fmt / size)
@@ -47,12 +22,12 @@ T.DEFAULTS = {
   size = 16,
   seeded = true,        -- seeds kept apart in the knockout tree / one per group (pots)
   goals = 1.3,          -- mean goals of a side between equal teams
-  weight = 0.035,       -- goal-rate tilt per strength point (strength = rating + level)
+  weight = 0.035,
   pen_kick = 0.75,      -- a penalty's chance to score
   pen_kicks = 5,
 }
 
--- n is a power of two in MIN_SIZE .. MAX_SIZE
+-- n is a power of two in MIN_SIZE ..
 local function isize(n)
   if type(n) ~= "number" or n < T.MIN_SIZE or n > T.MAX_SIZE or n ~= floor(n) then
     return false
@@ -61,7 +36,6 @@ local function isize(n)
 end
 T.is_size = isize
 
--- player matches of a format / size (the champion's path); a league: every other team once (twice with double)
 function T.player_matches(fmt, size, double)
   if fmt == "league" then
     return (size - 1) * (double and 2 or 1)
@@ -84,8 +58,6 @@ function T.run_matches(run)
   return T.player_matches(run.fmt, run.size, run.double)
 end
 
--- the most matches a player can play in any knockout / group tournament this file builds (a league's path is shown
--- through a window of it: scripts/tournament.lua Tn.path_window)
 T.MAX_PLAYER_MATCHES = math.max(T.player_matches("knockout", T.MAX_SIZE), T.player_matches("groups", T.MAX_SIZE))
 
 local function league_size(n)
@@ -102,8 +74,6 @@ function T.valid(fmt, size)
     and T.player_matches(fmt, size) <= T.MAX_PLAYER_MATCHES
 end
 
--- the team counts offered for a format, smallest first: every valid power of two, none above `cap` (the teams the
--- pool can field, the player's included; nil = no cap)
 function T.sizes(fmt, cap)
   local out = {}
   if fmt == "league" then
@@ -124,10 +94,6 @@ function T.sizes(fmt, cap)
   return out
 end
 
--- ------------------------------------------------------------------------------------------------ random numbers
-
--- a generator for one tag of the run (a pure function of the run's seed and the tag: reloading the save never
--- changes a simulated result). `mk(hi, lo)` builds a generator (lib/util U.rng).
 local function tag_rng(run, mk, a, b, c)
   local h = (run.seed[1] + a * 2654435761) % 4294967296
   local l = (run.seed[2] + b * 2246822519 + c * 3266489917) % 4294967296
@@ -136,7 +102,6 @@ local function tag_rng(run, mk, a, b, c)
   return r
 end
 
--- uniform [0, 1)
 local function unit(r)
   return r:below(2147483648) / 2147483648
 end
@@ -148,13 +113,9 @@ local function poisson(r, lambda)
   end, lambda, 12)
 end
 
--- ------------------------------------------------------------------------------------------------ the draw
-
--- standard knockout seed order of n leaves (1 = best seed): 1 n/2+1 … so seeds 1 and 2 meet only in the final
 local seed_order = Competition.seed_order
 T.seed_order = seed_order
 
--- entrants sorted strongest first (ties: lot)
 local function by_strength(run, ids)
   local v = {}
   for i, e in ipairs(ids) do
@@ -169,9 +130,6 @@ local function by_strength(run, ids)
   return v
 end
 
--- the league's schedule (circle method): entrant order `ids` (n even), the first fixed and the others turning one
--- place a matchday; n - 1 matchdays, each team once per matchday; the fixed team's side alternates by matchday and
--- every other pair by its place, so home and away even out. double: the same matchdays again with the sides swapped.
 local function league_schedule(ids, double)
   local out = {}
   for md, day in ipairs(Competition.round_robin(ids, { double = double, rotate = "left" })) do
@@ -183,10 +141,7 @@ local function league_schedule(ids, double)
 end
 T.league_schedule = league_schedule
 
--- a new run. opts: fmt, size, seed { hi, lo }, player (team hash), player_str, opponents { { team, str } … } (at
--- least size - 1, already drawn in random order by the caller), seeded, double (league), mk (generator factory),
--- ordered (the entrants placed in their given order, the player first: no lot shuffle, no strength seeding).
--- nil, why on bad input.
+-- a new run.
 function T.new(opts)
   local fmt, size = opts.fmt, opts.size
   if not T.valid(fmt, size) then
@@ -218,7 +173,6 @@ function T.new(opts)
     run.lot[e] = i
   end
   if fmt == "league" then
-    -- one group of every entrant (the lot's order: the player's place in the schedule is random)
     local order = {}
     for i, e in ipairs(ids) do
       order[i] = e
@@ -233,7 +187,6 @@ function T.new(opts)
     run.groups, run.gm = {}, {}
     local order
     if run.seeded then
-      -- pots: the G strongest are pot 1 (one per group), the next G pot 2 …; each pot spread at random
       order = by_strength(run, ids)
       for p = 0, 3 do
         local pot = {}
@@ -250,7 +203,7 @@ function T.new(opts)
     end
     for g = 1, G do
       run.groups[g] = { order[g], order[G + g], order[2 * G + g], order[3 * G + g] }
-      -- the group's slots in random order (the seed is not always «team 1» of the schedule)
+      -- the group's slots in random order (the seed is not always "team 1" of the schedule)
       r:shuffle(run.groups[g])
       local s = run.groups[g]
       local pairs_ = { { 1, 2, 1 }, { 3, 4, 1 }, { 1, 3, 2 }, { 2, 4, 2 }, { 1, 4, 3 }, { 2, 3, 3 } }
@@ -284,9 +237,6 @@ function T.match(a, b)
   return { a = a or 0, b = b or 0, ga = 0, gb = 0, pa = 0, pb = 0, et = false, w = 0, done = false, md = 0 }
 end
 
--- ------------------------------------------------------------------------------------------------ simulation
-
--- one simulated match: ga, gb, pa, pb, et, w (w = a, b, or 0 for a draw when ko is false)
 function T.simulate(run, cfg, r, a, b, ko)
   local d = ((run.str[a] or 0) - (run.str[b] or 0)) * cfg.weight
   local la = min(5, max(0.15, cfg.goals * exp(d / 2)))
@@ -329,11 +279,6 @@ local function set(m, ga, gb, pa, pb, et, w)
   m.ga, m.gb, m.pa, m.pb, m.et, m.w, m.done = ga, gb, pa, pb, et, w, true
 end
 
--- ------------------------------------------------------------------------------------------------ group tables
-
--- the table of group g, best first: { { e, pl, w, d, l, gf, ga, gd, pts } … }; 3 points a win, 1 a draw; level teams by
--- goal difference, goals, head to head (the points of their matches, then their goal difference; a league with double
--- plays two), then the lot
 local TABLE_TIEBREAKS = { "points", "goal_diff", "goals_for", "head_to_head", "lot" }
 
 function T.table(run, g)
@@ -351,8 +296,6 @@ function T.table(run, g)
   return rows
 end
 
--- the knockout's first round from the group tables: W1-R2, W3-R4 … (top half), W2-R1, W4-R3 … (bottom half), so two
--- teams of one group can only meet again in the final
 local function ko_from_groups(run)
   local G = #run.groups
   local W, R = {}, {}
@@ -370,9 +313,6 @@ local function ko_from_groups(run)
   run.ko[1] = r1
 end
 
--- ------------------------------------------------------------------------------------------------ the player's matches
-
--- the player's next match: match, stage, round (nil when the run is over)
 function T.pending(run)
   if run.outcome then
     return nil
@@ -443,13 +383,11 @@ local function sim_round(run, cfg, mk, all)
   end
 end
 
--- the place reached when the run ends: { stage, round, pos } (groups: the group position)
 local function finish(run, outcome, stage, round, pos)
   run.outcome = outcome
   run.place = { stage = stage, round = round, pos = pos or 0 }
 end
 
--- after the current round is complete: next matchday / the knockout / the next knockout round; sets the outcome
 local function advance(run)
   local p = run.player
   if run.stage == "league" then
@@ -457,7 +395,6 @@ local function advance(run)
       run.md = run.md + 1
       return
     end
-    -- the last matchday played: the first of the table is the champion, the player's place is his result
     local pos = 0
     for i, x in ipairs(T.table(run, 1)) do
       if x.e == p then
@@ -507,11 +444,6 @@ local function advance(run)
   end
 end
 
--- the player's result of the pending match (goals for / against; shoot-out; extra time): records it, simulates the
--- rest of the round and moves on. A knockout draw with no winner is a defeat (an exact tie in the Advantage Judgement;
--- logged by the caller). outcome = the game's own result ("win" / "loss" / "draw", optional): it
--- names the winner of a level score the shoot-out goals do not. Returns the round just completed { stage, round } or
--- nil, why.
 function T.record(run, cfg, mk, gf, ga, pf, pa, et, outcome)
   local m, stage, round = T.pending(run)
   if not m then
@@ -539,10 +471,6 @@ function T.record(run, cfg, mk, gf, ga, pf, pa, et, outcome)
   return run.last
 end
 
--- the player's pending match simulated by the same T.simulate as the rest of its round, then recorded as a played one
--- (T.record): the round's other matches, the table, the next round, the outcome. Its seeded generator depends only on
--- the run and the round, so reloading never changes the result. Returns the round just completed { stage, round },
--- goals for, goals against or nil, why.
 function T.sim_player(run, cfg, mk)
   local m, stage, round = T.pending(run)
   if not m then
@@ -559,9 +487,6 @@ function T.sim_player(run, cfg, mk)
   return done, gf, ga
 end
 
--- after an elimination, one round at a time (the player watches each): simulates the next open round (a group
--- matchday or a knockout round) and moves on. Returns the round just simulated { stage, round }, nil when the
--- tournament is over.
 function T.sim_step(run, cfg, mk)
   if run.stage == "over" then
     return nil
@@ -578,7 +503,6 @@ function T.sim_step(run, cfg, mk)
   return run.last
 end
 
--- the champion's entrant id (0 = not decided): a league's first place once every matchday is played
 function T.champion(run)
   if run.fmt == "league" then
     if run.stage ~= "over" then
@@ -594,12 +518,6 @@ function T.champion(run)
   return 0
 end
 
--- ------------------------------------------------------------------------------------------------ rounds
-
--- (1.5.47: T.session_index removed: unused since 1.5.5, every tournament match is written at the block's index 0)
-
--- the knockout round names: rounds from the end (1 = final, 2 = semi-final, 3 = quarter-final, 4 = last 16,
--- 5 = last 32): the text key suffix of a round
 function T.ko_rounds(run)
   local n = run.fmt == "groups" and run.size / 2 or run.size
   local r = 0

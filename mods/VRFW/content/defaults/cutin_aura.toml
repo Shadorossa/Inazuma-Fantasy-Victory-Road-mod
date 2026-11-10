@@ -1,5 +1,3 @@
-# Defaults for the shot aura drawn on the ball of defence cut-ins; a mod may override keys in its own defaults\cutin_aura.toml.
-# Seconds after a shot was last dressed during which it counts as the incoming shot of a cut-in.
 max_age = 30.0
 # Seconds after which an aura played in a cut-in is removed even without a detach or cut-in end.
 max_life = 20.0

@@ -1,5 +1,3 @@
-# Inazuma Fantasy: the icon of its currency (content/items/currencies.toml), a texture of icon_item10 (the `tk`
-# sheet) replaced: Puntos de pasión = the rare medal.
 schema = "VRFW.image/1"
 
 [[texture]]

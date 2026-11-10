@@ -1,8 +1,7 @@
 schema = "VRFW.rule/1"
 # Base ruleset: friendly small match; plays the original game as it is.
 id = "friendly_5v5"
-aliases = ["pachanga_5v5"]
-name = "5-a-side friendly (original)"   # fallback; the text key ruleset_friendly_5v5 gives the localized name
+name = "5-a-side friendly (original)"
 version = 1
 
 [time]

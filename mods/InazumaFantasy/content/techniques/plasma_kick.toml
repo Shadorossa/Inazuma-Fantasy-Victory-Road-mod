@@ -1,14 +1,11 @@
 schema = "VRFW.technique/3"
-# Patada de plasma (Plasma Kick): the download's move whs90010, a clone of whs02390 with its numbers; its event ev60_90010 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "plasma_kick"
 key = "whs90010"
 base = "whs02390"
 event = "ev60_90010"
-manual = { icon = [161, 0] }                 # its base has no manual: a new one (generic shot icon, as the game's
-                                            # whs02150 / who00540 manuals), so the move shop can sell it
+manual = { icon = [161, 0] }
 element = "wind"
 power_min = 85
 power_max = 540

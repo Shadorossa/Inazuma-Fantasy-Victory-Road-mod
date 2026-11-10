@@ -1,85 +1,70 @@
--- EVT shop_shortcuts, Mercado side (Clean HUD feature «Atajos de tienda», the mod shop_shortcuts until 2026-10-08; docs/game/ui/l2r2-cycle.md). The Mercado is the host of its
--- shops: while its own OnDecideFocus waits for the entry it opened (a shop), it writes
--- CLEAN_HUD_SS_HOST_KEY = 1 so the shop (ss_buy.lua) may leave with L2 / R2.
--- Direct switch (29/09, Nacho's video: the Mercado list showed between two shops): when the retail OnDecideFocus comes
--- back from an entry left with L2 / R2 (the direction is still in CLEAN_HUD_SS_KEY), the lines it runs to bring the list back
--- (show the Mercado, make it active, its button guide, its «Mercado» title in the header) are skipped by a
--- funcLuaMenuCommand wrapper, and this wrapper opens the next / previous entry (wrapping; Mercado list order) through
--- the same OnDecideFocus right away, in the same coroutine: close of the old shop -> open of the next one, nothing of
--- the Mercado in between. Leaving a shop with B runs the retail lines untouched. A shop cannot swap its goods in place:
--- the engine builds the tabs and the list from the shop id when shop_menu opens (SetShopInfo / OnShopInit are called
--- by nie.exe; no Lua command rebuilds them), so the shop menu itself is still closed and opened again.
--- Wrappers only (OnInit, OnDecideFocus, Step, funcLuaMenuCommand from OnInit / Step); nothing runs at chunk load.
-CLEAN_HUD_SS_KEY = 3425095194 --[[crc32 evt_shop_cycle_dir: 1 = next, 2 = previous]]
-CLEAN_HUD_SS_HOST_KEY = 797210455 --[[crc32 evt_shop_cycle_host: 1 = this Mercado waits for its entry]]
-CLEAN_HUD_SS_LIST = 536841765 --[[shop01_21_market_list_item]]
-CLEAN_HUD_SS_MARKET = 839500579 --[[market_menu]]
-CLEAN_HUD_SS_HEADER = 575058101 --[[mainmenu90_01_header]]
-CLEAN_HUD_SS_GUIDE = 9396745 --[[mainmenu01_07_button_guide]]
-CLEAN_HUD_SS_GONE = {3170360552 --[[shop_menu]], 713974531 --[[shop_menu_basara_top]]}
-CLEAN_HUD_SS_MWAIT = 900 -- frames to wait for the old entry to close
-CLEAN_HUD_SS_M = {depth = 0, wrapped = false, muted = 0}
+-- EVT shop_shortcuts, Mercado side
+BetterUI = type(BetterUI) == "table" and BetterUI or {}
+BetterUI.shop_cycle_key = 3441281602 --[[crc32 better_ui_shop_cycle_dir: 1 = next, 2 = previous]]
+BetterUI.shop_host_key = 1245025685 --[[crc32 better_ui_shop_cycle_host: 1 = this Mercado waits for its entry]]
+BetterUI.shop_market_list = 536841765 --[[shop01_21_market_list_item]]
+BetterUI.shop_market_menu = 839500579 --[[market_menu]]
+BetterUI.shop_header = 575058101 --[[mainmenu90_01_header]]
+BetterUI.shop_guide = 9396745 --[[mainmenu01_07_button_guide]]
+BetterUI.shop_gone = {3170360552 --[[shop_menu]], 713974531 --[[shop_menu_basara_top]]}
+BetterUI.shop_market_wait = 900
+BetterUI.shop_market = {depth = 0, wrapped = false, muted = 0}
 
-function CLEAN_HUD_SS_MLog(...)
-  pcall(funcLuaCommand, @crc:CMND_EVT_LOG@, "EVT shop_shortcuts market", ...)
+function BetterUI.shop_market_log(...)
+  BetterUI.shop_market_logger = BetterUI.shop_market_logger or VRFW.logger.new("EVT shop_shortcuts market")
+  BetterUI.shop_market_logger(...)
 end
 
-function CLEAN_HUD_SS_MHas(k)
-  return VRFW_Param.Has(k)
+function BetterUI.shop_market_has(k)
+  return VRFW.param.has(k)
 end
 
-function CLEAN_HUD_SS_MTake(k)
-  if not CLEAN_HUD_SS_MHas(k) then
+function BetterUI.shop_market_take(k)
+  if not BetterUI.shop_market_has(k) then
     return nil
   end
-  local v = VRFW_Param.Get(k)
-  VRFW_Param.Clear(k)
+  local v = VRFW.param.get(k)
+  VRFW.param.clear(k)
   return v
 end
 
-function CLEAN_HUD_SS_MSet(k, v)
-  if CLEAN_HUD_SS_MHas(k) then
-    VRFW_Param.Clear(k)
+function BetterUI.shop_market_set(k, v)
+  if BetterUI.shop_market_has(k) then
+    VRFW.param.clear(k)
   end
   if v ~= nil then
-    VRFW_Param.Set(k, v)
+    VRFW.param.set(k, v)
   end
 end
 
 -- the retail OnDecideFocus is coming back from an entry left with L2 / R2
-function CLEAN_HUD_SS_MHold()
-  return CLEAN_HUD_SS_M.depth > 0 and CLEAN_HUD_SS_MHas(CLEAN_HUD_SS_KEY)
+function BetterUI.shop_market_hold()
+  return BetterUI.shop_market.depth > 0 and BetterUI.shop_market_has(BetterUI.shop_cycle_key)
 end
 
 -- the retail lines that bring the Mercado back after an entry (market_menu OnDecideFocus, after its waitFalse)
-function CLEAN_HUD_SS_MMuted(c, a, b)
-  if a == CLEAN_HUD_SS_MARKET then
+function BetterUI.shop_market_muted(c, a, b)
+  if a == BetterUI.shop_market_menu then
     return c == 66378409 --[[show menu]] or (c == 1558704558 --[[menu active]] and b == true)
       or c == 2209673388 or c == 452337289 --[[its button guide]]
   end
-  if a == CLEAN_HUD_SS_HEADER then
+  if a == BetterUI.shop_header then
     return c == @crc:CMND_SET_MENU_TEXT_STRING@ --[[title text «Mercado»]] or c == @crc:CMND_SET_MESH_VISIBLE@ --[[hide the header icon]]
   end
-  return c == 2171393651 and a == CLEAN_HUD_SS_GUIDE and b == true
+  return c == 2171393651 and a == BetterUI.shop_guide and b == true
 end
 
-function CLEAN_HUD_SS_MInstall()
+function BetterUI.shop_market_install()
   local real = funcLuaMenuCommand
-  if CLEAN_HUD_SS_M.wrapped or type(real) ~= "function" then
+  if BetterUI.shop_market.wrapped or type(real) ~= "function" then
     return
   end
-  CLEAN_HUD_SS_M.wrapped = true
-  -- 30/09 (frozen Mercado): pass the call on with EXACTLY the arguments it got (real(...)). The first version was
-  -- function(c, a, b, ...) -> real(c, a, b, ...), which pads every short call with explicit nils: the engine's
-  -- dispatcher hands the handler lua_gettop - 1 arguments, and multi-arity commands read the padding as a real
-  -- argument. CMND_GET_CREATE_LAYER_NUM(list) became (list, nil, nil) = "layer count of list in menu object 0" -> 0,
-  -- so the Mercado list was set up with 0 focusable entries: cursor stuck on the first bar (drawn at the token-shop
-  -- locator, over its label), no up / down, no Aceptar (only Esc, OnFunction, still worked).
+  BetterUI.shop_market.wrapped = true
   funcLuaMenuCommand = function(...)
-    if CLEAN_HUD_SS_M.depth > 0 then
+    if BetterUI.shop_market.depth > 0 then
       local c, a, b = ...
-      if CLEAN_HUD_SS_MMuted(c, a, b) and CLEAN_HUD_SS_MHold() then
-        CLEAN_HUD_SS_M.muted = CLEAN_HUD_SS_M.muted + 1
+      if BetterUI.shop_market_muted(c, a, b) and BetterUI.shop_market_hold() then
+        BetterUI.shop_market.muted = BetterUI.shop_market.muted + 1
         return nil
       end
     end
@@ -88,18 +73,17 @@ function CLEAN_HUD_SS_MInstall()
 end
 
 -- list index of the next / previous entry (wrapping), nil when there is no other one
-function CLEAN_HUD_SS_MNext(idx, v)
-  local n = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, CLEAN_HUD_SS_LIST)
+function BetterUI.shop_market_next(idx, v)
+  local n = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, BetterUI.shop_market_list)
   if type(n) ~= "number" or n < 2 or type(idx) ~= "number" then
-    CLEAN_HUD_SS_MLog("no other entry", tostring(n), tostring(idx))
+    BetterUI.shop_market_log("no other entry", tostring(n), tostring(idx))
     return nil
   end
   return (idx + (v == 1 and 1 or -1)) % n
 end
 
--- the entry that was left is gone and no fade is running
-function CLEAN_HUD_SS_MReady()
-  for _, m in ipairs(CLEAN_HUD_SS_GONE) do
+function BetterUI.shop_market_ready()
+  for _, m in ipairs(BetterUI.shop_gone) do
     if funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, m) == true then
       return false
     end
@@ -107,14 +91,13 @@ function CLEAN_HUD_SS_MReady()
   return funcLuaCommand(@crc:CMND_BRIGHT_IS_FADE@) ~= true and funcLuaCommand(316436678) ~= true
 end
 
--- a switch that cannot go on: the Mercado back on screen (the retail lines CLEAN_HUD_SS_MMuted skipped)
-function CLEAN_HUD_SS_MRestore()
+function BetterUI.shop_market_restore()
   local text_get = funcLuaCommand(@crc:CMND_TEXT_GET@, 605995789)
-  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, CLEAN_HUD_SS_HEADER, 1220590795 --[[_text_sub_title02]], text_get, 0)
-  funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, CLEAN_HUD_SS_HEADER, 1152304044 --[[_icon_header_main_dmy01]], false, 0)
-  funcLuaMenuCommand(2171393651, CLEAN_HUD_SS_GUIDE, true)
-  funcLuaMenuCommand(1558704558, CLEAN_HUD_SS_MARKET, true)
-  funcLuaMenuCommand(66378409, CLEAN_HUD_SS_MARKET)
+  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, BetterUI.shop_header, 1220590795 --[[_text_sub_title02]], text_get, 0)
+  funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, BetterUI.shop_header, 1152304044 --[[_icon_header_main_dmy01]], false, 0)
+  funcLuaMenuCommand(2171393651, BetterUI.shop_guide, true)
+  funcLuaMenuCommand(1558704558, BetterUI.shop_market_menu, true)
+  funcLuaMenuCommand(66378409, BetterUI.shop_market_menu)
   if type(UpdateButtonGuide) == "function" then
     pcall(UpdateButtonGuide)
   end
@@ -124,58 +107,56 @@ do
   local init = OnInit
   function OnInit(...)
     local ok, err = pcall(function()
-      CLEAN_HUD_SS_MInstall()
+      BetterUI.shop_market_install()
       -- keys left by a Mercado that closed while it waited mean nothing to this one
-      CLEAN_HUD_SS_MTake(CLEAN_HUD_SS_KEY)
-      CLEAN_HUD_SS_MTake(CLEAN_HUD_SS_HOST_KEY)
+      BetterUI.shop_market_take(BetterUI.shop_cycle_key)
+      BetterUI.shop_market_take(BetterUI.shop_host_key)
     end)
     if not ok then
-      CLEAN_HUD_SS_MLog("error", tostring(err))
+      BetterUI.shop_market_log("error", tostring(err))
     end
-    CLEAN_HUD_SS_M.depth = 0
+    BetterUI.shop_market.depth = 0
     return init(...)
   end
   local decide = OnDecideFocus
   function OnDecideFocus(a1, a2, ...)
-    -- not the list, or the switch below calling OnDecideFocus again: the retail path as it is
-    if a1 ~= CLEAN_HUD_SS_LIST or CLEAN_HUD_SS_M.depth > 0 then
+    if a1 ~= BetterUI.shop_market_list or BetterUI.shop_market.depth > 0 then
       return decide(a1, a2, ...)
     end
-    pcall(CLEAN_HUD_SS_MInstall)
-    CLEAN_HUD_SS_M.depth = 1
-    pcall(CLEAN_HUD_SS_MSet, CLEAN_HUD_SS_HOST_KEY, 1)
+    pcall(BetterUI.shop_market_install)
+    BetterUI.shop_market.depth = 1
+    pcall(BetterUI.shop_market_set, BetterUI.shop_host_key, 1)
     local idx = a2
     local r = table.pack(pcall(decide, a1, a2, ...))
     while r[1] do
-      local okv, v = pcall(CLEAN_HUD_SS_MHas, CLEAN_HUD_SS_KEY)
+      local okv, v = pcall(BetterUI.shop_market_has, BetterUI.shop_cycle_key)
       if okv and v then
-        v = VRFW_Param.Get(CLEAN_HUD_SS_KEY)
+        v = VRFW.param.get(BetterUI.shop_cycle_key)
       else
         v = nil
       end
       if v ~= 1 and v ~= 2 then
         break -- left with B: the retail lines already ran
       end
-      local nxt = CLEAN_HUD_SS_MNext(idx, v)
+      local nxt = BetterUI.shop_market_next(idx, v)
       local f = 0
-      while f < CLEAN_HUD_SS_MWAIT and not CLEAN_HUD_SS_MReady() do
+      while f < BetterUI.shop_market_wait and not BetterUI.shop_market_ready() do
         f = f + 1
         coroutine.yield()
       end
-      CLEAN_HUD_SS_MTake(CLEAN_HUD_SS_KEY)
-      if nxt == nil or f >= CLEAN_HUD_SS_MWAIT then
-        CLEAN_HUD_SS_MLog("switch cancelled", tostring(idx), tostring(nxt), f)
-        CLEAN_HUD_SS_MRestore()
+      BetterUI.shop_market_take(BetterUI.shop_cycle_key)
+      if nxt == nil or f >= BetterUI.shop_market_wait then
+        BetterUI.shop_market_log("switch cancelled", tostring(idx), tostring(nxt), f)
+        BetterUI.shop_market_restore()
         break
       end
-      CLEAN_HUD_SS_MLog("switch", idx, "->", nxt, "muted", CLEAN_HUD_SS_M.muted, "waited", f)
-      CLEAN_HUD_SS_M.muted = 0
+      BetterUI.shop_market_log("switch", idx, "->", nxt, "muted", BetterUI.shop_market.muted, "waited", f)
+      BetterUI.shop_market.muted = 0
       idx = nxt
-      -- through the wrappers above this one (this one passes it straight on: depth > 0)
       r = table.pack(pcall(OnDecideFocus, a1, nxt))
     end
-    CLEAN_HUD_SS_M.depth = 0
-    pcall(CLEAN_HUD_SS_MSet, CLEAN_HUD_SS_HOST_KEY, nil)
+    BetterUI.shop_market.depth = 0
+    pcall(BetterUI.shop_market_set, BetterUI.shop_host_key, nil)
     if not r[1] then
       error(r[2], 0)
     end
@@ -183,7 +164,7 @@ do
   end
   local step = Step
   function Step(...)
-    pcall(CLEAN_HUD_SS_MInstall)
+    pcall(BetterUI.shop_market_install)
     return step(...)
   end
 end

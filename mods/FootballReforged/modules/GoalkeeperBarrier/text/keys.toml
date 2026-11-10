@@ -1,40 +1,38 @@
-# Texts of Goalkeeper Barrier, a module of Football Reforged: the name and description of
-# its card on Football Reforged's page in Mods.
 schema = "VRFW.text_key/1"
 default_lang = "en"
 
 [en.new]
 mod_name = "Goalkeeper Barrier"
-mod_description = "Every keeper's barrier is the top 25 % of his bar on the scoreboard, drawn bronze: while his bar is above 75 % the shots he faces lose power (÷ 1.4); below that they keep their full power. A block move of his team makes his next keeper move 30 % cheaper in tension."
+mod_description = "Every keeper's barrier is the top 25 % of his bar on the scoreboard, drawn in bronze: while his bar stays above 75 %, the shots he faces lose power. A block move of his team also makes his next keeper move 30 % cheaper in tension."
 
 [es.new]
 mod_name = "Barrera del portero"
-mod_description = "La barrera de cada portero es el 25 % superior de su barra del marcador, pintado de bronce: mientras su barra está por encima del 75 %, los tiros que recibe pierden potencia (÷ 1,4); por debajo, llegan con toda su potencia. Una técnica de bloqueo de su equipo abarata un 30 % la tensión de su siguiente técnica de portero."
+mod_description = "La barrera de cada portero es el 25 % superior de su barra del marcador, dibujado en bronce: mientras su barra está por encima del 75 %, los tiros que recibe pierden potencia. Una técnica de bloqueo de su equipo abarata además un 30 % la tensión de su siguiente técnica de portero."
 
 [fr.new]
 mod_name = "Barrière du gardien"
-mod_description = "La barrière de chaque gardien est le haut de sa barre du tableau d'affichage (25 %), en bronze : tant que sa barre dépasse 75 %, les tirs qu'il reçoit perdent de la puissance (÷ 1,4) ; en dessous, ils gardent toute leur puissance. Une technique de blocage de son équipe rend sa prochaine technique de gardien 30 % moins chère en tension."
+mod_description = "La barrière de chaque gardien est les 25 % supérieurs de sa barre sur le tableau d'affichage, dessinés en bronze : tant que sa barre reste au-dessus de 75 %, les tirs qu'il affronte perdent de la puissance. Une technique de blocage de son équipe réduit aussi de 30 % la tension de sa prochaine technique de gardien."
 
 [de.new]
 mod_name = "Torwart-Barriere"
-mod_description = "Die Barriere jedes Torwarts sind die oberen 25 % seines Balkens auf der Anzeigetafel, bronzefarben: solange sein Balken über 75 % liegt, verlieren Schüsse auf ihn an Kraft (÷ 1,4); darunter behalten sie ihre volle Kraft. Eine Blocktechnik seines Teams macht seine nächste Torwarttechnik 30 % billiger in Spannung."
+mod_description = "Die Barriere jedes Torwarts sind die oberen 25 % seiner Leiste auf der Anzeigetafel, in Bronze gezeichnet: Solange seine Leiste über 75 % bleibt, verlieren die Schüsse, die er abwehrt, an Kraft. Eine Blocktechnik seines Teams macht zudem seine nächste Torwarttechnik um 30 % günstiger."
 
 [it.new]
 mod_name = "Barriera del portiere"
-mod_description = "La barriera di ogni portiere è il 25 % superiore della sua barra sul tabellone, in bronzo: finché la barra è sopra il 75 %, i tiri che riceve perdono potenza (÷ 1,4); sotto, arrivano con tutta la potenza. Una tecnica di blocco della sua squadra rende la sua prossima tecnica da portiere più economica del 30 % in tensione."
+mod_description = "La barriera di ogni portiere è il 25 % superiore della sua barra sul tabellone, disegnato in bronzo: finché la sua barra resta sopra il 75 %, i tiri che affronta perdono potenza. Una tecnica di blocco della sua squadra rende inoltre del 30 % più economica in tensione la sua prossima tecnica da portiere."
 
 [pt.new]
 mod_name = "Barreira do guarda-redes"
-mod_description = "A barreira de cada guarda-redes são os 25 % de cima da sua barra no marcador, a bronze: enquanto a barra está acima de 75 %, os remates que recebe perdem potência (÷ 1,4); abaixo, chegam com toda a potência. Uma técnica de bloqueio da sua equipa torna a sua próxima técnica de guarda-redes 30 % mais barata em tensão."
+mod_description = "A barreira de cada guarda-redes é os 25 % superiores da sua barra no marcador, desenhados a bronze: enquanto a barra estiver acima de 75 %, os remates que enfrenta perdem potência. Uma técnica de bloqueio da sua equipa torna também 30 % mais barata em tensão a sua próxima técnica de guarda-redes."
 
 [ja.new]
 mod_name = "キーパーバリア"
-mod_description = "各キーパーのバリアはスコアボードのゲージの上部25％（ブロンズ色）。ゲージが75％より上の間は受けるシュートの威力が1.4分の1になり、それ以下では威力はそのまま。チームのブロック技を使うと次のキーパー技のテンションが30％安くなる。"
+mod_description = "各キーパーのバリアは、スコアボード上のゲージの上位25％（銅色で表示）です。ゲージが75％を超えている間、受けるシュートの威力が下がります。さらに、味方のブロック技のあとは、次のキーパー技のテンション消費が30％減ります。"
 
 [zh_hans.new]
 mod_name = "门将屏障"
-mod_description = "每名门将的屏障是记分板上他的槽的上部25％（青铜色）：槽高于75％时，他面对的射门威力除以1.4；低于此值则保持全部威力。本队使用拦截技后，门将的下一个守门技所需气势便宜30％。"
+mod_description = "每名守门员的屏障是计分板上其体力条最上方的25%（以青铜色显示）：只要他的条保持在75%以上，他面对的射门就会损失威力。己方的封堵招式还会让他下一个守门招式的气势消耗减少30%。"
 
 [zh_hant.new]
 mod_name = "門將屏障"
-mod_description = "每名門將的屏障是記分板上他的槽的上部25％（青銅色）：槽高於75％時，他面對的射門威力除以1.4；低於此值則保持全部威力。本隊使用攔截技後，門將的下一個守門技所需氣勢便宜30％。"
+mod_description = "每名守門員的屏障是計分板上其體力條最上方的25%（以青銅色顯示）：只要他的條保持在75%以上，他面對的射門就會損失威力。己方的封堵招式還會讓他下一個守門招式的氣勢消耗減少30%。"

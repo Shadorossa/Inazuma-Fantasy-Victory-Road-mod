@@ -1,0 +1,22 @@
+schema = "VRFW.migration/1"
+id = "CharacterReforged.totems_in_base"
+description = "The totem level system of Aura Overhaul is part of Character Reforged: its master row goes, its two rows move"
+phase = "data"
+after = ["VRFW.no_compat_names", "CharacterReforged.removed_option_rows", "CharacterReforged.change_mode_in_base"]
+
+# the feature is always on: its master row is gone
+[[step]]
+kind = "delete_option_row"
+id = "AuraOverhaul.souls_rework"
+
+[[step]]
+kind = "rename_option_row"
+from = "AuraOverhaul.souls_top_level"
+to = "CharacterReforged.souls_top_level"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_option_row"
+from = "AuraOverhaul.souls_reel"
+to = "CharacterReforged.souls_reel"
+if_target = "keep_target"

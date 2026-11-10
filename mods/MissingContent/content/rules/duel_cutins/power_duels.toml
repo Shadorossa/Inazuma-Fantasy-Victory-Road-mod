@@ -1,0 +1,26 @@
+schema = "VRFW.duel_clip/1"
+
+[[duel_clip]]
+name = "cs_galaxy_charges"
+case = "power_charge_won"
+presentation = "cutin"
+with_hyper = "retail"
+scenes = [
+    "duel_atk_cs_vca0005",        # strong dodge past the block, 20 m run
+    "duel_atk_cs_vca0006",        # strong dodge over the sliding tackle
+    "duel_atk_cs_vca0007",        # strong breakthrough through the block
+    "duel_atk_cs_vca0008",        # strong breakthrough past the sliding tackle
+    "duel_atk_gx_vca0015",        # Galaxy: dash past the defender (13 m)
+]
+
+[[duel_clip]]
+name = "cs_galaxy_blocks"
+case = "power_block_won"
+presentation = "cutin"
+with_hyper = "retail"
+scenes = [
+    "duel_def_cs_vca0009",        # strong block stops the dodge
+    "duel_def_cs_vca0010",        # strong sliding tackle wins the ball
+    "duel_def_cs_vca0011",        # strong block stops the breakthrough
+    "duel_def_cs_vca0012",        # strong sliding tackle on the breakthrough
+]

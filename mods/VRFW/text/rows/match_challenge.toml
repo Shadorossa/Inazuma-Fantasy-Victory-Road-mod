@@ -1,5 +1,3 @@
-# Match challenge texts (`[[VRFW.MatchChallenge]]`): menu_text rows in the 9 framework languages, read by the match challenge menu part via CMND_TEXT_GET (id = crc32(row id)).
-# The challenge's own title / description are the declaring mod's rows; %s / %d are filled by string.format. A refusal message is: head, mod description, 'refused', one line per failed condition, 'offenders'.
 
 schema = "VRFW.text/2"
 table = "menu_text"
@@ -480,8 +478,6 @@ ja = "、"
 zh_hans = "、"
 zh_hant = "、"
 
-# a required starter's line (`[[VRFW.MatchChallenge.Required]]` without its own Text): %s = 'N given character(s)' (vrfw_mc_f_chara), then the formation places (position words joined by 'or')
-# the challenge's one-line label plus a required starter's `Label` while he applies («Mínimo 2 de GO + Victorio»)
 [[row]]
 id = "vrfw_mc_with_required"
 es = "%s + %s"
@@ -517,3 +513,27 @@ pt = "Titular obrigatório: %s, como %s"
 ja = "必須スタメン：%s（%s）"
 zh_hans = "必须首发：%s（%s）"
 zh_hant = "必須先發：%s（%s）"
+
+[[row]]
+id = "vrfw_mc_unmet_start"
+es = "Faltan requisitos"
+en = "Requirements not met"
+fr = "Conditions non remplies"
+de = "Bedingungen nicht erfüllt"
+it = "Requisiti mancanti"
+pt = "Faltam requisitos"
+ja = "条件未達成"
+zh_hans = "未满足条件"
+zh_hant = "未滿足條件"
+
+[[row]]
+id = "vrfw_mc_supplied_squad"
+es = "Tu club no reúne un equipo que cumpla este desafío: para este partido jugarás con un equipo cedido."
+en = "Your club has no squad that meets this challenge: for this match you will play with a loaned squad."
+fr = "Votre club ne peut pas aligner d'équipe remplissant ce défi : pour ce match, vous jouerez avec une équipe prêtée."
+de = "Dein Verein hat kein Team, das diese Herausforderung erfüllt: In diesem Spiel spielst du mit einem Leihteam."
+it = "Il tuo club non ha una squadra che rispetti questa sfida: in questa partita giocherai con una squadra in prestito."
+pt = "O teu clube não tem uma equipa que cumpra este desafio: neste jogo jogarás com uma equipa emprestada."
+ja = "クラブにはこの条件を満たすチームがありません。この試合は貸し出しチームで戦います。"
+zh_hans = "你的俱乐部没有符合此挑战的队伍：本场比赛将使用租借的队伍。"
+zh_hant = "你的俱樂部沒有符合此挑戰的隊伍：本場比賽將使用租借的隊伍。"

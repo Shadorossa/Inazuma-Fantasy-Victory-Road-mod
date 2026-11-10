@@ -1,6 +1,5 @@
 schema = "VRFW.changelog/1"
-# IECross: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
-# Rules (the parser refuses the rest): a single 
+# IECross: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/internal/types/changelog.md).
 
 [[release]]
 icon = "general"

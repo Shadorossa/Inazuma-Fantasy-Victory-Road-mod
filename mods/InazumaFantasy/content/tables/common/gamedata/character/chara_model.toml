@@ -1,0 +1,14 @@
+schema = "VRFW.table/1"
+table = "character/chara_body"
+# Jibanyan's own body row: the c000201 profile and motion set, with his objbin (own skeleton).
+
+[[add]]
+key = 0x5E516C48                  # crc32("c90620000_body")
+from = 0xD6AC6EDB                 # the c000201 body
+cells = { skeleton_path = { text = "_face/90_FANTASY/c90620000/c90620000.objbin" }, body_mesh_path = {} }
+
+# Jinpei Jiba's body row: Luke's c000101 body and retail skeleton, without the retail body mesh under his full-body clothes.
+[[add]]
+key = 0xB1930776                  # crc32("c90630000_body")
+from = 0x00095CCB                 # the c000101 body of Luke Triton
+cells = { body_mesh_path = {} }

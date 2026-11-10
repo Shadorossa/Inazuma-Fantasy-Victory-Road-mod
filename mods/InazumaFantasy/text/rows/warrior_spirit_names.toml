@@ -1,0 +1,169 @@
+schema = "VRFW.text/2"
+table = "skill_text"
+# Names of the warrior spirits of content/techniques/warrior_spirits.toml, short (variant 0) and long (variant 11).
+
+[[row]]
+id = 0xEC078783  # InazumaFantasy.keshin_k002011_name
+kind = "noun"
+de = "Victoria, Schatten des Triumphs"
+en = "Victoria, Shadow of Triumph"
+es = "Victoria, sombra del triunfo"
+fr = "Victoria, ombre du triomphe"
+it = "Victoria, ombra del trionfo"
+ja = "勝利の影 ヴィクトリア"
+pt = "Victoria, sombra do triunfo"
+zh_hans = "胜利之影 维克多利亚"
+zh_hant = "勝利之影 維克多里亞"
+
+[[row]]
+id = 0xEC078783  # InazumaFantasy.keshin_k002011_name, long form
+kind = "noun"
+variant = 11
+de = "Victoria, Schatten des Triumphs"
+en = "Victoria, Shadow of Triumph"
+es = "Victoria, sombra del triunfo"
+fr = "Victoria, ombre du triomphe"
+it = "Victoria, ombra del trionfo"
+ja = "勝利の影 ヴィクトリア"
+pt = "Victoria, sombra do triunfo"
+zh_hans = "胜利之影 维克多利亚"
+zh_hant = "勝利之影 維克多里亞"
+
+[[row]]
+id = 0xB99155D1  # InazumaFantasy.keshin_k002011_desc
+kind = "text"
+de = "Als Windgeist schöpft die Göttin des Triumphs\\naus tiefen Bindungen, um verborgene Kräfte\\nzu erschließen."
+en = "The Triumph Goddess, a spirit of wind.\\nDraws on deep bonds to tap into latent strength."
+es = "Un espíritu del viento.\\nRecurre a un vínculo profundo para liberar\\nsu triunfante poder latente."
+fr = "La déesse du triomphe, un esprit du vent.\\nPuise dans les liens profonds pour faire\\nsurgir sa force cachée."
+it = "Spirito vento. Dea del Trionfo, sfrutta i legami\\nprofondi per sprigionare la sua forza nascosta."
+ja = "[勝利/しょうり]を[祈/いの]る[女神/めがみ]のような　[風/かぜ]の[化身/けしん]。\\n[強/つよ]い[絆/きずな]を[源/みなもと]として　[秘/ひ]めた[力/ちから]を[解/と]き[放/はな]つ。"
+pt = "A Deusa do Triunfo, um espírito de vento.\\nSua força advém dos vínculos entre as pessoas."
+zh_hans = "宛如为胜利祈祷的女神化作的风之化身。\\n以牢不可破的纽带，解放潜藏之力。"
+zh_hant = "宛如為勝利祈禱之女神的風之化身。\\n以強烈的紐帶為源，解放潛藏的力量。"
+
+# This warrior spirit is off for this version, and removing the comment marks brings it back.
+# ```
+# [[row]]
+# id = 0x99F4F169  # InazumaFantasy.keshin_kx000010_name
+# kind = "noun"
+# de = "Zentaur"
+# en = "Centaur"
+# es = "Centauro"
+# fr = "Centaure"
+# it = "Centauro"
+# ja = "ケンタウロス"
+# pt = "Centauro"
+# zh_hans = "半人马"
+# zh_hant = "半人馬"
+#
+# [[row]]
+# id = 0x99F4F169  # InazumaFantasy.keshin_kx000010_name, long form
+# kind = "noun"
+# variant = 11
+# de = "Glorreicher Ritter, Zentaur"
+# en = "The Glorious Knight Centaur"
+# es = "Caballero glorioso, Centauro"
+# fr = "Chevalier glorieux, Centaure"
+# it = "Cavaliere Glorioso, Centauro"
+# ja = "グロリアスナイト・ケンタウロス"
+# pt = "Cavaleiro Glorioso, Centauro"
+# zh_hans = "荣耀骑士·半人马"
+# zh_hant = "榮耀騎士·半人馬"
+#
+# [[row]]
+# id = 0xCC62233B  # InazumaFantasy.keshin_kx000010_desc
+# kind = "text"
+# de = "Glorreicher Ritter, Zentaur"
+# en = "The Glorious Knight Centaur"
+# es = "Caballero glorioso, Centauro"
+# fr = "Chevalier glorieux, Centaure"
+# it = "Cavaliere Glorioso, Centauro"
+# ja = "グロリアスナイト・ケンタウロス"
+# pt = "Cavaleiro Glorioso, Centauro"
+# zh_hans = "荣耀骑士·半人马"
+# zh_hant = "榮耀騎士·半人馬"
+# ```
+
+# These two warrior spirits are off for this version, and removing the comment marks brings them back.
+# ```
+# [[row]]
+# id = 0xABA6C2A6  # InazumaFantasy.keshin_me000010_name
+# kind = "noun"
+# de = "Geistfresser"
+# en = "Mindeater"
+# es = "Devoramentes"
+# fr = "Dévoreur d'esprits"
+# it = "Divoramenti"
+# ja = "マインドイーター"
+# pt = "Devoramentes"
+# zh_hans = "噬心者"
+# zh_hant = "噬心者"
+#
+# [[row]]
+# id = 0xABA6C2A6  # InazumaFantasy.keshin_me000010_name, long form
+# kind = "noun"
+# variant = 11
+# de = "Traumzerstörer, Geistfresser"
+# en = "The Dream Destroyer Mindeater"
+# es = "Destructor de sueños, Devoramentes"
+# fr = "Destructeur de rêves, Dévoreur d'esprits"
+# it = "Distruttore di Sogni, Divoramenti"
+# ja = "ドリームブレイカー・マインドイーター"
+# pt = "Destruidor de Sonhos, Devoramentes"
+# zh_hans = "梦境破坏者·噬心者"
+# zh_hant = "夢境破壞者·噬心者"
+#
+# [[row]]
+# id = 0xFE3010F4  # InazumaFantasy.keshin_me000010_desc
+# kind = "text"
+# de = "Traumzerstörer, Geistfresser"
+# en = "The Dream Destroyer Mindeater"
+# es = "Destructor de sueños, Devoramentes"
+# fr = "Destructeur de rêves, Dévoreur d'esprits"
+# it = "Distruttore di Sogni, Divoramenti"
+# ja = "ドリームブレイカー・マインドイーター"
+# pt = "Destruidor de Sonhos, Devoramentes"
+# zh_hans = "梦境破坏者·噬心者"
+# zh_hant = "夢境破壞者·噬心者"
+#
+# [[row]]
+# id = 0x39112EB4  # InazumaFantasy.keshin_mx000010_name
+# kind = "noun"
+# de = "Zha'vok"
+# en = "Zha'vok"
+# es = "Zha'vok"
+# fr = "Zha'vok"
+# it = "Zha'vok"
+# ja = "ザヴォック"
+# pt = "Zha'vok"
+# zh_hans = "扎沃克"
+# zh_hant = "扎沃克"
+#
+# [[row]]
+# id = 0x39112EB4  # InazumaFantasy.keshin_mx000010_name, long form
+# kind = "noun"
+# variant = 11
+# de = "Abscheulichkeit des Abgrunds, Zha'vok"
+# en = "The Abyssal Aberration Zha'vok"
+# es = "Aberración del abismo, Zha'vok"
+# fr = "Aberration des abysses, Zha'vok"
+# it = "Aberrazione dell'Abisso, Zha'vok"
+# ja = "アビスアベレーション・ザヴォック"
+# pt = "Aberração do Abismo, Zha'vok"
+# zh_hans = "深渊异形·扎沃克"
+# zh_hant = "深淵異形·扎沃克"
+#
+# [[row]]
+# id = 0x6C87FCE6  # InazumaFantasy.keshin_mx000010_desc
+# kind = "text"
+# de = "Abscheulichkeit des Abgrunds, Zha'vok"
+# en = "The Abyssal Aberration Zha'vok"
+# es = "Aberración del abismo, Zha'vok"
+# fr = "Aberration des abysses, Zha'vok"
+# it = "Aberrazione dell'Abisso, Zha'vok"
+# ja = "アビスアベレーション・ザヴォック"
+# pt = "Aberração do Abismo, Zha'vok"
+# zh_hans = "深渊异形·扎沃克"
+# zh_hant = "深淵異形·扎沃克"
+# ```

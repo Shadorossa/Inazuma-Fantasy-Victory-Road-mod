@@ -4,7 +4,6 @@ schema = "VRFW.game/2"
 
 # ------------------------------------------------------------------------------------------------ party load
 
-# bool CGDDPartyStatus::Load(this, ...): post hook publishes the number of loads since boot; the game's code and answer are untouched.
 [[VRFW.Hook]]
 name = "VRFW.PartyLoad"
 game = "Party.Load"
@@ -12,7 +11,6 @@ kind = "function"
 arguments = ["ptr", "ptr", "ptr", "ptr"]
 returns = "u8"
 
-# Party loads since boot (set by scripts\party.lua from the hook above).
 [[VRFW.State]]
 key = "vrfw.party.loads"
 needs = ["VRFW.PartyLoad"]

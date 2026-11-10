@@ -21,6 +21,7 @@ levels = { type = "number", default = 0, min = 0, max = 16, doc = "number of equ
 start_at = { type = "number", default = 1.0, min = 0.01, max = 1.0, doc = "share of max from which the phase may start" }
 phase_seconds = { type = "number", default = 0, min = 0, max = 600, doc = "live seconds the phase lasts (the gauge drains to 0 over it); 0 = no phase" }
 gains_in_phase = { type = "bool", default = false, doc = "event gains and the time fill also count during the phase" }
+button = { type = "string", default = "", doc = "the input command (CMD_…) that starts a team's phase in a synced match, read from that team's lockstep command; empty = none" }
 when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }
 
 [entry.MomentumGain]

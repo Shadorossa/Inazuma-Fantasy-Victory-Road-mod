@@ -1,50 +1,47 @@
-# Texts of Pressing, a module of Football Reforged: the name and description of its
-# card on Football Reforged's page in Mods, and the word of the press button guide (press_hud_label: drawn into the
-# sprite pressing_gtxt_action_press01 by research/scripts/vrfw_action_label_build.py, content\images\hud).
 schema = "VRFW.text_key/1"
 default_lang = "en"
 
 [en.new]
 mod_name = "Team pressing"
-mod_description = "Without the ball, L2 becomes a press button instead of the focus field: hold it and 2 to 4 of your teammates nearest to the ball carrier sprint at him (never the keeper); release it or win the ball back and they play as before. The CPU presses with the same rules. With a stamina mod, a winded player does not press. With the ball, L2 is the game's."
+mod_description = "Without the ball, L2 becomes a press button: hold it and 2 to 4 of your teammates nearest to the ball carrier sprint at him, never the keeper. Release it or win the ball back and they play as before. The CPU presses with the same rules."
 press_hud_label = "Press!"
 
 [es.new]
 mod_name = "Presión de equipo"
-mod_description = "Sin balón, L2 pasa a ser un botón de presión en lugar del campo de foco: mantenlo y de 2 a 4 compañeros, los más cercanos al rival con el balón, esprintan hacia él (nunca el portero); suéltalo o recupera el balón y vuelven a jugar como antes. La CPU presiona con las mismas reglas. Con un mod de aguante, un jugador sin aliento no presiona. Con balón, L2 es el del juego."
+mod_description = "Sin balón, L2 pasa a ser un botón de presión: mantenlo y de 2 a 4 compañeros, los más cercanos al rival con el balón, esprintan hacia él, nunca el portero. Suéltalo o recupera el balón y vuelven a jugar como antes. La CPU presiona con las mismas reglas."
 press_hud_label = "¡Presión!"
 
 [fr.new]
 mod_name = "Pressing d'équipe"
-mod_description = "Sans le ballon, L2 devient un bouton de pressing à la place du champ de concentration : maintiens-le et 2 à 4 coéquipiers, les plus proches du porteur, sprintent vers lui (jamais le gardien) ; relâche-le ou récupère le ballon et ils jouent comme avant. Le CPU presse avec les mêmes règles. Avec un mod d'endurance, un joueur essoufflé ne presse pas. Avec le ballon, L2 reste celui du jeu."
+mod_description = "Sans le ballon, L2 devient un bouton de pressing : maintiens-le et 2 à 4 coéquipiers, les plus proches du porteur du ballon, sprintent vers lui, jamais le gardien. Relâche-le ou récupère le ballon et ils rejouent comme avant. La CPU presse avec les mêmes règles."
 press_hud_label = "Pressing !"
 
 [de.new]
 mod_name = "Team-Pressing"
-mod_description = "Ohne Ball ist L2 eine Pressing-Taste statt des Fokusfelds: Halte sie und 2 bis 4 Mitspieler, die dem Ballführer am nächsten sind, sprinten auf ihn zu (nie der Torwart); lass sie los oder erobere den Ball und sie spielen wie vorher. Die CPU presst mit denselben Regeln. Mit einem Ausdauer-Mod presst ein erschöpfter Spieler nicht. Mit Ball ist L2 wie im Spiel."
+mod_description = "Ohne Ball wird L2 zur Pressing-Taste: Halte sie gedrückt, und 2 bis 4 deiner Mitspieler, die dem Ballführenden am nächsten sind, sprinten auf ihn zu, nie der Torwart. Lass los oder erobere den Ball zurück, und sie spielen wie zuvor. Die CPU presst nach denselben Regeln."
 press_hud_label = "Pressing!"
 
 [it.new]
 mod_name = "Pressing di squadra"
-mod_description = "Senza palla, L2 diventa un tasto di pressing al posto del campo di concentrazione: tienilo premuto e da 2 a 4 compagni, i più vicini al portatore, scattano verso di lui (mai il portiere); rilascialo o recupera la palla e tornano a giocare come prima. La CPU pressa con le stesse regole. Con un mod di resistenza, un giocatore senza fiato non pressa. Con la palla, L2 è quello del gioco."
+mod_description = "Senza palla, L2 diventa un tasto pressing: tienilo premuto e da 2 a 4 compagni, i più vicini a chi ha la palla, scattano su di lui, mai il portiere. Rilascialo o riconquista la palla e tornano a giocare come prima. La CPU pressa con le stesse regole."
 press_hud_label = "Pressing!"
 
 [pt.new]
 mod_name = "Pressão de equipa"
-mod_description = "Sem bola, L2 passa a ser um botão de pressão em vez do campo de foco: mantém-no premido e 2 a 4 colegas, os mais próximos do portador, correm a sprint para ele (nunca o guarda-redes); larga-o ou recupera a bola e voltam a jogar como antes. O CPU pressiona com as mesmas regras. Com um mod de resistência, um jogador sem fôlego não pressiona. Com bola, L2 é o do jogo."
+mod_description = "Sem bola, L2 passa a ser um botão de pressão: mantém-no premido e 2 a 4 colegas, os mais próximos de quem tem a bola, correm para ele, nunca o guarda-redes. Larga-o ou recupera a bola e voltam a jogar como antes. A CPU pressiona com as mesmas regras."
 press_hud_label = "Pressão!"
 
 [ja.new]
 mod_name = "チームプレス"
-mod_description = "ボールを持っていない時、L2はフォーカスフィールドの代わりにプレスボタンになる。押している間、ボール保持者に近い味方2〜4人が彼に向かってダッシュする（キーパーは除く）。離すかボールを奪い返すと元の動きに戻る。CPUも同じルールでプレスする。スタミナMODがある時、息切れした選手はプレスしない。ボールを持っている時のL2はゲーム通り。"
+mod_description = "ボールを持っていないとき、L2 がプレスボタンになります。押し続けると、ボール保持者に最も近い味方2〜4人（キーパーは除く）が全力で詰め寄ります。離すかボールを奪い返すと、元のプレーに戻ります。CPUも同じルールでプレスをかけます。"
 press_hud_label = "プレス！"
 
 [zh_hans.new]
 mod_name = "团队逼抢"
-mod_description = "无球时，L2不再是专注领域，而是逼抢键：按住时，离持球者最近的2到4名队友向他冲刺（门将除外）；松开或夺回球后，他们恢复原来的行动。电脑也会用同样的规则逼抢。装有体力模组时，喘不过气的球员不逼抢。有球时，L2保持游戏原样。"
+mod_description = "没有球时，L2 变成逼抢键：按住后，离持球者最近的2至4名队友（守门员除外）会冲刺逼上去。松开或抢回球后，他们恢复原来的踢法。电脑也按同样的规则逼抢。"
 press_hud_label = "全体逼抢！"
 
 [zh_hant.new]
 mod_name = "團隊逼搶"
-mod_description = "無球時，L2不再是專注領域，而是逼搶鍵：按住時，離持球者最近的2到4名隊友向他衝刺（門將除外）；放開或奪回球後，他們恢復原來的行動。電腦也會用同樣的規則逼搶。裝有體力模組時，喘不過氣的球員不逼搶。有球時，L2保持遊戲原樣。"
+mod_description = "沒有球時，L2 變成逼搶鍵：按住後，離持球者最近的2至4名隊友（守門員除外）會衝刺逼上去。鬆開或搶回球後，他們恢復原來的踢法。電腦也按同樣的規則逼搶。"
 press_hud_label = "全體逼搶！"

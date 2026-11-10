@@ -17,7 +17,5 @@ when = { type = "when", doc = "conditions on the declaring mod's config: all mus
 
 [entry.OffPitch]
 doc = "the mod takes players off the pitch without a red card (an exhausted player kneels until the end of the match): the engine sees them sent off, the red-card questions answer no, substitutions see them"
-# The mod's exported native table Resource.OffPitch (key: soccer actor handle, value 0) lists those players; the framework answers IsSentOff / IsSentOffById from it
-# and signals vrfw.off_pitch.layout / vrfw.off_pitch.layout_done around substitutions.
 name = { type = "name", required = true, doc = "the rule's name (log, report)" }
 when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

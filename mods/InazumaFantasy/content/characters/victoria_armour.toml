@@ -1,0 +1,24 @@
+schema = "VRFW.character/2"
+# The armed form of Victoria's new warrior spirit (k002011), every body group through its look rows.
+default_lang = "en"
+
+[[character]]
+name = "victoria_armour"
+based_on = "c11600010"
+battle = false
+
+  [character.base]
+  id = 0x4A285F77
+  name = "evt_kvct01"
+
+  [character.new_model]
+  id = 0xC4AB790E
+  from = "c11600010"
+  [character.new_model.cells]
+  clothes = 0x5190E5FD                                     # kvct01
+  shoes = 0
+  gloves = 0
+  force_kit = 1
+
+  [[character.cards]]
+  id = 0x448719CB

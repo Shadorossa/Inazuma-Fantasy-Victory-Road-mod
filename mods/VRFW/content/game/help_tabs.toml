@@ -1,0 +1,17 @@
+schema = "VRFW.game/2"
+
+# Help screen: the Mods tab.
+
+# void CMenuListViewHelp::FillTabCategories(view), post hook: view + 0xA80 the seven tab slots.
+[[VRFW.Hook]]
+name = "HelpTabs.Fill"
+game = "Help.FillTabs"
+kind = "function"
+arguments = ["ptr"]
+returns = "u64"
+apply = "script"
+
+# () -> category (0 = no tab), icon type, title text id: the Mods tab as the help_menu Lua shows it.
+[[VRFW.Command]]
+name = "CMND_VRFW_HELP_MODS_TAB"
+handler = "HelpTabs.ModsTab"

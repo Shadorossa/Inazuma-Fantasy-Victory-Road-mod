@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Character Reforged · cards without a chara_base row · other series
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "0x385F0638"                                  # no chara_base row: only its cards

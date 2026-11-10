@@ -1,0 +1,17 @@
+# Partner locks in the player bank: locked partners greyed in the dock's bank and wearing the system's plate in both banks.
+name = "character_reforged_partner_lock"
+mod = "CharacterReforged"
+order = 345
+module = ""
+requires = []
+conflicts = []
+wraps = []
+description = "Character Reforged: Mix-Max / mode change partners locked in the player bank, with the system's plate on their card"
+
+[[hooks]]
+stem = "chara_bank_menu"
+source = "partner_lock_bank_hooks.lua"
+
+[[hooks]]
+stem = "chara_bank_menu_for_search"
+source = "partner_lock_bank_hooks.lua"

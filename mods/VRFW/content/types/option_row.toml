@@ -1,5 +1,4 @@
 # Declares `[[VRFW.OptionRow]]` entries (content/option_rows/*.toml): extra values for a row of the game's settings menu.
-# Each key is checked against this file; an unknown key, wrong type or out-of-range value drops the declaration with a warning.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.option_row/1"
 folder = "content/option_rows"

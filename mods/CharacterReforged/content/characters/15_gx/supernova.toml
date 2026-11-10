@@ -1,20 +1,17 @@
 schema = "VRFW.character/2"
-# Character Reforged · Supernova · Inazuma Eleven GO Galaxy
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c06033210"                                   # Ashvina Bharani
 moves = [
   { move = 0x36C2F16E, level = 8 },                         # Dark Reversal
-  { move = 0xCB8E6D04, level = 30 },                        # Mighty Save
   { move = 0xCD6AEF2D, level = 43 },                        # All-Star
   { move = 0x4A776F1C, level = 55 },                        # Hydro Breath
+  { move = 0x4AF2F3E2, level = 65 },                        # Bridge to Nowhere
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x9BBEA4CA, level = 1 },                         # Tótem Saranarja [aura]
+  { move = 0x9BBEA4CA, level = 20 },                        # wsk000380
 ]
 
   [[edit.cards]]
@@ -29,12 +26,12 @@ moves = [
   { move = 0x1656F8F2, level = 10 },                        # Psychic Lift
   { move = 0x39CB2F02, level = 28 },                        # Dragster
   { move = 0xAA67E325, level = 39 },                        # Desert Blast
-  { move = 0x08EEBD53, level = 50 },                        # Feint Play
+  { move = 0x64485347, level = 49 },                        # Psi Arrow
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xEA6EC8EC, level = 1 },                         # Tótem Dandor [aura]
+  { move = 0xEA6EC8EC, level = 20 },                        # wsd000370
 ]
 
   [[edit.cards]]
@@ -55,7 +52,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xC60BD950, level = 1 },                         # Tótem Brakias [aura]
+  { move = 0xC60BD950, level = 20 },                        # wso000440
 ]
 
   [[edit.cards]]
@@ -76,7 +73,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xEA6EC8EC, level = 1 },                         # Tótem Dandor [aura]
+  { move = 0xEA6EC8EC, level = 20 },                        # wsd000370
 ]
 
   [[edit.cards]]
@@ -96,7 +93,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xC60BD950, level = 1 },                         # Tótem Brakias [aura]
+  { move = 0xC60BD950, level = 20 },                        # wso000440
 ]
 
   [[edit.cards]]
@@ -116,7 +113,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xEA6EC8EC, level = 1 },                         # Tótem Dandor [aura]
+  { move = 0xEA6EC8EC, level = 20 },                        # wsd000370
 ]
 
   [[edit.cards]]
@@ -130,14 +127,14 @@ moves = [
 target = "c06033270"                                   # Bass Danish
 moves = [
   { move = 0x64485347, level = 14 },                        # Psi Arrow
-  { move = 0x1F5EB9D5, level = 32 },                        # Nutmeg
   { move = 0x04941270, level = 42 },                        # Vac Attack
   { move = 0x00A10ABD, level = 53 },                        # Ball Lightning
+  { move = 0xBAE3B7FE, level = 63 },                        # Stealth Step
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x302F886C, level = 1 },                         # Tótem Vairaas [aura]
+  { move = 0x302F886C, level = 20 },                        # wss000420
 ]
 
   [[edit.cards]]
@@ -158,7 +155,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x302F886C, level = 1 },                         # Tótem Vairaas [aura]
+  { move = 0x302F886C, level = 20 },                        # wss000420
 ]
 
   [[edit.cards]]
@@ -172,14 +169,14 @@ moves = [
 target = "c06033290"                                   # Mitra Jeshu
 moves = [
   { move = 0x64485347, level = 15 },                        # Psi Arrow
-  { move = 0x62294D90, level = 31 },                        # Dust Kick
   { move = 0x7FE98F60, level = 40 },                        # Ganymede Ray
   { move = 0xC9BAEA82, level = 53 },                        # Eye of the Storm
+  { move = 0xE6144F5E, level = 63 },                        # Orbital Drive
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x302F886C, level = 1 },                         # Tótem Vairaas [aura]
+  { move = 0x302F886C, level = 20 },                        # wss000420
 ]
 
   [[edit.cards]]
@@ -191,36 +188,36 @@ moves = [
 
 [[edit]]
 target = "c06033300"                                   # Arculus Orbes
-moves = [
-  { move = 0xE6144F5E, level = 12 },                        # Orbital Drive
-  { move = 0x64485347, level = 25 },                        # Psi Arrow
-  { move = 0x6DAEF91C, level = 48 },                        # Supernova
-  { move = 0xFF0F7E1F, level = 75 },                        # Galactic GigaFall
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0, level = 0 },                                  # (empty)
-  { move = 0x7A21082E, level = 1 },                         # Tótem Dragunova [aura]
-]
 
   [[edit.cards]]
   id = 0xBBBAAB8A                                         # FW/MF · wind
   rank = 3
   growth = "normal"
   stats = { kick = 356, control = 258, technique = 247, pressure = 227, physical = 140, intelligence = 250, agility = 161, freedom = 231 }
+  moves = [
+    { move = 0xE6144F5E, level = 12 },                      # Orbital Drive
+    { move = 0x64485347, level = 25 },                      # Psi Arrow
+    { move = 0x6DAEF91C, level = 48 },                      # Supernova
+    { move = 0xFF0F7E1F, level = 75 },                      # Galactic GigaFall
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0, level = 0 },                                # (empty)
+    { move = 0x7A21082E, level = 20 },                      # wss000350
+  ]
 
 [[edit]]
 target = "c06033310"                                   # Ashley Sarpala
 moves = [
   { move = 0x64485347, level = 11 },                        # Psi Arrow
-  { move = 0x49041E53, level = 28 },                        # Crosscut Feint
   { move = 0xBB21DDC9, level = 41 },                        # Trina Tumble
   { move = 0xE3D04F88, level = 51 },                        # Jackknife
+  { move = 0x7748D3F2, level = 61 },                        # Devil Ball
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xC60BD950, level = 1 },                         # Tótem Brakias [aura]
+  { move = 0xC60BD950, level = 20 },                        # wso000440
 ]
 
   [[edit.cards]]

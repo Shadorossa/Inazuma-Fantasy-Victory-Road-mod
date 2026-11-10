@@ -1,34 +1,24 @@
 schema = "CharacterReforged.duplicate_rules/1"
-# No More Rarities › its policy for Character Reforged's duplicate-players hook:
-# when a save is duplicated into
-# another slot («X: duplicar» of the slot screen), every normal card of the copy is the 5★ card; with apply_on_load, the
-# same on every load of a player slot.
-#Inazuma Fantasy's own load repair («Reparar duplicados») reads the merged policy.
-# The one-copy-per-card limit is the module New Recruitment's (its content\duplicate_rules\new_recruitment.toml,
-#); rules merge key by key across mods.
 
 [CharacterReforged.DuplicateRules.no_more_rarities]
 # the saved rarity every normal card gets (4 = the 5★ «Leyenda» card)
 normal_card_rarity = 4
-# also on every load of a player slot:
-# every normal card -> rarity 4. Before the first rewrite of a save a durable copy of its file is
-# kept (Character Reforged's scripts\duplicate_players.lua «slot_load», blob
-# save-backup-slot<N>-<stamp>-before-duplicate-rules.bin); the locked retail slot and reserved slots are never touched
+# also on every load of a player slot (a backup of the save first); the retail slot and reserved slots are never touched
 apply_on_load = true
-# Options › «Ajustar save»: every saved character below normal_card_rarity gets it too, whatever his card or attribute
-# bits (story-only, season, avatars, a kept special card): only the rarity word changes, a mode's own cards stay
+# save adjust: every saved character below normal_card_rarity gets it, whatever its card bits (only the rarity changes)
 save_adjust_every_saved_player = true
-# the special cards that get normal_card_rarity too: the rarity groups the config removes
-# (config.toml [removed_rarities] tiers; the same choices as
-# ClassicCards.RarityRemoved of assets\lua\_all\no_more_rarities_card_look.lua). `rarities` = rarity ids of the rarity
-# data (the framework's game_rarities.toml: hero = Ídolo / Héroe, fabled = Diamante). The save adjust action (Options ›
-# «Ajustar save») turns those cards into their character's 5★ base card, merging copies of a card the club already
-# has; `save_adjust_label` = its confirmation line for that value (text\rows\save_tools.toml)
 [CharacterReforged.DuplicateRules.no_more_rarities.normalize_special_rarities]
-config = "removed_rarities.tiers"
+option = "ClassicCards.removed_rarities"
 
 [CharacterReforged.DuplicateRules.no_more_rarities.normalize_special_rarities.values]
-"basic" = { rarities = [], save_adjust_label = "no_more_rarities_save_tools_normal_rarity" }
-"basic_idol" = { rarities = ["hero"], save_adjust_label = "no_more_rarities_save_tools_normal_rarity_idol" }
-"basic_diamond" = { rarities = ["fabled"], save_adjust_label = "no_more_rarities_save_tools_normal_rarity_diamond" }
-"all" = { rarities = ["hero", "fabled"], save_adjust_label = "no_more_rarities_save_tools_normal_rarity_all" }
+"0" = { rarities = [], save_adjust_label = "no_more_rarities_save_tools_normal_rarity" }
+"1" = { rarities = ["hero"], save_adjust_label = "no_more_rarities_save_tools_normal_rarity_idol" }
+"2" = { rarities = ["fabled"], save_adjust_label = "no_more_rarities_save_tools_normal_rarity_diamond" }
+"3" = { rarities = ["hero", "fabled"], save_adjust_label = "no_more_rarities_save_tools_normal_rarity_all" }
+
+# a released copy's spirits go to the stock of its position, by the card colour of each position (FW red, MF blue, DF green, GK gold)
+[CharacterReforged.DuplicateRules.no_more_rarities.element_spirit_of_position]
+gk = "mountain"
+df = "forest"
+mf = "wind"
+fw = "fire"

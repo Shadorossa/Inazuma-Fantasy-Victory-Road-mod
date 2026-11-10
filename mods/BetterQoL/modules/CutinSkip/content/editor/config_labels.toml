@@ -1,5 +1,5 @@
 schema = "VRFW.editor/1"
-# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+# ModManager labels of config.toml's settings.
 
 [[Shape]]
 Id = "settings"
@@ -8,7 +8,7 @@ For = "config"
   Key = "cutin_skip"
   Type = "table"
   Label = { es = "Saltar supertécnicas", en = "Technique cut-in skip" }
-  Help = { es = "Pulsar A durante la animación de una supertécnica en un partido la termina.", en = "Pressing A during a technique cut-in in a match ends it." }
+  Help = { es = "Pulsar A durante la animación de una supertécnica, Keshin, Armadura, Miximax o transformación en un partido la termina.", en = "Pressing A during a technique, Keshin, Armed, Miximax or transformation cut-in in a match ends it." }
   [[Shape.Field]]
   Key = "cutin_skip.events"
   Type = "list"

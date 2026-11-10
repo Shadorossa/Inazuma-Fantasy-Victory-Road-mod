@@ -1,6 +1,4 @@
 schema = "VRFW.changelog/1"
-# Chronicle Deluxe: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
-# Rules (the parser refuses the rest): a single 
 
 [[release]]
 icon = "general"
@@ -9,6 +7,7 @@ notes = [
     "Partidas libres con niveles y botín",
     "Cadenas de rivales sin repetir",
     "Sello del Maestro",
+    "Universo de jugadores temático",
 ]
 
 [release.en]
@@ -17,6 +16,7 @@ notes = [
     "Free matches with levels and loot",
     "Rival chains without repeats",
     "Master's Seal",
+    "Players Universe by theme",
 ]
 
 [release.fr]
@@ -25,6 +25,7 @@ notes = [
     "Matchs libres avec niveaux et butin",
     "Chaînes de rivaux sans répétition",
     "Sceau du Maître",
+    "Univers des joueurs par thème",
 ]
 
 [release.de]
@@ -33,6 +34,7 @@ notes = [
     "Freie Spiele mit Level und Beute",
     "Gegnerketten ohne Wiederholung",
     "Siegel des Meisters",
+    "Spieler-Universum nach Themen",
 ]
 
 [release.it]
@@ -41,6 +43,7 @@ notes = [
     "Partite libere con livelli e bottino",
     "Catene di rivali senza ripetizioni",
     "Sigillo del Maestro",
+    "Universo dei giocatori a tema",
 ]
 
 [release.pt]
@@ -49,6 +52,7 @@ notes = [
     "Jogos livres com níveis e saque",
     "Cadeias de rivais sem repetição",
     "Selo do Mestre",
+    "Universo dos jogadores por tema",
 ]
 
 [release.ja]
@@ -57,6 +61,7 @@ notes = [
     "レベルと戦利品付きの自由戦",
     "重複しないライバル連戦",
     "マスターの印",
+    "テーマ別のプレイヤーズユニバース",
 ]
 
 [release.zh_hans]
@@ -65,6 +70,7 @@ notes = [
     "带等级与战利品的自由赛",
     "不重复的对手链",
     "大师印记",
+    "按主题的球员宇宙",
 ]
 
 [release.zh_hant]
@@ -73,4 +79,5 @@ notes = [
     "帶等級與戰利品的自由賽",
     "不重複的對手鏈",
     "大師印記",
+    "按主題的球員宇宙",
 ]

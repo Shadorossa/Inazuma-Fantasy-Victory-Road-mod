@@ -1,21 +1,9 @@
--- BetterUI: the pitch cards of the formation screens moved apart where they touch (config.toml
--- [formation_card_spread]). The game places each pitch card with SetupFormationIconPosition (include
--- soccer_formation_menu_inc): the formation's attacking position (formation_config offensePos, the match's own
--- column) mapped onto the pitch frame, plus the formation's menu offset (bustupPos). In the attacking half the rows
--- sit close, so neighbouring cards overlap. This wraps that function in every menu VM that has it. Once the 11 pitch
--- cards of a formation have been placed, a small solver pushes apart only the pairs of cards that touch, each pair
--- along the axis where it overlaps least, and keeps every card inside the pitch. Only when that is not enough the
--- cards are drawn a little smaller; when even the smallest size does not help, the formation stays as the game draws
--- it. The result is kept per formation, so every later placement of a card (redraws, swaps, drag and drop) adds the
--- same offset; drag and drop and the draw order read the card layer's position back, so they follow the moved cards.
--- Only on the compact formation-card layout (graft clean_hud_player_cards), on the soccer11_02 pitch frame, at the
--- menu's normal scale; 5-a-side screens and scaled card screens are left as they are. Definitions only at load: every
--- engine call runs inside the wrapper.
+BetterUI = type(BetterUI) == "table" and BetterUI or {}
 
 local SPREAD = {
   CARD_LAYER = 1973487846,          -- team00_01_chara_card_for_soccer
   BLANK_LAYER = 3571911991,         -- team00_01_p1_chara_card_blank (the empty slot under a card)
-  FRAME_LAYER = 3321884270,         -- soccer11_02_formation_frame (the pitch of the formation screens)
+  FRAME_LAYER = 3321884270,
   PITCH_CARDS = 11,                 -- pitch slots 0..10 of an 11-a-side formation
   GET_LAYER_POSITION = 2834507455,  -- (layer, index) -> x, y, z
   SET_LAYER_POSITION = 1389957207,  -- (layer, x, y, z, index)
@@ -26,19 +14,24 @@ local SPREAD = {
 
 local state = {
   settings = nil,                   -- the config table; false = off (no answer, or turned off)
-  formations = {},                  -- "<formation>/<scale>" -> { raw, count, pending, solved, offset, scale }
-  baseScale = {},                   -- "<layer>/<index>" -> the scale the menu gave the card when it opened
-  scaled = {},                      -- "<layer>/<index>" -> true once this file changed the card's scale
+  formations = {},
+  baseScale = {},
+  scaled = {},
   frameSeen = false,                -- the pitch frame exists in this menu
   log = nil,
 }
 
-local function Log(...)
-  if state.log == nil and type(VRFW_Log) == "table" then
-    state.log = VRFW_Log.New("BetterUI.formation_card_spread")
+local function Logger()
+  if state.log == nil and type(VRFW.logger) == "table" then
+    state.log = VRFW.logger.new("BetterUI.formation_card_spread")
   end
-  if state.log ~= nil then
-    state.log(...)
+  return state.log
+end
+
+local function Log(...)
+  local log = Logger()
+  if log ~= nil then
+    log(...)
   end
 end
 
@@ -46,8 +39,8 @@ end
 local function Settings()
   if state.settings == nil then
     state.settings = false
-    local ok, t = pcall(funcLuaCommand, VRFW_Cmd.BETTERUI_FORMATION_CARD_SPREAD)
-    if ok and type(t) == "table" then
+    local t = VRFW.host.command(VRFW.commands.BETTERUI_FORMATION_CARD_SPREAD)
+    if type(t) == "table" then
       local needed = { "card_width", "card_height", "gap", "smallest_scale", "scale_step",
                        "pitch_side", "pitch_top", "pitch_bottom" }
       local complete = true
@@ -79,10 +72,8 @@ local function Overlaps(P, w, h, g)
   return found
 end
 
--- Pushes the touching pairs apart (each card half the overlap, along the axis with the smaller overlap, keeping the
--- cards' order) inside the pitch limits (a card the game already draws outside them may stay where it is).
--- Returns the new centres and whether no two cards overlap any more.
-local function Separate(raw, w, h, g, s)
+-- `stack`: a pair whose sideways move would push a card past the pitch side is moved up / down instead.
+local function Separate(raw, w, h, g, s, stack)
   local P = {}
   local limit = {}
   for i, p in ipairs(raw) do
@@ -100,8 +91,9 @@ local function Separate(raw, w, h, g, s)
     end
     for _, o in ipairs(pairs_) do
       local i, j, px, py = o[1], o[2], o[3], o[4]
-      if px <= py then
-        local dir = P[j][1] >= P[i][1] and 1 or -1
+      local dir = P[j][1] >= P[i][1] and 1 or -1
+      local room = not stack or (math.abs(P[i][1] - dir * px / 2) <= limit[i].side and math.abs(P[j][1] + dir * px / 2) <= limit[j].side)
+      if px <= py and room then
         P[i][1] = P[i][1] - dir * px / 2
         P[j][1] = P[j][1] + dir * px / 2
       else
@@ -132,23 +124,26 @@ local function Solve(f, s)
   if before == 0 then
     return
   end
-  local scale = 1
-  while scale >= s.smallest_scale - 1e-6 do
-    local P, clear = Separate(raw, s.card_width * scale, s.card_height * scale, s.gap * scale, s)
-    if clear then
-      for slot = 0, SPREAD.PITCH_CARDS - 1 do
-        f.offset[slot] = { P[slot + 1][1] - raw[slot + 1][1], P[slot + 1][2] - raw[slot + 1][2] }
+  -- first by moving sideways, then (a line wider than the pitch) by stacking the cards that do not fit in rows
+  for _, stack in ipairs({ false, true }) do
+    local scale = 1
+    while scale >= s.smallest_scale - 1e-6 do
+      local P, clear = Separate(raw, s.card_width * scale, s.card_height * scale, s.gap * scale, s, stack)
+      if clear then
+        for slot = 0, SPREAD.PITCH_CARDS - 1 do
+          f.offset[slot] = { P[slot + 1][1] - raw[slot + 1][1], P[slot + 1][2] - raw[slot + 1][2] }
+        end
+        f.scale = scale
+        Log("formation", f.id, "overlaps", before, "spread at scale", scale, stack and "(stacked)" or "")
+        return
       end
-      f.scale = scale
-      Log("formation", f.id, "overlaps", before, "spread at scale", scale)
-      return
+      scale = scale - s.scale_step
     end
-    scale = scale - s.scale_step
   end
   Log("formation", f.id, "overlaps", before, "left as drawn: no room even at scale", s.smallest_scale)
 end
 
--- One placed card gets its formation's offset (and size). x, y, z = the position the game just gave it.
+-- One placed card gets its formation's offset (and size).
 local function Move(layer, slot, f, x, y, z)
   local key = layer .. "/" .. slot
   local o = f.offset[slot]
@@ -161,7 +156,7 @@ local function Move(layer, slot, f, x, y, z)
   end
 end
 
--- Whether this placement is one this file handles (see the header).
+-- Whether this placement is one this file handles.
 local function Handles(layer, slot, frame, menuScale)
   if layer ~= SPREAD.CARD_LAYER and layer ~= SPREAD.BLANK_LAYER then
     return false
@@ -186,7 +181,7 @@ local function Handles(layer, slot, frame, menuScale)
       return false
     end
   end
-  local compact = rawget(_ENV, "CLEAN_HUD_PC_IsCompact")
+  local compact = BetterUI.player_card_is_compact
   return type(compact) == "function" and compact(funcLuaMenuCommand, SPREAD.CARD_LAYER, slot) == true
 end
 
@@ -227,7 +222,6 @@ local function AfterSetup(layer, slot, formation, frame, menuScale)
     end
   end
   f.pending = nil
-  -- the cards placed before the formation was complete moved after the game sorted them: sort the draw order again
   local sort = rawget(_ENV, "UpdateMemberCharaIconPrioritySort")
   if moved and next(f.offset) ~= nil and type(sort) == "function" then
     pcall(sort)
@@ -239,13 +233,9 @@ if type(setup) == "function" and rawget(_ENV, "BETTERUI_FORMATION_CARD_SPREAD") 
   local wrapped = function(layer, slot, formation, frame, menuScale, ...)
     local r = table.pack(setup(layer, slot, formation, frame, menuScale, ...))
     local ok, err = pcall(AfterSetup, layer, slot, formation, frame, menuScale)
-    if not ok then
-      if state.log == nil and type(VRFW_Log) == "table" then
-        state.log = VRFW_Log.New("BetterUI.formation_card_spread")
-      end
-      if state.log ~= nil then
-        state.log.once("error", "error:", tostring(err))
-      end
+    local log = not ok and Logger() or nil
+    if log ~= nil then
+      log.once("error", "error:", tostring(err))
     end
     return table.unpack(r, 1, r.n)
   end

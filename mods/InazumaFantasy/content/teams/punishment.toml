@@ -1,14 +1,11 @@
 schema = "VRFW.team/2"
-# ported from the earlier Inazuma Fantasy (research/mods/_aside/InazumaFantasy/teams/20_ief/0004_punishment.toml).
-# Same key, so the team id stays crc32 of it. Members keep their cards, slots, numbers and rarity steps; the
-# earlier mod's own technique loadouts are left out (each member plays its card's own learn list).
-# The match level and classes come from the free-match section that lists the team (content/teams/free_match_section.toml).
+# Punishment: members keep their cards, slots, numbers and rarity steps and play their cards' own learn lists.
 
 [[team]]
 name = "ct_ft_punishment"                 # Eternal Punishment (text rows below)
 key = "evt_ct_ft_punishment"
 based_on = "pltm_cro_ie3_18"              # Fantasy Eleven frame and tactics
-emblem = 0xD9A7C3F9                       # The Night Vipers (Víboras Nocturnas, tm_cro_legend_GO2_09) crest
+emblem = 0xD9A7C3F9
 level = 1
 formation = 0x0A75FAB9                    # 4-5-1 Equilibrio
 roster = "exact"
@@ -25,9 +22,9 @@ member = [
   { card = 0x603BE105, slot = 8, number = 9 },                                      # Drakul Desmodus · FW, 4-5-1 midfield line
   { card = 0x9E23A289, slot = 9, number = 10, captain = true },                     # Byron Love · FW, 4-5-1 midfield line
   { card = 0xE0AA5516, slot = 10, number = 11 },                                     # Katya Felis · FW
-  { card = 0xD35F77D7, slot = 20, number = 0 },                                      # Alice Rendell · manager
+  { card = 0xD35F77D7, slot = 19, number = 0 },                                      # Alice Rendell · coach
 ]
-  [team.kit]                              # Solaria-Zeus (tm_cro_legend_ORIGINAL_07): its away kit worn as the home one
+  [team.kit]
   of = "tm_cro_legend_ORIGINAL_07"
   flip = true
   [team.text.en]

@@ -1,6 +1,4 @@
 schema = "VRFW.text_key/1"
-# Hissatsu Effects › the move card's sentences of the technique effects (content\rules\technique_effects_*.toml,
-# their `text`), language it.
 
 [new]
 te_whd00170 = "+15% di potenza con 2 o più compagni entro 15 m."
@@ -783,3 +781,4 @@ te_whs10010 = "Consuma il 15% di Tensione in meno nel primo terzo del secondo te
 te_whs10020 = "Consuma il 15% di Tensione in meno nel primo terzo del secondo tempo se la squadra è in svantaggio."
 te_whs10090 = "Consuma il 15% di Tensione in meno nell'ultimo terzo di ogni tempo se la squadra è in svantaggio."
 te_whs10130 = "Consuma il 15% di Tensione in meno nell'ultimo terzo del primo tempo."
+te_whk00690 = "Una volta a partita, il portiere che la equipaggia effettua una parata imparabile senza consumare Tensione."

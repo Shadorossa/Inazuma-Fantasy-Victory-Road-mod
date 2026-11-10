@@ -1,0 +1,3 @@
+schema = "VRFW.telop/2"
+# Hand-maintained.
+from = "aura_mixi_c04000100"

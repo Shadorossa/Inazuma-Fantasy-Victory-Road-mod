@@ -1,125 +1,110 @@
-# The VRFW's save slot screen (graft save_slots, docs/framework/save-slots.md): the screen opened by
-# EMPEZAR on the title screen (title_menu_inc patch of the framework's save\lua root). The script is the Lua build's full file (menu_assemble.py build --mod
-# VRFW), packed by framework_pack.py as menus\scripts\evt_save_slot_menu.lua; its art is
-# save\files\data\dx11\menu\220_img\evt_slot\evt_slot_base.g4tx (player-slot sprites only; Level-5-derived, generated at
-# pack time by framework_pack.py with slot_card_art.write_atlas from the retail dump, never committed).
-# The layout keeps 4 cards: the 4th is the card of a slot a mod reserved (its content from the
-# VRFW_SS_RESERVED provider); the script hides it while no reserved slot is enterable.
 schema = "VRFW.menu/2"
 
-# ---- the layouts (.g4pkm) of the screen's own objects (below): retail copies with joints moved / resized ---------
-# Card x (the band locators _list01..04 of evt_save01_01_slot and the window locators of evt_save01_03_slot, same
-# x per card): the cards spread evenly over the 1920 px screen, centre(k, n) = gap + 212 + k * (424 + gap) with
-# gap = (1920 - n * 424) / (n + 1). Cards 1..3 (the player page, n = 3): 374, 960, 1546 (162 px margins and gaps);
-# the reserved 4th card's locator: centre(3, 4) = 1663.2. The script's CardCentre is the same formula and moves a
-# card at run time only by centre(k, shown cards) - this layout x (0 with 3 cards; the 4-card case while a mod's
-# reserved slot is on). The layout carries the bands' click zones (_touch_list01), so the 3-card page needs no move.
-
 layout = [
-    # evt_save01_01_slot.g4pkm
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", from = "common/menu/51_save/save01/save01_01/save01_01.g4pkm" },
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", joint = "_system_line01", translate = [97.0, 2803.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", joint = "_text_time01", translate = [116.0, 2812.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", joint = "_pos_time01", translate = [377.0, 2822.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", joint = "_list01", translate = [374.0, 86.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", joint = "_list02", translate = [960.0, 86.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", joint = "_list03", translate = [1546.0, 86.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", joint = "_list04", translate = [1663.2, 86.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", joint = "_list05", translate = [0.0, 2648.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", joint = "_list06", translate = [0.0, 2540.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm", joint = "_pos_top_list_atc01", recompute = true },
-    # evt_save01_02_tab.g4pkm
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", from = "common/menu/51_save/save01/save01_02/save01_02.g4pkm" },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_list_base_s01_on", translate = [-212.0, 38.0, 0.0], scale = [424.0, 76.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_list_base_s01_off", translate = [-212.0, 38.0, 0.0], scale = [424.0, 76.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_list_icon_dmy_s01_on", translate = [-198.0, 19.0, 0.0], scale = [56.0, 38.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_list_icon_dmy_s01_off", translate = [-198.0, 19.0, 0.0], scale = [56.0, 38.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_list_base_s01_ol", translate = [-212.0, 38.0, 0.0], scale = [424.0, 76.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_list_base_s01_ok", translate = [-212.0, 38.0, 0.0], scale = [424.0, 76.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_list_icon_dmy_s01_ok", translate = [-198.0, 19.0, 0.0], scale = [56.0, 38.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_text_list01_on", translate = [-132.0, 30.0, 0.0], scale = [328.0, 60.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_text_list01_off", translate = [-132.0, 30.0, 0.0], scale = [328.0, 60.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_pos_atc_cur", translate = [-220.0, 0.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_pos_atc_free01", translate = [0.0, 0.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm", joint = "_touch_list01", translate = [-212.0, 38.0, 0.0], scale = [424.0, 700.0, 1.0] },
-    # evt_save01_03_slot.g4pkm
-    { file = "common/menu/51_save/save01/evt_save01_03_slot/evt_save01_03_slot.g4pkm", from = "common/menu/51_save/save01/save01_03/save01_03.g4pkm" },
-    { file = "common/menu/51_save/save01/evt_save01_03_slot/evt_save01_03_slot.g4pkm", joint = "_save_arrow_01", translate = [922.0, 2639.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_03_slot/evt_save01_03_slot.g4pkm", joint = "_atc_save_info01_01", translate = [1663.2, -568.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_03_slot/evt_save01_03_slot.g4pkm", joint = "_atc_save_info02_01", translate = [374.0, -568.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_03_slot/evt_save01_03_slot.g4pkm", joint = "_atc_save_info02_02", translate = [1546.0, -568.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_03_slot/evt_save01_03_slot.g4pkm", joint = "_atc_save_info03_01", translate = [960.0, -568.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_03_slot/evt_save01_03_slot.g4pkm", joint = "_pos_base01", recompute = true },
-    # evt_save01_04_card.g4pkm
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", from = "common/menu/51_save/save01/save01_04/save01_04.g4pkm" },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_save_info_base01", translate = [-212.0, 312.0, 0.0], scale = [424.0, 624.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_savedata_story_img01_dmy", translate = [-212.0, 312.0, 0.0], scale = [424.0, 64.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_savedata_ch_img01_dmy", translate = [-60.0, 222.0, 0.0], scale = [120.0, 120.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_clear_story_star01", translate = [166.0, -9.0, 0.0], scale = [30.0, 30.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_clear_ch_star01", translate = [-402.0, 3003.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_clear_ch_star02", translate = [-371.0, 3003.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_clear_ch_star03", translate = [-340.0, 3003.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_clear_ch_star04", translate = [-309.0, 3003.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_clear_ch_star05", translate = [-278.0, 3003.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_clear_ch_star06", translate = [-247.0, 3003.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_clear_ch_star07", translate = [-216.0, 3003.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_clear_ch_star08", translate = [-185.0, 3003.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_clear_ch_star09", translate = [-154.0, 3003.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_icon_face01", translate = [332.0, 3134.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_icon_face02", translate = [285.0, 3134.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_icon_face03", translate = [238.0, 3134.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_icon_face04", translate = [191.0, 3134.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_icon_face05", translate = [144.0, 3134.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_icon_face06", translate = [97.0, 3134.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_icon_face07", translate = [50.0, 3134.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_icon_face08", translate = [3.0, 3134.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_icon_face09", translate = [-44.0, 3134.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_icon_face10", translate = [-91.0, 3134.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_save_info_platform_dmy01", translate = [-212.0, -97.5, 0.0], scale = [57.0, 37.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_save_info_platform_sub_dmy01", translate = [-212.0, -143.5, 0.0], scale = [57.0, 37.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_save_info_platform_sub_dmy02", translate = [-212.0, -189.5, 0.0], scale = [57.0, 37.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_save_info_platform_sub_dmy03", translate = [-212.0, -5.5, 0.0], scale = [57.0, 37.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_save_info_platform_sub_dmy04", translate = [-212.0, -51.5, 0.0], scale = [57.0, 37.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_save_mode_base01", translate = [-212.0, -5.5, 0.0], scale = [57.0, 37.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_save_mode_base02", translate = [-212.0, -51.5, 0.0], scale = [57.0, 37.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_save_info_totaltime_colon01_r", translate = [305.0, 2828.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_save_info_totaltime_colon01_l", translate = [230.0, 2827.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_save_info_title01", translate = [24.0, -146.0, 0.0], scale = [172.0, 32.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_category_title01", translate = [-147.0, -6.0, 0.0], scale = [220.0, 32.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_category_title02", translate = [-147.0, -52.0, 0.0], scale = [220.0, 32.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_category_title03", translate = [-147.0, -98.0, 0.0], scale = [220.0, 32.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_category_title04", translate = [-147.0, -144.0, 0.0], scale = [220.0, 32.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_category_title05", translate = [-147.0, -190.0, 0.0], scale = [220.0, 32.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_category_title06", translate = [-196.0, 86.0, 0.0], scale = [392.0, 40.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_category_sub01", translate = [-196.0, 44.0, 0.0], scale = [392.0, 28.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_category_sub02", translate = [-16.0, -6.0, 0.0], scale = [176.0, 32.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_category_sub03", translate = [-22.0, -52.0, 0.0], scale = [218.0, 32.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_category_sub04", translate = [-196.0, -256.0, 0.0], scale = [392.0, 32.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_text_last_save_time01", translate = [4.0, -192.0, 0.0], scale = [192.0, 32.0, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_pos_num_save_time03", translate = [229.0, 2827.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_pos_num_save_time02", translate = [304.0, 2827.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_pos_num_save_time01", translate = [379.0, 2827.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_pos_num_save_total_match01", translate = [194.0, -103.5, 0.0], scale = [0.699999988079071, 0.699999988079071, 1.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_pos_num_save_players01", translate = [379.0, 2885.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_pos_victory01", translate = [0.0, 3238.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_count_v_base02", translate = [-156.0, 3076.0, 0.0] },
-    { file = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm", joint = "_gtxt_victory01", translate = [-146.0, 3114.0, 0.0] },
+    # vrfw_save01_01_slot.g4pkm
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", from = "common/menu/51_save/save01/save01_01/save01_01.g4pkm" },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_system_line01", translate = [97.0, 2803.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_text_time01", translate = [116.0, 2812.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_pos_time01", translate = [377.0, 2822.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list01", translate = [374.0, 86.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list02", translate = [960.0, 86.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list03", translate = [1546.0, 86.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list04", translate = [1663.2, 86.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list05", translate = [0.0, 2648.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list06", translate = [0.0, 2540.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_pos_top_list_atc01", recompute = true },
+    # vrfw_save01_02_tab.g4pkm
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", from = "common/menu/51_save/save01/save01_02/save01_02.g4pkm" },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_list_base_s01_on", translate = [-212.0, 38.0, 0.0], scale = [424.0, 76.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_list_base_s01_off", translate = [-212.0, 38.0, 0.0], scale = [424.0, 76.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_list_icon_dmy_s01_on", translate = [-198.0, 19.0, 0.0], scale = [56.0, 38.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_list_icon_dmy_s01_off", translate = [-198.0, 19.0, 0.0], scale = [56.0, 38.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_list_base_s01_ol", translate = [-212.0, 38.0, 0.0], scale = [424.0, 76.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_list_base_s01_ok", translate = [-212.0, 38.0, 0.0], scale = [424.0, 76.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_list_icon_dmy_s01_ok", translate = [-198.0, 19.0, 0.0], scale = [56.0, 38.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_text_list01_on", translate = [-132.0, 30.0, 0.0], scale = [328.0, 60.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_text_list01_off", translate = [-132.0, 30.0, 0.0], scale = [328.0, 60.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_pos_atc_cur", translate = [-220.0, 0.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_pos_atc_free01", translate = [0.0, 0.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", joint = "_touch_list01", translate = [-212.0, 38.0, 0.0], scale = [424.0, 700.0, 1.0] },
+    # vrfw_save01_03_slot.g4pkm
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", from = "common/menu/51_save/save01/save01_03/save01_03.g4pkm" },
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_save_arrow_01", translate = [922.0, 2639.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info01_01", translate = [1663.2, -568.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info02_01", translate = [374.0, -568.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info02_02", translate = [1546.0, -568.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info03_01", translate = [960.0, -568.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_pos_base01", recompute = true },
+    # vrfw_save01_04_card.g4pkm
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", from = "common/menu/51_save/save01/save01_04/save01_04.g4pkm" },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_save_info_base01", translate = [-212.0, 312.0, 0.0], scale = [424.0, 624.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_savedata_story_img01_dmy", translate = [-212.0, 312.0, 0.0], scale = [424.0, 64.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_savedata_ch_img01_dmy", translate = [-60.0, 222.0, 0.0], scale = [120.0, 120.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_clear_story_star01", translate = [166.0, -9.0, 0.0], scale = [30.0, 30.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_clear_ch_star01", translate = [-402.0, 3003.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_clear_ch_star02", translate = [-371.0, 3003.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_clear_ch_star03", translate = [-340.0, 3003.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_clear_ch_star04", translate = [-309.0, 3003.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_clear_ch_star05", translate = [-278.0, 3003.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_clear_ch_star06", translate = [-247.0, 3003.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_clear_ch_star07", translate = [-216.0, 3003.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_clear_ch_star08", translate = [-185.0, 3003.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_clear_ch_star09", translate = [-154.0, 3003.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_icon_face01", translate = [332.0, 3134.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_icon_face02", translate = [285.0, 3134.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_icon_face03", translate = [238.0, 3134.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_icon_face04", translate = [191.0, 3134.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_icon_face05", translate = [144.0, 3134.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_icon_face06", translate = [97.0, 3134.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_icon_face07", translate = [50.0, 3134.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_icon_face08", translate = [3.0, 3134.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_icon_face09", translate = [-44.0, 3134.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_icon_face10", translate = [-91.0, 3134.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_save_info_platform_dmy01", translate = [-212.0, -97.5, 0.0], scale = [57.0, 37.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_save_info_platform_sub_dmy01", translate = [-212.0, -143.5, 0.0], scale = [57.0, 37.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_save_info_platform_sub_dmy02", translate = [-212.0, -189.5, 0.0], scale = [57.0, 37.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_save_info_platform_sub_dmy03", translate = [-212.0, -5.5, 0.0], scale = [57.0, 37.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_save_info_platform_sub_dmy04", translate = [-212.0, -51.5, 0.0], scale = [57.0, 37.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_save_mode_base01", translate = [-212.0, -5.5, 0.0], scale = [57.0, 37.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_save_mode_base02", translate = [-212.0, -51.5, 0.0], scale = [57.0, 37.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_save_info_totaltime_colon01_r", translate = [305.0, 2828.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_save_info_totaltime_colon01_l", translate = [230.0, 2827.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_save_info_title01", translate = [24.0, -146.0, 0.0], scale = [172.0, 32.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_category_title01", translate = [-147.0, -6.0, 0.0], scale = [220.0, 32.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_category_title02", translate = [-147.0, -52.0, 0.0], scale = [220.0, 32.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_category_title03", translate = [-147.0, -98.0, 0.0], scale = [220.0, 32.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_category_title04", translate = [-147.0, -144.0, 0.0], scale = [220.0, 32.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_category_title05", translate = [-147.0, -190.0, 0.0], scale = [220.0, 32.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_category_title06", translate = [-196.0, 86.0, 0.0], scale = [392.0, 40.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_category_sub01", translate = [-196.0, 44.0, 0.0], scale = [392.0, 28.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_category_sub02", translate = [-16.0, -6.0, 0.0], scale = [176.0, 32.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_category_sub03", translate = [-22.0, -52.0, 0.0], scale = [218.0, 32.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_category_sub04", translate = [-196.0, -256.0, 0.0], scale = [392.0, 32.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_text_last_save_time01", translate = [4.0, -192.0, 0.0], scale = [192.0, 32.0, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_pos_num_save_time03", translate = [229.0, 2827.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_pos_num_save_time02", translate = [304.0, 2827.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_pos_num_save_time01", translate = [379.0, 2827.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_pos_num_save_total_match01", translate = [194.0, -103.5, 0.0], scale = [0.699999988079071, 0.699999988079071, 1.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_pos_num_save_players01", translate = [379.0, 2885.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_pos_victory01", translate = [0.0, 3238.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_count_v_base02", translate = [-156.0, 3076.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_gtxt_victory01", translate = [-146.0, 3114.0, 0.0] },
 ]
 
-# evt_save_slot_menu (slot_build.py): 11 layers; base savedata_management_menu
+# vrfw_save_slot_menu (slot_build.py): 11 layers; base savedata_management_menu
 [[screen]]
-name = "evt_save_slot_menu"
+name = "vrfw_save_slot_menu"
 like = "language_option_menu"
 base = "savedata_management_menu"
-script = "assets/lua/screens/evt_save_slot_menu.lua"
+script = "assets/lua/screens/vrfw_save_slot_menu.lua"
 
 # lists as in savedata_management_menu: res
 [screen.rows]
 layer = [
-    { layer = "save01_01_list_attach_base", object = "evt_save01_01_slot_base" },
-    { layer = "save01_02_list_item", object = "evt_save01_02_tab", count = 4 },
-    { layer = "save01_03_detail_window_attach_base", object = "evt_save01_03_slot_base" },
-    { layer = "save01_04_savedata_detail_window", object = "evt_save01_04_card", count = 4 },
+    { layer = "save01_01_list_attach_base", object = "vrfw_save01_01_slot_base" },
+    { layer = "save01_02_list_item", object = "vrfw_save01_02_tab", count = 4 },
+    { layer = "save01_03_detail_window_attach_base", object = "vrfw_save01_03_slot_base" },
+    { layer = "save01_04_savedata_detail_window", object = "vrfw_save01_04_card", count = 4 },
     { layer = "mainmenu90_00_background" },
     { layer = "mainmenu90_01_header" },
     { layer = "mainmenu90_05_content_guide_line01" },
@@ -135,8 +120,8 @@ commands = [
     { layer = "save01_02_list_item", input = "CMD_LEFT", command = "CMD_FCS_BACK", flag = 1 },
     { layer = "save01_02_list_item", input = "CMD_DOWN", command = "CMD_FCS_NEXT", flag = 1 },
     { layer = "save01_02_list_item", input = "CMD_RIGHT", command = "CMD_FCS_NEXT", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_FUNC1", command = "CMD_FUNCTION", arg = "evt_slot_rename", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = "evt_slot_delete", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_FUNC1", command = "CMD_FUNCTION", arg = "vrfw_slot_rename", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = "vrfw_slot_delete", flag = 1 },
     { layer = "save01_02_list_item", input = "CMD_FUNC4", command = "CMD_FUNCTION", arg = 0xCA3E2567, flag = 1 },
     { layer = "save01_02_list_item", input = "CMD_MOUSE_RIGHT_CLICK", command = "CMD_BACK", flag = 1 },
 ]
@@ -155,7 +140,7 @@ group_base = [
 ]
 group = [
     { group = "common", slice = [0, 3] },
-    { group = "evt_save_slot_menu", flags = [1], slice = [3, 8] },
+    { group = "vrfw_save_slot_menu", flags = [1], slice = [3, 8] },
 ]
 focus_base = [
     [0x3A06AC3D, 0, 0],  # button
@@ -169,7 +154,7 @@ shift = []
 # ---- the screen's own menu objects (each a retail object, `from`, with its rows changed) --------------------------
 
 [[object]]
-name = "evt_save01_01_slot_base"
+name = "vrfw_save01_01_slot_base"
 from = "save01_01_list_attach_base"
 keep_name = true
 remove = [
@@ -177,38 +162,38 @@ remove = [
     { parameter = "NullLayerName", match = { 1 = 0x6058172A, 2 = 0x996BF0A9, 3 = 0x1FA09B6B, 4 = 0 } },
 ]
 set = [
-    { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_01/save01_01.g4pkm" }, values = { 1 = "common/menu/51_save/save01/evt_save01_01_slot/evt_save01_01_slot.g4pkm" } },
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_01/save01_01.g4pkm" }, values = { 1 = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm" } },
 ]
 
 [[object]]
-name = "evt_save01_02_tab"
+name = "vrfw_save01_02_tab"
 from = "save01_02_list_item"
 keep_name = true
 set = [
-    { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_02/save01_02.g4pkm" }, values = { 1 = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm" } },
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_02/save01_02.g4pkm" }, values = { 1 = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm" } },
 ]
 add = [
-    { block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/51_save/save01/save01_02/save01_02.g4tx"], after = { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/evt_save01_02_tab/evt_save01_02_tab.g4pkm" } } },
+    { block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/51_save/save01/save01_02/save01_02.g4tx"], after = { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm" } } },
 ]
 
 [[object]]
-name = "evt_save01_03_slot_base"
+name = "vrfw_save01_03_slot_base"
 from = "save01_03_detail_window_attach_base"
 keep_name = true
 set = [
-    { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_03/save01_03.g4pkm" }, values = { 1 = "common/menu/51_save/save01/evt_save01_03_slot/evt_save01_03_slot.g4pkm" } },
-    { parameter = "NullLayerName", match = { 1 = 0xC674E474, 2 = 0xD14B6E9A, 3 = 0x1FF36340, 4 = 0 }, values = { 1 = 0x85CE4C20, 2 = 0xC3FEC174 } },
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_03/save01_03.g4pkm" }, values = { 1 = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm" } },
+    { parameter = "NullLayerName", match = { 1 = 0xC674E474, 2 = 0xD14B6E9A, 3 = 0x1FF36340, 4 = 0 }, values = { 1 = 0x67E6DAD8, 2 = 0xC3FEC174 } },
     { parameter = "NullLayerName", match = { 1 = 0x7A67E768, 2 = 0xC3FEC174, 3 = 0x1FF36340, 4 = 0 }, values = { 1 = 0x1CC71D9A, 2 = 0x7B42A611, 4 = 1 } },
     { parameter = "NullLayerName", match = { 1 = 0xB4CA7514, 2 = 0x5AF790CE, 3 = 0x1FF36340, 4 = 1 }, values = { 1 = 0x6BC02D0C, 4 = 2 } },
     { parameter = "NullLayerName", match = { 1 = 0x40F0EB24, 2 = 0x7B42A611, 3 = 0x1FF36340, 4 = 0 }, values = { 1 = 0xF5A4B8AF, 2 = 0xD14B6E9A, 4 = 3 } },
 ]
 
 [[object]]
-name = "evt_save01_04_card"
+name = "vrfw_save01_04_card"
 from = "save01_04_savedata_detail_window"
 keep_name = true
 set = [
-    { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_04/save01_04.g4pkm" }, values = { 1 = "common/menu/51_save/save01/evt_save01_04_card/evt_save01_04_card.g4pkm" } },
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_04/save01_04.g4pkm" }, values = { 1 = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm" } },
     { parameter = "_text_save_info_title01", match = { 1 = 0x30748650, 2 = 0xF140E607 }, values = { 1 = 0xF7C15A29 } },
     { parameter = "_text_category_title01", match = { 1 = 0xB2AD6B73, 2 = 0x07BBF026 }, values = { 1 = 0xBCB848E4 } },
     { parameter = "_text_category_title02", match = { 1 = 0xB2AD6B73, 2 = 0xD8491A82 }, values = { 1 = 0xBCB848E4 } },

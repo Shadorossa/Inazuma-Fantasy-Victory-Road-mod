@@ -1,28 +1,20 @@
--- mods_menu (VRFW): the «Mods» screen, the «Problemas» tab: every problem of every installed mod, from the
--- framework's one report (CMND_VRFW_REPORT_COUNT / _ROW of all mods: the start's report.json plus what was found
--- while playing: script errors, game script errors, files left out). Grouped by mod (the game's own scripts and the
--- game version first, then the framework, then the mods in load order), a severity filter (Problemas = errors and
--- warnings, the default / Errores / Avisos / Info) in the row under the tabs, each problem with its icon, its text in the player's language (text_report rows
--- `rc_<code>`), the core's English message under it and its file:line. A or a click opens the mod's page on its
--- «Problemas» (or «Conflictos») view. The rows are read again only when CMND_VRFW_REPORT_VERSION moved (read when
--- the screen draws: after an input or a change, never every frame). Runs after 100_mods_screen.lua in the same VM
--- and takes the names it shares from VRFW_ModsScreen. No engine call at load time.
-local Screen = VRFW_ModsScreen
+local Screen = VRFW.mods_screen
 if Screen == nil then
   return
 end
-local C, CE, Call, Crc, Cut, Fit = Screen.C, Screen.CE, Screen.Call, Screen.Crc, Screen.Cut, Screen.Fit
-local DrawScrollbar, G, Hit, Int, K, M = Screen.DrawScrollbar, Screen.G, Screen.Hit, Screen.Int, Screen.K, Screen.M
-local ModById, OpenDetails, Quad, RV, SE_MOVE, SE_NG = Screen.ModById, Screen.OpenDetails, Screen.Quad, Screen.RV, Screen.SE_MOVE, Screen.SE_NG
-local SP, Str, T, Txt, Units, cnt = Screen.SP, Screen.Str, Screen.T, Screen.Txt, Screen.Units, Screen.cnt
+local C, CE, Call, Crc, Cut, Fit = Screen.C, Screen.CE, Screen.call, Screen.crc, Screen.cut, Screen.fit
+local DrawScrollbar, G, Hit, Int, K, M = Screen.draw_scrollbar, Screen.G, Screen.hit, Screen.int, Screen.K, Screen.M
+local ModById, OpenDetails, Quad, RV, SE_MOVE, SE_NG = Screen.mod_by_id, Screen.open_details, Screen.quad, Screen.RV, Screen.SE_MOVE, Screen.SE_NG
+local SP, Str, T, Txt, Units, cnt = Screen.SP, Screen.str, Screen.T, Screen.txt, Screen.units, Screen.cnt
+local Literal = Screen.literal
 local mouse, ui = Screen.mouse, Screen.ui
 
 local PR = {
   VERSION = Crc("CMND_VRFW_REPORT_VERSION"),
-  MAX = 600,                     -- rows read from the report at most, errors first (the counts stay the report's own)
+  MAX = 600,
   GAME = "@game",                -- the group of the game's own scripts and of the game version
   RANK = {error = 1, warn = 2, info = 3},
-  SEVERITIES = {"error", "warn", "info"},   -- the order the rows are read in
+  SEVERITIES = {"error", "warn", "info"},   -- The order the rows are read in.
   FILTERS = {{key = "pr_problems", sev = {error = true, warn = true}}, {key = "pr_errors", sev = {error = true}},
              {key = "pr_warnings", sev = {warn = true}}, {key = "pr_info", sev = {info = true}}},
   -- the list: full width in the navy box, one row pitch for group headers and problems
@@ -41,7 +33,7 @@ local function GroupRank(id)
   if m == nil then
     return 100000
   end
-  if m == Screen.BaseMod() then
+  if m == Screen.base_mod() then
     return -1
   end
   return m.pos > 0 and m.pos or (50000 + (m.idx or 0))
@@ -58,11 +50,8 @@ local function GroupName(id)
   return m.name ~= "" and m.name or m.id, m.version
 end
 
--- the report's entries (debug ones are not kept by the core), one severity after the other so the row cap never hides
--- an error behind info notes; grouped and sorted; read again only when the report's version or the screen's opening
--- changed
 local function Read()
-  local ver, ids = Int(Call(PR.VERSION)), Screen.TextIds()
+  local ver, ids = Int(Call(PR.VERSION)), Screen.text_ids()
   if PR.data ~= nil and PR.ver == ver and PR.ids == ids then
     return PR.data
   end
@@ -88,7 +77,7 @@ local function Read()
         end
         -- the place inside the mod's folder (the core writes mods/<id>/<file>:<line>; "-" = none)
         e.where = e.loc == "-" and "" or (string.gsub(e.loc, "^mods/[^/]+/", ""))
-        e.title = RV.Head(e, RV.Wanted(e))
+        e.title = RV.head(e, RV.wanted(e))
         if e.win ~= "" then
           e.msg = e.msg .. "  (" .. T("rp_winner", {w = e.win}) .. ")"
         end
@@ -148,9 +137,7 @@ local function Rows()
   return rows
 end
 
--- A list with header rows ({head = true}), shared with the «Ajustes» tab: `s` if it is a real row, else the first one;
--- 0 = none
-function CE.HeadedSelected(rows, s)
+function CE.headed_selected(rows, s)
   if rows[s] == nil or rows[s].head then
     s = 0
     for k, r in ipairs(rows) do
@@ -164,7 +151,7 @@ function CE.HeadedSelected(rows, s)
 end
 
 -- the real row `d` real rows away from row s (headers skipped); a longer step stops at the last row it reaches
-function CE.HeadedStep(rows, s, d)
+function CE.headed_step(rows, s, d)
   local step = d > 0 and 1 or -1
   local left = math.abs(d)
   local t = s
@@ -182,7 +169,7 @@ function CE.HeadedStep(rows, s, d)
 end
 
 -- the first row shown with `vis` rows on screen: selection s in view, its header too when it fits
-function CE.HeadedTop(top, s, vis, n)
+function CE.headed_top(top, s, vis, n)
   if s > 0 then
     if s - 1 < top then
       top = math.max(0, s - 2)
@@ -195,17 +182,17 @@ end
 
 -- the selected row: a problem row (never a header); 0 = none
 local function Selected(rows)
-  ui.psel = CE.HeadedSelected(rows, ui.psel)
+  ui.psel = CE.headed_selected(rows, ui.psel)
   return ui.psel
 end
 
-function CE.ProblemTabLabel()
+function CE.problem_tab_label()
   local d = Read()
   return T("tab_problems_all", {n = d.n.error + d.n.warn})
 end
 
 -- the mod of the selected problem (nil = none, or the game's group without a page)
-function CE.ProblemMod()
+function CE.problem_mod()
   local rows = Rows()
   local r = rows[Selected(rows)]
   if r == nil then
@@ -215,42 +202,42 @@ function CE.ProblemMod()
 end
 
 -- the view of the mod's page that lists the selected problem
-function CE.ProblemView()
+function CE.problem_view()
   local rows = Rows()
   local r = rows[Selected(rows)]
   return (r ~= nil and r.e ~= nil and r.e.cat == "conflict") and "conflicts" or "problems"
 end
 
-function CE.ProblemOpen()
-  if CE.ProblemMod() == nil then
+function CE.problem_open()
+  if CE.problem_mod() == nil then
     funcLuaCommand(C.SE, SE_NG)
     return
   end
   OpenDetails()
 end
 
-function CE.ProblemMove(d)
+function CE.problem_move(d)
   local rows = Rows()
   local s = Selected(rows)
-  local t = CE.HeadedStep(rows, s, d)
+  local t = CE.headed_step(rows, s, d)
   if t == s or s == 0 then
     funcLuaCommand(C.SE, SE_NG)
     return
   end
   funcLuaCommand(C.SE, SE_MOVE)
   ui.psel = t
-  Screen.Draw()
+  Screen.draw()
 end
 
-function CE.ProblemFilter(d)
+function CE.problem_filter(d)
   ui.pfilter = ((ui.pfilter - 1 + d) % #PR.FILTERS) + 1
   ui.psel, ui.ptop = 0, 0
   funcLuaCommand(C.SE, SE_MOVE)
-  Screen.Draw()
+  Screen.draw()
 end
 
 -- the mouse over a problem row selects it (true = draw again)
-function CE.ProblemHover(id)
+function CE.problem_hover(id)
   local n = tonumber(string.match(id, "^prob(%d+)$") or "")
   local rows = Rows()
   if n == nil or rows[n] == nil or rows[n].head or n == ui.psel then
@@ -261,7 +248,7 @@ function CE.ProblemHover(id)
 end
 
 -- the row under the tabs: the severity filters with their counts (L3 or a click)
-function CE.DrawProblemFilters()
+function CE.draw_problem_filters()
   local d = Read()
   local y, h = G.TOOLS_Y, G.TOOLS_H
   for k, f in ipairs(PR.FILTERS) do
@@ -278,7 +265,7 @@ function CE.DrawProblemFilters()
     Txt("TC", Cut(label, Fit(PR.CHIP_W - 24, 0.66)), x + PR.CHIP_W / 2, y + h / 2, 0.66)
     Hit(x, y, PR.CHIP_W, h, "pchip" .. k, function()
       if ui.pfilter ~= k then
-        CE.ProblemFilter(k - ui.pfilter)
+        CE.problem_filter(k - ui.pfilter)
       end
     end)
   end
@@ -298,10 +285,10 @@ local function DrawHead(r, y, hot)
   local g = r.g
   local cy = y + PR.ROW_H / 2
   Quad("Q2", SP("row_head"), PR.X, y, PR.W, PR.ROW_H, hot and 0.85 or 1)
-  local name = Cut(g.name, Fit(PR.W - 600, 0.82))
+  local name = Cut(Literal(g.name), Fit(PR.W - 600, 0.82))
   Txt("TL", name, PR.X + 28, cy, 0.82)
   if g.version ~= "" then
-    Txt("TL", "[CWG]v" .. Cut(g.version, 12) .. "[C]", PR.X + 28 + Units(name) * G.PX * 0.82 + 18, cy + 2, 0.6)
+    Txt("TL", "[CWG]v" .. Cut(Literal(g.version), 12) .. "[C]", PR.X + 28 + Units(name) * G.PX * 0.82 + 18, cy + 2, 0.6)
   end
   -- the group's counts at the right, errors first: icon, number
   local x = PR.X + PR.W - 24
@@ -327,12 +314,13 @@ local function DrawItem(r, y, sel)
     Quad("Q1", SP("arrow_g"), PR.X - 20, cy - 14, 18, 28)
   end
   SevIcon(e.sev, PR.X + 24, cy, 32)
-  local where_w = e.where ~= "" and math.min(560, Units(e.where) * G.PX * 0.6 + 20) or 0
+  local where = Literal(e.where)
+  local where_w = where ~= "" and math.min(560, Units(where) * G.PX * 0.6 + 20) or 0
   local tw = PR.W - 110 - where_w
-  Txt("TL", (e.sev == "error" and "[CR]" or "[CB]") .. Cut(e.title, Fit(tw, 0.68)) .. "[C]", PR.X + 76, y + 18, 0.68)
-  Txt("TL", "[CWG]" .. Cut("[" .. e.ty .. "] " .. e.msg, Fit(tw, 0.54)) .. "[C]", PR.X + 76, y + 42, 0.54)
-  if e.where ~= "" then
-    Txt("TR", "[CN]" .. Cut(e.where, Fit(540, 0.6)) .. "[C]", PR.X + PR.W - 24, cy, 0.6)
+  Txt("TL", (e.sev == "error" and "[CR]" or "[CB]") .. Cut(Literal(e.title), Fit(tw, 0.68)) .. "[C]", PR.X + 76, y + 18, 0.68)
+  Txt("TL", "[CWG]" .. Cut("[" .. Literal(e.ty) .. "] " .. Literal(e.msg), Fit(tw, 0.54)) .. "[C]", PR.X + 76, y + 42, 0.54)
+  if where ~= "" then
+    Txt("TR", "[CN]" .. Cut(where, Fit(540, 0.6)) .. "[C]", PR.X + PR.W - 24, cy, 0.6)
   end
 end
 
@@ -349,17 +337,17 @@ local function DrawEmpty(d)
   end
 end
 
-function CE.DrawProblems()
+function CE.draw_problems()
   local d = Read()
   local rows = Rows()
-  CE.RoundBox("Q0", "navy", "disc_navy", G.BOX_X, G.BOX_Y, PR.SB_X + 18 - G.BOX_X, G.BOX_BOTTOM - G.BOX_Y, G.BOX_R)
+  CE.round_box("Q0", "navy", "disc_navy", G.BOX_X, G.BOX_Y, PR.SB_X + 18 - G.BOX_X, G.BOX_BOTTOM - G.BOX_Y, G.BOX_R)
   if #rows == 0 then
     DrawEmpty(d)
     return
   end
   local vis = CE.PROBLEM_ROWS
   local s = Selected(rows)
-  ui.ptop = CE.HeadedTop(ui.ptop, s, vis, #rows)
+  ui.ptop = CE.headed_top(ui.ptop, s, vis, #rows)
   for i = 1, math.min(vis, #rows - ui.ptop) do
     local n = ui.ptop + i
     local r = rows[n]
@@ -370,13 +358,13 @@ function CE.DrawProblems()
       Hit(PR.X, y, PR.W, PR.ROW_H, hid, function()
         -- a header: the group's first problem, then its mod's page
         ui.psel = n + 1
-        CE.ProblemOpen()
+        CE.problem_open()
       end)
     else
       DrawItem(r, y, n == s and ui.popup == nil)
       Hit(PR.X, y, PR.W, PR.ROW_H, hid, function()
         ui.psel = n
-        CE.ProblemOpen()
+        CE.problem_open()
       end)
     end
   end

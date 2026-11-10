@@ -1,10 +1,4 @@
 schema = "VRFW.technique/3"
-# Hissatsu Reforged › the technique families: declared once here ([[VRFW.TechniqueFamily]], ids
-# HissatsuReforged.<Name>) and given to the retail moves with `families` on an [[edit]] (an edit with only `families`
-# changes no table cell). A family holds exactly the moves of its list: every retail id that carries one of the listed
-# names (its _or / _mm / _cro copies included). Dreamscape («Ensueño») moves are never members. Mods that add moves
-# give them `families` on their own [[technique]] rows; a later mod may change a move's list with [[edit]]. Each
-# family's `name` is its full id (HissatsuReforged.<Name>), the same key the moves' `families` lists name.
 
 [[VRFW.TechniqueFamily]]
 name = "HissatsuReforged.GodHand"
@@ -76,36 +70,35 @@ target = "whk01710"  # Mano celestial
 families = ["HissatsuReforged.GodHand"]
 
 [[edit]]
-target = "whk01400"  # Mano oceánica
+target = "whk01400"
 families = ["HissatsuReforged.GodHand"]
 
 [[edit]]
 target = "whk00530"  # Mano celestial X
 families = ["HissatsuReforged.GodHand"]
 
-# Triángulo Letal
 [[edit]]
-target = "whs00080"  # Triángulo letal
+target = "whs00080"
 families = ["HissatsuReforged.Triangle"]
 
 [[edit]]
-target = "whs00470"  # Triángulo letal 2
+target = "whs00470"
 families = ["HissatsuReforged.Triangle"]
 
 [[edit]]
-target = "whs02010"  # Triángulo letal final
+target = "whs02010"
 families = ["HissatsuReforged.Triangle"]
 
 [[edit]]
-target = "whs02010_or"  # Triángulo letal final
+target = "whs02010_or"
 families = ["HissatsuReforged.Triangle"]
 
 [[edit]]
-target = "whs03180"  # Triángulo letal triturador
+target = "whs03180"
 families = ["HissatsuReforged.Triangle"]
 
 [[edit]]
-target = "whs03180_or"  # Triángulo letal triturador
+target = "whs03180_or"
 families = ["HissatsuReforged.Triangle"]
 
 # Último recurso
@@ -118,11 +111,11 @@ target = "whs03275"  # Último recurso
 families = ["HissatsuReforged.LastResort"]
 
 [[edit]]
-target = "whs03290"  # Último recurso: Dragón
+target = "whs03290"
 families = ["HissatsuReforged.LastResort"]
 
 [[edit]]
-target = "whs03290_cro"  # Último recurso: Dragón
+target = "whs03290_cro"
 families = ["HissatsuReforged.LastResort"]
 
 [[edit]]
@@ -199,48 +192,44 @@ families = ["HissatsuReforged.FireTornado"]
 target = "whs02750"  # Tornado de fuego A
 families = ["HissatsuReforged.FireTornado"]
 
-# Triángulo Z
 [[edit]]
-target = "whs00260"  # Triángulo Z
+target = "whs00260"
 families = ["HissatsuReforged.TriangleZ"]
 
 [[edit]]
-target = "whs01550"  # Triángulo ZZ
+target = "whs01550"
 families = ["HissatsuReforged.TriangleZ"]
 
-# Múltiple
 [[edit]]
-target = "who00010"  # Regate múltiple
+target = "who00010"
 families = ["HissatsuReforged.Multiple"]
 
 [[edit]]
-target = "whs01440"  # Triángulo múltiple
+target = "whs01440"
 families = ["HissatsuReforged.Multiple"]
 
 [[edit]]
-target = "whd00250"  # Defensa múltiple
+target = "whd00250"
 families = ["HissatsuReforged.Multiple"]
 
 [[edit]]
-target = "whs01450"  # Pingüino múltiple
+target = "whs01450"
 families = ["HissatsuReforged.Multiple"]
 
-# Fénix
 [[edit]]
-target = "whs00410"  # Fénix
+target = "whs00410"
 families = ["HissatsuReforged.Phoenix"]
 
 [[edit]]
-target = "whs00860"  # Fénix oscuro
+target = "whs00860"
 families = ["HissatsuReforged.Phoenix"]
 
 [[edit]]
-target = "whs00860_or"  # Fénix oscuro
+target = "whs00860_or"
 families = ["HissatsuReforged.Phoenix"]
 
-# Remate dragón
 [[edit]]
-target = "whs00060"  # Remate dragón
+target = "whs00060"
 families = ["HissatsuReforged.Dragon"]
 
 [[edit]]
@@ -248,7 +237,7 @@ target = "whs00830"  # Remate guiverno
 families = ["HissatsuReforged.Dragon"]
 
 [[edit]]
-target = "whs01030"  # Megadragón
+target = "whs01030"
 families = ["HissatsuReforged.Dragon"]
 
 [[edit]]
@@ -307,19 +296,18 @@ families = ["HissatsuReforged.Rebound"]
 target = "whs02190_or"  # Superremate rebotado
 families = ["HissatsuReforged.Rebound"]
 
-# Ruptura relámpago
 [[edit]]
-target = "whs00380"  # Ruptura relámpago
+target = "whs00380"
 families = ["HissatsuReforged.LightningBreak"]
 
 [[edit]]
-target = "whs00380_mm"  # Ruptura relámpago
+target = "whs00380_mm"
 families = ["HissatsuReforged.LightningBreak"]
 
 [[edit]]
-target = "whs10180"  # Ruptura relámpago
+target = "whs10180"
 families = ["HissatsuReforged.LightningBreak"]
 
 [[edit]]
-target = "whs03380"  # Ruptura relámpago CG
+target = "whs03380"
 families = ["HissatsuReforged.LightningBreak"]

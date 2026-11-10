@@ -1,0 +1,42 @@
+# The controlled player's PE bar under a smaller face bubble, no team dash ring.
+name = "character_reforged_points_pe_hud"
+mod = "CharacterReforged"
+order = 300
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["UpdateDashRecastMeter", "UpdateScreenOutCtrlCharaIcon", "PostStep"]
+description = "Character Reforged points: PE bar under the controlled player's face bubble (smaller bubble), no team dash ring"
+
+[[files]]
+stem = "soccer_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "pe_hud.lua"
+  marker = "CharacterReforged points pe hud"
+
+# twins of soccer_inplay_menu: the loader may hand the match VM any of them
+[[files]]
+stem = "soccer_battle_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "pe_hud.lua"
+  marker = "CharacterReforged points pe hud"
+
+[[files]]
+stem = "soccer_training_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "pe_hud.lua"
+  marker = "CharacterReforged points pe hud"
+
+[[files]]
+stem = "soccer_zigzag_dribble_training_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "pe_hud.lua"
+  marker = "CharacterReforged points pe hud"

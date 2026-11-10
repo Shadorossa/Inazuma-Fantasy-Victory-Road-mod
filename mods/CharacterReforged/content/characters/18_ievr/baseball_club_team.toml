@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Baseball Club Team · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c11040010"                                   # Kendrick Townsend
 moves = [
-  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
+  { move = 0x4F58F805, level = 1 },                         # Coil Turn
   { move = 0xC42D6F54, level = 13 },                        # Aikido
-  { move = 0x4F58F805, level = 20 },                        # Coil Turn
-  { move = 0x7C1494CF, level = 30 },                        # Tornado Tunnel
+  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
+  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -22,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11040020"                                   # Flynn Duval
 moves = [
-  { move = 0x19C3F43D, level = 1 },                         # Eternal Blizzard
-  { move = 0x7EEA4EE9, level = 13 },                        # Blade Attack
-  { move = 0x49933AEE, level = 20 },                        # Perfect Tower
-  { move = 0xDE4ED944, level = 30 },                        # Snowstorm Leopard
+  { move = 0x7EEA4EE9, level = 1 },                         # Blade Attack
+  { move = 0x19C3F43D, level = 13 },                        # Eternal Blizzard
+  { move = 0xDE4ED944, level = 20 },                        # Snowstorm Leopard
+  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -38,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11040030"                                   # Zayn Pinegrove
 moves = [
-  { move = 0xC21AFE80, level = 1 },                         # Whirlwind Drop
-  { move = 0x62BE692D, level = 13 },                        # Whirlwind Force
+  { move = 0x62BE692D, level = 1 },                         # Whirlwind Force
+  { move = 0x2B343D01, level = 13 },                        # Cyclone
   { move = 0x613ABD43, level = 20 },                        # Dawnrise
-  { move = 0x2B343D01, level = 30 },                        # Cyclone
+  { move = 0xC21AFE80, level = 30 },                        # Whirlwind Drop
 ]
 
   [[edit.cards]]
@@ -54,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11040040"                                   # Eamon Cattrall
 moves = [
-  { move = 0x21127474, level = 1 },                         # Ultra Moon
-  { move = 0xAB6422AC, level = 13 },                        # Phantom Shot
-  { move = 0xC16279D1, level = 20 },                        # Field of Force
-  { move = 0xDBFD9CFE, level = 30 },                        # Big Ball Trick
+  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
+  { move = 0xDBFD9CFE, level = 13 },                        # Big Ball Trick
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
+  { move = 0xC16279D1, level = 30 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -70,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11040050"                                   # Maximus Cordray
 moves = [
-  { move = 0x84385EE2, level = 1 },                         # Black Tide Ride
-  { move = 0xBFCC20E7, level = 13 },                        # Wood Chopper
-  { move = 0x166B0073, level = 20 },                        # Super Armadillo
-  { move = 0xD471DE6C, level = 30 },                        # Snakebite
+  { move = 0xBFCC20E7, level = 1 },                         # Wood Chopper
+  { move = 0x62DEE8B1, level = 13 },                        # Jumping Whack
+  { move = 0xD471DE6C, level = 20 },                        # Snakebite
+  { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
 ]
 
   [[edit.cards]]
@@ -86,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11040060"                                   # Paxton Plumfield
 moves = [
-  { move = 0x43B5739B, level = 1 },                         # Lightning Bolt
-  { move = 0x0A3F27B7, level = 13 },                        # Foul Offence 3
+  { move = 0xBDAE2862, level = 1 },                         # Hellfire
+  { move = 0x43B5739B, level = 13 },                        # Lightning Bolt
   { move = 0x65766A4F, level = 20 },                        # Meteor Blade
-  { move = 0xBDAE2862, level = 30 },                        # Hellfire
+  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -102,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11040070"                                   # Godfrey Shahmann
 moves = [
-  { move = 0x8B31808E, level = 1 },                         # Wormhole
-  { move = 0xC16279D1, level = 13 },                        # Field of Force
+  { move = 0x750E6DAB, level = 1 },                         # Matador Feint
+  { move = 0xB5B7108F, level = 13 },                        # Shadow Stitch
   { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x750E6DAB, level = 30 },                        # Matador Feint
+  { move = 0xC16279D1, level = 30 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -119,8 +116,8 @@ moves = [
 target = "c11040080"                                   # Nico Kensee
 moves = [
   { move = 0x0CF4E55C, level = 1 },                         # Double Touch
-  { move = 0x72BFA108, level = 13 },                        # Wall of Atlantis
-  { move = 0x79E3E635, level = 20 },                        # Racing Flame
+  { move = 0x79E3E635, level = 13 },                        # Racing Flame
+  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
   { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
 ]
 
@@ -134,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11040090"                                   # Kurtis Loafinn
 moves = [
-  { move = 0x19BA3BFC, level = 1 },                         # Dance on Air
-  { move = 0x4FE09C7A, level = 13 },                        # Acrobatic Keep
-  { move = 0x5E233E68, level = 20 },                        # Super Elastico
-  { move = 0x53CD747F, level = 30 },                        # Tarzan Kick
+  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
+  { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
+  { move = 0x4FE09C7A, level = 20 },                        # Acrobatic Keep
+  { move = 0x5E233E68, level = 30 },                        # Super Elastico
 ]
 
   [[edit.cards]]
@@ -150,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11040100"                                   # Gilbert Kraft
 moves = [
-  { move = 0x2A4E3349, level = 1 },                         # Heart Beat
-  { move = 0x79E3E635, level = 13 },                        # Racing Flame
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0xB13A6C3D, level = 30 },                        # Zigzag Flame
+  { move = 0x79E3E635, level = 1 },                         # Racing Flame
+  { move = 0xB13A6C3D, level = 13 },                        # Zigzag Flame
+  { move = 0x2A4E3349, level = 20 },                        # Heart Beat
+  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -166,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11040110"                                   # Vicente Olsean
 moves = [
-  { move = 0xE0549BE6, level = 1 },                         # Easy Breezy Kid
-  { move = 0xC5B27C7E, level = 13 },                        # Storm Rider
+  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
+  { move = 0xE0549BE6, level = 13 },                        # Easy Breezy Kid
   { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
-  { move = 0xC66BD10D, level = 30 },                        # Zigzag Spark
+  { move = 0x0F4DC9B3, level = 30 },                        # Logicstical Sync
 ]
 
   [[edit.cards]]
@@ -181,10 +178,10 @@ moves = [
 [[edit]]
 target = "c11040120"                                   # Ruckus Dinglestar
 moves = [
-  { move = 0x2A4E3349, level = 1 },                         # Heart Beat
-  { move = 0x025FD09B, level = 13 },                        # Volcano Cut
-  { move = 0x78218C02, level = 20 },                        # Duskfall
-  { move = 0xB13A6C3D, level = 30 },                        # Zigzag Flame
+  { move = 0x025FD09B, level = 1 },                         # Volcano Cut
+  { move = 0xB13A6C3D, level = 13 },                        # Zigzag Flame
+  { move = 0x2A4E3349, level = 20 },                        # Heart Beat
+  { move = 0x78218C02, level = 30 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -197,10 +194,10 @@ moves = [
 [[edit]]
 target = "c11040130"                                   # Burley Billabong
 moves = [
-  { move = 0xEA12530F, level = 1 },                         # Double Rocket
-  { move = 0x9765A74A, level = 13 },                        # Beast Fang
-  { move = 0x05567847, level = 20 },                        # Runaway Train
-  { move = 0x8FBCFC3C, level = 30 },                        # Blazing Knuckle
+  { move = 0x05567847, level = 1 },                         # Runaway Train
+  { move = 0x8FBCFC3C, level = 13 },                        # Blazing Knuckle
+  { move = 0xEA12530F, level = 20 },                        # Double Rocket
+  { move = 0x9765A74A, level = 30 },                        # Beast Fang
 ]
 
   [[edit.cards]]
@@ -213,10 +210,10 @@ moves = [
 [[edit]]
 target = "c11040140"                                   # Britson Farago
 moves = [
-  { move = 0x7D6E9A87, level = 1 },                         # The Wall
-  { move = 0x485150D9, level = 13 },                        # Body Shield
+  { move = 0x14D1ED15, level = 1 },                         # Jumping Jack
+  { move = 0x7D6E9A87, level = 13 },                        # The Wall
   { move = 0xB1FBC783, level = 20 },                        # Reflect Buster
-  { move = 0x14D1ED15, level = 30 },                        # Jumping Jack
+  { move = 0x485150D9, level = 30 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -229,10 +226,10 @@ moves = [
 [[edit]]
 target = "c11040150"                                   # Verdy Golnuts
 moves = [
-  { move = 0xC5EF0563, level = 1 },                         # Three-Legged Rush
-  { move = 0x2D9F7E76, level = 13 },                        # Breath Taker
-  { move = 0xEE9F2FBD, level = 20 },                        # God Catch
-  { move = 0x5E233E68, level = 30 },                        # Super Elastico
+  { move = 0x4031A7F5, level = 1 },                         # Mole Fake
+  { move = 0xC5EF0563, level = 13 },                        # Three-Legged Rush
+  { move = 0x5E233E68, level = 20 },                        # Super Elastico
+  { move = 0xDD0BA694, level = 30 },                        # Okehazama Ravine
 ]
 
   [[edit.cards]]
@@ -245,10 +242,10 @@ moves = [
 [[edit]]
 target = "c11040160"                                   # Zackory Wart
 moves = [
-  { move = 0x514A6198, level = 1 },                         # Asteroid Belt
-  { move = 0xE937AD43, level = 13 },                        # Dragon Slayer
-  { move = 0x8B90AAAC, level = 20 },                        # Fortissimo
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0x8B90AAAC, level = 1 },                         # Fortissimo
+  { move = 0x0E0A3F7A, level = 13 },                        # Spatial Portal
+  { move = 0x514A6198, level = 20 },                        # Asteroid Belt
+  { move = 0xE937AD43, level = 30 },                        # Dragon Slayer
 ]
 
   [[edit.cards]]

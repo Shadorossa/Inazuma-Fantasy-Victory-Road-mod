@@ -1,12 +1,8 @@
--- Character stats providers: reports the detour chain of the entries that decide a character's numbers (Chara.GetParamStatus, Chara.GetSpecialtyType,
--- Technique.MatchSkillInstall; item transformations, then each mod's [[VRFW.Hook]], last installed runs first) and answers who provides what (native side: content\game\chara_stats.toml).
--- Exposes game_state vrfw.chara_stats.providers (detour owners of Chara.GetParamStatus) and CMND_VRFW_CHARA_STATS_PROVIDERS(entry) -> n, "<mod>.<hook>"... in run order.
 
 CharaStats = CharaStats or {}
 
-local E = require "lib/game_entries"
+local E = VRFW.entries
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("chara_stats")
 
 local ENTRIES = { "Chara.GetParamStatus", "Chara.GetSpecialtyType", "Technique.MatchSkillInstall" }

@@ -1,0 +1,24 @@
+schema = "VRFW.item/2"
+
+[[VRFW.MatchDropExtra]]
+Item = "tk_hr000008"
+Chains = ["ChronicleDeluxe.*"]
+  [VRFW.MatchDropExtra.Difficulty]          # the multiplier by the played difficulty (declared Ids)
+  Cronica = 1.0
+  RouteOpen = 1.25
+  RareItems = 1.5
+  Heroica = 1.75
+  HeroicaPlus = 2.0
+  Legendaria = 2.5
+  Class1 = 1.0                              # free match Lv 50
+  Class2 = 1.5                              # Lv 99
+  Class3 = 2.0
+  Class4 = 2.5                              # Lv 200
+  [[VRFW.MatchDropExtra.Rank]]
+  Id = "A"
+  Bonus = 5
+  PerExtraGoal = 2
+  [[VRFW.MatchDropExtra.Rank]]
+  Id = "S"
+  Bonus = 10
+  PerExtraGoal = 2

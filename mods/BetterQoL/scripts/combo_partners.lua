@@ -1,32 +1,14 @@
--- BetterQoL › combo partners (feature combo_partners).
---
--- A combo / cooperative move (SKILL_INFO partnerType 2-4 = performers) is cast with the executor plus partnerType - 1
--- teammates; the game picks them itself (BuildEventCast). The player chooses, per player and move, which teammates
--- perform it with him, for every partner slot: the move's named partners (SKILL_INFO partner1..3) are only the
--- defaults of the first slots and can be replaced like any other pick. In a match, right after the cast is built,
--- every slot whose chosen partner is on the pitch gets him; a chosen partner not on the pitch (or no choice) keeps the
--- engine's pick for that slot (a named partner when he is there).
---
--- Save: blob skill_partners.json of mod BetterQoL, one per slot:
---   { version = 2, players = { ["<executor handle, 8 hex>"] = { param_id = <chara_param>, moves = { ["<skill, 8 hex>"] = { p1, p2, p3 } } } } }
--- p<k> = partner slot k (0 = the engine's pick). Version 1 listed the free slots only (after the named ones); its lists
--- are moved behind the named slots when read. A handle reused by another card (another param_id) starts empty.
---
--- A coach or a manager is never a partner. Staff = the card's role in its record (attribute byte REC_ROLE, bits
--- ROLE_COACH / ROLE_MANAGER: what the game sets for a staff card and turns into its abl_000002 / abl_000003 badge
--- «Native staff creation»). A staff partner is saved as random and, in the match, left to the engine's pick. The
--- picker (graft combo_partners) does not offer them either: it asks the game's own badge test.
-
+local Memory = VRFW.memory
 local BLOB = "skill_partners.json"
 local FILE_VERSION = 2
 local MAX_PARTNERS = 3
 local HELD_STALE_MS = 250
+-- record attribute byte and its staff role bits
 local REC_ROLE, ROLE_COACH, ROLE_MANAGER = 0x20, 0x10, 0x20
 
-local Id = require "VRFW/lib/ids"
-local Actors = require "VRFW/lib/actors"
-require "VRFW/lib/save_doc"
-local u32 = Id.u32
+local Id = VRFW.ids
+local Actors = VRFW.players
+local u32 = Id.unsigned
 
 local function arg_u32(v)
   if type(v) ~= "number" then
@@ -39,7 +21,14 @@ local function key(v)
   return string.format("%08X", u32(v))
 end
 
--- a coach or a manager card (record role bits)
+-- trailing zeros (engine picks) dropped
+local function trim_zeros(v)
+  while #v > 0 and v[#v] == 0 do
+    v[#v] = nil
+  end
+  return v
+end
+
 local function is_staff(hdl)
   if hdl == 0 then
     return false
@@ -48,11 +37,9 @@ local function is_staff(hdl)
   if not r or not r.addr then
     return false
   end
-  local ok, role = pcall(VRFW.mem.read, "u8", r.addr + REC_ROLE)
-  return ok and type(role) == "number" and bit32.band(role, ROLE_COACH + ROLE_MANAGER) ~= 0
+  local role = Memory.read("u8", r.addr + REC_ROLE)
+  return type(role) == "number" and bit32.band(role, ROLE_COACH + ROLE_MANAGER) ~= 0
 end
-
--- ---------------------------------------------------------------------------------------------- the move's partners
 
 local function partners_of(info)
   local ok, p = pcall(function()
@@ -77,7 +64,7 @@ local function partners_of(info)
   return { performers = performers, slots = slots, named = named, free = slots - #named }
 end
 
--- SKILL_INFO of a move through the engine's own table (derived from the loaded skill_config: no move list)
+-- SKILL_INFO partners of a move through the engine's own table
 local function skill_partners(skill)
   if skill == 0 or not VRFW.is_on("Technique.SkillInfoFind") then
     return nil
@@ -86,68 +73,35 @@ local function skill_partners(skill)
   if not tbl then
     return nil
   end
-  local out, id = VRFW.mem.buffer("info_out", 8), VRFW.mem.buffer("info_id", 4)
-  VRFW.mem.write("ptr", out, 0)
-  VRFW.mem.write("u32", id, skill)
+  local out, id = VRFW.memory.buffer("info_out", 8), VRFW.memory.buffer("info_id", 4)
+  VRFW.memory.write("ptr", out, 0)
+  VRFW.memory.write("u32", id, skill)
   if not pcall(VRFW.call, "Technique.SkillInfoFind", tbl, out, id) then
     return nil
   end
-  local info = VRFW.mem.read("ptr", out)
+  local info = VRFW.memory.read("ptr", out)
   if not info or info < 0x10000 then
     return nil
   end
-  local ok, rec = pcall(VRFW.mem.struct, "SkillInfo", info)
+  local rec = VRFW.memory.struct("SkillInfo", info)
+  local ok = rec ~= nil
   return ok and partners_of(rec) or nil
 end
 
--- ---------------------------------------------------------------------------------------------- the saved choices
-
--- version 1 kept the free slots only: each list moves behind the move's named slots (left to the engine's pick)
-local function upgrade_free_slot_lists(f)
-  for _, e in pairs(f.players) do
-    for k, v in pairs(e.moves or {}) do
-      local sp = type(v) == "table" and #v > 0 and skill_partners(tonumber(k, 16) or 0) or nil
-      if sp and #sp.named > 0 then
-        local moved = {}
-        for i = 1, #sp.named do
-          moved[i] = 0
-        end
-        for i = 1, sp.slots - #sp.named do
-          moved[#sp.named + i] = v[i] or 0
-        end
-        while #moved > 0 and moved[#moved] == 0 do
-          moved[#moved] = nil
-        end
-        e.moves[k] = (#moved > 0) and moved or nil
-      end
-    end
-  end
-end
-
--- the active slot's file: an unreadable one is left as it is (an empty one is used); version 1 is upgraded
-local DOC = VRFW.save.doc(BLOB, {
+local DOC = VRFW.save.doc.new(BLOB, {
   aside = false,
   pretty = true,
   log = "combo partners",
   default = function() return { version = FILE_VERSION, players = {} } end,
   decode = function(f)
     f.players = f.players or {}
-    if (f.version or 1) < 2 then
-      upgrade_free_slot_lists(f)
-    end
     f.version = FILE_VERSION
     return f
   end,
 })
 
--- the file read again (the menus)
 local function load_fresh()
   DOC:forget()
-  return (DOC:get())
-end
-
--- the match hook: the cached file (read again for another slot or after a slot load)
-local function load_cached()
   return (DOC:get())
 end
 
@@ -169,7 +123,7 @@ local function choices(f, hdl, param, skill)
   return (e.moves or {})[key(skill)] or {}
 end
 
--- at most MAX_PARTNERS, no executor, no duplicate (a repeat becomes 0 = random), trailing randoms dropped
+-- at most MAX_PARTNERS, no executor, no duplicate (a repeat becomes 0 = random)
 local function clean(exec, partners)
   local v = {}
   for i = 1, math.min(#partners, MAX_PARTNERS) do
@@ -179,9 +133,6 @@ local function clean(exec, partners)
       dup = dup or (p ~= 0 and x == p)
     end
     v[#v + 1] = (p == exec or dup) and 0 or p
-  end
-  while #v > 0 and v[#v] == 0 do
-    v[#v] = nil
   end
   return v
 end
@@ -194,9 +145,7 @@ local function set_choices(f, hdl, param, skill, partners)
       v[i] = 0
     end
   end
-  while #v > 0 and v[#v] == 0 do
-    v[#v] = nil
-  end
+  trim_zeros(v)
   local k = key(hdl)
   local e = f.players[k]
   if not e or e.param_id ~= param then
@@ -215,11 +164,9 @@ local function param_of(hdl)
   return r and r.param or nil
 end
 
--- ---------------------------------------------------------------------------------------------- the match
-
--- the actor record (struct Actor) at an address of the match's actor table
 local function actor_record(address)
-  local ok, a = pcall(VRFW.mem.struct, "Actor", address)
+  local a = VRFW.memory.struct("Actor", address)
+  local ok = a ~= nil
   return ok and a or nil
 end
 
@@ -236,7 +183,6 @@ local function owner_of_actor(a)
   return VRFW.character.owner(ch)
 end
 
--- on-pitch teammates of `team` (except `exec`): { actor handle, saved owner }
 local function teammates(team, exec)
   local v = {}
   for _, e in ipairs(Actors.list()) do
@@ -255,8 +201,6 @@ local function teammates(team, exec)
   return v
 end
 
--- swap the chosen partners into cast[1..slots] (cast[0] = executor); wants[slot]: false / nil = the engine's pick, {
--- owner, actor or nil }. A named partner's slot is replaced like any other: the named partner is only the default.
 local function apply(cast, slots, wants)
   local out, placed = {}, {}
   for slot = 1, slots do
@@ -293,7 +237,8 @@ end
 local last_none = ""
 
 local function on_cast(cast_at, len, rec_at)
-  local ok, rec = pcall(VRFW.mem.struct, "SkillInfo", rec_at)
+  local rec = VRFW.memory.struct("SkillInfo", rec_at)
+  local ok = rec ~= nil
   if not ok then
     return
   end
@@ -304,7 +249,7 @@ local function on_cast(cast_at, len, rec_at)
   local skill = rec.skill
   local cast = {}
   for k = 0, len - 1 do
-    cast[k] = VRFW.mem.read("u32", cast_at + 4 * k)
+    cast[k] = VRFW.memory.read("u32", cast_at + 4 * k)
   end
   local exec = cast[0]
   local ea = actor_of_handle(exec)
@@ -316,7 +261,7 @@ local function on_cast(cast_at, len, rec_at)
   if not pid then
     return
   end
-  local chosen = choices(load_cached(), owner, pid, skill)
+  local chosen = choices((DOC:get()), owner, pid, skill)
   if #chosen == 0 then
     local tag = key(skill) .. key(owner)
     if tag ~= last_none then
@@ -330,7 +275,7 @@ local function on_cast(cast_at, len, rec_at)
   local mates = teammates(team, exec)
   local wants = {}
   for i, o in ipairs(chosen) do
-    if o == 0 or is_staff(o) then          -- a coach / manager (an older save): the engine's pick
+    if o == 0 or is_staff(o) then          -- a staff partner of an older save: the engine's pick
       wants[i] = false
     else
       local actor
@@ -350,12 +295,11 @@ local function on_cast(cast_at, len, rec_at)
   local after = {}
   for k = 1, slots do
     after[k] = string.format("%X", cast[k])
-    VRFW.mem.write("u32", cast_at + 4 * k, cast[k])
+    VRFW.memory.write("u32", cast_at + 4 * k, cast[k])
   end
   VRFW.log(string.format("skill 0x%08X (%d performers) by 0x%08X (actor 0x%X, team %d, %d on-pitch mates): %s; cast [%s] -> [%s]", skill, sp.performers, owner, exec, team, #mates, what, table.concat(before, " "), table.concat(after, " ")))
 end
 
--- BuildEventCast(ctx, cast, n, rec, ex, acting, lv, mode): after the engine built the cast
 VRFW.on("hook:BuildEventCast:post", function(ev)
   local a = ev.args
   local cast, n, rec, acting = a[2], a[3], a[4], a[6]
@@ -365,8 +309,6 @@ VRFW.on("hook:BuildEventCast:post", function(ev)
   on_cast(cast, n, rec)
   return nil
 end)
-
--- ---------------------------------------------------------------------------------------------- the commands
 
 -- skill -> performers, free, named1, named2, named3 (performers 0 = unknown move)
 function BetterQoL.ComboInfo(skill)
@@ -388,8 +330,6 @@ function BetterQoL.ComboGet(hdl, skill)
   return true, v[1] or 0, v[2] or 0, v[3] or 0
 end
 
--- charaStHdl, skill, p1[, p2, p3] -> ok: p<k> = partner slot k, named slots included (0 = the engine's pick; the list
--- is cut to the move's partner slots; all 0 = the move's entry removed)
 function BetterQoL.ComboSet(hdl, skill, p1, p2, p3)
   hdl, skill = arg_u32(hdl), arg_u32(skill)
   local v = { arg_u32(p1), arg_u32(p2), arg_u32(p3) }
@@ -431,11 +371,8 @@ function BetterQoL.ComboClear(hdl, skill)
   return write(f, string.format("0x%08X skill 0x%08X cleared", hdl, skill))
 end
 
--- the hold timers, one per (mask, keys) query: { since, last poll }
 local holds = {}
 
--- mask[, vk …] -> seconds the pad buttons `mask` (g_pad + 8, Y = 0x1000) or any of the keys have been held without a
--- break; 0 = not held now; -1 = neither the pad nor the keyboard can be read
 function BetterQoL.PadHeld(mask, ...)
   mask = arg_u32(mask)
   local vks = {}
@@ -451,7 +388,7 @@ function BetterQoL.PadHeld(mask, ...)
   end
   local held = (pad ~= nil and bit32.band(pad, mask) == mask) or key_held == true
   local id = tostring(mask) .. ":" .. table.concat(vks, ",")
-  local now = VRFW.now()
+  local now = VRFW.now_ms()
   local e = holds[id]
   if not held then
     holds[id] = nil

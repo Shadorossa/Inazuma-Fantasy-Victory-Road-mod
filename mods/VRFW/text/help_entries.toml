@@ -1,0 +1,48 @@
+# Texts of the Help screen's Mods tab and its pages.
+schema = "VRFW.text_key/1"
+default_lang = "en"
+
+[en.new]
+help_mods_tab = "Mods"
+help_mods_panel_title = "The Mods panel"
+help_mods_panel_body = "The Mods panel lists every mod you have installed and lets you turn each one on or off.\\nOpen it from the title screen. If a mod has a problem, the panel tells you which one and why.\\nChanges take effect the next time the game starts."
+
+[es.new]
+help_mods_tab = "Mods"
+help_mods_panel_title = "El panel de Mods"
+help_mods_panel_body = "El panel de Mods muestra todos los mods que tienes instalados y te deja activar o desactivar cada uno.\\nÁbrelo desde la pantalla de título. Si un mod tiene un problema, el panel te dice cuál y por qué.\\nLos cambios se aplican la próxima vez que inicies el juego."
+
+[fr.new]
+help_mods_tab = "Mods"
+help_mods_panel_title = "Le panneau Mods"
+help_mods_panel_body = "Le panneau Mods affiche tous les mods installés et permet d'activer ou de désactiver chacun d'eux.\\nOuvrez-le depuis l'écran titre. Si un mod a un problème, le panneau indique lequel et pourquoi.\\nLes changements prennent effet au prochain lancement du jeu."
+
+[de.new]
+help_mods_tab = "Mods"
+help_mods_panel_title = "Das Mods-Menü"
+help_mods_panel_body = "Das Mods-Menü zeigt alle installierten Mods und lässt dich jeden einzeln ein- oder ausschalten.\\nDu öffnest es auf dem Titelbildschirm. Hat ein Mod ein Problem, nennt dir das Menü, welcher es ist und warum.\\nÄnderungen gelten beim nächsten Spielstart."
+
+[it.new]
+help_mods_tab = "Mod"
+help_mods_panel_title = "Il pannello Mod"
+help_mods_panel_body = "Il pannello Mod mostra tutte le mod installate e ti permette di attivarle o disattivarle una per una.\\nSi apre dalla schermata del titolo. Se una mod ha un problema, il pannello ti dice quale e perché.\\nLe modifiche si applicano al prossimo avvio del gioco."
+
+[pt.new]
+help_mods_tab = "Mods"
+help_mods_panel_title = "O painel de Mods"
+help_mods_panel_body = "O painel de Mods mostra todos os mods instalados e permite ativar ou desativar cada um deles.\\nAbra-o na tela de título. Se um mod tiver um problema, o painel indica qual é e o motivo.\\nAs alterações valem na próxima vez que o jogo for iniciado."
+
+[ja.new]
+help_mods_tab = "MOD"
+help_mods_panel_title = "MODパネル"
+help_mods_panel_body = "MODパネルでは、インストールしたMODの一覧を確認し、それぞれをオン・オフできます。\\nタイトル画面から開けます。問題のあるMODは、原因とともにパネルに表示されます。\\n変更は次回のゲーム起動時に反映されます。"
+
+[zh_hans.new]
+help_mods_tab = "模组"
+help_mods_panel_title = "模组面板"
+help_mods_panel_body = "模组面板会列出所有已安装的模组,并可以逐个开启或关闭。\\n可在标题画面打开。如果模组出现问题,面板会显示是哪个模组以及原因。\\n更改将在下次启动游戏时生效。"
+
+[zh_hant.new]
+help_mods_tab = "模組"
+help_mods_panel_title = "模組面板"
+help_mods_panel_body = "模組面板會列出所有已安裝的模組,並可逐一開啟或關閉。\\n可在標題畫面開啟。如果模組發生問題,面板會顯示是哪個模組以及原因。\\n變更將在下次啟動遊戲時生效。"

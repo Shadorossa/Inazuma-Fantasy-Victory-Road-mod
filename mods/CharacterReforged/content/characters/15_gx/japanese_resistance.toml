@@ -1,13 +1,10 @@
 schema = "VRFW.character/2"
-# Character Reforged · Japanese Resistance · Inazuma Eleven GO Galaxy
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c06039230"                                   # Caleb Stonewall
 moves = [
   { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x71831119, level = 1 },                         # Foul Offence 2
+  { move = 0x71831119, level = 11 },                        # Foul Offence 2
   { move = 0xBF6D0AC5, level = 50 },                        # Emperor Penguin No. 3
   { move = 0xC16279D1, level = 60 },                        # Field of Force
 ]

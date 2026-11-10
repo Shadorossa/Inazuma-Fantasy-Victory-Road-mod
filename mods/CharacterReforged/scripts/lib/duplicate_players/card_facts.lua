@@ -1,28 +1,14 @@
--- Character Reforged › duplicate players: what the pass knows besides the save, read from the tables the game loads
--- and the declaring mods' files (no lists in code).
---
---   cards     chara_param (served): card -> { character = chara_base (col 1), element (col 2), special_rarity (col 41) };
---             a character's base card = his first normal card (col 41 = 0) in chara_param order
---   hidden    the cards a rule releases (release_cards_hidden_in: that mod's [[hide]] / [[remove]] mode = "hide" rows).
---             A hidden card's chara_param row may be deleted, so its element is its character's (the first normal
---             card of that chara_base in chara_param)
---   auras     aura_skill_config (served): the aura commands a kept card may hold in his board's aura slot (auraType 5 =
---             the generic hyper powers and the test_* rows are not auras a team entry keeps)
 
 local CardFacts = {}
 
-local CHARA_PARAM = "data/common/gamedata/character/chara_param_*.cfg.bin"
-local AURA_CONFIG = "data/common/gamedata/skill/aura_skill_config_*.cfg.bin"
--- chara_param columns (1-based: the 0-based column + 1): card id, chara_base, element, special rarity
-local COLUMN_CARD, COLUMN_CHARACTER, COLUMN_ELEMENT, COLUMN_SPECIAL_RARITY = 1, 2, 3, 42
--- aura_skill_config columns (1-based): command id, key, aura type
+local COLUMN_CARD, COLUMN_CHARACTER, COLUMN_ELEMENT, COLUMN_POSITION, COLUMN_SPECIAL_RARITY = 1, 2, 3, 4, 42
 local COLUMN_AURA_ID, COLUMN_AURA_KEY, COLUMN_AURA_TYPE = 1, 2, 11
 local AURA_TYPE_GENERIC_POWER = 5
 local TEST_AURA_PREFIX = "test_"
 local FIRST_ELEMENT, LAST_ELEMENT = 1, 4
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
 local function whole(v)
   if type(v) ~= "number" then return 0 end
@@ -30,14 +16,14 @@ local function whole(v)
 end
 
 local function read_cards()
-  local rows = VRFW.table.raw(CHARA_PARAM, "CHARA_PARAM_INFO", { COLUMN_CARD, COLUMN_CHARACTER, COLUMN_ELEMENT, COLUMN_SPECIAL_RARITY })
+  local rows = VRFW.table.raw(VRFW.table_files.file_name(VRFW.table_files.CHARA_PARAM), "CHARA_PARAM_INFO", { COLUMN_CARD, COLUMN_CHARACTER, COLUMN_ELEMENT, COLUMN_POSITION, COLUMN_SPECIAL_RARITY })
   local cards = {}
   for order, row in ipairs(rows) do
     if row[COLUMN_CARD] ~= nil then
       local card = u32(row[COLUMN_CARD])
       if cards[card] == nil then
         cards[card] = {
-          character = u32(row[COLUMN_CHARACTER]), element = whole(row[COLUMN_ELEMENT]) % 256,
+          character = u32(row[COLUMN_CHARACTER]), element = whole(row[COLUMN_ELEMENT]) % 256, position = whole(row[COLUMN_POSITION]) % 256,
           special_rarity = u32(row[COLUMN_SPECIAL_RARITY]), order = order,
         }
       end
@@ -46,7 +32,6 @@ local function read_cards()
   return cards
 end
 
--- each character's base card: his first normal card (col 41 = 0) in chara_param order
 local function first_normal_cards(cards)
   local by_order = {}
   for card, facts in pairs(cards) do by_order[#by_order + 1] = { facts.order, card, facts } end
@@ -61,23 +46,24 @@ local function first_normal_cards(cards)
   return base
 end
 
--- the element of each character's base card
+-- the element and the position of each character's base card
 local function first_normal_elements(cards)
-  local elements = {}
-  for character, card in pairs(first_normal_cards(cards)) do elements[character] = cards[card].element end
-  return elements
+  local elements, positions = {}, {}
+  for character, card in pairs(first_normal_cards(cards)) do
+    elements[character], positions[character] = cards[card].element, cards[card].position
+  end
+  return elements, positions
 end
 
--- the hidden cards of every source: card -> { element } (nil element = the character has no normal card)
 local function read_hidden(cards, sources)
   local hidden = {}
   if #sources == 0 then return hidden end
-  local elements = first_normal_elements(cards)
+  local elements, positions = first_normal_elements(cards)
   local function add(card, character_key)
     card = u32(card)
     if card == 0 then return end
     local character = type(character_key) == "string" and VRFW.character(character_key) or nil
-    hidden[card] = { element = character and elements[character] or nil }
+    hidden[card] = { element = character and elements[character] or nil, position = character and positions[character] or nil }
   end
   for _, source in ipairs(sources) do
     local ok, declarations = pcall(VRFW.files.declarations, source.file)
@@ -102,7 +88,7 @@ end
 
 local function read_auras()
   local auras = {}
-  for _, row in ipairs(VRFW.table.raw(AURA_CONFIG, "AURA_CMD_INFO", { COLUMN_AURA_ID, COLUMN_AURA_KEY, COLUMN_AURA_TYPE })) do
+  for _, row in ipairs(VRFW.table.raw(VRFW.table_files.file_name(VRFW.table_files.AURA_SKILL_CONFIG), "AURA_CMD_INFO", { COLUMN_AURA_ID, COLUMN_AURA_KEY, COLUMN_AURA_TYPE })) do
     local id = u32(row[COLUMN_AURA_ID])
     if id ~= 0 and auras[id] == nil then
       local aura_type = row[COLUMN_AURA_TYPE] ~= nil and (whole(row[COLUMN_AURA_TYPE]) % 256) or nil
@@ -127,6 +113,12 @@ function CardFacts:element_of(card)
   local element = facts and facts.element or (self.hidden[card] and self.hidden[card].element)
   if element and element >= FIRST_ELEMENT and element <= LAST_ELEMENT then return element end
   return nil
+end
+
+-- main position (1 GK, 2 DF, 3 MF, 4 FW) of a card, nil when unknown
+function CardFacts:position_of(card)
+  local facts = self.cards[card]
+  return facts and facts.position or (self.hidden[card] and self.hidden[card].position)
 end
 
 -- chara_param col 41 of a card (nil = no row)

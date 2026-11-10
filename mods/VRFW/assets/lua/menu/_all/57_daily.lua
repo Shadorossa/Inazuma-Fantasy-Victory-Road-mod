@@ -1,69 +1,34 @@
--- menu_engine: daily renewal (VRFW base service `VRFW.Daily`). Definitions only (this
--- file runs in every script VM, lua\_all; no engine call at load time). Mechanism only: no content, no UI. Every
--- number comes from the framework's DLL (CMND_VRFW_DAILY_*, the same Rust code as the Rust API), so a draw is the same
--- on every PC and in Rust and Lua.
---
---   VRFW_Daily.Period(kind [, id])          -> id, secondsUntilNext, label   (kind "day" | "week" | "month")
---   VRFW_Daily.Rng(key [, spec])            -> a generator; spec = { Period = "day", Version = 1, Id = <period id> }
---     g:Int(lo, hi)                         -> integer in lo..hi
---     g:Pick(items [, key])                 -> item, index
---     g:Sample(items, n [, key])            -> { items } (n distinct, draw order), { indices }
---     g:Shuffle(items [, key])              -> { items } (all, random order), { indices }
---     g:Weighted(items, weight [, key])     -> item, index   (weight = field name or function(item) -> integer >= 0)
---       key = field name or function(item) -> number / string (default: the item itself). The items are put in the
---       order of their keys first (numbers when every key is an integer, else bytes), so the caller's list order never
---       matters; two items with the same key = an error (nil + logged once).
---   VRFW_Daily.Seed(key [, spec])           -> seed (hex text), id
---   VRFW_Daily.Seen(key [, kind])           -> isNew, previous (-1 = never), current   (records the current period)
---   VRFW_Daily.MarkDone(key [, kind])       -> ok, streak, newlyDone
---   VRFW_Daily.IsDone(key [, kind])         -> done
---   VRFW_Daily.Streak(key [, kind])         -> streak, best, total
---   VRFW_Daily.Status(key [, kind])         -> { done, streak, best, total, lastDone, current, secondsUntilNext }
---   VRFW_Daily.On(kind, fn [, id])          -> registers fn(newId, oldId, kind) for a renewal seen by Poll in this VM
---   VRFW_Daily.Poll()                       -> calls the On handlers of every kind whose id changed since this VM's
---                                              last Poll (the first Poll of a VM only takes the baseline)
---   VRFW_Daily.Watch(stem)                  -> polls from that script's Step (VRFW_Host after-handler, ~every 30 frames)
--- The records (Seen / MarkDone / ...) belong to the game in memory's save slot. Without the DLL every call answers
--- "nothing" (nil / false / 0) and nothing is drawn.
-if VRFW_Daily == nil then
+-- lua_patch.scope: used
+-- menu_engine: daily renewal (VRFW base service `VRFW.Daily`).
+if VRFW.daily == nil then
   local D = {
     CMD = {
-      PERIOD = VRFW_Cmd.VRFW_DAILY_PERIOD,    -- CMND_VRFW_DAILY_PERIOD (kind [, id]) -> id, secs, label
-      SEED = VRFW_Cmd.VRFW_DAILY_SEED,      -- CMND_VRFW_DAILY_SEED (key, kind, version [, id]) -> hex, id, generator
-      INT = VRFW_Cmd.VRFW_DAILY_INT,        -- CMND_VRFW_DAILY_INT (key, kind, version, id, cursor, lo, hi) -> value, cursor
-      PICK = VRFW_Cmd.VRFW_DAILY_PICK,        -- CMND_VRFW_DAILY_PICK (key, kind, version, id, cursor, keys) -> index, cursor
-      SAMPLE = VRFW_Cmd.VRFW_DAILY_SAMPLE,    -- CMND_VRFW_DAILY_SAMPLE (..., keys, k) -> "i,j,...", cursor
-      SHUFFLE = VRFW_Cmd.VRFW_DAILY_SHUFFLE,   -- CMND_VRFW_DAILY_SHUFFLE (..., keys) -> "i,j,...", cursor
-      WEIGHTED = VRFW_Cmd.VRFW_DAILY_WEIGHTED,  -- CMND_VRFW_DAILY_WEIGHTED (..., keys, weights) -> index, cursor
-      SEEN = VRFW_Cmd.VRFW_DAILY_SEEN,       -- CMND_VRFW_DAILY_SEEN (key, kind) -> isNew, previous, current
-      MARK_DONE = VRFW_Cmd.VRFW_DAILY_MARK_DONE, -- CMND_VRFW_DAILY_MARK_DONE (key, kind) -> ok, streak, newlyDone
-      IS_DONE = VRFW_Cmd.VRFW_DAILY_IS_DONE,    -- CMND_VRFW_DAILY_IS_DONE (key, kind) -> done
-      STREAK = VRFW_Cmd.VRFW_DAILY_STREAK,    -- CMND_VRFW_DAILY_STREAK (key, kind) -> streak, best, total
-      STATUS = VRFW_Cmd.VRFW_DAILY_STATUS,     -- CMND_VRFW_DAILY_STATUS (key, kind) -> done, streak, best, total, lastDone, current, secs
+      PERIOD = VRFW.commands.VRFW_DAILY_PERIOD,    -- CMND_VRFW_DAILY_PERIOD (kind [, id]) -> id, secs, label
+      SEED = VRFW.commands.VRFW_DAILY_SEED,
+      INT = VRFW.commands.VRFW_DAILY_INT,
+      PICK = VRFW.commands.VRFW_DAILY_PICK,
+      SAMPLE = VRFW.commands.VRFW_DAILY_SAMPLE,    -- CMND_VRFW_DAILY_SAMPLE (..., keys, k) -> "i,j,...", cursor
+      SHUFFLE = VRFW.commands.VRFW_DAILY_SHUFFLE,   -- CMND_VRFW_DAILY_SHUFFLE (..., keys) -> "i,j,...", cursor
+      WEIGHTED = VRFW.commands.VRFW_DAILY_WEIGHTED,
+      SEEN = VRFW.commands.VRFW_DAILY_SEEN,       -- CMND_VRFW_DAILY_SEEN (key, kind) -> isNew, previous, current
+      MARK_DONE = VRFW.commands.VRFW_DAILY_MARK_DONE,
+      IS_DONE = VRFW.commands.VRFW_DAILY_IS_DONE,    -- CMND_VRFW_DAILY_IS_DONE (key, kind) -> done
+      STREAK = VRFW.commands.VRFW_DAILY_STREAK,    -- CMND_VRFW_DAILY_STREAK (key, kind) -> streak, best, total
+      STATUS = VRFW.commands.VRFW_DAILY_STATUS,
     },
-    LOG = VRFW_Cmd.EVT_LOG,         -- CMND_EVT_LOG
     KINDS = { day = true, week = true, month = true },
     handlers = {},            -- handlers[kind] = { { id, fn }, ... }
     last = {},                -- last[kind] = id seen by the last Poll of this VM
-    logged = {},
     watched = {},
     frames = 0,
   }
-  VRFW_Daily = D
+  VRFW.daily = D
 
-  local function call(cmd, ...)
-    local r = table.pack(pcall(funcLuaCommand, cmd, ...))
-    if r[1] then
-      return table.unpack(r, 2, r.n)
-    end
-    return nil
-  end
-
-  function D.Log(text)
-    if not D.logged[text] then
-      D.logged[text] = true
-      pcall(funcLuaCommand, D.LOG, "VRFW daily " .. text)
-    end
+  local logger
+  --- Logs text once through the daily logger.
+  function D.log(text)
+    logger = logger or VRFW.logger.new("VRFW daily")
+    logger.once(text, text)
   end
 
   local function kind_of(k)
@@ -77,33 +42,33 @@ if VRFW_Daily == nil then
     return nil
   end
 
-  function D.Period(kind, id)
+  --- The current period of `kind`: index, seconds left, label; nil for an unknown kind.
+  function D.period(kind, id)
     local k = kind_of(kind)
     if k == nil then
       return nil
     end
-    local i, secs, label = call(D.CMD.PERIOD, k, id)
+    local i, secs, label = VRFW.host.command(D.CMD.PERIOD, k, id)
     if type(i) ~= "number" or i < 0 and label == "" then
       return nil
     end
     return i, secs, label
   end
 
-  -- ------------------------------------------------------------ generator
-
   local G = {}
   G.__index = G
 
-  function D.Rng(key, spec)
+  --- A seeded generator for key and spec.Period; nil on a bad key or period.
+  function D.rng(key, spec)
     spec = spec or {}
     local k = kind_of(spec.Period)
     if type(key) ~= "string" or k == nil then
-      D.Log("Rng: a key text and Period day / week / month expected")
+      D.log("Rng: a key text and Period day / week / month expected")
       return nil
     end
     local id = spec.Id
     if id == nil then
-      id = D.Period(k)   -- pinned: a generator never changes period in the middle of a sequence
+      id = D.period(k)
     end
     if id == nil then
       return nil
@@ -111,13 +76,14 @@ if VRFW_Daily == nil then
     return setmetatable({ key = key, period = k, version = spec.Version or 1, id = id, cursor = 0 }, G)
   end
 
-  function D.Seed(key, spec)
+  --- The period seed as hex, then its id; nil for an unknown period.
+  function D.seed(key, spec)
     spec = spec or {}
     local k = kind_of(spec.Period)
     if k == nil then
       return nil
     end
-    local hex, id = call(D.CMD.SEED, key, k, spec.Version or 1, spec.Id)
+    local hex, id = VRFW.host.command(D.CMD.SEED, key, k, spec.Version or 1, spec.Id)
     if hex == nil or hex == "" then
       return nil
     end
@@ -127,15 +93,16 @@ if VRFW_Daily == nil then
   -- the result of a draw command: value, new cursor (-1 = error, third value = why)
   local function advance(g, what, v, cursor, err)
     if type(cursor) ~= "number" or cursor < 0 then
-      D.Log(what .. " " .. g.key .. ": " .. tostring(err or "no answer (framework DLL missing?)"))
+      D.log(what .. " " .. g.key .. ": " .. tostring(err or "no answer (framework DLL missing?)"))
       return nil
     end
     g.cursor = cursor
     return v
   end
 
-  function G:Int(lo, hi)
-    local v, c, e = call(D.CMD.INT, self.key, self.period, self.version, self.id, self.cursor, lo, hi)
+  --- A random integer in lo..hi.
+  function G:int(lo, hi)
+    local v, c, e = VRFW.host.command(D.CMD.INT, self.key, self.period, self.version, self.id, self.cursor, lo, hi)
     return advance(self, "Int", v, c, e)
   end
 
@@ -150,7 +117,7 @@ if VRFW_Daily == nil then
       if v ~= math.floor(v) then
         return nil
       end
-      return string.format("%.0f", v) -- not "%d": a 32-bit `long` on Windows, ids >= 2^31 raised an error
+      return string.format("%.0f", v)
     elseif type(v) == "string" and not string.find(v, "\n", 1, true) then
       return v
     end
@@ -159,14 +126,14 @@ if VRFW_Daily == nil then
 
   local function keys_of(items, key, what)
     if type(items) ~= "table" then
-      D.Log(what .. ": an item list expected")
+      D.log(what .. ": an item list expected")
       return nil
     end
     local t = {}
     for i = 1, #items do
       local s = key_text(items[i], key)
       if s == nil then
-        D.Log(what .. ": item " .. i .. " has no integer / text key")
+        D.log(what .. ": item " .. i .. " has no integer / text key")
         return nil
       end
       t[i] = s
@@ -182,12 +149,13 @@ if VRFW_Daily == nil then
     return t
   end
 
-  function G:Pick(items, key)
+  --- A random element of items; answers element and index, nil on a bad list.
+  function G:pick(items, key)
     local keys = keys_of(items, key, "Pick")
     if keys == nil then
       return nil
     end
-    local i, c, e = call(D.CMD.PICK, self.key, self.period, self.version, self.id, self.cursor, keys)
+    local i, c, e = VRFW.host.command(D.CMD.PICK, self.key, self.period, self.version, self.id, self.cursor, keys)
     i = advance(self, "Pick", i, c, e)
     if i == nil or i < 1 then
       return nil
@@ -196,7 +164,7 @@ if VRFW_Daily == nil then
   end
 
   local function many(self, cmd, what, items, keys, ...)
-    local list, c, e = call(cmd, self.key, self.period, self.version, self.id, self.cursor, keys, ...)
+    local list, c, e = VRFW.host.command(cmd, self.key, self.period, self.version, self.id, self.cursor, keys, ...)
     list = advance(self, what, list, c, e)
     if list == nil then
       return nil
@@ -209,7 +177,8 @@ if VRFW_Daily == nil then
     return out, idx
   end
 
-  function G:Sample(items, n, key)
+  --- n random elements of items; nil on a bad list.
+  function G:sample(items, n, key)
     local keys = keys_of(items, key, "Sample")
     if keys == nil then
       return nil
@@ -217,7 +186,8 @@ if VRFW_Daily == nil then
     return many(self, D.CMD.SAMPLE, "Sample", items, keys, n)
   end
 
-  function G:Shuffle(items, key)
+  --- Items shuffled; nil on a bad list.
+  function G:shuffle(items, key)
     local keys = keys_of(items, key, "Shuffle")
     if keys == nil then
       return nil
@@ -225,7 +195,8 @@ if VRFW_Daily == nil then
     return many(self, D.CMD.SHUFFLE, "Shuffle", items, keys)
   end
 
-  function G:Weighted(items, weight, key)
+  --- A weighted random element of items; answers element and index, nil on a bad list.
+  function G:weighted(items, weight, key)
     local keys = keys_of(items, key, "Weighted")
     if keys == nil then
       return nil
@@ -240,12 +211,12 @@ if VRFW_Daily == nil then
         v = x[weight]
       end
       if type(v) ~= "number" or v < 0 or v ~= math.floor(v) then
-        D.Log("Weighted: item " .. i .. " has no integer weight >= 0")
+        D.log("Weighted: item " .. i .. " has no integer weight >= 0")
         return nil
       end
       w[i] = string.format("%.0f", v)
     end
-    local i, c, e = call(D.CMD.WEIGHTED, self.key, self.period, self.version, self.id, self.cursor, keys, table.concat(w, "\n"))
+    local i, c, e = VRFW.host.command(D.CMD.WEIGHTED, self.key, self.period, self.version, self.id, self.cursor, keys, table.concat(w, "\n"))
     i = advance(self, "Weighted", i, c, e)
     if i == nil or i < 1 then
       return nil
@@ -253,41 +224,43 @@ if VRFW_Daily == nil then
     return items[i], i
   end
 
-  -- ------------------------------------------------------------ per-slot records
-
-  function D.Seen(key, kind)
-    local isNew, prev, cur = call(D.CMD.SEEN, key, kind_of(kind) or "")
+  --- Whether `key` is new this period: is_new, previous period, current period.
+  function D.seen(key, kind)
+    local isNew, prev, cur = VRFW.host.command(D.CMD.SEEN, key, kind_of(kind) or "")
     return isNew == true, prev or -1, cur or -1
   end
 
-  function D.MarkDone(key, kind)
-    local ok, streak, newly = call(D.CMD.MARK_DONE, key, kind_of(kind) or "")
+  --- Marks `key` done this period; answers ok, streak, newly_done.
+  function D.mark_done(key, kind)
+    local ok, streak, newly = VRFW.host.command(D.CMD.MARK_DONE, key, kind_of(kind) or "")
     return ok == true, streak or 0, newly == true
   end
 
-  function D.IsDone(key, kind)
-    return call(D.CMD.IS_DONE, key, kind_of(kind) or "") == true
+  --- True when `key` is done this period.
+  function D.is_done(key, kind)
+    return VRFW.host.command(D.CMD.IS_DONE, key, kind_of(kind) or "") == true
   end
 
-  function D.Streak(key, kind)
-    local s, b, t = call(D.CMD.STREAK, key, kind_of(kind) or "")
+  --- Streak of `key`: current, best, total.
+  function D.streak(key, kind)
+    local s, b, t = VRFW.host.command(D.CMD.STREAK, key, kind_of(kind) or "")
     return s or 0, b or 0, t or 0
   end
 
-  function D.Status(key, kind)
-    local done, s, b, t, last, cur, secs = call(D.CMD.STATUS, key, kind_of(kind) or "")
+  --- Status of `key` as a table (done, streak, best, total, last, current, seconds).
+  function D.status(key, kind)
+    local done, s, b, t, last, cur, secs = VRFW.host.command(D.CMD.STATUS, key, kind_of(kind) or "")
     return {
       done = done == true, streak = s or 0, best = b or 0, total = t or 0, lastDone = last or -1, current = cur or -1,
       secondsUntilNext = secs or 0,
     }
   end
 
-  -- ------------------------------------------------------------ renewal callbacks
-
-  function D.On(kind, fn, id)
+  --- Calls fn when the period of `kind` changes; answers true, or false, why.
+  function D.on(kind, fn, id)
     local k = kind_of(kind)
     if k == nil or type(fn) ~= "function" then
-      return false
+      return false, "a known period and a function expected"
     end
     local list = D.handlers[k] or {}
     D.handlers[k] = list
@@ -303,11 +276,12 @@ if VRFW_Daily == nil then
     return true
   end
 
-  function D.Poll()
+  --- Calls the handlers of every period that changed.
+  function D.poll()
     for _, k in ipairs({ "day", "week", "month" }) do
       local list = D.handlers[k]
       if list ~= nil and #list > 0 then
-        local id = D.Period(k)
+        local id = D.period(k)
         local old = D.last[k]
         if id ~= nil then
           D.last[k] = id
@@ -315,7 +289,7 @@ if VRFW_Daily == nil then
             for i = 1, #list do
               local ok, err = pcall(list[i].fn, id, old, k)
               if not ok then
-                D.Log("On " .. k .. " handler " .. tostring(list[i].id or i) .. " failed: " .. tostring(err))
+                D.log("On " .. k .. " handler " .. tostring(list[i].id or i) .. " failed: " .. tostring(err))
               end
             end
           end
@@ -324,18 +298,19 @@ if VRFW_Daily == nil then
     end
   end
 
-  function D.Watch(stem)
-    if D.watched[stem] or type(VRFW_Host) ~= "table" or type(VRFW_Host.on) ~= "function" then
-      return false
+  --- Installs the period watch on menu `stem` once; answers true, or false, why.
+  function D.watch(stem)
+    if D.watched[stem] or type(VRFW.host) ~= "table" or type(VRFW.host.on) ~= "function" then
+      return false, "already watched, or no VRFW.host"
     end
     D.watched[stem] = true
-    VRFW_Host.on(stem, "Step", {
+    VRFW.host.on(stem, "Step", {
       id = "vrfw.daily_poll", phase = "after",
       fn = function()
         D.frames = D.frames + 1
         if D.frames >= 30 then
           D.frames = 0
-          D.Poll()
+          D.poll()
         end
       end,
     })

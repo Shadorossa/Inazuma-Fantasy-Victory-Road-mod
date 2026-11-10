@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Character Reforged · Eternal Light · Inazuma Eleven GO Chrono Stone
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c05028140"                                   # Bailong
@@ -14,7 +11,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x9908EC5F, level = 1 },                         # Guiverno blanco [aura]
+  { move = 0x9908EC5F, level = 20 },                        # wks00290
 ]
 
   [[edit.cards]]

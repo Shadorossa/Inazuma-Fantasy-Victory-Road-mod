@@ -1,5 +1,4 @@
 schema = "VRFW.editor/1"
-# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
 
 [[Shape]]
 Id = "settings"

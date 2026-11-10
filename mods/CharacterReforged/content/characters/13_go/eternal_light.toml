@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · Eternal Light · Inazuma Eleven GO
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c04003470_5000"                              # Dawntavius Spectrum
+moves = [
+  { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
+  { move = 0x3297683F, level = 62 },                        # Warp Step
+  { move = 0x332CCDC9, level = 72 },                        # Heel Kick
+  { move = 0x2B8C597E, level = 82 },                        # Fugue Wave
+]
 
   [[edit.cards]]
   id = 0x00CA6CD2                                         # MF/FW · fire
@@ -15,6 +18,12 @@ target = "c04003470_5000"                              # Dawntavius Spectrum
 
 [[edit]]
 target = "c04003500_5000"                              # Bailong
+moves = [
+  { move = 0x89D614F5, level = 12 },                        # White Hurricane
+  { move = 0x3297683F, level = 26 },                        # Warp Step
+  { move = 0x1C097E46, level = 45 },                        # Dragon Drive
+  { move = 0x0E4E083A, level = 67 },                        # Zero Magnum
+]
 
   [[edit.cards]]
   id = 0x09C752C2                                         # FW/MF · wind
@@ -23,6 +32,12 @@ target = "c04003500_5000"                              # Bailong
 
 [[edit]]
 target = "c04003500_5100"                              # Bailong
+moves = [
+  { move = 0x89D614F5, level = 12 },                        # White Hurricane
+  { move = 0x3297683F, level = 26 },                        # Warp Step
+  { move = 0x1C097E46, level = 45 },                        # Dragon Drive
+  { move = 0x0E4E083A, level = 67 },                        # Zero Magnum
+]
 
   [[edit.cards]]
   id = 0x080538F5                                         # FW/MF · wind
@@ -32,10 +47,10 @@ target = "c04003500_5100"                              # Bailong
 [[edit]]
 target = "c04003410"                                   # Albion Lumina
 moves = [
-  { move = 0xD471DE6C, level = 1 },                         # Snakebite
-  { move = 0xD2955C45, level = 24 },                        # Power Catch
-  { move = 0x4A17EE80, level = 30 },                        # Hunter's Net
-  { move = 0x1FA91CF4, level = 51 },                        # Negative Feedback
+  { move = 0x41AEB4DF, level = 48 },                        # Crystal Barrier
+  { move = 0xD471DE6C, level = 58 },                        # Snakebite
+  { move = 0x1FA91CF4, level = 68 },                        # Negative Feedback
+  { move = 0x89773ED7, level = 78 },                        # Celestial Zone
 ]
 
   [[edit.cards]]
@@ -47,10 +62,10 @@ moves = [
 [[edit]]
 target = "c04003420"                                   # Candido Glow
 moves = [
-  { move = 0x20D01E43, level = 1 },                         # Hey Presto
-  { move = 0x6C827857, level = 23 },                        # Rolling Steal
-  { move = 0xF626F557, level = 53 },                        # Electric Impedance
-  { move = 0x7D6E9A87, level = 60 },                        # The Wall
+  { move = 0x25276CB9, level = 55 },                        # Solar Surprise
+  { move = 0x20D01E43, level = 65 },                        # Hey Presto
+  { move = 0xF626F557, level = 75 },                        # Electric Impedance
+  { move = 0x7D6E9A87, level = 85 },                        # The Wall
 ]
 
   [[edit.cards]]
@@ -62,10 +77,10 @@ moves = [
 [[edit]]
 target = "c04003430"                                   # Dwight Whittaker
 moves = [
-  { move = 0x7F15DC5F, level = 6 },                         # Desert Drift
-  { move = 0x08EEBD53, level = 27 },                        # Feint Play
-  { move = 0x72BFA108, level = 49 },                        # Wall of Atlantis
-  { move = 0xA3F886BF, level = 56 },                        # Rock Hammer
+  { move = 0xC324C788, level = 1 },                         # Blast Mine
+  { move = 0x25276CB9, level = 58 },                        # Solar Surprise
+  { move = 0x7F15DC5F, level = 68 },                        # Desert Drift
+  { move = 0x72BFA108, level = 78 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -78,15 +93,15 @@ moves = [
 [[edit]]
 target = "c04003440"                                   # Beamer Daye
 moves = [
-  { move = 0x39CB2F02, level = 1 },                         # Dragster
-  { move = 0x3AD8DFD1, level = 15 },                        # Curving Cut
-  { move = 0x737DCB3F, level = 50 },                        # Pancake Defence
-  { move = 0xECB91078, level = 60 },                        # Volcanic Flight
+  { move = 0x25276CB9, level = 53 },                        # Solar Surprise
+  { move = 0xB0F8060A, level = 60 },                        # Ozone Flayer
+  { move = 0x39CB2F02, level = 70 },                        # Dragster
+  { move = 0x737DCB3F, level = 80 },                        # Pancake Defence
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF641A1A7, level = 1 },                         # Peón blanco [aura]
+  { move = 0xF641A1A7, level = 20 },                        # wko00180
 ]
 
   [[edit.cards]]
@@ -99,8 +114,8 @@ moves = [
 [[edit]]
 target = "c04003450"                                   # Chandler Blanc
 moves = [
+  { move = 0x3297683F, level = 1 },                         # Warp Step
   { move = 0x7DD6FEF8, level = 11 },                        # Athena's Anthem
-  { move = 0x3AD8DFD1, level = 19 },                        # Curving Cut
   { move = 0x25276CB9, level = 38 },                        # Solar Surprise
   { move = 0xD1E62D0A, level = 56 },                        # Mushroom Hop
 ]
@@ -114,10 +129,10 @@ moves = [
 [[edit]]
 target = "c04003460"                                   # Beacon Noor
 moves = [
+  { move = 0x3297683F, level = 1 },                         # Warp Step
   { move = 0x0D368F6B, level = 12 },                        # Heaven's Time
   { move = 0xE8F5C774, level = 18 },                        # Megalodon
   { move = 0xDCC9CCA3, level = 28 },                        # Tesla Coil
-  { move = 0x1F5EB9D5, level = 40 },                        # Nutmeg
 ]
 
   [[edit.cards]]
@@ -130,15 +145,15 @@ moves = [
 [[edit]]
 target = "c04003470"                                   # Dawntavius Spectrum
 moves = [
-  { move = 0x332CCDC9, level = 1 },                         # Heel Kick
-  { move = 0x066442FB, level = 19 },                        # Gusher Crusher
-  { move = 0x2B8C597E, level = 41 },                        # Fugue Wave
-  { move = 0x5739C70C, level = 57 },                        # Guided Collide
+  { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
+  { move = 0x3297683F, level = 62 },                        # Warp Step
+  { move = 0x332CCDC9, level = 72 },                        # Heel Kick
+  { move = 0x2B8C597E, level = 82 },                        # Fugue Wave
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF641A1A7, level = 1 },                         # Peón blanco [aura]
+  { move = 0xF641A1A7, level = 20 },                        # wko00180
 ]
 
   [[edit.cards]]
@@ -152,9 +167,9 @@ moves = [
 target = "c04003480"                                   # Brighton Spark
 moves = [
   { move = 0x8B90AAAC, level = 2 },                         # Fortissimo
-  { move = 0x62294D90, level = 20 },                        # Dust Kick
   { move = 0x768AB9C5, level = 45 },                        # Frosticle
   { move = 0x7DD6FEF8, level = 59 },                        # Athena's Anthem
+  { move = 0x1755397B, level = 69 },                        # Dark Energy Star
 ]
 
   [[edit.cards]]
@@ -196,7 +211,7 @@ target = "c04003500"                                   # Bailong
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
-    { move = 0x6C3521EC, level = 1 },                       # Miximax Trans: Zhuge Liang [aura]
+    { move = 0x9908EC5F, level = 20 },                      # wks00290
   ]
 
 [[edit]]

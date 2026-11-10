@@ -1,0 +1,16 @@
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.kit_variant/1"
+folder = "content/kit_variants"
+label = "Kit variants"
+label_es = "Variantes de equipación"
+doc = "Pairs of team kits the kit picker switches with X (a kit and the same kit without sponsor, for example). The team wears the one chosen; the choice is kept per kit in the save."
+doc_es = "Parejas de equipaciones que el selector de equipación alterna con X (una equipación y la misma sin publicidad, por ejemplo). El equipo lleva la elegida; la elección se guarda por equipación en la partida."
+
+[entry.KitVariant]
+doc = "kits[i] and variants[i] are one pair (uniform_config nameIds, or key names whose crc32 they are); a kit in two pairs keeps the first one loaded"
+name = { type = "name", required = true, doc = "the pairs' name in their mod (a-z 0-9 _)" }
+kits = { type = "ids", required = true, doc = "the kits worn by default" }
+variants = { type = "ids", required = true, doc = "the variant of each kit, in the same order" }
+label = { type = "string", required = true, doc = "text key of the X prompt while the kit is shown" }
+variant_label = { type = "string", required = true, doc = "text key of the X prompt while the variant is shown" }
+when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

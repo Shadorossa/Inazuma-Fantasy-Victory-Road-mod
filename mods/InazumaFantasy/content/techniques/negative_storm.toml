@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Tormenta negativa (Negative Storm): the download's move whs90007, a clone of whs02140 with its numbers; its event ev60_90007 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "negative_storm"

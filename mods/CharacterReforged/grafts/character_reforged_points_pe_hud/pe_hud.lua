@@ -1,0 +1,529 @@
+CharacterReforged = CharacterReforged or {}
+CharacterReforged.points_hud = CharacterReforged.points_hud or {}
+CharacterReforged.points_hud.ENABLED = true                      -- false: retail bubble and ring, no bar
+CharacterReforged.points_hud.RING_OFF = true                 -- the team dash ring is never drawn
+CharacterReforged.points_hud.FACE_SCALE = 0.82               -- controlled player's face bubble (1 = retail)
+CharacterReforged.points_hud.FACE_RADIUS = 56
+CharacterReforged.points_hud.FACE_TAIL = 112
+CharacterReforged.points_hud.BAR = true                      -- false: no PE bar
+CharacterReforged.points_hud.BAR_W = 92                      -- bar frame width / height, layout units (retail frame 476 x 44)
+CharacterReforged.points_hud.BAR_H = 12
+CharacterReforged.points_hud.BAR_GAP = 4                     -- between the bubble and the bar
+CharacterReforged.points_hud.BAR_DX = 0                      -- extra offset of the bar (layout units, y up)
+CharacterReforged.points_hud.BAR_DY = 0
+CharacterReforged.points_hud.BAR_TINT = nil
+CharacterReforged.points_hud.CMD = @crc:CMND_CHARACTERREFORGED_POINTS_STAMINA@
+CharacterReforged.points_hud.ABSENT = false
+CharacterReforged.points_hud.PARTS_CMD = @crc:CMND_CHARACTERREFORGED_POINTS_ACTIVE_PARTS@
+CharacterReforged.points_hud.ON = nil
+CharacterReforged.points_hud.ASKS = 0                        -- unanswered asks of the parts command (600: taken as on)
+CharacterReforged.points_hud.BAR_SHOWN = false               -- the bar layer is visible
+CharacterReforged.points_hud.BAR_RATE = nil                  -- last PE / max sent to the bar
+CharacterReforged.points_hud.FRAME = {x = nil, y = nil, rate = nil, shown = false, mult = 1, sprint = nil, winded = false}
+CharacterReforged.points_hud.SHINE = true
+CharacterReforged.points_hud.SHINE_FRAMES = 40               -- frames of one sweep, left to right
+CharacterReforged.points_hud.SHINE_PAUSE = 25                -- frames between two sweeps
+CharacterReforged.points_hud.SHINE_ALPHA = 1                 -- the gloss's opacity (the sprites carry their own soft alpha)
+CharacterReforged.points_hud.SHINE_MIN = 0.03                -- no gloss below this fill
+CharacterReforged.points_hud.SHINE_SHOWN = false
+CharacterReforged.points_hud.SHINE_FRAME = nil
+CharacterReforged.points_hud.SHINE_RATE = nil                -- fill rate last sent to the gloss layer
+CharacterReforged.points_hud.LABEL = true
+CharacterReforged.points_hud.LABEL_H = nil
+CharacterReforged.points_hud.LABEL_GAP = 2                   -- between the tag and the bar's frame
+CharacterReforged.points_hud.LABEL_DX = 0                    -- extra offset of the tag (layout units, y up)
+CharacterReforged.points_hud.LABEL_DY = 0
+CharacterReforged.points_hud.LABEL_SHOWN = false
+CharacterReforged.points_hud.SPRINT = true                   -- the sprint bar in front of the PE fill
+CharacterReforged.points_hud.SPRINT_SPAN = 1.0
+CharacterReforged.points_hud.SPRINT_MIN = 0.004              -- no segment shorter than this share of the fill
+CharacterReforged.points_hud.SPRINT_SHOWN = false
+CharacterReforged.points_hud.SPRINT_SPRITE = nil
+CharacterReforged.points_hud.SPRINT_LAST = nil
+
+local PE_BALLOON = 3573161010 --[[soccer02_22_chara_face_balloon]]
+local PE_RING = 2308648479 --[[soccer00_13_dash_recast_meter]]
+local PE_LAYER = @crc:character_reforged_points_pe_bar@
+local PE_RATE_BAR = 3060237847 --[[hp_bar]]
+local PE_RATE_RED = 2546116024 --[[hp_bar_red]]
+local PE_MESH_LABEL = 1257514352 --[[_gtxt_stamina01]]
+local PE_MESH_EMPTY = 2609329121 --[[_hp_empty01]]
+local PE_MESH_BAR = 2043683848 --[[_hp_bar02]]
+local PE_CMND_POS = @crc:CMND_SET_LAYER_LOCAL_POS@
+local PE_CMND_SCALE = @crc:CMND_SET_LAYER_LOCAL_SCALE@
+local PE_CMND_VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@
+local PE_CMND_IS_VISIBLE = @crc:CMND_IS_LAYER_VISIBLE@
+local PE_CMND_OPEN = @crc:CMND_OPEN_LAYER@
+local PE_CMND_IS_OPEN = @crc:CMND_IS_OPEN_LAYER@
+local PE_CMND_IS_LOADING = @crc:CMND_IS_LOADING_LAYER@
+local PE_CMND_SUSPEND = @crc:CMND_SUSPEND_LAYER@
+local PE_CMND_IS_SUSPENDED = 15180
+local PE_CMND_RATE_INIT = 541357333
+local PE_CMND_RATE = 1595998683
+local PE_CMND_MESH_VISIBLE = @crc:CMND_SET_MESH_VISIBLE@
+local PE_CMND_PRIM_COLOR = @crc:CMND_SET_PRIM_COLOR@
+local PE_CMND_LAYOUT_TO_POS = 1192474820 --[[layout offset -> layer position offset (retail UpdateScreenOutCtrlCharaIcon)]]
+-- Geometry of the retail gauge frame _hp_base01.
+local PE_FRAME_CX, PE_FRAME_CY, PE_FRAME_W, PE_FRAME_H = 332, -838, 476, 44
+-- Visible (opaque) rows of the frame in its 476 x 44 sprite hp_base01.
+local PE_FRAME_VIS_H, PE_FRAME_VIS_CY = 28, -832
+local PE_FILL_X, PE_FILL_Y, PE_FILL_W, PE_FILL_H = 100, -820, 448, 24
+local pe_ready = false
+local PE_SHINE = @crc:character_reforged_points_pe_shine@
+local PE_LABEL = @crc:character_reforged_points_pe_label@
+local PE_MESH_FRAME = 1837325853 --[[_hp_base01]]
+local PE_TEX_TAG = @crc:character_reforged_points_pe_tag01@
+local PE_TEX_FRAME = 538967808 --[[hp_base01: the frame's texture slot]]
+local PE_CMND_PRIM_ALPHA = @crc:CMND_SET_PRIM_ALPHA@
+local PE_CMND_SWAP_TEX = 558735651 --[[swap a mesh texture: (layer, atlas, new sprite, old sprite, 0, instance)]]
+local PE_ATLAS = 3908013348 --[[#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx: the mod's own atlas]]
+local PE_TEX_FILL = 1460691304 --[[hp_bar02: the fill's texture slot]]
+-- The gloss sprites character_reforged_points_pe_gloss_00 and following.
+CharacterReforged.points_hud.GLOSS = {
+  @crc:character_reforged_points_pe_gloss_00@, @crc:character_reforged_points_pe_gloss_01@, @crc:character_reforged_points_pe_gloss_02@, @crc:character_reforged_points_pe_gloss_03@,
+  @crc:character_reforged_points_pe_gloss_04@, @crc:character_reforged_points_pe_gloss_05@, @crc:character_reforged_points_pe_gloss_06@, @crc:character_reforged_points_pe_gloss_07@,
+  @crc:character_reforged_points_pe_gloss_08@, @crc:character_reforged_points_pe_gloss_09@, @crc:character_reforged_points_pe_gloss_10@, @crc:character_reforged_points_pe_gloss_11@,
+  @crc:character_reforged_points_pe_gloss_12@, @crc:character_reforged_points_pe_gloss_13@, @crc:character_reforged_points_pe_gloss_14@, @crc:character_reforged_points_pe_gloss_15@,
+  @crc:character_reforged_points_pe_gloss_16@, @crc:character_reforged_points_pe_gloss_17@, @crc:character_reforged_points_pe_gloss_18@, @crc:character_reforged_points_pe_gloss_19@,
+  @crc:character_reforged_points_pe_gloss_20@, @crc:character_reforged_points_pe_gloss_21@, @crc:character_reforged_points_pe_gloss_22@, @crc:character_reforged_points_pe_gloss_23@,
+  @crc:character_reforged_points_pe_gloss_24@, @crc:character_reforged_points_pe_gloss_25@, @crc:character_reforged_points_pe_gloss_26@, @crc:character_reforged_points_pe_gloss_27@,
+  @crc:character_reforged_points_pe_gloss_28@, @crc:character_reforged_points_pe_gloss_29@, @crc:character_reforged_points_pe_gloss_30@, @crc:character_reforged_points_pe_gloss_31@,
+  @crc:character_reforged_points_pe_gloss_32@, @crc:character_reforged_points_pe_gloss_33@, @crc:character_reforged_points_pe_gloss_34@, @crc:character_reforged_points_pe_gloss_35@,
+  @crc:character_reforged_points_pe_gloss_36@, @crc:character_reforged_points_pe_gloss_37@, @crc:character_reforged_points_pe_gloss_38@, @crc:character_reforged_points_pe_gloss_39@,
+  @crc:character_reforged_points_pe_gloss_40@, @crc:character_reforged_points_pe_gloss_41@, @crc:character_reforged_points_pe_gloss_42@, @crc:character_reforged_points_pe_gloss_43@,
+  @crc:character_reforged_points_pe_gloss_44@, @crc:character_reforged_points_pe_gloss_45@, @crc:character_reforged_points_pe_gloss_46@, @crc:character_reforged_points_pe_gloss_47@}
+CharacterReforged.points_hud.GLOSS_C0, CharacterReforged.points_hud.GLOSS_C1 = -0.10, 1.10
+local pe_shine_ready, pe_label_ready = false, false
+local PE_SPRINT = @crc:character_reforged_points_pe_sprint@
+local PE_TEX_SPRINT = @crc:character_reforged_points_pe_sprint_fill01@
+local PE_TEX_WINDED = @crc:character_reforged_points_pe_sprint_winded01@
+local pe_sprint_ready = false
+local pe_shine_t = 0
+
+local function PE_Pack(...)
+  return {n = select("#", ...), ...}
+end
+
+-- Answers nothing for that frame.
+function CharacterReforged.points_hud.part_on()
+  if CharacterReforged.points_hud.ON ~= nil then
+    return CharacterReforged.points_hud.ON
+  end
+  if type(funcLuaCommand) ~= "function" then
+    return false
+  end
+  CharacterReforged.points_hud.ASKS = CharacterReforged.points_hud.ASKS + 1
+  local ok, answered, _, _, pe = pcall(funcLuaCommand, CharacterReforged.points_hud.PARTS_CMD)
+  if ok and answered == true then
+    CharacterReforged.points_hud.ON = pe == 1 or pe == true
+  elseif CharacterReforged.points_hud.ASKS >= 600 then
+    CharacterReforged.points_hud.ON = true
+  end
+  return CharacterReforged.points_hud.ON == true
+end
+
+-- PE ratio (0..1), exhausted, multiplier, sprint ratio (0..1, nil = no sprint bar), winded
+function CharacterReforged.points_hud.query(hdl)
+  if CharacterReforged.points_hud.ABSENT or type(funcLuaCommand) ~= "function" then
+    return nil
+  end
+  local ok, has, cur, max, ex, on, _, _, mult, sprint, winded = pcall(funcLuaCommand, CharacterReforged.points_hud.CMD, hdl or 0)
+  if not ok or has == nil then
+    return nil
+  end
+  if has ~= true or on ~= 1 or type(cur) ~= "number" or type(max) ~= "number" or max <= 0 then
+    return nil
+  end
+  if type(mult) ~= "number" or mult ~= mult then
+    mult = 1                             -- no multiplier
+  end
+  if type(sprint) ~= "number" or sprint ~= sprint or sprint < 0 then
+    sprint = nil                         -- no sprint bar
+  else
+    sprint = math.min(sprint, 1)
+  end
+  return CharacterReforged.points_hud.rate(cur, max), ex == 1, mult, sprint, winded == 1
+end
+
+function CharacterReforged.points_hud.shine_frame(t, rate)
+  local n = math.max(1, CharacterReforged.points_hud.SHINE_FRAMES)
+  if t < 0 or t >= n or type(rate) ~= "number" or rate < CharacterReforged.points_hud.SHINE_MIN then
+    return nil
+  end
+  local c0, c1 = CharacterReforged.points_hud.GLOSS_C0, CharacterReforged.points_hud.GLOSS_C1
+  local c = c0 + (math.min(rate, 1) + (c1 - 1) - c0) * t / (n - 1 > 0 and n - 1 or 1)
+  local k = math.floor((c - c0) / (c1 - c0) * (#CharacterReforged.points_hud.GLOSS - 1) + 0.5)
+  return math.max(0, math.min(#CharacterReforged.points_hud.GLOSS - 1, k)) + 1
+end
+
+-- Returns the bar value.
+function CharacterReforged.points_hud.rate(cur, max)
+  if type(cur) ~= "number" or type(max) ~= "number" or max <= 0 then
+    return 0
+  end
+  local r = cur / max
+  if r ~= r or r < 0 then
+    return 0
+  elseif r > 1 then
+    return 1
+  end
+  return r
+end
+
+function CharacterReforged.points_hud.to_pos(dx, dy)
+  local _, x, y = VRFW.host.menu_command(PE_CMND_LAYOUT_TO_POS, dx, dy)
+  if type(x) == "number" and type(y) == "number" then
+    return x, y
+  end
+  return dx, dy
+end
+
+-- the bubble centre, moved towards the player (ax, ay) by the length the scaled pointer lost
+function CharacterReforged.points_hud.face_pos(x, y, ax, ay, s)
+  local dx, dy = x - ax, y - ay
+  local d = math.sqrt(dx * dx + dy * dy)
+  local lx = CharacterReforged.points_hud.to_pos(CharacterReforged.points_hud.FACE_TAIL * (1 - s), 0)
+  if d <= 0 or lx <= 0 or lx >= d then
+    return x, y
+  end
+  local k = (d - lx) / d
+  return ax + dx * k, ay + dy * k
+end
+
+-- Returns the bar layer position.
+function CharacterReforged.points_hud.bar_pos(bx, by, s)
+  local sx, sy = CharacterReforged.points_hud.BAR_W / PE_FRAME_W, CharacterReforged.points_hud.BAR_H / PE_FRAME_H
+  local ox, oy = CharacterReforged.points_hud.to_pos(CharacterReforged.points_hud.BAR_DX, -(CharacterReforged.points_hud.FACE_RADIUS * s + CharacterReforged.points_hud.BAR_GAP + CharacterReforged.points_hud.BAR_H / 2) + CharacterReforged.points_hud.BAR_DY)
+  local cx, cy = CharacterReforged.points_hud.to_pos(PE_FRAME_CX * sx, PE_FRAME_CY * sy)
+  return bx + ox - cx, by + oy - cy, sx, sy
+end
+
+local function PE_HideLayer(l)
+  VRFW.host.menu_command(PE_CMND_VISIBLE, l, 0, false)
+  if VRFW.host.menu_command(PE_CMND_IS_SUSPENDED, l) ~= true then
+    VRFW.host.menu_command(PE_CMND_SUSPEND, l)
+  end
+end
+
+local function PE_ShowLayer(l)
+  if VRFW.host.menu_command(PE_CMND_IS_SUSPENDED, l) == true then
+    VRFW.host.menu_command(@crc:CMND_RESUME_LAYER@, l)
+  end
+  VRFW.host.menu_command(PE_CMND_VISIBLE, l, 0, true)
+end
+
+local function PE_HideShine()
+  if CharacterReforged.points_hud.SHINE_SHOWN then
+    CharacterReforged.points_hud.SHINE_SHOWN = false
+    PE_HideLayer(PE_SHINE)
+  end
+end
+
+local function PE_HideLabel()
+  if CharacterReforged.points_hud.LABEL_SHOWN then
+    CharacterReforged.points_hud.LABEL_SHOWN = false
+    PE_HideLayer(PE_LABEL)
+  end
+end
+
+local function PE_HideSprint()
+  if CharacterReforged.points_hud.SPRINT_SHOWN then
+    CharacterReforged.points_hud.SPRINT_SHOWN = false
+    PE_HideLayer(PE_SPRINT)
+  end
+end
+
+local function PE_HideBar()
+  PE_HideShine()
+  PE_HideLabel()
+  PE_HideSprint()
+  if CharacterReforged.points_hud.BAR_SHOWN then
+    CharacterReforged.points_hud.BAR_SHOWN = false
+    PE_HideLayer(PE_LAYER)
+  end
+end
+
+-- Returns whether a layer was opened once and loaded.
+local function PE_Ready(l)
+  if VRFW.host.menu_command(PE_CMND_IS_OPEN, l) ~= true then
+    VRFW.host.menu_command(PE_CMND_OPEN, l)
+    return false, true
+  end
+  return VRFW.host.menu_command(PE_CMND_IS_LOADING, l) ~= true, false
+end
+
+-- Returns the tag's layer position and scale for the bar layer at (px, py) scaled (sx, sy).
+function CharacterReforged.points_hud.label_pos(px, py, sx, sy, aspect)
+  local h = CharacterReforged.points_hud.LABEL_H or PE_FRAME_VIS_H * sy
+  local w = (aspect or 2) * h
+  local tsx, tsy = w / PE_FRAME_W, h / PE_FRAME_H
+  local ox, oy = CharacterReforged.points_hud.to_pos(94 * sx - CharacterReforged.points_hud.LABEL_GAP - w / 2 + CharacterReforged.points_hud.LABEL_DX - PE_FRAME_CX * tsx,
+    PE_FRAME_VIS_CY * sy + CharacterReforged.points_hud.LABEL_DY - PE_FRAME_CY * tsy)
+  return px + ox, py + oy, tsx, tsy
+end
+
+-- the tag left of the bar (px, py, sx, sy = the bar layer's position and scale)
+local function PE_DrawLabel(px, py, sx, sy)
+  if not CharacterReforged.points_hud.LABEL then
+    PE_HideLabel()
+    return
+  end
+  local ready, opened = PE_Ready(PE_LABEL)
+  if opened then
+    pe_label_ready = false
+  end
+  if not ready then
+    return
+  end
+  if not pe_label_ready then
+    pe_label_ready = true
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_LABEL, PE_MESH_LABEL, false, 0)
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_LABEL, PE_MESH_EMPTY, false, 0)
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_LABEL, PE_MESH_BAR, false, 0)
+    VRFW.host.menu_command(PE_CMND_SWAP_TEX, PE_LABEL, PE_ATLAS, PE_TEX_TAG, PE_TEX_FRAME, 0, 0)
+  end
+  local lx, ly, tsx, tsy = CharacterReforged.points_hud.label_pos(px, py, sx, sy)
+  VRFW.host.menu_command(PE_CMND_SCALE, PE_LABEL, tsx, tsy, 1, 0)
+  VRFW.host.menu_command(PE_CMND_POS, PE_LABEL, lx, ly, 0, 0)
+  if not CharacterReforged.points_hud.LABEL_SHOWN then
+    CharacterReforged.points_hud.LABEL_SHOWN = true
+    PE_ShowLayer(PE_LABEL)
+  end
+end
+
+-- Draws the glass shine while the multiplier is above 1.
+local function PE_DrawShine(px, py, sx, sy, rate, mult)
+  local on = CharacterReforged.points_hud.SHINE and type(mult) == "number" and mult > 1.0001
+  if not on then
+    pe_shine_t = 0
+    PE_HideShine()
+    return
+  end
+  local ready, opened = PE_Ready(PE_SHINE)
+  if opened then
+    pe_shine_ready = false
+  end
+  if not ready then
+    return
+  end
+  if not pe_shine_ready then
+    pe_shine_ready = true
+    CharacterReforged.points_hud.SHINE_FRAME, CharacterReforged.points_hud.SHINE_RATE = nil, nil
+    VRFW.host.menu_command(PE_CMND_RATE_INIT, PE_SHINE, PE_RATE_BAR, 0)
+    VRFW.host.menu_command(PE_CMND_RATE_INIT, PE_SHINE, PE_RATE_RED, 0)
+    VRFW.host.menu_command(PE_CMND_RATE, PE_SHINE, PE_RATE_RED, 0, 0, 0, true)   -- no red trail under the gloss
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_SHINE, PE_MESH_FRAME, false, 0)
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_SHINE, PE_MESH_LABEL, false, 0)
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_SHINE, PE_MESH_EMPTY, false, 0)
+    VRFW.host.menu_command(PE_CMND_PRIM_ALPHA, PE_SHINE, 0, PE_MESH_BAR, CharacterReforged.points_hud.SHINE_ALPHA)
+  end
+  local cycle = math.max(1, CharacterReforged.points_hud.SHINE_FRAMES) + math.max(0, CharacterReforged.points_hud.SHINE_PAUSE)
+  local k = CharacterReforged.points_hud.shine_frame(pe_shine_t % cycle, rate)
+  pe_shine_t = pe_shine_t + 1
+  if k == nil then
+    PE_HideShine()
+    return
+  end
+  if CharacterReforged.points_hud.SHINE_FRAME ~= k then
+    CharacterReforged.points_hud.SHINE_FRAME = k
+    VRFW.host.menu_command(PE_CMND_SWAP_TEX, PE_SHINE, PE_ATLAS, CharacterReforged.points_hud.GLOSS[k], PE_TEX_FILL, 0, 0)
+  end
+  if CharacterReforged.points_hud.SHINE_RATE == nil or math.abs(CharacterReforged.points_hud.SHINE_RATE - rate) > 0.0005 then
+    CharacterReforged.points_hud.SHINE_RATE = rate
+    VRFW.host.menu_command(PE_CMND_RATE, PE_SHINE, PE_RATE_BAR, 0, rate, 0, true)
+  end
+  VRFW.host.menu_command(PE_CMND_SCALE, PE_SHINE, sx, sy, 1, 0)
+  VRFW.host.menu_command(PE_CMND_POS, PE_SHINE, px, py, 0, 0)
+  if not CharacterReforged.points_hud.SHINE_SHOWN then
+    CharacterReforged.points_hud.SHINE_SHOWN = true
+    PE_ShowLayer(PE_SHINE)
+  end
+end
+
+-- Returns the sprint bar along the fill (shares of the fill's width, 0 to 1).
+function CharacterReforged.points_hud.sprint_seg(sprint)
+  if type(sprint) ~= "number" then
+    return nil
+  end
+  local len = math.max(0, math.min(1, CharacterReforged.points_hud.SPRINT_SPAN or 0)) * math.max(0, math.min(1, sprint))
+  if len < (CharacterReforged.points_hud.SPRINT_MIN or 0) then
+    return nil
+  end
+  return 0, len
+end
+
+-- Returns the segment layer's position and scale for the bar layer at (px, py) scaled (sx, sy).
+function CharacterReforged.points_hud.sprint_pos(px, py, sx, sy, a0, len)
+  local tsx = PE_FILL_W * len * sx / PE_FRAME_W
+  local tsy = PE_FILL_H * sy / PE_FRAME_H
+  local tx, ty = (PE_FILL_X + PE_FILL_W * a0) * sx, PE_FILL_Y * sy
+  local ox, oy = CharacterReforged.points_hud.to_pos(tx - 94 * tsx, ty + 816 * tsy)
+  return px + ox, py + oy, tsx, tsy
+end
+
+-- Draws the sprint bar on the bar (px, py, sx, sy), in front of the PE fill.
+local function PE_DrawSprint(px, py, sx, sy, sprint, winded)
+  local a0, len = nil, nil
+  if CharacterReforged.points_hud.SPRINT then
+    a0, len = CharacterReforged.points_hud.sprint_seg(sprint)
+  end
+  if a0 == nil then
+    PE_HideSprint()
+    return
+  end
+  local ready, opened = PE_Ready(PE_SPRINT)
+  if opened then
+    pe_sprint_ready = false
+  end
+  if not ready then
+    return
+  end
+  if not pe_sprint_ready then
+    pe_sprint_ready = true
+    CharacterReforged.points_hud.SPRINT_SPRITE, CharacterReforged.points_hud.SPRINT_LAST = nil, nil
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_SPRINT, PE_MESH_LABEL, false, 0)
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_SPRINT, PE_MESH_EMPTY, false, 0)
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_SPRINT, PE_MESH_BAR, false, 0)
+  end
+  local sprite = winded and PE_TEX_WINDED or PE_TEX_SPRINT
+  if CharacterReforged.points_hud.SPRINT_SPRITE ~= sprite then
+    VRFW.host.menu_command(PE_CMND_SWAP_TEX, PE_SPRINT, PE_ATLAS, sprite, PE_TEX_FRAME, 0, 0)
+    CharacterReforged.points_hud.SPRINT_SPRITE = sprite
+  end
+  local qx, qy, qsx, qsy = CharacterReforged.points_hud.sprint_pos(px, py, sx, sy, a0, len)
+  local last = CharacterReforged.points_hud.SPRINT_LAST
+  if last == nil or last[1] ~= qx or last[2] ~= qy or last[3] ~= qsx or last[4] ~= qsy then
+    CharacterReforged.points_hud.SPRINT_LAST = {qx, qy, qsx, qsy}
+    VRFW.host.menu_command(PE_CMND_SCALE, PE_SPRINT, qsx, qsy, 1, 0)
+    VRFW.host.menu_command(PE_CMND_POS, PE_SPRINT, qx, qy, 0, 0)
+  end
+  if not CharacterReforged.points_hud.SPRINT_SHOWN then
+    CharacterReforged.points_hud.SPRINT_SHOWN = true
+    PE_ShowLayer(PE_SPRINT)
+  end
+end
+
+-- Opens the bar layer once.
+local function PE_OpenBar()
+  if VRFW.host.menu_command(PE_CMND_IS_OPEN, PE_LAYER) ~= true then
+    pe_ready = false
+    VRFW.host.menu_command(PE_CMND_OPEN, PE_LAYER)
+    return false
+  end
+  if VRFW.host.menu_command(PE_CMND_IS_LOADING, PE_LAYER) == true then
+    return false
+  end
+  if not pe_ready then
+    pe_ready = true
+    CharacterReforged.points_hud.BAR_RATE = nil
+    VRFW.host.menu_command(PE_CMND_RATE_INIT, PE_LAYER, PE_RATE_BAR, 0)
+    VRFW.host.menu_command(PE_CMND_RATE_INIT, PE_LAYER, PE_RATE_RED, 0)
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_LAYER, PE_MESH_LABEL, false, 0)
+    VRFW.host.menu_command(PE_CMND_MESH_VISIBLE, PE_LAYER, PE_MESH_EMPTY, false, 0)
+    if type(CharacterReforged.points_hud.BAR_TINT) == "table" then
+      VRFW.host.menu_command(PE_CMND_PRIM_COLOR, PE_LAYER, 0, PE_MESH_BAR, CharacterReforged.points_hud.BAR_TINT[1] or 1, CharacterReforged.points_hud.BAR_TINT[2] or 1, CharacterReforged.points_hud.BAR_TINT[3] or 1)
+    end
+  end
+  return true
+end
+
+function CharacterReforged.points_hud.draw_bar()
+  local fr = CharacterReforged.points_hud.FRAME
+  if not CharacterReforged.points_hud.ENABLED or not CharacterReforged.points_hud.BAR or not fr.shown or fr.rate == nil or fr.x == nil then
+    PE_HideBar()
+    return
+  end
+  if not PE_OpenBar() then
+    return
+  end
+  local px, py, sx, sy = CharacterReforged.points_hud.bar_pos(fr.x, fr.y, CharacterReforged.points_hud.FACE_SCALE)
+  VRFW.host.menu_command(PE_CMND_SCALE, PE_LAYER, sx, sy, 1, 0)
+  VRFW.host.menu_command(PE_CMND_POS, PE_LAYER, px, py, 0, 0)
+  if CharacterReforged.points_hud.BAR_RATE == nil or math.abs(CharacterReforged.points_hud.BAR_RATE - fr.rate) > 0.0005 then
+    CharacterReforged.points_hud.BAR_RATE = fr.rate
+    VRFW.host.menu_command(PE_CMND_RATE, PE_LAYER, PE_RATE_BAR, 0, fr.rate, 0, true)
+    VRFW.host.menu_command(PE_CMND_RATE, PE_LAYER, PE_RATE_RED, 0, fr.rate, 0, true)
+  end
+  if not CharacterReforged.points_hud.BAR_SHOWN then
+    CharacterReforged.points_hud.BAR_SHOWN = true
+    PE_ShowLayer(PE_LAYER)
+  end
+  PE_DrawLabel(px, py, sx, sy)
+  PE_DrawShine(px, py, sx, sy, fr.rate, fr.mult)
+  PE_DrawSprint(px, py, sx, sy, fr.sprint, fr.winded)
+end
+
+local CHARACTERREFORGED_POINTS_PE_prevCtrlIcon = UpdateScreenOutCtrlCharaIcon
+function UpdateScreenOutCtrlCharaIcon(a1, a2, a3, a4)
+  if type(CHARACTERREFORGED_POINTS_PE_prevCtrlIcon) ~= "function" then
+    return                               -- a twin without the include: nothing to wrap
+  end
+  if not CharacterReforged.points_hud.ENABLED or type(funcLuaMenuCommand) ~= "function" or not CharacterReforged.points_hud.part_on() then
+    return CHARACTERREFORGED_POINTS_PE_prevCtrlIcon(a1, a2, a3, a4)
+  end
+  local fr = CharacterReforged.points_hud.FRAME
+  fr.shown, fr.x, fr.y = false, nil, nil
+  local s = CharacterReforged.points_hud.FACE_SCALE
+  local real = funcLuaMenuCommand
+  funcLuaMenuCommand = function(...)
+    local c, layer = ...
+    if layer == PE_BALLOON then
+      if c == PE_CMND_POS then
+        local r = {n = select("#", ...), ...}
+        local x, y = r[3], r[4]
+        if a2 and s ~= 1 and type(x) == "number" and type(y) == "number" and type(a3) == "number" and type(a4) == "number" then
+          x, y = CharacterReforged.points_hud.face_pos(x, y, a3, a4, s)
+          r[3], r[4] = x, y
+        end
+        fr.x, fr.y = x, y
+        return real(table.unpack(r, 1, r.n))
+      elseif c == PE_CMND_VISIBLE then
+        local _, _, _, v = ...
+        fr.shown = v == true
+      end
+    end
+    return real(...)
+  end
+  local ok, err = pcall(CHARACTERREFORGED_POINTS_PE_prevCtrlIcon, a1, a2, a3, a4)
+  funcLuaMenuCommand = real
+  if not ok then
+    error(err, 0)
+  end
+  if fr.shown then
+    VRFW.host.menu_command(PE_CMND_SCALE, PE_BALLOON, s, s, 1, 0)
+  end
+  local r, m, sp, wd = nil, 1, nil, false
+  if CharacterReforged.points_hud.BAR and fr.shown and type(a1) == "number" and a1 ~= 0 then
+    local ex
+    r, ex, m, sp, wd = CharacterReforged.points_hud.query(a1)
+  end
+  fr.rate, fr.mult, fr.sprint, fr.winded = r, m or 1, sp, wd == true
+  CharacterReforged.points_hud.draw_bar()
+end
+
+-- Wraps the team dash ring update.
+local CHARACTERREFORGED_POINTS_PE_prevDash = UpdateDashRecastMeter
+function UpdateDashRecastMeter(a1, a2, a3, a4)
+  if (not CharacterReforged.points_hud.ENABLED or not CharacterReforged.points_hud.RING_OFF or not CharacterReforged.points_hud.part_on()) and type(CHARACTERREFORGED_POINTS_PE_prevDash) == "function" then
+    return CHARACTERREFORGED_POINTS_PE_prevDash(a1, a2, a3, a4)
+  end
+  if VRFW.host.menu_command(PE_CMND_IS_OPEN, PE_RING) == true then
+    VRFW.host.menu_command(PE_CMND_VISIBLE, PE_RING, 0, false)
+  end
+end
+
+local CHARACTERREFORGED_POINTS_PE_prevPostStep = rawget(_ENV, "PostStep")
+function PostStep(...)
+  local r = {n = 0}
+  if type(CHARACTERREFORGED_POINTS_PE_prevPostStep) == "function" then
+    r = PE_Pack(CHARACTERREFORGED_POINTS_PE_prevPostStep(...))
+  end
+  if CharacterReforged.points_hud.ENABLED and CharacterReforged.points_hud.BAR_SHOWN then
+    local vis = VRFW.host.menu_command(PE_CMND_IS_OPEN, PE_BALLOON) == true and VRFW.host.menu_command(PE_CMND_IS_VISIBLE, PE_BALLOON, 0) == true
+    if not vis then
+      CharacterReforged.points_hud.FRAME.shown = false
+      PE_HideBar()
+    end
+  end
+  return table.unpack(r, 1, r.n)
+end

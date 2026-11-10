@@ -1,19 +1,16 @@
--- mods_menu (VRFW): the «Mods» screen, a mod's page, «Novedades», «Problemas» / «Conflictos» (the VRFW
--- report), the view tabs and the «¿Quién lo toca?» opener. Runs after 100_mods_screen.lua in the same VM and takes the
--- names it shares from VRFW_ModsScreen. No engine call at load time.
-local Screen = VRFW_ModsScreen
+local Screen = VRFW.mods_screen
 if Screen == nil then
   return
 end
-local C, Call, Cut, Fit, G, Hit, Int = Screen.C, Screen.Call, Screen.Cut, Screen.Fit, Screen.G, Screen.Hit, Screen.Int
-local K, M, Quad, RV, SE_OK, SP = Screen.K, Screen.M, Screen.Quad, Screen.RV, Screen.SE_OK, Screen.SP
-local StartCo, Str, T, Txt, Wrap, mouse = Screen.StartCo, Screen.Str, Screen.T, Screen.Txt, Screen.Wrap, Screen.mouse
+local C, Call, Cut, Fit, G, Hit, Int = Screen.C, Screen.call, Screen.cut, Screen.fit, Screen.G, Screen.hit, Screen.int
+local K, M, Quad, RV, SE_OK, SP = Screen.K, Screen.M, Screen.quad, Screen.RV, Screen.SE_OK, Screen.SP
+local StartCo, Str, T, Txt, Wrap, mouse = Screen.start_co, Screen.str, Screen.T, Screen.txt, Screen.wrap, Screen.mouse
 local ui = Screen.ui
+local Literal = Screen.literal
 
--- ---- «Novedades»: the mod's changelog summary (its title and every point), scrolled with up / down
-function RV.NewsLines(m)
+function RV.news_lines(m)
   local out = {}
-  for _, n in ipairs(RV.Notes(m).notes) do
+  for _, n in ipairs(RV.notes(m).notes) do
     for i, l in ipairs(Wrap(n, Fit(G.WIN_W - 120, 0.74), 8)) do
       out[#out + 1] = {first = i == 1, text = l}
     end
@@ -21,13 +18,13 @@ function RV.NewsLines(m)
   return out
 end
 
-function RV.DrawNews(m)
+function RV.draw_news(m)
   local p = ui.popup
-  local r = RV.Notes(m)
+  local r = RV.notes(m)
   local x, w = G.WIN_X + 40, G.WIN_W - 80
-  local y = RV.BodyY() + 34
+  local y = RV.body_y() + 34
   Txt("PL", "[CN]" .. Cut(r.title ~= "" and r.title or T("btn_news"), Fit(w - 200, 0.86)) .. "[C]", x, y, 0.86)
-  local lines = RV.NewsLines(m)
+  local lines = RV.news_lines(m)
   if #lines == 0 then
     Txt("PL", "[CWG]" .. T("news_none") .. "[C]", x, y + 50, 0.78)
     return
@@ -47,18 +44,8 @@ function RV.DrawNews(m)
   end
 end
 
--- the mod has report entries `native_update` (a code site not found on an unknown game build)
-function M.NeedsUpdate(id)
-  for _, e in ipairs(RV.Of(id).problems) do
-    if e.code == "native_update" then
-      return true
-    end
-  end
-  return false
-end
-
 -- the group of an entry: the core's category (6th extra return of REPORT_ROW), else from the severity (an older core)
-function RV.Cat(e)
+function RV.cat(e)
   if e.cat ~= "" then
     return e.cat
   end
@@ -69,7 +56,7 @@ function RV.Cat(e)
 end
 
 -- the schema line(s) an entry's message asks for (the core writes "must start with `schema = ...`"), else nil
-function RV.Wanted(e)
+function RV.wanted(e)
   local w = string.match(e.msg, "must start with `(.+)`")
   if w == nil then
     return nil
@@ -78,8 +65,7 @@ function RV.Wanted(e)
 end
 
 -- the header of a code's group: its row in the player's language, else the core's English hint, else the code.
--- `{s}` = the schema line(s) the group's files need (`wanted`), else the generic form
-function RV.Head(e, wanted)
+function RV.head(e, wanted)
   if e.code == "note" then
     -- a plain note: named by its type
     return T("rc_note", {kind = e.ty})
@@ -94,7 +80,7 @@ function RV.Head(e, wanted)
 end
 
 -- the group of an entry: its category and code; a plain note also by its type
-function RV.Group(e)
+function RV.group(e)
   if e.code == "note" then
     return e.cat .. "/note/" .. e.ty
   end
@@ -102,11 +88,11 @@ function RV.Group(e)
 end
 
 -- the distinct schema lines the entries of one group (category + code) ask for, joined with " / "; nil when none
-function RV.GroupWanted(items, cat, code)
+function RV.group_wanted(items, cat, code)
   local seen, list = {}, {}
   for _, x in ipairs(items) do
     if x.cat == cat and x.code == code then
-      local w = RV.Wanted(x)
+      local w = RV.wanted(x)
       if w ~= nil and not seen[w] then
         seen[w] = true
         list[#list + 1] = w
@@ -116,7 +102,7 @@ function RV.GroupWanted(items, cat, code)
   return #list > 0 and table.concat(list, " / ") or nil
 end
 
-function RV.Of(id)
+function RV.of(id)
   local r = RV.cache[id]
   if r ~= nil then
     return r
@@ -128,7 +114,7 @@ function RV.Of(id)
     local sev, ty, code, loc, msg, _, key, eid, win, others, cat, hint = Call(M.REPORT_ROW, i, id)
     local e = {sev = Str(sev), ty = Str(ty), code = Str(code), loc = Str(loc), msg = Str(msg), key = Str(key), id = Str(eid),
                win = Str(win), others = Str(others), cat = Str(cat), hint = Str(hint)}
-    e.cat = RV.Cat(e)
+    e.cat = RV.cat(e)
     if e.cat == "conflict" then
       r.conflicts[#r.conflicts + 1] = e
     elseif RV.ORDER[e.cat] ~= nil then
@@ -152,9 +138,9 @@ function RV.Of(id)
   end)
   local last = nil
   for _, e in ipairs(items) do
-    if RV.Group(e) ~= last then
-      last = RV.Group(e)
-      r.problems[#r.problems + 1] = {hdr = true, cat = e.cat, sev = e.sev, text = RV.Head(e, RV.GroupWanted(items, e.cat, e.code))}
+    if RV.group(e) ~= last then
+      last = RV.group(e)
+      r.problems[#r.problems + 1] = {hdr = true, cat = e.cat, sev = e.sev, text = RV.head(e, RV.group_wanted(items, e.cat, e.code))}
     end
     r.problems[#r.problems + 1] = e
   end
@@ -169,9 +155,7 @@ function RV.Of(id)
   return r
 end
 
--- «Cambios en caliente: telop en vivo · table al reiniciar» (CMND_VRFW_REPORT_RELOAD, the reload mode of each type
--- the mod has content of); "" when the core gives none
-function RV.Reload(id)
+function RV.reload(id)
   local ck = "reload:" .. id
   if RV.cache[ck] == nil then
     local parts = {}
@@ -183,21 +167,19 @@ function RV.Reload(id)
   return RV.cache[ck]
 end
 
--- the label of view `v` in the page's tab row: its name and count («Módulos 6/8», «Problemas 3» with the count in red
--- when there are problems)
-function RV.Label(m, v, sel, units)
+function RV.label(m, v, sel, units)
   local name, n, red = "", nil, false
   if v == "info" then
     name = T("page_info")
   elseif v == "modules" then
-    name, n = T("tab_modules"), RV.ModulesOn(m) .. "/" .. #RV.ModuleRows(m)
+    name, n = T("tab_modules"), RV.modules_on(m) .. "/" .. #RV.module_rows(m)
   elseif v == "problems" then
-    name, n = T("tab_problems"), RV.Of(m.id).np
+    name, n = T("tab_problems"), RV.of(m.id).np
     red = n > 0
   elseif v == "conflicts" then
-    name, n = T("tab_conflicts"), #RV.Of(m.id).conflicts
+    name, n = T("tab_conflicts"), #RV.of(m.id).conflicts
   elseif v == "settings" then
-    name, n = T("tab_settings"), #RV.SetRows(m)
+    name, n = T("tab_settings"), #RV.set_rows(m)
   else
     name = T("btn_news")
   end
@@ -210,15 +192,15 @@ function RV.Label(m, v, sel, units)
 end
 
 -- the row of view tabs under the header band (L2 / R2 like the screen's tabs, or a click)
-function RV.Tabs(m)
-  local views = RV.Views(m)
+function RV.tabs(m)
+  local views = RV.views(m)
   local nv = #views
   local y, h = G.WIN_Y + G.BAND_H, G.VTABS_H
   Quad("P0", SP("tabbar"), G.WIN_X, y, G.WIN_W, h)
   local gx = 60
   local step = math.floor((G.WIN_W - 2 * gx) / nv)
   local w = math.min(260, step - 8)
-  local cur = RV.View()
+  local cur = RV.view()
   for k, v in ipairs(views) do
     local x = G.WIN_X + gx + (k - 1) * step + (step - w) / 2
     local sel = v == cur
@@ -226,10 +208,10 @@ function RV.Tabs(m)
     if sel or hot then
       Quad("P1", SP(sel and "tab_sel" or "tab_hot"), x, y + 6, w, h - 12)
     end
-    Txt("PC", RV.Label(m, v, sel, Fit(w - 16, 0.7)), x + w / 2, y + h / 2, 0.7)
+    Txt("PC", RV.label(m, v, sel, Fit(w - 16, 0.7)), x + w / 2, y + h / 2, 0.7)
     Hit(x, y, w, h, "view" .. k, function()
-      if RV.View() ~= v then
-        RV.Go(v)
+      if RV.view() ~= v then
+        RV.go(v)
       end
     end)
   end
@@ -237,14 +219,12 @@ function RV.Tabs(m)
   Txt("PR", K.R2, G.WIN_X + G.WIN_W - 14, y + h / 2, 0.9)
 end
 
--- «Problemas» / «Conflictos»: one row per entry (file:line, then the message), a header row per kind of problem in
--- the player's language (what it is, how to fix it); a conflict says who wins and the other mods; never an empty page
-function RV.Draw(m, which)
-  local r = RV.Of(m.id)
+function RV.draw(m, which)
+  local r = RV.of(m.id)
   local list = which == 2 and r.problems or r.conflicts
-  local px, py = G.WIN_X + 36, RV.BodyY() + 34
+  local px, py = G.WIN_X + 36, RV.body_y() + 34
   local foot = py + RV.ROWS * 36
-  local rl = which == 2 and RV.Reload(m.id) or ""
+  local rl = which == 2 and RV.reload(m.id) or ""
   if #list == 0 then
     Txt("PL", "[CN]" .. T(which == 2 and "report_no_problems" or "report_no_conflicts") .. "[C]", px, py, 0.8)
     if which == 3 then
@@ -264,7 +244,7 @@ function RV.Draw(m, which)
     if e.hdr then
       -- the kind of problem, in the player's language
       last = ""
-      Txt("PL", (e.sev == "error" and "[CR]" or "[CY]") .. Cut(e.text, Fit(G.WIN_W - 80, 0.66)) .. "[C]", px, y, 0.66)
+      Txt("PL", (e.sev == "error" and "[CR]" or "[CY]") .. Cut(Literal(e.text), Fit(G.WIN_W - 80, 0.66)) .. "[C]", px, y, 0.66)
     else
       local file = string.match(e.loc, "^(.-):%d+$") or e.loc
       local where = file == last and ("   " .. string.sub(e.loc, #file + 1)) or e.loc
@@ -280,16 +260,15 @@ function RV.Draw(m, which)
           msg = msg .. "  (" .. who .. ")"
         end
       end
-      if which == 3 and RV.WhoId(e) ~= "" then
-        -- a click on a conflict: who touches its id («¿Quién lo toca?», the same explorer as `vrfw who`)
-        Hit(px, y - 18, G.WIN_W - 72, 36, "who" .. (top + i), function() RV.OpenWho(RV.WhoId(e)) end)
+      if which == 3 and RV.who_id(e) ~= "" then
+        Hit(px, y - 18, G.WIN_W - 72, 36, "who" .. (top + i), function() RV.open_who(RV.who_id(e)) end)
         if mouse.on and mouse.hot == "who" .. (top + i) then
           Quad("P1", SP("row_sel"), px - 8, y - 18, G.WIN_W - 72, 36, 0.35)
         end
       end
       Quad("P1", SP(e.sev == "error" and "warn_r" or "warn_a"), px, y - 16, 32, 32)
-      Txt("PL", "[CN]" .. Cut(where, Fit(520, 0.66)) .. "[C]", px + 44, y, 0.66)
-      Txt("PL", (e.sev == "error" and "[CR]" or "[CB]") .. Cut("[" .. e.ty .. "] " .. msg, Fit(G.WIN_W - 680, 0.66)) .. "[C]", px + 580, y, 0.66)
+      Txt("PL", "[CN]" .. Cut(Literal(where), Fit(520, 0.66)) .. "[C]", px + 44, y, 0.66)
+      Txt("PL", (e.sev == "error" and "[CR]" or "[CB]") .. Cut("[" .. Literal(e.ty) .. "] " .. Literal(msg), Fit(G.WIN_W - 680, 0.66)) .. "[C]", px + 580, y, 0.66)
     end
   end
   if #list > RV.ROWS then
@@ -304,22 +283,15 @@ function RV.Draw(m, which)
   end
 end
 
--- ---- «¿Quién lo toca?»: the conflict explorer of `vrfw who` in the panel ------------------------------------
--- From «Conflictos»: R3 (the first conflict on the page, else an empty search) or a click on a conflict opens a list
--- page with the id in its search box (the top row, like the other tabs): every mod that touches the id, in load
--- order, one header per mod (its load position; «gana» on the winner), its lines under it (file:line on the right;
--- a line that only refers to the id is grey), then the report's entries about it. The search box takes another id.
--- One function behind it and `vrfw who`: vr_core::diagnose::who_in (CMND_VRFW_REPORT_WHO / _ROW).
-
 -- the id a conflict entry is about ("" = none)
-function RV.WhoId(e)
+function RV.who_id(e)
   if e.id ~= nil and e.id ~= "" then
     return e.id
   end
   return e.key or ""
 end
 
-function RV.OpenWho(id)
+function RV.open_who(id)
   funcLuaCommand(C.SE, SE_OK)
-  StartCo(function() RV.WhoFlow(id) end)
+  StartCo(function() RV.who_flow(id) end)
 end

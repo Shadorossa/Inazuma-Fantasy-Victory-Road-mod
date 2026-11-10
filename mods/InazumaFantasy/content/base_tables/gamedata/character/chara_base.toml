@@ -1,6 +1,4 @@
 schema = "VRFW.base_table/1"
-# The chara_base rows of the technique models the moves' events load by name (LOAD_ACTOR_RESOURCE): id = crc32(name),
-# each a copy of a retail technique model's row with the download's name, name text and model (chara_model.toml).
 
 [[keyed]]
 table = "character/chara_base"

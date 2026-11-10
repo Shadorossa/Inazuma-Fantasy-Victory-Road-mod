@@ -1,16 +1,8 @@
--- Flow toggles (content/flows/*.toml, schema VRFW.flow/1): a declaration picks the value of one fixed game decision; the later mod wins, "game" keeps retail.
---   * prematch_editor = "skip_offline": skips the pre-match team editor in offline, non-observer matches.
---   * match_exit = "black_to_menu" (+ play_modes): leaving an offline match of those play modes with the game's hold
---     prompts fades to black and stays black until the menu the game returns to has opened (bright-fade layer 1 held
---     by the detour Flow.ExitCover; the menu side is lua/menu/_all/14_match_exit.lua).
---   * CMND_VRFW_FLOW(name) -> value in force, live
---   * CMND_VRFW_MATCH_EXIT_COVER(op, arg): 2 applies?(play mode), 1 hold(play mode), 0 release(menu stem), -1 query(menu stem)
 
 Flow = Flow or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("flow")
 
 -- toggles: name -> { values = { value = true }, hook = detour a non-game value needs }
@@ -26,8 +18,6 @@ local LIVE = {}      -- toggle -> its detour is installed
 local EDITOR_FLAG = 0x2000000
 local EXIT_MODES = {}  -- match_exit: play mode -> true (the declaration's play_modes)
 local skips, kept = 0, 0
-
--- ---- declarations
 
 local function start()
   local schema, why = D.schema("flow")
@@ -86,11 +76,10 @@ local function start()
   end
 end
 
--- ---- prematch_editor
-
 -- mi = match info; true = skip the editor
 local function skip_editor(mi)
-  local ok, s = pcall(VRFW.mem.struct, "Flow.MatchInfo", mi)
+  local s = VRFW.memory.struct("Flow.MatchInfo", mi)
+  local ok = s ~= nil
   if not ok or not s then return false end
   local okf, flags = pcall(function() return s.Flags end)
   if not okf or type(flags) ~= "number" or bit32.band(flags, EDITOR_FLAG) == 0 then return false end
@@ -109,11 +98,6 @@ local function skip_editor(mi)
   return false
 end
 
--- ---- match_exit
-
--- While held, the detour Flow.ExitCover keeps layer 1 of the bright-fade object opaque black whatever the game asks
--- (its fade-ins at scene / menu changes included). The hold ends when a menu VM reports its landing, at a title return,
--- or when a query finds it older than COVER_MAX_MS (the asking VM then fades it in).
 local COVER_TABLE = "VRFW.Flow.ExitCover"
 local COVER_MAX_MS = 8000
 local cover = { held = false, since = 0, holds = 0, mode = nil }
@@ -137,15 +121,10 @@ local function cover_release(why)
   pcall(VRFW.native.table_clear, COVER_TABLE)
   if not cover.held then return false end
   cover.held = false
-  info(string.format("match_exit: black cover released (%s) after %d ms [%d]", why, math.floor(VRFW.now() - cover.since), cover.holds))
+  info(string.format("match_exit: black cover released (%s) after %d ms [%d]", why, math.floor(VRFW.now_ms() - cover.since), cover.holds))
   return true
 end
 
--- CMND_VRFW_MATCH_EXIT_COVER(op, arg)
---   2, play mode -> 1 | 0, why: the cover applies to leaving this match
---   1, play mode -> 1 | 0, why: hold it (the asking VM faded layer 1 to black first)
---   0, menu stem -> 1 | 0, why: release it (1 = released: the asking VM fades layer 1 in); refused in a match
---  -1, menu stem -> 0 not held | 1 held | 2 held too long, released now (the asking VM fades in); in a match; age ms
 function Flow.ExitCover(op, arg)
   op = tonumber(op) or -1
   if op == 2 or op == 1 then
@@ -159,7 +138,7 @@ function Flow.ExitCover(op, arg)
     end
     pcall(VRFW.native.table_clear, COVER_TABLE)
     VRFW.native.table_set(COVER_TABLE, obj, 1)
-    cover.held, cover.since, cover.holds, cover.mode = true, VRFW.now(), cover.holds + 1, tonumber(arg)
+    cover.held, cover.since, cover.holds, cover.mode = true, VRFW.now_ms(), cover.holds + 1, tonumber(arg)
     info(string.format("match_exit: match left (play mode %s): black cover held [%d]", tostring(arg), cover.holds))
     return 1
   elseif op == 0 then
@@ -169,15 +148,13 @@ function Flow.ExitCover(op, arg)
     return 1
   end
   if not cover.held then return 0, in_match(), 0 end
-  local age = VRFW.now() - cover.since
+  local age = VRFW.now_ms() - cover.since
   if age > COVER_MAX_MS then
     cover_release(string.format("no landing menu within %d ms, asked by %s", COVER_MAX_MS, tostring(arg)))
     return 2, in_match(), math.floor(age)
   end
   return 1, in_match(), math.floor(age)
 end
-
--- ---- command
 
 -- CMND_VRFW_FLOW(name) -> value, live
 function Flow.Cmd(name)

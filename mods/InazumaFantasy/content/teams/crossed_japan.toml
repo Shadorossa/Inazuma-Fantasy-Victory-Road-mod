@@ -1,11 +1,5 @@
 schema = "VRFW.team/2"
-# an Inazuma Japan squad with Byron Love, Xavier Foster, Caleb Stonewall, Archer Hawkins and other
-# callups of every era, ported from the earlier Inazuma Fantasy (research/mods/_aside/InazumaFantasy,
-# teams\19_iecross\01_crossed_japan.toml). Same key, so the team id stays crc32("evt_ct_ft_crossed_japan").
-# Every member is a game card (each character's canonical card), so the team needs no other mod.
-# Formation 4-5-1 Equilibrio (the 4-2-3-1 shape retail Zeus plays): slot 0 GK, 1-2 centre-backs, 3-4 full-backs,
-# 5 central attacking mid, 6-7 holding mids, 8-9 wide attacking mids, 10 striker; 11-15 bench, 19 coach.
-# The match level and class come from the list that shows the team (its free-match section), not from this row.
+# Crossed Japan: an Inazuma Japan squad of game cards (key evt_ct_ft_crossed_japan); 4-5-1, slots 11-15 bench, 19 coach.
 
 [[team]]
 name = "ct_ft_crossed_japan"

@@ -1,33 +1,17 @@
--- BetterQoL › original names: the picker model (series pages, their team rows, the characters) and the selection.
--- The game's series, belong teams, eras and crests come from the framework's game catalogue (VRFW/lib/game_catalogue,
--- docs/framework/game-catalogue.md); the characters from chara_base and the mods' card_filters\ declarations; no game
--- memory. Ids are unsigned 32-bit numbers.
---
--- A selection is per player: { [chara_base id] = true } (since BetterQoL 1.6.0; before, whole series and teams).
 
 local M = {}
 
 local CHARA_TABLE = "character/chara_base"
 
-local Id = require "VRFW/lib/ids"
-local Catalogue = require "VRFW/lib/game_catalogue"
+local Id = VRFW.ids
+local Catalogue = VRFW.catalogue
+local trim = VRFW.strings.trim
 
--- a page of a series type without a crest era of its own: Catalogue.crest then takes the team's latest era with one
+-- Catalogue.crest with no era of its own takes the team's latest era with a crest
 local NO_ERA = 0
 
-local function u32(v)
-  if type(v) ~= "number" then
-    return 0
-  end
-  return Id.u32(v)
-end
-M.u32 = u32
+local u32 = Id.unsigned
 
-local trim = require("VRFW/lib/basics").value.trim
-M.trim = trim
-
--- the game's series (chara_series rows: { id, ty, name_text }) and belong teams ({ id, name_text, numbers, emblems,
--- kits }), read once per VM by the framework's game catalogue
 M.series_rows = Catalogue.series
 M.belong_rows = Catalogue.teams
 
@@ -35,14 +19,6 @@ local function truthy(v)
   return v == true or (type(v) == "number" and v ~= 0)
 end
 
--- the characters of chara_base: { n1, n2, n3 (name / short / upper name text ids), series, t1, t2, t3 (belong teams),
--- id (the chara_base key: the selection's key and the face icon's) } plus
---   person = the person key: the Japanese full name (`ja_rows` = chara_text rows of ja, `strip` = furigana reducer);
---            every variant of one person (sagas, outfits, alternate versions) has the same Japanese name. No ja text:
---            the name text id (the row is its own person).
---   base   = the main row of its person: an internal key without a `_<suffix>` (`_5000`, `_notplayer`) and the
---            alternate-version flag (flag_31) off. Alternate rows have no face icon of their own.
---   serial = serial_no (0 = not a numbered player), games = { [series type k] = true } from the k-th in_<game> column.
 function M.charas(ja_rows, strip)
   local games = {}
   for i, n in ipairs(VRFW.table.columns(CHARA_TABLE)) do
@@ -84,13 +60,7 @@ function M.charas(ja_rows, strip)
   return out
 end
 
--- ------------------------------------------------------------------------------------------- declarations
-
--- an id written in a declaration: a number, "0x…" / decimal text, or a name (its crc32); nil = none
-M.id_value = Catalogue.id_value
-
--- the (series, team) pairs every active mod declares in card_filters\ (`[[bank_tab]]` / `[[series]]` entries naming
--- both, not hidden), and their count
+-- the distinct (series, team) pairs active mods declare in card_filters\ (`[[bank_tab]]` / `[[series]]`, not hidden)
 function M.declarations()
   local out, seen = {}, {}
   for _, d in ipairs(VRFW.files.declarations("card_filters")) do
@@ -100,7 +70,7 @@ function M.declarations()
       if type(arr) == "table" then
         for _, e in ipairs(arr) do
           if type(e) == "table" and e.hide ~= true then
-            local s, t = M.id_value(e.series), M.id_value(e.team)
+            local s, t = Catalogue.id_value(e.series), Catalogue.id_value(e.team)
             if s and t and s ~= 0 and t ~= 0 then
               local k = s .. ":" .. t
               if not seen[k] then
@@ -116,17 +86,6 @@ function M.declarations()
   return out
 end
 
--- ------------------------------------------------------------------------------------------- the catalogue
-
--- Tabs from the series table (table order), teams from belong_team_config (k-th teamNumber_ column = series type k),
--- then the characters' own teams, then the declared ones. A series with no team and no character is left out.
--- Members of a series of type k: its own characters (chara_base series) and every character flagged in the k-th
--- in_<game> column (Mark Evans of IE1 is also in IE3). A member's teams on that page are those of his teams numbered
--- for type k (Raimon is not an IE3 team, Inazuma National is not an IE1 one); a member of the series' own with no such
--- team keeps all his teams (unnumbered pages, mods' series), a flagged guest with none is left out.
--- Returns { series = { { id, ty, name_text, teams = {…}, declared = {…}, declared_set, members = { chara index… },
---           member_teams = { [chara index] = { team… } } } }, team_names = { [team] = name text }, charas = {…},
---           person_of = { [chara index] = person index }, persons = { { chara index… } } }
 function M.build(series, belong, charas, decls)
   local team_names, order, emblems, numbers = {}, {}, {}, {}
   for i, b in ipairs(belong) do
@@ -137,7 +96,6 @@ function M.build(series, belong, charas, decls)
       order[b.id] = i
     end
   end
-  -- persons: every variant of one person (same Japanese name), chara table order
   local person_of, persons, by_key = {}, {}, {}
   for ci, c in ipairs(charas) do
     local p = by_key[c.person]
@@ -224,7 +182,6 @@ function M.build(series, belong, charas, decls)
         end
       end
     end
-    -- by belong table order (stable: first seen first among unknown ones)
     table.sort(extra, function(a, b)
       local oa, ob = order[a] or math.huge, order[b] or math.huge
       if oa ~= ob then
@@ -254,9 +211,6 @@ function M.build(series, belong, charas, decls)
            person_of = person_of, persons = persons }
 end
 
--- the variant that shows person `p` in a row of series `s`: among `cands` (chara indices of the row) a main row
--- (c.base) first, then one of the series' own, then the lowest serial_no, then table order; when every candidate is an
--- alternate row (no face icon of its own), the person's best main row anywhere
 local function better(cat, s, a, b)
   local ca, cb = cat.charas[a], cat.charas[b]
   if (ca.base == true) ~= (cb.base == true) then
@@ -292,7 +246,7 @@ local function face_of(cat, s, p, cands)
 end
 
 -- every chara_base key of the person of chara index `ci`
-function M.person_ids(cat, ci)
+local function person_ids(cat, ci)
   local out = {}
   local p = cat.person_of and cat.person_of[ci]
   for _, x in ipairs(p and cat.persons[p] or { ci }) do
@@ -304,14 +258,6 @@ function M.person_ids(cat, ci)
   return out
 end
 
--- ------------------------------------------------------------------------------------------- the picker's rows
-
--- every team row of series `s` where the person plays (cached on it as s.rows_all): { { team, players = { chara
--- index… }, persons = { person index… }, cands = { [person] = { chara index… } } }, … } in the series' team order. A row
--- lists each PERSON once (every variant of him the row has is one cell), in the order his first variant appears in
--- chara_base; `players[j]` is the variant whose face the cell shows (face_of). A person is in the row when one of his
--- variants is a member of the series with the row's team among his page teams (s.member_teams); a team without players
--- is left out. Here a player of several teams or series is in each of their rows (the team names use these rows).
 local function rows_all(cat, s)
   if s.rows_all then
     return s.rows_all
@@ -351,10 +297,7 @@ local function rows_all(cat, s)
   s.rows_all = rows
   return rows
 end
-M.rows_all = rows_all
 
--- the order in which series claim a person: series type (the k-th teamNumber_ / in_<game> column, IE1 … Victory Road,
--- the games' release order) first, then table order; a series without a type (a mod's) after every typed one
 local function claim_order(cat)
   local idx = {}
   for i = 1, #cat.series do
@@ -372,11 +315,6 @@ local function claim_order(cat)
   return idx
 end
 
--- the HOME of every person: the one (series, team row) where his cell shows. A switch covers every variant of the
--- person in the whole game, so he is listed once: in the earliest series where he plays (claim_order), in his own team
--- there: the first team (team_1, team_2, team_3 order) of the variant that shows his face on that page that has a row
--- with him, else the first row with him in the series' team order. Sets s.rows (the rows of each page with only the
--- persons at home there; a row left without players is dropped) and cat.home = { [person] = { series index, team } }.
 function M.assign(cat)
   if cat.home then
     return cat.home
@@ -385,9 +323,9 @@ function M.assign(cat)
   for _, si in ipairs(claim_order(cat)) do
     local s = cat.series[si]
     local rows = rows_all(cat, s)
-    local has = {}          -- person -> { [team] = true } for the rows of this page
-    local cands = {}        -- person -> every variant of him on this page
-    local first = {}        -- person -> the first team (series order) with a row for him
+    local has = {}
+    local cands = {}
+    local first = {}
     for _, r in ipairs(rows) do
       for _, p in ipairs(r.persons) do
         if home[p] == nil then
@@ -440,8 +378,6 @@ function M.assign(cat)
   return home
 end
 
--- the team rows of series `s` the picker shows: { { team, players = { chara index… }, persons = { person index… } }, … }
--- in the series' team order, each person only at his home (M.assign): one cell per person in the whole picker
 function M.rows(cat, s)
   if not s.rows then
     M.assign(cat)
@@ -449,15 +385,9 @@ function M.rows(cat, s)
   return s.rows
 end
 
--- the team's crest (item_emblem id) on a page of series type `ty`: the framework's crest of the team in the era that
--- type serves (a mod's declared crest, its era crest, a same-name team record's, another era's; only crests the emblem
--- table has); 0 = none (the grid's generic emblem)
 function M.team_emblem(_, team, ty)
   return Catalogue.crest(team, Catalogue.era_of_type(ty) or NO_ERA)
 end
-
--- ------------------------------------------------------------------------------------------- selections
--- A selection is per PLAYER: { [chara_base id] = true }.
 
 function M.count(chosen)
   local n = 0
@@ -467,24 +397,9 @@ function M.count(chosen)
   return n
 end
 
-function M.copy(chosen)
-  local c = {}
-  for id in pairs(chosen) do
-    c[id] = true
-  end
-  return c
-end
+local sorted_keys = VRFW.lists.sorted_keys
 
-local function sorted_keys(set)
-  local out = {}
-  for k in pairs(set) do
-    out[#out + 1] = k
-  end
-  table.sort(out)
-  return out
-end
-
--- a canonical text of the selection (equality)
+-- canonical text of a selection (equality)
 function M.sel_key(chosen)
   local parts = {}
   for _, id in ipairs(sorted_keys(chosen)) do
@@ -493,13 +408,11 @@ function M.sel_key(chosen)
   return table.concat(parts, ",")
 end
 
--- `chosen` without the ids the catalogue has no character for, and person-complete: a chosen variant chooses every
--- variant of his person (one switch per person in the whole game)
 function M.normalize(cat, chosen)
   local out = {}
   for ci, c in ipairs(cat.charas) do
     if c[8] ~= 0 and chosen[c[8]] and not out[c[8]] then
-      for _, id in ipairs(M.person_ids(cat, ci)) do
+      for _, id in ipairs(person_ids(cat, ci)) do
         out[id] = true
       end
     end
@@ -518,7 +431,7 @@ function M.players_on(cat, players, chosen)
   return on, #players
 end
 
--- the chara_text ids of the names of every chosen character (sorted) and the number of characters
+-- sorted chara_text ids of every chosen character's names, and the number of characters
 function M.chara_name_ids(cat, chosen)
   local ids, n = {}, 0
   for _, c in ipairs(cat.charas) do
@@ -534,8 +447,6 @@ function M.chara_name_ids(cat, chosen)
   return sorted_keys(ids), n
 end
 
--- the team_text ids of the teams every player of which is chosen (in every series row of the team, each player of the
--- team counted, also those listed at another home), sorted; `all` = every team («Originales»)
 function M.team_name_ids(cat, chosen, all)
   local full = {}
   for _, s in ipairs(cat.series) do
@@ -565,68 +476,6 @@ function M.team_name_ids(cat, chosen, all)
   return sorted_keys(ids)
 end
 
--- ------------------------------------------------------------------------------------------- old selections
-
--- BetterQoL 1.3.0 - 1.5.x chose whole series (names.s.<series>) and teams of a series (names.t.<series>.<team>): the
--- characters such a selection covered (a member of a ticked series, or of a tab where one of its teams is ticked)
-function M.legacy_chosen(cat, series, teams)
-  local out = {}
-  for _, s in ipairs(cat.series) do
-    local whole = series[s.id] == true
-    local ts = teams[s.id]
-    if whole or ts ~= nil then
-      for _, ci in ipairs(s.members) do
-        local c = cat.charas[ci]
-        local on = whole
-        if not on then
-          for k = 5, 7 do
-            if c[k] ~= 0 and ts[c[k]] then
-              on = true
-              break
-            end
-          end
-        end
-        if on and c[8] ~= 0 then
-          out[c[8]] = true
-        end
-      end
-    end
-  end
-  return out
-end
-
--- does series name `name` end with one of `words` (case-insensitive)?
-function M.series_matches(name, words)
-  local last = trim(name):match("([^%s:]*)$") or ""
-  if last == "" then
-    return false
-  end
-  last = last:lower()
-  for _, w in ipairs(words) do
-    if type(w) == "string" and trim(w):lower() == last then
-      return true
-    end
-  end
-  return false
-end
-
--- the series whose name (text rows of chara_add_info_text, variant 0) ends with one of `words`
-function M.series_by_words(cat, names, words)
-  local out = {}
-  for _, s in ipairs(cat.series) do
-    local r = names[s.name_text]
-    local n = r and r[0]
-    if type(n) == "string" and M.series_matches(n, words) then
-      out[#out + 1] = s.id
-    end
-  end
-  return out
-end
-
--- ------------------------------------------------------------------------------------------- the picker
-
--- the picker's editing state: { chosen, start (its key), page (1-based series), row (the open team row, 0 = none) }.
--- It opens on the first series with a chosen player listed, else on the first series with a team row.
 function M.picker(cat, chosen)
   local c = M.normalize(cat, chosen)
   local page, any = nil, nil
@@ -653,7 +502,7 @@ function M.picker(cat, chosen)
   return { chosen = c, start = M.sel_key(c), page = page or any or 1, row = 0 }
 end
 
--- the page `dir` (-1 / 1) away, wrapping, past the series whose players are all listed elsewhere (no team row)
+-- the page `dir` (-1 / 1) away, wrapping, skipping pages without team rows
 function M.step_page(cat, p, dir)
   local n = #cat.series
   if n > 0 and dir ~= 0 then
@@ -669,7 +518,7 @@ function M.step_page(cat, p, dir)
   p.row = 0
 end
 
--- (players on, players) of the picker's series page (each character once)
+-- (players on, players) of the current page, each person once
 function M.page_counts(cat, p)
   local s = cat.series[p.page]
   if not s then
@@ -691,17 +540,14 @@ function M.page_counts(cat, p)
   return on, n
 end
 
--- player j (1-based) of the open team row: toggled; j = 0: every player of the row (all on, or all off when every
--- one is on). Returns the new state (of player j / of the row), players on, players.
 function M.toggle(cat, p, j)
   local s = cat.series[p.page]
   local r = s and M.rows(cat, s)[p.row]
   if not r then
     return false, 0, 0
   end
-  -- a switch covers every variant of the person in the whole game
   local function set(ci, on)
-    for _, id in ipairs(M.person_ids(cat, ci)) do
+    for _, id in ipairs(person_ids(cat, ci)) do
       p.chosen[id] = on or nil
     end
   end

@@ -1,27 +1,3 @@
--- Battle Bay Campaign: the 7 rivals drawn from the WHOLE enjoy_mode_team_config table instead of the 28 slots of the
--- page the grid shows. The player still picks his team in the grid. Since
--- it replaces the former DLL's campaign.rs / campaign_rt.rs with the same behaviour. Declarations:
--- content\game\campaign.toml (the vtable hook `Decide`, slot 43 of EnjoySelectTeamMenu, chained on top of the
--- VR-Framework's BB pages service). This is the mod's only entry script (scripts.toml): the Draft (draft.lua) runs in
--- this VM, so the hook and the Draft share their state.
---
--- With the button 0x140980D9 the retail Decide builds the pool from the unlocked grid slots minus the player's team,
--- shuffles it, resizes it to 7 (zero padded), writes Session +0x2CA6F0[7] AND starts match 1 at once with rival [0];
--- a pure post-hook would come too late for match 1, so:
--- * pre (button + campaign menu only): draw the 7 rivals from every enjoy row that is unlocked (grid slots: their
---   unlocked byte; other rows: their own condition, evaluated with the game's EvalCondition) and is not the player's
---   team, then make the grid pool hold ONLY rival 1 (one slot that is not the player's carries it, every other slot
---   is marked locked): the game "draws" exactly that team, writes [rival1, 0 x 6] and starts match 1 against it;
--- * post: every slot back (team + unlocked byte); when the session block holds player, rival 1, 0 x 6 (the campaign
---   really started) rivals 2-7 are written. Every later match reads Session[match index] and finds its row by hash.
--- Order: with [campaign] progression = true and a rating table (data/common/gamedata/team/evt_bb_team_rating.cfg.bin,
--- any mod may ship it) the candidates are sorted by rating (unknown = the median) and split into 7 bands, one rival
--- per band (match 1 one of the weakest seventh, match 7 one of the strongest); else a plain shuffle. Fewer than 7
--- candidates: each once, the ladder completed by repeating them (never a 0 rival). No candidate: the retail draw. The
--- Draft team is never a rival, and a decide on its tile outside the Campaña is refused. 1.5.61: the «Active team» tile
--- (active_team.lua) is never a rival either, and only the player's side may pick it. The VR-Framework's «win it
--- to unlock it» rule (docs/framework/bb-pages.md §8) only stops the PLAYER from picking a team: its teams stay CPU
--- rivals.
 
 local U = require "lib/util"
 local G = require "lib/game"
@@ -30,15 +6,13 @@ local Tourn = require "tournament"
 local Active = require "active_team"
 local Net = require "net_match"
 require "kit_diag"
--- the «Reto diario» (its commands, its blob, its match handlers)
+require "campaign_fields"
+-- the "Daily challenge" (its commands, its blob, its match handlers)
 require "daily_challenge"
 local Block = require "lib/campaign_block"
 local Trophy = require "lib/trophy_celebration"
 
--- the Campaña's last match (index 6 of its own block, the 7th rival: the game's campaign clear when won) gets the
--- champions' celebration after its full time. The Torneo, the Reto diario and the private room borrow the block at
--- index 0.. 2, never 6; the match's rival must be the block's 7th rival (a free match keeps the block untouched).
-local CAMPAIGN_LAST = nil -- { rival }: the block's 7th rival while its last match may be played
+local CAMPAIGN_LAST = nil
 
 VRFW.on("match_start", function()
   CAMPAIGN_LAST = nil
@@ -64,14 +38,11 @@ VRFW.on("signal:vrfw.match_result", function()
   Trophy.play("campaign", Trophy.last_result())
   return nil
 end)
--- a tournament started with the Draft team keeps the drafted squad (as a Campaña started with it)
 Tourn.on_started = function(run)
   if run.player_team == Draft.team() then
     Draft.campaign_started()
   end
 end
--- a running Torneo with the Draft team owns the drafted squad (the top-menu sync keeps it, a restart brings it back)
--- and every one of its matches checks it on the rows first (draft.lua, «runs that play the Draft»)
 Draft.tournament_team = Tourn.player_team
 -- the league's top scorers draw the simulated goals among a team's starters (its member rows in memory)
 Tourn.roster = Draft.roster
@@ -84,7 +55,7 @@ end
 
 local floor = math.floor
 
-local RATING_KEY = "data/common/gamedata/team/evt_bb_team_rating.cfg.bin"
+local RATING_KEY = "data/common/gamedata/team/battlebaydeluxe_team_rating.cfg.bin"
 local RATING_VERSION = 1
 
 local CFG = {
@@ -92,7 +63,6 @@ local CFG = {
   seed = tonumber(U.config("campaign.seed", 0)) or 0,
 }
 
-require "VRFW/lib/basics"
 local info, warn, err = VRFW.logger("campaign")
 
 info(string.format("rivals from the whole enjoy table (progression %s, seed %s)", tostring(CFG.progression),
@@ -101,11 +71,8 @@ if not VRFW.is_on("EvalCondition") then
   warn("unlock-condition evaluator not resolved: conditioned rows off the grid are never campaign rivals")
 end
 
--- ------------------------------------------------------------------------------------------------ ratings
-
 local RATINGS = nil
 
--- team -> rating from the rating table (EVT_BB_RATING_HEADER version, EVT_BB_RATING(team, rating, row)), read once
 local function ratings()
   if RATINGS then
     return RATINGS
@@ -117,9 +84,9 @@ local function ratings()
     return RATINGS
   end
   local ok, res = pcall(function()
-    local head = VRFW.table.raw(RATING_KEY, "EVT_BB_RATING_HEADER")
+    local head = VRFW.table.raw(RATING_KEY, "BATTLEBAYDELUXE_TEAM_RATING_HEADER")
     if #head == 0 then
-      error("no EVT_BB_RATING_HEADER row", 0)
+      error("no BATTLEBAYDELUXE_TEAM_RATING_HEADER row", 0)
     end
     for _, h in ipairs(head) do
       local ver = type(h[1]) == "number" and h[1] or 0
@@ -128,7 +95,7 @@ local function ratings()
       end
     end
     local out, n = {}, 0
-    for _, r in ipairs(VRFW.table.raw(RATING_KEY, "EVT_BB_RATING")) do
+    for _, r in ipairs(VRFW.table.raw(RATING_KEY, "BATTLEBAYDELUXE_TEAM_RATING")) do
       local team = type(r[1]) == "number" and U.u32(r[1]) or 0
       local v = type(r[2]) == "number" and floor(r[2]) or 0
       if team ~= 0 and v > 0 then
@@ -149,15 +116,10 @@ local function ratings()
   return RATINGS
 end
 
--- exported ([exports] functions): team id -> rating of the rating table after its header check; {} without one
 function BattleBayDeluxe.Ratings()
   return ratings()
 end
 
--- ------------------------------------------------------------------------------------------------ the draw
-
--- the candidates: every row (table order) whose team is not the player's, not 0, not repeated, and unlocked: a row
--- whose team sits in a grid slot takes that slot's unlocked flag, any other row its own state (free / cond_true)
 local function candidates(rows, grid, player)
   local on_grid = {}
   for _, g in ipairs(grid) do
@@ -183,10 +145,6 @@ local function candidates(rows, grid, player)
   return out, locked
 end
 
--- the n rivals of one campaign, in match order: with progression and at least one known rating the candidates
--- sorted by rating (unknown = the median of the known ones, ties in random order), split into n equal bands, one
--- random pick per band; otherwise a shuffle, the first n. Fewer than n candidates: each once, the ladder completed by
--- repeating them (in rating order with progression).
 local function draw(cands, n, progression, rng)
   local m = #cands
   if m == 0 or n == 0 then
@@ -207,8 +165,7 @@ local function draw(cands, n, progression, rng)
   if progression and #known > 0 then
     table.sort(known)
     local med = known[floor(#known / 2) + 1]
-    -- stable after the shuffle: equal ratings stay in random order
-    U.stable_sort(v, function(c)
+    VRFW.lists.stable_sort(v, function(c)
       return c.rating or med
     end)
     if m >= n then
@@ -229,26 +186,13 @@ local function draw(cands, n, progression, rng)
   return out
 end
 
--- ------------------------------------------------------------------------------------------------ the Decide hook
-
 local CAMPAIGNS = 0
-local PREP = nil -- what the pre-phase changed, for the post-phase of the same decide
+local PREP = nil
 
 local function slot_struct(menu, i)
   return U.struct("GridSlot", G.slot_addr(menu, i))
 end
 
--- The Draft outside the Campaña. Where the Draft may be played is data: config.toml [draft] modes ("campaign" always;
--- "free_match" = the 1 vs 1 grid, enjoy_team_select_menu_offline, whose screen is the graft bb_draft's same block).
--- In the free match the retail Decide of a grid tile only records the 1P / CPU slot and never calls the menu's Lua
--- (GameDecide returns before the base Decide), so the Draft screen could not open there. A decide on the Draft tile:
---   * a network session (online Battle Bay): refused (the peer has no drafted squad);
---   * a complete draft on the rows (or a run's drafted squad): the retail decide (1P / CPU = the Draft team);
---   * else: for this one call the menu is flagged as the Campaña's (GridMenu.campaign), so the retail Decide goes on to
---     the base Decide, which calls the Lua OnDecideFocus(grid, slot): the graft opens the Draft screen as in the
---     Campaña (no 1P / CPU recorded). The flag is put back in the post-phase (or by the next decide when that never ran).
---     When the 16 are drafted the graft asks CMND_BBD_DRAFT_DECIDE: the retail decide of the tile, called directly
---     (not through this hook), records the Draft team as 1P / CPU.
 local DRAFT_MODES = {}
 do
   local m = U.config("draft.modes", { "campaign", "free_match" })
@@ -256,11 +200,11 @@ do
     m = { m }
   end
   for _, v in ipairs(m) do
-    DRAFT_MODES[U.trim(tostring(v))] = true
+    DRAFT_MODES[VRFW.strings.trim(tostring(v))] = true
   end
 end
-local FREE = nil       -- the free-match menu whose campaign flag this decide raised ({ menu, was })
-local FREE_MENU = nil  -- { menu, slot }: the free-match grid whose Draft screen is open (CMND_BBD_DRAFT_DECIDE)
+local FREE = nil
+local FREE_MENU = nil
 
 local function network_session()
   if not VRFW.is_on("Net.IsSession") then
@@ -273,7 +217,6 @@ local function network_session()
   return U.truthy(v)
 end
 
--- the Draft tile decided outside the Campaña: nil (not the Draft tile / the Campaña), "refuse", "pass" or "open"
 local function draft_gate(menu, btn, idx)
   local team = Draft.team()
   if team == 0 or idx >= G.SLOTS or U.rd("u32", btn) ~= G.GRID_LAYER then
@@ -304,13 +247,11 @@ local function draft_gate(menu, btn, idx)
   return "open"
 end
 
--- a decide on the Active team tile (active_team.lua): nil = not that tile or allowed, "refuse" = refused
 local function active_gate(menu, btn, idx)
-  local team = Active.team()
-  if team == 0 or idx >= G.SLOTS or U.rd("u32", btn) ~= G.GRID_LAYER then
+  if idx >= G.SLOTS or U.rd("u32", btn) ~= G.GRID_LAYER then
     return nil
   end
-  if U.get(slot_struct(menu, idx), "team") ~= team then
+  if not Active.is_tile(U.get(slot_struct(menu, idx), "team") or 0) then
     return nil
   end
   local m = U.struct("GridMenu", menu)
@@ -337,8 +278,6 @@ local function free_back(why)
   end
 end
 
--- CMND_BBD_DRAFT_DECIDE slot: the graft's free-match Draft screen is done (16 drafted): the retail decide of the
--- tile records the Draft team as 1P / CPU. -> ok
 function BattleBayDeluxe.DraftDecide(slot)
   slot = U.int(slot, -1)
   local f = FREE_MENU
@@ -358,7 +297,8 @@ function BattleBayDeluxe.DraftDecide(slot)
     warn("free match: the grid changed (slot " .. f.slot .. " no longer the Draft tile): nothing decided")
     return false
   end
-  local okb, lb = pcall(VRFW.mem.buffer, "bbd_layer_decide", 4)
+  local lb = VRFW.memory.buffer("bbd_layer_decide", 4)
+  local okb = lb ~= nil
   if not okb or not U.wr("u32", lb, G.GRID_LAYER) then
     return false
   end
@@ -392,8 +332,8 @@ local function prepare(menu, btn)
   if not camp or camp == 0 then
     return nil
   end
-  -- from here on a nil is the game's own draw (only the visible page's slots): every such case says why
-  local okb, lb = pcall(VRFW.mem.buffer, "bbd_layer", 4)
+  local lb = VRFW.memory.buffer("bbd_layer", 4)
+  local okb = lb ~= nil
   if not okb or not U.wr("u32", lb, G.GRID_LAYER) then
     warn("layer buffer not writable: game campaign draw (visible page only)")
     return nil
@@ -423,13 +363,11 @@ local function prepare(menu, btn)
     end
     grid[i + 1] = { team = team, raw = un }
   end
-  -- «Personalizado»: the team picker moved the grid's cursor over the picks, so the cursor is not the player's team
   local player = Tourn.picked_player() or grid[cursor + 1].team
   if player == 0 then
     warn("cursor slot " .. cursor .. " holds no team: game campaign draw (visible page only)")
     return nil
   end
-  -- what the game's own draw would take: the visible page's unlocked slots minus the player's team
   local page_pool = 0
   for _, x in ipairs(grid) do
     if x.team ~= 0 and x.team ~= player and x.raw ~= 0 then
@@ -441,21 +379,18 @@ local function prepare(menu, btn)
     warn("enjoy table not readable: game campaign draw")
     return nil
   end
-  -- the Active team tile is never a rival (its players are placeholders: only the player's side plays the active team)
-  local active_team = Active.team()
-  if active_team ~= 0 then
+  if Active.team() ~= 0 then
     local keep = {}
     for _, r in ipairs(raw) do
-      if r.team ~= active_team then
+      if not Active.is_tile(r.team) then
         keep[#keep + 1] = r
       end
     end
     raw = keep
-    if player == active_team then
+    if Active.is_tile(player) then
       info("the campaign plays the player's active team (the Active team tile)")
     end
   end
-  -- the Draft team is never a rival; as the player's team it needs a complete draft
   local draft_team = Draft.team()
   if draft_team ~= 0 then
     local keep = {}
@@ -469,12 +404,9 @@ local function prepare(menu, btn)
       if not Draft.ready_to_play() then
         VRFW.warn("draft: campaign started with the Draft team but no complete draft: it plays the placeholders")
       end
-      -- the campaign scene looks the enjoy row's leader up among the team's member rows: it must be a member
       Draft.before_campaign()
     end
   end
-  -- the «win it to unlock it» rule only stops the PLAYER from picking a team: its rows (a Chronicle-clear condition
-  -- the framework wrote) stay CPU rivals and do not count as conditioned rows in the layout check below
   local rule, nrule = {}, 0
   local function rule_check(t)
     if t ~= 0 and rule[t] == nil then
@@ -491,9 +423,6 @@ local function prepare(menu, btn)
   for _, g in ipairs(grid) do
     rule_check(g.team)
   end
-  -- sanity of the "+0x10 = unlock condition, null = none" layout: only a handful of rows have one (8 in the game's
-  -- table). If most rows read as conditioned the layout guess is wrong: then every row off the grid counts as
-  -- unlocked (and nothing is handed to the evaluator)
   local free_rows = 0
   for _, r in ipairs(raw) do
     if r.cond == 0 or rule[r.team] then
@@ -549,7 +478,7 @@ local function prepare(menu, btn)
     end
     pool = keep
   end
-  Tourn.note_pool(#pool, pool, player) -- 1.5.15: the Torneo's options offer only the team counts this pool fills
+  Tourn.note_pool(#pool, pool, player)
   if #pool == 0 then
     warn("no unlocked team besides the player's in " .. #rows .. " rows: game campaign draw")
     return nil
@@ -570,9 +499,6 @@ local function prepare(menu, btn)
     cands[i] = { team = t, rating = rt[t] }
   end
   if Tourn.armed() then
-    -- «Torneo» (tournament.lua, 1.5.4): the bracket is drawn from the same candidates and the game's own start is
-    -- refused (the grid unchanged); the grid's Lua sends the difficulty, the tournament writes the campaign block and
-    -- shows the bracket first; match 1 is the top menu's «next match» (the game's campaign «continue»)
     local trun, why = Tourn.begin(pool, player, rt, h, l)
     if not trun then
       warn("tournament not started (" .. tostring(why) .. "): the start refused")
@@ -589,7 +515,6 @@ local function prepare(menu, btn)
   if #pool < G.RIVALS then
     warn("only " .. #pool .. " candidate(s): the 7 matches repeat rivals")
   end
-  -- the grid pool = rival 1 only: one slot that is not the player's carries it, every other slot is locked
   local p = { menu = menu, grid = grid, rivals = rivals, player = player, seed = U.hex(h) .. ":" .. U.hex(l),
     pool = #pool }
   local carrier = cursor == 0 and 1 or 0
@@ -615,9 +540,6 @@ local function prepare(menu, btn)
   return p
 end
 
--- ---- the campaign load check (estadio-bb.md §14.15): match 1's two teams as the game reads them
-
--- one team of match 1: a summary; nil, the step that fails
 local function check_team(team)
   if team == 0 then
     return nil, "team hash 0 (empty pool slot)"
@@ -737,13 +659,9 @@ local function finish(p)
   check_match(sess, p.player, p.rivals[1])
 end
 
--- the Campaña / Torneo grid of the last team decide (the start without the difficulty window decides on it)
 local CAMPAIGN_GRID = nil
 
--- the pre-phase of a decide (the Decide hook, and the start without the difficulty window): nil = the game's Decide
--- runs, { skip = true, ret = 0 } = it does not
 local function decide_pre(menu, btn, idx)
-  -- a «Sala privada» team pick (net_match.lua): the tile's team goes to the room, the game's decide does not run
   local okn, net = pcall(Net.decide, menu, btn, idx)
   if not okn then
     warn("room pick check failed: " .. tostring(net))
@@ -756,7 +674,6 @@ local function decide_pre(menu, btn, idx)
     end
   end)
   if PREP then
-    -- a post-phase that never ran (the scripts were busy on another thread then): the grid back first
     if PREP.menu == menu then
       restore_grid(PREP)
     end
@@ -797,7 +714,6 @@ local function decide_pre(menu, btn, idx)
     return nil
   end
   if p and p.tournament_pending then
-    -- the tournament's start: the game's own campaign start does not run (tournament.lua writes the block)
     PREP = nil
     return { skip = true, ret = 0 }
   end
@@ -831,12 +747,6 @@ VRFW.on("hook:Decide:post", function(ev)
   return decide_post(ev.args[1])
 end)
 
--- ------------------------------------------------------------------------------------------------ the owned difficulty
--- A mod that sets the CPU's AI itself publishes the game's difficulty index (0-3) as a game_state key; config.toml
--- [difficulty] owner_states lists the keys read. While one answers, the Battle Bay asks for no difficulty (graft
--- bb_draft bbd_difficulty.lua): the menus' GetSelectDifficultyIdx answers it, the Campaña / Torneo team decide starts
--- at once (StartWithoutDifficulty) and the 1 vs 1's match settings hide their difficulty row.
-
 local DIFFICULTY_LEVELS = 4 -- the game's difficulty windows: 4 levels, index 0-3
 local DIFFICULTY_STATES = {}
 do
@@ -845,7 +755,7 @@ do
     keys = { keys }
   end
   for _, k in ipairs(keys) do
-    k = U.trim(tostring(k))
+    k = VRFW.strings.trim(tostring(k))
     if k ~= "" then
       DIFFICULTY_STATES[#DIFFICULTY_STATES + 1] = k
     end
@@ -854,7 +764,6 @@ end
 local difficulty_shown = nil
 local difficulty_bad = {}
 
--- the owned difficulty: index, key; nil = no key answers
 local function owned_difficulty()
   for _, key in ipairs(DIFFICULTY_STATES) do
     local ok, v = pcall(VRFW.state.get, key)
@@ -874,7 +783,7 @@ local function owned_difficulty()
   return nil
 end
 
--- CMND_BBD_DIFFICULTY_OWNED -> the owned difficulty index, -1 = none (logged when it changes)
+-- CMND_BATTLEBAYDELUXE_DIFFICULTY_OWNED -> the owned difficulty index, -1 = none (logged when it changes)
 function BattleBayDeluxe.OwnedDifficulty()
   local ok, idx, key = pcall(owned_difficulty)
   if not ok then
@@ -906,7 +815,8 @@ local function start_without_difficulty()
     warn("difficulty start: no Campaña grid decided: nothing started")
     return false
   end
-  local okb, lb = pcall(VRFW.mem.buffer, "bbd_layer_start", 4)
+  local lb = VRFW.memory.buffer("bbd_layer_start", 4)
+  local okb = lb ~= nil
   if not okb or not U.wr("u32", lb, G.BTN_CAMPAIGN_START) then
     warn("difficulty start: layer buffer not writable: nothing started")
     return false
@@ -926,7 +836,7 @@ local function start_without_difficulty()
   return true
 end
 
--- CMND_BBD_DIFFICULTY_START -> true = started (or the Torneo's run drawn), false = nothing started
+-- CMND_BATTLEBAYDELUXE_DIFFICULTY_START -> true = started (or the Torneo's run drawn), false = nothing started
 function BattleBayDeluxe.StartWithoutDifficulty()
   local ok, done = pcall(start_without_difficulty)
   if not ok then
@@ -934,4 +844,112 @@ function BattleBayDeluxe.StartWithoutDifficulty()
     return false
   end
   return done == true
+end
+
+-- the slot document that keeps the template each picked Personal Teams tile plays ("team:template,...")
+local RUN_DOC = "BattleBayDeluxe.personal_run"
+
+-- The document as team -> template.
+local function tile_templates(slot)
+  local map, n = {}, 0
+  for team, template in tostring(VRFW.save.doc.read_text(RUN_DOC, slot) or ""):gmatch("(%d+):(%d+)") do
+    map[tonumber(team)] = tonumber(template)
+    n = n + 1
+  end
+  return map, n
+end
+
+-- The Personal Teams tile a saved Campaña or a running Torneo plays; 0 when none.
+local function run_tile()
+  local b = Block.read()
+  if Block.alive(b) and not Block.lent() and Active.is_tile(b.player) and b.player ~= Active.team() then
+    return b.player
+  end
+  local t = Tourn.player_team() or 0
+  if Active.is_tile(t) and t ~= Active.team() then
+    return t
+  end
+  return 0
+end
+
+-- CMND_BATTLEBAYDELUXE_TILE_RUN -> team, template the saved run plays; nil when no run plays a Personal Teams tile
+function BattleBayDeluxe.TileRun()
+  local slot = VRFW.save.doc.slot()
+  local team = run_tile()
+  local map, n = tile_templates(slot)
+  local template = map[team]
+  -- only the saved run's tile stays in the document: the other picks were single matches
+  if n > (template and 1 or 0) then
+    VRFW.save.doc.write_text(RUN_DOC, template and string.format("%.0f:%d", team, template) or "", slot)
+    info("personal run: " .. (n - (template and 1 or 0)) .. " tile template(s) no saved run plays dropped")
+  end
+  if template == nil then
+    return nil
+  end
+  return team, template
+end
+
+-- CMND_BATTLEBAYDELUXE_TILE_PLAYS (team, team set, template) -> true: the tile's matches play that team set
+function BattleBayDeluxe.TilePlays(team, set, template)
+  team, set, template = U.u32(tonumber(team) or 0) or 0, U.int(set, -1), U.int(template, 0)
+  if not Active.is_tile(team) or team == Active.team() or set < 0 or template < 1 then
+    return false
+  end
+  if not pcall(VRFW.native.table_set, "BattleBayDeluxe.ActiveSet", team, set) then
+    warn("personal tile " .. U.hex(team) .. ": team set " .. set .. " not written to the hook's table")
+    return false
+  end
+  local slot = VRFW.save.doc.slot()
+  local map, parts = tile_templates(slot), {}
+  map[team] = template
+  for tile, kept in pairs(map) do
+    parts[#parts + 1] = string.format("%.0f:%d", tile, kept)
+  end
+  table.sort(parts)
+  local ok, why = VRFW.save.doc.write_text(RUN_DOC, table.concat(parts, ","), slot)
+  if not ok then
+    warn("personal tile " .. U.hex(team) .. ": template " .. template .. " not kept for the run (" .. tostring(why) .. ")")
+  end
+  info(string.format("personal tile %s plays template %d in team set %d", U.hex(team), template, set))
+  return true
+end
+
+function BattleBayDeluxe.CampaignSync()
+  local b = Block.read()
+  local campaign = Block.alive(b) and not Block.lent()
+  if campaign then
+    local rows = G.enjoy_rows()
+    if rows and not G.enjoy_row(b.player) then
+      if Block.clear() then
+        info(string.format("top menu sync: the saved Campaña of team %s ended (no Battle Bay team has that id)",
+          U.hex(b.player)))
+        campaign = false
+      else
+        warn("top menu sync: the saved Campaña of an unknown team " .. U.hex(b.player) .. " could not be ended")
+      end
+    end
+    if campaign and Active.dock_ready(b.player) == false then
+      if Block.clear() then
+        info("top menu sync: the saved Campaña of team " .. U.hex(b.player) .. " ended (its dock has no 11 starters now)")
+        campaign = false
+      else
+        warn("top menu sync: the saved Campaña of the emptied dock team " .. U.hex(b.player) .. " could not be ended")
+      end
+    end
+  end
+  local player = campaign and b.player or 0
+  local phase, lost = Draft.sync(campaign, player)
+  if lost then
+    if campaign and player == Draft.team() then
+      if Block.clear() then
+        info("top menu sync: the saved Campaña with the Draft team ended (its drafted squad is not stored)")
+      else
+        warn("top menu sync: the saved Campaña with the Draft team could not be ended")
+      end
+    elseif Tourn.player_team() == Draft.team() then
+      BattleBayDeluxe.TournamentAbandon()
+      info("top menu sync: the running Torneo with the Draft team ended (its drafted squad is not stored)")
+    end
+  end
+  return phase
 end

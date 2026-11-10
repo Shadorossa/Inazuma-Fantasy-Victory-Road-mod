@@ -1,164 +1,27 @@
 id = "ClassicRecruitment"
-former_ids = ["NewRecruitment"]
-key_id = "ClassicRecruitment"
-# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
-# game's language (text\keys.toml)
+# name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "Classic Recruitment"
-version = "0.2.4"
+version = "0.3.0"
 author = "Fantasy Team"
-author_steam = "76561199013321372"
-description = "One card per character, as in the classic games: saves keep only the best copy and the others merge into it. Players no longer drop as spirits anywhere, so you sign them in the Clubroom's Player album with Friendship Points, earned in every match (a common player costs about 4 matches, a star about 10, the strongest about 20). The spirit screen and the player-universe gacha are gone, and Chronicle pick-up matches recruit nobody."
+description = "One card per character, as in the classic games: players no longer drop as spirits, so you sign them in the Clubroom's Player album with Friendship Points earned in every match. Needs BetterQoL."
 priority = 0
 tags = ["Characters", "Gameplay"]
-updated = "2026-11-06"
-# Comment links to existing docs
-# This mod's own names (TOML keys [ClassicRecruitment.X], Lua ClassicRecruitment.X); never VRFW.
+updated = "2026-11-09"
 prefix = "ClassicRecruitment"
 folder = "ClassicRecruitment"
-# No More Rarities keeps the rarity removal; this module the one-copy-per-character limit and the
-# spirit-free recruitment. Each works alone; with both on, the behaviour is No More Rarities 1.0.13's. Standard mod
-# layout:
-#   content\duplicate_rules\new_recruitment.toml   [CharacterReforged.DuplicateRules.new_recruitment] (Character
-#                                     Reforged's duplicate-players hook): one card per character on a duplicated save,
-#                                     which copy is kept, element spirits per released copy; apply_on_load: the same on
-#                                     every load of a player slot (Character Reforged keeps a backup of the save first)
-#   content\team_planner\rule.toml    Utilities' team planner: any owned copy of a character counts
-#   content\items\drop_list.toml      [VRFW.DropList.Spirits] ExcludeAll: no player spirit drops in matches (every
-#                                     candidate refused, the chance lost), [VRFW.DropList] HideTabs: no player groups
-#                                     in «Tasa de aparición»; not in a reserved slot
-#   assets\lua\_all\new_recruitment_spirits.lua   no spirit «!» notices, and a
-#                                     spirit drop of a normal card (since 1.0.1 none drops outside a reserved slot,
-#                                     so only there) = the player: noted on the match result screen,
-#                                     recruited into the bank on the first step of a menu of the save (VRFW_Recruit), his
-#                                     spirit taken back (at No More Rarities' normal card rarity when it is on, else at
-#                                     the spirit's own rarity)
-#   assets\lua\vs_route_town_command_select_menu\new_recruitment_idol_toggle.lua   the Chronicle board's «Quitar
-#                                     aparición de ÍDOLOS ya obtenidos» guide entry removed and its key off (hooks of the
-#                                     board host: SetupButtonGuide, IsHeroDropControlActived); not in a reserved slot
-#   assets\lua\chronicle_mode_top_menu\new_recruitment_players_universe.lua   the Chronicle gacha «Universo del
-#                                     jugador» covered: its row of the Chronicle top menu hidden and its enter does nothing
-#                                     (wrappers of GetNumUsedButtons, OnDecideFocus, OnEnter, IsReservedPlayersUniverseEvent; its icon boxes (BetterUI) or small rows (retail) move up one row so no gap is left; their «!» notices stay on their own box)
-#   assets\lua\vs_route_town_menu\new_recruitment_players_universe_key.lua   the Chronicle board's Tab / pad shortcut to the
-#                                     gacha: OpenUniverse does nothing and the Tab button (layer 1423637364, instance 0) is hidden
-#   content\triggers\w90i001.toml + w90i001.lua   the Chronicle hub map's trigger script: the gacha map point does nothing
-#   content\tables\common\gamedata\map\w90i001\w90i001_oneplace_setting.toml   the gacha function point (OP_FUNC
-#                                     run_players_universe_menu) deleted from the hub map: no marker, no zone
-#   scripts\spirit_purge.lua + scripts\lib\spirit_purge.lua   a save duplicated through the slot screen (the
-#                                     VR-Framework's slot_duplicate event) loses every player spirit in the NEW copy; the
-#                                     source save is never touched
-#   content\save_adjust\new_recruitment.toml + text\rows\save_tools.toml   its save adjust action (Options › «Ajustar
-#                                     save») on the CURRENT save, run by Character
-#                                     Reforged's scripts\save_tools.lua (script = "CharacterReforged:save_tools.lua") with
-#                                     this module's duplicate rule; a card the bank cannot retire or that did not join
-#                                     by signing is never released
-#   assets\lua\soccer_summon_menu\new_recruitment_summon_special.lua   the «Espíritu» screen turns Ídolo and Diamante
-#                                     cards into players (the Atrio's retail Basara flow); a normal card or a card the
-#                                     club already has is refused
-#   content\contact_maps\office.toml   [[VRFW.ContactSet]] office: the recruitment office
-#   content\contact_maps\office_terms.toml   GENERATED (research/scripts/new_recruitment_office_terms.py): every
-#                                     card's level, price in fichas, page, requirements and trials as the old office had them
-#   config.toml                        [office] requirements (default false: the office asks only the price)
-#   content\friendlies\office_trial.toml   the trial friendly («Prueba»), passed per card (office.{tag}.{sub})
-#   text\rows\menu_text.toml   the office's titles
-# Saved state: none under this mod's id. The pending spirit recruits are loader UI flags whose key names were kept from
-# No More Rarities (no_more_rarities_spirit_pending*), so recruits noted before the split still happen; the on-load
-# backup blobs are Character Reforged's. No save import is needed.
-# VRFW 2.4.32: [VRFW.DropList.Spirits]; 2.4.36: the slot_duplicate event; 2.4.40: the save tools.
-# CharacterReforged 1.7.8: the duplicate rules' apply_on_load.
-# Puntos de amistad (tk_hr000008, the retail Victory Star renamed; content\items\friendship_points.toml + its icon
-# content\images\menu\200_icon\02_icon_item\friendship_points.toml; moved from Inazuma Fantasy, the balance is the item's
-# own count in the save, so nothing to migrate): every match pays them at its end (config.toml [match_drops.friendship],
-# [[VRFW.MatchDropExtra]]), a goal's drop of them is held to the end; a signing from the album costs them: config.toml
-# [album] (base + per_value × his old office price + per_level × the join level) × the shown card's rarity factor
-# (docs/game/mods/friendship-economy.md),
-# asked through CMND_CLASSICRECRUITMENT_ALBUM_PRICE (scripts\album_price.lua); the question shows the price and the
-# balance, too few points = a message and nothing signed, «Sí» takes the points then signs (VRFW_Recruit.Recruit price).
-# signing: always BetterQoL's «Álbum de jugadores» (A on a player the club does not have; assets\lua\_all\
-# new_recruitment_album.lua; texts text\rows\album_text.toml). The office's contact set has no way in. A left-over recruit_source value in an old
-# mod_options\new_recruitment.json is never read.
-# no icon on the pachanga list's banner (VRFW 2.75.0: the formation
-# view, the players' rows, the caravan put back).
-# the pachangas' levels follow the board, IE1 easiest, Galaxy hardest (zone_rules.toml
-# [level] scale = "chronicle": zone bases 5-140 in era and heroic order, each pachanga its zone's base + its offset),
-# no longer the player's team level.
-# the pachangas' levels scale with the player's team level (zone_rules.toml [level]); in
-# a zone each pachanga its own level (the lowest = the team level, the others + their data difference, at least +1).
-# the pachanga list with the board's retail art, the team names on the
-# rows, the players in their pachanga team's kit, no giant caravan after leaving it (VRFW 2.71.0).
-# the pachanga list in the Chronicle board's node panel look (rows = the
-# zone's pachangas, the lineup, Y «Plantilla de equipo», the blue side panel «Jugadores» with every player
-# posing).
-# the pachanga points' board group is the shared «Cadenas» chain «pachangas»
-# (VRFW 2.65.0 chain / title); content\types\pachangas.toml: the declaration schema of content\pachangas\
-# (ClassicRecruitment.pachangas/1: zones, pachangas, with their refs) for `vrfw check` and the
-# ModManager forms. Nothing changes in game.
-# entering a pachanga point from the piece beside it no longer
-# draws the caravan huge (VRFW 2.64.0).
-# the board's caravan is hidden while the pachanga list is up (it showed
-# huge over it); the zone point's balloon «Pachangas · <zone>» (VRFW 2.58.0 route.rs TitleBalloon).
-# a pachanga zone point shows the retail street-match marker of the field
-# minimap (Icon; cut from the game's atlas at install: _deploy.toml [[retail_sprites]]) and the balloon
-# «Pachangas · <zone>» (TitleBalloon) instead of a team crest and name; the 50 points are one hideable board group
-# (content\board_groups\pachangas.toml: Utilities' X on the board hides / shows them).
-# the «Espíritu» dock row is found again when BetterUI's shortcut tiles took rows 7, 8, 9 out of the list (the list was never found: the row stayed); a not-found list is logged
-# the «Espíritu» row of «Plantilla de equipo» is hidden in every save (it was kept in a mode's reserved save); only the row, the spirit screen and its data stay
-# no player drops in matches, no player groups in the
-# drop-rate list.
-# no shop sells a player spirit or a Victory crate (content\shops\no_player_spirits.toml, hide_spirits), so
-# nothing is paid for a card the stock refuses.
-# no player spirit from any source in any mode
-# (rewards, gifts, boxes, events, packs, retire); a reserved slot keeps the game's rules.
-# the recruitment office.
-# the office opens on the free-match team list (crests, lineup),
-# as Inazuma Fantasy's old office.
-# config.toml [office]
-# requirements = false: price only.
-# the old office's
-# terms and extras.
-# the office team page's look (content\screen_art\contact_map.toml + the atlases
-# content\images\menu\220_img\new_recruitment_office*: card plates, cost card, panel ground); the hub lists only teams with a page.
-# the pachanga commands are registered (mod.toml permissions =
-# ["command"]: without it every CMND_CLASSICRECRUITMENT_PACHANGA_* was refused, so a zone point found no zone and opened
-# the retail Chronicle panel); the caravan stops at the road beside a pachanga point (VRFW 2.49.0).
-# the visible part of the pachangas: the 50 zone points on the Chronicle
-# board (content\teams\80_friendlies\nodes.toml, generated: no road, piece at 0.8), the zone's pachanga list as the
-# framework's pose row screen (content\pose_rows\pachangas.toml: the selected pachanga's 5 players posing in 3D;
-# CMND_CLASSICRECRUITMENT_PACHANGA_MENU).
-# the pachanga zones of the Chronicle board,
-# data and mechanism: files GENERATED by
-# research/scripts/classic_recruitment_friendly_zones.py from research/data/friendlies/ (zone_rules.toml, <game>.json,
-# coverage.json: the 470 pachangas of IE1-3 / GO / Chrono Stone / Galaxy that hold the players the office does not sell):
-#   content\pachangas\zones.toml        [[ClassicRecruitment.PachangaZone]] (50 zones: node, title, Chronicle match, stadium)
-#                                     + [[ClassicRecruitment.Pachanga]] (zone, rival team, level, format, cards)
-#   content\teams\80_friendlies\teams.toml   one 5v5 rival team per pachanga (home stadium = its zone's)
-#   content\node_menus\pachangas.toml   [[VRFW.NodeMenu]] (VRFW 2.43.0): the zone nodes' pieces open the list
-#   text\rows\pachanga_zones.toml       the zone names (9 languages)
-# Hand-written: text\rows\pachanga_text.toml (the list's labels); content\friendlies\pachanga.toml (the friendly
-# new_recruitment_pachanga: 5v5, Football Reforged's friendly_5v5_no_tactics_or_referee, the active pachanga team, save sink, back to the
-# board; new_recruitment_pachanga_active_team: the same with the active match team when no pachanga team is set); scripts\pachangas.lua + content\game\pachangas.toml (CMND_CLASSICRECRUITMENT_PACHANGA_*: the zones, the armed
-# match, its result from match_end, the won pachangas: save key won.<pachanga>); assets\lua\vs_route_town_menu\
-# new_recruitment_pachangas.lua (the board side: a pachanga played through the VRFW match start service).
-requires = ["VRFW>=0.2.4", "CharacterReforged>=0.2.4", "BetterQoL>=0.2.4"]
-# requires BetterQoL: its album is where players are signed
-# optional: the bank card, one 5-star card per player, the pachanga matches and their modules
-optional = ["BetterUI", "ClassicCards", "FootballReforged", "Friendlies", "StoppageTime"]
+requires = ["VRFW>=0.3.0", "CharacterReforged>=0.3.0", "BetterQoL>=0.3.0"]
+optional = ["BetterUI", "ClassicCards", "FootballReforged", "StoppageTime"]
 conflicts = []
 loader_modules = ["lua_bridge"]
-# its scripts answer game Lua commands (content\game\pachangas.toml: CMND_CLASSICRECRUITMENT_PACHANGA_*)
+# its scripts answer game Lua commands (content\game\friendly_zones.toml)
 permissions = ["command"]
 
-# its own content\ folders read by other mods' scripts: Character Reforged's duplicate hook (duplicate_rules) and
-# Utilities' team planner (team_planner); vrfw check's layout lint accepts them
 [layout]
-script_folders = ["duplicate_rules", "team_planner", "pachangas"]
+script_folders = ["duplicate_rules", "team_planner", "friendly_zones"]
 
-# A MODULE of Character Reforged: the Mods screen, the ModManager and `vrfw list` show it
-# inside Character Reforged's entry («Módulos y ajustes»: on / off) instead of as a mod of its own; switching Character
-# Reforged off switches it off too. Its name there: its mod_name (text\keys.toml).
 [module]
 of = "CharacterReforged"
 order = 75
 
-# Nothing other mods call.
 [exports]
 game_lua = []

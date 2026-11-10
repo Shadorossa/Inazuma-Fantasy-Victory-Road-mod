@@ -1,0 +1,31 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/02_btl/souls_rework_reel/souls_rework_reel.g4tx"
+name = "souls_rework_reel"
+size = [512, 256]
+png = "souls_rework_reel/souls_rework_reel.png"
+
+[[sprite]]
+atlas = "#/menu/02_btl/souls_rework_reel/souls_rework_reel.g4tx"
+name = "souls_rework_reel_plate"
+texture = "souls_rework_reel"
+x = 4
+y = 4
+size = [448, 120]
+
+[[sprite]]
+atlas = "#/menu/02_btl/souls_rework_reel/souls_rework_reel.g4tx"
+name = "souls_rework_reel_level_on"
+texture = "souls_rework_reel"
+x = 460
+y = 4
+size = [32, 32]
+
+[[sprite]]
+atlas = "#/menu/02_btl/souls_rework_reel/souls_rework_reel.g4tx"
+name = "souls_rework_reel_level_off"
+texture = "souls_rework_reel"
+x = 460
+y = 40
+size = [32, 32]

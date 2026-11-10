@@ -1,34 +1,18 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: Chronicle board side nodes ([[VRFW.RouteNode]], the VR-Framework's node system: team type route.rs
-# / scripts\build\team\route.lua, board grafts route_nodes / route_board / route_chains;
-# docs/framework/route-board.md). This mod only DECLARES its nodes; the framework builds and draws them.
-#
-# SLOT MANIFEST: `Slot` is the node's byte in the save's Chronicle arrays (271-299). Never change or reuse a released
-# slot: it IS that node's clear / lock state in every save.
-#   271  ie1_umbrella        274  ie1_sallys          275  ie2_forest
-#   300  (removed: go_royal_practice)   301  (removed: cs_omega3_side)      302  galaxy_raimon       303  (removed: galaxy_naiadi_side)   (extended slots)
-# Slots 300, 301 and 303 are retired: never reuse them.
-# The piece (evt_rn_piece_<name>), the game (evt_rn_<name>) and the slot are derived from the node's name, not from the mod, so
-# every save's progress of these nodes is kept as it is.
 default_lang = "es"
 
-# IE1: after Inazuma Kids FC («¡Duelo en la Ribera del río!»), across the bridge. A plain Crónica battle (no talks, no
-# in-match events: Scripts = false, no Talk / Quest) with the Raimon that faced Inazuma Kids FC (pltm_cro_ie1_02 at
-# its retail level 5), Umbrella at 6 = midpoint of the Crónica rivals Inazuma Kids FC (5) and Occult (7). Its win
-# unlocks the Heroica (the node opens only its first difficulty, VRFW_RN_Sync; the board's Crónica-win unlock opens
-# 4). Saves that already had the Heroica open keep it.
 [[VRFW.RouteNode]]
 Name = "ie1_umbrella"
 Slot = 271
 After = "fbtl_cro01_020_010"           # Inazuma Kids FC
 Dir = "LU"                             # (-9, -5): the far end of the steel bridge
 Team = "ChronicleDeluxe.cro_ie1_umbrella"         # content/teams/10_ie1/0300_umbrella_ie1.toml
-Difficulties = [1, 4]                  # Crónica, then Heroica (opened by the Crónica win)
+Difficulties = [1, 4]
 DropsFrom = "fbtl_cro02_legend_IE2_01" # Umbrella's own game: its players' spirits, its match setup
 Scripts = false                        # no per-game match scripts
 Field = "fbtl_cro01_020_010"           # «Ir al campo»: the same riverbank as Inazuma Kids FC
   [VRFW.RouteNode.Cronica]
-  Level = 6                            # between Inazuma Kids FC (5) and Occult (7), Crónica
+  Level = 6
   OwnTeam = "pltm_cro_ie1_02"          # the Raimon line-up of the Inazuma Kids FC match
   OwnLevel = 5                         # its retail level in that match
   [VRFW.RouteNode.Title]
@@ -42,27 +26,20 @@ Field = "fbtl_cro01_020_010"           # «Ir al campo»: the same riverbank as 
   zh_hans = "对决伞美野！"
   zh_hant = "對決傘美野！"
 
-# IE1: Street Sally's, in the middle of the road between Brain (専, Mikage Sennou) and Otaku (秋, Akihabara Nado): a
-# fork from the road's midpoint (-9, -13) along the board's other axis (RD, perpendicular to the Brain - Otaku road,
-# like the retail roads run) to (-8.1, -13.9). Opens with Otaku (Brain's win opens both); on the d-pad it hangs off
-# Otaku (RD, Otaku's free direction). a plain Crónica battle (no talks, no in-match events) with the Raimon that faced
-# Brain (pltm_cro_ie1_05 at its retail level 11), Street Sally's at 12 = midpoint of the Crónica rivals Brain (11) and
-# Otaku (13); its win unlocks the Heroica (level = Otaku's Heroica). Spirits / match setup from Sally's own legend
-# game.
 [[VRFW.RouteNode]]
 Name = "ie1_sallys"
 Slot = 274
 After = "fbtl_cro01_050_010"           # Brain (専)
-Beside = "fbtl_cro01_060_010"          # Otaku (秋): the node joins the route after it, its game is the template
+Beside = "fbtl_cro01_060_010"
 Dir = "RD"
 Pos = [-8.1, -13.9]
 RoadFrom = [-9.0, -13.0]              # the middle of the Brain - Otaku road
 Team = "ChronicleDeluxe.cro_ie1_sallys"         # content/teams/10_ie1/0301_sallys_ie1.toml
-Difficulties = [1, 4]                  # Crónica, then Heroica (opened by the Crónica win)
-DropsFrom = "fbtl_cro01_legend_IE1_06" # Street Sally's own game: its players' spirits, its match setup
+Difficulties = [1, 4]
+DropsFrom = "fbtl_cro01_legend_IE1_06"
 Scripts = false                        # no per-game match scripts
   [VRFW.RouteNode.Cronica]
-  Level = 12                           # between Brain (11) and Otaku (13), Crónica
+  Level = 12
   OwnTeam = "pltm_cro_ie1_05"          # the Raimon line-up of the Brain match (the preceding node)
   OwnLevel = 11                        # its retail level in that match
   [VRFW.RouteNode.Title]
@@ -76,13 +53,6 @@ Scripts = false                        # no per-game match scripts
   zh_hans = "对决街头莎莉斯！"
   zh_hant = "對決街頭莎莉斯！"
 
-# IE2: Mar de Árboles (Forest Team), a dead end after the IE2 final, Emperadores Oscuros (fbtl_cro02_200_010, (16.5,
-# -8)): up the board (LU) first, then left (LD), to the forest edge (16.15, -8.85). Its rival is the game's own Mar de
-# Árboles team, the legend team tm_cro_legend_IE2_09 (no copy); spirits and match setup from its own game,
-# fbtl_cro02_legend_IE2_06 (the game that plays that team). A plain Crónica battle (no talks, no in-match events) with
-# the Raimon line-up of the Emperadores Oscuros match (pltm_cro_ie2_20 at its retail level 41), Mar de Árboles at 44 =
-# Emperadores Oscuros (43) + 1; its win unlocks the Heroica (level from the heroic curve,
-# content/teams/90_rules/heroic.toml).
 [[VRFW.RouteNode]]
 Name = "ie2_forest"
 Slot = 275
@@ -90,12 +60,12 @@ After = "fbtl_cro02_200_010"           # Emperadores Oscuros
 Dir = "LU"
 Pos = [16.15, -8.85]
 Via = [[17.5, -7.5]]                   # map-up (LU) first, then map-left (LD)
-Team = "ChronicleDeluxe.cro_ie2_forest"        # Mar de Árboles: the legend roster with an ordinary team's stats
+Team = "ChronicleDeluxe.cro_ie2_forest"
                                        # (content/teams/11_ie2/2100_forest_ie2.toml)
-Difficulties = [1, 4]                  # Crónica, then Heroica (opened by the Crónica win)
-DropsFrom = "fbtl_cro02_legend_IE2_06" # Mar de Árboles's own game: its players' spirits, its match setup
+Difficulties = [1, 4]
+DropsFrom = "fbtl_cro02_legend_IE2_06"
 Scripts = false                        # no per-game match scripts
-Map = "s67g001"                        # Estadio del bosque, the stadium of its own game (not the template's s12g001)
+Map = "s67g001"
 Field = "fbtl_cro02_legend_IE2_06"     # «Ir al campo»: the same stadium
   [VRFW.RouteNode.Cronica]
   Level = 44                           # Emperadores Oscuros (43) + 1
@@ -112,17 +82,7 @@ Field = "fbtl_cro02_legend_IE2_06"     # «Ir al campo»: the same stadium
   zh_hans = "树海对决！"
   zh_hant = "樹海對決！"
 
-# GO saga story matches with no VR Chronicle game. Each node's 3DS story match (the btl of the game of its board
-# series) is in the mod root's _story_nodes.toml (never a key here: the framework drops every node of a file with an
-# unknown key); research/data/go3ds | cs3ds | galaxy3ds/story_matches.json; chronicle_deluxe_story_teams_build.py
-# gives its rival the 3DS levels and moves of that match at the Crónica `Level` (its 3DS level + the game's shift, or
-# between its board neighbours when that would break their order) and its own line-up `OwnTeam` (the line-up of the
-# `After` game) moved like that game's. Plain Crónica battles (no talks, no in-match events: Scripts = false); the win
-# opens the Heroica. Spirits / match setup from the rival's own game where VR has one.
-
-# Galaxy chapter 3: Raimon (btl0004, Lv 9), between Big Waves (Lv 7) and Los Cimitarras (Lv 11). Opens with Big Waves'
-# win (with Los Cimitarras); on the board it hangs off Los Cimitarras (LD, its free direction): Big Waves' free
-# directions lead onto the IE1 start and Los Cimitarras.
+# Galaxy chapter 3: Raimon (btl0004, Lv 9), between Big Waves (Lv 7) and Los Cimitarras (Lv 11).
 [[VRFW.RouteNode]]
 Name = "galaxy_raimon"
 Slot = 302
@@ -131,12 +91,12 @@ Beside = "fbtl_cro06_040_010"          # Los Cimitarras
 Dir = "LD"
 Pos = [-4.0, -16.0]
 Team = "ChronicleDeluxe.cro_galaxy_raimon"       # content/teams/15_galaxy/0500_story_node_raimon.toml
-Difficulties = [1, 4]                  # Crónica, then Heroica (opened by the Crónica win)
+Difficulties = [1, 4]
 TemplateGame = "fbtl_cro06_030_010"    # Big Waves
-DropsFrom = "fbtl_cro06_030_010"       # Big Waves (Raimon has no Chronicle game)
+DropsFrom = "fbtl_cro06_030_010"
 Scripts = false                        # no per-game match scripts
   [VRFW.RouteNode.Cronica]
-  Level = 98                           # 3DS Lv 9 + 89 (Galaxy shift); Big Waves 96, Los Cimitarras 100
+  Level = 98
   OwnTeam = "pltm_cro_ie6_03"          # the Earth Eleven line-up of the Big Waves match
   OwnLevel = 7                         # its retail level in that match
   [VRFW.RouteNode.Title]
@@ -150,26 +110,19 @@ Scripts = false                        # no per-game match scripts
   zh_hans = "地球十一人VS雷门！"
   zh_hant = "地球十一人VS雷門！"
 
-# Player spirits. The rule of every retail Chronicle board row (v7.1.2 soccer_game_config, all IE1 pieces): col 29
-# spirit_chara_table = 0 and cols 31 / 33 spirit_drop_table(_2) = 0. With 0 the engine (nie.exe 0x15C7850 / 0x15CC810,
-# docs/framework/drops.md §1b) offers the players of the row's own rival team (team_config: the node's Umbrella /
-# Sally's roster) with the default odds of the difficulty: Heroica 0x569BC5E0 + 0xA3C5921B, the higher classes
-# 0x219CF576 / 0xD4C2A28D. The candidates are declared here (the rival roster only, whatever template or `DropsFrom`
-# game the build meets); the odds are left to the mod's Chronicle rules like every other piece: the Crónica gets the
-# spirit tables of 90_rules/chronicle_spirits.toml (since 1.6.0), the Ídolo entries leave every row
-# (no_idol_spirits.toml). No ids of players or tables: the roster is the team's own.
+# Player spirits.
 [[VRFW.GameDrops]]
-Game = "evt_rn_ie1_umbrella"
+Game = "vrfw_node_ie1_umbrella"
 SpiritChara = "0"                      # the rival roster only (no extra players)
 
 [[VRFW.GameDrops]]
-Game = "evt_rn_ie1_sallys"
+Game = "vrfw_node_ie1_sallys"
 SpiritChara = "0"
 
 [[VRFW.GameDrops]]
-Game = "evt_rn_ie2_forest"
+Game = "vrfw_node_ie2_forest"
 SpiritChara = "0"
 
 [[VRFW.GameDrops]]
-Game = "evt_rn_galaxy_raimon"
+Game = "vrfw_node_galaxy_raimon"
 SpiritChara = "0"

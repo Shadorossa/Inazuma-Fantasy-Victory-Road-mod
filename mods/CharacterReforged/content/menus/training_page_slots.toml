@@ -1,0 +1,11 @@
+schema = "VRFW.menu/2"
+
+[[entry]]
+host = "CharacterReforged.page_stat_max"
+id = "training_max"
+action = { command = "CMND_CHARACTERREFORGED_TRAINING_STAT" }
+
+[[entry]]
+host = "CharacterReforged.page_luck_bonus"
+id = "training_luck"
+action = { command = "CMND_CHARACTERREFORGED_TRAINING_LUCK_DELTA" }   # (charaStHdl) -> the committed Suerte delta

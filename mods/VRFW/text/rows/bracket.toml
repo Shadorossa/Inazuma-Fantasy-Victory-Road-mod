@@ -1,5 +1,3 @@
-# Texts of the knockout bracket screen (vrfw_bracket_menu): the round panel, the final stadium panel and the
-# player's run end. The screen asks CMND_TEXT_GET(crc32(id)).
 
 schema = "VRFW.text/2"
 table = "menu_text"

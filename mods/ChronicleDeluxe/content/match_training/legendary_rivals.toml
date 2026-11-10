@@ -1,7 +1,3 @@
-# The free-match goalkeepers of the class below come hyper-trained for the match only: their whole Libertad and the
-# points of the stats a keeper does not need go into the keeper stats (VRFW match training,
-# docs/game/mods/rival-training.md). Applied by Player Training when it is active; which stats are the keeper's is its
-# config.toml [rival_training].
 schema = "VRFW.match_training/1"
 
 [match]

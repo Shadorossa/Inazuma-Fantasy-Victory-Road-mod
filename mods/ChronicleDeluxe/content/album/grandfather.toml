@@ -1,4 +1,2 @@
 schema = "BetterQoL.album/1"
-# «Abuelo» (content/characters/grandfather.toml): only the Cadena del Abuelo gives him, so the album neither lists nor sells
-# him. His card: crc32("ChronicleDeluxe.grandfather#card").
 exclude_cards = [0x608B1C73]

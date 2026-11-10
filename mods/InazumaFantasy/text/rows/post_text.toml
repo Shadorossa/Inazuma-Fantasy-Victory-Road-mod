@@ -1,0 +1,27 @@
+schema = "VRFW.text/2"
+# The «Información» notice texts (window title and body) of the first notice.
+table = "post_text"
+
+[[row]]
+id = "InazumaFantasy.NoticeTitle"  # the notice window title
+es = "Bienvenido a Inazuma Fantasy"
+en = "Welcome to Inazuma Fantasy"
+fr = "Bienvenue dans Inazuma Fantasy"
+de = "Willkommen bei Inazuma Fantasy"
+it = "Benvenuto in Inazuma Fantasy"
+pt = "Bem-vindo ao Inazuma Fantasy"
+ja = "イナズマファンタジーへようこそ"
+zh_hans = "欢迎来到 Inazuma Fantasy"
+zh_hant = "歡迎來到 Inazuma Fantasy"
+
+[[row]]
+id = "InazumaFantasy.NoticeBody"  # the notice window body: two sections
+es = "■ Aviso\\nInazuma Fantasy es un modpack creado por fans para Inazuma Eleven: Victory Road.\\nAñade nuevos jugadores, supertécnicas, modos de juego y tiendas.\\n\\n■ Más información\\nhttps://github.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod"
+en = "■ Notice\\nInazuma Fantasy is a fan-made modpack for Inazuma Eleven: Victory Road.\\nIt adds new players, special moves, game modes and shops.\\n\\n■ More information\\nhttps://github.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod"
+fr = "■ Avis\\nInazuma Fantasy est un modpack créé par des fans pour Inazuma Eleven: Victory Road.\\nIl ajoute de nouveaux joueurs, des supertechniques, des modes de jeu et des boutiques.\\n\\n■ Plus d'informations\\nhttps://github.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod"
+de = "■ Hinweis\\nInazuma Fantasy ist ein von Fans gemachtes Modpack für Inazuma Eleven: Victory Road.\\nEs fügt neue Spieler, Spezialtechniken, Spielmodi und Shops hinzu.\\n\\n■ Weitere Informationen\\nhttps://github.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod"
+it = "■ Avviso\\nInazuma Fantasy è un modpack creato dai fan per Inazuma Eleven: Victory Road.\\nAggiunge nuovi giocatori, supertecniche, modalità di gioco e negozi.\\n\\n■ Maggiori informazioni\\nhttps://github.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod"
+pt = "■ Aviso\\nInazuma Fantasy é um modpack feito por fãs para Inazuma Eleven: Victory Road.\\nAdiciona novos jogadores, supertécnicas, modos de jogo e lojas.\\n\\n■ Mais informações\\nhttps://github.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod"
+ja = "■ お知らせ\\nイナズマファンタジーは、イナズマイレブン ヴィクトリーロードのファン制作MODパックです。\\n新しい選手、必殺技、ゲームモード、ショップが追加されます。\\n\\n■ 詳細情報\\nhttps://github.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod"
+zh_hans = "■ 通知\\nInazuma Fantasy 是为《闪电十一人 胜利之路》制作的粉丝模组包。\\n新增了球员、必杀技、游戏模式和商店。\\n\\n■ 更多信息\\nhttps://github.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod"
+zh_hant = "■ 通知\\nInazuma Fantasy 是為《閃電十一人 勝利之路》製作的粉絲模組包。\\n新增了球員、必殺技、遊戲模式和商店。\\n\\n■ 更多資訊\\nhttps://github.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod"

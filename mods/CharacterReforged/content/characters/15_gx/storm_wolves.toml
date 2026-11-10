@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Storm Wolves · Inazuma Eleven GO Galaxy
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c06031210"                                   # Aleksei Karimov
 moves = [
   { move = 0xFD9FAF08, level = 1 },                         # Twist 'n' Clout
   { move = 0xCD6AEF2D, level = 23 },                        # All-Star
-  { move = 0xF9B80F86, level = 34 },                        # Strong Punch
   { move = 0xF5C2A0A5, level = 49 },                        # Capoeira Grab
+  { move = 0x06B22DB5, level = 59 },                        # Gyro-Blocker
 ]
 
   [[edit.cards]]
@@ -22,9 +19,9 @@ moves = [
 target = "c06031220"                                   # Sergei Chernov
 moves = [
   { move = 0x0E8FA384, level = 1 },                         # Warsaw
-  { move = 0xFD9FAF08, level = 22 },                        # Twist 'n' Clout
-  { move = 0x6C827857, level = 33 },                        # Rolling Steal
   { move = 0x4E9A9232, level = 46 },                        # Spinning Cut
+  { move = 0x04941270, level = 56 },                        # Vac Attack
+  { move = 0x5049A011, level = 66 },                        # Spinning Shot
 ]
 
   [[edit.cards]]
@@ -39,7 +36,7 @@ moves = [
   { move = 0x0E8FA384, level = 1 },                         # Warsaw
   { move = 0x332CCDC9, level = 20 },                        # Heel Kick
   { move = 0x035C1112, level = 35 },                        # Gungnir
-  { move = 0x6C827857, level = 50 },                        # Rolling Steal
+  { move = 0xCF7FA2C4, level = 45 },                        # Gold Rush
 ]
 
   [[edit.cards]]
@@ -54,8 +51,8 @@ target = "c06031240"                                   # Yuri Avelin
 moves = [
   { move = 0x0E8FA384, level = 1 },                         # Warsaw
   { move = 0xB58AE80E, level = 21 },                        # Silk Road
-  { move = 0x08EEBD53, level = 36 },                        # Feint Play
   { move = 0x4A17EE80, level = 45 },                        # Hunter's Net
+  { move = 0x660EED1E, level = 55 },                        # Low Scythe Slice
 ]
 
   [[edit.cards]]
@@ -69,9 +66,9 @@ moves = [
 target = "c06031250"                                   # Kenja Jo'rayev
 moves = [
   { move = 0x0E8FA384, level = 1 },                         # Warsaw
-  { move = 0x6C827857, level = 20 },                        # Rolling Steal
   { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
   { move = 0xC324C788, level = 43 },                        # Blast Mine
+  { move = 0xB58AE80E, level = 53 },                        # Silk Road
 ]
 
   [[edit.cards]]
@@ -103,7 +100,7 @@ moves = [
   { move = 0xB58AE80E, level = 1 },                         # Silk Road
   { move = 0x0E8FA384, level = 21 },                        # Warsaw
   { move = 0xCF7FA2C4, level = 36 },                        # Gold Rush
-  { move = 0x62294D90, level = 45 },                        # Dust Kick
+  { move = 0x64CDCFB9, level = 46 },                        # Rising Dragon
 ]
 
   [[edit.cards]]
@@ -149,8 +146,8 @@ target = "c06031300"                                   # Domitri Sobirov
 moves = [
   { move = 0xCF7FA2C4, level = 1 },                         # Gold Rush
   { move = 0xB58AE80E, level = 11 },                        # Silk Road
-  { move = 0x6B4A7B35, level = 38 },                        # Power Shot
   { move = 0x1876DB66, level = 54 },                        # Disaster Strike
+  { move = 0x0E8FA384, level = 64 },                        # Warsaw
 ]
 
   [[edit.cards]]
@@ -177,10 +174,10 @@ moves = [
 [[edit]]
 target = "c11806080"                                   # Nikolai Gagarin
 moves = [
-  { move = 0x3F00EDE9, level = 1 },                         # Dash Storm
-  { move = 0x768AB9C5, level = 13 },                        # Frosticle
-  { move = 0x19C3F43D, level = 20 },                        # Eternal Blizzard
-  { move = 0x5049A011, level = 30 },                        # Spinning Shot
+  { move = 0x768AB9C5, level = 1 },                         # Frosticle
+  { move = 0x3F00EDE9, level = 11 },                        # Dash Storm
+  { move = 0xD9BB22A7, level = 21 },                        # Air Ride
+  { move = 0x19C3F43D, level = 31 },                        # Eternal Blizzard
 ]
 
   [[edit.cards]]

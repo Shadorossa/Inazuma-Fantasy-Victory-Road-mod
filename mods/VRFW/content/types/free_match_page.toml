@@ -1,4 +1,3 @@
-# Declaration [[VRFW.FreeMatchPage]] for free-match tab pages (content/free_match_pages/*.toml); invalid entries are skipped with a warning.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.free_match_page/1"
 folder = "content/free_match_pages"

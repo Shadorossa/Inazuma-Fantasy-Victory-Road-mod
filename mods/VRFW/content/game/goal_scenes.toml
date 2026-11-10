@@ -1,7 +1,5 @@
 schema = "VRFW.game/2"
 
-# No goal scenes (ruleset `[play] goal_scenes = false`): ends goal scene and celebration events from goal to next kick-off; see scripts\goal_scenes.lua.
-
 # Event manager global.
 [[VRFW.Global]]
 name = "event_manager"

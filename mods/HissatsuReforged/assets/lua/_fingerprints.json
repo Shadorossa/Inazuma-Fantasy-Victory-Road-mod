@@ -1,9 +1,11 @@
 {
  "_markers": [
   "OnOpenLayer",
+  "OnSetupLayer",
   "OnInit",
   "Step",
-  "OnFunction"
+  "OnFunction",
+  "CharacterReforgedSkillTableOpenOriginalBoard"
  ],
  "chara_edit_parts_menu_status": {
   "script": "chara_edit_parts_menu_status_1.03.71.00",
@@ -17,6 +19,31 @@
   "script": "chara_edit_parts_menu_status_ability_learning",
   "require": [
    "OpenSelectPlayStyleSubWindow"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "common_skill_telop": {
+  "script": "common_skill_telop_1.01.26.00",
+  "require": [
+   "SetupCommonSkillTelop"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "ability_learning_board_menu": {
+  "script": "ability_learning_board_menu_7.00.00.00",
+  "require": [
+   "SetCrossButtonFocusMode"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "vrfw_skill_slot_menu": {
+  "script": "vrfw_skill_slot_menu",
+  "require": [
+   "CharacterReforgedSkillTableOpenOriginalBoard",
+   "CharacterReforgedSkillTablePickCoroutine"
   ],
   "forbid": [],
   "ambiguous": []

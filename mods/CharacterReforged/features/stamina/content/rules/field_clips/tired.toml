@@ -1,0 +1,31 @@
+schema = "VRFW.field_clip/1"
+
+# ふらふら走り01 (CS): the staggering run of a player out of TP.
+[[field_clip]]
+name = "tired_run_cs"
+glb = "assets/anims/field_clips/cs_tired_run.glb"
+loop = "move"
+
+[[field_clip]]
+name = "tired_run_vr"
+retail = "戦1疲れ走り1L"
+loop = "move"
+
+# 疲労01 (CS): bent over, out of breath, hands low.
+[[field_clip]]
+name = "tired_idle_cs"
+glb = "assets/anims/field_clips/cs_tired_idle.glb"
+loop = "stand"
+
+[[locomotion]]
+name = "tired_cs"
+actions = { WALK = "tired_run_cs", RUN = "tired_run_cs" }
+
+[[locomotion]]
+name = "tired_vr"
+actions = { WALK = "tired_run_vr", RUN = "tired_run_vr" }
+
+# the exhausted pause: whatever the engine asks for (stand, walk, run), the idle; the speed is 0 meanwhile
+[[locomotion]]
+name = "tired_idle"
+actions = { STAND = "tired_idle_cs", WALK = "tired_idle_cs", RUN = "tired_idle_cs" }

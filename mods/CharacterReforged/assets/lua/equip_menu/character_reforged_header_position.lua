@@ -1,6 +1,6 @@
--- Character Reforged: this screen's player header shows the player's OWN position (see _all/character_reforged_header_position.lua).
+-- This screen's header shows the player's own position (_all/character_reforged_header_position.lua).
 CharacterReforged = type(CharacterReforged) == "table" and CharacterReforged or {}
-CharacterReforged.HeaderPositionWanted = true
-if type(CharacterReforged.EnableHeaderPosition) == "function" then
-  CharacterReforged.EnableHeaderPosition()
+CharacterReforged.header_position_wanted = true
+if type(CharacterReforged.enable_header_position) == "function" then
+  CharacterReforged.enable_header_position()
 end

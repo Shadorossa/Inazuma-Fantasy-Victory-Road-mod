@@ -1,0 +1,28 @@
+schema = "VRFW.team/2"
+[[loadout]]
+id = "ChronicleDeluxe.nakata_orfeo"
+moves = [0xA5F2EFEA, 0x31ABD82E, 0x5E233E68]  # Brave Shot, Circus Block, Super Elastico
+levels = [82, 101, 141]
+
+[[edit]]
+target = "cro_ie3_story_fbtl_cro03_110_010"
+  [[edit.member]]
+  slot = 8
+  card = 0xFFF7C4EE
+  number = 7
+  [[edit.member]]
+  slot = 15
+  card = 0x8D990445                  # Giacomo Yani
+  number = 8
+
+[[edit]]
+target = "cro_ie3_story_fbtl_cro03_110_010"
+  [[edit.member]]
+  slot = 8
+  patch = true
+  level_offset = 16
+  loadout = "ChronicleDeluxe.nakata_orfeo"
+  [[edit.member]]
+  slot = 15
+  patch = true
+  level_offset = 1

@@ -1,26 +1,16 @@
 schema = "VRFW.team/2"
-# HAND-MAINTAINED. The Chrono Stone post-game «Cadena del Abuelo» (3DS scr_br_0015.cfg.bin, the owner's CS dump
-# research/build/pachangas/taisen_cs.csv route 15; wiki «Grandfather's route», FB Frontier Stadium, opened by beating
-# The Excellar). Its 5 rivals are all VR teams (the dump's vr_team, 16/16 players in VR): Armiños Invernales
-# tm_cro_legend_GO2_06, Osos Dorados _07, Aves Acuáticas _08, Víboras Nocturnas _09, Canes Escarlata _10. Board: the 3DS
-# cells on the CS honeycomb (chain-board.md: Pos = [2·(cell / 5) + 1, cell % 5 + 1] for cell % 5 ≤ 2, else
-# [2·(cell / 5) + 2, cell % 5 − 2]), moved 4 columns left (an even shift keeps the honeycomb's half-row offsets), the
-# 3DS links. Level: 200 (post-game chain). Save:
-# chain.ChronicleDeluxe.cs_grandfather of owner VRFW = one character per tile in the declaration order below; never
-# reorder released tiles, only append.
+# HAND-MAINTAINED.
 default_lang = "es"
 
-# the Chronicle board node: LD of the CS final «Desesperdidos» (fbtl_cro05_240_010), drawn locked until the Crónica win
-# against Criaturas de la Noche (fbtl_cro05_220_010, The Excellar: the 3DS unlock)
 [[VRFW.RouteNode]]
 Name = "cs_chain_grandfather"
 Slot = 305
-After = "fbtl_cro05_220_010"             # Criaturas de la Noche
-AfterWon = [1]                           # its Crónica battle won
+After = "fbtl_cro05_230_010"             # the win that opens the pad of Beside
+AfterWon = [1]
 Beside = "fbtl_cro05_240_010"            # Desesperdidos: the road starts at its pad
 Dir = "LD"
 Pos = [-25.25, 36.75]
-Team = "tm_cro_go2_2200"                 # only gives the piece a game (never played: the board launches the matches)
+Team = "tm_cro_go2_2200"
 TemplateGame = "fbtl_cro05_240_010"
 Difficulties = [4]                       # cleared when every match of the chain is won
 Icon = "assets/images/teams/70_route_nodes/chain_cs_grandfather.png"   # Astero Black (VR c06039290)
@@ -36,21 +26,22 @@ Chain = "cs_grandfather"
   zh_hans = "爷爷的连战"
   zh_hant = "爺爺的連戰"
   [VRFW.RouteNode.LockedTitle]
-  es = "Requisito: gana a Criaturas de la Noche"
-  en = "Requirement: beat Children of the Night"
-  fr = "Condition : battez les Enfants de la nuit"
-  de = "Bedingung: Besiege die Kinder der Nacht"
-  it = "Requisito: batti i Figli della Notte"
-  pt = "Requisito: vence as Criaturas da Noite"
-  ja = "条件：ジ・エグゼラーに勝利"
-  zh_hans = "条件：战胜制裁联盟"
-  zh_hant = "條件：戰勝制裁聯盟"
+  es = "Requisito: llega a los Desesperdidos"
+  en = "Requirement: reach the Desesperdidos pad"
+  fr = "Condition : atteignez la case des Desesperdidos"
+  de = "Bedingung: Erreiche das Feld der Desesperdidos"
+  it = "Requisito: raggiungi la casella dei Desesperdidos"
+  pt = "Requisito: chega à casa dos Desesperdidos"
+  ja = "条件：デセスペルディードスのマスに到達"
+  zh_hans = "条件：到达Desesperdidos的棋格"
+  zh_hant = "條件：到達Desesperdidos的棋格"
 
 [[VRFW.Chain]]
 Name = "cs_grandfather"
 TemplateGame = "fbtl_cro05_240_010"
 Difficulty = 4
 RivalStats = "normal"
+Rules = "chronicle_deluxe_chain"
   [VRFW.Chain.Title]
   es = "Cadena del Abuelo"
   en = "Grandfather's Chain"
@@ -72,7 +63,7 @@ RivalStats = "normal"
   [[VRFW.Chain.RankReward]]
   Rank = "S"
   Item = "abl_000001"
-  IfMod = "HissatsuLevelUp"
+  IfMod = "HissatsuReforged"
   Text = "chronicle_deluxe_chain_prize_upgrade_book"
 
   [[VRFW.Chain.Tile]]
@@ -86,7 +77,7 @@ RivalStats = "normal"
   Kind = "match"
   Pos = [2, 2]                         # 3DS cell 14
   Links = ["m12"]
-  Team = "tm_cro_legend_GO2_06"        # Armiños Invernales / Snow Weasel (3DS Lv 99)
+  Team = "tm_cro_legend_GO2_06"
   Level = 200
 
   [[VRFW.Chain.Tile]]
@@ -102,7 +93,7 @@ RivalStats = "normal"
   Kind = "match"
   Pos = [1, 2]                         # 3DS cell 11
   Links = ["c13"]
-  Team = "tm_cro_legend_GO2_08"        # Aves Acuáticas / Aqua Hermit (3DS Lv 99)
+  Team = "tm_cro_legend_GO2_08"
   Level = 200
 
   [[VRFW.Chain.Tile]]
@@ -110,7 +101,7 @@ RivalStats = "normal"
   Kind = "chest"
   Pos = [2, 1]                         # 3DS cell 13
   Links = ["m15"]
-    [[VRFW.Chain.Tile.Reward]]   # 3DS reward «Espada real»: who01030 Espada real / Sword of the King (王の剣), its manual
+    [[VRFW.Chain.Tile.Reward]]
     Item = 0x9D236FA3
 
   [[VRFW.Chain.Tile]]
@@ -118,7 +109,7 @@ RivalStats = "normal"
   Kind = "match"
   Pos = [3, 1]                         # 3DS cell 15
   Links = ["m18"]
-  Team = "tm_cro_legend_GO2_09"        # Víboras Nocturnas / Night Viper (3DS Lv 99)
+  Team = "tm_cro_legend_GO2_09"
   Level = 200
 
   [[VRFW.Chain.Tile]]
@@ -135,51 +126,51 @@ RivalStats = "normal"
   Pos = [5, 2]                         # 3DS cell 21: a lock (a condition, value 0 in the dump)
   Links = ["c22"]
     [[VRFW.Chain.Tile.Requires]]       # the requirement of this lock
-    Win = "tm_cro_legend_GO2_10"       # Canes Escarlata, the match before this lock
+    Win = "tm_cro_legend_GO2_10"
 
   [[VRFW.Chain.Tile]]
   Id = "c22"
   Kind = "chest"
   Pos = [5, 3]                         # 3DS cell 22
   Links = ["c19"]
-    [[VRFW.Chain.Tile.Reward]]   # 3DS reward «Pulsera de Tezcat» (bracelet, 3DS item A1334F71): Classic Equipment's
-    Item = 0x08E157E6             # ClassicEquipment.tezcat_bracelet (crc32 of the name); only with that module on
-    if_mod = "ClassicEquipment"
+    [[VRFW.Chain.Tile.Reward]]
+    Item = 0x0A5F1FC1
+    if_mod = "Equipment"
 
   [[VRFW.Chain.Tile]]
   Id = "c19"
   Kind = "chest"
   Pos = [4, 2]                         # 3DS cell 19
-    [[VRFW.Chain.Tile.Reward]]   # 3DS reward «Abuelo» (the player): this mod's character content/characters/grandfather.toml
+    [[VRFW.Chain.Tile.Reward]]
     Player = "ChronicleDeluxe.grandfather"
 
 # no in-match drops in this chain's matches (the rewards are the end-of-match win prizes above)
 [[VRFW.GameDrops]]
-Game = "evt_ch_cs_grandfather_01"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_cs_grandfather_01"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_cs_grandfather_02"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_cs_grandfather_02"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_cs_grandfather_03"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_cs_grandfather_03"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_cs_grandfather_04"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_cs_grandfather_04"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_cs_grandfather_05"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_cs_grandfather_05"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"

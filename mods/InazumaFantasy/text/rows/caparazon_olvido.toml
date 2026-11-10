@@ -1,0 +1,32 @@
+schema = "VRFW.text/2"
+table = "skill_text"
+# This technique is off for this version, and removing the comment marks brings it back.
+# ```
+# # Name and description of the keshin technique Shell of Oblivion.
+#
+# [[row]]
+# id = 0x9EB8A1CE  # InazumaFantasy.caparazon_olvido_name
+# kind = "noun"
+# es = "Caparazón del olvido"
+# en = "Shell of Oblivion"
+# fr = "Carapace de l'oubli"
+# de = "Panzer des Vergessens"
+# it = "Carapace dell'oblio"
+# pt = "Carapaça do Esquecimento"
+# ja = "忘却の甲殻"
+# zh_hans = "遗忘之壳"
+# zh_hant = "遺忘之殼"
+#
+# [[row]]
+# id = 0xCB2E739C  # InazumaFantasy.caparazon_olvido_desc
+# kind = "text"
+# es = "El espíritu cierra su caparazón sobre el rival y le borra el balón de la memoria."
+# en = "The spirit closes its shell over the rival and wipes the ball from their memory."
+# fr = "L'esprit referme sa carapace sur l'adversaire et efface le ballon de sa mémoire."
+# de = "Der Geist schließt seinen Panzer über dem Gegner und löscht den Ball aus dessen Gedächtnis."
+# it = "Lo spirito chiude il carapace sull'avversario e gli cancella il pallone dalla memoria."
+# pt = "O espírito fecha a carapaça sobre o rival e apaga a bola da sua memória."
+# ja = "化身が甲殻で相手を閉じ込め、ボールの記憶を消し去る。"
+# zh_hans = "化身以甲壳罩住对手，抹去其对球的记忆。"
+# zh_hant = "化身以甲殼罩住對手，抹去其對球的記憶。"
+# ```

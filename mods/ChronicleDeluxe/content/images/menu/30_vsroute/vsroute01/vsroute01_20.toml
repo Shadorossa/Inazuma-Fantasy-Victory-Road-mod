@@ -1,8 +1,3 @@
-# Chronicle Deluxe: the free-match class window sized for its 3 classes. The window picture list_base03 (560 x 404,
-# made for 4 rows every 70 px) is remade at boot from the PLAYER'S own sprite, 70 px shorter: its top 40 px and bottom
-# 64 px (the rounded edges and the retail padding) kept as they are, the plain middle (a vertical gradient) resized
-# from 300 to 230 px. Repainted in place (same texture and place); content/menus/free_match_class_window.toml gives
-# the layout's quad that height.
 schema = "VRFW.image/1"
 
 [[recipe]]

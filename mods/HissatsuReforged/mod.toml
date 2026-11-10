@@ -1,48 +1,26 @@
 id = "HissatsuReforged"
-# «Hissatsu Reforged». The BASE mod of the special-move family: the balance of the game's special moves (power,
-# tension cost, recast) and the «double icon» (a move with two properties, e.g. long shot + counter shot, shows both
-# badges). Split out of Inazuma Fantasy (its _phases.toml part hissatsu_overhaul, and the generic half of its part
-# move_icons). No DLL: declarations of the VR-Framework's technique / image types and one Lua graft
-# (research/grafts/move_icons, `mod = "HissatsuReforged"`). Layout (docs/framework/mod-layout.md):
-# content\techniques\hissatsu_overhaul.toml the sheet «Hissatsu_overhaul.V2»: power_min / power_max / tp /
-#                                               recast of the 683 retail base moves it really changes
-#   content\images\menu\                        the double icon's sprites: the rows' second badge
-#                                               (200_icon\15_icon_common\move_icons.toml) and the detail card's long +
-#                                               counter shot tag (102_team\team02\team02_02\move_tags_combined.toml)
-#   text\keys.toml                              the «Mods» screen's name and description
-#   config.toml [critical]                      the critical hit's values (base chance, «Crítico» archetype bonus,
-# multiplier, cap):
-#   scripts\critical.lua                        answers the framework's critical stage (crit_check) from that config
-#   content\params\no_breach.toml               forceWinShootPercentage = 0: the game's breach roll is gone
-#   text\rows\menu_text.toml, skill_text.toml   build 0 «Brecha» renamed «Crítico»: its 4 team passives,
-#                                               its keeper passive and its 5-rank charge texts (9 languages)
-#   modules\<Module>\                           the embedded module mods, shipped in this folder (docs/framework/
-#                                               mod-families.md §1.3): HissatsuEffects (order 10), HissatsuLevelUp
-#                                               (order 20); each keeps its own id, prefix, version, texts and save data
-# Modules (docs/framework/mod-families.md): a mod that belongs here requires HissatsuReforged and declares
-# [module] of = "HissatsuReforged".
-# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description
-# (text\keys.toml) in the game's language.
 name = "Hissatsu Reforged"
 prefix = "HissatsuReforged"
 folder = "HissatsuReforged"
-version = "0.2.4"
+version = "0.3.0"
 author = "Fantasy Team"
-author_steam = "76561199013321372"
-description = "Rebalances the game's special moves: new minimum and maximum power, tension cost and recast time for 683 moves, while the power each grade adds stays the game's. A move with two properties (long shot and counter shot) shows both icons in every move list. Special moves can land a critical hit, and the Breach team build becomes the Critical build. The base of Hissatsu Effects and Hissatsu Level Up."
+description = "Rebalances 683 special moves with new power, tension cost and recast time. Moves with two properties show both icons in every list, and special moves can now land critical hits. Each move also levels up with the times a player uses it in matches, and a banner says when it levels up. The last level needs the Ultimate Evolution Manual from the general shop, and a player can no longer carry the same special move twice."
 priority = 0
-tags = ["Gameplay"]
-updated = "2026-11-03"
-requires = ["VRFW>=0.2.4"]
+tags = ["Gameplay", "Techniques"]
+updated = "2026-11-09"
+requires = ["VRFW>=0.3.0"]
+optional = ["BetterQoL", "CharacterReforged", "InazumaFantasy"]
 conflicts = []
-# command: CMND_HISSATSUREFORGED_MOVE_FAMILIES (content/game/technique_families.toml, scripts/technique_families.lua);
-# state: the critical rank scripts/critical.lua keeps per match side
-permissions = ["command", "state"]
-# the graft move_icons patches INCLUDE'd menu scripts (soccer_common, personal_plate_inc): ModLoader 1.7.0; lua_bridge:
-# the menus' call of the families command
+permissions = ["command", "state", "memory", "call", "hook"]
 loader_modules = ["lua_patch", "lua_bridge"]
 loader_min = "1.7.0"
 
+# What other mods call: CanPlace(hdl, slot, item) -> ok, reason   may item go on board slot `slot` (0..8) of card `hdl`?
 [exports]
-functions = []
-keys = []
+functions = ["CanPlace", "Uses", "Grade", "Items", "StoreBlob", "StoreBlobWrite"]
+# [HissatsuReforged.Rules] in any mod's content\hissatsu_level_up\*.toml (schema HissatsuReforged.rules/1)
+keys = ["Rules"]
+game_lua = ["HissatsuReforged.skill_table_rank_item"]
+
+[layout]
+script_folders = ["skill_set", "hissatsu_level_up", "universe_prizes"]

@@ -1,52 +1,20 @@
--- Character Reforged › partner locks: a card of the player's club used as the PARTNER of another card's pair (a
--- Mix-Max of All Miximaxed, a mode change of Custom Change Mode, any system a mod declares) stays in the player bank. He
--- cannot be placed from the bank into a team (every team screen, the bank's «Añadir al equipo», a drag, the mouse) and
--- his bank card shows the system's plate («Mix»). A partner already in a team stays where he is; he may always go back
--- to the bank.
--- A system is data: any active mod's content\pairing\*.toml (schema CharacterReforged.pairing/1)
---   [CharacterReforged.PartnerLock.<system>]
---   badge_sprite = "all_miximaxed_partner_badge"   # the plate's sprite on the badge atlas
---                                                 # #/menu/102_team/team11/team11_05/team11_05.g4tx (160 x 52 px PNG,
---                                                 # drawn at 80 x 26; the declaring mod adds it with the image type)
---   badge_text = "AuraOverhaul.miximax_partner_badge" # text key of the plate's word
---   order = 10                                     # a card locked by two systems shows the lower order's plate
---   off = false                                    # true: no lock for this system (a game mode may switch one off)
---   status_badge = "aura_reworked_status_miximax"  # the corner badge of the «Crear …» partner bank (sprite asked of
---                                                 # team00_01.g4tx, served from the declaring mod's own atlas): a card
---                                                 # used by this system (partner or base) is greyed there with it;
---                                                 # the player bank shows it too
---   status_badge_in_team = "…"                     # the same for a card also in a team (the retail icon's mark on it)
---   status_aura_type = 2                           # the game's aura type of this system's moves: a card with such a
---                                                 # move in his mix slot wears the badge (retail, any source)
--- The pairs come from the system's own mod (this base does not see its plugins): it calls the export
--- CharacterReforged.PartnerLockSet(system, pairs) with EVERY partner of its store ({ { partner, base }, … }) whenever
--- the store changes and at each save load. A system that never calls it locks nobody.
--- Commands (content\game\partner_lock.toml): CMND_CHARACTERREFORGED_PARTNER_LOCKS() -> table of { card, base, sprite,
--- textId, text } (every locked card; the bank's hook file reads it once per open); CMND_CHARACTERREFORGED_PARTNER_LOCK
--- (card) -> base (0 = free), sprite, textId, text. Filters on the game's place check 1730898405 (hdl, toSet, pos,
--- fromSet, team) and place / move 193693077 (toSet, pos, fromSet, hdl, team): from the bank into a team set = refused.
 
 CharacterReforged = CharacterReforged or {}
 local A = CharacterReforged
 A.PartnerLock = A.PartnerLock or {}
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
-local hex = Id.hex
-require "VRFW/lib/basics"
+local hex = Id.hex_text
 local info = VRFW.logger("partner lock")
 
--- the game's set number of the club bank: team templates / docks are the sets below it
 local BANK_SET = 16
 -- the second value the place check answers for a refused partner (any non-zero code refuses)
 local PLACE_REFUSED = 77
 local DEFAULT_ORDER = 100
 
-local function id_of(k)
-  if type(k) == "string" and k ~= "" then return u32(VRFW.crc32(k)) end
-  return 0
-end
+local function id_of(k) return Id.parse(k, { hash_names = true }) or 0 end
 
 local function text_of(key)
   if type(key) ~= "string" or key == "" then return "" end
@@ -55,11 +23,8 @@ local function text_of(key)
   return ""
 end
 
--- ---------------------------------------------------------------------------------------- the systems (data)
-
 local SYSTEMS = nil
 
--- every mod's content\pairing\*.toml, read here: each script has its own VM, so pairing.lua's reader is not reachable
 local function declarations()
   local ok, decl = pcall(VRFW.files.declarations, "content/pairing")
   return ok and type(decl) == "table" and decl or {}
@@ -97,8 +62,7 @@ local function read_systems()
   return out
 end
 
--- read once, kept between starts (VRFW.derived): the mods' folders are not walked on the game thread at the first open
--- of the team dock
+-- read once and kept between starts (VRFW.derived)
 local function systems()
   if SYSTEMS then return SYSTEMS end
   SYSTEMS = VRFW.derived("partner_lock_systems", nil, read_systems)
@@ -109,7 +73,6 @@ local function systems()
   return SYSTEMS
 end
 
--- a system nobody declared: locked, no plate
 local function system_of(name)
   local s = systems()[name]
   if s then return s end
@@ -119,10 +82,8 @@ local function system_of(name)
   return s
 end
 
--- ---------------------------------------------------------------------------------------- the pairs
-
 local PAIRS = {}      -- system -> { [partner] = base }
-local LOCKED = nil    -- partner -> { base, system entry } (rebuilt when a system's pairs change)
+local LOCKED = nil
 
 local function rebuild()
   LOCKED = {}
@@ -142,7 +103,6 @@ end
 
 local function locked() return LOCKED or rebuild() end
 
--- the system's whole list of pairs: { { partner, base }, … } (or { partner = , base = } records); replaces the last one
 function CharacterReforged.PartnerLockSet(system, list)
   system = tostring(system or "")
   if system == "" then return false end
@@ -178,8 +138,6 @@ function A.PartnerLock.Of(card)
   return nil
 end
 
--- ---------------------------------------------------------------------------------------- commands
-
 -- CMND_CHARACTERREFORGED_PARTNER_LOCK(card) -> base (0 = free), sprite, textId, text
 function CharacterReforged.PartnerLock.Get(card)
   local base, s = A.PartnerLock.Of(card)
@@ -198,8 +156,7 @@ function CharacterReforged.PartnerLock.List()
   return out
 end
 
--- CMND_CHARACTERREFORGED_PARTNER_USES() -> { { card, statusSprite, order, isPartner, system }, … }: every card a
--- system uses (the partner and the base of each pair; a card of two pairs: the lower order, then the partner role)
+-- CMND_CHARACTERREFORGED_PARTNER_USES() -> { { card, statusSprite, order, isPartner, system }, … } of every paired card
 function CharacterReforged.PartnerLock.Uses()
   local best = {}
   local function put(card, s, partner)
@@ -225,8 +182,6 @@ function CharacterReforged.PartnerLock.Uses()
   return out
 end
 
--- CMND_CHARACTERREFORGED_MIX_BADGE(card) -> statusSprite, inTeamSprite: the badge of the system whose aura type his mix
--- slot's move has (a retail or moveset miximax or change, without a stored pair); 0, 0 = none
 function CharacterReforged.PartnerLock.MixBadge(card)
   local ok, set = pcall(VRFW.skill_set.of, u32(card))
   local move = ok and type(set) == "table" and u32(set.mix or 0) or 0
@@ -238,8 +193,6 @@ function CharacterReforged.PartnerLock.MixBadge(card)
   end
   return 0, 0
 end
-
--- ---------------------------------------------------------------------------------------- the place filters
 
 local function refused(card, to_set, from_set)
   to_set, from_set = tonumber(to_set) or -1, tonumber(from_set) or -1
@@ -257,7 +210,6 @@ function CharacterReforged.PartnerLock.PlaceCheck(hdl, to_set, pos, from_set)
   return true, false, PLACE_REFUSED
 end
 
--- place / move 193693077(toSet, pos, fromSet, hdl, team): the paths that place without the check («Añadir al equipo»)
 function CharacterReforged.PartnerLock.MoveChara(to_set, pos, from_set, hdl)
   local base, s = refused(hdl, to_set, from_set)
   if not base then return false end

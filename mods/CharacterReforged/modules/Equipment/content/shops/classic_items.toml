@@ -1,0 +1,522 @@
+
+
+schema = "VRFW.shop/2"
+
+[[edit]]
+target = "0x019DF9C6"
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "Equipment.red_bracelet"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000006", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "Equipment.leather_bracelet"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000006", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "Equipment.seed_bracelet"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000006", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "Equipment.rainbow_bracelet"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000006", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0104001
+  item = "Equipment.courage_bracelet"
+  costs = [{ currency = "tk_si000002", count = 5 }, { currency = "tk_si000007", count = 9 }]
+  [[edit.entry]]                         # as eq_mi0104101
+  item = "Equipment.sacred_bracelet"
+  costs = [{ currency = "tk_si000004", count = 5 }, { currency = "tk_si000007", count = 12 }]
+  [[edit.entry]]                         # as eq_mi0105401
+  item = "Equipment.paradise_bracelet"
+  costs = [{ currency = "tk_si000001", count = 5 }, { currency = "tk_si000002", count = 12 }]
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "Equipment.tezcat_bracelet"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000006", count = 3 }]
+  [[edit.entry]]                         # as eq_ac0105201
+  item = "Equipment.cross_pendant"
+  costs = [{ currency = "tk_si000001", count = 6 }, { currency = "tk_si000005", count = 12 }]
+  [[edit.entry]]                         # as eq_ac0104201
+  item = "Equipment.inazuma_pendant"
+  costs = [{ currency = "tk_si000003", count = 10 }, { currency = "tk_si000004", count = 5 }]
+  [[edit.entry]]                         # as eq_ac0105901
+  item = "Equipment.sacred_pendant"
+  costs = [{ currency = "tk_si000001", count = 5 }, { currency = "tk_si000005", count = 14 }]
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "Equipment.mt_olympus_gloves"
+  costs = [{ currency = "tk_si000001", count = 10 }, { currency = "tk_si000004", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "Equipment.thunder_gloves"
+  costs = [{ currency = "tk_si000001", count = 10 }, { currency = "tk_si000004", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "Equipment.victory_gloves"
+  costs = [{ currency = "tk_si000001", count = 10 }, { currency = "tk_si000004", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "Equipment.gentleman_gloves"
+  costs = [{ currency = "tk_si000001", count = 10 }, { currency = "tk_si000004", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "Equipment.premium_gloves"
+  costs = [{ currency = "tk_si000001", count = 10 }, { currency = "tk_si000004", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "Equipment.dirty_bracelet"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000006", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "Equipment.angelic_bracelet"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000006", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "Equipment.demonic_bracelet"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000006", count = 3 }]
+  [[edit.entry]]                         # as eq_ac0105201
+  item = "Equipment.destruction_pendant"
+  costs = [{ currency = "tk_si000001", count = 6 }, { currency = "tk_si000005", count = 12 }]
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "Equipment.automated_gloves"
+  costs = [{ currency = "tk_si000001", count = 10 }, { currency = "tk_si000004", count = 2 }]
+  [[edit.entry]]                         # as eq_ac0105201
+  item = "Equipment.treasure_pendant"
+  costs = [{ currency = "tk_si000001", count = 6 }, { currency = "tk_si000005", count = 12 }]
+
+[[edit]]
+target = "0x1CF22DA7"
+  [[edit.entry]]                         # as eq_sh110801
+  item = "Equipment.sports_shoes"
+  costs = [{ currency = "tk_si000001", count = 4 }, { currency = "tk_si000007", count = 12 }]
+  [[edit.entry]]                         # as eq_sh111101
+  item = "Equipment.power_boots"
+  costs = [{ currency = "tk_si000001", count = 5 }, { currency = "tk_si000007", count = 12 }]
+  [[edit.entry]]                         # as eq_sh110801
+  item = "Equipment.uplifting_boots"
+  costs = [{ currency = "tk_si000001", count = 4 }, { currency = "tk_si000007", count = 12 }]
+  [[edit.entry]]                         # as eq_sh111101
+  item = "Equipment.premium_boots"
+  costs = [{ currency = "tk_si000001", count = 5 }, { currency = "tk_si000007", count = 12 }]
+  [[edit.entry]]                         # as eq_mi0100901
+  item = "Equipment.active_bracelet"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000006", count = 3 }]
+  [[edit.entry]]                         # as eq_ac0107001
+  item = "Equipment.diamond_pendant"
+  costs = [{ currency = "tk_si000001", count = 5 }, { currency = "tk_si000004", count = 12 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.raimon_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.black_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.prodigy_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.almighty_faith_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.pirates_cove_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.alpine_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.mirage_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.universal_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.dragon_link_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.ancient_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.zero_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.reserve_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.kids_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.discipline_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.flurry_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.sports_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.smart_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.sailor_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.vitality_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_sh111101
+  item = "Equipment.tonghanian_boots"
+  costs = [{ currency = "tk_si000001", count = 5 }, { currency = "tk_si000007", count = 12 }]
+  [[edit.entry]]                         # as eq_sh111101
+  item = "Equipment.eastern_boots"
+  costs = [{ currency = "tk_si000001", count = 5 }, { currency = "tk_si000007", count = 12 }]
+  [[edit.entry]]                         # as eq_sh110201
+  item = "Equipment.fortress_boots"
+  costs = [{ currency = "tk_si000001", count = 7 }, { currency = "tk_si000004", count = 5 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.sherwind_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.omega_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.white_deer_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.omega_z_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.zanark_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.cascade_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.zan_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.gihl_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.ragnah_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.werewolf_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.champion_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.global_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.national_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.tonghanian_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.dashing_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.shinsengumi_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.gauntlets"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.eastern_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_sh111101
+  item = "Equipment.knights_boots"
+  costs = [{ currency = "tk_si000001", count = 5 }, { currency = "tk_si000007", count = 12 }]
+  [[edit.entry]]                         # as eq_sh110201
+  item = "Equipment.sandstorm_boots"
+  costs = [{ currency = "tk_si000001", count = 7 }, { currency = "tk_si000004", count = 5 }]
+  [[edit.entry]]                         # as eq_sh111101
+  item = "Equipment.volcano_boots"
+  costs = [{ currency = "tk_si000001", count = 5 }, { currency = "tk_si000007", count = 12 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.fire_dragon_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.big_waves_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.shamshir_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.storm_wolves_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.japanese_resistance_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.fertilia_eleven_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.falam_medius_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.combat_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.space_rankers_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.zeus_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.team_ogre_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.erg_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.current_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "Equipment.hunting_gloves"
+  costs = [{ currency = "tk_si000003", count = 3 }, { currency = "tk_si000005", count = 2 }]
+
+[[edit]]
+target = "0x4E6077DA"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.black_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh112901
+  item = "Equipment.thunder_boots"
+  costs = [{ currency = "tk_hr000001", count = 12 }, { currency = "tk_hr000004", count = 12 }]
+  [[edit.entry]]                         # as eq_sh040701
+  item = "Equipment.wildfire_boots"
+  costs = [{ currency = "tk_hr000003", count = 11 }, { currency = "tk_hr000006", count = 13 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.terror_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.harlequin_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh112901
+  item = "Equipment.boat_boots"
+  costs = [{ currency = "tk_hr000001", count = 12 }, { currency = "tk_hr000004", count = 12 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.panther_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_mi0104801
+  item = "Equipment.uplifting_gloves"
+  costs = [{ currency = "tk_hr000003", count = 14 }, { currency = "tk_hr000007", count = 14 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.legendary_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.national_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.waterproof_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.bright_sandals"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.shinsengumi_sandals"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.noble_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.aristocrat_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.binary_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh081301
+  item = "Equipment.combat_boots"
+  costs = [{ currency = "tk_hr000004", count = 5 }, { currency = "tk_hr000006", count = 8 }]
+  [[edit.entry]]                         # as eq_sh081101
+  item = "Equipment.erg_boots"
+  costs = [{ currency = "tk_hr000002", count = 10 }, { currency = "tk_hr000005", count = 12 }]
+  [[edit.entry]]                         # as eq_sh021601
+  item = "Equipment.hunting_boots"
+  costs = [{ currency = "tk_hr000004", count = 10 }, { currency = "tk_hr000007", count = 14 }]
+
+[[edit]]
+target = "0x61245112"
+  [[edit.entry]]                         # as eq_sh070201
+  item = "Equipment.eternal_boots"
+  costs = [{ currency = "tk_hr000002", count = 10 }, { currency = "tk_hr000006", count = 10 }]
+  [[edit.entry]]                         # as eq_sh070201
+  item = "Equipment.devotion_boots"
+  costs = [{ currency = "tk_hr000002", count = 10 }, { currency = "tk_hr000006", count = 10 }]
+  [[edit.entry]]                         # as eq_ac0103801
+  item = "Equipment.silver_pendant"
+  costs = [{ currency = "tk_hr000003", count = 5 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.milky_way_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0104501
+  item = "Equipment.royal_gloves"
+  costs = [{ currency = "tk_hr000005", count = 5 }, { currency = "tk_hr000007", count = 10 }]
+  [[edit.entry]]                         # as eq_mi0104501
+  item = "Equipment.lunar_sea_gloves"
+  costs = [{ currency = "tk_hr000005", count = 5 }, { currency = "tk_hr000007", count = 10 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.golden_oldies_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0107001
+  item = "Equipment.ivy_selective_gloves"
+  costs = [{ currency = "tk_hr000001", count = 1 }, { currency = "tk_hr000003", count = 30 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.wildfire_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0104501
+  item = "Equipment.terror_gloves"
+  costs = [{ currency = "tk_hr000005", count = 5 }, { currency = "tk_hr000007", count = 10 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.echo_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+  [[edit.entry]]                         # as eq_sh070201
+  item = "Equipment.warrior_sandals"
+  costs = [{ currency = "tk_hr000002", count = 10 }, { currency = "tk_hr000006", count = 10 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.despairado_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.bright_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0104701
+  item = "Equipment.warrior_gloves"
+  costs = [{ currency = "tk_hr000005", count = 5 }, { currency = "tk_hr000006", count = 5 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.noble_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0107001
+  item = "Equipment.peasant_gloves"
+  costs = [{ currency = "tk_hr000001", count = 1 }, { currency = "tk_hr000003", count = 30 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.aristocrat_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0104701
+  item = "Equipment.binary_gloves"
+  costs = [{ currency = "tk_hr000005", count = 5 }, { currency = "tk_hr000006", count = 5 }]
+  [[edit.entry]]                         # as eq_sh070201
+  item = "Equipment.current_boots"
+  costs = [{ currency = "tk_hr000002", count = 10 }, { currency = "tk_hr000006", count = 10 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.muay_tigers_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0104501
+  item = "Equipment.magmavia_eleven_gloves"
+  costs = [{ currency = "tk_hr000005", count = 5 }, { currency = "tk_hr000007", count = 10 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.knights_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0104701
+  item = "Equipment.sandstorm_gloves"
+  costs = [{ currency = "tk_hr000005", count = 5 }, { currency = "tk_hr000006", count = 5 }]
+  [[edit.entry]]                         # as eq_mi0104501
+  item = "Equipment.volcano_gloves"
+  costs = [{ currency = "tk_hr000005", count = 5 }, { currency = "tk_hr000007", count = 10 }]
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "Equipment.sunbeam_gloves"
+  costs = [{ currency = "tk_hr000005", count = 3 }]
+
+[[edit]]
+target = "0x71F70D49"
+  [[edit.entry]]                         # as eq_sh1105201
+  item = "Equipment.discipline_boots"
+  costs = [{ currency = "tk_si000001", count = 5 }, { currency = "tk_si000002", count = 14 }]
+  [[edit.entry]]                         # as eq_sh1105001
+  item = "Equipment.sunbeam_boots"
+  costs = [{ currency = "tk_si000001", count = 6 }, { currency = "tk_si000004", count = 14 }]
+
+[[edit]]
+target = "0x9BE09172"
+  [[edit.entry]]                         # as eq_sh042301
+  item = "Equipment.practice_boots"
+  costs = [{ currency = "tk_vi000003", count = 6 }, { currency = "tk_hr000009", count = 8 }]
+  [[edit.entry]]                         # as eq_sh080801
+  item = "Equipment.terra_boots"
+  costs = [{ currency = "tk_vi000002", count = 5 }, { currency = "tk_vi000003", count = 3 }]
+  [[edit.entry]]                         # as eq_sh042301
+  item = "Equipment.stripe_boots"
+  costs = [{ currency = "tk_vi000003", count = 6 }, { currency = "tk_hr000009", count = 8 }]
+  [[edit.entry]]                         # as eq_sh070801
+  item = "Equipment.gentleman_boots"
+  costs = [{ currency = "tk_vi000001", count = 4 }, { currency = "tk_hr000009", count = 10 }]
+  [[edit.entry]]                         # as eq_sh080801
+  item = "Equipment.echo_boots"
+  costs = [{ currency = "tk_vi000002", count = 5 }, { currency = "tk_vi000003", count = 3 }]
+  [[edit.entry]]                         # as eq_sh042301
+  item = "Equipment.vitality_boots"
+  costs = [{ currency = "tk_vi000003", count = 6 }, { currency = "tk_hr000009", count = 8 }]
+  [[edit.entry]]                         # as eq_ac0102501
+  item = "Equipment.heart_pendant"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 3 }]
+  [[edit.entry]]                         # as eq_ac0100701
+  item = "Equipment.gothic_pendant"
+  costs = [{ currency = "tk_vi000001", count = 2 }, { currency = "tk_vi000002", count = 3 }]
+  [[edit.entry]]                         # as eq_ac0104301
+  item = "Equipment.courage_pendant"
+  costs = [{ currency = "tk_vi000001", count = 4 }, { currency = "tk_vi000002", count = 3 }]
+  [[edit.entry]]                         # as eq_ac0103301
+  item = "Equipment.paradise_pendant"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.kirkwood_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.eternal_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.verdant_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.terra_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.stripe_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.harlequin_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.devotion_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.panther_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_sh021401
+  item = "Equipment.global_boots"
+  costs = [{ currency = "tk_vi000002", count = 5 }, { currency = "tk_hr000009", count = 8 }]
+  [[edit.entry]]                         # as eq_sh080701
+  item = "Equipment.sabaton_boots"
+  costs = [{ currency = "tk_vi000001", count = 4 }, { currency = "tk_vi000003", count = 4 }]
+  [[edit.entry]]                         # as eq_sh080701
+  item = "Equipment.automated_boots"
+  costs = [{ currency = "tk_vi000001", count = 4 }, { currency = "tk_vi000003", count = 4 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.gahl_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.vampire_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.nocturnal_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.genesis_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.waterproof_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.fortress_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_sh045501
+  item = "Equipment.float_boots"
+  costs = [{ currency = "tk_vi000001", count = 4 }, { currency = "tk_vi000002", count = 3 }]
+  [[edit.entry]]                         # as eq_sh045501
+  item = "Equipment.ash_boots"
+  costs = [{ currency = "tk_vi000001", count = 4 }, { currency = "tk_vi000002", count = 3 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.silica_eleven_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.naiadi_eleven_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.ixar_fleet_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.float_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "Equipment.ash_gloves"
+  costs = [{ currency = "tk_vi000002", count = 3 }, { currency = "tk_vi000003", count = 2 }]
+  [[edit.entry]]                         # as eq_ac0106201
+  item = "Equipment.study_pendant"
+  costs = [{ currency = "tk_vi000003", count = 5 }, { currency = "tk_hr000009", count = 8 }]

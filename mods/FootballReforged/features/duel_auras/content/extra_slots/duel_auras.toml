@@ -1,0 +1,4 @@
+schema = "VRFW.extra_slot/1"
+
+[VRFW.DuelAura]
+types = [0, 1, 2, 3, 4, 5, 6, 7]

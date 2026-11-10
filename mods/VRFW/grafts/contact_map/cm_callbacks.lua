@@ -1,15 +1,20 @@
--- vrfw_contact_map_menu, part 7 of 7 (graft contact_map appends it to vrfw_contact_map_menu.lua; one chunk):
--- the engine callbacks (OnInit, OnSetupLayer, Step, ...).
--- ---- callbacks ------------------------------------------------------------------------------------------------------
+local function OnTextureIn(_path, ok)
+  tex_changed = true
+  if ok then
+    OtNote("tex in")
+  end
+end
+
 function OnInit()
+  Log = VRFW.logger.new("contact_map")
+  art = VRFW.screen_art.get(ART_SCREEN)
+  Kit = VRFW.screen_kit.new({log = Log, on_texture = OnTextureIn, art = art, fallback = FALLBACK, fallback_any = FALLBACK_ANY})
+  Ptr = Kit.pointer()
   OT.f, OT.lines, OT.setup, OT.ev = 0, 0, {}, {}
   OtNote("init")
-  VRFW_Param.Clear(KEY_RESULT)
-  -- the art the mods declare for this screen (VRFW_ScreenArt; the plain atlas vrfw_plain is in the menu's res): its
-  -- atlases asked now (Tex: Step redraws when they are in); one line naming the roles drawn plain
-  art, plain_tint = VRFW_ScreenArt.Get(ART_SCREEN), {}
-  for _, path in ipairs(VRFW_ScreenArt.Atlases(ART_SCREEN)) do
-    Tex(path)
+  VRFW.param.clear(KEY_RESULT)
+  for _, path in ipairs(VRFW.screen_art.atlases(ART_SCREEN)) do
+    Kit.texture(path)
   end
   local plain = {}
   for role in pairs(FALLBACK) do
@@ -23,17 +28,16 @@ function OnInit()
   end
   ready, open_guard, SET, MAP, mode = false, 20, nil, nil, "list"
   for layer in pairs(BUST.key) do
-    VRFW_FaceIcon.Forget(layer)   -- the busts are built again from scratch
+    VRFW.face_icon.forget(layer)   -- the busts are built again from scratch
   end
   HUB.menu, HUB.on, BUST.key, BUST.chara = nil, false, {}, {}
-  if VRFW_Param.Has(KEY_PARENT) then
-    local parent = Int(VRFW_Param.Get(KEY_PARENT))
-    VRFW_Param.Clear(KEY_PARENT)
+  if VRFW.param.has(KEY_PARENT) then
+    local parent = Int(VRFW.param.get(KEY_PARENT))
+    VRFW.param.clear(KEY_PARENT)
     HUB.menu = parent ~= 0 and parent or nil
   end
   focus = {list = 1, zones = 1, grid = 1, network = 1, shop = 1}
-  -- the body types the model's pose has (the framework reads menu_chara_model_pose_config): a player of another body
-  -- type gets no model (the pose command would crash the game, see evt_menu_kit.lua#CharaModel)
+  -- Reads the body types the model's pose has (the framework reads menu_chara_model_pose_config).
   local bodies = nil
   local list = Call(@crc:CMND_VRFW_MODEL_POSE_BODIES@, 2328706751 --[[the retail shop pose]])
   if type(list) == "table" and #list > 0 then
@@ -43,9 +47,7 @@ function OnInit()
     end
   end
   Log("model pose bodies", type(list) == "table" and #list or -1)
-  -- each player in his own team's kit (everybody wore the generic Raimon kit): the framework
-  -- derives it per card from the data (CMND_VRFW_CONTACT_KIT); 0 = the default
-  -- a player of the shown team page (slots 0-15) wears that team's own kit; staff keep theirs
+  -- Dresses each player in his own team's kit instead of the generic kit.
   local function TeamKit(pid)
     local team = CmPages.FORM.filled
     if type(team) ~= "number" or team == 0 then
@@ -79,23 +81,17 @@ function OnInit()
     end
     return u, f
   end
-  Model = EVT_CharaModelNew(L_MODEL, {kit = Kit, shadow = L_SHADOW, log = Log, pose = 2328706751, bodies = bodies})
-  -- (RS turned the 3D player): the shop list base's model control (the right stick turns the model)
-  -- stays OFF on this screen, every frame (a build may switch it on); the global menu input controller is never
-  -- changed here (the shop's MENU_CTRL_SEPARATE_CROSS_KEY switch froze the Market)
-  function Model.NoTurn()
+  Model = VRFW.chara_model.new(L_MODEL, {kit = Kit, shadow = L_SHADOW, log = Log, pose = 2328706751, bodies = bodies})
+  -- (RS turned the 3D player)
+  function Model.no_turn()
     pcall(funcLuaMenuCommand, 1195674914 --[[chara model control]], L_MODEL, 0, false)
   end
-  -- the model PANEL.MODEL_X metres right of where its build put it: once per build, the frame it is shown
-  -- (CMND_GET_CHARA_MODEL_POS 3136332215 (layer, inst, slot) -> x, y, z; CMND_SET_CHARA_MODEL_POS 1088067423 (layer,
-  -- inst, x, y, z, slot), as the retail SetupCharaModel / CalculateZoomPosition)
-  function Model.Place()
+  -- Places the model PANEL.MODEL_X metres right of where its build put it.
+  function Model.place()
     local B = Model.build
     if B == nil or not B.done or Model.pend ~= nil or Model.pid == nil then
       return
     end
-    -- the read answers (found, x, y, z) (a log read "model pos unread true true": its first value is a
-    -- flag; retail CalculateZoomPosition uses the 2nd-4th); an answer of 3 numbers is taken too
     local function Read(...)
       local r = table.pack(pcall(funcLuaMenuCommand, @crc:CMND_GET_CHARA_MODEL_POS@, L_MODEL, 0, 0, ...))
       if not r[1] then
@@ -117,8 +113,7 @@ function OnInit()
       x, y, z = Read(1001527765)
     end
     if not (type(x) == "number" and type(y) == "number" and type(z) == "number") then
-      -- unreadable: the shared menu model camera's offset moves the view instead (camera -MODEL_X = the model
-      -- +MODEL_X on screen; CMND 284729675 on 1752770328, as research/grafts/plate_model); given back on the way out
+      -- Handles an unreadable position.
       if Model.placed ~= B then
         Model.placed = B
         Model.cam = true
@@ -127,8 +122,7 @@ function OnInit()
       end
       return
     end
-    -- already at our place: nothing; else (a new build, or the component put it back) our place again (absolute:
-    -- no drift)
+    -- Skips the move when the model is already at the target place.
     local at = PANEL.MODEL_AT
     if math.abs(x - at[1]) < 0.005 and math.abs(y - at[2]) < 0.005 and math.abs(z - at[3]) < 0.005 then
       return
@@ -142,20 +136,20 @@ function OnInit()
   end
   STATUS.card = nil
   local set = 0
-  if VRFW_Param.Has(KEY_SET) then
-    set = Int(VRFW_Param.Get(KEY_SET))
-    VRFW_Param.Clear(KEY_SET)
+  if VRFW.param.has(KEY_SET) then
+    set = Int(VRFW.param.get(KEY_SET))
+    VRFW.param.clear(KEY_SET)
   end
-  if VRFW_Recruit == nil then
-    Log("error", "VRFW_Recruit missing (the menu part's lua\\_all\\62_recruit.lua did not run in this VM)")
+  if VRFW.recruit == nil then
+    Log("error", "VRFW.recruit missing (the menu part's lua\\_all\\62_recruit.lua did not run in this VM)")
     return
   end
-  VRFW_Recruit.Refresh()                        -- the club counts of the element / position requirements, fresh
+  VRFW.recruit.refresh()                        -- the club counts of the element / position requirements, fresh
   CmPages.direct = nil
   CmPages.trail, CmPages.going, CmPages.all = {}, false, false
-  if VRFW_Param.Has(3811836272 --[[vrfw_contact_game]]) then
-    CmPages.direct = Int(VRFW_Param.Get(3811836272))
-    VRFW_Param.Clear(3811836272)
+  if VRFW.param.has(3811836272 --[[vrfw_contact_game]]) then
+    CmPages.direct = Int(VRFW.param.get(3811836272))
+    VRFW.param.clear(3811836272)
     if CmPages.direct == 0 then
       CmPages.direct = nil
     end
@@ -171,16 +165,15 @@ function OnInit()
   Log("open", SET.key, "maps", #SET.maps, VIEW_ALL.on and "VIEW EVERYTHING ON ([debug] reveal_all): nothing is signed by it" or "")
 end
 
--- the tile plates keep no engine mouse zone: the Lua hit test (Ptr) owns hover and click, so the engine never moves
--- its focus (and plays its focus sound) on a hovered plate
+-- The tile plates keep no engine mouse zone.
 local function DropEngineZone(layer, idx)
   pcall(funcLuaMenuCommand, C.HIT_ZONE, layer, idx, false)
   pcall(funcLuaMenuCommand, C.HOVER_FOCUS, layer, idx, false)
 end
 
 local function OpenOwnLayers()
-  if CmPages.OpenFormLayers ~= nil then
-    CmPages.OpenFormLayers()           -- the team dock's lineup layers (a team page)
+  if CmPages.open_form_layers ~= nil then
+    CmPages.open_form_layers()           -- the team dock's lineup layers (a team page)
   end
   for i = 0, N.LINE - 1 do
     funcLuaMenuCommand(C.OPEN_LAYER, L_LINE, i)
@@ -238,11 +231,12 @@ local function OpenOwnLayers()
 end
 
 function OnSetupLayer(a1, a2)
+  Kit.forget()                  -- a layer that (re)opens has none of the commands sent so far
   if OT.f <= OT.FRAMES then
     OT.setup[a1] = (OT.setup[a1] or 0) + 1
   end
   if CmPages.FORM_LAYER[a1] then
-    CmPages.SetupFormLayer(a1, a2)
+    CmPages.setup_form_layer(a1, a2)
     return
   end
   if a1 == L_HEADER then
@@ -260,26 +254,26 @@ function OnSetupLayer(a1, a2)
     end
     funcLuaMenuCommand(C.ATTACH_TRACE, a1, a2, CUR, false)
     if a1 ~= L_ROW then
-      Hide(a1, a2)
+      Kit.hide_off_screen(a1, a2)
     end
   elseif a1 == L_RETAIL_BG then
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
   elseif a1 == L_BACK or a1 == L_ZONEART or a1 == L_LINE or a1 == L_TILE or a1 == L_FACE or a1 == L_TAG or a1 == L_UI or a1 == L_CARD
       or a1 == L_ICON or a1 == L_REQ or a1 == L_REQOK or a1 == L_BUST or a1 == L_BUSTICON
       or a1 == INFO.PLATES.L_PLATE or a1 == INFO.PLATES.L_BAR then
-    Hide(a1, a2)                -- DrawAll draws what is used when the anchor opens
+    Kit.hide_off_screen(a1, a2)                -- DrawAll draws what is used when the anchor opens
     if a1 == L_TILE then
       DropEngineZone(a1, a2)
     end
   elseif a1 == L_PANEL then
-    Hide(a1, a2)
+    Kit.hide_off_screen(a1, a2)
   elseif a1 == L_MODEL then
     for _, m in ipairs({"_scr_line01", "_scr_obj01", "_dmy01"}) do   -- shop01_01's scroll bar / dummy: not used here
       funcLuaMenuCommand(C.MESH_VISIBLE, a1, CRC32(m), false, a2)
     end
   elseif a1 == L_STATUS or a1 == L_PPROW or a1 == L_SLANT then
-    if type(VRFW_UI) == "table" then
-      VRFW_UI.HeaderRow.Bare(a1, a2)  -- no rarity banner, no level from the first draw
+    if type(VRFW.ui_plates) == "table" then
+      VRFW.ui_plates.header_row.bare(a1, a2)  -- no rarity banner, no level from the first draw
     end
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
   elseif a1 == L_GUIDE_LINE then
@@ -290,29 +284,25 @@ function OnSetupLayer(a1, a2)
 end
 
 function OnOpenLayer(a1, a2)
+  Kit.forget()                  -- a layer that (re)opens has none of the commands sent so far
   if a1 == L_ROW and a2 == 0 then
-    funcLuaMenuCommand(C.LAYER_VISIBLE, L_CURSOR, 0, false)
-    funcLuaMenuCommand(C.FOCUS_ENABLE, a1, true)
-    funcLuaMenuCommand(C.LIST_NUM, a1, 1)
-    funcLuaMenuCommand(C.FOCUS_SET, a1, 0)
-    funcLuaMenuCommand(C.ATTACH_TRACE, a1, 0, CUR, false)
-    funcLuaMenuCommand(C.POS, a1, -4000, 4000, 0, 0)
+    Kit.open_list_anchor(a1, L_CURSOR, CUR)
     if SET == nil then
       Close(0)
       return
     end
     OtNote("anchor open")
-    if CmPages.direct ~= nil and not CmPages.OpenDirect() then
+    if CmPages.direct ~= nil and not CmPages.open_direct() then
       Close(0)
       return
     end
     UpdateTitle()
     DrawAll()
     UpdateButtonGuide()
-    Ptr.Reset()
+    Ptr.reset()
     HubYield(true)
     KEYS.free_off = true
-    KEYS.Free(true)
+    KEYS.free(true)
     funcLuaMenuCommand(C.POS, L_MODEL, PANEL.MODEL_DX, 0, 0, 0)   -- the model over the plate's centre
     ready = true
     if funcLuaCommand(C.FADE_DONE) then
@@ -325,15 +315,15 @@ end
 
 function OnDecideFocus(a1, a2)
   KEYS.cb.ENTER = KEYS.frame
-  KEYS.Seen("ENTER")
-  if evt_co ~= nil or not ready or open_guard > 0 or Ptr.Owns() then
+  KEYS.note_seen("ENTER")
+  if vrfw_co ~= nil or not ready or open_guard > 0 or Ptr.owns() then
     return
   end
   StartCo(Decide)
 end
 
--- X / FUNC2 "Items": the shelf of the open map / zone
-function KEYS.Shop()
+-- Handles X (FUNC2 "Items").
+function KEYS.shop()
   if true then                      -- the shelf is not offered from the contact map
     return
   end
@@ -343,12 +333,11 @@ function KEYS.Shop()
   end
 end
 
--- the polled pad (Step): a press acts 2 frames later unless its callback came; held = repeat (only for a press the
--- poll owns: a held arrow the engine serves repeats through OnFunction)
-function KEYS.Poll(free)
-  local stick = KEYS.free_off and KEYS.StickDir() or nil    -- free cursor on: the stick drives the game's pointer
+-- Polls the pad (Step).
+function KEYS.poll(free)
+  local stick = KEYS.free_off and KEYS.stick_dir() or nil    -- free cursor on: the stick drives the game's pointer
   for name, cmd in pairs(KEYS.NAV) do
-    local on = KeyOn(cmd) or stick == name
+    local on = Kit.key_pressed(cmd) or stick == name
     if on and not KEYS.held[name] then
       KEYS.press[name] = free and KEYS.frame or nil
       KEYS.owned[name] = false
@@ -359,7 +348,7 @@ function KEYS.Poll(free)
     local p = KEYS.press[name]
     local act = false
     if p ~= nil and not KEYS.owned[name] and KEYS.frame - p >= 2 then
-      if (KEYS.cb[name] or -100) < p - 2 and free then   -- a callback just before the poll saw the press counts too
+      if (KEYS.cb[name] or -100) < p - 2 and free then
         KEYS.owned[name] = true
         KEYS.next_rep[name] = KEYS.frame + KEYS.REPEAT_FIRST
         act = true
@@ -377,17 +366,17 @@ function KEYS.Poll(free)
     if act then
       local d = KEYS.DIR[name]
       if d ~= nil then
-        KEYS.Move(d[1], d[2])
+        KEYS.move(d[1], d[2])
       elseif name == "ENTER" then
         KEYS.press[name] = nil
         StartCo(Decide)
       elseif name == "FUNC2" then
         KEYS.press[name] = nil
-        KEYS.Shop()
+        KEYS.shop()
       elseif name == "FUNC3" or name == "FUNC4" then
         KEYS.press[name] = nil
-        if evt_co == nil and ready then
-          StartCo(name == "FUNC3" and CmPages.Trial or CmPages.Release)
+        if vrfw_co == nil and ready then
+          StartCo(name == "FUNC3" and CmPages.trial or CmPages.release)
         end
       end
     end
@@ -402,8 +391,8 @@ function OnFunction(a1, a2)
   end
   if id == FN.TRIAL or id == FN.RELEASE then
     KEYS.cb[id == FN.TRIAL and "FUNC3" or "FUNC4"] = KEYS.frame
-    if evt_co == nil and ready then
-      StartCo(id == FN.TRIAL and CmPages.Trial or CmPages.Release)
+    if vrfw_co == nil and ready then
+      StartCo(id == FN.TRIAL and CmPages.trial or CmPages.release)
     end
     return 1
   end
@@ -411,13 +400,13 @@ function OnFunction(a1, a2)
     or (id == FN.RIGHT and "RIGHT") or (id == FN.SHOP and "FUNC2") or nil
   if name ~= nil then
     KEYS.cb[name] = KEYS.frame
-    KEYS.Seen(name)
+    KEYS.note_seen(name)
   end
-  if evt_co ~= nil or not ready then
+  if vrfw_co ~= nil or not ready then
     return 1
   end
   if id == FN.SHOP then
-    KEYS.Shop()
+    KEYS.shop()
     return 1
   end
   local dx = id == FN.LEFT and -1 or (id == FN.RIGHT and 1 or 0)
@@ -425,7 +414,7 @@ function OnFunction(a1, a2)
   if dx == 0 and dy == 0 then
     return
   end
-  KEYS.Move(dx, dy)
+  KEYS.move(dx, dy)
   return 1
 end
 
@@ -439,7 +428,7 @@ end
 
 function OnBack(a1)
   KEYS.back_cb = KEYS.frame
-  if evt_co ~= nil or not ready or open_guard > 0 then
+  if vrfw_co ~= nil or not ready or open_guard > 0 then
     return 1
   end
   funcLuaCommand(C.SE, SE_BACK)
@@ -447,7 +436,6 @@ function OnBack(a1)
   return 1
 end
 
--- one line per frame with an event (and every OT.EVERY frames) during the first OT.FRAMES frames (OPEN TRACE above)
 local function OtStep()
   if OT.f > OT.FRAMES then
     return
@@ -481,51 +469,35 @@ end
 
 function Step()
   pcall(OtStep)
-  if evt_co ~= nil then
-    if coroutine.status(evt_co) == "dead" then
-      evt_co = nil
+  if vrfw_co ~= nil then
+    if coroutine.status(vrfw_co) == "dead" then
+      vrfw_co = nil
     else
-      local ok, err = coroutine.resume(evt_co)
+      local ok, err = coroutine.resume(vrfw_co)
       if not ok then
         PRINT("vrfw_contact_map_menu: " .. tostring(err))
         Log("error", tostring(err))
-        evt_co = nil
+        vrfw_co = nil
         funcLuaMenuCommand(C.MENU_ACTIVE, MENU, true)
-      elseif coroutine.status(evt_co) == "dead" then
-        evt_co = nil
+      elseif coroutine.status(vrfw_co) == "dead" then
+        vrfw_co = nil
       end
     end
   end
   if ready and open_guard > 0 then
     open_guard = open_guard - 1
   end
-  if not ready and SET ~= nil then   -- the input anchor never opened: the layer pools are past the engine's limit
+  if not ready and SET ~= nil then
     KEYS.wait = (KEYS.wait or 0) + 1
     if KEYS.wait == 300 then
       Log("STUCK: the input anchor never opened (layer instances past the menu's limit?)")
     end
   end
-  -- faces / the background still loading: redraw when they arrive (600 frames at most, then the "?" icon)
-  if ready and tex_wait then
-    local changed, still = false, false
-    for path, f in pairs(tex_frames) do
-      if f >= 0 then
-        if funcLuaCommand(C.TEX_LOADING, CRC32(path)) == true then
-          if f + 1 > 600 then
-            tex_frames[path] = -1
-            changed = true
-          else
-            tex_frames[path] = f + 1
-            still = true
-          end
-        else
-          tex_frames[path] = -2
-          changed = true
-          OtNote("tex in")
-        end
-      end
-    end
-    if changed or not still then
+  -- Redraws when a texture came in, or when the last one finished loading.
+  if ready and Kit.waiting then
+    Kit.settle()
+    if tex_changed or not Kit.pending() then
+      tex_changed = false
       DrawAll()
     end
   end
@@ -533,17 +505,17 @@ function Step()
     PollPointer()
     BustStep()
     if Model ~= nil then
-      Model.Step()
-      Model.NoTurn()
-      Model.Place()
+      Model.step()
+      Model.no_turn()
+      Model.place()
     end
     KEYS.frame = KEYS.frame + 1
-    local free = evt_co == nil and open_guard <= 0 and funcLuaCommand(C.MSG_BUSY) ~= true
-    if KEYS.co_was and evt_co == nil and not KEYS.free_off then
-      KEYS.Free(true, true)     -- a question / message window may have switched the free cursor off
+    local free = vrfw_co == nil and open_guard <= 0 and funcLuaCommand(C.MSG_BUSY) ~= true
+    if KEYS.co_was and vrfw_co == nil and not KEYS.free_off then
+      KEYS.free(true, true)     -- a question / message window may have switched the free cursor off
     end
-    KEYS.co_was = evt_co ~= nil
-    KEYS.Poll(free)
+    KEYS.co_was = vrfw_co ~= nil
+    KEYS.poll(free)
     CmNetViewStep(free)
     local l1, r1, back = KeyEdge("L1"), KeyEdge("R1"), KeyEdge("BACK")
     if free and (l1 or r1) then

@@ -1,23 +1,3 @@
--- Character Reforged › the per-character stats and their level curve.
---  same rows, clamps and rounding), with the curve above Lv 99 following any level cap.
--- Data: the chara_param columns 43-54 of the file the game reads (the cards' `stats` / `growth` of any mod's
--- content\characters\**, Character Reforged's own: the retail cards' values): 43 layout (2 = Lv200 values, 1 = Lv99 values,
--- 0 / missing = a retail row), 44 growth (0 slow, 2 fast, else normal), 45-53 the 9 values in engine order (52 retired
--- ex Rapidez: read as 0; 53 Suerte optional: 0 / missing = the mean of the 7 gameplay values, M.derived_luck), 54
--- Libertad (optional); 3 main position, 41 rarity, 5 build type.
--- The curve (config.toml [stats], [stats.past_cap], [level]; cap = the level cap in effect, the framework's
--- level.max when it raised the game's cap, else no level above 99):
---   Lv 1..99        lv1 + (v99 - lv1) * t^p,   t = (L - 1) / 98,   lv1 = round(v99 * lv1_ratio),   p = curve_<growth>
---   stored rows     v99 = round(v200 / lv200_factor_<growth>); above 99:
---                   top = v99 + (v200 - v99) * S,   value(L) = v99 + (top - v99) * ((L - 99) / (cap - 99))^curve_post99
---   other rows      (Lv99-value rows and every card without stored values) above 99:
---                   top = round(v99 * (1 + gain_<growth> * S)),   value(L) = v99 + (top - v99) * (1 - (1 - u)^shape),
---                   u = (L - 99) / (cap - 99)
---   S = ((cap - 99) / 101)^cap_scale: 1 at cap 200 (the stored values ARE the Lv 200 values), less below, more above;
---   every value is continuous at 99, rises up to the cap and is clamped to 0..9999. Above the cap (a rival level,
---   [VRFW.RivalLevel]) the stored rows' curve goes on (u > 1) and the other rows keep the mean rise (u instead of
---   1 - (1 - u)^shape). Card multiplier
---   [stats.rarity_mult] last (by chara_param col 41; none = 1).
 
 local M = {}
 
@@ -28,21 +8,18 @@ M.AGILIDAD = 6
 M.FREEDOM = 9
 M.MAX_VALUE = 9999
 local MAX_VALUE = M.MAX_VALUE
--- the level the stored values are the values of (the data's reference; research/scripts/pe_per_player_build.py reads
--- this line and the cfg_num defaults below)
+-- level of the stored values (research/mods/CharacterReforged/_tools/pe_per_player_build.py reads this line and the cfg_num defaults)
 local TOP_LEVEL = 200
 local REF_LEVEL = TOP_LEVEL
 local LAYOUT_V1, LAYOUT_V2 = 1, 2
 local COL_VERSION, COL_GROWTH, COL_STATS, COL_LIBERTAD = 43, 44, 45, 54
 
--- the native tables of content\game\stats.toml (exported: other mods' answers read them as
--- "CharacterReforged/<name>")
 M.T_ROW, M.T_VAL, M.T_CONST = "CharacterReforged.StatRow", "CharacterReforged.StatVal", "CharacterReforged.StatConst"
 
-local Id = require "VRFW/lib/ids"
-M.u32 = Id.u32
+local Id = VRFW.ids
+M.u32 = Id.unsigned
 
-local round = require("VRFW/lib/basics").value.round
+local round = VRFW.value.round
 
 local function clamp(v, lo, hi)
   if v < lo then return lo end
@@ -50,16 +27,8 @@ local function clamp(v, lo, hi)
   return v
 end
 
--- a value of this mod's merged config.toml (dotted path), `default` when missing or of another type
-function M.cfg(path, default)
-  local ok, v = pcall(VRFW.files.config, path)
-  if not ok or v == nil then return default end
-  if default ~= nil and type(v) ~= type(default) then return default end
-  return v
-end
-
 local function cfg_num(path, default, lo, hi)
-  local v = M.cfg(path, default)
+  local v = VRFW.config(path, default)
   if type(v) ~= "number" or v ~= v or v < lo or v > hi then
     if v ~= default then VRFW.warn(string.format("stats: config %s = %s out of range %s..%s, using %s", path, tostring(v), tostring(lo), tostring(hi), tostring(default))) end
     return default
@@ -67,8 +36,6 @@ local function cfg_num(path, default, lo, hi)
   return v
 end
 
--- the level cap in effect: the framework's raised cap (level.raised / level.max: [VRFW.Level] of content\characters\level.toml,
--- whose Max follows [level] cap), else 99 (the game's)
 function M.cap()
   local okr, raised = pcall(VRFW.state.get, "level.raised")
   local okm, max = pcall(VRFW.state.get, "level.max")
@@ -93,7 +60,7 @@ function M.curve()
   }
   local cs = cfg_num("stats.cap_scale", 0.5, 0, 4)
   c.s = cap > 99 and ((cap - 99) / (REF_LEVEL - 99)) ^ cs or 1
-  local rm = M.cfg("stats.rarity_mult", {})
+  local rm = VRFW.config("stats.rarity_mult", {})
   if type(rm) == "table" then
     for k, v in pairs(rm) do
       local r = tonumber(k)
@@ -110,29 +77,21 @@ local function growth_of(v)
   return 1
 end
 
--- Suerte of a card that declares none (Character Reforged's cards carry no luck value; the game has
--- no Suerte stat of its own): the mean of the card's 7 gameplay values (Disparo .. Agilidad, same level reference),
--- the rule of the original baked roster, so the curve, the training and
--- the radar never show a Suerte of 0
 function M.derived_luck(vals)
   local sum = 0
   for k = 0, M.AGILIDAD do sum = sum + (vals[k] or 0) end
   return clamp(round(sum / (M.AGILIDAD + 1)), 0, MAX_VALUE)
 end
 
--- the cards with per-character data: [u32 param id] = { growth, v2, vals[0..8], libertad (nil = no column), pos,
--- rarity, build, agi }; the first row of an id wins
 function M.load()
   local cols = { 0, 3, 5, 41, COL_VERSION, COL_GROWTH }
   for k = 0, 9 do cols[#cols + 1] = COL_STATS + k end
   local pos = {}
   for i, c in ipairs(cols) do pos[i] = c + 1 end
-  local rows = VRFW.table.raw("data/common/gamedata/character/chara_param_*.cfg.bin", "CHARA_PARAM_INFO", pos) or {}
+  local rows = VRFW.table.raw(VRFW.table_files.file_name(VRFW.table_files.CHARA_PARAM), "CHARA_PARAM_INFO", pos) or {}
   local players, n = {}, 0
   for _, r in ipairs(rows) do
     local id, ver = r[1], r[COL_VERSION + 1]
-    -- a row needs the version column and the 7 gameplay stat columns (cols 45..51) to be a v1 / v2 row; Suerte
-    -- (col 53) is optional: missing or 0 = the derived value (M.derived_luck)
     if type(id) == "number" and (ver == LAYOUT_V1 or ver == LAYOUT_V2) and r[COL_STATS + M.AGILIDAD + 1] ~= nil then
       local key = M.u32(id)
       if not players[key] then
@@ -158,8 +117,6 @@ function M.load()
   return players, n
 end
 
--- Agilidad percentile of every card inside its main position (mid-rank, ties share it), 0..1000; Lv99 rows (layout v1)
--- through x1.35 (the Normal Lv200 factor)
 function M.rank_agility(players)
   local by_pos = {}
   for key, p in pairs(players) do
@@ -220,9 +177,6 @@ local function anchored(c, v, p, level)
   return clamp(round(v99 + (top - v99) * u ^ c.q), 0, MAX_VALUE)
 end
 
--- the factor of a card's Lv 99 value at `level` for a card with stored Lv 200 values of growth `g` (0 slow, 1 normal,
--- 2 fast), the cap in effect included: the same curve as M.stat without its integer rounding (other mods scale their
--- own per-level values with it, e.g. Stamina Points' max PE: CharacterReforged.LevelFactor)
 function M.factor(c, g, level)
   g = (g == 0 or g == 2) and g or 1
   if level <= 99 then
@@ -248,7 +202,7 @@ function M.libertad(c, p, level)
   return anchored(c, p.libertad or 0, p, level)
 end
 
--- the native tables of content\game\stats.toml's curve answers. Returns the rows published.
+-- the native tables of content\game\stats.toml's curve answers.
 function M.publish(c, players)
   local rows, vals, n = {}, {}, 0
   for key, p in pairs(players) do

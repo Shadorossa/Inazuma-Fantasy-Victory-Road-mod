@@ -1,15 +1,6 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: the retail team picker «Elige tu equipo» (Equipo Llamarada / Equipo Trueno) on more Chronicle
-# battles. Retail offers it on the Chrono Stone pieces whose game has a twin (e.g. «¡El equipo definitivo al
-# completo!»: fbtl_cro05_190_010 with pltm_cro_ie5_19, Sol Daystar in slot 6 = Equipo Llamarada; fbtl_cro05_190_110
-# with pltm_cro_ie5_19_1, Bai Long in slot 6 = Equipo Trueno). The VR-Framework's [[VRFW.TeamSelect]] makes the twin
-# game and turns the picker on (docs/framework/route-board.md §7).
 default_lang = "en"
 
-# «¡El equipo definitivo!» against Criaturas de la Noche (fbtl_cro05_220_010): the Crónica's fixed line-up
-# pltm_cro_ie5_20 (Sol in slot 6) is Equipo Llamarada; this copy with Bai Long in slot 6 is Equipo Trueno. Bai Long's
-# card, row id and number are the ones retail gives him in pltm_cro_ie5_19_1 (slot 6); he plays his base form: his own moves written
-# whole, because retail's loadout of that row carries his Mix-Max (Zhuge Liang) and would show him miximaxed.
 [[team]]
 name = "chrono_storm_night_creatures_bai_long"
 key = "chronicle_deluxe_pltm_cro_ie5_20_bai_long"

@@ -1,0 +1,44 @@
+# Souls Rework: the «+Nv.» speech bubble over a player's head when his totem gains a level; order 320: after the HUD bars.
+name = "souls_rework_level_pop"
+mod = "CharacterReforged"
+order = 320
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["PostStep"]
+description = "Character Reforged: the «+Nv.» speech bubble over a player's head when his totem gains a level"
+
+[[files]]
+stem = "soccer_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "souls_rework_level_pop.lua"
+  marker = "CharacterReforged level pop"
+
+# 5v5 / friendly / battle matches: their play HUD is soccer_battle_inplay_menu (own script, same include)
+[[files]]
+stem = "soccer_battle_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "souls_rework_level_pop.lua"
+  marker = "CharacterReforged level pop"
+
+# the training twins: same include and globals as the match play HUD, so the loader can hand any of the four VMs any
+# twin's patch folder (docs/game/ui/ui-redesign.md «Twin fingerprints»); every twin carries the same block
+[[files]]
+stem = "soccer_training_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "souls_rework_level_pop.lua"
+  marker = "CharacterReforged level pop"
+
+[[files]]
+stem = "soccer_zigzag_dribble_training_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "souls_rework_level_pop.lua"
+  marker = "CharacterReforged level pop"

@@ -1,19 +1,9 @@
--- Team synergies declared by mods: reads every mod's content/synergies/*.toml (`VRFW.synergy/1`); native side in content/game/synergy.toml, menu patch in assets/lua/synergy/equip_synergy_menu_list/.
--- A declared synergy replaces the condition rows of one game synergy (its key, e.g. «sp04003») with:
---   nexus  characters (variants of one person), one of whom must be in the team, else the synergy is off
---   pool   who may fill the `count` slots (belong teams, series, staff role, gender, characters)
---   rule   "min" (at least `count` pool players) or "exact" (exactly `count`)
--- `slots` (one pool per slot) + `slot_members = true` draws each slot row like the nexus row (team crest, members' minifaces while empty).
--- Counted members are the starters (11, or 5 for the other team kind) and the staff slots (member classes 0x10-0x13 and above 0x1C); `distinct = "person"` (default) counts two versions of one person once.
--- Only that synergy's check answer is rewritten (active byte, taking-part members, one byte per row); its effects stay the game synergy's.
--- Detail panel rows: the nexus (the version in the team, else the first declared), then per slot the filling member or a pool character not in the team (face hidden, hint shown).
 
 Synergy = Synergy or {}
 
-require "VRFW/lib/basics"
-local GameText = require "VRFW/lib/game_text"
-local SeriesOrder = require "VRFW/lib/series_order"
-local RealPlayers = require "VRFW/lib/real_players"   -- a candidate face is drawn only for a real player (a card with no face of its own would show Mark Evans')
+local GameText = VRFW.names
+local SeriesOrder = VRFW.series
+local RealPlayers = VRFW.real_players
 local function real_player(b) return RealPlayers.of_character(b) ~= false end
 local info, warn = VRFW.logger("synergy")
 
@@ -21,53 +11,27 @@ local N_MEMBERS = 0x1D
 local MEMBER_BASE, MEMBER_STRIDE, MEMBER_CLASS = 0x80, 0x10, 0x0E
 local TEAM_KIND = 0x2CF
 local ANS_ACTIVE, ANS_ROWS = 0x7C, 0x74
-local MAX_ROWS = 3                       -- the panel's room (SynergyDetail's list) and its largest layout
-local MAX_PANEL_ROWS = 6                 -- rows the menu draws: past MAX_ROWS a 2-column grid of up to 3 lines
+local MAX_ROWS = 3
+local MAX_PANEL_ROWS = 6
 local KIND_NEXUS, KIND_NEXUS_MISSING, KIND_FILLED, KIND_EMPTY = 1, 2, 3, 4
 
--- series names: the framework's (VRFW.character.series_of: chara_base's in_<name> columns + content\defaults\series_names.toml)
 local GENDER = { male = 1, female = 2 }
 local ROLES = { manager = true, coach = true }
 
-local Id = require "lib/ids"
-local u32 = Id.u32
-
-local crc = VRFW.crc32
-
--- "0x…" / decimal / a number → the number, any other text → crc32 of it
-local function id_of(v)
-  if type(v) == "number" then return u32(v) end
-  if type(v) ~= "string" then return nil end
-  local h = v:match("^%s*0[xX](%x+)%s*$")
-  if h then return tonumber(h, 16) % 4294967296 end
-  if v:match("^%s*%d+%s*$") then return tonumber(v) % 4294967296 end
-  return crc(v)
-end
+local Id = VRFW.ids
+local u32 = Id.unsigned
+local Rows = VRFW.table_files
 
 -- a character: "c11801020" (internal key) / a mod character name / "0x…" → its chara_base id
 local function chara_of(v)
-  if type(v) == "string" and not v:match("^%s*0[xX]") and not v:match("^%s*%d+%s*$") then
-    local ok, id = pcall(VRFW.character, v)
-    if ok and type(id) == "number" and id ~= 0 then return u32(id) end
-  end
-  return id_of(v)
+  return Id.character(v, { hash_names = true })
 end
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
+local rd = VRFW.memory.read
 
-local function wr(ty, at, v)
-  if type(at) ~= "number" or at < 0x10000 then return false end
-  return (pcall(VRFW.mem.write, ty, at, v))
-end
+local wr = VRFW.memory.write
 
 local function list_of(v) return VRFW.value.list(v, {}) end
-
--- ---------------------------------------------------------------------------------------------- declarations
 
 local POOLS = {}         -- "<mod>.<name>" -> pool
 local DECL = {}          -- synergy id -> declaration
@@ -84,16 +48,15 @@ local function read_pool(mod, file, p, i)
   end
   if type(p.name) ~= "string" or not p.name:match("^[a-z0-9_]+$") then return nil, where .. ": name = \"a-z 0-9 _\" is required" end
   local x = { key = tostring(mod) .. "." .. p.name, teams = {}, team_list = {}, series = {}, charas = {}, exclude = {},
-    hint = p.hint and id_of(p.hint) or nil, show_candidates = p.show_candidates == true }
+    hint = p.hint and Id.parse(p.hint, { hash_names = true }) or nil, show_candidates = p.show_candidates == true }
   for _, t in ipairs(list_of(p.teams)) do
-    local id = id_of(t)
+    local id = Id.parse(t, { hash_names = true })
     if not id then return nil, where .. " " .. p.name .. ": teams = [ belong team ids ]" end
     if not x.teams[id] then x.team_list[#x.team_list + 1] = id end
     x.teams[id] = true
     x.any_team = true
   end
   for _, s in ipairs(list_of(p.series)) do
-    -- the framework's series names (the index answers nil = not a series; not readable now = checked when evaluated)
     local ok, n = pcall(VRFW.character.series_of, s)
     if ok and n == nil then
       local okn, names = pcall(VRFW.character.series_names)
@@ -119,7 +82,6 @@ local function read_pool(mod, file, p, i)
     local id = chara_of(c)
     if id then x.exclude[id] = true end
   end
-  -- crest_eras: the crests of every era of the pool's teams; a pool restricted to the series of one era shows that era's crest
   x.crest_eras = p.crest_eras == true
   local ERA_OF = { ie1 = 1, ie2 = 1, ie3 = 1, go1 = 2, go2 = 2, go3 = 2, go = 2, cs = 2, galaxy = 2, ares = 3, orion = 3, victory_road = 4, vr = 4 }
   for _, sname in ipairs(list_of(p.series)) do
@@ -127,18 +89,16 @@ local function read_pool(mod, file, p, i)
     if e == nil or (x.era ~= nil and x.era ~= e) then x.era = nil; x.era_mixed = true
     elseif not x.era_mixed then x.era = e end
   end
-  -- crests = [{ team = "<belong team>", era = "ie" | "go" | "ares" | "vr" }]: exactly these crests (the team's emblem of that era);
-  -- an entry may add `emblem = <item_emblem id>`: that crest is drawn instead, ranked in the series order as the team's crest of that era
   x.crest_list = {}
   local CREST_ERA = { ie = 1, go = 2, ares = 3, vr = 4 }
   for _, c in ipairs(list_of(p.crests)) do
     if type(c) == "table" and type(c.game_team) == "string" then
-      x.crest_list[#x.crest_list + 1] = { game_team = c.game_team }   -- the emblem of that game team (team_config), as its team screens show
+      x.crest_list[#x.crest_list + 1] = { game_team = c.game_team }
     else
-      local t = type(c) == "table" and id_of(c.team) or nil
+      local t = type(c) == "table" and Id.parse(c.team, { hash_names = true }) or nil
       local e = type(c) == "table" and CREST_ERA[tostring(c.era)] or nil
       if not t or not e then return nil, where .. " " .. p.name .. ": crests = [ { team = <belong team id>, era = \"ie\" | \"go\" | \"ares\" | \"vr\" } or { game_team = \"<game team key>\" } ]" end
-      x.crest_list[#x.crest_list + 1] = { team = t, era = e, emblem = c.emblem ~= nil and id_of(c.emblem) or nil }
+      x.crest_list[#x.crest_list + 1] = { team = t, era = e, emblem = c.emblem ~= nil and Id.parse(c.emblem, { hash_names = true }) or nil }
     end
   end
   -- captains_of_teams = [game team keys] (team_config): the captains of those teams join the pool
@@ -148,14 +108,11 @@ local function read_pool(mod, file, p, i)
     x.captain_keys[k] = true
     x.has_captain_keys = true
   end
-  -- rosters = [game team keys] (team_config): every member of those teams joins the pool (the squad a team really plays
-  -- with, when its players' belong teams are other clubs)
   x.roster_keys = {}
   for _, k in ipairs(list_of(p.rosters)) do
     if type(k) ~= "string" then return nil, where .. " " .. p.name .. ": rosters = [ \"<game team key>\" ]" end
     x.roster_keys[#x.roster_keys + 1] = k
   end
-  -- captain_overrides = [{ team = "<game team key>", captain = "<chara>" }]: that game team's captain is the declared character
   x.captain_override = {}
   for _, o in ipairs(list_of(p.captain_overrides)) do
     local c = type(o) == "table" and chara_of(o.captain) or nil
@@ -167,7 +124,7 @@ local function read_pool(mod, file, p, i)
   -- captains_of = [belong team ids]: the captains of the game's teams (team_config) named like those belong teams
   x.captain_teams = {}
   for _, t in ipairs(list_of(p.captains_of)) do
-    local id = id_of(t)
+    local id = Id.parse(t, { hash_names = true })
     if not id then return nil, where .. " " .. p.name .. ": captains_of = [ belong team ids ]" end
     x.captain_teams[#x.captain_teams + 1] = id
   end
@@ -183,10 +140,10 @@ local function read_syn(mod, file, s, i)
   for k in pairs(s) do
     if not SYN_KEYS[k] then return nil, where .. ": unknown key `" .. tostring(k) .. "`" end
   end
-  local id = id_of(s.key)
+  local id = Id.parse(s.key, { hash_names = true })
   if not id then return nil, where .. ": key = \"<the game's synergy key, e.g. sp04003>\" is required" end
   local x = { id = id, key = tostring(s.key), mod = mod, nexus = {}, nexus_list = {}, count = tonumber(s.count) or 0,
-    rule = s.rule or "min", distinct = s.distinct or "person", hint = s.hint and id_of(s.hint) or 0 }
+    rule = s.rule or "min", distinct = s.distinct or "person", hint = s.hint and Id.parse(s.hint, { hash_names = true }) or 0 }
   for _, c in ipairs(list_of(s.nexus)) do
     local b = chara_of(c)
     if b and not x.nexus[b] then
@@ -217,7 +174,6 @@ local function read_syn(mod, file, s, i)
     if x.rule ~= "min" then return nil, string.format("%s %s: rule %q: with `slots` every slot must be filled (rule min)", where, x.key, tostring(x.rule)) end
     x.count = #x.slot_keys - (x.skip_nexus_team and 1 or 0)
     if s.need ~= nil then
-      -- «N players from N different pools»: `need` of the slots must be filled (each by a different person from a different pool)
       local n = tonumber(s.need)
       if not n or n ~= math.floor(n) or n < 1 or n > x.count then return nil, where .. " " .. x.key .. ": need = <whole number 1 to the number of slots>" end
       x.need, x.count = n, n
@@ -231,7 +187,6 @@ local function read_syn(mod, file, s, i)
     return nil, where .. " " .. x.key .. ": slot_members works with `slots` only"
   end
   if x.count ~= math.floor(x.count) or x.count < 1 then return nil, where .. " " .. x.key .. ": count = <whole number ≥ 1> is required" end
-  -- `slots` may ask more players than the panel has rows: all are checked, the panel draws the first MAX_PANEL_ROWS rows
   if not x.slot_keys and x.count + (x.has_nexus and 1 or 0) > MAX_PANEL_ROWS then
     return nil, string.format("%s %s: the nexus + count = %d rows: the panel shows %d at most", where, x.key, x.count + (x.has_nexus and 1 or 0), MAX_PANEL_ROWS)
   end
@@ -241,8 +196,6 @@ local function read_syn(mod, file, s, i)
     if type(s.pool) ~= "string" then return nil, where .. " " .. x.key .. ": pool = \"<a [[VRFW.SynergyPool]] name>\" is required" end
     x.pool_key = s.pool:find(".", 1, true) and s.pool or (tostring(mod) .. "." .. s.pool)
   end
-  -- same_person = [ [ "<chara>", "<chara>", ... ], ... ]: each group is ONE person for `distinct = "person"` (characters whose name
-  -- texts differ, e.g. a hero's later name); resolved to the name texts on first use (person)
   x.same_person = {}
   if s.same_person ~= nil then
     if type(s.same_person) ~= "table" then return nil, where .. " " .. x.key .. ": same_person = [ [ \"<chara>\", \"<chara>\" ], ... ]" end
@@ -317,14 +270,11 @@ end
 
 load_decls()
 
--- ---------------------------------------------------------------------------------------------- character index
+local IDX = nil
 
-local IDX = nil          -- { base_of[param], card[base], role[base] = { manager, coach }, info[base] = { person, gender, series, teams }, ok }
-
--- The framework's character index (VRFW.character: chara_param / chara_base / chara_series_config read once natively, by column name); taken at script load, else at the first check.
 local function index()
   if IDX then return IDX end
-  local t0 = VRFW.now()
+  local t0 = VRFW.now_ms()
   IDX = { card = {}, role = {}, info = {}, order = {} }
   -- a card's character, asked once per card id (the members' cards)
   IDX.base_of = setmetatable({}, { __index = function(t, param)
@@ -357,15 +307,10 @@ local function index()
       local n = 0
       for _ in pairs(IDX.role) do n = n + 1 end
       return n
-    end)(), math.floor(VRFW.now() - t0)))
+    end)(), math.floor(VRFW.now_ms() - t0)))
   return IDX
 end
 
--- The pool's members (chara_base ids in table order), resolved once: the characters listed in `charas` plus those matching the other criteria
--- (teams, series, role, gender), minus `exclude`.
--- The captain of each game team (team_config: SOCCER_TEAM_INFO name text; its members' captain column), by the team's
--- name text: name text id -> { chara_base = true }; and every game team's members (TEAM_ROSTERS: game team key ->
--- { chara_base, … }, team_config order). Read once.
 local TEAM_CAPTAINS = nil
 local TEAM_ROSTERS = {}
 local function team_captains()
@@ -373,7 +318,7 @@ local function team_captains()
   TEAM_CAPTAINS = {}
   TEAM_ROSTERS = {}
   local ok, e = pcall(function()
-    local ents = VRFW.table.entries("data/common/gamedata/team/team_config_*.cfg.bin",
+    local ents = VRFW.table.entries(Rows.file_name("data/common/gamedata/team/team_config"),
       { "SOCCER_TEAM_INFO", "SOCCER_TEAM_INFO_REF_MEMBER", "SOCCER_TEAM_MEMBER" })
     local members = {}
     for _, m in ipairs(ents) do
@@ -502,11 +447,9 @@ local function person(base, decl)
   return p
 end
 
--- ---------------------------------------------------------------------------------------------- the check
-
-local STATE = {}         -- answer address -> { sid, active, rows = { { kind, base } }, extra, team }
+local STATE = {}
 local STATE_N = 0
-local LAST = {}          -- synergy id -> the last state line logged (one line per synergy and state, not per redraw)
+local LAST = {}
 local logs, ERRS = 0, {}
 
 -- handle -> chara_base (cached: the check runs for every member card the menus draw; a handle keeps its card)
@@ -524,12 +467,12 @@ local function base_of_handle(h)
   return b
 end
 
--- the member slots' handles and classes: one read of each array (one value at a time when the block is not readable at
--- once: an unreadable slot reads as handle 0, class 0xFF)
 local function member_slots(team)
   local first = team + MEMBER_BASE
-  local okh, handles = pcall(VRFW.mem.read_array, "u32", first, N_MEMBERS, MEMBER_STRIDE)
-  local okc, classes = pcall(VRFW.mem.read_array, "u8", first + MEMBER_CLASS, N_MEMBERS, MEMBER_STRIDE)
+  local handles = VRFW.memory.read_array("u32", first, N_MEMBERS, MEMBER_STRIDE)
+  local okh = handles ~= nil
+  local classes = VRFW.memory.read_array("u8", first + MEMBER_CLASS, N_MEMBERS, MEMBER_STRIDE)
+  local okc = classes ~= nil
   if okh and type(handles) == "table" and okc and type(classes) == "table" then return handles, classes end
   handles, classes = {}, {}
   for i = 0, N_MEMBERS - 1 do
@@ -547,8 +490,6 @@ local function same_values(a, b)
   return true
 end
 
--- the members the game counts: { { i, h, base, staff } } pitch first, then staff; the same list object is returned while the team's member slots are unchanged,
--- so a check whose members did not change reuses its answer (evaluate's memo)
 local MEMBERS = {}       -- team address -> { kind, handles, classes, list }
 local MEMBERS_N = 0
 local function members(team)
@@ -581,9 +522,6 @@ local function members(team)
   return out
 end
 
--- ---------------------------------------------------------------------------------------------- slots
-
--- the slots in play: every declared slot except those whose pool names a belong team of the nexus (skip_nexus_team); all are checked (the panel draws the first MAX_PANEL_ROWS rows)
 local function active_slots(d, nexus_base)
   local out = {}
   local c = IDX.info[nexus_base or 0]
@@ -600,8 +538,6 @@ local function active_slots(d, nexus_base)
   return out
 end
 
--- one person per slot (a matching: a person whose cards fit several slots takes the one that leaves the others fillable; versions of one person count once).
--- Returns the filling card per slot and the unused persons who fit some slot (the «+N»).
 local function fill_slots(d, slots, cands)
   local persons, order = {}, {}
   for _, m in ipairs(cands) do
@@ -733,8 +669,6 @@ local function evaluate_slots(d, team)
   return st
 end
 
--- ---------------------------------------------------------------------------------------------- one pool
-
 -- the synergy's state for one team (team = 0: no team, e.g. the shop's panel), computed (evaluate: the memo)
 local function evaluate_uncached(d, team)
   resolve_nexus(d)
@@ -776,8 +710,6 @@ local function evaluate_uncached(d, team)
       st.rows[#st.rows + 1] = { kind = KIND_FILLED, base = m.base, pool = d.pool }
       st.marks[#st.marks + 1] = m
     else
-      -- an empty slot: a pool character who is not in the team, a different one per slot (the panel draws the row
-      -- unchecked; the menu patch hides his face and writes the hint)
       local ph = d.placeholder
       if not ph or in_team[ph] or shown[ph] then
         ph = nil
@@ -799,7 +731,6 @@ local function evaluate_uncached(d, team)
   return st
 end
 
--- the synergy's state for one team; reused while the team's members list is the same object (no team: depends on the declaration only)
 local MAX_MEMOS = 32     -- team states kept per synergy (all dropped past it)
 local function evaluate(d, team)
   index()
@@ -811,9 +742,9 @@ local function evaluate(d, team)
   end
   local memo = memos[team]
   if memo and memo.members == ms and ms ~= nil then return memo.state end
-  local t0 = VRFW.now()
+  local t0 = VRFW.now_ms()
   local st = evaluate_uncached(d, team)
-  st.check_ms = VRFW.now() - t0
+  st.check_ms = VRFW.now_ms() - t0
   if memo == nil then
     if memos.n >= MAX_MEMOS then
       memos = { n = 0 }
@@ -825,8 +756,6 @@ local function evaluate(d, team)
   return st
 end
 
--- the answer's bytes of a state, worked out once per state: the members taking part (u32 per member slot) and the
--- row bytes followed by the active byte (ANS_ROWS .. ANS_ACTIVE, contiguous)
 local N_ROW_BYTES = ANS_ACTIVE - ANS_ROWS + 1
 local function answer_values(st)
   if st.words then return st.words, st.bytes end
@@ -844,8 +773,8 @@ end
 
 local function write_answer(out, st)
   local words, bytes = answer_values(st)
-  local ok_words = pcall(VRFW.mem.write_array, "u32", out, words)
-  local ok_bytes = pcall(VRFW.mem.write_array, "u8", out + ANS_ROWS, bytes)
+  local ok_words = VRFW.memory.write_array("u32", out, words)
+  local ok_bytes = VRFW.memory.write_array("u8", out + ANS_ROWS, bytes)
   if ok_words and ok_bytes then return end
   -- (one value at a time when the arrays could not be written)
   for i = 0, N_MEMBERS - 1 do wr("u32", out + 4 * i, words[i + 1]) end
@@ -862,9 +791,6 @@ local function state_line(d, st)
   return st.line
 end
 
--- detail layers that show a synergy with no team (the shop's: registered by its menu through
--- CMND_VRFW_SYNERGY_SHOP_CONDITIONS): every draw on them gets the rows of the no-team state, whatever team the game
--- passed, so nothing of the active team shows there
 local NO_TEAM_LAYERS = {}
 
 if #LIST > 0 then
@@ -914,8 +840,6 @@ if #LIST > 0 then
     return nil
   end)
 
-  -- the row builder's attach locators of the detail layer (its property +0xA0 / +0xA4: the 1- / 2-row places, on when it
-  -- drew fewer than 3 rows; +0xA8 / +0xAC / +0xB0: the 3-row places), as "id,id" strings for the menu
   local function row_locators(prop)
     if not prop or prop < 0x10000 then return nil end
     local function ids(offsets)
@@ -939,13 +863,6 @@ if #LIST > 0 then
     end
     local ids = rd("ptr", list)
     if not ids or ids < 0x10000 then return nil end
-    -- the game draws the rows of a player (a nexus, a filled slot); a row without a player's face (an open slot, a team
-    -- group, a staff slot) is written as 0: the game draws nothing there (no face asked, none shown when a picture
-    -- loads) and keeps the other rows at their own index; the menu draws that row itself at the panel's row place. A
-    -- synergy of 4-6 rows is a 2-column grid: the game draws its odd rows (1st, 3rd, 5th) as the grid's left column, the
-    -- menu draws the even rows beside them
-    -- drawn: per row instance, "1" when the game draws it (the menu dresses only those: a mesh shown again on a row the
-    -- game hid brings back that row's last name and face)
     local order = #st.rows > MAX_ROWS and { 1, 3, 5 } or { 1, 2, 3 }
     local drawn = {}
     for i = 1, MAX_ROWS do
@@ -958,10 +875,8 @@ if #LIST > 0 then
     return nil
   end)
 
-  -- ------------------------------------------------------------------------------------------- the menu's command
-
   local NAMES_READ = {}    -- language folder -> true once the panel's name ids are read
-  local NAME_IDS = nil     -- the name text ids a panel can show (every nexus and pool character), listed once
+  local NAME_IDS = nil
 
   local function name_ids()
     if NAME_IDS then return NAME_IDS end
@@ -983,15 +898,13 @@ if #LIST > 0 then
     return list
   end
 
-  -- a character's name in that language (as written, furigana kept): the listed ids are read once per language; an id
-  -- outside the list is read alone
   local function name_of(base, lang)
     if not NAMES_READ[lang] then
-      local t0 = VRFW.now()
+      local t0 = VRFW.now_ms()
       local ids = name_ids()
       GameText.texts("chara_text", lang, ids)
       NAMES_READ[lang] = true
-      info(string.format("names (%s): %d text ids read in %.1f ms", lang, #ids, VRFW.now() - t0))
+      info(string.format("names (%s): %d text ids read in %.1f ms", lang, #ids, VRFW.now_ms() - t0))
     end
     local c = IDX and IDX.info[base]
     if not c or c.person == nil then return "" end
@@ -1001,7 +914,7 @@ if #LIST > 0 then
   -- belong team id -> its crest (item_emblem id of the first era that has one), read once at load
   local EMBLEMS = nil
   local ERA_EMBLEMS = {}   -- belong team id -> { [era 1-4] = crest }
-  local TEAM_TEXT = {}     -- belong team id -> its name text id (team_text), from the same read
+  local TEAM_TEXT = {}
   local EMBLEM_COLS = { "team_emblem_id_ie", "team_emblem_id_go", "team_emblem_id_areori", "team_emblem_id_v" }
   local function emblems()
     if EMBLEMS then return EMBLEMS end
@@ -1070,7 +983,6 @@ if #LIST > 0 then
     return table.concat(out, ",")
   end
 
-  -- a missing nexus (or the other persons beside a present one): every allowed nexus character, one card per person, comma-joined (at most MAX_FACES)
   local MAX_FACES = 5
   local function faces_of(d, skip_base)
     local out, seen = {}, {}
@@ -1083,7 +995,6 @@ if #LIST > 0 then
     return table.concat(out, ",")
   end
 
-  -- slot_members: the crest of a slot pool's first team (big square) and the pool's members' faces (one card per person; at most MAX_SLOT_FACES)
   local MAX_SLOT_FACES = 11
   local function crest_of(p)
     local t = p and p.team_list and p.team_list[1]
@@ -1111,8 +1022,6 @@ if #LIST > 0 then
     return table.concat(out, ",")
   end
 
-  -- an empty row of a pool with few persons (at most MAX_ROW_FACES): every candidate as a miniface (one card per person) and
-  -- who is already in the team's synergy members (`have`, 1/0 per face); a bigger pool or a staff pool: none
   local MAX_ROW_FACES = 24
   local function candidate_faces(p, d, marks, first_base, lang)
     -- a pure team pool shows its crests; a pool that also names characters shows those as candidates (and the crests)
@@ -1176,7 +1085,7 @@ if #LIST > 0 then
     return d.single_nexus
   end
 
-  local TEAM_NAMES = {}    -- language folder -> { [belong team id] = name } (belong_team_config name text -> team_text)
+  local TEAM_NAMES = {}
 
   -- the name of a slot pool's (first) belong team in that language, "" when the pool names no team
   local function team_name(p, lang)
@@ -1199,7 +1108,7 @@ if #LIST > 0 then
           for _, sp in ipairs(d.slots or { d.pool }) do
             local team = sp.team_list and sp.team_list[1]
             local s = team and texts[TEAM_TEXT[team] or 0]
-            if s then m[team] = GameText.no_furigana(s) end
+            if s then m[team] = GameText.without_furigana(s) end
           end
         end
       end)
@@ -1209,7 +1118,6 @@ if #LIST > 0 then
     return m[t] or ""
   end
 
-  -- a staff pool's series as numbers, comma-joined (the panel draws their icons): the names resolved now when the index was not readable at load
   local function pool_series(p)
     if not (p and p.any_series) then return "" end
     if p.series_text then return p.series_text end
@@ -1226,8 +1134,6 @@ if #LIST > 0 then
     return p.series_text
   end
 
-  -- the series icons the game's row draws for a character (its chara_base series flags, lowest first, at most 3; the
-  -- panel redraws them beside the crests): the index's `appears`
   local MAX_ROW_SERIES = 3
   local ROW_SERIES = {}    -- chara_base id -> "a,b,c"
   local function row_series(base)
@@ -1249,14 +1155,8 @@ if #LIST > 0 then
     return c
   end
 
-  -- CMND_VRFW_SYNERGY_PANEL(item id, language code) -> nil when the last panel drawn is not that declared synergy, else
-  --   { active, extra, team, rows = { { kind (1 nexus, 2 nexus missing, 3 filled, 4 empty), name, hint, team_name, crests, faces, role, series } } }
-  -- hint: the pool's own hint, else the synergy's; team_name: the hint's «{team}»; crests: item_emblem ids, comma-joined; faces: chara_base ids, comma-joined;
-  -- single = 1 on a nexus row when the nexus is one person; role: an empty slot's staff role ("manager" / "coach", "" else);
-  -- series: series numbers, comma-joined: an empty staff slot's required series, or a filled row's own (when it shows crests);
-  -- pool: the row's slot pool key (<mod>.<name>, "" for a nexus row): rows of one pool are one requirement in the shop
-  local ANSWER = nil       -- the last answer: { state, lang, answer } (the panel redrawn with the same state)
-  local LANGUAGE_OF = {}   -- language code -> its text folder (the game's language list, read once per code)
+  local ANSWER = nil
+  local LANGUAGE_OF = {}
   function Synergy.CmdPanel(item, code)
     local sid = u32(item)
     if not PANEL or PANEL.sid ~= sid then return nil end
@@ -1264,7 +1164,6 @@ if #LIST > 0 then
     local lang = LANGUAGE_OF[code or false]
     if lang == nil then
       lang = GameText.language(code)
-      -- (kept only once the game's language list answers: before it, the fallback is asked again)
       local ok, list = pcall(VRFW.files.game_languages)
       if ok and type(list) == "table" then LANGUAGE_OF[code or false] = lang end
     end
@@ -1309,8 +1208,6 @@ if #LIST > 0 then
       for id in x.crests:gmatch("%d+") do cr[#cr + 1] = string.format("%d", by_emblem[tonumber(id)] or SeriesOrder.crest(tonumber(id))) end
       x.face_rank, x.crest_rank = table.concat(fr, ","), table.concat(cr, ",")
     end
-    -- locators: the row builder's attach locators ({ off, on }: the menu puts the 3-row places back when the game drew
-    -- fewer than 3 of a 3-row panel's rows); drawn: the row instances the game drew ("101": the 1st and 3rd)
     local answer = { active = st.active and 1 or 0, extra = st.extra, team = st.team and 1 or 0, rows = rows,
       locators = PANEL.locators, drawn = PANEL.drawn }
     ANSWER = { state = st, lang = lang, answer = answer }
@@ -1318,11 +1215,9 @@ if #LIST > 0 then
   end
 
   -- the character index and every pool, once, at load; if not readable then, built at the first check
-  local tw = VRFW.now()
+  local tw = VRFW.now_ms()
   index()
   if IDX.ok then
-    -- every pool's members (and the game teams' captains / rosters when a pool read them), kept between starts
-    -- (VRFW.derived): game tables and the mods' declarations only
     local kept = VRFW.derived("synergy_pools", nil, function()
       local out = { members = {} }
       for _, d in ipairs(LIST) do
@@ -1344,7 +1239,7 @@ if #LIST > 0 then
     end
     if TEAM_CAPTAINS == nil and kept.captains then TEAM_CAPTAINS, TEAM_ROSTERS = kept.captains, kept.rosters or {} end
     for _, d in ipairs(LIST) do resolve_nexus(d) end
-    info(string.format("index and pools ready at load in %d ms", math.floor(VRFW.now() - tw)))
+    info(string.format("index and pools ready at load in %d ms", math.floor(VRFW.now_ms() - tw)))
     -- one line per declared synergy: its state without a team (proves the declaration evaluates end to end)
     for _, d in ipairs(LIST) do
       local ok, st = pcall(evaluate, d, 0)
@@ -1366,8 +1261,6 @@ if #LIST > 0 then
   if IDX then
     emblems()
     name_ids()
-    -- what the first panel drawn would read, read here: the names and team names in the game's language, the real-player
-    -- tables and the series ranks
     local okl, lang = pcall(VRFW.files.game_language)
     if okl and type(lang) == "string" and lang ~= "" then
       pcall(name_of, 0, lang)
@@ -1392,16 +1285,12 @@ if #LIST > 0 then
     (VRFW.is_on("SynergyDetail") and VRFW.is_on("SynergyDetailRows")) and "on" or "OFF (not installed)"))
 end
 
--- CMND_VRFW_SYNERGY_SHOP_CONDITIONS(detail layer) -> the shop's synergy panel shows the condition card (config.toml
--- [shop] synergy_conditions, default true); when it does, that detail layer shows every synergy with no team (the
--- rows hook ignores the team the game passes there)
 function Synergy.ShopConditions(layer)
-  local on = VRFW.files.config("shop.synergy_conditions") ~= false
+  local on = VRFW.config("shop.synergy_conditions", true)
   if on and type(layer) == "number" and layer ~= 0 then NO_TEAM_LAYERS[u32(layer)] = true end
   return on
 end
 
--- No mod declares a synergy: the command is still a global and answers nil, so the menu patch leaves every panel as the game draws it.
 if #LIST == 0 then
   function Synergy.CmdPanel() return nil end
   info("0 synergies declared (no active mod has content/synergies/*.toml): the game's check and panel unchanged")

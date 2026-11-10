@@ -1,14 +1,6 @@
--- Squad card limit for a mod's own card type (native side: content\game\limits_squad.toml), declared in <mod>\content\defaults\limits.toml:
---   [limits.squad.card_type.prime]          # <mod>\content\defaults\limits.toml
---   rarities = [10]                         # the card rarities of the type
---   counts_as = "diamond"                   # the game's check it shares (its retail limit: 1 per squad)
---   when = { state = "fantasy.prime.team_limit" }   # optional: on while that game_state key is non-zero
--- The Diamond counter then answers the largest of the game's count and each such type's starters, so a second card of the type trips the game's 1-Diamond check; when Diamonds are lifted (`max_per_card_type.diamond = "unlimited"`) the type's own limit stays.
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("limits")
 
--- Team set layout the counter walks: 29 member entries from +0x80, stride 0x10, +0 handle, +0xE slot (starters = slot < 11, < 5 for party type 1); same as synergy.lua.
 local N_MEMBERS, MEMBER_BASE, MEMBER_STRIDE, MEMBER_SLOT = 0x1D, 0x80, 0x10, 0x0E
 local STARTERS, STARTERS_PARTY1 = 11, 5
 local HOOK = "LimitsDiamondCounter"
@@ -100,8 +92,10 @@ local function count(team_type, party_type, active)
   for _, t in ipairs(active) do n[t] = 0 end
   for i = 0, N_MEMBERS - 1 do
     local e = base + MEMBER_BASE + i * MEMBER_STRIDE
-    local ok1, hdl = pcall(VRFW.mem.read, "u32", e)
-    local ok2, slot = pcall(VRFW.mem.read, "u8", e + MEMBER_SLOT)
+    local hdl = VRFW.memory.read("u32", e)
+    local ok1 = hdl ~= nil
+    local slot = VRFW.memory.read("u8", e + MEMBER_SLOT)
+    local ok2 = slot ~= nil
     if not (ok1 and ok2) then return nil end
     if hdl ~= 0 and slot < starters then
       local okr, r = pcall(VRFW.call, "LimitsRarity", hdl)

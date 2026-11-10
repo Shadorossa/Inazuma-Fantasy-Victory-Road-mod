@@ -87,6 +87,8 @@ key = "bbcr_legend_go3_11_bb"
 name_text = 0xD0F71C07
 level = 40
 series = "GO3"
+music = "auto"
+goal_jingle = "auto"
 stadium_fallback = "s20g001d"
 stadium_image = "ev_chronicle_img/ev_ch_s20g001d_0501.g4tx"
 appears = [{ list = "bb_stadium", category = "secondary", season = "series_06", row = { copy = false, stadium = 0x0FABEE53, image = "ev_chronicle_img/ev_ch_s20g001d_0501.g4tx", image_name = "ev_ch_s20g001d_0501", bgm = 0x6C1E6CDD } }]

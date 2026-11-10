@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Character Reforged · Sub Character · Inazuma Eleven
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c01006540"                                   # Ton Nino
@@ -39,8 +36,8 @@ target = "c06037360"                                   # Julia Blaze
 moves = [
   { move = 0x2A4E3349, level = 1 },                         # Heart Beat
   { move = 0x0B011EBF, level = 16 },                        # Fireball Screw
-  { move = 0xB7474004, level = 29 },                        # Dough Ray Me
   { move = 0xDA3FF6C9, level = 50 },                        # Criss-Cross
+  { move = 0xB7474004, level = 60 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]
@@ -54,8 +51,8 @@ target = "c11901080"                                   # Chester Horse Sr
 moves = [
   { move = 0x2D9F7E76, level = 1 },                         # Breath Taker
   { move = 0xE546F47E, level = 14 },                        # Dust Devil
-  { move = 0x7D6E9A87, level = 29 },                        # The Wall
   { move = 0xD471DE6C, level = 45 },                        # Snakebite
+  { move = 0xEBD03938, level = 55 },                        # Utter Gutsiness Catch
 ]
 
   [[edit.cards]]
@@ -68,9 +65,9 @@ moves = [
 target = "c11901090"                                   # Zak Wallside
 moves = [
   { move = 0xA8215D7C, level = 1 },                         # The Mountain
-  { move = 0x7D6E9A87, level = 13 },                        # The Wall
-  { move = 0x63BDA8A4, level = 20 },                        # Inazuma Drop
-  { move = 0xAFE95E1E, level = 30 },                        # Inazuma-1 Drop
+  { move = 0x7D6E9A87, level = 11 },                        # The Wall
+  { move = 0x63BDA8A4, level = 21 },                        # Inazuma Drop
+  { move = 0xAFE95E1E, level = 31 },                        # Inazuma-1 Drop
 ]
 
   [[edit.cards]]
@@ -98,10 +95,10 @@ moves = [
 [[edit]]
 target = "c11903020"                                   # Gregory Smith
 moves = [
-  { move = 0x8C382852, level = 1 },                         # God Hand
-  { move = 0x8AF3EAB9, level = 13 },                        # Hammer of Fury
-  { move = 0xEE9F2FBD, level = 20 },                        # God Catch
-  { move = 0xC636A810, level = 30 },                        # Combustion Catch
+  { move = 0x31CB59B2, level = 1 },                         # God Hand
+  { move = 0x8AF3EAB9, level = 11 },                        # Hammer of Fury
+  { move = 0xEE9F2FBD, level = 21 },                        # God Catch
+  { move = 0xC636A810, level = 31 },                        # Combustion Catch
 ]
 
   [[edit.cards]]

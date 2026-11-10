@@ -1,4 +1,4 @@
-# Talk scene aliases for [[VRFW.Talk]]; merged across mods in load order. Motion, idle and expression may also be a retail name or 0x id.
+# Talk scene aliases for [[VRFW.Talk]]; merged across mods in load order.
 
 # [motion]: alias = { name = retail motion name, pack = pose pack suffix (empty = always available) }.
 [motion]

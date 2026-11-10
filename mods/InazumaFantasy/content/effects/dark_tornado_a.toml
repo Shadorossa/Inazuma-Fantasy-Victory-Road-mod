@@ -1,7 +1,5 @@
 schema = "VRFW.effect/1"
-# Inazuma Fantasy: Tornado oscuro (A) (content\techniques\dark_tornado_a.toml): a recoloured copy of the object of Tornado de fuego A
-# (ev60027500) in the colours measured on retail Tornado oscuro (ev60004300). hue = the retail part's hue; saturation / value = retail
-# part / part of the copy; a gradient = the retail part's own pixels by the luma of the same pixel in A. A part only A has takes its closest retail part. Grey masks, the ega0001 flash and the particle maps stay.
+# Tornado oscuro (A): Tornado de fuego A's object recoloured to retail Tornado oscuro's colours.
 
 [[recolor]]
 object = "ev60027500"

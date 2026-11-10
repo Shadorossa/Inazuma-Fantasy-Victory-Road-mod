@@ -1,0 +1,18 @@
+# BetterQoL: the focus battle «AUTO» left / right plates are never shown; the Z / C input stays native.
+name = "betterqol_focus_auto_buttons"
+mod = "BetterQoL"
+order = 340
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["SetAutoButtonVisible", "SelectAutoButton"]
+description = "BetterQoL: focus battle «AUTO» plates hidden"
+
+[[files]]
+stem = "soccer_focus_battle_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "focus_auto_buttons.lua"
+  marker = "betterqol_focus_auto_buttons"
+  crc = "none"

@@ -1,0 +1,17 @@
+# BetterQoL: top bar step bb_row.<id> opens that row of the Estadio BB hub.
+name = "betterqol_top_bar_bb_rows"
+mod = "BetterQoL"
+order = 961
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["OnInit", "Step"]
+description = "BetterQoL: top bar step bb_row.<id> opens that Battle Bay hub row"
+
+[[files]]
+stem = "bb_stadium_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "betterqol_bb_rows.lua"
+  marker = "betterqol_top_bar_bb_rows"

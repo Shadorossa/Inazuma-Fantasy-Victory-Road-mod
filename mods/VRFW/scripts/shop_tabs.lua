@@ -1,21 +1,9 @@
--- Shop tab split. Declarations: every active mod's content\shop_tabs\*.toml (`VRFW.shop_tab/1`); native side: content\game\shop_tabs.toml;
--- menu side: assets\lua\menu\shop_menu_buy\140_shop_tabs.lua.
--- A shop's game tab (a shop slot type, e.g. 16 special moves) is listed as one tab per declared [[VRFW.ShopTab]] of that shop: each lists the rows
--- of the game tab whose item sub-kind it names (a row named by no tab goes to the first one), with its own icon and title.
--- The shop list view's tab list (+0x1FE8 count, +0x1FEC slot types, at most 21) gets one entry per tab: the first keeps the game tab's slot type,
--- the others a marker (MARK + tab index). The tab builder sees the slot type of the tab it builds: a marker is answered as the game tab for the rows
--- of that tab, and every other row of the game tab is skipped.
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_VRFW_SHOP_TAB_KEYS | | n, key 1 … key n: declared shops named by key |
--- | CMND_VRFW_SHOP_TAB_BIND | key, shop id | bound |
--- | CMND_VRFW_SHOP_TABS | shop id | split, n, icon 1, text id 1, … (split 0 = no split tabs; an icon is a tab icon type or a [[VRFW.Icon]] id "<mod>.<name>") |
+-- Shop tab split.
 
 ShopTabs = ShopTabs or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("shop_tabs")
 
 -- shop list view fields
@@ -25,23 +13,16 @@ local TABS_MAX = 21
 local ROW_RECORD_AT_RSP, RECORD_SUB = 0x68, 0x3E
 local MARK = 0x56540000
 
-local BY_KEY = {}  -- shop key -> rule (declared by key, bound to an id by the menu)
-local BY_ID = {}   -- shop id -> rule { split, tabs = { { subs = set, icon, text, key } … }, sub_tab = sub -> tab index }
+local BY_KEY = {}
+local BY_ID = {}
 local LIVE = false
-local SPLIT_SLOTS = {}  -- slot type of every split game tab: the other tabs' rows leave the row test at once
+local SPLIT_SLOTS = {}
 local hits = 0
 
-local Id = require "lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
-
--- ---------------------------------------------------------------------------------------------- hooks
+local rd = VRFW.memory.read
 
 -- after the view built its tab list: the split game tab becomes one entry per declared tab
 local function list_post(ev)
@@ -68,8 +49,8 @@ local function list_post(ev)
     warn(string.format("shop 0x%08X: %d tabs after the split (at most %d): left as the game's", shop, #out, TABS_MAX))
     return nil
   end
-  for i, v in ipairs(out) do VRFW.mem.write("u32", view + VIEW_TABS + 4 * (i - 1), v) end
-  VRFW.mem.write("u32", view + VIEW_TAB_COUNT, #out)
+  for i, v in ipairs(out) do VRFW.memory.write("u32", view + VIEW_TABS + 4 * (i - 1), v) end
+  VRFW.memory.write("u32", view + VIEW_TAB_COUNT, #out)
   return nil
 end
 
@@ -104,8 +85,6 @@ local function row_test(ev)
   if tab ~= 1 then return { regs = { r9 = rule.split } } end
   return nil
 end
-
--- ---------------------------------------------------------------------------------------------- declarations
 
 local function start()
   local schema, why = D.schema("shop_tab")
@@ -174,8 +153,6 @@ local function start()
       tostring(okl and (rl == true and "ok" or el) or rl), tostring(okr and (rr == true and "ok" or er) or rr)))
   end
 end
-
--- ---------------------------------------------------------------------------------------------- commands
 
 -- CMND_VRFW_SHOP_TAB_KEYS() -> n, key 1 … key n
 function ShopTabs.Keys()

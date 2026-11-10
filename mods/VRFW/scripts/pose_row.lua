@@ -1,18 +1,9 @@
--- Pose rows, script side (game Lua side: the screen vrfw_pose_row_menu, graft pose_row, and assets\lua\menu\_all\
--- 76_pose_row.lua; docs/framework/pose-row.md). Declarations: every active mod's content\pose_rows\*.toml
--- (`VRFW.pose_row/1`, keys content\types\pose_row.toml): [[VRFW.PoseRow]] = a list screen whose selected entry shows
--- its players as 3D models posing in a row; the entries come from the declaring mod's own command (`source`).
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_VRFW_POSE_ROW | key crc (crc32 of "<mod>.<name>") | { key, source, pose, models, title, decide, owned, new, label, hint, layout, camera }; nothing = not declared |
--- | CMND_VRFW_POSE_ROW_CARDS | language code, card… | { [i] = { name, position } } of each card (name in that language, position = main_position) |
 
 PoseRow = PoseRow or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
-local GameText = require "VRFW/lib/game_text"
+local GameText = VRFW.names
 local info, warn = VRFW.logger("pose_row")
 
 local crc = VRFW.crc32

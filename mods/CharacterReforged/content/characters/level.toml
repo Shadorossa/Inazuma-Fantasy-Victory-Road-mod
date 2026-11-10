@@ -1,9 +1,5 @@
 schema = "VRFW.character/2"
-# Character Reforged · the level cap.
-# The cap is config.toml [level] cap (MaxConfig below; Max = the value used when the config has none): 99 = the game's
-# own cap (nothing raised, the game's curves), up to 999 (the engine-safe maximum: a higher value is clamped with a
-# loader.log line). EXP of the levels above the game's last one: Base + Linear·k + Square·k², k = level − 99 (the
-# game's Lv 99 → 100 step continues; any cap gets its rows). The stats follow the cap too (scripts\lib\stats_curve.lua).
+# The level cap: config.toml [level] cap (MaxConfig), 99..999; EXP above 99 = Base + Linear·k + Square·k², k = level − 99.
 [VRFW.Level]
 Max = 200
 MaxConfig = "level.cap"

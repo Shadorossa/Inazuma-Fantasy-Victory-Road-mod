@@ -1,0 +1,9 @@
+schema = "VRFW.sound/1"
+# Final Phoenix: each part plays the sounds of its own retail cuts (content/techniques/final_phoenix.toml).
+# Fénix's build-up (0-177), Tornado dragón's rise and spin (ev60_00350 226-367), the kick of ev60_00770 (290-331), then Fénix's flight (460-529).
+
+[[sfx]]
+add = "ev60_80410_me"
+from = "ev60_00410_me"
+bank = "waza_stream"
+segments = [[0, 177], { cue = "ev60_00350_me", frames = [226, 367], bank = "waza_stream" }, { cue = "ev60_00770_me", frames = [290, 331], bank = "waza_stream" }, [460, 529]]

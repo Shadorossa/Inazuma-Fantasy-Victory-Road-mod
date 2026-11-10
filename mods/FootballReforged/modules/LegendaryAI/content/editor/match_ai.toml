@@ -1,9 +1,4 @@
 schema = "VRFW.editor/1"
-# Legendary AI in ModManager: the forms of its match AI profiles (content\rules\ai\legendary.toml), listed in «IA de
-# rivales» (Partido › Campo) and grouped by topic. Every value of those
-# files is a config reference (${config.…}): the form shows and edits config.toml, named by config_labels.toml.
-# Ranges: the framework's knob catalogue (VRFW content\rules\catalog\ai_knobs.toml); a knob it marks verified = false
-# says so in its help. Generated from the profile file: keep it in step when the profile gains keys.
 
 [[Editor]]
 Id = "legendary_ai"

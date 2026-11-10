@@ -1,40 +1,57 @@
 schema = "VRFW.text_key/1"
-# Texts of «Classic Recruitment»: the «Mods» screen's name and description. A language missing here falls back to
-# English.
+# Classic Recruitment's texts: the Mods screen's name, description and option rows.
 default_lang = "en"
 
 [en.new]
 mod_name = "Classic Recruitment"
-mod_description = "One card per character, as in the classic games: saves keep only the best copy and the others merge into it. Players no longer drop as spirits anywhere, so you sign them in the Clubroom's Player album with Friendship Points, earned in every match (a common player costs about 4 matches, a star about 10, the strongest about 20). The spirit screen and the player-universe gacha are gone, and Chronicle pick-up matches recruit nobody."
+mod_description = "One card per character, as in the classic games: players no longer drop as spirits, so you sign them in the Clubroom's Player album with Friendship Points earned in every match. Needs BetterQoL."
+option_remove_gacha = "Remove the gacha"
+option_remove_gacha_help = "Removes the «Universo del jugador» gacha: its Chronicle menu row, the board's Tab shortcut and the hub map's point. Applies after restarting the game."
 
 [es.new]
 mod_name = "Fichajes clásicos"
-mod_description = "Una carta por personaje, como en los juegos clásicos: las partidas conservan solo la mejor copia y las demás se funden en ella. Los jugadores ya no caen como espíritus en ningún sitio, así que se fichan en el Álbum de jugadores de la Caseta con Puntos de Amistad, que se ganan en cada partido (un jugador común cuesta unos 4 partidos, una estrella unos 10, el más fuerte unos 20). La pantalla de espíritus y el gacha «Universo del jugador» desaparecen, y las pachangas de la Crónica no reclutan a nadie."
+mod_description = "Una carta por personaje, como en los juegos clásicos: los jugadores ya no caen como espíritus, así que se fichan en el Álbum de jugadores de la Caseta con los Puntos de Amistad que ganas en cada partido. Necesita BetterQoL."
+option_remove_gacha = "Quitar el gacha"
+option_remove_gacha_help = "Quita el gacha «Universo del jugador»: su fila del menú de la Crónica, el atajo Tab del tablero y el punto del mapa central. Se aplica al reiniciar el juego."
 
 [fr.new]
 mod_name = "Recrutement classique"
-mod_description = "Une carte par personnage, comme dans les jeux classiques : les sauvegardes ne gardent que la meilleure copie et les autres sont fusionnées dedans. Les joueurs ne tombent plus sous forme d'esprits nulle part : on les recrute dans l'Album des joueurs du Club avec des Points d'Amitié, gagnés à chaque match (un joueur courant coûte environ 4 matchs, une star environ 10, le plus fort environ 20). L'écran des esprits et le gacha « Univers du joueur » disparaissent, et les matchs libres de la Chronique ne recrutent personne."
+mod_description = "Une carte par personnage, comme dans les jeux classiques : les joueurs ne tombent plus sous forme d'esprits, on les recrute donc dans l'Album des joueurs du club-house avec les Points d'Amitié gagnés à chaque match. Nécessite BetterQoL."
+option_remove_gacha = "Retirer le gacha"
+option_remove_gacha_help = "Retire le gacha « Univers du joueur » : sa ligne du menu de la Chronique, le raccourci Tab du plateau et le point de la carte centrale. Appliqué au redémarrage du jeu."
 
 [de.new]
 mod_name = "Klassische Verpflichtung"
-mod_description = "Eine Karte pro Figur, wie in den klassischen Spielen: Spielstände behalten nur die beste Kopie, die anderen werden mit ihr verschmolzen. Spieler fallen nirgends mehr als Geister an, du verpflichtest sie im Spieleralbum des Clubraums mit Freundschaftspunkten, die jedes Spiel einbringt (ein gewöhnlicher Spieler kostet etwa 4 Spiele, ein Star etwa 10, der stärkste etwa 20). Der Geister-Bildschirm und der Gacha «Universo del jugador» entfallen, und die Freundschaftsspiele der Chronik werben niemanden an."
+mod_description = "Eine Karte pro Charakter, wie in den klassischen Spielen: Spieler fallen nicht mehr als Geister an, du verpflichtest sie im Spieleralbum des Clubraums mit Freundschaftspunkten, die jedes Spiel einbringt. Benötigt BetterQoL."
+option_remove_gacha = "Gacha entfernen"
+option_remove_gacha_help = "Entfernt den Gacha «Universo del jugador»: seine Zeile im Chronik-Menü, die Tab-Abkürzung des Spielbretts und den Punkt der Zentralkarte. Gilt nach einem Neustart des Spiels."
 
 [it.new]
 mod_name = "Ingaggi classici"
-mod_description = "Una carta per personaggio, come nei giochi classici: i salvataggi tengono solo la copia migliore e le altre vengono fuse in essa. I giocatori non cadono più come spiriti da nessuna parte: si ingaggiano nell'Album dei giocatori del Clubroom con i Punti Carisma, guadagnati in ogni partita (un giocatore comune costa circa 4 partite, una star circa 10, il più forte circa 20). La schermata degli spiriti e il gacha «Universo del giocatore» spariscono, e le partitelle della Cronaca non reclutano nessuno."
+mod_description = "Una carta per personaggio, come nei giochi classici: i giocatori non cadono più come spiriti, quindi si ingaggiano nell'Album dei giocatori della sala del club con i Punti Carisma guadagnati in ogni partita. Richiede BetterQoL."
+option_remove_gacha = "Rimuovi il gacha"
+option_remove_gacha_help = "Rimuove il gacha «Universo del giocatore»: la sua riga del menu della Cronaca, la scorciatoia Tab del tabellone e il punto della mappa centrale. Si applica al riavvio del gioco."
 
 [pt.new]
 mod_name = "Contratação clássica"
-mod_description = "Uma carta por personagem, como nos jogos clássicos: os saves guardam só a melhor cópia e as outras fundem-se nela. Os jogadores já não caem como espíritos em lado nenhum, por isso contratam-se no Álbum de jogadores da Sede com Pontos de Amizade, ganhos em cada partida (um jogador comum custa cerca de 4 partidas, uma estrela cerca de 10, o mais forte cerca de 20). O ecrã de espíritos e o gacha «Universo do jogador» desaparecem, e as partidas livres da Crónica não recrutam ninguém."
+mod_description = "Uma carta por personagem, como nos jogos clássicos: os jogadores já não caem como espíritos, por isso contratam-se no Álbum de jogadores da sala do clube com os Pontos de Amizade ganhos em cada partida. Precisa de BetterQoL."
+option_remove_gacha = "Remover o gacha"
+option_remove_gacha_help = "Remove o gacha «Universo do jogador»: a sua linha do menu da Crónica, o atalho Tab do tabuleiro e o ponto do mapa central. Aplica-se ao reiniciar o jogo."
 
 [ja.new]
 mod_name = "クラシック勧誘"
-mod_description = "昔のイナズマイレブンのように、キャラクター1人につきカード1枚。セーブには一番良いカードだけが残り、ほかは統合されます。選手はスピリットとしてどこでもドロップしなくなり、クラブルームの選手アルバムで、毎試合もらえるフレンドシップポイントを使って獲得します（普通の選手は約4試合分、スターは約10試合分、最強の選手は約20試合分）。スピリット画面と「選手ユニバース」のガチャはなくなり、クロニクルの飛び入り試合では誰も仲間になりません。"
+mod_description = "昔のシリーズのように、キャラクター1人につきカード1枚。選手はスピリットとしてドロップしなくなり、毎試合もらえるフレンドシップポイントを使って、クラブルームの選手アルバムで獲得します。BetterQoLが必要です。"
+option_remove_gacha = "ガチャを削除"
+option_remove_gacha_help = "「選手ユニバース」のガチャを削除します：クロニクルメニューの項目、ボードのTabショートカット、ハブマップのポイント。ゲームの再起動後に反映。"
 
 [zh_hans.new]
 mod_name = "经典招募"
-mod_description = "像经典游戏一样，每个角色只有一张卡：存档只保留最好的一张，其余合并到它身上。球员不再以灵魂形式掉落，需在俱乐部室的球员图鉴中用友情点数签约，友情点数每场比赛都能获得（普通球员约需4场，明星约10场，最强球员约20场）。灵魂画面和「球员宇宙」扭蛋被移除，编年史的街头对战也不会有人加入。"
+mod_description = "如同经典作品，每个角色只有一张卡。球员不再以灵魂形式掉落，需要用每场比赛获得的友情点数，在社团活动室的球员图鉴中签约。需要 BetterQoL。"
+option_remove_gacha = "移除扭蛋"
+option_remove_gacha_help = "移除「球员宇宙」扭蛋：编年史菜单中的一行、棋盘的Tab快捷键和中心地图上的地点。重启游戏后生效。"
 
 [zh_hant.new]
 mod_name = "經典招募"
-mod_description = "像經典遊戲一樣，每個角色只有一張卡：存檔只保留最好的一張，其餘合併到它身上。球員不再以靈魂形式掉落，需在俱樂部室的球員圖鑑中用友情點數簽約，友情點數每場比賽都能獲得（普通球員約需4場，明星約10場，最強球員約20場）。靈魂畫面和「球員宇宙」扭蛋被移除，編年史的街頭對戰也不會有人加入。"
+mod_description = "如同經典作品，每個角色只有一張卡。球員不再以靈魂形式掉落，需要用每場比賽獲得的友情點數，在社團活動室的球員圖鑑中簽約。需要 BetterQoL。"
+option_remove_gacha = "移除扭蛋"
+option_remove_gacha_help = "移除「球員宇宙」扭蛋：編年史選單中的一行、棋盤的Tab快捷鍵和中心地圖上的地點。重啟遊戲後生效。"

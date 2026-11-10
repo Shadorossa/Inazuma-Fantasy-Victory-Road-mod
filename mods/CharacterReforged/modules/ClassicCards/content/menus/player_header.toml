@@ -1,23 +1,13 @@
-# No More Rarities in Character Reforged's player header. 1) The player page's header band in the player's POSITION
-# colour (without this mod the band keeps the
-# retail rarity look): a band colour of Character Reforged's host CharacterReforged.header_band
-# (CharacterReforged\content\menus\player_header_host.toml). Character Reforged's header
-# (CharacterReforged.Header.BandColour) calls ClassicCards.HeaderBandColour (assets\lua\_all\
-# no_more_rarities_header.lua) on every fill of the band; a special card (Héroe / Ídolo / Diamante) is left to
-# Character Reforged's rarity look.
 schema = "VRFW.menu/2"
 
 [[entry]]
 host = "CharacterReforged.header_band"
 id = "position_colour"
 order = 100
-action = { lua = "ClassicCards.HeaderBandColour" }
+action = { lua = "ClassicCards.header_band_colour" }
 
-# 2) The header's rarity title (the banner left of «Nv.», Character Reforged's host CharacterReforged.header_rarity):
-# removed with the rarities this mod removes; Ídolo and the rarities other mods declare keep theirs
-# (ClassicCards.HeaderShowsRarity, assets\lua\_all\no_more_rarities_header.lua)
 [[entry]]
 host = "CharacterReforged.header_rarity"
 id = "rarity_title"
 order = 100
-action = { lua = "ClassicCards.HeaderShowsRarity" }
+action = { lua = "ClassicCards.header_shows_rarity" }

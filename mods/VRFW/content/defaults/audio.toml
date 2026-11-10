@@ -1,8 +1,6 @@
 # Audio defaults (schema-less). A later mod's defaults\audio.toml key wins; arrays are replaced whole.
 
 # Menu music slots: one song each, in the order the audio creator lists them.
-# target: a name-index context (`title`) or a BGM id (bg##### cue name or 0x<crc32>); text: the slot's text key.
-# menu_music = true: the slot's BGM follows the player's «Menu music» choice.
 
 [[menu_slot]]
 key = "title"            # title_main, scene_archive_menu (bg00010)
@@ -10,7 +8,7 @@ target = "title"
 text = "au_slot_title"
 
 [[menu_slot]]
-key = "main_menu"        # soccer_top, team dock, market (Mercado, Oficina), online room
+key = "main_menu"
 target = "bg10000"
 text = "au_slot_main"
 menu_music = true

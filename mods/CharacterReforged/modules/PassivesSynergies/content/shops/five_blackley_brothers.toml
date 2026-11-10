@@ -1,0 +1,14 @@
+schema = "VRFW.shop/2"
+
+# In the retail synergy shop 0x5B032CEA for 10 cards of each of the four eldest brothers (at most 4 costs).
+[[edit]]
+target = "0x5B032CEA"
+  [[edit.entry]]
+  item = "five_blackley_brothers"
+  stock = 1
+  costs = [
+    { currency = "uno_blackley_card", count = 10 },
+    { currency = "due_blackley_card", count = 10 },
+    { currency = "tre_blackley_card", count = 10 },
+    { currency = "quattro_blackley_card", count = 10 },
+  ]

@@ -1,58 +1,16 @@
--- Character Reforged › the confirmation window of the aura mods' «Crear …» flow, general_window part (graft
--- character_reforged_board; owner 2026-10-14: «¿Miximax de Jade con Hephestus?» showed one card; «esas estadísticas se
--- tienen que ver a la hora de hacer miximax»). A port of Inazuma Fantasy's Mix-Max confirmation panel (its graft
--- mx_confirm, fantasy_mxc_gw.lua) with this mod's own layers, keys and texts, so it works without Inazuma Fantasy.
--- HOOK file (graft [[hooks]], shipped as is: the numbers below are crc32 of the names in the comments).
---
--- The bank's move step (bank_create_moves_hooks.lua, chara_bank_menu_for_search) asks «¿Miximax de X con Y?» in the
--- retail card window (MSG_OPEN type 191: the white band, the question in _text_win02, Sí / No by MSG_KIND 2) after
--- putting the pair in the parameter store:
---   character_reforged_pair_n        1 (the panel is wanted)
---   character_reforged_pair_base     the base's handle          character_reforged_pair_partner  the partner's handle
---   character_reforged_pair_move     the move he learns (0 = none: no move plate)
---   character_reforged_pair_kind     0 no stats, 1 normal, 2 ideal transfer
---   character_reforged_pair_mask     the favoured stats (bit i = stat i)
---   character_reforged_pair_s0..s8   the base's stats           character_reforged_pair_g0..g8  the gains (stat order:
---                        0 Potencia, 1 Control, 2 Técnica, 3 Presión, 4 Físico, 5 Inteligencia, 6 Agilidad, 7 Rapidez
---                        (not shown), 8 Suerte)
---   character_reforged_pair_pe_s / _pe_g / _pe_f  the base's max PE, the PE the pair adds, PE favoured (1 / 0)
---   character_reforged_pair_icon_sprite  the icon_common sprite between the two cards (the system's `confirm_icon`)
--- The stats come from the system's preview command (All Miximaxed: CMND_ALLMIXIMAXED_PREVIEW, its Chrono Stone
--- transfer data content\stat_transfer\miximax.toml); a system without one (or whose rule another mod owns) leaves
--- kind 0: the cards and the move only.
--- With those keys, setupChangeAvatarRarity (the type 190 / 191 setup) does NOT open the retail single card: it takes
--- and clears the keys and opens the panel's own layers (content\menus\10_win\pair_confirm.toml), drawn over the
--- window and its dimmer once the window has opened:
---   * the two players' retail cards (base, partner) with the system's glyph between them;
---   * the move as the moves page draws it (the VR-Framework's shared move plate); «Ideal» / «Normal» in small grey
---     text under the system's glyph;
---   * the 8 stats as the player page's ATRIBUTOS rows (two columns x 4 rows, the retail training gauge): name |
---     gauge (the base in the stat's colour, the gain in green after it) | new total | «+N»; the favoured stats' names
---     in green; under the left column a 5th row «PE» when the pair adds PE; behind them a flat rounded inset.
--- The window's own question, buttons, cursor and input are untouched (no MENU_ACTIVE, no input change). Without the
--- layers (menu data missing) the retail card window shows the base's card. Closed with the window
--- (CloseBasaraShopLayer). Without the keys every window is the retail one. Wrapped once per VM; nothing calls the
--- engine at chunk load.
+-- the type 190 / 191 setup opens this panel instead of the retail single card
 do
   CharacterReforged_PairPanel = CharacterReforged_PairPanel or {}
   local M = CharacterReforged_PairPanel
   M.L_CARD = 1840368480            -- character_reforged_pair_card  x2
   M.L_QUAD = 3982564938             -- character_reforged_pair_quad  x46
-  M.L_TEXT = 1076819060            -- character_reforged_pair_text  x28 (112 x 40 box centred on the origin)
-  M.L_LINE = 2863785797            -- character_reforged_pair_line  x2  (380 x 44 box right of the origin)
+  M.L_TEXT = 1076819060
+  M.L_LINE = 2863785797
   M.LAYERS = {M.L_CARD, M.L_QUAD, M.L_TEXT, M.L_LINE}
-  -- 2026-10-13 (owner: the move must be the SAME plate as the Plantilla's technique rows, not a hand-made bar; a broken
-  -- teal block with the power's digits sat at the screen's top-left): the move is now the retail Plantilla move plate
-  -- (soccer11_09_formation_chara_skill, the row object VRFW_UI.MovePlate fills everywhere: element plate, category
-  -- icon, name in the move's graded font, property badges, AT / DF + power) on its own free layer, filled by
-  -- VRFW_UI.MovePlate.Fill with the PARTNER's view of the move (his grade of it = what the base learns). The retail
-  -- fill (SetupCharaSkillItem) lives in personal_plate_inc, which general_window does not include: it is included
-  -- once, when the first panel opens (M.PlateLib; every global general_window already had is kept as it was). The
-  -- quad plate (soccer08_10 sprites) and the two line texts stay only as the fallback (layer or library missing).
   M.L_PLATE = 596480062           -- character_reforged_pair_plate x1 (soccer11_09 move plate, free)
-  M.PLATE_NAME_NODE = 3359986143   -- _text_sp01 (the plate's name)
+  M.PLATE_NAME_NODE = 3359986143
   M.WINDOW = 292844459             -- general_win (the window layer of type 191)
-  M.TEXT_WIN = 2883172407          -- _text_win02
+  M.TEXT_WIN = 2883172407
   M.KEY = @PAIR_HANDOFF_KEYS@
   M.C = {
     EXISTS = 262659071, OPEN = 629267548, OPEN_ARRAY = 2152386330, CLOSE_ARRAY = 2323943931, VIS = 711242136,
@@ -60,30 +18,27 @@ do
     MESH = 3405944500, TEXT = 1083631230, TEXT_VIS = 1505208242, STYLE = 2333948100, LOAD_TEX = 839427544,
     TEX_LOADING = 1506186496, TEXT_GET = 4074371074, CHARA = 1131797651, CHARA_INFO = 4060384944,
     SKILL_INFO = 2580586398, SKILL_NAME = 720417636, COMMON_SKILL = 800895612, CARD_FILL = 3837561292,
-    LOG = 3661580131,
     IS_OPEN = 2640875187, IS_VISIBLE = 1262717583, GET_PRIO = 1018283794, GPOS = 4002164178, NODE_VIS = 2158717427,
   }
-  -- atlases: icon_common (general_window res), Character Reforged's own atlas evt_cr_page (res), soccer08_10 (loaded here)
+  -- Atlases.
   M.TX_COMMON = 2320109963         -- #/menu/200_icon/15_icon_common/icon_common.g4tx
-  M.TX_BAR = 387834804             -- #/menu/102_team/team11/evt_cr_page/evt_cr_page.g4tx (Character Reforged's own atlas)
+  M.TX_BAR = 168065525
   M.TX_CMD_PATH = "#/menu/00_soccer/soccer08/soccer08_10/soccer08_10.g4tx"
   M.TX_CMD = 2576972555            -- crc32 of TX_CMD_PATH
   M.QUAD_SLOT, M.QUAD_MESH, M.Q = 1909474081, 312193881, 36   -- cmn01_10: icon_new01 slot, _icon_new01, 36 px
-  M.TEXT_ON, M.TEXT_OFF = 931545948, 3705682548                -- _text_list01_on / _off
+  M.TEXT_ON, M.TEXT_OFF = 931545948, 3705682548
   M.ROW_MESHES = {3025401186, 486732393, 376662541, 3232607807, 1516082254, 3292070381, 1712955010}  -- save01_02
   M.SPR = {
     GLYPH = 2185069032,            -- icon_sp_area07 (the Mix-Max tab glyph)
-    BAND = 2676710510,             -- evt_pair_panel (flat light inset, rounded: content/images/menu/pair_confirm_panel.toml)
-    RULE = 3174271245,             -- evt_pp_slantbox (navy): the line between base and gain
-    TRACK = 2201244747,            -- beans_bar_base01 (team13_16: the training gauge's grey track, 176 x 16)
-    -- the ATRIBUTOS page's gauge fills (the own atlas evt_cr_page: content/images/menu/player_page.toml), named by
-    -- the stat's position tags, evt_pp_gfill_<tags> (fw red, mf orange, df blue, gk purple, all green; two tags = two
-    -- stripes), the gain evt_pp_gfill_gain (lime). Keys = the tag suffix, values = crc32 of the sprite name.
-    FILL = {fw = 2403506164, fw_mf = 4164716282, df_mf = 1784276320, gk = 2186869498, gk_df = 240253988,
-      all = 2149608307},
-    GAIN = 3779107829,             -- evt_pp_gfill_gain
+    BAND = 254751302,
+    RULE = 2283177369,             -- cr_pp_slantbox (navy): the line between base and gain
+    TRACK = 2201244747,
+    -- Gauge fills of the ATRIBUTOS page of character_reforged_page by position tags (cr_pp_gfill_<tags>), used to show the gain.
+    FILL = {fw = 3127352160, fw_mf = 3851881896, df_mf = 2012376626, gk = 3078485614, gk_df = 335181686,
+      all = 2004293922},
+    GAIN = 4259032549,             -- cr_pp_gfill_gain
   }
-  M.TX_TRACK = 995892987           -- #/menu/102_team/team13/team13_16/team13_16.g4tx (general_window res)
+  M.TX_TRACK = 995892987
   M.STYLE = {
     NAME = 1606773274,             -- fs2_32_w_lc_2d2_001_sclw
     POWER = 4141149472,            -- fs2_32_w_rc_2d2_001_sclw
@@ -92,23 +47,19 @@ do
     LABEL = 2696802276,            -- fs2_28_b_lc_2d0_001_sclw (the favoured ones with the green markup)
     TAG = 2001536506,              -- fs_22_b_cc_2d0_001_sclw (the Ideal / Normal word under the glyph)
   }
-  M.GREEN = "[CPASSIVE01]"         -- the favoured-stat green of the old text confirmation
+  M.GREEN = "[CPASSIVE01]"
   M.MUTED = "[CGRAYOUT05]"         -- the retail grey-out text colour: the Ideal / Normal word
   M.TX = {ASK = 2086598442, IDEAL = 3265903438, NORMAL = 470806132,   -- character_reforged_pair_ask / Ideal / Normal
-    PE = 712997826}                                                     -- character_reforged_pair_pe («PE» / «GP»)
-  M.PE_COL = "fw_mf"               -- the PE row's base fill (red / orange stripes: no single orange fill exists)
-  -- the 8 rows: stat (CMND_EVT_CHARA_STAT index), its name (the game's menu_text rows; Suerte = character_reforged_pair_luck) and the
-  -- player page's fill (plate_pages G.STAT_FILL by group = if_plate_row_build.py STAT_TAGS). 2026-10-13: the page's
-  -- order (if_plate_row_build.py GROUP_ROW): left Potencia, Técnica, Control, Inteligencia; right Presión, Agilidad,
-  -- Físico, Suerte
+    PE = 712997826}
+  M.PE_COL = "fw_mf"
   M.COLS = {
     {stat = 0, text = 493890773, col = "fw"},        -- Potencia
-    {stat = 2, text = 3492422219, col = "fw_mf"},    -- Técnica
+    {stat = 2, text = 3492422219, col = "fw_mf"},
     {stat = 1, text = 3206121007, col = "fw_mf"},    -- Control
     {stat = 5, text = 2895498128, col = "df_mf"},    -- Inteligencia
-    {stat = 3, text = 3740714941, col = "gk_df"},    -- Presión
+    {stat = 3, text = 3740714941, col = "gk_df"},
     {stat = 6, text = 3773956166, col = "gk"},       -- Agilidad
-    {stat = 4, text = 2851206955, col = "gk_df"},    -- Físico
+    {stat = 4, text = 2851206955, col = "gk_df"},
     {stat = 8, text = 3986419227, col = "all"},      -- Suerte (character_reforged_pair_luck)
   }
   -- quad / text instances
@@ -116,58 +67,42 @@ do
     PE = 38}                       -- the PE row: track 38, base 39, gain 40, rule 41
   M.QUSED = 42                     -- instances 42..45 are spare (parked off screen)
   M.NQ = 46
-  M.TI = {PILL = 0, LABEL = 1, VALUE = 9, GAIN = 17, PE = 25}   -- the PE row: name 25, total 26, «+N» 27
+  M.TI = {PILL = 0, LABEL = 1, VALUE = 9, GAIN = 17, PE = 25}
   M.NT, M.NL = 28, 2
-  -- the layout (screen px, y down; the window band is y 220..860, its question centred in y 484..724, the buttons at
-  -- y 772): research/build/mx_confirm/mx_confirm_preview.png (D:\agents preview script mirrors this table)
+  -- layout in screen px, y down (window band y 220..860, question y 484..724, buttons y 772)
   M.UI = {
     CARD = {{330, 345}, {710, 345}},                 -- card origins (plate x -101..111, y -60..72; face up to -89)
     GLYPH = {520, 336, 88},
-    PLATE = {520, 482},                              -- the move plate's centre (its look: VRFW_UI.MovePlate)
+    PLATE = {520, 482},                              -- the move plate's centre (its look: VRFW.ui_plates.move_plate)
     PILL = {520, 398},                               -- the Ideal / Normal word, centred under the glyph (y 292..380)
     PLATE_DX = 9, PLATE_SCALE = 1.15,                -- the retail plate (-266..247 around its origin) centred, ~590 wide
     BAND = {1350, 400, 980, 296},
-    -- the stats: 2 columns x 4 rows (k 1..4 left, 5..8 right) + the PE row under the left column (PE_Y; rows 55 px
-    -- apart since 2026-10-13 so the 5 rows stay inside the band y 252..548), each row: name (left-aligned in a 112 box), the gauge
-    -- (track 160 x 18, the fill from 5 px in, up to 151 px: the retail gauge's own insets at 160 / 176), the new total
-    -- (centred), «+N» (centred, right of the total: never on it)
+    -- Layout of the stats.
     COL_X = {900, 1350}, ROW_Y = {290, 345, 400, 455}, PE_Y = 510, NAME_X = 0, NAME_W = 112, TRACK_X = 118, TRACK_W = 160,
     TRACK_H = 18, FILL_X = 5, FILL_W = 151, RULE_W = 3, TOTAL_X = 330, GAIN_X = 394,
   }
-  M.OFF = {-4000, 4000}            -- where an unused instance is parked (never a fragment at the screen's corner)
+  M.OFF = {-4000, 4000}
   M.PRIO = {BAND = 881, BACK = 883, FRONT = 884, CARD = 885, TEXT = 886, BTN = 890}
-  -- the panel sits right above the window's own priority, read from the window layer when it opens (880 in the
-  -- retail data; a window drawn higher than that covered a panel at fixed priorities): window + these offsets
+  -- Priorities of the panel.
   M.WINDOW_PRIO = 880
   M.PRIO_OVER_WINDOW = {BAND = 1, BACK = 3, FRONT = 4, CARD = 5, TEXT = 6, BTN = 10}
 
   M.YN = {L = 1465363740 --[[general_win_yn_btn]], CURSOR = 1319214747 --[[general_win_btn_cursor]],
     TEXT = 2921358143 --[[_text_cmd_btn01]], DX = 300, DY = 150}
-  M.PROBE_AT = {30, 36, 42, 90}     -- frames: probe / settle the plate and the buttons (after the window's open)
-  M.SHOW_AFTER = 24                -- frames: the panel shows when the window's open ends, at the latest after these
-  -- 2026-10-13 (owner's screenshot: only the first 7 texts showed - the tag word and 6 stat names; no totals, no «+N»,
-  -- no PE name): an instance whose setup / open came after the last draw stayed parked (hidden, off screen). The
-  -- panel is now drawn again every REDRAW_EVERY frames until REDRAW_UNTIL frames after the window opened, and the
-  -- open instances are counted in the log line «panel drawn»
+  M.PROBE_AT = {30, 36, 42, 90}
+  M.SHOW_AFTER = 24
   M.REDRAW_EVERY, M.REDRAW_UNTIL = 6, 120
 
-  -- release 2026-10-13: the placement probes still measure and settle, their per-frame log lines only with DEBUG
+  -- placement probes log their per-frame lines only with DEBUG
   M.DEBUG = false
 
-  function M.Log(...)
-    pcall(funcLuaCommand, M.C.LOG, "CharacterReforged pair window", ...)
+  function M.log(...)
+    M.logger = M.logger or VRFW.logger.new("CharacterReforged pair window")
+    M.logger(...)
   end
 
   local function U32(v)
-    return VRFW_Id.u32(v)
-  end
-
-  local function Cmd(...)
-    local ok, a, b = pcall(funcLuaMenuCommand, ...)
-    if ok then
-      return a, b
-    end
-    return nil
+    return VRFW.ids.unsigned(v)
   end
 
   local function Text(id)
@@ -178,39 +113,38 @@ do
     return nil
   end
 
-  function M.Take(key)
-    if not VRFW_Param.Has(key) then
+  function M.take(key)
+    if not VRFW.param.has(key) then
       return nil
     end
-    local v = VRFW_Param.Get(key)
-    VRFW_Param.Clear(key)
+    local v = VRFW.param.get(key)
+    VRFW.param.clear(key)
     return tonumber(v) or nil
   end
 
-  -- the pair the picker left in the parameter store (nil = none: a retail window); the keys are always cleared
-  function M.Read()
-    local n = M.Take(M.KEY.N)
-    local d = {base = U32(M.Take(M.KEY.BASE)), partner = U32(M.Take(M.KEY.PARTNER)), move = U32(M.Take(M.KEY.MOVE)),
-      kind = tonumber(M.Take(M.KEY.KIND)) or 0, mask = tonumber(M.Take(M.KEY.MASK)) or 0, s = {}, g = {}}
+  function M.read()
+    local n = M.take(M.KEY.N)
+    local d = {base = U32(M.take(M.KEY.BASE)), partner = U32(M.take(M.KEY.PARTNER)), move = U32(M.take(M.KEY.MOVE)),
+      kind = tonumber(M.take(M.KEY.KIND)) or 0, mask = tonumber(M.take(M.KEY.MASK)) or 0, s = {}, g = {}}
     for i = 0, 8 do
-      d.s[i] = tonumber(M.Take(M.KEY.S[i])) or 0
-      d.g[i] = tonumber(M.Take(M.KEY.G[i])) or 0
+      d.s[i] = tonumber(M.take(M.KEY.S[i])) or 0
+      d.g[i] = tonumber(M.take(M.KEY.G[i])) or 0
     end
-    d.pe_s = tonumber(M.Take(M.KEY.PE_S)) or 0
-    d.pe_g = tonumber(M.Take(M.KEY.PE_G)) or 0
-    d.pe_f = (tonumber(M.Take(M.KEY.PE_F)) or 0) == 1
-    d.icon = U32(M.Take(M.KEY.ICON))
+    d.pe_s = tonumber(M.take(M.KEY.PE_S)) or 0
+    d.pe_g = tonumber(M.take(M.KEY.PE_G)) or 0
+    d.pe_f = (tonumber(M.take(M.KEY.PE_F)) or 0) == 1
+    d.icon = U32(M.take(M.KEY.ICON))
     if n ~= 1 or d.base == 0 or d.partner == 0 then
       return nil
     end
     return d
   end
 
-  function M.Fav(d, stat)
+  function M.fav(d, stat)
     return math.floor(d.mask / 2 ^ stat) % 2 == 1
   end
 
-  function M.Name(h)
+  function M.name(h)
     local okc, chara = pcall(funcLuaCommand, M.C.CHARA, h, 1)
     if okc and type(chara) == "number" then
       local ok, a, b = pcall(funcLuaCommand, M.C.CHARA_INFO, chara, 10)
@@ -223,7 +157,7 @@ do
     return "?"
   end
 
-  function M.SkillInfo(sk, field)
+  function M.skill_info(sk, field)
     local okc, ok, v = pcall(funcLuaCommand, M.C.SKILL_INFO, sk, field)
     if okc and ok then
       return v
@@ -231,30 +165,27 @@ do
     return nil
   end
 
-  function M.Question(d)
+  function M.question(d)
     local s = Text(M.TX.ASK)
     if s == nil then
-      return M.Name(d.base) .. " + " .. M.Name(d.partner)
+      return M.name(d.base) .. " + " .. M.name(d.partner)
     end
-    s = s:gsub("{base}", function() return M.Name(d.base) end)
-    s = s:gsub("{partner}", function() return M.Name(d.partner) end)
+    s = s:gsub("{base}", function() return M.name(d.base) end)
+    s = s:gsub("{partner}", function() return M.name(d.partner) end)
     return s
   end
 
-  -- ---- drawing ----------------------------------------------------------------------------------------------------
-  -- every position of M.UI is designed around the window centre (960, 540); the measured window moves them all
-  -- (M.Anchor: owner 2026-10-14, the panel drawn screen-absolute sat above the band and over the bank)
   local function Place(L, i, cx, cy, prio)
-    Cmd(M.C.POS, L, cx + (M.dx or 0), -(cy + (M.dy or 0)), 0, i)
-    Cmd(M.C.PRIO, L, i, prio, true)
+    VRFW.host.menu_command(M.C.POS, L, cx + (M.dx or 0), -(cy + (M.dy or 0)), 0, i)
+    VRFW.host.menu_command(M.C.PRIO, L, i, prio, true)
   end
 
-  -- an instance not drawn: hidden AND off screen (a hidden instance shown again by another command stays out of view)
+  -- Hides an instance that is not drawn.
   local function Park(L, i)
-    Cmd(M.C.VIS, L, i, false)
-    Cmd(M.C.POS, L, M.OFF[1], M.OFF[2], 0, i)
+    VRFW.host.menu_command(M.C.VIS, L, i, false)
+    VRFW.host.menu_command(M.C.POS, L, M.OFF[1], M.OFF[2], 0, i)
   end
-  M.Park = Park
+  M.park = Park
 
   local function Quad(i, tex, spr, cx, cy, w, h, prio)
     local L = M.L_QUAD
@@ -262,10 +193,10 @@ do
       Park(L, i)
       return
     end
-    Cmd(M.C.SPRITE, L, tex, spr, M.QUAD_SLOT, 0, i)
-    Cmd(M.C.SCALE, L, w / M.Q, h / M.Q, 1, i)
+    VRFW.host.menu_command(M.C.SPRITE, L, tex, spr, M.QUAD_SLOT, 0, i)
+    VRFW.host.menu_command(M.C.SCALE, L, w / M.Q, h / M.Q, 1, i)
     Place(L, i, cx, cy, prio)
-    Cmd(M.C.VIS, L, i, M.shown == true)
+    VRFW.host.menu_command(M.C.VIS, L, i, M.shown == true)
   end
 
   local function TextAt(L, i, s, style, x, y)
@@ -274,57 +205,54 @@ do
       return
     end
     for _, m in ipairs(M.ROW_MESHES) do
-      Cmd(M.C.MESH, L, m, false, i)
+      VRFW.host.menu_command(M.C.MESH, L, m, false, i)
     end
-    Cmd(M.C.STYLE, L, i, M.TEXT_ON, style)
-    Cmd(M.C.TEXT, L, M.TEXT_ON, s, i)
-    Cmd(M.C.TEXT_VIS, L, M.TEXT_ON, true, i)
-    Cmd(M.C.TEXT_VIS, L, M.TEXT_OFF, false, i)
-    Cmd(M.C.SCALE, L, 1, 1, 1, i)
+    VRFW.host.menu_command(M.C.STYLE, L, i, M.TEXT_ON, style)
+    VRFW.host.menu_command(M.C.TEXT, L, M.TEXT_ON, s, i)
+    VRFW.host.menu_command(M.C.TEXT_VIS, L, M.TEXT_ON, true, i)
+    VRFW.host.menu_command(M.C.TEXT_VIS, L, M.TEXT_OFF, false, i)
+    VRFW.host.menu_command(M.C.SCALE, L, 1, 1, 1, i)
     Place(L, i, x, y, M.PRIO.TEXT)
-    Cmd(M.C.TEXT_PRIO, L, i, M.TEXT_ON, M.PRIO.TEXT)
-    Cmd(M.C.VIS, L, i, M.shown == true)
+    VRFW.host.menu_command(M.C.TEXT_PRIO, L, i, M.TEXT_ON, M.PRIO.TEXT)
+    VRFW.host.menu_command(M.C.VIS, L, i, M.shown == true)
   end
 
-  function M.TexReady()
+  function M.tex_ready()
     if M.tex_asked ~= true then
       M.tex_asked = true
-      Cmd(M.C.LOAD_TEX, M.TX_CMD_PATH)
+      VRFW.host.menu_command(M.C.LOAD_TEX, M.TX_CMD_PATH)
     end
     local ok, loading = pcall(funcLuaCommand, M.C.TEX_LOADING, M.TX_CMD)
     return not (ok and loading == true)
   end
 
-  function M.DrawCard(i)
+  function M.draw_card(i)
     local d = M.data
     local h = i == 0 and d.base or d.partner
     if not M.filled[i] then
       M.filled[i] = true
-      -- BetterUI's compact-card graft treats the layer as a Plantilla card (its confirm_cards.toml swaps the layout)
-      EVT_FC_EXTRA = EVT_FC_EXTRA or {}
-      EVT_FC_EXTRA[M.L_CARD] = true
+      VRFW.formation_card_extra = VRFW.formation_card_extra or {}
+      VRFW.formation_card_extra[M.L_CARD] = true
       local ok, err = pcall(funcLuaMenuCommand, M.C.CARD_FILL, M.L_CARD, i, h, true, false, 0, 0, 0, false, false, 0, 0,
         false, false, 0, false, false, false, false, false, 1)
       if not ok then
-        M.Log("card fill failed", i, tostring(err))
+        M.log("card fill failed", i, tostring(err))
       end
       if type(NotVisibleCharaCardInfo) == "function" then
         pcall(NotVisibleCharaCardInfo, M.L_CARD, i)
       end
     end
     local o = M.UI.CARD[i + 1]
-    Cmd(M.C.SCALE, M.L_CARD, 1, 1, 1, i)
+    VRFW.host.menu_command(M.C.SCALE, M.L_CARD, 1, 1, 1, i)
     Place(M.L_CARD, i, o[1], o[2], M.PRIO.CARD)
-    Cmd(M.C.VIS, M.L_CARD, i, M.shown == true)
+    VRFW.host.menu_command(M.C.VIS, M.L_CARD, i, M.shown == true)
   end
 
-  -- the move's power for the base at the grade it comes with: the base never has the move yet (MovePlate.Look reads
-  -- his grade = 0, the level-1 power «AT 50»); the miximax hands over the PARTNER's move, at the partner's grade
-  -- (owner 2026-10-13: the graded power, not level 1)
-  function M.Power(d, look)
-    local MP = VRFW_UI.MovePlate
+  -- the move's power at the partner's grade (the base has no grade of it yet)
+  function M.power(d, look)
+    local MP = VRFW.ui_plates.move_plate
     local grade = tonumber(look.grade) or 0
-    local pos = MP.Pos(d.partner, d.move)
+    local pos = MP.position(d.partner, d.move)
     if pos ~= nil and type(GetSkillEvoLevelByCharaStHdl) == "function" then
       local ok, g = pcall(GetSkillEvoLevelByCharaStHdl, d.partner, pos)
       if ok and type(g) == "number" and g > grade then
@@ -332,7 +260,7 @@ do
       end
     end
     if grade > (tonumber(look.grade) or 0) then
-      local p = tonumber(MP.Info(d.move, 6, d.base, grade))
+      local p = tonumber(MP.details(d.move, 6, d.base, grade))
       if p ~= nil then
         return p
       end
@@ -340,10 +268,8 @@ do
     return look.power
   end
 
-  -- the retail row fill in this VM: personal_plate_inc included once (INCLUDE, as IF's own screens do at their top);
-  -- every global this VM had before is put back (only the include's new names stay), so no general_window function
-  -- or wrapper changes. true = SetupCharaSkillItem / SetSkillItemLayerName answer.
-  function M.PlateLib()
+  -- Includes personal_plate_inc once in this VM.
+  function M.plate_lib()
     if type(SetupCharaSkillItem) == "function" and type(SetSkillItemLayerName) == "function" then
       return true
     end
@@ -352,7 +278,7 @@ do
     end
     M.lib_tried = true
     if type(INCLUDE) ~= "function" then
-      M.Log("plate lib", "no INCLUDE in this VM: the quad plate")
+      M.log("plate lib", "no INCLUDE in this VM: the quad plate")
       return false
     end
     local keep = {}
@@ -368,78 +294,70 @@ do
       end
     end
     local good = type(SetupCharaSkillItem) == "function" and type(SetSkillItemLayerName) == "function"
-    M.Log("plate lib", tostring(ok), tostring(err), "kept", restored, "row fill", tostring(good))
+    M.log("plate lib", tostring(ok), tostring(err), "kept", restored, "row fill", tostring(good))
     return good
   end
 
-  -- the move as the Plantilla's move plate; false = not possible here (the caller draws the quad plate)
-  function M.DrawPlate()
+  -- Draws the move as the Plantilla's move plate.
+  function M.draw_plate()
     local d, U = M.data, M.UI
     if d.move == 0 then
       return false
     end
     local L = M.L_PLATE
-    if type(VRFW_UI) ~= "table" or not M.opened.plate or not M.PlateLib() then
+    if type(VRFW.ui_plates) ~= "table" or not M.opened.plate or not M.plate_lib() then
       return false
     end
     if funcLuaMenuCommand(M.C.IS_OPEN, L, 0) ~= true then
-      Cmd(M.C.OPEN, L, 0)
+      VRFW.host.menu_command(M.C.OPEN, L, 0)
     end
     if not M.plate_filled then
-      -- MovePlate.Row (the Tabla de habilidades' rows): the fill + the plate node shown / the blank node hidden, the
-      -- neutral plate under a move without element (MovePlate.Fill alone left the soccer11_09 layout's defaults)
-      local ok, err = VRFW_UI.MovePlate.Row(L, 0, d.partner, d.move, {log = true})
+      -- Draws the row with MovePlate.row.
+      local ok, err = VRFW.ui_plates.move_plate.row(L, 0, d.partner, d.move, {log = true})
       if not ok then
         if not M.plate_failed then
           M.plate_failed = true
-          M.Log("plate fill failed", string.format("%08X", d.move), tostring(err))
+          M.log("plate fill failed", string.format("%08X", d.move), tostring(err))
         end
         return false
       end
       M.plate_filled = true
     end
-    Cmd(M.C.SCALE, L, U.PLATE_SCALE, U.PLATE_SCALE, 1, 0)
+    VRFW.host.menu_command(M.C.SCALE, L, U.PLATE_SCALE, U.PLATE_SCALE, 1, 0)
     local fix = M.fix[L .. ":0"] or {0, 0}
     Place(L, 0, U.PLATE[1] + U.PLATE_DX + fix[1], U.PLATE[2] + fix[2], M.PRIO.FRONT)
-    Cmd(M.C.TEXT_PRIO, L, 0, M.PLATE_NAME_NODE, M.PRIO.TEXT)
-    Cmd(M.C.NODE_VIS, L, 1517329426 --[[_pos_base01]], true, 0)
-    -- the move is the partner's, not a locked row: no padlock over the power (the retail fill's lock clip shows it)
-    Cmd(M.C.NODE_VIS, L, 2244819350 --[[_pos_lock01]], false, 0)
-    Cmd(1233047821 --[[CMND_SET_PRIM_VISIBLE]], L, 0, 2330185550 --[[lock level number]], false)
-    Cmd(M.C.NODE_VIS, L, 4081284803 --[[_pos_at01]], true, 0)
-    Cmd(1233047821, L, 0, 2467766246 --[[AT number]], true)
-    M.HoldPlateMeshes()
-    Cmd(M.C.VIS, L, 0, M.shown == true)
+    VRFW.host.menu_command(M.C.TEXT_PRIO, L, 0, M.PLATE_NAME_NODE, M.PRIO.TEXT)
+    VRFW.host.menu_command(M.C.NODE_VIS, L, 1517329426 --[[_pos_base01]], true, 0)
+    -- Hides the lock because the move is the partner's, not a locked row.
+    VRFW.host.menu_command(M.C.NODE_VIS, L, 2244819350 --[[_pos_lock01]], false, 0)
+    VRFW.host.menu_command(1233047821 --[[CMND_SET_PRIM_VISIBLE]], L, 0, 2330185550 --[[lock level number]], false)
+    VRFW.host.menu_command(M.C.NODE_VIS, L, 4081284803 --[[_pos_at01]], true, 0)
+    VRFW.host.menu_command(1233047821, L, 0, 2467766246 --[[AT number]], true)
+    M.hold_plate_meshes()
+    VRFW.host.menu_command(M.C.VIS, L, 0, M.shown == true)
     return true
   end
 
-  -- the plate's meshes as its fill left them (VRFW_UI.MovePlate.kept): showing _pos_base01 above shows every mesh
-  -- under it again, the «Armadura» logo (_gtxt_cmd_armed01) included (it flickered over the plate).
-  -- Applied after every node change of DrawPlate and at the end of each Step, after any redraw.
-  function M.HoldPlateMeshes()
-    local MP = type(VRFW_UI) == "table" and VRFW_UI.MovePlate or nil
+  function M.hold_plate_meshes()
+    local MP = type(VRFW.ui_plates) == "table" and VRFW.ui_plates.move_plate or nil
     if not M.plate_filled or type(MP) ~= "table" or type(MP.kept) ~= "table" then
       return
     end
     local L = M.L_PLATE
     local kept = MP.kept[tostring(L) .. ":0"]
     local armed = kept ~= nil and kept.armed == true
-    if not armed and type(MP.SecondBadge) == "function" then
-      local ok, second = pcall(MP.SecondBadge, L, 0)
+    if not armed and type(MP.second_badge) == "function" then
+      local ok, second = pcall(MP.second_badge, L, 0)
       armed = ok and second == true
     end
-    Cmd(M.C.MESH, L, MP.ARMED, armed, 0)
-    Cmd(M.C.MESH, L, MP.AT_DMY, false, 0)
+    VRFW.host.menu_command(M.C.MESH, L, MP.ARMED, armed, 0)
+    VRFW.host.menu_command(M.C.MESH, L, MP.AT_DMY, false, 0)
     if kept ~= nil then
-      Cmd(M.C.MESH, L, MP.SUB, kept.sub == true, 0)
+      VRFW.host.menu_command(M.C.MESH, L, MP.SUB, kept.sub == true, 0)
     end
   end
 
-  -- ---- 2026-10-13 (owner, in game after 1.29.214: no move plate at all, and still no «Sí» / «No»): measured
-  -- placement. M.Probe logs a layer instance's open / visible / draw priority / global position (screen px, y down);
-  -- M.Settle moves an instance until its measured centre is where it is wanted (LOCAL_POS is the offset from the
-  -- layer's own anchor, which is not known for a retail layout: the error is read back and added, twice at most).
-  function M.Probe(what, L, i)
+  function M.probe(what, L, i)
     local open = funcLuaMenuCommand(M.C.IS_OPEN, L, i) == true
     local vis = funcLuaMenuCommand(M.C.IS_VISIBLE, L, i) == true
     local okp, prio = pcall(funcLuaMenuCommand, M.C.GET_PRIO, L, i)
@@ -447,15 +365,14 @@ do
     local x = (okg and type(gx) == "number") and gx or nil
     local y = (okg and type(gy) == "number") and -gy or nil
     if M.DEBUG then
-      M.Log("probe", what, tostring(L), i, "open", tostring(open), "visible", tostring(vis), "prio",
+      M.log("probe", what, tostring(L), i, "open", tostring(open), "visible", tostring(vis), "prio",
         tostring(okp and prio or nil), "pos", tostring(x and math.floor(x + 0.5)), tostring(y and math.floor(y + 0.5)))
     end
     return open, vis, x, y
   end
 
-  -- the measured offset to apply on the next draw so that (L, i) lands on (tx, ty); true = settled
-  function M.Settle(what, L, i, tx, ty)
-    local _, _, x, y = M.Probe(what, L, i)
+  function M.settle(what, L, i, tx, ty)
+    local _, _, x, y = M.probe(what, L, i)
     if x == nil or y == nil then
       return false
     end
@@ -470,16 +387,12 @@ do
       return false
     end
     M.fix[key] = {fix[1] + dx, fix[2] + dy}
-    if M.DEBUG then M.Log("settle", what, "moved by", math.floor(dx + 0.5), math.floor(dy + 0.5)) end
+    if M.DEBUG then M.log("settle", what, "moved by", math.floor(dx + 0.5), math.floor(dy + 0.5)) end
     return false
   end
 
-  -- the window's «Sí» / «No» (retail general_win_yn_btn, 2 instances, opened by the window's OnOpenLayer when it has
-  -- buttons): type 191 (the card window) is a retail window WITHOUT buttons, its open animation leaves the button
-  -- joints where nothing of its band is (2026-10-13 log: buttons open, nothing on screen). The two instances are
-  -- shown over the panel (priority PRIO.BTN, their cursor too) and placed under the question, centred on the window
-  -- (its measured centre): x centre -/+ YN_DX, y centre + YN_DY (screen px, y down).
-  function M.Buttons()
+  -- Places the buttons under the question at the measured centre (YN_DX, YN_DY).
+  function M.buttons()
     local B = M.YN
     if M.anchor == nil then                          -- the window not measured: the retail buttons are left alone
       return
@@ -487,33 +400,33 @@ do
     local wx, wy = M.anchor[1], M.anchor[2]
     for i = 0, 1 do
       if funcLuaMenuCommand(M.C.IS_OPEN, B.L, i) == true then
-        Cmd(M.C.PRIO, B.L, i, M.PRIO.BTN, true)
-        Cmd(M.C.TEXT_PRIO, B.L, i, B.TEXT, M.PRIO.BTN + 1)
-        Cmd(M.C.VIS, B.L, i, true)
+        VRFW.host.menu_command(M.C.PRIO, B.L, i, M.PRIO.BTN, true)
+        VRFW.host.menu_command(M.C.TEXT_PRIO, B.L, i, B.TEXT, M.PRIO.BTN + 1)
+        VRFW.host.menu_command(M.C.VIS, B.L, i, true)
         local tx, ty = wx + (i == 0 and -B.DX or B.DX), wy + B.DY
-        if not M.Settle(i == 0 and "yes button" or "no button", B.L, i, tx, ty) then
+        if not M.settle(i == 0 and "yes button" or "no button", B.L, i, tx, ty) then
           local fix = M.fix[B.L .. ":" .. i]
           if fix ~= nil then
-            Cmd(M.C.POS, B.L, fix[1], -fix[2], 0, i)
+            VRFW.host.menu_command(M.C.POS, B.L, fix[1], -fix[2], 0, i)
           end
         end
       else
-        if M.DEBUG then M.Log("probe", i == 0 and "yes button" or "no button", "not open") end
+        if M.DEBUG then M.log("probe", i == 0 and "yes button" or "no button", "not open") end
       end
     end
     if funcLuaMenuCommand(M.C.IS_OPEN, B.CURSOR, 0) == true then
-      Cmd(M.C.PRIO, B.CURSOR, 0, M.PRIO.BTN + 2, true)
+      VRFW.host.menu_command(M.C.PRIO, B.CURSOR, 0, M.PRIO.BTN + 2, true)
     end
   end
 
-  function M.DrawMove()
+  function M.draw_move()
     local d, U, Q = M.data, M.UI, M.QI
     local g = U.GLYPH
     Quad(Q.GLYPH, M.TX_COMMON, (d.icon ~= nil and d.icon ~= 0) and d.icon or M.SPR.GLYPH, g[1], g[2], g[3], g[3],
       M.PRIO.FRONT)
-    local okp, plate = pcall(M.DrawPlate)
+    local okp, plate = pcall(M.draw_plate)
     if not okp then
-      M.Log("plate draw failed", tostring(plate))
+      M.log("plate draw failed", tostring(plate))
       plate = false
     end
     if plate then
@@ -523,18 +436,17 @@ do
       end
       Park(M.L_LINE, 0)
       Park(M.L_LINE, 1)
-      M.DrawPill()
+      M.draw_pill()
       return
     end
-    if M.LayerExists(M.L_PLATE) then
+    if M.layer_exists(M.L_PLATE) then
       Park(M.L_PLATE, 0)
     end
-    local ready = M.TexReady()
+    local ready = M.tex_ready()
     M.wait_tex = not ready
-    -- the shared move plate's data (element plate, category, AT / DF label, name, power at the base's grade) and its
-    -- quad offsets from the plate's centre (VRFW_UI_LAYOUT.move_plate)
-    local look = (type(VRFW_UI) == "table" and d.move ~= 0) and VRFW_UI.MovePlate.Look(d.move, d.base) or nil
-    local K = type(VRFW_UI) == "table" and VRFW_UI.Layout("move_plate") or {}
+    -- the shared move plate's data and its quad offsets from the plate's centre (VRFW.ui_plates_layout.move_plate)
+    local look = (type(VRFW.ui_plates) == "table" and d.move ~= 0) and VRFW.ui_plates.move_plate.look(d.move, d.base) or nil
+    local K = type(VRFW.ui_plates) == "table" and VRFW.ui_plates.layout("move_plate") or {}
     local cx, cy = U.PLATE[1], U.PLATE[2]
     if look ~= nil and K.plate ~= nil then
       local lb = K.label
@@ -548,7 +460,7 @@ do
       local c = K.category
       Quad(Q.CAT, M.TX_COMMON, look.category, cx + c[1], cy + c[2], c[3], c[3], M.PRIO.FRONT)
       TextAt(M.L_LINE, 0, look.name, M.STYLE.NAME, cx + K.name_x, cy)
-      local power = M.Power(d, look)
+      local power = M.power(d, look)
       TextAt(M.L_LINE, 1, power and tostring(math.floor(power + 0.5)) or nil, M.STYLE.POWER,
         cx + K.power_right - 380, cy)
     else
@@ -558,10 +470,10 @@ do
       Park(M.L_LINE, 0)
       Park(M.L_LINE, 1)
     end
-    M.DrawPill()
+    M.draw_pill()
   end
 
-  function M.DrawPill()
+  function M.draw_pill()
     local d, U, Q = M.data, M.UI, M.QI
     local pl = U.PILL
     Park(M.L_QUAD, Q.PILL)                           -- no tag sprite: plain small grey text under the glyph
@@ -574,7 +486,7 @@ do
     end
   end
 
-  function M.DrawStats()
+  function M.draw_stats()
     local d, U, Q, T = M.data, M.UI, M.QI, M.TI
     local b = U.BAND
     if d.kind == 0 then                              -- no preview: no stats
@@ -606,13 +518,13 @@ do
         Park(M.L_QUAD, Q.GAIN + i)
         Park(M.L_QUAD, Q.RULE + i)
       end
-      local fav = M.Fav(d, c.stat)
+      local fav = M.fav(d, c.stat)
       local name = Text(c.text)
       if name == nil then
         M.missing = M.missing or {}
         if not M.missing[c.text] then
           M.missing[c.text] = true
-          M.Log("stat name missing", c.stat, c.text)
+          M.log("stat name missing", c.stat, c.text)
         end
         name = ""
       end
@@ -622,15 +534,13 @@ do
       TextAt(M.L_TEXT, T.GAIN + i, gain > 0 and (M.GREEN .. "+" .. gain .. "[C]") or nil, M.STYLE.GAIN, x0 + U.GAIN_X,
         y)
     end
-    M.DrawPe()
+    M.draw_pe()
     for i = M.QUSED, M.NQ - 1 do
       Park(M.L_QUAD, i)
     end
   end
 
-  -- the PE row (under the left column): name | gauge on its own scale (the new max PE) | new max | «+N»; parked when
-  -- the miximax adds no PE (or the label text is missing)
-  function M.DrawPe()
+  function M.draw_pe()
     local d, U, Q, T = M.data, M.UI, M.QI, M.TI
     local name = Text(M.TX.PE)
     local base, gain = math.max(0, d.pe_s or 0), math.max(0, d.pe_g or 0)
@@ -659,15 +569,14 @@ do
   end
 
 
-  -- the window centre, measured from the retail card general_window attaches to it (screen px, y down); until it is
-  -- measured (or when the reading is not plausible) the design centre (960, 540) is used and the buttons are left alone
+  -- Window centre measured from the retail card's attach (screen pixels, y down).
   M.RETAIL_CARD = 1973487846                         -- team00_01_chara_card_for_soccer (general_window's own card)
   M.CARD_ABOVE_CENTRE = 101
   M.DESIGN_CENTRE = {960, 540}
-  function M.Anchor()
+  function M.measure_anchor()
     local open = funcLuaMenuCommand(M.C.IS_OPEN, M.RETAIL_CARD, 0) == true
     if open then
-      Cmd(M.C.VIS, M.RETAIL_CARD, 0, false)
+      VRFW.host.menu_command(M.C.VIS, M.RETAIL_CARD, 0, false)
     end
     if M.anchor ~= nil or not open or (M.anchor_tries or 0) > 60 then
       return
@@ -680,18 +589,17 @@ do
     local x, y = gx, -gy + M.CARD_ABOVE_CENTRE
     if x < 400 or x > 1520 or y < 200 or y > 900 then
       if M.anchor_tries == 1 or M.anchor_tries == 60 then
-        M.Log("anchor not plausible", math.floor(x + 0.5), math.floor(y + 0.5), "try", M.anchor_tries)
+        M.log("anchor not plausible", math.floor(x + 0.5), math.floor(y + 0.5), "try", M.anchor_tries)
       end
       return
     end
     M.anchor = {x, y}
     M.dx, M.dy = x - M.DESIGN_CENTRE[1], y - M.DESIGN_CENTRE[2]
-    M.Log("anchor", "window centre", math.floor(x + 0.5), math.floor(y + 0.5), "offset", math.floor(M.dx + 0.5),
+    M.log("anchor", "window centre", math.floor(x + 0.5), math.floor(y + 0.5), "offset", math.floor(M.dx + 0.5),
       math.floor(M.dy + 0.5))
   end
 
-  -- the panel's priorities from the window's own draw priority (read once per window; never below the retail ones)
-  function M.FollowWindow()
+  function M.follow_window()
     if M.window_prio ~= nil then
       return
     end
@@ -704,11 +612,11 @@ do
     for key, over in pairs(M.PRIO_OVER_WINDOW) do
       M.PRIO[key] = base + over
     end
-    M.Log(string.format("window priority %d, panel %d..%d, buttons %d", prio, M.PRIO.BAND, M.PRIO.TEXT, M.PRIO.BTN))
+    M.log(string.format("window priority %d, panel %d..%d, buttons %d", prio, M.PRIO.BAND, M.PRIO.TEXT, M.PRIO.BTN))
   end
 
-  -- one line per panel layer, once per window: open / visible / priority / screen position of its first instance
-  function M.ProbeOnce()
+  -- Logs one line per panel layer, once per window.
+  function M.probe_once()
     if M.probed then
       return
     end
@@ -717,7 +625,7 @@ do
       {"line", M.L_LINE, 0}, {"plate", M.L_PLATE, 0}, {"window", M.WINDOW, 0}}) do
       local okp, prio = pcall(funcLuaMenuCommand, M.C.GET_PRIO, p[2], p[3])
       local okg, gx, gy = pcall(funcLuaMenuCommand, M.C.GPOS, p[2], p[3])
-      M.Log(string.format("probe %s open %s visible %s prio %s pos %s %s", p[1],
+      M.log(string.format("probe %s open %s visible %s prio %s pos %s %s", p[1],
         tostring(funcLuaMenuCommand(M.C.IS_OPEN, p[2], p[3]) == true),
         tostring(funcLuaMenuCommand(M.C.IS_VISIBLE, p[2], p[3]) == true), tostring(okp and prio or nil),
         tostring(okg and type(gx) == "number" and math.floor(gx + 0.5) or nil),
@@ -725,36 +633,35 @@ do
     end
   end
 
-  -- everything whose layer is open (idempotent: every open / Step redraws)
-  function M.Draw()
+  function M.draw()
     if M.data == nil then
       return
     end
-    pcall(M.FollowWindow)
-    pcall(M.Anchor)
+    pcall(M.follow_window)
+    pcall(M.measure_anchor)
     for i = 0, 1 do
       if M.opened[M.L_CARD .. ":" .. i] then
-        M.DrawCard(i)
+        M.draw_card(i)
       end
     end
     if M.opened.quads and M.opened.texts and M.opened.lines then
-      M.DrawMove()
-      M.DrawStats()
+      M.draw_move()
+      M.draw_stats()
       if not M.logged and M.shown then
         M.logged = true
-        M.Log(string.format("panel drawn %08X %08X %08X kind %s mask %s pe %s %s open texts %d quads %d", M.data.base,
+        M.log(string.format("panel drawn %08X %08X %08X kind %s mask %s pe %s %s open texts %d quads %d", M.data.base,
           M.data.partner, M.data.move, tostring(M.data.kind), tostring(M.data.mask), tostring(M.data.pe_s),
           tostring(M.data.pe_g), M.opened.n_texts or 0, M.opened.n_quads or 0))
       end
     end
   end
 
-  function M.LayerExists(L)
+  function M.layer_exists(L)
     local ok, e = pcall(funcLuaMenuCommand, M.C.EXISTS, L)
     return ok and e == true
   end
 
-  function M.LayersExist()
+  function M.layers_exist()
     for _, L in ipairs(M.LAYERS) do
       local ok, e = pcall(funcLuaMenuCommand, M.C.EXISTS, L)
       if not (ok and e == true) then
@@ -764,7 +671,7 @@ do
     return true
   end
 
-  function M.Reset()
+  function M.reset()
     M.data, M.fallback, M.shown, M.logged, M.wait_tex = nil, nil, false, false, false
     M.plate_filled, M.plate_failed = false, false
     M.fix, M.fixes = {}, {}
@@ -773,10 +680,10 @@ do
     M.window_prio, M.probed = nil, false
   end
   if M.opened == nil then
-    M.Reset()
+    M.reset()
   end
 
-  function M.Open(d)
+  function M.open(d)
     M.data = d
     for i = 0, 1 do
       if type(NameSetting_CharaCard) == "function" then
@@ -784,166 +691,138 @@ do
       end
     end
     for _, L in ipairs(M.LAYERS) do
-      Cmd(M.C.OPEN_ARRAY, L)
+      VRFW.host.menu_command(M.C.OPEN_ARRAY, L)
     end
-    if M.LayerExists(M.L_PLATE) then
-      Cmd(M.C.OPEN_ARRAY, M.L_PLATE)
+    if M.layer_exists(M.L_PLATE) then
+      VRFW.host.menu_command(M.C.OPEN_ARRAY, M.L_PLATE)
     end
-    M.Log("panel opening", string.format("%08X", d.base), string.format("%08X", d.partner))
+    M.log("panel opening", string.format("%08X", d.base), string.format("%08X", d.partner))
   end
 
-  function M.WrapGlobal(name, make)
-    M.wrapped = M.wrapped or {}
-    if M.wrapped[name] then
-      return
-    end
-    local cur = _ENV[name]
-    if cur == nil then
-      return
-    end
-    _ENV[name] = make(cur)
-    M.wrapped[name] = true
-  end
-
-  -- the type 190 / 191 setup: the panel instead of the retail single card when the picker left a pair
-  M.WrapGlobal("setupChangeAvatarRarity", function(prev)
-    return function(...)
-      M.Reset()
-      local ok, d = pcall(M.Read)
-      if ok and d ~= nil then
-        if M.LayersExist() then
-          M.Open(d)
-          -- the retail card window opens its own card too: its place on the window joint (_pos_attach_chr01, 101 px
-          -- above the window centre) is the panel's anchor; the card itself is hidden at the first draw
-          return prev(...)
-        end
-        M.fallback = d
-        M.Log("panel layers missing in general_window (menu data): the retail card")
-      elseif not ok then
-        M.Log("read failed", tostring(d))
+  -- Wraps the type 190 and 191 setup.
+  VRFW.host.wrap_once("setupChangeAvatarRarity", "CharacterReforged.pair_confirm_window", function(prev, ...)
+    M.reset()
+    local ok, d = pcall(M.read)
+    if ok and d ~= nil then
+      if M.layers_exist() then
+        M.open(d)
+        -- The retail card's joint (_pos_attach_chr01, 101 px above the window centre) is the panel's anchor.
+        return prev(...)
       end
-      return prev(...)
+      M.fallback = d
+      M.log("panel layers missing in general_window (menu data): the retail card")
+    elseif not ok then
+      M.log("read failed", tostring(d))
     end
+    return prev(...)
   end)
 
-  -- every instance of the panel's layers parked off screen from its setup on (the stray plate fragment at the
-  -- screen's top-left, owner 2026-10-13: an instance shown at its default place before or without a draw)
-  M.WrapGlobal("OnSetupLayer", function(prev)
-    return function(a1, a2, ...)
-      local r = table.pack(prev(a1, a2, ...))
-      if a1 == M.L_CARD or a1 == M.L_QUAD or a1 == M.L_TEXT or a1 == M.L_LINE or a1 == M.L_PLATE then
+  -- every panel instance parked off screen from its setup on (never drawn at its default place)
+  VRFW.host.wrap_once("OnSetupLayer", "CharacterReforged.pair_confirm_window", function(prev, a1, a2, ...)
+    local r = table.pack(prev(a1, a2, ...))
+    if a1 == M.L_CARD or a1 == M.L_QUAD or a1 == M.L_TEXT or a1 == M.L_LINE or a1 == M.L_PLATE then
+      Park(a1, a2 or 0)
+    end
+    return table.unpack(r, 1, r.n)
+  end)
+
+  VRFW.host.wrap_once("OnOpenLayer", "CharacterReforged.pair_confirm_window", function(prev, a1, a2, ...)
+    local r = table.pack(prev(a1, a2, ...))
+    if a1 == M.WINDOW and M.fallback ~= nil then
+      M.fallback = nil
+    elseif a1 == M.L_CARD or a1 == M.L_QUAD or a1 == M.L_TEXT or a1 == M.L_LINE or a1 == M.L_PLATE then
+      if M.data == nil then
         Park(a1, a2 or 0)
-      end
-      return table.unpack(r, 1, r.n)
-    end
-  end)
-
-  M.WrapGlobal("OnOpenLayer", function(prev)
-    return function(a1, a2, ...)
-      local r = table.pack(prev(a1, a2, ...))
-      if a1 == M.WINDOW and M.fallback ~= nil then
-        M.fallback = nil
-      elseif a1 == M.L_CARD or a1 == M.L_QUAD or a1 == M.L_TEXT or a1 == M.L_LINE or a1 == M.L_PLATE then
-        if M.data == nil then
-          Park(a1, a2 or 0)
+      else
+        Park(a1, a2 or 0)                            -- shown by Draw once the window has opened
+        if a1 == M.L_CARD then
+          M.opened[a1 .. ":" .. (a2 or 0)] = true
+        elseif a1 == M.L_QUAD then
+          M.opened.quads = true
+          M.opened.n_quads = (M.opened.n_quads or 0) + 1
+        elseif a1 == M.L_TEXT then
+          M.opened.texts = true
+          M.opened.n_texts = (M.opened.n_texts or 0) + 1
+        elseif a1 == M.L_PLATE then
+          M.opened.plate = true
         else
-          Park(a1, a2 or 0)                            -- shown by Draw once the window has opened
-          if a1 == M.L_CARD then
-            M.opened[a1 .. ":" .. (a2 or 0)] = true
-          elseif a1 == M.L_QUAD then
-            M.opened.quads = true
-            M.opened.n_quads = (M.opened.n_quads or 0) + 1
-          elseif a1 == M.L_TEXT then
-            M.opened.texts = true
-            M.opened.n_texts = (M.opened.n_texts or 0) + 1
-          elseif a1 == M.L_PLATE then
-            M.opened.plate = true
-          else
-            M.opened.lines = true
-          end
-          local ok, err = pcall(M.Draw)
-          if not ok then
-            M.Log("draw failed", tostring(err))
-          end
+          M.opened.lines = true
+        end
+        local ok, err = pcall(M.draw)
+        if not ok then
+          M.log("draw failed", tostring(err))
         end
       end
-      return table.unpack(r, 1, r.n)
     end
+    return table.unpack(r, 1, r.n)
   end)
 
   -- the panel shows when the window's open animation has ended (the band is up), as the retail card does
-  M.WrapGlobal("OnOpenEndLayer", function(prev)
-    return function(a1, a2, ...)
-      local r = table.pack(prev(a1, a2, ...))
-      if a1 == M.WINDOW and M.data ~= nil and not M.shown then
-        M.shown = true
-        pcall(M.Draw)
-      end
-      return table.unpack(r, 1, r.n)
+  VRFW.host.wrap_once("OnOpenEndLayer", "CharacterReforged.pair_confirm_window", function(prev, a1, a2, ...)
+    local r = table.pack(prev(a1, a2, ...))
+    if a1 == M.WINDOW and M.data ~= nil and not M.shown then
+      M.shown = true
+      pcall(M.draw)
     end
+    return table.unpack(r, 1, r.n)
   end)
 
-  M.WrapGlobal("Step", function(prev)
-    return function(...)
-      local r = table.pack(prev(...))
-      if M.data ~= nil then
-        M.frames = M.frames + 1
-        pcall(M.Anchor)                            -- the retail card kept hidden; the window measured once
-        local redraw = false
-        if not M.shown and M.frames >= M.SHOW_AFTER then
-          M.shown = true
-          redraw = true
-        end
-        if M.wait_tex and M.TexReady() then
-          redraw = true
-        end
-        if M.shown and M.frames <= M.REDRAW_UNTIL and M.frames % M.REDRAW_EVERY == 0 then
-          redraw = true
-        end
-        if redraw then
-          pcall(M.Draw)
-        end
-        for _, at in ipairs(M.PROBE_AT) do
-          if M.shown and M.frames == at then
-            if M.plate_filled then
-              local U = M.UI
-              local okp = pcall(M.Settle, "move plate", M.L_PLATE, 0, U.PLATE[1] + U.PLATE_DX + (M.dx or 0),
-                U.PLATE[2] + (M.dy or 0))
-              if okp then
-                pcall(M.Draw)
-              end
-            end
-            local okb, err = pcall(M.Buttons)
-            if not okb then
-              M.Log("buttons failed", tostring(err))
+  VRFW.host.wrap_once("Step", "CharacterReforged.pair_confirm_window", function(prev, ...)
+    local r = table.pack(prev(...))
+    if M.data ~= nil then
+      M.frames = M.frames + 1
+      pcall(M.measure_anchor)                            -- the retail card kept hidden; the window measured once
+      local redraw = false
+      if not M.shown and M.frames >= M.SHOW_AFTER then
+        M.shown = true
+        redraw = true
+      end
+      if M.wait_tex and M.tex_ready() then
+        redraw = true
+      end
+      if M.shown and M.frames <= M.REDRAW_UNTIL and M.frames % M.REDRAW_EVERY == 0 then
+        redraw = true
+      end
+      if redraw then
+        pcall(M.draw)
+      end
+      for _, at in ipairs(M.PROBE_AT) do
+        if M.shown and M.frames == at then
+          if M.plate_filled then
+            local U = M.UI
+            local okp = pcall(M.settle, "move plate", M.L_PLATE, 0, U.PLATE[1] + U.PLATE_DX + (M.dx or 0),
+              U.PLATE[2] + (M.dy or 0))
+            if okp then
+              pcall(M.draw)
             end
           end
-        end
-        if M.shown and M.frames == M.PROBE_AT[3] then
-          pcall(M.ProbeOnce)
-        end
-        -- last in the frame, after every redraw above: a fill queued while the plate was loading, the held badges
-        if M.plate_filled and type(VRFW_UI) == "table" then
-          pcall(VRFW_UI.MovePlate.Pump, true)
-          pcall(M.HoldPlateMeshes)
+          local okb, err = pcall(M.buttons)
+          if not okb then
+            M.log("buttons failed", tostring(err))
+          end
         end
       end
-      return table.unpack(r, 1, r.n)
+      if M.shown and M.frames == M.PROBE_AT[3] then
+        pcall(M.probe_once)
+      end
+      if M.plate_filled and type(VRFW.ui_plates) == "table" then
+        pcall(VRFW.ui_plates.move_plate.pump, true)
+        pcall(M.hold_plate_meshes)
+      end
     end
+    return table.unpack(r, 1, r.n)
   end)
 
-  M.WrapGlobal("CloseBasaraShopLayer", function(prev)
-    return function(...)
-      if M.data ~= nil then
-        for _, L in ipairs(M.LAYERS) do
-          Cmd(M.C.CLOSE_ARRAY, L)
-        end
-        if M.LayerExists(M.L_PLATE) then
-          Cmd(M.C.CLOSE_ARRAY, M.L_PLATE)
-        end
-        M.Reset()
+  VRFW.host.wrap_once("CloseBasaraShopLayer", "CharacterReforged.pair_confirm_window", function(prev, ...)
+    if M.data ~= nil then
+      for _, L in ipairs(M.LAYERS) do
+        VRFW.host.menu_command(M.C.CLOSE_ARRAY, L)
       end
-      return prev(...)
+      if M.layer_exists(M.L_PLATE) then
+        VRFW.host.menu_command(M.C.CLOSE_ARRAY, M.L_PLATE)
+      end
+      M.reset()
     end
+    return prev(...)
   end)
 end

@@ -1,0 +1,11 @@
+schema = "VRFW.save_adjust/1"
+
+[[VRFW.SaveAdjust]]
+id = "remove_duplicates"
+label = "classic_recruitment_save_tools_remove_duplicates"
+description = "classic_recruitment_save_tools_remove_duplicates_desc"
+result = "classic_recruitment_save_tools_remove_duplicates_done"
+order = 100
+script = "CharacterReforged:save_tools.lua"
+run = "CharacterReforged.SaveAdjust.remove_duplicates"
+available = "CharacterReforged.SaveAdjust.can_remove_duplicates"

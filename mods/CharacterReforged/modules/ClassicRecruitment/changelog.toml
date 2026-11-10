@@ -1,6 +1,5 @@
 schema = "VRFW.changelog/1"
-# New Recruitment: ONE general summary of what the mod offers, shown on «Novedades de mods».
-# Rules (the parser refuses the rest): a single 
+# One general summary of the mod, shown on «Novedades de mods».
 
 [[release]]
 icon = "general"

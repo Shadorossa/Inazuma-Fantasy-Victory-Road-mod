@@ -1,17 +1,3 @@
-# VRFW: the Bahía Batalla (Estadio BB) team grid's line of pages, category tabs and season carousel
-# (docs/framework/bb-pages.md; graft research/grafts/vrfw_bb_pages, run time winmm.dll bb_pages_rt). Replaces
-# a mod's copy of menus/107_vs/enjoy_team_select_menu.toml (the layer evt_bb_page_guide and its keys).
-# Added layers only, in the free-match and campaign groups (they open and close with the grid):
-#   vrfw_bb_strip_bg     9 x a cmn01_10 quad: the rows' translucent backgrounds (3 blocks x left cap / middle / right
-#                        cap: page, season, category; vrfw_bb_bg_l / _m / _r)
-#   vrfw_bb_page_guide   6 x the retail change-page plate team00_40, one text / key glyph each, its own base mesh
-#                        hidden (0 «Pág. n/N», 1 <L2>, 2 <FUNC2>, 3 <R2>, 4 <L1>, 5 <R1>)
-#   vrfw_bb_tab_plate    8 x a cmn01_10 quad: the rounded tab plates (vrfw_bb_cat_plate_on / _off)
-#   vrfw_bb_tab_icon     8 x a cmn01_10 quad: the category glyphs (the categories' `icon`)
-#   vrfw_bb_season_icon  3 x a cmn01_10 quad: previous / current / next season (the player bank's series icons)
-# Keys on the grid layer -> CMD_FUNCTION <crc32 of the name> (the graft's OnFunction): L1 / R1 page, L2 / R2 (Q / E)
-# previous / next season, CMD_FUNC2 (the bank's filter key: Tab on the keyboard) next category. The retail grid binds ENTER, BACK, arrows,
-# FUNC1, FUNC3, FUNC4 only.
 schema = "VRFW.menu/2"
 
 [[object]]
@@ -57,8 +43,6 @@ menu = "enjoy_team_select_menu"
 add_layer = { name = "vrfw_bb_season_icon", object = "vrfw_bb_season_icon", count = 3, align = [1, 8], scale = 0.2, after = "vrfw_bb_tab_icon", groups = [{ group = "enjoy_team_select_menu_offline", flags = [0, 1, 0, 0, 1, 0], after = "vrfw_bb_tab_icon" }, { group = "enjoy_team_select_menu_campaign", flags = [0, 1, 0, 0, 1, 0], after = "vrfw_bb_tab_icon" }] }
 resources = ["#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx"]
 
-# the padlocks of locked teams (docs/framework/bb-pages.md §8.3): the game makes 12 for its 8 locked rows and gives
-# them out when the grid opens; bb_pages_rt (relock) moves them with the page, so a page can need one per slot
 [[patch]]
 menu = "enjoy_team_select_menu"
 layer = "mainmenu90_30_lock_icon"

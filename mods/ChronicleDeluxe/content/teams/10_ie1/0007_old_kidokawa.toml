@@ -1,14 +1,10 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: a rival of the chain «Ruta prémium de Sonny» (content/teams/70_route_nodes/ chain_sonny.toml). Generated
-# by research/scripts/wiki_teams_build.py from the wiki lineup. Not in the Battle Bay grid here (no `appears`).
 default_lang = "en"
-# Source: research/scripts/wiki_teams_build.py Old Kidokawa (IE, «Sonny Raimon's route» #4; report
-# status: exists). Roster: wiki lineup «IE2 | | Game opponent», https://inazuma-eleven.fandom.com/wiki/Old_Kidokawa
 [[team]]
 name = "ct_wk_old_kidokawa"
 key = "evt_ct_wk_old_kidokawa"
-based_on = "tm_cro_ie1_1320" # Team Ogre: formation, kit, tactics (the wiki formation is not mapped)
-kit = { home = 0xBF8BEEE3, flip = true }  # team_kits_from_wiki.py: wiki «Kidokawa Wear away» = VR kit of tm_cro_ie1_1100, tm_cro_ie1_1120 (was 0x7362C53B)
+based_on = "tm_cro_ie1_1320"
+kit = { home = 0xBF8BEEE3, flip = true }
 level = 50
 series = "IE"
 roster = "exact"
@@ -27,7 +23,7 @@ member = [
 ]
 
 [team.emblem]
-png = "assets/images/teams/emblems/512/ie1_old_kidokawa.png" # remastered crest of the wiki's Old Kidokawa emblem.png
+png = "assets/images/teams/emblems/512/ie1_old_kidokawa.png"
 base = "em010012"
 catalog = "shared"
 

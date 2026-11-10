@@ -1,13 +1,12 @@
 schema = "VRFW.technique/3"
-# Inazuma Fantasy: Sierra celestial, cut version: a clone of Sierra celestial (whs02910) with its power, cost, recast, flags and description, its name plus a superscript 2,
-# and its own cut-in (content\anims\celestial_saw_cuts.toml). Sold in the Special Moves shop (content\shops\own_skills.toml).
+# Sierra celestial²: a clone of Sierra celestial (whs02910) with its own cut-in (content\anims\celestial_saw_cuts.toml).
 
 [[technique]]
 name = "celestial_saw_cuts"
 base = "whs02910"
 manual = true
 event = "InazumaFantasy.celestial_saw_cuts"
-desc_text = "base"
+description_text = "base"
   [technique.text.es]
   name = "Sierra celestial²"
   [technique.text.en]
@@ -26,12 +25,3 @@ desc_text = "base"
   name = "天空之刃²"
   [technique.text.zh_hant]
   name = "天空之刃²"
-
-# with Hissatsu Reforged, the numbers it gives Sierra celestial
-[[edit]]
-if_mod = "HissatsuReforged"
-target = "InazumaFantasy.celestial_saw_cuts"
-power_min = 60
-power_max = 380
-tp = 60
-recast = 60

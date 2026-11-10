@@ -1,21 +1,13 @@
--- The match result service (docs/framework/match-result.md): one result per finished match, sent once at its final
--- whistle as the signal `vrfw.match_result`; any mod reads it with require("VRFW/lib/match_result").last().
--- The score is taken from the match's goal events while the match runs (the game clears its live score before the
--- menus come back): goals of the shoot-out period are counted apart. At the game's result builder (hook
--- MatchExp.Result, Match.EndPrizes; installed by scripts\match_exp.lua) the result is sent with the game's own judge
--- (won / drawn / lost, a shoot-out included). A match that reached its full-time state without the result builder is
--- sent at match_end from the same kept score. A match left before its end sends nothing.
 
-local Results = require "lib/match_result"
-require "VRFW/lib/basics"
+local Results = VRFW.match.results
+local Memory = VRFW.memory
+local u32 = VRFW.ids.unsigned
 local info, warn = VRFW.logger("match_result")
-local int = function(v) return VRFW.value.int(v, 0) end
+local int = function(v) return VRFW.value.integer(v, 0) end
 
 local HOOK = "MatchExp.Result"
 -- the engine's half byte: 1-2 regular time, 3-4 extra time, 5 the penalty shoot-out, 6 over
 local FIRST_EXTRA_HALF, SHOOTOUT_HALF = 3, 5
--- the soccer states of open play (InPlayState: every kick-off) and of the full time (ResultEventState: the result
--- builder runs in it)
 local IN_PLAY_STATE, FULL_TIME_STATE = 9, 6
 -- match info (MatchExpInfo): +4 the game id, +0x15 the difficulty row
 local INFO_GAME, INFO_DIFFICULTY = 4, 0x15
@@ -28,20 +20,9 @@ local MATCH_TEAMS_KEY = "VRFW.team_lineup.match_teams"
 local SEQ = 0
 local LIVE = nil   -- the match being played (match_start .. its result)
 
-local function rd(ty, addr)
-  if type(addr) ~= "number" or addr < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, addr)
-  if ok then return v end
-  return nil
-end
+local rd = Memory.read
 
-local function global(name)
-  local ok, p = pcall(VRFW.game[name])
-  if ok and type(p) == "number" and p >= 0x10000 then return p end
-  return nil
-end
-
-local function u32(v) return int(v) % 4294967296 end
+local global = VRFW.game.global
 
 -- the match's game, difficulty and teams (kept from kick-off, read again at the result)
 local function read_match(m)
@@ -64,8 +45,8 @@ local function new_match(ev)
   local okm, mode = pcall(VRFW.mode)
   LIVE = {
     user_side = (m.user_team == 1) and 1 or 0,
-    score = { 0, 0 },          -- home, away: goals of regular and extra time (a match seen late: its live score)
-    seen = nil,                -- the last score a goal event carried (shoot-out goals included)
+    score = { 0, 0 },
+    seen = nil,
     shootout = { 0, 0 },
     shootout_played = false,
     extra_time = false,
@@ -85,7 +66,6 @@ local function note_side(m)
   if LIVE and type(m) == "table" and (m.user_team == 0 or m.user_team == 1) then LIVE.user_side = m.user_team end
 end
 
--- the half a match event was taken in: an extra-time half seen = extra time played
 local function note_half(m)
   local half = type(m) == "table" and int(m.half) or 0
   if LIVE and half >= FIRST_EXTRA_HALF and half < SHOOTOUT_HALF then LIVE.extra_time = true end
@@ -197,7 +177,6 @@ local function send(source, verdict)
   if not ok then warn("signal vrfw.match_result not sent: " .. tostring(e)) end
 end
 
--- the game's result builder (full time, before the result screen and before the game clears the match)
 VRFW.on("hook:" .. HOOK .. ":post", function()
   if not LIVE then
     -- a match this service did not see start (a script reload during it): kick-off values only

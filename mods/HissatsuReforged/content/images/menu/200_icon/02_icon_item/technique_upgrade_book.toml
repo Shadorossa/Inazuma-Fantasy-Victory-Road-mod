@@ -1,0 +1,13 @@
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "technique_upgrade_book"
+game = "#/menu/200_icon/02_icon_item/icon_item01.g4tx"
+texture = "abl_000001"
+ops = [{ op = "hue", turns = 0.5 }]
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/hissatsu_level_up_item_icons.g4tx"
+name = "abl_ub000001"
+recipe = "technique_upgrade_book"
+size = [256, 256]

@@ -1,13 +1,6 @@
 schema = "VRFW.game/2"
 
-# No Victory Road season: no season runs, ends or is recorded. The tournament team dock icon, the «0/5» seasonal
-# player cap plate, the dock's «tournament team» button and the season-end conversion with its «La temporada ha
-# finalizado» notice never show (docs/framework/no-season.md).
-#
-# The calendar answers 0 («no calendar», the game's own state before the clock is known) for the Victory Road season
-# and its two seasonal windows. Every caller handles 0: the «== 1» checks find no running season, the season-end
-# check neither updates the running byte nor converts. Campaign windows (kinds 3-8) keep the game's answer.
-#   v7.2.1: u8 SeasonState(u8 kind) 0x179BFF0 (kinds 1 / 2; the season itself moved to MainSeasonState below).
+# No Victory Road season: no season runs, ends or is recorded.
 [[VRFW.Hook]]
 name = "SeasonEndState"
 game = "Chronicle.SeasonState"
@@ -32,39 +25,22 @@ phase = "post"
 when = { value = "ret", not = 0 }
 value = "0"
 
-# The «season running» byte of the save (+0xC8C of the save block) is what the menus ask through the Lua command
-# 0x801E7801. A save made while a season ran keeps it at 1 (the calendar answer 0 above never clears it), so the
-# command's byte read becomes «false»: the dock's tournament icon, the seasonal cap plate and the tournament team
-# button stay hidden. The saved byte itself is not written.
 [[VRFW.Patch]]
 name = "SeasonRunningFlagOff"
 edit = "Chronicle.SeasonRunningFlagRead.False"
 
-# v7.2.1: SeasonEndCheck::Update 0x145C8B0 reaches its conversion block (seasonal flags cleared, the seasonal spirit
-# stock converted, the notice opened) either through SeasonState(season) = 2 or, on the first season, without asking
-# it. The block's entry becomes a jump past it, so neither path runs (v7.1.2 has no such site: the hook above covers it).
 [[VRFW.Patch]]
 name = "SeasonEndConvertSkip"
 edit = "Chronicle.SeasonEndConvert.Skip"
 
-# The season record check (0x145CD50, run with the season-end check): it collects the seasons
-# whose flag changed, records them in the save and sets the notice flag. Its collect call answers «nothing collected»
-# (xor eax, eax), so no season is recorded and the notice is never asked for.
 [[VRFW.Patch]]
 name = "SeasonRecordSkip"
 edit = "Chronicle.SeasonRecordCollect.Skip"
 
-# The player bank filter (CharaBankFilter 0xD6C580) tests the season attribute of a player (attr bit 20) when the
-# filter's season category is on (+0x15D0) against the ticked values (+0xA80 count, +0xA84 list). The test's entry
-# jump becomes unconditional, so a season setting (an old saved filter included) never hides a player.
 [[VRFW.Patch]]
 name = "SeasonFilterOff"
 edit = "Card.BankFilterSeasonTest.Skip"
 
-# Every way a player joins the club ends in the same record code, whatever asked for it (Lua CMND_ADD_PARTY with a true
-# 20th argument, a retail summon of an old seasonal spirit, any mod). It reads the add context's season flag: that flag
-# becomes «off», so no new player is a season player and none takes his build type from seasonal_chara_param.
-# Records already in a save are not touched (docs/framework/no-season.md §6).
 [[VRFW.Patch]]
 name = "NoSeasonBitOnNewPlayer"
 edit = "Party.NewRecordSeasonFlagRead.False"

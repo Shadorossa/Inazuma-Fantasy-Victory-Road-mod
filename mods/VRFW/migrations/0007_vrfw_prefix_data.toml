@@ -1,0 +1,56 @@
+# Wave C (P4), data part of VRFW.vrfw_prefix: the old framework mod id and ModManager's old folder.
+schema = "VRFW.migration/1"
+id = "VRFW.vrfw_prefix_data"
+description = "The old framework id vr_framework becomes VRFW in the player's data; ModManager's old cache folder goes"
+phase = "data"
+after = ["VRFW.vrfw_prefix"]
+
+# config.toml [mods.vr_framework.*], enabled / load order / family lists, option file, the save folders
+# {saves}\*\vr_framework[.json] and every registry key part vr_framework.* (numbers kept). The loader already wrote
+# the VRFW copies (former id move, vrfw_mod_format BASE_MOD_KEY): the VRFW side is the newer one, the old one is backed up
+# and removed. After this, mod.toml former_ids = ["vr_framework"] and the former-id move go.
+[[step]]
+kind = "rename_mod_id"
+from = "vr_framework"
+to = "VRFW"
+if_target = "keep_target"
+
+# "seen" changelog hashes: the old id's entry
+[[step]]
+kind = "rename_save_key"
+file = "{state}/changelog_seen.json"
+from = "mods.vr_framework"
+to = "mods.VRFW"
+if_target = "keep_target"
+
+# ModManager: the three non-cache files (remembered destination per content type, versions library settings,
+# recolor presets) move to the new folder
+[[step]]
+kind = "move_file"
+from = "{local_app_data}/VR-ModManager/save_routes.toml"
+to = "{local_app_data}/VRFW/modmanager/save_routes.toml"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{local_app_data}/VR-ModManager/versions.toml"
+to = "{local_app_data}/VRFW/modmanager/versions.toml"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{local_app_data}/VR-ModManager/recolor_presets.toml"
+to = "{local_app_data}/VRFW/modmanager/recolor_presets.toml"
+if_target = "keep_target"
+
+# the rest of %LOCALAPPDATA%\VR-ModManager is caches (index, element_icons, store, thumbs): rebuilt, no backup
+[[step]]
+kind = "delete_folder"
+path = "{local_app_data}/VR-ModManager"
+cache = true
+
+# screens renamed from evt_*_menu: the old compiled files left in the mod folders are never loaded again
+[[step]]
+kind = "delete_file"
+path = "{game}/mods/*/assets/script/lua/menu/evt_*.lua.bin"
+cache = true

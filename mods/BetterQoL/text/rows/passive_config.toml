@@ -1,11 +1,6 @@
-# BetterQoL: texts of «Configuración de pasivas» (research/grafts/passive_config). with the same ids: evt_pc_* (crc32
-# of the label) and the two retail rows the screen renames; BetterQoL.pc_* are the former inazuma_fantasy.pc_* keys of
-# IF's text\keys.toml (ids = crc32 of the new label, the Lua asks @crc:BetterQoL.pc_…@). Format:
-# docs/framework/types/text.md «Rows with fixed ids».
 schema = "VRFW.text/2"
 table = "menu_text"
 
-# retail «Pasivas heredadas» (team dock setting type 9, the bank popup entry) renamed
 [[row]]
 id = 0xAD44E2A5
 es = "Configuración de pasivas"
@@ -18,9 +13,7 @@ ja = "パッシブ設定"
 zh_hans = "被动技能设定"
 zh_hant = "被動技能設定"
 
-# its explanation (help line of the setting). BetterQoL alone follows the game's own slots; a mod with its own slot
-# rules (Inazuma Fantasy: passive_config\slots.toml) replaces this row with its own explanation (text conflict WARN:
-# the later mod wins)
+# its explanation (help line of the setting); a mod with its own slot rules replaces this row
 [[row]]
 id = 0x8EF137E5
 es = "Elige las pasivas del jugador entre todas las del juego, en cualquiera de sus 5 espacios.\\nPuedes cambiar tantos espacios como permita el límite de pasivas configurables (3 por defecto);\\nlos demás conservan su pasiva. Para cambiar otro espacio con el límite lleno, quita una primero."
@@ -34,7 +27,7 @@ zh_hans = "可从游戏的全部被动技能中为球员的5个栏位任意设�
 zh_hant = "可從遊戲的全部被動技能中為選手的5個欄位任意設定被動技能。\\n可更改的欄位數以可設定被動技能的上限為準（預設3個），其餘欄位保留原有被動技能。\\n達到上限時，請先移除一個再更改其他欄位。"
 
 [[row]]
-id = "evt_pc_quitar"
+id = "better_qol_pc_quitar"
 es = "Quitar pasiva"
 en = "Remove passive"
 fr = "Retirer le passif"
@@ -46,7 +39,7 @@ zh_hans = "移除被动技能"
 zh_hant = "移除被動技能"
 
 [[row]]
-id = "evt_pc_g_change"
+id = "better_qol_pc_g_change"
 es = "Cambiar"
 en = "Change"
 fr = "Changer"
@@ -58,7 +51,7 @@ zh_hans = "更换"
 zh_hant = "更換"
 
 [[row]]
-id = "evt_pc_g_clear"
+id = "better_qol_pc_g_clear"
 es = "Quitar"
 en = "Remove"
 fr = "Retirer"
@@ -70,11 +63,11 @@ zh_hans = "移除"
 zh_hant = "移除"
 
 [[row]]
-id = "evt_pc_btn_l1r1"
+id = "better_qol_pc_btn_l1r1"
 all = "<CMD_FUNCL1><CMD_FUNCR1>"
 
 [[row]]
-id = "evt_pc_locked"
+id = "better_qol_pc_locked"
 es = "Esta pasiva no se puede cambiar:\\nes fija (Ídolo, Prime o límite de pasivas configurables)."
 en = "This passive cannot be changed:\\nit is fixed (Idol, Prime or the configurable passive limit)."
 fr = "Ce passif ne peut pas être changé :\\nil est fixe (Idole, Prime ou limite de passifs configurables)."
@@ -86,7 +79,7 @@ zh_hans = "此被动技能无法更改：\\n为固定技能（偶像、Prime或�
 zh_hant = "此被動技能無法更改：\\n為固定技能（偶像、Prime或可設定數量上限）。"
 
 [[row]]
-id = "evt_pc_dup"
+id = "better_qol_pc_dup"
 es = "El jugador ya tiene esa pasiva."
 en = "The player already has that passive."
 fr = "Le joueur a déjà ce passif."
@@ -98,7 +91,7 @@ zh_hans = "该球员已拥有此被动技能。"
 zh_hant = "該選手已擁有此被動技能。"
 
 [[row]]
-id = "evt_pc_fail"
+id = "better_qol_pc_fail"
 es = "Esa pasiva no se puede poner en este espacio."
 en = "That passive can't go in this slot."
 fr = "Ce passif ne peut pas aller dans cet emplacement."
@@ -109,10 +102,8 @@ ja = "そのパッシブはこの枠に設定できない。"
 zh_hans = "该被动技能无法放入此栏位。"
 zh_hant = "該被動技能無法放入此欄位。"
 
-# picker filter categories (0 = all, 1-5 = PASSIVE_SKILL_EFFECT_INFO category, 12 = «Recompensas»: the
-# declarations' reward handlers); the archetype categories 6-11 use the game's own build type names
 [[row]]
-id = "evt_pc_cat_0"
+id = "better_qol_pc_cat_0"
 es = "Todas"
 en = "All"
 fr = "Tous"
@@ -124,7 +115,7 @@ zh_hans = "全部"
 zh_hant = "全部"
 
 [[row]]
-id = "evt_pc_cat_1"
+id = "better_qol_pc_cat_1"
 es = "Tiro"
 en = "Shooting"
 fr = "Tir"
@@ -136,7 +127,7 @@ zh_hans = "射门"
 zh_hant = "射門"
 
 [[row]]
-id = "evt_pc_cat_2"
+id = "better_qol_pc_cat_2"
 es = "Foco"
 en = "Focus"
 fr = "Focus"
@@ -148,7 +139,7 @@ zh_hans = "专注"
 zh_hant = "專注"
 
 [[row]]
-id = "evt_pc_cat_3"
+id = "better_qol_pc_cat_3"
 es = "Disputa"
 en = "Duel"
 fr = "Duel"
@@ -160,7 +151,7 @@ zh_hans = "争夺"
 zh_hant = "爭奪"
 
 [[row]]
-id = "evt_pc_cat_4"
+id = "better_qol_pc_cat_4"
 es = "Muro"
 en = "Wall"
 fr = "Mur"
@@ -172,7 +163,7 @@ zh_hans = "人墙"
 zh_hant = "人牆"
 
 [[row]]
-id = "evt_pc_cat_5"
+id = "better_qol_pc_cat_5"
 es = "Equipo"
 en = "Team"
 fr = "Équipe"
@@ -184,7 +175,7 @@ zh_hans = "球队"
 zh_hant = "球隊"
 
 [[row]]
-id = "evt_pc_cat_12"
+id = "better_qol_pc_cat_12"
 es = "Recompensas"
 en = "Rewards"
 fr = "Récompenses"
@@ -208,7 +199,7 @@ ja = "この選手が使える特別パッシブはない。"
 zh_hans = "该球员没有可用的专属被动技能。"
 zh_hant = "該選手沒有可用的專屬被動技能。"
 
-# the picker's button guide entry «R3 Passive (up/down)»: glyph text + label (the right stick steps the edited slot)
+# the picker's guide entry «R3 Passive (up/down)»: glyph + label
 [[row]]
 id = "BetterQoL.pc_r3_glyph"
 all = "<CMD_FUNC6>"
@@ -251,8 +242,7 @@ ja = "この選手のパッシブ枠はすでに上限まで変更している�
 zh_hans = "该球员已更改的被动技能栏位已达上限。\\n请先移除一个已设定的被动技能，再更改其他栏位。"
 zh_hant = "該選手已更改的被動技能欄位已達上限。\\n請先移除一個已設定的被動技能，再更改其他欄位。"
 
-# a row the configurable-slot limit keeps closed ([passives] max_slots: CMND_BETTERQOL_PC_SLOT lock reason 2), as the
-# player tries to change it (the card rules' own locks keep evt_pc_locked)
+# a row kept closed by [passives] max_slots (CMND_BETTERQOL_PC_SLOT lock reason 2), as the player tries to change it
 [[row]]
 id = "BetterQoL.pc_slot_closed"
 es = "Este espacio está fuera del límite de pasivas configurables (max_slots en la configuración de BetterQoL).\nSube ese límite para poder cambiarlo; mientras tanto conserva su pasiva."

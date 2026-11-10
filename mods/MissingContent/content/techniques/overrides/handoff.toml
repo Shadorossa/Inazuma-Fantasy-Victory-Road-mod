@@ -1,0 +1,37 @@
+schema = "VRFW.technique/3"
+# Retail chain combos play their hand-off scene when the first shooter has just played his own move.
+
+[[handoff]]
+technique = "whs00350_or"
+after = ["whs00060"]
+event = "dragon_tornado_handoff"
+
+[[handoff]]
+technique = "whs02980_or"
+after = ["whs00510", "whs03410"]
+event = "cosmic_blaster_handoff"
+
+[[handoff]]
+technique = "whs00840_or"   # Wyvern Blizzard: Wyvern Crash -> Eternal Blizzard
+after = ["whs00830"]
+event = "wyvern_blizzard_handoff"
+
+[[handoff]]
+technique = "whs01020_or"   # Tiger Storm: Tiger Drive -> Fireball Storm
+after = ["whs00960"]
+event = "tiger_storm_handoff"
+
+[[handoff]]
+technique = "whs03360_or"   # Icebreaker: Eternal Blizzard -> Ursa Rager
+after = ["whs00440"]
+event = "icebreaker_handoff"
+
+[[handoff]]
+technique = "whs03330_or"
+after = ["whs00400"]
+event = "ep2_shark_handoff"
+
+[[handoff]]
+technique = "whs03180_or"   # Beyond the Death Zone: Polar Pike -> Death Zone
+after = ["whs02810"]
+event = "beyond_death_zone_handoff"

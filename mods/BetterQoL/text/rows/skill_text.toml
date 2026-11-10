@@ -1,11 +1,9 @@
-# Texts of BetterQoL's retail technique renames: the name of whs02750 (Fire Tornado variant A, ev60_02750) says «(A)»
-# like «Tornado oscuro (A)». Fixed id: the retail skill_text noun 0xCC87EFBB (used only by whs02750); Japanese keeps the
-# retail ruby marker.
+# Retail technique rename: whs02750 (Fire Tornado variant A) gets «(A)».
 schema = "VRFW.text/2"
 table = "skill_text"
 
 [[row]]
-id = 0xCC87EFBB  # whs02750 name: «Tornado de fuego A» -> «Tornado de fuego (A)»
+id = 0xCC87EFBB
 kind = "noun"
 es = "Tornado de fuego (A)"
 en = "Fire Tornado (A)"

@@ -1,12 +1,9 @@
-# Texts of Battle Bay Deluxe's «Sala privada» (graft research/grafts/bb_net_room: the private online room on the
-# VR-Framework net service), menu_text rows in 9 languages. The Lua asks CMND_TEXT_GET(crc32(id)); the room's code,
-# the mod list of a refusal and the other player's name are data, not text.
 schema = "VRFW.text/2"
 table = "menu_text"
 
-# crc32("evt_bbd_net_room_title") = 2337040932
+# crc32("battlebaydeluxe_net_room_title") = 1320077358
 [[row]]
-id = "evt_bbd_net_room_title"
+id = "battlebaydeluxe_net_room_title"
 es = "Sala privada"
 en = "Private room"
 fr = "Salon privé"
@@ -17,9 +14,9 @@ ja = "プライベートルーム"
 zh_hans = "私人房间"
 zh_hant = "私人房間"
 
-# crc32("evt_bbd_net_create") = 2947230448
+# crc32("battlebaydeluxe_net_create") = 1028288590
 [[row]]
-id = "evt_bbd_net_create"
+id = "battlebaydeluxe_net_create"
 es = "Crear sala"
 en = "Create room"
 fr = "Créer un salon"
@@ -30,9 +27,9 @@ ja = "ルームを作成"
 zh_hans = "创建房间"
 zh_hant = "建立房間"
 
-# crc32("evt_bbd_net_join") = 3492871566
+# crc32("battlebaydeluxe_net_join") = 118019299
 [[row]]
-id = "evt_bbd_net_join"
+id = "battlebaydeluxe_net_join"
 es = "Unirse con código"
 en = "Join with code"
 fr = "Rejoindre avec un code"
@@ -43,9 +40,9 @@ ja = "コードで参加"
 zh_hans = "用代码加入"
 zh_hant = "用代碼加入"
 
-# crc32("evt_bbd_net_join_hint") = 3060437838
+# crc32("battlebaydeluxe_net_join_hint") = 4008912886
 [[row]]
-id = "evt_bbd_net_join_hint"
+id = "battlebaydeluxe_net_join_hint"
 es = "Copia el código de la sala al portapapeles y pulsa Aceptar."
 en = "Copy the room code to the clipboard and press OK."
 fr = "Copiez le code du salon dans le presse-papiers et validez."
@@ -56,74 +53,9 @@ ja = "ルームコードをクリップボードにコピーしてから決定�
 zh_hans = "请将房间代码复制到剪贴板，然后按确定。"
 zh_hant = "請將房間代碼複製到剪貼簿，然後按確定。"
 
-# crc32("evt_bbd_net_invite") = 3886013148
+# crc32("battlebaydeluxe_net_leave") = 3123387753
 [[row]]
-id = "evt_bbd_net_invite"
-es = "Invitar a un amigo de Steam"
-en = "Invite a Steam friend"
-fr = "Inviter un ami Steam"
-de = "Steam-Freund einladen"
-it = "Invita un amico di Steam"
-pt = "Convidar um amigo do Steam"
-ja = "Steamのフレンドを招待"
-zh_hans = "邀请Steam好友"
-zh_hant = "邀請Steam好友"
-
-# crc32("evt_bbd_net_refresh") = 4151510201
-[[row]]
-id = "evt_bbd_net_refresh"
-es = "Actualizar"
-en = "Refresh"
-fr = "Actualiser"
-de = "Aktualisieren"
-it = "Aggiorna"
-pt = "Atualizar"
-ja = "更新"
-zh_hans = "刷新"
-zh_hant = "重新整理"
-
-# crc32("evt_bbd_net_ready") = 987381210
-[[row]]
-id = "evt_bbd_net_ready"
-es = "Estoy listo"
-en = "I'm ready"
-fr = "Je suis prêt"
-de = "Ich bin bereit"
-it = "Sono pronto"
-pt = "Estou pronto"
-ja = "準備完了"
-zh_hans = "我准备好了"
-zh_hant = "我準備好了"
-
-# crc32("evt_bbd_net_unready") = 1753716776
-[[row]]
-id = "evt_bbd_net_unready"
-es = "Aún no estoy listo"
-en = "Not ready yet"
-fr = "Pas encore prêt"
-de = "Noch nicht bereit"
-it = "Non ancora pronto"
-pt = "Ainda não estou pronto"
-ja = "準備を取り消す"
-zh_hans = "还没准备好"
-zh_hant = "還沒準備好"
-
-# crc32("evt_bbd_net_start") = 2369187322
-[[row]]
-id = "evt_bbd_net_start"
-es = "Empezar partido"
-en = "Start match"
-fr = "Lancer le match"
-de = "Spiel starten"
-it = "Inizia partita"
-pt = "Começar jogo"
-ja = "試合開始"
-zh_hans = "开始比赛"
-zh_hant = "開始比賽"
-
-# crc32("evt_bbd_net_leave") = 2315204773
-[[row]]
-id = "evt_bbd_net_leave"
+id = "battlebaydeluxe_net_leave"
 es = "Salir de la sala"
 en = "Leave the room"
 fr = "Quitter le salon"
@@ -134,22 +66,9 @@ ja = "ルームから退出"
 zh_hans = "离开房间"
 zh_hant = "離開房間"
 
-# crc32("evt_bbd_net_leave_q") = 2693425923
+# crc32("battlebaydeluxe_net_st_waiting") = 86992480
 [[row]]
-id = "evt_bbd_net_leave_q"
-es = "¿Salir de la sala privada?"
-en = "Leave the private room?"
-fr = "Quitter le salon privé ?"
-de = "Den privaten Raum verlassen?"
-it = "Uscire dalla stanza privata?"
-pt = "Sair da sala privada?"
-ja = "プライベートルームから退出しますか？"
-zh_hans = "要离开私人房间吗？"
-zh_hant = "要離開私人房間嗎？"
-
-# crc32("evt_bbd_net_st_waiting") = 3234710634
-[[row]]
-id = "evt_bbd_net_st_waiting"
+id = "battlebaydeluxe_net_st_waiting"
 es = "Esperando a un rival"
 en = "Waiting for an opponent"
 fr = "En attente d'un adversaire"
@@ -160,9 +79,9 @@ ja = "対戦相手を待っています"
 zh_hans = "正在等待对手"
 zh_hant = "正在等待對手"
 
-# crc32("evt_bbd_net_st_connecting") = 2113844540
+# crc32("battlebaydeluxe_net_st_connecting") = 2723966224
 [[row]]
-id = "evt_bbd_net_st_connecting"
+id = "battlebaydeluxe_net_st_connecting"
 es = "Conectando con la sala…"
 en = "Connecting to the room…"
 fr = "Connexion au salon…"
@@ -173,61 +92,9 @@ ja = "ルームに接続中…"
 zh_hans = "正在连接房间…"
 zh_hant = "正在連接房間…"
 
-# crc32("evt_bbd_net_st_rival") = 2548415817
+# crc32("battlebaydeluxe_net_n_bad_pin") = 3747249509
 [[row]]
-id = "evt_bbd_net_st_rival"
-es = "Rival"
-en = "Opponent"
-fr = "Adversaire"
-de = "Gegner"
-it = "Avversario"
-pt = "Adversário"
-ja = "対戦相手"
-zh_hans = "对手"
-zh_hant = "對手"
-
-# crc32("evt_bbd_net_st_ready") = 3572541354
-[[row]]
-id = "evt_bbd_net_st_ready"
-es = "listo"
-en = "ready"
-fr = "prêt"
-de = "bereit"
-it = "pronto"
-pt = "pronto"
-ja = "準備完了"
-zh_hans = "已准备"
-zh_hant = "已準備"
-
-# crc32("evt_bbd_net_st_not_ready") = 3502080846
-[[row]]
-id = "evt_bbd_net_st_not_ready"
-es = "no listo"
-en = "not ready"
-fr = "pas prêt"
-de = "nicht bereit"
-it = "non pronto"
-pt = "não pronto"
-ja = "未準備"
-zh_hans = "未准备"
-zh_hant = "未準備"
-
-# crc32("evt_bbd_net_st_starting") = 137541156
-[[row]]
-id = "evt_bbd_net_st_starting"
-es = "Iniciando la sesión…"
-en = "Starting the session…"
-fr = "Lancement de la session…"
-de = "Sitzung wird gestartet…"
-it = "Avvio della sessione…"
-pt = "A iniciar a sessão…"
-ja = "セッションを開始しています…"
-zh_hans = "正在开始会话…"
-zh_hant = "正在開始連線…"
-
-# crc32("evt_bbd_net_n_bad_pin") = 2277755357
-[[row]]
-id = "evt_bbd_net_n_bad_pin"
+id = "battlebaydeluxe_net_n_bad_pin"
 es = "El código no es correcto."
 en = "The code is not correct."
 fr = "Le code n'est pas correct."
@@ -238,9 +105,9 @@ ja = "コードが正しくありません。"
 zh_hans = "代码不正确。"
 zh_hant = "代碼不正確。"
 
-# crc32("evt_bbd_net_n_mod_set") = 403755115
+# crc32("battlebaydeluxe_net_n_mod_set") = 1082746067
 [[row]]
-id = "evt_bbd_net_n_mod_set"
+id = "battlebaydeluxe_net_n_mod_set"
 es = "Vuestros mods de juego no coinciden. Los dos necesitáis los mismos (tuyo / del otro jugador):"
 en = "Your gameplay mods do not match. Both players need the same ones (yours / the other player's):"
 fr = "Vos mods de jeu ne correspondent pas. Il faut les mêmes des deux côtés (les vôtres / ceux de l'autre joueur) :"
@@ -251,9 +118,9 @@ ja = "ゲームプレイのMODが一致しません。両方に同じMODが必�
 zh_hans = "你们的玩法模组不一致。双方需要相同的模组（你的／对方的）："
 zh_hant = "你們的玩法模組不一致。雙方需要相同的模組（你的／對方的）："
 
-# crc32("evt_bbd_net_n_full") = 3627636260
+# crc32("battlebaydeluxe_net_n_full") = 1255672986
 [[row]]
-id = "evt_bbd_net_n_full"
+id = "battlebaydeluxe_net_n_full"
 es = "La sala ya está llena."
 en = "The room is already full."
 fr = "Le salon est déjà complet."
@@ -264,22 +131,22 @@ ja = "ルームは満員です。"
 zh_hans = "房间已满。"
 zh_hant = "房間已滿。"
 
-# crc32("evt_bbd_net_n_protocol") = 3328901843
+# crc32("battlebaydeluxe_net_n_protocol") = 59351257
 [[row]]
-id = "evt_bbd_net_n_protocol"
-es = "El otro jugador tiene otra versión de VR-Framework."
-en = "The other player has a different VR-Framework version."
-fr = "L'autre joueur a une autre version de VR-Framework."
-de = "Der andere Spieler hat eine andere VR-Framework-Version."
-it = "L'altro giocatore ha un'altra versione di VR-Framework."
-pt = "O outro jogador tem outra versão do VR-Framework."
-ja = "相手のVR-Frameworkのバージョンが異なります。"
-zh_hans = "对方的VR-Framework版本不同。"
-zh_hant = "對方的VR-Framework版本不同。"
+id = "battlebaydeluxe_net_n_protocol"
+es = "El otro jugador tiene otra versión de VRFW."
+en = "The other player has a different VRFW version."
+fr = "L'autre joueur a une autre version de VRFW."
+de = "Der andere Spieler hat eine andere VRFW-Version."
+it = "L'altro giocatore ha un'altra versione di VRFW."
+pt = "O outro jogador tem outra versão do VRFW."
+ja = "相手のVRFWのバージョンが異なります。"
+zh_hans = "对方的VRFW版本不同。"
+zh_hant = "對方的VRFW版本不同。"
 
-# crc32("evt_bbd_net_n_mode") = 2945238319
+# crc32("battlebaydeluxe_net_n_mode") = 1030594449
 [[row]]
-id = "evt_bbd_net_n_mode"
+id = "battlebaydeluxe_net_n_mode"
 es = "Este modo de juego no está en tu juego."
 en = "This game mode is not in your game."
 fr = "Ce mode de jeu n'est pas dans votre jeu."
@@ -290,9 +157,9 @@ ja = "このゲームモードはあなたのゲームにありません。"
 zh_hans = "你的游戏中没有此模式。"
 zh_hant = "你的遊戲中沒有此模式。"
 
-# crc32("evt_bbd_net_n_timeout") = 4051163290
+# crc32("battlebaydeluxe_net_n_timeout") = 2850974754
 [[row]]
-id = "evt_bbd_net_n_timeout"
+id = "battlebaydeluxe_net_n_timeout"
 es = "La sala no responde."
 en = "The room does not answer."
 fr = "Le salon ne répond pas."
@@ -303,9 +170,9 @@ ja = "ルームから応答がありません。"
 zh_hans = "房间没有响应。"
 zh_hant = "房間沒有回應。"
 
-# crc32("evt_bbd_net_n_left") = 1109485036
+# crc32("battlebaydeluxe_net_n_left") = 3502260050
 [[row]]
-id = "evt_bbd_net_n_left"
+id = "battlebaydeluxe_net_n_left"
 es = "El otro jugador ha salido de la sala."
 en = "The other player left the room."
 fr = "L'autre joueur a quitté le salon."
@@ -316,9 +183,9 @@ ja = "相手がルームから退出しました。"
 zh_hans = "对方已离开房间。"
 zh_hant = "對方已離開房間。"
 
-# crc32("evt_bbd_net_n_lost") = 2013464110
+# crc32("battlebaydeluxe_net_n_lost") = 3940703376
 [[row]]
-id = "evt_bbd_net_n_lost"
+id = "battlebaydeluxe_net_n_lost"
 es = "Se ha perdido la conexión con el otro jugador."
 en = "The connection with the other player was lost."
 fr = "La connexion avec l'autre joueur a été perdue."
@@ -329,9 +196,9 @@ ja = "相手との接続が切れました。"
 zh_hans = "与对方的连接已断开。"
 zh_hant = "與對方的連線已中斷。"
 
-# crc32("evt_bbd_net_no_steam") = 3824605898
+# crc32("battlebaydeluxe_net_no_steam") = 302937079
 [[row]]
-id = "evt_bbd_net_no_steam"
+id = "battlebaydeluxe_net_no_steam"
 es = "La red de Steam no está disponible."
 en = "Steam networking is not available."
 fr = "Le réseau Steam n'est pas disponible."
@@ -342,9 +209,9 @@ ja = "Steamのネットワークが利用できません。"
 zh_hans = "Steam网络不可用。"
 zh_hant = "Steam網路無法使用。"
 
-# crc32("evt_bbd_net_busy") = 936086747
+# crc32("battlebaydeluxe_net_busy") = 3774064054
 [[row]]
-id = "evt_bbd_net_busy"
+id = "battlebaydeluxe_net_busy"
 es = "Preparando la lista de mods; inténtalo en unos segundos."
 en = "Preparing the mod list; try again in a few seconds."
 fr = "Préparation de la liste des mods ; réessayez dans quelques secondes."
@@ -355,9 +222,9 @@ ja = "MODリストを準備中です。数秒後にもう一度お試しくだ�
 zh_hans = "正在准备模组列表，请几秒后再试。"
 zh_hant = "正在準備模組列表，請幾秒後再試。"
 
-# crc32("evt_bbd_net_bad_code") = 1025447732
+# crc32("battlebaydeluxe_net_bad_code") = 3437739529
 [[row]]
-id = "evt_bbd_net_bad_code"
+id = "battlebaydeluxe_net_bad_code"
 es = "No hay un código de sala válido en el portapapeles."
 en = "There is no valid room code in the clipboard."
 fr = "Aucun code de salon valide dans le presse-papiers."
@@ -368,9 +235,9 @@ ja = "クリップボードに有効なルームコードがありません。"
 zh_hans = "剪贴板中没有有效的房间代码。"
 zh_hant = "剪貼簿中沒有有效的房間代碼。"
 
-# crc32("evt_bbd_net_invite_q") = 275989640
+# crc32("battlebaydeluxe_net_invite_q") = 3784043957
 [[row]]
-id = "evt_bbd_net_invite_q"
+id = "battlebaydeluxe_net_invite_q"
 es = "Tienes una invitación a una sala privada. ¿Unirte?"
 en = "You have an invitation to a private room. Join it?"
 fr = "Vous avez une invitation à un salon privé. Le rejoindre ?"
@@ -381,9 +248,9 @@ ja = "プライベートルームへの招待があります。参加します�
 zh_hans = "你收到了私人房间的邀请。要加入吗？"
 zh_hant = "你收到了私人房間的邀請。要加入嗎？"
 
-# crc32("evt_bbd_net_session_err") = 3356205909
+# crc32("battlebaydeluxe_net_session_err") = 672901353
 [[row]]
-id = "evt_bbd_net_session_err"
+id = "battlebaydeluxe_net_session_err"
 es = "No se pudo iniciar la sesión en línea."
 en = "The online session could not start."
 fr = "La session en ligne n'a pas pu démarrer."

@@ -1,25 +1,8 @@
--- Stoppage Time (a module of Football Reforged): added time at the end of every
--- half, from what happened in it, and an end decided by the play when that time runs out. Settings: config.toml.
--- The mechanisms are the VR-Framework's period service ( time_up):
--- * the engine ends a period when int(clock) >= its length + its added time (InPlayState::Update); the added time is
---   VRFW.match.set_added(seconds); VRFW.match.end_period() ends it at the next open-play frame.
--- * time_up:regular fires 2 game s before the regular length, time_up:end 2 game s before length + added time.
--- Everything here runs on events: the half's events add seconds (foul, cutin_start of a technique group, keeper_scene,
--- goal, match:substitution); time_up:regular turns them into whole minutes, sets the added time and sets the «+N» text;
--- the text lives on a layer of the scoreboard's screen, so the game shows and hides it with the scoreboard
--- (assets\lua\_all\stoppage_time_telop.lua); the half's end states clear the text; time_up:end
--- checks the team with the ball: in its own half the whistle blows at once; further up the added time grows to the
--- zone's limit and the whistle blows when the play ends (possession to the rival, a shot resolved, a goal, a foul, an end
--- state such as OutOfPlay, in midfield also a pass back). A running shot, chain window or cut-in delays the whistle.
--- A match with a tag of skip_match_tags (VRFW.match.has_tag: the pachangas' friendlies declare tags = ["pachanga"])
--- gets no added time.
 
 StoppageTime = StoppageTime or {}
-
-local Basics = require "VRFW/lib/basics"
 local info = VRFW.logger("stoppage_time")
 
-local clamp = Basics.value.clamp   -- a config number with a default, kept inside its range
+local clamp = VRFW.value.clamp   -- a config number with a default, kept inside its range
 
 local function list_setting(t, k, default)
   local v = t and t[k]
@@ -27,14 +10,9 @@ local function list_setting(t, k, default)
   return v
 end
 
-local function config(name)
-  local t = VRFW.config(name)
-  return type(t) == "table" and t or {}
-end
-
-local RAW = config("stoppage_time")
-local RAW_PLAY_ON = config("play_on")
-local RAW_TELOP = config("telop")
+local RAW = VRFW.config("stoppage_time", {})
+local RAW_PLAY_ON = VRFW.config("play_on", {})
+local RAW_TELOP = VRFW.config("telop", {})
 local SECONDS = type(RAW.seconds) == "table" and RAW.seconds or {}
 local TECHNIQUE = type(RAW.technique) == "table" and RAW.technique or {}
 
@@ -91,39 +69,37 @@ local MENU_CALL_SLOT = 0x70 / 8
 -- the half being counted
 local S = {
   half = nil,          -- its number (1-4), nil = none yet
-  counting = false,    -- its events add seconds (from its kick-off to the regular end)
+  counting = false,
   total = 0,           -- game seconds its events added
   counts = {},         -- events by kind
   announced = nil,     -- the minutes set at the regular end
   announced_end = nil, -- the clock second the announced time ends
   over_time = false,   -- the announced time is used up
-  whistled = false,    -- the end of the half was asked
-  whistle_clock = nil, -- the clock when it was asked
-  refusal_logged = false, -- the engine's late whistle was logged
-  half_over_logged = false, -- the half's end was logged
-  play_on = nil,       -- { team, zone, front } while the play goes on past the announced time
-  waiting = false,     -- the decision waits for a running shot, chain window or cut-in
+  whistled = false,
+  whistle_clock = nil,
+  refusal_logged = false,
+  half_over_logged = false,
+  play_on = nil,
+  waiting = false,
   waited = 0,          -- game seconds added while waiting
   pending_whistle = nil, -- the reason of a whistle that waits for the same
   shot_running = false,  -- the ball is in the shot state
   shot_over = false,   -- past the announced time, the ball left the shot state
-  chain_open = false,  -- a shot can be chained now
-  last_owner = nil,    -- { team, handle } of the last ball owner (a loose ball's attacking team)
-  telop_text = nil,    -- «+N» from the half's regular end to its end, nil = no telop
+  chain_open = false,
+  last_owner = nil,
+  telop_text = nil,    -- "+N" from the half's regular end to its end, nil = no telop
   cutin_running = false, -- a cut-in is playing
-  skip_logged = nil,   -- the reason a match tag gave, logged once per match (nil = not logged)
+  skip_logged = nil,
 }
 
--- the scoreboard's screen reads the text again: the game's own way to call a function of a menu's script
--- (CLuaMenuObject vtable +0x70: menu, function name, no arguments; a script without the function does nothing)
 local function telop_notify()
   local ok, menu = pcall(VRFW.call, "StoppageTime.MenuFind", VRFW.crc32(TELOP_MENU))
   if not ok or type(menu) ~= "number" or menu == 0 then return end
   if S.refresh_name == nil then
     local bytes = { string.byte(TELOP_REFRESH, 1, -1) }
     bytes[#bytes + 1] = 0
-    S.refresh_name = VRFW.mem.buffer("telop_refresh_name", #bytes)
-    VRFW.mem.write_array("u8", S.refresh_name, bytes)
+    S.refresh_name = VRFW.memory.buffer("telop_refresh_name", #bytes)
+    VRFW.memory.write_array("u8", S.refresh_name, bytes)
   end
   local called, why = pcall(VRFW.call_vslot, menu, MENU_CALL_SLOT, "ptr, ptr, u32 -> ptr", S.refresh_name, 0, 0)
   if not called then log("telop: the scoreboard's screen was not told (" .. tostring(why) .. ")") end
@@ -135,7 +111,6 @@ local function telop_set(text)
   telop_notify()
 end
 
--- the half or the match ended: no telop until the next half's regular end
 local function telop_end()
   S.cutin_running = false
   telop_set(nil)
@@ -146,7 +121,6 @@ local function period()
   return (ok and type(p) == "table") and p or nil
 end
 
--- a tag of the match (VRFW.match.has_tag: the tags its friendly declares) in skip_match_tags
 local function skipped_tag()
   for _, t in ipairs(SETTINGS.skip_match_tags) do
     local ok, on = pcall(VRFW.match.has_tag, tostring(t))
@@ -177,7 +151,6 @@ local function reset_half_end()
   S.shot_running, S.shot_over, S.chain_open = false, false, false
 end
 
--- a new half: its count starts (only in a period that gets added time)
 local function start_half(p)
   S.half, S.total, S.counts = p.half, 0, {}
   S.announced = nil
@@ -192,7 +165,6 @@ local function start_half(p)
   end
   S.counting = why == nil
   if by_tag then
-    -- once per match: every half of a tagged match is skipped for the same reason
     if S.skip_logged ~= why then
       S.skip_logged = why
       log(string.format("no added time in this match (%s, skip_match_tags)", why))
@@ -202,7 +174,6 @@ local function start_half(p)
   end
 end
 
--- the period now, the half being counted (a half not seen at its kick-off starts its count here)
 local function current()
   local p = period()
   if p == nil then return nil end
@@ -238,7 +209,6 @@ local function telop_text(minutes)
   return "+" .. tostring(minutes)
 end
 
--- the pitch fraction (0 own goal .. 1 the goal it attacks) of x, z for `team`, nil = no pitch data
 local function attack_fraction(team, x, z)
   local ok_own, ox, oz = pcall(VRFW.ai.own_goal, team)
   local ok_rival, rx, rz = pcall(VRFW.ai.own_goal, 1 - team)
@@ -249,7 +219,6 @@ local function attack_fraction(team, x, z)
   return ((x - ox) * ax + (z - oz) * az) / len2
 end
 
--- the attacking side now: team, x, z of the ball's owner, or of the last owner while the ball is loose (a pass, a shot)
 local function attacker()
   local ok, hdl, team, x, z = pcall(VRFW.ai.ball)
   if ok and hdl and team and x and z then return team, x, z, "carrier" end
@@ -263,12 +232,10 @@ local function attacker()
   return nil
 end
 
--- a shot, a chain window or a cut-in is running: the whistle never cuts them
 local function play_running()
   return S.shot_running or S.chain_open or S.cutin_running
 end
 
--- ask the end of the half now
 local function blow_whistle(why)
   local p = period()
   local past = (p and S.announced_end) and math.max(0, p.clock - S.announced_end) or 0
@@ -279,7 +246,6 @@ local function blow_whistle(why)
   S.whistle_clock = p and p.clock or nil
 end
 
--- the play is over: the whistle, now or when what is running ends
 local function whistle(why)
   if S.whistled or not S.over_time then return end
   if play_running() then
@@ -291,11 +257,10 @@ end
 
 -- the half's end moves to `added` game seconds past its length
 local function set_end(added)
-  local ok, done = pcall(VRFW.match.set_added, math.ceil(added))
+  local ok, done = pcall(VRFW.match.set_added_time, math.ceil(added))
   return ok and done == true
 end
 
--- what the position of the ball says now: the whistle, or the play goes on up to its zone's limit
 local function decide(p)
   local team, x, z, whose = attacker()
   if team == nil then
@@ -327,7 +292,6 @@ local function decide(p)
   S.play_on = { team = team, zone = zone, front = (was and was.team == team) and math.max(was.front, f) or f }
 end
 
--- a running shot, chain window or cut-in ended: what waited for it
 local function running_ended()
   if S.whistled or play_running() then return end
   if S.pending_whistle then
@@ -348,8 +312,6 @@ local function log_half_over(state)
     p and p.clock or -1, p and tostring(p.length) or "?", S.announced_end))
 end
 
--- ---------------------------------------------------------------- events
-
 VRFW.on("match_start", function()
   S.half, S.counting, S.skip_logged = nil, false, nil
   reset_half_end()
@@ -363,13 +325,11 @@ VRFW.on("match_end", function()
   return nil
 end)
 
--- each kick-off: a new half starts its count
 VRFW.on("state_enter:9", function()
   current()
   return nil
 end)
 
--- the half-time break: nothing counts until the next kick-off
 VRFW.on("state_enter:11", function()
   log_half_over(11)
   S.counting = false
@@ -407,7 +367,6 @@ VRFW.on("shot_start", function()
   return nil
 end)
 
--- the ball left the shot state: a save, a goal or the ball out resolves it; a ball left loose ends it after a moment
 VRFW.on("shot_end", function()
   S.shot_running = false
   if S.over_time and not S.whistled then
@@ -457,7 +416,6 @@ VRFW.on("possession", function(ev)
   if a == nil or a.team == nil then return nil end
   S.last_owner = { team = a.team, handle = a.handle }
   if S.whistled then
-    -- the engine holds its whistle while the ball is in the shot state or the owner's event check is in state 2
     local now = period()
     if now and S.whistle_clock and not S.refusal_logged and now.clock >= S.whistle_clock + SETTINGS.wait_max then
       S.refusal_logged = true
@@ -478,7 +436,6 @@ VRFW.on("possession", function(ev)
     return nil
   end
   if play_running() then return nil end
-  -- a pass arrived: further up, the zone may change; back in midfield, the play is over
   local p = period()
   local team, x, z, whose = attacker()
   local f = (p and team) and attack_fraction(team, x, z) or nil
@@ -502,7 +459,6 @@ for _, st in ipairs(SETTINGS.end_states) do
   end
 end
 
--- the regular time ends: the added time and its telop
 VRFW.on("time_up:regular", function()
   local p = current()
   if p == nil or not S.counting or S.announced then return nil end
@@ -511,7 +467,7 @@ VRFW.on("time_up:regular", function()
   local want = minutes * 60
   local wrote = true
   if want > p.added then
-    local ok, done = pcall(VRFW.match.set_added, want)
+    local ok, done = pcall(VRFW.match.set_added_time, want)
     wrote = ok and done == true
   end
   S.announced = minutes
@@ -552,9 +508,6 @@ VRFW.on("time_up:end", function()
   return nil
 end)
 
--- ---------------------------------------------------------------- the telop
-
--- the half or the match ends: its period-end banner comes with these states
 for _, st in ipairs(SETTINGS.telop_end_states) do
   VRFW.on("state_enter:" .. math.floor(st), function()
     log_half_over(math.floor(st))
@@ -563,7 +516,6 @@ for _, st in ipairs(SETTINGS.telop_end_states) do
   end)
 end
 
--- CMND_STOPPAGETIME_TELOP() -> text, centre x, middle y, text height: asked by the layer when it opens and when told
 function StoppageTime.Telop()
   return S.telop_text or "", SETTINGS.telop_x, SETTINGS.telop_y, SETTINGS.telop_height
 end

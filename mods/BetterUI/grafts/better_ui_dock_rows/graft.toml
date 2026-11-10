@@ -1,0 +1,23 @@
+# BetterUI: removes the team settings (kind 12) and formation (kind 0) rows from the Team Dock list.
+# The list is reached as an upvalue (VRFW.upvalues.find), so the block names no retail local and nothing is promoted.
+name = "better_ui_dock_rows"
+order = 925
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = []
+description = "BetterUI: no team settings / formation rows in the Team Dock list"
+
+[[files]]
+stem = "soccer_team_dock_menu"
+expect = [
+  '^local t = \{12, 0, 10, 1, 2, 7, 9, 8\}$',
+]
+
+  [[files.ops]]
+  type = "append_block"
+  source = "dock_rows.lua"
+  marker = "better_ui_dock_rows"
+  crc = "none"
+  include = { "@UPV@" = "../_lib/vrfw_upvalues.lua" }

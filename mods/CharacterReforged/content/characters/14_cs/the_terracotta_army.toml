@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · The Terracotta Army · Inazuma Eleven GO Chrono Stone
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c05024010"                                   # Terracotta Warrior 1
 moves = [
-  { move = 0x50E88A33, level = 4 },                         # Fist Beam
-  { move = 0xF626F557, level = 14 },                        # Electric Impedance
-  { move = 0xCB8E6D04, level = 27 },                        # Mighty Save
-  { move = 0xDBA0E5E3, level = 42 },                        # Gigant Wall
+  { move = 0xDF2D9951, level = 46 },                        # Close Counter
+  { move = 0x50E88A33, level = 56 },                        # Fist Beam
+  { move = 0xDBA0E5E3, level = 66 },                        # Gigant Wall
+  { move = 0xBD8A9EBE, level = 76 },                        # Infinite Wall
 ]
 
   [[edit.cards]]
@@ -22,9 +19,9 @@ moves = [
 target = "c05024020"                                   # Terracotta Warrior 2
 moves = [
   { move = 0xF626F557, level = 1 },                         # Electric Impedance
-  { move = 0x50E88A33, level = 10 },                        # Fist Beam
   { move = 0xA9E3374B, level = 26 },                        # Cyclone Sprint
-  { move = 0x6C827857, level = 47 },                        # Rolling Steal
+  { move = 0x4E22F64D, level = 36 },                        # Transporter Device
+  { move = 0xB13A6C3D, level = 46 },                        # Zigzag Flame
 ]
 
   [[edit.cards]]
@@ -51,10 +48,10 @@ moves = [
 [[edit]]
 target = "c05024040"                                   # Terracotta Warrior 4
 moves = [
-  { move = 0xF626F557, level = 2 },                         # Electric Impedance
-  { move = 0x75994916, level = 7 },                         # Cunning Pull
-  { move = 0xE196F1D1, level = 23 },                        # Burning Bomb
-  { move = 0x6BA49049, level = 43 },                        # Mystic Mist
+  { move = 0x457EB170, level = 23 },                        # Pyrokinetic
+  { move = 0xF626F557, level = 33 },                        # Electric Impedance
+  { move = 0xE196F1D1, level = 43 },                        # Burning Bomb
+  { move = 0x6BA49049, level = 53 },                        # Mystic Mist
 ]
 
   [[edit.cards]]
@@ -67,9 +64,9 @@ moves = [
 target = "c05024050"                                   # Terracotta Warrior 5
 moves = [
   { move = 0x4E22F64D, level = 1 },                         # Transporter Device
-  { move = 0x501F2F12, level = 20 },                        # Heel Flick
-  { move = 0x2D68DB57, level = 28 },                        # Deceptive Step
   { move = 0x737DCB3F, level = 48 },                        # Pancake Defence
+  { move = 0x17110E3B, level = 58 },                        # Jumbo Sandwich
+  { move = 0x2FB941B3, level = 68 },                        # Stone Prison
 ]
 
   [[edit.cards]]
@@ -83,8 +80,8 @@ target = "c05024060"                                   # Terracotta Warrior 6
 moves = [
   { move = 0x4E22F64D, level = 2 },                         # Transporter Device
   { move = 0xF626F557, level = 12 },                        # Electric Impedance
-  { move = 0x06458894, level = 29 },                        # Feint Dash
   { move = 0x737DCB3F, level = 40 },                        # Pancake Defence
+  { move = 0x72BFA108, level = 50 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -98,8 +95,8 @@ target = "c05024070"                                   # Terracotta Warrior 7
 moves = [
   { move = 0x4E22F64D, level = 1 },                         # Transporter Device
   { move = 0xA9E3374B, level = 19 },                        # Cyclone Sprint
-  { move = 0x501F2F12, level = 32 },                        # Heel Flick
   { move = 0x2354CA2D, level = 47 },                        # Wind God's Dance
+  { move = 0x49933AEE, level = 57 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -112,9 +109,9 @@ moves = [
 target = "c05024080"                                   # Terracotta Warrior 8
 moves = [
   { move = 0x4E22F64D, level = 1 },                         # Transporter Device
-  { move = 0x2D68DB57, level = 18 },                        # Deceptive Step
   { move = 0xC66BD10D, level = 36 },                        # Zigzag Spark
-  { move = 0x49041E53, level = 55 },                        # Crosscut Feint
+  { move = 0x41F3CDC2, level = 46 },                        # Scorching Tackle
+  { move = 0x12E67CC1, level = 56 },                        # Future Eye
 ]
 
   [[edit.cards]]
@@ -129,7 +126,7 @@ moves = [
   { move = 0x4E22F64D, level = 5 },                         # Transporter Device
   { move = 0xF626F557, level = 16 },                        # Electric Impedance
   { move = 0x016DEA27, level = 35 },                        # Accelerator Gears
-  { move = 0x62294D90, level = 48 },                        # Dust Kick
+  { move = 0xDA3FF6C9, level = 45 },                        # Criss-Cross
 ]
 
   [[edit.cards]]
@@ -143,8 +140,8 @@ target = "c05024100"                                   # Terracotta Warrior 10
 moves = [
   { move = 0x4E22F64D, level = 1 },                         # Transporter Device
   { move = 0x585098FC, level = 15 },                        # Slice and Dice
-  { move = 0x501F2F12, level = 32 },                        # Heel Flick
   { move = 0xB60E3C60, level = 48 },                        # Plasma Cut
+  { move = 0x016DEA27, level = 58 },                        # Accelerator Gears
 ]
 
   [[edit.cards]]
@@ -158,8 +155,8 @@ target = "c05024110"                                   # Terracotta Warrior 11
 moves = [
   { move = 0x016DEA27, level = 1 },                         # Accelerator Gears
   { move = 0x4E22F64D, level = 7 },                         # Transporter Device
-  { move = 0x72514A74, level = 36 },                        # Low Drive
   { move = 0xE11DE782, level = 51 },                        # Chrysanthemum Katana
+  { move = 0xA8215D7C, level = 61 },                        # The Mountain
 ]
 
   [[edit.cards]]

@@ -1,11 +1,4 @@
--- Accent and case folding of a UTF-8 text, for search keys and name grouping. The menu side has the same table
--- (assets\lua\menu\_all\87_text_fold.lua, VRFW_Text.Fold / FoldUpper).
---   local Fold = require "VRFW/lib/text_fold"   -- any mod's scripts (the framework's own: require "lib/text_fold")
---   Fold.fold(s)       -> s with every accented Latin letter as its plain letter, everything lower case
---                         («Ángel Ñandú» -> "angel nandu"); other characters as they are (ASCII lower-cased)
---   Fold.fold_upper(s) -> the same, upper case («Ángel» -> "ANGEL")
---   Fold.chars(s)      -> the UTF-8 characters of s, one string each
--- Requiring it also sets VRFW.text_fold to the same table in that script's VM.
+-- Accent and case folding of a UTF-8 text, for search keys and name grouping.
 local M = {}
 
 local UTF8_CHAR = "[%z\1-\127\194-\244][\128-\191]*"
@@ -16,6 +9,7 @@ local GROUPS = {
   U = "ÙÚÛÜùúûü", Y = "Ýýÿ",
 }
 
+--- The UTF-8 characters of `s`, as an array.
 function M.chars(s)
   local out = {}
   for ch in tostring(s or ""):gmatch(UTF8_CHAR) do
@@ -43,16 +37,26 @@ local function upper_char(ch)
   return PLAIN[ch] or ch:upper()
 end
 
+--- Text `s` in lower case (Latin letters with accents too).
 function M.fold(s)
   return (tostring(s or ""):gsub(UTF8_CHAR, lower_char))
 end
 
+--- Text `s` in upper case (Latin letters with accents too).
 function M.fold_upper(s)
   return (tostring(s or ""):gsub(UTF8_CHAR, upper_char))
 end
 
-if type(VRFW) == "table" and rawget(VRFW, "text_fold") == nil then
-  pcall(rawset, VRFW, "text_fold", M)
+--- Text with `{1}`..`{9}` replaced by the arguments.
+function M.fill_template(text, ...)
+  local args = { ... }
+  return (tostring(text or ""):gsub("{(%d)}", function(k)
+    local v = args[tonumber(k)]
+    if v == nil then
+      return ""
+    end
+    return tostring(v)
+  end))
 end
 
 return M

@@ -1,20 +1,10 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: the three starting teams of a NEW save (the `select_first_team_menu` choice). The three
-# teams keep their game names, crests, kits, team level (2) and coach (Clark von Wunderbar, slot 19); only the eleven
-# players and the formation change, to three custom line-ups: IE1 players + Victorio Cryptix in his normal form
-# (card 0x2AA62CA1, the card the game's shops sell; not the possessed c11600090 nor the young c11600110). Captain:
-# Victorio Cryptix, the centre forward, in all three (the game's captains sat on slots of formations that change here:
-# team 1 slot 8, team 2 slot 2, team 3 slot 8). Per team two edits: (1) the line-up, the eleven cards in formation
-# order (new rows: the old captain flag is cleared); (2) `patch` rows that put back the cells of the game's rows a new
-# row resets: every starter's boots (0x6D5D11A0, the game's start-team boots) and the game's per-slot level offset (+1
-# on three slots per team). Slots = the formation's places (formation_config startPos; x < 0 = left on the formation
-# screen).
 default_lang = "en"
 
 # --- Team 1 (start_team_01): 4-3-3 Delta ----------------------------------------------------------------------
 [[edit]]
 target = "start_team_01"
-formation = 0x937CAB03                    # 4-3-3 Delta (the centre midfielder deeper than the two side ones)
+formation = 0x937CAB03
 member = [
   { card = 0xED304218, slot = 0 },                   # Art Pendragon · GK
   { card = 0x30D2BF9F, slot = 1 },                   # Paul Peabody · DF left
@@ -48,7 +38,7 @@ member = [
 # --- Team 2 (start_team_02): 4-3-3 Delta ----------------------------------------------------------------------
 [[edit]]
 target = "start_team_02"
-formation = 0x937CAB03                    # 4-3-3 Delta (the centre midfielder deeper than the two side ones)
+formation = 0x937CAB03
 member = [
   { card = 0x595C5662, slot = 0 },                   # Ace Server · GK
   { card = 0x746A0613, slot = 1 },                   # Lee Gleagle · DF left
@@ -82,7 +72,7 @@ member = [
 # --- Team 3 (start_team_03): 4-3-3 Triangle -------------------------------------------------------------------
 [[edit]]
 target = "start_team_03"
-formation = 0xE47B9B95                    # 4-3-3 Triangle (an attacking midfielder ahead of the two others)
+formation = 0xE47B9B95
 member = [
   { card = 0x6B6A34E0, slot = 0 },                   # Rex George · GK
   { card = 0xC1B33D32, slot = 1 },                   # Patrick Edie · DF centre-left

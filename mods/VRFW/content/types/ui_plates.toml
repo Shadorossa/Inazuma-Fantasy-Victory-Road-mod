@@ -4,7 +4,7 @@ kind = "VRFW.ui_plates/1"
 folder = "content/defaults"
 
 [entry.HeaderRow]
-doc = "Layout of the shared header row (Lua: VRFW_UI.HeaderRow): screen px at 1080p unless noted."
+doc = "Layout of the shared header row (Lua: VRFW.ui_plates.header_row): screen px at 1080p unless noted."
 entry_table = "header_row"
 single = true
 res = { type = "strings", doc = "extra atlases the row swaps sprites from; a menu showing the row lists them in its res" }
@@ -17,7 +17,7 @@ arch_box = { type = "table", doc = "archetype glyph box", fields = { box = { typ
 variants = { type = "table", doc = "per-screen placements `[header_row.variants.<name>]`: scale s and top-left x, y" }
 
 [entry.MovePlate]
-doc = "Element-coloured special-move plate (Lua: VRFW_UI.MovePlate): quad offsets from the plate centre, px at scale 1."
+doc = "Element-coloured special-move plate (Lua: VRFW.ui_plates.move_plate): quad offsets from the plate centre, px at scale 1."
 entry_table = "move_plate"
 single = true
 res = { type = "strings", doc = "atlases a menu res must contain for the row fill" }

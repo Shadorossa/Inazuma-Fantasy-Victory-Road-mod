@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# El Apocalipsis (The Apocalypse): the download's move whs90680, a clone of whs00680 with its numbers; its event ev60_90680 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "the_apocalypse"

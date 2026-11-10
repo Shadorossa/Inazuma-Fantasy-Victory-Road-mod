@@ -1,13 +1,11 @@
--- Player page block (plate_pages.lua): the item detail card's own layers, page icons and pager
-    -- ---- the card's own layers: its body (a copy of the stats panel's body, no drop shadow) and the set icons ------
-    G.EQ_BODY, G.EQ_ICON = @crc:evt_eq_card_body@, @crc:evt_eq_set_icon@
+-- Player page block (plate_pages.lua)
+    G.EQ_BODY, G.EQ_ICON = @crc:character_reforged_eq_card_body@, @crc:character_reforged_eq_set_icon@
     table.insert(G.HOST_LAYERS, G.EQ_BODY)
     table.insert(G.HOST_LAYERS, G.EQ_ICON)
     G.icReady = {}
 
-    -- the body: the band object's page mesh only, given the stats panel's sprite, placed at the card's rect (the band
-    -- layout's formula: node (x0 - 1435, 560 - y0)); false = not open yet
-    function G.ItemCardBody(rect, show)
+    -- Draws the body.
+    function G.item_card_body(rect, show)
       local B = G.EQ_BODY
       if not Exists(B) then
         return true
@@ -30,8 +28,7 @@
         Cmd(C.TEXT_VIS, B, G.N_EXPLAIN, false, 0)
         Cmd(C.SPRITE, B, G.TX_T1101, G.SP_BAND, G.SP_BODY, 0, 0)
       end
-      -- the layer where the stats panel's body layer (G.BAND, the same object) is, so the band layout's node formula
-      -- places it the same way (CMND layer global position; written once to loader.log)
+      -- Uses the layer where the stats panel's body layer (G.BAND, the same object) is, so the band layout's node is read there.
       if Exists(G.BAND) and Cmd(C.IS_OPEN, G.BAND, 0) == true then
         local ok, x, y, z = pcall(funcLuaMenuCommand, 4002164178 --[[a layer instance's global position]], G.BAND, 0)
         if ok and type(x) == "number" and type(y) == "number" then
@@ -39,7 +36,7 @@
         end
         if not G.icBodyLogged then
           G.icBodyLogged = true
-          pcall(funcLuaCommand, C.LOG, "EVT_PPG item card body at", tostring(ok and x), tostring(ok and y))
+          pcall(funcLuaCommand, C.LOG, "PlayerPage item card body at", tostring(ok and x), tostring(ok and y))
         end
       end
       Cmd(C.NODE_POS, B, 0, G.M_PAGE, 0, rect[1] - 1435)
@@ -50,9 +47,6 @@
       return true
     end
 
-    -- the page icons (layer evt_eq_set_icon: copies of the item card object, one icon each, no list cursor locator):
-    -- instance k shows a sprite on _win_item_base01 (a slot icon: the list's grey sprite, or its green copy where one
-    -- of the set is worn; a position badge) or an item icon on _icon_item_dmy01; placed at screen (x, y) top-left
     G.EQ_ICON_MESHES = {@crc:_win_item01@, @crc:_win_item_base01@, @crc:_icon_item_dmy01@, @crc:_icon_item_dmy02@,
       @crc:_icon_position_dmy01@, @crc:_icon_position_dmy02@, @crc:_base_equip01@, @crc:_gtxt_equip01@,
       @crc:_num_equip_dmy01@, @crc:_base_have01@, @crc:_icon_have01@, @crc:_num_have_dmy01@, @crc:_item_chr_base01@,
@@ -94,9 +88,7 @@
       end
       Cmd(@crc:CMND_SET_DRAW_PRIORITY@, L, k, (type(value) == "table" and value.under) and under or over, true)
       if kind == "text" then
-        -- value = {text, style ("white" = the name's text node, "ink" = the bonus's), scale}; (x, y) = its left edge and
-        -- vertical centre: the texts draw at their layout offsets from the base (top-left: name -221, 15 / bonus
-        -- -229, -59, y up; box 50 tall), scaled with the instance
+        -- Centres the text vertically.
         local st = E.styles[value.style] or E.styles.white
         local sc = value.scale or 1
         Cmd(C.SCALE, L, sc, sc, 1, k)
@@ -110,7 +102,6 @@
       Cmd(C.SCALE, L, 1, 1, 1, k)
       Cmd(C.POS, L, x, -y, 0, k)
       if kind == "sprite" then
-        -- value = {atlas, sprite, w, h}
         Cmd(C.SPRITE, L, value[1], value[2], S.slot_swap, 0, k)
         Cmd(C.NODE_POS, L, k, M_SLOT, 0, 0)
         Cmd(C.NODE_POS, L, k, M_SLOT, 1, 0)
@@ -146,22 +137,15 @@
       return true
     end
 
-    -- the shown page's icons (the set grid with its slot icons, the affinity badge), else none; false = an instance is still opening (the
-    -- frame tries again)
-    -- the pager: the framework's page row (VRFW_Pager: L2 / R2 glyphs and the page dots, the technique card's) on the
-    -- layer evt_eq_dots, centred at IC.pager.at (screen px); its instances may open again while the host is not closing
-    G.EQ_DOTS = @crc:evt_eq_dots@
+    -- Shows the shown page's icons (the set grid with its slot icons, the affinity badge), else none.
+    G.EQ_DOTS = @crc:character_reforged_eq_dots@
     table.insert(G.HOST_LAYERS, G.EQ_DOTS)
-    G.EQ_YPAGE = @crc:evt_eq_ypage@          -- the «Y <next page>» pill (a pager of style ycycle only)
+    G.EQ_YPAGE = @crc:character_reforged_eq_ypage@
     if IC.pager ~= nil and IC.pager.style == "ycycle" then
       table.insert(G.HOST_LAYERS, G.EQ_YPAGE)
     end
-    -- the card's added layers (on a screen without a player they open with the screen, their group rows; on the
-    -- equipment screen the pieces open them): each instance is hidden while the screen sets it up, before its first
-    -- frame, as the game hides its own detail layers; the pieces show the instances they use (an instance opened and
-    -- never used showed the whole card object at the screen's top left)
     do
-      EVT_PPG_Wrap("OnSetupLayer", function(orig)
+      PlayerPageWrap("OnSetupLayer", function(orig)
         return function(a1, a2, ...)
           local r = Pack(orig(a1, a2, ...))
           if a1 == G.EQ_ICON or a1 == G.EQ_DOTS or a1 == G.EQ_YPAGE then
@@ -172,9 +156,9 @@
         end
       end)
     end
-    function G.ItemCardPager(n)
-      if G.icPager == nil and type(VRFW_Pager) == "table" and type(VRFW_Pager.New) == "function" then
-        G.icPager = VRFW_Pager.New({layer = G.EQ_DOTS, name = "item card", style = IC.pager.style, guide = G.EQ_YPAGE,
+    function G.item_card_pager(n)
+      if G.icPager == nil and type(VRFW.pager) == "table" and type(VRFW.pager.new) == "function" then
+        G.icPager = VRFW.pager.new({layer = G.EQ_DOTS, name = "item card", style = IC.pager.style, guide = G.EQ_YPAGE,
           prio = G.icPrioBase ~= nil and G.icPrioBase + 6 or nil, reopen = function()
             return not G.hostShut
           end})
@@ -184,12 +168,12 @@
         return true
       end
       if n == nil or n < 2 then
-        R:Hide()
+        R:hide()
         return true
       end
       local nextPage = G.icPage % n + 1
-      local placed = R:Show(n, G.icPage, IC.pager.at[1], -IC.pager.at[2], G.icPageNames ~= nil and G.icPageNames[nextPage] or nil)
-      -- a card placed elsewhere than the object's layout: the pill moved with it, drawn over the card's own priority
+      local placed = R:show(n, G.icPage, IC.pager.at[1], -IC.pager.at[2], G.icPageNames ~= nil and G.icPageNames[nextPage] or nil)
+      -- Handles a card placed elsewhere than the object's layout.
       if placed and IC.pager.pill_shift ~= nil then
         Cmd(C.POS, G.EQ_YPAGE, IC.pager.pill_shift[1], IC.pager.pill_shift[2], 0, 0)
         if G.icPrioBase ~= nil then
@@ -199,13 +183,12 @@
       return placed
     end
 
-    function G.ItemCardPageIcons()
-      -- the host menu is closing: nothing of ours is shown or opened again (the list view still fills the card while it
-      -- closes, and an instance shown again keeps the menu's close from ending)
+    function G.item_card_page_icons()
+      -- Handles the host menu closing.
       if G.hostShut then
         if not G.icShutLogged then
           G.icShutLogged = true
-          pcall(funcLuaCommand, C.LOG, "EVT_PPG item card: drawn after the host shut, skipped")
+          pcall(funcLuaCommand, C.LOG, "PlayerPage item card: drawn after the host shut, skipped")
         end
         return true
       end
@@ -214,10 +197,10 @@
         return true
       end
       local used, done = 0, true
-      local shown = G.ItemCardOn() and #G.icPages > 0 and Exists(IC.layer) and Cmd(C.IS_VIS, IC.layer, 0) == true
+      local shown = G.item_card_on() and #G.icPages > 0 and Exists(IC.layer) and Cmd(C.IS_VIS, IC.layer, 0) == true
       local on = shown and G.icSetPage ~= nil and G.icPage == G.icSetPage and type(G.icSet) == "table"
       if shown and (IC.text_on_icons or G.icStatPage ~= nil) then
-        local okT, items = pcall(G.ItemCardTextItems, G.ItemCardRect())
+        local okT, items = pcall(G.item_card_text_items, G.item_card_rect())
         for _, it in ipairs(okT and items or {}) do
           if used < (S.page_instances or S.instances) then
             done = IconSlot(used, it.x, it.y, it.kind, it.value) and done
@@ -226,7 +209,7 @@
         end
       end
       if shown and G.icEffect ~= nil and G.icEffectPage ~= nil and G.icPage == G.icEffectPage then
-        local okI, items = pcall(G.ItemCardEffectItems, G.ItemCardRect())
+        local okI, items = pcall(G.item_card_effect_items, G.item_card_rect())
         for _, it in ipairs(okI and items or {}) do
           if used < (S.page_instances or S.instances) then
             done = IconSlot(used, it.x, it.y, it.kind, it.value) and done
@@ -235,10 +218,8 @@
         end
       end
       if on then
-        -- the groups of the slots the set has, left to right: [slot icon] pieces; `gap` inside a group, `group_gap`
-        -- between groups; the whole row scaled down (never up) to the card's width less `margin` on each side and
-        -- centred in the card's width and in the body between the title row and the pager row
-        local rect = G.ItemCardRect()
+        -- Collects the groups of the slots the set has, left to right.
+        local rect = G.item_card_rect()
         local groups, width = {}, 0
         for slot = 1, #S.slot_sprites do
           local pieces = G.icSet.rows[slot]
@@ -276,7 +257,7 @@
           Cmd(C.VIS, L, k, false)
         end
       end
-      if not G.ItemCardPager(shown and #G.icPages or nil) then
+      if not G.item_card_pager(shown and #G.icPages or nil) then
         done = false
       end
       if not done then

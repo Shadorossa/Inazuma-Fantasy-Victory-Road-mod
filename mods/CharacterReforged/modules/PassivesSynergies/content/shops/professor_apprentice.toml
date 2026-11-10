@@ -1,0 +1,12 @@
+schema = "VRFW.shop/2"
+
+# In the retail synergy shop 0x5B032CEA for 10 cards of each member (Hershel Layton + Luke Triton).
+[[edit]]
+target = "0x5B032CEA"
+  [[edit.entry]]
+  item = "professor_apprentice"
+  stock = 1
+  costs = [
+    { currency = "hershel_layton_card", count = 10 },
+    { currency = "luke_triton_card", count = 10 },
+  ]

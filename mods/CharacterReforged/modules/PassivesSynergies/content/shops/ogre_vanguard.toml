@@ -1,0 +1,13 @@
+schema = "VRFW.shop/2"
+
+# In the retail synergy shop 0x5B032CEA for 10 cards of each member (Bash Lancer + Escavan Malice + Mystral Callous).
+[[edit]]
+target = "0x5B032CEA"
+  [[edit.entry]]
+  item = "ogre_vanguard"
+  stock = 1
+  costs = [
+    { currency = "bash_lancer_card", count = 10 },
+    { currency = "escavan_malice_card", count = 10 },
+    { currency = "mystral_callous_card", count = 10 },
+  ]

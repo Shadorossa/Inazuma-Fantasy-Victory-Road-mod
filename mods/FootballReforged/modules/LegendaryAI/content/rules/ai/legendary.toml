@@ -1,10 +1,5 @@
 schema = "VRFW.match_ai/1"
 # Legendary AI › the «Legendary» AI level (format: docs/framework/match-ai.md).
-# The knob names, units and ranges: the framework's catalogue content\rules\catalog\ai_knobs.toml.
-# Every number / switch is a value of the mod's config.toml (written as the quoted path ${config.section.key}): edit it there.
-# No Modes / AiLevels / Teams / Games list = every offline match (online and observed matches are never touched), but
-# never the match modes of not_in_match_modes in mod.toml (Chronicle battles).
-# Side "rival" = the CPU team only; your AI teammates keep the game's AI.
 
 # The option row «Difficulty» picks the level; the values of each level: config.toml [difficulty].
 [[VRFW.MatchAILevels]]
@@ -13,8 +8,6 @@ Config = "difficulty"
 
 # ------------------------------------------------------------------------------------------------ the class
 
-# The game's «Batalla legendaria» class (SoccerAIProperty_8: AI level 8 of the Legendary rows; Heroica+ = 7) as the
-# base: it dodges every sliding tackle, passes and slides often, catches often in duels. Every other rate up.
 [[VRFW.MatchAIClass]]
 Name = "LegendaryAI.Legendary"
 Inherit = "SoccerAIProperty_8"
@@ -63,9 +56,7 @@ Name = "LegendaryAI.Rival"
 Side = "rival"
 Class = "LegendaryAI.Legendary"
 
-# The «inhuman» reactions, at the top on purpose. Lower them here for a softer rival:
-# focusFramePerfectReactRate 0-100 (percent: answers a side step / breakthrough at once; 95 feels fairer),
-# zoneKeeperSkillRateVsSkill 0-1 (the keeper answers a special shot with a move; 0.9 feels fairer).
+# The «inhuman» reactions, at the top on purpose.
 [VRFW.MatchAI.Rates]
 focusFramePerfectReactRate = "${config.retail_ai.rival_rates.focusFramePerfectReactRate}"
 zoneKeeperSkillRateVsSkill = "${config.retail_ai.rival_rates.zoneKeeperSkillRateVsSkill}"
@@ -83,8 +74,6 @@ fCharaTacticsStateChangeUpdateTime = "${config.retail_ai.globals.fCharaTacticsSt
 fCharaTacticsResetIntervalTime = "${config.retail_ai.globals.fCharaTacticsResetIntervalTime}"
 teamStrategyUpdateInterval = "${config.retail_ai.globals.teamStrategyUpdateInterval}"
 teamTacticsUpdateInterval = "${config.retail_ai.globals.teamTacticsUpdateInterval}"
-# fast release: a pass decision every 0.05-0.2 s (retail 0.5-3), the carrier holds the ball 0.1 s before an
-# automatic pass (retail 1.0), no reaction delay before a new plan (retail 0.1 + 0.2)
 passLotteryIntervalMin = "${config.retail_ai.globals.passLotteryIntervalMin}"
 passLotteryIntervalMax = "${config.retail_ai.globals.passLotteryIntervalMax}"
 fAutoPassIntervalTime = "${config.retail_ai.globals.fAutoPassIntervalTime}"
@@ -108,16 +97,12 @@ autoRunZoneProbabilityMax = "${config.retail_ai.globals.autoRunZoneProbabilityMa
 autoRunZoneIntervalMin = "${config.retail_ai.globals.autoRunZoneIntervalMin}"
 autoRunZoneIntervalMax = "${config.retail_ai.globals.autoRunZoneIntervalMax}"
 autoRunZoneLotIntervalTime = "${config.retail_ai.globals.autoRunZoneLotIntervalTime}"
-# the zone's shot decision (the game's own auto-run «shoot» timer, read only while a zone runs): every carrier of its
-# zone makes it within autoRunShootIntervalMax (forced at 100 %), retail 10 s; its strategy may take it earlier
 autoRunShootProbabilityMin = "${config.retail_ai.globals.autoRunShootProbabilityMin}"
 autoRunShootProbabilityMax = "${config.retail_ai.globals.autoRunShootProbabilityMax}"
 autoRunShootIntervalMin = "${config.retail_ai.globals.autoRunShootIntervalMin}"
 autoRunShootIntervalMax = "${config.retail_ai.globals.autoRunShootIntervalMax}"
 uPressCharaNumMax = "${config.retail_ai.globals.uPressCharaNumMax}"
 uNoStopPressCharaNumMax = "${config.retail_ai.globals.uNoStopPressCharaNumMax}"
-# vertical play: safe passes (success weighs most) that gain ground (phase and forward distance weigh high), dribbles
-# forward when they win ground, almost no back passes (none past the halfway line), forward passes valued toward goal
 tacticsPassEvaluationSuccessRateWeight = "${config.retail_ai.globals.tacticsPassEvaluationSuccessRateWeight}"
 tacticsPassEvaluationPhaseEvaluationWeight = "${config.retail_ai.globals.tacticsPassEvaluationPhaseEvaluationWeight}"
 tacticsDribbleEvaluationSuccessRateWeight = "${config.retail_ai.globals.tacticsDribbleEvaluationSuccessRateWeight}"
@@ -138,9 +123,6 @@ eventMoveSpeedStrength_PressChara = "${config.retail_ai.globals.eventMoveSpeedSt
 eventMoveSpeedStrength_LineMove = "${config.retail_ai.globals.eventMoveSpeedStrength_LineMove}"
 pressTimeLimit = "${config.retail_ai.globals.pressTimeLimit}"
 changePossessionContinueTime = "${config.retail_ai.globals.changePossessionContinueTime}"
-# riskier passing: longer passes keep more success (the drop starts at 14 m, full at 40 m; retail 10 / 30), a longer
-# pass gains value up to 26 m (retail 20), the forward distance counts more (retail 0.5) and through-balls lead the
-# runner further into space (x2.5 of his run; retail 2)
 passFarDistBase = "${config.retail_ai.globals.passFarDistBase}"
 passFarDistMax = "${config.retail_ai.globals.passFarDistMax}"
 passExpectetdFarDistMax = "${config.retail_ai.globals.passExpectetdFarDistMax}"
@@ -148,131 +130,54 @@ passTrgDirDistExpectedRateRatio = "${config.retail_ai.globals.passTrgDirDistExpe
 throuthPassTargetLengthAdjustRate = "${config.retail_ai.globals.throuthPassTargetLengthAdjustRate}"
 
 [VRFW.MatchAI.Team]
-# the AI level its strategies and tactics read (Legendaria: 8; the game's tables gate theirs at 2-4): it plays the
-# duel pass-out, the «before the time runs out» and long-range breakthroughs, the super-reaction side step, the
-# sideways dribble, the forced striker shot and the wall marking in every match, also when the row's level is lower
 StrategyLevel = "${config.team.strategy_level}"
 # tension per second of play (HUD points; the game gives none by time, max 300)
 TensionPerSecond = "${config.team.tension_per_second}"
 # tension kept for the keeper's move (the game: 20, for one side only)
 KeeperTpReserve = "${config.team.keeper_tension_reserve}"
-# its own shoot zone: no shot lock, re-plans every 0.1 s, its conditions read the zone as 9 s old and a direct shot as
-# needed: it shoots (or chains) in the first frames; the log gets one line per zone decision and one when its carrier
-# holds the ball longer than zone_log_after_s without one
 ZoneShootNow = { replan_s = "${config.shoot_zone.shoot_now_replan_s}", elapsed_s = "${config.shoot_zone.shoot_now_elapsed_s}", direct = "${config.shoot_zone.shoot_now_direct}", watch_s = "${config.shoot_zone.zone_log_after_s}" }
 # its carrier in the area: the zone is asked at once; in the zone the chain if the game's decision has one, else the shot
 ZoneAct = { limit_s = "${config.shoot_zone.zone_act_limit_s}", retry_s = "${config.shoot_zone.zone_act_retry_s}" }
-# before shooting in its zone it looks at its teammates: when one has a clearly better shot (25 % better: the angle to
-# the goal, the element against your keeper, its shot power against your keeper's best stop, free of markers) it holds
-# the shot and passes (once per zone, at most 1.5 s), else it shoots at once
-# its wall players go to their walls and stay there until the walls end
 ZoneWallHold = "${config.shoot_zone.wall_hold}"
-# in your shoot zone, 2 more defenders besides the game's 2 walls stand on the line from your shooter to the goal
-# (3 m and 5.5 m in front of him) as blockers
 ZoneWallGuards = { extra = "${config.shoot_zone.wall_guards_extra}", from_m = "${config.shoot_zone.wall_guards_from_m}", spacing_m = "${config.shoot_zone.wall_guards_spacing_m}", range_m = "${config.shoot_zone.wall_guards_range_m}" }
 PassBeforeShot = { margin = "${config.passing.pass_before_shot_margin}", max_passes = "${config.passing.pass_before_shot_max_passes}", max_hold_s = "${config.passing.pass_before_shot_max_hold_s}", free_m = "${config.passing.pass_before_shot_free_m}", range_m = "${config.passing.pass_before_shot_range_m}" }
-# attacking in a duel: it reads the duel's time as twice as used, and as over from 60 %: it always breaks through or
-# passes out before the time runs out
 FocusHurry = { scale = "${config.focus_duel.hurry_scale}", force_at = "${config.focus_duel.hurry_force_at}" }
-# carrying the ball in a duel it never walks into the defender (that is how you close its space): the part of each duel
-# move toward him is turned backward (x back), the sideways part kept (x lateral); it leaves by a side step or a
-# breakthrough to one side
 FocusRetreat = { back = "${config.focus_duel.retreat_back}", lateral = "${config.focus_duel.retreat_lateral}" }
-# carrying the ball in a duel it reads your defender with a 0.15 s delay: it goes to the side your defender does not
-# cover (away from his last side step, his lean or the side he stands on), drifts away from a straight line, and
-# changes side late when you commit (80 %); 0.1 % of its reads miss
 FocusAttackRead = { react_s = "${config.focus_duel.attack_read_react_s}", error = "${config.errors.focus_duel_read_error}", feint = "${config.focus_duel.attack_read_feint}", drift_m = "${config.focus_duel.attack_read_drift_m}", lean_m = "${config.focus_duel.attack_read_lean_m}" }
-# the players' stamina: the PE of Aura Points (Character Reforged; its option «pe»); without it the stamina rules do
-# nothing
 StaminaResource = "VRFW.stamina"
-# sprints at the full rate above sprint_above stamina, never below sprint_below (so it does not reach the substitution
-# line too early)
-# calm possession off (calm_after_s 0): it never slows its sprints down while it holds the ball
 SprintByStamina = { above = "${config.stamina.sprint_above}", below = "${config.stamina.sprint_below}", rate = "${config.stamina.sprint_rate}", attack_rate = "${config.stamina.sprint_attack_rate}", calm_after_s = "${config.stamina.sprint_calm_after_s}", calm_mult = "${config.stamina.sprint_calm_mult}", calm_support_mult = "${config.stamina.sprint_calm_support_mult}" }
 # substitutes its most tired outfield player at a dead ball once his stamina is below 15 %
 SubstituteAtStamina = "${config.stamina.substitute_at_stamina}"
-# a bench forward whose element beats your keeper comes on for a forward without that advantage (dead balls, never in
-# the first 900 game seconds of the first half; at most 2 per match; a tired change at that dead ball goes first; the team captain is never the player taken off, by this rule or the tired one)
 SubstituteForElement = { after_s = "${config.stamina.element_substitute_after_s}", max = "${config.stamina.element_substitute_max}" }
 # move choice: always the best move (power, element, tension), always an element that beats yours when it has one
 BestMoveChance = "${config.moves.best_move_chance}"
 ElementCounter = "${config.moves.element_counter}"
 MoveCostWeight = "${config.moves.move_cost_weight}"
 LearnUserMoves = "${config.moves.learn_user_moves}"
-# it computes the power of every option of both players (stats, move power with the mods' rules, elements, the shot
-# in flight) and plays the cheapest one that wins: the keeper / blocker uses no move against a shot it cannot stop;
-# a blocker with a counter shot returns your shot when its counter is stronger, else blocks; it shoots with the
-# cheapest shot your keeper cannot stop; in duels the move with the best chance against yours (or your strongest).
-# strongest_shot_when_stopped = 1: when your keeper stops every shot it still shoots its move nearest to beating him.
-# margin: its power must be at least yours x this; save_tension = 1: no move when nothing wins; force = 1: a picked
-# keeper / block / shot move is always used. keeper_free_save (on unless 0): the keeper knows the kick's rolls: with a
-# «parada» it saves without a move, against a «brecha» it spends nothing. Switch a part off with keeper / blocks /
-# shots / duels = 0.
 PowerAware = { margin = "${config.moves.power_aware_margin}", save_tension = "${config.moves.power_aware_save_tension}", force = "${config.moves.power_aware_force}", strongest_shot_when_stopped = "${config.moves.power_aware_strongest_shot_when_stopped}" }
 AuraElementCounter = "${config.moves.aura_element_counter}"
 # the auras under the team's cap: the keeper first, slots freed when needed, a spirit's armour only with play near
 AuraPlan = { decide_s = "${config.auras.decide_s}", keeper_priority = "${config.auras.keeper_priority}", keeper_threat_m = "${config.auras.keeper_threat_m}", threat_calm_s = "${config.auras.threat_calm_s}", keeper_min_gauge = "${config.auras.keeper_min_gauge}", keep_slot_m = "${config.auras.keep_slot_m}", free_slot_wait_s = "${config.auras.free_slot_wait_s}", drop_near_m = "${config.auras.drop_near_m}", drop_far_m = "${config.auras.drop_far_m}", drop_gap_s = "${config.auras.drop_gap_s}", carrier_shot_m = "${config.auras.carrier_shot_m}", carrier_free_slot_chance = "${config.auras.carrier_free_slot_chance}", summon_later_s = "${config.auras.summon_later_s}", armour_delay_s = "${config.auras.armour_delay_s}", armour_min_gauge = "${config.auras.armour_min_gauge}", armour_near_m = "${config.auras.armour_near_m}", armour_shot_m = "${config.auras.armour_shot_m}", armour_idle_s = "${config.auras.armour_idle_s}", armour_rest_gauge = "${config.auras.armour_rest_gauge}" }
-AuraGaugeResource = "SpiritStaminaPoints.peg"
+AuraGaugeResource = "CharacterReforged.keshin_points"
 # the keeper bar the long-shot situation reads: the scoreboard's keeper bar
 KeeperBarSource = "keeper_hp"
-# when you press pass, the rivals nearest to the lanes to your 2 nearest teammates (25 m) run to the middle of
-# those lanes for 0.8 s, before the ball leaves
 PassLaneCut = { receivers = "${config.press.lane_cut_receivers}", at = "${config.press.lane_cut_at}", seconds = "${config.press.lane_cut_seconds}", range_m = "${config.press.lane_cut_range_m}" }
-# its forwards hunt your ball carrier: the 3 nearest to him (35 m) run at him, 7 % faster while they chase; a chaser
-# keeps his job unless another is 4 m nearer (no swaps), and your carrier's fixed marker (ManMarking) goes first
 KickoffPress = "${config.press.kickoff_press}"
 # nobody chases your keeper while he holds the ball in his hands
 KeeperHoldRespect = "${config.press.respect_keeper_hold}"
-# dash attacks all match, only with the ball: its carrier decides once for each of your players who comes ahead of him,
-# and a player whose dash attack touches someone starts none for block_after_contact_s; a slide that reaches a
-# charging carrier, of either team, takes the ball at slide_steal_chance
 ChargeCarrier = { block_after_contact_s = "${config.charge.block_after_contact_s}", opponent_ahead_m = "${config.charge.opponent_ahead_m}", chance_per_opponent = "${config.charge.chance_per_opponent}", duration_s = "${config.charge.duration_s}", slide_steal_chance = "${config.charge.slide_steal_chance}" }
 PressCarrier = { forwards = "${config.press.forwards}", midfielders = "${config.press.midfielders}", defenders = "${config.press.defenders}", range_m = "${config.press.range_m}", max = "${config.press.max}", speed_mult = "${config.press.speed_mult}", keep_m = "${config.press.keep_m}" }
-# when you attack, its 4 defenders hold one flat line just behind your most advanced forward (0.5 m) instead of
-# dropping deep; when you press pass or a through-ball lane to him opens, after 0.3 s it steps the line up 3.5 m
-# together for 0.7 s so he is caught offside (offside_trap_miss of the reads miss, then a cooldown_s pause); never with your carrier
-# 10 m from the line or in the box; off when the match has no offside; only while your carrier is between the
-# halfway line and a quarter of the pitch length into its half (zone_fraction), never deeper
 OffsideTrap = { defenders = "${config.offside_trap.defenders}", level_m = "${config.offside_trap.level_m}", step_m = "${config.offside_trap.step_m}", step_s = "${config.offside_trap.step_s}", reaction_s = "${config.offside_trap.reaction_s}", miss = "${config.errors.offside_trap_miss}", min_distance_m = "${config.offside_trap.min_distance_m}", box_m = "${config.offside_trap.box_m}", lane_m = "${config.offside_trap.lane_m}", range_m = "${config.offside_trap.range_m}", cooldown_s = "${config.offside_trap.cooldown_s}", zone_fraction = "${config.offside_trap.zone_fraction}" }
-# high man-to-man block while you hold the ball: after its counter-press (own_lost_ball_within below) every player
-# marks his fixed man (ManMarking) goal side and tight, all over the pitch (the caps sit past the halfway line), the
-# two nearest press your carrier; a player far from his spot runs back faster (all values: config.toml [low_block])
 LowBlock = { after_lost_s = "${config.low_block.after_lost_s}", forward_drop_m = "${config.low_block.forward_drop_m}", top_m = "${config.low_block.top_m}", compact_m = "${config.low_block.compact_m}", mark = "${config.low_block.mark}", mark_m = "${config.low_block.mark_m}", lane_bias = "${config.low_block.lane_bias}", range_m = "${config.low_block.range_m}", press = "${config.low_block.press}", recover_m = "${config.low_block.recover_m}", recover_mult = "${config.low_block.recover_mult}", max_markers = "${config.low_block.max_markers}", mark_zone_m = "${config.low_block.mark_zone_m}", mark_forwards = "${config.low_block.mark_forwards}" }
-# its shape: one role per player at a time, kept at least 1 s (no flips). Without the ball the players with no other
-# role keep their formation x on three flat lines: defenders 16 m behind the ball (at least 8 m from its goal line;
-# the offside / box line when one holds), midfielders 10 m in front of them, forwards 10 m further; with the ball
-# its 2 deepest defenders stay 25 m behind the ball as rest defence (never past the halfway line)
+# its shape: one role per player at a time, kept at least 1 s (no flips).
 Shape = { hold_s = "${config.shape.hold_s}", line_behind_ball_m = "${config.shape.line_behind_ball_m}", line_min_m = "${config.shape.line_min_m}", line_gap_m = "${config.shape.line_gap_m}", rest_defence = "${config.shape.rest_defence}", rest_gap_m = "${config.shape.rest_gap_m}" }
-# fixed man-marking pairs, made at kick-off and after substitutions: its defenders mark your forwards, its
-# midfielders your midfielders, its forwards your defenders; among those, a marker whose element beats his man's
-# first (worth 15 m across the pitch), one whose element loses to his man's last (25 m), then the nearest across;
-# the players left over pair across roles. Your carrier's marker presses him first when within 15 m
 ManMarking = { defenders = "${config.man_marking.defenders}", midfielders = "${config.man_marking.midfielders}", forwards = "${config.man_marking.forwards}", fill = "${config.man_marking.fill}", distance_weight = "${config.man_marking.distance_weight}", advantage_weight = "${config.man_marking.advantage_weight}", disadvantage_penalty = "${config.man_marking.disadvantage_penalty}", press_m = "${config.man_marking.press_m}" }
-# your carrier within 25 m of its goal: 2 defenders stand by its keeper (4 m out on the ball's line, 1.5 m apart:
-# the players its zone walls are built from), the other defenders one flat line 9 m out, 3 m apart (no gaps)
 BoxLine = { near_m = "${config.box_line.near_m}", keeper_pair = "${config.box_line.keeper_pair}", keeper_m = "${config.box_line.keeper_m}", pair_gap_m = "${config.box_line.pair_gap_m}", line_m = "${config.box_line.line_m}", gap_m = "${config.box_line.gap_m}", min_ball_m = "${config.box_line.min_ball_m}", width_m = "${config.box_line.width_m}" }
-# your pass to a teammate within 30 m of its goal, or your shot passing within 4 m of a teammate there, is read as a
-# shot chain: 2 players (the keeper pair first) stand on the line from that point to the goal (2 m, then 2 m apart)
-# until the ball arrives plus 1 s
 ShotChainRead = { range_m = "${config.shot_chain_read.range_m}", chain_m = "${config.shot_chain_read.chain_m}", blockers = "${config.shot_chain_read.blockers}", from_m = "${config.shot_chain_read.from_m}", spacing_m = "${config.shot_chain_read.spacing_m}", hold_s = "${config.shot_chain_read.hold_s}" }
-# your passes are read at the kick from the game's own landing point and flight time: its 2 nearest defenders /
-# midfielders within 30 m sprint at once to the first point of the pass they reach before the ball (a lob: its
-# landing point), else to the landing point, until the ball gets there
 PassRead = { players = "${config.pass_read.players}", reaction_s = "${config.pass_read.reaction_s}", range_m = "${config.pass_read.range_m}", run_speed_mps = "${config.pass_read.run_speed_mps}", hold_s = "${config.pass_read.hold_s}", sprint = "${config.pass_read.sprint}", min_flight_s = "${config.pass_read.min_flight_s}", lob_vertical_mps = "${config.pass_read.lob_vertical_mps}", defenders = "${config.pass_read.defenders}", midfielders = "${config.pass_read.midfielders}", forwards = "${config.pass_read.forwards}" }
-# your through balls (landing 4 m beyond the receiver or behind its last defender): 2 players race for it (one to the
-# ball, one goal side of the landing point) and its other defenders above it run back; without the ball its back line
-# stays 2 m goal side of your deepest player and 18 m behind the ball while your carrier is not pressed
 ThroughBallCover = { lead_m = "${config.through_ball_cover.lead_m}", chasers = "${config.through_ball_cover.chasers}", goal_side_m = "${config.through_ball_cover.goal_side_m}", range_m = "${config.through_ball_cover.range_m}", drop = "${config.through_ball_cover.drop}", line_min_m = "${config.through_ball_cover.line_min_m}", runner_cover_m = "${config.through_ball_cover.runner_cover_m}", pressure_m = "${config.through_ball_cover.pressure_m}", free_gap_m = "${config.through_ball_cover.free_gap_m}" }
-# your carrier behind its last outfield player and running at its goal: 2 players (defenders first) to the wall spots of
-# its shoot zone, 1 after him, 1 between him and the goal, chosen once until it ends; nobody else chases (config.toml [behind_line])
 BehindLineCover = { walls = "${config.behind_line.walls}", enter_m = "${config.behind_line.enter_m}", enter_s = "${config.behind_line.enter_s}", moving_mps = "${config.behind_line.moving_mps}", stopped_mps = "${config.behind_line.stopped_mps}", end_after_s = "${config.behind_line.end_after_s}", level_m = "${config.behind_line.level_m}", level_near_m = "${config.behind_line.level_near_m}", again_after_s = "${config.behind_line.again_after_s}", zone_scale = "${config.shoot_zone.user_box_scale}", wall_from_zone_edge_m = "${config.behind_line.wall_from_zone_edge_m}", wall_gap_m = "${config.behind_line.wall_gap_m}", wall_ball_gap_m = "${config.behind_line.wall_ball_gap_m}", wall_min_goal_m = "${config.behind_line.wall_min_goal_m}", middle_m = "${config.behind_line.middle_m}", middle_max_rate = "${config.behind_line.middle_max_rate}", sprint = "${config.behind_line.sprint}" }
-# its passes reach the receiver 5 % sooner than the game's (the arrival time x 1/1.05; your passes keep the game's):
-# ground passes roll faster, lobs fly flatter, and the ball meets the receiver on his run
 PassSpeed = "${config.passing.pass_speed}"
-# counter-attacks: when it wins the ball in open play with at most 6 of your players between the ball and your goal,
-# for 4 s its 3 most advanced forwards / midfielders sprint forward at once, each in his own channel 10 m apart, to
-# 14 m ahead, never past your second-last player (1 m onside); it stops 22 m from your goal (its own attack takes
-# over). While you attack in its half, its most advanced forward waits 1 m inside its half as the outlet.
 CounterRuns = { window_s = "${config.counter.window_s}", runners = "${config.counter.runners}", channel_m = "${config.counter.channel_m}", ahead_m = "${config.counter.ahead_m}", onside_m = "${config.counter.onside_m}", goal_gap_m = "${config.counter.goal_gap_m}", end_m = "${config.counter.end_m}", max_behind = "${config.counter.max_behind}", sprint = "${config.counter.sprint}", outlets = "${config.counter.outlets}", outlet_m = "${config.counter.outlet_m}" }
 
 # A player of yours just received a pass from a teammate: more rivals press him (2 s).
@@ -283,7 +188,6 @@ Value = "${config.situations.opponent_received_pass_within.value}"
 uPressCharaNumMax = "${config.situations.opponent_received_pass_within.uPressCharaNumMax}"
 uNoStopPressCharaNumMax = "${config.situations.opponent_received_pass_within.uNoStopPressCharaNumMax}"
 
-# Your ball owner is tired (stamina below 35 %): more rivals press him.
 [[VRFW.MatchAI.If]]
 When = "opponent_ball_owner_stamina_below"
 Value = "${config.situations.opponent_ball_owner_stamina_below.value}"
@@ -346,9 +250,6 @@ posOffsetRateFW = "${config.situations.own_lost_ball_over.posOffsetRateFW}"
 posOffsetRateMF = "${config.situations.own_lost_ball_over.posOffsetRateMF}"
 posOffsetRateDF = "${config.situations.own_lost_ball_over.posOffsetRateDF}"
 
-# It just won the ball (first 4 s): counter, vertical passes toward your goal (long balls and through-balls to the
-# runners: success kept up to 50 m, value up to 40 m, the through-ball x3 into space), few back passes, frequent sprint
-# runs, the team pushes up (position offset toward your goal 8 m x 2; retail 4 x 1.4).
 [[VRFW.MatchAI.If]]
 When = "own_possession_under"
 Value = "${config.situations.own_possession_under.value}"
@@ -365,8 +266,6 @@ offensePosOffsetDistRateOffense = "${config.situations.own_possession_under.offe
 dashLineDashLotteryIntervalMin = "${config.situations.own_possession_under.dashLineDashLotteryIntervalMin}"
 dashLineDashLotteryIntervalMax = "${config.situations.own_possession_under.dashLineDashLotteryIntervalMax}"
 
-# A longer possession stays vertical: passes toward goal, almost no back passes, dribbles forward, frequent sprints
-# with the ball, the lines push up.
 [[VRFW.MatchAI.If]]
 When = "own_possession_over"
 Value = "${config.situations.own_possession_over.value}"
@@ -382,9 +281,6 @@ dashLineDashLotteryIntervalMax = "${config.situations.own_possession_over.dashLi
 posOffsetRateFW = "${config.situations.own_possession_over.posOffsetRateFW}"
 posOffsetRateDF = "${config.situations.own_possession_over.posOffsetRateDF}"
 
-# It holds the ball and your deepest outfield player stands 30 m or more in front of your goal (a high line): it looks
-# for the ball over the top into the space behind (long passes valued up to 40 m, success kept up to 50 m, through-balls
-# x3 into space, forward passes valued again).
 [[VRFW.MatchAI.If]]
 When = "opponent_line_over"
 Value = "${config.situations.opponent_line_over.value}"
@@ -395,9 +291,6 @@ passFarDistMax = "${config.situations.opponent_line_over.passFarDistMax}"
 passExpectetdFarDistMax = "${config.situations.opponent_line_over.passExpectetdFarDistMax}"
 throuthPassTargetLengthAdjustRate = "${config.situations.opponent_line_over.throuthPassTargetLengthAdjustRate}"
 
-# Pressed: one of your players within 4.5 m of its carrier (a player you send to press counts from 9 m) - it
-# releases at once: a pass decision every frame, no wait, the pass always allowed, the carrier free to sprint away.
-# Checked every frame, so it switches on the moment you close in.
 [[VRFW.MatchAI.If]]
 When = "own_carrier_pressed_within"
 Value = "${config.situations.own_carrier_pressed_within.value}"
@@ -419,7 +312,7 @@ When = "own_zone"
 [VRFW.MatchAI.If.Rates]
 keepTention = "${config.situations.own_zone.keepTention}"
 
-# Your carrier behind its line (BehindLineCover): the game's own press adds nobody. The last layer, over the press situations above.
+# Your carrier behind its line (BehindLineCover): the game's own press adds nobody.
 [[VRFW.MatchAI.If]]
 When = "opponent_carrier_behind_line"
 [VRFW.MatchAI.If.Global]
@@ -428,8 +321,7 @@ uNoStopPressCharaNumMax = "${config.situations.opponent_carrier_behind_line.uNoS
 
 # ------------------------------------------------------------------------------------------------ both teams
 
-# The defensive action range of both teams halved (on purpose for both). The game keeps it squared
-# (25 = 5 m), so half the distance = x 0.25.
+# The defensive action range of both teams halved (on purpose for both).
 [[VRFW.MatchAI]]
 Name = "LegendaryAI.FieldRange"
 Side = "both"
@@ -437,9 +329,7 @@ Side = "both"
 [VRFW.MatchAI.Global]
 canDefenseActionLen2 = { mult = "${config.retail_ai.field_range.canDefenseActionLen2_mult}" }
 
-# Move against move in a focus duel: the higher power always wins, for both teams, at every level. The game's table gives
-# the stronger side 50 % up to x 1.2 and 60 % up to x 1.5. Here the first row covers only an exact tie (still 50 %) and the
-# second row is skipped, so any other ratio is past the table.
+# Move against move in a focus duel: the higher power always wins, for both teams, at every level.
 [[VRFW.MatchAI]]
 Name = "LegendaryAI.StrongerWins"
 Side = "both"

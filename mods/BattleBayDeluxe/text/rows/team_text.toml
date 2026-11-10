@@ -1,10 +1,8 @@
-# The Draft team's name (0x120BBDC0 = crc32("evt_bbd_draft_name"), the team type's default name text) and description
-# (0x479D6F92, teams/50_draft.toml `description`),
 schema = "VRFW.text/2"
 table = "team_text"
 
 [[row]]
-id = 0x479D6F92  # Elige 1 de 5 jugadores para cada puesto y juega la Campaña con tu equ…
+id = 0x479D6F92
 kind = "text"
 es = "Elige 1 de 5 jugadores para cada puesto\\ny juega la Campaña con tu equipo."
 en = "Pick 1 of 5 players for every position\\nand play the Campaign with your team."
@@ -17,7 +15,7 @@ zh_hans = "每个位置从5名球员中选择1名，\\n用你的球队参加战�
 zh_hant = "每個位置從5名球員中選擇1名，\\n用你的球隊參加戰役。"
 
 [[row]]
-id = 0x120BBDC0  # Draft
+id = 0x80EAE77E  # Draft
 es = "Draft"
 en = "Draft"
 fr = "Draft"
@@ -28,10 +26,8 @@ ja = "ドラフト"
 zh_hans = "选秀"
 zh_hant = "選秀"
 
-# The «Active team» tile (1.5.61, teams/51_active_team.toml): its name (0xD3032435 = crc32("evt_bbd_active_team_name"),
-# the team type's default name text) and description (0x8695F667 = crc32("evt_bbd_active_team_desc")).
 [[row]]
-id = 0x8695F667  # Juega con tu equipo activo, sin draft.
+id = 0x44A219CB
 kind = "text"
 es = "Juega con tu equipo activo, sin draft."
 en = "Play with your active team, no draft."
@@ -44,7 +40,32 @@ zh_hans = "使用你的当前队伍比赛，无需选秀。"
 zh_hant = "使用你的當前隊伍比賽，無需選秀。"
 
 [[row]]
-id = 0xD3032435  # Equipo activo
+id = "battlebaydeluxe_personal_team_description"
+kind = "text"
+es = "Juega con este equipo guardado, sin draft."
+en = "Play with this saved team, no draft."
+fr = "Joue avec cette équipe enregistrée, sans draft."
+de = "Spiele mit diesem gespeicherten Team, ohne Draft."
+it = "Gioca con questa squadra salvata, senza draft."
+pt = "Joga com esta equipa guardada, sem draft."
+ja = "保存したこのチームでプレイ。ドラフトなし。"
+zh_hans = "使用这支已保存的队伍比赛，无需选秀。"
+zh_hant = "使用這支已儲存的隊伍比賽，無需選秀。"
+
+[[row]]
+id = "battlebaydeluxe_personal_team_name"
+es = "Equipo personal"
+en = "Personal team"
+fr = "Équipe personnelle"
+de = "Persönliches Team"
+it = "Squadra personale"
+pt = "Equipa pessoal"
+ja = "パーソナルチーム"
+zh_hans = "个人球队"
+zh_hant = "個人球隊"
+
+[[row]]
+id = 0x1134CB99  # Equipo activo
 es = "Equipo activo"
 en = "Active team"
 fr = "Équipe active"

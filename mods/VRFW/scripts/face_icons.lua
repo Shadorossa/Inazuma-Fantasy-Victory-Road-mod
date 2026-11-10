@@ -1,12 +1,8 @@
--- Face icon rules: reads every mod's content/face_icons/*.toml (`VRFW.face_icon/1`) and feeds the native hook FaceIcons.Composite (content/game/face_icons.toml).
--- mode "face_only": a menu face icon drawn with the kit bust (type 9) is drawn face only (type 10) for a declared rarity, or a declared character key when asked without a card.
--- CMND_VRFW_FACE_ICON(hdl[, key]) -> mode (0 = the game's, 10 = face only), live
 
 FaceIcons = FaceIcons or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("face_icons")
 
 local T_RARITY, T_KEY = "VRFW.FaceIcon.Rarity", "VRFW.FaceIcon.Key"

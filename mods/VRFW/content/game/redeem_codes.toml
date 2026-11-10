@@ -1,7 +1,6 @@
 schema = "VRFW.game/2"
 
-# The redeem codes the mods declare (content\redeem_codes\*.toml), served by scripts\redeem_codes.lua. Game Lua side:
-# assets\lua\menu\post_menu\100_redeem_codes.lua (the mailbox's password entry).
+# The redeem codes the mods declare (content\redeem_codes\*.toml), served by scripts\redeem_codes.lua.
 
 # (typed text) -> { FLAG, REWARDS = { { item, count } … } }; nothing for a code no active mod declares
 [[VRFW.Command]]

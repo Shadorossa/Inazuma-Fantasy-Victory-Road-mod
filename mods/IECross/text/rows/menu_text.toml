@@ -1,6 +1,3 @@
-# Menu texts of Inazuma Eleven Cross (VR-Framework text type; id = crc32 of the row id): the name of the mod's
-# «Competir contra bots» tab and of its Bahía Batalla season (content/teams/free_match_tab.toml), read by the
-# framework's Lua with CMND_TEXT_GET.
 schema = "VRFW.text/2"
 table = "menu_text"
 

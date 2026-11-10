@@ -1,7 +1,4 @@
 schema = "VRFW.text/2"
-# Hissatsu Reforged › the «Crítico» archetype's build passives (retail «Brecha»: ps10052-ps10059 and the keepers'
-# ps10113) and its charge texts: they all say critical now; the values are config.toml [critical]. Fixed ids: the
-# retail skill_text rows.
 table = "skill_text"
 
 [[row]]
@@ -95,10 +92,8 @@ ja = "[同点/どうてん]または[不利時/ふりじ]\\nチームのクリ�
 zh_hans = "平手或落后时，本队球员暴击率<PASSIVE_COLOR>+<VALUE>%[C]<OVER_PASSIVE_INFO>"
 zh_hant = "同分或不利時，隊伍暴擊率<PASSIVE_COLOR>+<VALUE>%[C]<OVER_PASSIVE_INFO>"
 
-# The «Crítico» charge (5 ranks, scripts/critical.lua; config.toml [critical] rank_up_seconds / rank_down_on_crit /
-# levels / keeper_levels): the build's rank rules and per-rank effect (retail team_build_config texts).
 [[row]]
-id = 0xB8413694  # rank up: no breach or save for N s -> no team critical for N s
+id = 0xB8413694
 kind = "text"
 es = "Rango +<VALUE1> al no ocurrir críticos del equipo durante <VALUE> seg."
 en = "No team Critical Hits for <VALUE> sec: Rank +<VALUE1>"
@@ -124,7 +119,7 @@ zh_hans = "打出暴击时，下降<VALUE>阶段"
 zh_hant = "打出暴擊時，下降<VALUE>階段"
 
 [[row]]
-id = 0x5562CE2D  # per rank: breach + save rate -> critical + keeper critical rate
+id = 0x5562CE2D
 kind = "text"
 es = "Tasa de crítico +<VALUE1> % y crítico de porteros +<VALUE2> %\\npor cada subida de rango"
 en = "For each Charge gained,\\nCritical Rate +<VALUE1>% and Keeper Critical Rate +<VALUE2>%"
@@ -204,7 +199,7 @@ zh_hans = "打出暴击时恢复士气[CPASSIVE01]+<VALUE>%[C]"
 zh_hant = "打出暴擊時恢復士氣[CPASSIVE01]+<VALUE>%[C]"
 
 [[row]]
-id = 0xAF674C7E  # tension breach cost (passive list) -> tension on a critical
+id = 0xAF674C7E
 kind = "noun"
 es = "Tensión recuperada al lograr un crítico <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO>"
 en = "Team Tension regained on a Critical Hit <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO>"

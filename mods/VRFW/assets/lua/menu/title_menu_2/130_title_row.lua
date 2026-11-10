@@ -1,119 +1,63 @@
--- title_row (VRFW, menu engine): the title's mode row (the upper buttons of title_menu_2) holds the buttons the
--- mods DECLARE, at the place their `order` gives them among the game's own buttons.;
--- handlers of the framework's title_menu_2 host (VRFW_Host). No engine call at load time.
---
--- A mod declares a button in its menus\*.toml (menu type, host "title_menu_2.upper"):
---   [[entry]] host = "title_menu_2.upper"  id  text (label key)  icon ("<atlas>:<sprite>")  order / after  action
---   [entry.title] plate = [on, off]  flavor (balloon key)  players  item  locked  locked_text  gate
--- and takes a game button out with [[hide]] target = "title_menu_2.upper/<title item>" (`vs_mode`, a number...). The
--- framework served the title files with as many upper instances as the row has (mods_screen: the game's buttons the
--- mods keep + the declared ones); here every retail accessor of the row is answered for the declared buttons and
--- re-pointed for the game's own (they keep their art, label, balloon and request from the title's own tables, whatever
--- the mods made of them). Nothing here names a mod, a mode or a list index: the game's buttons are ordered by their
--- place in the retail row (100 x place: Historia 100 ... Guardar 800), the declared ones by their `order`.
---
--- Press (A, or another title code pressing a title item id through OnEnter, e.g. a top-bar hand-off):
---   locked   (`locked` Lua says so, or the `mode` is off / locked) -> retail buzzer + `locked_text` window; nothing else
---   gate     `gate` Lua returns true to go on (false: it gave its own feedback)
---   open_menu  the menu opens as a child of the title, the title waits and takes input back when it closes
---   root_menu  the menu opens as the root of its own menu scene (play mode 1, matches start from it): black, the
---              game kept in memory, reset straight into it (VRFW_Reset.straight); its way out is the reset to the
---              title (VRFW_Reset.to_title), which focuses the button again. No carry: nothing happens (buzzer)
---   lua        the global function runs (key, position); its return value is OnEnter's
---   command    funcLuaCommand(crc32(name), key)
---   title      the button presses that retail title item (its request; e.g. "option" = the save load of Opciones);
---              the title focuses the button again when it comes back
---   mode       VRFW_Mode.start(mode key, "title_row", position)
---   group      the row turns in place into the group's sub-row: its members (entries with group = "<key>"), centred,
---              the other instances hidden; B (or Esc / right click) turns it back, the group's button focused
--- A group's members are not in the row; a group without members is not either (the build's count agrees).
--- Public: VRFW_TitleRow.stays(id) = a declared button that runs inside the title; .item(key) = its title item id;
--- .position(key) = its place in the row; .retail(fn, ...) = fn with the row's handlers passing on.
 
-local function TR_Crc(s)
-  local crc = 0xFFFFFFFF
-  for i = 1, #s do
-    crc = bit32.bxor(crc, string.byte(s, i))
-    for _ = 1, 8 do
-      if bit32.band(crc, 1) ~= 0 then
-        crc = bit32.bxor(bit32.rshift(crc, 1), 0xEDB88320)
-      else
-        crc = bit32.rshift(crc, 1)
-      end
-    end
-  end
-  return bit32.bxor(crc, 0xFFFFFFFF)
-end
 
 local TR = {
   HOST = "title_menu_2.upper",
   UPPER = 2250456639,       -- title00_07_item_button_upper
-  NAME = 3180406576,        -- title02_03_item_name_2 (the labels: upper instances first, then the lower ones)
+  NAME = 3180406576,
   MENU = 3874253475,        -- title_menu_2
   CURSOR = 24113234,        -- cmn05_01_coursor
-  COUNT = VRFW_Cmd.VRFW_MENU_ENTRY_COUNT,       -- CMND_VRFW_MENU_ENTRY_COUNT (host)
-  ENTRY = VRFW_Cmd.VRFW_MENU_ENTRY,       -- CMND_VRFW_MENU_ENTRY (host, i)
-  HIDDEN = TR_Crc("CMND_VRFW_MENU_HIDDEN_LIST"),
-  TEXT_KEY = VRFW_Cmd.VRFW_TEXT_GET,     -- CMND_VRFW_TEXT_GET (key)
-  TEXT_ID = VRFW_Cmd.TEXT_GET,     -- CMND_TEXT_GET (id)
-  SET_TEXT = VRFW_Cmd.SET_MENU_TEXT_STRING,    -- CMND_SET_MENU_TEXT_STRING (layer, node, text, index)
+  COUNT = VRFW.commands.VRFW_MENU_ENTRY_COUNT,       -- CMND_VRFW_MENU_ENTRY_COUNT (host)
+  ENTRY = VRFW.commands.VRFW_MENU_ENTRY,       -- CMND_VRFW_MENU_ENTRY (host, i)
+  HIDDEN = VRFW.ids.crc32("CMND_VRFW_MENU_HIDDEN_LIST"),
+  TEXT_KEY = VRFW.commands.VRFW_TEXT_GET,     -- CMND_VRFW_TEXT_GET (key)
+  TEXT_ID = VRFW.commands.TEXT_GET,     -- CMND_TEXT_GET (id)
+  SET_TEXT = VRFW.commands.SET_MENU_TEXT_STRING,    -- CMND_SET_MENU_TEXT_STRING (layer, node, text, index)
   EXPLAIN = 499981750,      -- _text_explain01 of the flavour balloon
-  LOG = VRFW_Cmd.EVT_LOG,         -- CMND_EVT_LOG
-  SOUND = VRFW_Cmd.SND_PLAY_SE,
+  SOUND = VRFW.commands.SND_PLAY_SE,
   BUZZER = 2086672038,      -- sy0003
   DECIDE = 766561556,       -- sy0080
-  OPEN_MENU = VRFW_Cmd.OPEN_MENU_OBJECT,    -- CMND_OPEN_MENU_OBJECT
-  IS_MENU = VRFW_Cmd.IS_EXIST_MENU_OBJECT,     -- CMND_IS_EXIST_MENU_OBJECT (funcLuaMenuCommand)
-  CHILD = 2039986631,       -- the title's own switch while a child menu runs (as the retail Guardar flow)
+  OPEN_MENU = VRFW.commands.OPEN_MENU_OBJECT,    -- CMND_OPEN_MENU_OBJECT
+  IS_MENU = VRFW.commands.IS_EXIST_MENU_OBJECT,     -- CMND_IS_EXIST_MENU_OBJECT (funcLuaMenuCommand)
+  CHILD = 2039986631,
   INPUT = 1558704558,       -- menu input on / off
-  VISIBLE = VRFW_Cmd.SET_LAYER_VISIBLE,      -- CMND_SET_LAYER_VISIBLE
+  VISIBLE = VRFW.commands.SET_LAYER_VISIBLE,      -- CMND_SET_LAYER_VISIBLE
   MSG = 2289627655, MSG_BUSY = 898725220, MSG_DONE = 682363669,   -- the system message window
   FADE = 609722083, FADE_DONE = 2259183189,   -- (on, seconds) the screen fade to black; it is done
-  FOCUS_KEY = TR_Crc("vrfw_title_row_focus"),
-  -- the players mark after a label (retail gaiji texts: «1», «1-2», «1-3» players)
+  FOCUS_KEY = VRFW.ids.crc32("vrfw_title_row_focus"),
+  -- the players mark after a label (retail gaiji texts: "1", "1-2", "1-3" players)
   GAIJI = {[1] = 3337686268, [2] = 3561086357, [3] = 433723010},
   LIST_NUM = 3252599449,    -- (layer, n): the focusable instances of a layer
   FOCUS_SET = 1778826357,   -- (layer, idx, on): the control focus on / off an instance
-  FOCUS_GET = 2603265800,   -- (layer) -> the instance the control focus is on
+  FOCUS_GET = 2603265800,   -- (layer) -> the instance the control focus is on.
   CTRL = 3518307824,        -- CMND_SET_ENABLE_CTRL_FOCUS (layer, on)
   ZONE = 855005857,         -- (layer, idx, on): an instance's pointer zone
   BACK = 1522007426,        -- the retail back sound of the title
-  IDX0 = 64,                -- list indexes of the declared buttons (the game uses 1..11, the «Mods» button 40)
-  EMPTY = 63,               -- list index of an instance the row has no button for
+  IDX0 = 64,
+  EMPTY = 63,               -- List index of an instance the row has no button for.
   ID = "menu_engine.title_row",
   T = "title_menu_2",
 }
 
 local tr = {
-  ready = false,            -- SetupItemButtonNum ran in this title (the row is laid out on its instances)
-  row = nil,                -- nil = not built; false = nothing declared or hidden (every handler passes on)
-  raw = false,              -- the handlers pass on (the game's own code asks with its own positions)
+  ready = false,
+  row = nil,
+  raw = false,
   co = nil,                 -- the open_menu wait / the locked message
-  press = nil,              -- {pos, id}: a «title» press in flight: that position answers that title item
-  restore = nil,            -- {item}: the title came back from a «title» press of this button
+  press = nil,
+  restore = nil,
   view = nil,               -- the open group: {key, lo, hi, from} (nil = the row itself)
-  focus = nil,              -- the upper instance the focus was last put on (the direction of the next move)
-  zone_off = {},            -- upper instance -> true: its pointer zone is off (an empty instance)
+  focus = nil,
+  zone_off = {},
   logged = {},
 }
 
-local function TR_Log(...)
-  pcall(funcLuaCommand, TR.LOG, "title_row", ...)
-end
+local TR_Log = VRFW.logger.new("title_row")
 
 local function TR_Once(k, ...)
   if not tr.logged[k] then
     tr.logged[k] = true
     TR_Log(...)
   end
-end
-
-local function TR_Call(cmd, ...)
-  local r = table.pack(pcall(funcLuaCommand, cmd, ...))
-  if not r[1] then
-    return nil
-  end
-  return table.unpack(r, 2, r.n)
 end
 
 -- a title item: a number as written, or crc32 of the name
@@ -124,7 +68,7 @@ local function TR_Id(s)
   if type(s) ~= "string" or s == "" then
     return 0
   end
-  return tonumber(s) or TR_Crc(s)
+  return tonumber(s) or VRFW.ids.crc32(s)
 end
 
 -- a menu_text row (id = crc32 of the key) first, then the text engine's key (a mod's text.toml)
@@ -132,9 +76,9 @@ local function TR_Text(key)
   if type(key) ~= "string" or key == "" then
     return ""
   end
-  local s = TR_Call(TR.TEXT_ID, TR_Crc(key))
+  local s = VRFW.host.command(TR.TEXT_ID, VRFW.ids.crc32(key))
   if type(s) ~= "string" or s == "" then
-    s = TR_Call(TR.TEXT_KEY, key)
+    s = VRFW.host.command(TR.TEXT_KEY, key)
   end
   return type(s) == "string" and s or ""
 end
@@ -142,22 +86,20 @@ end
 -- the declared buttons, in the menu engine's order
 local function TR_Entries()
   local out = {}
-  local n = TR_Call(TR.COUNT, TR.HOST)
+  local n = VRFW.host.command(TR.COUNT, TR.HOST)
   if type(n) ~= "number" then
     return out
   end
   for i = 1, n do
-    local r = table.pack(pcall(funcLuaCommand, TR.ENTRY, TR.HOST, i))
-    if r[1] and type(r[2]) == "string" then
-      -- key, text, icon, kind, value, owner, valueId, menus, path, group, aspect, order, plateOn, plateOff, flavor,
-      -- players, item, locked, lockedText, gate
-      local e = {key = r[2], text = r[3], kind = r[5], value = tostring(r[6] or ""), order = tonumber(r[13]) or 1000,
-                 flavor = r[16], players = tonumber(r[17]) or 1, locked_fn = r[19], locked_text = r[20], gate = r[21],
-                 group = type(r[11]) == "string" and r[11] or ""}
-      local spr = tostring(r[4] or ""):match("([^:]+)$")
-      e.plate = {(r[14] and r[14] ~= "") and TR_Crc(r[14]) or 0, (r[15] and r[15] ~= "") and TR_Crc(r[15]) or 0,
-                 spr and TR_Crc(spr) or 0}
-      e.item = (type(r[18]) == "string" and r[18] ~= "") and TR_Id(r[18]) or TR_Crc(e.key)
+    local r = table.pack(VRFW.host.command(TR.ENTRY, TR.HOST, i))
+    if type(r[1]) == "string" then
+      local e = {key = r[1], text = r[2], kind = r[4], value = tostring(r[5] or ""), order = tonumber(r[12]) or 1000,
+                 flavor = r[15], players = tonumber(r[16]) or 1, locked_fn = r[18], locked_text = r[19], gate = r[20],
+                 group = type(r[10]) == "string" and r[10] or ""}
+      local spr = tostring(r[3] or ""):match("([^:]+)$")
+      e.plate = {(r[13] and r[13] ~= "") and VRFW.ids.crc32(r[13]) or 0, (r[14] and r[14] ~= "") and VRFW.ids.crc32(r[14]) or 0,
+                 spr and VRFW.ids.crc32(spr) or 0}
+      e.item = (type(r[17]) == "string" and r[17] ~= "") and TR_Id(r[17]) or VRFW.ids.crc32(e.key)
       e.as = e.kind == "title" and TR_Id(e.value) or nil
       e.idx = TR.IDX0 + #out
       if e.plate[1] == 0 then
@@ -172,7 +114,7 @@ end
 -- the game's buttons the mods take out: their title items
 local function TR_Hidden()
   local set, any = {}, false
-  local s = TR_Call(TR.HIDDEN, TR.HOST)
+  local s = VRFW.host.command(TR.HIDDEN, TR.HOST)
   if type(s) == "string" then
     for k in string.gmatch(s, "[^,]+") do
       if not string.find(k, ".", 1, true) then
@@ -185,8 +127,8 @@ local function TR_Hidden()
 end
 
 local function TR_Locked(e)
-  if e.kind == "mode" and type(VRFW_Mode) == "table" then
-    if not VRFW_Mode.on(e.value) or not VRFW_Mode.unlocked(e.value) then
+  if e.kind == "mode" and type(VRFW.mode) == "table" then
+    if not VRFW.mode.on(e.value) or not VRFW.mode.unlocked(e.value) then
       return true
     end
   end
@@ -206,8 +148,6 @@ local function TR_Locked(e)
   return false
 end
 
--- the row: the game's buttons as the title's own GetItemListIdx gives them (minus the hidden ones), the declared
--- buttons merged in by order; laid out on the instances the title has
 local function TR_Build()
   tr.row = false
   local all = TR_Entries()
@@ -230,7 +170,7 @@ local function TR_Build()
   if #entries == 0 and not any_hidden then
     return
   end
-  local h = VRFW_Host.hosts and VRFW_Host.hosts[TR.T]
+  local h = VRFW.host.hosts and VRFW.host.hosts[TR.T]
   local L = h and h.L
   local rt3, rt8 = nil, nil
   if L ~= nil then
@@ -243,9 +183,9 @@ local function TR_Build()
     end
   end
   if any_hidden and type(rt8) ~= "table" then
-    TR_Once("nohide", "the retail title items are not readable (EVT_DEBUG off?): [[hide]] of the game's buttons not applied")
+    TR_Once("nohide", "the retail title items are not readable (VRFW.debug off?): [[hide]] of the game's buttons not applied")
   end
-  local get_idx = VRFW_Host.original(TR.T, "GetItemListIdx")
+  local get_idx = VRFW.host.original(TR.T, "GetItemListIdx")
   local base, gone, last = {}, {}, 0
   local blen = 0
   for i = 0, 31 do
@@ -338,9 +278,6 @@ local function TR_Slot(pos, upper)
   return r and r.slots[pos + 1] or nil
 end
 
--- ---- empty instances ---------------------------------------------------------------------------------------------------
--- an empty instance (a hidden button, a group's unused place, a place the row has no button for) is out of the focus
--- graph: a move onto it goes on to the next shown instance in the same direction, or stays where it was
 local function TR_Shown(r, p)
   local s = r.slots[p + 1]
   return s ~= nil and not s.empty
@@ -376,7 +313,7 @@ local function TR_Zone(r, p)
     return
   end
   tr.zone_off[p] = off or nil
-  pcall(funcLuaMenuCommand, TR.ZONE, TR.UPPER, p, not off)
+  VRFW.host.menu_command(TR.ZONE, TR.UPPER, p, not off)
 end
 
 local function TR_Label(e)
@@ -384,14 +321,13 @@ local function TR_Label(e)
   if s == "" then
     s = e.key
   end
-  local g = TR_Call(TR.TEXT_ID, TR.GAIJI[e.players] or TR.GAIJI[1])
+  local g = VRFW.host.command(TR.TEXT_ID, TR.GAIJI[e.players] or TR.GAIJI[1])
   if type(g) == "string" and g ~= "" then
     s = s .. "  " .. g
   end
   return s
 end
 
--- ---- presses -----------------------------------------------------------------------------------------------------------
 local function TR_Busy()
   return tr.co ~= nil
 end
@@ -437,17 +373,16 @@ local function TR_RootCo(e, menu)
   while not funcLuaCommand(TR.FADE_DONE) do
     coroutine.yield()
   end
-  -- a menu scene under the title (the 3D map) goes with the old rpg scene
-  local okm, state = pcall(funcLuaCommand, VRFW_Cmd.VRFW_MENU_SCENE_STATE)
-  if okm and state == "up" then
-    pcall(funcLuaCommand, VRFW_Cmd.VRFW_MENU_SCENE_SET, "leaving", "title row " .. e.key .. ": root_menu " .. e.value)
+  local state = VRFW.host.command(VRFW.commands.VRFW_MENU_SCENE_STATE)
+  if state == "up" then
+    VRFW.host.command(VRFW.commands.VRFW_MENU_SCENE_SET, "leaving", "title row " .. e.key .. ": root_menu " .. e.value)
   end
-  VRFW_Param.Set(TR.FOCUS_KEY, e.item)
-  local how = VRFW_Reset.straight({ menu = menu, bgm_stop = true, need_carry = true,
+  VRFW.param.set(TR.FOCUS_KEY, e.item)
+  local how = VRFW.reset.straight({ menu = menu, bgm_stop = true, need_carry = true,
     log = function(text) TR_Log("button " .. e.key .. ": root_menu: " .. text) end })
   TR_Log("button " .. e.key .. ": root_menu " .. e.value .. ": " .. how)
   if how == "refused" then
-    VRFW_Param.Clear(TR.FOCUS_KEY)
+    VRFW.param.clear(TR.FOCUS_KEY)
     funcLuaCommand(TR.SOUND, TR.BUZZER)
     funcLuaCommand(TR.FADE, 0, 0.3)
     TR_Restore()
@@ -462,13 +397,12 @@ local function TR_RootCo(e, menu)
 end
 
 local function TR_ModeCo(e)
-  while type(VRFW_Mode) == "table" and VRFW_Mode.busy() do
-    VRFW_Mode.step()
+  while type(VRFW.mode) == "table" and VRFW.mode.busy() do
+    VRFW.mode.step()
     coroutine.yield()
   end
 end
 
--- ---- groups -----------------------------------------------------------------------------------------------------------
 -- the group's sub-row on the row's instances: its members centred, every other instance empty (hidden)
 local function TR_GroupView(r, g)
   local list = r.members[g.value] or {}
@@ -503,7 +437,6 @@ local function TR_Show(r, view, focus, open)
       pcall(SetupItemButton, TR.UPPER, p, true)
     end
   end
-  -- the focusable instances: up to the last one shown (the ones before the sub-row are skipped in OnChangeFocus)
   funcLuaMenuCommand(TR.LIST_NUM, TR.UPPER, open and (open.hi + 1) or r.n)
   funcLuaMenuCommand(TR.CTRL, TR.UPPER, true)
   local layer, sel = GetSelectItemLayerName(), GetSelectItemIdx()
@@ -586,12 +519,12 @@ local function TR_Press(e, nxt, a1, a2)
   TR_Log("button " .. e.key .. " pressed: " .. tostring(e.kind) .. " " .. e.value)
   if e.kind == "open_menu" then
     funcLuaCommand(TR.SOUND, TR.DECIDE)
-    local m = TR_Crc(e.value)
+    local m = VRFW.ids.crc32(e.value)
     tr.co = coroutine.create(function() TR_OpenCo(m) end)
     return
   elseif e.kind == "root_menu" then
     funcLuaCommand(TR.SOUND, TR.DECIDE)
-    local m = TR_Crc(e.value)
+    local m = VRFW.ids.crc32(e.value)
     tr.co = coroutine.create(function() TR_RootCo(e, m) end)
     return
   elseif e.kind == "lua" then
@@ -604,29 +537,29 @@ local function TR_Press(e, nxt, a1, a2)
     return f(e.key, a2)
   elseif e.kind == "command" then
     funcLuaCommand(TR.SOUND, TR.DECIDE)
-    TR_Call(TR_Crc(e.value), e.key)
+    VRFW.host.command(VRFW.ids.crc32(e.value), e.key)
     return
   elseif e.kind == "title" then
     -- the retail press of that title item, from this position; the title focuses this button when it comes back
-    VRFW_Param.Set(TR.FOCUS_KEY, e.item)
+    VRFW.param.set(TR.FOCUS_KEY, e.item)
     tr.press = {pos = a2, id = e.as}
     local r = table.pack(pcall(nxt, a1, a2))
     tr.press = nil
     if not r[1] then
-      VRFW_Param.Clear(TR.FOCUS_KEY)
+      VRFW.param.clear(TR.FOCUS_KEY)
       error(r[2], 0)
     end
     if r[2] == 1 then
-      VRFW_Param.Clear(TR.FOCUS_KEY)
+      VRFW.param.clear(TR.FOCUS_KEY)
     end
     return table.unpack(r, 2, r.n)
   elseif e.kind == "group" then
     return TR_OpenGroup(e, a2)
   elseif e.kind == "mode" then
-    if type(VRFW_Mode) ~= "table" then
+    if type(VRFW.mode) ~= "table" then
       return TR_Refuse(e)
     end
-    local ok, code = VRFW_Mode.start(e.value, "title_row", a2, {
+    local ok, code = VRFW.mode.start(e.value, "title_row", a2, {
       before = function()
         funcLuaMenuCommand(TR.INPUT, TR.MENU, false)
         funcLuaMenuCommand(TR.VISIBLE, TR.CURSOR, 0, false)
@@ -649,17 +582,16 @@ local function TR_Press(e, nxt, a1, a2)
   return 1
 end
 
--- ---- public ------------------------------------------------------------------------------------------------------------
-VRFW_TitleRow = VRFW_TitleRow or {}
+VRFW.title_row = VRFW.title_row or {}
 
 -- true = title item `id` is a declared button whose action runs inside the title (the title is still there after it)
-function VRFW_TitleRow.stays(id)
+function VRFW.title_row.stays(id)
   local r = TR_Row()
   local e = r and r.by_item[id]
   return e ~= nil and e.kind ~= "title"
 end
 
-function VRFW_TitleRow.item(key)
+function VRFW.title_row.item(key)
   for _, e in ipairs(TR_Entries()) do
     if e.key == key then
       return e.item
@@ -668,9 +600,7 @@ function VRFW_TitleRow.item(key)
   return nil
 end
 
--- runs fn(...) with the row's handlers passing on: the game's own tables answer at their own retail positions
--- (the «Guardar» button on the lower row reads its art and runs its press that way)
-function VRFW_TitleRow.retail(fn, ...)
+function VRFW.title_row.retail(fn, ...)
   local was = tr.raw
   tr.raw = true
   local r = table.pack(pcall(fn, ...))
@@ -682,11 +612,11 @@ function VRFW_TitleRow.retail(fn, ...)
 end
 
 -- the title items of the game's buttons the mods take out of the row (set: item id -> true)
-function VRFW_TitleRow.hidden_items()
+function VRFW.title_row.hidden_items()
   return (TR_Hidden())
 end
 
-function VRFW_TitleRow.position(key)
+function VRFW.title_row.position(key)
   local r = TR_Row()
   if not r then
     return nil
@@ -699,20 +629,19 @@ function VRFW_TitleRow.position(key)
   return nil
 end
 
--- ---- handlers ----------------------------------------------------------------------------------------------------------
 local function on(point, phase, fn)
   if type(_ENV[point]) == "function" then
-    VRFW_Host.on(TR.T, point, { id = TR.ID, phase = phase, fn = fn })
+    VRFW.host.on(TR.T, point, { id = TR.ID, phase = phase, fn = fn })
   end
 end
 
-if VRFW_Host ~= nil and type(GetItemListIdx) == "function" and type(OnEnter) == "function" and type(Step) == "function" then
+if VRFW.host ~= nil and type(GetItemListIdx) == "function" and type(OnEnter) == "function" and type(Step) == "function" then
   on("OnInit", "around", function(nxt, ...)
     tr.ready, tr.row, tr.co, tr.press, tr.restore, tr.view = false, nil, nil, nil, nil, nil
     tr.focus, tr.zone_off = nil, {}
-    if VRFW_Param.Has(TR.FOCUS_KEY) then
-      local v = VRFW_Param.Get(TR.FOCUS_KEY)
-      VRFW_Param.Clear(TR.FOCUS_KEY)
+    if VRFW.param.has(TR.FOCUS_KEY) then
+      local v = VRFW.param.get(TR.FOCUS_KEY)
+      VRFW.param.clear(TR.FOCUS_KEY)
       if type(v) == "number" and v < 0 then
         v = v + 4294967296
       end
@@ -720,7 +649,6 @@ if VRFW_Host ~= nil and type(GetItemListIdx) == "function" and type(OnEnter) == 
         tr.restore = {item = v}
       end
     end
-    -- the retail start picks the focus from the last request before its first yield, inside OnInit
     local r = table.pack(nxt(...))
     tr.restore = nil
     return table.unpack(r, 1, r.n)
@@ -742,13 +670,11 @@ if VRFW_Host ~= nil and type(GetItemListIdx) == "function" and type(OnEnter) == 
     end
   end)
 
-  -- the focus never rests on an empty instance (TR_Skip): the engine focus and the title's own handler (its label bar,
-  -- balloon, header) get the shown instance the move goes on to
   on("OnChangeFocus", "around", function(nxt, a1, a2, ...)
     local r = a1 == TR.UPPER and TR_Row() or nil
     if r then
-      local ok, at = pcall(funcLuaMenuCommand, TR.FOCUS_GET, a1)
-      if not ok or type(at) ~= "number" then
+      local at = VRFW.host.menu_command(TR.FOCUS_GET, a1)
+      if type(at) ~= "number" then
         at = a2
       end
       if type(at) == "number" then
@@ -844,7 +770,7 @@ if VRFW_Host ~= nil and type(GetItemListIdx) == "function" and type(OnEnter) == 
     else
       id = nxt(a1, a2)
     end
-    -- the way back from a «title» press: this button stands for the request it made, the item it pressed does not
+    -- the way back from a "title" press: this button stands for the request it made, the item it pressed does not
     local back = tr.restore
     if back ~= nil then
       local r = TR_Row()

@@ -1,0 +1,59 @@
+schema = "VRFW.menu/2"
+
+[[layout]]
+file = "common/menu/102_team/team08/betterqol_cp_face/betterqol_cp_face.g4pkm"
+from = "common/menu/102_team/team08/team08_02/team08_02.g4pkm"
+
+[[layout]]
+file = "common/menu/102_team/team08/betterqol_cp_face/betterqol_cp_face.g4pkm"
+joint = "_icon_cmd_type_base01"
+translate = [-54.0, 94.0, 0.0]
+scale = [108.0, 108.0, 1.0]
+
+[[layout]]
+file = "common/menu/102_team/team08/betterqol_cp_face/betterqol_cp_face.g4pkm"
+joint = "_icon_sp_area_dmy01"
+translate = [-48.0, 88.0, 0.0]
+scale = [96.0, 96.0, 1.0]
+
+[[object]]
+name = "betterqol_cp_face"
+from = "team08_02_ability_list_item"
+priority = 690
+free = true
+remove_block = [
+    "CMenuAttachLocator",
+    "MenuCollisionSetting",
+]
+set = [
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team08/team08_02/team08_02.g4pkm" }, values = { 1 = "common/menu/102_team/team08/betterqol_cp_face/betterqol_cp_face.g4pkm" } },
+]
+
+[[entry]]
+host = "CharacterReforged.skill_table.x_action"
+id = "partners"
+text = "BetterQoL.cp_btn"
+order = 100
+action = { lua = "BetterQoL.skill_table_partners" }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "betterqol_pc_list", object = "betterqol_pc_list", count = 1, align = ["left", "middle"], scale = 0.20000000298023224, after = "character_reforged_ss_listbg", groups = [{ group = "vrfw_skill_slot_menu", flags = [0, 1, 1, 0, 1, 0], after = "character_reforged_ss_listbg" }] }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "betterqol_pc_row", object = "betterqol_pc_row", count = 6, align = ["left", "middle"], scale = 0.20000000298023224, after = "betterqol_pc_list", groups = [{ group = "vrfw_skill_slot_menu", flags = [0, 1, 1, 0, 1, 0], after = "betterqol_pc_list" }] }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "betterqol_cp_face", object = "betterqol_cp_face", count = 4, after = "soccer11_04_chara_status", groups = [{ group = "common", flags = [0, 0, 0, 0, 1, 0], after = "soccer11_04_chara_status" }] }
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+resources = [
+    "#/menu/20_cmn/cmn02/cmn02_01/cmn02_01.g4tx",
+    "#/menu/102_team/team08/team08_01/team08_01.g4tx",
+    "#/menu/00_soccer/soccer11/soccer11_20/soccer11_20.g4tx",
+    "#/menu/200_icon/15_icon_common/icon_common.g4tx",
+    "#/menu/200_icon/15_icon_common2/<LG>/icon_common2.g4tx",
+]

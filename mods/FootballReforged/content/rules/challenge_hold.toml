@@ -1,0 +1,12 @@
+schema = "VRFW.rule/1"
+# Challenge ruleset (Football Reforged's base, the former module Challenges): keep the ball 15 s in a row.
+id = "challenge_hold"
+name = "Challenge: keep the ball for 15 s"
+version = 1
+
+[teams]
+players = 5
+
+[challenge]
+kind = "hold"
+seconds = 15

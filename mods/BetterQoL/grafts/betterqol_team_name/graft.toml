@@ -1,0 +1,13 @@
+# BetterQoL: longer team dock names ([team_name] max_length) and smaller styles for wide names (hook file).
+name = "betterqol_team_name"
+mod = "BetterQoL"
+order = 345
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "BetterQoL: longer team dock names, long names drawn smaller"
+
+[[hooks]]
+stem = "soccer_team_dock_menu"
+source = "betterqol_team_name_dock.lua"

@@ -1,5 +1,5 @@
 schema = "VRFW.theme/1"
-# Built-in matte dark theme. Each [[accent]] is one value of the interface theme option (`value` = stored option value, `text` = label key).
+# Built-in matte dark theme.
 
 [theme]
 id = "dark"
@@ -8,18 +8,12 @@ name = { ja = "ダーク", en = "Dark", es = "Oscuro", fr = "Sombre", de = "Dunk
 include = [
     "dx11/menu",
     # the framework's save slot cards (a UI atlas inside the excluded art folder)
-    "dx11/menu/220_img/evt_slot",
-    # the «Inazuma Post» button of the title / main menu (its glow plate; the rest of title00 is the title art)
+    "dx11/menu/220_img/vrfw_slot",
     "dx11/menu/50_title/title00/title00_10", "dx11/menu/50_title/title00/title00_10_demo01",
     "dx11/menu/50_title/title00/title00_12",
     # (mods add the folders of their own atlases in their rules files: content/themes/*.toml, VRFW.theme_rules/1)
 ]
-# Atlases mods add inside these folders (not game files) are recoloured too, even where `exclude` covers the folder:
-# only their panel-like sprites change (cards, plates, windows, bands); pictures, icons, glows and line art stay.
-# A mod leaves one of its atlases as it is with an `exclude` in its rules file.
 mod_atlases = ["dx11/menu/220_img"]
-# Kept in their colours: icons (items, elements, crests), art and faces, maps, the gallery, the match tension gauge, minimap and portrait gauges and the title
-# background. Sprites inside covered folders that must keep their colours are named in the [[sprite]] rules below.
 exclude = [
     "dx11/menu/200_icon", "dx11/menu/220_img", "dx11/menu/210_minimap", "dx11/menu/13_map", "dx11/menu/90_map",
     "dx11/menu/112_gallery", "dx11/menu/50_title/title00",
@@ -31,8 +25,6 @@ exclude = [
     "dx11/menu/00_soccer/soccer00/soccer00_03", "dx11/menu/00_soccer/soccer00/soccer00_03b",
     # the match HUD gauges under the player portrait (stamina / PE bar, its tag, fill and gloss): kept as the game draws them
     "dx11/menu/02_btl/btl06/btl06_13",
-    # technique name banners, event telops and cut-in pictures: never themed, the game's and every mod's (these
-    # exclusions are longer than the `mod_atlases` folder, so the telops a mod serves there keep their colours too)
     "dx11/menu/220_img/telop_waza", "dx11/menu/220_img/ev_telop", "dx11/menu/220_img/telop_stadium",
     "dx11/menu/220_img/udon_cut_img",
 ]
@@ -92,8 +84,6 @@ shade_saturation = 0.7
 shade_tint = 0.3
 
 # First match wins; unmatched sprites are classified from their pixels (`auto`).
-# The chronicle world map (town tiles, map objects, post effects, markers on the map) keeps its retail colours; its
-# UI (area title, lists, windows) is themed.
 [[sprite]]
 match = "*"
 class = "keep"
@@ -104,7 +94,6 @@ match = "icon_star01"
 class = "accent"
 hue = [30.0, 75.0]
 file = "soccer11_14"
-# the player card's technique plates (Miximax / hissatsu bars: the holographic strips per type and element) keep their retail art
 [[sprite]]
 match = "fs_base0*"
 class = "keep"
@@ -137,6 +126,19 @@ file = "102_team/team00/team00_30"
 match = "mode_base0*"
 class = "keep"
 file = "102_team/team00/team00_30"
+# the technique level logos of the cut-in title and the level badges of the skill window keep their own colours
+[[sprite]]
+match = "wlv*"
+class = "keep"
+# the baked titles of the match telops drawn straight over the pitch (breach, stadium) keep their own colours
+[[sprite]]
+match = "gtxt_*"
+class = "keep"
+file = "00_soccer/soccer10/soccer10_2"
+[[sprite]]
+match = "gtxt_*"
+class = "keep"
+file = "00_soccer/soccer10/soccer10_41"
 # the technique plates of the skill window (one per element) and of the formation's skill rows keep their retail art
 [[sprite]]
 match = "sp_base0*"
@@ -182,8 +184,6 @@ file = "soccer11_09"
 match = "cmd_base_mode0*"
 class = "keep"
 file = "soccer11_09"
-# the match intro (VS screen): the «CONTRA» art and its glow keep their colours, the big background pictures are shaded dark
-# (the stadium stays visible), the time-limit stopwatch and infinity symbol take the accent text colour
 [[sprite]]
 match = "vs_gtxt_vs01"
 class = "keep"
@@ -196,8 +196,6 @@ file = "soccer24_03"
 match = "vs_gtxt_*"
 class = "keep"
 file = "soccer24_03"
-# the match scoreboard's half label («1.ª» / «2.ª», gtxt_half01 / 02, and the extra-time ones a mod adds in its own
-# copy of the atlas) and the period banners (kick-off, period end, time up) are lettering pictures: kept as drawn
 [[sprite]]
 match = "gtxt_half*"
 class = "keep"
@@ -218,21 +216,11 @@ file = "cmn01_05"
 match = "gtxt_infinity01"
 class = "tint"
 file = "cmn01_05"
-# the legendary-ball list rows' level circles and ball (a mod's own sprites in vsroute01_21) keep their colours
+# the legendary-ball list rows' level circles keep their colours
 [[sprite]]
 match = "lv_base0*"
 class = "keep"
 file = "vsroute01_21"
-[[sprite]]
-match = "chronicle_deluxe_legendary_ball_lv_base*"
-class = "keep"
-file = "vsroute01_21"
-[[sprite]]
-match = "chronicle_deluxe_legendary_ball"
-class = "keep"
-file = "vsroute01_21"
-# the Mercado hub's banners (Tienda general / entrenamiento / Supertécnicas / Oficina de fichajes: painted illustrations) keep their
-# retail art; only the labels on them take the text colours
 [[sprite]]
 match = "*"
 class = "keep"
@@ -253,17 +241,12 @@ class = "glow"
 [[sprite]]
 match = "inazumapost_base*"
 class = "glow"
-# screen effects (flashes, VS effects) keep their colours: never toned as a background
-# additive layers (`*_add`: drawn by adding light, black = nothing): kept, a recoloured black shows as a square (the BB
-# grid's blinking hexagon)
 [[sprite]]
 match = "*_add"
 class = "keep"
 [[sprite]]
 match = "*_add0*"
 class = "keep"
-# the champion trophy of the bracket (vroad04_02): its rotating ray and spark sheets (vic_eff*) and the orange glow behind it
-# (vic_trophy_base*) are additive on black; a recoloured black showed as pale squares, so they and the trophy keep retail
 [[sprite]]
 match = "vic_eff*"
 class = "keep"
@@ -304,8 +287,6 @@ class = "keep"
 [[sprite]]
 match = "*mask*"
 class = "keep"
-# the team dock's slot plates (empty bench slot, swap target, locked slot, the empty-slot silhouette): UI plates whose
-# names start like the character art kept below: the empty plates take the card colour, the swap target the accent
 [[sprite]]
 match = "chr_change_blank*"
 class = "surface"
@@ -318,27 +299,19 @@ class = "surface"
 [[sprite]]
 match = "icon_blank*"
 class = "surface"
-# the player page's passive cards (slanted near-white plates, alpha below full: `auto` reads them as line art and
-# kept them light under white text): the card colour
 [[sprite]]
 match = "passive_base0*"
 class = "surface"
 file = "soccer11/soccer11_20/"
-# the main menu's tile plate and the light behind it (blue plate, cyan halo): the accent, halo included (its hue sits
-# just below the default accent range)
 [[sprite]]
 match = "icon_base0*"
 class = "accent"
 file = "mainmenu90/mainmenu90_02_2"
 hue = [160.0, 245.0]
-# The main menu's header icons (person, gear, document... on a blue square): the square takes the accent, the white
-# figure stays light
 [[sprite]]
 match = "icon_header_*"
 class = "accent"
 file = "100_mainmenu/mainmenu90/"
-# the one-column pop-up windows (sub_window: character menu, command lists, formation picker): the window in the
-# background colour so the rows stand out, its arcs dim, the header belt in the accent
 [[sprite]]
 match = "list_sub_base01"
 class = "bg"
@@ -351,8 +324,6 @@ file = "10_win/win05/"
 match = "list_base_chr_belt01"
 class = "accent"
 file = "10_win/win05/"
-# pale list rows and item / slot plates that `auto` leaves light (saturation between grey and blue) or a keep rule
-# below catches by name; their dark text turns light, so the plate takes the card colour
 [[sprite]]
 match = "list_base01_off"
 class = "surface"
@@ -448,8 +419,6 @@ file = "161_avatar/"
 match = "base_emblem01"
 class = "accent"
 file = "team06_03"
-# focused rows, tabs and choices drawn in the game's yellow, green or cyan selection colour: the accent (hue range
-# widened to those colours; state plates in red and player colour tags keep theirs)
 [[sprite]]
 match = "plate_list_on01"
 class = "accent"
@@ -622,23 +591,18 @@ class = "ink"
 [fonts]
 enabled = true
 # Colour token of the style name -> palette key (k = grey ink, b = blue ink; w white stays).
-# A style name or a token of its own wins over the colour letter: `fs_flavor_balloon01` is the tooltip text on the dark detail
-# balloons, `fs_30_y_cc_2d0_001_sclw` the team screen's stadium / formation values, `fs_32_y_cc_2d1_001` the career page switch's shown label, `g` the mint select-button numbers.
 map = { k = "text", b = "accent_hi", g = "accent_hi", balloon01 = "text", fs_30_y_cc_2d0_001_sclw = "accent_hi", fs_32_y_cc_2d1_001 = "accent_hi" }
-keep_styles = []
+# The Mercado list rows (shop01_21 keeps its bright plates, the Diamante one is a rainbow) keep their retail ink.
+keep_styles = ["fs_market_list01", "fs_market_list11"]
 # Text over light art (speech balloons) keeps its retail ink.
 keep_tokens = ["balloon", "talk01", "sentence02"]
 # Every other style stays readable on the dark rows (WCAG contrast against `card`).
 min_contrast = 4.5
 contrast_against = "card"
-# below that contrast: blue / teal value text (names, prices, counters, tab labels) -> the gold accent text
-# (accent_hi, #DDB46E in amber); grey labels -> near-white `text`
 accent_text = "accent_hi"
 accent_text_hue = [90.0, 260.0]
 neutral_text = "text"
 
-# The game's bitmap numbers are tinted by the number config table (one sprite prefix serves several tints, `tint` picks
-# one): the formation panel's big digits (steel blue) and the match intro's team level (white) take the accent text colour.
 [numbers]
 file = "data/common/menu/config/menu_graphic_number_config_"
 [[numbers.rule]]
@@ -651,6 +615,5 @@ tint = [255, 255, 255]
 color = "accent_hi"
 
 [fade]
-# Colour of the game's white fade transitions while the theme is served (palette / accent key). Only fades that move
-# (content/game/theme.toml): a layer the game sets to rest at white keeps its colour.
+# Colour of the game's white fade transitions while the theme is served (palette / accent key).
 white = "bg"

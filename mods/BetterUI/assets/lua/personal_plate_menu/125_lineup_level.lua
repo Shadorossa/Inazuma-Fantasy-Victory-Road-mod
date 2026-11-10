@@ -1,12 +1,5 @@
--- BetterUI (mod BetterUI, prefix BetterUI), player plate («Ficha», personal_plate_menu): on Battle Bay Deluxe's
--- lineup screen (the «Plantilla» viewer of the Battle Bay grid, the player page on its right half) the page's header
--- shows no level: the «Nv.» label, the level lock, the level digits and the experience gauge under them stay hidden.
--- That screen is recognised by the parameter BattleBayDeluxe.lineup of the game's parameter store (set by Battle Bay
--- Deluxe while its player page is up) inside the framework context battle_bay. Every player change fills the header
--- again, so the parts are hidden after each header fill and once a frame. Elsewhere nothing changes.
--- No engine call at load time.
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
-if BetterUI.LineupLevel == nil then
+if BetterUI.lineup_level == nil then
   local L = {
     FLAG = 2100506454,                   -- the Battle Bay lineup parameter (crc32 of its key)
     CONTEXT = "battle_bay",              -- the framework context of the Battle Bay's menus
@@ -15,35 +8,28 @@ if BetterUI.LineupLevel == nil then
     NODES = {2976428572 --[[_num_status_lv01]], 1469422130 --[[_pos_exp01]]},
     DIGITS = 3434305008,                 -- num_status_lv01, the level digits' number setting
     C = {
-      MODE_IS = VRFW_Cmd.VRFW_MODE_IS,
-      LAYER_COUNT = VRFW_Cmd.GET_CREATE_LAYER_NUM, IS_OPEN = VRFW_Cmd.IS_OPEN_LAYER,
-      MESH = VRFW_Cmd.SET_MESH_VISIBLE, NODE = 2158717427, PRIM = 1233047821,
+      MODE_IS = VRFW.commands.VRFW_MODE_IS,
+      LAYER_COUNT = VRFW.commands.GET_CREATE_LAYER_NUM, IS_OPEN = VRFW.commands.IS_OPEN_LAYER,
+      MESH = VRFW.commands.SET_MESH_VISIBLE, NODE = 2158717427, PRIM = 1233047821,
     },
     ASK_EVERY = 10,                      -- frames between two looks at the parameter
     frames = nil,
     on = false,
   }
-  BetterUI.LineupLevel = L
+  BetterUI.lineup_level = L
 
-  local function Cmd(...)
-    local ok, v = pcall(funcLuaMenuCommand, ...)
-    if ok then
-      return v
-    end
-    return nil
-  end
+  local Cmd = VRFW.host.menu_command
 
-  -- the lineup screen shows this page
-  function L.Lineup()
-    if not VRFW_Param.Has(L.FLAG) then
+  function L.lineup()
+    if not VRFW.param.has(L.FLAG) then
       return false
     end
-    local okm, inside = pcall(funcLuaCommand, L.C.MODE_IS, L.CONTEXT)
-    return okm and inside == true
+    local inside = VRFW.host.command(L.C.MODE_IS, L.CONTEXT)
+    return inside == true
   end
 
-  -- the level parts off on every open header plate of this menu
-  function L.Hide()
+  -- the level parts off on every open header plate
+  function L.hide()
     for _, layer in ipairs(L.HEADERS) do
       local count = Cmd(L.C.LAYER_COUNT, layer)
       count = type(count) == "number" and count or 1
@@ -61,42 +47,30 @@ if BetterUI.LineupLevel == nil then
     end
   end
 
-  function L.Frame()
+  function L.frame()
     L.frames = (L.frames or L.ASK_EVERY) + 1
     if L.frames >= L.ASK_EVERY then
       L.frames = 0
-      L.on = L.Lineup()
+      L.on = L.lineup()
     end
     if L.on then
-      L.Hide()
+      L.hide()
     end
   end
 
-  local wrapped = {}
-  local function Wrap(name, make)
-    local cur = _ENV[name]
-    if type(cur) ~= "function" or wrapped[cur] then
-      return
-    end
-    local w = make(cur)
-    wrapped[w] = true
-    _ENV[name] = w
-  end
-
-  Wrap("PostStep", function(orig)
+  BetterUI.wrap_global(_ENV, "LineupLevel", "PostStep", function(orig)
     return function(...)
       local r = table.pack(orig(...))
-      pcall(L.Frame)
+      pcall(L.frame)
       return table.unpack(r, 1, r.n)
     end
   end)
 
-  -- a header fill (a player change) shows the level again: hidden right after it
-  Wrap("UpdateCharaStatusPlateInfoByCharaStHdl", function(orig)
+  BetterUI.wrap_global(_ENV, "LineupLevel", "UpdateCharaStatusPlateInfoByCharaStHdl", function(orig)
     return function(...)
       local r = table.pack(orig(...))
       if L.on then
-        pcall(L.Hide)
+        pcall(L.hide)
       end
       return table.unpack(r, 1, r.n)
     end

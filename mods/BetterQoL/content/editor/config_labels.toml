@@ -1,35 +1,30 @@
 schema = "VRFW.editor/1"
-# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+# Names and descriptions of config.toml settings for ModManager.
 
 [[Shape]]
 Id = "settings"
 For = "config"
   [[Shape.Field]]
-  Key = "team_banks"
+  Key = "team_templates"
   Type = "table"
-  Label = { es = "Bancos de equipo", en = "Team banks" }
-  Help = { es = "Páginas de equipos de la Plantilla de equipo.", en = "Team pages of the Team dock." }
+  Label = { es = "Plantillas de equipo", en = "Team templates" }
+  Help = { es = "Plantillas de la Plantilla de equipo más allá de las 11 del juego.", en = "Team dock templates beyond the game's 11." }
   [[Shape.Field]]
-  Key = "team_banks.pages"
+  Key = "team_templates.count"
   Type = "int"
-  Label = { es = "Páginas de equipos", en = "Team pages" }
-  Help = { es = "Número de páginas de la Plantilla de equipo (2 a 32); cada una guarda los 11 equipos del juego.", en = "Number of Team dock pages (2 to 32); each holds the game's 11 teams." }
+  Label = { es = "Número de plantillas", en = "Number of templates" }
+  Help = { es = "Plantillas de equipo de cada partida (11 a 999); las 11 del juego son las primeras.", en = "Team templates of each save (11 to 999); the game's 11 come first." }
   [[Shape.Field]]
-  Key = "team_banks.new_page"
-  Type = "string"
-  Label = { es = "Página nueva empieza", en = "New page starts as" }
-  Help = { es = "Cómo empieza una página usada por primera vez: empty = cada plantilla como una sin usar (sin nombre ni jugadores); copy = copia completa de la actual.", en = "How a page used for the first time starts: empty = every dock like an unused one (no name, no players); copy = a full copy of the current page." }
-  [[Shape.Field]]
-  Key = "team_banks.verify"
+  Key = "team_templates.verify"
   Type = "bool"
-  Label = { es = "Comprobar al cambiar de página (depuración)", en = "Check on page change (debug)" }
-  Help = { es = "Escribe en el registro una comprobación de cada equipo tras cada cambio de página.", en = "Writes a check of every team to the log after each page change." }
+  Label = { es = "Comprobar al cambiar de plantilla (depuración)", en = "Check on template swap (debug)" }
+  Help = { es = "Escribe en el registro una comprobación de cada equipo tras cada cambio de plantilla.", en = "Writes a check of every team to the log after each template swap." }
   [[Shape.Field]]
-  Key = "team_banks.blocked_modes"
+  Key = "team_templates.blocked_modes"
   Type = "list"
   Of = "string"
-  Label = { es = "Modos sin cambio de página", en = "Modes without page change" }
-  Help = { es = "Modos de juego en los que no se cambia de página (el modo historia usa los equipos para sus plantillas).", en = "Game modes where pages cannot be changed (story mode uses the teams for its own squads)." }
+  Label = { es = "Modos solo con las 11 del juego", en = "Modes with the game's 11 only" }
+  Help = { es = "Modos de juego que usan solo las 11 plantillas del juego (el modo historia usa los equipos para sus plantillas).", en = "Game modes that use the game's 11 templates only (story mode uses the teams for its own squads)." }
   [[Shape.Field]]
   Key = "team_name"
   Type = "table"
@@ -123,17 +118,6 @@ For = "config"
   Type = "table"
   Label = { es = "Nombres originales", en = "Original names" }
   Help = { es = "Nombres originales (japoneses o romaji) por jugador en Opciones.", en = "Original (Japanese or romaji) names per player in Options." }
-  [[Shape.Field]]
-  Key = "original_names.legacy_series"
-  Type = "list"
-  Of = "string"
-  Label = { es = "Sagas con nombres de época", en = "Legacy series" }
-  Help = { es = "Sagas cuyos nombres se muestran con el texto original de su época.", en = "Series whose names show with the original text of their era." }
-  [[Shape.Field]]
-  Key = "original_names.legacy_series_lang"
-  Type = "string"
-  Label = { es = "Idioma de nombres de época", en = "Legacy series language" }
-  Help = { es = "Idioma de texto usado para esas sagas.", en = "Text language used for those series." }
   [[Shape.Field]]
   Key = "original_names.team_skip_langs"
   Type = "list"

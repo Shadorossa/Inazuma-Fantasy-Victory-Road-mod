@@ -1,0 +1,6 @@
+schema = "VRFW.menu/2"
+
+[[entry]]
+host = "CharacterReforged.mode_change_partner"
+id = "mode_change_partner"
+action = { command = "CMND_CHARACTERREFORGED_CHANGE_GET" }

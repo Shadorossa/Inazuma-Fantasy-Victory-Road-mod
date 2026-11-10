@@ -1,0 +1,6 @@
+schema = "VRFW.menu/2"
+
+# this mod's compact bank card (its redirect of the card in both banks)
+[[object_set]]
+object = "team00_01_chara_card_for_list_bui_fcg"
+copy = [{ parameter = "NullLayerIndexName", match = { 3 = 0x01D1DDB0 }, values = { 1 = 0x8FCDC34A, 3 = 0x8FCDC34A } }]

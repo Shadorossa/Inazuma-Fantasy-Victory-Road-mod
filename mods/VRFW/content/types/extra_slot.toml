@@ -12,6 +12,7 @@ rules = { type = "table" }
 commands = { type = "table" }
 swap = { type = "table" }
 fusion = { type = "table" }
+entry_cost = { type = "table" }
 
 [entry.ExtraSlot]
 name = { type = "name", required = true }
@@ -28,9 +29,14 @@ disguise = { type = "bool", required = true }
 preload = { type = "bool", required = true }
 row_parity = { type = "bool" }
 aura_row = { type = "bool" }
-input = { type = "table", required = true }
-plate = { type = "records", fields = { key = { type = "string" }, pad = { type = "string" }, xinput = { type = "bool" } }, required = true }
+input = { type = "table" }
+plate = { type = "records", fields = { key = { type = "string" }, pad = { type = "string" }, xinput = { type = "bool" } } }
 select = { type = "table" }
+select_pages = { type = "strings" }
+select_peek_dx = { type = "int" }
+select_peek_dy = { type = "int" }
+direct = { type = "records", fields = { pages = { type = "strings", required = true }, pad = { type = "string" }, key = { type = "string" }, xinput = { type = "bool" }, pass_when_empty = { type = "bool" } } }
+entry_cost = { type = "table" }
 cpu = { type = "table" }
 source = { type = "table", required = true }
 spirit = { type = "table" }

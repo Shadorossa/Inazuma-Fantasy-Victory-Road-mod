@@ -1,0 +1,44 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# New synergy sf11008 (cloned from sf10001): Bash Lancer + Escavan Malice + Mystral Callous of Team Ogre.
+
+[[item]]
+name = "ogre_vanguard"
+base = "sf10001"
+category = "synergy"
+icon_key = "sf11008"
+key_id = true
+  [item.text.es]
+  name = "La vanguardia del Ogro"
+  [item.text.en]
+  name = "The Ogre Vanguard"
+  [item.text.fr]
+  name = "L'avant-garde des Ogres"
+  [item.text.de]
+  name = "Die Vorhut von Team Oger"
+  [item.text.it]
+  name = "L'avanguardia dell'Ogre"
+  [item.text.pt]
+  name = "A vanguarda do Ogro"
+  [item.text.ja]
+  name = "[王牙/オーガ]の[尖兵/せんぺい]"
+  [item.text.zh_hans]
+  name = "王牙先锋"
+  [item.text.zh_hant]
+  name = "王牙先鋒"
+
+[[currency]]
+name = "bash_lancer_card"
+spirit = 0x3E8BFD8F                      # chara_param of Bash Lancer c03033690
+rarity = 4
+
+[[currency]]
+name = "escavan_malice_card"
+spirit = 0xD5F8771D                      # chara_param of Escavan Malice c04018060
+rarity = 4
+
+[[currency]]
+name = "mystral_callous_card"
+spirit = 0xB913E140                      # chara_param of Mystral Callous c03033660
+rarity = 4

@@ -1,18 +1,7 @@
--- Chronicle Deluxe, the difficulty orb bar of a Chronicle piece (docs/game/mods/chronicle-deluxe.md §8.9): the pill under
--- a piece's crest on the board (vs_route_town_menu) and on each row of the team list (vs_route_town_list_menu), both
--- the layer vsroute01_06c_town_map_piece_clear_icon. Retail draws one pill with a socket per retail difficulty (6 on
--- normal pieces, 3 on gate pieces) and lights the cleared ones. Here the bar has one socket per difficulty the piece
--- offers (VRFW_MatchDifficulty, this mod's content\defaults\match_difficulty.toml), centred under the crest:
---   * the orbs of the difficulties that exist move to the centred slots (18 px apart, the retail spacing), the others
---     are hidden
---   * the pill = a picture with that many sockets (sprites chronicle_deluxe_orb_bar_<context>_<count> of the atlas
---     vsroute01_06c, made at build from the retail pill: content\images\menu\30_vsroute\vsroute01\vsroute01_06c.toml),
---     its quad cut to that width (retail width - 18 per missing socket), centred
--- Without a declared set nothing changes. Included by cd_board_hooks.lua and cd_list_menu.lua (one copy per script VM).
--- Definitions only: nothing calls the engine at load.
+-- a piece's crest on the board (vs_route_town_menu) and on each row of the team list
 ChronicleDeluxe = ChronicleDeluxe or {}
-ChronicleDeluxe.OrbBar = ChronicleDeluxe.OrbBar or {}
-local O = ChronicleDeluxe.OrbBar
+ChronicleDeluxe.orb_bar = ChronicleDeluxe.orb_bar or {}
+local O = ChronicleDeluxe.orb_bar
 O.CMD = {
   NODE_TRANSLATION = 1856671416,  -- (layer, instance, node, x, y, z)
   NODE_SCALE = 2885415772,        -- (layer, instance, node, width, height): a quad's size in px
@@ -22,7 +11,7 @@ O.CMD = {
 O.ATLAS = "#/menu/30_vsroute/vsroute01/vsroute01_06c/vsroute01_06c.g4tx"
 O.SPRITE_PREFIX = "chronicle_deluxe_orb_bar_"
 O.SPACING = 18                    -- px between two sockets (retail layout)
--- per eventType of the piece (0 normal, 5 gate): the retail layout vsroute01_06c (v7.1.2) of its pill
+-- Layout per eventType of the piece (0 normal, 5 gate).
 O.LAYOUT = {
   [0] = {context = "route", base = 1003654013 --[[_clear_base01]], sprite = "clear_base01_02", width = 124, height = 32,
          base_y = -17, dot_y = -33, slots = 6},
@@ -30,14 +19,12 @@ O.LAYOUT = {
          base_y = -40, dot_y = -56, slots = 3},
 }
 
--- fit the bar of one instance of the clear-icon layer: kind = the piece's eventType, difficulties[i] / locators[i] =
--- the retail difficulty of slot i and its orb locator (the script's own tables)
-function O.Fit(layer, instance, kind, difficulties, locators)
+function O.fit(layer, instance, kind, difficulties, locators)
   local lay = O.LAYOUT[kind]
-  if lay == nil or difficulties == nil or locators == nil or VRFW_MatchDifficulty == nil then
+  if lay == nil or difficulties == nil or locators == nil or VRFW.match_difficulty == nil then
     return
   end
-  local shown = VRFW_MatchDifficulty.Set(lay.context)
+  local shown = VRFW.match_difficulty.set(lay.context)
   if shown == nil then
     return -- nothing declared: the retail bar
   end

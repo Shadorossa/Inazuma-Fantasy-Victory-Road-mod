@@ -1,0 +1,31 @@
+schema = "VRFW.base_table/1"
+
+# Team numbers show a template number (1..999): max digits 2 -> 3 (content\menus\template_numbers.toml).
+# Column 9 is the zero fill (1 in retail: «01»): with 0 a template shows as «1», «53», «999».
+[[keyed]]
+list = "MENU_GRAPHIC_NUMBER"
+key_columns = ["#0"]
+
+  [[keyed.set]]
+  key = 0x1865A3C1                      # team dock number
+  cells = { "#5" = 3, "#9" = 0 }
+
+  [[keyed.set]]
+  key = 0x816CF27B                      # team dock number, active team
+  cells = { "#5" = 3, "#9" = 0 }
+
+  [[keyed.set]]
+  key = 0x19C575B9                      # lineup screen L1 / R1 guide
+  cells = { "#5" = 3, "#9" = 0 }
+
+  [[keyed.set]]
+  key = 0x6EC2452F                      # lineup screen L1 / R1 guide, second formation frame
+  cells = { "#5" = 3, "#9" = 0 }
+
+  [[keyed.set]]
+  key = 0xEE61E814                      # team plate number
+  cells = { "#5" = 3, "#9" = 0 }
+
+  [[keyed.set]]
+  key = 0x7768B9AE                      # team plate number, active team
+  cells = { "#5" = 3, "#9" = 0 }

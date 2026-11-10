@@ -1,7 +1,5 @@
 schema = "VRFW.effect/1"
-# Inazuma Fantasy: Tormenta de fuego oscura (content\techniques\dark_fire_storm.toml): recoloured copies of the object of Tormenta de fuego
-# (ev60004500), its giant (chr/_waza/ev60_01020) and its ball aura in the colours measured on retail Tornado oscuro (ev60004300). A gradient = the luma to colour curve
-# measured between the same retail part of Tornado de fuego (ev60000300) and Tornado oscuro. Grey masks, flow and particle maps and the ega0001 flash stay.
+# Tormenta de fuego oscura: Tormenta de fuego's object, giant and ball aura recoloured to retail Tornado oscuro's colours.
 
 [[recolor]]
 object = "ev60004500"

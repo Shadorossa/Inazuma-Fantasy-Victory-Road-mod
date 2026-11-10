@@ -1,5 +1,3 @@
-# The pose row screen (vrfw_pose_row_menu, docs/framework/pose-row.md): the short position badge under each model,
-# by main_position (1 GK, 2 FW, 3 MF, 4 DF). Rows of menu_text, read by id = crc32(row id).
 schema = "VRFW.text/2"
 table = "menu_text"
 

@@ -1,0 +1,22 @@
+# BetterQoL: rows «Estadísticas del club» and «Álbum de jugadores» in play_guide_top_menu; order 60 runs before BetterUI's guide rows (50).
+name = "betterqol_clubroom_rows"
+order = 60
+module = "lua_bridge"
+mod = "BetterQoL"
+requires = []
+conflicts = []
+wraps = ["OnSetupLayer", "OnDecideFocus"]
+description = "BetterQoL: «Estadísticas del club» and «Álbum de jugadores» rows in «Caseta del club»"
+
+[[files]]
+stem = "play_guide_top_menu"
+expect = [
+  '^local t = \{0, 1, 2, 3\}$',
+]
+
+  [[files.ops]]
+  type = "append_block"
+  source = "clubroom_rows.lua"
+  marker = "betterqol_clubroom_rows"
+  crc = "none"
+  include = { "@UPV@" = "../_lib/vrfw_upvalues.lua" }

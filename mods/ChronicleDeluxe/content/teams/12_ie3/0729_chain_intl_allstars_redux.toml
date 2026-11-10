@@ -1,0 +1,149 @@
+schema = "VRFW.team/2"
+default_lang = "en"
+# Int'l Allstars Redux (IE3 «Lucia's Ultimate Tournament», Team Ogre team 664): roster, kit and crest of the archived Chronicles Deluxe team.
+# Added from the Team Ogre line-up (left out of the archived roster, VR cards now): Queraldo Naval
+[[team]]
+name = "ct_wk_shin_sekai_senbatsu"
+key = "evt_ct_wk_shin_sekai_senbatsu"
+based_on = "tm_cro_ie3_1920"
+kit = 0xC1F231A9
+level = 84
+series = "IE3"
+roster = "exact"
+
+  [[team.member]]
+  slot = 0
+  card = 0x49E7B83E   # Hector Helio
+  number = 1
+  rarity_step = 1
+  captain = true
+
+  [[team.member]]
+  slot = 1
+  card = 0x8FA8FF70   # Masego Molelo
+  number = 2
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 2
+  card = 0x707F4413   # Thiago Torres
+  number = 3
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 3
+  card = 0x29060188   # Pierre Godin
+  number = 4
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 4
+  card = 0x3BB3AE66   # Bobby Shearer
+  number = 5
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 5
+  card = 0x9E1C180E   # Leonardo Almeida
+  number = 6
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 6
+  card = 0x7776ECCF   # Vento Galliano
+  number = 7
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 7
+  card = 0x0985CCE4   # Erik Eagle
+  number = 8
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 8
+  card = 0x4482E47A   # Paolo Bianchi
+  number = 9
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 9
+  card = 0xF6A0AE15   # Edgar Partinus
+  number = 10
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 10
+  card = 0x47063014   # Dylan Keats
+  number = 11
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 11
+  card = 0x4D6AC48C   # Roger Pialat
+  number = 12
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 12
+  card = 0x9706E16A   # Mark Krueger
+  number = 13
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 13
+  card = 0x6F5D6E2B   # Alexander Hausen
+  number = 14
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 14
+  player = "c03032650"   # Queraldo Naval
+  number = 16
+  rarity_step = 1
+
+[team.emblem]
+png = "assets/images/teams/emblems/512/ie3_shin_sekai_senbatsu.png"
+base = "em030058"
+catalog = "shared"
+
+[team.text.es]
+name = "Sel. Mundial Redux"
+short = "Sel. Mundial Redux"
+
+[team.text.en]
+name = "Int'l Allstars Redux"
+short = "Int'l Allstars Redux"
+
+[team.text.fr]
+name = "Int'l Allstars Redux"
+short = "Int'l Allstars Redux"
+
+[team.text.de]
+name = "Int'l Allstars Redux"
+short = "Int'l Allstars Redux"
+
+[team.text.it]
+name = "Absolute Allstars"
+short = "Absolute Allstars"
+
+[team.text.pt]
+name = "Int'l Allstars Redux"
+short = "Int'l Allstars Redux"
+
+[team.text.ja]
+name = "真･世界選抜"
+short = "真･世界選抜"
+
+[team.text.zh_hans]
+name = "Int'l Allstars Redux"
+short = "Int'l Allstars Redux"
+
+[team.text.zh_hant]
+name = "Int'l Allstars Redux"
+short = "Int'l Allstars Redux"
+
+# each player plays its card's first 4 moves (the engine reads them from the card; the Hiper comes from its slot 9)
+[[edit]]
+target = "ct_wk_shin_sekai_senbatsu"
+card_moves = 4

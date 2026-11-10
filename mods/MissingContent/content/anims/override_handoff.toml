@@ -1,0 +1,65 @@
+schema = "VRFW.anim/2"
+owner = "match"
+
+# Dragon Tornado: kept c0300-c0600.
+[[event]]
+name = "dragon_tornado_handoff"
+from = "ev60_00350"
+id = "ev60_80350"
+sound_cue = "ev60_80350_me"   # trimmed SE copy (content\sounds\override_handoff.toml)
+cuts = ["c0300", "c0400", "c0500", "c0600"]
+
+# Cosmic Blaster: kept c0300-c0600, from the cut where s01 faces the camera.
+[[event]]
+name = "cosmic_blaster_handoff"
+from = "ev60_02980"
+id = "ev60_82980"
+sound_cue = "ev60_82980_me"   # trimmed SE copy (content\sounds\override_handoff.toml)
+cuts = ["c0300", "c0400", "c0500", "c0600"]
+
+# Wyvern Blizzard: kept c0300-c0500.
+[[event]]
+name = "wyvern_blizzard_handoff"
+from = "ev60_00840"
+id = "ev60_80840"
+sound_cue = "ev60_80840_me"   # trimmed SE copy (content\sounds\override_handoff.toml)
+cuts = ["c0300", "c0400", "c0500"]
+
+# Tiger Storm: kept c0300-c0500.
+[[event]]
+name = "tiger_storm_handoff"
+from = "ev60_01020"
+id = "ev60_81020"
+# s00's name call is in the dropped c0200: said again at frame 0
+voices = [{ cue = "whs01020", seat = "s00", frame = 0 }]
+sound_cue = "ev60_81020_me"   # trimmed SE copy (content\sounds\override_handoff.toml)
+cuts = ["c0300", "c0400", "c0500"]
+
+# Icebreaker: kept c0300-c0500.
+[[event]]
+name = "icebreaker_handoff"
+from = "ev60_03360"
+id = "ev60_83360"
+sound_cue = "ev60_83360_me"   # trimmed SE copy (content\sounds\override_handoff.toml)
+cuts = ["c0300", "c0400", "c0500"]
+
+# Emperor Penguin No.
+[[event]]
+name = "ep2_shark_handoff"
+from = "ev60_03330"
+id = "ev60_83330"
+sound_cue = "ev60_83330_me"   # trimmed SE copy (content\sounds\override_handoff.toml)
+cuts = ["c0400", "c0500", "c0600"]
+
+# Beyond the Death Zone: kept c0300 from frame 4 on (the kick's contact), then c0400-c0600.
+[[event]]
+name = "beyond_death_zone_handoff"
+from = "ev60_03185"
+id = "ev60_83185"
+sound_cue = "ev60_83185_me"   # trimmed SE copy (content\sounds\override_handoff.toml)
+cuts = [
+    { cut = "c0300", start_at = 4 },
+    "c0400",
+    "c0500",
+    "c0600",
+]

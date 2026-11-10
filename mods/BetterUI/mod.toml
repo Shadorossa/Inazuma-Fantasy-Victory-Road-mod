@@ -1,50 +1,29 @@
 id = "BetterUI"
-# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
-# game's language (text\keys.toml) «BetterUI» since 1.17.1; data id = mod id since 1.75.0
+# name / description: English fallback; the Mods screen shows text keys mod_name / mod_description (text\keys.toml)
 name = "BetterUI"
-version = "0.2.4"
+version = "0.3.0"
 author = "Fantasy Team"
-author_steam = "76561199013321372"
-description = "A cleaner match HUD and original game menus: a compact, translucent menu top bar, a lighter match HUD with fewer markers and guides, compact player cards on the formation, rival squad and bank screens, and shop shortcuts (L2 / R2 or Q / E). Shirt numbers and AI roles are set for the whole team from the Team Dock, and the cut-ins of special move duels show each player's total. No rules, data or saves are changed."
+description = "A cleaner match HUD and game menus: a compact translucent top bar, fewer markers and guides in matches, compact player cards and shop shortcuts (L2 / R2). Shirt numbers and AI roles can be set for the whole team. Rules, data and saves are untouched."
 priority = 0
 tags = ["Visual", "Interface"]
-updated = "2026-11-03"
-requires = ["VRFW>=0.2.4"]
-optional = ["BetterQoL"]
+updated = "2026-11-09"
+requires = ["VRFW>=0.3.0"]
+optional = ["BetterQoL", "CharacterReforged", "ClassicCards"]
 conflicts = []
-# Lua patches of 31 scripts (30 menus + title_main) + the framework's «Mods» screen (vrfw_mods_menu: VRFW_MM_LAYOUT.top_dy = -55)
-# (assets\lua\, built with research/scripts/menu_assemble.py build --mod BetterUI) + assets\lua\_all\clean_hud_top_bar.lua + 37 interface
-# files (assets\data; all the same size as the originals except team00_11_p1_tactics_focus.objbin and the two new atlases evt_hl_timeline / clean_hud_topbar.g4tx; 18 are
-# mainmenu90_01/02.g4tx: translucent glass top bar (original section plates), research/scripts/header_bar_clean_build.py). Only uses CMND_EVT_LOG of the Lua bridge for its log.
 loader_modules = ["lua_bridge"]
-# No native plugin since 1.17.0 (crates/plugins/clean_hud deleted): the skipped pre-kick-off editor is
-# content\game\prematch_editor.toml ([[VRFW.Hook]] kind = "mid") + scripts\prematch_editor.lua; the commands
-# CMND_EVT_CHD_XSKIP_HOLD / _TACTIC_SLICES are content\game\commands.toml + scripts\better_ui.lua; the tactic row
-# gradient and the slanted kizuna plate are image recipes (+ a menu [[layout]], config.toml slanted_kizuna).
-# `prematch`: the ModLoader's old built-in module (removed in 1.8.0) this mod replaced; since 1.12.0 also the mod
-# «Atajos de tienda» (shop_shortcuts 1.0.3, now part of BetterUI): an installed copy is skipped
+# An installed copy of the modules this mod replaces (ModLoader module prematch, mod shop_shortcuts) is skipped.
 provides = ["prematch", "shop_shortcuts=1.0.3"]
-# ModLoader with plugins (API v1), per-mod Lua patches (assets\lua\<script>\*.lua + assets\lua\_fingerprints.json) and assets\data
 loader_min = "1.0.0"
-# The mod's own names (docs/framework/native.md §5): BetterUI.<Name> (scripts\, and the game Lua table BetterUI of
-# assets\lua\_all\better_ui.lua); commands keep their CMND_EVT_CHD_* names.
 prefix = "BetterUI"
 folder = "BetterUI"
-# content\game\commands.toml: two game Lua commands answered by scripts\better_ui.lua (command);
-# content\game\prematch_editor.toml: the mid hook (hook), IsNetworkSession (call), the match info struct (memory)
+# command: content\game\commands.toml; hook / call / memory: the mid hooks of content\game\.
 permissions = ["command", "hook", "call", "memory"]
 
-# What other mods may use (they require BetterUI): the game Lua functions of the global table BetterUI (every menu
-# VM; assets\lua\_all\better_ui.lua). The old globals stay as aliases: CLEAN_HUD_TopBarOn (the top bar hosts' gate:
-# Utilities' since 1.21.0, BetterUI.TopBarOn answers through it when Utilities is on), CLEAN_HUD_SS_CO (read softly by Utilities' shop filter), CLEAN_HUD_PC_* (Inazuma
-# Fantasy's position_cards), CLEAN_HUD_SHIRT_NUMBER (Inazuma Fantasy's team_cmd_dock). No TOML keys of its own.
 [exports]
 functions = ["TopBarOn", "ShopSwitching", "CardIsLayer", "CardIsCompact", "CardHideName", "CardKeepName", "CardHideLevel", "ShirtNumberOn", "ShirtNumberArm", "AddDockButton"]
 keys = []
-# game-Lua globals of assets\lua\ other mods' game Lua may use (the BetterUI table in the menu VMs)
 game_lua = ["BetterUI"]
 
-# UI only: left out of the mod set two players must share in a private online room, and of «gameplay mods enabled»
-# (VR-Framework net service)
+# UI only: not part of the mod set two players must share online, nor of «gameplay mods enabled».
 [VRFW.Mod]
 AffectsMatch = false

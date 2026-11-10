@@ -1,0 +1,39 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# New synergy sp11004 (cloned from sp09003): Hershel Layton + Luke Triton.
+
+[[item]]
+name = "professor_apprentice"
+base = "sp09003"
+category = "synergy"
+icon_key = "sp11004"
+key_id = true
+  [item.text.es]
+  name = "El profesor y su aprendiz"
+  [item.text.en]
+  name = "The Professor and His Apprentice"
+  [item.text.fr]
+  name = "Le professeur et son apprenti"
+  [item.text.de]
+  name = "Der Professor und sein Schüler"
+  [item.text.it]
+  name = "Il professore e il suo apprendista"
+  [item.text.pt]
+  name = "O professor e o seu aprendiz"
+  [item.text.ja]
+  name = "[教授/きょうじゅ]と[弟子/でし]"
+  [item.text.zh_hans]
+  name = "教授与他的徒弟"
+  [item.text.zh_hant]
+  name = "教授與他的徒弟"
+
+[[currency]]
+name = "hershel_layton_card"
+spirit = 0xC69DE15E                      # chara_param of Hershel Layton c05029710
+rarity = 4
+
+[[currency]]
+name = "luke_triton_card"
+spirit = 0xEDB0B29D                      # chara_param of Luke Triton c05029720
+rarity = 4

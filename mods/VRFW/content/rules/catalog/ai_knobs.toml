@@ -1,37 +1,6 @@
 schema = "VRFW.rule_catalog/1"
-# The match AI knob catalogue (docs/framework/match-ai.md): every value a `VRFW.match_ai/1` profile (content\rules\ai\*.toml),
-# the behaviour sink `ai_rate` and a challenge's `keepaway_ai` may name. Built into the framework
-# (match_engine::match_ai::KNOBS_TOML); a new lever = a new entry here (+ its code for `[[team]]` keys).
-#
 # [[knob]]: a game value.
-#   name      the member name (game_param / soccer_ai_property spelling)
-#   where     property        = a member of every player's AI property object ([0x21F6908] + 0x1D28 + index x 0x200),
-#                               one value per player (written for one side only)
-#             ai_global       = CSoccerAIGlobalParam (.data), one value for both teams
-#             strategy_global = SoccerStrategyGlobalParam (.data), one value for both teams
-#             team_ai         = a field of the team's TeamAI block, written before that team's AI pass (the move-kind
-#                               speed table: entry kind x 0x14 at +0xCE20, value +4, zone value +0xC; the move executor
-#                               multiplies the player's run urgency by it)
-#             shared          = a game value the scene code reads for both teams: one value for the match
-#             Global values are written per team: the side's value while that team's AI runs (AIManager_Update's
-#             TeamAIUpdate call), the game's value outside the AI pass (or the common value when both sides agree).
-#   offset    property: the member's offset in the object; team_ai: the field's offset in the TeamAI block
-#   rva       globals: the member's RVA (reference build v7.2.1); written only while memory holds `retail`
-#   type      f32 | u32 (globals: the encoding is taken from memory when it holds the retail value)
-#   retail    globals: the game's value (checked before every first write)
-#   min, max  the range a profile value is clamped to
-#   rate_kinds  property: the GetAIRate kinds that read this member (Ai.GetRate 0x1485B30, the per-player rate the
-#             positioning and target code asks); a match role (VRFW.match_role/1) changes the member where they read it
-#   check_group  team_ai: the fields of one group are compared with `retail` before the match's first write of the
-#             team; one mismatch leaves the whole group unwritten that match (log «team T <group>: originals differ»)
-#   verified  true = offset read in the game's code (the property class registration 0xA1260, command handlers,
-#             readers); false = inferred
-#
-# [[team]]: a per-team behaviour of the run time (`[VRFW.MatchAI.Team]`); `kind` number | bool | range | table,
-#   `keys` the table's keys, `key_ranges` keys with their own [min, max] (else `min` / `max`), `hook` the mechanism that applies it (documentation and the boot log).
-#
 # [[class]]: the game's property classes a profile may load (`Level` / `Personality` / `Class.Inherit`).
-# [[condition]]: the situations of `[[VRFW.MatchAI.If]]`; [elements] / [[element]]: the element wheel of the move choice.
 
 # ------------------------------------------------------------------------------------------------ property members
 
@@ -577,7 +546,6 @@ min = 0.0
 max = 100.0
 summary = "percent: the team starts a duel (each roll)"
 
-
 [[knob]]
 name = "defaultWaitTimeMax"
 where = "ai_global"
@@ -1020,9 +988,6 @@ summary = "seconds a press action runs before it stops (CSoccerGlobalParam; read
 
 # ------------------------------------------------------------------------------------------------ TeamAI fields
 
-# The strategy / team tactics re-plan intervals: the per-team AI tick copies fStrategyUpdateIntervalTime /
-# fTeamTacticsUpdateIntervalTime here every frame; StrategyUpdate compares its timers with these copies.
-
 [[knob]]
 name = "teamStrategyUpdateInterval"
 where = "team_ai"
@@ -1153,8 +1118,6 @@ min = -1.0
 max = 100.0
 verified = true
 summary = "focus duel, move against move: second row of the win table (see skillBattleWinPercent0_HighPowerRatio)"
-
-# ------------------------------------------------------------------------------------------------ SoccerStrategyGlobalParam
 
 [[knob]]
 name = "passNearEnemyNumSuccessRateRatio"
@@ -1318,11 +1281,6 @@ min = 0.0
 max = 10.0
 verified = true
 summary = "seconds after a change of possession during which the analysis keeps the previous phase (lower = faster switch to attack / defence)"
-
-# ------------------------------------------------------------------------------------------------ positions
-# [[position]]: the field positions a match role (VRFW.match_role/1, `Positions`) names: the card's main position
-# (chara_param main_position, VRFW.character.card(id).position) the role chooser filters by, and the match's position
-# group byte (the CharaAI role byte, the group Ai.PositionOffset 0x1656060 gets).
 
 [[position]]
 name = "goalkeeper"
@@ -1756,19 +1714,10 @@ summary = "the side holds the ball and the other side's deepest outfield player 
 
 # ------------------------------------------------------------------------------------------------ passing
 
-# PassLaneCut: the pass commands watched (input_ctrl names) and the AI actions that move a player to his target
-# (executor 0 = move to the record's target position: `0x14664F0`.
 [passing]
 commands = ["CMD_PASS_01"]
 move_actions = [0]
 
-# The AI move override of the mods' scripts (VRFW.ai.move, docs/framework/ai-move.md): a player with an order gets his
-# target in the executor output (whatever action the game chose), run as chase_action when he chases a player (15 =
-# the game's press: he keeps running into the target) or move_action when he goes to a point (0 = move to the target),
-# and the dash type whose engine status is his sprint (TeamDashStart's status table: 1 = dash, 2 = dash attack).
-# sprint_action: the action he runs as while his sprint runs (0 = move to the target, at the base move speed strength
-# eventMoveSpeedStrength_Base 1.0; the press runs at eventMoveSpeedStrength_PressChara 0.7, which slows the dash rate
-# to a plain run). Leave it out to keep chase_action / move_action.
 [ai_move]
 chase_action = 15
 move_action = 0
@@ -1801,14 +1750,11 @@ min = 0.0
 max = 1.0
 summary = "more than Value of the other side's possessions end otherwise (carried on, lost, shot) (LearnUserMoves)"
 
-# LearnUserMoves: samples a tendency needs before its situation can hold
 [learning]
 min_samples = 4
 
 # ------------------------------------------------------------------------------------------------ power
 
-# PowerAware: the battle values besides the stat and move parts (game_param, retail values; a mod that changes these
-# game_param members changes them here too). Formula: docs/framework/match-ai.md §4b.
 [power]
 counter_shot_power_rate = 0.5
 counter_shot_tension_rate = 2.0
@@ -1819,8 +1765,7 @@ duel_win_table = [[1.2, 0.5], [1.5, 0.6]]
 
 # ------------------------------------------------------------------------------------------------ the element wheel
 
-# Elements of the game (ids of the unit and move records); a beats b. Factors of the battle code
-# (Technique.ElementAdvantage 0x1671320: 1.2 at 0x1E62F5C; own element 1.2 at 0x1E62F60).
+# Elements of the game (ids of the unit and move records); a beats b.
 [elements]
 advantage = 1.2
 own_element = 1.2
@@ -1888,8 +1833,6 @@ name = "SoccerAIProperty_9"
 
 [[class]]
 name = "SoccerAIProperty_Coach"
-# the class the game loads for the user's team in Commander mode (SetCoachAI 0x14AE0F0 on: SetTeamAIProperty with this
-# hash; off: the row's class). A script's profile with a class replaces it (docs/framework/match-ai.md §7)
 commander = true
 
 [[class]]

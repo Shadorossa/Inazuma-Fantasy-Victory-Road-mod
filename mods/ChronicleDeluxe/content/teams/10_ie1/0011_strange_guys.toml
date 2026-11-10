@@ -1,15 +1,11 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: Strange Guys («Sospechosos», あやしいやつら) of IE1, a rival of the chain «Ruta prémium de Sonny»
-# (content/teams/70_route_nodes/chain_sonny.toml, upper branch #8). VR has no such team (the «Sospechosos A / B» are the IE2 rosters). Roster: the wiki lineup: its 11 players resolved to their retail cards,
-# keeper first, then defenders, midfielders, forwards (chara_param position). Formation / kit / tactics: Team Ogre's,
-# as the other wiki route teams (the wiki formation is not mapped). Crest: the remastered wiki crest (ie1_ayashii_yatsura.png, the same art as the IE2 A / B teams).
 default_lang = "en"
 
 [[team]]
 name = "ie1_strange_guys"
 key = "evt_chd_ie1_strange_guys"
 based_on = "tm_cro_ie1_1320"              # Team Ogre: formation, kit, tactics
-kit = 0xC1F231A9                          # the neutral kit of the wiki route teams (no VR kit of the wiki's)
+kit = 0xC1F231A9
 level = 75
 series = "IE"
 roster = "exact"

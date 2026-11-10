@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Magic Society · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c11500470"                                   # Vane Nishmont
 moves = [
-  { move = 0x49933AEE, level = 1 },                         # Perfect Tower
-  { move = 0xE0549BE6, level = 13 },                        # Easy Breezy Kid
-  { move = 0xB0F8060A, level = 20 },                        # Ozone Flayer
-  { move = 0x259F08C6, level = 30 },                        # Whirlwind Twister
+  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
+  { move = 0xB0F8060A, level = 13 },                        # Ozone Flayer
+  { move = 0xE0549BE6, level = 20 },                        # Easy Breezy Kid
+  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -24,8 +21,8 @@ target = "c11700370"                                   # Trix Rosenblum
 moves = [
   { move = 0x39CB2F02, level = 1 },                         # Dragster
   { move = 0xE8F5C774, level = 13 },                        # Megalodon
-  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
-  { move = 0x4AD6453E, level = 30 },                        # Back Tornado
+  { move = 0x4AD6453E, level = 20 },                        # Back Tornado
+  { move = 0x7C1494CF, level = 30 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -39,8 +36,8 @@ moves = [
 target = "c11711010"                                   # Barcley Dover
 moves = [
   { move = 0x592A96B4, level = 1 },                         # Afterimage
-  { move = 0x21127474, level = 13 },                        # Ultra Moon
-  { move = 0x4E5B398C, level = 20 },                        # Acrobat Bomber
+  { move = 0x4E5B398C, level = 13 },                        # Acrobat Bomber
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
   { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
 ]
 
@@ -54,9 +51,9 @@ moves = [
 [[edit]]
 target = "c11711020"                                   # Mora Grimmoir
 moves = [
-  { move = 0x2A4E3349, level = 1 },                         # Heart Beat
-  { move = 0x613ABD43, level = 13 },                        # Dawnrise
-  { move = 0x025FD09B, level = 20 },                        # Volcano Cut
+  { move = 0x025FD09B, level = 1 },                         # Volcano Cut
+  { move = 0x2A4E3349, level = 13 },                        # Heart Beat
+  { move = 0x613ABD43, level = 20 },                        # Dawnrise
   { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
 ]
 
@@ -70,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11711030"                                   # Norma Paranon
 moves = [
-  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
-  { move = 0xD9BB22A7, level = 13 },                        # Air Ride
-  { move = 0x768AB9C5, level = 20 },                        # Frosticle
-  { move = 0x7EEA4EE9, level = 30 },                        # Blade Attack
+  { move = 0x7EEA4EE9, level = 1 },                         # Blade Attack
+  { move = 0x768AB9C5, level = 13 },                        # Frosticle
+  { move = 0xD9BB22A7, level = 20 },                        # Air Ride
+  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
 ]
 
   [[edit.cards]]
@@ -86,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11711040"                                   # Roderick Sawsbury
 moves = [
-  { move = 0xF64674CB, level = 1 },                         # Fist of Justice
-  { move = 0x46FA651E, level = 13 },                        # Water Veil
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x88B554E0, level = 30 },                        # Galatyn
+  { move = 0x88B554E0, level = 1 },                         # Galatyn
+  { move = 0x41AEB4DF, level = 13 },                        # Crystal Barrier
+  { move = 0x46FA651E, level = 20 },                        # Water Veil
+  { move = 0xF64674CB, level = 30 },                        # Fist of Justice
 ]
 
   [[edit.cards]]
@@ -102,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11711050"                                   # Kipp Sycamore
 moves = [
-  { move = 0x6BA49049, level = 1 },                         # Mystic Mist
-  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0x0E0A3F7A, level = 30 },                        # Spatial Portal
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0x0E0A3F7A, level = 13 },                        # Spatial Portal
+  { move = 0x6BA49049, level = 20 },                        # Mystic Mist
+  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -118,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11711060"                                   # Clarissa Gimmich
 moves = [
-  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
-  { move = 0xB907E20C, level = 13 },                        # Procyon Net
-  { move = 0xE0549BE6, level = 20 },                        # Easy Breezy Kid
-  { move = 0x6E53E2B3, level = 30 },                        # Angel Ball
+  { move = 0x039DBAAC, level = 1 },                         # Land of Ice
+  { move = 0xE0549BE6, level = 13 },                        # Easy Breezy Kid
+  { move = 0x6E53E2B3, level = 20 },                        # Angel Ball
+  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
 ]
 
   [[edit.cards]]
@@ -134,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11711070"                                   # Pennie Pound
 moves = [
-  { move = 0x9D236FA3, level = 1 },                         # Sword of the King
-  { move = 0xC41097D5, level = 13 },                        # Acrobotics
-  { move = 0xC5EF0563, level = 20 },                        # Three-Legged Rush
-  { move = 0x65B7C1F1, level = 30 },                        # Sumo Stomp
+  { move = 0xC5EF0563, level = 1 },                         # Three-Legged Rush
+  { move = 0x4FE09C7A, level = 13 },                        # Acrobatic Keep
+  { move = 0x9D236FA3, level = 20 },                        # Sword of the King
+  { move = 0xC41097D5, level = 30 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -150,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11711080"                                   # Joyce Deckard
 moves = [
-  { move = 0x6BA49049, level = 1 },                         # Mystic Mist
-  { move = 0x592A96B4, level = 13 },                        # Afterimage
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0x4A17EE80, level = 30 },                        # Hunter's Net
+  { move = 0x592A96B4, level = 1 },                         # Afterimage
+  { move = 0x4A17EE80, level = 13 },                        # Hunter's Net
+  { move = 0x6BA49049, level = 20 },                        # Mystic Mist
+  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -167,8 +164,8 @@ moves = [
 target = "c11711090"                                   # Nasser Pryce
 moves = [
   { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
-  { move = 0xA0BDF96F, level = 13 },                        # Ballista Barrage
-  { move = 0xBBE07677, level = 20 },                        # Sidewinder
+  { move = 0xBBE07677, level = 13 },                        # Sidewinder
+  { move = 0xA0BDF96F, level = 20 },                        # Ballista Barrage
   { move = 0x5E233E68, level = 30 },                        # Super Elastico
 ]
 

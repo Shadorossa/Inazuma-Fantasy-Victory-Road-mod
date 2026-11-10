@@ -1,7 +1,3 @@
-# Chronicle Deluxe: the chain board's background
-# (#/menu/220_img/chronicle_deluxe_chain/chronicle_deluxe_chain_back.g4tx, a NEW atlas; role background of
-# content\screen_art\chain_board.toml): IE3's chain screen background redrawn at 1920 x 1080. Generated: rerun the
-# script, do not edit by hand.
 schema = "VRFW.image/1"
 
 [[texture]]

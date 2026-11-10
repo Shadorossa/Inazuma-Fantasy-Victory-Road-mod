@@ -1,10 +1,4 @@
--- Character Reforged › a character's engine objects for the per-character stats (scripts\stats.lua): the status object
--- FindCharaRecord 0xD7F3E0 gives (container [[g_gameRoot]+0x69D8] + 8 + kind * 8), its save record (+0x08: param id +4,
--- prm_growth[0..7] +0x24), its param block (+0x10: 5 stat arrays at +0x10 / +0x30 / +0x50 / +0x70 / +0x90, i32 per
--- stat) and the effective level (HumanChara_GetLevel 0xD85710, as HumanChara_RefreshStatus passes it). The same reads as
--- Inazuma Fantasy's lib\chara_view.lua. Error codes: -1 bad args, -2 not ready,
--- -4 exception, -5 no record. Needs content\game\chara_records.toml (CharacterReforged.FindCharaRecord,
--- CharacterReforged.HumanGetLevel, character_reforged_chara_containers).
+-- A character's status object, save record, param block and effective level for the per-character stats and the training.
 
 local M = {}
 
@@ -15,13 +9,13 @@ local PARAM_ARRAYS = { 0x10, 0x30, 0x50, 0x70, 0x90 }
 
 local HBUF, FBUF
 
-local Memory = require "VRFW/lib/memory"
-local read_memory = Memory.read_memory
+local Memory = VRFW.memory
+local read_memory = Memory.read
 
 local function bufs()
   if not HBUF then
-    HBUF = VRFW.mem.buffer("character_reforged_stats_hdl", 8)
-    FBUF = VRFW.mem.buffer("character_reforged_stats_flag", 8)
+    HBUF = VRFW.memory.buffer("character_reforged_stats_hdl", 8)
+    FBUF = VRFW.memory.buffer("character_reforged_stats_flag", 8)
   end
 end
 
@@ -39,7 +33,7 @@ function M.object(hdl)
   local cont = read_memory("ptr", conts + 8 + kind * 8)
   if not cont or cont == 0 then return nil, M.ERR_NOT_READY end
   bufs()
-  VRFW.mem.write("u32", HBUF, hdl)
+  VRFW.memory.write("u32", HBUF, hdl)
   local ok, obj = pcall(VRFW.call, "Board.FindCharaRecord", cont, HBUF)
   if not ok then
     VRFW.error(string.format("stats: FindCharaRecord(0x%08X) raised: %s", hdl, tostring(obj)))
@@ -72,6 +66,19 @@ function M.growth_of(rec, idx)
   return read_memory("i32", rec + REC_PRM_GROWTH + idx * 4)
 end
 
+-- { obj, rec, params, param_id } of a handle, or nil + error code
+function M.view(hdl)
+  local obj, e = M.object(hdl)
+  if not obj then return nil, e end
+  local rec = read_memory("ptr", obj + OBJ_RECORD)
+  if not rec then return nil, M.ERR_NO_RECORD end
+  local params = read_memory("ptr", obj + OBJ_PARAMS)
+  if not params then return nil, M.ERR_NOT_READY end
+  local pid = read_memory("i32", rec + REC_PARAM_ID)
+  if not pid then return nil, M.ERR_NO_RECORD end
+  return { obj = obj, rec = rec, params = params, param_id = pid }
+end
+
 -- the effective level of a status object, or nil + error code
 function M.level(obj)
   bufs()
@@ -83,7 +90,6 @@ function M.level(obj)
   return v % 65536
 end
 
--- engine stat idx (0..7) of a param block: the base array (+0x10) and the sum of the 5 arrays (i32 wrapping)
 function M.param_stat(params, idx)
   local b = read_memory("i32", params + PARAM_ARRAYS[1] + idx * 4)
   if b == nil then return nil end
@@ -96,6 +102,30 @@ function M.param_stat(params, idx)
   sum = sum % 4294967296
   if sum >= 2147483648 then sum = sum - 4294967296 end
   return b, sum
+end
+
+-- prm_growth[0..7] of a save record (Lua table 1..8), nil when unreadable
+function M.prm_growth(rec)
+  local g = {}
+  for i = 0, 7 do
+    local v = read_memory("i32", rec + REC_PRM_GROWTH + i * 4)
+    if v == nil then return nil end
+    g[i + 1] = v
+  end
+  return g
+end
+
+-- write prm_growth[0..7] and read it back
+function M.write_prm_growth(rec, g)
+  for i = 0, 7 do
+    if not VRFW.memory.write("i32", rec + REC_PRM_GROWTH + i * 4, g[i + 1]) then return false end
+  end
+  local back = M.prm_growth(rec)
+  if not back then return false end
+  for i = 1, 8 do
+    if back[i] ~= g[i] then return false end
+  end
+  return true
 end
 
 return M

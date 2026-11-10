@@ -1,0 +1,39 @@
+schema = "VRFW.technique/3"
+# This technique is off for this version, and removing the comment marks brings it back.
+# ```
+# # Amethyst Claw: the keshin technique of the warrior spirit mx000010.
+#
+# [[technique]]
+# name = "amethyst_claw"
+# key = "whk92930"
+# base = "whk00980"
+# event = "ev63_81980_1"
+# fail_event = "ev63_81980_2"
+#   [technique.text.es]
+#   name = "Zarpazo de amatista"
+#   description = "El espíritu atrapa el balón con un zarpazo\nde sus garras de amatista."
+#   [technique.text.en]
+#   name = "Amethyst Claw"
+#   description = "The spirit snatches the ball with a swipe\nof its amethyst claws."
+#   [technique.text.fr]
+#   name = "Griffe d'améthyste"
+#   description = "L'esprit saisit le ballon d'un coup\nde ses griffes d'améthyste."
+#   [technique.text.de]
+#   name = "Amethystklaue"
+#   description = "Der Geist fängt den Ball mit einem Hieb\nseiner Amethystklauen."
+#   [technique.text.it]
+#   name = "Artiglio d'ametista"
+#   description = "Lo spirito afferra il pallone con un colpo\ndei suoi artigli d'ametista."
+#   [technique.text.pt]
+#   name = "Garra de Ametista"
+#   description = "O espírito agarra a bola com um golpe\ndas suas garras de ametista."
+#   [technique.text.ja]
+#   name = "紫水晶の爪"
+#   description = "化身が紫水晶の爪を振るい\nボールを止める。"
+#   [technique.text.zh_hans]
+#   name = "紫晶利爪"
+#   description = "化身挥动紫晶利爪，\n将球拦下。"
+#   [technique.text.zh_hant]
+#   name = "紫晶利爪"
+#   description = "化身揮動紫晶利爪，\n將球攔下。"
+# ```

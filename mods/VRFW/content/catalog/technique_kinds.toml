@@ -1,8 +1,5 @@
 schema = "VRFW.catalog/1"
 # Maps technique-id prefixes to telop banner kinds and voice-cue families; rules are tried in order, first match wins.
-# A rule matches a lower-case id starting with one of `prefixes` (or of `set`) or equal to one of `exact`; then `suffix`, `len` and `digits` must also hold.
-# `digits`: "all" = the rest is only digits (at least one); "lead" = at least one more character, the next (up to) 5 are digits.
-# telop `kind`: technique, keshin, totem, miximax, armour, kizuna, power, mode_change, badge (else other); voice `family`: Mods screen text key.
 
 [sets]
 # Special-move id prefixes, in telop template lookup order.

@@ -1,0 +1,16 @@
+# BetterUI: the emblem picker as a full-width honeycomb over the retail list under a centred tab bar (LB / RB) whose pages hold the series tabs and the mods' emblem tabs (L2 / R2).
+name = "better_ui_emblem_grid"
+order = 900
+mod = "BetterUI"
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["FinalizeMenu", "OnChangeFocus", "OnEnter", "OnFunction", "OnInit", "OnOpenLayer", "OnSetupLayer", "UpdateItemEquipLine", "UpdateItemEquipMenu"]
+description = "BetterUI: emblem picker grid"
+
+[[files]]
+stem = "equip_emblem_menu_list"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "better_ui_emblem_grid_1.lua"

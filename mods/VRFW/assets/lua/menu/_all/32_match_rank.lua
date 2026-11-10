@@ -1,36 +1,28 @@
--- menu_engine: the ranks of a won match, VRFW_MatchRank (VRFW base feature; DECLARED in TOML). Definitions only
--- (this file runs in every script VM, lua\_all; no engine call at load: the ranks are read at the first use).
--- The ranks are the active mods' defaults\match_rank.toml ([MatchRank.<Id>]: Order, Won, GoalsFor, MaxConceded,
--- GoalDiff, Badge, BadgeAtlas, PieceBadge, Text; merged by Id in load order, so a mod redeclares S / A / B or adds its
--- own), served best first by the team type: CMND_VRFW_TEAM_MATCH_RANK_COUNT() / _GET(i). The framework declares none
--- (a mod's content, e.g. S / A / B with badges): with none, wins are unranked.
--- A rank is an Id string ("S", "Fantasy.SS"); its Order compares ranks and scales averages. Saves keep Ids; the digits
--- 1 / 2 / 3 of older saves are B / A / S (FromLegacy).
--- The score of the last match: the framework's mod script scripts\match_score.lua (save service, owner VRFW,
--- mr_last_for / mr_last_against; reset at match_start, set at every goal).
-if VRFW_MatchRank == nil then
+-- lua_patch.scope: used
+if VRFW.match_rank == nil then
   local R = {
     OWNER = "VRFW",
-    SAVE_GET = VRFW_Cmd.VRFW_SAVE_GET,       -- CMND_VRFW_SAVE_GET (owner, key, default)
-    LOG = VRFW_Cmd.EVT_LOG,            -- CMND_EVT_LOG
-    COUNT = VRFW_Cmd.VRFW_TEAM_MATCH_RANK_COUNT,           -- CMND_VRFW_TEAM_MATCH_RANK_COUNT
-    GET = VRFW_Cmd.VRFW_TEAM_MATCH_RANK_GET,            -- CMND_VRFW_TEAM_MATCH_RANK_GET
+    SAVE_GET = VRFW.commands.VRFW_SAVE_GET,
+    COUNT = VRFW.commands.VRFW_TEAM_MATCH_RANK_COUNT,           -- CMND_VRFW_TEAM_MATCH_RANK_COUNT
+    GET = VRFW.commands.VRFW_TEAM_MATCH_RANK_GET,            -- CMND_VRFW_TEAM_MATCH_RANK_GET
     LEGACY = {[1] = "B", [2] = "A", [3] = "S"},
-    list = nil,                  -- best first: {id, order, won, gf, mc, gd, badge, atlas, piece, text}
+    list_cache = nil,
     by = nil,
   }
-  VRFW_MatchRank = R
+  VRFW.match_rank = R
 
+  local logger
   local function log(...)
-    pcall(funcLuaCommand, R.LOG, "vrfw.MatchRank", ...)
+    logger = logger or VRFW.logger.new("vrfw.MatchRank")
+    logger(...)
   end
 
-  -- the declared ranks, best first (read once per VM)
-  function R.List()
-    if R.list ~= nil then
-      return R.list
+  --- The declared ranks, best first (read once per VM).
+  function R.list()
+    if R.list_cache ~= nil then
+      return R.list_cache
     end
-    R.list, R.by = {}, {}
+    R.list_cache, R.by = {}, {}
     local ok, n = pcall(funcLuaCommand, R.COUNT)
     n = ok and tonumber(n) or 0
     for i = 0, n - 1 do
@@ -38,29 +30,30 @@ if VRFW_MatchRank == nil then
       if okG and type(id) == "string" and id ~= "" then
         local r = {id = id, order = tonumber(order) or 0, won = won ~= 0, gf = tonumber(gf) or -1, mc = tonumber(mc) or -1,
                    gd = tonumber(gd) or -999, badge = badge or "", atlas = atlas or "", piece = piece or "", text = text or ""}
-        R.list[#R.list + 1] = r
+        R.list_cache[#R.list_cache + 1] = r
         R.by[id] = r
       end
     end
-    if #R.list == 0 then
+    if #R.list_cache == 0 then
       log("no ranks declared (defaults\\match_rank.toml): wins are unranked")
     end
-    return R.list
+    return R.list_cache
   end
 
-  function R.ById(id)
-    R.List()
+  --- The rank with Id `id`; nil when unknown.
+  function R.by_id(id)
+    R.list()
     return id ~= nil and R.by[id] or nil
   end
 
-  -- the Order of a rank Id (0 = none / unknown)
-  function R.Order(id)
-    local r = R.ById(id)
+  --- The Order of a rank Id (0 = none / unknown).
+  function R.order(id)
+    local r = R.by_id(id)
     return r ~= nil and r.order or 0
   end
 
-  -- a save's stored rank: an Id, or a digit 1 / 2 / 3 of an older save (B / A / S)
-  function R.FromLegacy(v)
+  --- The rank Id of an old numeric rank value; other values unchanged.
+  function R.from_legacy(v)
     local n = tonumber(v)
     if n ~= nil then
       return R.LEGACY[n]
@@ -68,8 +61,8 @@ if VRFW_MatchRank == nil then
     return v
   end
 
-  -- the short label shown in texts: the part of the Id after its last dot ("Fantasy.SS" -> "SS")
-  function R.Label(id)
+  --- The display label of a rank Id; "" for nil.
+  function R.label(id)
     if id == nil then
       return ""
     end
@@ -93,11 +86,10 @@ if VRFW_MatchRank == nil then
     return true
   end
 
-  -- the rank Id of a match scoring f and conceding a: the best rank whose conditions hold (nil = none). An unknown
-  -- score (-1) of a won match gets the lowest rank that needs no score (B by default).
-  function R.Of(f, a)
+  --- The rank Id for a match score (goals for, against); nil when unknown.
+  function R.of(f, a)
     f, a = tonumber(f) or -1, tonumber(a) or -1
-    local list = R.List()
+    local list = R.list()
     if f < 0 or a < 0 then
       for i = #list, 1, -1 do
         local r = list[i]
@@ -115,19 +107,19 @@ if VRFW_MatchRank == nil then
     return nil
   end
 
-  -- the last match's rank Id and score (id, for, against)
-  function R.Last()
+  --- The last match's rank Id and score (id, for, against).
+  function R.last()
     local okF, f = pcall(funcLuaCommand, R.SAVE_GET, R.OWNER, "mr_last_for", -1)
     local okA, a = pcall(funcLuaCommand, R.SAVE_GET, R.OWNER, "mr_last_against", -1)
     f = okF and tonumber(f) or -1
     a = okA and tonumber(a) or -1
-    return R.Of(f, a), f, a
+    return R.of(f, a), f, a
   end
 
-  -- the rank of an average Order (chains): the best rank whose Order is at most the average rounded half up
-  function R.ForOrder(avg)
+  --- The rank Id whose order matches the rounded average; nil when none does.
+  function R.for_order(avg)
     local o = math.floor((tonumber(avg) or 0) + 0.5)
-    for _, r in ipairs(R.List()) do
+    for _, r in ipairs(R.list()) do
       if r.order <= o then
         return r.id
       end

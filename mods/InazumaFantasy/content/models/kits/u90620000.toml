@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# Jibanyan's body, bell and tails: one full-body clothes model, his own body and never a team kit.
+format = "native"
+game_path = "chr/_uniform/u90620000"

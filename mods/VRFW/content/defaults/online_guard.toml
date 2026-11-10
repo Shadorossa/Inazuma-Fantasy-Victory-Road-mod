@@ -1,15 +1,4 @@
 # Online guard: modes below are hidden from the title row and refused everywhere (schema VRFW.online_guard).
-# Every active mod's content\defaults\online_guard.toml is read; lists are a union (a mod can add a blocked mode, never remove one).
-# Keys of one [[VRFW.BlockedMode]]:
-#   key                name for logs (files sharing a key have their lists joined)
-#   label              what the mode is (logs)
-#   title_items        title-row request ids of the mode; its button is removed and the request refused
-#   menus              menu objects (names or crc32) that ARE the mode; open/reserve commands for them are refused. List the entry screen and the screens that only serve the online mode (screens an offline mod may reuse stay free)
-#   title_silence      title_menu_2 global functions that only serve the mode; they do not run
-#   title_hide_layers  title_menu_2 layers that only serve the mode; kept hidden
-#   title_functions    title_menu_2 OnFunction ids that only serve the mode; swallowed
-#   when               "always" (default) or "gameplay_mods": blocked only while a mod with [VRFW.Mod] AffectsMatch (default true) is enabled. For such a mode, list only `menus` (title_items is refused with this value).
-#   own_room           true (only with when = "gameplay_mods"): open while the player is in one of the framework's own private rooms (the menu is then the room screen's UI shell).
 
 [[VRFW.BlockedMode]]
 key = "victory_road"
@@ -48,7 +37,7 @@ key = "battle_bay_online"
 label = "Battle Bay online rooms (EOS)"
 when = "gameplay_mods"
 menus = ["network_menu"]
-own_room = true                                # the private-room screen of our own Battle Bay rooms
+own_room = true                                # the private-room screen of the mod's Battle Bay rooms
 
 [[VRFW.BlockedMode]]
 key = "kizuna_online"

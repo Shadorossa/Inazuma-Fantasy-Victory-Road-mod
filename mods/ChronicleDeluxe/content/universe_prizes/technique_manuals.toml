@@ -1,0 +1,10 @@
+schema = "ChronicleDeluxe.universe_prize/1"
+
+[[ChronicleDeluxe.UniversePrize]]
+kind = "category"
+pool = "techniques"
+weight = 1.0
+list = "ITEM_SPECIAL_SKILL_INFO"
+sub_categories = [161, 162, 163, 164]
+sold_in_shop = true
+weight_by_skill_power = true

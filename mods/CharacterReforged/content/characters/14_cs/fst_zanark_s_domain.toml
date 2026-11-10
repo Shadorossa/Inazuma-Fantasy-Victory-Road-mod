@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · <FST:ZANARK>'s Domain · Inazuma Eleven GO Chrono Stone
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c05021490_5000"                              # Navan
+moves = [
+  { move = 0xC8760A18, level = 13 },                        # Falling Planet
+  { move = 0x04941270, level = 20 },                        # Vac Attack
+  { move = 0x2CFC3E63, level = 48 },                        # Dragon Crash
+  { move = 0x89D614F5, level = 62 },                        # White Hurricane
+]
 
   [[edit.cards]]
   id = 0xE153A35B                                         # FW/DF · wind
@@ -14,6 +17,12 @@ target = "c05021490_5000"                              # Navan
 
 [[edit]]
 target = "c05021500_5000"                              # Zanark Avalonic
+moves = [
+  { move = 0x1876DB66, level = 3 },                         # Disaster Strike
+  { move = 0xD0A1DBC3, level = 18 },                        # Bungee Ball Burst
+  { move = 0x93885A64, level = 48 },                        # Fire Drill
+  { move = 0x04941270, level = 58 },                        # Vac Attack
+]
 
   [[edit.cards]]
   id = 0xB861E616                                         # FW/MF · mountain
@@ -22,6 +31,12 @@ target = "c05021500_5000"                              # Zanark Avalonic
 
 [[edit]]
 target = "c05021500_5100"                              # Zanark Avalonic
+moves = [
+  { move = 0x1876DB66, level = 3 },                         # Disaster Strike
+  { move = 0xD0A1DBC3, level = 18 },                        # Bungee Ball Burst
+  { move = 0x93885A64, level = 48 },                        # Fire Drill
+  { move = 0x04941270, level = 58 },                        # Vac Attack
+]
 
   [[edit.cards]]
   id = 0xB9A38C21                                         # FW/MF · mountain
@@ -30,6 +45,12 @@ target = "c05021500_5100"                              # Zanark Avalonic
 
 [[edit]]
 target = "c05021510_5000"                              # Dasan
+moves = [
+  { move = 0x0BFD4D80, level = 27 },                        # Grand Slam
+  { move = 0xC8760A18, level = 37 },                        # Falling Planet
+  { move = 0x1755397B, level = 47 },                        # Dark Energy Star
+  { move = 0xE196F1D1, level = 57 },                        # Burning Bomb
+]
 
   [[edit.cards]]
   id = 0x1E16EDA2                                         # FW/MF · fire
@@ -40,10 +61,15 @@ target = "c05021510_5000"                              # Dasan
 [[edit]]
 target = "c05021410"                                   # Eka
 moves = [
-  { move = 0x7BC5D9F0, level = 1 },                         # Rotary Sander
-  { move = 0xCB8E6D04, level = 17 },                        # Mighty Save
-  { move = 0x2E1BAA18, level = 37 },                        # Crocodile Crush
-  { move = 0x4AF2F3E2, level = 56 },                        # Bridge to Nowhere
+  { move = 0x8B31808E, level = 42 },                        # Wormhole
+  { move = 0x7BC5D9F0, level = 52 },                        # Rotary Sander
+  { move = 0x2E1BAA18, level = 62 },                        # Crocodile Crush
+  { move = 0x4AF2F3E2, level = 72 },                        # Bridge to Nowhere
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0, level = 0 },                                  # (empty)
+  { move = 0xBC1258F8, level = 43 },                        # wkk00110
 ]
 
   [[edit.cards]]
@@ -56,9 +82,9 @@ moves = [
 target = "c05021420"                                   # Dva
 moves = [
   { move = 0x93885A64, level = 5 },                         # Fire Drill
-  { move = 0x08EEBD53, level = 13 },                        # Feint Play
   { move = 0x232D05EC, level = 38 },                        # Tiger Drive
   { move = 0x64CDCFB9, level = 50 },                        # Rising Dragon
+  { move = 0xC16279D1, level = 60 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -72,9 +98,9 @@ moves = [
 target = "c05021430"                                   # Tyrah
 moves = [
   { move = 0x93885A64, level = 3 },                         # Fire Drill
-  { move = 0x75994916, level = 12 },                        # Cunning Pull
   { move = 0xAE2B3429, level = 26 },                        # Atomic Flare
   { move = 0x25276CB9, level = 50 },                        # Solar Surprise
+  { move = 0xABA58912, level = 60 },                        # Ignited Steal
 ]
 
   [[edit.cards]]
@@ -87,10 +113,10 @@ moves = [
 [[edit]]
 target = "c05021440"                                   # Catvari
 moves = [
-  { move = 0x93885A64, level = 1 },                         # Fire Drill
-  { move = 0x7D6E9A87, level = 19 },                        # The Wall
-  { move = 0x6C827857, level = 29 },                        # Rolling Steal
-  { move = 0x72BFA108, level = 52 },                        # Wall of Atlantis
+  { move = 0xB8A509A7, level = 51 },                        # Asterocks
+  { move = 0x93885A64, level = 61 },                        # Fire Drill
+  { move = 0x7D6E9A87, level = 71 },                        # The Wall
+  { move = 0x72BFA108, level = 81 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -104,9 +130,9 @@ moves = [
 target = "c05021450"                                   # Panca
 moves = [
   { move = 0xD0A1DBC3, level = 4 },                         # Bungee Ball Burst
-  { move = 0x2D68DB57, level = 8 },                         # Deceptive Step
   { move = 0xC66BD10D, level = 22 },                        # Zigzag Spark
-  { move = 0x501F2F12, level = 46 },                        # Heel Flick
+  { move = 0x93885A64, level = 32 },                        # Fire Drill
+  { move = 0x06D2AC29, level = 42 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -119,10 +145,10 @@ moves = [
 [[edit]]
 target = "c05021460"                                   # Sas
 moves = [
-  { move = 0xD0A1DBC3, level = 2 },                         # Bungee Ball Burst
-  { move = 0x49041E53, level = 18 },                        # Crosscut Feint
-  { move = 0xA23AEC88, level = 38 },                        # Copy Cut
-  { move = 0x62294D90, level = 50 },                        # Dust Kick
+  { move = 0xF7E49F60, level = 34 },                        # Magnetism
+  { move = 0xD0A1DBC3, level = 44 },                        # Bungee Ball Burst
+  { move = 0xA23AEC88, level = 54 },                        # Copy Cut
+  { move = 0x6BA49049, level = 64 },                        # Mystic Mist
 ]
 
   [[edit.cards]]
@@ -151,10 +177,10 @@ moves = [
 [[edit]]
 target = "c05021480"                                   # Asta
 moves = [
-  { move = 0xD0A1DBC3, level = 1 },                         # Bungee Ball Burst
-  { move = 0xF7E49F60, level = 9 },                         # Magnetism
-  { move = 0x98E76F75, level = 30 },                        # Rapid Fire
-  { move = 0xDA3FF6C9, level = 49 },                        # Criss-Cross
+  { move = 0x232D05EC, level = 28 },                        # Tiger Drive
+  { move = 0xD0A1DBC3, level = 38 },                        # Bungee Ball Burst
+  { move = 0xF7E49F60, level = 48 },                        # Magnetism
+  { move = 0x98E76F75, level = 58 },                        # Rapid Fire
 ]
 
   [[edit.cards]]
@@ -175,7 +201,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x555C1AE5, level = 1 },                         # Roc [aura]
+  { move = 0x555C1AE5, level = 43 },                        # wks00410
 ]
 
   [[edit.cards]]
@@ -190,45 +216,45 @@ growth = "normal"
 stats = { kick = 338, control = 273, technique = 244, pressure = 135, physical = 230, intelligence = 197, agility = 174, freedom = 297 }
 
   [[edit.cards]]
-  id = 0x19B62C9E    # normal card (the character's special cards keep their own set)
+  id = 0x19B62C9E
   moves = [
     { move = 0x1876DB66, level = 3 },                       # Disaster Strike
     { move = 0xD0A1DBC3, level = 18 },                      # Bungee Ball Burst
     { move = 0x93885A64, level = 48 },                      # Fire Drill
-    { move = 0x3D10DCB3, level = 81 },                      # Curve Shot
+    { move = 0x04941270, level = 58 },                      # Vac Attack
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
-    { move = 0xD99B5FA1, level = 1 },                       # Miximax Trans: Zeta [aura]
+    { move = 0x9E014483, level = 20 },                      # wks00690
   ]
 
   [[edit.cards]]
-  id = 0xA8704325    # normal card (the character's special cards keep their own set)
+  id = 0xA8704325
   moves = [
     { move = 0x1876DB66, level = 3 },                       # Disaster Strike
     { move = 0xD0A1DBC3, level = 18 },                      # Bungee Ball Burst
     { move = 0x93885A64, level = 48 },                      # Fire Drill
-    { move = 0x3D10DCB3, level = 81 },                      # Curve Shot
+    { move = 0x04941270, level = 58 },                      # Vac Attack
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
-    { move = 0xD99B5FA1, level = 1 },                       # Miximax Trans: Zeta [aura]
+    { move = 0x9E014483, level = 20 },                      # wks00690
   ]
 
 [[edit]]
 target = "c05021510"                                   # Dasan
 moves = [
-  { move = 0xC8760A18, level = 15 },                        # Falling Planet
-  { move = 0x1755397B, level = 20 },                        # Dark Energy Star
-  { move = 0xE196F1D1, level = 22 },                        # Burning Bomb
-  { move = 0x65766A4F, level = 55 },                        # Meteor Blade
+  { move = 0x0BFD4D80, level = 27 },                        # Grand Slam
+  { move = 0xC8760A18, level = 37 },                        # Falling Planet
+  { move = 0x1755397B, level = 47 },                        # Dark Energy Star
+  { move = 0xE196F1D1, level = 57 },                        # Burning Bomb
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x4C472BA4, level = 1 },                         # Ave de fuego [aura]
+  { move = 0x4C472BA4, level = 43 },                        # wks00400
 ]
 
   [[edit.cards]]
@@ -242,8 +268,8 @@ target = "c05021520"                                   # Sata
 moves = [
   { move = 0x7BC5D9F0, level = 5 },                         # Rotary Sander
   { move = 0xA9062A29, level = 6 },                         # Ultrasonic
-  { move = 0xCB8E6D04, level = 38 },                        # Mighty Save
   { move = 0x9B3048AB, level = 58 },                        # Shadow Catch
+  { move = 0x4AF2F3E2, level = 68 },                        # Bridge to Nowhere
 ]
 
   [[edit.cards]]
@@ -257,8 +283,8 @@ target = "c05021530"                                   # Sahasra
 moves = [
   { move = 0x93885A64, level = 1 },                         # Fire Drill
   { move = 0xD0A1DBC3, level = 15 },                        # Bungee Ball Burst
-  { move = 0x7BC5D9F0, level = 35 },                        # Rotary Sander
   { move = 0xC8760A18, level = 43 },                        # Falling Planet
+  { move = 0x1876DB66, level = 53 },                        # Disaster Strike
 ]
 
   [[edit.cards]]
@@ -274,7 +300,7 @@ moves = [
   { move = 0xD0A1DBC3, level = 2 },                         # Bungee Ball Burst
   { move = 0x62BE692D, level = 18 },                        # Whirlwind Force
   { move = 0x828A53C8, level = 25 },                        # Plasma Ball
-  { move = 0x2D68DB57, level = 45 },                        # Deceptive Step
+  { move = 0xC8760A18, level = 35 },                        # Falling Planet
 ]
 
   [[edit.cards]]
@@ -287,10 +313,10 @@ moves = [
 [[edit]]
 target = "c05021550"                                   # Laksha
 moves = [
+  { move = 0xDDCA0D2A, level = 12 },                        # Bouncing Bomb
   { move = 0xC8760A18, level = 14 },                        # Falling Planet
   { move = 0x98E76F75, level = 22 },                        # Rapid Fire
   { move = 0x93885A64, level = 32 },                        # Fire Drill
-  { move = 0x240BEDF2, level = 47 },                        # Bounce Shot
 ]
 
   [[edit.cards]]
@@ -305,7 +331,7 @@ moves = [
   { move = 0xC8760A18, level = 12 },                        # Falling Planet
   { move = 0xD0A1DBC3, level = 20 },                        # Bungee Ball Burst
   { move = 0x15138722, level = 22 },                        # Will-o'-the-Wisp Shot
-  { move = 0x6B4A7B35, level = 44 },                        # Power Shot
+  { move = 0x1BF20F08, level = 32 },                        # Omega Assault
 ]
 
   [[edit.cards]]
@@ -320,12 +346,12 @@ moves = [
   { move = 0x1876DB66, level = 3 },                         # Disaster Strike
   { move = 0xD0A1DBC3, level = 18 },                        # Bungee Ball Burst
   { move = 0x93885A64, level = 48 },                        # Fire Drill
-  { move = 0x3D10DCB3, level = 81 },                        # Curve Shot
+  { move = 0x04941270, level = 58 },                        # Vac Attack
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x1E515B2E, level = 1 },                         # Xuan-Wu [aura]
+  { move = 0x1E515B2E, level = 20 },                        # wkd00670
 ]
 
   [[edit.cards]]
@@ -339,12 +365,12 @@ moves = [
   { move = 0x1876DB66, level = 3 },                         # Disaster Strike
   { move = 0xD0A1DBC3, level = 18 },                        # Bungee Ball Burst
   { move = 0x93885A64, level = 48 },                        # Fire Drill
-  { move = 0x3D10DCB3, level = 81 },                        # Curve Shot
+  { move = 0x04941270, level = 58 },                        # Vac Attack
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x9E014483, level = 1 },                         # Zodíaco [aura]
+  { move = 0x9E014483, level = 20 },                        # wks00690
 ]
 
   [[edit.cards]]
@@ -354,6 +380,12 @@ moves = [
 
 [[edit]]
 target = "c05021410_5000"                              # Eka
+moves = [
+  { move = 0x8B31808E, level = 42 },                        # Wormhole
+  { move = 0x7BC5D9F0, level = 52 },                        # Rotary Sander
+  { move = 0x2E1BAA18, level = 62 },                        # Crocodile Crush
+  { move = 0x4AF2F3E2, level = 72 },                        # Bridge to Nowhere
+]
 
   [[edit.cards]]
   id = 0xD2BCED3C                                         # GK/MF · wind

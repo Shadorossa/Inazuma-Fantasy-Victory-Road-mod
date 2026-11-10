@@ -1,11 +1,7 @@
--- Aura Reworked › spirit passive icons: a keshin's own command effect names its icon in column 2 either as a game buff
--- icon type (0-38) or as the crc32 of a sprite of icon_teambuff.g4tx (content/images/menu/200_icon/08_icon_teambuff/
--- spirit_passive_icons.toml). The game's GeTeamBuffIconTextureName answers 0 for a sprite crc: it is the sprite name.
--- No engine call at load time; wrapped again when the include runs again.
 
 AuraOverhaul = AuraOverhaul or {}
-AuraOverhaul.SpiritIcons = AuraOverhaul.SpiritIcons or {}
-local S = AuraOverhaul.SpiritIcons
+AuraOverhaul.spirit_icons = AuraOverhaul.spirit_icons or {}
+local S = AuraOverhaul.spirit_icons
 
 if type(GeTeamBuffIconTextureName) == "function" and GeTeamBuffIconTextureName ~= S.icon_name then
   local orig = GeTeamBuffIconTextureName

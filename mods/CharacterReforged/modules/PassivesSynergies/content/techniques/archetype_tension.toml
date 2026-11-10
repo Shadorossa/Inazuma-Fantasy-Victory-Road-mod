@@ -1,0 +1,123 @@
+schema = "VRFW.technique/3"
+default_lang = "none"
+
+# A Tension archetype passive: the tension the team earns when it loses a focus duel, +12 %
+# (the effect: content\special_passives\archetype_tension.toml). Built like the game's ps10063
+# (category 9 = Tension archetype, team target, the Tension buff icon 19, build icon 3); the
+# timing 951 leaves the effect to the passive engine.
+[[passive_effect_def]]
+key = "passives_synergies_tension_on_loss_effect"
+info = [9, 0, 0]
+entries = [
+  ["EXEC_TIMING_DATA", 951],
+  ["TARGET_DATA", 4],
+  ["EXEC_DATA", 1, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A],
+  ["EFFECT_DATA_LIST_BEG", 1],
+  ["EFFECT_DATA", 0x713C7D84, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A],
+  ["EFFECT_DATA_LIST_END"],
+  ["GRAND_TOTAL_INFO", 0xB9A3562D, 101, 150],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA_LIST_BEG", 1],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA", 19],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA_LIST_END"],
+  ["GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA_LIST_BEG", 1],
+  ["GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA", 3],
+  ["GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA_LIST_END"],
+]
+
+# effects: the definition above (crc32 of its key) and the value the texts show as <VALUE>
+[[passive]]
+key = "passives_synergies_tension_on_loss"
+from = "ps10063"
+cells = { desc_text = 0x3629719E }
+effects = [[0x7F173DC3, 12, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A]]
+
+# the passive's text (id = crc32 of "passives_synergies_tension_on_loss_desc"), worded like ps10063
+[[text]]
+id = 0x3629719E
+kind = "noun"
+add = true
+es = "Cuando el equipo pierde en foco, \\ntensión [CPASSIVE01]+<VALUE> %[C]"
+en = "When losing a Focus Battle, \\nTeam Tension [CPASSIVE01]+<VALUE>%[C]"
+fr = "En perdant un affrontement, \\ntension de l'équipe [CPASSIVE01]+<VALUE> %[C]"
+de = "Spannung [CPASSIVE01]+<VALUE> %[C], wenn die Mannschaft Fokus-Kämpfe \\nverliert"
+it = "Quando la squadra perde uno Scontro mirato, \\ndà [CPASSIVE01]+<VALUE>%[C] di Tensione"
+pt = "Quando o time perde no Choque, \\naumenta o bônus de Tensão em [CPASSIVE01]+<VALUE>%[C]"
+ja = "チームのフォーカス[敗北時/はいぼくじ]\\n[獲得/かくとく]テンション[CPASSIVE01]＋<VALUE>％[C]"
+zh_hans = "本队球员在集中模式中失败时，士气[CPASSIVE01]+<VALUE>%[C]"
+zh_hant = "隊伍處於集中模式失敗時，士氣[CPASSIVE01]+<VALUE>%[C]"
+
+# the effect's name in the «Habilidades pasivas» filter and the team passive summary (GRAND_TOTAL_INFO text,
+# id = crc32 of "passives_synergies_tension_on_loss_total")
+[[text]]
+id = 0xB9A3562D
+kind = "noun"
+add = true
+es = "Cuando el equipo pierde en foco, \\ntensión <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO>"
+en = "When losing a Focus Battle, \\nTeam Tension <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO>"
+fr = "En perdant un affrontement, \\ntension de l'équipe <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO>"
+de = "Spannung <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO>, wenn die Mannschaft Fokus-Kämpfe \\nverliert"
+it = "Quando la squadra perde uno Scontro mirato, \\ndà <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO> di Tensione"
+pt = "Quando o time perde no Choque, \\naumenta o bônus de Tensão em <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO>"
+ja = "チームのフォーカス[敗北時/はいぼくじ]\\n[獲得/かくとく]テンション<PASSIVE_COLOR>＋<VALUE>％[C]<OVER_PASSIVE_INFO>"
+zh_hans = "本队球员在集中模式中失败时，士气<PASSIVE_COLOR>+<VALUE>%[C]<OVER_PASSIVE_INFO>"
+zh_hant = "隊伍處於集中模式失敗時，士氣<PASSIVE_COLOR>+<VALUE>%[C]<OVER_PASSIVE_INFO>"
+
+# A Tension archetype passive: each focus duel he wins with a hard attack or a hard block, 6 tension points for his
+# team (the effect: content\special_passives\archetype_tension.toml). Built like the one above.
+[[passive_effect_def]]
+key = "passives_synergies_tension_on_hard_play_effect"
+info = [9, 0, 0]
+entries = [
+  ["EXEC_TIMING_DATA", 951],
+  ["TARGET_DATA", 4],
+  ["EXEC_DATA", 1, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A],
+  ["EFFECT_DATA_LIST_BEG", 1],
+  ["EFFECT_DATA", 0x713C7D84, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A],
+  ["EFFECT_DATA_LIST_END"],
+  ["GRAND_TOTAL_INFO", 0xCD324512, 101, 150],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA_LIST_BEG", 1],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA", 19],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA_LIST_END"],
+  ["GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA_LIST_BEG", 1],
+  ["GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA", 3],
+  ["GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA_LIST_END"],
+]
+
+# effects: the definition above (crc32 of its key) and the value the texts show as <VALUE>
+[[passive]]
+key = "passives_synergies_tension_on_hard_play"
+from = "ps10063"
+cells = { desc_text = 0x16E8D41D }
+effects = [[0xC90581ED, 6, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A]]
+
+# the passive's text (id = crc32 of "passives_synergies_tension_on_hard_play_desc"); the hard attack is the game's
+# own term of each language (ps10077)
+[[text]]
+id = 0x16E8D41D
+kind = "noun"
+add = true
+es = "Ataque duro y bloqueo duro: tensión [CPASSIVE01]+<VALUE>[C]"
+en = "Rough Attack & Rough Block: Tension [CPASSIVE01]+<VALUE>[C]"
+fr = "Attaque et blocage brutaux : tension [CPASSIVE01]+<VALUE>[C]"
+de = "Rauer Angriff und rauer Block: Spannung [CPASSIVE01]+<VALUE>[C]"
+it = "Attacco e contrasto impetuosi: Tensione [CPASSIVE01]+<VALUE>[C]"
+pt = "Ataque Bruto e Bloqueio Bruto: Tensão [CPASSIVE01]+<VALUE>[C]"
+ja = "ラフアタックとラフブロックで\\nテンション[CPASSIVE01]＋<VALUE>[C]"
+zh_hans = "粗野进攻与粗野阻挡：士气[CPASSIVE01]+<VALUE>[C]"
+zh_hant = "粗暴攻擊與粗暴阻擋：士氣[CPASSIVE01]+<VALUE>[C]"
+
+# the effect's name in the «Habilidades pasivas» filter and the team passive summary (GRAND_TOTAL_INFO text,
+# id = crc32 of "passives_synergies_tension_on_hard_play_total")
+[[text]]
+id = 0xCD324512
+kind = "noun"
+add = true
+es = "Ataque duro y bloqueo duro: tensión <PASSIVE_COLOR>+<VALUE>[C] <OVER_PASSIVE_INFO>"
+en = "Rough Attack & Rough Block: Tension <PASSIVE_COLOR>+<VALUE>[C] <OVER_PASSIVE_INFO>"
+fr = "Attaque et blocage brutaux : tension <PASSIVE_COLOR>+<VALUE>[C] <OVER_PASSIVE_INFO>"
+de = "Rauer Angriff und rauer Block: Spannung <PASSIVE_COLOR>+<VALUE>[C] <OVER_PASSIVE_INFO>"
+it = "Attacco e contrasto impetuosi: Tensione <PASSIVE_COLOR>+<VALUE>[C] <OVER_PASSIVE_INFO>"
+pt = "Ataque Bruto e Bloqueio Bruto: Tensão <PASSIVE_COLOR>+<VALUE>[C] <OVER_PASSIVE_INFO>"
+ja = "ラフアタックとラフブロックで\\nテンション<PASSIVE_COLOR>＋<VALUE>[C]<OVER_PASSIVE_INFO>"
+zh_hans = "粗野进攻与粗野阻挡：士气<PASSIVE_COLOR>+<VALUE>[C]<OVER_PASSIVE_INFO>"
+zh_hant = "粗暴攻擊與粗暴阻擋：士氣<PASSIVE_COLOR>+<VALUE>[C]<OVER_PASSIVE_INFO>"

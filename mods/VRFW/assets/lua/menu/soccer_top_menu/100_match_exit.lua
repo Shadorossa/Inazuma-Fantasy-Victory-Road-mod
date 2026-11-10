@@ -1,16 +1,9 @@
--- VRFW_MATCH_EXIT in soccer_top_menu (Competición), the menu side of match_exit (lua\menu\_all\14_match_exit.lua).
--- After a match this hub opens first, then routes on by itself to the menu the match was started from: its background
--- layer's OnOpenLayer reads the game's return menu (3163201916) and runs MoveToVsCpuMenuCoroutine / OpenList (the
--- free-match list), MoveToVsMydockMenuCoroutine («Competir contra mis equipos») or RunManageCoroutine (online). Under
--- the cover those calls mark the hub as passed through: the menu they open lands (releases the cover). With no return
--- menu the hub itself is the landing: the cover is released once its background layer finished opening (the moment
--- the game's own code fades the hub in). Wraps global functions only; no engine call at load time.
 do
-  local X = VRFW_MATCH_EXIT
+  local X = VRFW.match_exit
   if type(X) == "table" and not X.hub_wrapped then
     X.hub_wrapped = true
     X.manual = true
-    local BACKGROUND = 367379312     -- the hub's background layer (its open end: the retail flag2, the hub is open)
+    local BACKGROUND = 367379312
 
     for _, name in ipairs({ "MoveToVsCpuMenuCoroutine", "MoveToVsMydockMenuCoroutine", "OpenList", "RunManageCoroutine" }) do
       local f = rawget(_ENV, name)

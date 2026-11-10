@@ -1,23 +1,20 @@
--- menu_engine: VRFW_TeamDock, the shared state of the team dock (soccer_team_dock_menu, docs/framework/team-dock.md).
--- A mode with its own squad screen claims the dock; mods that add pages or rows to the dock stay off while it is
--- claimed. Mods that change the shown dock page tell the others through events. Definitions only; no engine call at load.
-if VRFW_TeamDock == nil then
-  -- EVT_DOCK_OWNERS is the former name of the owners table: kept as the same table so old registrations still count
-  EVT_DOCK_OWNERS = type(EVT_DOCK_OWNERS) == "table" and EVT_DOCK_OWNERS or {}
-  local TD = { owners = EVT_DOCK_OWNERS, listeners = {} }
-  VRFW_TeamDock = TD
+-- lua_patch.scope: used
+if VRFW.team_dock == nil then
+  local TD = { owners = {}, listeners = {} }
+  VRFW.team_dock = TD
 
-  -- a mode claims the dock; rule = function returning true while it owns the dock (nil = owned until Release)
-  function TD.Claim(owner, rule)
+  --- Claims the team dock for `owner`; `rule` (optional function) decides when the claim applies.
+  function TD.claim(owner, rule)
     TD.owners[owner] = type(rule) == "function" and rule or true
   end
 
-  function TD.Release(owner)
+  --- Drops the claim of `owner`.
+  function TD.release(owner)
     TD.owners[owner] = nil
   end
 
-  -- the name of the mode that owns the dock now, nil when none
-  function TD.Owner()
+  --- The first owner whose claim applies; nil when there is none.
+  function TD.owner()
     for owner, rule in pairs(TD.owners) do
       if rule == true then
         return owner
@@ -31,22 +28,22 @@ if VRFW_TeamDock == nil then
     return nil
   end
 
-  function TD.IsOwned()
-    return TD.Owner() ~= nil
+  --- True when some owner's claim applies.
+  function TD.is_owned()
+    return TD.owner() ~= nil
   end
 
-  -- the dock shows the online squad (online friendly lobby)
-  function TD.Online()
-    if EVT_PmOnline ~= nil then
-      local ok, r = pcall(EVT_PmOnline)
+  --- The dock shows the online squad (online friendly lobby).
+  function TD.online()
+    if (VRFW.prematch ~= nil and VRFW.prematch.online ~= nil) then
+      local ok, r = pcall(VRFW.prematch.online)
       return ok and r == true
     end
     return funcLuaCommand(3959907440) == true or funcLuaCommand(1191545622) == true
   end
 
-  -- listen to a dock event: "page_changing" / "page_changed" (a mod mounted another page of docks), "header" (the
-  -- screen title was written again), "docks_changed" (a mod edited docks while the dock was closing); name = the listener's id (registering again replaces it)
-  function TD.On(event, name, fn)
+  --- Adds fn as listener `name` of `event`; a second one with the same name replaces it.
+  function TD.on(event, name, fn)
     local list = TD.listeners[event] or {}
     TD.listeners[event] = list
     for _, l in ipairs(list) do
@@ -58,13 +55,43 @@ if VRFW_TeamDock == nil then
     list[#list + 1] = { name = name, fn = fn }
   end
 
-  -- send a dock event to its listeners (each one protected: an error is logged, the others still run)
-  function TD.Emit(event, ...)
+  local logger
+  local function report_failure(event, name, err)
+    logger = logger or VRFW.logger.new("VRFW.team_dock")
+    logger(event .. " listener " .. tostring(name) .. " failed: " .. tostring(err))
+  end
+
+  --- Calls every listener of `event` under pcall.
+  function TD.emit(event, ...)
     for _, l in ipairs(TD.listeners[event] or {}) do
       local ok, err = pcall(l.fn, ...)
       if not ok then
-        pcall(funcLuaCommand, VRFW_Cmd and VRFW_Cmd.EVT_LOG or 3661580131, "VRFW.team_dock",
-          event .. " listener " .. tostring(l.name) .. " failed: " .. tostring(err))
+        report_failure(event, l.name, err)
+      end
+    end
+  end
+
+  --- The first non-nil answer of the event's listeners.
+  function TD.ask(event, ...)
+    for _, l in ipairs(TD.listeners[event] or {}) do
+      local ok, answer = pcall(l.fn, ...)
+      if not ok then
+        report_failure(event, l.name, answer)
+      elseif answer ~= nil then
+        return answer
+      end
+    end
+    return nil
+  end
+
+  -- Runs the registrations of the lua_early mods' `_all` files, which load before this file.
+  local queue = rawget(VRFW, "team_dock_queue")
+  rawset(VRFW, "team_dock_queue", nil)
+  if type(queue) == "table" then
+    for _, register in ipairs(queue) do
+      local ok, err = pcall(register, TD)
+      if not ok then
+        report_failure("queued registration", "team_dock_queue", err)
       end
     end
   end

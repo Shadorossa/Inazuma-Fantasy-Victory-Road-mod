@@ -1,6 +1,4 @@
 schema = "VRFW.character/2"
-# Chronicle Deluxe: players of the Galaxy the game ships models and faces for but no player row: signed from the player album.
-# Ids, stats and moves: ported from the old Chronicles Deluxe / Inazuma Fantasy declarations (research/archive, research/mods/_aside).
 default_lang = "en"
 
 [[character]]

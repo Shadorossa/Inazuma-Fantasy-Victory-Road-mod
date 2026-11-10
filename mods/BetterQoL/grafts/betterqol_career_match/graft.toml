@@ -1,0 +1,17 @@
+# BetterQoL: the match HUD and the half-time / result menu feed CMND_BETTERQOL_CAREER_MATCH (hook files).
+name = "betterqol_career_match"
+mod = "BetterQoL"
+order = 300
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "BetterQoL: match HUD and half-time / result feed the career stats"
+
+[[hooks]]
+stem = "soccer_menu"
+source = "betterqol_cs_hud.lua"
+
+[[hooks]]
+stem = "soccer_half_time_menu"
+source = "betterqol_cs_result.lua"

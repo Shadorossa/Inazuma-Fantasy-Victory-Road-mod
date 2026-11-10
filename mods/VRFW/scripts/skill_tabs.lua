@@ -1,20 +1,9 @@
--- Skill tab registry: reads every mod's content/skill_tabs/*.toml (`VRFW.skill_tab/1`; keys in content/types/skill_tab.toml) and patches the move list tabs via content/game/skill_tabs.toml.
--- Off (no applicable tab or aura list declaration): nothing is written; the game's tabs and team aura rows stay.
--- Tabs: a declaration changes a game tab (`order`, `group`, `hidden`) or adds a category; the list is the non-hidden tabs by order (ties: game order, then declaration order).
--- A group's tabs must be contiguous (else its first run is used); CMND_VRFW_SKILL_TAB_WINDOW narrows the list to one group ("" restores it).
--- Team aura list: aura types and skills declared in `[[VRFW.AuraListHide]]` are left out of the rows.
--- A mod that patches the tab sites itself keeps them: the registry stays off and logs it once.
--- CMND_VRFW_SKILL_TABS() -> n, categories
--- CMND_VRFW_SKILL_TAB_WINDOW([group]) -> start, count
--- CMND_VRFW_SKILL_TAB_HAS(category) -> bool
--- CMND_VRFW_SKILL_TAB_INFO(category) -> game index, icon, atlas, sprite, sprite off, text id, text, filter, filter group
 
 SkillTabs = SkillTabs or {}
 
+local D = VRFW.declarations
+local Id = VRFW.ids
 
-local D = require "lib/declarations"
-
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("skill_tabs")
 
 local TAB_ON = false      -- the native list is the registry's
@@ -22,16 +11,11 @@ local GAME = nil          -- the game's tabs (categories in table order), read o
 local LIST = {}           -- the native list's categories (TAB_ON)
 local HAS = {}            -- category -> true (TAB_ON)
 local GROUPS = {}         -- group name -> { start, count }
-local GROUP_ORDER = {}    -- group names in list order (CMND_VRFW_SKILL_TAB_WINDOW(k) = the k-th)
-local INFO = {}           -- category -> { game_index, icon, atlas, sprite, sprite_off, text_id, text, filter, filter_group }
+local GROUP_ORDER = {}
+local INFO = {}
 local WIN = { 0, 0 }      -- the window in force: start, count
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
+local rd = VRFW.memory.read
 
 local function apply(name, arg)
   local ok, r = pcall(VRFW.patch.apply, name, arg)
@@ -42,7 +26,6 @@ local function apply(name, arg)
   return r == true
 end
 
--- the game's tab table and count sites (profile sites Technique.SkillTabsTable / SkillTabsCount); nil, why when another mod changed them or the build lacks them
 local function game_tabs()
   if GAME then return GAME end
   local ok1, lea = pcall(VRFW.game.symbol, "Technique.SkillTabsTable")
@@ -66,8 +49,6 @@ local function game_tabs()
   return t
 end
 
--- ---------------------------------------------------------------------------------------------- declarations
-
 local function load_decls()
   local schema, why = D.schema("skill_tab")
   if not schema then
@@ -82,8 +63,6 @@ local function load_decls()
   return { schema = schema, tabs = tabs, hides = hides, skipped = skipped }
 end
 
--- ---------------------------------------------------------------------------------------------- tabs
-
 -- the keys a declaration may change on a tab (merged per category, later mod wins key by key)
 local TAB_KEYS = { order = true, group = true, hidden = true, icon = true, icon_atlas = true, icon_sprite = true,
   icon_sprite_off = true, text = true, filter = true, filter_group = true }
@@ -95,7 +74,7 @@ end
 
 -- the title's text: a key of the text engine (in the game's language), or "" (an id: the game's own lookup)
 local function text_of(v)
-  if type(v) ~= "string" or v:match("^%s*0[xX]%x+%s*$") or v:match("^%s*%d+%s*$") then return "" end
+  if type(v) ~= "string" or Id.parse(v) then return "" end
   local ok, s = pcall(VRFW.text, v)
   if ok and type(s) == "string" then return s end
   return ""
@@ -223,8 +202,6 @@ local function start_tabs(d)
     #gs > 0 and ("; groups " .. table.concat(gs, ", ")) or "")
 end
 
--- ---------------------------------------------------------------------------------------------- team aura list
-
 local function start_aura_list(d)
   if #d.hides == 0 then return "no aura list declarations" end
   local units = d.schema.code or {}
@@ -269,8 +246,6 @@ local function start_aura_list(d)
   return string.format("team aura list leaves out aura types %s and %d skill(s) %s", #ts > 0 and table.concat(ts, " ") or "none",
     #ss, table.concat(ss, " "))
 end
-
--- ---------------------------------------------------------------------------------------------- commands
 
 -- () -> n, category 1 … category n (0: the service is off, the game's own tabs)
 function SkillTabs.CmdTabs()
@@ -326,8 +301,6 @@ function SkillTabs.CmdHas(category)
   end
   return false
 end
-
--- ---------------------------------------------------------------------------------------------- start
 
 local function start()
   local d = load_decls()

@@ -1,0 +1,8 @@
+# Inazuma Eleven Cross in the emblem picker (VRFW emblem_tab type): one tab with the emblems this mod adds.
+schema = "VRFW.emblem_tab/1"
+
+[[VRFW.EmblemTab]]
+name = "cross"
+order = 100
+icon = "icon_list_tab_series10"
+icon_off = "icon_list_tab_series10_off"

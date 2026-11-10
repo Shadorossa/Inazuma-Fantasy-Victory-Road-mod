@@ -1,9 +1,6 @@
-# The forms of the rule type's files (docs/framework/types/rule.md): rulebooks (`VRFW.rule/1`, one per file) and their
+# The forms of the rule type's files (docs/internal/types/rule.md): rulebooks (`VRFW.rule/1`, one per file) and their
 # bindings (`VRFW.rule_binding/1`), in the editor schema format (docs/framework/modmanager-editor-schemas.md).
-# ModManager's «Reglas» page edits every mod's rule files with them, in place. `For` names the file kind a root shape
-# is the form of. The keys are the match engine's (ruleset.rs, assign.rs, challenge/rules.rs, pitch.rs): every save is
-# read back by its strict parser first. A field without a value keeps the match row's rule (the game's), so «—» is a
-# value of its own. Read only by ModManager: the game does not read content\editor\.
+# ModManager's «Reglas» page edits every mod's rule files with them, in place.
 schema = "VRFW.editor/1"
 
 # ---------------------------------------------------------------------------------------------- rulebook (rule/1)
@@ -289,6 +286,12 @@ Id = "rule_end"
   Key = "extended_vgoal"
   Type = "bool"
   Label = { es = "Gol V tras empate (historia)", en = "V-goal after a draw (story)" }
+  [[Shape.Field]]
+  Key = "advance_win_goals"
+  Type = "int"
+  Min = 1
+  Max = 60
+  Label = { es = "Goles en la 1.ª parte para ganar por ventaja", en = "First-half goals for the advance win" }
 
 [[Shape]]
 Id = "rule_pitch"

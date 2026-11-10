@@ -4,8 +4,8 @@
 # own (cols 2/3 = 0; the name is the linked skill's, col 16), so the toast reads "You obtained !" for a move manual
 # dropped by hd_hissatsu_drops.py. The retail shop
 # (shop_menu_buy PurchaseConfirmationTextToken) uses mode 155 for category 160 except sub 177; this graft applies the
-# same rule to the toast (types 6 and 8) through VRFW_ItemNameConvertMode.
-# VR-Framework graft (always on; any mod's category-160 drops benefit): global VRFW_ItemNameConvertMode.
+# same rule to the toast (types 6 and 8) through VRFW.item_name_convert_mode.
+# VRFW graft (always on; any mod's category-160 drops benefit): global VRFW.item_name_convert_mode.
 name = "vrfw_announce_item_name"
 mod = "VRFW"
 order = 100
@@ -22,7 +22,7 @@ stem = "announce_log"
   type = "replace"
   point = "announce_log.GetItemText.VrfwAnnounceItemName"
   text = '''
-  s = funcLuaCommand(762937651 --[[CMND_TEXT_LOCALIZE_CONVERT]], s, VRFW_ItemNameConvertMode(a2, 0), a2, a3) -- VRFW vrfw_announce_item_name
+  s = funcLuaCommand(762937651 --[[CMND_TEXT_LOCALIZE_CONVERT]], s, VRFW.item_name_convert_mode(a2, 0), a2, a3) -- VRFW vrfw_announce_item_name
 '''
   crc = "none"
 
@@ -30,7 +30,7 @@ stem = "announce_log"
   type = "replace"
   point = "announce_log.GetItemNoRareText.VrfwAnnounceItemName"
   text = '''
-  s = funcLuaCommand(762937651 --[[CMND_TEXT_LOCALIZE_CONVERT]], s, VRFW_ItemNameConvertMode(a2, 1), a2, a3) -- VRFW vrfw_announce_item_name
+  s = funcLuaCommand(762937651 --[[CMND_TEXT_LOCALIZE_CONVERT]], s, VRFW.item_name_convert_mode(a2, 1), a2, a3) -- VRFW vrfw_announce_item_name
 '''
   crc = "none"
 

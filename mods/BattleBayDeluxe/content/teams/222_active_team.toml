@@ -84,14 +84,14 @@ levels = [0, 0, 0, 0, 0, 0]
 
 [[team]]
 name = "active_team"
-key = "evt_bbd_active_team"
-description = 0x8695F667
+key = "battlebaydeluxe_active_team"
+description = 0x44A219CB
 level = 40
 emblem = 0xCFC49988
-appears = [{ list = "bb_stadium", category = "main", season = "bbd_modes", sort_before = "BattleBayDeluxe.draft", row = { copy = false, order = 0, stadium = 0x22E965A5, image = "ev_chronicle_img/ev_bb_s10g001_01.g4tx", bgm = 0x6C1E6CDD, unlock_text = 1920306161, image_name = "ev_bb_s10g001_01" } }]
+appears = [{ list = "bb_stadium", category = "personal", season = "bbd_modes", row = { copy = false, order = 0, stadium = 0x22E965A5, image = "ev_chronicle_img/ev_bb_s10g001_01.g4tx", bgm = 0x6C1E6CDD, unlock_text = 1012830425, image_name = "ev_bb_s10g001_01" } }]
 same_as = ["bb_01_team_raimon"]
 roster = "exact"
-name_text = 0xD3032435
+name_text = 0x1134CB99
 formation = 0x94116F1A
 kit = 0x252CE113
 tactics = [0x43D8B1AC, 0x71EED32E, 0x921A0AE5]

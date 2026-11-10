@@ -1,0 +1,19 @@
+# Declaration schema of HissatsuReforged.rules/1 (content\hissatsu_level_up): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "HissatsuReforged.rules/1"
+folder = "content/hissatsu_level_up"
+label = "Move level-up rules"
+label_es = "Reglas de subida de técnicas"
+doc = "The animation of each move grade, and the states in which moves cannot rank up, are boosted or are at max grade."
+doc_es = "La animación de cada grado de técnica y los estados en los que las técnicas no suben de rango, se potencian o están al grado máximo."
+
+[entry.GradeAnimation]
+technique = { type = "string", ref = "technique", required = true }
+grade = { type = "int", required = true }
+animation_of = { type = "string", required = true }
+
+[entry.Rules]
+single = true
+no_rank_up_states = { type = "strings" }
+boost_states = { type = "strings" }
+max_grade_states = { type = "strings" }

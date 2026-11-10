@@ -1,10 +1,3 @@
-# VRFW: the «Mods» title tile (lower row of title_menu_2; docs/framework/mods-panel.md §2), added to the
-# retail title00_07.g4tx as the texture vrfw_mods_tile. All of it is the framework's own art: the background scene
-# (title00_07/vrfw_mods_scene.png, variant «circuito» of research/scripts/mods_tile_bg.py: a blueprint grid with hex
-# modules linked by glowing traces and a gear) and the puzzle glyph (title00_07/vrfw_mods_icon_btn.png). The recipes
-# below give the scene the retail _off (blue duotone) / _on (colour under a blue wash) looks at the first start and
-# cut it to the retail tile shape: the only game input is btn_base01_off's alpha, used as a mask. No Level-5 pixel
-# ships. The sprite names are research/mods/mods_menu/tile.toml's (the plugin hands them to the title).
 schema = "VRFW.image/1"
 
 [[texture]]
@@ -38,7 +31,7 @@ x = 792
 y = 0
 png = "title00_07/vrfw_mods_icon_btn.png"
 
-# the background: our own scene (392 x 160, research/scripts/mods_tile_bg.py --export)
+# the background: the mod's own scene (392 x 160, research/mods/VRFW/_tools/mods_tile_bg.py --export)
 [[recipe]]
 name = "scene"
 png = "title00_07/vrfw_mods_scene.png"
@@ -49,7 +42,6 @@ name = "shape"
 game = "dx11/menu/50_title/title00/title00_07/title00_07.g4tx"
 texture = "btn_base01_off"
 
-# retail _off look: luminance -> blue duotone (curves fitted on btn_base01/05/06/08/10_off; the median lifted to 0.5)
 [[recipe]]
 name = "off_rgb"
 from = "scene"

@@ -1,0 +1,2211 @@
+schema = "VRFW.migration/1"
+id = "VRFW.no_compat_names"
+description = "Player data written under the old mod and id names moves to the current names"
+phase = "data"
+
+# Mods merged into others (their save files, option file, config section, list entries and registry keys).
+
+# Challenges is part of FootballReforged
+[[step]]
+kind = "move_file"
+from = "{saves}/*/Challenges/*.json"
+to = "{saves}/*/FootballReforged/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "Challenges"
+to = "FootballReforged"
+if_target = "keep_target"
+
+# DuelAuras is part of FootballReforged
+[[step]]
+kind = "move_file"
+from = "{saves}/*/DuelAuras/*.json"
+to = "{saves}/*/FootballReforged/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "DuelAuras"
+to = "FootballReforged"
+if_target = "keep_target"
+
+# Friendlies is part of FootballReforged
+[[step]]
+kind = "move_file"
+from = "{saves}/*/Friendlies/*.json"
+to = "{saves}/*/FootballReforged/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "Friendlies"
+to = "FootballReforged"
+if_target = "keep_target"
+
+# LegendaryMatch is part of LegendaryAI
+[[step]]
+kind = "move_file"
+from = "{saves}/*/LegendaryMatch/*.json"
+to = "{saves}/*/LegendaryAI/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "LegendaryMatch"
+to = "LegendaryAI"
+if_target = "keep_target"
+
+# Pachangas is part of FootballReforged
+[[step]]
+kind = "move_file"
+from = "{saves}/*/Pachangas/*.json"
+to = "{saves}/*/FootballReforged/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "Pachangas"
+to = "FootballReforged"
+if_target = "keep_target"
+
+# SkillDuel is part of FootballReforged
+[[step]]
+kind = "move_file"
+from = "{saves}/*/SkillDuel/*.json"
+to = "{saves}/*/FootballReforged/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "SkillDuel"
+to = "FootballReforged"
+if_target = "keep_target"
+
+# TrueHissatsu is part of HissatsuLevelUp
+[[step]]
+kind = "move_file"
+from = "{saves}/*/TrueHissatsu/*.json"
+to = "{saves}/*/HissatsuLevelUp/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "TrueHissatsu"
+to = "HissatsuLevelUp"
+if_target = "keep_target"
+
+# match_formats is part of FootballReforged
+[[step]]
+kind = "move_file"
+from = "{saves}/*/match_formats/*.json"
+to = "{saves}/*/FootballReforged/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "match_formats"
+to = "FootballReforged"
+if_target = "keep_target"
+
+# true_hissatsu is part of HissatsuLevelUp
+[[step]]
+kind = "move_file"
+from = "{saves}/*/true_hissatsu/*.json"
+to = "{saves}/*/HissatsuLevelUp/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "true_hissatsu"
+to = "HissatsuLevelUp"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/*/inazuma_fantasy/pachanga.json"
+to = "{saves}/*/FootballReforged/pachanga.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/*/inazuma_fantasy/skill_uses.json"
+to = "{saves}/*/HissatsuLevelUp/skill_uses.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item"
+from = "inazuma_fantasy.stadium_s91g001"
+to = "IECross.stadium_s91g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item_catalog"
+from = "inazuma_fantasy.stadium_s91g001"
+to = "IECross.stadium_s91g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item"
+from = "inazuma_fantasy.stadium_s91g001b"
+to = "IECross.stadium_s91g001b"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item_catalog"
+from = "inazuma_fantasy.stadium_s91g001b"
+to = "IECross.stadium_s91g001b"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item"
+from = "inazuma_fantasy.stadium_s91g001c"
+to = "IECross.stadium_s91g001c"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item_catalog"
+from = "inazuma_fantasy.stadium_s91g001c"
+to = "IECross.stadium_s91g001c"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item"
+from = "inazuma_fantasy.stadium_s92g001"
+to = "IECross.stadium_s92g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item_catalog"
+from = "inazuma_fantasy.stadium_s92g001"
+to = "IECross.stadium_s92g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item"
+from = "inazuma_fantasy.stadium_s93g001"
+to = "IECross.stadium_s93g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item_catalog"
+from = "inazuma_fantasy.stadium_s93g001"
+to = "IECross.stadium_s93g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item"
+from = "inazuma_fantasy.stadium_s94g001"
+to = "IECross.stadium_s94g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item_catalog"
+from = "inazuma_fantasy.stadium_s94g001"
+to = "IECross.stadium_s94g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item"
+from = "inazuma_fantasy.stadium_s98g001"
+to = "IECross.stadium_s98g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item_catalog"
+from = "inazuma_fantasy.stadium_s98g001"
+to = "IECross.stadium_s98g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item"
+from = "inazuma_fantasy.stadium_s99g001"
+to = "IECross.stadium_s99g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "item_catalog"
+from = "inazuma_fantasy.stadium_s99g001"
+to = "IECross.stadium_s99g001"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "shop_index"
+from = "inazuma_fantasy.row:0xF24DB4CD/1e4f5d8e"
+to = "IECross.row:0xF24DB4CD/1e4f5d8e"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "shop_index"
+from = "inazuma_fantasy.row:0xF24DB4CD/7ba00e83"
+to = "IECross.row:0xF24DB4CD/7ba00e83"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "shop_index"
+from = "inazuma_fantasy.row:0xF24DB4CD/0ca73e15"
+to = "IECross.row:0xF24DB4CD/0ca73e15"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "shop_index"
+from = "inazuma_fantasy.row:0xF24DB4CD/59ef275e"
+to = "IECross.row:0xF24DB4CD/59ef275e"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "shop_index"
+from = "inazuma_fantasy.row:0xF24DB4CD/648f0eee"
+to = "IECross.row:0xF24DB4CD/648f0eee"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "shop_index"
+from = "inazuma_fantasy.row:0xF24DB4CD/d6afd2fe"
+to = "IECross.row:0xF24DB4CD/d6afd2fe"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "shop_index"
+from = "inazuma_fantasy.row:0xF24DB4CD/135f3fff"
+to = "IECross.row:0xF24DB4CD/135f3fff"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "shop_index"
+from = "inazuma_fantasy.row:0xF24DB4CD/2e3f164f"
+to = "IECross.row:0xF24DB4CD/2e3f164f"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "team"
+from = "inazuma_fantasy.cross_tab"
+to = "IECross.cross_tab"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "team"
+from = "inazuma_fantasy.ct_cx_royal_academy"
+to = "IECross.ct_cx_royal_academy"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy.if_form_street_3"
+to = "FootballReforged.if_form_street_3"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "match_formats.if_form_street_3"
+to = "FootballReforged.if_form_street_3"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy.if_form_7_1231"
+to = "FootballReforged.if_form_7_1231"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "match_formats.if_form_7_1231"
+to = "FootballReforged.if_form_7_1231"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "formation"
+from = "inazuma_fantasy.evt_trial_form5_outfield"
+to = "FootballReforged.evt_trial_form5_outfield"
+if_target = "keep_target"
+
+# AuraPoints -> SpiritStaminaPoints
+[[step]]
+kind = "move_file"
+from = "{saves}/*/AuraPoints/*.json"
+to = "{saves}/*/SpiritStaminaPoints/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "AuraPoints"
+
+[[step]]
+kind = "rename_mod_id"
+from = "AuraPoints"
+to = "SpiritStaminaPoints"
+if_target = "keep_target"
+
+# AuraReworked -> AuraOverhaul
+[[step]]
+kind = "move_file"
+from = "{saves}/*/AuraReworked/*.json"
+to = "{saves}/*/AuraOverhaul/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "AuraReworked"
+
+[[step]]
+kind = "rename_mod_id"
+from = "AuraReworked"
+to = "AuraOverhaul"
+if_target = "keep_target"
+
+# all_changed -> AuraOverhaul
+[[step]]
+kind = "move_file"
+from = "{saves}/*/all_changed/*.json"
+to = "{saves}/*/AuraOverhaul/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "all_changed"
+
+[[step]]
+kind = "rename_mod_id"
+from = "all_changed"
+to = "AuraOverhaul"
+if_target = "keep_target"
+
+# all_keshin_armed -> AuraOverhaul
+[[step]]
+kind = "move_file"
+from = "{saves}/*/all_keshin_armed/*.json"
+to = "{saves}/*/AuraOverhaul/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "all_keshin_armed"
+
+[[step]]
+kind = "rename_mod_id"
+from = "all_keshin_armed"
+to = "AuraOverhaul"
+if_target = "keep_target"
+
+# all_miximaxed -> AuraOverhaul
+[[step]]
+kind = "move_file"
+from = "{saves}/*/all_miximaxed/*.json"
+to = "{saves}/*/AuraOverhaul/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "all_miximaxed"
+
+[[step]]
+kind = "rename_mod_id"
+from = "all_miximaxed"
+to = "AuraOverhaul"
+if_target = "keep_target"
+
+# aura_points -> SpiritStaminaPoints
+[[step]]
+kind = "move_file"
+from = "{saves}/*/aura_points/*.json"
+to = "{saves}/*/SpiritStaminaPoints/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "aura_points"
+
+[[step]]
+kind = "rename_mod_id"
+from = "aura_points"
+to = "SpiritStaminaPoints"
+if_target = "keep_target"
+
+# aura_reworked -> AuraOverhaul
+[[step]]
+kind = "move_file"
+from = "{saves}/*/aura_reworked/*.json"
+to = "{saves}/*/AuraOverhaul/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "aura_reworked"
+
+[[step]]
+kind = "rename_mod_id"
+from = "aura_reworked"
+to = "AuraOverhaul"
+if_target = "keep_target"
+
+# souls_rework -> AuraOverhaul
+[[step]]
+kind = "move_file"
+from = "{saves}/*/souls_rework/*.json"
+to = "{saves}/*/AuraOverhaul/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "souls_rework"
+
+[[step]]
+kind = "rename_mod_id"
+from = "souls_rework"
+to = "AuraOverhaul"
+if_target = "keep_target"
+
+# stamina_points -> SpiritStaminaPoints
+[[step]]
+kind = "move_file"
+from = "{saves}/*/stamina_points/*.json"
+to = "{saves}/*/SpiritStaminaPoints/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "stamina_points"
+
+[[step]]
+kind = "rename_mod_id"
+from = "stamina_points"
+to = "SpiritStaminaPoints"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/slot*/inazuma_fantasy/mode_change.json"
+to = "{saves}/slot*/AuraOverhaul/mode_change.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/slot*/inazuma_fantasy/miximax.json"
+to = "{saves}/slot*/AuraOverhaul/miximax.json"
+if_target = "keep_target"
+
+# The option row all_changed is called custom_change_mode
+[[step]]
+kind = "rename_option_row"
+from = "AuraOverhaul.all_changed"
+to = "AuraOverhaul.custom_change_mode"
+if_target = "keep_target"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.AuraPoints"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.AuraReworked"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.all_changed"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.all_keshin_armed"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.all_miximaxed"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.aura_points"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.aura_reworked"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.souls_rework"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.stamina_points"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/*/ClassicTraining/training.json"
+to = "{saves}/*/CharacterReforged/training.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "ClassicTraining"
+
+[[step]]
+kind = "rename_mod_id"
+from = "ClassicTraining"
+to = "CharacterReforged"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/*/PlayerTraining/training.json"
+to = "{saves}/*/CharacterReforged/training.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "PlayerTraining"
+
+[[step]]
+kind = "rename_mod_id"
+from = "PlayerTraining"
+to = "CharacterReforged"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/*/player_training/training.json"
+to = "{saves}/*/CharacterReforged/training.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "player_training"
+
+[[step]]
+kind = "rename_mod_id"
+from = "player_training"
+to = "CharacterReforged"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_option_row"
+from = "character_reforged.team_aura_max"
+to = "CharacterReforged.team_aura_max"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_option_row"
+from = "character_reforged.aura_cooldown"
+to = "CharacterReforged.aura_cooldown"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/global/character_reforged/*.bin"
+to = "{saves}/global/CharacterReforged/*.bin"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_flag"
+from = "TransformationItems.TransformationItems.AliusStoneUnlocked"
+to = "CharacterReforged.CharacterReforged.AliusStoneUnlocked"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_flag"
+from = "transforming_items.TransformingItems.AliusStoneUnlocked"
+to = "CharacterReforged.CharacterReforged.AliusStoneUnlocked"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "TransformationItems"
+
+[[step]]
+kind = "rename_mod_id"
+from = "TransformationItems"
+to = "CharacterReforged"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "transforming_items"
+
+[[step]]
+kind = "rename_mod_id"
+from = "transforming_items"
+to = "CharacterReforged"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/*/UniverseReforged/*.json"
+to = "{saves}/*/ChronicleDeluxe/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.UniverseReforged.prizes"
+to = "mods.ChronicleDeluxe.universe_prizes"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "UniverseReforged"
+
+[[step]]
+kind = "rename_mod_id"
+from = "UniverseReforged"
+to = "ChronicleDeluxe"
+if_target = "keep_target"
+
+[[step]]
+kind = "delete_option_row"
+id = "AuraOverhaul.all_keshin_armed"
+
+[[step]]
+kind = "delete_option_row"
+id = "AuraOverhaul.all_miximaxed"
+
+[[step]]
+kind = "delete_option_row"
+id = "AuraOverhaul.miximax_stats"
+
+[[step]]
+kind = "delete_option_row"
+id = "CharacterReforged.all_keshin_armed"
+
+[[step]]
+kind = "delete_option_row"
+id = "CharacterReforged.all_miximaxed"
+
+[[step]]
+kind = "delete_option_row"
+id = "CharacterReforged.miximax_stats"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "chara"
+from = "AuraOverhaul.black_king_armour#card"
+to = "CharacterReforged.black_king_armour#card"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "chara"
+from = "AuraOverhaul.black_queen_armour#card"
+to = "CharacterReforged.black_queen_armour#card"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "chara"
+from = "AuraOverhaul.miximax_carrier#card"
+to = "CharacterReforged.miximax_carrier#card"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.miximax"
+to = "CharacterReforged.miximax"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00060"
+to = "CharacterReforged.wad00060"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00200"
+to = "CharacterReforged.wad00200"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00201"
+to = "CharacterReforged.wad00201"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00210"
+to = "CharacterReforged.wad00210"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00270"
+to = "CharacterReforged.wad00270"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00320"
+to = "CharacterReforged.wad00320"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00321"
+to = "CharacterReforged.wad00321"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00360"
+to = "CharacterReforged.wad00360"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00370"
+to = "CharacterReforged.wad00370"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00420"
+to = "CharacterReforged.wad00420"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00421"
+to = "CharacterReforged.wad00421"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00650"
+to = "CharacterReforged.wad00650"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00650_b1"
+to = "CharacterReforged.wad00650_b1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00650_h1"
+to = "CharacterReforged.wad00650_h1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00650_h2"
+to = "CharacterReforged.wad00650_h2"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00651"
+to = "CharacterReforged.wad00651"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00670"
+to = "CharacterReforged.wad00670"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00670_b1"
+to = "CharacterReforged.wad00670_b1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00670_h1"
+to = "CharacterReforged.wad00670_h1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00670_h2"
+to = "CharacterReforged.wad00670_h2"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00671"
+to = "CharacterReforged.wad00671"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00672"
+to = "CharacterReforged.wad00672"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00700"
+to = "CharacterReforged.wad00700"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00710"
+to = "CharacterReforged.wad00710"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00720"
+to = "CharacterReforged.wad00720"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00720_1"
+to = "CharacterReforged.wad00720_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00721"
+to = "CharacterReforged.wad00721"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00721_1"
+to = "CharacterReforged.wad00721_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00722"
+to = "CharacterReforged.wad00722"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00722_1"
+to = "CharacterReforged.wad00722_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00723"
+to = "CharacterReforged.wad00723"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00723_1"
+to = "CharacterReforged.wad00723_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00830"
+to = "CharacterReforged.wad00830"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00840"
+to = "CharacterReforged.wad00840"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00890"
+to = "CharacterReforged.wad00890"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wad00920"
+to = "CharacterReforged.wad00920"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00110"
+to = "CharacterReforged.wak00110"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00111"
+to = "CharacterReforged.wak00111"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00160"
+to = "CharacterReforged.wak00160"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00170"
+to = "CharacterReforged.wak00170"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00171"
+to = "CharacterReforged.wak00171"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00230"
+to = "CharacterReforged.wak00230"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00250"
+to = "CharacterReforged.wak00250"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00260"
+to = "CharacterReforged.wak00260"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00390"
+to = "CharacterReforged.wak00390"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00430"
+to = "CharacterReforged.wak00430"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00431"
+to = "CharacterReforged.wak00431"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00460"
+to = "CharacterReforged.wak00460"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00461"
+to = "CharacterReforged.wak00461"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00490"
+to = "CharacterReforged.wak00490"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00491"
+to = "CharacterReforged.wak00491"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00500"
+to = "CharacterReforged.wak00500"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00510"
+to = "CharacterReforged.wak00510"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00511"
+to = "CharacterReforged.wak00511"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00520"
+to = "CharacterReforged.wak00520"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00720"
+to = "CharacterReforged.wak00720"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00720_1"
+to = "CharacterReforged.wak00720_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00721"
+to = "CharacterReforged.wak00721"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00721_1"
+to = "CharacterReforged.wak00721_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00770"
+to = "CharacterReforged.wak00770"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00790"
+to = "CharacterReforged.wak00790"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00850"
+to = "CharacterReforged.wak00850"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00940"
+to = "CharacterReforged.wak00940"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00950"
+to = "CharacterReforged.wak00950"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wak00960"
+to = "CharacterReforged.wak00960"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00010"
+to = "CharacterReforged.wao00010"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00070"
+to = "CharacterReforged.wao00070"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00071"
+to = "CharacterReforged.wao00071"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00090"
+to = "CharacterReforged.wao00090"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00091"
+to = "CharacterReforged.wao00091"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00150"
+to = "CharacterReforged.wao00150"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00151"
+to = "CharacterReforged.wao00151"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00180"
+to = "CharacterReforged.wao00180"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00181"
+to = "CharacterReforged.wao00181"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00182"
+to = "CharacterReforged.wao00182"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00183"
+to = "CharacterReforged.wao00183"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00184"
+to = "CharacterReforged.wao00184"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00185"
+to = "CharacterReforged.wao00185"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00342"
+to = "CharacterReforged.wao00342"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00470"
+to = "CharacterReforged.wao00470"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00471"
+to = "CharacterReforged.wao00471"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00480"
+to = "CharacterReforged.wao00480"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00481"
+to = "CharacterReforged.wao00481"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00640"
+to = "CharacterReforged.wao00640"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00660"
+to = "CharacterReforged.wao00660"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00680"
+to = "CharacterReforged.wao00680"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00720"
+to = "CharacterReforged.wao00720"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00720_1"
+to = "CharacterReforged.wao00720_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00721"
+to = "CharacterReforged.wao00721"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00721_1"
+to = "CharacterReforged.wao00721_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00722"
+to = "CharacterReforged.wao00722"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00722_1"
+to = "CharacterReforged.wao00722_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00723"
+to = "CharacterReforged.wao00723"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00723_1"
+to = "CharacterReforged.wao00723_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00724"
+to = "CharacterReforged.wao00724"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00724_1"
+to = "CharacterReforged.wao00724_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00725"
+to = "CharacterReforged.wao00725"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00725_1"
+to = "CharacterReforged.wao00725_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00810"
+to = "CharacterReforged.wao00810"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00820"
+to = "CharacterReforged.wao00820"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00900"
+to = "CharacterReforged.wao00900"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00910"
+to = "CharacterReforged.wao00910"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.wao00930"
+to = "CharacterReforged.wao00930"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00020"
+to = "CharacterReforged.was00020"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00021"
+to = "CharacterReforged.was00021"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00030"
+to = "CharacterReforged.was00030"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00040"
+to = "CharacterReforged.was00040"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00041"
+to = "CharacterReforged.was00041"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00050"
+to = "CharacterReforged.was00050"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00051"
+to = "CharacterReforged.was00051"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00080"
+to = "CharacterReforged.was00080"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00081"
+to = "CharacterReforged.was00081"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00100"
+to = "CharacterReforged.was00100"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00101"
+to = "CharacterReforged.was00101"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00102"
+to = "CharacterReforged.was00102"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00120"
+to = "CharacterReforged.was00120"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00130"
+to = "CharacterReforged.was00130"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00131"
+to = "CharacterReforged.was00131"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00140"
+to = "CharacterReforged.was00140"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00141"
+to = "CharacterReforged.was00141"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00190"
+to = "CharacterReforged.was00190"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00191"
+to = "CharacterReforged.was00191"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00192"
+to = "CharacterReforged.was00192"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00220"
+to = "CharacterReforged.was00220"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00221"
+to = "CharacterReforged.was00221"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00240"
+to = "CharacterReforged.was00240"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00240_b1"
+to = "CharacterReforged.was00240_b1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00240_h1"
+to = "CharacterReforged.was00240_h1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00240_h2"
+to = "CharacterReforged.was00240_h2"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00241"
+to = "CharacterReforged.was00241"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00241_b1"
+to = "CharacterReforged.was00241_b1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00241_h1"
+to = "CharacterReforged.was00241_h1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00241_h2"
+to = "CharacterReforged.was00241_h2"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00280"
+to = "CharacterReforged.was00280"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00290"
+to = "CharacterReforged.was00290"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00290_1"
+to = "CharacterReforged.was00290_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00290_b1"
+to = "CharacterReforged.was00290_b1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00290_h1"
+to = "CharacterReforged.was00290_h1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00290_h2"
+to = "CharacterReforged.was00290_h2"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00291"
+to = "CharacterReforged.was00291"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00300"
+to = "CharacterReforged.was00300"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00300_b1"
+to = "CharacterReforged.was00300_b1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00300_h1"
+to = "CharacterReforged.was00300_h1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00300_h2"
+to = "CharacterReforged.was00300_h2"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00301"
+to = "CharacterReforged.was00301"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00301_h1"
+to = "CharacterReforged.was00301_h1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00302"
+to = "CharacterReforged.was00302"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00302_b1"
+to = "CharacterReforged.was00302_b1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00302_h2"
+to = "CharacterReforged.was00302_h2"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00303_b1"
+to = "CharacterReforged.was00303_b1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00303_h1"
+to = "CharacterReforged.was00303_h1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00303_h2"
+to = "CharacterReforged.was00303_h2"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00310"
+to = "CharacterReforged.was00310"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00311"
+to = "CharacterReforged.was00311"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00330"
+to = "CharacterReforged.was00330"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00351"
+to = "CharacterReforged.was00351"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00380"
+to = "CharacterReforged.was00380"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00400"
+to = "CharacterReforged.was00400"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00401"
+to = "CharacterReforged.was00401"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00410"
+to = "CharacterReforged.was00410"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00411"
+to = "CharacterReforged.was00411"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00441"
+to = "CharacterReforged.was00441"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00450"
+to = "CharacterReforged.was00450"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00530"
+to = "CharacterReforged.was00530"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00531"
+to = "CharacterReforged.was00531"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00540"
+to = "CharacterReforged.was00540"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00610"
+to = "CharacterReforged.was00610"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00630"
+to = "CharacterReforged.was00630"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00630_b1"
+to = "CharacterReforged.was00630_b1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00630_h1"
+to = "CharacterReforged.was00630_h1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00630_h2"
+to = "CharacterReforged.was00630_h2"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00631"
+to = "CharacterReforged.was00631"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00632"
+to = "CharacterReforged.was00632"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00633"
+to = "CharacterReforged.was00633"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00690"
+to = "CharacterReforged.was00690"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00720"
+to = "CharacterReforged.was00720"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00720_1"
+to = "CharacterReforged.was00720_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00721"
+to = "CharacterReforged.was00721"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00721_1"
+to = "CharacterReforged.was00721_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00722"
+to = "CharacterReforged.was00722"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00722_1"
+to = "CharacterReforged.was00722_1"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00723"
+to = "CharacterReforged.was00723"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00760"
+to = "CharacterReforged.was00760"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00780"
+to = "CharacterReforged.was00780"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00800"
+to = "CharacterReforged.was00800"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00860"
+to = "CharacterReforged.was00860"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00870"
+to = "CharacterReforged.was00870"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00880"
+to = "CharacterReforged.was00880"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00970"
+to = "CharacterReforged.was00970"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00980"
+to = "CharacterReforged.was00980"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "transform"
+from = "AuraOverhaul.was00990"
+to = "CharacterReforged.was00990"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/*/AuraOverhaul/miximax.json"
+to = "{saves}/*/CharacterReforged/miximax.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_option_row"
+from = "SpiritStaminaPoints.peg"
+to = "CharacterReforged.keshin_points"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_option_row"
+from = "SpiritStaminaPoints.sp"
+to = "CharacterReforged.totem_points"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_option_row"
+from = "SpiritStaminaPoints.pe"
+to = "CharacterReforged.stamina_points"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{saves}/*/SpiritStaminaPoints/*.json"
+to = "{saves}/*/CharacterReforged/*.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "all"
+from = "SpiritStaminaPoints.*"
+to = "CharacterReforged.Points*"
+first_letter = "upper"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_id_keep_number"
+space = "all"
+from = "spirit_stamina_points_*"
+to = "character_reforged_points_*"
+if_target = "keep_target"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "SpiritStaminaPoints"
+
+[[step]]
+kind = "rename_mod_id"
+from = "SpiritStaminaPoints"
+to = "CharacterReforged"
+if_target = "keep_target"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.SpiritStaminaPoints"
+
+[[step]]
+kind = "replace_value"
+files = ["{data}/mod_options/*.json", "{data}/config.toml"]
+from = "futbol_7"
+to = "football_7"
+
+[[step]]
+kind = "replace_value"
+files = ["{data}/mod_options/*.json", "{data}/config.toml"]
+from = "pachanga_5v5"
+to = "friendly_5v5"
+
+[[step]]
+kind = "replace_value"
+files = ["{saves}/slot*/VRFW/board_pieces.json"]
+from = "souls_rework"
+to = "AuraOverhaul.souls_rework"
+
+[[step]]
+kind = "replace_value"
+files = ["{saves}/slot*/VRFW/board_pieces.json"]
+from = "all_changed"
+to = "AuraOverhaul.custom_change_mode"
+
+[[step]]
+kind = "replace_value"
+files = ["{saves}/slot*/VRFW/board_pieces.json"]
+from = "all_keshin_armed"
+to = "CharacterReforged"
+
+[[step]]
+kind = "replace_value"
+files = ["{saves}/slot*/VRFW/board_pieces.json"]
+from = "AuraOverhaul.all_keshin_armed"
+to = "CharacterReforged"
+
+[[step]]
+kind = "replace_value"
+files = ["{saves}/slot*/VRFW/board_pieces.json"]
+from = "CharacterReforged.all_keshin_armed"
+to = "CharacterReforged"
+
+[[step]]
+kind = "replace_value"
+files = ["{saves}/slot*/VRFW/board_pieces.json"]
+from = "all_miximaxed"
+to = "CharacterReforged"
+
+[[step]]
+kind = "replace_value"
+files = ["{saves}/slot*/VRFW/board_pieces.json"]
+from = "AuraOverhaul.all_miximaxed"
+to = "CharacterReforged"
+
+[[step]]
+kind = "replace_value"
+files = ["{saves}/slot*/VRFW/board_pieces.json"]
+from = "CharacterReforged.all_miximaxed"
+to = "CharacterReforged"
+
+[[step]]
+kind = "replace_value"
+files = ["{saves}/slot*/VRFW/board_pieces.json"]
+from = "AuraOverhaul.KeshinArmourSlots"
+to = "CharacterReforged.KeshinArmourSlots"
+
+[[step]]
+kind = "replace_value"
+files = ["{saves}/slot*/VRFW/board_pieces.json"]
+from = "SpiritStaminaPoints"
+to = "CharacterReforged"

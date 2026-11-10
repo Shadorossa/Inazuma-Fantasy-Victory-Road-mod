@@ -1,12 +1,9 @@
-# New Recruitment › its action of the VR-Framework's save adjust:
-# title,
-# description (shown in the question before the action) and result (%d = the count the action answers). Rows of
-# menu_text, read by id = crc32(row id).
+# Save adjust texts (menu_text, id = crc32(row id)); %d = the count the action answers.
 schema = "VRFW.text/2"
 table = "menu_text"
 
 [[row]]
-id = "new_recruitment_save_tools_remove_duplicates"
+id = "classic_recruitment_save_tools_remove_duplicates"
 es = "Quitar jugadores duplicados"
 en = "Remove duplicate players"
 fr = "Retirer les joueurs en double"
@@ -18,7 +15,7 @@ zh_hans = "移除重复球员"
 zh_hant = "移除重複球員"
 
 [[row]]
-id = "new_recruitment_save_tools_remove_duplicates_desc"
+id = "classic_recruitment_save_tools_remove_duplicates_desc"
 es = "Deja una sola copia de cada carta: se conserva la mejor copia y las copias fichadas sobrantes se funden en ella y salen del club y de todos los equipos. Nunca quita una carta que el club no permita despedir (jugadores originales, avatar…): esa es siempre la que se queda."
 en = "Keeps one copy of each card: the best copy stays, the extra signed copies are merged into it and leave the club and every team. It never removes a card the club cannot release (original players, the avatar…): that one is always the card kept."
 fr = "Garde une seule copie de chaque carte : la meilleure copie reste, les copies recrutées en trop y sont fusionnées et quittent le club et toutes les équipes. Ne retire jamais une carte que le club ne peut pas libérer (joueurs d'origine, avatar…) : c'est toujours elle qui reste."
@@ -30,7 +27,7 @@ zh_hans = "每张卡只保留一份：保留最好的一张，多余的招募卡
 zh_hant = "每張卡只保留一份：保留最好的一張，多餘的招募卡合併到它並離開俱樂部和所有隊伍。俱樂部無法解約的卡（原有球員、化身等）絕不會被移除，總是保留它。"
 
 [[row]]
-id = "new_recruitment_save_tools_remove_duplicates_done"
+id = "classic_recruitment_save_tools_remove_duplicates_done"
 es = "Hecho: %d jugadores duplicados quitados."
 en = "Done: %d duplicate players removed."
 fr = "Terminé : %d joueurs en double retirés."

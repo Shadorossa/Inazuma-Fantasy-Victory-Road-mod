@@ -1,0 +1,27 @@
+# The translucent nine-slice backing of the training mode's value and gauge column (own atlas, drawn at boot).
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "trn_col_back"
+canvas = [256, 256]
+ops = [
+    { op = "opaque" },
+    { op = "fill", rgb = [20, 48, 96] },
+    { op = "round_corners", radius = 16 },
+    { op = "alpha_scale", mul = 102, div = 255 },
+]
+
+[[texture]]
+atlas = "#/menu/102_team/character_reforged_training/character_reforged_training.g4tx"
+name = "character_reforged_training"
+size = [256, 256]
+
+[[sprite]]
+atlas = "#/menu/102_team/character_reforged_training/character_reforged_training.g4tx"
+name = "cr_trn_col_back"
+texture = "character_reforged_training"
+x = 0
+y = 0
+recipe = "trn_col_back"
+nine_slice = [20, 20, 20, 20]
+design_size = [256, 256]

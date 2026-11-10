@@ -1,10 +1,8 @@
--- Character Reforged: «Comandos de hipertécnicas» (retail equip_aura_skill_menu; docs/game/hiper/hyper-commands.md §4).
--- Block appended to the retail chunk: it only wraps globals (retail first, its results returned); no engine call at
--- load. Everything lives in the global CharacterReforged_AuraCommands.
+-- Block appended to the retail chunk
 do
   CharacterReforged_AuraCommands = CharacterReforged_AuraCommands or {}
   local M = CharacterReforged_AuraCommands
-  M.ROW = 1580043721               -- soccer11_09_formation_chara_skill: the four command slot rows (instances 0..3)
+  M.ROW = 1580043721
   M.SKILL_INFO = @crc:CMND_GET_SOCCER_SKILL_INFO@        -- (skill, column)
   M.TEAM_SLOT = @crc:CMND_GET_TEAM_SET_INFO@         -- (team, sub, 15, slot) -> ok, chara, skill: a team aura command row
   M.CHARA_PARAM = 1131797651       -- (chara, 4) -> the card's param id
@@ -13,17 +11,17 @@ do
   M.MESH = @crc:CMND_SET_MESH_VISIBLE@
   M.IS_OPEN = @crc:CMND_IS_OPEN_LAYER@           -- (layer, inst)
   M.LOADING = @crc:CMND_IS_LOADING_LAYER@           -- (layer)
-  M.AREA = 2164615260              -- _icon_sp_area_dmy01 (the row's category icon)
+  M.AREA = 2164615260
   M.AREA_SLOT = 566439826          -- icon_sp_area_dmy01 (its texture slot)
   M.SPRITE = 558735651             -- CMND_SWAP_SPRITE (layer, atlas, sprite, slot, 0, inst)
-  M.ICON_ATLAS = 2320109963        -- #/menu/200_icon/15_icon_common/icon_common.g4tx (the member list's icon atlas)
-  M.LOG = @crc:CMND_EVT_LOG@
+  M.ICON_ATLAS = 2320109963
   M.retail = M.retail or {}
-  M.filled = M.filled or {}        -- slot -> true once its row was filled in this screen
+  M.filled = M.filled or {}
   M.said = M.said or {}
 
-  function M.Log(...)
-    pcall(funcLuaCommand, M.LOG, "CharacterReforged.aura_commands", ...)
+  function M.log(...)
+    M.logger = M.logger or VRFW.logger.new("CharacterReforged.aura_commands")
+    M.logger(...)
   end
 
   local function hex(v)
@@ -38,9 +36,8 @@ do
     return nil
   end
 
-  -- f(...) with funcLuaCommand asking answer(real, cmd, ...) first: a table.pack of results replaces the game's
-  -- answer, nil keeps it. The global is put back afterwards (also on error).
-  function M.WithAnswers(answer, f, ...)
+  -- Calls f(...) with funcLuaCommand replaced by a version that asks answer(real, cmd, ...) first.
+  function M.with_answers(answer, f, ...)
     local real = funcLuaCommand
     funcLuaCommand = function(cmd, ...)
       local r = answer(real, cmd, ...)
@@ -57,9 +54,7 @@ do
     return table.unpack(r, 2, r.n)
   end
 
-  -- ---- the command slot rows -----------------------------------------------------------------------------------------
-  -- the category icon the retail row draws for this move (soccer_common GetSkillCategoryIcon), 0 = none
-  function M.CategoryIcon(skill, chara)
+  function M.category_icon(skill, chara)
     local cat = info(skill, 9)
     if cat == nil or type(GetSkillCategoryIcon) ~= "function" then
       return 0
@@ -68,19 +63,18 @@ do
     return (ok and type(icon) == "number") and icon or 0
   end
 
-  -- the property badge slot as the framework's move plate decides it (move icons service: none for a common move)
   local function badge(skill, chara)
-    if type(EVT_MI) ~= "table" or type(EVT_MI.Mask) ~= "function" then
+    if (HissatsuReforged == nil or type(HissatsuReforged.move_icons) ~= "table") or type(HissatsuReforged.move_icons.mask) ~= "function" then
       return false
     end
-    local okc, common = pcall(funcLuaCommand, EVT_MI.COMMON, skill, chara or 0)
-    local okm, mask = pcall(EVT_MI.Mask, skill)
+    local okc, common = pcall(funcLuaCommand, HissatsuReforged.move_icons.COMMON, skill, chara or 0)
+    local okm, mask = pcall(HissatsuReforged.move_icons.mask, skill)
     return not (okc and common == true) and okm and type(mask) == "number" and mask > 0
   end
 
   -- after the retail fill of slot `slot` (row = {ok, chara, skill} of that slot, nil = not read)
-  function M.AfterRow(slot, row)
-    local MP = type(VRFW_UI) == "table" and VRFW_UI.MovePlate or nil
+  function M.after_row(slot, row)
+    local MP = type(VRFW.ui_plates) == "table" and VRFW.ui_plates.move_plate or nil
     if type(MP) ~= "table" or type(MP.kept) ~= "table" or type(MP.pending) ~= "table" then
       return
     end
@@ -92,33 +86,29 @@ do
       MP.pending[key] = nil
       return
     end
-    -- held every frame by MovePlate.Keep: the «Armadura» logo only on an armed aura (aura type 1), the AT number's
-    -- placeholder off, the badge slot only with a badge
-    local armed = type(MP.Armed) == "function" and MP.Armed(skill) == true
+    -- Keeps the placeholder off and shows the badge slot only when the skill has a badge.
+    local armed = type(MP.armed) == "function" and MP.armed(skill) == true
     MP.kept[key] = {row = M.ROW, inst = slot, move = skill, armed = armed, sub = badge(skill, chara)}
-    -- the category icon (aura kind): the retail row swaps it from the per-language icon atlas, which this screen
-    -- does not load (its placeholder stayed a white square, also after a refill); drawn again from the atlas the
-    -- screen's own member list uses for the same icon (UpdateItemEquipLine). No icon: the placeholder off.
-    local icon = M.CategoryIcon(skill, chara)
+    -- Sets the category icon (aura kind).
+    local icon = M.category_icon(skill, chara)
     if icon ~= 0 then
       funcLuaMenuCommand(M.SPRITE, M.ROW, M.ICON_ATLAS, icon, M.AREA_SLOT, 0, slot)
     end
     funcLuaMenuCommand(M.MESH, M.ROW, M.AREA, icon ~= 0, slot)
     if not M.said["row" .. tostring(slot)] then
       M.said["row" .. tostring(slot)] = true
-      M.Log("row", tostring(slot), hex(chara), hex(skill), "icon", hex(icon), "armed", tostring(armed))
+      M.log("row", tostring(slot), hex(chara), hex(skill), "icon", hex(icon), "armed", tostring(armed))
     end
-    -- the first fill of a slot in this screen, or an instance not ready yet, is done again once it is ready
-    -- (MovePlate.Pump, from this screen's Step)
+    -- Fills the slot again when it is the first fill in this screen or its instance is not ready yet.
     local ready = funcLuaMenuCommand(M.IS_OPEN, M.ROW, slot) == true and funcLuaMenuCommand(M.LOADING, M.ROW) ~= true
     if not M.filled[slot] or not ready then
       M.filled[slot] = true
-      MP.pending[key] = {fn = M.Refill, row = M.ROW, inst = slot, chara = chara, move = skill, o = {},
+      MP.pending[key] = {fn = M.refill, row = M.ROW, inst = slot, chara = chara, move = skill, o = {},
         frame = MP.frame or 0, tries = 0}
     end
   end
 
-  function M.Refill(row, slot)
+  function M.refill(row, slot)
     if type(UpdateSkillSlot) == "function" then
       UpdateSkillSlot(slot)
     end
@@ -130,7 +120,7 @@ do
   if M.retail.UpdateSkillSlot ~= nil then
     function UpdateSkillSlot(slot, ...)
       local seen = nil
-      local r = table.pack(M.WithAnswers(function(real, cmd, a1, a2, a3, a4, ...)
+      local r = table.pack(M.with_answers(function(real, cmd, a1, a2, a3, a4, ...)
         if cmd == M.TEAM_SLOT and a3 == 15 and a4 == slot then
           local res = table.pack(real(cmd, a1, a2, a3, a4, ...))
           seen = {ok = res[1] == true, chara = res[2], skill = res[3]}
@@ -138,10 +128,10 @@ do
         end
         return nil
       end, M.retail.UpdateSkillSlot, slot, ...))
-      local ok, err = pcall(M.AfterRow, slot, seen)
+      local ok, err = pcall(M.after_row, slot, seen)
       if not ok and not M.said.row then
         M.said.row = true
-        M.Log("row state failed", tostring(slot), tostring(err))
+        M.log("row state failed", tostring(slot), tostring(err))
       end
       return table.unpack(r, 1, r.n)
     end
@@ -164,32 +154,24 @@ do
   if M.retail.Step ~= nil then
     function Step(...)
       local r = table.pack(M.retail.Step(...))
-      local MP = type(VRFW_UI) == "table" and VRFW_UI.MovePlate or nil
-      if type(MP) == "table" and type(MP.Pump) == "function" then
-        pcall(MP.Pump, true)
+      local MP = type(VRFW.ui_plates) == "table" and VRFW.ui_plates.move_plate or nil
+      if type(MP) == "table" and type(MP.pump) == "function" then
+        pcall(MP.pump, true)
       end
       return table.unpack(r, 1, r.n)
     end
   end
 
-  -- ---- the detail card of a Mix-Max carrier ------------------------------------------------------------------------
-  -- the player's stored miximax: nil or {partner = param, move, face}
   local function ask_fusion(chara)
-    local ok, exists, partner, m1 = pcall(funcLuaCommand, CALC_CRC("CMND_EVT_MX_GET"), chara)
-    if ok and exists == true then
-      return partner, m1
-    end
-    local okp, pexists, ppartner, pm1 = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_PAGE_FUSION"), chara)
+    local okp, pexists, ppartner, pm1 = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_MIXIMAX_FUSION_GET"), chara)
     if okp and pexists == true then
       return ppartner, pm1
     end
     return nil
   end
 
-  -- a Mix-Max carrier: not one of the game's restricted pair rows (the framework's miximax rows, from the game's
-  -- AURA_CMD_CHARA owners / change_aura_skill_config); without that answer, an aura with no pair row of its own for
-  -- this character
-  function M.IsCarrier(skill, chara)
+  -- Returns whether the skill is a Mix-Max carrier.
+  function M.is_carrier(skill, chara)
     local okr, restricted = pcall(funcLuaCommand, CALC_CRC("CMND_VRFW_MIXIMAX_ITEM_ALLOWED"), skill, chara)
     if okr and type(restricted) == "boolean" then
       return restricted == false
@@ -202,11 +184,11 @@ do
     return not (okv and has == true and own ~= nil and own ~= 0 and own ~= skill)
   end
 
-  function M.FusionCard(skill, chara)
+  function M.fusion_card(skill, chara)
     if type(skill) ~= "number" or skill == 0 or type(chara) ~= "number" or chara == 0 then
       return nil
     end
-    if not M.IsCarrier(skill, chara) then
+    if not M.is_carrier(skill, chara) then
       return nil
     end
     local partner, move = ask_fusion(chara)
@@ -225,26 +207,23 @@ do
   end
   if M.retail.UpdateMixiMaxDetailInfo ~= nil then
     function UpdateMixiMaxDetailInfo(layer, skill, chara, ...)
-      local okf, f = pcall(M.FusionCard, skill, chara)
+      local okf, f = pcall(M.fusion_card, skill, chara)
       if not okf or f == nil then
         return M.retail.UpdateMixiMaxDetailInfo(layer, skill, chara, ...)
       end
-      -- the partner drawn on purpose (transform engine appearance rules: the fusion partner's own face)
       pcall(funcLuaCommand, CALC_CRC("CMND_VRFW_APPEARANCE"), "skill_panel", f.face)
       local shown = hex(chara) .. ":" .. hex(skill) .. ":" .. hex(f.partner) .. ":" .. hex(f.move)
       if M.card ~= shown then
         M.card = shown
-        M.Log("mix card", hex(chara), hex(skill), "partner", hex(f.partner), "move", hex(f.move))
+        M.log("mix card", hex(chara), hex(skill), "partner", hex(f.partner), "move", hex(f.move))
       end
-      -- retail draws the card; for this carrier it reads the player's pair: the partner (column 19, a param: the
-      -- portrait of pages 0 / 1), the partner's face (column 17: pages 2 / 3) and the pair's technique (column 16;
-      -- a pair stored without a move keeps the carrier's own)
-      return M.WithAnswers(function(real, cmd, a1, a2, ...)
+      -- Lets retail draw the card.
+      return M.with_answers(function(real, cmd, a1, a2, ...)
         if a1 ~= skill then
           return nil
         end
         if cmd == M.PAIR_ROW then
-          -- no pair row of the carrier itself: the card reads the carrier's own columns, answered below
+          -- Returns no pair row for the carrier itself.
           return table.pack(false)
         end
         if cmd ~= M.SKILL_INFO then

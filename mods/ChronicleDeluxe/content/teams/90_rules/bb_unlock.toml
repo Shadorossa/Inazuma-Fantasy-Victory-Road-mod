@@ -1,3 +1,2 @@
-# Chronicle Deluxe locks no team: every Battle Bay grid row is open (VRFW BbUnlock AllOpen).
 schema = "VRFW.team/2"
 VRFW = { BbUnlock = { AllOpen = true } }

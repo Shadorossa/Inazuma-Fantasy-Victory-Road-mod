@@ -7,23 +7,23 @@ name = "CMND_VRFW_CONTACT_SETS"     # () -> { {key, crc, title, maps}, ... }
 handler = "ContactMap.Sets"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_CONTACT_MAPS"     # (set crc / key, lang code) -> the set: title, currencies, its maps
+name = "CMND_VRFW_CONTACT_MAPS"
 handler = "ContactMap.Maps"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_CONTACT_HUB"      # (set crc / key) -> { menu, title }: the set's hub menu (0 = the contact map screen)
+name = "CMND_VRFW_CONTACT_HUB"
 handler = "ContactMap.Hub"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_CONTACT_FIND"     # (set crc / key, game) -> { map = key, zone = n }: the team page of a match
+name = "CMND_VRFW_CONTACT_FIND"
 handler = "ContactMap.Find"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_CONTACT_MAP"  # (map crc / key, lang code) -> zones, items for sale, nodes (players, gates, links)
+name = "CMND_VRFW_CONTACT_MAP"
 handler = "ContactMap.Map"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_CONTACT_KIT"  # (card[, team]) -> { uniform, flags, source }: kit of the named team, else of the card's own team
+name = "CMND_VRFW_CONTACT_KIT"
 handler = "ContactMap.Kit"
 
 [[VRFW.Command]]
@@ -37,5 +37,5 @@ value = { config = "debug.reveal_all", default = 0, min = 0, max = 1 }
 fallback = 0
 
 [[VRFW.Command]]
-name = "CMND_VRFW_CONTACT_HUB_FILTER" # (set crc / key, or 0) -> live: the free-match list keeps only the set's team pages
+name = "CMND_VRFW_CONTACT_HUB_FILTER"
 handler = "ContactMap.HubFilter"

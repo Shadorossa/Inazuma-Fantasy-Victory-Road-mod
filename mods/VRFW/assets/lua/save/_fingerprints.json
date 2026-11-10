@@ -6,7 +6,7 @@
   "Step",
   "OnFunction",
   "ActivateAuraSkill",
-  "EVT_SlotMenu_OnSubWindow"
+  "vrfw_save_slots_on_sub_window"
  ],
  "activity_telop_menu": {
   "script": "activity_telop_menu_1.03.30.00",
@@ -180,10 +180,10 @@
   "forbid": [],
   "ambiguous": []
  },
- "evt_save_slot_menu": {
-  "script": "evt_save_slot_menu",
+ "vrfw_save_slot_menu": {
+  "script": "vrfw_save_slot_menu",
   "require": [
-   "EVT_SlotMenu_OnSubWindow"
+   "vrfw_save_slots_on_sub_window"
   ],
   "forbid": [],
   "ambiguous": []

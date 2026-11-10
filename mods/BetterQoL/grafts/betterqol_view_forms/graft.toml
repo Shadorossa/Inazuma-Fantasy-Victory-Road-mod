@@ -1,0 +1,13 @@
+# BetterQoL: «Cambiar forma» in the team dock «Ver apariencia» cycles the shown player's forms (hook file).
+name = "betterqol_view_forms"
+mod = "BetterQoL"
+order = 350
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "BetterQoL: «Cambiar forma» key cycles the player's forms in «Ver apariencia»"
+
+[[hooks]]
+stem = "team_dock_formation_menu"
+source = "betterqol_vf_appearance.lua"

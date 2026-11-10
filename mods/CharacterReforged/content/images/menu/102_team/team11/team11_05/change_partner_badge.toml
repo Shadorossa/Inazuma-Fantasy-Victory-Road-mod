@@ -1,0 +1,15 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_change_team11_05.g4tx"
+name = "character_reforged_change_team11_05"
+size = [160, 52]
+
+# Custom Change Mode: the blue-red plate
+[[sprite]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_change_team11_05.g4tx"
+name = "custom_change_mode_partner_badge"
+texture = "character_reforged_change_team11_05"
+x = 0
+y = 0
+png = "change_partner_badge/custom_change_mode_partner_badge.png"

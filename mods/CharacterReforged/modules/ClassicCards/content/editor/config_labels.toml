@@ -1,5 +1,5 @@
 schema = "VRFW.editor/1"
-# Names and descriptions of this mod's config.toml settings, shown in ModManager > Parametros del juego. Read only by ModManager.
+# ModManager labels of this mod's config.toml settings.
 
 [[Shape]]
 Id = "settings"
@@ -14,13 +14,3 @@ For = "config"
   Type = "int"
   Label = { es = "Primera rareza listada", en = "First listed rarity" }
   Help = { es = "Primera rareza que aparece en las pestañas de filtro de rareza.", en = "First rarity listed in the rarity filter tab." }
-  [[Shape.Field]]
-  Key = "removed_rarities"
-  Type = "table"
-  Label = { es = "Rarezas eliminadas", en = "Removed rarities" }
-  Help = { es = "Qué cartas pierden su aspecto de rareza.", en = "Which cards lose their rarity look." }
-  [[Shape.Field]]
-  Key = "removed_rarities.tiers"
-  Type = "string"
-  Label = { es = "Grupos", en = "Tiers" }
-  Help = { es = "basic, basic_idol, basic_diamond o all.", en = "basic, basic_idol, basic_diamond or all." }

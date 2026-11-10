@@ -1,0 +1,146 @@
+schema = "VRFW.effect/1"
+# This technique is off for this version, and removing the comment marks brings it back.
+# ```
+# # Shell of Oblivion (content\techniques\caparazon_olvido.toml): grey copies of Fortaleza desesperada's effect objects and the spirit in place of its model.
+#
+# [[recolor]]
+# object = "ev62100501"
+# copy = "ev62995010"
+# gradient = [[0.0,0.22,0.23,0.27],[0.45,0.42,0.45,0.50],[0.85,0.72,0.75,0.79],[1.0,0.95,0.96,0.99]]
+# colorize = 0.35
+# particles = true
+# vertex_colors = ["_100_Base3","_200_Water6","_200_Water7","_300_Water13","_300_Water8","_400_WaterSide1","_500_Water14","_500_Water15","_500_Water19","_500_Water8","_520_Water14","_550_Water12","_600_Water11","_600_Water12","_600_Water7"]
+#
+# [[recolor]]
+# object = "ev62100502"
+# copy = "ev62995020"
+# gradient = [[0.0,0.22,0.23,0.27],[0.45,0.42,0.45,0.50],[0.85,0.72,0.75,0.79],[1.0,0.95,0.96,0.99]]
+# colorize = 0.35
+# particles = true
+# vertex_colors = ["_100_Base3","_200_Water1","_200_Water16","_300_Water14","_300_Water9","_500_Water12","_500_Water16","_500_Water17","_500_Water18","_520_Water14","_550_Water8","_600_Water12","_600_Water13","_600_Water8"]
+#
+# # the event loads the copies of the effect objects
+# [[event_command]]
+# event = "ev62_81050"
+# command = "CMD_799A1EBA"  # LOAD_ACTOR_RESOURCE
+# args = ["ev62100500"]
+# set = ["ev62100500", "common/effect/event/ev62/ev62995000/ev62995000.objbin"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# command = "CMD_799A1EBA"  # LOAD_ACTOR_RESOURCE
+# args = ["ev62100501"]
+# set = ["ev62100501", "common/effect/event/ev62/ev62995010/ev62995010.objbin"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# command = "CMD_799A1EBA"  # LOAD_ACTOR_RESOURCE
+# args = ["ev62100502"]
+# set = ["ev62100502", "common/effect/event/ev62/ev62995020/ev62995020.objbin"]
+#
+# # the spirit takes the actor of the base model: its clips are named after this actor key
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_D552FA5D"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_8B9492DD"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_FBBCCB17"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_C5C98AD3"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_1C645E1F"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_92AF8079"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_BD9E73F6"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_AFE3804D"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_E4131379"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_A2D1F942"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_F7099ABE"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_A9BDE997"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_B9FC8079"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_7EE3A490"
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>"]
+#
+# [[event_command]]
+# event = "ev62_81050"
+# list = "evt"
+# command = "CMD_799A1EBA"  # LOAD_ACTOR_RESOURCE
+# args = ["k002040_s00_p<VARIATION>"]
+# set = ["me000010_s00_p<VARIATION>", "me000010"]
+# ```

@@ -1,0 +1,42 @@
+schema = "VRFW.menu/2"
+
+# The rows of the game's team list window (sub_window type 2: free match «change team», tournament menus) on their own
+# layout copy: the top bar's team panel shares mainmenu90_31.g4pkm, and another mod's scale of it must not reach the list.
+[[layout]]
+file = "common/menu/100_mainmenu/mainmenu90/betterqol_dock_list_row/betterqol_dock_list_row.g4pkm"
+from = "common/menu/100_mainmenu/mainmenu90/mainmenu90_31/mainmenu90_31.g4pkm"
+
+# rows' root scale = the scale of the window's root win05_15_output in assets\menu\10_win\win05\win05_15\win05_15.g4pkm
+[[layout]]
+file = "common/menu/100_mainmenu/mainmenu90/betterqol_dock_list_row/betterqol_dock_list_row.g4pkm"
+joint = "mainmenu90_31_output"
+scale = [0.8, 0.8, 1.0]
+
+[[layout]]
+file = "common/menu/100_mainmenu/mainmenu90/betterqol_dock_list_row/betterqol_dock_list_row.g4pkm"
+joint = "_sdock_gtxt_teamdock01"
+translate = [258.0, -15.4, 0.0]
+scale = [320.32, 35.2, 1.0]
+
+# The template number at the team plate's size (content/menus/template_numbers.toml): this copy starts from the retail file.
+[[layout]]
+file = "common/menu/100_mainmenu/mainmenu90/betterqol_dock_list_row/betterqol_dock_list_row.g4pkm"
+joint = "_pos_num_sdock01"
+translate = [220.0, -32.95, 0.0]
+scale = [0.7, 0.7, 1.0]
+
+[[object]]
+name = "betterqol_dock_list_row"
+from = "mainmenu90_31_doc_item"
+keep_name = true
+set = [
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/100_mainmenu/mainmenu90/mainmenu90_31/mainmenu90_31.g4pkm" }, values = { 1 = "common/menu/100_mainmenu/mainmenu90/betterqol_dock_list_row/betterqol_dock_list_row.g4pkm" } },
+    # the team number shows a template number (content\menus\template_numbers.toml)
+    { parameter = "DispMaxValue", match = { 1 = 0xEE61E814 }, values = { 2 = 999 } },
+    { parameter = "DispMaxValue", match = { 1 = 0x7768B9AE }, values = { 2 = 999 } },
+]
+
+[[patch]]
+menu = "sub_window"
+layer = "mainmenu90_31_doc_item"
+object = "betterqol_dock_list_row"

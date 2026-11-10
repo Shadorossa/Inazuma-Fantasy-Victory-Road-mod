@@ -1,0 +1,100 @@
+schema = "VRFW.miximax_palette/1"
+
+[[VRFW.MiximaxPalette]]
+character = "c90000170"                   # axel_blaze_cross
+id = "0x77011C7E"
+head = "_face/90_CROSS/c90000250/c90000250.g4tx"
+hair = "#A60C0C"
+face = "#E5A671"
+iris = "#3C312B"
+skin = "#E5A671"
+zones = { face = "assets/mx_zones/c90000250_face.png" }
+
+[[VRFW.MiximaxPalette]]
+character = "c90000180"                   # david_samford_halloween
+id = "0xF09900B1"
+head = "_face/90_CROSS/c90000310/c90000310.g4tx"
+hair = "#C9E5D7"
+face = "#C6A272"
+iris = "#BF5D36"
+skin = "#C6A272"
+zones = { face = "assets/mx_zones/c90000310_face.png", hair = "assets/mx_zones/c90000310_hair.png" }
+
+[[VRFW.MiximaxPalette]]
+character = "c90000190"                   # nathan_swift_halloween
+id = "0xE98231F0"
+head = "_face/90_CROSS/c90000320/c90000320.g4tx"
+hair = "#6C9398"
+face = "#EFC096"
+iris = "#9E5230"
+skin = "#EFC096"
+zones = { face = "assets/mx_zones/c90000320_face.png" }
+
+[[VRFW.MiximaxPalette]]
+character = "c90000071"                   # celia_hills_2
+id = "0x49B03110"
+head = "_face/12_CROSS/c90000071/c90000071.g4tx"
+hair = "#565562"
+face = "#FEC19B"
+iris = "#5A6A5F"
+skin = "#FEC19B"
+zones = { face = "assets/mx_zones/c90000071_face.png", hair = "assets/mx_zones/c90000071_hair.png" }
+
+[[VRFW.MiximaxPalette]]
+character = "c90000130"                   # axel_blaze_3
+id = "0x49D3E161"
+head = "_face/01_IE1/c01000100/c01000100.g4tx"
+hair = "#FAD9AE"
+face = "#E5A671"
+iris = "#3C312B"
+skin = "#E5A671"
+
+[[VRFW.MiximaxPalette]]
+character = "c90000120"                   # byron_love
+id = "0x2175C658"
+head = "_face/12_CROSS/c90000120/c90000120.g4tx"
+hair = "#CACB92"
+face = "#F6D5AA"
+iris = "#C44000"
+skin = "#F6D5AA"
+zones = { face = "assets/mx_zones/c90000120_face.png", hair = "assets/mx_zones/c90000120_hair.png" }
+
+[[VRFW.MiximaxPalette]]
+character = "c91022030"                   # gazelle
+id = "0x47850485"
+head = "_face/12_CROSS/c91000140/c91000140.g4tx"
+hair = "#CFD8D3"
+face = "#F1B67C"
+iris = "#599085"
+skin = "#F1B67C"
+zones = { face = "assets/mx_zones/c91000140_face.png" }
+
+[[VRFW.MiximaxPalette]]
+character = "c91022031"                   # torch
+id = "0x30823413"
+head = "_face/12_CROSS/c91000150/c91000150.g4tx"
+hair = "#A60C0C"
+face = "#EDB991"
+iris = "#B09927"
+skin = "#EDB991"
+zones = { face = "assets/mx_zones/c91000150_face.png" }
+
+[[VRFW.MiximaxPalette]]
+character = "c90000050"                   # shawn_froste
+id = "0x4566FC4C"
+head = "_face/12_CROSS/c90000050/c90000050.g4tx"
+hair = "#C7C1CD"
+face = "#FFE0B1"
+iris = "#5C7572"
+skin = "#FFE0B1"
+zones = { face = "assets/mx_zones/c90000050_face.png", hair = "assets/mx_zones/c90000050_hair.png" }
+
+[[VRFW.MiximaxPalette]]
+character = "c90000040"                   # xavier_foster
+id = "0x1776374A"
+head = "_face/12_CROSS/c90000040/c90000040.g4tx"
+hair = "#DB2C19"
+face = "#DBC6A9"
+iris = "#47A98F"
+skin = "#DBC6A9"
+zones = { face = "assets/mx_zones/c90000040_face.png" }

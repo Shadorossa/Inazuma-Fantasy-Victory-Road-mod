@@ -1,0 +1,39 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# New synergy sp11005 (cloned from sp09003): Philip Star + Lucas Star.
+
+[[item]]
+name = "bond_of_the_stars"
+base = "sp09003"
+category = "synergy"
+icon_key = "sp11005"
+key_id = true
+  [item.text.es]
+  name = "El lazo de las estrellas"
+  [item.text.en]
+  name = "The Bond of the Stars"
+  [item.text.fr]
+  name = "Le lien des étoiles"
+  [item.text.de]
+  name = "Das Band der Sterne"
+  [item.text.it]
+  name = "Il legame delle stelle"
+  [item.text.pt]
+  name = "O laço das estrelas"
+  [item.text.ja]
+  name = "[星/ほし]の[絆/きずな]"
+  [item.text.zh_hans]
+  name = "星之羁绊"
+  [item.text.zh_hant]
+  name = "星之羈絆"
+
+[[currency]]
+name = "philip_star_card"
+spirit = 0x98ADA341                      # chara_param of Philip Star c08010010
+rarity = 4
+
+[[currency]]
+name = "lucas_star_card"
+spirit = 0xB380F082                      # chara_param of Lucas Star c08010020
+rarity = 4

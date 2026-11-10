@@ -1,6 +1,4 @@
 schema = "VRFW.base_table/1"
-# The «Inazuma Eleven Cross» belong team (crc32("evt_belong_team_cross"), its name: text\rows\team_text.toml): the
-# team_3 of the Cross characters, the player bank's Cross series.
 
 [[list]]
 name = "m_belongTeamInfoList"
@@ -8,6 +6,6 @@ columns = ["belongTeamId", "binderTeamOrderType", "teamNameTextId", "teamEmblemI
 sort = false
 splice = [
   { at = 208, remove = 0, rows = [
-    [0x1E5DC7AA, 216, 0x622EDDA9, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 999, 999, 999, 999, 999, 999, 999, 999, 999, 0x00000000, 0x00000000, 0x00000000, 0x00000000],
+    [0x1002688A, 216, 0x622EDDA9, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 999, 999, 999, 999, 999, 999, 999, 999, 999, 0x00000000, 0x00000000, 0x00000000, 0x00000000],
   ] },
 ]

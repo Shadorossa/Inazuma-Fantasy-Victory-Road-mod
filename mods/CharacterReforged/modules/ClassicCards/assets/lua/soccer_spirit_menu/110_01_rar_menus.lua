@@ -594,7 +594,7 @@ function OnFunction(a1, a2)
   end
 end
 function MixChara(a1)
-  if EVT_RARITY_UP_DISABLED then -- EVT rarity: no fusion
+  if ClassicCards.rarity_up_disabled then -- ClassicCards rarity: no fusion
     funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
     return
   end
@@ -684,7 +684,7 @@ function SearchCharaIdx(a1)
   return -1
 end
 function OpenMixSameCharaConfirmDialog()
-  if EVT_RARITY_UP_DISABLED then -- EVT rarity: no auto-fusion
+  if ClassicCards.rarity_up_disabled then -- ClassicCards rarity: no auto-fusion
     funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
     return
   end
@@ -1528,6 +1528,7 @@ function OpenBeansTradeMenu()
 end
 
 -- ===== EVT rar_menus BEGIN =====
--- EVT rarity: normal mode has no rarity-up (docs/game/rarity-removal.md). false = retail behaviour.
-EVT_RARITY_UP_DISABLED = true
+-- ClassicCards rarity: normal mode has no rarity-up (docs/game/rarity-removal.md). false = retail behaviour.
+ClassicCards = ClassicCards or {}
+ClassicCards.rarity_up_disabled = true
 -- ===== EVT rar_menus END =====

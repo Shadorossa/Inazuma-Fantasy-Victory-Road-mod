@@ -1,6 +1,3 @@
-# Legendary AI › where the shoot zone («Área») may start (format: the framework's shot / zone rules, kind
-# VRFW.shot_rule/1). Your side: only inside the penalty area (the big box) of the rival's goal, 5 % wider and 5 % deeper
-# (toward midfield). The CPU keeps the game's own zone (the full-width band past the zone line).
 schema = "VRFW.shot_rule/1"
 
 [[VRFW.ZoneArea]]

@@ -1,10 +1,3 @@
-# Chronicle Deluxe: the free-match class title «BATALLA LEGENDARIA» of the Lv 200 class (class 9,
-# content\defaults\match_difficulty.toml [MatchDifficulty.Class4] Badge) in the class title format of
-# #/menu/200_icon/06_icon_class/<LG>/icon_class.g4tx (512 x 160; 1024 x 320 in the default = Japanese file). The same
-# title of the Lv 200 class: made at boot from the PLAYER'S own retail Chronicle title
-# gtxt_class28 (680 x 152 / 1360 x 304, wider than the class card), resized so its plate box lands on the plate box of
-# the class title gtxt_class01 of the same file, on a class-title-sized canvas. The numbers are the measures of
-# research/scripts/fm_class_banners.py on the v7.1.2 dump (re-run it after a game update that changes these sprites).
 schema = "VRFW.image/1"
 
 [[texture]]

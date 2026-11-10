@@ -1,52 +1,46 @@
--- ===================================================================================================
--- ===================================================================================================
--- 2026-09-24: every former board entry point opens THIS screen (docs/game/skill-board-original.md §8.5): team dock
--- (type 5), RPG-battle team dock (story field), scout screen. The scout screen shows candidates that may not be
--- owned players, so its opener sets param evt_ss_readonly: the screen then only shows (moves, move panel, plate) and
--- refuses every change (buzzer + guide line); no board / list / role / six-sense / preset write happens.
--- ===================================================================================================
-PL.KEY_READONLY = 239878988
+-- Board entry points
+PL.KEY_READONLY = 156152477
 PL.readonly = false
 PL.RO_GUIDE = 651715743 --[[skill_table_readonly_guide]]
 
-PL.PrevInit = OnInit
+PL.prev_init = OnInit
 function OnInit()
-  if VRFW_Param.Has(PL.KEY_READONLY) then
-    local v = VRFW_Param.Get(PL.KEY_READONLY)
+  if VRFW.param.has(PL.KEY_READONLY) then
+    local v = VRFW.param.get(PL.KEY_READONLY)
     PL.readonly = v == true or v == 1
-    VRFW_Param.Clear(PL.KEY_READONLY)
+    VRFW.param.clear(PL.KEY_READONLY)
   end
-  PL.PrevInit()
+  PL.prev_init()
 end
 
-function PL.Refuse()
+function PL.refuse()
   funcLuaCommand(C.SE, SE_NG)
-  funcLuaMenuCommand(C.TEXT, 3078308064 --[[mainmenu90_05_content_guide_line01]], 378156699 --[[_text_guide01]], PL.Txt(PL.RO_GUIDE), 0)
+  funcLuaMenuCommand(C.TEXT, 3078308064 --[[mainmenu90_05_content_guide_line01]], 378156699 --[[_text_guide01]], PL.txt(PL.RO_GUIDE), 0)
 end
 
-PL.RoPrevDecide = OnDecideFocus
+PL.ro_prev_decide = OnDecideFocus
 function OnDecideFocus(a1, a2)
   if PL.readonly then
-    PL.Refuse()
+    PL.refuse()
     return
   end
-  PL.RoPrevDecide(a1, a2)
+  PL.ro_prev_decide(a1, a2)
 end
 
-PL.RoPrevFunction = OnFunction
+PL.ro_prev_function = OnFunction
 function OnFunction(a1, a2)
   if PL.readonly and (a1 == 4109882573 --[[CMD_FUNC3 Eliminar]] or a1 == 1141890006 --[[CMD_FUNC4 Restablecer]]) then
-    PL.Refuse()
+    PL.refuse()
     return
   end
-  PL.RoPrevFunction(a1, a2)
+  PL.ro_prev_function(a1, a2)
 end
 
-PL.RoPrevItemInfo = UpdateEquipItemInfo
+PL.ro_prev_item_info = UpdateEquipItemInfo
 function UpdateEquipItemInfo()
-  PL.RoPrevItemInfo()
+  PL.ro_prev_item_info()
   if PL.readonly then
-    VRFW_FooterPrompts.Set(nil, n12, {}, {Guide = 1138543975 --[[mainmenu01_06_base_button_guide]], Declared = false})
-    funcLuaMenuCommand(C.TEXT, 3078308064 --[[mainmenu90_05_content_guide_line01]], 378156699 --[[_text_guide01]], PL.Txt(PL.RO_GUIDE), 0)
+    VRFW.footer_prompts.set(nil, n12, {}, {guide = 1138543975 --[[mainmenu01_06_base_button_guide]], declared = false})
+    funcLuaMenuCommand(C.TEXT, 3078308064 --[[mainmenu90_05_content_guide_line01]], 378156699 --[[_text_guide01]], PL.txt(PL.RO_GUIDE), 0)
   end
 end

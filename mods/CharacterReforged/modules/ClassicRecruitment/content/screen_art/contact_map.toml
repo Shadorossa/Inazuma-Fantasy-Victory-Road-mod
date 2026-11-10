@@ -1,50 +1,44 @@
-# New Recruitment: the look of the framework's contact map screen for the recruitment office:
-# every role as a sprite of the mod's own atlases
-# (content/images/menu/220_img/new_recruitment_office*.toml): card plates, the cost card's panel, the panel ground, the
-# requirement icons and badges. No background: the screen keeps the hub's own.
+# The recruitment office's look on the framework's contact map screen.
 schema = "VRFW.screen_art/1"
 
 [[VRFW.ScreenArt]]
 Screen = "contact_map"
-Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office_board.g4tx"
+Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
 
 [VRFW.ScreenArt.Sprites]
 # the chain board look (IF's copy): list rows, plates, cursor, links, page arrows, tile icons
-list_row = "new_recruitment_office_list_row"
-cursor = "new_recruitment_office_cursor"
-link = "new_recruitment_office_link"
-arrow_left = "new_recruitment_office_arrow_left"
-arrow_right = "new_recruitment_office_arrow_right"
-tile_hidden = "new_recruitment_office_tile_hidden"
-tile_done = "new_recruitment_office_tile_done"
-tile_start = "new_recruitment_office_tile_start"
-icon_unknown = "new_recruitment_office_icon_unknown"
-icon_lock = "new_recruitment_office_icon_lock"
-icon_check = "new_recruitment_office_icon_check"
-icon_start = "new_recruitment_office_icon_start"
+list_row = "classic_recruitment_office_list_row"
+cursor = "classic_recruitment_office_cursor"
+link = "classic_recruitment_office_link"
+arrow_left = "classic_recruitment_office_arrow_left"
+arrow_right = "classic_recruitment_office_arrow_right"
+tile_hidden = "classic_recruitment_office_tile_hidden"
+tile_done = "classic_recruitment_office_tile_done"
+tile_start = "classic_recruitment_office_tile_start"
+icon_unknown = "classic_recruitment_office_icon_unknown"
+icon_lock = "classic_recruitment_office_icon_lock"
+icon_check = "classic_recruitment_office_icon_check"
+icon_start = "classic_recruitment_office_icon_start"
 # the requirement icons, their met / unmet badges, the cost card's panel and a player's plate
-requirement_level = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_requirement_level" }
-requirement_wins = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_requirement_wins" }
-requirement_goals = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_requirement_goals" }
-requirement_item = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_requirement_item" }
-requirement_player = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_requirement_player" }
-requirement_position_1 = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_requirement_position_1" }
-requirement_position_2 = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_requirement_position_2" }
-requirement_position_3 = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_requirement_position_3" }
-requirement_position_4 = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_requirement_position_4" }
-badge_met = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_badge_met" }
-badge_unmet = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_badge_unmet" }
-card_panel = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_card_panel" }
-player_plate = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_player_plate" }
-# the requirement card's plates (the game's slanted list buttons: met = on, not met = a dark copy of off, unused =
-# lock), their progress bars (the spirit gauge: track, green fill met, orange fill not yet) and the header's slanted
-# counter (the module's own)
+requirement_level = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_requirement_level" }
+requirement_wins = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_requirement_wins" }
+requirement_goals = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_requirement_goals" }
+requirement_item = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_requirement_item" }
+requirement_player = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_requirement_player" }
+requirement_position_1 = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_requirement_position_1" }
+requirement_position_2 = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_requirement_position_2" }
+requirement_position_3 = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_requirement_position_3" }
+requirement_position_4 = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_requirement_position_4" }
+badge_met = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_badge_met" }
+badge_unmet = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_badge_unmet" }
+card_panel = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_card_panel" }
+player_plate = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_player_plate" }
 requirement_plate_met = { Atlas = "#/menu/100_mainmenu/mainmenu90/mainmenu90_14/mainmenu90_14.g4tx", Sprite = "list_base_xs01_on" }
-requirement_plate_unmet = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_plate_unmet" }
+requirement_plate_unmet = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_plate_unmet" }
 requirement_plate_empty = { Atlas = "#/menu/100_mainmenu/mainmenu90/mainmenu90_14/mainmenu90_14.g4tx", Sprite = "list_base_xs01_lock" }
-requirement_counter = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office.g4tx", Sprite = "new_recruitment_office_counter" }
+requirement_counter = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office.g4tx", Sprite = "classic_recruitment_office_counter" }
 requirement_bar_base = { Atlas = "#/menu/102_team/team04/team04_01/team04_01.g4tx", Sprite = "gauge_spirit_base01" }
 requirement_bar_met = { Atlas = "#/menu/102_team/team04/team04_01/team04_01.g4tx", Sprite = "gauge_spirit_bar01_01" }
 requirement_bar_unmet = { Atlas = "#/menu/102_team/team04/team04_01/team04_01.g4tx", Sprite = "gauge_spirit_bar01_05" }
 # the player panel's ground (the right part of the game's menu background)
-panel_ground = { Atlas = "#/menu/220_img/new_recruitment_office/new_recruitment_office_ground.g4tx", Sprite = "new_recruitment_office_panel_ground" }
+panel_ground = { Atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_ground.g4tx", Sprite = "classic_recruitment_office_panel_ground" }

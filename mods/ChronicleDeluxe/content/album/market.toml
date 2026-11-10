@@ -1,5 +1,4 @@
 schema = "BetterQoL.album/1"
-# The market players: each a row of his own in his season, not folded into the character whose voice bank or model he shares.
 own_row_cards = [
   0xFFF7C4E2,  # FB-111X
   0xFFF7C4E3,  # FB-110X
@@ -39,7 +38,6 @@ own_row_cards = [
   0xFFF7C507,  # Kusaba Kenta
   0xFFF7C508,  # Tetchan
   0xFFF7C50D,  # Raika Shinohara
-  0xFFF7C50F,  # Celia Hills
   0xFFF7C509,  # Maestra Goverm
   0xFFF7C50A,  # Maestra Goverm
   0xFFF7C50B,  # Julio Acuto
@@ -55,5 +53,5 @@ own_row_cards = [
   0x41898A24,  # Scott Banyan
   0x54920923,  # Aitor Cazador
 ]
-# Retail cards whose character the game does not have: with Remi Altava and Sena Arata declared they would be their first card.
-exclude_cards = [0xF4AB83DC, 0x45FA2779]
+# Celia Hills in her own clothes (content/characters/market_ie1.toml) has no album row: retail Celia Hills is the row.
+exclude_cards = [0xF4AB83DC, 0x45FA2779, 0xFFF7C50F]

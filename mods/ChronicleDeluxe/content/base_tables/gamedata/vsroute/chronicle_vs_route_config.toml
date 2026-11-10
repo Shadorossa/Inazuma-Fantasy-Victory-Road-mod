@@ -1,8 +1,4 @@
 schema = "VRFW.base_table/1"
-# Chronicle Deluxe: the post Chrono Stone road («Aullido lunar» onwards) opens with the win that opens Galaxy,
-# the gate battle against Zanark Outsiders (docs/game/mods/chronicle-deluxe.md section 22).
-# openCondition is GetChronicleClearStatusFlag(Zanark's piece, 2) == 1, the retail key gate's own condition with this
-# piece. The board evaluates it every time it opens, so a save that already won the gate gets the pieces too.
 
 [[keyed]]
 table = "vsroute/vs_route_piece"
@@ -12,15 +8,15 @@ table = "vsroute/vs_route_piece"
   cells = { openCondition = "AAAAACEFNcl4Pb8AEwIoAAYCNPfZMWEoAAYCMgAAAAIyAAAAAXg=", openEvent = false }
 
   [[keyed.set]]
-  key = 0x695A1CEF                        # road piece before Aullido lunar
+  key = 0x695A1CEF
   cells = { openCondition = "AAAAACEFNcl4Pb8AEwIoAAYCNPfZMWEoAAYCMgAAAAIyAAAAAXg=", openEvent = false }
 
   [[keyed.set]]
-  key = 0x70412DAE                        # fbtl_cro05_200_010 Aullido lunar: the same open effect as its retail link
+  key = 0x70412DAE
   cells = { openCondition = "AAAAACEFNcl4Pb8AEwIoAAYCNPfZMWEoAAYCMgAAAAIyAAAAAXg=", openEvent = true }
 
   [[keyed.set]]
-  key = 0x592B4DF7                        # fbtl_cro06_130_010: its retail links without the three pieces above
+  key = 0x592B4DF7
   cells = { unlockPieceInfo = { set = [
     { unlockPieceId = 0x3E0CD508, unlockEvent = false, dlcNo = 0 },
     { unlockPieceId = 0x152186CB, unlockEvent = true, dlcNo = 0 },

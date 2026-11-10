@@ -1,8 +1,4 @@
 schema = "VRFW.character/2"
-# Inazuma Eleven Cross · Diamond Dust · Inazuma Eleven 2: the Cross version(s) of this team's characters (fixed ids,
-# created by their `order`; series «Inazuma Eleven Cross»: chara_base team_3 = crc32("evt_belong_team_cross")).
-# Inazuma Fantasy's EVT fields of their cards (growth, Lv200 stats, INAROGUE rarity) are IF's
-# characters\iecross_cards.toml.
 default_lang = "en"
 
 [[character]]
@@ -15,7 +11,7 @@ order = 66
   name = "c91022030"
   voice_bank = 0x1443531D
   team_2 = 0x00000000
-  team_3 = 0x1E5DC7AA
+  team_3 = 0x1002688A
   in_ie2 = 0
   in_ie3 = 1
 
@@ -33,13 +29,13 @@ order = 66
   from = 0xBDB75D6F                                       # template: Gazelle (c02020890)
   order = 78
   moves = [
-    { move = 0xBCE9DEAB, level = 1 },                     # Chaos Break
+    { move = 0x6B455865, level = 1 },                     # Chaos Illusion
     { move = 0x5E5AF1A9, level = 13 },                    # Northern Impact
-    { move = 0x46FA651E, level = 20 },                    # Water Veil
-    { move = 0x09C23C18, level = 30 },                    # Fire Blizzard
+    { move = 0x09C23C18, level = 20 },                    # Fire Blizzard
+    { move = 0x46FA651E, level = 30 },                    # Water Veil
     { move = 0xA2BF7076, level = 38 },                    # Side Swipe
     { move = 0x3297683F, level = 43 },                    # Warp Step
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
-    { move = 0x6B455865, level = 1 },                     # Chaos Illusion
+    { move = 0, level = 0 },                              # (empty)
   ]

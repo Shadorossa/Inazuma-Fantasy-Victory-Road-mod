@@ -1,32 +1,24 @@
--- EVT hud_layout, soccer_zone_menu (docs/game/ui-redesign.md §11.1z5): the «¡Activación del Área!» banner with the
--- shooter's portrait (layer soccer08_18_zone_exec_chara, anchored bottom-left; its bar spans y 123..183 over the
--- bottom edge, the portrait is masked to that bar) sits lower so it clears the LB tactics ring, which hud_layout put at
--- the bottom left (centre x 130, y 224; its lowest icon reaches y ~134). Engine calls only from OnOpenLayer /
--- OnSetupLayer / SetupZoneExecChara.
+-- sits lower so it clears the LB tactics ring at the bottom left.
 
-EVT_HL_ZONE_EXEC_DY = -100        -- layout units (+ = up): bar at y 23..83
-EVT_HL_ZONE_EXEC_DX = 0
+BetterUI = BetterUI or {}
+BetterUI.hud_layout = BetterUI.hud_layout or {}
+BetterUI.hud_layout.ZONE_EXEC_DY = -100        -- layout units (+ = up): bar at y 23..83
+BetterUI.hud_layout.ZONE_EXEC_DX = 0
 
 local HLZ_LAYER = 2456741170 --[[soccer08_18_zone_exec_chara]]
 local HLZ_CMND_POS = @crc:CMND_SET_LAYER_LOCAL_POS@
 
-local function HLZ_Pack(...)
-  return {n = select("#", ...), ...}
-end
+--@lib vrfw_menu_kit.lua#Pack,ParamPerMille
 
 local function HLZ_Apply()
   if type(funcLuaMenuCommand) == "function" then
-    pcall(funcLuaMenuCommand, HLZ_CMND_POS, HLZ_LAYER, EVT_HL_ZONE_EXEC_DX, EVT_HL_ZONE_EXEC_DY, 0, 0)
+    pcall(funcLuaMenuCommand, HLZ_CMND_POS, HLZ_LAYER, BetterUI.hud_layout.ZONE_EXEC_DX, BetterUI.hud_layout.ZONE_EXEC_DY, 0, 0)
   end
 end
 
 local function HLZ_Wrap(name, onlyLayer)
-  local prev = rawget(_ENV, name)
-  if type(prev) ~= "function" then
-    return
-  end
-  rawset(_ENV, name, function(a1, ...)
-    local r = HLZ_Pack(prev(a1, ...))
+  VRFW.host.wrap_once(name, "BetterUI.hud_layout.zone", function(previous, a1, ...)
+    local r = Pack(previous(a1, ...))
     if not onlyLayer or a1 == HLZ_LAYER then
       pcall(HLZ_Apply)
     end
@@ -38,25 +30,22 @@ HLZ_Wrap("OnSetupLayer", true)
 HLZ_Wrap("OnOpenLayer", true)
 HLZ_Wrap("SetupZoneExecChara", false)
 
--- Time line under the «ZONA DE ÁREA» banner (hud_layout_area_title.lua, another menu): the rate the engine gives the
--- (hidden) zone stopwatch, UpdateZoneLimitTimer(rate) (1 = full, 0 = over; exe 0x1108100 / zone tick), goes to the
--- parameter store as per-mille (key evt_hl_timeline_zone). Retail runs first with exactly its arguments.
-EVT_HL_TIMELINE_ON = true
+-- (1 = full, 0 = over) goes to the parameter store as per-mille (key better_ui_hl_timeline_zone)
+BetterUI.hud_layout.TIMELINE_ON = true
 
-local HLZ_TL_KEY = 848130028 --[[evt_hl_timeline_zone]]
-local hlz_logged = false             -- one log line per zone menu (the first rate it gets)
+local HLZ_TL_KEY = 1199734162 --[[better_ui_hl_timeline_zone]]
+local hlz_logged = false             -- one log line per zone menu
 local hlz_prevLimit = rawget(_ENV, "UpdateZoneLimitTimer")
 if type(hlz_prevLimit) == "function" then
   rawset(_ENV, "UpdateZoneLimitTimer", function(...)
-    local r = HLZ_Pack(hlz_prevLimit(...))
+    local r = Pack(hlz_prevLimit(...))
     local rate = ...
-    if EVT_HL_TIMELINE_ON and type(rate) == "number" and rate == rate and type(funcLuaCommand) == "function" then
+    if BetterUI.hud_layout.TIMELINE_ON and type(rate) == "number" and rate == rate and type(funcLuaCommand) == "function" then
       if not hlz_logged then
         hlz_logged = true
-        pcall(funcLuaCommand, @crc:CMND_EVT_LOG_DEBUG@, "EVT hud_layout timeline", "zone rate", rate)
+        pcall(funcLuaCommand, @crc:CMND_VRFW_LOG_DEBUG@, "EVT hud_layout timeline", "zone rate", rate)
       end
-      VRFW_Param.Clear(HLZ_TL_KEY)
-      VRFW_Param.Set(HLZ_TL_KEY, math.floor(math.max(0, math.min(1, rate)) * 1000 + 0.5), "plain")
+      SetParamPerMille(HLZ_TL_KEY, rate)
     end
     return table.unpack(r, 1, r.n)
   end)

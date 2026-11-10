@@ -1,10 +1,12 @@
 schema = "VRFW.shop/2"
-# Inazuma Fantasy's own skills in its Special Moves shop (InazumaFantasy.technique_shop), each in the tab of its skill
-# type, priced by the shop's rule on the skill's top power (_general_store.toml [price.power]) in Puntos de pasión
-# (tk_bb000001). technique_shop.toml itself is GENERATED (inazuma_fantasy_general_store.py), so the own skills stay here.
 
 [[edit]]
 target = "InazumaFantasy.technique_shop"
+
+  [[edit.entry]]
+  technique = "last_eclipse"    # Último eclipse: shot, 800
+  price = 48
+  currency = "tk_bb000001"
 
   [[edit.entry]]
   technique = "god_strike"      # Remate divino: shot, 640
@@ -27,7 +29,7 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "fist_of_fury_blue"    # Puño de furia Azul: catch, 440
+  technique = "fist_of_fury_blue"
   price = 10
   currency = "tk_bb000001"
 
@@ -62,63 +64,37 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  if_not_mod = "HissatsuReforged"
   technique = "dark_tornado_a"    # Tornado oscuro (A): shot, 360
-  price = 6
-  currency = "tk_bb000001"
-
-  [[edit.entry]]
-  if_mod = "HissatsuReforged"
-  technique = "dark_tornado_a"    # Tornado oscuro (A) with Hissatsu Reforged's numbers: shot, 320
   price = 4
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  if_not_mod = "HissatsuReforged"
-  technique = "tiger_fang"    # Colmillo del Tigre: catch, 540
-  price = 18
-  currency = "tk_bb000001"
-
-  [[edit.entry]]
-  if_mod = "HissatsuReforged"
-  technique = "tiger_fang"    # Colmillo del Tigre with Hissatsu Reforged's numbers: catch, 640
+  technique = "tiger_fang"
   price = 32
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  if_not_mod = "HissatsuReforged"
-  technique = "celestial_saw_cuts"    # Sierra celestial²: shot, 440
-  price = 10
+  technique = "guardia_celestial"    # Guardia celestial: catch, 640
+  price = 32
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  if_mod = "HissatsuReforged"
-  technique = "celestial_saw_cuts"    # Sierra celestial² with Hissatsu Reforged's numbers: shot, 380
+  technique = "celestial_saw_cuts"    # Sierra celestial²: shot, 440
   price = 7
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  if_not_mod = "HissatsuReforged"
   technique = "dark_fire_storm"    # Tormenta de fuego oscura: shot, 440
-  price = 10
-  currency = "tk_bb000001"
-
-  [[edit.entry]]
-  if_mod = "HissatsuReforged"
-  technique = "dark_fire_storm"    # Tormenta de fuego oscura with Hissatsu Reforged's numbers: shot, 480
   price = 13
   currency = "tk_bb000001"
 
-  # The normal versions of override moves with no manual in the game (content/base_tables/gamedata/item/item_config.toml):
-  # retail moves, at the shop's price for their top power.
-
   [[edit.entry]]
-  technique = "whs03330"    # Pingüino emperador n.º 2 + Tiburón: shot, 640
+  technique = "whs03330"
   price = 32
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "whs03360"    # Lanza gélida: shot, 540
+  technique = "whs03360"
   price = 18
   currency = "tk_bb000001"
 
@@ -133,11 +109,11 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "whk01500"    # Dimensión Kamakura: catch, 640
+  technique = "whk01500"
   price = 32
   currency = "tk_bb000001"
 
-  # LegendaryAd's skills (written by research/scripts/hissatsu_revamp_build.py from this line down)
+  # LegendaryAd's skills (written by research/mods/InazumaFantasy/_tools/fantasy_hissatsu_build.py from this line down)
 
   [[edit.entry]]
   technique = "bed_of_roses_f"    # Lecho de rosas F: shot, 300
@@ -165,7 +141,7 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "hasty_lightning"    # Relámpago presuroso: shot, 540
+  technique = "hasty_lightning"
   price = 18
   currency = "tk_bb000001"
 
@@ -180,7 +156,7 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "ethereal_claws"    # Garras etéreas: shot, 540
+  technique = "ethereal_claws"
   price = 18
   currency = "tk_bb000001"
 
@@ -200,7 +176,7 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "abyss_strike"    # Golpe del abismo: shot, 640
+  technique = "abyss_strike"
   price = 32
   currency = "tk_bb000001"
 
@@ -220,7 +196,7 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "matrix_tunnel"    # Túnel matrix: dribble, 440
+  technique = "matrix_tunnel"
   price = 10
   currency = "tk_bb000001"
 
@@ -240,17 +216,17 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "judgement_gavel"    # Mazo del juez: block, 360
+  technique = "judgement_gavel"
   price = 6
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "trick_fall"    # Caída tramposa: block, 440
+  technique = "trick_fall"
   price = 10
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "magma_rocks"    # Rocas magmáticas: block, 440
+  technique = "magma_rocks"
   price = 10
   currency = "tk_bb000001"
 
@@ -275,7 +251,7 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "void_fire"    # Fuego vacío: catch, 440
+  technique = "void_fire"
   price = 10
   currency = "tk_bb000001"
 
@@ -285,6 +261,44 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "dispersion"    # Dispersión: catch, 640
+  technique = "dispersion"
   price = 32
   currency = "tk_bb000001"
+
+# The four new warrior spirits go after the last retail one of the Training Shop and unlock by beating Destructores in the Chronicle.
+[[edit]]
+target = "InazumaFantasy.training_shop"
+
+  [[edit.entry]]
+  item = "wks_fantasy_k002011"
+  after = "wks02060"
+  price = 30
+  currency = "tk_bb000001"
+  unlock = [{ chronicle = 0x90185427, difficulty = 2 }]
+
+# This warrior spirit is off for this version, and removing the comment marks brings it back.
+# ```
+#   [[edit.entry]]
+#   item = "wks_fantasy_kx000010"
+#   after = "wks_fantasy_k002011"
+#   price = 30
+#   currency = "tk_bb000001"
+#   unlock = [{ chronicle = 0x90185427, difficulty = 2 }]
+# ```
+
+# These two warrior spirits are off for this version, and removing the comment marks brings them back.
+# ```
+#   [[edit.entry]]
+#   item = "wks_fantasy_me000010"
+#   after = "wks_fantasy_k002011"
+#   price = 30
+#   currency = "tk_bb000001"
+#   unlock = [{ chronicle = 0x90185427, difficulty = 2 }]
+#
+#   [[edit.entry]]
+#   item = "wks_fantasy_mx000010"
+#   after = "wks_fantasy_me000010"
+#   price = 30
+#   currency = "tk_bb000001"
+#   unlock = [{ chronicle = 0x90185427, difficulty = 2 }]
+# ```

@@ -1,17 +1,7 @@
 schema = "VRFW.team/2"
-# HAND-MAINTAINED. The IE2 post-game routes of Suzette's (Rika's) mother (wiki «Rika's Mother's route», DS
-# PracticeGame2B) and of the secret warehouse (wiki «Maniya Saito's route», DS PracticeGame4B) on ONE board. Rivals at
-# the DS record's level + 40 (the saga shift of this game's Chronicle teams, chronicle-deluxe.md §16.1); no rival that
-# is a team the Chronicle mode or another chain board plays (research/scripts/chronicle_deluxe_chain_dedupe.py:
-# replaced by an unused rival of the IE2 DS routes, else left out). Save: chain.ChronicleDeluxe.ie2_rika of owner
-# VRFW = one character per tile in the declaration order below; never reorder released tiles, only append.
-# Left out (Rika): FF Regional Pick A, FF National Pick A (Sonny's chain); NEW Genesis (the Crónica's Génesis; no
-# unused IE2 rival left) Left out (warehouse): Raimon OB, Young Inazuma (the Mary Times chain's Jóvenes Inazuma);
-# Cutesy B (no card for Mai Mai); Super Otaku, NEW Otaku, NEW Wild, NEW Brain, NEW Royal Academy, NEW Shuriken, NEW
-# Farm (the Crónica's teams); NEW Kirkwood, NEW Zeus (the Crónica's Kirkwood / Zeus)
+# HAND-MAINTAINED.
 default_lang = "es"
 
-# the Chronicle board node: opens with the fbtl_cro02_200_010 win, its board opens the chain
 [[VRFW.RouteNode]]
 Name = "ie2_chain_rika"
 Slot = 310
@@ -22,7 +12,7 @@ Pos = [11.0, -17.0]
 Team = "ChronicleDeluxe.ct_wk_mask_man_a"                # only gives the piece a game (never played)
 TemplateGame = "fbtl_cro02_090_010"
 Difficulties = [4]                     # cleared when every match of the chain is won
-Icon = "assets/images/teams/70_route_nodes/chain_ie2_rika.png"   # Nerina Hartland's (Suzette's mother, c11802060) face bust (chain_icon_build.py --vr-bust)
+Icon = "assets/images/teams/70_route_nodes/chain_ie2_rika.png"
 Chain = "ie2_rika"
   [VRFW.RouteNode.Title]
   es = "Ruta de la madre de Suzette"
@@ -40,6 +30,7 @@ Name = "ie2_rika"
 TemplateGame = "fbtl_cro02_090_010"
 Difficulty = 4
 RivalStats = "normal"
+Rules = "chronicle_deluxe_chain"
   [VRFW.Chain.Title]
   es = "Ruta de la madre de Suzette"
   en = "Suzette's Mother's Route"
@@ -60,14 +51,10 @@ RivalStats = "normal"
   [[VRFW.Chain.RankReward]]
   Rank = "S"
   Item = "abl_000001"
-  IfMod = "HissatsuLevelUp"
+  IfMod = "HissatsuReforged"
   Text = "chronicle_deluxe_chain_prize_upgrade_book"
 
-  # The board: one start, two rows of rivals in level order over two pages of 6 columns. Upper: the route teams of
-  # both wiki routes; Lower: the rivals that replace the board's Crónica teams (chronicle_deluxe_chain_dedupe.py). The
-  # warehouse's double chests sit mid-row (after the 4th match), Rika's at the ends. Tiles are declared in their
-  # released order (Rika's, then the warehouse's `w_` tiles); Pos / Links place them. Names: the teams' dub names (es
-  # / en).
+  # The board: one start, two rows of rivals in level order over two pages of 6 columns.
   [[VRFW.Chain.Tile]]
   Id = "start"
   Kind = "start"
@@ -82,10 +69,9 @@ RivalStats = "normal"
   Team = "ChronicleDeluxe.ie2_rika_u01"
   Level = 75
   Links = ["u03"]
-  Challenge = "ChronicleDeluxe.MaxLevel90"   # every player Lv. 90 or lower (wiki: Players with levels ≤ 35 (JP) Players with levels ≤ 50 (EU))
+  Challenge = "ChronicleDeluxe.MaxLevel90"
 
-  # Lower 4: Alius B (wiki Hakuren's Coach's route, level 50; DS PracticeGame1B). Was Super Triple C: the Crónica's
-  # Triple C tm_cro_ie2_0900 (chronicle_deluxe_chain_dedupe.py)
+  # Lower 4: Alius B (wiki Hakuren's Coach's route, level 50; DS PracticeGame1B).
   [[VRFW.Chain.Tile]]
   Id = "u02"
   Kind = "match"
@@ -112,7 +98,6 @@ RivalStats = "normal"
   Level = 87
   Links = ["u05"]
 
-  # Upper 4: National Team A / Selección nacional A (Rika Upper #5, wiki level 55)
   [[VRFW.Chain.Tile]]
   Id = "u05"
   Kind = "match"
@@ -121,7 +106,6 @@ RivalStats = "normal"
   Level = 95
   Links = ["w_u_chest"]
 
-  # Upper 8: National Youth B / Selección Juvenil B (Rika Upper #8, wiki level 70)
   [[VRFW.Chain.Tile]]
   Id = "u06"
   Kind = "match"
@@ -140,8 +124,6 @@ RivalStats = "normal"
     [[VRFW.Chain.Tile.Reward]]   # Steeple Shot (manual)
     Item = 0x4741C0E8
 
-  # Lower 8: National Youth A / Selección juvenil A (wiki Hakuren's Coach's route, level 70; DS PracticeGame1B). Was
-  # NEW Alpino (the Crónica's tm_cro_ie2_0400), then Divinidades y Alienígenas (back in the Mary Times coach's chain)
   [[VRFW.Chain.Tile]]
   Id = "l01"
   Kind = "match"
@@ -151,8 +133,7 @@ RivalStats = "normal"
   Level = 110
   Links = ["l_chest"]
 
-  # Lower 7: Adult Team / Equipo de adultos (wiki Hakuren's Coach's route, level 65; DS PracticeGame1B). Was NEW
-  # Claustro Sagrado (the Crónica's tm_cro_ie2_0600), then Suplentes del Raimon (back in the Mary Times coach's chain)
+  # Lower 7: Adult Team / Equipo de adultos (wiki Hakuren's Coach's route, level 65; DS PracticeGame1B).
   [[VRFW.Chain.Tile]]
   Id = "l02"
   Kind = "match"
@@ -162,8 +143,6 @@ RivalStats = "normal"
   Level = 105
   Links = ["l01"]
 
-  # Lower 6: National Team B / Selección nacional B (wiki Hakuren's Coach's route, level 60; DS PracticeGame1B). Was
-  # NEW Fauxshore: the Crónica's tm_cro_ie2_1100
   [[VRFW.Chain.Tile]]
   Id = "l03"
   Kind = "match"
@@ -173,8 +152,6 @@ RivalStats = "normal"
   Level = 100
   Links = ["l02"]
 
-  # Lower 5: Kyappikyapi A / Chavalillas A (wiki Hakuren's Coach's route, level 58; DS PracticeGame1B; Spanish wiki: a
-  # team of boys). Was NEW Mary Times (the Crónica's tm_cro_ie2_1300), then Alius A (back in the Mary Times coach's chain)
   [[VRFW.Chain.Tile]]
   Id = "l04"
   Kind = "match"
@@ -184,9 +161,6 @@ RivalStats = "normal"
   Links = ["l03"]
   Challenge = "ChronicleDeluxe.OnlyBoys"
 
-  # Lower 1: Glasses A / Gafitas A (wiki Hakuren's Coach's route, level 40; DS PracticeGame1B; «players without
-  # hissatsu»: no VRFW filter). Was NEW Royal Academy Redux (the Crónica's tm_cro_ie2_0800), then Neo Royal Academy (back
-  # in the Mary Times coach's chain)
   [[VRFW.Chain.Tile]]
   Id = "l05"
   Kind = "match"
@@ -195,9 +169,6 @@ RivalStats = "normal"
   Level = 80
   Links = ["l06"]
 
-  # Lower 2: Ryuugaku Team / Alumnos de intercambio (wiki Hakuren's Coach's route, level 50; DS PracticeGame1B;
-  # «players without shooting moves»: no VRFW filter). Was NEW Tormenta de Géminis (the Crónica's tm_cro_ie2_0100), then
-  # Royal Claustro A (back in the Mary Times coach's chain)
   [[VRFW.Chain.Tile]]
   Id = "l06"
   Kind = "match"
@@ -206,8 +177,7 @@ RivalStats = "normal"
   Level = 90
   Links = ["l07"]
 
-  # Lower 3: Ray Dark's All Stars (wiki Hakuren's Coach's route, level 40; DS PracticeGame1B). Was NEW Épsilon: the
-  # Crónica's tm_cro_ie2_0700
+  # Lower 3: Ray Dark's All Stars (wiki Hakuren's Coach's route, level 40; DS PracticeGame1B).
   [[VRFW.Chain.Tile]]
   Id = "l07"
   Kind = "match"
@@ -275,7 +245,6 @@ RivalStats = "normal"
     [[VRFW.Chain.Tile.SReward]]  # Perfect Tower (manual)
     Item = 0x49933AEE
 
-  # Lower middle: the warehouse's double chest (wiki clear reward «Koutei Penguin 1gou», S-clear reward «Matsuno Kuusuke»: no card)
   [[VRFW.Chain.Tile]]
   Id = "w_l_chest"
   Kind = "dchest"
@@ -284,115 +253,128 @@ RivalStats = "normal"
     [[VRFW.Chain.Tile.Reward]]   # Emperor Penguin No. 1 (manual)
     Item = 0x6730D416
 
-
-# ChronicleDeluxe.MaxLevel90: declared by another chain file (named above, not declared again)
-
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.OnlyBoys"
 Title = "chronicle_deluxe_mc_only_boys"
 Scope = "squad"
+UntilFirstClear = true
+Difficulties = [4]
   [[VRFW.MatchChallenge.Require]]
   Every = { Gender = "male" }
 
 # no in-match drops in this chain's matches (the rewards are the end-of-match win prizes above)
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_01"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_01"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_02"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_02"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_03"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_03"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_04"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_04"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_05"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_05"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_06"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_06"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_07"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_07"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_08"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_08"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_09"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_09"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_10"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_10"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_11"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_11"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_12"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_12"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_13"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_13"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_14"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_14"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_15"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_15"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_16"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_16"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
 
 [[VRFW.GameDrops]]
-Game = "evt_ch_ie2_rika_17"
-ItemDrop = "0xF6ED1C39"        # ChronicleDeluxe.no_item_drops (an empty table, base_tables soccer_drop_config.toml)
+Game = "vrfw_chain_match_ie2_rika_17"
+ItemDrop = "0xF6ED1C39"
 SpiritDrop = "0xE523407A"
 SpiritDrop2 = "0xE523407A"
+
+# the fixed line-up this match plays when the club cannot field its challenge (docs/framework/match-challenge.md, «supplied squad»)
+[[VRFW.GameRival]]
+Game = "vrfw_chain_match_ie2_rika_01"
+Difficulties = [1]
+OwnTeam = "bb_01_team_raimon"
+OwnLevel = 75
+
+# the fixed line-up this match plays when the club cannot field its challenge (docs/framework/match-challenge.md, «supplied squad»)
+[[VRFW.GameRival]]
+Game = "vrfw_chain_match_ie2_rika_10"
+Difficulties = [1]
+OwnTeam = "bb_01_team_raimon"
+OwnLevel = 98

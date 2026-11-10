@@ -1,14 +1,11 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: «Ases de Inazuma» (Inazuma '08, イナズマ'08) of IE1, the last rival of the lower branch of the chain
-# «Ruta prémium de Sonny» (content/teams/70_route_nodes/chain_sonny.toml). Team key ct_iy_08 («Inazuma '08»). Here: the wiki lineup with
-# each card's own moves, the formation / tactics of the retail «FF National Pick A» legend team, the wiki crest (WebP -> PNG, no resize).
 default_lang = "en"
 
 [[team]]
 name = "ct_iy_08"
 key = "evt_ct_iy_08"
 based_on = "tm_cro_legend_ie1_12"         # FF National Pick A (its formation, tactics, team skills)
-kit = 0xC1F231A9                          # the neutral kit of the wiki route teams (no VR kit of the wiki's)
+kit = 0xC1F231A9
 level = 85
 series = "IE"
 roster = "exact"

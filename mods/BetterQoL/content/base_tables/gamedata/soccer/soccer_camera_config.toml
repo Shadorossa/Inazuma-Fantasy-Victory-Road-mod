@@ -1,5 +1,3 @@
-# The 4 fixed-position cameras of the pre-match fly-through (feature camera of BetterQoL, graft prematch_flythrough):
-# evt_cam_fly_01..04 = crc32 ids 0x9D45684A, 0x044C39F0, 0x734B0966, 0xED2F9CC5. (same rows).
 schema = "VRFW.base_table/1"
 
 [[list]]

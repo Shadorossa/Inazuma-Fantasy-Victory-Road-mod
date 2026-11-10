@@ -1,0 +1,28 @@
+schema = "BetterQoL.passive_config/1"
+
+[[passive]]
+key = "character_reforged_wind_plus"
+[[passive]]
+key = "character_reforged_forest_plus"
+[[passive]]
+key = "character_reforged_fire_plus"
+[[passive]]
+key = "character_reforged_mountain_plus"
+[[passive]]
+key = "character_reforged_neutral_plus"
+
+[[effect_icon]]
+effect = "character_reforged_wind_plus_effect"
+sprite = "cr_icon_teambuff_aire_plus"
+[[effect_icon]]
+effect = "character_reforged_forest_plus_effect"
+sprite = "cr_icon_teambuff_bosque_plus"
+[[effect_icon]]
+effect = "character_reforged_fire_plus_effect"
+sprite = "cr_icon_teambuff_fuego_plus"
+[[effect_icon]]
+effect = "character_reforged_mountain_plus_effect"
+sprite = "cr_icon_teambuff_montana_plus"
+[[effect_icon]]
+effect = "character_reforged_neutral_plus_effect"
+sprite = "cr_icon_teambuff_neutro_plus"

@@ -1,76 +1,57 @@
 schema = "VRFW.changelog/1"
-# Aura Reworked: ONE general summary of what the mod offers, shown on «Novedades de mods».
-# Rules (the parser refuses the rest): a single 
+# Aura Overhaul: ONE general summary of what the mod offers, shown on «Novedades de mods».
 
 [[release]]
 icon = "general"
 notes = [
     "Auras revisadas",
-    "Sistema de Tótem revisado",
     "Pasivas de Keshin revisadas",
-    "Modos cambio y miximax propios",
 ]
 
 [release.en]
 notes = [
     "Reworked auras",
-    "Reworked Totem system",
     "Reworked Keshin passives",
-    "Own change and miximax modes",
 ]
 
 [release.fr]
 notes = [
     "Auras revues",
-    "Système de Totem revu",
     "Passifs de Keshin revus",
-    "Modes Change et Miximax propres",
 ]
 
 [release.de]
 notes = [
     "Überarbeitete Auren",
-    "Überarbeitetes Totem-System",
     "Überarbeitete Keshin-Passive",
-    "Eigene Wechsel- und Miximax-Modi",
 ]
 
 [release.it]
 notes = [
     "Aure riviste",
-    "Sistema Totem rivisto",
     "Passive Keshin riviste",
-    "Modalità cambio e miximax propri",
 ]
 
 [release.pt]
 notes = [
     "Auras revistas",
-    "Sistema de Totem revisto",
     "Passivas de Keshin revistas",
-    "Modos de troca e miximax próprios",
 ]
 
 [release.ja]
 notes = [
     "オーラを改良",
-    "トーテムシステムを改良",
     "化身パッシブを改良",
-    "独自のチェンジ・ミキシマックス",
 ]
 
 [release.zh_hans]
 notes = [
     "灵气重做",
-    "图腾系统重做",
     "化身被动重做",
-    "专属换装与融合模式",
 ]
 
 [release.zh_hant]
 notes = [
     "靈氣重做",
-    "圖騰系統重做",
     "化身被動重做",
-    "專屬換裝與融合模式",
 ]

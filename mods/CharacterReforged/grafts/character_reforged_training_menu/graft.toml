@@ -1,0 +1,18 @@
+# The classic training window character_reforged_training_menu (new file; its menu rows are content\menus\training_window.toml).
+# Commands CMND_CHARACTERREFORGED_TRAINING_*. Nothing at chunk load but globals.
+name = "character_reforged_training_menu"
+mod = "CharacterReforged"
+order = 100
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "Character Reforged training: the training window character_reforged_training_menu"
+
+[[files]]
+path = "common/script/lua/menu/character_reforged_training_menu.lua.bin"
+
+  [[files.ops]]
+  type = "new_file"
+  source = "character_reforged_training_menu.lua"
+  crc = "at"          # @crc:character_reforged_tr_*@ = menu_text rows of the mod's text\rows\training.toml

@@ -1,21 +1,12 @@
--- BetterQoL › shop filter (feature shop_filter).
---
--- The retail item filter window's tabs and boxes are static per inventory type: 0-3 equipment (stats), 4 kits /
--- 5 emblems (series), 6-9 moves, 10-16 auras. Its accept button gives the filter params ({listItemType, value,
--- option} triples) to CMND_BETTERQOL_SHOP_FILTER_SET; the shop tab builder's category -> tab call (hook ShopTabOf) then
--- sends a row of that tab to no tab when the engine's own item test says no. The rows of the tab built last are
--- recorded for the window's counter (CMND_BETTERQOL_SHOP_FILTER_COUNT).
--- The technique name search (CMND_BETTERQOL_SHOP_NAME_SET) drops, in the tab it was made in, the rows whose item
--- the shop's Lua did not keep by name.
-
+local Memory = VRFW.memory
 local ROW_ITEM = 0x4
 local VIEW_SHOP = 0x2040
 local VIEW_NEW_LIST, NEW_LIST_MAX = 0x2054, 10
 local MAX_TAB_ROWS = 0x140
-local NO_TAB = 0xFFFFFFFF -- never a slot type (slot types 9 / 10, the lot tabs, are never filtered)
+local NO_TAB = 0xFFFFFFFF
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
 local function arg_u32(v)
   if type(v) ~= "number" then
@@ -40,8 +31,6 @@ local function pred_of_inv(inv)
   return nil
 end
 
--- the 0x20-byte block of ItemTestSeriesStat, filled like SetItemFilter: +0 series count, +4 series (<= 10), +0x10 stat
--- count, +0x14 stats (<= 8), +0x1C series test on, +0x1D stat test on ({8, 1} / {8, 2} = «Todos» = test off)
 local function series_stat_block(params)
   local b = {}
   for i = 0, 0x1F do
@@ -65,8 +54,6 @@ local function series_stat_block(params)
   return b, 0x20
 end
 
--- the 0x38-byte block of ItemTestSkill, filled like 0xD8D990: tension (type 3, <= 6), element (4, <= 6), skill type
--- (5, <= 7), category (6, <= 9), +0x34..+0x37 the four tests on ({8, 3..6} = «Todos» = off)
 local function skill_block(params)
   local b = {}
   for i = 0, 0x37 do
@@ -89,29 +76,27 @@ local function skill_block(params)
   return b, 0x38
 end
 
--- the same block filled by the game's own code (ItemFilterBlockFill), so a framework patch of the rows (the
--- technique filter's tension rows) applies; nil when the call is not available
 local MAX_PARAMS = 128
 local function game_skill_block(params)
   if #params > MAX_PARAMS then
     return nil
   end
-  local bp, pp = VRFW.mem.buffer("fill_block", 0x38), VRFW.mem.buffer("fill_params", 12 * MAX_PARAMS)
+  local bp, pp = VRFW.memory.buffer("fill_block", 0x38), VRFW.memory.buffer("fill_params", 12 * MAX_PARAMS)
   for i = 0, 0x37 do
-    VRFW.mem.write("u8", bp + i, (i >= 0x34) and 1 or 0)
+    VRFW.memory.write("u8", bp + i, (i >= 0x34) and 1 or 0)
   end
   for i, p in ipairs(params) do
     local at = pp + 12 * (i - 1)
-    VRFW.mem.write("u32", at, arg_u32(p[1]) % 256)
-    VRFW.mem.write("u32", at + 4, arg_u32(p[2]))
-    VRFW.mem.write("u32", at + 8, arg_u32(p[3]))
+    VRFW.memory.write("u32", at, arg_u32(p[1]) % 256)
+    VRFW.memory.write("u32", at + 4, arg_u32(p[2]))
+    VRFW.memory.write("u32", at + 8, arg_u32(p[3]))
   end
   local ok, err = pcall(VRFW.call, "ItemFilterBlockFill", bp, pp, #params)
   if not ok then
     VRFW.warn("game filter fill failed (" .. tostring(err) .. "): the shop's own block is used")
     return nil
   end
-  local bytes = VRFW.mem.read_array("u8", bp, 0x38)
+  local bytes = VRFW.memory.read_array("u8", bp, 0x38)
   if type(bytes) ~= "table" then
     return nil
   end
@@ -140,7 +125,12 @@ local function filter_of(inv, params)
   return pred
 end
 
-local function triples(flat)
+-- t1, v1, o1, … -> { { t1, v1, o1 }, … }
+local function triples(...)
+  local flat = {}
+  for _, x in ipairs({ ... }) do
+    flat[#flat + 1] = arg_u32(x)
+  end
   local out = {}
   for i = 1, #flat - 2, 3 do
     out[#out + 1] = { flat[i], flat[i + 1], flat[i + 2] }
@@ -148,16 +138,16 @@ local function triples(flat)
   return out
 end
 
--- the engine's own test of `item` (true when it passes; a failed call lets it pass)
+-- engine test of `item` (a failed call lets it pass)
 local function passes(f, item)
   if f.keep and f.scope[item] and not f.keep[item] then
     return false
   end
-  local bp, idp = VRFW.mem.buffer("block", 0x38), VRFW.mem.buffer("item", 4)
+  local bp, idp = VRFW.memory.buffer("block", 0x38), VRFW.memory.buffer("item", 4)
   for i = 0, f.n - 1 do
-    VRFW.mem.write("u8", bp + i, f.block[i])
+    VRFW.memory.write("u8", bp + i, f.block[i])
   end
-  VRFW.mem.write("u32", idp, item)
+  VRFW.memory.write("u32", idp, item)
   local ok, r
   if f.series then
     ok, r = pcall(VRFW.call, "ItemTestSeriesStat", 0, f.mask, idp, bp)
@@ -173,16 +163,27 @@ end
 
 local filters = {} -- slot type -> filter
 local hits = 0
-local rec = { view = 0, slot = -1, rows = {}, items = {}, seen = {}, step = 0 }
+local rec -- rows and items of the tab built last
 
--- rows a mod adds to the equipment window (list item type 1, which the engine's test ignores on equipment): row value ->
--- { [item id] = true } (CMND_BETTERQOL_SHOP_FILTER_ROWS), for the window opened last; nil = none
+local function rec_reset(view, slot)
+  rec = { view = view, slot = slot, rows = {}, items = {}, seen = {}, step = 0 }
+end
+rec_reset(0, -1)
+
+-- set of the item ids of the tab built last
+local function tab_items()
+  local set = {}
+  for _, item in ipairs(rec.items) do
+    set[item] = true
+  end
+  return set
+end
+
 local OWN_ROW_TYPE, ALL_ROWS_TYPE = 1, 8
 local LAST_EQUIPMENT_INVENTORY = 3
 local own_rows = nil
 
--- the filter also keeps only the items of its ticked own rows; rows of other tabs (items not in the tab built last) are
--- never touched by them
+-- ticked own rows keep only their items, in the tab built last only
 local function with_own_rows(f, inv, params)
   if not f or not own_rows or inv > LAST_EQUIPMENT_INVENTORY then
     return f
@@ -196,24 +197,12 @@ local function with_own_rows(f, inv, params)
       keep[item] = true
     end
   end
-  local scope = {}
-  for _, item in ipairs(rec.items) do
-    scope[item] = true
-  end
-  f.keep, f.scope = keep, scope
+  f.keep, f.scope = keep, tab_items()
   return f
 end
 
--- the technique name search: the item ids the search keeps, out of the item ids of the tab it was made in (rows of
--- other tabs are never touched by it); nil = no search
 local name_search = nil
 
-local function rec_reset(view, slot)
-  rec = { view = view, slot = slot, rows = {}, items = {}, seen = {}, step = 0 }
-end
-
--- a build walks the shop's table in one direction: seeing the first row again, or a row against that direction, is
--- a new build (the split tabs of one game tab are built with the same slot type, each from its own first row)
 local function rec_add(view, slot, row, item)
   local last = rec.rows[#rec.rows]
   local step = (last ~= nil and row ~= last) and ((row > last) and 1 or -1) or 0
@@ -235,16 +224,15 @@ local function name_search_drops(item)
   return name_search ~= nil and item ~= 0 and name_search.scope[item] and not name_search.keep[item]
 end
 
--- the tab builder asked the tab of a row: ev.args = (rcx, category, sub, slot type being built), ev.regs.r13 = the
--- list view, ev.regs.rsi = the row; ev.ret = the game's answer
+-- ev.args = (rcx, category, sub, slot type being built), r13 = list view, rsi = row, ev.ret = the game's tab
 VRFW.on("hook:ShopTabOf:post", function(ev)
   local t, slot = ev.ret, ev.args[4]
   if t ~= slot then
     return nil
   end
   local view, row = ev.regs.r13, ev.regs.rsi
-  local ok, item = pcall(VRFW.mem.read, "u32", row + ROW_ITEM)
-  item = ok and item or 0
+  local item = Memory.read("u32", row + ROW_ITEM)
+  item = item or 0
   rec_add(view, slot, row, item)
   if name_search_drops(item) then
     return { ret = NO_TAB }
@@ -252,8 +240,8 @@ VRFW.on("hook:ShopTabOf:post", function(ev)
   local f = filters[slot]
   if f and item ~= 0 and not passes(f, item) then
     if hits == 0 then
-      local ok2, shop = pcall(VRFW.mem.read, "u32", view + VIEW_SHOP)
-      VRFW.log(string.format("shop 0x%08X slot %d: item 0x%08X filtered out (first hit)", ok2 and shop or 0, slot, item))
+      local shop = Memory.read("u32", view + VIEW_SHOP)
+      VRFW.log(string.format("shop 0x%08X slot %d: item 0x%08X filtered out (first hit)", shop or 0, slot, item))
     end
     hits = hits + 1
     return { ret = NO_TAB }
@@ -268,11 +256,7 @@ end
 -- slot, inv, t1, v1, o1, … -> ok
 function BetterQoL.ShopFilterSet(slot, inv, ...)
   slot, inv = arg_u32(slot), arg_u32(inv)
-  local flat = {}
-  for _, x in ipairs({ ... }) do
-    flat[#flat + 1] = arg_u32(x)
-  end
-  local params = triples(flat)
+  local params = triples(...)
   local ok = true
   if #params == 0 then
     filters[slot] = nil
@@ -292,11 +276,7 @@ end
 -- inv, t1, v1, o1, … -> shown, total over the rows of the tab built last
 function BetterQoL.ShopFilterCount(inv, ...)
   inv = arg_u32(inv)
-  local flat = {}
-  for _, x in ipairs({ ... }) do
-    flat[#flat + 1] = arg_u32(x)
-  end
-  local params = triples(flat)
+  local params = triples(...)
   local f = with_own_rows(filter_of(inv, params), inv, params)
   local total, shown = #rec.items, #rec.items
   if f then
@@ -310,7 +290,6 @@ function BetterQoL.ShopFilterCount(inv, ...)
   return shown, total
 end
 
--- value 1, count 1, item 1, ..., value 2, count 2, ...: a mod's own rows of the window opened now; no arguments = none
 function BetterQoL.ShopFilterRows(...)
   local args = { ... }
   local rows, at = nil, 1
@@ -346,12 +325,10 @@ function BetterQoL.ShopFilterReset()
   return live(), n
 end
 
--- -> n, id1, …: the item ids of the tab built last (every row of it, the ones a search or a filter hides too)
 function BetterQoL.ShopNameItems()
   return #rec.items, table.unpack(rec.items)
 end
 
--- id1, … -> live: only these items stay in the tab built last (the other tabs keep every row); no ids = no search
 function BetterQoL.ShopNameSet(...)
   local keep = {}
   local n = 0
@@ -362,25 +339,21 @@ function BetterQoL.ShopNameSet(...)
   if n == 0 then
     name_search = nil
   else
-    local scope = {}
-    for _, it in ipairs(rec.items) do
-      scope[it] = true
-    end
-    name_search = { keep = keep, scope = scope }
+    name_search = { keep = keep, scope = tab_items() }
   end
   VRFW.log(string.format("CMND_BETTERQOL_SHOP_NAME_SET: %d item(s) kept of %d", n, #rec.items))
   return live()
 end
 
--- the «new» list of the list view built last (the first 0 ends it)
+-- "new" list of the list view built last (a 0 ends it)
 local function view_new_list()
   local out = {}
   if rec.view < 0x10000 then
     return out
   end
   for i = 0, NEW_LIST_MAX - 1 do
-    local ok, id = pcall(VRFW.mem.read, "u32", rec.view + VIEW_NEW_LIST + 4 * i)
-    if not ok or id == 0 then
+    local id = Memory.read("u32", rec.view + VIEW_NEW_LIST + 4 * i)
+    if id == nil or id == 0 then
       break
     end
     out[#out + 1] = id
@@ -394,7 +367,7 @@ function BetterQoL.ShopNewList()
   return #v, table.unpack(v)
 end
 
--- id -> true, isNew (the first true says the getter exists and answered)
+-- id -> true (getter answered), isNew
 function BetterQoL.ShopNewState(id)
   id = arg_u32(id)
   if id == 0 then

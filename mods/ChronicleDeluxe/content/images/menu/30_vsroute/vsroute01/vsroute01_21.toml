@@ -1,8 +1,3 @@
-# Chronicle Deluxe: the level ball of the free-match class «BATALLA LEGENDARIA» (Lv 200, class 9) on the class card,
-# the legendary ball. No retail ball has the legendary title's colours: made at boot from the
-# class menu's own balls (the PLAYER'S files): the purple one (lv_base01) blended diagonally into the blue one turned
-# cyan (lv_base00) and the gold one turned lime (lv_base02); the shape, shading and alpha of lv_base01. Declared as
-# the class's Ball in content/defaults/match_difficulty.toml (VRFW MatchDifficulty Ball)
 schema = "VRFW.image/1"
 
 [[texture]]
@@ -40,10 +35,6 @@ x = 0
 y = 0
 recipe = "chronicle_deluxe_legendary_ball"
 
-# The class orbs of the free-match class cards: copies of the Competition list's own orbs (vsroute01_06b.g4tx, the
-# PLAYER'S files) in the card's atlas, the atlas the card's tick slot list_icon_state_comp01 already takes its sprites
-# from. INAZUMA blue clear_icon01, ZONA LETAL purple clear_icon02, BATALLA LEGENDARIA the legendary orb of the «team
-# cleared» gauge (the same recipe as chronicle_deluxe_legendary_orb, vsroute01_06b.toml).
 [[recipe]]
 name = "chronicle_deluxe_class_orb_inazuma"
 game = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"

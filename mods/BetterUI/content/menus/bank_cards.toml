@@ -1,12 +1,3 @@
-# Hand-maintained. Clean HUD's player bank («Banco»: chara_bank_menu, and chara_bank_menu_for_search = the bank search
-# / miximax picker) with the compact player card:
-# * the grid: 8 columns instead of 6. The list cards use a 0.85 copy of the compact card layout (files\data
-#   team00_01_evt_fcg / team00_01_p1_evt_fcg, root *_output scaled, objbins *_evt_fcg); the grid layout team14_01.g4pkm
-#   has 2 card locators inserted per row (column step 102.8, 12.1 px gaps both ways; 25,952 B instead of the retail
-#   22,816: a new size, so it needs the normal mod install, not a hot copy); the list object walks 8 per row, 72 in all.
-#   Navigation, paging, scrolling and the selection frame are native (CMenuListViewCharaBank, from mLineNum).
-# * the team panel on the right: the formation's compact cards (pitch, leader, drag card, empty slots).
-# Built by research/scripts/ui_clean_build.py (GRID_*, card_rows_bytes) and fc_build.py.
 schema = "VRFW.menu/2"
 
 [[object_set]]
@@ -18,7 +9,7 @@ set = [
 
 [[redirect]]
 object = "team00_01_chara_card_for_list"
-to = "team00_01_chara_card_for_list_evt_fcg"
+to = "team00_01_chara_card_for_list_bui_fcg"
 menus = ["chara_bank_menu", "chara_bank_menu_for_search"]
 
 [[patch]]
@@ -29,7 +20,7 @@ count = 72
 [[patch]]
 menu = "chara_bank_menu"
 layer = "team00_01_chara_card_blank_for_list"
-object = "team00_01_p1_chara_card_blank_evt_fcg"
+object = "team00_01_p1_chara_card_blank_bui_fcg"
 count = 72
 
 [[patch]]
@@ -45,7 +36,7 @@ count = 72
 [[patch]]
 menu = "chara_bank_menu_for_search"
 layer = "team00_01_chara_card_blank_for_list"
-object = "team00_01_p1_chara_card_blank_evt_fcg"
+object = "team00_01_p1_chara_card_blank_bui_fcg"
 count = 72
 
 [[patch]]

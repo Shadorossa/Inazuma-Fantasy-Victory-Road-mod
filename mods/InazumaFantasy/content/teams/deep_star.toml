@@ -1,0 +1,53 @@
+schema = "VRFW.team/2"
+# Deep Star: 5-4-1 Doble Volante, slot 11-15 bench, 16-18 managers, 19 coach; members keep their cards and play their cards' own learn lists.
+
+[[team]]
+name = "ct_ft_deep_star"
+key = "evt_ct_ft_deep_star"
+level = 1
+formation = 0xEDCDD7BE                    # 5-4-1 Doble Volante
+kit = 0x5CFCAABA                          # Prodigy Grammar (tm_cro_go1_0300)
+emblem = 0x21CAF8A4                       # Flash (em900003)
+tactics = [0x61D6644F, 0x08AA5420, 0x1582162A]   # Supresión inquebrantable, Formación caparazón, Fortaleza de llamas
+roster = "exact"
+card_moves = 6
+member = [
+  { card = 0xD955538E, slot = 0, number = 1 },                    # Preston Princeton (c04001210) · GK
+  { card = 0xD371D7B0, slot = 1, number = 2 },                    # Miles Ryan (c01007240) · DF
+  { card = 0x2A82D5E6, slot = 2, number = 3 },                    # Queraldo Naval (c03032650) · DF
+  { card = 0x07C34FB6, slot = 3, number = 4 },                    # Aitor Cazador (c04000150) · DF
+  { card = 0x7CD71DC7, slot = 4, number = 5 },                    # Goldie Lemmon (c05020140) · DF, red Hero card
+  { card = 0x9F7B9502, slot = 5, number = 6 },                    # Sylvia Lagus (c04012850) · DF
+  { card = 0x74EF9AED, slot = 6, number = 7 },                    # Ashley Fay (c01005840) · MF line
+  { card = 0x8C0813F7, slot = 7, number = 8, captain = true },    # Nathan Swift (c01000020) · MF line, red Hero card
+  { card = 0x078B3F10, slot = 8, number = 9 },                    # Holly Cricket (c01005010) · MF
+  { card = 0x81EC9061, slot = 9, number = 10 },                   # Bea Jou (c04013690) · MF line
+  { card = 0xE0188C12, slot = 10, number = 11 },                  # Tezcat (c04003700) · FW, Diamond card
+  { card = 0x63AF8AB2, slot = 11, number = 12 },                  # Michael Ballzack (c04000110) · FW
+  { card = 0x1544474A, slot = 12, number = 13 },                  # Flora (c05024920) · FW
+  { card = 0x3213717B, slot = 13, number = 14 },                  # David Samford (c01000310) · FW
+  { card = 0x131A29CB, slot = 14, number = 15 },                  # Angelo Gabrini (c03031660) · MF
+  { card = 0xC67779B6, slot = 15, number = 16 },                  # Ringo Saturn (c04002810) · GK
+  { card = 0xEA936402, slot = 16, number = 0 },                   # Celia Hills (c11807250) · manager
+  { card = 0x3671F95A, slot = 17, number = 0 },                   # Rosie Redd (c04000370) · manager
+  { card = 0xA7944C9C, slot = 18, number = 0 },                   # Mila Simmering (c11807120) · manager
+  { card = 0x4E0C61CF, slot = 19, number = 0 },                   # Hailey Cometti (c11804080) · coach
+]
+  [team.text.en]
+  name = "Deep Star"
+  [team.text.es]
+  name = "Deep Star"
+  [team.text.fr]
+  name = "Deep Star"
+  [team.text.de]
+  name = "Deep Star"
+  [team.text.it]
+  name = "Deep Star"
+  [team.text.pt]
+  name = "Deep Star"
+  [team.text.ja]
+  name = "Deep Star"
+  [team.text.zh_hans]
+  name = "Deep Star"
+  [team.text.zh_hant]
+  name = "Deep Star"

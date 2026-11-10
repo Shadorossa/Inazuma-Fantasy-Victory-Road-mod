@@ -1,10 +1,4 @@
 schema = "VRFW.character/2"
-# Hidetoshi Nakata's basic card, a normal player of Orfeo (content\teams\nakata_orfeo.toml). His Idol is another card
-# of content\characters\idols.toml, which holds his names (same name text ids).
-# Character: the game's Nakata assets, which have no chara_base row: face and model row 0x8EC2F9F9 of c02024760, icon
-# c02024760_l. Card id: the earlier Inazuma Fantasy's, which InaRogue and Character Reforged name.
-# Stats: the earlier card's wiki IE3 profile, each stat capped at the Idol's value. Moves: his IE3 (DS) list (Brave Shot,
-# Circus Block, Super Elastico at their DS levels; research/data/ie3ds/story_matches.json) and the earlier card's Gale Dash.
 default_lang = "en"
 
 [[character]]

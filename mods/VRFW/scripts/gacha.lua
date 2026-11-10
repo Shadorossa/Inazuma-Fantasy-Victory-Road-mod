@@ -1,33 +1,17 @@
 -- Gacha service, script side (game Lua side: assets\lua\menu\_all\74_gacha.lua; docs/framework/gacha.md).
--- Declarations: every active mod's content\gacha\*.toml (`VRFW.gacha/1`, keys content\types\gacha.toml): [[VRFW.GachaPool]]
--- (a pool, its cost, its level, the Chronicle board node that opens it) and [[VRFW.GachaAdd]] (cards
--- another mod adds to an extensible pool). A card is a chara_param id (0x…) or a mod's character <mod>.<name> (its card:
--- the id space's number of <mod>.<name>#card).
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_VRFW_GACHA_OF_PIECE | pieceId | the pool index (1-based) of the board node with that piece, 0 = none |
--- | CMND_VRFW_GACHA_POOL | index | key, cost item, cost count, level, card count, free stock (config [debug]
---   free_gacha: the count of the cost item the player is kept at; 0 = off) |
--- | CMND_VRFW_GACHA_CARDS | index | the pool's cards (chara_param ids) |
--- | CMND_VRFW_GACHA_CANDIDATES | index | the cards a draw picks from now: those whose character has no player in the club
---   (VRFW.character.owned_of_character, the drop-rate list's owned-player rule: the window and the draw list the same) |
--- | CMND_VRFW_GACHA_OF_GAME | game id | the pool index of the board node whose game that is (its drop-rate list), 0 = none |
--- | CMND_VRFW_GACHA_TEXTS | index | command text id, banner image id (0 = none), no-cost text id, count text id (0 = none) |
--- | CMND_VRFW_GACHA_DRAWS | index | one pair per command row: players that row draws, the row's text id |
 
 Gacha = Gacha or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("gacha")
 
-local POOLS = nil        -- { { key, mod, cost_item, cost_count, level, cards = { id … }, piece } … }
+local POOLS = nil
 local BY_PIECE = {}      -- pieceId -> pool index
 local BY_GAME = {}       -- the node's game id -> pool index
 
-local Id = require "lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
 local crc = VRFW.crc32
 
@@ -115,9 +99,9 @@ local function load_pools()
   for i, pool in ipairs(POOLS) do
     pool.seen = nil
     if pool.node and pool.node ~= "" then
-      pool.piece = crc("evt_rn_piece_" .. pool.node)
+      pool.piece = crc("vrfw_node_piece_" .. pool.node)
       BY_PIECE[pool.piece] = i
-      BY_GAME[crc("evt_rn_" .. pool.node)] = i
+      BY_GAME[crc("vrfw_node_" .. pool.node)] = i
     end
     info(string.format("pool %s: %d card(s), node %s, level %d, cost %d", pool.key, #pool.cards,
       tostring(pool.node or "-"), pool.level, pool.cost_count))
@@ -131,8 +115,6 @@ function Gacha.OfPiece(piece)
   return BY_PIECE[u32(piece)] or 0
 end
 
--- the free gacha (config [debug] free_gacha, debug flag `free_gacha`): how many of a pool's cost item the player is kept
--- at (0 = off, or the pool has no cost)
 local function free_stock(p)
   if p.cost_item == 0 or VRFW.files.config("debug.free_gacha") ~= true then return 0 end
   local n = math.floor(tonumber(VRFW.files.config("debug.free_gacha_stock")) or 0)
@@ -170,7 +152,6 @@ function Gacha.Candidates(i)
   return table.unpack(out)
 end
 
--- CMND_VRFW_GACHA_OF_GAME(game id) -> the pool index of the node playing that game (0 = none)
 function Gacha.OfGame(game)
   load_pools()
   return BY_GAME[u32(game)] or 0

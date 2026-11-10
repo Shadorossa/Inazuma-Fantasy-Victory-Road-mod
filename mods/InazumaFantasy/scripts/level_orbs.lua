@@ -1,13 +1,6 @@
--- Inazuma Fantasy › the level orbs: which items are level orbs and how many levels each gives (config.toml
--- [level_orbs.levels]). The item use menu asks once per opening (graft inazuma_fantasy_level_orbs).
---
--- | Command | Args -> answers |
--- |---|---|
--- | CMND_INAZUMAFANTASY_LEVEL_ORB_LEVELS | item id -> levels one orb gives (0 = not a level orb) |
 
-require "VRFW/lib/basics"
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
 local LEVELS_BY_ITEM = nil   -- item id -> levels, read once
 

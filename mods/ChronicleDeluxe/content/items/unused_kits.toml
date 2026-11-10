@@ -1,13 +1,8 @@
 schema = "VRFW.item/2"
-# Kit items of uniforms that are in the game with no item and no team wearing them. Hand-made (not generated). The
-# first heroic win of the kit's team gives it (config.toml [heroic] extra_kits ->
-# research/scripts/chronicle_deluxe_heroic_build.py -> content/base_tables/gamedata/soccer/soccer_prize_config.toml).
-# The Victory Road «(V)» kits use the item sheets' own icon (key_id: the id is the CRC of icon_key) and are cloned
-# from «Equipación Alpino (V)»; the second kits of Sílice, Naiadi and G. de la Reina have no icon in the game and show
-# the icon of the team's normal kit (their id is the CRC of ChronicleDeluxe.<name>).
+# Kit items of uniforms that are in the game with no item and no team wearing them.
 default_lang = "es"
 
-[[item]]                                 # Mary Times (V): u112001 / keeper u112051, home _10 + away _20
+[[item]]
 name = "kit_mary_times_v"
 base = "uni_u111901"
 category = "kit"
@@ -59,13 +54,13 @@ model = { uniform = 0x414D80F6 }
   [item.text.zh_hant]
   name = "海王服裝（V）"
 
-[[item]]                                 # Inazuma Japón (V): u112401 / keeper u112451, home _10 only; its uniform is
-name = "kit_inazuma_japan_v"             # this mod's kit (content/looks/inazuma_japan_v.toml: the game has no rows)
+[[item]]
+name = "kit_inazuma_japan_v"
 base = "uni_u111901"
 category = "kit"
 icon_key = "uni_u112401"
 key_id = true
-model = { uniform = 0xA0F5F748 }         # crc32(ChronicleDeluxe.inazuma_japan_v)
+model = { uniform = 0xA0F5F748 }
   [item.text.es]
   name = "Equipación Inazuma Japón (V)"
   [item.text.en]
@@ -85,7 +80,7 @@ model = { uniform = 0xA0F5F748 }         # crc32(ChronicleDeluxe.inazuma_japan_v
   [item.text.zh_hant]
   name = "閃電日本服裝（V）"
 
-[[item]]                                 # Sílice, second kit: u061801 / keeper u061851, _10 + _20
+[[item]]
 name = "kit_silica_eleven_alt"
 base = "uni_u060701"
 category = "kit"
@@ -133,7 +128,7 @@ model = { uniform = 0xD4E13C3D }
   [item.text.zh_hant]
   name = "備用·薩扎納拉服裝"
 
-[[item]]                                 # G. de la Reina, second kit: u081601 / keeper u081651, _10 + _20
+[[item]]
 name = "kit_queens_guardians_alt"
 base = "uni_u081101"
 category = "kit"

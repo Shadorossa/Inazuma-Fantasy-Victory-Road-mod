@@ -1,0 +1,10 @@
+schema = "VRFW.sound/1"
+# Last Eclipse: each shot plays the sounds of its own retail cut (content/techniques/last_eclipse.toml).
+# The first shot is ev60_02130 c0010 played faster: its opening (0-19), then 79-179 so its end lands on the cut; c0020 follows to frame 277.
+# The ev60_01690 shots keep frames 107-184, 200-328 and 340-436: the frames their cuts drop are left out.
+
+[[sfx]]
+add = "ev60_81690_me"
+from = "ev60_01690_me"
+bank = "waza_stream"
+segments = [{ cue = "ev60_02130_me", frames = [0, 19], bank = "waza_stream" }, { cue = "ev60_02130_me", frames = [79, 277], bank = "waza_stream" }, [107, 184], [200, 328], [340, 436]]

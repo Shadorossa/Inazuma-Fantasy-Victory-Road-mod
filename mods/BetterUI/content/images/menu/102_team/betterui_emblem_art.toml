@@ -1,0 +1,41 @@
+schema = "VRFW.image/1"
+# Own atlas of the emblem picker (graft better_ui_emblem_grid), drawn at boot from the player's game files:
+# the grey hex of the emblems the team does not wear, and the white fade bands over the grid's top and bottom edges.
+# The fade masks come from research/mods/BetterUI/_tools/emblem_grid_build.py ([emblem_grid] fade of _menu_build.toml).
+
+# the retail emblem tile plate (vs01_43) without its colour
+[[recipe]]
+name = "hex_grey"
+game = "dx11/menu/107_vs/vs01/vs01_43/vs01_43.g4tx"
+sprite = "enjoy_list_p1_base01"
+ops = [{ op = "saturate", factor = 0.0 }, { op = "affine", mul = [1.35, 1.35, 1.35], add = [0.0, 0.0, 0.0] }]
+
+[[texture]]
+atlas = "#/menu/102_team/betterui_emblem_art/betterui_emblem_art.g4tx"
+name = "betterui_emblem_art"
+size = [204, 148]
+
+[[sprite]]
+atlas = "#/menu/102_team/betterui_emblem_art/betterui_emblem_art.g4tx"
+name = "betterui_emblem_hex_grey"
+texture = "betterui_emblem_art"
+x = 0
+y = 0
+recipe = "hex_grey"
+
+[[sprite]]
+atlas = "#/menu/102_team/betterui_emblem_art/betterui_emblem_art.g4tx"
+name = "betterui_emblem_fade_top"
+texture = "betterui_emblem_art"
+x = 140
+y = 0
+# white over the mask's alpha (opaque at the grid's edge); the graft tints it with the theme's background
+png = "betterui_emblem_art/fade_top.png"
+
+[[sprite]]
+atlas = "#/menu/102_team/betterui_emblem_art/betterui_emblem_art.g4tx"
+name = "betterui_emblem_fade_bottom"
+texture = "betterui_emblem_art"
+x = 140
+y = 76
+png = "betterui_emblem_art/fade_bottom.png"

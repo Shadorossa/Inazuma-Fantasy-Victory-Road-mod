@@ -1,42 +1,16 @@
--- Football Reforged › module «goalkeeper_barrier»: the goalkeeper's barrier and the block -> keeper tension discount.
--- Switch: content\modules\goalkeeper_barrier.toml (row «Barrera del portero» of «Opciones de mods», under «Football
--- Reforged»; read live). Settings: config.toml [goalkeeper_barrier]. Declarations: content\game\goalkeeper_barrier.toml
--- (the globals / structs read here, the availability answer of the discounted keeper moves on the cost check, table
--- GoalkeeperBarrier.KeeperTension, and the HUD command). HUD: research/grafts/goalkeeper_barrier_hud (the barrier
--- drawn BRONZE inside each keeper's bar of the scoreboard: the part of the bar still above the barrier line).
---
--- 1. BARRIER. The barrier is the top barrier_percent (25 %) of each team's keeper bar (the scoreboard's keeper bar: the
---    rate the retail UpdateScoreboardKeeperHp reads with funcLuaCommand(3112466283, 3 own / 4 rival); the HUD graft
---    research/grafts/goalkeeper_barrier_hud passes it with every CMND_GOALKEEPERBARRIER_GET, no bar reported = no barrier):
---      barrier = clamp(bar % - (100 - barrier_percent), 0, barrier_percent)
---    A full bar = 25 %, the bar at 75 % or below = 0. While it is > 0 (the bar above 75 %) every shot that reaches that
---    keeper has its power ÷ mitigation (1.4) for his save duel (catch, punch or keeper move: the VR-Framework's rule
---    trigger `keeper_duel`, power_mult = 1 / mitigation); with the bar at 75 % or below the shots keep their full power.
---    One INFO line per whole-percent change of a barrier and per shot on a keeper.
--- 2. BLOCK -> KEEPER TENSION. When a player uses a block move (its tension is paid: trigger `tension_pay:skill`, the
---    move's slot category = block_category), his team's keeper gets a discount: his next keeper move (category
---    keeper_category) costs (1 − tension_discount) × its tension (cost_mult on the pay) and is available from that
---    lower tension on (the cost check answer reads GoalkeeperBarrier.KeeperTension). The discount is used up by that
---    keeper move; several blocks before it do not stack; discount_expire_seconds > 0 also ends it after that many match
---    seconds; a new match clears it. One INFO line when it is armed and one when it is applied.
--- With the module off nothing above happens (the handlers answer nothing, the table is emptied, the HUD hides).
 
 GoalkeeperBarrier = GoalkeeperBarrier or {}
 local Barrier = GoalkeeperBarrier
-local Modules = { on = function(_) return true end }   -- a module mod runs only while it is on
+local Modules = { on = function(_) return true end }   -- A module mod runs only while it is on.
 
 local MODULE = "GoalkeeperBarrier"
-
-local Basics = require "VRFW/lib/basics"
 local info = VRFW.logger("goalkeeper_barrier")
 
-local clamp = Basics.value.clamp   -- a config number with a default, kept inside its range
+local clamp = VRFW.value.clamp   -- a config number with a default, kept inside its range
 
-local RAW = (VRFW.files and VRFW.files.config and VRFW.files.config("goalkeeper_barrier")) or {}
+local RAW = VRFW.config("goalkeeper_barrier", {})
 local SETTINGS = {
-  -- the HUD draws the retail gauge (yellow, no bronze sprite) over the whole barrier share: a placement test
   hud_debug = RAW.hud_debug == true,
-  -- start_percent: the former key name
   barrier_percent = clamp(RAW.barrier_percent, clamp(RAW.start_percent, 25, 0, 100), 0, 100),
   mitigation = clamp(RAW.mitigation, 1.4, 1, 100),
   tension_discount = clamp(RAW.tension_discount, 0.30, 0, 1),
@@ -49,35 +23,24 @@ local SETTINGS = {
 Barrier.settings = SETTINGS
 
 local TENSION_TABLE = "GoalkeeperBarrier.KeeperTension"
--- game layout: the actor table through the framework (VRFW/lib/actors);
--- units, members and the match info block as structs of content\game\goalkeeper_barrier.toml
-local Actors = require "VRFW/lib/actors"
+local Actors = VRFW.players
 local MOVE_SLOTS = 6
 
 local band = bit32.band
 
-local function game_global(name)
-  local ok, p = pcall(VRFW.game[name])
-  if ok and type(p) == "number" and p >= 0x10000 then return p end
-  return nil
-end
+local Memory = VRFW.memory
+local game_global = VRFW.game.global
 
-local hex = require("VRFW/lib/ids").hex
+local hex = VRFW.ids.hex_text
 
--- one field of a [[VRFW.Struct]] of content\game\goalkeeper_barrier.toml at `at`; nil when not readable
 local function struct_field(struct, at, name)
-  if not at or at < 0x10000 then return nil end
-  local ok, s = pcall(VRFW.mem.struct, struct, at)
-  if not ok then return nil end
-  local ok_value, v = pcall(function() return s[name] end)
-  if ok_value then return v end
-  return nil
+  local view = Memory.struct(struct, at)
+  return view and view[name]
 end
 
 local function unit_of(actor)
-  local ok, u = pcall(VRFW.call, "Match.ActorUnit", actor)
-  if ok and type(u) == "number" and u >= 0x10000 then return VRFW.mem.read_struct("FootballUnit", u) end
-  return nil
+  local unit = Actors.unit_of(actor)
+  return unit and VRFW.memory.read_struct("FootballUnit", unit) or nil
 end
 
 local function actor_of(handle)
@@ -96,15 +59,13 @@ local function category_of(unit, move)
   return nil
 end
 
--- ---------------------------------------------------------------------------------------------- match state
-
 local State = {
   scene = 0,
   keeper = {},        -- team -> keeper handle
-  percent = {},       -- team -> barrier % now
+  percent = {},
   logged = {},        -- team -> last whole percent logged
-  discount = {},      -- team -> { since = match clock ms, by = blocker handle, move = block move }
-  published = {},     -- "handle:move" -> { key, ok } written to GoalkeeperBarrier.KeeperTension
+  discount = {},
+  published = {},
   scan_ms = -1e18,
   match = nil,
   was_on = nil,
@@ -119,13 +80,10 @@ local function reset(why)
   if why then info(why) end
 end
 
--- team 0 / 1's keeper bar now in % (0..100) as the scoreboard draws it (reported by the HUD graft), or nil
 function Barrier.bar_of(team)
   return State.bar and State.bar[team] or nil
 end
 
--- team 0 / 1's barrier now (0..barrier_percent: the part of its keeper bar above 100 - barrier_percent) and the bar %
--- (nil = no bar read, no barrier)
 function Barrier.barrier_of(team)
   local bar = Barrier.bar_of(team)
   if bar == nil then return 0, nil end
@@ -140,7 +98,7 @@ local function scan_keepers(now)
   local found = {}
   for _, entry in ipairs(Actors.list()) do
     local actor = entry.address
-    local a = VRFW.mem.read_struct("FootballActor", actor)
+    local a = VRFW.memory.read_struct("FootballActor", actor)
     if a and a.handle ~= 0 and band(a.handle, 0xFF) == entry.index and a.team <= 1 then
       local u = unit_of(actor)
       local position = struct_field("FootballMember", u and u.member, "position")
@@ -186,9 +144,6 @@ local function update_barriers()
   end
 end
 
--- GoalkeeperBarrier.KeeperTension (handle, move) -> { ok = 0/1 }: the keeper's keeper moves while his team's discount is
--- armed (the cost check answer of content\game\goalkeeper_barrier.toml): available when the team's tension covers the
--- discounted cost
 local function publish_tension(match)
   local want = {}
   for team = 0, 1 do
@@ -251,7 +206,7 @@ VRFW.on("tick", function(ev)
     reset("new match: barriers back to the start, no keeper discount")
   end
   State.match = match
-  local now = VRFW.match.clock()
+  local now = VRFW.now_ms()
   scan_keepers(now)
   update_barriers()
   for team = 0, 1 do
@@ -265,7 +220,6 @@ VRFW.on("tick", function(ev)
   return nil
 end)
 
--- 1. the save duel: the shot's power ÷ mitigation while the keeper's barrier is > 0 (his bar above the barrier line)
 VRFW.on("keeper_duel", function(ev)
   if not Modules.on(MODULE) then return nil end
   local a = ev.actor
@@ -282,7 +236,6 @@ VRFW.on("keeper_duel", function(ev)
   return { power_mult = 1 / SETTINGS.mitigation }
 end)
 
--- 2. a block move arms its team's keeper discount; the keeper's next keeper move uses it
 VRFW.on("tension_pay:skill", function(ev)
   if not Modules.on(MODULE) then return nil end
   local a = ev.actor
@@ -295,7 +248,7 @@ VRFW.on("tension_pay:skill", function(ev)
       info(string.format("T%d: block move %s by %s: the keeper's next keeper move needs %.0f %% less tension", team, hex(ev.skill), hex(a.handle),
         SETTINGS.tension_discount * 100))
     end
-    State.discount[team] = { since = VRFW.match.clock(), by = a.handle, move = ev.skill }
+    State.discount[team] = { since = VRFW.now_ms(), by = a.handle, move = ev.skill }
     return nil
   end
   if category == SETTINGS.keeper_category and State.discount[team] then
@@ -308,14 +261,6 @@ VRFW.on("tension_pay:skill", function(ev)
   return nil
 end)
 
--- ---------------------------------------------------------------------------------------------- HUD command
-
--- CMND_GOALKEEPERBARRIER_GET(side, bar_rate) -> ok, percent (0..100), discount (0/1), team, user (0/1), barrier share
--- (% of the bar), hud_debug (0/1).
--- side: 0 / 1 = that team, -1 (or none) = the user's team, -2 = the rival's (graft goalkeeper_barrier_hud: the
--- bronze segment of that keeper's bar is `percent` % of the bar long, from the barrier line). false = nothing to show (module off, no
--- match, no keeper).
--- bar_rate (optional): that keeper bar's fill 0..1 as the scoreboard draws it; it is the barrier's source.
 function Barrier.Get(side, bar_rate)
   if not Modules.on(MODULE) or State.scene == 0 or not State.match then return false end
   local user = struct_field("FootballMatchInfo", State.match, "user_team") or 0

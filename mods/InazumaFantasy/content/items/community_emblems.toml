@@ -1,0 +1,203 @@
+schema = "VRFW.item/2"
+# Crests of the community emblem pack, sold in the general store (rule: _general_store.toml, extra_items).
+default_lang = "en"
+
+[[item]]
+name = "crest_murasaki_bara_gakuen"
+base = "em900012"
+category = "emblem"
+icon_key = "em986001"
+key_id = true
+  [item.text.es]
+  name = "Murasaki Bara Gakuen [@Hoyo_Haul]"
+  [item.text.en]
+  name = "Murasaki Bara Gakuen [@Hoyo_Haul]"
+  [item.text.fr]
+  name = "Murasaki Bara Gakuen [@Hoyo_Haul]"
+  [item.text.de]
+  name = "Murasaki Bara Gakuen [@Hoyo_Haul]"
+  [item.text.it]
+  name = "Murasaki Bara Gakuen [@Hoyo_Haul]"
+  [item.text.pt]
+  name = "Murasaki Bara Gakuen [@Hoyo_Haul]"
+  [item.text.ja]
+  name = "Murasaki Bara Gakuen [@Hoyo_Haul]"
+  [item.text.zh_hans]
+  name = "Murasaki Bara Gakuen [@Hoyo_Haul]"
+  [item.text.zh_hant]
+  name = "Murasaki Bara Gakuen [@Hoyo_Haul]"
+
+[[item]]
+name = "crest_uzumaki_gakuen"
+base = "em900013"
+category = "emblem"
+icon_key = "em986002"
+key_id = true
+  [item.text.es]
+  name = "Uzumaki Gakuen [@Hoyo_Haul]"
+  [item.text.en]
+  name = "Uzumaki Gakuen [@Hoyo_Haul]"
+  [item.text.fr]
+  name = "Uzumaki Gakuen [@Hoyo_Haul]"
+  [item.text.de]
+  name = "Uzumaki Gakuen [@Hoyo_Haul]"
+  [item.text.it]
+  name = "Uzumaki Gakuen [@Hoyo_Haul]"
+  [item.text.pt]
+  name = "Uzumaki Gakuen [@Hoyo_Haul]"
+  [item.text.ja]
+  name = "Uzumaki Gakuen [@Hoyo_Haul]"
+  [item.text.zh_hans]
+  name = "Uzumaki Gakuen [@Hoyo_Haul]"
+  [item.text.zh_hant]
+  name = "Uzumaki Gakuen [@Hoyo_Haul]"
+
+[[item]]
+name = "crest_onigawara_gakuen"
+base = "em900014"
+category = "emblem"
+icon_key = "em986003"
+key_id = true
+  [item.text.es]
+  name = "Onigawara Gakuen [@Hoyo_Haul]"
+  [item.text.en]
+  name = "Onigawara Gakuen [@Hoyo_Haul]"
+  [item.text.fr]
+  name = "Onigawara Gakuen [@Hoyo_Haul]"
+  [item.text.de]
+  name = "Onigawara Gakuen [@Hoyo_Haul]"
+  [item.text.it]
+  name = "Onigawara Gakuen [@Hoyo_Haul]"
+  [item.text.pt]
+  name = "Onigawara Gakuen [@Hoyo_Haul]"
+  [item.text.ja]
+  name = "Onigawara Gakuen [@Hoyo_Haul]"
+  [item.text.zh_hans]
+  name = "Onigawara Gakuen [@Hoyo_Haul]"
+  [item.text.zh_hant]
+  name = "Onigawara Gakuen [@Hoyo_Haul]"
+
+[[item]]
+name = "crest_snow_star_academy"
+base = "em900015"
+category = "emblem"
+icon_key = "em986004"
+key_id = true
+  [item.text.es]
+  name = "Snow Star Academy [@Hoyo_Haul]"
+  [item.text.en]
+  name = "Snow Star Academy [@Hoyo_Haul]"
+  [item.text.fr]
+  name = "Snow Star Academy [@Hoyo_Haul]"
+  [item.text.de]
+  name = "Snow Star Academy [@Hoyo_Haul]"
+  [item.text.it]
+  name = "Snow Star Academy [@Hoyo_Haul]"
+  [item.text.pt]
+  name = "Snow Star Academy [@Hoyo_Haul]"
+  [item.text.ja]
+  name = "Snow Star Academy [@Hoyo_Haul]"
+  [item.text.zh_hans]
+  name = "Snow Star Academy [@Hoyo_Haul]"
+  [item.text.zh_hant]
+  name = "Snow Star Academy [@Hoyo_Haul]"
+
+[[item]]
+name = "crest_the_revolutionaries_academy"
+base = "em900016"
+category = "emblem"
+icon_key = "em986005"
+key_id = true
+  [item.text.es]
+  name = "The Revolutionaries Academy [@Hoyo_Haul]"
+  [item.text.en]
+  name = "The Revolutionaries Academy [@Hoyo_Haul]"
+  [item.text.fr]
+  name = "The Revolutionaries Academy [@Hoyo_Haul]"
+  [item.text.de]
+  name = "The Revolutionaries Academy [@Hoyo_Haul]"
+  [item.text.it]
+  name = "The Revolutionaries Academy [@Hoyo_Haul]"
+  [item.text.pt]
+  name = "The Revolutionaries Academy [@Hoyo_Haul]"
+  [item.text.ja]
+  name = "The Revolutionaries Academy [@Hoyo_Haul]"
+  [item.text.zh_hans]
+  name = "The Revolutionaries Academy [@Hoyo_Haul]"
+  [item.text.zh_hant]
+  name = "The Revolutionaries Academy [@Hoyo_Haul]"
+
+[[item]]
+name = "crest_black_lotus_academy"
+base = "em900018"
+category = "emblem"
+icon_key = "em986006"
+key_id = true
+  [item.text.es]
+  name = "Black Lotus Academy [@Hoyo_Haul]"
+  [item.text.en]
+  name = "Black Lotus Academy [@Hoyo_Haul]"
+  [item.text.fr]
+  name = "Black Lotus Academy [@Hoyo_Haul]"
+  [item.text.de]
+  name = "Black Lotus Academy [@Hoyo_Haul]"
+  [item.text.it]
+  name = "Black Lotus Academy [@Hoyo_Haul]"
+  [item.text.pt]
+  name = "Black Lotus Academy [@Hoyo_Haul]"
+  [item.text.ja]
+  name = "Black Lotus Academy [@Hoyo_Haul]"
+  [item.text.zh_hans]
+  name = "Black Lotus Academy [@Hoyo_Haul]"
+  [item.text.zh_hant]
+  name = "Black Lotus Academy [@Hoyo_Haul]"
+
+[[item]]
+name = "crest_teikoku"
+base = "em900019"
+category = "emblem"
+icon_key = "em986007"
+key_id = true
+  [item.text.es]
+  name = "Teikoku [@Hoyo_Haul]"
+  [item.text.en]
+  name = "Teikoku [@Hoyo_Haul]"
+  [item.text.fr]
+  name = "Teikoku [@Hoyo_Haul]"
+  [item.text.de]
+  name = "Teikoku [@Hoyo_Haul]"
+  [item.text.it]
+  name = "Teikoku [@Hoyo_Haul]"
+  [item.text.pt]
+  name = "Teikoku [@Hoyo_Haul]"
+  [item.text.ja]
+  name = "Teikoku [@Hoyo_Haul]"
+  [item.text.zh_hans]
+  name = "Teikoku [@Hoyo_Haul]"
+  [item.text.zh_hant]
+  name = "Teikoku [@Hoyo_Haul]"
+
+[[item]]
+name = "crest_zeus"
+base = "em900020"
+category = "emblem"
+icon_key = "em986008"
+key_id = true
+  [item.text.es]
+  name = "Zeus [@Hoyo_Haul]"
+  [item.text.en]
+  name = "Zeus [@Hoyo_Haul]"
+  [item.text.fr]
+  name = "Zeus [@Hoyo_Haul]"
+  [item.text.de]
+  name = "Zeus [@Hoyo_Haul]"
+  [item.text.it]
+  name = "Zeus [@Hoyo_Haul]"
+  [item.text.pt]
+  name = "Zeus [@Hoyo_Haul]"
+  [item.text.ja]
+  name = "Zeus [@Hoyo_Haul]"
+  [item.text.zh_hans]
+  name = "Zeus [@Hoyo_Haul]"
+  [item.text.zh_hant]
+  name = "Zeus [@Hoyo_Haul]"

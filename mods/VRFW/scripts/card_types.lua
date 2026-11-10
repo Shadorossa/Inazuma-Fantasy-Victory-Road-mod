@@ -1,16 +1,10 @@
 -- Card-type registry (declarations: content\card_types\*.toml; native side: content\game\card_types.toml).
--- Off (no active declaration): nothing is written and the game's tab and filters are unchanged.
--- The rarity tab lists the game's rarities in order; a card type with `filter = false` hides its rarity (hidden ones must be the lowest). One card type above the game's rarities (`filter` true; several: lowest `order`) becomes one extra last item.
--- `every_filter`: these card types' rarities join any specific rarity filter set of the player bank.
--- CMND_VRFW_CARD_TYPE(hdl) -> rarity, listed, every_filter
--- CMND_VRFW_CARD_TYPE_TAB() -> n, rarities of the tab
 
 CardTypes = CardTypes or {}
 
+local D = VRFW.declarations
+local Memory = VRFW.memory
 
-local D = require "lib/declarations"
-
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("card_types")
 
 -- the four tab loops (content\game\card_types.toml) and the profile site of each loop's end value
@@ -30,17 +24,9 @@ local LISTED = {}         -- rarity -> true (when ON)
 local EVERY = {}          -- rarities of the every_filter card types, in order
 local EVERY_SET = {}
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
+local rd = Memory.read
 
-local function wr(ty, at, v)
-  if type(at) ~= "number" or at < 0x10000 then return false end
-  return pcall(VRFW.mem.write, ty, at, v)
-end
+local wr = Memory.write
 
 -- the loop end read from the game's code: every list must agree
 local function game_end()
@@ -54,8 +40,6 @@ local function game_end()
   end
   return e
 end
-
--- ---- declarations
 
 local function merged_types()
   local schema, why = D.schema("card_type")
@@ -83,8 +67,6 @@ local function merged_types()
   for _, r in ipairs(order) do out[#out + 1] = by_rarity[r] end
   return out, #decls, skipped
 end
-
--- ---- the tab
 
 local function u32_hex(v)
   return string.format("%02X %02X %02X %02X", v % 256, math.floor(v / 256) % 256, math.floor(v / 65536) % 256, math.floor(v / 16777216) % 256)
@@ -191,9 +173,6 @@ local function start()
     (first > 0 or extra) and n or #LISTS, #LISTS, #ev > 0 and table.concat(ev, " ") or "none"))
 end
 
--- ---- the bank filter
-
--- Pre-hook: adds the every_filter rarities to a rarity set that has 1 to 15 entries (installed only when a card type declares every_filter).
 local function bank_pre(ev)
   local f = ev.args[4]
   if type(f) ~= "number" or f < 0x10000 then return nil end
@@ -215,8 +194,6 @@ local function bank_pre(ev)
   if n ~= n0 then wr("u32", f + SET_COUNT, n) end
   return nil
 end
-
--- ---- commands
 
 -- (hdl) -> rarity, listed, every_filter
 function CardTypes.CmdType(hdl)

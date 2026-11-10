@@ -1,0 +1,112 @@
+schema = "VRFW.effect/1"
+
+# ---- forest (whk00480): ev63804800, measured on ev63004800
+[[recolor]]
+object = "ev63004900"
+copy = "ev63804800"
+hue = 191.6
+mode = "set"
+textures = ["ev63004900_ef_05", "ev63004900_ef_46", "hand_01", "hand_03", "hand_06", "ev63004900_ef_20", "ev63004900_ef_24", "ev63004900_ef_50", "ev63004900_ef_51", "ev63004900_ef_83"]
+[recolor.per_texture."ev63004900_ef_05"]
+hue = 205.2
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."ev63004900_ef_46"]
+hue = 192.5
+mode = "set"
+saturation = 0.808
+value = 0.984
+[recolor.per_texture."hand_01"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+[recolor.per_texture."hand_03"]
+hue = 185.8
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."hand_06"]
+hue = 187.4
+mode = "set"
+saturation = 1.0
+value = 1.0
+[recolor.per_texture."ev63004900_ef_20"]
+hue = 184.7
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_24"]
+hue = 184.7
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_50"]
+hue = 184.7
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_51"]
+hue = 184.7
+mode = "set"
+saturation = 1
+value = 1
+[recolor.per_texture."ev63004900_ef_83"]
+hue = 191.6
+mode = "set"
+saturation = 0.973
+value = 0.965
+
+# the beam: edge band
+[[recolor]]
+object = "ev63804800"
+textures = ["ev63804800_ef_47"]
+hue = 211.1
+mode = "set"
+saturation = 1.0
+value = 0.718
+mask_hue = [0, 45]
+
+# the beam's inner band: retail forest is two-tone (edge h211.1, inner h178.3, white core)
+[[recolor]]
+object = "ev63804800"
+textures = ["ev63804800_ef_47"]
+hue = 178.3
+mode = "set"
+saturation = 0.978
+value = 0.995
+mask_hue = [45, 90]
+
+[[recolor]]
+object = "ev63804800"
+textures = "none"
+hue = 213.4
+mode = "set"
+vertex_colors = ["_100_handlight_1_1_orange"]
+
+[[recolor]]
+object = "ev63804800"
+textures = "none"
+hue = 184.7
+mode = "set"
+vertex_colors = ["_325_handlight_1_2_yellow"]
+
+[[recolor]]
+object = "ev63804800"
+textures = "none"
+hue = 213.4
+mode = "set"
+vertex_colors = ["_475_handlight"]
+
+[[event_command]]
+event = "ev63_80480"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63004900"]
+set = ["ev63004900", "common/effect/event/ev63/ev63804800/ev63804800.objbin"]
+
+[[event_command]]
+event = "ev63_80481"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63004900"]
+set = ["ev63004900", "common/effect/event/ev63/ev63804800/ev63804800.objbin"]

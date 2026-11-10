@@ -1,0 +1,19 @@
+# BetterQoL: appends the unoffered formations (CMND_BETTERQOL_FORMATION) to the formation picker's list once per VM.
+name = "betterqol_formations"
+mod = "BetterQoL"
+order = 150
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["OnInitFormationCommon", "OnOpenGeneralSubListLayer", "UpdateListItem", "OnMoveListItem"]
+description = "BetterQoL: the game's unoffered formations in the formation pickers"
+
+[[files]]
+stem = "soccer_formation_menu_inc"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "betterqol_formations.lua"
+  marker = "betterqol_formations"
+  crc = "at"
+  include = { "@UPV@" = "../_lib/vrfw_upvalues.lua" }

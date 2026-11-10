@@ -1,35 +1,26 @@
--- Chronicle Deluxe, the «Sello del Maestro» notice on the Chronicle board (docs/game/mods/chronicle-deluxe.md §10). A hook
--- file of the VR-Framework's board script (graft route_board, docs/framework/route-board.md §3): nothing runs at load
--- but the definitions and the registrations (no engine call).
---   * VRFW_RB_Clear (before the clear bit is set): was the Seal owned before this win?
---   * VRFW_RB_Cleared (the clear bit was just set): owned now and not before, in a normal save slot -> notice pending
---   * PreStep (after): the board is idle (state 0, no fade, no message window open) -> the message window, once
--- Ownership is the framework's (VRFW_Copies.Owned: the rules of content\unlimited_copies\master_seal.toml naming the
--- key item). A save that won the gate battle before owns the Seal already and gets no notice. The text is menu_text
--- «chronicle_deluxe_master_seal_obtained» (text\rows\master_seal.toml); no text row = no window.
 ChronicleDeluxe = ChronicleDeluxe or {}
-ChronicleDeluxe.MasterSeal = ChronicleDeluxe.MasterSeal or {
-  KEY = 3061358348,            -- crc32("ke000900"): the key item (key_id = true)
+ChronicleDeluxe.master_seal = ChronicleDeluxe.master_seal or {
+  KEY = 3061358348,
   TEXT = 3424470956,           -- crc32("chronicle_deluxe_master_seal_obtained"), menu_text
   TEXT_GET = 4074371074,       -- CMND_TEXT_GET
-  MSG_OPEN = 2289627655,       -- the retail message window (as the board's own «locked piece» message)
+  MSG_OPEN = 2289627655,
   MSG_BUSY = 898725220,        -- a message window is open
   SE = 1917805374, SE_GET = 2086672038,   -- the board's message sound (sy0003)
   before = false,
   pending = false,
 }
-local Seal = ChronicleDeluxe.MasterSeal
+local Seal = ChronicleDeluxe.master_seal
 
-function Seal.Owned()
-  if type(VRFW_Copies) ~= "table" then
+function Seal.owned()
+  if type(VRFW.copies) ~= "table" then
     return false
   end
-  VRFW_Copies.Reset()
-  local ok, owned = pcall(VRFW_Copies.Owned, Seal.KEY)
+  VRFW.copies.reset()
+  local ok, owned = pcall(VRFW.copies.owned, Seal.KEY)
   return ok and owned == true
 end
 
-function Seal.Show()
+function Seal.show()
   local ok, text = pcall(funcLuaCommand, Seal.TEXT_GET, Seal.TEXT)
   if not ok or type(text) ~= "string" or text == "" then
     return
@@ -38,26 +29,26 @@ function Seal.Show()
   funcLuaCommand(Seal.MSG_OPEN, text, 0, 0, 0, 0, 0, false)
 end
 
-if VRFW_Host ~= nil then
+if VRFW.host ~= nil then
   local stem = "vs_route_town_menu"
   local id = "ChronicleDeluxe.master_seal"
-  VRFW_Host.on(stem, "VRFW_RB_Clear", {id = id, phase = "before", fn = function(c)
-    Seal.before = c ~= nil and c.ok == true and Seal.Owned()
+  VRFW.host.on(stem, "VRFW.route_board.clear", {id = id, phase = "before", fn = function(c)
+    Seal.before = c ~= nil and c.ok == true and Seal.owned()
   end})
-  VRFW_Host.on(stem, "VRFW_RB_Cleared", {id = id, phase = "after", fn = function(r, c)
-    if not Seal.before and Seal.Owned() and VRFW_Copies.SlotOk() then
+  VRFW.host.on(stem, "VRFW.route_board.cleared", {id = id, phase = "after", fn = function(r, c)
+    if not Seal.before and Seal.owned() and VRFW.copies.slot_ok() then
       Seal.pending = true
     end
     Seal.before = true
   end})
-  VRFW_Host.on(stem, "PreStep", {id = id, phase = "after", fn = function()
-    if not Seal.pending or VRFW_RB == nil or VRFW_RB.L.n21 ~= 0 then
+  VRFW.host.on(stem, "PreStep", {id = id, phase = "after", fn = function()
+    if not Seal.pending or VRFW.route_board == nil or VRFW.route_board.L.n21 ~= 0 then
       return
     end
     if BrightIsFade() or MenuIsFade() or funcLuaCommand(Seal.MSG_BUSY) then
       return
     end
     Seal.pending = false
-    Seal.Show()
+    Seal.show()
   end})
 end

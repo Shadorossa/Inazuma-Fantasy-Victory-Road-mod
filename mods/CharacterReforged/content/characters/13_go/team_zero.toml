@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Team Zero · Inazuma Eleven GO
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c04004450"                                   # Gus Martin
 moves = [
   { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x17A96A44, level = 1 },                         # Clone Faker
+  { move = 0x17A96A44, level = 11 },                        # Clone Faker
   { move = 0x01DB04F5, level = 31 },                        # Defence Scan
-  { move = 0xAEEA9F97, level = 49 },                        # Sigma Zone
+  { move = 0x0E0A3F7A, level = 41 },                        # Spatial Portal
 ]
 
   [[edit.cards]]
@@ -23,9 +20,9 @@ moves = [
 target = "c04004410"                                   # Pinkus Mountbatten
 moves = [
   { move = 0xF5638A87, level = 15 },                        # Elemental Destroyer
-  { move = 0x2D68DB57, level = 27 },                        # Deceptive Step
   { move = 0x64CDCFB9, level = 44 },                        # Rising Dragon
   { move = 0x25276CB9, level = 57 },                        # Solar Surprise
+  { move = 0xC41097D5, level = 67 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -37,10 +34,10 @@ moves = [
 [[edit]]
 target = "c04004420"                                   # Flint Charcoal
 moves = [
-  { move = 0x0C08B663, level = 20 },                        # Doom Dive Drive
-  { move = 0x62294D90, level = 23 },                        # Dust Kick
-  { move = 0x4FE09C7A, level = 40 },                        # Acrobatic Keep
-  { move = 0xB60E3C60, level = 61 },                        # Plasma Cut
+  { move = 0x00A10ABD, level = 60 },                        # Ball Lightning
+  { move = 0x0C08B663, level = 70 },                        # Doom Dive Drive
+  { move = 0x4FE09C7A, level = 80 },                        # Acrobatic Keep
+  { move = 0xB60E3C60, level = 90 },                        # Plasma Cut
 ]
 
   [[edit.cards]]
@@ -54,8 +51,8 @@ target = "c04004430"                                   # Glaucous Gull
 moves = [
   { move = 0xF5638A87, level = 13 },                        # Elemental Destroyer
   { move = 0x2354CA2D, level = 22 },                        # Wind God's Dance
-  { move = 0x3D10DCB3, level = 44 },                        # Curve Shot
   { move = 0x25276CB9, level = 58 },                        # Solar Surprise
+  { move = 0xDE4ED944, level = 68 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -67,9 +64,9 @@ moves = [
 [[edit]]
 target = "c04004440"                                   # Ashley Silverwood
 moves = [
-  { move = 0x6C827857, level = 10 },                        # Rolling Steal
-  { move = 0xAF28F5A0, level = 25 },                        # The Tower
-  { move = 0x6BA49049, level = 40 },                        # Mystic Mist
+  { move = 0x4A17EE80, level = 34 },                        # Hunter's Net
+  { move = 0xAF28F5A0, level = 44 },                        # The Tower
+  { move = 0x6BA49049, level = 54 },                        # Mystic Mist
   { move = 0xD1E62D0A, level = 58 },                        # Mushroom Hop
 ]
 
@@ -84,9 +81,9 @@ moves = [
 target = "c04004460"                                   # Cinereous Slate
 moves = [
   { move = 0x9AF2229C, level = 1 },                         # Gravity Point
-  { move = 0xCB8E6D04, level = 22 },                        # Mighty Save
-  { move = 0xD2955C45, level = 38 },                        # Power Catch
   { move = 0xFF5C8DAF, level = 59 },                        # Shot Stopper
+  { move = 0xFC5DC53F, level = 69 },                        # Double God Hand
+  { move = 0xED1BFBD3, level = 79 },                        # Fingers of Gaia
 ]
 
   [[edit.cards]]

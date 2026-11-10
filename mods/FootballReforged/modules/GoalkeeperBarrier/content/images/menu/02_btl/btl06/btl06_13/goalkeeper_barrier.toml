@@ -1,8 +1,3 @@
-# Goalkeeper Barrier: the bronze barrier sections of each keeper's bar on the scoreboard (content\menus\
-# goalkeeper_barrier_hud.toml, graft research/grafts/goalkeeper_barrier_hud):
-# the top barrier share of the bar's own fill, only its core bronze, both ends slanted; one sprite per clip step.
-# In the mod's own atlas goalkeeper_barrier_hud (never a game atlas; soccer_constant_menu loads it: content\menus\
-# goalkeeper_barrier_hud.toml). Built by research/scripts/goalkeeper_barrier_segment_build.py (do not edit by hand).
 schema = "VRFW.image/1"
 
 [[texture]]

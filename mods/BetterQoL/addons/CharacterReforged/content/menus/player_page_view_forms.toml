@@ -1,0 +1,7 @@
+schema = "VRFW.menu/2"
+
+[[entry]]
+host = "BetterQoL.view_forms"
+id = "player_page"
+menus = ["personal_plate_menu"]
+action = { lua = "CharacterReforged.page_model_view_forms_press" }

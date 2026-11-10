@@ -1,5 +1,3 @@
--- BetterQoL › passive configurator: the pure part (no game access). Catalogue, slot rules, layout, defaults,
--- derivation, set checks; ported from the old DLL's passive_config with the same rules.
 
 local M = {}
 
@@ -15,18 +13,13 @@ M.GENERAL_CATS = { 1, 2, 3, 4, 5, 12 }
 M.ARCH_CATS = { 6, 7, 8, 9, 10, 11 }
 M.KIND_MATCH = 6
 M.ARCH_NAMES = { [0] = "Breach", "Counter", "Bond", "Tension", "Rough Play", "Justice" }
--- archetypes declared by mods (VRFW.archetype/1, content\archetypes\*.toml; docs/framework/archetype.md): number 7+
--- -> true. Their passives (the declaration's `passives`) are archetype passives of category 6 + number.
 M.CUSTOM = {}
 M.LIST_HDL_BASE = 0xE000
 M.LIST_HDL_MAX = 0x0FFF
 M.BLOB = "passive_config.json"
 M.FILE_VERSION = 1
 
--- card classes (staff = a coach or a manager whose role the badge item names: his slots take his role's passives)
 M.FULL, M.IDOL, M.BUILD, M.PRIME, M.BLOCKED, M.STAFF = "full", "idol", "build", "prime", "blocked", "staff"
--- the staff roles: the game's role badge item (record +0x1BC holds its inventory handle) and the item kind of the
--- passive items that role equips (item_config ITEM_SPECIAL_SKILL_INFO col 6; col 16 = the passive)
 M.ROLE_COACH, M.ROLE_MANAGER = 1, 2
 M.ROLES = {
   [1] = { name = "coach", badge = "abl_000002", item_kind = 122 },
@@ -39,15 +32,50 @@ M.KIND_CODE = { any = 0, special = 1, general = 2, archetype = 3 }
 M.E_NOT_ALLOWED, M.E_LOCKED, M.E_WRONG_CLASS, M.E_DUPLICATE, M.E_UNKNOWN, M.E_BAD_SLOT, M.E_LIMIT = 1, 2, 3, 4, 5, 6, 7
 
 local band = bit32.band
-local Id = require "VRFW/lib/ids"
+local Id = VRFW.ids
 
-function M.u32(v)
-  if type(v) ~= "number" then return 0 end
-  return Id.u32(v)
+local function trim_lower(s)
+  return VRFW.strings.trim(s:lower())
+end
+
+-- passive ids sorted by category, then key
+local function sort_by_category(c, list)
+  table.sort(list, function(a, b)
+    local x, y = c.by_id[a], c.by_id[b]
+    if x.category ~= y.category then return x.category < y.category end
+    return x.key < y.key
+  end)
+end
+
+-- best[def] keeps the strongest value, then the lowest key
+local function keep_best(best, def, value, key, id)
+  local b = best[def]
+  if b == nil or value > b[1] or (value == b[1] and key < b[2]) then best[def] = { value, key, id } end
+end
+
+-- the ids of `ids` in category `cat` (CAT_ALL = any) whose definition is not in `exclude`
+local function in_category(c, ids, cat, exclude)
+  local v = {}
+  for _, id in ipairs(ids) do
+    local p = c.by_id[id]
+    if (cat == M.CAT_ALL or p.category == cat) and not exclude[p.def] then v[#v + 1] = id end
+  end
+  return v
+end
+
+-- CAT_ALL and every general / archetype category for which pick(cat) is not empty
+local function non_empty_categories(pick)
+  local v = { M.CAT_ALL }
+  for _, cats in ipairs({ M.GENERAL_CATS, M.ARCH_CATS }) do
+    for _, cat in ipairs(cats) do
+      if #pick(cat) > 0 then v[#v + 1] = cat end
+    end
+  end
+  return v
 end
 
 function M.key(hdl)
-  return string.format("%08X", M.u32(hdl))
+  return string.format("%08X", Id.unsigned(hdl))
 end
 
 -- index (0-based) of a list row handle, nil for any other handle
@@ -62,7 +90,6 @@ function M.category_archetype(cat)
   return nil
 end
 
--- a declared archetype (number 7+, a log name): its category (6 + number) joins the archetype slots' categories
 function M.register_archetype(n, name)
   if type(n) ~= "number" or n <= M.NO_ARCHETYPE or M.CUSTOM[n] then return false end
   M.CUSTOM[n] = true
@@ -79,21 +106,6 @@ function M.kind_of_handle(hdl)
   return band(bit32.rshift(hdl, 12), 0xF)
 end
 
--- ---------------------------------------------------------------------------------------------- ids
-
--- "0x…" / decimal → the number, any other text → crc32 of it; integers as unsigned 32-bit
-function M.id_of(v)
-  if type(v) == "number" then return M.u32(v) end
-  if type(v) ~= "string" then return nil end
-  local t = v:match("^%s*(.-)%s*$")
-  local h = t:match("^0[xX](%x+)$")
-  if h then return tonumber(h, 16) % 4294967296 end
-  if t:match("^%d+$") then return tonumber(t) % 4294967296 end
-  return VRFW.ui.crc32(t)
-end
-
--- ---------------------------------------------------------------------------------------------- config
-
 -- [passives] of the mod's merged config (absent keys = defaults)
 function M.config(raw)
   local c = { max_slots = 3, enabled = true, unlock = "", always_unlocked = true, build_rarities = { 5, 6, 7, 8 }, build_slots = { 4, 5 }, log_first = 20, allow_duplicates = true }
@@ -101,7 +113,7 @@ function M.config(raw)
   local warn
   for k, v in pairs(raw) do
     if c[k] == nil then
-      -- unknown keys ignored, as the Rust reader did with other sections
+      -- unknown keys are ignored
     elseif type(v) ~= type(c[k]) and not (k == "max_slots" and type(v) == "number") then
       warn = string.format("[passives] %s: a %s is expected (default kept)", k, type(c[k]))
     else
@@ -112,15 +124,12 @@ function M.config(raw)
 end
 
 function M.parse_unlock(s)
-  s = (tostring(s or "")):lower():match("^%s*(.-)%s*$")
+  s = trim_lower(tostring(s or ""))
   if s == "all" or s == "todas" then return "all" end
   if s == "configured" or s == "configuradas" then return "configured" end
   return nil
 end
 
--- ---------------------------------------------------------------------------------------------- layout
-
--- max configurable slots (3..5) + the warning when out of range; order = fixed opening order (slot indices) or nil
 function M.layout(max, order)
   local m = math.floor(tonumber(max) or 3)
   local c = math.min(math.max(m, 3), 5)
@@ -145,7 +154,6 @@ function M.allows(l, k)
   return k >= 1 and k <= M.N_SLOTS
 end
 
--- the configured slots that are applied ({[k] = true}); open = the slots this player may change
 function M.active(l, cfg, open)
   local out, n = {}, 0
   for k = 1, M.N_SLOTS do
@@ -178,8 +186,6 @@ function M.can_set(l, cfg, open, k)
   end
   return a[k] or n < l.max
 end
-
--- ---------------------------------------------------------------------------------------------- rules
 
 function M.default_rules()
   return { kinds = { "general", "general", "general", "archetype", "archetype" }, order = nil, archetype = false, unlock = "configured", locked = {}, special_tile = 0, origin = "" }
@@ -239,7 +245,7 @@ function M.parse_slots(mod_id, t)
     local ks = {}
     if ok then
       for i = 1, M.N_SLOTS do
-        local s = type(t.kinds[i]) == "string" and t.kinds[i]:lower():match("^%s*(.-)%s*$") or ""
+        local s = type(t.kinds[i]) == "string" and trim_lower(t.kinds[i]) or ""
         if M.KIND_CODE[s] == nil then ok = false else ks[i] = s end
       end
     end
@@ -268,7 +274,7 @@ function M.parse_slots(mod_id, t)
     if u then r.unlock = u else warn[#warn + 1] = "[slots] unlock: \"configured\" or \"all\" (ignored)" end
   end
   if t.special_tile ~= nil then
-    local x = M.id_of(t.special_tile)
+    local x = Id.parse(t.special_tile, { hash_names = true })
     if x and x ~= 0 then r.special_tile = x else warn[#warn + 1] = "[slots] special_tile: a sprite name (ignored)" end
   end
   if type(t.locked) == "table" then
@@ -290,8 +296,6 @@ function M.parse_slots(mod_id, t)
   return r, warn
 end
 
--- ---------------------------------------------------------------------------------------------- declarations
-
 function M.new_decl()
   return { passives = {}, titles = {}, shared_specials = {}, restricted_specials = {}, effect_icons = {}, reward_funcs = {}, reward_effects = {}, origin = {}, slots = nil, player_archetype = nil, aliases = {}, n_passives = 0 }
 end
@@ -300,12 +304,11 @@ local function entry_id(t, alt)
   local v = t.key
   if v == nil then v = t.id end
   if v == nil then v = t[alt] end
-  local x = v ~= nil and M.id_of(v) or nil
+  local x = v ~= nil and Id.parse(v, { hash_names = true }) or nil
   if x == 0 then return nil end
   return x
 end
 
--- one declaration file (schema BetterQoL.passive_config/1) of mod `mod_id` → warnings; nil + why = not this schema
 function M.add_decl(d, mod_id, doc)
   if doc.schema ~= "BetterQoL.passive_config/1" then
     if doc.schema == nil then return nil, "no schema (expected \"BetterQoL.passive_config/1\")" end
@@ -324,7 +327,7 @@ function M.add_decl(d, mod_id, doc)
       if t.aliases ~= nil then
         if type(t.aliases) == "table" then
           for _, old in ipairs(t.aliases) do
-            local o = M.id_of(old)
+            local o = Id.parse(old, { hash_names = true })
             if o and o ~= 0 and o ~= id then d.aliases[o] = id end
           end
         else
@@ -340,7 +343,7 @@ function M.add_decl(d, mod_id, doc)
     else
       local who = {}
       for _, c in ipairs(type(t.characters) == "table" and t.characters or {}) do
-        local x = M.id_of(c)
+        local x = Id.parse(c, { hash_names = true })
         if x and x ~= 0 then who[#who + 1] = x end
       end
       if #who == 0 then
@@ -378,22 +381,20 @@ function M.add_decl(d, mod_id, doc)
     d.slots = r
   end
   for k, t in ipairs(type(doc.effect_icon) == "table" and doc.effect_icon or {}) do
-    local e, s = t.effect ~= nil and M.id_of(t.effect), t.sprite ~= nil and M.id_of(t.sprite)
+    local e, s = t.effect ~= nil and Id.parse(t.effect, { hash_names = true }), t.sprite ~= nil and Id.parse(t.sprite, { hash_names = true })
     if e and s and e ~= 0 and s ~= 0 then d.effect_icons[e] = s else warn[#warn + 1] = string.format("[[effect_icon]] #%d: needs effect and sprite", k) end
   end
   for k, t in ipairs(type(doc.reward_handler) == "table" and doc.reward_handler or {}) do
-    local f = t.func ~= nil and M.id_of(t.func)
+    local f = t.func ~= nil and Id.parse(t.func, { hash_names = true })
     if f and f ~= 0 then d.reward_funcs[f] = true else warn[#warn + 1] = string.format("[[reward_handler]] #%d: no func", k) end
   end
   for k, t in ipairs(type(doc.reward_effect) == "table" and doc.reward_effect or {}) do
-    local f = t.id ~= nil and M.id_of(t.id)
+    local f = t.id ~= nil and Id.parse(t.id, { hash_names = true })
     if f and f ~= 0 then d.reward_effects[f] = true else warn[#warn + 1] = string.format("[[reward_effect]] #%d: no id", k) end
   end
   return warn
 end
 
--- the game modes a declaration file switches the player passives off in ([[off_mode]] mode = "<mode key>"): every
--- slot reads «no passive» while one of them is the current mode; the saved configuration is not touched
 function M.off_modes(doc)
   local keys, warn = {}, {}
   if type(doc) ~= "table" or doc.schema ~= "BetterQoL.passive_config/1" then return keys, warn end
@@ -417,15 +418,10 @@ function M.exclusive(d, own_ids)
   return out
 end
 
--- ---------------------------------------------------------------------------------------------- catalogue
-
 function M.is_retail_pickable_key(key)
   return type(key) == "string" and key:match("^ps1%d%d%d%d$") ~= nil
 end
 
--- raws = { {id, key, kind, defs = {…}, value} }, defs = { [def] = {category, builds = {…}, effects = {…}} },
--- offer = { mods = {[id]=true}, exclusive = {[id]=true}, rewards = {[basic]=true}, archetype_of = {[id]=number} }
--- (archetype_of: the passives of the mods' declared archetypes, category 6 + number)
 function M.build_catalog(raws, defs, offer)
   local c = { by_id = {}, list = {}, exclusive = offer.exclusive, specials = {}, restricted = {}, custom_defs = {} }
   local best = {}
@@ -454,18 +450,13 @@ function M.build_catalog(raws, defs, offer)
       local info = { id = r.id, key = r.key, def = def, category = category, archetype = arch, value = r.value }
       local pickable = M.is_retail_pickable_key(r.key) or offer.mods[r.id]
       if pickable and not offer.exclusive[r.id] and (M.is_general_category(category) or M.category_archetype(category) ~= nil) then
-        local b = best[def]
-        if b == nil or r.value > b[1] or (r.value == b[1] and r.key < b[2]) then best[def] = { r.value, r.key, r.id } end
+        keep_best(best, def, r.value, r.key, r.id)
       end
       c.by_id[r.id] = info
     end
   end
   for _, b in pairs(best) do c.list[#c.list + 1] = b[3] end
-  table.sort(c.list, function(a, b)
-    local x, y = c.by_id[a], c.by_id[b]
-    if x.category ~= y.category then return x.category < y.category end
-    return x.key < y.key
-  end)
+  sort_by_category(c, c.list)
   return c
 end
 
@@ -477,7 +468,6 @@ local function remove_from_list(c, set)
   c.list = v
 end
 
--- shared specials (known passives only; the unknown ones are returned), taken out of the list
 function M.set_shared_specials(c, ids)
   local unknown, set = {}, {}
   c.specials = {}
@@ -560,25 +550,14 @@ end
 function M.pick(c, kind, cat, exclude)
   if kind == M.GENERAL then return M.pick_list(c, false, cat, exclude) end
   if kind == M.ARCHETYPE then return M.pick_list(c, true, cat, exclude) end
-  local v = {}
-  for _, id in ipairs(c.list) do
-    local p = c.by_id[id]
-    if (cat == M.CAT_ALL or p.category == cat) and not exclude[p.def] then v[#v + 1] = id end
-  end
-  return v
+  return in_category(c, c.list, cat, exclude)
 end
 
 function M.kind_categories(c, kind, exclude)
   if kind == M.GENERAL then return M.categories(c, false, exclude) end
   if kind == M.ARCHETYPE then return M.categories(c, true, exclude) end
   if kind == M.SPECIAL then return { M.CAT_ALL } end
-  local v = { M.CAT_ALL }
-  for _, cats in ipairs({ M.GENERAL_CATS, M.ARCH_CATS }) do
-    for _, cat in ipairs(cats) do
-      if #M.pick(c, kind, cat, exclude) > 0 then v[#v + 1] = cat end
-    end
-  end
-  return v
+  return non_empty_categories(function(cat) return M.pick(c, kind, cat, exclude) end)
 end
 
 local function restricted_to(c, id, who)
@@ -628,20 +607,12 @@ function M.archetype_defaults(c, a)
   return v
 end
 
--- ---------------------------------------------------------------------------------------------- staff passives
-
--- The grade of a staff passive is the game's own: a role item names a base passive and the card's rarity picks its
--- version (ResolvePassiveRarity: idList[min(rarity, 5)] of the passive's rarity row, 0 = idList[4]). The rows with an
--- idList[5] of their own are the Basara (Diamante) items' passives; a Basara card is rarity 8 (the game's
--- CheckBasaraCharaByCharaStHdl), so only a Diamante coach / manager is offered them.
 M.BASARA_RARITY = 8
 
--- rows = { [base id] = { idList[0] .. idList[5] } } of passive_skill_rarity_table
 function M.set_versions(c, rows)
   c.versions = rows
 end
 
--- the game's resolver for the menus (it applies other mods' rarity tiers); set once the startup lists are built
 function M.set_version_resolver(c, resolve)
   c.resolve_version = resolve
 end
@@ -667,8 +638,6 @@ function M.is_basara(c, id)
   return row ~= nil and (row[6] or 0) ~= 0
 end
 
--- the passives of a staff role (ids = the passives of that role's items): known match passives only (the ids not in
--- the catalogue are returned); the list a card sees is built per rarity (M.staff_list)
 function M.set_staff(c, role, ids)
   c.staff_all = c.staff_all or {}
   c.staff_cache = {}
@@ -689,8 +658,6 @@ function M.staff_count(c, role)
   return c.staff_all and c.staff_all[role] and #c.staff_all[role] or 0
 end
 
--- what a coach / manager of `rarity` may choose: per effect definition the role item whose version at that rarity is
--- the strongest (Basara items only for a Basara card), sorted by category then key -> list, set
 function M.staff_list(c, role, rarity)
   rarity = rarity or 0
   local key = role * 256 + rarity
@@ -700,9 +667,7 @@ function M.staff_list(c, role, rarity)
   for _, id in ipairs(c.staff_all and c.staff_all[role] or {}) do
     if rarity == M.BASARA_RARITY or not M.is_basara(c, id) then
       local p = c.by_id[id]
-      local val = M.value_at(c, id, rarity)
-      local b = best[p.def]
-      if b == nil or val > b[1] or (val == b[1] and p.key < b[2]) then best[p.def] = { val, p.key, id } end
+      keep_best(best, p.def, M.value_at(c, id, rarity), p.key, id)
     end
   end
   local list, set = {}, {}
@@ -710,11 +675,7 @@ function M.staff_list(c, role, rarity)
     list[#list + 1] = b[3]
     set[b[3]] = true
   end
-  table.sort(list, function(a, b)
-    local x, y = c.by_id[a], c.by_id[b]
-    if x.category ~= y.category then return x.category < y.category end
-    return x.key < y.key
-  end)
+  sort_by_category(c, list)
   c.staff_cache = c.staff_cache or {}
   c.staff_cache[key] = { list, set }
   return list, set
@@ -727,27 +688,13 @@ function M.staff_allowed(c, role, rarity, id)
 end
 
 function M.staff_pick(c, role, rarity, cat, exclude)
-  local v = {}
-  for _, id in ipairs((M.staff_list(c, role, rarity))) do
-    local p = c.by_id[id]
-    if (cat == M.CAT_ALL or p.category == cat) and not exclude[p.def] then v[#v + 1] = id end
-  end
-  return v
+  return in_category(c, (M.staff_list(c, role, rarity)), cat, exclude)
 end
 
 function M.staff_categories(c, role, rarity, exclude)
-  local v = { M.CAT_ALL }
-  for _, cats in ipairs({ M.GENERAL_CATS, M.ARCH_CATS }) do
-    for _, cat in ipairs(cats) do
-      if #M.staff_pick(c, role, rarity, cat, exclude) > 0 then v[#v + 1] = cat end
-    end
-  end
-  return v
+  return non_empty_categories(function(cat) return M.staff_pick(c, role, rarity, cat, exclude) end)
 end
 
--- ---------------------------------------------------------------------------------------------- slots
-
--- role = the staff role of a badge (nil: no badge, or a badge whose role has no passives)
 function M.card_of(rarity, badge, role)
   if badge ~= 0 then return role and M.STAFF or M.BLOCKED end
   if rarity >= 5 and rarity <= 7 then return M.IDOL end
@@ -761,7 +708,6 @@ function M.slot_open(r, card, rarity, k)
   return card ~= M.BLOCKED and k >= 1 and k <= M.N_SLOTS and (card == M.STAFF or not M.locks(r, rarity, k))
 end
 
--- the kind of slot k of a card: a staff card's slots take any passive of his role
 function M.slot_kind(r, card, k)
   if card == M.STAFF then return M.ANY end
   return M.kind(r, k)
@@ -810,8 +756,6 @@ local function copy5(a)
   return { a[1], a[2], a[3], a[4], a[5] }
 end
 
--- the slots of a player who configured nothing (s = subject: card, rarity, base, rolled, old, main_position,
--- special, who)
 function M.default_slots(c, s, r)
   if s.card == M.BLOCKED or s.card == M.STAFF then return copy5(s.base) end
   if not M.archetype_mode(r) then
@@ -832,6 +776,13 @@ function M.default_slots(c, s, r)
   local d = M.def_of(c, s.special)
   if d then used[d] = true end
   local arch = {}
+  -- adds `id` unless an archetype passive of its definition is already chosen
+  local function add_arch(id)
+    for _, x in ipairs(arch) do
+      if M.def_of(c, x) == M.def_of(c, id) then return end
+    end
+    arch[#arch + 1] = id
+  end
   local function arch_of_base()
     local v = {}
     for k = M.GENERAL_SLOTS + 1, M.N_SLOTS do
@@ -846,17 +797,11 @@ function M.default_slots(c, s, r)
     if a ~= nil and a < M.N_ARCHETYPES then
       for _, k in ipairs({ 4, 5, 1, 2, 3 }) do
         local id = s.base[k]
-        if M.archetype(c, id) == a and #arch < 2 then
-          local dup = false
-          for _, x in ipairs(arch) do dup = dup or M.def_of(c, x) == M.def_of(c, id) end
-          if not dup then arch[#arch + 1] = id end
-        end
+        if M.archetype(c, id) == a and #arch < 2 then add_arch(id) end
       end
       for _, id in ipairs(M.archetype_defaults(c, a)) do
         if #arch >= 2 then break end
-        local dup = false
-        for _, x in ipairs(arch) do dup = dup or M.def_of(c, x) == M.def_of(c, id) end
-        if not dup then arch[#arch + 1] = id end
+        add_arch(id)
       end
     else
       arch = arch_of_base()
@@ -912,7 +857,6 @@ function M.kind_accepts(c, s, r, k, id)
   return true
 end
 
--- the slots a player uses under a layout: his applied choices over the defaults
 function M.effective(c, s, cfg, l, r)
   local out = M.default_slots(c, s, r)
   if cfg then
@@ -924,8 +868,6 @@ function M.effective(c, s, cfg, l, r)
   return out
 end
 
--- may slot k of player s (current slots eff, stored choices stored) take id (0 = back to the default)? nil = yes,
--- else the error code; allow_duplicates = the same passive definition may sit in several slots
 function M.check_set(c, s, eff, stored, k, id, l, r, allow_duplicates)
   if s.card == M.BLOCKED then return M.E_NOT_ALLOWED end
   if k < 1 or k > M.N_SLOTS then return M.E_BAD_SLOT end
@@ -933,18 +875,14 @@ function M.check_set(c, s, eff, stored, k, id, l, r, allow_duplicates)
   if id == 0 then return nil end
   if not M.can_set(l, stored, M.open_slots(r, s.card, s.rarity), k) then return M.E_LIMIT end
   local kind = M.kind(r, k)
-  local p
+  local p = c.by_id[id]
+  if not p then return M.E_UNKNOWN end
   if s.card == M.STAFF then
-    p = c.by_id[id]
-    if not p then return M.E_UNKNOWN end
     if not M.staff_allowed(c, s.role, s.rarity, id) then return M.E_WRONG_CLASS end
   elseif kind == M.SPECIAL then
-    p = c.by_id[id]
-    if not p then return M.E_UNKNOWN end
     if not M.special_allowed(c, s.special, s.who, id) then return M.E_WRONG_CLASS end
   else
-    p = c.by_id[id]
-    if not p or not M.is_pickable(c, id) then return M.E_UNKNOWN end
+    if not M.is_pickable(c, id) then return M.E_UNKNOWN end
     if (kind == M.GENERAL and p.archetype ~= nil) or (kind == M.ARCHETYPE and p.archetype == nil) then return M.E_WRONG_CLASS end
   end
   if allow_duplicates then return nil end
@@ -963,7 +901,6 @@ function M.current_index(c, ids, current)
   return nil
 end
 
--- the passive definitions slot k's picker leaves out: those of the other slots, none when allow_duplicates
 function M.other_defs(c, eff, k, allow_duplicates)
   local v = {}
   if allow_duplicates then return v end
@@ -976,13 +913,6 @@ function M.other_defs(c, eff, k, allow_duplicates)
   return v
 end
 
--- ---------------------------------------------------------------------------------------------- archetype
-
--- [player_archetype] of a declaration file → { derive, without, origin } (+ warnings); nil = the table is ignored.
---   derive  = true: the player's archetype follows the archetype passives of his archetype slots (the slots whose
---             kind is "archetype": the game's own slots 4-5)
---   without = "game": no archetype passive in those slots keeps the game's own archetype of the player;
---             "none": no archetype passive = no archetype
 function M.parse_player_archetype(mod_id, t)
   if type(t) ~= "table" then return nil, { "[player_archetype]: a table expected (ignored)" } end
   local p, warn = { derive = false, without = "game", origin = mod_id }, {}
@@ -990,7 +920,7 @@ function M.parse_player_archetype(mod_id, t)
     if type(t.derive) == "boolean" then p.derive = t.derive else warn[#warn + 1] = "[player_archetype] derive: true / false (false kept)" end
   end
   if t.without ~= nil then
-    local s = type(t.without) == "string" and t.without:lower():match("^%s*(.-)%s*$") or ""
+    local s = type(t.without) == "string" and trim_lower(t.without) or ""
     if s == "game" or s == "none" then p.without = s else warn[#warn + 1] = "[player_archetype] without: \"game\" or \"none\" (\"game\" kept)" end
   end
   return p, warn
@@ -1005,9 +935,6 @@ function M.archetype_slots(r)
   return v
 end
 
--- The rule of the player's archetype (r = the slot rules, p = the declarations' [player_archetype]) → nil (the game's
--- archetype is untouched) or { slots, without, origin }. A mod's [slots] archetype = true (the typed layout) derives
--- with no fallback, as it always did; else the declared [player_archetype] (BetterQoL's own: derive, fallback the game's).
 function M.player_rule(r, p)
   local slots = M.archetype_slots(r)
   if #slots == 0 then return nil end
@@ -1022,9 +949,6 @@ function M.describe_player_rule(pr)
     pr.without == "game" and "the game's own archetype" or "no archetype", pr.origin ~= "" and pr.origin or "?")
 end
 
--- (first, second, name, found): the player's archetype from the archetype passives of `slots` (default 4-5; the first
--- two that hold one): two of one archetype → that one; two different → a double archetype (first, second); one → that
--- one; none → 6 (found = false)
 function M.derive(c, eff, slots)
   local got = {}
   for _, k in ipairs(slots or { 4, 5 }) do
@@ -1038,20 +962,16 @@ function M.derive(c, eff, slots)
   return M.NO_ARCHETYPE, M.NO_ARCHETYPE, "no archetype", false
 end
 
--- ---------------------------------------------------------------------------------------------- store
-
 function M.new_store(slot)
   return { version = M.FILE_VERSION, slot = slot, watermark = nil, players = {} }
 end
 
--- configured slots of a character (nil when none or the handle now holds another param)
 function M.store_get(st, hdl, param)
   local e = st.players[M.key(hdl)]
   if e and e.param == param then return e.slots end
   return nil
 end
 
--- set one slot (0 clears it); true when something changed
 function M.store_set(st, hdl, param, k, id)
   if k < 1 or k > M.N_SLOTS then return false end
   local key = M.key(hdl)
@@ -1079,7 +999,6 @@ function M.is_old(st, get_order)
   return st.watermark == nil or get_order <= st.watermark
 end
 
--- former passive ids → current ids; how many slots changed
 function M.remap(st, aliases)
   local n = 0
   for _, e in pairs(st.players) do
@@ -1094,7 +1013,6 @@ function M.remap(st, aliases)
   return n
 end
 
--- a decoded blob → a store (players without any configured slot dropped); nil + why when it is not one
 function M.store_from(doc, slot)
   if type(doc) ~= "table" then return nil, "not a JSON object" end
   local st = M.new_store(slot)
@@ -1107,15 +1025,15 @@ function M.store_from(doc, slot)
     end
     local s, any = {}, false
     for j = 1, M.N_SLOTS do
-      s[j] = M.u32(tonumber(e.slots[j]) or 0)
+      s[j] = Id.unsigned(tonumber(e.slots[j]) or 0)
       any = any or s[j] ~= 0
     end
-    if any then st.players[k] = { param = M.u32(e.param), slots = s } end
+    if any then st.players[k] = { param = Id.unsigned(e.param), slots = s } end
   end
   return st
 end
 
--- the JSON document of a store (same shape as BetterQoL's old DLL wrote: version, slot, watermark, players)
+-- the JSON document of a store (version, slot, watermark, players)
 function M.store_doc(st)
   local players = {}
   for k, e in pairs(st.players) do

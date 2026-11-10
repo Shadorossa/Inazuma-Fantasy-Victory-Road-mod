@@ -1,0 +1,65 @@
+schema = "VRFW.passive/1"
+
+[[VRFW.Character]]
+character = "c90529410"
+passive = "PassivesSynergies.c05029410_dinastia_de_la_llama_negra"
+
+[[VRFW.CharacterTags]]
+character = "c90529410"
+tags = ["cannon", "noble"]
+
+[[VRFW.Character]]
+character = "c90529420"
+passive = "PassivesSynergies.c05029420_velo_de_la_jungla"
+
+[[VRFW.CharacterTags]]
+character = "c90529420"
+tags = ["trickster", "mystic"]
+
+[[VRFW.Character]]
+character = "c90529430"
+passive = "PassivesSynergies.c05029430_cruz_del_sur_nocturna"
+
+[[VRFW.CharacterTags]]
+character = "c90529430"
+tags = ["trickster", "mystic"]
+
+[[VRFW.Character]]
+character = "c90529440"
+passive = "PassivesSynergies.c05029440_heredero_de_la_espada"
+
+[[VRFW.CharacterTags]]
+character = "c90529440"
+tags = ["cannon", "noble"]
+
+[[VRFW.Character]]
+character = "c90529450"
+passive = "PassivesSynergies.c05029450_tormenta_del_dragon_blanco"
+
+[[VRFW.CharacterTags]]
+character = "c90529450"
+tags = ["beast", "striker"]
+
+[[VRFW.Character]]
+character = "c90529460"
+passive = "PassivesSynergies.c05029460_puno_de_la_justicia"
+
+[[VRFW.CharacterTags]]
+character = "c90529460"
+tags = ["captain", "wall"]
+
+[[VRFW.Character]]
+character = "c90529470"
+passive = "PassivesSynergies.c05029470_fuego_sin_dueno"
+
+[[VRFW.CharacterTags]]
+character = "c90529470"
+tags = ["striker", "cannon"]
+
+[[VRFW.Character]]
+character = "c90529480"
+passive = "PassivesSynergies.c05029480_pata_de_hierro"
+
+[[VRFW.CharacterTags]]
+character = "c90529480"
+tags = ["rebel", "veteran"]

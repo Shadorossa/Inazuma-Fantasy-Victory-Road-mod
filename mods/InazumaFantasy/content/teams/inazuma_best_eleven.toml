@@ -1,0 +1,47 @@
+schema = "VRFW.team/2"
+# Inazuma Best Eleven: the fans' vote team of the anime's 5th anniversary (key evt_ct_ft_inazuma_best_eleven); F-Dot Prison, slot 11 bench, 16 manager, 19 coach.
+
+[[team]]
+name = "ct_ft_inazuma_best_eleven"
+key = "evt_ct_ft_inazuma_best_eleven"
+level = 1
+formation = 0x93E074B8                    # F-Dot Prison
+kit = 0x252CE113                          # Raimon (pltm_cro_ie1_01)
+roster = "exact"
+member = [
+  { card = 0x3055CF22, slot = 0, number = 1, captain = true, rarity_step = 1 },   # Mark Evans (c01000010) · GK
+  { card = 0x1B789CE1, slot = 1, number = 2, rarity_step = 1 },                   # Nathan Swift (c01000020) · DF
+  { card = 0x505B8207, slot = 2, number = 3, rarity_step = 1 },                   # Gabriel Garcia (c04000030) · DF
+  { card = 0xC26F2623, slot = 3, number = 78, rarity_step = 1 },                  # Goldie Lemmon (c05020140) · DF
+  { card = 0x2B08403A, slot = 4, number = 14, rarity_step = 1 },                  # Jude Sharp (c01000300) · MF
+  { card = 0x9E23A289, slot = 5, number = 7, rarity_step = 1 },                   # Byron Love (c01001900) · MF
+  { card = 0xB3AF5BCC, slot = 6, number = 8, rarity_step = 1 },                   # Arion Sherwind (c04000080) · MF
+  { card = 0x6C8C68AF, slot = 7, number = 12, rarity_step = 1 },                  # Tezcat (c04003700) · FW
+  { card = 0xAAB46A8D, slot = 8, number = 9, rarity_step = 1 },                   # Riccardo Di Rigo (c04000090) · MF
+  { card = 0x288C9454, slot = 9, number = 10, rarity_step = 1 },                  # Axel Blaze (c01000100) · FW
+  { card = 0x7AB4BBF3, slot = 10, number = 11, rarity_step = 1 },                 # Victor Blade (c04000100) · FW
+  { card = 0xE84B364C, slot = 11, number = 20, rarity_step = 1 },                 # Canon Evans (c02024700) · FW
+  { card = 0x9ED17B1B, slot = 19, number = 0 },                                   # Seymour Hillman (c01002610) · coach
+  { card = 0x953CC209, slot = 16, number = 0 },                                   # Silvia Woods (c02024750) · manager
+]
+  [team.emblem]
+  png = "assets/images/teams/emblems/inazuma_best_eleven.png"
+  base = "em010001"
+  [team.text.en]
+  name = "Inazuma Best Eleven"
+  [team.text.es]
+  name = "Inazuma Best Eleven"
+  [team.text.fr]
+  name = "Inazuma Best Eleven"
+  [team.text.de]
+  name = "Inazuma Best Eleven"
+  [team.text.it]
+  name = "Inazuma Best Eleven"
+  [team.text.pt]
+  name = "Inazuma Best Eleven"
+  [team.text.ja]
+  name = "イナズマ・ベストイレブン"
+  [team.text.zh_hans]
+  name = "Inazuma Best Eleven"
+  [team.text.zh_hant]
+  name = "Inazuma Best Eleven"

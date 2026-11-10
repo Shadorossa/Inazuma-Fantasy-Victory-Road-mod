@@ -1,5 +1,3 @@
-# Texts of the skill board lock (lua\menu\_all\92_skill_board_lock.lua): the default text of a [[VRFW.SkillBoardLock]]
-# without its own `text`, shown on the Accept guide entry of the locked screens. The screens ask CMND_TEXT_GET(crc32(id)).
 
 schema = "VRFW.text/2"
 table = "menu_text"

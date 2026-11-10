@@ -1,0 +1,51 @@
+schema = "VRFW.synergy/1"
+
+[[VRFW.SynergyPool]]
+name = "alius_epsilon"
+teams = ["0xC5629E8C", "0x52E7C450"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "alius_gemini_storm"
+teams = ["0xC1F58606"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "cloister_divinity"
+teams = ["0x4C48EE31"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "dark_emperors"
+teams = ["0x844120FF"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "fauxshore"
+teams = ["0x58CE36D2"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "mary_times"
+teams = ["0x95D3A452"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "sea_of_trees"
+teams = ["0xB38C36EE"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "secret_service"
+teams = ["0x3AB7501A"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "triple_c"
+teams = ["0xF5585648"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "young_inazuma"
+teams = ["0x0258565A"]
+crest_eras = true

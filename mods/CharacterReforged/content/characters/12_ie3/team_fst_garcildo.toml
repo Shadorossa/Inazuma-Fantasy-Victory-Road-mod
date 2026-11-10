@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Team <FST:GARCILDO> · Inazuma Eleven 3
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c03032010"                                   # Cyril Fox
 moves = [
-  { move = 0xF9B80F86, level = 1 },                         # Strong Punch
   { move = 0x91AE65A1, level = 2 },                         # Giant Spider
   { move = 0x4523C86D, level = 45 },                        # Killer Blade
-  { move = 0x3B8D915B, level = 45 },                        # Meteor Shower
+  { move = 0xA6D711A6, level = 55 },                        # Full Power Shield
+  { move = 0xA25A6D14, level = 65 },                        # The End
 ]
 VRFW.MoveGrades = [
   { Move = 0x91AE65A1, Grade = 1 },                         # Giant Spider
@@ -40,9 +37,9 @@ moves = [
 target = "c03032030"                                   # Phil A. Minion
 moves = [
   { move = 0x0A3F27B7, level = 1 },                         # Foul Offence 3
-  { move = 0x23C3EE90, level = 1 },                         # Shoulder Tackle
   { move = 0x06D2AC29, level = 10 },                        # Diabolical Cut
   { move = 0x0D368F6B, level = 50 },                        # Heaven's Time
+  { move = 0x457EB170, level = 60 },                        # Pyrokinetic
 ]
 
   [[edit.cards]]
@@ -56,9 +53,9 @@ moves = [
 target = "c03032040"                                   # Buddy Plains
 moves = [
   { move = 0x71831119, level = 1 },                         # Foul Offence 2
-  { move = 0x6C827857, level = 1 },                         # Rolling Steal
   { move = 0x3526A49C, level = 20 },                        # Road Roller
-  { move = 0x91AE65A1, level = 58 },                        # Giant Spider
+  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x0A3F27B7, level = 40 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -101,9 +98,9 @@ moves = [
 target = "c03032070"                                   # Seth Hedges
 moves = [
   { move = 0x09BBF3D9, level = 1 },                         # Dark Whirlwind
-  { move = 0x8DFA4265, level = 1 },                         # Toughness Block
-  { move = 0x485150D9, level = 1 },                         # Body Shield
+  { move = 0x485150D9, level = 11 },                        # Body Shield
   { move = 0x28B0E96F, level = 20 },                        # Heavy Mettle
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -117,8 +114,8 @@ target = "c03032080"                                   # Niccolo Mantegna
 moves = [
   { move = 0x6633159F, level = 1 },                         # Gravitation
   { move = 0x71831119, level = 20 },                        # Foul Offence 2
-  { move = 0x501F2F12, level = 58 },                        # Heel Flick
-  { move = 0xA01CD34D, level = 69 },                        # Temporal Wall
+  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
+  { move = 0x568262FA, level = 40 },                        # Dark Tornado
 ]
 
   [[edit.cards]]
@@ -146,9 +143,9 @@ moves = [
 target = "c03032100"                                   # Avinash Chowdhury
 moves = [
   { move = 0x3D4653B0, level = 1 },                         # Poison Fog
-  { move = 0x3D10DCB3, level = 1 },                         # Curve Shot
   { move = 0x568262FA, level = 25 },                        # Dark Tornado
   { move = 0x28B0E96F, level = 50 },                        # Heavy Mettle
+  { move = 0x8C990270, level = 60 },                        # Gunshot
 ]
 
   [[edit.cards]]
@@ -176,10 +173,10 @@ moves = [
 [[edit]]
 target = "c03032120"                                   # Grizzler Bruin
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0x91AE65A1, level = 30 },                        # Giant Spider
-  { move = 0xD824318D, level = 30 },                        # Swan Dive
-  { move = 0x29728358, level = 60 },                        # Planet Shield
+  { move = 0xD824318D, level = 40 },                        # Swan Dive
+  { move = 0xDBA0E5E3, level = 50 },                        # Gigant Wall
+  { move = 0xBA833662, level = 60 },                        # Million Hands
 ]
 
   [[edit.cards]]
@@ -192,9 +189,9 @@ moves = [
 target = "c03032130"                                   # Ian C. Wincy
 moves = [
   { move = 0x18C035B4, level = 1 },                         # Ghost Pull
-  { move = 0x322F0C40, level = 1 },                         # Spider Web
-  { move = 0x91AE65A1, level = 30 },                        # Giant Spider
+  { move = 0x322F0C40, level = 11 },                        # Spider Web
   { move = 0x6633159F, level = 40 },                        # Gravitation
+  { move = 0xA9A7000B, level = 50 },                        # Bouncing Bunny
 ]
 
   [[edit.cards]]
@@ -239,7 +236,7 @@ moves = [
   { move = 0x520F1E48, level = 1 },                         # Psycho Shot
   { move = 0x06D2AC29, level = 10 },                        # Diabolical Cut
   { move = 0x514A6198, level = 45 },                        # Asteroid Belt
-  { move = 0xC4701649, level = 62 },                        # Ice Block
+  { move = 0xAB6422AC, level = 55 },                        # Phantom Shot
 ]
 
   [[edit.cards]]

@@ -1,0 +1,9 @@
+schema = "VRFW.technique/3"
+
+[[technique]]
+name = "fist_of_justice_g5"
+base = "whk00440"
+event = "HissatsuReforged.fist_of_justice_g5"
+fail_event = "HissatsuReforged.fist_of_justice_g5_fail"
+name_text = "base"
+description_text = "base"

@@ -7,17 +7,11 @@ template_game = "fbtl_free_001"
 [chain]
 # Game cloned by every node game of a [[VRFW.Chain]] that names no `template_game`.
 template_game = "fbtl_free_001"
-# On a chain board, an arrow goes along a line only when the line is within this many degrees of the press (above 0, at most 90).
 direction_tolerance_degrees = 67.5
 
 [bb_pages]
-# Categories (tabs) of the Battle Bay team grid. A row goes to the category named by its team's `category`, else to the first category whose `rule` it meets.
-# Rules: `game` (the game's own BB rows), `chain` (a [[VRFW.Chain]] node team, its BB copy, a based_on team), `mod` (any other mod row).
-# `Text` = menu_text row id; `Icon` = "<atlas>:<sprite>"; a mod adds or changes categories with [[VRFW.Category]] (same `Id`).
-# `Sort` keys, in order: `season`, `source_order`, `name`.
-# `dedupe`: leave out a mod-added row whose team an earlier category already lists (same shown name and season, or at least half the same starters).
+# Categories (tabs) of the Battle Bay team grid.
 dedupe = true
-# Lock rows whose team has a Chronicle equivalent until the player wins that match; a mod opts out with [VRFW.BbUnlock] Enabled / Unlocks = false.
 chronicle_unlock = true
 
 [[bb_pages.category]]
@@ -49,7 +43,6 @@ Sort = ["season", "source_order"]
 
 [bb_pages.seasons]
 # Season carousel of the grid (filters the rows by season); `{type}` = two-digit series type from chara_series_config.
-# A row's season is its declared `season`, else the highest series with at least 2 starters in its roster. A mod adds series with [[VRFW.Season]].
 from_game = true
 id = "series_{type}"
 text = "vrfw_bb_season_{type}"
@@ -82,35 +75,28 @@ c10 = 0
 c11 = -1
 
 [bgm]
-# Team match music: the three phase lists, the state slot that plays the track (0 = game_start) and the slots kept from the base set.
 phases = ["m_FirstHalfBgmList", "m_AfterSecondHalfLeadBgmList", "m_AfterSecondHalfNotLeadBgmList"]
 start_slot = 0
 kept_slots = [18, 20]
 
 [free_match_tabs]
-# [[VRFW.FreeMatchTab]]: first extra tab index, extra tabs the retail bar already holds, and the maximum tabs a layout may serve.
 first_tab = 9
 retail_extra = 1
 max_tabs = 12
-# opponentListTab of the hidden piece of a [[VRFW.GameTab]] / [[VRFW.FreeMatchGame]] game: a tab the Chronicle team list does not have (it has 0-8), so the game is listed in the free match only.
 hidden_piece_list_tab = 9
 
 [bb_unlock]
-# Battle Bay unlock: Chronicle difficulty ids, starters two teams must share to be the same team / squad, and maximum comparisons per unlock condition.
 chronicle_diffs = [1, 2, 3, 4, 10, 11]
 min_shared = 6
 same_squad = 9
 max_terms = 42
-# true = a row whose team is a story-mode rival unlocks by beating it in the story (rows from soccer_opponent_info category 0); false = follow the Chronicle rule.
 story_unlock = true
 
-# Per category (a [[bb_pages.category]] Id): `difficulties` = required Chronicle difficulties (absent = any), `chains = false` = chain tiles never unlock its rows,
-# `own_team = true` = a team that is the player's own side in the Chronicle unlocks with that route's decisive match, `hint` = [bb_unlock.hint] template.
 [bb_unlock.category.main]
 chains = false
 own_team = true
 
-# Hint of a locked row, per language; {team} = shown team name, {chain} = chain title. `chain` is used when a chain tile unlocks the team, else `chronicle`.
+# Hint of a locked row, per language; {team} = shown team name, {chain} = chain title.
 [bb_unlock.hint.chronicle]
 es = "Gana a este equipo en el modo Crónica para desbloquearlo"
 en = "Beat this team in Chronicle Mode to unlock it"
@@ -156,8 +142,6 @@ zh_hans = "在「{chain}」中击败这支队伍即可解锁"
 zh_hant = "在「{chain}」中擊敗這支隊伍即可解鎖"
 
 [route_map]
-# Main Chronicle board: 6 x 6 painted tiles of 2048 px. Map px = (cx + a * x, cy - b * y) from the grid position (least-squares fit).
-# Road width, pad radii, dash and gap (in road widths) and the default side band, in full-resolution px.
 map_a = 194.1
 map_b = 112.0
 map_cx = 6141.0
@@ -172,15 +156,12 @@ gap = 1.0
 side_default = 5.5
 
 [route_nodes]
-# [[VRFW.RouteNode]]: save status flag size, sanity limit of roads per map tile (extra roads are dropped with a warning), and the box (px) a node's `Icon` is fitted into.
 slot_limit = 300
-# Extended slots: a node's `Slot` may also be slot_limit .. ext_slot_limit - 1, kept by the framework save service; its piece row uses `proxy_slot` (one free retail byte no node may take).
+# Extended slots: a node's `Slot` may also be slot_limit ..
 ext_slot_limit = 1000
 proxy_slot = 299
 max_nodes_per_tile = 255                  # sanity limit only
 crest_box = 104
 crest_top = 12
-# opponentListTab given to a chain node's piece, a tab the Chronicle chain team list does not have.
 chain_list_tab = 9
-# The first piece index a node may take: the engine reads the board's first pieces by index (0 the start, 1 the piece a first Chronicle visit opens on).
 first_node_index = 2

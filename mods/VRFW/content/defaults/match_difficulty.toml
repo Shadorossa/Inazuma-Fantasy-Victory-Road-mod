@@ -1,8 +1,3 @@
-# Declares which match difficulties exist per context; one [MatchDifficulty.<Id>] table each, merged by Id across mods in load order.
-# Difficulty: SOCCER_GAME_DIFFICULTY id (1-255). Contexts: route | gate | chain | free_match. Enabled: false removes it (default true).
-# Badge/BadgeAtlas: title sprite and its .g4tx atlas. Ball/BallAtlas: level ball on the free-match class card and its atlas.
-# Name: per-language table. Level: rival level (display only). Order: sort order (default: the difficulty id). Mod ids: "<Prefix>.<Name>".
-# Retail set:
 
 [MatchDifficulty.Cronica]
 Difficulty = 1

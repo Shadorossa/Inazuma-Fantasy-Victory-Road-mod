@@ -1,26 +1,6 @@
--- Battle Bay Deluxe «Torneo»: what the bracket overlay draws, as data (pure: no game access; the graft
--- research/grafts/bb_tournament lays it out on screen, research/scripts/bbd_bracket_preview.py into a picture).
---
--- A view: { kind = "tree" | "groups" | "league" | "results" | "none", page, pages = { page ids in L1 / R1 order },
---   title = { key = <text key suffix>, n = <number or 0> }, champion = team or 0, place = { stage, round, pos } or
---   false, outcome, … } and per kind:
---   tree (1.5.15: the WHOLE knockout in one view, built from its size: rounds = log2(entrants), no byes):
---     rounds = R, leaves[1 .. 2^R] = { team, me, out, won } in tree order (round 1's match m = leaves 2m-1, 2m; the
---     first half is the left side, the second half the right side), matches[r][m] (r = 1 .. R, m = 1 .. 2^R / 2^r) =
---     { w = 0 | 1 (the upper entrant won) | 2 (the lower), score = false | { ga, gb, pa, pb, et } }
---   groups (1.5.54: EVERY group on one page, the standings tables): groups[g] = { n = g, rows[1..4] = { team, me, out,
---     pos, pj, g, e, p, gf, gc, dg, pts, form = "WDL…" (the group matches played, in matchday order) } }, played =
---     matchdays played (0..3), qualify = the knockout round the top 2 go to (its distance to the final: 2 semi-finals
---     .. 5 round of 32)
---   league: standings[1..V.LEAGUE_ROWS] = { team, me, pos, pj, g, e, p, gf, gc, dg, pts, form } (the table's slice of
---     this page, T.table's order), page_n / page_count, page_rows (V.LEAGUE_ROWS), played / mds (matchdays)
---   results: rows[t] (below); plates (old readers) = false | { team, me, out, won, line1 = { key, n… } or false,
---     line2 = { key, n, m, … } or false }
--- Text keys (text\rows\menu_text.toml): the graft prefixes them with evt_bbd_tn_. A key's numbers fill VALUE /
--- VALUE2 the way the retail texts do.
 
 local T = require "lib/tourney"
-local Competition = require "VRFW/lib/competition"
+local Competition = VRFW.competition
 
 local V = {}
 
@@ -28,31 +8,22 @@ local floor = math.floor
 
 -- page ids
 V.TREE = 0         -- the knockout tree: one page, every round of it
-V.GROUPS = 10      -- the group tables (1.5.54: all groups on this one page; was 10 + p, 4 groups a page)
-V.RESULTS = 20     -- the round just played: every match on one page (1.5.24; was 8 a page, 20 + p)
-V.RESULTS_MAX = 16 -- matches on the results page (a 32-team knockout's first round)
+V.GROUPS = 10      -- the group tables: all groups on this one page
+V.RESULTS = 20     -- the round just played: every match on one page
+V.RESULTS_MAX = 16
 V.LEAGUE = 10      -- the league's standings: 10 + p (a league has no group page)
-V.LEAGUE_ROWS = 12 -- teams on a standings page (config.toml [league] rows_per_page)
+V.LEAGUE_ROWS = 12
 V.LEAGUE_ROWS_MAX = 18
 V.FORM = 5         -- the league's form column: its last results
--- the league's career hub (1.48.0): the hub page (the next fixture), the top scorers (a Competición page beside the
--- standings), the calendar (one matchday a page, CAL_HALVES pages a matchday when it has more than RESULTS_MAX
--- matches: 100 + (md - 1) * CAL_HALVES + half)
 V.HUB = 9
--- the league team's squad (the hub's «Plantilla»: the run's team, its members filled by scripts\tournament.lua)
 V.SQUAD = 8
 V.SCORERS = 19
 V.CALENDAR = 100
 V.CAL_HALVES = 2
--- the calendar section's grid of every matchday (one card a matchday: the player's match), FIXTURES + p,
--- FIXTURES_PAGE cards a page in FIXTURES_COLS columns; Accept on a card = that matchday's page above (CALENDAR)
 V.FIXTURES = 90
 V.FIXTURES_PAGE = 30
 V.FIXTURES_COLS = 6
 
-
--- the league's sections: "hub", "calendar", "competition" (standings + top scorers), "results" (after a match: the
--- matchday's results, then the competition pages); the pages L1 / R1 turn are the section's own
 function V.section(run, page)
   if run.fmt ~= "league" or type(page) ~= "number" then
     return "results"
@@ -76,8 +47,6 @@ function V.calendar_page(md)
   return V.CALENDAR + (md - 1) * V.CAL_HALVES
 end
 
--- the list of page ids, the round just played first (results), then the groups (while they matter), then the tree;
--- a league: the pages of the section `page` belongs to
 function V.pages(run, page)
   local p = {}
   local sec = V.section(run, page)
@@ -142,7 +111,6 @@ function V.league_pages(run)
   return math.max(1, math.ceil(run.size / V.LEAGUE_ROWS))
 end
 
--- the matches of one round: stage "groups" / "league" (round = matchday) or "ko" (round = KO round)
 function V.round_matches(run, stage, round)
   local out = {}
   if T.round_robin(stage) then
@@ -163,9 +131,9 @@ end
 
 local function plate(run, e, extra)
   if not e or e == 0 then
-    return { team = 0, me = false, out = false, won = 0, n = 0, line1 = false, line2 = false }
+    return { team = 0, me = false, out = false, won = 0, n = 0 }
   end
-  local p = { team = run.teams[e], me = e == run.player, out = false, won = 0, n = 0, line1 = false, line2 = false }
+  local p = { team = run.teams[e], me = e == run.player, out = false, won = 0, n = 0 }
   for k, v in pairs(extra or {}) do
     p[k] = v
   end
@@ -182,8 +150,6 @@ local function score_of(m, a_first)
   return { ga = m.ga, gb = m.gb, pa = m.pa, pb = m.pb, et = m.et }
 end
 
--- the round's title key: knockout rounds by their distance to the final (ko_1 final, ko_2 semi-finals, ko_3
--- quarter-finals, ko_4 last 16, ko_5 last 32), group matchdays md + number
 local function round_title(run, stage, round)
   if T.round_robin(stage) then
     return { key = "md", n = round }
@@ -191,9 +157,6 @@ local function round_title(run, stage, round)
   return { key = "ko_" .. T.round_from_end(run, round), n = 0 }
 end
 
--- the whole knockout tree (1.5.15): every entrant of round 1 as a leaf, every match of every round with its winner
--- side and score (the framework's bracket view, drawn by its bracket screen: the left half of the leaves on the left,
--- the right half mirrored, the final in the middle)
 local function tree_view(run)
   local first = run.ko[1]
   if not first then
@@ -222,7 +185,6 @@ local function tree_view(run)
   return v
 end
 
--- a team's group results in matchday order: "W" won, "D" drawn, "L" lost (last = only the last that many)
 local function form_of(run, g, e, last)
   local ms = {}
   for _, m in ipairs(run.gm[g] or {}) do
@@ -247,7 +209,6 @@ local function form_of(run, g, e, last)
   return table.concat(f)
 end
 
--- every group on one page as a standings table (T.table's order: points, goal difference, goals, head to head, lot)
 local function groups_view(run)
   local played = run.stage == "groups" and (run.md or 1) - 1 or 3
   played = math.max(0, math.min(3, played))
@@ -267,8 +228,6 @@ local function groups_view(run)
   return v
 end
 
--- the league's standings, page p (0-based): T.table's order (points, goal difference, goals, head to head, lot), the
--- slice of V.LEAGUE_ROWS rows of that page
 local function league_view(run, p)
   local played = run.stage == "league" and (run.md or 1) - 1 or run.mds
   local count = V.league_pages(run)
@@ -287,8 +246,6 @@ local function league_view(run, p)
   return v
 end
 
--- the top scorers (run.scorers: { e, c = card, g = goals } per player, scripts/tournament.lua), most goals first
--- (ties: the order they first scored), at most V.LEAGUE_ROWS rows
 local function scorers_view(run)
   local list = {}
   for i, x in ipairs(run.scorers or {}) do
@@ -310,15 +267,6 @@ local function scorers_view(run)
   return v
 end
 
--- the hub: the player's next fixture (home / away), his place and points (false fixture once the league is over), and
--- the dashboard's panels, all from the run:
---   top[] = the standings' first V.HUB_TOP rows { team, me, pos, pj, dg, pts } + the player's row when he is lower
---     (gap = true on it: a «…» line before it)
---   scorers[] = the first V.HUB_SCORERS top scorers { pos, card, goals, team, me }
---   results[] = the player's last V.FORM matches, oldest first { md, team (rival), home, gf, ga, r = "W" | "D" | "L" }
---   fixtures[] = the player's next V.HUB_FIXTURES matches from the next one { md, team (rival), home, next }
---   form (his last V.FORM results), played / mds (matchdays), size (teams), team (his team hash), my_scorer (his
---   team's top scorer { card, goals } or false)
 V.HUB_TOP = 5
 V.HUB_SCORERS = 3
 V.HUB_FIXTURES = 5
@@ -336,8 +284,6 @@ local function hub_matches(run)
   return mine
 end
 
--- the player's match x as a matchday card: { md, team (rival), home, next (the next match m) }; played: + done, gf, ga,
--- r = "W" | "D" | "L" (the match's recorded score)
 local function matchday_card(run, x, m)
   local home = x.a == run.player
   local card = { md = x.md, team = run.teams[home and x.b or x.a] or 0, home = home, next = x == m }
@@ -349,8 +295,6 @@ local function matchday_card(run, x, m)
   return card
 end
 
--- a page of the matchday grid: cards[] = the player's match of each matchday of the page (matchday_card), cols (the
--- grid's columns), per (cards a full page), mds, team (his team hash), page_n / page_count
 local function fixtures_view(run, page)
   local p = page - V.FIXTURES
   local count = V.fixtures_pages(run)
@@ -437,7 +381,6 @@ local function hub_view(run)
   return v
 end
 
--- a calendar page: the matches of one matchday (played: their score; the next: the player's framed), as a results page
 local function calendar_view(run, page)
   local k = page - V.CALENDAR
   local md, half = floor(k / V.CAL_HALVES) + 1, k % V.CAL_HALVES
@@ -460,13 +403,10 @@ local function league_home(run)
   return V.LEAGUE
 end
 
--- every match of the round on one page as scoreboard rows (a 32-team first round = 16 rows), was 8 a page with the
--- other half on a second page. matches[t] = { a = plate, b = plate, ga, gb, pa, pb, et, done, w = 0 | 1 (a won) | 2
--- (b won) }; a plate's line2 is kept for the old readers.
 function V.results_page(run, page)
   local st, rd = run.last.stage, run.last.round
   local ms = V.round_matches(run, st, rd)
-  local v = { kind = "results", plates = {}, rows = {}, title = round_title(run, st, rd) }
+  local v = { kind = "results", rows = {}, title = round_title(run, st, rd) }
   for t = 1, V.RESULTS_MAX do
     local m = ms[page * V.RESULTS_MAX + t]
     if m then
@@ -480,7 +420,6 @@ function V.results_page(run, page)
         row[side == 0 and "a" or "b"] = plate(run, e, {
           won = (m.done and m.w == e) and 1 or 0,
           out = m.done and m.w ~= 0 and m.w ~= e,
-          line2 = false,
         })
       end
       v.rows[#v.rows + 1] = row
@@ -528,7 +467,6 @@ function V.build(run, page)
   end
   v.page, v.pages = page, pages
   v.fmt = run.fmt
-  -- the bracket page an entry / Enter opens: a league's standings page with the player's team
   if run.fmt == "league" then
     v.home_page = league_home(run)
     -- the calendar opens on the next matchday (the last one once the league is over)
@@ -538,15 +476,12 @@ function V.build(run, page)
     v.fixtures_page = V.fixtures_page(v.fixtures_md)
   end
   v.outcome = run.outcome or ""
-  -- eliminated with rounds left: Enter simulates the next one (the player watches the rest round by round)
   v.watching = run.outcome == "out" and run.stage ~= "over"
   v.place = run.place or false
   if v.place and v.place.stage == "ko" then
     v.place.from_end = T.round_from_end(run, v.place.round)
   end
   v.champion = v.champion or (run.teams[T.champion(run)] or 0)
-  -- the player's match count is `player_matches`; it was written to `matches`, which overwrote the tree's per-round
-  -- table (matches[r][m]) with a number, so the graft's tree draw returned without placing anything
   v.k, v.player_matches = run.k, T.run_matches(run)
   local opp = T.opponent(run)
   v.next = opp ~= 0 and run.teams[opp] or 0

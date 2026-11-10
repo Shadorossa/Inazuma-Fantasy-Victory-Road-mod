@@ -1,11 +1,4 @@
-# Furor › the furor phase's fire look. The retail awakening («Despertar») draws its
-# look through ONE character-effect trigger (0x9627F4F7): the effects ega0550a-ega0553a at two body attach points and
-# the body aura (effect_aura_config) ega0550a. The trigger furor_phase_fire copies those rows with recoloured COPIES of
-# the four effects and another body aura: orange, yellow and red like flames. The retail ones stay untouched, so the
-# game's own awakening keeps its pink-red. The rules of content\rules\gauge.toml hold it on the team's players during
-# the phase with the framework's char_effect (no aura bit, no aura slot; it fades out at the phase's end).
-# The colours are the tunables here: `hue` in degrees (0 red, 15-30 orange, 45-55 yellow), `saturation` multiplier.
-# The noise textures _04 / _05 (distortion) and the grey masks keep theirs.
+# Furor › the furor phase's fire look.
 schema = "VRFW.effect/1"
 
 # ---------------------------------------------------------------- ega0550a (the body flames, first attach point)
@@ -122,18 +115,11 @@ name = "furor_fire_3"
 from = "ega0553a"
 object = "egr0553a"
 
-# body_auras: the body aura shell ega0550a (pink colour plate effAuraTex_05) -> the retail body aura 0x293ACB8C, the
-# same shell with the orange colour plate effAuraTex_08 (luminance 4 instead of 2)
 [[chr_trigger]]
 name = "furor_phase_fire"
 like = "0x9627F4F7"
 effects = { ega0550a = "furor_fire_0", ega0551a = "furor_fire_1", ega0552a = "furor_fire_2", ega0553a = "furor_fire_3" }
 body_auras = { ega0550a = "0x293ACB8C" }
-
-# ================================================================ the same look for the user's team: blue fire
-# The rival's team keeps the orange fire above; the user's team wears this copy (content\rules\gauge.toml), so both
-# teams can be told apart when both phases run. Same objects and clips, colours only. The tunables: `hue` of each row
-# (the orange hue h becomes 228 - (h - 6) x 0.75, so the hot parts stay lighter: 195 cyan-blue .. 228 deep blue).
 
 # ---------------------------------------------------------------- ega0550a
 [[recolor]]
@@ -242,8 +228,6 @@ name = "furor_fire_ally_3"
 from = "ega0553a"
 object = "egb0553a"
 
-# body_auras: the retail body aura 0x4921B981, the same shell with the blue colour plate effAuraTex_07 (no retail shell
-# has that plate with the orange one's luminance 4 and upward scroll: this one has luminance 2, its scroll runs down)
 [[chr_trigger]]
 name = "furor_phase_fire_ally"
 like = "0x9627F4F7"

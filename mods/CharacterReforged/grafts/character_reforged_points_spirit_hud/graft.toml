@@ -1,0 +1,42 @@
+# The controlled player's PEG / SP bar under his face bubble; order 310: after the PE HUD (300).
+name = "character_reforged_points_spirit_hud"
+mod = "CharacterReforged"
+order = 310
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["UpdateScreenOutCtrlCharaIcon", "PostStep"]
+description = "Character Reforged points: the PEG / SP bar under the controlled player's face bubble"
+
+[[files]]
+stem = "soccer_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "spirit_hud.lua"
+  marker = "CharacterReforged points spirit hud"
+
+# twins of soccer_inplay_menu: the loader may hand the match VM any of them
+[[files]]
+stem = "soccer_battle_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "spirit_hud.lua"
+  marker = "CharacterReforged points spirit hud"
+
+[[files]]
+stem = "soccer_training_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "spirit_hud.lua"
+  marker = "CharacterReforged points spirit hud"
+
+[[files]]
+stem = "soccer_zigzag_dribble_training_inplay_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "spirit_hud.lua"
+  marker = "CharacterReforged points spirit hud"

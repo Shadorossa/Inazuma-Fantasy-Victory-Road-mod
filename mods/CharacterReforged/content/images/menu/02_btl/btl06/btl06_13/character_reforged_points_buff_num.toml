@@ -1,0 +1,95 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num"
+size = [528, 40]
+png = "buff_num/character_reforged_points_buff_num.png"
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num0"
+texture = "character_reforged_points_buff_num"
+x = 2
+y = 2
+size = [44, 36]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num1"
+texture = "character_reforged_points_buff_num"
+x = 50
+y = 2
+size = [44, 36]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num2"
+texture = "character_reforged_points_buff_num"
+x = 98
+y = 2
+size = [44, 36]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num3"
+texture = "character_reforged_points_buff_num"
+x = 146
+y = 2
+size = [44, 36]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num4"
+texture = "character_reforged_points_buff_num"
+x = 194
+y = 2
+size = [44, 36]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num5"
+texture = "character_reforged_points_buff_num"
+x = 242
+y = 2
+size = [44, 36]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num6"
+texture = "character_reforged_points_buff_num"
+x = 290
+y = 2
+size = [44, 36]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num7"
+texture = "character_reforged_points_buff_num"
+x = 338
+y = 2
+size = [44, 36]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num8"
+texture = "character_reforged_points_buff_num"
+x = 386
+y = 2
+size = [44, 36]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num9"
+texture = "character_reforged_points_buff_num"
+x = 434
+y = 2
+size = [44, 36]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_buff_num_slash"
+texture = "character_reforged_points_buff_num"
+x = 482
+y = 2
+size = [44, 36]

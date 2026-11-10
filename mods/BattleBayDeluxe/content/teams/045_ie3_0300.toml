@@ -87,6 +87,8 @@ key = "bbcr_ie3_0300_bb"
 name_text = 0xC1D1D39D
 level = 40
 series = "IE3"
+music = "auto"
+goal_jingle = "auto"
 stadium_fallback = "s14g001b"
 stadium_image = "ev_chronicle_img/ev_bb_s14g001_01.g4tx"
 appears = [{ list = "bb_stadium", category = "main", season = "series_03", row = { copy = false, stadium = 0x4CB113ED, image = "ev_chronicle_img/ev_bb_s14g001_01.g4tx", image_name = "ev_bb_s14g001_01", bgm = 0x6C1E6CDD } }]

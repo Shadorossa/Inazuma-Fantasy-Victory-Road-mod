@@ -1,10 +1,7 @@
 schema = "VRFW.text_key/1"
 # Texts of the Mods screen and its title button (text_engine format); English is used when a language lacks a key.
-# The button-guide labels (g_*) are also merged into menu_text (ids crc32("mods_menu.<name>")) when text_engine is installed.
-# Placeholders: {a} author, {r} list / reason, {c} list / version rule, {n} number, {t} total, {o} other mod, {v} version, {p} profile.
 
 [en.new]
-badge_update = "REQUIRES UPDATE"
 
 title_button = "Mods"
 title_flavor = "Switch the installed mods on or off and set their load order. Changes apply after restarting the game."
@@ -28,7 +25,7 @@ restart_msg = "The changes to your mods will apply the next time you start the g
 empty_title = "No mods installed"
 empty_desc = "Each mod is a folder with a mod.toml inside the game's mods folder."
 noloader = "This screen needs a ModLoader with the mods module."
-fail = "The change could not be saved (mods\\enabled.toml). See evt_loader\\loader.log."
+fail = "The change could not be saved (mods\\enabled.toml). See vrfw_loader\\loader.log."
 g_toggle = "On / Off"
 g_order = "Load order"
 g_profile = "Profile"
@@ -156,7 +153,6 @@ needed_by_none = "No mod"
 dep_missing = "Not installed"
 more_mods = "+{n} more"
 panel_details = "Full details"
-# the mod's page, layout A: view tabs, «Información», «Módulos», «Novedades» and the shortcut bar
 tab_modules = "Modules"
 tab_problems = "Problems"
 tab_conflicts = "Conflicts"
@@ -192,7 +188,6 @@ dep_old = "Too old"
 news_none = "This mod has no changelog yet."
 
 [es.new]
-badge_update = "REQUIERE ACTUALIZACIÓN"
 
 title_button = "Mods"
 title_flavor = "Activa o desactiva los mods instalados y elige su orden de carga. Los cambios se aplican al reiniciar el juego."
@@ -216,7 +211,7 @@ restart_msg = "Los cambios en los mods se aplicarán la próxima vez que inicies
 empty_title = "No hay mods instalados"
 empty_desc = "Cada mod es una carpeta con su mod.toml dentro de la carpeta mods del juego."
 noloader = "Esta pantalla necesita un ModLoader con el módulo mods."
-fail = "No se ha podido guardar el cambio (mods\\enabled.toml). Mira evt_loader\\loader.log."
+fail = "No se ha podido guardar el cambio (mods\\enabled.toml). Mira vrfw_loader\\loader.log."
 g_toggle = "Activar / Desactivar"
 g_order = "Orden de carga"
 g_profile = "Perfil"
@@ -342,7 +337,6 @@ needed_by_none = "Ningún mod"
 dep_missing = "No instalado"
 more_mods = "+{n} más"
 panel_details = "Detalles completos"
-# the mod's page, layout A: view tabs, «Información», «Módulos», «Novedades» and the shortcut bar
 tab_modules = "Módulos"
 tab_problems = "Problemas"
 tab_conflicts = "Conflictos"
@@ -378,7 +372,6 @@ dep_old = "Versión antigua"
 news_none = "Este mod todavía no tiene novedades."
 
 [fr.new]
-badge_update = "MISE À JOUR REQUISE"
 
 title_button = "Mods"
 title_flavor = "Active ou désactive les mods installés et choisis leur ordre de chargement. Les changements s'appliquent au redémarrage."
@@ -402,7 +395,7 @@ restart_msg = "Les changements de mods s'appliqueront au prochain lancement du j
 empty_title = "Aucun mod installé"
 empty_desc = "Chaque mod est un dossier avec son mod.toml dans le dossier mods du jeu."
 noloader = "Cet écran nécessite un ModLoader avec le module mods."
-fail = "Impossible d'enregistrer le changement (mods\\enabled.toml). Voir evt_loader\\loader.log."
+fail = "Impossible d'enregistrer le changement (mods\\enabled.toml). Voir vrfw_loader\\loader.log."
 g_toggle = "Activer / Désactiver"
 g_order = "Ordre de chargement"
 g_profile = "Profil"
@@ -528,7 +521,6 @@ needed_by_none = "Aucun mod"
 dep_missing = "Non installé"
 more_mods = "+{n} de plus"
 panel_details = "Détails complets"
-# the mod's page, layout A: view tabs, «Información», «Módulos», «Novedades» and the shortcut bar
 tab_modules = "Modules"
 tab_problems = "Problèmes"
 tab_conflicts = "Conflits"
@@ -564,7 +556,6 @@ dep_old = "Trop ancien"
 news_none = "Ce mod n'a pas encore de nouveautés."
 
 [de.new]
-badge_update = "UPDATE NÖTIG"
 
 title_button = "Mods"
 title_flavor = "Installierte Mods ein- oder ausschalten und ihre Ladereihenfolge festlegen. Änderungen gelten nach einem Neustart."
@@ -588,7 +579,7 @@ restart_msg = "Die Änderungen an den Mods gelten beim nächsten Spielstart."
 empty_title = "Keine Mods installiert"
 empty_desc = "Jeder Mod ist ein Ordner mit einer mod.toml im mods-Ordner des Spiels."
 noloader = "Dieser Bildschirm braucht einen ModLoader mit dem Modul mods."
-fail = "Die Änderung konnte nicht gespeichert werden (mods\\enabled.toml). Siehe evt_loader\\loader.log."
+fail = "Die Änderung konnte nicht gespeichert werden (mods\\enabled.toml). Siehe vrfw_loader\\loader.log."
 g_toggle = "An / Aus"
 g_order = "Ladereihenfolge"
 g_profile = "Profil"
@@ -714,7 +705,6 @@ needed_by_none = "Kein Mod"
 dep_missing = "Nicht installiert"
 more_mods = "+{n} weitere"
 panel_details = "Alle Details"
-# the mod's page, layout A: view tabs, «Información», «Módulos», «Novedades» and the shortcut bar
 tab_modules = "Module"
 tab_problems = "Probleme"
 tab_conflicts = "Konflikte"
@@ -750,7 +740,6 @@ dep_old = "Zu alt"
 news_none = "Dieser Mod hat noch keine Neuigkeiten."
 
 [it.new]
-badge_update = "RICHIEDE AGGIORNAMENTO"
 
 title_button = "Mod"
 title_flavor = "Attiva o disattiva le mod installate e scegli il loro ordine di caricamento. Le modifiche si applicano al riavvio."
@@ -774,7 +763,7 @@ restart_msg = "Le modifiche alle mod si applicheranno al prossimo avvio del gioc
 empty_title = "Nessuna mod installata"
 empty_desc = "Ogni mod è una cartella con il suo mod.toml nella cartella mods del gioco."
 noloader = "Questa schermata richiede un ModLoader con il modulo mods."
-fail = "Impossibile salvare la modifica (mods\\enabled.toml). Vedi evt_loader\\loader.log."
+fail = "Impossibile salvare la modifica (mods\\enabled.toml). Vedi vrfw_loader\\loader.log."
 g_toggle = "Attiva / Disattiva"
 g_order = "Ordine di caricamento"
 g_profile = "Profilo"
@@ -900,7 +889,6 @@ needed_by_none = "Nessuna mod"
 dep_missing = "Non installata"
 more_mods = "+{n} altre"
 panel_details = "Dettagli completi"
-# the mod's page, layout A: view tabs, «Información», «Módulos», «Novedades» and the shortcut bar
 tab_modules = "Moduli"
 tab_problems = "Problemi"
 tab_conflicts = "Conflitti"
@@ -936,7 +924,6 @@ dep_old = "Troppo vecchia"
 news_none = "Questa mod non ha ancora novità."
 
 [pt.new]
-badge_update = "REQUER ATUALIZAÇÃO"
 
 title_button = "Mods"
 title_flavor = "Ativa ou desativa os mods instalados e escolhe a ordem de carregamento. As alterações aplicam-se ao reiniciar o jogo."
@@ -960,7 +947,7 @@ restart_msg = "As alterações aos mods aplicam-se da próxima vez que iniciares
 empty_title = "Nenhum mod instalado"
 empty_desc = "Cada mod é uma pasta com o seu mod.toml dentro da pasta mods do jogo."
 noloader = "Este ecrã precisa de um ModLoader com o módulo mods."
-fail = "Não foi possível guardar a alteração (mods\\enabled.toml). Vê evt_loader\\loader.log."
+fail = "Não foi possível guardar a alteração (mods\\enabled.toml). Vê vrfw_loader\\loader.log."
 g_toggle = "Ativar / Desativar"
 g_order = "Ordem de carregamento"
 g_profile = "Perfil"
@@ -1086,7 +1073,6 @@ needed_by_none = "Nenhum mod"
 dep_missing = "Não instalado"
 more_mods = "+{n} mais"
 panel_details = "Detalhes completos"
-# the mod's page, layout A: view tabs, «Información», «Módulos», «Novedades» and the shortcut bar
 tab_modules = "Módulos"
 tab_problems = "Problemas"
 tab_conflicts = "Conflitos"
@@ -1122,7 +1108,6 @@ dep_old = "Versão antiga"
 news_none = "Este mod ainda não tem novidades."
 
 [ja.new]
-badge_update = "更新が必要"
 
 title_button = "MOD"
 title_flavor = "インストールしたMODのオン／オフと読み込み順を設定します。変更はゲームの再起動後に反映されます。"
@@ -1146,7 +1131,7 @@ restart_msg = "MODの変更は次にゲームを起動したときに反映さ�
 empty_title = "MODがインストールされていません"
 empty_desc = "MODはゲームのmodsフォルダ内の、mod.tomlを含むフォルダです。"
 noloader = "この画面にはmodsモジュール付きのModLoaderが必要です。"
-fail = "変更を保存できませんでした（mods\\enabled.toml）。evt_loader\\loader.logを確認してください。"
+fail = "変更を保存できませんでした（mods\\enabled.toml）。vrfw_loader\\loader.logを確認してください。"
 g_toggle = "オン／オフ"
 g_order = "読み込み順"
 g_profile = "プロファイル"
@@ -1272,7 +1257,6 @@ needed_by_none = "なし"
 dep_missing = "未インストール"
 more_mods = "ほか{n}件"
 panel_details = "詳細を見る"
-# the mod's page, layout A: view tabs, «Información», «Módulos», «Novedades» and the shortcut bar
 tab_modules = "モジュール"
 tab_problems = "問題"
 tab_conflicts = "競合"
@@ -1308,7 +1292,6 @@ dep_old = "古すぎる"
 news_none = "このMODにはまだお知らせがありません。"
 
 [zh_hans.new]
-badge_update = "需要更新"
 
 title_button = "模组"
 title_flavor = "开启或关闭已安装的模组并设置加载顺序。更改将在重新启动游戏后生效。"
@@ -1332,7 +1315,7 @@ restart_msg = "模组的更改将在下次启动游戏时生效。"
 empty_title = "未安装模组"
 empty_desc = "每个模组都是游戏 mods 文件夹中带有 mod.toml 的文件夹。"
 noloader = "此画面需要带有 mods 模块的 ModLoader。"
-fail = "无法保存更改（mods\\enabled.toml）。请查看 evt_loader\\loader.log。"
+fail = "无法保存更改（mods\\enabled.toml）。请查看 vrfw_loader\\loader.log。"
 g_toggle = "开启／关闭"
 g_order = "加载顺序"
 g_profile = "配置"
@@ -1458,7 +1441,6 @@ needed_by_none = "无"
 dep_missing = "未安装"
 more_mods = "另外{n}个"
 panel_details = "完整详情"
-# the mod's page, layout A: view tabs, «Información», «Módulos», «Novedades» and the shortcut bar
 tab_modules = "模块"
 tab_problems = "问题"
 tab_conflicts = "冲突"
@@ -1494,7 +1476,6 @@ dep_old = "版本过旧"
 news_none = "此模组还没有更新说明。"
 
 [zh_hant.new]
-badge_update = "需要更新"
 
 title_button = "模組"
 title_flavor = "開啟或關閉已安裝的模組並設定載入順序。變更將在重新啟動遊戲後生效。"
@@ -1518,7 +1499,7 @@ restart_msg = "模組的變更將在下次啟動遊戲時生效。"
 empty_title = "未安裝模組"
 empty_desc = "每個模組都是遊戲 mods 資料夾中含有 mod.toml 的資料夾。"
 noloader = "此畫面需要附有 mods 模組的 ModLoader。"
-fail = "無法儲存變更（mods\\enabled.toml）。請查看 evt_loader\\loader.log。"
+fail = "無法儲存變更（mods\\enabled.toml）。請查看 vrfw_loader\\loader.log。"
 g_toggle = "開啟／關閉"
 g_order = "載入順序"
 g_profile = "設定檔"
@@ -1644,7 +1625,6 @@ needed_by_none = "無"
 dep_missing = "未安裝"
 more_mods = "另外{n}個"
 panel_details = "完整詳情"
-# the mod's page, layout A: view tabs, «Información», «Módulos», «Novedades» and the shortcut bar
 tab_modules = "模組"
 tab_problems = "問題"
 tab_conflicts = "衝突"

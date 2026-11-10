@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Space Laboratory · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c11700040"                                   # Raymond Galak
 moves = [
-  { move = 0x52CEB5F6, level = 1 },                         # Iron Wall
-  { move = 0x60F8D774, level = 13 },                        # Gravestone
-  { move = 0x9D236FA3, level = 20 },                        # Sword of the King
-  { move = 0xA8215D7C, level = 30 },                        # The Mountain
+  { move = 0x60F8D774, level = 1 },                         # Gravestone
+  { move = 0x52CEB5F6, level = 13 },                        # Iron Wall
+  { move = 0xA8215D7C, level = 20 },                        # The Mountain
+  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -22,9 +19,9 @@ moves = [
 [[edit]]
 target = "c11700050"                                   # Luceus Cloudstrider
 moves = [
-  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
+  { move = 0xA9E3374B, level = 1 },                         # Cyclone Sprint
   { move = 0xE0549BE6, level = 13 },                        # Easy Breezy Kid
-  { move = 0xA9E3374B, level = 20 },                        # Cyclone Sprint
+  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
   { move = 0x49933AEE, level = 30 },                        # Perfect Tower
 ]
 
@@ -38,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11700060"                                   # Cosmo Starward
 moves = [
-  { move = 0x43B5739B, level = 1 },                         # Lightning Bolt
-  { move = 0x0A3F27B7, level = 13 },                        # Foul Offence 3
-  { move = 0x18019E0A, level = 20 },                        # Double Grenade
-  { move = 0x78E027BC, level = 30 },                        # Shine Drive
+  { move = 0x18019E0A, level = 1 },                         # Double Grenade
+  { move = 0x78E027BC, level = 13 },                        # Shine Drive
+  { move = 0x43B5739B, level = 20 },                        # Lightning Bolt
+  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -54,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11700430"                                   # Starry Durant
 moves = [
-  { move = 0x6BA49049, level = 1 },                         # Mystic Mist
-  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
-  { move = 0x78218C02, level = 20 },                        # Duskfall
-  { move = 0xDCC9CCA3, level = 30 },                        # Tesla Coil
+  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
+  { move = 0xDCC9CCA3, level = 13 },                        # Tesla Coil
+  { move = 0x6BA49049, level = 20 },                        # Mystic Mist
+  { move = 0x78218C02, level = 30 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -70,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11720010"                                   # Santi Lite
 moves = [
-  { move = 0xA01CD34D, level = 1 },                         # Temporal Wall
+  { move = 0x768AB9C5, level = 1 },                         # Frosticle
   { move = 0xE0549BE6, level = 13 },                        # Easy Breezy Kid
   { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
-  { move = 0x768AB9C5, level = 30 },                        # Frosticle
+  { move = 0x04941270, level = 30 },                        # Vac Attack
 ]
 
   [[edit.cards]]
@@ -86,9 +83,9 @@ moves = [
 [[edit]]
 target = "c11720020"                                   # Jackson Bover
 moves = [
-  { move = 0x06D2AC29, level = 1 },                         # Diabolical Cut
+  { move = 0x12E67CC1, level = 1 },                         # Future Eye
   { move = 0x1A868BED, level = 13 },                        # Clone Defence
-  { move = 0x12E67CC1, level = 20 },                        # Future Eye
+  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
   { move = 0x7748D3F2, level = 30 },                        # Devil Ball
 ]
 
@@ -103,9 +100,9 @@ moves = [
 target = "c11720040"                                   # Eilidh Innes
 moves = [
   { move = 0x585098FC, level = 1 },                         # Slice and Dice
-  { move = 0x3A4FFB6C, level = 13 },                        # The Ikaros
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0xAF150D21, level = 30 },                        # Swallow Counter
+  { move = 0xAF150D21, level = 13 },                        # Swallow Counter
+  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
+  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -118,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11720050"                                   # Ashe Connelly
 moves = [
-  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
+  { move = 0x1D4E888F, level = 1 },                         # Condor Dive
   { move = 0xC42D6F54, level = 13 },                        # Aikido
-  { move = 0x1D4E888F, level = 20 },                        # Condor Dive
-  { move = 0x7C1494CF, level = 30 },                        # Tornado Tunnel
+  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
+  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
 ]
 
   [[edit.cards]]
@@ -134,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11720060"                                   # Nova Holloway
 moves = [
-  { move = 0x2C5D1441, level = 1 },                         # Song of the Three Kingdoms
+  { move = 0x00196EC2, level = 1 },                         # Earthquake
   { move = 0x8AF3EAB9, level = 13 },                        # Hammer of Fury
-  { move = 0x485150D9, level = 20 },                        # Body Shield
-  { move = 0x00196EC2, level = 30 },                        # Earthquake
+  { move = 0xD471DE6C, level = 20 },                        # Snakebite
+  { move = 0x2C5D1441, level = 30 },                        # Song of the Three Kingdoms
 ]
 
   [[edit.cards]]
@@ -150,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11720070"                                   # Lyra Nazar
 moves = [
-  { move = 0xC19E2AEE, level = 1 },                         # Pegasus Shot
-  { move = 0xB27F13ED, level = 13 },                        # Death Zone
-  { move = 0x530CDFC1, level = 20 },                        # Mystifying Mist
-  { move = 0x4E5B398C, level = 30 },                        # Acrobat Bomber
+  { move = 0x530CDFC1, level = 1 },                         # Mystifying Mist
+  { move = 0x4E5B398C, level = 13 },                        # Acrobat Bomber
+  { move = 0xC19E2AEE, level = 20 },                        # Pegasus Shot
+  { move = 0xB27F13ED, level = 30 },                        # Death Zone
 ]
 
   [[edit.cards]]
@@ -166,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11749010"                                   # Altair Aldrin
 moves = [
-  { move = 0x07D16DA0, level = 1 },                         # Inazuma-1
-  { move = 0xE0549BE6, level = 13 },                        # Easy Breezy Kid
-  { move = 0xA4B51923, level = 20 },                        # The Typhoon
-  { move = 0xC2E6ADBF, level = 30 },                        # Log Roll
+  { move = 0xC2E6ADBF, level = 1 },                         # Log Roll
+  { move = 0xA4B51923, level = 13 },                        # The Typhoon
+  { move = 0x07D16DA0, level = 20 },                        # Inazuma-1
+  { move = 0xE0549BE6, level = 30 },                        # Easy Breezy Kid
 ]
 
   [[edit.cards]]

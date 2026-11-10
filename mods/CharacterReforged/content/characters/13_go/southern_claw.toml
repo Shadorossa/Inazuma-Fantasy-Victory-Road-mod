@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Southern Claw · Inazuma Eleven GO
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c04015210"                                   # Xavier Shotwell
 moves = [
-  { move = 0xCB8E6D04, level = 22 },                        # Mighty Save
   { move = 0xED1BFBD3, level = 26 },                        # Fingers of Gaia
-  { move = 0xA0BDF96F, level = 51 },                        # Ballista Barrage
   { move = 0xD471DE6C, level = 57 },                        # Snakebite
+  { move = 0xF2CB0879, level = 67 },                        # Mugen the Hand
+  { move = 0xFE9EE798, level = 77 },                        # Crown Fire
 ]
 
   [[edit.cards]]
@@ -21,10 +18,10 @@ moves = [
 [[edit]]
 target = "c04015220"                                   # Crimson Wiseman
 moves = [
-  { move = 0x39CB2F02, level = 21 },                        # Dragster
-  { move = 0x6C827857, level = 32 },                        # Rolling Steal
-  { move = 0x23C3EE90, level = 59 },                        # Shoulder Tackle
+  { move = 0x6BA49049, level = 48 },                        # Mystic Mist
+  { move = 0x39CB2F02, level = 58 },                        # Dragster
   { move = 0xF4604B0E, level = 69 },                        # Fancy-Footwork
+  { move = 0x613ABD43, level = 79 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -36,9 +33,9 @@ moves = [
 [[edit]]
 target = "c04015230"                                   # Linden Haregrove
 moves = [
-  { move = 0x3AD8DFD1, level = 13 },                        # Curving Cut
-  { move = 0x660EED1E, level = 26 },                        # Low Scythe Slice
-  { move = 0x5643C944, level = 30 },                        # Killer Slide
+  { move = 0x20D01E43, level = 26 },                        # Hey Presto
+  { move = 0x660EED1E, level = 36 },                        # Low Scythe Slice
+  { move = 0x5643C944, level = 46 },                        # Killer Slide
   { move = 0xDCC9CCA3, level = 47 },                        # Tesla Coil
 ]
 
@@ -51,10 +48,10 @@ moves = [
 [[edit]]
 target = "c04015240"                                   # Jared Dapplegrey
 moves = [
-  { move = 0xB01D1B68, level = 18 },                        # Power Spike
-  { move = 0x141046AB, level = 22 },                        # Overnight Fortress
-  { move = 0xAA67E325, level = 38 },                        # Desert Blast
-  { move = 0x62BE692D, level = 46 },                        # Whirlwind Force
+  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
+  { move = 0x141046AB, level = 40 },                        # Overnight Fortress
+  { move = 0xAA67E325, level = 50 },                        # Desert Blast
+  { move = 0x62BE692D, level = 60 },                        # Whirlwind Force
 ]
 
   [[edit.cards]]
@@ -82,8 +79,8 @@ moves = [
 [[edit]]
 target = "c04015260"                                   # Cirrus Whisp
 moves = [
-  { move = 0x56FBAD3B, level = 15 },                        # Seal Matrix
-  { move = 0x62294D90, level = 29 },                        # Dust Kick
+  { move = 0xC324C788, level = 27 },                        # Blast Mine
+  { move = 0x56FBAD3B, level = 37 },                        # Seal Matrix
   { move = 0x2B8C597E, level = 52 },                        # Fugue Wave
   { move = 0x25276CB9, level = 65 },                        # Solar Surprise
 ]
@@ -98,9 +95,9 @@ moves = [
 [[edit]]
 target = "c04015270"                                   # Gamal Everlast
 moves = [
-  { move = 0x501F2F12, level = 12 },                        # Heel Flick
-  { move = 0x2A4E3349, level = 21 },                        # Heart Beat
-  { move = 0xAF150D21, level = 49 },                        # Swallow Counter
+  { move = 0xC324C788, level = 39 },                        # Blast Mine
+  { move = 0x2A4E3349, level = 49 },                        # Heart Beat
+  { move = 0xAF150D21, level = 59 },                        # Swallow Counter
   { move = 0x7E2BE557, level = 70 },                        # Legendary Wolf
 ]
 

@@ -1,0 +1,10 @@
+schema = "VRFW.option/2"
+
+[[option]]
+id = "second_keeper_kit"
+visual = true
+type = "toggle"
+label = "second_keeper_kit"
+help = "second_keeper_kit_help"
+default = 1
+order = 100

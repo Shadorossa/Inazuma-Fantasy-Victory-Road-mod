@@ -1,0 +1,16 @@
+schema = "VRFW.passive/1"
+# Example special passives, given to no one (ModManager «Pasivas» shows them as templates).
+
+[[VRFW.Passive]]
+name = "example_midfield_wall"
+blocks = ["team_saves_shot", "stack_no_limit", "own_shoot_block_plus_10", "mf_technique_plus_5", "team_scores"]
+
+# each goal against (at most 3): the team's kick +5 % per goal, until the team scores
+[[VRFW.Passive]]
+name = "example_comeback"
+blocks = ["opponent_scores", "stack_max_3", "team_kick_plus_5pct", "team_scores"]
+
+# each duel he wins (at most 5, 60 s each): his move speed +2 %; gone when he loses one
+[[VRFW.Passive]]
+name = "example_duel_streak"
+blocks = ["self_wins_duel", "stack_5_for_60s", "own_speed_plus_2pct", "self_loses_duel"]

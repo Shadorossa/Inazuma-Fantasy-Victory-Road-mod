@@ -1,42 +1,938 @@
-# Texts of Chronicle Deluxe: the «Mods» screen's name and description in the game's language. A language missing here
-# falls back to English. New texts get the id crc32("ChronicleDeluxe.<name>"). The nodes' match titles are their
-# [VRFW.RouteNode.Title] (9 languages); the chain's challenge titles are menu_text rows
-# (text\rows\chain_challenges.toml).
 schema = "VRFW.text_key/1"
 default_lang = "en"
 
 [en.new]
+chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
+chara_face_01_short = { text = "Forrest", table = "chara_text" }
+chara_face_01_upper = { text = "FORREST", table = "chara_text" }
+chara_face_02 = { text = "Linnea Windsor", table = "chara_text" }
+chara_face_02_short = { text = "Linnea", table = "chara_text" }
+chara_face_02_upper = { text = "LINNEA", table = "chara_text" }
+chara_face_03 = { text = "Leif Hollins", table = "chara_text" }
+chara_face_03_short = { text = "Leif", table = "chara_text" }
+chara_face_03_upper = { text = "LEIF", table = "chara_text" }
+chara_face_04 = { text = "Corvin Falconer", table = "chara_text" }
+chara_face_04_short = { text = "Corvin", table = "chara_text" }
+chara_face_04_upper = { text = "CORVIN", table = "chara_text" }
+chara_face_05 = { text = "Sorrel Barrett", table = "chara_text" }
+chara_face_05_short = { text = "Sorrel", table = "chara_text" }
+chara_face_05_upper = { text = "SORREL", table = "chara_text" }
+chara_face_06 = { text = "Ferris Merrick", table = "chara_text" }
+chara_face_06_short = { text = "Ferris", table = "chara_text" }
+chara_face_06_upper = { text = "FERRIS", table = "chara_text" }
+chara_face_07 = { text = "Darby Dalton", table = "chara_text" }
+chara_face_07_short = { text = "Darby", table = "chara_text" }
+chara_face_07_upper = { text = "DARBY", table = "chara_text" }
+chara_face_08 = { text = "Cinder Ashby", table = "chara_text" }
+chara_face_08_short = { text = "Cinder", table = "chara_text" }
+chara_face_08_upper = { text = "CINDER", table = "chara_text" }
+chara_face_09 = { text = "Merle Stoneham", table = "chara_text" }
+chara_face_09_short = { text = "Merle", table = "chara_text" }
+chara_face_09_upper = { text = "MERLE", table = "chara_text" }
+chara_face_10 = { text = "Cloe Nimbley", table = "chara_text" }
+chara_face_10_short = { text = "Cloe", table = "chara_text" }
+chara_face_10_upper = { text = "CLOE", table = "chara_text" }
+chara_face_11 = { text = "Rosalind Rowan", table = "chara_text" }
+chara_face_11_short = { text = "Rosalind", table = "chara_text" }
+chara_face_11_upper = { text = "ROSALIND", table = "chara_text" }
+chara_face_12 = { text = "Emberly Rhodes", table = "chara_text" }
+chara_face_12_short = { text = "Emberly", table = "chara_text" }
+chara_face_12_upper = { text = "EMBERLY", table = "chara_text" }
+chara_face_13 = { text = "Ivette Greenleaf", table = "chara_text" }
+chara_face_13_short = { text = "Ivette", table = "chara_text" }
+chara_face_13_upper = { text = "IVETTE", table = "chara_text" }
+chara_face_14 = { text = "Brynn Swanson", table = "chara_text" }
+chara_face_14_short = { text = "Brynn", table = "chara_text" }
+chara_face_14_upper = { text = "BRYNN", table = "chara_text" }
+chara_face_15 = { text = "Torvald Craggs", table = "chara_text" }
+chara_face_15_short = { text = "Torvald", table = "chara_text" }
+chara_face_15_upper = { text = "TORVALD", table = "chara_text" }
+chara_face_16 = { text = "Ridge Calloway", table = "chara_text" }
+chara_face_16_short = { text = "Ridge", table = "chara_text" }
+chara_face_16_upper = { text = "RIDGE", table = "chara_text" }
+chara_face_17 = { text = "Wren Halloway", table = "chara_text" }
+chara_face_17_short = { text = "Wren", table = "chara_text" }
+chara_face_17_upper = { text = "WREN", table = "chara_text" }
+chara_face_18 = { text = "Rubina Kindell", table = "chara_text" }
+chara_face_18_short = { text = "Rubina", table = "chara_text" }
+chara_face_18_upper = { text = "RUBINA", table = "chara_text" }
+chara_face_19 = { text = "Basil Thornton", table = "chara_text" }
+chara_face_19_short = { text = "Basil", table = "chara_text" }
+chara_face_19_upper = { text = "BASIL", table = "chara_text" }
+chara_face_20 = { text = "Marina Seabright", table = "chara_text" }
+chara_face_20_short = { text = "Marina", table = "chara_text" }
+chara_face_20_upper = { text = "MARINA", table = "chara_text" }
+chara_face_21 = { text = "Bram Reefe", table = "chara_text" }
+chara_face_21_short = { text = "Bram", table = "chara_text" }
+chara_face_21_upper = { text = "BRAM", table = "chara_text" }
+chara_face_22 = { text = "Cyra Skyler", table = "chara_text" }
+chara_face_22_short = { text = "Cyra", table = "chara_text" }
+chara_face_22_upper = { text = "CYRA", table = "chara_text" }
+chara_face_23 = { text = "Maple Lunden", table = "chara_text" }
+chara_face_23_short = { text = "Maple", table = "chara_text" }
+chara_face_23_upper = { text = "MAPLE", table = "chara_text" }
+chara_face_24 = { text = "Solana Radcliffe", table = "chara_text" }
+chara_face_24_short = { text = "Solana", table = "chara_text" }
+chara_face_24_upper = { text = "SOLANA", table = "chara_text" }
+chara_face_25 = { text = "Elowen Woodbury", table = "chara_text" }
+chara_face_25_short = { text = "Elowen", table = "chara_text" }
+chara_face_25_upper = { text = "ELOWEN", table = "chara_text" }
+chara_face_34 = { text = "Paramedic 2", table = "chara_text" }
+chara_face_35 = { text = "Paramedic 1", table = "chara_text" }
+chara_face_36 = { text = "Referee", table = "chara_text" }
+chara_face_37 = { text = "Royal Academy Player", table = "chara_text" }
+chara_face_38 = { text = "Unknown Man", table = "chara_text" }
+chara_face_39 = { text = "South Cirrus (Past) A", table = "chara_text" }
+chara_face_40 = { text = "South Cirrus (Past) B", table = "chara_text" }
+chara_face_41 = { text = "South Cirrus (Past) C", table = "chara_text" }
+chara_face_42 = { text = "South Cirrus (Past) D", table = "chara_text" }
+chara_face_43 = { text = "South Cirrus (Past) E", table = "chara_text" }
+chara_face_44 = { text = "South Cirrus (Past) F", table = "chara_text" }
+chara_face_45 = { text = "South Cirrus (Past) G", table = "chara_text" }
+chara_face_46 = { text = "South Cirrus (Past) H", table = "chara_text" }
+chara_face_47 = { text = "South Cirrus (Past) I", table = "chara_text" }
+chara_face_48 = { text = "South Cirrus (Past) J", table = "chara_text" }
+chara_face_49 = { text = "South Cirrus (Past) K", table = "chara_text" }
+chara_face_50 = { text = "South Cirrus (Past) L", table = "chara_text" }
+chara_face_51 = { text = "South Cirrus (Past) M", table = "chara_text" }
+chara_face_52 = { text = "South Cirrus (Past) N", table = "chara_text" }
+chara_face_53 = { text = "South Cirrus (Past) O", table = "chara_text" }
+chara_face_54 = { text = "South Cirrus (Past) P", table = "chara_text" }
+universe_prize_pool_items = "Items"
+universe_prize_pool_techniques = "Special moves"
+universe_pool_empty = "No players are left to draw from this orb."
+universe_card_owned = "Already in your club"
 mod_name = "Chronicle Deluxe"
-mod_description = "More Chronicle mode: new matches on the IE1 Chronicle board and three chains from the original IE1 and IE2 (Sonny's Premium Route, Mary Times Coach's Route and Suzette's Mother's Route), with their rivals, chests and S / A / B ranks. Every Chronicle team has a Chronicle battle and a Heroica battle up to Lv 200, with the levels, moves and auras of its own game. Matches drop move manuals, boots, auras and the rival's crest and kit, and the free match offers Lv 50, 99 and 200 difficulties."
+mod_description = "More Chronicle mode: new matches on the IE1 board and three chains from the original IE1 and IE2 with their rivals, chests and ranks, plus a Chronicle battle and a Heroica battle up to Lv 200 for every team. Matches drop move manuals, boots, auras and the rival's kit, and the free match offers Lv 50, 99 and 200. Players Universe gives each character his own star, with daily advanced cards and new constellations on the map."
 
 [es.new]
+chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
+chara_face_01_short = { text = "Forrest", table = "chara_text" }
+chara_face_01_upper = { text = "FORREST", table = "chara_text" }
+chara_face_02 = { text = "Linnea Windsor", table = "chara_text" }
+chara_face_02_short = { text = "Linnea", table = "chara_text" }
+chara_face_02_upper = { text = "LINNEA", table = "chara_text" }
+chara_face_03 = { text = "Leif Hollins", table = "chara_text" }
+chara_face_03_short = { text = "Leif", table = "chara_text" }
+chara_face_03_upper = { text = "LEIF", table = "chara_text" }
+chara_face_04 = { text = "Corvin Falconer", table = "chara_text" }
+chara_face_04_short = { text = "Corvin", table = "chara_text" }
+chara_face_04_upper = { text = "CORVIN", table = "chara_text" }
+chara_face_05 = { text = "Sorrel Barrett", table = "chara_text" }
+chara_face_05_short = { text = "Sorrel", table = "chara_text" }
+chara_face_05_upper = { text = "SORREL", table = "chara_text" }
+chara_face_06 = { text = "Ferris Merrick", table = "chara_text" }
+chara_face_06_short = { text = "Ferris", table = "chara_text" }
+chara_face_06_upper = { text = "FERRIS", table = "chara_text" }
+chara_face_07 = { text = "Darby Dalton", table = "chara_text" }
+chara_face_07_short = { text = "Darby", table = "chara_text" }
+chara_face_07_upper = { text = "DARBY", table = "chara_text" }
+chara_face_08 = { text = "Cinder Ashby", table = "chara_text" }
+chara_face_08_short = { text = "Cinder", table = "chara_text" }
+chara_face_08_upper = { text = "CINDER", table = "chara_text" }
+chara_face_09 = { text = "Merle Stoneham", table = "chara_text" }
+chara_face_09_short = { text = "Merle", table = "chara_text" }
+chara_face_09_upper = { text = "MERLE", table = "chara_text" }
+chara_face_10 = { text = "Cloe Nimbley", table = "chara_text" }
+chara_face_10_short = { text = "Cloe", table = "chara_text" }
+chara_face_10_upper = { text = "CLOE", table = "chara_text" }
+chara_face_11 = { text = "Rosalind Rowan", table = "chara_text" }
+chara_face_11_short = { text = "Rosalind", table = "chara_text" }
+chara_face_11_upper = { text = "ROSALIND", table = "chara_text" }
+chara_face_12 = { text = "Emberly Rhodes", table = "chara_text" }
+chara_face_12_short = { text = "Emberly", table = "chara_text" }
+chara_face_12_upper = { text = "EMBERLY", table = "chara_text" }
+chara_face_13 = { text = "Ivette Greenleaf", table = "chara_text" }
+chara_face_13_short = { text = "Ivette", table = "chara_text" }
+chara_face_13_upper = { text = "IVETTE", table = "chara_text" }
+chara_face_14 = { text = "Brynn Swanson", table = "chara_text" }
+chara_face_14_short = { text = "Brynn", table = "chara_text" }
+chara_face_14_upper = { text = "BRYNN", table = "chara_text" }
+chara_face_15 = { text = "Torvald Craggs", table = "chara_text" }
+chara_face_15_short = { text = "Torvald", table = "chara_text" }
+chara_face_15_upper = { text = "TORVALD", table = "chara_text" }
+chara_face_16 = { text = "Ridge Calloway", table = "chara_text" }
+chara_face_16_short = { text = "Ridge", table = "chara_text" }
+chara_face_16_upper = { text = "RIDGE", table = "chara_text" }
+chara_face_17 = { text = "Wren Halloway", table = "chara_text" }
+chara_face_17_short = { text = "Wren", table = "chara_text" }
+chara_face_17_upper = { text = "WREN", table = "chara_text" }
+chara_face_18 = { text = "Rubina Kindell", table = "chara_text" }
+chara_face_18_short = { text = "Rubina", table = "chara_text" }
+chara_face_18_upper = { text = "RUBINA", table = "chara_text" }
+chara_face_19 = { text = "Basil Thornton", table = "chara_text" }
+chara_face_19_short = { text = "Basil", table = "chara_text" }
+chara_face_19_upper = { text = "BASIL", table = "chara_text" }
+chara_face_20 = { text = "Marina Seabright", table = "chara_text" }
+chara_face_20_short = { text = "Marina", table = "chara_text" }
+chara_face_20_upper = { text = "MARINA", table = "chara_text" }
+chara_face_21 = { text = "Bram Reefe", table = "chara_text" }
+chara_face_21_short = { text = "Bram", table = "chara_text" }
+chara_face_21_upper = { text = "BRAM", table = "chara_text" }
+chara_face_22 = { text = "Cyra Skyler", table = "chara_text" }
+chara_face_22_short = { text = "Cyra", table = "chara_text" }
+chara_face_22_upper = { text = "CYRA", table = "chara_text" }
+chara_face_23 = { text = "Maple Lunden", table = "chara_text" }
+chara_face_23_short = { text = "Maple", table = "chara_text" }
+chara_face_23_upper = { text = "MAPLE", table = "chara_text" }
+chara_face_24 = { text = "Solana Radcliffe", table = "chara_text" }
+chara_face_24_short = { text = "Solana", table = "chara_text" }
+chara_face_24_upper = { text = "SOLANA", table = "chara_text" }
+chara_face_25 = { text = "Elowen Woodbury", table = "chara_text" }
+chara_face_25_short = { text = "Elowen", table = "chara_text" }
+chara_face_25_upper = { text = "ELOWEN", table = "chara_text" }
+chara_face_34 = { text = "Sanitario 2", table = "chara_text" }
+chara_face_35 = { text = "Sanitario 1", table = "chara_text" }
+chara_face_36 = { text = "Árbitro", table = "chara_text" }
+chara_face_37 = { text = "Jugador de la Royal Academy", table = "chara_text" }
+chara_face_38 = { text = "Hombre desconocido", table = "chara_text" }
+chara_face_39 = { text = "South Cirrus (pasado) A", table = "chara_text" }
+chara_face_40 = { text = "South Cirrus (pasado) B", table = "chara_text" }
+chara_face_41 = { text = "South Cirrus (pasado) C", table = "chara_text" }
+chara_face_42 = { text = "South Cirrus (pasado) D", table = "chara_text" }
+chara_face_43 = { text = "South Cirrus (pasado) E", table = "chara_text" }
+chara_face_44 = { text = "South Cirrus (pasado) F", table = "chara_text" }
+chara_face_45 = { text = "South Cirrus (pasado) G", table = "chara_text" }
+chara_face_46 = { text = "South Cirrus (pasado) H", table = "chara_text" }
+chara_face_47 = { text = "South Cirrus (pasado) I", table = "chara_text" }
+chara_face_48 = { text = "South Cirrus (pasado) J", table = "chara_text" }
+chara_face_49 = { text = "South Cirrus (pasado) K", table = "chara_text" }
+chara_face_50 = { text = "South Cirrus (pasado) L", table = "chara_text" }
+chara_face_51 = { text = "South Cirrus (pasado) M", table = "chara_text" }
+chara_face_52 = { text = "South Cirrus (pasado) N", table = "chara_text" }
+chara_face_53 = { text = "South Cirrus (pasado) O", table = "chara_text" }
+chara_face_54 = { text = "South Cirrus (pasado) P", table = "chara_text" }
+universe_prize_pool_items = "Objetos"
+universe_prize_pool_techniques = "Supertécnicas"
+universe_pool_empty = "Ya no quedan jugadores por conseguir en este orbe."
+universe_card_owned = "Ya en tu club"
 mod_name = "Chronicle Deluxe"
-mod_description = "Más modo Crónica: partidos nuevos en el tablero de Crónica de IE1 y tres cadenas de los IE1 e IE2 originales (la Ruta prémium de Sonny, la Ruta del entrenador de Mary Times y la Ruta de la madre de Suzette), con sus rivales, cofres y rangos S / A / B. Cada equipo de Crónica tiene una batalla de Crónica y una Batalla heroica hasta Lv 200, con los niveles, técnicas y auras de su propio juego. Los partidos sueltan manuales de supertécnicas, botas, auras y el emblema y la equipación del rival, y el partido libre ofrece dificultades Lv 50, 99 y 200."
+mod_description = "Más modo Crónica: partidos nuevos en el tablero de IE1 y tres cadenas de los IE1 e IE2 originales con sus rivales, cofres y rangos, además de una batalla de Crónica y una Batalla heroica hasta Lv 200 para cada equipo. Los partidos sueltan manuales de supertécnicas, botas, auras y la equipación del rival, y el partido libre ofrece Lv 50, 99 y 200. El Universo del jugador da a cada personaje su propia estrella, con cartas avanzadas diarias y nuevas constelaciones en el mapa."
 
 [fr.new]
+chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
+chara_face_01_short = { text = "Forrest", table = "chara_text" }
+chara_face_01_upper = { text = "FORREST", table = "chara_text" }
+chara_face_02 = { text = "Linnea Windsor", table = "chara_text" }
+chara_face_02_short = { text = "Linnea", table = "chara_text" }
+chara_face_02_upper = { text = "LINNEA", table = "chara_text" }
+chara_face_03 = { text = "Leif Hollins", table = "chara_text" }
+chara_face_03_short = { text = "Leif", table = "chara_text" }
+chara_face_03_upper = { text = "LEIF", table = "chara_text" }
+chara_face_04 = { text = "Corvin Falconer", table = "chara_text" }
+chara_face_04_short = { text = "Corvin", table = "chara_text" }
+chara_face_04_upper = { text = "CORVIN", table = "chara_text" }
+chara_face_05 = { text = "Sorrel Barrett", table = "chara_text" }
+chara_face_05_short = { text = "Sorrel", table = "chara_text" }
+chara_face_05_upper = { text = "SORREL", table = "chara_text" }
+chara_face_06 = { text = "Ferris Merrick", table = "chara_text" }
+chara_face_06_short = { text = "Ferris", table = "chara_text" }
+chara_face_06_upper = { text = "FERRIS", table = "chara_text" }
+chara_face_07 = { text = "Darby Dalton", table = "chara_text" }
+chara_face_07_short = { text = "Darby", table = "chara_text" }
+chara_face_07_upper = { text = "DARBY", table = "chara_text" }
+chara_face_08 = { text = "Cinder Ashby", table = "chara_text" }
+chara_face_08_short = { text = "Cinder", table = "chara_text" }
+chara_face_08_upper = { text = "CINDER", table = "chara_text" }
+chara_face_09 = { text = "Merle Stoneham", table = "chara_text" }
+chara_face_09_short = { text = "Merle", table = "chara_text" }
+chara_face_09_upper = { text = "MERLE", table = "chara_text" }
+chara_face_10 = { text = "Cloe Nimbley", table = "chara_text" }
+chara_face_10_short = { text = "Cloe", table = "chara_text" }
+chara_face_10_upper = { text = "CLOE", table = "chara_text" }
+chara_face_11 = { text = "Rosalind Rowan", table = "chara_text" }
+chara_face_11_short = { text = "Rosalind", table = "chara_text" }
+chara_face_11_upper = { text = "ROSALIND", table = "chara_text" }
+chara_face_12 = { text = "Emberly Rhodes", table = "chara_text" }
+chara_face_12_short = { text = "Emberly", table = "chara_text" }
+chara_face_12_upper = { text = "EMBERLY", table = "chara_text" }
+chara_face_13 = { text = "Ivette Greenleaf", table = "chara_text" }
+chara_face_13_short = { text = "Ivette", table = "chara_text" }
+chara_face_13_upper = { text = "IVETTE", table = "chara_text" }
+chara_face_14 = { text = "Brynn Swanson", table = "chara_text" }
+chara_face_14_short = { text = "Brynn", table = "chara_text" }
+chara_face_14_upper = { text = "BRYNN", table = "chara_text" }
+chara_face_15 = { text = "Torvald Craggs", table = "chara_text" }
+chara_face_15_short = { text = "Torvald", table = "chara_text" }
+chara_face_15_upper = { text = "TORVALD", table = "chara_text" }
+chara_face_16 = { text = "Ridge Calloway", table = "chara_text" }
+chara_face_16_short = { text = "Ridge", table = "chara_text" }
+chara_face_16_upper = { text = "RIDGE", table = "chara_text" }
+chara_face_17 = { text = "Wren Halloway", table = "chara_text" }
+chara_face_17_short = { text = "Wren", table = "chara_text" }
+chara_face_17_upper = { text = "WREN", table = "chara_text" }
+chara_face_18 = { text = "Rubina Kindell", table = "chara_text" }
+chara_face_18_short = { text = "Rubina", table = "chara_text" }
+chara_face_18_upper = { text = "RUBINA", table = "chara_text" }
+chara_face_19 = { text = "Basil Thornton", table = "chara_text" }
+chara_face_19_short = { text = "Basil", table = "chara_text" }
+chara_face_19_upper = { text = "BASIL", table = "chara_text" }
+chara_face_20 = { text = "Marina Seabright", table = "chara_text" }
+chara_face_20_short = { text = "Marina", table = "chara_text" }
+chara_face_20_upper = { text = "MARINA", table = "chara_text" }
+chara_face_21 = { text = "Bram Reefe", table = "chara_text" }
+chara_face_21_short = { text = "Bram", table = "chara_text" }
+chara_face_21_upper = { text = "BRAM", table = "chara_text" }
+chara_face_22 = { text = "Cyra Skyler", table = "chara_text" }
+chara_face_22_short = { text = "Cyra", table = "chara_text" }
+chara_face_22_upper = { text = "CYRA", table = "chara_text" }
+chara_face_23 = { text = "Maple Lunden", table = "chara_text" }
+chara_face_23_short = { text = "Maple", table = "chara_text" }
+chara_face_23_upper = { text = "MAPLE", table = "chara_text" }
+chara_face_24 = { text = "Solana Radcliffe", table = "chara_text" }
+chara_face_24_short = { text = "Solana", table = "chara_text" }
+chara_face_24_upper = { text = "SOLANA", table = "chara_text" }
+chara_face_25 = { text = "Elowen Woodbury", table = "chara_text" }
+chara_face_25_short = { text = "Elowen", table = "chara_text" }
+chara_face_25_upper = { text = "ELOWEN", table = "chara_text" }
+chara_face_34 = { text = "Secouriste 2", table = "chara_text" }
+chara_face_35 = { text = "Secouriste 1", table = "chara_text" }
+chara_face_36 = { text = "Arbitre", table = "chara_text" }
+chara_face_37 = { text = "Joueur de la Royal Academy", table = "chara_text" }
+chara_face_38 = { text = "Inconnu", table = "chara_text" }
+chara_face_39 = { text = "Nagumohara (passé) A", table = "chara_text" }
+chara_face_40 = { text = "Nagumohara (passé) B", table = "chara_text" }
+chara_face_41 = { text = "Nagumohara (passé) C", table = "chara_text" }
+chara_face_42 = { text = "Nagumohara (passé) D", table = "chara_text" }
+chara_face_43 = { text = "Nagumohara (passé) E", table = "chara_text" }
+chara_face_44 = { text = "Nagumohara (passé) F", table = "chara_text" }
+chara_face_45 = { text = "Nagumohara (passé) G", table = "chara_text" }
+chara_face_46 = { text = "Nagumohara (passé) H", table = "chara_text" }
+chara_face_47 = { text = "Nagumohara (passé) I", table = "chara_text" }
+chara_face_48 = { text = "Nagumohara (passé) J", table = "chara_text" }
+chara_face_49 = { text = "Nagumohara (passé) K", table = "chara_text" }
+chara_face_50 = { text = "Nagumohara (passé) L", table = "chara_text" }
+chara_face_51 = { text = "Nagumohara (passé) M", table = "chara_text" }
+chara_face_52 = { text = "Nagumohara (passé) N", table = "chara_text" }
+chara_face_53 = { text = "Nagumohara (passé) O", table = "chara_text" }
+chara_face_54 = { text = "Nagumohara (passé) P", table = "chara_text" }
+universe_prize_pool_items = "Objets"
+universe_prize_pool_techniques = "Supertechniques"
+universe_pool_empty = "Il ne reste plus de joueurs à obtenir dans cet orbe."
+universe_card_owned = "Déjà dans ton club"
 mod_name = "Chronicle Deluxe"
-mod_description = "Plus de mode Chronique : de nouveaux matchs sur le plateau de Chronique d'IE1 et trois chaînes des IE1 et IE2 originaux (la Route premium de Sonny, la Route de l'entraîneur de Mary Times et la Route de la mère de Suzette), avec leurs rivaux, coffres et rangs S / A / B. Chaque équipe de Chronique a une bataille de Chronique et une Bataille héroïque jusqu'au Niv. 200, avec les niveaux, techniques et auras de son propre jeu. Les matchs donnent des manuels de supertechniques, des chaussures, des auras et l'emblème et le maillot du rival, et le match libre propose les difficultés Niv. 50, 99 et 200."
+mod_description = "Plus de mode Chronique : de nouveaux matchs sur le plateau d'IE1 et trois chaînes des IE1 et IE2 originaux avec leurs rivaux, coffres et rangs, plus une bataille de Chronique et une bataille héroïque jusqu'au Lv 200 pour chaque équipe. Les matchs font gagner des manuels de supertechniques, des chaussures, des auras et la tenue du rival, et le match libre propose Lv 50, 99 et 200. L'Univers des joueurs donne à chaque personnage sa propre étoile, avec des cartes avancées quotidiennes et de nouvelles constellations sur la carte."
 
 [de.new]
+chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
+chara_face_01_short = { text = "Forrest", table = "chara_text" }
+chara_face_01_upper = { text = "FORREST", table = "chara_text" }
+chara_face_02 = { text = "Linnea Windsor", table = "chara_text" }
+chara_face_02_short = { text = "Linnea", table = "chara_text" }
+chara_face_02_upper = { text = "LINNEA", table = "chara_text" }
+chara_face_03 = { text = "Leif Hollins", table = "chara_text" }
+chara_face_03_short = { text = "Leif", table = "chara_text" }
+chara_face_03_upper = { text = "LEIF", table = "chara_text" }
+chara_face_04 = { text = "Corvin Falconer", table = "chara_text" }
+chara_face_04_short = { text = "Corvin", table = "chara_text" }
+chara_face_04_upper = { text = "CORVIN", table = "chara_text" }
+chara_face_05 = { text = "Sorrel Barrett", table = "chara_text" }
+chara_face_05_short = { text = "Sorrel", table = "chara_text" }
+chara_face_05_upper = { text = "SORREL", table = "chara_text" }
+chara_face_06 = { text = "Ferris Merrick", table = "chara_text" }
+chara_face_06_short = { text = "Ferris", table = "chara_text" }
+chara_face_06_upper = { text = "FERRIS", table = "chara_text" }
+chara_face_07 = { text = "Darby Dalton", table = "chara_text" }
+chara_face_07_short = { text = "Darby", table = "chara_text" }
+chara_face_07_upper = { text = "DARBY", table = "chara_text" }
+chara_face_08 = { text = "Cinder Ashby", table = "chara_text" }
+chara_face_08_short = { text = "Cinder", table = "chara_text" }
+chara_face_08_upper = { text = "CINDER", table = "chara_text" }
+chara_face_09 = { text = "Merle Stoneham", table = "chara_text" }
+chara_face_09_short = { text = "Merle", table = "chara_text" }
+chara_face_09_upper = { text = "MERLE", table = "chara_text" }
+chara_face_10 = { text = "Cloe Nimbley", table = "chara_text" }
+chara_face_10_short = { text = "Cloe", table = "chara_text" }
+chara_face_10_upper = { text = "CLOE", table = "chara_text" }
+chara_face_11 = { text = "Rosalind Rowan", table = "chara_text" }
+chara_face_11_short = { text = "Rosalind", table = "chara_text" }
+chara_face_11_upper = { text = "ROSALIND", table = "chara_text" }
+chara_face_12 = { text = "Emberly Rhodes", table = "chara_text" }
+chara_face_12_short = { text = "Emberly", table = "chara_text" }
+chara_face_12_upper = { text = "EMBERLY", table = "chara_text" }
+chara_face_13 = { text = "Ivette Greenleaf", table = "chara_text" }
+chara_face_13_short = { text = "Ivette", table = "chara_text" }
+chara_face_13_upper = { text = "IVETTE", table = "chara_text" }
+chara_face_14 = { text = "Brynn Swanson", table = "chara_text" }
+chara_face_14_short = { text = "Brynn", table = "chara_text" }
+chara_face_14_upper = { text = "BRYNN", table = "chara_text" }
+chara_face_15 = { text = "Torvald Craggs", table = "chara_text" }
+chara_face_15_short = { text = "Torvald", table = "chara_text" }
+chara_face_15_upper = { text = "TORVALD", table = "chara_text" }
+chara_face_16 = { text = "Ridge Calloway", table = "chara_text" }
+chara_face_16_short = { text = "Ridge", table = "chara_text" }
+chara_face_16_upper = { text = "RIDGE", table = "chara_text" }
+chara_face_17 = { text = "Wren Halloway", table = "chara_text" }
+chara_face_17_short = { text = "Wren", table = "chara_text" }
+chara_face_17_upper = { text = "WREN", table = "chara_text" }
+chara_face_18 = { text = "Rubina Kindell", table = "chara_text" }
+chara_face_18_short = { text = "Rubina", table = "chara_text" }
+chara_face_18_upper = { text = "RUBINA", table = "chara_text" }
+chara_face_19 = { text = "Basil Thornton", table = "chara_text" }
+chara_face_19_short = { text = "Basil", table = "chara_text" }
+chara_face_19_upper = { text = "BASIL", table = "chara_text" }
+chara_face_20 = { text = "Marina Seabright", table = "chara_text" }
+chara_face_20_short = { text = "Marina", table = "chara_text" }
+chara_face_20_upper = { text = "MARINA", table = "chara_text" }
+chara_face_21 = { text = "Bram Reefe", table = "chara_text" }
+chara_face_21_short = { text = "Bram", table = "chara_text" }
+chara_face_21_upper = { text = "BRAM", table = "chara_text" }
+chara_face_22 = { text = "Cyra Skyler", table = "chara_text" }
+chara_face_22_short = { text = "Cyra", table = "chara_text" }
+chara_face_22_upper = { text = "CYRA", table = "chara_text" }
+chara_face_23 = { text = "Maple Lunden", table = "chara_text" }
+chara_face_23_short = { text = "Maple", table = "chara_text" }
+chara_face_23_upper = { text = "MAPLE", table = "chara_text" }
+chara_face_24 = { text = "Solana Radcliffe", table = "chara_text" }
+chara_face_24_short = { text = "Solana", table = "chara_text" }
+chara_face_24_upper = { text = "SOLANA", table = "chara_text" }
+chara_face_25 = { text = "Elowen Woodbury", table = "chara_text" }
+chara_face_25_short = { text = "Elowen", table = "chara_text" }
+chara_face_25_upper = { text = "ELOWEN", table = "chara_text" }
+chara_face_34 = { text = "Sanitäter 2", table = "chara_text" }
+chara_face_35 = { text = "Sanitäter 1", table = "chara_text" }
+chara_face_36 = { text = "Schiedsrichter", table = "chara_text" }
+chara_face_37 = { text = "Royal-Academy-Spieler", table = "chara_text" }
+chara_face_38 = { text = "Unbekannter", table = "chara_text" }
+chara_face_39 = { text = "South Cirrus (früher) A", table = "chara_text" }
+chara_face_40 = { text = "South Cirrus (früher) B", table = "chara_text" }
+chara_face_41 = { text = "South Cirrus (früher) C", table = "chara_text" }
+chara_face_42 = { text = "South Cirrus (früher) D", table = "chara_text" }
+chara_face_43 = { text = "South Cirrus (früher) E", table = "chara_text" }
+chara_face_44 = { text = "South Cirrus (früher) F", table = "chara_text" }
+chara_face_45 = { text = "South Cirrus (früher) G", table = "chara_text" }
+chara_face_46 = { text = "South Cirrus (früher) H", table = "chara_text" }
+chara_face_47 = { text = "South Cirrus (früher) I", table = "chara_text" }
+chara_face_48 = { text = "South Cirrus (früher) J", table = "chara_text" }
+chara_face_49 = { text = "South Cirrus (früher) K", table = "chara_text" }
+chara_face_50 = { text = "South Cirrus (früher) L", table = "chara_text" }
+chara_face_51 = { text = "South Cirrus (früher) M", table = "chara_text" }
+chara_face_52 = { text = "South Cirrus (früher) N", table = "chara_text" }
+chara_face_53 = { text = "South Cirrus (früher) O", table = "chara_text" }
+chara_face_54 = { text = "South Cirrus (früher) P", table = "chara_text" }
+universe_prize_pool_items = "Gegenstände"
+universe_prize_pool_techniques = "Spezialtechniken"
+universe_pool_empty = "In dieser Kugel sind keine Spieler mehr zu erhalten."
+universe_card_owned = "Schon in deinem Verein"
 mod_name = "Chronicle Deluxe"
-mod_description = "Mehr Chronik-Modus: neue Spiele auf dem Chronik-Brett von IE1 und drei Ketten aus dem originalen IE1 und IE2 (Sonnys Premium-Route, die Route von Mary Times' Trainer und die Route von Suzettes Mutter) mit ihren Rivalen, Truhen und den Rängen S / A / B. Jedes Chronik-Team hat einen Chronik-Kampf und einen Heldenkampf bis Lv 200, mit den Leveln, Techniken und Auren seines eigenen Spiels. Die Spiele liefern Anleitungen für Spezialtechniken, Schuhe, Auren sowie Emblem und Trikot des Rivalen, und das freie Spiel bietet die Schwierigkeiten Lv 50, 99 und 200."
+mod_description = "Mehr Chronik-Modus: neue Spiele auf dem Brett von IE1 und drei Ketten aus dem originalen IE1 und IE2 mit ihren Rivalen, Truhen und Rängen, dazu für jedes Team einen Chronik-Kampf und einen Heldenkampf bis Lv 200. Spiele bringen Technik-Handbücher, Schuhe, Auren und das Trikot des Rivalen, und das freie Spiel bietet Lv 50, 99 und 200. Das Spieler-Universum gibt jedem Charakter seinen eigenen Stern, mit täglichen fortgeschrittenen Karten und neuen Sternbildern auf der Karte."
 
 [it.new]
+chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
+chara_face_01_short = { text = "Forrest", table = "chara_text" }
+chara_face_01_upper = { text = "FORREST", table = "chara_text" }
+chara_face_02 = { text = "Linnea Windsor", table = "chara_text" }
+chara_face_02_short = { text = "Linnea", table = "chara_text" }
+chara_face_02_upper = { text = "LINNEA", table = "chara_text" }
+chara_face_03 = { text = "Leif Hollins", table = "chara_text" }
+chara_face_03_short = { text = "Leif", table = "chara_text" }
+chara_face_03_upper = { text = "LEIF", table = "chara_text" }
+chara_face_04 = { text = "Corvin Falconer", table = "chara_text" }
+chara_face_04_short = { text = "Corvin", table = "chara_text" }
+chara_face_04_upper = { text = "CORVIN", table = "chara_text" }
+chara_face_05 = { text = "Sorrel Barrett", table = "chara_text" }
+chara_face_05_short = { text = "Sorrel", table = "chara_text" }
+chara_face_05_upper = { text = "SORREL", table = "chara_text" }
+chara_face_06 = { text = "Ferris Merrick", table = "chara_text" }
+chara_face_06_short = { text = "Ferris", table = "chara_text" }
+chara_face_06_upper = { text = "FERRIS", table = "chara_text" }
+chara_face_07 = { text = "Darby Dalton", table = "chara_text" }
+chara_face_07_short = { text = "Darby", table = "chara_text" }
+chara_face_07_upper = { text = "DARBY", table = "chara_text" }
+chara_face_08 = { text = "Cinder Ashby", table = "chara_text" }
+chara_face_08_short = { text = "Cinder", table = "chara_text" }
+chara_face_08_upper = { text = "CINDER", table = "chara_text" }
+chara_face_09 = { text = "Merle Stoneham", table = "chara_text" }
+chara_face_09_short = { text = "Merle", table = "chara_text" }
+chara_face_09_upper = { text = "MERLE", table = "chara_text" }
+chara_face_10 = { text = "Cloe Nimbley", table = "chara_text" }
+chara_face_10_short = { text = "Cloe", table = "chara_text" }
+chara_face_10_upper = { text = "CLOE", table = "chara_text" }
+chara_face_11 = { text = "Rosalind Rowan", table = "chara_text" }
+chara_face_11_short = { text = "Rosalind", table = "chara_text" }
+chara_face_11_upper = { text = "ROSALIND", table = "chara_text" }
+chara_face_12 = { text = "Emberly Rhodes", table = "chara_text" }
+chara_face_12_short = { text = "Emberly", table = "chara_text" }
+chara_face_12_upper = { text = "EMBERLY", table = "chara_text" }
+chara_face_13 = { text = "Ivette Greenleaf", table = "chara_text" }
+chara_face_13_short = { text = "Ivette", table = "chara_text" }
+chara_face_13_upper = { text = "IVETTE", table = "chara_text" }
+chara_face_14 = { text = "Brynn Swanson", table = "chara_text" }
+chara_face_14_short = { text = "Brynn", table = "chara_text" }
+chara_face_14_upper = { text = "BRYNN", table = "chara_text" }
+chara_face_15 = { text = "Torvald Craggs", table = "chara_text" }
+chara_face_15_short = { text = "Torvald", table = "chara_text" }
+chara_face_15_upper = { text = "TORVALD", table = "chara_text" }
+chara_face_16 = { text = "Ridge Calloway", table = "chara_text" }
+chara_face_16_short = { text = "Ridge", table = "chara_text" }
+chara_face_16_upper = { text = "RIDGE", table = "chara_text" }
+chara_face_17 = { text = "Wren Halloway", table = "chara_text" }
+chara_face_17_short = { text = "Wren", table = "chara_text" }
+chara_face_17_upper = { text = "WREN", table = "chara_text" }
+chara_face_18 = { text = "Rubina Kindell", table = "chara_text" }
+chara_face_18_short = { text = "Rubina", table = "chara_text" }
+chara_face_18_upper = { text = "RUBINA", table = "chara_text" }
+chara_face_19 = { text = "Basil Thornton", table = "chara_text" }
+chara_face_19_short = { text = "Basil", table = "chara_text" }
+chara_face_19_upper = { text = "BASIL", table = "chara_text" }
+chara_face_20 = { text = "Marina Seabright", table = "chara_text" }
+chara_face_20_short = { text = "Marina", table = "chara_text" }
+chara_face_20_upper = { text = "MARINA", table = "chara_text" }
+chara_face_21 = { text = "Bram Reefe", table = "chara_text" }
+chara_face_21_short = { text = "Bram", table = "chara_text" }
+chara_face_21_upper = { text = "BRAM", table = "chara_text" }
+chara_face_22 = { text = "Cyra Skyler", table = "chara_text" }
+chara_face_22_short = { text = "Cyra", table = "chara_text" }
+chara_face_22_upper = { text = "CYRA", table = "chara_text" }
+chara_face_23 = { text = "Maple Lunden", table = "chara_text" }
+chara_face_23_short = { text = "Maple", table = "chara_text" }
+chara_face_23_upper = { text = "MAPLE", table = "chara_text" }
+chara_face_24 = { text = "Solana Radcliffe", table = "chara_text" }
+chara_face_24_short = { text = "Solana", table = "chara_text" }
+chara_face_24_upper = { text = "SOLANA", table = "chara_text" }
+chara_face_25 = { text = "Elowen Woodbury", table = "chara_text" }
+chara_face_25_short = { text = "Elowen", table = "chara_text" }
+chara_face_25_upper = { text = "ELOWEN", table = "chara_text" }
+chara_face_34 = { text = "Soccorritore 2", table = "chara_text" }
+chara_face_35 = { text = "Soccorritore 1", table = "chara_text" }
+chara_face_36 = { text = "Arbitro", table = "chara_text" }
+chara_face_37 = { text = "Giocatore della Royal Academy", table = "chara_text" }
+chara_face_38 = { text = "Sconosciuto", table = "chara_text" }
+chara_face_39 = { text = "South Cirrus (passato) A", table = "chara_text" }
+chara_face_40 = { text = "South Cirrus (passato) B", table = "chara_text" }
+chara_face_41 = { text = "South Cirrus (passato) C", table = "chara_text" }
+chara_face_42 = { text = "South Cirrus (passato) D", table = "chara_text" }
+chara_face_43 = { text = "South Cirrus (passato) E", table = "chara_text" }
+chara_face_44 = { text = "South Cirrus (passato) F", table = "chara_text" }
+chara_face_45 = { text = "South Cirrus (passato) G", table = "chara_text" }
+chara_face_46 = { text = "South Cirrus (passato) H", table = "chara_text" }
+chara_face_47 = { text = "South Cirrus (passato) I", table = "chara_text" }
+chara_face_48 = { text = "South Cirrus (passato) J", table = "chara_text" }
+chara_face_49 = { text = "South Cirrus (passato) K", table = "chara_text" }
+chara_face_50 = { text = "South Cirrus (passato) L", table = "chara_text" }
+chara_face_51 = { text = "South Cirrus (passato) M", table = "chara_text" }
+chara_face_52 = { text = "South Cirrus (passato) N", table = "chara_text" }
+chara_face_53 = { text = "South Cirrus (passato) O", table = "chara_text" }
+chara_face_54 = { text = "South Cirrus (passato) P", table = "chara_text" }
+universe_prize_pool_items = "Oggetti"
+universe_prize_pool_techniques = "Supertecniche"
+universe_pool_empty = "Non ci sono più giocatori da ottenere in questa sfera."
+universe_card_owned = "Già nel tuo club"
 mod_name = "Chronicle Deluxe"
-mod_description = "Più modalità Cronaca: nuove partite sul tabellone della Cronaca di IE1 e tre catene dagli IE1 e IE2 originali (il Percorso premium di Sonny, il Percorso dell'allenatore di Mary Times e il Percorso della madre di Suzette), con i loro rivali, forzieri e rank S / A / B. Ogni squadra della Cronaca ha una battaglia di Cronaca e una Battaglia eroica fino a Lv 200, con i livelli, le tecniche e le aure del proprio gioco. Le partite lasciano manuali di supertecniche, scarpe, aure e lo stemma e la divisa del rivale, e la partita libera offre le difficoltà Lv 50, 99 e 200."
+mod_description = "Più modalità Cronaca: nuove partite sul tabellone di IE1 e tre catene dagli IE1 e IE2 originali con i loro rivali, forzieri e rank, più una battaglia di Cronaca e una battaglia eroica fino al Lv 200 per ogni squadra. Le partite fanno ottenere manuali di supertecniche, scarpe, aure e la divisa del rivale, e la partita libera offre Lv 50, 99 e 200. L'Universo dei giocatori dà a ogni personaggio la sua stella, con carte avanzate giornaliere e nuove costellazioni sulla mappa."
 
 [pt.new]
+chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
+chara_face_01_short = { text = "Forrest", table = "chara_text" }
+chara_face_01_upper = { text = "FORREST", table = "chara_text" }
+chara_face_02 = { text = "Linnea Windsor", table = "chara_text" }
+chara_face_02_short = { text = "Linnea", table = "chara_text" }
+chara_face_02_upper = { text = "LINNEA", table = "chara_text" }
+chara_face_03 = { text = "Leif Hollins", table = "chara_text" }
+chara_face_03_short = { text = "Leif", table = "chara_text" }
+chara_face_03_upper = { text = "LEIF", table = "chara_text" }
+chara_face_04 = { text = "Corvin Falconer", table = "chara_text" }
+chara_face_04_short = { text = "Corvin", table = "chara_text" }
+chara_face_04_upper = { text = "CORVIN", table = "chara_text" }
+chara_face_05 = { text = "Sorrel Barrett", table = "chara_text" }
+chara_face_05_short = { text = "Sorrel", table = "chara_text" }
+chara_face_05_upper = { text = "SORREL", table = "chara_text" }
+chara_face_06 = { text = "Ferris Merrick", table = "chara_text" }
+chara_face_06_short = { text = "Ferris", table = "chara_text" }
+chara_face_06_upper = { text = "FERRIS", table = "chara_text" }
+chara_face_07 = { text = "Darby Dalton", table = "chara_text" }
+chara_face_07_short = { text = "Darby", table = "chara_text" }
+chara_face_07_upper = { text = "DARBY", table = "chara_text" }
+chara_face_08 = { text = "Cinder Ashby", table = "chara_text" }
+chara_face_08_short = { text = "Cinder", table = "chara_text" }
+chara_face_08_upper = { text = "CINDER", table = "chara_text" }
+chara_face_09 = { text = "Merle Stoneham", table = "chara_text" }
+chara_face_09_short = { text = "Merle", table = "chara_text" }
+chara_face_09_upper = { text = "MERLE", table = "chara_text" }
+chara_face_10 = { text = "Cloe Nimbley", table = "chara_text" }
+chara_face_10_short = { text = "Cloe", table = "chara_text" }
+chara_face_10_upper = { text = "CLOE", table = "chara_text" }
+chara_face_11 = { text = "Rosalind Rowan", table = "chara_text" }
+chara_face_11_short = { text = "Rosalind", table = "chara_text" }
+chara_face_11_upper = { text = "ROSALIND", table = "chara_text" }
+chara_face_12 = { text = "Emberly Rhodes", table = "chara_text" }
+chara_face_12_short = { text = "Emberly", table = "chara_text" }
+chara_face_12_upper = { text = "EMBERLY", table = "chara_text" }
+chara_face_13 = { text = "Ivette Greenleaf", table = "chara_text" }
+chara_face_13_short = { text = "Ivette", table = "chara_text" }
+chara_face_13_upper = { text = "IVETTE", table = "chara_text" }
+chara_face_14 = { text = "Brynn Swanson", table = "chara_text" }
+chara_face_14_short = { text = "Brynn", table = "chara_text" }
+chara_face_14_upper = { text = "BRYNN", table = "chara_text" }
+chara_face_15 = { text = "Torvald Craggs", table = "chara_text" }
+chara_face_15_short = { text = "Torvald", table = "chara_text" }
+chara_face_15_upper = { text = "TORVALD", table = "chara_text" }
+chara_face_16 = { text = "Ridge Calloway", table = "chara_text" }
+chara_face_16_short = { text = "Ridge", table = "chara_text" }
+chara_face_16_upper = { text = "RIDGE", table = "chara_text" }
+chara_face_17 = { text = "Wren Halloway", table = "chara_text" }
+chara_face_17_short = { text = "Wren", table = "chara_text" }
+chara_face_17_upper = { text = "WREN", table = "chara_text" }
+chara_face_18 = { text = "Rubina Kindell", table = "chara_text" }
+chara_face_18_short = { text = "Rubina", table = "chara_text" }
+chara_face_18_upper = { text = "RUBINA", table = "chara_text" }
+chara_face_19 = { text = "Basil Thornton", table = "chara_text" }
+chara_face_19_short = { text = "Basil", table = "chara_text" }
+chara_face_19_upper = { text = "BASIL", table = "chara_text" }
+chara_face_20 = { text = "Marina Seabright", table = "chara_text" }
+chara_face_20_short = { text = "Marina", table = "chara_text" }
+chara_face_20_upper = { text = "MARINA", table = "chara_text" }
+chara_face_21 = { text = "Bram Reefe", table = "chara_text" }
+chara_face_21_short = { text = "Bram", table = "chara_text" }
+chara_face_21_upper = { text = "BRAM", table = "chara_text" }
+chara_face_22 = { text = "Cyra Skyler", table = "chara_text" }
+chara_face_22_short = { text = "Cyra", table = "chara_text" }
+chara_face_22_upper = { text = "CYRA", table = "chara_text" }
+chara_face_23 = { text = "Maple Lunden", table = "chara_text" }
+chara_face_23_short = { text = "Maple", table = "chara_text" }
+chara_face_23_upper = { text = "MAPLE", table = "chara_text" }
+chara_face_24 = { text = "Solana Radcliffe", table = "chara_text" }
+chara_face_24_short = { text = "Solana", table = "chara_text" }
+chara_face_24_upper = { text = "SOLANA", table = "chara_text" }
+chara_face_25 = { text = "Elowen Woodbury", table = "chara_text" }
+chara_face_25_short = { text = "Elowen", table = "chara_text" }
+chara_face_25_upper = { text = "ELOWEN", table = "chara_text" }
+chara_face_34 = { text = "Socorrista 2", table = "chara_text" }
+chara_face_35 = { text = "Socorrista 1", table = "chara_text" }
+chara_face_36 = { text = "Árbitro", table = "chara_text" }
+chara_face_37 = { text = "Jogador do Instituto Imperial", table = "chara_text" }
+chara_face_38 = { text = "Desconhecido", table = "chara_text" }
+chara_face_39 = { text = "Nagumohara (passado) A", table = "chara_text" }
+chara_face_40 = { text = "Nagumohara (passado) B", table = "chara_text" }
+chara_face_41 = { text = "Nagumohara (passado) C", table = "chara_text" }
+chara_face_42 = { text = "Nagumohara (passado) D", table = "chara_text" }
+chara_face_43 = { text = "Nagumohara (passado) E", table = "chara_text" }
+chara_face_44 = { text = "Nagumohara (passado) F", table = "chara_text" }
+chara_face_45 = { text = "Nagumohara (passado) G", table = "chara_text" }
+chara_face_46 = { text = "Nagumohara (passado) H", table = "chara_text" }
+chara_face_47 = { text = "Nagumohara (passado) I", table = "chara_text" }
+chara_face_48 = { text = "Nagumohara (passado) J", table = "chara_text" }
+chara_face_49 = { text = "Nagumohara (passado) K", table = "chara_text" }
+chara_face_50 = { text = "Nagumohara (passado) L", table = "chara_text" }
+chara_face_51 = { text = "Nagumohara (passado) M", table = "chara_text" }
+chara_face_52 = { text = "Nagumohara (passado) N", table = "chara_text" }
+chara_face_53 = { text = "Nagumohara (passado) O", table = "chara_text" }
+chara_face_54 = { text = "Nagumohara (passado) P", table = "chara_text" }
+universe_prize_pool_items = "Objetos"
+universe_prize_pool_techniques = "Supertécnicas"
+universe_pool_empty = "Já não há jogadores para obter nesta orbe."
+universe_card_owned = "Já está no teu clube"
 mod_name = "Chronicle Deluxe"
-mod_description = "Mais modo Crónica: jogos novos no tabuleiro da Crónica do IE1 e três cadeias dos IE1 e IE2 originais (a Rota premium de Sonny, a Rota do treinador de Mary Times e a Rota da mãe de Suzette), com os seus rivais, baús e classificações S / A / B. Cada equipa da Crónica tem uma batalha de Crónica e uma Batalha heroica até ao Nv. 200, com os níveis, técnicas e auras do seu próprio jogo. Os jogos deixam manuais de supertécnicas, chuteiras, auras e o emblema e o equipamento do rival, e o jogo livre oferece as dificuldades Nv. 50, 99 e 200."
+mod_description = "Mais modo Crónica: jogos novos no tabuleiro do IE1 e três cadeias dos IE1 e IE2 originais com os seus rivais, baús e classificações, mais uma batalha de Crónica e uma Batalha heroica até ao Nv. 200 para cada equipa. Os jogos dão manuais de supertécnicas, chuteiras, auras e o equipamento do rival, e o jogo livre oferece Nv. 50, 99 e 200. O Universo dos jogadores dá a cada personagem a sua própria estrela, com cartas avançadas diárias e novas constelações no mapa."
 
 [ja.new]
+chara_face_01 = { text = "[森河/もりかわ] [樹/いつき]", table = "chara_text" }
+chara_face_01_short = { text = "[森河/もりかわ]", table = "chara_text" }
+chara_face_01_upper = { text = "MORIKAWA", table = "chara_text" }
+chara_face_02 = { text = "[風早/かざはや] [小春/こはる]", table = "chara_text" }
+chara_face_02_short = { text = "[風早/かざはや]", table = "chara_text" }
+chara_face_02_upper = { text = "KAZAHAYA", table = "chara_text" }
+chara_face_03 = { text = "[葉山/はやま] [大地/だいち]", table = "chara_text" }
+chara_face_03_short = { text = "[葉山/はやま]", table = "chara_text" }
+chara_face_03_upper = { text = "HAYAMA", table = "chara_text" }
+chara_face_04 = { text = "[鷹野/たかの] [迅/じん]", table = "chara_text" }
+chara_face_04_short = { text = "[鷹野/たかの]", table = "chara_text" }
+chara_face_04_upper = { text = "TAKANO", table = "chara_text" }
+chara_face_05 = { text = "[嵐田/あらしだ] [剛/ごう]", table = "chara_text" }
+chara_face_05_short = { text = "[嵐田/あらしだ]", table = "chara_text" }
+chara_face_05_upper = { text = "ARASHIDA", table = "chara_text" }
+chara_face_06 = { text = "[天宮/あまみや] [翔/しょう]", table = "chara_text" }
+chara_face_06_short = { text = "[天宮/あまみや]", table = "chara_text" }
+chara_face_06_upper = { text = "AMAMIYA", table = "chara_text" }
+chara_face_07 = { text = "[鳥羽/とば] [颯太/そうた]", table = "chara_text" }
+chara_face_07_short = { text = "[鳥羽/とば]", table = "chara_text" }
+chara_face_07_upper = { text = "TOBA", table = "chara_text" }
+chara_face_08 = { text = "[火野/ひの] [烈/れつ]", table = "chara_text" }
+chara_face_08_short = { text = "[火野/ひの]", table = "chara_text" }
+chara_face_08_upper = { text = "HINO", table = "chara_text" }
+chara_face_09 = { text = "[岩鞍/いわくら] [守/まもる]", table = "chara_text" }
+chara_face_09_short = { text = "[岩鞍/いわくら]", table = "chara_text" }
+chara_face_09_upper = { text = "IWAKURA", table = "chara_text" }
+chara_face_10 = { text = "[雲井/くもい] [日和/ひより]", table = "chara_text" }
+chara_face_10_short = { text = "[雲井/くもい]", table = "chara_text" }
+chara_face_10_upper = { text = "KUMOI", table = "chara_text" }
+chara_face_11 = { text = "[紅林/くればやし] [茜/あかね]", table = "chara_text" }
+chara_face_11_short = { text = "[紅林/くればやし]", table = "chara_text" }
+chara_face_11_upper = { text = "KUREBAYASHI", table = "chara_text" }
+chara_face_12 = { text = "[緋村/ひむら] [焔/ほむら]", table = "chara_text" }
+chara_face_12_short = { text = "[緋村/ひむら]", table = "chara_text" }
+chara_face_12_upper = { text = "HIMURA", table = "chara_text" }
+chara_face_13 = { text = "[若苗/わかなえ] [翠/みどり]", table = "chara_text" }
+chara_face_13_short = { text = "[若苗/わかなえ]", table = "chara_text" }
+chara_face_13_upper = { text = "WAKANAE", table = "chara_text" }
+chara_face_14 = { text = "[白羽/しらは] [鈴/すず]", table = "chara_text" }
+chara_face_14_short = { text = "[白羽/しらは]", table = "chara_text" }
+chara_face_14_upper = { text = "SHIRAHA", table = "chara_text" }
+chara_face_15 = { text = "[岳山/たけやま] [鉄平/てっぺい]", table = "chara_text" }
+chara_face_15_short = { text = "[岳山/たけやま]", table = "chara_text" }
+chara_face_15_upper = { text = "TAKEYAMA", table = "chara_text" }
+chara_face_16 = { text = "[峰岸/みねぎし] [拓海/たくみ]", table = "chara_text" }
+chara_face_16_short = { text = "[峰岸/みねぎし]", table = "chara_text" }
+chara_face_16_upper = { text = "MINEGISHI", table = "chara_text" }
+chara_face_17 = { text = "[風花/かざはな] [結衣/ゆい]", table = "chara_text" }
+chara_face_17_short = { text = "[風花/かざはな]", table = "chara_text" }
+chara_face_17_upper = { text = "KAZAHANA", table = "chara_text" }
+chara_face_18 = { text = "[炎城/えんじょう] [凛/りん]", table = "chara_text" }
+chara_face_18_short = { text = "[炎城/えんじょう]", table = "chara_text" }
+chara_face_18_upper = { text = "ENJO", table = "chara_text" }
+chara_face_19 = { text = "[青木/あおき] [蒼/そう]", table = "chara_text" }
+chara_face_19_short = { text = "[青木/あおき]", table = "chara_text" }
+chara_face_19_upper = { text = "AOKI", table = "chara_text" }
+chara_face_20 = { text = "[汐見/しおみ] [渚/なぎさ]", table = "chara_text" }
+chara_face_20_short = { text = "[汐見/しおみ]", table = "chara_text" }
+chara_face_20_upper = { text = "SHIOMI", table = "chara_text" }
+chara_face_21 = { text = "[磯辺/いそべ] [岩男/いわお]", table = "chara_text" }
+chara_face_21_short = { text = "[磯辺/いそべ]", table = "chara_text" }
+chara_face_21_upper = { text = "ISOBE", table = "chara_text" }
+chara_face_22 = { text = "[星宮/ほしみや] [空/そら]", table = "chara_text" }
+chara_face_22_short = { text = "[星宮/ほしみや]", table = "chara_text" }
+chara_face_22_upper = { text = "HOSHIMIYA", table = "chara_text" }
+chara_face_23 = { text = "[月岡/つきおか] [楓/かえで]", table = "chara_text" }
+chara_face_23_short = { text = "[月岡/つきおか]", table = "chara_text" }
+chara_face_23_upper = { text = "TSUKIOKA", table = "chara_text" }
+chara_face_24 = { text = "[陽ノ下/ひのした] [明里/あかり]", table = "chara_text" }
+chara_face_24_short = { text = "[陽ノ下/ひのした]", table = "chara_text" }
+chara_face_24_upper = { text = "HINOSHITA", table = "chara_text" }
+chara_face_25 = { text = "[森園/もりぞの] [琴音/ことね]", table = "chara_text" }
+chara_face_25_short = { text = "[森園/もりぞの]", table = "chara_text" }
+chara_face_25_upper = { text = "MORIZONO", table = "chara_text" }
+chara_face_34 = { text = "[救護隊員/きゅうごたいいん] 2", table = "chara_text" }
+chara_face_35 = { text = "[救護隊員/きゅうごたいいん] 1", table = "chara_text" }
+chara_face_36 = { text = "[審判/しんぱん]", table = "chara_text" }
+chara_face_37 = { text = "[帝国学園/ていこくがくえん]の[選手/せんしゅ]", table = "chara_text" }
+chara_face_38 = { text = "[謎/なぞ]の[男/おとこ]", table = "chara_text" }
+chara_face_39 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ａ", table = "chara_text" }
+chara_face_40 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｂ", table = "chara_text" }
+chara_face_41 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｃ", table = "chara_text" }
+chara_face_42 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｄ", table = "chara_text" }
+chara_face_43 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｅ", table = "chara_text" }
+chara_face_44 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｆ", table = "chara_text" }
+chara_face_45 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｇ", table = "chara_text" }
+chara_face_46 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｈ", table = "chara_text" }
+chara_face_47 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｉ", table = "chara_text" }
+chara_face_48 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｊ", table = "chara_text" }
+chara_face_49 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｋ", table = "chara_text" }
+chara_face_50 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｌ", table = "chara_text" }
+chara_face_51 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｍ", table = "chara_text" }
+chara_face_52 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｎ", table = "chara_text" }
+chara_face_53 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｏ", table = "chara_text" }
+chara_face_54 = { text = "[過去/かこ]の[南雲原/なぐもはら]Ｐ", table = "chara_text" }
+universe_prize_pool_items = "アイテム"
+universe_prize_pool_techniques = "必殺技"
+universe_pool_empty = "このオーブから獲得できる選手はもういません。"
+universe_card_owned = "すでにクラブにいます"
 mod_name = "Chronicle Deluxe"
-mod_description = "クロニクルモードをもっと：IE1のクロニクル盤に新しい試合を追加し、初代IE1・IE2の3つのルート（大介のプレミアム対戦ルート、メアリータイムズ監督のルート、スゼットの母のルート）を収録。ライバル、宝箱、S / A / B ランクもあります。各クロニクルチームにはクロニクルバトルとヒロイックバトル（Lv 200まで）があり、レベル・必殺技・オーラはそのゲームのものです。試合では必殺技の書、シューズ、オーラ、相手のエンブレムとユニフォームが手に入り、フリーマッチにはLv 50・99・200の難易度が加わります。"
+mod_description = "クロニクルモードをもっと楽しめます。IE1の盤面に新しい試合を追加し、初代IE1・IE2の3つのルートをライバルや宝箱、ランクとともに収録。各チームにクロニクルバトルとヒロイックバトル（Lv 200まで）があります。試合では必殺技の書、シューズ、オーラ、相手のユニフォームが手に入り、フリーマッチにはLv 50・99・200があります。プレイヤーズユニバースでは、各キャラクターに専用の星があり、毎日の上級カードとマップ上の新しい星座が加わります。"
 
 [zh_hans.new]
+chara_face_01 = { text = "森河 树", table = "chara_text" }
+chara_face_01_short = { text = "森河", table = "chara_text" }
+chara_face_01_upper = { text = "MORIKAWA", table = "chara_text" }
+chara_face_02 = { text = "风早 小春", table = "chara_text" }
+chara_face_02_short = { text = "风早", table = "chara_text" }
+chara_face_02_upper = { text = "KAZAHAYA", table = "chara_text" }
+chara_face_03 = { text = "叶山 大地", table = "chara_text" }
+chara_face_03_short = { text = "叶山", table = "chara_text" }
+chara_face_03_upper = { text = "HAYAMA", table = "chara_text" }
+chara_face_04 = { text = "鹰野 迅", table = "chara_text" }
+chara_face_04_short = { text = "鹰野", table = "chara_text" }
+chara_face_04_upper = { text = "TAKANO", table = "chara_text" }
+chara_face_05 = { text = "岚田 刚", table = "chara_text" }
+chara_face_05_short = { text = "岚田", table = "chara_text" }
+chara_face_05_upper = { text = "ARASHIDA", table = "chara_text" }
+chara_face_06 = { text = "天宫 翔", table = "chara_text" }
+chara_face_06_short = { text = "天宫", table = "chara_text" }
+chara_face_06_upper = { text = "AMAMIYA", table = "chara_text" }
+chara_face_07 = { text = "鸟羽 飒太", table = "chara_text" }
+chara_face_07_short = { text = "鸟羽", table = "chara_text" }
+chara_face_07_upper = { text = "TOBA", table = "chara_text" }
+chara_face_08 = { text = "火野 烈", table = "chara_text" }
+chara_face_08_short = { text = "火野", table = "chara_text" }
+chara_face_08_upper = { text = "HINO", table = "chara_text" }
+chara_face_09 = { text = "岩鞍 守", table = "chara_text" }
+chara_face_09_short = { text = "岩鞍", table = "chara_text" }
+chara_face_09_upper = { text = "IWAKURA", table = "chara_text" }
+chara_face_10 = { text = "云井 日和", table = "chara_text" }
+chara_face_10_short = { text = "云井", table = "chara_text" }
+chara_face_10_upper = { text = "KUMOI", table = "chara_text" }
+chara_face_11 = { text = "红林 茜", table = "chara_text" }
+chara_face_11_short = { text = "红林", table = "chara_text" }
+chara_face_11_upper = { text = "KUREBAYASHI", table = "chara_text" }
+chara_face_12 = { text = "绯村 焰", table = "chara_text" }
+chara_face_12_short = { text = "绯村", table = "chara_text" }
+chara_face_12_upper = { text = "HIMURA", table = "chara_text" }
+chara_face_13 = { text = "若苗 翠", table = "chara_text" }
+chara_face_13_short = { text = "若苗", table = "chara_text" }
+chara_face_13_upper = { text = "WAKANAE", table = "chara_text" }
+chara_face_14 = { text = "白羽 铃", table = "chara_text" }
+chara_face_14_short = { text = "白羽", table = "chara_text" }
+chara_face_14_upper = { text = "SHIRAHA", table = "chara_text" }
+chara_face_15 = { text = "岳山 铁平", table = "chara_text" }
+chara_face_15_short = { text = "岳山", table = "chara_text" }
+chara_face_15_upper = { text = "TAKEYAMA", table = "chara_text" }
+chara_face_16 = { text = "峰岸 拓海", table = "chara_text" }
+chara_face_16_short = { text = "峰岸", table = "chara_text" }
+chara_face_16_upper = { text = "MINEGISHI", table = "chara_text" }
+chara_face_17 = { text = "风花 结衣", table = "chara_text" }
+chara_face_17_short = { text = "风花", table = "chara_text" }
+chara_face_17_upper = { text = "KAZAHANA", table = "chara_text" }
+chara_face_18 = { text = "炎城 凛", table = "chara_text" }
+chara_face_18_short = { text = "炎城", table = "chara_text" }
+chara_face_18_upper = { text = "ENJO", table = "chara_text" }
+chara_face_19 = { text = "青木 苍", table = "chara_text" }
+chara_face_19_short = { text = "青木", table = "chara_text" }
+chara_face_19_upper = { text = "AOKI", table = "chara_text" }
+chara_face_20 = { text = "汐见 渚", table = "chara_text" }
+chara_face_20_short = { text = "汐见", table = "chara_text" }
+chara_face_20_upper = { text = "SHIOMI", table = "chara_text" }
+chara_face_21 = { text = "矶边 岩男", table = "chara_text" }
+chara_face_21_short = { text = "矶边", table = "chara_text" }
+chara_face_21_upper = { text = "ISOBE", table = "chara_text" }
+chara_face_22 = { text = "星宫 空", table = "chara_text" }
+chara_face_22_short = { text = "星宫", table = "chara_text" }
+chara_face_22_upper = { text = "HOSHIMIYA", table = "chara_text" }
+chara_face_23 = { text = "月冈 枫", table = "chara_text" }
+chara_face_23_short = { text = "月冈", table = "chara_text" }
+chara_face_23_upper = { text = "TSUKIOKA", table = "chara_text" }
+chara_face_24 = { text = "阳之下 明里", table = "chara_text" }
+chara_face_24_short = { text = "阳之下", table = "chara_text" }
+chara_face_24_upper = { text = "HINOSHITA", table = "chara_text" }
+chara_face_25 = { text = "森园 琴音", table = "chara_text" }
+chara_face_25_short = { text = "森园", table = "chara_text" }
+chara_face_25_upper = { text = "MORIZONO", table = "chara_text" }
+chara_face_34 = { text = "救护队员 2", table = "chara_text" }
+chara_face_35 = { text = "救护队员 1", table = "chara_text" }
+chara_face_36 = { text = "裁判", table = "chara_text" }
+chara_face_37 = { text = "帝国学园球员", table = "chara_text" }
+chara_face_38 = { text = "神秘男子", table = "chara_text" }
+chara_face_39 = { text = "过去的南云原A", table = "chara_text" }
+chara_face_40 = { text = "过去的南云原B", table = "chara_text" }
+chara_face_41 = { text = "过去的南云原C", table = "chara_text" }
+chara_face_42 = { text = "过去的南云原D", table = "chara_text" }
+chara_face_43 = { text = "过去的南云原E", table = "chara_text" }
+chara_face_44 = { text = "过去的南云原F", table = "chara_text" }
+chara_face_45 = { text = "过去的南云原G", table = "chara_text" }
+chara_face_46 = { text = "过去的南云原H", table = "chara_text" }
+chara_face_47 = { text = "过去的南云原I", table = "chara_text" }
+chara_face_48 = { text = "过去的南云原J", table = "chara_text" }
+chara_face_49 = { text = "过去的南云原K", table = "chara_text" }
+chara_face_50 = { text = "过去的南云原L", table = "chara_text" }
+chara_face_51 = { text = "过去的南云原M", table = "chara_text" }
+chara_face_52 = { text = "过去的南云原N", table = "chara_text" }
+chara_face_53 = { text = "过去的南云原O", table = "chara_text" }
+chara_face_54 = { text = "过去的南云原P", table = "chara_text" }
+universe_prize_pool_items = "道具"
+universe_prize_pool_techniques = "必杀技"
+universe_pool_empty = "这个宝珠已经没有可获得的球员了。"
+universe_card_owned = "已在你的俱乐部中"
 mod_name = "Chronicle Deluxe"
-mod_description = "更多编年史模式：在 IE1 编年史棋盘上新增比赛，并收录初代 IE1 和 IE2 的三条路线（大介的高级对战路线、玛丽时报教练路线、苏泽特母亲路线），含对手、宝箱和 S / A / B 评价。每支编年史球队都有编年史对战和最高 Lv 200 的英雄对战，等级、必杀技和灵气均为其对应作品的设定。比赛会掉落必杀技秘籍、球鞋、灵气以及对手的队徽和队服，自由比赛提供 Lv 50、99、200 三种难度。"
+mod_description = "更多编年史模式：在 IE1 棋盘上新增比赛，收录初代 IE1 和 IE2 的三条路线（含对手、宝箱和评价），每支球队还有最高 Lv 200 的编年史对战和英雄对战。比赛会掉落必杀技秘籍、球鞋、灵气以及对手的队服，自由比赛提供 Lv 50、99、200 三种难度。球员宇宙为每个角色提供专属的星星，并带来每日进阶卡片和地图上的新星座。"
 
 [zh_hant.new]
+chara_face_01 = { text = "森河 樹", table = "chara_text" }
+chara_face_01_short = { text = "森河", table = "chara_text" }
+chara_face_01_upper = { text = "MORIKAWA", table = "chara_text" }
+chara_face_02 = { text = "風早 小春", table = "chara_text" }
+chara_face_02_short = { text = "風早", table = "chara_text" }
+chara_face_02_upper = { text = "KAZAHAYA", table = "chara_text" }
+chara_face_03 = { text = "葉山 大地", table = "chara_text" }
+chara_face_03_short = { text = "葉山", table = "chara_text" }
+chara_face_03_upper = { text = "HAYAMA", table = "chara_text" }
+chara_face_04 = { text = "鷹野 迅", table = "chara_text" }
+chara_face_04_short = { text = "鷹野", table = "chara_text" }
+chara_face_04_upper = { text = "TAKANO", table = "chara_text" }
+chara_face_05 = { text = "嵐田 剛", table = "chara_text" }
+chara_face_05_short = { text = "嵐田", table = "chara_text" }
+chara_face_05_upper = { text = "ARASHIDA", table = "chara_text" }
+chara_face_06 = { text = "天宮 翔", table = "chara_text" }
+chara_face_06_short = { text = "天宮", table = "chara_text" }
+chara_face_06_upper = { text = "AMAMIYA", table = "chara_text" }
+chara_face_07 = { text = "鳥羽 颯太", table = "chara_text" }
+chara_face_07_short = { text = "鳥羽", table = "chara_text" }
+chara_face_07_upper = { text = "TOBA", table = "chara_text" }
+chara_face_08 = { text = "火野 烈", table = "chara_text" }
+chara_face_08_short = { text = "火野", table = "chara_text" }
+chara_face_08_upper = { text = "HINO", table = "chara_text" }
+chara_face_09 = { text = "岩鞍 守", table = "chara_text" }
+chara_face_09_short = { text = "岩鞍", table = "chara_text" }
+chara_face_09_upper = { text = "IWAKURA", table = "chara_text" }
+chara_face_10 = { text = "雲井 日和", table = "chara_text" }
+chara_face_10_short = { text = "雲井", table = "chara_text" }
+chara_face_10_upper = { text = "KUMOI", table = "chara_text" }
+chara_face_11 = { text = "紅林 茜", table = "chara_text" }
+chara_face_11_short = { text = "紅林", table = "chara_text" }
+chara_face_11_upper = { text = "KUREBAYASHI", table = "chara_text" }
+chara_face_12 = { text = "緋村 焰", table = "chara_text" }
+chara_face_12_short = { text = "緋村", table = "chara_text" }
+chara_face_12_upper = { text = "HIMURA", table = "chara_text" }
+chara_face_13 = { text = "若苗 翠", table = "chara_text" }
+chara_face_13_short = { text = "若苗", table = "chara_text" }
+chara_face_13_upper = { text = "WAKANAE", table = "chara_text" }
+chara_face_14 = { text = "白羽 鈴", table = "chara_text" }
+chara_face_14_short = { text = "白羽", table = "chara_text" }
+chara_face_14_upper = { text = "SHIRAHA", table = "chara_text" }
+chara_face_15 = { text = "岳山 鐵平", table = "chara_text" }
+chara_face_15_short = { text = "岳山", table = "chara_text" }
+chara_face_15_upper = { text = "TAKEYAMA", table = "chara_text" }
+chara_face_16 = { text = "峰岸 拓海", table = "chara_text" }
+chara_face_16_short = { text = "峰岸", table = "chara_text" }
+chara_face_16_upper = { text = "MINEGISHI", table = "chara_text" }
+chara_face_17 = { text = "風花 結衣", table = "chara_text" }
+chara_face_17_short = { text = "風花", table = "chara_text" }
+chara_face_17_upper = { text = "KAZAHANA", table = "chara_text" }
+chara_face_18 = { text = "炎城 凜", table = "chara_text" }
+chara_face_18_short = { text = "炎城", table = "chara_text" }
+chara_face_18_upper = { text = "ENJO", table = "chara_text" }
+chara_face_19 = { text = "青木 蒼", table = "chara_text" }
+chara_face_19_short = { text = "青木", table = "chara_text" }
+chara_face_19_upper = { text = "AOKI", table = "chara_text" }
+chara_face_20 = { text = "汐見 渚", table = "chara_text" }
+chara_face_20_short = { text = "汐見", table = "chara_text" }
+chara_face_20_upper = { text = "SHIOMI", table = "chara_text" }
+chara_face_21 = { text = "磯邊 岩男", table = "chara_text" }
+chara_face_21_short = { text = "磯邊", table = "chara_text" }
+chara_face_21_upper = { text = "ISOBE", table = "chara_text" }
+chara_face_22 = { text = "星宮 空", table = "chara_text" }
+chara_face_22_short = { text = "星宮", table = "chara_text" }
+chara_face_22_upper = { text = "HOSHIMIYA", table = "chara_text" }
+chara_face_23 = { text = "月岡 楓", table = "chara_text" }
+chara_face_23_short = { text = "月岡", table = "chara_text" }
+chara_face_23_upper = { text = "TSUKIOKA", table = "chara_text" }
+chara_face_24 = { text = "陽之下 明里", table = "chara_text" }
+chara_face_24_short = { text = "陽之下", table = "chara_text" }
+chara_face_24_upper = { text = "HINOSHITA", table = "chara_text" }
+chara_face_25 = { text = "森園 琴音", table = "chara_text" }
+chara_face_25_short = { text = "森園", table = "chara_text" }
+chara_face_25_upper = { text = "MORIZONO", table = "chara_text" }
+chara_face_34 = { text = "救護隊員 2", table = "chara_text" }
+chara_face_35 = { text = "救護隊員 1", table = "chara_text" }
+chara_face_36 = { text = "裁判", table = "chara_text" }
+chara_face_37 = { text = "帝國學園選手", table = "chara_text" }
+chara_face_38 = { text = "神秘男子", table = "chara_text" }
+chara_face_39 = { text = "過去的南雲原A", table = "chara_text" }
+chara_face_40 = { text = "過去的南雲原B", table = "chara_text" }
+chara_face_41 = { text = "過去的南雲原C", table = "chara_text" }
+chara_face_42 = { text = "過去的南雲原D", table = "chara_text" }
+chara_face_43 = { text = "過去的南雲原E", table = "chara_text" }
+chara_face_44 = { text = "過去的南雲原F", table = "chara_text" }
+chara_face_45 = { text = "過去的南雲原G", table = "chara_text" }
+chara_face_46 = { text = "過去的南雲原H", table = "chara_text" }
+chara_face_47 = { text = "過去的南雲原I", table = "chara_text" }
+chara_face_48 = { text = "過去的南雲原J", table = "chara_text" }
+chara_face_49 = { text = "過去的南雲原K", table = "chara_text" }
+chara_face_50 = { text = "過去的南雲原L", table = "chara_text" }
+chara_face_51 = { text = "過去的南雲原M", table = "chara_text" }
+chara_face_52 = { text = "過去的南雲原N", table = "chara_text" }
+chara_face_53 = { text = "過去的南雲原O", table = "chara_text" }
+chara_face_54 = { text = "過去的南雲原P", table = "chara_text" }
+universe_prize_pool_items = "道具"
+universe_prize_pool_techniques = "必殺技"
+universe_pool_empty = "這個寶珠已經沒有可獲得的球員了。"
+universe_card_owned = "已在你的俱樂部中"
 mod_name = "Chronicle Deluxe"
-mod_description = "更多編年史模式：在 IE1 編年史棋盤上新增比賽，並收錄初代 IE1 和 IE2 的三條路線（大介的高級對戰路線、瑪麗時報教練路線、蘇澤特母親路線），含對手、寶箱和 S / A / B 評價。每支編年史球隊都有編年史對戰和最高 Lv 200 的英雄對戰，等級、必殺技和靈氣均為其對應作品的設定。比賽會掉落必殺技秘笈、球鞋、靈氣以及對手的隊徽和隊服，自由比賽提供 Lv 50、99、200 三種難度。"
+mod_description = "更多編年史模式：在 IE1 棋盤上新增比賽，收錄初代 IE1 和 IE2 的三條路線（含對手、寶箱和評價），每支球隊還有最高 Lv 200 的編年史對戰和英雄對戰。比賽會掉落必殺技秘笈、球鞋、靈氣以及對手的隊服，自由比賽提供 Lv 50、99、200 三種難度。球員宇宙為每個角色提供專屬的星星，並帶來每日進階卡片和地圖上的新星座。"

@@ -1,5 +1,3 @@
 schema = "VRFW.model/1"
-# Technique model b900007: game files served as they are, from assets\models\items\b900007\{common,dx11}\ to data\{common,dx11}\chr\b900007\
-# (native: the object carries its own animation banks and materials). research/scripts/hissatsu_revamp_build.py.
 format = "native"
 game_path = "chr/b900007"

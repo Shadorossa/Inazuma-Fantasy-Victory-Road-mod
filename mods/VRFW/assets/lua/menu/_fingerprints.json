@@ -97,6 +97,14 @@
   "forbid": [],
   "ambiguous": []
  },
+ "help_menu": {
+  "script": "help_menu_5.01.13.00",
+  "require": [
+   "GetCategoryInfo"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
  "information_top_menu": {
   "script": "information_top_menu_7.02.12.00",
   "require": [
@@ -261,14 +269,6 @@
   "chunk_crc": 2511073110,
   "chunk_size": 671
  },
- "soccer_battle_setting_flow_vs_menu": {
-  "script": "soccer_battle_setting_flow_vs_menu_7.02.45.00",
-  "require": [
-   "CheckStoryChapter8Character"
-  ],
-  "forbid": [],
-  "ambiguous": []
- },
  "soccer_battle_vs_menu": {
   "script": "soccer_battle_vs_menu_1.04.02.00",
   "require": [
@@ -301,6 +301,14 @@
   "script": "soccer_half_time_menu_7.01.08.00",
   "require": [
    "EndHalfTime"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "soccer_summon_menu": {
+  "script": "soccer_summon_menu_6.00.34.00",
+  "require": [
+   "SelectSpiritItem"
   ],
   "forbid": [],
   "ambiguous": []

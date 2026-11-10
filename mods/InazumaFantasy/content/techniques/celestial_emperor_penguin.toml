@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Pingüino emperador celestial (Celestial Emperor Penguin): the download's move whs90021, a clone of whs01310 with its numbers; its event ev60_90021 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "celestial_emperor_penguin"

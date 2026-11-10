@@ -1,5 +1,4 @@
-# VRFW_Question.List (assets\lua\menu\_all\93_question.lua): a list of names in the game's language. ListJoin puts two
-# items together, ListLast the last one («A, B y C»). Rows of menu_text, read by id = crc32(row id).
+# VRFW.question.list (assets\lua\menu\_all\93_question.lua): a list of names in the game's language.
 schema = "VRFW.text/2"
 table = "menu_text"
 

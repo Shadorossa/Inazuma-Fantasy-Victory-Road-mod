@@ -1,8 +1,4 @@
-# Maps `[[look]]` entries (looks/**/*.toml) to cells of the character tables. Lookups provided by the character type:
-#   chara       "<mod>|<character>"          -> chara id (mod character, own name, or game name / id)
-#   model       "<mod>|<model>"              -> chara_model id (0x... or number) or that character's model
-#   body_model  "<mod>|<character>|<model>"  -> chara_model row receiving the body cells
-#   card        "<mod>|<card>|<character>"   -> chara_param row for moment_kit
+# Maps `[[look]]` entries (looks/**/*.toml) to cells of the character tables.
 # An unresolved reference skips the row. Parts, kits, emblems and sprites are handled by the look engine. Columns use schema names (schemas/character/*.toml).
 schema = "VRFW.table_map/1"
 code = ["clothes", "shoes", "gloves", "exmesh", "number", "kit", "emblem", "sprite"]
@@ -12,11 +8,11 @@ code = ["clothes", "shoes", "gloves", "exmesh", "number", "kit", "emblem", "spri
 entry = "look"
 table = "character/chara_base"
 mode = "edit"
-key = "character"
+key = "target"
 when = "model"
-row_key = { lookup = "chara", of = "{mod}|{character}" }
+row_key = { lookup = "chara", of = "{mod}|{target}" }
 [map.fields]
-character = { type = "string" }
+target = { type = "string" }
 card = { type = "id" }
 model = { type = "string", default = "" }
 body = { type = "table" }
@@ -30,12 +26,12 @@ model = { lookup = "model", of = "{mod}|{model}" }
 entry = "look"
 table = "character/chara_model"
 mode = "edit"
-key = "character"
+key = "target"
 when = "body"
-row_key = { lookup = "body_model", of = "{mod}|{character}|{model}" }
+row_key = { lookup = "body_model", of = "{mod}|{target}|{model}" }
 cells = "body"
 [map.fields]
-character = { type = "string" }
+target = { type = "string" }
 card = { type = "id" }
 model = { type = "string", default = "" }
 kit = { type = "table" }
@@ -46,11 +42,11 @@ moment_kit = { type = "id" }
 entry = "look"
 table = "character/chara_param"
 mode = "edit"
-key = "character"
+key = "target"
 when = "moment_kit"
-row_key = { lookup = "card", of = "{mod}|{card}|{character}" }
+row_key = { lookup = "card", of = "{mod}|{card}|{target}" }
 [map.fields]
-character = { type = "string", default = "" }
+target = { type = "string", default = "" }
 card = { type = "id", default = "" }
 model = { type = "string" }
 body = { type = "table" }

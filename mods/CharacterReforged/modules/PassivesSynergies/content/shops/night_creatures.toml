@@ -1,0 +1,12 @@
+schema = "VRFW.shop/2"
+
+# In the retail synergy shop 0x5B032CEA for 10 cards of each member (Aullido Lunar + Nosfanáticos).
+[[edit]]
+target = "0x5B032CEA"
+  [[edit.entry]]
+  item = "night_creatures"
+  stock = 1
+  costs = [
+    { currency = "wolfram_vulpeen_card", count = 10 },
+    { currency = "desmodus_drakul_card", count = 10 },
+  ]

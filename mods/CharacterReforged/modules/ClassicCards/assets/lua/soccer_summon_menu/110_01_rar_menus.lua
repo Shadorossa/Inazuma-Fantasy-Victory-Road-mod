@@ -475,7 +475,7 @@ function OnFunction(a1, a2)
   elseif a1 == 3429563881 then
     return
   elseif a1 == 1672656690 then
-    if EVT_RARITY_UP_DISABLED then -- EVT rarity: the rarity-up screen is closed
+    if ClassicCards.rarity_up_disabled then -- ClassicCards rarity: the rarity-up screen is closed
       funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
       return
     end
@@ -765,7 +765,7 @@ function OpenSpiritSubWindow(a1, a2, a3)
     l8 = 0
     l9 = 0
   end
-  if EVT_RARITY_UP_DISABLED then -- EVT rarity
+  if ClassicCards.rarity_up_disabled then -- ClassicCards rarity
     l8 = 0
     l9 = 0
   end
@@ -785,7 +785,7 @@ function OpenSpiritSubWindow(a1, a2, a3)
   funcLuaCommand(63483614, l11, l12, l13, flag14)
 end
 function CallBackSpirit(a1)
-  if EVT_RARITY_UP_DISABLED and (a1 == 3 or a1 == 4) then -- EVT rarity
+  if ClassicCards.rarity_up_disabled and (a1 == 3 or a1 == 4) then -- ClassicCards rarity
     funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
     a1 = -1
   end
@@ -2166,6 +2166,7 @@ function CheckSeasonalAndBuildPlate()
 end
 
 -- ===== EVT rar_menus BEGIN =====
--- EVT rarity: normal mode has no rarity-up (docs/game/rarity-removal.md). false = retail behaviour.
-EVT_RARITY_UP_DISABLED = true
+-- ClassicCards rarity: normal mode has no rarity-up (docs/game/rarity-removal.md). false = retail behaviour.
+ClassicCards = ClassicCards or {}
+ClassicCards.rarity_up_disabled = true
 -- ===== EVT rar_menus END =====

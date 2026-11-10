@@ -1,6 +1,6 @@
 # Schema of the goal celebration declarations (kind VRFW.celebration/1, a mod's content\celebrations\**\*.toml).
 # The celebration type parses them (strict) and the character type builds them; this schema describes the same keys
-# for the checker and the editors. Who may use a celebration is the character's celebrations / celebration_auto.
+# for the checker and the editors.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.celebration/1"
 folder = "content/celebrations"

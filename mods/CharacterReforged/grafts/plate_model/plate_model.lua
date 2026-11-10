@@ -1,183 +1,98 @@
 -- ===== EVT plate model BEGIN =====
--- EVT plate_model (Character Reforged since 2026-10-14, moved from Inazuma Fantasy: docs/refactor/aura-mods-split.md
--- «Player page»; docs/game/ui/ui-redesign.md «Player page: one-row header and 3D model»): the 3D model of the player on
--- the player page («Ficha», personal_plate_menu), right of the description, in the space the one-row header frees
--- (screen ~x 1500..1910, y 230..490; Character Reforged content/menus/player_page_layout.toml).
--- * Layer evt_pp_model (player_page_layout.toml): the retail minimal model layer with the camera / light / start place of
---   the team dock's own model view (team02_01_attach_formation_frame), not opened by the screen (opened here). The
---   page team11_01 is drawn before the 3D pass in this screen (m_drawType 1), so the model shows over it.
--- * The player: the handle every plate refresh passes (UpdateCharaStatusPlateInfoByCharaStHdl(plate, inst, hdl), the
---   pe_card hook) -> chara id funcLuaCommand(1131797651, hdl, 4) -> model chara 347353059(id), as the retail
---   UpdateViewChara3DModel of the team dock does.
--- * The build (the retail SetupCharaModel / SetCharaModelVisible of the shop and the dock, ported): chara, register
---   type 4, kit (0 = his own), stand motion 立ち1L, CMND_CHARA_MODEL_CHANGE, pose; ONE build per player change, kept
---   hidden while it loads and until the component calls it complete (1583438030) + EVT_PPM_SETTLE Steps (the office's
---   no-blink rule: never ask for a model while another one is loading, 2475005551). Then shown while the plate is.
--- * Hidden while the plate is hidden or the page closes; the component's chara cleared when the page closes.
--- Kill switch EVT_PPM_MODEL = false. EVT_PPM_CAM_OFS = {x, y, z}: offset of the menu model camera (CMND 284729675 on
--- 1752770328, the retail dock view's reset call) to move / size the model on screen; nil = retail (0, 0, 0).
+-- The player's 3D model on the player page (personal_plate_menu), right of the description.
+-- * Layer cr_pp_model (player_page_layout.toml): the retail minimal model layer, opened here; the page is drawn
+--   before the 3D pass (m_drawType 1), so the model shows over it.
+-- * The player: the handle of every plate refresh -> chara id funcLuaCommand(1131797651, hdl, 4) -> model chara
+--   347353059(id), as the team dock's UpdateViewChara3DModel does.
+-- * One build per player change (the retail SetupCharaModel: chara, register type 4, kit, stand motion 立ち1L,
+--   CMND_CHARA_MODEL_CHANGE, pose), hidden until complete (1583438030) + CharacterReforged.PAGE_MODEL_SETTLE Steps; never asked while
+--   another model loads (2475005551). Hidden while the plate is hidden; released when the page closes.
+-- * Framing: the retail "View appearance" view's (camera 935586083) through the shared ModelView section
+--   (research/grafts/_lib/vrfw_model_view.lua).
+-- Kill switch CharacterReforged.PAGE_MODEL_MODEL = false. CharacterReforged.PAGE_MODEL_CAMERA_OFFSET = {x, y, z}: offset of the menu model camera; nil = retail.
 -- Engine calls only inside callbacks; wrappers forward their arguments.
--- 2026-10-07 (Nacho, shot research/build/formation_camera/386: «sigue mal, hay personajes gigantes» - in Formación the
--- model filled the right half, head under the name band, legs under the description): (1) no model at all on the
--- Formación screens; (2) the framing is the retail «Ver apariencia» view's (camera 935586083 + its start place in the
--- evt_pp_model object, offset / turn / pose in Lua) through the shared ModelView section
--- (research/grafts/_lib/evt_model_view.lua, docs/game/ui/menu-model-view.md). The office camera of round 7 and the
--- framing knobs of rounds 2..14 (EVT_PPM_FRAME / _BODY_OFS / _BODY_K / _POS_OVERRIDE / _SCALE_OVERRIDE) are gone.
-if EVT_PPM_MODEL == nil then
-  EVT_PPM_MODEL = true
+CharacterReforged = type(CharacterReforged) == "table" and CharacterReforged or {}
+if CharacterReforged.PAGE_MODEL_MODEL == nil then
+  CharacterReforged.PAGE_MODEL_MODEL = true
 end
--- IF's rules for the shared model view: no model while one of these menus exists (team_dock_formation_menu = the
--- team dock's «Formación», soccer_formation_menu = the match / pre-match «Formación»)
--- 2026-10-07 (Nacho: «añade literalmente ese "Ver apariencia" pero que sea para la página del personaje de la
--- formación»): view_in_menus = the menus whose retail «Ver apariencia» opens from PERFIL (R3 / the hint; graft
--- research/grafts/form_appearance runs it in that menu). In game the team dock's Formación is the menu OBJECT
--- soccer_formation_menu (2049316981) running the script team_dock_formation_menu (log «opened: soccer_formation_menu
--- (param 935586083)»); the match's Formación is the same object with its own script (no visual check): the key
--- evt_fvd_host (3515054872), set by form_appearance while it runs, tells them apart.
--- 2026-10-07 (Nacho: «en la página del jugador sigue sin verse el jugador 3D, no entiendo por qué»; loader.log only
--- «EVT_PPM rules hide 2049316981», never «EVT_PPM cam»): the hide rule above kept the model off Formación. Formación
--- shows the model again (no hide_in_menus), placed by the evt_pp_model object to fit between the name band and the
--- description (if_plate_row_build.py PAGE_PLACE: same retail camera 935586083, the model farther from it). Where the
--- retail view is offered R3 / the hint open it (no form cycle there); the model is released while it opens.
--- Round 2 of the fix (Nacho: «El RS ver apariencia no funciona bien para mostrar las distintas apariencias miximax,
--- armadura etc»): in game the retail view never opened from the page (loader.log «EVT_FVD refused page hidden» on
--- every R3: the dock's IsVisiblePersonalPlateLayer does not see the plate of personal_plate_menu) and the dock has no
--- form cycle installed (form_view graft not in the IF build). So Formación works like Plantilla: R3 / N / the hint
--- «Cambiar forma» cycle the player's forms (Normal, miximax, armour...) on THIS page model (M.FormKey / plate_pages
--- G.PtrForm, the CMND_VRFW_FORM_LIST / _MODEL path). view_in_menus = {} turns the retail offer off (the mechanism and
--- research/grafts/form_appearance stay; {2049316981, 935586083} brings it back).
-if EVT_PPM_VIEW_RULES == nil then
-  -- 2026-10-15 (owner, «Espíritu»: on the summon result «¡ENHORABUENA!» our model stood next to the retail one, and it
-  -- stayed over the spirit list and the next summon scene): the spirit screens (soccer_summon_menu, soccer_spirit_menu)
-  -- show their own model and hide personal_plate_menu by suspending it (CMND 1129326309), which stops its Step, so a
-  -- model of ours built there is never released. No model of ours while one of them exists (loader.log «EVT_PPM rules
-  -- hide <menu crc>»; 369188769 = soccer_summon_menu, 3384996521 = soccer_spirit_menu).
-  EVT_PPM_VIEW_RULES = {hide_in_menus = {@crc:soccer_summon_menu@, @crc:soccer_spirit_menu@}, view_in_menus = {},
-    view_key = 3515054872}
+-- view rules: hide_in_menus = no model while one of these menus exists; view_in_menus = menus whose retail
+-- "View appearance" opens from PROFILE instead of the form cycle (research/grafts/form_appearance; empty = off);
+-- view_key = character_reforged_fvd_host (190215498), set by form_appearance while it runs
+if CharacterReforged.PAGE_MODEL_VIEW_RULES == nil then
+  -- the spirit screens (soccer_summon_menu, soccer_spirit_menu) show their own model and suspend personal_plate_menu:
+  -- no model of ours while one exists (loader.log "PageModel rules hide <menu crc>")
+  CharacterReforged.PAGE_MODEL_VIEW_RULES = {hide_in_menus = {@crc:soccer_summon_menu@, @crc:soccer_spirit_menu@, @crc:chara_pack_probability_list_menu@}, view_in_menus = {},
+    view_key = 190215498}
 end
--- Fit (Nacho: «ajusta la cámara para cada tipo de cuerpo, porque algunos salen muy altos en comparación al tamaño que
--- hay en la interfaz»; Garreau's hair went over the name band and the top bar, Baek Bull-wo fitted): once a model is
--- loaded its height is read (funcLuaCommand(740963128, model handle), the call the retail visual check frames with;
--- metres) and a model taller than EVT_PPM_FIT_H is scaled down about its feet (CMND_SET_CHARA_MODEL_SCALE, before
--- it is shown) so its head stays under the band; shorter players keep their own size (no dwarfs). No height answer:
--- the body type (CMND_GET_CHARA_INFO(chara, 3)) gives it through EVT_PPM_BODY_H (relative to a medium body,
--- round 14b shots: small 0.75, tall / big 1.35) x EVT_PPM_MEDIUM_H. loader.log «EVT_PPM fit <chara> body <type>
--- height <h> (<src>) scale <s>» per build. EVT_PPM_FIT_H = false turns the fit off.
--- 2026-10-09 (IF 1.19.x, Nacho: «uno se ve gigante y el otro enano»: Belal, a big body, filled the page with his head
--- under the top bar; Apollo Light, a child body, stood small at the bottom). Cause: the scale was asked for once the
--- build had completed, and the model component (menu_chara_model_comp SetScale) applies a scale only WHILE its model
--- builds (72150831 = building) - afterwards it only stores it for the next build - so no fit ever showed. Now the scale
--- is stored before CMND_CHARA_MODEL_CHANGE (the component applies it, x the model's own base scale, when the build
--- completes): the first build of a player / form is at scale 1 and measures his height; when the fit differs from 1 the
--- same model is built again (still hidden) with the fit scale; the height is kept per player / form
--- (M.hcache), so the next visit builds once. The fit both ways: shown height = EVT_PPM_FIT_REF x (h / REF) ^
--- EVT_PPM_FIT_K (K = the share of the real height difference kept), clamped to EVT_PPM_FIT_MIN .. EVT_PPM_FIT_H
--- (metres in the page framing: feet y ~773, ~245 px per metre; the name band ends at y 227, so 1.85 m keeps hair
--- under it; 1.45 m keeps a child readable). Feet stay where they are (the scale is about the model's feet).
--- 2026-10-09 round 2 (IF 1.21.8 in game: Belal still huge, Apollo Light still small; loader.log «EVT_PPM fit 2702453908
--- body 4 2.400 model -> scale 0.771», «4164410665 body 0 1.530 model -> scale 1.071»): the heights were RIGHT (game
--- data: Belal c03034250 = skeleton c000301 (body 4) x chara_scale 1.2; Apollo Light c07080030 = skeleton c000101
--- (body 0) x chara_scale 0.9, i.e. 1.7 x 0.9 = 1.53), the scale never reached the model: neither the stored scale nor
--- the same-model rebuild (CMND_CHARA_MODEL_CHANGE with an unchanged entry builds nothing new) showed. Now the fit is
--- written on the built model object itself, the native call the component's own SetScale ends in
--- (funcLuaCommand(2982269573, model handle, sx, sy, sz) = its base scale (CMND_GET_SCALE_OBJECT 2211946652, read once
--- per build, chara_scale included) x the fit), once the build is complete and again when it is shown; one build per
--- player / form, no rebuild, nothing stored in the component. loader.log «EVT_PPM fit <chara> body <type> <h> <src>
--- base <b> -> scale <s> = <shown> m».
-if EVT_PPM_FIT_H == nil then
-  EVT_PPM_FIT_H = 1.85
+-- Fit: once a model is built its height is read (funcLuaCommand(740963128, model handle), metres; else the body type
+-- CMND_GET_CHARA_INFO(chara, 3) through CharacterReforged.PAGE_MODEL_BODY_H x CharacterReforged.PAGE_MODEL_MEDIUM_H) and the shown height is
+-- CharacterReforged.PAGE_MODEL_FIT_REF x (h / REF) ^ CharacterReforged.PAGE_MODEL_FIT_K, clamped to CharacterReforged.PAGE_MODEL_FIT_MIN .. CharacterReforged.PAGE_MODEL_FIT_H (feet fixed). The fit is
+-- written on the built model object (funcLuaCommand(2982269573, model handle, sx, sy, sz) = its base scale
+-- (CMND_GET_SCALE_OBJECT 2211946652) x the fit), once complete and again when shown; heights cached per player /
+-- form (M.hcache). CharacterReforged.PAGE_MODEL_FIT_H = false turns the fit off. loader.log "PageModel fit <chara> body <type> <h> <src>"
+-- base <b> -> scale <s> = <shown> m".
+if CharacterReforged.PAGE_MODEL_FIT_H == nil then
+  CharacterReforged.PAGE_MODEL_FIT_H = 1.85
 end
-if EVT_PPM_FIT_MIN == nil then
-  EVT_PPM_FIT_MIN = 1.45
+if CharacterReforged.PAGE_MODEL_FIT_MIN == nil then
+  CharacterReforged.PAGE_MODEL_FIT_MIN = 1.45
 end
-if EVT_PPM_FIT_REF == nil then
-  EVT_PPM_FIT_REF = 1.7
+if CharacterReforged.PAGE_MODEL_FIT_REF == nil then
+  CharacterReforged.PAGE_MODEL_FIT_REF = 1.7
 end
-if EVT_PPM_FIT_K == nil then
-  EVT_PPM_FIT_K = 0.35
+if CharacterReforged.PAGE_MODEL_FIT_K == nil then
+  CharacterReforged.PAGE_MODEL_FIT_K = 0.35
 end
-if EVT_PPM_MEDIUM_H == nil then
-  EVT_PPM_MEDIUM_H = 1.6
+if CharacterReforged.PAGE_MODEL_MEDIUM_H == nil then
+  CharacterReforged.PAGE_MODEL_MEDIUM_H = 1.6
 end
-if EVT_PPM_BODY_H == nil then
-  EVT_PPM_BODY_H = {[0] = 1, [1] = 1, [2] = 0.75, [10] = 0.75, [3] = 0.75, [11] = 0.75, [4] = 1.33, [14] = 1.33,
+if CharacterReforged.PAGE_MODEL_BODY_H == nil then
+  CharacterReforged.PAGE_MODEL_BODY_H = {[0] = 1, [1] = 1, [2] = 0.75, [10] = 0.75, [3] = 0.75, [11] = 0.75, [4] = 1.33, [14] = 1.33,
     [5] = 1.33, [8] = 1.33, [17] = 1.33, [6] = 1.11, [9] = 1.11, [12] = 1.11, [13] = 1.11, [7] = 1.35, [15] = 1.35,
     [16] = 1.35, [18] = 1}
 end
-if EVT_PPM_VIEW_HOLD == nil then
-  EVT_PPM_VIEW_HOLD = 30                 -- Steps without a model after R3 / the click asked for the retail view
+if CharacterReforged.PAGE_MODEL_VIEW_HOLD == nil then
+  CharacterReforged.PAGE_MODEL_VIEW_HOLD = 30                 -- Steps without a model after R3 / the click asked for the retail view
 end
-if EVT_PPM_SETTLE == nil then
-  EVT_PPM_SETTLE = 2
+if CharacterReforged.PAGE_MODEL_SETTLE == nil then
+  CharacterReforged.PAGE_MODEL_SETTLE = 2
 end
--- round 2 (in game 2026-10-06: the model showed, big and centred over the stats / moves): it is placed and sized
--- with the retail model commands CMND_SET_CHARA_MODEL_POS 1088067423 / _SCALE 1514082873 (layer, idx, x, y, z) after
--- every build, and shown only on the PERFIL page (EVT_PPM_PAGE_OK, set by research/grafts/plate_pages; nil = any
--- page). Target: x 1500..1910, y 381..773 (right of the description). The values are an ESTIMATE from the first
--- screenshot (start 1.3 / 0.45 / 1.5 drew it centred around x ~1435, ~700 px tall): +0.56 right, +0.47 up, x0.55.
--- Tune here (x right, y up, z depth in the dock view camera's world units).
--- Round 4 (Nacho): the model is the backdrop of EVERY page (behind all the content; the page body is see-through on
--- its right half), at about the retail size: target x 1500..1900, y 240..980 (estimate: +0.55 right, feet ~20 px
--- higher than the first build).
--- Round 6 (Nacho): framed exactly as the retail appearance view («ver apariencia», team02_01_attach_formation_frame:
--- same camera 935586083, start 1.3 / 0.45 / 1.5, rot -7.5, scale 1). The appearance view broke (tiny, far) while our
--- model lived on the same camera with other values: the model is now RELEASED whenever the plate is hidden (the
--- appearance view hides it) and built again when the plate shows. 2026-10-07: back to that framing for good.
-EVT_PPM = EVT_PPM or {}
+-- placed and sized with CMND_SET_CHARA_MODEL_POS 1088067423 / _SCALE 1514082873 (layer, idx, x, y, z) after every
+-- build, framed as the retail appearance view (start 1.3 / 0.45 / 1.5, rot -7.5, scale 1); the model is released
+-- whenever the plate is hidden and built again when it shows. CharacterReforged.PAGE_MODEL_PAGE_OK (plate_pages) limits it to a page.
+CharacterReforged.page_model = CharacterReforged.page_model or {}
 ;(function()
-  local M = EVT_PPM
-  M.LAYER = @crc:evt_pp_model@
-  -- 2026-10-12 (owner: no model on the match / half-time «Formación»): in a match (the plate type 1, set by
-  -- SetPersonalPlateType, recorded by research/grafts/plate_pages as EVT_PPG.plateType) the model is built on the
-  -- capture layer evt_pp_model_cap (player_page_layout.toml: the retail VS captain capture object), whose
-  -- quad _chr_3d01_01 shows the render texture at its 2D place: every retail in-match menu model is a capture, the
-  -- plain menu-camera model is never drawn there. Chosen while no model layer is open; every other screen keeps
-  -- evt_pp_model untouched. EVT_PPM_CAPTURE = false: never; true: always (test). loader.log «EVT_PPM layer capture |
-  -- normal», «EVT_PPM capture setup», «EVT_PPM capture swap».
-  -- 2026-10-15 (owner, match «Formación»: the white slanted quad again, with the RT pool type 3 objbin of 10-13
-  -- installed; loader.log: capture setup / swap build / fit / swap ready all fine): the render texture is still never
-  -- bound in a match, so the capture is opt-in only (EVT_PPM_CAPTURE = true: in a match; "always": every screen, test)
-  -- and by default a match page (plate type 1) shows no model of ours, as the retail match plate (no model object
-  -- there). loader.log «EVT_PPM match: no model».
-  -- 2026-10-15 third attempt (Character Reforged 1.8.27): the capture object takes a per-model render texture as every
-  -- retail in-match capture (soccer08_47 keeper gauge, soccer01_06 VS skill telop) instead of the VS screen's shared
-  -- one, and the build follows the keeper gauge's order (regist type 3, chara, kit, motion, capture camera, change,
-  -- swap). On again by default in a match; EVT_PPM_CAPTURE = false: never (the match page then shows no model).
-  -- loader.log «EVT_PPM capture swap <why> <ret> model <handle> complete <bool> prebuilt <bool>».
+  local M = CharacterReforged.page_model
+  M.LAYER = @crc:cr_pp_model@
+  -- in a match (plate type 1, CharacterReforged.player_page.plateType) the model is built on the capture layer cr_pp_model_cap (the retail
+  -- VS captain capture object, quad _chr_3d01_01), with a per-model render texture and the keeper gauge's build order
+  -- (regist type 3, chara, kit, motion, capture camera, change, swap). CharacterReforged.PAGE_MODEL_CAPTURE = false: never; true: in a match;
+  -- "always": every screen. loader.log "PageModel capture swap <why> <ret> model <handle> complete <bool> prebuilt <bool>".
   M.NORMAL = M.LAYER
-  M.CAP = @crc:evt_pp_model_cap@
-  M.CAP_KEY = @crc:evt_pp_model_cap@     -- the model's unique key (CMND_CHARA_MODEL_CHANGE arg 6, the swap's key)
+  M.CAP = @crc:cr_pp_model_cap@
+  M.CAP_KEY = @crc:cr_pp_model_cap@     -- the model's unique key (CMND_CHARA_MODEL_CHANGE arg 6, the swap's key)
   M.CAP_MESH = @crc:_chr_3d01_01@        -- the quad the render texture is drawn on
   M.CAP_HIDE = {@crc:_chr_telop01_01@, @crc:_chr_telop01_02@}   -- the VS telop art of the same layout
-  M.CAP_BOX = EVT_PPM_CAP_BOX or {1203, 270, 515}   -- quad top-left (screen px) and side: 245 px / m, feet y ~773
-  M.TEAM_BOX = EVT_PPM_TEAM_BOX or {1400, 270, 515} -- isolated preview area on the player page over a menu room
-  M.CAP_REGIST = EVT_PPM_CAP_REGIST or 3 -- CMND_SET_SCN_CHARA_REGIST_TYPE of the retail capture talk window (4 here
-  -- for the menu-camera model)
-  M.CAP_CAM = EVT_PPM_CAP_CAM or 3085867494   -- capture camera of the model: the VS camera 0xB7EE99E6 (512 x 512, FOV 20)
-  -- Character Reforged 1.8.34: the capture's settings come from config.toml [player_page] (match_model "match" /
-  -- "always" / "off", match_camera "vs" / "bust", capture_report) through CMND_CHARACTERREFORGED_PAGE_CAPTURE_CONFIG;
-  -- EVT_PPM_CAPTURE / EVT_PPM_CAP_CAM still override them. After each capture build the report command logs the
-  -- engine's render-texture pool, render targets and camera (loader.log «player_page_capture:»), again 60 Steps later.
+  M.CAP_BOX = CharacterReforged.PAGE_MODEL_CAPTURE_BOX or {1203, 270, 515}   -- quad top-left (screen px) and side: 245 px / m, feet y ~773
+  M.TEAM_BOX = CharacterReforged.PAGE_MODEL_TEAM_BOX or {1400, 270, 515} -- isolated preview area on the player page over a menu room
+  M.CAP_REGIST = CharacterReforged.PAGE_MODEL_CAPTURE_REGISTER or 3 -- CMND_SET_SCN_CHARA_REGIST_TYPE of the retail capture talk window (4 here for the menu-camera model).
+  M.CAP_CAM = CharacterReforged.PAGE_MODEL_CAPTURE_CAMERA or 3085867494   -- capture camera of the model: the VS camera 0xB7EE99E6 (512 x 512, FOV 20)
+  -- the capture settings come from config.toml [player_page] (match_model, match_camera, capture_report) through
+  -- CMND_CHARACTERREFORGED_PAGE_CAPTURE_CONFIG; CharacterReforged.PAGE_MODEL_CAPTURE / CharacterReforged.PAGE_MODEL_CAPTURE_CAMERA override them. After each capture build
+  -- the report command logs the render-texture pool, render targets and camera, again 60 Steps later.
   M.CFG_CMD = @crc:CMND_CHARACTERREFORGED_PAGE_CAPTURE_CONFIG@
   M.REPORT_CMD = @crc:CMND_CHARACTERREFORGED_PAGE_CAPTURE_REPORT@
   M.REPORT_AGAIN = 60
-  -- Character Reforged 1.8.46: the report also logs the model's CharaRenderProperty (the capture redirect) and the
-  -- pause freeze state; config.toml [player_page] match_live_pause = true clears the pause freeze flag while the capture
-  -- page shows (CMND_CHARACTERREFORGED_PAGE_CAPTURE_LIVE, restored on release). The game's log command keeps only 8
-  -- arguments, so the capture lines are written as one text (M.Line).
+  -- the report also logs the model's CharaRenderProperty and the pause freeze state; match_live_pause = true clears the
+  -- pause freeze flag while the capture page shows (CMND_CHARACTERREFORGED_PAGE_CAPTURE_LIVE). Log lines are one text
+  -- (M.line): the game's log command keeps only 8 arguments.
   M.LIVE_CMD = @crc:CMND_CHARACTERREFORGED_PAGE_CAPTURE_LIVE@
-  -- Character Reforged 1.8.61: with the framework's menu capture probe running (VRFW [debug] capture_pause_probe), a
-  -- match capture keeps its quad hidden until the probe sees the model drawn into its render texture
-  -- (CMND_CHARACTERREFORGED_PAGE_CAPTURE_DRAWN, one check every M.DRAWN_EVERY Steps): no white placeholder.
-  -- loader.log «EVT_PPM capture quad hidden until drawn», «EVT_PPM capture quad shown | hidden <answer>».
+  -- with the framework's capture probe on, the quad stays hidden until the model is drawn into its render texture
+  -- (CMND_CHARACTERREFORGED_PAGE_CAPTURE_DRAWN, every M.DRAWN_EVERY Steps)
   M.DRAWN_CMD = @crc:CMND_CHARACTERREFORGED_PAGE_CAPTURE_DRAWN@
   M.DRAWN_EVERY = 10
-  -- Character Reforged 1.9.0 (VRFW 2.5.0): the framework binds the quad to the model's capture cell
-  -- (VRFW.render.capture_bind through CMND_CHARACTERREFORGED_PAGE_CAPTURE_BIND: the render-texture entry of the model
-  -- kept on its live cell and the quad mesh, the values the game's build and swap write) and answers when the quad's
-  -- active list holds it (CMND_CHARACTERREFORGED_PAGE_CAPTURE_BOUND). The quad stays hidden until then: never the
-  -- white placeholder. loader.log «EVT_PPM capture quad hidden until bound», «EVT_PPM capture quad shown: bound»,
-  -- VRFW «capture bind: …» lines.
+  -- the framework binds the quad to the model's capture cell (CMND_CHARACTERREFORGED_PAGE_CAPTURE_BIND) and answers when
+  -- the quad's active list holds it (CMND_CHARACTERREFORGED_PAGE_CAPTURE_BOUND); the quad stays hidden until then
   M.BIND_CMD = @crc:CMND_CHARACTERREFORGED_PAGE_CAPTURE_BIND@
   M.BOUND_CMD = @crc:CMND_CHARACTERREFORGED_PAGE_CAPTURE_BOUND@
   M.capReady = false
@@ -208,12 +123,11 @@ EVT_PPM = EVT_PPM or {}
   local CAM_OFS = 284729675              -- funcLuaCommand (1752770328, x, y, z)
   local CAM = 1752770328
   local STAND = 2263925137               -- 立ち1L (the dock view's stand motion)
-  -- round 8 (Nacho: a miximax with a different body showed arms to the floor): the model is the BASE player's (the
-  -- form viewer's CMND_VRFW_FORM_MODEL(hdl, 0) = Normal form for this request, CMND_VRFW_FORM_CLEAR once it is loaded)
-  -- and posed as the dock's own view does: 立ち1L + CMND_UPDATE_CHARA_MODEL_POSE(3459069566), again once loaded
+  -- the model is the base player's (CMND_VRFW_FORM_MODEL(hdl, 0) for this request, CMND_VRFW_FORM_CLEAR once loaded),
+  -- posed as the dock's view: 立ち1L + CMND_UPDATE_CHARA_MODEL_POSE(3459069566), again once loaded
   local FORM_MODEL, FORM_CLEAR = @crc:CMND_VRFW_FORM_MODEL@, @crc:CMND_VRFW_FORM_CLEAR@
   local POSE_UPD, POSE_UPD_ARG = @crc:CMND_UPDATE_CHARA_MODEL_POSE@, 3459069566
-  local CAM_GET, GPOS, LOG = 1877348924, @crc:CMND_GET_MESH_GLOBAL_POSITION@, @crc:CMND_EVT_LOG_DEBUG@
+  local CAM_GET, GPOS, LOG = 1877348924, @crc:CMND_GET_MESH_GLOBAL_POSITION@, @crc:CMND_VRFW_LOG_DEBUG@
   local MODEL_H = 740963128              -- funcLuaCommand (model handle) -> model height (retail visual check)
   local SCALE_GET = @crc:CMND_GET_SCALE_OBJECT@           -- (model handle) -> sx, sy, sz, valid
   local SCALE_SET = 2982269573           -- (model handle, sx, sy, sz): the scale of the model object
@@ -225,24 +139,15 @@ EVT_PPM = EVT_PPM or {}
   M.n = 0
   M.shown = false
 
-  --@lib evt_menu_kit.lua#Pack,Cmd
+  --@lib vrfw_menu_kit.lua#Pack,Cmd
 
-  --@lib evt_model_view.lua#ModelView
+  --@lib vrfw_model_view.lua#ModelView
   M.MV = MV
 
-  local function Lc(...)
-    if type(funcLuaCommand) ~= "function" then
-      return nil
-    end
-    local r = Pack(pcall(funcLuaCommand, ...))
-    if not r[1] then
-      return nil
-    end
-    return table.unpack(r, 2, r.n)
-  end
+  local Lc = VRFW.host.command
 
   -- one loader.log line: a label and the rest joined into one text (the log command keeps 8 arguments)
-  function M.Line(label, ...)
+  function M.line(label, ...)
     local parts = {}
     for i = 1, select("#", ...) do
       parts[#parts + 1] = tostring((select(i, ...)))
@@ -250,19 +155,14 @@ EVT_PPM = EVT_PPM or {}
     pcall(funcLuaCommand, LOG, label, table.concat(parts, " "))
   end
 
-  function M.Capture()
+  function M.capture()
     return M.LAYER == M.CAP
   end
 
-  -- 2026-10-15 (owner, «Universo de jugadores › Personajes disponibles», menu chara_pack_probability_list_menu: no
-  -- model, and a stuck screen after leaving the page): that screen's constellation is a 2D layer over the 3D pass, so
-  -- the menu-camera model is never seen there, and the screen waits for personal_plate_menu to report closed
-  -- (CMND 1521844538) before it takes input again. On the screens of EVT_PPM_CAPTURE_MENUS the model is built on the
-  -- capture layer (a 2D layer of its own, its own camera: the shared menu camera offset is never written there) and
-  -- the page close leaves our layer to the menu's own close. loader.log «EVT_PPM layer capture plate type 0»,
-  -- «EVT_PPM release page closed … menu closed <bool>».
-  M.CAPTURE_MENUS = EVT_PPM_CAPTURE_MENUS or {@crc:chara_pack_probability_list_menu@}
-  function M.InCaptureMenu()
+  -- screens whose 2D layers cover the 3D pass (CharacterReforged.PAGE_MODEL_CAPTURE_MENUS) get the model on the capture layer, and the page
+  -- close leaves the mod's layer to the menu's own close (the screen waits for personal_plate_menu to report closed)
+  M.CAPTURE_MENUS = CharacterReforged.PAGE_MODEL_CAPTURE_MENUS or {}
+  function M.in_capture_menu()
     for _, menu in ipairs(M.CAPTURE_MENUS) do
       if Lc(@crc:CMND_IS_EXIST_MENU@, menu) == true then                  -- CMND_IS_EXIST_MENU
         return true
@@ -271,24 +171,18 @@ EVT_PPM = EVT_PPM or {}
     return false
   end
 
-  -- BetterMenu's roster over the clubhouse (param better_menu_team_over_scene). The page uses its capture layer there
-  -- (a quad above BetterMenu's band). Character Reforged 1.8.66 had turned it off: the quad showed white although the
-  -- model was drawn into its render texture every frame. 1.9.0: the framework's quad binding (M.BIND_CMD) keeps the
-  -- quad's render-texture entry on the model's cell and the quad stays hidden until the binding is in place.
-  function M.InTeamDrawer()
-    return VRFW_Param.Has(TEAM_DRAWER)
+  -- BetterMenu's roster over the clubhouse (param better_menu_team_over_scene): the capture layer, bound by M.BIND_CMD
+  function M.in_team_drawer()
+    return VRFW.param.has(TEAM_DRAWER)
   end
 
-  function M.InMatch()
-    return type(EVT_PPG) == "table" and EVT_PPG.plateType == 1
+  function M.in_match()
+    return type(CharacterReforged.player_page) == "table" and CharacterReforged.player_page.plateType == 1
   end
-  -- a match page without the opt-in capture: no model (the retail match plate has none)
-  -- Character Reforged 1.8.52: the match capture is off by default again (config.toml [player_page] match_model "off"):
-  -- the match «Formación» is a pause screen, and a model built during a pause is never drawn into its render texture
-  -- (the quad showed white; docs/game/engine/menu-chara-capture.md «Pause screens»). The capture menus outside a
-  -- match (EVT_PPM_CAPTURE_MENUS) keep their capture whatever match_model says; EVT_PPM_CAPTURE = false turns them off.
+  -- a match page without the capture: no model. The capture menus outside a match keep their capture whatever
+  -- match_model says; CharacterReforged.PAGE_MODEL_CAPTURE = false turns them off.
   -- the capture settings, read once: mode 0 off / 1 in a match / 2 every screen, camera crc, report, bust camera
-  function M.Settings()
+  function M.settings()
     if M.cfg then
       return M.cfg
     end
@@ -302,47 +196,47 @@ EVT_PPM = EVT_PPM or {}
       c.live = live == 1
       c.gate = gate == 1
     end
-    if EVT_PPM_CAPTURE == false then
+    if CharacterReforged.PAGE_MODEL_CAPTURE == false then
       c.mode = 0
-    elseif EVT_PPM_CAPTURE == true then
+    elseif CharacterReforged.PAGE_MODEL_CAPTURE == true then
       c.mode = 1
-    elseif EVT_PPM_CAPTURE == "always" then
+    elseif CharacterReforged.PAGE_MODEL_CAPTURE == "always" then
       c.mode = 2
     end
-    if EVT_PPM_CAP_CAM then
-      c.cam = EVT_PPM_CAP_CAM
+    if CharacterReforged.PAGE_MODEL_CAPTURE_CAMERA then
+      c.cam = CharacterReforged.PAGE_MODEL_CAPTURE_CAMERA
     end
     M.CAP_CAM = c.cam
     M.cfg = c
-    M.Line("EVT_PPM capture settings", "mode", c.mode, "camera", c.cam, "report", c.report, "bust", c.bust,
+    M.line("PageModel capture settings", "mode", c.mode, "camera", c.cam, "report", c.report, "bust", c.bust,
       "live pause", c.live, "quad until drawn", c.gate, "from config", ok and type(mode) == "number")
     return c
   end
 
-  function M.Report(when)
-    if M.Capture() and M.Settings().report then
+  function M.report(when)
+    if M.capture() and M.settings().report then
       pcall(funcLuaCommand, M.REPORT_CMD, when, M.CAP_KEY, M.CAP_CAM, Cmd(GET_MODEL, M.LAYER, 0, 0) or 0)
     end
   end
 
-  function M.MatchOff()
-    local off = M.Settings().mode == 0 and M.InMatch()
+  function M.match_off()
+    local off = M.settings().mode == 0 and M.in_match()
     if off and not M.matchOffLogged then
       M.matchOffLogged = true
-      pcall(funcLuaCommand, LOG, "EVT_PPM match: no model")
+      pcall(funcLuaCommand, LOG, "PageModel match: no model")
     end
     return off
   end
 
   -- which model layer this page uses (only while none is open)
-  function M.ChooseLayer()
-    local mode = M.Settings().mode
-    local cap = mode == 2 or (mode == 1 and M.InMatch()) or
-      (EVT_PPM_CAPTURE ~= false and (M.InCaptureMenu() or M.InTeamDrawer()))
+  function M.choose_layer()
+    local mode = M.settings().mode
+    local cap = mode == 2 or (mode == 1 and M.in_match()) or
+      (CharacterReforged.PAGE_MODEL_CAPTURE ~= false and (M.in_capture_menu() or M.in_team_drawer()))
     if cap and Cmd(CMD_EXIST, M.CAP) ~= true then
       if not M.capMissLogged then
         M.capMissLogged = true
-        pcall(funcLuaCommand, @crc:CMND_EVT_LOG@, "EVT_PPM capture layer missing (menu objects not installed?)")
+        pcall(funcLuaCommand, @crc:CMND_VRFW_LOG@, "PageModel capture layer missing (menu objects not installed?)")
       end
       cap = false
     end
@@ -351,68 +245,68 @@ EVT_PPM = EVT_PPM or {}
       M.LAYER = l
       M.layerLogged = true
       M.capReady = false
-      pcall(funcLuaCommand, LOG, "EVT_PPM layer", cap and "capture" or "normal", "plate type",
-        tostring(type(EVT_PPG) == "table" and EVT_PPG.plateType or nil))
+      pcall(funcLuaCommand, LOG, "PageModel layer", cap and "capture" or "normal", "plate type",
+        tostring(type(CharacterReforged.player_page) == "table" and CharacterReforged.player_page.plateType or nil))
     end
   end
 
   -- the capture layer once open: only its quad, placed and sized on the page (layout units = screen px, y up)
-  function M.CapSetup()
-    if M.capReady or not M.Capture() then
+  function M.cap_setup()
+    if M.capReady or not M.capture() then
       return
     end
     M.capReady = true
     for _, m in ipairs(M.CAP_HIDE) do
       Cmd(@crc:CMND_SET_MESH_VISIBLE@, M.LAYER, m, false, 0)                -- CMND_SET_MESH_VISIBLE
     end
-    local b = M.InTeamDrawer() and M.TEAM_BOX or M.CAP_BOX
+    local b = M.in_team_drawer() and M.TEAM_BOX or M.CAP_BOX
     Cmd(2575768773, M.LAYER, 0, M.CAP_MESH, 0, b[1])       -- node position x (parent _pos_chr01 sits at 0, 0)
     Cmd(2575768773, M.LAYER, 0, M.CAP_MESH, 1, -b[2])      -- y (up)
     Cmd(2885415772, M.LAYER, 0, M.CAP_MESH, b[3], b[3])    -- node scale = the quad's size
     local okb, bind = pcall(funcLuaCommand, M.BIND_CMD, M.CAP_KEY, M.CAP_MESH)
     M.bindGate = okb and bind == 1
     M.bindOn = M.bindGate or nil
-    M.gated = not M.bindGate and M.InMatch() and M.Settings().gate
+    M.gated = not M.bindGate and M.in_match() and M.settings().gate
     M.quadOn, M.drawnIn = not (M.gated or M.bindGate), M.DRAWN_EVERY
     Cmd(@crc:CMND_SET_MESH_VISIBLE@, M.LAYER, M.CAP_MESH, M.quadOn, 0)
     if M.bindGate then
-      pcall(funcLuaCommand, LOG, "EVT_PPM capture quad hidden until bound")
+      pcall(funcLuaCommand, LOG, "PageModel capture quad hidden until bound")
     elseif M.gated then
       pcall(funcLuaCommand, M.DRAWN_CMD, 1)                -- a new wait for the probe's first draw
-      pcall(funcLuaCommand, LOG, "EVT_PPM capture quad hidden until drawn")
+      pcall(funcLuaCommand, LOG, "PageModel capture quad hidden until drawn")
     end
     local okg, gx, gy = pcall(funcLuaMenuCommand, GPOS, M.LAYER, 0, M.CAP_MESH)
-    M.Line("EVT_PPM capture setup", "box", b[1], b[2], b[3], "node", gx, gy, "drawprio", (Cmd(@crc:CMND_GET_DRAW_PRIORITY@, M.LAYER, 0)))
+    M.line("PageModel capture setup", "box", b[1], b[2], b[3], "node", gx, gy, "drawprio", (Cmd(@crc:CMND_GET_DRAW_PRIORITY@, M.LAYER, 0)))
   end
 
-  function M.CapSwap(why)
-    if not M.Capture() then
+  function M.cap_swap(why)
+    if not M.capture() then
       return
     end
     local r = Cmd(3747175963, M.LAYER, 0, M.CAP_MESH, M.CAP_KEY)
     if why ~= "ready" or not M.swapLogged then
       M.swapLogged = why == "ready"
-      M.Line("EVT_PPM capture swap", why, r, "model", (Cmd(GET_MODEL, M.LAYER, 0, 0)), "complete",
+      M.line("PageModel capture swap", why, r, "model", (Cmd(GET_MODEL, M.LAYER, 0, 0)), "complete",
         (Cmd(COMPLETE, M.LAYER, 0, 0)), "prebuilt", (Cmd(2787787510, M.LAYER, 0)))   -- prebuilt: resources built (state 5)
     end
   end
 
   -- the gated quad (M.gated): shown once the probe reports the model drawn into its render texture, hidden again when
   -- it reports no draw
-  function M.QuadGate()
-    if M.bindGate and M.Capture() then      -- waits for the framework's binding, as the build waits for COMPLETE
+  function M.quad_gate()
+    if M.bindGate and M.capture() then      -- waits for the framework's binding, as the build waits for COMPLETE
       local ok, r = pcall(funcLuaCommand, M.BOUND_CMD)
       if ok and r == 1 then
         M.bindGate, M.quadOn = false, true
         Cmd(@crc:CMND_SET_MESH_VISIBLE@, M.LAYER, M.CAP_MESH, true, 0)       -- CMND_SET_MESH_VISIBLE
-        pcall(funcLuaCommand, LOG, "EVT_PPM capture quad shown: bound")
+        pcall(funcLuaCommand, LOG, "PageModel capture quad shown: bound")
       elseif not ok or r ~= 0 then
         M.bindGate = false                                 -- no binding service: the quad stays hidden
-        pcall(funcLuaCommand, LOG, "EVT_PPM capture quad hidden: no binding", tostring(r))
+        pcall(funcLuaCommand, LOG, "PageModel capture quad hidden: no binding", tostring(r))
       end
       return
     end
-    if not M.gated or not M.Capture() then
+    if not M.gated or not M.capture() then
       return
     end
     M.drawnIn = (M.drawnIn or M.DRAWN_EVERY) - 1
@@ -425,9 +319,12 @@ EVT_PPM = EVT_PPM or {}
     if on ~= M.quadOn then
       M.quadOn = on
       Cmd(@crc:CMND_SET_MESH_VISIBLE@, M.LAYER, M.CAP_MESH, on, 0)          -- CMND_SET_MESH_VISIBLE
-      pcall(funcLuaCommand, LOG, "EVT_PPM capture quad", on and "shown" or "hidden", tostring(r))
+      pcall(funcLuaCommand, LOG, "PageModel capture quad", on and "shown" or "hidden", tostring(r))
     end
   end
+
+  -- CMND_VRFW_FORM_LIST and the model-set command, read by Clear and the form cycling below
+  local FORM_LIST, SET_MODEL = @crc:CMND_VRFW_FORM_LIST@, 2464766630
 
   local function Vis(on)
     local h = Cmd(GET_MODEL, M.LAYER, 0, 0)
@@ -437,14 +334,11 @@ EVT_PPM = EVT_PPM or {}
     M.shown = on
   end
 
-  -- round 9 (in game: after a form change the next player came smaller): the model component caches the first model's
-  -- base scale (menu_chara_model_comp SetScale: l1 kept while non-nil), so every player / form change closes the model
-  -- layer (its component and caches go) and the next Step opens a new one
-  -- 2026-10-28 (owner: the model came late on every player change): that close / reopen took ~0.2 s per change; the
-  -- component's cached base scale is now dropped before each new model object (character_reforged_model_scale.lua), so
-  -- the next model is built on the same layer. EVT_PPM_SWAP_IN_PLACE = false restores the close / reopen.
+  -- the model component caches the first model's base scale: it is dropped before each new model object
+  -- (character_reforged_model_scale.lua), so the next model is built on the same layer. CharacterReforged.PAGE_MODEL_SWAP_IN_PLACE = false
+  -- closes and reopens the layer instead.
   M.fresh = false
-  function M.Fresh()
+  function M.mark_fresh()
     M.fresh = true
   end
 
@@ -481,26 +375,12 @@ EVT_PPM = EVT_PPM or {}
     return c
   end
 
-  -- round 7 (Nacho): the kit of the user's team being viewed (the plate's dock number, SetPersonalPlateTeamDockNo),
-  -- else the active match team's; 0 = the character's own (no team found)
-  -- 2026-10-06: a caller-given kit / look wins (the office's «Ficha»: the candidate in the kit he wears in the office,
-  -- EVT_OfiPlateShow of research/grafts/office_look sets them; cleared when the page closes)
-  -- 2026-10-09 (Nacho, IF 1.17.1: Clorinda Luzzago, GK, on PERFIL in a beige school shirt and green shorts: «el
-  -- jugador debe verse con la equipación que le corresponde en el equipo»): uniform 0 (= the character's own clothes)
-  -- was passed whenever the team lookup failed, and the team came only from SetPersonalPlateTeamDockNo, which no retail
-  -- script calls (the page takes its team from the menu param 2078572769 in OnInit -> SetShowTeamDockNo). Now
-  -- M.Kit(hdl) does what the team dock's own view does (team_dock_formation_menu UpdateViewChara3DModel): the team
-  -- = the page's (SetShowTeamDockNo, wrapped below), else the active team (MENU_DEF.GetActiveTeamDockNoByMode, else
-  -- CMND_GET_VS_USE_TEAM_SET); uniform = CMND_GET_TEAM_SET_INFO(team, 0, 7) of the first team that answers, else the
-  -- retail DEFAULT_UNIFORM_CRC (never the own clothes); number = the member's (2113285063 -> 1720957768(.., 2)),
-  -- flags = keeper 2 (best position GK, GetSoccerCharaBestPositionTypeByStHdl == 1) + captain 8 (team info 8), as
-  -- the dock passes them. The outfits module still swaps the look natively (moment kit, Team Ogre's off-pitch
-  -- uniform when the kit passed is the Ogre kit). A caller-given kit / look (EVT_PPM_KIT / EVT_PPM_LOOK, the office)
-  -- wins. loader.log «EVT_PPM kit <chara> <team> <uniform> <number> <flags> <src>» per build.
-  -- 2026-10-21 (Battle Bay Deluxe's line-up viewer: every team's player in the active team's kit): a team member the
-  -- screen names through the VR-Framework's VRFW_PlateMember wears his own team's kit (src «member»).
-  function M.Look()
-    return type(EVT_PPM_LOOK) == "number" and EVT_PPM_LOOK or 0
+  -- the kit: a caller-given kit / look (CharacterReforged.PAGE_MODEL_KIT / CharacterReforged.PAGE_MODEL_LOOK) wins; a team member named through VRFW.plate_member
+  -- wears his own team's kit (src "member"); else as the team dock's view: the page's team (SetShowTeamDockNo), else the
+  -- active team; uniform = CMND_GET_TEAM_SET_INFO(team, 0, 7), else DEFAULT_UNIFORM_CRC; number = the member's; flags =
+  -- keeper 2 + captain 8. loader.log "PageModel kit <chara> <team> <uniform> <number> <flags> <src>" per build.
+  function M.look()
+    return type(CharacterReforged.PAGE_MODEL_LOOK) == "number" and CharacterReforged.PAGE_MODEL_LOOK or 0
   end
   local function Num(...)
     local ok, a, b = pcall(funcLuaCommand, ...)
@@ -509,7 +389,7 @@ EVT_PPM = EVT_PPM or {}
     end
     return nil
   end
-  function M.Teams()
+  function M.teams()
     local t = {}
     if type(M.pageDock) == "number" and M.pageDock >= 0 then
       t[#t + 1] = {M.pageDock, "page"}
@@ -531,19 +411,19 @@ EVT_PPM = EVT_PPM or {}
     end
     return t
   end
-  function M.Kit(hdl)
-    if type(EVT_PPM_KIT) == "number" then
-      return EVT_PPM_KIT, 10, M.Look(), "caller", -1
+  function M.kit(hdl)
+    if type(CharacterReforged.PAGE_MODEL_KIT) == "number" then
+      return CharacterReforged.PAGE_MODEL_KIT, 10, M.look(), "caller", -1
     end
     local u, team, src = nil, -1, "default"
-    -- a team member shown as a temporary character (a line-up viewer names him: VRFW_PlateMember): his team's kit
-    if type(VRFW_PlateMember) == "table" and type(VRFW_PlateMember.Kit) == "function" then
-      local okm, mk, msrc = pcall(VRFW_PlateMember.Kit)
+    -- a team member shown as a temporary character (a line-up viewer names him: VRFW.plate_member): his team's kit
+    if type(VRFW.plate_member) == "table" and type(VRFW.plate_member.kit) == "function" then
+      local okm, mk, msrc = pcall(VRFW.plate_member.kit)
       if okm and type(mk) == "number" and (mk ~= 0 or msrc == "own") then
         u, src = mk, msrc == "own" and "own" or "member"      -- "own": 0 = his own clothes, as his miniface
       end
     end
-    for _, e in ipairs(u == nil and M.Teams() or {}) do
+    for _, e in ipairs(u == nil and M.teams() or {}) do
       u = Num(@crc:CMND_GET_TEAM_SET_INFO@, e[1], 0, 7)                   -- CMND_GET_TEAM_SET_INFO(team, 0, 7) = kit
       if u ~= nil and u ~= 0 then
         team, src = e[1], e[2]
@@ -574,13 +454,9 @@ EVT_PPM = EVT_PPM or {}
       if pos == 1 then
         flags = flags + 2                                     -- keeper shirt
       end
-      -- 2026-10-12 (Nacho: the coach Percival Travis and the managers on the page in the team's player kit): staff
-      -- look flags as the retail dock view / equipment screen pass them (CheckEnableSetDirector / ...Manager = the
-      -- role badge the record wears): coach 16, manager 32, alone (no keeper / captain bits); the engine then
-      -- dresses them in their own clothes (soccer_costume_config, the uniform's director / manager model), and the
-      -- card look rules leave staff untouched. As the retail equipment screen: when the coach costume lookup
-      -- (2641567432(chara, flags, uniform)) finds a costume, uniform 0 (his own clothes).
-      local staff = M.StaffFlags(hdl)
+      -- staff look flags as the retail dock view passes them: coach 16, manager 32, alone; when the coach costume lookup
+      -- (2641567432(chara, flags, uniform)) finds a costume, uniform 0 (his own clothes)
+      local staff = M.staff_flags(hdl)
       if staff ~= 0 then
         flags = staff
         local chara = CharaOf(hdl)
@@ -594,7 +470,7 @@ EVT_PPM = EVT_PPM or {}
   end
   -- the retail CheckEnableSetDirector / CheckEnableSetManager (funcLuaCommand(2361903722, hdl, badge) -> ok, has):
   -- 16 coach (abl_000002), 32 manager (abl_000003), 0 a player
-  function M.StaffFlags(hdl)
+  function M.staff_flags(hdl)
     for _, s in ipairs({ {2607368153, 16}, {3966662479, 32} }) do   -- abl_000002 coach, abl_000003 manager
       local ok, has, on = pcall(funcLuaCommand, 2361903722, hdl, s[1])
       if ok and has == true and on == true then
@@ -604,13 +480,10 @@ EVT_PPM = EVT_PPM or {}
     return 0
   end
 
-  -- round 8 (Nacho): R3 on PERFIL cycles the player's forms as the retired «Ver apariencia» did (module form_view:
-  -- CMND_VRFW_FORM_LIST(hdl) -> n, forms (0 Normal, 1 Miximax, 2 Armadura, 3 Armadura Miximax = the miximax's own
-  -- armour, 4 the aura slot's armour + the miximax; listed in the cycle order); CMND_VRFW_FORM_MODEL
-  -- (hdl, form) -> model id: armour forms put it on the menu entry 0x92E95AA6 before the chara)
+  -- the form key on PERFIL cycles the player's forms: CMND_VRFW_FORM_LIST(hdl) -> n, forms (0 Normal, 1 Miximax,
+  -- 2 Armadura, 3 Armadura Miximax, 4 the aura slot's armour + the miximax); CMND_VRFW_FORM_MODEL(hdl, form) -> model id
   M.ARMOUR_FORMS = {[2] = true, [3] = true, [4] = true}
   M.FUSED_FORMS = {[1] = true, [3] = true, [4] = true}
-  local FORM_LIST, SET_MODEL = @crc:CMND_VRFW_FORM_LIST@, 2464766630
   local CHECK, CTRL, CTRL_AN, R3 = @crc:CMND_CHECK_INPUT_CMD@, 1332654303, 2748927068, 3147328756   -- CMD_FUNC6 = R3
   M.forms = M.forms or {0}
   M.fidx = M.fidx or 1
@@ -618,17 +491,13 @@ EVT_PPM = EVT_PPM or {}
   M.entryModel = false
   M.tick, M.last = 0, -100
 
-  -- round 9: the fused forms (1 Miximax, 3 Armadura Miximax) are left out of the cycle: in game (Simeon Ayp) the
-  -- fused model came huge with the arms hanging (no motion set for the fused request on this layer); the retail form
-  -- viewer only re-posed the armour forms (the same treatment is kept for 2). EVT_PPM_FUSED_FORMS = true tries them.
-  -- 2026-10-06: the DLL builds every form with its own skeleton / motion (form_view chara_bind), so the miximax forms
-  -- are back by default. EVT_PPM_FORM_SKIP = {[form] = true} leaves a form that still fails out (logged);
-  -- EVT_PPM_FUSED_FORMS = false leaves 1 and 3 out as before.
-  function M.LoadForms(hdl)
+  -- CharacterReforged.PAGE_MODEL_FORM_SKIP = {[form] = true} leaves a form out of the cycle (logged); CharacterReforged.PAGE_MODEL_FUSED_FORMS = false leaves the
+  -- fused forms 1 and 3 out
+  function M.load_forms(hdl)
     M.fhdl, M.forms, M.fidx = hdl, {0}, 1
     local function Skip(f)
-      return f ~= 0 and ((type(EVT_PPM_FORM_SKIP) == "table" and EVT_PPM_FORM_SKIP[f] == true)
-        or (EVT_PPM_FUSED_FORMS == false and M.FUSED_FORMS[f] == true))
+      return f ~= 0 and ((type(CharacterReforged.PAGE_MODEL_FORM_SKIP) == "table" and CharacterReforged.PAGE_MODEL_FORM_SKIP[f] == true)
+        or (CharacterReforged.PAGE_MODEL_FUSED_FORMS == false and M.FUSED_FORMS[f] == true))
     end
     local r = {pcall(funcLuaCommand, FORM_LIST, hdl)}
     if r[1] and type(r[2]) == "number" and r[2] >= 1 then
@@ -643,10 +512,7 @@ EVT_PPM = EVT_PPM or {}
         M.forms = t
       end
     end
-    -- round 14b: the miximax forms (1 Miximax, 3 Armadura Miximax) were tried in the cycle and showed the base
-    -- player's skeleton / pose on the miximax model (huge, stretched, arms out: the same as round 9). Out again until
-    -- the form's own skeleton / motion can be bound (EVT_PPM_FUSED_FORMS = true tries them); the list and the forms
-    -- left out are logged
+    -- the forms left out are logged
     local out = {}
     if r[1] and type(r[2]) == "number" then
       for i = 1, r[2] do
@@ -656,21 +522,21 @@ EVT_PPM = EVT_PPM or {}
         end
       end
     end
-    pcall(funcLuaCommand, LOG, "EVT_PPM form list", tostring(hdl), table.concat(M.forms, ","), "left out (EVT_PPM_FORM_SKIP)",
+    pcall(funcLuaCommand, LOG, "PageModel form list", tostring(hdl), table.concat(M.forms, ","), "left out (PAGE_MODEL_FORM_SKIP)",
       table.concat(out, ","))
   end
 
-  -- the fit scale of a model h metres tall (see EVT_PPM_FIT_H at the top); 1 = off
-  function M.FitScale(h)
-    if type(EVT_PPM_FIT_H) ~= "number" or type(h) ~= "number" or h <= 0 then
+  -- the fit scale of a model h metres tall (see CharacterReforged.PAGE_MODEL_FIT_H at the top); 1 = off
+  function M.fit_scale(h)
+    if type(CharacterReforged.PAGE_MODEL_FIT_H) ~= "number" or type(h) ~= "number" or h <= 0 then
       return 1
     end
-    local ref = type(EVT_PPM_FIT_REF) == "number" and EVT_PPM_FIT_REF or 1.7
-    local k = type(EVT_PPM_FIT_K) == "number" and EVT_PPM_FIT_K or 0.35
-    local lo = type(EVT_PPM_FIT_MIN) == "number" and EVT_PPM_FIT_MIN or 0
+    local ref = type(CharacterReforged.PAGE_MODEL_FIT_REF) == "number" and CharacterReforged.PAGE_MODEL_FIT_REF or 1.7
+    local k = type(CharacterReforged.PAGE_MODEL_FIT_K) == "number" and CharacterReforged.PAGE_MODEL_FIT_K or 0.35
+    local lo = type(CharacterReforged.PAGE_MODEL_FIT_MIN) == "number" and CharacterReforged.PAGE_MODEL_FIT_MIN or 0
     local shown = ref * (h / ref) ^ k
-    if shown > EVT_PPM_FIT_H then
-      shown = EVT_PPM_FIT_H
+    if shown > CharacterReforged.PAGE_MODEL_FIT_H then
+      shown = CharacterReforged.PAGE_MODEL_FIT_H
     end
     if shown < lo then
       shown = lo
@@ -679,7 +545,7 @@ EVT_PPM = EVT_PPM or {}
   end
   -- the fit on the built model object: its base scale (read once per build, before any write of ours) x the fit.
   -- First call per build measures (M.fit = {handle, base x, y, z, fit}); later calls write the same values again.
-  function M.ApplyFit()
+  function M.apply_fit()
     local mh = Cmd(GET_MODEL, M.LAYER, 0, 0)
     if type(mh) ~= "number" or mh == 0 then
       return false
@@ -692,8 +558,8 @@ EVT_PPM = EVT_PPM or {}
       end
       by = type(by) == "number" and by > 0 and by or bx
       bz = type(bz) == "number" and bz > 0 and bz or bx
-      local h, src = M.Height()
-      local s = M.FitScale(h)
+      local h, src = M.height()
+      local s = M.fit_scale(h)
       F = {h = mh, bx = bx, by = by, bz = bz, s = s}
       M.fit = F
       M.fitLog = string.format("%.3f %s base %.3f -> scale %.3f = %.2f m", h, tostring(src), by, s, h * s)
@@ -707,7 +573,7 @@ EVT_PPM = EVT_PPM or {}
   local function Build(chara)
     local hdl = M.want
     if type(hdl) == "number" and M.fhdl ~= hdl and M.appearance == nil then   -- no form cycle where the view is offered
-      M.LoadForms(hdl)
+      M.load_forms(hdl)
     end
     local f = M.forms[M.fidx] or 0
     local m = 0
@@ -715,30 +581,28 @@ EVT_PPM = EVT_PPM or {}
       local ok, v = pcall(funcLuaCommand, FORM_MODEL, hdl, f)
       m = ok and type(v) == "number" and v or 0
     end
-    -- round 9 (in game: armour -> Normal stayed the armour model in a T-pose): the model id is cleared on the entry
-    -- before EVERY non-armour build (the model script keeps g_modelCharaModelID until it is set again; the form
-    -- viewer's dropEntryModel), not only when this block remembers having set it
+    -- the model id is cleared on the entry before every non-armour build (the model script keeps g_modelCharaModelID)
     Cmd(SET_MODEL, M.LAYER, 0, 0)
     M.entryModel = false
     if m ~= 0 and M.ARMOUR_FORMS[f] == true then
       Cmd(SET_MODEL, M.LAYER, 0, m)
       M.entryModel = true
     end
-    if M.Capture() then
+    if M.capture() then
       Cmd(REGIST, M.LAYER, 0, M.CAP_REGIST, 0)   -- before the chara, as the retail keeper gauge
     end
     Cmd(SET_CHARA, M.LAYER, 0, chara, 0)
-    if not M.Capture() then
+    if not M.capture() then
       Cmd(REGIST, M.LAYER, 0, 4, 0)
     end
-    local u, number, flags, src, team = M.Kit(hdl)
+    local u, number, flags, src, team = M.kit(hdl)
     Cmd(KIT, M.LAYER, 0, u, number, flags, 0)
     if team >= 0 then
       Cmd(BELONG_KIT, M.LAYER, 0, true)    -- a team's kit: as the dock's view (SetScnCharaUserBelongTeamKit)
     end
     if M.kitLogged ~= tostring(hdl) .. ":" .. tostring(u) then
       M.kitLogged = tostring(hdl) .. ":" .. tostring(u)
-      pcall(funcLuaCommand, LOG, "EVT_PPM kit", tostring(chara), tostring(team), tostring(u), tostring(number),
+      pcall(funcLuaCommand, LOG, "PageModel kit", tostring(chara), tostring(team), tostring(u), tostring(number),
         tostring(flags), tostring(src))
     end
     Cmd(MOTION, M.LAYER, 0, STAND, 0, 0, 0, 0, 0)
@@ -749,42 +613,39 @@ EVT_PPM = EVT_PPM or {}
     M.yaw = 0                              -- the stick turn starts again at the retail turn
     end
     M.body = body
-    M.fit, M.fitLog = nil, nil            -- the fit is written on the model once it is built (M.ApplyFit)
-    if M.Capture() then
-      if M.Settings().bust then
+    M.fit, M.fitLog = nil, nil            -- the fit is written on the model once it is built (M.apply_fit)
+    if M.capture() then
+      if M.settings().bust then
         Cmd(@crc:CMND_SET_CHARA_MODEL_POS@, M.LAYER, 0, 0, 0, 0, 0)  -- CMND_SET_CHARA_MODEL_POS: the bust camera looks at the origin
       end
       Cmd(3986622543, M.LAYER, 0, 0, M.CAP_CAM)  -- the model's capture camera (SetupSoccereMenuCharaModel arg 14)
     end
-    Cmd(CHANGE, M.LAYER, 0, 0, 9, 0, M.Capture() and M.CAP_KEY or 0)
-    pcall(M.CapSwap, "build")
-    M.Framing()
+    Cmd(CHANGE, M.LAYER, 0, 0, 9, 0, M.capture() and M.CAP_KEY or 0)
+    pcall(M.cap_swap, "build")
+    M.framing()
     Vis(false)
   end
-  M.Build = Build
+  M.build = Build
 
-  -- the retail «Ver apariencia» framing (shared ModelView): the shared menu camera offset at the retail (0, 0, 0)
-  -- (saved first, given back on release: M.SetCam), the turn, stand motion and pose. The framing knobs it replaces
-  -- (one offset for everybody, per-body offsets / scales, the office camera): docs/game/ui/ui-redesign.md rounds
-  -- 11..14 and docs/game/ui/menu-model-view.md. EVT_PPM_CAM_OFS = {x, y, z} stays as a tuning override.
-  function M.Framing()
-    if M.Capture() then                    -- own camera: the retail turn, stand motion and pose only
+  -- the retail "View appearance" framing (shared ModelView): the menu camera offset at (0, 0, 0) (saved first, given back
+  -- on release: M.set_cam), the turn, stand motion and pose. CharacterReforged.PAGE_MODEL_CAMERA_OFFSET = {x, y, z} overrides the offset.
+  function M.framing()
+    if M.capture() then                    -- own camera: the retail turn, stand motion and pose only
       Cmd(MV.ROT, M.LAYER, 0, 0, MV.RETAIL.rot_y, 0)
       Cmd(MV.MOTION, M.LAYER, 0, MV.STAND, 0, 0, 0, 0, 0)
       Cmd(MV.POSE_UPD, M.LAYER, 0, MV.POSE_ARG)
       return
     end
-    local c = type(EVT_PPM_CAM_OFS) == "table" and EVT_PPM_CAM_OFS or MV.RETAIL.cam
-    M.SetCam(c[1] or 0, c[2] or 0, c[3] or 0)
-    MV.Frame(M.LAYER, 0)
-    if type(EVT_PPM_CAM_OFS) == "table" then   -- the override wins over the retail offset MV.Frame wrote
+    local c = type(CharacterReforged.PAGE_MODEL_CAMERA_OFFSET) == "table" and CharacterReforged.PAGE_MODEL_CAMERA_OFFSET or MV.RETAIL.cam
+    M.set_cam(c[1] or 0, c[2] or 0, c[3] or 0)
+    MV.frame(M.LAYER, 0)
+    if type(CharacterReforged.PAGE_MODEL_CAMERA_OFFSET) == "table" then   -- the override wins over the retail offset MV.frame wrote
       Lc(CAM_OFS, CAM, c[1] or 0, c[2] or 0, c[3] or 0)
     end
   end
 
   -- the height of the loaded model (measured at scale 1: the first build of a player / form); returns height, source
-  -- (the logged heights of 2026-10-09: 1.53..1.77 for body 0, 2.40 for body 4)
-  function M.Height()
+  function M.height()
     local mh = Cmd(GET_MODEL, M.LAYER, 0, 0)
     if type(mh) == "number" and mh ~= 0 then
       local v = Lc(MODEL_H, mh)
@@ -792,14 +653,11 @@ EVT_PPM = EVT_PPM or {}
         return v, "model"
       end
     end
-    local t = type(EVT_PPM_BODY_H) == "table" and EVT_PPM_BODY_H[M.body or 0] or 1
-    return (type(t) == "number" and t or 1) * (EVT_PPM_MEDIUM_H or 1.6), "body"
+    local t = type(CharacterReforged.PAGE_MODEL_BODY_H) == "table" and CharacterReforged.PAGE_MODEL_BODY_H[M.body or 0] or 1
+    return (type(t) == "number" and t or 1) * (CharacterReforged.PAGE_MODEL_MEDIUM_H or 1.6), "body"
   end
 
-  -- the plate is up and shown (this screen's page open, the plate visible)
-  -- round 7: over the transfer office (shop_menu open: its own model) no model of ours
-  -- 2026-10-06: the office's «Ficha» (this screen in universe mode, a temp chara of the candidate; the office hides
-  -- its own model and layers meanwhile) gets the model like every player page
+  -- the plate is up and shown (this screen's page open, the plate visible); none over the transfer office (shop_menu)
   local function InOffice()
     local okU, uni = pcall(IsUniverseCharaMode)
     if okU and uni == true then
@@ -809,21 +667,18 @@ EVT_PPM = EVT_PPM or {}
     return ok and v == true
   end
 
-  -- 2026-10-07: the rules' hide_in_menus show no model at all; the form list goes with it (no «Cambiar forma»
-  -- hint / R3 there). loader.log «EVT_PPM rules hide <menu crc>» once per change.
-  -- Fix (same day): the retail «Ver apariencia» offer (view_in_menus, Formación) no longer depends on a hide rule: the
-  -- model shows there and only the form cycle goes (R3 / the hint open the retail view instead). loader.log
-  -- «EVT_PPM rules offer <menu crc>» once per change.
-  function M.RuleHidden()
-    local h = MV.Hidden(EVT_PPM_VIEW_RULES)
+  -- hide_in_menus show no model and no form list; view_in_menus offer the retail view instead of the form cycle.
+  -- loader.log "PageModel rules hide <menu crc>" / "PageModel rules offer <menu crc>" once per change.
+  function M.rule_hidden()
+    local h = MV.hidden(CharacterReforged.PAGE_MODEL_VIEW_RULES)
     if h ~= M.ruleHid then
       M.ruleHid = h
-      pcall(funcLuaCommand, LOG, "EVT_PPM rules hide", tostring(h))
+      pcall(funcLuaCommand, LOG, "PageModel rules hide", tostring(h))
     end
-    M.appearance = MV.Offer(EVT_PPM_VIEW_RULES)   -- read by plate_pages (hint, pointer)
+    M.appearance = MV.offer(CharacterReforged.PAGE_MODEL_VIEW_RULES)   -- read by plate_pages (hint, pointer)
     if M.appearance ~= M.offerLogged then
       M.offerLogged = M.appearance
-      pcall(funcLuaCommand, LOG, "EVT_PPM rules offer", tostring(M.appearance))
+      pcall(funcLuaCommand, LOG, "PageModel rules offer", tostring(M.appearance))
     end
     if h ~= nil or M.appearance ~= nil then
       M.forms, M.fidx, M.fhdl = {0}, 1, nil
@@ -832,44 +687,41 @@ EVT_PPM = EVT_PPM or {}
   end
 
   -- R3 on PERFIL (or plate_pages' click on the hint) while a rules menu offers the retail view: ask it to open
-  function M.OpenView(why)
+  function M.open_view(why)
     local menu = M.appearance
-    if menu == nil or EVT_PPM_PAGE_FORMS ~= true then   -- PERFIL only (plate_pages sets EVT_PPM_PAGE_FORMS there)
+    if menu == nil or CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true then   -- PERFIL only (plate_pages sets CharacterReforged.PAGE_MODEL_PAGE_FORMS there)
       return false
     end
-    -- our model goes first (the retail view builds its own on the same camera; ours is built again, framed, when the
-    -- page comes back) and stays off EVT_PPM_VIEW_HOLD Steps, also when the view is refused
-    M.hold = M.tick + (EVT_PPM_VIEW_HOLD or 30)
-    pcall(M.Release, "view")
-    local r = MV.OpenView(EVT_PPM_VIEW_RULES, menu)
-    pcall(funcLuaCommand, LOG, "EVT_PPM view", tostring(why), string.format("%08X", menu), tostring(r))
+    -- the mod's model goes first (the retail view builds its own on the same camera; the mod's is built again, framed, when the
+    -- page comes back) and stays off CharacterReforged.PAGE_MODEL_VIEW_HOLD Steps, also when the view is refused
+    M.hold = M.tick + (CharacterReforged.PAGE_MODEL_VIEW_HOLD or 30)
+    pcall(M.release, "view")
+    local r = MV.open_view(CharacterReforged.PAGE_MODEL_VIEW_RULES, menu)
+    pcall(funcLuaCommand, LOG, "PageModel view", tostring(why), string.format("%08X", menu), tostring(r))
     return true
   end
-  -- 2026-10-14 (owner: the RS button of the character view is Utilities' now; docs/game/mechanics/form-viewer.md §8):
-  -- the key is Utilities' action «Cambiar forma» (CMD_UTIL_VIEW_FORMS, default RS, rebindable in «Configuración de
-  -- controles»), applied to this menu by the declaration content\menus\player_page_view_forms.toml (Character Reforged, only
-  -- with Utilities): Utilities polls it and calls
-  -- EVT_PPM_ViewFormsPress on a press. Without that declaration (no Utilities mechanism) R3 (CMD_FUNC6) is polled here.
-  function M.UtilKey()
-    local V = type(BetterQoL) == "table" and BetterQoL.ViewForms or nil
-    return type(V) == "table" and type(V.Declared) == "function" and V.Declared("personal_plate_menu") == true
+  -- the form key: BetterQoL.view_forms calls CharacterReforged.page_model_view_forms_press where content\menus\player_page_view_forms.toml
+  -- declares this menu; without it R3 (CMD_FUNC6) is polled here
+  function M.better_qol_key()
+    local V = type(BetterQoL) == "table" and BetterQoL.view_forms or nil
+    return type(V) == "table" and type(V.declared) == "function" and V.declared("personal_plate_menu") == true
   end
   local function R3Down()
-    return not M.UtilKey() and (Lc(CHECK, CTRL, R3) == true or Lc(CHECK, CTRL_AN, R3) == true)
+    return not M.better_qol_key() and (Lc(CHECK, CTRL, R3) == true or Lc(CHECK, CTRL_AN, R3) == true)
   end
-  function M.ViewPress(why)
-    if M.appearance == nil or EVT_PPM_PAGE_FORMS ~= true or M.tick - M.last < 8 then
+  function M.view_press(why)
+    if M.appearance == nil or CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true or M.tick - M.last < 8 then
       return false
     end
     M.last = M.tick
-    return M.OpenView(why)
+    return M.open_view(why)
   end
-  function M.ViewKey()
-    if M.appearance == nil or EVT_PPM_PAGE_FORMS ~= true or M.tick - M.last < 8 then
+  function M.view_key()
+    if M.appearance == nil or CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true or M.tick - M.last < 8 then
       return
     end
     if R3Down() then
-      M.ViewPress("R3")
+      M.view_press("R3")
     end
   end
 
@@ -877,7 +729,7 @@ EVT_PPM = EVT_PPM or {}
     if M.hold ~= nil and M.tick < M.hold then   -- R3 / the click asked for the retail view
       return false
     end
-    if EVT_PPM_PAGE_OK == false or M.MatchOff() or InOffice() or M.RuleHidden() then
+    if CharacterReforged.PAGE_MODEL_PAGE_OK == false or M.match_off() or InOffice() or M.rule_hidden() then
       return false
     end
     if Lc(CMD_IS_OPEN_OBJ, M.MENU, M.PAGE) == false then
@@ -886,41 +738,40 @@ EVT_PPM = EVT_PPM or {}
     return Cmd(CMD_IS_VISIBLE, M.PLATE, 0) == true
   end
 
-  function M.FormKey()
+  function M.form_key()
     M.tick = M.tick + 1
-    if M.appearance ~= nil then             -- the key opens the retail view there (M.ViewKey / M.ViewPress)
+    if M.appearance ~= nil then             -- the key opens the retail view there (M.view_key / M.view_press)
       return
     end
-    if M.phase ~= "ready" or EVT_PPM_PAGE_FORMS ~= true or #M.forms <= 1 or M.tick - M.last < 8 then
+    if M.phase ~= "ready" or CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true or #M.forms <= 1 or M.tick - M.last < 8 then
       return
     end
     if R3Down() then
-      M.FormPress()
+      M.form_press()
     end
   end
-  -- Utilities' «Cambiar forma» press on this page (the declaration content/menus/player_page_view_forms.toml): the next form, or the retail view where offered
-  function EVT_PPM_ViewFormsPress()
+  -- the view-forms press on this page: the next form, or the retail view where offered
+  function CharacterReforged.page_model_view_forms_press()
     if M.appearance ~= nil then
-      return M.ViewPress("RS")
+      return M.view_press("RS")
     end
-    return M.FormPress()
+    return M.form_press()
   end
-  function M.FormPress()
-    if M.appearance ~= nil or M.phase ~= "ready" or EVT_PPM_PAGE_FORMS ~= true or #M.forms <= 1 or M.tick - M.last < 8 then
+  function M.form_press()
+    if M.appearance ~= nil or M.phase ~= "ready" or CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true or #M.forms <= 1 or M.tick - M.last < 8 then
       return false
     end
     M.last = M.tick
     M.fidx = M.fidx % #M.forms + 1
     Lc(@crc:CMND_SND_PLAY_SE@, 2629173176)            -- sy0009, the viewer's switch sound
-    Lc(LOG, "EVT_PPM form", tostring(M.fhdl), tostring(M.forms[M.fidx]))
-    M.Fresh()                              -- rebuilt on a fresh model layer with the new form
+    Lc(LOG, "PageModel form", tostring(M.fhdl), tostring(M.forms[M.fidx]))
+    M.mark_fresh()                              -- rebuilt on a fresh model layer with the new form
     return true
   end
 
-  -- 2026-10-13 (owner, ATRIBUTOS Normal / Miximax: research/grafts/plate_pages G.MxStep): show form f of the shown
-  -- player's list (rebuilt on a fresh layer as R3 does, no sound: the caller plays it); false = f not in his list or
-  -- the model not ready
-  function M.ShowForm(f)
+  -- show form f of the shown player's list (rebuilt on a fresh layer, no sound: the caller plays it); false = f not in
+  -- his list or the model not ready
+  function M.show_form(f)
     if M.phase ~= "ready" or type(M.forms) ~= "table" or M.fhdl == nil or M.fhdl ~= M.want then
       return false
     end
@@ -931,19 +782,17 @@ EVT_PPM = EVT_PPM or {}
       if x == f then
         M.fidx = i
         M.last = M.tick
-        Lc(LOG, "EVT_PPM form (page)", tostring(M.fhdl), tostring(f))
-        M.Fresh()
+        Lc(LOG, "PageModel form (page)", tostring(M.fhdl), tostring(f))
+        M.mark_fresh()
         return true
       end
     end
     return false
   end
 
-  -- 2026-10-14 (owner: Apolo's armour chosen on the Hiper page stayed on the moves page; the miximax look the same):
-  -- a form look belongs only to the page / view where it was chosen. Leaving that page (Q / E: plate_pages G.Apply),
-  -- closing the page or finalizing the menu puts the model back to the Normal form; another player already starts
-  -- Normal (M.LoadForms). As the retired IF form_view did on close / player change.
-  function M.NormalFormIndex()
+  -- a form look belongs to the page where it was chosen: leaving the page (plate_pages G.apply), closing it or finalizing
+  -- the menu puts the model back to Normal; another player starts Normal (M.load_forms)
+  function M.normal_form_index()
     for i, x in ipairs(type(M.forms) == "table" and M.forms or {}) do
       if x == 0 then
         return i
@@ -953,31 +802,28 @@ EVT_PPM = EVT_PPM or {}
   end
   -- back to Normal; rebuild = the model is hidden at once (before the next page draws) and rebuilt Normal on a fresh
   -- layer, else only the choice (the page is gone: the next build is Normal). true = a form look was chosen.
-  function M.ResetForm(why, rebuild)
-    local normal = M.NormalFormIndex()
+  function M.reset_form(why, rebuild)
+    local normal = M.normal_form_index()
     if (M.fidx or 1) == normal then
       return false
     end
     M.fidx = normal
-    Lc(LOG, "EVT_PPM form reset", tostring(why), tostring(M.fhdl))
+    Lc(LOG, "PageModel form reset", tostring(why), tostring(M.fhdl))
     if rebuild then
       if M.shown then
         Vis(false)
       end
       M.last = M.tick
-      M.Fresh()
+      M.mark_fresh()
     end
     return true
   end
 
-  -- 2026-10-06 (in game: a stuck screen after leaving Plantilla, a tiny model in the middle): our model / layer are
-  -- released whenever the plate goes (hidden, page closed, menu finalized); loader.log «EVT_PPM release <why>».
-  -- 2026-10-06 fix (Equipamiento stuck after 32d4350a6): Release touches only what is ours. The shared menu camera
-  -- offset goes back to the value saved before our first write ONLY when it still holds our own last write and no
-  -- other model screen (equip_menu, evt_skill_slot_menu) exists; the hidden path releases ONCE and the layer is opened
-  -- only while the plate shows (it opened / closed every frame before).
-  M.OTHER_MODEL_MENUS = {606230082, 1041963128}       -- equip_menu, evt_skill_slot_menu
-  function M.SetCam(x, y, z)
+  -- the mod's model / layer are released whenever the plate goes (hidden, page closed, menu finalized); loader.log
+  -- "PageModel release <why>". The shared camera offset is given back only while it holds this script's last write and no other
+  -- model screen exists; the hidden path releases once.
+  M.OTHER_MODEL_MENUS = {606230082, 2221030314}       -- equip_menu, vrfw_skill_slot_menu
+  function M.set_cam(x, y, z)
     if M.camSaved == nil then
       local okc, has, cx, cy, cz = pcall(funcLuaCommand, CAM_GET, CAM)
       if okc and has == true and type(cx) == "number" then
@@ -1008,28 +854,25 @@ EVT_PPM = EVT_PPM or {}
     return math.abs(cx - m[1]) < e and math.abs((cy or 0) - m[2]) < e and math.abs((cz or 0) - m[3]) < e
   end
 
-  -- 2026-10-06 (in game: «release hidden» every frame after 73bba17cc, then Tabla de habilidades / Equipamiento
-  -- stuck): a layer being closed still answers IS_OPEN for a few frames, so the close was asked again every frame,
-  -- and the plate's visibility flickers during screen changes, so the layer was reopened between. Now: ONE close
-  -- request per release (M.closing until IS_OPEN answers false), and the layer is opened again only after the plate
-  -- has shown for EVT_PPM_OPEN_FRAMES frames in a row.
-  if EVT_PPM_OPEN_FRAMES == nil then
-    EVT_PPM_OPEN_FRAMES = 6
+  -- one close request per release (M.closing until IS_OPEN answers false); the layer opens again only after the plate
+  -- has shown for CharacterReforged.PAGE_MODEL_OPEN_FRAMES frames in a row
+  if CharacterReforged.PAGE_MODEL_OPEN_FRAMES == nil then
+    CharacterReforged.PAGE_MODEL_OPEN_FRAMES = 6
   end
   M.closing, M.upRun = false, 0
-  function M.Release(why)
+  function M.release(why)
     local did = false
     if M.built ~= nil or M.shown then
       Clear()
       did = true
     end
-    local menuCloses = (why ~= "hidden" or M.want == nil) and M.InCaptureMenu()
-    if menuCloses then                    -- the page's menu closes: its own close takes our layer too
+    local menuCloses = (why ~= "hidden" or M.want == nil) and M.in_capture_menu()
+    if menuCloses then                    -- the page's menu closes: its own close takes the mod's layer too
       if why ~= "hidden" then
-        M.Line("EVT_PPM release", why, "layer left to the menu, menu closed", Lc(@crc:CMND_IS_CLOSE_MENU_OBJECT@, M.MENU))
+        M.line("PageModel release", why, "layer left to the menu, menu closed", Lc(@crc:CMND_IS_CLOSE_MENU_OBJECT@, M.MENU))
       end
     elseif not M.closing and Cmd(CMD_EXIST, M.LAYER) == true and Cmd(CMD_IS_OPEN, M.LAYER) == true then
-      Cmd(@crc:CMND_CLOSE_LAYER@, M.LAYER)          -- CMND_CLOSE_LAYER (our own layer evt_pp_model), once
+      Cmd(@crc:CMND_CLOSE_LAYER@, M.LAYER)          -- CMND_CLOSE_LAYER (our own layer cr_pp_model), once
       M.closing = true
       did = true
     end
@@ -1052,15 +895,15 @@ EVT_PPM = EVT_PPM or {}
       did = true
     end
     if did then
-      pcall(funcLuaCommand, LOG, "EVT_PPM release", tostring(why))
+      pcall(funcLuaCommand, LOG, "PageModel release", tostring(why))
     end
   end
 
-  function M.Step()
-    pcall(M.FormKey)
-    pcall(M.RuleHidden)                    -- keeps M.appearance current even while the plate is hidden
-    pcall(M.ViewKey)
-    if not EVT_PPM_MODEL or Cmd(CMD_EXIST, M.LAYER) ~= true then
+  function M.step()
+    pcall(M.form_key)
+    pcall(M.rule_hidden)                    -- keeps M.appearance current even while the plate is hidden
+    pcall(M.view_key)
+    if not CharacterReforged.PAGE_MODEL_MODEL or Cmd(CMD_EXIST, M.LAYER) ~= true then
       return
     end
     local shownNow = PlateShown()
@@ -1068,49 +911,47 @@ EVT_PPM = EVT_PPM or {}
     if Cmd(CMD_IS_OPEN, M.LAYER) ~= true then
       M.closing = false
       M.capReady = false
-      -- 2026-10-28 (BetterQoL album: the capture quad set up again ~0.1 s after the model showed, then no model): the
-      -- layer closed with our model built (a close of the page's own flow), so its model went with it; the reopened
-      -- layer builds it again instead of staying «ready» on a model that no longer exists
+      -- the layer closed with the mod's model built: the reopened layer builds it again
       if M.built ~= nil then
         M.built, M.chara, M.phase, M.n, M.shown, M.entryModel = nil, 0, nil, 0, false, false
-        pcall(funcLuaCommand, LOG, "EVT_PPM layer closed with the model built: built again when it reopens")
+        pcall(funcLuaCommand, LOG, "PageModel layer closed with the model built: built again when it reopens")
       end
-      pcall(M.ChooseLayer)
+      pcall(M.choose_layer)
       if Cmd(CMD_EXIST, M.LAYER) ~= true then
         return
       end
-      if M.want ~= nil and M.upRun >= (EVT_PPM_OPEN_FRAMES or 6) then   -- the plate steadily shown
+      if M.want ~= nil and M.upRun >= (CharacterReforged.PAGE_MODEL_OPEN_FRAMES or 6) then   -- the plate steadily shown
         Cmd(CMD_OPEN, M.LAYER)
       end
       return
     end
-    if M.closing then                      -- our close is under way: nothing until it is done
+    if M.closing then                      -- the mod's close is under way: nothing until it is done
       return
     end
     if Cmd(CMD_LOADING, M.LAYER) == true then
       return
     end
-    pcall(M.CapSetup)
+    pcall(M.cap_setup)
     local up = shownNow
-    if up and M.Capture() and (M.Settings().live or M.InTeamDrawer()) and not M.liveOn then   -- live while the capture page shows
+    if up and M.capture() and (M.settings().live or M.in_team_drawer()) and not M.liveOn then   -- live while the capture page shows
       M.liveOn = true
       pcall(funcLuaCommand, M.LIVE_CMD, 1)
     end
     if not up then                        -- hidden (page closed, appearance view, office): none of ours
-      M.Release("hidden")
+      M.release("hidden")
       return
     end
     if M.fresh or (M.want ~= M.built and M.built ~= nil) then
       M.fresh = false
-      if EVT_PPM_SWAP_IN_PLACE ~= false then
+      if CharacterReforged.PAGE_MODEL_SWAP_IN_PLACE ~= false then
         -- the new model is built on the same component (the scale cache is dropped per build by the component patch
         -- menu_chara_model_comp/character_reforged_model_scale.lua): no layer close / reopen between players
         Vis(false)
         Lc(FORM_CLEAR)
         M.built, M.phase, M.n = nil, nil, 0
-        if M.Capture() then
+        if M.capture() then
           M.capReady = false
-          pcall(M.CapSetup)               -- the quad hidden and bound again for the new model's cell
+          pcall(M.cap_setup)               -- the quad hidden and bound again for the new model's cell
         end
       else
         Clear()
@@ -1144,58 +985,55 @@ EVT_PPM = EVT_PPM or {}
       M.n = M.n + 1
       if Cmd(COMPLETE, M.LAYER, 0, 0) == true or M.n >= M.WAIT_MAX then
         M.phase, M.n = "settle", 0
-        pcall(M.ApplyFit)                    -- hidden: the model is shown already fitted
+        pcall(M.apply_fit)                    -- hidden: the model is shown already fitted
       end
       return
     end
     if M.phase == "settle" then
       Vis(false)
       M.n = M.n + 1
-      if M.n >= (EVT_PPM_SETTLE or 2) then
+      if M.n >= (CharacterReforged.PAGE_MODEL_SETTLE or 2) then
         M.phase = "ready"
-        M.Framing()
-        pcall(M.ApplyFit)                      -- once more after the pose / turn of the framing
-        pcall(funcLuaCommand, LOG, "EVT_PPM fit", tostring(M.chara), "body " .. tostring(M.body), tostring(M.fitLog))
+        M.framing()
+        pcall(M.apply_fit)                      -- once more after the pose / turn of the framing
+        pcall(funcLuaCommand, LOG, "PageModel fit", tostring(M.chara), "body " .. tostring(M.body), tostring(M.fitLog))
         -- one log line per build: the menu camera offset and where the model layer sits (vs the appearance view's
-        -- «EVT_PAV» line of research/grafts/plate_view_log)
+        -- "PLATE_AVATAR" line of research/grafts/plate_view_log)
         local okc, has, cx, cy, cz = pcall(funcLuaCommand, CAM_GET, CAM)
         local okg, gx, gy, gz = pcall(funcLuaMenuCommand, GPOS, M.LAYER, 0, 1517329426)
-        M.Line("EVT_PPM cam", M.chara, "body", M.body, "view retail camofs", has, cx, cy, cz, "layer", gx, gy, gz,
-          M.Capture() and "capture" or "normal")
-        pcall(M.CapSwap, "ready")
+        M.line("PageModel cam", M.chara, "body", M.body, "view retail camofs", has, cx, cy, cz, "layer", gx, gy, gz,
+          M.capture() and "capture" or "normal")
+        pcall(M.cap_swap, "ready")
         Vis(up)
-        pcall(M.Report, 1)
+        pcall(M.report, 1)
         M.reportIn = M.REPORT_AGAIN
       end
       return
     end
     if M.phase == "ready" and up then
-      if M.shown ~= true then                -- ready and the plate up: the model shows (see M.StickTurn)
+      if M.shown ~= true then                -- ready and the plate up: the model shows (see M.stick_turn)
         Vis(true)
       end
-      pcall(M.StickTurn)
-      pcall(M.KeepCam)
-      pcall(M.QuadGate)
+      pcall(M.stick_turn)
+      pcall(M.keep_cam)
+      pcall(M.quad_gate)
       if M.reportIn then
         M.reportIn = M.reportIn - 1
         if M.reportIn <= 0 then
           M.reportIn = nil
-          pcall(M.Report, 2)
+          pcall(M.report, 2)
         end
       end
     end
   end
 
-  -- 2026-10-12 (owner, Utilities' passive configurator from the Pasivas page: the model far away and tiny, the
-  -- office «Ficha» symptom): the menu model camera's offset (1752770328) is shared by every menu model; another flow
-  -- (the dock's per-player passive session, the office) leaves its own offset there and our model, framed once per
-  -- build, followed it. While our model is up its offset is the framing's own (EVT_PPM_CAM_OFS, else the retail
-  -- view's): put back whenever it differs. loader.log «EVT_PPM cam restore <x> <y> <z>» (first times only).
-  function M.KeepCam()
-    if EVT_PPM_KEEP_CAM == false or M.Capture() then
+  -- the menu model camera offset (1752770328) is shared by every menu model: while ours is up its offset is put back
+  -- whenever it differs. loader.log "PageModel cam restore <x> <y> <z>" (first times only).
+  function M.keep_cam()
+    if CharacterReforged.PAGE_MODEL_KEEP_CAMERA == false or M.capture() then
       return
     end
-    local c = type(EVT_PPM_CAM_OFS) == "table" and EVT_PPM_CAM_OFS or MV.RETAIL.cam
+    local c = type(CharacterReforged.PAGE_MODEL_CAMERA_OFFSET) == "table" and CharacterReforged.PAGE_MODEL_CAMERA_OFFSET or MV.RETAIL.cam
     local ok, has, x, y, z = pcall(funcLuaCommand, CAM_GET, CAM)
     if not ok or has ~= true or type(x) ~= "number" then
       return
@@ -1208,47 +1046,34 @@ EVT_PPM = EVT_PPM or {}
     M.camMine = {c[1] or 0, c[2] or 0, c[3] or 0}
     M.camFix = (M.camFix or 0) + 1
     if M.camFix <= 5 then
-      pcall(funcLuaCommand, LOG, "EVT_PPM cam restore", tostring(x), tostring(y), tostring(z))
+      pcall(funcLuaCommand, LOG, "PageModel cam restore", tostring(x), tostring(y), tostring(z))
     end
   end
 
-  -- 2026-10-12 (owner): on PERFIL the RIGHT STICK turns the model about its vertical axis only (left / right; no
-  -- tilt, no zoom), smooth, the speed by the stick's tilt. The stick is read here every frame (CMND_GET_ANALOG_VALUE
-  -- 1440697067, index 2 = right stick x, the call the contact map pans with) and the turn written with the retail
-  -- view's own command (MV.ROT 2463117189: rx, ry, rz) - no retail model-view mode, no controller switch, no
-  -- MENU_ACTIVE change. R3 (the click) still cycles the forms. The turn is kept while the same player / form stays
-  -- built (other pages included: the model is their backdrop) and starts again at the retail turn on every build
-  -- (new player, new form). Knobs: EVT_PPM_STICK_TURN = false (off), EVT_PPM_STICK_SPEED (the per-frame turn delta at
-  -- full tilt, retail units; negative = the other way), EVT_PPM_STICK_DEAD (dead zone). loader.log «EVT_PPM turn <deg>» when a turn ends.
+  -- on PERFIL the right stick turns the model about its vertical axis (CMND_GET_ANALOG_VALUE 1440697067, index 2); the
+  -- turn is kept while the same player / form stays built. Knobs: CharacterReforged.PAGE_MODEL_STICK_TURN = false (off), CharacterReforged.PAGE_MODEL_STICK_SPEED
+  -- (per-frame delta at full tilt; negative = the other way), CharacterReforged.PAGE_MODEL_STICK_DEAD (dead zone). loader.log "PageModel turn <deg>".
   M.yaw = 0
-  function M.StickTurn()
-    if EVT_PPM_STICK_TURN == false or EVT_PPM_PAGE_FORMS ~= true then
+  function M.stick_turn()
+    if CharacterReforged.PAGE_MODEL_STICK_TURN == false or CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true then
       return
     end
     local ok, x = pcall(funcLuaCommand, @crc:CMND_GET_ANALOG_VALUE@, 2)
-    local dead = EVT_PPM_STICK_DEAD or 0.2
+    local dead = CharacterReforged.PAGE_MODEL_STICK_DEAD or 0.2
     if not ok or type(x) ~= "number" or math.abs(x) <= dead then
       if M.turning then
         M.turning = false
-        pcall(funcLuaCommand, LOG, "EVT_PPM turn", string.format("%.1f", M.yaw))
+        pcall(funcLuaCommand, LOG, "PageModel turn", string.format("%.1f", M.yaw))
       end
       return
     end
-    -- 2026-10-13 (owner: the model vanished on RS; loader.log «EVT_PPM turn 97.3»): MV.ROT turns the model LAYER
-    -- about the layer's origin, and the page's model stands 2+ m from it (PAGE_PLACE 2.15 / 0.55 / -2.0), so any real
-    -- turn swung it off screen. The turn is now the retail visual check's own model-turn command
-    -- (visual_check_inc __UpdateMenuCharaCamera: funcLuaMenuCommand(4073274559, layer, idx, delta, model slot, menu)),
-    -- which turns the model about itself by a per-frame delta (retail feeds it the raw stick x past 0.5); here the
-    -- stick past the dead zone, squared, times EVT_PPM_STICK_SPEED (1 = the retail full-tilt delta).
+    -- the turn is the retail visual check's model-turn command (funcLuaMenuCommand(4073274559, layer, idx, delta, model
+    -- slot, menu)): it turns the model about itself; delta = the stick past the dead zone, squared, x CharacterReforged.PAGE_MODEL_STICK_SPEED
     local t = (math.abs(x) - dead) / (1 - dead)
-    local d = (EVT_PPM_STICK_SPEED or 1) * t * t * (x > 0 and 1 or -1)
+    local d = (CharacterReforged.PAGE_MODEL_STICK_SPEED or 1) * t * t * (x > 0 and 1 or -1)
     M.yaw = M.yaw + d
     M.turning = true
     Cmd(4073274559, M.LAYER, 0, d, 0, M.MENU)
-    -- 2026-10-13 (owner: the model vanished on any RS move, the badge key showing «N»): a check «up ~= M.shown
-    -- then Vis(up)» sat here since 94a8cd598d (StickTurn was inserted inside Step's tail and took it along), but «up»
-    -- is Step's local: here it is the nil global, so the first turned frame ran Vis(nil) and hid the model (M.shown
-    -- nil, never shown again until the next build). The visibility sync is back in Step's ready branch (M.Step).
   end
 
   -- every plate refresh: the player it shows (this screen's plate only)
@@ -1267,7 +1092,7 @@ EVT_PPM = EVT_PPM or {}
           if c ~= 0 and c ~= M.chara then
             M.fhdl = nil
             M.n = 0
-            M.Fresh()
+            M.mark_fresh()
           end
         end
       end
@@ -1300,7 +1125,7 @@ EVT_PPM = EVT_PPM or {}
       if type(M.prevPostStep) == "function" then
         r = Pack(M.prevPostStep(...))
       end
-      pcall(M.Step)
+      pcall(M.step)
       return table.unpack(r, 1, r.n)
     end
   end
@@ -1310,8 +1135,8 @@ EVT_PPM = EVT_PPM or {}
       local r = Pack(M.prevClose(a1, ...))
       if a1 == M.PAGE then
         M.want = nil
-        pcall(M.Release, "page closed")
-        pcall(M.ResetForm, "page closed", false)   -- the next visit starts Normal
+        pcall(M.release, "page closed")
+        pcall(M.reset_form, "page closed", false)   -- the next visit starts Normal
       end
       return table.unpack(r, 1, r.n)
     end
@@ -1321,8 +1146,8 @@ EVT_PPM = EVT_PPM or {}
     function FinalizeMenu(...)
       local r = Pack(M.prevFinal(...))
       M.want = nil
-      pcall(M.Release, "finalize")
-      pcall(M.ResetForm, "finalize", false)
+      pcall(M.release, "finalize")
+      pcall(M.reset_form, "finalize", false)
       return table.unpack(r, 1, r.n)
     end
   end

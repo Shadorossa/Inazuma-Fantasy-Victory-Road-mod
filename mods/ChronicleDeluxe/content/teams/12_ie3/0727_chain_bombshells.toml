@@ -1,0 +1,154 @@
+schema = "VRFW.team/2"
+default_lang = "en"
+# The Bombshells (IE3 «Lucia's Ultimate Tournament», Team Ogre team 638): roster, kit and crest of the archived Chronicles Deluxe team.
+[[team]]
+name = "ct_wk_oiroke_bombers"
+key = "evt_ct_wk_oiroke_bombers"
+based_on = "tm_cro_ie3_1920"
+kit = { home = 0x00B0668A, flip = true }
+level = 73
+series = "IE3"
+roster = "exact"
+
+  [[team.member]]
+  slot = 0
+  card = 0x5A697C23   # Isla Pullens
+  number = 1
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 1
+  card = 0xC120DBD6   # Hellen Hearth
+  number = 2
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 2
+  card = 0xB195F7E2   # Icer
+  number = 3
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 3
+  card = 0x120882A5   # Liddy Gan
+  number = 4
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 4
+  card = 0x07BF5DC1   # Bountine
+  number = 5
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 5
+  card = 0x3F928EB7   # Marge Fielding
+  number = 6
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 6
+  card = 0x4004409E   # Kaya Haskell
+  number = 7
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 7
+  card = 0x7BDA02EA   # Becky Shuffle
+  number = 8
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 8
+  card = 0xF2D4D363   # Lily Willow
+  number = 9
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 9
+  card = 0xC366658F   # Nelly Raimon
+  number = 10
+  rarity_step = 1
+  captain = true
+
+  [[team.member]]
+  slot = 10
+  card = 0x5A098D99   # Suzette Hartland
+  number = 11
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 11
+  card = 0x8A9B74CF   # Shona Shopbell
+  number = 12
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 12
+  card = 0x3BB87630   # Flora Summars
+  number = 13
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 13
+  card = 0xA0DB37AD   # Fen Skates
+  number = 14
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 14
+  card = 0x0675C955   # Milly Vacey
+  number = 15
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 15
+  card = 0x5941F42E   # Mariah Knowles
+  number = 16
+  rarity_step = 1
+
+[team.emblem]
+png = "assets/images/teams/emblems/512/ie3_oiroke_bombers.png"
+base = "em030058"
+catalog = "shared"
+
+[team.text.es]
+name = "Chicas Explosivas"
+short = "Chicas Explosivas"
+
+[team.text.en]
+name = "The Bombshells"
+short = "The Bombshells"
+
+[team.text.fr]
+name = "The Bombshells"
+short = "The Bombshells"
+
+[team.text.de]
+name = "The Bombshells"
+short = "The Bombshells"
+
+[team.text.it]
+name = "Bellezze esplosive"
+short = "Bellezze esplosive"
+
+[team.text.pt]
+name = "The Bombshells"
+short = "The Bombshells"
+
+[team.text.ja]
+name = "おいろけボンバーズ"
+short = "おいろけボンバーズ"
+
+[team.text.zh_hans]
+name = "The Bombshells"
+short = "The Bombshells"
+
+[team.text.zh_hant]
+name = "The Bombshells"
+short = "The Bombshells"
+
+# each player plays its card's first 4 moves (the engine reads them from the card; the Hiper comes from its slot 9)
+[[edit]]
+target = "ct_wk_oiroke_bombers"
+card_moves = 4

@@ -1,15 +1,13 @@
 schema = "VRFW.base_table/1"
-# The manuals of five game moves the game never gave one: the normal versions of override moves only rival teams have.
-# Same row as every manual of the game (a technique id is also its item id); catalog numbers free in the game's list,
-# next to their neighbours (the shop's rows are in content/shops/own_skills.toml).
+# Manuals of five retail moves the game never gave one (sold in content/shops/own_skills.toml).
 
 [[keyed]]
 table = "item/item_special_skill"
-  [[keyed.add]]                         # whs03330, Pingüino emperador n.º 2 + Tiburón
+  [[keyed.add]]
   key = 0x4178DB91
   cells = { reserved_1 = 0, name_text = 0, desc_text = 0, catalog_no = 4343, category = 160, skill_kind = 161, max_stack = 999, reserved_8 = 1, reserved_9 = 0, reserved_10 = 0, key = "whs03330", rarity = 1, reserved_13 = 0, base_item = 0, icon_index = 0, linked = 0x4178DB91, flag_17 = 0 }
 
-  [[keyed.add]]                         # whs03360, Lanza gélida
+  [[keyed.add]]
   key = 0x3C0F2FD4
   cells = { reserved_1 = 0, name_text = 0, desc_text = 0, catalog_no = 4346, category = 160, skill_kind = 161, max_stack = 999, reserved_8 = 1, reserved_9 = 0, reserved_10 = 0, key = "whs03360", rarity = 1, reserved_13 = 0, base_item = 0, icon_index = 0, linked = 0x3C0F2FD4, flag_17 = 0 }
 
@@ -21,14 +19,14 @@ table = "item/item_special_skill"
   key = 0xE7AC95A4
   cells = { reserved_1 = 0, name_text = 0, desc_text = 0, catalog_no = 4373, category = 160, skill_kind = 161, max_stack = 999, reserved_8 = 1, reserved_9 = 0, reserved_10 = 0, key = "whs10195", rarity = 1, reserved_13 = 0, base_item = 0, icon_index = 0, linked = 0xE7AC95A4, flag_17 = 0 }
 
-  [[keyed.add]]                         # whk01500, Dimensión Kamakura
+  [[keyed.add]]
   key = 0x2B54BC9D
   cells = { reserved_1 = 0, name_text = 0, desc_text = 0, catalog_no = 6158, category = 160, skill_kind = 164, max_stack = 999, reserved_8 = 1, reserved_9 = 0, reserved_10 = 0, key = "whk01500", rarity = 1, reserved_13 = 0, base_item = 0, icon_index = 0, linked = 0x2B54BC9D, flag_17 = 0 }
 
-  [[keyed.add]]                         # wmm_zanark: a Mix-Max item (content/techniques/zanark_miximax.toml), icon of the game's Gen S and Gen G items
+  [[keyed.add]]
   key = 0x9F2E4E89
   cells = { reserved_1 = 0, name_text = 0, desc_text = 0, catalog_no = 6987, category = 160, skill_kind = 173, max_stack = 999, reserved_8 = 1, reserved_9 = 0, reserved_10 = 0, key = "wmm_zanark", rarity = 1, reserved_13 = 0, base_item = 0, icon_index = 1172, linked = 0x9F2E4E89, flag_17 = 0 }
 
-  [[keyed.add]]                         # wmm_zanark_avalonic: a Mix-Max item (content/techniques/zanark_miximax.toml), icon of the game's Gen S and Gen G items
+  [[keyed.add]]
   key = 0x83AAF861
   cells = { reserved_1 = 0, name_text = 0, desc_text = 0, catalog_no = 6988, category = 160, skill_kind = 173, max_stack = 999, reserved_8 = 1, reserved_9 = 0, reserved_10 = 0, key = "wmm_zanark_avalonic", rarity = 1, reserved_13 = 0, base_item = 0, icon_index = 1172, linked = 0x83AAF861, flag_17 = 0 }

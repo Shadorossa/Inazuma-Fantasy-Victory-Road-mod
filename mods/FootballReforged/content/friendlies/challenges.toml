@@ -1,0 +1,82 @@
+schema = "VRFW.friendly/1"
+
+[[friendly]]
+id = "office_trial"
+name = "Oficina: pachanga de prueba"
+ruleset = "friendly_5v5_no_tactics_or_referee"
+team = "active_friendly"
+kit_from_11 = true
+pre_match = true
+stadium = 0                 # the row's own (fallback: a rival without a home stadium)
+rival_home = true
+challenge = "ctx"
+steals_once = true          # a steal trial passes with one steal
+save = "sink"
+return = "title"
+keep_game = false
+origin = 1806468555
+pass = "challenge"
+passed_key = "office.{tag}.{sub}"
+before = [{ op = "fade_encounter" }]
+after = [
+  { op = "key", key = "FOOTBALL_REFORGED_TRIAL_GO", value = 1 },          # the Market (top menu) closes when it sees it
+  { op = "deactivate", menu = "shop_menu" },
+  { op = "close", menu = "soccer_vs_cpu_list_menu" },      # the office hub
+  { op = "wait_gone", menu = "soccer_vs_cpu_list_menu", frames = 900 },
+  { op = "close", menu = "shop_menu" },
+  { op = "watchdog", frames = 900, key = "FOOTBALL_REFORGED_TRIAL_GO" }, # nobody started the match: everything back
+]
+
+[[friendly]]
+id = "office_trial_football_7"
+name = "Oficina: prueba de Fútbol 7"
+ruleset = "football_7"
+team = "active_friendly"
+kit_from_11 = true
+pre_match = true
+stadium = 0                 # the row's own (fallback: a rival without a home stadium)
+rival_home = true
+challenge = "ctx"
+steals_once = true          # a steal trial passes with one steal
+save = "sink"
+return = "title"
+keep_game = false
+origin = 1806468555
+pass = "challenge"
+passed_key = "office.{tag}.{sub}"
+before = [{ op = "fade_encounter" }]
+after = [
+  { op = "key", key = "FOOTBALL_REFORGED_TRIAL_GO", value = 1 },          # the Market (top menu) closes when it sees it
+  { op = "deactivate", menu = "shop_menu" },
+  { op = "close", menu = "soccer_vs_cpu_list_menu" },      # the office hub
+  { op = "wait_gone", menu = "soccer_vs_cpu_list_menu", frames = 900 },
+  { op = "close", menu = "shop_menu" },
+  { op = "watchdog", frames = 900, key = "FOOTBALL_REFORGED_TRIAL_GO" }, # nobody started the match: everything back
+]
+
+[[friendly]]
+id = "office_trial_street"
+name = "Oficina: prueba de Inazuma Street"
+ruleset = "inazuma_street"  # 3 vs 3, no keepers / referee (places 1-3)
+team = "active_friendly"
+kit_from_11 = true
+pre_match = true
+stadium = 0                 # the row's own (fallback: a rival without a home stadium)
+rival_home = true
+challenge = "ctx"
+steals_once = true          # a steal trial passes with one steal
+save = "sink"
+return = "title"
+keep_game = false
+origin = 1806468555
+pass = "challenge"
+passed_key = "office.{tag}.{sub}"
+before = [{ op = "fade_encounter" }]
+after = [
+  { op = "key", key = "FOOTBALL_REFORGED_TRIAL_GO", value = 1 },          # the Market (top menu) closes when it sees it
+  { op = "deactivate", menu = "shop_menu" },
+  { op = "close", menu = "soccer_vs_cpu_list_menu" },      # the office hub
+  { op = "wait_gone", menu = "soccer_vs_cpu_list_menu", frames = 900 },
+  { op = "close", menu = "shop_menu" },
+  { op = "watchdog", frames = 900, key = "FOOTBALL_REFORGED_TRIAL_GO" }, # nobody started the match: everything back
+]

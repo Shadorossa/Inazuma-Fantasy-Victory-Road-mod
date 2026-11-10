@@ -1,25 +1,21 @@
--- menu_engine: VRFW_ScreenArt, the art of the framework's own screens (VRFW 2.4.51, docs/framework/screen-art.md).
--- The chain board and the contact map draw their plates, icons and backgrounds by ROLE ("tile_open", "icon_lock",
--- "background", ...): a role is a sprite some mod declares (content\screen_art\*.toml, `VRFW.screen_art/1`, served by
--- the framework's script screen_art.lua through CMND_VRFW_SCREEN_ART), else the screen's plain fallback: a shape of the
--- framework's neutral atlas vrfw_plain (square, circle, ring, arrows, a face mask, a blank), tinted. The framework ships
--- no other picture for these screens. Definitions only (this file runs in every script VM, lua\_all;
--- no engine call at load: a screen's art is read at its first use, once per VM).
-if VRFW_ScreenArt == nil then
+-- lua_patch.scope: used
+-- menu_engine: VRFW.screen_art, the art of the framework's own screens (VRFW 2.4.51, docs/framework/screen-art.md).
+if VRFW.screen_art == nil then
   local A = {
-    CMD = VRFW_Cmd.VRFW_SCREEN_ART,            -- CMND_VRFW_SCREEN_ART (screen) -> { [role] = { atlas, sprite, mod } }
-    LOG = VRFW_Cmd.EVT_LOG,            -- CMND_EVT_LOG
+    CMD = VRFW.commands.VRFW_SCREEN_ART,
     PLAIN = "#/menu/220_img/vrfw_plain/vrfw_plain.g4tx",
     art = {},                    -- screen -> role -> { atlas, sprite, tex, crc }
   }
-  VRFW_ScreenArt = A
+  VRFW.screen_art = A
 
+  local logger
   local function log(...)
-    pcall(funcLuaCommand, A.LOG, "vrfw.ScreenArt", ...)
+    logger = logger or VRFW.logger.new("vrfw.ScreenArt")
+    logger(...)
   end
 
-  -- the declared roles of a screen (read once per VM): role -> { atlas, sprite, tex = crc32(atlas), crc = crc32(sprite) }
-  function A.Get(screen)
+  --- The declared roles of a screen (read once per VM): role -> { atlas, sprite, tex = crc32(atlas), crc = crc32(sprite) }.
+  function A.get(screen)
     local t = A.art[screen]
     if t ~= nil then
       return t
@@ -44,15 +40,15 @@ if VRFW_ScreenArt == nil then
     return t
   end
 
-  -- one declared role of a screen (nil = none: draw the fallback)
-  function A.Role(screen, role)
-    return A.Get(screen)[role]
+  --- One declared role of a screen (nil = none: draw the fallback).
+  function A.role(screen, role)
+    return A.get(screen)[role]
   end
 
-  -- the atlases a screen's declared art uses (each once): the screen asks them with CMND_LOAD_TEX
-  function A.Atlases(screen)
+  --- The atlases a screen's declared art uses (each once): the screen asks them with CMND_LOAD_TEX.
+  function A.atlases(screen)
     local seen, out = {}, {}
-    for _, a in pairs(A.Get(screen)) do
+    for _, a in pairs(A.get(screen)) do
       if not seen[a.atlas] then
         seen[a.atlas] = true
         out[#out + 1] = a.atlas
@@ -61,9 +57,8 @@ if VRFW_ScreenArt == nil then
     return out
   end
 
-  -- a shape of the plain atlas: its texture crc, sprite crc ("square", "circle", "ring", "arrow_l", "arrow_r", "mask",
-  -- "blank")
-  function A.Plain(shape)
+  --- The texture and sprite hashes of the plain fallback quad of `shape`.
+  function A.plain(shape)
     return CRC32(A.PLAIN), CRC32("vrfw_plain_" .. shape)
   end
 end

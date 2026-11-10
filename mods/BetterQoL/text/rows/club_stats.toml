@@ -1,10 +1,7 @@
-# Texts of BetterQoL's «Estadísticas del club» (the row of «Caseta del club», graft util_club_stats_row, and its page
-# util_club_stats_menu, assets/lua/screens/util_club_stats_menu.lua, which reads them with CMND_TEXT_GET(crc32(id))).
-# Format: «{1}» = a value the page fills in. Dates use BetterQoL.cs_date (career.toml).
+# Club stats texts (graft betterqol_clubroom_rows, page betterqol_club_stats_menu; read with CMND_TEXT_GET(crc32(id))).
 schema = "VRFW.text/2"
 table = "menu_text"
 
-# the «Caseta del club» row and the screen's header
 [[row]]
 id = "BetterQoL.ClubStats.Row"
 es = "Estadísticas del club"
@@ -43,7 +40,6 @@ ja = "{1}からのクラブ通算"
 zh_hans = "自{1}起的俱乐部总计"
 zh_hant = "自{1}起的俱樂部總計"
 
-# the totals band before the first counted match
 [[row]]
 id = "BetterQoL.ClubStats.ClubNone"
 es = "Los totales del club se cuentan desde tu próximo partido"
@@ -290,7 +286,6 @@ ja = "勝率"
 zh_hans = "胜率"
 zh_hant = "勝率"
 
-# column: the day he was signed
 [[row]]
 id = "BetterQoL.ClubStats.ColSigned"
 es = "FICHADO"
@@ -433,7 +428,6 @@ ja = "このセーブではクラブの記録は残りません。"
 zh_hans = "此存档不记录俱乐部统计。"
 zh_hant = "此存檔不記錄俱樂部統計。"
 
-# a signing day before the numbers started
 [[row]]
 id = "BetterQoL.ClubStats.Unknown"
 es = "-"
@@ -445,3 +439,172 @@ pt = "-"
 ja = "-"
 zh_hans = "-"
 zh_hant = "-"
+
+# the match history band: «{1}» = how many matches
+[[row]]
+id = "BetterQoL.ClubStats.History"
+es = "HISTORIAL ({1})"
+en = "MATCH HISTORY ({1})"
+fr = "HISTORIQUE ({1})"
+de = "SPIELVERLAUF ({1})"
+it = "STORICO ({1})"
+pt = "HISTÓRICO ({1})"
+ja = "試合履歴（{1}）"
+zh_hans = "比赛记录（{1}）"
+zh_hant = "比賽記錄（{1}）"
+
+# the band's keys: players / match history
+[[row]]
+id = "BetterQoL.ClubStats.TabKeys"
+es = "<CMD_FUNCL1><CMD_FUNCR1>"
+en = "<CMD_FUNCL1><CMD_FUNCR1>"
+fr = "<CMD_FUNCL1><CMD_FUNCR1>"
+de = "<CMD_FUNCL1><CMD_FUNCR1>"
+it = "<CMD_FUNCL1><CMD_FUNCR1>"
+pt = "<CMD_FUNCL1><CMD_FUNCR1>"
+ja = "<CMD_FUNCL1><CMD_FUNCR1>"
+zh_hans = "<CMD_FUNCL1><CMD_FUNCR1>"
+zh_hant = "<CMD_FUNCL1><CMD_FUNCR1>"
+
+# the match history while no match is stored
+[[row]]
+id = "BetterQoL.ClubStats.HistoryNone"
+es = "El historial empieza con tu próximo partido."
+en = "The history starts with your next match."
+fr = "L'historique commence avec ton prochain match."
+de = "Der Verlauf beginnt mit deinem nächsten Spiel."
+it = "Lo storico inizia dalla tua prossima partita."
+pt = "O histórico começa na tua próxima partida."
+ja = "履歴は次の試合から記録されます。"
+zh_hans = "记录将从下一场比赛开始。"
+zh_hant = "記錄將從下一場比賽開始。"
+
+# column: match number
+[[row]]
+id = "BetterQoL.ClubStats.ColNumber"
+es = "Nº"
+en = "NO."
+fr = "Nº"
+de = "NR."
+it = "N."
+pt = "Nº"
+ja = "No."
+zh_hans = "序号"
+zh_hant = "序號"
+
+# column: match day
+[[row]]
+id = "BetterQoL.ClubStats.ColDate"
+es = "FECHA"
+en = "DATE"
+fr = "DATE"
+de = "DATUM"
+it = "DATA"
+pt = "DATA"
+ja = "日付"
+zh_hans = "日期"
+zh_hant = "日期"
+
+# column: game mode
+[[row]]
+id = "BetterQoL.ClubStats.ColMode"
+es = "MODO"
+en = "MODE"
+fr = "MODE"
+de = "MODUS"
+it = "MODALITÀ"
+pt = "MODO"
+ja = "モード"
+zh_hans = "模式"
+zh_hant = "模式"
+
+# column: rival team
+[[row]]
+id = "BetterQoL.ClubStats.ColRival"
+es = "RIVAL"
+en = "OPPONENT"
+fr = "ADVERSAIRE"
+de = "GEGNER"
+it = "AVVERSARIO"
+pt = "ADVERSÁRIO"
+ja = "対戦相手"
+zh_hans = "对手"
+zh_hant = "對手"
+
+# column: final score (own goals first)
+[[row]]
+id = "BetterQoL.ClubStats.ColScore"
+es = "MARCADOR"
+en = "SCORE"
+fr = "SCORE"
+de = "ERGEBNIS"
+it = "PUNTEGGIO"
+pt = "PLACAR"
+ja = "スコア"
+zh_hans = "比分"
+zh_hant = "比分"
+
+# column: win / draw / loss
+[[row]]
+id = "BetterQoL.ClubStats.ColResult"
+es = "V/E/D"
+en = "W/D/L"
+fr = "V/N/D"
+de = "S/U/N"
+it = "V/P/S"
+pt = "V/E/D"
+ja = "勝敗"
+zh_hans = "胜负"
+zh_hant = "勝負"
+
+# column: goal scorers
+[[row]]
+id = "BetterQoL.ClubStats.ColScorers"
+es = "GOLEADORES"
+en = "SCORERS"
+fr = "BUTEURS"
+de = "TORSCHÜTZEN"
+it = "MARCATORI"
+pt = "MARCADORES"
+ja = "得点者"
+zh_hans = "进球者"
+zh_hant = "進球者"
+
+# a match row's result: win
+[[row]]
+id = "BetterQoL.ClubStats.ResultWin"
+es = "V"
+en = "W"
+fr = "V"
+de = "S"
+it = "V"
+pt = "V"
+ja = "勝"
+zh_hans = "胜"
+zh_hant = "勝"
+
+# a match row's result: draw
+[[row]]
+id = "BetterQoL.ClubStats.ResultDraw"
+es = "E"
+en = "D"
+fr = "N"
+de = "U"
+it = "P"
+pt = "E"
+ja = "分"
+zh_hans = "平"
+zh_hant = "平"
+
+# a match row's result: loss
+[[row]]
+id = "BetterQoL.ClubStats.ResultLoss"
+es = "D"
+en = "L"
+fr = "D"
+de = "N"
+it = "S"
+pt = "D"
+ja = "負"
+zh_hans = "负"
+zh_hant = "負"

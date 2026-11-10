@@ -1,0 +1,10 @@
+schema = "VRFW.shop/2"
+
+[[reward]]
+table = "0x7053D291"
+target = "item_table"
+
+  [[reward.entry]]
+  item = "HissatsuReforged.ultimate_evolution_manual"
+  count = 1
+  weight = 25

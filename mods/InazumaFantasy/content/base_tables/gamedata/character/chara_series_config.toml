@@ -1,13 +1,11 @@
 schema = "VRFW.base_table/1"
-# The character series (crc32("evt_chara_series_fantasy"), type 11; its name:
-# text/rows/chara_add_info_text.toml; its tab icon icon_list_tab_series11 of content/images). The free-match section's
-# name (content/teams/free_match_section.toml).
+# The «Inazuma Eleven Fantasy» character series (type 11), also the free-match section's name.
 
 [[list]]
 name = "m_charaSeriesInfoList"
 columns = ["charaSeriesId", "charaSeriesType", "charaSeriesNameTextId"]
 splice = [
   { at = 9, remove = 0, rows = [
-    [0xB2D2CD9B, 11, 0x790903A3],
+    [0x07F4CCC3, 11, 0x790903A3],
   ] },
 ]

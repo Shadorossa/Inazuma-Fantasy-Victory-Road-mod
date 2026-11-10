@@ -1,0 +1,11 @@
+schema = "VRFW.menu/2"
+
+[[object_set]]
+object = "character_reforged_pair_card"
+set = [
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team00/team00_01/team00_01.g4pkm" }, values = { 1 = "common/menu/102_team/team00/team00_01/team00_01_bui_fc.g4pkm" } },
+    { parameter = "AttachEffect", match = { 1 = 0x151AA0C6, 2 = 0x5A709C12, 3 = 1, 4 = 0.996999979019165 }, values = { 2 = 0x79D6FE70 } },
+    { parameter = "AttachEffect", match = { 1 = 0x8C13F17C, 2 = 0x5A709C12, 3 = 1, 4 = 0.996999979019165 }, values = { 2 = 0x79D6FE70 } },
+    { parameter = "AttachEffect", match = { 1 = 0xDDFA2FB6, 2 = 0x5A709C12, 3 = 1, 4 = 0.996999979019165 }, values = { 2 = 0x79D6FE70 } },
+    { parameter = "AttachEffect", match = { 1 = 0x33F44E9A, 2 = 0x5A709C12, 3 = 1, 4 = 0.996999979019165 }, values = { 2 = 0x79D6FE70 } },
+]

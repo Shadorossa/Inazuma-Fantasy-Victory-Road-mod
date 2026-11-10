@@ -1,0 +1,14 @@
+schema = "VRFW.sound/1"
+# Guardia celestial: the move's sound effect without the 53 frames of the two dropped cuts (c0400, c0500).
+
+[[sfx]]
+add = "ev63_81660_me"
+from = "ev63_01660_1_me"
+bank = "waza_stream"
+segments = [[0, 223], [277, 462]]
+
+[[sfx]]
+add = "ev63_81661_me"
+from = "ev63_01660_2_me"
+bank = "waza_stream"
+segments = [[0, 223], [277, 446]]

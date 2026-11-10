@@ -1,0 +1,7 @@
+schema = "VRFW.transform/2"
+# Custom Change Mode: the mode change's pseudo-items in the game's ability lists.
+[ability_list]
+create = ["wmc_character_reforged_create"]
+create_flag = "character_reforged_mx_list_create"
+hide = ["wmc_evt0", "wmc_evt1", "wmc_evt2", "wmc_evt3", "wmc_evt4", "wmc_evt5", "wmc_evt6", "wmc_evt7"]
+filter_pass = ["wmc_character_reforged_create", "wmc_evt0", "wmc_evt1", "wmc_evt2", "wmc_evt3", "wmc_evt4", "wmc_evt5", "wmc_evt6", "wmc_evt7"]

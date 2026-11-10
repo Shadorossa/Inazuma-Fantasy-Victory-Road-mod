@@ -1,0 +1,26 @@
+schema = "VRFW.game/2"
+
+# Full inventory lists (logic scripts\inventory_full.lua): the game's «does it fit» check also refuses an item that needs a new record in a list with no free record.
+
+# CanAdd(inventory, item, count, …): the check of the shops, the mail and the Lua before an item is given.
+[[VRFW.Hook]]
+name = "VRFW.ItemCanAdd"
+game = "Item.CanAdd"
+kind = "function"
+arguments = ["ptr", "u32", "u32", "u8", "u8"]
+returns = "bool"
+
+# Category(item) -> the item's category.
+[[VRFW.Function]]
+name = "Item.Category"
+game = "Item.Category"
+
+# ListOfCategory(category) -> the inventory list of a category.
+[[VRFW.Function]]
+name = "Inventory.ListOfCategory"
+game = "Inventory.ListOfCategory"
+
+# FindStack(container, outHandle, item, modeItem, option): the record that already holds the item.
+[[VRFW.Function]]
+name = "Inventory.FindStack"
+game = "Inventory.FindStack"

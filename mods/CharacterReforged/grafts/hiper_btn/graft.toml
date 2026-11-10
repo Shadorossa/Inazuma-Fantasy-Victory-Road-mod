@@ -1,17 +1,13 @@
-# The RB+A / RB+B plates on the move selector (research/scripts/hiper_btn_build.py; docs/game/ui/hiper-btn.md): the two
-# soccer_command_action_menu scripts show the framework's CMND_VRFW_XSLOT_PLATES plates (the plates slot running the
-# match). Character Reforged's since 2026-10-14 (the new skill set's aura / mix buttons are the base's: its
-# content\menus\hyper_plates.toml + assets hold the layers, objbins, art and the selector's locators); a NEUTRAL plate.
-# Inazuma Fantasy's look on top: graft hiper_btn_face (its Hiper card rules EVT_HC: the portrait column) + its layer
-# evt_hiper_chr_icon. Nothing at chunk load. Both scripts append the same block, hiper_btn_block.lua.
+# The transformation cross at the bottom left of the match HUD (docs/game/hiper/transform-cross.md): both
+# soccer_command_action_menu scripts append hiper_btn_block.lua and show the CMND_VRFW_XSLOT_ENTRIES entries.
 name = "hiper_btn"
 mod = "CharacterReforged"
 order = 100
 module = "lua_bridge"
 requires = []
 conflicts = []
-wraps = ["UpdateAnimeMoveOffsetCmdBase", "UpdateVisibleAttachButtonGuide"]
-description = "hiper_btn: Hipertécnica plates in the command action menus"
+wraps = ["UpdateVisibleAttachButtonGuide"]
+description = "hiper_btn: the transformation cross in the command action menus"
 
 [[files]]
 stem = "soccer_command_action_menu"
@@ -20,7 +16,7 @@ stem = "soccer_command_action_menu"
   type = "insert_after"
   point = "soccer_command_action_menu.OnInit.HiperBtn"
   text = '''
-  EVT_HiperInit() -- EVT
+  CharacterReforged.hyper_button_init() -- EVT
 '''
   crc = "none"
 
@@ -28,7 +24,7 @@ stem = "soccer_command_action_menu"
   type = "insert_after"
   point = "soccer_command_action_menu.OnSetupLayer.HiperBtn"
   text = '''
-  EVT_HiperSetupLayer(a1, a2) -- EVT
+  CharacterReforged.hyper_button_setup_layer(a1, a2) -- EVT
 '''
   crc = "none"
 
@@ -36,7 +32,7 @@ stem = "soccer_command_action_menu"
   type = "insert_after"
   point = "soccer_command_action_menu.PostStep.HiperBtn"
   text = '''
-  EVT_HiperStep() -- EVT
+  CharacterReforged.hyper_button_step() -- EVT
 '''
   crc = "none"
 
@@ -44,11 +40,11 @@ stem = "soccer_command_action_menu"
   type = "append_block"
   source = "hiper_btn_block.lua"
 
-  # the card portrait rules EVT_HC (shared with the player page and the skill table; was Inazuma Fantasy's graft
-  # hiper_btn_face): the aura's portrait at the plate's right end, layer evt_hiper_chr_icon (content\menus\hyper_plates.toml)
+  # the card portrait rules CharacterReforged.hyper_card (shared with the player page and the skill table): the aura's portrait at the
+  # plate's right end, layer cr_hiper_chr_icon (content\menus\hyper_plates.toml)
   [[files.ops]]
   type = "append_block"
-  source = "../plate_hiper_plate/evt_hiper_card.lua"
+  source = "../plate_hiper_plate/character_reforged_hiper_card.lua"
   marker = "hiper_card"
 
 [[files]]
@@ -58,7 +54,7 @@ stem = "soccer_battle_command_action_menu"
   type = "insert_after"
   point = "soccer_battle_command_action_menu.OnInit.HiperBtn"
   text = '''
-  EVT_HiperInit() -- EVT
+  CharacterReforged.hyper_button_init() -- EVT
 '''
   crc = "none"
 
@@ -66,7 +62,7 @@ stem = "soccer_battle_command_action_menu"
   type = "insert_after"
   point = "soccer_battle_command_action_menu.OnSetupLayer.HiperBtn"
   text = '''
-  EVT_HiperSetupLayer(a1, a2) -- EVT
+  CharacterReforged.hyper_button_setup_layer(a1, a2) -- EVT
 '''
   crc = "none"
 
@@ -74,7 +70,7 @@ stem = "soccer_battle_command_action_menu"
   type = "insert_after"
   point = "soccer_battle_command_action_menu.PostStep.HiperBtn"
   text = '''
-  EVT_HiperStep() -- EVT
+  CharacterReforged.hyper_button_step() -- EVT
 '''
   crc = "none"
 
@@ -82,9 +78,9 @@ stem = "soccer_battle_command_action_menu"
   type = "append_block"
   source = "hiper_btn_block.lua"
 
-  # the card portrait rules EVT_HC (shared with the player page and the skill table; was Inazuma Fantasy's graft
-  # hiper_btn_face): the aura's portrait at the plate's right end, layer evt_hiper_chr_icon (content\menus\hyper_plates.toml)
+  # the card portrait rules CharacterReforged.hyper_card (shared with the player page and the skill table): the aura's portrait at the
+  # plate's right end, layer cr_hiper_chr_icon (content\menus\hyper_plates.toml)
   [[files.ops]]
   type = "append_block"
-  source = "../plate_hiper_plate/evt_hiper_card.lua"
+  source = "../plate_hiper_plate/character_reforged_hiper_card.lua"
   marker = "hiper_card"

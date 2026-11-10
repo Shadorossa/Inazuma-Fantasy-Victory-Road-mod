@@ -1,15 +1,11 @@
 schema = "VRFW.item/2"
-# The Cross kits IECross adds as wearable kits (content\looks\cross_new_kits.toml), as the IEVRCROSS mod
-# sells them: a copy of the Ura-Zeus kit item (uni_u912001, the item_config base table of this mod) with
-# the new kit and its own icon (the kit icon atlas, icon_key). The copy keeps that row's icon_index, which orders the
-# «Cambiar equipación» list, so these kits list with the other Cross kits after every retail kit.
 default_lang = "en"
 
 [[item]]
 name = "kit_penguin"
 base = "uni_u912001"
 category = "kit"
-model = { uniform = 0x304B3A70 }            # crc32("IECross.kit_penguin"): the kit of cross_new_kits.toml
+model = { uniform = 0x304B3A70 }
 icon_key = "uni_u119601"                  # content\images\menu\200_icon\02_icon_item\icon_item07.toml
   [item.text.ja]
   name = "ペンギンウェア"
@@ -34,7 +30,7 @@ icon_key = "uni_u119601"                  # content\images\menu\200_icon\02_icon
 name = "kit_shin_zeus"
 base = "uni_u912001"
 category = "kit"
-model = { uniform = 0xB60649A2 }            # crc32("IECross.kit_shin_zeus"): the kit of cross_new_kits.toml
+model = { uniform = 0xB60649A2 }
 icon_key = "uni_u911001"                  # content\images\menu\200_icon\02_icon_item\icon_item07.toml
   [item.text.ja]
   name = "シン・ゼウスウェア"
@@ -59,7 +55,7 @@ icon_key = "uni_u911001"                  # content\images\menu\200_icon\02_icon
 name = "kit_full_moon_festival"
 base = "uni_u912001"
 category = "kit"
-model = { uniform = 0xD85CB1F4 }            # crc32("IECross.kit_full_moon_festival"): the kit of cross_new_kits.toml
+model = { uniform = 0xD85CB1F4 }
 icon_key = "uni_u119901"                  # content\images\menu\200_icon\02_icon_item\icon_item07.toml
   [item.text.ja]
   name = "満月の夏祭りウェア"
@@ -84,7 +80,7 @@ icon_key = "uni_u119901"                  # content\images\menu\200_icon\02_icon
 name = "kit_pumpkin_devil"
 base = "uni_u912001"
 category = "kit"
-model = { uniform = 0x30503B87 }            # crc32("IECross.kit_pumpkin_devil"): the kit of cross_new_kits.toml
+model = { uniform = 0x30503B87 }
 icon_key = "uni_u120201"                  # content\images\menu\200_icon\02_icon_item\icon_item07.toml
   [item.text.ja]
   name = "パンプキンデビルウェア"

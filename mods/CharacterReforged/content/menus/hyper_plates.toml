@@ -1,71 +1,92 @@
-# Character Reforged › the match HUD plates of the new skill set.
-# The graft research/grafts/hiper_btn (mod CharacterReforged) draws them from the
-# framework's CMND_VRFW_XSLOT_PLATES (whichever plates slot runs the match: this mod's skill set slot, or Custom Change Mode's
-# RB+B fallback). Inazuma Fantasy adds its look on top: the portrait column (its menus\00_soccer\
-# soccer_command_action_menu_hiper_face.toml, layer evt_hiper_chr_icon) and the Hyper card rules (graft hiper_btn_face).
-# Layer soccer08_10_cmd_act_hiper_slot x2 = the plates (object of assets\gamedata\menu\obj\
-# soccer08_10_cmd_act_hiper_slot.objbin, a copy of the move-row widget soccer08_10; its art assets\menu\00_soccer\
-# soccer08\evt_soccer08_10_hiper); layer evt_hiper_input x2 = the input column «RB» over «A» / «B» (a copy of the retail
-# «RB + LB» guide soccer08_19b, evt_hiper_input.objbin + its art); the move selector's extra attach locators
-# (assets\menu\00_soccer\soccer08\soccer08_07\soccer08_07.g4pkm) and attach rows (object_set below). Built by
-# research/scripts/hiper_btn_build.py (its --deploy still writes Inazuma Fantasy's folder: copy the outputs here).
-# The aura's portrait at the plate's right end: layer evt_hiper_chr_icon x2 = this mod's object
-# evt_ph_face (the player page's card: the retail team00_30 aura window with its masked portrait quads), attached to the
-# plates' _atc_chr01_r; the graft hiper_btn scales it onto the plate's painted band and draws the card's portrait rule
-# (EVT_HC.Portrait: the miximax / «Modo cambio» partner, the keshin / armour aura art, the totem art).
+# The transformation cross of the skill set in the match HUD (graft hiper_btn, drawn from CMND_VRFW_XSLOT_ENTRIES): one plate
+# per entry with its portrait, input column and three text layers, and the ring that shows the entries' type icons.
 schema = "VRFW.menu/2"
 
 [[patch]]
 menu = "soccer_command_action_menu"
-add_layer = { name = "soccer08_10_cmd_act_hiper_slot", object = "soccer08_10_cmd_act_hiper_slot", count = 2, after = "soccer08_10_cmd_act_aura_slot", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
+add_layer = { name = "soccer08_10_cmd_act_hiper_slot", object = "soccer08_10_cmd_act_hiper_slot", count = 4, after = "soccer08_10_cmd_act_aura_slot", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
 
 [[patch]]
 menu = "soccer_command_action_menu"
-add_layer = { name = "evt_hiper_chr_icon", object = "evt_ph_face", count = 2, after = "soccer08_10_p5_aura_skill_chara_icon", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
+add_layer = { name = "cr_hiper_chr_icon", object = "cr_ph_face", count = 4, after = "soccer08_10_p5_aura_skill_chara_icon", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
 resources = ["#/menu/102_team/team00/team00_30/<LG>/team00_30.g4tx"]
 
 [[patch]]
 menu = "soccer_command_action_menu"
-add_layer = { name = "evt_hiper_input", object = "evt_hiper_input", count = 2, after = "soccer08_10_p5_aura_skill_chara_icon", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
+add_layer = { name = "cr_hiper_input", object = "cr_hiper_input", count = 4, after = "soccer08_10_p5_aura_skill_chara_icon", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
 
-[[object_set]]
-object = "soccer08_07_cmd_act_btn_cmd_base"
-add = [
-    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x98CDB4A3, 0x9CD2D1CC, 0x1A7DB629, 0], after = { parameter = "NullLayerName", match = { 1 = 0x3D9460BA, 2 = 0x0CAB94BF, 3 = 0x78DD0211, 4 = 0 } } },
-    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x9A8B0AFA, 0x9E946F95, 0x1A7DB629, 1], after = { parameter = "NullLayerName", match = { 1 = 0x98CDB4A3, 2 = 0x9CD2D1CC, 3 = 0x1A7DB629, 4 = 0 } } },
-    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x06A92100, 0x02B6446F, 0x1A7DB629, 0], after = { parameter = "NullLayerName", match = { 1 = 0x9A8B0AFA, 2 = 0x9E946F95, 3 = 0x1A7DB629, 4 = 1 } } },
-    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x04EF9F59, 0x00F0FA36, 0x1A7DB629, 1], after = { parameter = "NullLayerName", match = { 1 = 0x06A92100, 2 = 0x02B6446F, 3 = 0x1A7DB629, 4 = 0 } } },
-]
-
-# The page arrows: while the controlled player's plates have a second page (both slots filled,
-# switched with RB + D-pad), the retail move selector's chevrons (atlas soccer08_07: cmd_arrow01_l / cmd_arrow01_r)
-# stand at the outer ends of the plates. Layout evt_plate_page_arrows = a copy of the selector layout soccer08_07 with
-# its two arrow joints moved to the root (the graft hiper_btn hides the rest, _pos_base01, and places / sizes the
-# arrows); object = the selector's own object on that copy, without its child layers, texts, anchor and touch areas;
-# 2 instances hung on the plates (attach row evt_plate_page_arrows01 of soccer08_10_cmd_act_hiper_slot.objbin).
-[[layout]]
-file = "common/menu/00_soccer/soccer08/evt_plate_page_arrows/evt_plate_page_arrows.g4pkm"
-from = "common/menu/00_soccer/soccer08/soccer08_07/soccer08_07.g4pkm"
-
-[[layout]]
-file = "common/menu/00_soccer/soccer08/evt_plate_page_arrows/evt_plate_page_arrows.g4pkm"
-joint = "_pos_arrow01_l"
-parent = "soccer08_07_output"
-translate = [0.0, 0.0, 0.0]
-
-[[layout]]
-file = "common/menu/00_soccer/soccer08/evt_plate_page_arrows/evt_plate_page_arrows.g4pkm"
-joint = "_pos_arrow01_r"
-parent = "soccer08_07_output"
-translate = [0.0, 0.0, 0.0]
-
-[[object]]
-name = "evt_plate_page_arrows"
-from = "soccer08_07_cmd_act_btn_cmd_base"
-set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/00_soccer/soccer08/soccer08_07/soccer08_07.g4pkm" }, values = { 1 = "common/menu/00_soccer/soccer08/evt_plate_page_arrows/evt_plate_page_arrows.g4pkm" } }]
-remove_block = ["CMenuAttachLocator", "MenuTextSetting", "MenuAnchorComponent", "MenuCollisionSetting"]
-add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/00_soccer/soccer08/soccer08_07/soccer08_07.g4tx"] }]
+# The text layers of a plate (two objects on one layout, built by _tools	ransform_cross_build.py): the type label over the
+# name, the cost or reason pill and the name. Instance i hangs on plate i (the plate object's attach rows).
+[[patch]]
+menu = "soccer_command_action_menu"
+add_layer = { name = "cr_transform_type", object = "cr_transform_caption", count = 4, after = "cr_hiper_input", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
 
 [[patch]]
 menu = "soccer_command_action_menu"
-add_layer = { name = "evt_plate_page_arrows", object = "evt_plate_page_arrows", count = 2, after = "evt_hiper_input", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
+add_layer = { name = "cr_transform_pill", object = "cr_transform_caption", count = 4, after = "cr_transform_type", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
+
+[[patch]]
+menu = "soccer_command_action_menu"
+add_layer = { name = "cr_transform_name", object = "cr_transform_name", count = 4, after = "cr_transform_pill", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
+
+# The ring: a copy of the retail super-tactics widget (soccer08_14: ring, button glyph in the centre, icons up, left and down).
+# Its fourth icon, the retail special tactic's, leaves its pulsing group and goes to the right; the four icons are 40 wide at 58
+# from the centre.
+[[layout]]
+file = "common/menu/00_soccer/soccer08/cr_transform_ring/cr_transform_ring.g4pkm"
+from = "common/menu/00_soccer/soccer08/soccer08_14/soccer08_14.g4pkm"
+
+[[layout]]
+file = "common/menu/00_soccer/soccer08/cr_transform_ring/cr_transform_ring.g4pkm"
+joint = "_icon_tactics_g_dmy01"
+translate = [-20.0, 78.0, 0.0]
+scale = [40.0, 40.0, 1.0]
+
+[[layout]]
+file = "common/menu/00_soccer/soccer08/cr_transform_ring/cr_transform_ring.g4pkm"
+joint = "_icon_tactics_g_dmy02"
+translate = [-78.0, 20.0, 0.0]
+scale = [40.0, 40.0, 1.0]
+
+[[layout]]
+file = "common/menu/00_soccer/soccer08/cr_transform_ring/cr_transform_ring.g4pkm"
+joint = "_icon_tactics_g_dmy03"
+translate = [-20.0, -38.0, 0.0]
+scale = [40.0, 40.0, 1.0]
+
+[[layout]]
+file = "common/menu/00_soccer/soccer08/cr_transform_ring/cr_transform_ring.g4pkm"
+joint = "_icon_sp_tactics_dmy01"
+parent = "_pos_base01"
+translate = [38.0, 20.0, 0.0]
+scale = [40.0, 40.0, 1.0]
+
+# The plates hang on the ring's centre: the ring is a layer of its own at a fixed screen place, so the plates keep theirs
+# in every state of the match HUD.
+[[layout]]
+file = "common/menu/00_soccer/soccer08/cr_transform_ring/cr_transform_ring.g4pkm"
+joint = "_atc_plates01"
+parent = "_pos_base01"
+translate = [0.0, 0.0, 0.0]
+
+# The three attach rows of the retail recast gauges become the rows of plates 0 to 2 and a fourth row is added
+# (entry cr_transform_plate01..04, locator _atc_plates01, layer soccer08_10_cmd_act_hiper_slot, instance); the right icon gets
+# a colour row like the other three (dim = darker).
+[[object]]
+name = "cr_transform_ring"
+from = "soccer08_14_tactics_screen_guide"
+set = [
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/00_soccer/soccer08/soccer08_14/soccer08_14.g4pkm" }, values = { 1 = "common/menu/00_soccer/soccer08/cr_transform_ring/cr_transform_ring.g4pkm" } },
+    { parameter = "NullLayerName", match = { 1 = 0x4792EEED }, values = { 1 = 0xD19412B7, 2 = 0xB0D25E04, 3 = 0x1A7DB629, 4 = 0 } },
+    { parameter = "NullLayerName", match = { 1 = 0xDE9BBF57 }, values = { 1 = 0x489D430D, 2 = 0xB0D25E04, 3 = 0x1A7DB629, 4 = 1 } },
+    { parameter = "NullLayerName", match = { 1 = 0xA99C8FC1 }, values = { 1 = 0x3F9A739B, 2 = 0xB0D25E04, 3 = 0x1A7DB629, 4 = 2 } },
+]
+add = [
+    { block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/00_soccer/soccer08/soccer08_14/soccer08_14.g4tx"] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xA1FEE638, 0xB0D25E04, 0x1A7DB629, 3], after = { parameter = "NullLayerName", match = { 1 = 0x3F9A739B } } },
+    { block = "CMenuChangeMaterialColor", parameter = "tactics_dmy04", values = [533560899] },
+]
+
+[[patch]]
+menu = "soccer_command_action_menu"
+add_layer = { name = "cr_transform_ring", object = "cr_transform_ring", count = 1, after = "soccer08_14_tactics_screen_guide", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }

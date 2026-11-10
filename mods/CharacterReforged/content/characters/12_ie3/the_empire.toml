@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Character Reforged · The Empire · Inazuma Eleven 3
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c03031210"                                   # Jorge Ortega
@@ -25,9 +22,9 @@ VRFW.MoveGrades = [
 target = "c03031220"                                   # Thiago Torres
 moves = [
   { move = 0xB13A6C3D, level = 1 },                         # Zigzag Flame
-  { move = 0x23C3EE90, level = 1 },                         # Shoulder Tackle
   { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
   { move = 0xABA58912, level = 60 },                        # Ignited Steal
+  { move = 0x585098FC, level = 70 },                        # Slice and Dice
 ]
 
   [[edit.cards]]
@@ -53,12 +50,12 @@ moves = [
   stats = { kick = 265, control = 163, technique = 146, pressure = 292, physical = 250, intelligence = 273, agility = 252, freedom = 259 }
 
 [[edit]]
-target = "c03031240"                                   # Grande Díaz
+target = "c03031240"
 moves = [
   { move = 0x166B0073, level = 1 },                         # Super Armadillo
   { move = 0xB13A6C3D, level = 15 },                        # Zigzag Flame
   { move = 0x58E8FC83, level = 33 },                        # Rolling Hell
-  { move = 0xBA833662, level = 52 },                        # Million Hands
+  { move = 0x087999EE, level = 43 },                        # Heel Drop
 ]
 
   [[edit.cards]]
@@ -68,7 +65,7 @@ moves = [
   stats = { kick = 142, control = 193, technique = 200, pressure = 277, physical = 182, intelligence = 312, agility = 219, freedom = 238 }
 
 [[edit]]
-target = "c03031250"                                   # Ramón Martínez
+target = "c03031250"
 moves = [
   { move = 0x31ABD82E, level = 1 },                         # Circus Block
   { move = 0x66F2BE21, level = 15 },                        # Leaping Thunder
@@ -98,7 +95,7 @@ moves = [
   stats = { kick = 225, control = 235, technique = 246, pressure = 223, physical = 180, intelligence = 251, agility = 196, freedom = 221 }
 
 [[edit]]
-target = "c03031270"                                   # Sergio Pérez
+target = "c03031270"
 moves = [
   { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
   { move = 0x592A96B4, level = 28 },                        # Afterimage
@@ -117,8 +114,8 @@ target = "c03031280"                                   # Roberto Torres
 moves = [
   { move = 0x132416F6, level = 1 },                         # Dog Run
   { move = 0x2B343D01, level = 31 },                        # Cyclone
-  { move = 0xEA12530F, level = 36 },                        # Double Rocket
   { move = 0x52CEB5F6, level = 52 },                        # Iron Wall
+  { move = 0xABA58912, level = 62 },                        # Ignited Steal
 ]
 
   [[edit.cards]]
@@ -131,9 +128,9 @@ moves = [
 target = "c03031290"                                   # Pablo Castillo
 moves = [
   { move = 0x7B64F3D2, level = 1 },                         # Hawk Shot
-  { move = 0xC0FD6AFB, level = 1 },                         # Fireball Head
   { move = 0xB13A6C3D, level = 15 },                        # Zigzag Flame
   { move = 0x2F78EA0D, level = 58 },                        # Triangle Z
+  { move = 0x4DDFEDE2, level = 68 },                        # Eagle Buster
 ]
 
   [[edit.cards]]
@@ -146,9 +143,9 @@ moves = [
 target = "c03031300"                                   # Leone Badigo
 moves = [
   { move = 0xBDAE2862, level = 1 },                         # Hellfire
-  { move = 0x3D10DCB3, level = 1 },                         # Curve Shot
   { move = 0x1D4E888F, level = 33 },                        # Condor Dive
   { move = 0x4DDFEDE2, level = 36 },                        # Eagle Buster
+  { move = 0x41F3CDC2, level = 46 },                        # Scorching Tackle
 ]
 VRFW.MoveGrades = [
   { Move = 0xBDAE2862, Grade = 1 },                         # Hellfire
@@ -182,7 +179,7 @@ moves = [
   { move = 0xA7157B91, level = 1 },                         # Power Shield
   { move = 0xA6D711A6, level = 15 },                        # Full Power Shield
   { move = 0xB13A6C3D, level = 34 },                        # Zigzag Flame
-  { move = 0x4BD584B7, level = 55 },                        # Power Charge
+  { move = 0xEA12530F, level = 44 },                        # Double Rocket
 ]
 
   [[edit.cards]]
@@ -207,12 +204,12 @@ moves = [
   stats = { kick = 204, control = 243, technique = 215, pressure = 217, physical = 186, intelligence = 211, agility = 215, freedom = 329 }
 
 [[edit]]
-target = "c03031340"                                   # Hernán Tévez
+target = "c03031340"
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0x31ABD82E, level = 20 },                        # Circus Block
-  { move = 0xE9968761, level = 36 },                        # Rocket Kobushi
   { move = 0x21127474, level = 57 },                        # Ultra Moon
+  { move = 0x132416F6, level = 67 },                        # Dog Run
 ]
 
   [[edit.cards]]
@@ -241,9 +238,9 @@ moves = [
 target = "c03031360"                                   # Ricardo Agüero
 moves = [
   { move = 0x011AAF4B, level = 1 },                         # Gyro Head
-  { move = 0x72514A74, level = 1 },                         # Low Drive
   { move = 0x4DDFEDE2, level = 20 },                        # Eagle Buster
   { move = 0xADAFE047, level = 59 },                        # Dual Strike
+  { move = 0xB13A6C3D, level = 69 },                        # Zigzag Flame
 ]
 
   [[edit.cards]]
@@ -256,9 +253,9 @@ moves = [
 target = "c11803060"                                   # Daniel Sturbin
 moves = [
   { move = 0x3B8D915B, level = 1 },                         # Meteor Shower
-  { move = 0xEE3E059F, level = 13 },                        # Celestial Smash
-  { move = 0x518BCA26, level = 20 },                        # Fire Tornado
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0xEE3E059F, level = 11 },                        # Celestial Smash
+  { move = 0x518BCA26, level = 21 },                        # Fire Tornado
+  { move = 0x3A4FFB6C, level = 31 },                        # The Ikaros
 ]
 
   [[edit.cards]]

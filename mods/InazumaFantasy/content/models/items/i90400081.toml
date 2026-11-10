@@ -1,6 +1,4 @@
 schema = "VRFW.model/1"
-# Arion Sherwind's military cap: an extra mesh (exmesh) on his cap head content/models/characters/c90400081.toml.
-# From the user's model files; textures named i90400081_*.
-# Game files served as they are, from assets/models/items/i90400081/{common,dx11}/ to data/{common,dx11}/chr/_item/i90400081/.
+# Arion Sherwind's military cap, an extra mesh on his cap head c90400081.
 format = "native"
 game_path = "chr/_item/i90400081"

@@ -1,25 +1,17 @@
 -- Team editor: the kit of a team set's team (docs/framework/team-editor.md; content\game\team_editor.toml).
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_VRFW_TEAM_SET_KIT | set, team, uniform | ok, the set's uniform now (owned kit item cleared) |
--- | CMND_VRFW_TEAM_MEMBER_EXP | chara handle, share 0..1 | ok, the EXP inside his level now (his EXP bar at that share) |
--- | CMND_VRFW_TEAM_UNIFORM | set, team [, uniform [, src_team]] | ok, the team's uniform now (no uniform: only read) |
 
 TeamEditor = TeamEditor or {}
 
-require "VRFW/lib/basics"
 local info = VRFW.logger("team_editor")
 
 local MAX_SET = 16
 local TEAMS = 2
 local UNIFORM_TEAMS = 3   -- teams per set the uniform command reaches (11v11, 5v5, ...)
--- the one uniform id a team without a kit may take right now (a mode's generic kit; 0 / none = off): the mod of that
--- mode writes it (VRFW.state.set; declared by VRFW in content\game\team_editor.toml)
 local KITLESS_KEY = "vrfw.team_uniform.kitless"
 
-local Id = require "lib/ids"
-local ExpTable = require "lib/exp_table"
-local function u32(v) return Id.u32_or(v, nil) end
+local Id = VRFW.ids
+local ExpTable = VRFW.experience
+local function u32(v) return Id.unsigned_or(v, nil) end
 
 -- the TeamInfo record of (set, team), nil when the party is not there yet
 local function team_info(set, team)
@@ -31,7 +23,8 @@ local function team_info(set, team)
   if not ok or not p or p < 0x10000 then
     return nil
   end
-  local ok2, rec = pcall(VRFW.mem.struct, "TeamEditorTeamInfo", p)
+  local rec = VRFW.memory.struct("TeamEditorTeamInfo", p)
+  local ok2 = rec ~= nil
   return ok2 and rec or nil
 end
 
@@ -58,8 +51,6 @@ end
 -- a character record's EXP inside its current level (VRFW.character.record(handle).addr + 8)
 local RECORD_EXP = 8
 
--- CMND_VRFW_TEAM_MEMBER_EXP(handle, share): the character's EXP bar filled to `share` of his current level (0..1, below
--- the next level: no level-up): the EXP inside his level = share x the level's EXP (the EXP table x his rarity's rate)
 function TeamEditor.MemberExp(handle, share)
   handle, share = u32(handle), tonumber(share)
   if not handle or handle == 0 or share == nil then return false, 0 end
@@ -68,11 +59,10 @@ function TeamEditor.MemberExp(handle, share)
   local need = ExpTable.need(rec.level, rec.rarity)
   if not need then return false, 0 end
   local exp = math.max(0, math.min(math.floor(need) - 1, math.floor(need * math.max(0, math.min(1, share)))))
-  if not pcall(VRFW.mem.write, "u32", rec.addr + RECORD_EXP, exp) then return false, 0 end
+  if not VRFW.memory.write("u32", rec.addr + RECORD_EXP, exp) then return false, 0 end
   return true, exp
 end
 
--- the uniform a team without a kit may take now (KITLESS_KEY), 0 = none
 local function kitless_uniform()
   local ok, v = pcall(VRFW.state.get, KITLESS_KEY)
   v = ok and u32(v) or nil
@@ -86,9 +76,6 @@ end
 
 local uniform_logs = 0
 
--- CMND_VRFW_TEAM_UNIFORM(set, team [, uniform [, src_team]]) -> ok, the team's uniform now. Without `uniform` it only
--- reads. A write needs a team with a kit and a new kit (never 0), or src_team: the kit of another team of the same set
--- (`uniform` must be that team's kit), or a team without a kit taking the kitless uniform of KITLESS_KEY.
 function TeamEditor.Uniform(set, team, uniform, src_team)
   set, team = u32(set), u32(team)
   if not set or not team or set > MAX_SET or team >= UNIFORM_TEAMS then

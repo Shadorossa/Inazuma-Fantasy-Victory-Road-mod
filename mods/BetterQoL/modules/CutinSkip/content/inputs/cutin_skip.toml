@@ -1,7 +1,3 @@
-# Technique Cut-in Skip's input (graft research/grafts/cutin_skip, docs/game/match/cutin-skip.md):
-#   CMD_CUTINSKIP_SKIP  a press (state 0) of the rows MENU_CTRL gives CMD_ENTER: pad 27, the game's own confirm button,
-#                       and keyboard 39. The event start activates one of the three event controllers by the event's
-#                       type (0xF66D50), so the command is in all three. None of them has CMD_ENTER.
 schema = "VRFW.input/1"
 
 [[command]]

@@ -1,0 +1,13 @@
+# Free match «Competir contra mi equipo»: L2 / R2 page the rival list over the team templates (hook file on soccer_vs_mydock_menu).
+name = "team_templates_rival"
+mod = "BetterQoL"
+order = 311
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "Rival list of «Competir contra mi equipo»: pages over every team template, rows read from the template; a stored rival plays from its copy in the rival team set"
+
+[[hooks]]
+stem = "soccer_vs_mydock_menu"
+source = "betterqol_team_templates_rival.lua"

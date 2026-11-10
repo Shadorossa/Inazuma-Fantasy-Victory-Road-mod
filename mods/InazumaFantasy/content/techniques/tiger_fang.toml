@@ -1,7 +1,4 @@
 schema = "VRFW.technique/3"
-# Inazuma Fantasy: Colmillo del Tigre: Colmillo de pantera (whk00300) with its retail power, cost, recast and flags and its
-# description, the element of Remate del tigre (whs00960), its own name and its own cut-ins (content\anims\tiger_fang.toml)
-# with the tiger (content\models\props\tiger_fang). Sold in the Special Moves shop (content\shops\own_skills.toml).
 
 [[technique]]
 name = "tiger_fang"
@@ -10,7 +7,7 @@ manual = true
 element = "mountain"
 event = "InazumaFantasy.tiger_fang"
 fail_event = "InazumaFantasy.tiger_fang_fail"
-desc_text = "base"
+description_text = "base"
   [technique.text.es]
   name = "Colmillo del Tigre"
   [technique.text.en]
@@ -29,12 +26,3 @@ desc_text = "base"
   name = "猛虎獠牙"
   [technique.text.zh_hant]
   name = "猛虎魔牙"
-
-# with Hissatsu Reforged, the numbers it gives Colmillo de pantera: this move is never the weaker one
-[[edit]]
-if_mod = "HissatsuReforged"
-target = "InazumaFantasy.tiger_fang"
-power_min = 100
-power_max = 640
-tp = 100
-recast = 90

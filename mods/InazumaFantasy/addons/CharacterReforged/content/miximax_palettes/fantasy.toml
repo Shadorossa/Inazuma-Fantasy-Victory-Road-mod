@@ -1,0 +1,31 @@
+schema = "VRFW.miximax_palette/1"
+
+[[VRFW.MiximaxPalette]]
+character = "c90400081"                   # arion_military_cap
+id = "0x1DCD1806"
+head = "_face/04_GO1/c90400081/c90400081.g4tx"
+hair = "#925335"
+face = "#F7B582"
+iris = "#6C7991"
+skin = "#F7B582"
+zones = { face = "assets/mx_zones/c90400081_face.png" }
+
+[[VRFW.MiximaxPalette]]
+character = "c90000146"                   # byron_love_idol
+id = "0x793600FC"
+head = "_face/01_IE1/c90000146/c90000146.g4tx"
+hair = "#DEDEA4"
+face = "#F6D5AA"
+iris = "#C01E17"
+skin = "#F6D5AA"
+zones = { face = "assets/mx_zones/c90000146_face.png" }
+
+[[VRFW.MiximaxPalette]]
+character = "c90370080"                   # tezcat_arion_miximax
+id = "0xC5EFC438"
+head = "_face/05_GO2/c90370080/c90370080.g4tx"
+hair = "#E2E6F3"
+face = "#E4A363"
+iris = "#6C7991"
+skin = "#E4A363"
+zones = { face = "assets/mx_zones/c90370080_face.png", hair = "assets/mx_zones/c90370080_hair.png" }

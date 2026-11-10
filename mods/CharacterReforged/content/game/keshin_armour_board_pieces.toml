@@ -1,0 +1,5 @@
+schema = "VRFW.game/2"
+
+[[VRFW.BoardPieces]]
+name = "CharacterReforged.KeshinArmourSlots"
+slots = ["keshin_armed"]

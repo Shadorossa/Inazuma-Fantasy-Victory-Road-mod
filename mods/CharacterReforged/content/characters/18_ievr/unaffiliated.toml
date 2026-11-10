@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · Unaffiliated · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "edit_avatar00"                               # Avatar
+moves = [
+  { move = 0x8C990270, level = 1 },                         # Gunshot
+  { move = 0x75F0D2D7, level = 11 },                        # Sunshine Splitter
+  { move = 0x7C93E472, level = 21 },                        # Ghoulish Glare
+  { move = 0xECB91078, level = 31 },                        # Volcanic Flight
+]
 
   [[edit.cards]]
   id = 0x30B2F63D                                         # FW/MF · fire
@@ -14,6 +17,12 @@ target = "edit_avatar00"                               # Avatar
 
 [[edit]]
 target = "edit_avatar01"                               # Avatar
+moves = [
+  { move = 0x8C990270, level = 1 },                         # Gunshot
+  { move = 0xE196F1D1, level = 11 },                        # Burning Bomb
+  { move = 0x5405771D, level = 21 },                        # Supreme Spin
+  { move = 0x0C08B663, level = 31 },                        # Doom Dive Drive
+]
 
   [[edit.cards]]
   id = 0x47B5C6AB                                         # FW/MF · fire
@@ -23,6 +32,12 @@ target = "edit_avatar01"                               # Avatar
 
 [[edit]]
 target = "edit_avatar02"                               # Avatar
+moves = [
+  { move = 0x83BAE06D, level = 1 },                         # Golden Gull
+  { move = 0xAE2B3429, level = 11 },                        # Atomic Flare
+  { move = 0x7C93E472, level = 21 },                        # Ghoulish Glare
+  { move = 0x0BC0B501, level = 31 },                        # Last Lion of Defence
+]
 
   [[edit.cards]]
   id = 0xDEBC9711                                         # FW/MF · fire
@@ -32,6 +47,12 @@ target = "edit_avatar02"                               # Avatar
 
 [[edit]]
 target = "edit_avatar03"                               # Avatar
+moves = [
+  { move = 0x78E027BC, level = 1 },                         # Shine Drive
+  { move = 0xA897B3AE, level = 11 },                        # Fire Tornado A
+  { move = 0x41F3CDC2, level = 21 },                        # Scorching Tackle
+  { move = 0x79E3E635, level = 31 },                        # Racing Flame
+]
 
   [[edit.cards]]
   id = 0xA9BBA787                                         # FW/MF · fire
@@ -41,6 +62,12 @@ target = "edit_avatar03"                               # Avatar
 
 [[edit]]
 target = "edit_avatar04"                               # Avatar
+moves = [
+  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
+  { move = 0x05567847, level = 11 },                        # Runaway Train
+  { move = 0x3DCD45E3, level = 21 },                        # Flurry-Go-Round
+  { move = 0x00D8C57C, level = 31 },                        # Fireball Storm
+]
 
   [[edit.cards]]
   id = 0x37DF3224                                         # FW/MF · fire
@@ -50,6 +77,12 @@ target = "edit_avatar04"                               # Avatar
 
 [[edit]]
 target = "edit_avatar05"                               # Avatar
+moves = [
+  { move = 0x98E76F75, level = 1 },                         # Rapid Fire
+  { move = 0xE196F1D1, level = 11 },                        # Burning Bomb
+  { move = 0x8A52C09B, level = 21 },                        # Doomsword Slash
+  { move = 0x4D1E465C, level = 31 },                        # Fake Bomber
+]
 
   [[edit.cards]]
   id = 0x40D802B2                                         # FW/MF · fire
@@ -59,6 +92,12 @@ target = "edit_avatar05"                               # Avatar
 
 [[edit]]
 target = "edit_avatar06"                               # Avatar
+moves = [
+  { move = 0xF26A225B, level = 1 },                         # RC Shot
+  { move = 0xBDAE2862, level = 11 },                        # Hellfire
+  { move = 0x7D518E45, level = 21 },                        # Amp Beat
+  { move = 0x79E3E635, level = 31 },                        # Racing Flame
+]
 
   [[edit.cards]]
   id = 0xD9D15308                                         # FW/MF · fire
@@ -68,6 +107,12 @@ target = "edit_avatar06"                               # Avatar
 
 [[edit]]
 target = "edit_avatar07"                               # Avatar
+moves = [
+  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
+  { move = 0x00267A00, level = 11 },                        # Falcon Counter
+  { move = 0xB4B4D106, level = 21 },                        # Dragon Cannon
+  { move = 0xB8A509A7, level = 31 },                        # Asterocks
+]
 
   [[edit.cards]]
   id = 0xAED6639E                                         # FW/MF · fire
@@ -77,6 +122,12 @@ target = "edit_avatar07"                               # Avatar
 
 [[edit]]
 target = "edit_avatar08"                               # Avatar
+moves = [
+  { move = 0x8F1DD61E, level = 1 },                         # Maximum Fire
+  { move = 0x803E3403, level = 11 },                        # Overclock Spiral
+  { move = 0x3B8D915B, level = 21 },                        # Meteor Shower
+  { move = 0x0BC0B501, level = 31 },                        # Last Lion of Defence
+]
 
   [[edit.cards]]
   id = 0x3E697E0F                                         # FW/MF · fire
@@ -86,6 +137,12 @@ target = "edit_avatar08"                               # Avatar
 
 [[edit]]
 target = "edit_avatar09"                               # Avatar
+moves = [
+  { move = 0x86F5F6E8, level = 1 },                         # Cupid's Arrow
+  { move = 0x0CF4E55C, level = 11 },                        # Double Touch
+  { move = 0x25276CB9, level = 21 },                        # Solar Surprise
+  { move = 0xEB71131A, level = 31 },                        # X Blast
+]
 
   [[edit.cards]]
   id = 0x496E4E99                                         # FW/MF · fire
@@ -95,6 +152,12 @@ target = "edit_avatar09"                               # Avatar
 
 [[edit]]
 target = "edit_avatar10"                               # Avatar
+moves = [
+  { move = 0x4EA586F0, level = 1 },                         # Grand Glow
+  { move = 0xBDAE2862, level = 11 },                        # Hellfire
+  { move = 0x8A936B25, level = 21 },                        # Goopy Gloopy Goo
+  { move = 0x91FD9611, level = 31 },                        # Penguin Volley
+]
 
   [[edit.cards]]
   id = 0x29A9C77C                                         # FW/MF · fire
@@ -104,6 +167,12 @@ target = "edit_avatar10"                               # Avatar
 
 [[edit]]
 target = "edit_avatar11"                               # Avatar
+moves = [
+  { move = 0x457EB170, level = 1 },                         # Pyrokinetic
+  { move = 0xB813E775, level = 11 },                        # Flaming Firebird
+  { move = 0x79E3E635, level = 21 },                        # Racing Flame
+  { move = 0x0C08B663, level = 31 },                        # Doom Dive Drive
+]
 
   [[edit.cards]]
   id = 0x5EAEF7EA                                         # FW/MF · fire
@@ -113,6 +182,12 @@ target = "edit_avatar11"                               # Avatar
 
 [[edit]]
 target = "edit_avatar12"                               # Avatar
+moves = [
+  { move = 0x78E027BC, level = 1 },                         # Shine Drive
+  { move = 0xC0A013E6, level = 11 },                        # Liar Shot
+  { move = 0x91FD9611, level = 21 },                        # Penguin Volley
+  { move = 0x29728358, level = 31 },                        # Planet Shield
+]
 
   [[edit.cards]]
   id = 0xC7A7A650                                         # FW/MF · fire
@@ -122,6 +197,12 @@ target = "edit_avatar12"                               # Avatar
 
 [[edit]]
 target = "edit_avatar13"                               # Avatar
+moves = [
+  { move = 0x518BCA26, level = 1 },                         # Fire Tornado
+  { move = 0x44BCDB47, level = 11 },                        # Pyroclastic
+  { move = 0xB13A6C3D, level = 21 },                        # Zigzag Flame
+  { move = 0x066442FB, level = 31 },                        # Gusher Crusher
+]
 
   [[edit.cards]]
   id = 0xB0A096C6                                         # FW/MF · fire
@@ -131,6 +212,12 @@ target = "edit_avatar13"                               # Avatar
 
 [[edit]]
 target = "edit_avatar14"                               # Avatar
+moves = [
+  { move = 0x37601AC5, level = 1 },                         # Card Shark
+  { move = 0x8F1DD61E, level = 11 },                        # Maximum Fire
+  { move = 0xF26A225B, level = 21 },                        # RC Shot
+  { move = 0xC0A013E6, level = 31 },                        # Liar Shot
+]
 
   [[edit.cards]]
   id = 0x2EC40365                                         # FW/MF · fire
@@ -140,6 +227,12 @@ target = "edit_avatar14"                               # Avatar
 
 [[edit]]
 target = "edit_avatar15"                               # Avatar
+moves = [
+  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
+  { move = 0x8EDFBC29, level = 11 },                        # Double Jaw
+  { move = 0x58D7E841, level = 21 },                        # Runaway Bull
+  { move = 0x2A4E3349, level = 31 },                        # Heart Beat
+]
 
   [[edit.cards]]
   id = 0x59C333F3                                         # FW/MF · fire
@@ -149,6 +242,12 @@ target = "edit_avatar15"                               # Avatar
 
 [[edit]]
 target = "edit_avatar16"                               # Avatar
+moves = [
+  { move = 0xF26A225B, level = 1 },                         # RC Shot
+  { move = 0x86F5F6E8, level = 11 },                        # Cupid's Arrow
+  { move = 0xB60E3C60, level = 21 },                        # Plasma Cut
+  { move = 0x58D7E841, level = 31 },                        # Runaway Bull
+]
 
   [[edit.cards]]
   id = 0xC0CA6249                                         # FW/MF · fire
@@ -159,10 +258,10 @@ target = "edit_avatar16"                               # Avatar
 [[edit]]
 target = "c11500230"                                   # Jeremy Yung
 moves = [
-  { move = 0x78218C02, level = 1 },                         # Duskfall
-  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x0E0A3F7A, level = 30 },                        # Spatial Portal
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0x0E0A3F7A, level = 13 },                        # Spatial Portal
+  { move = 0x78218C02, level = 20 },                        # Duskfall
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -175,10 +274,10 @@ moves = [
 [[edit]]
 target = "c11500240"                                   # Huxley Tagg
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0x00196EC2, level = 1 },                         # Earthquake
   { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
-  { move = 0x485150D9, level = 20 },                        # Body Shield
-  { move = 0x00196EC2, level = 30 },                        # Earthquake
+  { move = 0xC41097D5, level = 20 },                        # Acrobotics
+  { move = 0x485150D9, level = 30 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -190,10 +289,10 @@ moves = [
 [[edit]]
 target = "c11500320"                                   # Brannon Chalant
 moves = [
-  { move = 0x3F00EDE9, level = 1 },                         # Dash Storm
-  { move = 0x49933AEE, level = 13 },                        # Perfect Tower
-  { move = 0x1FC99D68, level = 20 },                        # Snow Angel
-  { move = 0x4E9A9232, level = 30 },                        # Spinning Cut
+  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
+  { move = 0x1FC99D68, level = 13 },                        # Snow Angel
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
+  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -205,10 +304,10 @@ moves = [
 [[edit]]
 target = "c11500370"                                   # Sami Wampovich
 moves = [
-  { move = 0xEE9F2FBD, level = 1 },                         # God Catch
-  { move = 0x2D9F7E76, level = 13 },                        # Breath Taker
+  { move = 0x2D9F7E76, level = 1 },                         # Breath Taker
+  { move = 0xC5EF0563, level = 13 },                        # Three-Legged Rush
   { move = 0x8AF3EAB9, level = 20 },                        # Hammer of Fury
-  { move = 0xC5EF0563, level = 30 },                        # Three-Legged Rush
+  { move = 0xEE9F2FBD, level = 30 },                        # God Catch
 ]
 
   [[edit.cards]]
@@ -220,10 +319,10 @@ moves = [
 [[edit]]
 target = "c11500900"                                   # Fergus Lougdon
 moves = [
-  { move = 0x7A67325B, level = 1 },                         # Flame Dance
-  { move = 0x613ABD43, level = 13 },                        # Dawnrise
-  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
-  { move = 0xD0A1DBC3, level = 30 },                        # Bungee Ball Burst
+  { move = 0xD0A1DBC3, level = 1 },                         # Bungee Ball Burst
+  { move = 0x7A67325B, level = 13 },                        # Flame Dance
+  { move = 0x613ABD43, level = 20 },                        # Dawnrise
+  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
 ]
 
   [[edit.cards]]
@@ -235,9 +334,9 @@ moves = [
 [[edit]]
 target = "c11748020"                                   # Stran Linemont
 moves = [
-  { move = 0x1C8CE2B8, level = 1 },                         # God Knows
-  { move = 0x63BDA8A4, level = 13 },                        # Inazuma Drop
-  { move = 0x1FC99D68, level = 20 },                        # Snow Angel
+  { move = 0x1FC99D68, level = 1 },                         # Snow Angel
+  { move = 0x1C8CE2B8, level = 13 },                        # God Knows
+  { move = 0x63BDA8A4, level = 20 },                        # Inazuma Drop
   { move = 0x613ABD43, level = 30 },                        # Dawnrise
 ]
 
@@ -250,9 +349,9 @@ moves = [
 [[edit]]
 target = "c11748040"                                   # Lacie Pawford
 moves = [
-  { move = 0x6BA49049, level = 1 },                         # Mystic Mist
-  { move = 0xDD6B2708, level = 13 },                        # Majin the Hand
-  { move = 0x2E7B2B84, level = 20 },                        # Thief's Eye
+  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0xBB12AFE5, level = 13 },                        # Rabbit Run
+  { move = 0x6BA49049, level = 20 },                        # Mystic Mist
   { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
 ]
 
@@ -265,10 +364,10 @@ moves = [
 [[edit]]
 target = "c11748060"                                   # Marcol Leapstone
 moves = [
-  { move = 0x637C031A, level = 1 },                         # No Escape
+  { move = 0x166B0073, level = 1 },                         # Super Armadillo
   { move = 0xC5EF0563, level = 13 },                        # Three-Legged Rush
-  { move = 0x166B0073, level = 20 },                        # Super Armadillo
-  { move = 0x5E233E68, level = 30 },                        # Super Elastico
+  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
+  { move = 0x637C031A, level = 30 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -280,10 +379,10 @@ moves = [
 [[edit]]
 target = "c11748080"                                   # Ignacio Gerhardt
 moves = [
-  { move = 0x49933AEE, level = 1 },                         # Perfect Tower
-  { move = 0x79E3E635, level = 13 },                        # Racing Flame
-  { move = 0xDDCA0D2A, level = 20 },                        # Bouncing Bomb
-  { move = 0x36A270F2, level = 30 },                        # Rolling Slide
+  { move = 0x79E3E635, level = 1 },                         # Racing Flame
+  { move = 0x36A270F2, level = 13 },                        # Rolling Slide
+  { move = 0x49933AEE, level = 20 },                        # Perfect Tower
+  { move = 0x0B011EBF, level = 30 },                        # Fireball Screw
 ]
 
   [[edit.cards]]
@@ -296,10 +395,10 @@ moves = [
 [[edit]]
 target = "c11748100"                                   # Rynor Rushenfort
 moves = [
-  { move = 0xB8C5883B, level = 1 },                         # God Hand X
-  { move = 0xB9A6C82E, level = 13 },                        # Triangle ZZ
-  { move = 0x0597D3F9, level = 20 },                        # Dragon Tornado
-  { move = 0x35E70F22, level = 30 },                        # Grenade Shot
+  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
+  { move = 0x0597D3F9, level = 13 },                        # Dragon Tornado
+  { move = 0x29728358, level = 20 },                        # Planet Shield
+  { move = 0xB9A6C82E, level = 30 },                        # Triangle ZZ
 ]
 
   [[edit.cards]]
@@ -311,10 +410,10 @@ moves = [
 [[edit]]
 target = "c11748110"                                   # Crag Bolderin
 moves = [
-  { move = 0xBFCC20E7, level = 1 },                         # Wood Chopper
-  { move = 0xDEB28A7B, level = 13 },                        # Monkey Turn
-  { move = 0xEE9F2FBD, level = 20 },                        # God Catch
-  { move = 0x5E233E68, level = 30 },                        # Super Elastico
+  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
+  { move = 0x4031A7F5, level = 13 },                        # Mole Fake
+  { move = 0x5E233E68, level = 20 },                        # Super Elastico
+  { move = 0x4BD584B7, level = 30 },                        # Power Charge
 ]
 
   [[edit.cards]]
@@ -327,9 +426,9 @@ moves = [
 target = "c11748120"                                   # Bowie Buffoon
 moves = [
   { move = 0x46A71C03, level = 1 },                         # Black Hole
-  { move = 0x9AF2229C, level = 13 },                        # Gravity Point
+  { move = 0xF309624E, level = 13 },                        # Dual Smash
   { move = 0xAD6E4BF9, level = 20 },                        # Harvest
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0x9AF2229C, level = 30 },                        # Gravity Point
 ]
 
   [[edit.cards]]
@@ -341,9 +440,9 @@ moves = [
 [[edit]]
 target = "c11748130"                                   # Margot Napier
 moves = [
-  { move = 0x637C031A, level = 1 },                         # No Escape
-  { move = 0x9D236FA3, level = 13 },                        # Sword of the King
-  { move = 0x5DA7EA06, level = 20 },                        # Boomerang Bluff
+  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
+  { move = 0x637C031A, level = 13 },                        # No Escape
+  { move = 0x9D236FA3, level = 20 },                        # Sword of the King
   { move = 0xC41097D5, level = 30 },                        # Acrobotics
 ]
 
@@ -355,6 +454,12 @@ moves = [
 
 [[edit]]
 target = "c11501000"                                   # 海坊主（ジグザグドリブル用）
+moves = [
+  { move = 0x592A96B4, level = 1 },                         # Afterimage
+  { move = 0x4E5B398C, level = 13 },                        # Acrobat Bomber
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
+  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+]
 
   [[edit.cards]]
   id = 0xAF0720CB                                         # FW/MF · forest
@@ -362,11 +467,3 @@ target = "c11501000"                                   # 海坊主（ジグザ�
   rank = 3
   growth = "normal"
   stats = { kick = 278, control = 248, technique = 204, pressure = 163, physical = 212, intelligence = 176, agility = 177, freedom = 221 }
-  moves = [
-    { move = 0x72514A74, level = 1 },                     # Low Drive
-    { move = 0x592A96B4, level = 13 },                    # Afterimage
-    { move = 0x2D3E5454, level = 20 },                    # Clone Shot
-    { move = 0x4E5B398C, level = 30 },                    # Acrobat Bomber
-    { move = 0xF9C4BCF4, level = 38 },                    # Double Helix
-    { move = 0x21127474, level = 43 },                    # Ultra Moon
-  ]

@@ -1,10 +1,3 @@
--- Battle Bay Deluxe: the Battle Bay campaign block of the session lent to a mode for its matches. The game's own
--- campaign match (match request, stadium, loading telop, result screen) plays what the block holds: +0x2CA6E4 game,
--- +0x2CA6E8 difficulty, +0x2CA6EC player team, +0x2CA6F0 the 7 rivals, +0x2CA70C the match index. After a win the
--- game adds 1 to the index (index 6 won = the campaign clear), after a loss or a draw it zeroes the block. The block
--- belongs to the Campaña: a mode that borrows it first keeps the Campaña's fields in a save blob of the slot
--- (`snapshot_blob`) and writes them back after its match, byte for byte. Needs the [[VRFW.Global]] `session`
--- (content\game\campaign.toml) in the command's `needs`.
 
 local U = require "lib/util"
 
@@ -13,15 +6,13 @@ local B = {}
 local S_GAME, S_DIFF, S_PLAYER, S_RIVALS, S_INDEX, S_CLEARS = 0x2CA6E4, 0x2CA6E8, 0x2CA6EC, 0x2CA6F0, 0x2CA70C, 0x208
 B.RIVALS = 7
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("campaign block")
 
-local Doc = require "VRFW/lib/save_doc"
+local Doc = VRFW.save.doc
 
 -- the active save slot (1 while the slot service does not run)
 B.slot = Doc.slot
 
--- the kept block of a blob: read and written now, never cached; an unreadable file is left as it is
 local stores = {}
 local function store_of(blob)
   local store = stores[blob]
@@ -44,7 +35,6 @@ function B.session()
   return U.global("session")
 end
 
--- the block now: { game, diff, player, index, clears, rivals[1..7] }; nil when the session is not readable
 function B.read()
   local s = B.session()
   if not s then
@@ -60,8 +50,6 @@ function B.read()
   return r
 end
 
--- write the block: game, difficulty byte, player team, rivals (1-based list, the rest 0), match index; true when
--- every field was written
 function B.write(game, diff, player, rivals, index)
   local s = B.session()
   if not s then
@@ -75,7 +63,6 @@ function B.write(game, diff, player, rivals, index)
   return ok and U.wr("u8", s + S_INDEX, index)
 end
 
--- the Campaña's fields kept in the save blob `blob` of the slot; false when not written (then the block is not lent)
 function B.snapshot(blob)
   local b = B.read()
   if not b then
@@ -96,13 +83,34 @@ function B.snapshot(blob)
   return true
 end
 
--- whether the slot has a kept Campaña block in `blob`
-function B.has_snapshot(blob)
-  local ok, b = pcall(VRFW.save.blob, blob, B.slot())
-  return ok and type(b) == "string"
+function B.alive(b)
+  return b ~= nil and (b.rivals[1] or 0) ~= 0
 end
 
--- the Campaña's fields of `blob` written back and the blob put aside; true when there was one and it was written
+function B.clear()
+  return B.write(0, 0, 0, {}, 0)
+end
+
+B.LENT_BLOBS = { "bb_tournament_campaign.json", "bb_daily_campaign.json", "bb_net_campaign.json" }
+
+function B.kept(blob)
+  return (store_of(blob):load(B.slot()))
+end
+
+function B.has_snapshot(blob)
+  return type(VRFW.save.doc.read_text(blob, B.slot())) == "string"
+end
+
+-- whether another mode has lent the block (one of B.LENT_BLOBS kept in the slot)
+function B.lent()
+  for _, blob in ipairs(B.LENT_BLOBS) do
+    if B.has_snapshot(blob) then
+      return true
+    end
+  end
+  return false
+end
+
 function B.restore(blob)
   local doc, state = store_of(blob):load(B.slot())
   if state == "new" then
@@ -121,7 +129,10 @@ function B.restore(blob)
     warn(string.format("the campaign clear counter changed while the block was lent (%d -> %d)", doc.clears,
       before.clears))
   end
-  pcall(VRFW.save.blob_aside, blob, B.slot())
+  local aside, why = VRFW.save.doc.set_aside(blob, B.slot())
+  if not aside then
+    warn(blob .. " stays on record after the block came back: " .. tostring(why))
+  end
   info(string.format("Campaña block back from %s (player %s, rival 1 %s, index %d)", blob, U.hex(U.u32(doc.player)),
     U.hex(U.u32(doc.rivals[1])), doc.index))
   return true

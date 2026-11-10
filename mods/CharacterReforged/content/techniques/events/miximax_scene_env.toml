@@ -1,0 +1,9 @@
+schema = "VRFW.technique/3"
+
+[[event_env]]
+event = "ev99_97010"
+from = "ev74_10010"
+
+[[event_env]]
+event = "ev99_97020"
+from = "ev74_10010"

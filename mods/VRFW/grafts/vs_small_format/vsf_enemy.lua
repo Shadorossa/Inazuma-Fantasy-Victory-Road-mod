@@ -1,6 +1,4 @@
--- vs_route_town_vs_enemy_formation_menu: the rival's side of the Chronicle VS screen (graft.toml). The retail
--- SetFormation runs as it is, then VRFW_VSF.Apply on the rival's members. A rival without a team row (a1 == 0: the
--- retail placeholder formation, 20 dummy cards) stays retail.
+-- vs_route_town_vs_enemy_formation_menu
 do
 @COMMON@
   local vrfw_vsf_set_formation = SetFormation
@@ -15,7 +13,7 @@ do
           used[p] = true
         end
       end
-      VRFW_VSF.Apply(used, a5, a6, a7, a8, "rival team row")
+      VRFW.small_format.apply(used, a5, a6, a7, a8, "rival team row")
     end
     return table.unpack(r, 1, r.n)
   end

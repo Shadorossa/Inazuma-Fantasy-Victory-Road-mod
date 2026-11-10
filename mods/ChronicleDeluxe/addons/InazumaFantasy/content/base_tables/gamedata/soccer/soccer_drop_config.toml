@@ -1,0 +1,7 @@
+schema = "VRFW.base_table/1"
+
+[[keyed]]
+table = "soccer/soccer_drop_spirit_chara_table"
+  [[keyed.set]]
+  key = 0x47AF81B0
+  cells = { data = { add = [ { charaId = 0xB2E8F4AE, weight = 1 } ] } }   # c90370081 (tezcat_mixi_max_arion's character)

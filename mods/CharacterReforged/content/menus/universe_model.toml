@@ -1,0 +1,18 @@
+schema = "VRFW.menu/2"
+
+# Players Universe character list: the focused player's 3D model (assets/lua/chara_pack_probability_list_menu/universe_model.lua).
+# The list's background copied into the background pass, so the model drawn in the 3D pass stays over it.
+
+[[object]]
+name = "character_reforged_universe_list_backdrop"
+from = "universe03_00_bg"
+set = [{ parameter = "m_drawPriority", match = { 1 = 445 }, values = { 1 = 200 } }]
+add = [{ block = "CMenuRenderComponent", parameter = "m_drawType", values = [1] }]
+
+[[patch]]
+menu = "chara_pack_probability_list_menu"
+add_layer = { name = "character_reforged_universe_list_backdrop", object = "character_reforged_universe_list_backdrop", count = 1, after = "universe03_00_bg", groups = [{ group = "chara_pack_probability_list_menu", flags = [0, 1, 1, 0, 1, 0], after = "universe03_00_bg" }] }
+
+[[patch]]
+menu = "chara_pack_probability_list_menu"
+add_layer = { name = "character_reforged_universe_list_model", object = "vrfw_model_card", count = 1, after = "character_reforged_universe_list_backdrop", groups = [{ group = "chara_pack_probability_list_menu", flags = [0, 1, 1, 0, 1, 0], after = "character_reforged_universe_list_backdrop" }] }

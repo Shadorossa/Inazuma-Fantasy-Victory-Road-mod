@@ -1,45 +1,31 @@
 schema = "VRFW.contact_map/1"
-# New Recruitment › the recruitment office («Oficina de fichajes»), Inazuma Fantasy's old office rebuilt on the
-# VR-Framework's contact map screen:
-# beat a team, then sign its players. The pages are built from the game's own teams and matches; each card's level,
-# price in «fichas», page and requirements are the old office's (content\contact_maps\office_terms.toml, generated).
-# No menu opens it at the moment: players are signed in the album.
+# The recruitment office on the framework's contact map; no menu opens it while players are signed in the album.
 
 [[VRFW.ContactSet]]
 Name = "office"
-Title = "new_recruitment_office_title"
-# the office's hub: the free-match list («Competir contra bots») with its series tabs, the beaten teams' crests and the
-# selected team's lineup, as the old office; choosing a team opens its page
+Title = "classic_recruitment_office_title"
+# the hub: the free-match team list; choosing a team opens its page
 Hub = "free_match"
-# the «fichas»: the story element spirits, a player costs fichas of his own element (the old office's currencies)
+# prices in element spirits («fichas») of the player's element
 ElementCurrency = { wind = "0xC35FFA3C", forest = "0x90B639BB", fire = "0x86503F3A", mountain = "0x81274E23" }
-# their names on the cost line and in the messages (text\rows\menu_text.toml)
-ElementCurrencyTitle = { wind = "new_recruitment_office_fichas_wind", forest = "new_recruitment_office_fichas_forest", fire = "new_recruitment_office_fichas_fire", mountain = "new_recruitment_office_fichas_mountain" }
-# one of them, on a team page's cost line («Ficha de montaña x22 (0)»)
-ElementCurrencyUnit = { wind = "new_recruitment_office_ficha_wind", forest = "new_recruitment_office_ficha_forest", fire = "new_recruitment_office_ficha_fire", mountain = "new_recruitment_office_ficha_mountain" }
-# «Dimitir»: the fichas of his element a released player gives back (the old office's 3)
+ElementCurrencyTitle = { wind = "classic_recruitment_office_fichas_wind", forest = "classic_recruitment_office_fichas_forest", fire = "classic_recruitment_office_fichas_fire", mountain = "classic_recruitment_office_fichas_mountain" }
+ElementCurrencyUnit = { wind = "classic_recruitment_office_ficha_wind", forest = "classic_recruitment_office_ficha_forest", fire = "classic_recruitment_office_ficha_fire", mountain = "classic_recruitment_office_ficha_mountain" }
+# fichas a released player gives back
 ReleaseRefund = 3
-# the rarity a signed player joins at: 4, a normal card
 JoinRarity = 4
-# the friendly a card's trial is played as (content\friendlies\office_trial.toml)
-TrialFriendly = "new_recruitment_office_trial"
-# the same trial with the active match team when no active pachanga team is set
-TrialFriendlyActiveTeam = "new_recruitment_office_trial_active_team"
-# the old office's requirements (office_terms.toml): asked only while config.toml [office] requirements is true
-# (default false: price only, trials optional)
+TrialFriendly = "classic_recruitment_office_trial"
+TrialFriendlyActiveTeam = "classic_recruitment_office_trial_active_team"
 Requirements = { config = "office.requirements", default = false }
 
   # rules of every team page of the set
   [VRFW.ContactSet.Teams]
-  Staff = true                     # managers (team slots 16-18) and the coach (slot 19) are sold too
+  Staff = true
   OnePagePerCharacter = true       # a character is sold on one page only
-  HomePage = "earliest"            # ...the first page of the office (series order, then page order) he plays for
-  MergeSameName = true             # the same team under another id (same name, same players) is one page
+  HomePage = "earliest"
+  MergeSameName = true
 
-  # the price of a card without old terms (a mod's new player, a game update's): the old office's tiers, in fichas of
-  # his element; the first tier whose conditions hold; price = Base + PerLevel x the level he joins at
   [[VRFW.ContactSet.Teams.Price]]
-  Tier = "superstar"               # «Súper estrella»: the character has an Ídolo / Diamante card
+  Tier = "superstar"
   Special = true
   Base = 15
   PerLevel = 0.2
@@ -67,35 +53,31 @@ Requirements = { config = "office.requirements", default = false }
   Base = 2
   PerLevel = 0.05
 
-  # pages moved next to another team's page (team name texts of the game) after «Dark Team» (IE3), «Mar de
-  # árboles» after «Jóvenes Inazuma», «Sallys» after «Inazuma Kids FC» (IE1)
   [[VRFW.ContactSet.Teams.Place]]
   Team = 0x68FEB138                # Equipo Ogro / Team Ogre
   After = 0x061540B2               # Dark Team / Devil Army Z
 
   [[VRFW.ContactSet.Teams.Place]]
-  Team = 0xE13FDAEC                # Mar de árboles / Forest Team
-  After = 0xFAB717E2               # Jóvenes Inazuma / Young Inazuma
+  Team = 0xE13FDAEC
+  After = 0xFAB717E2
 
   [[VRFW.ContactSet.Teams.Place]]
   Team = 0x63356893                # Sallys / Street Sally's
   After = 0x640E03F2               # Inazuma Kids FC
 
-# one list per route of the Chronicle board (in the board's order), named after the series of its players
 [[VRFW.ContactMap]]
 Set = "office"
 Name = "routes"
 Order = 10
-Title = "new_recruitment_office_route"   # shown when a route's series cannot be named
+Title = "classic_recruitment_office_route"   # shown when a route's series cannot be named
   [VRFW.ContactMap.Teams]
   Source = "chronicle_routes"
 
-# the other teams of «Competir contra bots» (story, clubs, street teams) and the old office's pages on no route (the
-# Chronicle legend matches): one list after the routes
+# the other free-match teams and the pages on no route, after the routes
 [[VRFW.ContactMap]]
 Set = "office"
 Name = "story"
 Order = 90
-Title = "new_recruitment_office_story"
+Title = "classic_recruitment_office_story"
   [VRFW.ContactMap.Teams]
   Source = "free_match"

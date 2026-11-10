@@ -1,23 +1,8 @@
--- Character Reforged › the coach / manager role of a player (the skill board's medal slot), for the «Fantasy» skill
--- table's role slot (graft skill_table_role_slot). Declarations: content\game\board_role.toml.
---
---   CMND_CHARACTERREFORGED_GET_ROLE(charaStHdl)        -> role, badgeHdl, playCount, native, lock
---        role 0 none, 1 coach, 2 manager, 3 a badge handle the inventory does not resolve, < 0 error; native = the
---        creation-time staff bits of the record attribute (0 / 1 coach / 2 manager); lock = 0 (nothing is locked)
---   CMND_CHARACTERREFORGED_SET_ROLE(charaStHdl, role)  -> status, roleAfter (status -10 = matches missing: roleAfter =
---        how many)
---
--- The role is the badge item on the record (rec8 CharaData.Badge = an inventory handle of abl_000002 coach / abl_000003
--- manager). SET_ROLE unequips with the engine's 0xE790D0(&hdl, &badgeHdl) and equips with 0xE73630(&hdl, &itemId), which
--- takes a free copy of the item. «Sin rol» always ends with no badge (a handle the engine did not release is released
--- by hand) and without the creation-time staff bits 0x30. The match requirement is Utilities' (`utilities.role_medal.*`
--- state keys; none = no requirement), checked only for a player without a medal.
 
 CharacterReforged = CharacterReforged or {}
 CharacterReforged.BoardRole = CharacterReforged.BoardRole or {}
 local R = CharacterReforged.BoardRole
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("board_role")
 
 local ST_OK, ST_REFUSED = 1, 0
@@ -28,38 +13,26 @@ local ATTR_NATIVE_COACH, ATTR_NATIVE_MANAGER = 0x10, 0x20
 
 local ON = false
 local HANDLE_BUFFER, ITEM_BUFFER
-local LAYOUT = nil   -- the profile offsets of the character data and the inventory record (set at the start)
+local LAYOUT = nil
 
--- ---------------------------------------------------------------------------------------------- helpers
+local Id = VRFW.ids
+local u32 = Id.unsigned
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
+local function int(v) return VRFW.value.integer(v, nil) end
 
-local function int(v) return VRFW.value.int(v, nil) end
+local hex = Id.hex_text
 
-local hex = Id.hex
-
-local function read(kind, addr)
-  local ok, v = pcall(VRFW.mem.read, kind, addr)
-  if ok then return v end
-  return nil
-end
+local read = VRFW.memory.read
 
 local function write(kind, addr, v)
-  return (pcall(VRFW.mem.write, kind, addr, v))
+  return (VRFW.memory.write(kind, addr, v))
 end
 
 local band = bit32.band
 
--- the game profile's offset of a struct field (game\<build>\structs.toml), nil when the running build lacks it
-local function profile_field(name)
-  local ok, v = pcall(VRFW.game.field, name)
-  if ok and type(v) == "number" then return v end
-  return nil
-end
+-- the game profile's value of a name (lib/profile.lua)
+local profile_field = require("lib/profile").field
 
--- the character data's role fields (profile [struct.CharaData]) and the inventory record's item fields
--- ([struct.InventoryRecord]); nil when the running build's profile lacks one
 local function layout()
   local l = {
     handle = profile_field("CharaData.Handle"), attribute = profile_field("CharaData.Attribute"),
@@ -72,7 +45,6 @@ local function layout()
   return l
 end
 
--- the inventory record of a handle (InventoryRecord: item id, stock, equipped copies), nil when unknown
 local function inv_record(inv)
   if inv == 0 then return nil end
   local items = VRFW.game.character_reforged_items()
@@ -126,7 +98,6 @@ local function native_role(attr)
   return 0
 end
 
--- what SET_ROLE does: { unequip, equip (item id or nil), clear_native }, or nil + status (refused before any write)
 local function plan(role, badge, item, attr)
   if not role or role < 0 or role > 2 then return nil, ST_BAD_ARGS end
   local native = band(attr, ATTR_NATIVE_COACH + ATTR_NATIVE_MANAGER) ~= 0
@@ -137,20 +108,14 @@ local function plan(role, badge, item, attr)
   return { unequip = badge ~= 0, equip = role == 1 and BADGE_COACH or BADGE_MANAGER, clear_native = native }
 end
 
--- Utilities' role-medal thresholds as written into the game (none = no requirement)
-local function thresholds()
-  local function get(k)
-    local ok, v = pcall(VRFW.state.get, k)
-    if not ok or type(v) ~= "number" then return nil end
-    return math.max(0, math.min(65535, math.floor(v)))
-  end
-  local a, b = get("BetterQoL.role_medal.matches_required"), get("BetterQoL.role_medal.matches_required_created_role")
-  if a and b then return a, b end
-  return 0, 0
+local THRESHOLDS = { 0, 0 }
+local function thresholds() return THRESHOLDS[1], THRESHOLDS[2] end
+
+function CharacterReforged.SetRoleMedalThresholds(required, created)
+  local function clamp(v) return math.max(0, math.min(65535, math.floor(tonumber(v) or 0))) end
+  THRESHOLDS = { clamp(required), clamp(created) }
 end
 
--- matches still missing before the plan's medal (the game checks only an empty badge slot; a creation-time staff
--- record uses the created-role threshold)
 local function matches_missing(p, badge, plays, attr)
   if not p.equip or badge ~= 0 then return 0 end
   local need, need_created = thresholds()
@@ -165,7 +130,6 @@ local function engine(fn, hdl, value)
   return (pcall(VRFW.call, fn, HANDLE_BUFFER, ITEM_BUFFER))
 end
 
--- the badge release of 0xE790D0 by hand: one equipped copy of the stack back, then the badge field = 0
 local function release_by_hand(rec8, badge)
   local p = inv_record(badge)
   if p then
@@ -177,7 +141,7 @@ local function release_by_hand(rec8, badge)
   write("u32", rec8 + LAYOUT.badge, 0)
 end
 
--- without_matches = the match requirement is not checked (another mod's rule, e.g. InaRogue's «Sin rol»)
+-- without_matches = the match requirement is not checked
 local function set_role(hdl, role, without_matches)
   local missing = 0
   local function run()
@@ -224,8 +188,6 @@ local function set_role(hdl, role, without_matches)
   return status, after
 end
 
--- ---------------------------------------------------------------------------------------------- commands
-
 function R.GetRole(hdl)
   if not ON then return false end
   hdl = u32(hdl)
@@ -239,9 +201,6 @@ function R.SetRole(hdl, role)
   return set_role(u32(hdl), int(role) or -1)
 end
 
--- ---------------------------------------------------------------------------------------------- exports
--- (mod.toml [exports] functions; other mods call them as CharacterReforged.<name>, tables in and out)
-
 -- { role (0 none, 1 coach, 2 manager, 3 unknown badge), attribute (the record's attribute word) }, nil = no record / off
 function CharacterReforged.BoardRoleState(hdl)
   if not ON then return nil end
@@ -251,7 +210,6 @@ function CharacterReforged.BoardRoleState(hdl)
   return { role = current_role(badge, item), attribute = attr }
 end
 
--- sets the role without the match requirement: { status (1 ok, 0 refused, < 0 error), role (the role now) }
 function CharacterReforged.BoardRoleSetWithoutMatches(hdl, role)
   if not ON then return { status = ST_NOT_READY, role = -1 } end
   local status, after = set_role(u32(hdl), int(role) or -1, true)
@@ -263,10 +221,8 @@ function CharacterReforged.BoardRoleCodes()
   return { ok = ST_OK, no_record = ST_NO_RECORD, native_staff = ATTR_NATIVE_COACH + ATTR_NATIVE_MANAGER }
 end
 
--- ---------------------------------------------------------------------------------------------- start
-
-HANDLE_BUFFER = VRFW.mem.buffer("character_reforged_role_hdl", 8)
-ITEM_BUFFER = VRFW.mem.buffer("character_reforged_role_item", 8)
+HANDLE_BUFFER = VRFW.memory.buffer("character_reforged_role_hdl", 8)
+ITEM_BUFFER = VRFW.memory.buffer("character_reforged_role_item", 8)
 LAYOUT = layout()
 ON = VRFW.is_on("CharacterReforged.BadgeEquip") and VRFW.is_on("CharacterReforged.BadgeUnequip") and LAYOUT ~= nil
 if ON then

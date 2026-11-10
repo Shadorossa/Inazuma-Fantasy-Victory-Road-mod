@@ -1,45 +1,30 @@
--- VRFW_Question: the game's general window as a yes / no question or a notice, waited for inside the caller's coroutine
--- (one yield per frame, as the retail windows are waited for). Definitions only: no engine call at load.
---   VRFW_Question.Ask(text) -> true (the first button, «Sí») | false (the second button, Back, or no window)
---   VRFW_Question.Notice(text) -> true when the window was shown and closed
---   VRFW_Question.Uncover() -> true when the screen was black (an event's fade left it there) and was faded back in:
---       the retail board's step after an event (vs_route_town_menu state 4); every window calls it before it opens
---   VRFW_Question.List(names) -> the names as one list in the game's language («A, B y C»): text rows
---       VRFW.Text.ListJoin («%s, %s») and VRFW.Text.ListLast («%s y %s»); "" for no names
--- Rules: a general window still open (another one, or one closing) is waited for before this one opens; an answer
--- counts only once this window was seen up, so an answer left by an earlier window is never taken; a window that never
--- comes up gives false (logged). A window never opens over a black screen:
--- a fade left at black by an event before it is faded back in first. Every wait is bounded. Log lines on changes only: opened, answered, never came up.
-if VRFW_Question == nil then
+if VRFW.question == nil then
   local Q = {
     OPEN = 2289627655,      -- (text, …) the general window
     KIND = 2351835063,      -- (kind, 0): 1 = one button, 2 = yes / no
-    RESULT = 1523741473,    -- () -> the chosen button (0 = the first; -1 while none), cancelled
+    RESULT = 1523741473,
     GONE = 682363669,       -- () -> true when no general window is open
     BUSY = 898725220,       -- () -> true while a general window opens or closes
-    TEXT = VRFW_Cmd.TEXT_GET,
-    JOIN = 3451366411,      -- crc32("VRFW.Text.ListJoin")
-    LAST = 2936921468,      -- crc32("VRFW.Text.ListLast")
-    FREE_WAIT = 300,        -- frames for an earlier window to close
+    TEXT = VRFW.commands.TEXT_GET,
+    JOIN = 3451366411,
+    LAST = 2936921468,
+    FREE_WAIT = 300,
     UP_WAIT = 90,           -- frames for this window to come up
     MAX_WAIT = 108000,      -- frames an open window is waited for (30 minutes)
     SCREEN_BLACK = 2259183189, -- (true) -> true while the screen fade holds black
-    SCREEN_FADE = 3085729424,  -- CMND_START_SCREEN_FADE (0 = back in, seconds), the retail step after an event
+    SCREEN_FADE = 3085729424,
     BRIGHT_FADE = 609722083,   -- (0 = back in, seconds) the bright fade
-    IS_FADE = VRFW_Cmd.BRIGHT_IS_FADE,
-    FADE_TIME = 0.3,        -- seconds of the fade back in
-    FADE_WAIT = 60,         -- frames that fade is waited for
+    IS_FADE = VRFW.commands.BRIGHT_IS_FADE,
+    FADE_TIME = 0.3,        -- Seconds of the fade back in.
+    FADE_WAIT = 60,         -- Frames that fade is waited for.
+    ITEM_GET_TEXT = 3675423478, -- sysmes_item_get
+    ITEM_GET_WINDOW = 11,
   }
-  VRFW_Question = Q
-  local log = VRFW_Log.New("VRFW question")
+  VRFW.question = Q
+  local log = VRFW.logger.new("VRFW question")
+  local NO_OPTIONS = {}
 
-  local function call(cmd, ...)
-    local f = _ENV.funcLuaCommand
-    if type(f) ~= "function" then return nil end
-    local r = table.pack(pcall(f, cmd, ...))
-    if not r[1] then return nil end
-    return table.unpack(r, 2, r.n)
-  end
+  local call = VRFW.host.command
 
   local function free()
     for _ = 1, Q.FREE_WAIT do
@@ -52,7 +37,8 @@ if VRFW_Question == nil then
     return false
   end
 
-  function Q.Uncover()
+  --- Fades the screen back in when it is held black; answers true when it did.
+  function Q.uncover()
     if call(Q.SCREEN_BLACK, true) ~= true then
       return false
     end
@@ -68,12 +54,19 @@ if VRFW_Question == nil then
     return true
   end
 
-  -- one window of `kind`; -> the chosen button (>= 0), -1 closed without one, nil never came up
-  local function show(text, kind)
+  -- one window of `kind` (nil: the window type sets its buttons); opts: window, object, button, on_open()
+  -- -> the chosen button (>= 0), -1 closed without one, nil never came up
+  local function show(text, kind, opts)
+    opts = opts or NO_OPTIONS
     free()
-    Q.Uncover()
-    call(Q.OPEN, text, 0, 0, 0, 0, 0, false)
-    call(Q.KIND, kind, 0)
+    Q.uncover()
+    call(Q.OPEN, text, opts.window or 0, 0, opts.object or 0, 0, 0, false)
+    if kind ~= nil then
+      call(Q.KIND, kind, opts.button or 0)
+    end
+    if opts.on_open ~= nil then
+      opts.on_open()
+    end
     local up = false
     for f = 1, Q.MAX_WAIT do
       coroutine.yield()
@@ -103,14 +96,21 @@ if VRFW_Question == nil then
     return -1
   end
 
-  function Q.Ask(text)
-    local chosen = show(text, 2)
+  --- Asks a yes / no question; answers true only for yes (false when no window came up).
+  function Q.ask(text, opts)
+    local chosen = show(text, 2, opts)
     log("answered", chosen == 0 and "yes" or (chosen == nil and "none (no window)" or "no"), text)
     return chosen == 0
   end
 
-  function Q.Notice(text)
-    return show(text, 1) ~= nil
+  --- Shows an OK window; answers true when a window came up.
+  function Q.notice(text, opts)
+    return show(text, 1, opts) ~= nil
+  end
+
+  --- Shows the game's item-obtained window; answers true when a window came up.
+  function Q.item_get(item)
+    return show(Q.ITEM_GET_TEXT, nil, {window = Q.ITEM_GET_WINDOW, object = item}) ~= nil
   end
 
   local function pattern(id, fallback)
@@ -121,7 +121,8 @@ if VRFW_Question == nil then
     return s
   end
 
-  function Q.List(names)
+  --- The text list of `names`, joined with the game's separators.
+  function Q.list(names)
     local n = #names
     if n == 0 then return "" end
     local list = tostring(names[1])

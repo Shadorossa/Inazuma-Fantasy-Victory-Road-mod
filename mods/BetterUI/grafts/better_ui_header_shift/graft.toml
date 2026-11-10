@@ -1,0 +1,44 @@
+# BetterUI: menu content moved up under the compact header; header dock on the ability board.
+name = "better_ui_header_shift"
+mod = "BetterUI"
+order = 900
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "Menu content moved up under the compact header"
+
+[[hooks]]
+stem = "soccer_top_menu"
+source = "header_shift_hook.lua"
+
+[[hooks]]
+stem = "market_menu"
+source = "header_shift_hook.lua"
+
+[[hooks]]
+stem = "setting_top_menu"
+source = "header_shift_hook.lua"
+
+[[hooks]]
+stem = "play_guide_top_menu"
+source = "header_shift_hook.lua"
+
+[[hooks]]
+stem = "chronicle_mode_top_menu"
+source = "header_shift_hook.lua"
+
+[[hooks]]
+stem = "victory_road_top_menu"
+source = "header_shift_hook.lua"
+
+[[files]]
+stem = "ability_learning_board_menu"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "hs_bar_dock.lua"
+  marker = "better_ui header_dock"
+  crc = "none"
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "hs_skill_board", "@HD_LAYERS@" = "[4185841799] = { 346.8, 0.0, 0.55 }, [1070900890] = { 194.84, 19.57, 0.64 }", "@HD_CHECK@" = "91676902" }

@@ -1,0 +1,154 @@
+schema = "VRFW.team/2"
+default_lang = "en"
+# The Doppelgangers (IE3 «Dave's Ultimate Tournament», Team Ogre team 587): its IE3 Team Ogre line-up.
+[[team]]
+name = "ct_wk_doppelgangers"
+key = "evt_ct_wk_doppelgangers"
+based_on = "tm_cro_ie3_1920"   # Graduation Team B: formation and tactics
+kit = 0xC1F231A9                          # neutral kit
+level = 56
+series = "IE3"
+roster = "exact"
+
+  [[team.member]]
+  slot = 0
+  player = "c01000810"   # Thomas Feldt
+  number = 1
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 1
+  player = "c01000020"   # Nathan Swift
+  number = 2
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 2
+  player = "c02023290"   # Shawn Froste
+  number = 3
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 3
+  player = "c03030070"   # Dave Quagmire
+  number = 4
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 4
+  player = "c01010970"   # Jude Sharp
+  number = 5
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 5
+  player = "c01000300"   # Jude Sharp
+  number = 6
+  rarity_step = 1
+  captain = true
+
+  [[team.member]]
+  slot = 6
+  player = "c03030040"   # Xavier Foster
+  number = 7
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 7
+  player = "c02021100"   # Janus
+  number = 8
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 8
+  player = "c02023370"   # Shawn Froste
+  number = 9
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 9
+  player = "c03030060"   # Jordan Greenway
+  number = 10
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 10
+  player = "c02021210"   # Dvalin
+  number = 11
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 11
+  player = "c02021510"   # Xene
+  number = 12
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 12
+  player = "c02024300"   # Nathan Swift
+  number = 13
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 13
+  player = "c01000110"   # Kevin Dragonfly
+  number = 14
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 14
+  player = "c02024310"   # Kevin Dragonfly
+  number = 15
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 15
+  player = "c02024210"   # Thomas Feldt
+  number = 16
+  rarity_step = 1
+
+[team.emblem]
+png = "assets/images/teams/emblems/512/ie3_doppels.png"
+base = "em030058"
+catalog = "shared"
+
+[team.text.es]
+name = "Los Impostores"
+short = "Los Impostores"
+
+[team.text.en]
+name = "The Doppelgangers"
+short = "The Doppelgangers"
+
+[team.text.fr]
+name = "The Doppelgangers"
+short = "The Doppelgangers"
+
+[team.text.de]
+name = "The Doppelgangers"
+short = "The Doppelgangers"
+
+[team.text.it]
+name = "Gli alter ego"
+short = "Gli alter ego"
+
+[team.text.pt]
+name = "The Doppelgangers"
+short = "The Doppelgangers"
+
+[team.text.ja]
+name = "The Doppelgangers"
+short = "The Doppelgangers"
+
+[team.text.zh_hans]
+name = "The Doppelgangers"
+short = "The Doppelgangers"
+
+[team.text.zh_hant]
+name = "The Doppelgangers"
+short = "The Doppelgangers"
+
+# each player plays its card's first 4 moves (the engine reads them from the card; the Hiper comes from its slot 9)
+[[edit]]
+target = "ct_wk_doppelgangers"
+card_moves = 4

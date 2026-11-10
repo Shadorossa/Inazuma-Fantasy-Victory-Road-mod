@@ -1,53 +1,27 @@
 schema = "VRFW.telop_list/2"
-# The moves' name banners (every language without its own folder): <id>.png beside this list, each cloning its base move's banner (`from`).
-# The download's picture where it shows the move's name, else the name drawn by research/scripts/telop_render.py.
 
 [[telop]]
 id = "whd92001"                 # Zona binaria (the download's picture)
 from = "whd00440"
 
 [[telop]]
-id = "whd92002"                 # Caída tramposa (drawn)
-from = "whd00710"
-
-[[telop]]
-id = "whd92003"                 # El Geiser (drawn)
-from = "whd00700"
-
-[[telop]]
-id = "whd92004"                 # Mazo del juez (the download's picture)
+id = "whd92004"
 from = "whd10110"
 
 [[telop]]
-id = "whd92060"                 # Rocas magmáticas (the download's picture)
+id = "whd92060"
 from = "whd00600"
-
-[[telop]]
-id = "whd92114"                 # Campo nuclear (drawn)
-from = "whd01140"
-
-[[telop]]
-id = "whd92149"                 # Zona oscura (drawn)
-from = "whd01490"
 
 [[telop]]
 id = "whk93001"                 # Despeje helado (the download's picture)
 from = "whk01550"
 
 [[telop]]
-id = "whk93027"                 # El anochecer (drawn)
-from = "whk00270"
-
-[[telop]]
-id = "whk93045"                 # Fuego vacío (the download's picture)
+id = "whk93045"
 from = "whk00450"
 
 [[telop]]
-id = "whk93113"                 # Dispersión (drawn)
-from = "whk01130"
-
-[[telop]]
-id = "who90410"                 # Túnel matrix (the download's picture)
+id = "who90410"
 from = "who00410"
 
 [[telop]]
@@ -55,7 +29,7 @@ id = "who91001"                 # Hoja verde (the download's picture)
 from = "who00540"
 
 [[telop]]
-id = "who91002"                 # Cristales nevados (drawn)
+id = "who91002"                # Icicle Bomb (the download's English picture)
 from = "who00780"
 
 [[telop]]
@@ -75,11 +49,7 @@ id = "whs90004"                 # Lianas pirata (the download's picture)
 from = "whs00330"
 
 [[telop]]
-id = "whs90005"                 # Relámpago presuroso (drawn)
-from = "whs02970"
-
-[[telop]]
-id = "whs90006"                 # Cyberremate (drawn)
+id = "whs90006"                 # Cyber Shot (the download's English picture)
 from = "whs02390"
 
 [[telop]]
@@ -95,14 +65,6 @@ id = "whs90009"                 # Rosa blanca (the download's picture)
 from = "whs02150"
 
 [[telop]]
-id = "whs90010"                 # Patada de plasma (drawn)
-from = "whs02390"
-
-[[telop]]
-id = "whs90015"                 # Garras etéreas (drawn)
-from = "whs01840"
-
-[[telop]]
 id = "whs90021"                 # Pingüino emperador celestial (the download's picture)
 from = "whs01310"
 
@@ -111,7 +73,7 @@ id = "whs90022"                 # Pingüino demoniaco (the download's picture)
 from = "whs03250"
 
 [[telop]]
-id = "whs90208"                 # Golpe del abismo (the download's picture)
+id = "whs90208"
 from = "whs02080"
 
 [[telop]]

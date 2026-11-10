@@ -1,0 +1,7 @@
+# Help screen: one more tab layer for the Mods tab (the game's tab items cover its five tabs; an unused instance stays hidden).
+schema = "VRFW.menu/2"
+
+[[patch]]
+menu = "help_menu"
+layer = "cmn06_20_list_tab_item"
+count = 6

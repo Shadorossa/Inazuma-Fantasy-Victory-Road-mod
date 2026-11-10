@@ -1,0 +1,62 @@
+schema = "VRFW.technique/3"
+# Final Phoenix: a fire shot fused from Fénix (whs00410, ev60_00410) and Tornado dragón's fire tornado (whs00350, ev60_00350; no dragon); power 100-640, TP 95.
+
+[[technique]]
+name = "final_phoenix"
+base = "whs00410"
+manual = true
+users = 3
+partners = []
+element = "fire"
+power_min = 100
+power_max = 640
+tp = 95
+  [technique.text.en]
+  name = "Final Phoenix"
+  description = "Rise in a fire tornado and strike:\na blazing phoenix chases the ball."
+  [technique.text.es]
+  name = "Fénix final"
+  description = "Sube en un tornado de fuego y remata:\nun fénix en llamas persigue el balón."
+  [technique.text.fr]
+  name = "Phénix final"
+  description = "Monte dans une tornade de feu et frappe :\nun phénix ardent poursuit le ballon."
+  [technique.text.de]
+  name = "Finaler Phönix"
+  description = "Steig im Feuertornado auf und schieß:\nein brennender Phönix jagt dem Ball nach."
+  [technique.text.it]
+  name = "Fenice finale"
+  description = "Sali in un tornado di fuoco e tira:\nuna fenice ardente insegue il pallone."
+  [technique.text.pt]
+  name = "Fénix final"
+  description = "Sobe num tornado de fogo e remata:\numa fénix em chamas persegue a bola."
+  [technique.text.ja]
+  name = "ファイナルフェニックス"
+  description = "炎の竜巻で舞い上がりシュート！\n燃える不死鳥がボールを追う！"
+  [technique.text.zh_hans]
+  name = "终极凤凰"
+  description = "乘火焰龙卷升空射门，\n燃烧的凤凰紧追足球。"
+  [technique.text.zh_hant]
+  name = "終極鳳凰"
+  description = "乘火焰龍捲升空射門，\n燃燒的鳳凰緊追足球。"
+  # Fénix's build-up plays first: s00 lifts the ball.
+  # Then s01 rises and spins in Tornado dragón's fire tornado (its own s01, without the dragon) and kicks.
+  # The ball flies with the phoenix behind it, and the last cut is seen over the shoulder of the target keeper (seat s03) and ends with the ball still about 8 m away.
+  [technique.animation]
+  from = "ev60_00410"
+  id = "ev60_80410"
+  sound_cue = "ev60_80410_me"
+  opponents = 1
+  telop = "none"
+  cuts = [
+    "c0100",
+    "c0200",
+    { cut = "c0300", frames = [0, 33] },
+    { from_event = "ev60_00350", cut = "c0300", slot = "c0100", whole = true, hide = ["c00<TYPE><NO>_s00_p<VARIATION>", "s02", "ev60_00350_s00_p<VARIATION>", "ev60003500"] },
+    { from_event = "ev60_00350", cut = "c0400", slot = "c0100", whole = true, hide = ["c00<TYPE><NO>_s00_p<VARIATION>", "s02", "ev60_00350_s00_p<VARIATION>", "ev60003500"] },
+    { from_event = "ev60_00770", cut = "c0400", frames = [55, 96], slot = "c0100", whole = true, hide = ["c00<TYPE><NO>_s00_p<VARIATION>", "s02", "ev60007700"], align = "ball" },
+    { cut = "c0900", frames = [0, 39], hide = ["s00", "s01", "s02"], align = "ball", warp = [[0, 0], [39, 65]], sync = [[0, 0], [39, 65]], follow = { actor = "ev60_00410_s00", nodes = ["c_global_0_0", "c_ctr_1_0"], behind = 4.0, up = 0.6, scale = 2.2, with = ["ev60004100", "ev60004100_wingfire"] } },
+    { cut = "c0900", frames = [40, 60], hide = ["s00", "s02"], seats = { s03 = "s01" }, warp = [[0, 0], [20, 41]], sync = [[40, 0], [60, 41]], camera = { preset = "over_shoulder", actor = "s03", distance = 2.2, height = -0.25, side = 0.55, fov = -0.2, ball = 0.0, turn = 4.0 }, follow = { actor = "ev60_00410_s00", nodes = ["c_global_0_0", "c_ctr_1_0"], behind = 4.0, up = 0.6, scale = 2.2, with = ["ev60004100", "ev60004100_wingfire"] } },
+  ]
+  clips = [
+    { cut = "c0080", actor = "s03", source = { event = "ev60_02780", cut = "c0700", actor = "s03" }, trim = [60, 89], warp = [[0, 0], [29, 41]], offset = [-2.2, 0.0, 4.9] },
+  ]

@@ -1,0 +1,37 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+[[item]]
+name = "shadow_japan"
+base = "sf10001"
+category = "synergy"
+icon_key = "sf11002"
+key_id = true
+  [item.text.es]
+  name = "Japón en la sombra"
+  [item.text.en]
+  name = "Japan in the Shadows"
+  [item.text.fr]
+  name = "Le Japon de l'ombre"
+  [item.text.de]
+  name = "Japan im Schatten"
+  [item.text.it]
+  name = "Il Giappone nell'ombra"
+  [item.text.pt]
+  name = "Japão nas sombras"
+  [item.text.ja]
+  name = "影の日本代表"
+  [item.text.zh_hans]
+  name = "暗影中的日本队"
+  [item.text.zh_hant]
+  name = "暗影中的日本隊"
+
+[[currency]]
+name = "neo_japan_captain_card"
+spirit = 0xB630035D
+rarity = 4
+
+[[currency]]
+name = "japan_resistance_card"
+spirit = 0xFEE8721A
+rarity = 4

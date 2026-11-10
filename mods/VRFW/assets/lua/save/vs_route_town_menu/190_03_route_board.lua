@@ -31,7 +31,7 @@ function UpdatePieceClearIcon(a1, a2, a3, a4)
   local n34 = 0
   for i = 1, #game_difficulty_array do
     local chronicle_clear_status = funcLuaCommand(4034518619 --[[CMND_GET_CHRONICLE_CLEAR_STATUS]], ret3, game_difficulty_array[i])
-    if chronicle_clear_status and not VRFW_RB_DotShown(town_map_resource_event2, game_difficulty_array[i]) then -- VRFW route_board
+    if chronicle_clear_status and not VRFW.route_board.dot_shown(town_map_resource_event2, game_difficulty_array[i]) then -- VRFW route_board
       chronicle_clear_status = false
     end
     if chronicle_clear_status then
@@ -39,16 +39,16 @@ function UpdatePieceClearIcon(a1, a2, a3, a4)
     end
     funcLuaMenuCommand(2158717427, a1, clear_icon_locator_name_arra[i], chronicle_clear_status, a2)
   end
-  VRFW_RB_Badge(a1, a2, a3) -- VRFW route_board
+  VRFW.route_board.badge(a1, a2, a3) -- VRFW route_board
   if n34 > 0 or a4 then
     funcLuaMenuCommand(629267548 --[[CMND_OPEN_LAYER]], a1, a2)
   end
 end
 
 -- ===== EVT route_board host BEGIN =====
--- VR-Framework (docs/framework/route-board.md): the board script is a VRFW_Host host; nothing runs at load but the
+-- VRFW (docs/framework/route-board.md): the board script is a VRFW.host host; nothing runs at load but the
 -- hooking of the handlers mods registered (no engine call)
-if VRFW_Host ~= nil and VRFW_Host.host ~= nil then
-  VRFW_Host.host("vs_route_town_menu", {})
+if VRFW.host ~= nil and VRFW.host.host ~= nil then
+  VRFW.host.host("vs_route_town_menu", {})
 end
 -- ===== EVT route_board host END =====

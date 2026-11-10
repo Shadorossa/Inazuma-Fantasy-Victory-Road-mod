@@ -1,118 +1,38 @@
--- VRFW › the passive engine's data: every active mod's blocks (content\passive_blocks\*.toml, kind
--- VRFW.passive_block/1) and passives (content\special_passives\*.toml, kind VRFW.passive/1; the older kinds
--- SignaturePassives.passive_block/1 / special_passive/1 are read too), checked against the framework's block types
--- (content\types\passive_block.toml, passive.toml), names resolved.
---   local L = require "lib/passives"            -- the framework's scripts
---   local L = require "VRFW/lib/passives"       -- any other mod's scripts (a framework library)
---   local data = L.data(warn)                   -- built once per VM; files only, no game call; kept between starts
---                                               (VRFW.derived "passive_data.<script>")
--- A passive: { key, mod, triggers, stack, resets, conditions, counts, filters, effects, slot, carried_by, worn, grant, icon };
--- `icon` = its [[VRFW.Icon]] id "<mod>.<name>" (nil = none; resolve it with VRFW.icons.resolve when drawn);
--- `worn` = it has a condition block of an equipment carrier (Wears / WearsSet): every player who meets it carries it;
--- `counts` = its SpiritsOut / Count blocks (role condition, scale count), `filters` = its target filters (Near),
--- `caps` = its [[PassiveCap]] entries ({ key, max }). A block naming a Trait (`trait`, `shooter_trait`) holds it resolved
--- as b.trait / b.shooter_trait.
--- data.tags[<name>] = { name, text, mod }, data.character_tags = { { character, tags, where } } (a later mod's entry of the
--- same character replaces an earlier one), data.caps[<mod>.<name>] = { key, max }.
--- data.spirits = the [[Spirit]] entries ({ aura, aliases, passives }), data.families[<mod>.<name>] = { auras },
--- data.grantable = the passives with grant = true. data.listen["<on>[:<arg>]"] = the passives that trigger or reset
--- on it; data.hooks[<trigger>] = the passives with an effect answered there; data.listen_set / data.hooks_set = the same as
--- sets ([key][passive] = true), for the per-event lookups. data.counted / counted_set = the same for the events
--- EventCount blocks count or break on. An AnyOf / NoneOf block holds its condition blocks as b.parts.
 
 local M = {}
 
-local TWO32 = 4294967296
 local BLOCK_KIND = "VRFW.passive_block/1"
 local PASSIVE_KIND = "VRFW.passive/1"
 -- [older kind] = kind: the type files' `former_kinds` (files still read under them), filled by read_schema
 local FORMER_KIND = {}
 
-local Id = require "VRFW/lib/ids"
-local Decl = require "VRFW/lib/declarations"
-local u32 = Id.u32
+local Id = VRFW.ids
+local Decl = VRFW.declarations
+local u32 = Id.unsigned
 M.u32 = u32
 
--- a number, "0x…", decimal text, or a key (its crc32) -> id; nil for nothing usable
+--- a number, "0x…", decimal text, or a key (its crc32) -> id; nil for nothing usable
 function M.id_of(v)
-  if type(v) == "number" then return u32(v) end
-  if type(v) ~= "string" then return nil end
-  local t = v:match("^%s*(.-)%s*$")
-  if t == "" then return nil end
-  local h = t:match("^0[xX](%x+)$")
-  if h then return tonumber(h, 16) % TWO32 end
-  if t:match("^%d+$") then return tonumber(t) % TWO32 end
-  return u32(VRFW.crc32(t))
+  return Id.parse(v, { hash_names = true })
 end
 
-M.hex = Id.hex
-
--- ---------------------------------------------------------------------------------------------- schema checks
-
-local function is_int(v) return type(v) == "number" and v == math.floor(v) end
-
-local function allowed(spec, word)
-  if type(spec.values) ~= "table" then return true end
-  for _, w in ipairs(spec.values) do
-    if w == word then return true end
-  end
-  return false
-end
-
-local function in_range(spec, v)
-  return not ((spec.min and v < spec.min) or (spec.max and v > spec.max))
-end
-
--- one value against its key spec: the value to keep, or nil + why
-local function check_value(spec, v)
-  local t = spec.type
-  if t == "int" then
-    if not is_int(v) then return nil, "a whole number" end
-    if not in_range(spec, v) then return nil, string.format("%s..%s", tostring(spec.min or "-"), tostring(spec.max or "-")) end
-    return v
-  elseif t == "number" then
-    if type(v) ~= "number" or v ~= v then return nil, "a number" end
-    if not in_range(spec, v) then return nil, string.format("%s..%s", tostring(spec.min or "-"), tostring(spec.max or "-")) end
-    return v
-  elseif t == "bool" then
-    if type(v) ~= "boolean" then return nil, "true / false" end
-    return v
-  elseif t == "string" or t == "name" then
-    if type(v) ~= "string" then return nil, "a text" end
-    if t == "name" and not v:match("^[a-z0-9_]+$") then return nil, "a name (a-z 0-9 _)" end
-    if v ~= "" and not allowed(spec, v) then return nil, "one of " .. table.concat(spec.values, ", ") end
-    return v
-  elseif t == "ints" or t == "numbers" or t == "strings" then
-    if type(v) ~= "table" then return nil, "a list" end
-    local out = {}
-    for i, x in ipairs(v) do
-      if t == "ints" and (not is_int(x) or not in_range(spec, x)) then
-        return nil, string.format("item %d: a whole number %s..%s", i, tostring(spec.min or "-"), tostring(spec.max or "-"))
-      end
-      if t == "numbers" and (type(x) ~= "number" or x ~= x or not in_range(spec, x)) then
-        return nil, string.format("item %d: a number %s..%s", i, tostring(spec.min or "-"), tostring(spec.max or "-"))
-      end
-      if t == "strings" and (type(x) ~= "string" or x == "" or not allowed(spec, x)) then
-        return nil, string.format("item %d: %s", i, spec.values and ("one of " .. table.concat(spec.values, ", ")) or "a text")
-      end
-      out[#out + 1] = x
-    end
-    return out
-  end
-  return nil, "the schema's type `" .. tostring(t) .. "` is unknown"
-end
+M.hex = Id.hex_text
 
 -- the key specs of an entry type (its table keys) and its plain keys (role, text, apply…)
 local function split_entry(e)
   local keys, meta = {}, {}
   for k, x in pairs(e) do
-    if type(x) == "table" then keys[k] = x else meta[k] = x end
+    if type(x) == "table" then
+      -- an empty text is a valid value of a text key with `values`
+      x.allow_empty = x.type == "string" and x.values ~= nil or nil
+      keys[k] = x
+    else
+      meta[k] = x
+    end
   end
   return keys, meta
 end
 
--- the entry types of the schema of `kind` and the schema file itself (its shared data tables): the framework's
--- content\types\ file of that kind, found through the declarations (so any mod's script reads the same file)
 local function read_schema(kind)
   local ok, files = pcall(VRFW.files.declarations, "content/types")
   local t = nil
@@ -162,7 +82,7 @@ local function load_entries(folder, kind, types, warn)
                 bad = "unknown key `" .. tostring(k) .. "`"
                 break
               end
-              local val, why = check_value(spec, x)
+              local val, why = Decl.check_value(spec, x)
               if val == nil then
                 bad = string.format("%s: %s", tostring(k), why)
                 break
@@ -193,7 +113,6 @@ local function load_entries(folder, kind, types, warn)
   return out
 end
 
--- `name` as written by mod `mod`: its own `<name>`, else `<mod>.<name>`
 local function lookup(map, mod, name)
   if type(name) ~= "string" then return nil end
   return map[mod .. "." .. name] or map[name]
@@ -207,7 +126,7 @@ local function add_to(map, key, p)
   table.insert(map[key], p)
 end
 
--- a passive's condition blocks with the parts of its AnyOf / NoneOf blocks (one level: a bounded walk)
+--- a passive's condition blocks with the parts of its AnyOf / NoneOf blocks (one level: a bounded walk)
 function M.conditions_of(p)
   local out = {}
   for _, b in ipairs(p.conditions) do
@@ -221,16 +140,12 @@ local function event_key(b)
   return b.v.arg ~= "" and (b.v.on .. ":" .. b.v.arg) or b.v.on
 end
 
--- ---------------------------------------------------------------------------------------------- the data
-
 local DATA = nil
 -- the events the interpreter makes itself (no behaviour-rule trigger): `carried`, `half_start`, `interval:<seconds>`
 local ENGINE_EVENTS = { carried = true, half_start = true, interval = true }
 M.ENGINE_EVENTS = ENGINE_EVENTS
 
--- the spirit pools PoolRestore / PoolCost use: every active mod's [[VRFW.PassivePool]] (content\passive_pools\*.toml,
--- content\types\passive_pool.toml), then the older [points] pool_resources / cost_flag of the block type file.
--- { { resource = "<mod>.<name>", cost_flag = "<flag prefix>" or nil } }, one per resource (the first declaration wins)
+--- The passive pools from `points`.
 function M.pools(points, warn)
   local out, seen = {}, {}
   local function add(resource, cost_flag)
@@ -253,9 +168,9 @@ end
 -- blocks, passives and character entries of every active mod (built from the files)
 local function build_data(warn)
   local d = { blocks = {}, passives = {}, characters = {}, listen = {}, hooks = {}, has_stat = false, move_kinds = {}, positions = {},
-    outcomes = {}, levels = {}, spirits = {}, families = {}, grantable = {}, spirit = {}, grant = {}, points = {}, pools = {}, keeper_duel = {},
+    outcomes = {}, tension_plays = {}, levels = {}, spirits = {}, families = {}, grantable = {}, spirit = {}, grant = {}, points = {}, pools = {}, keeper_duel = {},
     has_keeper_shooter = false, has_pool_cost = false, tags = {}, character_tags = {}, caps = {}, listen_set = {}, hooks_set = {},
-    unit_moves = {}, genders = {}, has_trait = false, engine_events = {}, has_stamina = false, refresh = {},
+    unit_moves = {}, genders = {}, has_trait = false, engine_events = {}, has_stamina = false, has_ball_walls = false, refresh = {},
     counted = {}, counted_set = {}, aura_bits = {}, matchup = {} }
   local block_types, schema_or_err = read_schema(BLOCK_KIND)
   local passive_types, e2 = read_schema(PASSIVE_KIND)
@@ -266,6 +181,7 @@ local function build_data(warn)
   d.move_kinds = type(schema_or_err.move_kinds) == "table" and schema_or_err.move_kinds or {}
   d.positions = type(schema_or_err.positions) == "table" and schema_or_err.positions or {}
   d.outcomes = type(schema_or_err.outcomes) == "table" and schema_or_err.outcomes or {}
+  d.tension_plays = type(schema_or_err.tension_plays) == "table" and schema_or_err.tension_plays or {}
   d.levels = type(schema_or_err.levels) == "table" and type(schema_or_err.levels.from_player_level) == "table" and schema_or_err.levels.from_player_level or {}
   d.points = type(schema_or_err.points) == "table" and schema_or_err.points or {}
   d.pools = M.pools(d.points, warn)
@@ -347,7 +263,7 @@ local function build_data(warn)
         end
       end
       for _, k in ipairs(e.v.carried_by or {}) do
-        local id = M.id_of(k)
+        local id = Id.parse(k, { hash_names = true })
         if id and id ~= 0 then p.carried_by[#p.carried_by + 1] = id end
       end
       if d.passives[key] then warn(e.where .. ": passive " .. key .. " declared again (the later one is used)") end
@@ -370,7 +286,6 @@ local function build_data(warn)
       chars[#chars + 1] = e
     end
   end
-  -- the spirit entries: a later mod's entry of the same aura replaces an earlier one
   local by_aura = {}
   for _, e in ipairs(spirits) do
     local list = {}
@@ -421,8 +336,6 @@ local function build_data(warn)
       d.characters[#d.characters + 1] = { mod = e.mod, where = e.where, character = e.v.character, card = e.v.card, passives = list }
     end
   end
-  -- the events each passive someone can have listens to (carried_by, or named by a character entry), and the
-  -- triggers its effects are answered on
   local live = {}
   for _, e in ipairs(d.characters) do
     for _, p in ipairs(e.passives) do live[p] = true end
@@ -457,6 +370,7 @@ local function build_data(warn)
       if b.meta.apply == "keeper" and b.v.side ~= "keeper" then d.has_keeper_shooter = true end
       if b.meta.apply == "pool_cost" then d.has_pool_cost = true end
       if b.meta.apply == "stamina_recovery" then d.has_stamina = true end
+      if b.meta.apply == "ball_walls" then d.has_ball_walls = true end
       for h in tostring(b.meta.hooks or ""):gmatch("[%w_]+") do add_to(d.hooks, h, p) end
     end
   end
@@ -475,7 +389,7 @@ local function build_data(warn)
   return d
 end
 
--- the data above, built once per VM and kept between starts while the mods' files and the game's data are the same
+--- the data above, built once per VM and kept between starts while the mods' files and the game's data are the same
 function M.data(warn)
   if DATA then return DATA end
   if type(VRFW.derived) == "function" then
@@ -489,15 +403,10 @@ end
 M.event_key = event_key
 M.lookup = lookup
 
--- ---------------------------------------------------------------------------------------------- characters
-
--- a character entry's chara_base id (a key / id resolved by the framework)
+--- a character entry's chara_base id (a key / id resolved by the framework)
 function M.character_id(value)
-  if type(value) == "number" then return u32(value) end
-  if type(value) ~= "string" or value == "" then return nil end
-  local ok, id = pcall(VRFW.character, value)
-  if ok and type(id) == "number" and id ~= 0 then return u32(id) end
-  return M.id_of(value)
+  if type(value) ~= "number" and (type(value) ~= "string" or value == "") then return nil end
+  return Id.character(value, { hash_names = true })
 end
 
 -- [chara_base id] = { card ids }: built once per VM from the character index
@@ -524,13 +433,61 @@ local function cards_of_character(value)
   return out
 end
 
--- the cards of a character entry ({ character } or { card })
+--- the cards of a character entry ({ character } or { card })
 function M.cards_of(e)
   if e.card ~= nil and e.card ~= "" then
-    local c = M.id_of(e.card)
+    local c = Id.parse(e.card, { hash_names = true })
     return (c and c ~= 0) and { c } or {}
   end
   return cards_of_character(e.character)
+end
+
+local TEAM_PASSIVE_UNLOCKED = "Passive.TeamPassiveUnlocked"
+local TEAM_PASSIVE_ID = "Passive.TeamPassiveId"
+local SIGNATURE_ID = "Passive.SignatureSlotId"
+local SIGNATURE_OPEN = "Passive.SignaturePieceOpen"
+
+local BUF_ID, BUF_HDL = nil, nil
+
+local function buffers()
+  if BUF_ID == nil then
+    BUF_ID = VRFW.memory.buffer("passive_reader_id", 8)
+    BUF_HDL = VRFW.memory.buffer("passive_reader_hdl", 4)
+  end
+  return BUF_ID, BUF_HDL
+end
+
+local function truthy(v)
+  return v == true or (type(v) == "number" and v ~= 0)
+end
+
+--- The passive of character `hdl` in slot `k`; nil when none.
+function M.slot_passive(hdl, k, copy)
+  local id_buf = buffers()
+  local oku, unlocked = pcall(VRFW.call, TEAM_PASSIVE_UNLOCKED, hdl, k, copy)
+  VRFW.memory.write("u32", id_buf, 0)
+  local oki = pcall(VRFW.call, TEAM_PASSIVE_ID, id_buf, hdl, k, copy)
+  if not (oku and oki) then
+    return nil
+  end
+  return VRFW.memory.read("u32", id_buf) or 0, truthy(unlocked)
+end
+
+--- The signature passive of character `hdl`; nil when none.
+function M.signature_passive(hdl, opts)
+  opts = opts or {}
+  local id_buf, hdl_buf = buffers()
+  VRFW.memory.write("u32", id_buf, 0)
+  if not pcall(VRFW.call, opts.id or SIGNATURE_ID, id_buf, hdl) then
+    return 0, false
+  end
+  local id = VRFW.memory.read("u32", id_buf) or 0
+  if opts.open == false then
+    return id, nil
+  end
+  VRFW.memory.write("u32", hdl_buf, hdl)
+  local ok, open = pcall(VRFW.call, opts.open or SIGNATURE_OPEN, hdl_buf)
+  return id, ok and tonumber(open) ~= nil and tonumber(open) % 256 ~= 0
 end
 
 return M

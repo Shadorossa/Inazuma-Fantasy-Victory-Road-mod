@@ -1,0 +1,14 @@
+schema = "VRFW.skill_tab/1"
+
+[[VRFW.SkillTab]]
+category = 106
+order = 75
+group = "mix"
+icon = 40
+icon_atlas = "0x8A4A118B"        # icon_common
+icon_sprite = "cr_mode_change_tab_on"
+icon_sprite_off = "cr_mode_change_tab_off"   # own sprite, unfocused tab
+text = "CharacterReforged.skill_tab_mode_change"
+filter = 12
+filter_group = 4
+when = [{ config = "mode_change.enabled", default = true }]

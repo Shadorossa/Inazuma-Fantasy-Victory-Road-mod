@@ -1,5 +1,3 @@
-# Texts of BetterQoL's Chronicle board hide switch (assets\lua\vs_route_town_menu\160_board_hide.lua): the bottom
-# guide entry of X. Id = crc32 of the label.
 schema = "VRFW.text/2"
 table = "menu_text"
 

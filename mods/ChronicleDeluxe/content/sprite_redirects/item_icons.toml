@@ -1,6 +1,4 @@
 schema = "VRFW.sprite_redirect/1"
-# Chronicle Deluxe: the game draws an item's icon from its key prefix's sheet by the key; the mod's item icons
-# live in its own atlas (content\images\menu\200_icon\02_icon_item\icon_item02.toml).
 
 [[VRFW.SpriteRedirect]]
 name = "master_seal_icon"

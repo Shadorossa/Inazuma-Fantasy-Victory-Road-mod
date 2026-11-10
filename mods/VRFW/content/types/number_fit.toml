@@ -1,9 +1,4 @@
 # Declaration schema of the number fits (content\number_fit\*.toml, scripts\number_fit.lua): [[VRFW.NumberFit]] = a menu
-# layer whose bitmap numbers (the game's *set number* command) keep the width they were designed for. A value with
-# more digits than `digits` is drawn narrower (the layer instance is scaled by digits / value digits around its
-# origin), so it takes the same space as a `digits`-digit value. The digit slots and DispMaxValue of the number
-# itself are menu data (content\menus, content\base_tables\menu\config\menu_graphic_number_config.toml).
-# An unknown key, wrong type or out-of-range value drops that declaration with a warning.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.number_fit/1"
 folder = "content/number_fit"

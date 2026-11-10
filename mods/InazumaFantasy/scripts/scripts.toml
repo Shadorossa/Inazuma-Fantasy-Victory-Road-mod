@@ -1,7 +1,6 @@
 schema = "VRFW.script/1"
 
-# daily_legendary_rival.lua: the Daily Legendary Rival of the free-match section (the day's team, the day's win kept in
-# the save blob if_daily_legendary_rival.json of the slot). It reads the game's team and match tables once per session.
+# daily_legendary_rival.lua: the Daily Legendary Rival (save blob if_daily_legendary_rival.json).
 [settings]
 budget = 2000000
 memory_kb = 32768

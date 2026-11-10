@@ -1,6 +1,5 @@
 schema = "VRFW.item/2"
-# The titles of Inazuma Fantasy's Idol cards (content\characters\idols.toml, card field `title`). Each is cloned from a game
-# title (rarity and badge icon); `icon_key` gives it its own key.
+# Titles of the Idol cards, each cloned from a game title (rarity and badge icon) under its own key.
 default_lang = "en"
 
 [[item]]
@@ -244,7 +243,7 @@ icon_key = "ti90000141"
   name = "真正的隊長"
 
 [[item]]
-name = "mark_evans_legend_idol_title"  # Mark Evans Idol (Inazuma Japón Legendario)
+name = "mark_evans_legend_idol_title"
 base = "ti01000010"
 category = "title"
 icon_key = "ti90000148"
@@ -268,7 +267,7 @@ icon_key = "ti90000148"
   name = "活著的傳奇"
 
 [[item]]
-name = "axel_blaze_legend_idol_title"  # Axel Blaze Idol (Inazuma Japón Legendario)
+name = "axel_blaze_legend_idol_title"
 base = "ti01000010"
 category = "title"
 icon_key = "ti90000151"
@@ -362,3 +361,98 @@ icon_key = "ti90000154"
   name = "大地之龙"
   [item.text.zh_hant]
   name = "大地之龍"
+
+[[item]]
+name = "byron_ares_idol_title"  # Byron Love of Ares Idol
+base = "ti01001900"
+category = "title"
+icon_key = "ti90000432"
+  [item.text.ja]
+  name = "オリンポスの[意志/いし]"
+  [item.text.en]
+  name = "Will of Olympus"
+  [item.text.es]
+  name = "Voluntad del Olimpo"
+  [item.text.fr]
+  name = "Volonté de l'Olympe"
+  [item.text.de]
+  name = "Wille des Olymp"
+  [item.text.it]
+  name = "Volontà dell'Olimpo"
+  [item.text.pt]
+  name = "Vontade do Olimpo"
+  [item.text.zh_hans]
+  name = "奥林匹斯的意志"
+  [item.text.zh_hant]
+  name = "奧林匹斯的意志"
+
+[[item]]
+name = "mystral_callous_idol_title"  # Mystral Callous Idol
+base = "ti01000010"
+category = "title"
+icon_key = "ti90000433"
+  [item.text.ja]
+  name = "[断罪/だんざい]の[雨/あめ]"
+  [item.text.en]
+  name = "Rain of Doom"
+  [item.text.es]
+  name = "Lluvia de condena"
+  [item.text.fr]
+  name = "Pluie de damnation"
+  [item.text.de]
+  name = "Regen des Verderbens"
+  [item.text.it]
+  name = "Pioggia di condanna"
+  [item.text.pt]
+  name = "Chuva de condenação"
+  [item.text.zh_hans]
+  name = "审判之雨"
+  [item.text.zh_hant]
+  name = "審判之雨"
+
+[[item]]
+name = "escavan_malice_idol_title"  # Escavan Malice Idol
+base = "ti01000010"
+category = "title"
+icon_key = "ti90000434"
+  [item.text.ja]
+  name = "[二/ふた]つの[顔/かお]"
+  [item.text.en]
+  name = "Two-Faced"
+  [item.text.es]
+  name = "Doble cara"
+  [item.text.fr]
+  name = "Double visage"
+  [item.text.de]
+  name = "Doppelgesicht"
+  [item.text.it]
+  name = "Doppia faccia"
+  [item.text.pt]
+  name = "Duas caras"
+  [item.text.zh_hans]
+  name = "双面"
+  [item.text.zh_hant]
+  name = "雙面"
+
+[[item]]
+name = "david_samford_idol_title"  # David Samford Idol
+base = "ti01000010"
+category = "title"
+  [item.text.ja]
+  name = "帝国のペンギン"
+  [item.text.en]
+  name = "Royal Penguin"
+  [item.text.es]
+  name = "Pingüino de la Royal"
+  [item.text.fr]
+  name = "Pingouin de la Royal"
+  [item.text.de]
+  name = "Pinguin der Royal"
+  [item.text.it]
+  name = "Pinguino della Royal"
+  [item.text.pt]
+  name = "Pinguim da Royal"
+  [item.text.zh_hans]
+  name = "帝国之企鹅"
+  [item.text.zh_hant]
+  name = "帝國之企鵝"

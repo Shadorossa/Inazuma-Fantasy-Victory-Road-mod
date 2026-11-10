@@ -1,13 +1,9 @@
-# Character Reforged › the prohibited corner badge of the «Crear …» partner bank (content\pairing\partner_status.toml):
-# a red circle-slash tile, 48 x 56 px drawn at 24 x 28 on the card's retail «in a team» icon (_icon_teamdock01);
-# research/scripts/partner_status_badge_sprite.py. The Lua asks team00_01.g4tx for it;
-# content\sprite_redirects\own_atlases.toml serves it from this atlas.
 schema = "VRFW.image/1"
 
 [[texture]]
 atlas = "#/menu/102_team/character_reforged_own/character_reforged_status_badges.g4tx"
 name = "character_reforged_status_badges"
-size = [48, 56]
+size = [152, 56]
 
 [[sprite]]
 atlas = "#/menu/102_team/character_reforged_own/character_reforged_status_badges.g4tx"
@@ -16,3 +12,63 @@ texture = "character_reforged_status_badges"
 x = 0
 y = 0
 png = "partner_status/character_reforged_status_prohibited.png"
+
+[[recipe]]
+name = "character_reforged_status_glyph_miximax"
+game = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx"
+sprite = "icon_list_tab_sp_area07"
+ops = [
+    { op = "crop", box = [32, 8, 112, 88] },
+    { op = "fit", box = [48, 48] },
+    { op = "fill", rgb = [240, 120, 0] },
+]
+
+[[recipe]]
+name = "character_reforged_status_figure"
+canvas = [48, 48]
+ops = [
+    { op = "opaque" },
+    { op = "fill", rgb = [255, 255, 255] },
+    { op = "round_corners", radius = 8 },
+]
+
+[[recipe]]
+name = "character_reforged_status_team_mark"
+game = "#/menu/102_team/team00/team00_01/team00_01.g4tx"
+sprite = "icon_teamdock01"
+ops = [{ op = "alpha_crop" }]
+
+[[recipe]]
+name = "character_reforged_status_miximax"
+canvas = [48, 56]
+ops = [
+    { op = "paste", image = "character_reforged_status_figure", centre = [24, 28] },
+    { op = "paste", image = "character_reforged_status_glyph_miximax", centre = [24, 28] },
+]
+
+[[recipe]]
+name = "character_reforged_status_miximax_team"
+canvas = [48, 56]
+ops = [
+    { op = "paste", image = "character_reforged_status_figure", centre = [24, 24] },
+    { op = "paste", image = "character_reforged_status_glyph_miximax", centre = [24, 24] },
+    { op = "paste", image = "character_reforged_status_team_mark", centre = [36, 42] },
+]
+
+[[sprite]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_status_badges.g4tx"
+name = "character_reforged_status_miximax"
+recipe = "character_reforged_status_miximax"
+texture = "character_reforged_status_badges"
+x = 52
+y = 0
+size = [48, 56]
+
+[[sprite]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_status_badges.g4tx"
+name = "character_reforged_status_miximax_team"
+recipe = "character_reforged_status_miximax_team"
+texture = "character_reforged_status_badges"
+x = 104
+y = 0
+size = [48, 56]

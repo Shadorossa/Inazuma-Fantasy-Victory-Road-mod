@@ -62,6 +62,8 @@ key = "bbcr_go2_1800_bb"
 name_text = 0x26094795
 level = 40
 series = "GO2"
+music = "auto"
+goal_jingle = "auto"
 stadium_fallback = "s76g001"
 stadium_image = "ev_chronicle_img/ev_ch_s76g001_0106.g4tx"
 appears = [{ list = "bb_stadium", category = "main", season = "series_05", row = { copy = false, stadium = 0x7BF07318, image = "ev_chronicle_img/ev_ch_s76g001_0106.g4tx", image_name = "ev_ch_s76g001_0106", bgm = 0x6C1E6CDD } }]

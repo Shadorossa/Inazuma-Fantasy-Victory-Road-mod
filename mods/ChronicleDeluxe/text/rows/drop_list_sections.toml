@@ -1,6 +1,3 @@
-# Chronicle Deluxe: the headers of its drop-rate list sections (content\items\drop_list.toml [[VRFW.DropList.Sections]]).
-# The header shows them as pictures: research/scripts/vrfw_drop_list_header_build.py --mod-file … makes one per
-# language from these rows (content\images\menu\10_win\win05\win05_38_sections.toml).
 schema = "VRFW.text/2"
 table = "menu_text"
 

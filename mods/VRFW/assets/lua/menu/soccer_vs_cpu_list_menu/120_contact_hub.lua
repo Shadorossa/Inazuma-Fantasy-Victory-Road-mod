@@ -1,20 +1,13 @@
--- contact hub (VRFW service): the free-match list («Competir contra bots», soccer_vs_cpu_list_menu) as the team
--- hub of a contact set ([VRFW.ContactSet] Hub = "free_match", docs/framework/contact-map.md §22): its series tabs, the
--- teams you have beaten with their crests and the selected team's lineup on the right, as the game shows them; choosing
--- a team opens the contact map screen on that team's page (vrfw_contact_map_menu, parameter vrfw_contact_game) instead
--- of a match. On only while the opener asked for it (parameter vrfw_contact_hub = the set, written by the shop redirect,
--- 70_shop_redirect.lua); every other open of the list is the game's free match. Handlers of the framework's host of this
--- script (000_host.lua); no engine call at load time.
-if VRFW_Host ~= nil then
+if VRFW.host ~= nil then
   local CH = {
     KEY_HUB = 3979190066,       -- crc32("vrfw_contact_hub"): parameter in, the set
-    KEY_SET = 1128821923,       -- crc32("vrfw_contact_set")
-    KEY_PARENT = 2740862541,    -- crc32("vrfw_contact_parent")
-    KEY_GAME = 3811836272,      -- crc32("vrfw_contact_game")
-    HUB = VRFW_Cmd.VRFW_CONTACT_HUB,           -- CMND_VRFW_CONTACT_HUB (set) -> { menu, title }
-    FIND = VRFW_Cmd.VRFW_CONTACT_FIND,            -- CMND_VRFW_CONTACT_FIND (set, game) -> { map, zone }
-    FILTER = VRFW_Cmd.VRFW_CONTACT_HUB_FILTER,        -- CMND_VRFW_CONTACT_HUB_FILTER (set / 0): the list keeps only the teams with a page
-    ORB = 4088477286,           -- vsroute01_06b_town_map_piece_clear_icon (a row's difficulty / clear capsule)
+    KEY_SET = 1128821923,
+    KEY_PARENT = 2740862541,
+    KEY_GAME = 3811836272,
+    HUB = VRFW.commands.VRFW_CONTACT_HUB,           -- CMND_VRFW_CONTACT_HUB (set) -> { menu, title }
+    FIND = VRFW.commands.VRFW_CONTACT_FIND,            -- CMND_VRFW_CONTACT_FIND (set, game) -> { map, zone }
+    FILTER = VRFW.commands.VRFW_CONTACT_HUB_FILTER,
+    ORB = 4088477286,
     YIELD_CALL = 830228314,     -- (menu, "global function", args...) in another menu's VM
     LIST = 1107559438,          -- team05_03_soccer_cpu_opponent_list
     ITEM = 1074924810,          -- mainmenu90_19_vs_cpu_list_item
@@ -24,47 +17,42 @@ if VRFW_Host ~= nil then
     HEADER = 575058101, HEADER_TEXT = 1220590795,   -- mainmenu90_01_header, _text_sub_title02
     GUIDE = 3078308064, GUIDE_MESH = 378156699,      -- mainmenu90_05_content_guide_line01, _text_guide01
     BANNER = 1835074715,        -- mainmenu90_34_cpu_team_formation (the team banner)
-    LEVEL_TEXT = 2841109264,    -- _chronicle_gtxt_lv01 (its «Nv.»)
+    LEVEL_TEXT = 2841109264,    -- _chronicle_gtxt_lv01 (its "Nv.")
     LEVEL_NUMBER = 51927332,    -- the banner's level number primitive
     NUMBER_VISIBLE = 1233047821, -- (layer, index, primitive, visible)
-    HELP = 415711628,          -- vrfw_cm_hub_help «Elige un equipo para ver los jugadores que puedes fichar.»
-    EMPTY = 1404656913,         -- vrfw_cm_hub_empty «Este equipo no tiene jugadores que fichar.»
-    OPEN = VRFW_Cmd.OPEN_MENU_OBJECT, EXISTS = VRFW_Cmd.IS_EXIST_MENU_OBJECT, ACTIVE = 1558704558, VISIBLE = 2171393651, HIDE = 369172623,
-    SHOW = 66378409, SET_TEXT = VRFW_Cmd.SET_MENU_TEXT_STRING, TEXT_GET = VRFW_Cmd.TEXT_GET, FOCUS_DATA = 1666448199, LOG = VRFW_Cmd.EVT_LOG,
-    SE = VRFW_Cmd.SND_PLAY_SE, SE_NG = 2086672038, MSG = 2289627655, MSG_WAIT = 2351835063,
+    HELP = 415711628,
+    EMPTY = 1404656913,
+    OPEN = VRFW.commands.OPEN_MENU_OBJECT, EXISTS = VRFW.commands.IS_EXIST_MENU_OBJECT, ACTIVE = 1558704558, VISIBLE = 2171393651, HIDE = 369172623,
+    SHOW = 66378409, SET_TEXT = VRFW.commands.SET_MENU_TEXT_STRING, TEXT_GET = VRFW.commands.TEXT_GET, FOCUS_DATA = 1666448199, SE = VRFW.commands.SND_PLAY_SE, SE_NG = 2086672038, MSG = 2289627655, MSG_WAIT = 2351835063,
     set = nil, title = "",
   }
-  VRFW_ContactHub = CH
+  VRFW.contact_hub = CH
 
-  local function log(...)
-    pcall(funcLuaCommand, CH.LOG, "vrfw.ContactHub", ...)
-  end
+  local log = VRFW.logger.new("vrfw.ContactHub")
 
   local function text(id)
-    local ok, s = pcall(funcLuaCommand, CH.TEXT_GET, id)
-    return (ok and type(s) == "string") and s or ""
+    local s = VRFW.host.command(CH.TEXT_GET, id)
+    return (type(s) == "string") and s or ""
   end
 
   -- the header and the help line of the office (after every redraw of the list's own)
-  function CH.Dress()
+  function CH.dress()
     if CH.set == nil then
       return
     end
     if CH.title ~= "" then
-      pcall(funcLuaMenuCommand, CH.SET_TEXT, CH.HEADER, CH.HEADER_TEXT, CH.title, 0)
+      VRFW.host.menu_command(CH.SET_TEXT, CH.HEADER, CH.HEADER_TEXT, CH.title, 0)
     end
-    pcall(funcLuaMenuCommand, CH.SET_TEXT, CH.GUIDE, CH.GUIDE_MESH, text(CH.HELP), 0)
+    VRFW.host.menu_command(CH.SET_TEXT, CH.GUIDE, CH.GUIDE_MESH, text(CH.HELP), 0)
   end
 
-  -- the chosen team's page: the contact map screen over the list (the list hidden while it is up, as a shop over
-  -- the Mercado); a team without a page (no player to sign): the error sound and a message
-  function CH.Open()
-    local ok, okd, game = pcall(funcLuaMenuCommand, CH.FOCUS_DATA, 0)
-    if not ok or not okd or type(game) ~= "number" or game == 0 then
+  function CH.open()
+    local okd, game = VRFW.host.menu_command(CH.FOCUS_DATA, 0)
+    if not okd or type(game) ~= "number" or game == 0 then
       return
     end
-    local okf, found = pcall(funcLuaCommand, CH.FIND, CH.set, game)
-    if not okf or type(found) ~= "table" then
+    local found = VRFW.host.command(CH.FIND, CH.set, game)
+    if type(found) ~= "table" then
       log("no team page for game", game)
       funcLuaCommand(CH.SE, CH.SE_NG)
       funcLuaCommand(CH.MSG, text(CH.EMPTY), 0, 0, 0, 0, 0, false)
@@ -73,22 +61,20 @@ if VRFW_Host ~= nil then
     end
     log("open", game, tostring(found.map), tostring(found.zone))
     for _, k in ipairs({CH.KEY_SET, CH.KEY_PARENT, CH.KEY_GAME}) do
-      VRFW_Param.Clear(k)
+      VRFW.param.clear(k)
     end
-    VRFW_Param.Set(CH.KEY_SET, CH.set)
-    VRFW_Param.Set(CH.KEY_PARENT, CH.MENU)
-    VRFW_Param.Set(CH.KEY_GAME, game)
+    VRFW.param.set(CH.KEY_SET, CH.set)
+    VRFW.param.set(CH.KEY_PARENT, CH.MENU)
+    VRFW.param.set(CH.KEY_GAME, game)
     funcLuaMenuCommand(CH.ACTIVE, CH.MENU, false)
     funcLuaMenuCommand(CH.VISIBLE, CH.CURSOR, false)
-    -- one title and one button guide on the page: this list's chrome and its opener's (the Mercado) are hidden while
-    -- the screen is up (VRFW_HubYield, _all3_hub_yield.lua)
     local okp, parent = pcall(function() return MENU_DEF.GetParentMenuID(CH.MENU) end)
     CH.parent = (okp and type(parent) == "number" and parent ~= 0) and parent or nil
-    if VRFW_HubYield ~= nil then
-      pcall(VRFW_HubYield, true, CH.SCREEN)
+    if vrfw_hub_yield ~= nil then
+      pcall(vrfw_hub_yield, true, CH.SCREEN)
     end
     if CH.parent ~= nil then
-      pcall(funcLuaCommand, CH.YIELD_CALL, CH.parent, "VRFW_HubYield", true, CH.SCREEN)
+      VRFW.host.command(CH.YIELD_CALL, CH.parent, "vrfw_hub_yield", true, CH.SCREEN)
     end
     funcLuaMenuCommand(CH.HIDE, CH.MENU)
     funcLuaCommand(CH.OPEN, CH.SCREEN)
@@ -97,38 +83,38 @@ if VRFW_Host ~= nil then
       coroutine.yield()
     end
     funcLuaMenuCommand(CH.SHOW, CH.MENU)
-    if VRFW_HubYield ~= nil then
-      pcall(VRFW_HubYield, false, CH.SCREEN)
+    if vrfw_hub_yield ~= nil then
+      pcall(vrfw_hub_yield, false, CH.SCREEN)
     end
     if CH.parent ~= nil then
-      pcall(funcLuaCommand, CH.YIELD_CALL, CH.parent, "VRFW_HubYield", false, CH.SCREEN)
+      VRFW.host.command(CH.YIELD_CALL, CH.parent, "vrfw_hub_yield", false, CH.SCREEN)
     end
     if type(UpdateButtonGuideFromTopMenu) == "function" then
       pcall(UpdateButtonGuideFromTopMenu, 11)
     end
-    CH.Dress()
+    CH.dress()
     funcLuaMenuCommand(CH.ACTIVE, CH.MENU, true)
     funcLuaMenuCommand(CH.VISIBLE, CH.CURSOR, true)
   end
 
-  VRFW_Host.on("soccer_vs_cpu_list_menu", "OnInit", {
+  VRFW.host.on("soccer_vs_cpu_list_menu", "OnInit", {
     id = "menu_engine.contact_hub", phase = "before",
     fn = function()
       CH.set, CH.title = nil, ""
-      if VRFW_Param.Has(CH.KEY_HUB) then
-        CH.set = VRFW_Param.Get(CH.KEY_HUB)
-        VRFW_Param.Clear(CH.KEY_HUB)
+      if VRFW.param.has(CH.KEY_HUB) then
+        CH.set = VRFW.param.get(CH.KEY_HUB)
+        VRFW.param.clear(CH.KEY_HUB)
         if type(CH.set) ~= "number" or CH.set == 0 then
           CH.set = nil
         end
       end
-      if VRFW_FM ~= nil and VRFW_FM.Bypass ~= nil then   -- the free-match rules stand aside in the hub
-        pcall(VRFW_FM.Bypass, "VRFW.contact_hub", CH.set ~= nil)
+      if VRFW.free_match ~= nil and VRFW.free_match.bypass ~= nil then   -- the free-match rules stand aside in the hub
+        pcall(VRFW.free_match.bypass, "VRFW.contact_hub", CH.set ~= nil)
       end
-      pcall(funcLuaCommand, CH.FILTER, CH.set or 0)   -- before the list builds its rows
+      VRFW.host.command(CH.FILTER, CH.set or 0)
       if CH.set ~= nil then
-        local ok, hub = pcall(funcLuaCommand, CH.HUB, CH.set)
-        if ok and type(hub) == "table" and hub.title then
+        local hub = VRFW.host.command(CH.HUB, CH.set)
+        if type(hub) == "table" and hub.title then
           CH.title = text(hub.title)
         end
         log("on", CH.set, CH.title)
@@ -136,13 +122,13 @@ if VRFW_Host ~= nil then
     end,
   })
 
-  VRFW_Host.on("soccer_vs_cpu_list_menu", "OnInit", {
+  VRFW.host.on("soccer_vs_cpu_list_menu", "OnInit", {
     id = "menu_engine.contact_hub.dress", phase = "after",
-    fn = function() CH.Dress() end,
+    fn = function() CH.dress() end,
   })
 
   -- the list's own team check (a valid team dock for a match) does not apply: nothing is played here
-  VRFW_Host.on("soccer_vs_cpu_list_menu", "OnEnter", {
+  VRFW.host.on("soccer_vs_cpu_list_menu", "OnEnter", {
     id = "menu_engine.contact_hub", phase = "around", priority = -300,
     fn = function(nxt, a1, ...)
       if CH.set ~= nil and a1 == CH.LIST then
@@ -152,11 +138,11 @@ if VRFW_Host ~= nil then
     end,
   })
 
-  VRFW_Host.on("soccer_vs_cpu_list_menu", "OnDecideFocus", {
+  VRFW.host.on("soccer_vs_cpu_list_menu", "OnDecideFocus", {
     id = "menu_engine.contact_hub", phase = "around", priority = -300,
     fn = function(nxt, a1, ...)
       if CH.set ~= nil and a1 == CH.LIST then
-        CH.Open()
+        CH.open()
         return nil
       end
       return nxt(a1, ...)
@@ -164,31 +150,31 @@ if VRFW_Host ~= nil then
   })
 
   -- no difficulty / clear capsule on a row of the hub (nothing is played here)
-  VRFW_Host.on("soccer_vs_cpu_list_menu", "UpdateItem", {
+  VRFW.host.on("soccer_vs_cpu_list_menu", "UpdateItem", {
     id = "menu_engine.contact_hub", phase = "after", priority = 300,
     fn = function(r, a1, a2)
       if CH.set ~= nil and type(a2) == "number" then
-        pcall(funcLuaMenuCommand, VRFW_Cmd.SET_LAYER_VISIBLE, CH.ORB, a2, false)
+        VRFW.host.menu_command(VRFW.commands.SET_LAYER_VISIBLE, CH.ORB, a2, false)
       end
     end,
   })
 
-  -- no team level on the hub's team banner: the retail «Nv.» mesh and its number primitive off after each fill
-  VRFW_Host.on("soccer_vs_cpu_list_menu", "UpdateFormation", {
+  -- no team level on the hub's team banner: the retail "Lv." mesh and its number primitive off after each fill
+  VRFW.host.on("soccer_vs_cpu_list_menu", "UpdateFormation", {
     id = "menu_engine.contact_hub.no_level", phase = "after", priority = 300,
     fn = function()
       if CH.set ~= nil then
-        pcall(funcLuaMenuCommand, VRFW_Cmd.SET_MESH_VISIBLE, CH.BANNER, CH.LEVEL_TEXT, false, 0)
-        pcall(funcLuaMenuCommand, CH.NUMBER_VISIBLE, CH.BANNER, 0, CH.LEVEL_NUMBER, false)
+        VRFW.host.menu_command(VRFW.commands.SET_MESH_VISIBLE, CH.BANNER, CH.LEVEL_TEXT, false, 0)
+        VRFW.host.menu_command(CH.NUMBER_VISIBLE, CH.BANNER, 0, CH.LEVEL_NUMBER, false)
       end
     end,
   })
 
-  VRFW_Host.on("soccer_vs_cpu_list_menu", "OnChangeFocus", {
+  VRFW.host.on("soccer_vs_cpu_list_menu", "OnChangeFocus", {
     id = "menu_engine.contact_hub", phase = "after", priority = 300,
     fn = function(r, a1)
       if CH.set ~= nil and a1 == CH.ITEM then
-        CH.Dress()
+        CH.dress()
       end
     end,
   })

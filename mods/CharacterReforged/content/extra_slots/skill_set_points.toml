@@ -1,0 +1,22 @@
+schema = "VRFW.extra_slot/1"
+
+[[VRFW.ExtraSlotExtend]]
+slot = "CharacterReforged.skill_set"
+
+[VRFW.ExtraSlotExtend.rules]
+start_gate_applies = [[
+    { table = "CharacterReforged.PointsTeam", key = ["team"], field = "cost", is = "set" },
+    { table = "CharacterReforged.PointsAura", key = ["skill"], field = "pool", is = "set" },
+]]
+start_refused = [[{ table = "CharacterReforged.PointsPair", key = ["hdl", "skill"], field = "empty", is = "set" }]]
+move_cost_short = [
+    [{ table = "CharacterReforged.PointsPair", key = ["hdl", "skill"], field = "peg_cover", is = "zero" }],
+    [{ table = "CharacterReforged.PointsPair", key = ["hdl", "skill"], field = "partner_cover", is = "zero" }],
+]
+armour_blocks_spirit_move = [[{ table = "CharacterReforged.PointsTeam", key = [255], field = "armour_blocks_keshin_move", is = "nonzero" }]]
+
+# the number at the end of an entry of the transformation cross: the pool points one use of the running form's technique takes
+[VRFW.ExtraSlotExtend.entry_cost]
+table = "CharacterReforged.PointsPair"
+key = ["hdl", "skill"]
+field = "cost"

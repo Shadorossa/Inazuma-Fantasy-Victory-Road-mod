@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# The armour of the keshin Niké: head and back meshes per body group and texture (assets/models/armours/knik01).
+format = "native"
+game_path = "chr/_armd/knik01"

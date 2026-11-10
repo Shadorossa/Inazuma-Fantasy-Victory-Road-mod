@@ -1,40 +1,51 @@
--- no season tab (VRFW, always on, docs/framework/no-season.md §4): the player filter window («FILTRAR») lists no
--- Victory Road season tab. The game's tab list is the last entry of its tab table (tab icon type 7); it leaves the
--- copy the window reads (GetFilterGroupInfoArray), so the tab strip, L1 / R1 and a remembered tab never reach it and
--- every other tab keeps its index. The season category (list item type 12) stays «all» ({9, 12, 0}, no
--- {12, value, 0}) in the window's params when they arrive and before they are sent; the bank's own season test is
--- off natively (season_end.toml SeasonFilterOff). Wraps the menu's own global functions (no host); nothing runs at
--- load time.
 do
-  local SEASON_TAB_ICON = 7   -- tabIconType of the game's season tab (icon_list_tab_filter13)
+  local SEASON_TAB_ICON = 7
   local SEASON_TYPE = 12      -- list item type of the season category
-  local ALL_TYPE = 9          -- list item type of the «all of a category» params
+  local ALL_TYPE = 9          -- list item type of the "all of a category" params
 
-  local trimmed = setmetatable({}, { __mode = "k" })   -- game tab table -> the same table without the season tab
+  local trimmed = setmetatable({}, { __mode = "k" })   -- game tab table -> the table the window gets
+
+  -- the tab a mod declares in the season slot (VRFW.chara_filter_tab), or nil; `added` = for a list without that slot
+  local function mod_tab(added)
+    return VRFW.chara_filter_tab ~= nil and VRFW.chara_filter_tab.entry(added) or nil
+  end
 
   local function without_season(tabs)
     if type(tabs) ~= "table" then
       return tabs
     end
     local last = tabs[#tabs]
-    if type(last) ~= "table" or last.tabIconType ~= SEASON_TAB_ICON then
+    if type(last) ~= "table" then
+      return tabs
+    end
+    local season = last.tabIconType == SEASON_TAB_ICON
+    -- a list without the season slot (the album's) gets the tab after its last one when the framework extended it
+    local entry = mod_tab(not season)
+    if not season and entry == nil then
       return tabs
     end
     local copy = trimmed[tabs]
     if copy == nil then
       copy = {}
-      for i = 1, #tabs - 1 do
+      for i = 1, #tabs do
         copy[i] = tabs[i]
       end
+      if season then
+        copy[#tabs] = nil
+      end
+      if entry ~= nil then
+        copy[#copy + 1] = entry
+        VRFW.host.command(VRFW.commands.VRFW_LOG, "no_season", "chara_filter_menu", "declared tab in the season slot (" .. #copy .. " tabs)")
+      else
+        VRFW.host.command(VRFW.commands.VRFW_LOG, "no_season", "chara_filter_menu", "season tab left out (" .. #copy .. " tabs)")
+      end
       trimmed[tabs] = copy
-      pcall(funcLuaCommand, VRFW_Cmd.EVT_LOG, "no_season", "chara_filter_menu", "season tab left out (" .. #copy .. " tabs)")
     end
     return copy
   end
 
-  -- the season category back to «all» in a param array ({listItemType, value, option} rows); in place
   local function season_all(params)
-    if type(params) ~= "table" then
+    if type(params) ~= "table" or mod_tab() ~= nil then
       return
     end
     local has_all = false

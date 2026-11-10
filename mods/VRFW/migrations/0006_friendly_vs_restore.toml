@@ -1,0 +1,13 @@
+schema = "VRFW.migration/1"
+id = "VRFW.friendly_vs_restore"
+description = "The VS team a friendly swapped out moves from FootballReforged to the match engine"
+phase = "saves"
+after = ["VRFW.no_compat_names"]
+
+[[step]]
+kind = "move_key_to_file"
+file = "{saves}/*/FootballReforged/pachanga.json"
+to_file = "{saves}/*/match_engine/friendly_vs_restore.json"
+from = "vs_restore"
+to = "vs_restore"
+if_target = "keep_source"

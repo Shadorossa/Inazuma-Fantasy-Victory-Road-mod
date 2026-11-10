@@ -1,5 +1,5 @@
 // BetterQoL's «Estilo visual» (content\shaders\visual_style.toml, VRFW.shader/1; docs/framework/shaders.md), was
-// Inazuma Fantasy module `lighting`; research/scripts/lt_shader.py checks it (docs/game/media/lighting.md).
+// Inazuma Fantasy module `lighting`; research/mods/BetterQoL/_tools/lt_shader.py checks it (docs/game/media/lighting.md).
 // bloom_composi.pfxo (LAYERS 3) / bloom_composi_l.pfxo (LAYERS 2, low-cost bloom): retail screen-blend of the bloom
 // levels, every level intensity (bloomParam*.x, fed from CLightData bloomIntensity) multiplied by BLOOM (the preset's
 // define; unset = 1).

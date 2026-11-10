@@ -1,14 +1,7 @@
 schema = "VRFW.game/2"
 
-# Rival players (content\rival_players\*.toml, schema VRFW.rival_players/1; run time scripts\rival_players.lua;
-# docs/framework/types/rival-players.md): the passives and stats a mod declares for each rival player of a match.
-# scripts\rival_players.lua fills the tables below when the match is requested (match:start_request, before the
-# players are built) and empties them at the match end. Key = the player's chara_param id (card). Every answer asks
-# owned(handle) = 0: a player with a saved owner (the user's own players and their match copies) is never changed.
+# Rival players (content\rival_players\*.toml, schema VRFW.rival_players/1; run time scripts\rival_players.lua).
 
-# GetTeamPassiveId(out, charaHdl, slot, useCopy): the engine's one reader of a player's 5 passive slots (the match
-# builder's passive groups 0-4 and the menus' plates). Order 50: after the mods' slot answers (order 0), so the rival
-# player's slot wins; before the signature-only modes (order 100), which still empty every slot.
 [[VRFW.Hook]]
 name = "VRFW.RivalPassiveSlotId"
 game = "Passive.TeamPassiveId"
@@ -39,10 +32,6 @@ field = "open"
 key = ["[record(args[1]) + 4]:u32", "args[2]"]
 when = { value = "owned(args[1])", equals = 0 }
 
-# The match copy's stats (stats 0..7): VRFW.RivalStatSet replaces the value (absolute stats), VRFW.RivalStatAdd adds
-# to it (stat points and the training to the full Player Training computes). Both builders: a rival player with a
-# character handle (MatchCharaBuild) and a roster row without one (MatchCharaBuildNpc). Order 40: after Player
-# Training's own rival rows (10) and the rival's match equipment (30). Kept at 1 or more.
 [[VRFW.MatchStat]]
 name = "VRFW.RivalStats"
 order = 40
@@ -51,15 +40,11 @@ npc = true
 when = { value = "owned(args[2])", equals = 0 }
 stat = "clamp(lookup_or(VRFW.RivalStatSet, args[4], args[3], i) + lookup_or(VRFW.RivalStatAdd, 0, args[3], i), 1, 9999)"
 
-# CMND_GET_CHARA_INFO(charaHdl, field): fields 14..21 are the 8 stats the menus show (a player's «datos» page). After
-# the game's answer, a rival player of the running rule shows his match stats.
-# The player page's stat (host CharacterReforged.page_stat): the value of the player's match copy, -1 = the page's own.
+# CMND_GET_CHARA_INFO(charaHdl, field): fields 14..21 are the 8 stats the menus show (a player's «datos» page).
 [[VRFW.Command]]
 name = "CMND_VRFW_RIVAL_STAT"    # (charaStHdl, idx 0..8) -> value, -1 = no answer
 handler = "RivalPlayers.PageStat"
 
-# CMND_GET_CHARA_TEAM_PASSIVE_INFO(hdl, slot, field, useCopy, preview): reads the game's slots itself, so the slot hooks
-# above never see it: a rival player's passive rows answer from the rule's slots.
 [[VRFW.CommandFilter]]
 name = "VRFW.RivalPlayerPassiveView"
 command = 0xF3483CE9
@@ -82,8 +67,7 @@ command = 0xF2048EB0
 phase = "after"
 handler = "RivalPlayers.CharaInfo"
 
-# 0x4375DC93(charaStHdl, 14..20, ...): the getter the player page and the team views read the 7 stats with. After the
-# game's answer, a player without a saved owner shows his match stats (RivalPlayers.CharaInfo, one answer for both commands).
+# 0x4375DC93(charaStHdl, 14..20, ...): the getter the player page and the team views read the 7 stats with.
 [[VRFW.CommandFilter]]
 name = "VRFW.RivalPlayerStatusStats"
 command = 0x4375DC93

@@ -1,42 +1,29 @@
--- online_guard (VRFW, always on): the blocked modes of content\defaults\online_guard.toml leave the title row. Handlers of the framework's title_menu_2 host (VRFW_Host); every
--- list comes from the framework (CMND_VRFW_BLOCKED_TITLE): nothing here names a mode, a layer or a function.
---
---   * the row: the framework served the title files with one upper button less per blocked item (the row centred
---     again). Here the blocked items leave the row's position tables (t3 items, t9 balloon texts, t slide
---     animations), so every other mode sits on the first locators: no gap, no dead cursor stop. When the served row
---     was NOT shortened (a mod reshaped it), the blocked button stays but is greyed out and A only buzzes.
---   * the mode's own title pieces: its notices / balloons / resume prompt (title_silence) do not run, its layers
---     (title_hide_layers) stay hidden, its function key (title_functions) is swallowed.
---   * a request for a blocked item that still reaches GetSelectTitleMenuId is dropped here (the native filter on the
---     title request refuses it too) and the title takes input again.
--- No engine call at load time: the lists are read in OnInit.
+-- online_guard (VRFW, always on): the blocked modes of content\defaults\online_guard.toml leave the title row.
+-- * the row: the framework served the title files with one upper button less per blocked item (the row centred again).
 
 local OG = {
-  TITLE = VRFW_Cmd.VRFW_BLOCKED_TITLE,       -- CMND_VRFW_BLOCKED_TITLE () -> items, silenced functions, hidden layers, OnFunction ids
-  LOG = VRFW_Cmd.EVT_LOG,         -- CMND_EVT_LOG
-  LAYER_NUM = VRFW_Cmd.GET_CREATE_LAYER_NUM,   -- CMND_GET_CREATE_LAYER_NUM (as SetupItemButtonNum asks it)
+  TITLE = VRFW.commands.VRFW_BLOCKED_TITLE,
+  LAYER_NUM = VRFW.commands.GET_CREATE_LAYER_NUM,   -- CMND_GET_CREATE_LAYER_NUM (as SetupItemButtonNum asks it)
   UPPER = 2250456639,       -- title00_07_item_button_upper
   MENU = 3874253475,        -- title_menu_2
   INPUT = 1558704558,       -- menu input on / off
-  VISIBLE = VRFW_Cmd.SET_LAYER_VISIBLE,      -- CMND_SET_LAYER_VISIBLE
-  SOUND = VRFW_Cmd.SND_PLAY_SE,       -- play a system sound
-  BUZZER = 2086672038,      -- sy0003 (the retail «not available» buzzer)
+  VISIBLE = VRFW.commands.SET_LAYER_VISIBLE,      -- CMND_SET_LAYER_VISIBLE
+  SOUND = VRFW.commands.SND_PLAY_SE,       -- play a system sound
+  BUZZER = 2086672038,      -- sy0003 (the retail "not available" buzzer)
   ID = "VRFW.online_guard",
 }
 
-local og_lists = nil        -- nil = not read; false = no framework answer (nothing blocked)
+local og_lists = nil
 local og_done = setmetatable({}, { __mode = "k" })   -- the t3 tables already shortened (one chunk = one t3)
 local og_grey = false       -- the served row kept the blocked button(s): grey them
 
-local function OG_Log(text)
-  pcall(funcLuaCommand, OG.LOG, "online_guard", "title", text)
-end
+local OG_Log = VRFW.logger.new("online_guard, title")
 
 local function OG_Lists()
   if og_lists == nil then
     og_lists = false
-    local ok, items, silence, layers, funcs = pcall(funcLuaCommand, OG.TITLE)
-    if ok and type(items) == "string" then
+    local items, silence, layers, funcs = VRFW.host.command(OG.TITLE)
+    if type(items) == "string" then
       local l = { items = {}, silence = {}, layers = {}, funcs = {}, any = false }
       for n in string.gmatch(items, "%d+") do
         l.items[tonumber(n)] = true
@@ -63,7 +50,7 @@ end
 -- the blocked items out of the upper row's position tables, as many as the served row lost
 local function OG_Row()
   local l = OG_Lists()
-  local h = VRFW_Host.hosts and VRFW_Host.hosts.title_menu_2
+  local h = VRFW.host.hosts and VRFW.host.hosts.title_menu_2
   local L = h and h.L
   local t3 = L and L.t3
   if not l or not l.any or type(t3) ~= "table" or og_done[t3] then
@@ -89,7 +76,7 @@ local function OG_Row()
     end
   end
   -- the buttons the title row takes out are not in the served row either
-  local hidden = type(VRFW_TitleRow) == "table" and VRFW_TitleRow.hidden_items() or {}
+  local hidden = type(VRFW.title_row) == "table" and VRFW.title_row.hidden_items() or {}
   local missing = extra - removed
   for p = 0, #t3 - 1 do
     local ok, id = pcall(GetTitleMenuItemId, p, true)
@@ -109,7 +96,6 @@ local function OG_Row()
   end
 end
 
--- the mode's own title functions do not run (registered when the list is known: OnInit, before the retail start)
 local function OG_Silence()
   local l = OG_Lists()
   if not l then
@@ -117,8 +103,8 @@ local function OG_Silence()
   end
   for name in pairs(l.silence) do
     if type(_ENV[name]) == "function" then
-      VRFW_Host.on("title_menu_2", name, { id = OG.ID, phase = "before", fn = function()
-        return VRFW_Host.HALT
+      VRFW.host.on("title_menu_2", name, { id = OG.ID, phase = "before", fn = function()
+        return VRFW.host.HALT
       end })
     end
   end
@@ -133,11 +119,11 @@ end
 
 local function on(point, phase, fn)
   if type(_ENV[point]) == "function" then
-    VRFW_Host.on("title_menu_2", point, { id = OG.ID, phase = phase, fn = fn })
+    VRFW.host.on("title_menu_2", point, { id = OG.ID, phase = phase, fn = fn })
   end
 end
 
-if VRFW_Host ~= nil and type(OnInit) == "function" then
+if VRFW.host ~= nil and type(OnInit) == "function" then
   on("OnInit", "before", function()
     og_lists = nil
     if OG_Lists() then

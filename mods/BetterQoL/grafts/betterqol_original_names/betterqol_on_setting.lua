@@ -1,0 +1,1107 @@
+BetterQoL = BetterQoL or {}
+BetterQoL.original_names = {
+  C = {
+    RELOAD = 2253276586,
+    ROW = 4198254970,
+    OPEN = 1531153990,
+    GRID = 3507737813,
+    TAB = 1334104565,
+    ITEM = 3760728316,
+    TEAM = 1003727869,
+    TEAM_GRID = 3693292065,
+    PLAYER = 604663023,
+    TOGGLE = 2583280385,
+    CLOSE = 1720979797,
+    TEXT_LANG = 2470508080,
+    LANG = 477234096,          -- CMND_GET_LANGUAGE_CODE
+    TEXT_GET = 4074371074,     -- CMND_TEXT_GET
+    SND = 3073642526,          -- CMND_SND_PLAY
+    IS_OPEN = 3693934564,      -- CMND_IS_OPEN_MENU_OBJECT
+    IS_CLOSE = 1521844538,     -- CMND_IS_CLOSE_MENU_OBJECT
+    CLOSE_OBJ = 320421347,     -- CMND_CLOSE_MENU_OBJECT
+    SET_STR = 2315959435,      -- the sub window's item string (SetStringBufDirect)
+    CALL = 830228314,          -- call a function of another menu's script
+    LAYER_VISIBLE = 711242136, -- CMND_SET_LAYER_VISIBLE (layer, instance, on)
+    FOCUS_IDX = 1727549139,    -- focused cell of a list
+    CHECK_INPUT = 4265778440,  -- CMND_CHECK_INPUT_CMD (control, input)
+    LAYER_NUM = 1175615627,    -- CMND_GET_CREATE_LAYER_NUM (layer)
+    OPEN_LAYER = 629267548,    -- CMND_OPEN_LAYER (layer, instance)
+    LOCAL_POS = 1389957207,    -- CMND_SET_LAYER_LOCAL_POS (layer, x, y, z, instance)
+    LOCAL_SCALE = 3778714801,  -- CMND_SET_LAYER_LOCAL_SCALE (layer, x, y, z, instance)
+    MESH_VISIBLE = 3405944500, -- (layer, mesh, on, instance)
+    NODE_VISIBLE = 2158717427, -- (layer, node, on, instance)
+    TEXT_VISIBLE = 2735666188, -- (layer, text node, on, instance)
+    SET_TEXT = 1083631230,     -- (layer, text node, string, instance)
+    COLOR = 801406373,         -- material colour (layer, instance, material, r, g, b)
+    POINTER = 558229292,       -- the pointer's position (screen px, y down)
+    POINTER_MOVED = 3272825600,
+    IS_OPEN_LAYER = 2640875187, -- CMND_IS_OPEN_LAYER (layer, instance)
+    GET_PRIO = 1018283794,     -- CMND_GET_DRAW_PRIORITY (layer, instance)
+    SET_PRIO = 1491630496,     -- CMND_SET_DRAW_PRIORITY (layer, instance, priority)
+    -- Command ids of the settings script's own test of its system button guide (the footer of the PC layout).
+    HAS_SYSTEM_GUIDE = 264888438,
+  },
+  SYSTEM_GUIDE = 1936716961,
+  SUB_WINDOW = 968210065,      -- sub_window
+  CURSOR = 2296367164,         -- cmn05_01_cursor
+  LIST_ATTACH = 2081113831,    -- option01_01_list_attach
+  LIST_ITEM = 3344436024,      -- option01_02_list_item (the recycled row cells)
+  LIST_ITEMS = 10,
+  -- Picker chrome layers.
+  PANEL_LAYER = 2833570519,
+  LIST_SINK = 50,
+  GUIDE = 2794225234,          -- option01_05_guide_base
+  GUIDE_TEXT = 378156699,
+  WINDOW_TYPE = 12,
+  TITLE = 2736625690,
+  TAB_TEXT = 269690107,
+  GRID_TAB = "names_grid_tab",
+  TEAMS_HINT = 950605380,
+  EMBLEM_LAYER = 4214231186,
+  LABEL_LAYER = 82729264,
+  INFO_TEXT = 2886638666,
+  HINT_TEXT = 1396813390,
+  SY_MOVE = 2500047763,        -- sy0005
+  SY_ERROR = 2086672038,       -- sy0003
+  -- the inputs polled while the grid shows (CMND_CHECK_INPUT_CMD on the menu controls)
+  CTRLS = {1332654303 --[[MENU_CTRL]], 2748927068 --[[MENU_CTRL_WITH_ANALOG_MOVE_FOCUS]]},
+  KEYS = {up = 1197218715, down = 3259546669, left = 2765147006, right = 2075023265, enter = 1981080283,
+          back = 3011112225 --[[CMD_BACK]], all = 3421673595 --[[CMD_FUNC3]], l1 = 3966226594 --[[CMD_FUNCL1]],
+          r1 = 942075773 --[[CMD_FUNCR1]], rclick = 3473063670 --[[CMD_MOUSE_RIGHT_CLICK]],
+          click = 749879980 --[[CMD_VRFW_MOUSE_LEFT]], wup = 2649361876 --[[CMD_VRFW_WHEEL_UP]],
+          wdown = 1098743808 --[[CMD_VRFW_WHEEL_DOWN]], r2 = 2704260807 --[[CMD_FUNCR2]]},
+  REPEAT_FIRST = 18,
+  REPEAT_EVERY = 5,
+  FOOTER = {
+    teams = {
+      {text = "names_btn_open", glyph = "names_glyph_open", room = 0, input = "enter"},
+      {text = "names_btn_team", glyph = "names_glyph_team", room = 18, input = "all"},
+      {text = "names_btn_series", glyph = "names_glyph_series", room = 68, input = "r1"},
+      {text = "names_btn_save", glyph = "names_glyph_back", room = 18, input = "back"},
+    },
+    grid = {
+      {text = "names_btn_toggle", glyph = "names_glyph_open", room = 0, input = "enter"},
+      {text = "names_btn_team", glyph = "names_glyph_team", room = 18, input = "all"},
+      {text = "names_btn_page", glyph = "names_glyph_page", room = 68, input = "r1"},
+      {text = "names_btn_back", glyph = "names_glyph_back", room = 18, input = "back"},
+    },
+  },
+  -- Face layer (content/menus/108_option/setting_menu_jp_names.toml).
+  FACE_LAYER = 1286833385,
+  FACE_MESH = 2828003679,
+  FACE_TEX = 21929195,         -- icon_chr_dmy_l01
+  FACE_FOCUS = 3345942320,
+  FACE_NAME = 170976702,
+  -- Layout of a name under a face.
+  NAME_W = 190,
+  NAME_GAP = 12,
+  NAME_MIN_SQUEEZE = 0.66,
+  GLYPH_W = 13.5,
+  CUT_MARK = "...",
+  GRAY = 643056375,            -- gray_out (the card's grey-out material)
+  FACE_RH = 156,
+  FACE_OX = 59,
+  FACE_OY = 11,
+  FOCUS_SCALE = 1.12,
+  BUILD_WAIT = 30,
+  HIDE_MESHES = {"_icon_chr_base_l01", "_icon_chr_gradation_l01", "_seasonal_frame_l01", "_avatar_frame_l01",
+    "_icon_chr_position_dmy_l01", "_icon_base_l01", "_icon_chr_type_dmy_l01", "_icon_lock01", "_icon_captain01",
+    "_icon_ai_role_dmy01", "_gtxt_lv_l01", "_icon_card01", "_icon_chr_def01_l", "_icon_chr_grayout01",
+    "_basara_avatar_l01", "_num_chr_dmy_l01", "_num_chr_dmy_l02", "_gauge_exp_base_l01", "_gauge_exp_l01",
+    "_icon_synergy_l01", "_icon_synergy_l02", "_leader_base01", "_gtxt_leader01"},
+  HIDE_NODES = {"_pos_base02", "_pos_leader01", "_pos_ai_role01", "_num_chr_l01", "_num_chr_l02", "_pos_gauge_exp_l01"},
+  noted = false,
+  labels = {},                 -- list cell -> the label text it shows (UpdateListItem)
+  state = nil,
+  grid = nil,
+  built = {},                  -- face instance -> frame of its OnOpenLayer (this menu session)
+  opened = {},                 -- face instances opened this menu session
+  frame = 0,
+}
+
+function BetterQoL.original_names.log(...)
+  BetterQoL.original_names.logger = BetterQoL.original_names.logger or VRFW.logger.new("BetterQoL original_names")
+  BetterQoL.original_names.logger(...)
+end
+
+function BetterQoL.original_names.text(id, fallback)
+  local ok, s = pcall(funcLuaCommand, BetterQoL.original_names.C.TEXT_GET, id)
+  if ok and type(s) == "string" and s ~= "" then
+    return s
+  end
+  return fallback
+end
+
+function BetterQoL.original_names.fmt(id, fallback, ...)
+  local ok, s = pcall(string.format, BetterQoL.original_names.text(id, fallback), ...)
+  if ok then
+    return s
+  end
+  return (pcall(string.format, fallback, ...)) and string.format(fallback, ...) or fallback
+end
+
+function BetterQoL.original_names.sub(fn, ...)   -- a function of the sub window's script
+  local N = BetterQoL.original_names
+  return pcall(funcLuaCommand, N.C.CALL, N.SUB_WINDOW, fn, ...)
+end
+
+function BetterQoL.original_names.who_text(dub, orig)
+  return (orig ~= "" and orig ~= dub) and (dub .. "  →  " .. orig) or dub
+end
+
+
+function BetterQoL.original_names.is_names_row()
+  local N = BetterQoL.original_names
+  local okL, label = pcall(funcLuaCommand, N.C.ROW)
+  if not okL or type(label) ~= "number" or label == 0 then
+    return false
+  end
+  local okF, cell = pcall(funcLuaMenuCommand, N.C.FOCUS_IDX, N.LIST_ATTACH)
+  if not okF or type(cell) ~= "number" or N.labels[cell] == nil then
+    return false
+  end
+  if N.row_text == nil then
+    N.row_text = N.text(label, false)
+  end
+  return N.row_text ~= false and N.labels[cell] == N.row_text
+end
+
+function BetterQoL.original_names.teams_grid()
+  local N = BetterQoL.original_names
+  if N.eg == nil then
+    if type(VRFW.emblem_grid) ~= "table" or type(VRFW.emblem_grid.new) ~= "function" then
+      N.log("team grid: VRFW.emblem_grid missing (VRFW too old)")
+      return nil
+    end
+    local okG, cols, rows, px, py, cx, cy = pcall(funcLuaCommand, N.C.TEAM_GRID)
+    if not okG or type(cols) ~= "number" then
+      cols, rows, px, py, cx, cy = 8, 3, 210, 236, 960, 520
+    end
+    N.eg = VRFW.emblem_grid.new({tile = N.EMBLEM_LAYER, label = N.LABEL_LAYER, cols = cols, rows = rows, px = px,
+                                py = py, cx = cx, cy = cy, log = N.log})
+  end
+  if not N.eg.ok then
+    N.log("team grid: layer betterqol_jpn_emblem not in the settings menu: Instalar")
+    return nil
+  end
+  return N.eg
+end
+
+function BetterQoL.original_names.team_item(i)
+  local N = BetterQoL.original_names
+  local ok, tname, on, n, emblem = pcall(funcLuaCommand, N.C.ITEM, i)
+  if not ok or type(tname) ~= "string" then
+    return {name = "?", count = "", emblem = 0}
+  end
+  on, n = type(on) == "number" and on or 0, type(n) == "number" and n or 0
+  return {name = tname, count = string.format("%d/%d", on, n), emblem = type(emblem) == "number" and emblem or 0,
+          full = n > 0 and on == n}
+end
+
+function BetterQoL.original_names.teams_guide()
+  local N = BetterQoL.original_names
+  local eg, s = N.eg, N.series or {}
+  local head = N.fmt(CRC32("BetterQoL." .. N.GRID_TAB), "‹ %s  %d/%d ›", tostring(s.name or ""), s.on or 0, s.n or 0)
+  local it = eg and eg.items[eg:selected_index()] or nil
+  if it ~= nil then
+    head = head .. "   ·   " .. it.name .. "  " .. it.count
+  end
+  local page, pages = eg:page()
+  if pages > 1 then
+    head = head .. string.format("  (%d/%d)", page + 1, pages)
+  end
+  if N.footer ~= "teams" then
+    head = head .. "\n" .. N.text(N.TEAMS_HINT, "A / Y / L1 R1 / B")
+  end
+  N.guide(head)
+end
+
+-- the page `dir` away (0 = the same one), its teams on the grid
+function BetterQoL.original_names.show_tab(dir)
+  local N = BetterQoL.original_names
+  local eg = N.teams_grid()
+  if eg == nil then
+    return N.rows_show(dir)                -- no emblem layers: the game's check-list window
+  end
+  local ok, page, name, on, n, rows = pcall(funcLuaCommand, N.C.TAB, dir)
+  if not ok or type(page) ~= "number" or type(rows) ~= "number" then
+    N.log("picker: no page")
+    funcLuaCommand(N.C.SND, N.SY_ERROR)
+    N.finish()
+    return false
+  end
+  N.series = {name = tostring(name), on = on or 0, n = n or 0}
+  local items = {}
+  for i = 1, rows do
+    items[i] = N.team_item(i)
+  end
+  N.show_chrome(true)
+  N.show_footer("teams")
+  N.state = "teams"
+  eg:open(items, N.focus or 1)
+  N.teams_guide()
+  return true
+end
+
+function BetterQoL.original_names.open()
+  local N = BetterQoL.original_names
+  local okL, lang = pcall(funcLuaCommand, N.C.LANG)
+  local ok, pages = pcall(funcLuaCommand, N.C.OPEN, okL and lang or -1)
+  if not ok or type(pages) ~= "number" or pages < 1 then
+    return false
+  end
+  N.focus = 1
+  SetInputEnbaleMenuObject(false)
+  if not N.show_tab(0) then
+    return false
+  end
+  N.log("picker opened: " .. tostring(pages) .. " page(s)")
+  return true
+end
+
+-- per frame while the team grid shows
+function BetterQoL.original_names.teams_step()
+  local N = BetterQoL.original_names
+  local eg = N.eg
+  local before = eg:selected_index()
+  local ev = eg:step()
+  if eg:selected_index() ~= before then
+    N.teams_guide()
+  end
+  if ev == nil then
+    return
+  end
+  if ev.act == "back" then
+    funcLuaCommand(N.C.SND, N.SY_MOVE)
+    N.finish()
+  elseif ev.act == "series" then
+    funcLuaCommand(N.C.SND, N.SY_MOVE)
+    N.focus = 1
+    N.show_tab(ev.dir)
+  elseif ev.act == "decide" then
+    N.team, N.focus = ev.index, ev.index
+    eg:hide()
+    if N.face_layer_ok() and N.grid_open(ev.index) then
+      return
+    end
+    if not N.players_show(ev.index) then  -- no face layer: the players as check-list rows
+      funcLuaCommand(N.C.SND, N.SY_ERROR)
+      N.show_tab(0)
+    end
+  elseif ev.act == "all" then
+    -- Handles the Y key.
+    local okT, n = pcall(funcLuaCommand, N.C.TEAM, ev.index)
+    local okS, state = pcall(funcLuaCommand, N.C.TOGGLE, 0)
+    if not okT or type(n) ~= "number" or not okS or type(state) ~= "boolean" then
+      funcLuaCommand(N.C.SND, N.SY_ERROR)
+      return
+    end
+    funcLuaCommand(N.C.SND, N.SY_MOVE)
+    local okP, _, _, on, total = pcall(funcLuaCommand, N.C.TAB, 0)
+    if okP and type(on) == "number" then
+      N.series.on, N.series.n = on, total or N.series.n
+    end
+    eg:set(ev.index, N.team_item(ev.index))
+    N.teams_guide()
+  end
+end
+
+-- Handles B on the teams.
+function BetterQoL.original_names.finish()
+  local N = BetterQoL.original_names
+  if N.eg ~= nil then
+    N.eg:close()
+  end
+  N.grid, N.list = nil, nil
+  N.list_restore()
+  N.guide("")
+  N.show_footer(nil)
+  N.show_chrome(false)
+  SetInputEnbaleMenuObject(true)
+  local ok, changed, idx, text, last = pcall(funcLuaCommand, N.C.CLOSE)
+  if ok and changed == true and type(idx) == "number" and idx >= 0 then
+    local okC, cell = pcall(funcLuaMenuCommand, N.C.FOCUS_IDX, N.LIST_ATTACH)
+    if okC and type(cell) == "number" then
+      pcall(UpdateListContentText, cell, N.text(text, ""), false, false, false, false, false)
+    end
+    pcall(SetSelectIsChangeToRomaji, last == true)
+    N.log("picker closed: row draft " .. tostring(idx))
+  end
+  N.state = nil
+end
+
+
+function BetterQoL.original_names.list_open(kind, strs, ticks, focus)
+  local N = BetterQoL.original_names
+  N.list = {kind = kind, strs = strs, ticks = ticks, inst = {}}
+  local ids, en = {}, {}
+  for i, s in ipairs(strs) do
+    ids[i] = CRC32(s)
+    en[i] = 1
+  end
+  local size = 4
+  if #strs < 9 and type(GetSubWinSizeAnimeType) == "function" then
+    local okS, sz = pcall(GetSubWinSizeAnimeType, #strs)
+    if okS and type(sz) == "number" then
+      size = sz
+    end
+  end
+  focus = (focus or 0) < #strs and (focus or 0) or 0
+  N.list.focus = focus
+  MENU_DEF.SetSubwindowCallback_UpdateListItem("BetterQoL.original_names.on_item")
+  MENU_DEF.SetSubwindowCallback_PressZLZREvent("BetterQoL.original_names.on_tab_key")
+  MENU_DEF.OpenSubWindow("BetterQoL.original_names.on_done", "", #strs, ids, size, 0, en, focus < 9 and focus or 0, false, false, N.WINDOW_TYPE, N.TITLE, {}, 999999)
+  for i, s in ipairs(strs) do
+    funcLuaCommand(N.C.SET_STR, i - 1, s)
+  end
+  N.state = "list_opening"
+end
+
+-- Closes the window.
+function BetterQoL.original_names.list_close(after)
+  local N = BetterQoL.original_names
+  N.sub("SetDisableCheckMeshUpdate", false)
+  funcLuaCommand(N.C.CLOSE_OBJ, N.SUB_WINDOW)
+  N.after = after
+  N.state = "list_closing"
+end
+
+function BetterQoL.original_names.list_restore()
+  MENU_DEF.SetSubwindowCallback_UpdateListItem("OnSubWindowUpdateListItem")
+  MENU_DEF.SetSubwindowCallback_PressZLZREvent("OnSubWindowPressZLZREvent")
+end
+
+-- the team rows of the page `dir` away
+function BetterQoL.original_names.rows_show(dir)
+  local N = BetterQoL.original_names
+  local ok, page, name, on, n, rows = pcall(funcLuaCommand, N.C.TAB, dir)
+  if not ok or type(page) ~= "number" or type(rows) ~= "number" then
+    N.log("picker: no page")
+    N.finish()
+    return false
+  end
+  local strs = {N.fmt(N.TAB_TEXT, "‹ %s  %d/%d ›", tostring(name), on or 0, n or 0)}
+  local ticks = {false}
+  for i = 1, rows do
+    local it = N.team_item(i)
+    strs[#strs + 1] = it.name .. "  " .. it.count
+    ticks[#ticks + 1] = it.full == true
+  end
+  N.show_footer(nil)
+  N.show_chrome(false)
+  N.list_open("teams", strs, ticks, N.focus or 0)
+  return true
+end
+
+function BetterQoL.original_names.players_show(i)
+  local N = BetterQoL.original_names
+  local ok, n = pcall(funcLuaCommand, N.C.TEAM, i)
+  if not ok or type(n) ~= "number" or n < 1 then
+    return false
+  end
+  local strs, ticks = {}, {}
+  for j = 1, n do
+    local okP, _, pon, dub, orig = pcall(funcLuaCommand, N.C.PLAYER, j)
+    dub, orig = okP and tostring(dub or "") or "?", okP and tostring(orig or "") or ""
+    strs[j] = N.who_text(dub, orig)
+    ticks[j] = okP and pon == true
+  end
+  N.show_footer(nil)
+  N.show_chrome(false)
+  N.list_open("players", strs, ticks, 0)
+  return true
+end
+
+function BetterQoL.original_names.refresh()
+  local N = BetterQoL.original_names
+  for inst, data in pairs(N.list.inst) do
+    N.sub("UpdateBtnCheck", inst, N.list.ticks[data + 1] == true)
+  end
+end
+
+-- Handles an item of the sub window.
+function BetterQoL.original_names.on_item(a1, a2)
+  local N = BetterQoL.original_names
+  if N.list == nil or (N.state ~= "list_opening" and N.state ~= "list") then
+    return
+  end
+  if type(a1) == "number" and type(a2) == "number" then
+    N.list.inst[a2] = a1
+    if N.state == "list" then
+      N.sub("UpdateBtnCheck", a2, N.list.ticks[a1 + 1] == true)
+    end
+  end
+end
+
+-- Handles a tab key of the sub window.
+function BetterQoL.original_names.on_tab_key(a1, a2)
+  local N = BetterQoL.original_names
+  if N.state ~= "list" or N.list.kind ~= "teams" then
+    return
+  end
+  funcLuaCommand(N.C.SND, N.SY_MOVE)
+  N.focus = 0
+  local dir = a2 == 0 and -1 or 1
+  N.list_close(function() N.rows_show(dir) end)
+end
+
+-- Handles the sub window being done.
+function BetterQoL.original_names.on_done(a1)
+  local N = BetterQoL.original_names
+  if N.list == nil or (N.state ~= "list" and N.state ~= "list_opening") then
+    return
+  end
+  local L = N.list
+  if L.kind == "teams" then
+    if type(a1) ~= "number" or a1 < 0 then
+      N.list_close(function() N.finish() end)
+    elseif a1 == 0 then
+      N.focus = 0
+      N.list_close(function() N.rows_show(1) end)
+    else
+      N.team, N.focus = a1, a1
+      N.list_close(function()
+        if N.face_layer_ok() and N.grid_open(a1) then
+          return
+        end
+        if not N.players_show(a1) then
+          funcLuaCommand(N.C.SND, N.SY_ERROR)
+          N.rows_show(0)
+        end
+      end)
+    end
+  else
+    if type(a1) ~= "number" or a1 < 0 then
+      N.list_close(function() N.show_tab(0) end)
+      return
+    end
+    local ok, state = pcall(funcLuaCommand, N.C.TOGGLE, a1 + 1)
+    if not ok or type(state) ~= "boolean" then
+      funcLuaCommand(N.C.SND, N.SY_ERROR)
+      return
+    end
+    funcLuaCommand(N.C.SND, N.SY_MOVE)
+    L.ticks[a1 + 1] = state
+    N.refresh()
+  end
+end
+
+rawset(_ENV, "BetterQoL.original_names.on_done", function(...) return BetterQoL.original_names.on_done(...) end)
+rawset(_ENV, "BetterQoL.original_names.on_item", function(...) return BetterQoL.original_names.on_item(...) end)
+rawset(_ENV, "BetterQoL.original_names.on_tab_key", function(...) return BetterQoL.original_names.on_tab_key(...) end)
+
+-- the face layer is in the settings menu
+function BetterQoL.original_names.face_layer_ok()
+  local N = BetterQoL.original_names
+  local have = VRFW.host.menu_command(N.C.LAYER_NUM, N.FACE_LAYER)
+  return type(have) == "number" and have >= 1
+end
+
+
+-- the settings list (rows, cursor) shown / hidden under the grid
+function BetterQoL.original_names.list_visible(on)
+  local N = BetterQoL.original_names
+  VRFW.host.menu_command(N.C.LAYER_VISIBLE, N.LIST_ATTACH, 0, on)
+  for k = 0, N.list_cells() - 1 do
+    VRFW.host.menu_command(N.C.LAYER_VISIBLE, N.LIST_ITEM, k, on)
+  end
+  VRFW.host.menu_command(N.C.LAYER_VISIBLE, N.CURSOR, 0, on)
+end
+
+-- the settings list's row cells (the menu's own count)
+function BetterQoL.original_names.list_cells()
+  local N = BetterQoL.original_names
+  local n = VRFW.host.menu_command(N.C.LAYER_NUM, N.LIST_ITEM)
+  return (type(n) == "number" and n > 0) and n or N.LIST_ITEMS
+end
+
+-- the panel instance shown (when the chrome opens, and again when the engine reports the instance built)
+function BetterQoL.original_names.panel_draw()
+  local N = BetterQoL.original_names
+  VRFW.host.menu_command(N.C.LAYER_VISIBLE, N.PANEL_LAYER, 0, true)
+end
+
+-- Turns the picker chrome on (panel up, settings list and cursor hidden and sunk under it, guide box over it) or off.
+function BetterQoL.original_names.show_chrome(on)
+  local N = BetterQoL.original_names
+  if not on then
+    local ch = N.chrome
+    N.chrome = nil
+    if ch == nil then
+      return
+    end
+    for _, r in ipairs(ch.prio) do
+      VRFW.host.menu_command(N.C.SET_PRIO, r.layer, r.inst, r.prio)
+    end
+    if ch.panel then
+      VRFW.host.menu_command(N.C.LAYER_VISIBLE, N.PANEL_LAYER, 0, false)
+    end
+    N.list_visible(true)
+    return
+  end
+  if N.chrome ~= nil then
+    N.list_visible(false)
+    return
+  end
+  local ch = {prio = {}, panel = false}
+  N.chrome = ch
+  local panel_prio = nil
+  local have = VRFW.host.menu_command(N.C.LAYER_NUM, N.PANEL_LAYER)
+  if type(have) == "number" and have >= 1 then
+    if VRFW.host.menu_command(N.C.IS_OPEN_LAYER, N.PANEL_LAYER, 0) ~= true then
+      VRFW.host.menu_command(N.C.OPEN_LAYER, N.PANEL_LAYER, 0)
+    end
+    N.panel_draw()
+    ch.panel = true
+    panel_prio = VRFW.host.menu_command(N.C.GET_PRIO, N.PANEL_LAYER, 0)
+  else
+    N.log("chrome: panel layer betterqol_jpn_panel not in the settings menu (" .. tostring(have) .. "): Instalar")
+  end
+  local function set_prio(layer, inst, prio_of)
+    local was = VRFW.host.menu_command(N.C.GET_PRIO, layer, inst)
+    if type(was) == "number" then
+      ch.prio[#ch.prio + 1] = {layer = layer, inst = inst, prio = was}
+      VRFW.host.menu_command(N.C.SET_PRIO, layer, inst, prio_of(was))
+    end
+  end
+  local function sunk(was)
+    return was - N.LIST_SINK
+  end
+  set_prio(N.LIST_ATTACH, 0, sunk)
+  for k = 0, N.list_cells() - 1 do
+    set_prio(N.LIST_ITEM, k, sunk)
+  end
+  if type(panel_prio) == "number" then
+    set_prio(N.CURSOR, 0, function(was) return math.min(was, panel_prio - 1) end)
+    set_prio(N.GUIDE, 0, function(was) return math.max(was, panel_prio + 1) end)
+  end
+  N.list_visible(false)
+end
+
+-- the retail footer buttons again
+local function FooterRetail(N)
+  N.footer = nil
+  if type(ChangeButtonGuideBySettingType) == "function" then
+    pcall(ChangeButtonGuideBySettingType)
+  end
+end
+
+-- Shows the keys of `kind` ("teams" or "grid") in the settings script's system button guide (the footer).
+function BetterQoL.original_names.show_footer(kind)
+  local N = BetterQoL.original_names
+  if kind == N.footer then
+    return kind ~= nil
+  end
+  local okH, has = pcall(funcLuaCommand, N.C.HAS_SYSTEM_GUIDE, N.SYSTEM_GUIDE)
+  if not okH or has ~= true or type(ResetSystemButtonGuideArray) ~= "function"
+      or type(AddSystemButtonGuideInfo) ~= "function" or type(UpdateSystemButtonGuideParam) ~= "function" then
+    N.footer = nil
+    return false
+  end
+  if kind == nil then
+    FooterRetail(N)
+    return false
+  end
+  local ok, err = pcall(function()
+    ResetSystemButtonGuideArray()
+    for _, b in ipairs(N.FOOTER[kind]) do
+      AddSystemButtonGuideInfo(CRC32("BetterQoL." .. b.text), CRC32("BetterQoL." .. b.glyph), b.room, 0, 0,
+        N.KEYS[b.input])
+    end
+    UpdateSystemButtonGuideParam()
+  end)
+  if not ok then
+    N.log("footer: not set (" .. tostring(err) .. ")")
+    FooterRetail(N)
+    return false
+  end
+  N.footer = kind
+  return true
+end
+
+function BetterQoL.original_names.guide(s)
+  local N = BetterQoL.original_names
+  VRFW.host.menu_command(N.C.SET_TEXT, N.GUIDE, N.GUIDE_TEXT, s, 0)
+end
+
+function BetterQoL.original_names.grid_open(i)
+  local N = BetterQoL.original_names
+  local have = VRFW.host.menu_command(N.C.LAYER_NUM, N.FACE_LAYER)
+  if type(have) ~= "number" or have < 1 then
+    N.log("grid: face layer betterqol_jpn_face not in the settings menu (" .. tostring(have) .. "): Instalar")
+    return false
+  end
+  local ok, n, on, tname = pcall(funcLuaCommand, N.C.TEAM, i)
+  if not ok or type(n) ~= "number" or n < 1 then
+    N.log("grid: team row " .. tostring(i) .. " not there")
+    return false
+  end
+  local okG, cols, rows, px, py, tile, cx, cy, grey, names = pcall(funcLuaCommand, N.C.GRID)
+  if not okG or type(cols) ~= "number" then
+    cols, rows, px, py, tile, cx, cy, grey, names = 8, 4, 196, 180, 132, 960, 560, 0.38, true
+  end
+  local per = math.max(1, math.min(cols * rows, have))
+  local G = {n = n, on = on or 0, team = tostring(tname), cols = cols, rows = math.ceil(per / cols), per = per,
+             px = px, py = py, tile = tile, cx = cx, cy = cy, grey = grey, names = names == true,
+             players = {}, sel = 0, page = 0, held = {}, keys_seen = false, key_face = {}, asked = {}}
+  for j = 1, n do
+    local okP, key, pon, dub, orig = pcall(funcLuaCommand, N.C.PLAYER, j)
+    G.players[j] = {key = okP and key or 0, on = okP and pon == true, dub = okP and tostring(dub or "") or "",
+                    orig = okP and tostring(orig or "") or ""}
+  end
+  N.grid = G
+  N.show_chrome(true)
+  N.show_footer("grid")
+  N.state = "grid"
+  N.grid_keys_reset()
+  N.grid_draw()
+  N.log(string.format("grid opened: %s, %d player(s), %d chosen, %d a page", G.team, n, G.on, per))
+  return true
+end
+
+function BetterQoL.original_names.grid_close()
+  local N = BetterQoL.original_names
+  local G = N.grid
+  if G ~= nil then
+    for k = 0, G.per - 1 do
+      if N.opened[k] then
+        VRFW.host.menu_command(N.C.LAYER_VISIBLE, N.FACE_LAYER, k, false)
+      end
+    end
+    N.log(string.format("grid closed: %s %d/%d", G.team, G.on, G.n))
+  end
+  N.grid = nil
+  N.focus = N.team or 1
+  N.show_tab(0)
+end
+
+-- Returns the centre of grid cell k of the page (layer space, y up).
+function BetterQoL.original_names.cell(k)
+  local G = BetterQoL.original_names.grid
+  local c, r = k % G.cols, math.floor(k / G.cols)
+  local used = math.max(1, math.min(G.rows, math.ceil(math.min(G.per, G.n - G.page * G.per) / G.cols)))
+  local x = G.cx + (c - (G.cols - 1) / 2) * G.px
+  local y = G.cy + (r - (used - 1) / 2) * G.py              -- screen px, y down
+  return x, -y
+end
+
+-- display width of s in average glyphs (a CJK / full-width glyph = 2)
+function BetterQoL.original_names.glyph_units(s)
+  local n = 0
+  for ch in s:gmatch("[\1-\127\194-\244][\128-\191]*") do
+    n = n + (ch:byte(1) >= 0xE3 and 2 or 1)
+  end
+  return n
+end
+
+-- Fits name s on a face card at scale `scale`.
+function BetterQoL.original_names.fit_name(s, scale)
+  local N = BetterQoL.original_names
+  local G = N.grid
+  s = tostring(s or "")
+  if s == "" or scale <= 0 then
+    return s
+  end
+  local room = (G.px - N.NAME_GAP) / scale                     -- card px between the neighbours' names
+  local limit = room >= N.NAME_W and N.NAME_W / N.NAME_MIN_SQUEEZE or room
+  if N.glyph_units(s) * N.GLYPH_W <= limit then
+    return s
+  end
+  local units = math.floor(limit / N.GLYPH_W)
+  local out, n = {}, N.glyph_units(N.CUT_MARK)
+  for ch in s:gmatch("[\1-\127\194-\244][\128-\191]*") do
+    local w = ch:byte(1) >= 0xE3 and 2 or 1
+    if n + w > units then
+      break
+    end
+    out[#out + 1] = ch
+    n = n + w
+  end
+  return (table.concat(out):gsub("%s+$", "")) .. N.CUT_MARK
+end
+
+function BetterQoL.original_names.tile(k, d)
+  local N = BetterQoL.original_names
+  local G, L = N.grid, N.FACE_LAYER
+  if d == nil or G.players[d] == nil then
+    if N.opened[k] then
+      VRFW.host.menu_command(N.C.LAYER_VISIBLE, L, k, false)
+    end
+    G.key_face[k] = nil
+    VRFW.face_icon.forget(L, k)
+    return
+  end
+  local p = G.players[d]
+  if not N.opened[k] then
+    VRFW.host.menu_command(N.C.OPEN_LAYER, L, k)
+    N.opened[k] = N.frame
+  end
+  local focus = (d - 1) == G.sel
+  local size = G.tile * (focus and N.FOCUS_SCALE or 1)
+  local s = size / N.FACE_RH
+  local x, y = N.cell(k)
+  VRFW.host.menu_command(N.C.LOCAL_SCALE, L, s, s, 1, k)
+  VRFW.host.menu_command(N.C.LOCAL_POS, L, x - N.FACE_OX * s, y - N.FACE_OY * s, 0, k)
+  VRFW.host.menu_command(N.C.LAYER_VISIBLE, L, k, true)
+  for _, m in ipairs(N.HIDE_MESHES) do
+    VRFW.host.menu_command(N.C.MESH_VISIBLE, L, CRC32(m), false, k)
+  end
+  for _, m in ipairs(N.HIDE_NODES) do
+    VRFW.host.menu_command(N.C.NODE_VISIBLE, L, CRC32(m), false, k)
+  end
+  VRFW.host.menu_command(N.C.MESH_VISIBLE, L, N.FACE_FOCUS, focus, k)
+  local v = p.on and 1 or G.grey
+  VRFW.host.menu_command(N.C.COLOR, L, k, N.GRAY, v, v, v)
+  if G.names then
+    VRFW.host.menu_command(N.C.TEXT_VISIBLE, L, N.FACE_NAME, true, k)
+    VRFW.host.menu_command(N.C.SET_TEXT, L, N.FACE_NAME, N.fit_name(p.on and p.orig or p.dub, s), k)
+  else
+    VRFW.host.menu_command(N.C.TEXT_VISIBLE, L, N.FACE_NAME, false, k)
+  end
+  if G.key_face[k] ~= p.key then
+    G.key_face[k], G.asked[k] = p.key, nil
+    VRFW.host.menu_command(N.C.MESH_VISIBLE, L, N.FACE_MESH, false, k)
+  end
+  N.face_ask(k)
+end
+
+function BetterQoL.original_names.face_ask(k)
+  local N = BetterQoL.original_names
+  local G = N.grid
+  local key = G.key_face[k]
+  if key == nil or key == 0 or G.asked[k] then
+    return
+  end
+  if N.built[k] == nil and N.frame - (N.opened[k] or N.frame) < N.BUILD_WAIT then
+    return
+  end
+  local L = N.FACE_LAYER
+  VRFW.face_icon.forget(L, k)
+  local fr = VRFW.face_icon.face(L, k, key, N.FACE_MESH, N.FACE_TEX, {kit = 0, keeper = false, use_args = true})
+  G.asked[k] = N.frame
+  if (N.face_logs or 0) < 20 then
+    N.face_logs = (N.face_logs or 0) + 1
+    N.log("face", k, key, tostring(fr), N.built[k] ~= nil and "built" or "timeout")
+  end
+end
+
+-- Steps the faces once per frame.
+function BetterQoL.original_names.face_step()
+  local N = BetterQoL.original_names
+  local G = N.grid
+  for k = 0, G.per - 1 do
+    if G.key_face[k] ~= nil and not G.asked[k] then
+      N.face_ask(k)
+    end
+  end
+  if VRFW.face_icon.pending() then
+    VRFW.face_icon.settle()
+  end
+end
+
+function BetterQoL.original_names.grid_draw()
+  local N = BetterQoL.original_names
+  local G = N.grid
+  G.page = math.floor(G.sel / G.per)
+  for k = 0, G.per - 1 do
+    local d = G.page * G.per + k + 1
+    N.tile(k, d <= G.n and d or nil)
+  end
+  local p = G.players[G.sel + 1]
+  local who = p ~= nil and N.who_text(p.dub, p.orig) or ""
+  local pages = math.ceil(G.n / G.per)
+  local head = N.fmt(N.INFO_TEXT, "%s  %d/%d  ·  %s", G.team, G.on, G.n, who)
+  if pages > 1 then
+    head = head .. string.format("  (%d/%d)", G.page + 1, pages)
+  end
+  if N.footer ~= "grid" then
+    head = head .. "\n" .. N.text(N.HINT_TEXT, "A / Y / L1 R1 / B")
+  end
+  N.guide(head)
+end
+
+
+function BetterQoL.original_names.input_held(input)
+  local N = BetterQoL.original_names
+  for _, c in ipairs(N.CTRLS) do
+    local ok, r = pcall(funcLuaCommand, N.C.CHECK_INPUT, c, input)
+    if ok and r == true then
+      return true
+    end
+  end
+  return false
+end
+
+function BetterQoL.original_names.grid_keys_reset()
+  local N = BetterQoL.original_names
+  local G = N.grid
+  for name, input in pairs(N.KEYS) do
+    G.held[name] = N.input_held(input) and 1000 or 0
+  end
+  G.ptr_x, G.ptr_y = VRFW.host.menu_command(N.C.POINTER)
+end
+
+function BetterQoL.original_names.pressed(name, repeats)
+  local N = BetterQoL.original_names
+  local G = N.grid
+  local now = N.input_held(N.KEYS[name])
+  local h = G.held[name] or 0
+  if not now then
+    G.held[name] = 0
+    return false
+  end
+  G.held[name] = h + 1
+  if not G.keys_seen then
+    G.keys_seen = true
+    N.log("grid: input seen (" .. name .. ")")
+  end
+  if h == 0 then
+    return true
+  end
+  return repeats and h >= N.REPEAT_FIRST and (h - N.REPEAT_FIRST) % N.REPEAT_EVERY == 0
+end
+
+function BetterQoL.original_names.grid_move(to)
+  local N = BetterQoL.original_names
+  local G = N.grid
+  if to < 0 or to >= G.n or to == G.sel then
+    return
+  end
+  G.sel = to
+  funcLuaCommand(N.C.SND, N.SY_MOVE)
+  N.grid_draw()
+end
+
+function BetterQoL.original_names.grid_toggle(j)
+  local N = BetterQoL.original_names
+  local G = N.grid
+  local ok, state, on = pcall(funcLuaCommand, N.C.TOGGLE, j)
+  if not ok or type(state) ~= "boolean" then
+    funcLuaCommand(N.C.SND, N.SY_ERROR)
+    return
+  end
+  if j == 0 then
+    for _, p in ipairs(G.players) do
+      p.on = state
+    end
+  elseif G.players[j] ~= nil then
+    G.players[j].on = state
+  end
+  G.on = type(on) == "number" and on or G.on
+  funcLuaCommand(N.C.SND, N.SY_MOVE)
+  N.grid_draw()
+end
+
+-- the tile under the pointer (0-based player index), nil = none
+function BetterQoL.original_names.grid_hit(x, y)
+  local N = BetterQoL.original_names
+  local G = N.grid
+  if type(x) ~= "number" or type(y) ~= "number" then
+    return nil
+  end
+  local half = G.tile / 2
+  for k = 0, G.per - 1 do
+    local d = G.page * G.per + k
+    if d < G.n then
+      local cx, cy = N.cell(k)
+      if math.abs(x - cx) <= half and math.abs(y + cy) <= half then
+        return d
+      end
+    end
+  end
+  return nil
+end
+
+function BetterQoL.original_names.grid_step()
+  local N = BetterQoL.original_names
+  local G = N.grid
+  N.face_step()
+  -- every input is read each frame (the press edges stay right), then one action
+  local P = {}
+  for _, k in ipairs({"back", "rclick", "click", "enter", "all", "l1", "r1", "wup", "wdown"}) do
+    P[k] = N.pressed(k)
+  end
+  for _, k in ipairs({"left", "right", "up", "down"}) do
+    P[k] = N.pressed(k, true)
+  end
+  if P.back or P.rclick then
+    funcLuaCommand(N.C.SND, N.SY_MOVE)
+    N.grid_close()
+    return
+  end
+  -- Reads the pointer.
+  local x, y = VRFW.host.menu_command(N.C.POINTER)
+  local moved = VRFW.host.menu_command(N.C.POINTER_MOVED) == true
+  if type(x) == "number" and (moved or x ~= G.ptr_x or y ~= G.ptr_y) then
+    G.ptr_x, G.ptr_y = x, y
+    local d = N.grid_hit(x, y)
+    if d ~= nil then
+      N.grid_move(d)
+    end
+  end
+  if P.click then
+    local d = N.grid_hit(x, y)
+    if d ~= nil then
+      G.sel = d
+      N.grid_toggle(d + 1)
+    end
+    return
+  end
+  local c = G.cols
+  local col = G.sel % c
+  if P.left then
+    N.grid_move(col > 0 and G.sel - 1 or math.min(G.sel + c - 1, G.n - 1))
+  elseif P.right then
+    N.grid_move((col < c - 1 and G.sel + 1 < G.n) and G.sel + 1 or G.sel - col)
+  elseif P.up then
+    N.grid_move(G.sel - c >= 0 and G.sel - c or G.sel)
+  elseif P.down then
+    N.grid_move(math.min(G.sel + c, G.n - 1))
+  elseif P.l1 or P.wup then
+    N.grid_move(math.max(G.sel - G.per, 0))
+  elseif P.r1 or P.wdown then
+    N.grid_move(math.min(G.sel + G.per, G.n - 1))
+  elseif P.enter then
+    N.grid_toggle(G.sel + 1)
+  elseif P.all then
+    N.grid_toggle(0)
+  end
+end
+
+-- Steps once per frame.
+function BetterQoL.original_names.step()
+  local N = BetterQoL.original_names
+  N.frame = N.frame + 1
+  if N.state == "teams" and N.eg ~= nil then
+    N.teams_step()
+  elseif N.state == "grid" and N.grid ~= nil then
+    N.grid_step()
+  elseif N.state == "list_opening" then
+    local ok, open = pcall(funcLuaCommand, N.C.IS_OPEN, N.SUB_WINDOW, N.CURSOR)
+    if ok and open == true then
+      N.sub("SetDisableCheckMeshUpdate", true)
+      if (N.list.focus or 0) > 0 then
+        N.sub("SetFocusListItem", N.list.focus)
+      end
+      N.state = "list"
+      N.refresh()
+    end
+  elseif N.state == "list_closing" then
+    local ok, closed = pcall(funcLuaCommand, N.C.IS_CLOSE, N.SUB_WINDOW)
+    if ok and closed == true then
+      local after = N.after
+      N.after, N.state = nil, "idle"
+      if after ~= nil then
+        after()
+      end
+    end
+  end
+end
+
+
+function BetterQoL.original_names.locals()
+  local h = type(VRFW.host) == "table" and type(VRFW.host.hosts) == "table" and VRFW.host.hosts.setting_menu or nil
+  return h ~= nil and h.L or nil
+end
+
+function BetterQoL.original_names.close()
+  local N = BetterQoL.original_names
+  local okL, lang = pcall(funcLuaCommand, N.C.LANG)
+  local ok, need = pcall(funcLuaCommand, N.C.RELOAD, okL and lang or -1)
+  if not ok or need ~= true then
+    return
+  end
+  local L = N.locals()
+  local okl, n, n6, n7, f2 = false, nil, nil, nil, nil
+  if L ~= nil then
+    okl, n, n6, n7, f2 = pcall(function()
+      return L.n, L.n6, L.n7, L.flag2
+    end)
+  end
+  if not okl or type(n) ~= "number" or type(n6) ~= "number" or type(n7) ~= "number" or type(f2) ~= "boolean" then
+    if not N.noted then
+      N.noted = true
+      N.log("settings locals not reachable (no VRFW.host setting_menu L / VRFW.debug): the names change at the next start")
+    end
+    return
+  end
+  if n == 1 or n == 2 or n == 3 or n == 4 then
+    return
+  end
+  local done, err = pcall(function()
+    if n6 == -1 or n7 == -1 then
+      local tl = funcLuaCommand(N.C.TEXT_LANG)
+      if n6 == -1 then
+        L.n6 = tl
+      end
+      if n7 == -1 then
+        L.n7 = tl
+      end
+    end
+    L.flag4 = true
+    if L.n6 == L.n7 then
+      L.flag3 = not f2
+    end
+  end)
+  if done then
+    N.log("names changed: retail «Originales» path (back to the title, texts reloaded)")
+  else
+    N.log("settings locals not written (" .. tostring(err) .. "): the names change at the next start")
+  end
+end
+
+do
+  local H = VRFW.host
+  if type(H) == "table" and type(H.on) == "function" then
+    local id = "BetterQoL.original_names"
+    H.on("setting_menu", "OnInit", {id = id, phase = "before", fn = function()
+      local N = BetterQoL.original_names
+      N.labels, N.row_text, N.state, N.grid, N.built, N.opened, N.frame = {}, nil, nil, nil, {}, {}, 0
+      N.eg = nil                        -- a new menu: new layer instances
+      N.chrome, N.footer = nil, nil
+    end})
+    H.on("setting_menu", "UpdateListItem", {id = id, phase = "before", fn = function(a1, a2)
+      if type(a1) == "number" then
+        BetterQoL.original_names.labels[a1] = a2
+      end
+    end})
+    -- Handles a face layer instance that was built or opened again.
+    H.on("setting_menu", "OnOpenLayer", {id = id, phase = "after", fn = function(_, a1, a2)
+      local N = BetterQoL.original_names
+      if N.eg ~= nil then
+        N.eg:on_tile_built(a1, a2)
+      end
+      if a1 == N.PANEL_LAYER and N.chrome ~= nil and N.chrome.panel then
+        N.panel_draw()
+      end
+      if a1 == N.FACE_LAYER and type(a2) == "number" then
+        N.built[a2] = N.frame
+        if N.grid ~= nil then
+          N.grid.asked[a2] = nil
+        end
+      end
+    end})
+    -- A on the names row
+    H.on("setting_menu", "OnEnter", {id = id, phase = "around", fn = function(nxt, a1, a2)
+      local N = BetterQoL.original_names
+      if N.state ~= nil then
+        return                          -- the grids poll their own keys
+      end
+      if (a1 == N.LIST_ATTACH or a1 == N.LIST_ITEM) and N.is_names_row() then
+        if N.open() then
+          return
+        end
+        SetInputEnbaleMenuObject(true)
+      end
+      return nxt(a1, a2)
+    end})
+    H.on("setting_menu", "Step", {id = id, phase = "after", fn = function()
+      if BetterQoL.original_names.state ~= nil then
+        BetterQoL.original_names.step()
+      end
+    end})
+    H.on("setting_menu", "CloseMenuSetting", {id = id, phase = "before", fn = function()
+      BetterQoL.original_names.close()
+    end})
+  end
+end

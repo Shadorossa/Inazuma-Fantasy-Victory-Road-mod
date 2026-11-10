@@ -1,0 +1,13 @@
+schema = "VRFW.game/2"
+
+# Kit variants (content\kit_variants): the declared pairs and the choice per kit kept in the save.
+
+# kit -> base kit, variant kit, text key of the base's X prompt, text key of the variant's X prompt (0, 0, "", "": no pair)
+[[VRFW.Command]]
+name = "CMND_VRFW_KIT_VARIANT"
+handler = "KitVariants.Pair"
+
+# kit[, on] -> true when the variant of the kit's pair is chosen (with `on`: the choice is set and saved first)
+[[VRFW.Command]]
+name = "CMND_VRFW_KIT_VARIANT_CHOICE"
+handler = "KitVariants.Choice"

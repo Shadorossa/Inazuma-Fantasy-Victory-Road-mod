@@ -1,0 +1,14 @@
+schema = "VRFW.technique/3"
+# Three dormant retail keeper pairs {save, goal} join the game's random keeper-gauge scenes (indices 5-7).
+
+[[keeper_scene]]
+save = "ev71_30010"     # standing catch
+goal = "ev71_30020"     # low drop, beaten: the ball goes through into the net
+
+[[keeper_scene]]
+save = "ev71_30030"     # dive to the left (2.4 m), ball held
+goal = "ev71_30040"     # dive to the left (2.3 m), beaten
+
+[[keeper_scene]]
+save = "ev71_30050"     # dive to the right (2.4 m), ball held
+goal = "ev71_30060"     # dive to the right (2.3 m), beaten

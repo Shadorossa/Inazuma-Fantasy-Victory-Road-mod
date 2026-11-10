@@ -1,0 +1,50 @@
+schema = "VRFW.sound/1"
+# Trimmed copies of the move SE of the hand-off scenes, built at boot from the player's waza_stream.
+
+[[sfx]]
+add = "ev60_80350_me"
+from = "ev60_00350_me"
+bank = "waza_stream"
+start_frame = 226
+
+# Cosmic Blaster: ev60_82980 drops c0100-c0200 (frames 0-118)
+[[sfx]]
+add = "ev60_82980_me"
+from = "ev60_02980_me"
+bank = "waza_stream"
+start_frame = 119
+
+# Wyvern Blizzard: ev60_80840 drops c0100-c0200 (frames 0-217)
+[[sfx]]
+add = "ev60_80840_me"
+from = "ev60_00840_me"
+bank = "waza_stream"
+start_frame = 218
+
+# Tiger Storm: ev60_81020 drops c0100-c0200 (frames 0-197)
+[[sfx]]
+add = "ev60_81020_me"
+from = "ev60_01020_me"
+bank = "waza_stream"
+start_frame = 198
+
+# Icebreaker: ev60_83360 drops c0100-c0200 (frames 0-255)
+[[sfx]]
+add = "ev60_83360_me"
+from = "ev60_03360_me"
+bank = "waza_stream"
+start_frame = 256
+
+# Emperor Penguin No.
+[[sfx]]
+add = "ev60_83330_me"
+from = "ev60_03330_me"
+bank = "waza_stream"
+start_frame = 249
+
+# Beyond the Death Zone: ev60_83185 drops c0100-c0200 and c0300's first 4 frames (0-151; its cue is ev60_03180_me)
+[[sfx]]
+add = "ev60_83185_me"
+from = "ev60_03180_me"
+bank = "waza_stream"
+start_frame = 152

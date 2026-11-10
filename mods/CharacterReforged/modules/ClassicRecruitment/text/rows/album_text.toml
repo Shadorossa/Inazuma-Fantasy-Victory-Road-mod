@@ -1,13 +1,10 @@
-# New Recruitment › signing a player from BetterQoL's «Álbum de jugadores»
-# (assets\lua\_all\new_recruitment_album.lua). Rows of menu_text, read by id = crc32(row id); «%s» = the player's name.
-# The price rule: config.toml [album].
-# After a signing the pachangas' line new_recruitment_pachangas_join_done («¡%s se ha unido a tu equipo!») is shown.
+# Album signing texts (menu_text, id = crc32(row id)); %s = the player's name.
 schema = "VRFW.text/2"
 table = "menu_text"
 
 # the album's button guide entry on A
 [[row]]
-id = "new_recruitment_album_guide"
+id = "classic_recruitment_album_guide"
 es = "Fichar"
 en = "Recruit"
 fr = "Recruter"
@@ -20,7 +17,7 @@ zh_hant = "招募"
 
 # «%s» = the player's name, then «%d» = the price, «%d» = the points the player has (always in this order)
 [[row]]
-id = "new_recruitment_album_ask_price"
+id = "classic_recruitment_album_ask_price"
 es = "¿Quieres fichar a %s por %d puntos de amistad? (tienes %d)"
 en = "Do you want to recruit %s for %d Friendship Points? (you have %d)"
 fr = "Veux-tu recruter %s pour %d points d'amitié ? (tu en as %d)"
@@ -32,7 +29,7 @@ zh_hans = "要招募%s吗？需要%d友情点数（你有%d）"
 zh_hant = "要招募%s嗎？需要%d友情點數（你有%d）"
 
 [[row]]
-id = "new_recruitment_album_not_enough"
+id = "classic_recruitment_album_not_enough"
 es = "No tienes puntos de amistad suficientes para fichar a %s: cuesta %d y tienes %d."
 en = "You do not have enough Friendship Points to recruit %s: it costs %d and you have %d."
 fr = "Tu n'as pas assez de points d'amitié pour recruter %s : il coûte %d et tu en as %d."
@@ -44,7 +41,7 @@ zh_hans = "友情点数不足，无法招募%s：需要%d，你有%d。"
 zh_hant = "友情點數不足，無法招募%s：需要%d，你有%d。"
 
 [[row]]
-id = "new_recruitment_album_owned"
+id = "classic_recruitment_album_owned"
 es = "%s ya está en tu club."
 en = "%s is already in your club."
 fr = "%s est déjà dans ton club."
@@ -56,7 +53,7 @@ zh_hans = "%s已经在你的俱乐部了。"
 zh_hant = "%s已經在你的俱樂部了。"
 
 [[row]]
-id = "new_recruitment_album_full"
+id = "classic_recruitment_album_full"
 es = "No hay sitio en el banco para %s."
 en = "There is no room in the bank for %s."
 fr = "Il n'y a plus de place dans la banque pour %s."
@@ -68,7 +65,7 @@ zh_hans = "仓库没有空位容纳%s。"
 zh_hant = "倉庫沒有空位容納%s。"
 
 [[row]]
-id = "new_recruitment_album_failed"
+id = "classic_recruitment_album_failed"
 es = "No se ha podido fichar a %s."
 en = "%s could not be recruited."
 fr = "Impossible de recruter %s."
@@ -80,7 +77,7 @@ zh_hans = "无法招募%s。"
 zh_hant = "無法招募%s。"
 
 [[row]]
-id = "new_recruitment_summon_normal"
+id = "classic_recruitment_summon_normal"
 es = "Las cartas normales ya no se invocan: ficha a los jugadores en el álbum."
 en = "Normal cards are no longer summoned: sign players in the album."
 fr = "Les cartes normales ne s'invoquent plus : recrute les joueurs dans l'album."
@@ -90,3 +87,81 @@ pt = "As cartas normais já não se invocam: contrata os jogadores no álbum."
 ja = "通常カードは召喚できません。アルバムで選手をスカウトしましょう。"
 zh_hans = "普通卡牌不能再召唤了：请在图鉴中签约球员。"
 zh_hant = "普通卡牌不能再召喚了：請在圖鑑中簽約球員。"
+
+# the album's button guide entry on Start while players are marked
+[[row]]
+id = "classic_recruitment_album_recruit_marked"
+es = "Fichar marcados"
+en = "Recruit marked"
+fr = "Recruter la sélection"
+de = "Auswahl verpflichten"
+it = "Ingaggia selezionati"
+pt = "Contratar marcados"
+ja = "選択した選手をスカウト"
+zh_hans = "招募已选球员"
+zh_hant = "招募已選球員"
+
+# «%d» = the players, «%d» = the total, «%d» = the points the player has, «%d» = the points left (always in this order)
+[[row]]
+id = "classic_recruitment_album_ask_many"
+es = "¿Fichar a %d jugadores por %d puntos de amistad? (tienes %d, te quedarán %d)"
+en = "Recruit %d players for %d Friendship Points? (you have %d, %d will remain)"
+fr = "Recruter %d joueurs pour %d points d'amitié ? (tu en as %d, il t'en restera %d)"
+de = "%d Spieler für %d Freundschaftspunkte verpflichten? (du hast %d, es bleiben %d)"
+it = "Ingaggiare %d giocatori per %d Punti Carisma? (ne hai %d, ne resteranno %d)"
+pt = "Contratar %d jogadores por %d pontos de amizade? (tens %d, ficarás com %d)"
+ja = "%d人の選手を友情ポイント%dでスカウトしますか？（所持：%d、残り：%d）"
+zh_hans = "要招募%d名球员吗？需要%d友情点数（你有%d，剩余%d）"
+zh_hant = "要招募%d名球員嗎？需要%d友情點數（你有%d，剩餘%d）"
+
+# «%d» = the players, «%d» = the total, «%d» = the points the player has
+[[row]]
+id = "classic_recruitment_album_not_enough_many"
+es = "No te llega: %d jugadores cuestan %d puntos de amistad y tienes %d. No se ha fichado a nadie."
+en = "Not enough: %d players cost %d Friendship Points and you have %d. Nobody was recruited."
+fr = "Pas assez : %d joueurs coûtent %d points d'amitié et tu en as %d. Personne n'a été recruté."
+de = "Nicht genug: %d Spieler kosten %d Freundschaftspunkte und du hast %d. Niemand wurde verpflichtet."
+it = "Non bastano: %d giocatori costano %d Punti Carisma e ne hai %d. Nessuno è stato ingaggiato."
+pt = "Não chega: %d jogadores custam %d pontos de amizade e tens %d. Ninguém foi contratado."
+ja = "足りません：%d人の選手に友情ポイント%dが必要で、所持は%dです。誰もスカウトされませんでした。"
+zh_hans = "点数不足：%d名球员需要%d友情点数，你有%d。没有招募任何球员。"
+zh_hant = "點數不足：%d名球員需要%d友情點數，你有%d。沒有招募任何球員。"
+
+# «%d» = the players, «%d» = the free places
+[[row]]
+id = "classic_recruitment_album_full_many"
+es = "No hay sitio en el banco para %d jugadores: quedan %d huecos."
+en = "There is no room in the bank for %d players: %d places left."
+fr = "Pas assez de place sur le banc pour %d joueurs : il reste %d places."
+de = "Auf der Bank ist kein Platz für %d Spieler: noch %d Plätze frei."
+it = "Non c'è posto in panchina per %d giocatori: restano %d posti."
+pt = "Não há lugar no banco para %d jogadores: restam %d lugares."
+ja = "バンクに%d人分の空きがありません（残り%d人分）。"
+zh_hans = "替补库没有%d名球员的空位：还剩%d个位置。"
+zh_hant = "替補庫沒有%d名球員的空位：還剩%d個位置。"
+
+# no number shown
+[[row]]
+id = "classic_recruitment_album_failed_many"
+es = "No se ha podido fichar a ningún jugador."
+en = "No player could be recruited."
+fr = "Aucun joueur n'a pu être recruté."
+de = "Es konnte kein Spieler verpflichtet werden."
+it = "Non è stato possibile ingaggiare nessun giocatore."
+pt = "Não foi possível contratar nenhum jogador."
+ja = "選手をスカウトできませんでした。"
+zh_hans = "未能招募任何球员。"
+zh_hant = "未能招募任何球員。"
+
+# «%d» = the signed players, «%d» = the marked players
+[[row]]
+id = "classic_recruitment_album_partial"
+es = "Fichados %d de %d jugadores. Los demás siguen marcados y no se les ha cobrado."
+en = "%d of %d players recruited. The others stay marked and were not charged."
+fr = "%d joueurs recrutés sur %d. Les autres restent sélectionnés et n'ont pas été facturés."
+de = "%d von %d Spielern verpflichtet. Die anderen bleiben markiert und wurden nicht berechnet."
+it = "Ingaggiati %d giocatori su %d. Gli altri restano selezionati e non sono stati addebitati."
+pt = "Contratados %d de %d jogadores. Os restantes continuam marcados e não foram cobrados."
+ja = "%d人をスカウトしました（全%d人）。残りの選手は選択されたままで、支払いはありません。"
+zh_hans = "已招募%d名球员（共%d名）。其余球员仍保持选中，未被扣费。"
+zh_hant = "已招募%d名球員（共%d名）。其餘球員仍保持選中，未被扣費。"

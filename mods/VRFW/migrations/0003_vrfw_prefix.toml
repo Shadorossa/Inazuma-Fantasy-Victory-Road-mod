@@ -1,0 +1,37 @@
+# Wave C (P4): the old prefixes leave the player's PC. Data folder VR-ModLoader -> VRFW, the framework's state
+# folder vr_framework -> vrfw, the old framework mod id vr_framework -> VRFW, ModManager's old cache folder,
+# the installer's records and the deploy backups (docs/audit/vrfw-prefix-rename-map-2026-11-07.md §2.2, §4.1).
+# Ids and numbers are kept: every step is a rename, never a renumber.
+schema = "VRFW.migration/1"
+id = "VRFW.vrfw_prefix"
+description = "Old VR-ModLoader / vr_framework / evt_ folder and file names on the player's PC become the VRFW names"
+phase = "boot"
+
+# 1. The data folder (saves, ids, options, update sequence): one atomic rename. Both present: VRFW is kept and the
+#    old folder is left as it is. Folder in use: the rename fails, nothing
+#    moved (clear message, the game closes and tries again next start).
+[[step]]
+kind = "move_folder"
+from = "{local_app_data}/VR-ModLoader"
+to = "{local_app_data}/VRFW"
+if_target = "skip"
+
+# 2. The framework's state folder inside each game's data folder (ids, migrations.toml, backups, risk guard).
+[[step]]
+kind = "move_folder"
+from = "{local_app_data}/VRFW/ievr-*/vr_framework"
+to = "{local_app_data}/VRFW/ievr-*/vrfw"
+if_target = "skip"
+
+# 3. The loader's legacy game-folder data (old installs only).
+[[step]]
+kind = "move_folder"
+from = "{game}/evt_loader"
+to = "{game}/vrfw_loader"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{game}/evt_loader.migrated"
+to = "{game}/vrfw_loader.migrated"
+if_target = "keep_target"

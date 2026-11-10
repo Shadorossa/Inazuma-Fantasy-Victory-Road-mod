@@ -1,5 +1,4 @@
 # Display names and order for detected game openings; entries for undetected movies are ignored.
-# «VR | <song>» titles are literal text, identical in every language.
 schema = "VRFW.opening/1"
 
 [[opening]]

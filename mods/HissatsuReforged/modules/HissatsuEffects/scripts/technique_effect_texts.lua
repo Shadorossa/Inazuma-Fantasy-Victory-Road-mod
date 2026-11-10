@@ -1,6 +1,3 @@
--- The sentences of the behaviour rules that describe a move, for the move card: every active mod's rule files
--- ([[rule]] with `text` and `when.technique`, or `when.rival.technique` for a rule about the move's opponent), the text in the game's language. Read by the graft skill_card (page 2).
--- CMND_HISSATSUEFFECTS_MOVE_RULE_TEXTS(move) -> { count = n, [1..n] = sentence } (count = 0: no rule describes it).
 
 HissatsuEffects = HissatsuEffects or {}
 HissatsuEffects.RuleTexts = HissatsuEffects.RuleTexts or {}
@@ -10,7 +7,7 @@ local FOLDERS = { "rules", "content/rules", "features/*/content/rules" }
 
 local cache = nil
 
-local u32 = require("VRFW/lib/ids").u32
+local u32 = VRFW.ids.unsigned
 
 local function as_list(v)
   if type(v) == "table" then
@@ -37,8 +34,6 @@ local function move_id(ref)
   return nil
 end
 
--- the text of a key in the game's language; a key written with the mod's prefix is also tried with the mod's
--- internal id (the text engine registers keys under the internal id); "" = none
 local function text_of(key, mod)
   local ok, v = pcall(VRFW.text, key)
   if ok and type(v) == "string" and v ~= "" then
@@ -106,7 +101,6 @@ VRFW.on("slot_load", function()
   load_all()
 end)
 
--- CMND_HISSATSUEFFECTS_MOVE_RULE_TEXTS(move)
 function RuleTexts.OfMove(move)
   local out = { count = 0 }
   for _, e in ipairs(load_all()[u32(move)] or {}) do

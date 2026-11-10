@@ -1,0 +1,112 @@
+schema = "VRFW.shop/2"
+
+[[edit]]
+target = "InazumaFantasy.general_store"
+
+  [[edit.entry]]
+  item = "stadium_s91g001"        # Inazuma Big Ferry
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s91g001b"       # Inazuma Big Ferry (verano)
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s91g001c"       # Inazuma Big Ferry (festival)
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s92g001"        # Estadio Costero
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s93g001"        # Barco Pirata Fantasma
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s94g001"        # Barco Ramen
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s98g001"
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s99g001"
+  price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+[[edit]]
+target = "0x9BE09172"           # Tienda Vs (retail)
+if_not_mod = "InazumaFantasy"
+
+  [[edit.entry]]
+  item = "stadium_s91g001"       # Inazuma Big Ferry
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s91g001b"      # Inazuma Big Ferry (verano)
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s91g001c"      # Inazuma Big Ferry (festival)
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s92g001"       # Estadio Costero
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s93g001"       # Barco Pirata Fantasma
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s94g001"       # Barco Ramen
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s98g001"
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "stadium_s99g001"
+  price = 35
+  currency = "tk_vi000001"
+  costs = [{ currency = "tk_hr000008", count = 35 }]
+  stock = 1

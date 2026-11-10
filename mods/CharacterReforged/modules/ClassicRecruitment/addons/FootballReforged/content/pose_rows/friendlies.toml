@@ -1,0 +1,15 @@
+# The friendly list of a board zone: the framework's pose row screen (pages: CMND_CLASSICRECRUITMENT_FRIENDLY_MENU).
+schema = "VRFW.pose_row/1"
+
+[[VRFW.PoseRow]]
+name = "friendlies"
+source = "CMND_CLASSICRECRUITMENT_FRIENDLY_MENU"
+models = 5
+title = "classic_recruitment_friendlies_title"
+decide = "classic_recruitment_friendlies_play"
+# the board's node panel look: rows = the zone's friendlies, side panel = its players posing
+style = "node_panel"
+banner = "classic_recruitment_friendlies_title"
+panel_title = "classic_recruitment_friendlies_players"
+team = "classic_recruitment_friendlies_team_dock"
+page = "classic_recruitment_friendlies_page"

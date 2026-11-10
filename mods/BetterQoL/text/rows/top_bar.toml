@@ -1,16 +1,10 @@
-# BetterQoL's top bar texts: rows of menu_text in 9 languages, read by assets\lua\_all\utilities_top_bar.lua with
-# CMND_TEXT_GET by id = crc32(row id), and by the game's «Configuración de controles» (the label of the action row,
-# content\inputs\top_bar.toml).
 
 schema = "VRFW.text/2"
 table = "menu_text"
 
-# the open button's hint left of the shortcut row: only the button glyph markup of the action's command
-# CMD_VRFW_TOPBAR_OPEN (default L3 / N, as the player bound it in the controls screen); the engine draws the glyph of
-# the device in use. Previously the row utilities_topbar_r3 «<CMD_FUNC6>» (R3). crc32("utilities_topbar_open") =
-# 536445349
+# the open button's hint: the glyph markup of CMD_VRFW_TOPBAR_OPEN.
 [[row]]
-id = "utilities_topbar_open"
+id = "betterqol_topbar_open"
 es = "<CMD_VRFW_TOPBAR_OPEN>"
 en = "<CMD_VRFW_TOPBAR_OPEN>"
 fr = "<CMD_VRFW_TOPBAR_OPEN>"
@@ -21,10 +15,8 @@ ja = "<CMD_VRFW_TOPBAR_OPEN>"
 zh_hans = "<CMD_VRFW_TOPBAR_OPEN>"
 zh_hant = "<CMD_VRFW_TOPBAR_OPEN>"
 
-# the action's row in the game's «Configuración de controles» (tab «Controles básicos»)
-# crc32("utilities_topbar_open_action") = 870196544
 [[row]]
-id = "utilities_topbar_open_action"
+id = "betterqol_topbar_open_action"
 es = "Abrir accesos directos"
 en = "Open shortcuts"
 fr = "Ouvrir les raccourcis"

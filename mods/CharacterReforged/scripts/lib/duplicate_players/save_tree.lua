@@ -1,2 +1,2 @@
--- Character Reforged › duplicate players: the save tree adapter and patch list are the VR-Framework's shared library.
-return require "VRFW/lib/save_tree"
+-- The save tree adapter and patch list are the framework's shared library.
+return VRFW.save_tree

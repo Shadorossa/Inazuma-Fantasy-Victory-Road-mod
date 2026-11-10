@@ -1,32 +1,250 @@
-# Character Reforged › the match plates' slot tags (the aura command's selected slot: RB + D-pad switches; graft
-# hiper_btn, «<move> · Aura») from Inazuma Fantasy's text\rows\hiper_slots.toml so the tags show
-# without IF (the base's plates slot uses the selected-slot layout since Character Reforged 1.7.10). The mix slot holds
-# a Mix-Max OR a «Modo cambio»: its generic name is «Modo cambio».
+# The texts of a plate of the transformation cross (graft hiper_btn): the one-word reason in a greyed entry's pill and the type label over the name.
 schema = "VRFW.text/2"
 table = "menu_text"
 
 [[row]]
-id = "evt_hs_tag_aura"
+id = "character_reforged_cross_why_not_now"
 fallback = false
-es = "Aura"
-en = "Aura"
-fr = "Aura"
-de = "Aura"
-it = "Aura"
-pt = "Aura"
-ja = "オーラ"
-zh_hans = "灵气"
-zh_hant = "靈氣"
+es = "Ahora no"
+en = "Not now"
+fr = "Pas maintenant"
+de = "Nicht jetzt"
+it = "Non ora"
+pt = "Agora não"
+ja = "今は不可"
+zh_hans = "现在不可"
+zh_hant = "現在不可"
 
 [[row]]
-id = "evt_hs_tag_mix"
+id = "character_reforged_cross_why_tension"
 fallback = false
-es = "Modo cambio"
-en = "Change Mode"
-fr = "Mode changement"
-de = "Wechselmodus"
-it = "Modalità cambio"
-pt = "Modo mudança"
-ja = "チェンジモード"
-zh_hans = "转换模式"
-zh_hant = "轉換模式"
+es = "Tensión"
+en = "Tension"
+fr = "Tension"
+de = "Spannung"
+it = "Tensione"
+pt = "Tensão"
+ja = "テンション不足"
+zh_hans = "斗志不足"
+zh_hant = "鬥志不足"
+
+[[row]]
+id = "character_reforged_cross_why_cost"
+fallback = false
+es = "Sin puntos"
+en = "No points"
+fr = "Sans points"
+de = "Keine Punkte"
+it = "Senza punti"
+pt = "Sem pontos"
+ja = "ポイント不足"
+zh_hans = "点数不足"
+zh_hant = "點數不足"
+
+[[row]]
+id = "character_reforged_cross_why_wait"
+fallback = false
+es = "Espera"
+en = "Wait"
+fr = "Attente"
+de = "Warten"
+it = "Attesa"
+pt = "Espera"
+ja = "待機中"
+zh_hans = "等待"
+zh_hant = "等待"
+
+[[row]]
+id = "character_reforged_cross_why_active"
+fallback = false
+es = "Activo"
+en = "Active"
+fr = "Actif"
+de = "Aktiv"
+it = "Attivo"
+pt = "Ativo"
+ja = "発動中"
+zh_hans = "发动中"
+zh_hant = "發動中"
+
+[[row]]
+id = "character_reforged_cross_why_locked"
+fallback = false
+es = "Bloqueado"
+en = "Locked"
+fr = "Bloqué"
+de = "Gesperrt"
+it = "Bloccato"
+pt = "Bloqueado"
+ja = "ロック中"
+zh_hans = "已锁定"
+zh_hant = "已鎖定"
+
+[[row]]
+id = "character_reforged_cross_why_group"
+fallback = false
+es = "Falta grupo"
+en = "Group missing"
+fr = "Groupe absent"
+de = "Gruppe fehlt"
+it = "Manca il gruppo"
+pt = "Falta o grupo"
+ja = "メンバー不足"
+zh_hans = "成员不足"
+zh_hant = "成員不足"
+
+[[row]]
+id = "character_reforged_cross_why_limit"
+fallback = false
+es = "Límite"
+en = "Limit"
+fr = "Limite"
+de = "Limit"
+it = "Limite"
+pt = "Limite"
+ja = "上限"
+zh_hans = "上限"
+zh_hant = "上限"
+
+[[row]]
+id = "character_reforged_cross_why_armour"
+fallback = false
+es = "Con armadura"
+en = "Armed"
+fr = "En armure"
+de = "Gerüstet"
+it = "Con armatura"
+pt = "Com armadura"
+ja = "アームド中"
+zh_hans = "武装中"
+zh_hant = "武裝中"
+
+[[row]]
+id = "character_reforged_cross_why_duel"
+fallback = false
+es = "En duelo"
+en = "In a duel"
+fr = "En duel"
+de = "Im Duell"
+it = "In duello"
+pt = "Em duelo"
+ja = "バトル中"
+zh_hans = "对决中"
+zh_hant = "對決中"
+
+[[row]]
+id = "character_reforged_cross_why_no_spirit"
+fallback = false
+es = "Sin espíritu"
+en = "No spirit"
+fr = "Sans esprit"
+de = "Kein Kampfgeist"
+it = "Senza spirito"
+pt = "Sem espírito"
+ja = "化身なし"
+zh_hans = "无化身"
+zh_hant = "無化身"
+
+[[row]]
+id = "character_reforged_cross_why_no_miximax"
+fallback = false
+es = "Sin Miximax"
+en = "No Miximax"
+fr = "Sans Miximax"
+de = "Kein Miximax"
+it = "Senza Miximax"
+pt = "Sem Miximax"
+ja = "ミキシなし"
+zh_hans = "无合体"
+zh_hant = "無合體"
+
+[[row]]
+id = "character_reforged_cross_type_mix"
+fallback = false
+es = "Miximax / Modo cambio"
+en = "Mixi Max / Mode Change"
+fr = "Mixi Max / Changement"
+de = "Mixi Max / Moduswechsel"
+it = "Mixi Max / Cambio modo"
+pt = "Mixi Max / Modo troca"
+ja = "ミキシマックス / モードチェンジ"
+zh_hans = "合体 / 模式切换"
+zh_hant = "合體 / 模式切換"
+
+[[row]]
+id = "character_reforged_cross_type_armour"
+fallback = false
+es = "Armadura"
+en = "Armour"
+fr = "Armure"
+de = "Rüstung"
+it = "Armatura"
+pt = "Armadura"
+ja = "アームド"
+zh_hans = "武装"
+zh_hant = "武裝"
+
+[[row]]
+id = "character_reforged_cross_type_spirit"
+fallback = false
+es = "Espíritu"
+en = "Spirit"
+fr = "Esprit"
+de = "Kampfgeist"
+it = "Spirito"
+pt = "Espírito"
+ja = "化身"
+zh_hans = "化身"
+zh_hant = "化身"
+
+[[row]]
+id = "character_reforged_cross_type_group"
+fallback = false
+es = "Espíritu de grupo"
+en = "Group spirit"
+fr = "Esprit de groupe"
+de = "Gruppen-Kampfgeist"
+it = "Spirito di gruppo"
+pt = "Espírito de grupo"
+ja = "合体化身"
+zh_hans = "合体化身"
+zh_hant = "合體化身"
+
+[[row]]
+id = "character_reforged_cross_type_inherited"
+fallback = false
+es = "Espíritu heredado"
+en = "Inherited spirit"
+fr = "Esprit hérité"
+de = "Geerbter Kampfgeist"
+it = "Spirito ereditato"
+pt = "Espírito herdado"
+ja = "継承化身"
+zh_hans = "继承化身"
+zh_hant = "繼承化身"
+
+[[row]]
+id = "character_reforged_cross_type_spirit_technique"
+fallback = false
+es = "Técnica del espíritu"
+en = "Spirit technique"
+fr = "Technique de l'esprit"
+de = "Kampfgeist-Technik"
+it = "Tecnica dello spirito"
+pt = "Técnica do espírito"
+ja = "化身技"
+zh_hans = "化身技"
+zh_hant = "化身技"
+
+[[row]]
+id = "character_reforged_cross_type_mix_technique"
+fallback = false
+es = "Técnica del Miximax"
+en = "Mixi Max technique"
+fr = "Technique Mixi Max"
+de = "Mixi-Max-Technik"
+it = "Tecnica Mixi Max"
+pt = "Técnica Mixi Max"
+ja = "ミキシ技"
+zh_hans = "合体技"
+zh_hant = "合體技"

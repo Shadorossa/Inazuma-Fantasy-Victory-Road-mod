@@ -1,25 +1,9 @@
--- Football competitions for mod scripts: round-robin calendars, standings tables, seeded goal counts, knockout rounds
--- and the knockout tree view drawn by the bracket screen (menu Lua VRFW_Bracket). Mechanism only: the points, the
--- tie-breaks, the match model and the random numbers are the caller's.
---   local Competition = require "VRFW/lib/competition"
---   Competition.round_robin(teams, opts)      -> days: { { { home, away }, ... } per matchday } (circle method)
---   Competition.standings(teams, results, opts) -> rows sorted best first
---   Competition.poisson(uniform, mean, cap)    -> a goal count of mean `mean` (uniform() = a number in [0, 1))
---   Competition.is_power_of_two(n)             -> true for 2, 4, 8, ...
---   Competition.seed_order(n)                  -> the standard seed order of n leaves (seeds 1 and 2 meet in the final)
---   Competition.next_round(winners, seed)      -> the next round's pairs of a list of winners
---   Competition.bracket_view(bracket)          -> a view of kind "tree" for the bracket screen
 
 local Competition = {}
 
 local floor, exp = math.floor, math.exp
 
--- ------------------------------------------------------------------------------------------------ calendars
-
--- teams (in draw order), opts { double = every pairing twice with the sides swapped, rotate = "right" (default) or
--- "left": the way the circle turns each matchday } -> days. The first team stays in place, the others turn one place a
--- matchday; an odd count adds a rest (team 0, its pairs left out). Home sides alternate: the first pair by matchday,
--- the others by their place, so home and away even out.
+--- The fixtures of a league between `teams`.
 function Competition.round_robin(teams, opts)
   opts = type(opts) == "table" and opts or {}
   local list = {}
@@ -62,8 +46,6 @@ function Competition.round_robin(teams, opts)
   return days
 end
 
--- ------------------------------------------------------------------------------------------------ standings
-
 local DEFAULT_POINTS = { win = 3, draw = 1, loss = 0 }
 local DEFAULT_TIEBREAKS = { "points", "goal_diff", "goals_for", "order" }
 
@@ -97,12 +79,7 @@ local function head_to_head(x, y, results, points)
   return nil
 end
 
--- teams (in draw order), results { { home, away, home goals, away goals }, ... } (played matches only), opts:
---   points    = { win, draw, loss } (default 3 / 1 / 0)
---   tiebreaks = the sort keys in order (default points, goal_diff, goals_for, order): "points", "goal_diff",
---               "goals_for", "head_to_head" (the points, then the goal difference of the two teams' matches), "lot"
---               (opts.lot[team], lower first), "order" (the place in `teams`), or a function(x, y) -> true / false / nil
--- -> rows { team, played, won, drawn, lost, goals_for, goals_against, goal_diff, points, order }, best first
+--- The table of `teams` after `results`.
 function Competition.standings(teams, results, opts)
   opts = type(opts) == "table" and opts or {}
   local points = opts.points or DEFAULT_POINTS
@@ -170,9 +147,7 @@ function Competition.standings(teams, results, opts)
   return rows
 end
 
--- ------------------------------------------------------------------------------------------------ matches
-
--- a goal count drawn from a Poisson law of mean `mean` with the caller's uniform numbers, at most cap + 1 draws
+--- a goal count drawn from a Poisson law of mean `mean` with the caller's uniform numbers, at most cap + 1 draws
 function Competition.poisson(uniform, mean, cap)
   local limit, k, p = exp(-mean), 0, 1
   repeat
@@ -182,8 +157,7 @@ function Competition.poisson(uniform, mean, cap)
   return k - 1
 end
 
--- ------------------------------------------------------------------------------------------------ knockouts
-
+--- True when `n` is a power of two of at least 2.
 function Competition.is_power_of_two(n)
   if type(n) ~= "number" or n < 2 or n ~= floor(n) then
     return false
@@ -194,8 +168,7 @@ function Competition.is_power_of_two(n)
   return n == 1
 end
 
--- the standard seed order of n leaves (n a power of two, 1 = the best seed): 1, n/2 + 1, ... so that seeds 1 and 2
--- meet only in the final
+--- the standard seed order of n leaves (n a power of two, 1 = the best seed): 1, n/2 + 1, ...
 function Competition.seed_order(n)
   local order = { 1 }
   while #order < n do
@@ -210,7 +183,7 @@ function Competition.seed_order(n)
   return order
 end
 
--- the next round of a knockout: the winners of matches 1-2, 3-4, ... meet; seed[team] lower = the better team, at home
+--- the next round of a knockout: the winners of matches 1-2, 3-4, ...
 function Competition.next_round(winners, seed)
   seed = seed or {}
   local out = {}
@@ -224,18 +197,7 @@ function Competition.next_round(winners, seed)
   return out
 end
 
--- The knockout tree as the bracket screen draws it. bracket:
---   rounds  = R (the final is round R)
---   leaves  = the entrants of round 1 in tree order (2^R of them) (match t of round 1 = leaves 2t-1 and 2t; the first half is the
---             left side): a team id (0 = an empty slot) or { team, me }
---   me      = the player's team (a leaf is `me` when its team is this one, unless the leaf says)
---   match(r, t, upper, lower) -> nil (not played) or { w = 0 | 1 (upper won) | 2 (lower won), score = false |
---             { ga, gb, pa, pb, et } } (the upper team's goals first); upper / lower are the teams the tree brings to
---             that match (0 = not known yet)
---   champion = the champion's team (default 0)
---   next_from = a round number: view.next = the player's next rival, looked up from that round on (both teams known,
---             the match not played; 0 = none); nil = no view.next
--- -> { kind = "tree", rounds, leaves[i] = { team, me, out, won }, matches[r][t] = { w, score }, champion[, next] }
+--- The knockout tree as the bracket screen draws it.
 function Competition.bracket_view(bracket)
   local R = bracket.rounds
   local next_from = tonumber(bracket.next_from)

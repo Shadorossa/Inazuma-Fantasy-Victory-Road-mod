@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Bola de nieve (Big Snowball): the download's move whs90008, a clone of whs00360 with its numbers; its event ev60_90008 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "big_snowball"

@@ -1,7 +1,4 @@
-# Declaration schema of VRFW.rival_players/1 (content\rival_players): what each rival player of a match gets for that
-# match only: passives in his 5 passive slots, absolute stats, stat points and a training to the full by position
-# (scripts\lib\rival_players.lua, scripts\rival_players.lua; docs/framework/types/rival-players.md). Names
-# (training_stats, passive_sets, position_passives, a player's rule) are looked up in the same file.
+# Declaration schema of VRFW.rival_players/1 (content\rival_players): what each rival player of a match gets.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.rival_players/1"
 folder = "content/rival_players"

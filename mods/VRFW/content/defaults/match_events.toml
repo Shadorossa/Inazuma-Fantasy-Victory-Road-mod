@@ -1,4 +1,3 @@
-# Maps scripted event name prefixes (lower case) to a group word; the longest matching prefix wins (no match = "other", no name = "unnamed").
 [groups]
 ev60_ = "shot"       # shot techniques
 ev61_ = "dribble"    # dribble techniques

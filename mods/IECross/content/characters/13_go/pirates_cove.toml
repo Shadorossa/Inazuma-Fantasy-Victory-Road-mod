@@ -1,8 +1,4 @@
 schema = "VRFW.character/2"
-# Inazuma Eleven Cross · Pirates Cove · Inazuma Eleven GO: the Cross version(s) of this team's characters (fixed ids,
-# created by their `order`; series «Inazuma Eleven Cross»: chara_base team_3 = crc32("evt_belong_team_cross")).
-# Inazuma Fantasy's EVT fields of their cards (growth, Lv200 stats, INAROGUE rarity) are IF's
-# characters\iecross_cards.toml.
 default_lang = "en"
 
 [[character]]
@@ -17,7 +13,7 @@ order = 43
   series = 0x9299810F
   team_1 = 0x8677AA25
   team_2 = 0x00000000
-  team_3 = 0x1E5DC7AA
+  team_3 = 0x1002688A
   in_ie3 = 0
 
   [character.new_model]
@@ -57,7 +53,7 @@ order = 44
   voice_bank = 0x34E95EEC
   series = 0x9299810F
   team_1 = 0x8677AA25
-  team_3 = 0x1E5DC7AA
+  team_3 = 0x1002688A
   in_ie2 = 1
   in_ie3 = 0
 
@@ -75,13 +71,13 @@ order = 44
   from = 0x9D1D509E                                       # template: Xavier Foster (c03030040)
   order = 55
   moves = [
-    { move = 0xC9B4602F, level = 1 },                     # Final Death Zone
+    { move = 0x59733AE7, level = 1 },                     # Ocean Birth
     { move = 0x65766A4F, level = 13 },                    # Meteor Blade
-    { move = 0xC3D894B7, level = 20 },                    # The Dawn
-    { move = 0xDAC3A5F6, level = 30 },                    # Big Bang
-    { move = 0xEE3E059F, level = 38 },                    # Celestial Smash
+    { move = 0xEE3E059F, level = 20 },                    # Celestial Smash
+    { move = 0xC3D894B7, level = 30 },                    # The Dawn
+    { move = 0xDAC3A5F6, level = 38 },                    # Big Bang
     { move = 0x2296A01A, level = 43 },                    # Southern Cross
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
-    { move = 0x59733AE7, level = 1 },                     # Ocean Birth
+    { move = 0, level = 0 },                              # (empty)
   ]

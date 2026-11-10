@@ -1,6 +1,3 @@
-# The pose row screen's layout (vrfw_pose_row_menu, docs/framework/pose-row.md §3): screen px of a 1920 x 1080 menu,
-# y down. Read by scripts\pose_row.lua (served with each declaration) and by the preview
-# (research/scripts/pose_row_preview.py).
 [layout]
 rows = 10                       # list rows shown at once
 list = { x = 60, y = 160, w = 560, h = 74, gap = 8 }
@@ -14,12 +11,8 @@ feet_y = 668
 head_y = 338
 # the card under each model
 card = { w = 230, h = 196, y = 700, bar = 6 }
-# the default style's art by role: [retail atlas, sprite] from the screen's res (the Chronicle board's vsroute01_15 /
-# _16), drawn as loaded; the plain tinted shapes take no colour on this screen. A mod's content\screen_art\*.toml
-# (Screen = "pose_row") still wins
 art = { panel_ground = ["#/menu/30_vsroute/vsroute01/vsroute01_15/vsroute01_15.g4tx", "list_base01"], list_row = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base01_off"], list_row_focus = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base01_on"], list_badge = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base_xs01_gray"], card = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base01_off"], tag_owned = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base_xs01_gray"], tag_new = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base_xs01_gray"], position_1 = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base_xs01_gray"], position_2 = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base_xs01_gray"], position_3 = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base_xs01_gray"], position_4 = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base_xs01_gray"] }
 
-# style "node_panel": the Chronicle board's node panel look (left) and a blue side panel with the models (right)
 [layout.node_panel]
 title = { x = 40, y = 42, w = 890, h = 70, scale = 1.15 }
 banner = { x = 90, y = 190, w = 530, h = 160, scale = 1.0, icon = { x = 515, y = 265, size = 150 } }
@@ -42,8 +35,6 @@ model_z = -1.1
 card = { w = 202, h = 266, y = 649, bar = 6 }
 # the players of the page under the models: one row each (check box, name, challenge)
 player_rows = { x = 740, y = 648, w = 1050, h = 46, step = 54, name_scale = 0.62, text_scale = 0.55, text_x = 340 }
-# the style's art by role: [retail atlas, sprite] (the Chronicle board's node panel vsroute01_16 / _17 and the rate
-# panel vsroute01_15); a mod's content\screen_art\*.toml (Screen = "pose_row") still wins
 [layout.node_panel.art]
 title_band = ["#/menu/30_vsroute/vsroute01/vsroute01_16/vsroute01_16.g4tx", "list_base01_on"]
 banner = ["#/menu/30_vsroute/vsroute01/vsroute01_17/vsroute01_17.g4tx", "myteam_base01_a"]
@@ -64,8 +55,6 @@ side_panel = ["#/menu/30_vsroute/vsroute01/vsroute01_15/vsroute01_15.g4tx", "lis
 arrow_up = ["#/menu/02_btl/btl01/btl01_01/btl01_01.g4tx", "chr_arrow01_u"]
 arrow_down = ["#/menu/02_btl/btl01/btl01_01/btl01_01.g4tx", "chr_arrow01_d"]
 
-# The model camera (the shop list base's: eye (0, 2.25, 12.5) looking at (0, 1.6, 0), 3060 px a metre at 1 m) and the
-# depth the models stand at (world z): the screen turns slot_x / feet_y into world places with it.
 [camera]
 eye_y = 2.25
 eye_z = 12.5

@@ -1,0 +1,128 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# Alternate styles sold as outfits: each is worn by one player, who shows the retail variant of his head while wearing it.
+
+[[VRFW.Outfit]]
+Name = "edwin_alternate_style"
+Kit = { Uniform = "0xFD24A661" }
+IconKey = "cos_if_edwin_style"
+Who = ["c11010500"]  # Edwin
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Estilo alternativo de Edwin"
+  Description = "El estilo alternativo de Edwin.\nSolo lo puede llevar Edwin."
+  [VRFW.Outfit.Text.en]
+  Name = "Edwin's alternate style"
+  Description = "Edwin's alternate style.\nOnly Edwin can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Style alternatif de Edwin"
+  Description = "Le style alternatif de Edwin.\nSeul Edwin peut le porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Alternativer Stil von Edwin"
+  Description = "Der alternative Stil von Edwin.\nNur Edwin kann ihn tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Stile alternativo di Edwin"
+  Description = "Lo stile alternativo di Edwin.\nSolo Edwin può indossarlo."
+  [VRFW.Outfit.Text.pt]
+  Name = "Estilo alternativo de Edwin"
+  Description = "O estilo alternativo de Edwin.\nSó Edwin o pode usar."
+  [VRFW.Outfit.Text.ja]
+  Name = "[長夢/おさむ]の[別/べつ]スタイル"
+  Description = "[長夢/おさむ]の[別/べつ]スタイル。\n[長夢/おさむ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "长梦的另类造型"
+  Description = "长梦的另类造型。\n只有长梦可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "長夢的另類造型"
+  Description = "長夢的另類造型。\n只有長夢可以穿。"
+
+[[VRFW.ItemTransform]]
+name = "InazumaFantasy.EdwinAlternateStyle"
+item = "edwin_alternate_style"
+variant = "never"
+equip_limit = false  # the outfit's Who already lists only this player
+pairs = [
+    { base = "c11010500", target = "c91010510" },
+]
+
+[[VRFW.Outfit]]
+Name = "axel_blaze_alternate_style"
+Kit = { Uniform = "0xCC9A27AC" }
+IconKey = "cos_if_axel_blaze_style"
+Who = ["c11500530"]  # Axel Blaze
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Estilo alternativo de Axel Blaze"
+  Description = "El estilo alternativo de Axel Blaze.\nSolo lo puede llevar Axel Blaze."
+  [VRFW.Outfit.Text.en]
+  Name = "Axel Blaze's alternate style"
+  Description = "Axel Blaze's alternate style.\nOnly Axel Blaze can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Style alternatif de Axel Blaze"
+  Description = "Le style alternatif de Axel Blaze.\nSeul Axel Blaze peut le porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Alternativer Stil von Axel Blaze"
+  Description = "Der alternative Stil von Axel Blaze.\nNur Axel Blaze kann ihn tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Stile alternativo di Axel Blaze"
+  Description = "Lo stile alternativo di Axel Blaze.\nSolo Axel Blaze può indossarlo."
+  [VRFW.Outfit.Text.pt]
+  Name = "Estilo alternativo de Axel Blaze"
+  Description = "O estilo alternativo de Axel Blaze.\nSó Axel Blaze o pode usar."
+  [VRFW.Outfit.Text.ja]
+  Name = "[豪炎寺/ごうえんじ] [修也/しゅうや]の[別/べつ]スタイル"
+  Description = "[豪炎寺/ごうえんじ] [修也/しゅうや]の[別/べつ]スタイル。\n[豪炎寺/ごうえんじ] [修也/しゅうや]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "豪炎寺 修也的另类造型"
+  Description = "豪炎寺 修也的另类造型。\n只有豪炎寺 修也可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "豪炎寺 修也的另類造型"
+  Description = "豪炎寺 修也的另類造型。\n只有豪炎寺 修也可以穿。"
+
+[[VRFW.ItemTransform]]
+name = "InazumaFantasy.AxelBlazeAlternateStyle"
+item = "axel_blaze_alternate_style"
+variant = "never"
+equip_limit = false  # the outfit's Who already lists only this player
+pairs = [
+    { base = "c11500530", target = "c91500531" },
+]
+
+# The retail dress exists only for body group 1, so every player of that group can wear it.
+[[VRFW.Outfit]]
+Name = "celia_hills_alternate_style"
+Kit = { Uniform = "0x1E6217D5" }
+IconKey = "cos_if_celia_hills_style"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Estilo alternativo de Celia Hills"
+  Description = "El estilo alternativo de Celia Hills.\nSolo para los tipos de cuerpo compatibles."
+  [VRFW.Outfit.Text.en]
+  Name = "Celia Hills's alternate style"
+  Description = "Celia Hills's alternate style.\nOnly for compatible body types."
+  [VRFW.Outfit.Text.fr]
+  Name = "Style alternatif de Celia Hills"
+  Description = "Le style alternatif de Celia Hills.\nRéservé aux morphologies compatibles."
+  [VRFW.Outfit.Text.de]
+  Name = "Alternativer Stil von Celia Hills"
+  Description = "Der alternative Stil von Celia Hills.\nNur für passende Körpertypen."
+  [VRFW.Outfit.Text.it]
+  Name = "Stile alternativo di Celia Hills"
+  Description = "Lo stile alternativo di Celia Hills.\nSolo per le corporature compatibili."
+  [VRFW.Outfit.Text.pt]
+  Name = "Estilo alternativo de Celia Hills"
+  Description = "O estilo alternativo de Celia Hills.\nSó para tipos de corpo compatíveis."
+  [VRFW.Outfit.Text.ja]
+  Name = "[音無/おとなし][春奈/はるな]の[別/べつ]スタイル"
+  Description = "[音無/おとなし][春奈/はるな]の[別/べつ]スタイル。\n[対応/たいおう]する[体型/たいけい]のみ[着用/ちゃくよう][可能/かのう]。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "音无春奈的另类造型"
+  Description = "音无春奈的另类造型。\n仅限对应体型穿着。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "音無春奈的另類造型"
+  Description = "音無春奈的另類造型。\n僅限對應體型穿著。"

@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Eternal Dancers · Inazuma Eleven: Orion
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c08040010"                                   # Bolero Salimov
 moves = [
-  { move = 0x66539403, level = 1 },                         # Behind Bars
-  { move = 0x2B8C597E, level = 13 },                        # Fugue Wave
-  { move = 0x47380F29, level = 20 },                        # Echo Ball
-  { move = 0xD9E65BBA, level = 30 },                        # Aurora Curtain
+  { move = 0x822B79EA, level = 1 },                         # Somersault Stamp
+  { move = 0xD9E65BBA, level = 13 },                        # Aurora Curtain
+  { move = 0x41AEB4DF, level = 20 },                        # Crystal Barrier
+  { move = 0x66539403, level = 30 },                        # Behind Bars
 ]
 
   [[edit.cards]]
@@ -22,10 +19,10 @@ moves = [
 [[edit]]
 target = "c08040020"                                   # Kizomba Zakharov
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
-  { move = 0x7CACF0B0, level = 13 },                        # Horn Train
-  { move = 0x5781A373, level = 20 },                        # Hurricane Arrows
-  { move = 0x61FB16FD, level = 30 },                        # Divine Arrows
+  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
+  { move = 0x5781A373, level = 13 },                        # Hurricane Arrows
+  { move = 0x61FB16FD, level = 20 },                        # Divine Arrows
+  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
 ]
 
   [[edit.cards]]
@@ -37,10 +34,10 @@ moves = [
 [[edit]]
 target = "c08040030"                                   # Rumba Mansurov
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
-  { move = 0x7CACF0B0, level = 13 },                        # Horn Train
-  { move = 0x5781A373, level = 20 },                        # Hurricane Arrows
-  { move = 0x41F3CDC2, level = 30 },                        # Scorching Tackle
+  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
+  { move = 0x5781A373, level = 13 },                        # Hurricane Arrows
+  { move = 0x41F3CDC2, level = 20 },                        # Scorching Tackle
+  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
 ]
 
   [[edit.cards]]
@@ -53,10 +50,10 @@ moves = [
 [[edit]]
 target = "c08040040"                                   # Merengue Muratov
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
-  { move = 0xA2BF7076, level = 13 },                        # Side Swipe
-  { move = 0x1162A8AF, level = 20 },                        # Bewilder Blast
-  { move = 0x61FB16FD, level = 30 },                        # Divine Arrows
+  { move = 0x1162A8AF, level = 1 },                         # Bewilder Blast
+  { move = 0x61FB16FD, level = 13 },                        # Divine Arrows
+  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
+  { move = 0xA2BF7076, level = 30 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -69,9 +66,9 @@ moves = [
 [[edit]]
 target = "c08040050"                                   # Chacha Goncharov
 moves = [
-  { move = 0xA2BF7076, level = 1 },                         # Side Swipe
-  { move = 0x1162A8AF, level = 13 },                        # Bewilder Blast
-  { move = 0xC0A013E6, level = 20 },                        # Liar Shot
+  { move = 0x1162A8AF, level = 1 },                         # Bewilder Blast
+  { move = 0xC0A013E6, level = 13 },                        # Liar Shot
+  { move = 0xA2BF7076, level = 20 },                        # Side Swipe
   { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
 ]
 
@@ -84,10 +81,10 @@ moves = [
 [[edit]]
 target = "c08040060"                                   # Hulan Nazarova
 moves = [
-  { move = 0x1162A8AF, level = 1 },                         # Bewilder Blast
-  { move = 0xA2BF7076, level = 13 },                        # Side Swipe
+  { move = 0xC2E6ADBF, level = 1 },                         # Log Roll
+  { move = 0x1162A8AF, level = 13 },                        # Bewilder Blast
   { move = 0xC0A013E6, level = 20 },                        # Liar Shot
-  { move = 0xC2E6ADBF, level = 30 },                        # Log Roll
+  { move = 0xA2BF7076, level = 30 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -100,9 +97,9 @@ moves = [
 [[edit]]
 target = "c08040070"                                   # Polkan Ismailov
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
-  { move = 0x56FBAD3B, level = 13 },                        # Seal Matrix
-  { move = 0x7CACF0B0, level = 20 },                        # Horn Train
+  { move = 0x56FBAD3B, level = 1 },                         # Seal Matrix
+  { move = 0x7CACF0B0, level = 13 },                        # Horn Train
+  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
   { move = 0x427719AC, level = 30 },                        # Gale Dash
 ]
 
@@ -117,8 +114,8 @@ moves = [
 target = "c08040080"                                   # Jazzar Belikov
 moves = [
   { move = 0x56FBAD3B, level = 1 },                         # Seal Matrix
-  { move = 0x17110E3B, level = 13 },                        # Jumbo Sandwich
-  { move = 0x7CACF0B0, level = 20 },                        # Horn Train
+  { move = 0x7CACF0B0, level = 13 },                        # Horn Train
+  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
   { move = 0x637C031A, level = 30 },                        # No Escape
 ]
 
@@ -132,9 +129,9 @@ moves = [
 [[edit]]
 target = "c08040090"                                   # Limbo Zakharov
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
-  { move = 0x56FBAD3B, level = 13 },                        # Seal Matrix
-  { move = 0x7CACF0B0, level = 20 },                        # Horn Train
+  { move = 0x56FBAD3B, level = 1 },                         # Seal Matrix
+  { move = 0x7CACF0B0, level = 13 },                        # Horn Train
+  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
   { move = 0xAEEA9F97, level = 30 },                        # Sigma Zone
 ]
 
@@ -147,10 +144,10 @@ moves = [
 [[edit]]
 target = "c08040100"                                   # Samba Sokolov
 moves = [
-  { move = 0xAD53B378, level = 1 },                         # Diffusal Chord
+  { move = 0x6A558852, level = 1 },                         # Hollow Blare
   { move = 0x3297683F, level = 13 },                        # Warp Step
-  { move = 0x6A558852, level = 20 },                        # Hollow Blare
-  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0xAD53B378, level = 30 },                        # Diffusal Chord
 ]
 
   [[edit.cards]]
@@ -162,10 +159,10 @@ moves = [
 [[edit]]
 target = "c08040110"                                   # Tango Ahmedov
 moves = [
-  { move = 0x3297683F, level = 1 },                         # Warp Step
-  { move = 0x6A558852, level = 13 },                        # Hollow Blare
-  { move = 0xAD53B378, level = 20 },                        # Diffusal Chord
-  { move = 0x035C1112, level = 30 },                        # Gungnir
+  { move = 0x6A558852, level = 1 },                         # Hollow Blare
+  { move = 0x035C1112, level = 13 },                        # Gungnir
+  { move = 0x3297683F, level = 20 },                        # Warp Step
+  { move = 0xAD53B378, level = 30 },                        # Diffusal Chord
 ]
 
   [[edit.cards]]
@@ -178,9 +175,9 @@ moves = [
 [[edit]]
 target = "c08040120"                                   # Cancan Popov
 moves = [
-  { move = 0xD9BB22A7, level = 1 },                         # Air Ride
+  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
   { move = 0x6A558852, level = 13 },                        # Hollow Blare
-  { move = 0x3EC287DE, level = 20 },                        # Bubble Gum
+  { move = 0xD9BB22A7, level = 20 },                        # Air Ride
   { move = 0xB3CA3CB6, level = 30 },                        # Parkour Power
 ]
 
@@ -193,10 +190,10 @@ moves = [
 [[edit]]
 target = "c08040130"                                   # Bhangra Makarov
 moves = [
-  { move = 0xD9BB22A7, level = 1 },                         # Air Ride
-  { move = 0x7CACF0B0, level = 13 },                        # Horn Train
-  { move = 0x3EC287DE, level = 20 },                        # Bubble Gum
-  { move = 0x5E7E4775, level = 30 },                        # Table-Turner
+  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
+  { move = 0x3EC287DE, level = 13 },                        # Bubble Gum
+  { move = 0x56FBAD3B, level = 20 },                        # Seal Matrix
+  { move = 0xD9BB22A7, level = 30 },                        # Air Ride
 ]
 
   [[edit.cards]]
@@ -209,10 +206,10 @@ moves = [
 [[edit]]
 target = "c11808040"                                   # Ballet Burkhanov
 moves = [
-  { move = 0x3297683F, level = 1 },                         # Warp Step
-  { move = 0xAD53B378, level = 13 },                        # Diffusal Chord
-  { move = 0x6A558852, level = 20 },                        # Hollow Blare
-  { move = 0x2B8C597E, level = 30 },                        # Fugue Wave
+  { move = 0x6A558852, level = 1 },                         # Hollow Blare
+  { move = 0x2B8C597E, level = 13 },                        # Fugue Wave
+  { move = 0x3297683F, level = 20 },                        # Warp Step
+  { move = 0xAD53B378, level = 30 },                        # Diffusal Chord
 ]
 
   [[edit.cards]]
@@ -225,9 +222,9 @@ moves = [
 [[edit]]
 target = "c11808050"                                   # Carrie Ogrova
 moves = [
-  { move = 0x13D845C9, level = 1 },                         # Samba Strike
-  { move = 0xA5F2EFEA, level = 13 },                        # Brave Shot
-  { move = 0x5E233E68, level = 20 },                        # Super Elastico
+  { move = 0x822B79EA, level = 1 },                         # Somersault Stamp
+  { move = 0xA9062A29, level = 13 },                        # Ultrasonic
+  { move = 0x13D845C9, level = 20 },                        # Samba Strike
   { move = 0x66539403, level = 30 },                        # Behind Bars
 ]
 

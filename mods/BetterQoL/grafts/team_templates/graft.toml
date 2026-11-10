@@ -1,0 +1,13 @@
+# Team templates on the team dock (hook file on the soccer_team_dock_menu host): L1 / R1 walk them, R3 / N lists them.
+name = "team_templates"
+mod = "BetterQoL"
+order = 310
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "Team templates: L1 / R1 in the team dock walk the templates 1..N; R3 / N opens the template list (pages of 10)"
+
+[[hooks]]
+stem = "soccer_team_dock_menu"
+source = "betterqol_team_templates_dock.lua"

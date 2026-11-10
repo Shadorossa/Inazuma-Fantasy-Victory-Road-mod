@@ -1,5 +1,3 @@
-# Chronicle Deluxe: the «Sello del Maestro» notice on the Chronicle board (graft chronicle_deluxe_master_seal, CMND_TEXT_GET
-# of crc32(id) = 3424470956), shown once after the win that makes the key item owned (the Destructores gate battle).
 schema = "VRFW.text/2"
 table = "menu_text"
 

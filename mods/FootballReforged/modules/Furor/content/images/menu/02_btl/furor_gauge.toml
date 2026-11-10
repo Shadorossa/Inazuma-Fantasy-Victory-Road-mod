@@ -1,8 +1,3 @@
-# Furor › the fire gauge sprites of the furor HUD: GO Strikers 2013's own gauge (GUI_TG texture, UI file 100)
-# remastered at 4 x by research/scripts/furor_gauge_draw.py (do not edit by hand). Three atlases (a G4TX holds at
-# most 255 sprites): furor_gauge (Max, troughs, sparkle, flames, glow), furor_gauge_up / furor_gauge_down (the
-# rising / falling stripe frames). Left team x 0-1023, right team (flipped) from x 1024; flames, glow
-# and stripes are cut in 31 steps from the crest side.
 schema = "VRFW.image/1"
 
 [[texture]]

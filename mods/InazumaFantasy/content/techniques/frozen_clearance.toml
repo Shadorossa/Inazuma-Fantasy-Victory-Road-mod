@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Despeje helado (Icicle Punch): the download's move whk93001, a clone of whk01550 with its numbers; its event ev63_93001_1 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "frozen_clearance"

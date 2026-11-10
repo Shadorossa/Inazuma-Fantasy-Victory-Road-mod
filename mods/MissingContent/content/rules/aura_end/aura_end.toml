@@ -1,0 +1,43 @@
+schema = "VRFW.field_clip/1"
+# Aura-end field clips: Chrono Stone end poses played on the pitch when a keshin, armour or miximax ends in open play.
+
+# kka0011 (化身消滅): the player drops to one knee.
+[[field_clip]]
+name = "aura_end_kneel"
+glb = "assets/anims/aura_end/cs_kka0011.glb"
+
+# kka0010 (化身解除): one arm sweeps out.
+[[field_clip]]
+name = "keshin_release_sweep"
+glb = "assets/anims/aura_end/cs_kka0010.glb"
+
+# vxa0011: both arms thrown out.
+[[field_clip]]
+name = "miximax_end_arms"
+glb = "assets/anims/aura_end/cs_vxa0011.glb"
+
+[[field_clip]]
+name = "aura_end_kneel_hold"
+glb = "assets/anims/aura_end/cs_kka0011_hold.glb"
+loop = "stand"
+
+# A keshin or an armour whose time or gauge ran out: the kneel.
+[[on_aura_end]]
+aura = ["keshin", "armour"]
+cause = ["time_out", "gauge_empty"]
+clip = "aura_end_kneel"
+skip_controlled = true
+
+# A keshin dismissed with the release button: the sweep.
+[[on_aura_end]]
+aura = "keshin"
+cause = "release"
+clip = "keshin_release_sweep"
+skip_controlled = true
+
+# A miximax whose time or gauge ran out: both arms out.
+[[on_aura_end]]
+aura = "miximax"
+cause = ["time_out", "gauge_empty"]
+clip = "miximax_end_arms"
+skip_controlled = true

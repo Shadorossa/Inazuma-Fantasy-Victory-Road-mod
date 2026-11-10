@@ -1,6 +1,4 @@
 schema = "VRFW.character/2"
-# Inazuma Fantasy: Colmillo del Tigre's tiger as a `_waza` actor: the game finds it through its chara_base row
-# (id = crc32(name)) and that row's chara_model row (id = crc32(name) ^ 0x0A0B78D5), as every retail `_waza` model.
 default_lang = "en"
 
 [[character]]

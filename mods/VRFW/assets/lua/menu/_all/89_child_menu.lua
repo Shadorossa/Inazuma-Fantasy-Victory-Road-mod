@@ -1,42 +1,17 @@
--- VRFW_ChildMenu: the open / redraw / close handshake of a draw-only child menu (registry priority 0: it never takes
--- the pad) opened over a host menu that keeps the keys. Definitions only: no engine call at load. Event-driven: the
--- host's FinalizeMenu closes its children, the child tells its host when it opened and when it closed.
---
--- Host side (in the host menu's VM; every call from a callback):
---   local child = VRFW_ChildMenu.Host(menu_name, { prefix = "<params prefix>", log = function(...) end,
---                                                  label = "<name in the log>", send = function(page) end })
---   child.Show(page, host, ...)  the child opened, or drawn again when it is up (page and host written to the
---                                parameters <prefix>page and <prefix>host_hi / _lo, send(page) writes the child's own
---                                ones; ... goes to the child's on_redraw)
---   child.Hide(why)              the child closed (another page, the host leaving)
---   child.Step()                 every Step of the host: opens the child after an earlier one closed
---   child.Call(fn, ...)          a cross-menu call of a function of the open child
---   child.Open()                 true while the child is open
---   child.Wanted()               true while the child is wanted on screen
---   VRFW_ChildMenu.Close(menu_name, why) -> true when it was open: a child menu closed from a menu not its host
--- Child side (in the child menu's VM):
---   local child = VRFW_ChildMenu.Child(menu_name, { prefix = "<params prefix>", log = function(...) end,
---                                                   label = "<name in the log>",
---                                                   on_redraw = function(page, ...) end,  -- draw the page again
---                                                   on_close = function(why) end })       -- hide every piece now
---   child.Init()      in OnInit: reads the page and the host -> page, host
---   child.Step()      in Step -> true while closing (draw nothing); the first Step tells the host it opened
---   child.Finalize()  in FinalizeMenu: tells the host it closed
---   child.Host(), child.Page(), child.Closing()
-if VRFW_ChildMenu == nil then
+if VRFW.child_menu == nil then
   local ChildMenu = {}
 
   local CROSS_CALL = 830228314    -- (menu, function name, ...): a function of another menu's Lua
-  local REVIVE_STEPS = 30         -- a child still closing this many host Steps after it is wanted again is shown again
-  local CLOSE_RETRY_STEPS = 30    -- a closing child asks the engine again every this many of its Steps
+  local REVIVE_STEPS = 30
+  local CLOSE_RETRY_STEPS = 30
   local CLOSE_RETRIES = 10        -- at most this many close requests of a closing child
 
   local function crc(s)
-    return type(s) == "number" and s or VRFW_Crc32(s)
+    return type(s) == "number" and s or VRFW.crc32(s)
   end
 
   local function exists(menu)
-    return funcLuaMenuCommand(VRFW_Cmd.IS_EXIST_MENU_OBJECT, menu) == true
+    return funcLuaMenuCommand(VRFW.commands.IS_EXIST_MENU_OBJECT, menu) == true
   end
 
   local function logger_of(spec, label)
@@ -45,16 +20,14 @@ if VRFW_ChildMenu == nil then
     end
     local log
     return function(...)
-      log = log or VRFW_Log.New("VRFW.child_menu")
+      log = log or VRFW.logger.new("VRFW.child_menu")
       log(label, ...)
     end
   end
 
-  -- ---- host side ------------------------------------------------------------------------------------------------------
   local hosted = {}               -- menu crc -> host object of this VM
   local finalize_hooked = false
 
-  -- the host menu destroyed: every child of it closes (it no longer tells this host anything)
   local function hook_finalize()
     if finalize_hooked then
       return
@@ -63,7 +36,7 @@ if VRFW_ChildMenu == nil then
     local previous = _ENV.FinalizeMenu
     _ENV.FinalizeMenu = function(...)
       for _, h in pairs(hosted) do
-        pcall(h.Gone)
+        pcall(h.gone)
       end
       if type(previous) == "function" then
         return previous(...)
@@ -71,22 +44,24 @@ if VRFW_ChildMenu == nil then
     end
   end
 
-  -- the child's own reports (cross-menu calls of the child)
-  function VRFW_ChildMenu_Opened(menu)
+  --- The child's own reports (cross-menu calls of the child).
+  function vrfw_child_menu_opened(menu)
     local h = hosted[menu]
     if h then
-      h.Event("opened")
+      h.event("opened")
     end
   end
 
-  function VRFW_ChildMenu_Closed(menu)
+  --- The child menu's closed report.
+  function vrfw_child_menu_closed(menu)
     local h = hosted[menu]
     if h then
-      h.Event("closed")
+      h.event("closed")
     end
   end
 
-  function ChildMenu.Host(menu_name, spec)
+  --- Hosts child menu `menu_name` in this menu; answers its handle table.
+  function ChildMenu.host(menu_name, spec)
     spec = type(spec) == "table" and spec or {}
     local menu = crc(menu_name)
     local prefix = spec.prefix or (tostring(menu_name) .. "_")
@@ -97,8 +72,8 @@ if VRFW_ChildMenu == nil then
     local h = {}
 
     local function send()
-      VRFW_Param.Replace(crc(prefix .. "page"), S.want or -1)
-      VRFW_Param.SetU32(prefix .. "host", S.host or 0)
+      VRFW.param.replace(crc(prefix .. "page"), S.want or -1)
+      VRFW.param.set_u32(prefix .. "host", S.host or 0)
       if type(spec.send) == "function" then
         spec.send(S.want)
       end
@@ -106,24 +81,25 @@ if VRFW_ChildMenu == nil then
 
     local function redraw()
       send()
-      pcall(funcLuaCommand, CROSS_CALL, menu, "VRFW_ChildMenu_Redraw", S.want, S.host,
+      pcall(funcLuaCommand, CROSS_CALL, menu, "vrfw_child_menu_redraw", S.want, S.host,
         table.unpack(S.args, 1, S.args.n or #S.args))
     end
 
     local function open()
       send()
-      funcLuaCommand(VRFW_Cmd.OPEN_MENU_OBJECT, menu)
+      funcLuaCommand(VRFW.commands.OPEN_MENU_OBJECT, menu)
       S.state, S.wait = "open", 0
       log("opened (page " .. tostring(S.want) .. ")")
     end
 
     local function request_close(why, gone)
-      pcall(funcLuaCommand, CROSS_CALL, menu, "VRFW_ChildMenu_Close", why, gone == true)
-      pcall(funcLuaCommand, VRFW_Cmd.CLOSE_MENU_OBJECT, menu)
+      pcall(funcLuaCommand, CROSS_CALL, menu, "vrfw_child_menu_close", why, gone == true)
+      pcall(funcLuaCommand, VRFW.commands.CLOSE_MENU_OBJECT, menu)
       S.state, S.wait = "closing", 0
     end
 
-    function h.Show(page, host, ...)
+    --- Asks the child to open on `page` over `host`.
+    function h.show(page, host, ...)
       hook_finalize()
       S.want = page or -1
       S.host = host or 0
@@ -132,7 +108,6 @@ if VRFW_ChildMenu == nil then
         redraw()
       elseif S.state == "closed" then
         if exists(menu) then
-          -- one of an earlier opening still there: it reports its close, or it is shown again (Step)
           S.state, S.wait = "closing", 0
         else
           open()
@@ -140,7 +115,8 @@ if VRFW_ChildMenu == nil then
       end
     end
 
-    function h.Hide(why)
+    --- Asks the child to close.
+    function h.hide(why)
       local was = S.want ~= nil
       S.want = nil
       local there = S.state == "closed" and exists(menu)
@@ -150,8 +126,8 @@ if VRFW_ChildMenu == nil then
       end
     end
 
-    -- the host menu destroyed
-    function h.Gone()
+    --- The host menu destroyed.
+    function h.gone()
       S.want = nil
       if S.state ~= "closed" or exists(menu) then
         request_close("host closed", true)
@@ -159,7 +135,8 @@ if VRFW_ChildMenu == nil then
       end
     end
 
-    function h.Event(what)
+    --- Handles a report of the child ("opened", "closed").
+    function h.event(what)
       if what == "closed" then
         local was = S.state
         S.state, S.wait = "closed", 0
@@ -167,11 +144,12 @@ if VRFW_ChildMenu == nil then
           log("gone while it is wanted; opened again")
         end
       elseif what == "opened" and S.want == nil and S.state == "closing" then
-        S.unwanted = true   -- opened after its close was asked: asked again on the next Step
+        S.unwanted = true
       end
     end
 
-    function h.Step()
+    --- One frame of the child host.
+    function h.step()
       if S.unwanted then
         S.unwanted = false
         if S.want == nil then
@@ -198,18 +176,21 @@ if VRFW_ChildMenu == nil then
       end
     end
 
-    function h.Call(fn, ...)
+    --- Calls `fn` in the open child; answers pcall's results, false when it is not open.
+    function h.call(fn, ...)
       if S.state == "open" then
         return pcall(funcLuaCommand, CROSS_CALL, menu, fn, ...)
       end
       return false
     end
 
-    function h.Open()
+    --- True while the child is open.
+    function h.open()
       return S.state == "open"
     end
 
-    function h.Wanted()
+    --- True while the child is wanted.
+    function h.wanted()
       return S.want ~= nil
     end
 
@@ -217,19 +198,19 @@ if VRFW_ChildMenu == nil then
     return h
   end
 
-  -- a child menu closed from any menu (not its host) -> true when it was open
-  function ChildMenu.Close(menu_name, why)
+  --- Closes the child menu `menu_name`; answers true when it existed.
+  function ChildMenu.close(menu_name, why)
     local menu = crc(menu_name)
     if not exists(menu) then
       return false
     end
-    pcall(funcLuaCommand, CROSS_CALL, menu, "VRFW_ChildMenu_Close", why)
-    pcall(funcLuaCommand, VRFW_Cmd.CLOSE_MENU_OBJECT, menu)
+    pcall(funcLuaCommand, CROSS_CALL, menu, "vrfw_child_menu_close", why)
+    pcall(funcLuaCommand, VRFW.commands.CLOSE_MENU_OBJECT, menu)
     return true
   end
 
-  -- ---- child side -----------------------------------------------------------------------------------------------------
-  function ChildMenu.Child(menu_name, spec)
+  --- Makes this script a child menu; answers its handle table.
+  function ChildMenu.child(menu_name, spec)
     spec = type(spec) == "table" and spec or {}
     local menu = crc(menu_name)
     local prefix = spec.prefix or (tostring(menu_name) .. "_")
@@ -239,8 +220,8 @@ if VRFW_ChildMenu == nil then
     local c = {}
 
     local function read()
-      local page = tonumber(VRFW_Param.Get(crc(prefix .. "page")))
-      local host = VRFW_Param.GetU32(prefix .. "host")
+      local page = tonumber(VRFW.param.get(crc(prefix .. "page")))
+      local host = VRFW.param.get_u32(prefix .. "host")
       if page ~= nil then
         S.page = page
       end
@@ -257,7 +238,7 @@ if VRFW_ChildMenu == nil then
 
     local function close_now()
       S.tries = S.tries + 1
-      pcall(funcLuaCommand, VRFW_Cmd.CLOSE_MENU_OBJECT, menu)
+      pcall(funcLuaCommand, VRFW.commands.CLOSE_MENU_OBJECT, menu)
     end
 
     local function begin_close(why)
@@ -271,8 +252,8 @@ if VRFW_ChildMenu == nil then
       close_now()
     end
 
-    -- the host's calls (cross-menu call)
-    function VRFW_ChildMenu_Redraw(page, host, ...)
+    --- The host's calls (cross-menu call).
+    function vrfw_child_menu_redraw(page, host, ...)
       read()
       if page ~= nil then
         S.page = page
@@ -289,23 +270,26 @@ if VRFW_ChildMenu == nil then
       end
     end
 
-    function VRFW_ChildMenu_Close(why, host_gone)
+    --- Host's request to close; `host_gone` drops the host.
+    function vrfw_child_menu_close(why, host_gone)
       if host_gone then
         S.host = nil
       end
       begin_close(why or "the host left it")
     end
 
-    function c.Init()
+    --- Reads the child's start state; answers page, host.
+    function c.init()
       S.page, S.host, S.closing, S.tries, S.frame, S.told = -1, nil, false, 0, 0, false
       read()
       return S.page, S.host
     end
 
-    function c.Step()
+    --- One frame of the child; answers true while closing is in progress.
+    function c.step()
       if not S.told then
         S.told = true
-        tell_host("VRFW_ChildMenu_Opened")
+        tell_host("vrfw_child_menu_opened")
       end
       if not S.closing then
         return false
@@ -320,24 +304,28 @@ if VRFW_ChildMenu == nil then
       return true
     end
 
-    function c.Finalize()
-      tell_host("VRFW_ChildMenu_Closed")
+    --- Tells the host the child closed.
+    function c.finalize()
+      tell_host("vrfw_child_menu_closed")
     end
 
-    function c.Host()
+    --- The host menu of this child.
+    function c.host()
       return S.host
     end
 
-    function c.Page()
+    --- The page this child shows.
+    function c.page()
       return S.page
     end
 
-    function c.Closing()
+    --- True while the child is closing.
+    function c.closing()
       return S.closing
     end
 
     return c
   end
 
-  VRFW_ChildMenu = ChildMenu
+  VRFW.child_menu = ChildMenu
 end

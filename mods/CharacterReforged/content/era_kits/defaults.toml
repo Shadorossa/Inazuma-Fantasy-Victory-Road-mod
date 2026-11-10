@@ -1,7 +1,3 @@
-# Character Reforged › how scripts\era_kits.lua derives an ídolo card's era kit from the game's tables (the card look
-# rule content\card_looks\era_kit.toml). Every active mod's content\era_kits\*.toml may declare
-# [CharacterReforged.EraKit] keys (later mods win key by key; eras and team_kits entry by entry). A card that declares
-# its own `moment_kit` (character TOML, chara_param column moment_kit) is not derived.
 schema = "CharacterReforged.era_kit/1"
 
 [CharacterReforged.EraKit]
@@ -13,8 +9,6 @@ team_columns = ["team_1", "team_2", "team_3"]
 any_era = true
 era_order = ["team_kit_ie", "team_kit_go", "team_kit_areori", "team_kit_v"]
 
-# the character's era: his series (chara_base series -> chara_series_config chara_series_type) -> the belong_team_config
-# kit column of that era
 [CharacterReforged.EraKit.eras]
 1 = "team_kit_ie"        # Inazuma Eleven
 2 = "team_kit_ie"        # Inazuma Eleven 2
@@ -28,4 +22,4 @@ era_order = ["team_kit_ie", "team_kit_go", "team_kit_areori", "team_kit_v"]
 
 # a team without kits of its own -> the team whose kits it wears
 [CharacterReforged.EraKit.team_kits]
-"0x4C23CC4C" = "0x45B66234"   # Protocol Omega 3.0 -> Protocol Omega (Gamma's ídolos, as Alfa's and Beta's)
+"0x4C23CC4C" = "0x45B66234"

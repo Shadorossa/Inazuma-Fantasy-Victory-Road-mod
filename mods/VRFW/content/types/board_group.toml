@@ -1,6 +1,4 @@
 # Declaration schema of the board groups (content\board_groups\*.toml, docs/framework/route-board.md §9):
-# [[VRFW.BoardGroup]] (Chronicle board nodes a switch hides at once). An unknown key, wrong type or out-of-range value
-# drops that declaration with a warning.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.board_group/1"
 folder = "content/board_groups"

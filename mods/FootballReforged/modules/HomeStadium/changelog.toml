@@ -1,6 +1,5 @@
 schema = "VRFW.changelog/1"
 # Home Stadium: ONE general summary of what the mod offers, shown on «Novedades de mods».
-# Rules (the parser refuses the rest): a single 
 
 [[release]]
 icon = "stadium"

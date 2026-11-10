@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Inazuma Kids FC · Inazuma Eleven
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c01002010"                                   # Herman Muller
 moves = [
-  { move = 0x44E1A25A, level = 5 },                         # Pressure Punch
-  { move = 0xE9968761, level = 20 },                        # Rocket Kobushi
-  { move = 0xACAC21CE, level = 38 },                        # Fake Ball
-  { move = 0xEA12530F, level = 58 },                        # Double Rocket
+  { move = 0x5C38F92C, level = 68 },                        # Mistral
+  { move = 0x44E1A25A, level = 78 },                        # Pressure Punch
+  { move = 0xE9968761, level = 88 },                        # Rocket Kobushi
+  { move = 0xEA12530F, level = 98 },                        # Double Rocket
 ]
 
   [[edit.cards]]
@@ -51,9 +48,9 @@ moves = [
 [[edit]]
 target = "c01002040"                                   # Izzy Island
 moves = [
+  { move = 0x259F08C6, level = 10 },                        # Whirlwind Twister
   { move = 0x29B328E6, level = 16 },                        # Spectacle Crash
   { move = 0x01DB04F5, level = 32 },                        # Defence Scan
-  { move = 0x6C827857, level = 38 },                        # Rolling Steal
   { move = 0x2B343D01, level = 50 },                        # Cyclone
 ]
 
@@ -70,7 +67,7 @@ moves = [
   { move = 0x7D6E9A87, level = 23 },                        # The Wall
   { move = 0x166B0073, level = 34 },                        # Super Armadillo
   { move = 0x28B0E96F, level = 37 },                        # Heavy Mettle
-  { move = 0xDBA0E5E3, level = 50 },                        # Gigant Wall
+  { move = 0x73C5AF40, level = 47 },                        # Dash Accelerator
 ]
 
   [[edit.cards]]
@@ -129,8 +126,8 @@ moves = [
 [[edit]]
 target = "c01002090"                                   # Hans Randall
 moves = [
-  { move = 0x6B4A7B35, level = 5 },                         # Power Shot
-  { move = 0x73C5AF40, level = 8 },                         # Dash Accelerator
+  { move = 0x1F0836D6, level = 8 },                         # Comet Shot
+  { move = 0x73C5AF40, level = 18 },                        # Dash Accelerator
   { move = 0x0597D3F9, level = 24 },                        # Dragon Tornado
   { move = 0xE937AD43, level = 68 },                        # Dragon Slayer
 ]
@@ -160,8 +157,8 @@ moves = [
 [[edit]]
 target = "c01002110"                                   # Millie Moonlight
 moves = [
-  { move = 0x1F0836D6, level = 1 },                         # Comet Shot
-  { move = 0x72514A74, level = 1 },                         # Low Drive
+  { move = 0xDF70E04C, level = 7 },                         # Rodeo Clown
+  { move = 0x1F0836D6, level = 17 },                        # Comet Shot
   { move = 0x2296A01A, level = 21 },                        # Southern Cross
   { move = 0x4683AADF, level = 60 },                        # Space Penguin
 ]
@@ -236,10 +233,10 @@ moves = [
 [[edit]]
 target = "c01002160"                                   # Bart Grantham
 moves = [
-  { move = 0x8DFA4265, level = 1 },                         # Toughness Block
-  { move = 0xDF70E04C, level = 1 },                         # Rodeo Clown
-  { move = 0xD9E65BBA, level = 26 },                        # Aurora Curtain
-  { move = 0x7207C577, level = 52 },                        # Boost Glider
+  { move = 0xDBA0E5E3, level = 68 },                        # Gigant Wall
+  { move = 0x8DFA4265, level = 78 },                        # Toughness Block
+  { move = 0xDF70E04C, level = 88 },                        # Rodeo Clown
+  { move = 0xD9E65BBA, level = 98 },                        # Aurora Curtain
 ]
 
   [[edit.cards]]
@@ -250,6 +247,12 @@ moves = [
 
 [[edit]]
 target = "c01002110_5000"                              # Millie Moonlight
+moves = [
+  { move = 0xDF70E04C, level = 7 },                         # Rodeo Clown
+  { move = 0x1F0836D6, level = 17 },                        # Comet Shot
+  { move = 0x2296A01A, level = 21 },                        # Southern Cross
+  { move = 0x4683AADF, level = 60 },                        # Space Penguin
+]
 
   [[edit.cards]]
   id = 0xA42234DF                                         # FW/MF · forest

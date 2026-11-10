@@ -1,296 +1,231 @@
-# The Battle Bay «Torneo» bracket overlay, added to the Battle Bay top menu (bb_stadium_top_menu) and drawn by the
-# graft research/grafts/bb_tournament (bbt_top.lua). 1.5.47: the top menu's «Torneo» row (1.4.1-1.5.45: a 4th medium
-# row, its list locator, its icon) is gone; the Torneo is a mode of the Campaña screen, picked in its header (the
-# selector's layers below, graft bbt_mode.lua), and the loading telop's path has as many nodes as the match's mode can
-# have (fade_menu_encount_campaign, bbt_encount.lua).
-# the WHOLE bracket in one view, built from the number of teams (rounds = log2(teams), always a power of two), scaled
-# to fit; each team on a list plate of the game (the emblem list's row, team06_02: plate, crest slot, name) with its
-# crest left of the name on the left side and mirrored on the right side (crest on the outer edge, the name
-# right-aligned), the connectors drawn as lines (the winners' path lit), each match's score at its joint, the champion
-# on a plate above the final with a crown. Of the Victory Road art only its background stays (vroad04_01_p1_bg). Every
-# layer is in the menu's layer group with the «not opened with the group» flags (as the Draft's layers): the graft
-# opens / closes them. align [1, 8] + scale 0.2 (as the framework's chain board): the Lua places each instance in
-# screen px from the top left (CMND_SET_LAYER_LOCAL_POS x, -y) and sizes it (CMND_SET_LAYER_SCALE). The input anchor
-# takes the keys while the overlay is up: Enter (next match / close), Back, right click, L1 / R1 (pages: results,
-# groups, the bracket) -> CMD_FUNCTION evt_bbd_tn_prev / _next = 0xDD7A8C24 / 0x65B7144D; the arrows evt_bbd_lg_left /
-# _right (1.58.0), the same pages outside the League hub's dashboard.
 schema = "VRFW.menu/2"
 
 [[patch]]
 menu = "bb_stadium_top_menu"
 resources = [
-    # the bracket's own drawings (connector line, crown): content\images\menu\220_img\bbd_tn.toml (1.5.57: the mode
-    # selector's atlas bbd_md only on the grid: the selector's layers left this menu)
+    # the overlay's own drawings (connector line, crown): content\images\menu\220_img\bbd_tn.toml
     "#/menu/220_img/bbd_tn/bbd_tn.g4tx",
-    # the score digits (1.9.0) in an atlas of their own: a g4tx holds at most 255 sprites
+    # the score digits in an atlas of their own: a g4tx holds at most 255 sprites
     "#/menu/220_img/bbd_tn_num/bbd_tn_num.g4tx",
-    # the retail bracket's digit atlases went with its art to the bracket screen (now VRFW's vrfw_bracket_menu)
 ]
 
-# ---- objects (1.5.15) --------------------------------------------------------------------------------------------
-# a team's plate, left side: the emblem list's row (team06_02_emblem_list_item) on a narrower copy of its layout
-# (520 px: plate, crest slot 22 px from the left edge, the name after it); no hit zone (the overlay is keys only),
-# no attach to the emblem list's locators; its atlas named (a renamed layout takes the atlas of its own name else)
 [[object]]
-name = "evt_bbd_tn_row_l"
+name = "battlebaydeluxe_tn_row_l"
 from = "team06_02_emblem_list_item"
 remove_block = ["MenuCollisionSetting", "CMenuAttachLocator"]
-set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team06/team06_02/team06_02.g4pkm" }, values = { 1 = "common/menu/102_team/team06/evt_bbd_tn_row_l/evt_bbd_tn_row_l.g4pkm" } }]
+set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team06/team06_02/team06_02.g4pkm" }, values = { 1 = "common/menu/102_team/team06/battlebaydeluxe_tn_row_l/battlebaydeluxe_tn_row_l.g4pkm" } }]
 add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/102_team/team06/team06_02/team06_02.g4tx"] }]
 
-# the right side's plate: the same row mirrored: the crest on the outer (right) edge, the name right-aligned
-# (the retail styles' right-aligned twins: fs_32_w_rc_2d0_001_at2 / fs_32_b_rc_2d0_001_at2)
 [[object]]
-name = "evt_bbd_tn_row_r"
+name = "battlebaydeluxe_tn_row_r"
 from = "team06_02_emblem_list_item"
 remove_block = ["MenuCollisionSetting", "CMenuAttachLocator"]
 set = [
-    { parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team06/team06_02/team06_02.g4pkm" }, values = { 1 = "common/menu/102_team/team06/evt_bbd_tn_row_r/evt_bbd_tn_row_r.g4pkm" } },
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team06/team06_02/team06_02.g4pkm" }, values = { 1 = "common/menu/102_team/team06/battlebaydeluxe_tn_row_r/battlebaydeluxe_tn_row_r.g4pkm" } },
     { parameter = "_text_list01_on", values = { 1 = 1670131169 } },
     { parameter = "_text_list01_off", values = { 1 = -864663 } },
 ]
 add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/102_team/team06/team06_02/team06_02.g4tx"] }]
 
-# a free text (scores, group titles): the save list item's text node centred on the layer's origin, its plates and
-# icon slots shrunk to nothing; the style is set by the Lua (a centred, outlined white)
 [[object]]
-name = "evt_bbd_tn_txt"
+name = "battlebaydeluxe_tn_txt"
 from = "save01_02_list_item"
 remove_block = ["MenuCollisionSetting", "CMenuAttachLocator"]
 set = [
-    { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_02/save01_02.g4pkm" }, values = { 1 = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm" } },
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_02/save01_02.g4pkm" }, values = { 1 = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm" } },
     { parameter = "m_drawPriority", match = { 1 = 551 }, values = { 1 = 553 } },
 ]
 add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/51_save/save01/save01_02/save01_02.g4tx"] }]
 
 # the connectors (a white quad of bbd_tn.g4tx, tinted): under the plates
 [[object]]
-name = "evt_bbd_tn_line"
+name = "battlebaydeluxe_tn_line"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 549 } }]
 
 # a score box at a plate's inner end (results rows): a tinted white quad over the plates (551), under the texts (553)
 [[object]]
-name = "evt_bbd_tn_box"
+name = "battlebaydeluxe_tn_box"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 552 } }]
 
-# the group tables' quads (1.5.54; 1.5.57-1.5.58 drawn on evt_bbd_tn_line with these priorities set per instance;
-# the layers of the group stage's own menu evt_bbd_tn_groups_menu, at the end of this file): the cards (546), their
-# header bands / row tints (547) and their marks (548: qualification bars, points cells, separators, header strokes,
-# form dots), all under the team rows (551) and the texts (553)
 [[object]]
-name = "evt_bbd_tn_card"
+name = "battlebaydeluxe_tn_card"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 546 } }]
 
 [[object]]
-name = "evt_bbd_tn_band"
+name = "battlebaydeluxe_tn_band"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 547 } }]
 
 [[object]]
-name = "evt_bbd_tn_mark"
+name = "battlebaydeluxe_tn_mark"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 548 } }]
 
 # the champion's crown: above the plates
 [[object]]
-name = "evt_bbd_tn_icon"
+name = "battlebaydeluxe_tn_icon"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 554 } }]
 
-# the League hub's top scorers' minifaces (evt_bbd_tn_groups_menu only): a copy of the retail list character card of
-# which VRFW_FaceIcon.Card shows only the portrait (face + kit); no hit zone, no attach to list locators. Layer
-# priority 552: over the cards' plates and the crests (551), under the texts (553); its materials stay the retail
-# ones.
 [[object]]
-name = "evt_bbd_tn_face"
+name = "battlebaydeluxe_tn_face"
 from = "team00_01_chara_card_for_list"
 remove_block = ["MenuCollisionSetting", "CMenuAttachLocator"]
 priority = 552
 
-# ---- layouts (1.5.15) --------------------------------------------------------------------------------------------
-# team06_02 (retail: plate 888 x 72 from x -98, crest 68 px at x 44, name box 584 x 54 at x 119) -> a 520 x 72 plate
-# from x 0 (the layer's origin = the plate's left edge, vertical centre)
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_l/evt_bbd_tn_row_l.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_l/battlebaydeluxe_tn_row_l.g4pkm"
 from = "common/menu/102_team/team06/team06_02/team06_02.g4pkm"
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_l/evt_bbd_tn_row_l.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_l/battlebaydeluxe_tn_row_l.g4pkm"
 joint = "_list_base_xs01_on"
 translate = [0.0, 36.0, 0.0]
 scale = [520.0, 72.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_l/evt_bbd_tn_row_l.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_l/battlebaydeluxe_tn_row_l.g4pkm"
 joint = "_list_base_xs01_off"
 translate = [0.0, 36.0, 0.0]
 scale = [520.0, 72.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_l/evt_bbd_tn_row_l.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_l/battlebaydeluxe_tn_row_l.g4pkm"
 joint = "_list_base_xs01_ol"
 translate = [0.0, 36.0, 0.0]
 scale = [520.0, 72.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_l/evt_bbd_tn_row_l.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_l/battlebaydeluxe_tn_row_l.g4pkm"
 joint = "_list_base_xs01_ok"
 translate = [0.0, 36.0, 0.0]
 scale = [520.0, 72.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_l/evt_bbd_tn_row_l.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_l/battlebaydeluxe_tn_row_l.g4pkm"
 joint = "_icon_emblem_dmy01"
 translate = [22.0, 34.0, 0.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_l/evt_bbd_tn_row_l.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_l/battlebaydeluxe_tn_row_l.g4pkm"
 joint = "_text_list01_on"
 translate = [98.0, 27.0, 0.0]
 scale = [408.0, 54.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_l/evt_bbd_tn_row_l.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_l/battlebaydeluxe_tn_row_l.g4pkm"
 joint = "_text_list01_off"
 translate = [98.0, 27.0, 0.0]
 scale = [408.0, 54.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_l/evt_bbd_tn_row_l.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_l/battlebaydeluxe_tn_row_l.g4pkm"
 joint = "_icon_check01"
 scale = [0.0, 0.0, 1.0]
 
 # the mirrored row: the crest 22 px from the right edge, the name box left of it (right-aligned styles: the objects)
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_r/evt_bbd_tn_row_r.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_r/battlebaydeluxe_tn_row_r.g4pkm"
 from = "common/menu/102_team/team06/team06_02/team06_02.g4pkm"
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_r/evt_bbd_tn_row_r.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_r/battlebaydeluxe_tn_row_r.g4pkm"
 joint = "_list_base_xs01_on"
 translate = [0.0, 36.0, 0.0]
 scale = [520.0, 72.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_r/evt_bbd_tn_row_r.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_r/battlebaydeluxe_tn_row_r.g4pkm"
 joint = "_list_base_xs01_off"
 translate = [0.0, 36.0, 0.0]
 scale = [520.0, 72.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_r/evt_bbd_tn_row_r.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_r/battlebaydeluxe_tn_row_r.g4pkm"
 joint = "_list_base_xs01_ol"
 translate = [0.0, 36.0, 0.0]
 scale = [520.0, 72.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_r/evt_bbd_tn_row_r.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_r/battlebaydeluxe_tn_row_r.g4pkm"
 joint = "_list_base_xs01_ok"
 translate = [0.0, 36.0, 0.0]
 scale = [520.0, 72.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_r/evt_bbd_tn_row_r.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_r/battlebaydeluxe_tn_row_r.g4pkm"
 joint = "_icon_emblem_dmy01"
 translate = [430.0, 34.0, 0.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_r/evt_bbd_tn_row_r.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_r/battlebaydeluxe_tn_row_r.g4pkm"
 joint = "_text_list01_on"
 translate = [18.0, 27.0, 0.0]
 scale = [408.0, 54.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_r/evt_bbd_tn_row_r.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_r/battlebaydeluxe_tn_row_r.g4pkm"
 joint = "_text_list01_off"
 translate = [18.0, 27.0, 0.0]
 scale = [408.0, 54.0, 1.0]
 
 [[layout]]
-file = "common/menu/102_team/team06/evt_bbd_tn_row_r/evt_bbd_tn_row_r.g4pkm"
+file = "common/menu/102_team/team06/battlebaydeluxe_tn_row_r/battlebaydeluxe_tn_row_r.g4pkm"
 joint = "_icon_check01"
 scale = [0.0, 0.0, 1.0]
 
 # save01_02 (retail: name box 608 x 68 at x 226): the box centred on the origin, the plates / icon slots 0 x 0
 [[layout]]
-file = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm"
+file = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm"
 from = "common/menu/51_save/save01/save01_02/save01_02.g4pkm"
 
 [[layout]]
-file = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm"
+file = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm"
 joint = "_text_list01_on"
 translate = [-304.0, 34.0, 0.0]
 
 [[layout]]
-file = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm"
+file = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm"
 joint = "_text_list01_off"
 translate = [-304.0, 34.0, 0.0]
 
 [[layout]]
-file = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm"
+file = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm"
 joint = "_list_base_s01_on"
 scale = [0.0, 0.0, 1.0]
 
 [[layout]]
-file = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm"
+file = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm"
 joint = "_list_base_s01_off"
 scale = [0.0, 0.0, 1.0]
 
 [[layout]]
-file = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm"
+file = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm"
 joint = "_list_base_s01_ol"
 scale = [0.0, 0.0, 1.0]
 
 [[layout]]
-file = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm"
+file = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm"
 joint = "_list_base_s01_ok"
 scale = [0.0, 0.0, 1.0]
 
 [[layout]]
-file = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm"
+file = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm"
 joint = "_list_icon_dmy_s01_on"
 scale = [0.0, 0.0, 1.0]
 
 [[layout]]
-file = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm"
+file = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm"
 joint = "_list_icon_dmy_s01_off"
 scale = [0.0, 0.0, 1.0]
 
 [[layout]]
-file = "common/menu/51_save/save01/evt_bbd_tn_txt/evt_bbd_tn_txt.g4pkm"
+file = "common/menu/51_save/save01/battlebaydeluxe_tn_txt/battlebaydeluxe_tn_txt.g4pkm"
 joint = "_list_icon_dmy_s01_ok"
 scale = [0.0, 0.0, 1.0]
 
-# ---- layers ------------------------------------------------------------------------------------------------------
-# counts = the largest bracket (T.MAX_SIZE 64 teams, 1.5.44): 32 plates a side (+ the champion's), 63 match scores
-# (results / groups pages: 16 plates, 16 values, 4 group titles), 4 x 62 + 3 connector pieces (a match: 2 stubs + 2
-# half joints; the final: 2 stubs + the stem to the champion) + lone crests (evt_bbd_tn_crest; 1.5.44: 32); 1.5.44:
-# 64-team bracket counts the engine sets up at most ~844 layer instances in one open menu; past it the menu never
-# finishes opening (no background open end, no fade in). 1.5.54 (group tables, every group on one page: row_l 64, txt
-# 336, box 112 and 304 card / band / mark quads) took bb_stadium_top_menu to 1440. 1.5.57: the 1.5.53 pools (the last
-# build that opened) + txt 100, the group tables paged on the bracket's pools. the group tables are drawn in a menu of
-# their own (evt_bbd_tn_groups_menu, the [[screen]] at the end of this file), so this menu keeps only the bracket's
-# pools: txt 64 (the 63 scores of a 64-team bracket, the 64 goals of a 32-match results page, the champion screen's
-# 2). Budget of bb_stadium_top_menu: retail 26 + Utilities (top bar 36) + these 484 = 546. + the 16-team
-# retail bracket's 50, box 64 -> 36 (a results page draws at most 32 boxes, the tree page the final stadium's panel:
-# 2), txt 64 -> 66 (the final stadium's name and label beside a 64-team tree's 63 scores): these 508 = 803. Every pool
-# costs its instances at every opening: add none without taking as many away. + the Victory Road stadium background
-# (1, below): 804. The look's other pieces cost no instance: the team strips are the plates' own sprite swapped, the
-# stars, the focus band and the stadium panel are box-pool quads (a tree page: at most 32 + 1 + 1 of 36), the trophy
-# is the retail one already in this menu. the scores are digit sprites of the mod's atlas on the connector pool, no
-# texts: evt_bbd_tn_line 256 -> 348 (a 64-team tree: 251 pieces + 62 pairs + the final's 2 digits + up to 33 shoot-out
-# digits), evt_bbd_tn_txt 66 -> 4 (the final stadium's two lines, the champion screen's two): 804 + 92 - 62 = 834.
-# evt_bbd_tn_line 348 -> 330 (up to 15 shoot-out digits on a 64-team tree): 816, a margin under the cap. the tree page
-# is the bracket screen (1.87.0: the framework's vrfw_bracket_menu, VRFW_Bracket; with its own pools, the 16-team
-# retail art and the final stadium's panel): this menu loses the retail art's 50, the crests' 32 and the panel's 1:
-# 733. Its pools here draw the results pages (line: up to 32 rows of digits), the league's player frame (box) and the
-# champion screen (row_l 32, txt 2, icon).
-
-# the Victory Road mode's stadium background (victory_road_top_menu's vroad01_00_background: _bg_v01, 2640 x 1080 from
-# x -360, layout in screen px), opened under the bracket by the graft (BBT_Open) behind its pools (draw priority 190,
-# a higher priority draws in front); the band (vroad04_01_p1_bg, 195) stays in front of it
 [[patch]]
 menu = "bb_stadium_top_menu"
 add_layer = { name = "vroad01_00_background", object = "vroad01_00_background", count = 1, align = [1, 8], scale = 0.20000000298023224, groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0] }] }
@@ -301,267 +236,222 @@ add_layer = { name = "vroad04_01_p1_bg", object = "vroad04_01_p1_bg", count = 1,
 
 [[patch]]
 menu = "bb_stadium_top_menu"
-add_layer = { name = "evt_bbd_tn_line", object = "evt_bbd_tn_line", count = 330, align = [1, 8], scale = 0.20000000298023224, after = "vroad04_01_p1_bg", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "vroad04_01_p1_bg" }] }
+add_layer = { name = "battlebaydeluxe_tn_line", object = "battlebaydeluxe_tn_line", count = 330, align = [1, 8], scale = 0.20000000298023224, after = "vroad04_01_p1_bg", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "vroad04_01_p1_bg" }] }
 
 [[patch]]
 menu = "bb_stadium_top_menu"
-add_layer = { name = "evt_bbd_tn_row_l", object = "evt_bbd_tn_row_l", count = 33, align = [1, 8], scale = 0.20000000298023224, after = "evt_bbd_tn_line", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "evt_bbd_tn_line" }] }
+add_layer = { name = "battlebaydeluxe_tn_row_l", object = "battlebaydeluxe_tn_row_l", count = 33, align = [1, 8], scale = 0.20000000298023224, after = "battlebaydeluxe_tn_line", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "battlebaydeluxe_tn_line" }] }
 
 [[patch]]
 menu = "bb_stadium_top_menu"
-add_layer = { name = "evt_bbd_tn_row_r", object = "evt_bbd_tn_row_r", count = 32, align = [1, 8], scale = 0.20000000298023224, after = "evt_bbd_tn_row_l", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "evt_bbd_tn_row_l" }] }
+add_layer = { name = "battlebaydeluxe_tn_row_r", object = "battlebaydeluxe_tn_row_r", count = 32, align = [1, 8], scale = 0.20000000298023224, after = "battlebaydeluxe_tn_row_l", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "battlebaydeluxe_tn_row_l" }] }
 
 [[patch]]
 menu = "bb_stadium_top_menu"
-add_layer = { name = "evt_bbd_tn_txt", object = "evt_bbd_tn_txt", count = 4, align = [1, 8], scale = 0.20000000298023224, after = "evt_bbd_tn_row_r", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "evt_bbd_tn_row_r" }] }
+add_layer = { name = "battlebaydeluxe_tn_txt", object = "battlebaydeluxe_tn_txt", count = 4, align = [1, 8], scale = 0.20000000298023224, after = "battlebaydeluxe_tn_row_r", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "battlebaydeluxe_tn_row_r" }] }
 
 [[patch]]
 menu = "bb_stadium_top_menu"
-add_layer = { name = "evt_bbd_tn_icon", object = "evt_bbd_tn_icon", count = 1, align = [1, 8], scale = 0.20000000298023224, after = "evt_bbd_tn_txt", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "evt_bbd_tn_txt" }] }
+add_layer = { name = "battlebaydeluxe_tn_icon", object = "battlebaydeluxe_tn_icon", count = 1, align = [1, 8], scale = 0.20000000298023224, after = "battlebaydeluxe_tn_txt", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "battlebaydeluxe_tn_txt" }] }
 
 [[patch]]
 menu = "bb_stadium_top_menu"
-add_layer = { name = "evt_bbd_tn_box", object = "evt_bbd_tn_box", count = 36, align = [1, 8], scale = 0.20000000298023224, after = "evt_bbd_tn_row_r", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "evt_bbd_tn_row_r" }] }
+add_layer = { name = "battlebaydeluxe_tn_box", object = "battlebaydeluxe_tn_box", count = 36, align = [1, 8], scale = 0.20000000298023224, after = "battlebaydeluxe_tn_row_r", groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0], after = "battlebaydeluxe_tn_row_r" }] }
 
-# the input anchor (off screen, as the Draft's evt_bb_draft_anchor): its own focus group, keys -> the graft
+# the input anchor (off screen, as the Draft's battlebaydeluxe_draft_anchor): its own focus group, keys -> the graft
 [[patch]]
 menu = "bb_stadium_top_menu"
-add_layer = { name = "evt_bbd_tn_anchor", object = "cmn03_05_cmn_button_b_graphic_text", count = 1, groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0] }], focus = {} }
+add_layer = { name = "battlebaydeluxe_tn_anchor", object = "cmn03_05_cmn_button_b_graphic_text", count = 1, groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0] }], focus = {} }
 
 [[patch]]
 menu = "bb_stadium_top_menu"
 add_commands = [
-    { layer = "evt_bbd_tn_anchor", input = "CMD_ENTER", command = "CMD_ENTER" },
-    { layer = "evt_bbd_tn_anchor", input = "CMD_MOUSE_RIGHT_CLICK", command = "CMD_BACK" },
-    { layer = "evt_bbd_tn_anchor", input = "CMD_BACK", command = "CMD_BACK" },
-    { layer = "evt_bbd_tn_anchor", input = "CMD_FUNCL1", command = "CMD_FUNCTION", arg = 0xDD7A8C24 },
-    { layer = "evt_bbd_tn_anchor", input = "CMD_FUNCR1", command = "CMD_FUNCTION", arg = 0x65B7144D },
-    # the arrows have their own ids (evt_bbd_lg_left / _right: the League hub's dashboard focus); everywhere else the
-    # graft turns them into the pages' prev / next as before
-    { layer = "evt_bbd_tn_anchor", input = "CMD_LEFT", command = "CMD_FUNCTION", arg = 0x68C16078 },
-    { layer = "evt_bbd_tn_anchor", input = "CMD_RIGHT", command = "CMD_FUNCTION", arg = 0xA96FC3F7 },
-    # the League hub's dashboard (bbt_top.lua BBT.HUB): Up / Down move its side menu (evt_bbd_lg_up / _down), (1.58.0:
-    # no X key; «Nueva liga» is a side menu row), a left click picks the section / card / button under the pointer
-    # (evt_bbd_lg_click; CMD_EVT_MOUSE_LEFT = VR-Framework's left button alone, content\inputs\pointer.toml)
-    { layer = "evt_bbd_tn_anchor", input = "CMD_UP", command = "CMD_FUNCTION", arg = 0x2CDFEBAB },
-    { layer = "evt_bbd_tn_anchor", input = "CMD_DOWN", command = "CMD_FUNCTION", arg = 0x0E59172B },
-    { layer = "evt_bbd_tn_anchor", input = "CMD_EVT_MOUSE_LEFT", command = "CMD_FUNCTION", arg = 0xA75374C3 },
-    # the League hub's «Simular» (evt_bbd_lg_sim): Y, as the career's next match
-    { layer = "evt_bbd_tn_anchor", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = 0x3FA48249 },
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_ENTER", command = "CMD_ENTER" },
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_MOUSE_RIGHT_CLICK", command = "CMD_BACK" },
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_BACK", command = "CMD_BACK" },
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_FUNCL1", command = "CMD_FUNCTION", arg = 0xE8810FC5 },
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_FUNCR1", command = "CMD_FUNCTION", arg = 0x504C97AC },
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_LEFT", command = "CMD_FUNCTION", arg = 0x5D3AE399 },
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_RIGHT", command = "CMD_FUNCTION", arg = 0x7E57EA9A },
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_UP", command = "CMD_FUNCTION", arg = 0x03479749 },
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_DOWN", command = "CMD_FUNCTION", arg = 0x3BA294CA },
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_VRFW_MOUSE_LEFT", command = "CMD_FUNCTION", arg = 0x706B5DAE },
+    # the League hub's «Simular» (battlebaydeluxe_lg_sim): Y, as the career's next match
+    { layer = "battlebaydeluxe_tn_anchor", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = 0x718F9961 },
 ]
 
-# ---- «Modos de juego» (1.5.18-1.5.85): the bracket layers in soccer_top_menu were for the hub of the retired
-# Inazuma Fantasy (id inazuma_fantasy, gated `if_mod`); no current mod has that hub, so they were removed.
-
-# ---- the Torneo's options window: a third L / R row (1.5.16) -------------------------------------------------------
-# «Sin equipos menores» (Sí / No; 1.33.0, was «Filtrar equipos poco importantes»: now it fits the row at the size of
-# the other rows) under «Con fase de grupos» and «Número de equipos». The retail L / R
-# window (sub_window, layout 3: win05_17_sub_list_locator_lr + win05_08_sub_list_item_lr x2) holds 2 rows. While the
-# Torneo's panel is open, the graft (bbt_common.lua BBT_SW_ThirdRow) swaps the window's locator for this 3-row copy
-# and opens a third row instance; every other L / R window keeps the retail locator and its 2 rows.
 [[patch]]
 menu = "sub_window"
 layer = "win05_08_sub_list_item_lr"
-count = 4  # 1.48.0: the league's options have 4 rows
+count = 4  # the league's options panel has the most rows
 
-# win05_17 with a joint _list04 (row 3, 70 px under row 2, as rows 1-2). 1.33.0: the retail plate (list_base_lr01, 396
-# tall) has its inner dark box at y 102..274 from its top, the two rows (72 tall, 70 apart: 142) centred in it with 15
-# px above and below. Three rows (212) with the same margins need a box of 242: the plate scaled by 242 / 172 (396 ->
-# 557, the no-touch zone 356 -> 501), its box then at y 143..385, the rows centred in it (the row locator
-# _pos_list_atc01 at y 194, rows 194 / 264 / 334), the button joint _list03 in the middle of the band under the box (y
-# 385..523: 454, local -260); the attach rows of the retail object plus row 3 (index 2) on _list04
+# win05_17 with a joint _list04 (row 3, 70 px under row 2, as rows 1-2).
 [[object]]
-name = "evt_bbd_tn_opts_locator"
+name = "battlebaydeluxe_tn_opts_locator"
 from = "win05_17_sub_list_locator_lr"
-set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/10_win/win05/win05_17/win05_17.g4pkm" }, values = { 1 = "common/menu/10_win/win05/evt_bbd_tn_opts/evt_bbd_tn_opts.g4pkm" } }]
+set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/10_win/win05/win05_17/win05_17.g4pkm" }, values = { 1 = "common/menu/10_win/win05/battlebaydeluxe_tn_opts/battlebaydeluxe_tn_opts.g4pkm" } }]
 copy = [{ parameter = "NullLayerName", match = { 3 = -1380032499, 4 = 1 }, values = { 1 = -1906936314, 2 = 2003145093, 4 = 2 } }]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts/evt_bbd_tn_opts.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts/battlebaydeluxe_tn_opts.g4pkm"
 from = "common/menu/10_win/win05/win05_17/win05_17.g4pkm"
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts/evt_bbd_tn_opts.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts/battlebaydeluxe_tn_opts.g4pkm"
 joint = "_list04"
 parent = "_pos_list_atc01"
 translate = [0.0, -140.0, 0.0]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts/evt_bbd_tn_opts.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts/battlebaydeluxe_tn_opts.g4pkm"
 joint = "_pos_list_atc01"
 translate = [0.0, -194.0, 0.0]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts/evt_bbd_tn_opts.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts/battlebaydeluxe_tn_opts.g4pkm"
 joint = "_list03"
 translate = [0.0, -260.0, 0.0]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts/evt_bbd_tn_opts.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts/battlebaydeluxe_tn_opts.g4pkm"
 joint = "_list_base_lr01"
 scale = [768.0, 557.0, 1.0]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts/evt_bbd_tn_opts.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts/battlebaydeluxe_tn_opts.g4pkm"
 joint = "_untouch01"
 scale = [728.0, 501.0, 1.0]
 
 [[patch]]
 menu = "sub_window"
-add_layer = { name = "evt_bbd_tn_opts_locator", object = "evt_bbd_tn_opts_locator", count = 1, scale = 1, after = "win05_17_sub_list_locator_lr", groups = [{ group = "sub_window_group", flags = [0, 0, 0, 0, 1, 0], after = "win05_17_sub_list_locator_lr" }] }
+add_layer = { name = "battlebaydeluxe_tn_opts_locator", object = "battlebaydeluxe_tn_opts_locator", count = 1, scale = 1, after = "win05_17_sub_list_locator_lr", groups = [{ group = "sub_window_group", flags = [0, 0, 0, 0, 1, 0], after = "win05_17_sub_list_locator_lr" }] }
 
-# the league's options have FOUR rows (+ «Sin selecciones nacionales»): a 4-row copy of win05_17. Rows 72 tall, 70
-# apart (4 rows: 282) with 15 px above and below = a box of 312: the plate (retail _list_base_lr01 at (-384, 0), 768 x
-# 396, its inner box at y 102..274) scaled by 312 / 172 to 718 tall. 1.51.0: the plate also moved 40 px UP (translate
-# y 40), so its box is at y 145..457 under the retail title (y 18..98: the same 47 px gap as the 3-row window), the
-# row locator _pos_list_atc01 at y 196 (rows 196 / 266 / 336 / 406), the button joint _list03 at 0.4 of the band under
-# the box (457..678: 545, local -349), the no-touch zone (retail (-364, -20), 728 x 356) scaled the same and moved
-# with the plate; the window itself goes up by its extra bottom (bbt_common.lua BBT_SW_LOC_DY). Attach rows 3 (index
-# 2) on _list04, 4 (index 3) on _list05.
+# the league's options have FOUR rows (+ «Sin selecciones nacionales»): a 4-row copy of win05_17.
 [[object]]
-name = "evt_bbd_tn_opts4_locator"
+name = "battlebaydeluxe_tn_opts4_locator"
 from = "win05_17_sub_list_locator_lr"
-set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/10_win/win05/win05_17/win05_17.g4pkm" }, values = { 1 = "common/menu/10_win/win05/evt_bbd_tn_opts4/evt_bbd_tn_opts4.g4pkm" } }]
+set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/10_win/win05/win05_17/win05_17.g4pkm" }, values = { 1 = "common/menu/10_win/win05/battlebaydeluxe_tn_opts4/battlebaydeluxe_tn_opts4.g4pkm" } }]
 copy = [
     { parameter = "NullLayerName", match = { 3 = -1380032499, 4 = 1 }, values = { 1 = -1906936314, 2 = 2003145093, 4 = 2 } },
     { parameter = "NullLayerName", match = { 3 = -1380032499, 4 = 1 }, values = { 1 = -112114032, 2 = 6463763, 4 = 3 } },
 ]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts4/evt_bbd_tn_opts4.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts4/battlebaydeluxe_tn_opts4.g4pkm"
 from = "common/menu/10_win/win05/win05_17/win05_17.g4pkm"
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts4/evt_bbd_tn_opts4.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts4/battlebaydeluxe_tn_opts4.g4pkm"
 joint = "_list04"
 parent = "_pos_list_atc01"
 translate = [0.0, -140.0, 0.0]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts4/evt_bbd_tn_opts4.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts4/battlebaydeluxe_tn_opts4.g4pkm"
 joint = "_list05"
 parent = "_pos_list_atc01"
 translate = [0.0, -210.0, 0.0]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts4/evt_bbd_tn_opts4.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts4/battlebaydeluxe_tn_opts4.g4pkm"
 joint = "_pos_list_atc01"
 translate = [0.0, -196.0, 0.0]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts4/evt_bbd_tn_opts4.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts4/battlebaydeluxe_tn_opts4.g4pkm"
 joint = "_list03"
 translate = [0.0, -349.0, 0.0]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts4/evt_bbd_tn_opts4.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts4/battlebaydeluxe_tn_opts4.g4pkm"
 joint = "_list_base_lr01"
 translate = [-384.0, 40.0, 0.0]
 scale = [768.0, 718.0, 1.0]
 
 [[layout]]
-file = "common/menu/10_win/win05/evt_bbd_tn_opts4/evt_bbd_tn_opts4.g4pkm"
+file = "common/menu/10_win/win05/battlebaydeluxe_tn_opts4/battlebaydeluxe_tn_opts4.g4pkm"
 joint = "_untouch01"
 translate = [-364.0, 4.0, 0.0]
 scale = [728.0, 646.0, 1.0]
 
 [[patch]]
 menu = "sub_window"
-add_layer = { name = "evt_bbd_tn_opts4_locator", object = "evt_bbd_tn_opts4_locator", count = 1, scale = 1, after = "evt_bbd_tn_opts_locator", groups = [{ group = "sub_window_group", flags = [0, 0, 0, 0, 1, 0], after = "evt_bbd_tn_opts_locator" }] }
+add_layer = { name = "battlebaydeluxe_tn_opts4_locator", object = "battlebaydeluxe_tn_opts4_locator", count = 1, scale = 1, after = "battlebaydeluxe_tn_opts_locator", groups = [{ group = "sub_window_group", flags = [0, 0, 0, 0, 1, 0], after = "battlebaydeluxe_tn_opts_locator" }] }
 
-# ---- the Campaña / Torneo / Liga mode selector (1.5.47; Liga 1.45.0) ------------------------------------------------
-# Centred in the header bar (graft bbt_mode.lua): a strip, three pills (0 Campaña, 1 Torneo, 2 Liga; the active one
-# lit), the key glyph and the three labels (the retail change-page text plate team00_40, as the VR-Framework's grid strip). On the
-# Campaña grid only (enjoy_team_select_menu, group enjoy_team_select_menu_campaign; 1.5.51: never shown in the Battle
-# Bay top menu, 1.5.57: its layers left that menu, the layer budget). Not opened with the group: the graft opens
-# them on the first draw. Draw
-# priorities above the header's widgets (the BB logo 654), under the top bar's (1006+) and the windows'.
 [[object]]
-name = "evt_bbd_mode_bg"
+name = "battlebaydeluxe_mode_bg"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 695 } }]
 
 [[object]]
-name = "evt_bbd_mode_pill"
+name = "battlebaydeluxe_mode_pill"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 696 } }]
 
 [[patch]]
 menu = "enjoy_team_select_menu"
-add_layer = { name = "evt_bbd_mode_bg", object = "evt_bbd_mode_bg", count = 1, align = [1, 8], scale = 0.20000000298023224, groups = [{ group = "enjoy_team_select_menu_campaign", flags = [0, 0, 0, 0, 1, 0] }] }
+add_layer = { name = "battlebaydeluxe_mode_bg", object = "battlebaydeluxe_mode_bg", count = 1, align = [1, 8], scale = 0.20000000298023224, groups = [{ group = "enjoy_team_select_menu_campaign", flags = [0, 0, 0, 0, 1, 0] }] }
 resources = ["#/menu/220_img/bbd_md/bbd_md.g4tx"]
 
 [[patch]]
 menu = "enjoy_team_select_menu"
-add_layer = { name = "evt_bbd_mode_pill", object = "evt_bbd_mode_pill", count = 3, align = [1, 8], scale = 0.20000000298023224, after = "evt_bbd_mode_bg", groups = [{ group = "enjoy_team_select_menu_campaign", flags = [0, 0, 0, 0, 1, 0], after = "evt_bbd_mode_bg" }] }
+add_layer = { name = "battlebaydeluxe_mode_pill", object = "battlebaydeluxe_mode_pill", count = 3, align = [1, 8], scale = 0.20000000298023224, after = "battlebaydeluxe_mode_bg", groups = [{ group = "enjoy_team_select_menu_campaign", flags = [0, 0, 0, 0, 1, 0], after = "battlebaydeluxe_mode_bg" }] }
 
 [[patch]]
 menu = "enjoy_team_select_menu"
-add_layer = { name = "evt_bbd_mode_txt", object = "team00_40_change_page_guide", count = 4, after = "evt_bbd_mode_pill", groups = [{ group = "enjoy_team_select_menu_campaign", flags = [0, 0, 0, 0, 1, 0], after = "evt_bbd_mode_pill" }] }
+add_layer = { name = "battlebaydeluxe_mode_txt", object = "team00_40_change_page_guide", count = 4, after = "battlebaydeluxe_mode_pill", groups = [{ group = "enjoy_team_select_menu_campaign", flags = [0, 0, 0, 0, 1, 0], after = "battlebaydeluxe_mode_pill" }] }
 
-# the «Personalizado» team picker's check mark on a picked tile of the grid (graft bbt_grid.lua BBT_PICK: 40
-# instances, one per tile instance; sprite bbd_md_check of the selector's atlas); above the tiles, under the windows
 [[object]]
-name = "evt_bbd_pick_mark"
+name = "battlebaydeluxe_pick_mark"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 690 } }]
 
 [[patch]]
 menu = "enjoy_team_select_menu"
-add_layer = { name = "evt_bbd_pick_mark", object = "evt_bbd_pick_mark", count = 40, align = [1, 8], scale = 0.20000000298023224, after = "evt_bbd_mode_txt", groups = [{ group = "enjoy_team_select_menu_campaign", flags = [0, 0, 0, 0, 1, 0], after = "evt_bbd_mode_txt" }] }
+add_layer = { name = "battlebaydeluxe_pick_mark", object = "battlebaydeluxe_pick_mark", count = 40, align = [1, 8], scale = 0.20000000298023224, after = "battlebaydeluxe_mode_txt", groups = [{ group = "enjoy_team_select_menu_campaign", flags = [0, 0, 0, 0, 1, 0], after = "battlebaydeluxe_mode_txt" }] }
 
-# the picker's pick number beside each check mark (graft bbt_grid.lua BBT_GridPickNumber: 40 instances, one per tile
-# instance; the change-page text plate as the mode selector's texts, its plate hidden, draw priority set by the graft)
 [[patch]]
 menu = "enjoy_team_select_menu"
-add_layer = { name = "evt_bbd_pick_number", object = "team00_40_change_page_guide", count = 40, after = "evt_bbd_pick_mark", groups = [{ group = "enjoy_team_select_menu_campaign", flags = [0, 0, 0, 0, 1, 0], after = "evt_bbd_pick_mark" }] }
+add_layer = { name = "battlebaydeluxe_pick_number", object = "team00_40_change_page_guide", count = 40, after = "battlebaydeluxe_pick_mark", groups = [{ group = "enjoy_team_select_menu_campaign", flags = [0, 0, 0, 0, 1, 0], after = "battlebaydeluxe_pick_mark" }] }
 
-# ---- the loading telop's path (1.5.47) ----------------------------------------------------------------------------
-# fade_menu_encount_campaign: the next rival's telop (vs11_02) carries the path's hexagon nodes (vs01_43, 7 retail
-# instances on its joints _atc_list01 .. _atc_list07: 100 px apart, every other one 55 px lower, from _pos_list01).
-# A tournament's path can be longer (a group stage of 64: 3 + 5 = 8 matches): 12 node instances, and the telop on a
-# copy of its layout with _atc_list08 .. _atc_list12 (and its object with their attach rows). The graft
-# (bbt_encount.lua) places the joints for the path's length and hides the nodes past it; 7 nodes = the retail row.
 [[layout]]
-file = "common/menu/107_vs/vs11/evt_bbd_vs11_02/evt_bbd_vs11_02.g4pkm"
+file = "common/menu/107_vs/vs11/battlebaydeluxe_vs11_02/battlebaydeluxe_vs11_02.g4pkm"
 from = "common/menu/107_vs/vs11/vs11_02/vs11_02.g4pkm"
 
 [[layout]]
-file = "common/menu/107_vs/vs11/evt_bbd_vs11_02/evt_bbd_vs11_02.g4pkm"
+file = "common/menu/107_vs/vs11/battlebaydeluxe_vs11_02/battlebaydeluxe_vs11_02.g4pkm"
 joint = "_atc_list08"
 parent = "_pos_list01"
 translate = [700.0, -55.0, 0.0]
 
 [[layout]]
-file = "common/menu/107_vs/vs11/evt_bbd_vs11_02/evt_bbd_vs11_02.g4pkm"
+file = "common/menu/107_vs/vs11/battlebaydeluxe_vs11_02/battlebaydeluxe_vs11_02.g4pkm"
 joint = "_atc_list09"
 parent = "_pos_list01"
 translate = [800.0, 0.0, 0.0]
 
 [[layout]]
-file = "common/menu/107_vs/vs11/evt_bbd_vs11_02/evt_bbd_vs11_02.g4pkm"
+file = "common/menu/107_vs/vs11/battlebaydeluxe_vs11_02/battlebaydeluxe_vs11_02.g4pkm"
 joint = "_atc_list10"
 parent = "_pos_list01"
 translate = [900.0, -55.0, 0.0]
 
 [[layout]]
-file = "common/menu/107_vs/vs11/evt_bbd_vs11_02/evt_bbd_vs11_02.g4pkm"
+file = "common/menu/107_vs/vs11/battlebaydeluxe_vs11_02/battlebaydeluxe_vs11_02.g4pkm"
 joint = "_atc_list11"
 parent = "_pos_list01"
 translate = [1000.0, 0.0, 0.0]
 
 [[layout]]
-file = "common/menu/107_vs/vs11/evt_bbd_vs11_02/evt_bbd_vs11_02.g4pkm"
+file = "common/menu/107_vs/vs11/battlebaydeluxe_vs11_02/battlebaydeluxe_vs11_02.g4pkm"
 joint = "_atc_list12"
 parent = "_pos_list01"
 translate = [1100.0, -55.0, 0.0]
 
-# the telop on that layout (the retail atlas named: a renamed layout takes the atlas of its own name else); node
-# instances 7 .. 11 attached to _atc_list08 .. _atc_list12 (crc32, signed)
 [[object]]
-name = "evt_bbd_encount_telop"
+name = "battlebaydeluxe_encount_telop"
 from = "vs11_02_next_enemy_telop_on_loading"
-set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/107_vs/vs11/vs11_02/vs11_02.g4pkm" }, values = { 1 = "common/menu/107_vs/vs11/evt_bbd_vs11_02/evt_bbd_vs11_02.g4pkm" } }]
+set = [{ parameter = "SkeletonAnime", match = { 1 = "common/menu/107_vs/vs11/vs11_02/vs11_02.g4pkm" }, values = { 1 = "common/menu/107_vs/vs11/battlebaydeluxe_vs11_02/battlebaydeluxe_vs11_02.g4pkm" } }]
 add = [{ block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/107_vs/vs11/vs11_02/vs11_02.g4tx"] }]
 copy = [
     { parameter = "NullLayerName", match = { 3 = 106197494, 4 = 6 }, values = { 1 = -1368342511, 2 = -1368342511, 4 = 7 } },
@@ -574,65 +464,40 @@ copy = [
 [[patch]]
 menu = "fade_menu_encount_campaign"
 layer = "vs11_02_next_enemy_telop_on_loading"
-object = "evt_bbd_encount_telop"
+object = "battlebaydeluxe_encount_telop"
 
 [[patch]]
 menu = "fade_menu_encount_campaign"
 layer = "vs01_43_enjoy_team_select_emblem_icon"
 count = 12
 
-# ---- the group stage's own menu (1.5.60) ---------------------------------------------------------------------------
-# The group stage is never split into pages. Every group on one page (16 groups: 4
-# x 4 cards) takes 642 layer instances, more than the Battle Bay top menu can still hold (779 of the engine's ~844 per
-# open menu-2.3), so the tables live in a menu of their own, with its own budget: a display-only child menu, opened
-# over its host (bb_stadium_top_menu, or soccer_top_menu with Inazuma Fantasy's hub) by the overlay while the group
-# page is shown (graft bb_tournament, bbt_top.lua BBT_GroupsShow) and closed when another page is shown or the overlay
-# closes. The host keeps the keys, its header title and the bracket's background (vroad04_01_p1_bg, 195); this menu
-# only draws the cards and the legend.
-# * Registry row: language_option_menu's (the draw class of the host's own menus, 9) with priority 0 (as the retail
-#   display-only children chara_model_only_view_menu / fade_menu_encount_*): the engine gives the pad to the menus of
-#   the highest priority (contact-map.md §7), so the host (220 / 230) keeps it. No input layer, no focus group, no
-#   command row: nothing here can take a key.
-# * Setting: chara_model_only_view_menu's (the retail display-only child: one layer group named after the menu, no
-#   command, resource, focus or shift row) with its layer list replaced by these five pools, all opened with the
-#   menu's group (flags [0, 1, …]); the script hides each instance as the engine sets it up and draws once all are.
-# * Counts (the script's N: change both together): 16 tiny cards = card 16, band 49 (header + top-2 tints + the
-#   player's row), mark 178 (2 header strokes, 2 qualification bars, 3 separators, 4 points cells a card + the legend's
-#   2), row 64, txt 322 (a card's title, 3 labels and 4 x 4 values + the legend's 2); 8 compact cards = 8, 25, 189 (the
-#   form dots on the mark pool), 32, 294. Total 16 + 50 + 190 + 64 + 322 = 642 (the framework's budget check warns
-#   from 800). Whether the engine's limit is per menu or for every open menu together is still open (§2.1): the
-#   script logs, once per opening, the instances requested / set up per pool and the groups drawn.
 [[screen]]
-name = "evt_bbd_tn_groups_menu"
+name = "battlebaydeluxe_tn_groups_menu"
 like = "language_option_menu"
 set = { priority = 0 }
 base = "chara_model_only_view_menu"
-script = "assets/lua/screens/evt_bbd_tn_groups_menu.lua"
+script = "assets/lua/screens/battlebaydeluxe_tn_groups_menu.lua"
 
 [screen.rows]
 layer = [
-    { layer = "evt_bbd_gt_card", object = "evt_bbd_tn_card", count = 16, align = [1, 8], scale = 0.20000000298023224 },
-    { layer = "evt_bbd_gt_band", object = "evt_bbd_tn_band", count = 50, align = [1, 8], scale = 0.20000000298023224 },
-    { layer = "evt_bbd_gt_mark", object = "evt_bbd_tn_mark", count = 190, align = [1, 8], scale = 0.20000000298023224 },
-    { layer = "evt_bbd_gt_row", object = "evt_bbd_tn_row_l", count = 64, align = [1, 8], scale = 0.20000000298023224 },
-    { layer = "evt_bbd_gt_txt", object = "evt_bbd_tn_txt", count = 322, align = [1, 8], scale = 0.20000000298023224 },
-    { layer = "evt_bbd_gt_face", object = "evt_bbd_tn_face", count = 12 },
+    { layer = "battlebaydeluxe_gt_card", object = "battlebaydeluxe_tn_card", count = 16, align = [1, 8], scale = 0.20000000298023224 },
+    { layer = "battlebaydeluxe_gt_band", object = "battlebaydeluxe_tn_band", count = 50, align = [1, 8], scale = 0.20000000298023224 },
+    { layer = "battlebaydeluxe_gt_mark", object = "battlebaydeluxe_tn_mark", count = 190, align = [1, 8], scale = 0.20000000298023224 },
+    { layer = "battlebaydeluxe_gt_row", object = "battlebaydeluxe_tn_row_l", count = 64, align = [1, 8], scale = 0.20000000298023224 },
+    { layer = "battlebaydeluxe_gt_txt", object = "battlebaydeluxe_tn_txt", count = 322, align = [1, 8], scale = 0.20000000298023224 },
+    { layer = "battlebaydeluxe_gt_face", object = "battlebaydeluxe_tn_face", count = 12 },
 ]
-# + the League cards' own art (bbd_lg: the hub / standings / top scorers cards drawn 1:1)
-# + the hub dashboard's retail sprites: the list-tab icons, the command button, the Battle Bay logo
-# + evt_bbd_gt_face (the top scorers' minifaces, no align: placed by VRFW_FaceIcon.Card)
-# evt_bbd_gt_face 12 (one a row of the top scorers page, [league] rows_per_page; more rows: no face)
 resources = ["#/menu/220_img/bbd_tn/bbd_tn.g4tx", "#/menu/220_img/bbd_lg/bbd_lg.g4tx",
     "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx", "#/menu/20_cmn/cmn03/cmn03_02/cmn03_02.g4tx",
     "#/menu/107_vs/vs01/vs01_47/<LG>/vs01_47.g4tx"]
 group_base = [
-    { layer = "evt_bbd_gt_card", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "evt_bbd_gt_band", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "evt_bbd_gt_mark", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "evt_bbd_gt_row", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "evt_bbd_gt_txt", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "evt_bbd_gt_face", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "battlebaydeluxe_gt_card", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "battlebaydeluxe_gt_band", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "battlebaydeluxe_gt_mark", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "battlebaydeluxe_gt_row", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "battlebaydeluxe_gt_txt", flags = [0, 1, 0, 0, 1, 0] },
+    { layer = "battlebaydeluxe_gt_face", flags = [0, 1, 0, 0, 1, 0] },
 ]
 group = [
-    { group = "evt_bbd_tn_groups_menu", flags = [1], slice = [0, 6] },
+    { group = "battlebaydeluxe_tn_groups_menu", flags = [1], slice = [0, 6] },
 ]

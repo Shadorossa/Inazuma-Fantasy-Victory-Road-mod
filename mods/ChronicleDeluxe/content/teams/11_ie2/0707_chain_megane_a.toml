@@ -1,15 +1,10 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: a rival of the chain «Ruta del entrenador del Mary Times»
-# (content/teams/70_route_nodes/chain_ie2_marytimes.toml). Built from the wiki lineup
-# (research/build/wiki/lineups_IE2.csv, «Game opponent») with the VR cards of (every player has one). Not in the
-# Battle Bay grid (no `appears`).
 default_lang = "en"
 # 〇Megane〇 A (IE2, «Hakuren's Coach's route #3»).
-# Roster: wiki lineup «IE2 |  | Game opponent», https://inazuma-eleven.fandom.com/wiki/〇Megane〇_A
 [[team]]
 name = "ct_wk_megane_a"
 key = "evt_ct_wk_megane_a"
-based_on = "tm_cro_legend_ie1_04" # Gafitas (the same school's team): formation, kit, crest, tactics
+based_on = "tm_cro_legend_ie1_04"
 level = 40
 series = "IE2"
 roster = "exact"

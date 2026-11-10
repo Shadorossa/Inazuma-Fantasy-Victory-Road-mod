@@ -1,0 +1,13 @@
+schema = "VRFW.game/2"
+
+# Data of the equip pickers (grafts better_ui_emblem_grid, better_ui_kit_grid).
+
+# -> array of { id = charaSeriesId, ty = series type } of the series with at least one emblem
+[[VRFW.Command]]
+name = "CMND_BETTERUI_EMBLEM_TABS"
+handler = "BetterUI.EmblemTabs"
+
+# -> array of { id = charaSeriesId, ty = series type } of the series with at least one kit
+[[VRFW.Command]]
+name = "CMND_BETTERUI_KIT_TABS"
+handler = "BetterUI.KitTabs"

@@ -1,36 +1,17 @@
--- VRFW real players (docs/framework/chara-index.md §2): whether a character is a real player, the one rule every
--- script uses before it offers a character as a player (album, contact maps, a career mode). Derived from the loaded
--- tables (mod overlays included); names no character.
--- A character is not a real player when one of these holds:
---   * no_face: no face icon of his own (VRFW/lib/faces: the engine draws the default face, Mark Evans');
---   * no_player_body: his model's body has no kit mesh (chara_body body_mesh_path empty, or no body) and the model has
---     no clothes of its own (chara_model clothes 0): a creature / mascot body that cannot wear a kit;
---   * no_profile: no profile text (chara_base description_text 0) and neither male nor female (chara_base gender,
---     schemas/enums.toml chara_gender): a stand-in without a person behind it.
--- M.of_character(base) -> true = a real player, false = not (second value: the reason), nil = cannot tell.
--- The columns it needs are read once per script VM, on first use (VRFW/lib/table_columns); answers cached per character.
 local M = {}
 
-local Faces = require "VRFW/lib/faces"
+local Faces = VRFW.faces
 
 local GENDER_MALE, GENDER_FEMALE = 1, 2      -- chara_gender values of a person
 
-local function u32(n)
-  n = math.floor(tonumber(n) or 0) % 4294967296
-  if n < 0 then n = n + 4294967296 end
-  return n
-end
+local u32 = VRFW.ids.unsigned
 
 local function has_text(v)
   return type(v) == "string" and v ~= ""
 end
 
-local Columns = require "VRFW/lib/table_columns"
+local Columns = VRFW.table_files
 
--- the columns the rule reads, kept as small maps once per script VM (never the tables' rows); false = unreadable
---   base[id] = model id, profile[id] = true when the character has a profile text or is male or female
---   model[id] = -1 when the model has clothes of its own, else its body id (0 = none)
---   body[id] = true when the body has a kit mesh
 local D = nil
 local ANSWER = {}      -- character id -> { real, reason }
 
@@ -74,7 +55,7 @@ local function player_body(model_id)
   return D.body[m]
 end
 
--- a character (chara_base id) -> true / false (+ reason) / nil
+--- a character (chara_base id) -> true / false (+ reason) / nil
 function M.of_character(base)
   base = u32(base)
   local a = ANSWER[base]
@@ -97,7 +78,7 @@ function M.of_character(base)
   return real, reason
 end
 
--- a card (chara_param id) -> as of_character of its character
+--- a card (chara_param id) -> as of_character of its character
 function M.of_card(card)
   local ok, base = pcall(VRFW.character.base_of, u32(card))
   if not ok or type(base) ~= "number" then return nil end

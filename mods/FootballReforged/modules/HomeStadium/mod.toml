@@ -1,42 +1,14 @@
 id = "HomeStadium"
-# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the
-# game's language (text\keys.toml)
 name = "Home Stadium"
-version = "0.2.4"
+version = "0.3.0"
 author = "Fantasy Team"
-author_steam = "76561199013321372"
-description = "Each of your teams gets a home stadium. Pick it in Team Dock › «Home stadium» among the stadiums you own (bought or unlocked); the choice is saved for that team. The team plays its home friendlies there when the match has no stadium of its own. Competition, Chronicle and Battle Bay keep their own stadiums."
+description = "Each of your teams gets a home stadium. Pick it in Team Dock among the stadiums you own, and that team plays its home friendlies there. Competition, Chronicle and Battle Bay keep their own stadiums."
 priority = 0
 tags = ["Teams", "Gameplay"]
-updated = "2026-11-03"
-# The stadium selector takes the mouse / free cursor (VRFW EVT_PointerNew): a click on an arrow
-# browses, the wheel too, a click on the picture / name plate / «Aceptar» guide accepts, «Volver» guide or right click goes
-# back; the arrow, name or hint line under the pointer grows
-# The stadium selector uses own pre-coloured sprites (the quads cannot be tinted: the window was white, hiding the Aceptar / Volver line), blue arrows dim only at the list's ends, the label's stray bar and line hidden, even 14 px margins
-# A foreign team's dock (VRFW_TeamEditor.Foreign(), e.g. the League team) shows that team's own stadium and no pick
-# With BetterUI the dock list never gets the «Estadio local» row (the ESTADIO panel button replaces it; the check no longer depends on the button's layer existing yet)
-# The ESTADIO box shows FORMACIÓN's own translucent plate (the copied object also
-# showed the flat grey «blank / stop» plate the retail SetupFormationStyle hides) at FORMACIÓN's draw priority
-# This mod's own names (Lua HomeStadium.X, commands CMND_HOMESTADIUM_*, save keys dock.<set>); never VRFW.
+updated = "2026-11-09"
 prefix = "HomeStadium"
 folder = "HomeStadium"
-# The home stadium is for the matches the player plays at home only; BetterMenu's Competition court stays.
-# Standard mod layout:
-#   scripts\home_stadium.lua                         the stadium list (the game's SOCCER_OPTION_FIELD_INFO rows and
-#                                                    their tickets), the choice per team dock (save data of the slot)
-#   content\game\home_stadium.toml                   the commands CMND_HOMESTADIUM_*
-#   content\menus\home_stadium_dock.toml             the team dock list's 9th row instance (without BetterUI)
-#   content\menus\home_stadium_button.toml           with BetterUI: the picture button (a focusable layer + the stadium picture layer)
-#   content\menus\home_stadium_picker.toml           the selector's layers: the stadium picture frame (win05_40_sub_image_frame),
-#                                                    its window, «‹ name ›» plate, arrows, check and texts
-#   assets\lua\_all\home_stadium.lua                 the provider of the framework's home matches (VRFW_HomeStadium)
-#                                                    and the owned stadiums, in every menu VM
-#   assets\lua\soccer_team_dock_menu\300_home_stadium.lua  the team dock entry «Estadio local» and its selector: with
-#                                                    BetterUI a picture button between TÁCTICAS and FORMACIÓN (placed,
-#                                                    reached and decided by BetterUI >= 1.22.10, BetterUI.AddDockButton), else a
-#                                                    row of the dock's list
-#   text\keys.toml                                   the row's texts, the mod's name / description
-requires = ["VRFW>=0.2.4", "FootballReforged>=0.2.4"]
+requires = ["VRFW>=0.3.0", "FootballReforged>=0.3.0"]
 optional = ["BetterUI"]
 conflicts = []
 loader_modules = ["lua_bridge"]
@@ -49,8 +21,6 @@ functions = []
 keys = []
 tables = []
 
-# A MODULE of Football Reforged: shown inside Football Reforged's entry on the Mods
-# screen; switching Football Reforged off switches it off too. On by default.
 [module]
 of = "FootballReforged"
 order = 90

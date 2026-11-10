@@ -1,53 +1,49 @@
--- ===== Board close guard =====
--- Once Back starts this screen's close (skill_slots OnBack sets PL.board_closing), the detail panels are not redrawn:
--- a redraw during the close (Left / Right or the pointer on the Hiper row, a focus event of a closing layer, the focus
--- resync) opened the Hiper panel and its move row again, the menu waited for those layers to close and the previous
--- screen never came back. Cleared when the screen opens (OnInit).
+-- ===== Board close guard ===== Once Back starts the close (PL.board_closing), the detail panels are not redrawn
 PL.board_closing = false
 
-PL.CgPrevInit = OnInit
+PL.cg_prev_init = OnInit
 function OnInit(...)
   PL.board_closing = false
-  return PL.CgPrevInit(...)
+  return PL.cg_prev_init(...)
 end
 
-PL.CgPrevChangeFocus = OnChangeFocus
+PL.cg_prev_change_focus = OnChangeFocus
 function OnChangeFocus(...)
   if PL.board_closing then
     return
   end
-  return PL.CgPrevChangeFocus(...)
+  return PL.cg_prev_change_focus(...)
 end
 
-PL.CgPrevItemInfo = UpdateEquipItemInfo
+PL.cg_prev_item_info = UpdateEquipItemInfo
 function UpdateEquipItemInfo(...)
   if PL.board_closing then
     return
   end
-  return PL.CgPrevItemInfo(...)
+  return PL.cg_prev_item_info(...)
 end
 
-PL.CgPrevOpen = PL.Open
-function PL.Open(...)
+PL.cg_prev_open = PL.open
+function PL.open(...)
   if PL.board_closing then
     return
   end
-  return PL.CgPrevOpen(...)
+  return PL.cg_prev_open(...)
 end
 
-PL.CgPrevHsPollR3 = PL.HsPollR3
-function PL.HsPollR3(...)
-  if PL.board_closing or PL.CgPrevHsPollR3 == nil then
+PL.cg_prev_hs_poll_r3 = PL.hs_poll_r3
+function PL.hs_poll_r3(...)
+  if PL.board_closing or PL.cg_prev_hs_poll_r3 == nil then
     return
   end
-  return PL.CgPrevHsPollR3(...)
+  return PL.cg_prev_hs_poll_r3(...)
 end
 
-PL.CgPrevFocusResync = PL.FocusResync
-function PL.FocusResync(...)
-  if PL.board_closing or PL.CgPrevFocusResync == nil then
+PL.cg_prev_focus_resync = PL.focus_resync
+function PL.focus_resync(...)
+  if PL.board_closing or PL.cg_prev_focus_resync == nil then
     return
   end
-  return PL.CgPrevFocusResync(...)
+  return PL.cg_prev_focus_resync(...)
 end
 -- ===== Board close guard END =====

@@ -1,0 +1,5 @@
+schema = "VRFW.flag/1"
+
+[[flag]]
+name = "ChronicleDeluxe.ChainWin.ie2_marytimes.m01"   # chain ie2_marytimes, tile m01 (tm_tutorial_002) won
+bank = 0

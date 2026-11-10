@@ -1,6 +1,4 @@
 schema = "VRFW.effect/1"
-# Inazuma Fantasy: Colmillo del Tigre: both cut-ins (content\anims\tiger_fang.toml) load the tiger
-# (content\models\props\tiger_fang) for the panther actor, whose motion packs still play it.
 
 [[event_command]]
 event = "ev63_86020"

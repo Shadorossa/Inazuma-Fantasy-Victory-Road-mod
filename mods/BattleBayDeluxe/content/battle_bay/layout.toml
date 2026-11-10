@@ -1,13 +1,17 @@
 # Battle Bay Deluxe: the pages of the Battle Bay grid (schema of content\defaults\team.toml [bb_pages.layout]).
-# One [[BattleBayDeluxe.Page]] per page: Section = a grid tab, Index = its page (from 1), Teams = the slots in
-# grid order (a game team key or <mod>.<name>; "" = an empty slot). Edited with ModManager «Bahía Batalla».
 schema = "BattleBayDeluxe.layout/1"
+
+[[BattleBayDeluxe.Section]]
+Id = "personal"
+Text = "battlebaydeluxe_section_personal"
+Icon = "#/menu/107_vs/bbd_tabs/bbd_tabs.g4tx:bbd_tab_personal"
+Order = 40
+Sort = ["season", "source_order"]
 
 [[BattleBayDeluxe.Page]]
 Section = "main"
 Index = 1
 Teams = [
-  "BattleBayDeluxe.active_team",
   "BattleBayDeluxe.draft",
   "bb_01_team_raimon",
   "bb_02_team_empire",

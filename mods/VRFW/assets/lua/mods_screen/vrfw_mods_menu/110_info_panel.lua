@@ -1,24 +1,20 @@
--- mods_menu (VRFW): the «Mods» screen, the list rows and the info panel (the mod info block INFO, CE.ListRow,
--- CE.InfoPanel, the «Orden de carga» tab). Runs after 100_mods_screen.lua in the same VM and takes the names it shares
--- from VRFW_ModsScreen. No engine call at load time.
-local Screen = VRFW_ModsScreen
+local Screen = VRFW.mods_screen
 if Screen == nil then
   return
 end
-local BASE, Badge, C, CE, Call, Cut = Screen.BASE, Screen.Badge, Screen.C, Screen.CE, Screen.Call, Screen.Cut
-local DrawScrollbar, Fit, G, Hit, INFO = Screen.DrawScrollbar, Screen.Fit, Screen.G, Screen.Hit, Screen.INFO
-local IconOf, Initials, K, KeyOf, M = Screen.IconOf, Screen.Initials, Screen.K, Screen.KeyOf, Screen.M
-local ModById, NameOf, OpenDetails, OrderRows = Screen.ModById, Screen.NameOf, Screen.OpenDetails, Screen.OrderRows
-local Quad, SP, SelectMod, Size, StartCo = Screen.Quad, Screen.SP, Screen.SelectMod, Screen.Size, Screen.StartCo
-local Str, T, Text, TextIdKey, TileOf = Screen.Str, Screen.T, Screen.Text, Screen.TextIdKey, Screen.TileOf
-local Toggle, Txt, Warnings, Wrap, cnt = Screen.Toggle, Screen.Txt, Screen.Warnings, Screen.Wrap, Screen.cnt
+local BASE, Badge, C, CE, Call, Cut = Screen.BASE, Screen.badge, Screen.C, Screen.CE, Screen.call, Screen.cut
+local DrawScrollbar, Fit, G, Hit, INFO = Screen.draw_scrollbar, Screen.fit, Screen.G, Screen.hit, Screen.INFO
+local IconOf, Initials, K, KeyOf, M = Screen.icon_of, Screen.initials, Screen.K, Screen.key_of, Screen.M
+local ModById, NameOf, OpenDetails, OrderRows = Screen.mod_by_id, Screen.name_of, Screen.open_details, Screen.order_rows
+local Quad, SP, SelectMod, Size, StartCo = Screen.quad, Screen.SP, Screen.select_mod, Screen.size, Screen.start_co
+local Str, T, Text, TextIdKey, TileOf = Screen.str, Screen.T, Screen.text, Screen.text_id_key, Screen.tile_of
+local Toggle, Txt, Warnings, Wrap, cnt = Screen.toggle, Screen.txt, Screen.warnings, Screen.wrap, Screen.cnt
 local mouse, ui = Screen.mouse, Screen.ui
 
--- ---- the mod info block: labelled fields, shared by the «Orden de carga» panel and a mod's page --------
 -- (INFO: its layers and sizes are in 100_mods_screen.lua)
 
 -- the state in two words and its colour
-function INFO.State(m)
+function INFO.state(m)
   if m.pending then
     return T(m.enabled and "st_pend_on" or "st_pend_off"), "[CY]"
   end
@@ -28,29 +24,25 @@ function INFO.State(m)
   return T(m.enabled and "st_on" or "st_off"), m.enabled and "[CB]" or "[CWG]"
 end
 
-function INFO.Provides(m)
+function INFO.provides(m)
   if m.provides_text == nil then
     m.provides_text = Str(Call(M.PROVIDES, m.id))
   end
   return m.provides_text
 end
 
-function INFO.Value(s)
+function INFO.value(s)
   return (s ~= nil and s ~= "") and s or INFO.DASH
 end
 
--- «Requiere» in words: a requirement on a part of the framework (any name VRFW provides:
--- mod_options, technique_engine, telop_engine…) is a requirement on the framework itself, shown once as «VRFW
--- (x.y+)»; another mod by its name (a minimum version as «(1.0+)»: the game font has no «≥»). The ModLoader resolves those names through the framework's `provides` (old
--- manifests keep working).
-function INFO.Requires(m)
+function INFO.requires(m)
   local raw = Text(m, 2)
   if raw == "" then
     return ""
   end
   local base, parts = ModById(BASE), {}
   if base ~= nil then
-    for item in string.gmatch(INFO.Provides(base), "[^,%s]+") do
+    for item in string.gmatch(INFO.provides(base), "[^,%s]+") do
       local n = string.match(item, "^([%w_]+)")
       if n ~= nil then
         parts[n] = true
@@ -83,7 +75,7 @@ function INFO.Requires(m)
     end
   end
   if fw then
-    table.insert(out, 1, ((base ~= nil and base.name ~= "") and base.name or "VR-Framework") .. fwv)
+    table.insert(out, 1, ((base ~= nil and base.name ~= "") and base.name or "VRFW") .. fwv)
   end
   return table.concat(out, ", ")
 end
@@ -92,14 +84,13 @@ end
 INFO.TAG_TILE = {framework = 0, interface = 1, interfaz = 1, gameplay = 2, jugabilidad = 2, story = 3, historia = 3,
                  audio = 4, graphics = 5, ["gráficos"] = 5, tools = 6, herramientas = 6}
 -- the mod's colour: the tile of its first tag, else one picked by its id
-function INFO.Tile(m)
+function INFO.tile(m)
   local tag = string.match(Text(m, 8), "^([^\n]+)") or ""
   return INFO.TAG_TILE[string.lower(tag)] or TileOf(m.id)
 end
 
--- the mod's native permissions (mod.toml `permissions`: memory, call, patch, command, state, hook), "" = none; asked once per mod
 INFO.PERMS = {}
-function INFO.Perms(m)
+function INFO.perms(m)
   local p = INFO.PERMS[m.id]
   if p == nil then
     p = Str(Call(M.PERMS, m.id))
@@ -108,10 +99,7 @@ function INFO.Perms(m)
   return p
 end
 
--- The description a player reads: the mod's own text in the screen's language (key `<mod>.mod_description` of its
--- text.toml, 9 languages), else the manifest's `description`; only its first paragraph (long technical notes belong in
--- the mod's README.md). Returns the text, whether more was left out and the whole text.
-function INFO.Description(m)
+function INFO.description(m)
   local id = TextIdKey(m.id .. ".mod_description")
   local s = id ~= nil and Str(Call(C.TEXT_GET, id)) or ""
   if s == "" then
@@ -125,10 +113,7 @@ function INFO.Description(m)
   return s, false, s
 end
 
--- ---- the list and the info panel (both tabs) -----------------------------------------------------------------------------
--- A box with rounded corners from stretched flat quads: the body in three strips, a disc at each corner (all of one
--- opaque colour, so their order on the layer does not show)
-function CE.RoundBox(layer, flat, disc, x, y, w, h, r)
+function CE.round_box(layer, flat, disc, x, y, w, h, r)
   Quad(layer, SP(flat), x + r, y, w - 2 * r, h)
   Quad(layer, SP(flat), x, y + r, r, h - 2 * r)
   Quad(layer, SP(flat), x + w - r, y + r, r, h - 2 * r)
@@ -138,12 +123,12 @@ function CE.RoundBox(layer, flat, disc, x, y, w, h, r)
 end
 
 -- the navy box of the list (it ends above the button guide)
-function CE.ListBox()
-  CE.RoundBox("Q0", "navy", "disc_navy", G.BOX_X, G.BOX_Y, G.BOX_W, G.BOX_BOTTOM - G.BOX_Y, G.BOX_R)
+function CE.list_box()
+  CE.round_box("Q0", "navy", "disc_navy", G.BOX_X, G.BOX_Y, G.BOX_W, G.BOX_BOTTOM - G.BOX_Y, G.BOX_R)
 end
 
 -- a mod's icon: its mod.toml `icon`, else its initials in the neutral frame; s = side (36 a row, 96 the panel)
-function CE.Icon(m, x, y, s)
+function CE.icon(m, x, y, s)
   local big = s >= 60
   local a = (m.enabled or big) and 1 or 0.75
   local ic = IconOf(m)
@@ -155,8 +140,8 @@ function CE.Icon(m, x, y, s)
   Txt("TC", "[CWG]" .. Initials(m) .. "[C]", x + s / 2, y + s / 2 - (big and 3 or 1), big and 1.45 or 0.5)
 end
 
--- a group title of the «Orden de carga» list (on / off), its note at the right
-function CE.HeadRow(k, text, note)
+-- a group title of the "Load order" list (on / off), its note at the right
+function CE.head_row(k, text, note)
   local y = G.LIST_Y + k * G.ROW_STEP
   Quad("Q2", SP("row_head"), G.LIST_X, y, G.ROW_W - 12, G.ROW_H)
   Txt("TL", Cut(text, Fit(G.ROW_W / 2, 0.8)), G.LIST_X + 24, y + G.ROW_H / 2, 0.8)
@@ -165,11 +150,7 @@ function CE.HeadRow(k, text, note)
   end
 end
 
--- One mod of the list (visible row k): its plate (dimmed when off; the cyan frame and the green arrow when focused),
--- the load number in its square (none when off), the icon, the name, «version · size · author», the warning / restart
--- marks and the state tag at the right. A click on the row = `open`; a click on the tag switches the mod.
--- `family` = show a module mod as «Parent › Module» («Orden de carga» lists them all).
-function CE.ListRow(k, m, focused, row_id, tag_id, open, family)
+function CE.list_row(k, m, focused, row_id, tag_id, open, family)
   local x, y, w, h = G.LIST_X, G.LIST_Y + k * G.ROW_STEP, G.ROW_W, G.ROW_H
   local cy = y + h / 2
   local off = not m.enabled
@@ -183,7 +164,7 @@ function CE.ListRow(k, m, focused, row_id, tag_id, open, family)
   else
     Quad("Q1", SP("numbox_off"), x + 18, cy - 17, 34, 34)
   end
-  CE.Icon(m, x + 70, cy - 17, 34)
+  CE.icon(m, x + 70, cy - 17, 34)
   local nm = m.name ~= "" and m.name or m.id
   if family and m.family ~= nil then
     nm = m.family.name .. " › " .. (m.mname or nm)
@@ -209,7 +190,7 @@ function CE.ListRow(k, m, focused, row_id, tag_id, open, family)
   if sz ~= "" then meta[#meta + 1] = sz end
   if m.author ~= "" then meta[#meta + 1] = m.author end
   Txt("TL", "[CWG]" .. Cut(table.concat(meta, "  ·  "), Fit(ix + 20 - mx, 0.62)) .. "[C]", mx, cy + 1, 0.62)
-  -- the state tag: green «Activado» / grey «Desactivado»; the other states (restart, not loaded, update) in words
+  -- the state tag: green "Enabled" / grey "Disabled"; the other states (restart, not loaded, update) in words
   local bs, bt = Badge(m)
   if bs == "pill_green" or bs == "pill_grey" then
     bt = T(m.enabled and "card_on" or "card_off")
@@ -217,27 +198,27 @@ function CE.ListRow(k, m, focused, row_id, tag_id, open, family)
   Quad("Q1", SP(bs), tx, cy - 13, 122, 26, off and 0.9 or 1)
   Txt("TC", Cut(bt, Fit(114, 0.6)), tx + 61, cy, 0.6)
   if mouse.on and mouse.hot == tag_id then
-    CE.Focus("Q1", tx, cy - 13, 122, 26, 2)
+    CE.focus("Q1", tx, cy - 13, 122, 26, 2)
   end
   Hit(x, y, w, h, row_id, open)
   Hit(tx - 4, cy - 17, 130, 34, tag_id, function() SelectMod(m.id) StartCo(Toggle) end)
 end
 
 -- the info panel's frame: the header bar (diagonal stripes, the blue bar to the screen's edge) and the white body
-function CE.PanelFrame()
+function CE.panel_frame()
   local x, y, hh = G.PANEL_X, G.PANEL_Y, G.PANEL_HEAD
   Quad("Q0", SP("hstripes"), x, y, 64, hh)
   Quad("Q0", SP("hbar_l"), x + 44, y, 40, hh)
   Quad("Q0", SP("hbar"), x + 84, y, 1920 - (x + 84), hh)
-  CE.RoundBox("Q0", "white", "disc_white", x, G.PANEL_BODY_Y, G.PANEL_W, G.PANEL_BODY_H, G.PANEL_R)
+  CE.round_box("Q0", "white", "disc_white", x, G.PANEL_BODY_Y, G.PANEL_W, G.PANEL_BODY_H, G.PANEL_R)
 end
 
 -- the framework's parts (the names its mod.toml `provides`): a requirement on one is a requirement on the framework
-function INFO.BaseParts()
+function INFO.base_parts()
   local parts = {}
-  local base_mod = Screen.BaseMod()
+  local base_mod = Screen.base_mod()
   if base_mod ~= nil then
-    for item in string.gmatch(INFO.Provides(base_mod), "[^,%s]+") do
+    for item in string.gmatch(INFO.provides(base_mod), "[^,%s]+") do
       local n = string.match(item, "^([%w_%.%-]+)")
       if n ~= nil then
         parts[n] = true
@@ -248,13 +229,13 @@ function INFO.BaseParts()
 end
 
 -- the installed mod that answers requirement `name`: the mod of that id, else one whose `provides` names it
-function INFO.Provider(name)
+function INFO.provider(name)
   local d = ModById(name)
   if d ~= nil then
     return d
   end
-  for _, o in ipairs(Screen.Mods()) do
-    for item in string.gmatch(INFO.Provides(o), "[^,%s]+") do
+  for _, o in ipairs(Screen.mods()) do
+    for item in string.gmatch(INFO.provides(o), "[^,%s]+") do
       local n = string.match(item, "^([%w_%.%-]+)")
       if n ~= nil and string.lower(n) == string.lower(name) then
         return o
@@ -264,11 +245,7 @@ function INFO.Provider(name)
   return nil
 end
 
--- «Necesita»: one row a requirement {label, state, colour; key, mod, name, ok, reason}; a framework part is the
--- framework, once and first; a minimum version as «(1.0+)»; the state: on, off or not installed; `ok` = installed,
--- on and not too old (the ModLoader's «version» warnings), else `reason` says why. Read once per mod (the list is read
--- again after every change).
-function INFO.Needs(m)
+function INFO.needs(m)
   if m.needs ~= nil then
     return m.needs
   end
@@ -279,7 +256,7 @@ function INFO.Needs(m)
       old[other] = true
     end
   end
-  local out, seen, parts = {}, {}, INFO.BaseParts()
+  local out, seen, parts = {}, {}, INFO.base_parts()
   for req in string.gmatch(Text(m, 2), "[^,\n]+") do
     local name, op, ver = string.match(req, "^%s*([%w_%.%-]+)%s*([<>=!~]*)%s*([^%s]*)%s*$")
     if name ~= nil then
@@ -287,8 +264,8 @@ function INFO.Needs(m)
       local key = (own == BASE or parts[name]) and BASE or own
       if not seen[key] then
         seen[key] = true
-        local d = key == BASE and Screen.BaseMod() or INFO.Provider(name)
-        local short = (d ~= nil and d.name ~= "") and d.name or (key == BASE and "VR-Framework" or name)
+        local d = key == BASE and Screen.base_mod() or INFO.provider(name)
+        local short = (d ~= nil and d.name ~= "") and d.name or (key == BASE and "VRFW" or name)
         local label = short
         if key == own and ver ~= "" then
           label = label .. ((op == "" or op == ">=") and (" (" .. ver .. "+)") or (" (" .. op .. " " .. ver .. ")"))
@@ -315,20 +292,20 @@ function INFO.Needs(m)
   return out
 end
 
--- «Lo necesitan»: the names of the installed mods whose `requires` names this mod (its id or a name it provides)
-function INFO.NeededBy(m)
+-- "Required by": the names of the installed mods whose `requires` names this mod (its id or a name it provides)
+function INFO.needed_by(m)
   if m.needed_by ~= nil then
     return m.needed_by
   end
   local mine = {[m.id] = true}
-  for item in string.gmatch(INFO.Provides(m), "[^,%s]+") do
+  for item in string.gmatch(INFO.provides(m), "[^,%s]+") do
     local n = string.match(item, "^([%w_%.%-]+)")
     if n ~= nil then
       mine[n] = true
     end
   end
   local out = {}
-  for _, o in ipairs(Screen.Mods()) do
+  for _, o in ipairs(Screen.mods()) do
     if o ~= m then
       for req in string.gmatch(Text(o, 2), "[^,\n]+") do
         local name = string.match(req, "^%s*([%w_%.%-]+)")
@@ -343,12 +320,8 @@ function INFO.NeededBy(m)
   return out
 end
 
--- The info panel of mod `m` (nil = the frame alone): the header (initials, name, version), the icon and the sheet
--- (version, size, author, place in the load order, state), the description, «Necesita» (each requirement and its
--- state), «Lo necesitan» (the mods that require it), one warning line when there is one, and the hint of the mod's
--- page («Detalles», a click opens it too).
-function CE.InfoPanel(m)
-  CE.PanelFrame()
+function CE.info_panel(m)
+  CE.panel_frame()
   if m == nil then
     return
   end
@@ -362,14 +335,14 @@ function CE.InfoPanel(m)
     Txt("TR", "v" .. Cut(m.version, 12), x + w - 30, hc, 0.78)
   end
   local bx, by, iw = x + 30, G.PANEL_BODY_Y, w - 60
-  CE.Icon(m, bx, by + 26, 96)
-  local st, sc = INFO.State(m)
+  CE.icon(m, bx, by + 26, 96)
+  local st, sc = INFO.state(m)
   if sc == "[CB]" then
     sc = "[CG]"
   end
   local sheet = {
-    {T("f_version"), INFO.Value(m.version ~= "" and ("v" .. m.version) or "")},
-    {T("f_size"), INFO.Value(Size(m.size))},
+    {T("f_version"), INFO.value(m.version ~= "" and ("v" .. m.version) or "")},
+    {T("f_size"), INFO.value(Size(m.size))},
     {T("f_author"), m.author ~= "" and m.author or T("no_author_short")},
     {T("f_load_order"), (m.enabled and m.pos > 0) and T("pos_of", {n = m.pos, t = cnt.active}) or INFO.DASH},
     {T("f_state"), st, sc},
@@ -384,16 +357,16 @@ function CE.InfoPanel(m)
   -- the description (its first paragraph, four lines at most)
   y = y + 23
   Txt("TL", "[CN]" .. T("f_description") .. "[C]", bx, y, 0.66)
-  local desc = INFO.Description(m)
+  local desc = INFO.description(m)
   Quad("Q2", SP("paper"), bx, y + 18, iw, 130)
   for i, l in ipairs(Wrap(desc ~= "" and desc or T("no_desc"), Fit(iw - 40, 0.7), 4)) do
     Txt("TL", (desc ~= "" and "[CB]" or "[CWG]") .. l .. "[C]", bx + 18, y + 45 + (i - 1) * 29, 0.7)
   end
-  -- «Necesita»: a row a requirement and its state (three rows; more: the last says how many are left)
+  -- "Requires": a row a requirement and its state (three rows; more: the last says how many are left)
   y = y + 176
   Txt("TL", "[CN]" .. T("f_needs") .. "[C]", bx, y, 0.66)
   y = y + 20
-  local needs = INFO.Needs(m)
+  local needs = INFO.needs(m)
   if #needs == 0 then
     Txt("TL", "[CWG]" .. T("needs_none") .. "[C]", bx + 2, y + 16, 0.68)
     y = y + 36
@@ -410,10 +383,10 @@ function CE.InfoPanel(m)
     end
     y = y + 36
   end
-  -- «Lo necesitan»: one line with the names
+  -- "Required by": one line with the names
   y = y + 14
   Txt("TL", "[CN]" .. T("f_needed_by") .. "[C]", bx, y, 0.66)
-  local users = INFO.NeededBy(m)
+  local users = INFO.needed_by(m)
   if #users == 0 then
     Txt("TL", "[CWG]" .. T("needed_by_none") .. "[C]", bx, y + 35, 0.7)
   else
@@ -454,16 +427,16 @@ local function DrawOrder()
     ui.otop = ui.osel - G.LIST_ROWS + 1
   end
   ui.otop = math.max(1, math.min(ui.otop, math.max(1, #rows - G.LIST_ROWS + 1)))
-  CE.ListBox()
+  CE.list_box()
   for k = 0, G.LIST_ROWS - 1 do
     local n = ui.otop + k
     local r = rows[n]
     if r ~= nil then
       if r.head then
-        CE.HeadRow(k, r.text, r.first and T("order_sub") or nil)
+        CE.head_row(k, r.text, r.first and T("order_sub") or nil)
       else
         local m = r.m
-        CE.ListRow(k, m, n == ui.osel and ui.popup == nil, "orow" .. n, "otag" .. n,
+        CE.list_row(k, m, n == ui.osel and ui.popup == nil, "orow" .. n, "otag" .. n,
                    function() ui.osel = n SelectMod(m.id) OpenDetails() end, true)
       end
     end
@@ -474,8 +447,8 @@ local function DrawOrder()
   end)
   -- the panel: the selected mod
   local r = rows[ui.osel]
-  CE.InfoPanel(r ~= nil and r.m or nil)
+  CE.info_panel(r ~= nil and r.m or nil)
 end
 
 -- for 100_mods_screen.lua and the files after this one
-Screen.DrawOrder = DrawOrder
+Screen.draw_order = DrawOrder

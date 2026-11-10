@@ -1,0 +1,6 @@
+schema = "VRFW.game/2"
+
+# Players Universe character list model (assets/lua/chara_pack_probability_list_menu/universe_model.lua).
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_UNIVERSE_MODEL_BOX"
+handler = "CharacterReforged.UniverseModel.Box"

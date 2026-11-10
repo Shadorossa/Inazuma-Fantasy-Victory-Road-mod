@@ -1,0 +1,76 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# The Knights of the Round Table armour from the Chronicle story scenes.
+# Retail has its mesh for body group 0; group 1 wears that mesh through the game's body fallback.
+[[VRFW.Outfit]]
+Name = "knights_armour"
+Kit = { Uniform = "0xDCEC94B8" }
+IconKey = "cos_cd_knights_armour"
+Who = { Body = [0, 1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Armadura Caballeros de la Mesa Redonda"
+  Description = "La armadura de los Caballeros de la Mesa Redonda.\nSolo para los tipos de cuerpo compatibles."
+  [VRFW.Outfit.Text.en]
+  Name = "Knights of the Round Table Armour"
+  Description = "The armour of the Knights of the Round Table.\nOnly for compatible body types."
+  [VRFW.Outfit.Text.fr]
+  Name = "Armure Chevaliers de la Table Ronde"
+  Description = "L'armure des Chevaliers de la Table Ronde.\nRéservée aux morphologies compatibles."
+  [VRFW.Outfit.Text.de]
+  Name = "Rüstung der Ritter der Tafelrunde"
+  Description = "Die Rüstung der Ritter der Tafelrunde.\nNur für passende Körpertypen."
+  [VRFW.Outfit.Text.it]
+  Name = "Armatura Cavalieri di Re Artù"
+  Description = "L'armatura dei Cavalieri di Re Artù.\nSolo per le corporature compatibili."
+  [VRFW.Outfit.Text.pt]
+  Name = "Armadura Cavaleiros da Távola Redonda"
+  Description = "A armadura dos Cavaleiros da Távola Redonda.\nSó para tipos de corpo compatíveis."
+  [VRFW.Outfit.Text.ja]
+  Name = "[円卓/えんたく]の[騎士団/きしだん]の[鎧/よろい]"
+  Description = "[円卓/えんたく]の[騎士団/きしだん]の[鎧/よろい]。\n[対応/たいおう]する[体型/たいけい]のみ[着用/ちゃくよう][可能/かのう]。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "圆桌骑士团铠甲"
+  Description = "圆桌骑士团的铠甲。\n仅限对应体型穿着。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "圓桌騎士團鎧甲"
+  Description = "圓桌騎士團的鎧甲。\n僅限對應體型穿著。"
+
+# The Dark Emperors robe from the Chronicle story scenes.
+# Retail has its mesh for body groups 0, 2 and 4; the row of group 1 is empty, so group 1 stays out.
+[[VRFW.Outfit]]
+Name = "dark_emperors_robe"
+Kit = { Uniform = "0x2AA301CD" }
+IconKey = "cos_cd_dark_emperors_robe"
+Who = { Body = [0, 2, 4] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Túnica Emperadores Oscuros"
+  Description = "La túnica negra de los Emperadores Oscuros.\nSolo para los tipos de cuerpo compatibles."
+  [VRFW.Outfit.Text.en]
+  Name = "Dark Emperors Robe"
+  Description = "The black robe of the Dark Emperors.\nOnly for compatible body types."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tunique Empereurs noirs"
+  Description = "La tunique noire des Empereurs noirs.\nRéservée aux morphologies compatibles."
+  [VRFW.Outfit.Text.de]
+  Name = "Robe der Dark Emperors"
+  Description = "Die schwarze Robe der Dark Emperors.\nNur für passende Körpertypen."
+  [VRFW.Outfit.Text.it]
+  Name = "Tunica Dark Emperors"
+  Description = "La tunica nera dei Dark Emperors.\nSolo per le corporature compatibili."
+  [VRFW.Outfit.Text.pt]
+  Name = "Túnica Imperadores da Escuridão"
+  Description = "A túnica negra dos Imperadores da Escuridão.\nSó para tipos de corpo compatíveis."
+  [VRFW.Outfit.Text.ja]
+  Name = "ダークエンペラーズのローブ"
+  Description = "ダークエンペラーズの[黒/くろ]いローブ。\n[対応/たいおう]する[体型/たいけい]のみ[着用/ちゃくよう][可能/かのう]。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "暗黑帝王长袍"
+  Description = "暗黑帝王的黑色长袍。\n仅限对应体型穿着。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "暗黑帝王長袍"
+  Description = "暗黑帝王的黑色長袍。\n僅限對應體型穿著。"

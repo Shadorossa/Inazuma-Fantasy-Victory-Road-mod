@@ -1,0 +1,9 @@
+schema = "VRFW.chara_filter_tab/1"
+
+# The player filter window lists one row per archetype tag ([[VRFW.Tag]], content\special_passives\signature_rules.toml).
+[[VRFW.CharaFilterTab]]
+name = "archetypes"
+rows = "passive_tags"
+text = "PassivesSynergies.filter_tab_tags"
+icon = "icon_list_tab_filter08"
+symbol = "filter_symbol08"

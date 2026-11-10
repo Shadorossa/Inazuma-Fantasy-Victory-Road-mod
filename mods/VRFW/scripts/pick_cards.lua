@@ -1,33 +1,6 @@
--- Pick cards, script side (game Lua side: the screen vrfw_pick_cards_menu, graft pick_cards, and assets\lua\menu\_all\
--- 83_pick_cards.lua; docs/framework/pick-cards.md). A «pick 1 of N» reward screen: cards side by side (a player, an
--- item or plain text each) and an optional skip. Mechanism only: a mod's script sets the cards, the mod's menu opens
--- the screen with VRFW_PickCards.Show and gets the picked card's number back.
---
---   PickCards.Set(spec)   the cards the next screen shows (replaces any earlier set):
---     spec.title, spec.subtitle   texts (already in the game's language)
---     spec.skip                   true = a «skip» choice (the pick 0); spec.skip_text = its label ("" = the framework's)
---     spec.focus                  the card focused at open (default 1)
---     spec.cards = { card, … }    1..12 cards; each:
---       kind       "player" | "item" | "text"
---       title      its name ("" on a player card = the game's name of `card`)
---       subtitle   one short line under the name
---       lines      up to 3 short lines (stats, position, cost…)
---       desc       a longer text, wrapped on the card
---       badge      a short text at the bottom (a price, «owned»…)
---       rarity     0..5: the card's frame colour (0 plain)
---       card       a chara_param id: the player's portrait (kind "player")
---       icon_atlas, icon_sprite   an icon of the mod's atlas (kind "item")
---       disabled   true = shown greyed; picking it plays the error sound
---   PickCards.Clear()
---
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_VRFW_PICK_CARDS | 0 | { title, subtitle, skip, skip_text, focus, count } (nothing = no set) |
--- | | i (1..count) | card i (the fields above) |
 
 PickCards = PickCards or {}
 
-require "VRFW/lib/basics"
 local info = VRFW.logger("pick_cards")
 
 local MAX_CARDS, MAX_LINES = 12, 3

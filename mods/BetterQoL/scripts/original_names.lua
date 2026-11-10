@@ -1,33 +1,3 @@
--- BetterQoL › original names per player: which characters show their original (Japanese / romaji) names, chosen
--- player by player.
---
--- * The row: the game's settings row «Nombres de los personajes» (setting type 63; retail «Doblaje» / «Originales» =
---   the byte +0x7D of [[g_gameRoot]+0x6A50]) shows Doblaje / Por equipos / Originales (the hooks SettingRowRead /
---   SettingRowWrite at the end of this file); A opens the picker.
--- * The picker (graft util_original_names, CMND_BETTERQOL_NAMES_PICK_*): a GRID OF TEAM EMBLEMS (the framework's
---   VRFW_EmblemGrid), one page per series of chara_series_config (Q / E), each tile «team» + «on/players»; A on a team
---   opens the team's PLAYER GRID (the faces, 10
---   a row: grey = dub name, normal colour = original name; A toggles a player, Y every player of the team). A series'
---   team rows: the belong_team_config rows numbered in the series' teamNumber_<X> column (k-th column = series type
---   k), then every other team a character of the series belongs to, then the team a mod's card_filters\ declaration
---   names for the series ([[bank_tab]] / [[series]]: series + team); a team without players is left out. A row's
---   players: the PERSONS (every variant with the same Japanese name is one cell, its main row's face) whose variant of
---   the series (own series or in_<game> flag) has the row's team among his teams numbered for that game; a switch
---   covers every variant of the person in the whole game, so each person is listed once in the whole picker: at his
---   first appearance (earliest series type, his first team there; lib/original_names_catalogue M.assign).
--- * Team names: the game has no original team table; a team every player of which is chosen (and every team with
---   «Originales») gets its original name where content\original_names\teams.toml has it (Japanese name -> original).
--- * Storage: mod_options\BetterQoL.json: names.c.<chara_base id, 8 hex> = 1 per chosen player, names.custom («Por
---   equipos»), names.format = 2. The game's own byte only ever holds 0 / 1. BetterQoL 1.3.0 - 1.5.x stored whole
---   series / teams (names.s.<series>, names.t.<series>.<team>, format 1): turned into their players once.
--- * The names are text tables the game loads (lib/original_names_tables): per language and selection a merged
---   chara_text / team_text served as a new key and the engine's opens redirected to it (the framework sets the
---   redirects again at the early phase of the next start, before the engine's boot text load); a saved change goes
---   back to the title like the retail «Originales» (CMND_BETTERQOL_NAMES_RELOAD, asked by the graft when the settings
---   close).
---
--- Commands (content\game\original_names.toml): CMND_BETTERQOL_NAMES_RELOAD / _ROW / _PICK_OPEN / _PICK_GRID / _PICK_TEAM_GRID / _PICK_TAB /
--- _PICK_ITEM / _PICK_TEAM / _PICK_PLAYER / _PICK_TOGGLE / _PICK_CLOSE.
 
 local Cat = require "lib/original_names_catalogue"
 local T = require "lib/original_names_tables"
@@ -35,13 +5,9 @@ local T = require "lib/original_names_tables"
 BetterQoL = BetterQoL or {}
 BetterQoL.OriginalNames = BetterQoL.OriginalNames or {}
 
-local OPT_PREFIX, OPT_FORMAT, OPT_CUSTOM = "names.", "names.format", "names.custom"
-local FORMAT = 2
--- BetterQoL 1.0.1 - 1.2.x: the global blob of «Solo Ares y Orión» and the removed row of the Ares / Orion team names
-local LEGACY_BLOB, LEGACY_TEAM_OPTION = "original_names.json", "ares_orion_team_names"
+local OPT_PREFIX, OPT_CUSTOM = "names.", "names.custom"
 local TEAMS_FILE = "content/original_names/teams.toml"
--- the game settings' character-name byte and text-language byte ([struct.GameSettings]) and the settings menu's rows
--- ([struct.SettingsMenu], [struct.SettingsMenuRow]): offsets from the game profile
+-- offsets from the game profile
 local LAYOUT_NAMES = {
   character_names = "GameSettings.CharacterNames", text_language = "GameSettings.TextLanguage",
   draft_rows = "SettingsMenu.DraftRows", applied_rows = "SettingsMenu.AppliedRows",
@@ -62,37 +28,30 @@ end
 local DRAFT_ROW_COUNT = LAYOUT_MISSING == nil and math.floor((L.applied_rows - L.draft_rows) / L.row_size) or 0
 local ROW_TYPE, ROW_VALUES = 63, 3
 local IDX_DUB, IDX_CUSTOM, IDX_ORIGINAL = 0, 1, 2
--- builds of other languages done per CMND_BETTERQOL_NAMES_ROW call (each reads two text tables); CMND_BETTERQOL_NAMES_RELOAD
--- builds none of them (it closes the settings: a hitch there was 65-95 ms), only the language the settings ask for
 local PUMP_ROW = 1
 
 local cfg = {
-  legacy_series = { "Ares", "Orion" }, legacy_series_lang = "en", team_skip = { ja = true }, picker_reopen = false,
+  team_skip = { ja = true }, picker_reopen = false,
   log = true,
-  -- the player grid (graft util_original_names): columns, rows a page, tile pitch / size (px), grid centre (screen
-  -- px, y down), the colour of a player without his original name (gray_out material, 1 = normal), names under tiles
   grid = { cols = 8, rows = 4, pitch_x = 196, pitch_y = 180, tile = 132, cx = 960, cy = 560, grey = 0.38, names = true },
-  -- the team grid (the framework's emblem grid): columns, rows a page, tile pitch (px), its centre (screen px, y down)
   team_grid = { cols = 8, rows = 3, pitch_x = 210, pitch_y = 236, cx = 960, cy = 520 },
 }
 local cat = nil            -- the catalogue (nil = off)
 local langs, lang_set = {}, {}
 local team_names = {}      -- Japanese team name -> original name
-local ja_names = nil       -- team_text ja rows whose name has an original one: id -> variant -> name
+local ja_names = nil
 local text_ids = {}        -- the text ids the picker shows (series + team names)
-local outcomes = {}        -- "lang|kind|sig" -> served key | "" (nothing differs) | false (failed)
+local outcomes = {}
 local pending = {}         -- builds of other languages: { lang, kind, sig, ids }
 local queued = {}          -- "lang|kind|sig" -> true while in `pending` (queued once)
-local loaded = {}          -- lang -> { chara = …, team = … } (lib/original_names_tables values)
+local loaded = {}
 local counts = {}          -- filter -> opens seen
-local set_keys = {}        -- filter -> the key we redirect it to (false = the game's file)
+local set_keys = {}
 local cur_lang = nil       -- the language of the last text load seen
 local sig_cache, sig_cache_n = {}, 0
 local all_sigs = nil
-local migrated = false
 local picker, pick_texts, pick_names = nil, {}, nil
--- mod_options\BetterQoL.json as VRFW.options.values() read it (a file read + JSON decode per call: kept until this
--- script stores a value, the picker opens or the game goes back to the title) and the saved choices made of it
+-- VRFW.options.values() (a file read + JSON decode) and the saved choices, kept until a store, the picker or the title
 local opt_cache, saved_cache = nil, nil
 
 local function opt_values()
@@ -106,35 +65,19 @@ local function opt_forget()
   opt_cache, saved_cache = nil, nil
 end
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("original_names")
 
-local function int(v) return VRFW.value.int(v, nil) end
+local function int(v) return VRFW.value.integer(v, nil) end
 
-local Memory = require "VRFW/lib/memory"
-local read_memory, write_memory = Memory.read_memory, Memory.write_memory
+local Memory = VRFW.memory
+local read_memory, write_memory = Memory.read, Memory.write
 
--- what the settings row hooks know (hook:SettingRowRead / hook:SettingRowWrite at the end of this file): row_on (both
--- hooks in place), row_label (the row's label text id), menu (the settings menu object of the last draft row read), list
--- (our value list of the row)
 local ROW = { row_on = 0, row_label = 0, menu = 0, list = 0 }
 
-local function state_num(k)
-  return ROW[k]
-end
-
--- ------------------------------------------------------------------------------------------- config / game byte
-
 local function load_cfg()
-  local c = VRFW.files.config("original_names")
+  local c = VRFW.config("original_names")
   if type(c) ~= "table" then
     return
-  end
-  if type(c.legacy_series) == "table" then
-    cfg.legacy_series = c.legacy_series
-  end
-  if type(c.legacy_series_lang) == "string" then
-    cfg.legacy_series_lang = c.legacy_series_lang
   end
   if type(c.team_skip_langs) == "table" then
     cfg.team_skip = {}
@@ -156,14 +99,14 @@ local function load_cfg()
 end
 
 local function settings()
-  local ok, s = pcall(VRFW.game.game_settings)
-  if not ok or type(s) ~= "number" or s < 0x10000 then
+  local s = VRFW.game.global("game_settings")
+  if s == nil then
     return nil
   end
   return s
 end
 
--- the game's «Originales» byte (false when the settings are not there yet)
+-- the game's "Originals" byte (false when the settings are not there yet)
 local function romaji()
   local s = settings()
   local b = s and L.character_names and read_memory("u8", s + L.character_names)
@@ -181,8 +124,6 @@ end
 
 local VALUE_NAMES = { [IDX_DUB] = "Doblaje", [IDX_CUSTOM] = "Por equipos", [IDX_ORIGINAL] = "Originales" }
 
--- ------------------------------------------------------------------------------------------- the saved choices
-
 local function hex_id(h)
   local id = h and tonumber(h, 16)
   if id and id <= 0xFFFFFFFF then
@@ -191,38 +132,19 @@ local function hex_id(h)
   return nil
 end
 
--- the saved values: custom, chosen = { [chara id] = true }, format, and a format-1 selection (legacy_series = { [series]
--- = true }, legacy_teams = { [series] = { [team] = true } }, legacy = any of them)
 local function read_saved()
   local values = opt_values()
-  local s = {
-    format = tonumber(values[OPT_FORMAT]) or 0, custom = (tonumber(values[OPT_CUSTOM]) or 0) ~= 0, chosen = {},
-    legacy_series = {}, legacy_teams = {}, legacy = false, values = values,
-  }
+  local s = { custom = (tonumber(values[OPT_CUSTOM]) or 0) ~= 0, chosen = {} }
   for k, v in pairs(values) do
     if type(k) == "string" and type(v) == "number" and v ~= 0 then
       local c = hex_id(k:match("^names%.c%.(%x+)$"))
-      if c then
-        s.chosen[c] = true
-      else
-        local id = hex_id(k:match("^names%.s%.(%x+)$"))
-        if id then
-          s.legacy_series[id], s.legacy = true, true
-        else
-          local a, b = k:match("^names%.t%.(%x+)%.(%x+)$")
-          a, b = hex_id(a), hex_id(b)
-          if a and b then
-            s.legacy_teams[a] = s.legacy_teams[a] or {}
-            s.legacy_teams[a][b], s.legacy = true, true
-          end
-        end
-      end
+      if c then s.chosen[c] = true end
     end
   end
   return s
 end
 
--- (cached: read-only for the callers; the next store / picker / title reads it again)
+-- cached, read-only for callers
 local function saved()
   if saved_cache == nil then
     local s = read_saved()
@@ -234,7 +156,7 @@ local function saved()
   return saved_cache
 end
 
--- the choices into mod_options\BetterQoL.json (every older names.* key replaced; the other values kept)
+-- stores the choices, replacing every older names.* key
 local function store(custom, chosen)
   local ch = {}
   for k in pairs(VRFW.options.values()) do
@@ -242,7 +164,6 @@ local function store(custom, chosen)
       ch[k] = false
     end
   end
-  ch[OPT_FORMAT] = FORMAT
   ch[OPT_CUSTOM] = custom and 1 or 0
   for id in pairs(chosen) do
     ch[string.format("names.c.%08x", id)] = 1
@@ -252,29 +173,24 @@ local function store(custom, chosen)
   return ok, why
 end
 
--- text ids and signatures of a selection (cached: the catalogue does not change while the game runs)
 local function sigs(chosen)
-  -- the saved choices' table never changes once made (saved()): its signatures are kept on it
   local sv = saved_cache
-  if sv ~= nil and chosen == sv.chosen and sv.sg ~= nil then
+  local is_saved = sv ~= nil and chosen == sv.chosen
+  if is_saved and sv.sg ~= nil then
     return sv.sg
   end
   local k = Cat.sel_key(chosen)
   local c = sig_cache[k]
-  if c then
-    if sv ~= nil and chosen == sv.chosen then
-      sv.sg = c
+  if not c then
+    local cids, n = Cat.chara_name_ids(cat, chosen)
+    local tids = Cat.team_name_ids(cat, chosen, false)
+    c = { chara_ids = cids, chara_sig = T.ids_sig(cids), team_ids = tids, team_sig = T.ids_sig(tids), n = n }
+    if sig_cache_n >= 16 then
+      sig_cache, sig_cache_n = {}, 0
     end
-    return c
+    sig_cache[k], sig_cache_n = c, sig_cache_n + 1
   end
-  local cids, n = Cat.chara_name_ids(cat, chosen)
-  local tids = Cat.team_name_ids(cat, chosen, false)
-  c = { chara_ids = cids, chara_sig = T.ids_sig(cids), team_ids = tids, team_sig = T.ids_sig(tids), n = n }
-  if sig_cache_n >= 16 then
-    sig_cache, sig_cache_n = {}, 0
-  end
-  sig_cache[k], sig_cache_n = c, sig_cache_n + 1
-  if sv ~= nil and chosen == sv.chosen then
+  if is_saved then
     sv.sg = c
   end
   return c
@@ -285,13 +201,14 @@ local function selection_text(chosen)
   return string.format("%d player(s), %d full team(s)", sg.n, #sg.team_ids)
 end
 
--- ------------------------------------------------------------------------------------------- the builds
-
 local function okey(lang, kind, sig)
   return lang .. "|" .. kind .. "|" .. sig
 end
 
--- the table of (lang, kind, sig) built and served: its key, "" = no name differs (the game's table is right), nil + why
+local function kind_name(kind)
+  return kind == "chara" and "characters" or "teams"
+end
+
 local function build_one(lang, kind, sig, ids)
   if not lang_set[lang] then
     return ""
@@ -300,7 +217,6 @@ local function build_one(lang, kind, sig, ids)
   if kind ~= "chara" and (cfg.team_skip[lang] or ja_names == nil or next(team_names) == nil) then
     return ""
   end
-  -- the changed rows, kept between starts per language and kind (a read failure is raised, so it is not kept)
   local built = VRFW.derived("original_names." .. kind .. "." .. lang, sig, function()
     local over, n
     if kind == "chara" then
@@ -334,7 +250,7 @@ local function build_one(lang, kind, sig, ids)
   if changed == 0 then
     return ""
   end
-  info(string.format("%s %s: table %s served (%d row(s) changed)", lang, kind == "chara" and "characters" or "teams", sig, changed))
+  info(string.format("%s %s: table %s served (%d row(s) changed)", lang, kind_name(kind), sig, changed))
   return key
 end
 
@@ -349,7 +265,7 @@ local function ensure(lang, kind, sig, ids)
     r, why = nil, r
   end
   if r == nil then
-    warn(lang, kind == "chara" and "characters" or "teams", tostring(why))
+    warn(lang, kind_name(kind), tostring(why))
     o = false
   else
     o = r
@@ -358,7 +274,6 @@ local function ensure(lang, kind, sig, ids)
   return o
 end
 
--- every language's table of (kind, sig): `first` now, the others queued (or all now when `now`)
 local function want_all(kind, sig, ids, first, now)
   if not sig then
     return
@@ -388,22 +303,22 @@ local function pump(n)
   end
 end
 
--- the tables the saved choices want (every team's names too: «Originales» shows them); `any` = the «Por equipos»
--- tables too while that value is not chosen (the start builds them, so choosing it later builds nothing then)
+-- the character and team tables of a selection's signatures
+local function want_selection(sg, first, now)
+  want_all("chara", sg.chara_sig, sg.chara_ids, first, now)
+  if sg.team_sig ~= all_sigs.team_sig then
+    want_all("team", sg.team_sig, sg.team_ids, first, now)
+  end
+end
+
 local function want_saved(s, first, now, any)
   local sg = sigs(s.chosen)
   want_all("team", all_sigs.team_sig, all_sigs.team_ids, first, now)
   if s.custom or (any and next(s.chosen) ~= nil) then
-    want_all("chara", sg.chara_sig, sg.chara_ids, first, now)
-    if sg.team_sig ~= all_sigs.team_sig then
-      want_all("team", sg.team_sig, sg.team_ids, first, now)
-    end
+    want_selection(sg, first, now)
   end
 end
 
--- ------------------------------------------------------------------------------------------- the engine's opens
-
--- the opens since the last look: what each language loaded, and the current language
 local function poll()
   local seen = false
   for _, l in ipairs(langs) do
@@ -416,7 +331,6 @@ local function poll()
     local dc, dr, dt = nc > (counts[fc] or 0), nr > (counts[fr] or 0), nt > (counts[ft] or 0)
     counts[fc], counts[fr], counts[ft] = nc, nr, nt
     if dc and dr then
-      -- two text loads since the last look: the game's byte says which one is the last
       if romaji() then
         dc = false
       else
@@ -468,8 +382,6 @@ local function served(lang, kind, sig)
   return nil
 end
 
--- the engine's next opens of chara_text / team_text get the tables the choices want (the opens seen first: a changed
--- redirect forgets its last answer)
 local function apply_redirects()
   poll()
   local rom = romaji()
@@ -484,89 +396,17 @@ local function apply_redirects()
   return s, sg, rom
 end
 
--- ------------------------------------------------------------------------------------------- migration
-
--- once (names.format below 2): BetterQoL 1.3.0 - 1.5.x series / team ticks -> their players; 1.0.1 - 1.2.x «Solo Ares
--- y Orión» (global blob) -> «Por equipos» with the players of the series of [original_names] legacy_series; the
--- removed row of the Ares / Orion team names is reported
-local function migrate()
-  if migrated then
-    return
-  end
-  local s = read_saved()
-  if s.format >= FORMAT then
-    migrated = true
-    return
-  end
-  local old = false
-  if s.format < 1 then
-    local blob, why = VRFW.save.blob(LEGACY_BLOB, "global")
-    if blob == nil and why ~= nil then
-      return -- the save store is not ready: asked again later
-    end
-    if type(blob) == "string" then
-      local ok, v = pcall(VRFW.json.decode, blob)
-      old = ok and type(v) == "table" and v.ares_orion == true
-    end
-  end
-  migrated = true
-  local chosen = Cat.normalize(cat, s.chosen)
-  local n_legacy = 0
-  if s.legacy then
-    for id in pairs(Cat.legacy_chosen(cat, s.legacy_series, s.legacy_teams)) do
-      chosen[id] = true
-      n_legacy = n_legacy + 1
-    end
-  end
-  if old then
-    local names = VRFW.files.text_rows(T.text_key(cfg.legacy_series_lang, T.SERIES_TEXT)) or {}
-    local series = {}
-    for _, id in ipairs(Cat.series_by_words(cat, names, cfg.legacy_series)) do
-      series[id] = true
-    end
-    for id in pairs(Cat.legacy_chosen(cat, series, {})) do
-      chosen[id] = true
-    end
-  end
-  local custom = s.custom or (old and next(chosen) ~= nil)
-  local ok, e = store(custom, chosen)
-  if not ok then
-    warn("migration not saved (" .. tostring(e) .. ")")
-    return
-  end
-  if s.legacy then
-    info(string.format("series / team ticks of BetterQoL 1.3 - 1.5 -> %d player(s) (saved per player)", n_legacy))
-  end
-  if old then
-    info("migrated «Solo Ares y Orión» -> «Por equipos» with " .. selection_text(chosen) .. " (applies from the next text reload: the title, or the next start)")
-  end
-  if (tonumber(s.values[LEGACY_TEAM_OPTION]) or 0) ~= 0 then
-    info("the row «Nombres originales para equipos internacionales de Ares y Orión» is gone: a team whose players are all chosen shows its original name (Opciones › Ajustes del juego › «Nombres de los personajes», A)")
-  end
-  if s.legacy or old then
-    want_saved(saved(), nil, false)
-  end
-end
-
--- ------------------------------------------------------------------------------------------- the picker
-
--- the text language folder of a CMND_GET_LANGUAGE_CODE code (else the last text load's, else the settings' text
--- language byte, else en)
--- the text language folder of a CMND_GET_LANGUAGE_CODE code (nil: none of ours)
 local function lang_by_code(c)
-  if c and c >= 0 and type(VRFW.files.game_languages) == "function" then
-    local ok, t = pcall(VRFW.files.game_languages)
-    local l = ok and type(t) == "table" and t[c + 1] or nil
-    if type(l) == "string" and lang_set[l] then
-      return l
-    end
+  local l = VRFW.names.language(c, nil)
+  if l and lang_set[l] then
+    return l
   end
   return nil
 end
 
+-- the code's language, else the last text load's, else the settings' text language byte, else en
 local function lang_of(code)
-  local of = lang_by_code
-  local l = of(int(code))
+  local l = lang_by_code(int(code))
   if l then
     return l
   end
@@ -575,14 +415,13 @@ local function lang_of(code)
     return cur_lang
   end
   local s = settings()
-  l = s and L.text_language and of(read_memory("u8", s + L.text_language))
+  l = s and L.text_language and lang_by_code(read_memory("u8", s + L.text_language))
   if l then
     return l
   end
   return lang_set.en and "en" or (langs[1] or "en")
 end
 
--- names of the pages and teams in `lang` (text id -> text, furigana reduced; team_text first)
 local function texts_for(lang)
   local out = {}
   for _, tbl in ipairs({ T.TEAM, T.SERIES_TEXT }) do
@@ -610,7 +449,12 @@ local function name_of(id)
   return string.format("0x%08X", id)
 end
 
--- a character's name in `rows` (chara_text / chara_text_roma of the picker's language), furigana reduced
+local function team_label(team)
+  local nm = cat.team_names[team]
+  return nm and name_of(nm) or string.format("0x%08X", team)
+end
+
+-- a character's name in chara_text / chara_text_roma `rows`, furigana reduced
 local function chara_name(rows, c)
   local r = rows and rows[c[1]]
   local s = r and r[0]
@@ -620,9 +464,9 @@ local function chara_name(rows, c)
   return ""
 end
 
--- the names row among the draft rows of the open settings menu (type 63 with our value list)
+-- the names row among the draft rows of the open settings menu (type 63 with the mod's value list)
 local function draft_row()
-  local menu, list = state_num("menu"), state_num("list")
+  local menu, list = ROW.menu, ROW.list
   if not menu or menu < 0x10000 or not list or list == 0 then
     return nil
   end
@@ -635,8 +479,6 @@ local function draft_row()
   return nil
 end
 
--- the row's draft after the picker closed: nil = leave it (a non-empty selection chooses «Por equipos», an emptied
--- one turns «Por equipos» back to «Doblaje»)
 local function draft_after_pick(empty, current)
   if not empty then
     return current ~= IDX_CUSTOM and IDX_CUSTOM or nil
@@ -649,29 +491,23 @@ local function cur_rows()
   return s and Cat.rows(cat, s) or {}, s
 end
 
--- ------------------------------------------------------------------------------------------- commands
-
--- CMND_BETTERQOL_NAMES_ROW() -> the label text id of the names row (false: the row is not extended)
 function BetterQoL.OriginalNames.Row()
   if not cat then
     return false
   end
-  migrate()
   pump(PUMP_ROW)
-  local on, label = state_num("row_on"), state_num("row_label")
+  local on, label = ROW.row_on, ROW.row_label
   if on == 1 and label and label ~= 0 then
     return label
   end
   return false
 end
 
--- CMND_BETTERQOL_NAMES_PICK_OPEN(lang code) -> pages (series), current page (1-based), reopen after each tick; 0 = no picker
 function BetterQoL.OriginalNames.PickOpen(code)
   if not cat or #cat.series == 0 then
     return 0
   end
   opt_forget()
-  migrate()
   local lang = lang_of(code)
   pick_texts = texts_for(lang)
   pick_names = { dub = VRFW.files.text_rows(T.text_key(lang, T.CHARA)), roma = VRFW.files.text_rows(T.text_key(lang, T.ROMA)) }
@@ -680,14 +516,13 @@ function BetterQoL.OriginalNames.PickOpen(code)
   return #cat.series, picker.page, cfg.picker_reopen
 end
 
--- CMND_BETTERQOL_NAMES_PICK_GRID() -> the player grid's layout: cols, rows, pitch x, pitch y, tile, centre x, centre y
--- (screen px, y down), grey level, names under the tiles
+-- CMND_BETTERQOL_NAMES_PICK_GRID() -> cols, rows, pitch x, pitch y, tile, centre x, centre y, grey, names
 function BetterQoL.OriginalNames.PickGrid()
   local g = cfg.grid
   return g.cols, g.rows, g.pitch_x, g.pitch_y, g.tile, g.cx, g.cy, g.grey, g.names == true
 end
 
--- CMND_BETTERQOL_NAMES_PICK_TEAM_GRID() -> the team grid's layout: cols, rows, pitch x, pitch y, centre x, centre y
+-- CMND_BETTERQOL_NAMES_PICK_TEAM_GRID() -> cols, rows, pitch x, pitch y, centre x, centre y
 function BetterQoL.OriginalNames.PickTeamGrid()
   local g = cfg.team_grid
   return g.cols, g.rows, g.pitch_x, g.pitch_y, g.cx, g.cy
@@ -711,8 +546,6 @@ function BetterQoL.OriginalNames.PickTab(dir)
   return picker.page, name_of(s.name_text), on, n, #rows
 end
 
--- CMND_BETTERQOL_NAMES_PICK_ITEM(i) -> team row i (1-based) of the page: its name, players chosen, players, its emblem
--- (item_emblem id of the page's era, 0 = none)
 function BetterQoL.OriginalNames.PickItem(i)
   if not cat or not picker then
     return false
@@ -722,12 +555,10 @@ function BetterQoL.OriginalNames.PickItem(i)
   if not r then
     return false
   end
-  local nm = cat.team_names[r.team]
   local on, n = Cat.players_on(cat, r.players, picker.chosen)
-  return nm and name_of(nm) or string.format("0x%08X", r.team), on, n, Cat.team_emblem(cat, r.team, s.ty)
+  return team_label(r.team), on, n, Cat.team_emblem(cat, r.team, s.ty)
 end
 
--- CMND_BETTERQOL_NAMES_PICK_TEAM(i) -> opens team row i for the grid: players, players chosen, the team's name
 function BetterQoL.OriginalNames.PickTeam(i)
   if not cat or not picker then
     return false
@@ -738,13 +569,10 @@ function BetterQoL.OriginalNames.PickTeam(i)
     return false
   end
   picker.row = i
-  local nm = cat.team_names[r.team]
   local on, n = Cat.players_on(cat, r.players, picker.chosen)
-  return n, on, nm and name_of(nm) or string.format("0x%08X", r.team)
+  return n, on, team_label(r.team)
 end
 
--- CMND_BETTERQOL_NAMES_PICK_PLAYER(j) -> player j (1-based) of the open team: chara_base key (face icon), chosen, dub name,
--- original name
 function BetterQoL.OriginalNames.PickPlayer(j)
   if not cat or not picker then
     return false
@@ -760,8 +588,6 @@ function BetterQoL.OriginalNames.PickPlayer(j)
   return c[8], picker.chosen[c[8]] == true, dub, orig ~= "" and orig or dub
 end
 
--- CMND_BETTERQOL_NAMES_PICK_TOGGLE(j) -> player j of the open team toggled (0 = every player: all on, or all off when all
--- are on): the new state, players chosen, players
 function BetterQoL.OriginalNames.PickToggle(j)
   if not cat or not picker then
     return false
@@ -773,8 +599,6 @@ function BetterQoL.OriginalNames.PickToggle(j)
   return Cat.toggle(cat, picker, j)
 end
 
--- CMND_BETTERQOL_NAMES_PICK_CLOSE() -> changed, the row's new draft index (-1 = unchanged), its value text id, is it the
--- last value (for the script's SetSelectIsChangeToRomaji). Saves the selection and sets the row's draft.
 function BetterQoL.OriginalNames.PickClose()
   local p = picker
   picker, pick_texts, pick_names = nil, {}, nil
@@ -792,13 +616,8 @@ function BetterQoL.OriginalNames.PickClose()
   else
     warn("picker: selection not saved (" .. tostring(why) .. ")")
   end
-  -- the new selection's tables («Por equipos» may be chosen next): the current language now, the others later
   poll()
-  local sg = sigs(p.chosen)
-  want_all("chara", sg.chara_sig, sg.chara_ids, cur_lang, false)
-  if sg.team_sig ~= all_sigs.team_sig then
-    want_all("team", sg.team_sig, sg.team_ids, cur_lang, false)
-  end
+  want_selection(sigs(p.chosen), cur_lang, false)
   apply_redirects()
   local row = draft_row()
   local cur = row_index(romaji(), s.custom)
@@ -817,7 +636,7 @@ function BetterQoL.OriginalNames.PickClose()
     return true, -1, 0, false
   end
   local base = read_memory("i32", row + L.row_base) or 0
-  if not pcall(VRFW.mem.write, "i32", row + L.row_index, new - base) then
+  if not VRFW.memory.write("i32", row + L.row_index, new - base) then
     warn("picker: the settings row was not written: choose «Por equipos» with ←/→")
     return true, -1, 0, false
   end
@@ -827,20 +646,13 @@ function BetterQoL.OriginalNames.PickClose()
   return true, new, text or 0, new + 1 == ROW_VALUES
 end
 
--- CMND_BETTERQOL_NAMES_RELOAD([lang code]) -> bool: the loaded names tables no longer match the saved choices, so the
--- settings script takes the retail «Originales» path (back to the title, texts reloaded). The tables of the current
--- language are built first (here), and the engine's opens redirected to them, so the reload finds them. A table the
--- engine loaded before the redirects existed (no open seen) is the game's own: dub (or the retail romaji one).
 function BetterQoL.OriginalNames.Reload(code)
   if not cat then
     return false
   end
-  migrate()
   poll()
   local lang = cur_lang or lang_of(code)
   local s = saved()
-  -- the language the settings now ask for (changed in this menu: the reload loads it) built now; the other
-  -- languages stay queued (CMND_BETTERQOL_NAMES_ROW builds them one a call)
   local target = lang_by_code(int(code))
   want_saved(s, target or lang, false)
   local rom = romaji()
@@ -875,16 +687,13 @@ function BetterQoL.OriginalNames.Reload(code)
   return rc or rt
 end
 
--- ------------------------------------------------------------------------------------------- start
-
 local function start()
   load_cfg()
   local ok, err = pcall(function()
-    -- the catalogue with every person's home row, kept between starts (game tables + card_filters declarations)
+    -- kept between starts
     local built = VRFW.derived("original_names.catalogue", nil, function()
       local series = Cat.series_rows()
       local belong = Cat.belong_rows()
-      -- the person key of every character: his Japanese name (the same on every variant of him)
       local charas = Cat.charas(VRFW.files.text_rows(T.text_key("ja", T.CHARA)), T.strip_furigana)
       local decls = Cat.declarations()
       local c = Cat.build(series, belong, charas, decls)
@@ -895,7 +704,6 @@ local function start()
       return { cat = c, listed = listed, decls = #decls }
     end)
     cat = built.cat
-    -- team crests: the framework's game catalogue (Cat.team_emblem -> VRFW/lib/game_catalogue crest)
     local nt = 0
     for _, s in ipairs(cat.series) do
       nt = nt + #s.teams
@@ -921,7 +729,6 @@ local function start()
     lang_set[l] = true
     loaded[l] = { chara = T.UNKNOWN, team = T.UNKNOWN }
   end
-  -- the original team names, keyed by the Japanese name (only the ja rows that have one are kept)
   local doc, why = VRFW.files.toml(TEAMS_FILE)
   local n_names = 0
   if doc then
@@ -942,26 +749,14 @@ local function start()
       end
     end
   end
-  -- «Originales»: every team's original name
   local all_team = Cat.team_name_ids(cat, {}, true)
   all_sigs = { team_ids = all_team, team_sig = T.ids_sig(all_team) }
-  migrate()
   local s = saved()
   info("saved: " .. (s.custom and "«Por equipos»" or "not «Por equipos»") .. ", " .. selection_text(s.chosen))
-  -- every language's tables of the saved choices now (the engine may load the texts at any moment from here on), the
-  -- «Por equipos» ones too when that value is not chosen (a later CMND_BETTERQOL_NAMES_RELOAD then only redirects)
   want_saved(s, nil, true, true)
   apply_redirects()
   info("the engine's opens of chara_text / team_text (" .. #langs .. " language(s)) are redirected to the chosen tables")
 end
-
--- ------------------------------------------------------------------------------------------- the settings row
--- The game's «Nombres de los personajes» row (setting type 63; retail «Doblaje» / «Originales» = the game byte +0x7D)
--- gets the middle value «Por equipos»: after the engine read the row (hook:SettingRowRead:post) its value list becomes
--- ours (three text ids, «Originales» stays the LAST value so the engine's own «last value = original names» keeps its
--- meaning) and its index shows the current state; when the engine writes it (hook:SettingRowWrite) «Por equipos» is
--- stored as the retail «Doblaje» (the game's byte and save only ever hold 0 / 1: the save works without the mod) and
--- names.custom records it.
 
 local ROW_VALUE_KEY = "BetterQoL.names_by_team"
 
@@ -973,7 +768,7 @@ local function is_draft_row(menu, row)
   return row >= menu + L.draft_rows and row < menu + L.applied_rows and (row - menu - L.draft_rows) % L.row_size == 0
 end
 
--- our value list for a row whose retail list is at `list` (2 values), built once in a buffer of the mod
+-- the mod's three-value list, built once from the retail two-value list at `list`
 local function our_list(list)
   if ROW.list ~= 0 then
     return ROW.list
@@ -982,8 +777,8 @@ local function our_list(list)
   if not a or not b then
     return nil
   end
-  local ours = VRFW.ui.crc32(ROW_VALUE_KEY)
-  local p = VRFW.mem.buffer("names_row_values", 12)
+  local ours = VRFW.crc32(ROW_VALUE_KEY)
+  local p = VRFW.memory.buffer("names_row_values", 12)
   write_memory("u32", p, a)
   write_memory("u32", p + 4, ours)
   write_memory("u32", p + 8, b)
@@ -1001,7 +796,6 @@ else
   warn("settings row not extended (hooks SettingRowRead / SettingRowWrite off): «Nombres de los personajes» keeps its two values, no picker")
 end
 
--- after the engine read the row: our three values, and the index of the current state
 VRFW.on("hook:SettingRowRead:post", function(ev)
   local menu, row = ev.args[1], ev.args[2]
   if ROW.row_on ~= 1 or row < 0x10000 or read_memory("u32", row + L.row_type) ~= ROW_TYPE then
@@ -1031,7 +825,6 @@ VRFW.on("hook:SettingRowRead:post", function(ev)
   return nil
 end)
 
--- the engine writes the row: «Por equipos» -> the retail «Doblaje», the index put back right after
 local pending_write
 
 VRFW.on("hook:SettingRowWrite", function(ev)
@@ -1074,7 +867,6 @@ VRFW.on("hook:SettingRowWrite:post", function(ev)
   return nil
 end)
 
--- back to the title: mod_options\BetterQoL.json read again (the Mods screen may have changed it)
 VRFW.on("game_reset", function()
   opt_forget()
   return nil

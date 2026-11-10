@@ -1,8 +1,5 @@
 schema = "VRFW.game/2"
 
-# Makes team-member readers treat the 16-bit member row as unsigned (movsx -> movzx, sign branch -> nop/jmp), so teams whose members start past row 32767 keep their players.
-# `expect` = the game's bytes, `bytes` = same-length replacement. A site not found or with differing bytes keeps the game's code; the log lists each applied patch.
-
 # Team member field handler: row of member i.
 [[VRFW.Patch]]
 name = "MemberRows.MenuMemberField"
@@ -33,7 +30,6 @@ edit = "Squad.MemberRow.MemberRarityUnsigned"
 name = "MemberRows.TeamMemberRowE45B40"
 edit = "Squad.MemberRow.SliceLookupUnsigned"
 
-# Setup-team roster builder (VS / Chronicle line-up): member rows.
 [[VRFW.Patch]]
 name = "MemberRows.BuildRoster.Rows"
 edit = "Squad.MemberRow.SetupRosterUnsigned"

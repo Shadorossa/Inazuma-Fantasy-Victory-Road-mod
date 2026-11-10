@@ -1,0 +1,32 @@
+schema = "VRFW.anim/2"
+owner = "match"
+
+# Guardia celestial: Ultramanos magicas without the two side giants: their actors and placement points are hidden in
+# every cut and the two cuts that only show them (c0400, c0500) are dropped. The sound effect is spliced to match
+# (content\sounds\guardia_celestial.toml).
+
+[[event]]
+name = "guardia_celestial"
+from = "ev63_01660_1"
+id = "ev63_81660"
+sound_cue = "ev63_81660_me"
+cuts = [
+  { cut = "c0100", hide = ["ev63_01490_s00_p<VARIATION>", "ev63_01491_s00_p<VARIATION>", "point_s80", "point_s81"] },
+  { cut = "c0200", hide = ["ev63_01490_s00_p<VARIATION>", "ev63_01491_s00_p<VARIATION>", "point_s80", "point_s81"] },
+  { cut = "c0300", hide = ["ev63_01490_s00_p<VARIATION>", "ev63_01491_s00_p<VARIATION>", "point_s80", "point_s81"] },
+  { cut = "c0600", hide = ["ev63_01490_s00_p<VARIATION>", "ev63_01491_s00_p<VARIATION>", "point_s80", "point_s81"] },
+  "c0701",
+]
+
+[[event]]
+name = "guardia_celestial_fail"
+from = "ev63_01660_2"
+id = "ev63_81661"
+sound_cue = "ev63_81661_me"
+cuts = [
+  { cut = "c0100", hide = ["ev63_01490_s00_p<VARIATION>", "ev63_01491_s00_p<VARIATION>", "point_s80", "point_s81"] },
+  { cut = "c0200", hide = ["ev63_01490_s00_p<VARIATION>", "ev63_01491_s00_p<VARIATION>", "point_s80", "point_s81"] },
+  { cut = "c0300", hide = ["ev63_01490_s00_p<VARIATION>", "ev63_01491_s00_p<VARIATION>", "point_s80", "point_s81"] },
+  { cut = "c0600", hide = ["ev63_01490_s00_p<VARIATION>", "ev63_01491_s00_p<VARIATION>", "point_s80", "point_s81"] },
+  "c0702",
+]

@@ -1,14 +1,5 @@
--- Character Reforged › auras out of the technique slots of a save.
--- The learn lists hold an aura only in their aura slot ([VRFW.LearnLevels] AuraSlots, content\characters\
--- learn_levels.toml), but a save made before may still hold one a player learnt in a technique slot. Once per save, when
--- a player slot loads (the save engine's safe point), every saved character's board slot outside
--- [CharacterReforged.SkillSet] aura_board_slots (content\skill_set\*.toml) that holds an aura (VRFW.extra_slot.aura_type)
--- is emptied, with its match list entry (lib/purge_moves.lua). Then the marker blob misplaced_auras.txt is set in the
--- slot (the engine clears it when another save is copied there or a new game starts). Never: the locked retail save,
--- reserved slots, an empty slot, the boot's own load (not writable: the next load of that slot does it).
--- Log: one line per player changed and one summary, only when something changed.
 
-local T = require "VRFW/lib/save_tree"
+local T = VRFW.save_tree
 local PurgeMoves = require "lib/purge_moves"
 
 local MARKER_BLOB = "misplaced_auras.txt"
@@ -16,7 +7,7 @@ local MARKER_BLOB = "misplaced_auras.txt"
 local function log(message) VRFW.log("misplaced auras: " .. message) end
 local function warn(message) VRFW.warn("misplaced auras: " .. message) end
 
--- [0-based board slot] = true of every aura_board_slots of the active mods' content\skill_set\ (later mods win); nil = none
+-- [0-based board slot] = true for every aura_board_slots of the active mods
 local function aura_slots()
   local list = nil
   local ok, decl = pcall(VRFW.files.declarations, "content/skill_set")
@@ -53,7 +44,7 @@ VRFW.on("slot_load", function(event)
   if ok_marker and type(marker) == "string" and marker ~= "" then return nil end
   local slots = aura_slots()
   if not slots then return nil end
-  local tree, why = T.open_slot(slot)
+  local tree, why = T.open(slot)
   if not tree then
     warn("slot " .. slot .. ": the save could not be read (" .. tostring(why) .. ")")
     return nil

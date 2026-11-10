@@ -1,26 +1,19 @@
 schema = "VRFW.game/2"
 
 # Team-build archetypes declared by mods (content\archetypes\*.toml, schema VRFW.archetype/1; run time scripts\archetype.lua).
-# Hooks the engine's team-build pick so a declared archetype can win (the six retail counts are zeroed, the engine answers 6), and applies archetype passive effects.
 
-# ------------------------------------------------------------------------------------------------ functions
-# Passive readers used to evaluate a match player's passives.
-
-# GetTeamPassiveId(out, charaHdl, slot, useCopy)
 [[VRFW.Function]]
 name = "ArchPassiveId"
 game = "Passive.TeamPassiveId"
 arguments = ["ptr", "u32", "u8", "u8"]
 returns = "ptr"
 
-# IsTeamPassiveUnlocked(charaHdl, slot, useCopy)
 [[VRFW.Function]]
 name = "ArchPassiveUnlocked"
 game = "Passive.TeamPassiveUnlocked"
 arguments = ["u32", "u8", "u8"]
 returns = "u8"
 
-# ResolvePassiveRarity(out, id, rarity)
 [[VRFW.Function]]
 name = "ArchPassiveRarity"
 game = "Passive.RarityVersion"
@@ -43,12 +36,10 @@ game = "Match.SoccerActors.ViaSkillUsed"
 
 # ------------------------------------------------------------------------------------------------ team build pick
 
-# Mid hook before the passive list is built: captures the team selector.
 [[VRFW.Hook]]
 name = "ArchBuildSelector"
 game = "Passive.TeamBuildTypeSelector"
 kind = "mid"
-wait_ms = 250
 
 # Mid hook after the counts: adds declared archetypes' points and zeroes the six retail counts when one wins.
 [[VRFW.Hook]]
@@ -56,10 +47,6 @@ name = "ArchBuildCounts"
 game = "Passive.TeamBuildTypeCounts"
 kind = "mid"
 relocs = [{ at = 3, next = 7 }]
-wait_ms = 250
-
-# ------------------------------------------------------------------------------------------------ match bonuses
-# Battle bonus getters (fractions, 0.1 = +10 %); the post answer adds the actor's archetype effects from script-filled tables.
 
 # ShotAtBonus(hdl): shot AT bonus
 [[VRFW.Hook]]
@@ -98,9 +85,6 @@ returns = "f32"
 [[VRFW.Hook.answer]]
 value = "ret + lookup(Archetype.Focus, args[1])"
 
-# ------------------------------------------------------------------------------------------------ exec conditions
-# Exec conditions: 910 p = owner's team build is p (0-6 game, 7+ declared); 911 p = owner's team build rank >= p (declared archetypes only, game builds answer 0). False outside a match.
-
 [[VRFW.Hook]]
 name = "ArchIsTeamBuild"
 kind = "callback"
@@ -125,8 +109,7 @@ phase = "pre"
 when = [{ value = "[[args[1]] + 4]:u8", in = [1, 3] }, { value = "[[args[1]]]:u32", not = 0xC4DC849A }]
 value = "if(lookup(Archetype.Rank, [actor([args[1] + 8]:u32) + 0xD0]:u8) >= if([[args[1]] + 4]:u8 == 3, [[args[1]]]:f32, [[args[1]]]:i32), 1, 0)"
 
-# ResolveExecCondition(id): shared resolver, called per condition row at table load. Order: unmigrated mods' own detours, then mods' exported Passive.ExecCondition tables
-# (last loaded first), then 910 / 911 above, then the game's table (unknown id = false).
+# ResolveExecCondition(id): shared resolver, called per condition row at table load.
 [[VRFW.Hook]]
 name = "ArchResolveExecCondition"
 game = "Passive.ResolveExecCondition"
@@ -151,19 +134,6 @@ value = "int(callback(ArchIsTeamBuild))"
 phase = "pre"
 when = { value = "args[1]", equals = 911 }
 value = "int(callback(ArchRankAtLeast))"
-
-# ------------------------------------------------------------------------------------------------ passive slots (S6)
-# Passive slot readers and the rarity version: one detour each; answers come from tables mods export (`*/<table>`: every mod listing it in [exports] tables, last loaded first). No export = the game's answer.
-#   Passive.SlotChoice   (save slot, saved owner of the handle, slot 0-4) -> passive id: a saved player's configured slot
-#   Passive.OwnSlot      (chara_param id, slot) -> passive id: a character's own passive (chara_param cols 61-65)
-#   Passive.OwnKept      (rarity, slot) present = that slot keeps the game's passive (no own passive there)
-#   Passive.SlotUnlock   (save slot, saved owner, slot) -> 0 / 1: a configured slot's unlock state
-#   Passive.AllOpen      (save slot) -> 1: every non-empty slot of a saved, configurable player works
-#   Passive.OwnOpen      (chara_param id, slot) -> 1: a slot holding an own passive works
-#   Passive.RarityTier   (asked rarity) -> the rarity whose version and value are read (Character Reforged: 0-3 -> 4)
-#   Passive.RarityTwin   (passive id) -> the address of the id to read instead (Prime's doubled twins), only for an
-#                        asked rarity listed in Passive.RarityTier
-# Record layout used below: +4 chara_param id, +0x10 rarity, +0xEC + slot * 12 passive slots, +0x1BC coach / manager badge (0 = player).
 
 # GetTeamPassiveId: the engine's single reader of a player's passive slots.
 [[VRFW.Hook]]
@@ -216,13 +186,6 @@ when = [
   { value = ["[record(args[1]) + 0x10]:u32", "args[2]"], not_in_table = "*/Passive.OwnKept" },
 ]
 
-# Slots off and the signature slot: a save slot where a mode keeps only each player's signature passive (its tables
-# keyed by the active save slot). These detours run before the other subscribers of the entry (order 100), so their
-# post answers are written last and win; a save slot no mod lists keeps every other answer.
-#   Passive.SlotsOff       (save slot) -> 0: the 5 passive slots of every player read empty and locked there
-#   Passive.SignatureSlot  (save slot, chara_param id) -> passive id: the player's signature passive (board slot 9)
-#   Passive.SignatureOpen  (save slot, chara_param id) -> 1: his custom passive piece counts as open
-#   Passive.SignatureOnly  (save slot) -> 0: a player with no signature passive there has an empty, closed slot 9
 [[VRFW.Hook]]
 name = "VRFW.PassiveSlotsOffId"
 game = "Passive.TeamPassiveId"
@@ -285,7 +248,6 @@ key = ["slot", "[record([args[1]]:u32) + 4]:u32"]
 table = "*/Passive.SignatureOnly"
 key = ["slot"]
 
-# ResolvePassiveRarity: rarity version of a passive; the twin answer runs first (it tests the asked rarity), then the tier.
 [[VRFW.Hook]]
 name = "VRFW.PassiveRarity"
 game = "Passive.RarityVersion"
@@ -306,7 +268,6 @@ table = "*/Passive.RarityTier"
 key = ["args[3]"]
 write = "args[3]"
 
-# RarityValue: effect value of a passive at a rarity; the game's second reader of the rarity table (cached slot values, plates, skill lists). Same tier as the version above.
 [[VRFW.Hook]]
 name = "VRFW.PassiveRarityValue"
 game = "Passive.RarityValue"
@@ -323,19 +284,16 @@ write = "args[2]"
 # Archetype data for the menus and the match HUD (Lua patches under assets\lua\archetype\include\).
 
 [[VRFW.Command]]
-name = "CMND_VRFW_ARCHETYPE_TEAM"  # (dock, party; no arguments = last menu pick) -> build (0-6 the game's, 7+ declared), points; -1 = not picked yet
+name = "CMND_VRFW_ARCHETYPE_TEAM"
 handler = "Archetype.CmdTeam"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_ARCHETYPE_MATCH"  # (side 0 / 1) -> build, rank, charge, max charge (match side)
+name = "CMND_VRFW_ARCHETYPE_MATCH"
 handler = "Archetype.CmdMatch"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_ARCHETYPE_INFO"   # (build) -> ok, name text id, description text id, icon, large icon, gauge icon
+name = "CMND_VRFW_ARCHETYPE_INFO"
 handler = "Archetype.CmdInfo"
-
-# ------------------------------------------------------------------------------------------------ state keys
-# A match side's build (0-6 the game's, 7+ declared; nil outside a match) and a declared archetype's rank (0-5).
 
 [[VRFW.State]]
 key = "VRFW.archetype.team0"

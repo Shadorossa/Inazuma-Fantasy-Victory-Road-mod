@@ -1,50 +1,37 @@
--- VRFW route_chains BEGIN
--- VR-Framework chain boards on the Chronicle board: a [[route_node]] with `chain = …` (its "C" piece) opens the framework's chain board screen
--- (vrfw_chain_board_menu) instead of its command menu; a match tile picked there is played from here, as a board match
--- of that piece (the retail launch, state 3, with the tile's own game and difficulty); back on the board after it
--- (state 8) a win records the tile's rank in the chain's progress (VRFW_Chain, the framework's menu part) and the
--- piece's own clear flow (state 10) is skipped: the "C" piece is cleared (its first shown difficulty) only when every
--- match of its chain is won. Losing records nothing (retry the match). The rank of a win is the board's rank rule
--- (VRFW_RB_MatchRank of graft route_board: the framework's S / A / B score rule, VRFW_MatchRank). The "C" crest's badge (route_board's VRFW_RB_Badge) shows the chain's rank: the average of its
--- matches (VRFW_RCH_RankOf, the default of VRFW_RB_Rank).
--- A CHAIN HUB (a [[VRFW.RouteNode]] Kind = "chain_hub" with Chains = [...]) opens the same screen on
--- the chooser list of its chains (parameter vrfw_chain_hub = its slot); the screen answers the picked tile AND its
--- chain (vrfw_chain_pick_chain); each chain keeps its own progress; the hub's piece clears once all are complete and its
--- badge is the average of the chains' ranks.
--- Generic: every chain node of every mod (CMND_VRFW_TEAM_ROUTE_NODE_* via route_nodes' VRFW_RN_Load, then
--- CMND_VRFW_TEAM_CHAIN_OF_PIECE). Data loaded lazily, never at Lua load. Log: "LUAPRINT … VRFW_RCH …".
-VRFW_RCH = nil     -- save slot -> {board, slot} of every chain node (built on first use)
-VRFW_RCH_CMD_MENU = 1193383590 --[[vs_route_town_command_select_menu]]
+-- VRFW route_chains BEGIN (vrfw_chain_board_menu) instead of its command menu
+VRFW.route_chains = VRFW.route_chains or {}
+VRFW.route_chains.map = nil     -- save slot -> {board, slot} of every chain node (built on first use)
+VRFW.route_chains.CMD_MENU = 1193383590 --[[vs_route_town_command_select_menu]]
 
-function VRFW_RCH_Log(...)
+function VRFW.route_chains.log(...)
   if PRINT ~= nil then
-    pcall(PRINT, "VRFW_RCH", ...)
+    pcall(PRINT, "VRFW.route_chains.map", ...)
   end
 end
 
-function VRFW_RCH_Load()
-  if VRFW_RCH ~= nil then
-    return VRFW_RCH
+function VRFW.route_chains.load()
+  if VRFW.route_chains.map ~= nil then
+    return VRFW.route_chains.map
   end
-  VRFW_RCH = {}
-  if VRFW_Chain == nil or VRFW_RN_Load == nil then
-    VRFW_RCH_Log("no VRFW_Chain / route nodes in this VM: chain nodes open their command menu")
-    return VRFW_RCH
+  VRFW.route_chains.map = {}
+  if VRFW.chain == nil or (VRFW.route_nodes == nil or VRFW.route_nodes.load == nil) then
+    VRFW.route_chains.log("no VRFW.chain / route nodes in this VM: chain nodes open their command menu")
+    return VRFW.route_chains.map
   end
-  for _, node in ipairs(VRFW_RN_Load().nodes) do
-    local b, slot = VRFW_Chain.OfPiece(node.piece)
+  for _, node in ipairs(VRFW.route_nodes.load().nodes) do
+    local b, slot = VRFW.chain.of_piece(node.piece)
     if b ~= nil then
-      -- a chain hub (Kind = "chain_hub"): the chooser list of its chains (board = the first one)
-      local hub = (node.hub ~= nil and #node.hub > 0 and VRFW_Chain.Hub ~= nil) and VRFW_Chain.Hub(node.slot) or nil
-      VRFW_RCH[node.slot] = {board = b, slot = node.slot, diffs = node.diffs, hub = hub}
-      VRFW_RCH_Log("node slot", node.slot, "chain", b.key, "tiles", #b.tiles, "hub", hub ~= nil and #hub or 0)
+      -- Handles a chain hub (Kind = "chain_hub").
+      local hub = (node.hub ~= nil and #node.hub > 0 and VRFW.chain.hub ~= nil) and VRFW.chain.hub(node.slot) or nil
+      VRFW.route_chains.map[node.slot] = {board = b, slot = node.slot, diffs = node.diffs, hub = hub}
+      VRFW.route_chains.log("node slot", node.slot, "chain", b.key, "tiles", #b.tiles, "hub", hub ~= nil and #hub or 0)
     end
   end
-  return VRFW_RCH
+  return VRFW.route_chains.map
 end
 
 -- the chain node of board piece index `idx` (nil = a plain piece)
-function VRFW_RCH_Of(idx)
+function VRFW.route_chains.of(idx)
   if idx == nil or idx < 0 then
     return nil
   end
@@ -52,205 +39,198 @@ function VRFW_RCH_Of(idx)
   if not ok then
     return nil
   end
-  return VRFW_RCH_Load()[sfi]
+  return VRFW.route_chains.load()[sfi]
 end
 
--- OpenCommandSelect: the menu a piece opens (a chain node: the chain board, its chain index handed over)
-function VRFW_RCH_MenuFor(idx)
-  local n = VRFW_RCH_Of(idx)
+-- Returns the menu for OpenCommandSelect.
+function VRFW.route_chains.menu_for(idx)
+  local n = VRFW.route_chains.of(idx)
   if n == nil then
-    return VRFW_RCH_CMD_MENU
+    return VRFW.route_chains.CMD_MENU
   end
-  VRFW_Param.Clear(VRFW_Chain.P_PICK)
-  VRFW_Param.Clear(VRFW_Chain.P_CHAIN)
-  VRFW_Param.Clear(VRFW_Chain.P_HUB)
-  VRFW_Param.Clear(VRFW_Chain.P_PICK_CHAIN)
-  VRFW_Param.Set(VRFW_Chain.P_CHAIN, n.board.i)
+  VRFW.param.clear(VRFW.chain.P_PICK)
+  VRFW.param.clear(VRFW.chain.P_CHAIN)
+  VRFW.param.clear(VRFW.chain.P_HUB)
+  VRFW.param.clear(VRFW.chain.P_PICK_CHAIN)
+  VRFW.param.set(VRFW.chain.P_CHAIN, n.board.i)
   if n.hub ~= nil then
-    VRFW_Param.Set(VRFW_Chain.P_HUB, n.slot)
-    VRFW_RCH_Log("open hub", n.slot, "chains", #n.hub, "piece", idx)
+    VRFW.param.set(VRFW.chain.P_HUB, n.slot)
+    VRFW.route_chains.log("open hub", n.slot, "chains", #n.hub, "piece", idx)
   else
-    VRFW_RCH_Log("open board", n.board.key, "piece", idx, "slot", n.slot, "state", VRFW_Chain.State(n.board))
+    VRFW.route_chains.log("open board", n.board.key, "piece", idx, "slot", n.slot, "state", VRFW.chain.state(n.board))
   end
-  return VRFW_Chain.MENU
+  return VRFW.chain.MENU
 end
 
--- the Chronicle board's own footer (button guides) and the piece's title banner while the full-screen chain board is
--- open (show = false right after it opens, true when it closes without a match: the retail "back" path then reopens
--- its guides itself). Only for the chain board (`menu`), never for the retail command menu.
-VRFW_RCH_HIDDEN = false
-function VRFW_RCH_ParentUi(menu, show)
-  if menu ~= nil and (VRFW_Chain == nil or menu ~= VRFW_Chain.MENU) then
+-- The Chronicle board's own footer (button guides) and the piece's title banner are hidden while the full-screen chain board is up.
+VRFW.route_chains.HIDDEN = false
+function VRFW.route_chains.parent_ui(menu, show)
+  if menu ~= nil and (VRFW.chain == nil or menu ~= VRFW.chain.MENU) then
     return
   end
   if not show then
-    VRFW_RCH_HIDDEN = true
-  elseif not VRFW_RCH_HIDDEN then
+    VRFW.route_chains.HIDDEN = true
+  elseif not VRFW.route_chains.HIDDEN then
     return
   else
-    VRFW_RCH_HIDDEN = false
+    VRFW.route_chains.HIDDEN = false
   end
   for _, l in ipairs({1138543975 --[[mainmenu01_06_base_button_guide]], 9396745 --[[mainmenu01_07_button_guide]],
                       1423637364 --[[rpg00_05_menu_button_guide]], 139522149 --[[vsroute02_03_gametitle]]}) do
     pcall(funcLuaMenuCommand, 2171393651 --[[layer visible, every instance]], l, show)
   end
   if not show then
-    VRFW_RCH_NewIcon(false) -- put back only when the Chronicle board itself closes (VRFW_RCH_NewIcon(true), FinalizeMenu)
+    VRFW.route_chains.new_icon(false)
   end
 end
 
--- the board's retail "new" badge cmn01_12_new_icon (draw priority 999, the board's script never places it): it showed
--- as a small red "!" at the top-left corner over the chain board. Hidden while the chain board is
--- open, each instance's own visibility put back when it closes (CMND_IS_LAYER_VISIBLE before hiding).
-VRFW_RCH_NEW_SEEN = nil
-function VRFW_RCH_NewIcon(show)
+-- The board's retail "new" badge cmn01_12_new_icon (draw priority 999) is never placed by the board's script.
+VRFW.route_chains.NEW_SEEN = nil
+function VRFW.route_chains.new_icon(show)
   local L = 2505232397 --[[cmn01_12_new_icon]]
   if not show then
     local okN, n = pcall(funcLuaMenuCommand, @crc:CMND_GET_CREATE_LAYER_NUM@, L)
-    VRFW_RCH_NEW_SEEN = {}
+    VRFW.route_chains.NEW_SEEN = {}
     for i = 0, (okN and tonumber(n) or 0) - 1 do
       local okV, v = pcall(funcLuaMenuCommand, @crc:CMND_IS_LAYER_VISIBLE@, L, i)
-      VRFW_RCH_NEW_SEEN[i] = okV and v == true
+      VRFW.route_chains.NEW_SEEN[i] = okV and v == true
       pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_VISIBLE@, L, i, false)
     end
-    VRFW_RCH_Log("new badge hidden", okN and n or "?")
-  elseif VRFW_RCH_NEW_SEEN ~= nil then
-    for i, v in pairs(VRFW_RCH_NEW_SEEN) do
+    VRFW.route_chains.log("new badge hidden", okN and n or "?")
+  elseif VRFW.route_chains.NEW_SEEN ~= nil then
+    for i, v in pairs(VRFW.route_chains.NEW_SEEN) do
       pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_VISIBLE@, L, i, v)
     end
-    VRFW_RCH_NEW_SEEN = nil
+    VRFW.route_chains.NEW_SEEN = nil
   end
 end
 
--- the same badge stays hidden on the WHOLE Chronicle board, under any of its menus: the board's Step hides every instance each frame (an instance made later is saved
--- too); FinalizeMenu puts each one's own visibility back (VRFW_RCH_NewIcon(true)).
-function VRFW_RCH_NewIconStep()
-  if VRFW_RCH_NEW_SEEN == nil then
-    VRFW_RCH_NewIcon(false)
+-- Keeps the same badge hidden on the whole Chronicle board, under any of its menus.
+function VRFW.route_chains.new_icon_step()
+  if VRFW.route_chains.NEW_SEEN == nil then
+    VRFW.route_chains.new_icon(false)
     return
   end
   local L = 2505232397 --[[cmn01_12_new_icon]]
   local okN, n = pcall(funcLuaMenuCommand, @crc:CMND_GET_CREATE_LAYER_NUM@, L)
   for i = 0, (okN and tonumber(n) or 0) - 1 do
-    if VRFW_RCH_NEW_SEEN[i] == nil then
+    if VRFW.route_chains.NEW_SEEN[i] == nil then
       local okV, v = pcall(funcLuaMenuCommand, @crc:CMND_IS_LAYER_VISIBLE@, L, i)
-      VRFW_RCH_NEW_SEEN[i] = okV and v == true
+      VRFW.route_chains.NEW_SEEN[i] = okV and v == true
     end
     pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_VISIBLE@, L, i, false)
   end
 end
 
--- the board's piece balloon (UpdatePieceAtcBalloon: team name + the team's player face icon_chr_dmy01): a chain node
--- shows its name only, no player over it. `idx` = the board piece index. False: the balloon's chara
--- is set to 0 before the retail face call, so the retail "no face" branch runs (face meshes hidden, no face draw; the
--- node's `Team` is only a placeholder that gives the piece a game, its player must never be drawn). The same for a gacha
--- node (VRFW_Gacha.IsPiece) and a mod's node menu (VRFW_NodeMenu.IsPiece).
-function VRFW_RCH_BalloonFace(idx)
-  if VRFW_Gacha ~= nil and VRFW_Gacha.IsPiece ~= nil and VRFW_Gacha.IsPiece(idx) then
-    return false -- a gacha node (framework gacha service): its team is a placeholder too
+function VRFW.route_chains.balloon_face(idx)
+  if VRFW.gacha ~= nil and VRFW.gacha.is_piece ~= nil and VRFW.gacha.is_piece(idx) then
+    return false
   end
-  if VRFW_NodeMenu ~= nil and VRFW_NodeMenu.IsPiece ~= nil and VRFW_NodeMenu.IsPiece(idx) then
+  if VRFW.node_menu ~= nil and VRFW.node_menu.is_piece ~= nil and VRFW.node_menu.is_piece(idx) then
     return false -- a node menu (framework node menus): its team is a placeholder too
   end
-  return VRFW_RCH_Of(idx) == nil
+  return VRFW.route_chains.of(idx) == nil
 end
 
--- after the chain board closed: game id, difficulty of the match tile picked (nil = back / not a chain node)
-function VRFW_RCH_Picked(idx)
-  local n = VRFW_RCH_Of(idx)
+-- Runs after the chain board closed.
+function VRFW.route_chains.picked(idx)
+  local n = VRFW.route_chains.of(idx)
   if n == nil then
     return nil
   end
-  VRFW_RCH_ParentUi(nil, true)
+  VRFW.route_chains.parent_ui(nil, true)
   local t = 0
-  if VRFW_Param.Has(VRFW_Chain.P_PICK) then
-    t = VRFW_Param.Get(VRFW_Chain.P_PICK) or 0
-    VRFW_Param.Clear(VRFW_Chain.P_PICK)
+  if VRFW.param.has(VRFW.chain.P_PICK) then
+    t = VRFW.param.get(VRFW.chain.P_PICK) or 0
+    VRFW.param.clear(VRFW.chain.P_PICK)
   end
-  -- a hub: the chain of the picked tile (the screen's P_PICK_CHAIN = chain index + 1)
+  -- Handles a hub.
   local b = n.board
   if n.hub ~= nil then
     b = nil
-    if VRFW_Param.Has(VRFW_Chain.P_PICK_CHAIN) then
-      b = VRFW_Chain.Board((VRFW_Param.Get(VRFW_Chain.P_PICK_CHAIN) or 0) - 1)
-      VRFW_Param.Clear(VRFW_Chain.P_PICK_CHAIN)
+    if VRFW.param.has(VRFW.chain.P_PICK_CHAIN) then
+      b = VRFW.chain.board((VRFW.param.get(VRFW.chain.P_PICK_CHAIN) or 0) - 1)
+      VRFW.param.clear(VRFW.chain.P_PICK_CHAIN)
     end
     if b == nil then
-      VRFW_RCH_Log("hub closed", n.slot, "pick", t)
+      VRFW.route_chains.log("hub closed", n.slot, "pick", t)
       return nil
     end
   end
   local tile = b.tiles[t]
   if tile == nil or tile.kind ~= "match" or tile.game == 0 then
-    VRFW_RCH_Log("board closed", b.key, "pick", t)
+    VRFW.route_chains.log("board closed", b.key, "pick", t)
     return nil
   end
-  VRFW_Chain.SetPending(b, t, n.slot)
-  VRFW_RCH_Log("launch", b.key, tile.id, "game", tile.game, "difficulty", tile.difficulty, "level", tile.level)
-  return tile.game, tile.difficulty
+  VRFW.chain.set_pending(b, t, n.slot)
+  local difficulty = tile.difficulty
+  if VRFW.param.has(VRFW.chain.P_SUPPLIED) then
+    VRFW.param.clear(VRFW.chain.P_SUPPLIED)
+    difficulty = VRFW.match_challenge.supply_row(tile.game, tile.difficulty) or difficulty
+  end
+  VRFW.route_chains.log("launch", b.key, tile.id, "game", tile.game, "difficulty", difficulty, "level", tile.level, "supplied", difficulty ~= tile.difficulty)
+  return tile.game, difficulty
 end
 
--- the rank of the match just won: the board's rank rule (route_board's hook point VRFW_RB_MatchRank: VRFW_MatchRank)
-function VRFW_RCH_Rank()
-  if VRFW_RB_MatchRank ~= nil then
-    return VRFW_RB_MatchRank()
+-- Returns the rank of the match just won.
+function VRFW.route_chains.rank()
+  if (VRFW.route_board ~= nil and VRFW.route_board.match_rank ~= nil) then
+    return VRFW.route_board.match_rank()
   end
   return 1, -1, -1
 end
 
--- PreStep state 8 (back on the board), before the retail result handling: a chain match's result
-function VRFW_RCH_AfterMatch()
-  if VRFW_Chain == nil then
+function VRFW.route_chains.after_match()
+  if VRFW.chain == nil then
     return
   end
-  local key, t, slot = VRFW_Chain.Pending()
+  local key, t, slot = VRFW.chain.pending()
   if key == nil then
     return
   end
-  VRFW_Chain.ClearPending()
+  VRFW.chain.clear_pending()
   local back = funcLuaCommand(@crc:CMND_GET_TEMP_BIT_FLAG@, 1388584433)
   local won = funcLuaCommand(@crc:CMND_GET_TEMP_BIT_FLAG@, 2046383450)
-  local n = VRFW_RCH_Load()[slot]
-  local b = (n ~= nil and n.board.key == key) and n.board or VRFW_Chain.ByKey(key)   -- a hub: the pending tile's chain
+  local n = VRFW.route_chains.load()[slot]
+  local b = (n ~= nil and n.board.key == key) and n.board or VRFW.chain.by_key(key)   -- a hub: the pending tile's chain
   if not back or b == nil or b.tiles[t] == nil then
-    VRFW_RCH_Log("pending dropped", key, t, slot, "back", back)
+    VRFW.route_chains.log("pending dropped", key, t, slot, "back", back)
     return
   end
   if not won then
-    VRFW_RCH_Log("result", key, b.tiles[t].id, "not won: retry it")
+    VRFW.route_chains.log("result", key, b.tiles[t].id, "not won: retry it")
     return
   end
-  local rank, f, a = VRFW_RCH_Rank()
+  local rank, f, a = VRFW.route_chains.rank()
   if rank == nil then
-    -- no declared rank holds (a mod's ranks need more): the lowest declared rank, the tile is won all the same
-    local list = VRFW_MatchRank ~= nil and VRFW_MatchRank.List() or {}
+    -- Handles the case where no declared rank holds (a mod's ranks need more).
+    local list = VRFW.match_rank ~= nil and VRFW.match_rank.list() or {}
     rank = list[#list] and list[#list].id or "B"
   end
-  local best = VRFW_Chain.Win(b, t, rank)
-  -- the piece's own clear flow (state 10: clear bit, open effect) is not run for a chain match
+  local best = VRFW.chain.win(b, t, rank)
   funcLuaCommand(@crc:CMND_SET_TEMP_BIT_FLAG@, 2046383450, false)
-  local complete = VRFW_Chain.Complete(b)
-  VRFW_RCH_Log("result", key, b.tiles[t].id, "score", f, a, "rank", rank, "best", best, "complete", complete, "chain rank", VRFW_Chain.Average(b))
+  local complete = VRFW.chain.complete(b)
+  VRFW.route_chains.log("result", key, b.tiles[t].id, "score", f, a, "rank", rank, "best", best, "complete", complete, "chain rank", VRFW.chain.average(b))
   if n ~= nil and n.hub ~= nil then
-    complete = VRFW_Chain.HubComplete(n.hub)   -- a hub's piece clears once every chain of it is complete
+    complete = VRFW.chain.hub_complete(n.hub)   -- a hub's piece clears once every chain of it is complete
   end
   if complete and n ~= nil then
     local d = (n.diffs and n.diffs[1]) or 4
     if not funcLuaCommand(@crc:CMND_GET_CHRONICLE_CLEAR_STATUS@, n.slot, d) then
       funcLuaCommand(@crc:CMND_SET_CHRONICLE_CLEAR_STATUS@, n.slot, true, d)
-      VRFW_RCH_Log("chain cleared: node slot", n.slot, "difficulty", d)
+      VRFW.route_chains.log("chain cleared: node slot", n.slot, "difficulty", d)
     end
   end
 end
 
--- the "C" crest's badge: a chain node's slot answers its chain's rank (0 = a plain piece, or the chain not won yet)
-function VRFW_RCH_RankOf(sfi)
-  if VRFW_Chain ~= nil and sfi ~= nil then
-    local n = VRFW_RCH_Load()[sfi]
+-- Returns the rank of the "C" crest's badge.
+function VRFW.route_chains.rank_of(sfi)
+  if VRFW.chain ~= nil and sfi ~= nil then
+    local n = VRFW.route_chains.load()[sfi]
     if n ~= nil and n.hub ~= nil then
-      return VRFW_Chain.HubAverage(n.hub)
+      return VRFW.chain.hub_average(n.hub)
     elseif n ~= nil then
-      return VRFW_Chain.Average(n.board)
+      return VRFW.chain.average(n.board)
     end
   end
   return nil

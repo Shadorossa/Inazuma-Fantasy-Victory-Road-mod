@@ -1,7 +1,3 @@
-# BetterQoL > "Nivel de supertécnica personalizado" (option row BetterQoL.level_badges, options.toml): this folder is the
-# option feature of that row, read only while the row says Stars. Repaints only the +1 / +2 / +3 sprites over the
-# player's own game files, in the default file and the 8 language folders of each atlas. Each sprite keeps the rectangle
-# its language's atlas gives it; every other sprite and block of those atlases stays that language's retail art.
 schema = "VRFW.image/1"
 
 [[sprite]]

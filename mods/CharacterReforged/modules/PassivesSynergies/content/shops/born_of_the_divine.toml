@@ -1,0 +1,12 @@
+schema = "VRFW.shop/2"
+
+# In the retail synergy shop 0x5B032CEA for 10 cards of each member (Byron Love + Thaddeus Bellefax).
+[[edit]]
+target = "0x5B032CEA"
+  [[edit.entry]]
+  item = "born_of_the_divine"
+  stock = 1
+  costs = [
+    { currency = "byron_love_card", count = 10 },
+    { currency = "thaddeus_bellefax_card", count = 10 },
+  ]

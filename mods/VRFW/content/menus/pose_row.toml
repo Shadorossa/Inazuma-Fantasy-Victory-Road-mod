@@ -1,15 +1,5 @@
-# The VRFW's pose row screen vrfw_pose_row_menu (docs/framework/pose-row.md): a list on the left and, for the
-# selected entry, up to 5 players as 3D models posing in a row with a card under each (name, position, «new» / «in the
-# club», a line of text and a check). What it lists is a mod's [[VRFW.PoseRow]] (content\pose_rows\*.toml, its source
-# command); the screen is mechanism only. Opened with VRFW_PoseRow.Open (assets\lua\menu\_all\76_pose_row.lua).
-# Base savedata_management_menu (background, header, cursor, button guides, the off-screen input anchor) as the
-# contact map. The models: ONE layer instance whose CMenuCharaModelComponent holds 5 model slots (m_useObjectNum, the
-# retail shop list base's 4 raised to 5: retail menus show several models from one component, the Victory Road top 11,
-# the VS team background 5), each slot placed by the script. The script: graft pose_row (`menu_assemble.py build --mod
-# VRFW`), packed by framework_pack.py as assets\lua\screens\vrfw_pose_row_menu.lua.
 schema = "VRFW.menu/2"
 
-# the anchor's layout (.g4pkm): a copy of the retail save01_01 with the system line / time text moved off screen
 layout = [
     { file = "common/menu/51_save/save01/vrfw_pr_rows/vrfw_pr_rows.g4pkm", from = "common/menu/51_save/save01/save01_01/save01_01.g4pkm" },
     { file = "common/menu/51_save/save01/vrfw_pr_rows/vrfw_pr_rows.g4pkm", joint = "_system_line01", translate = [97.0, 2803.0, 0.0] },
@@ -33,8 +23,6 @@ set = [
     { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_01/save01_01.g4pkm" }, values = { 1 = "common/menu/51_save/save01/vrfw_pr_rows/vrfw_pr_rows.g4pkm" } },
 ]
 
-# the panel's ground: the BACKGROUND pass (m_drawType 1, as the retail shop01_00_background), under the 3D models;
-# every other layer is drawn over them
 [[object]]
 name = "vrfw_pr_ground"
 from = "cmn01_10_new_icon"
@@ -47,9 +35,6 @@ name = "vrfw_pr_plate"
 from = "cmn01_10_new_icon"
 set = [{ parameter = "m_drawPriority", match = { 1 = 999 }, values = { 1 = 457 } }]
 
-# the 3D models: the retail shop list base (its CMenuCharaModelComponent and the shop's model camera) with 5 model
-# slots and no self rotation, the list / sound / collision / analog parts removed; driven by the shared
-# EVT_CharaModelNew (evt_menu_kit.lua#CharaModel), one per slot
 [[object]]
 name = "vrfw_pr_model"
 from = "shop01_01_list_base"
@@ -59,9 +44,6 @@ set = [
     { parameter = "m_isRotateSelf", match = { 1 = 1 }, values = { 1 = 0 } },
 ]
 
-# the node panel style's lineup (as the Chronicle board's command menu shows a team): the VS screen's formation pitch
-# (vsroute02_06) without its card attachments, and the game's small player card (team00_01) under its retail object
-# name (the game's card fills know its cards by it), no collision and no attach rows
 [[object]]
 name = "vrfw_pr_pitch"
 from = "vsroute02_06_enemy_formation_base"
@@ -120,7 +102,7 @@ resources = [
     "#/menu/200_icon/100_num/num_menu01.g4tx",
     "#/menu/220_img/savedata_img/savedata_ch_img01.g4tx",
     "#/menu/220_img/savedata_img/savedata_story_img01.g4tx",
-    # the plain shapes (VRFW_ScreenArt.Plain); a mod's declared art is loaded by the script on demand
+    # the plain shapes (VRFW.screen_art.plain); a mod's declared art is loaded by the script on demand
     "#/menu/220_img/vrfw_plain/vrfw_plain.g4tx",
     # the node panel style's opaque list row (content\images\menu\220_img\vrfw_pose_row.toml)
     "#/menu/220_img/vrfw_pose_row/vrfw_pose_row.g4tx",

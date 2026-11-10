@@ -1,11 +1,6 @@
-# Character bank filter header («Q ‹ value › E» above the bank lists); values come from the rarities and series declared by the game and mods.
 schema = "VRFW.card_filter/1"
 
 # Per screen: function/args = prev/next key events (L2/R2, Q/E); offset = layout px from the retail filter plate (y up).
-# idle_local = screen local that must be 0 for the keys to be taken (0 = browsing).
-# enabled = false: no value header on the bank; L2 / R2 switch the tab bar's pages instead.
-# tabs_per_page / pinned_tabs = the tab bar's pages: page 1 = the retail tabs, page 2 on = the series tabs the mods
-# declare ([[bank_tab]]). No mod tab: one page, L2 / R2 do nothing.
 [[screen]]
 stem = "chara_bank_menu"
 offset = [0.0, -52.0]
@@ -26,7 +21,6 @@ enabled = false
 tabs_per_page = 11
 pinned_tabs = 0
 
-# Tab bar layout for screens without pages: 12 bank tabs (retail 11 + one mod tab); a mod with 13 tabs declares its own [[bank_tab_bar]].
 [[bank_tab_bar]]
 tabs = 12
 attach = "vrfw_bank_tab12_{nn}"

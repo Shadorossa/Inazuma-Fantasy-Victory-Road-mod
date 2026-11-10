@@ -1,0 +1,903 @@
+
+schema = "VRFW.team/2"
+default_lang = "es"
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie1_raimon"
+Slot = 400
+After = "fbtl_cro01_010_010"
+AfterWon = [1]
+Dir = "RD"
+Pos = [-4.4, -9.6]
+Team = "tm_cro_ie1_0100"
+TemplateGame = "fbtl_cro01_010_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie1_raimon"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie2_inazuma_town"
+Slot = 401
+After = "fbtl_cro02_010_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [4.6, -3.4]
+Team = "tm_cro_ie2_0100"
+TemplateGame = "fbtl_cro02_010_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie2_inazuma_town"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie2_fuji_forest"
+Slot = 402
+After = "fbtl_cro02_190_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [23.6, -10.4]
+Team = "tm_cro_ie2_1200"
+TemplateGame = "fbtl_cro02_190_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie2_fuji_forest"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie2_osaka"
+Slot = 403
+After = "fbtl_cro02_090_010"
+AfterWon = [1]
+Dir = "RD"
+Pos = [14.6, -20.6]
+Team = "tm_cro_ie2_0900"
+TemplateGame = "fbtl_cro02_090_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie2_osaka"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie2_fukuoka"
+Slot = 404
+After = "fbtl_cro02_110_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [17.6, -18.4]
+Team = "tm_cro_ie2_1100"
+TemplateGame = "fbtl_cro02_110_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie2_fukuoka"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie2_hokkaido"
+Slot = 405
+After = "fbtl_cro02_040_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [6.4, -9.6]
+Team = "tm_cro_ie2_0400"
+TemplateGame = "fbtl_cro02_040_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie2_hokkaido"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie2_ehime"
+Slot = 406
+After = "fbtl_cro02_080_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [9.4, -20.6]
+Team = "tm_cro_ie2_0800"
+TemplateGame = "fbtl_cro02_080_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie2_ehime"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie2_okinawa"
+Slot = 407
+After = "fbtl_cro02_130_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [15.4, -26.6]
+Team = "tm_cro_ie2_1300"
+TemplateGame = "fbtl_cro02_130_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie2_okinawa"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie2_kyoto"
+Slot = 408
+After = "fbtl_cro02_060_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [11.6, -12.4]
+Team = "tm_cro_ie2_0600"
+TemplateGame = "fbtl_cro02_060_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie2_kyoto"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie2_redux_ship"
+Slot = 409
+After = "fbtl_cro02_080_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [12.6, -17.4]
+Team = "tm_cro_ie2_0800"
+TemplateGame = "fbtl_cro02_080_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie2_redux_ship"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie2_nara"
+Slot = 410
+After = "fbtl_cro02_020_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [3.4, -8.6]
+Team = "tm_cro_ie2_0200"
+TemplateGame = "fbtl_cro02_020_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie2_nara"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie3_japan"
+Slot = 411
+After = "fbtl_cro03_010_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [2.6, 10.6]
+Team = "tm_cro_ie3_0100"
+TemplateGame = "fbtl_cro03_010_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie3_japan"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie3_liocott_japan"
+Slot = 412
+After = "fbtl_cro03_100_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [-0.6, 31.4]
+Team = "tm_cro_ie3_1000"
+TemplateGame = "fbtl_cro03_100_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie3_liocott_japan"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie3_liocott_south_america"
+Slot = 413
+After = "fbtl_cro03_150_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [-6.6, 34.6]
+Team = "tm_cro_ie3_1500"
+TemplateGame = "fbtl_cro03_150_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie3_liocott_south_america"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie3_liocott_cotarl"
+Slot = 414
+After = "fbtl_cro03_160_010"
+AfterWon = [1]
+Dir = "RD"
+Pos = [-1.4, 29.4]
+Team = "tm_cro_ie3_1600"
+TemplateGame = "fbtl_cro03_160_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie3_liocott_cotarl"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie3_liocott_usa"
+Slot = 415
+After = "fbtl_cro03_090_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [4.6, 32.6]
+Team = "tm_cro_ie3_0900"
+TemplateGame = "fbtl_cro03_090_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie3_liocott_usa"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie3_liocott_europe"
+Slot = 416
+After = "fbtl_cro03_070_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [-0.6, 21.4]
+Team = "tm_cro_ie3_0700"
+TemplateGame = "fbtl_cro03_070_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie3_liocott_europe"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_ie3_liocott_roads"
+Slot = 417
+After = "fbtl_cro03_060_010"
+AfterWon = [1]
+Dir = "RD"
+Pos = [2.6, 17.4]
+Team = "tm_cro_ie3_0600"
+TemplateGame = "fbtl_cro03_060_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_ie3_liocott_roads"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_raimon"
+Slot = 418
+After = "fbtl_cro04_010_010"
+AfterWon = [1]
+Dir = "RD"
+Pos = [6.6, 3.4]
+Team = "tm_cro_go1_0100"
+TemplateGame = "fbtl_cro04_010_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_raimon"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_inazuma_town"
+Slot = 419
+After = "fbtl_cro04_020_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [5.6, 10.4]
+Team = "tm_cro_go1_0200"
+TemplateGame = "fbtl_cro04_020_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_inazuma_town"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_prodigy_grammar"
+Slot = 420
+After = "fbtl_cro04_030_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [12.6, 10.6]
+Team = "tm_cro_go1_0300"
+TemplateGame = "fbtl_cro04_030_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_prodigy_grammar"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_milky_way"
+Slot = 421
+After = "fbtl_cro04_040_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [6.4, 15.6]
+Team = "tm_cro_go1_0400"
+TemplateGame = "fbtl_cro04_040_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_milky_way"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_almighty_faith"
+Slot = 422
+After = "fbtl_cro04_050_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [10.4, 19.6]
+Team = "tm_cro_go1_0500"
+TemplateGame = "fbtl_cro04_050_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_almighty_faith"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_royal_academy"
+Slot = 423
+After = "fbtl_cro04_060_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [15.6, 19.6]
+Team = "tm_cro_go1_0600"
+TemplateGame = "fbtl_cro04_060_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_royal_academy"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_imperial_road"
+Slot = 424
+After = "fbtl_cro04_070_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [14.4, 19.6]
+Team = "tm_cro_go1_0700"
+TemplateGame = "fbtl_cro04_070_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_imperial_road"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_turbine"
+Slot = 425
+After = "fbtl_cro04_090_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [20.4, 19.6]
+Team = "tm_cro_go1_0900"
+TemplateGame = "fbtl_cro04_090_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_turbine"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_iceberg"
+Slot = 426
+After = "fbtl_cro04_100_010"
+AfterWon = [1]
+Dir = "RD"
+Pos = [25.6, 16.4]
+Team = "tm_cro_go1_1000"
+TemplateGame = "fbtl_cro04_100_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_iceberg"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_raft"
+Slot = 427
+After = "fbtl_cro04_110_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [26.6, 22.6]
+Team = "tm_cro_go1_1100"
+TemplateGame = "fbtl_cro04_110_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_raft"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_god_eden"
+Slot = 428
+After = "fbtl_cro04_140_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [24.6, 28.6]
+Team = "tm_cro_go1_1400"
+TemplateGame = "fbtl_cro04_140_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_god_eden"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_pinball"
+Slot = 429
+After = "fbtl_cro04_150_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [19.4, 30.6]
+Team = "tm_cro_go1_1500"
+TemplateGame = "fbtl_cro04_150_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_pinball"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_desert"
+Slot = 430
+After = "fbtl_cro04_170_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [15.4, 26.6]
+Team = "tm_cro_go1_1600"
+TemplateGame = "fbtl_cro04_170_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_desert"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_go_zenith"
+Slot = 431
+After = "fbtl_cro04_180_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [17.4, 21.4]
+Team = "tm_cro_go1_1800"
+TemplateGame = "fbtl_cro04_180_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_go_zenith"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_raimon"
+Slot = 432
+After = "fbtl_cro05_030_010"
+AfterWon = [1]
+Dir = "RD"
+Pos = [-2.4, 8.4]
+Team = "tm_cro_go2_0100"
+TemplateGame = "fbtl_cro05_030_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_raimon"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_inazuma_town"
+Slot = 433
+After = "fbtl_cro05_020_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [-7.6, 9.6]
+Team = "tm_cro_go2_0100"
+TemplateGame = "fbtl_cro05_020_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_inazuma_town"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_god_eden"
+Slot = 434
+After = "fbtl_cro05_040_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [-8.6, 14.6]
+Team = "tm_cro_go2_0400"
+TemplateGame = "fbtl_cro05_040_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_god_eden"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_okinawa"
+Slot = 435
+After = "fbtl_cro05_010_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [-7.6, 4.4]
+Team = "tm_cro_go2_0100"
+TemplateGame = "fbtl_cro05_010_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_okinawa"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_tonghana"
+Slot = 436
+After = "fbtl_cro05_050_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [-12.6, 9.4]
+Team = "tm_cro_go2_0500"
+TemplateGame = "fbtl_cro05_050_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_tonghana"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_nobunaga"
+Slot = 437
+After = "fbtl_cro05_060_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [-15.6, 15.6]
+Team = "tm_cro_go2_0600"
+TemplateGame = "fbtl_cro05_060_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_nobunaga"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_france"
+Slot = 438
+After = "fbtl_cro05_080_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [-9.4, 22.6]
+Team = "tm_cro_go2_0800"
+TemplateGame = "fbtl_cro05_080_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_france"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_three_kingdoms"
+Slot = 439
+After = "fbtl_cro05_090_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [-13.4, 24.6]
+Team = "tm_cro_go2_2300"
+TemplateGame = "fbtl_cro05_090_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_three_kingdoms"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_edo_kyoto"
+Slot = 440
+After = "fbtl_cro05_110_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [-21.6, 20.4]
+Team = "tm_cro_go2_1000"
+TemplateGame = "fbtl_cro05_110_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_edo_kyoto"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_camelot"
+Slot = 441
+After = "fbtl_cro05_140_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [-24.6, 26.6]
+Team = "tm_cro_go2_2400"
+TemplateGame = "fbtl_cro05_140_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_camelot"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_el_dorado"
+Slot = 442
+After = "fbtl_cro05_150_010"
+AfterWon = [1]
+Dir = "RD"
+Pos = [-20.4, 26.4]
+Team = "tm_cro_go2_1300"
+TemplateGame = "fbtl_cro05_150_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_el_dorado"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_cs_ragnarok"
+Slot = 443
+After = "fbtl_cro05_160_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [-20.6, 32.6]
+Team = "tm_cro_go2_1400"
+TemplateGame = "fbtl_cro05_160_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_cs_ragnarok"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_galaxy_silice"
+Slot = 444
+After = "fbtl_cro06_080_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [2.4, -18.4]
+Team = "tm_cro_go3_0800"
+TemplateGame = "fbtl_cro06_080_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_galaxy_silice"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_galaxy_naiadi"
+Slot = 445
+After = "fbtl_cro06_090_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [-1.6, -25.6]
+Team = "tm_cro_go3_0900"
+TemplateGame = "fbtl_cro06_090_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_galaxy_naiadi"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_galaxy_magmavis"
+Slot = 446
+After = "fbtl_cro06_100_010"
+AfterWon = [1]
+Dir = "LU"
+Pos = [-5.6, -20.4]
+Team = "tm_cro_go3_1000"
+TemplateGame = "fbtl_cro06_100_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_galaxy_magmavis"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_galaxy_fertilia"
+Slot = 447
+After = "fbtl_cro06_110_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [-3.4, -25.4]
+Team = "tm_cro_go3_1100"
+TemplateGame = "fbtl_cro06_110_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_galaxy_fertilia"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_galaxy_falam_orbius"
+Slot = 448
+After = "fbtl_cro06_120_010"
+AfterWon = [1]
+Dir = "LD"
+Pos = [-5.6, -33.6]
+Team = "tm_cro_go3_1200"
+TemplateGame = "fbtl_cro06_120_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_galaxy_falam_orbius"
+List = false
+
+[[VRFW.RouteNode]]
+Name = "classic_recruitment_friendlies_galaxy_lost_nebula"
+Slot = 449
+After = "fbtl_cro06_160_010"
+AfterWon = [1]
+Dir = "RU"
+Pos = [7.6, -44.4]
+Team = "tm_cro_go3_1600"
+TemplateGame = "fbtl_cro06_160_010"
+Difficulties = [1]
+Scripts = false
+Road = false
+PieceScale = 0.8
+Icon = "assets/images/board/friendly_point.png"
+TitleBalloon = true
+TitleKey = "classic_recruitment_friendly_zone_title_galaxy_lost_nebula"
+List = false

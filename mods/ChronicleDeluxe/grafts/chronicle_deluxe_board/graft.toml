@@ -1,8 +1,8 @@
 # Chronicle Deluxe › the Chronicle board with only the Crónica and the Batalla heroica (docs/game/mods/chronicle-deluxe.md
 # §8, owner 2026-10-14: «each team keeps only the chronicle battle … remove every rarity but the heroic battle»). HOOK
-# files of the VR-Framework's two board scripts (graft route_board, docs/framework/route-board.md §3: no text patch of
+# files of the VRFW's two board scripts (graft route_board, docs/framework/route-board.md §3: no text patch of
 # them) and one block appended to the team list script (wrappers of three retail globals); nothing runs at chunk load
-# but definitions, wrapper assignments and VRFW_Host registrations.
+# but definitions, wrapper assignments and VRFW.host registrations.
 #   cd_board_hooks.lua    vs_route_town_menu: a Crónica win of a normal piece also counts as its route-unlock clear
 #                         (difficulty 2: story trigger 506, neighbours, gate keys, trigger 507), the Heroica (4) opens
 #                         with it, old saves get the Heroica of every piece whose Crónica they won, the board's clear
@@ -18,7 +18,7 @@
 #   cd_lineup.lua         the team lineup band of the command menu (included in cd_command_hooks.lua)
 # docs/game/mods/chronicle-deluxe.md §8.9 (the orb bars and panels).
 # Which difficulties exist is the mod's data (content\defaults\match_difficulty.toml, the framework's
-# VRFW_MatchDifficulty); levels, rewards and the heroic player rules are team-type data
+# VRFW.match_difficulty); levels, rewards and the heroic player rules are team-type data
 # (content\teams\90_rules\heroic.toml). With Inazuma Fantasy's Chronicle redesign active (the same rules, its graft
 # chronicle_redesign) these hooks step aside: one owner of the clear flow, never two story triggers for one win.
 name = "chronicle_deluxe_board"

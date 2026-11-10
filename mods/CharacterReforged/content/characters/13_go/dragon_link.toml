@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · Dragon Link · Inazuma Eleven GO
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c04003210_5000"                              # Quentin Cinquedea
+moves = [
+  { move = 0x9AF2229C, level = 62 },                        # Gravity Point
+  { move = 0xA7157B91, level = 72 },                        # Power Shield
+  { move = 0xFF5C8DAF, level = 82 },                        # Shot Stopper
+  { move = 0x35462500, level = 92 },                        # Crescent Cross
+]
 
   [[edit.cards]]
   id = 0xA575506F                                         # GK/MF · fire
@@ -13,7 +16,13 @@ target = "c04003210_5000"                              # Quentin Cinquedea
   stats = { kick = 251, control = 221, technique = 184, pressure = 242, physical = 250, intelligence = 257, agility = 252, freedom = 217 }
 
 [[edit]]
-target = "c04003220_5100"                              # Aimé Quintet
+target = "c04003220_5100"
+moves = [
+  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0xB0F8060A, level = 60 },                        # Ozone Flayer
+  { move = 0xA2BF7076, level = 70 },                        # Side Swipe
+  { move = 0xD9BB22A7, level = 80 },                        # Air Ride
+]
 
   [[edit.cards]]
   id = 0x955F20C5                                         # DF/MF · wind
@@ -24,6 +33,12 @@ target = "c04003220_5100"                              # Aimé Quintet
 
 [[edit]]
 target = "c04003230_5100"                              # Eljas Viisi
+moves = [
+  { move = 0xA2BF7076, level = 11 },                        # Side Swipe
+  { move = 0x81FC5E34, level = 14 },                        # Driving Header
+  { move = 0x660EED1E, level = 44 },                        # Low Scythe Slice
+  { move = 0xAF28F5A0, level = 64 },                        # The Tower
+]
 
   [[edit.cards]]
   id = 0x33282B71                                         # DF/MF · wind
@@ -34,6 +49,12 @@ target = "c04003230_5100"                              # Eljas Viisi
 
 [[edit]]
 target = "c04003240_5100"                              # Pentra Chek
+moves = [
+  { move = 0xA0BDF96F, level = 50 },                        # Ballista Barrage
+  { move = 0x3297683F, level = 60 },                        # Warp Step
+  { move = 0x9B916289, level = 70 },                        # Jurassic Jaws
+  { move = 0x64CDCFB9, level = 80 },                        # Rising Dragon
+]
 
   [[edit.cards]]
   id = 0xF68F15FF                                         # MF/FW · mountain
@@ -44,6 +65,12 @@ target = "c04003240_5100"                              # Pentra Chek
 
 [[edit]]
 target = "c04003250_5000"                              # Federigo Cinco
+moves = [
+  { move = 0x20D01E43, level = 1 },                         # Hey Presto
+  { move = 0x035C1112, level = 22 },                        # Gungnir
+  { move = 0x900C8E0A, level = 53 },                        # Maestro's Call
+  { move = 0xDD0BA694, level = 61 },                        # Okehazama Ravine
+]
 
   [[edit.cards]]
   id = 0x513A747C                                         # MF/DF · forest
@@ -54,6 +81,12 @@ target = "c04003250_5000"                              # Federigo Cinco
 
 [[edit]]
 target = "c04003260_5100"                              # Ferdinand Delafünfe
+moves = [
+  { move = 0xA0BDF96F, level = 50 },                        # Ballista Barrage
+  { move = 0x64CDCFB9, level = 60 },                        # Rising Dragon
+  { move = 0x3663DB4C, level = 70 },                        # Utter Gutsiness Bat
+  { move = 0x44BCDB47, level = 80 },                        # Pyroclastic
+]
 
   [[edit.cards]]
   id = 0x611004D6                                         # MF/FW · fire
@@ -64,6 +97,12 @@ target = "c04003260_5100"                              # Ferdinand Delafünfe
 
 [[edit]]
 target = "c04003270_5100"                              # Quinque Flores
+moves = [
+  { move = 0x3297683F, level = 45 },                        # Warp Step
+  { move = 0xF4A1E0B0, level = 55 },                        # Entropic Arrows
+  { move = 0xD0AF516E, level = 65 },                        # Asteride
+  { move = 0xB60E3C60, level = 75 },                        # Plasma Cut
+]
 
   [[edit.cards]]
   id = 0xC7670F62                                         # FW/MF · fire
@@ -73,6 +112,12 @@ target = "c04003270_5100"                              # Quinque Flores
 
 [[edit]]
 target = "c04003280_5100"                              # Jacques Cinquini
+moves = [
+  { move = 0xA0BDF96F, level = 50 },                        # Ballista Barrage
+  { move = 0x3297683F, level = 60 },                        # Warp Step
+  { move = 0xB3CA3CB6, level = 70 },                        # Parkour Power
+  { move = 0xAC1ACF1C, level = 80 },                        # Flower Plower
+]
 
   [[edit.cards]]
   id = 0x312F7F8B                                         # FW/MF · mountain
@@ -82,6 +127,12 @@ target = "c04003280_5100"                              # Jacques Cinquini
 
 [[edit]]
 target = "c04003290_5100"                              # Fivier Saviola
+moves = [
+  { move = 0xA2BF7076, level = 50 },                        # Side Swipe
+  { move = 0x3297683F, level = 60 },                        # Warp Step
+  { move = 0xB37CD264, level = 70 },                        # Am-Bush
+  { move = 0xEDBAD1F1, level = 80 },                        # Brimstone Rain
+]
 
   [[edit.cards]]
   id = 0x9758743F                                         # MF/DF · forest
@@ -92,6 +143,12 @@ target = "c04003290_5100"                              # Fivier Saviola
 
 [[edit]]
 target = "c04003300_5100"                              # David Quintola
+moves = [
+  { move = 0xA0BDF96F, level = 50 },                        # Ballista Barrage
+  { move = 0xF4A1E0B0, level = 60 },                        # Entropic Arrows
+  { move = 0x9FEEC7A9, level = 70 },                        # Gigaton Head
+  { move = 0xDCC9CCA3, level = 80 },                        # Tesla Coil
+]
 
   [[edit.cards]]
   id = 0xCE6A3172                                         # FW/DF · mountain
@@ -101,6 +158,12 @@ target = "c04003300_5100"                              # David Quintola
 
 [[edit]]
 target = "c04003310_5100"                              # Erik Pentona
+moves = [
+  { move = 0xA0BDF96F, level = 50 },                        # Ballista Barrage
+  { move = 0xF4A1E0B0, level = 60 },                        # Entropic Arrows
+  { move = 0xC6978232, level = 70 },                        # Dinosaur Roar
+  { move = 0xB8A509A7, level = 80 },                        # Asterocks
+]
 
   [[edit.cards]]
   id = 0x681D3AC6                                         # FW/DF · mountain
@@ -117,29 +180,29 @@ target = "c04003210"                                   # Quentin Cinquedea
   growth = "normal"
   stats = { kick = 251, control = 221, technique = 184, pressure = 242, physical = 250, intelligence = 257, agility = 252, freedom = 217 }
   moves = [
-    { move = 0xA7157B91, level = 2 },                       # Power Shield
-    { move = 0xFF5C8DAF, level = 22 },                      # Shot Stopper
-    { move = 0xF9B80F86, level = 43 },                      # Strong Punch
-    { move = 0x35462500, level = 57 },                      # Crescent Cross
+    { move = 0x9AF2229C, level = 62 },                      # Gravity Point
+    { move = 0xA7157B91, level = 72 },                      # Power Shield
+    { move = 0xFF5C8DAF, level = 82 },                      # Shot Stopper
+    { move = 0x35462500, level = 92 },                      # Crescent Cross
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
-    { move = 0x8C628423, level = 1 },                       # Rey blanco [aura]
+    { move = 0x8C628423, level = 20 },                      # wkk00230
   ]
 
 [[edit]]
-target = "c04003220"                                   # Aimé Quintet
+target = "c04003220"
 moves = [
-  { move = 0xA2BF7076, level = 12 },                        # Side Swipe
-  { move = 0xD9BB22A7, level = 30 },                        # Air Ride
-  { move = 0x08EEBD53, level = 38 },                        # Feint Play
-  { move = 0x04941270, level = 63 },                        # Vac Attack
+  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0xB0F8060A, level = 60 },                        # Ozone Flayer
+  { move = 0xA2BF7076, level = 70 },                        # Side Swipe
+  { move = 0xD9BB22A7, level = 80 },                        # Air Ride
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x7AFC3594, level = 1 },                         # Reina blanca [aura]
+  { move = 0x7AFC3594, level = 20 },                        # wks00220
 ]
 
   [[edit.cards]]
@@ -160,7 +223,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x4F025474, level = 1 },                         # Torre blanca [aura]
+  { move = 0x4F025474, level = 20 },                        # wkd00210
 ]
 
   [[edit.cards]]
@@ -173,15 +236,15 @@ moves = [
 [[edit]]
 target = "c04003240"                                   # Pentra Chek
 moves = [
-  { move = 0x3297683F, level = 12 },                        # Warp Step
-  { move = 0x501F2F12, level = 23 },                        # Heel Flick
-  { move = 0x9B916289, level = 45 },                        # Jurassic Jaws
-  { move = 0x64CDCFB9, level = 60 },                        # Rising Dragon
+  { move = 0xA0BDF96F, level = 50 },                        # Ballista Barrage
+  { move = 0x3297683F, level = 60 },                        # Warp Step
+  { move = 0x9B916289, level = 70 },                        # Jurassic Jaws
+  { move = 0x64CDCFB9, level = 80 },                        # Rising Dragon
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x56196535, level = 1 },                         # Alfil blanco [aura]
+  { move = 0x56196535, level = 20 },                        # wkd00200
 ]
 
   [[edit.cards]]
@@ -202,7 +265,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x56196535, level = 1 },                         # Alfil blanco [aura]
+  { move = 0x56196535, level = 20 },                        # wkd00200
 ]
 
   [[edit.cards]]
@@ -215,15 +278,15 @@ moves = [
 [[edit]]
 target = "c04003260"                                   # Ferdinand Delafünfe
 moves = [
-  { move = 0x06458894, level = 4 },                         # Feint Dash
-  { move = 0x64CDCFB9, level = 28 },                        # Rising Dragon
-  { move = 0x3663DB4C, level = 50 },                        # Utter Gutsiness Bat
-  { move = 0x44BCDB47, level = 64 },                        # Pyroclastic
+  { move = 0xA0BDF96F, level = 50 },                        # Ballista Barrage
+  { move = 0x64CDCFB9, level = 60 },                        # Rising Dragon
+  { move = 0x3663DB4C, level = 70 },                        # Utter Gutsiness Bat
+  { move = 0x44BCDB47, level = 80 },                        # Pyroclastic
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x9B4E5206, level = 1 },                         # Caballo blanco [aura]
+  { move = 0x9B4E5206, level = 20 },                        # wks00190
 ]
 
   [[edit.cards]]
@@ -236,15 +299,15 @@ moves = [
 [[edit]]
 target = "c04003270"                                   # Quinque Flores
 moves = [
-  { move = 0xF4A1E0B0, level = 6 },                         # Entropic Arrows
-  { move = 0xD0AF516E, level = 27 },                        # Asteride
-  { move = 0x240BEDF2, level = 40 },                        # Bounce Shot
-  { move = 0xB60E3C60, level = 56 },                        # Plasma Cut
+  { move = 0x3297683F, level = 45 },                        # Warp Step
+  { move = 0xF4A1E0B0, level = 55 },                        # Entropic Arrows
+  { move = 0xD0AF516E, level = 65 },                        # Asteride
+  { move = 0xB60E3C60, level = 75 },                        # Plasma Cut
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF641A1A7, level = 1 },                         # Peón blanco [aura]
+  { move = 0xF641A1A7, level = 20 },                        # wko00180
 ]
 
   [[edit.cards]]
@@ -256,15 +319,15 @@ moves = [
 [[edit]]
 target = "c04003280"                                   # Jacques Cinquini
 moves = [
-  { move = 0x3297683F, level = 14 },                        # Warp Step
-  { move = 0x3D10DCB3, level = 20 },                        # Curve Shot
-  { move = 0xB3CA3CB6, level = 53 },                        # Parkour Power
-  { move = 0xAC1ACF1C, level = 65 },                        # Flower Plower
+  { move = 0xA0BDF96F, level = 50 },                        # Ballista Barrage
+  { move = 0x3297683F, level = 60 },                        # Warp Step
+  { move = 0xB3CA3CB6, level = 70 },                        # Parkour Power
+  { move = 0xAC1ACF1C, level = 80 },                        # Flower Plower
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF641A1A7, level = 1 },                         # Peón blanco [aura]
+  { move = 0xF641A1A7, level = 20 },                        # wko00180
 ]
 
   [[edit.cards]]
@@ -276,15 +339,15 @@ moves = [
 [[edit]]
 target = "c04003290"                                   # Fivier Saviola
 moves = [
-  { move = 0x3297683F, level = 13 },                        # Warp Step
-  { move = 0x49041E53, level = 18 },                        # Crosscut Feint
-  { move = 0xB37CD264, level = 49 },                        # Am-Bush
-  { move = 0xEDBAD1F1, level = 66 },                        # Brimstone Rain
+  { move = 0xA2BF7076, level = 50 },                        # Side Swipe
+  { move = 0x3297683F, level = 60 },                        # Warp Step
+  { move = 0xB37CD264, level = 70 },                        # Am-Bush
+  { move = 0xEDBAD1F1, level = 80 },                        # Brimstone Rain
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x9B4E5206, level = 1 },                         # Caballo blanco [aura]
+  { move = 0x9B4E5206, level = 20 },                        # wks00190
 ]
 
   [[edit.cards]]
@@ -297,15 +360,15 @@ moves = [
 [[edit]]
 target = "c04003300"                                   # David Quintola
 moves = [
-  { move = 0xF4A1E0B0, level = 11 },                        # Entropic Arrows
-  { move = 0x163D8F70, level = 24 },                        # Chip Shot
-  { move = 0x9FEEC7A9, level = 46 },                        # Gigaton Head
-  { move = 0xDCC9CCA3, level = 65 },                        # Tesla Coil
+  { move = 0xA0BDF96F, level = 50 },                        # Ballista Barrage
+  { move = 0xF4A1E0B0, level = 60 },                        # Entropic Arrows
+  { move = 0x9FEEC7A9, level = 70 },                        # Gigaton Head
+  { move = 0xDCC9CCA3, level = 80 },                        # Tesla Coil
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF641A1A7, level = 1 },                         # Peón blanco [aura]
+  { move = 0xF641A1A7, level = 20 },                        # wko00180
 ]
 
   [[edit.cards]]
@@ -317,15 +380,15 @@ moves = [
 [[edit]]
 target = "c04003310"                                   # Erik Pentona
 moves = [
-  { move = 0xF4A1E0B0, level = 6 },                         # Entropic Arrows
-  { move = 0x3D10DCB3, level = 27 },                        # Curve Shot
-  { move = 0xC6978232, level = 46 },                        # Dinosaur Roar
-  { move = 0xB8A509A7, level = 65 },                        # Asterocks
+  { move = 0xA0BDF96F, level = 50 },                        # Ballista Barrage
+  { move = 0xF4A1E0B0, level = 60 },                        # Entropic Arrows
+  { move = 0xC6978232, level = 70 },                        # Dinosaur Roar
+  { move = 0xB8A509A7, level = 80 },                        # Asterocks
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF641A1A7, level = 1 },                         # Peón blanco [aura]
+  { move = 0xF641A1A7, level = 20 },                        # wko00180
 ]
 
   [[edit.cards]]
@@ -338,9 +401,9 @@ moves = [
 target = "c04003320"                                   # Leonidas Epsilon
 moves = [
   { move = 0x31CB59B2, level = 5 },                         # God Hand
-  { move = 0xF9B80F86, level = 26 },                        # Strong Punch
   { move = 0x37009B59, level = 50 },                        # Burnout Burst
   { move = 0xFF5C8DAF, level = 64 },                        # Shot Stopper
+  { move = 0x53E9C2A3, level = 74 },                        # Capable Hands
 ]
 
   [[edit.cards]]
@@ -352,10 +415,10 @@ moves = [
 [[edit]]
 target = "c04003330"                                   # George Wu
 moves = [
-  { move = 0x62294D90, level = 3 },                         # Dust Kick
-  { move = 0x64CDCFB9, level = 26 },                        # Rising Dragon
-  { move = 0x8A52C09B, level = 48 },                        # Doomsword Slash
-  { move = 0x828A53C8, level = 59 },                        # Plasma Ball
+  { move = 0xB9A6C82E, level = 47 },                        # Triangle ZZ
+  { move = 0x64CDCFB9, level = 57 },                        # Rising Dragon
+  { move = 0x8A52C09B, level = 67 },                        # Doomsword Slash
+  { move = 0x828A53C8, level = 77 },                        # Plasma Ball
 ]
 
   [[edit.cards]]
@@ -368,10 +431,10 @@ moves = [
 [[edit]]
 target = "c04003340"                                   # Geert Vandevijf
 moves = [
-  { move = 0x3D10DCB3, level = 1 },                         # Curve Shot
-  { move = 0xDDCA0D2A, level = 18 },                        # Bouncing Bomb
-  { move = 0xA3392D01, level = 49 },                        # Rainbow Bubble Burst
-  { move = 0x05124F07, level = 63 },                        # Fission and Fusion
+  { move = 0x65766A4F, level = 43 },                        # Meteor Blade
+  { move = 0xDDCA0D2A, level = 53 },                        # Bouncing Bomb
+  { move = 0xA3392D01, level = 63 },                        # Rainbow Bubble Burst
+  { move = 0x05124F07, level = 73 },                        # Fission and Fusion
 ]
 
   [[edit.cards]]
@@ -383,9 +446,9 @@ moves = [
 [[edit]]
 target = "c04003350"                                   # Folke Fem
 moves = [
+  { move = 0x3297683F, level = 1 },                         # Warp Step
   { move = 0x19BA3BFC, level = 8 },                         # Dance on Air
   { move = 0x8A52C09B, level = 22 },                        # Doomsword Slash
-  { move = 0x49041E53, level = 41 },                        # Crosscut Feint
   { move = 0x44BCDB47, level = 54 },                        # Pyroclastic
 ]
 
@@ -399,10 +462,10 @@ moves = [
 [[edit]]
 target = "c04003360"                                   # Naji Khamsa
 moves = [
-  { move = 0x20D01E43, level = 5 },                         # Hey Presto
-  { move = 0x23C3EE90, level = 23 },                        # Shoulder Tackle
-  { move = 0x2CFC3E63, level = 51 },                        # Dragon Crash
-  { move = 0x04941270, level = 58 },                        # Vac Attack
+  { move = 0x65766A4F, level = 48 },                        # Meteor Blade
+  { move = 0x20D01E43, level = 58 },                        # Hey Presto
+  { move = 0x2CFC3E63, level = 68 },                        # Dragon Crash
+  { move = 0x04941270, level = 78 },                        # Vac Attack
 ]
 
   [[edit.cards]]
@@ -430,6 +493,12 @@ moves = [
 
 [[edit]]
 target = "c04003250_5100"                              # Federigo Cinco
+moves = [
+  { move = 0x20D01E43, level = 1 },                         # Hey Presto
+  { move = 0x035C1112, level = 22 },                        # Gungnir
+  { move = 0x900C8E0A, level = 53 },                        # Maestro's Call
+  { move = 0xDD0BA694, level = 61 },                        # Okehazama Ravine
+]
 
   [[edit.cards]]
   id = 0x50F81E4B                                         # MF/DF · forest

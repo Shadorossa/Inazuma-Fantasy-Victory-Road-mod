@@ -1,8 +1,6 @@
 schema = "VRFW.game/2"
 
-# Passive slot modes (scripts/passive_slots.lua; declarations content/passive_slots/*.toml, VRFW.passive_slots/1). The
-# effect side is the service S6 detours of content/game/archetype.toml (tables Passive.SlotsOff / Signature*); this file
-# is what the menus and other mods' scripts read.
+# Passive slot modes (scripts/passive_slots.lua; declarations content/passive_slots/*.toml, VRFW.passive_slots/1).
 
 # 1 while a declared signature-only mode runs, else 0: the one test for scripts and native answers
 [[VRFW.State]]
@@ -12,7 +10,7 @@ key = "vrfw.passive.slots_off"
 [[VRFW.State]]
 key = "vrfw.passive.all_off"
 
-# The two signature slot entries called through their hooked entry points: the answer every subscriber agreed on
+# The two signature slot entries called through their hooked entry points: the answer every subscriber agreed on.
 [[VRFW.Function]]
 name = "VRFW.SignatureSlotIdLive"
 game = "Passive.SignatureSlotId"
@@ -32,10 +30,10 @@ name = "CMND_VRFW_PASSIVE_SLOTS_OFF"    # () -> true while a declared signature-
 handler = "PassiveSlots.CmdOff"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_SIGNATURE_PASSIVE"    # (charaHdl) -> passive id (0 = none), open (bool), signature-only mode (bool)
+name = "CMND_VRFW_SIGNATURE_PASSIVE"
 handler = "PassiveSlots.CmdSignature"
 needs = ["VRFW.SignatureSlotIdLive", "VRFW.SignaturePieceOpenLive"]
 
 [[VRFW.Command]]
-name = "CMND_VRFW_PASSIVE_CURRENT_VALUE"   # (game passive id, charaHdl, "hdl,hdl,..." the players on the pitch) -> known, value, unit, count, max (scripts\passives.lua)
+name = "CMND_VRFW_PASSIVE_CURRENT_VALUE"
 handler = "PassiveValue.CmdCurrent"

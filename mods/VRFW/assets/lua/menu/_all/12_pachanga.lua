@@ -1,20 +1,11 @@
--- match_engine: the friendly executor VRFW_PACHANGA (VRFW base feature), in every menu VM (lua\menu\_all), so a
--- friendly starts from any menu, a mod's own screen included (VRFW_MATCH.start, 12_match_start.lua). Every mode
--- (a roguelite, office trials, a free-walk city mode, a career) starts, plays and comes back from a friendly match
--- through VRFW_PACHANGA.start(rules id, context). The rules are DATA declared by the mod (content\friendlies\*.toml);
--- the loader (CMND_VRFW_FRIENDLY_START) turns them into the ordered steps this executor runs: team / kit, the way-back
--- route, fades, the VS-CPU pre-match sequence, the reservation and the hand-off of the caller's menus. A failed step
--- rolls back what the loader says. No caller-specific branch here. The title's way back and the story-field fallback
--- stay grafts (research/grafts/pachanga_core: pachanga_title.lua, pachanga_field.lua). Defines functions only: no
--- engine call at chunk load.
-VRFW_PACHANGA = VRFW_PACHANGA or {}
+-- lua_patch.scope: used
+VRFW.friendly_match = VRFW.friendly_match or {}
 do
-  local P = VRFW_PACHANGA
+  local P = VRFW.friendly_match
   P.CMD = {
-    START = VRFW_Cmd.VRFW_FRIENDLY_START, STEP = 2494733779, REPORT = 1738046244, ABORT = 4055457894, BACK = VRFW_Cmd.VRFW_FRIENDLY_BACK,
-    STATE = 2828994233, ACK = 609614192, AUX = 3161656697, PASSED = 3228376551, PASSED_SET = 700047444,
-    MAP = 2501684090, RULES = 2190888318, ROLL = VRFW_Cmd.EVT_ITEM_REWARD_ROLL,
-    LOG = VRFW_Cmd.EVT_LOG,
+    START = VRFW.commands.VRFW_FRIENDLY_START, STEP = 2152525079, REPORT = 2550860972, ABORT = 1839503551, BACK = VRFW.commands.VRFW_FRIENDLY_BACK,
+    STATE = 881000032, ACK = 3682169452, AUX = 1130333797, PASSED = 1073637999, PASSED_SET = 662976001,
+    MAP = 1781538918, RULES = 512472487, ROLL = VRFW.commands.VRFW_ITEM_REWARD_ROLL,
   }
   P.FADE_ENCOUNT = 2721617045 --[[fade_menu_encount]]
   -- op codes of crate::pachanga::Step::encode
@@ -22,16 +13,11 @@ do
     BYTE = 13, WAIT = 14, ACTIVATE = 15, PRE_MATCH = 20, DIFFICULTY = 21, RESERVE = 22, KEY = 30, CLOSE = 31,
     WAIT_GONE = 32, WAIT_SETTLED = 33, TOP_WAIT = 34, WATCHDOG = 35}
 
-  local function call(cmd, ...)
-    local r = table.pack(pcall(funcLuaCommand, cmd, ...))
-    if not r[1] then
-      return nil
-    end
-    return table.unpack(r, 2, r.n)
-  end
-  P.call = call
+  local logger
+  --- Logs through the pachanga logger.
   function P.log(...)
-    pcall(funcLuaCommand, P.CMD.LOG, "EVT pachanga", ...)
+    logger = logger or VRFW.logger.new("EVT pachanga")
+    logger(...)
   end
   local function wait(f, frames)
     for _ = 1, frames do
@@ -43,14 +29,14 @@ do
     return false
   end
 
-  -- the active pachanga dock (2..12) or nil (loader team_banks bit 21, "Establecer como equipo activo", complete five)
+  --- The active friendly dock (2..12) or nil: the VS team swapped out by a friendly, else the VS team, when its five can play.
   function P.pachanga_set()
-    local ok, _, mods = pcall(funcLuaCommand, VRFW_Cmd.EVT_LOADER_VERSION)
-    if not ok or type(mods) ~= "number" or math.floor(mods / 2097152) % 2 ~= 1 then
+    local ok, _, pending = pcall(funcLuaCommand, VRFW.commands.VRFW_FRIENDLY_VS, 2)
+    if not ok or type(pending) ~= "number" then
       return nil
     end
-    local ok2, has, set = pcall(funcLuaCommand, VRFW_Cmd.EVT_PACHANGA_TEAM)
-    if not ok2 or has ~= true or type(set) ~= "number" or set < 2 or set > 12 then
+    local set = pending >= 0 and pending or funcLuaCommand(VRFW.commands.GET_VS_USE_TEAM_SET)
+    if type(set) ~= "number" or set < 2 or set > 12 then
       return nil
     end
     local code = funcLuaCommand(1538643580, set, 1, false) -- retail member check of the 5v5 team
@@ -60,39 +46,39 @@ do
     return set
   end
 
-  -- a five WITHOUT a kit of its own wears its dock's 11v11 kit (street battles dress kit-less fives in gym clothes)
+  --- a five WITHOUT a kit of its own wears its dock's 11v11 kit (street battles dress kit-less fives in gym clothes).
   function P.kit(set)
-    local a = table.pack(pcall(funcLuaCommand, VRFW_Cmd.VRFW_TEAM_UNIFORM, set, 0))
-    local b = table.pack(pcall(funcLuaCommand, VRFW_Cmd.VRFW_TEAM_UNIFORM, set, 1))
+    local a = table.pack(pcall(funcLuaCommand, VRFW.commands.VRFW_TEAM_UNIFORM, set, 0))
+    local b = table.pack(pcall(funcLuaCommand, VRFW.commands.VRFW_TEAM_UNIFORM, set, 1))
     if a[1] ~= true or a[2] ~= true or type(a[3]) ~= "number" or a[3] == 0 or b[1] ~= true or b[2] ~= true then
       return
     end
     if b[3] == a[3] or b[3] ~= 0 then
       return
     end
-    pcall(funcLuaCommand, VRFW_Cmd.VRFW_TEAM_UNIFORM, set, 1, a[3], 0)
+    pcall(funcLuaCommand, VRFW.commands.VRFW_TEAM_UNIFORM, set, 1, a[3], 0)
   end
 
-  function P.vs_restore()
-    local ok, had, vs = pcall(funcLuaCommand, VRFW_Cmd.EVT_PACHANGA_VS, 0)
+  --- Restores the VS team a friendly swapped out.
+  function P.restore_versus()
+    local ok, had, vs = pcall(funcLuaCommand, VRFW.commands.VRFW_FRIENDLY_VS, 0)
     if ok and had == true and type(vs) == "number" and vs >= 0 then
-      funcLuaCommand(VRFW_Cmd.SET_VS_USE_TEAM_SET, vs)
+      funcLuaCommand(VRFW.commands.SET_VS_USE_TEAM_SET, vs)
       P.log("VS team restored", vs)
     end
   end
 
-  -- one step; false = it failed (a refused reservation, a menu that did not go, a watchdog that fired)
   local function exec(op, a, b, c)
     local O = P.OP
     if op == O.VS_SWAP then
-      pcall(funcLuaCommand, VRFW_Cmd.EVT_PACHANGA_VS, 1, funcLuaCommand(VRFW_Cmd.GET_VS_USE_TEAM_SET --[[GET_VS_USE_TEAM_SET]]))
-      funcLuaCommand(VRFW_Cmd.SET_VS_USE_TEAM_SET, a)
+      pcall(funcLuaCommand, VRFW.commands.VRFW_FRIENDLY_VS, 1, funcLuaCommand(VRFW.commands.GET_VS_USE_TEAM_SET --[[GET_VS_USE_TEAM_SET]]))
+      funcLuaCommand(VRFW.commands.SET_VS_USE_TEAM_SET, a)
     elseif op == O.KIT then
       pcall(P.kit, a)
     elseif op == O.VS_RESTORE then
-      P.vs_restore()
+      P.restore_versus()
     elseif op == O.RETURN then
-      local okt, live, armed = call(VRFW_Cmd.EVT_TRIAL_RETURN, a)
+      local okt, live, armed = VRFW.host.command(VRFW.commands.VRFW_BATTLE_RETURN, a)
       P.log("way-back route", a, tostring(okt), tostring(live), tostring(armed))
     elseif op == O.DEACTIVATE then
       funcLuaMenuCommand(1558704558, a, false)
@@ -123,18 +109,16 @@ do
         end
       end
     elseif op == O.BYTE then
-      call(VRFW_Cmd.SET_GLOBAL_BYTE_FLAG, a, b)
+      VRFW.host.command(VRFW.commands.SET_GLOBAL_BYTE_FLAG, a, b)
     elseif op == O.WAIT then
       for _ = 1, a do
         coroutine.yield()
       end
     elseif op == O.PRE_MATCH then
-      call(VRFW_Cmd.SET_PRE_MATCH_SOCCER_GAME_ID, a)
+      VRFW.host.command(VRFW.commands.SET_PRE_MATCH_SOCCER_GAME_ID, a)
     elseif op == O.DIFFICULTY then
-      call(1104380539 --[[difficulty helper]], a)
+      VRFW.host.command(1104380539 --[[difficulty helper]], a)
     elseif op == O.RESERVE then
-      -- stadium 0 = nobody chose one (no rival's home, no stadium of the rules): with the caller's stadium left open
-      -- the friendly is a home match, played at the player team's home stadium when a mod provides one
       if b == 0 and P.home_open then
         local home, team = P.home_stadium()
         if home ~= 0 then
@@ -143,7 +127,7 @@ do
         end
       end
       P.home_open = false
-      local ok, r = pcall(funcLuaCommand, VRFW_Cmd.RESERVE_SOCCER, a, b, c)
+      local ok, r = pcall(funcLuaCommand, VRFW.commands.RESERVE_SOCCER, a, b, c)
       P.log("reserve", a, b, c, tostring(ok), tostring(r))
       return ok and r ~= false and r ~= nil
     elseif op == O.KEY then
@@ -154,10 +138,10 @@ do
         funcLuaCommand(3860611758, a, 0, b, 1)
       end
     elseif op == O.CLOSE then
-      funcLuaCommand(VRFW_Cmd.CLOSE_MENU_OBJECT, a)
+      funcLuaCommand(VRFW.commands.CLOSE_MENU_OBJECT, a)
     elseif op == O.WAIT_GONE then
       local n = 0
-      while n < b and funcLuaMenuCommand(VRFW_Cmd.IS_EXIST_MENU_OBJECT, a) do
+      while n < b and funcLuaMenuCommand(VRFW.commands.IS_EXIST_MENU_OBJECT, a) do
         n = n + 1
         coroutine.yield()
       end
@@ -168,8 +152,6 @@ do
     elseif op == O.TOP_WAIT then
       funcLuaCommand(769636339, a)
     elseif op == O.WATCHDOG then
-      -- a closed menu is never resumed: still running here = the caller's menu did not go; the key still set =
-      -- nobody took the hand-off, nobody will start the match
       for _ = 1, a do
         coroutine.yield()
       end
@@ -179,37 +161,35 @@ do
   end
   P.exec = exec
 
-  -- The player team's home stadium (map crc, 0 = none) and the team set asked: the providers mods register with
-  -- VRFW_HomeStadium (framework menu _all 73_home_stadium.lua). set = nil -> the team the match is played with (the VS
-  -- team set; an active friendly team was swapped in before the reservation).
+  --- The home stadium of dock `set`; answers map (0 = none), set.
   function P.home_stadium(set)
-    local M = VRFW_HomeStadium
-    if type(M) ~= "table" or type(M.Of) ~= "function" then
+    local M = VRFW.home_stadium
+    if type(M) ~= "table" or type(M.of) ~= "function" then
       return 0, set
     end
     if type(set) ~= "number" then
-      local ok, vs = pcall(funcLuaCommand, VRFW_Cmd.GET_VS_USE_TEAM_SET)
+      local ok, vs = pcall(funcLuaCommand, VRFW.commands.GET_VS_USE_TEAM_SET)
       set = (ok and type(vs) == "number") and vs or -1
     end
-    local ok, map = pcall(M.Of, set)
+    local ok, map = pcall(M.of, set)
     if ok and type(map) == "number" then
       return map, set
     end
     return 0, set
   end
 
+  --- Undoes the last n recorded launch steps.
   function P.rollback(n)
     for i = 1, (n or 0) do
-      local op, a, b, c = call(P.CMD.STEP, -i)
+      local op, a, b, c = VRFW.host.command(P.CMD.STEP, -i)
       if type(op) == "number" and op > 0 then
         exec(op, a, b, c)
       end
     end
   end
 
-  -- THE function. Runs inside the caller's coroutine (it yields). ctx = {tag, sub, game, difficulty, objective, set,
-  -- stadium, rival, map = {map, x, y, z, rot}, on_reserved = function, on_failed = function(why)}; set = nil -> the
-  -- active pachanga dock; stadium = nil -> a home match when nothing else picks one (P.home_stadium), 0 = the row's own; rival = nil -> the row's rival team (asked at the call). Returns true, or false + why (the launch was rolled back; the caller shows its message).
+  -- THE function.
+  --- Starts friendly match `id` with context ctx; answers true, or false, why.
   function P.start(id, ctx)
     ctx = ctx or {}
     local set = ctx.set
@@ -217,32 +197,31 @@ do
       set = P.pachanga_set() or -1
     end
     local m = ctx.map or {}
-    -- the rival team of the row (rules with rival_home = true play at its home stadium; the loader decides)
     local rival = ctx.rival
     if rival == nil and (ctx.game or 0) ~= 0 then
       local d = ctx.difficulty or 0
-      local okT, team = call(2204933160 --[[game row's rival team]], ctx.game, d ~= 0 and d or 1)
+      local okT, team = VRFW.host.command(2204933160 --[[game row's rival team]], ctx.game, d ~= 0 and d or 1)
       if okT == true and type(team) == "number" then
         rival = team
       end
     end
-    local ok, code, n = call(P.CMD.START, id, ctx.tag or 0, ctx.sub or 0, ctx.game or 0, ctx.difficulty or 0,
+    local ok, code, n = VRFW.host.command(P.CMD.START, id, ctx.tag or 0, ctx.sub or 0, ctx.game or 0, ctx.difficulty or 0,
       ctx.objective or 0, set, ctx.stadium or 0, m[1] or 0, m[2] or 0, m[3] or 0, m[4] or 0, m[5] or 0, rival or 0)
     if ok ~= true then
       P.log("start refused", id, tostring(code))
       return false, code
     end
     local skip = false
-    P.home_open = ctx.stadium == nil   -- the caller left the stadium open (0 = the row's own stadium, on purpose)
+    P.home_open = ctx.stadium == nil
     for i = 1, (n or 0) do
-      local op, a, b, c = call(P.CMD.STEP, i)
+      local op, a, b, c = VRFW.host.command(P.CMD.STEP, i)
       if type(op) ~= "number" or op == 0 then
         break
       end
       if not (skip and op ~= P.OP.WATCHDOG) then
         local good = exec(op, a, b, c)
         if op == P.OP.RESERVE or (op == P.OP.WATCHDOG and not good) then
-          local nb = call(P.CMD.REPORT, i, good and 1 or 0)
+          local nb = VRFW.host.command(P.CMD.REPORT, i, good and 1 or 0)
           if not good then
             if type(ctx.on_failed) == "function" then
               pcall(ctx.on_failed, op == P.OP.RESERVE and "reserve" or "watchdog") -- the caller's own state first
@@ -262,21 +241,20 @@ do
     return true
   end
 
-  -- the launch is given up by the caller (another menu's watchdog): rolled back, sink off
+  --- Aborts the pending launch and rolls back its steps.
   function P.abort(why)
-    P.rollback(call(P.CMD.ABORT, why or "aborted"))
+    P.rollback(VRFW.host.command(P.CMD.ABORT, why or "aborted"))
   end
 
-  -- the way back reached its end (where: 1 title, 2 map, 3 menu): sink off, "superada" recorded, VS team back,
-  -- reward given. Returns the result (closed = this call closed the pachanga).
+  --- Returns from a match to `where`; answers an info table (closed, outcome, passed, id, tag, sub).
   function P.back(where)
-    local r = table.pack(call(P.CMD.BACK, where))
+    local r = table.pack(VRFW.host.command(P.CMD.BACK, where))
     local info = {closed = r[1] == true, outcome = r[2] or 0, passed = r[3] == true, origin = r[4] or 0,
       team_swapped = r[5] == true, id = r[6], tag = r[7] or 0, sub = r[8] or 0,
       aux = {r[9] or 0, r[10] or 0, r[11] or 0, r[12] or 0}, rewards = r[13] or ""}
     if info.closed then
       if info.team_swapped then
-        P.vs_restore()
+        P.restore_versus()
       end
       if info.rewards ~= "" then
         P.give(info.rewards)
@@ -286,29 +264,33 @@ do
     return info
   end
 
+  --- The launch state as a table (phase, id, tag, sub, ret, aux).
   function P.state()
-    local r = table.pack(call(P.CMD.STATE))
+    local r = table.pack(VRFW.host.command(P.CMD.STATE))
     return {phase = r[1] or 0, id = r[2], tag = r[3] or 0, sub = r[4] or 0, outcome = r[5] or 0, passed = r[6] == true,
       ret = r[7] or 0, aux = {r[8] or 0, r[9] or 0, r[10] or 0, r[11] or 0}, field_net = r[12] == true}
   end
+  --- Reads or writes aux value i; answers true when the command succeeded.
   function P.aux(i, v)
-    return call(P.CMD.AUX, i, v) == true
+    return VRFW.host.command(P.CMD.AUX, i, v) == true
   end
+  --- True when the (id, tag, sub) launch was passed.
   function P.passed(id, tag, sub)
-    return call(P.CMD.PASSED, id, tag or 0, sub or 0) == true
+    return VRFW.host.command(P.CMD.PASSED, id, tag or 0, sub or 0) == true
   end
+  --- Marks the (id, tag, sub) launch passed or not; answers true when stored.
   function P.set_passed(id, tag, sub, on)
-    return call(P.CMD.PASSED_SET, id, tag or 0, sub or 0, on and 1 or 0) == true
+    return VRFW.host.command(P.CMD.PASSED_SET, id, tag or 0, sub or 0, on and 1 or 0) == true
   end
 
-  -- an item_engine reward table: rolled and given (CMND_ADD_ITEM_ONLY)
+  --- Gives the reward roll of `key`.
   function P.give(key)
     local ok, n, list = pcall(funcLuaCommand, P.CMD.ROLL, key, math.random(1, 2147483646), false)
     if not ok or type(list) ~= "string" then
       return
     end
     for item, count in string.gmatch(list, "(%d+):(%d+)") do
-      pcall(funcLuaCommand, VRFW_Cmd.ADD_ITEM_ONLY, tonumber(item), tonumber(count))
+      pcall(funcLuaCommand, VRFW.commands.ADD_ITEM_ONLY, tonumber(item), tonumber(count))
     end
   end
 end

@@ -1,96 +1,82 @@
--- UTIL camera_side match
--- In-match side camera of the mod BetterQoL (docs/game/media/camaras-fifa.md §7). Since 2026-10-08 BetterQoL has no
--- camera code: the camera is the VR-Framework's match camera service (docs/framework/camera.md) and BetterQoL is data.
--- At match start (HUD OnInit) this block reads the row «Cámara del partido» (CMND_VRFW_OPTION_GET BetterQoL.camera)
--- and, when it is «Lateral» (1), requests BetterQoL's preset BetterQoL.side (research/mods/BetterQoL/cameras/side.toml)
--- from the framework (CMND_VRFW_CAMERA_REQUEST): the framework writes the preset into the in-play camera rows of the
--- loaded table (memory), forces the retail camera option to "H" / "H" and rebuilds the camera when the soccer camera
--- manager exists. «Original» (0) releases the request (CMND_VRFW_CAMERA_RELEASE: retail rows and the player's camera
--- option back). The manager is often still null at the HUD's OnInit, so Step repeats CMND_VRFW_CAMERA_APPLY (once per
--- 30 frames, at most 60 times) until it exists. The rows stay written either way: the chase camera reads them
--- whenever it builds its view (kick-off, possession changes). Online / observer: never.
-UTIL_CS_OPTION = "BetterQoL.camera"      -- the option row (options.toml)
-UTIL_CS_OWNER = "BetterQoL"              -- the request's owner
-UTIL_CS_PRESET = "BetterQoL.side"        -- the framework preset (cameras/side.toml)
-UTIL_CS_PRIORITY = 0                     -- a mod that must win over «Lateral» requests a higher priority
-utilCsDone = true                        -- nothing to do (this lua_State only)
-utilCsTries = 0
-utilCsTick = 0
-function UTIL_CamSideCall(cmd, ...)
-  local r = table.pack(pcall(funcLuaCommand, cmd, ...))
-  if not r[1] then
-    return nil
-  end
-  return table.unpack(r, 2, r.n)
+-- it
+BetterQoL = BetterQoL or {}
+BetterQoL.camera_side = BetterQoL.camera_side or {}
+BetterQoL.camera_side.OPTION = "BetterQoL.camera"
+BetterQoL.camera_side.OWNER = "BetterQoL"
+BetterQoL.camera_side.PRESET = "BetterQoL.side"
+BetterQoL.camera_side.PRIORITY = 0
+betterqolCsDone = true
+betterqolCsTries = 0
+betterqolCsTick = 0
+function BetterQoL.camera_side.log(...)
+  BetterQoL.camera_side.logger = BetterQoL.camera_side.logger or VRFW.logger.new("BetterQoL camera:")
+  BetterQoL.camera_side.logger(...)
 end
-function UTIL_CamSideLog(...)
-  pcall(funcLuaCommand, @crc:CMND_EVT_LOG@, ...)
+function BetterQoL.camera_side.done()
+  betterqolCsDone = true
+  local body = VRFW.host.command(@crc:CMND_GET_SOCCER_CAMERA_TYPE_INFO@, 0)
+  local off = VRFW.host.command(@crc:CMND_GET_SOCCER_CAMERA_TYPE_INFO@, 1)
+  BetterQoL.camera_side.log("side camera applied", "body V", tostring(body), "offence V", tostring(off),
+    "tries", betterqolCsTries)
 end
-function UTIL_CamSideDone()
-  utilCsDone = true
-  local body = UTIL_CamSideCall(@crc:CMND_GET_SOCCER_CAMERA_TYPE_INFO@, 0)
-  local off = UTIL_CamSideCall(@crc:CMND_GET_SOCCER_CAMERA_TYPE_INFO@, 1)
-  UTIL_CamSideLog("UTIL camera: side camera applied", "body V", tostring(body), "offence V", tostring(off),
-    "tries", utilCsTries)
-end
-function UTIL_CamSideInit()
-  utilCsDone = true
+function BetterQoL.camera_side.init()
+  betterqolCsDone = true
+  -- Skips online and observer matches.
   if funcLuaCommand(3959907440) == true or funcLuaCommand(1191545622) == true then
     return
   end
-  local v = UTIL_CamSideCall(@crc:CMND_VRFW_OPTION_GET@, UTIL_CS_OPTION)
+  local v = VRFW.host.command(@crc:CMND_VRFW_OPTION_GET@, BetterQoL.camera_side.OPTION)
   if v ~= 1 then
-    local code, mgr = UTIL_CamSideCall(@crc:CMND_VRFW_CAMERA_RELEASE@, UTIL_CS_OWNER)
+    local code, mgr = VRFW.host.command(@crc:CMND_VRFW_CAMERA_RELEASE@, BetterQoL.camera_side.OWNER)
     if code == 0 then
-      UTIL_CamSideLog("UTIL camera: match start, Original: side camera released", "manager", tostring(mgr))
+      BetterQoL.camera_side.log("match start, Original: side camera released", "manager", tostring(mgr))
     end
     return
   end
-  local code, mgr = UTIL_CamSideCall(@crc:CMND_VRFW_CAMERA_REQUEST@, UTIL_CS_OWNER, UTIL_CS_PRESET,
-    UTIL_CS_PRIORITY)
-  UTIL_CamSideLog("UTIL camera: match start, Lateral: request", UTIL_CS_PRESET, "code", tostring(code), "manager",
+  local code, mgr = VRFW.host.command(@crc:CMND_VRFW_CAMERA_REQUEST@, BetterQoL.camera_side.OWNER, BetterQoL.camera_side.PRESET,
+    BetterQoL.camera_side.PRIORITY)
+  BetterQoL.camera_side.log("match start, Lateral: request", BetterQoL.camera_side.PRESET, "code", tostring(code), "manager",
     tostring(mgr))
   if code ~= 0 then
     return
   end
-  utilCsTries = 0
-  utilCsTick = 0
+  betterqolCsTries = 0
+  betterqolCsTick = 0
   if mgr == true then
-    UTIL_CamSideDone()
+    BetterQoL.camera_side.done()
     return
   end
-  utilCsDone = false
+  betterqolCsDone = false
 end
-function UTIL_CamSideTry()
-  local mgr = UTIL_CamSideCall(@crc:CMND_VRFW_CAMERA_APPLY@)
-  utilCsTries = utilCsTries + 1
+function BetterQoL.camera_side.try()
+  local mgr = VRFW.host.command(@crc:CMND_VRFW_CAMERA_APPLY@)
+  betterqolCsTries = betterqolCsTries + 1
   if mgr == true then
-    UTIL_CamSideDone()
-  elseif utilCsTries >= 60 then
-    utilCsDone = true
-    UTIL_CamSideLog("UTIL camera: no soccer camera manager after", utilCsTries, "tries (the rows stay written)")
+    BetterQoL.camera_side.done()
+  elseif betterqolCsTries >= 60 then
+    betterqolCsDone = true
+    BetterQoL.camera_side.log("no soccer camera manager after", betterqolCsTries, "tries (the rows stay written)")
   end
 end
-function UTIL_CamSideTick()
-  if utilCsDone then
+function BetterQoL.camera_side.tick()
+  if betterqolCsDone then
     return
   end
-  utilCsTick = utilCsTick + 1
-  if utilCsTick >= 30 then
-    utilCsTick = 0
-    UTIL_CamSideTry()
+  betterqolCsTick = betterqolCsTick + 1
+  if betterqolCsTick >= 30 then
+    betterqolCsTick = 0
+    BetterQoL.camera_side.try()
   end
 end
--- the retail OnInit / Step, then the camera (one wrapper each; the retail return values pass through)
-local UTIL_CamSide_OnInit_prev = OnInit
+local BETTERQOL_CamSide_OnInit_prev = OnInit
 function OnInit(...)
-  local r = table.pack(UTIL_CamSide_OnInit_prev(...))
-  UTIL_CamSideInit()
+  local r = table.pack(BETTERQOL_CamSide_OnInit_prev(...))
+  BetterQoL.camera_side.init()
   return table.unpack(r, 1, r.n)
 end
-local UTIL_CamSide_Step_prev = Step
+local BETTERQOL_CamSide_Step_prev = Step
 function Step(...)
-  local r = table.pack(UTIL_CamSide_Step_prev(...))
-  UTIL_CamSideTick()
+  local r = table.pack(BETTERQOL_CamSide_Step_prev(...))
+  BetterQoL.camera_side.tick()
   return table.unpack(r, 1, r.n)
 end

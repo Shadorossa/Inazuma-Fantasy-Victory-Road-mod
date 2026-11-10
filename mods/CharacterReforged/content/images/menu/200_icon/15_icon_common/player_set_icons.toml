@@ -1,8 +1,3 @@
-# Character Reforged › the player-set icons in icon_common (graft ss2_menus):
-#   character_reforged_player_sets_icon   the save icon of the skill table's player-sets button (PL.SAVE_BUTTON), own art
-#   evt_vrm_up_* / evt_vrm_down_*          the «Exportar» / «Importar» button icons of the set list (PL.VrmDef): a plain
-#                                          outline cloud with an up / down arrow, one thin stroke, white (the focused blue
-#                                          plate) and dark (the light plates); drawn by research/scripts/save_icon_build.py.
 schema = "VRFW.image/1"
 
 [[texture]]
@@ -20,32 +15,32 @@ png = "character_reforged_player_sets_icon.png"
 
 [[sprite]]
 atlas = "#/menu/200_icon/character_reforged_own/character_reforged_icon_common.g4tx"
-name = "evt_vrm_up_white"
+name = "cr_vrm_up_white"
 texture = "character_reforged_icon_common"
 x = 612
 y = 0
-png = "evt_vrm_up_white.png"
+png = "cr_vrm_up_white.png"
 
 [[sprite]]
 atlas = "#/menu/200_icon/character_reforged_own/character_reforged_icon_common.g4tx"
-name = "evt_vrm_up_dark"
+name = "cr_vrm_up_dark"
 texture = "character_reforged_icon_common"
 x = 408
 y = 0
-png = "evt_vrm_up_dark.png"
+png = "cr_vrm_up_dark.png"
 
 [[sprite]]
 atlas = "#/menu/200_icon/character_reforged_own/character_reforged_icon_common.g4tx"
-name = "evt_vrm_down_white"
+name = "cr_vrm_down_white"
 texture = "character_reforged_icon_common"
 x = 204
 y = 0
-png = "evt_vrm_down_white.png"
+png = "cr_vrm_down_white.png"
 
 [[sprite]]
 atlas = "#/menu/200_icon/character_reforged_own/character_reforged_icon_common.g4tx"
-name = "evt_vrm_down_dark"
+name = "cr_vrm_down_dark"
 texture = "character_reforged_icon_common"
 x = 0
 y = 0
-png = "evt_vrm_down_dark.png"
+png = "cr_vrm_down_dark.png"

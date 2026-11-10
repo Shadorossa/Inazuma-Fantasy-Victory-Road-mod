@@ -1,62 +1,43 @@
--- menu_scene (VRFW, docs/framework/menu-scene.md «Scene actors»): a scene's people as scene characters.
--- A scene with people_as = "actors" (all its people) or guests = "actors" (its guests only) gets no NPCs for them: this
--- service reads the scene's actor list (CMND_VRFW_MENU_SCENE_ACTORS) and, when its signature changes, keeps one scene
--- character per entry on its spot, made with the engine's own create (the menus' character model create 0xBED1C353
--- with the person's kit; without a kit CMND_CREATE_SCN_CHARA 0x419E0673, the party-join event's call). Each one gets
--- its chara's NPC pack (the NPC clips and faces), is built, plays its spot's pose once and is shown only then.
--- The first set of a scene is shown all together, and the scene's reveal (VRFW_MenuSceneCanReveal) waits for it: a
--- create or build that fails is made again (RETRIES), and one summary line is logged («actors shown: 19/19»). A later
--- change (a team edit, other guests) keeps every actor whose entry stayed, makes only the new ones, and swaps each one
--- on its spot when the new one is posed. Field objects of the map: its light, no npc_setting, no NPC manager.
--- Nothing runs at load time.
+-- menu_scene (VRFW, docs/framework/menu-scene.md "Scene actors"): a scene's people as scene characters.
 do
   local A = {
     ID = "vrfw.menu_scene.actors",
-    STATE = VRFW_Cmd.VRFW_MENU_SCENE_STATE,          -- CMND_VRFW_MENU_SCENE_STATE () -> state, key
-    ACTORS = VRFW_Cmd.VRFW_MENU_SCENE_ACTORS,         -- CMND_VRFW_MENU_SCENE_ACTORS (key) -> "" | { sig, n, people, [i] = actor }
-    LOG = VRFW_Cmd.EVT_LOG,            -- CMND_EVT_LOG
-    CREATE = VRFW_Cmd.CREATE_SCN_CHARA,         -- CMND_CREATE_SCN_CHARA (id, 1, x, y, z, rx, ry, rz, 9, true, false, 0, false, 0, 6) -> handle
-    KIT_CREATE = 3201418067,     -- the menus' character model create (menu_chara_model_comp ChangeCharaModel): the
+    STATE = VRFW.commands.VRFW_MENU_SCENE_STATE,          -- CMND_VRFW_MENU_SCENE_STATE () -> state, key
+    ACTORS = VRFW.commands.VRFW_MENU_SCENE_ACTORS,
+    CREATE = VRFW.commands.CREATE_SCN_CHARA,
+    KIT_CREATE = 3201418067,
                                  -- CMND_CREATE_SCN_CHARA arguments, the name's identity (14), ..., the uniform (18)
-    LOOK_ID = 347353059,         -- (id, false) -> the values the party event gives CMND_CREATE_SCN_CHARA (its first)
+    LOOK_ID = 347353059,
     BUILDING = 72150831,         -- (handle) -> true while the character is still being built
-    FADE = 2558183053,           -- (handle, from, to, true): the party event's fade (0, 0 hidden; 1, 1 shown)
+    FADE = 2558183053,
     SHOW = 1890282463,           -- (handle, true)
-    MOTION = 3429940381,         -- (handle, clip, next clip, blend, flag, int, start): handler 0xC89990; its 7th
-                                 -- argument (default -1) goes into the play request beside the blend: tried as the
-                                 -- start time, so a pose starts past its first face keys (the open mouth on reveal)
-    FACE_HOLD = VRFW_Cmd.VRFW_SCN_CHARA_FACE_HOLD,       -- CMND_VRFW_SCN_CHARA_FACE_HOLD (handle, on): the body clip's face channel off / on
-    EDGE = VRFW_Cmd.VRFW_SCN_CHARA_EDGE,           -- CMND_VRFW_SCN_CHARA_EDGE (handle, on, r, g, b, a, pixel) -> text | nil, why
+    MOTION = 3429940381,
+    FACE_HOLD = VRFW.commands.VRFW_SCN_CHARA_FACE_HOLD,
+    EDGE = VRFW.commands.VRFW_SCN_CHARA_EDGE,
     EDGE_PIXEL = 4.0,            -- the selected actor's edge width (pixels)
     UNIFORM_KINDS = { field = 0, keeper = 10 }, -- an actor's uniform_kind -> argument 20 of the kit create
-    POSE_START = 0.5,            -- seconds into the pose clip the loop starts (the 7th argument; -1 = the game's)
+    POSE_START = 0.5,
     DELETE = 2054212170,         -- (handle)
-    MOTION_PACK = VRFW_Cmd.VRFW_SCN_CHARA_MOTION_PACK,    -- CMND_VRFW_SCN_CHARA_MOTION_PACK (handle, motion set): the set's NPC pack
-    FACIAL = VRFW_Cmd.VRFW_SCN_CHARA_FACIAL_DEFAULT,          -- CMND_VRFW_SCN_CHARA_FACIAL_DEFAULT (handle): the facial component's default face
+    MOTION_PACK = VRFW.commands.VRFW_SCN_CHARA_MOTION_PACK,
+    FACIAL = VRFW.commands.VRFW_SCN_CHARA_FACIAL_DEFAULT,
                                  -- again (CMND_SET_MOTION_FACIAL(chara, 0) by handle)
-    FACE_PROBE = VRFW_Cmd.VRFW_SCN_CHARA_FACE_PROBE,     -- CMND_VRFW_SCN_CHARA_FACE_PROBE (handle, why): a read-only probe of the face, logged
-    PROBE_DELAY = 90,            -- frames after a shot change (or the reveal) before the face probe (the camera settled)
+    FACE_PROBE = VRFW.commands.VRFW_SCN_CHARA_FACE_PROBE,
+    PROBE_DELAY = 90,
     PROBE_MAX = 6,               -- face probes per title opening
-    HANDLES = VRFW_Cmd.VRFW_MENU_SCENE_ACTOR_HANDLES,        -- CMND_VRFW_MENU_SCENE_ACTOR_HANDLES (key, text | nil) -> text: the live actors kept by
-                                 -- the framework («handle=id|…») for a title that opens again over the same run
-    IS_PLAYING = VRFW_Cmd.GET_IS_PLAY_MOTION,     -- CMND_GET_IS_PLAY_MOTION (object, clip) -> playing
-    OBJECT_OF = 117654406,       -- (scene character handle) -> ok, object: the handle CMND_GET_IS_PLAY_MOTION takes (the
-                                 -- retail reads it this way: prog_common, soccer_summon_menu)
+    HANDLES = VRFW.commands.VRFW_MENU_SCENE_ACTOR_HANDLES,
+                                 -- the framework ("handle=id|...") for a title that opens again over the same run
+    IS_PLAYING = VRFW.commands.GET_IS_PLAY_MOTION,     -- CMND_GET_IS_PLAY_MOTION (object, clip) -> playing
+    OBJECT_OF = 117654406,
     BUILD_FRAMES = 600,          -- an actor not built after these frames is made again
     RETRIES = 3,                 -- makes again of an actor whose create or build failed
-    RETRY_GAP = 30,              -- frames before a failed actor is made again
-    -- the pose: the spot's first clip at frame 1 after the build, checked at the CHECK_AT frames on the character's
-    -- object; played again once at most while it is not playing (a replay of a playing clip drops the face). The pose is
-    -- never replaced by another clip (2.4.241 fell back to the plain stand on a check that read the wrong handle: every
-    -- actor stood, faces blank)
+    RETRY_GAP = 30,
     CHECK_AT = { 5, 20, 60 },
-    SHOW_AFTER = 10,             -- frames after a pose is confirmed playing before the actor is shown (its face set)
-    UNVEIL_FRAMES = 3,           -- a shown actor stays transparent this many frames, its default face set again, before
-                                 -- it fades in: a hidden character's face is not updated, so its first visible frame
-                                 -- showed the clip's open mouth
-    STAGGER = 37,                -- the pose starts 1 + (index x 13 mod STAGGER) frames after the build: the loops of
+    SHOW_AFTER = 10,
+    UNVEIL_FRAMES = 3,
+                                 -- it fades in: a hidden character's face is not updated, so its first visible frame showed the clip's open mouth
+    STAGGER = 37,
                                  -- people standing together do not move in sync
-    GATE_FRAMES = 240,           -- the scene's reveal waits at most these frames for the first set
+    GATE_FRAMES = 240,
   }
   local st = { key = nil, sig = nil, actors = {}, order = {}, leaving = {}, batch = {}, revealed = false, frames = 0, logged = 0,
     people = false, actor_type = 1, probe_in = nil, probe_why = nil, probes = 0 }
@@ -66,15 +47,15 @@ do
     if not r[1] then return nil, r[2] end
     return table.unpack(r, 2, r.n)
   end
+  local capped_logger = VRFW.logger.new("menu_scene, title_menu_2, actors")
   local function Log(...)
     if st.logged < 300 then
       st.logged = st.logged + 1
-      pcall(funcLuaCommand, A.LOG, "menu_scene", "title_menu_2", "actors", ...)
+      capped_logger(...)
     end
   end
-  local function Hex(v) return VRFW_Id.hex(v) end
+  local function Hex(v) return VRFW.ids.hex_text(v) end
 
-  -- the live actors to the framework (one owner across title openings)
   local function Keep()
     if not st.key then return end
     local parts = {}
@@ -125,19 +106,13 @@ do
     st.actors, st.order, st.leaving, st.sig, st.dirty, st.batch = {}, {}, {}, nil, true, {}
   end
 
-  -- one scene character for entry g, hidden, with its NPC pack; returns the handle and how it was made
   local function Create(g, index)
     -- the spot's facing is in degrees; the create takes radians
     local rot = math.rad(tonumber(g.rot) or 0)
     local kit = tonumber(g.uniform) or 0
     local h, how
-    -- the kit create when the actor list gives the actor a uniform (and its kind); without one the actor is made from
-    -- its own chara (CMND_CREATE_SCN_CHARA)
     if tonumber(g.uniform) ~= nil then
       local identity = tonumber(g.slot) or index
-      -- arguments 19 / 20: the uniform's number (0xFFFF = the chara's own) and its kind, as the menus' uniform setter
-      -- (menu command 0xC4232044 -> SetUniformID) passes them: 10 = the goalkeeper's version of the kit (the retail
-      -- result screen's keeper), 0 = the outfield one
       local kind = A.UNIFORM_KINDS[tostring(g.uniform_kind)] or A.UNIFORM_KINDS.field
       h = F(A.KIT_CREATE, g.base, st.actor_type, g.x, g.y, g.z, 0, rot, 0, 9, true, false, 0, false, identity, 6, false, 255, kit,
         0xFFFF, kind, false, 0, 0, false, false, true, false)
@@ -180,10 +155,6 @@ do
     end
   end
 
-  -- the list changed: keep what stayed, make what is new; a shown actor whose spot gets a new one stays until that one
-  -- is posed
-  -- a change after the first set: the actors it makes are shown together, in one frame, once each is ready; the
-  -- actors they replace stay shown until then (never a partial set of new people)
   local function Sync(r)
     local want, order = {}, {}
     for i = 1, tonumber(r.n) or 0 do
@@ -218,7 +189,6 @@ do
         st.batch[#st.batch + 1] = id
       end
     end
-    -- a spot left with nobody new: its old actor goes now
     local slots = {}
     for _, a in pairs(st.actors) do
       if a.g.slot ~= nil then slots[a.g.slot] = true end
@@ -268,8 +238,6 @@ do
       local playing = a.object and F(A.IS_PLAYING, a.object, pose) == true
       if playing then
         a.settled_at = a.age
-        -- the actor's face options (the scene's actor_face / actor_hold_face): the facial component's default face
-        -- again once the pose plays, and the clip's face channel switched off so the expression stays
         if a.g.face == "default" or a.g.hold_face == true then
           local lip, why, held, hwhy = nil, "not asked", nil, "not asked"
           if a.g.face == "default" then lip, why = F(A.FACIAL, a.handle) end
@@ -289,8 +257,6 @@ do
     if a.settled_at and a.age - a.settled_at >= A.SHOW_AFTER then a.phase = "ready" end
   end
 
-  -- shown in two steps: drawn but transparent, its default face set again (the face of a hidden character is not
-  -- updated), then faded in UNVEIL_FRAMES later; the actors shown together fade in together
   local function Show(a)
     F(A.SHOW, a.handle, true)
     if a.g.face == "default" then F(A.FACIAL, a.handle) end
@@ -383,7 +349,7 @@ do
           elseif a.phase == "failed" then
             failed[#failed + 1] = id
           else
-            return                       -- one still building, posing or waiting for its retry: none is shown yet
+            return
           end
         end
       end
@@ -423,22 +389,20 @@ do
       if a.g and a.g.slot == slot and a.handle and a.phase == "shown" then return a end
     end
   end
-  VRFW_MenuScene = VRFW_MenuScene or {}
-  function VRFW_MenuScene.ActorHandle(slot)
+  VRFW.menu_scene = VRFW.menu_scene or {}
+  function VRFW.menu_scene.actor_handle(slot)
     local a = ActorOf(slot)
     return a and a.handle or nil
   end
   -- the actor's white edge on (the game's character outline: its CCharaEdgeProperty) or back to its own
-  function VRFW_MenuScene.ActorEdge(slot, on)
+  function VRFW.menu_scene.actor_edge(slot, on)
     local a = ActorOf(slot)
     if not a then return false end
     local text, why = F(A.EDGE, a.handle, on == true, 1, 1, 1, 1, A.EDGE_PIXEL)
     Log("edge", a.id, on and "on" or "off", tostring(text or why))
     return text ~= nil
   end
-  -- a clip on the actor (handle, clip, next clip, blend: the motion command's)
-  -- the actor made again (e.g. its look changed: an edited avatar), shown when posed as a change of the list
-  function VRFW_MenuScene.ActorRebuild(slot)
+  function VRFW.menu_scene.actor_rebuild(slot)
     local a = ActorOf(slot)
     if not a then return false end
     Delete(a, "rebuilt")
@@ -447,13 +411,13 @@ do
     return true
   end
   -- the actor hidden (on = false) or shown again
-  function VRFW_MenuScene.ActorShow(slot, on)
+  function VRFW.menu_scene.actor_show(slot, on)
     local a = ActorOf(slot)
     if not a then return false end
     F(A.FADE, a.handle, on and 1 or 0, on and 1 or 0, true)
     return true
   end
-  function VRFW_MenuScene.ActorMotion(slot, clip, next_clip, blend)
+  function VRFW.menu_scene.actor_motion(slot, clip, next_clip, blend)
     local a = ActorOf(slot)
     if not a then return false end
     F(A.MOTION, a.handle, clip, next_clip or 0, blend or 0.2)
@@ -461,23 +425,23 @@ do
   end
 
   -- the scene's reveal waits for the first set of people actors (at most GATE_FRAMES)
-  local can_reveal_before = VRFW_MenuSceneCanReveal
-  VRFW_MenuSceneCanReveal = function(key)
+  local can_reveal_before = VRFW.menu_scene.can_reveal
+  VRFW.menu_scene.can_reveal = function(key)
     if type(can_reveal_before) == "function" and can_reveal_before(key) ~= true then return false end
     if st.people and st.key == key and (not st.revealed or Unveiling()) and st.frames <= A.GATE_FRAMES then return false end
     return true
   end
 
   -- a shot change (the framework's mode focus event) arms the face probe
-  if VRFW_MenuScene and VRFW_MenuScene.On then
-    VRFW_MenuScene.On("mode_focused", A.ID .. ".probe", function(index) ArmProbe("shot " .. tostring(index)) end)
+  if VRFW.menu_scene and VRFW.menu_scene.on then
+    VRFW.menu_scene.on("mode_focused", A.ID .. ".probe", function(index) ArmProbe("shot " .. tostring(index)) end)
   end
 
-  if VRFW_Host ~= nil then
-    VRFW_Host.on("title_menu_2", "OnInit", { id = A.ID .. ".init", phase = "after", fn = function() st.logged, st.probes = 0, 0 end })
-    VRFW_Host.on("title_menu_2", "Step", { id = A.ID, phase = "after", fn = function()
+  if VRFW.host ~= nil then
+    VRFW.host.on("title_menu_2", "OnInit", { id = A.ID .. ".init", phase = "after", fn = function() st.logged, st.probes = 0, 0 end })
+    VRFW.host.on("title_menu_2", "Step", { id = A.ID, phase = "after", fn = function()
       local ok, why = pcall(Tick)
-      if not ok then pcall(funcLuaCommand, A.LOG, "menu_scene", "title_menu_2", "actors error", tostring(why)) end
+      if not ok then capped_logger("error", tostring(why)) end
       if st.dirty then
         st.dirty = false
         pcall(Keep)

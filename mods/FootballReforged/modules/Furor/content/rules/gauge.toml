@@ -1,8 +1,3 @@
-# Furor › what the furor does, as behaviour rules on the flags and
-# signals of the team momentum Furor.gauge (content\team_momentum\gauge.toml).
-# Flags: Furor.gauge.<side>.level1 (50 %).full.phase (side = user / rival, the actor's side in
-# `when.team`). Signals (actor = a player of that team): Furor.gauge.phase /.phase_end /.start.phase_join
-# (actor = a player who came on by substitution during his team's phase).
 schema = "VRFW.behaviour/1"
 
 # ---------------------------------------------------------------- level 1 (half gauge): special moves a little stronger
@@ -86,16 +81,6 @@ flag = "Furor.gauge.rival.phase"
 [rule.do]
 power_mult = 0.9
 
-# ---------------------------------------------------------------- the phase's awakening
-# The furor phase is the only awakening (content\techniques\no_awakenings.toml): every player of the team that starts
-# it (the user's or the CPU's) wears the furor fire look (the trigger furor_phase_fire of content\effects\awakening.toml:
-# the retail awakening's rows in orange, yellow and red; the retail awakening keeps its pink-red), and gets his position's
-# awakening stats, until the phase ends. It is no aura: no aura bit, no aura slot, no aura limit, a keshin / totem /
-# armour / Mix-Max keeps running with it; at the end the look fades out (no withdraw animation, no aura-end signal).
-# Position (stats only): gk = the team's keeper, the others by their card's main position (
-# `position`). Stats are multiplied from each player's base (they never compound) and put back at the end. Tunables:
-# the `mult` values below (all weaker than a retail awakening: 11 players at once).
-
 # the look by side: the rival's team burns orange, the user's team blue (the side the user plays on, home or away)
 [[rule]]
 id = "furor_awakening_look_rival"
@@ -103,7 +88,7 @@ on = "signal:Furor.gauge.phase"
 [rule.when]
 team = "rival"
 [rule.do]
-char_effect = { trigger = "furor_phase_fire", who = "team" }
+character_effect = { trigger = "furor_phase_fire", who = "team" }
 
 [[rule]]
 id = "furor_awakening_look_user"
@@ -111,7 +96,7 @@ on = "signal:Furor.gauge.phase"
 [rule.when]
 team = "user"
 [rule.do]
-char_effect = { trigger = "furor_phase_fire_ally", who = "team" }
+character_effect = { trigger = "furor_phase_fire_ally", who = "team" }
 
 [[rule]]
 id = "furor_awakening_gk"
@@ -137,15 +122,13 @@ on = "signal:Furor.gauge.phase"
 [rule.do]
 set_stat = { stat = ["kick", "agility"], mult = 1.15, who = "team", position = "fw" }
 
-# a player who comes on by substitution during his team's phase joins it (signal Furor.gauge.phase_join, actor = him):
-# the same look and his position's stats as above, for him alone; the phase's end below takes them off with the team's
 [[rule]]
 id = "furor_awakening_look_join_rival"
 on = "signal:Furor.gauge.phase_join"
 [rule.when]
 team = "rival"
 [rule.do]
-char_effect = { trigger = "furor_phase_fire", who = "actor" }
+character_effect = { trigger = "furor_phase_fire", who = "actor" }
 
 [[rule]]
 id = "furor_awakening_look_join_user"
@@ -153,7 +136,7 @@ on = "signal:Furor.gauge.phase_join"
 [rule.when]
 team = "user"
 [rule.do]
-char_effect = { trigger = "furor_phase_fire_ally", who = "actor" }
+character_effect = { trigger = "furor_phase_fire_ally", who = "actor" }
 
 [[rule]]
 id = "furor_awakening_gk_join"
@@ -184,19 +167,14 @@ set_stat = { stat = ["kick", "agility"], mult = 1.15, who = "actor", position = 
 id = "furor_awakening_end"
 on = "signal:Furor.gauge.phase_end"
 [rule.do]
-char_effect = { clear = true, trigger = "furor_phase_fire", who = "team" }
+character_effect = { clear = true, trigger = "furor_phase_fire", who = "team" }
 set_stat = { stat = ["kick", "control", "technique", "pressure", "physical", "agility"], restore = true, who = "team" }
 
 [[rule]]
 id = "furor_awakening_end_ally_look"
 on = "signal:Furor.gauge.phase_end"
 [rule.do]
-char_effect = { clear = true, trigger = "furor_phase_fire_ally", who = "team" }
-
-# ---------------------------------------------------------------- the CPU starts its phase (Strikers' AI: by chance,
-# the player nearest the ball, more likely when losing): when a rival player gets the ball with a full gauge.
-# Export: another mod that decides the CPU's start itself sets the flag Furor.cpu_driven (these three step aside) and
-# sends the signal Furor.gauge.start with a rival player as the actor (the phase starts only with a full gauge).
+character_effect = { clear = true, trigger = "furor_phase_fire_ally", who = "team" }
 
 [[rule]]
 id = "furor_cpu_start_trailing"

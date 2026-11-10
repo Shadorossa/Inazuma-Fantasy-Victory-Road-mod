@@ -1,0 +1,9 @@
+schema = "VRFW.technique/3"
+
+[[technique]]
+name = "god_hand_forest_g5"
+base = "whk00480"
+event = "HissatsuReforged.god_hand_forest_g5"
+fail_event = "HissatsuReforged.god_hand_forest_g5_fail"
+name_text = "base"
+description_text = "base"

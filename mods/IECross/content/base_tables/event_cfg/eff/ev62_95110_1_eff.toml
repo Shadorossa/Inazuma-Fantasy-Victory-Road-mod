@@ -2,9 +2,6 @@ schema = "VRFW.base_table/1"
 file = "data/common/event_cfg/eff/ev62_95110_1_eff.cfg.bin"
 from = "data/common/event_cfg/eff/ev62_01060_1_eff.cfg.bin"
 
-# IECross: Cross's colours (content/effects/cross_fireworks.toml: recoloured copy ev62951100 of the retail
-# ev62010600, whose skinned mochi are Cross's own) - the fireworks object is added by the same file
-
 [[entry]]
 name = "EVENT_COMMAND_ARGS"
 values = ["ev62951100", "common/effect/event/ev62/ev62951100/ev62951100.objbin", 1, 0]

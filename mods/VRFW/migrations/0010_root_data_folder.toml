@@ -1,0 +1,144 @@
+# The hashed per-game folder of the data folder goes: everything in %LOCALAPPDATA%\VRFW\ievr-* moves to %LOCALAPPDATA%\VRFW, sorted into state\ and logs\.
+schema = "VRFW.migration/1"
+id = "VRFW.root_data_folder"
+description = "The data folder no longer has a per-game subfolder: its contents move to the root of the data folder"
+phase = "boot"
+after = ["VRFW.vrfw_prefix"]
+
+[[step]]
+kind = "merge_data_folder"
+from = "{data}/ievr-*"
+to = "{data}"
+others_to = "{data}/_other_game_folders"
+files = ["{data}/ievr-*/cache/VRFW/types/*/value*.bin", "{data}/ievr-*/cache/VRFW/types/*/engine/value*.bin", "{data}/ievr-*/cache/mods/*/value*.bin"]
+
+# one place per kind of file: state\ (never rebuilt), logs\ (diagnostics); the framework state folder goes first, the rest merges into it
+
+[[step]]
+kind = "merge_data_folder"
+from = "{data}/vrfw"
+to = "{data}/state"
+
+[[step]]
+kind = "merge_data_folder"
+from = "{data}/ids"
+to = "{data}/state/ids"
+
+[[step]]
+kind = "merge_data_folder"
+from = "{data}/update_channels"
+to = "{data}/state/update_channels"
+
+[[step]]
+kind = "merge_data_folder"
+from = "{data}/backups"
+to = "{data}/state/slots/backups"
+
+[[step]]
+kind = "move_file"
+from = "{data}/state.json"
+to = "{data}/state/slots/state.json"
+if_target = "keep_source"
+
+[[step]]
+kind = "move_file"
+from = "{data}/game_dir.txt"
+to = "{data}/state/game_dir.txt"
+if_target = "keep_source"
+
+[[step]]
+kind = "move_file"
+from = "{data}/ui_flags_persist.txt"
+to = "{data}/state/ui_flags_persist.txt"
+if_target = "keep_source"
+
+[[step]]
+kind = "move_file"
+from = "{data}/loader.log"
+to = "{data}/logs/loader.log"
+if_target = "keep_source"
+
+[[step]]
+kind = "move_file"
+from = "{data}/loader.prev.log"
+to = "{data}/logs/loader.prev.log"
+if_target = "keep_source"
+
+[[step]]
+kind = "move_file"
+from = "{data}/trace_paths.txt"
+to = "{data}/logs/trace_paths.txt"
+if_target = "keep_source"
+
+[[step]]
+kind = "merge_data_folder"
+from = "{data}/crash"
+to = "{data}/logs/crash"
+
+[[step]]
+kind = "move_file"
+from = "{data}/crash_*.txt"
+to = "{data}/logs/crash/crash_*.txt"
+if_target = "keep_source"
+
+# files no program reads any more: kept in _old\ for the player to delete
+
+[[step]]
+kind = "move_file"
+from = "{data}/compat-report.json"
+to = "{data}/_old/compat-report.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{data}/compat-report.txt"
+to = "{data}/_old/compat-report.txt"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{data}/game_update_report.json"
+to = "{data}/_old/game_update_report.json"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{data}/game_update_report.md"
+to = "{data}/_old/game_update_report.md"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{data}/update_index_sequence.txt"
+to = "{data}/_old/update_index_sequence.txt"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{data}/voice.json.migrated"
+to = "{data}/_old/voice.json.migrated"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{data}/config.toml.bak*"
+to = "{data}/_old/config.toml.bak*"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{data}/state.json.bak_*"
+to = "{data}/_old/state.json.bak_*"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_file"
+from = "{data}/loader.log.stale_*"
+to = "{data}/_old/loader.log.stale_*"
+if_target = "keep_target"
+
+[[step]]
+kind = "move_folder"
+from = "{data}/drop"
+to = "{data}/_old/drop"
+if_target = "keep_target"

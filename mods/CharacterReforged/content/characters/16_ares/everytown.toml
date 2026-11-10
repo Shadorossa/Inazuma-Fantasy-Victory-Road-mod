@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Everytown · Inazuma Eleven: Ares
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c07110010"                                   # Billy Miller
 moves = [
   { move = 0x025FD09B, level = 1 },                         # Volcano Cut
-  { move = 0xA6763B84, level = 13 },                        # Gladius Arch
-  { move = 0x5781A373, level = 20 },                        # Hurricane Arrows
-  { move = 0x5AF33BC7, level = 30 },                        # God Hand
+  { move = 0x5781A373, level = 13 },                        # Hurricane Arrows
+  { move = 0x232D05EC, level = 20 },                        # Tiger Drive
+  { move = 0xA6763B84, level = 30 },                        # Gladius Arch
 ]
 
   [[edit.cards]]
@@ -22,9 +19,9 @@ moves = [
 [[edit]]
 target = "c07110030"                                   # Luke Blank
 moves = [
-  { move = 0xC7A9BB3A, level = 1 },                         # Whirlwind Cut
-  { move = 0x518BCA26, level = 13 },                        # Fire Tornado
-  { move = 0x7EEA4EE9, level = 20 },                        # Blade Attack
+  { move = 0x7EEA4EE9, level = 1 },                         # Blade Attack
+  { move = 0xC7A9BB3A, level = 13 },                        # Whirlwind Cut
+  { move = 0x518BCA26, level = 20 },                        # Fire Tornado
   { move = 0x2A37FC88, level = 30 },                        # Revolution V
 ]
 
@@ -37,9 +34,9 @@ moves = [
 [[edit]]
 target = "c07110040"                                   # Neville Merchant
 moves = [
-  { move = 0x0EBCD1A8, level = 1 },                         # Heavenly Tianlong
+  { move = 0x60397CCA, level = 1 },                         # Cross Drive
   { move = 0x0CF4E55C, level = 13 },                        # Double Touch
-  { move = 0x60397CCA, level = 20 },                        # Cross Drive
+  { move = 0x0EBCD1A8, level = 20 },                        # Heavenly Tianlong
   { move = 0xD9BB22A7, level = 30 },                        # Air Ride
 ]
 
@@ -52,9 +49,9 @@ moves = [
 [[edit]]
 target = "c07110050"                                   # Pacey Hawker
 moves = [
-  { move = 0x0EBCD1A8, level = 1 },                         # Heavenly Tianlong
-  { move = 0x427719AC, level = 13 },                        # Gale Dash
-  { move = 0x17A96A44, level = 20 },                        # Clone Faker
+  { move = 0x17A96A44, level = 1 },                         # Clone Faker
+  { move = 0x0EBCD1A8, level = 13 },                        # Heavenly Tianlong
+  { move = 0x427719AC, level = 20 },                        # Gale Dash
   { move = 0x316A7390, level = 30 },                        # Land Dragon
 ]
 
@@ -68,9 +65,9 @@ moves = [
 [[edit]]
 target = "c07110060"                                   # Giles Farmer
 moves = [
-  { move = 0x0EBCD1A8, level = 1 },                         # Heavenly Tianlong
-  { move = 0xDEB28A7B, level = 13 },                        # Monkey Turn
-  { move = 0x4031A7F5, level = 20 },                        # Mole Fake
+  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
+  { move = 0x4031A7F5, level = 13 },                        # Mole Fake
+  { move = 0x0EBCD1A8, level = 20 },                        # Heavenly Tianlong
   { move = 0x105C91A7, level = 30 },                        # Slingshot
 ]
 
@@ -84,9 +81,9 @@ moves = [
 [[edit]]
 target = "c07110070"                                   # Jack Sawyer
 moves = [
-  { move = 0x0EBCD1A8, level = 1 },                         # Heavenly Tianlong
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x3C843987, level = 13 },                        # Flurry Dash
-  { move = 0x73C5AF40, level = 20 },                        # Dash Accelerator
+  { move = 0x0EBCD1A8, level = 20 },                        # Heavenly Tianlong
   { move = 0xDB01CFC1, level = 30 },                        # Thunder Beast
 ]
 
@@ -100,9 +97,9 @@ moves = [
 [[edit]]
 target = "c07110080"                                   # Gaffer Mason
 moves = [
-  { move = 0xB7F1AED6, level = 1 },                         # Double Cyclone
-  { move = 0x74CC079C, level = 13 },                        # Big Fan
-  { move = 0x2FB941B3, level = 20 },                        # Stone Prison
+  { move = 0x74CC079C, level = 1 },                         # Big Fan
+  { move = 0x2FB941B3, level = 13 },                        # Stone Prison
+  { move = 0xB7F1AED6, level = 20 },                        # Double Cyclone
   { move = 0x316A7390, level = 30 },                        # Land Dragon
 ]
 
@@ -131,9 +128,9 @@ moves = [
 [[edit]]
 target = "c07110100"                                   # Meriwether Beaumont
 moves = [
-  { move = 0xC5EF0563, level = 1 },                         # Three-Legged Rush
-  { move = 0x19025F83, level = 13 },                        # Quick Draw
-  { move = 0x7EEA4EE9, level = 20 },                        # Blade Attack
+  { move = 0x19025F83, level = 1 },                         # Quick Draw
+  { move = 0x7EEA4EE9, level = 13 },                        # Blade Attack
+  { move = 0xC5EF0563, level = 20 },                        # Three-Legged Rush
   { move = 0x2AF65736, level = 30 },                        # Bamboo Pattern
 ]
 
@@ -146,10 +143,10 @@ moves = [
 [[edit]]
 target = "c07110110"                                   # Burleigh Carpenter
 moves = [
-  { move = 0x68982058, level = 1 },                         # Armadillo Circus
-  { move = 0x166B0073, level = 13 },                        # Super Armadillo
-  { move = 0x2AF65736, level = 20 },                        # Bamboo Pattern
-  { move = 0x1B44E1DA, level = 30 },                        # Stone Wall
+  { move = 0x166B0073, level = 1 },                         # Super Armadillo
+  { move = 0x68982058, level = 13 },                        # Armadillo Circus
+  { move = 0x1B44E1DA, level = 20 },                        # Stone Wall
+  { move = 0x2AF65736, level = 30 },                        # Bamboo Pattern
 ]
 
   [[edit.cards]]
@@ -161,10 +158,10 @@ moves = [
 [[edit]]
 target = "c07110120"                                   # Kia Tanner
 moves = [
-  { move = 0x0422FCA2, level = 1 },                         # Ninja Toad
-  { move = 0x259F08C6, level = 13 },                        # Whirlwind Twister
-  { move = 0xD8794890, level = 20 },                        # Kangaroo Kick
-  { move = 0xADAFE047, level = 30 },                        # Dual Strike
+  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
+  { move = 0xD8794890, level = 13 },                        # Kangaroo Kick
+  { move = 0xADAFE047, level = 20 },                        # Dual Strike
+  { move = 0x0422FCA2, level = 30 },                        # Ninja Toad
 ]
 
   [[edit.cards]]
@@ -177,10 +174,10 @@ moves = [
 [[edit]]
 target = "c07110130"                                   # Eamond Everwing
 moves = [
-  { move = 0xBB21DDC9, level = 1 },                         # Trina Tumble
-  { move = 0x2D3E5454, level = 13 },                        # Clone Shot
-  { move = 0x737DCB3F, level = 20 },                        # Pancake Defence
-  { move = 0xB37CD264, level = 30 },                        # Am-Bush
+  { move = 0x2D3E5454, level = 1 },                         # Clone Shot
+  { move = 0xB37CD264, level = 13 },                        # Am-Bush
+  { move = 0xBB21DDC9, level = 20 },                        # Trina Tumble
+  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
 ]
 
   [[edit.cards]]
@@ -194,8 +191,8 @@ moves = [
 target = "c07110140"                                   # Frey Fielding
 moves = [
   { move = 0xC5EF0563, level = 1 },                         # Three-Legged Rush
-  { move = 0x737DCB3F, level = 13 },                        # Pancake Defence
-  { move = 0xAD6E4BF9, level = 20 },                        # Harvest
+  { move = 0xAD6E4BF9, level = 13 },                        # Harvest
+  { move = 0x737DCB3F, level = 20 },                        # Pancake Defence
   { move = 0xBB21DDC9, level = 30 },                        # Trina Tumble
 ]
 
@@ -210,9 +207,9 @@ moves = [
 target = "c07110150"                                   # Tobin Harveston
 moves = [
   { move = 0x74CC079C, level = 1 },                         # Big Fan
-  { move = 0xB7474004, level = 13 },                        # Dough Ray Me
-  { move = 0x485150D9, level = 20 },                        # Body Shield
-  { move = 0xAD6E4BF9, level = 30 },                        # Harvest
+  { move = 0xAD6E4BF9, level = 13 },                        # Harvest
+  { move = 0xB7474004, level = 20 },                        # Dough Ray Me
+  { move = 0x485150D9, level = 30 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -224,10 +221,10 @@ moves = [
 [[edit]]
 target = "c07110160"                                   # Everest Brightwell
 moves = [
-  { move = 0xBB21DDC9, level = 1 },                         # Trina Tumble
-  { move = 0xD8794890, level = 13 },                        # Kangaroo Kick
-  { move = 0x316A7390, level = 20 },                        # Land Dragon
-  { move = 0x530CDFC1, level = 30 },                        # Mystifying Mist
+  { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
+  { move = 0x530CDFC1, level = 13 },                        # Mystifying Mist
+  { move = 0xBB21DDC9, level = 20 },                        # Trina Tumble
+  { move = 0x316A7390, level = 30 },                        # Land Dragon
 ]
 
   [[edit.cards]]
@@ -239,13 +236,10 @@ moves = [
 [[edit]]
 target = "c07110020"                                   # Mark Evans
 moves = [
-  { move = 0xF64674CB, level = 1 },                         # Fist of Justice
-  { move = 0xEE9F2FBD, level = 11 },                        # God Catch
-  { move = 0x8AF3EAB9, level = 21 },                        # Hammer of Fury
-  { move = 0x93E8DBF8, level = 31 },                        # Dimensional Hand
-]
-VRFW.MoveGrades = [
-  { Move = 0xF64674CB, Grade = 1 },                         # Fist of Justice
+  { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
+  { move = 0x8C382852, level = 13 },                        # God Hand
+  { move = 0xA491AFFF, level = 20 },                        # Majin the Hand
+  { move = 0xFB546DE3, level = 30 },                        # Mega Majin
 ]
 
   [[edit.cards]]
@@ -257,9 +251,9 @@ VRFW.MoveGrades = [
 target = "c11807270"                                   # Seymour Hillman
 moves = [
   { move = 0x8C382852, level = 1 },                         # God Hand
-  { move = 0x8FBCFC3C, level = 1 },                         # Blazing Knuckle
-  { move = 0xA491AFFF, level = 1 },                         # Majin the Hand
-  { move = 0xF64674CB, level = 40 },                        # Fist of Justice
+  { move = 0x8FBCFC3C, level = 13 },                        # Blazing Knuckle
+  { move = 0x5DFA931B, level = 20 },                        # Triple Defence
+  { move = 0xA491AFFF, level = 30 },                        # Majin the Hand
 ]
 
   [[edit.cards]]
@@ -272,10 +266,10 @@ moves = [
 [[edit]]
 target = "c11807260"                                   # Silvia Woods
 moves = [
-  { move = 0xF9B80F86, level = 1 },                         # Strong Punch
   { move = 0x8C382852, level = 1 },                         # God Hand
-  { move = 0xC19E2AEE, level = 35 },                        # Pegasus Shot
-  { move = 0xF2CB0879, level = 70 },                        # Mugen the Hand
+  { move = 0x8FBCFC3C, level = 13 },                        # Blazing Knuckle
+  { move = 0xF64674CB, level = 20 },                        # Fist of Justice
+  { move = 0x5DFA931B, level = 30 },                        # Triple Defence
 ]
 
   [[edit.cards]]

@@ -1,4 +1,4 @@
-# Declaration schema of VRFW.story_start/1 (content\story_start\**\*.toml; docs/framework/shared-helpers.md): [[VRFW.StoryStart]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
+# Declaration schema of VRFW.story_start/1 (content\story_start\**\*.toml; docs/internal/shared-helpers.md): [[VRFW.StoryStart]]. It lists the keys the framework reads, so `vrfw check` validates the files and the ModManager draws their forms from it.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.story_start/1"
 folder = "content/story_start"

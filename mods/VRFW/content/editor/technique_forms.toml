@@ -1,9 +1,7 @@
-# The forms of the framework's tables inside a move entry (docs/framework/technique.md §4g): [VRFW.MoveEffect] and
+# The forms of the framework's tables inside a move entry (docs/internal/types/technique.md §4g): [VRFW.MoveEffect] and
 # [VRFW.DualElement] of a [[technique]] / [[edit]] entry, in the editor schema format
 # (docs/framework/modmanager-editor-schemas.md). `Within = "technique"`: ModManager's move editor lists each one as a
-# rule of the move (turned on, off, and each key set). The ranges are the editor's, the keys the technique engine's
-# (technique_engine::move_effect, ::dual_element): every save is read back by its strict parser first.
-# Read only by ModManager: the game does not read content\editor\.
+# rule of the move (turned on, off, and each key set).
 schema = "VRFW.editor/1"
 
 # ---------------------------------------------------------------------------------------------- [VRFW.MoveEffect]
@@ -33,6 +31,10 @@ Help = { en = "The framework's generic rules: ball speed, first use, stat power,
   Key = "FirstUse"
   Type = "table"
   Of = "move_effect_first_use"
+  [[Shape.Field]]
+  Key = "CriticalCatch"
+  Type = "table"
+  Of = "move_effect_critical_catch"
   [[Shape.Field]]
   Key = "StatPower"
   Type = "table"
@@ -70,6 +72,21 @@ Id = "move_effect_first_use"
   Key = "Scope"
   Type = "enum"
   Label = { en = "First use: scope", es = "Primer uso: ámbito" }
+  Values = ["team_match", "player_match"]
+  ValueLabels = { team_match = { en = "team, match", es = "equipo, partido" }, player_match = { en = "player, match", es = "jugador, partido" } }
+
+[[Shape]]
+Id = "move_effect_critical_catch"
+  [[Shape.Field]]
+  Key = "Uses"
+  Type = "int"
+  Label = { en = "Critical catch: uses", es = "Parada: usos" }
+  Min = 1
+  Max = 99
+  [[Shape.Field]]
+  Key = "Scope"
+  Type = "enum"
+  Label = { en = "Critical catch: scope", es = "Parada: ámbito" }
   Values = ["team_match", "player_match"]
   ValueLabels = { team_match = { en = "team, match", es = "equipo, partido" }, player_match = { en = "player, match", es = "jugador, partido" } }
 

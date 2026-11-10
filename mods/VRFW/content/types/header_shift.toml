@@ -1,9 +1,5 @@
 # Declaration schema of the header shifts (content\header_shift\*.toml, scripts\header_shift.lua): [[VRFW.HeaderShift]]
-# = root layers of one menu script that move up by `dy` (layout units, + = up), e.g. under a shorter top header. Every
-# position the script itself sets for those layers gets the same offset, so its slide-ins and list scrolls keep
-# working. A `stretch` layer is scaled instead, so its top moves up while its bottom and right edges stay.
-# The menu applies the rules when a hook file of its script calls VRFW_HeaderShift.Apply (lua\menu\_all\
-# 98_header_shift.lua). An unknown key, wrong type or out-of-range value drops that declaration with a warning.
+# = root layers of one menu script that move up by `dy` (layout units, + = up), e.g.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.header_shift/1"
 folder = "content/header_shift"

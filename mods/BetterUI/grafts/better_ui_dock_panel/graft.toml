@@ -1,0 +1,21 @@
+# BetterUI: «Plantilla de equipo» (soccer_team_dock_menu) left panel, header bar and dock number arrows re-laid out.
+# Positions: research/mods/BetterUI/_tools/better_ui_dock_panel.py --write (the generated block of dock_panel.lua).
+name = "better_ui_dock_panel"
+order = 920
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = ["OnSetupLayer", "OnOpenLayer", "OnChangeFocus", "Step",
+         "SetupTacticsLayer", "UpdateTeamBuildTypeInfo", "OnFunction", "OnFocusLayerShift",
+         "UpdateTeamDockNo", "ResumeTeamDock"]
+description = "Team dock left panel, header bar and dock arrows re-laid out; AT / DF under the goalkeeper"
+
+[[files]]
+stem = "soccer_team_dock_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "dock_panel.lua"
+  marker = "better_ui_dock_panel"
+  crc = "none"

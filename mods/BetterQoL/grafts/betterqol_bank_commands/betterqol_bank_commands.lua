@@ -1,0 +1,400 @@
+-- Rows swapped at the popup's MENU_DEF.OpenSubWindow call
+BetterQoL = BetterQoL or {}
+BetterQoL.bank_commands = BetterQoL.bank_commands or {}
+do
+  local B = BetterQoL.bank_commands
+  B.TX = {3932059529,
+          2489792255,                -- Tabla de habilidades
+          241013657,                 -- Equipamiento
+          2906972837,
+          964589140,
+          3836303276,                -- Recuperar equipamiento
+          2951363585}                -- Recuperar auto. en banco
+  B.EXPL = {0, 0, 0, 0, 636011825, 3363291442, 1955677377}   -- explanation window per row (retail t8 texts)
+  B.CHECKS = {0, 0, 0, 0, 0, 0, 1}   -- check box rows
+  B.CHECK_ROW = 6                    -- the check box row (retail 5)
+  B.RETAIL_CHECK_ROW = 5
+  B.WIN_SIZE, B.WIN_Y = 7, -70       -- sub window size type 7 = 7 rows (retail 3 = 6 rows at -130)
+  B.SUB_CB = "OnCharaBankSubWindowFunction"
+  B.BANK_MENU = 3358148956           -- chara_bank_menu
+  B.PLATE_MENU = 1427722143          -- personal_plate_menu
+  B.EQUIP_MENU = 606230082           -- equip_menu
+  B.BOARD_MENU = 1810526795          -- ability_learning_board_menu
+  B.PC_INFO = 3569354349
+  B.GUIDE_KEY = 115099233            -- param: the menu that owns the bank's button guide (retail n19)
+  B.KIND_KEY = 3997999031            -- param: bank kind (1 = Kizuna club, retail flag2)
+  B.CHECK_BIT = 229430511
+  -- parameters of the two ways a skill table / equip screen is opened (deleted again when it closes)
+  B.EQUIP_PARAMS = {4081600465, 2029825652, 363718978, 4145209998, 3308763177, 2719720834, 1038144478, 3357163798,
+                    622145442, 813466851}
+  B.BOARD_PARAMS = {4161869490, 813466851, 3357163798, 4081600465}
+  B.DEFAULT_SKILL_TABLE = {Menu = B.BOARD_MENU, Params = "board"}
+  B.open, B.arm, B.autosave, B.club, B.owner, B.logs = false, false, false, false, 2645952753 --[[main_menu]], 0
+
+  function B.log(...)
+    if B.logs < 40 then
+      B.logs = B.logs + 1
+      B.logger = B.logger or VRFW.logger.new("BetterQoL bank_commands")
+      B.logger(...)
+    end
+  end
+
+  local function put(k, v, keep)
+    VRFW.param.clear(k)
+    if keep then
+      VRFW.param.set(k, v, "plain")
+    else
+      VRFW.param.set(k, v)
+    end
+  end
+
+  local function menuExists(m)
+    return funcLuaMenuCommand(2231168902 --[[CMND_IS_EXIST_MENU_OBJECT?]], m) == true
+  end
+
+  local function ng()
+    funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
+  end
+
+  -- a declared rule of another mod (Retail / Lock) answers true for this player
+  function B.rule_says(kind, h)
+    local rules = {}
+    if type(VRFW.bank_commands) == "table" and type(VRFW.bank_commands.rules) == "function" then
+      rules = VRFW.bank_commands.rules()
+    end
+    for id, r in pairs(rules) do
+      local f = type(r) == "table" and r[kind] or nil
+      if type(f) == "function" then
+        local ok, v = pcall(f, h)
+        if ok and v == true then
+          return true, id
+        elseif not ok then
+          B.log("rule failed", id, kind, tostring(v))
+        end
+      end
+    end
+    return false
+  end
+
+  function B.passives_ok(h)
+    local ok, got, mode = pcall(funcLuaCommand, B.PC_INFO, h)
+    return ok and got == true and type(mode) == "number" and mode > 0
+  end
+
+  -- the mod's rows for the normal popup (texts, enables, size, check boxes)
+  function B.rows(h)
+    B.open, B.autosave = true, false
+    local en = {1, 1, 1, B.passives_ok(h) and 1 or 0, CanCharaBankRemove(h) and 1 or 0, 1, 1}
+    if B.rule_says("Lock", h) then
+      en = {0, 0, 0, 0, 0, 0, 0}
+    end
+    return B.TX, en, B.WIN_SIZE, B.CHECKS
+  end
+
+  -- MENU_DEF.OpenSubWindow of this VM, wrapped once
+  function B.wrap_sub_window()
+    if type(MENU_DEF) ~= "table" or type(MENU_DEF.OpenSubWindow) ~= "function" then
+      return false
+    end
+    if MENU_DEF.OpenSubWindow == B.subWrap then
+      return true
+    end
+    local prev = MENU_DEF.OpenSubWindow
+    B.subWrap = function(cb, fcb, count, texts, size, title, en, focus, b1, b2, kind, x0, t1, n1, t2, t3, n2, checks, ...)
+      if B.arm and cb == B.SUB_CB then
+        B.arm = false
+        local h = GetSelectedCharaStHdlInList()
+        texts, en, size, checks = B.rows(h)
+        count = #texts
+      end
+      return prev(cb, fcb, count, texts, size, title, en, focus, b1, b2, kind, x0, t1, n1, t2, t3, n2, checks, ...)
+    end
+    MENU_DEF.OpenSubWindow = B.subWrap
+    return true
+  end
+
+  -- Runs when the player is back in the bank.
+  function B.back(h)
+    pcall(UpdateList)
+    if menuExists(B.PLATE_MENU) then
+      pcall(UpdatePersonalPlate, h)
+    end
+    SetCharaBankInputEnabled(true)
+    pcall(UpdateButtonGuide)
+  end
+
+  local function clear(keys)
+    for _, k in ipairs(keys or {}) do
+      VRFW.param.clear(k)
+    end
+  end
+
+  -- the VS team's dock and its formation id
+  local function vsTeam()
+    local dock = funcLuaCommand(3713813716 --[[CMND_GET_VS_USE_TEAM_SET]])
+    local okF, got, fid = pcall(funcLuaCommand, 1033065575 --[[CMND_GET_TEAM_SET_INFO]], dock, 0, 4)
+    return dock, (okF and got) and fid or 0
+  end
+
+  -- the parameters the formation passes to equip_menu (equip_menu_select OnInit), single-player mode
+  function B.equip_params(h)
+    local main = true
+    if type(MAIN_MENU) == "table" and type(MAIN_MENU.IsEnableUseMainMenu) == "function" then
+      local ok, r = pcall(MAIN_MENU.IsEnableUseMainMenu)
+      main = not ok or r == true
+    end
+    local dock, fid = vsTeam()
+    put(4081600465, 0, true)         -- team kind 11v11
+    put(2029825652, false)
+    put(363718978, main)
+    put(4145209998, 0)
+    put(3308763177, false)
+    put(2719720834, main)
+    put(1038144478, h)               -- the character
+    put(3357163798, dock)
+    put(622145442, 0)
+    put(813466851, fid)
+  end
+
+  -- the retail type-5 parameters of the ability board (team_dock_formation_menu), the VS team as context
+  function B.board_params(h)
+    local dock, fid = vsTeam()
+    put(4161869490, h)               -- the character
+    put(813466851, fid)
+    put(3357163798, dock)
+    put(4081600465, 0, true)         -- team kind 11v11
+  end
+
+  -- Opens one screen for one bank player.
+  function B.exec(menu, mode, h, extra)
+    clear(extra)
+    if mode == "board" then
+      B.board_params(h)
+    else
+      B.equip_params(h)
+    end
+    SetCharaBankInputEnabled(false)
+    waitFalse(function()
+      return funcLuaCommand(667479479, B.BANK_MENU)
+    end)
+    local plate = menuExists(B.PLATE_MENU)
+    if plate then
+      pcall(funcLuaMenuCommand, 1129326309, B.PLATE_MENU)
+    end
+    funcLuaMenuCommand(369172623, B.BANK_MENU, 1)
+    funcLuaCommand(433545986 --[[CMND_OPEN_MENU_OBJECT]], menu)
+    coroutine.yield()
+    local seen = false
+    for _ = 1, 120 do
+      if menuExists(menu) then
+        seen = true
+        break
+      end
+      coroutine.yield()
+    end
+    if seen then
+      while menuExists(menu) do
+        coroutine.yield()
+      end
+    else
+      B.log("menu did not open", menu)
+      ng()
+    end
+    coroutine.yield()
+    funcLuaMenuCommand(66378409, B.BANK_MENU, 1)
+    if plate then
+      pcall(funcLuaMenuCommand, 1453710531, B.PLATE_MENU)
+    end
+    clear(mode == "board" and B.BOARD_PARAMS or B.EQUIP_PARAMS)   -- nothing of this call may reach another screen
+    clear(extra)
+    B.log("screen closed", menu, "chara", h, "opened", tostring(seen))
+    B.back(h)
+  end
+
+  function B.skill_table_screen()
+    local s = nil
+    if type(VRFW.bank_commands) == "table" and type(VRFW.bank_commands.skill_table) == "function" then
+      s = VRFW.bank_commands.skill_table()
+    end
+    if type(s) ~= "table" or type(s.Menu) ~= "number" then
+      s = B.DEFAULT_SKILL_TABLE
+    end
+    return s.Menu, s.Params == "equip" and "equip" or "board", s.Clear
+  end
+
+  function B.plate_open()
+    local ok, v = pcall(function()
+      return VRFW.host.hosts.chara_bank_menu.L.flag
+    end)
+    if ok and type(v) == "boolean" then
+      return v
+    end
+    return nil
+  end
+
+  function B.session()
+    local S = type(BetterQoL) == "table" and BetterQoL.passive_session or nil
+    if type(S) == "table" and type(S.run) == "function" then
+      return S
+    end
+    return nil
+  end
+
+  function B.passives(h)
+    local session = B.session()
+    if session == nil or not B.passives_ok(h) then
+      ng()
+      B.back(h)
+      return
+    end
+    SetCharaBankInputEnabled(false)
+    -- The bank always builds the plate menu and only hides it.
+    local wasOpen = B.plate_open()
+    local closeAfter = false
+    if wasOpen ~= true and type(OpenPersonalPlate) == "function" then
+      local ok = pcall(OpenPersonalPlate)
+      closeAfter = ok and wasOpen == false
+      for _ = 1, 20 do
+        coroutine.yield()
+      end
+    end
+    B.log("passives: plate open before", tostring(wasOpen), "close after", tostring(closeAfter))
+    pcall(UpdatePersonalPlate, h)
+    coroutine.yield()
+    if not session.run(h, B.owner, {hide_menu = B.BANK_MENU}) then
+      B.log("passive session not taken", h)
+    end
+    if closeAfter and type(ClosePersonalPlate) == "function" then
+      pcall(ClosePersonalPlate)
+    end
+    B.back(h)
+  end
+
+  -- Handles OnCharaBankSubWindowFunction with the mod's rows.
+  function B.handle_row(a1, h)
+    if type(a1) ~= "number" or a1 < 0 then
+      return a1
+    end
+    if B.rule_says("Lock", h) then
+      ng()
+      WaitCloseSubWindow(false)
+      B.back(h)
+      return nil
+    end
+    if a1 == 0 then
+      return 0
+    elseif a1 == 1 or a1 == 2 then
+      WaitCloseSubWindow(false)
+      funcLuaCommand(1917805374, 3848881948 --[[sy0000]])
+      if a1 == 1 then
+        local menu, mode, extra = B.skill_table_screen()
+        B.exec(menu, mode, h, extra)
+      else
+        B.exec(B.EQUIP_MENU, "equip", h)
+      end
+      return nil
+    elseif a1 == 3 then
+      WaitCloseSubWindow(false)
+      B.passives(h)
+      return nil
+    elseif a1 == 4 then
+      B.autosave = true
+      return 2
+    elseif a1 == 5 then
+      return 4                       -- Recuperar equipamiento
+    elseif a1 == 6 then
+      funcLuaCommand(3258400760 --[[CMND_SET_GLOBAL_BIT_FLAG]], B.CHECK_BIT, not funcLuaCommand(941426960 --[[CMND_GET_GLOBAL_BIT_FLAG]], B.CHECK_BIT))
+      funcLuaCommand(628044124, B.CHECK_ROW, funcLuaCommand(941426960 --[[CMND_GET_GLOBAL_BIT_FLAG]], B.CHECK_BIT))
+      return nil
+    end
+    return a1
+  end
+
+  -- Wraps the callback `name`.
+  B.wrapped = B.wrapped or {}
+  function B.wrap(name, make)
+    local H = VRFW.host
+    H.on("chara_bank_menu", name, {id = "BetterQoL.bank_commands." .. name, phase = "around", fn = function(nxt, ...)
+      return make(nxt)(...)
+    end})
+  end
+
+  -- the bank kind and the menu that owns the bank's button guide (the retail OnInit reads and deletes both params)
+  B.wrap("OnInit", function(orig)
+    return function(...)
+      B.open, B.arm, B.autosave = false, false, false
+      B.owner = 2645952753 --[[main_menu]]
+      if VRFW.param.has(B.GUIDE_KEY) then
+        B.owner = VRFW.param.get(B.GUIDE_KEY)
+      end
+      B.club = VRFW.param.has(B.KIND_KEY) and VRFW.param.get(B.KIND_KEY) == 1
+      return orig(...)
+    end
+  end)
+
+  -- Wraps the popup opener.
+  B.wrap("OpenCharaBankSubWindow", function(orig)
+    return function(...)
+      B.open, B.arm, B.autosave = false, false, false
+      if not B.club and B.wrap_sub_window() then
+        local h = GetSelectedCharaStHdlInList()
+        if not B.rule_says("Retail", h) then
+          B.arm = true
+        end
+      end
+      local r = table.pack(orig(...))
+      B.arm = false
+      if B.open then
+        local on = funcLuaCommand(941426960 --[[CMND_GET_GLOBAL_BIT_FLAG]], B.CHECK_BIT)
+        funcLuaCommand(628044124, B.RETAIL_CHECK_ROW, false)
+        funcLuaCommand(628044124, B.CHECK_ROW, on)
+        funcLuaCommand(63483614, 480, B.WIN_Y)
+      end
+      return table.unpack(r, 1, r.n)
+    end
+  end)
+
+  B.wrap("OnCharaBankSubWindowFunction", function(orig)
+    return function(a1, ...)
+      if B.open then
+        local m = B.handle_row(a1, GetSelectedCharaStHdlInList())
+        if m == nil then
+          return
+        end
+        a1 = m
+      end
+      return orig(a1, ...)
+    end
+  end)
+
+  -- explanation window of the mod's rows (the retail texts of the rows that stay)
+  B.wrap("OnCharaBankSubWindowFocusFunction", function(orig)
+    return function(a1, ...)
+      if not B.open or type(a1) ~= "number" or a1 < 0 then
+        return orig(a1, ...)
+      end
+      local t = B.EXPL[a1 + 1] or 0
+      if t ~= 0 then
+        funcLuaMenuCommand(629267548 --[[CMND_OPEN_LAYER]], 3134383517 --[[win05_91_explanation_window]])
+        local s = funcLuaCommand(4074371074 --[[CMND_TEXT_GET]], t)
+        funcLuaMenuCommand(1083631230 --[[CMND_SET_MENU_TEXT_STRING?]], 3134383517 --[[win05_91_explanation_window]], 691026122 --[[_text_flavor01]], s)
+        funcLuaMenuCommand(2575768773, 3134383517 --[[win05_91_explanation_window]], 0, 1517329426 --[[_pos_base01]], 0, 480)
+        funcLuaMenuCommand(2575768773, 3134383517 --[[win05_91_explanation_window]], 0, 1517329426 --[[_pos_base01]], 1, -689)
+      else
+        funcLuaMenuCommand(1273612389 --[[CMND_CLOSE_LAYER]], 3134383517 --[[win05_91_explanation_window]])
+      end
+    end
+  end)
+
+  B.wrap("RemoveCharaFromCharaBank", function(orig)
+    return function(...)
+      local r = table.pack(orig(...))
+      if B.autosave then
+        B.autosave = false
+        funcLuaCommand(3673719958 --[[CMND_SYSTEM_AUTO_SAVE]])
+        B.log("quick retire: auto save")
+      end
+      return table.unpack(r, 1, r.n)
+    end
+  end)
+end

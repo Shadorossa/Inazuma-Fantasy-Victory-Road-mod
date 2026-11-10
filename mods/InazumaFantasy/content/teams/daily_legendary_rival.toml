@@ -1,11 +1,4 @@
 schema = "VRFW.team/2"
-# The SLOT TEAM of the «Daily Legendary Rival» row of the Inazuma Fantasy free-match section
-# (content\teams\free_match_section.toml): an ordinary team with 16 player rows (placeholders, only played when the
-# free-match list has no eligible team) and a coach row. The list shows only «Rival del día», a «?» crest and empty cards.
-# When the match is reserved, assets\lua\_all\280_daily_legendary_rival.lua makes it stand in for the day's rival
-# (CMND_VRFW_TEAM_STAND_IN: its name, crest, kit, formation, squad; CMND_VRFW_TEAM_STAND_IN_LOOK: its coach) and sets
-# every member to the row's level (CMND_VRFW_TEAM_MEMBER_LEVELS). The day's rival:
-# scripts\daily_legendary_rival.lua (config.toml [daily_legendary_rival]).
 
 [[team]]
 name = "ct_ft_daily_legendary_rival"
@@ -33,8 +26,8 @@ member = [
   { card = 0x142580C8, slot = 15, number = 16, rarity_step = 1 },                 # Heath Moore (c07030010)
   { card = 0x82B218FB, slot = 19, number = 0 },                                   # Percival Travis (c03039500) · coach
 ]
-  [team.emblem]                           # the «?» crest: the list never shows the day's team (the stand-in takes its crest)
-  png = "assets/images/teams/emblems/daily_rival_unknown.png"   # research/scripts/if_daily_rival_unknown_art.py
+  [team.emblem]
+  png = "assets/images/teams/emblems/daily_rival_unknown.png"   # research/mods/InazumaFantasy/_tools/inazuma_fantasy_daily_rival_crest.py
   base = "em030015"                       # Inazuma Japan's crest family: 512 + 256 «_s»
   catalog = "shared"                      # only the team's crest, never an item the player gets
   [team.text.en]

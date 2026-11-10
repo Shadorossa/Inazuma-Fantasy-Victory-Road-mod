@@ -1,0 +1,16 @@
+schema = "VRFW.shop/2"
+
+# Without Inazuma Fantasy the Chronicle shop sells the story outfits, at the price of its priciest stadium ticket.
+[[edit]]
+target = "0x4E6077DA"
+if_not_mod = "InazumaFantasy"
+
+  [[edit.entry]]
+  item = "knights_armour"
+  costs = [{ currency = "tk_hr000002", count = 15 }, { currency = "tk_hr000007", count = 25 }]
+  stock = 1
+
+  [[edit.entry]]
+  item = "dark_emperors_robe"
+  costs = [{ currency = "tk_hr000002", count = 15 }, { currency = "tk_hr000007", count = 25 }]
+  stock = 1

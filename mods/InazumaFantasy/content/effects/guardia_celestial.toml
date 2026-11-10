@@ -1,0 +1,62 @@
+schema = "VRFW.effect/1"
+# Guardia celestial (content\techniques\guardia_celestial.toml): its events load a copy of Ultramanos magicas' effect
+# object (ev63016600 -> ev630166gc; the game's object is untouched). Everything of the two side giants is hidden (alpha
+# 0): Fujin's vortex and wind, Raijin's spikes and sparks, the thunder and the hand sparks beside them. The ghost's own
+# effects take the gold of Impulso del equipo definitivo; its back aura shows that shot's rainbow.
+
+[[recolor]]
+object = "ev63016600"
+copy = "ev630166gc"
+hue = 52
+mode = "set"
+textures = ["ev63016600_ef_03", "ev63016600_ef_54", "ev63016600_ef_59", "ev63016600_ef_63", "ev63016600_ef_64", "ev63016600_ef_67", "ev63016600_ef_68", "ev63016600_ef_69"]
+materials = ["Effect_ThresholdGrd_49", "Effect_ThresholdGrd_low_02", "Effect_ThresholdGrd_low_13", "Effect_ThresholdGrd_218", "Effect_T1_01", "Effect_ThresholdGrd_low_25", "Effect_T3ThresholdF_55", "Effect_ThresholdGrd_low_01"]
+
+  [recolor.images]
+  "ev63016600_ef_62" = "assets/images/fx/guardia_celestial_rainbow.png"
+
+  [[recolor.tint]]
+  mesh = ["Fujin", "Fuujin", "Raijin", "thunder", "hand_spark"]
+  alpha = 0.0
+
+  # Material of the four impact winds beside Fujin (_290_Fhit_wind2_ura, _290_hit_wind1_ura, _400_hit_wind1, _400_hit_wind2).
+  [[recolor.tint]]
+  material = "Effect_ThresholdGrd_33"
+  alpha = 0.0
+
+  # The back aura shows the rainbow as it is.
+  [[recolor.tint]]
+  material = "Effect_T3ThresholdF_57"
+  rgb = [1.0, 1.0, 1.0]
+
+  [[recolor.tint]]
+  material = "Effect_T3ThresholdF_58"
+  rgb = [1.0, 1.0, 1.0]
+
+# the events load the copy of the effect object
+[[event_command]]
+event = "ev63_81660"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63016600"]
+set = ["ev63016600", "common/effect/event/ev63/ev630166gc/ev630166gc.objbin"]
+
+[[event_command]]
+event = "ev63_81661"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63016600"]
+set = ["ev63016600", "common/effect/event/ev63/ev630166gc/ev630166gc.objbin"]
+
+# The golden giant with its aura (assets\chr\_waza\ev63_91660).
+[[event_command]]
+event = "ev63_81660"
+list = "evt"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63_01660_s00_p<VARIATION>"]
+set = ["ev63_01660_s00_p<VARIATION>", "ev63_91660"]
+
+[[event_command]]
+event = "ev63_81661"
+list = "evt"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev63_01660_s00_p<VARIATION>"]
+set = ["ev63_01660_s00_p<VARIATION>", "ev63_91660"]

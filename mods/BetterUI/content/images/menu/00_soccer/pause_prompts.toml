@@ -1,15 +1,3 @@
-# BetterUI, match HUD: one plate for the pause / restart prompts: «(A) Reanudar» (soccer00_27, the restart button),
-# «(Y) Formación» and «Finalizar partido» (soccer01_33, the text plates of the match menus) all wear the retail HUD
-# command plate cmd_base01 (soccer08_08: small corner radius, dark-to-blue gradient, 85 % opaque) instead of the
-# bright semicircular pill / the dark round pill. cmd_base01 is a 188 x 92 picture with a 20 / 14 px transparent
-# margin around its 148 x 52 rectangle (x 20..168, y 20..72), so the rectangle is cut out first: the plates' meshes
-# then ARE the visible rectangle (the layouts: content\menus\pause_prompts.toml). Made at build, on the player's PC,
-# from his own game files (no Level-5 pixel shipped).
-#   * soccer00_27 restart_btn_base01 (440 x 96, one mesh, no nine-slice): the rectangle stretched to 440 x 96
-#   * soccer01_33 replay_guide_base01 (64 x 52, nine-slice x 28..36 = a text plate that grows with its text): the
-#     rectangle's 28 px left cap + 8 px middle + 28 px right cap, so the gradient ends keep their place at any width
-# soccer01_33 is the layout of every guide text plate of the match menus (formation, retire, game end, AFK kick, stamp
-# view, marking): they all take the same plate.
 schema = "VRFW.image/1"
 
 [[recipe]]
@@ -22,8 +10,6 @@ name = "body"
 from = "cmd"
 ops = [{ op = "crop", box = [20, 20, 168, 72] }]
 
-# the middle 96 columns of the rectangle (20 %..80 % of its gradient): the nine-slice text plates keep a gradient that
-# does not step at the caps, and «Reanudar» (the whole rectangle stretched) matches them
 [[recipe]]
 name = "core"
 from = "body"

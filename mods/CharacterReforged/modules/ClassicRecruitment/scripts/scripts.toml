@@ -1,24 +1,18 @@
-# Settings of New Recruitment's scripts. Every
-# top-level scripts\*.lua is an entry point (the [[script]] rows below only set their permissions), every .lua below (lib\) a library for `require`.
+# Classic Recruitment's scripts: every top-level scripts\*.lua is an entry point, lib\ holds libraries.
 schema = "VRFW.script/1"
 
-# The spirit purge of a duplicated save holds a whole save at once (12.6 MB in,
-# 12.6 MB out) and walks the 7,470 player spirit entries in one slot_duplicate call: the same caps as Character
-# Reforged's duplicate-players hook. Reading and the save tree need no permission; it writes no flags nor saved data.
 [settings]
 budget = 5000000
 memory_kb = 65536
 allow = []
 
-# The pachanga zones keep which pachangas were won
-# in the save slot (save key won.<pachanga>): the save permission.
 [[script]]
 file = "spirit_purge.lua"
 
 [[script]]
-file = "pachangas.lua"
+file = "friendly_zones.lua"
+# the won friendlies are kept in the save slot (save key won.<friendly>)
 allow = ["save"]
 
-# The album price (scripts\album_price.lua): reads config.toml and content\contact_maps\office_terms.toml.
 [[script]]
 file = "album_price.lua"

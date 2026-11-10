@@ -1,7 +1,4 @@
 schema = "VRFW.text/2"
-# Hissatsu Reforged › the «Crítico» archetype: the game's team build 0, «Brecha», renamed. Its gameplay is the
-# critical hit of special moves (scripts/critical.lua, config.toml [critical]). Fixed ids: the retail menu_text rows
-# of build 0 (name, name with its icon, the team build names, the explanation).
 table = "menu_text"
 
 [[row]]

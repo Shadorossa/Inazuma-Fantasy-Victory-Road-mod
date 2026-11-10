@@ -1,0 +1,20 @@
+schema = "VRFW.editor/1"
+# (docs/framework/modmanager-editor-schemas.md, `[[StudioVariant]]`).
+
+[[StudioVariant]]
+Id = "grade_animation"
+Label = { es = "Aspecto", en = "Look" }
+Help = { es = "La animación que la supertécnica muestra desde su nivel G5.", en = "The cut-in the special move shows from its G5 level." }
+Normal = { es = "Normal", en = "Normal" }
+RulesType = "hissatsu_level_up"
+Table = "HissatsuReforged.GradeAnimation"
+MoveField = "technique"
+AnimationField = "animation_of"
+EnabledField = "enabled"
+NewRulesFile = "grade_animations.toml"
+RulesSchema = "HissatsuReforged.rules/1"
+CopyFile = "content/techniques/{name}.toml"
+  [[StudioVariant.Option]]
+  Label = { es = "Grado 5", en = "Grade 5" }
+  Suffix = "g5"
+  Fields = { grade = 5 }

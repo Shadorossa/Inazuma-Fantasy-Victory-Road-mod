@@ -1,0 +1,6 @@
+schema = "CharacterReforged.skill_set/1"
+
+[[CharacterReforged.PlaceRule]]
+name = "hissatsu_level_up"
+command = "CMND_HISSATSUREFORGED_CAN_PLACE"
+slot = "board"

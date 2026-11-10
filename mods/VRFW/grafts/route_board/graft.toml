@@ -1,12 +1,12 @@
-# VR-Framework: the Chronicle route board's hook points and hosts. The board scripts vs_route_town_menu and vs_route_town_command_select_menu are
+# VRFW: the Chronicle route board's hook points and hosts. The board scripts vs_route_town_menu and vs_route_town_command_select_menu are
 # patched by ONE owner, the framework (route_nodes + route_chains + this graft: one merged file per script, so the
 # promoted main-chunk locals exist once). The edits a mod's rules need inside retail functions are generic hook
 # points here (global functions with the retail behaviour as default, rb_common.lua / rbc_common.lua), the piece rank
-# badge drawing (VRFW_RB_Badge), the locals accessors VRFW_RB.L / VRFW_RBC.L, and at the end of each script's patch the
-# VRFW_Host host call: every mod's handlers (registered from its own hook files, [[hooks]], before or after this file
+# badge drawing (VRFW.route_board.badge), the locals accessors VRFW.route_board.L / VRFW.route_board_commands.L, and at the end of each script's patch the
+# VRFW.host host call: every mod's handlers (registered from its own hook files, [[hooks]], before or after this file
 # runs) are hooked there. A mod's chronicle rules (difficulty modes, fast clear, orbs;
 # a "Go to the field" action) are hook files of that mod on these points (the ranks exist only in chains: the "C" piece's
-# badge and a tile's rank are the framework's VRFW_RB_Rank / VRFW_RB_MatchRank defaults, VRFW_MatchRank), so the
+# badge and a tile's rank are the framework's VRFW.route_board.rank / VRFW.route_board.match_rank defaults, VRFW.match_rank), so the
 # framework's nodes, chains and badges work with or without such a mod.
 # Order 190: after route_nodes (160) and route_chains (180), so this graft's own file (the host call last) runs after
 # theirs and every hooked global is defined when the host hooks it.
@@ -17,7 +17,7 @@ module = ""
 requires = ["route_nodes", "route_chains"]
 conflicts = []
 wraps = []
-description = "Chronicle board: hook points, rank badges and VRFW_Host hosts of the board scripts"
+description = "Chronicle board: hook points, rank badges and VRFW.host hosts of the board scripts"
 
 [[files]]
 stem = "vs_route_town_menu"
@@ -27,14 +27,14 @@ stem = "vs_route_town_menu"
   point = "vs_route_town_menu.FinalizeMenu.RouteNodes"
   source = "rb_common.lua"
 
-  # a command-menu result that is a mod's item (VRFW_RB_IsCommand / VRFW_RB_Command): run it; refused = error
+  # a command-menu result that is a mod's item (VRFW.route_board.is_command / VRFW.route_board.command): run it; refused = error
   # sound and back to the command menu (the retail retry label)
   [[files.ops]]
   type = "replace"
   point = "vs_route_town_menu.OpenCommandSelect.RouteBoard"
   text = '''
-  elseif VRFW_RB_IsCommand(n34) then -- VRFW route_board
-    if not VRFW_RB_Command(n34, a1) then
+  elseif VRFW.route_board.is_command(n34) then -- VRFW route_board
+    if not VRFW.route_board.command(n34, a1) then
       funcLuaCommand(1917805374, 2086672038 --[[sy0003]])
       goto L0
     end
@@ -48,7 +48,7 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.PreStep.RouteBoard"
   text = '''
-    VRFW_RB_BackOnBoard() -- VRFW route_board
+    VRFW.route_board.back_on_board() -- VRFW route_board
 '''
   crc = "none"
 
@@ -59,7 +59,7 @@ stem = "vs_route_town_menu"
   point = "vs_route_town_menu.PreStep.RouteBoard2"
   text = '''
     local vrfw_c = {diff = ret13, piece = ret14, slot = ret17, kind = town_map_resource_event4, ok = ret16 == true, wait = false, force = false} -- VRFW route_board
-    VRFW_RB_Clear(vrfw_c)
+    VRFW.route_board.clear(vrfw_c)
 '''
   crc = "none"
 
@@ -76,7 +76,7 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.PreStep.RouteBoard3"
   text = '''
-        VRFW_RB_Cleared(vrfw_c) -- VRFW route_board
+        VRFW.route_board.cleared(vrfw_c) -- VRFW route_board
 '''
   crc = "none"
 
@@ -85,7 +85,7 @@ stem = "vs_route_town_menu"
   type = "replace"
   point = "vs_route_town_menu.PreStep.RouteBoard4"
   text = '''
-        if not VRFW_RB_UnlockNext(vrfw_c) then -- VRFW route_board
+        if not VRFW.route_board.unlock_next(vrfw_c) then -- VRFW route_board
           local game_difficulty_array_idx = GetGameDifficultyArrayIdx(ret13, town_map_resource_event4)
           local game_difficulty_array = GetGameDifficultyArray(town_map_resource_event4)
           if game_difficulty_array_idx < #game_difficulty_array then
@@ -110,7 +110,7 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.UpdateClearEffect.RouteBoard"
   text = '''
-  local vrfw_open = VRFW_RB_OpenEffect(ret4 == 2) == true -- VRFW route_board
+  local vrfw_open = VRFW.route_board.open_effect(ret4 == 2) == true -- VRFW route_board
 '''
   crc = "none"
 
@@ -144,7 +144,7 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.UpdatePieceClearIcon.RouteBoard"
   text = '''
-    if chronicle_clear_status and not VRFW_RB_DotShown(town_map_resource_event2, game_difficulty_array[i]) then -- VRFW route_board
+    if chronicle_clear_status and not VRFW.route_board.dot_shown(town_map_resource_event2, game_difficulty_array[i]) then -- VRFW route_board
       chronicle_clear_status = false
     end
 '''
@@ -155,20 +155,20 @@ stem = "vs_route_town_menu"
   type = "insert_before"
   point = "vs_route_town_menu.UpdatePieceClearIcon.RouteBoardBefore"
   text = '''
-  VRFW_RB_Badge(a1, a2, a3) -- VRFW route_board
+  VRFW.route_board.badge(a1, a2, a3) -- VRFW route_board
 '''
   crc = "none"
 
   # the retail invite check yields while a general window is busy, and PreStep is no coroutine here (LUAERR spam):
-  # VRFW_RB_InviteCheck calls it only when it can wait or will not
+  # VRFW.route_board.invite_check calls it only when it can wait or will not
   [[files.ops]]
   type = "replace"
   point = "vs_route_town_menu.PreStep.RouteBoard6"
   text = '''
-  if VRFW_RN_StartNeighboursStep ~= nil then -- VRFW route_nodes: the start's neighbours stay open on a fresh Chronicle
-    VRFW_RN_StartNeighboursStep()
+  if (VRFW.route_nodes ~= nil and VRFW.route_nodes.start_neighbours_step ~= nil) then -- VRFW route_nodes: the start's neighbours stay open on a fresh Chronicle
+    VRFW.route_nodes.start_neighbours_step()
   end
-  VRFW_RB_InviteCheck() -- VRFW route_board
+  VRFW.route_board.invite_check() -- VRFW route_board
 '''
   crc = "none"
 
@@ -178,21 +178,21 @@ stem = "vs_route_town_menu"
   type = "insert_after"
   point = "vs_route_town_menu.SetupButtonGuideInfo.RouteBoard"
   text = '''
-  if VRFW_FooterPrompts ~= nil then -- VRFW route_board: footer prompts
-    VRFW_FooterPrompts.Apply("vs_route_town_menu", t17, t18, t19, t20, t21, t22)
+  if VRFW.footer_prompts ~= nil then -- VRFW route_board: footer prompts
+    VRFW.footer_prompts.apply("vs_route_town_menu", t17, t18, t19, t20, t21, t22)
   end
 '''
   crc = "none"
 
-  # the host: every mod's VRFW_Host handlers of this script are hooked here, after every definition of the patch
+  # the host: every mod's VRFW.host handlers of this script are hooked here, after every definition of the patch
   [[files.ops]]
   type = "append_block"
   marker = "route_board host"
   text = '''
--- VR-Framework (docs/framework/route-board.md): the board script is a VRFW_Host host; nothing runs at load but the
+-- VRFW (docs/framework/route-board.md): the board script is a VRFW.host host; nothing runs at load but the
 -- hooking of the handlers mods registered (no engine call)
-if VRFW_Host ~= nil and VRFW_Host.host ~= nil then
-  VRFW_Host.host("vs_route_town_menu", {})
+if VRFW.host ~= nil and VRFW.host.host ~= nil then
+  VRFW.host.host("vs_route_town_menu", {})
 end
 '''
   crc = "none"
@@ -210,7 +210,7 @@ stem = "vs_route_town_command_select_menu"
   type = "replace"
   point = "vs_route_town_command_select_menu.OnInit.RouteBoard"
   text = '''
-  t3 = VRFW_RBC_Rows(t[n6], n6, n2) or t[n6] -- VRFW route_board
+  t3 = VRFW.route_board_commands.rows(t[n6], n6, n2) or t[n6] -- VRFW route_board
 '''
   crc = "none"
 
@@ -219,7 +219,7 @@ stem = "vs_route_town_command_select_menu"
   type = "insert_before"
   point = "vs_route_town_command_select_menu.SetupButtonGuide.RouteBoard"
   text = '''
-  VRFW_RBC_Guide(a1, t5, t4, t9) -- VRFW route_board: icons, texts, commands
+  VRFW.route_board_commands.guide(a1, t5, t4, t9) -- VRFW route_board: icons, texts, commands
 '''
   crc = "none"
 
@@ -228,7 +228,7 @@ stem = "vs_route_town_command_select_menu"
   type = "insert_after"
   point = "vs_route_town_command_select_menu.OnSetupLayer.RouteBoard"
   text = '''
-      VRFW_RBC_ListLayer(a1, 0, #t3) -- VRFW route_board
+      VRFW.route_board_commands.list_layer(a1, 0, #t3) -- VRFW route_board
 '''
   crc = "none"
 
@@ -236,7 +236,7 @@ stem = "vs_route_town_command_select_menu"
   type = "insert_after"
   point = "vs_route_town_command_select_menu.OnSetupLayer.RouteBoardAfter"
   text = '''
-      VRFW_RBC_ListLayer(a1, 1, #t3) -- VRFW route_board
+      VRFW.route_board_commands.list_layer(a1, 1, #t3) -- VRFW route_board
 '''
   crc = "none"
 
@@ -244,9 +244,9 @@ stem = "vs_route_town_command_select_menu"
   type = "append_block"
   marker = "route_board host"
   text = '''
--- VR-Framework (docs/framework/route-board.md): the command menu script is a VRFW_Host host (no engine call at load)
-if VRFW_Host ~= nil and VRFW_Host.host ~= nil then
-  VRFW_Host.host("vs_route_town_command_select_menu", {})
+-- VRFW (docs/framework/route-board.md): the command menu script is a VRFW.host host (no engine call at load)
+if VRFW.host ~= nil and VRFW.host.host ~= nil then
+  VRFW.host.host("vs_route_town_command_select_menu", {})
 end
 '''
   crc = "none"

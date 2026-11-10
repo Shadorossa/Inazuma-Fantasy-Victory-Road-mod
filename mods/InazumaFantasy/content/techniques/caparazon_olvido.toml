@@ -1,0 +1,13 @@
+schema = "VRFW.technique/3"
+# This technique is off for this version, and removing the comment marks brings it back.
+# ```
+# # Shell of Oblivion: the keshin technique of the warrior spirit me000010, on Fortaleza desesperada (whd10050).
+#
+# [[technique]]
+# name = "caparazon_olvido"
+# key = "whd92910"
+# base = "whd10050"
+# event = "InazumaFantasy.caparazon_olvido"
+# name_text = 0x9EB8A1CE
+# description_text = 0xCB2E739C
+# ```

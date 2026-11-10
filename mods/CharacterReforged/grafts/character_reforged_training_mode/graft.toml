@@ -1,0 +1,16 @@
+# «Entrenar» button and training mode of Character Reforged's skill table (vrfw_skill_slot_menu). Hook file GENERATED
+# by gen_hooks.py from training_mode.src.lua; the mode's layers (cr_trn_*) are declared in Character Reforged's
+# content\menus\skill_table.toml. No engine call at chunk load.
+name = "character_reforged_training_mode"
+mod = "CharacterReforged"
+order = 330
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "Character Reforged training: «Entrenar» button + training mode on Character Reforged's skill table"
+
+[[hooks]]
+stem = "vrfw_skill_slot_menu"
+source = "training_mode.lua"
+require = ["CharacterReforgedSkillTableOpenOriginalBoard", "CharacterReforgedSkillTablePickCoroutine"]

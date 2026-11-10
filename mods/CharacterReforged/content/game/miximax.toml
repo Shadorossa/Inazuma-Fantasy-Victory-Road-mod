@@ -1,0 +1,33 @@
+schema = "VRFW.game/2"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_MIXIMAX_SET"
+handler = "CharacterReforged.Miximaxed.Set"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_MIXIMAX_CHECK"
+handler = "CharacterReforged.Miximaxed.Check"
+
+# (base) -> partnerHdl, partnerChara (0 = no miximax)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_MIXIMAX_GET"
+handler = "CharacterReforged.Miximaxed.Get"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_MIXIMAX_CLEAR"
+handler = "CharacterReforged.Miximaxed.Clear"
+
+# (card) -> exists, partnerParam, move1, move2, partnerChara, bestMatch, partnerHdl: the card's running fusion.
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_MIXIMAX_FUSION_GET"
+handler = "CharacterReforged.Miximaxed.FusionGet"
+
+# (card) -> ok, favouredMask, g0 ..
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_MIXIMAX_GAINS"
+handler = "CharacterReforged.Miximaxed.Gains"
+
+# (base, partner, move) -> ok, favouredMask, g0 ..
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_MIXIMAX_PREVIEW"
+handler = "CharacterReforged.Miximaxed.Preview"

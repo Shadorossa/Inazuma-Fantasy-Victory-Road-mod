@@ -1,18 +1,3 @@
--- Character Reforged › what each slot of the new skill set accepts.
--- The skill table (graft ss2_menus: 6 move rows + the aura slot + the mix slot) asks CMND_CHARACTERREFORGED_CAN_PLACE (content\game\skill_set.toml) for every
--- row its pickers list and before every equip.
--- Slots: 1..6 the move rows, 7 the aura slot, 8 the mix slot. The base rules are data (content\skill_set\*.toml
--- [CharacterReforged.SkillSet]: the move rows refuse auras, the aura slot takes aura_types, the mix slot mix_types).
--- A move no player can obtain ([[VRFW.Unobtainable]], lib/unobtainable_moves.lua) is refused in every slot (reason
--- "unobtainable").
--- Other mods veto on top of them (e.g. a «no duplicate move» or «levels by use» plugin):
---   CharacterReforged.AddPlaceRule(name, fn)   fn(hdl, slot, move) -> false [, reason] refuses; anything else allows.
---                                             The same name again replaces the rule. Runs only after the base rules
---                                             allowed the move, in name order.
---   CharacterReforged.RemovePlaceRule(name)
---   CharacterReforged.CanPlace(hdl, slot, move) -> ok, reason ("type" = a base rule, else the refusing rule's name)
---   CharacterReforged.SkillSetRules()          -> the merged data rules
--- A rule that errors is logged once and treated as allowing (a broken plugin never blocks the screen).
 
 CharacterReforged = CharacterReforged or {}
 local Unobtainable = require "lib/unobtainable_moves"
@@ -20,9 +5,8 @@ local Unobtainable = require "lib/unobtainable_moves"
 local BUILTIN = { moves_refuse_auras = true, aura_types = { 0, 3 }, mix_types = { 2, 6 } }
 local RULES = nil
 local PLACE = {}        -- name -> fn
-local FAILED = {}       -- name -> true once its error was logged
+local FAILED = {}
 
-require "VRFW/lib/basics"
 local info = VRFW.logger("skill set")
 
 local function set_of(list)
@@ -65,7 +49,6 @@ function CharacterReforged.RemovePlaceRule(name)
   PLACE[name] = nil
 end
 
--- the base rules: the move's aura type against the slot
 local function base_ok(slot, move)
   local r = CharacterReforged.SkillSetRules()
   local okT, t = pcall(VRFW.extra_slot.aura_type, move)
@@ -108,19 +91,6 @@ function CharacterReforged.CanPlace(hdl, slot, move)
   return true, ""
 end
 
--- ---------------------------------------------------------------------------------------------- place rules as data
-
--- Another mod's rule can not be passed to AddPlaceRule (an export's function argument arrives as nil: each mod's
--- scripts run in their own VM). A mod declares it as DATA instead, in its content\skill_set\*.toml:
---
---   [CharacterReforged.PlaceRules.<name>]
---   command = "CMND_<MOD>_CAN_PLACE"   # a game Lua command (charaHdl, slot, move) -> ok[, …]; false refuses
---   slot = "board"                     # the slot argument: "board" = the game's board slot (rows 1-6 -> 0-5, the aura
---                                      # slot -> 8; the mix slot has none: not asked), "set" = this screen's 1..8
---   off = true                         # (a later mod) switches a rule off
---
--- The skill table asks them after CMND_CHARACTERREFORGED_CAN_PLACE allowed (the picker greys, the equip refuses):
--- CMND_CHARACTERREFORGED_PLACE_RULES() -> n, then n x (command id, slot kind 0 set / 1 board), name order.
 local PRULES = nil
 function CharacterReforged.PlaceRuleList()
   if PRULES then return PRULES end
@@ -128,11 +98,11 @@ function CharacterReforged.PlaceRuleList()
   local ok, decl = pcall(VRFW.files.declarations, "content/skill_set")
   for _, f in ipairs(ok and type(decl) == "table" and decl or {}) do
     local d = type(f) == "table" and f.data or nil
-    local t = type(d) == "table" and type(d.CharacterReforged) == "table" and d.CharacterReforged.PlaceRules or nil
-    for name, r in pairs(type(t) == "table" and t or {}) do
-      if type(r) == "table" then
-        m[name] = m[name] or {}
-        for k, v in pairs(r) do m[name][k] = v end
+    local t = type(d) == "table" and type(d.CharacterReforged) == "table" and d.CharacterReforged.PlaceRule or nil
+    for _, r in ipairs(type(t) == "table" and t or {}) do
+      if type(r) == "table" and type(r.name) == "string" then
+        m[r.name] = m[r.name] or {}
+        for k, v in pairs(r) do m[r.name][k] = v end
       end
     end
   end
@@ -142,7 +112,7 @@ function CharacterReforged.PlaceRuleList()
   for _, name in ipairs(names) do
     local r = m[name]
     if r.off ~= true and type(r.command) == "string" and r.command:match("^CMND_[A-Z0-9_]+$") then
-      local id = tonumber(VRFW.ui.crc32(r.command)) or 0
+      local id = tonumber(VRFW.crc32(r.command)) or 0
       if id < 0 then id = id + 4294967296 end
       out[#out + 1] = { name = name, id = id, board = r.slot ~= "set" }
       info(string.format("place rule %s: command %s (slot argument %s)", name, r.command, r.slot ~= "set" and "board" or "set"))
@@ -165,8 +135,6 @@ function CharacterReforged.PlaceRulesCmd()
 end
 
 VRFW.on("game_reset", function() RULES, PRULES = nil, nil end)
--- the save's loading screen: the merged rules and the unobtainable set (every mod's content/techniques read once)
--- built before the skill table's first CMND_CHARACTERREFORGED_CAN_PLACE, never inside a menu command
 VRFW.on("slot_load", function()
   pcall(CharacterReforged.SkillSetRules)
   pcall(CharacterReforged.PlaceRuleList)

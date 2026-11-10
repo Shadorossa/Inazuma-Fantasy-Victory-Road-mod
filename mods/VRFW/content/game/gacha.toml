@@ -1,7 +1,6 @@
 schema = "VRFW.game/2"
 
-# Gacha service: pools of cards mods declare (content\gacha\*.toml, docs/framework/gacha.md). Run time: scripts\gacha.lua;
-# game Lua side: assets\lua\menu\_all\74_gacha.lua (the cost, the draw, the signing, the «obtained» window).
+# Gacha service: pools of cards mods declare (content\gacha\*.toml, docs/framework/gacha.md).
 
 # (pieceId) -> pool index (1-based), 0 = the piece opens no gacha
 [[VRFW.Command]]
@@ -18,7 +17,6 @@ handler = "Gacha.Pool"
 name = "CMND_VRFW_GACHA_CARDS"
 handler = "Gacha.Cards"
 
-# (index) -> the cards a draw picks from now (their character has no player in the club)
 [[VRFW.Command]]
 name = "CMND_VRFW_GACHA_CANDIDATES"
 handler = "Gacha.Candidates"
@@ -28,8 +26,6 @@ handler = "Gacha.Candidates"
 name = "CMND_VRFW_GACHA_OF_GAME"
 handler = "Gacha.OfGame"
 
-# (index) -> the node panel's command text id, its banner image id (0 = none), the no-cost window's text id, the
-# command row's count text id (0 = none)
 [[VRFW.Command]]
 name = "CMND_VRFW_GACHA_TEXTS"
 handler = "Gacha.Texts"

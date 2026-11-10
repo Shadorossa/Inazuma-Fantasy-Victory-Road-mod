@@ -1,4 +1,4 @@
-# Declaration schema of BetterQoL.passive_config/1 (content\passive_config): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+# Declaration schema of BetterQoL.passive_config/1 (content\passive_config).
 schema = "VRFW.decl_schema/1"
 kind = "BetterQoL.passive_config/1"
 folder = "content/passive_config"

@@ -1,9 +1,0 @@
-# Classic Equipment's piece on Character Reforged's player page (CharacterReforged\content\menus\player_page_host.toml):
-# the Suerte of the worn classic items added to the page's Suerte (asked only when no other mod's page_stat entry
-# gives the whole value).
-schema = "VRFW.menu/2"
-
-[[entry]]
-host = "CharacterReforged.page_luck_bonus"
-id = "classic_equipment_luck"
-action = { command = "CMND_CLASSICEQUIPMENT_LUCK" }   # (charaStHdl) -> the worn classic items' Suerte

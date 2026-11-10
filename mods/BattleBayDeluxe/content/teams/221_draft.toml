@@ -84,15 +84,15 @@ levels = [1, 1, 1, 1, 0, 0]
 
 [[team]]
 name = "draft"
-key = "evt_bbd_draft"
+key = "battlebaydeluxe_draft"
 description = 0x479D6F92
 level = 40
 formation = 0x94116F1A
 kit = 0x7A2BAC24
 roster = "exact"
-appears = [{ list = "bb_stadium", category = "main", season = "bbd_modes", sort_before = "bb_01_team_raimon", row = { copy = false, order = 0, stadium = 0x22E965A5, image = "ev_chronicle_img/ev_bb_s10g001_01.g4tx", bgm = 0x6C1E6CDD, unlock_text = 1920306161, image_name = "ev_bb_s10g001_01" } }]
+appears = [{ list = "bb_stadium", category = "main", season = "bbd_modes", sort_before = "bb_01_team_raimon", row = { copy = false, order = 0, stadium = 0x22E965A5, image = "ev_chronicle_img/ev_bb_s10g001_01.g4tx", bgm = 0x6C1E6CDD, unlock_text = 1012830425, image_name = "ev_bb_s10g001_01" } }]
 same_as = ["bb_01_team_raimon"]
-name_text = 0x120BBDC0
+name_text = 0x80EAE77E
 tactics = [0x43D8B1AC, 0x71EED32E, 0x921A0AE5]
 skills = []
 stadium = 0x22E965A5
@@ -358,9 +358,6 @@ c14_19 = [-1, -1, -1, -1, -1, -1]
 rates = [1, 1, 1, 1, 1, 1, 1, 1]
 role = [0, 0]
 loadout = "BattleBayDeluxe.draft.slot_15_moves"
-
-# the staff places of the Draft (BattleBayDeluxe 1.96.0): managers 16-18 and the coach 19, placeholders the draft
-# replaces (game cards with the manager / coach flag; param = uid, the Draft's layout guard)
 
 [[team.member]]
 slot = 16

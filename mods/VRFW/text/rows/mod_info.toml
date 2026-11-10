@@ -1,4 +1,3 @@
-# Framework name and description for the Mods screen: menu_text rows with id = crc32 of "VRFW.mod_name" / "VRFW.mod_description".
 
 schema = "VRFW.text/2"
 table = "menu_text"

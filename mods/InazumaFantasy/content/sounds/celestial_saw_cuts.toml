@@ -1,0 +1,9 @@
+schema = "VRFW.sound/1"
+# Sierra celestial²: the move sound effect follows the three kick cuts of ev60_86001 (content/anims/celestial_saw_cuts.toml).
+# Frames 0-264 play as in the base, the second kick replays frames 221-264 and the third kick resumes from frame 221 to the end.
+
+[[sfx]]
+add = "ev60_86001_me"
+from = "ev60_02910_me"
+bank = "waza_stream"
+segments = [[0, 264], [221, 264], [221, 399]]

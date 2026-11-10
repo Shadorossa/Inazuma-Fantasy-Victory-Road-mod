@@ -1,31 +1,17 @@
--- menu_scene (VRFW): the story submenu (story_mode_top_menu) picks an entry chosen in a menu scene
--- (docs/framework/menu-scene.md, hotspots). title_menu_2 sets param vrfw_menu_scene_story_pick = entry + 1
--- (2 «Historia+», 3 «Historia extendida»); once the submenu takes input, its focus moves to that entry and the
--- submenu's own decision runs for it (OnDecideFocus, as a press of A: a locked entry shows its unlock first, as in the
--- game). Wraps the submenu's Step (no host for this script). No engine call at load time.
 
 local MSP = {
-  LOG = VRFW_Cmd.EVT_LOG,          -- CMND_EVT_LOG
   PICK = 1790329263,         -- param vrfw_menu_scene_story_pick
   LIST = 1903952903,         -- the submenu's entry list layer
-  FOCUS_ACTIVE = VRFW_Cmd.IS_CTRL_FOCUS_ACTIVE,  -- (layer) -> the layer holds the control focus
+  FOCUS_ACTIVE = VRFW.commands.IS_CTRL_FOCUS_ACTIVE,  -- (layer) -> the layer holds the control focus
   FOCUS_INDEX = 2603265800,  -- (layer) -> its focused instance
   FOCUS_MARK = 1778826357,   -- (layer, instance, true): the focus moves there
-  READY_FRAMES = 15,         -- frames the list holds the focus before the pick
+  READY_FRAMES = 15,
   GIVE_UP_FRAMES = 600,
 }
 
 local msp = { row = nil, frames = 0, ready = 0, marked = false, co = nil }
 
-local function MSP_Log(...)
-  pcall(funcLuaCommand, MSP.LOG, "menu_scene", "story_mode_top_menu", ...)
-end
-
-local function MSP_M(...)
-  local r = table.pack(pcall(funcLuaMenuCommand, ...))
-  if not r[1] then return nil end
-  return table.unpack(r, 2, r.n)
-end
+local MSP_Log = VRFW.logger.new("menu_scene, story_mode_top_menu")
 
 local function MSP_Step()
   if msp.co ~= nil then
@@ -41,7 +27,7 @@ local function MSP_Step()
     return
   end
   if msp.row == nil then
-    local v = VRFW_Param.Take(MSP.PICK)
+    local v = VRFW.param.take(MSP.PICK)
     if v == nil then return end
     v = tonumber(v) or 0
     if v < 1 or v > 4 then return end
@@ -54,16 +40,16 @@ local function MSP_Step()
     msp.row = nil
     return
   end
-  if MSP_M(MSP.FOCUS_ACTIVE, MSP.LIST) ~= true then
+  if VRFW.host.menu_command(MSP.FOCUS_ACTIVE, MSP.LIST) ~= true then
     msp.ready = 0
     return
   end
   msp.ready = msp.ready + 1
   if msp.ready < MSP.READY_FRAMES then return end
-  if MSP_M(MSP.FOCUS_INDEX, MSP.LIST) ~= msp.row then
+  if VRFW.host.menu_command(MSP.FOCUS_INDEX, MSP.LIST) ~= msp.row then
     if not msp.marked then
       msp.marked = true
-      MSP_M(MSP.FOCUS_MARK, MSP.LIST, msp.row, true)
+      VRFW.host.menu_command(MSP.FOCUS_MARK, MSP.LIST, msp.row, true)
     end
     return
   end

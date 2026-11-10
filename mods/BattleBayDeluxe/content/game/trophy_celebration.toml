@@ -1,6 +1,4 @@
-# The match globals Battle Bay Deluxe's competitions read around the champions' celebration (scripts\lib\
-# trophy_celebration.lua: the rival of the Campaña's last match). The celebration itself is VRFW's
-# (docs/framework/trophy.md). Native data (schema VRFW.game/1, docs/framework/native.md).
+# (docs/framework/trophy.md). Native data (schema VRFW.game/1, docs/internal/native.md).
 schema = "VRFW.game/1"
 
 [[VRFW.Global]]

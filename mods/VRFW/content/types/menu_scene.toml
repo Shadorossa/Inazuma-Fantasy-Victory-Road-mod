@@ -1,4 +1,3 @@
-# Declares `[[VRFW.MenuScene]]` keys for content\menu_scenes\*.toml; unknown keys, wrong types or out-of-range values drop that declaration with a warning.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.menu_scene/1"
 folder = "content/menu_scenes"
@@ -9,7 +8,7 @@ doc_es = "Un mapa 3D de campo que se mantiene cargado bajo un menú del juego: e
 
 [entry.MenuScene]
 doc = "a 3D field map kept loaded under a game menu: the map, where its walker stands, the menu layers hidden while it is up"
-# Read by scripts\menu_scene.lua (docs/framework/menu-scene.md). One scene per menu: with several, the later mod in load order wins.
+# Read by scripts\menu_scene.lua (docs/framework/menu-scene.md).
 name = { type = "name", required = true, doc = "the scene (key <mod>.<name>)" }
 menu = { type = "string", required = true, doc = "the menu drawn over the map: title_menu_2 (the main menu, the only one supported)" }
 selectable = { type = "bool", default = false, doc = "an alternate scene selected explicitly with CMND_VRFW_MENU_SCENE_TRAVEL; does not replace the menu's default scene" }
@@ -112,7 +111,7 @@ x = { type = "number", required = true, doc = "the centre, metres" }
 z = { type = "number", required = true, doc = "metres" }
 
 [entry.MenuScenePeople]
-doc = "GENERATED (research/scripts/menu_scene_people_build.py): the scene's npc_setting template for `count` people, hex, with the sentinels the run time patches"
+doc = "GENERATED (by the tool of the mod that owns the scene): the scene's npc_setting template for `count` people, hex, with the sentinels the run time patches"
 scene = { type = "name", required = true, doc = "the scene" }
 count = { type = "int", required = true, min = 0, max = 32, doc = "people in this template" }
 template = { type = "string", required = true, doc = "the npc_setting bytes, hex" }
@@ -151,7 +150,7 @@ return = { type = "string", default = "", doc = "where Back goes from the menu t
 edge_actor = { type = "int", min = 0, max = 32, default = 0, doc = "a [[VRFW.MenuSceneSpot]] slot whose scene actor (people_as = \"actors\") is the hotspot's object: while the hotspot is selected that character gets a white edge (its own CCharaEdgeProperty, the game's character outline), instead of the rectangle. 0 = none" }
 call = { type = "string", default = "", doc = "with the action call: a function of the title's Lua (a global, dotted path, e.g. MyMod.Avatar.Open) the press runs with the hotspot's name; it does the rest (the title is not left)" }
 outline_tag = { type = "string", default = "", doc = "a map tag (the token of the map's mesh names, e.g. HSDOOR: meshes named …_HSDOOR_; its row in the map's tag_management_config) switched on while this hotspot is selected and off otherwise: a mod's own outline of the object (e.g. a white inverted hull model); the rectangle outline is then not drawn. Empty = the rectangle" }
-draw = { type = "bool", default = true, doc = "false: the framework draws neither the text nor the outline (the selection and A still work): the mod draws the hotspot itself and reads the selection (VRFW_MenuSceneHotspot() in the menu's Lua)" }
+draw = { type = "bool", default = true, doc = "false: the framework draws neither the text nor the outline (the selection and A still work): the mod draws the hotspot itself and reads the selection (VRFW.menu_scene.hotspot() in the menu's Lua)" }
 when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }
 
 [entry.MenuSceneFile]

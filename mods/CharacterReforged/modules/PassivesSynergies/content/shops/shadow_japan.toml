@@ -1,0 +1,12 @@
+schema = "VRFW.shop/2"
+
+# In the retail synergy shop 0x5B032CEA for 10 cards of Dave Quagmire and 10 of Caleb Stonewall.
+[[edit]]
+target = "0x5B032CEA"
+  [[edit.entry]]
+  item = "shadow_japan"
+  stock = 1
+  costs = [
+    { currency = "neo_japan_captain_card", count = 10 },
+    { currency = "japan_resistance_card", count = 10 },
+  ]

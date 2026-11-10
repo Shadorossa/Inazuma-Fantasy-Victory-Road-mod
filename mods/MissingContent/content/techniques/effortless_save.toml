@@ -1,0 +1,7 @@
+schema = "VRFW.technique/3"
+# A save without a move from a shot that took at most 15 % of the gauge plays the effortless save cut-in.
+
+[[keeper_scene]]
+save = "effortless_save"          # event ev71_80030 (content\anims\effortless_save.toml)
+max_gauge_damage = 0.15           # the shot took at most 15 % of the keeper's full gauge
+keeper_save = ["front", "low"]

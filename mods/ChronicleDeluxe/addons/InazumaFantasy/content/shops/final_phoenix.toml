@@ -1,0 +1,9 @@
+schema = "VRFW.shop/2"
+
+[[edit]]
+target = "InazumaFantasy.technique_shop"
+
+  [[edit.entry]]
+  technique = "ChronicleDeluxe.final_phoenix"    # Fénix final: shot, 640
+  price = 32
+  currency = "tk_bb000001"

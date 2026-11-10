@@ -1,18 +1,13 @@
--- mods_menu (VRFW): the «Mods» screen, the «Ajustes» tab: the settings of every active mod in one list, in load order,
--- under a bar per mod and per active module. The rows are the ones of each mod's own «Ajustes» view (RV.SetRows) and are
--- drawn and changed by the same functions, so values and storage are the same. Read when the screen draws (after an
--- input or a change). Runs after 100_mods_screen.lua in the same VM and takes the names it shares from VRFW_ModsScreen.
--- No engine call at load time.
-local Screen = VRFW_ModsScreen
+local Screen = VRFW.mods_screen
 if Screen == nil then
   return
 end
-local C, CE, Cut, DrawScrollbar, Fit, G = Screen.C, Screen.CE, Screen.Cut, Screen.DrawScrollbar, Screen.Fit, Screen.G
-local Hit, K, ModById, Quad, RV, SE_MOVE = Screen.Hit, Screen.K, Screen.ModById, Screen.Quad, Screen.RV, Screen.SE_MOVE
-local SE_NG, SP, T, Txt, Wrap, ui = Screen.SE_NG, Screen.SP, Screen.T, Screen.Txt, Screen.Wrap, Screen.ui
+local C, CE, Cut, DrawScrollbar, Fit, G = Screen.C, Screen.CE, Screen.cut, Screen.draw_scrollbar, Screen.fit, Screen.G
+local Hit, K, ModById, Quad, RV, SE_MOVE = Screen.hit, Screen.K, Screen.mod_by_id, Screen.quad, Screen.RV, Screen.SE_MOVE
+local SE_NG, SP, T, Txt, Wrap, ui = Screen.SE_NG, Screen.SP, Screen.T, Screen.txt, Screen.wrap, Screen.ui
 
 local ST = {
-  sig = nil,        -- which mods the cached rows belong to
+  sig = nil,        -- Which mods the cached rows belong to.
   MODULE_INDENT = 24,
   STYLE = {q = "Q1", l = "TL", c = "TC", bar_h = G.ROW_H, chips = 16},
 }
@@ -20,7 +15,7 @@ local ST = {
 -- the active mods in load order, the framework first; and a signature of them and of their active modules
 local function ActiveMods()
   local active = {}
-  for _, m in ipairs(Screen.Mods()) do
+  for _, m in ipairs(Screen.mods()) do
     if m.enabled and m.family == nil then
       active[#active + 1] = m
     end
@@ -32,8 +27,8 @@ local function ActiveMods()
     end
     return a.order < b.order
   end)
-  if Screen.BaseMod() ~= nil then
-    table.insert(active, 1, Screen.BaseMod())
+  if Screen.base_mod() ~= nil then
+    table.insert(active, 1, Screen.base_mod())
   end
   local parts = {}
   for _, m in ipairs(active) do
@@ -51,7 +46,7 @@ end
 local function Rows()
   local active, sig = ActiveMods()
   if sig ~= ST.sig then
-    RV.cache = {}          -- a mod or a module changed: its pages' rows are read again too
+    RV.cache = {}
     ST.sig = sig
   end
   local list = RV.cache.settings_tab
@@ -61,7 +56,7 @@ local function Rows()
   list = {count = 0}
   for _, m in ipairs(active) do
     local group = nil
-    for n, r in ipairs(RV.SetRows(m)) do
+    for n, r in ipairs(RV.set_rows(m)) do
       if n == 1 then
         list[#list + 1] = {head = true, m = m}
       end
@@ -78,54 +73,54 @@ local function Rows()
 end
 
 local function Selected(rows)
-  ui.ssel = CE.HeadedSelected(rows, ui.ssel)
+  ui.ssel = CE.headed_selected(rows, ui.ssel)
   return ui.ssel
 end
 
-function CE.SettingsTabLabel()
+function CE.settings_tab_label()
   return T("tab_settings_all", {n = Rows().count})
 end
 
 -- the mod of the focused setting (nil = none)
-function CE.SettingsMod()
+function CE.settings_mod()
   local rows = Rows()
   local row = rows[Selected(rows)]
   return row ~= nil and ModById(row.m.id) or nil
 end
 
 -- the focused setting's row on its mod's page
-function CE.SettingsPageRow()
+function CE.settings_page_row()
   local rows = Rows()
   local row = rows[Selected(rows)]
   return row ~= nil and row.n or 1
 end
 
 -- the focused setting one step in direction dir (±1), by the function of the mod's page
-function CE.SettingsChange(dir)
+function CE.settings_change(dir)
   local rows = Rows()
   local row = rows[Selected(rows)]
   if row == nil then
     funcLuaCommand(C.SE, SE_NG)
     return
   end
-  RV.Change(row.m, dir, row.r)
+  RV.change(row.m, dir, row.r)
 end
 
-function CE.SettingsMove(d)
+function CE.settings_move(d)
   local rows = Rows()
   local s = Selected(rows)
-  local t = CE.HeadedStep(rows, s, d)
+  local t = CE.headed_step(rows, s, d)
   if t == s or s == 0 then
     funcLuaCommand(C.SE, SE_NG)
     return
   end
   funcLuaCommand(C.SE, SE_MOVE)
   ui.ssel = t
-  Screen.Draw()
+  Screen.draw()
 end
 
 -- the mouse over a setting row selects it (true = draw again)
-function CE.SettingsHover(id)
+function CE.settings_hover(id)
   local n = tonumber(string.match(id, "^stg(%d+)$") or "")
   local rows = Rows()
   if n == nil or rows[n] == nil or rows[n].head or n == ui.ssel then
@@ -138,34 +133,34 @@ end
 local function DrawEmpty()
   Quad("Q2", SP("white"), G.LIST_X, G.LIST_Y, G.ROW_W - 12, 200)
   Txt("TL", "[CN]" .. Cut(T("st_empty"), Fit(G.ROW_W - 80, 1.0)) .. "[C]", G.LIST_X + 30, G.LIST_Y + 58, 1.0)
-  CE.InfoPanel(nil)
+  CE.info_panel(nil)
 end
 
 -- the focused setting's sheet in the info panel's place
 local function DrawSheet(row)
-  CE.PanelFrame()
+  CE.panel_frame()
   local x, w = G.PANEL_X, G.PANEL_W
-  Txt("TL", Cut((RV.SetLabel(row.r)), Fit(w - 160, 1.0)), x + 96, G.PANEL_Y + G.PANEL_HEAD / 2, 1.0)
-  RV.DrawSetSheet(ST.STYLE, row.r, RV.GroupName(row.m), x + 30, G.PANEL_BODY_Y + 34, w - 60)
+  Txt("TL", Cut((RV.set_label(row.r)), Fit(w - 160, 1.0)), x + 96, G.PANEL_Y + G.PANEL_HEAD / 2, 1.0)
+  RV.draw_set_sheet(ST.STYLE, row.r, RV.group_name(row.m), x + 30, G.PANEL_BODY_Y + 34, w - 60)
   local bottom = G.PANEL_BODY_Y + G.PANEL_BODY_H
   for k, l in ipairs(Wrap(T("set_note"), Fit(w - 60, 0.58), 2)) do
     Txt("TL", "[CWG]" .. l .. "[C]", x + 30, bottom - 96 + (k - 1) * 26, 0.58)
   end
   local hint_y = bottom - 30
   Txt("TR", "[CWG]" .. K.START .. " " .. Cut(T("panel_details"), Fit(300, 0.62)) .. "[C]", x + w - 30, hint_y, 0.62)
-  Hit(x + w - 380, hint_y - 18, 360, 36, "pdetails", Screen.OpenDetails)
+  Hit(x + w - 380, hint_y - 18, 360, 36, "pdetails", Screen.open_details)
 end
 
-function CE.DrawSettingsTab()
+function CE.draw_settings_tab()
   local rows = Rows()
-  CE.ListBox()
+  CE.list_box()
   if #rows == 0 then
     DrawEmpty()
     return
   end
   local vis = G.LIST_ROWS
   local s = Selected(rows)
-  ui.stop = CE.HeadedTop(ui.stop, s, vis, #rows)
+  ui.stop = CE.headed_top(ui.stop, s, vis, #rows)
   local x, w, chips = G.LIST_X, G.ROW_W, {n = 0}
   for i = 1, math.min(vis, #rows - ui.stop) do
     local n = ui.stop + i
@@ -174,11 +169,11 @@ function CE.DrawSettingsTab()
     local hid = "stg" .. n
     if row.head then
       local indent = row.group ~= nil and ST.MODULE_INDENT or 0
-      RV.DrawGroupBar(ST.STYLE, row.group or row.m, x + indent, y, w - indent)
+      RV.draw_group_bar(ST.STYLE, row.group or row.m, x + indent, y, w - indent)
       Hit(x, y, w, G.ROW_H, hid, function()
         -- a bar: the mod's page, on the first setting under it
-        ui.ssel = CE.HeadedStep(rows, n, 1)
-        Screen.OpenDetails()
+        ui.ssel = CE.headed_step(rows, n, 1)
+        Screen.open_details()
       end)
     else
       local sel = n == s and ui.popup == nil
@@ -186,17 +181,17 @@ function CE.DrawSettingsTab()
       if sel then
         Quad("Q1", SP("arrow_g"), x - 20, y + G.ROW_H / 2 - 14, 18, 28)
       end
-      RV.DrawRow(ST.STYLE, row.r, x, y, w, G.ROW_H, sel, chips)
+      RV.draw_row(ST.STYLE, row.r, x, y, w, G.ROW_H, sel, chips)
       Hit(x, y, w, G.ROW_H, hid, function()
         ui.ssel = n
-        CE.SettingsChange(1)
+        CE.settings_change(1)
       end)
     end
   end
   DrawScrollbar(#rows, ui.stop, vis, G.SB_X, G.LIST_Y, vis * G.ROW_STEP - (G.ROW_STEP - G.ROW_H), function(f)
     -- the bar moves the page and the selection with it (the first setting shown)
     ui.stop = f
-    ui.ssel = rows[f + 1] ~= nil and rows[f + 1].head and CE.HeadedStep(rows, f + 1, 1) or f + 1
+    ui.ssel = rows[f + 1] ~= nil and rows[f + 1].head and CE.headed_step(rows, f + 1, 1) or f + 1
   end)
   DrawSheet(rows[s])
 end

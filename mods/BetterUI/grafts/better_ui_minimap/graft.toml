@@ -1,0 +1,28 @@
+# BetterUI: the match minimap (pitch + player dots, one layer) moves up after OnSetupLayer / OnOpenLayer.
+name = "better_ui_minimap"
+order = 906
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = ["OnSetupLayer", "OnOpenLayer"]
+description = "BetterUI: match minimap moved up"
+
+[[files]]
+stem = "soccer_constant_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "minimap_up.lua"
+  marker = "better_ui minimap"
+  crc = "none"
+
+# 5v5 / battle matches use soccer_battle_constant_menu, same minimap layer.
+[[files]]
+stem = "soccer_battle_constant_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "minimap_up.lua"
+  marker = "better_ui minimap"
+  crc = "none"

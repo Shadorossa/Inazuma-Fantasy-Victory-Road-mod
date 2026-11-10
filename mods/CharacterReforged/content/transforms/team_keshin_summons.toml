@@ -1,0 +1,30 @@
+schema = "VRFW.transform/2"
+if_mod = "CharacterReforged.keshin_points"
+
+# Team keshin summons: one [[aura_rule]] per keshin summoned by several players (how to add one:
+# content\anims\team_keshin_summons.toml).
+
+# ---------------------------------------------------------------- Griffin (Grifo, wks00300): 3 players
+[[aura_rule]]
+aura = "wks00300"                                      # Griffin (Gryphon)
+carriers = 3
+components = [["wks00330", "wks00020", "wks00030"]]    # Pegasus Arc + Lancelot + Maestro
+all_can_use_move = true
+cost = "shared"
+cost_resource = "CharacterReforged.keshin_points"                      # each participant's PEG pool of the keshin
+partners = "bound"
+transfer = false
+cut_in = "ev80_80300"                                  # CharacterReforged.griffin_trio (the 3 participants)
+move_event = { from = "ev60_01900", to = "ev60_81900" }  # CharacterReforged.flamberge_trio
+
+# ---------------------------------------------------------------- Arthur (Arturo, wks00240): 2 players
+[[aura_rule]]
+aura = "wks00240"                                      # Arthur
+carriers = 2
+components = [["wks00290", "wks00280"]]                # Shining Dragon + Dark Exodus
+all_can_use_move = true
+cost = "shared"
+cost_resource = "CharacterReforged.keshin_points"                      # each participant's PEG pool of the keshin
+partners = "bound"
+transfer = false
+cut_in = "ev80_80240"                                  # CharacterReforged.arthur_duo (the 2 participants)

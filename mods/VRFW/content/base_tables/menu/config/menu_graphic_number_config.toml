@@ -1,8 +1,4 @@
 schema = "VRFW.base_table/1"
-# VRFW: 4 digit slots for the stat numbers of soccer11_06_p1_formation_status_graph_param_num (retail 3, centred, so a
-# value of 3 digits or fewer is drawn as before). With DispMaxValue 9999 (content\menus\stat_number_digits.toml) the
-# stats show up to 9999; the number fit (content\number_fit\stat_numbers.toml) keeps them at the width of 3 digits.
-# Keyed by the number's id (column #0): the row positions differ per game build.
 
 [[keyed]]
 list = "MENU_GRAPHIC_NUMBER"
@@ -33,9 +29,6 @@ key_columns = ["#0"]
   cells = { "#5" = 4 }
 
 # 6 digit slots for the held-item counters (retail 5): a stack of up to 999999 (an item's max_stack) is drawn in full.
-# Digits are laid out by the value's own length, so shorter values keep their right edge. Spacing (#7) tightened (retail
-# 0, -1, -1, +1) so that 6 digits fit the room the layouts reserve for 5, left of the bag icon.
-# DispMaxValue per layer: content\menus\item_count_digits.toml.
 
   [[keyed.set]]
   key = 0x80A0D941                      # num_shop_have01: the item cards and shop rows

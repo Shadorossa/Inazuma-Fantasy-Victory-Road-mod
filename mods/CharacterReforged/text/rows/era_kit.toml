@@ -1,5 +1,3 @@
-# Character Reforged › the name of the ídolos' era kit switch in «Equipamiento» (content\card_looks\era_kit.toml label;
-# the VR-Framework's row reads «<name>: Activada / Desactivada»).
 schema = "VRFW.text/2"
 table = "menu_text"
 

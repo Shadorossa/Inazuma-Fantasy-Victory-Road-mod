@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
-# Inazuma Eleven Cross · Raimon · Inazuma Eleven: the Cross version(s) of this team's characters (fixed ids, created
-# by their `order`; series «Inazuma Eleven Cross»: chara_base team_3 = crc32("evt_belong_team_cross")). Inazuma
-# Fantasy's EVT fields of their cards (growth, Lv200 stats, INAROGUE rarity) are IF's characters\iecross_cards.toml.
 default_lang = "en"
 
 [[character]]
@@ -13,7 +10,7 @@ order = 41
   id = 0x49B03110
   name = "c90000071"
   voice_bank = 0x25D3FD3A
-  team_3 = 0x1E5DC7AA
+  team_3 = 0x1002688A
   in_ie1 = 0
   in_ie3 = 1
 

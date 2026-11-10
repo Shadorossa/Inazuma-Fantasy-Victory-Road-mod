@@ -1,7 +1,3 @@
-# BetterUI: Estadio BB's top menu (bb_stadium_top_menu) without the way into its corner buttons «V Guía de controles» /
-# «Alt Tutorial» (graft clean_hud_menu_cleanup hides them): Right on the lists no longer moves the focus to them (the
-# retail CMD_FCS_CHANGE rows, 0x112ACC3D = the corner buttons). V / Y (the lists' CMD_FUNC3, the controls guide) stays
-# and is shown in the footer («Y Guía de controles», graft clean_hud_controls_guide).
 schema = "VRFW.menu/2"
 
 [[patch]]

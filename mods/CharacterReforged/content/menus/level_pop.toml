@@ -1,0 +1,22 @@
+# Character Reforged › the level-up pop over a player on the pitch.
+schema = "VRFW.menu/2"
+
+[[object]]
+name = "souls_rework_level_pop"
+from = "soccer00_71_camera_change_telop"
+remove_block = ["MenuAnchorComponent"]
+add_block = [{ block = "MenuAnchorComponent", values = [], after = "CMenuTextPlateUpdateProperty" }]
+add = [
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointHorizontalV", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointVerticalV", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointHorizontalH", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointVerticalH", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_autoCalcPos", values = [0] },
+]
+
+[[patch]]
+menu = "soccer_inplay_menu"
+add_layer = { name = "souls_rework_level_pop", object = "souls_rework_level_pop", count = 8, after = "soccer08_27_catch_bomb_recast_gauge", groups = [
+    { group = "soccer_inplay_menu", flags = [0, 0, 0, 0, 1, 0] },
+    { group = "soccer_battle_inplay_menu", flags = [0, 0, 0, 0, 1, 0] },
+] }

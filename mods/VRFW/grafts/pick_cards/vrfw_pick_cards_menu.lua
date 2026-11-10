@@ -1,24 +1,12 @@
--- vrfw_pick_cards_menu (plain Lua 5.2 source): the VR-Framework's PICK CARDS screen (graft pick_cards, mod VRFW;
--- declared in the framework's menus\pick_cards.toml, served as common/script/lua/menu/vrfw_pick_cards_menu.lua.bin;
--- docs/framework/pick-cards.md).
--- A «pick 1 of N» reward screen over the menu that opens it: that menu dimmed, the cards side by side (3 in view; more
--- scroll with the arrows), each a player (his portrait), an item (its icon) or plain text, with its name, a sub line,
--- up to 3 short lines, a wrapped description and a badge ({name} in a player card's texts = his name); under them an
--- optional «skip». The cards are a mod's
--- (PickCards.Set in its script; CMND_VRFW_PICK_CARDS (0) = the header, (i) = card i).
--- Keys: left / right move between the cards, down / up to the skip and back, Accept picks, Back skips (when the set
--- allows it). Mouse / free cursor: the shared pointer helper (hover selects, a click picks, the wheel moves).
--- Out: parameter crc32("vrfw_pick_cards_pick") = the picked card (0 = skipped); read by VRFW_PickCards.Show.
--- Rule: no engine call at top level; funcLuaCommand only exists inside callbacks.
+-- vrfw_pick_cards_menu (plain Lua 5.2 source)
 INCLUDE("LUA_PROG_BASE")
 INCLUDE("LUA_SAVEDATA_MANAGEMENT_MENU_INC")   -- header helpers (soccer top inc)
 
-local MENU = 234125520            -- crc32("vrfw_pick_cards_menu")
-local KEY_RESULT = 3913043416     -- crc32("vrfw_pick_cards_pick"): parameter out, the picked card (0 = skip)
-local CMD_CARDS = @crc:CMND_VRFW_PICK_CARDS@       -- (0 / i)
+local MENU = 234125520
+local KEY_RESULT = 3913043416
+local CMD_CARDS = @crc:CMND_VRFW_PICK_CARDS@
 local CMD_CHARA_INFO = @crc:CMND_GET_CHARA_INFO@ -- (chara_param, 0) -> ok, name
 
--- ---- layers ---------------------------------------------------------------------------------------------------------
 local L_ROW = 3455690937        -- save01_02_list_item (1 instance: the input anchor, off screen)
 local L_HEADER = 575058101      -- mainmenu90_01_header (off)
 local L_GUIDE_LINE = 3078308064 -- mainmenu90_05_content_guide_line01 (off)
@@ -26,27 +14,23 @@ local L_CURSOR = 2296367164     -- cmn05_01_cursor (off)
 local L_BTN_GUIDE = 1138543975  -- mainmenu01_06_base_button_guide
 local L_BTN = 9396745           -- mainmenu01_07_button_guide
 local L_RET = 2005383485        -- mainmenu01_10_return_arrow_button_guide
-local L_RETAIL_BG = 367379312   -- mainmenu90_00_background (off: the menu under the screen shows, dimmed)
-local L_PLATE = 2153900801      -- vrfw_pc_plate x48: the dim, frames, cards, badges, icons, arrows, the skip pill
-local L_FACE = 785015734        -- vrfw_pc_face  x3: the players' portraits (VRFW_FaceIcon.Card)
+local L_RETAIL_BG = 367379312
+local L_PLATE = 2153900801
+local L_FACE = 785015734        -- vrfw_pc_face  x3: the players' portraits (VRFW.face_icon.card)
 local L_TEXT = 274054934        -- vrfw_pc_text  x64 (save01_02_list_item): every text line
 local N = {PLATE = 48, FACE = 3, TEXT = 64}
 
 local C = {
   DRAW_PRIORITY = @crc:CMND_SET_DRAW_PRIORITY@,   -- (layer, instance, priority, children)
   TEXT = @crc:CMND_SET_MENU_TEXT_STRING@, MESH_VISIBLE = @crc:CMND_SET_MESH_VISIBLE@, LAYER_VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@, ALPHA = @crc:CMND_SET_LAYER_MODEL_ALPHA@,
-  SPRITE = 558735651, LOAD_TEX = @crc:CMND_LOAD_MENU_RES_TEXTURE@, TEX_LOADING = 1506186496, SCALE = @crc:CMND_SET_LAYER_LOCAL_SCALE@, POS = @crc:CMND_SET_LAYER_LOCAL_POS@,
   ATTACH_TRACE = @crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, OPEN_LAYER = @crc:CMND_OPEN_LAYER@,
-  FOCUS_ENABLE = @crc:CMND_SET_ENABLE_CTRL_FOCUS@, FOCUS_SET = 3466097042, LIST_NUM = 3252599449,
   GUIDE_SET = 2209673388, GUIDE_CMD = 452337289, GUIDE_OPT = 1432240275,
   SE = @crc:CMND_SND_PLAY_SE@, CLOSE_MENU = @crc:CMND_CLOSE_MENU_OBJECT@,
-  TEXT_VISIBLE = @crc:CMND_SET_MENU_TEXT_VISIBLE@, TEXT_GET = @crc:CMND_TEXT_GET@, PRIM_COLOR = @crc:CMND_SET_PRIM_COLOR@, LOG = @crc:CMND_EVT_LOG@,
-  MSG_BUSY = 898725220, CHECK_INPUT = @crc:CMND_CHECK_INPUT_CMD@, FREE_CURSOR = @crc:CMND_SET_ENABLE_FREE_CURSOR_FOR_VIRTUAL_MOUSE@,
+  TEXT_VISIBLE = @crc:CMND_SET_MENU_TEXT_VISIBLE@,
+  MSG_BUSY = 898725220, FREE_CURSOR = @crc:CMND_SET_ENABLE_FREE_CURSOR_FOR_VIRTUAL_MOUSE@,
 }
-local MESH_QUAD = 312193881     -- the cmn01_10 quad's mesh
-local NODE_QUAD = 1909474081    -- icon_new01 (the cmn01_10 quad's sprite node)
-local CUR = 3313461902          -- crc32("cursor")
-local FN = {LEFT = 1371144121, RIGHT = 1161120078, UP = 2985797217, DOWN = 924944618}   -- vrfw_pc_left / …
+local CUR = 3313461902
+local FN = {LEFT = 1371144121, RIGHT = 1161120078, UP = 2985797217, DOWN = 924944618}
 local T_CHOOSE, T_SKIP = 2572112352 --[[VRFW.PickCards.Choose]], 2232040966 --[[VRFW.PickCards.Skip]]
 local I_ENTER, K_ENTER = 2750714971 --[[<CMD_ENTER>]], 1981080283
 local I_BACK, K_BACK = 1582778933 --[[<CMD_BACK>]], 3011112225
@@ -55,8 +39,7 @@ local ROW_MESHES = {3025401186, 486732393, 376662541, 3232607807, 1516082254, 32
 local TEXT_ON, TEXT_OFF = 931545948 --[[_text_list01_on: light]], 3705682548 --[[_text_list01_off: dark]]
 local TEXT_DX = 226             -- the list item's text node starts this far right of its origin
 local CHAR_W = 15               -- the width of one letter at scale 1
-local WRAP_W = 21               -- the widest letter at scale 1 (a wrapped line never runs past its column)
-local Q = 36                    -- the cmn01_10 quad's own size
+local WRAP_W = 21
 
 -- the layout (screen px at 1080p, y down) and the draw priorities (over the menu under the screen)
 local LO = {
@@ -66,8 +49,7 @@ local LO = {
   prio = {dim = 1001, focus = 1002, frame = 1002, card = 1003, part = 1004, text = 1006},
 }
 
--- the screen's pictures by ROLE: a mod's sprite (content\screen_art\*.toml, Screen = "pick_cards"), else a shape of the
--- framework's neutral atlas vrfw_plain tinted with the role's colour
+-- The screen's pictures by ROLE.
 local ART_SCREEN = "pick_cards"
 local FALLBACK = {
   dim = {"square", {0, 0, 0}},
@@ -89,33 +71,20 @@ local FALLBACK = {
   arrow_r = {"arrow_r", {1, 1, 1}},
 }
 local FALLBACK_ANY = {"square", {1, 1, 1}}
-local art, plain_tint = {}, {}
 
--- ---- state ----------------------------------------------------------------------------------------------------------
-local HEAD = nil        -- { title, subtitle, skip, skip_text, focus, count }
-local cards = {}        -- i -> card (CMND_VRFW_PICK_CARDS (i)), names filled
+local HEAD = nil
+local cards = {}
 local sel, first = 1, 1 -- the selection (count + 1 = the skip), the first card in view
 local zones = {}        -- id -> {x, y, hw, hh}: the hit areas of the last drawing
 local used = {plate = 0, text = 0, face = 0, plate_was = 0, text_was = 0, face_was = 0}
-local tex_asked, tex_frames, tex_wait = {}, {}, false
-local ready, open_guard, evt_co, closing = false, 20, nil, nil
+local ready, open_guard, vrfw_co, closing = false, 20, nil, nil
 
-local function Log(...)
-  pcall(funcLuaCommand, C.LOG, "pick_cards", ...)
-end
+local Log                       -- set in OnInit
 
---@lib evt_menu_kit.lua#Call,Int,Hide
+--@lib vrfw_menu_kit.lua#Call,Int
 
---@lib evt_menu_kit.lua#Pointer
-local Ptr = EVT_PointerNew()
-
-local function Text(id)
-  local ok, s = pcall(funcLuaCommand, C.TEXT_GET, id)
-  if ok and type(s) == "string" then
-    return s
-  end
-  return ""
-end
+--@lib vrfw_menu_kit.lua#Pointer,Keys
+local Kit, Ptr                  -- set in OnInit
 
 local function count()
   return HEAD ~= nil and Int(HEAD.count) or 0
@@ -125,73 +94,14 @@ local function skip_on()
   return HEAD ~= nil and HEAD.skip == true
 end
 
--- ---- drawing pools --------------------------------------------------------------------------------------------------
-local function Place(layer, idx, x, y)
-  funcLuaMenuCommand(C.POS, layer, x, -y, 0, idx)
-end
-
-local function SetColour(layer, idx, c)
-  funcLuaMenuCommand(C.PRIM_COLOR, layer, idx, MESH_QUAD, c[1], c[2], c[3])
-end
-
-local function QuadTex(layer, idx, texCrc, spriteCrc, x, y, w, h)
-  funcLuaMenuCommand(C.LAYER_VISIBLE, layer, idx, true)
-  funcLuaMenuCommand(C.SCALE, layer, w / Q, h / Q, 1, idx)
-  local ok = funcLuaMenuCommand(C.SPRITE, layer, texCrc, spriteCrc, NODE_QUAD, 0, idx)
-  Place(layer, idx, x, y)
-  local pt = plain_tint[layer]
-  if pt ~= nil and pt[idx] ~= nil then
-    pt[idx] = nil
-    SetColour(layer, idx, {1, 1, 1})
-  end
-  return ok
-end
-
-local function Tex(path)
-  if path == nil or path == "" or tex_frames[path] == -1 then
-    return nil
-  end
-  if not tex_asked[path] then
-    tex_asked[path] = true
-    tex_frames[path] = 0
-    funcLuaMenuCommand(C.LOAD_TEX, path)
-  end
-  if funcLuaCommand(C.TEX_LOADING, CRC32(path)) == true then
-    tex_wait = true
-    return false
-  end
-  return CRC32(path)
-end
-
--- the sprite of art role `role` (a mod's), else its plain shape tinted; centre (x, y), size w x h
-local function Quad(layer, idx, role, x, y, w, h)
-  local a = art[role]
-  if a ~= nil then
-    local tc = Tex(a.atlas)
-    if tc == false then
-      Hide(layer, idx)
-      return
-    end
-    if tc ~= nil and QuadTex(layer, idx, tc, a.crc, x, y, w, h) ~= false then
-      return
-    end
-  end
-  local f = FALLBACK[role] or FALLBACK_ANY
-  local tc, sc = VRFW_ScreenArt.Plain(f[1])
-  QuadTex(layer, idx, tc, sc, x, y, w, h)
-  plain_tint[layer] = plain_tint[layer] or {}
-  plain_tint[layer][idx] = f[2]
-  SetColour(layer, idx, f[2])
-end
-
--- the next plate of the pool: role, top-left (x, y), size, draw priority, alpha
+-- Draws the next plate of the pool.
 local function Plate(role, x, y, w, h, priority, alpha)
   if used.plate >= N.PLATE then
     return nil
   end
   local idx = used.plate
   used.plate = used.plate + 1
-  Quad(L_PLATE, idx, role, x + w / 2, y + h / 2, w, h)
+  Kit.art_quad(L_PLATE, idx, role, x + w / 2, y + h / 2, w, h)
   pcall(funcLuaMenuCommand, C.DRAW_PRIORITY, L_PLATE, idx, priority or LO.prio.card, true)
   pcall(funcLuaMenuCommand, C.ALPHA, L_PLATE, idx, 0, alpha or 1)
   return idx
@@ -202,34 +112,34 @@ local function Icon(atlas, sprite, x, y, size)
   if used.plate >= N.PLATE or atlas == "" or sprite == "" then
     return
   end
-  local tc = Tex(atlas)
+  local tc = Kit.texture(atlas)
   if not tc then
     return
   end
   local idx = used.plate
   used.plate = used.plate + 1
-  QuadTex(L_PLATE, idx, tc, CRC32(sprite), x, y, size, size)
+  Kit.textured_quad(L_PLATE, idx, tc, CRC32(sprite), x, y, size, size)
   pcall(funcLuaMenuCommand, C.DRAW_PRIORITY, L_PLATE, idx, LO.prio.part, true)
   pcall(funcLuaMenuCommand, C.ALPHA, L_PLATE, idx, 0, 1)
 end
 
 -- the width of a text at `scale` (CJK letters count twice)
-local function Units(s) return VRFW_Text.Units(s) end
+local function Units(s) return VRFW.text_fold.units(s) end
 
--- the next text line of the pool: its left edge x, its middle y (light text)
+-- Draws the next text line of the pool.
 local function Line(s, x, y, scale)
   if s == nil or s == "" or used.text >= N.TEXT then
     return
   end
   local idx = used.text
   used.text = used.text + 1
-  funcLuaMenuCommand(C.LAYER_VISIBLE, L_TEXT, idx, true)
-  funcLuaMenuCommand(C.SCALE, L_TEXT, scale, scale, 1, idx)
+  Kit.show(L_TEXT, idx)
+  Kit.scale(L_TEXT, idx, scale, scale)
   funcLuaMenuCommand(C.TEXT, L_TEXT, TEXT_ON, s, idx)
   funcLuaMenuCommand(C.TEXT_VISIBLE, L_TEXT, TEXT_ON, true, idx)
   funcLuaMenuCommand(C.TEXT_VISIBLE, L_TEXT, TEXT_OFF, false, idx)
   pcall(funcLuaMenuCommand, C.DRAW_PRIORITY, L_TEXT, idx, LO.prio.text, true)
-  Place(L_TEXT, idx, x - TEXT_DX * scale, y)
+  Kit.place(L_TEXT, idx, x - TEXT_DX * scale, y)
 end
 
 -- a line centred on cx
@@ -237,7 +147,6 @@ local function LineC(s, cx, y, scale)
   Line(s, cx - Units(s) * CHAR_W * scale / 2, y, scale)
 end
 
--- `s` cut into lines of at most `w` px at `scale` (by words; CJK text by letters)
 local function Wrap(s, w, scale)
   local max = math.max(4, math.floor(w / (WRAP_W * scale)))
   local out, cur = {}, ""
@@ -271,33 +180,33 @@ end
 
 -- the portrait of player card `card` centred on (x, y)
 local function Face(card, x, y, size)
-  if VRFW_FaceIcon == nil or used.face >= N.FACE or card == 0 then
+  if VRFW.face_icon == nil or used.face >= N.FACE or card == 0 then
     return
   end
   local idx = used.face
   used.face = used.face + 1
-  funcLuaMenuCommand(C.LAYER_VISIBLE, L_FACE, idx, true)
-  VRFW_FaceIcon.Card(L_FACE, idx, {card = card}, x, y, size)
+  Kit.show(L_FACE, idx)
+  VRFW.face_icon.card(L_FACE, idx, {card = card}, x, y, size)
+  Kit.forget(L_FACE, idx, "pos")  -- face_icon placed it
   pcall(funcLuaMenuCommand, C.DRAW_PRIORITY, L_FACE, idx, LO.prio.part, true)
 end
 
 local function HideRest()
   for i = used.plate, used.plate_was - 1 do
-    Hide(L_PLATE, i)
+    Kit.hide_off_screen(L_PLATE, i)
   end
   for i = used.text, used.text_was - 1 do
-    Hide(L_TEXT, i)
+    Kit.hide_off_screen(L_TEXT, i)
   end
   for i = used.face, used.face_was - 1 do
-    Hide(L_FACE, i)
-    if VRFW_FaceIcon ~= nil then
-      VRFW_FaceIcon.Forget(L_FACE, i)
+    Kit.hide_off_screen(L_FACE, i)
+    if VRFW.face_icon ~= nil then
+      VRFW.face_icon.forget(L_FACE, i)
     end
   end
   used.plate_was, used.text_was, used.face_was = used.plate, used.text, used.face
 end
 
--- ---- data -----------------------------------------------------------------------------------------------------------
 local function Load()
   HEAD = Call(CMD_CARDS, 0)
   cards = {}
@@ -311,7 +220,7 @@ local function Load()
       c = {kind = "text", title = "?"}
     end
     c.lines = type(c.lines) == "table" and c.lines or {}
-    -- a player card: an empty name is the game's name of `card`, and {name} in its texts too
+    -- Handles a player card.
     if Int(c.card) ~= 0 then
       local _, name = Call(CMD_CHARA_INFO, c.card, 0)
       name = type(name) == "string" and name or ""
@@ -330,7 +239,6 @@ local function Load()
   end
 end
 
--- ---- drawing --------------------------------------------------------------------------------------------------------
 local function CardX(k)
   local total = LO.view * LO.card_w + (LO.view - 1) * LO.gap
   local x0 = (1920 - total) / 2
@@ -388,7 +296,7 @@ local function DrawAll()
   if HEAD == nil then
     return
   end
-  tex_wait = false
+  Kit.begin()
   zones = {}
   used.plate, used.text, used.face = 0, 0, 0
   Plate("dim", 0, 0, 1920, 1080, LO.prio.dim, 0.72)
@@ -421,7 +329,7 @@ local function DrawAll()
     Plate("skip", x, y, LO.skip_w, LO.skip_h, LO.prio.card)
     local label = tostring(HEAD.skip_text or "")
     if label == "" then
-      label = Text(T_SKIP)
+      label = Kit.text(T_SKIP)
     end
     LineC(label, 960, LO.skip_y, 0.8)
     zones[n + 1] = {x = 960, y = LO.skip_y, hw = LO.skip_w / 2, hh = LO.skip_h / 2}
@@ -441,7 +349,6 @@ local function UpdateButtonGuide()
   funcLuaMenuCommand(C.GUIDE_OPT, MENU, L_BTN_GUIDE, false)
 end
 
--- ---- navigation -----------------------------------------------------------------------------------------------------
 local function Select(i)
   local n = count()
   local last = skip_on() and n + 1 or n
@@ -470,8 +377,8 @@ local function CloseNow()
   local result = closing
   closing = nil
   pcall(funcLuaMenuCommand, C.FREE_CURSOR, true, false, true)
-  VRFW_Param.Clear(KEY_RESULT)
-  VRFW_Param.Set(KEY_RESULT, result)
+  VRFW.param.clear(KEY_RESULT)
+  VRFW.param.set(KEY_RESULT, result)
   funcLuaCommand(C.CLOSE_MENU, MENU)
   Log("closed, pick", result)
 end
@@ -517,18 +424,9 @@ local function Move(dir)
   end
 end
 
--- the polled pad, for a press no callback reported (as the pose row screen): acts 2 frames after the press
-local KEYS = {NAV = {LEFT = 2765147006, RIGHT = 2075023265, UP = 1197218715, DOWN = 3259546669, ENTER = 1981080283,
-              BACK = 3011112225}, held = {}, press = {}, cb = {}, frame = 0}
-local function KeyOn(k)
-  for _, ctrl in ipairs({1332654303 --[[MENU_CTRL]], 2748927068 --[[MENU_CTRL_WITH_ANALOG_MOVE_FOCUS]]}) do
-    local ok, r = pcall(funcLuaCommand, C.CHECK_INPUT, ctrl, k)
-    if ok and r == true then
-      return true
-    end
-  end
-  return false
-end
+-- The keys read from the polled pad for a press that no callback reported.
+local NAV_KEYS = {LEFT = VRFW.keys.LEFT, RIGHT = VRFW.keys.RIGHT, UP = VRFW.keys.UP, DOWN = VRFW.keys.DOWN,
+                  ENTER = VRFW.keys.ENTER, BACK = VRFW.keys.BACK}
 
 local function Act(name)
   if name == "ENTER" then
@@ -536,44 +434,24 @@ local function Act(name)
   elseif name == "BACK" then
     Back()
   else
-    Ptr.KeyStep()
+    Ptr.key_step()
     Move(name)
   end
 end
 
-local function PollKeys(free)
-  for name, cmd in pairs(KEYS.NAV) do
-    local on = KeyOn(cmd)
-    if on and not KEYS.held[name] then
-      KEYS.press[name] = KEYS.frame
-    elseif not on then
-      KEYS.press[name] = nil
-    end
-    KEYS.held[name] = on
-    local p = KEYS.press[name]
-    if p ~= nil and free and KEYS.frame - p == 2 and (KEYS.cb[name] or -100) < p - 2 then
-      Act(name)
-    end
-  end
-end
-
 local function PollPointer()
-  Ptr.Begin()
-  for id, z in pairs(zones) do
-    Ptr.Box(z.x, z.y, z.hw, z.hh, id)
-  end
-  local ev = Ptr.Poll()
-  if evt_co ~= nil or not ready or open_guard > 0 then
+  local ev = Kit.poll_pointer(zones)
+  if vrfw_co ~= nil or not ready or open_guard > 0 then
     return
   end
   if type(ev.hover) == "number" and ev.hover ~= sel then
     Select(ev.hover)
   end
   if ev.click == "prev" or ev.click == "next" then
-    KEYS.cb.ENTER = KEYS.frame
+    Kit.key_reported("ENTER")
     Move(ev.click == "prev" and "LEFT" or "RIGHT")
   elseif type(ev.click) == "number" then
-    KEYS.cb.ENTER = KEYS.frame
+    Kit.key_reported("ENTER")
     Select(ev.click)
     Decide()
   elseif type(ev.wheel) == "number" then
@@ -581,17 +459,18 @@ local function PollPointer()
   end
 end
 
--- ---- callbacks ------------------------------------------------------------------------------------------------------
 function OnInit()
-  VRFW_Param.Clear(KEY_RESULT)
-  art, plain_tint = VRFW_ScreenArt.Get(ART_SCREEN), {}
-  for _, path in ipairs(VRFW_ScreenArt.Atlases(ART_SCREEN)) do
-    Tex(path)
+  Log = VRFW.logger.new("pick_cards")
+  Kit = VRFW.screen_kit.new({log = Log, art = VRFW.screen_art.get(ART_SCREEN), fallback = FALLBACK, fallback_any = FALLBACK_ANY})
+  Ptr = Kit.pointer()
+  VRFW.param.clear(KEY_RESULT)
+  for _, path in ipairs(VRFW.screen_art.atlases(ART_SCREEN)) do
+    Kit.texture(path)
   end
   ready, open_guard, closing, zones = false, 20, nil, {}
   used = {plate = 0, text = 0, face = 0, plate_was = N.PLATE, text_was = N.TEXT, face_was = N.FACE}
-  if VRFW_FaceIcon ~= nil then
-    VRFW_FaceIcon.Forget(L_FACE)
+  if VRFW.face_icon ~= nil then
+    VRFW.face_icon.forget(L_FACE)
   end
   Load()
   local n = count()
@@ -613,6 +492,7 @@ local function OpenOwnLayers()
 end
 
 function OnSetupLayer(a1, a2)
+  Kit.forget()                  -- a layer that (re)opens has none of the commands sent so far
   if a1 == L_HEADER then
     funcLuaMenuCommand(C.LAYER_VISIBLE, L_HEADER, 0, false)
     OpenOwnLayers()
@@ -626,10 +506,10 @@ function OnSetupLayer(a1, a2)
     end
     funcLuaMenuCommand(C.ATTACH_TRACE, a1, a2, CUR, false)
     if a1 ~= L_ROW then
-      Hide(a1, a2)
+      Kit.hide_off_screen(a1, a2)
     end
   elseif a1 == L_PLATE or a1 == L_FACE then
-    Hide(a1, a2)
+    Kit.hide_off_screen(a1, a2)
   elseif a1 == L_RETAIL_BG or a1 == L_GUIDE_LINE then
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, 0, false)
   elseif a1 == L_BTN_GUIDE then
@@ -638,13 +518,9 @@ function OnSetupLayer(a1, a2)
 end
 
 function OnOpenLayer(a1, a2)
+  Kit.forget()                  -- a layer that (re)opens has none of the commands sent so far
   if a1 == L_ROW and a2 == 0 then
-    funcLuaMenuCommand(C.LAYER_VISIBLE, L_CURSOR, 0, false)
-    funcLuaMenuCommand(C.FOCUS_ENABLE, a1, true)
-    funcLuaMenuCommand(C.LIST_NUM, a1, 1)
-    funcLuaMenuCommand(C.FOCUS_SET, a1, 0)
-    funcLuaMenuCommand(C.ATTACH_TRACE, a1, 0, CUR, false)
-    funcLuaMenuCommand(C.POS, a1, -4000, 4000, 0, 0)
+    Kit.open_list_anchor(a1, L_CURSOR, CUR)
     funcLuaMenuCommand(C.LAYER_VISIBLE, L_RETAIL_BG, 0, false)
     funcLuaMenuCommand(C.LAYER_VISIBLE, L_HEADER, 0, false)
     if HEAD == nil then
@@ -654,7 +530,7 @@ function OnOpenLayer(a1, a2)
     end
     UpdateButtonGuide()
     DrawAll()
-    Ptr.Reset()
+    Ptr.reset()
     pcall(funcLuaMenuCommand, C.FREE_CURSOR, true, false, true)
     ready = true
   elseif a1 == L_HEADER or a1 == L_RETAIL_BG or a1 == L_GUIDE_LINE then
@@ -663,15 +539,15 @@ function OnOpenLayer(a1, a2)
 end
 
 function OnDecideFocus(a1, a2)
-  KEYS.cb.ENTER = KEYS.frame
-  if evt_co ~= nil or not ready or open_guard > 0 or Ptr.Owns() then
+  Kit.key_reported("ENTER")
+  if vrfw_co ~= nil or not ready or open_guard > 0 or Ptr.owns() then
     return
   end
   Decide()
 end
 
 function OnEnter(a1, a2)
-  KEYS.cb.ENTER = KEYS.frame
+  Kit.key_reported("ENTER")
   if a1 == L_BTN or a1 == L_RET then
     return 1
   end
@@ -688,18 +564,18 @@ function OnFunction(a1, a2)
   if name == nil then
     return
   end
-  KEYS.cb[name] = KEYS.frame
-  if evt_co ~= nil or not ready then
+  Kit.key_reported(name)
+  if vrfw_co ~= nil or not ready then
     return 1
   end
-  Ptr.KeyStep()
+  Ptr.key_step()
   Move(name)
   return 1
 end
 
 function OnBack(a1)
-  KEYS.cb.BACK = KEYS.frame
-  if evt_co ~= nil or not ready or open_guard > 0 then
+  Kit.key_reported("BACK")
+  if vrfw_co ~= nil or not ready or open_guard > 0 then
     return 1
   end
   Back()
@@ -717,28 +593,17 @@ function Step()
   if open_guard > 0 then
     open_guard = open_guard - 1
   end
-  -- a declared atlas / a card's icon still loading: redraw once it is in (600 frames at most)
-  if tex_wait then
-    local still = false
-    for path, f in pairs(tex_frames) do
-      if f >= 0 then
-        if funcLuaCommand(C.TEX_LOADING, CRC32(path)) == true then
-          tex_frames[path] = f + 1 > 600 and -1 or f + 1
-          still = still or f + 1 <= 600
-        else
-          tex_frames[path] = -2
-        end
-      end
-    end
-    if not still then
+  -- Redraws once every texture being waited for finished loading.
+  if Kit.waiting then
+    Kit.settle()
+    if not Kit.pending() then
       DrawAll()
     end
   end
-  if VRFW_FaceIcon ~= nil and VRFW_FaceIcon.Pending() then
-    VRFW_FaceIcon.Settle()
+  if VRFW.face_icon ~= nil and VRFW.face_icon.pending() then
+    VRFW.face_icon.settle()
   end
   PollPointer()
-  KEYS.frame = KEYS.frame + 1
-  local free = evt_co == nil and open_guard <= 0 and funcLuaCommand(C.MSG_BUSY) ~= true
-  PollKeys(free)
+  local free = vrfw_co == nil and open_guard <= 0 and funcLuaCommand(C.MSG_BUSY) ~= true
+  Kit.poll_keys(NAV_KEYS, Act, {enabled = free})
 end

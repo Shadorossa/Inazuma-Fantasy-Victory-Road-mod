@@ -1,30 +1,14 @@
--- Reads a service's declarations: every active mod's files of one kind (`<folder>\**\*.toml`, schema `<kind>`), each [[VRFW.<Entry>]] checked against
--- content\types\<type>.toml (VRFW.decl_schema/1) and its `when` conditions against the declaring mod's config or a mod option; an invalid declaration is left out with one warning.
---   local D = require "lib/declarations"
---   local schema = D.schema("card_type")                      -- content\types\card_type.toml (nil, why)
---   for _, d in ipairs(D.load(schema, warn)) do … end         -- { mod, file, entry, index, key, given, v }
--- `d.v` = every key of the entry (defaults filled), `d.given` = keys the file wrote (a later mod overrides only those), `d.key` = "<mod>.<name>" when the entry has a `name`.
--- An entry is a list [[<prefix>.<Entry>]] (prefix = the kind's first part), or where its plain keys say: `entry_table = "talent"` ([[talent]]), `single = true`
--- (one [table] per file), `file_root = true` (the file's own top-level keys). `if_mod` / `if_not_mod` at the top of a file are its gate (not entries).
 
 local M = {}
 
-local crc = VRFW.crc32
+local Id = VRFW.ids
 
--- "0x…" / decimal text / a number -> the number; any other text -> its crc32 (a game key name)
+--- "0x…" / decimal text / a number -> the id; any other text -> its crc32 (a game key name); rules: Id.parse
 function M.id_of(v)
-  if type(v) == "number" then
-    if v ~= math.floor(v) then return nil end
-    return v % 4294967296
-  end
-  if type(v) ~= "string" or v == "" then return nil end
-  local h = v:match("^%s*0[xX](%x+)%s*$")
-  if h then return tonumber(h, 16) % 4294967296 end
-  if v:match("^%s*%d+%s*$") then return tonumber(v) % 4294967296 end
-  return crc(v)
+  return Id.parse(v, { hash_names = true })
 end
 
--- the schema file of a service type (content\types\<type>.toml of the framework mod)
+--- the schema file of a service type (content\types\<type>.toml of the framework mod)
 function M.schema(type_name)
   local t, err = VRFW.files.toml("content/types/" .. type_name .. ".toml")
   if type(t) ~= "table" then
@@ -40,7 +24,7 @@ local function is_int(v) return type(v) == "number" and v == math.floor(v) end
 
 local FILE_GATE_KEYS = { if_mod = true, if_not_mod = true }
 
--- where an entry is written: { table = "VRFW.X" / "talent" (nil for file_root), single, file_root }
+--- where an entry is written: { table = "VRFW.X" / "talent" (nil for file_root), single, file_root }
 function M.place(schema, entry)
   local spec = schema.entry[entry] or {}
   if spec.file_root == true then return { file_root = true, single = true } end
@@ -82,7 +66,20 @@ local function check_when(v)
   return list
 end
 
--- one value against its field spec: the value to keep, or nil + why
+local function is_listed(spec, word)
+  if type(spec.values) ~= "table" then return true end
+  for _, w in ipairs(spec.values) do
+    if w == word then return true end
+  end
+  return false
+end
+
+local function one_of(spec)
+  return "one of " .. table.concat(spec.values, ", ")
+end
+
+-- one value against its field spec: the value to keep, or nil + why (exported as M.check_value)
+-- spec.values: the texts allowed; spec.allow_empty: "" is valid for a text with `values`
 local function check_value(spec, v)
   local t = spec.type
   if t == "int" then
@@ -102,9 +99,11 @@ local function check_value(spec, v)
     return v
   elseif t == "string" then
     if type(v) ~= "string" then return nil, "a text" end
+    if not (v == "" and spec.allow_empty) and not is_listed(spec, v) then return nil, one_of(spec) end
     return v
   elseif t == "name" then
     if type(v) ~= "string" or not v:match("^[a-z0-9_]+$") then return nil, "a name (a-z 0-9 _)" end
+    if not is_listed(spec, v) then return nil, one_of(spec) end
     return v
   elseif t == "ints" then
     if type(v) ~= "table" then return nil, "a list of whole numbers" end
@@ -130,7 +129,9 @@ local function check_value(spec, v)
     if type(v) ~= "table" then return nil, "a list of texts" end
     local out = {}
     for i, x in ipairs(v) do
-      if type(x) ~= "string" or x == "" then return nil, string.format("item %d: a text", i) end
+      if type(x) ~= "string" or x == "" or not is_listed(spec, x) then
+        return nil, string.format("item %d: %s", i, spec.values and one_of(spec) or "a text")
+      end
       out[#out + 1] = x
     end
     return out
@@ -187,8 +188,7 @@ local function option_value(key, mod)
   return v
 end
 
--- the conditions hold on mod `mod`'s merged config or on an option's current value (a missing value = the
--- condition's default)
+--- True when `mod` meets `conds`.
 function M.holds(mod, conds)
   for _, c in ipairs(conds or {}) do
     local v
@@ -215,7 +215,7 @@ function M.holds(mod, conds)
   return true
 end
 
--- Declarations of the schema's kind in load order, checked; `warn(text)` gets one line per rejected one (unmet `when` = skipped silently, counted in `skipped`).
+--- Every declaration of `schema` from the active mods.
 function M.load(schema, warn)
   local out, skipped = {}, 0
   local ok, files = pcall(VRFW.files.declarations, schema.folder)
@@ -311,5 +311,7 @@ function M.load(schema, warn)
   -- (the kinds of one file come in no fixed order; each kind keeps load order, file order and declaration order)
   return out, skipped
 end
+
+M.check_value = check_value
 
 return M

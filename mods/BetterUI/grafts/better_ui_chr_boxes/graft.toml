@@ -1,0 +1,19 @@
+# BetterUI: Crónica's team, items, shop and options entries as 4 square icon boxes (data: menus/chronicle_boxes.toml
+# and research/mods/BetterUI/_tools/better_ui_chr_boxes_build.py). Order 910: after the shop swap and header shift, before the corner buttons.
+name = "better_ui_chr_boxes"
+order = 910
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = ["OnSetupLayer", "OnOpenLayer", "OnChangeFocus", "OnDecideFocus", "OnFunction",
+         "GetLitItemInfo", "GetNumUsedButtons", "UpdateContentGuide"]
+description = "BetterUI: Crónica's team, items, shop and options entries as 4 square icon boxes"
+
+[[files]]
+stem = "chronicle_mode_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "chr_boxes.lua"
+  marker = "better_ui chr_boxes"

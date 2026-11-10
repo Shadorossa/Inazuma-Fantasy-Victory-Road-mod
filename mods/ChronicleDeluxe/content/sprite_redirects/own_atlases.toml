@@ -1,6 +1,4 @@
 schema = "VRFW.sprite_redirect/1"
-# Chronicle Deluxe: the game and the Lua ask these game atlases for the mod's sprites by name; they live in the mod's own
-# atlases (content\images\..., one per game atlas), so the game atlases get no entry.
 
 [[VRFW.SpriteRedirect]]
 name = "chronicle_deluxe_icon_class"
@@ -15,7 +13,9 @@ name = "chronicle_deluxe_vsroute01_06b"
 atlas = "#/menu/30_vsroute/vsroute01/vsroute01_06b/vsroute01_06b.g4tx"
 own_atlas = "#/menu/30_vsroute/chronicle_deluxe_own/chronicle_deluxe_vsroute01_06b.g4tx"
 sprites = [
-    "chronicle_deluxe_legendary_orb",
+    "chronicle_deluxe_class_orb_inazuma",
+    "chronicle_deluxe_class_orb_legendary",
+    "chronicle_deluxe_class_orb_lethal_zone",
     "chronicle_deluxe_rank_a",
     "chronicle_deluxe_rank_b",
     "chronicle_deluxe_rank_s",

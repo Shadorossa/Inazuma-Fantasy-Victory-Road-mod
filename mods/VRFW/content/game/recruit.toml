@@ -7,9 +7,13 @@ name = "CMND_VRFW_RECRUIT_CLUB"     # () -> { total, element = {n x 5}, position
 handler = "Recruit.Club"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_RECRUIT_HOLDERS"  # (card, ...) -> { {handle, param, level, busy}, ... }: the club players of those cards
+name = "CMND_VRFW_RECRUIT_HOLDERS"
 handler = "Recruit.Holders"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_RECRUIT_GAME_STADIUM"  # (game) -> map crc (0 = none): a match row's own stadium in the game data
+name = "CMND_VRFW_RECRUIT_ROSTER"     # () -> { {param, level, rarity}... }: the whole club (can it field a challenge)
+handler = "Recruit.Roster"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_RECRUIT_GAME_STADIUM"
 handler = "Recruit.GameStadium"

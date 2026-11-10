@@ -1,0 +1,33 @@
+schema = "VRFW.image/1"
+# The Heroic Battle+ orb of the Chronicle board (vsroute01_06c clear_icon06) in the clear-icon and class card atlases: the Daily Legendary Rival's Orb
+
+[[texture]]
+atlas = "#/menu/30_vsroute/inazuma_fantasy_own/inazuma_fantasy_vsroute01_06b.g4tx"
+name = "inazuma_fantasy_vsroute01_06b"
+size = [32, 32]
+
+[[recipe]]
+name = "if_heroic_plus_orb"
+game = "#/menu/30_vsroute/vsroute01/vsroute01_06c/vsroute01_06c.g4tx"
+sprite = "clear_icon06"
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/inazuma_fantasy_own/inazuma_fantasy_vsroute01_06b.g4tx"
+name = "if_heroic_plus_orb"
+texture = "inazuma_fantasy_vsroute01_06b"
+x = 0
+y = 0
+recipe = "if_heroic_plus_orb"
+
+[[texture]]
+atlas = "#/menu/30_vsroute/inazuma_fantasy_own/inazuma_fantasy_vsroute01_21.g4tx"
+name = "inazuma_fantasy_vsroute01_21"
+size = [32, 32]
+
+[[sprite]]
+atlas = "#/menu/30_vsroute/inazuma_fantasy_own/inazuma_fantasy_vsroute01_21.g4tx"
+name = "if_heroic_plus_orb"
+texture = "inazuma_fantasy_vsroute01_21"
+x = 0
+y = 0
+recipe = "if_heroic_plus_orb"

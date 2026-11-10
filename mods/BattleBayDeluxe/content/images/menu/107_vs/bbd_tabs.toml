@@ -1,0 +1,27 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/107_vs/bbd_tabs/bbd_tabs.g4tx"
+name = "bbd_tabs"
+size = [96, 96]
+
+[[sprite]]
+atlas = "#/menu/107_vs/bbd_tabs/bbd_tabs.g4tx"
+name = "bbd_tab_personal"
+texture = "bbd_tabs"
+x = 0
+y = 0
+size = [96, 96]
+recipe = "glyph_personal"
+
+# ---- the game's own person icon, fitted in a 96 x 96 cell like the other tabs of the Battle Bay grid -----------------
+[[recipe]]
+name = "person_icon"
+game = "dx11/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx"
+sprite = "icon_list_tab_datafile05"
+ops = [{ op = "alpha_crop" }, { op = "fit", box = [80, 80] }]
+
+[[recipe]]
+name = "glyph_personal"
+canvas = [96, 96]
+ops = [{ op = "paste", image = "person_icon", centre = [48.0, 48.0] }]

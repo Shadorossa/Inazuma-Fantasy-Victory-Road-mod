@@ -1,47 +1,42 @@
 schema = "VRFW.item/2"
-# Arion Sherwind's military uniform: a costume item only the game's Arion Sherwind (c04000080) may wear, chosen
-# in the «Atuendo» row of «Equipamiento» (the VR-Framework's outfit row; X there switches his «Equipación del momento»).
-# Its look: the kit inazumafantasy_uni_arion_sherwind (content/looks/arion_sherwind_fantasy.toml, model
-# content/models/kits/u90400080.toml). Sold first in the General Store (its outfits category).
 default_lang = "en"
 
 [[VRFW.Outfit]]
 Name = "arion_sherwind_uniform"
-Kit = { Uniform = "0x75D51491" }            # crc32("inazumafantasy_uni_arion_sherwind"), the kit of content/looks/arion_sherwind_fantasy.toml
-IconKey = "cos_if_arion_uniform"            # the costume sheet's copy of kit uni_u040101's icon (content/images/menu/200_icon/02_icon_item/outfit_icons.toml)
+Kit = { Uniform = "0x75D51491" }
+IconKey = "cos_if_arion_uniform"
 Who = ["c04000080"]                         # Arion Sherwind
 Price = 28
-Currency = "tk_bb000001"                    # Puntos de pasión
+Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
   Name = "Uniforme militar de Arion"
-  Description = "El uniforme militar de Arion Sherwind.\nSolo lo puede llevar Arion Sherwind."
+  Description = "El uniforme militar de Arion Sherwind.\nSolo lo puede llevar Arion Sherwind.\nCreado por @Consistent10_ (X)"
   [VRFW.Outfit.Text.en]
   Name = "Arion's military uniform"
-  Description = "Arion Sherwind's military uniform.\nOnly Arion Sherwind can wear it."
+  Description = "Arion Sherwind's military uniform.\nOnly Arion Sherwind can wear it.\nMade by @Consistent10_ (X)"
   [VRFW.Outfit.Text.fr]
   Name = "Uniforme militaire d'Arion"
-  Description = "L'uniforme militaire d'Arion Sherwind.\nSeul Arion Sherwind peut le porter."
+  Description = "L'uniforme militaire d'Arion Sherwind.\nSeul Arion Sherwind peut le porter.\nCréé par @Consistent10_ (X)"
   [VRFW.Outfit.Text.de]
   Name = "Arions Militäruniform"
-  Description = "Die Militäruniform von Arion Sherwind.\nNur Arion Sherwind kann sie tragen."
+  Description = "Die Militäruniform von Arion Sherwind.\nNur Arion Sherwind kann sie tragen.\nErstellt von @Consistent10_ (X)"
   [VRFW.Outfit.Text.it]
   Name = "Uniforme militare di Arion"
-  Description = "La divisa militare di Arion Sherwind.\nSolo Arion Sherwind può indossarla."
+  Description = "La divisa militare di Arion Sherwind.\nSolo Arion Sherwind può indossarla.\nCreato da @Consistent10_ (X)"
   [VRFW.Outfit.Text.pt]
   Name = "Uniforme militar de Arion"
-  Description = "O uniforme militar de Arion Sherwind.\nSó Arion Sherwind o pode usar."
+  Description = "O uniforme militar de Arion Sherwind.\nSó Arion Sherwind o pode usar.\nCriado por @Consistent10_ (X)"
   [VRFW.Outfit.Text.ja]
   Name = "[天馬/てんま]の[軍服/ぐんぷく]"
-  Description = "[松風/まつかぜ][天馬/てんま]の[軍服/ぐんぷく]。\n[松風/まつかぜ][天馬/てんま]だけが着られる。"
+  Description = "[松風/まつかぜ][天馬/てんま]の[軍服/ぐんぷく]。\n[松風/まつかぜ][天馬/てんま]だけが着られる。\n制作：@Consistent10_ (X)"
   [VRFW.Outfit.Text.zh_hans]
   Name = "天马的军装"
-  Description = "松风天马的军装。\n只有松风天马可以穿。"
+  Description = "松风天马的军装。\n只有松风天马可以穿。\n制作：@Consistent10_ (X)"
   [VRFW.Outfit.Text.zh_hant]
   Name = "天馬的軍裝"
-  Description = "松風天馬的軍裝。\n只有松風天馬可以穿。"
+  Description = "松風天馬的軍裝。\n只有松風天馬可以穿。\n製作：@Consistent10_ (X)"
 
-# while Arion wears it he is shown as his capped self (content/characters/arion_military_cap.toml: his head under the
-# military cap): matches, menus, face icons and the shop preview; his name, card, stats and moves stay his own
+# while Arion wears it he shows as his capped self (content/characters/arion_military_cap.toml)
 [[VRFW.ItemTransform]]
 name = "InazumaFantasy.ArionMilitaryCap"
 item = "arion_sherwind_uniform"

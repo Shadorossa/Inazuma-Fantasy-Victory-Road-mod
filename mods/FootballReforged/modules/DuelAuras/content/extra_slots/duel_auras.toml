@@ -1,9 +1,0 @@
-# Duel Auras › a transformation in a duel. In a focus battle (a 1v1 or group duel, from its start sequence to the
-# choice) an aura activation of these types (0 keshin, 1 armour, 2 Mix-Max, 3 totem, 4 bond, 5 awakening power,
-# 6 mode change, 7 awakening) chosen from the duel list, the extra slot plates or by the duel AI is never the duel's
-# answer: the duel pauses, the aura plays, the duel's start arrangement (duel spots, camera), menus and HUD are put back
-# and the duel goes on with its choice open. One path for every type. Both sides alike. Always on (no option).
-schema = "VRFW.extra_slot/1"
-
-[VRFW.DuelAura]
-types = [0, 1, 2, 3, 4, 5, 6, 7]

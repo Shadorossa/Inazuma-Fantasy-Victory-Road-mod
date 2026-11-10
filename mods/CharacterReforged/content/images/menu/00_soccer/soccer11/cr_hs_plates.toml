@@ -1,0 +1,45 @@
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "hs_plate"
+game = "#/menu/00_soccer/soccer11/soccer11_08/soccer11_08.g4tx"
+sprite = "item_list_base01"
+
+[[recipe]]
+name = "hs_plate_aura"
+from = "hs_plate"
+ops = [
+    { op = "hue", turns = 0.35 },                              # the green tail -> purple
+    { op = "affine", mul = [0.62, 0.42, 0.95], add = [0, 0, 0] },  # white -> purple, the tail a darker purple
+]
+
+[[recipe]]
+name = "hs_plate_mix"
+from = "hs_plate"
+ops = [
+    { op = "hue", turns = 0.67 },                              # the green tail -> orange-red
+    { op = "affine", mul = [1.0, 0.55, 0.12], add = [0, 0, 0] },   # white -> orange, the tail a darker orange
+]
+
+[[texture]]
+atlas = "#/menu/00_soccer/soccer11/character_reforged_soccer11_08_hs/cr_hs_plates.g4tx"
+name = "cr_hs_plates"
+size = [568, 160]
+
+[[sprite]]
+atlas = "#/menu/00_soccer/soccer11/character_reforged_soccer11_08_hs/cr_hs_plates.g4tx"
+name = "cr_hs_plate_aura"
+texture = "cr_hs_plates"
+x = 0
+y = 0
+size = [568, 80]
+recipe = "hs_plate_aura"
+
+[[sprite]]
+atlas = "#/menu/00_soccer/soccer11/character_reforged_soccer11_08_hs/cr_hs_plates.g4tx"
+name = "cr_hs_plate_mix"
+texture = "cr_hs_plates"
+x = 0
+y = 80
+size = [568, 80]
+recipe = "hs_plate_mix"

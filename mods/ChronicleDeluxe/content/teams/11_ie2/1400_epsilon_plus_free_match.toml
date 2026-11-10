@@ -1,14 +1,4 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe 1.11.9: the Épsilon Plus of Épsilon's BATALLA LEGENDARIA in «Competir contra bots»
-# (content/teams/90_rules/free_match.toml [[VRFW.FreeMatchRival]]) with Zell in goal and Dvalin up front: the two swap
-# their places (slot 0 = the goalkeeper's place, slot 9 a forward's), each with his own card, moves, number and
-# captaincy. Only there: INAZUMA / ZONA LETAL play Épsilon, and the Chronicle keeps Épsilon Plus as it is.
-#
-# How (as content/teams/10_ie1/0302_royal_academy_free_match.toml): this mod's free-match classes are FlatRivalLevel
-# classes, so the class row plays the copy of its rival team keyed `<team key>_flat` (docs/framework/free-match-tabs.md
-# §8), and a team a mod declares under that key IS that copy: here Épsilon Plus's copy with the swap and every member at
-# level offset 0. Zell keeps his own set, which holds the keeper technique Agujero de gusano (a whk keeper move, Dvalin's
-# first move too); the goalkeeper's kit goes with the goalkeeper's place.
 default_lang = "en"
 
 [[team]]
@@ -18,8 +8,6 @@ based_on = "tm_cro_ie2_1400"            # Épsilon Plus
 name_text = 0xB53BEC4F                  # Épsilon Plus (the game team's own name text)
 series = "IE2"
 
-# Zell (his row's card / uid / loadout / number 11) in goal; Dvalin (card / uid / loadout / number 1, the captain) at
-# Zell's forward place; every player of the line-up at level offset 0.
 [[edit]]
 target = "ChronicleDeluxe.fm_epsilon_plus"
 member = [

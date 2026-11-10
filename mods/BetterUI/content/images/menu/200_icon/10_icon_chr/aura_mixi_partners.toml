@@ -1,9 +1,4 @@
 schema = "VRFW.image/1"
-# BetterUI > the 2D busts of the miximax partners: the "Miximax Trans: <partner>" plate of the technique detail shows
-# the partner's picture from menu/200_icon/10_icon_chr/aura_mixi/<name>_l.g4tx (256x256, transparent; face size and eye
-# line as the retail Nobunaga bust cn0221_l). Retail has 17 of them; a miximax with any other partner showed the
-# partner's in-game face. Each picture is a new g4tx; the chara_menu_resource_info rows that point at it are in
-# content/base_tables/gamedata/menu/chara_menu_resource.toml
 
 [[texture]]
 atlas = "#/menu/200_icon/10_icon_chr/aura_mixi/mixi_tezcat_l.g4tx"

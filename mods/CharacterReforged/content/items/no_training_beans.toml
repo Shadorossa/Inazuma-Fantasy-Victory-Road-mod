@@ -1,0 +1,9 @@
+schema = "VRFW.item/2"
+# No training beans (item category 210) from matches, prizes or any other grant except a shop purchase.
+[[VRFW.MatchDropRemove]]
+Categories = [210]
+AllSources = true
+
+[[VRFW.DropFilter]]
+Sources = ["chests"]
+Categories = [210]                          # stat beans (item_category 210)

@@ -1,10 +1,4 @@
 schema = "VRFW.team/2"
-# Chronicle Deluxe: the two Raimon of the Ares tab of the free match, two different teams with their own names (the
-# game's Chronicle line-ups are both named «Raimon»):
-#   fm_raimon_ares      the line-up that faces Barcelona Orb (pltm_cro_ie7_01): «Raimon (Ares)», this mod's text
-#   fm_raimon_island    the line-up of the Ares final (pltm_cro_ie7_13): named, crested and dressed as the island's
-#                       school team «Isla Remota» (tm_cro_legend_ARES_11: team_text, crest em070012 伊, kit u071201)
-# Only the free match plays them (content/teams/90_rules/free_match.toml [[VRFW.FreeMatchGame]]).
 default_lang = "en"
 
 [[team]]
@@ -31,7 +25,7 @@ based_on = "pltm_cro_ie7_01"            # Raimon, first Ares battle (against Bar
 
 [[team]]
 name = "fm_raimon_island"
-based_on = "pltm_cro_ie7_12"            # Raimon, Ares final (against Academia Plenilunio) without Elliot Ember
+based_on = "pltm_cro_ie7_12"
 kit = 0xB60475A5                        # Isla Remota's kit (uniform u071201)
 emblem = 0xDAF974AB                     # em070012, Isla Remota's crest (伊)
 name_text = 0xABD4DA8E                  # «Isla Remota» (team_text of tm_cro_legend_ARES_11)

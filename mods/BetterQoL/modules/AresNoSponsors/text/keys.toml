@@ -1,0 +1,57 @@
+# Ares Kits Without Sponsors: card texts and the kit picker's X prompt (ja/fr/de/it/pt/zh: machine-translated, native review welcome)
+schema = "VRFW.text_key/1"
+default_lang = "en"
+
+[en.new]
+mod_name = "Ares Kits Without Sponsors"
+mod_description = "The Ares kits also without their sponsor prints: in the kit picker, X switches a kit between with and without sponsors, and the team wears the one chosen. The game's kits stay as they are. Pack by Dexter ZSP."
+sponsor_on = "Sponsors: Yes"
+sponsor_off = "Sponsors: No"
+
+[es.new]
+mod_name = "Equipaciones de Ares sin publicidad"
+mod_description = "Las equipaciones de Ares también sin publicidad: en el selector de equipación, X cambia una equipación entre con y sin publicidad, y el equipo lleva la elegida. Las equipaciones del juego no cambian. Pack de Dexter ZSP."
+sponsor_on = "Publicidad: Sí"
+sponsor_off = "Publicidad: No"
+
+[fr.new]
+mod_name = "Tenues d'Ares sans sponsors"
+mod_description = "Les tenues d'Ares aussi sans leurs sponsors : dans le choix de tenue, X passe une tenue d'avec à sans sponsors, et l'équipe porte celle choisie. Les tenues du jeu restent inchangées. Pack de Dexter ZSP."
+sponsor_on = "Sponsors : Oui"
+sponsor_off = "Sponsors : Non"
+
+[de.new]
+mod_name = "Ares-Trikots ohne Sponsoren"
+mod_description = "Die Ares-Trikots auch ohne Sponsoren: In der Trikotauswahl wechselt X ein Trikot zwischen mit und ohne Sponsoren, und das Team trägt das gewählte. Die Trikots des Spiels bleiben unverändert. Paket von Dexter ZSP."
+sponsor_on = "Sponsoren: Ja"
+sponsor_off = "Sponsoren: Nein"
+
+[it.new]
+mod_name = "Divise di Ares senza sponsor"
+mod_description = "Le divise di Ares anche senza sponsor: nella scelta della divisa, X passa una divisa da con a senza sponsor, e la squadra indossa quella scelta. Le divise del gioco restano invariate. Pack di Dexter ZSP."
+sponsor_on = "Sponsor: Sì"
+sponsor_off = "Sponsor: No"
+
+[pt.new]
+mod_name = "Equipamentos de Ares sem patrocínio"
+mod_description = "Os equipamentos de Ares também sem patrocínio: na escolha de equipamento, X alterna um equipamento entre com e sem patrocínio, e a equipa usa o escolhido. Os equipamentos do jogo não mudam. Pacote de Dexter ZSP."
+sponsor_on = "Patrocínio: Sim"
+sponsor_off = "Patrocínio: Não"
+
+[ja.new]
+mod_name = "アレスのユニフォーム（スポンサーなし）"
+mod_description = "アレスのユニフォームをスポンサーロゴなしでも：ユニフォーム選択でXを押すとスポンサーあり／なしが切り替わり、チームは選んだ方を着ます。ゲームのユニフォームはそのままです。パック制作：Dexter ZSP。"
+sponsor_on = "スポンサー：あり"
+sponsor_off = "スポンサー：なし"
+
+[zh_hans.new]
+mod_name = "无赞助商的阿瑞斯球衣"
+mod_description = "阿瑞斯球衣也有无赞助商印花的版本：在球衣选择中按 X 切换有／无赞助商，球队穿所选的那件。游戏原有球衣不变。素材包作者：Dexter ZSP。"
+sponsor_on = "赞助商：有"
+sponsor_off = "赞助商：无"
+
+[zh_hant.new]
+mod_name = "無贊助商的阿瑞斯球衣"
+mod_description = "阿瑞斯球衣也有無贊助商印花的版本：在球衣選擇中按 X 切換有／無贊助商，球隊穿所選的那件。遊戲原有球衣不變。素材包作者：Dexter ZSP。"
+sponsor_on = "贊助商：有"
+sponsor_off = "贊助商：無"

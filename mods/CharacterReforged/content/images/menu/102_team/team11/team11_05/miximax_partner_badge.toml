@@ -1,0 +1,14 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_team11_05.g4tx"
+name = "character_reforged_team11_05"
+size = [160, 52]
+
+[[sprite]]
+atlas = "#/menu/102_team/character_reforged_own/character_reforged_team11_05.g4tx"
+name = "all_miximaxed_partner_badge"
+texture = "character_reforged_team11_05"
+x = 0
+y = 0
+png = "miximax_partner_badge/all_miximaxed_partner_badge.png"

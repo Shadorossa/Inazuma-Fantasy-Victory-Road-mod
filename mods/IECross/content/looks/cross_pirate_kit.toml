@@ -1,7 +1,4 @@
 schema = "VRFW.look/2"
-# The pirate kit (u119701, keeper u119751) as the IEVRCROSS mod has it: its shirts and their sleeve / belly
-# variants, keeper shirts, boots and gloves (chara_parts rows as that mod has them). Worn by the three pirate
-# teams' kits (kits.toml); textures in content\models\kits\cross_<folder>.toml.
 
 [[clothes]]
 model = "u119701_10"

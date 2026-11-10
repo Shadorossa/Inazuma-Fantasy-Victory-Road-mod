@@ -1,14 +1,5 @@
 schema = "VRFW.catalog/1"
-# Icon kinds for [[VRFW.Icon]] (docs/framework/types/image.md §Icons). Built into the framework.
-# [kind.<name>]: <name> is the `Kind` of an icon declaration.
-#   placement     sprite (packed into a new texture of `atlas`), texture (a whole new texture of `atlas`),
-#                 own_atlas (a texture + sprite in an atlas the framework creates), delegated (another type builds it)
-#   atlas         the target atlas (sprite / texture kinds; `<LG>` = the default file + every language file)
-#   name_prefix   start of the names the framework gives (texture kinds: the key prefix the game maps to `atlas`)
-#   size_of       a game picture whose size the icons must have: "<name>" of `atlas`, or "<atlas>:<name>"
-#   default       the game picture used for an unknown icon: "<name>" of `atlas`, or "<atlas>:<name>"
-#   per_atlas     own_atlas: icons per created atlas (0 = as many as the format holds)
-#   delegated_to  delegated: the type that declares these pictures
+# Icon kinds for [[VRFW.Icon]] (docs/internal/types/image.md §Icons).
 
 [kind.item_icon]
 description = "Item icon (bag, shop rows, rewards): a whole texture of the sheet of its key prefix"

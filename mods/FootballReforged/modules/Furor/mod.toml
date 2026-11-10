@@ -1,43 +1,21 @@
 id = "Furor"
 # name / description: the English fallback; the card shows the text keys mod_name / mod_description (text\keys.toml)
 name = "Furor gauge"
-version = "0.2.4"
+version = "0.3.0"
 author = "Fantasy Team"
-author_steam = "76561199013321372"
-description = "GO Strikers' furor gauge: each team's fire bar beside its crest fills with time (faster when losing) and a little with goals, saves and duels; full, the furor button (L3 / R) starts the Fired up phase for 24 s: every player wears his position's awakening (look and stats), moves hit harder, players run faster. The CPU starts its own. Awakenings exist only in the Fired up phase."
+description = "GO Strikers' furor gauge: a fire bar beside each crest fills as the match goes on, and when it is full, L3 / R starts a 24-second Fired up phase. Every player awakens to his position's look, moves hit harder and players run faster; the CPU uses it too."
 priority = 0
 tags = ["Gameplay"]
-updated = "2026-11-06"
-# This mod's own names (TOML keys [Furor.X], game Lua FUROR_HUD_* / FurorHud_* / FUROR_BANNER_* / FurorBanner_*, flags / signals Furor.gauge.*, input
-# command CMD_FUROR_PHASE, action Furor.Phase); never VRFW.
+updated = "2026-11-09"
 prefix = "Furor"
 folder = "Furor"
-# A module mod of Football Reforged (modules\Furor\). GO Strikers 2013's tension gauge, data only on the VR-Framework's team
-# momentum service:
-#   content\match_resources\gauge.toml    the team gauge Furor.gauge (0..100)
-#   content\team_momentum\gauge.toml      time / comeback / action fill, levels, the 24 s phase
-#   content\rules\gauge.toml              the effects of the levels and the phase (the awakening of each position), the
-#                                         CPU's start
-#   content\effects\awakening.toml        the phase's fire look: triggers furor_phase_fire (rival) and furor_phase_fire_ally (user, blue), the retail
-#                                         awakening's rows in orange / yellow / red (content\rules\gauge.toml)
-#   content\techniques\no_awakenings.toml no player has an awakening (aura types 5 / 7) anywhere, matches included:
-#                                         the furor phase is the only awakening
-#   content\menus\furor_banner.toml + content\images\menu\02_btl\furor_banner.toml   the «Fase de furor activa»
-#                                         entry banner when a phase starts; graft research/grafts/furor_banner
-#   config.toml [furor_banner] + scripts\banner.lua + content\game\banner.toml   the banner's slide in from the left,
-#                                         its 2 s on screen and slide out to the right (command CMND_FUROR_BANNER)
-#   content\inputs\phase.toml + text\rows\menu_text.toml   the furor button (L3 / R, rebindable)
-#   content\menus\furor_hud.toml + content\images\menu\02_btl\furor_gauge.toml (its own atlases)   the HUD layers and GO Strikers'
-#                                         own gauge remastered (research/scripts/furor_gauge_draw.py); graft research/grafts/furor_hud
-requires = ["VRFW>=0.2.4", "FootballReforged>=0.2.4"]
+# A module mod of Football Reforged (modules\Furor\).
+requires = ["VRFW>=0.3.0", "FootballReforged>=0.3.0"]
 conflicts = []
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"
 permissions = ["command"]
 
-# For other mods: the signal Furor.gauge.start (actor = a player: starts his team's phase when its gauge is full) and
-# the flag Furor.cpu_driven (set: the CPU's own random start of content\rules\gauge.toml steps aside, the setting mod
-# decides when the CPU starts it). Read: the flags Furor.gauge.<user|rival>.full / .phase / .level1.
 [exports]
 keys = ["Furor.gauge.start", "Furor.gauge.full", "Furor.cpu_driven", "Furor.gauge.rival.full", "Furor.gauge.user.full"]
 

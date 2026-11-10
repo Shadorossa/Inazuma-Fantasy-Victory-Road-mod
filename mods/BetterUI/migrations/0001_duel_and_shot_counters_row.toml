@@ -1,0 +1,19 @@
+schema = "VRFW.migration/1"
+id = "BetterUI.duel_and_shot_counters_row"
+description = "The three BetterUI option rows become one: the saved duel counter value is kept, the other two are removed"
+phase = "data"
+after = ["VRFW.no_compat_names"]
+
+[[step]]
+kind = "rename_option_row"
+from = "BetterUI.duel_readout"
+to = "BetterUI.duel_and_shot_counters"
+if_target = "keep_target"
+
+[[step]]
+kind = "delete_option_row"
+id = "BetterUI.shot_readout"
+
+[[step]]
+kind = "delete_option_row"
+id = "BetterUI.modules"

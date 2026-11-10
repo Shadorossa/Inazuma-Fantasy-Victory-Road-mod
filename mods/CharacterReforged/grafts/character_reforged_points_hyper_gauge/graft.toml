@@ -1,0 +1,26 @@
+# The retail hyper gauge hidden while PE and PEG or SP are on (layers from CMND_CHARACTERREFORGED_POINTS_HUD_HIDDEN_LAYERS).
+name = "character_reforged_points_hyper_gauge"
+mod = "CharacterReforged"
+order = 320
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["UpdateHyperdimensionalPowerGauge", "UpdateEnemyHyperdimensionalPowerGauge"]
+description = "Character Reforged points: the retail hyper gauge hidden while PE and PEG or SP are on"
+
+[[files]]
+stem = "soccer_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "hyper_gauge.lua"
+  marker = "CharacterReforged points hyper gauge"
+
+# a 5 v 5 match draws its HUD with soccer_battle_menu
+[[files]]
+stem = "soccer_battle_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "hyper_gauge.lua"
+  marker = "CharacterReforged points hyper gauge"

@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · Pirates Cove · Inazuma Eleven GO
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c04001420_5100"                              # Octavus Kraken
+moves = [
+  { move = 0x1C4D4906, level = 16 },                        # Whirlpool
+  { move = 0x6A66FA7E, level = 26 },                        # Killer Whale
+  { move = 0x5643C944, level = 36 },                        # Killer Slide
+  { move = 0x414BA9BD, level = 52 },                        # Pincer Pinch
+]
 
   [[edit.cards]]
   id = 0x7DC601C4                                         # DF/MF · fire
@@ -14,6 +17,12 @@ target = "c04001420_5100"                              # Octavus Kraken
 
 [[edit]]
 target = "c04001490_5000"                              # Dakkar Nemo
+moves = [
+  { move = 0xDF8CB373, level = 1 },                         # Sonic Shot
+  { move = 0x6A66FA7E, level = 20 },                        # Killer Whale
+  { move = 0xDA3FF6C9, level = 31 },                        # Criss-Cross
+  { move = 0xA4B51923, level = 46 },                        # The Typhoon
+]
 
   [[edit.cards]]
   id = 0x7E033F09                                         # MF/FW · wind
@@ -24,6 +33,12 @@ target = "c04001490_5000"                              # Dakkar Nemo
 
 [[edit]]
 target = "c04001500_5000"                              # Davy Jones
+moves = [
+  { move = 0x7DAF3139, level = 62 },                        # Emperor Penguin No. 2
+  { move = 0xA2FB4736, level = 72 },                        # Flying Fish
+  { move = 0x2354CA2D, level = 82 },                        # Wind God's Dance
+  { move = 0xB0F8060A, level = 92 },                        # Ozone Flayer
+]
 
   [[edit.cards]]
   id = 0x27317A44                                         # FW/MF · wind
@@ -34,9 +49,9 @@ target = "c04001500_5000"                              # Davy Jones
 [[edit]]
 target = "c04001410"                                   # Ishmael Ahab
 moves = [
-  { move = 0xF400CA92, level = 1 },                         # Anchors Aweigh
-  { move = 0x2D9F7E76, level = 19 },                        # Breath Taker
-  { move = 0xD2955C45, level = 35 },                        # Power Catch
+  { move = 0x58B5859E, level = 19 },                        # Whip Crack
+  { move = 0xF400CA92, level = 29 },                        # Anchors Aweigh
+  { move = 0x2D9F7E76, level = 39 },                        # Breath Taker
   { move = 0x41AEB4DF, level = 48 },                        # Crystal Barrier
 ]
 
@@ -49,15 +64,15 @@ moves = [
 [[edit]]
 target = "c04001420"                                   # Octavus Kraken
 moves = [
-  { move = 0x6A66FA7E, level = 1 },                         # Killer Whale
-  { move = 0x5643C944, level = 16 },                        # Killer Slide
-  { move = 0x08EEBD53, level = 35 },                        # Feint Play
+  { move = 0x1C4D4906, level = 16 },                        # Whirlpool
+  { move = 0x6A66FA7E, level = 26 },                        # Killer Whale
+  { move = 0x5643C944, level = 36 },                        # Killer Slide
   { move = 0x414BA9BD, level = 52 },                        # Pincer Pinch
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF641A1A7, level = 1 },                         # Peón blanco [aura]
+  { move = 0xF641A1A7, level = 20 },                        # wko00180
 ]
 
   [[edit.cards]]
@@ -70,9 +85,9 @@ moves = [
 [[edit]]
 target = "c04001430"                                   # Roger Jolly
 moves = [
-  { move = 0x6A66FA7E, level = 1 },                         # Killer Whale
-  { move = 0xD8794890, level = 12 },                        # Kangaroo Kick
-  { move = 0x08EEBD53, level = 35 },                        # Feint Play
+  { move = 0xC2E6ADBF, level = 12 },                        # Log Roll
+  { move = 0x6A66FA7E, level = 22 },                        # Killer Whale
+  { move = 0xD8794890, level = 32 },                        # Kangaroo Kick
   { move = 0x24E5068E, level = 56 },                        # Fractal Repeller
 ]
 
@@ -85,10 +100,10 @@ moves = [
 [[edit]]
 target = "c04001440"                                   # Sinbad Saylor
 moves = [
-  { move = 0x6A66FA7E, level = 1 },                         # Killer Whale
-  { move = 0x2354CA2D, level = 21 },                        # Wind God's Dance
-  { move = 0x332CCDC9, level = 29 },                        # Heel Kick
-  { move = 0x6C827857, level = 45 },                        # Rolling Steal
+  { move = 0xF6E75EE9, level = 29 },                        # Headbanger
+  { move = 0x6A66FA7E, level = 39 },                        # Killer Whale
+  { move = 0x2354CA2D, level = 49 },                        # Wind God's Dance
+  { move = 0x332CCDC9, level = 59 },                        # Heel Kick
 ]
 
   [[edit.cards]]
@@ -102,9 +117,9 @@ moves = [
 target = "c04001450"                                   # Rob Crusoe
 moves = [
   { move = 0x6A66FA7E, level = 1 },                         # Killer Whale
-  { move = 0x08EEBD53, level = 22 },                        # Feint Play
-  { move = 0x75994916, level = 35 },                        # Cunning Pull
   { move = 0x44BCDB47, level = 56 },                        # Pyroclastic
+  { move = 0x1C4D4906, level = 66 },                        # Whirlpool
+  { move = 0x20D01E43, level = 76 },                        # Hey Presto
 ]
 
   [[edit.cards]]
@@ -134,7 +149,7 @@ moves = [
   { move = 0x2354CA2D, level = 1 },                         # Wind God's Dance
   { move = 0xA2FB4736, level = 19 },                        # Flying Fish
   { move = 0xC2E6ADBF, level = 27 },                        # Log Roll
-  { move = 0x1F5EB9D5, level = 45 },                        # Nutmeg
+  { move = 0xDF8CB373, level = 37 },                        # Sonic Shot
 ]
 
   [[edit.cards]]
@@ -169,7 +184,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xEE98FAD1, level = 1 },                         # Barius [aura]
+  { move = 0xEE98FAD1, level = 20 },                        # wko00090
 ]
 
   [[edit.cards]]
@@ -182,15 +197,15 @@ moves = [
 [[edit]]
 target = "c04001500"                                   # Davy Jones
 moves = [
-  { move = 0xA2FB4736, level = 1 },                         # Flying Fish
-  { move = 0x2354CA2D, level = 20 },                        # Wind God's Dance
-  { move = 0xB0F8060A, level = 47 },                        # Ozone Flayer
-  { move = 0xB501FE5D, level = 52 },                        # Holy Roller
+  { move = 0x7DAF3139, level = 62 },                        # Emperor Penguin No. 2
+  { move = 0xA2FB4736, level = 72 },                        # Flying Fish
+  { move = 0x2354CA2D, level = 82 },                        # Wind God's Dance
+  { move = 0xB0F8060A, level = 92 },                        # Ozone Flayer
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x61A1BA8C, level = 1 },                         # Poseidón [aura]
+  { move = 0x61A1BA8C, level = 20 },                        # wks00130
 ]
 
   [[edit.cards]]
@@ -218,10 +233,10 @@ moves = [
 [[edit]]
 target = "c04001520"                                   # Nick Tofobia
 moves = [
-  { move = 0xA9062A29, level = 1 },                         # Ultrasonic
-  { move = 0xF400CA92, level = 16 },                        # Anchors Aweigh
-  { move = 0xD2955C45, level = 30 },                        # Power Catch
-  { move = 0x1FA91CF4, level = 45 },                        # Negative Feedback
+  { move = 0x41AEB4DF, level = 48 },                        # Crystal Barrier
+  { move = 0xA9062A29, level = 58 },                        # Ultrasonic
+  { move = 0xF400CA92, level = 68 },                        # Anchors Aweigh
+  { move = 0x1FA91CF4, level = 78 },                        # Negative Feedback
 ]
 
   [[edit.cards]]
@@ -233,10 +248,10 @@ moves = [
 [[edit]]
 target = "c04001530"                                   # Marley Hookson
 moves = [
-  { move = 0xA2FB4736, level = 5 },                         # Flying Fish
-  { move = 0x332CCDC9, level = 19 },                        # Heel Kick
-  { move = 0x2354CA2D, level = 35 },                        # Wind God's Dance
-  { move = 0x501F2F12, level = 40 },                        # Heel Flick
+  { move = 0xF6E75EE9, level = 19 },                        # Headbanger
+  { move = 0xA2FB4736, level = 29 },                        # Flying Fish
+  { move = 0x332CCDC9, level = 39 },                        # Heel Kick
+  { move = 0x2354CA2D, level = 49 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]
@@ -248,10 +263,10 @@ moves = [
 [[edit]]
 target = "c04001540"                                   # Bart Black
 moves = [
-  { move = 0x1C4D4906, level = 5 },                         # Whirlpool
-  { move = 0xE196F1D1, level = 14 },                        # Burning Bomb
-  { move = 0x6A66FA7E, level = 35 },                        # Killer Whale
-  { move = 0x75994916, level = 40 },                        # Cunning Pull
+  { move = 0x0BFD4D80, level = 19 },                        # Grand Slam
+  { move = 0x1C4D4906, level = 29 },                        # Whirlpool
+  { move = 0xE196F1D1, level = 39 },                        # Burning Bomb
+  { move = 0x6A66FA7E, level = 49 },                        # Killer Whale
 ]
 
   [[edit.cards]]
@@ -296,9 +311,9 @@ moves = [
 target = "c11804040"                                   # Longjohn Silver
 moves = [
   { move = 0x4B3099D5, level = 1 },                         # Stomper Stopper
-  { move = 0x9AF2229C, level = 13 },                        # Gravity Point
-  { move = 0xDCC9CCA3, level = 20 },                        # Tesla Coil
-  { move = 0xA2BF7076, level = 30 },                        # Side Swipe
+  { move = 0x9AF2229C, level = 11 },                        # Gravity Point
+  { move = 0x9B3048AB, level = 21 },                        # Shadow Catch
+  { move = 0xDCC9CCA3, level = 31 },                        # Tesla Coil
 ]
 
   [[edit.cards]]

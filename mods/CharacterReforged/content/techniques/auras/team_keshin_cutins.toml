@@ -1,0 +1,12 @@
+schema = "VRFW.technique/3"
+if_mod = "CharacterReforged.keshin_points"
+
+# Team keshin summons: the aura row plays the every-participant summon event (content\anims\team_keshin_summons.toml).
+
+[[aura]]
+aura = "wks00300"                 # Griffin: ev80_00040 -> ev80_80300 (3 players)
+cells = { event = 0xEAA61CD5 }    # crc32("ev80_80300")
+
+[[aura]]
+aura = "wks00240"                 # Arthur: ev80_00060 -> ev80_80240 (2 players)
+cells = { event = 0x8F08B3E6 }    # crc32("ev80_80240")

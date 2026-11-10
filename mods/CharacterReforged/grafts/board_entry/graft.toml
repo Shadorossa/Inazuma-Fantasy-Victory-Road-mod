@@ -1,6 +1,4 @@
-# «Tabla de habilidades» of the story field dock (team_dock_menu_rpg_battle) and of the scout screen
-# (rpg_select_scout_chara_menu) always opens Character Reforged's skill table evt_skill_slot_menu instead of the game's
-# ability board; the story dock's entry is always selectable.
+# The story field dock's and the scout screen's «Tabla de habilidades» open the skill table vrfw_skill_slot_menu.
 name = "board_entry"
 mod = "CharacterReforged"
 order = 200

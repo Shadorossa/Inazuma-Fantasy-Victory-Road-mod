@@ -1,6 +1,5 @@
 schema = "VRFW.look/2"
-# The back number colours of the Cross kits. `fill` and `outline` come from each kit's own palette (a shirt or shorts
-# colour); `fill` is picked to read on the shirt's back.
+# The back number colours of the Cross kits.
 
 # Penguin
 [[number]]
@@ -134,7 +133,6 @@ clothes = "u120051_10"
 fill = "2A2522"
 outline = "D5E9EA"
 
-# Samurai Blue (Japan 2026)
 [[number]]
 clothes = "u990001_10"
 fill = "E8E8E8"

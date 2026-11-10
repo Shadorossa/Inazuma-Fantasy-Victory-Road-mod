@@ -1,6 +1,3 @@
-# Names and descriptions of the four moves first shipped by a former mod (merged here) whose technique files pin the
-# download's text ids (skillNameId / skillDescId). Spanish names = the download's (accent fixed: «Dispersíon»);
-# descriptions written for the mod (the download had placeholders). Same texts as _names.toml. Line break: \n.
 schema = "VRFW.text/2"
 
 [[row]]

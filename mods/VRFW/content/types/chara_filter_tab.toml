@@ -1,0 +1,15 @@
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.chara_filter_tab/1"
+folder = "content/chara_filter_tabs"
+label = "Player filter tabs"
+label_es = "Pestañas del filtro de jugadores"
+doc = "A tab of its own in the player filter window (bank and players' album), in the place of the season tab the framework leaves out."
+doc_es = "Una pestaña propia en la ventana de filtro de jugadores (banco y álbum), en el lugar de la pestaña de temporada que el framework quita."
+
+[entry.CharaFilterTab]
+doc = "a tab of its own in the player filter window (one tab: a later mod's declaration wins); one checkbox row per value of `rows`, built when the game starts"
+name = { type = "name", required = true, doc = "the tab's name in its mod (a-z 0-9 _)" }
+rows = { type = "string", required = true, doc = "\"passive_tags\": one row per archetype tag ([[VRFW.Tag]] of any active mod); a player passes a ticked row when his character's [[VRFW.CharacterTags]] list that tag" }
+text = { type = "string", required = true, doc = "text key of the tab's name (shown under the tab icons)" }
+icon = { type = "string", default = "icon_list_tab_filter08", doc = "tab icon: a sprite of the window's tab icon atlas (icon_list_tab_filter.g4tx); <icon>_off is its unfocused look" }
+symbol = { type = "string", default = "filter_symbol08", doc = "the window's background symbol while the tab is shown (a sprite of win07_01.g4tx)" }

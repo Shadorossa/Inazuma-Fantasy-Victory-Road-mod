@@ -1,0 +1,154 @@
+schema = "VRFW.team/2"
+default_lang = "en"
+# Canny Keepers (IE3 «Dave's Ultimate Tournament», Team Ogre team 606): roster, kit and crest of the archived Chronicles Deluxe team.
+[[team]]
+name = "ct_wk_the_keepers"
+key = "evt_ct_wk_the_keepers"
+based_on = "tm_cro_ie3_1920"
+kit = 0xC1F231A9
+level = 50
+series = "IE3"
+roster = "exact"
+
+  [[team.member]]
+  slot = 0
+  card = 0x44703DE8   # Thorsten Welger
+  number = 1
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 1
+  card = 0xC3C1E1BA   # Galileo
+  number = 2
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 2
+  card = 0x69C82931   # Ken Ironwall
+  number = 3
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 3
+  card = 0x14A9A76E   # Reg Underwood
+  number = 4
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 4
+  card = 0x29588479   # Knowle Bathers
+  number = 5
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 5
+  card = 0x42747055   # Ringo Spinning
+  number = 6
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 6
+  card = 0xBD9545A4   # Janine Brook
+  number = 7
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 7
+  card = 0x6A4CFD5F   # Adam Ropes
+  number = 8
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 8
+  card = 0x6E9F041C   # Gerhard Enders
+  number = 9
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 9
+  card = 0x9771A406   # Hugh Makebe
+  number = 10
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 10
+  card = 0x49E7B83E   # Hector Helio
+  number = 11
+  rarity_step = 1
+  captain = true
+
+  [[team.member]]
+  slot = 11
+  card = 0x64012916   # Juan Espindola
+  number = 12
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 12
+  card = 0x5C5BBF0C   # Gigi Blasi
+  number = 13
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 13
+  card = 0x6785FD78   # Émile Lazare
+  number = 14
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 14
+  card = 0xF2DF0B35   # Zolani Baloi
+  number = 15
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 15
+  card = 0x375C67FE   # Nathan Jones
+  number = 16
+  rarity_step = 1
+
+[team.emblem]
+png = "assets/images/teams/emblems/512/ie3_the_keepers.png"
+base = "em030058"
+catalog = "shared"
+
+[team.text.es]
+name = "Porteros Imbatibles"
+short = "Porteros Imbatibles"
+
+[team.text.en]
+name = "Canny Keepers"
+short = "Canny Keepers"
+
+[team.text.fr]
+name = "Canny Keepers"
+short = "Canny Keepers"
+
+[team.text.de]
+name = "Canny Keepers"
+short = "Canny Keepers"
+
+[team.text.it]
+name = "Fieri portieri"
+short = "Fieri portieri"
+
+[team.text.pt]
+name = "Canny Keepers"
+short = "Canny Keepers"
+
+[team.text.ja]
+name = "ザ・キーパーズ"
+short = "ザ・キーパーズ"
+
+[team.text.zh_hans]
+name = "Canny Keepers"
+short = "Canny Keepers"
+
+[team.text.zh_hant]
+name = "Canny Keepers"
+short = "Canny Keepers"
+
+# each player plays its card's first 4 moves (the engine reads them from the card; the Hiper comes from its slot 9)
+[[edit]]
+target = "ct_wk_the_keepers"
+card_moves = 4

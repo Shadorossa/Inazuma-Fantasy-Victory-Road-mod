@@ -1,14 +1,9 @@
--- Furor › the timing of the «Fase de furor activa» entry banner. When a team's furor
--- phase starts (signal Furor.gauge.phase, the user's or the CPU's) the banner slides in from the left, stays, then
--- slides out to the right (config.toml enter_from / exit_to); the match HUD graft research/grafts/furor_banner asks CMND_FUROR_BANNER every frame and
--- draws it. Settings: config.toml [furor_banner]. Nothing runs at load but the settings read and the handlers.
+-- Furor > the timing of the "Furor phase active" entry banner.
 
 Furor = Furor or {}
+local clamp = VRFW.value.clamp   -- a config number with a default, kept inside its range
 
-local Basics = require "VRFW/lib/basics"
-local clamp = Basics.value.clamp   -- a config number with a default, kept inside its range
-
-local RAW = (VRFW.files and VRFW.files.config and VRFW.files.config("furor_banner")) or {}
+local RAW = VRFW.config("furor_banner", {})
 local SETTINGS = {
   in_ms = clamp(RAW.in_seconds, 0.35, 0, 10) * 1000,
   hold_ms = clamp(RAW.hold_seconds, 2.0, 0, 60) * 1000,
@@ -16,12 +11,11 @@ local SETTINGS = {
   slide_units = clamp(RAW.slide_units, 3000, 0, 20000),
   top_units = clamp(RAW.top_units, 40, -2000, 2000),
   height_units = clamp(RAW.height_units, 56, 1, 1000),
-  -- the side it comes from / goes to: -1 left, 1 right
   enter = (RAW.enter_from == "right") and 1 or -1,
   exit = (RAW.exit_to == "left") and -1 or 1,
 }
 
-local started_at = nil      -- VRFW.now() of the last phase start, nil = no banner
+local started_at = nil
 
 -- 0..1 eased (slow at both ends)
 local function ease(t)
@@ -31,20 +25,18 @@ local function ease(t)
 end
 
 VRFW.on("signal:Furor.gauge.phase", function(ev)
-  started_at = VRFW.now()
+  started_at = VRFW.now_ms()
   return nil
 end)
 VRFW.on("match_start", function(ev) started_at = nil return nil end)
 VRFW.on("match_end", function(ev) started_at = nil return nil end)
 
--- CMND_FUROR_BANNER() -> shown, offset (0 in place, -1 fully off to the left .. 1 fully off to the right), slide_units,
--- top_units, height_units
 function Furor.Banner()
   local s = SETTINGS
   if started_at == nil then
     return false, 1, s.slide_units, s.top_units, s.height_units
   end
-  local t = VRFW.now() - started_at
+  local t = VRFW.now_ms() - started_at
   local offset
   if t < s.in_ms then
     offset = s.enter * (1 - ease(t / s.in_ms))
@@ -59,8 +51,7 @@ function Furor.Banner()
   return true, offset, s.slide_units, s.top_units, s.height_units
 end
 
--- CMND_FUROR_HUD_DEBUG() -> 1 when config.toml [furor_hud] debug = true (the fire gauge HUD draws plain test bars)
-local HUD_RAW = (VRFW.files and VRFW.files.config and VRFW.files.config("furor_hud")) or {}
+local HUD_RAW = VRFW.config("furor_hud", {})
 local HUD_DEBUG = HUD_RAW.debug == true
 function Furor.HudDebug()
   return HUD_DEBUG and 1 or 0

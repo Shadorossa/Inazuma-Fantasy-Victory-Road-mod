@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# The armour of Victoria's new warrior spirit: meshes per body group and texture (assets/models/armours/kvct01).
+format = "native"
+game_path = "chr/_armd/kvct01"

@@ -1,6 +1,3 @@
 schema = "VRFW.model/1"
-# Arion Sherwind's Inazuma Fantasy uniform u90400080 (the outfit content/items/arion_sherwind_uniform.toml, its kit in
-# content/looks/arion_sherwind_fantasy.toml), from the user's model files; textures named u90400080_* / s90400080_*.
-# Game files served as they are, from assets/models/kits/u90400080/{common,dx11}/ to data/{common,dx11}/chr/_uniform/u90400080/.
 format = "native"
 game_path = "chr/_uniform/u90400080"

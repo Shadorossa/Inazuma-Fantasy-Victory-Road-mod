@@ -1,68 +1,21 @@
--- BattleBayDeluxe bb_draft, Campaña grid (enjoy_team_select_menu_campaign; docs/game/modes/estadio-bb.md §14).
--- The first tile of «Equipos principales» is the team evt_bbd_draft (the mod's teams/50_draft.toml). Deciding it
--- (instead of the retail difficulty window) opens the Draft screen, laid out like «Plantilla de equipo» (v4, 2026-10-02, §14.11):
---   * RIGHT: the 16 slots on the 16 cards evt_bb_draft_slot (the formation panel's card objbin), placed by the graft:
---     the 11 field slots by their formation position (keeper at the bottom, forwards at the top) over the whole height
---     of the right half, the bench (5) in a column right of them. Behind them the panel's pitch (the frame
---     vs01_46_enjoy_team_select_formation_frame_left with its lines) moved and stretched to the same area; the panel's
---     own 11 cards are hidden while the screen is open. An empty slot is a normal player card (the slot's placeholder
---     drawn by the retail card command: its position colour, no coach frame) with face, element, position, level,
---     captain, frames and name hidden and the «?» glyph of num_menu01 on the card's centred mesh; bench slots (any
---     position) get the retail grey card base;
---   * LEFT: where the pitch was (the panel's tactics and «TÁCTICAS» hidden for the screen), the 5 candidate cards of
---     the chosen slot (evt_bb_draft_card, drawn larger) in a column; since 1.5.26 they are shown as a «pack opening»
---     instead (BBCR_DRAFT_PK: a darkened screen, a band across it, the 5 dealt face down and turned one by one, then
---     picked on the band; the column layout is only the fallback when the pack fails);
---   * the crest grid, its lock icons and the «Página» line are hidden while the screen is open; while it is open the
---     native panel refresh (UpdateFormation / UpdateTacticsLayer on focus changes) is held so it cannot hide the pitch;
---   * the player moves the cursor over the pitch / bench (arrows) and presses Enter on an empty slot: 5 candidates of
---     that position (any position on the bench, CMND_BBCR_DRAFT_CANDS); Up / Down (or Left / Right) + Enter picks
---     one (CMND_BBCR_DRAFT_PICK: the loader writes him into the Draft team's roster rows). The pick cannot be left
---     (2026-10-02, Nacho): Back plays the retail NG sound and shows «Elige uno de los 5» on the guide line (the loader
---     keeps each slot's 5 once rolled anyway). Slots in any order;
---   * the cards are the formation cards (2026-10-02): the panel's objbin team00_01_chara_card_for_formation_evt (Clean
---     HUD's object), registered with Inazuma Fantasy's position_cards when it runs (EVT_FC_EXTRA) for the dock-card
---     look (no level, no name, shadowless base, colour by position), at the size of the formation screen (FC_SCALE 1.05, the dock's x1.05);
---   * 16 filled: «¿Empezar la campaña con este equipo?» on the guide line (Enter = the retail difficulty window, then
---     the campaign); Back on the pitch: the retail Sí / No window «¿Quieres abandonar el draft?» (No focused).
--- Input: the layer evt_bb_draft_anchor (off screen) holds the control focus: Enter / Back reach OnDecideFocus / OnBack,
--- the arrows OnFunction(evt_bbd_up/down/left/right); the retail cursor is moved onto the selected card.
--- Layer instances live as long as the menu (open / close only change their state): the card name table
--- (NameSetting_CharaCardForSoccer) is written ONCE per instance. The engine's begin command (0xA1D31171) does not
--- reset the entry counters of the instance's CMenuNamingSetting, so a second name setting writes past the new arrays
--- and corrupts the heap (v3: entering the Draft a second time hung in malloc).
--- Leaving the screen puts the panel back (pitch left, tactics), gives the grid back as after the retail difficulty
--- window, then (a few frames later, the Draft layers closed) rebuilds the page like a page turn
--- (CMND_VRFW_BB_PAGE_REFRESH + the 28 emblems redrawn and reloaded) and puts the focus back on the Draft tile. Without
--- the loader's draft the tile does nothing. Globals only; nothing at chunk load.
--- 1.5.42 (owner: «el Draft no funciona en el 1 vs 1»): the same block runs on the free-match grid
--- (enjoy_team_select_menu_offline, BBCR_DRAFT_HOST = "free_match" set by bbd_offline.lua before it; config.toml
--- [draft] modes). There the retail decide of a tile never reaches the Lua: scripts\campaign.lua routes the Draft
--- tile's decide here when no complete draft is on the rows (else the retail decide records the Draft team as 1P /
--- CPU at once). Differences of the free match: the side being chosen (1P left / CPU right) is the side whose panel
--- the native refresh last drew the Draft team on (BBCR_DRAFT.side); while the screen is open every other panel part
--- (the other side's cards, frame, team plate, tactics, the name plates, the ready balloons, the option buttons) and
--- the grid are hidden and put back exactly as they were (CMND_IS_LAYER_VISIBLE, BBCR_DRAFT.stash); the start
--- question is «¿Jugar con este equipo?» and Enter makes the tile's retail decide (CMND_BBD_DRAFT_DECIDE, after the
--- page is rebuilt): the Draft team becomes 1P / CPU and the match is set up as with any team.
--- 1.5.89 (owner): the mouse on the Draft screen (BBCR_DRAFT_Mouse: hover selects a slot / a candidate, a click
--- confirms as Enter; config.toml [draft] mouse) and the input anchor hidden (a stray white bar at the left edge).
-BBCR_DRAFT = {
-  INFO = @crc:CMND_BBCR_DRAFT_INFO@,
-  BEGIN = @crc:CMND_BBCR_DRAFT_BEGIN@,
-  SLOTS = @crc:CMND_BBCR_DRAFT_SLOTS@,
-  SLOT_INFO = @crc:CMND_BBCR_DRAFT_SLOT@,
-  CANDS = @crc:CMND_BBCR_DRAFT_CANDS@,
-  PICK = @crc:CMND_BBCR_DRAFT_PICK@,
-  ABANDON = @crc:CMND_BBCR_DRAFT_ABANDON@,
-  DECIDE = @crc:CMND_BBD_DRAFT_DECIDE@,
-  FORMATIONS = @crc:CMND_BBD_DRAFT_FORMATIONS@,
-  SET_FORMATION = @crc:CMND_BBD_DRAFT_SET_FORMATION@,
-  PLACE = @crc:CMND_BBD_FORMATION_PLACE@,
-  FN_Y = @crc:evt_bbd_roster_y@, -- Y (the anchor's CMD_FUNC3): the formation step from the board
+-- Draft screen of the Battle Bay grids (enjoy_team_select_menu_campaign / _offline)
+BattleBayDeluxe = type(BattleBayDeluxe) == "table" and BattleBayDeluxe or {}
+BattleBayDeluxe.draft = {
+  INFO = @crc:CMND_BATTLEBAYDELUXE_DRAFT_INFO@,
+  BEGIN = @crc:CMND_BATTLEBAYDELUXE_DRAFT_BEGIN@,
+  SLOTS = @crc:CMND_BATTLEBAYDELUXE_DRAFT_SLOTS@,
+  SLOT_INFO = @crc:CMND_BATTLEBAYDELUXE_DRAFT_SLOT@,
+  CANDS = @crc:CMND_BATTLEBAYDELUXE_DRAFT_CANDIDATES@,
+  PICK = @crc:CMND_BATTLEBAYDELUXE_DRAFT_PICK@,
+  ABANDON = @crc:CMND_BATTLEBAYDELUXE_DRAFT_ABANDON@,
+  DECIDE = @crc:CMND_BATTLEBAYDELUXE_DRAFT_DECIDE@,
+  FORMATIONS = @crc:CMND_BATTLEBAYDELUXE_DRAFT_FORMATIONS@,
+  SET_FORMATION = @crc:CMND_BATTLEBAYDELUXE_DRAFT_SET_FORMATION@,
+  PLACE = @crc:CMND_BATTLEBAYDELUXE_FORMATION_PLACE@,
+  FN_Y = @crc:battlebaydeluxe_roster_y@, -- Y on the anchor (CMD_FUNC3): swallowed during the draft
   PAGE_SLOT = @crc:CMND_VRFW_BB_PAGE_SLOT@,
   PAGE_REFRESH = @crc:CMND_VRFW_BB_PAGE_REFRESH@,
-  TEAM = @crc:evt_bbd_draft@,
+  TEAM = @crc:battlebaydeluxe_draft@,
   MENU = 786045682 --[[enjoy_team_select_menu]],
   GRID = 106197494 --[[vs01_43_enjoy_team_select_emblem_icon]],
   ATTACH = 2994917936 --[[vs01_42_enjoy_team_select_emblem_attach_base]],
@@ -70,8 +23,7 @@ BBCR_DRAFT = {
   DIFFWIN = 2996147312 --[[win05_11_select_difficulty_win_base]],
   LEFT = 3003299608 --[[team00_01_chara_card_left]],
   RIGHT = 3825623416 --[[team00_01_chara_card_right]],
-  -- free match: what the Draft screen hides besides the grid (put back as it was): the other side's panel, the name
-  -- plates, the ready balloons, the game option buttons
+  -- Layers hidden in the free match.
   FREE_HIDE = {3825623416 --[[team00_01_chara_card_right]], 187604095 --[[vs01_46_enjoy_team_select_formation_frame_right]],
                2708277675 --[[vs01_45_p1_enjoy_team_select_teamInfo]], 909193856 --[[soccer08_12_tactics_cmd_right]],
                4074949471 --[[team00_10_tactics_base_right]], 4211334321 --[[soccer00_40_username_left]],
@@ -83,16 +35,19 @@ BBCR_DRAFT = {
   FRAME_NODES = {2654143900 --[[_pos_formation01_cc]], 2278526192 --[[_pos_formation01_ld]],
                  960402397 --[[_pos_formation01_ru]]},
   TEAMINFO = 2945114490 --[[vs01_44_p1_enjoy_team_select_teamInfo]],
-  M_TACTICS_LABEL = 1145084495 --[[_gtxt_tactics01: «TÁCTICAS»]],
+  M_TACTICS_LABEL = 1145084495 --[[_gtxt_tactics01: TACTICS]],
   TACTICS_BASE = 996660679 --[[team00_10_tactics_base_left]],
   TACTICS_CMD = 2312417854 --[[soccer08_12_tactics_cmd_left]],
-  SLOT = @crc:evt_bb_draft_slot@,
-  CARD = @crc:evt_bb_draft_card@,
-  ANCHOR = @crc:evt_bb_draft_anchor@,
-  FN_UP = @crc:evt_bbd_up@,
-  FN_DOWN = @crc:evt_bbd_down@,
-  FN_LEFT = @crc:evt_bbd_left@,
-  FN_RIGHT = @crc:evt_bbd_right@,
+  SLOT = @crc:battlebaydeluxe_draft_slot@,
+  CARD = @crc:battlebaydeluxe_draft_card@,
+  NODE_BASE = @crc:_pos_base01@ --[[The retail focus rule measures from this card node.]],
+  -- direction types of the retail formation focus rule (soccer_formation_menu_inc GetFocusDirType)
+  DIR_UP = 1, DIR_DOWN = 2, DIR_LEFT = 3, DIR_RIGHT = 4,
+  ANCHOR = @crc:battlebaydeluxe_draft_anchor@,
+  FN_UP = @crc:battlebaydeluxe_up@,
+  FN_DOWN = @crc:battlebaydeluxe_down@,
+  FN_LEFT = @crc:battlebaydeluxe_left@,
+  FN_RIGHT = @crc:battlebaydeluxe_right@,
   GUIDE = 618184632 --[[mainmenu01_06_base_button_guide_right]],
   GUIDE_TEXT = 378156699 --[[_text_guide01]],
   CURSOR = 2296367164 --[[cmn05_01_cursor]],
@@ -100,9 +55,7 @@ BBCR_DRAFT = {
   CARD_CURSOR = 945715707, CARD_CURSOR2 = 1967169874, -- the card objbin's cursor labels
   EMBLEM_TEX = 618311715 --[[enjoy_list_icon_dmy01]],
   EMBLEM_NODE = 3933090681 --[[_pos_enjoy_list01]],
-  -- card meshes (NameSetting_CharaCardForSoccer names, L and S): the season tag / lock the retail panel hides, the
-  -- focus frame, what a drafted card shows and an empty one hides, the staff / extra marks an empty card never shows
-  -- (coach frame + «ENTRENADOR», AI role, synergy, team dock), the card base and the centred «?» mesh
+  -- Card meshes (NameSetting_CharaCardForSoccer names, large and small pairs).
   M_TAG = {@crc:_icon_card01@, @crc:_icon_card02@, @crc:_icon_lock01@, @crc:_icon_lock02@},
   M_FOCUS = {@crc:_icon_chr_focus_l01@, @crc:_icon_chr_focus_s01@},
   M_FACE = {@crc:_icon_chr_dmy_l01@, @crc:_icon_chr_dmy_s01@, @crc:_icon_chr_type_dmy_l01@, @crc:_icon_chr_type_dmy_s01@,
@@ -118,215 +71,158 @@ BBCR_DRAFT = {
   N_STAFF = {@crc:_pos_leader01@, @crc:_pos_leader02@, @crc:_pos_ai_role01@, @crc:_pos_ai_role02@},
   M_BASE = {@crc:_icon_chr_base_l01@, @crc:_icon_chr_base_s01@},
   M_DEF = {@crc:_icon_chr_def01_l@, @crc:_icon_chr_def01_s@},
-  -- card size (v5, 2026-10-06): every Draft card is the SMALL formation card (card command bigtype false, as the
-  -- panel's bench; the layout constants below are measured for it). The objbin holds both cards (_pos_base01 large,
-  -- _pos_base02 small); the native draw only switches the meshes it manages, so a mesh the graft turns on must be the
-  -- small one (index SZ of the L / S pairs above) and its large twin is turned off: v4 turned both on (empty card =
-  -- the large base + large «?» mesh with the small focus frame inside it; the focused card got the large focus frame
-  -- around the small one).
+  -- Size index of the slot cards.
   SZ = 2,
-  -- 1.5.52 (owner: the pack's cards as BetterUI's cards of the bank / lists): the 5 candidates (layer evt_bb_draft_card)
-  -- are the LARGE formation card (card command bigtype true, the card the bank grid draws: landscape plate, bust
-  -- portrait, element bottom left, position bottom right, no name / level); the 16 slots stay small (SZ).
-  -- BBCR_DRAFT_Sz(layer) gives the index of the L / S pairs for a layer.
+  -- Size index of the candidate cards.
   SZ_CARD = 1,
-  -- the «?» (num_menu01_01_q, 60 x 88 px) at native size, centred on the small card: the centred mesh
-  -- _icon_chr_def01_s (108 x 99 in team00_01_evt_fc, centred on (0, 0) of _pos_chr02) is resized to the glyph
-  -- (node scale = mesh size in px, node translation = its top-left corner); v4 stretched it over the whole mesh
+  -- (node scale = size in px, node translation = its top-left corner)
   Q_W = 60, Q_H = 88, Q_SCALE = 0.78, Q_BOLD_X = 1.2, -- smaller, strokes thicker (width stretched)
-  Q_SCALE_L = 0.94, -- the «?» on the large card (_icon_chr_def01_l 156 x 120, centred on (0, 0) of _pos_chr01 too)
+  Q_SCALE_L = 0.94,
   NODE_POS = 2575768773 --[[(layer, idx, node, axis 0/1/2, value): local node translation]],
   NODE_SCALE = 2885415772 --[[(layer, idx, node, sx, sy): local node scale]],
-  -- sprite swap 558735651 (layer, texture file, sprite, material texture, 0, idx): retail sprites only
+  -- Sprite swap command 558735651 takes (layer, texture file, sprite, material texture, 0, idx).
   TEX_CARD = 4225297828 --[[#/menu/102_team/team00/team00_01/<LG>/team00_01.g4tx]],
   TEX_NUM = 1677382518 --[[#/menu/200_icon/100_num/num_menu01.g4tx (MENU_RES of this menu)]],
-  SPR_GREY = 1967881488 --[[icon_chr_grayout01_s: the small card's grey (136 x 100; v4 put the large
-                           icon_chr_base01_type_gray01, 212 x 132, on the small mesh)]],
+  SPR_GREY = 1967881488 --[[icon_chr_grayout01_s: the small card's grey (136 x 100)]],
   SPR_GREY_L = 2195302709 --[[icon_chr_base01_type_gray01: the large card's grey (212 x 132), the pack's backs]],
   SPR_Q = 3747115962 --[[num_menu01_01_q]],
   SLOT_BASE = {840912853 --[[icon_chr_base01_l01]], 627420056 --[[icon_chr_base01_s01]]},
   SLOT_DEF = {4281540162 --[[icon_chr_def01_l]], 1916474295 --[[icon_chr_def01_s]]},
   T_NAME = @crc:_text_chr01@,
-  TXT_POS = {[0] = @crc:evt_bbd_pos_0@, @crc:evt_bbd_pos_1@, @crc:evt_bbd_pos_2@, @crc:evt_bbd_pos_3@, @crc:evt_bbd_pos_4@,
-             @crc:evt_bbd_pos_5@, @crc:evt_bbd_pos_6@},
-  TXT_FM_KEY = @crc:evt_bbd_fm_key@, -- «Y Alineación» on the board's guide line
-  -- the staff places (CMND_BBCR_DRAFT_SLOT kinds, 1.96.0): the coach (roster slot 19) as the large card with the
-  -- retail «ENTRENADOR» tab, bottom left (left of the pitch, a little raised); the 3 managers (16-18) as small cards
-  -- in a triangle bottom right, under the label «GERENTES» (BBCR_DRAFT_FM)
+  TXT_POS = {[0] = @crc:battlebaydeluxe_pos_0@, @crc:battlebaydeluxe_pos_1@, @crc:battlebaydeluxe_pos_2@, @crc:battlebaydeluxe_pos_3@, @crc:battlebaydeluxe_pos_4@,
+             @crc:battlebaydeluxe_pos_5@, @crc:battlebaydeluxe_pos_6@},
+  -- Staff places (CMND_BATTLEBAYDELUXE_DRAFT_SLOT kinds).
   POS_COACH = 5, POS_MANAGER = 6,
   COACH_X = 600, COACH_Y = -745, COACH_SCALE = 1.1, HALF_COACH = {85, 64},
-  MANAGER_PLACES = {}, -- the triangle under the bench column (derived after this table)
-  TXT_SHORT = {@crc:evt_bbd_short_1@, @crc:evt_bbd_short_2@, @crc:evt_bbd_short_3@, @crc:evt_bbd_short_4@},
-  TXT_SLOT = @crc:evt_bbd_slot@,
-  TXT_PLAYER = @crc:evt_bbd_player@,
-  TXT_START = @crc:evt_bbd_start@,
-  TXT_START_MATCH = @crc:evt_bbd_start_match@, -- the free match's question
-  TXT_QUIT = @crc:evt_bbd_quit@,
-  TXT_QUIT_ASK = @crc:evt_bbd_quit_ask@, -- two lines: the question, «Se perderán tus elecciones.»
-  TXT_PICK_ONE = @crc:evt_bbd_pick_one@,
+  MANAGER_PLACES = {}, -- the triangle under the bench column (BattleBayDeluxe.draft_manager_places)
+  TXT_SLOT = @crc:battlebaydeluxe_slot@,
+  TXT_PLAYER = @crc:battlebaydeluxe_player@,
+  TXT_START = @crc:battlebaydeluxe_start@,
+  TXT_START_MATCH = @crc:battlebaydeluxe_start_match@, -- the free match's question
+  TXT_QUIT_ASK = @crc:battlebaydeluxe_quit_ask@,
+  TXT_PICK_ONE = @crc:battlebaydeluxe_pick_one@,
   SE_NG = 2086672038 --[[sy0003]],
-  QUIT_CLOSE_MAX = 120, -- frames the Sí / No window may take to report closed
-  TXT_KEYS = @crc:evt_bbd_keys@,
-  TXT_ERROR = @crc:evt_bbd_error@,
-  -- layout, menu px (x from the left, y 0 at the top edge and negative downwards; docs/game/modes/estadio-bb.md
-  -- §14.11). The starters' places: BBCR_DRAFT_Layout; SLOT_SCALE: config.toml [draft.pitch] card_scale.
-  FC_SCALE = 1.05,
+  TXT_KEYS = @crc:battlebaydeluxe_keys@,
+  TXT_ERROR = @crc:battlebaydeluxe_error@,
+  -- Layout in menu pixels (x from the left, y 0 at the top edge, negative downwards).
   PITCH_CX = 1150, MIRROR = 1, PITCH_TOP = -195, SLOT_SCALE = 1.05,
-  -- the panel's pitch (frame field x -206..206, y +166..-226 around its attach point (240, -350)) moved by
-  -- (PITCH_CX - FRAME_FIELD_CX, FRAME_DY) and stretched by (FRAME_SX, FRAME_SY): field centred on PITCH_CX, y -130..-890, under the cards
-  -- the stretched pitch's centre line sits FRAME_FIELD_CX right of the layer origin (measured on screen: 910 -> 1029), so
-  -- FRAME_DX puts that axis on PITCH_CX, the formation grid's centre column (BBCR_DRAFT_LAY.CX)
   FRAME_FIELD_CX = 119, FRAME_DY = -102, FRAME_SX = 2.05, FRAME_SY = 1.94,
-  -- bench: a column right of the pitch
-  BENCH_X = 1680, BENCH_Y = -195, BENCH_DY = -112, -- from the pitch's top row; room below for the managers' triangle (derived after this table)
-  BENCH_GREY = true, -- bench slots (any position): the grey card base instead of the placeholder's position colour
-  -- candidates: a column on the left, where the pitch was (the same formation card at the same size; the retail
-  -- cursor marks the chosen one): screen y 158 .. 862, clear of the header and of the team name bar (y 894)
+  -- Bench layout.
+  BENCH_X = 1680, BENCH_Y = -195, BENCH_DY = -112,
+  BENCH_GREY = true,
+  -- Layout of the candidates when there is no pack.
   CAND_X = 250, CAND_Y = -210, CAND_DY = -150, CARD_SCALE = 1.05, CARD_SCALE_ON = 1.05,
   PRIO = 700,
   ANCHOR_X = -4000, ANCHOR_Y = 4000,
   REFRESH_FRAMES = 8,
-  REAPPLY_FRAMES = 30, -- an empty card is re-hidden for this many frames (a late texture load may show a mesh again)
-  PROBE_FRAMES = 12, -- the frame's pose is logged this many frames after the screen opened (layout check in the log)
+  REAPPLY_FRAMES = 30,
+  PROBE_FRAMES = 12,
   LEVEL = 40,
-  -- 1.5.89 (owner: the mouse did nothing on the Draft screen): hover selects a slot / a candidate as the arrows do, a
-  -- left click confirms as Enter does (BBCR_DRAFT_Mouse, config.toml [draft] mouse). The cards are free layers placed
-  -- with CMND_SET_LAYER_LOCAL_POS in no focus group: the engine's own hover never reaches such layers
-  -- (docs/game/ui/mouse-support.md §2 item 4), so the hit test is the framework's pointer helper (VRFW_Pointer.New)
-  -- around each drawn card's centre (the card's origin). Half sizes on screen: the small card at SLOT_SCALE (106.6 x 96
-  -- at 1, as drawn), the large one at CARD_SCALE (154 x 116 at 1)
-  MOUSE = @crc:CMND_BBD_DRAFT_MOUSE@,
+  -- Mouse support (config.toml [draft] mouse).
+  MOUSE = @crc:CMND_BATTLEBAYDELUXE_DRAFT_MOUSE@,
   HALF_SLOT = {56, 50}, HALF_CAND = {81, 61},
-  -- 1.5.89 (owner: a thin white bar at the left edge, x ~29 y ~606): the stray-layer scan of BBCR_DRAFT_Probe logs every
-  -- visible instance of these layers within STRAY_X px of the left edge (once per screen)
+  -- BattleBayDeluxe.draft_stray_scan logs visible instances of these layers within STRAY_X px of the left edge
   STRAY_X = 120,
   STRAY_LAYERS = {
-    {"evt_bb_draft_anchor", @crc:evt_bb_draft_anchor@}, {"evt_bb_draft_slot", @crc:evt_bb_draft_slot@},
-    {"evt_bb_draft_card", @crc:evt_bb_draft_card@}, {"evt_bbd_pk_quad", @crc:evt_bbd_pk_quad@},
-    {"evt_bbd_pk_txt", @crc:evt_bbd_pk_txt@}, {"evt_bbd_pk_crest", @crc:evt_bbd_pk_crest@},
+    {"battlebaydeluxe_draft_anchor", @crc:battlebaydeluxe_draft_anchor@}, {"battlebaydeluxe_draft_slot", @crc:battlebaydeluxe_draft_slot@},
+    {"battlebaydeluxe_draft_card", @crc:battlebaydeluxe_draft_card@}, {"battlebaydeluxe_pk_quad", @crc:battlebaydeluxe_pk_quad@},
+    {"battlebaydeluxe_pk_txt", @crc:battlebaydeluxe_pk_txt@}, {"battlebaydeluxe_pk_crest", @crc:battlebaydeluxe_pk_crest@},
     {"cmn05_01_cursor", 2296367164},
-    {"evt_bbd_mode_bg", @crc:evt_bbd_mode_bg@}, {"evt_bbd_mode_pill", @crc:evt_bbd_mode_pill@},
-    {"evt_bbd_mode_txt", @crc:evt_bbd_mode_txt@}, {"vrfw_bb_page_guide", @crc:vrfw_bb_page_guide@},
-    {"evt_bbd_roster_bg", @crc:evt_bbd_roster_bg@}, {"evt_bbd_roster_frame", @crc:evt_bbd_roster_frame@},
-    {"evt_bbd_roster_title", @crc:evt_bbd_roster_title@}, {"evt_bbd_roster_blank", @crc:evt_bbd_roster_blank@},
-    {"evt_bbd_roster_card", @crc:evt_bbd_roster_card@},
+    {"battlebaydeluxe_mode_bg", @crc:battlebaydeluxe_mode_bg@}, {"battlebaydeluxe_mode_pill", @crc:battlebaydeluxe_mode_pill@},
+    {"battlebaydeluxe_mode_txt", @crc:battlebaydeluxe_mode_txt@}, {"vrfw_bb_page_guide", @crc:vrfw_bb_page_guide@},
+    {"battlebaydeluxe_roster_bg", @crc:battlebaydeluxe_roster_bg@}, {"battlebaydeluxe_roster_frame", @crc:battlebaydeluxe_roster_frame@},
+    {"battlebaydeluxe_roster_title", @crc:battlebaydeluxe_roster_title@}, {"battlebaydeluxe_roster_blank", @crc:battlebaydeluxe_roster_blank@},
+    {"battlebaydeluxe_roster_card", @crc:battlebaydeluxe_roster_card@},
   },
   -- state
   mode = nil, tile = -1, sel = 0, csel = 0, k = -1, shown = nil, formation = 0,
   slots = {}, cands = {}, pos = {}, where = {}, ready = {}, slotArgs = {}, opened = false, used = false, bypass = false,
   refresh = nil, reapply = nil, probe = nil, quitCo = nil,
-  named = {}, -- card instances whose name table is written (never cleared: the instances live as long as the menu)
-  pk = nil, -- the candidates' «pack opening» while it runs / is shown (BBCR_DRAFT_PackStart)
-  -- free match (1.5.42): the side being chosen (true = 1P, left), the team each side's panel last showed (native
-  -- draws), our own panel calls in progress, the hidden layers to put back, the tile's retail decide pending
+  named = {},
+  pk = nil,
+  -- State of the free match.
   side = true, drawn = {}, ours = false, stash = {}, autoDecide = false,
-  -- 1.5.89: the pointer (VRFW_Pointer.New, made at the first screen), the mouse switch of this screen, whether the
-  -- pointer was polled last frame (a screen / window coming back resets it: a held button is no click)
   ptr = nil, mouse = true, polled = false, mouseDecided = false,
 }
 
--- the managers' triangle under the last bench slot, centred on the bench column: one on top, two side by side below
--- (card = BBCR_DRAFT_LAY.CARD_W x CARD_H at SLOT_SCALE spacing of the bench), the «GERENTES» label above it
-do
-  local B = BBCR_DRAFT
+-- The managers' triangle under the last bench slot, centred on the bench column, with the bench column's gap between cards.
+function BattleBayDeluxe.draft_manager_places()
+  local B, L = BattleBayDeluxe.draft, BattleBayDeluxe.draft_layout
+  BattleBayDeluxe.draft_pitch_look()
   local rowGap = -B.BENCH_DY
   local lastBench = B.BENCH_Y + 4 * B.BENCH_DY
-  local label = lastBench - rowGap
-  local top = label - rowGap
-  local half = (143 * B.SLOT_SCALE) / 2 + 6
+  local top = lastBench - 2 * rowGap
+  local gap = rowGap - L.CARD_HEIGHT * L.CARD_SCALE
+  local half = (L.CARD_WIDTH * L.CARD_SCALE + gap) / 2
   B.MANAGER_PLACES = {{B.BENCH_X, top}, {B.BENCH_X - half, top - rowGap}, {B.BENCH_X + half, top - rowGap}}
-  B.MANAGER_LABEL = {B.BENCH_X, -label}
 end
 
 
--- the screen runs on the free-match grid (bbd_offline.lua sets BBCR_DRAFT_HOST before this block)
-function BBCR_DRAFT_Free()
-  return BBCR_DRAFT_HOST == "free_match"
+function BattleBayDeluxe.draft_free()
+  return BattleBayDeluxe.draft_host == "free_match"
 end
 
--- the candidates' «pack opening» (1.5.26, owner: «estilo muy FIFA»): the screen darkens, a band opens across it, the 5
--- cards (evt_bb_draft_card, drawn larger on the band) are dealt face down (the empty slot's «?» card) and turned one by
--- one, lowest card rarity first (chara_param col 41, CMND_GET_CHARA_INFO 8); a unique best card is turned last after a
--- pause, with a gold glow, a whole-screen flash and its own sound. Then the 5 stay on the band to pick (the chosen one
--- raised); Enter / Back during the animation show all 5 at once. A pick flies the card to its slot and the screen
--- comes back. Layers evt_bbd_pk_quad / _txt (content\menus\bb_draft.toml); timings, darkness, size and sounds from
--- config.toml [draft.pack] (CMND_BBD_DRAFT_PACK; these defaults without it). Frames at 60 a second.
-BBCR_DRAFT_PK = {
-  CMD = @crc:CMND_BBD_DRAFT_PACK@,
-  QUAD = @crc:evt_bbd_pk_quad@,
-  TXT = @crc:evt_bbd_pk_txt@,
-  CREST = @crc:evt_bbd_pk_crest@,
-  -- 1.5.38 (owner in game: a WHITE screen behind the 5, white band, the texts outlined on white):
-  -- CMND_SET_PRIM_COLOR never tints the cmn01_10 quad's mesh (as the Torneo's connectors, bb-tournament.md §6.1b), so
-  -- the one white sprite tinted per part stayed white. Each part is now a pre-coloured flat sprite of the mod's own
-  -- atlas (research/scripts/bbd_pack_art.py, content/images/menu/220_img/bbd_pk.toml), faded with
-  -- CMND_SET_LAYER_MODEL_ALPHA (the retail locked-dock fade).
+-- State of the candidates' pack opening.
+BattleBayDeluxe.draft_pack = {
+  CMD = @crc:CMND_BATTLEBAYDELUXE_DRAFT_PACK@,
+  QUAD = @crc:battlebaydeluxe_pk_quad@,
+  TXT = @crc:battlebaydeluxe_pk_txt@,
+  CREST = @crc:battlebaydeluxe_pk_crest@,
   ART = 1048010258 --[[#/menu/220_img/bbd_pk/bbd_pk.g4tx]],
   MESH_QUAD = 312193881 --[[_icon_new01]],
   NODE_QUAD = 1909474081 --[[icon_new01]],
   TXT_ON = @crc:_text_list01_on@, TXT_OFF = @crc:_text_list01_off@,
   STYLE = 1911293514 --[[fs_28_w_cc_2d0_001: centred white, no outline]],
-  TXT_TITLE = @crc:evt_bbd_pack_title@, TXT_SKIP = @crc:evt_bbd_pack_skip@, TXT_PICK = @crc:evt_bbd_pack_pick@,
-  -- commands (the Torneo's quads: research/grafts/bb_tournament)
+  TXT_SKIP = @crc:battlebaydeluxe_pack_skip@,
+  -- commands
   VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@, POS = @crc:CMND_SET_LAYER_LOCAL_POS@, SCALE = @crc:CMND_SET_LAYER_LOCAL_SCALE@, SPRITE = 558735651, PRIM_COLOR = @crc:CMND_SET_PRIM_COLOR@,
   PRIM_ALPHA = @crc:CMND_SET_PRIM_ALPHA@, TEXT = @crc:CMND_SET_MENU_TEXT_STRING@, TEXT_VISIBLE = @crc:CMND_SET_MENU_TEXT_VISIBLE@, TEXT_STYLE = 2333948100,
   TEXT_ALPHA = @crc:CMND_SET_MENU_TEXT_ALPHA@, MODEL_ALPHA = @crc:CMND_SET_LAYER_MODEL_ALPHA@, PRIO = @crc:CMND_SET_DRAW_PRIORITY@, CHARA_INFO = @crc:CMND_GET_CHARA_INFO@, SE = @crc:CMND_SND_PLAY_SE@,
   Q = 36, -- the quad's size in px at scale 1
-  -- the row under a card: crest + name, centred together. The crest: layer evt_bbd_pk_crest (team06_02: emblem quad
-  -- 68 px, centre 78 px from the row's origin), asked once per pack, shown when loaded (at most CREST_WAIT frames). The
-  -- game's text measure answers the text box, so a name's width is estimated (GLYPH px a character at scale 1, a CJK
-  -- character twice); a name wider than the room shrinks, down to NAME_MIN.
+  -- Layout of the row under a card.
   N_CREST = 5, CREST_PX = 68, CREST_CX = 78, CREST_WAIT = 30, LOADING = 1277042906,
   CREST_HIDE = {@crc:_list_base_xs01_off@, @crc:_list_base_xs01_on@, @crc:_list_base_xs01_ok@, @crc:_list_base_xs01_ol@,
                 @crc:_icon_check01@},
   MESH_VISIBLE = 2158717427,
   ROW_CREST = 44, ROW_GAP = 12, ROW_MARGIN = 14, NAME_SCALE = 0.82, NAME_MIN = 0.5, GLYPH = 13.5, ROW_Y = 30,
-  crests = {}, -- the team each crest instance shows (VRFW_Team.Emblem)
-  -- quad instances and their draw priorities (the pitch cards: 700; the 5 cards: CARD_PRIO; the cursor: 999)
+  crests = {}, -- the team each crest instance shows (VRFW.team.emblem)
   I_DIM = 0, I_BAND = 1, I_EDGE = 2, I_GLOW = 4, I_FLASH = 9, I_SCREEN = 14, N_QUAD = 16, N_TXT = 7,
   CARD_PRIO = 720,
-  -- the look: seconds, darkness, size (the defaults of config.toml [draft.pack])
+  -- Timings and sizes of the pack animation.
   intro = 0.25, deal = 0.22, deal_stagger = 0.07, flip = 0.22, settle = 0.12, flash = 0.30, gap = 0.45,
   suspense = 0.40, outro = 0.28, dim = 0.72, scale = 1.6, spacing = 330,
   se_open = 3848881948 --[[sy0000]], se_deal = 2629173176 --[[sy0009]], se_reveal = 4235359837 --[[sy0010]],
   se_best = 766561556 --[[sy0080]],
   FPS = 60, CX = 960, CY = 540,
-  -- the LARGE card at scale 1 (1.5.52; Clean HUD / BetterUI's team00_01_evt_fc: body _touch_chr01 154 x 116, centred
-  -- on the layer's origin; the small card before: 120 x 112, 4 px right / 7 px down)
+  -- the large card at scale 1 (body _touch_chr01 154 x 116, centred on the layer origin)
   CARD_W = 154, CARD_H = 116, CARD_OX = 0, CARD_OY = 0,
-  LAND = 106.6 / 154.4, -- a picked large card lands at this fraction of the slot scale (the small card's width)
-  -- the cursor arrow (cmn05_01_cursor, its tip at the layer's origin, the arrow left of it) at the focused card's
-  -- left edge, CUR_DX px outside it, at the card's height CUR_DY (screen px, y down, at the card's scale)
+  LAND = 106.6 / 154.4,
+  -- Places the cursor arrow (cmn05_01_cursor, tip at the layer's origin, arrow to its left) at the focused card.
   CUR_DX = 6, CUR_DY = 0,
-  PAUSE = 0.12, -- after the deal, before the first turn
+  PAUSE = 0.12,
   OVER = 0.12, OVER_BEST = 0.25, -- the turned card's bounce
   SEL_GROW = 1.08, SEL_LIFT = 16, -- the chosen card on the band
-  -- the parts' sprites (their colours: bbd_pack_art.py CELLS)
   COL_DIM = @crc:bbd_pk_dim@, COL_BAND = @crc:bbd_pk_band@, BAND_ALPHA = 0.88, COL_EDGE = @crc:bbd_pk_edge@,
   COL_GLOW = @crc:bbd_pk_glow@, GLOW_ALPHA = 0, COL_GOLD = @crc:bbd_pk_gold@, GOLD_ALPHA = 0.65,
   COL_FLASH = @crc:bbd_pk_flash@, COL_SCREEN = @crc:bbd_pk_screen@, SCREEN_ALPHA = 0.55,
-  spr = {}, -- the sprite each quad instance has (sent again only on a change; cleared by BBCR_DRAFT_PkPrio)
+  spr = {},
   loaded = false,
 }
 
--- the Draft card layers get Inazuma Fantasy's formation-card look from its position_cards (soccer_common) when that
--- mod runs, like the panel's own team00_01_chara_card_left / _right (its T01 layer list + this table); without it
--- the table is never read
-EVT_FC_EXTRA = EVT_FC_EXTRA or {}
-EVT_FC_EXTRA[BBCR_DRAFT.SLOT] = true
-EVT_FC_EXTRA[BBCR_DRAFT.CARD] = true
+-- Registers extra card layers for the formation-card look of soccer_common's position_cards (VRFW.formation_card_extra).
+VRFW.formation_card_extra = VRFW.formation_card_extra or {}
+VRFW.formation_card_extra[BattleBayDeluxe.draft.SLOT] = true
+VRFW.formation_card_extra[BattleBayDeluxe.draft.CARD] = true
 
--- the logger (VRFW_Log), made at the first line: the framework's menu files load after the graft blocks
-function BBCR_DRAFT_Logger()
-  BBCR_DRAFT.logger = BBCR_DRAFT.logger or VRFW_Log.New("BattleBayDeluxe.draft")
-  return BBCR_DRAFT.logger
+function BattleBayDeluxe.draft_logger()
+  return BattleBayDeluxe.logger(BattleBayDeluxe.draft, "BattleBayDeluxe.draft")
 end
 
-function BBCR_DRAFT_Log(...)
-  BBCR_DRAFT_Logger()(...)
+function BattleBayDeluxe.draft_log(...)
+  BattleBayDeluxe.draft_logger()(...)
 end
 
-function BBCR_DRAFT_Text(id, fallback)
+function BattleBayDeluxe.draft_text(id, fallback)
   local s = funcLuaCommand(@crc:CMND_TEXT_GET@, id)
   if type(s) ~= "string" or s == "" then
     return fallback or ""
@@ -334,39 +230,93 @@ function BBCR_DRAFT_Text(id, fallback)
   return s
 end
 
--- loader state: ok, phase (0 none, 1 picking, 2 complete, 3 campaign), filled, total; ok = false without the loader
-function BBCR_DRAFT_Info()
-  local ok, team, phase, filled, total = funcLuaCommand(BBCR_DRAFT.INFO)
+-- Reads the state of the draft script.
+function BattleBayDeluxe.draft_info()
+  local ok, team, phase, filled, total = funcLuaCommand(BattleBayDeluxe.draft.INFO)
   if ok ~= true or type(phase) ~= "number" then
-    -- no answer (the mod's script is off): no draft
+    -- Returns zeros when the mod's script gives no answer (it is off).
     return false, 0, 0, 0
   end
   return true, phase, filled or 0, total or 0
 end
 
-function BBCR_DRAFT_TeamName()
-  local ok, name = funcLuaCommand(2151743654, BBCR_DRAFT.TEAM, 2)
+function BattleBayDeluxe.draft_team_name()
+  local ok, name = funcLuaCommand(2151743654, BattleBayDeluxe.draft.TEAM, 2)
   if ok and type(name) == "string" and name ~= "" then
     return name
   end
   return "Draft"
 end
 
-function BBCR_DRAFT_IsDraftSlot(slot)
-  local B = BBCR_DRAFT
-  local rec = B.slotArgs[slot]
+-- Returns the team on a grid tile.
+function BattleBayDeluxe.draft_tile_team(tile)
+  local B = BattleBayDeluxe.draft
+  local rec = B.slotArgs[tile]
   local team = rec and rec[1] or nil
   if team == nil then
-    local t = funcLuaCommand(B.PAGE_SLOT, slot)
+    local t = funcLuaCommand(B.PAGE_SLOT, tile)
     team = type(t) == "number" and t or 0
   end
-  return team == B.TEAM
+  return team
 end
 
--- the card name table of a Draft card instance, once per instance for the life of the menu (see the header: a second
--- name setting on the same instance corrupts the heap)
-function BBCR_DRAFT_Name(layer, i)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_is_slot(slot)
+  return BattleBayDeluxe.draft_tile_team(slot) == BattleBayDeluxe.draft.TEAM
+end
+
+function BattleBayDeluxe.draft_layer_visible(layer, count, on)
+  for i = 0, count - 1 do
+    funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, layer, i, on)
+  end
+end
+
+-- both cursor labels of a card instance unhooked
+function BattleBayDeluxe.draft_cursor_labels_off(layer, i)
+  local B = BattleBayDeluxe.draft
+  funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, layer, i, B.CARD_CURSOR, false)
+  funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, layer, i, B.CARD_CURSOR2, false)
+end
+
+-- Closes the team panel when it is open, since it holds the picker's 3D character.
+function BattleBayDeluxe.draft_team_panel_close()
+  local B = BattleBayDeluxe.draft
+  if funcLuaMenuCommand(@crc:CMND_IS_OPEN_LAYER@, B.TEAMINFO, 0) == true then
+    funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER@, B.TEAMINFO)
+    return true
+  end
+  return false
+end
+
+-- the anchor instance kept off screen and never drawn
+function BattleBayDeluxe.draft_anchor_park(i)
+  local B = BattleBayDeluxe.draft
+  VRFW.host.menu_command(@crc:CMND_SET_LAYER_LOCAL_POS@, B.ANCHOR, B.ANCHOR_X, B.ANCHOR_Y, 0, i)
+  VRFW.host.menu_command(@crc:CMND_SET_LAYER_VISIBLE@, B.ANCHOR, i or 0, false)
+end
+
+-- Returns the card layer and instance that the D-pad direction (dx, dy) (dy > 0 = up) reaches from instance i of
+-- layer by the retail formation screen's rule (soccer_formation_menu_inc CalcMoveFocusLayerByCircleCollision over the
+-- shown instances 0..count-1); nil when no card lies that way, so the focus stays as on the retail screen.
+function BattleBayDeluxe.draft_focus_move(layer, i, count, dx, dy)
+  local B = BattleBayDeluxe.draft
+  if type(CalcMoveFocusLayerByCircleCollision) ~= "function" then
+    BattleBayDeluxe.draft_log("move: the retail formation focus rule is not in this script, the focus stays")
+    return nil
+  end
+  local dir = (dy > 0 and B.DIR_UP) or (dy < 0 and B.DIR_DOWN) or (dx < 0 and B.DIR_LEFT) or (dx > 0 and B.DIR_RIGHT) or nil
+  if dir == nil then
+    return nil
+  end
+  local to, to_layer = CalcMoveFocusLayerByCircleCollision(layer, i, dir, count, B.NODE_BASE)
+  if type(to) ~= "number" or to < 0 then
+    return nil
+  end
+  return to_layer, to
+end
+
+-- a Draft card instance's name table, written once for the life of the menu (a second write corrupts the heap)
+function BattleBayDeluxe.draft_name(layer, i)
+  local B = BattleBayDeluxe.draft
   local key = layer .. ":" .. i
   if B.named[key] then
     return
@@ -375,15 +325,15 @@ function BBCR_DRAFT_Name(layer, i)
   NameSetting_CharaCardForSoccer(layer, i)
 end
 
-function BBCR_DRAFT_Guide(s)
-  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, BBCR_DRAFT.GUIDE, BBCR_DRAFT.GUIDE_TEXT, s, 0)
-  funcLuaMenuCommand(2735666188, BBCR_DRAFT.GUIDE, BBCR_DRAFT.GUIDE_TEXT, true, 0)
+function BattleBayDeluxe.draft_guide(s)
+  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, BattleBayDeluxe.draft.GUIDE, BattleBayDeluxe.draft.GUIDE_TEXT, s, 0)
+  funcLuaMenuCommand(2735666188, BattleBayDeluxe.draft.GUIDE, BattleBayDeluxe.draft.GUIDE_TEXT, true, 0)
 end
 
-function BBCR_DRAFT_Filled()
+function BattleBayDeluxe.draft_filled()
   local n = 0
-  for k = 0, #BBCR_DRAFT.slots - 1 do
-    if BBCR_DRAFT.slots[k + 1].param ~= 0 then
+  for k = 0, #BattleBayDeluxe.draft.slots - 1 do
+    if BattleBayDeluxe.draft.slots[k + 1].param ~= 0 then
       n = n + 1
     end
   end
@@ -391,34 +341,32 @@ function BBCR_DRAFT_Filled()
 end
 
 -- the guide line of the current mode
-function BBCR_DRAFT_ShowGuide()
-  local B = BBCR_DRAFT
-  local head = string.format("%s %d/%d  ·  ", BBCR_DRAFT_TeamName(), BBCR_DRAFT_Filled(), #B.slots)
+function BattleBayDeluxe.draft_show_guide()
+  local B = BattleBayDeluxe.draft
+  local head = string.format("%s %d/%d  ·  ", BattleBayDeluxe.draft_team_name(), BattleBayDeluxe.draft_filled(), #B.slots)
   if B.mode == "pitch" then
-    -- no controls guide on the board: the native prompts emptied, only the progress counter stays
-    VRFW_FooterPrompts.Set(nil, B.MENU, {}, {Guide = B.GUIDE, Declared = false})
-    BBCR_DRAFT_Guide(string.format("Draft %d/%d", BBCR_DRAFT_Filled(), #B.slots))
+    -- Clears the controls guide because the board has none.
+    VRFW.footer_prompts.set(nil, B.MENU, {}, {guide = B.GUIDE, declared = false})
+    BattleBayDeluxe.draft_guide(string.format("Draft %d/%d", BattleBayDeluxe.draft_filled(), #B.slots))
   elseif B.mode == "cands" then
     local rec = B.slots[B.k + 1]
-    BBCR_DRAFT_Guide(head .. BBCR_DRAFT_Text(B.TXT_POS[rec and rec.pos or 0]) .. ": " .. BBCR_DRAFT_Text(B.TXT_PLAYER))
+    BattleBayDeluxe.draft_guide(head .. BattleBayDeluxe.draft_text(B.TXT_POS[rec and rec.pos or 0]) .. ": " .. BattleBayDeluxe.draft_text(B.TXT_PLAYER))
   elseif B.mode == "start" then
-    BBCR_DRAFT_Guide(BBCR_DRAFT_Text(BBCR_DRAFT_Free() and B.TXT_START_MATCH or B.TXT_START) .. "   " .. BBCR_DRAFT_Text(B.TXT_KEYS))
+    BattleBayDeluxe.draft_guide(BattleBayDeluxe.draft_text(BattleBayDeluxe.draft_free() and B.TXT_START_MATCH or B.TXT_START) .. "   " .. BattleBayDeluxe.draft_text(B.TXT_KEYS))
   elseif B.mode == "quit" then
-    BBCR_DRAFT_Guide(head .. BBCR_DRAFT_Text(B.TXT_SLOT))
+    BattleBayDeluxe.draft_guide(head .. BattleBayDeluxe.draft_text(B.TXT_SLOT))
   end
 end
 
--- the 16 slots from the plugin, one command per slot (a command's return values are capped: the 98 values of all 16
--- slots in one call came back cut, 2026-10-08): {slot, pos, x, y, param, ph = placeholder} (pool order). Slot k is drawn on the card
--- evt_bb_draft_slot k; its screen position (also the navigation position): a field slot by its formation position, a
--- bench slot in the column
-function BBCR_DRAFT_LoadSlots()
-  local B = BBCR_DRAFT
+-- Loads the slots from the script, one command per slot, because a single call's return values are capped.
+function BattleBayDeluxe.draft_load_slots()
+  local B = BattleBayDeluxe.draft
   local r = table.pack(funcLuaCommand(B.SLOTS))
   if r[1] ~= true then
     return false
   end
   B.slots, B.pos, B.where = {}, {}, {}
+  BattleBayDeluxe.draft_manager_places()
   local bench, managers = 0, 0
   for k = 0, (r[2] or 0) - 1 do
     local q = table.pack(funcLuaCommand(B.SLOT_INFO, k))
@@ -431,7 +379,7 @@ function BBCR_DRAFT_LoadSlots()
     B.slots[k + 1] = rec
     B.where[k] = {B.SLOT, k}
     if rec.field then
-      B.pos[k] = {B.PITCH_CX, B.PITCH_TOP} -- laid out with the whole formation (BBCR_DRAFT_PlaceField)
+      B.pos[k] = {B.PITCH_CX, B.PITCH_TOP}
     elseif rec.pos == B.POS_COACH then
       B.pos[k] = {B.COACH_X, B.COACH_Y}
     elseif rec.pos == B.POS_MANAGER then
@@ -444,56 +392,50 @@ function BBCR_DRAFT_LoadSlots()
   end
   local okf, fm = funcLuaCommand(2151743654, B.TEAM, 3)
   B.formation = (okf and type(fm) == "number") and fm or 0
-  BBCR_DRAFT_PlaceField()
+  BattleBayDeluxe.draft_place_field()
   return #B.slots > 0
 end
 
--- the starters' places on the pitch for any formation: the team screen's rule. Each card starts where the dock puts it
--- (CalcFormationIconPosition + SetupFormationIconPosition, soccer_common / soccer_formation_menu_inc: the formation's
--- attacking position on the dock's pitch trapezoid, its menu offset, the keeper's lift), scaled onto this screen's
--- stretched pitch (the same drawing). Then, as BetterUI's formation_card_spread does on the dock, only what touches
--- moves: cards at about the same height form a row, a row is mirrored around the centre line, its cards keep a gap and
--- stay inside the pitch's width at that height, and rows whose cards would touch are pushed apart inside the pitch.
--- research/scripts/bbd_draft_pitch_check.py runs the same steps on every formation. Tunables: config.toml [draft.pitch].
-BBCR_DRAFT_LAY = {
+-- Starters' places for any formation.
+BattleBayDeluxe.draft_layout = {
   -- the dock's pitch (nodes of soccer11_02_formation_frame) and units, as SetupFormationIconPosition passes them
   DOCK_TOP = 278, DOCK_BOTTOM = -381, DOCK_TOP_HALF = 252, DOCK_BOTTOM_HALF = 346,
   DOCK_WIDTH_UNITS = 60, DOCK_DEPTH_UNITS = 94, DOCK_KEEPER_LIFT = 20,
   ATTACK_SET = 2, START_SET = 1, OFFSET_SET = 10,
-  START_WIDTH_METRES = 30, START_DEPTH_METRES = 47, -- CMND_BBCR_DRAFT_SLOT gives startPos x 1000
+  START_WIDTH_METRES = 30, START_DEPTH_METRES = 47, -- CMND_BATTLEBAYDELUXE_DRAFT_SLOT gives startPos x 1000
   SAME_SPOT_METRES = 1,
-  -- this screen's pitch as drawn (screen px, y down): the frame stretched by FRAME_SX, FRAME_SY
+  -- Layout of this screen's pitch as drawn (screen pixels, y down).
   CX = 1150, TOP = 134, BOTTOM = 878, TOP_HALF = 307, BOTTOM_HALF = 417,
-  -- config.toml [draft.pitch] (these values without an answer); the small card's size at scale 1
+  -- Defaults used when config.toml [draft.pitch] gives no answer.
   CARD_SCALE = 1.05, CARD_WIDTH = 106.6, CARD_HEIGHT = 96, CARD_GAP = 8, EDGE_MARGIN = 6, SAME_ROW_DISTANCE = 30,
   SYMMETRY_TOLERANCE = 40,
   ROUNDS = 200,
-  PITCH_CMD = @crc:CMND_BBD_DRAFT_PITCH@, asked = false,
-  -- the box the strip's mini pitch maps (screen px): the pitch
+  PITCH_CMD = @crc:CMND_BATTLEBAYDELUXE_DRAFT_PITCH@, asked = false,
+  -- Box that the strip's mini pitch maps (screen pixels).
   BOX_L = 1150 - 417, BOX_R = 1150 + 417, BOX_T = 134, BOX_B = 878,
 }
 
 -- the tunables of config.toml [draft.pitch], once per menu
-function BBCR_DRAFT_PitchLook()
-  local L, B = BBCR_DRAFT_LAY, BBCR_DRAFT
+function BattleBayDeluxe.draft_pitch_look()
+  local L, B = BattleBayDeluxe.draft_layout, BattleBayDeluxe.draft
   if L.asked then
     return
   end
   L.asked = true
-  local ok, answered, scale, width, height, gap, margin, sameRow, tolerance = pcall(funcLuaCommand, L.PITCH_CMD)
-  if ok and answered == true and type(tolerance) == "number" then
+  local answered, scale, width, height, gap, margin, sameRow, tolerance = VRFW.host.command(L.PITCH_CMD)
+  if answered == true and type(tolerance) == "number" then
     L.CARD_SCALE, L.CARD_WIDTH, L.CARD_HEIGHT, L.CARD_GAP = scale, width, height, gap
     L.EDGE_MARGIN, L.SAME_ROW_DISTANCE, L.SYMMETRY_TOLERANCE = margin, sameRow, tolerance
     B.SLOT_SCALE = scale
     B.HALF_SLOT = {width * scale / 2, height * scale / 2}
   else
-    BBCR_DRAFT_Log("pitch look: defaults (no CMND_BBD_DRAFT_PITCH answer)")
+    BattleBayDeluxe.draft_log("pitch look: defaults (no CMND_BATTLEBAYDELUXE_DRAFT_PITCH answer)")
   end
 end
 
--- the dock's place of a position in metres (dock px around the centre circle, y up): CalcFormationIconPosition's sums
-function BBCR_DRAFT_DockPoint(x, y)
-  local L = BBCR_DRAFT_LAY
+-- Returns the dock's place of a position in metres (dock pixels around the centre circle, y up).
+function BattleBayDeluxe.draft_dock_point(x, y)
+  local L = BattleBayDeluxe.draft_layout
   local upper, lower = 2 * L.DOCK_TOP_HALF, 2 * L.DOCK_BOTTOM_HALF
   local total = L.DOCK_TOP - L.DOCK_BOTTOM
   local above, below = L.DOCK_TOP, -L.DOCK_BOTTOM
@@ -510,14 +452,14 @@ function BBCR_DRAFT_DockPoint(x, y)
 end
 
 -- the half width of the drawn pitch at screen height y
-function BBCR_DRAFT_PitchHalf(y)
-  local L = BBCR_DRAFT_LAY
+function BattleBayDeluxe.draft_pitch_half(y)
+  local L = BattleBayDeluxe.draft_layout
   return L.TOP_HALF + (y - L.TOP) * (L.BOTTOM_HALF - L.TOP_HALF) / (L.BOTTOM - L.TOP)
 end
 
 -- a row's cards at least a card plus the gap apart (mirrored rows from the centre outwards), inside the pitch
-function BBCR_DRAFT_SpaceRow(row, w, h)
-  local L = BBCR_DRAFT_LAY
+function BattleBayDeluxe.draft_space_row(row, w, h)
+  local L = BattleBayDeluxe.draft_layout
   local xs, n, step = row.xs, #row.xs, w + L.CARD_GAP
   if row.mirrored then
     local middle = math.floor(n / 2)
@@ -538,7 +480,7 @@ function BBCR_DRAFT_SpaceRow(row, w, h)
       xs[i] = math.max(xs[i], xs[i - 1] + step)
     end
   end
-  local limit = BBCR_DRAFT_PitchHalf(row.y - h / 2) - w / 2 - L.EDGE_MARGIN
+  local limit = BattleBayDeluxe.draft_pitch_half(row.y - h / 2) - w / 2 - L.EDGE_MARGIN
   if xs[n] > limit then
     xs[n] = limit
     for i = n - 1, 1, -1 do
@@ -553,9 +495,9 @@ function BBCR_DRAFT_SpaceRow(row, w, h)
   end
 end
 
--- the height two rows need between them: a card plus the gap when any of their cards would touch, else nothing
-function BBCR_DRAFT_RowsNeed(a, b, w, h)
-  local L = BBCR_DRAFT_LAY
+-- Returns the height that two rows need between them.
+function BattleBayDeluxe.draft_rows_need(a, b, w, h)
+  local L = BattleBayDeluxe.draft_layout
   for _, xa in ipairs(a.xs) do
     for _, xb in ipairs(b.xs) do
       if math.abs(xa - xb) < w + L.CARD_GAP then
@@ -566,19 +508,18 @@ function BBCR_DRAFT_RowsNeed(a, b, w, h)
   return 0
 end
 
--- rows whose cards would touch pushed apart, each half the distance, inside the pitch's height; the last row stays where
--- the rounds left it and each row above ends clear of every row below it
-function BBCR_DRAFT_StackRows(rows, w, h, yMin, yMax)
-  local L = BBCR_DRAFT_LAY
+-- Pushes apart rows whose cards would touch, each by half the distance, inside the pitch's height.
+function BattleBayDeluxe.draft_stack_rows(rows, w, h, yMin, yMax)
+  local L = BattleBayDeluxe.draft_layout
   for _ = 1, L.ROUNDS do
     local moved = false
     for _, row in ipairs(rows) do
-      BBCR_DRAFT_SpaceRow(row, w, h)
+      BattleBayDeluxe.draft_space_row(row, w, h)
     end
     for i = 1, #rows - 1 do
       for j = i + 1, #rows do
         local a, b = rows[i], rows[j]
-        local short = BBCR_DRAFT_RowsNeed(a, b, w, h) - (b.y - a.y)
+        local short = BattleBayDeluxe.draft_rows_need(a, b, w, h) - (b.y - a.y)
         if short > 0.01 then
           a.y, b.y = a.y - short / 2, b.y + short / 2
           moved = true
@@ -594,22 +535,21 @@ function BBCR_DRAFT_StackRows(rows, w, h, yMin, yMax)
   end
   for i = #rows - 1, 1, -1 do
     for j = i + 1, #rows do
-      rows[i].y = math.min(rows[i].y, rows[j].y - BBCR_DRAFT_RowsNeed(rows[i], rows[j], w, h))
+      rows[i].y = math.min(rows[i].y, rows[j].y - BattleBayDeluxe.draft_rows_need(rows[i], rows[j], w, h))
     end
   end
 end
 
--- places: { {key, keeper (bool), x, y (metres), offsetX, offsetY (menu px)} … } -> { [key] = {x, y} } (screen px, y down)
-function BBCR_DRAFT_Layout(places)
-  local L = BBCR_DRAFT_LAY
-  BBCR_DRAFT_PitchLook()
+function BattleBayDeluxe.draft_pitch_layout(places)
+  local L = BattleBayDeluxe.draft_layout
+  BattleBayDeluxe.draft_pitch_look()
   local w, h = L.CARD_WIDTH * L.CARD_SCALE, L.CARD_HEIGHT * L.CARD_SCALE
   local sx = (L.TOP_HALF + L.BOTTOM_HALF) / (L.DOCK_TOP_HALF + L.DOCK_BOTTOM_HALF)
   local sy = (L.BOTTOM - L.TOP) / (L.DOCK_TOP - L.DOCK_BOTTOM)
   local centreY = L.TOP + L.DOCK_TOP * sy
   local field, keepers = {}, {}
   for _, p in ipairs(places) do
-    local x, y = BBCR_DRAFT_DockPoint(p[3], p[4])
+    local x, y = BattleBayDeluxe.draft_dock_point(p[3], p[4])
     y = y + p[6] + (p[2] and L.DOCK_KEEPER_LIFT or 0)
     local card = {key = p[1], x = (x + p[5]) * sx, y = centreY - y * sy}
     if p[2] then
@@ -657,28 +597,27 @@ function BBCR_DRAFT_Layout(places)
     end
     row.y = math.max(yMin, math.min(yMax, sum / n))
   end
-  BBCR_DRAFT_StackRows(rows, w, h, yMin, yMax)
+  BattleBayDeluxe.draft_stack_rows(rows, w, h, yMin, yMax)
   if rows[1].y < yMin then
-    -- too many rows stacked on the centre line for the pitch's height: the even rows open up so the centre cards clear them
+    -- Marks the rows when too many rows are stacked on the centre line for the pitch's height.
     for _, row in ipairs(rows) do
       row.clear_centre = #row.xs % 2 == 0
     end
-    BBCR_DRAFT_StackRows(rows, w, h, yMin, yMax)
+    BattleBayDeluxe.draft_stack_rows(rows, w, h, yMin, yMax)
   end
   local out = {}
   for _, row in ipairs(rows) do
-    BBCR_DRAFT_SpaceRow(row, w, h)
+    BattleBayDeluxe.draft_space_row(row, w, h)
     for i, card in ipairs(row.cards) do
-      out[card.key] = {L.CX + BBCR_DRAFT.MIRROR * row.xs[i], row.y}
+      out[card.key] = {L.CX + BattleBayDeluxe.draft.MIRROR * row.xs[i], row.y}
     end
   end
   return out
 end
 
--- a formation slot's place by the game's formation data (metres + menu px): the attacking set and the menu offset, as
--- the dock asks them; nil when the formation has no such slot
-function BBCR_DRAFT_SlotData(formation, slot, set)
-  local L = BBCR_DRAFT_LAY
+-- Returns a formation slot's place from the game's formation data (metres and menu pixels).
+function BattleBayDeluxe.draft_slot_data(formation, slot, set)
+  local L = BattleBayDeluxe.draft_layout
   local info = @crc:CMND_GET_SOCCER_FORMATION_INFO@
   local ok, x, _, y = funcLuaCommand(info, 4, formation, slot, set)
   if ok ~= true or type(x) ~= "number" or type(y) ~= "number" then
@@ -691,17 +630,14 @@ function BBCR_DRAFT_SlotData(formation, slot, set)
   return x, y, ox, oy
 end
 
--- the places of BBCR_DRAFT_Layout for formation id. list: { {key, slot, keeper, startX, startY} … } (start = the
--- placement of CMND_BBCR_DRAFT_SLOT, used when the game gives nothing). A formation whose attacking set has two cards
--- on one spot (a table row left unfilled) is laid out by its start positions.
-function BBCR_DRAFT_RulePlaces(id, list)
-  local L = BBCR_DRAFT_LAY
+function BattleBayDeluxe.draft_rule_places(id, list)
+  local L = BattleBayDeluxe.draft_layout
   local function read(set)
     local places = {}
     for _, m in ipairs(list) do
       local x, y, ox, oy = nil, nil, 0, 0
       if id ~= 0 then
-        x, y, ox, oy = BBCR_DRAFT_SlotData(id, m[2], set)
+        x, y, ox, oy = BattleBayDeluxe.draft_slot_data(id, m[2], set)
       end
       if x == nil then
         x, y, ox, oy = (m[4] or 0) * L.START_WIDTH_METRES / 1000, (m[5] or 0) * L.START_DEPTH_METRES / 1000, 0, 0
@@ -722,9 +658,8 @@ function BBCR_DRAFT_RulePlaces(id, list)
   return places
 end
 
--- the field places' card positions (B.pos, local: y up) from their formation
-function BBCR_DRAFT_PlaceField()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_place_field()
+  local B = BattleBayDeluxe.draft
   local list = {}
   for k = 0, #B.slots - 1 do
     local rec = B.slots[k + 1]
@@ -732,19 +667,17 @@ function BBCR_DRAFT_PlaceField()
       list[#list + 1] = {k, rec.slot, rec.pos == 1, rec.x, rec.y}
     end
   end
-  for k, at in pairs(BBCR_DRAFT_Layout(BBCR_DRAFT_RulePlaces(B.formation, list))) do
+  for k, at in pairs(BattleBayDeluxe.draft_pitch_layout(BattleBayDeluxe.draft_rule_places(B.formation, list))) do
     B.pos[k] = {at[1], -at[2]}
   end
 end
 
--- the meshes of a Draft card the graft switches itself, after any draw: the focus frame off (only the focused card
--- shows it, BBCR_DRAFT_Cursor), the large card's base / centred mesh off (the cards are small, see SZ)
-function BBCR_DRAFT_Sz(layer, i)
-  local B = BBCR_DRAFT
+-- Returns the large or small pair index of a Draft card.
+function BattleBayDeluxe.draft_size(layer, i)
+  local B = BattleBayDeluxe.draft
   if layer == B.CARD then
     return B.SZ_CARD
   end
-  -- the coach's place: the large card (its «ENTRENADOR» tab), as the team dock draws slot 19
   local rec = i ~= nil and B.slots[i + 1] or nil
   if rec ~= nil and rec.pos == B.POS_COACH then
     return 1
@@ -752,10 +685,9 @@ function BBCR_DRAFT_Sz(layer, i)
   return B.SZ
 end
 
--- the retail card draw of a param; role = the place kind: the coach is drawn as the leader (retail isForceLeader), a
--- manager with the manager flag (argument 18, as the dock draws its IsManager places)
-function BBCR_DRAFT_CardDraw(layer, i, param, big, kind, role)
-  local B = BBCR_DRAFT
+-- Draws a param with the retail card draw.
+function BattleBayDeluxe.draft_card_draw(layer, i, param, big, kind, role)
+  local B = BattleBayDeluxe.draft
   if role == B.POS_MANAGER then
     funcLuaMenuCommand(2339877830, layer, i, param, big, false, kind, 0, B.LEVEL, false, false, 4, 0, false, true, 0,
                        false, false, true)
@@ -764,9 +696,10 @@ function BBCR_DRAFT_CardDraw(layer, i, param, big, kind, role)
   end
 end
 
-function BBCR_DRAFT_CardMeshes(layer, i)
-  local B = BBCR_DRAFT
-  local sz = BBCR_DRAFT_Sz(layer, i)
+-- Runs after any draw of a card.
+function BattleBayDeluxe.draft_card_meshes(layer, i)
+  local B = BattleBayDeluxe.draft
+  local sz = BattleBayDeluxe.draft_size(layer, i)
   for _, m in ipairs(B.M_FOCUS) do
     funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, layer, m, false, i)
   end
@@ -778,12 +711,17 @@ function BBCR_DRAFT_CardMeshes(layer, i)
   end
 end
 
--- what a drafted / offered card shows: the formation panel's card (not the season card), season tag / lock hidden.
--- Before the draw the small card's face meshes are turned back on (an empty card hid them); the large ones are left
--- to the native draw (it never shows them on a small card).
-function BBCR_DRAFT_Filled_Card(layer, i, param, role)
-  local B = BBCR_DRAFT
-  local sz = BBCR_DRAFT_Sz(layer, i)
+-- Draws what a drafted or offered card shows.
+function BattleBayDeluxe.draft_filled_card(layer, i, param, role)
+  local sz = BattleBayDeluxe.draft_size(layer, i)
+  BattleBayDeluxe.draft_face_on(layer, i, sz)
+  BattleBayDeluxe.draft_card_draw(layer, i, param, sz == 1, 0, role)
+  BattleBayDeluxe.draft_tags_off(layer, i)
+  BattleBayDeluxe.draft_card_meshes(layer, i)
+end
+
+function BattleBayDeluxe.draft_face_on(layer, i, sz)
+  local B = BattleBayDeluxe.draft
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, layer, i, true)
   for _, m in ipairs(B.M_DEF) do
     funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, layer, m, false, i)
@@ -792,25 +730,22 @@ function BBCR_DRAFT_Filled_Card(layer, i, param, role)
     funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, layer, B.M_FACE[k], true, i)
   end
   funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, layer, B.M_BASE[sz], true, i)
-  BBCR_DRAFT_CardDraw(layer, i, param, sz == 1, 0, role)
-  for _, m in ipairs(B.M_TAG) do
-    funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, layer, m, false, i)
-  end
-  BBCR_DRAFT_CardMeshes(layer, i)
 end
 
--- an empty slot: a normal player card (the slot's placeholder drawn by the retail card command sets the card's state:
--- position colour, no coach frame) with everything of the player hidden and the «?» glyph centred at its native size;
--- a bench slot gets the grey card base. Without a placeholder the card is only cleared (grey base). Small card only
--- (SZ): its base and centred mesh on, the large card's off, no focus frame. kind (1.5.75): the formation slot's own
--- position (formation info 6, as the retail formation panels pass it), so the colour is the slot's, never the
--- placeholder player's (owner 2026-10-15: a FW placeholder showed a red card on a midfield place); 0 = the card's own.
-function BBCR_DRAFT_Empty_Card(layer, i, ph, grey, kind, role)
-  local B = BBCR_DRAFT
-  local sz = BBCR_DRAFT_Sz(layer, i)
+-- the season tag / lock of a card instance hidden (after a draw)
+function BattleBayDeluxe.draft_tags_off(layer, i)
+  for _, m in ipairs(BattleBayDeluxe.draft.M_TAG) do
+    funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, layer, m, false, i)
+  end
+end
+
+-- Draws an empty card centred.
+function BattleBayDeluxe.draft_empty_card(layer, i, ph, grey, kind, role)
+  local B = BattleBayDeluxe.draft
+  local sz = BattleBayDeluxe.draft_size(layer, i)
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, layer, i, true)
   if type(ph) == "number" and ph ~= 0 then
-    BBCR_DRAFT_CardDraw(layer, i, ph, sz == 1, type(kind) == "number" and kind or 0, role)
+    BattleBayDeluxe.draft_card_draw(layer, i, ph, sz == 1, type(kind) == "number" and kind or 0, role)
   else
     grey = true
   end
@@ -823,7 +758,6 @@ function BBCR_DRAFT_Empty_Card(layer, i, ph, grey, kind, role)
     funcLuaMenuCommand(2158717427 --[[node visible]], layer, n, false, i)
   end
   if role == B.POS_COACH then
-    -- the empty coach place keeps the retail leader frame and its «ENTRENADOR» tab (the dock's coach slot)
     funcLuaMenuCommand(2158717427 --[[node visible]], layer, B.N_STAFF[sz], true, i)
     funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, layer, B.M_STAFF[sz], true, i)
     funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, layer, B.M_STAFF[2 + sz], true, i)
@@ -840,19 +774,19 @@ function BBCR_DRAFT_Empty_Card(layer, i, ph, grey, kind, role)
   funcLuaMenuCommand(B.NODE_POS, layer, i, B.M_DEF[j], 1, qh / 2)
   funcLuaMenuCommand(558735651, layer, B.TEX_NUM, B.SPR_Q, B.SLOT_DEF[j], 0, i)
   funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, layer, B.M_DEF[j], true, i)
-  BBCR_DRAFT_CardMeshes(layer, i)
+  BattleBayDeluxe.draft_card_meshes(layer, i)
   funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, layer, B.T_NAME, "", i)
 end
 
 -- the empty look again (a late face / icon load can switch a mesh back on)
-function BBCR_DRAFT_Rehide(layer, i)
-  for _, m in ipairs(BBCR_DRAFT.M_FACE) do
+function BattleBayDeluxe.draft_rehide(layer, i)
+  for _, m in ipairs(BattleBayDeluxe.draft.M_FACE) do
     funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, layer, m, false, i)
   end
 end
 
-function BBCR_DRAFT_DrawSlot(k)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_draw_slot(k)
+  local B = BattleBayDeluxe.draft
   local rec, w = B.slots[k + 1], B.where[k]
   if rec == nil or w == nil then
     return
@@ -862,12 +796,12 @@ function BBCR_DRAFT_DrawSlot(k)
     return
   end
   if B.mode == "formation" and rec.staff then
-    -- the formation step's strip covers the bottom edge: the staff places come back with the board
+    -- Hides the layer because the formation step's strip covers the bottom edge.
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, layer, i, false)
     return
   end
   if rec.param ~= 0 then
-    BBCR_DRAFT_Filled_Card(layer, i, rec.param, rec.pos)
+    BattleBayDeluxe.draft_filled_card(layer, i, rec.param, rec.pos)
   else
     local kind = 0
     if rec.field and B.formation ~= 0 then
@@ -875,7 +809,7 @@ function BBCR_DRAFT_DrawSlot(k)
       kind = (okk == true and type(kk) == "number") and kk or 0
     end
     local grey = B.BENCH_GREY and not rec.field and rec.pos ~= B.POS_MANAGER
-    BBCR_DRAFT_Empty_Card(layer, i, rec.ph, grey, kind, rec.pos)
+    BattleBayDeluxe.draft_empty_card(layer, i, rec.ph, grey, kind, rec.pos)
     B.reapply = B.REAPPLY_FRAMES
   end
   local sc = rec.pos == B.POS_COACH and B.COACH_SCALE or B.SLOT_SCALE
@@ -884,58 +818,52 @@ function BBCR_DRAFT_DrawSlot(k)
 end
 
 -- the pitch and the bench
-function BBCR_DRAFT_DrawPitch()
-  for k = 0, #BBCR_DRAFT.slots - 1 do
-    BBCR_DRAFT_DrawSlot(k)
+function BattleBayDeluxe.draft_draw_pitch()
+  for k = 0, #BattleBayDeluxe.draft.slots - 1 do
+    BattleBayDeluxe.draft_draw_slot(k)
   end
 end
 
-function BBCR_DRAFT_DrawCand(i)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_draw_candidate(i)
+  local B = BattleBayDeluxe.draft
   local p = B.cands[i + 1]
   if not B.ready[B.CARD .. ":" .. i] or B.pk ~= nil then
-    return -- 1.5.26: while a pack is up (or flying out) it draws the 5 cards itself (BBCR_DRAFT_PackRender)
+    return
   end
   if p == nil or B.mode ~= "cands" then
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.CARD, i, false)
     return
   end
-  BBCR_DRAFT_Filled_Card(B.CARD, i, p.param, p.pos)
+  BattleBayDeluxe.draft_filled_card(B.CARD, i, p.param, p.pos)
   local s = i == B.csel and B.CARD_SCALE_ON or B.CARD_SCALE
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, B.CARD, B.CAND_X, B.CAND_Y + i * B.CAND_DY, 0, i)
   funcLuaMenuCommand(3362798188, B.CARD, i, s, s)
 end
 
--- the retail formation focus on the selected card, as soccer_formation_menu_inc does for a small card: the green
--- arrow (cmn05_01_cursor) on the card's small cursor label (CARD_CURSOR2 = _pos_atc_cur02, its left edge) and the
--- card's own focus frame _icon_chr_focus_s01 (team00_01_evt_fc: scaled with the card, so it is exactly the card
--- outline). Every other Draft card has its focus frame off (BBCR_DRAFT_CardMeshes). The pack's large cards
--- (1.5.52): their own large frame _icon_chr_focus_l01, and the arrow placed by BBCR_DRAFT_PkCursor (not attached:
--- the card is drawn scaled on the band and the attach locator did not follow the layer scale, the arrow sat inside
--- the card over the portrait and the position badge).
-function BBCR_DRAFT_CursorLabel(layer, i)
-  return BBCR_DRAFT_Sz(layer, i) == 1 and BBCR_DRAFT.CARD_CURSOR or BBCR_DRAFT.CARD_CURSOR2
+-- Returns the retail formation focus label of the selected card.
+function BattleBayDeluxe.draft_cursor_label(layer, i)
+  return BattleBayDeluxe.draft_size(layer, i) == 1 and BattleBayDeluxe.draft.CARD_CURSOR or BattleBayDeluxe.draft.CARD_CURSOR2
 end
 
-function BBCR_DRAFT_Cursor()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_cursor()
+  local B = BattleBayDeluxe.draft
   if B.shown ~= nil then
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, B.shown[1], B.shown[2],
-                       BBCR_DRAFT_CursorLabel(B.shown[1], B.shown[2]), false)
+                       BattleBayDeluxe.draft_cursor_label(B.shown[1], B.shown[2]), false)
     for _, m in ipairs(B.M_FOCUS) do
       funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, B.shown[1], m, false, B.shown[2])
     end
     B.shown = nil
   end
   if B.mode == "formation" then
-    -- the formation step: no card is focused (the strip's chosen card has its own frame)
+    -- Hides the cursor during the formation step.
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.CURSOR, 0, false)
     return
   end
   local layer, i, n
   if B.mode == "cands" then
-    if BBCR_DRAFT_PackBusy() then
-      -- no cursor while the pack's cards are dealt and turned (BBCR_DRAFT_PackDone puts it back)
+    if BattleBayDeluxe.draft_pack_busy() then
+      -- no cursor while the pack's cards are dealt and turned (BattleBayDeluxe.draft_pack_done puts it back)
       funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.CURSOR, 0, false)
       return
     end
@@ -949,19 +877,18 @@ function BBCR_DRAFT_Cursor()
   else
     return
   end
-  local sz = BBCR_DRAFT_Sz(layer, i)
+  local sz = BattleBayDeluxe.draft_size(layer, i)
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.CURSOR, 0, true)
   if layer == B.CARD and B.pk ~= nil then
-    -- the pack's band: the arrow at the focused card's left edge (BBCR_DRAFT_PkCursor, again every frame of the pick)
+    -- Draws the cursor on the pack's band.
     B.pk.cur = nil
-    BBCR_DRAFT_PkCursor()
+    BattleBayDeluxe.draft_pack_cursor()
   else
     if B.curMoved then
-      -- the pack moved the arrow itself: its own offset back to 0 before it is attached again
       funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, B.CURSOR, 0, 0, 0, 0)
       B.curMoved = false
     end
-    local label = BBCR_DRAFT_CursorLabel(layer, i)
+    local label = BattleBayDeluxe.draft_cursor_label(layer, i)
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, layer, i, label, true)
     funcLuaMenuCommand(@crc:CMND_SET_CURSOR_LOCATOR@, layer, label, i, n)
   end
@@ -971,29 +898,22 @@ function BBCR_DRAFT_Cursor()
   B.shown = {layer, i}
 end
 
--- the panel while the Draft screen is open: its 11 cards hidden (the slots are the Draft's own cards), the pitch
--- shown, moved and stretched under them, its tactics and «TÁCTICAS» hidden. Also run for every native panel refresh
--- while the screen is open (UpdateFormation wrapper): the native refresh of a focus change would hide the pitch.
-function BBCR_DRAFT_PanelHold()
-  local B = BBCR_DRAFT
-  for i = 0, 10 do
-    funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.LEFT, i, false)
-  end
+-- Holds the panel while the Draft screen is open.
+function BattleBayDeluxe.draft_panel_hold()
+  local B = BattleBayDeluxe.draft
+  BattleBayDeluxe.draft_layer_visible(B.LEFT, 11, false)
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, B.FRAME, B.PITCH_CX - B.FRAME_FIELD_CX, B.FRAME_DY, 0, 0)
   funcLuaMenuCommand(3362798188, B.FRAME, 0, B.FRAME_SX, B.FRAME_SY)
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.FRAME, 0, true)
   funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, B.FRAME, B.M_FIELD, true, 0)
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.TACTICS_BASE, 0, false)
-  for i = 0, 2 do
-    funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.TACTICS_CMD, i, false)
-  end
+  BattleBayDeluxe.draft_layer_visible(B.TACTICS_CMD, 3, false)
   funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, B.TEAMINFO, B.M_TACTICS_LABEL, false, 0)
 end
 
--- the Draft screen on: crest grid, lock icons, «Página» line hidden, the panel held (BBCR_DRAFT_PanelHold)
--- free match: every visible instance of a layer hidden and remembered (BBCR_DRAFT_Unstash puts them back)
-function BBCR_DRAFT_Stash(layer)
-  local B = BBCR_DRAFT
+-- every visible instance of a layer hidden and remembered (BattleBayDeluxe.draft_unstash restores them)
+function BattleBayDeluxe.draft_stash(layer)
+  local B = BattleBayDeluxe.draft
   local n = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, layer)
   if type(n) ~= "number" or n <= 0 then
     n = 1
@@ -1006,8 +926,8 @@ function BBCR_DRAFT_Stash(layer)
   end
 end
 
-function BBCR_DRAFT_Unstash()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_unstash()
+  local B = BattleBayDeluxe.draft
   local list = B.stash
   B.stash = {}
   for _, e in ipairs(list) do
@@ -1015,51 +935,42 @@ function BBCR_DRAFT_Unstash()
   end
 end
 
-function BBCR_DRAFT_ScreenOn()
-  local B = BBCR_DRAFT
-  -- 1.96.1 (owner: the team's character drawn over the pitch): the team panel holds the picker's 3D character; closed
-  -- (as the «Plantilla» viewer does) while the screen is up, opened again by BBCR_DRAFT_ScreenOff
-  if not B.panelClosed and funcLuaMenuCommand(@crc:CMND_IS_OPEN_LAYER@, B.TEAMINFO, 0) == true then
-    funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER@, B.TEAMINFO)
-    B.panelClosed = true
+function BattleBayDeluxe.draft_screen_on()
+  local B = BattleBayDeluxe.draft
+  -- Closes the team panel because it holds the picker's 3D character.
+  if not B.panelClosed then
+    B.panelClosed = BattleBayDeluxe.draft_team_panel_close()
   end
-  if BBCR_DRAFT_Free() then
+  if BattleBayDeluxe.draft_free() then
     if #B.stash == 0 then
-      BBCR_DRAFT_Stash(B.GRID)
-      BBCR_DRAFT_Stash(B.ATTACH)
-      BBCR_DRAFT_Stash(B.LOCK)
+      BattleBayDeluxe.draft_stash(B.GRID)
+      BattleBayDeluxe.draft_stash(B.ATTACH)
+      BattleBayDeluxe.draft_stash(B.LOCK)
       for _, layer in ipairs(B.FREE_HIDE) do
-        BBCR_DRAFT_Stash(layer)
+        BattleBayDeluxe.draft_stash(layer)
       end
     end
     funcLuaMenuCommand(@crc:CMND_SET_ENABLE_CTRL_FOCUS@, B.GRID, false)
-    if VRFW_BBP_Hide ~= nil then
-      pcall(VRFW_BBP_Hide)
+    if (VRFW.battle_bay_pages ~= nil and VRFW.battle_bay_pages.hide ~= nil) then
+      pcall(VRFW.battle_bay_pages.hide)
     end
-    BBCR_DRAFT_PanelHold()
+    BattleBayDeluxe.draft_panel_hold()
     return
   end
-  local n = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, B.GRID) or 0
-  for i = 0, n - 1 do
-    funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.GRID, i, false)
-  end
+  BattleBayDeluxe.draft_layer_visible(B.GRID, funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, B.GRID) or 0, false)
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.ATTACH, 0, false)
-  local m = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, B.LOCK) or 0
-  for i = 0, m - 1 do
-    funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.LOCK, i, false)
-  end
+  BattleBayDeluxe.draft_layer_visible(B.LOCK, funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, B.LOCK) or 0, false)
   funcLuaMenuCommand(@crc:CMND_SET_ENABLE_CTRL_FOCUS@, B.GRID, false)
-  -- the framework's page / category / season line over the grid (graft vrfw_bb_pages): hidden until BBCR_DRAFT_ScreenOff
-  if VRFW_BBP_Hide ~= nil then
-    pcall(VRFW_BBP_Hide)
+  -- Hides the framework's page, category and season line over the grid (graft vrfw_bb_pages).
+  if (VRFW.battle_bay_pages ~= nil and VRFW.battle_bay_pages.hide ~= nil) then
+    pcall(VRFW.battle_bay_pages.hide)
   end
-  BBCR_DRAFT_PanelHold()
+  BattleBayDeluxe.draft_panel_hold()
 end
 
--- the panel back as the retail menu has it: pitch on the left at its size, tactics, «TÁCTICAS», the framework's page
--- line (vrfw_bb_pages); its cards come back with the retail UpdateFormation of the tile (BBCR_DRAFT_Panel)
-function BBCR_DRAFT_ScreenOff()
-  local B = BBCR_DRAFT
+-- Restores the page line (vrfw_bb_pages) when the Draft screen turns off.
+function BattleBayDeluxe.draft_screen_off()
+  local B = BattleBayDeluxe.draft
   if B.panelClosed then
     funcLuaMenuCommand(@crc:CMND_OPEN_LAYER@, B.TEAMINFO)
     B.panelClosed = false
@@ -1067,21 +978,18 @@ function BBCR_DRAFT_ScreenOff()
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, B.FRAME, 0, 0, 0, 0)
   funcLuaMenuCommand(3362798188, B.FRAME, 0, 1, 1)
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.TACTICS_BASE, 0, true)
-  for i = 0, 2 do
-    funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.TACTICS_CMD, i, true)
-  end
+  BattleBayDeluxe.draft_layer_visible(B.TACTICS_CMD, 3, true)
   funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, B.TEAMINFO, B.M_TACTICS_LABEL, true, 0)
-  if BBCR_DRAFT_Free() then
-    BBCR_DRAFT_Unstash()
+  if BattleBayDeluxe.draft_free() then
+    BattleBayDeluxe.draft_unstash()
   end
-  if EVT_BBP_SetupLine ~= nil then
-    pcall(EVT_BBP_SetupLine, 0)
+  if (VRFW.battle_bay_pages ~= nil and VRFW.battle_bay_pages.setup_line ~= nil) then
+    pcall(VRFW.battle_bay_pages.setup_line, 0)
   end
 end
 
--- the frame's pose in the log, once per screen (layout check: where the moved pitch really is)
-function BBCR_DRAFT_Probe()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_probe()
+  local B = BattleBayDeluxe.draft
   local parts = {}
   for _, node in ipairs(B.FRAME_NODES) do
     local x, y, z, ok = funcLuaMenuCommand(@crc:CMND_GET_MESH_POSE@, B.FRAME, 0, node)
@@ -1089,43 +997,42 @@ function BBCR_DRAFT_Probe()
   end
   local fx, fy = funcLuaMenuCommand(@crc:CMND_GET_LAYER_LOCAL_POS@, B.FRAME, 0)
   local sx, sy = funcLuaMenuCommand(@crc:CMND_GET_LAYER_LOCAL_POS@, B.SLOT, 0)
-  BBCR_DRAFT_Log("layout probe: frame nodes cc/ld/ru", table.concat(parts, " "), "frame at", tostring(fx), tostring(fy),
+  BattleBayDeluxe.draft_log("layout probe: frame nodes cc/ld/ru", table.concat(parts, " "), "frame at", tostring(fx), tostring(fy),
               "slot 0 at", tostring(sx), tostring(sy))
-  pcall(BBCR_DRAFT_StrayScan)
+  pcall(BattleBayDeluxe.draft_stray_scan)
 end
 
--- 1.5.89: which of the screen's layers draws something at the left edge (the owner's stray white bar): every visible
--- instance of B.STRAY_LAYERS whose global position is within STRAY_X px of the left edge, in one log line per screen
-function BBCR_DRAFT_StrayScan()
-  local B = BBCR_DRAFT
+-- every visible instance of B.STRAY_LAYERS within STRAY_X px of the left edge, in one log line per screen
+function BattleBayDeluxe.draft_stray_scan()
+  local B = BattleBayDeluxe.draft
   local hits = {}
   for _, e in ipairs(B.STRAY_LAYERS) do
     local n = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, e[2])
     for i = 0, (type(n) == "number" and n or 0) - 1 do
-      local okv, vis = pcall(funcLuaMenuCommand, @crc:CMND_IS_LAYER_VISIBLE@ --[[is visible]], e[2], i)
-      local okp, gx, gy = pcall(funcLuaMenuCommand, 4002164178 --[[global position]], e[2], i)
-      if okv and vis == true and okp and type(gx) == "number" and gx >= -B.STRAY_X and gx <= B.STRAY_X then
+      local vis = VRFW.host.menu_command(@crc:CMND_IS_LAYER_VISIBLE@ --[[is visible]], e[2], i)
+      local gx, gy = VRFW.host.menu_command(4002164178 --[[global position]], e[2], i)
+      if vis == true and type(gx) == "number" and gx >= -B.STRAY_X and gx <= B.STRAY_X then
         hits[#hits + 1] = string.format("%s[%d] at %d,%d", e[1], i, math.floor(gx), math.floor(-(gy or 0)))
       end
     end
   end
-  BBCR_DRAFT_Log("left-edge scan: " .. (#hits > 0 and table.concat(hits, "; ") or "no visible layer of the list there"))
+  BattleBayDeluxe.draft_log("left-edge scan: " .. (#hits > 0 and table.concat(hits, "; ") or "no visible layer of the list there"))
 end
 
 -- open the Draft layers (once per screen) and give the control focus to the anchor
-function BBCR_DRAFT_Open()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_open()
+  local B = BattleBayDeluxe.draft
   if not B.opened then
     funcLuaMenuCommand(@crc:CMND_OPEN_LAYER_ARRAY@, B.SLOT)
     funcLuaMenuCommand(@crc:CMND_OPEN_LAYER_ARRAY@, B.CARD)
-    funcLuaMenuCommand(@crc:CMND_OPEN_LAYER_ARRAY@, BBCR_DRAFT_PK.QUAD)
-    funcLuaMenuCommand(@crc:CMND_OPEN_LAYER_ARRAY@, BBCR_DRAFT_PK.TXT)
-    funcLuaMenuCommand(@crc:CMND_OPEN_LAYER_ARRAY@, BBCR_DRAFT_PK.CREST)
+    funcLuaMenuCommand(@crc:CMND_OPEN_LAYER_ARRAY@, BattleBayDeluxe.draft_pack.QUAD)
+    funcLuaMenuCommand(@crc:CMND_OPEN_LAYER_ARRAY@, BattleBayDeluxe.draft_pack.TXT)
+    funcLuaMenuCommand(@crc:CMND_OPEN_LAYER_ARRAY@, BattleBayDeluxe.draft_pack.CREST)
     funcLuaMenuCommand(@crc:CMND_OPEN_LAYER@, B.ANCHOR)
     B.opened = true
   end
-  BBCR_DRAFT_FmLayers(true)
-  -- 1.5.89: the anchor (a button object) off screen AND invisible, as the Torneo's anchor (it keeps the keys)
+  BattleBayDeluxe.draft_formation_layers(true)
+  -- Moves the anchor (a button object) off screen and makes it invisible.
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, B.ANCHOR, B.ANCHOR_X, B.ANCHOR_Y, 0, 0)
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.ANCHOR, 0, false)
   funcLuaMenuCommand(@crc:CMND_SET_ENABLE_CTRL_FOCUS@, B.ANCHOR, true)
@@ -1133,14 +1040,14 @@ function BBCR_DRAFT_Open()
 end
 
 -- close the Draft layers (their card textures are released), the panel back, the focus off the anchor
-function BBCR_DRAFT_CloseLayers()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_close_layers()
+  local B = BattleBayDeluxe.draft
   if B.shown ~= nil then
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, B.shown[1], B.shown[2],
-                       BBCR_DRAFT_CursorLabel(B.shown[1], B.shown[2]), false)
+                       BattleBayDeluxe.draft_cursor_label(B.shown[1], B.shown[2]), false)
     B.shown = nil
   end
-  pcall(BBCR_DRAFT_PackEnd)
+  pcall(BattleBayDeluxe.draft_pack_end)
   B.cands = {}
   B.mode = nil
   B.reapply = nil
@@ -1149,28 +1056,26 @@ function BBCR_DRAFT_CloseLayers()
   if B.opened then
     funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER_ARRAY@, B.SLOT)
     funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER_ARRAY@, B.CARD)
-    funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER_ARRAY@, BBCR_DRAFT_PK.QUAD)
-    funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER_ARRAY@, BBCR_DRAFT_PK.TXT)
-    funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER_ARRAY@, BBCR_DRAFT_PK.CREST)
+    funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER_ARRAY@, BattleBayDeluxe.draft_pack.QUAD)
+    funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER_ARRAY@, BattleBayDeluxe.draft_pack.TXT)
+    funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER_ARRAY@, BattleBayDeluxe.draft_pack.CREST)
     funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER@, B.ANCHOR)
     B.opened = false
   end
-  pcall(BBCR_DRAFT_FmLayers, false)
+  pcall(BattleBayDeluxe.draft_formation_layers, false)
   B.quitTo = nil
   B.ready = {}
-  local ok, err = pcall(BBCR_DRAFT_ScreenOff)
+  local ok, err = pcall(BattleBayDeluxe.draft_screen_off)
   if not ok then
-    BBCR_DRAFT_Log("screen off error", tostring(err))
+    BattleBayDeluxe.draft_log("screen off error", tostring(err))
   end
 end
 
--- the grid back (the retail OnCloseEndLayer of the difficulty window: slots, locks, focus, guide) and, a few frames
--- later, the page rebuilt like a page turn with the focus on the Draft tile (BBCR_DRAFT_Refresh)
-function BBCR_DRAFT_GridBack()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_grid_back()
+  local B = BattleBayDeluxe.draft
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.CURSOR, 0, true)
-  if BBCR_DRAFT_Free() then
-    -- the grid itself came back with the stash (BBCR_DRAFT_ScreenOff); its focus and the retail guide line
+  if BattleBayDeluxe.draft_free() then
+    -- The grid came back with the stash (see BattleBayDeluxe.draft_screen_off).
     funcLuaMenuCommand(@crc:CMND_SET_ENABLE_CTRL_FOCUS@, B.GRID, true)
     local cur = funcLuaMenuCommand(2603265800, B.GRID)
     if type(cur) == "number" then
@@ -1184,26 +1089,23 @@ function BBCR_DRAFT_GridBack()
   end
   local ok, err = pcall(OnCloseEndLayer, B.DIFFWIN, 0)
   if not ok then
-    BBCR_DRAFT_Log("grid back error", tostring(err))
+    BattleBayDeluxe.draft_log("grid back error", tostring(err))
   end
   B.refresh = B.REFRESH_FRAMES
 end
 
--- tile / panel: the tile the focus goes back to and the panel's redraw (default: the Draft tile, BBCR_DRAFT_PanelBack;
--- the «Plantilla» viewer, bbd_roster.lua, passes the team it showed); keep = the grid was only hidden: a slot that still
--- shows the same team keeps its crest (not released and asked again)
-function BBCR_DRAFT_Refresh(tile, panel, keep)
-  local B = BBCR_DRAFT
+-- Refreshes the tile and the panel.
+function BattleBayDeluxe.draft_refresh(tile, panel, keep)
+  local B = BattleBayDeluxe.draft
   tile = tile or B.tile
   local page = funcLuaCommand(B.PAGE_REFRESH)
   local redrawn = false
-  if type(page) == "number" and EVT_BBP ~= nil and EVT_BBP_Query ~= nil and EVT_BBP_Redraw ~= nil then
-    EVT_BBP_Query()
-    redrawn = pcall(EVT_BBP_Redraw)
+  if type(page) == "number" and VRFW.battle_bay_pages ~= nil and (VRFW.battle_bay_pages ~= nil and VRFW.battle_bay_pages.query ~= nil) and (VRFW.battle_bay_pages ~= nil and VRFW.battle_bay_pages.redraw ~= nil) then
+    VRFW.battle_bay_pages.query()
+    redrawn = pcall(VRFW.battle_bay_pages.redraw)
   end
   if not redrawn then
-    -- no pages service: the emblems again from the last SetupEmblemIcon arguments of each slot, as vrfw_bb_pages'
-    -- EVT_BBP_Redraw does (icon released first, the emblem node shown after: the retail SetupEmblemIcon hides it)
+    -- Skips the page handling when there is no pages service.
     local args = {}
     for i, rec in pairs(B.slotArgs) do
       args[#args + 1] = {i, rec}
@@ -1217,7 +1119,7 @@ function BBCR_DRAFT_Refresh(tile, panel, keep)
       funcLuaMenuCommand(2158717427 --[[node visible]], B.GRID, B.EMBLEM_NODE, a[2][1] ~= 0, a[1])
     end
   end
-  -- focus and cursor on the tile; its panel
+  -- Sets focus and cursor on the tile.
   if tile >= 0 then
     local n = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, B.GRID) or 0
     funcLuaMenuCommand(@crc:CMND_SET_ENABLE_CTRL_FOCUS@, B.GRID, true)
@@ -1227,30 +1129,27 @@ function BBCR_DRAFT_Refresh(tile, panel, keep)
   if panel ~= nil then
     panel()
   else
-    BBCR_DRAFT_PanelBack()
+    BattleBayDeluxe.draft_panel_back()
   end
-  BBCR_DRAFT_Log("grid refreshed", page, redrawn, tile)
+  BattleBayDeluxe.draft_log("grid refreshed", page, redrawn, tile)
 end
 
--- the left panel = the Draft team (the UpdateFormation wrapper: held while the Draft screen is open, else its players
--- only once the draft is complete)
-function BBCR_DRAFT_Panel()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_panel()
+  local B = BattleBayDeluxe.draft
   B.ours = true
   pcall(UpdateTeamNameText, B.TEAM, true)
   local ok, err = pcall(UpdateFormation, B.TEAM, true)
   B.ours = false
   if not ok then
-    BBCR_DRAFT_Log("panel error", tostring(err))
+    BattleBayDeluxe.draft_log("panel error", tostring(err))
   end
 end
 
--- the panels after the screen: the Draft team on the side being chosen. Campaña / 1P: the left panel
--- (BBCR_DRAFT_Panel); free match while the CPU is chosen: the left back to the 1P's team, the Draft on the right
-function BBCR_DRAFT_PanelBack()
-  local B = BBCR_DRAFT
-  if not BBCR_DRAFT_Free() or B.side ~= false then
-    BBCR_DRAFT_Panel()
+-- Goes back from the panel (BattleBayDeluxe.draft_panel).
+function BattleBayDeluxe.draft_panel_back()
+  local B = BattleBayDeluxe.draft
+  if not BattleBayDeluxe.draft_free() or B.side ~= false then
+    BattleBayDeluxe.draft_panel()
     return
   end
   B.ours = true
@@ -1263,45 +1162,56 @@ function BBCR_DRAFT_PanelBack()
   local ok, err = pcall(UpdateFormation, B.TEAM, false)
   B.ours = false
   if not ok then
-    BBCR_DRAFT_Log("panel error (right)", tostring(err))
+    BattleBayDeluxe.draft_log("panel error (right)", tostring(err))
   end
 end
 
-function BBCR_DRAFT_Start(tile)
-  local B = BBCR_DRAFT
-  local ok, phase = BBCR_DRAFT_Info()
+function BattleBayDeluxe.draft_start(tile)
+  local B = BattleBayDeluxe.draft
+  local ok, phase = BattleBayDeluxe.draft_info()
   if not ok then
-    BBCR_DRAFT_Log("no loader draft: the Draft tile does nothing")
+    BattleBayDeluxe.draft_log("no loader draft: the Draft tile does nothing")
     return
   end
   B.tile = tile
   B.used = true
-  if phase >= 2 and BBCR_DRAFT_Free() then
-    -- free match: the retail decide of the tile (scripts\campaign.lua lets it through itself when it sees the draft
-    -- complete; this is the fallback): a frame later, outside this decide
+  if phase >= 2 and BattleBayDeluxe.draft_free() then
+    -- Decides the tile automatically in a free match with a complete draft.
     B.autoDecide = true
     B.refresh = 1
     return
   end
   if phase == 2 then
-    -- already drafted (back from the difficulty window): straight to the retail flow with that squad
+    -- Handles a tile that was already drafted (back from the difficulty window).
     B.bypass = true
     pcall(OnDecideFocus, B.GRID, tile)
     B.bypass = false
     return
   end
-  local fresh = phase ~= 1
-  if phase ~= 1 then
-    local okb, total = funcLuaCommand(B.BEGIN)
+  if phase ~= 1 and not BattleBayDeluxe.draft_free() then
+    -- The Campaign's Draft opens the filter panel first; its start button calls draft_begin.
+    B.filterTile = tile
+    B.filterCo = coroutine.create(BattleBayDeluxe.draft_filters_then_begin)
+    BattleBayDeluxe.draft_filters_step()
+    return
+  end
+  BattleBayDeluxe.draft_begin(tile, phase ~= 1, false)
+end
+
+-- Begins (fresh) or resumes the Draft on `tile`; `filtered` applies the panel's filters.
+function BattleBayDeluxe.draft_begin(tile, fresh, filtered)
+  local B = BattleBayDeluxe.draft
+  if fresh then
+    local okb, total = funcLuaCommand(B.BEGIN, filtered and 1 or 0)
     if okb ~= true then
-      BBCR_DRAFT_Log("begin refused by the loader")
-      BBCR_DRAFT_Guide(BBCR_DRAFT_Text(B.TXT_ERROR))
+      BattleBayDeluxe.draft_log("begin refused by the loader")
+      BattleBayDeluxe.draft_guide(BattleBayDeluxe.draft_text(B.TXT_ERROR))
       return
     end
-    BBCR_DRAFT_Log("begin", tile, total)
+    BattleBayDeluxe.draft_log("begin", tile, total)
   end
-  if not BBCR_DRAFT_LoadSlots() then
-    BBCR_DRAFT_Log("no slots from the loader")
+  if not BattleBayDeluxe.draft_load_slots() then
+    BattleBayDeluxe.draft_log("no slots from the loader")
     funcLuaCommand(B.ABANDON)
     return
   end
@@ -1309,87 +1219,63 @@ function BBCR_DRAFT_Start(tile)
   B.mode = "pitch"
   B.sel = 0
   B.cands = {}
-  BBCR_DRAFT_ScreenOn()
-  BBCR_DRAFT_Open()
-  BBCR_DRAFT_Panel() -- team name of the Draft team; its pitch is held (UpdateFormation wrapper)
-  BBCR_DRAFT_DrawPitch()
-  BBCR_DRAFT_Cursor()
-  BBCR_DRAFT_ShowGuide()
+  BattleBayDeluxe.draft_screen_on()
+  BattleBayDeluxe.draft_open()
+  BattleBayDeluxe.draft_panel()
+  BattleBayDeluxe.draft_draw_pitch()
+  BattleBayDeluxe.draft_cursor()
+  BattleBayDeluxe.draft_show_guide()
   B.probe = B.PROBE_FRAMES
-  BBCR_DRAFT_MouseOpen()
-  BBCR_DRAFT_Log("screen", #B.slots, "slots, formation", B.formation)
+  BattleBayDeluxe.draft_mouse_open()
+  BattleBayDeluxe.draft_log("screen", #B.slots, "slots, formation", B.formation)
   B.quitTo = nil
-  if not (fresh and BBCR_DRAFT_FmOpen("start")) then
-    BBCR_DRAFT_FmRender()
+  if not (fresh and BattleBayDeluxe.draft_formation_open("start")) then
+    BattleBayDeluxe.draft_formation_render()
   end
 end
 
 -- nearest slot in the direction (dx, dy) (screen, y up) from the selected one
-function BBCR_DRAFT_Move(dx, dy)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_move(dx, dy)
+  local B = BattleBayDeluxe.draft
   if B.ptr ~= nil then
-    B.ptr.KeyStep() -- the keys own the selection until the pointer really moves again
+    B.ptr.key_step() -- the keys own the selection until the pointer really moves again
   end
   if B.mode == "formation" then
     if dx ~= 0 then
-      BBCR_DRAFT_FmMove(dx)
+      BattleBayDeluxe.draft_formation_move(dx)
     end
     return
   end
   if B.mode == "cands" then
-    if BBCR_DRAFT_PackBusy() then
+    if BattleBayDeluxe.draft_pack_busy() then
       return -- the pack is still being turned (Enter shows all)
     end
-    -- the candidates are a row on the pack's band (1.5.26; a column before): Left / Right (Up / Down too) move along it
+    -- Treats the candidates as a row on the pack's band.
     local d = (dy ~= 0) and -dy or dx
     if d ~= 0 then
-      local n = #B.cands
-      local to = math.max(0, math.min(n - 1, B.csel + d))
-      if to ~= B.csel then
-        local old = B.csel
-        B.csel = to
-        BBCR_DRAFT_DrawCand(old)
-        BBCR_DRAFT_DrawCand(to)
-        BBCR_DRAFT_Cursor()
-        funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2500047763 --[[sy0005]])
-      end
+      BattleBayDeluxe.draft_select_candidate(math.max(0, math.min(#B.cands - 1, B.csel + d)))
     end
     return
   end
   if B.mode ~= "pitch" then
     return
   end
-  -- first the slots within a ~50 degree cone of the direction, else any slot on that side; nearest along the
-  -- direction, a sideways offset counting half
-  local from = B.pos[B.sel]
-  local best, bestScore = nil, nil
-  for pass = 1, 2 do
-    for k = 0, #B.slots - 1 do
-      if k ~= B.sel then
-        local vx, vy = B.pos[k][1] - from[1], B.pos[k][2] - from[2]
-        local along = vx * dx + vy * dy
-        local across = math.abs(vx * dy - vy * dx)
-        if along > 0 and (pass == 2 or across <= along * 1.2) then
-          local score = along + 0.5 * across
-          if bestScore == nil or score < bestScore then
-            best, bestScore = k, score
-          end
-        end
-      end
-    end
-    if best ~= nil then
-      break
-    end
+  local from = B.where[B.sel]
+  if from == nil then
+    return
   end
-  if best ~= nil then
-    B.sel = best
-    BBCR_DRAFT_Cursor()
-    funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2500047763 --[[sy0005]])
+  local layer, to = BattleBayDeluxe.draft_focus_move(from[1], from[2], #B.slots, dx, dy)
+  for k = 0, #B.slots - 1 do
+    local w = B.where[k]
+    if layer ~= nil and w ~= nil and w[1] == layer and w[2] == to then
+      BattleBayDeluxe.draft_select_slot(k)
+      return
+    end
   end
 end
 
-function BBCR_DRAFT_NextEmpty(from)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_next_empty(from)
+  local B = BattleBayDeluxe.draft
   for d = 0, #B.slots - 1 do
     local k = (from + d) % #B.slots
     if B.slots[k + 1].param == 0 then
@@ -1399,20 +1285,20 @@ function BBCR_DRAFT_NextEmpty(from)
   return from
 end
 
--- Enter
-function BBCR_DRAFT_Decide()
-  local B = BBCR_DRAFT
+-- Handles Enter.
+function BattleBayDeluxe.draft_decide()
+  local B = BattleBayDeluxe.draft
   if B.mode == "formation" then
-    BBCR_DRAFT_FmConfirm()
+    BattleBayDeluxe.draft_formation_confirm()
     return
   end
   if B.mode == "pitch" then
-    if BBCR_DRAFT_Filled() >= #B.slots then
+    if BattleBayDeluxe.draft_filled() >= #B.slots then
       B.mode = "start"
     elseif B.slots[B.sel + 1].param == 0 then
       local r = table.pack(funcLuaCommand(B.CANDS, B.sel))
       if r[1] ~= true then
-        BBCR_DRAFT_Log("no candidates for slot", B.sel)
+        BattleBayDeluxe.draft_log("no candidates for slot", B.sel)
         return
       end
       B.k = r[2]
@@ -1422,106 +1308,93 @@ function BBCR_DRAFT_Decide()
       end
       B.mode = "cands"
       B.csel = 0
-      BBCR_DRAFT_PackStart()
+      BattleBayDeluxe.draft_pack_start()
     else
-      return -- a slot already drafted stays as it is
+      return
     end
   elseif B.mode == "cands" then
-    if BBCR_DRAFT_PackBusy() then
-      BBCR_DRAFT_PackDone(true) -- Enter during the animation: all 5 at once
-      BBCR_DRAFT_ShowGuide()
+    if BattleBayDeluxe.draft_pack_busy() then
+      BattleBayDeluxe.draft_pack_done(true) -- Enter during the animation: all 5 at once
+      BattleBayDeluxe.draft_show_guide()
       return
     end
     local ok, done, slot, param = funcLuaCommand(B.PICK, B.k, B.csel)
     if ok ~= true then
-      BBCR_DRAFT_Log("pick refused", B.k, B.csel)
-      BBCR_DRAFT_Exit(true)
-      BBCR_DRAFT_Guide(BBCR_DRAFT_Text(B.TXT_ERROR))
+      BattleBayDeluxe.draft_log("pick refused", B.k, B.csel)
+      BattleBayDeluxe.draft_exit(true)
+      BattleBayDeluxe.draft_guide(BattleBayDeluxe.draft_text(B.TXT_ERROR))
       return
     end
     B.slots[B.k + 1].param = param
-    BBCR_DRAFT_DrawSlot(B.k)
-    BBCR_DRAFT_PackOutro(B.k, B.csel) -- the card flies to its place, the screen comes back
+    BattleBayDeluxe.draft_draw_slot(B.k)
+    BattleBayDeluxe.draft_pack_outro(B.k, B.csel) -- the card flies to its place, the screen comes back
     B.mode = done and "start" or "pitch"
     for i = 0, 4 do
-      BBCR_DRAFT_DrawCand(i)
+      BattleBayDeluxe.draft_draw_candidate(i)
     end
-    B.sel = B.k -- the cursor stays on the slot just filled; the player moves it to the next one
+    B.sel = B.k
   elseif B.mode == "start" then
-    BBCR_DRAFT_Finish()
+    BattleBayDeluxe.draft_finish()
     return
   elseif B.mode == "quit" then
-    return -- the Sí / No window has the input
+    return
   end
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 4235359837 --[[decide]])
-  BBCR_DRAFT_Cursor()
-  BBCR_DRAFT_ShowGuide()
+  BattleBayDeluxe.draft_cursor()
+  BattleBayDeluxe.draft_show_guide()
 end
 
--- Back
-function BBCR_DRAFT_Back()
-  local B = BBCR_DRAFT
+-- Handles Back.
+function BattleBayDeluxe.draft_back()
+  local B = BattleBayDeluxe.draft
   if B.mode == "formation" then
-    BBCR_DRAFT_FmBack()
+    BattleBayDeluxe.draft_formation_back()
     return
   end
   if B.mode == "cands" then
-    if BBCR_DRAFT_PackBusy() then
-      BBCR_DRAFT_PackDone(true) -- Back during the animation: all 5 at once too
+    if BattleBayDeluxe.draft_pack_busy() then
+      BattleBayDeluxe.draft_pack_done(true) -- Back during the animation: all 5 at once too
       return
     end
     -- the 5 of a slot cannot be left without a pick (no reroll by backing out)
     funcLuaCommand(@crc:CMND_SND_PLAY_SE@, B.SE_NG)
     local rec = B.slots[B.k + 1]
-    BBCR_DRAFT_Guide(BBCR_DRAFT_Text(B.TXT_POS[rec and rec.pos or 0]) .. ": " .. BBCR_DRAFT_Text(B.TXT_PICK_ONE, "Elige uno de los 5"))
-    BBCR_DRAFT_Log("pick open: back refused", B.k)
+    BattleBayDeluxe.draft_guide(BattleBayDeluxe.draft_text(B.TXT_POS[rec and rec.pos or 0]) .. ": " .. BattleBayDeluxe.draft_text(B.TXT_PICK_ONE, "Elige uno de los 5"))
+    BattleBayDeluxe.draft_log("pick open: back refused", B.k)
     return
   elseif B.mode == "quit" then
-    return -- the Sí / No window has the input
+    return
   elseif B.mode == "pitch" then
-    B.mode = "quit"
-    B.quitTo = nil
-    funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 202039849 --[[back]])
-    B.quitCo = coroutine.create(BBCR_DRAFT_QuitAsk)
-    BBCR_DRAFT_QuitStep()
+    BattleBayDeluxe.draft_quit_open(nil)
     return
   elseif B.mode == "start" then
     B.mode = "pitch"
   end
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 202039849 --[[back]])
-  BBCR_DRAFT_Cursor()
-  BBCR_DRAFT_ShowGuide()
+  BattleBayDeluxe.draft_cursor()
+  BattleBayDeluxe.draft_show_guide()
 end
 
--- the retail Sí / No window (the class menu's / gameend pattern: 2289627655 + 2351835063(2, 0), the cursor on «No»
--- with 2529383714(1) as retail confirmations do, result 1523741473: 0 = Sí); the menu's input is off meanwhile. Runs
--- in its own coroutine, resumed by Step.
-function BBCR_DRAFT_QuitAsk()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_quit_ask()
+  local B = BattleBayDeluxe.draft
   funcLuaMenuCommand(1558704558, B.MENU, false)
-  local text = BBCR_DRAFT_Text(B.TXT_QUIT_ASK, "¿Quieres abandonar el draft?")
-  funcLuaCommand(2289627655, text, 0, 0, 0, 0, 0, false)
-  funcLuaCommand(2351835063, 2, 0)
-  funcLuaCommand(2529383714, 1)
-  while funcLuaCommand(898725220) == true do
-    coroutine.yield()
-  end
-  local r = funcLuaCommand(1523741473)
-  while type(r) ~= "number" or r < 0 do
-    coroutine.yield()
-    r = funcLuaCommand(1523741473)
-  end
-  local f = 0
-  while funcLuaCommand(682363669) ~= true and f < B.QUIT_CLOSE_MAX do
-    f = f + 1
-    coroutine.yield()
-  end
+  local text = BattleBayDeluxe.draft_text(B.TXT_QUIT_ASK, "¿Quieres abandonar el draft?")
+  local yes = VRFW.question.ask(text, {on_open = function() funcLuaCommand(2529383714, 1) end}) -- the cursor starts on No
   funcLuaMenuCommand(1558704558, B.MENU, true)
-  return r == 0
+  return yes
 end
 
-function BBCR_DRAFT_QuitStep()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_quit_open(to)
+  local B = BattleBayDeluxe.draft
+  B.mode = "quit"
+  B.quitTo = to
+  funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 202039849 --[[back]])
+  B.quitCo = coroutine.create(BattleBayDeluxe.draft_quit_ask)
+  BattleBayDeluxe.draft_quit_step()
+end
+
+function BattleBayDeluxe.draft_quit_step()
+  local B = BattleBayDeluxe.draft
   if B.quitCo == nil then
     return
   end
@@ -1531,7 +1404,7 @@ function BBCR_DRAFT_QuitStep()
   end
   B.quitCo = nil
   if not ok then
-    BBCR_DRAFT_Log("quit window error", tostring(yes))
+    BattleBayDeluxe.draft_log("quit window error", tostring(yes))
     pcall(funcLuaMenuCommand, 1558704558, B.MENU, true)
     yes = false
   end
@@ -1539,91 +1412,94 @@ function BBCR_DRAFT_QuitStep()
     return
   end
   if yes == true then
-    BBCR_DRAFT_Log("abandoned with", BBCR_DRAFT_Filled(), "picks")
-    BBCR_DRAFT_Exit(true)
+    BattleBayDeluxe.draft_log("abandoned with", BattleBayDeluxe.draft_filled(), "picks")
+    BattleBayDeluxe.draft_exit(true)
     return
   end
   B.mode = B.quitTo or "pitch"
   B.quitTo = nil
-  BBCR_DRAFT_Cursor()
-  BBCR_DRAFT_ShowGuide()
+  BattleBayDeluxe.draft_cursor()
+  BattleBayDeluxe.draft_show_guide()
 end
 
--- leave the Draft screen; abandon = the draft is discarded and the grid comes back
-function BBCR_DRAFT_Exit(abandon)
-  local B = BBCR_DRAFT
+-- Leaves the Draft screen.
+function BattleBayDeluxe.draft_exit(abandon)
+  local B = BattleBayDeluxe.draft
   if abandon then
     funcLuaCommand(B.ABANDON)
   end
-  BBCR_DRAFT_CloseLayers()
-  BBCR_DRAFT_GridBack()
-  BBCR_DRAFT_PanelBack()
+  BattleBayDeluxe.draft_close_layers()
+  BattleBayDeluxe.draft_grid_back()
+  BattleBayDeluxe.draft_panel_back()
 end
 
--- 16 drafted and confirmed: the retail flow of the tile (difficulty window -> campaign)
-function BBCR_DRAFT_Finish()
-  local B = BBCR_DRAFT
-  BBCR_DRAFT_CloseLayers()
-  if BBCR_DRAFT_Free() then
-    -- free match: the grid back, the page rebuilt, then the tile's retail decide (BBCR_DRAFT_Step)
-    BBCR_DRAFT_Log("complete: the tile's decide (free match)")
-    BBCR_DRAFT_GridBack()
-    BBCR_DRAFT_PanelBack()
+-- Finishes the draft once 16 players are drafted and confirmed.
+function BattleBayDeluxe.draft_finish()
+  local B = BattleBayDeluxe.draft
+  BattleBayDeluxe.draft_close_layers()
+  if BattleBayDeluxe.draft_free() then
+    -- Free match: decides the tile directly.
+    BattleBayDeluxe.draft_log("complete: the tile's decide (free match)")
+    BattleBayDeluxe.draft_grid_back()
+    BattleBayDeluxe.draft_panel_back()
     B.autoDecide = true
     return
   end
-  BBCR_DRAFT_Panel()
-  BBCR_DRAFT_Log("complete: difficulty window")
+  BattleBayDeluxe.draft_panel()
+  BattleBayDeluxe.draft_log("complete: difficulty window")
   B.bypass = true
   local ok, err = pcall(OnDecideFocus, B.GRID, B.tile)
   B.bypass = false
   if not ok then
-    BBCR_DRAFT_Log("difficulty window error", tostring(err))
+    BattleBayDeluxe.draft_log("difficulty window error", tostring(err))
   end
 end
 
-function BBCR_DRAFT_Step()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_step()
+  local B = BattleBayDeluxe.draft
   if B.pk ~= nil then
-    local ok, err = pcall(BBCR_DRAFT_PackStep)
+    local ok, err = pcall(BattleBayDeluxe.draft_pack_step)
     if not ok then
-      BBCR_DRAFT_Logger().once("pack_error", "pack error", tostring(err))
-      pcall(BBCR_DRAFT_PackEnd)
+      BattleBayDeluxe.draft_logger().once("pack_error", "pack error", tostring(err))
+      pcall(BattleBayDeluxe.draft_pack_end)
       if B.mode == "cands" then
         for i = 0, 4 do
-          pcall(BBCR_DRAFT_DrawCand, i) -- the plain cards back (no pack)
+          pcall(BattleBayDeluxe.draft_draw_candidate, i) -- the plain cards back (no pack)
         end
-        pcall(BBCR_DRAFT_Cursor)
+        pcall(BattleBayDeluxe.draft_cursor)
       end
     end
   end
   if B.quitCo ~= nil then
-    BBCR_DRAFT_QuitStep()
+    BattleBayDeluxe.draft_quit_step()
   end
-  if BBCR_DRAFT_FM.dirty and B.mode ~= nil then
-    local okf, errf = pcall(BBCR_DRAFT_FmRender)
+  if B.filterCo ~= nil then
+    BattleBayDeluxe.draft_filters_step()
+  end
+  if BattleBayDeluxe.draft_formation.dirty and B.mode ~= nil then
+    local okf, errf = pcall(BattleBayDeluxe.draft_formation_render)
     if not okf then
-      BBCR_DRAFT_Logger().once("formation_error", "formation step error", tostring(errf))
+      BattleBayDeluxe.draft_logger().once("formation_error", "formation step error", tostring(errf))
     end
   end
-  local okm, errm = pcall(BBCR_DRAFT_Mouse)
+  local okm, errm = pcall(BattleBayDeluxe.draft_mouse)
   if not okm then
     B.polled = false
-    BBCR_DRAFT_Logger().once("mouse_error", "mouse error", tostring(errm))
+    BattleBayDeluxe.draft_logger().once("mouse_error", "mouse error", tostring(errm))
   end
   if B.refresh ~= nil then
     B.refresh = B.refresh - 1
     if B.refresh <= 0 then
       B.refresh = nil
-      local ok, err = pcall(BBCR_DRAFT_Refresh)
+      local ok, err = pcall(BattleBayDeluxe.draft_refresh)
       if not ok then
-        BBCR_DRAFT_Logger().once("refresh_error", "refresh error", tostring(err))
+        BattleBayDeluxe.draft_logger().once("refresh_error", "refresh error", tostring(err))
       end
       if B.autoDecide then
-        -- free match: the drafted Draft team decided as 1P / CPU (the retail decide of its tile)
+        -- Free match: clears the automatic decision.
         B.autoDecide = false
-        local okd, done = pcall(funcLuaCommand, B.DECIDE, B.tile)
-        BBCR_DRAFT_Log("free match decide", tostring(okd), tostring(done), B.tile)
+        local done = VRFW.host.command(B.DECIDE, B.tile)
+        BattleBayDeluxe.draft_log("free match decide", tostring(done), B.tile)
       end
     end
   end
@@ -1632,7 +1508,7 @@ function BBCR_DRAFT_Step()
     for k = 0, #B.slots - 1 do
       local w = B.where[k]
       if w ~= nil and B.slots[k + 1].param == 0 and B.ready[w[1] .. ":" .. w[2]] then
-        BBCR_DRAFT_Rehide(w[1], w[2])
+        BattleBayDeluxe.draft_rehide(w[1], w[2])
       end
     end
     if B.reapply <= 0 then
@@ -1643,68 +1519,69 @@ function BBCR_DRAFT_Step()
     B.probe = B.probe - 1
     if B.probe <= 0 then
       B.probe = nil
-      local ok, err = pcall(BBCR_DRAFT_Probe)
+      local ok, err = pcall(BattleBayDeluxe.draft_probe)
       if not ok then
-        BBCR_DRAFT_Logger().once("probe_error", "probe error", tostring(err))
+        BattleBayDeluxe.draft_logger().once("probe_error", "probe error", tostring(err))
       end
     end
   end
 end
 
--- ---------------------------------------------------------------- the formation step and the board's labels (1.96.0)
--- A new draft opens on the formation step: a strip of formation cards pinned to the bottom edge (the guide bar hidden
--- while it shows), each card a mini pitch with its 11 dots and two centred lines (the numbers «4-4-2», under them the
--- formation's game name without its numbers; no name = only the numbers). Left / Right choose (the pitch above lays
--- the empty places out for the chosen formation at once), Enter confirms (CMND_BBD_DRAFT_SET_FORMATION), Back asks to
--- quit at the start / goes back to the board unchanged from Y. The list is the script's (CMND_BBD_DRAFT_FORMATIONS:
--- every 11-place formation of the served formation_config, game and mods), the placements CMND_BBD_FORMATION_PLACE,
--- the name the game's (formation info 7 + its text). On the board: «GERENTES» over the managers and the left panel's
--- block «ALINEACIÓN» / the formation / «Y  Cambiar alineación». Flat quads of the pack's atlas (bbd_pk.g4tx) and the
--- pack's centred text, layers evt_bbd_fm_quad / evt_bbd_fm_txt (content\menus\bb_draft.toml), drawn on a change only.
-BBCR_DRAFT_FM = {
-  QUAD = @crc:evt_bbd_fm_quad@, TXT = @crc:evt_bbd_fm_txt@, N_QUAD = 84, N_TXT = 20,
+BattleBayDeluxe.draft_formation = {
+  QUAD = @crc:battlebaydeluxe_fm_quad@, TXT = @crc:battlebaydeluxe_fm_txt@, N_QUAD = 84, N_TXT = 20,
   FORM_INFO = @crc:CMND_GET_SOCCER_FORMATION_INFO@, TEXT_OF = 297699480,
   SPR_BAND = @crc:bbd_pk_band@, SPR_EDGE = @crc:bbd_pk_edge@, SPR_CARD = @crc:bbd_pk_card@, SPR_SEL = @crc:bbd_pk_sel@,
   STYLE_ON_CHOSEN = 2029954615 --[[fs_28_k_cc_2d0_001: centred dark, no outline, on the chosen card's gold]],
   SPR_FRAME = @crc:bbd_pk_frame@, SPR_PITCH = @crc:bbd_pk_pitch@, SPR_DOT = @crc:bbd_pk_flash@,
-  -- quad instances: band, its gold top edge, the chosen card's frame, 6 cards, 6 mini pitches, 6 x 11 dots
+  -- Quad instance indexes.
   I_BAND = 0, I_EDGE = 1, I_FRAME = 2, I_CARD = 3, I_PITCH = 9, I_DOT = 15,
-  -- text instances: 6 x 2 card lines, the 2 arrows, the left panel's 3 lines, «GERENTES»
-  T_CARD = 0, T_ARROW = 12, T_PANEL = 14, T_MANAGERS = 17,
+  -- Text instance indexes.
+  T_CARD = 0, T_ARROW = 12, T_PANEL = 14,
   PRIO_STRIP = 750, PRIO_TEXT = 760, PRIO_BOARD = 701,
-  -- the strip (screen px, y down): the band from STRIP_TOP to the bottom edge, VISIBLE cards CARD_W x CARD_H, CARD_DX
-  -- apart from CARD_X0, the mini pitch MINI_W x MINI_H at MINI_DX from the card's centre, the lines' centre TEXT_DX
+  -- Layout of the strip (screen pixels, y down).
   STRIP_TOP = 918, STRIP_Y = 1000, VISIBLE = 5, CARD_X0 = 346, CARD_DX = 307, CARD_W = 288, CARD_H = 116,
   FRAME_PAD = 5, MINI_DX = -96, MINI_W = 74, MINI_H = 92, DOT = 9, DOT_PAD = 4, TEXT_DX = 45, TEXT_W = 186,
   LINE1_DY = -25, LINE2_DY = 22, NUM_SCALE = 1.0, NAME_SCALE = 0.78, ARROW_X = 22, ARROW_SCALE = 1.2,
-  -- the board's labels
-  PANEL_X = 215, PANEL_W = 400, PANEL_Y = {590, 637, 690}, PANEL_SCALE = {0.8, 1.1, 0.8}, MANAGERS_X = 1830, MANAGERS_Y = 690,
-  MANAGERS_SCALE = 0.8,
+  -- Layout of the board's labels.
+  PANEL_X = 215, PANEL_W = 400, PANEL_Y = {590, 637, 690}, PANEL_SCALE = {0.8, 1.1, 0.8},
   -- state
   list = nil, total = 0, sel = 0, from = nil, saved = 0, info = {}, spr = {}, texts = {}, ready = {}, dirty = false,
   opened = false, guideHidden = false,
 }
 
--- a flat quad of the strip: instance i, centre (x, y) screen px (y down), w x h px, sprite spr
-function BBCR_DRAFT_FmQuad(i, x, y, w, h, spr)
-  local F, P = BBCR_DRAFT_FM, BBCR_DRAFT_PK
+-- Draws a quad at screen pixels (y down) with width w, height h and alpha.
+function BattleBayDeluxe.draft_quad_draw(layer, cache, i, x, y, w, h, spr, alpha)
+  local P = BattleBayDeluxe.draft_pack
+  if cache[i] ~= spr then
+    funcLuaMenuCommand(P.SPRITE, layer, P.ART, spr, P.NODE_QUAD, 0, i)
+    cache[i] = spr
+  end
+  funcLuaMenuCommand(P.VISIBLE, layer, i, true)
+  funcLuaMenuCommand(P.SCALE, layer, w / P.Q, h / P.Q, 1, i)
+  funcLuaMenuCommand(P.POS, layer, x, -y, 0, i)
+  funcLuaMenuCommand(P.MODEL_ALPHA, layer, i, 0, alpha)
+end
+
+function BattleBayDeluxe.draft_text_set(layer, i, s, style)
+  local P = BattleBayDeluxe.draft_pack
+  funcLuaMenuCommand(P.TEXT_STYLE, layer, i, P.TXT_ON, style)
+  funcLuaMenuCommand(P.TEXT, layer, P.TXT_ON, s, i)
+  funcLuaMenuCommand(P.TEXT, layer, P.TXT_OFF, "", i)
+  funcLuaMenuCommand(P.TEXT_VISIBLE, layer, P.TXT_ON, true, i)
+  funcLuaMenuCommand(P.TEXT_VISIBLE, layer, P.TXT_OFF, false, i)
+end
+
+function BattleBayDeluxe.draft_formation_quad(i, x, y, w, h, spr)
+  local F, P = BattleBayDeluxe.draft_formation, BattleBayDeluxe.draft_pack
   if spr == nil or w <= 0.5 or h <= 0.5 then
     funcLuaMenuCommand(P.VISIBLE, F.QUAD, i, false)
     return
   end
-  if F.spr[i] ~= spr then
-    funcLuaMenuCommand(P.SPRITE, F.QUAD, P.ART, spr, P.NODE_QUAD, 0, i)
-    F.spr[i] = spr
-  end
-  funcLuaMenuCommand(P.VISIBLE, F.QUAD, i, true)
-  funcLuaMenuCommand(P.SCALE, F.QUAD, w / P.Q, h / P.Q, 1, i)
-  funcLuaMenuCommand(P.POS, F.QUAD, x, -y, 0, i)
-  funcLuaMenuCommand(P.MODEL_ALPHA, F.QUAD, i, 0, 1)
+  BattleBayDeluxe.draft_quad_draw(F.QUAD, F.spr, i, x, y, w, h, spr, 1)
 end
 
--- a centred text: instance i at (x, y) screen px (y down), scale, style (the strip's white without it); "" / nil = hidden
-function BBCR_DRAFT_FmText(i, s, x, y, scale, style)
-  local F, P = BBCR_DRAFT_FM, BBCR_DRAFT_PK
+function BattleBayDeluxe.draft_formation_text(i, s, x, y, scale, style)
+  local F, P = BattleBayDeluxe.draft_formation, BattleBayDeluxe.draft_pack
   if s == nil or s == "" then
     funcLuaMenuCommand(P.VISIBLE, F.TXT, i, false)
     return
@@ -1715,20 +1592,15 @@ function BBCR_DRAFT_FmText(i, s, x, y, scale, style)
   style = style or P.STYLE
   local shown = tostring(style) .. ":" .. s
   if F.texts[i] ~= shown then
-    funcLuaMenuCommand(P.TEXT_STYLE, F.TXT, i, P.TXT_ON, style)
-    funcLuaMenuCommand(P.TEXT, F.TXT, P.TXT_ON, s, i)
-    funcLuaMenuCommand(P.TEXT, F.TXT, P.TXT_OFF, "", i)
-    funcLuaMenuCommand(P.TEXT_VISIBLE, F.TXT, P.TXT_ON, true, i)
-    funcLuaMenuCommand(P.TEXT_VISIBLE, F.TXT, P.TXT_OFF, false, i)
+    BattleBayDeluxe.draft_text_set(F.TXT, i, s, style)
     F.texts[i] = shown
   end
   funcLuaMenuCommand(P.TEXT_ALPHA, F.TXT, i, P.TXT_ON, 1)
 end
 
--- the layers' draw priorities (OnSetupLayer / OnOpenLayer): the strip above the cards, the board labels under the
--- pack's darkness; hidden until drawn
-function BBCR_DRAFT_FmPrio(layer, i)
-  local F, P = BBCR_DRAFT_FM, BBCR_DRAFT_PK
+-- Sets the draw priorities of the layers (OnSetupLayer and OnOpenLayer).
+function BattleBayDeluxe.draft_formation_priority(layer, i)
+  local F, P = BattleBayDeluxe.draft_formation, BattleBayDeluxe.draft_pack
   local prio = F.PRIO_TEXT
   if layer == F.QUAD then
     prio = F.PRIO_STRIP + ((i == F.I_BAND and 0) or (i < F.I_CARD and 1) or (i < F.I_PITCH and 2) or (i < F.I_DOT and 3)
@@ -1746,9 +1618,8 @@ function BBCR_DRAFT_FmPrio(layer, i)
   F.dirty = true
 end
 
--- the formation list from the script, paged (CMND_BBD_DRAFT_FORMATIONS: 12 ids an answer): false without an answer
-function BBCR_DRAFT_FmLoad()
-  local F, B = BBCR_DRAFT_FM, BBCR_DRAFT
+function BattleBayDeluxe.draft_formation_load()
+  local F, B = BattleBayDeluxe.draft_formation, BattleBayDeluxe.draft
   local list, total, current = {}, nil, 0
   local start = 0
   repeat
@@ -1771,10 +1642,9 @@ function BBCR_DRAFT_FmLoad()
   return #list > 0
 end
 
--- a formation's card look, once per formation: the numbers (defenders-midfielders-forwards), its game name without the
--- numbers, the 11 dots of the mini pitch (placement units)
-function BBCR_DRAFT_FmInfo(id)
-  local F, B = BBCR_DRAFT_FM, BBCR_DRAFT
+-- Reads a formation's card look once per formation.
+function BattleBayDeluxe.draft_formation_info(id)
+  local F, B = BattleBayDeluxe.draft_formation, BattleBayDeluxe.draft
   local inf = F.info[id]
   if inf ~= nil then
     return inf
@@ -1789,162 +1659,161 @@ function BBCR_DRAFT_FmInfo(id)
       list[#list + 1] = {slot, slot, pos == 1, x or 0, y or 0}
     end
   end
-  -- the dots: the board's own layout of this formation, mapped into the mini pitch (u, v in 0..1)
-  local L = BBCR_DRAFT_LAY
-  for _, at in pairs(BBCR_DRAFT_Layout(BBCR_DRAFT_RulePlaces(id, list))) do
+  -- Draws the dots.
+  local L = BattleBayDeluxe.draft_layout
+  for _, at in pairs(BattleBayDeluxe.draft_pitch_layout(BattleBayDeluxe.draft_rule_places(id, list))) do
     dots[#dots + 1] = {(at[1] - L.BOX_L) / (L.BOX_R - L.BOX_L), (at[2] - L.BOX_T) / (L.BOX_B - L.BOX_T)}
   end
-  local name = ""
-  local okn, has, tid = pcall(funcLuaCommand, F.FORM_INFO, 7, id)
-  if okn and has == true and type(tid) == "number" then
-    local okt, s = pcall(funcLuaCommand, F.TEXT_OF, tid)
-    name = (okt and type(s) == "string") and s or ""
-  end
-  name = name:gsub("^%s*%d+%-%d+%-%d+%-?%d*%s*", "")
+  local name = BattleBayDeluxe.draft_formation_name(id):gsub("^%s*%d+%-%d+%-%d+%-?%d*%s*", "")
   inf = {nums = string.format("%d-%d-%d", n[4], n[3], n[2]), name = name, dots = dots}
   F.info[id] = inf
   return inf
 end
 
--- the first card shown: the chosen one second from the left where the list allows it
-function BBCR_DRAFT_FmFirst()
-  local F = BBCR_DRAFT_FM
+-- a formation's game name (formation info 7 -> its text id -> the text), "" when unknown
+function BattleBayDeluxe.draft_formation_name(id)
+  local F = BattleBayDeluxe.draft_formation
+  local has, tid = VRFW.host.command(F.FORM_INFO, 7, id)
+  if not (has == true and type(tid) == "number") then
+    return ""
+  end
+  local s = VRFW.host.command(F.TEXT_OF, tid)
+  return (type(s) == "string") and s or ""
+end
+
+-- Returns the first card shown.
+function BattleBayDeluxe.draft_formation_first()
+  local F = BattleBayDeluxe.draft_formation
   return math.max(0, math.min(F.total - F.VISIBLE, F.sel - 1))
 end
 
--- the place of visible card j (0-based): centre x, y
-function BBCR_DRAFT_FmSpot(j)
-  local F = BBCR_DRAFT_FM
+-- Returns the place of visible card j (0-based).
+function BattleBayDeluxe.draft_formation_spot(j)
+  local F = BattleBayDeluxe.draft_formation
   return F.CARD_X0 + j * F.CARD_DX, F.STRIP_Y
 end
 
--- the text scale that keeps a line inside w px (the card's text area by default; about 13 px a character at scale 1)
-function BBCR_DRAFT_FmFit(s, scale, w)
+function BattleBayDeluxe.draft_formation_fit(s, scale, w)
   local chars = #(s:gsub("[\128-\191]", ""))
-  return math.min(scale, (w or BBCR_DRAFT_FM.TEXT_W) / math.max(1, chars * 13))
+  return math.min(scale, (w or BattleBayDeluxe.draft_formation.TEXT_W) / math.max(1, chars * 13))
 end
 
 -- the strip (formation step only)
-function BBCR_DRAFT_FmStrip(show)
-  local F = BBCR_DRAFT_FM
+function BattleBayDeluxe.draft_formation_strip(show)
+  local F = BattleBayDeluxe.draft_formation
   if not show or F.list == nil then
     for i = 0, F.I_DOT + 6 * 11 - 1 do
-      BBCR_DRAFT_FmQuad(i, 0, 0, 0, 0, nil)
+      BattleBayDeluxe.draft_formation_quad(i, 0, 0, 0, 0, nil)
     end
     for i = F.T_CARD, F.T_ARROW + 1 do
-      BBCR_DRAFT_FmText(i, "", 0, 0, 1)
+      BattleBayDeluxe.draft_formation_text(i, "", 0, 0, 1)
     end
     return
   end
   local h = 1080 - F.STRIP_TOP
-  BBCR_DRAFT_FmQuad(F.I_BAND, 960, F.STRIP_TOP + h / 2, 1920, h, F.SPR_BAND)
-  BBCR_DRAFT_FmQuad(F.I_EDGE, 960, F.STRIP_TOP, 1920, 4, F.SPR_EDGE)
-  local first = BBCR_DRAFT_FmFirst()
+  BattleBayDeluxe.draft_formation_quad(F.I_BAND, 960, F.STRIP_TOP + h / 2, 1920, h, F.SPR_BAND)
+  BattleBayDeluxe.draft_formation_quad(F.I_EDGE, 960, F.STRIP_TOP, 1920, 4, F.SPR_EDGE)
+  local first = BattleBayDeluxe.draft_formation_first()
   local framed = false
   for j = 0, F.VISIBLE - 1 do
     local idx = first + j
     local id = F.list[idx + 1]
     local base = F.I_DOT + j * 11
     if id == nil then
-      BBCR_DRAFT_FmQuad(F.I_CARD + j, 0, 0, 0, 0, nil)
-      BBCR_DRAFT_FmQuad(F.I_PITCH + j, 0, 0, 0, 0, nil)
+      BattleBayDeluxe.draft_formation_quad(F.I_CARD + j, 0, 0, 0, 0, nil)
+      BattleBayDeluxe.draft_formation_quad(F.I_PITCH + j, 0, 0, 0, 0, nil)
       for d = 0, 10 do
-        BBCR_DRAFT_FmQuad(base + d, 0, 0, 0, 0, nil)
+        BattleBayDeluxe.draft_formation_quad(base + d, 0, 0, 0, 0, nil)
       end
-      BBCR_DRAFT_FmText(F.T_CARD + 2 * j, "", 0, 0, 1)
-      BBCR_DRAFT_FmText(F.T_CARD + 2 * j + 1, "", 0, 0, 1)
+      BattleBayDeluxe.draft_formation_text(F.T_CARD + 2 * j, "", 0, 0, 1)
+      BattleBayDeluxe.draft_formation_text(F.T_CARD + 2 * j + 1, "", 0, 0, 1)
     else
-      local inf = BBCR_DRAFT_FmInfo(id)
-      local x, y = BBCR_DRAFT_FmSpot(j)
+      local inf = BattleBayDeluxe.draft_formation_info(id)
+      local x, y = BattleBayDeluxe.draft_formation_spot(j)
       local on = idx == F.sel
       if on then
-        BBCR_DRAFT_FmQuad(F.I_FRAME, x, y, F.CARD_W + 2 * F.FRAME_PAD, F.CARD_H + 2 * F.FRAME_PAD, F.SPR_FRAME)
+        BattleBayDeluxe.draft_formation_quad(F.I_FRAME, x, y, F.CARD_W + 2 * F.FRAME_PAD, F.CARD_H + 2 * F.FRAME_PAD, F.SPR_FRAME)
         framed = true
       end
-      BBCR_DRAFT_FmQuad(F.I_CARD + j, x, y, F.CARD_W, F.CARD_H, on and F.SPR_SEL or F.SPR_CARD)
+      BattleBayDeluxe.draft_formation_quad(F.I_CARD + j, x, y, F.CARD_W, F.CARD_H, on and F.SPR_SEL or F.SPR_CARD)
       local px = x + F.MINI_DX
-      BBCR_DRAFT_FmQuad(F.I_PITCH + j, px, y, F.MINI_W, F.MINI_H, F.SPR_PITCH)
+      BattleBayDeluxe.draft_formation_quad(F.I_PITCH + j, px, y, F.MINI_W, F.MINI_H, F.SPR_PITCH)
       local pad = F.DOT / 2 + F.DOT_PAD
       local left, top = px - F.MINI_W / 2 + pad, y - F.MINI_H / 2 + pad
       local w, hh = F.MINI_W - 2 * pad, F.MINI_H - 2 * pad
       for d = 0, 10 do
         local dot = inf.dots[d + 1]
         if dot ~= nil then
-          BBCR_DRAFT_FmQuad(base + d, left + w * math.max(0, math.min(1, dot[1])),
+          BattleBayDeluxe.draft_formation_quad(base + d, left + w * math.max(0, math.min(1, dot[1])),
                             top + hh * math.max(0, math.min(1, dot[2])), F.DOT, F.DOT, F.SPR_DOT)
         else
-          BBCR_DRAFT_FmQuad(base + d, 0, 0, 0, 0, nil)
+          BattleBayDeluxe.draft_formation_quad(base + d, 0, 0, 0, 0, nil)
         end
       end
       local tx = x + F.TEXT_DX
       local style = on and F.STYLE_ON_CHOSEN or nil
       if inf.name ~= "" then
-        BBCR_DRAFT_FmText(F.T_CARD + 2 * j, inf.nums, tx, y + F.LINE1_DY, F.NUM_SCALE, style)
-        BBCR_DRAFT_FmText(F.T_CARD + 2 * j + 1, inf.name, tx, y + F.LINE2_DY, BBCR_DRAFT_FmFit(inf.name, F.NAME_SCALE), style)
+        BattleBayDeluxe.draft_formation_text(F.T_CARD + 2 * j, inf.nums, tx, y + F.LINE1_DY, F.NUM_SCALE, style)
+        BattleBayDeluxe.draft_formation_text(F.T_CARD + 2 * j + 1, inf.name, tx, y + F.LINE2_DY, BattleBayDeluxe.draft_formation_fit(inf.name, F.NAME_SCALE), style)
       else
-        BBCR_DRAFT_FmText(F.T_CARD + 2 * j, inf.nums, tx, y, F.NUM_SCALE, style)
-        BBCR_DRAFT_FmText(F.T_CARD + 2 * j + 1, "", 0, 0, 1)
+        BattleBayDeluxe.draft_formation_text(F.T_CARD + 2 * j, inf.nums, tx, y, F.NUM_SCALE, style)
+        BattleBayDeluxe.draft_formation_text(F.T_CARD + 2 * j + 1, "", 0, 0, 1)
       end
     end
   end
   if not framed then
-    BBCR_DRAFT_FmQuad(F.I_FRAME, 0, 0, 0, 0, nil)
+    BattleBayDeluxe.draft_formation_quad(F.I_FRAME, 0, 0, 0, 0, nil)
   end
-  BBCR_DRAFT_FmText(F.T_ARROW, first > 0 and "<" or "", F.ARROW_X, F.STRIP_Y, F.ARROW_SCALE)
-  BBCR_DRAFT_FmText(F.T_ARROW + 1, first + F.VISIBLE < F.total and ">" or "", 1920 - F.ARROW_X, F.STRIP_Y, F.ARROW_SCALE)
+  BattleBayDeluxe.draft_formation_text(F.T_ARROW, first > 0 and "<" or "", F.ARROW_X, F.STRIP_Y, F.ARROW_SCALE)
+  BattleBayDeluxe.draft_formation_text(F.T_ARROW + 1, first + F.VISIBLE < F.total and ">" or "", 1920 - F.ARROW_X, F.STRIP_Y, F.ARROW_SCALE)
 end
 
--- the board's labels: the left panel's formation name (no title, no managers label)
-function BBCR_DRAFT_FmBoard(show)
-  local F, B = BBCR_DRAFT_FM, BBCR_DRAFT
+-- Sets the board's labels.
+function BattleBayDeluxe.draft_formation_board(show)
+  local F, B = BattleBayDeluxe.draft_formation, BattleBayDeluxe.draft
   local line = ""
   if show and B.formation ~= 0 then
-    local inf = BBCR_DRAFT_FmInfo(B.formation)
+    local inf = BattleBayDeluxe.draft_formation_info(B.formation)
     line = inf.name ~= "" and (inf.nums .. " " .. inf.name) or inf.nums
   end
-  local texts = {"", line, ""} -- no title above the formation name; it is fixed once chosen: no change hint
+  local texts = {"", line, ""}
   for j = 1, 3 do
     local s = show and texts[j] or ""
-    BBCR_DRAFT_FmText(F.T_PANEL + j - 1, s, F.PANEL_X, F.PANEL_Y[j], BBCR_DRAFT_FmFit(s, F.PANEL_SCALE[j], F.PANEL_W))
+    BattleBayDeluxe.draft_formation_text(F.T_PANEL + j - 1, s, F.PANEL_X, F.PANEL_Y[j], BattleBayDeluxe.draft_formation_fit(s, F.PANEL_SCALE[j], F.PANEL_W))
   end
 end
 
--- everything of the step drawn for the current mode (after a change, or once the layers opened: BBCR_DRAFT_Step)
-function BBCR_DRAFT_FmRender()
-  local B, F = BBCR_DRAFT, BBCR_DRAFT_FM
+function BattleBayDeluxe.draft_formation_render()
+  local B, F = BattleBayDeluxe.draft, BattleBayDeluxe.draft_formation
   F.dirty = false
   if not F.opened then
     return
   end
   local strip = B.mode == "formation" or (B.mode == "quit" and B.quitTo == "formation")
-  BBCR_DRAFT_FmStrip(strip)
-  BBCR_DRAFT_FmBoard(B.mode ~= nil and not strip)
+  BattleBayDeluxe.draft_formation_strip(strip)
+  BattleBayDeluxe.draft_formation_board(B.mode ~= nil and not strip)
 end
 
--- the guide bar off while the strip is up (1.96.1: its prompts were still drawn over the cards): its entries emptied
--- and its text cleared (as the «Plantilla» viewer empties it) and every instance hidden; back = the retail guide of
--- the grid rebuilt (UpdateButtonGuide) and shown. The menu's input stays as it is.
-function BBCR_DRAFT_FmGuide(show)
-  local B, F = BBCR_DRAFT, BBCR_DRAFT_FM
+-- Hides the guide bar while the strip is up (entries emptied, text cleared, every instance hidden).
+function BattleBayDeluxe.draft_formation_guide(show)
+  local B, F = BattleBayDeluxe.draft, BattleBayDeluxe.draft_formation
   if show == not F.guideHidden then
     return
   end
   F.guideHidden = not show
   if not show then
-    VRFW_FooterPrompts.Set(nil, B.MENU, {}, {Guide = B.GUIDE, Declared = false})
-    pcall(BBCR_DRAFT_Guide, "")
+    VRFW.footer_prompts.set(nil, B.MENU, {}, {guide = B.GUIDE, declared = false})
+    pcall(BattleBayDeluxe.draft_guide, "")
   elseif UpdateButtonGuide ~= nil then
     pcall(UpdateButtonGuide, B.MENU, B.GUIDE, false)
   end
   local n = funcLuaMenuCommand(@crc:CMND_GET_CREATE_LAYER_NUM@, B.GUIDE)
-  for i = 0, math.max(1, type(n) == "number" and n or 1) - 1 do
-    funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.GUIDE, i, show)
-  end
+  BattleBayDeluxe.draft_layer_visible(B.GUIDE, math.max(1, type(n) == "number" and n or 1), show)
 end
 
 -- the pitch laid out for formation id at once (the empty places' colour too), the script untouched until Enter
-function BBCR_DRAFT_FmPreview(id)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_formation_preview(id)
+  local B = BattleBayDeluxe.draft
   B.formation = id
   for k = 0, #B.slots - 1 do
     local rec = B.slots[k + 1]
@@ -1955,95 +1824,91 @@ function BBCR_DRAFT_FmPreview(id)
       end
     end
   end
-  BBCR_DRAFT_PlaceField()
-  BBCR_DRAFT_DrawPitch()
+  BattleBayDeluxe.draft_place_field()
+  BattleBayDeluxe.draft_draw_pitch()
 end
 
--- the step opened: from = "start" (a new draft) or "board" (Y on the board)
-function BBCR_DRAFT_FmOpen(from)
-  local B, F = BBCR_DRAFT, BBCR_DRAFT_FM
-  if not BBCR_DRAFT_FmLoad() then
-    BBCR_DRAFT_Log("no formation list: the team's own formation")
+-- Opens the formation step.
+function BattleBayDeluxe.draft_formation_open(from)
+  local B, F = BattleBayDeluxe.draft, BattleBayDeluxe.draft_formation
+  if not BattleBayDeluxe.draft_formation_load() then
+    BattleBayDeluxe.draft_log("no formation list: the team's own formation")
     return false
   end
   F.from, F.saved = from, B.formation
   B.mode = "formation"
-  BBCR_DRAFT_FmGuide(false)
-  BBCR_DRAFT_Cursor()
-  BBCR_DRAFT_FmPreview(F.list[F.sel + 1])
-  BBCR_DRAFT_FmRender()
-  BBCR_DRAFT_Log("formation step", from, F.total, "formations")
+  BattleBayDeluxe.draft_formation_guide(false)
+  BattleBayDeluxe.draft_cursor()
+  BattleBayDeluxe.draft_formation_preview(F.list[F.sel + 1])
+  BattleBayDeluxe.draft_formation_render()
+  BattleBayDeluxe.draft_log("formation step", from, F.total, "formations")
   return true
 end
 
--- the step closed: the board back (its staff places, the guide bar, the cursor)
-function BBCR_DRAFT_FmClose()
-  local B = BBCR_DRAFT
+-- Closes the formation step.
+function BattleBayDeluxe.draft_formation_close()
+  local B = BattleBayDeluxe.draft
   B.mode = "pitch"
-  BBCR_DRAFT_FM.from = nil
-  BBCR_DRAFT_FmGuide(true)
-  BBCR_DRAFT_DrawPitch()
-  BBCR_DRAFT_Cursor()
-  BBCR_DRAFT_ShowGuide()
-  BBCR_DRAFT_FmRender()
+  BattleBayDeluxe.draft_formation.from = nil
+  BattleBayDeluxe.draft_formation_guide(true)
+  BattleBayDeluxe.draft_draw_pitch()
+  BattleBayDeluxe.draft_cursor()
+  BattleBayDeluxe.draft_show_guide()
+  BattleBayDeluxe.draft_formation_render()
 end
 
 -- Left / Right on the strip
-function BBCR_DRAFT_FmMove(d)
-  local F = BBCR_DRAFT_FM
+function BattleBayDeluxe.draft_formation_move(d)
+  local F = BattleBayDeluxe.draft_formation
   local to = math.max(0, math.min(F.total - 1, F.sel + d))
   if to == F.sel then
     return
   end
-  BBCR_DRAFT_FmSelect(to)
+  BattleBayDeluxe.draft_formation_select(to)
 end
 
-function BBCR_DRAFT_FmSelect(to)
-  local F = BBCR_DRAFT_FM
+function BattleBayDeluxe.draft_formation_select(to)
+  local F = BattleBayDeluxe.draft_formation
   if to == F.sel or F.list == nil or F.list[to + 1] == nil then
     return
   end
   F.sel = to
-  BBCR_DRAFT_FmPreview(F.list[to + 1])
-  BBCR_DRAFT_FmRender()
+  BattleBayDeluxe.draft_formation_preview(F.list[to + 1])
+  BattleBayDeluxe.draft_formation_render()
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2500047763 --[[sy0005]])
 end
 
--- Enter: the script's draft plays the chosen formation; its places read again
-function BBCR_DRAFT_FmConfirm()
-  local B, F = BBCR_DRAFT, BBCR_DRAFT_FM
+-- Handles Enter in the formation step.
+function BattleBayDeluxe.draft_formation_confirm()
+  local B, F = BattleBayDeluxe.draft, BattleBayDeluxe.draft_formation
   local id = F.list and F.list[F.sel + 1]
   if id == nil or funcLuaCommand(B.SET_FORMATION, id) ~= true then
-    BBCR_DRAFT_Log("formation refused", tostring(id))
+    BattleBayDeluxe.draft_log("formation refused", tostring(id))
     funcLuaCommand(@crc:CMND_SND_PLAY_SE@, B.SE_NG)
     return
   end
-  BBCR_DRAFT_LoadSlots()
+  BattleBayDeluxe.draft_load_slots()
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 4235359837 --[[decide]])
-  B.sel = BBCR_DRAFT_NextEmpty(0)
-  BBCR_DRAFT_FmClose()
-  BBCR_DRAFT_Log("formation", id)
+  B.sel = BattleBayDeluxe.draft_next_empty(0)
+  BattleBayDeluxe.draft_formation_close()
+  BattleBayDeluxe.draft_log("formation", id)
 end
 
--- Back: from the board = back to it unchanged; at the start = the quit question (No = the strip again)
-function BBCR_DRAFT_FmBack()
-  local B, F = BBCR_DRAFT, BBCR_DRAFT_FM
+-- Handles Back in the formation step.
+function BattleBayDeluxe.draft_formation_back()
+  local B, F = BattleBayDeluxe.draft, BattleBayDeluxe.draft_formation
   if F.from == "start" then
-    B.mode = "quit"
-    B.quitTo = "formation"
-    funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 202039849 --[[back]])
-    B.quitCo = coroutine.create(BBCR_DRAFT_QuitAsk)
-    BBCR_DRAFT_QuitStep()
+    BattleBayDeluxe.draft_quit_open("formation")
     return
   end
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 202039849 --[[back]])
-  BBCR_DRAFT_LoadSlots()
-  BBCR_DRAFT_FmClose()
+  BattleBayDeluxe.draft_load_slots()
+  BattleBayDeluxe.draft_formation_close()
 end
 
 -- open / close the step's layers with the Draft's
-function BBCR_DRAFT_FmLayers(open)
-  local F = BBCR_DRAFT_FM
+function BattleBayDeluxe.draft_formation_layers(open)
+  local F = BattleBayDeluxe.draft_formation
   if open and not F.opened then
     funcLuaMenuCommand(@crc:CMND_OPEN_LAYER_ARRAY@, F.QUAD)
     funcLuaMenuCommand(@crc:CMND_OPEN_LAYER_ARRAY@, F.TXT)
@@ -2053,93 +1918,88 @@ function BBCR_DRAFT_FmLayers(open)
     funcLuaMenuCommand(@crc:CMND_CLOSE_LAYER_ARRAY@, F.TXT)
     F.opened = false
     F.spr, F.texts, F.ready = {}, {}, {}
-    BBCR_DRAFT_FmGuide(true)
+    BattleBayDeluxe.draft_formation_guide(true)
   end
 end
 
--- ---------------------------------------------------------------- the mouse (1.5.89)
 
---@lib evt_menu_kit.lua#Pointer
+--@lib vrfw_menu_kit.lua#Pointer
 
--- the screen opened: its mouse switch (config.toml [draft] mouse, CMND_BBD_DRAFT_MOUSE; on without an answer) and a
--- fresh pointer (a button held from the grid is no click)
-function BBCR_DRAFT_MouseOpen()
-  local B = BBCR_DRAFT
-  local ok, okc, on = pcall(funcLuaCommand, B.MOUSE)
-  B.mouse = not (ok and okc == true and on == false)
+-- Runs when the screen is opened.
+function BattleBayDeluxe.draft_mouse_open()
+  local B = BattleBayDeluxe.draft
+  local okc, on = VRFW.host.command(B.MOUSE)
+  B.mouse = not (okc == true and on == false)
   if B.ptr == nil then
-    B.ptr = VRFW_Pointer.New()
+    B.ptr = VRFW.pointer.new()
   end
-  B.ptr.Reset()
+  B.ptr.reset()
   B.polled = false
-  BBCR_DRAFT_Log("mouse " .. (B.mouse and "on" or "off (config.toml [draft] mouse)"))
+  BattleBayDeluxe.draft_log("mouse " .. (B.mouse and "on" or "off (config.toml [draft] mouse)"))
 end
 
--- the selection moved to slot k / candidate i by the pointer: the same drawing and sound as the arrows
-function BBCR_DRAFT_SelectSlot(k)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_select_slot(k)
+  local B = BattleBayDeluxe.draft
   if k == B.sel then
     return
   end
   B.sel = k
-  BBCR_DRAFT_Cursor()
+  BattleBayDeluxe.draft_cursor()
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2500047763 --[[sy0005]])
 end
 
-function BBCR_DRAFT_SelectCand(i)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_select_candidate(i)
+  local B = BattleBayDeluxe.draft
   if i == B.csel then
     return
   end
   local old = B.csel
   B.csel = i
-  BBCR_DRAFT_DrawCand(old)
-  BBCR_DRAFT_DrawCand(i)
-  BBCR_DRAFT_Cursor()
+  BattleBayDeluxe.draft_draw_candidate(old)
+  BattleBayDeluxe.draft_draw_candidate(i)
+  BattleBayDeluxe.draft_cursor()
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2500047763 --[[sy0005]])
 end
 
--- the zones of what is drawn now: the 16 slots (pitch, the start question), or the 5 candidates (on the pack's band
--- once it is turned; the plain column without a pack); none while the pack is dealt (a click there = all 5 at once)
-function BBCR_DRAFT_MouseZones()
-  local B, P = BBCR_DRAFT, BBCR_DRAFT_PK
+-- Runs once the screen is turned.
+function BattleBayDeluxe.draft_mouse_zones()
+  local B, P = BattleBayDeluxe.draft, BattleBayDeluxe.draft_pack
   local Ptr = B.ptr
-  Ptr.Begin()
+  Ptr.begin()
   if B.mode == "pitch" or B.mode == "start" then
     for k = 0, #B.slots - 1 do
       local w = B.where[k]
       if w ~= nil and B.ready[w[1] .. ":" .. w[2]] then
         local half = B.slots[k + 1].pos == B.POS_COACH and B.HALF_COACH or B.HALF_SLOT
-        Ptr.Inst(w[1], w[2], half[1], half[2], k)
+        Ptr.inst(w[1], w[2], half[1], half[2], k)
       end
     end
   elseif B.mode == "formation" then
-    local F = BBCR_DRAFT_FM
-    local first = BBCR_DRAFT_FmFirst()
+    local F = BattleBayDeluxe.draft_formation
+    local first = BattleBayDeluxe.draft_formation_first()
     for j = 0, F.VISIBLE - 1 do
       if F.list ~= nil and F.list[first + j + 1] ~= nil then
-        local x, y = BBCR_DRAFT_FmSpot(j)
-        Ptr.Box(x, y, F.CARD_W / 2, F.CARD_H / 2, first + j)
+        local x, y = BattleBayDeluxe.draft_formation_spot(j)
+        Ptr.box(x, y, F.CARD_W / 2, F.CARD_H / 2, first + j)
       end
     end
-  elseif B.mode == "cands" and not BBCR_DRAFT_PackBusy() then
+  elseif B.mode == "cands" and not BattleBayDeluxe.draft_pack_busy() then
     local pk = B.pk
     for i = 0, #B.cands - 1 do
       if pk ~= nil and pk.phase == "pick" then
-        -- the card's place on the band (the chosen one is lifted a little: the zone covers both)
-        local x, y = BBCR_DRAFT_PkSpot(i, pk.n)
+        local x, y = BattleBayDeluxe.draft_pack_spot(i, pk.n)
         local hw, hh = P.CARD_W * P.scale / 2, P.CARD_H * P.scale / 2
-        Ptr.Box(x + P.CARD_OX * P.scale, y + P.CARD_OY * P.scale - P.SEL_LIFT / 2, hw, hh + P.SEL_LIFT / 2, i)
+        Ptr.box(x + P.CARD_OX * P.scale, y + P.CARD_OY * P.scale - P.SEL_LIFT / 2, hw, hh + P.SEL_LIFT / 2, i)
       elseif pk == nil and B.ready[B.CARD .. ":" .. i] then
-        Ptr.Inst(B.CARD, i, B.HALF_CAND[1], B.HALF_CAND[2], i)
+        Ptr.inst(B.CARD, i, B.HALF_CAND[1], B.HALF_CAND[2], i)
       end
     end
   end
 end
 
--- once a frame (Step) while the Draft screen takes input: hover selects, a click confirms (BBCR_DRAFT_Decide, as Enter)
-function BBCR_DRAFT_Mouse()
-  local B = BBCR_DRAFT
+-- Runs once per frame (Step) while the Draft screen takes input.
+function BattleBayDeluxe.draft_mouse()
+  local B = BattleBayDeluxe.draft
   local live = B.mouse and B.ptr ~= nil and B.quitCo == nil
     and (B.mode == "pitch" or B.mode == "start" or B.mode == "cands" or B.mode == "formation")
     and not (B.pk ~= nil and B.pk.phase == "outro")
@@ -2150,49 +2010,46 @@ function BBCR_DRAFT_Mouse()
   B.mouseDecided = false
   local Ptr = B.ptr
   if not B.polled then
-    -- back from a window / an animation: what is held now is no click
     B.polled = true
-    Ptr.Reset()
+    Ptr.reset()
     return
   end
-  BBCR_DRAFT_MouseZones()
-  local ev = Ptr.Poll()
-  if B.mode == "cands" and BBCR_DRAFT_PackBusy() then
+  BattleBayDeluxe.draft_mouse_zones()
+  local ev = Ptr.poll()
+  if B.mode == "cands" and BattleBayDeluxe.draft_pack_busy() then
     if ev.click ~= nil or ev.miss then
       B.mouseDecided = true
-      BBCR_DRAFT_Decide() -- a click during the deal: all 5 at once, as Enter
+      BattleBayDeluxe.draft_decide() -- a click during the deal: all 5 at once, as Enter
     end
     return
   end
   if ev.hover ~= nil then
     if B.mode == "formation" then
-      BBCR_DRAFT_FmSelect(ev.hover)
+      BattleBayDeluxe.draft_formation_select(ev.hover)
     elseif B.mode == "cands" then
-      BBCR_DRAFT_SelectCand(ev.hover)
+      BattleBayDeluxe.draft_select_candidate(ev.hover)
     else
-      BBCR_DRAFT_SelectSlot(ev.hover)
+      BattleBayDeluxe.draft_select_slot(ev.hover)
     end
   end
   if ev.click ~= nil then
     if B.mode == "formation" then
-      BBCR_DRAFT_FmSelect(ev.click)
+      BattleBayDeluxe.draft_formation_select(ev.click)
     elseif B.mode == "cands" then
-      BBCR_DRAFT_SelectCand(ev.click)
+      BattleBayDeluxe.draft_select_candidate(ev.click)
     else
-      BBCR_DRAFT_SelectSlot(ev.click)
+      BattleBayDeluxe.draft_select_slot(ev.click)
     end
     B.mouseDecided = true
-    BBCR_DRAFT_Decide()
-    -- the screen may change under the pointer (the pack, the pitch again): the next drawing re-reads it
-    Ptr.Forget()
+    BattleBayDeluxe.draft_decide()
+    -- Forgets the pointer zones because the screen may change under the pointer (the pack, the pitch again).
+    Ptr.forget()
   end
 end
 
--- ---------------------------------------------------------------- the candidates' «pack opening» (1.5.26)
 
--- the look from config.toml [draft.pack], once per menu (CMND_BBD_DRAFT_PACK; the table's defaults without it)
-function BBCR_DRAFT_PackLook()
-  local P = BBCR_DRAFT_PK
+function BattleBayDeluxe.draft_pack_look()
+  local P = BattleBayDeluxe.draft_pack
   if P.loaded then
     return
   end
@@ -2201,7 +2058,7 @@ function BBCR_DRAFT_PackLook()
     return table.pack(funcLuaCommand(P.CMD))
   end)
   if not ok or type(r) ~= "table" or r[1] ~= true then
-    BBCR_DRAFT_Log("pack look: defaults (no CMND_BBD_DRAFT_PACK answer)")
+    BattleBayDeluxe.draft_log("pack look: defaults (no CMND_BATTLEBAYDELUXE_DRAFT_PACK answer)")
     return
   end
   local keys = {"intro", "deal", "deal_stagger", "flip", "settle", "flash", "gap", "suspense", "outro", "dim", "scale",
@@ -2212,14 +2069,14 @@ function BBCR_DRAFT_PackLook()
       P[k] = v
     end
   end
-  BBCR_DRAFT_Log("pack look", P.intro, P.flip, P.gap, P.dim, P.scale, P.spacing)
+  BattleBayDeluxe.draft_log("pack look", P.intro, P.flip, P.gap, P.dim, P.scale, P.spacing)
 end
 
-function BBCR_DRAFT_PkFrames(sec)
-  return math.max(1, math.floor(sec * BBCR_DRAFT_PK.FPS + 0.5))
+function BattleBayDeluxe.draft_pack_frames(sec)
+  return math.max(1, math.floor(sec * BattleBayDeluxe.draft_pack.FPS + 0.5))
 end
 
-local function PkClamp(u)
+local function clamp01(u)
   if u < 0 then
     return 0
   elseif u > 1 then
@@ -2228,58 +2085,44 @@ local function PkClamp(u)
   return u
 end
 
-local function PkOutCubic(u)
-  u = 1 - PkClamp(u)
+local function ease_out_cubic(u)
+  u = 1 - clamp01(u)
   return 1 - u * u * u
 end
 
-local function PkOutBack(u)
-  u = PkClamp(u) - 1
+local function ease_out_back(u)
+  u = clamp01(u) - 1
   local c = 1.70158
   return 1 + (c + 1) * u * u * u + c * u * u
 end
 
-function BBCR_DRAFT_PkSE(id)
+function BattleBayDeluxe.draft_pack_se(id)
   if type(id) == "number" and id ~= 0 then
-    pcall(funcLuaCommand, BBCR_DRAFT_PK.SE, id)
+    VRFW.host.command(BattleBayDeluxe.draft_pack.SE, id)
   end
 end
 
--- a flat coloured quad of the pack: instance i, centre (x, y) screen px (y down), w x h px, sprite spr (P.COL_*),
--- alpha a
-function BBCR_DRAFT_PkQuad(i, x, y, w, h, spr, a)
-  local P = BBCR_DRAFT_PK
+function BattleBayDeluxe.draft_pack_quad(i, x, y, w, h, spr, a)
+  local P = BattleBayDeluxe.draft_pack
   if a <= 0.001 or w <= 0.5 or h <= 0.5 then
     funcLuaMenuCommand(P.VISIBLE, P.QUAD, i, false)
     return
   end
-  if P.spr[i] ~= spr then
-    funcLuaMenuCommand(P.SPRITE, P.QUAD, P.ART, spr, P.NODE_QUAD, 0, i)
-    P.spr[i] = spr
-  end
-  funcLuaMenuCommand(P.VISIBLE, P.QUAD, i, true)
-  funcLuaMenuCommand(P.SCALE, P.QUAD, w / P.Q, h / P.Q, 1, i)
-  funcLuaMenuCommand(P.POS, P.QUAD, x, -y, 0, i)
-  funcLuaMenuCommand(P.MODEL_ALPHA, P.QUAD, i, 0, math.min(1, a))
+  BattleBayDeluxe.draft_quad_draw(P.QUAD, P.spr, i, x, y, w, h, spr, math.min(1, a))
 end
 
--- a centred, outlined text of the pack: instance i at (x, y), scale s, alpha a ("" or a <= 0 = hidden)
-function BBCR_DRAFT_PkText(i, s, x, y, scale, a)
-  local P = BBCR_DRAFT_PK
+function BattleBayDeluxe.draft_pack_text(i, s, x, y, scale, a)
+  local P = BattleBayDeluxe.draft_pack
   if s == nil or s == "" or a <= 0.001 then
     funcLuaMenuCommand(P.VISIBLE, P.TXT, i, false)
     return
   end
-  local pk = BBCR_DRAFT.pk
+  local pk = BattleBayDeluxe.draft.pk
   funcLuaMenuCommand(P.VISIBLE, P.TXT, i, true)
   funcLuaMenuCommand(P.POS, P.TXT, x, -y, 0, i)
   funcLuaMenuCommand(P.SCALE, P.TXT, scale, scale, 1, i)
   if pk == nil or pk.texts[i] ~= s then
-    funcLuaMenuCommand(P.TEXT_STYLE, P.TXT, i, P.TXT_ON, P.STYLE)
-    funcLuaMenuCommand(P.TEXT, P.TXT, P.TXT_ON, s, i)
-    funcLuaMenuCommand(P.TEXT, P.TXT, P.TXT_OFF, "", i)
-    funcLuaMenuCommand(P.TEXT_VISIBLE, P.TXT, P.TXT_ON, true, i)
-    funcLuaMenuCommand(P.TEXT_VISIBLE, P.TXT, P.TXT_OFF, false, i)
+    BattleBayDeluxe.draft_text_set(P.TXT, i, s, P.STYLE)
     if pk ~= nil then
       pk.texts[i] = s
     end
@@ -2288,33 +2131,32 @@ function BBCR_DRAFT_PkText(i, s, x, y, scale, a)
 end
 
 -- every quad and text of the pack hidden
-function BBCR_DRAFT_PkHideAll()
-  local P = BBCR_DRAFT_PK
+function BattleBayDeluxe.draft_pack_hide_all()
+  local P = BattleBayDeluxe.draft_pack
   for i = 0, P.N_QUAD - 1 do
-    pcall(funcLuaMenuCommand, P.VISIBLE, P.QUAD, i, false)
+    VRFW.host.menu_command(P.VISIBLE, P.QUAD, i, false)
   end
   for i = 0, P.N_TXT - 1 do
-    pcall(funcLuaMenuCommand, P.VISIBLE, P.TXT, i, false)
+    VRFW.host.menu_command(P.VISIBLE, P.TXT, i, false)
   end
   for i = 0, P.N_CREST - 1 do
-    pcall(funcLuaMenuCommand, P.VISIBLE, P.CREST, i, false)
+    VRFW.host.menu_command(P.VISIBLE, P.CREST, i, false)
   end
 end
 
 -- a name's estimated width in px at scale 1
-function BBCR_DRAFT_PkNameWidth(s)
+function BattleBayDeluxe.draft_pack_name_width(s)
   local units = 0
   for ch in s:gmatch("[^\128-\191][\128-\191]*") do
     units = units + (#ch >= 3 and 2 or 1)
   end
-  return units * BBCR_DRAFT_PK.GLYPH
+  return units * BattleBayDeluxe.draft_pack.GLYPH
 end
 
--- the row under card c, whose card centre is x: the name's scale and centre, the crest's centre (without a crest the
--- name alone, centred on the card)
-function BBCR_DRAFT_PkRow(c, x)
-  local P = BBCR_DRAFT_PK
-  local w = BBCR_DRAFT_PkNameWidth(c.name)
+-- Returns the row under card c, whose card centre is x.
+function BattleBayDeluxe.draft_pack_row(c, x)
+  local P = BattleBayDeluxe.draft_pack
+  local w = BattleBayDeluxe.draft_pack_name_width(c.name)
   local row = P.spacing - P.ROW_MARGIN
   local room = c.crest and (row - P.ROW_CREST - P.ROW_GAP) or row
   c.ns = math.max(P.NAME_MIN, math.min(P.NAME_SCALE, room / math.max(1, w)))
@@ -2327,22 +2169,21 @@ function BBCR_DRAFT_PkRow(c, x)
   end
 end
 
--- card c's crest at the start of a pack: the squad's team crest asked and placed once, hidden until the name shows; a
--- team without a crest draws nothing
-function BBCR_DRAFT_PkCrest(c, x, y)
-  local P = BBCR_DRAFT_PK
+-- Returns card c's crest at the start of a pack.
+function BattleBayDeluxe.draft_pack_crest(c, x, y)
+  local P = BattleBayDeluxe.draft_pack
   local i = c.i
   local team = c.team or 0
-  local ok, has, icon = false, false, 0
-  if team ~= 0 and VRFW_Team ~= nil then
-    ok, has, icon = pcall(funcLuaCommand, VRFW_Team.TEAM_INFO, team, 6, 0)
+  local has, icon = false, 0
+  if team ~= 0 and VRFW.team ~= nil then
+    has, icon = VRFW.host.command(VRFW.team.TEAM_INFO, team, 6, 0)
   end
-  c.crest = ok and has == true and (icon or 0) ~= 0
-  BBCR_DRAFT_PkRow(c, x)
+  c.crest = has == true and (icon or 0) ~= 0
+  BattleBayDeluxe.draft_pack_row(c, x)
   funcLuaMenuCommand(P.VISIBLE, P.CREST, i, false)
   if not c.crest then
-    if VRFW_Team ~= nil then
-      VRFW_Team.EmblemReset(P.CREST, i, P.crests)
+    if VRFW.team ~= nil then
+      VRFW.team.emblem_reset(P.CREST, i, P.crests)
     end
     return
   end
@@ -2354,13 +2195,13 @@ function BBCR_DRAFT_PkCrest(c, x, y)
   local s = P.ROW_CREST / P.CREST_PX
   funcLuaMenuCommand(P.SCALE, P.CREST, s, s, 1, i)
   funcLuaMenuCommand(P.POS, P.CREST, c.cx - P.CREST_CX * s, -y, 0, i)
-  VRFW_Team.Emblem(P.CREST, i, team, P.crests)
+  VRFW.team.emblem(P.CREST, i, team, P.crests)
   c.wait, c.ca = P.CREST_WAIT, 0
 end
 
--- card c's crest at alpha a, as its name; commands only while it changes
-function BBCR_DRAFT_PkCrestShow(c, a)
-  local P = BBCR_DRAFT_PK
+-- Shows card c's crest at alpha a, as its name.
+function BattleBayDeluxe.draft_pack_crest_show(c, a)
+  local P = BattleBayDeluxe.draft_pack
   if not c.crest or c.ca == a then
     return
   end
@@ -2370,8 +2211,8 @@ function BBCR_DRAFT_PkCrestShow(c, a)
     return
   end
   if c.wait > 0 then
-    local ok, loading = pcall(funcLuaMenuCommand, P.LOADING, P.CREST, c.i)
-    if ok and loading == true then
+    local loading = VRFW.host.menu_command(P.LOADING, P.CREST, c.i)
+    if loading == true then
       c.wait = c.wait - 1
       return
     end
@@ -2384,13 +2225,13 @@ function BBCR_DRAFT_PkCrestShow(c, a)
   c.ca = a
 end
 
--- the pack layers' draw priorities (OnSetupLayer / OnOpenLayer): see BBCR_DRAFT_PK
-function BBCR_DRAFT_PkPrio(layer, i)
-  local P = BBCR_DRAFT_PK
+-- Sets the draw priorities of the pack layers (OnSetupLayer and OnOpenLayer).
+function BattleBayDeluxe.draft_pack_priority(layer, i)
+  local P = BattleBayDeluxe.draft_pack
   local prio = 740
   if layer == P.CREST then
-    if VRFW_Team ~= nil then
-      VRFW_Team.EmblemForget(layer, i, P.crests)
+    if VRFW.team ~= nil then
+      VRFW.team.emblem_forget(layer, i, P.crests)
     end
   elseif layer == P.QUAD then
     if i == P.I_DIM then
@@ -2413,29 +2254,27 @@ function BBCR_DRAFT_PkPrio(layer, i)
   funcLuaMenuCommand(P.VISIBLE, layer, i, false)
 end
 
--- the band's geometry for the look's card scale: centre y, height, top
-function BBCR_DRAFT_PkBand()
-  local P = BBCR_DRAFT_PK
+-- Computes the band's geometry for the look's card scale.
+function BattleBayDeluxe.draft_pack_band()
+  local P = BattleBayDeluxe.draft_pack
   local h = P.CARD_H * P.scale + 280
   return P.CY, h, P.CY - h / 2
 end
 
--- the place of card i of n on the band (screen px, y down)
-function BBCR_DRAFT_PkSpot(i, n)
-  local P = BBCR_DRAFT_PK
+function BattleBayDeluxe.draft_pack_spot(i, n)
+  local P = BattleBayDeluxe.draft_pack
   return P.CX + (i - (n - 1) / 2) * P.spacing, P.CY
 end
 
 -- a candidate card at (x, y) screen px (y down), scale sx x sy
-function BBCR_DRAFT_PkCard(i, x, y, sx, sy)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_pack_card(i, x, y, sx, sy)
+  local B = BattleBayDeluxe.draft
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, B.CARD, x, -y, 0, i)
   funcLuaMenuCommand(3362798188, B.CARD, i, math.max(0.001, sx), math.max(0.001, sy))
 end
 
--- the face of a candidate card: back = the empty slot's «?» card, face = the player, none = hidden
-function BBCR_DRAFT_PkFace(c, state)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_pack_face(c, state)
+  local B = BattleBayDeluxe.draft
   local i = c.i
   if c.state == state or not B.ready[B.CARD .. ":" .. i] then
     return
@@ -2444,35 +2283,34 @@ function BBCR_DRAFT_PkFace(c, state)
   if state == "none" then
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.CARD, i, false)
   elseif state == "back" then
-    BBCR_DRAFT_Empty_Card(B.CARD, i, nil, true)
+    BattleBayDeluxe.draft_empty_card(B.CARD, i, nil, true)
   else
-    BBCR_DRAFT_Filled_Card(B.CARD, i, c.param, c.pos)
+    BattleBayDeluxe.draft_filled_card(B.CARD, i, c.param, c.pos)
   end
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_MODEL_ALPHA@, B.CARD, i, 0, 1)
 end
 
--- a new pack for the current candidates (B.cands): rarity order, the best card, the frame plan
-function BBCR_DRAFT_PackStart()
-  local B, P = BBCR_DRAFT, BBCR_DRAFT_PK
-  BBCR_DRAFT_PackLook()
+-- Starts a new pack for the current candidates (B.cands).
+function BattleBayDeluxe.draft_pack_start()
+  local B, P = BattleBayDeluxe.draft, BattleBayDeluxe.draft_pack
+  BattleBayDeluxe.draft_pack_look()
   if B.pk ~= nil then
-    BBCR_DRAFT_PackEnd()
+    BattleBayDeluxe.draft_pack_end()
   end
   local n = #B.cands
   local pk = {cards = {}, order = {}, f = 0, phase = "anim", texts = {}, best = nil, n = n}
   for i = 0, n - 1 do
     local p = B.cands[i + 1]
-    local okr, ok, r = pcall(funcLuaCommand, P.CHARA_INFO, p.param, 8)
-    local rar = (okr and ok and type(r) == "number") and r or 0
-    local okn, ok2, name = pcall(funcLuaCommand, P.CHARA_INFO, p.param, 0)
-    name = (okn and ok2 and type(name) == "string") and name or ""
+    local ok, r = VRFW.host.command(P.CHARA_INFO, p.param, 8)
+    local rar = (ok and type(r) == "number") and r or 0
+    local ok2, name = VRFW.host.command(P.CHARA_INFO, p.param, 0)
+    name = (ok2 and type(name) == "string") and name or ""
     pk.cards[i + 1] = {i = i, param = p.param, pos = p.pos, team = p.team, rarity = rar, name = name, state = nil}
     pk.order[#pk.order + 1] = i + 1
-    local cx, cy = BBCR_DRAFT_PkSpot(i, n)
-    BBCR_DRAFT_PkCrest(pk.cards[i + 1], cx + P.CARD_OX * P.scale,
+    local cx, cy = BattleBayDeluxe.draft_pack_spot(i, n)
+    BattleBayDeluxe.draft_pack_crest(pk.cards[i + 1], cx + P.CARD_OX * P.scale,
                        cy + (P.CARD_OY + P.CARD_H / 2) * P.scale + P.ROW_Y)
   end
-  -- turned lowest rarity first (stable: the offer's order); a unique best card is the last
   table.sort(pk.order, function(a, b)
     local ra, rb = pk.cards[a].rarity, pk.cards[b].rarity
     if ra ~= rb then
@@ -2487,7 +2325,7 @@ function BBCR_DRAFT_PackStart()
     end
   end
   -- the frame plan
-  local F = BBCR_DRAFT_PkFrames
+  local F = BattleBayDeluxe.draft_pack_frames
   local intro, deal, stag = F(P.intro), F(P.deal), F(P.deal_stagger)
   local flip, settle, gap = F(P.flip), F(P.settle), F(P.gap)
   pk.intro = intro
@@ -2506,47 +2344,47 @@ function BBCR_DRAFT_PackStart()
   end
   pk.dealLen, pk.flip, pk.settle, pk.flash = deal, flip, settle, F(P.flash)
   pk.done = t + flip + settle
-  -- 1.5.52 (owner): the band's title is the slot's position only («Portero»; «Sobre de jugadores: » removed)
+  -- Sets the band's title.
   local rec = B.slots[B.k + 1]
-  pk.title = rec ~= nil and BBCR_DRAFT_Text(B.TXT_POS[rec.pos or 0]) or ""
-  pk.cur = nil -- where the cursor arrow was put (BBCR_DRAFT_PkCursor)
+  pk.title = rec ~= nil and BattleBayDeluxe.draft_text(B.TXT_POS[rec.pos or 0]) or ""
+  pk.cur = nil
   B.pk = pk
   for i = 0, P.N_QUAD - 1 do
-    pcall(BBCR_DRAFT_PkPrio, P.QUAD, i)
+    pcall(BattleBayDeluxe.draft_pack_priority, P.QUAD, i)
   end
   for i = 0, n - 1 do
     funcLuaMenuCommand(@crc:CMND_SET_DRAW_PRIORITY@, B.CARD, i, P.CARD_PRIO, true)
-    BBCR_DRAFT_PkFace(pk.cards[i + 1], "none")
+    BattleBayDeluxe.draft_pack_face(pk.cards[i + 1], "none")
   end
   for i = n, 4 do
     funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, B.CARD, i, false)
   end
-  BBCR_DRAFT_PkSE(P.se_open)
-  BBCR_DRAFT_Log("pack", B.k, "cards", n, "best", tostring(pk.best and pk.cards[pk.best].param), "frames", pk.done)
-  BBCR_DRAFT_PackRender(false)
+  BattleBayDeluxe.draft_pack_se(P.se_open)
+  BattleBayDeluxe.draft_log("pack", B.k, "cards", n, "best", tostring(pk.best and pk.cards[pk.best].param), "frames", pk.done)
+  BattleBayDeluxe.draft_pack_render(false)
 end
 
--- the pack at its frame pk.f; quiet = no sounds (a skip)
-function BBCR_DRAFT_PackRender(quiet)
-  local B, P = BBCR_DRAFT, BBCR_DRAFT_PK
+-- Renders the pack at its frame pk.f.
+function BattleBayDeluxe.draft_pack_render(quiet)
+  local B, P = BattleBayDeluxe.draft, BattleBayDeluxe.draft_pack
   local pk = B.pk
   if pk == nil then
     return
   end
   local f, n, S = pk.f, pk.n, P.scale
-  local cy, bh, btop = BBCR_DRAFT_PkBand()
+  local cy, bh, btop = BattleBayDeluxe.draft_pack_band()
   -- the darkness and the band
-  local u = PkOutCubic(f / pk.intro)
-  BBCR_DRAFT_PkQuad(P.I_DIM, P.CX, P.CY, 2700, 1300, P.COL_DIM, P.dim * u)
-  BBCR_DRAFT_PkQuad(P.I_BAND, P.CX, cy, 2700, bh * u, P.COL_BAND, P.BAND_ALPHA * math.min(1, u * 1.5))
+  local u = ease_out_cubic(f / pk.intro)
+  BattleBayDeluxe.draft_pack_quad(P.I_DIM, P.CX, P.CY, 2700, 1300, P.COL_DIM, P.dim * u)
+  BattleBayDeluxe.draft_pack_quad(P.I_BAND, P.CX, cy, 2700, bh * u, P.COL_BAND, P.BAND_ALPHA * math.min(1, u * 1.5))
   local ew = 2200 * u
-  BBCR_DRAFT_PkQuad(P.I_EDGE, P.CX, cy - bh * u / 2, ew, 4, P.COL_EDGE, u)
-  BBCR_DRAFT_PkQuad(P.I_EDGE + 1, P.CX, cy + bh * u / 2, ew, 4, P.COL_EDGE, u)
-  BBCR_DRAFT_PkText(0, pk.title, P.CX, btop + 46, 1.1, u)
+  BattleBayDeluxe.draft_pack_quad(P.I_EDGE, P.CX, cy - bh * u / 2, ew, 4, P.COL_EDGE, u)
+  BattleBayDeluxe.draft_pack_quad(P.I_EDGE + 1, P.CX, cy + bh * u / 2, ew, 4, P.COL_EDGE, u)
+  BattleBayDeluxe.draft_pack_text(0, pk.title, P.CX, btop + 46, 1.1, u)
   local screen = 0
   for k = 1, n do
     local c = pk.cards[k]
-    local x, y = BBCR_DRAFT_PkSpot(c.i, n)
+    local x, y = BattleBayDeluxe.draft_pack_spot(c.i, n)
     local best = k == pk.best
     local want, sx, sy, cx, cyy = "none", S, S, x, y
     local glow, flash = 0, 0
@@ -2554,19 +2392,19 @@ function BBCR_DRAFT_PackRender(quiet)
       want = "back"
       local d = (f - c.deal) / pk.dealLen
       if d < 1 then
-        local e = PkOutCubic(d)
+        local e = ease_out_cubic(d)
         cx = P.CX + (x - P.CX) * e
         cyy = 1180 + (y - 1180) * e
-        local s = S * (0.55 + 0.45 * PkOutBack(d))
+        local s = S * (0.55 + 0.45 * ease_out_back(d))
         sx, sy = s, s
-      elseif f < c.turn and best and f >= c.turn - BBCR_DRAFT_PkFrames(P.suspense) then
+      elseif f < c.turn and best and f >= c.turn - BattleBayDeluxe.draft_pack_frames(P.suspense) then
         -- the best card throbs while it waits
         local w = 1 + 0.05 * math.sin((f - c.turn) * 0.9)
         sx, sy = S * w, S * w
-        glow = 0.5 * PkClamp(1 - (c.turn - f) / BBCR_DRAFT_PkFrames(P.suspense))
+        glow = 0.5 * clamp01(1 - (c.turn - f) / BattleBayDeluxe.draft_pack_frames(P.suspense))
       end
       if c.deal == f and not quiet then
-        BBCR_DRAFT_PkSE(P.se_deal)
+        BattleBayDeluxe.draft_pack_se(P.se_deal)
       end
     end
     if f >= c.turn then
@@ -2582,18 +2420,18 @@ function BBCR_DRAFT_PackRender(quiet)
       else
         want = "face"
         local w = (f - c.turn - pk.flip) / pk.settle
-        local o = 1 + over * (1 - PkOutCubic(w))
+        local o = 1 + over * (1 - ease_out_cubic(w))
         sx, sy = S * o, S * o
       end
       if want == "face" then
         local tf = f - (c.turn + math.floor(pk.flip / 2))
-        flash = 0.9 * (1 - PkClamp(tf / pk.flash)) ^ 2
-        glow = PkClamp(tf / 12)
+        flash = 0.9 * (1 - clamp01(tf / pk.flash)) ^ 2
+        glow = clamp01(tf / 12)
         if best then
-          screen = math.max(screen, P.SCREEN_ALPHA * (1 - PkClamp(tf / (pk.flash * 1.5))) ^ 2)
+          screen = math.max(screen, P.SCREEN_ALPHA * (1 - clamp01(tf / (pk.flash * 1.5))) ^ 2)
         end
         if c.state ~= "face" and not quiet then
-          BBCR_DRAFT_PkSE(best and P.se_best or P.se_reveal)
+          BattleBayDeluxe.draft_pack_se(best and P.se_best or P.se_reveal)
         end
       end
     end
@@ -2606,50 +2444,48 @@ function BBCR_DRAFT_PackRender(quiet)
         glow = 1.6
       end
     end
-    BBCR_DRAFT_PkFace(c, want)
+    BattleBayDeluxe.draft_pack_face(c, want)
     c.x, c.y, c.s = cx, cyy, sy
     if want ~= "none" then
-      BBCR_DRAFT_PkCard(c.i, cx, cyy, sx, sy)
+      BattleBayDeluxe.draft_pack_card(c.i, cx, cyy, sx, sy)
       if want == "back" then
-        BBCR_DRAFT_Rehide(B.CARD, c.i) -- a late face load must not show through the back
+        BattleBayDeluxe.draft_rehide(B.CARD, c.i) -- a late face load must not show through the back
       end
     end
     local cw, ch = P.CARD_W * S, P.CARD_H * S
-    -- 1.5.52: no tile behind a plain card (BetterUI's cards have none: GLOW_ALPHA 0); the best card keeps its gold glow
+    -- Draws no tile behind a plain card (GLOW_ALPHA 0).
     local gcol, ga = P.COL_GLOW, P.GLOW_ALPHA
     if best then
       gcol, ga = P.COL_GOLD, P.GOLD_ALPHA * (0.85 + 0.15 * math.sin(f * 0.15))
     end
     local gx, gy = cx + P.CARD_OX * sy, cyy + P.CARD_OY * sy
-    BBCR_DRAFT_PkQuad(P.I_GLOW + c.i, gx, gy, cw * 1.16, ch * 1.16, gcol, math.min(1, ga * glow))
-    BBCR_DRAFT_PkQuad(P.I_FLASH + c.i, gx, gy, cw * (1.25 - 0.25 * flash), ch * (1.25 - 0.25 * flash), P.COL_FLASH,
+    BattleBayDeluxe.draft_pack_quad(P.I_GLOW + c.i, gx, gy, cw * 1.16, ch * 1.16, gcol, math.min(1, ga * glow))
+    BattleBayDeluxe.draft_pack_quad(P.I_FLASH + c.i, gx, gy, cw * (1.25 - 0.25 * flash), ch * (1.25 - 0.25 * flash), P.COL_FLASH,
                       flash)
-    local na = want == "face" and PkClamp((f - c.turn - pk.flip) / 9) or 0
+    local na = want == "face" and clamp01((f - c.turn - pk.flip) / 9) or 0
     if pk.phase == "pick" then
       na = 1
     end
-    BBCR_DRAFT_PkText(1 + c.i, c.name, c.nx, y + P.CARD_OY * S + ch / 2 + P.ROW_Y, c.ns, na)
-    BBCR_DRAFT_PkCrestShow(c, na)
+    BattleBayDeluxe.draft_pack_text(1 + c.i, c.name, c.nx, y + P.CARD_OY * S + ch / 2 + P.ROW_Y, c.ns, na)
+    BattleBayDeluxe.draft_pack_crest_show(c, na)
   end
   for i = n, 4 do
-    BBCR_DRAFT_PkQuad(P.I_GLOW + i, 0, 0, 0, 0, P.COL_GLOW, 0)
-    BBCR_DRAFT_PkQuad(P.I_FLASH + i, 0, 0, 0, 0, P.COL_FLASH, 0)
-    BBCR_DRAFT_PkText(1 + i, "", 0, 0, 1, 0)
+    BattleBayDeluxe.draft_pack_quad(P.I_GLOW + i, 0, 0, 0, 0, P.COL_GLOW, 0)
+    BattleBayDeluxe.draft_pack_quad(P.I_FLASH + i, 0, 0, 0, 0, P.COL_FLASH, 0)
+    BattleBayDeluxe.draft_pack_text(1 + i, "", 0, 0, 1, 0)
   end
-  BBCR_DRAFT_PkQuad(P.I_SCREEN, P.CX, P.CY, 2700, 1300, P.COL_SCREEN, screen)
-  -- 1.5.52 (owner): no line under the band while picking («Aceptar: fichar a este jugador» removed); the skip line
-  -- stays while the cards are dealt and turned
-  local hint = pk.phase ~= "pick" and BBCR_DRAFT_Text(P.TXT_SKIP, "Aceptar: mostrar todos") or ""
-  BBCR_DRAFT_PkText(6, hint, P.CX, btop + bh + 44, 0.8, u * 0.85)
+  BattleBayDeluxe.draft_pack_quad(P.I_SCREEN, P.CX, P.CY, 2700, 1300, P.COL_SCREEN, screen)
+  -- the skip line only while the cards are dealt and turned
+  local hint = pk.phase ~= "pick" and BattleBayDeluxe.draft_text(P.TXT_SKIP, "Aceptar: mostrar todos") or ""
+  BattleBayDeluxe.draft_pack_text(6, hint, P.CX, btop + bh + 44, 0.8, u * 0.85)
   if pk.phase == "pick" then
-    BBCR_DRAFT_PkCursor()
+    BattleBayDeluxe.draft_pack_cursor()
   end
 end
 
--- the cursor arrow on the pack's focused card (pick phase): not attached to the card (see BBCR_DRAFT_Cursor), put at
--- the card's left edge, outside the portrait, as the bank's cards have it; sent only when the place changes
-function BBCR_DRAFT_PkCursor()
-  local B, P = BBCR_DRAFT, BBCR_DRAFT_PK
+-- Draws the cursor arrow on the pack's focused card (pick phase).
+function BattleBayDeluxe.draft_pack_cursor()
+  local B, P = BattleBayDeluxe.draft, BattleBayDeluxe.draft_pack
   local pk = B.pk
   if pk == nil or pk.phase ~= "pick" then
     return
@@ -2670,94 +2506,93 @@ function BBCR_DRAFT_PkCursor()
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, B.CURSOR, x, -y, 0, 0)
 end
 
--- the animation over (its end or a skip): the 5 on the band to pick, the cursor on the chosen one
-function BBCR_DRAFT_PackDone(skipped)
-  local B = BBCR_DRAFT
+-- Runs when the animation is over (its end or a skip).
+function BattleBayDeluxe.draft_pack_done(skipped)
+  local B = BattleBayDeluxe.draft
   local pk = B.pk
   if pk == nil or pk.phase ~= "anim" then
     return
   end
   pk.f = math.max(pk.f, pk.done)
   pk.phase = "pick"
-  BBCR_DRAFT_PackRender(true)
-  BBCR_DRAFT_Cursor()
+  BattleBayDeluxe.draft_pack_render(true)
+  BattleBayDeluxe.draft_cursor()
   if skipped then
-    BBCR_DRAFT_PkSE(BBCR_DRAFT_PK.se_reveal)
-    BBCR_DRAFT_Log("pack skipped")
+    BattleBayDeluxe.draft_pack_se(BattleBayDeluxe.draft_pack.se_reveal)
+    BattleBayDeluxe.draft_log("pack skipped")
   end
 end
 
--- a pick: card i flies to the slot k's place on the pitch, the others fade, the screen comes back
-function BBCR_DRAFT_PackOutro(k, i)
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_pack_outro(k, i)
+  local B = BattleBayDeluxe.draft
   local pk = B.pk
   if pk == nil then
     return
   end
   pk.phase = "outro"
   pk.of = 0
-  pk.olen = BBCR_DRAFT_PkFrames(BBCR_DRAFT_PK.outro)
+  pk.olen = BattleBayDeluxe.draft_pack_frames(BattleBayDeluxe.draft_pack.outro)
   pk.pick = i
   pk.to = B.pos[k]
 end
 
-function BBCR_DRAFT_PackOutroRender()
-  local B, P = BBCR_DRAFT, BBCR_DRAFT_PK
+function BattleBayDeluxe.draft_pack_outro_render()
+  local B, P = BattleBayDeluxe.draft, BattleBayDeluxe.draft_pack
   local pk = B.pk
-  local u = PkClamp(pk.of / pk.olen)
-  local e = PkOutCubic(u)
+  local u = clamp01(pk.of / pk.olen)
+  local e = ease_out_cubic(u)
   local a = 1 - e
-  local cy, bh, btop = BBCR_DRAFT_PkBand()
-  BBCR_DRAFT_PkQuad(P.I_DIM, P.CX, P.CY, 2700, 1300, P.COL_DIM, P.dim * a)
-  BBCR_DRAFT_PkQuad(P.I_BAND, P.CX, cy, 2700, bh * a, P.COL_BAND, P.BAND_ALPHA * a)
-  BBCR_DRAFT_PkQuad(P.I_EDGE, P.CX, cy - bh * a / 2, 2200 * a, 4, P.COL_EDGE, a)
-  BBCR_DRAFT_PkQuad(P.I_EDGE + 1, P.CX, cy + bh * a / 2, 2200 * a, 4, P.COL_EDGE, a)
-  BBCR_DRAFT_PkText(0, pk.title, P.CX, btop + 46, 1.1, a)
-  BBCR_DRAFT_PkText(6, "", 0, 0, 1, 0)
-  BBCR_DRAFT_PkQuad(P.I_SCREEN, 0, 0, 0, 0, P.COL_SCREEN, 0)
+  local cy, bh, btop = BattleBayDeluxe.draft_pack_band()
+  BattleBayDeluxe.draft_pack_quad(P.I_DIM, P.CX, P.CY, 2700, 1300, P.COL_DIM, P.dim * a)
+  BattleBayDeluxe.draft_pack_quad(P.I_BAND, P.CX, cy, 2700, bh * a, P.COL_BAND, P.BAND_ALPHA * a)
+  BattleBayDeluxe.draft_pack_quad(P.I_EDGE, P.CX, cy - bh * a / 2, 2200 * a, 4, P.COL_EDGE, a)
+  BattleBayDeluxe.draft_pack_quad(P.I_EDGE + 1, P.CX, cy + bh * a / 2, 2200 * a, 4, P.COL_EDGE, a)
+  BattleBayDeluxe.draft_pack_text(0, pk.title, P.CX, btop + 46, 1.1, a)
+  BattleBayDeluxe.draft_pack_text(6, "", 0, 0, 1, 0)
+  BattleBayDeluxe.draft_pack_quad(P.I_SCREEN, 0, 0, 0, 0, P.COL_SCREEN, 0)
   for k = 1, pk.n do
     local c = pk.cards[k]
-    local x, y = BBCR_DRAFT_PkSpot(c.i, pk.n)
-    BBCR_DRAFT_PkQuad(P.I_FLASH + c.i, 0, 0, 0, 0, P.COL_FLASH, 0)
-    BBCR_DRAFT_PkText(1 + c.i, c.name, c.nx, y + (P.CARD_OY + P.CARD_H / 2) * P.scale + P.ROW_Y, c.ns, a)
-    BBCR_DRAFT_PkCrestShow(c, a)
+    local x, y = BattleBayDeluxe.draft_pack_spot(c.i, pk.n)
+    BattleBayDeluxe.draft_pack_quad(P.I_FLASH + c.i, 0, 0, 0, 0, P.COL_FLASH, 0)
+    BattleBayDeluxe.draft_pack_text(1 + c.i, c.name, c.nx, y + (P.CARD_OY + P.CARD_H / 2) * P.scale + P.ROW_Y, c.ns, a)
+    BattleBayDeluxe.draft_pack_crest_show(c, a)
     if c.i == pk.pick and pk.to ~= nil then
       local tx, ty = pk.to[1], -pk.to[2]
       local cx, cyy = x + (tx - x) * e, (y - P.SEL_LIFT) + (ty - (y - P.SEL_LIFT)) * e
       local land = B.SLOT_SCALE * P.LAND -- the large card lands at the small slot card's size
       local s = P.scale * P.SEL_GROW + (land - P.scale * P.SEL_GROW) * e
-      BBCR_DRAFT_PkCard(c.i, cx, cyy, s, s)
-      BBCR_DRAFT_PkQuad(P.I_GLOW + c.i, cx + P.CARD_OX * s, cyy + P.CARD_OY * s, P.CARD_W * s * 1.16,
+      BattleBayDeluxe.draft_pack_card(c.i, cx, cyy, s, s)
+      BattleBayDeluxe.draft_pack_quad(P.I_GLOW + c.i, cx + P.CARD_OX * s, cyy + P.CARD_OY * s, P.CARD_W * s * 1.16,
                         P.CARD_H * s * 1.16, P.COL_EDGE, 0.5 * a)
     else
       local s = P.scale * (1 - 0.3 * e)
-      BBCR_DRAFT_PkCard(c.i, x, y, s, s)
-      pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_MODEL_ALPHA@, B.CARD, c.i, 0, a)
-      BBCR_DRAFT_PkQuad(P.I_GLOW + c.i, 0, 0, 0, 0, P.COL_GLOW, 0)
+      BattleBayDeluxe.draft_pack_card(c.i, x, y, s, s)
+      VRFW.host.menu_command(@crc:CMND_SET_LAYER_MODEL_ALPHA@, B.CARD, c.i, 0, a)
+      BattleBayDeluxe.draft_pack_quad(P.I_GLOW + c.i, 0, 0, 0, 0, P.COL_GLOW, 0)
     end
   end
 end
 
--- the pack gone: its layers hidden, the 5 cards hidden at full alpha
-function BBCR_DRAFT_PackEnd()
-  local B = BBCR_DRAFT
+-- Ends the pack.
+function BattleBayDeluxe.draft_pack_end()
+  local B = BattleBayDeluxe.draft
   local pk = B.pk
   B.pk = nil
-  BBCR_DRAFT_PkHideAll()
+  BattleBayDeluxe.draft_pack_hide_all()
   if pk ~= nil then
     for k = 1, pk.n do
       local i = pk.cards[k].i
-      pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_MODEL_ALPHA@, B.CARD, i, 0, 1)
+      VRFW.host.menu_command(@crc:CMND_SET_LAYER_MODEL_ALPHA@, B.CARD, i, 0, 1)
       if B.mode ~= "cands" then
-        pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_VISIBLE@, B.CARD, i, false)
+        VRFW.host.menu_command(@crc:CMND_SET_LAYER_VISIBLE@, B.CARD, i, false)
       end
     end
   end
 end
 
 -- one frame of the pack (Step)
-function BBCR_DRAFT_PackStep()
-  local B = BBCR_DRAFT
+function BattleBayDeluxe.draft_pack_step()
+  local B = BattleBayDeluxe.draft
   local pk = B.pk
   if pk == nil then
     return
@@ -2765,26 +2600,26 @@ function BBCR_DRAFT_PackStep()
   if pk.phase == "anim" then
     pk.f = pk.f + 1
     if pk.f >= pk.done then
-      BBCR_DRAFT_PackDone(false)
+      BattleBayDeluxe.draft_pack_done(false)
     else
-      BBCR_DRAFT_PackRender(false)
+      BattleBayDeluxe.draft_pack_render(false)
     end
   elseif pk.phase == "pick" then
     pk.f = pk.f + 1
-    BBCR_DRAFT_PackRender(true) -- the best card's glow keeps breathing
+    BattleBayDeluxe.draft_pack_render(true) -- the best card's glow keeps breathing
   elseif pk.phase == "outro" then
     pk.of = pk.of + 1
     if pk.of >= pk.olen then
-      BBCR_DRAFT_PackEnd()
+      BattleBayDeluxe.draft_pack_end()
     else
-      BBCR_DRAFT_PackOutroRender()
+      BattleBayDeluxe.draft_pack_outro_render()
     end
   end
 end
 
 -- the animation runs (input = skip)
-function BBCR_DRAFT_PackBusy()
-  local pk = BBCR_DRAFT.pk
+function BattleBayDeluxe.draft_pack_busy()
+  local pk = BattleBayDeluxe.draft.pk
   return pk ~= nil and pk.phase == "anim"
 end
 
@@ -2792,32 +2627,29 @@ do
   local step = Step
   function Step(...)
     local r = table.pack(step(...))
-    BBCR_DRAFT_Step()
+    BattleBayDeluxe.draft_step()
     return table.unpack(r, 1, r.n)
   end
 
-  -- the Draft cards: their name table once (as the retail menu does for its own cards in OnSetupLayer), the cursor
-  -- labels off (the Draft moves the cursor itself), the draw priority
+  -- Sets up the Draft cards.
   local setup = OnSetupLayer
   function OnSetupLayer(a1, a2, ...)
     local r = table.pack(setup(a1, a2, ...))
-    if a1 == BBCR_DRAFT.SLOT or a1 == BBCR_DRAFT.CARD then
+    if a1 == BattleBayDeluxe.draft.SLOT or a1 == BattleBayDeluxe.draft.CARD then
       local ok, err = pcall(function()
-        BBCR_DRAFT_Name(a1, a2)
-        funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, a1, a2, BBCR_DRAFT.CARD_CURSOR, false)
-        funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, a1, a2, BBCR_DRAFT.CARD_CURSOR2, false)
-        funcLuaMenuCommand(@crc:CMND_SET_DRAW_PRIORITY@, a1, a2, BBCR_DRAFT.PRIO, true)
+        BattleBayDeluxe.draft_name(a1, a2)
+        BattleBayDeluxe.draft_cursor_labels_off(a1, a2)
+        funcLuaMenuCommand(@crc:CMND_SET_DRAW_PRIORITY@, a1, a2, BattleBayDeluxe.draft.PRIO, true)
       end)
       if not ok then
-        BBCR_DRAFT_Log("card setup error", tostring(err))
+        BattleBayDeluxe.draft_log("card setup error", tostring(err))
       end
-    elseif a1 == BBCR_DRAFT.ANCHOR then
-      pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_LOCAL_POS@, a1, BBCR_DRAFT.ANCHOR_X, BBCR_DRAFT.ANCHOR_Y, 0, a2)
-      pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_VISIBLE@, a1, a2 or 0, false) -- 1.5.89: never drawn
-    elseif a1 == BBCR_DRAFT_PK.QUAD or a1 == BBCR_DRAFT_PK.TXT or a1 == BBCR_DRAFT_PK.CREST then
-      pcall(BBCR_DRAFT_PkPrio, a1, a2)
-    elseif a1 == BBCR_DRAFT_FM.QUAD or a1 == BBCR_DRAFT_FM.TXT then
-      pcall(BBCR_DRAFT_FmPrio, a1, a2)
+    elseif a1 == BattleBayDeluxe.draft.ANCHOR then
+      BattleBayDeluxe.draft_anchor_park(a2)
+    elseif a1 == BattleBayDeluxe.draft_pack.QUAD or a1 == BattleBayDeluxe.draft_pack.TXT or a1 == BattleBayDeluxe.draft_pack.CREST then
+      pcall(BattleBayDeluxe.draft_pack_priority, a1, a2)
+    elseif a1 == BattleBayDeluxe.draft_formation.QUAD or a1 == BattleBayDeluxe.draft_formation.TXT then
+      pcall(BattleBayDeluxe.draft_formation_priority, a1, a2)
     end
     return table.unpack(r, 1, r.n)
   end
@@ -2825,63 +2657,64 @@ do
   local open = OnOpenLayer
   function OnOpenLayer(a1, a2, ...)
     local r = table.pack(open(a1, a2, ...))
-    if a1 == BBCR_DRAFT.SLOT or a1 == BBCR_DRAFT.CARD then
+    if a1 == BattleBayDeluxe.draft.SLOT or a1 == BattleBayDeluxe.draft.CARD then
       local ok, err = pcall(function()
-        local B = BBCR_DRAFT
-        BBCR_DRAFT_Name(a1, a2) -- only if the setup did not (never twice)
+        local B = BattleBayDeluxe.draft
+        BattleBayDeluxe.draft_name(a1, a2) -- only if the setup did not (never twice)
         B.ready[a1 .. ":" .. a2] = true
         if a1 == B.SLOT then
           if B.slots[a2 + 1] ~= nil and B.mode ~= nil then
-            BBCR_DRAFT_DrawSlot(a2)
+            BattleBayDeluxe.draft_draw_slot(a2)
           else
             funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, a1, a2, false)
           end
         else
-          BBCR_DRAFT_DrawCand(a2)
+          BattleBayDeluxe.draft_draw_candidate(a2)
         end
         if B.shown == nil or (B.shown[1] == a1 and B.shown[2] == a2) then
-          BBCR_DRAFT_Cursor()
+          BattleBayDeluxe.draft_cursor()
         end
       end)
       if not ok then
-        BBCR_DRAFT_Log("card open error", tostring(err))
+        BattleBayDeluxe.draft_log("card open error", tostring(err))
       end
-    elseif a1 == BBCR_DRAFT.ANCHOR then
-      pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_LOCAL_POS@, a1, BBCR_DRAFT.ANCHOR_X, BBCR_DRAFT.ANCHOR_Y, 0, a2)
-      pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_VISIBLE@, a1, a2 or 0, false) -- 1.5.89: never drawn
-    elseif (a1 == BBCR_DRAFT_PK.QUAD or a1 == BBCR_DRAFT_PK.TXT or a1 == BBCR_DRAFT_PK.CREST)
-        and BBCR_DRAFT.pk == nil then
-      pcall(BBCR_DRAFT_PkPrio, a1, a2) -- hidden until a pack opens
-    elseif a1 == BBCR_DRAFT_FM.QUAD or a1 == BBCR_DRAFT_FM.TXT then
-      pcall(BBCR_DRAFT_FmPrio, a1, a2) -- drawn by the next Step (BBCR_DRAFT_FmRender)
+    elseif a1 == BattleBayDeluxe.draft.ANCHOR then
+      BattleBayDeluxe.draft_anchor_park(a2)
+    elseif (a1 == BattleBayDeluxe.draft_pack.QUAD or a1 == BattleBayDeluxe.draft_pack.TXT or a1 == BattleBayDeluxe.draft_pack.CREST)
+        and BattleBayDeluxe.draft.pk == nil then
+      pcall(BattleBayDeluxe.draft_pack_priority, a1, a2) -- hidden until a pack opens
+    elseif a1 == BattleBayDeluxe.draft_formation.QUAD or a1 == BattleBayDeluxe.draft_formation.TXT then
+      pcall(BattleBayDeluxe.draft_formation_priority, a1, a2) -- drawn by the next Step (BattleBayDeluxe.draft_formation_render)
     end
     return table.unpack(r, 1, r.n)
   end
 
   local decide = OnDecideFocus
   function OnDecideFocus(a1, a2, ...)
-    if a1 == BBCR_DRAFT.ANCHOR then
-      -- 1.5.89: an Accept that is a pointer click is handled once, by BBCR_DRAFT_Mouse, on the card under the pointer
-      local B = BBCR_DRAFT
-      -- (a click on the footer's own Accept guide, over no card, still decides here: once a frame)
-      if B.mode ~= nil and B.mouse and B.ptr ~= nil and (B.mouseDecided or (B.ptr.Owns() and B.ptr.At() ~= nil)) then
+    if a1 == BattleBayDeluxe.draft.ANCHOR then
+      -- A pointer click is handled once by BattleBayDeluxe.draft_mouse.
+      local B = BattleBayDeluxe.draft
+      if B.mode ~= nil and B.mouse and B.ptr ~= nil and (B.mouseDecided or (B.ptr.owns() and B.ptr.at() ~= nil)) then
         return
       end
-      if BBCR_DRAFT.mode ~= nil then
-        local ok, err = pcall(BBCR_DRAFT_Decide)
+      if BattleBayDeluxe.draft.mode ~= nil then
+        local ok, err = pcall(BattleBayDeluxe.draft_decide)
         if not ok then
-          BBCR_DRAFT_Log("decide error", tostring(err))
+          BattleBayDeluxe.draft_log("decide error", tostring(err))
         end
       end
       return
     end
-    if a1 == BBCR_DRAFT.GRID and not BBCR_DRAFT.bypass and BBCR_DRAFT.mode == nil then
-      local ok, mine = pcall(BBCR_DRAFT_IsDraftSlot, a2)
+    if BattleBayDeluxe.draft.filterCo ~= nil then
+      return
+    end
+    if a1 == BattleBayDeluxe.draft.GRID and not BattleBayDeluxe.draft.bypass and BattleBayDeluxe.draft.mode == nil then
+      local ok, mine = pcall(BattleBayDeluxe.draft_is_slot, a2)
       if ok and mine then
-        local okr, err = pcall(BBCR_DRAFT_Start, a2)
+        local okr, err = pcall(BattleBayDeluxe.draft_start, a2)
         if not okr then
-          BBCR_DRAFT_Log("start error", tostring(err))
-          pcall(BBCR_DRAFT_Exit, true)
+          BattleBayDeluxe.draft_log("start error", tostring(err))
+          pcall(BattleBayDeluxe.draft_exit, true)
         end
         return
       end
@@ -2891,18 +2724,18 @@ do
 
   local fn = OnFunction
   function OnFunction(a1, a2, ...)
-    local B = BBCR_DRAFT
+    local B = BattleBayDeluxe.draft
     if B.mode ~= nil and (a1 == B.FN_UP or a1 == B.FN_DOWN or a1 == B.FN_LEFT or a1 == B.FN_RIGHT) then
       local dx = (a1 == B.FN_RIGHT and 1) or (a1 == B.FN_LEFT and -1) or 0
       local dy = (a1 == B.FN_UP and 1) or (a1 == B.FN_DOWN and -1) or 0
-      local ok, err = pcall(BBCR_DRAFT_Move, dx, dy)
+      local ok, err = pcall(BattleBayDeluxe.draft_move, dx, dy)
       if not ok then
-        BBCR_DRAFT_Log("move error", tostring(err))
+        BattleBayDeluxe.draft_log("move error", tostring(err))
       end
       return 1
     end
     if B.mode ~= nil and a1 == B.FN_Y then
-      -- the formation cannot be changed once chosen: Y does nothing during the draft
+      -- The formation cannot be changed once chosen.
       return 1
     end
     return fn(a1, a2, ...)
@@ -2910,29 +2743,29 @@ do
 
   local back = OnBack
   function OnBack(a1, a2, ...)
-    if a1 == BBCR_DRAFT.ANCHOR then
-      if BBCR_DRAFT.mode ~= nil then
-        local ok, err = pcall(BBCR_DRAFT_Back)
+    if a1 == BattleBayDeluxe.draft.ANCHOR then
+      if BattleBayDeluxe.draft.mode ~= nil then
+        local ok, err = pcall(BattleBayDeluxe.draft_back)
         if not ok then
-          BBCR_DRAFT_Log("back error", tostring(err))
+          BattleBayDeluxe.draft_log("back error", tostring(err))
         end
       end
       return 1
     end
-    if a1 == BBCR_DRAFT.GRID and BBCR_DRAFT.mode == nil then
-      -- leaving the grid: a draft that never started a campaign is discarded (a running campaign keeps its squad)
-      pcall(funcLuaCommand, BBCR_DRAFT.ABANDON)
+    if a1 == BattleBayDeluxe.draft.GRID and BattleBayDeluxe.draft.mode == nil then
+      -- Abandons the draft when leaving the grid.
+      VRFW.host.command(BattleBayDeluxe.draft.ABANDON)
     end
     return back(a1, a2, ...)
   end
 
-  -- back from the difficulty window after a draft: the page rebuilt too (BBCR_DRAFT_Refresh)
+  -- Handles going back from the difficulty window after a draft.
   local closeEnd = OnCloseEndLayer
   if closeEnd ~= nil then -- the free-match script has none
     function OnCloseEndLayer(a1, a2, ...)
       local r = table.pack(closeEnd(a1, a2, ...))
-      if a1 == BBCR_DRAFT.DIFFWIN and BBCR_DRAFT.used and BBCR_DRAFT.mode == nil and BBCR_DRAFT.refresh == nil then
-        BBCR_DRAFT.refresh = BBCR_DRAFT.REFRESH_FRAMES
+      if a1 == BattleBayDeluxe.draft.DIFFWIN and BattleBayDeluxe.draft.used and BattleBayDeluxe.draft.mode == nil and BattleBayDeluxe.draft.refresh == nil then
+        BattleBayDeluxe.draft.refresh = BattleBayDeluxe.draft.REFRESH_FRAMES
       end
       return table.unpack(r, 1, r.n)
     end
@@ -2941,22 +2774,20 @@ do
   local setupIcon = SetupEmblemIcon
   function SetupEmblemIcon(a1, a2, a3, a4, ...)
     if type(a1) == "number" then
-      BBCR_DRAFT.slotArgs[a1] = {a2 or 0, a3, a4}
+      BattleBayDeluxe.draft.slotArgs[a1] = {a2 or 0, a3, a4}
     end
     return setupIcon(a1, a2, a3, a4, ...)
   end
 
-  -- the panel: while the Draft screen is open it is held (BBCR_DRAFT_PanelHold: no retail redraw, whatever team the
-  -- native refresh asks for); otherwise the Draft team shows its players only once the draft is complete (no
-  -- placeholder player)
+  -- Draws the panel.
   local formation = UpdateFormation
   function UpdateFormation(a1, a2, ...)
-    local B = BBCR_DRAFT
-    local free = BBCR_DRAFT_Free()
+    local B = BattleBayDeluxe.draft
+    local free = BattleBayDeluxe.draft_free()
     if B.mode ~= nil and (a2 ~= false or free) then
-      local ok, err = pcall(BBCR_DRAFT_PanelHold)
+      local ok, err = pcall(BattleBayDeluxe.draft_panel_hold)
       if not ok then
-        BBCR_DRAFT_Log("panel hold error", tostring(err))
+        BattleBayDeluxe.draft_log("panel hold error", tostring(err))
       end
       return
     end
@@ -2970,12 +2801,9 @@ do
     local r = table.pack(formation(a1, a2, ...))
     if a1 == B.TEAM and (a2 ~= false or free) then
       pcall(function()
-        local ok, phase = BBCR_DRAFT_Info()
+        local ok, phase = BattleBayDeluxe.draft_info()
         if not (ok and phase >= 2) then
-          local layer = (a2 ~= false) and B.LEFT or B.RIGHT
-          for i = 0, 10 do
-            funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, layer, i, false)
-          end
+          BattleBayDeluxe.draft_layer_visible((a2 ~= false) and B.LEFT or B.RIGHT, 11, false)
         end
       end)
     end
@@ -2986,7 +2814,7 @@ do
   local tactics = UpdateTacticsLayer
   if tactics ~= nil then
     function UpdateTacticsLayer(a1, a2, ...)
-      if BBCR_DRAFT.mode ~= nil and (a2 ~= false or BBCR_DRAFT_Free()) then
+      if BattleBayDeluxe.draft.mode ~= nil and (a2 ~= false or BattleBayDeluxe.draft_free()) then
         return
       end
       return tactics(a1, a2, ...)

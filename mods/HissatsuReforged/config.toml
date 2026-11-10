@@ -1,22 +1,14 @@
-# Hissatsu Reforged: the critical hit of special moves (read by scripts/critical.lua when a match needs it; restart
-# the game after a change). Mechanism: A user layer: [mods.HissatsuReforged.critical] in the loader's config.toml, key
-# by key (survives mod updates). The same rules for the user's team and the CPU.
 
 [critical]
-# extra critical chance of every special move, in percent (the 10 % base comes from Player Training's Luck; once per execution)
 base_chance = 0
 # on a critical hit the move's power × this (after every other power rule)
 multiplier = 1.5
 # the highest critical chance in percent, whatever adds up (other mods' passives included)
 cap = 50
-# the team build that is the «Crítico» archetype: the game's build 0 (retail «Brecha», renamed by this mod)
 archetype_build = 0
 # the skill table category of the keepers' moves (keeper_levels / keeper_per_rank apply to them)
 keeper_move_category = 4
 
-# The «Crítico» team's four build passives (ps10052-ps10059 families, retail breach values), team-wide while the team
-# is on the «Crítico» build:
-# ps10053: percentage points added to its moves' chance (retail: team breach rate +5 %)
 archetype_chance = 5
 # ps10055: more points while level or behind on goals (retail: +7 % when level or behind)
 archetype_level_or_behind_chance = 7
@@ -27,12 +19,23 @@ crit_tension = 3.6
 # ps10113 (keepers): its keepers' chance × (1 + this % × rank) (retail: keeper save rate +4 % per rank)
 keeper_per_rank = 4
 
-# The «Crítico» charge: ranks 1..(number of levels), the game's breach charge rules with the critical hit in place of
-# the breach. Rank 1 at kick-off; +1 per rank_up_seconds of match clock without a critical of the team; -rank_down_on_crit
-# when the team lands one.
 rank_up_seconds = 15
 rank_down_on_crit = 4
-# per rank (1..5): the team's critical chance × (1 + this %) (retail: breach rate +0/25/50/75/100 %)
 levels = [0, 25, 50, 75, 100]
-# per rank (1..5): its keepers' critical chance × (1 + this %) on top (retail: keeper save rate +0/25/50/75/100 %)
 keeper_levels = [0, 25, 50, 75, 100]
+
+[ranks]
+thresholds = [10, 25, 50, 120]
+mode = "uses"
+recast_per_grade = 0.025
+# the «<move> sube a Nv.N» banner in the match when a move levels up (text HissatsuReforged.RankUpSuffix)
+popup = true
+# one log line per counted use (loader.log)
+log_uses = true
+# The move-rank items (item keys = the item's key string, crc32 = its id; "" = none).
+raise_item = "abl_000001"
+last_grade_item = "abl_ue000001"
+last_grade_item_only = true
+
+[duplicates]
+block = true

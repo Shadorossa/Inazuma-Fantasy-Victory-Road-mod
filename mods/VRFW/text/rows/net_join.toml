@@ -1,6 +1,3 @@
-# Joiner notices of the net service's rooms (CMND_VRFW_NET_NOTICE, fw::services::net::join_notice_text): why a join
-# ended without a room, or that an invite's room is ready. Shown by lua\menu\_all\11_net_join_notice.lua in the retail
-# message window.
 
 schema = "VRFW.text/2"
 table = "menu_text"
@@ -113,9 +110,6 @@ ja = "招待を受けました。今すぐルームに移動しますか?ゲー�
 zh_hans = "已接受邀请。现在前往房间吗?游戏将保存并离开此画面"
 zh_hant = "已接受邀請。現在前往房間嗎?遊戲將儲存並離開此畫面"
 
-# Detail lines of «Lista de mods no coincide» (fw::services::net::notice_lines): {a} {b} {c} = the line's args
-# (id / key, this game's value, the host's value).
-
 [[row]]
 id = "vrfw_net_diff_missing"
 es = "Falta: {a}"
@@ -211,3 +205,39 @@ pt = "e mais {a}"
 ja = "ほか{a}件"
 zh_hans = "以及另外 {a} 项"
 zh_hant = "以及另外 {a} 項"
+
+[[row]]
+id = "vrfw_net_match_desync"
+es = "El partido en línea se detuvo: las dos partidas dejaron de coincidir"
+en = "The online match stopped: the two games no longer matched"
+fr = "Le match en ligne s'est arrêté : les deux parties ne correspondaient plus"
+de = "Das Online-Spiel wurde beendet: Die beiden Spiele stimmten nicht mehr überein"
+it = "La partita online si è fermata: le due partite non coincidevano più"
+pt = "A partida online parou: os dois jogos deixaram de coincidir"
+ja = "オンライン試合が中断されました：2つの試合が一致しなくなりました"
+zh_hans = "在线比赛已停止：双方的比赛不再一致"
+zh_hant = "線上比賽已停止：雙方的比賽不再一致"
+
+[[row]]
+id = "vrfw_net_match_timeout"
+es = "El partido en línea se detuvo: el otro jugador no responde"
+en = "The online match stopped: the other player is not answering"
+fr = "Le match en ligne s'est arrêté : l'autre joueur ne répond pas"
+de = "Das Online-Spiel wurde beendet: Der andere Spieler antwortet nicht"
+it = "La partita online si è fermata: l'altro giocatore non risponde"
+pt = "A partida online parou: o outro jogador não responde"
+ja = "オンライン試合が中断されました：相手のプレイヤーが応答しません"
+zh_hans = "在线比赛已停止：对方玩家没有响应"
+zh_hant = "線上比賽已停止：對方玩家沒有回應"
+
+[[row]]
+id = "vrfw_net_match_left"
+es = "El partido en línea se detuvo: el otro jugador abandonó el partido"
+en = "The online match stopped: the other player left the match"
+fr = "Le match en ligne s'est arrêté : l'autre joueur a quitté le match"
+de = "Das Online-Spiel wurde beendet: Der andere Spieler hat das Spiel verlassen"
+it = "La partita online si è fermata: l'altro giocatore ha abbandonato la partita"
+pt = "A partida online parou: o outro jogador abandonou a partida"
+ja = "オンライン試合が中断されました：相手のプレイヤーが試合を抜けました"
+zh_hans = "在线比赛已停止：对方玩家离开了比赛"
+zh_hant = "線上比賽已停止：對方玩家離開了比賽"

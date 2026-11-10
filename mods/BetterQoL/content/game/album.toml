@@ -1,20 +1,32 @@
-# BetterQoL › player album («Álbum de jugadores»): the Lua commands of the page util_album_menu
-# (assets\lua\screens\util_album_menu.lua); the logic is scripts\album.lua (BetterQoL.Album.*).
+# Player album commands (screen betterqol_album_menu; logic scripts\album.lua).
 schema = "VRFW.game/2"
 
-# (lang code, name groups text, label of the other names, label of the specials, label of a game's other teams) -> { total, owned, groups = { name groups, game groups } }, each group
-# { label, players, owned, series type }; false = no roster
+# (lang, name groups text, other-names label, specials label, other-teams label) -> { total, owned, groups } or false
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_ALBUM_OPEN"
 handler = "BetterQoL.Album.Open"
 
-# (kind 1 name / 2 game, group, page, rows a page) -> { page, pages, total, owned, rows = { { chara_base, card param,
-# name, team, game, owned, level, rarity }, … } }
+# (kind 1 name / 2 game, group, page, rows per page) -> { page, pages, total, owned, rows }
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_ALBUM_PAGE"
 handler = "BetterQoL.Album.Page"
 
-# (text) -> how many players have the text in their name; those rows are then CMND_BETTERQOL_ALBUM_PAGE's kind 4
+# (text) -> count of players whose name holds it; then read with ALBUM_PAGE kind 4
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_ALBUM_SEARCH"
 handler = "BetterQoL.Album.Search"
+
+# () -> { total, sagas } of the filter window, or false
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_ALBUM_FILTER_INFO"
+handler = "BetterQoL.Album.FilterInfo"
+
+# (selection) -> the album's players that pass it
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_ALBUM_FILTER_COUNT"
+handler = "BetterQoL.Album.FilterCount"
+
+# (selection; empty lifts the filter) -> { groups } of the lists under it
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_ALBUM_FILTER_SET"
+handler = "BetterQoL.Album.FilterSet"

@@ -1,6 +1,3 @@
--- level_trace (VRFW diagnostic): one log line per focused player and level in the item use menu when he is not an owned
--- card (handle pool above 0, the avatar is one) or the game says he cannot level up. Shows the values the gauge reads.
--- No engine call at load time.
 if type(UpdateListItemGauge) == "function" then
   local retail_update_gauge = UpdateListItemGauge
   local logged = {}
@@ -18,7 +15,7 @@ if type(UpdateListItemGauge) == "function" then
       handle, pool, level, exp, cap, need)
     if not logged[line] then
       logged[line] = true
-      funcLuaCommand(VRFW_Cmd.EVT_LOG, line)
+      funcLuaCommand(VRFW.commands.VRFW_LOG, line)
     end
   end
 

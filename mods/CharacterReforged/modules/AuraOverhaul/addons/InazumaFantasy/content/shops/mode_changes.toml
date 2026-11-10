@@ -1,0 +1,53 @@
+
+schema = "VRFW.shop/2"
+
+[[edit]]
+target = "InazumaFantasy.training_shop"
+
+  [[edit.entry]]
+  item = "mode_change_c02023520"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "mode_change_c06030060"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "mode_change_c03030430"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "mode_change_c04000150"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "mode_change_c05020700"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "mode_change_c11801040"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "mode_change_c11150120"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "mode_change_c08030032"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1

@@ -1,13 +1,9 @@
--- Number fits: every active mod's content/number_fit/*.toml (`VRFW.number_fit/1`). A [[VRFW.NumberFit]] names a menu
--- layer whose numbers keep their designed width (content/game/number_fit.toml):
---   CMND_VRFW_NUMBER_FIT   (i) -> layer crc, digits, both: declaration i (1-based); layer 0 past the end
--- The menus read the list once per script VM (lua\menu\_all\97_number_fit.lua).
+-- Number fits: every active mod's content/number_fit/*.toml (`VRFW.number_fit/1`).
 
 NumberFit = NumberFit or {}
 
-local D = require "lib/declarations"
+local D = VRFW.declarations
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("number_fit")
 
 local FITS = {}               -- { key, layer, digits, both }

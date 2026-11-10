@@ -1,39 +1,31 @@
--- BetterQoL › «Cambiar forma»: the tunables of the form indicator the graft util_view_forms draws in the retail «Ver
--- apariencia» (a dark tile with the form's glyph + a light tile under the bound key's glyph, at the top right of the
--- shown character; layers util_vf_tile / util_vf_badge of content\menus\view_forms.toml). Nothing else: the forms are
--- the VR-Framework's form viewer, the key is assets\lua\_all\utilities_view_forms.lua.
---
--- Command (content\game\view_forms.toml):
---   CMND_BETTERQOL_VIEW_FORMS_CFG() -> {badge_x, badge_y, badge_scale, badge_priority, tile_size, tile_gap, key_scale,
---   key_dx, key_dy} (config.toml [view_forms])
 
 BetterQoL = BetterQoL or {}
 BetterQoL.ViewForms = BetterQoL.ViewForms or {}
 local ViewForms = BetterQoL.ViewForms
 
--- defaults = config.toml [view_forms] as shipped (the graft has the same values when this script does not answer)
+-- defaults match config.toml [view_forms] and the graft's fallbacks
 local settings = {
-  badge_x = 1720,        -- the row's right edge (screen px of a 1920 x 1080 menu, x right)
+  badge_x = 1720,
   badge_y = 230,         -- the row's vertical centre (screen px, y down)
   badge_scale = 1,       -- the whole row's scale
-  badge_priority = 690,  -- the tiles' draw priority (over the 3D model and the formation board); the glyph one above
+  badge_priority = 690,  -- tiles' draw priority; the glyph draws one above
   tile_size = 52,        -- a tile's side (screen px at scale 1)
   tile_gap = 6,          -- the gap between the two tiles
   key_scale = 0.9,       -- the key glyph's text scale
-  key_dx = 0,            -- the key glyph's nudge inside the light tile (screen px)
-  key_dy = 0,            -- (y down: < 0 = up)
+  key_dx = 0,            -- key glyph nudge inside the light tile (screen px)
+  key_dy = 0,            -- y down
 }
 
 do
-  local ok, c = pcall(VRFW.files.config, "view_forms")
-  if ok and type(c) == "table" then
+  local c = VRFW.config("view_forms")
+  if type(c) == "table" then
     for k, v in pairs(c) do
       if settings[k] ~= nil and type(v) == "number" then settings[k] = v end
     end
   end
 end
 
--- CMND_BETTERQOL_VIEW_FORMS_CFG() -> the indicator's place and size
+-- CMND_BETTERQOL_VIEW_FORMS_CFG() -> a copy of the settings
 function ViewForms.Config()
   local answer = {}
   for k, v in pairs(settings) do

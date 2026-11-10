@@ -16,7 +16,6 @@ apply = "script"
 
 # --- commands
 
-# (key) -> chosen, index, live: the declared value `<mod>.<name>` (or `<name>` of any mod) in force, its index in the row list, detours installed. Nothing for an unknown key.
 [[VRFW.Command]]
 name = "CMND_VRFW_SETTING_ROW"
 handler = "OptionRows.Cmd"

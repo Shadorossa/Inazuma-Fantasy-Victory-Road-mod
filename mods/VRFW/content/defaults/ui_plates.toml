@@ -1,10 +1,6 @@
-# Layout constants of the shared header row and move plate (Lua: VRFW_UI.HeaderRow / VRFW_UI.MovePlate).
-# Units: screen px at 1080p (x right, y down) unless noted as layout units (y up).
-# A screen needing a variant adds a [*.variants.<name>] table.
+# Layout constants of the shared header row and move plate (Lua: VRFW.ui_plates.header_row / VRFW.ui_plates.move_plate).
 schema = "VRFW.ui_plates/1"
 
-# ---- header row ----
-# Retail status plate (soccer11_04 / soccer11_04pp) plus the framework's position band and archetype box.
 [header_row]
 # Extra atlases the library swaps sprites from; a menu showing a header row must list them in its res.
 res = [
@@ -40,15 +36,12 @@ s = 0.69
 x = 1250
 y = 867
 
-# ---- move plate ----
-# Element-coloured special-move plate, filled from the retail row or drawn from quads (VRFW_UI.MovePlate.Look).
 [move_plate]
 # Atlases the menu res must contain: `res` for the row fill, `quad_res` for quad-drawn plates.
 res = []
 quad_res = [
     "#/menu/200_icon/15_icon_common/icon_common.g4tx",              # category icons
 ]
-# Quad look, offsets from the plate centre (px at scale 1): plate, category icon, name left edge, AT/DF label, power right edge.
 plate = [600, 82]
 category = [-269, 0, 56]
 name_x = -220

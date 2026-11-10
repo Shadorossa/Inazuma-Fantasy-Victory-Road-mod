@@ -1,0 +1,15 @@
+# Declaration schema for [[VRFW.DuplicateReset]] (content\duplicate_resets\*.toml; docs/framework/duplicate-reset.md); an unknown key, wrong type or out-of-range value drops that declaration with a warning.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.duplicate_reset/1"
+folder = "content/duplicate_resets"
+label = "Duplicate resets"
+label_es = "Reinicios al duplicar"
+doc = "Items a copy of the locked retail save keeps only a set amount of."
+doc_es = "Objetos de los que una copia de la partida original bloqueada solo conserva una cantidad fija."
+
+[entry.DuplicateReset]
+doc = "when the locked retail save is duplicated into a player slot, the copy keeps at most `keep` of each of `items`; the locked save itself is never changed"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+items = { type = "ids", ref = "item", required = true, doc = "the items (item_config key names or ids, 0x…): inventory items and currencies alike, a currency is an item" }
+keep = { type = "int", min = 0, default = 0, doc = "the most of each item the copy keeps (default 0 = none); a lower owned amount stays; when several declarations name an item, the lowest wins" }
+when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

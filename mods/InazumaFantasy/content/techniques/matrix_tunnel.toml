@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Túnel matrix (Matrix Tunnel): the download's move who90410, a clone of who00410 with its numbers; its event ev61_90410 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "matrix_tunnel"

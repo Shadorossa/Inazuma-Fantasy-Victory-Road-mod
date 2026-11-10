@@ -1,5 +1,5 @@
 # Schema of the rarity declarations (kind VRFW.rarity/1, a mod's content\rarities\**\*.toml): own card rarities,
-# edits of the game's or another mod's, and the set kept or removed. The rarity type builds them (strict parse);
+# edits of the game's or another mod's, and the set kept or removed.
 # this schema describes the same keys for the checker and the editors.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.rarity/1"

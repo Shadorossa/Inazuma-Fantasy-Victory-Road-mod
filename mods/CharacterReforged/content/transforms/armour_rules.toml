@@ -1,0 +1,8 @@
+schema = "VRFW.transform/2"
+
+[rules]
+# every player whose body has a mesh for the armour (assets/chr/_armd, content/looks/armour_clothes.toml)
+armour_wearers = "anyone"
+armour_no_mesh_groups = [17]
+armour_identity = "wearer"
+armour_from_keshin_free = true

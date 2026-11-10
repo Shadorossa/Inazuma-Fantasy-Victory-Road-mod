@@ -1,0 +1,93 @@
+# BetterUI: match HUD and menu cleanups (rival meters, buff icons, Esc guide, zone HUD, area title).
+name = "better_ui_hud"
+order = 900
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = []
+description = "Match HUD cleanups and the Mods screen raised for the compact header"
+
+# The VRFW Mods screen raised for the compact header (VRFW.mods_screen.set_top_offset, read by its OnInit).
+[[foreign_patches]]
+stem = "vrfw_mods_menu"
+source = "mods_menu_layout.lua"
+require = ["vrfw_mods_menu_stub"]
+
+[[files]]
+stem = "soccer_menu"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "soccer_menu.lua"
+  marker = "better_ui soccer_menu"
+  crc = "none"
+  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_child"
+  generator_arguments = { part = "better_ui_soccer_menu.lua", tag = "soccer_menu", scope = "BetterUI" }
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "soccer_menu" }
+
+[[files]]
+stem = "soccer_team_buff_icon_list_menu"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "buff_icons.lua"
+  marker = "better_ui buff_icons"
+  crc = "none"
+  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_child"
+  generator_arguments = { part = "better_ui_buff_icons.lua", tag = "buff_icons", scope = "BetterUI" }
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "buff_icons" }
+
+[[files]]
+stem = "team_dock_common_top_menu"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "team_dock_top.lua"
+  marker = "better_ui team_dock_top"
+  crc = "none"
+  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_child"
+  generator_arguments = { part = "better_ui_team_dock_top.lua", tag = "team_dock_top", scope = "BetterUI" }
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "team_dock_top" }
+
+[[files]]
+stem = "soccer_inplay_menu"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "inplay.lua"
+  marker = "better_ui inplay"
+  crc = "none"
+  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_child"
+  generator_arguments = { part = "better_ui_inplay.lua", tag = "inplay", scope = "BetterUI" }
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "inplay" }
+
+[[files]]
+stem = "soccer_zone_menu"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "zone.lua"
+  marker = "better_ui zone"
+  crc = "none"
+  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_child"
+  generator_arguments = { part = "better_ui_zone.lua", tag = "zone", scope = "BetterUI" }
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "zone" }
+
+[[files]]
+stem = "soccer_area_title_menu"
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "area_title.lua"
+  marker = "better_ui area_title"
+  crc = "none"
+  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_child"
+  generator_arguments = { part = "better_ui_area_title.lua", tag = "area_title", scope = "BetterUI" }
+  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  vars = { "@TAG@" = "area_title" }

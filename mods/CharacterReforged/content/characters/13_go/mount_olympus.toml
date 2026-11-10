@@ -1,10 +1,13 @@
 schema = "VRFW.character/2"
-# Character Reforged · Mount Olympus · Inazuma Eleven GO
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c04003060_5000"                              # Rae Godmother
+moves = [
+  { move = 0x00A10ABD, level = 12 },                        # Ball Lightning
+  { move = 0xB9A6C82E, level = 18 },                        # Triangle ZZ
+  { move = 0xAF150D21, level = 55 },                        # Swallow Counter
+  { move = 0x9EA7BBCD, level = 67 },                        # Magmire
+]
 
   [[edit.cards]]
   id = 0x22F7699C                                         # MF/FW · fire
@@ -14,6 +17,12 @@ target = "c04003060_5000"                              # Rae Godmother
 
 [[edit]]
 target = "c04003070_5000"                              # Hyperion Wise
+moves = [
+  { move = 0x00A10ABD, level = 11 },                        # Ball Lightning
+  { move = 0xDDCA0D2A, level = 16 },                        # Bouncing Bomb
+  { move = 0xA0BDF96F, level = 44 },                        # Ballista Barrage
+  { move = 0x25276CB9, level = 60 },                        # Solar Surprise
+]
 
   [[edit.cards]]
   id = 0x84806228                                         # MF/FW · fire
@@ -24,6 +33,12 @@ target = "c04003070_5000"                              # Hyperion Wise
 
 [[edit]]
 target = "c04003080_5000"                              # Cronus Fourseasons
+moves = [
+  { move = 0xB0F8060A, level = 40 },                        # Ozone Flayer
+  { move = 0x910F4F83, level = 62 },                        # Fire Tornado DD
+  { move = 0xA0BDF96F, level = 72 },                        # Ballista Barrage
+  { move = 0x00A10ABD, level = 82 },                        # Ball Lightning
+]
 
   [[edit.cards]]
   id = 0x72C812C1                                         # MF/FW · fire
@@ -35,8 +50,8 @@ target = "c04003080_5000"                              # Cronus Fourseasons
 [[edit]]
 target = "c04003010"                                   # Theo Divine
 moves = [
-  { move = 0xE4849E49, level = 1 },                         # Wild Dunk
-  { move = 0xCB8E6D04, level = 21 },                        # Mighty Save
+  { move = 0xFF5C8DAF, level = 1 },                         # Shot Stopper
+  { move = 0xE4849E49, level = 11 },                        # Wild Dunk
   { move = 0x1C2DC89A, level = 49 },                        # Menace Elbow
   { move = 0xE6C22010, level = 66 },                        # Claw de Force
 ]
@@ -50,9 +65,9 @@ moves = [
 [[edit]]
 target = "c04003020"                                   # Mnemo Pool
 moves = [
-  { move = 0xB0F8060A, level = 1 },                         # Ozone Flayer
-  { move = 0x650FA58E, level = 23 },                        # Spin Out
-  { move = 0x6C827857, level = 34 },                        # Rolling Steal
+  { move = 0xDA3FF6C9, level = 26 },                        # Criss-Cross
+  { move = 0xB0F8060A, level = 36 },                        # Ozone Flayer
+  { move = 0x650FA58E, level = 46 },                        # Spin Out
   { move = 0x1C4D4906, level = 59 },                        # Whirlpool
 ]
 
@@ -80,10 +95,10 @@ moves = [
 [[edit]]
 target = "c04003040"                                   # Iapetus Pierce
 moves = [
-  { move = 0xB0F8060A, level = 3 },                         # Ozone Flayer
-  { move = 0x23C3EE90, level = 18 },                        # Shoulder Tackle
-  { move = 0x660EED1E, level = 39 },                        # Low Scythe Slice
-  { move = 0x72BFA108, level = 59 },                        # Wall of Atlantis
+  { move = 0x768AB9C5, level = 43 },                        # Frosticle
+  { move = 0xB0F8060A, level = 53 },                        # Ozone Flayer
+  { move = 0x660EED1E, level = 63 },                        # Low Scythe Slice
+  { move = 0x72BFA108, level = 73 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -96,10 +111,10 @@ moves = [
 [[edit]]
 target = "c04003050"                                   # Phoebus Moonlight
 moves = [
-  { move = 0xB0F8060A, level = 5 },                         # Ozone Flayer
-  { move = 0x23C3EE90, level = 16 },                        # Shoulder Tackle
-  { move = 0x4FE09C7A, level = 43 },                        # Acrobatic Keep
-  { move = 0xF4604B0E, level = 51 },                        # Fancy-Footwork
+  { move = 0x62BE692D, level = 49 },                        # Whirlwind Force
+  { move = 0xB0F8060A, level = 59 },                        # Ozone Flayer
+  { move = 0x4FE09C7A, level = 69 },                        # Acrobatic Keep
+  { move = 0xF4604B0E, level = 79 },                        # Fancy-Footwork
 ]
 
   [[edit.cards]]
@@ -120,7 +135,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x77127F83, level = 1 },                         # Sirena [aura]
+  { move = 0x77127F83, level = 1 },                         # wko00470
 ]
 
   [[edit.cards]]
@@ -140,7 +155,7 @@ moves = [
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0xF08A634C, level = 1 },                         # Tachión [aura]
+  { move = 0xF08A634C, level = 1 },                         # wko00480
 ]
 
   [[edit.cards]]
@@ -153,15 +168,15 @@ moves = [
 [[edit]]
 target = "c04003080"                                   # Cronus Fourseasons
 moves = [
-  { move = 0xA0BDF96F, level = 3 },                         # Ballista Barrage
-  { move = 0x00A10ABD, level = 17 },                        # Ball Lightning
-  { move = 0x4E9A9232, level = 39 },                        # Spinning Cut
-  { move = 0xB501FE5D, level = 62 },                        # Holy Roller
+  { move = 0xB0F8060A, level = 40 },                        # Ozone Flayer
+  { move = 0x910F4F83, level = 62 },                        # Fire Tornado DD
+  { move = 0xA0BDF96F, level = 72 },                        # Ballista Barrage
+  { move = 0x00A10ABD, level = 82 },                        # Ball Lightning
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
-  { move = 0x4A8CE94F, level = 1 },                         # Surtur [aura]
+  { move = 0x4A8CE94F, level = 20 },                        # wks00100
 ]
 
   [[edit.cards]]
@@ -190,10 +205,10 @@ moves = [
 [[edit]]
 target = "c04003100"                                   # Coeus Heavens
 moves = [
-  { move = 0xA0BDF96F, level = 5 },                         # Ballista Barrage
-  { move = 0xA37D1A41, level = 13 },                        # Hyper-Swiper
-  { move = 0x240BEDF2, level = 46 },                        # Bounce Shot
-  { move = 0x4FE09C7A, level = 54 },                        # Acrobatic Keep
+  { move = 0xB0F8060A, level = 60 },                        # Ozone Flayer
+  { move = 0xA0BDF96F, level = 70 },                        # Ballista Barrage
+  { move = 0xA37D1A41, level = 80 },                        # Hyper-Swiper
+  { move = 0x4FE09C7A, level = 90 },                        # Acrobatic Keep
 ]
 
   [[edit.cards]]
@@ -205,10 +220,10 @@ moves = [
 [[edit]]
 target = "c04003110"                                   # Tet Aqua
 moves = [
-  { move = 0x518BCA26, level = 4 },                         # Fire Tornado
-  { move = 0x3D10DCB3, level = 20 },                        # Curve Shot
-  { move = 0x2B8C597E, level = 50 },                        # Fugue Wave
-  { move = 0xF4604B0E, level = 60 },                        # Fancy-Footwork
+  { move = 0xB0F8060A, level = 60 },                        # Ozone Flayer
+  { move = 0x518BCA26, level = 70 },                        # Fire Tornado
+  { move = 0x2B8C597E, level = 80 },                        # Fugue Wave
+  { move = 0xF4604B0E, level = 90 },                        # Fancy-Footwork
 ]
 
   [[edit.cards]]
@@ -221,9 +236,9 @@ moves = [
 target = "c04003120"                                   # Eos Dawn
 moves = [
   { move = 0x8C382852, level = 2 },                         # God Hand
-  { move = 0xCB8E6D04, level = 16 },                        # Mighty Save
   { move = 0xA0BDF96F, level = 52 },                        # Ballista Barrage
   { move = 0xFF5C8DAF, level = 66 },                        # Shot Stopper
+  { move = 0x822B79EA, level = 76 },                        # Somersault Stamp
 ]
 
   [[edit.cards]]
@@ -235,10 +250,10 @@ moves = [
 [[edit]]
 target = "c04003130"                                   # Pallas Brandish
 moves = [
-  { move = 0x25276CB9, level = 24 },                        # Solar Surprise
-  { move = 0x6C827857, level = 25 },                        # Rolling Steal
-  { move = 0x75994916, level = 44 },                        # Cunning Pull
-  { move = 0x6BA49049, level = 48 },                        # Mystic Mist
+  { move = 0x64CDCFB9, level = 43 },                        # Rising Dragon
+  { move = 0x25276CB9, level = 53 },                        # Solar Surprise
+  { move = 0x6BA49049, level = 63 },                        # Mystic Mist
+  { move = 0x9D236FA3, level = 73 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -250,10 +265,10 @@ moves = [
 [[edit]]
 target = "c04003140"                                   # Themis Law
 moves = [
-  { move = 0x928B9BED, level = 9 },                         # Optimal Trajectory
-  { move = 0x4A17EE80, level = 26 },                        # Hunter's Net
-  { move = 0x06458894, level = 39 },                        # Feint Dash
-  { move = 0x660EED1E, level = 61 },                        # Low Scythe Slice
+  { move = 0x3297683F, level = 60 },                        # Warp Step
+  { move = 0x928B9BED, level = 70 },                        # Optimal Trajectory
+  { move = 0x4A17EE80, level = 80 },                        # Hunter's Net
+  { move = 0x660EED1E, level = 90 },                        # Low Scythe Slice
 ]
 
   [[edit.cards]]
@@ -266,8 +281,8 @@ moves = [
 [[edit]]
 target = "c04003150"                                   # Atlas Carrier
 moves = [
-  { move = 0x6B4A7B35, level = 8 },                         # Power Shot
-  { move = 0xE196F1D1, level = 18 },                        # Burning Bomb
+  { move = 0x0BFD4D80, level = 19 },                        # Grand Slam
+  { move = 0xE196F1D1, level = 29 },                        # Burning Bomb
   { move = 0x4E9A9232, level = 42 },                        # Spinning Cut
   { move = 0xA0BDF96F, level = 57 },                        # Ballista Barrage
 ]
@@ -282,10 +297,10 @@ moves = [
 [[edit]]
 target = "c04003160"                                   # Orion Hunter
 moves = [
-  { move = 0xA9E3374B, level = 27 },                        # Cyclone Sprint
-  { move = 0x49041E53, level = 28 },                        # Crosscut Feint
-  { move = 0xC513565C, level = 57 },                        # Doom Spear
-  { move = 0x87BC8A8C, level = 58 },                        # Hydro Flow
+  { move = 0x00A10ABD, level = 55 },                        # Ball Lightning
+  { move = 0xA9E3374B, level = 65 },                        # Cyclone Sprint
+  { move = 0xC513565C, level = 75 },                        # Doom Spear
+  { move = 0x87BC8A8C, level = 85 },                        # Hydro Flow
 ]
 
   [[edit.cards]]
@@ -299,9 +314,9 @@ moves = [
 target = "c05026580"                                   # Alex Zabel
 moves = [
   { move = 0x518BCA26, level = 1 },                         # Fire Tornado
-  { move = 0x00D8C57C, level = 1 },                         # Fireball Storm
-  { move = 0x0B011EBF, level = 11 },                        # Fireball Screw
-  { move = 0xEAB3792D, level = 21 },                        # Grand Fire
+  { move = 0x00D8C57C, level = 11 },                        # Fireball Storm
+  { move = 0x0B011EBF, level = 21 },                        # Fireball Screw
+  { move = 0xEAB3792D, level = 31 },                        # Grand Fire
 ]
 VRFW.MoveGrades = [
   { Move = 0x518BCA26, Grade = 1 },                         # Fire Tornado
@@ -317,9 +332,9 @@ VRFW.MoveGrades = [
 target = "c05026620"                                   # Dave Quagmire
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0x3F00EDE9, level = 1 },                         # Dash Storm
-  { move = 0x1C8CE2B8, level = 1 },                         # God Knows
-  { move = 0x035C1112, level = 1 },                         # Gungnir
+  { move = 0x3F00EDE9, level = 11 },                        # Dash Storm
+  { move = 0x1C8CE2B8, level = 21 },                        # God Knows
+  { move = 0x035C1112, level = 31 },                        # Gungnir
 ]
 VRFW.MoveGrades = [
   { Move = 0x6ADE9E01, Grade = 1 },                         # Illusory Ball

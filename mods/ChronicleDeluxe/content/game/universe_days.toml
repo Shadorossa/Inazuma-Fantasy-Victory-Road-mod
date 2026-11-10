@@ -1,0 +1,6 @@
+schema = "VRFW.game/2"
+
+# (day) -> { flag id, value, ... }: the Players Universe window flags of that day (scripts\universe_days.lua)
+[[VRFW.Command]]
+name = "CMND_CHRONICLEDELUXE_UNIVERSE_DAY"
+handler = "ChronicleDeluxe.UniverseDay"

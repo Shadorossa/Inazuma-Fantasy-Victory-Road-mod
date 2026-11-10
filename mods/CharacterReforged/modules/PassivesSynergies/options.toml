@@ -1,0 +1,12 @@
+schema = "VRFW.option/2"
+# The module's rows on the Mods screen's «Ajustes» and in Options > «Mod options».
+
+# Read by scripts\own_passives.lua when it builds the own passive tables (once per start).
+[[option]]
+id = "own_passives"                            # row key PassivesSynergies.own_passives
+type = "toggle"
+label = "option_own_passives"                  # text\keys.toml, 9 languages
+help = "option_own_passives_help"
+default = 1
+order = 160
+restart = true

@@ -7,5 +7,5 @@ label_es = "Reglas de duplicados"
 
 [entry.DuplicateRules]
 single = true
-new_recruitment = { type = "table" }
+classic_recruitment = { type = "table" }
 no_more_rarities = { type = "table" }

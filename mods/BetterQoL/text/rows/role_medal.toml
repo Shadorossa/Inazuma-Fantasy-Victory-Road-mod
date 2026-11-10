@@ -1,11 +1,9 @@
-# Texts of BetterQoL's feature role_medal (BetterQoL's old DLL, module role_medal; thresholds in config.toml
-# [role_medal]). Format: Shown by Inazuma Fantasy's role picker when a player is below those thresholds (<VALUE> =
-# matches missing); the retail board shows the game's own popup.
+# Role medal text for other mods' role pickers (<VALUE> = matches missing; thresholds in config.toml [role_medal]).
 schema = "VRFW.text/2"
 table = "menu_text"
 
 [[row]]
-id = "util_role_need_matches"
+id = "betterqol_role_need_matches"
 es = "Le faltan <VALUE> partidos para poder llevar una medalla de rol."
 en = "<VALUE> more matches are needed before this player can wear a role medal."
 fr = "Il lui manque <VALUE> matchs pour pouvoir porter une médaille de rôle."

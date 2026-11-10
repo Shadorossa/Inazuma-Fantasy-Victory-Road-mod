@@ -1,23 +1,7 @@
-# VRFW › the passives (kind VRFW.passive/1, a mod's content\special_passives\*.toml). A passive is a named
-# list of blocks (content\passive_blocks\, kind VRFW.passive_block/1): its triggers,
-# stack rule, reset, conditions and effects. Who has it:
-#   [[VRFW.Passive]] carried_by    a GENERIC passive: every player carrying one of these game passives
-#                                            (team passive slots or own passive slot) has it
-#   [[VRFW.Character]]             a SPECIAL passive: every card of a character (or one card), his own
-#                                            («Pasiva propia»: ONE per player, `passive = "<name>"`)
-#   [[VRFW.Spirit]]                a SPIRIT passive: every player while that aura is his running summon
-#                                            without armour (a keshin), plus its optional `synergy` passive
-#   Passive `grant = true`                     a GRANTED passive: a player while another mod's rule flag gives it
-#                                            (Souls Rework's reel results)
-# [[VRFW.SpiritFamily]] names a set of auras the SpiritsOut block counts (chess pieces, Four Symbols…).
-# [[VRFW.Tag]] / [[VRFW.CharacterTags]]: the archetype tags the Trait block reads; [[VRFW.PassiveCap]]: a cap on the
-# summed percents of the passives that name it.
-# Names: a block or passive of the same mod is written `<name>`, one of another mod `<mod id>.<name>`. A later mod's
-# [[VRFW.Character]] for the same character or card replaces an earlier one (it never adds a second passive). vrfw check validates the files
-# against this file; scripts\lib\passives.lua reads them.
+# VRFW › the passives (kind VRFW.passive/1, a mod's content\special_passives\*.toml).
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.passive/1"
-former_kinds = ["SignaturePassives.special_passive/1"]   # the kind while the engine was Signature Passives' (still read)
+former_kinds = ["SignaturePassives.special_passive/1"]
 folder = "content/special_passives"
 label = "Special passives"
 label_es = "Pasivas especiales"
@@ -77,16 +61,12 @@ tags = { type = "strings", required = true, max_items = 3, ref = "passive_tag", 
 
 # ------------------------------------------------------------------------------------------------ shared data
 
-# where the interpreter reads a soccer actor's running summon (keshin / totem) and its unit's aura bits
-# a spirit passive holds while summon_state = summon_active and no
-# armour_bits are set on the unit
 [spirit]
 summon_skill = 0x358
 summon_full = 0x360
 summon_left = 0x370
 summon_state = 0x374
 summon_active = 2
-unit_aura_bits = 0x2B4
 armour_bits = 2
 
 # the rule flag of a granted passive: <flag_prefix>.<passive key>.<actor handle> = its level

@@ -1,0 +1,11 @@
+# [[VRFW.Character]] character = "c01000010" passive = "example_midfield_wall"
+
+schema = "VRFW.passive/1"
+
+[[VRFW.Passive]]
+name = "dribble_success_mf_technique"
+blocks = ["self_uses_technique", "dribble_technique", "outcome_succeeds", "stack_no_limit", "mf_team_technique_up", "team_scores"]
+
+[[VRFW.Character]]
+character = "c02021020"
+passive = "dribble_success_mf_technique"

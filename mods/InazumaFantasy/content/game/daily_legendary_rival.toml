@@ -1,23 +1,15 @@
-# The Daily Legendary Rival's commands (schema VRFW.game/1, docs/framework/native.md), handled by
-# scripts\daily_legendary_rival.lua; the free-match list's screen script calls it
-# (assets\lua\soccer_vs_cpu_list_menu\280_daily_legendary_rival.lua).
+# The Daily Legendary Rival's commands, handled by scripts\daily_legendary_rival.lua.
 schema = "VRFW.game/1"
 
 [[VRFW.Command]]
-# day (UTC days since 1970-01-01: VRFW_Daily.Period("day")) -> table { ok, why, day, team, cards = { card, ... }, coach, level,
-# done (the day's rival beaten in this save slot), paid (its reward given), reward, pool (teams in the pool) }
 name = "CMND_INAZUMAFANTASY_DAILY_RIVAL"
 handler = "InazumaFantasy.DailyRival"
 
 [[VRFW.Command]]
-# team, its declared home stadium (CMND_VRFW_TEAM_HOME_STADIUM, 0 = none), the row's stadium -> map crc (0 = the row
-# keeps its own), source (declared / battle_bay / chronicle / free_match_row / none)
 name = "CMND_INAZUMAFANTASY_DAILY_RIVAL_STADIUM"
 handler = "InazumaFantasy.DailyRivalStadium"
 
 [[VRFW.Command]]
-# day -> item, count: the beaten day's reward still due (config.toml [daily_legendary_rival] reward / reward_item);
-# 0, 0 = nothing due
 name = "CMND_INAZUMAFANTASY_DAILY_RIVAL_REWARD"
 handler = "InazumaFantasy.DailyRivalReward"
 

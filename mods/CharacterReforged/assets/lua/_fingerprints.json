@@ -5,7 +5,7 @@
   "OnInit",
   "Step",
   "OnFunction",
-  "EVT_OpenOriginalBoard"
+  "CharacterReforgedSkillTableOpenOriginalBoard"
  ],
  "ability_list_menu": {
   "script": "ability_list_menu_5.00.29.00",
@@ -71,7 +71,7 @@
    "OnEquipOptimalItemConfirm"
   ],
   "forbid": [
-   "EVT_PrimeInfo"
+   "CharacterReforgedSkillTablePrimeInfo"
   ],
   "ambiguous": []
  },
@@ -127,6 +127,28 @@
   "chunk_crc": 2511073110,
   "chunk_size": 671
  },
+ "soccer_battle_inplay_menu": {
+  "script": "soccer_battle_inplay_menu_1.00.51",
+  "require": [
+   "CalTargetCharaScreenPos"
+  ],
+  "forbid": [],
+  "ambiguous": [
+   "soccer_inplay_menu",
+   "soccer_training_inplay_menu",
+   "soccer_zigzag_dribble_training_inplay_menu"
+  ],
+  "chunk_crc": 392231094,
+  "chunk_size": 845
+ },
+ "soccer_battle_menu": {
+  "script": "soccer_battle_menu_0.04.29",
+  "require": [
+   "SetSoccerBattleTeamName"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
  "soccer_command_action_menu": {
   "script": "soccer_command_action_menu_1.00.51",
   "require": [
@@ -147,6 +169,44 @@
   "forbid": [],
   "ambiguous": []
  },
+ "soccer_inplay_menu": {
+  "script": "soccer_inplay_menu_1.00.48",
+  "require": [
+   "CalTargetCharaScreenPos"
+  ],
+  "forbid": [],
+  "ambiguous": [
+   "soccer_battle_inplay_menu",
+   "soccer_training_inplay_menu",
+   "soccer_zigzag_dribble_training_inplay_menu"
+  ],
+  "chunk_crc": 108364872,
+  "chunk_size": 793
+ },
+ "soccer_menu": {
+  "script": "soccer_menu_0.03.81",
+  "require": [
+   "ChangeTensionMeterLeftTopToRightBottom",
+   "InitializeGlobalValues",
+   "OnCloseLayer"
+  ],
+  "forbid": [
+   "SetSoccerBattleTeamName"
+  ],
+  "ambiguous": [
+   "soccer_menu_replay"
+  ],
+  "chunk_crc": 2036312462,
+  "chunk_size": 1022
+ },
+ "soccer_team_buff_icon_list_menu": {
+  "script": "soccer_team_buff_icon_list_menu_1.01.60.00",
+  "require": [
+   "UpdateAuraBuffCharaIcon"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
  "soccer_team_dock_menu": {
   "script": "soccer_team_dock_menu_7.01.06.00",
   "require": [
@@ -154,6 +214,34 @@
   ],
   "forbid": [],
   "ambiguous": []
+ },
+ "soccer_training_inplay_menu": {
+  "script": "soccer_training_inplay_menu_0.00.00",
+  "require": [
+   "CalTargetCharaScreenPos"
+  ],
+  "forbid": [],
+  "ambiguous": [
+   "soccer_battle_inplay_menu",
+   "soccer_inplay_menu",
+   "soccer_zigzag_dribble_training_inplay_menu"
+  ],
+  "chunk_crc": 392231094,
+  "chunk_size": 845
+ },
+ "soccer_zigzag_dribble_training_inplay_menu": {
+  "script": "soccer_zigzag_dribble_training_inplay_menu_0.00.00",
+  "require": [
+   "CalTargetCharaScreenPos"
+  ],
+  "forbid": [],
+  "ambiguous": [
+   "soccer_battle_inplay_menu",
+   "soccer_inplay_menu",
+   "soccer_training_inplay_menu"
+  ],
+  "chunk_crc": 392231094,
+  "chunk_size": 845
  },
  "team_dock_formation_menu": {
   "script": "team_dock_formation_menu_7.00.09.00",
@@ -179,6 +267,38 @@
   "forbid": [],
   "ambiguous": []
  },
+ "ability_learning_board_menu": {
+  "script": "ability_learning_board_menu_7.00.00.00",
+  "require": [
+   "SetCrossButtonFocusMode"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "chara_model_only_view_menu": {
+  "script": "chara_model_only_view_menu_1.02.01.00",
+  "require": [
+   "SetCharaModelInfo"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "chronicle_mode_top_menu": {
+  "script": "chronicle_mode_top_menu_6.00.06.00",
+  "require": [
+   "WaitCaravanModelLoad"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "event_menu": {
+  "script": "event_menu_6.00.28.00",
+  "require": [
+   "ResetSkippedState"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
  "general_window": {
   "script": "general_window_6.00.32.00",
   "require": [
@@ -187,11 +307,47 @@
   "forbid": [],
   "ambiguous": []
  },
- "evt_skill_slot_menu": {
-  "script": "evt_skill_slot_menu",
+ "kizuna_town_mainmenu": {
+  "script": "kizuna_town_mainmenu_5.00.11.00",
   "require": [
-   "EVT_OpenOriginalBoard",
-   "EVT_PickCoroutine"
+   "GetListItemListOrderTable"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "soccer_top_menu": {
+  "script": "soccer_top_menu_1.03.98.00",
+  "require": [
+   "MoveToVsCpuMenuCoroutine"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "team_dock_common_top_menu": {
+  "script": "team_dock_common_top_menu_0.00.00.00",
+  "require": [
+   "AddMemberEquipmentToList",
+   "GetSoccerGameOptionBgmList"
+  ],
+  "forbid": [
+   "FinalizeMenu",
+   "OnOpenEndLayer",
+   "InitItemUseMenuParam",
+   "NameSetting_ItemIcon",
+   "OnChangeLayerGroup",
+   "OnBack",
+   "SetupLockIconPos",
+   "OnEnter",
+   "ConvertTimeFrom32bitInt",
+   "OnChangeFocus"
+  ],
+  "ambiguous": []
+ },
+ "vrfw_skill_slot_menu": {
+  "script": "vrfw_skill_slot_menu",
+  "require": [
+   "CharacterReforgedSkillTableOpenOriginalBoard",
+   "CharacterReforgedSkillTablePickCoroutine"
   ],
   "forbid": [],
   "ambiguous": []

@@ -1,0 +1,42 @@
+schema = "BetterQoL.album/1"
+own_row_cards = [
+  0xFFF7C550,  # index number 1, retail row c11020520
+  0xFFF7C551,  # index number 2, retail row c11500890
+  0xFFF7C552,  # index number 3, retail row c11905040
+  0xFFF7C553,  # index number 4, retail row c11906030
+  0xFFF7C554,  # index number 5, retail row c11908020
+  0xFFF7C555,  # index number 6, retail row npc9901
+  0xFFF7C556,  # index number 7, retail row npc9900
+  0xFFF7C557,  # index number 8, retail row c11500210
+  0xFFF7C558,  # index number 9, retail row c11500220
+  0xFFF7C559,  # index number 10, retail row c11500940
+  0xFFF7C55A,  # index number 11, retail row c11500970
+  0xFFF7C55B,  # index number 12, retail row c11500980
+  0xFFF7C55C,  # index number 15, retail row c11500190
+  0xFFF7C55D,  # index number 17, retail row c11901100
+  0xFFF7C55E,  # index number 18, retail row c11904020
+  0xFFF7C55F,  # index number 19, retail row c11907030_notplayer
+  0xFFF7C560,  # index number 20, retail row c11907040_notplayer
+  0xFFF7C561,  # index number 21, retail row c11907120_notplayer
+  0xFFF7C562,  # index number 22, retail row c11908330_notplayer
+  0xFFF7C563,  # index number 411, retail row c11010221
+  0xFFF7C564,  # index number 412, retail row c11130130
+  0xFFF7C565,  # index number 413, retail row c11500211
+  0xFFF7C566,  # index number 414, retail row c11500700
+  0xFFF7C567,  # index number 415, retail row c11500710
+  0xFFF7C568,  # index number 416, retail row c11500720
+  0xFFF7C569,  # index number 417, retail row c11500730
+  0xFFF7C56A,  # index number 418, retail row c11500740
+  0xFFF7C56B,  # index number 419, retail row c11500750
+  0xFFF7C56C,  # index number 420, retail row c11500760
+  0xFFF7C56D,  # index number 421, retail row c11500770
+  0xFFF7C56E,  # index number 422, retail row c11500780
+  0xFFF7C56F,  # index number 423, retail row c11500790
+  0xFFF7C570,  # index number 424, retail row c11500800
+  0xFFF7C571,  # index number 425, retail row c11500810
+  0xFFF7C572,  # index number 426, retail row c11500820
+  0xFFF7C573,  # index number 427, retail row c11500830
+  0xFFF7C574,  # index number 428, retail row c11500840
+  0xFFF7C575,  # index number 429, retail row c11500850
+  0xFFF7C576,  # index number 430, retail row c11500910
+]

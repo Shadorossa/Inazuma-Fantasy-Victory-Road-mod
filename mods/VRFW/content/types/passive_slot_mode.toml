@@ -1,6 +1,4 @@
-# Schema of the passive slot modes: a game state in which every player keeps only his signature passive (the custom
-# passive slot, board equip slot 9) and his 5 passive slots are empty, or one in which no player carries any passive.
-# Unknown keys, wrong types or out-of-range values leave the declaration out with a warning.
+# Schema of the passive slot modes: a game state in which every player keeps only his signature passive.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.passive_slots/1"
 folder = "content/passive_slots"

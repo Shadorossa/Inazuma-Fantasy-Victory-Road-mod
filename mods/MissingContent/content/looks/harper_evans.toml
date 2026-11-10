@@ -1,0 +1,12 @@
+schema = "VRFW.look/2"
+
+# Harper Evans wears the scarf in every kit: the head with the scarf is a separate game model that retail only
+# swaps in for the Raimon kits (docs/game/mechanics/outfit-slot.md section 12).
+[[look]]
+target = "c11020010"
+model = "c11020170"
+
+# Her face icon shows the scarf too.
+[[sprite]]
+face = "c11020010"
+from = "c11020170"

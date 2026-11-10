@@ -1,15 +1,10 @@
 schema = "VRFW.character/2"
-# «Abuelo»: the player the Chrono Stone «Cadena del Abuelo» gives in its last chest (3DS scr_br_0015, the
-# teams\70_route_nodes\chain_cs_grandfather.toml tile c19). The CS dumps have no card data of him, so his card is a
-# clone of Astero Black's (c06039290: element, positions, rarity, growth, stats and moves); his look is Astero Black's
-# model (head, skin, body c000301) wearing Ray Dark's suit (c11801020's own clothes u11801020, same body). No office
-# row: he is only given by the chain.
 default_lang = "en"
 
 [[character]]
 name = "grandfather"
 based_on = "c06039290"                  # Astero Black: the cloned identity, card, voice and moves
-icon = "c06039290"                      # Astero Black's face icon (the game draws it over the outfit's bust)
+icon = "c06039290"
 
   [character.look]
   clothes = "u11801020"                 # Ray Dark's suit

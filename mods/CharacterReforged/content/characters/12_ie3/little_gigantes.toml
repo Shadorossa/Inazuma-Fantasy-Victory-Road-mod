@@ -1,26 +1,69 @@
 schema = "VRFW.character/2"
-# Character Reforged · Little Gigantes · Inazuma Eleven 3
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c03032210"                                   # Hector Helio
-moves = [
-  { move = 0xA1DEB97A, level = 10 },                        # Soul Hand
-  { move = 0xB8C5883B, level = 15 },                        # God Hand X
-  { move = 0xEB71131A, level = 20 },                        # X Blast
-  { move = 0x7EEA4EE9, level = 50 },                        # Blade Attack
-]
-VRFW.MoveGrades = [
-  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
-]
 
   [[edit.cards]]
   id = 0x49E7B83E                                         # GK/MF · mountain
   rank = 3
   growth = "normal"
   stats = { kick = 189, control = 225, technique = 205, pressure = 213, physical = 232, intelligence = 240, agility = 273, freedom = 279 }
+  moves = [
+    { move = 0xA1DEB97A, level = 10 },                      # Soul Hand
+    { move = 0xB8C5883B, level = 15 },                      # God Hand X
+    { move = 0x8C382852, level = 25 },                      # God Hand
+    { move = 0xE647BCEE, level = 62 },                      # God Hand V
+  ]
 
+
+
+
+
+
+
+
+[[edit]]
+target = "c03032210"
+card = 0x49E7B83E
+VRFW.MoveGrades = [
+  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
+]
+[[edit]]
+target = "c03032210"
+card = 0x49E7B83E
+VRFW.MoveGrades = [
+  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
+]
+[[edit]]
+target = "c03032210"
+card = 0x49E7B83E
+VRFW.MoveGrades = [
+  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
+]
+[[edit]]
+target = "c03032210"
+card = 0x49E7B83E
+VRFW.MoveGrades = [
+  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
+]
+[[edit]]
+target = "c03032210"
+card = 0x49E7B83E
+VRFW.MoveGrades = [
+  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
+]
+[[edit]]
+target = "c03032210"
+card = 0x49E7B83E
+VRFW.MoveGrades = [
+  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
+]
+[[edit]]
+target = "c03032210"
+card = 0x49E7B83E
+VRFW.MoveGrades = [
+  { Move = 0xA1DEB97A, Grade = 1 },                         # Soul Hand
+]
 [[edit]]
 target = "c03032220"                                   # Zephyr Vitesse
 moves = [
@@ -40,9 +83,9 @@ moves = [
 target = "c03032230"                                   # Walter Mountain
 moves = [
   { move = 0xDD365E15, level = 1 },                         # Mole Shuffle
-  { move = 0x166B0073, level = 10 },                        # Super Armadillo
   { move = 0x2DFFFFEA, level = 25 },                        # Ground Quake
-  { move = 0xA8215D7C, level = 59 },                        # The Mountain
+  { move = 0xBBA44137, level = 35 },                        # Great Wall
+  { move = 0x7D6E9A87, level = 62 },                        # The Wall
 ]
 
   [[edit.cards]]
@@ -56,9 +99,9 @@ moves = [
 target = "c03032240"                                   # Jimi Gaines
 moves = [
   { move = 0xB5B7108F, level = 1 },                         # Shadow Stitch
-  { move = 0x5B6C28ED, level = 1 },                         # Invisible Fake
-  { move = 0xB7F1AED6, level = 10 },                        # Double Cyclone
-  { move = 0x23C3EE90, level = 65 },                        # Shoulder Tackle
+  { move = 0x5B6C28ED, level = 11 },                        # Invisible Fake
+  { move = 0xB7F1AED6, level = 21 },                        # Double Cyclone
+  { move = 0xAEEA9F97, level = 31 },                        # Sigma Zone
 ]
 
   [[edit.cards]]
@@ -71,9 +114,9 @@ moves = [
 target = "c03032250"                                   # Ian Ferrum
 moves = [
   { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
-  { move = 0x23C3EE90, level = 1 },                         # Shoulder Tackle
   { move = 0xAC6D8A70, level = 10 },                        # Rainbow Arc
   { move = 0x7A67325B, level = 52 },                        # Flame Dance
+  { move = 0xDEB28A7B, level = 62 },                        # Monkey Turn
 ]
 
   [[edit.cards]]
@@ -88,7 +131,7 @@ moves = [
   { move = 0x43B5739B, level = 1 },                         # Lightning Bolt
   { move = 0x4CDC2C6B, level = 10 },                        # Shooting Star
   { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x5DFA931B, level = 50 },                        # Triple Defence
+  { move = 0xB7F1AED6, level = 30 },                        # Double Cyclone
 ]
 
   [[edit.cards]]
@@ -116,9 +159,9 @@ moves = [
 target = "c03032280"                                   # Keith Ryan
 moves = [
   { move = 0x18019E0A, level = 1 },                         # Double Grenade
-  { move = 0x06458894, level = 1 },                         # Feint Dash
   { move = 0x4D1E465C, level = 15 },                        # Fake Bomber
   { move = 0x66F2BE21, level = 52 },                        # Leaping Thunder
+  { move = 0x4CDC2C6B, level = 62 },                        # Shooting Star
 ]
 
   [[edit.cards]]
@@ -130,10 +173,10 @@ moves = [
 [[edit]]
 target = "c03032290"                                   # Maximino Cruz
 moves = [
-  { move = 0x2D68DB57, level = 1 },                         # Deceptive Step
   { move = 0x029E7B25, level = 1 },                         # Gaia Break
   { move = 0xD9BB22A7, level = 25 },                        # Air Ride
-  { move = 0x1F5EB9D5, level = 65 },                        # Nutmeg
+  { move = 0x6ADE9E01, level = 35 },                        # Illusory Ball
+  { move = 0x2A37FC88, level = 45 },                        # Revolution V
 ]
 
   [[edit.cards]]
@@ -167,7 +210,7 @@ moves = [
   { move = 0x8EDFBC29, level = 10 },                        # Double Jaw
   { move = 0xD9BB22A7, level = 25 },                        # Air Ride
   { move = 0x2CFC3E63, level = 50 },                        # Dragon Crash
-  { move = 0x6B4A7B35, level = 65 },                        # Power Shot
+  { move = 0x316A7390, level = 60 },                        # Land Dragon
 ]
 
   [[edit.cards]]
@@ -181,9 +224,9 @@ moves = [
 target = "c03032320"                                   # Keenan DiFortune
 moves = [
   { move = 0xDD6B2708, level = 1 },                         # Majin the Hand
-  { move = 0xCB8E6D04, level = 1 },                         # Mighty Save
   { move = 0xB8C5883B, level = 25 },                        # God Hand X
   { move = 0xF2CB0879, level = 65 },                        # Mugen the Hand
+  { move = 0xA1DEB97A, level = 75 },                        # Soul Hand
 ]
 
   [[edit.cards]]
@@ -197,8 +240,8 @@ target = "c03032330"                                   # Jarell Mangrove
 moves = [
   { move = 0x62BE692D, level = 1 },                         # Whirlwind Force
   { move = 0x5049A011, level = 20 },                        # Spinning Shot
-  { move = 0xF5C2A0A5, level = 58 },                        # Capoeira Grab
-  { move = 0x08EEBD53, level = 58 },                        # Feint Play
+  { move = 0x73C5AF40, level = 30 },                        # Dash Accelerator
+  { move = 0x0455B9CE, level = 40 },                        # Run Ball Run
 ]
 
   [[edit.cards]]
@@ -241,9 +284,9 @@ moves = [
 target = "c03032360"                                   # Jazzy Hedgeer
 moves = [
   { move = 0x2BF596BF, level = 1 },                         # Tsunami Boost
-  { move = 0x240BEDF2, level = 1 },                         # Bounce Shot
   { move = 0x025FD09B, level = 20 },                        # Volcano Cut
   { move = 0x46FA651E, level = 60 },                        # Water Veil
+  { move = 0xD9BB22A7, level = 70 },                        # Air Ride
 ]
 
   [[edit.cards]]
@@ -256,9 +299,9 @@ moves = [
 target = "c11803100"                                   # David Arrows
 moves = [
   { move = 0xBD8A9EBE, level = 1 },                         # Infinite Wall
-  { move = 0xC4701649, level = 13 },                        # Ice Block
-  { move = 0x2AF65736, level = 20 },                        # Bamboo Pattern
-  { move = 0x2FB941B3, level = 30 },                        # Stone Prison
+  { move = 0xC4701649, level = 11 },                        # Ice Block
+  { move = 0xF5C2A0A5, level = 21 },                        # Capoeira Grab
+  { move = 0x8C382852, level = 31 },                        # God Hand
 ]
 
   [[edit.cards]]

@@ -1,0 +1,14 @@
+# «Entrenamiento» row of the team dock's team-command list (soccer_team_dock_menu); it opens character_reforged_training_menu on the
+# selected dock and hides the bean rows. Shown while the loader answers. Hook file on the framework's host.
+name = "character_reforged_training_dock"
+mod = "CharacterReforged"
+order = 300
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["OpenSelectTeamMemberControlSubWindowSoccerTeamDock", "CallbackCloseCondTeamCommandSubWinSoccerTeamDock"]
+description = "Character Reforged training: «Entrenamiento» row in the team dock command list"
+
+[[hooks]]
+stem = "soccer_team_dock_menu"
+source = "training_dock_hooks.lua"

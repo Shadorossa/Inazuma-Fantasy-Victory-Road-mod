@@ -1,0 +1,17 @@
+# BetterUI: the kit picker as a honeycomb of kit icons beside the four models, under a centred series tab bar (LB / RB).
+# After away_kit (BetterQoL, Local / Visitante and variants) and pachanga_equip (FootballReforged): their wrappers stay inside.
+name = "better_ui_kit_grid"
+order = 900
+mod = "BetterUI"
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["OnChangeFocus", "OnEnter", "OnFunction", "OnInit", "OnOpenLayer", "OnSetupLayer", "Step", "UpdateItemEquipLine", "UpdateItemEquipMenu"]
+description = "BetterUI: kit picker grid"
+
+[[files]]
+stem = "equip_uniform_menu_list"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "better_ui_kit_grid_1.lua"

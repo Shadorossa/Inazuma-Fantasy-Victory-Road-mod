@@ -1,9 +1,3 @@
-# The framework's online compatibility window (VRFW_OnlineCompat, docs/framework/online.md) in the Battle Bay top menu:
-# the «Sala privada» shows it when the other player's mod list does not match (graft research/grafts/bb_net_room,
-# BBN_Closed). The two layers are the framework's window objects (VRFW content\menus\match_panel.toml) under the names
-# the window looks for; 28 plates (VRFW_MatchPanel.PLATES) and 59 labels (the table: title, 4 hints, 4 columns x 13
-# rows, 2 buttons; VRFW_OnlineCompat.LabelsNeeded()). The window opens and closes them itself. The res are the retail
-# options atlases of the window's default look.
 schema = "VRFW.menu/2"
 
 [[patch]]

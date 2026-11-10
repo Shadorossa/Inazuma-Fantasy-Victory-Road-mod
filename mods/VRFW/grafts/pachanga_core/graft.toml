@@ -1,8 +1,8 @@
-# The pachanga way back of the VR-Framework match engine: the title end of the way back (pachanga_title.lua) and the
-# story-field fallback (pachanga_field.lua, VRFW_PACHANGA_FieldTick). The friendly executor VRFW_PACHANGA itself is in
+# The pachanga way back of the VRFW match engine: the title end of the way back (pachanga_title.lua) and the
+# story-field fallback (pachanga_field.lua, VRFW.friendly_match_field_tick). The friendly executor VRFW.friendly_match itself is in
 # every menu VM (VRFW lua\menu\_all\12_pachanga.lua). Callers (e.g. a roguelite dock, office trials, chain modes) only
-# pick a rules id declared by their mod and call VRFW_PACHANGA.start / back / set_passed.
-# A VR-Framework graft (module match_engine; no global alias): built by `menu_assemble.py build --mod vr_framework`
+# pick a rules id declared by their mod and call VRFW.friendly_match.start / back / set_passed.
+# A VRFW graft (module match_engine; no global alias): built by `menu_assemble.py build --mod VRFW`
 # into the save part's Lua root (framework_pack.py).
 # On title_menu_2 pachanga_title.lua closes the pachanga after the retail OnInit.
 name = "pachanga_core"
@@ -12,7 +12,7 @@ module = ""
 requires = []
 conflicts = []
 wraps = ["OnInit", "Step"]
-description = "Pachangas: the way back of every mode's friendly matches at the title and the story field (VR-Framework match engine)"
+description = "Pachangas: the way back of every mode's friendly matches at the title and the story field (VRFW match engine)"
 
 [[files]]
 stem = "title_menu_2"

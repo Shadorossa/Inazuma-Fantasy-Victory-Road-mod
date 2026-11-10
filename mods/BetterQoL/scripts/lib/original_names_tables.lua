@@ -1,16 +1,3 @@
--- BetterQoL › original names: the merged text tables and the engine's opens.
---
--- Per text language and selection, a chara_text with every name row of a selected character taken from the game's
--- chara_text_roma (the rest the dub table's) and a team_text with the original team names (data file
--- content\original_names\teams.toml, keyed by the Japanese name) are served as new keys
---   data/common/text/<lang>/<table>_util_names_<signature>.cfg.bin
--- (the signature = FNV-1a 64 of the selected text ids, top bit set: the same names BetterQoL's old DLL served) and the
--- engine's opens of data/common/text/<lang>/chara_text / team_text are redirected to them (VRFW.files.redirect, one
--- filter per language and table). The opens are recorded (VRFW.files.opened): what each language loaded decides
--- whether a saved change needs the game's text reload.
---
--- «loaded» / «wanted» values: "unknown" (no open seen), "dub", "romaji" (the retail chara_text_roma), or a signature
--- (16 hex digits).
 
 local M = {}
 
@@ -19,7 +6,7 @@ M.CHARA = "chara_text"
 M.ROMA = "chara_text_roma"
 M.TEAM = "team_text"
 M.SERIES_TEXT = "chara_add_info_text"
-local SERVED_TAG = "_util_names_"
+local SERVED_TAG = "_betterqol_names_"
 
 M.UNKNOWN, M.DUB, M.ROMAJI = "unknown", "dub", "romaji"
 
@@ -31,14 +18,11 @@ function M.served_key(lang, tbl, sig)
   return TEXT_DIR .. lang .. "/" .. tbl .. SERVED_TAG .. sig .. ".cfg.bin"
 end
 
--- the key of the character names the engine loaded for `lang`, as the game shows them: the retail «Originales» table
--- while the game's byte says so (its load leaves an older open of chara_text recorded), else the table a redirect
--- served (the «Por equipos» selection), else the game's own file
 function M.shown_chara_key(lang)
-  if require("VRFW/lib/name_tags").original_names() then
+  if VRFW.name_tags.original_names() then
     return M.text_key(lang, M.ROMA)
   end
-  return require("VRFW/lib/game_text").shown_key(lang, M.CHARA) or M.text_key(lang, M.CHARA)
+  return VRFW.names.shown_key(lang, M.CHARA) or M.text_key(lang, M.CHARA)
 end
 
 -- the redirect filter of the engine's opens of `tbl` in `lang` (paths are matched lowercase with `/`)
@@ -51,9 +35,6 @@ function M.sig_of_key(key)
   return type(key) == "string" and key:match(SERVED_TAG .. "(%x+)%.cfg%.bin$") or nil
 end
 
--- ------------------------------------------------------------------------------------------- FNV-1a 64
-
--- h = (h xor b) * 0x100000001B3 mod 2^64, h as two 32-bit halves (every product stays below 2^53: exact in doubles)
 local function fnv_byte(hi, lo, b)
   lo = bit32.bxor(lo, b)
   local p = lo * 0x1B3
@@ -63,8 +44,6 @@ local function fnv_byte(hi, lo, b)
   return nhi, nlo
 end
 
--- signature of a sorted list of text ids: nil for none, else 16 hex digits of FNV-1a 64 over each id's 4 LE bytes
--- with the top bit set (BetterQoL's old DLL's ids_sig)
 function M.ids_sig(ids)
   if #ids == 0 then
     return nil
@@ -80,11 +59,13 @@ function M.ids_sig(ids)
   return string.format("%08x%08x", hi, lo)
 end
 
--- ------------------------------------------------------------------------------------------- overrides
+local trim = VRFW.strings.trim
 
-local trim = require("VRFW/lib/basics").value.trim
+-- Text `s` with each `[kanji/kana]` replaced by its kana.
+function M.furigana_reading(s)
+  return (s:gsub("%[[^/%]]*/([^%]]*)%]", "%1"))
+end
 
--- `[kanji/kana]` furigana markup reduced to the kanji
 function M.strip_furigana(s)
   local out, rest = {}, s
   while true do
@@ -107,7 +88,6 @@ function M.strip_furigana(s)
   return trim(table.concat(out))
 end
 
--- teams.toml (`[[team]] ja / name`): Japanese name (furigana stripped) -> original name
 function M.team_names(doc)
   local out, n = {}, 0
   for _, t in ipairs(type(doc) == "table" and type(doc.team) == "table" and doc.team or {}) do
@@ -119,7 +99,6 @@ function M.team_names(doc)
   return out, n
 end
 
--- the character names to change: every row of `roma` whose id is in `ids` and whose text differs from `dub`'s
 function M.chara_overrides(dub, roma, ids)
   local over, n = {}, 0
   for _, id in ipairs(ids) do
@@ -138,8 +117,6 @@ function M.chara_overrides(dub, roma, ids)
   return over, n
 end
 
--- the team names to change in one language: every row of team_text whose Japanese text (`ja_names`: id -> variant
--- -> name, furigana stripped) is the name of a selected team (`ids`: name text ids) with an original name
 function M.team_overrides(ja_names, lang_rows, ids, names)
   local marked, any = {}, false
   for _, id in ipairs(ids) do
@@ -173,8 +150,6 @@ function M.team_overrides(ja_names, lang_rows, ids, names)
   return over, n
 end
 
--- ------------------------------------------------------------------------------------------- the reload rule
-
 function M.chara_wanted(romaji, custom, chara_sig)
   if romaji then
     return M.ROMAJI
@@ -193,8 +168,6 @@ function M.team_wanted(romaji, custom, team_sig, all_sig)
   return M.DUB
 end
 
--- which loaded tables no longer match the wanted ones: characters, teams. With the game's byte at «Originales» the
--- characters are the retail path's, and a table never seen opened never asks for a reload.
 function M.reload_needed(romaji_now, chara_want, chara_loaded, team_want, team_loaded)
   local chara = not romaji_now and chara_loaded ~= M.UNKNOWN and chara_loaded ~= chara_want
   local teams = team_loaded ~= M.UNKNOWN and team_loaded ~= team_want

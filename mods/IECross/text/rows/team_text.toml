@@ -1,5 +1,4 @@
-# Names of the 11 Inazuma Eleven Cross teams and of the Cross belong team (9 languages). Added to the end of their
-# list in declaration order.
+# Names of the 11 Inazuma Eleven Cross teams and of the Cross belong team (9 languages).
 schema = "VRFW.text/2"
 
 [[row]]
@@ -55,7 +54,7 @@ zh_hans = "异星杂技团·混沌纪元"
 zh_hant = "異星雜技團·混沌紀元"
 
 [[row]]
-id = 0x3B6C5968  # Piratas Inazuma Japón
+id = 0x3B6C5968
 es = "Piratas Inazuma Japón"
 en = "Inazuma National Pirates"
 fr = "Pirates Inazuma Japon"
@@ -127,7 +126,7 @@ zh_hans = "拉面义勇团·雷门OB"
 zh_hant = "拉麵義勇團·雷門OB"
 
 [[row]]
-id = 0x85BF33DA  # Japón 2026
+id = 0x85BF33DA
 es = "Japón 2026"
 en = "Japan 2026"
 fr = "Japon 2026"

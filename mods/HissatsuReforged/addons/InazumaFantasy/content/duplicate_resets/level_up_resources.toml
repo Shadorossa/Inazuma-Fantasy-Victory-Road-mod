@@ -1,0 +1,9 @@
+schema = "VRFW.duplicate_reset/1"
+
+# Hissatsu Reforged + Inazuma Fantasy › a copy of the locked retail save starts without the retail stock of the move level-up resources.
+
+[[VRFW.DuplicateReset]]
+name = "level_up_resources"
+# abl_000001 = the move level-up item (config ranks.raise_item); tk_bb000001 = the currency of the Fantasy shops that sell the level-up items
+items = ["abl_000001", "tk_bb000001"]
+keep = 0

@@ -1,0 +1,24 @@
+schema = "VRFW.look/2"
+# The armour of the keshin k002050: the retail armour ka007601 in its colours, one row per body group.
+
+[[clothes]]
+model = "krobin01"
+rows = [
+  ["_armd/krobin01/krobin01.g4md", "_armd/krobin01/krobin01_10.g4tx", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g1.g4md", "_armd/krobin01/krobin01_10.g4tx", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g2.g4md", "_armd/krobin01/krobin01_10.g4tx", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g3.g4md", "_armd/krobin01/krobin01_10.g4tx", 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g4.g4md", "_armd/krobin01/krobin01_10.g4tx", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g5.g4md", "_armd/krobin01/krobin01_10.g4tx", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g6.g4md", "_armd/krobin01/krobin01_10.g4tx", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g4.g4md", "_armd/krobin01/krobin01_10.g4tx", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g5.g4md", "_armd/krobin01/krobin01_10.g4tx", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g6.g4md", "_armd/krobin01/krobin01_10.g4tx", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g2.g4md", "_armd/krobin01/krobin01_10.g4tx", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g3.g4md", "_armd/krobin01/krobin01_10.g4tx", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g6.g4md", "_armd/krobin01/krobin01_10.g4tx", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g6.g4md", "_armd/krobin01/krobin01_10.g4tx", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g4.g4md", "_armd/krobin01/krobin01_10.g4tx", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g4.g4md", "_armd/krobin01/krobin01_10.g4tx", 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+  ["_armd/krobin01/krobin01_g5.g4md", "_armd/krobin01/krobin01_10.g4tx", 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+]

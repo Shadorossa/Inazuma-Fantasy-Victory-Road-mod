@@ -1,0 +1,19 @@
+schema = "VRFW.extra_slot/1"
+
+[[VRFW.ExtraSlotExtend]]
+slot = "CharacterReforged.skill_set"
+
+[VRFW.ExtraSlotExtend.commands]
+swap_gauge = "CMND_CHARACTERREFORGED_CHANGE_SWAP_GAUGE"
+
+[VRFW.ExtraSlotExtend.swap]
+carriers = "wmc_evt{k}"
+count = 8
+cooldown_s = 60.0                    # tunable: keep it equal to change.toml's
+permanent = true
+states = [9, 14, 16]
+free_lent_slot = true
+cpu = false
+become_partner = true
+release_button = false
+change_table = "ModeChange"

@@ -1,0 +1,73 @@
+schema = "CareerMode.career/1"
+
+[[CareerMode.Player]]
+key = "0x89AF6C09"
+nationality = "japan"
+
+[[CareerMode.Player]]
+key = "0xC4DB5F07"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0x62F128E9"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0xEFF60CC4"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0x7BEA19A8"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0xF6ED3D85"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0x50C74A6B"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0xF03C73D9"
+nationality = "japan"
+
+[[CareerMode.Player]]
+key = "0xB9ACAB42"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0x49DC7B2A"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0xA0B79A03"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0xCE4467E5"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0x8B9AC9C0"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0xD75F56A4"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0x9281F881"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0x04DB53B4"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0x1519E44E"
+hidden = true
+
+[[CareerMode.Player]]
+key = "0x1DC062F5"
+hidden = true

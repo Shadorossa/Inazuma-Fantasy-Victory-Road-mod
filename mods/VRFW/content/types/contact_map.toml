@@ -27,6 +27,13 @@ RecruitCurrencyTitle = { type = "string", doc = "their names (menu_text rows)" }
 ItemCurrencyTitle = { type = "string" }
 Exclude = { type = "records", doc = "optional: cards kept off every map of the set (§16)" }
 
+[entry.ContactPositionCurrency]
+doc = "pays every player of a set with the spirit of his position, over ElementCurrency and the terms' Spirit"
+Set = { type = "string", required = true, doc = "this mod's set, or \"<mod>.<name>\"" }
+Currency = { type = "table", required = true, doc = "gk / df / mf / fw -> the spirit card" }
+Title = { type = "table", doc = "gk / df / mf / fw -> the spirits' name (menu_text row)" }
+Unit = { type = "table", doc = "gk / df / mf / fw -> the name of one spirit (menu_text row)" }
+
 [entry.ContactMap]
 Set = { type = "string", doc = "this mod's set, or \"<mod>.<name>\"" }
 Name = { type = "name", required = true }

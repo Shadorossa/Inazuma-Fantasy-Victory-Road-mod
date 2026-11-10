@@ -1,0 +1,64 @@
+schema = "VRFW.menu/2"
+
+[[object]]
+name = "character_reforged_points_peg_bar"
+from = "btl06_13_stamina_gauge"
+add_block = [{ block = "MenuAnchorComponent", values = [], after = "CMenuAnimation" }]
+add = [
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointHorizontalV", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointVerticalV", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointHorizontalH", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointVerticalH", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_autoCalcPos", values = [0] },
+]
+
+[[object]]
+name = "character_reforged_points_peg_shine"
+from = "btl06_13_stamina_gauge"
+priority = 201
+add_block = [{ block = "MenuAnchorComponent", values = [], after = "CMenuAnimation" }]
+add = [
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointHorizontalV", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointVerticalV", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointHorizontalH", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointVerticalH", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_autoCalcPos", values = [0] },
+]
+
+[[object]]
+name = "character_reforged_points_peg_label"
+from = "btl06_13_stamina_gauge"
+priority = 201
+add_block = [{ block = "MenuAnchorComponent", values = [], after = "CMenuAnimation" }]
+add = [
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointHorizontalV", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointVerticalV", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointHorizontalH", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_anchorPointVerticalH", values = [17] },
+    { block = "MenuAnchorComponent", parameter = "m_autoCalcPos", values = [0] },
+]
+
+[[patch]]
+menu = "soccer_inplay_menu"
+add_layer = { name = "character_reforged_points_peg_bar", object = "character_reforged_points_peg_bar", count = 1, after = "soccer08_27_catch_bomb_recast_gauge", groups = [
+    { group = "soccer_inplay_menu", flags = [0, 0, 0, 0, 1, 0] },
+    { group = "soccer_battle_inplay_menu", flags = [0, 0, 0, 0, 1, 0] },
+] }
+
+[[patch]]
+menu = "soccer_inplay_menu"
+add_layer = { name = "character_reforged_points_peg_shine", object = "character_reforged_points_peg_shine", count = 1, after = "character_reforged_points_peg_bar", groups = [
+    { group = "soccer_inplay_menu", flags = [0, 0, 0, 0, 1, 0] },
+    { group = "soccer_battle_inplay_menu", flags = [0, 0, 0, 0, 1, 0] },
+] }
+
+[[patch]]
+menu = "soccer_inplay_menu"
+add_layer = { name = "character_reforged_points_peg_label", object = "character_reforged_points_peg_label", count = 1, after = "character_reforged_points_peg_shine", groups = [
+    { group = "soccer_inplay_menu", flags = [0, 0, 0, 0, 1, 0] },
+    { group = "soccer_battle_inplay_menu", flags = [0, 0, 0, 0, 1, 0] },
+] }
+
+[[patch]]
+menu = "soccer_inplay_menu"
+resources = ["#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"]

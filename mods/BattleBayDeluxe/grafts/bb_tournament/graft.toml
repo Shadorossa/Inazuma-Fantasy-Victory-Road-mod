@@ -1,33 +1,5 @@
-# Battle Bay «Torneo» (docs/game/modes/bb-tournament.md) of the mod BattleBayDeluxe (Battle Bay Deluxe): the run
-# lives in the mod's scripts (scripts\tournament.lua + lib\tourney.lua, commands CMND_BBD_TOURN_*, content\game\
-# tournament.toml); the player's matches are the game's own Battle Bay campaign matches; the bracket overlay is added
-# to the Battle Bay top menu (content\menus\bb_tournament.toml), its tree page is the framework's bracket
-# screen vrfw_bracket_menu (VRFW_Bracket); texts
-# evt_bbd_tn_* (text\rows\menu_text.toml); knockout matches use the rulebook content\rules\bbd_knockout.toml
-# (the VR-Framework rule engine: extra time + penalties), selected with CMND_VRFW_RULE_ENGINE_SELECT.
-#   bb_stadium_top_menu              bbt_common.lua + bbt_top.lua + bbt_mode.lua: the «Campaña» row in Torneo mode
-#                                    (1.5.47: no «Torneo» row any more, bbt_row.lua removed; a run going = the Torneo,
-#                                    the top bar's Torneo = the same row in Torneo mode); the armed grid; continue /
-#                                    view / new; the sync before the retail OnInit; the bracket overlay (pages:
-#                                    results, groups, tree; after an elimination the remaining rounds one per Enter);
-#                                    the header's Campaña / Torneo selector over the Torneo (bbt_mode.lua)
-#   enjoy_team_select_menu_campaign  bbt_common.lua + bbt_grid.lua (1.5.4): while a tournament is armed, the team's
-#                                    decide opens the tournament options, the difficulty window's start draws it;
-#                                    bbt_mode.lua (1.5.47): the header's Campaña / Torneo selector (arms / disarms)
-#   bb_stadium_campaign_end_window   bbt_common.lua + bbt_end.lua: «continue» goes back to the top menu during a
-#                                    tournament (the results first)
-#   fade_menu_encount                bbt_common.lua: the loading telop's match number and rival ladder are the
-#                                    tournament's; bbt_encount.lua (1.5.47): the path's node count is the mode's
-#   game_over_menu                   bbt_over.lua: the game-over telop after a group-stage defeat that keeps the player
-#                                    in the run, and after every league match (a draw or a defeat is a league result),
-#                                    is closed unseen from Step (CMND_BBD_TOURN_STILL_IN; the retail telop again if the
-#                                    menu does not close); an eliminating defeat keeps it
-#   sub_window_group                 bbt_common.lua: Accept on a row of the Torneo's options panel (L / R window)
-#                                    changes the value in place (OnEnter; 1.5.10); 1.5.16: the panel's third L / R row (OpenWindow
-#                                    wrapped: the mod's 3-row locator evt_bbd_tn_opts_locator, row instance 3)
-# bbt_top.lua's parts (bbt_top_*.lua) follow it in this order on both top menus: one chunk, shared locals.
-# Order 346: after bb_draft (345), so the sync runs before the Draft's own top-menu sync (outer OnInit wrapper).
-# Globals only (BBT, BBT_*); nothing runs at chunk load but the CMND_GET_BB_STADIUM_CAMPAIGN_INFO wrapper's install.
+# Battle Bay Deluxe tournament (knockout, groups + knockout, league) on the Battle Bay campaign matches.
+# bbt_top.lua and its bbt_top_*.lua parts form one chunk with shared locals; order 346 runs after bb_draft (345).
 name = "bb_tournament"
 mod = "BattleBayDeluxe"
 order = 346
@@ -35,7 +7,7 @@ module = "lua_bridge"
 requires = ["bb_draft"]
 conflicts = []
 wraps = ["OnInit", "OnDecideFocus", "OnBack", "OnFunction", "Step", "OnEnter", "OnSetupLayer", "SetupParam", "funcLuaMenuCommand", "funcLuaCommand", "SetupListItemTexture", "OpenWindow", "SetupWindowParams", "OnOpenLayer"]
-description = "Battle Bay: the Torneo (knockout or group stage + knockout) on the Campaña's matches, with the Victory Road bracket art"
+description = "Battle Bay tournament mode on the campaign matches"
 
 [[files]]
 stem = "bb_stadium_top_menu"

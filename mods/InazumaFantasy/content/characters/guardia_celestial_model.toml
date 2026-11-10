@@ -1,0 +1,17 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+[[character]]
+name = "move_model_guardia_celestial"
+based_on = "ev63_01660"
+battle = false
+
+  [character.base]
+  id = 0x1B893FC2
+  name = "ev63_91660"
+
+  [character.new_model]
+  id = 0xA2DEBB8D
+  from = "ev63_01660"
+  [character.new_model.cells]
+  skeleton_path = "_waza/ev63_91660/ev63_91660.objbin"

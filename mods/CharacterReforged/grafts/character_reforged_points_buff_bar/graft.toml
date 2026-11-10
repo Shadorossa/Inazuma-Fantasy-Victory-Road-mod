@@ -1,0 +1,24 @@
+# Buff row widened to the team aura limit, with PEG / SP / PE bars in place of each aura entry's stopwatch.
+name = "character_reforged_points_buff_bar"
+mod = "CharacterReforged"
+order = 860
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["UpdateAuraBuffCharaIcon", "Step"]
+description = "Character Reforged points: the buff row widened to the team aura limit; PE / PEG / SP bars instead of the stopwatch on its aura entries"
+
+[[files]]
+stem = "soccer_team_buff_icon_list_menu"
+
+  # first: the bars' wrapper below wraps the widened UpdateAuraBuffCharaIcon
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "buff_row.lua"
+  marker = "CharacterReforged points buff row"
+  include = { "@UPV@" = "../_lib/vrfw_upvalues.lua" }
+
+  [[files.ops]]
+  type = "bytecode_child"
+  source = "buff_bar.lua"
+  marker = "CharacterReforged points buff bar"

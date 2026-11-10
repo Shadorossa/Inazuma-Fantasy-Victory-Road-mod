@@ -1,0 +1,22 @@
+schema = "VRFW.transform/2"
+
+[miximax]
+free = true
+colors = "data/common/cr_mx"
+# the «create» row (techniques\miximax_carriers.toml): never a retail pair, never a retail miximax form
+carriers = ["wmm_character_reforged_create"]
+validity = "CharacterReforged.Miximaxed.Validity"
+mix_table = "CharacterReforged/MixSlot"
+
+[ability_list]
+hide = ["wmm_evt"]
+create = ["wmm_character_reforged_create"]
+create_flag = "character_reforged_mx_list_create"
+
+[[transform]]
+name = "miximax"
+kind = "miximax"
+command = "wmm_evt"
+source = { partner = "any" }
+users = { anyone = true }
+look = { hair = "partner", skin = "partner", iris = "partner" }

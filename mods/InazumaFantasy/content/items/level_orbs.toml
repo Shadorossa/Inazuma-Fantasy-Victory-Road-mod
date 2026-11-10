@@ -1,7 +1,4 @@
 schema = "VRFW.item/2"
-# The three EXP orbs of the game as level orbs, with Inazuma Fantasy on: only their names and descriptions change here
-# (same ids, icons and stacks; a save keeps its count). The levels are config.toml [level_orbs.levels]; the use is the
-# graft inazuma_fantasy_level_orbs. Mod off: the game's orbs.
 default_lang = "en"
 
 [[edit]]

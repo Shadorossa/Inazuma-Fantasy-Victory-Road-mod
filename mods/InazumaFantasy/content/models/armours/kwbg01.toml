@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# The armour of the keshin Warborg: head and back meshes per skeleton and texture (assets/models/armours/kwbg01).
+format = "native"
+game_path = "chr/_armd/kwbg01"

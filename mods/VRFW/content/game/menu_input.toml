@@ -15,7 +15,7 @@ arguments = ["u32"]
 returns = "ptr"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_MENU_INPUT_DUMP"     # () -> "crc pPRIO oORDER alive|gone actN [top]; ... | ctrl <name> on<0|1>"
+name = "CMND_VRFW_MENU_INPUT_DUMP"
 handler = "MenuInput.Dump"
 needs = ["menu_controller", "MenuFind"]
 
@@ -26,6 +26,6 @@ handler = "MenuInput.Ctrl"
 needs = ["menu_controller"]
 
 [[VRFW.Command]]
-name = "CMND_VRFW_MENU_INPUT_CTRL_ON"  # () -> previous switch byte (0 = it was off and is on now)
+name = "CMND_VRFW_MENU_INPUT_CTRL_ON"
 handler = "MenuInput.CtrlOn"
 needs = ["menu_controller"]

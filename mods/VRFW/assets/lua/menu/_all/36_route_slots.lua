@@ -1,84 +1,62 @@
--- menu_engine: EXTENDED route node slots (VRFW base feature).
--- Definitions only (this file runs in every script VM, lua\_all); no engine call happens while a chunk loads.
---
--- The Chronicle board keeps a piece's clear / lock state in three 300-byte save arrays (one byte per statusFlagIndex,
--- bit n = difficulty {1, 2, 3, 4, 10, 11}[n]); the retail pieces use 1-270, so a mod's [[VRFW.RouteNode]] had only the
--- free bytes 271-299. A node may now take an EXTENDED slot (300 and up, defaults\team.toml [route_nodes]
--- ext_slot_limit): its piece row holds the shared proxy byte (proxy_slot) and its real state lives here, in the save
--- service (owner "VRFW", key "route_slot.<slot>" = "<clear mask>,<lock mask>", the retail bit order; absent =
--- nothing cleared, nothing locked: a fresh retail byte). The board scripts never see the proxy: in their VMs the board's
--- own reads go through VRFW_RouteSlots' funcLuaCommand wrapper:
---   * funcLuaCommand(126049514, pieceIndex, 6) (the piece's statusFlagIndex) of an extended node's piece answers its
---     extended slot (the team type's CMND_VRFW_TEAM_ROUTE_NODE_GET);
---   * CMND_GET / SET_CHRONICLE_CLEAR_STATUS and _LOCK_STATUS on a slot >= 300 read / write the save service.
--- So the retail board code, the framework's route_nodes / route_chains / route_board grafts and every mod's hooks work
--- on extended slots unchanged. The game's native code only ever sees the proxy byte (nobody else uses it).
---
---   VRFW_RouteSlots.Watch()     -- from a patch file of a board script's folder (lua\menu\<stem>\): the wrapper goes in
---                               -- at the script's OnInit (the engine's first callback), once per VM
---   VRFW_RouteSlots.Install()   -- the same, now (idempotent; only from a callback)
---   VRFW_RouteSlots.Get(kind, slot, difficulty) / Set(kind, slot, on, difficulty)   kind "clear" / "lock"
-if VRFW_RouteSlots == nil then
+-- lua_patch.scope: used
+if VRFW.route_slots == nil then
   local M = {
-    BASE = 300,               -- the game's status arrays (m_globalChronicle*StatusFlag): statusFlagIndex 0-299
+    BASE = 300,
     PIECE = 126049514,        -- piece info (pieceIndex, field): field 6 = statusFlagIndex
-    CLEAR_GET = VRFW_Cmd.GET_CHRONICLE_CLEAR_STATUS,   -- CMND_GET_CHRONICLE_CLEAR_STATUS (slot, difficulty)
-    CLEAR_SET = VRFW_Cmd.SET_CHRONICLE_CLEAR_STATUS,   -- CMND_SET_CHRONICLE_CLEAR_STATUS (slot, on, difficulty)
-    LOCK_GET = VRFW_Cmd.GET_CHRONICLE_LOCK_STATUS,    -- CMND_GET_CHRONICLE_LOCK_STATUS (slot, difficulty)
-    LOCK_SET = VRFW_Cmd.SET_CHRONICLE_LOCK_STATUS,    -- CMND_SET_CHRONICLE_LOCK_STATUS (slot, locked, difficulty)
+    CLEAR_GET = VRFW.commands.GET_CHRONICLE_CLEAR_STATUS,   -- CMND_GET_CHRONICLE_CLEAR_STATUS (slot, difficulty)
+    CLEAR_SET = VRFW.commands.SET_CHRONICLE_CLEAR_STATUS,   -- CMND_SET_CHRONICLE_CLEAR_STATUS (slot, on, difficulty)
+    LOCK_GET = VRFW.commands.GET_CHRONICLE_LOCK_STATUS,    -- CMND_GET_CHRONICLE_LOCK_STATUS (slot, difficulty)
+    LOCK_SET = VRFW.commands.SET_CHRONICLE_LOCK_STATUS,    -- CMND_SET_CHRONICLE_LOCK_STATUS (slot, locked, difficulty)
     PIECE_IDX = 1064555639,   -- pieceId -> ok, piece index
-    NODE_COUNT = {VRFW_Cmd.VRFW_TEAM_ROUTE_NODE_COUNT, 3004181703},   -- CMND_VRFW_TEAM_ROUTE_NODE_COUNT (legacy part name second)
-    NODE_GET = {VRFW_Cmd.VRFW_TEAM_ROUTE_NODE_GET, 1705651873},     -- CMND_VRFW_TEAM_ROUTE_NODE_GET (i) -> pieceId, slot, ...
-    SAVE_GET = VRFW_Cmd.VRFW_SAVE_GET,    -- CMND_VRFW_SAVE_GET (owner, key, default)
-    SAVE_SET = VRFW_Cmd.VRFW_SAVE_SET,    -- CMND_VRFW_SAVE_SET (owner, key, value, commit)
+    NODE_COUNT = VRFW.commands.VRFW_TEAM_ROUTE_NODE_COUNT,   -- CMND_VRFW_TEAM_ROUTE_NODE_COUNT
+    NODE_GET = VRFW.commands.VRFW_TEAM_ROUTE_NODE_GET,     -- CMND_VRFW_TEAM_ROUTE_NODE_GET (i) -> pieceId, slot, ...
+    SAVE_GET = VRFW.commands.VRFW_SAVE_GET,
+    SAVE_SET = VRFW.commands.VRFW_SAVE_SET,
     OWNER = "VRFW",
-    -- the retail bit of each difficulty (bit n = difficulty {1, 2, 3, 4, 10, 11}[n]): 2^(n-1)
     BIT = {[1] = 1, [2] = 2, [3] = 4, [4] = 8, [10] = 16, [11] = 32},
-    byIdx = nil,              -- piece index -> extended slot (per VM, built on first use)
+    by_idx = nil,              -- piece index -> extended slot (per VM, built on first use)
     installed = false,
   }
-  VRFW_RouteSlots = M
+  VRFW.route_slots = M
 
   local function log(...)
     if PRINT ~= nil then
-      pcall(PRINT, "VRFW_RS", ...)
+      pcall(PRINT, "VRFW.route_slots", ...)
     end
   end
 
-  -- the team type's command, else the legacy part's (with the real funcLuaCommand)
+  -- the team type's command (with the real funcLuaCommand)
   local function call(real, cmd, ...)
-    for k = 1, 2 do
-      local r = table.pack(pcall(real, cmd[k], ...))
-      if r[1] and r[2] ~= nil then
-        return table.unpack(r, 2, r.n)
-      end
+    local r = table.pack(pcall(real, cmd, ...))
+    if r[1] and r[2] ~= nil then
+      return table.unpack(r, 2, r.n)
     end
     return nil
   end
 
   -- piece index -> extended slot of every route node with a slot >= BASE
   local function load(real)
-    if M.byIdx ~= nil then
-      return M.byIdx
+    if M.by_idx ~= nil then
+      return M.by_idx
     end
-    M.byIdx = {}
+    M.by_idx = {}
     local n = call(real, M.NODE_COUNT)
     if type(n) ~= "number" then
-      return M.byIdx
+      return M.by_idx
     end
     for i = 0, n - 1 do
       local piece, slot = call(real, M.NODE_GET, i)
       if type(piece) == "number" and type(slot) == "number" and slot >= M.BASE then
         local ok, okI, idx = pcall(real, M.PIECE_IDX, piece)
         if ok and okI and type(idx) == "number" then
-          M.byIdx[idx] = slot
+          M.by_idx[idx] = slot
         end
       end
     end
     local count = 0
-    for _ in pairs(M.byIdx) do count = count + 1 end
+    for _ in pairs(M.by_idx) do count = count + 1 end
     log("extended slots", count, "of", n, "nodes")
-    return M.byIdx
+    return M.by_idx
   end
 
   local function read(real, slot)
@@ -102,7 +80,6 @@ if VRFW_RouteSlots == nil then
     return on and mask + bit or mask - bit
   end
 
-  -- an extended slot's bit: kind "clear" / "lock"
   local function get(real, kind, slot, d)
     local bit = M.BIT[d]
     if bit == nil then
@@ -126,22 +103,23 @@ if VRFW_RouteSlots == nil then
     pcall(real, M.SAVE_SET, M.OWNER, "route_slot." .. tostring(slot), c .. "," .. l, 1)
   end
 
-  function M.Get(kind, slot, d)
+  --- Reads a route-slot flag of kind `kind`; `d` is the default.
+  function M.get(kind, slot, d)
     return get(funcLuaCommand, kind, slot, d)
   end
 
-  function M.Set(kind, slot, on, d)
+  --- Writes a route-slot flag of kind `kind`.
+  function M.set(kind, slot, on, d)
     set(funcLuaCommand, kind, slot, on, d)
   end
 
-  -- the VM's funcLuaCommand with the extended slots (once per VM; only from a callback). The other commands it
-  -- sends (node list, save service) are not hooked here, so they go through the global.
-  function M.Install()
+  --- Installs the route-slot commands once; answers true, or false, why.
+  function M.install()
     if M.installed then
-      return false
+      return false, "already installed"
     end
     if type(funcLuaCommand) ~= "function" then
-      return false
+      return false, "no command function yet"
     end
     -- the argument count is passed on unchanged (a C command may check it)
     local function handler(nxt, ...)
@@ -166,16 +144,16 @@ if VRFW_RouteSlots == nil then
       end
       return nxt(...)
     end
-    M.installed = VRFW_Host.HookCommand({ M.PIECE, M.CLEAR_GET, M.LOCK_GET, M.CLEAR_SET, M.LOCK_SET }, handler,
+    M.installed = VRFW.host.hook_command({ M.PIECE, M.CLEAR_GET, M.LOCK_GET, M.CLEAR_SET, M.LOCK_SET }, handler,
       "VRFW.route_slots")
     return M.installed
   end
 
-  -- watch the board script of this VM: the wrapper goes in at its OnInit (chaining)
-  function M.Watch()
+  --- Wraps OnInit so the commands are installed once the script is up.
+  function M.watch()
     local prev = OnInit
     OnInit = function(...)
-      M.Install()
+      M.install()
       if prev ~= nil then
         return prev(...)
       end

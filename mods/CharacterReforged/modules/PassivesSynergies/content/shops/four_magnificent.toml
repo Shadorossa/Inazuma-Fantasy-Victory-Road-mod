@@ -1,0 +1,14 @@
+schema = "VRFW.shop/2"
+
+# In the retail synergy shop 0x5B032CEA for 10 cards of each of the four members.
+[[edit]]
+target = "0x5B032CEA"
+  [[edit.entry]]
+  item = "four_magnificent"
+  stock = 1
+  costs = [
+    { currency = "season_autumn_card", count = 10 },
+    { currency = "season_summer_card", count = 10 },
+    { currency = "season_spring_card", count = 10 },
+    { currency = "season_winter_card", count = 10 },
+  ]

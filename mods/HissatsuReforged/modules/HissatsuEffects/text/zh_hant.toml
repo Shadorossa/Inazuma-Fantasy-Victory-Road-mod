@@ -1,6 +1,4 @@
 schema = "VRFW.text_key/1"
-# Hissatsu Effects › the move card's sentences of the technique effects (content\rules\technique_effects_*.toml,
-# their `text`), language zh_hant.
 
 [new]
 te_whd00170 = "15公尺內有2名或以上隊友時，威力+15%"
@@ -783,3 +781,4 @@ te_whs10010 = "在下半場的前三分之一時間內（平手時），消耗�
 te_whs10020 = "在下半場的前三分之一時間內（落後時），消耗的士氣-15%"
 te_whs10090 = "在每個半場的最後三分之一時間內（落後時），消耗的士氣-15%"
 te_whs10130 = "在上半場的最後三分之一時間內，消耗的士氣-15%"
+te_whk00690 = "每場比賽1次，裝備此招的守門員不消耗士氣即可擋下射門"

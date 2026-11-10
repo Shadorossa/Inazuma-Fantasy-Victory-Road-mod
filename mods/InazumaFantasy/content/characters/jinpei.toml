@@ -1,0 +1,103 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+# Jinpei Jiba: midfielder, forest, his own clothes (model row with force_kit 1 so no team kit replaces them, own clothes model).
+# Stats rolled once (seed 20261110) inside the range of the 21 kick-led idol cards: kick in its lower half, control and technique in their upper half.
+[[character]]
+name = "jinpei"
+based_on = "c05029720"  # template: Luke Triton (own clothes, no kit)
+order = 201
+
+  [character.base]
+  id = 0xA87B7943  # crc32("c90630000")
+  name = "c90630000"
+  name_text = 0x341872C2  # crc32("c90630000_name")
+  short_name_text = 0x134BAD07  # crc32("c90630000_short")
+  upper_name_text = 0xF23CE239  # crc32("c90630000_upper")
+  description_text = 0xA01EA535  # crc32("c90630000_description")
+  model = 0x4BF64F7C
+  # album only: not on any team, so Luke's belong team is cleared
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0
+
+  [character.new_model]
+  id = 0x4BF64F7C  # crc32("c90630000_model")
+  from = "c05029720"
+  [character.new_model.cells]
+  body = 0xB1930776  # crc32("c90630000_body"), content/tables/common/gamedata/character/chara_model.toml
+  head_mesh_path = "_face/90_FANTASY/c90630000/c90630000.g4md"
+  clothes = 0xD0F696A7  # crc32("u90630000_10"), content/looks/jinpei.toml
+  shoes = 0
+  gloves = 0
+  force_kit = 1
+
+  [character.text.ja]
+  name = "寺刃ジンペイ"
+  short = "ジンペイ"
+  upper = "JINPEI JIBA"
+  description = "Y[学園/がくえん]に[通/かよ]う[少年/しょうねん]。\n[妖怪/ようかい]ウォッチを[持/も]っている。"
+
+  [character.text.en]
+  name = "Jinpei Jiba"
+  short = "Jinpei"
+  upper = "JINPEI JIBA"
+  description = "A student at Y Academy\nwho wears a Yo-kai Watch."
+
+  [character.text.es]
+  name = "Jinpei Jiba"
+  short = "Jinpei"
+  upper = "JINPEI JIBA"
+  description = "Un alumno de la Academia Y\nque lleva un Yo-kai Watch."
+
+  [character.text.fr]
+  name = "Jinpei Jiba"
+  short = "Jinpei"
+  upper = "JINPEI JIBA"
+  description = "Un élève de l'Académie Y\nqui porte une Yo-kai Watch."
+
+  [character.text.de]
+  name = "Jinpei Jiba"
+  short = "Jinpei"
+  upper = "JINPEI JIBA"
+  description = "Ein Schüler der Y-Akademie\nmit einer Yo-kai-Watch."
+
+  [character.text.it]
+  name = "Jinpei Jiba"
+  short = "Jinpei"
+  upper = "JINPEI JIBA"
+  description = "Uno studente dell'Accademia Y\ncon un Yo-kai Watch."
+
+  [character.text.pt]
+  name = "Jinpei Jiba"
+  short = "Jinpei"
+  upper = "JINPEI JIBA"
+  description = "Um aluno da Academia Y\nque usa um Yo-kai Watch."
+
+  [character.text.zh_hans]
+  name = "寺刃甚平"
+  short = "甚平"
+  upper = "JINPEI JIBA"
+  description = "就读于Y学园的少年，\n戴着妖怪手表。"
+
+  [character.text.zh_hant]
+  name = "寺刃甚平"
+  short = "甚平"
+  upper = "JINPEI JIBA"
+  description = "就讀於Y學園的少年，\n戴著妖怪手錶。"
+
+  [[character.cards]]
+  id = 0x7C2F9417  # crc32("c90630000_card")
+  from = 0xEDB0B29D  # template: Luke Triton's card
+  order = 201
+  element = "forest"
+  position = "mf"
+  rank = 3
+  growth = "normal"
+  stats = { kick = 324, control = 269, technique = 290, pressure = 195, physical = 246, intelligence = 260, agility = 159, luck = 144, freedom = 0 }
+  moves = [
+    { move = 0x592A96B4, level = 1 },                     # Afterimage (dribble, forest, 360)
+    { move = 0x6BA49049, level = 20 },                    # Mystic Mist (block, forest, 440)
+    { move = 0xB4C3946A, level = 38 },                    # Ephemeral Boost (shot, forest, 540)
+    { move = 0x64485347, level = 60 },                    # Psi Arrow (dribble, forest, 640)
+  ]

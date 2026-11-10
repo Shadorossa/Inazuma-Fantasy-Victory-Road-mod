@@ -1,0 +1,8 @@
+schema = "VRFW.menu/2"
+
+[[entry]]
+host = "CharacterReforged.skill_table.row_action"
+id = "rank_items"
+text = "HissatsuReforged.RankItemGuide"
+order = 100
+action = { lua = "HissatsuReforged.skill_table_rank_item" }

@@ -1,64 +1,41 @@
--- menu_scene (VRFW): setting_top_menu's side of a 3D field map under the main menu (docs/framework/menu-scene.md).
--- Handlers of the framework's setting_top_menu host (VRFW_Host); the run is held by scripts\menu_scene.lua.
---
--- Opened by the title for a scene (param vrfw_menu_scene_options, set by title_main's 150_menu_scene.lua): the save is
--- loaded and the screen is still black. The menu is never shown: its fade-in is skipped (OnOpenEndLayer of its
--- background) and a coroutine resumed by Step
---   1. enters the scene's field mode (CMND_VRFW_FIELD_ENTER: walker, autosaves blocked, the mode context its camera
---      drive holds),
---   2. reports «loading» (the framework arms the field state's hand-over) and reserves the map jump to the scene's entry
---      point (CMND_RESERVE_MAP_JUMP, overwrite),
---   3. closes the menu and starts the field (the Kizuna dock list's way), the reservation repeated after the start.
--- A step that fails: field mode left, the scene marked failed, the retail fade-in: Options is shown (B = the title).
--- No engine call at load time.
 
 local MO = {
-  LOG = VRFW_Cmd.EVT_LOG,          -- CMND_EVT_LOG
-  STATE = VRFW_Cmd.VRFW_MENU_SCENE_STATE,        -- CMND_VRFW_MENU_SCENE_STATE () -> state, key, …
-  SCENE = VRFW_Cmd.VRFW_MENU_SCENE,        -- CMND_VRFW_MENU_SCENE (key) -> table | ""
-  SET = VRFW_Cmd.VRFW_MENU_SCENE_SET,          -- CMND_VRFW_MENU_SCENE_SET (state, arg) -> 1 | 0, state
-  PEOPLE = VRFW_Cmd.VRFW_MENU_SCENE_PEOPLE,        -- CMND_VRFW_MENU_SCENE_PEOPLE (key, members, uniform, avatar) -> placed, text
-  AVATAR = VRFW_Cmd.VRFW_MENU_SCENE_AVATAR,        -- CMND_VRFW_MENU_SCENE_AVATAR () -> chara_base, card, handle of the save's avatar
-  MOTION_SET = VRFW_Cmd.VRFW_CHARA_MOTION_SET,   -- CMND_VRFW_CHARA_MOTION_SET (chara_base) -> motion set (c000101 …)
-  FIELD_ENTER = VRFW_Cmd.VRFW_FIELD_ENTER,  -- CMND_VRFW_FIELD_ENTER (key, walker, map) -> ok, code
-  FIELD_LEAVE = VRFW_Cmd.VRFW_FIELD_LEAVE,  -- CMND_VRFW_FIELD_LEAVE ()
-  MAP_JUMP = VRFW_Cmd.RESERVE_MAP_JUMP,      -- CMND_RESERVE_MAP_JUMP (map, x, y, z, rot, event, overwrite, …, force reload)
-  CLOSE = VRFW_Cmd.CLOSE_MENU_OBJECT,         -- CMND_CLOSE_MENU_OBJECT (menu, now)
+  STATE = VRFW.commands.VRFW_MENU_SCENE_STATE,        -- CMND_VRFW_MENU_SCENE_STATE () -> state, key, …
+  SCENE = VRFW.commands.VRFW_MENU_SCENE,        -- CMND_VRFW_MENU_SCENE (key) -> table | ""
+  SET = VRFW.commands.VRFW_MENU_SCENE_SET,          -- CMND_VRFW_MENU_SCENE_SET (state, arg) -> 1 | 0, state
+  PEOPLE = VRFW.commands.VRFW_MENU_SCENE_PEOPLE,
+  AVATAR = VRFW.commands.VRFW_MENU_SCENE_AVATAR,
+  MOTION_SET = VRFW.commands.VRFW_CHARA_MOTION_SET,
+  FIELD_ENTER = VRFW.commands.VRFW_FIELD_ENTER,  -- CMND_VRFW_FIELD_ENTER (key, walker, map) -> ok, code
+  FIELD_LEAVE = VRFW.commands.VRFW_FIELD_LEAVE,  -- CMND_VRFW_FIELD_LEAVE ()
+  MAP_JUMP = VRFW.commands.RESERVE_MAP_JUMP,
+  CLOSE = VRFW.commands.CLOSE_MENU_OBJECT,
   FIELD_START = 769636339,   -- (seconds) the field start of the Kizuna dock list
-  CURSOR_RPG = VRFW_Cmd.START_ARRAY_CURSOR_RPG,    -- CMND_START_ARRAY_CURSOR_RPG (on)
+  CURSOR_RPG = VRFW.commands.START_ARRAY_CURSOR_RPG,    -- CMND_START_ARRAY_CURSOR_RPG (on)
   OPTIONS = 1432246941,      -- param vrfw_menu_scene_options
-  HUD_OFF = 3499142076,      -- param vrfw_menu_scene_hud_off: the field HUD menus hide their layers (lua/menu/<hud>/150_menu_scene.lua)
-  NPCS = 1730437307,         -- param vrfw_menu_scene_npcs: the field HUD's menu runs the NPC update (rpg_info_window 151_menu_scene_npcs.lua)
+  HUD_OFF = 3499142076,
+  NPCS = 1730437307,
   FADE = 609722083,          -- (1 to black | 0 in, seconds)
   FADE_DONE = 2259183189,
   MENU = 1936716961,         -- setting_top_menu
-  BG = 1630405233,           -- option03_00_p1_bg: the retail fade-in starts when it has opened
+  BG = 1630405233,
   ID = "VRFW.menu_scene",
 }
 
 local mo = { ours = false, co = nil, bg_ready = false, bg_idx = 0, open_end = nil, entered = false }
 
-local function MO_Log(...)
-  pcall(funcLuaCommand, MO.LOG, "menu_scene", "setting_top_menu", ...)
-end
-
-local function MO_Call(cmd, ...)
-  local r = table.pack(pcall(funcLuaCommand, cmd, ...))
-  if not r[1] then return nil end
-  return table.unpack(r, 2, r.n)
-end
+local MO_Log = VRFW.logger.new("menu_scene, setting_top_menu")
 
 -- a param cleared only when it is set (the retail way)
 local function MO_Clear(k)
-  if VRFW_Param.Has(k) then
-    VRFW_Param.Clear(k)
+  if VRFW.param.has(k) then
+    VRFW.param.clear(k)
   end
 end
 
--- a framework command that may answer nothing while its scripts run on another thread: asked up to 30 frames
 local function MO_Ask(cmd, ...)
   for _ = 1, 30 do
-    local r = table.pack(MO_Call(cmd, ...))
+    local r = table.pack(VRFW.host.command(cmd, ...))
     if r.n > 0 and r[1] ~= nil then
       return table.unpack(r, 1, r.n)
     end
@@ -70,28 +47,24 @@ end
 local function MO_Fail(why)
   MO_Log("FAILED:", why, "-> Options is shown (retail)")
   if mo.entered then
-    MO_Call(MO.FIELD_LEAVE)
+    VRFW.host.command(MO.FIELD_LEAVE)
     mo.entered = false
   end
-  MO_Call(MO.SET, "failed", "setting_top_menu: " .. tostring(why))
+  VRFW.host.command(MO.SET, "failed", "setting_top_menu: " .. tostring(why))
   MO_Clear(MO.HUD_OFF)
   mo.ours = false
   if mo.open_end ~= nil then
-    pcall(mo.open_end, MO.BG, mo.bg_idx)   -- the retail fade-in; the retail Step then gives the menu its input
+    pcall(mo.open_end, MO.BG, mo.bg_idx)
   else
-    MO_Call(MO.FADE, 0, 0.3)
+    VRFW.host.command(MO.FADE, 0, 0.3)
   end
 end
 
--- the active team's players and staff, captain first then by position: "role:chara_base:motion set,…", kit, log text
--- (lua/menu/_all/72_menu_scene_team.lua, shared with the title's people refresh)
 local function MO_Team()
-  if type(VRFW_MenuSceneTeam) ~= "function" then return "", 0, "no team reader" end
-  return VRFW_MenuSceneTeam()
+  if type(VRFW.menu_scene_team) ~= "function" then return "", 0, "no team reader" end
+  return VRFW.menu_scene_team()
 end
 
--- the map jump: to a layout point of the map (the short form: map, point, event, overwrite: the walker arrives as through
--- a door), else to the coordinates (the long form: map, x, y, z, rot, event, overwrite, …, force reload)
 local function MO_Jump(sc)
   local ok, r
   if type(sc.entry_point) == "number" and sc.entry_point ~= 0 then
@@ -122,7 +95,6 @@ local function MO_Enter()
     MO_Fail("no scene data for " .. tostring(key))
     return
   end
-  -- the people of the map, before it loads (the map's own NPCs are removed either way)
   local members, uniform, why = "", 0, "people none"
   if sc.people == "active_team" then
     members, uniform, why = MO_Team()
@@ -132,14 +104,14 @@ local function MO_Enter()
   local avatar = ""
   if sc.people == "active_team" then
     local base = MO_Ask(MO.AVATAR)
-    local mset = type(base) == "number" and base ~= 0 and MO_Call(MO.MOTION_SET, base) or nil
+    local mset = type(base) == "number" and base ~= 0 and VRFW.host.command(MO.MOTION_SET, base) or nil
     if type(mset) == "string" then
       avatar = string.format("%.0f:%s", base % 4294967296, mset)
     end
   end
   local placed, text = MO_Ask(MO.PEOPLE, key, members, string.format("%.0f", uniform), avatar)
   MO_Log("people:", why, "avatar", avatar ~= "" and avatar or "none", "->", tostring(placed), tostring(text))
-  local ok, code = MO_Call(MO.FIELD_ENTER, sc.field_mode, 0, sc.map_id)
+  local ok, code = VRFW.host.command(MO.FIELD_ENTER, sc.field_mode, 0, sc.map_id)
   if ok ~= true then
     MO_Fail("field mode " .. sc.field_mode .. " not entered (code " .. tostring(code) .. ")")
     return
@@ -148,10 +120,10 @@ local function MO_Enter()
   MO_Log("field mode", sc.field_mode, "on; map", sc.map, string.format("0x%08X", sc.map_id), "entry",
     (type(sc.entry_point) == "number" and sc.entry_point ~= 0) and string.format("layout point 0x%08X", sc.entry_point) or
     string.format("(%s, %s, %s) rot %s", tostring(sc.x), tostring(sc.y), tostring(sc.z), tostring(sc.rot)))
-  MO_Call(MO.FADE, 1, 0)                 -- already black (the title's fade): no wait
-  VRFW_Param.Set(MO.HUD_OFF, 1)
+  VRFW.host.command(MO.FADE, 1, 0)                 -- already black (the title's fade): no wait
+  VRFW.param.set(MO.HUD_OFF, 1)
   if tonumber(placed) and tonumber(placed) > 0 then
-    VRFW_Param.Set(MO.NPCS, 1)
+    VRFW.param.set(MO.NPCS, 1)
   else
     MO_Clear(MO.NPCS)
   end
@@ -165,21 +137,21 @@ local function MO_Enter()
     return
   end
   mo.ours = false
-  MO_Call(MO.CLOSE, MO.MENU, true)
-  MO_Call(MO.FIELD_START, 0) -- the scene's load/readiness gates replace the retail field entrance transition
-  MO_Call(MO.CURSOR_RPG, true)
+  VRFW.host.command(MO.CLOSE, MO.MENU, true)
+  VRFW.host.command(MO.FIELD_START, 0)
+  VRFW.host.command(MO.CURSOR_RPG, true)
   local r2 = MO_Jump(sc)
   MO_Log("map jump reserved (", tostring(r1), tostring(r2), "), Options closed, field started: the map", sc.map, "loads")
 end
 
-if VRFW_Host ~= nil then
-  VRFW_Host.on("setting_top_menu", "OnInit", {
+if VRFW.host ~= nil then
+  VRFW.host.on("setting_top_menu", "OnInit", {
     id = MO.ID .. ".init",
     phase = "after",
     fn = function()
       mo.ours, mo.co, mo.bg_ready, mo.bg_idx, mo.open_end, mo.entered = false, nil, false, 0, nil, false
-      local marked = VRFW_Param.Has(MO.OPTIONS)
-      local status = MO_Call(MO.STATE)
+      local marked = VRFW.param.has(MO.OPTIONS)
+      local status = VRFW.host.command(MO.STATE)
       if marked or status == "options" or status == nil then
         MO_Clear(MO.OPTIONS)
         mo.ours = true
@@ -198,7 +170,7 @@ if VRFW_Host ~= nil then
       end
     end,
   })
-  VRFW_Host.on("setting_top_menu", "OnOpenEndLayer", {
+  VRFW.host.on("setting_top_menu", "OnOpenEndLayer", {
     id = MO.ID .. ".no_fade_in",
     phase = "around",
     fn = function(nxt, a1, a2, ...)
@@ -209,7 +181,7 @@ if VRFW_Host ~= nil then
       return nxt(a1, a2, ...)
     end,
   })
-  VRFW_Host.on("setting_top_menu", "Step", {
+  VRFW.host.on("setting_top_menu", "Step", {
     id = MO.ID .. ".step",
     phase = "after",
     fn = function()

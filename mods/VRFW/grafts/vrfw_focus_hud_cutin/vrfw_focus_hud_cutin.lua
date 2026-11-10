@@ -1,8 +1,5 @@
--- VRFW focus_hud_cutin, soccer_focus_battle_menu: while the framework's focus hold reports an aura cut-in playing
--- (CMND_VRFW_FOCUS_HOLD → held, cutin), every visible instance of the focus battle HUD layers is hidden and
--- remembered; when the cut-in is over the remembered instances that are still open are shown again. Wrapper of
--- PostStep only; engine calls only from it.
-VRFW_FocusHudCutin = {
+-- VRFW focus_hud_cutin, soccer_focus_battle_menu
+VRFW.focus_hud_cutin = {
   COMMAND = @crc:CMND_VRFW_FOCUS_HOLD@,
   LAYERS = {
     3070268158 --[[soccer08_23_focus_count_down]],
@@ -33,14 +30,14 @@ VRFW_FocusHudCutin = {
 }
 
 -- true while the hold's cut-in plays (false without the command)
-function VRFW_FocusHudCutin.CutinPlaying()
-  local ok, held, cutin = pcall(funcLuaCommand, VRFW_FocusHudCutin.COMMAND)
-  return ok and held == true and cutin == true
+function VRFW.focus_hud_cutin.cutin_playing()
+  local held, cutin = VRFW.host.command(VRFW.focus_hud_cutin.COMMAND)
+  return held == true and cutin == true
 end
 
--- hide every visible instance of the HUD layers; remember each one once
-function VRFW_FocusHudCutin.Hide()
-  local F = VRFW_FocusHudCutin
+-- Hide every visible instance of the HUD layers.
+function VRFW.focus_hud_cutin.hide()
+  local F = VRFW.focus_hud_cutin
   for _, layer in ipairs(F.LAYERS) do
     if funcLuaMenuCommand(F.CMND_IS_OPEN, layer) == true then
       local count = funcLuaMenuCommand(F.CMND_INSTANCE_COUNT, layer)
@@ -62,8 +59,8 @@ function VRFW_FocusHudCutin.Hide()
 end
 
 -- show again the remembered instances whose layer is still open
-function VRFW_FocusHudCutin.Restore()
-  local F = VRFW_FocusHudCutin
+function VRFW.focus_hud_cutin.restore()
+  local F = VRFW.focus_hud_cutin
   local list = F.hidden
   F.hidden = {}
   for _, entry in pairs(list) do
@@ -73,18 +70,18 @@ function VRFW_FocusHudCutin.Restore()
   end
 end
 
-function VRFW_FocusHudCutin.Step()
-  local F = VRFW_FocusHudCutin
-  if F.CutinPlaying() then
+function VRFW.focus_hud_cutin.step()
+  local F = VRFW.focus_hud_cutin
+  if F.cutin_playing() then
     F.hiding = true
-    F.Hide()
+    F.hide()
   elseif F.hiding then
     F.hiding = false
-    F.Restore()
+    F.restore()
   end
 end
 
-local function VRFW_FocusHudCutinPack(...)
+local function focus_hud_cutin_pack(...)
   return {n = select("#", ...), ...}
 end
 
@@ -93,9 +90,9 @@ do
   rawset(_ENV, "PostStep", function(...)
     local result = {n = 0}
     if type(previousPostStep) == "function" then
-      result = VRFW_FocusHudCutinPack(previousPostStep(...))
+      result = focus_hud_cutin_pack(previousPostStep(...))
     end
-    pcall(VRFW_FocusHudCutin.Step)
+    pcall(VRFW.focus_hud_cutin.step)
     return table.unpack(result, 1, result.n)
   end)
 end

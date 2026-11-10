@@ -1,11 +1,4 @@
 schema = "VRFW.character/2"
-# Inazuma Fantasy's Idol cards. Each one replaces a game Idol card of the same player in place (same card id): the
-# card moves to the Idol's own character (`adopt`), which holds its look, voice, series and description.
-# Card fields: Inazuma Fantasy's values; the fields it left as its template's are written where the replaced card differs.
-# The replaced card keeps its game rarity (5 / 6 / 7): the game's office rows, Players Universe and Diamante recipes name it.
-# Mark Evans and Axel Blaze have two game Idol cards each: rarity 6 = their youth moment (Mark at the end of IE3, Axel's
-# IE2 return), rarity 7 = their adult self of Inazuma Japón Legendario (Chrono Stone, team 0x4A347229).
-# Hidetoshi Nakata and Tom Skipper have no game Idol card: their Idols are new cards (last blocks).
 default_lang = "en"
 
 [[character]]
@@ -59,8 +52,6 @@ order = 48
   title = "InazumaFantasy.axel_blaze_idol_title"
   growth = "normal"
   stats = { kick = 358, control = 244, technique = 228, pressure = 184, physical = 228, intelligence = 185, agility = 185, luck = 189, freedom = 0 }
-  # IE2 (DS) learn list at his Okinawa return against Epsilon Plus (match Lv 35): Fire Tornado 1, Heat Tackle 17,
-  # Inazuma Drop 25, Fireball Storm learned in that match (research/data/ie2ds/player_units.json, story event 22081300)
   moves = [
     { move = 0x518BCA26, level = 1 },                     # Fire Tornado
     { move = 0x41F3CDC2, level = 17 },                    # Scorching Tackle
@@ -68,7 +59,7 @@ order = 48
     { move = 0x00D8C57C, level = 35 },                    # Fireball Storm
   ]
   moment_kit = 0x252CE113
-  own_passives = [0x09865884]                             # Shot AT [CPASSIVE01]+<VALUE>%[C] if the player comes\noff the bench in the second half [passive]
+  own_passives = [0x09865884]
 
 [[character]]
 name = "nathan_swift_idol"  # Nathan Swift
@@ -336,10 +327,10 @@ order = 54
   in_ie1 = 0
 
   [character.new_model]
-  id = 0x5DAB3F92  # crc32("InazumaFantasy.byron_love_idol_model")
+  id = 0x5DAB3F92
   from = "c01001900"
   [character.new_model.cells]
-  head_mesh_path = "_face/01_IE1/c90000146/c90000146.g4md"  # his IE3 icon look (content/models/characters/c90000146.toml)
+  head_mesh_path = "_face/01_IE1/c90000146/c90000146.g4md"
 
   [character.text.ja]
   description = "[芸術的/げいじゅつてき]なプレイで[敵/てき]をも[魅了/みりょう]する。\nその[姿/すがた]は[神/かみ]のように[美/うつく]しい。"
@@ -436,8 +427,6 @@ order = 55
   special_rarity = 6
   growth = "normal"
   stats = { kick = 247, control = 216, technique = 142, pressure = 201, physical = 282, intelligence = 204, agility = 290, luck = 236, freedom = 0 }
-  # IE3 (DS) learn list at the end of the FFI: Fist of Justice, Hammer of Fury, Dimensional Hand, God Catch (learned in
-  # the final, research/data/ie3ds/player_units.json); the IE3 Inazuma Japan kit
   moves = [
     { move = 0xF64674CB, level = 1 },                     # Fist of Justice
     { move = 0x8AF3EAB9, level = 19 },                    # Hammer of Fury
@@ -564,7 +553,7 @@ order = 58
   moment_kit = 0x9EE88F14
   cells = { flag_36 = 0, c6 = 12 }
 
-# Hidetoshi Nakata: a new Idol card (no game Idol of his exists). Its names are its own (the game has no Nakata).
+# Hidetoshi Nakata: a new Idol card (no game Idol of his exists).
 [[character]]
 name = "nakata_hidetoshi_idol"  # Nakata Hidetoshi
 based_on = "c03031700"  # template: Paolo Bianchi
@@ -645,11 +634,6 @@ order = 49
   ]
   moment_kit = 0xCCA74C04  # Orpheus kit
 
-# Mark Evans of Inazuma Japón Legendario (the adult of Chrono Stone, c05024610): the game's other Mark Evans Idol card.
-# Identity, kit and stats of the earlier Inazuma Fantasy's adult Mark (c90000148), without its Prime
-# multiplier; moves: his learn list in the Inazuma Japón Legendario match of Chrono Stone (3DS, route
-# Verdad», research/data/cs3ds/chain_teams.json) and his Mixi Max move there (Double God Hand, learned at 64 in
-# research/data/cs3ds/player_units.json). Name and description: the adult's own.
 [[character]]
 name = "mark_evans_legend_idol"  # Mark Evans
 based_on = "c05024610"  # template: Mark Evans (adult)
@@ -660,7 +644,7 @@ icon = "c05024610"
   id = 0xC4D26913
   name = "c90000148"
   voice_bank = 0x9CC15DC6
-  team_1 = 0x4A347229  # Inazuma Japón Legendario
+  team_1 = 0x4A347229
   team_2 = 0x00000000
 
   [[character.cards]]
@@ -677,11 +661,8 @@ icon = "c05024610"
     { move = 0xE647BCEE, level = 55 },                    # God Hand V
     { move = 0xFC5DC53F, level = 64 },                    # Double God Hand
   ]
-  moment_kit = 0xD5D90E67  # Inazuma Japón Legendario kit
+  moment_kit = 0xD5D90E67
 
-# Axel Blaze of Inazuma Japón Legendario (the adult of Chrono Stone, c05024710): the game's other Axel Blaze Idol card.
-# Moves: his learn list in the Inazuma Japón Legendario match of Chrono Stone (3DS, research/data/cs3ds/chain_teams.json);
-# stats: Character Reforged's values of his card 0x34F73983. Name and description: the adult's own.
 [[character]]
 name = "axel_blaze_legend_idol"  # Axel Blaze
 based_on = "c05024710"  # template: Axel Blaze (adult)
@@ -689,10 +670,10 @@ order = 60
 icon = "c05024710"
 
   [character.base]
-  id = 0x96EC35A2  # crc32("InazumaFantasy.axel_blaze_legend_idol")
+  id = 0x96EC35A2
   name = "c90000151"
   voice_bank = 0x9D0337F1
-  team_1 = 0x4A347229  # Inazuma Japón Legendario
+  team_1 = 0x4A347229
   team_2 = 0x00000000
 
   [[character.cards]]
@@ -709,12 +690,9 @@ icon = "c05024710"
     { move = 0xB60E3C60, level = 38 },                    # Plasma Cut
     { move = 0x910F4F83, level = 55 },                    # Fire Tornado DD
   ]
-  moment_kit = 0xD5D90E67  # Inazuma Japón Legendario kit
+  moment_kit = 0xD5D90E67
 
 # Tom Skipper (c02029290): a new Idol card (no game Idol of his exists), not obtainable yet (as Nakata's).
-# Moves: his IE2 (DS) learn list (Emperor Penguin No. 2, Tsunami Wall, The Earth) with IE3's Emperor Penguin X
-# (research/build/movesets/ie_ds_learnsets.json); stats: Character Reforged's values of his card 0xCD289733.
-# No fixed kit: no team of his has one.
 [[character]]
 name = "tom_skipper_idol"  # Tom Skipper
 based_on = "c02029290"  # template: Tom Skipper
@@ -722,12 +700,12 @@ order = 62
 icon = "c02029290"
 
   [character.base]
-  id = 0x4D6A966C  # crc32("InazumaFantasy.tom_skipper_idol")
+  id = 0x4D6A966C
   name = "c90000152"
   voice_bank = 0x64DC9941
 
   [[character.cards]]
-  id = 0x8F4FB342  # new card: FW/MF · wind · rarity 6; crc32("InazumaFantasy.tom_skipper_idol_card")
+  id = 0x8F4FB342
   from = 0x04F417C5  # template: Shawn Froste Idol card, rarity 6 (FW · wind)
   order = 63
   position = "fw"
@@ -747,9 +725,6 @@ icon = "c02029290"
   ]
   moment_kit = 0
 
-# Gabriella Amati (Clorinda Luzzago) (c08110110, Guardianes de la Reina, Orion): replaces the game's Samguk Han Idol card, rarity 6. Moves: her / his Orion learn list
-# (wiki VR, docs/game/data/grey-moves-replacement-table.md); stats: Character Reforged's values of the normal card;
-# kit: Guardianes de la Reina. Name and description: the game's own.
 [[character]]
 name = "gabriella_amati_idol"
 based_on = "c08110110"
@@ -757,7 +732,7 @@ order = 64
 icon = "c08110110"
 
   [character.base]
-  id = 0xC088827D  # crc32("InazumaFantasy.gabriella_amati_idol")
+  id = 0xC088827D
   name = "c90000153"
   voice_bank = 0xFBC714A1
 
@@ -778,11 +753,8 @@ icon = "c08110110"
     { move = 0xF08DB620, level = 28 },                    # Whirlwind
     { move = 0xA6D711A6, level = 52 },                    # Full Power Shield
   ]
-  moment_kit = 0xC6DF30D4  # Guardianes de la Reina kit
+  moment_kit = 0xC6DF30D4
 
-# Racerit Spto (Oliviero Albizzi) (c08110120, Guardianes de la Reina, Orion): replaces the game's Jean-Pierre Lapin Idol card, rarity 6. Moves: her / his Orion learn list
-# (wiki VR, docs/game/data/grey-moves-replacement-table.md); stats: Character Reforged's values of the normal card;
-# kit: Guardianes de la Reina. Name and description: the game's own.
 [[character]]
 name = "racerit_spto_idol"
 based_on = "c08110120"
@@ -790,7 +762,7 @@ order = 65
 icon = "c08110120"
 
   [character.base]
-  id = 0xBAFDCCAD  # crc32("InazumaFantasy.racerit_spto_idol")
+  id = 0xBAFDCCAD
   name = "c90000154"
   voice_bank = 0xD0EA4762
 
@@ -811,4 +783,68 @@ icon = "c08110120"
     { move = 0x04F493EC, level = 22 },                    # Dragon Rage Dunk
     { move = 0xA6D711A6, level = 31 },                    # Full Power Shield
   ]
-  moment_kit = 0xC6DF30D4  # Guardianes de la Reina kit
+  moment_kit = 0xC6DF30D4
+
+# David Samford of Royal Academy Redux (c02023710): a new Idol card (no game Idol of his exists), sold beside his office row.
+[[character]]
+name = "david_samford_idol"  # David Samford
+based_on = "c02023710"  # template: David Samford (Royal Academy Redux)
+order = 98
+icon = "c02023710"
+
+  [character.base]
+  id = 0xA44C024F
+  name = "c90000155"
+  voice_bank = 0xC57331C6
+  description_text = 0x95D1D615
+
+  [character.text.ja]
+  description = "[禁断/きんだん]の[技/わざ]に[手/て]を[染/そ]めた\n[真/しん]・[帝国/ていこく]のストライカー。"
+
+  [character.text.en]
+  description = "The Royal Academy Redux striker\nwho embraced a forbidden technique."
+
+  [character.text.es]
+  description = "El delantero de la Royal Academy Redux\nque recurrió a una técnica prohibida."
+
+  [character.text.fr]
+  description = "L'attaquant de la Royal Academy Redux\nqui a cédé à une technique interdite."
+
+  [character.text.de]
+  description = "Der Stürmer der Royal Academy Redux,\nder zu einer verbotenen Technik griff."
+
+  [character.text.it]
+  description = "L'attaccante della Royal Academy Redux\nche ha usato una tecnica proibita."
+
+  [character.text.pt]
+  description = "O atacante da Royal Academy Redux\nque recorreu a uma técnica proibida."
+
+  [character.text.zh_hans]
+  description = "沾染禁忌必杀技的\n真帝国前锋。"
+
+  [character.text.zh_hant]
+  description = "沾染禁忌必殺技的\n真帝國前鋒。"
+
+  [[character.cards]]
+  id = 0x8870E292
+  from = 0x04F417C5  # template: Shawn Froste Idol card, rarity 6 (FW · wind)
+  order = 64
+  position = "fw"
+  sub_position = "mf"
+  element = "forest"
+  rank = 3
+  ability_board = 0x59133E3B
+  title = "InazumaFantasy.david_samford_idol_title"
+  special_rarity = 6
+  growth = "normal"
+  stats = { kick = 340, control = 258, technique = 262, pressure = 205, physical = 150, intelligence = 225, agility = 180, luck = 180, freedom = 0 }
+  moves = [
+    { move = 0x7DAF3139, level = 1 },                     # Emperor Penguin No. 2
+    { move = 0x427719AC, level = 20 },                    # Gale Dash
+    { move = 0xB27F13ED, level = 32 },                    # Death Zone
+    { move = 0x6730D416, level = 55 },                    # Emperor Penguin No. 1
+  ]
+  moment_kit = 0xCA2D2A5D  # Royal Academy Redux kit
+
+  [character.recruit]
+  beside = "c01000310"

@@ -1,5 +1,4 @@
-# Free-match rivals of the Nv. 200 class and the Daily Legendary Rival: their special moves play at this grade, for the match only (VRFW match move
-# level). The team views show it too (Hissatsu Level Up). Grade by class: a trained player of that level.
+# Free-match rivals of the Nv.
 schema = "VRFW.match_move_level/1"
 
 [match]

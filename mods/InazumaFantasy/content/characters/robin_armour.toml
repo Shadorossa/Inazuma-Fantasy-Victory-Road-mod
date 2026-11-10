@@ -1,0 +1,24 @@
+schema = "VRFW.character/2"
+# The armed form of the keshin Robin (k002050), every body group through its look rows.
+default_lang = "en"
+
+[[character]]
+name = "robin_armour"
+based_on = "c11600010"
+battle = false
+
+  [character.base]
+  id = 0xE92362A5
+  name = "evt_krobin01"
+
+  [character.new_model]
+  id = 0x446D6FBD
+  from = "c11600010"
+  [character.new_model.cells]
+  clothes = 0x03FB534E                                     # krobin01
+  shoes = 0
+  gloves = 0
+  force_kit = 1
+
+  [[character.cards]]
+  id = 0xE7F6615E

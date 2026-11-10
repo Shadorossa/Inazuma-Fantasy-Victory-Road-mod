@@ -1,0 +1,902 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+# Retail NPC, event and unused-row faces with no playable character: one album-only character each, on the row's own chara_model.
+
+[[character]]
+name = "npc_face_001"  # index number 1, retail row c11020520
+based_on = "c05027040"
+icon = "c11020520"
+
+  [character.base]
+  id = 0xD1C81833
+  name = "c91020520"
+  name_text = 0x7EDD3DC4
+  short_name_text = 0x7EE99D48
+  upper_name_text = 0x4D6E23C3
+  model = 0x9B0A65C7
+  voice_bank = 0
+  description_text = 0x61CF7968
+
+  [[character.cards]]
+  id = 0xFFF7C550
+  from = 0x0263ADA0
+  rank = 3
+  element = "mountain"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_002"  # index number 2, retail row c11500890
+based_on = "c05027040"
+icon = "c11500890"
+gender = "female"
+
+  [character.base]
+  id = 0x10E99078
+  name = "c91500890"
+  name_text = 0xBFFCB58F
+  short_name_text = 0xBFC81503
+  upper_name_text = 0x8C4FAB88
+  model = 0x5A2BED8C
+  voice_bank = 0
+  description_text = 0xA0EEF123
+
+  [[character.cards]]
+  id = 0xFFF7C551
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_003"  # index number 3, retail row c11905040
+based_on = "c05027040"
+icon = "c11905040"
+
+  [character.base]
+  id = 0xEB488FC4
+  name = "c91905040"
+  name_text = 0x445DAA33
+  short_name_text = 0x44690ABF
+  upper_name_text = 0x00000000
+  model = 0xA18AF230
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C552
+  from = 0x061964FB
+  rank = 3
+  element = "forest"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_004"  # index number 4, retail row c11906030
+based_on = "c05027040"
+icon = "c11906030"
+
+  [character.base]
+  id = 0xB6BCB6ED
+  name = "c91906030"
+  name_text = 0x19A9931A
+  short_name_text = 0x199D3396
+  upper_name_text = 0x2A1A8D1D
+  model = 0xFC7ECB19
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C553
+  from = 0x3D9ED3F0
+  rank = 3
+  element = "mountain"
+  position = "gk"
+  sub_position = "gk"
+
+[[character]]
+name = "npc_face_005"  # index number 5, retail row c11908020
+based_on = "c05027040"
+icon = "c11908020"
+
+  [character.base]
+  id = 0x4F78F09F
+  name = "c91908020"
+  name_text = 0xE06DD568
+  short_name_text = 0xE05975E4
+  upper_name_text = 0x40E1089C
+  model = 0x05BA8D6B
+  voice_bank = 0
+  description_text = 0x6C405237
+
+  [[character.cards]]
+  id = 0xFFF7C554
+  from = 0x04D7D484
+  rank = 3
+  element = "forest"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_006"  # index number 6, retail row npc9901
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x5806B73A
+  name = "c90005060"
+  name_text = 0xC64F6B32
+  short_name_text = 0xC64F6B32
+  upper_name_text = 0xC64F6B32
+  model = 0xFBA42FD9
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C555
+  from = 0xAAAC2BF7
+  rank = 3
+  element = "wind"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_007"  # index number 7, retail row npc9900
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x411D867B
+  name = "c90005070"
+  name_text = 0xB1485BA4
+  short_name_text = 0xB1485BA4
+  upper_name_text = 0xB1485BA4
+  model = 0x8CA31F4F
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C556
+  from = 0x400F98C8
+  rank = 3
+  element = "fire"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_008"  # index number 8, retail row c11500210
+based_on = "c05027040"
+icon = "c11500210"
+
+  [character.base]
+  id = 0xD5A79FA6
+  name = "c91500210"
+  name_text = 0x7AB2BA51
+  short_name_text = 0x7A861ADD
+  upper_name_text = 0x4901A456
+  model = 0x9F65E252
+  voice_bank = 0
+  description_text = 0x65A0FEFD
+
+  [[character.cards]]
+  id = 0xFFF7C557
+  from = 0x061964FB
+  rank = 3
+  element = "forest"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_009"  # index number 9, retail row c11500220
+based_on = "c05027040"
+icon = "c11500220"
+
+  [character.base]
+  id = 0xFE8ACC65
+  name = "c91500220"
+  name_text = 0x519FE992
+  short_name_text = 0x51AB491E
+  upper_name_text = 0x622CF795
+  model = 0xB448B191
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C558
+  from = 0x3D9ED3F0
+  rank = 3
+  element = "mountain"
+  position = "gk"
+  sub_position = "gk"
+
+[[character]]
+name = "npc_face_010"  # index number 10, retail row c11500940
+based_on = "c05027040"
+icon = "c11500940"
+
+  [character.base]
+  id = 0xA4858402
+  name = "c91500940"
+  name_text = 0x0B90A1F5
+  short_name_text = 0x0BA40179
+  upper_name_text = 0x00000000
+  model = 0xEE47F9F6
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C559
+  from = 0x85363312
+  rank = 3
+  element = "fire"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "npc_face_011"  # index number 11, retail row c11500970
+based_on = "c05027040"
+icon = "c11500970"
+
+  [character.base]
+  id = 0x8FA8D7C1
+  name = "c91500970"
+  name_text = 0x20BDF236
+  short_name_text = 0x208952BA
+  upper_name_text = 0x00000000
+  model = 0xC56AAA35
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C55A
+  from = 0x04D7D484
+  rank = 3
+  element = "forest"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_012"  # index number 12, retail row c11500980
+based_on = "c05027040"
+icon = "c11500980"
+
+  [character.base]
+  id = 0x0830CB0E
+  name = "c91500980"
+  name_text = 0x9A859FCF
+  short_name_text = 0x00000000
+  upper_name_text = 0x00000000
+  model = 0x42F2B6FA
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C55B
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_015"  # index number 15, retail row c11500190
+based_on = "c05027040"
+icon = "c11500190"
+
+  [character.base]
+  id = 0x1F38ABF7
+  name = "c91500190"
+  name_text = 0x28410A1E
+  short_name_text = 0x28410A1E
+  upper_name_text = 0x28410A1E
+  model = 0x55FAD603
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C55C
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_017"  # index number 17, retail row c11901100
+based_on = "c05027040"
+icon = "c11901100"
+
+  [character.base]
+  id = 0x0184B7A0
+  name = "c91901100"
+  name_text = 0x5F463A88
+  short_name_text = 0x5F463A88
+  upper_name_text = 0x5F463A88
+  model = 0x4B46CA54
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C55D
+  from = 0x0263ADA0
+  rank = 3
+  element = "mountain"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_018"  # index number 18, retail row c11904020
+based_on = "c05027040"
+icon = "c11904020"
+gender = "female"
+
+  [character.base]
+  id = 0x05AE4F27
+  name = "c91904020"
+  name_text = 0xAABB6AD0
+  short_name_text = 0xAA8FCA5C
+  upper_name_text = 0x00000000
+  model = 0x4F6C32D3
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C55E
+  from = 0x061964FB
+  rank = 3
+  element = "forest"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_019"  # index number 19, retail row c11907030_notplayer
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x0E00D188
+  name = "c91907030"
+  name_text = 0xA115F47F
+  short_name_text = 0x00000000
+  upper_name_text = 0x00000000
+  model = 0x44C2AC7C
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C55F
+  from = 0x85363312
+  rank = 3
+  element = "fire"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "npc_face_020"  # index number 20, retail row c11907040_notplayer
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x4141474F
+  name = "c91907040"
+  name_text = 0xEE5462B8
+  short_name_text = 0x00000000
+  upper_name_text = 0x00000000
+  model = 0x0B833ABB
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C560
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_021"  # index number 21, retail row c11907120_notplayer
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x16D98AFE
+  name = "c91907120"
+  name_text = 0xB9CCAF09
+  short_name_text = 0x00000000
+  upper_name_text = 0x00000000
+  model = 0x5C1BF70A
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C561
+  from = 0x3D9ED3F0
+  rank = 3
+  element = "mountain"
+  position = "gk"
+  sub_position = "gk"
+
+[[character]]
+name = "npc_face_022"  # index number 22, retail row c11908330_notplayer
+based_on = "c05027040"
+
+  [character.base]
+  id = 0x54257F87
+  name = "c91908330"
+  name_text = 0xCFF92719
+  short_name_text = 0xCFF92719
+  upper_name_text = 0xCFF92719
+  model = 0x1EE70273
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C562
+  from = 0x04D7D484
+  rank = 3
+  element = "forest"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_411"  # index number 411, retail row c11010221
+based_on = "c05027040"
+
+  [character.base]
+  id = 0xE42044F0
+  name = "c91010221"
+  name_text = 0x4B356107
+  short_name_text = 0x4B01C18B
+  upper_name_text = 0x0F814F96
+  model = 0xAEE23904
+  voice_bank = 0
+  description_text = 0x2320153D
+
+  [[character.cards]]
+  id = 0xFFF7C563
+  from = 0x3DD430EE
+  rank = 3
+  element = "wind"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "npc_face_412"  # index number 412, retail row c11130130
+based_on = "c05027040"
+icon = "c11130130"
+
+  [character.base]
+  id = 0x39E67BBB
+  name = "c91130130"
+  name_text = 0x96F35E4C
+  short_name_text = 0x96C7FEC0
+  upper_name_text = 0xA540404B
+  model = 0x7324064F
+  voice_bank = 0
+  description_text = 0x89E11AE0
+
+  [[character.cards]]
+  id = 0xFFF7C564
+  from = 0x0263ADA0
+  rank = 3
+  element = "mountain"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_413"  # index number 413, retail row c11500211
+based_on = "c05027040"
+icon = "c11500211"
+
+  [character.base]
+  id = 0xA2A0AF30
+  name = "c91500211"
+  name_text = 0x7AB2BA51
+  short_name_text = 0x7A861ADD
+  upper_name_text = 0x4901A456
+  model = 0xE862D2C4
+  voice_bank = 0
+  description_text = 0x65A0FEFD
+
+  [[character.cards]]
+  id = 0xFFF7C565
+  from = 0x603BE105
+  rank = 3
+  element = "mountain"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_414"  # index number 414, retail row c11500700
+based_on = "c05027040"
+icon = "c11500700"
+
+  [character.base]
+  id = 0xCA776C0C
+  name = "c91500700"
+  name_text = 0xB8FE178F
+  short_name_text = 0xB8FE178F
+  upper_name_text = 0xB8FE178F
+  model = 0x80B511F8
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C566
+  from = 0xAAAC2BF7
+  rank = 3
+  element = "wind"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_415"  # index number 415, retail row c11500710
+based_on = "c05027040"
+icon = "c11500710"
+
+  [character.base]
+  id = 0xD36C5D4D
+  name = "c91500710"
+  name_text = 0x8E6339EC
+  short_name_text = 0x8E6339EC
+  upper_name_text = 0x8E6339EC
+  model = 0x99AE20B9
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C567
+  from = 0x0263ADA0
+  rank = 3
+  element = "mountain"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_416"  # index number 416, retail row c11500720
+based_on = "c05027040"
+icon = "c11500720"
+
+  [character.base]
+  id = 0xF8410E8E
+  name = "c91500720"
+  name_text = 0xF964097A
+  short_name_text = 0xF964097A
+  upper_name_text = 0xF964097A
+  model = 0xB283737A
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C568
+  from = 0x04D7D484
+  rank = 3
+  element = "forest"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_417"  # index number 417, retail row c11500730
+based_on = "c05027040"
+icon = "c11500730"
+
+  [character.base]
+  id = 0xE15A3FCF
+  name = "c91500730"
+  name_text = 0x606D58C0
+  short_name_text = 0x606D58C0
+  upper_name_text = 0x606D58C0
+  model = 0xAB98423B
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C569
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_418"  # index number 418, retail row c11500740
+based_on = "c05027040"
+icon = "c11500740"
+gender = "female"
+
+  [character.base]
+  id = 0xAE1BA908
+  name = "c91500740"
+  name_text = 0x176A6856
+  short_name_text = 0x176A6856
+  upper_name_text = 0x176A6856
+  model = 0xE4D9D4FC
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C56A
+  from = 0x061964FB
+  rank = 3
+  element = "forest"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_419"  # index number 419, retail row c11500750
+based_on = "c05027040"
+icon = "c11500750"
+
+  [character.base]
+  id = 0xB7009849
+  name = "c91500750"
+  name_text = 0x890EFDF5
+  short_name_text = 0x890EFDF5
+  upper_name_text = 0x890EFDF5
+  model = 0xFDC2E5BD
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C56B
+  from = 0x3D9ED3F0
+  rank = 3
+  element = "mountain"
+  position = "gk"
+  sub_position = "gk"
+
+[[character]]
+name = "npc_face_420"  # index number 420, retail row c11500760
+based_on = "c05027040"
+icon = "c11500760"
+gender = "female"
+
+  [character.base]
+  id = 0x9C2DCB8A
+  name = "c91500760"
+  name_text = 0xFE09CD63
+  short_name_text = 0xFE09CD63
+  upper_name_text = 0xFE09CD63
+  model = 0xD6EFB67E
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C56C
+  from = 0xBFD823AB
+  rank = 3
+  element = "wind"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_421"  # index number 421, retail row c11500770
+based_on = "c05027040"
+icon = "c11500770"
+
+  [character.base]
+  id = 0x8536FACB
+  name = "c91500770"
+  name_text = 0x67009CD9
+  short_name_text = 0x67009CD9
+  upper_name_text = 0x67009CD9
+  model = 0xCFF4873F
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C56D
+  from = 0x0C08F742
+  rank = 3
+  element = "fire"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_422"  # index number 422, retail row c11500780
+based_on = "c05027040"
+icon = "c11500780"
+
+  [character.base]
+  id = 0x02AEE604
+  name = "c91500780"
+  name_text = 0x1007AC4F
+  short_name_text = 0x1007AC4F
+  upper_name_text = 0x1007AC4F
+  model = 0x486C9BF0
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C56E
+  from = 0x603BE105
+  rank = 3
+  element = "mountain"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_423"  # index number 423, retail row c11500790
+based_on = "c05027040"
+icon = "c11500790"
+
+  [character.base]
+  id = 0x1BB5D745
+  name = "c91500790"
+  name_text = 0x80B8B1DE
+  short_name_text = 0x80B8B1DE
+  upper_name_text = 0x80B8B1DE
+  model = 0x5177AAB1
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C56F
+  from = 0x85363312
+  rank = 3
+  element = "fire"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "npc_face_424"  # index number 424, retail row c11500800
+based_on = "c05027040"
+icon = "c11500800"
+gender = "female"
+
+  [character.base]
+  id = 0xC12B2B31
+  name = "c91500800"
+  name_text = 0xF7BF8148
+  short_name_text = 0xF7BF8148
+  upper_name_text = 0xF7BF8148
+  model = 0x8BE956C5
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C570
+  from = 0x85363312
+  rank = 3
+  element = "fire"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "npc_face_425"  # index number 425, retail row c11500810
+based_on = "c05027040"
+icon = "c11500810"
+gender = "female"
+
+  [character.base]
+  id = 0xD8301A70
+  name = "c91500810"
+  name_text = 0x977808AD
+  short_name_text = 0x977808AD
+  upper_name_text = 0x977808AD
+  model = 0x92F26784
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C571
+  from = 0x061964FB
+  rank = 3
+  element = "forest"
+  position = "mf"
+  sub_position = "mf"
+
+[[character]]
+name = "npc_face_426"  # index number 426, retail row c11500820
+based_on = "c05027040"
+icon = "c11500820"
+gender = "female"
+
+  [character.base]
+  id = 0xF31D49B3
+  name = "c91500820"
+  name_text = 0xE07F383B
+  short_name_text = 0xE07F383B
+  upper_name_text = 0xE07F383B
+  model = 0xB9DF3447
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C572
+  from = 0xEBCFE222
+  rank = 3
+  element = "forest"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "npc_face_427"  # index number 427, retail row c11500830
+based_on = "c05027040"
+icon = "c11500830"
+gender = "female"
+
+  [character.base]
+  id = 0xEA0678F2
+  name = "c91500830"
+  name_text = 0x79766981
+  short_name_text = 0x79766981
+  upper_name_text = 0x79766981
+  model = 0xA0C40506
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C573
+  from = 0x3DD430EE
+  rank = 3
+  element = "wind"
+  position = "fw"
+  sub_position = "fw"
+
+[[character]]
+name = "npc_face_428"  # index number 428, retail row c11500840
+based_on = "c05027040"
+icon = "c11500840"
+
+  [character.base]
+  id = 0xA547EE35
+  name = "c91500840"
+  name_text = 0x0E715917
+  short_name_text = 0x0E715917
+  upper_name_text = 0x0E715917
+  model = 0xEF8593C1
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C574
+  from = 0x0263ADA0
+  rank = 3
+  element = "mountain"
+  position = "df"
+  sub_position = "df"
+
+[[character]]
+name = "npc_face_429"  # index number 429, retail row c11500850
+based_on = "c05027040"
+icon = "c11500850"
+
+  [character.base]
+  id = 0xBC5CDF74
+  name = "c91500850"
+  name_text = 0x9015CCB4
+  short_name_text = 0x9015CCB4
+  upper_name_text = 0x9015CCB4
+  model = 0xF69EA280
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C575
+  from = 0xB2528B7C
+  rank = 3
+  element = "wind"
+  position = "gk"
+  sub_position = "gk"
+
+[[character]]
+name = "npc_face_430"  # index number 430, retail row c11500910
+based_on = "c05027040"
+icon = "c11500910"
+
+  [character.base]
+  id = 0xD9F27047
+  name = "c91500910"
+  name_text = 0x76E755B0
+  short_name_text = 0x76D3F53C
+  upper_name_text = 0x45544BB7
+  model = 0x93300DB3
+  voice_bank = 0
+  description_text = 0x00000000
+
+  [[character.cards]]
+  id = 0xFFF7C576
+  from = 0x0263ADA0
+  rank = 3
+  element = "mountain"
+  position = "df"
+  sub_position = "df"

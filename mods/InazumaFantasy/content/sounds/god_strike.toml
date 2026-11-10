@@ -1,0 +1,8 @@
+schema = "VRFW.sound/1"
+# God Strike: the move sound effect without frames 225-375 of the two dropped cuts (c0500, c0600; content/techniques/god_strike.toml).
+
+[[sfx]]
+add = "ev60_83250_me"
+from = "ev60_03250_me"
+bank = "waza_stream"
+segments = [[0, 224], [376, 508]]

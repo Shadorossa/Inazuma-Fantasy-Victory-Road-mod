@@ -1,33 +1,12 @@
-# Character Reforged (moved from Inazuma Fantasy on 2026-10-14, owner: «portea el resto de la página del personaje de IF
-# a CharacterReforged»; docs/refactor/aura-mods-split.md «Player page»): the player page in pages (docs/game/ui/
-# ui-redesign.md «Player page: one-row header and 3D model», round 2): PERFIL (description + 3D model) and ATRIBUTOS
-# (the 8 stats as gauge rows) in front of the retail ATRIBUTOS page, which keeps only the moves (SUPERTÉCNICAS); the
-# band of the header as a normal 2D copy of the page.
-# The pages are declared to the VR-Framework's player page registry (VRFW_PlayerPages, docs/framework/player-pages.md):
-# CharacterReforged.Profile (index 6, type 8) first, CharacterReforged.Stats (7, type 9) after it; with plate_hiper's
-# CharacterReforged.Hiper and BetterQoL's TRAYECTORIA (BetterQoL.Career, index 5, type 6, last) the order is
-# 6 -> 7 -> 0 -> 4 -> 1 -> 2 -> 3 -> 5. The framework steps Q/E and maps the types; the plate block hands the page
-# change, its frame and an empty slot to the declarations of the pages other mods draw (PageChange / PlateStep / Hide,
-# parts/mod_pages.lua) and draws the dots from the registry's slots. Data: Character
-# Reforged content/menus/player_page_layout.toml (research/scripts/if_plate_row_build.py) and
-# content/menus/player_page_layers.toml; the values other mods add (stats, training max, miximax gains) come through
-# the page's slots (assets/lua/_all/character_reforged_page.lua, content/menus/player_page_host.toml).
-# The parent menus' part (team dock, Plantilla, formation) is the graft plate_pages_dock, the two character banks' part
-# plate_pages_bank and the skill table's host part plate_pages_skill_host (all three rebuilt by Inazuma Fantasy, whose
-# own grafts redefine functions of the same chunks); this graft (personal_plate_menu, equip_menu_select) is built by
-# Character Reforged alone (one copy per VM).
+# The player page in pages (PERFIL with the 3D model, ATRIBUTOS gauges, SUPERTÉCNICAS), declared to VRFW.player_pages,
+# and the item detail card; layout in content/menus/player_page_layout.toml.
 name = "plate_pages"
 mod = "CharacterReforged"
 order = 975
 module = "lua_bridge"
 requires = ["plate_hiper_plate", "ss2_menus"]
 conflicts = []
-wraps = ["ChangePersonalPlatePageByCharaHdl", "ChangePersonalPlatePageByCharaParamId",
-         "UpdateCharaParameterGraphByCharaStHdl", "SwapPersonalPlateTexture", "PostStep", "OnCloseLayer",
-         "SetPersonalPlateType", "OnSetupPersonalPlateLayer", "ChangeActiveUI", "OpenPersonalPlate",
-         "ClosePersonalPlate", "SetNameSearchInputEnabled", "SetupEquipInfoWindow", "GetEquipParamText",
-         "GetEquipParamTextOneLine", "SetVisibleEquipInfoWindow", "OnBack", "OnInit", "SetupItemPositionIcon",
-         "ClearItemPositionIcon", "Step", "PreStep", "OnChangeLayerGroup"]
+wraps = ["ChangePersonalPlatePageByCharaHdl", "ChangePersonalPlatePageByCharaParamId", "UpdateCharaParameterGraphByCharaStHdl", "SwapPersonalPlateTexture", "PostStep", "OnCloseLayer", "SetPersonalPlateType", "OnSetupPersonalPlateLayer", "ChangeActiveUI", "OpenPersonalPlate", "ClosePersonalPlate", "SetNameSearchInputEnabled", "SetupEquipInfoWindow", "GetEquipParamText", "GetEquipParamTextOneLine", "SetVisibleEquipInfoWindow", "OnBack", "OnInit", "SetupItemPositionIcon", "ClearItemPositionIcon", "Step", "PreStep", "OnChangeLayerGroup"]
 description = "Player page: PERFIL / ATRIBUTOS (gauges) / SUPERTÉCNICAS pages, header band as a 2D copy"
 
 [[files]]
@@ -58,8 +37,7 @@ stem = "personal_plate_menu"
     "@PP_ITEM_CARD_STAT_ROWS@" = "parts/item_card_stat_rows.lua"
     "@PP_ITEM_CARD_SHOW@" = "parts/item_card_show.lua"
 
-# round 11: the same block on the screens with their own copy of the plate (header row, white card, bar chart);
-# 2026-10-13: ONE file for every host again (the hosts' fork plate_host_look.lua merged into plate_pages.lua)
+# the same block on the screens with their own copy of the plate (header row, white card, bar chart)
 [[files]]
 stem = "equip_menu_select"
 
@@ -89,7 +67,7 @@ stem = "equip_menu_select"
     "@PP_ITEM_CARD_STAT_ROWS@" = "parts/item_card_stat_rows.lua"
     "@PP_ITEM_CARD_SHOW@" = "parts/item_card_show.lua"
 
-# the item picker (its own script): the hovered item on the equipment screen's card (EVT_PPG_ItemCardPreview there)
+# the item picker (its own script): the hovered item on the equipment screen's card (CharacterReforged.player_page_item_card_preview there)
 [[files]]
 stem = "equip_menu_list"
 
@@ -99,7 +77,7 @@ stem = "equip_menu_list"
   marker = "plate_pages item card list"
 
 # the item card on the screens without a player (host_item_detail.lua, item_only: only the item card part runs):
-# the inventory «Objetos» and the shops' buy list (replaces the graft equip_shop_bonus)
+# the inventory «Objetos» and the shops' buy list
 [[files]]
 stem = "item_menu"
 

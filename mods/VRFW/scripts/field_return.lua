@@ -1,20 +1,13 @@
--- Field battle returns to the menus instead of the field map. Declarations: content\game\field_return.toml.
--- | Command | Args | Returns |
--- |---|---|---|
--- | CMND_VRFW_BATTLE_RETURN (alias CMND_EVT_TRIAL_RETURN) | op: 1 arm (menu route + straight to the title, in-memory game kept), 3 arm (same, title rereads the save), 2 arm (menu route only), 0 disarm, -1 query | live, armed, taken |
--- While armed, the next pass at the «loaded field map?» test (hook FieldReturnSite) takes the VS / BB menu path and disarms.
--- Ops 1 / 3 also go straight to the title (no press-start screen, retail GameReset). A return to the title disarms.
 
 FieldReturn = FieldReturn or {}
 
--- Byte offsets come from the game profile (structs.toml): Save.LoadedGuard = «save loaded» guard, Route.RpgNoPressStart = skip press-start.
--- A field that does not resolve, or a byte holding no flag, is not written.
+local Memory = VRFW.memory
+
 local GUARD_FIELD, NO_PRESS_START_FIELD = "Save.LoadedGuard", "Route.RpgNoPressStart"
 local GUARD_MAX, NO_PRESS_START_MAX = 5, 1   -- max values the game stores there (guard states 0..5, a bool)
 
 local armed, to_title, keep_game, taken, titles = false, false, true, 0, 0
 
-require "VRFW/lib/basics"
 local info = VRFW.logger("field_return")
 
 local function int(v, def)
@@ -24,11 +17,7 @@ local function int(v, def)
   return math.ceil(v)
 end
 
-local function global(name)
-  local ok, p = pcall(VRFW.game[name])
-  if ok and type(p) == "number" and p >= 0x10000 then return p end
-  return nil
-end
+local global = VRFW.game.global
 
 local function live() return VRFW.is_on("FieldReturnSite") end
 local function can_title() return VRFW.is_on("FieldReturnReset") end
@@ -47,16 +36,14 @@ local function wr8(base, name, max, v)
   local off = base and field(name)
   if not off then return false end
   local at = base + off
-  local ok, cur = pcall(VRFW.mem.read, "u8", at)
-  if not ok or type(cur) ~= "number" or cur > max then
+  local cur = Memory.read("u8", at)
+  if cur == nil or cur > max then
     VRFW.warn(string.format("field_return: %s holds %s (expected 0..%d): not written", name, tostring(cur), max))
     return false
   end
-  return (pcall(VRFW.mem.write, "u8", at, v))
+  return Memory.write("u8", at, v)
 end
 
--- Inside SoccerState::Update after the match scene ended, before the RPG field state resumes. Same effect as the game's own back-to-title path (CMND_GAME_RESET).
--- Sets the guard and no-press-start, then GameReset; GameReset only queues scene requests, so no field frame runs.
 local function go_title()
   local blk = global("field_return_play_data")
   local guard = wr8(blk, GUARD_FIELD, GUARD_MAX, keep_game and 1 or 0) and keep_game
@@ -83,7 +70,7 @@ function FieldReturn.Command(op)
   return on, armed and on, taken
 end
 
--- The «loaded field map?» test of SoccerState::Update: armed = take the VS / BB menu path (skip to continue_at).
+-- The "loaded field map?" test of SoccerState::Update: armed = take the VS / BB menu path (skip to continue_at).
 VRFW.on("hook:FieldReturnSite", function(ev)
   if not armed then return nil end
   armed = false

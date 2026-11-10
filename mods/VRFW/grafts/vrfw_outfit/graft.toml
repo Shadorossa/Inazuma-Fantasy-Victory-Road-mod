@@ -1,4 +1,4 @@
-# Outfits, UI side (VR-Framework). Always on: it acts only when the active mods declare
+# Outfits, UI side (VRFW). Always on: it acts only when the active mods declare
 # outfits ([[VRFW.Outfit]] of the item type; the framework answers CMND_VRFW_OUTFIT_COUNT = 0 otherwise and every
 # screen stays retail).
 # * equip_menu_select: the "Atuendo" row (equip slot 4, the game's costume slot that retail shows only in the story
@@ -29,7 +29,7 @@ stem = "equip_menu_select"
   type = "insert_before"
   point = "equip_menu_select.SetupCharaModel.VrfwOutfit"
   text = '''
-    n18 = VRFW_Outfit.PreviewUniform(n, n18, n20, flag6) -- VRFW vrfw_outfit
+    n18 = VRFW.outfit.preview_uniform(n, n18, n20, flag6) -- VRFW vrfw_outfit
 '''
 
   [[files.ops]]

@@ -1,5 +1,4 @@
 schema = "VRFW.technique/3"
-# Inazuma Fantasy's Idol cards (content\characters\idols.toml): their move and their ability boards.
 default_lang = "none"
 
 # The Idols' own ability boards (ability_learning_config): the move pieces name the cards' moves and levels.
@@ -345,7 +344,7 @@ cells = [
 ]
 
 [[board]]
-board = 0xA76791F4  # Mark Evans Idol (Inazuma Japón Legendario)
+board = 0xA76791F4
 info = [0x4F97B084]
 cells = [
   [0x8C382852, 0, 1, 0, 0, 0],
@@ -379,7 +378,7 @@ cells = [
 ]
 
 [[board]]
-board = 0x8A4C7A0A  # Axel Blaze Idol (Inazuma Japón Legendario)
+board = 0x8A4C7A0A
 info = [0x414C38B6]
 cells = [
   [0x0B011EBF, 0, 1, 0, 0, 0],
@@ -511,5 +510,106 @@ cells = [
   [0x0DE144AB, 0, 0, 0, 0, 0],
   [0xB7AE2B4C, 0, 0, 0, 0, 0],
   [0x0DE144AB, 0, 0, 0, 0, 0],
+  [0x41D73E91, 0, 0, 0, 0, 0],
+]
+
+[[board]]
+board = 0x15C6DA3F  # Byron Love of Ares Idol
+info = [0xB6C0EFA3]
+cells = [
+  [0x1C8CE2B8, 0, 0, 0, 0, 0],
+  [0xE49DAA1C, 0, 0, 0, 0, 0],
+  [0x0D368F6B, 0, 0, 0, 0, 0],
+  [0x9E74A7E8, 0, 0, 0, 0, 0],
+  [0x7577A26A, 0, 0, 0, 0, 0],
+  [0x7D8BB024, 0, 0, 0, 0, 0],
+  [0x7C49DA13, 0, 0, 0, 0, 0],
+  [0x9E74A7E8, 0, 0, 0, 0, 0],
+  [0xDF7E6AE1, 0, 0, 0, 0, 0],
+  [0x7B4072CF, 0, 0, 0, 0, 0],
+  [0x1C8CE2B8, 0, 0, 0, 0, 0],
+  [0x793FB747, 0, 0, 0, 0, 0],
+  [0x0D368F6B, 0, 0, 0, 0, 0],
+  [0x9385D108, 0, 0, 0, 0, 0],
+  [0x905C1272, 0, 0, 0, 0, 0],
+  [0x7C49DA13, 0, 0, 0, 0, 0],
+  [0xD8DE6F2B, 0, 0, 0, 0, 0],
+]
+
+[[board]]
+board = 0xE72E629F  # Mystral Callous Idol, edited in place: the game card 0xBCDFC454 alone uses it
+cells = [
+  [0xC513565C, 0, 0, 0, 0, 0],
+  [0x8A81ABCB, 0, 0, 0, 0, 0],
+  [0x119EFB90, 0, 0, 0, 0, 0],
+  [0x8A81ABCB, 0, 0, 0, 0, 0],
+  [0x71831119, 0, 0, 0, 0, 0],
+  [0x7D8BB024, 0, 0, 0, 0, 0],
+  [0x7C49DA13, 0, 0, 0, 0, 0],
+  [0xE49DAA1C, 0, 0, 0, 0, 0],
+  [0x7748D3F2, 0, 0, 0, 0, 0],
+  [0xE5408BA9, 0, 0, 0, 0, 0],
+  [0xC513565C, 0, 0, 0, 0, 0],
+  [0x793FB747, 0, 0, 0, 0, 0],
+  [0x119EFB90, 0, 0, 0, 0, 0],
+  [0x9385D108, 0, 0, 0, 0, 0],
+  [0x905C1272, 0, 0, 0, 0, 0],
+  [0x0DE144AB, 0, 0, 0, 0, 0],
+  [0xD8DE6F2B, 0, 0, 0, 0, 0],
+]
+
+[[board]]
+board = 0xFE3553DE  # Escavan Malice Idol, edited in place: the game card 0xA5C4F515 alone uses it
+cells = [
+  [0x119EFB90, 0, 0, 0, 0, 0],
+  [0xE49DAA1C, 0, 0, 0, 0, 0],
+  [0x6E53E2B3, 0, 0, 0, 0, 0],
+  [0x8A81ABCB, 0, 0, 0, 0, 0],
+  [0x1162A8AF, 0, 0, 0, 0, 0],
+  [0x7D8BB024, 0, 0, 0, 0, 0],
+  [0x7C49DA13, 0, 0, 0, 0, 0],
+  [0xE49DAA1C, 0, 0, 0, 0, 0],
+  [0xC513565C, 0, 0, 0, 0, 0],
+  [0xE5408BA9, 0, 0, 0, 0, 0],
+  [0x119EFB90, 0, 0, 0, 0, 0],
+  [0x706E4341, 0, 0, 0, 0, 0],
+  [0x6E53E2B3, 0, 0, 0, 0, 0],
+  [0x9385D108, 0, 0, 0, 0, 0],
+  [0x67AEFA32, 0, 0, 0, 0, 0],
+  [0x0DE144AB, 0, 0, 0, 0, 0],
+  [0xD8DE6F2B, 0, 0, 0, 0, 0],
+]
+
+[[board]]
+board = 0x59133E3B  # David Samford Idol
+info = [0x414C38B6]
+cells = [
+  [0x7DAF3139, 0, 1, 0, 0, 0],
+  [0x999ED9F5, 0, 0, 0, 0, 0],
+  [0x427719AC, 0, 20, 0, 0, 0],
+  [0xE49DAA1C, 0, 0, 0, 0, 0],
+  [0xB27F13ED, 0, 32, 0, 0, 0],
+  [0x7D8BB024, 0, 0, 0, 0, 0],
+  [0x0C232E9C, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 8, 0],
+  [0x845A23F9, 0, 0, 0, 0, 0],
+  [0x6730D416, 0, 55, 0, 0, 0],
+  [0xE5408BA9, 0, 0, 0, 0, 0],
+  [0x5C5E4B54, 0, 0, 0, 0, 0],
+  [0x5212E484, 0, 0, 0, 0, 0],
+  [0xC5571AEE, 0, 0, 0, 0, 0],
+  [0x9385D108, 0, 0, 0, 0, 0],
+  [0xBB7141B1, 0, 0, 0, 0, 0],
+  [0x0DE144AB, 0, 0, 0, 0, 0],
+  [0xD8DE6F2B, 0, 0, 0, 0, 0],
+  [0x845A23F9, 0, 0, 0, 0, 0],
+  [0xB2502A78, 0, 0, 0, 0, 0],
+  [0xE5408BA9, 0, 0, 0, 0, 0],
+  [0x22EF37E9, 0, 0, 0, 0, 0],
+  [0x5212E484, 0, 0, 0, 0, 0],
+  [0x55E8077F, 0, 0, 0, 0, 0],
+  [0x0E6590C5, 0, 0, 0, 0, 0],
+  [0xBB7141B1, 0, 0, 0, 0, 0],
+  [0x0E6590C5, 0, 0, 0, 0, 0],
   [0x41D73E91, 0, 0, 0, 0, 0],
 ]

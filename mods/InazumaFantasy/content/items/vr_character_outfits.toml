@@ -1,0 +1,2594 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# VR characters' own clothes sold as outfits: only body groups whose mesh the clothes have may wear them.
+
+[[VRFW.Outfit]]
+Name = "sturm_schwartzkopf_outfit"
+Kit = { Uniform = "0xECB33E4C" }
+IconKey = "cos_if_sturm_schwartzkopf"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Sturm Schwartzkopf"
+  Description = "La ropa de Sturm Schwartzkopf.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Sturm Schwartzkopf's outfit"
+  Description = "Sturm Schwartzkopf's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Sturm Schwartzkopf"
+  Description = "Les vêtements de Sturm Schwartzkopf.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Sturm Schwartzkopf"
+  Description = "Die Kleidung von Sturm Schwartzkopf.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Sturm Schwartzkopf"
+  Description = "Gli abiti di Sturm Schwartzkopf.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Sturm Schwartzkopf"
+  Description = "A roupa de Sturm Schwartzkopf.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[近藤/こんどう] [啓士/けいじ]の[衣装/いしょう]"
+  Description = "[近藤/こんどう] [啓士/けいじ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "近藤 启士的服装"
+  Description = "近藤 启士的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "近藤 啓士的服裝"
+  Description = "近藤 啓士的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "wilder_bigfoot_outfit"
+Kit = { Uniform = "0x1852384F" }
+IconKey = "cos_if_wilder_bigfoot_outfit"
+Who = { Body = [6] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Wilder Bigfoot"
+  Description = "La ropa de Wilder Bigfoot.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Wilder Bigfoot's outfit"
+  Description = "Wilder Bigfoot's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Wilder Bigfoot"
+  Description = "Les vêtements de Wilder Bigfoot.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Wilder Bigfoot"
+  Description = "Die Kleidung von Wilder Bigfoot.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Wilder Bigfoot"
+  Description = "Gli abiti di Wilder Bigfoot.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Wilder Bigfoot"
+  Description = "A roupa de Wilder Bigfoot.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[熊崎/くまざき] [伝治/でんじ]の[衣装/いしょう]"
+  Description = "[熊崎/くまざき] [伝治/でんじ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "熊崎 传治的服装"
+  Description = "熊崎 传治的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "熊崎 傳治的服裝"
+  Description = "熊崎 傳治的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "hans_sleight_outfit"
+Kit = { Uniform = "0x893A8A53" }
+IconKey = "cos_if_hans_sleight_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Hans Sleight"
+  Description = "La ropa de Hans Sleight.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Hans Sleight's outfit"
+  Description = "Hans Sleight's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Hans Sleight"
+  Description = "Les vêtements de Hans Sleight.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Hans Sleight"
+  Description = "Die Kleidung von Hans Sleight.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Hans Sleight"
+  Description = "Gli abiti di Hans Sleight.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Hans Sleight"
+  Description = "A roupa de Hans Sleight.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[宝水院/ほうすいいん] [忠則/ただのり]の[衣装/いしょう]"
+  Description = "[宝水院/ほうすいいん] [忠則/ただのり]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "宝水院 忠则的服装"
+  Description = "宝水院 忠则的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "寶水院 忠則的服裝"
+  Description = "寶水院 忠則的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "hailey_cometti_outfit"
+Kit = { Uniform = "0xA92249B6" }
+IconKey = "cos_if_hailey_cometti_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Hailey Cometti"
+  Description = "La ropa de Hailey Cometti.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Hailey Cometti's outfit"
+  Description = "Hailey Cometti's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Hailey Cometti"
+  Description = "Les vêtements de Hailey Cometti.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Hailey Cometti"
+  Description = "Die Kleidung von Hailey Cometti.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Hailey Cometti"
+  Description = "Gli abiti di Hailey Cometti.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Hailey Cometti"
+  Description = "A roupa de Hailey Cometti.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[狩部/かりべ] [蘭子/らんこ]の[衣装/いしょう]"
+  Description = "[狩部/かりべ] [蘭子/らんこ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "狩部 兰子的服装"
+  Description = "狩部 兰子的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "狩部 蘭子的服裝"
+  Description = "狩部 蘭子的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "bete_noire_outfit"
+Kit = { Uniform = "0x9B2583D3" }
+IconKey = "cos_if_bete_noire_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Bestia Negra"
+  Description = "La ropa de Bestia Negra.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Bête Noire's outfit"
+  Description = "Bête Noire's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Bête Noire"
+  Description = "Les vêtements de Bête Noire.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Bête Noire"
+  Description = "Die Kleidung von Bête Noire.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Bête Noire"
+  Description = "Gli abiti di Bête Noire.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Bête Noire"
+  Description = "A roupa de Bête Noire.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[紅菊/べにぎく]の[衣装/いしょう]"
+  Description = "[紅菊/べにぎく]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "红菊的服装"
+  Description = "红菊的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "紅菊的服裝"
+  Description = "紅菊的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "orlando_sherman_outfit"
+Kit = { Uniform = "0xC7861202" }
+IconKey = "cos_if_orlando_sherman_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Orlando Sherman"
+  Description = "La ropa de Orlando Sherman.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Orlando Sherman's outfit"
+  Description = "Orlando Sherman's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Orlando Sherman"
+  Description = "Les vêtements de Orlando Sherman.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Orlando Sherman"
+  Description = "Die Kleidung von Orlando Sherman.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Orlando Sherman"
+  Description = "Gli abiti di Orlando Sherman.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Orlando Sherman"
+  Description = "A roupa de Orlando Sherman.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "オーランド・シャーマンの[衣装/いしょう]"
+  Description = "オーランド・シャーマンの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "奥兰多·夏曼的服装"
+  Description = "奥兰多·夏曼的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "奧蘭多·夏曼的服裝"
+  Description = "奧蘭多·夏曼的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "murshid_amir_outfit"
+Kit = { Uniform = "0x2B3954A7" }
+IconKey = "cos_if_murshid_amir_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Murshid Amir"
+  Description = "La ropa de Murshid Amir.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Murshid Amir's outfit"
+  Description = "Murshid Amir's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Murshid Amir"
+  Description = "Les vêtements de Murshid Amir.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Murshid Amir"
+  Description = "Die Kleidung von Murshid Amir.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Murshid Amir"
+  Description = "Gli abiti di Murshid Amir.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Murshid Amir"
+  Description = "A roupa de Murshid Amir.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "ムルシド・アミールの[衣装/いしょう]"
+  Description = "ムルシド・アミールの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "穆尔希德·阿米尔的服装"
+  Description = "穆尔希德·阿米尔的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "穆爾希德·阿密爾的服裝"
+  Description = "穆爾希德·阿密爾的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "rashiri_saran_outfit"
+Kit = { Uniform = "0xB53EF460" }
+IconKey = "cos_if_rashiri_saran_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Rashiri Saran"
+  Description = "La ropa de Rashiri Saran.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Rashiri Saran's outfit"
+  Description = "Rashiri Saran's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Rashiri Saran"
+  Description = "Les vêtements de Rashiri Saran.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Rashiri Saran"
+  Description = "Die Kleidung von Rashiri Saran.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Rashiri Saran"
+  Description = "Gli abiti di Rashiri Saran.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Rashiri Saran"
+  Description = "A roupa de Rashiri Saran.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "ラシリー・サランユーの[衣装/いしょう]"
+  Description = "ラシリー・サランユーの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "拉西丽·萨兰尤的服装"
+  Description = "拉西丽·萨兰尤的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "拉希利·薩蘭尤的服裝"
+  Description = "拉希利·薩蘭尤的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "zundar_zand_outfit"
+Kit = { Uniform = "0xDD2FA09A" }
+IconKey = "cos_if_zundar_zand_outfit"
+Who = { Body = [0] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Zundar Zand"
+  Description = "La ropa de Zundar Zand.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Zundar Zand's outfit"
+  Description = "Zundar Zand's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Zundar Zand"
+  Description = "Les vêtements de Zundar Zand.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Zundar Zand"
+  Description = "Die Kleidung von Zundar Zand.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Zundar Zand"
+  Description = "Gli abiti di Zundar Zand.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Zundar Zand"
+  Description = "A roupa de Zundar Zand.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "ズンダル・ザンドの[衣装/いしょう]"
+  Description = "ズンダル・ザンドの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "尊达尔·赞德的服装"
+  Description = "尊达尔·赞德的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "尊達爾·贊德的服裝"
+  Description = "尊達爾·贊德的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "porco_umir_outfit"
+Kit = { Uniform = "0xE36FE0EE" }
+IconKey = "cos_if_porco_umir_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Porco Umir"
+  Description = "La ropa de Porco Umir.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Porco Umir's outfit"
+  Description = "Porco Umir's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Porco Umir"
+  Description = "Les vêtements de Porco Umir.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Porco Umir"
+  Description = "Die Kleidung von Porco Umir.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Polcu Umir"
+  Description = "Gli abiti di Polcu Umir.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Porco Umir"
+  Description = "A roupa de Porco Umir.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "ポルコ・ウミールの[衣装/いしょう]"
+  Description = "ポルコ・ウミールの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "波尔科·乌米尔的服装"
+  Description = "波尔科·乌米尔的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "波爾科·烏米爾的服裝"
+  Description = "波爾科·烏米爾的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "simeur_feromont_outfit"
+Kit = { Uniform = "0xCB6EED85" }
+IconKey = "cos_if_simeur_feromont_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Sect Feromona"
+  Description = "La ropa de Sect Feromona.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Simeur Feromont's outfit"
+  Description = "Simeur Feromont's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Simeur Feromont"
+  Description = "Les vêtements de Simeur Feromont.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Simeur Feromont"
+  Description = "Die Kleidung von Simeur Feromont.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Simeur Feromont"
+  Description = "Gli abiti di Simeur Feromont.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Simeur Feromont"
+  Description = "A roupa de Simeur Feromont.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "シムール・フェロモナの[衣装/いしょう]"
+  Description = "シムール・フェロモナの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "席姆鲁·费罗摩那的服装"
+  Description = "席姆鲁·费罗摩那的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "錫姆魯·費羅摩那的服裝"
+  Description = "錫姆魯·費羅摩那的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "changsu_choi_outfit"
+Kit = { Uniform = "0xACF813BB" }
+IconKey = "cos_if_changsu_choi_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Changsu Choi"
+  Description = "La ropa de Changsu Choi.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Changsu Choi's outfit"
+  Description = "Changsu Choi's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Changsu Choi"
+  Description = "Les vêtements de Changsu Choi.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Changsu Choi"
+  Description = "Die Kleidung von Changsu Choi.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Changsu Choi"
+  Description = "Gli abiti di Changsu Choi.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Changsu Choi"
+  Description = "A roupa de Changsu Choi.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "チェ・チャンスウの[衣装/いしょう]"
+  Description = "チェ・チャンスウの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "崔 正秀的服装"
+  Description = "崔 正秀的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "崔 正秀的服裝"
+  Description = "崔 正秀的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "nikolai_gagarin_outfit"
+Kit = { Uniform = "0x5CAD4CE2" }
+IconKey = "cos_if_nikolai_gagarin_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Nikolai Gagarin"
+  Description = "La ropa de Nikolai Gagarin.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Nikolai Gagarin's outfit"
+  Description = "Nikolai Gagarin's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Nikolai Gagarin"
+  Description = "Les vêtements de Nikolai Gagarin.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Nikolai Gagarin"
+  Description = "Die Kleidung von Nikolai Gagarin.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Nikolai Gagarin"
+  Description = "Gli abiti di Nikolai Gagarin.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Nikolai Gagarin"
+  Description = "A roupa de Nikolai Gagarin.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "ニコライ・ガガーリンの[衣装/いしょう]"
+  Description = "ニコライ・ガガーリンの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "尼古拉伊·加加林的服装"
+  Description = "尼古拉伊·加加林的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "尼古拉伊·加加林的服裝"
+  Description = "尼古拉伊·加加林的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "caldera_dorne_outfit"
+Kit = { Uniform = "0x4105C52E" }
+IconKey = "cos_if_caldera_dorne_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Caldera Dawn"
+  Description = "La ropa de Caldera Dawn.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Caldera Dorne's outfit"
+  Description = "Caldera Dorne's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Caldera Dorne"
+  Description = "Les vêtements de Caldera Dorne.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Caldera Dorne"
+  Description = "Die Kleidung von Caldera Dorne.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Caldera Dorne"
+  Description = "Gli abiti di Caldera Dorne.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Caldera Dorne"
+  Description = "A roupa de Caldera Dorne.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "カルデラ・ドーンの[衣装/いしょう]"
+  Description = "カルデラ・ドーンの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "卡鲁德拉·顿的服装"
+  Description = "卡鲁德拉·顿的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "卡魯德拉·朵恩的服裝"
+  Description = "卡魯德拉·朵恩的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "regina_mulgrave_outfit"
+Kit = { Uniform = "0xBF4B4E3A" }
+IconKey = "cos_if_regina_mulgrave_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Regina Mulgrave"
+  Description = "La ropa de Regina Mulgrave.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Regina Mulgrave's outfit"
+  Description = "Regina Mulgrave's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Regina Mulgrave"
+  Description = "Les vêtements de Regina Mulgrave.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Regina Mulgrave"
+  Description = "Die Kleidung von Regina Mulgrave.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Regina Mulgrave"
+  Description = "Gli abiti di Regina Mulgrave.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Regina Mulgrave"
+  Description = "A roupa de Regina Mulgrave.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[神門/みかど] [杏奈/あんな]の[衣装/いしょう]"
+  Description = "[神門/みかど] [杏奈/あんな]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "神门 杏奈的服装"
+  Description = "神门 杏奈的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "神門 杏奈的服裝"
+  Description = "神門 杏奈的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "mister_yi_outfit_1"
+Kit = { Uniform = "0xDBBA2085" }
+IconKey = "cos_if_mister_yi_outfit_1"
+Who = { Body = [6] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Mister Yi 1"
+  Description = "La ropa de Mister Yi.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Mister Yi's outfit 1"
+  Description = "Mister Yi's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Monsieur Yi 1"
+  Description = "Les vêtements de Monsieur Yi.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Mister Yi 1"
+  Description = "Die Kleidung von Mister Yi.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Mister Yi 1"
+  Description = "Gli abiti di Mister Yi.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Senhor Yi 1"
+  Description = "A roupa de Senhor Yi.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[趙/ちょう] [金雲/きんうん]の[衣装/いしょう] 1"
+  Description = "[趙/ちょう] [金雲/きんうん]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "赵 金云的服装 1"
+  Description = "赵 金云的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "趙 金雲的服裝 1"
+  Description = "趙 金雲的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "mister_yi_outfit_2"
+Kit = { Uniform = "0x42B3713F" }
+IconKey = "cos_if_mister_yi_outfit_2"
+Who = { Body = [6] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Mister Yi 2"
+  Description = "La ropa de Mister Yi.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Mister Yi's outfit 2"
+  Description = "Mister Yi's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Monsieur Yi 2"
+  Description = "Les vêtements de Monsieur Yi.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Mister Yi 2"
+  Description = "Die Kleidung von Mister Yi.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Mister Yi 2"
+  Description = "Gli abiti di Mister Yi.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Senhor Yi 2"
+  Description = "A roupa de Senhor Yi.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[趙/ちょう] [金雲/きんうん]の[衣装/いしょう] 2"
+  Description = "[趙/ちょう] [金雲/きんうん]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "赵 金云的服装 2"
+  Description = "赵 金云的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "趙 金雲的服裝 2"
+  Description = "趙 金雲的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "dean_rush_outfit"
+Kit = { Uniform = "0x392E270A" }
+IconKey = "cos_if_dean_rush_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Dean Rush"
+  Description = "La ropa de Dean Rush.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Dean Rush's outfit"
+  Description = "Dean Rush's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Dean Rush"
+  Description = "Les vêtements de Dean Rush.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Dean Rush"
+  Description = "Die Kleidung von Dean Rush.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Dean Rush"
+  Description = "Gli abiti di Dean Rush.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Dean Rush"
+  Description = "A roupa de Dean Rush.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[亀田/かめた] [幸則/ゆきのり]の[衣装/いしょう]"
+  Description = "[亀田/かめた] [幸則/ゆきのり]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "龟田 幸则的服装"
+  Description = "龟田 幸则的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "龜田 幸則的服裝"
+  Description = "龜田 幸則的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "emperio_n_guinn_outfit"
+Kit = { Uniform = "0x15083E9B" }
+IconKey = "cos_if_emperio_n_guinn_outfit"
+Who = { Body = [2, 10] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Emperio N. Guinn"
+  Description = "La ropa de Emperio N. Guinn.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Emperio N. Guinn's outfit"
+  Description = "Emperio N. Guinn's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Emperio N. Guinn"
+  Description = "Les vêtements de Emperio N. Guinn.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Emperio N. Guinn"
+  Description = "Die Kleidung von Emperio N. Guinn.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Emperio N. Guinn"
+  Description = "Gli abiti di Emperio N. Guinn.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Emperio N. Guinn"
+  Description = "A roupa de Emperio N. Guinn.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[皇寺/こうでら] [銀兵/ぎんぺい]の[衣装/いしょう]"
+  Description = "[皇寺/こうでら] [銀兵/ぎんぺい]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "皇寺 银兵的服装"
+  Description = "皇寺 银兵的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "皇寺 銀兵的服裝"
+  Description = "皇寺 銀兵的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "lanny_tern_outfit"
+Kit = { Uniform = "0x34F3BF62" }
+IconKey = "cos_if_lanny_tern_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Lanny Tern"
+  Description = "La ropa de Lanny Tern.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Lanny Tern's outfit"
+  Description = "Lanny Tern's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Lanny Tern"
+  Description = "Les vêtements de Lanny Tern.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Lanny Tern"
+  Description = "Die Kleidung von Lanny Tern.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Lanny Tern"
+  Description = "Gli abiti di Lanny Tern.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Lanny Tern"
+  Description = "A roupa de Lanny Tern.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[提灯/ちょうちん] ほのりの[衣装/いしょう]"
+  Description = "[提灯/ちょうちん] ほのりの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "提灯 帆乃里的服装"
+  Description = "提灯 帆乃里的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "提燈 帆乃里的服裝"
+  Description = "提燈 帆乃里的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "flammie_gonzalez_outfit"
+Kit = { Uniform = "0x34456C05" }
+IconKey = "cos_if_flammie_gonzalez_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Flammie Gonzalez"
+  Description = "La ropa de Flammie Gonzalez.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Flammie Gonzalez's outfit"
+  Description = "Flammie Gonzalez's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Flammie Gonzalez"
+  Description = "Les vêtements de Flammie Gonzalez.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Flammie Gonzalez"
+  Description = "Die Kleidung von Flammie Gonzalez.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Flammie Gonzalez"
+  Description = "Gli abiti di Flammie Gonzalez.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Flammie Gonzalez"
+  Description = "A roupa de Flammie Gonzalez.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[富良/ふら] [民子/みんこ]の[衣装/いしょう]"
+  Description = "[富良/ふら] [民子/みんこ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "富良 民子的服装"
+  Description = "富良 民子的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "富良 民子的服裝"
+  Description = "富良 民子的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "jethro_mackin_outfit"
+Kit = { Uniform = "0x28E8E3EF" }
+IconKey = "cos_if_jethro_mackin_outfit"
+Who = { Body = [2, 10] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Jethro Mackin"
+  Description = "La ropa de Jethro Mackin.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Jethro Mackin's outfit"
+  Description = "Jethro Mackin's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Jethro Mackin"
+  Description = "Les vêtements de Jethro Mackin.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Jethro Mackin"
+  Description = "Die Kleidung von Jethro Mackin.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Jethro Mackin"
+  Description = "Gli abiti di Jethro Mackin.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Jethro Mackin"
+  Description = "A roupa de Jethro Mackin.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[機械/きかい] [八太郎/やったろう]の[衣装/いしょう]"
+  Description = "[機械/きかい] [八太郎/やったろう]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "机械 八太郎的服装"
+  Description = "机械 八太郎的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "機械 八太郎的服裝"
+  Description = "機械 八太郎的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "des_pott_outfit"
+Kit = { Uniform = "0xA3CDCE67" }
+IconKey = "cos_if_des_pott_outfit"
+Who = { Body = [5, 16] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Des Pott"
+  Description = "La ropa de Des Pott.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Des Pott's outfit"
+  Description = "Des Pott's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Des Pott"
+  Description = "Les vêtements de Des Pott.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Des Pott"
+  Description = "Die Kleidung von Des Pott.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Des Pott"
+  Description = "Gli abiti di Des Pott.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Des Pott"
+  Description = "A roupa de Des Pott.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[我野/わがの] [革命/かくめい]の[衣装/いしょう]"
+  Description = "[我野/わがの] [革命/かくめい]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "我野 革命的服装"
+  Description = "我野 革命的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "我野 革命的服裝"
+  Description = "我野 革命的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "lynn_tambelle_outfit"
+Kit = { Uniform = "0x4AF630BA" }
+IconKey = "cos_if_lynn_tambelle_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Lynn Tambelle"
+  Description = "La ropa de Lynn Tambelle.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Lynn Tambelle's outfit"
+  Description = "Lynn Tambelle's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Lynn Tambelle"
+  Description = "Les vêtements de Lynn Tambelle.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Lynn Tambelle"
+  Description = "Die Kleidung von Lynn Tambelle.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Lynn Tambelle"
+  Description = "Gli abiti di Lynn Tambelle.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Lynn Tambelle"
+  Description = "A roupa de Lynn Tambelle.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[丹波/たんば] [鈴/すず]の[衣装/いしょう]"
+  Description = "[丹波/たんば] [鈴/すず]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "丹波 铃的服装"
+  Description = "丹波 铃的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "丹波 鈴的服裝"
+  Description = "丹波 鈴的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "alexander_scrivener_outfit"
+Kit = { Uniform = "0x2B8DC5B0" }
+IconKey = "cos_if_alexander_scrivener"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Alexander Scrivener"
+  Description = "La ropa de Alexander Scrivener.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Alexander Scrivener's outfit"
+  Description = "Alexander Scrivener's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Alexander Scrivener"
+  Description = "Les vêtements de Alexander Scrivener.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Alexander Scrivener"
+  Description = "Die Kleidung von Alexander Scrivener.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Alexander Scrivener"
+  Description = "Gli abiti di Alexander Scrivener.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Alexander Scrivener"
+  Description = "A roupa de Alexander Scrivener.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[牛島/うしじま] [育郎/いくろう]の[衣装/いしょう]"
+  Description = "[牛島/うしじま] [育郎/いくろう]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "牛岛 育郎的服装"
+  Description = "牛岛 育郎的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "牛島 育郎的服裝"
+  Description = "牛島 育郎的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "deirdre_staples_outfit"
+Kit = { Uniform = "0x8834B2CB" }
+IconKey = "cos_if_deirdre_staples_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Deirdre Staples"
+  Description = "La ropa de Deirdre Staples.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Deirdre Staples's outfit"
+  Description = "Deirdre Staples's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Deirdre Staples"
+  Description = "Les vêtements de Deirdre Staples.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Deirdre Staples"
+  Description = "Die Kleidung von Deirdre Staples.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Deirdre Staples"
+  Description = "Gli abiti di Deirdre Staples.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Deirdre Staples"
+  Description = "A roupa de Deirdre Staples.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[松坂/まつざか] キヨの[衣装/いしょう]"
+  Description = "[松坂/まつざか] キヨの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "松坂 清的服装"
+  Description = "松坂 清的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "松坂 清的服裝"
+  Description = "松坂 清的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "mila_simmering_outfit"
+Kit = { Uniform = "0xB1F97659" }
+IconKey = "cos_if_mila_simmering_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Mila Simmering"
+  Description = "La ropa de Mila Simmering.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Mila Simmering's outfit"
+  Description = "Mila Simmering's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Mila Simmering"
+  Description = "Les vêtements de Mila Simmering.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Mila Simmering"
+  Description = "Die Kleidung von Mila Simmering.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Mila Simmering"
+  Description = "Gli abiti di Mila Simmering.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Mila Simmering"
+  Description = "A roupa de Mila Simmering.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[丘峰/おかみね] [寒名/かんな]の[衣装/いしょう]"
+  Description = "[丘峰/おかみね] [寒名/かんな]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "丘峰 寒名的服装"
+  Description = "丘峰 寒名的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "丘峰 寒名的服裝"
+  Description = "丘峰 寒名的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "robert_cottontail_outfit"
+Kit = { Uniform = "0xC08F7927" }
+IconKey = "cos_if_robert_cottontail_outfit"
+Who = { Body = [6] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Robert Cottontail"
+  Description = "La ropa de Robert Cottontail.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Robert Cottontail's outfit"
+  Description = "Robert Cottontail's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Robert Cottontail"
+  Description = "Les vêtements de Robert Cottontail.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Robert Cottontail"
+  Description = "Die Kleidung von Robert Cottontail.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Robert Cottontail"
+  Description = "Gli abiti di Robert Cottontail.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Robert Cottontail"
+  Description = "A roupa de Robert Cottontail.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[白兎屋/しらとや] [甘兵衛/かんべえ]の[衣装/いしょう]"
+  Description = "[白兎屋/しらとや] [甘兵衛/かんべえ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "白兔屋 甘兵卫的服装"
+  Description = "白兔屋 甘兵卫的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "白兔屋 甘兵衛的服裝"
+  Description = "白兔屋 甘兵衛的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "percival_travis_outfit"
+Kit = { Uniform = "0xC7E9A049" }
+IconKey = "cos_if_percival_travis_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Percival Travis"
+  Description = "La ropa de Percival Travis.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Percival Travis's outfit"
+  Description = "Percival Travis's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Percival Travis"
+  Description = "Les vêtements de Percival Travis.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Percival Travis"
+  Description = "Die Kleidung von Percival Travis.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Percival Travis"
+  Description = "Gli abiti di Percival Travis.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Percival Travis"
+  Description = "A roupa de Percival Travis.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[久遠/くどう] [道也/みちや]の[衣装/いしょう]"
+  Description = "[久遠/くどう] [道也/みちや]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "久远 道也的服装"
+  Description = "久远 道也的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "久遠 道也的服裝"
+  Description = "久遠 道也的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "dominic_hewitt_outfit"
+Kit = { Uniform = "0x6994B73F" }
+IconKey = "cos_if_dominic_hewitt_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Dominic Hewitt"
+  Description = "La ropa de Dominic Hewitt.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Dominic Hewitt's outfit"
+  Description = "Dominic Hewitt's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Dominic Hewitt"
+  Description = "Les vêtements de Dominic Hewitt.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Dominic Hewitt"
+  Description = "Die Kleidung von Dominic Hewitt.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Dominic Hewitt"
+  Description = "Gli abiti di Dominic Hewitt.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Dominic Hewitt"
+  Description = "A roupa de Dominic Hewitt.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[巻原/まきはら] [英司/えいじ]の[衣装/いしょう]"
+  Description = "[巻原/まきはら] [英司/えいじ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "卷原 英司的服装"
+  Description = "卷原 英司的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "卷原 英司的服裝"
+  Description = "卷原 英司的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "curt_gale_outfit"
+Kit = { Uniform = "0x0DA64811" }
+IconKey = "cos_if_curt_gale_outfit"
+Who = { Body = [7] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Curt Gale"
+  Description = "La ropa de Curt Gale.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Curt Gale's outfit"
+  Description = "Curt Gale's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Curt Galles"
+  Description = "Les vêtements de Curt Galles.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Curt Gale"
+  Description = "Die Kleidung von Curt Gale.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Curt Gale"
+  Description = "Gli abiti di Curt Gale.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Curt Gale"
+  Description = "A roupa de Curt Gale.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[嵐/あらし] [新次郎/しんじろう]の[衣装/いしょう]"
+  Description = "[嵐/あらし] [新次郎/しんじろう]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "岚 新次郎的服装"
+  Description = "岚 新次郎的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "嵐 新次郎的服裝"
+  Description = "嵐 新次郎的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "bastiana_chateau_outfit"
+Kit = { Uniform = "0xB86C271D" }
+IconKey = "cos_if_bastiana_chateau_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Bastiana Chateau"
+  Description = "La ropa de Bastiana Chateau.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Bastiana Chateau's outfit"
+  Description = "Bastiana Chateau's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Bastiana Chateau"
+  Description = "Les vêtements de Bastiana Chateau.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Bastiana Chateau"
+  Description = "Die Kleidung von Bastiana Chateau.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Bastiana Chateau"
+  Description = "Gli abiti di Bastiana Chateau.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Bastiana Chateau"
+  Description = "A roupa de Bastiana Chateau.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[山城/やましろ] きずくの[衣装/いしょう]"
+  Description = "[山城/やましろ] きずくの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "山城 筑的服装"
+  Description = "山城 筑的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "山城 築的服裝"
+  Description = "山城 築的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "fortnum_pile_outfit"
+Kit = { Uniform = "0xF3431B3E" }
+IconKey = "cos_if_fortnum_pile_outfit"
+Who = { Body = [6] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Fortnum Pile"
+  Description = "La ropa de Fortnum Pile.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Fortnum Pile's outfit"
+  Description = "Fortnum Pile's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Fortnum Pile"
+  Description = "Les vêtements de Fortnum Pile.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Fortnum Pile"
+  Description = "Die Kleidung von Fortnum Pile.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Fortnum Pile"
+  Description = "Gli abiti di Fortnum Pile.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Fortnum Pile"
+  Description = "A roupa de Fortnum Pile.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[齋藤/さいとう] [岩石/がんせき]の[衣装/いしょう]"
+  Description = "[齋藤/さいとう] [岩石/がんせき]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "斋藤 岩石的服装"
+  Description = "斋藤 岩石的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "齋藤 岩石的服裝"
+  Description = "齋藤 岩石的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "skinner_lankley_outfit"
+Kit = { Uniform = "0xAD4B5A20" }
+IconKey = "cos_if_skinner_lankley_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Skinner Lankley"
+  Description = "La ropa de Skinner Lankley.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Skinner Lankley's outfit"
+  Description = "Skinner Lankley's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Skinner Lankley"
+  Description = "Les vêtements de Skinner Lankley.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Skinner Lankley"
+  Description = "Die Kleidung von Skinner Lankley.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Skinner Lankley"
+  Description = "Gli abiti di Skinner Lankley.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Skinner Lankley"
+  Description = "A roupa de Skinner Lankley.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[細井/ほそい] [長夫/ながお]の[衣装/いしょう]"
+  Description = "[細井/ほそい] [長夫/ながお]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "细井 长夫的服装"
+  Description = "细井 长夫的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "細井 長夫的服裝"
+  Description = "細井 長夫的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "aquilina_schiller_outfit"
+Kit = { Uniform = "0x6B41A526" }
+IconKey = "cos_if_aquilina_schiller_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Aquilina Schiller"
+  Description = "La ropa de Aquilina Schiller.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Aquilina Schiller's outfit"
+  Description = "Aquilina Schiller's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Aquilina Schiller"
+  Description = "Les vêtements de Aquilina Schiller.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Aquilina Schiller"
+  Description = "Die Kleidung von Aquilina Schiller.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Aquilina Schiller"
+  Description = "Gli abiti di Aquilina Schiller.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Aquilina Schiller"
+  Description = "A roupa de Aquilina Schiller.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[吉良/きら] [瞳子/ひとみこ]の[衣装/いしょう]"
+  Description = "[吉良/きら] [瞳子/ひとみこ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "吉良 瞳子的服装"
+  Description = "吉良 瞳子的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "吉良 瞳子的服裝"
+  Description = "吉良 瞳子的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "aurelia_dingle_outfit"
+Kit = { Uniform = "0x903121C2" }
+IconKey = "cos_if_aurelia_dingle_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Aurelia Dingle"
+  Description = "La ropa de Aurelia Dingle.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Aurelia Dingle's outfit"
+  Description = "Aurelia Dingle's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Aurelia Dingle"
+  Description = "Les vêtements de Aurelia Dingle.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Aurelia Dingle"
+  Description = "Die Kleidung von Aurelia Dingle.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Aurelia Dingle"
+  Description = "Gli abiti di Aurelia Dingle.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Aurelia Dingle"
+  Description = "A roupa de Aurelia Dingle.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[大谷/おおたに] つくしの[衣装/いしょう]"
+  Description = "[大谷/おおたに] つくしの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "大谷 尽的服装"
+  Description = "大谷 尽的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "大谷 盡的服裝"
+  Description = "大谷 盡的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "alessio_ganonti_outfit"
+Kit = { Uniform = "0x2F3DB149" }
+IconKey = "cos_if_alessio_ganonti_outfit"
+Who = { Body = [5, 16] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Alessio Ganonti"
+  Description = "La ropa de Alessio Ganonti.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Alessio Ganonti's outfit"
+  Description = "Alessio Ganonti's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Alessio Ganonti"
+  Description = "Les vêtements de Alessio Ganonti.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Alessio Ganonti"
+  Description = "Die Kleidung von Alessio Ganonti.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Alessio Ganonti"
+  Description = "Gli abiti di Alessio Ganonti.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Alessio Ganonti"
+  Description = "A roupa de Alessio Ganonti.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "サロモン・ガノンティの[衣装/いしょう]"
+  Description = "サロモン・ガノンティの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "萨洛蒙·葛农特的服装"
+  Description = "萨洛蒙·葛农特的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "薩洛蒙·加農提的服裝"
+  Description = "薩洛蒙·加農提的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "an_min_su_outfit"
+Kit = { Uniform = "0xA03D5313" }
+IconKey = "cos_if_an_min_su_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de An Min-su"
+  Description = "La ropa de An Min-su.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "An Min-su's outfit"
+  Description = "An Min-su's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de An Min-su"
+  Description = "Les vêtements de An Min-su.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von An Min-su"
+  Description = "Die Kleidung von An Min-su.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di An Min-su"
+  Description = "Gli abiti di An Min-su.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de An Min-su"
+  Description = "A roupa de An Min-su.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "チャ・ウンスの[衣装/いしょう]"
+  Description = "チャ・ウンスの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "车 恩秀的服装"
+  Description = "车 恩秀的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "車 恩秀的服裝"
+  Description = "車 恩秀的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "grant_grimoire_outfit"
+Kit = { Uniform = "0x3E48475E" }
+IconKey = "cos_if_grant_grimoire_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Grant Grimoire"
+  Description = "La ropa de Grant Grimoire.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Grant Grimoire's outfit"
+  Description = "Grant Grimoire's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Grant Grimoire"
+  Description = "Les vêtements de Grant Grimoire.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Grant Grimoire"
+  Description = "Die Kleidung von Grant Grimoire.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Grant Grimoire"
+  Description = "Gli abiti di Grant Grimoire.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Grant Grimoire"
+  Description = "A roupa de Grant Grimoire.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "ディアボ・ロスの[衣装/いしょう]"
+  Description = "ディアボ・ロスの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "迪亚布·罗斯的服装"
+  Description = "迪亚布·罗斯的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "迪亞布·羅斯的服裝"
+  Description = "迪亞布·羅斯的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "baz_azel_outfit"
+Kit = { Uniform = "0xA514B26D" }
+IconKey = "cos_if_baz_azel_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Baz Azel"
+  Description = "La ropa de Baz Azel.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Baz Azel's outfit"
+  Description = "Baz Azel's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Baz Azel"
+  Description = "Les vêtements de Baz Azel.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Baz Azel"
+  Description = "Die Kleidung von Baz Azel.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Baz Azel"
+  Description = "Gli abiti di Baz Azel.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Baz Azel"
+  Description = "A roupa de Baz Azel.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "シモン・アザゼルの[衣装/いしょう]"
+  Description = "シモン・アザゼルの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "西蒙·阿萨兹勒的服装"
+  Description = "西蒙·阿萨兹勒的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "西蒙·阿撒茲勒的服裝"
+  Description = "西蒙·阿撒茲勒的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "ballet_burkhanov_outfit"
+Kit = { Uniform = "0x2A94B924" }
+IconKey = "cos_if_ballet_burkhanov_outfit"
+Who = { Body = [2, 10] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Ballet Burkhanov"
+  Description = "La ropa de Ballet Burkhanov.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Ballet Burkhanov's outfit"
+  Description = "Ballet Burkhanov's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Ballet Burkhanov"
+  Description = "Les vêtements de Ballet Burkhanov.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Ballet Burkhanov"
+  Description = "Die Kleidung von Ballet Burkhanov.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Ballet Burkhanov"
+  Description = "Gli abiti di Ballet Burkhanov.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Ballet Burkhanov"
+  Description = "A roupa de Ballet Burkhanov.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "アダム・サンチーの[衣装/いしょう]"
+  Description = "アダム・サンチーの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "亚当·桑奇的服装"
+  Description = "亚当·桑奇的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "亞當·桑奇的服裝"
+  Description = "亞當·桑奇的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "carrie_ogrova_outfit"
+Kit = { Uniform = "0x8A65A5BB" }
+IconKey = "cos_if_carrie_ogrova_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Carrie Ogrova"
+  Description = "La ropa de Carrie Ogrova.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Carrie Ogrova's outfit"
+  Description = "Carrie Ogrova's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Carrie Ogrova"
+  Description = "Les vêtements de Carrie Ogrova.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Carrie Ogrova"
+  Description = "Die Kleidung von Carrie Ogrova.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Carrie Ogrova"
+  Description = "Gli abiti di Carrie Ogrova.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Carrie Ogrova"
+  Description = "A roupa de Carrie Ogrova.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "ザビーネ・ノジマの[衣装/いしょう]"
+  Description = "ザビーネ・ノジマの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "莎比娜·野岛的服装"
+  Description = "莎比娜·野岛的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "莎比娜·野島的服裝"
+  Description = "莎比娜·野島的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "anqa_qushchi_outfit"
+Kit = { Uniform = "0x0F507970" }
+IconKey = "cos_if_anqa_qushchi_outfit"
+Who = { Body = [5, 16] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Anqa Qushchi"
+  Description = "La ropa de Anqa Qushchi.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Anqa Qushchi's outfit"
+  Description = "Anqa Qushchi's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Anqa Qushchi"
+  Description = "Les vêtements de Anqa Qushchi.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Anqa Qushchi"
+  Description = "Die Kleidung von Anqa Qushchi.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Anqa Qushchi"
+  Description = "Gli abiti di Anqa Qushchi.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Anqa Qushchi"
+  Description = "A roupa de Anqa Qushchi.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "エヴァ・ゴードンの[衣装/いしょう]"
+  Description = "エヴァ・ゴードンの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "伊娃·戈登的服装"
+  Description = "伊娃·戈登的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "伊娃·戈登的服裝"
+  Description = "伊娃·戈登的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "roc_nasr_outfit"
+Kit = { Uniform = "0xE32242AB" }
+IconKey = "cos_if_roc_nasr_outfit"
+Who = { Body = [0] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Roc Nasr"
+  Description = "La ropa de Roc Nasr.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Roc Nasr's outfit"
+  Description = "Roc Nasr's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Roc Nasr"
+  Description = "Les vêtements de Roc Nasr.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Roc Nasr"
+  Description = "Die Kleidung von Roc Nasr.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Roc Nasr"
+  Description = "Gli abiti di Roc Nasr.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Roc Nasr"
+  Description = "A roupa de Roc Nasr.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "フラッシュ・ハニワの[衣装/いしょう]"
+  Description = "フラッシュ・ハニワの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "弗拉什·哈尼瓦的服装"
+  Description = "弗拉什·哈尼瓦的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "弗拉什·哈尼瓦的服裝"
+  Description = "弗拉什·哈尼瓦的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "lucy_wongfu_outfit"
+Kit = { Uniform = "0x3D652F9D" }
+IconKey = "cos_if_lucy_wongfu_outfit"
+Who = { Body = [2, 10] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Lucy Wongfu"
+  Description = "La ropa de Lucy Wongfu.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Lucy Wongfu's outfit"
+  Description = "Lucy Wongfu's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Lucy Wongfu"
+  Description = "Les vêtements de Lucy Wongfu.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Lucy Wongfu"
+  Description = "Die Kleidung von Lucy Wongfu.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Lucy Wongfu"
+  Description = "Gli abiti di Lucy Wongfu.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Lucy Wongfu"
+  Description = "A roupa de Lucy Wongfu.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "リ・ユーチェンの[衣装/いしょう]"
+  Description = "リ・ユーチェンの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "李 优澄的服装"
+  Description = "李 优澄的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "李 優澄的服裝"
+  Description = "李 優澄的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "wilson_ip_outfit"
+Kit = { Uniform = "0x89EFA31D" }
+IconKey = "cos_if_wilson_ip_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Wilson Ip"
+  Description = "La ropa de Wilson Ip.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Wilson Ip's outfit"
+  Description = "Wilson Ip's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Wilson Ip"
+  Description = "Les vêtements de Wilson Ip.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Wilson Ip"
+  Description = "Die Kleidung von Wilson Ip.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Wilson Ip"
+  Description = "Gli abiti di Wilson Ip.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Wilson Ip"
+  Description = "A roupa de Wilson Ip.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "ショウ・ロンポウの[衣装/いしょう]"
+  Description = "ショウ・ロンポウの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "肖 龙宝的服装"
+  Description = "肖 龙宝的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "肖 龍寳的服裝"
+  Description = "肖 龍寳的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "rene_gade_outfit"
+Kit = { Uniform = "0x9F850857" }
+IconKey = "cos_if_rene_gade_outfit"
+Who = { Body = [5, 16] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de René Gadé"
+  Description = "La ropa de René Gadé.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "René Gadé's outfit"
+  Description = "René Gadé's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de René Gadé"
+  Description = "Les vêtements de René Gadé.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von René Gadé"
+  Description = "Die Kleidung von René Gadé.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di René Gadé"
+  Description = "Gli abiti di René Gadé.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de René Gadé"
+  Description = "A roupa de René Gadé.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "バハート・デスコムの[衣装/いしょう]"
+  Description = "バハート・デスコムの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "巴哈特·德斯科姆的服装"
+  Description = "巴哈特·德斯科姆的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "巴哈特·德斯科姆的服裝"
+  Description = "巴哈特·德斯科姆的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "baton_maystrov_outfit"
+Kit = { Uniform = "0xCA333606" }
+IconKey = "cos_if_baton_maystrov_outfit"
+Who = { Body = [7] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Baton Maystrov"
+  Description = "La ropa de Baton Maystrov.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Baton Maystrov's outfit"
+  Description = "Baton Maystrov's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Baton Maystrov"
+  Description = "Les vêtements de Baton Maystrov.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Baton Maystrov"
+  Description = "Die Kleidung von Baton Maystrov.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Baton Maystrov"
+  Description = "Gli abiti di Baton Maystrov.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Baton Maystrov"
+  Description = "A roupa de Baton Maystrov.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "リヴィン・ドリスコの[衣装/いしょう]"
+  Description = "リヴィン・ドリスコの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "里维恩·德里斯科的服装"
+  Description = "里维恩·德里斯科的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "里維恩·德里斯科的服裝"
+  Description = "里維恩·德里斯科的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "cristiano_dabola_outfit"
+Kit = { Uniform = "0x2CB74C1E" }
+IconKey = "cos_if_cristiano_dabola_outfit"
+Who = { Body = [6] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Cristiano Dabola"
+  Description = "La ropa de Cristiano Dabola.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Cristiano Dabola's outfit"
+  Description = "Cristiano Dabola's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Cristiano Dabola"
+  Description = "Les vêtements de Cristiano Dabola.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Cristiano Dabola"
+  Description = "Die Kleidung von Cristiano Dabola.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Cristiano Dabola"
+  Description = "Gli abiti di Cristiano Dabola.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Cristiano Dabola"
+  Description = "A roupa de Cristiano Dabola.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "レオネイラ・カミオンの[衣装/いしょう]"
+  Description = "レオネイラ・カミオンの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "雷奥内拉·卡米昂的服装"
+  Description = "雷奥内拉·卡米昂的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "雷奧內拉·卡米昂的服裝"
+  Description = "雷奧內拉·卡米昂的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "marsilio_magno_outfit"
+Kit = { Uniform = "0x0C1E9C3C" }
+IconKey = "cos_if_marsilio_magno_outfit"
+Who = { Body = [6] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Marsilio Magno"
+  Description = "La ropa de Marsilio Magno.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Marsilio Magno's outfit"
+  Description = "Marsilio Magno's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Marsilio Magno"
+  Description = "Les vêtements de Marsilio Magno.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Marsilio Magno"
+  Description = "Die Kleidung von Marsilio Magno.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Marsilio Magno"
+  Description = "Gli abiti di Marsilio Magno.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Marsilio Magno"
+  Description = "A roupa de Marsilio Magno.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "キンベン・ジョルダーニの[衣装/いしょう]"
+  Description = "キンベン・ジョルダーニの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "金本·乔达尼的服装"
+  Description = "金本·乔达尼的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "金本·喬達尼的服裝"
+  Description = "金本·喬達尼的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "vladimir_outfit"
+Kit = { Uniform = "0x1A3118B0" }
+IconKey = "cos_if_vladimir_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Vladimir"
+  Description = "La ropa de Vladimir.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Vladimir's outfit"
+  Description = "Vladimir's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Vladimir"
+  Description = "Les vêtements de Vladimir.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Vladimir"
+  Description = "Die Kleidung von Vladimir.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Vladimir"
+  Description = "Gli abiti di Vladimir.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Vladimir"
+  Description = "A roupa de Vladimir.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "ウラジミールの[衣装/いしょう]"
+  Description = "ウラジミールの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "乌拉基米尔的服装"
+  Description = "乌拉基米尔的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "烏拉基米爾的服裝"
+  Description = "烏拉基米爾的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "li_kobun_outfit"
+Kit = { Uniform = "0x4AAAEEA5" }
+IconKey = "cos_if_li_kobun_outfit"
+Who = { Body = [2, 10] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Li Kobun"
+  Description = "La ropa de Li Kobun.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Li Kobun's outfit"
+  Description = "Li Kobun's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Li Kobun"
+  Description = "Les vêtements de Li Kobun.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Li Kobun"
+  Description = "Die Kleidung von Li Kobun.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Li Lacchè"
+  Description = "Gli abiti di Li Lacchè.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Li Kobun"
+  Description = "A roupa de Li Kobun.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[李/り] [子文/こぶん]の[衣装/いしょう]"
+  Description = "[李/り] [子文/こぶん]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "李 子文的服装"
+  Description = "李 子文的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "李 子文的服裝"
+  Description = "李 子文的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "jim_trainer_outfit"
+Kit = { Uniform = "0xABC9565E" }
+IconKey = "cos_if_jim_trainer_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Jim Trainer"
+  Description = "La ropa de Jim Trainer.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Jim Trainer's outfit"
+  Description = "Jim Trainer's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Jim Trainer"
+  Description = "Les vêtements de Jim Trainer.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Jim Trainer"
+  Description = "Die Kleidung von Jim Trainer.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Jim Trainer"
+  Description = "Gli abiti di Jim Trainer.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Jim Trainer"
+  Description = "A roupa de Jim Trainer.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[析谷/せきや] [共有/ともあり]の[衣装/いしょう]"
+  Description = "[析谷/せきや] [共有/ともあり]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "析谷 共有的服装"
+  Description = "析谷 共有的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "析谷 共有的服裝"
+  Description = "析谷 共有的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "pepe_ballester_outfit"
+Kit = { Uniform = "0x1B560417" }
+IconKey = "cos_if_pepe_ballester_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Pepe Ballester"
+  Description = "La ropa de Pepe Ballester.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Pepe Ballester's outfit"
+  Description = "Pepe Ballester's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Pepe Ballester"
+  Description = "Les vêtements de Pepe Ballester.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Pepe Ballester"
+  Description = "Die Kleidung von Pepe Ballester.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Pepe Ballester"
+  Description = "Gli abiti di Pepe Ballester.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Pepe Ballester"
+  Description = "A roupa de Pepe Ballester.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "ペペ・バンデラスの[衣装/いしょう]"
+  Description = "ペペ・バンデラスの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "佩佩·班德拉斯的服装"
+  Description = "佩佩·班德拉斯的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "佩佩·班德拉斯的服裝"
+  Description = "佩佩·班德拉斯的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "tom_dark_outfit"
+Kit = { Uniform = "0xAD1EFC2E" }
+IconKey = "cos_if_tom_dark_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Tom Dark"
+  Description = "La ropa de Tom Dark.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Tom Dark's outfit"
+  Description = "Tom Dark's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Tom Dark"
+  Description = "Les vêtements de Tom Dark.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Tom Dark"
+  Description = "Die Kleidung von Tom Dark.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Tom Dark"
+  Description = "Gli abiti di Tom Dark.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Tom Dark"
+  Description = "A roupa de Tom Dark.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[影山/かげやま] [東吾/とうご]の[衣装/いしょう]"
+  Description = "[影山/かげやま] [東吾/とうご]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "影山 东吾的服装"
+  Description = "影山 东吾的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "影山 東吾的服裝"
+  Description = "影山 東吾的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "chester_horse_sr_outfit"
+Kit = { Uniform = "0x2689E68A" }
+IconKey = "cos_if_chester_horse_sr_outfit"
+Who = { Body = [6] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Chester Horse padre"
+  Description = "La ropa de Chester Horse padre.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Chester Horse Sr's outfit"
+  Description = "Chester Horse Sr's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Chester Horse Sr"
+  Description = "Les vêtements de Chester Horse Sr.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Chester Horse Sr."
+  Description = "Die Kleidung von Chester Horse Sr..\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Chester Horse Sr"
+  Description = "Gli abiti di Chester Horse Sr.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Chester Horse Sr"
+  Description = "A roupa de Chester Horse Sr.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[角馬/かくま] [王将/おうしょう]の[衣装/いしょう]"
+  Description = "[角馬/かくま] [王将/おうしょう]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "角马 王将的服装"
+  Description = "角马 王将的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "角馬 王將的服裝"
+  Description = "角馬 王將的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "suzette_hartland_outfit"
+Kit = { Uniform = "0xBCCFF231" }
+IconKey = "cos_if_suzette_hartland_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Suzette Hartland"
+  Description = "La ropa de Suzette Hartland.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Suzette Hartland's outfit"
+  Description = "Suzette Hartland's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Suzette Hartland"
+  Description = "Les vêtements de Suzette Hartland.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Suzette Hartland"
+  Description = "Die Kleidung von Suzette Hartland.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Suzette Hartland"
+  Description = "Gli abiti di Suzette Hartland.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Suzette Hartland"
+  Description = "A roupa de Suzette Hartland.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[浦部/うらべ] リカの[衣装/いしょう]"
+  Description = "[浦部/うらべ] リカの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "浦部 莉香的服装"
+  Description = "浦部 莉香的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "浦部 莉香的服裝"
+  Description = "浦部 莉香的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "gammon_checker_outfit_1"
+Kit = { Uniform = "0xE5BA7E63" }
+IconKey = "cos_if_gammon_checker_outfit_1"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Gammon Checker 1"
+  Description = "La ropa de Gammon Checker.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Gammon Checker's outfit 1"
+  Description = "Gammon Checker's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Gammon Checker 1"
+  Description = "Les vêtements de Gammon Checker.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Gammon Checker 1"
+  Description = "Die Kleidung von Gammon Checker.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Gammon Checker 1"
+  Description = "Gli abiti di Gammon Checker.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Gammon Checker 1"
+  Description = "A roupa de Gammon Checker.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[矢嶋/やしま] [陽介/ようすけ]の[衣装/いしょう] 1"
+  Description = "[矢嶋/やしま] [陽介/ようすけ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "矢岛 阳介的服装 1"
+  Description = "矢岛 阳介的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "矢嶋 陽介的服裝 1"
+  Description = "矢嶋 陽介的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "gammon_checker_outfit_2"
+Kit = { Uniform = "0x7CB32FD9" }
+IconKey = "cos_if_gammon_checker_outfit_2"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Gammon Checker 2"
+  Description = "La ropa de Gammon Checker.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Gammon Checker's outfit 2"
+  Description = "Gammon Checker's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Gammon Checker 2"
+  Description = "Les vêtements de Gammon Checker.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Gammon Checker 2"
+  Description = "Die Kleidung von Gammon Checker.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Gammon Checker 2"
+  Description = "Gli abiti di Gammon Checker.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Gammon Checker 2"
+  Description = "A roupa de Gammon Checker.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[矢嶋/やしま] [陽介/ようすけ]の[衣装/いしょう] 2"
+  Description = "[矢嶋/やしま] [陽介/ようすけ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "矢岛 阳介的服装 2"
+  Description = "矢岛 阳介的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "矢嶋 陽介的服裝 2"
+  Description = "矢嶋 陽介的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "gammon_checker_outfit_3"
+Kit = { Uniform = "0x0BB41F4F" }
+IconKey = "cos_if_gammon_checker_outfit_3"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Gammon Checker 3"
+  Description = "La ropa de Gammon Checker.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Gammon Checker's outfit 3"
+  Description = "Gammon Checker's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Gammon Checker 3"
+  Description = "Les vêtements de Gammon Checker.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Gammon Checker 3"
+  Description = "Die Kleidung von Gammon Checker.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Gammon Checker 3"
+  Description = "Gli abiti di Gammon Checker.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Gammon Checker 3"
+  Description = "A roupa de Gammon Checker.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[矢嶋/やしま] [陽介/ようすけ]の[衣装/いしょう] 3"
+  Description = "[矢嶋/やしま] [陽介/ようすけ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "矢岛 阳介的服装 3"
+  Description = "矢岛 阳介的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "矢嶋 陽介的服裝 3"
+  Description = "矢嶋 陽介的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "gammon_checker_outfit_4"
+Kit = { Uniform = "0x95D08AEC" }
+IconKey = "cos_if_gammon_checker_outfit_4"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Gammon Checker 4"
+  Description = "La ropa de Gammon Checker.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Gammon Checker's outfit 4"
+  Description = "Gammon Checker's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Gammon Checker 4"
+  Description = "Les vêtements de Gammon Checker.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Gammon Checker 4"
+  Description = "Die Kleidung von Gammon Checker.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Gammon Checker 4"
+  Description = "Gli abiti di Gammon Checker.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Gammon Checker 4"
+  Description = "A roupa de Gammon Checker.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[矢嶋/やしま] [陽介/ようすけ]の[衣装/いしょう] 4"
+  Description = "[矢嶋/やしま] [陽介/ようすけ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "矢岛 阳介的服装 4"
+  Description = "矢岛 阳介的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "矢嶋 陽介的服裝 4"
+  Description = "矢嶋 陽介的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "othman_laspic_outfit"
+Kit = { Uniform = "0x40096238" }
+IconKey = "cos_if_othman_laspic_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Deimos Fobos"
+  Description = "La ropa de Deimos Fobos.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Othman Laspic's outfit"
+  Description = "Othman Laspic's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Othman Laspic"
+  Description = "Les vêtements de Othman Laspic.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Gordon Kobranov"
+  Description = "Die Kleidung von Gordon Kobranov.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Pietro Viperi"
+  Description = "Gli abiti di Pietro Viperi.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Othman Laspic"
+  Description = "A roupa de Othman Laspic.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[御堂院/みどういん] [宗忠/むねただ]の[衣装/いしょう]"
+  Description = "[御堂院/みどういん] [宗忠/むねただ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "御堂院 宗忠的服装"
+  Description = "御堂院 宗忠的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "御堂院 宗忠的服裝"
+  Description = "御堂院 宗忠的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "niall_lund_outfit"
+Kit = { Uniform = "0x67BDABD8" }
+IconKey = "cos_if_niall_lund_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Charlie Piélago"
+  Description = "La ropa de Charlie Piélago.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Niall Lund's outfit"
+  Description = "Niall Lund's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Alan Féroé"
+  Description = "Les vêtements de Alan Féroé.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Artur Hallig"
+  Description = "Die Kleidung von Artur Hallig.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Biagio Pelmondo"
+  Description = "Gli abiti di Biagio Pelmondo.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Niall Lund"
+  Description = "A roupa de Niall Lund.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[島袋/しまぶくろ] [幾太郎/いくたろう]の[衣装/いしょう]"
+  Description = "[島袋/しまぶくろ] [幾太郎/いくたろう]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "岛袋 几太郎的服装"
+  Description = "岛袋 几太郎的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "島袋 幾太郎的服裝"
+  Description = "島袋 幾太郎的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "hunter_foster_outfit"
+Kit = { Uniform = "0x57324819" }
+IconKey = "cos_if_hunter_foster_outfit"
+Who = { Body = [2, 10] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Hunter Foster"
+  Description = "La ropa de Hunter Foster.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Hunter Foster's outfit"
+  Description = "Hunter Foster's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Hunter Foster"
+  Description = "Les vêtements de Hunter Foster.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Hunter Foster"
+  Description = "Die Kleidung von Hunter Foster.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Hunter Foster"
+  Description = "Gli abiti di Hunter Foster.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Hunter Foster"
+  Description = "A roupa de Hunter Foster.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[基山/きやま] タツヤの[衣装/いしょう]"
+  Description = "[基山/きやま] タツヤの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "基山 达也的服装"
+  Description = "基山 达也的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "基山 達也的服裝"
+  Description = "基山 達也的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "xavier_schiller_outfit"
+Kit = { Uniform = "0xF2B8EF66" }
+IconKey = "cos_if_xavier_schiller_outfit"
+Who = { Body = [2, 10] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Xavier Schiller"
+  Description = "La ropa de Xavier Schiller.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Xavier Schiller's outfit"
+  Description = "Xavier Schiller's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Xavier Schiller"
+  Description = "Les vêtements de Xavier Schiller.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Xavier Schiller"
+  Description = "Die Kleidung von Xavier Schiller.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Xavier Schiller"
+  Description = "Gli abiti di Xavier Schiller.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Xavier Schiller"
+  Description = "A roupa de Xavier Schiller.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[吉良/きら] ヒロトの[衣装/いしょう]"
+  Description = "[吉良/きら] ヒロトの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "吉良 浩人的服装"
+  Description = "吉良 浩人的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "吉良 浩人的服裝"
+  Description = "吉良 浩人的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "faith_winter_outfit"
+Kit = { Uniform = "0xF45DCA85" }
+IconKey = "cos_if_faith_winter_outfit"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Beatriz Friebel"
+  Description = "La ropa de Beatriz Friebel.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Faith Winter's outfit"
+  Description = "Faith Winter's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Candice Blanchet"
+  Description = "Les vêtements de Candice Blanchet.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Mia Knosp"
+  Description = "Die Kleidung von Mia Knosp.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Gloria Bianchi"
+  Description = "Gli abiti di Gloria Bianchi.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Faith Winter"
+  Description = "A roupa de Faith Winter.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[宮野/みやの] [茜/あかね]の[衣装/いしょう]"
+  Description = "[宮野/みやの] [茜/あかね]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "宫野 茜的服装"
+  Description = "宫野 茜的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "宮野 茜的服裝"
+  Description = "宮野 茜的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "massimo_donati_outfit"
+Kit = { Uniform = "0x91549449" }
+IconKey = "cos_if_massimo_donati_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Massimo Donati"
+  Description = "La ropa de Massimo Donati.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Massimo Donati's outfit"
+  Description = "Massimo Donati's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Massimo Donati"
+  Description = "Les vêtements de Massimo Donati.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Massimo Donati"
+  Description = "Die Kleidung von Massimo Donati.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Massimo Donati"
+  Description = "Gli abiti di Massimo Donati.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Massimo Donati"
+  Description = "A roupa de Massimo Donati.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[剛陣/ごうじん] [正辰/まさたつ]の[衣装/いしょう]"
+  Description = "[剛陣/ごうじん] [正辰/まさたつ]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "刚阵 正辰的服装"
+  Description = "刚阵 正辰的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "剛陣 正辰的服裝"
+  Description = "剛陣 正辰的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "heath_moore_outfit"
+Kit = { Uniform = "0xCEA16398" }
+IconKey = "cos_if_heath_moore_outfit"
+Who = { Body = [0] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Heath Moore"
+  Description = "La ropa de Heath Moore.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Heath Moore's outfit"
+  Description = "Heath Moore's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Heath Moore"
+  Description = "Les vêtements de Heath Moore.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Heath Moore"
+  Description = "Die Kleidung von Heath Moore.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Heath Moore"
+  Description = "Gli abiti di Heath Moore.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Heath Moore"
+  Description = "A roupa de Heath Moore.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[野坂/のさか] [悠馬/ゆうま]の[衣装/いしょう]"
+  Description = "[野坂/のさか] [悠馬/ゆうま]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "野坂 悠马的服装"
+  Description = "野坂 悠马的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "野坂 悠馬的服裝"
+  Description = "野坂 悠馬的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "duske_grayling_outfit"
+Kit = { Uniform = "0x73C7B8FB" }
+IconKey = "cos_if_duske_grayling_outfit"
+Who = { Body = [4, 14] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Duske Grayling"
+  Description = "La ropa de Duske Grayling.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Duske Grayling's outfit"
+  Description = "Duske Grayling's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Duske Grayling"
+  Description = "Les vêtements de Duske Grayling.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Duske Grayling"
+  Description = "Die Kleidung von Duske Grayling.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Duske Grayling"
+  Description = "Gli abiti di Duske Grayling.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Duske Grayling"
+  Description = "A roupa de Duske Grayling.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[西蔭/にしかげ] [政也/せいや]の[衣装/いしょう]"
+  Description = "[西蔭/にしかげ] [政也/せいや]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "西荫 政也的服装"
+  Description = "西荫 政也的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "西蔭 政也的服裝"
+  Description = "西蔭 政也的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "carl_volton_outfit"
+Kit = { Uniform = "0x54F87A05" }
+IconKey = "cos_if_carl_volton_outfit"
+Who = { Body = [5, 16] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Roi Rayego"
+  Description = "La ropa de Roi Rayego.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Carl Volton's outfit"
+  Description = "Carl Volton's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Carl Volton"
+  Description = "Les vêtements de Carl Volton.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Reinhart Donner"
+  Description = "Die Kleidung von Reinhart Donner.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Ruggero Capitani"
+  Description = "Gli abiti di Ruggero Capitani.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Carl Volton"
+  Description = "A roupa de Carl Volton.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[轟/とどろき] [伝次郎/でんじろう]の[衣装/いしょう]"
+  Description = "[轟/とどろき] [伝次郎/でんじろう]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "轰 传次郎的服装"
+  Description = "轰 传次郎的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "轟 傳次郎的服裝"
+  Description = "轟 傳次郎的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "master_li_outfit"
+Kit = { Uniform = "0x7E1FB4C8" }
+IconKey = "cos_if_master_li_outfit"
+Who = { Body = [6] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Maestro Li"
+  Description = "La ropa de Maestro Li.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Master Li's outfit"
+  Description = "Master Li's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Monsieur Yin"
+  Description = "Les vêtements de Monsieur Yin.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Meister Li"
+  Description = "Die Kleidung von Meister Li.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Maestro Li"
+  Description = "Gli abiti di Maestro Li.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Mestre Li"
+  Description = "A roupa de Mestre Li.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "チョウ・キントウンの[衣装/いしょう]"
+  Description = "チョウ・キントウンの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "赵 筋斗云的服装"
+  Description = "赵 筋斗云的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "趙 筋斗雲的服裝"
+  Description = "趙 筋斗雲的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "yekaterina_stronov_outfit"
+Kit = { Uniform = "0xB3162D07" }
+IconKey = "cos_if_yekaterina_stronov"
+Who = { Body = [1] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Yekaterina Stronov"
+  Description = "La ropa de Yekaterina Stronov.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Yekaterina Stronov's outfit"
+  Description = "Yekaterina Stronov's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Yekaterina Stronov"
+  Description = "Les vêtements de Yekaterina Stronov.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Yekaterina Stronov"
+  Description = "Die Kleidung von Yekaterina Stronov.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Yekaterina Stronov"
+  Description = "Gli abiti di Yekaterina Stronov.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Yekaterina Stronov"
+  Description = "A roupa de Yekaterina Stronov.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "イリーナ・シュトロノフの[衣装/いしょう]"
+  Description = "イリーナ・シュトロノフの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "伊琳娜·史特洛诺夫的服装"
+  Description = "伊琳娜·史特洛诺夫的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "伊琳娜·史托羅諾夫的服裝"
+  Description = "伊琳娜·史托羅諾夫的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "philip_star_outfit"
+Kit = { Uniform = "0x749743A1" }
+IconKey = "cos_if_philip_star_outfit"
+Who = { Body = [2, 10] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Philip Star"
+  Description = "La ropa de Philip Star.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Philip Star's outfit"
+  Description = "Philip Star's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Philip Star"
+  Description = "Les vêtements de Philip Star.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Philip Star"
+  Description = "Die Kleidung von Philip Star.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Philip Star"
+  Description = "Gli abiti di Philip Star.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Philip Star"
+  Description = "A roupa de Philip Star.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[一星/いちほし] [充/みつる]の[衣装/いしょう]"
+  Description = "[一星/いちほし] [充/みつる]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "一星 充的服装"
+  Description = "一星 充的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "一星 充的服裝"
+  Description = "一星 充的衣服。\n只有體型相同的球員可以穿。"
+
+[[VRFW.Outfit]]
+Name = "lucas_star_outfit"
+Kit = { Uniform = "0xC92EC822" }
+IconKey = "cos_if_lucas_star_outfit"
+Who = { Body = [2, 10] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Atuendo de Lucas Star"
+  Description = "La ropa de Lucas Star.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Lucas Star's outfit"
+  Description = "Lucas Star's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Lucas Star"
+  Description = "Les vêtements de Lucas Star.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Lucas Star"
+  Description = "Die Kleidung von Lucas Star.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Lucas Star"
+  Description = "Gli abiti di Lucas Star.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Lucas Star"
+  Description = "A roupa de Lucas Star.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[一星/いちほし] [光/ひかる]の[衣装/いしょう]"
+  Description = "[一星/いちほし] [光/ひかる]の[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "一星 光的服装"
+  Description = "一星 光的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "一星 光的服裝"
+  Description = "一星 光的衣服。\n只有體型相同的球員可以穿。"

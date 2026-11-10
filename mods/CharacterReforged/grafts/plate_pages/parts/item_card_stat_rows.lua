@@ -1,10 +1,6 @@
--- Player page block (plate_pages.lua): the stats panel's rows the focused item raises / lowers
-    -- ---- the stats panel's rows the focused item raises / lowers: outline + number colour (CMND_GET_EQUIP_PARAM) ----
-    -- an item's stat si for the shown player: its change and its affinity bonus (Better Equipment's page answer)
-    G.icAffinityOf = {}
-    -- a stat change as a signed number: a negative i32 read as u32 back below 0; anything outside the stats' range
-    -- (-9999..9999) is no change
-    function G.SignedStat(v)
+-- Player page block (plate_pages.lua)
+    -- Formats a stat change as a signed number.
+    function G.signed_stat(v)
       v = tonumber(v) or 0
       if v > 2147483647 then
         v = v - 4294967296
@@ -14,68 +10,94 @@
       end
       return v
     end
-    local function ItemStat(it, si, effect)
+    -- The item's own stat (the game's equip parameter).
+    local function ItemStat(it, si)
       if it == nil or it == 0 then
         return 0
       end
       local ok, has, v = pcall(funcLuaCommand, @crc:CMND_GET_EQUIP_PARAM@, it, si)
-      v = ok and has ~= false and G.SignedStat(v) or 0
-      local eff = effect
-      if eff == nil then
-        local key = tostring(it) .. "/" .. tostring(G.hdl)
-        eff = G.icAffinityOf[key]
-        if eff == nil then
-          eff = Command(IC.page_command, it, type(G.hdl) == "number" and G.hdl or 0) or false
-          G.icAffinityOf[key] = eff
-        end
-      end
-      local A = type(eff) == "table" and eff.affinity or nil
-      local extra = (type(A) == "table" and type(A.bonus) == "table") and G.SignedStat(A.bonus[si + 1]) or 0
-      return v + extra
+      return ok and has ~= false and G.signed_stat(v) or 0
     end
 
-    -- the stats panel's rows: the change of wearing `item` instead of `base` (nil = the item's own change: the
-    -- equipment screen, and the picker on the worn item), affinity included. Only the state is kept here; the frame step
-    -- (G.Bars) draws the number, its colour, the outline, the bar's segment and the label from G.RowState
-    function G.ItemCardRows(item, base)
+    -- The 8 stat points the player page bonus hosts add (Equipment: affinity and sets, as the match adds them).
+    local function StatBonus(item, slot)
+      local page = CharacterReforged ~= nil and CharacterReforged.page or nil
+      if type(G.hdl) ~= "number" or page == nil or page.stat_bonus == nil then
+        return nil
+      end
+      local ok, b = pcall(page.stat_bonus, G.hdl, item, slot)
+      return ok and type(b) == "table" and b or nil
+    end
+
+    -- Builds the stats panel's rows.
+    function G.item_card_rows(item, base)
       local delta = nil
       if base ~= nil and base == item then
         base = nil
       end
-      if item ~= nil and item ~= 0 and G.ItemCardOn() and IC.rows ~= false then
+      -- The bonus as worn now, then with the focused item worn (base nil: the focused item is the worn one, taken off).
+      local now = StatBonus()
+      local bonus = nil
+      if now ~= nil then
+        bonus = {}
+        for g = 1, 8 do
+          bonus[g] = G.signed_stat(now[G.STAT[g] + 1])
+        end
+      end
+      -- The total of the item per stat is its stats plus the bonus points it brings into its slot, as the header boxes show.
+      local total = nil
+      if item ~= nil and item ~= 0 and G.item_card_on() and IC.rows ~= false then
+        local slot = G.item_card_slot(item) or 0
+        local empty = StatBonus(0, slot)
+        local with = base == nil and now or StatBonus(item, slot)
         for si = 0, 7 do
-          local d = ItemStat(item, si, G.icEffect) - ItemStat(base, si)
-          if d ~= 0 then
-            for g = 1, 8 do
-              if G.STAT[g] == si then
+          local brings = 0
+          if empty ~= nil and with ~= nil then
+            brings = G.signed_stat(with[si + 1]) - G.signed_stat(empty[si + 1])
+          end
+          local own = ItemStat(item, si) + brings
+          local d = own
+          if base ~= nil then
+            local change = 0
+            if now ~= nil and with ~= nil then
+              change = G.signed_stat(with[si + 1]) - G.signed_stat(now[si + 1])
+            end
+            d = ItemStat(item, si) - ItemStat(base, si) + change
+          end
+          for g = 1, 8 do
+            if G.STAT[g] == si then
+              if d ~= 0 then
                 delta = delta or {}
                 delta[g] = d
+              end
+              if own ~= 0 then
+                total = total or {}
+                total[g] = own
               end
             end
           end
         end
       end
-      -- a stat shown at the game's minimum 1 can be below it (a drained stat): its real sum, from the training mod's
-      -- answer, is what the change adds to
+      G.rowTotal = total
+      -- A stat shown at the game's minimum 1 can be below it (a drained stat); G.vals hold the bonus points too.
       local raw = nil
       if delta ~= nil and G.vals ~= nil and type(G.hdl) == "number" and CharacterReforged ~= nil
-          and CharacterReforged.Page ~= nil and CharacterReforged.Page.StatSum ~= nil then
+          and CharacterReforged.page ~= nil and CharacterReforged.page.stat_sum ~= nil then
         for g in pairs(delta) do
-          if (G.vals[g] or 0) <= 1 then
+          local b = bonus ~= nil and bonus[g] or 0
+          if (G.vals[g] or 0) - b <= 1 then
+            local sum = CharacterReforged.page.stat_sum(G.hdl, G.STAT[g])
             raw = raw or {}
-            raw[g] = CharacterReforged.Page.StatSum(G.hdl, G.STAT[g])
+            raw[g] = sum ~= nil and sum + b or nil
           end
         end
       end
       G.rowDelta, G.rowOwn, G.rowRaw = delta, base == nil, raw
-      G.Try("ItemCardLuckRow")
+      G.try("item_card_luck_row")
     end
 
-    -- row g's state from the player's stat now (v): the value without the focused item's change, the value with it and
-    -- the change between them (new = old + change on every row). The item worn (the equipment screen, the picker on the
-    -- worn item): old = the value without it, new = v. The picker on another item: old = v, new = the value with it in
-    -- place of the worn one. Both kept at the game's minimum 1 (Classic Training's StatusStatMinimum). nil = no change.
-    function G.RowState(g, v)
+    -- Both kept at the game's minimum 1.
+    function G.row_state(g, v)
       local d = G.rowDelta ~= nil and G.rowDelta[g] or nil
       if d == nil or d == 0 or type(v) ~= "number" then
         return nil
@@ -91,10 +113,9 @@
       return old, new, new - old
     end
 
-    -- each row's number and outline by its state, drawn only when the state changes: the value it would be (G.RowState's
-    -- new, else the stat), green / red / the number's own colour, the outline's sprite. `change` and `shown` by group.
+    -- Sets each row's number and outline by its state, drawn only when the state changes.
     G.rowMarkKey = {}
-    function G.ItemCardRowMarks(change, shown)
+    function G.item_card_row_marks(change, shown)
       local R = IC.row_mark
       G.numBase = G.numBase or {}
       for g = 1, 8 do
@@ -103,10 +124,9 @@
         local key = tostring(c) .. "/" .. tostring(value)
         if key ~= G.rowMarkKey[g] and Exists(G.NUM) and Cmd(C.IS_OPEN, G.NUM, g - 1) == true then
           local k = G.GROUP_ROW[g]
-          local gs, ga = G.GainSprite(k)
+          local gs, ga = G.gain_sprite(k)
           Cmd(C.SPRITE, G.BAR, ga, gs, G.GG.SLOT_GAIN_QUAD, 0, k)
-          -- the number's own colour (CMND get prim colour, as the retail SetPrimitiveGrayout reads it), read once
-          -- before its first tint
+          -- Reads the number's own colour once, before its first tint (CMND get prim colour, as the retail SetPrimitiveGrayout reads it).
           if G.numBase[g] == nil then
             local ok, r, gg, b = pcall(funcLuaMenuCommand, 3648327470 --[[get prim colour]], G.NUM, g - 1, R.number_style)
             if ok and type(r) == "number" and type(gg) == "number" and type(b) == "number" then
@@ -128,8 +148,7 @@
       end
     end
 
-    -- the icon layer's instances first..last that no part uses: hidden; false while the layer still loads one (an
-    -- instance that finishes opening after this call would show the whole card object: the caller tries again)
+    -- Hides the icon layer's instances first..last that no part uses.
     local function HideUnused(L, first, last)
       for i = first, last do
         if Cmd(C.IS_OPEN, L, i) == true then
@@ -139,9 +158,8 @@
       return Cmd(C.LOADING, L) ~= true
     end
 
-    -- the delta segments (G.Bars hands their screen rects {x, y, w, h, raise} every frame): drawn on the icon layer's
-    -- instances after the labels only when they change; the fill's visible band of the bar (IC.row_mark.delta.band)
-    function G.DeltaSegment(segs)
+    -- Draws the delta segments (G.bars hands their screen rects {x, y, w, h, raise} every frame).
+    function G.delta_segment(segs)
       local R, S = IC.row_mark, IC.set_icons
       local parts = {}
       for _, sg in ipairs(segs or {}) do
@@ -168,10 +186,8 @@
       G.segKey = done and key or nil
     end
 
-    -- the delta labels over the changed numbers («+41» green, «-10» red; G.RowState's change, group order): the icon
-    -- layer's instances after the page icons, as small texts. Called by the frame step (G.Bars) with the segments'
-    -- previews; drawn only when they change, and again while an instance is not ready
-    function G.ItemCardDeltaLabels(label)
+    -- Draws the delta labels on the icon layer's instances after the page icons, as small texts.
+    function G.item_card_delta_labels(label)
       local L, S, R = G.EQ_ICON, IC.set_icons, IC.row_mark
       local parts = {}
       for g = 1, 8 do
@@ -201,10 +217,56 @@
       G.labelKey = done and key or nil
     end
 
-    -- Suerte (no equipment changes it): its number copy's comparison arrows off (the retail graph only sets them for
-    -- the 7 stats, so they showed as crossed arrows) and its label given the labels' colour the way the retail graph
-    -- does (its layer's label colour group; nothing set it on this screen, so it kept the white of its sprite)
-    function G.ItemCardLuckRow()
+    -- This draws one grey plate per stat the focused item changes, with its stat icon and its signed total.
+    function G.item_card_stat_boxes(total)
+      local B = IC.stat_boxes
+      local L = G.EQ_ICON
+      if type(B) ~= "table" or not Exists(L) then
+        return
+      end
+      local parts = {}
+      for g = 1, 8 do
+        parts[g] = tostring(total ~= nil and total[g] or "")
+      end
+      local key = table.concat(parts, "|")
+      if key == G.boxKey then
+        return
+      end
+      local E = IC.effect
+      local list, width = {}, 0
+      for g = 1, 8 do
+        local v = total ~= nil and total[g] or nil
+        local stat = IC.stat_by_index[G.STAT[g] + 1]
+        local icon = stat ~= nil and E.stat_icons[stat] or nil
+        if v ~= nil and v ~= 0 and icon ~= nil then
+          local text = (v > 0 and (IC.plus_colour .. "+") or (IC.minus_colour .. "-")) .. tostring(math.abs(v)) .. "[C]"
+          local digits = #tostring(math.abs(v)) + 1
+          local w = B.pad + B.icon + B.gap + digits * B.char_px + B.pad
+          list[#list + 1] = {icon = icon, text = text, w = w}
+          width = width + w + (#list > 1 and B.spacing or 0)
+        end
+      end
+      local rect = IC.rect
+      local x = B.align == "right" and rect[3] - B.margin - width or rect[1] + B.margin
+      local top = rect[2] - B.h + B.overlap
+      local k, done = B.first, true
+      for _, b in ipairs(list) do
+        if k + 2 < B.first + B.count then
+          done = IconSlot(k, x, top, "sprite", {E.atlas, CALC_CRC(E.sprites.chip_off), b.w, B.h}) and done
+          done = IconSlot(k + 1, x + B.pad, top + (B.h - B.overlap - B.icon) / 2, "sprite",
+            {E.atlas, CALC_CRC(string.format(E.sprites.stat, b.icon)), B.icon, B.icon}) and done
+          done = IconSlot(k + 2, x + B.pad + B.icon + B.gap, top + (B.h - B.overlap) / 2, "text",
+            {text = b.text, style = "white", scale = B.text_scale}) and done
+          k = k + 3
+        end
+        x = x + b.w + B.spacing
+      end
+      done = HideUnused(L, k, B.first + B.count - 1) and done
+      G.boxKey = done and key or nil
+    end
+
+    -- Suerte (no equipment changes it)
+    function G.item_card_luck_row()
       local R = IC.row_mark
       if Exists(G.NUM) and Cmd(C.IS_OPEN, G.NUM, R.luck_number) == true then
         for _, m in ipairs(R.luck_arrows) do

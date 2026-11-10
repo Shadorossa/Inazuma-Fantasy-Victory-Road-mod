@@ -1,0 +1,39 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# New synergy sf11005 (cloned from sf10001): one player of Sky Team + one of Dark Team; name = the game's name of their merged team (belong team 0x7894143E).
+
+[[item]]
+name = "dark_angel"
+base = "sf10001"
+category = "synergy"
+icon_key = "sf11005"
+key_id = true
+  [item.text.es]
+  name = "Ángel oscuro"
+  [item.text.en]
+  name = "Dark Angels"
+  [item.text.fr]
+  name = "Anges noirs"
+  [item.text.de]
+  name = "Dunkle Engel"
+  [item.text.it]
+  name = "Darkstar"
+  [item.text.pt]
+  name = "Anjos das Trevas"
+  [item.text.ja]
+  name = "ダークエンジェル"
+  [item.text.zh_hans]
+  name = "暗黑天使"
+  [item.text.zh_hant]
+  name = "闇黑天使"
+
+[[currency]]
+name = "sael_card"
+spirit = 0x6ECA59BB                      # chara_param of Sael c03034110 (Sky Team)
+rarity = 4
+
+[[currency]]
+name = "destra_card"
+spirit = 0x6D4E8DD5                      # chara_param of Destra c03034310 (Dark Team)
+rarity = 4

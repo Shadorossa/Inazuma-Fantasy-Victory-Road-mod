@@ -1,0 +1,10 @@
+schema = "VRFW.base_table/1"
+
+[[keyed]]
+table = "item/win_treasure_lot_table"
+  [[keyed.add]]
+  key = 0x624F4D19
+  cells = { REF_ITEMS = { set = [ { item = 0x02601663, count = 1, weight = 10, condition = 0, reserved_4 = 0 } ] } }
+  [[keyed.add]]
+  key = 0x2144F3E0
+  cells = { REF_ITEMS = { set = [ { item = 0x02601663, count = 1, weight = 40, condition = 0, reserved_4 = 0 }, { item = 0x6417CBCD, count = 1, weight = 10, condition = 0, reserved_4 = 0 } ] } }

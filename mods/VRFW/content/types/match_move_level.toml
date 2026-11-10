@@ -1,6 +1,5 @@
 # Declaration schema of VRFW.match_move_level/1 (content\match_move_level): the level of the special moves of one side
-# of a match, for that match only (scripts\lib\match_move_level.lua; docs/game/mods/rival-move-level.md). One rule per
-# file. Each [moves] key is applied by the mod that owns that level, only while it is active.
+# of a match, for that match only (scripts\lib\match_move_level.lua; docs/game/mods/rival-move-level.md).
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.match_move_level/1"
 folder = "content/match_move_level"

@@ -1,7 +1,4 @@
 schema = "VRFW.game_shader/1"
-# The shaders of the IEVRCROSS mod (Inazuma Eleven Cross for Victory Road) that its special moves' effects and
-# the Inferno Penguin model use (Effect_PFXCross, Effect_BunsinCross, the Effect_FakeParticle*PFX family,
-# Chr_ToonMetalCross): compiled files as that mod ships them.
 
 [[program]]
 file = "assets/shaders/chr_toon_cross.vfxo"

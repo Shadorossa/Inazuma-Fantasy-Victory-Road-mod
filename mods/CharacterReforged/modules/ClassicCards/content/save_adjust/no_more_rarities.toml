@@ -1,10 +1,3 @@
-# No More Rarities › its action of the VR-Framework's save adjust:
-# it exists only while this module is on. The pass is Character Reforged's
-# duplicate-players mechanism (scripts\save_tools.lua of Character Reforged) with this module's policy
-# (content\duplicate_rules\no_more_rarities.toml): every normal card -> rarity 4, and every card of the special rarity
-# groups config.toml [removed_rarities] tiers removes (normalize_special_rarities) -> its character's 5★ base card,
-# merged into the copy the club already has. `label` is the fallback: `available` answers the label of the config's
-# current value (save_adjust_label of the rule). The texts are text\rows\save_tools.toml.
 schema = "VRFW.save_adjust/1"
 
 [[VRFW.SaveAdjust]]

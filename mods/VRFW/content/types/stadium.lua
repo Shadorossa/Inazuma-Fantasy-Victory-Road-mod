@@ -1,5 +1,4 @@
--- Computed values of the type `stadium`. Each function gets the [[stadium]] fields (`map`, `picture`, `order`,
--- `unlock_item`) plus `mod`, `key`, `file`. `crc32(text)` is the game's name hash.
+-- Computed values of the type `stadium`.
 
 local M = {}
 
@@ -53,8 +52,6 @@ function M.order(f)
   return n
 end
 
--- The unlock condition: 0 = always shown, else the game's condition `GetGlobalItemGetBitFlag(item) == 1`
--- (00 | u32 length | node count | call, hash argument, compared value, ==).
 function M.condition(f)
   if f.unlock_item == nil then
     return 0

@@ -1,0 +1,28 @@
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# the footer prompt on the Chronicle battle row: Select completes a battle without playing it
+[[row]]
+id = "chronicle_deluxe_autocomplete_prompt"
+es = "Autocompletar batalla"
+en = "Auto-complete battle"
+fr = "Terminer le match automatiquement"
+de = "Kampf automatisch abschließen"
+it = "Completa automaticamente"
+pt = "Completar automaticamente"
+ja = "試合を自動完了"
+zh_hans = "自动完成比赛"
+zh_hant = "自動完成比賽"
+
+# the yes / no window after the Select press
+[[row]]
+id = "chronicle_deluxe_autocomplete_confirm"
+es = "¿Dar por ganada esta Batalla de Crónica sin jugarla?\nNo recibirás las recompensas del partido."
+en = "Count this Chronicle Battle as won without playing it?\nYou will not get the match rewards."
+fr = "Considérer ce match de Chronique comme gagné sans le jouer ?\nVous ne recevrez pas les récompenses du match."
+de = "Diesen Chronik-Kampf ohne Spielen als gewonnen werten?\nDu erhältst keine Spielbelohnungen."
+it = "Considerare vinta questa partita di Cronaca senza giocarla?\nNon riceverai le ricompense della partita."
+pt = "Considerar esta Batalha de Crônica como vencida sem jogá-la?\nVocê não receberá as recompensas da partida."
+ja = "このクロニクルバトルをプレイせずに勝利扱いにしますか？\n試合の報酬は獲得できません。"
+zh_hans = "要将这场编年史比赛视为获胜而不进行比赛吗？\n将无法获得比赛奖励。"
+zh_hant = "要將這場編年史比賽視為獲勝而不進行比賽嗎？\n將無法獲得比賽獎勵。"

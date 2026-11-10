@@ -1,5 +1,4 @@
 # Declares shot / zone rules (kind VRFW.shot_rule/1) in a mod's content\shot_rules\*.toml.
-# Unknown keys, wrong types or out-of-range values drop that declaration with a warning.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.shot_rule/1"
 folder = "content/shot_rules"
@@ -25,6 +24,5 @@ when = { type = "when", doc = "conditions on the declaring mod's config: all mus
 
 [entry.LongShot]
 doc = "every shot move may be used as a long shot (outside the zone state the game asks for the move's long-shot flag, effect bit 4 of its slot record): the two checks of SkillSituationOk pass"
-# The rule is on while the named flag (VRFW.set_flag) is non-zero during a match; it is reset at match end and at the title.
 all_moves_flag = { type = "string", required = true, doc = "the flag key that switches the rule on (e.g. a training-match setting row)" }
 when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

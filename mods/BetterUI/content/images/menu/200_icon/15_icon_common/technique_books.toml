@@ -1,8 +1,4 @@
 schema = "VRFW.image/1"
-# BetterUI > the owner's four technique books (256 px sources in technique_books\): the icon of a move drawn as an item
-# (shop, inventory, rewards; content\game\technique_icons.toml). Drawn at about 72 px; 128 px stays sharp at 4K.
-# Own atlas, served through content\sprite_redirects\own_atlases.toml; the retail icon_sp_area sprites are not touched.
-# icon_sp_area01-04 here: the same books at 96 px for the list rows that name those sprites from Lua (drawn at about 46 px).
 
 [[recipe]]
 name = "shot"

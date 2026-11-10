@@ -1,0 +1,11 @@
+schema = "VRFW.effect/1"
+# This technique is off for this version, and removing the comment marks brings it back.
+# ```
+# # Winged Charge (content\techniques\winged_charge.toml): turquoise and white copy of the charge effect of its base move, the colours of the warrior spirit kx000010.
+#
+# [[recolor]]
+# object = "ev61009200"
+# copy = "ev61992000"
+# textures = ["wko0005_ef_08", "wko0005_ef_09", "wko0005_ef_16", "wko0005_ef_19", "wko0005_ef_21", "wko0005_ef_22", "wko0005_ef_29"]
+# gradient = [[0.0,0.0,0.30,0.55],[0.25,0.0,0.62,0.80],[0.6,0.20,0.92,0.98],[1.0,0.92,1.0,1.0]]
+# ```

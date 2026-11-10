@@ -1,7 +1,5 @@
 schema = "VRFW.game/2"
 
-# Match resource rules, applied by scripts\resource_rules.lua only for what a mod declares; nothing is written at start (`apply = "script"`).
-
 # ---- [[VRFW.ShotSpend]] kizuna ----
 
 # Shot handler patches: skip the kizuna spend on a shot / skip the kizuna return.
@@ -17,7 +15,6 @@ apply = "script"
 
 # ---- [[VRFW.OffPitch]] ----
 
-# Red-card (sent off) queries: answered 0 for players a mod keeps off the pitch (table */Resource.OffPitch, keyed by actor handle).
 [[VRFW.Hook]]
 name = "Resource.IsSentOff"
 game = "Stamina.IsSentOff"
@@ -38,7 +35,6 @@ apply = "script"
 table = "*/Resource.OffPitch"
 key = ["args[1]"]
 
-# Team layout (substitutions / formation commands): pre/post signals let mods clear and restore an off-pitch player's red-card bit around the call.
 [[VRFW.Hook]]
 name = "Resource.TeamLayout"
 game = "Match.TeamLayout"

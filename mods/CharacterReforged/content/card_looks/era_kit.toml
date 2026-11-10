@@ -1,13 +1,5 @@
 schema = "VRFW.card_look/1"
 
-# Character Reforged › the «Equipación del momento»: an Ídolo or Diamond card wears
-# the kit of its moment in matches, menu 3D models, face icons and Kizuna town while the player's switch is on. The kit
-# is the card's chara_param column moment_kit (a character TOML's `moment_kit`, any mod), else the era kit
-# scripts\era_kits.lua derives from the game's tables (native table CharacterReforged.EraKit, rules content\era_kits\).
-# The kit is off by default: a card wears its team kit until the player turns the kit on with X on «Atuendo». The switch
-# is a free bit of the record's attribute word (set = on, saved with the player), not the retail «hide equipment» bit
-# 0x800, which also hides equipped shoes and costume in the story field. The 3D preview follows the switch. A worn
-# «Atuendo» outfit wins.
 [[VRFW.CardLook]]
 name = "era_kit"
 column = "moment_kit"

@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Apostles from the Sky · Inazuma Eleven 3
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c03034010"                                   # Anorel
 moves = [
   { move = 0x89773ED7, level = 1 },                         # Celestial Zone
-  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
-  { move = 0x039DBAAC, level = 48 },                        # Land of Ice
   { move = 0xEE9F2FBD, level = 72 },                        # God Catch
+  { move = 0xCD6AEF2D, level = 82 },                        # All-Star
+  { move = 0xE647BCEE, level = 92 },                        # God Hand V
 ]
 
   [[edit.cards]]
@@ -24,7 +21,7 @@ moves = [
   { move = 0x613ABD43, level = 1 },                         # Dawnrise
   { move = 0x6E53E2B3, level = 43 },                        # Angel Ball
   { move = 0x6ADE9E01, level = 51 },                        # Illusory Ball
-  { move = 0x75994916, level = 66 },                        # Cunning Pull
+  { move = 0x4A17EE80, level = 61 },                        # Hunter's Net
 ]
 
   [[edit.cards]]
@@ -71,7 +68,7 @@ moves = [
   { move = 0x613ABD43, level = 1 },                         # Dawnrise
   { move = 0xA6763B84, level = 58 },                        # Gladius Arch
   { move = 0x47380F29, level = 62 },                        # Echo Ball
-  { move = 0x89773ED7, level = 70 },                        # Celestial Zone
+  { move = 0x5DA7EA06, level = 72 },                        # Boomerang Bluff
 ]
 
   [[edit.cards]]
@@ -86,8 +83,8 @@ target = "c03034060"                                   # Sachinel
 moves = [
   { move = 0x6E53E2B3, level = 1 },                         # Angel Ball
   { move = 0x3A3634AD, level = 57 },                        # Excalibur
-  { move = 0x06458894, level = 64 },                        # Feint Dash
   { move = 0x21127474, level = 75 },                        # Ultra Moon
+  { move = 0x6633159F, level = 85 },                        # Gravitation
 ]
 
   [[edit.cards]]
@@ -132,7 +129,7 @@ moves = [
 target = "c03034090"                                   # Nuel
 moves = [
   { move = 0x6E53E2B3, level = 1 },                         # Angel Ball
-  { move = 0x79E3E635, level = 1 },                         # Racing Flame
+  { move = 0x79E3E635, level = 11 },                        # Racing Flame
   { move = 0x8EDFBC29, level = 61 },                        # Double Jaw
   { move = 0x47380F29, level = 69 },                        # Echo Ball
 ]
@@ -147,7 +144,7 @@ moves = [
 target = "c03034100"                                   # Gaiel
 moves = [
   { move = 0x0AC37488, level = 1 },                         # Heavenly Drive
-  { move = 0x3A4FFB6C, level = 1 },                         # The Ikaros
+  { move = 0x3A4FFB6C, level = 11 },                        # The Ikaros
   { move = 0x27D9B69F, level = 43 },                        # Prima Donna
   { move = 0x035C1112, level = 60 },                        # Gungnir
 ]
@@ -163,7 +160,7 @@ target = "c03034110"                                   # Sanctus
 moves = [
   { move = 0x0AC37488, level = 1 },                         # Heavenly Drive
   { move = 0x21127474, level = 60 },                        # Ultra Moon
-  { move = 0xF72534DE, level = 60 },                        # Shadow Ray
+  { move = 0xF72534DE, level = 70 },                        # Shadow Ray
   { move = 0x3A3634AD, level = 75 },                        # Excalibur
 ]
 

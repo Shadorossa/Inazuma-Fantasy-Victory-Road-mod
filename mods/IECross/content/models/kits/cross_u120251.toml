@@ -1,5 +1,3 @@
 schema = "VRFW.model/1"
-# IECross kit files (u120251, u120252, u120253, u120254, u120255, u120256, u120257, u120258) of the IEVRCROSS kits: game files served as they are (docs/framework/mod-layout.md
-# «Models»), from assets\models\kits\cross_u120251\{common,dx11}\ to data\{common,dx11}\chr\_uniform\u120251\.
 format = "native"
 game_path = "chr/_uniform/u120251"

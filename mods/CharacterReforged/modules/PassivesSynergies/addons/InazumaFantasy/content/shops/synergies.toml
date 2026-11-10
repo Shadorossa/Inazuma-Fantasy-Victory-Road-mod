@@ -1,0 +1,79 @@
+schema = "VRFW.shop/2"
+
+[[edit]]
+target = "InazumaFantasy.training_shop"
+  [[edit.entry]]
+  item = "chess_board"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "five_blackley_brothers"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "five_whitely_brothers"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "four_magnificent"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "second_stage_children"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "shadow_japan"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "dark_angel"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "chaos"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "night_creatures"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "professor_apprentice"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "thunder_and_blaze"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "ogre_vanguard"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "chrono_storm"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "bond_of_the_stars"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1
+  [[edit.entry]]
+  item = "born_of_the_divine"
+  price = 1
+  currency = "tk_bb000001"
+  stock = 1

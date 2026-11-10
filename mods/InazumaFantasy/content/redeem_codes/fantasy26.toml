@@ -1,13 +1,10 @@
 schema = "VRFW.redeem_code/1"
-# Inazuma Fantasy's code for the mailbox's password entry (docs/framework/types/redeem_code.md): FANTASY26 gives
-# 1000 Puntos de pasión (tk_bb000001) and 2500 Puntos de amistad (tk_hr000008), once per save (the flag is declared in
-# content\flags\redeem_codes.toml).
 
 [[VRFW.RedeemCode]]
 name = "InazumaFantasy.Fantasy26"
 code = "FANTASY26"
 flag = "InazumaFantasy.RedeemedFantasy26"
 rewards = [
-    { item = "tk_bb000001", count = 1000 },   # Puntos de pasión
+    { item = "tk_bb000001", count = 1000 },
     { item = "tk_hr000008", count = 2500 },   # Puntos de amistad
 ]

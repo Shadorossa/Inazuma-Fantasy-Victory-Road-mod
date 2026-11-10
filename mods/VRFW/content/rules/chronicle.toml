@@ -1,5 +1,4 @@
 schema = "VRFW.rule/1"
-# Base ruleset for Chronicle matches: every rule follows the match row (original game); a mod may replace it (same id) or bind another.
 id = "chronicle"
 name = "Chronicle (original)"   # fallback; localized via text key ruleset_chronicle
 version = 1

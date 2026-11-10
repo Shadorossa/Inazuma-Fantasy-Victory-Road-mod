@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Vuelo angelical (Angel Flight): the download's move whs90236, a clone of whs02360 with its numbers; its event ev60_90236 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "angel_flight"

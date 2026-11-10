@@ -1,0 +1,116 @@
+-- ===== EVT plate_hiper common BEGIN =====
+CharacterReforged = type(CharacterReforged) == "table" and CharacterReforged or {}
+if CharacterReforged.PLATE_HYPER == nil then
+  CharacterReforged.PLATE_HYPER = true            -- false: no Hiper page
+end
+CharacterReforged.HYPER_PAGE_PAGE = 4                     -- page index of the Hiper page
+CharacterReforged.HYPER_PAGE_TYPE = 5
+
+-- Adds the Hiper page.
+if VRFW.player_pages ~= nil then
+  VRFW.player_pages.add({name = "CharacterReforged.Hiper", index = CharacterReforged.HYPER_PAGE_PAGE, type = CharacterReforged.HYPER_PAGE_TYPE, after = "vrfw.Moves",
+    enabled = function()
+      return CharacterReforged.PLATE_HYPER
+    end})
+end
+
+-- Returns the next page index from `cur` in direction dir (+1 E, -1 Q).
+function CharacterReforged.hyper_page_plate_hyper_step(cur, dir, count)
+  if VRFW.player_pages ~= nil then
+    return VRFW.player_pages.step(cur, dir, count)
+  end
+  return cur
+end
+
+if CharacterReforged.HYPER_PAGE_GUIDE == nil then
+  CharacterReforged.HYPER_PAGE_GUIDE = true
+end
+CharacterReforged.HYPER_PAGE_GUIDE_ACCEPT = 1847312674        -- "Aceptar"
+CharacterReforged.HYPER_PAGE_GUIDE_TEXT = 3855527655          -- "Desplazarte"
+CharacterReforged.HYPER_PAGE_GUIDE_KEYS = 309935632           -- "<CMD_FUNCL2><CMD_FUNCR2>"
+CharacterReforged.HYPER_PAGE_COMMAND_ENTER = 1981080283
+
+-- Edits the guide of the chara bank.
+function CharacterReforged.hyper_page_guide_edit(plate, texts, keys, offs, t18, grey, cmds)
+  if not CharacterReforged.HYPER_PAGE_GUIDE or not plate then
+    return texts, keys, offs, t18, grey, cmds
+  end
+  local n = #texts
+  for k = n, 1, -1 do
+    if texts[k] == CharacterReforged.HYPER_PAGE_GUIDE_ACCEPT and (cmds == nil or cmds[k] == nil or cmds[k] == CharacterReforged.HYPER_PAGE_COMMAND_ENTER) then
+      local all = {texts, keys, offs, t18, grey, cmds}
+      for i = 1, 6 do
+        local arr = all[i]
+        if arr ~= nil and #arr >= k then
+          table.remove(arr, k)
+        end
+      end
+    end
+  end
+  return texts, keys, offs, t18, grey, cmds
+end
+
+VRFW.host.wrap("AddButtonGuideInfo", function(orig)
+  return function(a1, a2, a3, a4, a5, a6, ...)
+    if CharacterReforged.HYPER_PAGE_IN_GUIDE and CharacterReforged.HYPER_PAGE_GUIDE and a1 == CharacterReforged.HYPER_PAGE_GUIDE_ACCEPT and a6 == CharacterReforged.HYPER_PAGE_COMMAND_ENTER then
+      return
+    end
+    return orig(a1, a2, a3, a4, a5, a6, ...)
+  end
+end)
+
+-- The parent menu adds the entry to its guide and rebuilds it when the flag changes.
+CharacterReforged.HYPER_PAGE_MIXIMAX_HINT_KEY = 1041400877
+CharacterReforged.HYPER_PAGE_MIXIMAX_TEXT = 3902883977             -- menu_text "Miximax"
+CharacterReforged.HYPER_PAGE_MIXIMAX_KEYS = 3590036792             -- menu_text "<CMD_FUNC5>"
+CharacterReforged.HYPER_PAGE_UI_FLAG_GET = @crc:CMND_VRFW_UI_FLAG_GET@
+
+function CharacterReforged.hyper_page_miximax_hint()
+  local ok, v = pcall(funcLuaCommand, CharacterReforged.HYPER_PAGE_UI_FLAG_GET, CharacterReforged.HYPER_PAGE_MIXIMAX_HINT_KEY)
+  return ok and type(v) == "number" and v ~= 0
+end
+
+VRFW.host.wrap("UpdateButtonGuideParam", function(orig)
+  return function(...)
+    if CharacterReforged.HYPER_PAGE_IN_GUIDE and CharacterReforged.HYPER_PAGE_GUIDE and not CharacterReforged.HYPER_PAGE_GUIDE_ADDED then
+      CharacterReforged.HYPER_PAGE_GUIDE_ADDED = true
+      -- only the L3 hint
+      if SetPersonalPlateType == nil and CharacterReforged.hyper_page_miximax_hint() then
+        pcall(AddButtonGuideInfo, CharacterReforged.HYPER_PAGE_MIXIMAX_TEXT, CharacterReforged.HYPER_PAGE_MIXIMAX_KEYS, 18, 0, 0, 0)
+      end
+    end
+    return orig(...)
+  end
+end)
+
+-- Applies to parent menus only.
+if SetPersonalPlateType == nil and SetupDefaultFormationButtonGuide ~= nil then
+  for _, fname in ipairs({"PostStep", "Step"}) do
+    VRFW.host.wrap(fname, function(orig)
+      return function(...)
+        local r = orig(...)
+        local on = CharacterReforged.hyper_page_miximax_hint()
+        if on ~= (CharacterReforged.HYPER_PAGE_MIXIMAX_HINT_LAST == true) then
+          CharacterReforged.HYPER_PAGE_MIXIMAX_HINT_LAST = on
+          pcall(SetupDefaultFormationButtonGuide, CharacterReforged.HYPER_PAGE_GUIDE_ARG)
+        end
+        return r
+      end
+    end)
+  end
+end
+
+VRFW.host.wrap("SetupDefaultFormationButtonGuide", function(orig)
+  return function(...)
+    CharacterReforged.HYPER_PAGE_GUIDE_ARG = ...
+    CharacterReforged.HYPER_PAGE_IN_GUIDE = true
+    CharacterReforged.HYPER_PAGE_GUIDE_ADDED = false
+    local ok, r = pcall(orig, ...)
+    CharacterReforged.HYPER_PAGE_IN_GUIDE = false
+    if not ok then
+      error(r, 0)
+    end
+    return r
+  end
+end)
+-- ===== EVT plate_hiper common END =====

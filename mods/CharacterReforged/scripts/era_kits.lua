@@ -1,16 +1,3 @@
--- Character Reforged › the ídolos' «Equipación del momento» (era kit): the kit a card wore in its moment of the
--- story. Derived from the game's tables at start and published as the native table CharacterReforged.EraKit (chara_param id ->
--- uniform), which the card look rule content\card_looks\era_kit.toml reads when the card's own chara_param column
--- moment_kit is 0 (a card that declares moment_kit in its character TOML keeps that kit; any mod may declare it).
---
--- The derivation (rules: every active mod's content\era_kits\*.toml, [CharacterReforged.EraKit], later mods win key by
--- key): a card whose chara_param rarity is in card_rarities -> its character (chara_base) -> his teams (team_columns,
--- belong_team_config ids; team_kits maps a team without kits of its own to the team whose kits it wears) -> the kit of
--- the character's era: his series (chara_base series -> chara_series_config type) -> eras[type] = the belong_team kit
--- column; when that team has no kit of that era and any_era is on, its first kit in era_order. A kit must exist in
--- uniform_config. Nothing is written to the save: the player's switch is the card look rule's switch_bit.
---
--- Exports: EraKitOf(card) -> uniform (0 = none), the published value.
 
 CharacterReforged = CharacterReforged or {}
 
@@ -21,22 +8,12 @@ local PARAM, BASE, SERIES, TEAM, UNIFORM = "character/chara_param", "character/c
 
 local STATE = { done = false, kits = {} }
 
-local Id = require "VRFW/lib/ids"
-local u32 = Id.u32
-local hex = Id.hex
-require "VRFW/lib/basics"
+local Id = VRFW.ids
+local u32 = Id.unsigned
+local hex = Id.hex_text
 local info, warn = VRFW.logger("era kits")
 
--- a number, a "0x…" text or a decimal text -> u32 (nil = not a number)
-local function id_of(v)
-  if type(v) == "number" then return u32(v) end
-  if type(v) ~= "string" then return nil end
-  local s = v:match("^%s*(.-)%s*$")
-  local h = s:match("^0[xX](%x+)$")
-  if h then return u32(tonumber(h, 16)) end
-  local d = tonumber(s)
-  return d and u32(d) or nil
-end
+local function id_of(v) return Id.parse(v) end
 
 -- the merged rules of every active mod
 local function rules()
@@ -92,7 +69,6 @@ local function derive()
   -- team id -> its row
   local teams = {}
   for _, row in ipairs(VRFW.table.rows(TEAM)) do teams[u32(row.belong_team_id)] = row end
-  -- chara_base id -> { series, teams... }
   local base_names = { "id", "series" }
   for _, c in ipairs(R.team_columns) do base_names[#base_names + 1] = c end
   local bkey, bpos = positions(BASE, base_names)

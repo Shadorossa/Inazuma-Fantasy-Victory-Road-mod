@@ -1,18 +1,16 @@
 schema = "VRFW.base_table/1"
-# Character Reforged · 3 digit slots for the level numbers that have 2 in retail (the level cap above 99,
-# content/characters/level.toml; DispMaxValue 999 and the digit dummies in content/menus/level_digits.toml).
-# Keyed by the number's id (column #0): the row positions differ per game build.
+# 3 digit slots for the level numbers (cap above 99), keyed by the number's id (column #0).
 
 [[keyed]]
 list = "MENU_GRAPHIC_NUMBER"
 key_columns = ["#0"]
 
   [[keyed.set]]
-  key = 0x3356CF5A                      # Chronicle difficulty list, own-team level (_num_team_lv_dmy01)
+  key = 0x3356CF5A
   cells = { "#5" = 3 }
 
   [[keyed.set]]
-  key = 0x4451FFCC                      # Chronicle difficulty list, own-team level (_num_team_lv_dmy02)
+  key = 0x4451FFCC
   cells = { "#5" = 3 }
 
   [[keyed.set]]

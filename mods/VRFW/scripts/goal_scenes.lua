@@ -1,10 +1,9 @@
 -- Skips goal scenes while the active ruleset has `[play] goal_scenes = false` (state key match.goal_scenes = 0).
--- From a goal (or a keeper beaten by a shot) to the next kick-off, every event the game plays is run to its end in the frame it is seen: sounds stopped, timeline seeked to the end.
--- Declarations: content\game\goal_scenes.toml. Every other match: nothing.
 
-local Live = require "VRFW/lib/match_live"   -- soccer states: goal, restart (the kick-off: the skip ends there), live
+local Live = VRFW.match.live
+local Memory = VRFW.memory
 local ARM_MS = 20000               -- the skip ends this long after the goal at the latest
-local NO_GOAL_MS = 6000            -- armed by a beaten keeper, still in live play this long after: no goal
+local NO_GOAL_MS = 6000
 
 local EVM_CURRENT = 0x9154         -- event manager: current slot index (u32)
 local EVM_SLOTS = 20
@@ -18,8 +17,8 @@ local SLOT_SKIP_TO = 0x7BC         -- f32: the retail skip's target (-1 = none)
 local TL_STATE = 0x4B              -- u8: 4 = ended
 local PLAYING = 8
 
-local armed_at = nil               -- VRFW.now() of the goal, nil = no skip running
-local seen_goal_state = false      -- the goal state was reached since the arm (a Restart before it is the old one)
+local armed_at = nil
+local seen_goal_state = false
 local skips = 0                    -- events ended in this match (log)
 local failed = false               -- a declaration is off: logged once, nothing more tried
 
@@ -27,18 +26,14 @@ local function off()
   return VRFW.state("match.goal_scenes") == 0
 end
 
-local function rd(ty, at)
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
+local rd = Memory.read
 
 local function arm(why)
   if not off() then return end
   if armed_at == nil then
     VRFW.log("goal scenes off: " .. why .. ": the goal events are run to their end until the kick-off")
   end
-  armed_at = VRFW.now()
+  armed_at = VRFW.now_ms()
 end
 
 local function disarm(why)
@@ -49,7 +44,6 @@ local function disarm(why)
   seen_goal_state = false
 end
 
--- the running event of the event manager, ended now when it plays (true = one was ended)
 local function end_current()
   local ok, mgr = pcall(VRFW.game.event_manager)
   if not ok or type(mgr) ~= "number" or mgr == 0 then
@@ -82,7 +76,7 @@ local function end_current()
     end
     return false
   end
-  pcall(VRFW.mem.write, "f32", slot + SLOT_SKIP_TO, -1.0)
+  VRFW.memory.write("f32", slot + SLOT_SKIP_TO, -1.0)
   skips = skips + 1
   if skips <= 8 then
     VRFW.log(string.format("goal scenes off: event of slot %d ended (timeline state %s)", idx, tostring(rd("u8", tl + TL_STATE))))
@@ -108,7 +102,7 @@ end)
 
 VRFW.on("tick", function(ev)
   if armed_at == nil or failed then return nil end
-  if not off() or VRFW.now() - armed_at > ARM_MS then
+  if not off() or VRFW.now_ms() - armed_at > ARM_MS then
     disarm("time out")
     return nil
   end
@@ -122,8 +116,7 @@ VRFW.on("tick", function(ev)
   elseif Live.is_live(ev.match) and seen_goal_state then
     disarm("play")
     return nil
-  elseif Live.is_live(ev.match) and VRFW.now() - armed_at > NO_GOAL_MS then
-    -- the keeper was beaten but no goal came (the post, a clearance on the line): play goes on with its scenes
+  elseif Live.is_live(ev.match) and VRFW.now_ms() - armed_at > NO_GOAL_MS then
     disarm("no goal")
     return nil
   end

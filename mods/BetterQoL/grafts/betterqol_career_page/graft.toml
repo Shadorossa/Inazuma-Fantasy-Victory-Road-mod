@@ -1,0 +1,33 @@
+# BetterQoL: career page on the player plate (personal_plate_menu) and its page declaration in the screens that page it.
+name = "betterqol_career_page"
+mod = "BetterQoL"
+order = 960
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "BetterQoL: career page (timeline and per-mode stats) on the player plate"
+
+[[hooks]]
+stem = "team_dock_formation_menu"
+source = "betterqol_cs_common.lua"
+
+[[hooks]]
+stem = "soccer_team_dock_menu"
+source = "betterqol_cs_common.lua"
+
+[[hooks]]
+stem = "soccer_formation_menu"
+source = "betterqol_cs_common.lua"
+
+[[hooks]]
+stem = "chara_bank_menu"
+source = "betterqol_cs_common.lua"
+
+[[hooks]]
+stem = "chara_bank_menu_for_search"
+source = "betterqol_cs_common.lua"
+
+[[hooks]]
+stem = "personal_plate_menu"
+source = "betterqol_cs_plate.lua"

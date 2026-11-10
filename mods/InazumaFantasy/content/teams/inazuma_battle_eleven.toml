@@ -1,0 +1,46 @@
+schema = "VRFW.team/2"
+# Inazuma Battle Eleven: the rivals' team of the anime's 5th anniversary (key evt_ct_ft_inazuma_battle_eleven); F-Dot Prison, slot 11 bench, 19 coach.
+
+[[team]]
+name = "ct_ft_inazuma_battle_eleven"
+key = "evt_ct_ft_inazuma_battle_eleven"
+level = 1
+formation = 0x93E074B8                    # F-Dot Prison
+kit = 0xD6ABDBB4                          # Royal Academy (tm_cro_ie1_0100)
+roster = "exact"
+member = [
+  { card = 0xC04535D4, slot = 0, number = 1, rarity_step = 1 },                   # Dvalin (c02021210) · GK
+  { card = 0xA28E9F95, slot = 1, number = 2, rarity_step = 1 },                   # Beta (c05020700) · FW
+  { card = 0x0E914939, slot = 2, number = 3, rarity_step = 1 },                   # Ozrock Boldar (c06032900) · FW
+  { card = 0x19B62C9E, slot = 3, number = 99, rarity_step = 1 },                  # Zanark Avalonic (c05021500) · FW
+  { card = 0x759C0EF5, slot = 4, number = 8, rarity_step = 1 },                   # Caleb Stonewall (c02023700, Royal Academy Redux) · MF
+  { card = 0xC50A2351, slot = 5, number = 18, captain = true, rarity_step = 1 },  # Xene (c02021510) · FW
+  { card = 0xB73298A7, slot = 6, number = 20, rarity_step = 1 },                  # Simeon Ayp (c05023300) · FW
+  { card = 0x5CCBF050, slot = 7, number = 11, rarity_step = 1 },                  # Falco Flashman (c06038020) · FW
+  { card = 0xBF18D266, slot = 8, number = 7, rarity_step = 1 },                   # Fei Rune (c05020110) · FW
+  { card = 0x6F08BCC1, slot = 9, number = 9, rarity_step = 1 },                   # Bailong (c04003500) · FW
+  { card = 0x3E8BFD8F, slot = 10, number = 10, rarity_step = 1 },                 # Bash Lancer (c03033690) · FW
+  { card = 0x49E7B83E, slot = 11, number = 19, rarity_step = 1 },                 # Hector Helio (c03032210) · GK
+  { card = 0x833D7977, slot = 19, number = 0 },                                   # Ray Dark (c11801020) · coach
+]
+  [team.emblem]
+  png = "assets/images/teams/emblems/inazuma_battle_eleven.png"
+  base = "em010002"
+  [team.text.en]
+  name = "Inazuma Battle Eleven"
+  [team.text.es]
+  name = "Inazuma Battle Eleven"
+  [team.text.fr]
+  name = "Inazuma Battle Eleven"
+  [team.text.de]
+  name = "Inazuma Battle Eleven"
+  [team.text.it]
+  name = "Inazuma Battle Eleven"
+  [team.text.pt]
+  name = "Inazuma Battle Eleven"
+  [team.text.ja]
+  name = "イナズマ・バトルイレブン"
+  [team.text.zh_hans]
+  name = "Inazuma Battle Eleven"
+  [team.text.zh_hant]
+  name = "Inazuma Battle Eleven"

@@ -1,8 +1,4 @@
 schema = "VRFW.character/2"
-# The models the IECross special moves load as actors (LOAD_ACTOR_RESOURCE '<name>'): the game finds a `_waza` model
-# through its chara_base row (id = crc32(name)) and that row's chara_model row (the objbin path); every retail ev6x
-# `_waza` model has both (213 / 213 in v7.1.2). Without them the actor is not drawn. One [[character]] per model in
-# content\models\props; ids fixed (chara_base = crc32(name); chara_model = crc32(name) ^ 0x0A0B78D5, as before).
 default_lang = "en"
 
 [[character]]

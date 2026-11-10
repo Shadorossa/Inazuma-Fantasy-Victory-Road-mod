@@ -1,5 +1,5 @@
 schema = "VRFW.text_key/1"
-# Texts of the audio_engine mod; ids are crc32("audio_engine.<name>"). A missing language falls back to English.
+# Texts of the audio_engine mod; ids are crc32("audio_engine.<name>").
 default_lang = "en"
 
 [en.new]

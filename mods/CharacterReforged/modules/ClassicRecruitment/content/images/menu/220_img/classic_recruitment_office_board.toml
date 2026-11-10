@@ -1,0 +1,115 @@
+# Recruitment office atlas: the chain board look (list rows, plates, cursor, links, arrows, tiles).
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_board"
+size = [1024, 416]
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_list_row"
+texture = "classic_recruitment_office_board"
+x = 0
+y = 0
+size = [860, 176]
+png = "classic_recruitment_office/classic_recruitment_office_list_row.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_cursor"
+texture = "classic_recruitment_office_board"
+x = 0
+y = 180
+size = [168, 168]
+png = "classic_recruitment_office/classic_recruitment_office_cursor.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_tile_hidden"
+texture = "classic_recruitment_office_board"
+x = 172
+y = 180
+size = [128, 128]
+png = "classic_recruitment_office/classic_recruitment_office_tile_hidden.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_tile_done"
+texture = "classic_recruitment_office_board"
+x = 304
+y = 180
+size = [128, 128]
+png = "classic_recruitment_office/classic_recruitment_office_tile_done.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_tile_start"
+texture = "classic_recruitment_office_board"
+x = 436
+y = 180
+size = [128, 128]
+png = "classic_recruitment_office/classic_recruitment_office_tile_start.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_icon_unknown"
+texture = "classic_recruitment_office_board"
+x = 568
+y = 180
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_icon_unknown.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_icon_lock"
+texture = "classic_recruitment_office_board"
+x = 668
+y = 180
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_icon_lock.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_icon_check"
+texture = "classic_recruitment_office_board"
+x = 768
+y = 180
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_icon_check.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_icon_start"
+texture = "classic_recruitment_office_board"
+x = 868
+y = 180
+size = [96, 96]
+png = "classic_recruitment_office/classic_recruitment_office_icon_start.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_arrow_left"
+texture = "classic_recruitment_office_board"
+x = 0
+y = 352
+size = [64, 64]
+png = "classic_recruitment_office/classic_recruitment_office_arrow_left.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_arrow_right"
+texture = "classic_recruitment_office_board"
+x = 68
+y = 352
+size = [64, 64]
+png = "classic_recruitment_office/classic_recruitment_office_arrow_right.png"
+
+[[sprite]]
+atlas = "#/menu/220_img/classic_recruitment_office/classic_recruitment_office_board.g4tx"
+name = "classic_recruitment_office_link"
+texture = "classic_recruitment_office_board"
+x = 136
+y = 352
+size = [16, 16]
+png = "classic_recruitment_office/classic_recruitment_office_link.png"

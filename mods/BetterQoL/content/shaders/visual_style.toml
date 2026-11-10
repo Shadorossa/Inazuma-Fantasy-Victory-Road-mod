@@ -1,13 +1,4 @@
 schema = "VRFW.shader/1"
-# «Estilo visual» (Visual style): the presets of the Mods options row BetterQoL.visual_style (options.toml), switched
-# live by the VR-Framework's shader presets (docs/framework/shaders.md). 0 = the game's own look (no preset). Grade
-# values as research/scripts/lt_build.py PRESETS. The HLSL is in assets\shaders\ (its defines default to the neutral
-# values: 1, pivot 0.5, tint [1, 1, 1]).
-
-# ---------------------------------------------------------------- programs
-# the 3D post chain's pixel passes (the UI is drawn after them and never changes): per frame the engine runs one of
-# tonemap / tonemap + LUT / LUT only (a scene with the tonemap off and a colour LUT on: events, some maps), then the
-# bloom composite; targets = the v7.1.2 retail dx11/shader/1.00.41 files (size, CRC-32): a modded file is left alone
 
 [[VRFW.ShaderProgram]]
 id = "tonemap"
@@ -27,8 +18,7 @@ target = { name = "colorgrading.pfxo", type = "pixel", size = 4072, crc = 0x6DA4
 source = "assets/shaders/colorgrading.hlsl"
 includes = ["assets/shaders/common.hlsl", "assets/shaders/lut.hlsl"]
 
-# the framework's tonemap pass patch: the engine also runs the tonemap pass in scenes whose tonemap rate is 0 or below
-# (most event cuts, some maps: retail skips the pass there), as an identity pass, so the grade covers every 3D scene
+# tonemap pass also runs where the tonemap rate is <= 0 (identity pass), so the grade covers every 3D scene
 [[VRFW.ShaderProgram]]
 id = "tonemap_pass"
 patch = "tonemap_pass"
@@ -45,8 +35,7 @@ target = { name = "bloom_composi_l.pfxo", type = "pixel", size = 1584, crc = 0xE
 source = "assets/shaders/bloom_composi.hlsl"
 defines = { LAYERS = 2 }
 
-# «Trazado grueso»: the framework's contour patch of the 14 character / ball contour programs (params thickness,
-# darken)
+# thick outline: the framework's contour patch of the 14 character / ball contour programs
 [[VRFW.ShaderProgram]]
 id = "contour"
 patch = "contour"

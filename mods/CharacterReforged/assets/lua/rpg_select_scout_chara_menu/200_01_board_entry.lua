@@ -471,18 +471,15 @@ function ReceiveCloseParsonalPlateSkillDetailInfo()
 end
 
 -- ===== EVT board removal BEGIN (research/scripts/board_entry_build.py) =====
--- Scout screen (personal-plate view key): opens the Supertécnicas screen for that scout. The scout may not be an owned
--- player, so the screen opens READ-ONLY (param evt_ss_readonly): it shows his moves and the move panel, nothing can
--- be changed.
-EVT_SKILL_SLOT_MENU = 1041963128
--- The skill table is Character Reforged's and always replaces the game's ability board.
+CharacterReforged = type(CharacterReforged) == "table" and CharacterReforged or {}
+CharacterReforged.SKILL_SLOT_MENU = 2221030314
 function OpenAbilityLearningBoard()
   local function p(key, v, num)
-    VRFW_Param.Clear(key)
+    VRFW.param.clear(key)
     if num then
-      VRFW_Param.Set(key, v)
+      VRFW.param.set(key, v)
     else
-      VRFW_Param.Set(key, v, "plain")
+      VRFW.param.set(key, v, "plain")
     end
   end
   p(2029825652, false)       -- flag5: no member list (single player)
@@ -491,17 +488,17 @@ function OpenAbilityLearningBoard()
   p(3308763177, false)
   p(2719720834, true)
   p(1038144478, n5, true)    -- the scout
-  p(239878988, true)                -- read-only
-  VRFW_FooterPrompts.Set(nil, 1026683731 --[[rpg_select_scout_chara_menu]], {},
-    {Guide = 1138543975 --[[mainmenu01_06_base_button_guide]], Declared = false})
+  p(156152477, true)                -- read-only
+  VRFW.footer_prompts.set(nil, 1026683731 --[[rpg_select_scout_chara_menu]], {},
+    {guide = 1138543975 --[[mainmenu01_06_base_button_guide]], declared = false})
   SetVisibleLayerAll(false)
-  funcLuaCommand(433545986, EVT_SKILL_SLOT_MENU)
+  funcLuaCommand(433545986, CharacterReforged.SKILL_SLOT_MENU)
   funcLuaMenuCommand(1558704558, 1026683731 --[[rpg_select_scout_chara_menu]], false)
   coroutine.yield()
   waitFalse(function()
-    return funcLuaMenuCommand(2231168902, EVT_SKILL_SLOT_MENU)
+    return funcLuaMenuCommand(2231168902, CharacterReforged.SKILL_SLOT_MENU)
   end)
-  VRFW_Param.Clear(239878988)
+  VRFW.param.clear(156152477)
   SetVisibleLayerAll(true)
   funcLuaMenuCommand(1558704558, 1026683731 --[[rpg_select_scout_chara_menu]], true)
   UpdateAppealEventCheck()

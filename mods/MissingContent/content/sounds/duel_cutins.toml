@@ -1,0 +1,44 @@
+schema = "VRFW.sound/1"
+# The duel cut-ins keep the sounds of their retail scene on their own timeline; built at boot from the player's waza_stream.
+
+# vca0005, 0007, 0008: the hit of frame 109 lands on their frame 89
+[[sfx]]
+add = "MissingContent_duel_charge_from20_me"
+from = "ev71_40010_me"
+bank = "waza_stream"
+segments = [[20, 180]]
+
+# vca0006: the hit of frame 109 lands on its frame 91
+[[sfx]]
+add = "MissingContent_duel_charge_from18_me"
+from = "ev71_40010_me"
+bank = "waza_stream"
+segments = [[18, 178]]
+
+# vca0015: the hit of frame 109 lands on its frame 75
+[[sfx]]
+add = "MissingContent_duel_charge_from34_me"
+from = "ev71_40010_me"
+bank = "waza_stream"
+segments = [[34, 172]]
+
+# vca0009, 0010: frame 96 lands on their frame 105; the frames their sync adds are silent, placed in the quiet before the block
+[[sfx]]
+add = "MissingContent_duel_block_gap50_me"
+from = "ev71_50010_me"
+bank = "waza_stream"
+segments = [[41, 89], { silence = 50 }, [90, 151]]
+
+# vca0012: frame 96 lands on its frame 104; the frames its sync adds are silent, placed in the quiet before the block
+[[sfx]]
+add = "MissingContent_duel_block_gap49_me"
+from = "ev71_50010_me"
+bank = "waza_stream"
+segments = [[41, 89], { silence = 49 }, [90, 152]]
+
+# vca0011: its first 61 frames come before the retail scene and are silent; frame 96 lands on its frame 104
+[[sfx]]
+add = "MissingContent_duel_block_late_me"
+from = "ev71_50010_me"
+bank = "waza_stream"
+segments = [{ silence = 61 }, [53, 152]]

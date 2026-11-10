@@ -1,6 +1,4 @@
 schema = "VRFW.changelog/1"
-# Hissatsu Effects: ONE general summary of what the mod offers, shown on «Novedades de mods» (docs/framework/types/changelog.md).
-# Rules (the parser refuses the rest): a single 
 
 [[release]]
 icon = "general"

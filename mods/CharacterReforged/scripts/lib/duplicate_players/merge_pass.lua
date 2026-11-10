@@ -1,28 +1,3 @@
--- Character Reforged › duplicate players: the pass over a duplicated save (the mechanism; the policy is the mods'
--- duplicate rules, lib/duplicate_players/rules.lua).
---   * rarity (policy normal_card_rarity): every normal card (chara_param col 41 = 0), and every special card whose col 41
---     the policy lists (normal_special_rarities: the tiers a rule's option removes), whose saved rarity differs -> it.
---     With policy convert_special_cards (the save adjust action) such a special card also becomes his character's
---     base card (CardFacts:base_card_of: param_id_crc, a team's captainParamId) and joins the copies of that card: when
---     the club already has that card, the copies are merged into the one keep_first keeps (as the duplicates below)
---   * lower rarities (policy raise_every_saved_player, the save adjust action): any other saved character whose rarity is
---     below normal_card_rarity gets it, whatever his card or attribute bits, in m_saveHumanP and in the guest, custom
---     avatar and story scout records. Only the rarity word changes: same handle, same card. A mode's own card stays
---   * hidden cards (policy release_cards_hidden_in): every copy is released, a copy in a team too (team slot,
---     memberNum, captain, team aura entry); their spirit cards (spirit lists) are emptied
---   * duplicates (policy one_card_per): ONE copy per card (the exact chara_param id; two cards of one character or one
---     name are two players); the copy that stays is chosen by policy keep_first. A released duplicate is merged into the
---     kept card: his team slots (emptied when the kept card is already there), captain, team aura entry (the kept card
---     with an aura command in his board's aura slot, else emptied), dock bits (organizedTeamFlag), bank lists
---   * a released player: his record becomes an empty slot (copied from the highest unused slot of the save), his
---     equipment and board items go back to their stacks (equipment_num), his handle leaves charaBank / rpgCharaBank /
---     m_Collection, the Kizuna boards (item + its lines) and the Kizuna Town residents; he gives
---     element_spirits_per_released_card element spirits of his element (story spirits, rarity 4 then 3..0, capped)
--- Otherwise never touched: story-only, season and released-scout records (attribute bits). Never released: a card the game's
--- bank cannot retire (CanCharaBankRemove of chara_bank_menu: attribute bits 0x80 / 0x1000 / 0x2000 / 0x10000, e.g. the
--- avatars and the original players) and any card that did not join by signing (addPartySource other than 4): in a
--- duplicate group such a card is always the one kept, and a second one of them stays too (logged «not released»).
--- Idempotent.
 
 local T = require "lib/duplicate_players/save_tree"
 
@@ -34,7 +9,6 @@ local floor, concat, sub, byte, char = math.floor, table.concat, string.sub, str
 -- attribute bits of the records the pass never touches (story-only, season, released scouts)
 MergePass.ATTRIBUTE_MODE_CARD = 0x10000000
 MergePass.ATTRIBUTES_NEVER_TOUCHED = MergePass.ATTRIBUTE_MODE_CARD + 0x00100000 + 0x80 + 0x40
--- the attribute bits of a card the bank cannot retire (chara_bank_menu CanCharaBankRemove: CMND 29506568(hdl, bit))
 MergePass.ATTRIBUTES_NOT_RETIRABLE = 0x80 + 0x1000 + 0x2000 + 0x10000
 -- addPartySource of a player who joined by signing (a spirit summon / fichaje)
 MergePass.SIGNED_SOURCE = 4
@@ -42,7 +16,6 @@ MergePass.SIGNED_SOURCE = 4
 MergePass.ELEMENT_SPIRIT_CAP = 999
 local ELEMENT_NAMES = { "wind", "forest", "fire", "mountain" }
 local ELEMENT_COUNT = #ELEMENT_NAMES
--- elementSpiritInfo.stockNum: per element 6 rarities x 2 variants of u16 words (variant 0 = the story spirits)
 local ELEMENT_SPIRIT_WORDS_PER_ELEMENT = 12
 local ELEMENT_SPIRIT_MIN_BYTES = 96
 local ELEMENT_SPIRIT_RARITIES_BEST_FIRST = { 4, 3, 2, 1, 0 }
@@ -63,32 +36,26 @@ local KIZUNA_BOARDS = { "storyBoardInfo", "chronicleBoardInfo" }
 local BLOCK_INVENTORY, BLOCK_CHARACTERS, BLOCK_TEAMS = 4, 5, 7
 local BLOCK_KIZUNA_BOARDS, BLOCK_SPIRITS, BLOCK_RESIDENTS = 0x11, 0x12, 0x17
 
--- ------------------------------------------------------------------------------------------------ the plan
-
 local function eligible(record)
   return record.handle ~= 0 and record.card ~= 0 and band(record.attributes, MergePass.ATTRIBUTES_NEVER_TOUCHED) == 0
 end
 
--- policy raise_every_saved_player: this saved character's rarity is below the rule's, and he is no mode's own card
 local function rarity_is_raised(record, policy)
   return policy.raise_every_saved_player == true and policy.normal_card_rarity ~= nil
     and record.handle ~= 0 and record.card ~= 0 and record.rarity < policy.normal_card_rarity
     and band(record.attributes, MergePass.ATTRIBUTE_MODE_CARD) == 0
 end
 
--- the pass may release this card: the bank could retire it and he joined by signing
 local function retirable(record)
   return band(record.attributes, MergePass.ATTRIBUTES_NOT_RETIRABLE) == 0 and record.source == MergePass.SIGNED_SOURCE
 end
 MergePass.retirable = retirable
 
--- what makes two records duplicates: the same chara_param id once the pass is done (a converted special card counts as
--- the base card it becomes). Never the character, the name or the model.
+-- duplicates = the same chara_param id after the pass (a converted special card counts as its base card)
 local function final_card(record)
   return record.converts_to or record.card
 end
 
--- the comparison of policy keep_first: a is kept before b
 local KEEP_TESTS = {
   in_a_fusion = function(a, b) if a.in_a_fusion ~= b.in_a_fusion then return a.in_a_fusion end end,
   highest_level = function(a, b) if a.level ~= b.level then return a.level > b.level end end,
@@ -112,9 +79,6 @@ local function keeps_before(keep_first)
   end
 end
 
--- plan.rarity = { {handle, card, rarity, character, converts_to} }, plan.release = { {handle, card, kept} } (kept 0 = a
--- hidden card), plan.protected = { {handle, card, why, kept} } (cards the pass would release but may not). A record's
--- base_card (his character's base card) is read when convert_special_cards asks for it.
 function MergePass.plan(records, policy, is_hidden)
   local plan = { rarity = {}, release = {}, protected = {} }
   local special = policy.normal_special_rarities or {}
@@ -181,20 +145,16 @@ function MergePass.plan(records, policy, is_hidden)
   return plan
 end
 
--- ------------------------------------------------------------------------------------------------ save helpers
-
 -- the team paths of block 7 (every team set, every team)
 local function teams_of(tree, permanent)
   local out = {}
-  local sets, set_count = T.arr(tree, T.kids(tree, permanent, "teamSetList"), "m_buffer")
+  local sets, set_count = T.array(tree, T.kids(tree, permanent, "teamSetList"), "m_buffer")
   for set_index = 0, (set_count or 0) - 1 do
-    local team_list, team_count = T.arr(tree, T.at(sets, set_index), "teamInfoList")
+    local team_list, team_count = T.array(tree, T.at(sets, set_index), "teamInfoList")
     for team_index = 0, (team_count or 0) - 1 do out[#out + 1] = T.at(team_list, team_index) end
   end
   return out
 end
-
--- ------------------------------------------------------------------------------------------------ the pass
 
 local function new_report()
   return {
@@ -208,9 +168,6 @@ local function new_report()
   }
 end
 
--- The pass on one tree with the merged policy. Returns the report and { merges = { {duplicate, duplicate_card, kept,
--- kept_card, character} } (by duplicate), released = set of handles }. report.lines: one line per player changed (rarity
--- / released).
 function MergePass.run(tree, facts, policy)
   local function is_hidden(card) return facts:is_hidden(card) end
   for _, id in ipairs({ BLOCK_INVENTORY, BLOCK_CHARACTERS, BLOCK_TEAMS }) do
@@ -221,7 +178,6 @@ function MergePass.run(tree, facts, policy)
   local report = new_report()
   local outcome = { merges = {}, released = {} }
 
-  -- ---- characters (m_saveHumanP, one column per member)
   local humans = T.kids(tree, T.unwrap(tree, "block5", "m_Permanent"), "m_saveHumanP")
   if not humans then error("m_saveHumanP not found") end
   local columns = {}
@@ -238,19 +194,17 @@ function MergePass.run(tree, facts, policy)
   local attributes, get_orders = T.words(column("attribute")), T.words(column("get_order"))
   local levels = column("nowLv")
   local count = #handles
-  local function level_of(i) return T.rd(levels, i * 2, 2) end
-  -- how each player joined (u8 per record); a save without the column: unknown (0), so nobody is released
+  local function level_of(i) return T.read(levels, i * 2, 2) end
   local sources = T.leaf(tree, humans, "addPartySource")
   if sources and #sources ~= count then sources = nil end
   local function source_of(i) return sources and byte(sources, i + 1) or 0 end
-  -- team sets (block 7): the handles in a team
   local team_permanent = T.unwrap(tree, "block7", "m_InfoPermanent")
   local teams = teams_of(tree, team_permanent)
   local in_a_team = {}
   for _, team in ipairs(teams) do
-    local members, member_count = T.arr(tree, team, "memberList")
+    local members, member_count = T.array(tree, team, "memberList")
     for k = 0, (member_count or 0) - 1 do
-      local handle = T.num(tree, T.at(members, k), "charaStHdl")
+      local handle = T.number(tree, T.at(members, k), "charaStHdl")
       if handle and handle ~= 0 then in_a_team[handle] = true end
     end
   end
@@ -280,18 +234,17 @@ function MergePass.run(tree, facts, policy)
       entry[1], entry[2], entry[3], entry[4] ~= 0 and string.format(" of 0x%08X", entry[4]) or "", record.attributes, record.source)
   end
 
-  -- ---- rarity of the normal cards (and the special cards that become their character's base card)
   local rarity_from = {}
   local rarity_path, card_path = humans .. ".charaRarity", humans .. ".param_id_crc"
   -- the card each converted player has after the pass (handle -> base card)
   local final_card = {}
   for _, entry in ipairs(plan.rarity) do
     local i = index_of[entry[1]]
-    local wanted = T.le(policy.normal_card_rarity, 4)
+    local wanted = T.little_endian(policy.normal_card_rarity, 4)
     if sub(columns.charaRarity, i * 4 + 1, i * 4 + 4) ~= wanted then P:put(rarity_path, i * 4, wanted, 4, columns.charaRarity) end
     local base = entry[5]
     if base ~= nil then
-      P:put(card_path, i * 4, T.le(base, 4), 4, columns.param_id_crc)
+      P:put(card_path, i * 4, T.little_endian(base, 4), 4, columns.param_id_crc)
       final_card[entry[1]] = base
       report.to_base_card = report.to_base_card + 1
     end
@@ -304,8 +257,8 @@ function MergePass.run(tree, facts, policy)
   -- the saved characters outside m_saveHumanP, one record each
   local function raise_record(path, label)
     local record = {
-      handle = T.num(tree, path, "handle") or 0, card = T.num(tree, path, "param_id_crc") or 0,
-      rarity = T.num(tree, path, "charaRarity"), attributes = T.num(tree, path, "attribute") or 0,
+      handle = T.number(tree, path, "handle") or 0, card = T.number(tree, path, "param_id_crc") or 0,
+      rarity = T.number(tree, path, "charaRarity"), attributes = T.number(tree, path, "attribute") or 0,
     }
     if record.rarity ~= nil and rarity_is_raised(record, policy) then
       P:set(path .. ".charaRarity", record.rarity, policy.normal_card_rarity)
@@ -320,18 +273,17 @@ function MergePass.run(tree, facts, policy)
     local guest = T.kids(tree, characters, "m_stGuestP")
     if guest then raise_record(guest, "m_stGuestP") end
     for _, name in ipairs({ "m_stEditP", "m_stStoryScoutP" }) do
-      local array, array_count = T.arr(tree, characters, name)
+      local array, array_count = T.array(tree, characters, name)
       for i = 0, (array_count or 0) - 1 do raise_record(T.at(array, i), name .. "[" .. i .. "]") end
     end
   end
   local function card_after(handle)
     return final_card[handle] or cards[index_of[handle] + 1]
   end
-  -- a converted captain: his team's captain card follows
   if next(final_card) ~= nil then
     for _, team in ipairs(teams) do
-      local captain = T.num(tree, team, "captainStHdl")
-      local captain_card = T.num(tree, team, "captainParamId")
+      local captain = T.number(tree, team, "captainStHdl")
+      local captain_card = T.number(tree, team, "captainParamId")
       if captain and captain_card and final_card[captain] then
         P:set(team .. ".captainParamId", captain_card, final_card[captain])
       end
@@ -340,7 +292,6 @@ function MergePass.run(tree, facts, policy)
   for rarity, n in pairs(rarity_from) do report.to_normal_rarity_from[#report.to_normal_rarity_from + 1] = { rarity, n } end
   table.sort(report.to_normal_rarity_from, function(a, b) return a[1] < b[1] end)
 
-  -- ---- released players
   local released, release_order = {}, {}
   for _, entry in ipairs(plan.release) do
     local handle, card, kept = entry[1], entry[2], entry[3]
@@ -361,19 +312,15 @@ function MergePass.run(tree, facts, policy)
   if #release_order > 0 and not template then error("no free character slot to copy an empty record from") end
   local item_change, item_handles = {}, {}
   local element_spirits_added = { 0, 0, 0, 0 }
-  -- dock bits (organizedTeamFlag, one column): the kept card takes the bits of the copies merged into him
   local dock_bits = T.leaf(tree, humans, "organizedTeamFlag")
   if not (dock_bits and count > 0 and #dock_bits > 0 and #dock_bits % count == 0) then dock_bits = nil end
   local merged_bits, merged_bits_order = {}, {}
-  -- every member of m_saveHumanP: { name, kind, len }. Listed after every named read of them, so a member the pass
-  -- also writes by name (charaRarity, organizedTeamFlag) is listed by that name (one spelling = one patch entry)
   local members = {}
   for name in pairs(ITEM_HOLDERS) do tree:get(humans .. "." .. name) end
   for _, name in ipairs(tree:children(humans)) do
     local node = tree:get(humans .. "." .. name)
     if node then members[#members + 1] = { name = name, kind = node.kind, len = node.len } end
   end
-  -- the template's elements of the per-player arrays: { [member] = { { path, bytes } } }
   local template_leaves = {}
   local function element_leaves(array_path, i)
     local leaves = {}
@@ -415,7 +362,6 @@ function MergePass.run(tree, facts, policy)
         for k = 1, #own do
           if #own[k][2] ~= #empty[k][2] then error(string.format("m_saveHumanP member %s: element layouts differ", member.name)) end
         end
-        -- items held: equipment + board skill items go back to their stacks
         if ITEM_HOLDERS[member.name] then
           for _, leaf in ipairs(own) do
             for _, item in ipairs(T.words(leaf[2])) do
@@ -444,6 +390,7 @@ function MergePass.run(tree, facts, policy)
         level_of(i), experiences[i + 1], kept, k, card_after(kept), level_of(k), experiences[k + 1])
     end
     local element = facts:element_of(card)
+    if policy.element_spirit_of_position then element = policy.element_spirit_of_position[facts:position_of(card)] end
     if element then
       element_spirits_added[element] = element_spirits_added[element] + policy.element_spirits_per_released_card
     else
@@ -470,27 +417,26 @@ function MergePass.run(tree, facts, policy)
     end
   end
 
-  -- ---- references in block 7: teams, captain, team aura, bank lists; Kizuna; residents
   if #release_order > 0 then
     local item_of_handle = {}
     do
       local inventory = T.unwrap(tree, "block4", "m_Permanent")
-      local list, list_count = T.arr(tree, inventory, "invSkill")
+      local list, list_count = T.array(tree, inventory, "invSkill")
       for x = 0, (list_count or 0) - 1 do
         local element = T.at(list, x)
-        local item_handle, item_id = T.num(tree, element, "handle"), T.num(tree, element, "item_id")
+        local item_handle, item_id = T.number(tree, element, "handle"), T.number(tree, element, "item_id")
         if item_handle and item_id and item_handle ~= 0 then item_of_handle[item_handle] = item_id end
       end
     end
-    local boards, board_count = T.arr(tree, humans, "skillEquipInvInfo")
-    local overwrites, overwrite_count = T.arr(tree, humans, "skillEquipInvInfoOverWrite")
+    local boards, board_count = T.array(tree, humans, "skillEquipInvInfo")
+    local overwrites, overwrite_count = T.array(tree, humans, "skillEquipInvInfoOverWrite")
     -- the aura command in a card's board aura slot (0 = none)
     local function aura_of(handle)
       local i = index_of[handle]
       if not i then return 0 end
       local function at(array, array_count)
         if not array or i >= array_count then return 0 end
-        return T.num(tree, T.at(array, i), AURA_BOARD_SLOT) or 0
+        return T.number(tree, T.at(array, i), AURA_BOARD_SLOT) or 0
       end
       local item_handle = at(boards, board_count)
       if item_handle == 0 then item_handle = at(overwrites, overwrite_count) end
@@ -499,12 +445,12 @@ function MergePass.run(tree, facts, policy)
       return 0
     end
     for _, team in ipairs(teams) do
-      local member_list, member_count = T.arr(tree, team, "memberList")
+      local member_list, member_count = T.array(tree, team, "memberList")
       local present = {}
       local slots = {}
       for k = 0, (member_count or 0) - 1 do
         local slot = T.at(member_list, k)
-        local handle = T.num(tree, slot, "charaStHdl")
+        local handle = T.number(tree, slot, "charaStHdl")
         if handle then
           slots[#slots + 1] = { slot, handle }
           if handle ~= 0 and not released[handle] then present[handle] = true end
@@ -527,15 +473,15 @@ function MergePass.run(tree, facts, policy)
       end
       if gone > 0 then
         report.team_slots_cleared = report.team_slots_cleared + gone
-        local member_total = T.num(tree, team, "memberNum")
+        local member_total = T.number(tree, team, "memberNum")
         if member_total then
           local width = tree:get(team .. ".memberNum").len
           P:put(team .. ".memberNum", 0, char(math.max(member_total - gone, 0) % 256), width)
         end
       end
-      local captain = T.num(tree, team, "captainStHdl")
+      local captain = T.number(tree, team, "captainStHdl")
       if captain and released[captain] then
-        local captain_card = T.num(tree, team, "captainParamId")
+        local captain_card = T.number(tree, team, "captainParamId")
         local kept = kept_of[captain]
         if kept and present[kept] then
           P:set(team .. ".captainStHdl", captain, kept)
@@ -547,13 +493,13 @@ function MergePass.run(tree, facts, policy)
           report.captains_cleared = report.captains_cleared + 1
         end
       end
-      local aura_list, aura_count = T.arr(tree, team, "auraSkillSlotInfoList")
+      local aura_list, aura_count = T.array(tree, team, "auraSkillSlotInfoList")
       local aura_entries, has_aura = {}, {}
       for k = 0, (aura_count or 0) - 1 do
         local aura_entry = T.at(aura_list, k)
-        local holder = T.num(tree, aura_entry, "charaStHdl")
+        local holder = T.number(tree, aura_entry, "charaStHdl")
         if holder and holder ~= 0 and not released[holder] then has_aura[holder] = true end
-        local move = T.num(tree, aura_entry, "skillId")
+        local move = T.number(tree, aura_entry, "skillId")
         if holder and move then aura_entries[#aura_entries + 1] = { aura_entry, holder, move } end
       end
       for _, entry in ipairs(aura_entries) do
@@ -575,7 +521,6 @@ function MergePass.run(tree, facts, policy)
         end
       end
     end
-    -- bank lists: a released word becomes the card that replaces him when that card is not in the list yet, else 0
     local bank_lists = {}
     for _, name in ipairs(BANK_LISTS) do bank_lists[#bank_lists + 1] = { team_permanent, name } end
     bank_lists[#bank_lists + 1] = { "block7", "m_Collection" }
@@ -592,7 +537,7 @@ function MergePass.run(tree, facts, policy)
             local kept = kept_of[word]
             if kept and not present[kept] then
               present[kept] = true
-              P:put(path, (k - 1) * 4, T.le(kept, 4), 4, bytes)
+              P:put(path, (k - 1) * 4, T.little_endian(kept, 4), 4, bytes)
               report.bank_words_repointed = report.bank_words_repointed + 1
             else
               P:put(path, (k - 1) * 4, "\0\0\0\0", 4, bytes)
@@ -602,29 +547,28 @@ function MergePass.run(tree, facts, policy)
         end
       end
     end
-    -- Kizuna boards: the player's item and the lines drawn to it
     if has_kizuna_boards then
       local permanent = T.unwrap(tree, "block17", "m_Permanent")
       for _, board_name in ipairs(KIZUNA_BOARDS) do
-        local board_list, board_total = T.arr(tree, permanent, board_name)
+        local board_list, board_total = T.array(tree, permanent, board_name)
         for b = 0, (board_total or 0) - 1 do
           local board = T.at(board_list, b)
           local cleared_items = {}
-          local item_list, item_total = T.arr(tree, board, "itemArray")
+          local item_list, item_total = T.array(tree, board, "itemArray")
           for k = 0, (item_total or 0) - 1 do
             local item = T.at(item_list, k)
-            local status = T.num(tree, item, "statusHdl")
+            local status = T.number(tree, item, "statusHdl")
             if status and released[status] then
-              local item_handle = T.num(tree, item, "handle")
+              local item_handle = T.number(tree, item, "handle")
               if item_handle and item_handle ~= 0 then cleared_items[item_handle] = true end
               P:zero(item)
               report.kizuna_items_cleared = report.kizuna_items_cleared + 1
             end
           end
-          local line_list, line_total = T.arr(tree, board, "kizunaLineArray")
+          local line_list, line_total = T.array(tree, board, "kizunaLineArray")
           for k = 0, (line_total or 0) - 1 do
             local line = T.at(line_list, k)
-            local end_a, end_b = T.num(tree, line, "itemA"), T.num(tree, line, "itemB")
+            local end_a, end_b = T.number(tree, line, "itemA"), T.number(tree, line, "itemB")
             if (end_a and cleared_items[end_a]) or (end_b and cleared_items[end_b]) then
               P:zero(line)
               report.kizuna_lines_cleared = report.kizuna_lines_cleared + 1
@@ -633,12 +577,11 @@ function MergePass.run(tree, facts, policy)
         end
       end
     end
-    -- Kizuna Town residents keep their own look data; only the link to the released player goes
     if has_residents then
-      local resident_list, resident_total = T.arr(tree, T.unwrap(tree, "block23", "m_permanent"), "craftResidentsStatusPList")
+      local resident_list, resident_total = T.array(tree, T.unwrap(tree, "block23", "m_permanent"), "craftResidentsStatusPList")
       for k = 0, (resident_total or 0) - 1 do
         local resident = T.at(resident_list, k)
-        local handle = T.num(tree, resident, "baseCharaStatusHandle")
+        local handle = T.number(tree, resident, "baseCharaStatusHandle")
         if handle and released[handle] then
           P:set(resident .. ".baseCharaStatusHandle", handle, 0)
           report.residents_unlinked = report.residents_unlinked + 1
@@ -647,7 +590,6 @@ function MergePass.run(tree, facts, policy)
     end
   end
 
-  -- ---- spirits (block 0x12): the hidden cards' spirit cards out, the element spirits in
   local any_element_spirits = false
   for element = 1, ELEMENT_COUNT do
     if element_spirits_added[element] > 0 then any_element_spirits = true end
@@ -655,15 +597,15 @@ function MergePass.run(tree, facts, policy)
   if has_spirits then
     local permanent = T.unwrap(tree, "block18", "m_Permanent")
     for _, list_name in ipairs(SPIRIT_LISTS) do
-      local spirit_list, spirit_total = T.arr(tree, permanent, list_name)
+      local spirit_list, spirit_total = T.array(tree, permanent, list_name)
       for k = 0, (spirit_total or 0) - 1 do
         local spirit = T.at(spirit_list, k)
-        local card = T.num(tree, spirit, "charaParamId")
+        local card = T.number(tree, spirit, "charaParamId")
         if card and card ~= 0 and is_hidden(card) then
           for _, field in ipairs({ "stockNum", "usedStockNum" }) do
             local stock = T.leaf(tree, spirit, field)
             if stock then
-              for x = 0, floor(#stock / 2) - 1 do report.spirit_cards_removed = report.spirit_cards_removed + T.rd(stock, x * 2, 2) end
+              for x = 0, floor(#stock / 2) - 1 do report.spirit_cards_removed = report.spirit_cards_removed + T.read(stock, x * 2, 2) end
             end
           end
           P:zero(spirit)
@@ -676,7 +618,7 @@ function MergePass.run(tree, facts, policy)
       if not stock then error("elementSpiritInfo.stockNum not found") end
       if #stock < ELEMENT_SPIRIT_MIN_BYTES then error("elementSpiritInfo.stockNum too short") end
       local words = {}
-      for x = 0, floor(#stock / 2) - 1 do words[x] = T.rd(stock, x * 2, 2) end
+      for x = 0, floor(#stock / 2) - 1 do words[x] = T.read(stock, x * 2, 2) end
       for element = 0, ELEMENT_COUNT - 1 do
         local add = element_spirits_added[element + 1]
         local left = add
@@ -690,18 +632,16 @@ function MergePass.run(tree, facts, policy)
         report.element_spirits_lost = report.element_spirits_lost + left
       end
       local parts = {}
-      for x = 0, floor(#stock / 2) - 1 do parts[x + 1] = T.le(words[x], 2) end
+      for x = 0, floor(#stock / 2) - 1 do parts[x + 1] = T.little_endian(words[x], 2) end
       P:leaf(stock_path, stock, concat(parts) .. sub(stock, floor(#stock / 2) * 2 + 1))
     end
   elseif any_element_spirits then
     error("CGDDSpiritStatus block not found (element spirits)")
   end
 
-  -- ---- item stacks: equipment_num follows the released references
   if #item_handles > 0 then
     local inventory = T.unwrap(tree, "block4", "m_Permanent")
-    -- every list of CGDDInventoryStatus;
-    -- the tree does not list a block's own top records, so a block without wrapper names its lists
+    -- every list of CGDDInventoryStatus (a block without wrapper names its lists)
     local names = tree:children(inventory) or INVENTORY_LISTS
     for _, name in ipairs(names) do
       local list_path = inventory .. "." .. name
@@ -709,7 +649,7 @@ function MergePass.run(tree, facts, policy)
       if node and node.kind == "array" then
         for k = 0, node.len - 1 do
           local element = T.at(list_path, k)
-          local item_handle, equipped = T.num(tree, element, "handle"), T.num(tree, element, "equipment_num")
+          local item_handle, equipped = T.number(tree, element, "handle"), T.number(tree, element, "equipment_num")
           if item_handle and equipped and item_change[item_handle] then
             P:set(element .. ".equipment_num", equipped, math.max(equipped + item_change[item_handle], 0))
           end

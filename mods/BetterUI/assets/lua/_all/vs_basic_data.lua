@@ -1,32 +1,15 @@
--- BetterUI (mod BetterUI, prefix BetterUI): the Chronicle VS screen's two views of the player cards, shared by its two
--- menus (vs_route_town_vs_team_menu = your half, vs_route_town_vs_enemy_formation_menu = the rival's half; their hooks
--- are assets\lua\<menu>\140_vs_basic_data.lua, the layers and card objects content\menus\vs_basic_data.toml).
---   «Preview»     BetterUI's compact card: face, element, position (no name, no level).
---   «Basic data»  the card's level («Nv.» and its number, drawn by the game for the level the screen gives the card)
---                 and the player's name on the card's bottom row instead of the element and position; the coach card
---                 shows the name only.
--- X (the retail nickname key) switches the view; the game's full name / nickname switch is not used on this screen
--- (the name follows the game's current name setting). The view is the parameter BetterUI.vs_basic_data of the game's
--- parameter store (present = «Basic data»), so both menus draw the same view; each opening of the screen starts in
--- «Preview». The name is a text layer per card hung on the card's origin by the card object's attach rows; this file
--- only fills, sizes and shows it, after each retail draw of a half (SetFormation).
--- Defines functions only; no engine call at load time.
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
-if BetterUI.VsBasicData == nil then
+if BetterUI.vs_basic_data == nil then
   local V = {
-    VIEW_PARAM = 2979464676,            -- crc32("BetterUI.vs_basic_data")
-    NAME_LAYER = 98463589,              -- better_ui_card_name: instance k on card k of the pitch / bench layer
+    VIEW_PARAM = 2979464676,
+    NAME_LAYER = 98463589,
     COACH_NAME_LAYER = 770171539,       -- better_ui_card_name_leader: on the coach card
-    NAME_NODE = 931545948,              -- _text_list01_on
+    NAME_NODE = 931545948,              -- `_text_list01_on`
     SPARE_NODE = 3705682548,            -- _text_list01_off (unused, kept empty)
-    NAME_STYLE = 3839036294,            -- fs_28_w_cc_2d2_001_nr_sclw: white, outlined, centred, squeezed to its box
+    NAME_STYLE = 3839036294,
     NAME_PLATES = {3025401186, 486732393, 1516082254, 3292070381, 376662541, 3232607807, 1712955010},
-    CARD_NAME = 170976702,              -- _text_chr01: the card's own name line (its box is the retail card's width)
-    -- element and position of the compact card (large card, then small card): hidden under the name
+    CARD_NAME = 170976702,
     BADGES = {3895971012, 32585899, 1721769611, 4283246729, 378264806, 1910176454},
-    -- the name's place from the card's origin (screen px, y up) and the name layer's scale (box 146 x 34 at scale 1):
-    -- large card (pitch, coach) = its name row y -22 .. -56 at the screen's card scale 0.85; small card (bench,
-    -- managers) = its element / position row y -8 .. -42, the box as wide as the small card
     LARGE = {x = -1.5, y = -33, scale = 0.85},
     SMALL = {x = -1.5, y = -21, scale = 0.58},
     FIRST_SMALL_SLOT = 11,              -- formation slots 11 .. 18 are small cards
@@ -35,50 +18,34 @@ if BetterUI.VsBasicData == nil then
     NAME_KEY_CRCS = {preview = 1307210685, basic = 3674954174},
     PILL = {LAYER = 209828247, TEXT = 1704438437, SIZE = 4156564586, SCALE_GROUP = 2736921100},
     C = {
-      TEXT_ID = VRFW_Cmd.VRFW_TEXT_ID,             -- CMND_VRFW_TEXT_ID
-      TEXT_GET = VRFW_Cmd.TEXT_GET,            -- CMND_TEXT_GET
+      TEXT_ID = VRFW.commands.VRFW_TEXT_ID,
+      TEXT_GET = VRFW.commands.TEXT_GET,
       FULL_NAMES = 1332416299,          -- the game's name setting: true = full names
-      CHARA_INFO = VRFW_Cmd.GET_CHARA_INFO,          -- CMND_GET_CHARA_INFO (param, 0 = full name / 10 = short name)
+      CHARA_INFO = VRFW.commands.GET_CHARA_INFO,  -- (chara, 0 = full name / 10 = short name)
       TEAM_INFO = 2151743654,           -- (team, 8) -> ok, member count
-      OPEN = VRFW_Cmd.OPEN_LAYER, IS_OPEN = VRFW_Cmd.IS_OPEN_LAYER, LAYER_COUNT = VRFW_Cmd.GET_CREATE_LAYER_NUM, VISIBLE = VRFW_Cmd.SET_LAYER_VISIBLE,
-      POS = VRFW_Cmd.SET_LAYER_LOCAL_POS, SCALE = VRFW_Cmd.SET_LAYER_LOCAL_SCALE,
-      TEXT = VRFW_Cmd.SET_MENU_TEXT_STRING, TEXT_VISIBLE = VRFW_Cmd.SET_MENU_TEXT_VISIBLE, TEXT_STYLE = 2333948100,
-      MESH_VISIBLE = VRFW_Cmd.SET_MESH_VISIBLE, IS_MESH_VISIBLE = VRFW_Cmd.IS_MESH_VISIBLE, NODE_VISIBLE = 2158717427,
-      GROUP_INDEX = VRFW_Cmd.GET_GROUP_INDEX, GROUP_RESET = 541357333, GROUP_RATE = 1595998683,
+      OPEN = VRFW.commands.OPEN_LAYER, IS_OPEN = VRFW.commands.IS_OPEN_LAYER, LAYER_COUNT = VRFW.commands.GET_CREATE_LAYER_NUM, VISIBLE = VRFW.commands.SET_LAYER_VISIBLE,
+      POS = VRFW.commands.SET_LAYER_LOCAL_POS, SCALE = VRFW.commands.SET_LAYER_LOCAL_SCALE,
+      TEXT = VRFW.commands.SET_MENU_TEXT_STRING, TEXT_VISIBLE = VRFW.commands.SET_MENU_TEXT_VISIBLE, TEXT_STYLE = 2333948100,
+      MESH_VISIBLE = VRFW.commands.SET_MESH_VISIBLE, IS_MESH_VISIBLE = VRFW.commands.IS_MESH_VISIBLE, NODE_VISIBLE = 2158717427,
+      GROUP_INDEX = VRFW.commands.GET_GROUP_INDEX, GROUP_RESET = 541357333, GROUP_RATE = 1595998683,
     },
   }
-  BetterUI.VsBasicData = V
+  BetterUI.vs_basic_data = V
 
-  local function Menu(...)
-    local r = table.pack(pcall(funcLuaMenuCommand, ...))
-    if r[1] then
-      return table.unpack(r, 2, r.n)
-    end
-    return nil
+  local Menu, Game = VRFW.host.menu_command, VRFW.host.command
+
+  function V.is_basic()
+    return VRFW.param.has(V.VIEW_PARAM)
   end
 
-  local function Game(...)
-    local r = table.pack(pcall(funcLuaCommand, ...))
-    if r[1] then
-      return table.unpack(r, 2, r.n)
-    end
-    return nil
-  end
-
-  -- ---- the view ----------------------------------------------------------------------------------------------------
-  function V.IsBasic()
-    return VRFW_Param.Has(V.VIEW_PARAM)
-  end
-
-  -- the parameter store keeps an existing key: it is cleared before it is set
-  function V.SetBasic(on)
-    VRFW_Param.Clear(V.VIEW_PARAM)
+  function V.set_basic(on)
+    VRFW.param.clear(V.VIEW_PARAM)
     if on then
-      VRFW_Param.Set(V.VIEW_PARAM, 1)
+      VRFW.param.set(V.VIEW_PARAM, 1)
     end
   end
 
-  function V.Text(which)
+  function V.text(which)
     local id = Game(V.C.TEXT_ID, V.NAME_KEYS[which])
     if type(id) ~= "number" or id == 0 then
       id = V.NAME_KEY_CRCS[which]
@@ -88,19 +55,17 @@ if BetterUI.VsBasicData == nil then
   end
 
   -- the player's name as the game shows it (its full name / short name setting)
-  function V.PlayerName(chara)
+  function V.player_name(chara)
     local field = Game(V.C.FULL_NAMES) == false and 10 or 0
     local a, b = Game(V.C.CHARA_INFO, chara, field)
     local s = type(a) == "string" and a or b
     return type(s) == "string" and s or ""
   end
 
-  -- ---- the pill under the pitch («X <view>») -------------------------------------------------------------------------
-  -- it names the view X switches to, as the retail pill named the other name form; sized as the retail
-  -- UpdateNicknameButtonText sizes it
-  function V.UpdatePill()
+  -- names the view X switches to, sized as the retail UpdateNicknameButtonText sizes it
+  function V.update_pill()
     local P = V.PILL
-    local s = V.Text(V.IsBasic() and "preview" or "basic")
+    local s = V.text(V.is_basic() and "preview" or "basic")
     Menu(V.C.TEXT, P.LAYER, P.TEXT, s)
     local group = Menu(V.C.GROUP_INDEX, P.LAYER, 0, P.SCALE_GROUP)
     if type(group) == "number" then
@@ -114,12 +79,10 @@ if BetterUI.VsBasicData == nil then
     end
   end
 
-  -- ---- the cards -----------------------------------------------------------------------------------------------------
   local function Key(layer, idx)
     return tostring(layer) .. ":" .. tostring(idx or 0)
   end
 
-  -- element / position meshes this file hid, per card: shown again in «Preview»
   V.hidden = V.hidden or {}
 
   local function HideBadges(layer, idx)
@@ -142,21 +105,19 @@ if BetterUI.VsBasicData == nil then
     end
   end
 
-  -- the card's own name line off, its level left as the game drew it (BetterUI's compact-card graft keeps a name off
-  -- and no longer hides the level of this card on a later animation); the coach card's level off
   local function DressCard(layer, idx, coach)
-    if type(CLEAN_HUD_PC_HideName) == "function" then
-      CLEAN_HUD_PC_HideName(funcLuaMenuCommand, layer, idx)
+    if type(BetterUI.player_card_hide_name) == "function" then
+      BetterUI.player_card_hide_name(funcLuaMenuCommand, layer, idx)
     else
       Menu(V.C.TEXT_VISIBLE, layer, V.CARD_NAME, false, idx)
       Menu(V.C.NODE_VISIBLE, layer, V.CARD_NAME, false, idx)
     end
     if coach then
-      if type(CLEAN_HUD_PC_HideLevel) == "function" then
-        CLEAN_HUD_PC_HideLevel(layer, idx)
+      if type(BetterUI.player_card_hide_level) == "function" then
+        BetterUI.player_card_hide_level(layer, idx)
       end
-    elseif type(CLEAN_HUD_PC) == "table" and type(CLEAN_HUD_PC.hide) == "table" then
-      CLEAN_HUD_PC.hide[Key(layer, idx)] = nil
+    elseif type(BetterUI.player_cards) == "table" and type(BetterUI.player_cards.hide) == "table" then
+      BetterUI.player_cards.hide[Key(layer, idx)] = nil
     end
     HideBadges(layer, idx)
   end
@@ -187,8 +148,8 @@ if BetterUI.VsBasicData == nil then
     Menu(V.C.VISIBLE, layer, idx, true)
   end
 
-  -- «Basic data» on the cards the retail SetFormation(team, a2, a3, base, cards, blanks, coachCard, ...) just drew
-  function V.ApplyBasic(a)
+  -- "Basic data" on the cards the retail SetFormation(team, a2, a3, base, cards, blanks, coachCard, ...) just drew
+  function V.apply_basic(a)
     local team, a2, a3, cards, coachCard = a[1], a[2], a[3], a[5], a[7]
     HideNames(V.NAME_LAYER)
     HideNames(V.COACH_NAME_LAYER)
@@ -200,11 +161,9 @@ if BetterUI.VsBasicData == nil then
       return
     end
     for k = 0, count - 1 do
-      -- your half's GetTeamMemberInfo takes a 5th argument (true, as the retail SetFormation passes); the rival's
-      -- ignores it
       local got, chara, slot = GetTeamMemberInfo(team, k, a2, a3, true)
       if got and type(chara) == "number" and chara ~= 0 and type(slot) == "number" then
-        local name = V.PlayerName(chara)
+        local name = V.player_name(chara)
         if slot == V.COACH_SLOT and type(coachCard) == "number" then
           DressCard(coachCard, 0, true)
           if name ~= "" then
@@ -220,25 +179,21 @@ if BetterUI.VsBasicData == nil then
     end
   end
 
-  -- «Preview»: the names off, the element / position this file hid shown again (the compact-card graft hid the name
-  -- line and the level again during the draw)
-  function V.ApplyPreview()
+  function V.apply_preview()
     HideNames(V.NAME_LAYER)
     HideNames(V.COACH_NAME_LAYER)
     ShowBadges()
   end
 
-  -- an around handler of SetFormation: the retail draw in the current view. In «Basic data» the compact-card graft
-  -- lets the draw through (its flag off for the draw: the game draws the level and the name line), then the cards are
-  -- dressed. The arguments are kept: X draws the same team again.
-  function V.Draw(nxt, ...)
+  -- around handler of SetFormation.
+  function V.draw(nxt, ...)
     V.last = table.pack(...)
-    if not V.IsBasic() then
+    if not V.is_basic() then
       local r = table.pack(nxt(...))
-      pcall(V.ApplyPreview)
+      pcall(V.apply_preview)
       return table.unpack(r, 1, r.n)
     end
-    local flags = type(EVT_UI_FLAGS) == "table" and EVT_UI_FLAGS or nil
+    local flags = type(BetterUI.flags) == "table" and BetterUI.flags or nil
     local was = flags and flags.compact_cards
     if flags then
       flags.compact_cards = false
@@ -250,12 +205,12 @@ if BetterUI.VsBasicData == nil then
     if not r[1] then
       error(r[2], 0)
     end
-    pcall(V.ApplyBasic, V.last)
+    pcall(V.apply_basic, V.last)
     return table.unpack(r, 2, r.n)
   end
 
   -- the same half drawn again (after X)
-  function V.Redraw()
+  function V.redraw()
     local a = V.last
     if a ~= nil and type(SetFormation) == "function" then
       SetFormation(table.unpack(a, 1, a.n))

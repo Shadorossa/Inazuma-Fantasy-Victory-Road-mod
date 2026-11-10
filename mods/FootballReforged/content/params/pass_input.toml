@@ -1,8 +1,4 @@
 schema = "VRFW.param/1"
-# Your passes leave at once. A pass you press while a pass flies to your player is kept and fired the frame he has the
-# ball (the AI decides on that frame too); the game drops that press when it is older than 0.2 s, so a pass pressed
-# earlier is lost and has to be pressed again after the trap. Kept here for the whole flight of a pass.
-# Only your controlled player reads it; pass power, accuracy and the kick motion are unchanged.
+# Your passes leave at once.
 [game_param.CSoccerGlobalParam]
-# seconds a pass pressed before your player has the ball stays queued (retail 0.2)
 passPreBufferingInputTime = 2.0

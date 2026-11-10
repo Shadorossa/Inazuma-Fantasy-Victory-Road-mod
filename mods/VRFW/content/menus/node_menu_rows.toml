@@ -1,0 +1,7 @@
+schema = "VRFW.menu/2"
+
+[[patch]]
+menu = "vs_route_town_command_select_menu"
+layer = "vsroute01_16_sub_list"
+count = 9
+attach_slots = true

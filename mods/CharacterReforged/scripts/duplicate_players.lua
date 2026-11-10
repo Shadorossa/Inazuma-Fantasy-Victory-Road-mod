@@ -1,29 +1,3 @@
--- Character Reforged › the duplicate-players hook.
--- When a save is duplicated into another slot,
--- the framework hands the copy's bytes to the `slot_copy` handlers before it writes
--- them. This handler runs the pass of lib/duplicate_players/merge_pass.lua with the POLICY other mods declare as data:
--- [CharacterReforged.DuplicateRules.<name>] in their content\duplicate_rules\*.toml (keys: lib/duplicate_players/
--- rules.lua; New Recruitment declares one copy per card, No More Rarities the 5★ normal card). No rule declared = nothing is
--- done (the copy is written as the framework copies it).
---   slot_copy   the copy's bytes, converted before they are written; a failure refuses the copy (the source slot is
---               untouched). The report (blob duplicate_players.txt of this mod) is written into the target slot at the
---               save engine's «copied» event (the engine resets the target's mod data when the copy is written).
---   slot_load   only when a rule asks for it:
--- the
---               same pass on a player slot the save engine is about to load (its safe point: before the game reads the
---               file). Before the first rewrite of a save, a durable copy of the slot's file (global blob
---               save-backup-slot<N>-<stamp>-before-duplicate-rules.bin of this mod; never pruned) and the marker blob
---               duplicate_players_backup.txt in the slot (once per save: the engine resets a slot's mod data when another
---               save is copied into it or a new game starts there); then t:commit() (the slot service's own backup too,
---               written, read back). Idempotent: a converted save gives nothing to do and is not written. Report: blob
---               duplicate_players_load.txt. Never: the locked retail slot, reserved slots (a mode's own save), an empty
---               slot, the boot's own load (ev.after_load: the game already holds the save, the slot is not writable;
---               the pass then only counts what the next real load of that slot will do), nor while Inazuma Fantasy's
---               own load repair is on (it follows this same policy with more facts: fusions, team banks, move uses).
--- Exported: CharacterReforged.DuplicatePolicy() -> the merged policy (Inazuma Fantasy's load repair reads it).
--- The pass is a port of Inazuma Fantasy's «Ajustar save al mod» (its rules legend / one_card, which now follow this
--- policy); Inazuma Fantasy's own save rules (its hidden retail cards, beans, Hyper, movesets, Chronicle) run after this
--- handler (load order: the bytes chain through the handlers).
 
 CharacterReforged = CharacterReforged or {}
 
@@ -37,7 +11,6 @@ local REPORT_BLOB = "duplicate_players.txt"
 local function log(message) VRFW.log("duplicate_players: " .. message) end
 local function warn(message) VRFW.warn("duplicate_players: " .. message) end
 
--- reports of converted copies waiting for their «copied» event: [target slot] = report text
 local pending_reports = {}
 local events_seen
 do
@@ -45,7 +18,6 @@ do
   events_seen = (ok and type(sequence) == "number") and sequence or 0
 end
 
--- the slot events since the last look: a copy that went through gets its report
 local function deliver_reports()
   local ok, sequence = pcall(VRFW.slots.event_seq)
   if not ok or type(sequence) ~= "number" then return end
@@ -59,7 +31,7 @@ local function deliver_reports()
       if ok_write and written then
         log("COPY " .. first_slot .. "->" .. second_slot .. ": report written (blob " .. REPORT_BLOB .. ")")
       else
-        warn("slot " .. second_slot .. ": " .. REPORT_BLOB .. " not written (" .. tostring(ok_write and where or written) .. ")")
+        warn("slot " .. second_slot .. ": " .. REPORT_BLOB .. " not written (" .. tostring(where) .. ")")
       end
     elseif ok_event and (kind == "deleted" or kind == "new_game") then
       pending_reports[first_slot] = nil
@@ -67,7 +39,6 @@ local function deliver_reports()
   end
 end
 
--- the merged policy of every mod's duplicate rules (a fresh read: a mod switched on or off counts at once)
 function CharacterReforged.DuplicatePolicy()
   return Rules.load()
 end
@@ -105,21 +76,17 @@ VRFW.on("slot_copy", function(event)
   return { bytes = tree:commit() }
 end)
 
--- ------------------------------------------------------------------------------------------------ on load
-
 local LOAD_REPORT_BLOB = "duplicate_players_load.txt"
 local BACKUP_MARKER_BLOB = "duplicate_players_backup.txt"
 local is_player_slot = Rules.is_player_slot
 
--- The durable copy of the slot's file, once per save: { done = true, where = text[, earlier = true] } or
--- { done = false, why = text }. A save that already has its marker is not copied again.
 local function backup_once(slot)
   local ok_marker, marker = pcall(VRFW.save.get_blob, slot, BACKUP_MARKER_BLOB)
   if ok_marker and type(marker) == "string" and marker ~= "" then
     return { done = true, where = marker:match("^backup: ([^\n]+)") or "(see the marker)", earlier = true }
   end
   if type(VRFW.slots.read_file) ~= "function" then
-    return { done = false, why = "this VR-Framework cannot read a slot's file (VRFW.slots.read_file)" }
+    return { done = false, why = "this VRFW cannot read a slot's file (VRFW.slots.read_file)" }
   end
   local ok_read, bytes, why = pcall(VRFW.slots.read_file, slot)
   if not ok_read or type(bytes) ~= "string" or #bytes == 0 then
@@ -129,14 +96,14 @@ local function backup_once(slot)
   if ok_stamp and type(stamp) == "string" then
     stamp = stamp:lower():gsub("[^%w%-]", "-")
   else
-    stamp = tostring(VRFW.now())
+    stamp = tostring(VRFW.now_ms())
   end
   local name = string.format("save-backup-slot%d-%s-before-duplicate-rules.bin", slot, stamp)
   local size = #bytes
-  local ok_write, written, where = pcall(VRFW.save.blob_write, name, bytes, "global")
+  local written, where = VRFW.save.doc.write_text(name, bytes, "global")
   bytes = nil
-  if not ok_write or not written then
-    return { done = false, why = "the copy " .. name .. " was not written (" .. tostring(ok_write and where or written) .. ")" }
+  if not written then
+    return { done = false, why = "the copy " .. name .. " was not written (" .. tostring(where) .. ")" }
   end
   local text = string.format("backup: %s\nslot %d, %d bytes, before the first load pass of the duplicate rules (%s)\n",
     tostring(where), slot, size, stamp)
@@ -150,7 +117,7 @@ VRFW.on("slot_load", function(event)
   if not event.has_data or not is_player_slot(slot) then return nil end
   local policy = Rules.load()
   if #policy.names == 0 or not policy.apply_on_load then return nil end
-  local tree, why = T.open_slot(slot)
+  local tree, why = T.open(slot)
   if not tree then
     warn("LOAD slot " .. slot .. ": the save could not be read (" .. tostring(why) .. "): the slot loads as it is")
     return nil
@@ -169,7 +136,6 @@ VRFW.on("slot_load", function(event)
   local counts = report.to_normal_rarity .. " normal cards to rarity " .. tostring(policy.normal_card_rarity) .. ", "
     .. report.duplicates_merged .. " duplicates merged, " .. report.hidden_released .. " hidden cards released"
   if event.after_load then
-    -- the boot's own load: the game already holds this save and the slot is not writable
     log("LOAD slot " .. slot .. " (the save read at boot, not writable): waiting for the next load of this slot: " .. counts)
     return nil
   end
@@ -205,3 +171,14 @@ VRFW.on("slot_load", function(event)
   end
   return nil
 end)
+
+local one_card_rule = nil                 -- whether a duplicate rule declares one_card_per, read once
+
+-- 1 while the loaded save keeps one card per player, else 0.
+function CharacterReforged.OneCardPerPlayer()
+  if one_card_rule == nil then
+    one_card_rule = Rules.load().one_card_per ~= nil
+  end
+  local slot = VRFW.slots.ready() and VRFW.slots.active() or 0
+  return one_card_rule and slot > 0 and is_player_slot(slot) and 1 or 0
+end

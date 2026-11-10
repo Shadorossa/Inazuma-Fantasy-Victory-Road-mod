@@ -1,24 +1,16 @@
--- Battle Bay Deluxe, player plate («Ficha», personal_plate_menu): on this mod's lineup screen (the «Plantilla» viewer
--- of the Battle Bay grid, the player page on its right half) the player page leaves out the pages that have nothing to
--- show there: the sixth sense (vrfw.SixthSense, Character Reforged's paged plate), the team passives
--- (vrfw.TeamPassives, the page Utilities' passive configuration edits) and TRAYECTORIA (BetterQoL.Career). Q / E and the
--- page dots skip them (VRFW_PlayerPages.ShowWhen, docs/framework/player-pages.md; a page no active mod adds is never
--- drawn). The screen is recognised by this mod's parameter BattleBayDeluxe.lineup of the game's parameter store (set
--- while its player page is up) inside the framework context battle_bay. Elsewhere the pages stay.
--- Conditions only; no engine call at load time.
 BattleBayDeluxe = type(BattleBayDeluxe) == "table" and BattleBayDeluxe or {}
-if BattleBayDeluxe.LineupPages == nil and VRFW_PlayerPages ~= nil and type(VRFW_PlayerPages.ShowWhen) == "function" then
+if BattleBayDeluxe.lineup_pages == nil and VRFW.player_pages ~= nil and type(VRFW.player_pages.show_when) == "function" then
   local L = {
     FLAG = 2100506454,                   -- crc32 of BattleBayDeluxe.lineup (this mod's parameter)
     CONTEXT = "battle_bay",              -- the framework context of the Battle Bay's menus
-    MODE_IS = VRFW_Cmd.VRFW_MODE_IS,                 -- CMND_VRFW_MODE_IS
+    MODE_IS = VRFW.commands.VRFW_MODE_IS,
     PAGES = {"vrfw.SixthSense", "vrfw.TeamPassives", "BetterQoL.Career"},
   }
-  BattleBayDeluxe.LineupPages = L
+  BattleBayDeluxe.lineup_pages = L
 
   -- false while the lineup screen shows the player page
-  function L.Shown()
-    if not VRFW_Param.Has(L.FLAG) then
+  function L.shown()
+    if not VRFW.param.has(L.FLAG) then
       return true
     end
     local okm, inside = pcall(funcLuaCommand, L.MODE_IS, L.CONTEXT)
@@ -26,6 +18,6 @@ if BattleBayDeluxe.LineupPages == nil and VRFW_PlayerPages ~= nil and type(VRFW_
   end
 
   for _, name in ipairs(L.PAGES) do
-    VRFW_PlayerPages.ShowWhen(name, L.Shown)
+    VRFW.player_pages.show_when(name, L.shown)
   end
 end

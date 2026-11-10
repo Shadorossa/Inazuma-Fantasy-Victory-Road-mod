@@ -1,7 +1,3 @@
-# Root text tables (data\common\text\<lang>\<table>.cfg.bin, present in every text language): the order a text id
-# written without a table is searched in, and the order of the table lists in the tools. The tables themselves come
-# from the game's file list; the ones named here come first, in this order, then every other one by name.
-# Built into the framework (vr_framework::lang::root_tables).
 first = [
     "menu_text",
     "system_text",

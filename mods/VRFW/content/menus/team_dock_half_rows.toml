@@ -1,0 +1,98 @@
+schema = "VRFW.menu/2"
+
+# Team dock half rows (VRFW.team_dock.half_rows, docs/framework/team-dock.md): the layout the service places at run time.
+# LEFT on the list reaches the service, which steps from the right cell of a pair to the left one.
+[[patch]]
+menu = "soccer_team_dock_menu"
+add_commands = [
+    { layer = "team01_02_list_item", input = "CMD_LEFT", command = "CMD_FUNCTION", arg = "team_dock_half_row_left", flag = 1 },
+]
+
+# One slot joint per list instance that no animation drives; slots 10 and 11 hang from the last retail row joint.
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot01"
+parent = "_atc_list01"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot02"
+parent = "_atc_list02"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot03"
+parent = "_atc_list03"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot04"
+parent = "_atc_list04"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot05"
+parent = "_atc_list05"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot06"
+parent = "_atc_list06"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot07"
+parent = "_atc_list07"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot08"
+parent = "_atc_list08"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot09"
+parent = "_atc_list09"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot10"
+parent = "_atc_list09"
+translate = [0.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"
+joint = "_atc_half_row_slot11"
+parent = "_atc_list09"
+translate = [0.0, 0.0]
+
+# The 8 retail locators follow the slots; three copies give the list instances 9, 10 and 11.
+[[object_set]]
+object = "team01_01_list_item_locator"
+set = [
+    { parameter = "NullLayerName", match = { 2 = 3618404533, 3 = 3367997069 }, values = { 2 = 4146892993 } },   # _atc_list01 -> _atc_half_row_slot01
+    { parameter = "NullLayerName", match = { 2 = 1319446799, 3 = 3367997069 }, values = { 2 = 1847968123 } },   # _atc_list02 -> _atc_half_row_slot02
+    { parameter = "NullLayerName", match = { 2 = 966924697, 3 = 3367997069 }, values = { 2 = 421720557 } },   # _atc_list03 -> _atc_half_row_slot03
+    { parameter = "NullLayerName", match = { 2 = 2814807098, 3 = 3367997069 }, values = { 2 = 2269537358 } },   # _atc_list04 -> _atc_half_row_slot04
+    { parameter = "NullLayerName", match = { 2 = 3502357676, 3 = 3367997069 }, values = { 2 = 4030813400 } },   # _atc_list05 -> _atc_half_row_slot05
+    { parameter = "NullLayerName", match = { 2 = 1237904662, 3 = 3367997069 }, values = { 2 = 1766327650 } },   # _atc_list06 -> _atc_half_row_slot06
+    { parameter = "NullLayerName", match = { 2 = 1053810048, 3 = 3367997069 }, values = { 2 = 508507636 } },   # _atc_list07 -> _atc_half_row_slot07
+    { parameter = "NullLayerName", match = { 2 = 2926624785, 3 = 3367997069 }, values = { 2 = 2398103653 } },   # _atc_list08 -> _atc_half_row_slot08
+]
+copy = [
+    # name half_row_slot09, joint _atc_half_row_slot09, instance 8
+    { parameter = "NullLayerName", match = { 3 = 3367997069, 4 = 7 }, values = { 1 = 2419196277, 2 = 4193720563, 4 = 8 } },
+    # name half_row_slot10, joint _atc_half_row_slot10, instance 9
+    { parameter = "NullLayerName", match = { 3 = 3367997069, 4 = 7 }, values = { 1 = 4042623120, 2 = 2570096918, 4 = 9 } },
+    # name half_row_slot11, joint _atc_half_row_slot11, instance 10
+    { parameter = "NullLayerName", match = { 3 = 3367997069, 4 = 7 }, values = { 1 = 2280830982, 2 = 3996623232, 4 = 10 } },
+]

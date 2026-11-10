@@ -1,7 +1,4 @@
 schema = "VRFW.effect/1"
-# The aura statuses the Cross moves' events attach (ATTACH_AURA), from the IEVRCROSS mod (Inazuma Eleven Cross for
-# Victory Road): each a copy of the retail aura of the same kind with the mod's colour and glow keys
-# ([time, r, g, b, a]); the other anims, the texture and the sizes stay the template's.
 
 [[recolor]]
 aura = "penguin_aura_perfect_penguin"

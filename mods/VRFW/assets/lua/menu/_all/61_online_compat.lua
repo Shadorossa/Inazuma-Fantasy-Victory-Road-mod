@@ -1,19 +1,6 @@
--- VRFW_OnlineCompat: the online compatibility screen of the net service, shared by every online mode. It shows which
--- mods differ from the other player's (CMND_VRFW_NET_COMPAT, docs/framework/online.md): a summary on top, then one
--- row per mod «Mod | Tu versión | Su versión | Estado», grouped by family (a parent mod, its modules indented under
--- it), OK rows hidden (one closing row counts them), a scrollable list inside the window, and two buttons: Continuar
--- (only when the room let this player in: a mode with mismatch = "allow") and Volver. Definitions only: no engine
--- call at load.
---   VRFW_OnlineCompat.Read() -> nil (no result) | { state = "same" | "differs", mismatches = n, can_continue = bool,
---                                                   rows = { { state, id, parent, mine, theirs }, … } }
---   VRFW_OnlineCompat.Run(opts) -> "continue" | "back"   inside the caller's coroutine (one yield per frame)
---       opts = { show_ok = false, visible = 12 }
---     The window is VRFW_MatchPanel in table mode: the host menu needs its two layers (vrfw_mp_plate x
---     VRFW_MatchPanel.PLATES, vrfw_mp_label x VRFW_OnlineCompat.LABELS) and must call VRFW_OnlineCompat.Hide() once
---     when it opens. A menu without them gets the retail message window with the summary and the first lines.
---   VRFW_OnlineCompat.Hide()   the window's layer instances hidden (the host menu's open)
---   VRFW_OnlineCompat.Text(r, max) -> the summary and at most `max` mismatch lines (the message window's text)
-if VRFW_OnlineCompat == nil then
+-- lua_patch.scope: used
+-- VRFW.online_compat: the online compatibility screen of the net service, shared by every online mode.
+if VRFW.online_compat == nil then
   local OC = {
     VISIBLE = 12,
     LINES = 8,      -- mismatch lines of the message-window text
@@ -24,18 +11,18 @@ if VRFW_OnlineCompat == nil then
       { x = 0.70, w = 0.30 },
     },
   }
-  VRFW_OnlineCompat = OC
-  -- the logger, made at the first line (VRFW_Log loads after this file)
+  VRFW.online_compat = OC
+  -- the logger, made at the first line (VRFW.logger loads after this file)
   local logger = nil
   local function log(...)
-    if logger == nil and type(VRFW_Log) == "table" then logger = VRFW_Log.New("VRFW online_compat") end
+    if logger == nil and type(VRFW.logger) == "table" then logger = VRFW.logger.new("VRFW online_compat") end
     if logger ~= nil then pcall(logger, ...) end
   end
-  local COMPAT = VRFW_Cmd.VRFW_NET_COMPAT
+  local COMPAT = VRFW.commands.VRFW_NET_COMPAT
 
   local function text(key)
-    local ok, t = pcall(funcLuaCommand, VRFW_Cmd.TEXT_GET, VRFW_Crc32(key))
-    return (ok and type(t) == "string" and t ~= "") and t or key
+    local t = VRFW.host.command(VRFW.commands.TEXT_GET, VRFW.crc32(key))
+    return (type(t) == "string" and t ~= "") and t or key
   end
 
   local function fill(t, a)
@@ -48,7 +35,8 @@ if VRFW_OnlineCompat == nil then
     return out
   end
 
-  function OC.Read()
+  --- The online compatibility report as a table; nil when there is none.
+  function OC.read()
     local ok, state, mismatches, can_continue, lines = pcall(funcLuaCommand, COMPAT)
     if not ok or type(state) ~= "string" or state == "none" then return nil end
     local r = { state = state, mismatches = tonumber(mismatches) or 0, can_continue = can_continue == true, rows = {} }
@@ -63,14 +51,12 @@ if VRFW_OnlineCompat == nil then
     if r.mismatches == 0 then return text("vrfw_online_summary_same") end
     return fill(text(r.mismatches == 1 and "vrfw_online_summary_one" or "vrfw_online_summary"), r.mismatches)
   end
-  OC.Summary = summary
+  OC.summary = summary
 
   local function version(v)
     return (v == nil or v == "") and "—" or v
   end
 
-  -- the rows to show: every row that is not OK, the parent of a shown module (for its family), every row with show_ok;
-  -- the hidden OK rows counted in one closing row
   local function shown_rows(r, show_ok)
     local listed, need_parent = {}, {}
     for _, x in ipairs(r.rows) do listed[x.id] = true end
@@ -92,7 +78,8 @@ if VRFW_OnlineCompat == nil then
     return out
   end
 
-  function OC.Text(r, max)
+  --- The report as text, at most `max` rows.
+  function OC.text(r, max)
     max = max or OC.LINES
     local t, n = summary(r), 0
     for _, x in ipairs(r.rows) do
@@ -107,31 +94,34 @@ if VRFW_OnlineCompat == nil then
     return t
   end
 
-  function OC.LabelsNeeded(visible)
-    return VRFW_MatchPanel.labels_needed({ columns = OC.COLUMNS, visible = visible or OC.VISIBLE, buttons = { {}, {} } })
+  --- The labels the report panel needs for `visible` rows.
+  function OC.labels_needed(visible)
+    return VRFW.match_panel.labels_needed({ columns = OC.COLUMNS, visible = visible or OC.VISIBLE, buttons = { {}, {} } })
   end
 
   -- the window's two layers opened / closed instance by instance (a host may add them closed with its group)
   local function open_layers(on)
     local M = funcLuaMenuCommand
     for _, name in ipairs({ "vrfw_mp_plate", "vrfw_mp_label" }) do
-      local layer = VRFW_Crc32(name)
-      local okn, n = pcall(M, VRFW_Cmd.GET_CREATE_LAYER_NUM, layer)
+      local layer = VRFW.crc32(name)
+      local okn, n = pcall(M, VRFW.commands.GET_CREATE_LAYER_NUM, layer)
       for i = 0, ((okn and type(n) == "number") and n or 0) - 1 do
-        pcall(M, on and VRFW_Cmd.OPEN_LAYER or VRFW_Cmd.CLOSE_LAYER, layer, i)
+        pcall(M, on and VRFW.commands.OPEN_LAYER or VRFW.commands.CLOSE_LAYER, layer, i)
       end
     end
   end
 
-  function OC.Hide()
-    if type(VRFW_MatchPanel) == "table" then pcall(VRFW_MatchPanel.hide) end
+  --- Hides the report panel.
+  function OC.hide()
+    if type(VRFW.match_panel) == "table" then pcall(VRFW.match_panel.hide) end
   end
 
-  function OC.Run(opts)
+  --- Shows the compatibility report; answers "back" or the player's choice.
+  function OC.run(opts)
     opts = type(opts) == "table" and opts or {}
-    local r = OC.Read()
+    local r = OC.read()
     if r == nil then return "back" end
-    local MP = VRFW_MatchPanel
+    local MP = VRFW.match_panel
     local can = r.can_continue
     local buttons = {
       { label = text("vrfw_online_continue"), hint = text(can and "vrfw_online_continue_hint" or "vrfw_online_continue_blocked"), disabled = not can },
@@ -172,10 +162,10 @@ if VRFW_OnlineCompat == nil then
     end
     -- no window layers in this menu: the retail message window with the summary and the first lines
     log("no panel layers here: message window")
-    if can and type(VRFW_Question) == "table" then
-      return VRFW_Question.Ask(OC.Text(r) .. "\n" .. text("vrfw_online_continue_hint")) and "continue" or "back"
+    if can and type(VRFW.question) == "table" then
+      return VRFW.question.ask(OC.text(r) .. "\n" .. text("vrfw_online_continue_hint")) and "continue" or "back"
     end
-    if type(VRFW_Question) == "table" then VRFW_Question.Notice(OC.Text(r)) end
+    if type(VRFW.question) == "table" then VRFW.question.notice(OC.text(r)) end
     return "back"
   end
 end

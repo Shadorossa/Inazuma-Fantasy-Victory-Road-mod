@@ -1,0 +1,38 @@
+schema = "VRFW.technique/3"
+# This technique is off for this version, and removing the comment marks brings it back.
+# ```
+# # Winged Charge: the keshin technique of the warrior spirit kx000010.
+#
+# [[technique]]
+# name = "winged_charge"
+# key = "who92920"
+# base = "who00920"
+# event = "ev61_81920"
+#   [technique.text.es]
+#   name = "Embestida alada"
+#   description = "El espíritu alado embiste con su lanza\ny aparta al rival de un solo golpe."
+#   [technique.text.en]
+#   name = "Winged Charge"
+#   description = "The winged spirit charges with its lance\nand knocks the rival aside in one blow."
+#   [technique.text.fr]
+#   name = "Charge ailée"
+#   description = "L'esprit ailé charge avec sa lance\net écarte le rival d'un seul coup."
+#   [technique.text.de]
+#   name = "Geflügelter Ansturm"
+#   description = "Der geflügelte Geist stürmt mit der Lanze an\nund fegt den Gegner mit einem Schlag beiseite."
+#   [technique.text.it]
+#   name = "Carica alata"
+#   description = "Lo spirito alato carica con la lancia\ne spazza via l'avversario con un colpo solo."
+#   [technique.text.pt]
+#   name = "Investida Alada"
+#   description = "O espírito alado investe com a lança\ne afasta o rival com um só golpe."
+#   [technique.text.ja]
+#   name = "飛翔の突撃"
+#   description = "翼の化身が槍で突撃し\n一撃で相手を退ける。"
+#   [technique.text.zh_hans]
+#   name = "飞翼突击"
+#   description = "有翼的化身持枪突击，\n一击击退对手。"
+#   [technique.text.zh_hant]
+#   name = "飛翼突擊"
+#   description = "有翼的化身持槍突擊，\n一擊擊退對手。"
+# ```

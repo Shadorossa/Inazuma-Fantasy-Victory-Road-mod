@@ -1,34 +1,19 @@
 schema = "VRFW.team/2"
-# The «Inazuma Eleven Cross» tab of «Competir contra bots». Its games, hidden piece, rival rows and prizes are this
-# mod's base tables (content\base_tables\gamedata\soccer\*, vsroute\chronicle_vs_route_config.toml: [[keyed]] rows by
-# key); the tab itself (X icon, after Victory Road) is this mod's [[VRFW.FreeMatchTab]]
-# (content\teams\free_match_tab.toml, 1.1.1), drawn by the VR-Framework's free-match tabs service (2.0.1).
+# The «Inazuma Eleven Cross» tab of «Competir contra bots».
 
-# «Competir contra bots» › the «Inazuma Eleven Cross» tab (tab 9, the X icon): the games of the hidden piece
-# evt_cross_piece (routeType 9, written by the framework from content/teams/free_match_tab.toml) of
-# chronicle_vs_route_config. An entry = a new game cloned from the Shin Zeus match (difficulty 9, Nv. 200, AI 4; no
-# clear bit, no prize of its own) against the team, one event row in the piece and a category-1 free-match row
-# (EVT_OFI_MODE == 0), listed under the same unlock as the 11 Cross teams. The retail list code shows it: no Lua
-# needed.
 [[list]]
 id = "cross_tab"
 kind = "free_match_piece"
-piece = "evt_cross_piece"
+piece = "iecross_piece"
 template_game = "evt_cm_cx_shin_zeus"
 level = 200
 format = "11v11"
 label = { es = "Inazuma Eleven Cross", en = "Inazuma Eleven Cross", fr = "Inazuma Eleven Cross", de = "Inazuma Eleven Cross", it = "Inazuma Eleven Cross", pt = "Inazuma Eleven Cross", ja = "イナズマイレブン クロス", zh_hans = "闪电十一人 Cross", zh_hant = "閃電十一人 Cross" }
-condition = [{ call = "GetGlobalByteFlag", args = ["EVT_OFI_MODE"], value = 0 }]   # listed while the office (Oficina de fichajes) is off
+condition = [{ call = "GetGlobalByteFlag", args = ["FOOTBALL_REFORGED_OFFICE_MODE"], value = 0 }]   # listed while the office (Oficina de fichajes) is off
 description = "The Cross tab of the free match (Competir contra bots)"
-# Tab order (research/scripts/team_order.py CROSS_ORDER). No unlock chain:
-# every Cross game is listed from the start, under the tab's own condition only; the classes stay as they are.
+# Tab order (research/mods/_aside/InazumaFantasy/_tools/team_order.py CROSS_ORDER).
 order = [
   "ct_cx_royal_academy", "ct_cx_ramen_kidokawa", "ct_cx_ramen_akihabara", "ct_cx_ramen_raimon_ob",
   "ct_cx_kaizoku_occult", "ct_cx_kaizoku_nose", "ct_cx_kaizoku_ij", "ct_cx_shin_mikage", "ct_cx_shin_zeus",
   "ct_cx_pierrot_kfc", "ct_cx_pierrot_chaos",
 ]
-
-# the numbers given under its list key (Royal Academy (Cross)'s game) stay.
-[[alias]]
-old = "inazuma_fantasy.cross_tab"
-new = "IECross.cross_tab"

@@ -1,8 +1,4 @@
-# The forms of the gallery type (docs/framework/types/gallery.md: kind VRFW.gallery/1, [[VRFW.GalleryTab]] and
-# [[VRFW.Video]]) in the editor schema format (docs/framework/modmanager-editor-schemas.md). ModManager lists them in
-# «Más tipos» for every enabled mod; «Nuevo» adds a record to the active mod (`New` when it has no gallery file yet).
-# `Type = "import"` fields import a file into the mod: a video (converted to a VP9 USM), a song per language (a
-# [[music]] track) or a thumbnail. Read only by ModManager: the game does not read content\editor\.
+# Editor forms of [[VRFW.Video]] in the editor schema format (docs/framework/modmanager-editor-schemas.md).
 schema = "VRFW.editor/1"
 
 [[Shape]]

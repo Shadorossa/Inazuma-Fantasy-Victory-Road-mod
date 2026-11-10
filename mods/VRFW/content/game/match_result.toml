@@ -1,9 +1,5 @@
 schema = "VRFW.game/2"
 
-# The result of the last finished match (docs/framework/match-result.md): written by scripts/match_result.lua at the
-# final whistle, before the signal vrfw.match_result; read by any mod with require("VRFW/lib/match_result").last().
-# Whole numbers only: the library turns them back into its table (outcome, source and the booleans included).
-
 [[VRFW.State]]
 key = "vrfw.match_result.seq"
 

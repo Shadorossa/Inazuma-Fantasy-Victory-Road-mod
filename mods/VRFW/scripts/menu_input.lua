@@ -1,14 +1,10 @@
--- Menu input diagnostics. MenuInput.Dump answers the menu controller's input list as text for the input trace:
---   «<crc hex> p<priority> o<order> alive|gone act<byte> [top]; ...»  (top = gets the pad; act is for reference only)
+-- Menu input diagnostics.
 
 MenuInput = MenuInput or {}
 
-local function rd(ty, at)
-  if type(at) ~= "number" or at < 0x10000 then return nil end
-  local ok, v = pcall(VRFW.mem.read, ty, at)
-  if ok then return v end
-  return nil
-end
+local Memory = VRFW.memory
+
+local rd = Memory.read
 
 -- the layout of the menu controller's records, from the game profile (research/mods/VRFW/game/<build>/structs.toml)
 local LAYOUT = nil
@@ -74,8 +70,6 @@ function MenuInput.Dump()
   return (#out > 0 and table.concat(out, "; ") or "empty") .. " | " .. MenuInput.Ctrl()
 end
 
--- The global menu input controller: the selected controller is the only one delivering commands; its byte
--- InputController.Enabled is the global input switch.
 MenuInput.CTRL_NAMES = {[0x4F6EB0DF] = "MENU_CTRL", [0xA3D94C5C] = "MENU_CTRL_WITH_ANALOG_MOVE_FOCUS",
   [0xD2365D36] = "MENU_CTRL_SEPARATE_CROSS_KEY", [0x3752594D] = "MENU_CTRL_SETPLAY", [0x01490CDA] = "LUA_CTRL",
   [0x1D917FB1] = "RPG_AREA_MAP_INPUT_CTRL", [0xC0FB3C71] = "EVENT_CTRL_TALK"}
@@ -116,7 +110,6 @@ function MenuInput.Ctrl()
   return "ctrl " .. label .. " on" .. tostring(rd("u8", cur + layout().enabled))
 end
 
--- CMND_VRFW_MENU_INPUT_CTRL_ON() -> previous switch byte (switches the selected controller's input on)
 function MenuInput.CtrlOn()
   local cur = current_ctrl()
   if cur == nil then
@@ -125,7 +118,7 @@ function MenuInput.CtrlOn()
   local enabled = cur + layout().enabled
   local was = rd("u8", enabled)
   if was == 0 then
-    pcall(VRFW.mem.write, "u8", enabled, 1)
+    VRFW.memory.write("u8", enabled, 1)
   end
   return was or -1
 end

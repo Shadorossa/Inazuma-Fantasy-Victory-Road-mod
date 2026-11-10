@@ -1,12 +1,5 @@
 schema = "VRFW.character/2"
-# Arion Sherwind with his military cap: the look the game's Arion Sherwind (c04000080) takes while he wears his military
-# uniform (content/items/arion_sherwind_uniform.toml, its [[VRFW.ItemTransform]]). A copy of Arion with a new model
-# (his row, the head c90400081 and the cap i90400081 as extra mesh, declared in content/looks/arion_sherwind_fantasy.toml) and one
-# card (Arion's first card, needed by the transformation). Never a player: no office row, no team, marked as an
-# alternate version (flag_31, as the game's variants), out of the album (content/album/fantasy.toml). Face icon:
-# assets/menu/200_icon/10_icon_chr/face/c90400081_l.g4tx.
-# Pinned ids: character crc32("c90400081"), model crc32("InazumaFantasy.arion_military_cap_model"),
-# card crc32("InazumaFantasy.arion_military_cap#card").
+# Arion with his military cap: the look Arion takes in his military uniform ([[VRFW.ItemTransform]]); never a player.
 default_lang = "en"
 
 [[character]]
@@ -39,5 +32,5 @@ based_on = "c04000080"
     { move = 0, level = 0 },                              # (empty)
     { move = 0xC755E805, level = 30 },                    # Triple Threat
     { move = 0xAF9E1B72, level = 38 },
-    { move = 0x1080BF9E, level = 43 },                    # Miximax Trans: Rey Arturo [aura]
+    { move = 0x1080BF9E, level = 43 },
   ]

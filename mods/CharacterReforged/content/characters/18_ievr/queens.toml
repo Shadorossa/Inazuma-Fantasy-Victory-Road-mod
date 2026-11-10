@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Queens · Inazuma Eleven: Victory Road
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
 target = "c11700640"                                   # Romica Glimmerly
 moves = [
   { move = 0x6B1CF436, level = 1 },                         # Bewildered
   { move = 0xC8760A18, level = 13 },                        # Falling Planet
-  { move = 0x9D236FA3, level = 20 },                        # Sword of the King
-  { move = 0x574008CD, level = 30 },                        # Kung Fu Fighting
+  { move = 0xC5EF0563, level = 20 },                        # Three-Legged Rush
+  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
 ]
 
   [[edit.cards]]

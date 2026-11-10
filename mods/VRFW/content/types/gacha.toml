@@ -1,6 +1,4 @@
-# Declaration schema of the gacha service (content\gacha\*.toml, docs/framework/gacha.md): [[VRFW.GachaPool]] (a pool and
-# the Chronicle board node that opens it) and [[VRFW.GachaAdd]] (cards another mod adds to an extensible pool). An unknown
-# key, wrong type or out-of-range value drops that declaration with a warning.
+# Declaration schema of the gacha service (content\gacha\*.toml, docs/framework/gacha.md): [[VRFW.GachaPool]] entries.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.gacha/1"
 folder = "content/gacha"
@@ -13,7 +11,7 @@ doc_es = "Un fondo de gacha: saca una carta al azar entre las que el club puede 
 doc = "a gacha pool: each command row of its node draws its number of cards at random (equal odds, no repeats) among the cards the club can sign (a card already in the club is left out), takes the cost of those cards and signs them like any recruitment"
 name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
 cards = { type = "strings", ref = "player", required = true, doc = "the cards: chara_param ids (0x…) or a mod's character <mod>.<name> (its card)" }
-node = { type = "name", doc = "the [[VRFW.RouteNode]] Name of the Chronicle board node that opens the pool (its piece runs the gacha instead of the command menu); none = opened only by VRFW_Gacha.Run" }
+node = { type = "name", doc = "the [[VRFW.RouteNode]] Name of the Chronicle board node that opens the pool (its piece runs the gacha instead of the command menu); none = opened only by VRFW.gacha.run" }
 cost_item = { type = "string", ref = "item", default = "", doc = "an item a draw takes (a name or 0x…): none = free" }
 cost_count = { type = "int", min = 0, max = 9999, default = 0, doc = "how many of cost_item each drawn player takes" }
 no_cost_text = { type = "string", default = "vrfw_gacha_no_cost", doc = "the window shown when the player has less of cost_item than the row costs (no draw): a text key or id" }

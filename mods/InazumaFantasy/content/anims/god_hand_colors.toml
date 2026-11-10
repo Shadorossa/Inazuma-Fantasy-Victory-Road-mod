@@ -1,6 +1,4 @@
 schema = "VRFW.anim/2"
-# Inazuma Fantasy: the God Hand family in the retail red and blue: each new move's two cut-ins (success, fail) are whole copies of
-# its base's; content\effects\god_hand_colors.toml makes each pair load its recoloured object.
 owner = "match"
 
 [[event]]

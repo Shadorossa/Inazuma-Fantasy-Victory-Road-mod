@@ -1,0 +1,30 @@
+schema = "VRFW.game/2"
+
+# Technique name search of the ability list (Habilidades), run by scripts\ability_search.lua for
+# assets\lua\ability_list_menu\900_technique_search.lua: rows the search does not match leave each build of the list.
+
+# CMenuListViewAbility::BuildItems(view): builds the rows of the tab shown (with the game's filter applied).
+[[VRFW.Hook]]
+name = "BetterQoL.AbilityListBuild"
+game = "Transform.AbilityListBuildItems"
+kind = "function"
+
+# -> live: a new search
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_ABILITY_SEARCH_START"
+handler = "BetterQoL.AbilitySearchStart"
+
+# -> live: no search
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_ABILITY_SEARCH_STOP"
+handler = "BetterQoL.AbilitySearchStop"
+
+# -> serial, n, item1, …: the rows of the last build not judged yet
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_ABILITY_SEARCH_PENDING"
+handler = "BetterQoL.AbilitySearchPending"
+
+# matched, item1, … -> true: the first `matched` items match, the others do not
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_ABILITY_SEARCH_DECIDE"
+handler = "BetterQoL.AbilitySearchDecide"

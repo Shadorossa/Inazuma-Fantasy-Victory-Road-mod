@@ -1,9 +1,4 @@
 schema = "VRFW.item/2"
-# Chronicle Deluxe: the key item «Sello del Maestro» (Master's Seal) Owned once the save has won the gate battle
-# (difficulty 2) of the Chronicle gate piece Destructores (fbtl_cro12_080_010, piece 0x90185427), the gate battle
-# Chronicle Deluxe keeps on gate pieces; a save that won it before owns it at once. What it does is
-# content/unlimited_copies/master_seal.toml (the VR-Framework's unlimited copies). Its icon: the texture ke000900 of
-# the key-item sheet (content/images/menu/200_icon/02_icon_item/icon_item02.toml).
 default_lang = "es"
 
 [[item]]
@@ -11,7 +6,7 @@ name = "master_seal"
 base = "ke000008"
 category = "key"
 icon_key = "ke000900"
-key_id = true                 # id = crc32("ke000900"): the game asks the sheet for the sprite named by the item's id
+key_id = true
 owned_when = [{ chronicle = "0x90185427", difficulty = 2 }]
   [item.text.es]
   name = "Sello del Maestro"

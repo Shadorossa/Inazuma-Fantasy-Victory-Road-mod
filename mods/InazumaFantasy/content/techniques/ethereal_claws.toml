@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Garras etéreas (Ethereal Claws): the download's move whs90015, a clone of whs01840 with its numbers; its event ev60_90015 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "ethereal_claws"

@@ -1,7 +1,4 @@
 schema = "VRFW.character/2"
 
-# In the Battle Bay (its menus, Campaign, Draft, Tournament, League, Daily challenge and their matches: the framework
-# context battle_bay) every player can use all the special moves of his learn list at any level: none is shown locked
-# on the squad screens and all are usable in the match. Outside the Battle Bay the learn levels apply as usual.
 [VRFW.AllMovesUnlocked]
 Modes = ["battle_bay"]

@@ -1,30 +1,7 @@
--- BattleBayDeluxe bb_net_room, common part: the «Sala privada» (Battle Bay Deluxe 1.5.0;
--- docs/game/modes/bb-online-ownnet.md §10, §17) while gameplay mods are enabled. The room is the VR-Framework net
--- service's (CMND_VRFW_NET_*: Steam transport, mod-set check, room code + PIN); the retail EOS rooms (network_menu's
--- room list) are never opened then (the framework's online guard also refuses them). With only UI mods or none,
--- BBN_Entry returns false and the caller runs its retail flow. Appended to two menus:
---   bb_stadium_top_menu  the «Multijugador» row's decide (bbn_room.lua wraps OnDecideFocus)
---   soccer_top_menu      a BB «Multi» box of that menu (none at present) calls BBN_Entry(host) before
---                        its retail online steps; the host table gives that menu's header and its network_menu wait)
--- Runs in the decide coroutine (sub windows and message windows wait with coroutine.yield). Globals only (BattleBayDeluxe.NetRoom,
--- BBN_*); nothing runs at chunk load.
--- v3 (12/10, Nacho: «Crear sala» showed the code message and stayed stuck there, no retail room screen): the room's
--- virtual session goes up as soon as the room is open (host: at once, guest: once the host welcomed it) and the game's
--- own private-room screen (network_menu -> network_room_match_wait: members, rules, ready, start) opens on it; Back
--- there leaves our room (bbn_wait.lua). Every message waits until it is answered OR gone (a window closed by Back or
--- by itself no longer leaves the flow waiting forever), every wait has a limit, any failure says why and returns.
--- The own room list (ready / start / invite as sub windows) is gone: the retail screen does that. docs §18.
--- v4 (12/10, Nacho: «Crear sala» must open the game's own private-room screen, not our code message): create goes
--- straight to the retail private-room screen (network_room_match_wait); no code message, no clipboard copy. The rival
--- comes in with the room screen's «Invitar» (Steam overlay invite, bbn_wait.lua); the room code is only logged.
--- v5 (29/10, docs/game/modes/bb-p2p-lockstep.md): no virtual session and no game online stack at all. The room screen
--- is a UI shell over our room (bbn_wait.lua answers its network questions); the match is a LOCAL offline match on each
--- PC (BBN_StartMatch: the host's team against the guest's, the Campaña's «continue» on a borrowed block,
--- scripts\net_match.lua) and the framework's lockstep carries the two players' inputs. The game's online mode byte
--- stays 0.
+-- none NetRoomEntry returns false and the caller runs its retail flow.
 BattleBayDeluxe = type(BattleBayDeluxe) == "table" and BattleBayDeluxe or {}
-BattleBayDeluxe.NetRoom = BattleBayDeluxe.NetRoom or {
-  ROW = 106494436 --[[crc32 network_menu: the retail «Multijugador» row's menuObjectName]],
+BattleBayDeluxe.net_room = BattleBayDeluxe.net_room or {
+  ROW = 106494436 --[[crc32 network_menu: the retail Multiplayer row's menuObjectName]],
   MODE = "bbd_1v1", -- content\defaults\net.toml [[VRFW.NetMode]]
   LIST_MID = 716364754 --[[mainmenu90_11_list_item_middle]],
   LIST_SMALL = 530619243 --[[mainmenu90_12_list_item_small]],
@@ -36,106 +13,51 @@ BattleBayDeluxe.NetRoom = BattleBayDeluxe.NetRoom or {
   REVISION = @crc:CMND_VRFW_NET_REVISION@,
   CREATE = @crc:CMND_VRFW_NET_CREATE@,
   JOIN = @crc:CMND_VRFW_NET_JOIN@,
-  READY = @crc:CMND_VRFW_NET_READY@,
-  START = @crc:CMND_VRFW_NET_START@,
   LEAVE = @crc:CMND_VRFW_NET_LEAVE@,
-  INVITE = @crc:CMND_VRFW_NET_INVITE@,
   PENDING = @crc:CMND_VRFW_NET_PENDING@,
   INVITE_TARGET = @crc:CMND_VRFW_NET_INVITE_TARGET@,
   NOTICE = @crc:CMND_VRFW_NET_NOTICE@,
   NOTICE_TAKE = @crc:CMND_VRFW_NET_NOTICE_TAKE@,
   PICKS = @crc:CMND_VRFW_NET_PICKS@,
-  PREPARE = @crc:CMND_BBD_NET_PREPARE@,
-  RESTORE = @crc:CMND_BBD_NET_RESTORE@,
-  CONTINUE = 2227512519 --[[the Battle Bay top menu's Campaña «continue»: the block's next match]],
+  PREPARE = @crc:CMND_BATTLEBAYDELUXE_NET_PREPARE@,
+  RESTORE = @crc:CMND_BATTLEBAYDELUXE_NET_RESTORE@,
+  CONTINUE = 2227512519 --[[the Battle Bay top menu's Campaña "continue": the block's next match]],
   TRIES = 90,
   T = {
-    title = @crc:evt_bbd_net_room_title@, create = @crc:evt_bbd_net_create@, join = @crc:evt_bbd_net_join@,
-    join_hint = @crc:evt_bbd_net_join_hint@, invite = @crc:evt_bbd_net_invite@,
-    refresh = @crc:evt_bbd_net_refresh@, ready = @crc:evt_bbd_net_ready@,
-    unready = @crc:evt_bbd_net_unready@, start = @crc:evt_bbd_net_start@, leave = @crc:evt_bbd_net_leave@,
-    leave_q = @crc:evt_bbd_net_leave_q@, st_waiting = @crc:evt_bbd_net_st_waiting@,
-    st_connecting = @crc:evt_bbd_net_st_connecting@, st_rival = @crc:evt_bbd_net_st_rival@,
-    st_ready = @crc:evt_bbd_net_st_ready@, st_not_ready = @crc:evt_bbd_net_st_not_ready@,
-    st_starting = @crc:evt_bbd_net_st_starting@, no_steam = @crc:evt_bbd_net_no_steam@, busy = @crc:evt_bbd_net_busy@,
-    bad_code = @crc:evt_bbd_net_bad_code@, invite_q = @crc:evt_bbd_net_invite_q@,
-    session_err = @crc:evt_bbd_net_session_err@,
+    title = @crc:battlebaydeluxe_net_room_title@, create = @crc:battlebaydeluxe_net_create@, join = @crc:battlebaydeluxe_net_join@,
+    join_hint = @crc:battlebaydeluxe_net_join_hint@, leave = @crc:battlebaydeluxe_net_leave@,
+    st_waiting = @crc:battlebaydeluxe_net_st_waiting@, st_connecting = @crc:battlebaydeluxe_net_st_connecting@,
+    no_steam = @crc:battlebaydeluxe_net_no_steam@, busy = @crc:battlebaydeluxe_net_busy@,
+    bad_code = @crc:battlebaydeluxe_net_bad_code@, invite_q = @crc:battlebaydeluxe_net_invite_q@,
+    session_err = @crc:battlebaydeluxe_net_session_err@,
     -- the room's close notes (CMND_VRFW_NET_STATUS note key -> text)
-    bad_pin = @crc:evt_bbd_net_n_bad_pin@, mod_set = @crc:evt_bbd_net_n_mod_set@, full = @crc:evt_bbd_net_n_full@,
-    protocol = @crc:evt_bbd_net_n_protocol@, mode = @crc:evt_bbd_net_n_mode@, timeout = @crc:evt_bbd_net_n_timeout@,
-    left = @crc:evt_bbd_net_n_left@, lost = @crc:evt_bbd_net_n_lost@,
+    bad_pin = @crc:battlebaydeluxe_net_n_bad_pin@, mod_set = @crc:battlebaydeluxe_net_n_mod_set@, full = @crc:battlebaydeluxe_net_n_full@,
+    protocol = @crc:battlebaydeluxe_net_n_protocol@, mode = @crc:battlebaydeluxe_net_n_mode@, timeout = @crc:battlebaydeluxe_net_n_timeout@,
+    left = @crc:battlebaydeluxe_net_n_left@, lost = @crc:battlebaydeluxe_net_n_lost@,
   },
 }
 
--- the calling menu's hooks for the running BBN_Entry (nil: bb_stadium_top_menu's own behaviour):
---   header(text)       show the room's status line in the menu header
---   restore()          the menu's own header again
---   open(mode_byte)    open the game's Battle Bay room screen for our room (network_menu; mode byte 0) and wait for
---                      it to close; returns true when it closed for a match
-BBN_HOST = nil
+BattleBayDeluxe.net_room_host = nil
 
--- the logger (VRFW_Log), made at the first line: the framework's menu files load after the graft blocks
-function BBN_Log(...)
-  BattleBayDeluxe.NetRoom.logger = BattleBayDeluxe.NetRoom.logger or VRFW_Log.New("BattleBayDeluxe.net")
-  BattleBayDeluxe.NetRoom.logger(...)
+-- The logger is created on the first call.
+function BattleBayDeluxe.net_room_log(...)
+  BattleBayDeluxe.net_room.logger = BattleBayDeluxe.net_room.logger or VRFW.logger.new("BattleBayDeluxe.net")
+  BattleBayDeluxe.net_room.logger(...)
 end
 
-function BBN_Text(id)
-  local ok, t = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.TEXT_GET, id)
-  return (ok and type(t) == "string") and t or ""
-end
-
--- frames a message may stay up unanswered (30 minutes), frames it may take to come up
-BBN_MSG_MAX = 108000
-BBN_MSG_UP = 90
-
--- a retail general window with a text (a string: our texts + data lines); buttons 1 (one button) or 2 (Yes / No).
--- Returns the choice (0 = the first button), -1 = closed without one (Back, or it never came up). The window's
--- result (1523741473) reads -1 / false once the window object is gone, so waiting for «a choice or a cancel» alone
--- waits forever when the window closes between two reads (12/10: «Sala creada…» stuck): it also ends when the window
--- is gone (682363669) after it was up; every change of the reads is logged.
-function BBN_Msg(text, buttons)
-  funcLuaCommand(2289627655 --[[MSG_OPEN]], text, 0, 0)
-  funcLuaCommand(2351835063 --[[MSG_KIND]], buttons, 0)
-  local n, up, last = -1, false, nil
-  for f = 1, BBN_MSG_MAX do
-    coroutine.yield()
-    local a, c = funcLuaCommand(1523741473 --[[MSG_RESULT]])
-    local gone = funcLuaCommand(682363669 --[[MSG_DONE]]) == true
-    local busy = funcLuaCommand(898725220 --[[MSG_BUSY]]) == true
-    if not gone or busy then
-      up = true
-    end
-    local key = tostring(a) .. "/" .. tostring(c) .. "/" .. tostring(gone) .. "/" .. tostring(busy)
-    if key ~= last then
-      last = key
-      BBN_Log("message", f, "choice/cancel/gone/busy", key)
-    end
-    if type(a) == "number" and a >= 0 then
-      n = a
-      break
-    end
-    if (c == true and up) or (up and gone and not busy) then
-      n = -1
-      break
-    end
-    if not up and f > BBN_MSG_UP then
-      BBN_Log("message never came up")
-      break
-    end
-  end
-  return n
+function BattleBayDeluxe.net_room_text(id)
+  local t = VRFW.host.command(BattleBayDeluxe.net_room.TEXT_GET, id)
+  return (type(t) == "string") and t or ""
 end
 
 -- the sub window's crest row closed
-function BBN_HideCrest()
-  pcall(funcLuaMenuCommand, @crc:CMND_SET_LAYER_VISIBLE@, BattleBayDeluxe.NetRoom.CREST, 0, false)
-  pcall(funcLuaMenuCommand, @crc:CMND_CLOSE_LAYER@, BattleBayDeluxe.NetRoom.CREST, 0)
+function BattleBayDeluxe.net_room_hide_crest()
+  VRFW.host.menu_command(@crc:CMND_SET_LAYER_VISIBLE@, BattleBayDeluxe.net_room.CREST, 0, false)
+  VRFW.host.menu_command(@crc:CMND_CLOSE_LAYER@, BattleBayDeluxe.net_room.CREST, 0)
 end
 
--- a retail sub window list of text ids; the chosen index (0-based), -1 cancelled, -2 closed by `watch` (it returns true
--- when the list must close: the state changed under it). `watch` runs when the room changes (CMND_VRFW_NET_REVISION).
-function BBN_Choose(ids, cursor, watch)
+-- Opens a retail sub window with a list of text ids.
+function BattleBayDeluxe.net_room_choose(ids, cursor, watch)
   local enabled = {}
   for i = 1, #ids do
     enabled[i] = 1
@@ -143,22 +65,20 @@ function BBN_Choose(ids, cursor, watch)
   MENU_DEF.OpenSubWindowDefault(#ids, ids, 5, cursor or 0, enabled, 0, false, false, 20)
   local f = 0
   while not funcLuaMenuCommand(@crc:CMND_IS_OPEN_LAYER@, 2984476230 --[[win05_03_sub_list_locator]], 0,
-      BattleBayDeluxe.NetRoom.SUB_WINDOW) and f < 120 do
+      BattleBayDeluxe.net_room.SUB_WINDOW) and f < 120 do
     f = f + 1
     coroutine.yield()
   end
-  -- the retail window kind 20 also opens the Campaña team's crest row (win05_04_p1_sub_list_item_add_icon) at the first
-  -- row: ours show only their text (as bbt_common.lua's panel does)
-  BBN_HideCrest()
+  BattleBayDeluxe.net_room_hide_crest()
   coroutine.yield()
-  BBN_HideCrest()
+  BattleBayDeluxe.net_room_hide_crest()
   local r, seen = -1, nil
   funcLuaCommand(417837871)
-  while funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.NetRoom.SUB_WINDOW) and r < 0 do
+  while funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.net_room.SUB_WINDOW) and r < 0 do
     r = funcLuaCommand(@crc:CMND_GET_SUB_WINDOW_RESULT@)
     if r < 0 and watch ~= nil then
-      local okv, revision = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.REVISION)
-      if okv and revision ~= seen then
+      local revision = VRFW.host.command(BattleBayDeluxe.net_room.REVISION)
+      if revision ~= seen then
         seen = revision
         local ok, stop = pcall(watch)
         if ok and stop then
@@ -169,128 +89,115 @@ function BBN_Choose(ids, cursor, watch)
     end
     coroutine.yield()
   end
-  if funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.NetRoom.SUB_WINDOW) then
-    funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, BattleBayDeluxe.NetRoom.SUB_WINDOW)
+  if funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.net_room.SUB_WINDOW) then
+    funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, BattleBayDeluxe.net_room.SUB_WINDOW)
   end
   funcLuaCommand(417837871)
   return r
 end
 
-function BBN_Status()
-  local ok, phase, role, code, peer, my_ready, peer_ready, note, detail, mode = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.STATUS)
-  if not ok then
+function BattleBayDeluxe.net_room_status()
+  local phase, role, code, peer, my_ready, peer_ready, note, detail, mode = VRFW.host.command(BattleBayDeluxe.net_room.STATUS)
+  if phase == nil then
     return { phase = "none" }
   end
   return { phase = phase, role = role, code = code, peer = peer, my_ready = my_ready, peer_ready = peer_ready,
     note = note, detail = detail, mode = mode }
 end
 
-function BBN_Open(s)
+function BattleBayDeluxe.net_room_open(s)
   return s.phase ~= nil and s.phase ~= "none" and s.phase ~= "closed"
 end
 
--- the header line: «Sala privada <code> · Esperando a un rival» / «… · Conectando…» (a guest before the welcome)
-function BBN_Header(s)
-  local t = BBN_Text(BattleBayDeluxe.NetRoom.T.title)
+function BattleBayDeluxe.net_room_header(s)
+  local t = BattleBayDeluxe.net_room_text(BattleBayDeluxe.net_room.T.title)
   if s.code ~= nil and s.code ~= "" then
     t = t .. "  " .. s.code
   end
   if s.phase == "waiting" then
-    t = t .. "  ·  " .. BBN_Text(s.role == "host" and BattleBayDeluxe.NetRoom.T.st_waiting or BattleBayDeluxe.NetRoom.T.st_connecting)
+    t = t .. "  ·  " .. BattleBayDeluxe.net_room_text(s.role == "host" and BattleBayDeluxe.net_room.T.st_waiting or BattleBayDeluxe.net_room.T.st_connecting)
   end
-  if BBN_HOST ~= nil and BBN_HOST.header ~= nil then
-    pcall(BBN_HOST.header, t)
+  if BattleBayDeluxe.net_room_host ~= nil and BattleBayDeluxe.net_room_host.header ~= nil then
+    pcall(BattleBayDeluxe.net_room_host.header, t)
     return
   end
   pcall(SwapSoccerTopCommonHeaderByHeaderType, 30, t)
 end
 
-function BBN_RestoreHeader()
-  if BBN_HOST ~= nil and BBN_HOST.restore ~= nil then
-    pcall(BBN_HOST.restore)
+function BattleBayDeluxe.net_room_restore_header()
+  if BattleBayDeluxe.net_room_host ~= nil and BattleBayDeluxe.net_room_host.restore ~= nil then
+    pcall(BattleBayDeluxe.net_room_host.restore)
     return
   end
-  pcall(SwapSoccerTopCommonHeaderByHeaderType, 30, funcLuaCommand(BattleBayDeluxe.NetRoom.TEXT_GET, 3066112094))
+  pcall(SwapSoccerTopCommonHeaderByHeaderType, 30, funcLuaCommand(BattleBayDeluxe.net_room.TEXT_GET, 3066112094))
 end
 
--- a closed room: tell why; `fallback`: the text id when the room gave no reason (nil: say nothing then). A mod list
--- that does not match opens the framework's compatibility screen (VRFW_OnlineCompat: the mods that differ, both
--- versions, Volver; this mode is mismatch = "block", so Continuar stays off)
-function BBN_Closed(s, fallback)
-  if s.note == "mod_set" and type(VRFW_OnlineCompat) == "table" and VRFW_OnlineCompat.Read() ~= nil then
-    local ok, err = pcall(VRFW_OnlineCompat.Run)
+-- Returns the message for a closed room.
+function BattleBayDeluxe.net_room_closed(s, fallback)
+  if s.note == "mod_set" and type(VRFW.online_compat) == "table" and VRFW.online_compat.read() ~= nil then
+    local ok, err = pcall(VRFW.online_compat.run)
     if ok then
       return
     end
-    BBN_Log("compatibility screen error", tostring(err))
+    BattleBayDeluxe.net_room_log("compatibility screen error", tostring(err))
   end
   local t
   if s.note ~= nil and s.note ~= "" and s.note ~= "quit" then
-    local id = BattleBayDeluxe.NetRoom.T[s.note]
-    t = id ~= nil and BBN_Text(id) or s.note
+    local id = BattleBayDeluxe.net_room.T[s.note]
+    t = id ~= nil and BattleBayDeluxe.net_room_text(id) or s.note
   elseif fallback ~= nil then
-    t = BBN_Text(fallback)
+    t = BattleBayDeluxe.net_room_text(fallback)
   else
     return
   end
   if s.detail ~= nil and s.detail ~= "" then
     t = t .. "\n" .. s.detail
   end
-  BBN_Msg(t, 1)
+  VRFW.question.notice(t)
 end
 
--- our room out (if one is open) and the calling menu's header back
-function BBN_Leave(why)
-  if BBN_Open(BBN_Status()) then
-    BBN_Log("leave", tostring(why))
-    pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.LEAVE)
+-- the mod's room out (if one is open) and the calling menu's header back
+function BattleBayDeluxe.net_room_leave(why)
+  if BattleBayDeluxe.net_room_open(BattleBayDeluxe.net_room_status()) then
+    BattleBayDeluxe.net_room_log("leave", tostring(why))
+    VRFW.host.command(BattleBayDeluxe.net_room.LEAVE)
   end
-  BBN_RestoreHeader()
+  BattleBayDeluxe.net_room_restore_header()
 end
 
--- a guest: wait for the host's welcome (the room's own join timeout closes it: wrong code, host gone, refusal); Back
--- on the one-row list («Salir») gives up. true = welcomed
-function BBN_WaitWelcome()
+function BattleBayDeluxe.net_room_wait_welcome()
   for _ = 1, 100 do
-    local s = BBN_Status()
+    local s = BattleBayDeluxe.net_room_status()
     if s.phase == "joined" or s.phase == "started" then
       return true
     end
-    if not BBN_Open(s) then
-      BBN_Log("join: the room closed", tostring(s.note))
-      BBN_RestoreHeader()
-      BBN_Closed(s, BattleBayDeluxe.NetRoom.T.bad_code)
+    if not BattleBayDeluxe.net_room_open(s) then
+      BattleBayDeluxe.net_room_log("join: the room closed", tostring(s.note))
+      BattleBayDeluxe.net_room_restore_header()
+      BattleBayDeluxe.net_room_closed(s, BattleBayDeluxe.net_room.T.bad_code)
       return false
     end
-    BBN_Header(s)
-    local c = BBN_Choose({ BattleBayDeluxe.NetRoom.T.leave }, 0, function()
-      return BBN_Status().phase ~= "waiting"
+    BattleBayDeluxe.net_room_header(s)
+    local c = BattleBayDeluxe.net_room_choose({ BattleBayDeluxe.net_room.T.leave }, 0, function()
+      return BattleBayDeluxe.net_room_status().phase ~= "waiting"
     end)
     if c == -1 or c == 0 then
-      BBN_Leave("join cancelled")
+      BattleBayDeluxe.net_room_leave("join cancelled")
       return false
     end
   end
-  BBN_Leave("join: no answer")
-  BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.bad_code), 1)
+  BattleBayDeluxe.net_room_leave("join: no answer")
+  VRFW.question.notice(BattleBayDeluxe.net_room_text(BattleBayDeluxe.net_room.T.bad_code))
   return false
 end
 
--- what the retail «Multijugador» row does to open its room screen (bb_stadium_top_menu, the network_menu branch of
--- OnDecideFocus): the team select's online parameters cleared, network_menu opened; then (this decide coroutine is
--- the row's wait) until network_menu closes. The game's online mode byte is NOT set (it stays 0: the match is an
--- offline one). Its own scripts (graft files bbn_top.lua, bbn_wait.lua) open the retail private-room screen as the UI
--- shell of our room. true = it closed for a match.
-function BBN_OpenOnlineSelect()
-  if BBN_HOST ~= nil and BBN_HOST.open ~= nil then
-    return BBN_HOST.open(0) == true
+-- Opens the online steps.
+function BattleBayDeluxe.net_room_open_network_menu()
+  if BattleBayDeluxe.net_room_host ~= nil and BattleBayDeluxe.net_room_host.open ~= nil then
+    return BattleBayDeluxe.net_room_host.open(0) == true
   end
-  -- 29/10 (owner: the room header showed over the Battle Bay menu, the room screen never came up): the retail row's
-  -- own WaitExecOtherMenu(network_menu) runs, so the menu's layers close, network_menu opens with its header and the
-  -- menu comes back when it closes, exactly as retail; only its two online steps are left out while it runs: the
-  -- online sign-in (OnDecideOnlineButton answers false) and the online mode byte 4 (582611265), which stays 0
   if type(WaitExecOtherMenu) ~= "function" then
-    BBN_Log("WaitExecOtherMenu missing: the room screen is not opened")
+    BattleBayDeluxe.net_room_log("WaitExecOtherMenu missing: the room screen is not opened")
     return false
   end
   local sign_in, flc = OnDecideOnlineButton, funcLuaCommand
@@ -303,22 +210,30 @@ function BBN_OpenOnlineSelect()
     end
     return flc(cmd, a, ...)
   end
-  local ok, err = pcall(WaitExecOtherMenu, BattleBayDeluxe.NetRoom.ROW, BBN_LAYER or BattleBayDeluxe.NetRoom.LIST_MID)
+  local ok, err = pcall(WaitExecOtherMenu, BattleBayDeluxe.net_room.ROW, BattleBayDeluxe.net_room_layer or BattleBayDeluxe.net_room.LIST_MID)
   OnDecideOnlineButton, funcLuaCommand = sign_in, flc
   if not ok then
-    BBN_Log("room screen error", tostring(err))
+    BattleBayDeluxe.net_room_log("room screen error", tostring(err))
   end
   return ok
 end
 
--- the Battle Bay top menu as its first open shows it, once the room screen is closed and no match starts. The room
--- screen hides the menu background (logo + stadium art: the retail room screen's 3010622924 false, bbn_top.lua) and
--- the retail way back that shows it again runs only from the retail room list, which our room skips; the game's own
--- Battle Bay exit after network_menu (ErrorProc of the mission menu include) shows it with 3010622924 true, done here.
--- The «Multijugador» row gets the focus and the content guide its own text (the retail return can leave the guide on
--- another row's text: the other list's stale index). Only in bb_stadium_top_menu (a host menu restores itself).
-function BBN_ShowTopMenu()
-  if BBN_HOST ~= nil then
+function BattleBayDeluxe.net_room_find_row()
+  for _, list in ipairs({ BattleBayDeluxe.net_room.LIST_MID, BattleBayDeluxe.net_room.LIST_SMALL }) do
+    local count = GetNumUsedButtons(list) or 0
+    for index = 0, count - 1 do
+      local info = GetLitItemInfo(list, index)
+      if info ~= nil and info.menuObjectName == BattleBayDeluxe.net_room.ROW then
+        return list, index, count
+      end
+    end
+  end
+  return nil
+end
+
+-- Shows the Battle Bay top menu again once the room screen closed without a match.
+function BattleBayDeluxe.net_room_show_top_menu()
+  if BattleBayDeluxe.net_room_host ~= nil then
     return
   end
   funcLuaMenuCommand(3010622924 --[[menu background visible]], true)
@@ -326,21 +241,12 @@ function BBN_ShowTopMenu()
   if funcLuaMenuCommand(@crc:CMND_IS_OPEN_LAYER@, background) ~= true then
     funcLuaMenuCommand(@crc:CMND_OPEN_LAYER@, background, 0)
   end
-  local row_list, row_index, row_count
-  for _, list in ipairs({ BattleBayDeluxe.NetRoom.LIST_MID, BattleBayDeluxe.NetRoom.LIST_SMALL }) do
-    local count = GetNumUsedButtons(list) or 0
-    for index = 0, count - 1 do
-      local info = GetLitItemInfo(list, index)
-      if row_list == nil and info ~= nil and info.menuObjectName == BattleBayDeluxe.NetRoom.ROW then
-        row_list, row_index, row_count = list, index, count
-      end
-    end
-  end
+  local row_list, row_index, row_count = BattleBayDeluxe.net_room_find_row()
   if row_list == nil then
-    BBN_Log("top menu shown again; the «Multijugador» row is not listed")
+    BattleBayDeluxe.net_room_log("top menu shown again; the «Multijugador» row is not listed")
     return
   end
-  for _, list in ipairs({ BattleBayDeluxe.NetRoom.LIST_MID, BattleBayDeluxe.NetRoom.LIST_SMALL }) do
+  for _, list in ipairs({ BattleBayDeluxe.net_room.LIST_MID, BattleBayDeluxe.net_room.LIST_SMALL }) do
     if list ~= row_list then
       funcLuaMenuCommand(@crc:CMND_SET_ENABLE_CTRL_FOCUS@, list, false)
     end
@@ -350,44 +256,41 @@ function BBN_ShowTopMenu()
   funcLuaMenuCommand(@crc:CMND_SET_CURSOR_LOCATOR@, row_list, 3313461902 --[[cursor]], row_index, row_count)
   pcall(SelectListItem, row_list)
   pcall(UpdateContentGuide, row_index)
-  BBN_Log("top menu shown again: background, «Multijugador» row focused", row_list, row_index)
+  BattleBayDeluxe.net_room_log("top menu shown again: background, «Multijugador» row focused", row_list, row_index)
 end
 
--- a command of the mod's scripts: its answers, nil when they stayed busy (tried again on the next frames)
-function BBN_Call(cmd, ...)
-  for k = 1, BattleBayDeluxe.NetRoom.TRIES do
-    local r = table.pack(pcall(funcLuaCommand, cmd, ...))
-    if r[1] and r.n >= 2 and r[2] ~= nil then
-      return table.unpack(r, 2, r.n)
+-- Calls a command of the mod's scripts.
+function BattleBayDeluxe.net_room_call(cmd, ...)
+  for k = 1, BattleBayDeluxe.net_room.TRIES do
+    local r = table.pack(VRFW.host.command(cmd, ...))
+    if r[1] ~= nil then
+      return table.unpack(r, 1, r.n)
     end
-    if k < BattleBayDeluxe.NetRoom.TRIES then
+    if k < BattleBayDeluxe.net_room.TRIES then
       coroutine.yield()
     end
   end
-  BBN_Log("busy: no answer", cmd)
+  BattleBayDeluxe.net_room_log("busy: no answer", cmd)
   return nil
 end
 
--- the room's match on this PC: the host's team as the player's side, the guest's as the rival (both PCs ask the same
--- match), through the Campaña's «continue» on the borrowed block (scripts\net_match.lua); the menus close as the
--- Torneo's next match does. The framework's lockstep holds the kick-off until both PCs are there. true = asked
-function BBN_StartMatch()
-  local s = BBN_Status()
-  local okp, mine, theirs = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.PICKS)
-  mine, theirs = okp and tonumber(mine) or 0, okp and tonumber(theirs) or 0
+function BattleBayDeluxe.net_room_start_match()
+  local s = BattleBayDeluxe.net_room_status()
+  local mine, theirs = VRFW.host.command(BattleBayDeluxe.net_room.PICKS)
+  mine, theirs = tonumber(mine) or 0, tonumber(theirs) or 0
   local host_team, guest_team = mine, theirs
   if s.role ~= "host" then
     host_team, guest_team = theirs, mine
   end
-  if BBN_Call(BattleBayDeluxe.NetRoom.PREPARE, host_team, guest_team) ~= true then
-    BBN_Log("room match: not prepared", host_team, guest_team)
+  if BattleBayDeluxe.net_room_call(BattleBayDeluxe.net_room.PREPARE, host_team, guest_team) ~= true then
+    BattleBayDeluxe.net_room_log("room match: not prepared", host_team, guest_team)
     return false
   end
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 3848881948 --[[sy0000]])
-  local ret = funcLuaMenuCommand(BattleBayDeluxe.NetRoom.CONTINUE)
-  BBN_Log("room match requested", tostring(ret), host_team, guest_team)
+  local ret = funcLuaMenuCommand(BattleBayDeluxe.net_room.CONTINUE)
+  BattleBayDeluxe.net_room_log("room match requested", tostring(ret), host_team, guest_team)
   if not ret then
-    BBN_Call(BattleBayDeluxe.NetRoom.RESTORE)
+    BattleBayDeluxe.net_room_call(BattleBayDeluxe.net_room.RESTORE)
     return false
   end
   funcLuaMenuCommand(1558704558, 85255651 --[[bb_stadium_top_menu]], false)
@@ -400,124 +303,115 @@ function BBN_StartMatch()
   return true
 end
 
--- the room is open (host: created; guest: welcomed): the game's private-room screen opens as the shell of our room.
--- After it: a match (the room started) asks the local match; else (Back there, an error, the other player gone) our
--- room is left.
-function BBN_RoomScreen()
-  BBN_Log("the game's room screen on our room")
-  local okm, matched = pcall(BBN_OpenOnlineSelect)
+-- Shows the game's room screen once the room is open.
+function BattleBayDeluxe.net_room_show_room_screen()
+  BattleBayDeluxe.net_room_log("the game's room screen on our room")
+  local okm, matched = pcall(BattleBayDeluxe.net_room_open_network_menu)
   if not okm then
-    BBN_Log("room screen error", tostring(matched))
+    BattleBayDeluxe.net_room_log("room screen error", tostring(matched))
     matched = false
   end
-  BBN_Log("room screen closed", tostring(matched))
-  -- the room started (the screen's soccer reserve closed network_menu; Back or a closed room left it): the match
-  if BBN_Status().phase == "started" then
-    local oks, started = pcall(BBN_StartMatch)
+  BattleBayDeluxe.net_room_log("room screen closed", tostring(matched))
+  if BattleBayDeluxe.net_room_status().phase == "started" then
+    local oks, started = pcall(BattleBayDeluxe.net_room_start_match)
     if oks and started then
       return
     end
-    BBN_Log("room match not started", tostring(started))
-    BBN_ShowTopMenu()
-    BBN_Leave("room match not started")
-    BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.session_err), 1)
+    BattleBayDeluxe.net_room_log("room match not started", tostring(started))
+    BattleBayDeluxe.net_room_show_top_menu()
+    BattleBayDeluxe.net_room_leave("room match not started")
+    VRFW.question.notice(BattleBayDeluxe.net_room_text(BattleBayDeluxe.net_room.T.session_err))
     return
   end
-  BBN_ShowTopMenu()
-  local s = BBN_Status()
-  BBN_Leave("room screen closed")
-  BBN_Closed(s)
+  BattleBayDeluxe.net_room_show_top_menu()
+  local s = BattleBayDeluxe.net_room_status()
+  BattleBayDeluxe.net_room_leave("room screen closed")
+  BattleBayDeluxe.net_room_closed(s)
 end
 
--- the «Multijugador» row / «Multi» box decided: true = handled here (our room, or a message why it cannot open:
--- no Steam, mod set not ready, create / join refused), false = no gameplay mods (the caller's retail flow).
--- `host`: the calling menu's hooks (BBN_HOST above), nil in bb_stadium_top_menu
-function BBN_Entry(host)
-  BBN_HOST = host
-  local ok, handled = pcall(BBN_EntryRun)
+-- Enters the room flow for gameplay mods, following the caller's retail flow.
+function BattleBayDeluxe.net_room_entry(host)
+  BattleBayDeluxe.net_room_host = host
+  local ok, handled = pcall(BattleBayDeluxe.net_room_entry_run)
   if not ok then
-    BBN_Log("error", tostring(handled))
-    pcall(BBN_Leave, "error")
+    BattleBayDeluxe.net_room_log("error", tostring(handled))
+    pcall(BattleBayDeluxe.net_room_leave, "error")
   end
-  BBN_HOST = nil
+  BattleBayDeluxe.net_room_host = nil
   if not ok then
     error(handled)
   end
   return handled
 end
 
-function BBN_EntryRun()
-  local ok, gameplay, steam, set = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.OWN)
-  if not ok or gameplay ~= true then
+function BattleBayDeluxe.net_room_entry_run()
+  local gameplay, steam, set = VRFW.host.command(BattleBayDeluxe.net_room.OWN)
+  if gameplay ~= true then
     return false -- the retail row
   end
-  -- the Campaña's block of a room match played before, back (a no-op when none is kept)
-  pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.RESTORE)
+  VRFW.host.command(BattleBayDeluxe.net_room.RESTORE)
   funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 3848881948 --[[sy0000]])
   if steam ~= true then
-    BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.no_steam), 1)
+    VRFW.question.notice(BattleBayDeluxe.net_room_text(BattleBayDeluxe.net_room.T.no_steam))
     return true
   end
   if set ~= true then
-    BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.busy), 1)
+    VRFW.question.notice(BattleBayDeluxe.net_room_text(BattleBayDeluxe.net_room.T.busy))
     return true
   end
-  -- a room left over (a match played, a flow that ended without leaving): a new one starts clean (a rematch is a new
-  -- room)
-  if BBN_Open(BBN_Status()) then
-    BBN_Log("a room was still open: left")
-    pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.LEAVE)
+  -- Leaves a room left over from a match or an ended flow.
+  if BattleBayDeluxe.net_room_open(BattleBayDeluxe.net_room_status()) then
+    BattleBayDeluxe.net_room_log("a room was still open: left")
+    VRFW.host.command(BattleBayDeluxe.net_room.LEAVE)
   end
   -- a friend's invite (Steam overlay / the command line of a game launched by it)
-  local okp, pending = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.PENDING)
-  if okp and type(pending) == "string" and pending ~= "" then
-    -- BBN_AUTO_JOIN: the player already chose «Join game» in Steam and its host welcomed this game (bbn_room.lua)
-    local auto = BBN_AUTO_JOIN == true
-    BBN_AUTO_JOIN = false
-    BBN_Log("pending invite", pending, "asked here", tostring(not auto))
-    if auto or BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.invite_q) .. "\n" .. pending, 2) == 0 then
-      local okj, joined, err = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.JOIN, pending)
-      if okj and joined == true then
-        if BBN_WaitWelcome() then
-          BBN_RoomScreen()
+  local pending = VRFW.host.command(BattleBayDeluxe.net_room.PENDING)
+  if type(pending) == "string" and pending ~= "" then
+    local auto = BattleBayDeluxe.net_room_invite_accepted == true
+    BattleBayDeluxe.net_room_invite_accepted = false
+    BattleBayDeluxe.net_room_log("pending invite", pending, "asked here", tostring(not auto))
+    if auto or VRFW.question.ask(BattleBayDeluxe.net_room_text(BattleBayDeluxe.net_room.T.invite_q) .. "\n" .. pending) then
+      local joined, err = VRFW.host.command(BattleBayDeluxe.net_room.JOIN, pending)
+      if joined == true then
+        if BattleBayDeluxe.net_room_wait_welcome() then
+          BattleBayDeluxe.net_room_show_room_screen()
         end
       else
-        BBN_Log("join refused", tostring(err))
-        BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.bad_code), 1)
+        BattleBayDeluxe.net_room_log("join refused", tostring(err))
+        VRFW.question.notice(BattleBayDeluxe.net_room_text(BattleBayDeluxe.net_room.T.bad_code))
       end
       return true
     end
   end
-  local c = BBN_Choose({ BattleBayDeluxe.NetRoom.T.create, BattleBayDeluxe.NetRoom.T.join }, 0)
-  BBN_Log("choice", c)
+  local c = BattleBayDeluxe.net_room_choose({ BattleBayDeluxe.net_room.T.create, BattleBayDeluxe.net_room.T.join }, 0)
+  BattleBayDeluxe.net_room_log("choice", c)
   if c == 0 then
-    local okc, made, code = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.CREATE, BattleBayDeluxe.NetRoom.MODE)
-    if not okc or made ~= true then
-      BBN_Log("create refused", tostring(code))
-      BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.session_err) .. "\n" .. tostring(code or ""), 1)
+    local made, code = VRFW.host.command(BattleBayDeluxe.net_room.CREATE, BattleBayDeluxe.net_room.MODE)
+    if made ~= true then
+      BattleBayDeluxe.net_room_log("create refused", tostring(code))
+      VRFW.question.notice(BattleBayDeluxe.net_room_text(BattleBayDeluxe.net_room.T.session_err) .. "\n" .. tostring(code or ""))
       return true
     end
-    -- v4: straight to the game's private-room screen (no code message, no clipboard copy)
-    BBN_Log("room created: the game's private-room screen", tostring(code))
-    local s = BBN_Status()
-    if not BBN_Open(s) then
-      BBN_RestoreHeader()
-      BBN_Closed(s, BattleBayDeluxe.NetRoom.T.session_err)
+    BattleBayDeluxe.net_room_log("room created: the game's private-room screen", tostring(code))
+    local s = BattleBayDeluxe.net_room_status()
+    if not BattleBayDeluxe.net_room_open(s) then
+      BattleBayDeluxe.net_room_restore_header()
+      BattleBayDeluxe.net_room_closed(s, BattleBayDeluxe.net_room.T.session_err)
       return true
     end
-    BBN_RoomScreen()
+    BattleBayDeluxe.net_room_show_room_screen()
   elseif c == 1 then
-    if BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.join_hint), 2) ~= 0 then
+    if not VRFW.question.ask(BattleBayDeluxe.net_room_text(BattleBayDeluxe.net_room.T.join_hint)) then
       return true
     end
-    local okj, joined, err = pcall(funcLuaCommand, BattleBayDeluxe.NetRoom.JOIN, "")
-    if not okj or joined ~= true then
-      BBN_Log("join refused", tostring(err))
-      BBN_Msg(BBN_Text(BattleBayDeluxe.NetRoom.T.bad_code), 1)
+    local joined, err = VRFW.host.command(BattleBayDeluxe.net_room.JOIN, "")
+    if joined ~= true then
+      BattleBayDeluxe.net_room_log("join refused", tostring(err))
+      VRFW.question.notice(BattleBayDeluxe.net_room_text(BattleBayDeluxe.net_room.T.bad_code))
       return true
     end
-    if BBN_WaitWelcome() then
-      BBN_RoomScreen()
+    if BattleBayDeluxe.net_room_wait_welcome() then
+      BattleBayDeluxe.net_room_show_room_screen()
     end
   end
   return true

@@ -8,5 +8,15 @@ type = "toggle"
 label = "option_no_move_cooldown"             # text\keys.toml, 9 languages
 help = "option_no_move_cooldown_help"
 default = 0
-order = 100
+order = 200
 restart = false
+
+# Open-duel auras: switches features\duel_auras\ (the [VRFW.DuelAura] rule).
+[[option]]
+id = "duel_auras"                             # row key FootballReforged.duel_auras
+type = "toggle"
+label = "option_duel_auras"                   # text\keys.toml, 9 languages
+help = "option_duel_auras_help"
+default = 1
+order = 210
+restart = true

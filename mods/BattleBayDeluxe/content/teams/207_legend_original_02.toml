@@ -88,6 +88,8 @@ name_text = 0x98E47F7E
 level = 40
 card_moves = 6
 series = "ORIGINAL"
+music = "auto"
+goal_jingle = "auto"
 stadium_fallback = "b50g001"
 appears = [{ list = "bb_stadium", category = "secondary", season = "series_09", row = { copy = false, stadium = 0x78D1B0C9, image = "ev_chronicle_img/ev_bb_s10g001_01.g4tx", image_name = "ev_bb_s10g001_01", bgm = 0x6C1E6CDD } }]
 same_as = ["tm_cro_legend_ORIGINAL_02"]

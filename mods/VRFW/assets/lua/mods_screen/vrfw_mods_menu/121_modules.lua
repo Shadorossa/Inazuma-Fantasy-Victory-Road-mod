@@ -1,22 +1,13 @@
--- mods_menu (VRFW): the «Mods» screen, a mod's page, «Módulos»: one row per module. Runs after
--- 100_mods_screen.lua in the same VM and takes the names it shares from VRFW_ModsScreen. No engine call at load time.
-local Screen = VRFW_ModsScreen
+local Screen = VRFW.mods_screen
 if Screen == nil then
   return
 end
-local C, CE, Cut, Draw, Fit, G, Hit = Screen.C, Screen.CE, Screen.Cut, Screen.Draw, Screen.Fit, Screen.G, Screen.Hit
-local INFO, IconOf, Initials, K, Quad = Screen.INFO, Screen.IconOf, Screen.Initials, Screen.K, Screen.Quad
-local RV, SE_MOVE, SE_NG, SP, Size, T = Screen.RV, Screen.SE_MOVE, Screen.SE_NG, Screen.SP, Screen.Size, Screen.T
-local Text, Txt, Units, Wrap, ui = Screen.Text, Screen.Txt, Screen.Units, Screen.Wrap, Screen.ui
+local C, CE, Cut, Draw, Fit, G, Hit = Screen.C, Screen.CE, Screen.cut, Screen.draw, Screen.fit, Screen.G, Screen.hit
+local INFO, IconOf, Initials, K, Quad = Screen.INFO, Screen.icon_of, Screen.initials, Screen.K, Screen.quad
+local RV, SE_MOVE, SE_NG, SP, Size, T = Screen.RV, Screen.SE_MOVE, Screen.SE_NG, Screen.SP, Screen.size, Screen.T
+local Text, Txt, Units, Wrap, ui = Screen.text, Screen.txt, Screen.units, Screen.wrap, Screen.ui
 
--- ---- «Módulos»: one row per module (a module mod of the family, or an internal module = an option row named in
--- [modules] options): its badge (icon or two letters), name, version and Sí / No; a module whose requirement is not
--- met shows it in red next to its state and is greyed (it cannot be switched on). A or a click on Sí / No switches
--- it, Y or a click on the row opens a module mod's own page.
-
--- the category of mod `m`: the first tag of its mod.toml `tags` -> id (lower case, "_" for spaces), label (text key
--- "category_<id>" in the game's language, else the tag as written); nil = no tags
-function RV.Category(m)
+function RV.category(m)
   local tag = string.match(Text(m, 8), "^([^\n]+)") or ""
   if tag == "" then
     return nil
@@ -27,17 +18,15 @@ function RV.Category(m)
   return {id = id, label = label ~= key and label or tag}
 end
 
--- the module rows of mod `m`: {mod = module mod, cat = its category} or {opt = option row}, grouped by category (the
--- categories in the order of their first module, the modules of each in their own order; read once per page opening)
-function RV.ModuleRows(m)
+function RV.module_rows(m)
   local ck = "mrows:" .. m.id
   local r = RV.cache[ck]
   if r == nil then
     local groups, order = {}, {}
-    for _, o in ipairs(RV.Settings(m.id)) do
+    for _, o in ipairs(RV.settings(m.id)) do
       local row = nil
       if o.module ~= nil then
-        row = {mod = o.module, cat = RV.Category(o.module)}
+        row = {mod = o.module, cat = RV.category(o.module)}
       elseif o.imodule then
         row = {opt = o}
       end
@@ -61,15 +50,13 @@ function RV.ModuleRows(m)
   return r
 end
 
--- the lines of the «Módulos» list: a category title before the first row of each category, then its rows
--- -> {head = label, gid = category id, h = height} | {n = row number, h = height}
-function RV.ModuleLines(m)
+function RV.module_lines(m)
   local ck = "mlines:" .. m.id
   local lines = RV.cache[ck]
   if lines == nil then
     lines = {}
     local last = nil
-    for n, r in ipairs(RV.ModuleRows(m)) do
+    for n, r in ipairs(RV.module_rows(m)) do
       local gid = r.cat and r.cat.id or ""
       if gid ~= last and r.cat ~= nil then
         lines[#lines + 1] = {head = r.cat.label, gid = gid, h = RV.MOD_HEAD_H}
@@ -83,7 +70,7 @@ function RV.ModuleLines(m)
 end
 
 -- the line of module row n
-function RV.ModuleLine(lines, n)
+function RV.module_line(lines, n)
   for li, l in ipairs(lines) do
     if l.n == n then
       return li
@@ -92,28 +79,26 @@ function RV.ModuleLine(lines, n)
   return 1
 end
 
-function RV.ModuleOn(r)
+function RV.module_on(r)
   if r.mod ~= nil then
     return r.mod.enabled
   end
-  local v = RV.Value(r.opt)
+  local v = RV.value(r.opt)
   return v ~= nil and v ~= 0
 end
 
-function RV.ModulesOn(m)
+function RV.modules_on(m)
   local n = 0
-  for _, r in ipairs(RV.ModuleRows(m)) do
-    if RV.ModuleOn(r) then
+  for _, r in ipairs(RV.module_rows(m)) do
+    if RV.module_on(r) then
       n = n + 1
     end
   end
   return n
 end
 
--- the first requirement of module mod `mm` that is not met (missing, off or too old), by name; nil = all met. Its
--- parent is not counted (switching the module on brings its parent)
-function RV.ModuleNeed(mm)
-  for _, d in ipairs(INFO.Needs(mm)) do
+function RV.module_need(mm)
+  for _, d in ipairs(INFO.needs(mm)) do
     if not d.ok and (mm.family == nil or d.key ~= mm.family.id) then
       return d.name
     end
@@ -121,40 +106,35 @@ function RV.ModuleNeed(mm)
   return nil
 end
 
--- the name a player reads for module row `r`: the module's changelog `name` in the game's language, else its short
--- name in the family, else its manifest name; an internal module: its option row's label
-function RV.ModuleName(r)
+function RV.module_name(r)
   local mm = r.mod
   if mm == nil then
-    return RV.TextOf(r.opt.label, r.opt.fallback ~= "" and r.opt.fallback or r.opt.key)
+    return RV.text_of(r.opt.label, r.opt.fallback ~= "" and r.opt.fallback or r.opt.key)
   end
-  local title = RV.Notes(mm).title
+  local title = RV.notes(mm).title
   if title ~= "" then
     return title
   end
   return mm.mname or (mm.name ~= "" and mm.name or mm.id)
 end
 
--- One row of the module list: its badge (icon or two letters), name, version in a fixed column (or the red «Necesita
--- X» of an unmet requirement) and the small Sí / No pill. No plate: the white body is its background (a plate on the
--- body's layer may draw under it); the focused row gets the cyan edges.
-function RV.DrawModuleRow(m, n, r, x, y, w, h, foc)
+function RV.draw_module_row(m, n, r, x, y, w, h, foc)
   local mm = r.mod
-  local name = RV.ModuleName(r)
-  local on = RV.ModuleOn(r)
-  local need = mm ~= nil and RV.ModuleNeed(mm) or nil
+  local name = RV.module_name(r)
+  local on = RV.module_on(r)
+  local need = mm ~= nil and RV.module_need(mm) or nil
   local grey = need ~= nil and not on
   local cy = y + h / 2
   if foc then
-    CE.Focus("P1", x, y, w, h, 3)
+    CE.focus("P1", x, y, w, h, 3)
   end
   -- a click on the row opens a module mod's page (Y); an internal module has none: it switches
   Hit(x, y, w, h, "mrow" .. n, function()
     ui.popup.mrow = n
     if mm ~= nil then
-      RV.OpenChild(mm.id)
+      RV.open_child(mm.id)
     else
-      RV.ModuleToggle(m, n)
+      RV.module_toggle(m, n)
     end
   end)
   local ic = mm ~= nil and IconOf(mm) or nil
@@ -178,18 +158,14 @@ function RV.DrawModuleRow(m, n, r, x, y, w, h, foc)
   Txt("PC", T(on and "module_yes" or "module_no"), px + pw / 2, cy, 0.58)
   Hit(px - 4, cy - 18, pw + 8, 36, "mtog" .. n, function()
     ui.popup.mrow = n
-    RV.ModuleToggle(m, n)
+    RV.module_toggle(m, n)
   end)
 end
 
--- The sheet of the focused module at the right of the list (the info panel's look): a blue bar with stripes (name,
--- version), its icon, state and family, «Qué hace» (the first points of its changelog summary, else its description),
--- its settings (R3 or a click opens them on its page), «Necesita» (a chip per requirement: green = met, red = not;
--- a click opens that mod's page) and «Lo necesitan». Every quad sits on P1 over the white body, side by side.
-function RV.DrawModulePane(m, r)
-  local x, w, y = G.MOD_PANE_X, G.MOD_PANE_W, RV.BodyY() + 14
+function RV.draw_module_pane(m, r)
+  local x, w, y = G.MOD_PANE_X, G.MOD_PANE_W, RV.body_y() + 14
   local hh = G.MOD_PANE_HEAD
-  local bottom = RV.FootY() - 16
+  local bottom = RV.foot_y() - 16
   local mm = r.mod
   Quad("P1", SP("hstripes"), x, y, 64, hh)
   Quad("P1", SP("hbar_l"), x + 44, y, 40, hh)
@@ -197,7 +173,7 @@ function RV.DrawModulePane(m, r)
   for _, e in ipairs({{x, y + hh, 2, bottom - y - hh}, {x + w - 2, y + hh, 2, bottom - y - hh}, {x, bottom - 2, w, 2}}) do
     Quad("P1", SP("line"), e[1], e[2], e[3], e[4])
   end
-  local name = RV.ModuleName(r)
+  local name = RV.module_name(r)
   local ver = (mm ~= nil and mm.version ~= "") and ("   v" .. Cut(mm.version, 12)) or ""
   Txt("PL", Cut(name, Fit(w - 260, 0.8)) .. ver, x + 96, y + hh / 2, 0.8)
   -- the icon and two lines: the state, then the family · size
@@ -211,12 +187,12 @@ function RV.DrawModulePane(m, r)
   end
   local st, sc
   if mm ~= nil then
-    st, sc = INFO.State(mm)
+    st, sc = INFO.state(mm)
     if sc == "[CB]" then
       sc = "[CG]"
     end
   else
-    st, sc = T(RV.ModuleOn(r) and "module_on" or "module_off"), RV.ModuleOn(r) and "[CG]" or "[CWG]"
+    st, sc = T(RV.module_on(r) and "module_on" or "module_off"), RV.module_on(r) and "[CG]" or "[CWG]"
   end
   local tx, tw = x + 140, w - 164
   Txt("PL", sc .. Cut(st, Fit(tw, 0.74)) .. "[C]", tx, iy + 28, 0.74)
@@ -225,17 +201,16 @@ function RV.DrawModulePane(m, r)
     sub = sub .. "  ·  " .. Size(mm.size)
   end
   Txt("PL", "[CWG]" .. Cut(sub, Fit(tw, 0.62)) .. "[C]", tx, iy + 68, 0.62)
-  -- «Qué hace»
   local cx, cw = x + 24, w - 48
   local ty = iy + 128
   Txt("PL", "[CN]" .. T("what_it_does") .. "[C]", cx, ty, 0.74)
-  local notes = mm ~= nil and RV.Notes(mm).notes or {}
+  local notes = mm ~= nil and RV.notes(mm).notes or {}
   local lines = {}
   for k = 1, math.min(#notes, G.MOD_NOTES) do
     lines[#lines + 1] = "[CN]›[C]  [CB]" .. Cut(notes[k], Fit(cw - 30, 0.64)) .. "[C]"
   end
   if #lines == 0 then
-    local desc = mm ~= nil and INFO.Description(mm) or ""
+    local desc = mm ~= nil and INFO.description(mm) or ""
     for _, l in ipairs(Wrap(desc ~= "" and desc or T("no_desc"), Fit(cw, 0.64), G.MOD_NOTES)) do
       lines[#lines + 1] = (desc ~= "" and "[CB]" or "[CWG]") .. l .. "[C]"
     end
@@ -248,21 +223,21 @@ function RV.DrawModulePane(m, r)
   end
   -- its settings: how many, and R3 / a click opens them on the module's page
   local sy = ty + 6 + G.MOD_NOTES * 30 + 28
-  local ns = #RV.OwnSettings(mm.id)
+  local ns = #RV.own_settings(mm.id)
   Quad("P1", SP("paper2"), cx, sy, cw, 44)
   if ns > 0 then
     Txt("PL", "[CN]" .. T("tab_settings") .. "[C]  [CB]" .. Cut(T("module_settings_count", {n = ns}), Fit(cw - 300, 0.64)) .. "[C]",
         cx + 16, sy + 22, 0.64)
     Txt("PR", "[CB]" .. K.R3 .. " " .. Cut(T("module_settings_open"), Fit(150, 0.62)) .. "[C]", cx + cw - 14, sy + 22, 0.62)
-    Hit(cx, sy, cw, 44, "mset", function() RV.ModuleSettings(m) end)
+    Hit(cx, sy, cw, 44, "mset", function() RV.module_settings(m) end)
   else
     Txt("PL", "[CN]" .. T("tab_settings") .. "[C]  [CWG]" .. Cut(T("module_settings_none"), Fit(cw - 120, 0.64)) .. "[C]",
         cx + 16, sy + 22, 0.64)
   end
-  -- «Necesita»: one row of chips
+  -- "Requires": one row of chips
   local ny = sy + 78
   Txt("PL", "[CN]" .. T("f_needs") .. "[C]", cx, ny, 0.74)
-  local needs, chx = INFO.Needs(mm), cx
+  local needs, chx = INFO.needs(mm), cx
   if #needs == 0 then
     Txt("PL", "[CWG]" .. T("needs_none") .. "[C]", cx + 160, ny, 0.64)
   end
@@ -276,37 +251,35 @@ function RV.DrawModulePane(m, r)
     Quad("P1", SP(d.ok and "pill_green" or "pill_red"), chx, ny + 22, chw, 34)
     Txt("PL", Cut(s, Fit(chw - 24, 0.62)), chx + 14, ny + 39, 0.62)
     if d.mod ~= nil then
-      Hit(chx, ny + 22, chw, 34, "mneed" .. k, function() RV.OpenChild(d.mod.id) end)
+      Hit(chx, ny + 22, chw, 34, "mneed" .. k, function() RV.open_child(d.mod.id) end)
     end
     chx = chx + chw + 10
   end
-  -- «Lo necesitan»: one line with the names
-  local users = INFO.NeededBy(mm)
+  -- "Required by": one line with the names
+  local users = INFO.needed_by(mm)
   local us = #users > 0 and ("[CB]" .. table.concat(users, "  ·  ") .. "[C]") or ("[CWG]" .. T("needed_by_none") .. "[C]")
   Txt("PL", "[CN]" .. T("f_needed_by") .. "[C]   " .. Cut(us, Fit(cw - 190, 0.64)), cx, ny + 92, 0.64)
 end
 
--- The «Módulos» view in two panes: «N módulos (K activos) · sizes» and the page control on top, the module list
--- grouped under category titles («Personajes 5/6») at the left, the focused module's sheet at the right
-function RV.DrawModules(m)
+function RV.draw_modules(m)
   local p = ui.popup
-  local rows = RV.ModuleRows(m)
+  local rows = RV.module_rows(m)
   local x, w = G.WIN_X + 32, G.MOD_LIST_W
-  local top = RV.BodyY() + 28
+  local top = RV.body_y() + 28
   local msize = 0
   for _, mm in ipairs(m.modules or {}) do
     msize = msize + (mm.size or 0)
   end
-  local head = T("modules_head", {n = #rows, k = RV.ModulesOn(m)}) .. "  ·  " ..
+  local head = T("modules_head", {n = #rows, k = RV.modules_on(m)}) .. "  ·  " ..
                (msize > 0 and T("modules_size", {s = Size(m.size), z = Size(msize)}) or Size(m.size))
   Txt("PL", "[CB]" .. Cut(head, Fit(w - 220, 0.7)) .. "[C]", x, top, 0.7)
   local y0 = top + 26
-  local avail = RV.FootY() - 12 - y0
+  local avail = RV.foot_y() - 12 - y0
   local h = RV.MOD_STEP - 6
   p.mrow = math.max(1, math.min(p.mrow or 1, #rows))
   -- scroll by lines: the focused row on the page, with its category title when it is right above
-  local lines = RV.ModuleLines(m)
-  local sl = RV.ModuleLine(lines, p.mrow)
+  local lines = RV.module_lines(m)
+  local sl = RV.module_line(lines, p.mrow)
   local tl = math.max(1, math.min(p.mline or 1, sl))
   if tl > 1 and lines[tl - 1].head ~= nil then
     tl = tl - 1
@@ -323,12 +296,12 @@ function RV.DrawModules(m)
     tl = tl + 1
   end
   p.mline = tl
-  -- the categories' counts: «K/N» after each title
+  -- the categories' counts: "K/N" after each title
   local on_in, all_in = {}, {}
   for _, r in ipairs(rows) do
     local gid = r.cat and r.cat.id or ""
     all_in[gid] = (all_in[gid] or 0) + 1
-    on_in[gid] = (on_in[gid] or 0) + (RV.ModuleOn(r) and 1 or 0)
+    on_in[gid] = (on_in[gid] or 0) + (RV.module_on(r) and 1 or 0)
   end
   local y, first, last, drawn = y0, nil, nil, 0
   for k = tl, #lines do
@@ -342,34 +315,33 @@ function RV.DrawModules(m)
           x, y + l.h / 2, 0.78)
     else
       first, last, drawn = first or l.n, l.n, drawn + 1
-      RV.DrawModuleRow(m, l.n, rows[l.n], x, y + 3, w, h, l.n == p.mrow)   -- the pointer's hover moves p.mrow too (Hover)
+      RV.draw_module_row(m, l.n, rows[l.n], x, y + 3, w, h, l.n == p.mrow)   -- the pointer's hover moves p.mrow too (Hover)
     end
     y = y + l.h
   end
   -- the pages of the list above the rows: ↑ / ↓ and the keys that turn them (left / right)
   local function turn(n)
     p.mrow = n
-    p.mline = RV.ModuleLine(lines, n)
+    p.mline = RV.module_line(lines, n)
     funcLuaCommand(C.SE, SE_MOVE)
     Draw()
   end
   first, last = first or 1, last or #rows
-  RV.Pager(x + w, top, first, last, #rows, function()
+  RV.pager(x + w, top, first, last, #rows, function()
     turn(math.max(1, first - (last - first + 1)))
   end, function()
     turn(math.min(#rows, last + 1))
   end)
   if rows[p.mrow] ~= nil then
-    RV.DrawModulePane(m, rows[p.mrow])
+    RV.draw_module_pane(m, rows[p.mrow])
   end
 end
 
--- R3 / a click on the sheet's «Ajustes» in «Módulos»: the focused module mod's page, on its «Ajustes» view
-function RV.ModuleSettings(m)
-  local r = RV.ModuleRows(m)[ui.popup.mrow or 1]
-  if r == nil or r.mod == nil or #RV.OwnSettings(r.mod.id) == 0 then
+function RV.module_settings(m)
+  local r = RV.module_rows(m)[ui.popup.mrow or 1]
+  if r == nil or r.mod == nil or #RV.own_settings(r.mod.id) == 0 then
     funcLuaCommand(C.SE, SE_NG)
     return
   end
-  RV.OpenChild(r.mod.id, "settings")
+  RV.open_child(r.mod.id, "settings")
 end

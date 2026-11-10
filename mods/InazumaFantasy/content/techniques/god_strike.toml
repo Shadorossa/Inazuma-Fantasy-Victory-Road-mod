@@ -1,9 +1,5 @@
 schema = "VRFW.technique/3"
-# God Strike: a solo wind shot made from the god half of Penguin Reckoning (whs03250, cut-in ev60_03250). The user plays
-# both shots of the cut-in: the opening kick (c0100, c0200) and the god half (c0300, c0400, c0700, c0800); the devil
-# half's cuts (c0500, c0600), its player and its penguin model are left out. The devil half's effect pieces are hidden
-# on a copy of the effect object (content\effects\god_strike.toml).
-# Numbers: power 100-640, TP 100 and recast 90 s, as the game's solo wind shots of power 100 (skill_config).
+# God Strike: a solo wind shot from the god half of Penguin Reckoning (whs03250); power 100-640, TP 100, recast 90 s.
 
 [[technique]]
 name = "god_strike"
@@ -44,6 +40,7 @@ tp = 100
   [technique.animation]
   from = "ev60_03250"
   id = "ev60_83250"
+  sound_cue = "ev60_83250_me"
   cuts = [
     { cut = "c0100", hide = ["s01"] },
     "c0200",

@@ -1,8 +1,4 @@
 schema = "VRFW.header_shift/1"
-# BetterUI › compact top header (flag header_short): the top title header (mainmenu90_01) is 55 % of its retail height,
-# so the content of these menus moves up by the height saved (54.9) instead of leaving a gap under it. Applied by the
-# hook files of graft ui_clean_header_shift. Not Objetos (item_menu): its list cells are placed by the native list view,
-# not attached to the moved list base, so a shifted base left the grid low in its panel and clipped the last row.
 
 [[VRFW.HeaderShift]]
 name = "soccer_top"

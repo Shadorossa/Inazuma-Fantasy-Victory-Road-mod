@@ -1,0 +1,154 @@
+schema = "VRFW.team/2"
+default_lang = "en"
+# The Specialists (IE3 «Lucia's Ultimate Tournament», Team Ogre team 655): roster, kit and crest of the archived Chronicles Deluxe team.
+[[team]]
+name = "ct_wk_specials"
+key = "evt_ct_wk_specials"
+based_on = "tm_cro_ie3_1920"
+kit = { home = 0x368C7CA2, flip = true }
+level = 54
+series = "IE3"
+roster = "exact"
+
+  [[team.member]]
+  slot = 0
+  card = 0x56000FB0   # Jay Pan
+  number = 1
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 1
+  card = 0xA253CC14   # Ben Curd
+  number = 2
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 2
+  card = 0x8DE5997F   # Ken Mayfield
+  number = 3
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 3
+  card = 0xFFB18F27   # Becca Pilgreen
+  number = 4
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 4
+  card = 0x8ECD1172   # Sue Accharin
+  number = 5
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 5
+  card = 0xF924C83D   # Severin Volei
+  number = 6
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 6
+  card = 0x7FFB223B   # Fanella Waftgood
+  number = 7
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 7
+  card = 0x3BCC15A9   # Monarch Rome
+  number = 8
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 8
+  card = 0x3178DECB   # Ralph Chasing
+  number = 9
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 9
+  card = 0x4DA54BDA   # Sagaminator
+  number = 10
+  rarity_step = 1
+  captain = true
+
+  [[team.member]]
+  slot = 10
+  card = 0xB6655EFA   # Brava Hardy
+  number = 11
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 11
+  card = 0x7AEAB14F   # Alex Copple
+  number = 12
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 12
+  card = 0x96144A04   # Poppy Playhard
+  number = 13
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 13
+  card = 0x034EBC49   # Kit Fischer
+  number = 14
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 14
+  card = 0x9489ED52   # Connor Seuer
+  number = 15
+  rarity_step = 1
+
+  [[team.member]]
+  slot = 15
+  card = 0x1A558D08   # Becks Binder
+  number = 16
+  rarity_step = 1
+
+[team.emblem]
+png = "assets/images/teams/emblems/512/ie3_specials.png"
+base = "em030058"
+catalog = "shared"
+
+[team.text.es]
+name = "Los Especialistas"
+short = "Los Especialistas"
+
+[team.text.en]
+name = "The Specialists"
+short = "The Specialists"
+
+[team.text.fr]
+name = "The Specialists"
+short = "The Specialists"
+
+[team.text.de]
+name = "The Specialists"
+short = "The Specialists"
+
+[team.text.it]
+name = "Specialisti"
+short = "Specialisti"
+
+[team.text.pt]
+name = "The Specialists"
+short = "The Specialists"
+
+[team.text.ja]
+name = "スペシャルズ"
+short = "スペシャルズ"
+
+[team.text.zh_hans]
+name = "The Specialists"
+short = "The Specialists"
+
+[team.text.zh_hant]
+name = "The Specialists"
+short = "The Specialists"
+
+# each player plays its card's first 4 moves (the engine reads them from the card; the Hiper comes from its slot 9)
+[[edit]]
+target = "ct_wk_specials"
+card_moves = 4

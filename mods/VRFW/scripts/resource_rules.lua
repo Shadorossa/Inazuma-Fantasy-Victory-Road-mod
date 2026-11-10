@@ -1,13 +1,8 @@
--- Match resource rules. Declarations: every active mod's content\resource_rules\*.toml (`VRFW.resource_rule/1`); native side: content\game\resource_rules.toml.
---   * [[VRFW.ShotSpend]] gauge = "kizuna": spend_on_shot = false: a shot does not spend the team's kizuna gauge; return_on_shot = false: nothing is returned after a shot (later mod wins per key).
---   * [[VRFW.OffPitch]]: players kept off the pitch without a red card; IsSentOff / IsSentOffById answer 0 for handles in the exported table Resource.OffPitch.
---     ApplyTeamLayout is bracketed by signals vrfw.off_pitch.layout and vrfw.off_pitch.layout_done so the mod can clear and restore its member bits.
---   * Cost points (aura cost check, aura release, pending pay, tension pay) are hook-bus providers listed in the boot log.
+-- Match resource rules.
 
-local D = require "lib/declarations"
-local E = require "lib/game_entries"
+local D = VRFW.declarations
+local E = VRFW.entries
 
-require "VRFW/lib/basics"
 local info, warn = VRFW.logger("resource_rules")
 
 -- Gauges a [[VRFW.ShotSpend]] may name: gauge -> { key -> patch that turns the key's `false` on }.
@@ -25,8 +20,6 @@ local COST_ENTRIES = {
 }
 
 local OFF_LIVE = false
-
--- ---------------------------------------------------------------------------------------------- declarations
 
 local function apply_patch(name)
   local ok, done, e = pcall(VRFW.patch.apply, name)
@@ -141,8 +134,6 @@ local function start()
 end
 
 start()
-
--- ---------------------------------------------------------------------------------------------- ApplyTeamLayout
 
 if OFF_LIVE then
   VRFW.on("hook:Resource.TeamLayout", function()

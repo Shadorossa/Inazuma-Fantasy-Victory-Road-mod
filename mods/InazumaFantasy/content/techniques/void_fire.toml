@@ -1,6 +1,4 @@
 schema = "VRFW.technique/3"
-# Fuego vacío (Void Fire): the download's move whk93045, a clone of whk00450 with its numbers; its event ev63_93045_1 is the download's
-# (assets\event\, assets\event_cfg\). research/scripts/hissatsu_revamp_build.py.
 
 [[technique]]
 name = "void_fire"

@@ -1,6 +1,5 @@
 schema = "VRFW.character/2"
-# The Daily Legendary Rival plays at Nv. 250 (content\teams\free_match_section.toml): rivals may go above the level
-# cap up to this level; the player's own cap stays as it is (VR-Framework [VRFW.RivalLevel], docs/framework/system.md §3).
+# Rivals may go up to Nv.
 
 [VRFW.RivalLevel]
 Max = 250

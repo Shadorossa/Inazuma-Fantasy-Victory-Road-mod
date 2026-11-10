@@ -1,15 +1,12 @@
 schema = "VRFW.character/2"
-# Character Reforged · Red Matador · Inazuma Eleven 3
-# The per-card stats (Lv200 values, growth, growth pattern, rank) and learn lists (moves) of the retail
-# characters. Only the fields that differ from the retail game.
 
 [[edit]]
-target = "c03032610"                                   # Fermín Sánchez
+target = "c03032610"
 moves = [
-  { move = 0x7CACF0B0, level = 12 },                        # Horn Train
   { move = 0xECD991E4, level = 20 },                        # The Stinger
   { move = 0xC0FD6AFB, level = 45 },                        # Fireball Head
   { move = 0x8E7E960B, level = 60 },                        # Drill Smasher
+  { move = 0xDBA0E5E3, level = 70 },                        # Gigant Wall
 ]
 
   [[edit.cards]]
@@ -19,10 +16,10 @@ moves = [
   stats = { kick = 126, control = 177, technique = 150, pressure = 293, physical = 220, intelligence = 239, agility = 254, freedom = 255 }
 
 [[edit]]
-target = "c03032620"                                   # José Costa
+target = "c03032620"
 moves = [
   { move = 0x17A96A44, level = 1 },                         # Clone Faker
-  { move = 0x105C91A7, level = 1 },                         # Slingshot
+  { move = 0x105C91A7, level = 11 },                        # Slingshot
   { move = 0x60F8D774, level = 28 },                        # Gravestone
   { move = 0x4E9A9232, level = 48 },                        # Spinning Cut
 ]
@@ -34,12 +31,12 @@ moves = [
   stats = { kick = 92, control = 209, technique = 217, pressure = 293, physical = 193, intelligence = 336, agility = 194, freedom = 325 }
 
 [[edit]]
-target = "c03032630"                                   # Rafael López
+target = "c03032630"
 moves = [
   { move = 0x1D8F2331, level = 10 },                        # Yo-Yo Ball
   { move = 0x7A67325B, level = 16 },                        # Flame Dance
   { move = 0x5E233E68, level = 50 },                        # Super Elastico
-  { move = 0x3AD8DFD1, level = 62 },                        # Curving Cut
+  { move = 0xB5B7108F, level = 60 },                        # Shadow Stitch
 ]
 
   [[edit.cards]]
@@ -52,9 +49,9 @@ moves = [
 target = "c03032640"                                   # Antonio Gallego
 moves = [
   { move = 0x1D8F2331, level = 10 },                        # Yo-Yo Ball
-  { move = 0xBA833662, level = 30 },                        # Million Hands
   { move = 0x55C71D2A, level = 39 },                        # About Face
   { move = 0x34E4CEAB, level = 57 },                        # Barbarian Shield
+  { move = 0x2FB941B3, level = 67 },                        # Stone Prison
 ]
 
   [[edit.cards]]
@@ -69,7 +66,7 @@ moves = [
   { move = 0x1D8F2331, level = 10 },                        # Yo-Yo Ball
   { move = 0x750E6DAB, level = 28 },                        # Matador Feint
   { move = 0x105C91A7, level = 36 },                        # Slingshot
-  { move = 0x08EEBD53, level = 51 },                        # Feint Play
+  { move = 0x7A67325B, level = 46 },                        # Flame Dance
 ]
 
   [[edit.cards]]
@@ -128,8 +125,8 @@ target = "c03032690"                                   # Miguel Pereira
 moves = [
   { move = 0x105C91A7, level = 1 },                         # Slingshot
   { move = 0x17A96A44, level = 43 },                        # Clone Faker
-  { move = 0x49041E53, level = 47 },                        # Crosscut Feint
   { move = 0x38094535, level = 60 },                        # Sub-Terfuge
+  { move = 0x4890FB67, level = 70 },                        # Twin Boost
 ]
 
   [[edit.cards]]
@@ -155,12 +152,12 @@ moves = [
   stats = { kick = 324, control = 262, technique = 251, pressure = 119, physical = 184, intelligence = 170, agility = 178, freedom = 250 }
 
 [[edit]]
-target = "c03032710"                                   # Davi Peroqué
+target = "c03032710"
 moves = [
   { move = 0x105C91A7, level = 40 },                        # Slingshot
   { move = 0x750E6DAB, level = 46 },                        # Matador Feint
-  { move = 0x240BEDF2, level = 53 },                        # Bounce Shot
   { move = 0x4890FB67, level = 60 },                        # Twin Boost
+  { move = 0x4AD6453E, level = 70 },                        # Back Tornado
 ]
 
   [[edit.cards]]
@@ -186,7 +183,7 @@ moves = [
   stats = { kick = 239, control = 167, technique = 128, pressure = 294, physical = 163, intelligence = 211, agility = 273, freedom = 313 }
 
 [[edit]]
-target = "c03032730"                                   # Isaac César
+target = "c03032730"
 moves = [
   { move = 0x518BCA26, level = 11 },                        # Fire Tornado
   { move = 0x105C91A7, level = 15 },                        # Slingshot
@@ -206,8 +203,8 @@ target = "c03032740"                                   # Laudelino Castor
 moves = [
   { move = 0x025FD09B, level = 8 },                         # Volcano Cut
   { move = 0x1D8F2331, level = 10 },                        # Yo-Yo Ball
-  { move = 0x91AE65A1, level = 48 },                        # Giant Spider
   { move = 0x73C5AF40, level = 54 },                        # Dash Accelerator
+  { move = 0x750E6DAB, level = 64 },                        # Matador Feint
 ]
 
   [[edit.cards]]
@@ -236,8 +233,8 @@ target = "c03032760"                                   # Federico Rubiera
 moves = [
   { move = 0x1D8F2331, level = 10 },                        # Yo-Yo Ball
   { move = 0x105C91A7, level = 15 },                        # Slingshot
-  { move = 0x6B4A7B35, level = 39 },                        # Power Shot
   { move = 0x5E233E68, level = 64 },                        # Super Elastico
+  { move = 0x78E027BC, level = 74 },                        # Shine Drive
 ]
 
   [[edit.cards]]

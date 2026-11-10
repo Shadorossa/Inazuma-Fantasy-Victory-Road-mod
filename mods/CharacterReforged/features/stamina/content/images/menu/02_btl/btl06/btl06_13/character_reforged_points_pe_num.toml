@@ -1,0 +1,87 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num"
+size = [400, 56]
+png = "plate_pe_num/character_reforged_points_pe_num.png"
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num0"
+texture = "character_reforged_points_pe_num"
+x = 4
+y = 4
+size = [32, 48]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num1"
+texture = "character_reforged_points_pe_num"
+x = 44
+y = 4
+size = [32, 48]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num2"
+texture = "character_reforged_points_pe_num"
+x = 84
+y = 4
+size = [32, 48]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num3"
+texture = "character_reforged_points_pe_num"
+x = 124
+y = 4
+size = [32, 48]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num4"
+texture = "character_reforged_points_pe_num"
+x = 164
+y = 4
+size = [32, 48]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num5"
+texture = "character_reforged_points_pe_num"
+x = 204
+y = 4
+size = [32, 48]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num6"
+texture = "character_reforged_points_pe_num"
+x = 244
+y = 4
+size = [32, 48]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num7"
+texture = "character_reforged_points_pe_num"
+x = 284
+y = 4
+size = [32, 48]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num8"
+texture = "character_reforged_points_pe_num"
+x = 324
+y = 4
+size = [32, 48]
+
+[[sprite]]
+atlas = "#/menu/02_btl/character_reforged_points_hud/<LG>/character_reforged_points_hud.g4tx"
+name = "character_reforged_points_pe_num9"
+texture = "character_reforged_points_pe_num"
+x = 364
+y = 4
+size = [32, 48]

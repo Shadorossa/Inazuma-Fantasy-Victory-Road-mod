@@ -1,0 +1,25 @@
+schema = "VRFW.game/2"
+
+# Emblem picker tabs of the mods (logic scripts\emblem_tabs.lua, declarations content\emblem_tabs, type emblem_tab).
+
+# The equip picker's list rebuild (0x1076400, called by CMND_SET_EQUIP_LIST_FILTER 0xCF27D0) ends with:
+# The pattern starts at 0x107656D (`rva`) and the hooked `call` is `offset` bytes later, at 0x1076580.
+# 0x107656D: mov rcx, rdi; call the sort type; mov edx, eax; xor r9d, r9d; mov r8b, 1; mov rcx, rbx (the list, view + 0x1E0); call ItemListSort
+[[VRFW.Hook]]
+name = "VRFW.EquipPickerListBuilt"
+kind = "call"
+pattern = "48 8B CF E8 ?? ?? ?? ?? 8B D0 45 33 C9 41 B0 01 48 8B CB E8 ?? ?? ?? ?? 48 8B 5C 24 70"
+offset = 19
+rva = 0x107656D
+target_rva = 0xD9AE30
+arguments = ["ptr", "u32", "u8", "ptr"]
+
+# -> array of { key, mod, icon, icon_off, emblems } of the declared tabs, in bar order (icons as sprite ids)
+[[VRFW.Command]]
+name = "CMND_VRFW_EMBLEM_TABS"
+handler = "EmblemTabs.List"
+
+# (key): the tab whose emblems the picker's list keeps from its next rebuild on, "" for no tab -> the tab's emblem count
+[[VRFW.Command]]
+name = "CMND_VRFW_EMBLEM_TAB_SELECT"
+handler = "EmblemTabs.Select"

@@ -1,66 +1,29 @@
--- Character Reforged › the player page's 3D model in a match (graft plate_model, capture layer evt_pp_model_cap).
--- Declarations: content\game\player_page_capture.toml; engine side
---   CMND_CHARACTERREFORGED_PAGE_CAPTURE_CONFIG()  -> mode, camera, report, bust
---        mode 0 off / 1 in a match / 2 every screen; camera = the capture camera's name crc; report 1 = log the
---        report after each build; bust 1 = the bust camera (the model is placed at the origin for it)
---   CMND_CHARACTERREFORGED_PAGE_CAPTURE_REPORT(when, key, camera, model)  -> 1
---        loader.log: the menu capture render-texture pool (types 2 / 3: every cell, «ours» = the model key), the
---        render targets of slots 2 / 3, whether the camera is in the external camera config, the pause freeze state
---        and the model's CharaRenderProperty (model = its scene chara handle)
---   CMND_CHARACTERREFORGED_PAGE_CAPTURE_LIVE(on)  -> status
---        on 1: the capture models kept live in a pause (VRFW.render.capture_live); 0: left to the game (1 done, -1 not
---        available)
---   CMND_CHARACTERREFORGED_PAGE_CAPTURE_BIND(key, mesh)  -> 1 / -1
---        the framework keeps the quad mesh's render-texture entry on the capture model's live cell
---        (VRFW.render.capture_bind; key 0 = release); -1 = not available (loader.log says why)
---   CMND_CHARACTERREFORGED_PAGE_CAPTURE_BOUND()  -> 1 the quad shows the capture cell, 0 not yet, -1 not available
---   CMND_CHARACTERREFORGED_PAGE_CAPTURE_DRAWN(reset)  -> state
---        reset 1: a new wait starts (the capture quad was just set up), answers 2; reset 0: 1 = the framework's capture
---        probe saw a mesh of a capture model drawn into its render texture since then, 0 = none in
---        [player_page] match_no_draw_polls calls, 2 = still waiting, -1 = no probe (VRFW [debug] capture_pause_probe off)
 
 CharacterReforged = CharacterReforged or {}
 CharacterReforged.PageCapture = CharacterReforged.PageCapture or {}
 local P = CharacterReforged.PageCapture
 
-local MODES = {off = 0, match = 1, always = 2}   -- "auto": "match" while the framework's capture probe runs, else "off"
+local MODES = {off = 0, match = 1, always = 2}
 local CAMERAS = {vs = 0xB7EE99E6, bust = 0x059B5FFD}   -- VS screen full body (512 x 512, FOV 20); keeper gauge bust
 local POOL_TYPES = {2, 3}
 local MAX_ENTRIES, MAX_CAMERAS = 64, 4096
 
-require "VRFW/lib/basics"
 local log = VRFW.logger("player_page_capture")
 
-local function setting(path, default)
-  local ok, value = pcall(VRFW.files.config, path)
-  if not ok or value == nil then return default end
-  return value
-end
+local setting = VRFW.config
 
-local function read(kind, addr)
-  if type(addr) ~= "number" or addr == 0 then return nil end
-  local ok, v = pcall(VRFW.mem.read, kind, addr)
-  if ok then return v end
-  return nil
-end
+local read = VRFW.memory.read
 
-local Id = require "VRFW/lib/ids"
-local function hex(v)
-  if type(v) ~= "number" then return tostring(v) end
-  return Id.hex(v)
-end
+local Id = VRFW.ids
+local hex = Id.hex_text
 
 local function hex64(v)
   if type(v) ~= "number" then return tostring(v) end
   return string.format("0x%X%08X", math.floor(v / 4294967296), v % 4294967296)
 end
 
--- the game profile's value of a name (a struct field's offset, a struct's size, an offset), nil when it does not resolve
-local function field(name)
-  local ok, v = pcall(VRFW.game.field, name)
-  if ok and type(v) == "number" then return v end
-  return nil
-end
+-- the game profile's value of a name (lib/profile.lua)
+local field = require("lib/profile").field
 
 -- the address of a game profile global, nil when it does not resolve
 local function global_address(name)
@@ -69,7 +32,6 @@ local function global_address(name)
   return nil
 end
 
--- the profile field `name` of the record at `base` (+ `extra` bytes); nil when the record or the field is unknown
 local function read_field(kind, base, name, extra)
   local at = field(name)
   if type(base) ~= "number" or not at then return nil end
@@ -93,7 +55,6 @@ function P.Config()
   local camera = CAMERAS[camera_name] or (type(camera_name) == "number" and camera_name) or CAMERAS.vs
   local report = setting("player_page.capture_report", false) == true and 1 or 0
   local live = setting("player_page.match_live_pause", false) == true and 1 or 0
-  -- the quad stays hidden until the probe sees the model drawn (no white placeholder); only with the probe
   local gate = (has_probe and setting("player_page.match_quad_until_drawn", true) == true) and 1 or 0
   if mode ~= MODES.off or name == "auto" then
     log(string.format("config: match_model %s -> mode %d, capture probe %s, quad until drawn %d", tostring(name), mode,
@@ -102,7 +63,7 @@ function P.Config()
   return mode, camera, report, camera == CAMERAS.bust and 1 or 0, live, gate
 end
 
-local wait = nil   -- the current wait for a drawn capture: probe session / drawn frames at its start, polls, answer
+local wait = nil
 
 local function probe_line(s, why)
   log(string.format("probe %s: session %d frames %d paused %d drawn %d since draw %d idle %d ms | last frame queued %d into target %d type-1 pass %d no target %d draw flag off %d",
@@ -197,7 +158,8 @@ local function report_camera(camera)
     log("camera config: not reachable (Camera.ExternalConfig " .. tostring(config and hex(config) or "unresolved") .. ")")
     return
   end
-  local ok, names = pcall(VRFW.mem.read_array, "u32", entries + name_at, count, entry_size)
+  local names = VRFW.memory.read_array("u32", entries + name_at, count, entry_size)
+  local ok = names ~= nil
   if not ok or type(names) ~= "table" then
     log("camera config: entries not readable")
     return
@@ -253,8 +215,6 @@ local function report_model(model)
   end
 end
 
--- on 1: the capture models kept live in a pause (VRFW.render.capture_live: the frozen texture of a pause is not shown,
--- the render texture the model is drawn into each frame is); 0: left to the game again
 function P.Live(on)
   local live = VRFW.render and VRFW.render.capture_live
   if type(live) ~= "function" then return -1 end
@@ -270,7 +230,7 @@ end
 function P.Bind(key, mesh)
   local bind = VRFW.render and VRFW.render.capture_bind
   if type(bind) ~= "function" then return -1 end
-  local ok, why = bind(type(key) == "number" and key % 4294967296 or 0, type(mesh) == "number" and mesh % 4294967296 or 0)
+  local ok, why = bind(Id.unsigned(key), Id.unsigned(mesh))
   if not ok then
     log("quad binding not available: " .. tostring(why))
     return -1
@@ -278,7 +238,6 @@ function P.Bind(key, mesh)
   return 1
 end
 
--- the last binding state logged (one line when it changes: why a quad stays hidden until bound)
 local bound_seen = nil
 
 function P.Bound()
@@ -298,14 +257,14 @@ end
 
 function P.Report(when, key, camera, model)
   local ok, err = pcall(function()
-    key = type(key) == "number" and key % 4294967296 or 0
-    camera = type(camera) == "number" and camera % 4294967296 or CAMERAS.vs
+    key = Id.unsigned(key)
+    camera = Id.unsigned_or(camera, CAMERAS.vs)
     log("report " .. tostring(when) .. " (model key " .. hex(key) .. ")")
     report_pool(key)
     report_targets()
     report_camera(camera)
     report_pause()
-    report_model(type(model) == "number" and model % 4294967296 or 0)
+    report_model(Id.unsigned(model))
   end)
   if not ok then log("report failed: " .. tostring(err)) end
   return 1

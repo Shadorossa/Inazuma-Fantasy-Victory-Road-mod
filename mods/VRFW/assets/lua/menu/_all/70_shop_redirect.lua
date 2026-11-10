@@ -1,39 +1,30 @@
--- VRFW › shop redirect, menu side (every script VM). A menu opens a shop by writing its id to the param store
--- (funcLuaCommand(CMND_SET_PARAM, 0xCE4A397E, 0, shop id, 1)) before it opens shop_menu. When a mod redirects that shop
--- ([[VRFW.ShopRedirect]], scripts\shop_redirects.lua), the declared target's id is written instead, so every menu entry
--- of the shop (mode menus, shortcuts, other mods' boxes) opens the target. The engine's funcLuaCommand is wrapped the
--- moment it is registered; the list is asked once per VM, at the first shop id written. No engine call at load time.
---
--- A shop redirected to a contact set (`contact_set`): the shop id is written as it is; the next opening of the shop
--- screen (CMND_OPEN_MENU_OBJECT of shop_menu / shop_menu_basara_top) in this VM opens vrfw_contact_map_menu on that set
--- instead, and while that screen is up the opener's checks of the shop screen (CMND_IS_EXIST_MENU_OBJECT and the
--- menu-ready check) answer for it, so the opener waits for the screen and comes back the retail way when it closes.
-if VRFW_ShopRedirect == nil then
+-- VRFW › shop redirect, menu side (every script VM).
+if VRFW.shop_redirect == nil then
   local R = {
-    SET_PARAM = VRFW_Cmd.PARAM_SET,     -- CMND_SET_PARAM(key, index, value, kind)
-    CLEAR_PARAM = VRFW_Cmd.PARAM_DELETE,   -- CMND_CLEAR_PARAM(key)
+    SET_PARAM = VRFW.commands.PARAM_SET,
+    CLEAR_PARAM = VRFW.commands.PARAM_DELETE,
     SHOP_PARAM = 3460970878,    -- the param store key of the shop shop_menu opens
-    LIST = VRFW_Cmd.VRFW_SHOP_REDIRECTS,          -- CMND_VRFW_SHOP_REDIRECTS() -> n, from 1, to 1, …
-    SCREENS = VRFW_Cmd.VRFW_SHOP_SCREENS,       -- CMND_VRFW_SHOP_SCREENS() -> n, from 1, set 1, …
-    REG_FIND = VRFW_Cmd.VRFW_REG_FIND,      -- CMND_VRFW_REG_FIND(type, key) -> id (-1)
-    LOG = VRFW_Cmd.EVT_LOG,           -- CMND_EVT_LOG
-    OPEN_MENU = VRFW_Cmd.OPEN_MENU_OBJECT,      -- CMND_OPEN_MENU_OBJECT(menu)
-    MENU_READY = VRFW_Cmd.IS_CLOSING_MENU_OBJECT,    -- (menu) -> true once the opened menu is up (the Mercado's wait asks it)
-    IS_MENU = VRFW_Cmd.IS_EXIST_MENU_OBJECT,       -- CMND_IS_EXIST_MENU_OBJECT(menu) (funcLuaMenuCommand)
+    LIST = VRFW.commands.VRFW_SHOP_REDIRECTS,          -- CMND_VRFW_SHOP_REDIRECTS() -> n, from 1, to 1, …
+    SCREENS = VRFW.commands.VRFW_SHOP_SCREENS,       -- CMND_VRFW_SHOP_SCREENS() -> n, from 1, set 1, …
+    REG_FIND = VRFW.commands.VRFW_REG_FIND,
+    LOG = VRFW.commands.VRFW_LOG,           -- CMND_VRFW_LOG
+    OPEN_MENU = VRFW.commands.OPEN_MENU_OBJECT,
+    MENU_READY = VRFW.commands.IS_CLOSING_MENU_OBJECT,
+    IS_MENU = VRFW.commands.IS_EXIST_MENU_OBJECT,
     SHOP_MENUS = {[3170360552] = true --[[shop_menu]], [713974531] = true --[[shop_menu_basara_top]]},
-    SCREEN = 1355292071,        -- crc32("vrfw_contact_map_menu")
+    SCREEN = 1355292071,
     KEY_SET = 1128821923,       -- crc32("vrfw_contact_set"): the screen's parameter
-    KEY_HUB = 3979190066,       -- crc32("vrfw_contact_hub"): the set, for a hub menu (the free-match list)
-    HUB = VRFW_Cmd.VRFW_CONTACT_HUB,           -- CMND_VRFW_CONTACT_HUB (set) -> { menu, title }
+    KEY_HUB = 3979190066,
+    HUB = VRFW.commands.VRFW_CONTACT_HUB,           -- CMND_VRFW_CONTACT_HUB (set) -> { menu, title }
     map = nil,                  -- shop id -> target shop id (this VM)
     screens = nil,              -- shop id -> contact set crc (this VM)
     pending = nil,              -- the contact set of the shop id just written
-    alias = nil,                -- {from = shop screen asked by the opener, to = the contact map screen}
+    alias = nil,
     hooked = {},
   }
-  VRFW_ShopRedirect = R
+  VRFW.shop_redirect = R
 
-  local function unsigned(v) return VRFW_Id.u32_or(v, nil) end
+  local function unsigned(v) return VRFW.ids.unsigned_or(v, nil) end
 
   local function shop_id(real, v)
     if type(v) == "number" then return unsigned(v) end
@@ -61,7 +52,6 @@ if VRFW_ShopRedirect == nil then
     end
   end
 
-  -- the contact map screen instead of the shop screen: its set parameter, then the screen
   local function open_screen(real, shop_menu)
     local set = R.pending
     R.pending = nil
@@ -113,7 +103,7 @@ if VRFW_ShopRedirect == nil then
         local up = real(cmd, R.alias.to)
         if up ~= true then
           R.alias = nil            -- the screen closed: the shop screen's own answers again
-          pcall(funcLuaCommand, VRFW_Cmd.VRFW_CONTACT_HUB_FILTER, 0)   -- a hub's list filter off
+          pcall(funcLuaCommand, VRFW.commands.VRFW_CONTACT_HUB_FILTER, 0)   -- a hub's list filter off
         end
         return up
       end
@@ -134,7 +124,6 @@ if VRFW_ShopRedirect == nil then
     end
   end
   if #pending_names > 0 then
-    -- the engine registers its functions after the chunks ran: wrap them then (chained onto any earlier __newindex)
     local okm, meta = pcall(getmetatable, _ENV)
     if okm and (meta == nil or type(meta) == "table") then
       if meta == nil then

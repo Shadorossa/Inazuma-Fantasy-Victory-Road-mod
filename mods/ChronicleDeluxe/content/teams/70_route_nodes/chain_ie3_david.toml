@@ -1,0 +1,385 @@
+schema = "VRFW.team/2"
+default_lang = "es"
+
+# IE3 «Dave's Ultimate Tournament» (Team Ogre board PracticeGame3F.dat): its tiles, links, rivals and chests as in the original; rivals at their IE3 level + 81 (the IE3 story shift).
+[[VRFW.RouteNode]]
+Name = "ie3_chain_david"
+Slot = 292
+After = "fbtl_cro03_190_010"             # Raimon equipo B (the IE3 final): its win opens the node
+Beside = "fbtl_cro03_180_010"            # Pequeños Gigantes: the move link
+Dir = "LU"
+Pos = [-6.5, 30.5]                       # the forest village's sandy plaza above Pequeños Gigantes, a straight LU road from its pad
+Team = "tm_cro_legend_IE3_06"         # only gives the piece a game (never played)
+TemplateGame = "fbtl_cro03_190_010"
+Difficulties = [4]                     # cleared when every match of the chain is won
+Icon = "assets/images/teams/70_route_nodes/chain_ie3_david.png"   # David Evans (c06039010) face bust (chain_icon_build.py)
+Chain = "ie3_david"
+  [VRFW.RouteNode.Title]
+  es = "Torneo especial de David"
+  en = "Dave's Ultimate Tournament"
+  fr = "Tournoi spécial de David"
+  de = "Davids Spezialturnier"
+  it = "Super torneo di David Evans"
+  pt = "Torneio especial do David"
+  ja = "大介の特別大会"
+  zh_hans = "大介的特别大赛"
+  zh_hant = "大介的特別大賽"
+
+[[VRFW.Chain]]
+Name = "ie3_david"
+TemplateGame = "fbtl_cro03_190_010"
+Difficulty = 4
+RivalStats = "normal"
+Rules = "chronicle_deluxe_chain"
+  [VRFW.Chain.Title]
+  es = "Torneo especial de David"
+  en = "Dave's Ultimate Tournament"
+  fr = "Tournoi spécial de David"
+  de = "Davids Spezialturnier"
+  it = "Super torneo di David Evans"
+  pt = "Torneio especial do David"
+  ja = "大介の特別大会"
+  zh_hans = "大介的特别大赛"
+  zh_hant = "大介的特別大賽"
+  [VRFW.Chain.Board]
+  Cols = 4
+  Rows = 3
+
+  [[VRFW.Chain.Page]]
+    Title = { es = "Duelo", en = "Duel", fr = "Duel", de = "Duell", it = "Sfida", pt = "Duelo", ja = "たいせん", zh_hans = "对战", zh_hant = "對戰" }
+  [[VRFW.Chain.Page]]
+    Title = { es = "Duelo", en = "Duel", fr = "Duel", de = "Duell", it = "Sfida", pt = "Duelo", ja = "たいせん", zh_hans = "对战", zh_hant = "對戰" }
+
+  [[VRFW.Chain.RankReward]]
+  Rank = "A"
+  Rival = "emblem"
+  [[VRFW.Chain.RankReward]]
+  Rank = "S"
+  Item = "abl_000001"
+  IfMod = "HissatsuReforged"
+  Text = "chronicle_deluxe_chain_prize_upgrade_book"
+
+  [[VRFW.Chain.Tile]]
+  Id = "start"
+  Kind = "start"
+  Pos = [1, 2]
+  Links = ["asian_allstars", "dork_emperors"]
+
+  # 1: Astros Asiáticos / Asian Allstars (IE3 level 40)
+  [[VRFW.Chain.Tile]]
+  Id = "asian_allstars"
+  Kind = "match"
+  Pos = [1, 1]
+  Team = "ChronicleDeluxe.ct_wk_asia_senbatsu"
+  Level = 121
+  Links = ["brocken_brigade"]
+
+  # 2: Brocken Brigade / Brocken Brigade (IE3 level 43)
+  [[VRFW.Chain.Tile]]
+  Id = "brocken_brigade"
+  Kind = "match"
+  Pos = [2, 1]
+  Team = "tm_cro_legend_IE3_06"
+  Level = 124
+  Links = ["european"]
+
+  # 3: Astros Europeos / European Allstars (IE3 level 46)
+  [[VRFW.Chain.Tile]]
+  Id = "european"
+  Kind = "match"
+  Pos = [3, 1]
+  Team = "ChronicleDeluxe.ct_wk_europe_senbatsu"
+  Level = 127
+  Links = ["group_a_allstars"]
+
+  # 4: Astros del Grupo A / Group A Allstars (IE3 level 49)
+  [[VRFW.Chain.Tile]]
+  Id = "group_a_allstars"
+  Kind = "match"
+  Pos = [4, 1]
+  Team = "tm_cro_legend_IE3_02"
+  Level = 130
+  Links = ["cape_crusaders"]
+
+  # 5: Caimanes del Cabo / The Cape Crusaders (IE3 level 52)
+  [[VRFW.Chain.Tile]]
+  Id = "cape_crusaders"
+  Kind = "match"
+  Page = 2
+  Pos = [1, 1]
+  Team = "tm_cro_legend_IE3_07"
+  Level = 133
+  Links = ["s_american"]
+
+  # 6: Astros Sudamericanos / S. American Allstars (IE3 level 55)
+  [[VRFW.Chain.Tile]]
+  Id = "s_american"
+  Kind = "match"
+  Page = 2
+  Pos = [2, 1]
+  Team = "ChronicleDeluxe.ct_wk_nanbei_senbatsu"
+  Level = 136
+  Links = ["american"]
+
+  # 7: Astros Americanos / American Allstars (IE3 level 60)
+  [[VRFW.Chain.Tile]]
+  Id = "american"
+  Kind = "match"
+  Page = 2
+  Pos = [3, 1]
+  Team = "ChronicleDeluxe.ct_wk_america_tairiku_senbatsu"
+  Level = 141
+  Links = ["chest_1"]
+
+  # chest: IE3 reward «Fuerza ofensiva» (no VR item: empty)
+  [[VRFW.Chain.Tile]]
+  Id = "chest_1"
+  Kind = "chest"
+  Page = 2
+  Pos = [4, 1]
+  Links = ["s_chest_1"]
+
+  # the S chest (every match of its branch won with rank S): IE3 reward «Fuerza veloz» (no VR item: empty)
+  [[VRFW.Chain.Tile]]
+  Id = "s_chest_1"
+  Kind = "schest"
+  Page = 2
+  Pos = [4, 2]
+
+  # 8: Memos Imperiales / The Dork Emperors (IE3 level 35)
+  [[VRFW.Chain.Tile]]
+  Id = "dork_emperors"
+  Kind = "match"
+  Pos = [1, 3]
+  Team = "ChronicleDeluxe.ct_wk_dork_emperors"
+  Level = 116
+  Links = ["front_back_kings"]
+  Challenge = "ChronicleDeluxe.NoKeeperMoves"   # IE3 Team Ogre board condition (ClearCondition 10): no goalkeeping special moves
+
+  # 9: Royal Claustro A / Front & Back Kings (IE3 level 53)
+  [[VRFW.Chain.Tile]]
+  Id = "front_back_kings"
+  Kind = "match"
+  Pos = [2, 3]
+  Team = "tm_cro_legend_IE2_12"
+  Level = 134
+  Links = ["doppelgangers"]
+
+  # 10: Los Impostores / The Doppelgangers (IE3 level 56)
+  [[VRFW.Chain.Tile]]
+  Id = "doppelgangers"
+  Kind = "match"
+  Pos = [3, 3]
+  Team = "ChronicleDeluxe.ct_wk_doppelgangers"
+  Level = 137
+  Links = ["woods"]
+  Challenge = "ChronicleDeluxe.OnlyEarth"   # IE3 Team Ogre board condition (ClearCondition 4): Earth players only
+
+  # 11: Guardabosques / The Woods (IE3 level 59)
+  [[VRFW.Chain.Tile]]
+  Id = "woods"
+  Kind = "match"
+  Pos = [4, 3]
+  Team = "ChronicleDeluxe.ct_wk_the_woods"
+  Level = 140
+  Links = ["mountains"]
+  Challenge = "ChronicleDeluxe.OnlyWind"   # IE3 Team Ogre board condition (ClearCondition 1): Air players only
+
+  # 12: Montañeros / The Mountains (IE3 level 62)
+  [[VRFW.Chain.Tile]]
+  Id = "mountains"
+  Kind = "match"
+  Page = 2
+  Pos = [1, 3]
+  Team = "ChronicleDeluxe.ct_wk_the_mountains"
+  Level = 143
+  Links = ["canny_keepers"]
+  Challenge = "ChronicleDeluxe.OnlyFire"   # IE3 Team Ogre board condition (ClearCondition 3): Fire players only
+
+  # 13: Porteros Imbatibles / Canny Keepers (IE3 level 50)
+  [[VRFW.Chain.Tile]]
+  Id = "canny_keepers"
+  Kind = "match"
+  Page = 2
+  Pos = [2, 3]
+  Team = "ChronicleDeluxe.ct_wk_the_keepers"
+  Level = 131
+  Links = ["ultrasquad_omega"]
+  Challenge = "ChronicleDeluxe.NoShootMoves"   # IE3 Team Ogre board condition (ClearCondition 9): no shooting special moves
+
+  # 14: Ultrapatrulla Omega / Ultrasquad Omega (IE3 level 66)
+  [[VRFW.Chain.Tile]]
+  Id = "ultrasquad_omega"
+  Kind = "match"
+  Page = 2
+  Pos = [2, 2]
+  Team = "ChronicleDeluxe.ct_wk_narikiri_sentai"
+  Level = 147
+  Links = ["young_inazuma"]
+  Challenge = "ChronicleDeluxe.BoysOnly"   # IE3 Team Ogre board condition (ClearCondition 6): boys only
+
+  # 15: Jóvenes Inazuma / Young Inazuma (IE3 level 70)
+  [[VRFW.Chain.Tile]]
+  Id = "young_inazuma"
+  Kind = "match"
+  Page = 2
+  Pos = [3, 2]
+  Team = "tm_tutorial_002"
+  Level = 151
+  Links = ["chest_2"]
+
+  # chest: IE3 reward «Fuerza defensiva» (no VR item: empty)
+  [[VRFW.Chain.Tile]]
+  Id = "chest_2"
+  Kind = "chest"
+  Page = 2
+  Pos = [3, 3]
+  Links = ["s_chest_2"]
+
+  # the S chest (every match of its branch won with rank S): IE3 reward «Fuerza de tiro» (no VR item: empty)
+  [[VRFW.Chain.Tile]]
+  Id = "s_chest_2"
+  Kind = "schest"
+  Page = 2
+  Pos = [4, 3]
+
+# no in-match drops in this chain's matches (the rewards are the end-of-match win prizes above)
+# ChronicleDeluxe.OnlyEarth / OnlyWind / OnlyFire: declared by chain_ie1_sonny.toml; GirlsOnly / BoysOnly: chain_ares_legend.toml
+
+[[VRFW.MatchChallenge]]
+Name = "ChronicleDeluxe.NoShootMoves"
+Title = "chronicle_deluxe_mc_no_shoot_moves"
+Scope = "squad"
+UntilFirstClear = true
+Difficulties = [4]
+  [VRFW.MatchChallenge.Moves]          # the user's team cannot use shooting special moves in the match
+  Banned = ["shoot"]
+  Sides = "user"
+
+[[VRFW.MatchChallenge]]
+Name = "ChronicleDeluxe.NoKeeperMoves"
+Title = "chronicle_deluxe_mc_no_keeper_moves"
+Scope = "squad"
+UntilFirstClear = true
+Difficulties = [4]
+  [VRFW.MatchChallenge.Moves]          # the user's team cannot use goalkeeping special moves in the match
+  Banned = ["keeper"]
+  Sides = "user"
+
+# the line-up this match plays when the club cannot field its challenge (docs/framework/match-challenge.md, supplied squad)
+[[VRFW.GameRival]]
+Game = "vrfw_chain_match_ie3_david_10"
+Difficulties = [1]
+OwnTeam = "ChronicleDeluxe.ct_wk_the_mountains"
+OwnLevel = 137
+
+# the line-up this match plays when the club cannot field its challenge (docs/framework/match-challenge.md, supplied squad)
+[[VRFW.GameRival]]
+Game = "vrfw_chain_match_ie3_david_11"
+Difficulties = [1]
+OwnTeam = "ChronicleDeluxe.ct_wk_the_windies"
+OwnLevel = 140
+
+# the line-up this match plays when the club cannot field its challenge (docs/framework/match-challenge.md, supplied squad)
+[[VRFW.GameRival]]
+Game = "vrfw_chain_match_ie3_david_12"
+Difficulties = [1]
+OwnTeam = "ChronicleDeluxe.ct_wk_the_fires"
+OwnLevel = 143
+
+# the line-up this match plays when the club cannot field its challenge (docs/framework/match-challenge.md, supplied squad)
+[[VRFW.GameRival]]
+Game = "vrfw_chain_match_ie3_david_14"
+Difficulties = [1]
+OwnTeam = "bb_01_team_raimon"
+OwnLevel = 147
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_01"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_02"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_03"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_04"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_05"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_06"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_07"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_08"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_09"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_10"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_11"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_12"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_13"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_14"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"
+
+[[VRFW.GameDrops]]
+Game = "vrfw_chain_match_ie3_david_15"
+ItemDrop = "0xF6ED1C39"
+SpiritDrop = "0xE523407A"
+SpiritDrop2 = "0xE523407A"

@@ -1,0 +1,28 @@
+schema = "VRFW.technique/3"
+# Guardia celestial: Ultramanos magicas (whk01660) with only its central giant, golden, in a rainbow aura.
+
+[[technique]]
+name = "guardia_celestial"
+base = "whk01660"
+manual = true
+event = "InazumaFantasy.guardia_celestial"
+fail_event = "InazumaFantasy.guardia_celestial_fail"
+description_text = "base"
+  [technique.text.es]
+  name = "Guardia celestial"
+  [technique.text.en]
+  name = "Celestial Guard"
+  [technique.text.fr]
+  name = "Garde céleste"
+  [technique.text.de]
+  name = "Himmelswacht"
+  [technique.text.it]
+  name = "Guardia Celeste"
+  [technique.text.pt]
+  name = "Guarda Celestial"
+  [technique.text.ja]
+  name = "セレスティアルガード"
+  [technique.text.zh_hans]
+  name = "天界守护"
+  [technique.text.zh_hant]
+  name = "天界守護"

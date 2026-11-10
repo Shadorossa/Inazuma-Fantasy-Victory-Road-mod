@@ -1,0 +1,26 @@
+schema = "VRFW.look/2"
+# The armour of the keshin k002030, its own head and back pieces: one extra mesh per skeleton.
+
+[[exmesh]]
+model = "kani01"
+rows = [
+  ["_armd/kani01/kani01.g4md", "_armd/kani01/kani01_10.g4tx", 0],
+]
+
+[[exmesh]]
+model = "kani01_p1"
+rows = [
+  ["_armd/kani01/kani01_g2.g4md", "_armd/kani01/kani01_10.g4tx", 1],
+]
+
+[[exmesh]]
+model = "kani01_p2"
+rows = [
+  ["_armd/kani01/kani01_g4.g4md", "_armd/kani01/kani01_10.g4tx", 2],
+]
+
+[[exmesh]]
+model = "kani01_p3"
+rows = [
+  ["_armd/kani01/kani01_g5.g4md", "_armd/kani01/kani01_10.g4tx", 3],
+]

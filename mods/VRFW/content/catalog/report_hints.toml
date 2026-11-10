@@ -1,6 +1,5 @@
 schema = "VRFW.catalog/1"
-# Fix hints per report code, shown by the Mods panel report, `vrfw check` and `vrfw explain`. Built into the framework.
-# [[hint]] code, text; a code without a hint is a type's own note.
+# Fix hints per report code, shown by the Mods panel report, `vrfw check` and `vrfw explain`.
 
 [[hint]]
 code = "unknown_key"
@@ -8,7 +7,7 @@ text = "check the spelling of the key; the message lists the keys accepted there
 
 [[hint]]
 code = "missing_key"
-text = "add the key; the type's page in docs/framework/types/ lists the required keys"
+text = "add the key; the type's page in docs/internal/types/ lists the required keys"
 
 [[hint]]
 code = "bad_value"
@@ -20,7 +19,7 @@ text = "fix the TOML syntax on that line: quotes, `=`, brackets, commas"
 
 [[hint]]
 code = "no_schema"
-text = "put `schema = \"VRFW.<kind>/<version>\"` on its own line before any [table] (the legacy `vr_framework.<kind>` is read too)"
+text = "put `schema = \"VRFW.<kind>/<version>\"` on its own line before any [table] (the legacy `VRFW.<kind>` is read too)"
 
 [[hint]]
 code = "unknown_kind"
@@ -75,12 +74,8 @@ code = "id_collision"
 text = "two names got the same number: rename one entry; never edit the ids files by hand"
 
 [[hint]]
-code = "deprecated_lua"
-text = "use the Lua command the message names; the old name goes away in 3.0"
-
-[[hint]]
 code = "reserved_name"
-text = "rename it with your mod's own prefix (`<MOD>_…`, `<mod>.…`): `VRFW_` / `vrfw.` names belong to VRFW"
+text = "rename it with your mod's own prefix (`<Prefix>.…` from mod.toml): `VRFW.` / `vrfw.` names belong to VRFW"
 
 [[hint]]
 code = "enabled_ignored"
@@ -121,6 +116,14 @@ text = "switch one of the two mods off: they declare they cannot run together"
 [[hint]]
 code = "duplicate_mod"
 text = "two folders have the same id: delete or rename the older folder"
+
+[[hint]]
+code = "if_mod_unknown"
+text = "the id in if_mod / if_not_mod is no installed mod: fix the spelling (the message names the closest id)"
+
+[[hint]]
+code = "if_mod_unlisted"
+text = "add the named mod to `optional` in mod.toml so it loads before this mod"
 
 [[hint]]
 code = "mod_not_loaded"

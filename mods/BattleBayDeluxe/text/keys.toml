@@ -1,11 +1,8 @@
 schema = "VRFW.text_key/1"
-# «Battle Bay Deluxe» (mod id BattleBayDeluxe; the name is not translated; «Chronicle Teams in Battle Bay» before
-# ): the mod's name and description on the «Mods» screen, in the game's language (docs/framework/mods-panel.md §3.2).
-# The teams' own names are the game's (each team's name_text).
 
 [en.new]
 mod_name = "Battle Bay Deluxe"
-mod_description = "Adds the Chronicle mode teams to the Battle Bay as teams to pick and rivals: 221 teams at level 40, with their original players, kits, formations, emblems, special tactics and special moves. Besides the Campaign, play with your active team, a Draft (pick 1 of 5 players for each place of your squad), a Tournament, a League, a daily challenge and a private 1v1 Multiplayer room (in testing). Every player can use all his special moves, whatever his level."
+mod_description = "Adds the 221 Chronicle teams to the Battle Bay as teams to pick and rivals, with their original players, kits and special moves. Play with your active team, a Draft, a Tournament, a League, a daily challenge or a private 1v1 room."
 ruleset_bbd_knockout = "Battle Bay tournament: knockout (extra time + penalties)"
 ruleset_bbd_final = "Battle Bay tournament: final (extra time + penalties, champions' celebration)"
 bb_talk_pool_01 = "Let's give it everything!"
@@ -41,7 +38,7 @@ bb_talk_pool_30 = "Come at us if you dare!"
 
 [es.new]
 mod_name = "Battle Bay Deluxe"
-mod_description = "Añade los equipos del modo Crónica a Bahía Batalla como equipos elegibles y rivales: 221 equipos a nivel 40, con sus jugadores, equipaciones, formaciones, escudos, supertácticas y supertécnicas originales. Además de la Campaña, juega con tu equipo activo, un Draft (elige 1 de 5 jugadores para cada puesto de tu plantilla), un Torneo, una Liga, un reto diario y una sala Multijugador privada 1 contra 1 (en pruebas). Cada jugador puede usar todas sus supertécnicas, sea cual sea su nivel."
+mod_description = "Añade los 221 equipos de Crónica a Bahía Batalla como equipos elegibles y rivales, con sus jugadores, equipaciones y supertécnicas originales. Juega con tu equipo activo, un Draft, un Torneo, una Liga, un reto diario o una sala privada 1 contra 1."
 ruleset_bbd_knockout = "Torneo de Bahía Batalla: eliminatoria (prórroga + penaltis)"
 ruleset_bbd_final = "Torneo de Bahía Batalla: final (prórroga + penaltis, celebración de campeones)"
 bb_talk_pool_01 = "¡Vamos a por todas!"
@@ -77,7 +74,7 @@ bb_talk_pool_30 = "¡Venid a por nosotros si os atrevéis!"
 
 [fr.new]
 mod_name = "Battle Bay Deluxe"
-mod_description = "Ajoute les équipes du mode Chronique à la Baie Bataille comme équipes sélectionnables et adversaires : 221 équipes au niveau 40, avec leurs joueurs, maillots, formations, emblèmes, supertactiques et supertechniques d'origine. En plus de la Campagne, joue avec ton équipe active, une Draft (choisis 1 joueur sur 5 pour chaque place de ton effectif), un Tournoi, une Ligue, un défi quotidien et un salon Multijoueur privé en 1 contre 1 (en test). Chaque joueur peut utiliser toutes ses supertechniques, quel que soit son niveau."
+mod_description = "Ajoute les 221 équipes de Chronique à la Baie Bataille comme équipes sélectionnables et adversaires, avec leurs joueurs, maillots et supertechniques d'origine. Joue avec ton équipe active, une Draft, un Tournoi, une Ligue, un défi quotidien ou une salle privée en 1 contre 1."
 ruleset_bbd_knockout = "Tournoi de la Baie Bataille : élimination (prolongation + tirs au but)"
 ruleset_bbd_final = "Tournoi de la Baie Bataille : finale (prolongation + tirs au but, célébration des champions)"
 bb_talk_pool_01 = "Donnons tout !"
@@ -113,7 +110,7 @@ bb_talk_pool_30 = "Venez nous affronter si vous l'osez !"
 
 [de.new]
 mod_name = "Battle Bay Deluxe"
-mod_description = "Fügt die Teams des Chronik-Modus als wählbare Teams und Gegner zur Kampfbucht hinzu: 221 Teams auf Level 40, mit ihren ursprünglichen Spielern, Trikots, Formationen, Wappen, Spezialtaktiken und Spezialtechniken. Neben der Kampagne spielst du mit deinem aktiven Team, einem Draft (wähle 1 von 5 Spielern für jeden Platz deines Kaders), einem Turnier, einer Liga, einer täglichen Herausforderung und einem privaten 1-gegen-1-Mehrspielerraum (in der Testphase). Jeder Spieler kann alle seine Spezialtechniken einsetzen, egal auf welchem Level."
+mod_description = "Fügt die 221 Chronik-Teams als wählbare Teams und Gegner zur Kampfbucht hinzu, mit ihren ursprünglichen Spielern, Trikots und Spezialtechniken. Spiele mit deinem aktiven Team, einem Draft, einem Turnier, einer Liga, einer täglichen Herausforderung oder einem privaten 1-gegen-1-Raum."
 ruleset_bbd_knockout = "Kampfbucht-Turnier: K.-o. (Verlängerung + Elfmeterschießen)"
 ruleset_bbd_final = "Kampfbucht-Turnier: Finale (Verlängerung + Elfmeterschießen, Siegerfeier)"
 bb_talk_pool_01 = "Wir geben alles!"
@@ -149,7 +146,7 @@ bb_talk_pool_30 = "Kommt doch, wenn ihr euch traut!"
 
 [it.new]
 mod_name = "Battle Bay Deluxe"
-mod_description = "Aggiunge le squadre della modalità Cronaca alla Baia Battaglia come squadre selezionabili e avversarie: 221 squadre al livello 40, con i loro giocatori, divise, formazioni, stemmi, supertattiche e supertecniche originali. Oltre alla Campagna, gioca con la tua squadra attiva, un Draft (scegli 1 giocatore su 5 per ogni posto della tua rosa), un Torneo, un Campionato, una sfida giornaliera e una stanza Multigiocatore privata 1 contro 1 (in fase di test). Ogni giocatore può usare tutte le sue supertecniche, qualunque sia il suo livello."
+mod_description = "Aggiunge le 221 squadre della Cronaca alla Baia Battaglia come squadre selezionabili e avversarie, con i loro giocatori, divise e supertecniche originali. Gioca con la tua squadra attiva, un Draft, un Torneo, un Campionato, una sfida giornaliera o una stanza privata 1 contro 1."
 ruleset_bbd_knockout = "Torneo della Baia Battaglia: eliminazione (supplementari + rigori)"
 ruleset_bbd_final = "Torneo della Baia Battaglia: finale (supplementari + rigori, festa dei campioni)"
 bb_talk_pool_01 = "Diamo il massimo!"
@@ -185,7 +182,7 @@ bb_talk_pool_30 = "Fatevi sotto, se ne avete il coraggio!"
 
 [pt.new]
 mod_name = "Battle Bay Deluxe"
-mod_description = "Adiciona os times do modo Crônica à Baía Batalha como times selecionáveis e rivais: 221 times no nível 40, com seus jogadores, uniformes, formações, escudos, supertáticas e supertécnicas originais. Além da Campanha, jogue com o seu time ativo, um Draft (escolha 1 de 5 jogadores para cada posição do seu elenco), um Torneio, uma Liga, um desafio diário e uma sala Multijogador privada 1 contra 1 (em testes). Cada jogador pode usar todas as suas supertécnicas, seja qual for o seu nível."
+mod_description = "Adiciona as 221 equipas da Crónica à Baía Batalha como equipas selecionáveis e rivais, com os seus jogadores, equipamentos e supertécnicas originais. Joga com a tua equipa ativa, um Draft, um Torneio, uma Liga, um desafio diário ou uma sala privada 1 contra 1."
 ruleset_bbd_knockout = "Torneio da Baía Batalha: eliminatória (prorrogação + pênaltis)"
 ruleset_bbd_final = "Torneio da Baía Batalha: final (prorrogação + pênaltis, festa dos campeões)"
 bb_talk_pool_01 = "Vamos dar tudo!"
@@ -221,7 +218,7 @@ bb_talk_pool_30 = "Venham, se tiverem coragem!"
 
 [ja.new]
 mod_name = "Battle Bay Deluxe"
-mod_description = "クロニクルモードのチームを、BBスタジアムで選べるチーム・対戦相手として追加します：レベル40の221チーム。元の選手・ユニフォーム・フォーメーション・エンブレム・必殺タクティクス・必殺技がそのまま使われます。キャンペーンに加え、アクティブチームでのプレイ、ドラフト（チームの各ポジションごとに5人から1人を選ぶ）、トーナメント、リーグ、デイリーチャレンジ、1対1のプライベートマルチプレイルーム（テスト中）で遊べます。どの選手もレベルに関係なくすべての必殺技を使えます。"
+mod_description = "クロニクルの221チームを、BBスタジアムで選べるチーム・対戦相手として追加します。元の選手・ユニフォーム・必殺技がそのまま使われます。アクティブチームでのプレイ、ドラフト、トーナメント、リーグ、デイリーチャレンジ、1対1のプライベートルームで遊べます。"
 ruleset_bbd_knockout = "BBトーナメント：ノックアウト（延長＋PK戦）"
 ruleset_bbd_final = "BBトーナメント：決勝（延長＋PK戦、優勝セレモニー）"
 bb_talk_pool_01 = "全力でいくぞ！"
@@ -257,7 +254,7 @@ bb_talk_pool_30 = "かかってこい、受けて立つ！"
 
 [zh_hans.new]
 mod_name = "Battle Bay Deluxe"
-mod_description = "将编年史模式的队伍加入BB体育场，作为可选择的队伍和对手：221支等级40的队伍，保留原有的球员、球衣、阵型、队徽、必杀战术和必杀技。除战役外，还可以用当前队伍比赛，或选择选秀（为阵容的每个位置从5名球员中选1名）、锦标赛、联赛、每日挑战，以及私人1对1多人房间（测试中）。每名球员无论等级都能使用他的全部必杀技。"
+mod_description = "将编年史的221支队伍加入BB体育场，作为可选择的队伍和对手，保留原有的球员、球衣和必杀技。可以用当前队伍比赛，或体验选秀、锦标赛、联赛、每日挑战以及私人1对1房间。"
 ruleset_bbd_knockout = "BB锦标赛：淘汰赛（加时＋点球）"
 ruleset_bbd_final = "BB锦标赛：决赛（加时＋点球，冠军庆典）"
 bb_talk_pool_01 = "全力以赴吧！"
@@ -293,7 +290,7 @@ bb_talk_pool_30 = "有胆量就放马过来！"
 
 [zh_hant.new]
 mod_name = "Battle Bay Deluxe"
-mod_description = "將編年史模式的隊伍加入BB體育場，作為可選擇的隊伍和對手：221支等級40的隊伍，保留原有的球員、球衣、陣型、隊徽、必殺戰術和必殺技。除戰役外，還可以用目前隊伍比賽，或選擇選秀（為陣容的每個位置從5名球員中選1名）、錦標賽、聯賽、每日挑戰，以及私人1對1多人房間（測試中）。每名球員無論等級都能使用他的全部必殺技。"
+mod_description = "將編年史的221支隊伍加入BB體育場，作為可選擇的隊伍和對手，保留原有的球員、球衣和必殺技。可以用目前隊伍比賽，或體驗選秀、錦標賽、聯賽、每日挑戰以及私人1對1房間。"
 ruleset_bbd_knockout = "BB錦標賽：淘汰賽（延長＋PK）"
 ruleset_bbd_final = "BB錦標賽：決賽（延長＋PK，冠軍慶典）"
 bb_talk_pool_01 = "全力以赴吧！"

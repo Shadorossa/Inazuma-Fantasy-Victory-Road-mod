@@ -1,189 +1,102 @@
--- menu_engine: top bar shortcuts. Runs in every script VM (lua\_all) but only acts in a
--- menu whose setting has the layer `evt_topbar_icon` (a mod adds it with a [[patch]] add_layer, next to the shared
--- header mainmenu90_01_header), plus the title (title_menu_2: the deferred hand-off below). There, while the header is
--- open (CMND_IS_OPEN_MENU_OBJECT: a funcLuaCommand id), the host's gate (if any) says yes and the entries' atlases are
--- in, the entries of the host `top_bar` ([[entry]] host = "top_bar") are drawn as a row of icons at the RIGHT edge of
--- the header bar; picking one goes back to the title with the retail reset and the title opens that mode (the
--- title hand-off a mod declares, [top_bar_title]).
---
--- Layers (added only, never a retail object swapped): evt_topbar_plate (hover / current plates) and evt_topbar_icon
--- (the glyphs), both cmn01_10_new_icon quads placed by Lua (align left / top, POS (x, -y) in screen px).
--- Draw order: the bar's layers (row, hint, dropdown) are above anything of any hub (TB.PRIO, 1006-1012, applied again
--- each time the row shows); the row hides while a screen fade runs.
--- Input:
---   pointer  mouse or VR's free cursor (the stick-driven virtual mouse: it moves the pointer without the engine's «mouse
---            moved» flag, so a position change counts too): hover = highlight, LEFT CLICK = go (MENU_CTRL command
---            CMD_EVT_MOUSE_LEFT: the mouse button alone; declared by the mod in inputs\), or Accept / the free cursor's A
---            (CMD_ENTER_CLICK) while the pointer leads and rests on an icon. A menu arrow gives the lead back to the keys.
---   D-pad    UP on the menu's top-most element (UP that moves no focus within NAV_WAIT frames, or that wraps the focus to
---            a lower element: the wrap is undone) puts the focus in the bar: the current mode's icon, else the icon
 --            nearest in x to the element. The menu is set inactive meanwhile (MENU_ACTIVE false: it sees none of the
---            bar's keys). LEFT / RIGHT = previous / next icon (no wrap, as the retail button rows), A / Enter = go,
---            DOWN or B = back to the element it came from (the menu is reactivated once that key is released).
---   open     the open button (`open` hosts): CMD_VRFW_TOPBAR_OPEN, the rebindable action a mod declares (e.g.
---            «Abrir accesos directos» in the game's «Configuración de controles», default L3 / N; its glyph hint left of
---            the row) = into the bar on the current mode's icon; again, DOWN or B = out. None declared: LS / N read
---            from the devices.
---   pad / kb TAP / HOLD of CMD_EVT_TOPBAR_ON (held state; no mod declares it) = highlight the next
---            icon / go to the highlighted one.
--- Host rules: the mods declare them per menu (`[[top_bar_host]]` in their menus TOML: gate, leave, session, dpad, open,
--- open_yield, rank_centre, standalone, variants, open_hold, active_only; old names r3 / r3_yield / r3_hold), read at OnInit with CMND_VRFW_MENU_TOPBAR_HOST; this file names no menu of any mod. The
--- header's rank plate (its layer, the header node it hangs from, the centred x, the row edge that avoids it) is the
--- `[top_bar_rank]` the framework / a mod declares (same command, after the host rules).
--- The state plates (evt_tb_hover / evt_tb_current / evt_tb_back) come from the atlas the mod that styles the bar
--- declares (`[VRFW.TopBarStyle] PlatesAtlas`, the command's last value); none: the first icon's atlas, with a WARN.
--- Leaving a host (path in the log, «go … path …»):
---   direct   (OFF: TB.DIRECT = false) an entry with `action.direct`: params, auto-save, fade, the next state written as the title would and
---            the retail reset with the title skipped (CMND_VRFW_MENU_TOPBAR_DIRECT): the target opens with nothing in
---            between (ResetDirect); refused = the title round trip below
---   reset    the default: params, auto-save, fade, the Mercado's reset to the title (GoCo)
---   leave    the host's own `leave` function (a global of its VM) instead of the retail reset
---   session  a host over an overlay save session (`session = true`): its `leave` closes the session first; the target
---            waits in param evt_top_bar_defer and the title (this file, title_menu_2 VM) resets into it once no
---            session and no `session` host menu is left
--- The title hand-off (which param the title reads, the focus item / param of `focus` actions, stale params to clear) is
--- the `[top_bar_title]` a mod declares (CMND_VRFW_MENU_TOPBAR_TITLE); without one `title` / `focus` actions are refused.
--- Groups: an entry `action = { group = "<key>" }` is one icon in the bar whose dropdown
--- (under it, while the icon is hovered / has the pad focus) shows the entries that declare `group = "<key>"`, any mod's,
--- by their order, as ONE HORIZONTAL ROW OF ICONS without labels, centred under the group's icon and
--- kept on screen; a group with no entry left (blocked, mode off) is not shown. Pad: DOWN (or A) on the group = into the
--- dropdown on its first icon, LEFT / RIGHT = previous / next icon of the dropdown (no wrap), A = go, UP or B = back to
--- the group's icon (dropdown closed). Mouse: hover opens it; icon + gap + panel are one hover region (the icon under
--- the pointer lit, a click on it goes); off it the dropdown closes after DROP_GRACE frames, at once on a click
--- outside, Esc / B or another icon. Layers evt_topbar_drop_plate (panel, focused-icon highlight) and
--- evt_topbar_drop_icon (the icons); the styling mod's label objects (global VRFW_TopBarDropLabel) are kept hidden
--- (called with on = false). A host without those layers shows no group.
--- Badges: global VRFW_TopBarBadges[<entry key>] = {tex = <menu path>, sprite = <name>} set by a mod in
--- the same VM marks that entry's icon (a dot at its top-right corner, plate instance MAX); nil = no badge.
 -- Safety: refused (buzzer) while a message window is open, a fade runs, the game saves, a reserved slot's game (a mod's
--- mode, CMND_VRFW_SLOT_RESERVED) is in memory outside its session host, another shortcut is in flight, or the icon is
--- the current mode (its `menus` exist). Engine calls only from OnInit / Step / layer callbacks (nothing at chunk load).
-if VRFW_TopBar == nil then
+if VRFW.top_bar == nil then
   local TB = {
     Y = 34, SIZE = 46, CELL_K = 1.55, GAP = 6, RIGHT = 1892, PLATE = 60, -- row geometry (screen px; fits a short header bar of 67 px)
     HOVER_SCALE = 1.06,                                  -- the highlighted icon grows a little (Windows-like: subtle)
     HOLD = 42, SEL_FRAMES = 300, CHECK_EVERY = 6, MAX = 8,   -- MAX: set at Init from the layer count
     NAV_WAIT = 4,                                        -- frames an UP may take to move the menu's focus
-    -- diagnostics (loader.log «EVT top_bar <menu> dbg …»): first Step, the raw header-open answer, the texture wait,
-    -- once per menu open every entry's quad (pos, size, visible, GPOS read back), the pointer, the D-pad focus moves.
-    DEBUG = false,   -- release the «dbg» lines of loader.log only with true
-    TEX_MIN = 10, TEX_MAX = 600,                         -- frames: texture wait before the first draw
+    DEBUG = false,   -- release the "dbg" lines of loader.log only with true
+    TEX_MIN = 10, TEX_MAX = 600,
     DEFER_MAX = 3600,                                    -- title: frames a deferred target may wait, then dropped
-    -- the straight reset (`action.direct`): CMND_GAME_RESET wipes the loaded game (the rpg scene's exit) and only
-    -- the title scene reads the slot back, so the bar keeps the game in memory first (CMND_VRFW_SLOT_CARRY, save
-    -- engine) and the new rpg scene's InitState loads it back before it opens the target (the «alineaciones vacías» bug). false = every `title` entry takes the title round trip.
     DIRECT = true,
-    -- a group's dropdown, one row of icons: cell width (at least; a wide icon gets a wider cell), cell height,
-    -- icon height, inner margin, gap under the bar, icons at most; the screen width and the margin the panel keeps
     DROP_CELL = 60, DROP_H = 56, DROP_ICON = 38, DROP_PAD = 6, DROP_GAP = 4, DROP_MAX = 6,
     SCREEN_W = 1920, SCREEN_MARGIN = 8,
     DROP_GRACE = 15,                                     -- frames (~250 ms) the pointer may be off icon + dropdown
     dsel = nil, dshut = false, has_drop = false, xs = {}, ws = {}, drop_drawn = false, drop_out = nil,
     on = false, menu = nil, entries = {}, shown = false, sel = nil, sel_t = 0, held = 0, mouse = false,
-    px = nil, py = nil, prev = {},  -- last pointer position read; command -> pressed last frame (edges)
+    px = nil, py = nil, prev = {},
     co = nil, frame = 0, wrapped = false, logn = 0, cur = {}, block = false,
     tex_ready = false, tex_t = 0, dbg_open = nil, dbg_steps = 0, dbg_gpos = false, dbg_ptr = false,
-    -- D-pad: the menu's focus as last seen (OnChangeFocus / the focus-set command), the bar focus, the pending UP
     has_back = false, back_on = false,
     fev = 0, flayer = nil, fidx = nil, nav = false, nav_from = nil, up = nil, release = nil, self_focus = false,
     defer_t = 0, right = 1892, rank_log = false,
-    -- draw priorities (the layers' 2D order across every open menu; not a material priority, so the <= 30 limit of
-    -- models / effects does not apply). The bar, its dropdown and its hint are above anything
-    -- of any hub (retail tops out at 999 focus arrows / badges and 1000 pointers; only the recommended-training window
-    -- 1103 / 1104 and the tutorial fade 9999 are higher). The objects are declared with these numbers by the styling
-    -- mod (its PRIO table); they are applied again each time the row shows (Raise), so a layer a
-    -- menu's Lua re-prioritised, or a host whose objects another mod declared, still ends on top. Layer name -> prio.
-    PRIO = {evt_topbar_back = 1006, evt_topbar_plate = 1007, evt_topbar_icon = 1008, evt_topbar_hint = 1009,
-            evt_topbar_drop_plate = 1010, evt_topbar_drop_icon = 1011, evt_topbar_drop_label = 1012},
+    PRIO = {vrfw_topbar_back = 1006, vrfw_topbar_plate = 1007, vrfw_topbar_icon = 1008, vrfw_topbar_hint = 1009,
+            vrfw_topbar_drop_plate = 1010, vrfw_topbar_drop_icon = 1011, vrfw_topbar_drop_label = 1012},
     raised = false, fading = false,
   }
-  VRFW_TopBar = TB
-  EvtTopBar = TB   -- 1.x name
+  VRFW.top_bar = TB
 
-  local L_ICON, L_PLATE = 430410954 --[[evt_topbar_icon]], 458408972 --[[evt_topbar_plate]]
-  local L_BACK = 301818918 --[[evt_topbar_back: the glass strip of a standalone row]]
-  local L_DPLATE = 2234308820 --[[evt_topbar_drop_plate: instance 0 the dropdown's panel, 1 the row highlight]]
-  local L_DICON = 53409741 --[[evt_topbar_drop_icon: the dropdown's row icons]]
-  local L_DLABEL = 4195704679 --[[evt_topbar_drop_label: the row labels (the styling mod's object; hidden at setup)]]
+  local L_ICON, L_PLATE = 2854477426 --[[vrfw_topbar_icon]], 3730537440 --[[vrfw_topbar_plate]]
+  local L_BACK = 2725852830 --[[vrfw_topbar_back: the glass strip of a standalone row]]
+  local L_DPLATE = 2487596098 --[[vrfw_topbar_drop_plate: instance 0 the dropdown's panel, 1 the row highlight]]
+  local L_DICON = 1799961878 --[[vrfw_topbar_drop_icon: the dropdown's row icons]]
+  local L_DLABEL = 3950785521 --[[vrfw_topbar_drop_label: the row labels (the styling mod's object; hidden at setup)]]
   local HEADER = 575058101            -- mainmenu90_01_header
-  -- the header's rank plate ([top_bar_rank], read at OnInit into TB.rank): its layer (plate), the header node it hangs
-  -- from (node). The header skeleton is shared by every menu, so the plate keeps its place and only the hosts with
-  -- `rank_centre` move the node at runtime (node translation to the declared header-local `centre_x`). Hosts without it
-  -- keep the plate where it is and the row ends at `avoid_right`. Nothing declared: the plate is ignored.
-  local NODE_POS = 2575768773         -- (layer, idx, node, axis 0 x / 1 y, value): node local translation
+  local NODE_POS = 2575768773
   local NODE_QUAD = 1909474081        -- icon_new01 (the cmn01_10 quad's sprite node)
   local MESH_QUAD = 312193881         -- its mesh (CMND_SET_PRIM_COLOR)
   local Q = 36                        -- cmn01_10 quad size
+  local VRFW_Cmd = VRFW.commands -- the D6 MENU_ACTIVE line of C keeps its HEAD text
   local C = {
-    LOG = VRFW_Cmd.EVT_LOG, LAYER_NUM = VRFW_Cmd.GET_CREATE_LAYER_NUM, DRAW_PRIO = VRFW_Cmd.SET_DRAW_PRIORITY --[[CMND_SET_DRAW_PRIORITY (layer, idx, prio, children)]], IS_OPEN = VRFW_Cmd.IS_OPEN_MENU_OBJECT, EXISTS = VRFW_Cmd.IS_EXIST_MENU_OBJECT,
-    VISIBLE = VRFW_Cmd.SET_LAYER_VISIBLE, SCALE = VRFW_Cmd.SET_LAYER_LOCAL_SCALE, POS = VRFW_Cmd.SET_LAYER_LOCAL_POS, SPRITE = 558735651, PRIM_COLOR = VRFW_Cmd.SET_PRIM_COLOR,
-    LOAD_TEX = VRFW_Cmd.LOAD_MENU_RES_TEXTURE, TEX_LOADING = 1506186496,
-    CHECK_INPUT = VRFW_Cmd.CHECK_INPUT_CMD, MENU_CTRL = 1332654303, ANALOG_CTRL = 2748927068 --[[MENU_CTRL_WITH_ANALOG_MOVE_FOCUS]],
-    KEY = 423089863 --[[CMD_EVT_TOPBAR_ON]],
+    LAYER_NUM = VRFW.commands.GET_CREATE_LAYER_NUM, DRAW_PRIO = VRFW.commands.SET_DRAW_PRIORITY --[[CMND_SET_DRAW_PRIORITY (layer, idx, prio, children)]], IS_OPEN = VRFW.commands.IS_OPEN_MENU_OBJECT, EXISTS = VRFW.commands.IS_EXIST_MENU_OBJECT,
+    VISIBLE = VRFW.commands.SET_LAYER_VISIBLE, SCALE = VRFW.commands.SET_LAYER_LOCAL_SCALE, POS = VRFW.commands.SET_LAYER_LOCAL_POS, SPRITE = 558735651, PRIM_COLOR = VRFW.commands.SET_PRIM_COLOR,
+    LOAD_TEX = VRFW.commands.LOAD_MENU_RES_TEXTURE, TEX_LOADING = 1506186496,
+    CHECK_INPUT = VRFW.commands.CHECK_INPUT_CMD, MENU_CTRL = 1332654303, ANALOG_CTRL = 2748927068 --[[MENU_CTRL_WITH_ANALOG_MOVE_FOCUS]],
+    KEY = 333012723 --[[CMD_VRFW_TOPBAR_ON]],
     OPEN = 4165572102 --[[CMD_VRFW_TOPBAR_OPEN: the bar's open button, a mod's rebindable input action, e.g. L3 / N]],
-    INPUT_ACTION = VRFW_Cmd.VRFW_INPUT_ACTION --[[CMND_VRFW_INPUT_ACTION (command or action id) -> the action's declaration]],
-    CLICK = 218912913 --[[CMD_EVT_MOUSE_LEFT]], MOVED = 3272825600, POINTER = 558229292, GPOS = 4002164178,
+    INPUT_ACTION = VRFW.commands.VRFW_INPUT_ACTION --[[CMND_VRFW_INPUT_ACTION (command or action id) -> the action's declaration]],
+    CLICK = 749879980 --[[CMD_VRFW_MOUSE_LEFT]], MOVED = 3272825600, POINTER = 558229292, GPOS = 4002164178,
     ENTER_CLICK = 1651523701 --[[CMD_ENTER_CLICK: mouse, Enter, A]], ENTER = 1981080283 --[[CMD_ENTER: Enter, A]],
     CANCEL = 3602695835 --[[CMD_CANCEL: Esc, B]],
     UP = 1197218715, DOWN = 3259546669, LEFT = 2765147006, RIGHT = 2075023265,
     FOCUS_SET = 1778826357 --[[(layer, idx, on): the control focus on / off an element (retail ChangeFocusToNextLayer)]],
-    SE = VRFW_Cmd.SND_PLAY_SE, SE_GO = 766561556 --[[sy0080]], SE_NO = 2086672038 --[[sy0003]], SE_MOVE = 3848881948,
+    SE = VRFW.commands.SND_PLAY_SE, SE_GO = 766561556 --[[sy0080]], SE_NO = 2086672038 --[[sy0003]], SE_MOVE = 3848881948,
     SE_BACK = 202039849 --[[sy0006]],
     MENU_ACTIVE = 1558704558, MSG_BUSY = 898725220, IS_FADE = VRFW_Cmd.BRIGHT_IS_FADE, SAVE_WORKING = 1979970074,
-    SESSION = VRFW_Cmd.VRFW_SESSION_STATE, SLOT_ACTIVE = VRFW_Cmd.VRFW_SLOT_ACTIVE,
-    SLOT_RESERVED = VRFW_Cmd.VRFW_SLOT_RESERVED,
-    TB_HOST = {VRFW_Cmd.VRFW_MENU_TOPBAR_HOST, VRFW_Cmd.VRFW_MENU_TOPBAR_HOST},
-    TB_TITLE = {VRFW_Cmd.VRFW_MENU_TOPBAR_TITLE, VRFW_Cmd.VRFW_MENU_TOPBAR_TITLE},
-    AUTO_SAVE = VRFW_Cmd.SYSTEM_AUTO_SAVE, FADE = 609722083, FADE_DONE = 2259183189, BUSY = 2736534827,
-    GAME_RESET = VRFW_Cmd.GAME_RESET,
-    CARRY = VRFW_Cmd.VRFW_SLOT_CARRY,
+    SESSION = VRFW.commands.VRFW_SESSION_STATE, SLOT_ACTIVE = VRFW.commands.VRFW_SLOT_ACTIVE,
+    SLOT_RESERVED = VRFW.commands.VRFW_SLOT_RESERVED,
+    TB_HOST = {VRFW.commands.VRFW_MENU_TOPBAR_HOST, VRFW.commands.VRFW_MENU_TOPBAR_HOST},
+    TB_TITLE = {VRFW.commands.VRFW_MENU_TOPBAR_TITLE, VRFW.commands.VRFW_MENU_TOPBAR_TITLE},
+    AUTO_SAVE = VRFW.commands.SYSTEM_AUTO_SAVE, FADE = 609722083, FADE_DONE = 2259183189, BUSY = 2736534827,
+    GAME_RESET = VRFW.commands.GAME_RESET,
+    CARRY = VRFW.commands.VRFW_SLOT_CARRY,
   }
   C.NAV = {C.UP, C.DOWN, C.LEFT, C.RIGHT}
-  -- the focus look of a menu element (input guard): control focus queries, the Focus animation, the cursor locator
-  C.CTRL_FOCUS_ACTIVE = VRFW_Cmd.IS_CTRL_FOCUS_ACTIVE --[[CMND_IS_CTRL_FOCUS_ACTIVE (layer)]]
+  C.CTRL_FOCUS_ACTIVE = VRFW.commands.IS_CTRL_FOCUS_ACTIVE --[[CMND_IS_CTRL_FOCUS_ACTIVE (layer)]]
   C.FOCUS_INDEX = 2603265800 --[[(layer) -> the focused instance]]
-  C.LAYER_EXISTS = VRFW_Cmd.IS_EXIST_LAYER --[[CMND_IS_EXIST_LAYER (layer)]]
-  C.PLAY_ANIME = VRFW_Cmd.PLAY_ANIME_TYPE --[[CMND_PLAY_ANIME_TYPE (layer, idx, type, state, set)]]
-  C.ATTACH_TRACE = VRFW_Cmd.SET_LAYER_ATTACH_LOCATOR_TRACE --[[CMND_SET_LAYER_ATTACH_LOCATOR_TRACE (layer, idx, locator, on)]]
+  C.LAYER_EXISTS = VRFW.commands.IS_EXIST_LAYER --[[CMND_IS_EXIST_LAYER (layer)]]
+  C.PLAY_ANIME = VRFW.commands.PLAY_ANIME_TYPE --[[CMND_PLAY_ANIME_TYPE (layer, idx, type, state, set)]]
+  C.ATTACH_TRACE = VRFW.commands.SET_LAYER_ATTACH_LOCATOR_TRACE --[[CMND_SET_LAYER_ATTACH_LOCATOR_TRACE (layer, idx, locator, on)]]
   C.ANIME_FOCUS, C.ANIME_SET_BUTTON = 2734777837 --[[Focus]], 973515837 --[[button]]
   C.LOCATOR_CURSOR = 3313461902 --[[cursor]]
-  -- The game pad / keyboard read straight from the devices (CMND_VRFW_INPUT_PAD / _KEY) for the bar's own commands, in `standalone` hosts only (the open button did not enter the
-  -- bar in the Chronicle board's pause menu). Those menus open over a screen that is no menu hub (the route board, the
-  -- free walk): there CMND_CHECK_INPUT_CMD(MENU_CTRL, …) answers false in the menu's own VM (as in the plate during a
-  -- session), so neither the open button nor the bar's arrows / A / B
-  -- were seen. The rows: the open action's DEFAULT binding (CMND_VRFW_INPUT_ACTION at OnInit: pad mask 1 << pad index,
-  -- the letter key's virtual key; a rebinding made in the game's controls screen is not seen there), else LS 0x2 / N;
-  -- the retail MENU_CTRL commands: pad masks of vr_sigs::input (D-pad 0x10 / 0x20 / 0x40 / 0x80, B 0x2000, A 0x4000),
-  -- Windows virtual keys (the arrows, Enter, Esc). When no mod declares the open action (CMD_VRFW_TOPBAR_OPEN) the
-  -- devices are read for the open button on every host (LS / N): the bar's fallback.
-  C.PAD, C.VKEY = VRFW_Cmd.VRFW_INPUT_PAD, VRFW_Cmd.VRFW_INPUT_KEY
+  C.PAD, C.VKEY = VRFW.commands.VRFW_INPUT_PAD, VRFW.commands.VRFW_INPUT_KEY
   C.DEV = {
     [C.OPEN] = {pad = 0x2, vk = {0x4E}}, [C.UP] = {pad = 0x10, vk = {0x26}}, [C.RIGHT] = {pad = 0x20, vk = {0x27}},
     [C.DOWN] = {pad = 0x40, vk = {0x28}}, [C.LEFT] = {pad = 0x80, vk = {0x25}},
     [C.ENTER] = {pad = 0x4000, vk = {0x0D}}, [C.CANCEL] = {pad = 0x2000, vk = {0x1B}},
   }
   local K = {
-    BUSY = 1149663763,      -- evt_top_bar_busy: a shortcut is in flight (any VM)
-    TARGET = 837786837,     -- evt_top_bar_target: crc32(entry key) of the shortcut in flight (a mod's screen may go deeper)
-    STEP = 3366268333,      -- evt_top_bar_step: how many steps of that entry's `path` were taken (VRFW_TopBarStep)
-    DEFER = 3408963264,     -- evt_top_bar_defer: title item for the title once the session is closed (path session)
-    DIRECT = 1469556327,    -- evt_top_bar_direct: a straight reset is in flight (the landing menu logs it, then clears it)
-    NAV = 3672361613,       -- evt_top_bar_nav: the bar has the focus (heartbeat: a counter the host bumps every frame)
-    HIDE = 1455983968,      -- vrfw_top_bar_hidden: a screen plays something full screen over the hub (a mod's scene
-                            -- over the menus): the row is not drawn and takes no input while the param is set
+    BUSY = 2173683199,      -- vrfw_top_bar_busy: a shortcut is in flight (any VM)
+    TARGET = 2566540065,
+    STEP = 229413441,
+    DEFER = 3408963264,
+    DIRECT = 1469556327,
+    NAV = 1768396853,
+    HIDE = 1455983968,
   }
-  -- the title hand-off a mod declares ([top_bar_title]; read at OnInit): go = param the title reads (the item to press),
-  -- box / item = the focus param and the title item of `focus` actions, clear = stale params, session = the session hosts
   local TT = {known = false, go = nil, box = nil, item = nil, clear = {}, session = {}}
   local BLOCK_MENUS = {968210065 --[[sub_window]]}
   local TITLE = "title_menu_2"
 
+  local logger
   local function Log(...)
     if TB.logn >= (TB.DEBUG and 200 or 60) then return end
     TB.logn = TB.logn + 1
     local p = {}
     for i = 1, select("#", ...) do p[#p + 1] = tostring((select(i, ...))) end
-    pcall(funcLuaCommand, 1563215927 --[[CMND_EVT_LOG_DEBUG]], "EVT top_bar " .. tostring(TB.name) .. " " .. table.concat(p, " "))
+    logger = logger or VRFW.logger.new("EVT top_bar")
+    logger.debug(tostring(TB.name) .. " " .. table.concat(p, " "))
   end
 
   local function Crc(s)
@@ -194,31 +107,29 @@ if VRFW_TopBar == nil then
 
   local function P(k, v)
     if k == nil then return end                       -- a hand-off param no mod declared
-    if VRFW_Param.Has(k) then VRFW_Param.Clear(k) end
-    if v ~= nil then VRFW_Param.Set(k, v) end
+    if VRFW.param.has(k) then VRFW.param.clear(k) end
+    if v ~= nil then VRFW.param.set(k, v) end
   end
 
-  -- clear these params (nil = not declared: skipped; a plain loop, ipairs would stop at the first nil)
   local function Clear(...)
     for i = 1, select("#", ...) do P((select(i, ...)), nil) end
   end
 
   local function Take(k)
-    return VRFW_Param.Take(k)
+    return VRFW.param.take(k)
   end
 
   -- the menu this VM runs, from the script stem the loader gives the patch files ("soccer_top_menu_1.03.98.00")
-  local stem = type(EVT_PATCH) == "table" and EVT_PATCH.script or nil
+  local stem = type(VRFW.patch) == "table" and VRFW.patch.script or nil
   if type(stem) == "string" then
     TB.name = stem:gsub("_%d+%.%d+%.%d+[%.%d]*$", "")
   end
   TB.host = {}
 
-  -- a top bar rule command: the core's name first, then the engine's (the first that answers)
   local function Rules(ids, ...)
     for _, id in ipairs(ids) do
-      local r = table.pack(pcall(funcLuaCommand, id, ...))
-      if r[1] and r[2] ~= nil then return table.unpack(r, 2, r.n) end
+      local r = table.pack(VRFW.host.command(id, ...))
+      if r[1] ~= nil then return table.unpack(r, 1, r.n) end
     end
     return nil
   end
@@ -229,12 +140,10 @@ if VRFW_TopBar == nil then
     return out
   end
 
-  -- this menu's rules ([[top_bar_host]]) and the title hand-off ([top_bar_title]); OnInit only
   local function LoadRules()
     local known, gate, leave, session, dpad, open, rank_centre, standalone, rplate, rnode, rcx, ravoid, open_yield,
       variants, open_hold, active_only, plates = Rules(C.TB_HOST, TB.name or "")
     TB.host = {}
-    -- [VRFW.TopBarStyle] PlatesAtlas: the atlas of the state plates, declared by the mod that styles the bar
     TB.plates_atlas = (type(plates) == "string" and plates ~= "") and plates or nil
     local function nz(v) return (type(v) == "number" and v ~= 0) and v or nil end
     TB.rank = {plate = nz(rplate), node = nz(rnode), centre_x = nz(rcx), avoid = nz(ravoid)}
@@ -245,9 +154,6 @@ if VRFW_TopBar == nil then
                  open_yield = Nums(open_yield), variants = Nums(variants),
                  open_hold = (type(open_hold) == "number" and open_hold > 0) and open_hold or 0, active_only = active_only == true}
     end
-    -- the open button: the action a mod declares for CMD_VRFW_TOPBAR_OPEN (e.g. a shortcuts action in the
-    -- game's controls screen, where the player rebinds it) and its default binding for the device reads; none
-    -- declared: the devices' LS / N (TB.open_raw)
     local oka, act = pcall(funcLuaCommand, C.INPUT_ACTION, "CMD_VRFW_TOPBAR_OPEN")
     if oka and type(act) == "table" and act.declared == 1 then
       TB.open_raw = false
@@ -269,8 +175,6 @@ if VRFW_TopBar == nil then
     TT.clear, TT.session = Nums(clear), Nums(sess)
   end
 
-  -- the host's own function (a global of this VM) named by a rule: a global name, or a dotted path into a mod's
-  -- global table (`<ModPrefix>.TopBarOn`: the mod's own prefix)
   local function HostFn(name)
     if type(name) ~= "string" then return nil end
     local f = _G[name]
@@ -284,9 +188,6 @@ if VRFW_TopBar == nil then
     return type(f) == "function" and f or nil
   end
 
-  -- the VM's menu: the script's menu name, or one of the host's `variants` (settings that share this script, e.g. the
-  -- route map's _future / _victory): the one that exists. Until one answers the script's name is used (checked again
-  -- on every Refresh); a host without variants is resolved at once.
   local function ResolveMenu()
     if TB.menu_ok then return end
     local vs = TB.host.variants or {}
@@ -296,7 +197,7 @@ if VRFW_TopBar == nil then
     for _, m in ipairs(cands) do
       if funcLuaMenuCommand(C.EXISTS, m) == true then
         TB.menu, TB.menu_ok = m, true
-        if VRFW_TopBarGuard ~= nil and VRFW_TopBarGuard.menus ~= nil then VRFW_TopBarGuard.menu = m end
+        if VRFW.top_bar.guard ~= nil and VRFW.top_bar.guard.menus ~= nil then VRFW.top_bar.guard.menu = m end
         Log("menu", m, m == TB.self_crc and "(the script's own)" or "(a variant)")
         return
       end
@@ -304,15 +205,12 @@ if VRFW_TopBar == nil then
   end
 
   -- `active_only` hosts: the menu's own Lua wants it active (its last MENU_ACTIVE for itself, kept by the input guard;
-  -- none seen = active, the state a menu opens in)
   local function OwnActive()
     if not TB.host.active_only then return true end
-    local gd = VRFW_TopBarGuard
+    local gd = VRFW.top_bar.guard
     return gd == nil or gd.wish ~= false
   end
 
-  -- the open button stays with a menu of the host's `open_yield` while it exists (a child over the host with its own
-  -- action on that button / key, e.g. a squad screen): no entry, no hint there; the icons still work with the mouse
   local function OpenYields()
     for _, m in ipairs(TB.host.open_yield or {}) do
       if funcLuaMenuCommand(C.EXISTS, m) == true then return true end
@@ -321,28 +219,26 @@ if VRFW_TopBar == nil then
   end
 
   local function SessionOpen()
-    local ok, open, _, _, _, _, _, swapped = pcall(funcLuaCommand, C.SESSION)
-    return ok and open == true, ok and open == true and swapped == true
+    local open, _, _, _, _, _, swapped = VRFW.host.command(C.SESSION)
+    return open == true, open == true and swapped == true
   end
 
-  -- one entry of host top_bar (nil = left out: its mode is switched off, or it leads into a blocked mode)
   local function ReadEntry(i)
     local key, text, icon, kind, value, _owner, _vid, menus, steps, group, aspect,
       _ord, _pon, _poff, _fl, _pl, _it, _lk, _lt, _gt, dmenu, dvs, dmode, direct =
-      funcLuaCommand(VRFW_Cmd.VRFW_MENU_ENTRY, "top_bar", i)
+      funcLuaCommand(VRFW.commands.VRFW_MENU_ENTRY, "top_bar", i)
     if key == nil then return nil end
     -- an entry whose id names a mode switched off ([modes] of a mod's config, CMND_VRFW_MODE_ENABLED) is left out
     local id = tostring(key):match("([^%.]+)$")
-    local okm, known, mode_on = pcall(funcLuaCommand, VRFW_Cmd.VRFW_MODE_ENABLED, id)
+    local okm, known, mode_on = pcall(funcLuaCommand, VRFW.commands.VRFW_MODE_ENABLED, id)
     if okm and known == true and mode_on == false then return nil end
     -- a shortcut into a mode the framework blocks (online guard) is left out
     if kind == "title" then
-      local okb, blocked = pcall(funcLuaCommand, VRFW_Cmd.VRFW_BLOCKED, value)
+      local okb, blocked = pcall(funcLuaCommand, VRFW.commands.VRFW_BLOCKED, value)
       if okb and blocked == true then return nil end
     end
     local e = {key = key, kind = kind, value = value, menus = {}, steps = tostring(steps or ""),
                group = tostring(group or ""), aspect = (type(aspect) == "number" and aspect > 0) and aspect or 1}
-    -- `action.direct`: the next state the title would hand the game; the bar resets straight into it
     if direct == true and kind == "title" then
       e.direct = {menu = (type(dmenu) == "number" and dmenu ~= 0) and dmenu or 0, vs = dvs == true,
                   mode = (type(dmode) == "number" and dmode >= 0) and dmode or 0}
@@ -352,20 +248,16 @@ if VRFW_TopBar == nil then
       e.tex, e.tex_crc, e.spr = tex, CRC32(tex), CRC32(spr)
     end
     for m in tostring(menus or ""):gmatch("[^,%s]+") do e.menus[#e.menus + 1] = Crc(m) end
-    -- the label a dropdown row shows: the entry's text in the game's language (CMND_VRFW_TEXT_GET of its text key)
     if text ~= nil and text ~= "" then
-      local okt, t = pcall(funcLuaCommand, VRFW_Cmd.VRFW_TEXT_GET, text)
+      local okt, t = pcall(funcLuaCommand, VRFW.commands.VRFW_TEXT_GET, text)
       e.label = (okt and type(t) == "string" and t ~= "") and t or nil
     end
     return e
   end
 
-  -- the bar's icons in order; a group (kind "group", value = its key) carries its dropdown rows in `items` (the entries
-  -- with `group` = that key, in their order). Left out: a second group of the same key (the first declared wins), a
-  -- group with no row left or in a host without the dropdown layers, a row whose group no mod declares.
   local function LoadEntries()
     local out = {}
-    local ok, n = pcall(funcLuaCommand, VRFW_Cmd.VRFW_MENU_ENTRY_COUNT, "top_bar")
+    local ok, n = pcall(funcLuaCommand, VRFW.commands.VRFW_MENU_ENTRY_COUNT, "top_bar")
     if not ok or type(n) ~= "number" then return out end
     local bar, rows, groups = {}, {}, {}
     for i = 1, n do
@@ -384,9 +276,7 @@ if VRFW_TopBar == nil then
         bar[#bar + 1] = e
       end
     end
-    -- the bar's order is each entry's `order` / `after` in its owner's TOML. Former override, kept for old mods: a
-    -- global VRFW_TopBarOrder = {"<entry key>", ...} puts the listed entries first, the rest after them by `order`
-    local want = rawget(_G, "VRFW_TopBarOrder")
+    local want = rawget(VRFW, "top_bar_order")
     if type(want) == "table" then
       local rank = {}
       for i, k in ipairs(want) do if rank[k] == nil then rank[k] = i end end
@@ -409,7 +299,7 @@ if VRFW_TopBar == nil then
         if #e.items == 0 then
           Log("group", e.value, "left out: no entry")
         elseif not TB.has_drop then
-          Log("group", e.value, "left out: this menu has no dropdown layers (evt_topbar_drop_icon)")
+          Log("group", e.value, "left out: this menu has no dropdown layers (vrfw_topbar_drop_icon)")
         else
           out[#out + 1] = e
         end
@@ -433,9 +323,6 @@ if VRFW_TopBar == nil then
     return t
   end
 
-  -- the row's geometry: every shortcut owns a cell of the same width (CELL = SIZE * CELL_K), right-aligned at the
-  -- bar's right edge, GAP between the cells; the icon is centred in its cell (a wide logo is fitted to the cell, aspect
-  -- kept: IconSize), the plates and the hit zones are the cell
   local function Layout()
     local n = #TB.entries
     local x = TB.right or TB.RIGHT
@@ -457,22 +344,18 @@ if VRFW_TopBar == nil then
     return TB.ws[i] or TB.SIZE * TB.CELL_K
   end
 
-  local function IconSize(i)  -- drawn width, height of icon i: SIZE high, a wide logo fitted to the cell (aspect kept)
+  local function IconSize(i)
     local asp = TB.entries[i] and TB.entries[i].aspect or 1
     local w = math.min(TB.SIZE * asp, W(i))
     return w, w / asp
   end
 
-  -- the open dropdown: the group under the selection (nil = none open)
   local function DropGroup()
     local g = TB.sel ~= nil and TB.entries[TB.sel] or nil
     if g == nil or g.kind ~= "group" or TB.dshut then return nil end
     return g
   end
 
-  -- the dropdown's box under group icon gi, one horizontal row of icons: left, top, width, height, cell width. Every
-  -- cell is as wide as the widest icon needs (at least DROP_CELL); the panel is centred under the group's icon and
-  -- moved back inside the screen (SCREEN_MARGIN) where it would cross an edge.
   local function DropBox(gi)
     local g = TB.entries[gi]
     local count = #g.items
@@ -492,9 +375,7 @@ if VRFW_TopBar == nil then
     return left + TB.DROP_PAD + (k - 0.5) * cell
   end
 
-  -- the dropdown icon under the pointer (0 = on the open dropdown but on no icon, nil = not on it). The pointer's y is
-  -- screen y DOWN (CMND 558229292: «dbg pointer 1869 917»), as TB.Y and the box; GPOS is y up (Pointed negates it).
-  -- Pointed negates it too, so moving the mouse down off the group's icon does not close the dropdown before any row.
+  -- the dropdown icon under the pointer (0 = on the open dropdown but on no icon, nil = not on it).
   local function DropPointed(mx, my)
     local g = DropGroup()
     if g == nil or type(mx) ~= "number" or type(my) ~= "number" then return nil end
@@ -519,10 +400,8 @@ if VRFW_TopBar == nil then
     funcLuaMenuCommand(C.POS, layer, x, -y, 0, idx)
   end
 
-  -- the open dropdown (or none): panel, focused-icon highlight, the icons side by side. No labels: the styling mod's
-  -- label objects stay hidden (VRFW_TopBarDropLabel(menu, i, nil, 0, 0, false, false)).
   local function HideDropLabels()
-    local label_fn = _G.VRFW_TopBarDropLabel
+    local label_fn = VRFW.top_bar_drop_label
     if type(label_fn) ~= "function" then return end
     for k = 1, TB.DROP_MAX do pcall(label_fn, TB.menu, k, nil, 0, 0, false, false) end
   end
@@ -544,9 +423,9 @@ if VRFW_TopBar == nil then
     TB.drop_drawn = true
     local left, top, w, h, cell = DropBox(TB.sel)
     local middle_y = top + h / 2
-    Quad(L_DPLATE, 0, TB.plate_tex, CRC32("evt_tb_back"), left + w / 2, middle_y, w, TB.plate_tex ~= nil, h)
+    Quad(L_DPLATE, 0, TB.plate_tex, CRC32("vrfw_tb_back"), left + w / 2, middle_y, w, TB.plate_tex ~= nil, h)
     if TB.dsel ~= nil and TB.plate_tex ~= nil then
-      Quad(L_DPLATE, 1, TB.plate_tex, CRC32("evt_tb_hover"), DropCellX(left, cell, TB.dsel), middle_y, cell - 4, true,
+      Quad(L_DPLATE, 1, TB.plate_tex, CRC32("vrfw_tb_hover"), DropCellX(left, cell, TB.dsel), middle_y, cell - 4, true,
         TB.DROP_H - 4)
     else
       Quad(L_DPLATE, 1, nil, nil, 0, 0, 0, false)
@@ -565,9 +444,8 @@ if VRFW_TopBar == nil then
     end
   end
 
-  -- what the badges say now (a change redraws the row)
   local function BadgeSig()
-    local bs = _G.VRFW_TopBarBadges
+    local bs = VRFW.top_bar_badges
     if type(bs) ~= "table" then return "" end
     local t = {}
     for k, b in pairs(bs) do
@@ -595,22 +473,17 @@ if VRFW_TopBar == nil then
 
   local function Draw()
     TB.badge_sig = BadgeSig()
-    -- hidden while a screen fade runs: above everything, the row would otherwise float over the black of a transition
     local show = TB.shown and TB.tex_ready and not TB.fading
     if show and not TB.raised then Raise() end
     local n = #TB.entries
     if TB.has_back then
-      -- standalone row: the glass strip behind it (from the left plate edge of icon 1 to the right one of the last)
       local l, r = n > 0 and X(1) - W(1) / 2 or 0, n > 0 and X(n) + W(n) / 2 or 0
       local w = (r - l) + (TB.PLATE - TB.SIZE * TB.CELL_K) + 16
-      Quad(L_BACK, 0, TB.plate_tex, CRC32("evt_tb_back"), (l + r) / 2, TB.Y, w, show and TB.back_on and n > 0, TB.PLATE + 12)
+      Quad(L_BACK, 0, TB.plate_tex, CRC32("vrfw_tb_back"), (l + r) / 2, TB.Y, w, show and TB.back_on and n > 0, TB.PLATE + 12)
     end
     if TB.host.open then
-      -- the open button's hint left of the row: drawn by the mod that styles the bar (global VRFW_TopBarHint(menu, x,
-      -- y, on): x, y = the hint's centre on screen, on = show it), e.g. the game button glyph of the bound button
-      -- that follows the input device; no such function = no hint. Plate instance MAX (the old sprite hint) stays hidden.
       local hint = show and n > 0 and not TB.nav and not TB.open_off
-      local hf = _G.VRFW_TopBarHint
+      local hf = VRFW.top_bar_hint
       if type(hf) == "function" then
         local okh, err = pcall(hf, TB.menu, (n > 0 and X(1) - W(1) / 2 or TB.RIGHT) - TB.GAP - 17, TB.Y, hint)
         if not okh then Log("hint error", tostring(err)) end
@@ -627,7 +500,7 @@ if VRFW_TopBar == nil then
         Quad(L_ICON, idx, e.tex_crc, e.spr, X(i), TB.Y, iw * sc, true, ih * sc)
         local g = (TB.block and not cur) and 0.55 or 1
         funcLuaMenuCommand(C.PRIM_COLOR, L_ICON, idx, MESH_QUAD, g, g, g)
-        local plate = sel and "evt_tb_hover" or (cur and "evt_tb_current" or nil)
+        local plate = sel and "vrfw_tb_hover" or (cur and "vrfw_tb_current" or nil)
         if plate ~= nil and TB.plate_tex ~= nil then
           Quad(L_PLATE, idx, TB.plate_tex, CRC32(plate), X(i), TB.Y, W(i) + TB.PLATE - TB.SIZE * TB.CELL_K, true, TB.PLATE)
         else
@@ -638,11 +511,8 @@ if VRFW_TopBar == nil then
         Quad(L_PLATE, idx, nil, nil, 0, 0, 0, false)
       end
     end
-    -- a badge: a mod of this VM sets VRFW_TopBarBadges[<entry key>] = {tex = <menu path of a loaded
-    -- atlas>, sprite = <sprite name>} (nil = none), e.g. a count on an entry.
-    -- The first entry of the row with one gets it at its icon's top-right corner, on the spare plate instance MAX.
     local badge = nil
-    local bs = _G.VRFW_TopBarBadges
+    local bs = VRFW.top_bar_badges
     if show and type(bs) == "table" then
       for i = 1, math.min(n, TB.MAX) do
         local b = bs[TB.entries[i].key]
@@ -662,9 +532,7 @@ if VRFW_TopBar == nil then
     if funcLuaCommand(C.MSG_BUSY) == true then return "message window" end
     if funcLuaCommand(C.IS_FADE) == true then return "fade" end
     if funcLuaCommand(C.SAVE_WORKING) == true then return "saving" end
-    if VRFW_Param.Has(K.BUSY) then return "a shortcut is in flight" end
-    -- an overlay session (checked first: its mount answers its storage slot as active too) is left only through a
-    -- `session` host's own leave; outside a session, a reserved slot's game (a mod's mode) in memory is refused
+    if VRFW.param.has(K.BUSY) then return "a shortcut is in flight" end
     local _, swapped = SessionOpen()
     if swapped then
       if not (TB.host.session and HostFn(TB.host.leave) ~= nil) then
@@ -683,7 +551,6 @@ if VRFW_TopBar == nil then
     return nil
   end
 
-  -- the atlases asked in Init are in (CMND 1506186496 answers true while a texture still loads): no sprite swap before
   local function TexReady()
     if TB.tex_ready then return true end
     TB.tex_t = TB.tex_t + TB.CHECK_EVERY
@@ -703,7 +570,6 @@ if VRFW_TopBar == nil then
     return TB.tex_ready
   end
 
-  -- once per menu open (DEBUG): what every quad got, and where the engine put it (GPOS read back)
   local function DebugDump(tag)
     for i = 1, #TB.entries do
       local e = TB.entries[i]
@@ -715,17 +581,16 @@ if VRFW_TopBar == nil then
 
   local function Select(i, sound)
     if i == TB.sel then return end
-    TB.sel, TB.dsel, TB.dshut = i, nil, false   -- another icon: a dropdown starts closed to its rows, open to view
+    TB.sel, TB.dsel, TB.dshut = i, nil, false
     TB.sel_t = TB.SEL_FRAMES
     if i ~= nil and sound then funcLuaCommand(C.SE, C.SE_MOVE) end
     Draw()
   end
 
-  -- ---- D-pad focus in the bar ------------------------------------------------------------------------------------
   local function FocusPos(layer, idx)
     if layer == nil then return nil, nil end
-    local ok, gx, gy = pcall(funcLuaMenuCommand, C.GPOS, layer, idx or 0)
-    if ok and type(gx) == "number" and type(gy) == "number" then return gx, gy end
+    local gx, gy = VRFW.host.menu_command(C.GPOS, layer, idx or 0)
+    if type(gx) == "number" and type(gy) == "number" then return gx, gy end
     return nil, nil
   end
 
@@ -747,15 +612,12 @@ if VRFW_TopBar == nil then
     end
     TB.nav, TB.mouse, TB.release, TB.nav_t, TB.open_t = true, false, nil, 0, 0
     TB.nav_from = {layer = TB.flayer, idx = TB.fidx}
-    -- no menu sees the bar's keys: the host AND every menu open over it (a child such as Partido libre's list keeps
-    -- its own input); each VM's guard (below) suspends its own menu while the heartbeat K.NAV runs
-    VRFW_TopBarGuard.Beat(true)
+    VRFW.top_bar.guard.beat(true)
     TB.sel = nil
     Select(pick, true)
     Log("nav enter", why, "icon", pick, "from", tostring(TB.flayer), tostring(TB.fidx), "x", tostring(fx))
   end
 
-  -- back to the menu; its input comes back once `key` is released (the same press never reaches it)
   local function NavLeave(key, why)
     TB.nav, TB.dsel = false, nil
     TB.release = key or 0
@@ -763,7 +625,6 @@ if VRFW_TopBar == nil then
     Log("nav leave", why)
   end
 
-  -- a command of the devices (C.DEV), read only in `standalone` hosts; the pad's held mask once per frame
   local function DevHeld(cmd)
     if TB.host.standalone == nil and not (TB.open_raw and cmd == C.OPEN) then return false end
     local d = C.DEV[cmd]
@@ -781,7 +642,6 @@ if VRFW_TopBar == nil then
     return false
   end
 
-  -- `cmd` held: MENU_CTRL (`analog`: also MENU_CTRL_WITH_ANALOG_MOVE_FOCUS), else the devices (standalone hosts)
   local function Held(cmd, analog)
     if funcLuaCommand(C.CHECK_INPUT, C.MENU_CTRL, cmd) == true then return true end
     if analog and funcLuaCommand(C.CHECK_INPUT, C.ANALOG_CTRL, cmd) == true then return true end
@@ -795,7 +655,6 @@ if VRFW_TopBar == nil then
     return false
   end
 
-  -- the menu active again (never left inactive): once the leaving key is released, at the latest after 30 frames
   local function NavRelease()
     if TB.release == nil then return end
     TB.release_t = (TB.release_t or 0) + 1
@@ -804,12 +663,11 @@ if VRFW_TopBar == nil then
     end
     TB.release, TB.release_t = nil, 0
     if TB.co == nil then
-      VRFW_TopBarGuard.Beat(false)   -- every guard gives its menu back the state it wants
+      VRFW.top_bar.guard.beat(false)   -- every guard gives its menu back the state it wants
       Log("nav menu active again")
     end
   end
 
-  -- an UP that wrapped the menu's focus to a lower element: put it back on the element it left
   local function UndoWrap(old)
     TB.self_focus = true
     pcall(funcLuaMenuCommand, C.FOCUS_SET, TB.flayer, TB.fidx, false)
@@ -820,8 +678,6 @@ if VRFW_TopBar == nil then
   end
 
   local function Refresh()
-    -- CMND_IS_OPEN_MENU_OBJECT is a funcLuaCommand id (every retail caller: 332 calls; funcLuaMenuCommand does not
-    -- know it and the row never showed: the bug)
     ResolveMenu()
     local raw = nil
     if TB.menu ~= nil then raw = funcLuaCommand(C.IS_OPEN, TB.menu, HEADER) end
@@ -837,10 +693,7 @@ if VRFW_TopBar == nil then
       back = open
     end
     if open and not OwnActive() then open = false end
-    -- (a mod's scene played over the menus): the row would stay drawn over the scene
-    -- (the hub's header is only hidden there, it stays open). Any VM sets the param (VRFW_TopBarHide below) for as
-    -- long as it wants the bar away.
-    if open and VRFW_Param.Has(K.HIDE) then open = false end
+    if open and VRFW.param.has(K.HIDE) then open = false end
     if open and TB.host.gate ~= nil then
       local gf = HostFn(TB.host.gate)
       local okg, g = false, nil
@@ -851,7 +704,6 @@ if VRFW_TopBar == nil then
       TB.back_on = back
       TB.dbg_gpos = false
     end
-    -- the current mode: an icon whose `menus` exist; a group also when one of its rows is (that row is marked too)
     local function IsCur(e)
       for _, m in ipairs(e.menus) do
         if m == TB.menu or m == TB.self_crc or funcLuaMenuCommand(C.EXISTS, m) == true then return true end
@@ -874,8 +726,6 @@ if VRFW_TopBar == nil then
       TB.open_off = open_off
       Log("open button", open_off and "left to the menu on top (open_yield)" or "enters the bar again")
     end
-    -- the rank plate: centred on the hosts that ask for it (the locator moved again on every check: a header
-    -- animation may key it), else the row ends left of it while it is open in this menu
     local right = TB.RIGHT
     local rank = false
     local RK = TB.rank or {}
@@ -883,12 +733,9 @@ if VRFW_TopBar == nil then
       local r = funcLuaCommand(C.IS_OPEN, TB.menu, RK.plate)
       rank = r ~= nil and r ~= false and r ~= 0
     end
-    -- the mod that styles the header may hide the plate while something else takes its place (global
-    -- VRFW_TopBarRankHide(menu) -> true, e.g. while the header's team panel is open). Hidden = not drawn (kept
-    -- hidden every frame in Poll, an animation may show it again), not centred, the row keeps the bar's right edge.
     local hide = false
     if rank then
-      local hf = _G.VRFW_TopBarRankHide
+      local hf = VRFW.top_bar_rank_hide
       if type(hf) == "function" then
         local okh, h = pcall(hf, TB.menu)
         hide = okh and h == true
@@ -898,7 +745,7 @@ if VRFW_TopBar == nil then
       TB.rank_hide = hide
       if hide then
         -- the plate's own visibility (the menu may hide it itself), given back when the hide ends
-        local okv, v = pcall(funcLuaMenuCommand, VRFW_Cmd.IS_LAYER_VISIBLE, RK.plate, 0)
+        local okv, v = pcall(funcLuaMenuCommand, VRFW.commands.IS_LAYER_VISIBLE, RK.plate, 0)
         TB.rank_was = not okv or v ~= false
       elseif RK.plate and TB.rank_was ~= false then
         pcall(funcLuaMenuCommand, C.VISIBLE, RK.plate, 0, true)
@@ -979,8 +826,6 @@ if VRFW_TopBar == nil then
     return nil
   end
 
-  -- ---- going --------------------------------------------------------------------------------------------------------
-  -- the retail reset to the title (the Mercado's own way back); 900 frames later still here = give the screen back
   local function ResetToTitle(save)
     if save then funcLuaCommand(C.AUTO_SAVE) end
     funcLuaCommand(C.FADE, 1, 0.3)
@@ -999,13 +844,6 @@ if VRFW_TopBar == nil then
     if TB.menu ~= nil then funcLuaMenuCommand(C.MENU_ACTIVE, TB.menu, true) end
   end
 
-  -- the straight reset (an entry's `action.direct`): the next state written as the
-  -- retail title writes it before its Continue (root menu 3479138216 or the VS menu flags, the title's mode value
-  -- 3718253404, the title's BGM stop), the game kept in memory (CMND_VRFW_SLOT_CARRY(1): the reset wipes it, the
-  -- title would read it back), the retail reset, then CMND_VRFW_MENU_TOPBAR_DIRECT clears the reset's «title next»
-  -- byte: the new rpg scene's InitState loads the kept game back and opens the target's state at once (play mode, root
-  -- menu), no title scene and no menu in between. Kept game or straight start refused = the title round trip with the
-  -- entry's item (`item`); the title reads the slot from its file as on every return.
   local function ResetDirect(e, item)
     local d = e.direct
     funcLuaCommand(C.AUTO_SAVE)
@@ -1013,14 +851,13 @@ if VRFW_TopBar == nil then
     while not funcLuaCommand(C.FADE_DONE) do coroutine.yield() end
     while funcLuaCommand(C.BUSY) do coroutine.yield() end
     Log("reset straight into", d.vs and "the VS menu" or tostring(d.menu), "title mode", d.mode)
-    -- the auto-save's job done, the game kept in memory, the next state, the reset (VRFW_Reset, 04_reset.lua)
-    local straight = VRFW_Reset.straight({ menu = d.menu, vs = d.vs, title_mode = d.mode, bgm_stop = true,
+    -- the auto-save's job done, the game kept in memory, the next state, the reset (VRFW.reset, 04_reset.lua)
+    local straight = VRFW.reset.straight({ menu = d.menu, vs = d.vs, title_mode = d.mode, bgm_stop = true,
       log = function(text) Log("direct:", text) end }) == "straight"
     if straight then
       P(K.DIRECT, CRC32(e.key))
       Log("direct: no title, the next state opens", tostring(e.key), "(InitState loads the kept slot first)")
     else
-      -- the title runs: it reads the slot and presses the entry's item as before (the next state above is rewritten)
       P(TT.go, item)
     end
     for _ = 1, 900 do coroutine.yield() end
@@ -1030,7 +867,6 @@ if VRFW_TopBar == nil then
     if TB.menu ~= nil then funcLuaMenuCommand(C.MENU_ACTIVE, TB.menu, true) end
   end
 
-  -- leave for the title; the title presses the target (the [top_bar_title] hand-off: param TT.go)
   local function GoCo(e, path)
     P(K.BUSY, 1)
     funcLuaCommand(C.SE, C.SE_GO)
@@ -1043,8 +879,6 @@ if VRFW_TopBar == nil then
       item = TT.item
       P(TT.box, CRC32(e.value))
     end
-    -- a straight reset hands the title nothing (no title runs; a param left for it would be pressed by the next
-    -- real title visit)
     if path ~= "direct" then P(path == "session" and K.DEFER or TT.go, item) end
     Log("go", e.key, e.kind, e.value, "path", path, "steps", e.steps ~= "" and e.steps or "-")
     coroutine.yield()
@@ -1057,7 +891,6 @@ if VRFW_TopBar == nil then
       Clear(TT.go, TT.box, K.BUSY, K.TARGET)
       return
     elseif path == "session" and leave ~= nil then
-      -- the session host's own leave closes the session; the title runs the deferred target
       P(K.BUSY, nil)
       Log("session: the host leaves the session first; the title opens the target after it is closed")
       leave()
@@ -1069,7 +902,6 @@ if VRFW_TopBar == nil then
     ResetToTitle(true)
   end
 
-  -- go to entry e (an icon of the bar or a row of a group's dropdown); cur = it is the current mode
   local function GoEntry(e, cur)
     if e == nil then return end
     local why = Blocked()
@@ -1084,10 +916,7 @@ if VRFW_TopBar == nil then
     end
     if TB.nav then TB.nav, TB.release = false, nil end
     TB.sel = nil
-    -- a mod that can serve the shortcut right here (its screen lives in this menu) registers
-    -- VRFW_TopBarHere[<entry key>] = function(entry, menu) -> true; then the title round trip is skipped
-    -- («Served in place»). Any other menu (or false / an error) goes the entry's own way.
-    local here = rawget(_G, "VRFW_TopBarHere")
+    local here = rawget(VRFW, "top_bar_here")
     if type(here) == "table" and type(here[e.key]) == "function" then
       local okh, done = pcall(here[e.key], e, TB.name)
       if okh and done == true then
@@ -1096,7 +925,7 @@ if VRFW_TopBar == nil then
       end
     end
     if e.kind == "lua" then
-      local f = HostFn(e.value)   -- a global, or a dotted name of a mod's table (<ModPrefix>.Panel)
+      local f = HostFn(e.value)
       if type(f) == "function" then pcall(f, e) end
       return
     end
@@ -1108,11 +937,9 @@ if VRFW_TopBar == nil then
         path = "session"
       end
     elseif e.direct ~= nil and e.kind == "title" and TB.DIRECT == true then
-      -- an entry that declares its next state (`action.direct`) from a host that leaves the retail way: straight
-      -- into it. Hosts with their own `leave` (a free walk's pause, a session) keep their own way out.
       path = "direct"
     end
-    VRFW_TopBarGuard.Beat(false)   -- a shortcut ends the bar's focus at once: nothing suspended during the hand-off
+    VRFW.top_bar.guard.beat(false)
     TB.dsel = nil
     TB.co = coroutine.create(GoCo)
     local ok, err = coroutine.resume(TB.co, e, path)
@@ -1125,7 +952,6 @@ if VRFW_TopBar == nil then
     GoEntry(e, TB.cur[i])
   end
 
-  -- the dropdown's row k (pad focus / pointer); nil = none
   local function DropSelect(k, sound)
     if k == TB.dsel then return end
     TB.dsel = k
@@ -1133,14 +959,11 @@ if VRFW_TopBar == nil then
     Draw()
   end
 
-  -- ---- per frame ----------------------------------------------------------------------------------------------------
   local function PollNav(E)
     if TB.nav then
       local g = TB.sel ~= nil and TB.entries[TB.sel] or nil
       local grp = g ~= nil and g.kind == "group"
       if TB.dsel ~= nil and grp then
-        -- in a group's dropdown (one row of icons): LEFT / RIGHT = previous / next icon (no wrap), UP or B = back to
-        -- the group's icon (dropdown closed; DOWN opens it again), DOWN = nothing, A = go, the open button = out
         if E[C.LEFT] then
           if TB.dsel > 1 then DropSelect(TB.dsel - 1, true) end
         elseif E[C.RIGHT] then
@@ -1192,8 +1015,6 @@ if VRFW_TopBar == nil then
       end
       return true
     end
-    -- `open` hosts: the open button (pad / key) = into the bar (the menu inactive only while there; Esc / B in the bar
-    -- never reaches it). `open_hold` hosts: the button held that many frames (a tap stays the menu's own action)
     local hold = TB.host.open_hold or 0
     if TB.host.open and hold > 0 then
       if TB.prev[C.OPEN] and TB.release == nil and TB.co == nil and not OpenYields() then
@@ -1211,7 +1032,6 @@ if VRFW_TopBar == nil then
       NavEnter("open")
       return true
     end
-    -- an UP pending: did it move the menu's focus?
     local up = TB.up
     if up ~= nil then
       up.t = up.t + 1
@@ -1230,8 +1050,7 @@ if VRFW_TopBar == nil then
       end
     elseif E[C.UP] and TB.host.dpad ~= false and TB.flayer ~= nil and TB.release == nil and not TB.mouse
         and TB.co == nil then
-      -- only from a focus this VM knows and that still has the control focus (a child menu on top: not ours)
-      local okf, act = pcall(funcLuaMenuCommand, VRFW_Cmd.IS_CTRL_FOCUS_ACTIVE, TB.flayer)
+      local okf, act = pcall(funcLuaMenuCommand, VRFW.commands.IS_CTRL_FOCUS_ACTIVE, TB.flayer)
       if okf and act == true then
         local _, y = FocusPos(TB.flayer, TB.fidx)
         TB.up = {t = 0, fev = TB.fev, layer = TB.flayer, idx = TB.fidx, y = y}
@@ -1241,8 +1060,7 @@ if VRFW_TopBar == nil then
   end
 
   local function Poll()
-    -- the bar's focus (and a shortcut leaving for the title): the heartbeat that keeps every menu's input off
-    if TB.nav or TB.release ~= nil then VRFW_TopBarGuard.Beat(true) end
+    if TB.nav or TB.release ~= nil then VRFW.top_bar.guard.beat(true) end
     if TB.co ~= nil then
       local ok, err = coroutine.resume(TB.co)
       if not ok then Log("error", err) end
@@ -1265,13 +1083,12 @@ if VRFW_TopBar == nil then
       if TB.nav then NavLeave(0, "row hidden") end
       return
     end
-    -- pointer (mouse / free cursor): hover highlights; the mouse button, or Accept while the pointer leads, decides
     local mx, my = funcLuaMenuCommand(C.POINTER)
     local moved = false
     if type(mx) == "number" and type(my) == "number" then
       moved = funcLuaMenuCommand(C.MOVED) == true
       if not moved and TB.px ~= nil and (math.abs(mx - TB.px) > 1 or math.abs(my - TB.py) > 1) then
-        moved = true                         -- the free cursor: no «mouse moved» flag
+        moved = true
       end
       TB.px, TB.py = mx, my
     end
@@ -1285,9 +1102,6 @@ if VRFW_TopBar == nil then
       if TB.nav then NavLeave(0, "pointer") end
       TB.up = nil
       TB.mouse = true
-      -- over an open dropdown (its icons, or the gap under the group's icon): the group stays selected, the icon under
-      -- the pointer is highlighted; else the icon under the pointer (a group's opens its dropdown)
-      -- icon + gap + panel are one hover region; off it, an open dropdown waits TB.DROP_GRACE frames (below)
       local d = DropPointed(mx, my)
       if d ~= nil then
         TB.drop_out = nil
@@ -1312,7 +1126,6 @@ if VRFW_TopBar == nil then
       TB.drop_out = nil
       Select(nil, false)
     end
-    -- the pointer left icon + dropdown: the dropdown closes after the grace (back inside in time: it stays)
     if TB.drop_out ~= nil then
       if not TB.mouse or DropGroup() == nil then
         TB.drop_out = nil
@@ -1331,20 +1144,18 @@ if VRFW_TopBar == nil then
         return GoEntry(it, it.cur)           -- an icon of the open dropdown
       elseif d == nil then
         local k = Pointed()
-        if k ~= nil then return Go(k) end    -- on no icon: nothing (the menu's own click / Enter stays its own)
+        if k ~= nil then return Go(k) end
         if TB.mouse and DropGroup() ~= nil then
-          TB.drop_out = nil                  -- a click outside closes an open dropdown (the menu gets its click)
+          TB.drop_out = nil
           Select(nil, false)
         end
       end
     end
-    -- Esc / B while the pointer has a dropdown open closes it (outside the bar's pad focus; that path is PollNav's)
     if not TB.nav and TB.mouse and E[C.CANCEL] and DropGroup() ~= nil then
       TB.drop_out = nil
       Select(nil, false)
     end
     if PollNav(E) then return end
-    -- L3 / T: tap = next icon, hold = go
     if funcLuaCommand(C.CHECK_INPUT, C.MENU_CTRL, C.KEY) == true then
       TB.held = TB.held + 1
       if TB.held == TB.HOLD then
@@ -1364,7 +1175,6 @@ if VRFW_TopBar == nil then
     end
   end
 
-  -- ---- title side: a target deferred by a host that had to unwind first (path session) ----------------------------
   local function DeferPoll()
     if TB.co ~= nil then
       local ok, err = coroutine.resume(TB.co)
@@ -1373,7 +1183,7 @@ if VRFW_TopBar == nil then
       return
     end
     TB.frame = TB.frame + 1
-    if TB.frame % 10 ~= 0 or not VRFW_Param.Has(K.DEFER) then
+    if TB.frame % 10 ~= 0 or not VRFW.param.has(K.DEFER) then
       TB.defer_t = 0
       return
     end
@@ -1402,8 +1212,6 @@ if VRFW_TopBar == nil then
     if not ok then Log("error", err) TB.co = nil end
   end
 
-  -- the menu's focus as the engine / the menu's Lua move it: OnChangeFocus, OnFocusLayerShift (a1, a2 = the new
-  -- element), and the focus-set command a menu's Lua runs itself (e.g. a hub's boxes)
   local function WrapFocus()
     local ocf = OnChangeFocus
     if type(ocf) == "function" then
@@ -1420,8 +1228,6 @@ if VRFW_TopBar == nil then
       end
     end
     local raw = funcLuaMenuCommand
-    -- the argument count is kept as called (explicit nils would change it: commands with optional arguments read
-    -- lua_gettop; the 12:15 market_menu hang came with this wrapper passing (id, a1, a2, a3, ...) always)
     funcLuaMenuCommand = function(id, ...)
       if id == C.FOCUS_SET and not TB.self_focus and select("#", ...) >= 3 then
         local a1, a2, a3 = ...
@@ -1433,7 +1239,6 @@ if VRFW_TopBar == nil then
 
   local function WrapStep(poll)
     if TB.wrapped then return end
-    -- Step wrapped here (once), after every patch of this script ran: the outermost wrapper
     TB.wrapped = true
     local step = Step
     Step = function(...)
@@ -1446,31 +1251,15 @@ if VRFW_TopBar == nil then
     end
   end
 
-  -- ---- input guard (every VM) --------------------------------------------------------------------------------------
-  -- While the bar has the focus, NO menu may take the keys: not the host, not a child opened over it (Partido libre's
-  -- list, a shop, the team dock…). The engine dispatches the pad to every ACTIVE menu, and only the menus' own Lua know
-  -- (and set) their active state, so each menu VM runs this guard on its own menu:
   --   * the VM's own MENU_ACTIVE(menu, b) calls for its menu are recorded as the menu's wish (in the VM only);
-  --     while the bar has the focus a «true» is held back (recorded, the menu stays off)
-  --   * every frame (its Step): heartbeat K.NAV alive (changed within GUARD_TTL frames) -> its menu off (once, logged
-  --     «input of <menu> suspended»); heartbeat gone -> its menu back to its wish (logged «… restored»; no wish
-  --     recorded = active, the state a menu opens in). A host that dies with the focus stops the heartbeat: nothing stays
-  --     stuck after GUARD_TTL frames.
-  -- The menus a VM suspends (with the bar opened by L3 the left stick still moved the
   -- a mod's grid under it): its script's menu, the menus its own Lua switches with MENU_ACTIVE (learned: a script
-  -- whose stem is not its menu's name, e.g. enjoy_team_select_menu_campaign runs the menu enjoy_team_select_menu,
-  -- shop_menu_buy runs shop_menu: the old guard switched off a menu that does not exist and the real one
-  -- kept the D-pad and the stick) and, until one is learned, the menu of the stem's first shorter name that exists
-  -- (enjoy_team_select_menu_campaign -> enjoy_team_select_menu). Each keeps its own wish.
+  -- whose stem is not its menu's name, e.g.
   local GUARD_TTL = 30
-  local GD = VRFW_TopBarGuard or {}
-  VRFW_TopBarGuard = GD
+  local GD = VRFW.top_bar.guard or {}
+  VRFW.top_bar.guard = GD
   GD.raw, GD.menu, GD.off, GD.last, GD.still, GD.beat_n = GD.raw, nil, false, nil, 0, GD.beat_n or 0
   -- the menu's own wish (its Lua's last MENU_ACTIVE for itself in this VM; none = active, the state a menu opens in).
-  -- Kept in the VM, never in the param store (one param per menu filled the store: the title hand-off
-  -- param could not be written and shortcuts stopped at the title)
   local function Wish(m) return GD.wishes == nil or GD.wishes[m] ~= false end
-  -- the menus this VM suspends now (existing menu objects only)
   local function Targets()
     local out, seen = {}, {}
     local function add(m)
@@ -1483,7 +1272,6 @@ if VRFW_TopBar == nil then
     for m in pairs(GD.menus or {}) do add(m) end
     for m in pairs(GD.learned or {}) do add(m) end
     if #out == 0 and type(TB.name) == "string" then
-      -- no menu of that name: the stem's shorter names (enjoy_team_select_menu_campaign -> enjoy_team_select_menu)
       local n = TB.name
       for _ = 1, 3 do
         local shorter = n:match("^(.+)_[^_]+$")
@@ -1501,26 +1289,23 @@ if VRFW_TopBar == nil then
     end
     return out
   end
-  function GD.Beat(on)
+  --- Bumps the navigation heartbeat parameter, or clears it.
+  function GD.beat(on)
     if on then
       GD.beat_n = (GD.beat_n % 1000000) + 1
-      VRFW_Param.Set(K.NAV, GD.beat_n)
-    elseif VRFW_Param.Has(K.NAV) then
-      VRFW_Param.Clear(K.NAV)
+      VRFW.param.set(K.NAV, GD.beat_n)
+    elseif VRFW.param.has(K.NAV) then
+      VRFW.param.clear(K.NAV)
     end
   end
   local function NavAlive()
-    if not VRFW_Param.Has(K.NAV) then GD.last, GD.still = nil, 0 return false end
-    local v = VRFW_Param.Get(K.NAV)
+    if not VRFW.param.has(K.NAV) then GD.last, GD.still = nil, 0 return false end
+    local v = VRFW.param.get(K.NAV)
     if v ~= GD.last then GD.last, GD.still = v, 0 else GD.still = GD.still + 1 end
     return GD.still < GUARD_TTL
   end
-  -- The screen's focus look while the bar has the focus: the focused element whose menu cursor this VM's Lua attached
-  -- (CMND_SET_LAYER_ATTACH_LOCATOR_TRACE on the «cursor» locator, recorded by Guard in GD.cursor_on) drops its focus
-  -- frame and that cursor, as retail does when a layer gives the focus away (Focus animation set «button» state 2,
-  -- trace off). Screens with their own cursor (other locators, layers without control focus) are left alone. The
-  -- control focus is not moved and no menu callback runs. On leave the screen's own last wish is put back.
-  function GD.FocusHide()
+  --- Hides the focus cursors that are on, remembering them for focus_show.
+  function GD.focus_hide()
     GD.hidden = {}
     for layer, on in pairs(GD.cursor_on or {}) do
       local okf, act = pcall(GD.raw, C.CTRL_FOCUS_ACTIVE, layer)
@@ -1533,13 +1318,13 @@ if VRFW_TopBar == nil then
       end
     end
   end
-  function GD.FocusShow()
+  --- Shows again the cursors focus_hide remembered.
+  function GD.focus_show()
     local hidden = GD.hidden or {}
     GD.hidden = {}
     for _, h in ipairs(hidden) do
       local oke, exists = pcall(GD.raw, C.LAYER_EXISTS, h.layer)
       local on = GD.cursor_on ~= nil and GD.cursor_on[h.layer] or nil
-      -- the screen turned that cursor off itself meanwhile (focus moved, layer closed): its state stays
       if oke and exists == true and on ~= nil and on[h.idx] == true then
         pcall(GD.raw, C.ATTACH_TRACE, h.layer, h.idx, C.LOCATOR_CURSOR, true)
         local okf, act = pcall(GD.raw, C.CTRL_FOCUS_ACTIVE, h.layer)
@@ -1555,7 +1340,7 @@ if VRFW_TopBar == nil then
     if GD.menu == nil then return end
     local alive = NavAlive()
     if alive and not GD.off then
-      GD.FocusHide()
+      GD.focus_hide()
       GD.off = true
       GD.held = {}
       for _, m in ipairs(Targets()) do
@@ -1576,12 +1361,10 @@ if VRFW_TopBar == nil then
       end
       if n > 0 then Log("top bar focus: input of", TB.name, "restored (" .. n .. " menu(s))") end
       GD.held = {}
-      GD.FocusShow()
+      GD.focus_show()
     end
   end
   local function Guard()
-    -- menus only (never the title screens, whose hand-off presses a mode while a shortcut is in flight, nor a VM the
-    -- loader could not name: «?»)
     if GD.installed or type(TB.name) ~= "string" or TB.name == "?" or TB.name:find("^title") then return end
     GD.installed = true
     GD.menu = CRC32(TB.name)
@@ -1644,9 +1427,8 @@ if VRFW_TopBar == nil then
     TB.raised, TB.fading = false, false
     if type(funcLuaMenuCommand) ~= "function" or TB.name == nil or type(CRC32) ~= "function" then return end
     LoadRules()
-    -- a straight reset landed: the first menu of the new scene says so with the carry's outcome
-    if VRFW_Param.Has(K.DIRECT) then
-      VRFW_Param.Clear(K.DIRECT)
+    if VRFW.param.has(K.DIRECT) then
+      VRFW.param.clear(K.DIRECT)
       local okc, last = pcall(funcLuaCommand, C.CARRY, 2)
       if tostring(TB.name):find("^title") then
         Log("direct: the title runs after all (carry:", tostring(okc and last or "?"), ")")
@@ -1656,26 +1438,23 @@ if VRFW_TopBar == nil then
     end
     if TB.name == TITLE then
       TB.on = true
-      if VRFW_Param.Has(K.HIDE) then VRFW_Param.Clear(K.HIDE) end   -- stale after a reset
+      if VRFW.param.has(K.HIDE) then VRFW.param.clear(K.HIDE) end   -- stale after a reset
       WrapStep(DeferPoll)
-      if VRFW_Param.Has(K.DEFER) then Log("title: a deferred target is waiting") end
+      if VRFW.param.has(K.DEFER) then Log("title: a deferred target is waiting") end
       return
     end
     local n = funcLuaMenuCommand(C.LAYER_NUM, L_ICON)
     if type(n) ~= "number" or n <= 0 then return end
-    -- as many icons as the host has instances of evt_topbar_icon (the count the declaring mod gives the layer):
-    -- a ninth / tenth entry is drawn
-    -- where the layers allow it; plate instance MAX is the spare one (the old hint)
     TB.MAX = n
     TB.menu, TB.self_crc = CRC32(TB.name), CRC32(TB.name)
-    if VRFW_TopBarGuard ~= nil and VRFW_TopBarGuard.menus ~= nil then
-      for _, v in ipairs(TB.host.variants or {}) do VRFW_TopBarGuard.menus[v] = true end
+    if VRFW.top_bar.guard ~= nil and VRFW.top_bar.guard.menus ~= nil then
+      for _, v in ipairs(TB.host.variants or {}) do VRFW.top_bar.guard.menus[v] = true end
     end
     ResolveMenu()
     local nb = funcLuaMenuCommand(C.LAYER_NUM, L_BACK)
     TB.has_back, TB.back_on = type(nb) == "number" and nb > 0, false
-    if VRFW_Param.Has(K.BUSY) then VRFW_Param.Clear(K.BUSY) end -- stale after a reset
-    if VRFW_Param.Has(K.NAV) then VRFW_Param.Clear(K.NAV) end   -- no focus at a hub's start
+    if VRFW.param.has(K.BUSY) then VRFW.param.clear(K.BUSY) end -- stale after a reset
+    if VRFW.param.has(K.NAV) then VRFW.param.clear(K.NAV) end   -- no focus at a hub's start
     local nd, np = funcLuaMenuCommand(C.LAYER_NUM, L_DICON), funcLuaMenuCommand(C.LAYER_NUM, L_DPLATE)
     TB.has_drop = type(nd) == "number" and nd > 0 and type(np) == "number" and np > 0
     TB.dsel, TB.dshut, TB.drop_drawn = nil, false, TB.has_drop   -- drawn = hide its quads at the first Draw
@@ -1687,8 +1466,6 @@ if VRFW_TopBar == nil then
     for _, tex in pairs(Atlases()) do
       funcLuaMenuCommand(C.LOAD_TEX, tex)
     end
-    -- the plates evt_tb_hover / evt_tb_current / evt_tb_back: from the declared atlas ([VRFW.TopBarStyle] PlatesAtlas);
-    -- none declared: the first icon's atlas (old rule, WARN: a mod's own first icon would show no plate)
     if TB.plates_atlas ~= nil then
       funcLuaMenuCommand(C.LOAD_TEX, TB.plates_atlas)
       TB.plate_tex = CRC32(TB.plates_atlas)
@@ -1722,12 +1499,11 @@ if VRFW_TopBar == nil then
       return table.unpack(r, 1, r.n)
     end
   end
-  -- our layers: no retail setup / open code ever sees them (hidden until the header is open)
   local setup = OnSetupLayer
   if type(setup) == "function" then
     OnSetupLayer = function(a1, a2, ...)
       if a1 == L_ICON or a1 == L_PLATE or a1 == L_BACK or a1 == L_DPLATE or a1 == L_DICON or a1 == L_DLABEL then
-        pcall(funcLuaMenuCommand, C.VISIBLE, a1, a2, false)
+        VRFW.host.menu_command(C.VISIBLE, a1, a2, false)
         return
       end
       return setup(a1, a2, ...)
@@ -1743,14 +1519,7 @@ if VRFW_TopBar == nil then
       return open(a1, a2, ...)
     end
   end
-  -- The same three hooks as VRFW_Host handlers of this script: a stem patch that REDEFINES OnInit /
-  -- OnSetupLayer / OnOpenLayer (a source-edit graft, e.g. the framework's route_nodes on the Chronicle board
-  -- vs_route_town_menu) runs after lua\_all and drops the wrappers above: Init never ran there (no row) and the
-  -- bar's quads stayed at (0, 0) with the cmn01_10 quad's retail sprite (the red «new» badge, top-left corner). A
-  -- script that is a host (VRFW_Host.host in its patches) hooks these points over whatever its patches made of them,
-  -- so the bar survives them. Where the wrappers above are still under the host's dispatcher, Init runs once (init_seq)
-  -- and our layers are answered by whichever comes first. Registering only defines tables (no engine call at load).
-  local VH = VRFW_Host
+  local VH = VRFW.host
   if type(TB.name) == "string" and type(VH) == "table" and type(VH.on) == "function" then
     local function ours(a1) return a1 == L_ICON or a1 == L_PLATE or a1 == L_BACK or a1 == L_DPLATE or a1 == L_DICON or a1 == L_DLABEL end
     pcall(VH.on, TB.name, "OnInit", {id = "VRFW.top_bar_init", phase = "around", fn = function(nxt, ...)
@@ -1764,7 +1533,7 @@ if VRFW_TopBar == nil then
     end})
     pcall(VH.on, TB.name, "OnSetupLayer", {id = "VRFW.top_bar_setup", phase = "around", fn = function(nxt, a1, a2, ...)
       if ours(a1) then
-        pcall(funcLuaMenuCommand, C.VISIBLE, a1, a2, false)
+        VRFW.host.menu_command(C.VISIBLE, a1, a2, false)
         return
       end
       return nxt(a1, a2, ...)
@@ -1779,35 +1548,32 @@ if VRFW_TopBar == nil then
   end
 end
 
--- ---- the steps after the title (an entry's `action.path`) -------------------------------
--- VRFW_TopBarStep("<step>") -> true when the shortcut in flight (param evt_top_bar_target = crc32(entry key)) has
--- `<step>` as its next step; the step is taken (param evt_top_bar_step; after the last one both params are cleared), so
--- a screen asks once, at the moment it can go on (e.g. its OnInit), then decides whether it really can. The path is read
--- from the entry list (CMND_VRFW_MENU_ENTRY, 9th value): the handler knows only its own step name, never an entry key.
--- Engine calls only when called (nothing at chunk load).
-if VRFW_TopBarStep == nil then
-  local TARGET, STEP = 837786837 --[[evt_top_bar_target]], 3366268333 --[[evt_top_bar_step]]
-  local function U32(v) return VRFW_Id.u32_or(v, v) end
+if VRFW.top_bar.step == nil then
+  local TARGET, STEP = 2566540065 --[[vrfw_top_bar_target]], 229413441 --[[vrfw_top_bar_step]]
+  local function U32(v) return VRFW.ids.unsigned_or(v, v) end
   local function Get(k)
-    if not VRFW_Param.Has(k) then return nil end
-    return U32(VRFW_Param.Get(k))
+    if not VRFW.param.has(k) then return nil end
+    return U32(VRFW.param.get(k))
   end
   local function Clear(k)
-    if VRFW_Param.Has(k) then VRFW_Param.Clear(k) end
+    if VRFW.param.has(k) then VRFW.param.clear(k) end
   end
+  local step_logger
   local function Log(...)
     local p = {}
     for i = 1, select("#", ...) do p[#p + 1] = tostring((select(i, ...))) end
-    pcall(funcLuaCommand, 1563215927 --[[CMND_EVT_LOG_DEBUG]], "EVT top_bar step " .. table.concat(p, " "))
+    step_logger = step_logger or VRFW.logger.new("EVT top_bar step")
+    step_logger.debug(table.concat(p, " "))
   end
-  function VRFW_TopBarStep(step)
+  --- Applies a pending top-bar target for this frame; answers whether there was one to apply.
+  function VRFW.top_bar.step(step)
     if type(CRC32) ~= "function" then return false end
     local target = Get(TARGET)
     if target == nil then return false end
-    local ok, n = pcall(funcLuaCommand, VRFW_Cmd.VRFW_MENU_ENTRY_COUNT, "top_bar")
+    local ok, n = pcall(funcLuaCommand, VRFW.commands.VRFW_MENU_ENTRY_COUNT, "top_bar")
     if not ok or type(n) ~= "number" then return false end
     for i = 1, n do
-      local key, _t, _i, _k, _v, _o, _c, _m, steps = funcLuaCommand(VRFW_Cmd.VRFW_MENU_ENTRY, "top_bar", i)
+      local key, _t, _i, _k, _v, _o, _c, _m, steps = funcLuaCommand(VRFW.commands.VRFW_MENU_ENTRY, "top_bar", i)
       if key ~= nil and U32(CRC32(key)) == target then
         local list = {}
         for s in tostring(steps or ""):gmatch("[^,%s]+") do list[#list + 1] = s end
@@ -1818,7 +1584,7 @@ if VRFW_TopBarStep == nil then
           Clear(STEP)
         else
           Clear(STEP)
-          VRFW_Param.Set(STEP, done + 1)
+          VRFW.param.set(STEP, done + 1)
         end
         Log(key, "takes", step, done + 1, "of", #list)
         return true
@@ -1828,18 +1594,14 @@ if VRFW_TopBarStep == nil then
   end
 end
 
--- ---- hide the row while something plays full screen over the hub ------------------------------------------
--- VRFW_TopBarHide(true | false): sets / clears the param vrfw_top_bar_hidden every host's row reads (Refresh: not drawn,
--- no input while it is set). For a mod's scene played over the menus: the hub's header
--- stays open under it, so the row would stay drawn. The title clears a stale one after a reset. Engine calls only when
--- called (nothing at chunk load).
-if VRFW_TopBarHide == nil then
-  function VRFW_TopBarHide(on)
+if VRFW.top_bar.hide == nil then
+  --- Hides or shows the top bar; answers true.
+  function VRFW.top_bar.hide(on)
     local HIDE = 1455983968 --[[vrfw_top_bar_hidden]]
     if on then
-      VRFW_Param.Set(HIDE, 1)
-    elseif VRFW_Param.Has(HIDE) then
-      VRFW_Param.Clear(HIDE)
+      VRFW.param.set(HIDE, 1)
+    elseif VRFW.param.has(HIDE) then
+      VRFW.param.clear(HIDE)
     end
     return true
   end

@@ -1,7 +1,6 @@
 schema = "VRFW.game/2"
 
 # Face icon rules (schema VRFW.game/2). Nothing is installed unless a mod declares a face_icon rule (`apply = "script"`).
-# Hook on BuildFaceIconComposite: a type-9 icon (face + kit bust) of a declared rarity or key is drawn as type 10 (face only).
 [[VRFW.Hook]]
 name = "FaceIcons.Composite"
 game = "Image.BuildFaceIconComposite"
@@ -25,7 +24,6 @@ write = "[args[2] + 0x5B]:u8"
 
 # ------------------------------------------------------------------------------------------------ commands
 
-# (hdl[, key]) -> mode (0 = game icon, 10 = face only): how a card handle's icon (or, with hdl 0, a character key's) is drawn.
 [[VRFW.Command]]
 name = "CMND_VRFW_FACE_ICON"
 handler = "FaceIcons.Cmd"

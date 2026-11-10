@@ -1,0 +1,7 @@
+schema = "VRFW.contact_map/1"
+# with Classic Cards the office charges the element spirit that stands for the player's position
+[[VRFW.ContactPositionCurrency]]
+Set = "ClassicRecruitment.office"
+Currency = { gk = "0x81274E23", df = "0x90B639BB", mf = "0xC35FFA3C", fw = "0x86503F3A" }
+Title = { gk = "classic_cards_position_tokens_gk", df = "classic_cards_position_tokens_df", mf = "classic_cards_position_tokens_mf", fw = "classic_cards_position_tokens_fw" }
+Unit = { gk = "classic_cards_position_token_gk", df = "classic_cards_position_token_df", mf = "classic_cards_position_token_mf", fw = "classic_cards_position_token_fw" }

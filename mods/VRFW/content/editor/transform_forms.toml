@@ -1,5 +1,4 @@
-# The forms of the transform type's policy tables and fusion keshin rules (docs/framework/types/transform.md §2.2,
-# §2.4.1), in the editor schema format (docs/framework/modmanager-editor-schemas.md). ModManager edits these files in
+# Editor forms of the transform files, in the editor schema format (docs/framework/modmanager-editor-schemas.md). ModManager edits these files in
 # «Más tipos»: `For = "<schema>"` is a whole file without `[[…]]` lists (`[rules]`, `[miximax]`, `[ability_list]`),
 # `For = "<schema> <list>"` one entry of that list. Fields read from the shipped transform files.
 # Read only by ModManager: the game does not read content\editor\.
@@ -76,10 +75,6 @@ Id = "transform_rules"
   Type = "bool"
   Label = { en = "Armour over its keshin is free", es = "Armadura sobre su keshin gratis" }
   [[Shape.Field]]
-  Key = "armour_mesh_fallback"
-  Type = "lists"
-  Label = { en = "Body group mesh fallbacks (group, uses)", es = "Mallas de reserva por grupo (grupo, usa)" }
-  [[Shape.Field]]
   Key = "armour_no_mesh_groups"
   Type = "numbers"
   Label = { en = "Body groups without armour", es = "Grupos de cuerpo sin armadura" }
@@ -147,7 +142,7 @@ Id = "transform_ability_list"
 Id = "transform_aura_rule"
 For = "VRFW.transform/2 aura_rule"
 Label = { en = "Fusion keshin", es = "Keshin de fusión" }
-Help = { en = "A keshin that N players on the pitch summon together (docs/framework/types/transform.md §2.4.1).", es = "Un keshin que N jugadores en el campo invocan juntos." }
+Help = { en = "A keshin that N players on the pitch summon together (docs/internal/types/transform.md §2.4.1).", es = "Un keshin que N jugadores en el campo invocan juntos." }
   [[Shape.Field]]
   Key = "aura"
   Type = "ref"
@@ -164,6 +159,10 @@ Help = { en = "A keshin that N players on the pitch summon together (docs/framew
   Key = "components"
   Type = "lists"
   Label = { en = "Component sets (one player each)", es = "Conjuntos de componentes (uno por jugador)" }
+  [[Shape.Field]]
+  Key = "solo_summon"
+  Type = "bool"
+  Label = { en = "Its own carrier summons it alone", es = "Su portador lo invoca solo" }
   [[Shape.Field]]
   Key = "all_can_use_move"
   Type = "bool"

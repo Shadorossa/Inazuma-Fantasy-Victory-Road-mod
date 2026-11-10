@@ -1,6 +1,4 @@
-# Character Reforged › the texts of the «Crear …» confirmation panel (hook pair_confirm_window_hooks.lua of graft
-# character_reforged_board). The other stat
-# names on the panel are the game's own menu_text rows.
+# The texts of the «Crear …» confirmation panel (graft character_reforged_board); other stat names are the game's rows.
 schema = "VRFW.text/2"
 table = "menu_text"
 

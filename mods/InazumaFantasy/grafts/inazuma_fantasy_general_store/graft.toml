@@ -1,10 +1,10 @@
 # Inazuma Fantasy (InazumaFantasy): its shops' bars at the top of the Mercado (market_menu): «Tienda general»,
 # «Tienda de entrenamiento» and «Supertécnicas». The shops themselves are data (research/mods/InazumaFantasy/
-# content/shops/*.toml, written by research/scripts/inazuma_fantasy_general_store.py from _general_store.toml); their
+# content/shops/*.toml, written by research/mods/InazumaFantasy/_tools/inazuma_fantasy_general_store.py from _general_store.toml); their
 # ids are the framework's (CMND_VRFW_REG_FIND("shop", "InazumaFantasy.<name>")), read in OnInit. A retail shop whose
-# every row a mod hides leaves the Mercado through the framework (VRFW market_menu\100_market_bars.lua). The bar count:
-# content/menus/market_menu.toml (layer count) and assets/menu/150_shop/shop01/shop01_20/shop01_20.g4pkm
-# (research/scripts/inazuma_fantasy_market_bar.py).
+# every row a mod hides leaves the Mercado through the framework (VRFW market_menu\100_market_bars.lua), which also limits the bars to the entries of
+# the list (the layer keeps its retail 6 instances). The layout: assets/menu/150_shop/shop01/shop01_20/shop01_20.g4pkm
+# (research/mods/InazumaFantasy/_tools/inazuma_fantasy_market_bar.py).
 # Merge-path patch (the per-entry tables are locals of the script): the mod is lua_early, so later wrappers of
 # market_menu (VRFW menu music, BetterUI shop shortcuts) sit on top of it.
 name = "inazuma_fantasy_general_store"
@@ -28,7 +28,7 @@ stem = "market_menu"
 do
   local REG_FIND = 2175579023           -- CMND_VRFW_REG_FIND (type, key) -> id (-1)
   local SHOP_REDIRECTS = 2445086479     -- CMND_VRFW_SHOP_REDIRECTS () -> n, from 1, to 1, ...: shops opened as another shop
-  local LOG = 3661580131                -- CMND_EVT_LOG
+  local LOG = 519897777                -- CMND_VRFW_LOG
   -- the bars of this mod, in Mercado order: shop key, bar name (shop_text row "InazumaFantasy.<name>_name"), art set
   local BARS = {
     { key = "InazumaFantasy.general_store", name = 713514104,          -- art market04 (Tienda vínculo)

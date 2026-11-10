@@ -1,0 +1,26 @@
+schema = "VRFW.passive/1"
+
+[[VRFW.Passive]]
+name = "wind_plus"
+blocks = ["wind_move", "own_power_15"]
+carried_by = ["character_reforged_wind_plus"]
+
+[[VRFW.Passive]]
+name = "forest_plus"
+blocks = ["forest_move", "own_power_15"]
+carried_by = ["character_reforged_forest_plus"]
+
+[[VRFW.Passive]]
+name = "fire_plus"
+blocks = ["fire_move", "own_power_15"]
+carried_by = ["character_reforged_fire_plus"]
+
+[[VRFW.Passive]]
+name = "mountain_plus"
+blocks = ["mountain_move", "own_power_15"]
+carried_by = ["character_reforged_mountain_plus"]
+
+[[VRFW.Passive]]
+name = "void_plus"
+blocks = ["void_move", "own_power_15"]
+carried_by = ["character_reforged_neutral_plus"]

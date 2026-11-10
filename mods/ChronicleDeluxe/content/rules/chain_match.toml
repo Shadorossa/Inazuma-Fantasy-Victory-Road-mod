@@ -1,0 +1,6 @@
+schema = "VRFW.rule/1"
+id = "chronicle_deluxe_chain"
+name = "Chronicle Deluxe chain match"
+
+[end]
+advance_win_goals = 5

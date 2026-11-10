@@ -1,8 +1,7 @@
 schema = "VRFW.rule/1"
 # Base ruleset for training and dribble trials (types 3 and 4): every rule follows the match row ("row").
-# A mod may replace it (same id, loaded later) or assign another in its rules\matches.toml.
 id = "training"
-name = "Training (original)"   # fallback; shown in the game language from the text key ruleset_training
+name = "Training (original)"
 version = 1
 
 [time]

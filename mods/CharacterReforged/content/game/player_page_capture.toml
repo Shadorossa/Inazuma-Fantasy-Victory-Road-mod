@@ -1,32 +1,25 @@
 schema = "VRFW.game/2"
 
-# Character Reforged › the player page's 3D model in a match (graft plate_model, layer evt_pp_model_cap): its settings
-# (config.toml [player_page]) and a loader.log report of the engine's capture state. The logic is
-# scripts\player_page_capture.lua (CharacterReforged.PageCapture.*); the engine side
-# The report reads the profile names Render.SetCaptureGrid (render-texture pool), Render.GetTarget (render targets)
-# Camera.GetConfig (external camera config), Render.GetSystem / Render.GetSettings (pause freeze) and Scene.GameState
-# (scene chara records) through VRFW.game.symbol.
-
 [[VRFW.Command]]
-name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_CONFIG"   # () -> mode (0 off, 1 match, 2 always), camera crc, report (0 / 1), bust (0 / 1), live pause (0 / 1), quad until drawn (0 / 1)
+name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_CONFIG"
 handler = "CharacterReforged.PageCapture.Config"
 
 [[VRFW.Command]]
-name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_REPORT"   # (when, model key, camera crc, model handle) -> 1; loader.log «player_page_capture: …» lines
+name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_REPORT"
 handler = "CharacterReforged.PageCapture.Report"
 
 [[VRFW.Command]]
-name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_LIVE"     # (on 1 / 0) -> 1 done, 0 nothing to do, -1 not reachable: the pause freeze flag off / back
+name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_LIVE"
 handler = "CharacterReforged.PageCapture.Live"
 
 [[VRFW.Command]]
-name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_DRAWN"    # (reset 1 / 0) -> 1 drawn, 0 no draw (hide the quad), 2 waiting, -1 no probe: VRFW.render.capture_pause()
+name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_DRAWN"
 handler = "CharacterReforged.PageCapture.Drawn"
 
 [[VRFW.Command]]
-name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_BIND"     # (model key, quad mesh crc; key 0 = release) -> 1 bound by the framework, -1 not available: VRFW.render.capture_bind
+name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_BIND"
 handler = "CharacterReforged.PageCapture.Bind"
 
 [[VRFW.Command]]
-name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_BOUND"    # () -> 1 the quad shows the capture cell, 0 not yet, -1 not available: VRFW.render.capture_bound
+name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_BOUND"
 handler = "CharacterReforged.PageCapture.Bound"

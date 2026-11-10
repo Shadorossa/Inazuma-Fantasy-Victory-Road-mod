@@ -1,5 +1,3 @@
-# The online compatibility screen of the net service (lua\menu\_all\61_online_compat.lua, docs/framework/online.md):
-# the summary, the column titles, the state of each mod, the buttons and what they do.
 
 schema = "VRFW.text/2"
 table = "menu_text"

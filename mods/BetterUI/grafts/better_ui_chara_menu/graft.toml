@@ -1,0 +1,19 @@
+# BetterUI: the team dock's per-player command window as a one-column list with hidden and reordered rows.
+# Order 906: outermost over the patches that replace or filter GetSelectSettingTypeOrderList.
+name = "better_ui_chara_menu"
+order = 906
+module = "lua_bridge"
+mod = "BetterUI"
+requires = []
+conflicts = []
+wraps = []   # OpenSubWinSelectCharaSetting and MENU_DEF.OpenSubWindow are wrapped by assignment at run time
+description = "BetterUI: the team dock's per-player menu as a one-column list in a fixed row order"
+
+[[files]]
+stem = "team_dock_formation_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "chara_menu.lua"
+  marker = "better_ui chara_menu"
+  crc = "none"

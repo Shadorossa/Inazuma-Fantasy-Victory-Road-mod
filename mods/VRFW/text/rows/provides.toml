@@ -1,5 +1,3 @@
-# What the framework offers to other mods (its mod.toml `provides`), in words: the «Ofrece a otros mods» chips of the
-# Mods screen's mod page read the menu_text row id = crc32 of "VRFW.provides_<name>".
 
 schema = "VRFW.text/2"
 table = "menu_text"

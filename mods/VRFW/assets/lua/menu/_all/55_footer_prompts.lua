@@ -1,63 +1,36 @@
+-- lua_patch.scope: used
 -- menu_engine: footer prompts, VRFW.FooterPrompts (VRFW base feature).
--- Hold prompts (AddHold / WaitHold, at the end): the long-press ring shows only while the key is held.
--- Definitions only (this file runs in every script VM, lua\_all). A retail bottom button guide
--- (mainmenu01_06_base_button_guide) is set by its script in one call: funcLuaMenuCommand(2209673388, menu, guide,
--- texts, glyphs, offsets, spare1, spare2) + funcLuaMenuCommand(452337289, menu, guide, commands). Mods DECLARE extra
--- entries of a menu's guide; the framework appends them to the tables of that call, after the entries the script (and
--- anything before) put there, in Order, so nothing is overwritten and the engine lays all of them out in one row:
---   VRFW_FooterPrompts.Add({Name = "<ModPrefix>.<PascalCase>",   -- a second Add with the same Name replaces it
---                           Menu = "<script stem>",              -- e.g. "vs_route_town_menu"
---                           Text = <text id>,                    -- crc32 of the text row id (a mod's text row)
---                           Icon = <glyph id>,                   -- e.g. 3487556099 <CMD_FUNCR2> (follows the device)
---                           Command = <command hash>,            -- optional: the command a click on it sends (0)
---                           Order = <number>,                    -- optional, lower first (0); then by Name
---                           When = <Lua command hash> | function() return <bool> end,  -- optional: shown when
---                                                               -- the command answers true / the function says true
---                           Replaces = <glyph id>})             -- optional: while shown, the entry takes the
---                                                               -- place of the script's entry with that glyph (its
---                                                               -- text, glyph and command); none there = appended
--- Where the entries go in:
---   * VRFW_FooterPrompts.Apply(menu, texts, glyphs, offsets, spare1, spare2, commands): appends to those tables IN
---     PLACE (a script the framework patches calls it right before its guide call; vs_route_town_menu's
---     SetupButtonGuideInfo, graft route_board);
---   * VRFW_FooterPrompts.Attach(stem, fn [, guide]): for a script the framework does not patch, wraps its global `fn`
---     (guide: one guide layer id or a list of them, for a script that sets one of several guides)
---     (the function that sets the guide) through VRFW_Host when the stem is a host, else directly in the VM
---     of the hook file that calls it (the global must exist: call it from a hook file of that stem): during that call
---     the guide's two commands get the entries added to copies of their tables.
--- VRFW_FooterPrompts.Set(stem, menu, entries [, options]): a guide a mod's own code sets (its entries {Text, Icon,
--- Command, Offset} plus the stem's declarations, both guide commands); options = guide layer id or {Guide, Declared, Call}.
--- VRFW_FooterPrompts.Hide(decl): a script's entry (by text or glyph) taken out of every guide this VM sets.
--- Offsets: the next step of the guide's own row (last + 18, retail {0, 18, 36, ...}); spare lists get 0.
--- When is asked every time the guide is set (no cache). No engine call at load time.
-if VRFW_FooterPrompts == nil then
+if VRFW.footer_prompts == nil then
   local F = {
-    LOG = VRFW_Cmd.EVT_LOG,            -- CMND_EVT_LOG
     GUIDE = 1138543975,          -- mainmenu01_06_base_button_guide
     GUIDE_TEXTS = 2209673388,    -- (menu, guide, texts, glyphs, offsets, spare1, spare2)
     GUIDE_KEYS = 452337289,      -- (menu, guide, commands)
     STEP = 18,
     decls = {},                  -- name -> declaration
     attached = {},
-    wrapping = {},               -- stem -> depth of its Attach wraps running now
+    wrapping = {},
   }
-  VRFW_FooterPrompts = F
+  VRFW.footer_prompts = F
 
-  function F.Log(...)
-    pcall(funcLuaCommand, F.LOG, "vrfw.FooterPrompts", ...)
+  local logger
+  --- Logs through the footer-prompts logger.
+  function F.log(...)
+    logger = logger or VRFW.logger.new("vrfw.FooterPrompts")
+    logger(...)
   end
 
-  function F.Add(d)
-    if type(d) ~= "table" or type(d.Name) ~= "string" or type(d.Menu) ~= "string" or type(d.Text) ~= "number"
-        or type(d.Icon) ~= "number" then
-      return false
+  --- Adds a footer prompt; answers true, or false, why.
+  function F.add(d)
+    if type(d) ~= "table" or type(d.name) ~= "string" or type(d.menu) ~= "string" or type(d.text) ~= "number"
+        or type(d.icon) ~= "number" then
+      return false, "a prompt needs a name, a menu, a text and an icon"
     end
-    F.decls[d.Name] = d
+    F.decls[d.name] = d
     return true
   end
 
   local function shown(d)
-    local w = d.When
+    local w = d.when
     if w == nil then
       return true
     end
@@ -70,34 +43,34 @@ if VRFW_FooterPrompts == nil then
     if not ok then
       if not d.warned then
         d.warned = true
-        F.Log(d.Name .. ": When failed: " .. tostring(on))
+        F.log(d.name .. ": when failed: " .. tostring(on))
       end
       return false
     end
     return on == true
   end
 
-  -- the shown entries of a menu, in order
-  function F.Entries(menu)
+  --- The shown entries of a menu, in order.
+  function F.entries(menu)
     local list = {}
     for _, d in pairs(F.decls) do
-      if d.Menu == menu and shown(d) then
+      if d.menu == menu and shown(d) then
         list[#list + 1] = d
       end
     end
     table.sort(list, function(a, b)
-      local oa, ob = a.Order or 0, b.Order or 0
+      local oa, ob = a.order or 0, b.order or 0
       if oa ~= ob then
         return oa < ob
       end
-      return a.Name < b.Name
+      return a.name < b.name
     end)
     return list
   end
 
   local function push(texts, glyphs, offs, s1, s2, cmds, d)
-    texts[#texts + 1] = d.Text
-    glyphs[#glyphs + 1] = d.Icon
+    texts[#texts + 1] = d.text
+    glyphs[#glyphs + 1] = d.icon
     if type(offs) == "table" then
       local last = offs[#offs]
       offs[#offs + 1] = (type(last) == "number") and (last + F.STEP) or (#offs * F.STEP)
@@ -109,34 +82,33 @@ if VRFW_FooterPrompts == nil then
       s2[#s2 + 1] = 0
     end
     if type(cmds) == "table" then
-      cmds[#cmds + 1] = d.Command or 0
+      cmds[#cmds + 1] = d.command or 0
     end
   end
 
   -- the position of the script's entry a declaration replaces (its Replaces glyph), nil = none / not there
   local function replaced_position(glyphs, d)
-    if type(d.Replaces) ~= "number" then
+    if type(d.replaces) ~= "number" then
       return nil
     end
     for i = 1, #glyphs do
-      if glyphs[i] == d.Replaces then
+      if glyphs[i] == d.replaces then
         return i
       end
     end
     return nil
   end
 
-  -- adds the shown entries to the text tables (in place): a Replaces entry over the script's entry, the others
-  -- appended. Returns the replaced positions {position -> declaration} and the appended declarations, in order
+  -- adds the shown entries to the text tables (in place): a Replaces entry over the script's entry, the others appended.
   local function add_entries(list, texts, glyphs, offs, s1, s2, cmds)
     local replaced, appended = {}, {}
     for _, d in ipairs(list) do
       local at = replaced_position(glyphs, d)
       if at ~= nil and replaced[at] == nil then
-        texts[at], glyphs[at] = d.Text, d.Icon
+        texts[at], glyphs[at] = d.text, d.icon
         replaced[at] = d
         if type(cmds) == "table" then
-          cmds[at] = d.Command or cmds[at]
+          cmds[at] = d.command or cmds[at]
         end
       else
         push(texts, glyphs, offs, s1, s2, cmds, d)
@@ -146,12 +118,12 @@ if VRFW_FooterPrompts == nil then
     return replaced, appended
   end
 
-  -- adds the shown entries of a menu to the guide tables (in place); returns how many
-  function F.Apply(menu, texts, glyphs, offs, s1, s2, cmds)
+  --- Adds the shown entries of a menu to the guide tables (in place); returns how many.
+  function F.apply(menu, texts, glyphs, offs, s1, s2, cmds)
     if type(texts) ~= "table" or type(glyphs) ~= "table" then
       return 0
     end
-    local list = F.Entries(menu)
+    local list = F.entries(menu)
     add_entries(list, texts, glyphs, offs, s1, s2, cmds)
     return #list
   end
@@ -164,42 +136,32 @@ if VRFW_FooterPrompts == nil then
     return r
   end
 
-  -- a guide a mod's own code sets: its entries ({Text, Icon, Command, Offset}, in order) plus the stem's declared ones,
-  -- in the retail form (offsets last + 18 unless an entry gives its Offset; spare lists 0). options: a guide layer id,
-  -- or {Guide = layer id, Declared = false (no declared entries), Call = the funcLuaMenuCommand to send it with}
-  function F.Set(stem, menu, entries, options)
-    local o = type(options) == "table" and options or { Guide = options }
+  --- Replaces the footer of `menu` with `entries`; answers how many it wrote.
+  function F.set(stem, menu, entries, options)
+    local o = type(options) == "table" and options or { guide = options }
     local texts, glyphs, offs, s1, s2, cmds = {}, {}, {}, {}, {}, {}
     for _, d in ipairs(type(entries) == "table" and entries or {}) do
       push(texts, glyphs, offs, s1, s2, cmds, d)
-      if type(d.Offset) == "number" then
-        offs[#offs] = d.Offset
+      if type(d.offset) == "number" then
+        offs[#offs] = d.offset
       end
     end
-    if o.Declared ~= false and (F.wrapping[stem] or 0) == 0 then   -- inside an Attach wrap the wrap adds them
-      F.Apply(stem, texts, glyphs, offs, s1, s2, cmds)
+    if o.declared ~= false and (F.wrapping[stem] or 0) == 0 then   -- inside an Attach wrap the wrap adds them
+      F.apply(stem, texts, glyphs, offs, s1, s2, cmds)
     end
-    local layer = o.Guide or F.GUIDE
-    local call = o.Call or funcLuaMenuCommand
+    local layer = o.guide or F.GUIDE
+    local call = o.call or funcLuaMenuCommand
     pcall(call, F.GUIDE_TEXTS, menu, layer, texts, glyphs, offs, s1, s2)
     pcall(call, F.GUIDE_KEYS, menu, layer, cmds)
     return #texts
   end
 
-  -- Hidden entries: a script's guide entry taken out of every guide this VM sets (texts, glyphs, offsets, spare
-  -- lists: every list of the texts' length) and the same place out of the commands of the next keys call of that
-  -- menu and layer. Declared from a hook file of the VM it applies to (a lua\_all file: every VM):
-  --   VRFW_FooterPrompts.Hide({Name = "<ModPrefix>.<PascalCase>",  -- a second Hide with the same Name replaces it
-  --                            Text = <text id> | Icon = <glyph id>,  -- the entry: its text, or its glyph
-  --                            Layer = <guide layer id>,           -- optional: only that guide (default any)
-  --                            When = <Lua command hash> | function() return <bool> end})  -- optional
-  -- Runs as a VRFW_Host command hook (installed at the first Hide; on when the engine stores the command function).
   F.hides = {}                   -- name -> hide declaration
-  F.hidden_places = {}           -- "menu:layer" -> places taken out of its last texts call, in order
+  F.hidden_places = {}
 
   local function hide_place(d, texts, glyphs)
-    local list = type(d.Text) == "number" and texts or glyphs
-    local id = type(d.Text) == "number" and d.Text or d.Icon
+    local list = type(d.text) == "number" and texts or glyphs
+    local id = type(d.text) == "number" and d.text or d.icon
     if type(list) ~= "table" then
       return nil
     end
@@ -233,7 +195,7 @@ if VRFW_FooterPrompts == nil then
       table.sort(names)
       for _, name in ipairs(names) do
         local d = F.hides[name]
-        if (d.Layer == nil or d.Layer == layer) and shown(d) then
+        if (d.layer == nil or d.layer == layer) and shown(d) then
           local place = hide_place(d, args[4], args[5])
           if place ~= nil then
             local size = #args[4]
@@ -265,22 +227,23 @@ if VRFW_FooterPrompts == nil then
     return nxt(...)
   end
 
-  function F.Hide(d)
-    if type(d) ~= "table" or type(d.Name) ~= "string" or (type(d.Text) ~= "number" and type(d.Icon) ~= "number") then
-      return false
+  --- Hides a retail footer prompt; answers true, or false, why.
+  function F.hide(d)
+    if type(d) ~= "table" or type(d.name) ~= "string" or (type(d.text) ~= "number" and type(d.icon) ~= "number") then
+      return false, "a name and a text or an icon expected"
     end
-    F.hides[d.Name] = d
-    if not F.hide_hooked and VRFW_Host ~= nil and VRFW_Host.HookCommand ~= nil then
+    F.hides[d.name] = d
+    if not F.hide_hooked and VRFW.host ~= nil and VRFW.host.hook_command ~= nil then
       F.hide_hooked = true
-      VRFW_Host.HookCommand(F.GUIDE_TEXTS, hide_texts, "vrfw.FooterPrompts.Hide", { menu = true })
-      VRFW_Host.HookCommand(F.GUIDE_KEYS, hide_keys, "vrfw.FooterPrompts.HideKeys", { menu = true })
+      VRFW.host.hook_command(F.GUIDE_TEXTS, hide_texts, "vrfw.FooterPrompts.Hide", { menu = true })
+      VRFW.host.hook_command(F.GUIDE_KEYS, hide_keys, "vrfw.FooterPrompts.HideKeys", { menu = true })
     end
     return true
   end
 
   -- the guide call of a script with the entries added: runs nxt(...) with the two guide commands rewritten
   local function call_with_entries(stem, layers, nxt, ...)
-    local list = F.Entries(stem)
+    local list = F.entries(stem)
     if #list == 0 or type(funcLuaMenuCommand) ~= "function" then
       return nxt(...)
     end
@@ -297,10 +260,10 @@ if VRFW_FooterPrompts == nil then
       elseif layers[lay] and cmd == F.GUIDE_KEYS and type(a) == "table" then
         a = copy(a)
         for at, x in pairs(replaced) do
-          a[at] = x.Command or a[at]
+          a[at] = x.command or a[at]
         end
         for _, x in ipairs(appended) do
-          a[#a + 1] = x.Command or 0
+          a[#a + 1] = x.command or 0
         end
       end
       return orig(cmd, menu, lay, a, b, c, d, e, ...)
@@ -314,28 +277,27 @@ if VRFW_FooterPrompts == nil then
     return table.unpack(r, 2, r.n)
   end
 
-  -- a script the framework does not patch: wrap its guide-setting global (through VRFW_Host when the stem is a host,
-  -- else directly in this VM; once per stem / function)
-  function F.Attach(stem, fn, guide)
+  --- Adds the shown entries to footer function `fn` of `stem`; answers true, or false, why.
+  function F.attach(stem, fn, guide)
     local key = stem .. "/" .. fn
     if F.attached[key] then
-      return false
+      return false, "already attached"
     end
     local layer = {}
     for _, g in ipairs(type(guide) == "table" and guide or { guide or F.GUIDE }) do
       layer[g] = true
     end
-    local host = VRFW_Host ~= nil and type(VRFW_Host.hosts) == "table" and VRFW_Host.hosts[stem] ~= nil
-    if host and VRFW_Host.on ~= nil then
+    local host = VRFW.host ~= nil and type(VRFW.host.hosts) == "table" and VRFW.host.hosts[stem] ~= nil
+    if host and VRFW.host.on ~= nil then
       F.attached[key] = true
-      VRFW_Host.on(stem, fn, {id = "vrfw.FooterPrompts", phase = "around", fn = function(nxt, ...)
+      VRFW.host.on(stem, fn, {id = "vrfw.FooterPrompts", phase = "around", fn = function(nxt, ...)
         return call_with_entries(stem, layer, nxt, ...)
       end})
       return true
     end
     local current = rawget(_ENV, fn)
     if type(current) ~= "function" then
-      return false
+      return false, "no such function in this menu"
     end
     F.attached[key] = true
     _ENV[fn] = function(...)
@@ -344,25 +306,10 @@ if VRFW_FooterPrompts == nil then
     return true
   end
 
-  -- Hold prompts: a guide entry whose key acts when held. Idle, the guide shows only its glyph and label;
-  -- while the key is held the retail long-press ring (object win04_12_long_press_button) sits over the entry's glyph
-  -- and fills with the hold; it goes away on release or as soon as the hold completes.
-  --   VRFW_FooterPrompts.AddHold({Name = "<ModPrefix>.<PascalCase>",
-  --                               Ring = <layer id>,       -- the menu's win04_12_long_press_button layer, added with
-  --                                                        -- no opening group (flags [0, 0, 0, 0, 1, 0])
-  --                               Icon = <glyph text id>,  -- the key glyph drawn in the ring (follows the device)
-  --                               Entry = <number>,        -- the prompt's position in the guide row (0 = first)
-  --                               Seconds = <number>,      -- optional: hold time (2)
-  --                               HeldSeconds = function() return <seconds the key is held, or nil> end,  -- optional
-  --                               Pressed = function() return <bool> end,  -- the key's command this frame
-  --                               Menus = function() return {<menu handle>, ...} end,  -- optional: the guide's menus
-  --                               OnHeld = function() end})                -- optional: the moment the hold completes
-  --   WaitHold(name) -> "tap" | "held": coroutine body (yields every frame); returns once the key is released.
-  --   HoldProgress(name, progress 0..1) / HoldHide(name): the ring by hand.
-  -- Without HeldSeconds (or before it reports a hold) the key counts as held while Pressed keeps repeating.
+  -- Hold prompts: a guide entry whose key acts when held.
   F.HOLD = {
     SECONDS = 2,
-    SHOW_AFTER = 0.1,              -- seconds before the ring shows, so a tap never flashes it
+    SHOW_AFTER = 0.1,
     KEY_GRACE = 30,                -- frames without a Pressed repeat = released
     GUIDE_BUTTON = 9396745,        -- mainmenu01_07_button_guide: one instance per guide entry
     GLYPH_NODE = 950238781,        -- its _text_btn01 (50 x 50, top-left)
@@ -374,21 +321,22 @@ if VRFW_FooterPrompts == nil then
   }
   F.holds = {}
 
-  function F.AddHold(d)
-    if type(d) ~= "table" or type(d.Name) ~= "string" or type(d.Ring) ~= "number" or type(d.Icon) ~= "number" then
-      return false
+  --- Declares a hold prompt; answers true, or false, why.
+  function F.add_hold(d)
+    if type(d) ~= "table" or type(d.name) ~= "string" or type(d.ring) ~= "number" or type(d.icon) ~= "number" then
+      return false, "a hold needs a name, a ring and an icon"
     end
-    F.holds[d.Name] = d
+    F.holds[d.name] = d
     return true
   end
 
   local function glyph_position(menu, entry)
     local ok, x, y
     if menu == nil then
-      ok, x, y = pcall(funcLuaMenuCommand, VRFW_Cmd.GET_MESH_GLOBAL_POSITION, F.HOLD.GUIDE_BUTTON, entry,
+      ok, x, y = pcall(funcLuaMenuCommand, VRFW.commands.GET_MESH_GLOBAL_POSITION, F.HOLD.GUIDE_BUTTON, entry,
         F.HOLD.GLYPH_NODE)
     else
-      ok, x, y = pcall(funcLuaMenuCommand, VRFW_Cmd.GET_MESH_GLOBAL_POSITION, F.HOLD.GUIDE_BUTTON, entry, F.HOLD.GLYPH_NODE, menu)
+      ok, x, y = pcall(funcLuaMenuCommand, VRFW.commands.GET_MESH_GLOBAL_POSITION, F.HOLD.GUIDE_BUTTON, entry, F.HOLD.GLYPH_NODE, menu)
     end
     -- (0, 0) is what a missing node answers
     if ok and type(x) == "number" and type(y) == "number" and (x ~= 0 or y ~= 0) then
@@ -399,9 +347,9 @@ if VRFW_FooterPrompts == nil then
 
   -- the ring's centre over the entry's glyph (the guide's menus first, then no menu); nil = not found
   local function ring_position(d)
-    local entry = d.Entry or 0
-    if type(d.Menus) == "function" then
-      local ok, menus = pcall(d.Menus)
+    local entry = d.entry or 0
+    if type(d.menus) == "function" then
+      local ok, menus = pcall(d.menus)
       if ok and type(menus) == "table" then
         for _, m in ipairs(menus) do
           if type(m) == "number" and m ~= 0 then
@@ -420,81 +368,80 @@ if VRFW_FooterPrompts == nil then
     return nil
   end
 
-  -- one frame of the hold: the ring at `progress` over the entry's glyph; false = unknown hold / no ring layer
-  function F.HoldProgress(name, progress)
+  --- One frame of the hold: the ring at `progress` over the entry's glyph; false = unknown hold / no ring layer.
+  function F.hold_progress(name, progress)
     local d = F.holds[name]
     if d == nil then
       return false
     end
-    local L = d.Ring
-    if funcLuaMenuCommand(VRFW_Cmd.IS_EXIST_LAYER, L) ~= true then
+    local L = d.ring
+    if funcLuaMenuCommand(VRFW.commands.IS_EXIST_LAYER, L) ~= true then
       return false
     end
-    if funcLuaMenuCommand(VRFW_Cmd.IS_OPEN_LAYER, L, 0) ~= true then
-      funcLuaMenuCommand(VRFW_Cmd.OPEN_LAYER, L, 0)
+    if funcLuaMenuCommand(VRFW.commands.IS_OPEN_LAYER, L, 0) ~= true then
+      funcLuaMenuCommand(VRFW.commands.OPEN_LAYER, L, 0)
       d.ready, d.glyph_set = false, false
       return true
     end
-    if funcLuaMenuCommand(VRFW_Cmd.IS_LOADING_LAYER, L) == true then
+    if funcLuaMenuCommand(VRFW.commands.IS_LOADING_LAYER, L) == true then
       return true
     end
     if not d.ready then
       d.ready = true
-      funcLuaMenuCommand(VRFW_Cmd.SET_DRAW_PRIORITY, L, 0, F.HOLD.PRIORITY, true)
-      funcLuaMenuCommand(VRFW_Cmd.SET_LAYER_LOCAL_SCALE, L, F.HOLD.RING_SCALE, F.HOLD.RING_SCALE, 1, 0)
+      funcLuaMenuCommand(VRFW.commands.SET_DRAW_PRIORITY, L, 0, F.HOLD.PRIORITY, true)
+      funcLuaMenuCommand(VRFW.commands.SET_LAYER_LOCAL_SCALE, L, F.HOLD.RING_SCALE, F.HOLD.RING_SCALE, 1, 0)
       funcLuaMenuCommand(541357333 --[[rate init]], L, F.HOLD.RING_RATE, 0, 0)
     end
     if not d.glyph_set then
       -- read at every hold, so the glyph follows the device in use
       d.glyph_set = true
-      local ok, glyph = pcall(funcLuaCommand, VRFW_Cmd.TEXT_GET, d.Icon)
-      funcLuaMenuCommand(VRFW_Cmd.SET_MENU_TEXT_STRING, L, F.HOLD.RING_TEXT,
+      local ok, glyph = pcall(funcLuaCommand, VRFW.commands.TEXT_GET, d.icon)
+      funcLuaMenuCommand(VRFW.commands.SET_MENU_TEXT_STRING, L, F.HOLD.RING_TEXT,
         (ok and type(glyph) == "string") and glyph or "", 0)
     end
     local x, y = ring_position(d)
     if x == nil then
       if not d.warned then
         d.warned = true
-        F.Log(d.Name .. ": the guide glyph of entry " .. tostring(d.Entry or 0) .. " was not found; ring hidden")
+        F.log(d.name .. ": the guide glyph of entry " .. tostring(d.entry or 0) .. " was not found; ring hidden")
       end
-      funcLuaMenuCommand(VRFW_Cmd.SET_LAYER_VISIBLE, L, 0, false)
+      funcLuaMenuCommand(VRFW.commands.SET_LAYER_VISIBLE, L, 0, false)
       return true
     end
-    funcLuaMenuCommand(VRFW_Cmd.SET_LAYER_LOCAL_POS, L, x, y, 0, 0)
+    funcLuaMenuCommand(VRFW.commands.SET_LAYER_LOCAL_POS, L, x, y, 0, 0)
     funcLuaMenuCommand(1595998683 --[[CMND_SET_RATE]], L, F.HOLD.RING_RATE, 0, math.max(0, math.min(1, progress)), 0)
-    funcLuaMenuCommand(VRFW_Cmd.SET_LAYER_VISIBLE, L, 0, true)
+    funcLuaMenuCommand(VRFW.commands.SET_LAYER_VISIBLE, L, 0, true)
     return true
   end
 
-  -- the ring emptied and hidden (nothing when it was never opened)
-  function F.HoldHide(name)
+  --- Hides the ring of hold `name`.
+  function F.hold_hide(name)
     local d = F.holds[name]
     if d == nil then
       return
     end
     d.glyph_set = false
-    local L = d.Ring
-    if funcLuaMenuCommand(VRFW_Cmd.IS_EXIST_LAYER, L) == true and funcLuaMenuCommand(VRFW_Cmd.IS_OPEN_LAYER, L, 0) == true then
+    local L = d.ring
+    if funcLuaMenuCommand(VRFW.commands.IS_EXIST_LAYER, L) == true and funcLuaMenuCommand(VRFW.commands.IS_OPEN_LAYER, L, 0) == true then
       funcLuaMenuCommand(1595998683, L, F.HOLD.RING_RATE, 0, 0, 0)
-      funcLuaMenuCommand(VRFW_Cmd.SET_LAYER_VISIBLE, L, 0, false)
+      funcLuaMenuCommand(VRFW.commands.SET_LAYER_VISIBLE, L, 0, false)
     end
   end
 
-  -- the key of a hold prompt was pressed: waits (yielding every frame) until it is released; "held" when it stayed
-  -- down for the hold time (OnHeld runs and the ring goes at that moment), else "tap"; nil = unknown hold
-  function F.WaitHold(name)
+  --- Waits for hold `name` to finish or be released; answers its result, nil for an unknown hold.
+  function F.wait_hold(name)
     local d = F.holds[name]
     if d == nil then
       return nil
     end
     local H = F.HOLD
-    local seconds = (type(d.Seconds) == "number" and d.Seconds > 0) and d.Seconds or H.SECONDS
+    local seconds = (type(d.seconds) == "number" and d.seconds > 0) and d.seconds or H.SECONDS
     local frames, last_press, timer_seen, result = 0, 0, false, nil
     d.glyph_set = false
     while true do
       local timer = nil
-      if type(d.HeldSeconds) == "function" then
-        local ok, s = pcall(d.HeldSeconds)
+      if type(d.held_seconds) == "function" then
+        local ok, s = pcall(d.held_seconds)
         if ok and type(s) == "number" then
           timer = s
         end
@@ -502,8 +449,8 @@ if VRFW_FooterPrompts == nil then
       if timer ~= nil and timer > 0 then
         timer_seen = true
       end
-      if type(d.Pressed) == "function" then
-        local ok, on = pcall(d.Pressed)
+      if type(d.pressed) == "function" then
+        local ok, on = pcall(d.pressed)
         if ok and on == true then
           last_press = frames
         end
@@ -521,12 +468,12 @@ if VRFW_FooterPrompts == nil then
         end
         if time >= seconds then
           result = "held"
-          pcall(F.HoldHide, name)
-          if type(d.OnHeld) == "function" then
-            pcall(d.OnHeld)
+          pcall(F.hold_hide, name)
+          if type(d.on_held) == "function" then
+            pcall(d.on_held)
           end
         elseif time >= H.SHOW_AFTER then
-          pcall(F.HoldProgress, name, time / seconds)
+          pcall(F.hold_progress, name, time / seconds)
         end
       elseif not held then
         break
@@ -534,7 +481,7 @@ if VRFW_FooterPrompts == nil then
       coroutine.yield()
       frames = frames + 1
     end
-    pcall(F.HoldHide, name)
+    pcall(F.hold_hide, name)
     return result
   end
 end

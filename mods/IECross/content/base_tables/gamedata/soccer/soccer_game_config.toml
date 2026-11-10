@@ -1,15 +1,8 @@
 schema = "VRFW.base_table/1"
-# The 11 games of the «Inazuma Eleven Cross» tab of «Competir contra bots»: row deltas BY KEY ([[keyed]], applied
-# after every mod's edition of the file, so they sit on top of IF's whole lists). Each game's difficulty row is
-# written as its REF_DIFFICULTY slice: the framework appends it to SOCCER_GAME_DIFFICULTY and points the game at it
-# (no row positions). Keys / numbers unchanged: game id = crc32(name), clear bit = sort_no 2548-2558 (the saves'
-# «beaten» orbs), prizes = reward_table (soccer_prize_config.toml here), own stadium / AI / drops as before. The 12th
-# game, Royal Academy (Cross), is made by the team type (content/teams/02_royal_academy_cross.toml, list cross_tab in
-# content/teams/cross_tab.toml).
 
 [[keyed]]
 table = "soccer/soccer_game_info"
-key_columns = ["id"]                    # the game id (crc32 of its name); 1.1.2: the schema had no key column, so VR-Framework <= 2.0.2 skipped these rows
+key_columns = ["id"]                    # the game id (crc32 of its name); 1.1.2: the schema had no key column, so VRFW <= 2.0.2 skipped these rows
   [[keyed.add]]                         # evt_cm_cx_shin_zeus
   key = 0x81D0CDFF
   cells = { name = { text = "evt_cm_cx_shin_zeus" }, game_type = 1, stadium_map = 0x1F894C15, title_text = 0x92ECDB7F, map_environment = 0, flag_6 = 0, c7 = 2, flag_8 = 0, flag_9 = 0, REF_DIFFICULTY = { set = [
@@ -70,7 +63,7 @@ key_columns = ["id"]                    # the game id (crc32 of its name); 1.1.2
     { difficulty = 9, opponent_team = 0xDD7AAFD2, opponent_level = 200, c3 = 4, opponent_ai = 0x3574B8A0, own_team_override = 0, own_team_level = 1, c7 = 0, reward_table = 0xA96E6CE6, reward_money = 0x00043005, nice_play_exp = 0, bean_reward_1 = 0x6992D1FC, bean_reward_2 = 0x6992D1FC, bean_reward_3 = 0x6992D1FC, bean_reward_4 = 0x43C9A678, growth = 0, c16 = 0, c17 = -1, bgm_setting = 0x79C1A0FE, caster_setting = 0x9E070545, match_minutes = 30, c21 = 0, c22 = 0, c23 = 0, special_rules = 0x8A57ADDE, game_quest = 0, game_quest_2 = 0, c27 = 0, c28 = 0, spirit_chara_table = 0xA1B25654, item_drop_table = 0x0CC12593, spirit_drop_table = 0xE523407A, lottery_num = 0, spirit_drop_table_2 = 0, first_clear_reward = 0, sort_no = 2557, item_table_decide = 0x108FE92E, lottery_num_2 = 0, c38 = 0, c39 = 106, c40 = 0, c41 = 0, c42 = 0, c43 = 0, spirit_chara_table_2 = 0, spirit_drop_table_3 = 0xE523407A, lottery_num_3 = 0, lottery_num_4 = 0, chronicle_team_group = 0, bgm_override = 0 },
   ] } }
 
-  [[keyed.add]]                         # evt_cm_cx_japan_2026
+  [[keyed.add]]
   key = 0xDD7171CC
   cells = { name = { text = "evt_cm_cx_japan_2026" }, game_type = 1, stadium_map = 0x4F44DDA6, title_text = 0x5544E2DD, map_environment = 0, flag_6 = 0, c7 = 2, flag_8 = 0, flag_9 = 0, REF_DIFFICULTY = { set = [
     { difficulty = 9, opponent_team = 0xEF61F9EC, opponent_level = 200, c3 = 4, opponent_ai = 0x3574B8A0, own_team_override = 0, own_team_level = 1, c7 = 0, reward_table = 0xB59065E7, reward_money = 0x00043005, nice_play_exp = 0, bean_reward_1 = 0x6992D1FC, bean_reward_2 = 0x6992D1FC, bean_reward_3 = 0x6992D1FC, bean_reward_4 = 0x43C9A678, growth = 0, c16 = 0, c17 = -1, bgm_setting = 0x79C1A0FE, caster_setting = 0x9E070545, match_minutes = 30, c21 = 0, c22 = 0, c23 = 0, special_rules = 0x8A57ADDE, game_quest = 0, game_quest_2 = 0, c27 = 0, c28 = 0, spirit_chara_table = 0x87A2B8B7, item_drop_table = 0x228D916D, spirit_drop_table = 0xE523407A, lottery_num = 0, spirit_drop_table_2 = 0, first_clear_reward = 0, sort_no = 2558, item_table_decide = 0x3EC35DD0, lottery_num_2 = 0, c38 = 0, c39 = 106, c40 = 0, c41 = 0, c42 = 0, c43 = 0, spirit_chara_table_2 = 0, spirit_drop_table_3 = 0xE523407A, lottery_num_3 = 0, lottery_num_4 = 0, chronicle_team_group = 0, bgm_override = 0 },

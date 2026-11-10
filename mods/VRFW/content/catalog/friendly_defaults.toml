@@ -1,5 +1,4 @@
 schema = "VRFW.catalog/1"
-# Defaults for a [[friendly]] declaration and its before/after steps, applied for keys they leave out.
 
 [friendly]
 # Team the player uses: "active_friendly" | "current" (the mode's own VS team).

@@ -1,20 +1,14 @@
 id = "VRFW"
-former_ids = ["vr_framework"]
-# name / description: the English fallback; the «Mods» screen shows the text keys mod_name / mod_description in the game's language (text\rows\mod_info.toml)
 name = "VRFW"
-version = "0.2.4"
+version = "0.3.0"
 author = "Fantasy Team"
-author_steam = "76561199013321372"
-description = "The base of the VR ModLoader's mods, in one mod: characters and teams declared by mods and their rarity (chara), mod texts in 9 languages (text), the save slots (the slot screen before the game starts), per-mod save data tied to the slot and the mods' save flags (save), global game rules declared by mods: parameters (game_param and the other property tables), controls and buttons (system), mod audio and voice packs (audio), match rulesets (match), special move animations (anim), row changes in any game table (tables), game modes declared by mods (modes), special move name banners, the «Mod options» tab and the title menu's «Mods» screen (graphics). Built into the VR ModLoader (winmm.dll): no DLL of its own. Needed by the mods that use any of its parts."
+description = "The framework the other mods are built on: it lets mods add characters, teams, special moves, texts in 9 languages, save data, match rules, game modes, audio and menus, and it provides the Mods screen with its options. Needed by the mods that use it."
 # the base loads first: the mods that use it load after it (and win their conflicts)
 priority = -10
 tags = ["Framework"]
-updated = "2026-11-06"
+updated = "2026-11-09"
 # No plugin key: the framework's code is linked into the ModLoader (winmm.dll) and runs for the mod with this id.
-# The framework API version this folder's content is written for (checked like any mod's requires_api)
-requires_api = ">=1"
-# The parts' public names (VRFW.<part>, the framework's version), then the old engine names as frozen aliases
-# (an old separate engine folder in mods\ is skipped).
+requires_api = "2"
 provides = [
     "VRFW.rarity",
     "VRFW.character",
@@ -66,20 +60,19 @@ provides = [
     "changelog=1.0.1",
 ]
 # Lua patch roots, one per topic under assets\lua\; run in this order.
-# Game-path files (the sound_queue_sheet placeholder, full files of the Lua build) are in assets\data\ (read by default: no files_roots).
-lua_roots = ["assets/lua/option", "assets/lua/sound", "assets/lua/mods_screen", "assets/lua/changelog", "assets/lua/save", "assets/lua/mode", "assets/lua/menu", "assets/lua/archetype", "assets/lua/synergy"]
-# CMND_EVT_ANIM_* / CMND_EVT_CHARA_* / CMND_EVT_TEAM_* / CMND_EVT_RARITY_* / CMND_EVT_ITEM_* / CMND_EVT_TEXT_* / CMND_EVT_MODE_* / CMND_EVT_OPT_* / CMND_EVT_VOICE_* / CMND_EVT_MATCH_* / CMND_VRFW_MM_* need the Lua bridge
+lua_roots = ["assets/lua/option", "assets/lua/sound", "assets/lua/mods_screen", "assets/lua/changelog", "assets/lua/save", "assets/lua/mode", "assets/lua/menu", "assets/lua/archetype", "assets/lua/synergy", "assets/lua/anim"]
 loader_modules = ["lua_bridge"]
 # loader_min: the framework needs ModLoader 2.0.0 (an older loader would load this folder as data only).
 loader_min = "2.0.0"
 # Native access used by content\game: byte patches, functions, hooks, commands and state keys.
 permissions = ["patch", "memory", "call", "command", "state", "hook"]
 # content\ folders the framework's scripts and run times read in every mod (not types, no declaration schema)
+# word that names this mod's byte edits in the game profile (research/scripts/profile_extract.py)
+profile_edit_word = "Unsigned"
+
 [layout]
 script_folders = ["archetypes", "camera_drives", "community_links", "contact_maps", "editor", "random_teams", "redeem_codes", "screen_art", "story_start", "talk_templates"]
 
-# ---- debug switches (docs/framework/debug-flags.md) ----------------------------------------------------------------------
-# The framework's config switches a debug flag forces on (e.g. while a debug mod is enabled); config.toml keeps them off.
 [[VRFW.DebugSwitch]]
 Flag = "reveal_all"
 Config = "debug.reveal_all"
@@ -92,10 +85,6 @@ Config = "debug.all_chains"
 Flag = "free_gacha"
 Config = "debug.free_gacha"
 
-# ---- mod tags (Mods panel: «Crear › Supertécnicas» (Create › Special moves) editor, the mod info panels) ----------------
-# The tags any mod may carry: a label (a text key of text\rows\mod_tags.toml), an order and the rules that give it to a
-# mod from its own files (any rule matching = the tag). Other mods declare more tags the same way in their mod.toml; a
-# mod adds / removes tags by hand with [VRFW.Mod] Tags = [...] / NoTags = [...].
 [[VRFW.ModTag]]
 Id = "new_hissatsu"
 Text = "VRFW.tag_new_hissatsu"

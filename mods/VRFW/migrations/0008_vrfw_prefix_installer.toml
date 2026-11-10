@@ -1,0 +1,32 @@
+# Wave C (P4), installer part of VRFW.vrfw_prefix: the install records and backups in the game folder.
+schema = "VRFW.migration/1"
+id = "VRFW.vrfw_prefix_installer"
+description = "The installer's evt_ backup folder and records and the deploy backups get the VRFW names"
+phase = "installer"
+
+[[step]]
+kind = "move_folder"
+from = "{game}/evt_backup"
+to = "{game}/vrfw_backup"
+if_target = "stop"
+
+# one record per install: <game>\vrfw_backup\<stamp>\evt_install.json
+[[step]]
+kind = "move_file"
+from = "{game}/vrfw_backup/*/evt_install.json"
+to = "{game}/vrfw_backup/*/vrfw_install.json"
+if_target = "stop"
+
+# one record per installed component: <game>\vrfw_backup\componentes\<id>\evt_componente.json
+[[step]]
+kind = "move_file"
+from = "{game}/vrfw_backup/componentes/*/evt_componente.json"
+to = "{game}/vrfw_backup/componentes/*/vrfw_component.json"
+if_target = "stop"
+
+# ModManager / vr_deploy.py deploy backups
+[[step]]
+kind = "move_folder"
+from = "{game}/vr_backups"
+to = "{game}/vrfw_backups"
+if_target = "stop"

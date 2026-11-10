@@ -1,0 +1,39 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# New synergy sf11007 (cloned from sf10001): Bai Long + Sol Daystar.
+
+[[item]]
+name = "thunder_and_blaze"
+base = "sf10001"
+category = "synergy"
+icon_key = "sf11007"
+key_id = true
+  [item.text.es]
+  name = "Trueno y Llamarada"
+  [item.text.en]
+  name = "Thunder and Blaze"
+  [item.text.fr]
+  name = "Tonnerre et Flamme"
+  [item.text.de]
+  name = "Donner und Flamme"
+  [item.text.it]
+  name = "Tuono e Fiammata"
+  [item.text.pt]
+  name = "Trovão e Labareda"
+  [item.text.ja]
+  name = "[雷/かみなり]と[炎/ほのお]"
+  [item.text.zh_hans]
+  name = "雷霆与烈焰"
+  [item.text.zh_hant]
+  name = "雷霆與烈焰"
+
+[[currency]]
+name = "bai_long_card"
+spirit = 0x6F08BCC1                      # chara_param of Bai Long c04003500
+rarity = 4
+
+[[currency]]
+name = "sol_daystar_card"
+spirit = 0xDEAE22C0                      # chara_param of Sol Daystar c04002900
+rarity = 4

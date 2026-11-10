@@ -1,6 +1,6 @@
-1f37c7243f6e9c77d9c4ddcb278984fbb5f0ac7bb010dd52504664e781fe3a3d53333982ac4bc6ef3788e97b6076d3b38286cce9fba8a2a27c1a5bddfe8b030d
+d447227aa507d29b23bdfdc0f05128d548c8aa81568ef9c20a051900cbe3a99b099be1574221662dcac07c914d38ff58a0e693b0aee6550fc9618420aec5220b
 format = 1
-sequence = 5
+sequence = 6
 
 [[version]]
 label = "0.2.4a"
@@ -35,4 +35,11 @@ label = "0.3.0c"
 ref = "release-0.3.0c"
 sequence = 5
 manifest_sha256 = "e37c2dda1664ac714ec9fcb2dc071bcb8d887e58d866d4ca4a7a38c7b4187f35"
+game_version = "v7.2.1"
+
+[[version]]
+label = "0.3.0d"
+ref = "release-0.3.0d"
+sequence = 6
+manifest_sha256 = "a6365c5d9f315c62d356ced0c2473f9aeea1badf9d636e86926b3fa68d432358"
 game_version = "v7.2.1"

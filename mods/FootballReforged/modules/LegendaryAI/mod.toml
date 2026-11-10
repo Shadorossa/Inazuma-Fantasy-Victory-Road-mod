@@ -2,7 +2,7 @@ id = "LegendaryAI"
 name = "Legendary AI"
 version = "0.3.0"
 author = "Fantasy Team"
-description = "Offline matches, except Chronicle battles, are played against a «Legendary» CPU: the rival reacts at once in duels, picks the move that beats your element, learns the moves you use, shoots as soon as a zone opens and presses tired players. In free matches the rival also comes trained for his position, with his best passives."
+description = "Offline matches, except the Chronicle battles played with a story team, are played against a «Legendary» CPU: the rival reacts at once in duels, picks the move that beats your element, learns the moves you use, shoots as soon as a zone opens and presses tired players. In free matches the rival also comes trained for his position, with his best passives."
 priority = 0
 tags = ["AI difficulty", "Gameplay"]
 updated = "2026-11-09"
@@ -17,7 +17,8 @@ loader_min = "1.7.0"
 permissions = ["memory", "hook", "state"]
 # Always loaded: its card's switch acts from the next match, with no restart (docs/framework/hot-reload.md section 8).
 live_toggle = true
-not_in_match_modes = ["chronicle", "chronicle_small"]
+# A Chronicle battle whose row names the user's team (story team against story team) keeps the game's AI.
+not_in_match_modes = ["chronicle_story_team", "chronicle_story_team_small"]
 # starts switched ON (the player can turn it off on its card)
 default_enabled = true
 

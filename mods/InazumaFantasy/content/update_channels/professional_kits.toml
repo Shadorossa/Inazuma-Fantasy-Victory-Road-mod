@@ -1,0 +1,13 @@
+# Professional Kits has its own update channel: a channel's mod list can never grow, so a new mod gets a new channel.
+# Its index lives on its own branch of the same repository (docs/framework/auto-update.md, "A mod added later").
+[[VRFW.UpdateChannel]]
+id = "ProfessionalKits"
+title = "Professional Kits"
+raw_url = "https://raw.githubusercontent.com/Shadorossa/Inazuma-Fantasy-Victory-Road-mod/"
+index_ref = "professional-kits"
+public_key = "311b04b838548b75bb1c281dedd058d02215f3498a588a83022d245f4165691f"
+baseline = "professional_kits_baseline.signed"
+loader = false
+mods = [
+    "ProfessionalKits",
+]

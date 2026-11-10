@@ -11,10 +11,19 @@ small_suffix = "_small"
 training = "training"
 training_types = [3, 4]
 
+# The first entry whose play mode and user team both match gives the key.
+# user_team: "named" = the match row names the user's team, "own" = the player's own team, absent = either.
 [[match_mode]]
 key = "story"
 play_mode = [2, 6]
 
+# Chronicle battle whose match row names the team the user plays (a story team against a story team).
+[[match_mode]]
+key = "chronicle_story_team"
+play_mode = [4]
+user_team = "named"
+
+# Every other Chronicle battle: the user plays the player's own team (heroic battles, gates, route nodes).
 [[match_mode]]
 key = "chronicle"
 play_mode = [4]

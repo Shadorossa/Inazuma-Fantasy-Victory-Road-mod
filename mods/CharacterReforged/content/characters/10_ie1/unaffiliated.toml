@@ -5463,7 +5463,7 @@ moves = [
   { move = 0x8DFA4265, level = 1 },                         # Toughness Block
   { move = 0x922AB1CF, level = 30 },                        # Safety First
   { move = 0xDBA0E5E3, level = 95 },                        # Gigant Wall
-  { move = 0xB907E20C, level = 105 },                       # Procyon Net
+  { move = 0xB907E20C, level = 99 },                        # Procyon Net
 ]
 
   [[edit.cards]]

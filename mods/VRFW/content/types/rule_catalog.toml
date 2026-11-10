@@ -103,6 +103,7 @@ training_types = { type = "ints" }
 entry_table = "match_mode"
 key = { type = "string", required = true }
 play_mode = { type = "ints", required = true }
+user_team = { type = "string" }
 
 [entry.Trigger]
 entry_table = "trigger"

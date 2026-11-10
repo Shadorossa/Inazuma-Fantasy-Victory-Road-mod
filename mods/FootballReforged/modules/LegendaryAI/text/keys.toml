@@ -4,7 +4,7 @@ default_lang = "en"
 
 [en.new]
 mod_name = "Legendary AI"
-mod_description = "Offline matches, except Chronicle battles, are played against a «Legendary» CPU: the rival reacts at once in duels, picks the move that beats your element, learns the moves you use, shoots as soon as a zone opens and presses tired players. In free matches the rival also comes trained for his position, with his best passives."
+mod_description = "Offline matches, except the Chronicle battles played with a story team, are played against a «Legendary» CPU: the rival reacts at once in duels, picks the move that beats your element, learns the moves you use, shoots as soon as a zone opens and presses tired players. In free matches the rival also comes trained for his position, with his best passives."
 option_difficulty = "Difficulty"
 option_difficulty_help = "How well the rival's AI plays, from the next match. Only its AI rules change, never its stats or passives. Hell is the full Legendary AI."
 difficulty_novice = "Novice"
@@ -15,7 +15,7 @@ difficulty_hell = "Hell"
 
 [es.new]
 mod_name = "IA legendaria"
-mod_description = "Los partidos sin conexión, salvo las batallas de Crónica, se juegan contra una CPU «Legendaria»: el rival reacciona al instante en los duelos, elige la técnica que vence a tu elemento, aprende las técnicas que usas, tira en cuanto se abre una zona y presiona a los jugadores cansados. En los partidos libres, el rival llega además entrenado para su posición y con sus mejores pasivas."
+mod_description = "Los partidos sin conexión, salvo las batallas de Crónica que se juegan con un equipo de la historia, se juegan contra una CPU «Legendaria»: el rival reacciona al instante en los duelos, elige la técnica que vence a tu elemento, aprende las técnicas que usas, tira en cuanto se abre una zona y presiona a los jugadores cansados. En los partidos libres, el rival llega además entrenado para su posición y con sus mejores pasivas."
 option_difficulty = "Dificultad"
 option_difficulty_help = "Lo bien que juega la IA rival, desde el próximo partido. Solo cambian las reglas de su IA, nunca sus estadísticas ni sus pasivas. Infierno es la IA legendaria completa."
 difficulty_novice = "Novato"
@@ -26,7 +26,7 @@ difficulty_hell = "Infierno"
 
 [fr.new]
 mod_name = "IA légendaire"
-mod_description = "Les matchs hors ligne, sauf les batailles de Chronique, se jouent contre une CPU « Légendaire » : le rival réagit aussitôt dans les duels, choisit la technique qui bat ton élément, retient les techniques que tu utilises, tire dès qu'une zone s'ouvre et presse les joueurs fatigués. En match libre, le rival arrive aussi entraîné pour son poste, avec ses meilleurs passifs."
+mod_description = "Les matchs hors ligne, sauf les batailles de Chronique jouées avec une équipe de l'histoire, se jouent contre une CPU « Légendaire » : le rival réagit aussitôt dans les duels, choisit la technique qui bat ton élément, retient les techniques que tu utilises, tire dès qu'une zone s'ouvre et presse les joueurs fatigués. En match libre, le rival arrive aussi entraîné pour son poste, avec ses meilleurs passifs."
 option_difficulty = "Difficulté"
 option_difficulty_help = "Le niveau de jeu de l'IA adverse, dès le prochain match. Seules les règles de son IA changent, jamais ses statistiques ni ses passifs. Enfer est l'IA légendaire complète."
 difficulty_novice = "Novice"
@@ -37,7 +37,7 @@ difficulty_hell = "Enfer"
 
 [de.new]
 mod_name = "Legendäre KI"
-mod_description = "Offline-Spiele, außer Chronik-Kämpfen, werden gegen eine «legendäre» CPU gespielt: Der Rivale reagiert sofort in Duellen, wählt die Technik, die dein Element schlägt, merkt sich deine Techniken, schießt, sobald sich eine Zone öffnet, und setzt müde Spieler unter Druck. In freien Spielen kommt der Rivale außerdem für seine Position trainiert und mit seinen besten Passiven."
+mod_description = "Offline-Spiele, außer Chronik-Kämpfen mit einem Story-Team, werden gegen eine «legendäre» CPU gespielt: Der Rivale reagiert sofort in Duellen, wählt die Technik, die dein Element schlägt, merkt sich deine Techniken, schießt, sobald sich eine Zone öffnet, und setzt müde Spieler unter Druck. In freien Spielen kommt der Rivale außerdem für seine Position trainiert und mit seinen besten Passiven."
 option_difficulty = "Schwierigkeit"
 option_difficulty_help = "Wie gut die gegnerische KI spielt, ab dem nächsten Spiel. Nur ihre KI-Regeln ändern sich, nie ihre Werte oder Passiven. Hölle ist die volle legendäre KI."
 difficulty_novice = "Neuling"
@@ -48,7 +48,7 @@ difficulty_hell = "Hölle"
 
 [it.new]
 mod_name = "IA leggendaria"
-mod_description = "Le partite offline, tranne le battaglie di Cronaca, si giocano contro una CPU «Leggendaria»: il rivale reagisce subito nei duelli, sceglie la tecnica che batte il tuo elemento, impara le tecniche che usi, tira appena si apre una zona e pressa i giocatori stanchi. Nelle partite libere il rivale arriva anche allenato per il suo ruolo, con le sue migliori passive."
+mod_description = "Le partite offline, tranne le battaglie di Cronaca giocate con una squadra della storia, si giocano contro una CPU «Leggendaria»: il rivale reagisce subito nei duelli, sceglie la tecnica che batte il tuo elemento, impara le tecniche che usi, tira appena si apre una zona e pressa i giocatori stanchi. Nelle partite libere il rivale arriva anche allenato per il suo ruolo, con le sue migliori passive."
 option_difficulty = "Difficoltà"
 option_difficulty_help = "Quanto gioca bene l'IA avversaria, dalla prossima partita. Cambiano solo le regole della sua IA, mai le statistiche o le passive. Inferno è l'IA leggendaria completa."
 difficulty_novice = "Novellino"
@@ -59,7 +59,7 @@ difficulty_hell = "Inferno"
 
 [pt.new]
 mod_name = "IA lendária"
-mod_description = "Os jogos offline, exceto as batalhas de Crónica, jogam-se contra uma CPU «Lendária»: o rival reage logo nos duelos, escolhe a técnica que vence o teu elemento, aprende as técnicas que usas, remata assim que se abre uma zona e pressiona os jogadores cansados. Nos jogos livres, o rival chega ainda treinado para a sua posição e com as suas melhores passivas."
+mod_description = "Os jogos offline, exceto as batalhas de Crónica jogadas com uma equipa da história, jogam-se contra uma CPU «Lendária»: o rival reage logo nos duelos, escolhe a técnica que vence o teu elemento, aprende as técnicas que usas, remata assim que se abre uma zona e pressiona os jogadores cansados. Nos jogos livres, o rival chega ainda treinado para a sua posição e com as suas melhores passivas."
 option_difficulty = "Dificuldade"
 option_difficulty_help = "O nível de jogo da IA rival, a partir da próxima partida. Só mudam as regras da sua IA, nunca os atributos nem as passivas. Inferno é a IA lendária completa."
 difficulty_novice = "Novato"
@@ -70,7 +70,7 @@ difficulty_hell = "Inferno"
 
 [ja.new]
 mod_name = "伝説のAI"
-mod_description = "クロニクルバトル以外のオフライン試合で、「レジェンダリー」なCPUと戦います。相手はデュエルで即座に反応し、こちらの属性に勝つ技を選び、使った技を覚え、シュートゾーンが開くとすぐ撃ち、疲れた選手にプレスをかけます。フリーマッチでは、相手のポジションに合わせて鍛えられ、最良のパッシブを持ちます。"
+mod_description = "ストーリーのチームで戦うクロニクルバトル以外のオフライン試合で、「レジェンダリー」なCPUと戦います。相手はデュエルで即座に反応し、こちらの属性に勝つ技を選び、使った技を覚え、シュートゾーンが開くとすぐ撃ち、疲れた選手にプレスをかけます。フリーマッチでは、相手のポジションに合わせて鍛えられ、最良のパッシブを持ちます。"
 option_difficulty = "難易度"
 option_difficulty_help = "相手AIの強さ。次の試合から反映されます。変わるのはAIのルールのみで、能力値やパッシブは変わりません。「地獄」は完全な伝説のAIです。"
 difficulty_novice = "新人"
@@ -81,7 +81,7 @@ difficulty_hell = "地獄"
 
 [zh_hans.new]
 mod_name = "传说级AI"
-mod_description = "除编年史对战外的离线比赛，会与「传奇」电脑对战：对手在对决中反应极快，会选择克制你属性的招式，记住你用过的招式，射门区一开就射门，并逼抢疲惫的球员。在自由比赛中，对手还会针对自己的位置训练，并带着最好的被动。"
+mod_description = "除使用剧情队伍的编年史对战外的离线比赛，会与「传奇」电脑对战：对手在对决中反应极快，会选择克制你属性的招式，记住你用过的招式，射门区一开就射门，并逼抢疲惫的球员。在自由比赛中，对手还会针对自己的位置训练，并带着最好的被动。"
 option_difficulty = "难度"
 option_difficulty_help = "对手AI的水平,从下一场比赛起生效。只改变AI规则,不改变能力值和被动技能。「地狱」是完整的传说级AI。"
 difficulty_novice = "新手"
@@ -92,7 +92,7 @@ difficulty_hell = "地狱"
 
 [zh_hant.new]
 mod_name = "傳說級AI"
-mod_description = "除編年史對戰外的離線比賽，會與「傳奇」電腦對戰：對手在對決中反應極快，會選擇剋制你屬性的招式，記住你用過的招式，射門區一開就射門，並逼搶疲憊的球員。在自由比賽中，對手還會針對自己的位置訓練，並帶著最好的被動。"
+mod_description = "除使用劇情隊伍的編年史對戰外的離線比賽，會與「傳奇」電腦對戰：對手在對決中反應極快，會選擇剋制你屬性的招式，記住你用過的招式，射門區一開就射門，並逼搶疲憊的球員。在自由比賽中，對手還會針對自己的位置訓練，並帶著最好的被動。"
 option_difficulty = "難度"
 option_difficulty_help = "對手AI的水準,從下一場比賽起生效。只改變AI規則,不改變能力值和被動技能。「地獄」是完整的傳說級AI。"
 difficulty_novice = "新手"

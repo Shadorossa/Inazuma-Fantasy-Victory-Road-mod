@@ -1,7 +1,7 @@
-5800151f46acae24c7d2510db75fad454b9b4ab2babad5c63be6d1c10cc135085cdd1cc81bb23616e9790823d42fe7ab2a6cb9c16402c43196436a39061a9602
+46285238124a1357ef295e5e930205db2440d047e8abbfc2c1191dd19e7087d32773e5b9fe8151f895caf246233c08bfedaa79732dbc18979426e0dab2281602
 format = 1
-sequence = 5
-label = "0.3.0c"
+sequence = 6
+label = "0.3.0d"
 game_version = "v7.2.1"
 min_loader = "2.0.0"
 
@@ -13728,7 +13728,7 @@ sha256 = "bae67b7454aac85217aea5dab75a847b2f943cd8504ad72a992a6255625407cf"
 [[file]]
 path = "mods/CharacterReforged/content/characters/10_ie1/shuriken.toml"
 size = 11531
-sha256 = "63ef6d1b825182a73e6ebcc7e16ded4da5343af3b12215b10bcffbcb903a0b17"
+sha256 = "06a254cfc5c5e9ec2483a192caaa8ecf0e2f617eae0683558f251e503d3bb2cd"
 
 [[file]]
 path = "mods/CharacterReforged/content/characters/10_ie1/street_sally_s.toml"
@@ -13748,7 +13748,7 @@ sha256 = "9c45702546744095ed4ef7d941ac5fd0a71453b09d68253183599caf958c3df2"
 [[file]]
 path = "mods/CharacterReforged/content/characters/10_ie1/unaffiliated.toml"
 size = 537224
-sha256 = "c9fd41b60c1e081614c2f7fcb35fa4c00e42c2a25964ee1b8ef50a00023f9ffc"
+sha256 = "30c6988c0d6c13268e198a71e347a8ec927a7910450e987bfc8a8c4e2fd062da"
 
 [[file]]
 path = "mods/CharacterReforged/content/characters/10_ie1/wild.toml"
@@ -13988,7 +13988,7 @@ sha256 = "ffe4fec0d002b0b36762620f3d99d23bec6f1d9ec695a7de1f3bd28c1cbf4263"
 [[file]]
 path = "mods/CharacterReforged/content/characters/13_go/black_templars.toml"
 size = 11982
-sha256 = "d812a198dec20ab3e830678e2caf0f8efdd951e4e907b1b8ea7ba9d63ab3ecff"
+sha256 = "ee1a0f64f22534c9502c5937438e546d94275f9dc3eec9b36d0740e187fe1693"
 
 [[file]]
 path = "mods/CharacterReforged/content/characters/13_go/demon_s_horn.toml"
@@ -15997,8 +15997,8 @@ sha256 = "d07f5ef281bd0c09dc0ed07997211b150b913982a1b65ff88a7800746b1fd657"
 
 [[file]]
 path = "mods/CharacterReforged/content/movesets/generator_rules.toml"
-size = 2058
-sha256 = "35d05fc6f4aaa1265e78c91dd5b934fafa842158c2a3f1b6ffe07a6dc4017956"
+size = 2171
+sha256 = "2b494022aaf81e19e38712b454abf7bc8345d9010befff7e2218d89a6f44e9e4"
 
 [[file]]
 path = "mods/CharacterReforged/content/number_fit/lock_levels.toml"
@@ -22342,8 +22342,8 @@ sha256 = "99c77d27f6ca5ec7a82cac96e354140ee8574101a05d0ec2276c8e652c15e7b5"
 
 [[file]]
 path = "mods/ChronicleDeluxe/addons/CharacterReforged/content/characters/fused_forms_reforged.toml"
-size = 4465
-sha256 = "6f93f9b906d8dad3b26dec011ddf092ee56c4aa8337042505374ef732ca1ebb8"
+size = 4682
+sha256 = "6efa7e0405a28e887dc718c8f171a788ade6e2369ee0c6c4a04a7001ef282ae8"
 
 [[file]]
 path = "mods/ChronicleDeluxe/addons/CharacterReforged/content/characters/reforged_market.toml"
@@ -25737,8 +25737,8 @@ sha256 = "aac6686208f1bc056c0c28fa1d7db7b433358871fb15d40b47b693777171a61a"
 
 [[file]]
 path = "mods/FootballReforged/modules/LegendaryAI/mod.toml"
-size = 1210
-sha256 = "6a2ed2f488166b2e8c097eb11170c36a08dbd3c5e91a996f837ec45f1d679ef3"
+size = 1367
+sha256 = "ff68aab23c9aabe30109010edb8d8e0e192a2723ad23c39087109e1944934c91"
 
 [[file]]
 path = "mods/FootballReforged/modules/LegendaryAI/options.toml"
@@ -25752,8 +25752,8 @@ sha256 = "27e1e770f28736e04a04aa814e9d72f664077b33490023a9038b7b7fab6a339f"
 
 [[file]]
 path = "mods/FootballReforged/modules/LegendaryAI/text/keys.toml"
-size = 7553
-sha256 = "ff28339b3412c88582196faa4f15f3a89def39df855bc30a8544d98f64e4c69d"
+size = 7836
+sha256 = "363ea1790c479993eebbc300ed7802e5f7235471d42283fa7318cd2e7a6ac116"
 
 [[file]]
 path = "mods/FootballReforged/modules/Pressing/changelog.toml"
@@ -53632,13 +53632,18 @@ sha256 = "9e312680c9b868354680eb259a7524dd622575c0f39248b1506cf41b39e87b6b"
 
 [[file]]
 path = "mods/InazumaFantasy/content/update_channels/InazumaFantasy.history.signed"
-size = 1807633
-sha256 = "3d89bcd0ad187ac425fe6ee6964f75b7425ce4e70e90611a7c916232977eae02"
+size = 1753606
+sha256 = "44e2ec1c2aa90f40d5862a0faebc27dab67eb39696e0abe0bf2fdd178f28d8c8"
 
 [[file]]
 path = "mods/InazumaFantasy/content/update_channels/inazuma_fantasy.toml"
 size = 568
 sha256 = "cdf35111215db1f8130e85a7bac269bfa7ba72bbef5c4c3cfcd2b278d949430a"
+
+[[file]]
+path = "mods/InazumaFantasy/content/update_channels/professional_kits.toml"
+size = 619
+sha256 = "eb3d54d78f5fc6ab8e5ec7a656833f0c6df112b8825e5703be7b32688769a2ab"
 
 [[file]]
 path = "mods/InazumaFantasy/grafts/_build.toml"
@@ -61762,8 +61767,8 @@ sha256 = "ae0a8e90df5b5e06de8bb61de0ee58107193e93d2ef62554097df32db5bb8c23"
 
 [[file]]
 path = "mods/VRFW/content/rules/bindings.toml"
-size = 731
-sha256 = "7fbe57522db0ea668590c8c6d0d60618168d5e18d39de52e350301b6ee27ef2d"
+size = 984
+sha256 = "6d6616afeeeb2b7d9e076d18fce850f14f95bde129d085e408be8c4f0ccb49ff"
 
 [[file]]
 path = "mods/VRFW/content/rules/catalog/ai_knobs.toml"
@@ -61772,8 +61777,8 @@ sha256 = "2f25095970f4113fa1b5f1deabdd6231cce4d301e0231b2630ed19e0e97b221a"
 
 [[file]]
 path = "mods/VRFW/content/rules/catalog/match_modes.toml"
-size = 704
-sha256 = "fdc684d27af356e975758cdea0e20e3137fab146ab0593c1f73f18fdf1daf05d"
+size = 1185
+sha256 = "aebcc7ff3b63da6eb72fa3f707ff8e76e604cb936691bcfb630bfa1d712c7643"
 
 [[file]]
 path = "mods/VRFW/content/rules/catalog/triggers.toml"
@@ -62162,8 +62167,8 @@ sha256 = "67d69ffc63c215cf444874c1ed2f6a1a877fd13ec26064bedfb56067124c05ce"
 
 [[file]]
 path = "mods/VRFW/content/types/rule_catalog.toml"
-size = 3526
-sha256 = "d034cbef3852523fc889b0b70c00db6e307eca913124ba202188809d8d7f8954"
+size = 3559
+sha256 = "b50506d457708112066954071a1ba880e3a6fdbe5f65c46e579328196bcea46e"
 
 [[file]]
 path = "mods/VRFW/content/types/rule_records.toml"
@@ -63482,5 +63487,5 @@ sha256 = "95eacefaf3dc7dbb3e9417e11e7d90e17a6f20607b0f1c8fc825bbfa94c9ef77"
 
 [[file]]
 path = "winmm.dll"
-size = 60698624
-sha256 = "a73f9a71eb6dcdb6cf0297fa1cbb2dbc2cbca1f5681002a73c39db4317ba8bd1"
+size = 60708864
+sha256 = "0986b9c10e5cc448241efbdd039f110df5e10bcf2fdc8210086a0e488307d90e"

@@ -6,7 +6,7 @@ moves = [
   { move = 0xF08DB620, level = 1 },                         # Whirlwind
   { move = 0xA553C5C8, level = 11 },                        # Clone Block
   { move = 0xE854ED56, level = 92 },                        # Warp Space
-  { move = 0x8B31808E, level = 102 },                       # Wormhole
+  { move = 0x8B31808E, level = 99 },                        # Wormhole
 ]
 
   [[edit.cards]]

@@ -15,6 +15,8 @@ LevelScale = 1.0
 StoryLevelStep = 10
 # learn level of the first slot (the starter move)
 StarterLevel = 1
+# highest learn level of any slot: the original games' level range, not the mod's level cap
+TopLearnLevel = 99
 SagaGames = ["IE1", "IE2", "IE3"]
 SagaSource = "IE3"
 ModernSource = "GX"

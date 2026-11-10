@@ -166,7 +166,7 @@ moves = [
   { move = 0x8A52C09B, level = 1 },                         # Doomsword Slash
   { move = 0x1755397B, level = 82 },                        # Dark Energy Star
   { move = 0x9B916289, level = 92 },                        # Jurassic Jaws
-  { move = 0xDA3FF6C9, level = 102 },                       # Criss-Cross
+  { move = 0xDA3FF6C9, level = 99 },                        # Criss-Cross
 ]
 
   [[edit.cards]]

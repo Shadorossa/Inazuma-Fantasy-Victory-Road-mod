@@ -176,4 +176,22 @@ scale = [13.0, 23.0, 1.0]
 
 [[object_set]]
 object = "soccer11_09_formation_chara_skill"
-set = [{ parameter = "DispMaxValue", match = { 1 = 0x93171FE6 }, values = { 2 = 9999 } }]
+set = [
+    { parameter = "DispMaxValue", match = { 1 = 0x93171FE6 }, values = { 2 = 9999 } },
+    { parameter = "DispMaxValue", match = { 1 = 0x8AE3CF4E }, values = { 2 = 999 } },   # the unlock level beside the padlock
+]
+
+# The level badge of the move detail (ability board and skill table): a learn level can be above 99.
+[[object_set]]
+object = "team13_26b_open_level_lock"
+set = [
+    { parameter = "DispMaxValue", match = { 1 = 0xA546A089 }, values = { 2 = 999 } },
+    { parameter = "DispMaxValue", match = { 1 = 0xFE6666D8 }, values = { 2 = 999 } },
+]
+
+# The ability board's «opens at level» popup shows the same level.
+[[object_set]]
+object = "team13_10b_open_level_popup"
+set = [
+    { parameter = "DispMaxValue", match = { 1 = 0xFE6666D8 }, values = { 2 = 999 } },
+]

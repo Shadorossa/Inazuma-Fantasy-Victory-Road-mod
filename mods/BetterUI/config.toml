@@ -31,6 +31,14 @@ right_number_x = -310
 label_room = 420
 # Frames between a bust's model being complete and its mesh showing (an empty capture cell draws white).
 bust_settle_frames = 2
-# px on screen from a plate's total to its «critical» tag (the tag's centre; both counters, duel and shot); the tag sits centred above the total.
-tag_x = 0
-tag_y = 40
+# The «critical» tag (both counters, duel and shot), placed centred above the plate's total; lengths are screen px at tag_scale 1.
+# The tag's size as a fraction of its normal size.
+tag_scale = 0.6
+# From the tag mesh's anchor to its centre, to the right.
+tag_anchor_x = 123
+# From the plate's slide node up to the top edge of the digits.
+tag_digits_top = 82
+# Clear space between the digits and the tag's bottom edge.
+tag_gap = 6
+# The tag's height; its anchor is at its vertical centre.
+tag_height = 125

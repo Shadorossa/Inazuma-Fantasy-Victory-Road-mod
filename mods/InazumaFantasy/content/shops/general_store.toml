@@ -76,12 +76,6 @@ default_lang = "en"
   stock = 1
 
   [[shop.entry]]
-  item = "victoria_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
   item = "suzette_outfit"
   price = 28
   currency = "tk_bb000001"
@@ -137,12 +131,6 @@ default_lang = "en"
 
   [[shop.entry]]
   item = "riccardo_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "victor_outfit"
   price = 28
   currency = "tk_bb000001"
   stock = 1
@@ -226,12 +214,6 @@ default_lang = "en"
   stock = 1
 
   [[shop.entry]]
-  item = "liang_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
   item = "ryoma_outfit"
   price = 28
   currency = "tk_bb000001"
@@ -275,12 +257,6 @@ default_lang = "en"
 
   [[shop.entry]]
   item = "shawn_froste_outfit_1"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "aster_outfit"
   price = 28
   currency = "tk_bb000001"
   stock = 1
@@ -412,36 +388,6 @@ default_lang = "en"
   stock = 1
 
   [[shop.entry]]
-  item = "ogar_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "rondula_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "bala_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "ruger_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "gandares_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
   item = "ozrock_outfit"
   price = 28
   currency = "tk_bb000001"
@@ -485,12 +431,6 @@ default_lang = "en"
 
   [[shop.entry]]
   item = "david_outfit_2"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "david_evans_outfit_1"
   price = 28
   currency = "tk_bb000001"
   stock = 1
@@ -700,12 +640,6 @@ default_lang = "en"
   stock = 1
 
   [[shop.entry]]
-  item = "briar_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
   item = "cade_outfit_1"
   price = 28
   currency = "tk_bb000001"
@@ -790,12 +724,6 @@ default_lang = "en"
   stock = 1
 
   [[shop.entry]]
-  item = "addison_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
   item = "leia_outfit"
   price = 28
   currency = "tk_bb000001"
@@ -862,43 +790,7 @@ default_lang = "en"
   stock = 1
 
   [[shop.entry]]
-  item = "kendrick_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "flynn_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
   item = "eamon_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "maximus_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "paxton_plumfield_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "godfrey_shahmann_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "kurtis_loafinn_outfit"
   price = 28
   currency = "tk_bb000001"
   stock = 1
@@ -1150,12 +1042,6 @@ default_lang = "en"
   stock = 1
 
   [[shop.entry]]
-  item = "linton_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
   item = "rina_outfit"
   price = 28
   currency = "tk_bb000001"
@@ -1270,12 +1156,6 @@ default_lang = "en"
   stock = 1
 
   [[shop.entry]]
-  item = "maeve_smith_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
   item = "eshin_outfit"
   price = 28
   currency = "tk_bb000001"
@@ -1289,12 +1169,6 @@ default_lang = "en"
 
   [[shop.entry]]
   item = "caelum_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "serina_outfit"
   price = 28
   currency = "tk_bb000001"
   stock = 1
@@ -1367,36 +1241,6 @@ default_lang = "en"
 
   [[shop.entry]]
   item = "lumina_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "coraline_quisittor_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "bartholomew_blitzer_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "cane_fangley_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "cristensen_blance_outfit"
-  price = 28
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[shop.entry]]
-  item = "benoni_espinoza_outfit"
   price = 28
   currency = "tk_bb000001"
   stock = 1

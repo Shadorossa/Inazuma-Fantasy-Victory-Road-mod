@@ -90,20 +90,16 @@ name = "equipment_items"
 base = "game_root"
 chain = ["Game.RootItems"]
 
-# The «Family» tab of the shop's filter window (assets\lua\item_filter_menu\300_shop_families.lua).
+# The four tabs of the equipment picker's filter window (content\item_filter_sections\equipment.toml).
+[[VRFW.Command]]
+name = "CMND_EQUIPMENT_ITEM_FILTER"
+handler = "Equipment.ItemFilter"
+
+# The «Family» tab of the shop's filter window (assets\lua\item_filter_menu\300_shop_families.lua); the tab itself
+# is the framework's (CMND_VRFW_ITEM_FILTER_TABS), its rows come from the stub below.
 [[VRFW.Command]]
 name = "CMND_EQUIPMENT_SHOP_FAMILIES"
 handler = "Equipment.ShopFamilies"
-
-[[VRFW.Patch]]
-name = "Equipment.ShopFamilyGroups"
-kind = "stub"
-apply = "script"
-pattern = "48 3D 00 00 01 00 74 16 48 3D 00 00 02 00 75 62 C7 02 01 00 00 00 48 8D 05 ?? ?? ?? ?? C3 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? B9 00 00 00 80"
-offset = 0x1E
-expect = "C7 02 01 00 00 00 48 8D 05 ?? ?? ?? ?? C3"
-code = "48 8B 05 0E 00 00 00 8B 00 89 02 48 8D 05 01 00 00 00 C3"
-tail = false
 
 [[VRFW.Patch]]
 name = "Equipment.ShopFamilyRows"

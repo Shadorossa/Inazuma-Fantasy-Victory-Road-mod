@@ -42,7 +42,7 @@ Currency = "tk_bb000001"
 Name = "wilder_bigfoot_outfit"
 Kit = { Uniform = "0x1852384F" }
 IconKey = "cos_if_wilder_bigfoot_outfit"
-Who = { Body = [6] }
+Who = { Body = [6, 12] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -532,7 +532,7 @@ Currency = "tk_bb000001"
 Name = "mister_yi_outfit_1"
 Kit = { Uniform = "0xDBBA2085" }
 IconKey = "cos_if_mister_yi_outfit_1"
-Who = { Body = [6] }
+Who = { Body = [6, 12] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -567,7 +567,7 @@ Currency = "tk_bb000001"
 Name = "mister_yi_outfit_2"
 Kit = { Uniform = "0x42B3713F" }
 IconKey = "cos_if_mister_yi_outfit_2"
-Who = { Body = [6] }
+Who = { Body = [6, 12] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -952,7 +952,7 @@ Currency = "tk_bb000001"
 Name = "robert_cottontail_outfit"
 Kit = { Uniform = "0xC08F7927" }
 IconKey = "cos_if_robert_cottontail_outfit"
-Who = { Body = [6] }
+Who = { Body = [6, 12] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1057,7 +1057,7 @@ Currency = "tk_bb000001"
 Name = "curt_gale_outfit"
 Kit = { Uniform = "0x0DA64811" }
 IconKey = "cos_if_curt_gale_outfit"
-Who = { Body = [7] }
+Who = { Body = [7, 15] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1127,7 +1127,7 @@ Currency = "tk_bb000001"
 Name = "fortnum_pile_outfit"
 Kit = { Uniform = "0xF3431B3E" }
 IconKey = "cos_if_fortnum_pile_outfit"
-Who = { Body = [6] }
+Who = { Body = [6, 12] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1652,7 +1652,7 @@ Currency = "tk_bb000001"
 Name = "baton_maystrov_outfit"
 Kit = { Uniform = "0xCA333606" }
 IconKey = "cos_if_baton_maystrov_outfit"
-Who = { Body = [7] }
+Who = { Body = [7, 15] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1687,7 +1687,7 @@ Currency = "tk_bb000001"
 Name = "cristiano_dabola_outfit"
 Kit = { Uniform = "0x2CB74C1E" }
 IconKey = "cos_if_cristiano_dabola_outfit"
-Who = { Body = [6] }
+Who = { Body = [6, 12] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1722,7 +1722,7 @@ Currency = "tk_bb000001"
 Name = "marsilio_magno_outfit"
 Kit = { Uniform = "0x0C1E9C3C" }
 IconKey = "cos_if_marsilio_magno_outfit"
-Who = { Body = [6] }
+Who = { Body = [6, 12] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1932,7 +1932,7 @@ Currency = "tk_bb000001"
 Name = "chester_horse_sr_outfit"
 Kit = { Uniform = "0x2689E68A" }
 IconKey = "cos_if_chester_horse_sr_outfit"
-Who = { Body = [6] }
+Who = { Body = [6, 12] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2457,7 +2457,7 @@ Currency = "tk_bb000001"
 Name = "master_li_outfit"
 Kit = { Uniform = "0x7E1FB4C8" }
 IconKey = "cos_if_master_li_outfit"
-Who = { Body = [6] }
+Who = { Body = [6, 12] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]

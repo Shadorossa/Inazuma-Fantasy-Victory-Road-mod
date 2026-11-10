@@ -34,12 +34,12 @@ if BetterUI.power_counter == nil then
     return VRFW.host.menu_command(Crc(name), ...)
   end
 
-  -- true when player `chara`'s execution of `move` was a critical hit
+  -- True when player `chara`'s execution of `move` was a critical hit: the command answers the hit's multiplier, or false.
   function P.Critical(chara, move)
     if type(chara) ~= "number" or chara == 0 or type(move) ~= "number" or move == 0 then
       return false
     end
-    return VRFW.host.command(Crc(CMD_CRITICAL), chara, move) ~= nil
+    return type(VRFW.host.command(Crc(CMD_CRITICAL), chara, move)) == "number"
   end
 
   -- plate `i`'s picture: "attack" or "defense"
@@ -60,7 +60,7 @@ if BetterUI.power_counter == nil then
     return x, y
   end
 
-  -- where on screen a plate's tag goes: config.toml [duel_counter] tag_x / tag_y from the plate's total
+  -- Where on screen a plate's tag anchor goes so the tag is centred above the total (the game centres the digits on the number node).
   function P.TagTarget(i, layout)
     local plate = P.PLATES[i]
     local layer = Crc(plate.layer)
@@ -69,10 +69,12 @@ if BetterUI.power_counter == nil then
     end
     local x = P.GlobalPosition(layer, 0, Crc(plate.number_node))
     local _, y = P.GlobalPosition(layer, 0, Crc(plate.slide))
-    if x == nil or y == nil or type(layout) ~= "table" or layout.tag_x == nil or layout.tag_y == nil then
+    if x == nil or y == nil or type(layout) ~= "table" or layout.tag_scale == nil or layout.tag_anchor_x == nil
+      or layout.tag_digits_top == nil or layout.tag_gap == nil or layout.tag_height == nil then
       return nil
     end
-    return x + layout.tag_x, y + layout.tag_y
+    local scale = layout.tag_scale
+    return x - layout.tag_anchor_x * scale, y + layout.tag_digits_top + layout.tag_gap + layout.tag_height * scale / 2
   end
 
   -- A placer moves the instances of one layer so that one of their nodes lands on a screen point.
@@ -159,8 +161,9 @@ if BetterUI.power_counter == nil then
   end
 
   -- the tag layer's instance `instance` shows the tag sprite only
-  function P.DressTag(instance)
+  function P.DressTag(instance, scale)
     local layer = Crc(P.TAG_LAYER)
+    command("CMND_SET_LAYER_LOCAL_SCALE", layer, scale, scale, 1, instance)
     VRFW.host.menu_command(CMD_SPRITE, layer, Crc(TAG.atlas), Crc(TAG.sprite), Crc(TAG.slot), 0, instance)
     command("CMND_SET_MESH_VISIBLE", layer, Crc(TAG.mesh), true, instance)
     command("CMND_SET_MESH_VISIBLE", layer, Crc(TAG.glow), false, instance)
@@ -204,7 +207,7 @@ if BetterUI.power_counter == nil then
       if t.critical[i] then
         local x, y = P.TagTarget(i, t.layout)
         if x ~= nil and not P.Started(t.placer, i - 1) then
-          P.DressTag(i - 1)
+          P.DressTag(i - 1, t.layout.tag_scale)
         end
         if x == nil or not P.Place(t.placer, i - 1, x, y) then
           done = false

@@ -770,6 +770,7 @@ remove_block = [
 ]
 set = [
     { parameter = "DispMaxValue", match = { 1 = 0x93171FE6 }, values = { 2 = 9999 } },   # the AT number: 4 digit slots in retail, clamp lifted
+    { parameter = "DispMaxValue", match = { 1 = 0x8AE3CF4E }, values = { 2 = 999 } },   # the unlock level beside the padlock: a learn level can be above 99
     { parameter = "SkeletonAnime", match = { 1 = "common/menu/00_soccer/soccer11/soccer11_09/soccer11_09.g4pkm" }, values = { 1 = "common/menu/00_soccer/soccer11/character_reforged_ss_row_plate/character_reforged_ss_row_plate.g4pkm" } },
 ]
 

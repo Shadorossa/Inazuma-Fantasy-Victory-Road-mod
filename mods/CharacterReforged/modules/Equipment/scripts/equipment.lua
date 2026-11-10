@@ -83,10 +83,16 @@ local function load()
   return d
 end
 
-local function affinity_rate(a, card, rules)
-  local r = rules.affinity or {}
+-- Whether an item's affinity fits a card: its position, its element.
+local function affinity_match(a, card)
   local pos = a.position and POSITION[a.position] == card.position
   local el = a.element and (ELEMENT[a.element] == card.element or a.element == card.element)
+  return pos, el
+end
+
+local function affinity_rate(a, card, rules)
+  local r = rules.affinity or {}
+  local pos, el = affinity_match(a, card)
   if pos and el then return r.both or 0 end
   if pos then return r.one or 0 end
   return 0                          -- the element alone gives nothing (rules.toml [affinity])
@@ -952,7 +958,6 @@ end)
 
 -- assets\lua\item_filter_menu\300_shop_families.lua lists one row per set with an item in the shop tab.
 local FAMILY_BLOCK = nil
-local FAMILY_RETAIL_TABS, FAMILY_TABS = 1, 2
 local FAMILY_MAX_VALUE, FAMILY_MAX_ROWS = 255, 200
 local FAMILY_ROW_LIST = 8
 local ACCENT_FOLD = { ["á"] = "a", ["é"] = "e", ["í"] = "i", ["ó"] = "o", ["ú"] = "u", ["ü"] = "u", ["ñ"] = "n", ["Á"] = "a",
@@ -970,21 +975,17 @@ local function family_tab_start()
     warn("shop family tab: no memory block (" .. tostring(block) .. ")")
     return
   end
-  VRFW.memory.write("u32", block, FAMILY_RETAIL_TABS)
   VRFW.memory.write("u32", block + 4, 0)
   local address, v = {}, block
   for i = 1, 8 do
     address[i] = v % 256
     v = math.floor(v / 256)
   end
-  local groups = { 1, 0 }
-  for i = 1, 8 do groups[#groups + 1] = address[i] end
   local okR, rows = pcall(VRFW.patch.apply, "Equipment.ShopFamilyRows", { append = address })
-  local okG, tabs = pcall(VRFW.patch.apply, "Equipment.ShopFamilyGroups", { append = groups })
-  if okR and rows == true and okG and tabs == true then
+  if okR and rows == true then
     FAMILY_BLOCK = block
   else
-    warn("shop family tab: the stubs were not written: the window keeps the retail tab")
+    warn("shop family tab: the row stub was not written: the window keeps the retail tab")
   end
 end
 
@@ -1011,7 +1012,6 @@ function Equipment.ShopFamilies(...)
     return a.value < b.value
   end)
   for i = #found, FAMILY_MAX_ROWS + 1, -1 do found[i] = nil end
-  VRFW.memory.write("u32", FAMILY_BLOCK, #found > 0 and FAMILY_TABS or FAMILY_RETAIL_TABS)
   VRFW.memory.write("u32", FAMILY_BLOCK + 4, #found)
   local out = { #found }
   for i, row in ipairs(found) do
@@ -1025,6 +1025,187 @@ function Equipment.ShopFamilies(...)
     for _, id in ipairs(items_of[row.value]) do out[#out + 1] = id end
   end
   return table.unpack(out)
+end
+
+-- The four tabs of the equipment picker's filter window (content\item_filter_sections\equipment.toml): the rows'
+-- tests, answered from the same data and functions as the item card and the match table.
+do
+  -- "a,b" -> { a = true, b = true }
+  local function word_set(text)
+    local words = {}
+    for word in string.gmatch(text, "[^,]+") do words[word] = true end
+    return words
+  end
+
+  -- What a test worked out for a player stays until his worn items or the item scale change.
+  local PLAYER_FACTS = { key = nil, facts = {} }
+  local function player_facts(name, hdl, worn, s)
+    local key = table.concat({ tostring(hdl), tostring(s), worn[1], worn[2], worn[3], worn[4] }, ":")
+    if PLAYER_FACTS.key ~= key then PLAYER_FACTS.key, PLAYER_FACTS.facts = key, {} end
+    local facts = PLAYER_FACTS.facts[name]
+    if not facts then
+      facts = {}
+      PLAYER_FACTS.facts[name] = facts
+    end
+    return facts
+  end
+
+  local function nothing() return false end
+
+  -- (item) -> true when the item, worn in its slot by `hdl`, counts for a set with a bonus tier reached.
+  local function completes_set_test(d, hdl)
+    local worn = worn_of(hdl)
+    if not worn then return nothing end
+    -- Only a piece of a set one of the worn items belongs to can reach a tier.
+    local candidates = {}
+    for i = 1, 4 do
+      for _, si in ipairs(worn[i] ~= 0 and d.sets_of_item[worn[i]] or {}) do
+        for id in pairs(d.sets[si].members) do candidates[id] = true end
+      end
+    end
+    local known = player_facts("completes_set", hdl, worn, 0)
+    return function(item)
+      if not candidates[item] then return false end
+      if known[item] == nil then
+        local set, count = counted_set(d, item, hdl)
+        local reached = false
+        for _, tier in ipairs(set and set.bonus or {}) do
+          if (count or 0) >= (tier.pieces or 2) then reached = true end
+        end
+        known[item] = reached
+      end
+      return known[item]
+    end
+  end
+
+  -- (item) -> true when wearing the item in its slot changes the points or effects `hdl` gets from affinity and sets.
+  local function active_bonus_test(d, hdl)
+    local _, c, s = scale()
+    local worn = c and worn_of(hdl) or nil
+    if not worn then return nothing end
+    local card, card_read = nil, false
+    local function card_of()
+      if not card_read then card_read, card = true, wearer(hdl) end
+      return card
+    end
+    local function bonus(list)
+      local add, effects = additions_worn(list, card_of, d, c, false)
+      return table.concat(add or {}, ",") .. "/" .. tostring(effects or 0)
+    end
+    local known = player_facts("active_bonus", hdl, worn, s)
+    local without = player_facts("bonus_without", hdl, worn, s)
+    return function(item)
+      if known[item] == nil then
+        local slot = slot_of(d, item)
+        if not slot then
+          known[item] = false
+        else
+          local list = { worn[1], worn[2], worn[3], worn[4] }
+          if without[slot] == nil then
+            list[slot] = 0
+            without[slot] = bonus(list)
+          end
+          list[slot] = item
+          known[item] = bonus(list) ~= without[slot]
+        end
+      end
+      return known[item]
+    end
+  end
+
+  -- The item's own effect (items.toml `passive`), or nil.
+  local function effect_of(d, item)
+    local e = d.items[item]
+    return e and type(e.passive) == "table" and e.passive or nil
+  end
+
+  -- A row's test (the words of equipment.toml's header) -> (item) -> true when the row holds for the item.
+  local function row_test(test, hdl, rows)
+    local d = load()
+    local what, arg = string.match(test, "^([%a_]+):?(.*)$")
+    if what == "set" then
+      local index = d.set_index[arg]
+      local set = index and d.sets[index]
+      if not set then return nil end
+      return function(item) return set.members[item] == true end
+    elseif what == "element" or what == "position" then
+      if arg ~= "player" then
+        return function(item)
+          local a = d.affinity[item]
+          return a ~= nil and a[what] == arg
+        end
+      end
+      local card = wearer(hdl)
+      if not card then return nothing end
+      local part = what == "position" and 1 or 2
+      return function(item)
+        local a = d.affinity[item]
+        return a ~= nil and select(part, affinity_match(a, card)) == true
+      end
+    elseif what == "effect_kind" or what == "effect_move" then
+      local words = word_set(arg)
+      local field = what == "effect_kind" and "kind" or "move_kind"
+      return function(item)
+        local e = effect_of(d, item)
+        return e ~= nil and words[e[field]] == true
+      end
+    elseif what == "effect_rest" then
+      local named = {}
+      for _, row in ipairs(rows) do
+        if string.find(row.test, "^effect_kind:") or string.find(row.test, "^effect_move:") then
+          named[#named + 1] = row_test(row.test, hdl, rows)
+        end
+      end
+      return function(item)
+        if effect_of(d, item) == nil then return false end
+        for _, other in ipairs(named) do
+          if other(item) then return false end
+        end
+        return true
+      end
+    elseif what == "set_completes" then
+      return completes_set_test(d, hdl)
+    elseif what == "bonus_active" then
+      return active_bonus_test(d, hdl)
+    end
+    return nil
+  end
+
+  -- The rows of an `each` list: "sets" = one row per set, by name, shown in the lists of its pieces' slots.
+  local function row_list(name)
+    if name ~= "sets" then return {} end
+    local d = load()
+    local rows = {}
+    for _, set in ipairs(d.sets) do
+      local label = set_name(set)
+      local inventories = {}
+      for id in pairs(set.members) do
+        local slot = slot_of(d, id)
+        if slot then inventories[slot - 1] = true end
+      end
+      rows[#rows + 1] = { name = set.key, label = label, test = "set:" .. set.key, inventories = inventories,
+        order = sort_key(label) }
+    end
+    table.sort(rows, function(a, b)
+      if a.order ~= b.order then return a.order < b.order end
+      return a.name < b.name
+    end)
+    return rows
+  end
+
+  -- Every equipment item the tests know (the items with an affinity record).
+  local function every_item()
+    local items = {}
+    for id in pairs(load().affinity) do items[#items + 1] = id end
+    return items
+  end
+
+  if type(VRFW.item_filter) == "table" then
+    Equipment.ItemFilter = VRFW.item_filter.server({ command = "CMND_EQUIPMENT_ITEM_FILTER", items = every_item,
+      test = row_test, list = row_list })
+  else
+    warn("VRFW.item_filter is missing: the filter window's tabs answer nothing")
+  end
 end
 
 local LUCK = nil

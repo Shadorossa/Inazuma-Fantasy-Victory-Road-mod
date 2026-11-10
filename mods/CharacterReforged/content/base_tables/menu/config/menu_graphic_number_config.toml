@@ -16,3 +16,17 @@ key_columns = ["#0"]
   [[keyed.set]]
   key = 0xA68F3B61                      # field talk icon level (num_rpg_lv01_, _num_lv_dmy02)
   cells = { "#5" = 3 }
+
+# The unlock level of a move (a learn level can be above 99): the lock number of a move plate and the level badge of the move detail.
+
+  [[keyed.set]]
+  key = 0x8AE3CF4E                      # move plate lock level (num_menu01_03_, soccer11_09 _pos_lock01)
+  cells = { "#5" = 3 }
+
+  [[keyed.set]]
+  key = 0xA546A089                      # level badge, closed lock (num_alb_pt01_, team13_26b)
+  cells = { "#5" = 3 }
+
+  [[keyed.set]]
+  key = 0xFE6666D8                      # level badge, open lock (num_alb_pt01_, team13_26b)
+  cells = { "#5" = 3 }

@@ -9,7 +9,6 @@ AllSources = true
 Rarities = [0, 1, 2, 3, 4]
 ExceptReservedSlots = true
 
-# With the gacha on (option remove_gacha off), the pulls of the Players Universe screen are given.
+# The pulls of the Players Universe screen are given; the option remove_gacha closes every way into that screen.
 [[VRFW.DropList.Spirits.AllowGrant]]
 Menus = ["players_universe_menu"]
-When = { option = "remove_gacha", equals = 0, default = 1 }

@@ -38,7 +38,7 @@ if VRFW.host ~= nil and VRFW.param ~= nil and type(GetInventoryTypeArray) == "fu
       S.labels[r[2 * i]] = r[1 + 2 * i]
     end
     VRFW.host.command(VRFW.commands.BETTERQOL_SHOP_FILTER_ROWS, table.unpack(r, 2 + 2 * n, r.n))
-    S.on = true
+    S.on = VRFW.host.command(VRFW.commands.VRFW_ITEM_FILTER_TABS, 1) == true
   end
 
   VRFW.host.on("item_filter_menu", "OnInit", { id = "Equipment.shop_families_open", phase = "before", fn = open })
@@ -47,6 +47,7 @@ if VRFW.host ~= nil and VRFW.param ~= nil and type(GetInventoryTypeArray) == "fu
     if S.on then
       S.on = false
       VRFW.host.command(VRFW.commands.EQUIPMENT_SHOP_FAMILIES)
+      VRFW.host.command(VRFW.commands.VRFW_ITEM_FILTER_TABS, 0)
     end
   end })
 

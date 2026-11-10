@@ -81,6 +81,14 @@
   "forbid": [],
   "ambiguous": []
  },
+ "equip_menu_list": {
+  "script": "equip_menu_list_5.00.19.00",
+  "require": [
+   "CheckEnableEquip"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
  "equip_menu_select": {
   "script": "equip_menu_select_5.00.21.00",
   "require": [

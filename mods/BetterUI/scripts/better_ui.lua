@@ -45,7 +45,8 @@ function BetterUI.FormationCardSpread()
 end
 
 -- CMND_BETTERUI_DUEL_PLATE_LAYOUT() -> the tunables of config.toml [duel_counter], or nil when one is missing.
-local PLATE_LAYOUT_KEYS = { "left_number_x", "right_number_x", "label_room", "bust_settle_frames", "tag_x", "tag_y" }
+local PLATE_LAYOUT_KEYS = { "left_number_x", "right_number_x", "label_room", "bust_settle_frames", "tag_scale", "tag_anchor_x", "tag_digits_top",
+  "tag_gap", "tag_height" }
 
 function BetterUI.DuelPlateLayout()
   return NumberSection("duel_counter", PLATE_LAYOUT_KEYS)

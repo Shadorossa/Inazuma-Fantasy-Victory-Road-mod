@@ -1,0 +1,9 @@
+schema = "VRFW.technique/3"
+
+# The armours of Victory Road's own warrior spirits are hidden while Inazuma Fantasy is active, except the two armours of Victoria.
+# Victory Road's own spirits are wks02010 Victoria, wks02020 Crystal Rabbit, wko02030 Entertainer, wkd02040 Warborg, wks02050 Robin and wks02060 Nike, and the game has no armour for any of them.
+# Their armours are this mod's own aura commands in warrior_spirits.toml, and was_fantasy_k002010 and was_fantasy_k002011 (Victoria) are left out of this rule.
+# Matches = true keeps them out of every match move list, because a bearer gets an armour from its spirit and not from a learn list or a shop.
+[[VRFW.Unobtainable]]
+Techniques = ["was_fantasy_k002020", "was_fantasy_k002030", "was_fantasy_k002040", "was_fantasy_k002050", "was_fantasy_k002060"]
+Matches = true

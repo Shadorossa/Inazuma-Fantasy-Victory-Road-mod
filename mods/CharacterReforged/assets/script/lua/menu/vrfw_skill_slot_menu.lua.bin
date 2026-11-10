@@ -1762,7 +1762,12 @@ local function DetailLevelTab(row)
       funcLuaMenuCommand(3609943765 --[[set number]], L_DETAIL_LV, 0, idx, need)
       funcLuaMenuCommand(1233047821 --[[number visible]], L_DETAIL_LV, 0, num, true)
     end
+    -- The badge of a row is logged once per level: a number that is not found keeps the layout's placeholder digits.
+    if PL.detail_level_logged ~= need * 8 + row then
+      pcall(Call, C.LOG, "skill_slots", "detail level badge", row, "level", need, "locked", tostring(locked), "number", num, "index", tostring(idx))
+    end
   end
+  PL.detail_level_logged = need * 8 + row
   return true
 end
 

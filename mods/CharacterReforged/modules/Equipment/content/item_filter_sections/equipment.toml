@@ -1,0 +1,68 @@
+schema = "VRFW.item_filter_section/1"
+
+# The equipment picker's «FILTRAR» window: four tabs after «Atributo» (rows answered by scripts\equipment.lua).
+# A row's test: set_completes, set:<set> (the `sets` list), element:<element | player>, position:<position | player>,
+# effect_kind:<kinds>, effect_move:<move kinds>, effect_rest (an effect no other row of the section names), bonus_active.
+
+[[VRFW.ItemFilterSection]]
+name = "sets"
+window = "equipment"
+menus = ["equip_menu"]
+text = "Equipment.filter_section_sets"
+icon = "icon_list_tab_filter01"
+symbol = "filter_symbol01"
+serve = "CMND_EQUIPMENT_ITEM_FILTER"
+rows = [
+  { name = "completes", text = "Equipment.filter_row_completes_set", test = "set_completes" },
+  { each = "sets" },
+]
+
+[[VRFW.ItemFilterSection]]
+name = "element"
+window = "equipment"
+menus = ["equip_menu"]
+text = "Equipment.filter_section_element"
+icon = "icon_list_tab_filter03"
+symbol = "filter_symbol03"
+serve = "CMND_EQUIPMENT_ITEM_FILTER"
+rows = [
+  { name = "wind", text = "Equipment.element_wind", test = "element:wind" },
+  { name = "forest", text = "Equipment.element_forest", test = "element:forest" },
+  { name = "fire", text = "Equipment.element_fire", test = "element:fire" },
+  { name = "mountain", text = "Equipment.element_mountain", test = "element:mountain" },
+  { name = "player", text = "Equipment.filter_row_player_affinity", test = "element:player" },
+]
+
+[[VRFW.ItemFilterSection]]
+name = "position"
+window = "equipment"
+menus = ["equip_menu"]
+text = "Equipment.filter_section_position"
+icon = "icon_list_tab_filter02"
+symbol = "filter_symbol02"
+serve = "CMND_EQUIPMENT_ITEM_FILTER"
+rows = [
+  { name = "forward", text = "Equipment.pos_FW", test = "position:FW" },
+  { name = "midfielder", text = "Equipment.pos_MF", test = "position:MF" },
+  { name = "defender", text = "Equipment.pos_DF", test = "position:DF" },
+  { name = "goalkeeper", text = "Equipment.pos_GK", test = "position:GK" },
+  { name = "player", text = "Equipment.filter_row_player_affinity", test = "position:player" },
+]
+
+[[VRFW.ItemFilterSection]]
+name = "effect"
+window = "equipment"
+menus = ["equip_menu"]
+text = "Equipment.filter_section_effect"
+icon = "icon_list_tab_filter08"
+symbol = "filter_symbol08"
+serve = "CMND_EQUIPMENT_ITEM_FILTER"
+rows = [
+  { name = "stat", text = "Equipment.filter_row_effect_stat", test = "effect_kind:stat_when" },
+  { name = "shots", text = "Equipment.filter_row_effect_shots", test = "effect_move:shoot,long_shoot,chain_shoot" },
+  { name = "dribbles", text = "Equipment.filter_row_effect_dribbles", test = "effect_move:dribble" },
+  { name = "blocks", text = "Equipment.filter_row_effect_blocks", test = "effect_move:block" },
+  { name = "saves", text = "Equipment.filter_row_effect_saves", test = "effect_move:catch,punch" },
+  { name = "other", text = "Equipment.filter_row_effect_other", test = "effect_rest" },
+  { name = "active", text = "Equipment.filter_row_bonus_active", test = "bonus_active" },
+]

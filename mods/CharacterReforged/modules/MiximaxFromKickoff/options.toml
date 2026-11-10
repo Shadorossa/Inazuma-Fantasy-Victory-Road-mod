@@ -7,6 +7,6 @@ id = "start_in_form"                           # row key MiximaxFromKickoff.star
 type = "toggle"
 label = "option_start_in_form"                 # text\keys.toml, 9 languages
 help = "option_start_in_form_help"
-default = 1
+default = 0
 order = 148
 restart = true

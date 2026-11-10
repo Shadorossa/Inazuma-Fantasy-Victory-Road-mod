@@ -1,9 +1,21 @@
-70df6e71b9f96dda431adec27622e24be9e493b6d263e98d34b95b379fd15308593f2694fefb7a220b6ece8941ee1f497cabc5302c59f8b4c95decf108d2a504
+15d10c90b81790fe14ebae0138939039687ee181325df137f5ba69d8b6b0e8adb2ccf4ab9c1f000026a975baee7ca192d000442d830cd91fc035a961e41c0305
 format = 1
-sequence = 2
-label = "0.3.0"
+sequence = 3
+label = "0.3.0a"
 game_version = "v7.2.1"
 min_loader = "2.0.0"
+
+[[optional]]
+id = "ProfessionalKits"
+name = "Professional Kits"
+prefix = "mods/ProfessionalKits/"
+requires = []
+
+[[optional]]
+id = "LaLiga"
+name = "LaLiga"
+prefix = "mods/ProfessionalKits/modules/LaLiga/"
+requires = ["ProfessionalKits"]
 
 [[file]]
 path = "mods/BattleBayDeluxe/assets/images/menu/220_img/bbd_lg/bbd_lg_badge.png"
@@ -5997,8 +6009,8 @@ sha256 = "ff96597ed38773ee576272e8be39e218914443bc7f165a796b11ab9d41928bd9"
 
 [[file]]
 path = "mods/BetterUI/assets/lua/_all/power_counter.lua"
-size = 8922
-sha256 = "937f254c950a4dcdcdcbe542dccae458eb66f88b5c28d10f5a5a90dcdab44b2f"
+size = 9332
+sha256 = "b65fed2378f585e9567d42521f1b8fee1d15e974cc3caee7e5303196ce938683"
 
 [[file]]
 path = "mods/BetterUI/assets/lua/_all/vs_basic_data.lua"
@@ -6667,8 +6679,8 @@ sha256 = "f688724ab2e46bff6343d0cbf374f9fb7f4253e2982e730f575e3b66774fbcb8"
 
 [[file]]
 path = "mods/BetterUI/config.toml"
-size = 1642
-sha256 = "b1e35308b6d12c7c58cd4a14809b032b6ce1a4bbbd4b89d32a2273be82e232ec"
+size = 1989
+sha256 = "a5335023cb00ab9cc785e549d9844a91fe95a4947c0864ba3acdf3db2cff71cb"
 
 [[file]]
 path = "mods/BetterUI/content/base_tables/gamedata/menu/chara_menu_resource.toml"
@@ -7357,8 +7369,8 @@ sha256 = "fce95b93b18cf1c33220ce8a807f1a15ff920b378b2d2778e38a8f5468b8fa51"
 
 [[file]]
 path = "mods/BetterUI/scripts/better_ui.lua"
-size = 1699
-sha256 = "d383e072b3e8a972c154834f7377318e7b6540a450be1ca90271072750a69dc8"
+size = 1756
+sha256 = "312bbef5c5a08f867bcae75f4bab88f345fdd1daf888c66b4018162a838b75c5"
 
 [[file]]
 path = "mods/BetterUI/scripts/duel_readout.lua"
@@ -13642,8 +13654,8 @@ sha256 = "57d9a4b05f02617a076743b6a8ffc7a1a19f3f3352e7e4e306f68ab0383ea3aa"
 
 [[file]]
 path = "mods/CharacterReforged/assets/script/lua/menu/vrfw_skill_slot_menu.lua.bin"
-size = 370723
-sha256 = "394be638d13940f1c7d7c8c860cc1d67a08cd4b8c3b9550307c9434ecb27c79c"
+size = 371093
+sha256 = "92d777ae337b65e5553c8941e224b757e938cc4d1b9df78bc9e6cb41f3051c6a"
 
 [[file]]
 path = "mods/CharacterReforged/changelog.toml"
@@ -13672,8 +13684,8 @@ sha256 = "697dc0f3b8b5ee99eec133c40d6c31ea359786564e4ae2993fbc67b12e9cdfca"
 
 [[file]]
 path = "mods/CharacterReforged/content/base_tables/menu/config/menu_graphic_number_config.toml"
-size = 453
-sha256 = "b4359f10d91d1d9e5c4dd03da7c80a613fe65653ba9b4e43ee8becd8ef8b8f3b"
+size = 1016
+sha256 = "6ad8bcefe528da372cb99b21626858d29cbb98a6b645c3c103136a3855057544"
 
 [[file]]
 path = "mods/CharacterReforged/content/card_looks/era_kit.toml"
@@ -15822,8 +15834,8 @@ sha256 = "3b0c17b8cde3ad2d30b3a96ccbdc7e5ae1b7db2a47fe4f0e79d35af70cf580bb"
 
 [[file]]
 path = "mods/CharacterReforged/content/menus/level_digits.toml"
-size = 5216
-sha256 = "64657ff621f96234df600f0481338b331767baf739a6f55efe08fa81f047174a"
+size = 5924
+sha256 = "464906cd03c9ef789c7962b2427093cabe8d35f13d5750e89cc50329e29a6e2a"
 
 [[file]]
 path = "mods/CharacterReforged/content/menus/level_pop.toml"
@@ -15902,8 +15914,8 @@ sha256 = "db30c62f0d89edde741c0e343ae38c6c37c5f6b63888959f60397f71a1b41c29"
 
 [[file]]
 path = "mods/CharacterReforged/content/menus/skill_table.toml"
-size = 94356
-sha256 = "10ae5b27675f777ea2abab938fe60fd172ce9aeceb9c8ce0d3b81dc85ba85c35"
+size = 94514
+sha256 = "f2f5c52b394bd0cf37ae92f6abfbb5304df6b08ded0ae111f62373a4e4d4d1a8"
 
 [[file]]
 path = "mods/CharacterReforged/content/menus/skill_table_hold_ring.toml"
@@ -15992,8 +16004,8 @@ sha256 = "e39d4d84724c0275b4cd2dfad2cc4acd094c285557b8f248701036f07a3dff89"
 
 [[file]]
 path = "mods/CharacterReforged/content/movesets/defaults.toml"
-size = 8753
-sha256 = "b2dfc1b92253f14c763675d36e6f8cbd3850ea2c3c3cd5c39870910c86a98a82"
+size = 3858
+sha256 = "d07f5ef281bd0c09dc0ed07997211b150b913982a1b65ff88a7800746b1fd657"
 
 [[file]]
 path = "mods/CharacterReforged/content/movesets/generator_rules.toml"
@@ -17007,8 +17019,8 @@ sha256 = "0ca19af424499337809d281f2a38081baf701bac489ddb3ca195bdae916b4f5b"
 
 [[file]]
 path = "mods/CharacterReforged/grafts/ss2_menus/blocks/skill_slots.lua"
-size = 94652
-sha256 = "76ee17737592bd35315c883d00ee11109638c81e459b4e33ad06506ddeb4948f"
+size = 95027
+sha256 = "9cc457b23791f0104617bb6f6799ef6bfcf0be75c9213cc0e52c6107d6963d39"
 
 [[file]]
 path = "mods/CharacterReforged/grafts/ss2_menus/blocks/two_hiper_slots.lua"
@@ -18632,8 +18644,8 @@ sha256 = "4f4ca120ccb0f05e206ad010cd2c96e1ef5ee5ccbc670750624298059799f311"
 
 [[file]]
 path = "mods/CharacterReforged/modules/ClassicRecruitment/content/items/drop_list.toml"
-size = 538
-sha256 = "1154dd14df77fdd3834796ba0f1e9a4bcbffac4c8c78a696397d1169012dd32f"
+size = 491
+sha256 = "007ff76d208e704eea5c27e6a7e987996d713f5893534d3d2e213610f0a05dbd"
 
 [[file]]
 path = "mods/CharacterReforged/modules/ClassicRecruitment/content/items/friendship_points.toml"
@@ -18697,8 +18709,8 @@ sha256 = "9f1cadc42c4e239d79ad4282ec04ef6df09a8f18df6960f57f3fcca4f4c5be2a"
 
 [[file]]
 path = "mods/CharacterReforged/modules/ClassicRecruitment/options.toml"
-size = 506
-sha256 = "92db3355a3623d1d85d2d5be6486c0d4f31f25faafcdac437b011d143ca4afbe"
+size = 500
+sha256 = "1b7989ba14a0b0b10c1b3d16b7121d977b438c830fdbb2f8ecf972c5223814b8"
 
 [[file]]
 path = "mods/CharacterReforged/modules/ClassicRecruitment/scripts/album_price.lua"
@@ -18727,8 +18739,8 @@ sha256 = "87f12c1a41f5fa5998b60edc65842f2408dee11ae7a812a81fcc3008b89548b3"
 
 [[file]]
 path = "mods/CharacterReforged/modules/ClassicRecruitment/text/keys.toml"
-size = 4912
-sha256 = "330783c8c14ce088850afca376fa340b4c3eec96b80f86692ff88e1dd6e042e1"
+size = 5339
+sha256 = "1e41d4b1973e272074e03e8e5cc67586ed0696a9010349219f363f3a57c7a17a"
 
 [[file]]
 path = "mods/CharacterReforged/modules/ClassicRecruitment/text/rows/album_text.toml"
@@ -19602,8 +19614,8 @@ sha256 = "67be8e416043033a10cba532ea612272a68bb65a391f8ec7dc3161f69fd02fbe"
 
 [[file]]
 path = "mods/CharacterReforged/modules/Equipment/assets/lua/item_filter_menu/300_shop_families.lua"
-size = 4525
-sha256 = "0d980f3f30f125b2378b0667c80d544a3452df77af680cf9069e7637ef3711f2"
+size = 4651
+sha256 = "0fd08759557b675bb4a1a4ea48da239c414c61b57712f18568e09580478ef52b"
 
 [[file]]
 path = "mods/CharacterReforged/modules/Equipment/changelog.toml"
@@ -19652,13 +19664,18 @@ sha256 = "f9709528bf9be700a3929e8c6bec259769c2392ae5dbc40e6875bfdbbb8e07cc"
 
 [[file]]
 path = "mods/CharacterReforged/modules/Equipment/content/game/equipment.toml"
-size = 3950
-sha256 = "75ca36d5bd472d998706c40797426f1e83a6d3e7fc3de8c53541f76567ffab8b"
+size = 3849
+sha256 = "f9435a44d9cc0d3966504ec21f8c9c4871740031411805ca25e6eaada491b9f5"
 
 [[file]]
 path = "mods/CharacterReforged/modules/Equipment/content/images/menu/200_icon/02_icon_item/classic_items_icons.toml"
 size = 33677
 sha256 = "8e8f87286027a84d737c1b4c755a8bbbb3674ae9ab1a9e20ebee35e95f844a6e"
+
+[[file]]
+path = "mods/CharacterReforged/modules/Equipment/content/item_filter_sections/equipment.toml"
+size = 3030
+sha256 = "b8efbc486d63b0e4795401d359a039efebcacf4a1a8b6dc20753bdb4481daa8f"
 
 [[file]]
 path = "mods/CharacterReforged/modules/Equipment/content/items/classic_items.toml"
@@ -19722,13 +19739,13 @@ sha256 = "8f104db62a1dd62bfb8ef65368ad4ef20027cbe6ed23c1956b49cfa8857ef3ee"
 
 [[file]]
 path = "mods/CharacterReforged/modules/Equipment/mod.toml"
-size = 1082
-sha256 = "245ff8c8b9308233af8f1dcd717ae688fcf866adecb880fbbb85c2e8f7aeef9f"
+size = 1105
+sha256 = "02913251fdabb5bbde150c6d0466aee0875dba6f17558547e9e950044c90d884"
 
 [[file]]
 path = "mods/CharacterReforged/modules/Equipment/scripts/equipment.lua"
-size = 40565
-sha256 = "4ff49f9510bee3b067bc9d245d22b83eb2efc2c82fd427051bcc89a70bebc983"
+size = 47114
+sha256 = "1a10440a35afeeba5810a922c1ebe11f4717c5f482bc2a4cd8cbd3e808cebf4e"
 
 [[file]]
 path = "mods/CharacterReforged/modules/Equipment/scripts/scripts.toml"
@@ -19737,8 +19754,8 @@ sha256 = "5de8cf0a76885c23ace9d572c5fa75b9195e921ae5a7f3debe3376906c494a43"
 
 [[file]]
 path = "mods/CharacterReforged/modules/Equipment/text/keys.toml"
-size = 44442
-sha256 = "28c7bac582f7c47c08a4ea23df12ff1e76d1a574fd3203d33f8dfd4b070fe0bf"
+size = 49431
+sha256 = "a42695d573e44a59a848e3f443dfa697952797b1b6edf16ed6707055c2b6ecac"
 
 [[file]]
 path = "mods/CharacterReforged/modules/MiximaxFromKickoff/changelog.toml"
@@ -19758,7 +19775,7 @@ sha256 = "947c8d15243d6cec6948ce50c96df6de7709842329d9aed815047f9c2cd40198"
 [[file]]
 path = "mods/CharacterReforged/modules/MiximaxFromKickoff/options.toml"
 size = 491
-sha256 = "ded257dbcf71f69ff84430f54f2d6433bafd6351f29f0aa645826e7fe51f6d58"
+sha256 = "5dc8824982214e290005423753b82e75929ce2db1246be6d2a4767c5ff9f1f23"
 
 [[file]]
 path = "mods/CharacterReforged/modules/MiximaxFromKickoff/text/keys.toml"
@@ -22132,8 +22149,8 @@ sha256 = "b7c731df75f2b2fd6f729e56a39cbfd8637056e5612645160f7cd756df0bbc88"
 
 [[file]]
 path = "mods/CharacterReforged/scripts/lib/stat_effects.lua"
-size = 5696
-sha256 = "14f6c093663694ca47f255788cf09aaf419aa7c75ca6d8aa0e1d3987d03bfc81"
+size = 6235
+sha256 = "0c45ec812ac9e9b65172832658bde644f4ca20085e02d14b40a43c595d765434"
 
 [[file]]
 path = "mods/CharacterReforged/scripts/lib/stats_curve.lua"
@@ -23822,8 +23839,8 @@ sha256 = "520fa6a39bcd02cf851644279ab50f0bba88c53ba7f0a654cf06bf7ae8775c19"
 
 [[file]]
 path = "mods/ChronicleDeluxe/assets/lua/players_universe_menu/universe_pool.lua"
-size = 2764
-sha256 = "608711e8f58141ac0dc1e43678ba7d735f5d9696b0cc640312516c664f9c378c"
+size = 2012
+sha256 = "629b9ae0118b02402076ef0f1d208ccc1b0f39a3c53552f30eb809013aedb09d"
 
 [[file]]
 path = "mods/ChronicleDeluxe/assets/lua/players_universe_menu/universe_stars.lua"
@@ -25654,11 +25671,6 @@ sha256 = "f8cdd261aa7c244e41780afb8686a8ef800616de3ba443e4458c2e5750067ccf"
 path = "mods/FootballReforged/modules/HomeStadium/content/images/menu/220_img/home_stadium_ui.toml"
 size = 1226
 sha256 = "bbe6fec8c8196fd1f2e119e2eba2e19214cba1e5829b107a1c5312174b9ade03"
-
-[[file]]
-path = "mods/FootballReforged/modules/HomeStadium/content/menus/home_stadium_dock.toml"
-size = 136
-sha256 = "172fd41c064880a5738a537df3469ebcfda1d466566dc0be2a1550fb3bb60a33"
 
 [[file]]
 path = "mods/FootballReforged/modules/HomeStadium/content/menus/home_stadium_picker.toml"
@@ -52462,23 +52474,23 @@ sha256 = "352f84f8614a6f88464390bf0f77e0569e35e8e5f9e5ec4a3d68c2059a43ca3b"
 
 [[file]]
 path = "mods/InazumaFantasy/content/images/menu/200_icon/02_icon_item/special_outfit_icons.toml"
-size = 88175
-sha256 = "e08ddc5335555cff30cf41bea4d50618d5ba0962d277623f163ceb0b80738e63"
+size = 79937
+sha256 = "825f4e9f5a17d739803343df88671fe9e90a92737c158537b0e658717a6d3f99"
 
 [[file]]
 path = "mods/InazumaFantasy/content/images/menu/200_icon/02_icon_item/special_outfit_icons_1.png"
-size = 2469497
-sha256 = "3317ee1a7cd290ac2cebb53186f7b8d40323212cbec0a4e70332d2b09d1dc6e2"
+size = 2420145
+sha256 = "38aecc1c61c2feef1b56c6207ac62012d9a94677fc8d208909ebea3afa0a445a"
 
 [[file]]
 path = "mods/InazumaFantasy/content/images/menu/200_icon/02_icon_item/special_outfit_icons_2.png"
-size = 2327474
-sha256 = "b838a903b5beb8147d7f401dbc7ad248e3486751d8558d7eeac23b6634223563"
+size = 2338582
+sha256 = "fdf6f4944a9cdbbf8e9b6af45c326dc4361ad05ff17fb5426b75012b3b81feff"
 
 [[file]]
 path = "mods/InazumaFantasy/content/images/menu/200_icon/02_icon_item/special_outfit_icons_3.png"
-size = 1834207
-sha256 = "4668abccc7eeba0951a928c24df11f6af0b4a0cd7e7e50e6e05785c8ec106ec8"
+size = 1219836
+sha256 = "34fe2a84d3744ce2968270b06e097ca02be3fe9cf1100f00d4f50b1deddde56e"
 
 [[file]]
 path = "mods/InazumaFantasy/content/images/menu/200_icon/02_icon_item/vr_character_outfit_icons.png"
@@ -52617,8 +52629,8 @@ sha256 = "f3187348176e4cdea53b06eedba4ea92f4d8f4877a21ab3f04578b5adefe4c06"
 
 [[file]]
 path = "mods/InazumaFantasy/content/items/character_special_outfits.toml"
-size = 458419
-sha256 = "bb64fa4fba96a083470348cce282f45116f67a7dcaf34097685ebf680b220041"
+size = 415515
+sha256 = "9532b9e678ceaf56825cd8d71dee24eee01d173cf54891b3474a912f9a730e80"
 
 [[file]]
 path = "mods/InazumaFantasy/content/items/community_emblems.toml"
@@ -52652,8 +52664,8 @@ sha256 = "1271a1243c87704b12e7a1b17452af5a7a912de46b8f07128a20ee23a6878261"
 
 [[file]]
 path = "mods/InazumaFantasy/content/items/vr_character_outfits.toml"
-size = 129063
-sha256 = "576edbb9db506dff87ed388cb4282127946bb302570c7f17073b35474910c0ad"
+size = 129107
+sha256 = "e641c03d4bda4056106e3b8bb8902ec4de29157ab51738732390d596d451d5cc"
 
 [[file]]
 path = "mods/InazumaFantasy/content/looks/alternate_styles.toml"
@@ -52667,8 +52679,8 @@ sha256 = "db2b10a81c668544aca98a46faa1c9609faace2a06a7a0ad168cc7571d7d5fb3"
 
 [[file]]
 path = "mods/InazumaFantasy/content/looks/character_special_outfits.toml"
-size = 70136
-sha256 = "ca38638a367947a25dc20cee4cef06a2855d5edc591c60f657caba8a58624b4d"
+size = 63747
+sha256 = "47dc9a7775510ae23a33372765e4380b0d3662a77f37fae73eec4d4fda77f4a1"
 
 [[file]]
 path = "mods/InazumaFantasy/content/looks/crystal_rabbit_armour.toml"
@@ -53122,8 +53134,8 @@ sha256 = "01da57a051a4aa2109246c4b5818f2ab59b15efa24e97768710fb5f083aaa716"
 
 [[file]]
 path = "mods/InazumaFantasy/content/shops/general_store.toml"
-size = 128354
-sha256 = "b374e56553f60d397f2f62de0384378cd089608c449e972263b9c5838264e7c2"
+size = 125637
+sha256 = "510292a7a4f3c01993d94b23a892d632cfea93710cc15fd4117ce07fdd1c12d4"
 
 [[file]]
 path = "mods/InazumaFantasy/content/shops/miximax_auras.toml"
@@ -53177,8 +53189,8 @@ sha256 = "8d5b280c5aefa51b04485b103e0a5514fba5639b25afb85f251eea6b402b9d98"
 
 [[file]]
 path = "mods/InazumaFantasy/content/sprite_redirects/special_outfit_icons.toml"
-size = 9638
-sha256 = "5c07468bcc9269da76a09fb65c6a7f76f84bb444047af9cdaa253c71081c237b"
+size = 8807
+sha256 = "66cb3570233fa405639ffc70bb79d8d9c071cf6759cf1e1e9d48ba64535d6e77"
 
 [[file]]
 path = "mods/InazumaFantasy/content/tables/common/gamedata/character/chara_model.toml"
@@ -53364,6 +53376,11 @@ sha256 = "80afb4683c651bdcb54480a7263f317ced7fc13313ed0809a2a9c74197c770b5"
 path = "mods/InazumaFantasy/content/techniques/hasty_lightning.toml"
 size = 1416
 sha256 = "5bb77096f64de37c70c6e0b12c45cadf1f9a9c1087333352fb124cf46db5777e"
+
+[[file]]
+path = "mods/InazumaFantasy/content/techniques/hidden_armours.toml"
+size = 834
+sha256 = "3053cf3644a875fde1cd4289dc154b917aecac0b6f20875a92dd4c76680ececb"
 
 [[file]]
 path = "mods/InazumaFantasy/content/techniques/idols.toml"
@@ -53621,9 +53638,14 @@ size = 145098
 sha256 = "9e312680c9b868354680eb259a7524dd622575c0f39248b1506cf41b39e87b6b"
 
 [[file]]
+path = "mods/InazumaFantasy/content/update_channels/InazumaFantasy.history.signed"
+size = 1757839
+sha256 = "728988576a557160aae408b271b9299d3db96a3d1b2b9be601c3f3916ac49804"
+
+[[file]]
 path = "mods/InazumaFantasy/content/update_channels/inazuma_fantasy.toml"
-size = 568
-sha256 = "cdf35111215db1f8130e85a7bac269bfa7ba72bbef5c4c3cfcd2b278d949430a"
+size = 593
+sha256 = "d845dc63e6e172824b73cf0178c30a3ef6889d45d8cb3e807af3f6f86b6c3984"
 
 [[file]]
 path = "mods/InazumaFantasy/grafts/_build.toml"
@@ -56276,6 +56298,601 @@ size = 5597
 sha256 = "4476d7d8b2e49e141ebcee13cb3295348cdcd4d3a6f8ef459cd80f38a80d1498"
 
 [[file]]
+path = "mods/ProfessionalKits/changelog.toml"
+size = 208
+sha256 = "9a2e6ccf0cd0ffa227de2092aff9f4562c48955b7067ca62eb402c2175f33efb"
+
+[[file]]
+path = "mods/ProfessionalKits/mod.toml"
+size = 523
+sha256 = "02b458859ab1c99ea5828eb38d10a59418e5564d912889a19c4473fb56cf6e66"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/addons/InazumaFantasy/content/shops/kits.toml"
+size = 3187
+sha256 = "128e26283836e6da360bfbce0c212cb79fb2c622088e1ddf2d0d1214dd154489"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/k75ud01_10.g4tx"
+size = 4939044
+sha256 = "bb2be88674bf9409e327034784e7ddfb072a1b6c770078c80e32fe6e275b74ef"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/k75ud01_20.g4tx"
+size = 4939044
+sha256 = "aa12b88f018971974699d4e2505a575c2fa42fc6a8591bddea2688d74c28c28d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/ke5mp01_10.g4tx"
+size = 4939044
+sha256 = "394069d5ce1725dd43ec8dec6ef5e121886125d9c17079dcf870170905f34d4d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/ke5mp01_20.g4tx"
+size = 4939044
+sha256 = "4a215c45484ffc73f8e644abbc9c2d00963de735889c974e6f64a303a6c4221a"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/kg8s101_10.g4tx"
+size = 4939044
+sha256 = "e9df9b09f047107edd606253f36c731fc9d292a76c892bf0e9cd30792c4b89b3"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/kg8s101_20.g4tx"
+size = 4939044
+sha256 = "f2917a4d56e55ed0837cca844890b4aa60d0d6045662f242b85e6a63b3b0025b"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/ki79701_10.g4tx"
+size = 4939044
+sha256 = "68af8a31751b6eaa9aee460589108de8dd988ae9a7c2042e4078563e40b8d260"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/ki79701_20.g4tx"
+size = 4939044
+sha256 = "d85d6ee68ff60092a850dccceb4482b1781b369a59ffd7f7b29aaa57c6b806d3"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/knsom01_10.g4tx"
+size = 4939044
+sha256 = "2a2b2f925ce2c234ecbd2a2e199b6a0789f9616e1140ad2e2496299147255fd4"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/knsom01_20.g4tx"
+size = 4939044
+sha256 = "cf087cfe4e9ecf8f5cfb3a801ac3a350f977cf2baf2d1e11d8bc4ced2fe2167a"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/kt2z301_10.g4tx"
+size = 4939044
+sha256 = "48f15a1ffff33fa9f12232732250626e8db5e3edd6784119b007988da768b4f0"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/kt2z301_20.g4tx"
+size = 4939044
+sha256 = "cf5e1550b7e37a1e0a9de0d5d1124d079c11066c8e62525e6e45b425e33e1038"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/ktumk01_10.g4tx"
+size = 4939044
+sha256 = "d9115bb625ff19edd1b6bcf0271ac95dbd78351b0c64585a2d8f0d6d735b97ba"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000101/ktumk01_20.g4tx"
+size = 4939044
+sha256 = "eaeb57d2b6148c106c741f6868eb89db5c31858982fc71dc627708542a47af38"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/k01jh51_10.g4tx"
+size = 4939044
+sha256 = "3e05d75881a2e9a3a2d6ff055a9f814e98b3e79ff2283746f48191c64bf17dc8"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/k01jh51_20.g4tx"
+size = 4939044
+sha256 = "d3c33e28270828c745a1798e36782f89d82be1caba4330b34c65e1c9ee176d2b"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/k2vy851_10.g4tx"
+size = 4918564
+sha256 = "6e8204d9620a4cb9101a2d87b9dd110ff9b5f597d1ca8e0ce4800f70815293c4"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/k2vy851_20.g4tx"
+size = 4918564
+sha256 = "81f722598efb301c7ac5af5ecf0415c2090fa39c7fa39e263bf79cf992179d7e"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kbfie51_10.g4tx"
+size = 4939044
+sha256 = "b350c0f938acdca530a66ddb6c13c92b60c24f97c72f4d6eb87ce22211aaf78f"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kbfie51_20.g4tx"
+size = 4939044
+sha256 = "5274d9e5e0745eed1d8726219a31e918e6fb79841d133d3a0a48874b3529fd0d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kg0at51_10.g4tx"
+size = 4939044
+sha256 = "56a5e7d9a8375600662a29d908b1517c7c2003142a8e6d05231aeecbeb49b5fd"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kg0at51_20.g4tx"
+size = 4939044
+sha256 = "8e161813ae3d4eb30bc884d26e2a557a1c18785017ee09943a136c72df9ee69e"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kgch551_10.g4tx"
+size = 4939044
+sha256 = "2952307b3f5d069f7b54a88f8db2fa070b027c6589641f768a868e2edea3db5d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kgch551_20.g4tx"
+size = 4939044
+sha256 = "427884272a7333b2b5b3677ddf9e76824bb8182d60c159941ec5b5bb3a6ee75d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kql1y51_10.g4tx"
+size = 4939044
+sha256 = "56493c841efea683abbd6e645c541cd325a48c8383cc7254aac4bb509bc0805b"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kql1y51_20.g4tx"
+size = 4939044
+sha256 = "0438af4bab138e1c050581faae5f948a87a8d61ec04564ea9b98b4bd290d4271"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/ktbqo51_10.g4tx"
+size = 4939044
+sha256 = "6a6f8f4e57caf5c82a9bd71265762b39a5ef96c34a64f1f8944c11fadf4cc7bd"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/ktbqo51_20.g4tx"
+size = 4939044
+sha256 = "b769735ae3ff895e41f5a7d25dfd84998b240d3303c79ec61701eeaaf8aaf537"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kvh2w51_10.g4tx"
+size = 4939044
+sha256 = "ce4634bae0c123aaa2c6db8f4d31f951c6fc2f5dfac6529ae796eaf3b0122bbb"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kvh2w51_20.g4tx"
+size = 4939044
+sha256 = "26f09274b8dd391340b2f084fef5f1da8cf5c4d8c005d03183057b4ea9e0ed76"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kvy4k51_10.g4tx"
+size = 4939044
+sha256 = "1ddabfe5ece93bf84fcdc38122f9b68a6a723f4901821d6e46fd002e25533c86"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000201/kvy4k51_20.g4tx"
+size = 4939044
+sha256 = "2468b80d452de3518795416463ec7a01a4f9c69b99dfb3344630e46316a4014c"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000301/k247d51_10.g4tx"
+size = 4918564
+sha256 = "7248bcf52f46a5554ddfeccf2f1b76d41256be099de2962ee2b6ae5301687ae3"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000301/k247d51_20.g4tx"
+size = 4918564
+sha256 = "b4ee37b702abc15c4c8181ee19764f3eb6f8fadb5b5f7d342544ed7360bf6784"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000301/kzm2r51_10.g4tx"
+size = 4918564
+sha256 = "1482b3716a5de6c43ddaa6d67373b3fa8862fcf8e8907d24a1c9771c5da6e3e6"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000301/kzm2r51_20.g4tx"
+size = 4918564
+sha256 = "66fe35824c99e6d42fafc266395566549eadceea9fce302552c5c968d996c203"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000401/k4a0u01_10.g4tx"
+size = 4939044
+sha256 = "f4791b0679cb18453e8beaa1fa2f4c8573e3adb33d03b254f0cfbdb747f5eceb"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000401/k4a0u01_20.g4tx"
+size = 4939044
+sha256 = "6ecb892b708be1f689ba6295ff5c9cd0499426e82611f247e07ee75b213a5378"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000501/kdqky51_10.g4tx"
+size = 4918564
+sha256 = "7e56c4746f3969bb600c7d5b4c97df10c4a54a45921f0cc7927d8ac32b8b2744"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000501/kdqky51_20.g4tx"
+size = 4918564
+sha256 = "b6b4150c8ec4796898d9e92521e9dd351257f913eb86c1fd3974c5d57fa40f99"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000501/kl56i51_10.g4tx"
+size = 4918564
+sha256 = "a8d9227bae5e70da116750c800e0510637fef1cef47771bf3265775f005f486b"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u000501/kl56i51_20.g4tx"
+size = 4918564
+sha256 = "5086f95873fcad3efce70c21635d9c00f978a4980e9fd55edde51ee62d21ad4d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u002101/k14si01_10.g4tx"
+size = 4939044
+sha256 = "d23a8bc1ad66c6074039e8f076f42301106bf4f0ef4fbe8adb64b484c5e2e42c"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u002101/k14si01_20.g4tx"
+size = 4939044
+sha256 = "d56e18eb24e578241f97f1aa47bcce3ff8d274751927dc133a13602b6ebf84bb"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u002101/kafw301_10.g4tx"
+size = 4939044
+sha256 = "7fcef4c704982d43e8e67a9d534cec90fac5df036cd36b63a910c234f7a65f1f"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u002101/kafw301_20.g4tx"
+size = 4939044
+sha256 = "d078d16129780ff835b28ff619bf45be666fb0fb41c8f46508c49bdc49bd00a1"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u002101/kvr9z01_10.g4tx"
+size = 4939044
+sha256 = "5b3be060c0ccff2ec3586c7b3c6d8812d4b34f65f5d7363b0d5796d1c93891ac"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u002101/kvr9z01_20.g4tx"
+size = 4939044
+sha256 = "98eee988fc1c93357ca85df5b8d6ee9fd67d42bb7930109c22565dee934fe708"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u003101/k4vzx01_10.g4tx"
+size = 4939044
+sha256 = "9cb42ad5d35871402a83fe0a0af15f2850bbd5c29043b12c3cc8ee267c8075b0"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u003101/k4vzx01_20.g4tx"
+size = 4939044
+sha256 = "0afd1c3829ed82e6d02cb6d8ec4aa4e6ed0373b6d4b705518b527f46e09094cb"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u003101/kysvy01_10.g4tx"
+size = 4939044
+sha256 = "c317693144548012879dfb5568af2fb78e4ee5fe741384365289a2b87fed45eb"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u003101/kysvy01_20.g4tx"
+size = 4939044
+sha256 = "5e943aea6177fbf8e08289cf2d559fa25673b53ed8ef6381e660917c8e9bd18a"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u003201/kx1xx51_10.g4tx"
+size = 4918564
+sha256 = "b1906bc51e84928f433aef2095d973d010fa7ea2ace01375b7608e417410a23d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u003201/kx1xx51_20.g4tx"
+size = 4918564
+sha256 = "e52e1ab66d81ed1b26f9935344075a5d9914965f96e2670d4552f25764930dc3"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u011001/kwnzi01_10.g4tx"
+size = 4939044
+sha256 = "1058cb760170816133a5b7323dcaad14098910cdc2926ff57ed061304e8c3b6c"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u011001/kwnzi01_20.g4tx"
+size = 4939044
+sha256 = "df5c6a1ea0b0e46d18b6456b67a32b734ca26f2db28e921dc41018b00260fd6f"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u031001/kkqff01_10.g4tx"
+size = 4939044
+sha256 = "ba40ee56873a8f17f52b5b95906e2c7af50457f62fdc1136cb28578823cc42c8"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u031001/kkqff01_20.g4tx"
+size = 4939044
+sha256 = "7a223ccf91ccb423a0e2be60862547d582ba2bf0d760bb458e0c3ca78ba749ff"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u031051/k9sbu51_10.g4tx"
+size = 4918564
+sha256 = "97a45acab275e626080777621ac80685fb78d0e224e80e654f2e4ea3b71cc120"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/chr/_uniform/u031051/k9sbu51_20.g4tx"
+size = 4918564
+sha256 = "dcb07e636ce4daa23754050adeab7425f46e97d61e5e353359fcd24e915921c8"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_k14si01.png"
+size = 43730
+sha256 = "87da7ac9e474ba2c2e1c48ff9f49cbf94ca08c8f97e8a5f3067556e7b2f5ec0b"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_k4a0u01.png"
+size = 36759
+sha256 = "f185e9e5399350b1904a1cd554dda3cbc0c8799bdb7825ef8e9dc5518fc25af2"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_k4vzx01.png"
+size = 38645
+sha256 = "607db25932ce36429b945d88b1a75bddbf3d0825bacc923476c203feeca3302d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_k75ud01.png"
+size = 45592
+sha256 = "bad015539ca75aa34c53464ee335cb4f5a680b6cb63839f0d48adaa5981748d8"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_kafw301.png"
+size = 41360
+sha256 = "74f1dcf82fa5018eb8564b30d9dee2f1ae280fbed32565acbddf05a338f19673"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_ke5mp01.png"
+size = 41076
+sha256 = "91c910fa3d5611c7c23343aad0a040c6eff16a554b45b3c02c2269987c5e30ad"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_kg8s101.png"
+size = 45507
+sha256 = "43a549b49304e037f602670e65ba32f950d967b76d9a0e45ea553af9d42dca0d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_ki79701.png"
+size = 44002
+sha256 = "2f52a55a19aa3cc79ce9e7c5c92a8aec3127ce2f490a4ce516d6516f4c239d0d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_kkqff01.png"
+size = 39696
+sha256 = "c2d7dc26a5b18723b51f885e2dad947e929fc3f1005ea2c8927a96e94e3d3231"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_knsom01.png"
+size = 49393
+sha256 = "f084b85f4f976a5138b859bf8451b135204117c1a7e2a1af6d8eeefd96f706e3"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_kt2z301.png"
+size = 48659
+sha256 = "02b0a9affe9fe548236386745760d0496a606e83da0079d4f726ac6be3017537"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_ktumk01.png"
+size = 42501
+sha256 = "7a0d42cf4f3339b60aee7b331e3e6a6b7f87005c2ecb9d1517629a5facf74694"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_kvr9z01.png"
+size = 36381
+sha256 = "4cd8d27644482230bd824f17af0e77cd8b18849bb5861d969fda6c6b40491b1a"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_kwnzi01.png"
+size = 43892
+sha256 = "fbdd95f9a86d931735f5842f034d965d133bab00868fe82bc1bbf1686151b483"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/images/menu/200_icon/02_icon_item/la_liga_kit_icons/uni_kysvy01.png"
+size = 41893
+sha256 = "379fec789d751b24115684114bf1c6a4a37b908d85c8bf757567760535d9a2b7"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982001.g4tx"
+size = 262480
+sha256 = "1d1eabd7451ce3cb2925f52101517f5d24706e41664b55df06fc37a20890db52"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982001_s.g4tx"
+size = 65872
+sha256 = "5d3a1c2c39ecd3f877ca5244c24fc70a6c86cbeef72037382988fbea286d5d7d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982001_s01.g4tx"
+size = 65872
+sha256 = "5d3a1c2c39ecd3f877ca5244c24fc70a6c86cbeef72037382988fbea286d5d7d"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982002.g4tx"
+size = 262480
+sha256 = "15b715670d18ddfab756468601d6a643b62cf254f8da11bbe2182cc5df0c020a"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982002_s.g4tx"
+size = 65872
+sha256 = "953238a6f0751b0cf2ef857d02721a83db3c5e4d284f6e112af854abd81cd089"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982003.g4tx"
+size = 262480
+sha256 = "43334995ce443c94ac845af2ab141b8a7e5ebe5ca91e201ec1692de18806a4f2"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982003_s.g4tx"
+size = 65872
+sha256 = "d8b92fbb949a20ccc1f5295de42e1f4d79eb1b8761b1a92ebb893806fd97c128"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982004.g4tx"
+size = 262480
+sha256 = "8fdc1e8599c890bc03dd7320a70cae88c8e8598b8461b89b559f8dcb41c9308f"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982004_s.g4tx"
+size = 65872
+sha256 = "18a745c0659bd56d47a9fadca6ca0fb20b797c55be42ebcf42e328f9befa42cb"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982005.g4tx"
+size = 262480
+sha256 = "035b2f9642dd66de592ea50f33a957418560af4832e99bf1d1e916e2b95b7967"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982005_s.g4tx"
+size = 65872
+sha256 = "76d09b1741489e671a3c52b05b597a94ccaa15e878677480081951741fe3dccd"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982006.g4tx"
+size = 262480
+sha256 = "53498f7052755db88ecb935c63e6c5f70869c8dd51e005391e4d3c323fa889d6"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982006_s.g4tx"
+size = 65872
+sha256 = "2a31e39a0345d2e1b7c8f114bceae7067321049686e6324ae050837cd24f976b"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982007.g4tx"
+size = 262480
+sha256 = "93352c98e19ca5407f67c42c2d62b8ea51a7bb8ee024d6f2e35bbd6e9447a6cf"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982007_s.g4tx"
+size = 65872
+sha256 = "aabeb7daa4fb8237cb1c49062a293c7ee726f8bada7a8ad052f1624763a16595"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982008.g4tx"
+size = 262480
+sha256 = "9153842fc7ac2293e6957f36f83572ccd04cacedc15916d90680e28eeea98598"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982008_s.g4tx"
+size = 65872
+sha256 = "c449f3fb2e8c7fd4b7a12475e883ff62ed131b608521c895d98baf779dc24e90"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982009.g4tx"
+size = 262480
+sha256 = "c767bd8d2542d1914e0801d66c37db968386e64ecc603e4516a0bfdd9a3c2028"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982009_s.g4tx"
+size = 65872
+sha256 = "82f70e35a63283da0da95dc4feb340cc2d8d93331fd36430874075586d457861"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982010.g4tx"
+size = 262480
+sha256 = "3c27a38a6b3e2e2e9a2392570dc0cc8a343f27792d21ddddd2ec0f78179ac431"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982010_s.g4tx"
+size = 65872
+sha256 = "2f29923a51c4fb282b7ada0f234e631cc8ddb06bb5b11cc18c9d1ad889e2671b"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982011.g4tx"
+size = 262480
+sha256 = "ce4deeaa6e153654064ee13cfc397725114104104682f762a8fa1b35c175e217"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982011_s.g4tx"
+size = 65872
+sha256 = "d9ab559eff272ca97e7c234850f7472c0e5e97aaa65fdcf5d09499eae7b32deb"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982011_s01.g4tx"
+size = 65872
+sha256 = "d9ab559eff272ca97e7c234850f7472c0e5e97aaa65fdcf5d09499eae7b32deb"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982012.g4tx"
+size = 262480
+sha256 = "b10d1e75e1bead9783181e388627cb4c1e1bbcce357e6f4d51a8df18ae2bfa6a"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982012_s.g4tx"
+size = 65872
+sha256 = "b1a789ee3ed9692558509305e78cff249d9bc65d0bc66ad5831722748635d94f"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982013.g4tx"
+size = 262480
+sha256 = "c395ed9c91241d34211dedd6595e66ef8f17d5f20cead0d1cee7104d485617c9"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982013_s.g4tx"
+size = 65872
+sha256 = "667da6c97d8b62555e9be29d3a4c7c87bdc0d702dbf904ec0f1bf243e0fbf94b"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982014.g4tx"
+size = 262480
+sha256 = "02d06fe7d8a345748ed1ec33b3b9ea7fde04b0ae36dfabd30724d694ca5b1eca"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982014_s.g4tx"
+size = 65872
+sha256 = "ba8732ae1b9bbbf154a36a711e1eecd6888ea8650b5f5aa7be4ca5166d0ec59f"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982016.g4tx"
+size = 262480
+sha256 = "593a65232a26602b14be4cfca8a68de2280197185329227aac6b9e3e2da1042c"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/assets/menu/200_icon/01_icon_emblem/em982016_s.g4tx"
+size = 65872
+sha256 = "dbf69f32eb4f08a84c306f7152f3ee8166cafcd3bcd392c982b24a895f4fd909"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/changelog.toml"
+size = 171
+sha256 = "0270f644710a10b9bc4c0ea0c17a2bb64b76570fa2d3b02dfea997965e615c55"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/content/images/menu/200_icon/02_icon_item/la_liga_kit_icons.toml"
+size = 2265
+sha256 = "b647a6aa79b8512a14d5858cb9d74a1f6655cca5dc3bda7b58652b5c6e423df0"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/content/items/kits.toml"
+size = 15856
+sha256 = "e692d447020d3354ff2938ce43bf4f3ebf2b94abaf29accdb7b9f7d8b6dd9eb7"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/content/looks/kits.toml"
+size = 78653
+sha256 = "d7efc88703f9c67d966cb20e34a5b4c9afed38852babc6448e9311e11d564917"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/content/looks/numbers.toml"
+size = 4319
+sha256 = "8fb0f1803d650f6004f08722caac43a660b18b505e4cd744c790efbf72a1b57b"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/content/sprite_redirects/kit_icons.toml"
+size = 538
+sha256 = "f790ea52df3a52712dd34c9e81925024e58481051a616cb531472c22d81121dc"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/mod.toml"
+size = 487
+sha256 = "786a25687e3c482526228cbba6e6ff94f6de209cd536359440832c4aeabf9397"
+
+[[file]]
+path = "mods/ProfessionalKits/modules/LaLiga/text/keys.toml"
+size = 2384
+sha256 = "fe73ed8bf80737daad526b4f3544680375334cce4bace369c76b4cca926da00d"
+
+[[file]]
+path = "mods/ProfessionalKits/text/keys.toml"
+size = 1357
+sha256 = "0a7d7cca3126248b5303650e576f8f269eabb09db1af80146dbea12904b57a51"
+
+[[file]]
 path = "mods/VRFW/assets/images/menu/107_vs/vrfw_bb_pages/glyph_all.png"
 size = 1372
 sha256 = "258c62b3c91ef75031500e698759cd4a5e6ea825a8c2619df7115a5c4d298a60"
@@ -57941,6 +58558,11 @@ size = 5832
 sha256 = "c23ade6b4a1a3384a377239b9843c5bba19406b4b2c43703b1bd6f1b8b0b38be"
 
 [[file]]
+path = "mods/VRFW/assets/lua/menu/_all/26_item_filter_sections.lua"
+size = 14122
+sha256 = "6ee635b081ce1232555d044762b975c4d085f4f13bd6230a52a4a5e428f3ca98"
+
+[[file]]
 path = "mods/VRFW/assets/lua/menu/_all/30_chain.lua"
 size = 31540
 sha256 = "0cbad367810748f8c896d1f29a8a50bab65489204307b26ceb2dfa55f395c655"
@@ -58052,8 +58674,8 @@ sha256 = "6c50031c99610204be64da9e988311d2405165156e728e64408a81b541ede4c6"
 
 [[file]]
 path = "mods/VRFW/assets/lua/menu/_all/66_ui_plates.lua"
-size = 33759
-sha256 = "0dba2bf0128451770e8f114356da0a2bd0546bfc6fb412083ba249bdbd418a0b"
+size = 33745
+sha256 = "f13936183dcf546cadd549ff803e832776f113f61da4d149f9570b5e94a594ee"
 
 [[file]]
 path = "mods/VRFW/assets/lua/menu/_all/67_list_rows.lua"
@@ -58262,8 +58884,8 @@ sha256 = "76677599aea055fdb213a609449b1101000622fc248f599d60cad1565bf4353c"
 
 [[file]]
 path = "mods/VRFW/assets/lua/menu/_fingerprints.json"
-size = 9519
-sha256 = "8b8c9fd7ad1c100c79713ff0875484387b02f73a2e21b3fede802f0390f0ecf6"
+size = 9663
+sha256 = "1336bab031066799eb996742b0eee73910a835ad1b534aea4b331675f5b707a5"
 
 [[file]]
 path = "mods/VRFW/assets/lua/menu/ability_list_menu/000_host.lua"
@@ -58356,6 +58978,11 @@ size = 242
 sha256 = "2001a56affdc4a12f20d4c91d30cfea4a67c4e244b18b8c6bd1158c4962113e3"
 
 [[file]]
+path = "mods/VRFW/assets/lua/menu/equip_menu_list/120_item_filter_sections.lua"
+size = 216
+sha256 = "65e2c88d1d781cdb3204eb265ae19cce8619591ca0200e752f0eb9994d24ac91"
+
+[[file]]
 path = "mods/VRFW/assets/lua/menu/equip_menu_select/100_model_wait.lua"
 size = 156
 sha256 = "1a19eda834468c623cbeb16f78a88d198cf8fd303f5e0109b0a538c70978a8c8"
@@ -58394,6 +59021,11 @@ sha256 = "934cb810cf44dd68ea18aa67d378074839b081af9ec612e08f1cf9a5c1a0163b"
 path = "mods/VRFW/assets/lua/menu/item_filter_menu/110_technique_filter.lua"
 size = 4450
 sha256 = "5eb40f4389c49f6dc3dc8ba50262dba3ade01cfadb0e8ef4fd635411cc9e91ab"
+
+[[file]]
+path = "mods/VRFW/assets/lua/menu/item_filter_menu/120_item_filter_sections.lua"
+size = 196
+sha256 = "a9af9d43f2023f60c1fcd6e76b430079536759e8bb5b4505dd0e074864a29d8c"
 
 [[file]]
 path = "mods/VRFW/assets/lua/menu/item_use_menu/900_level_trace.lua"
@@ -58557,8 +59189,8 @@ sha256 = "6ae28a7ca2fc6f3e4909a3be19669532197a133945890bd35a5f945e1f322d83"
 
 [[file]]
 path = "mods/VRFW/assets/lua/menu/shop_menu_buy/160_shop_outfits.lua"
-size = 5457
-sha256 = "ffc8f801bbe71ff57d119c3704123139030e4690b3d0ecdc6048af418bd4469e"
+size = 5623
+sha256 = "d82bfefa25fe72347a430620752d2081216b0ca10adf1baa8cd3225485e93d7f"
 
 [[file]]
 path = "mods/VRFW/assets/lua/menu/soccer_battle_command_action_menu/300_go_ahead_guide.lua"
@@ -61001,6 +61633,11 @@ size = 902
 sha256 = "9df593ebea7317f10517657ef85b5d8415855276f9d6639e31cac9c9d99987f1"
 
 [[file]]
+path = "mods/VRFW/content/game/item_filter.toml"
+size = 3523
+sha256 = "ec733ec58bf070ecce7cf88a4c0a5bfb5dcce4a943f98fc0f4a6cc66e48bec66"
+
+[[file]]
 path = "mods/VRFW/content/game/kit_variants.toml"
 size = 537
 sha256 = "e59503709bcd663736668849d3ac30f0fe2cee5d6b8f7dc127ae85de58d451c0"
@@ -61672,8 +62309,8 @@ sha256 = "2ca624a05627269c04be75925ac1d0e1d9bbd1b664b510aa9b75ac2c07849516"
 
 [[file]]
 path = "mods/VRFW/content/menus/team_dock_half_rows.toml"
-size = 4258
-sha256 = "59e1ccae1414df0e1e504d4983cd22e3c19dba3e72fd7c4975d2b1f5f95872f4"
+size = 4474
+sha256 = "93098367b348111fc368c172686be9a89a1b02758d911483f32e96707b350482"
 
 [[file]]
 path = "mods/VRFW/content/menus/title_row.toml"
@@ -61979,6 +62616,11 @@ sha256 = "de173eef77052dca3e8df5f9605e52917d5c12fc0102e92f0f2494964e4e72cd"
 path = "mods/VRFW/content/types/input.toml"
 size = 885
 sha256 = "e198781d00267cc6db7732e4e432fb1755a97bcdc2f38d2d22d896c55a65a314"
+
+[[file]]
+path = "mods/VRFW/content/types/item_filter_section.toml"
+size = 2214
+sha256 = "e923391f33b7880214ce05f603b34ab4f32f3ca6d2207d5a02e449a8112034ca"
 
 [[file]]
 path = "mods/VRFW/content/types/kit_variant.toml"
@@ -62776,6 +63418,11 @@ size = 3772
 sha256 = "affd67d2aade2e9b086d9fa14bd652c622fee655cc38bda33b6a4783cd02600b"
 
 [[file]]
+path = "mods/VRFW/scripts/item_filter.lua"
+size = 9621
+sha256 = "33c48b7c739486935f7290e515bb64df163f593ee63d1b5e1e952782c1f9b91b"
+
+[[file]]
 path = "mods/VRFW/scripts/kit_variants.lua"
 size = 3257
 sha256 = "dc516c2c95b6248e1e3549d6656b225e1d1dcf39b6b40ef6f7c2086e39403b42"
@@ -62849,6 +63496,11 @@ sha256 = "bfd611588917d542c414871b0f163813f8b146fd094d335f7bf882e6e832da1b"
 path = "mods/VRFW/scripts/lib/ids.lua"
 size = 3587
 sha256 = "937ad8e0d81e892d280573b5a81022dd436f1ecee5e9efe44082c30805ab1647"
+
+[[file]]
+path = "mods/VRFW/scripts/lib/item_filter.lua"
+size = 7280
+sha256 = "ebfef9491b78e39c075137a2224cbbbb89d62e1ef514758d73a840a9dd0848b1"
 
 [[file]]
 path = "mods/VRFW/scripts/lib/kits.lua"
@@ -63432,5 +64084,5 @@ sha256 = "95eacefaf3dc7dbb3e9417e11e7d90e17a6f20607b0f1c8fc825bbfa94c9ef77"
 
 [[file]]
 path = "winmm.dll"
-size = 60549632
-sha256 = "252092d39dad05a7ea546a8853f29903ae9d430acecc69df588ce9635d4e1a80"
+size = 60692992
+sha256 = "d5701e7f584ee07abc5069a92358b4285adf0e41fafc940891a3e08656f2d61d"

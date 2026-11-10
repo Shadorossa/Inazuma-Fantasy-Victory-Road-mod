@@ -60,20 +60,9 @@ recipe = "cos_if_seymour_outfit"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_victoria_outfit"
-from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1024, 0, 1280, 256] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_victoria_outfit"
-recipe = "cos_if_victoria_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_suzette_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1280, 0, 1536, 256] }]
+ops = [{ op = "crop", box = [1024, 0, 1280, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -84,7 +73,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_canon_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1536, 0, 1792, 256] }]
+ops = [{ op = "crop", box = [1280, 0, 1536, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -95,7 +84,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_thor_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1792, 0, 2048, 256] }]
+ops = [{ op = "crop", box = [1536, 0, 1792, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -106,7 +95,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_nelly_outfit_1"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2048, 0, 2304, 256] }]
+ops = [{ op = "crop", box = [1792, 0, 2048, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -117,7 +106,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_celia_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2304, 0, 2560, 256] }]
+ops = [{ op = "crop", box = [2048, 0, 2304, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -128,7 +117,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_silvia_outfit_1"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [0, 256, 256, 512] }]
+ops = [{ op = "crop", box = [2304, 0, 2560, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -139,7 +128,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_aquilina_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [256, 256, 512, 512] }]
+ops = [{ op = "crop", box = [0, 256, 256, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -150,7 +139,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_camellia_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [512, 256, 768, 512] }]
+ops = [{ op = "crop", box = [256, 256, 512, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -161,7 +150,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_percival_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [768, 256, 1024, 512] }]
+ops = [{ op = "crop", box = [512, 256, 768, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -172,7 +161,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_riccardo_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1024, 256, 1280, 512] }]
+ops = [{ op = "crop", box = [768, 256, 1024, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -181,20 +170,9 @@ recipe = "cos_if_riccardo_outfit"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_victor_outfit"
-from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1280, 256, 1536, 512] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_victor_outfit"
-recipe = "cos_if_victor_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_skie_blue_outfit_1"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1536, 256, 1792, 512] }]
+ops = [{ op = "crop", box = [1024, 256, 1280, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -205,7 +183,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_rosie_redd_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1792, 256, 2048, 512] }]
+ops = [{ op = "crop", box = [1280, 256, 1536, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -216,7 +194,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_jade_greene_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2048, 256, 2304, 512] }]
+ops = [{ op = "crop", box = [1536, 256, 1792, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -227,7 +205,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_fei_outfit_1"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2304, 256, 2560, 512] }]
+ops = [{ op = "crop", box = [1792, 256, 2048, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -238,7 +216,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_vladimir_outfit_2"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [0, 512, 256, 768] }]
+ops = [{ op = "crop", box = [2048, 256, 2304, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -249,7 +227,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_goldie_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [256, 512, 512, 768] }]
+ops = [{ op = "crop", box = [2304, 256, 2560, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -260,7 +238,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_sor_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [512, 512, 768, 768] }]
+ops = [{ op = "crop", box = [0, 512, 256, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -271,7 +249,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_nobunaga_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [768, 512, 1024, 768] }]
+ops = [{ op = "crop", box = [256, 512, 512, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -282,7 +260,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_tokichiro_kinoshita"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1024, 512, 1280, 768] }]
+ops = [{ op = "crop", box = [512, 512, 768, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -293,7 +271,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_joan_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1280, 512, 1536, 768] }]
+ops = [{ op = "crop", box = [768, 512, 1024, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -304,7 +282,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_liu_bei_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1536, 512, 1792, 768] }]
+ops = [{ op = "crop", box = [1024, 512, 1280, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -315,7 +293,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_guan_yu_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1792, 512, 2048, 768] }]
+ops = [{ op = "crop", box = [1280, 512, 1536, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -326,7 +304,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_fei_outfit_2"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2048, 512, 2304, 768] }]
+ops = [{ op = "crop", box = [1536, 512, 1792, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -335,20 +313,9 @@ recipe = "cos_if_fei_outfit_2"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_liang_outfit"
-from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2304, 512, 2560, 768] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_liang_outfit"
-recipe = "cos_if_liang_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_ryoma_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [0, 768, 256, 1024] }]
+ops = [{ op = "crop", box = [1792, 512, 2048, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -359,7 +326,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_king_arthur_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [256, 768, 512, 1024] }]
+ops = [{ op = "crop", box = [2048, 512, 2304, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -370,7 +337,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_mark_evans_outfit_1"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [512, 768, 768, 1024] }]
+ops = [{ op = "crop", box = [2304, 512, 2560, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -381,7 +348,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_david_samford_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [768, 768, 1024, 1024] }]
+ops = [{ op = "crop", box = [0, 768, 256, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -392,7 +359,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_jude_sharp_outfit_1"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1024, 768, 1280, 1024] }]
+ops = [{ op = "crop", box = [256, 768, 512, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -403,7 +370,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_jude_sharp_outfit_2"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1280, 768, 1536, 1024] }]
+ops = [{ op = "crop", box = [512, 768, 768, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -414,7 +381,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_kevin_dragonfly_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1536, 768, 1792, 1024] }]
+ops = [{ op = "crop", box = [768, 768, 1024, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -425,7 +392,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_shawn_froste_outfit_1"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1792, 768, 2048, 1024] }]
+ops = [{ op = "crop", box = [1024, 768, 1280, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -434,20 +401,9 @@ recipe = "cos_if_shawn_froste_outfit_1"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_aster_outfit"
-from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2048, 768, 2304, 1024] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_aster_outfit"
-recipe = "cos_if_aster_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_flora_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2304, 768, 2560, 1024] }]
+ops = [{ op = "crop", box = [1280, 768, 1536, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -458,7 +414,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_sterne_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [0, 1024, 256, 1280] }]
+ops = [{ op = "crop", box = [1536, 768, 1792, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -469,7 +425,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_celia_hills_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [256, 1024, 512, 1280] }]
+ops = [{ op = "crop", box = [1792, 768, 2048, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -480,7 +436,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_silvia_woods_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [512, 1024, 768, 1280] }]
+ops = [{ op = "crop", box = [2048, 768, 2304, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -491,7 +447,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_percival_travis_outfit_2"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [768, 1024, 1024, 1280] }]
+ops = [{ op = "crop", box = [2304, 768, 2560, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -502,7 +458,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_chester_outfit_1"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1024, 1024, 1280, 1280] }]
+ops = [{ op = "crop", box = [0, 1024, 256, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -513,7 +469,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_alex_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1280, 1024, 1536, 1280] }]
+ops = [{ op = "crop", box = [256, 1024, 512, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -524,7 +480,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_byron_love_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1536, 1024, 1792, 1280] }]
+ops = [{ op = "crop", box = [512, 1024, 768, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -535,7 +491,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_gammon_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1792, 1024, 2048, 1280] }]
+ops = [{ op = "crop", box = [768, 1024, 1024, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -546,7 +502,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_katsu_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2048, 1024, 2304, 1280] }]
+ops = [{ op = "crop", box = [1024, 1024, 1280, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -557,7 +513,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_aslei_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2304, 1024, 2560, 1280] }]
+ops = [{ op = "crop", box = [1280, 1024, 1536, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -568,7 +524,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_shintaro_nakaoka_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [0, 1280, 256, 1536] }]
+ops = [{ op = "crop", box = [1536, 1024, 1792, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -579,7 +535,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_prince_charles_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [256, 1280, 512, 1536] }]
+ops = [{ op = "crop", box = [1792, 1024, 2048, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -590,7 +546,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_van_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [512, 1280, 768, 1536] }]
+ops = [{ op = "crop", box = [2048, 1024, 2304, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -601,7 +557,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_hiro_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [768, 1280, 1024, 1536] }]
+ops = [{ op = "crop", box = [2304, 1024, 2560, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -612,7 +568,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_hershel_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1024, 1280, 1280, 1536] }]
+ops = [{ op = "crop", box = [0, 1280, 256, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -623,7 +579,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_luke_triton_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1280, 1280, 1536, 1536] }]
+ops = [{ op = "crop", box = [256, 1280, 512, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -634,7 +590,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_skie_blue_outfit_2"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1536, 1280, 1792, 1536] }]
+ops = [{ op = "crop", box = [512, 1280, 768, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -645,7 +601,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_glacia_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1792, 1280, 2048, 1536] }]
+ops = [{ op = "crop", box = [768, 1280, 1024, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -656,7 +612,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_catra_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2048, 1280, 2304, 1536] }]
+ops = [{ op = "crop", box = [1024, 1280, 1280, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -667,7 +623,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_laraya_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2304, 1280, 2560, 1536] }]
+ops = [{ op = "crop", box = [1280, 1280, 1536, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -676,64 +632,9 @@ recipe = "cos_if_laraya_outfit"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_ogar_outfit"
-from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [0, 1536, 256, 1792] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_ogar_outfit"
-recipe = "cos_if_ogar_outfit"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_rondula_outfit"
-from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [256, 1536, 512, 1792] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_rondula_outfit"
-recipe = "cos_if_rondula_outfit"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_bala_outfit"
-from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [512, 1536, 768, 1792] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_bala_outfit"
-recipe = "cos_if_bala_outfit"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_ruger_outfit"
-from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [768, 1536, 1024, 1792] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_ruger_outfit"
-recipe = "cos_if_ruger_outfit"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_gandares_outfit"
-from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1024, 1536, 1280, 1792] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_gandares_outfit"
-recipe = "cos_if_gandares_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_ozrock_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1280, 1536, 1536, 1792] }]
+ops = [{ op = "crop", box = [1536, 1280, 1792, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -744,7 +645,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_circulus_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1536, 1536, 1792, 1792] }]
+ops = [{ op = "crop", box = [1792, 1280, 2048, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -755,7 +656,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_arculus_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1792, 1536, 2048, 1792] }]
+ops = [{ op = "crop", box = [2048, 1280, 2304, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -766,7 +667,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_aquilina_schiller_2"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2048, 1536, 2304, 1792] }]
+ops = [{ op = "crop", box = [2304, 1280, 2560, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -777,7 +678,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_millie_moonlight_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2304, 1536, 2560, 1792] }]
+ops = [{ op = "crop", box = [0, 1536, 256, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -788,7 +689,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_steve_grim_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [0, 1792, 256, 2048] }]
+ops = [{ op = "crop", box = [256, 1536, 512, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -799,7 +700,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_darren_lachance_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [256, 1792, 512, 2048] }]
+ops = [{ op = "crop", box = [512, 1536, 768, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -810,7 +711,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_david_outfit_2"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [512, 1792, 768, 2048] }]
+ops = [{ op = "crop", box = [768, 1536, 1024, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -819,20 +720,9 @@ recipe = "cos_if_david_outfit_2"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_david_evans_outfit_1"
-from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [768, 1792, 1024, 2048] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_david_evans_outfit_1"
-recipe = "cos_if_david_evans_outfit_1"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_seymour_hillman_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1024, 1792, 1280, 2048] }]
+ops = [{ op = "crop", box = [1024, 1536, 1280, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -843,7 +733,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_frank_wintersea_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1280, 1792, 1536, 2048] }]
+ops = [{ op = "crop", box = [1280, 1536, 1536, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -854,7 +744,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_saber_sabel_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1536, 1792, 1792, 2048] }]
+ops = [{ op = "crop", box = [1536, 1536, 1792, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -865,7 +755,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_gyan_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1792, 1792, 2048, 2048] }]
+ops = [{ op = "crop", box = [1792, 1536, 2048, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -876,7 +766,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_cross_word_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2048, 1792, 2304, 2048] }]
+ops = [{ op = "crop", box = [2048, 1536, 2304, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -887,7 +777,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_adrastus_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2304, 1792, 2560, 2048] }]
+ops = [{ op = "crop", box = [2304, 1536, 2560, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -898,7 +788,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_schemer_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [0, 2048, 256, 2304] }]
+ops = [{ op = "crop", box = [0, 1792, 256, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -909,7 +799,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_justin_shipwood_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [256, 2048, 512, 2304] }]
+ops = [{ op = "crop", box = [256, 1792, 512, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -920,7 +810,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_skip_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [512, 2048, 768, 2304] }]
+ops = [{ op = "crop", box = [512, 1792, 768, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -931,7 +821,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_chip_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [768, 2048, 1024, 2304] }]
+ops = [{ op = "crop", box = [768, 1792, 1024, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -942,7 +832,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_cedric_blossom_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1024, 2048, 1280, 2304] }]
+ops = [{ op = "crop", box = [1024, 1792, 1280, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -953,7 +843,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_marigold_blossom_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1280, 2048, 1536, 2304] }]
+ops = [{ op = "crop", box = [1280, 1792, 1536, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -964,7 +854,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_judy_scarriot_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1536, 2048, 1792, 2304] }]
+ops = [{ op = "crop", box = [1536, 1792, 1792, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -975,7 +865,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_jasper_lerner_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1792, 2048, 2048, 2304] }]
+ops = [{ op = "crop", box = [1792, 1792, 2048, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -986,7 +876,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_mabel_lerner_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2048, 2048, 2304, 2304] }]
+ops = [{ op = "crop", box = [2048, 1792, 2304, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -997,7 +887,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_caleb_stonewall_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2304, 2048, 2560, 2304] }]
+ops = [{ op = "crop", box = [2304, 1792, 2560, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1008,7 +898,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_astero_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [0, 2304, 256, 2560] }]
+ops = [{ op = "crop", box = [0, 2048, 256, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1019,7 +909,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_axel_blaze_outfit_1"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [256, 2304, 512, 2560] }]
+ops = [{ op = "crop", box = [256, 2048, 512, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1030,7 +920,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_arculus_orbes_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [512, 2304, 768, 2560] }]
+ops = [{ op = "crop", box = [512, 2048, 768, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1041,7 +931,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_sonny_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [768, 2304, 1024, 2560] }]
+ops = [{ op = "crop", box = [768, 2048, 1024, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1052,7 +942,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_adriano_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1024, 2304, 1280, 2560] }]
+ops = [{ op = "crop", box = [1024, 2048, 1280, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1063,7 +953,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_trevor_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1280, 2304, 1536, 2560] }]
+ops = [{ op = "crop", box = [1280, 2048, 1536, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1074,7 +964,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_elliot_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1536, 2304, 1792, 2560] }]
+ops = [{ op = "crop", box = [1536, 2048, 1792, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1085,7 +975,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_jude_sharp_outfit_3"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [1792, 2304, 2048, 2560] }]
+ops = [{ op = "crop", box = [1792, 2048, 2048, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1096,7 +986,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_heath_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2048, 2304, 2304, 2560] }]
+ops = [{ op = "crop", box = [2048, 2048, 2304, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1107,7 +997,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_duske_outfit"
 from = "special_outfit_icons_1"
-ops = [{ op = "crop", box = [2304, 2304, 2560, 2560] }]
+ops = [{ op = "crop", box = [2304, 2048, 2560, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1117,8 +1007,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_axel_blaze_outfit_2"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [0, 0, 256, 256] }]
+from = "special_outfit_icons_1"
+ops = [{ op = "crop", box = [0, 2304, 256, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1128,8 +1018,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_silasar_noirmont_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [256, 0, 512, 256] }]
+from = "special_outfit_icons_1"
+ops = [{ op = "crop", box = [256, 2304, 512, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1139,8 +1029,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_philip_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [512, 0, 768, 256] }]
+from = "special_outfit_icons_1"
+ops = [{ op = "crop", box = [512, 2304, 768, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1150,8 +1040,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_jimmy_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [768, 0, 1024, 256] }]
+from = "special_outfit_icons_1"
+ops = [{ op = "crop", box = [768, 2304, 1024, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1161,8 +1051,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_alexander_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1024, 0, 1280, 256] }]
+from = "special_outfit_icons_1"
+ops = [{ op = "crop", box = [1024, 2304, 1280, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1172,8 +1062,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_clorinda_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1280, 0, 1536, 256] }]
+from = "special_outfit_icons_1"
+ops = [{ op = "crop", box = [1280, 2304, 1536, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1183,8 +1073,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_destin_outfit_1"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1536, 0, 1792, 256] }]
+from = "special_outfit_icons_1"
+ops = [{ op = "crop", box = [1536, 2304, 1792, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1194,8 +1084,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_destin_outfit_2"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1792, 0, 2048, 256] }]
+from = "special_outfit_icons_1"
+ops = [{ op = "crop", box = [1792, 2304, 2048, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1204,20 +1094,9 @@ recipe = "cos_if_destin_outfit_2"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_briar_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2048, 0, 2304, 256] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_briar_outfit"
-recipe = "cos_if_briar_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_cade_outfit_1"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2304, 0, 2560, 256] }]
+from = "special_outfit_icons_1"
+ops = [{ op = "crop", box = [2048, 2304, 2304, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1227,8 +1106,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_cade_outfit_2"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [0, 256, 256, 512] }]
+from = "special_outfit_icons_1"
+ops = [{ op = "crop", box = [2304, 2304, 2560, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1239,7 +1118,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_davin_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [256, 256, 512, 512] }]
+ops = [{ op = "crop", box = [0, 0, 256, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1250,7 +1129,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_charis_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [512, 256, 768, 512] }]
+ops = [{ op = "crop", box = [256, 0, 512, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1261,7 +1140,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_charis_benzaie_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [768, 256, 1024, 512] }]
+ops = [{ op = "crop", box = [512, 0, 768, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1272,7 +1151,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_lycus_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1024, 256, 1280, 512] }]
+ops = [{ op = "crop", box = [768, 0, 1024, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1283,7 +1162,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_maine_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1280, 256, 1536, 512] }]
+ops = [{ op = "crop", box = [1024, 0, 1280, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1294,7 +1173,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_maine_alsop_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1536, 256, 1792, 512] }]
+ops = [{ op = "crop", box = [1280, 0, 1536, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1305,7 +1184,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_winsor_compete_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1792, 256, 2048, 512] }]
+ops = [{ op = "crop", box = [1536, 0, 1792, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1316,7 +1195,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_meridia_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2048, 256, 2304, 512] }]
+ops = [{ op = "crop", box = [1792, 0, 2048, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1327,7 +1206,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_starla_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2304, 256, 2560, 512] }]
+ops = [{ op = "crop", box = [2048, 0, 2304, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1338,7 +1217,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_harper_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [0, 512, 256, 768] }]
+ops = [{ op = "crop", box = [2304, 0, 2560, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1349,7 +1228,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_darian_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [256, 512, 512, 768] }]
+ops = [{ op = "crop", box = [0, 256, 256, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1360,7 +1239,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_eleanor_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [512, 512, 768, 768] }]
+ops = [{ op = "crop", box = [256, 256, 512, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1369,20 +1248,9 @@ recipe = "cos_if_eleanor_outfit"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_addison_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [768, 512, 1024, 768] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_addison_outfit"
-recipe = "cos_if_addison_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_leia_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1024, 512, 1280, 768] }]
+ops = [{ op = "crop", box = [512, 256, 768, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1393,7 +1261,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_grenson_veteran_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1280, 512, 1536, 768] }]
+ops = [{ op = "crop", box = [768, 256, 1024, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1404,7 +1272,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_nikas_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1536, 512, 1792, 768] }]
+ops = [{ op = "crop", box = [1024, 256, 1280, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1415,7 +1283,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_ivan_outfit_1"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1792, 512, 2048, 768] }]
+ops = [{ op = "crop", box = [1280, 256, 1536, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1426,7 +1294,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_erdem_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2048, 512, 2304, 768] }]
+ops = [{ op = "crop", box = [1536, 256, 1792, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1437,7 +1305,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_milo_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2304, 512, 2560, 768] }]
+ops = [{ op = "crop", box = [1792, 256, 2048, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1448,7 +1316,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_hawky_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [0, 768, 256, 1024] }]
+ops = [{ op = "crop", box = [2048, 256, 2304, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1459,7 +1327,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_peake_fletcher_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [256, 768, 512, 1024] }]
+ops = [{ op = "crop", box = [2304, 256, 2560, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1470,7 +1338,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_sentry_scarborough"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [512, 768, 768, 1024] }]
+ops = [{ op = "crop", box = [0, 512, 256, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1481,7 +1349,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_neil_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [768, 768, 1024, 1024] }]
+ops = [{ op = "crop", box = [256, 512, 512, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1492,7 +1360,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_raz_pond_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1024, 768, 1280, 1024] }]
+ops = [{ op = "crop", box = [512, 512, 768, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1501,31 +1369,9 @@ recipe = "cos_if_raz_pond_outfit"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_kendrick_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1280, 768, 1536, 1024] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_kendrick_outfit"
-recipe = "cos_if_kendrick_outfit"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_flynn_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1536, 768, 1792, 1024] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
-name = "cos_if_flynn_outfit"
-recipe = "cos_if_flynn_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_eamon_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1792, 768, 2048, 1024] }]
+ops = [{ op = "crop", box = [768, 512, 1024, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
@@ -1534,56 +1380,12 @@ recipe = "cos_if_eamon_outfit"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_maximus_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2048, 768, 2304, 1024] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_maximus_outfit"
-recipe = "cos_if_maximus_outfit"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_paxton_plumfield_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2304, 768, 2560, 1024] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_paxton_plumfield_outfit"
-recipe = "cos_if_paxton_plumfield_outfit"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_godfrey_shahmann_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [0, 1024, 256, 1280] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_godfrey_shahmann_outfit"
-recipe = "cos_if_godfrey_shahmann_outfit"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_kurtis_loafinn_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [256, 1024, 512, 1280] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_kurtis_loafinn_outfit"
-recipe = "cos_if_kurtis_loafinn_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_waddell_homely_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [512, 1024, 768, 1280] }]
+ops = [{ op = "crop", box = [1024, 512, 1280, 768] }]
 
 [[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
+atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_1.g4tx"
 name = "cos_if_waddell_homely_outfit"
 recipe = "cos_if_waddell_homely_outfit"
 size = [256, 256]
@@ -1591,7 +1393,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_yasmin_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [768, 1024, 1024, 1280] }]
+ops = [{ op = "crop", box = [1280, 512, 1536, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1602,7 +1404,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_derrin_wilson_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1024, 1024, 1280, 1280] }]
+ops = [{ op = "crop", box = [1536, 512, 1792, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1613,7 +1415,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_anita_navarro_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1280, 1024, 1536, 1280] }]
+ops = [{ op = "crop", box = [1792, 512, 2048, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1624,7 +1426,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_wythers_moonridge_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1536, 1024, 1792, 1280] }]
+ops = [{ op = "crop", box = [2048, 512, 2304, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1635,7 +1437,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_mirela_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1792, 1024, 2048, 1280] }]
+ops = [{ op = "crop", box = [2304, 512, 2560, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1646,7 +1448,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_alice_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2048, 1024, 2304, 1280] }]
+ops = [{ op = "crop", box = [0, 768, 256, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1657,7 +1459,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_theobald_longwood_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2304, 1024, 2560, 1280] }]
+ops = [{ op = "crop", box = [256, 768, 512, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1668,7 +1470,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_mabel_greenwood_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [0, 1280, 256, 1536] }]
+ops = [{ op = "crop", box = [512, 768, 768, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1679,7 +1481,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_conrado_pottinger_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [256, 1280, 512, 1536] }]
+ops = [{ op = "crop", box = [768, 768, 1024, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1690,7 +1492,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_celeste_fairbourne"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [512, 1280, 768, 1536] }]
+ops = [{ op = "crop", box = [1024, 768, 1280, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1701,7 +1503,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_apia_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [768, 1280, 1024, 1536] }]
+ops = [{ op = "crop", box = [1280, 768, 1536, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1712,7 +1514,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_melissa_hivewood_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1024, 1280, 1280, 1536] }]
+ops = [{ op = "crop", box = [1536, 768, 1792, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1723,7 +1525,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_sheila_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1280, 1280, 1536, 1536] }]
+ops = [{ op = "crop", box = [1792, 768, 2048, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1734,7 +1536,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_joon_outfit_1"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1536, 1280, 1792, 1536] }]
+ops = [{ op = "crop", box = [2048, 768, 2304, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1745,7 +1547,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_joon_outfit_2"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1792, 1280, 2048, 1536] }]
+ops = [{ op = "crop", box = [2304, 768, 2560, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1756,7 +1558,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_daria_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2048, 1280, 2304, 1536] }]
+ops = [{ op = "crop", box = [0, 1024, 256, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1767,7 +1569,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_june_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2304, 1280, 2560, 1536] }]
+ops = [{ op = "crop", box = [256, 1024, 512, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1778,7 +1580,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_deor_rummond_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [0, 1536, 256, 1792] }]
+ops = [{ op = "crop", box = [512, 1024, 768, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1789,7 +1591,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_caius_rushford_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [256, 1536, 512, 1792] }]
+ops = [{ op = "crop", box = [768, 1024, 1024, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1800,7 +1602,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_noctis_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [512, 1536, 768, 1792] }]
+ops = [{ op = "crop", box = [1024, 1024, 1280, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1811,7 +1613,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_reuben_sidegate_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [768, 1536, 1024, 1792] }]
+ops = [{ op = "crop", box = [1280, 1024, 1536, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1822,7 +1624,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_julie_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1024, 1536, 1280, 1792] }]
+ops = [{ op = "crop", box = [1536, 1024, 1792, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1833,7 +1635,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_hopkins_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1280, 1536, 1536, 1792] }]
+ops = [{ op = "crop", box = [1792, 1024, 2048, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1844,7 +1646,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_hawke_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1536, 1536, 1792, 1792] }]
+ops = [{ op = "crop", box = [2048, 1024, 2304, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1855,7 +1657,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_melvin_moodry_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1792, 1536, 2048, 1792] }]
+ops = [{ op = "crop", box = [2304, 1024, 2560, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1866,7 +1668,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_thaddeus_bellefax_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2048, 1536, 2304, 1792] }]
+ops = [{ op = "crop", box = [0, 1280, 256, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1877,7 +1679,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_malik_keos_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2304, 1536, 2560, 1792] }]
+ops = [{ op = "crop", box = [256, 1280, 512, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1888,7 +1690,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_mera_henderson_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [0, 1792, 256, 2048] }]
+ops = [{ op = "crop", box = [512, 1280, 768, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1899,7 +1701,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_maynard_giddings_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [256, 1792, 512, 2048] }]
+ops = [{ op = "crop", box = [768, 1280, 1024, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1910,7 +1712,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_helene_justitia_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [512, 1792, 768, 2048] }]
+ops = [{ op = "crop", box = [1024, 1280, 1280, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1921,7 +1723,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_soyogi_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [768, 1792, 1024, 2048] }]
+ops = [{ op = "crop", box = [1280, 1280, 1536, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1932,7 +1734,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_silica_fieltour_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1024, 1792, 1280, 2048] }]
+ops = [{ op = "crop", box = [1536, 1280, 1792, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1943,7 +1745,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_clifford_chillard_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1280, 1792, 1536, 2048] }]
+ops = [{ op = "crop", box = [1792, 1280, 2048, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1954,7 +1756,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_hurley_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1536, 1792, 1792, 2048] }]
+ops = [{ op = "crop", box = [2048, 1280, 2304, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1965,7 +1767,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_muriela_stone_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1792, 1792, 2048, 2048] }]
+ops = [{ op = "crop", box = [2304, 1280, 2560, 1536] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1976,7 +1778,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_boulder_vargan_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2048, 1792, 2304, 2048] }]
+ops = [{ op = "crop", box = [0, 1536, 256, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1987,7 +1789,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_wolter_kruzsk_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2304, 1792, 2560, 2048] }]
+ops = [{ op = "crop", box = [256, 1536, 512, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -1998,7 +1800,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_lindalyn_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [0, 2048, 256, 2304] }]
+ops = [{ op = "crop", box = [512, 1536, 768, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2009,7 +1811,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_elaine_outfit_1"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [256, 2048, 512, 2304] }]
+ops = [{ op = "crop", box = [768, 1536, 1024, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2020,7 +1822,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_elaine_outfit_2"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [512, 2048, 768, 2304] }]
+ops = [{ op = "crop", box = [1024, 1536, 1280, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2029,20 +1831,9 @@ recipe = "cos_if_elaine_outfit_2"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_linton_outfit"
-from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [768, 2048, 1024, 2304] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_linton_outfit"
-recipe = "cos_if_linton_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_rina_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1024, 2048, 1280, 2304] }]
+ops = [{ op = "crop", box = [1280, 1536, 1536, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2053,7 +1844,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_aniki_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1280, 2048, 1536, 2304] }]
+ops = [{ op = "crop", box = [1536, 1536, 1792, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2064,7 +1855,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_berg_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1536, 2048, 1792, 2304] }]
+ops = [{ op = "crop", box = [1792, 1536, 2048, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2075,7 +1866,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_brandt_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1792, 2048, 2048, 2304] }]
+ops = [{ op = "crop", box = [2048, 1536, 2304, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2086,7 +1877,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_goldy_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2048, 2048, 2304, 2304] }]
+ops = [{ op = "crop", box = [2304, 1536, 2560, 1792] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2097,7 +1888,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_terrell_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2304, 2048, 2560, 2304] }]
+ops = [{ op = "crop", box = [0, 1792, 256, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2108,7 +1899,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_verity_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [0, 2304, 256, 2560] }]
+ops = [{ op = "crop", box = [256, 1792, 512, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2119,7 +1910,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_verity_billows_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [256, 2304, 512, 2560] }]
+ops = [{ op = "crop", box = [512, 1792, 768, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2130,7 +1921,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_howell_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [512, 2304, 768, 2560] }]
+ops = [{ op = "crop", box = [768, 1792, 1024, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2141,7 +1932,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_ibuto_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [768, 2304, 1024, 2560] }]
+ops = [{ op = "crop", box = [1024, 1792, 1280, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2152,7 +1943,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_nerida_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1024, 2304, 1280, 2560] }]
+ops = [{ op = "crop", box = [1280, 1792, 1536, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2163,7 +1954,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_chester_outfit_2"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1280, 2304, 1536, 2560] }]
+ops = [{ op = "crop", box = [1536, 1792, 1792, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2174,7 +1965,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_donnie_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1536, 2304, 1792, 2560] }]
+ops = [{ op = "crop", box = [1792, 1792, 2048, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2185,7 +1976,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_benjamin_tibault_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [1792, 2304, 2048, 2560] }]
+ops = [{ op = "crop", box = [2048, 1792, 2304, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2196,7 +1987,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_lorien_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2048, 2304, 2304, 2560] }]
+ops = [{ op = "crop", box = [2304, 1792, 2560, 2048] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2207,7 +1998,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_huxley_tagg_outfit"
 from = "special_outfit_icons_2"
-ops = [{ op = "crop", box = [2304, 2304, 2560, 2560] }]
+ops = [{ op = "crop", box = [0, 2048, 256, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2217,8 +2008,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_mark_evans_outfit_2"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [0, 0, 256, 256] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [256, 2048, 512, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2228,8 +2019,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_nelly_outfit_2"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [256, 0, 512, 256] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [512, 2048, 768, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2239,8 +2030,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_jude_sharp_outfit_4"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [512, 0, 768, 256] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [768, 2048, 1024, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2249,20 +2040,9 @@ recipe = "cos_if_jude_sharp_outfit_4"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_maeve_smith_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [768, 0, 1024, 256] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_maeve_smith_outfit"
-recipe = "cos_if_maeve_smith_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_eshin_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1024, 0, 1280, 256] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [1024, 2048, 1280, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2272,8 +2052,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_olive_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1280, 0, 1536, 256] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [1280, 2048, 1536, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2283,8 +2063,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_caelum_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1536, 0, 1792, 256] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [1536, 2048, 1792, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2293,20 +2073,9 @@ recipe = "cos_if_caelum_outfit"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_serina_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1792, 0, 2048, 256] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_serina_outfit"
-recipe = "cos_if_serina_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_diane_chantry_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2048, 0, 2304, 256] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [1792, 2048, 2048, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2316,8 +2085,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_fergus_lougdon_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2304, 0, 2560, 256] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [2048, 2048, 2304, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2327,8 +2096,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_jack_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [0, 256, 256, 512] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [2304, 2048, 2560, 2304] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2338,8 +2107,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_psyred_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [256, 256, 512, 512] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [0, 2304, 256, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2349,8 +2118,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_victorio_cryptix_1"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [512, 256, 768, 512] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [256, 2304, 512, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2360,8 +2129,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_fei_rune_outfit_1"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [768, 256, 1024, 512] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [512, 2304, 768, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2371,8 +2140,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_fei_rune_outfit_2"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1024, 256, 1280, 512] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [768, 2304, 1024, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2382,8 +2151,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_zanark_avalonic_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1280, 256, 1536, 512] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [1024, 2304, 1280, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2393,8 +2162,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_cross_word_cryptix"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1536, 256, 1792, 512] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [1280, 2304, 1536, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2404,8 +2173,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_master_goverm_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1792, 256, 2048, 512] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [1536, 2304, 1792, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2415,8 +2184,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_victorio_cryptix_2"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2048, 256, 2304, 512] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [1792, 2304, 2048, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2426,8 +2195,8 @@ size = [256, 256]
 
 [[recipe]]
 name = "cos_if_lumina_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2304, 256, 2560, 512] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [2048, 2304, 2304, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2436,64 +2205,9 @@ recipe = "cos_if_lumina_outfit"
 size = [256, 256]
 
 [[recipe]]
-name = "cos_if_coraline_quisittor"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [0, 512, 256, 768] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_coraline_quisittor"
-recipe = "cos_if_coraline_quisittor"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_bartholomew_blitzer"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [256, 512, 512, 768] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_bartholomew_blitzer"
-recipe = "cos_if_bartholomew_blitzer"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_cane_fangley_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [512, 512, 768, 768] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_cane_fangley_outfit"
-recipe = "cos_if_cane_fangley_outfit"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_cristensen_blance_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [768, 512, 1024, 768] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_cristensen_blance_outfit"
-recipe = "cos_if_cristensen_blance_outfit"
-size = [256, 256]
-
-[[recipe]]
-name = "cos_if_benoni_espinoza_outfit"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1024, 512, 1280, 768] }]
-
-[[texture]]
-atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
-name = "cos_if_benoni_espinoza_outfit"
-recipe = "cos_if_benoni_espinoza_outfit"
-size = [256, 256]
-
-[[recipe]]
 name = "cos_if_david_evans_outfit_2"
-from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1280, 512, 1536, 768] }]
+from = "special_outfit_icons_2"
+ops = [{ op = "crop", box = [2304, 2304, 2560, 2560] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2504,7 +2218,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_ray_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1536, 512, 1792, 768] }]
+ops = [{ op = "crop", box = [0, 0, 256, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2515,7 +2229,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_stephen_black_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1792, 512, 2048, 768] }]
+ops = [{ op = "crop", box = [256, 0, 512, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2526,7 +2240,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_hekyll_jyde_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2048, 512, 2304, 768] }]
+ops = [{ op = "crop", box = [512, 0, 768, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2537,7 +2251,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_harry_savage_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2304, 512, 2560, 768] }]
+ops = [{ op = "crop", box = [768, 0, 1024, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2548,7 +2262,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_newton_thomas_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [0, 768, 256, 1024] }]
+ops = [{ op = "crop", box = [1024, 0, 1280, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2559,7 +2273,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_manny_artic_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [256, 768, 512, 1024] }]
+ops = [{ op = "crop", box = [1280, 0, 1536, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2570,7 +2284,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_meina_maiden_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [512, 768, 768, 1024] }]
+ops = [{ op = "crop", box = [1536, 0, 1792, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2581,7 +2295,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_sammy_igajima_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [768, 768, 1024, 1024] }]
+ops = [{ op = "crop", box = [1792, 0, 2048, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2592,7 +2306,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_turtle_newfield_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1024, 768, 1280, 1024] }]
+ops = [{ op = "crop", box = [2048, 0, 2304, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2603,7 +2317,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_seth_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1280, 768, 1536, 1024] }]
+ops = [{ op = "crop", box = [2304, 0, 2560, 256] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2614,7 +2328,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_clint_loggan_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1536, 768, 1792, 1024] }]
+ops = [{ op = "crop", box = [0, 256, 256, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2625,7 +2339,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_hilton_bernaton_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1792, 768, 2048, 1024] }]
+ops = [{ op = "crop", box = [256, 256, 512, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2636,7 +2350,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_isaias_setik_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2048, 768, 2304, 1024] }]
+ops = [{ op = "crop", box = [512, 256, 768, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2647,7 +2361,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_augustus_hargrave_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2304, 768, 2560, 1024] }]
+ops = [{ op = "crop", box = [768, 256, 1024, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2658,7 +2372,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_windell_balding_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [0, 1024, 256, 1280] }]
+ops = [{ op = "crop", box = [1024, 256, 1280, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2669,7 +2383,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_jambo_reemoth_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [256, 1024, 512, 1280] }]
+ops = [{ op = "crop", box = [1280, 256, 1536, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2680,7 +2394,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_nerina_hartland_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [512, 1024, 768, 1280] }]
+ops = [{ op = "crop", box = [1536, 256, 1792, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2691,7 +2405,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_godric_wyles_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [768, 1024, 1024, 1280] }]
+ops = [{ op = "crop", box = [1792, 256, 2048, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2702,7 +2416,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_robert_kleiser_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1024, 1024, 1280, 1280] }]
+ops = [{ op = "crop", box = [2048, 256, 2304, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2713,7 +2427,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_eliza_mannan_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1280, 1024, 1536, 1280] }]
+ops = [{ op = "crop", box = [2304, 256, 2560, 512] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2724,7 +2438,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_lee_ji_seong_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1536, 1024, 1792, 1280] }]
+ops = [{ op = "crop", box = [0, 512, 256, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2735,7 +2449,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_aaron_adams_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1792, 1024, 2048, 1280] }]
+ops = [{ op = "crop", box = [256, 512, 512, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2746,7 +2460,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_mister_d_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2048, 1024, 2304, 1280] }]
+ops = [{ op = "crop", box = [512, 512, 768, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2757,7 +2471,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_daniel_sturbin_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2304, 1024, 2560, 1280] }]
+ops = [{ op = "crop", box = [768, 512, 1024, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2768,7 +2482,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_mac_scryde_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [0, 1280, 256, 1536] }]
+ops = [{ op = "crop", box = [1024, 512, 1280, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2779,7 +2493,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_leao_samus_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [256, 1280, 512, 1536] }]
+ops = [{ op = "crop", box = [1280, 512, 1536, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2790,7 +2504,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_zoolan_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [512, 1280, 768, 1536] }]
+ops = [{ op = "crop", box = [1536, 512, 1792, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2801,7 +2515,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_tom_jefferson_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [768, 1280, 1024, 1536] }]
+ops = [{ op = "crop", box = [1792, 512, 2048, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2812,7 +2526,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_deanna_tam_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1024, 1280, 1280, 1536] }]
+ops = [{ op = "crop", box = [2048, 512, 2304, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2823,7 +2537,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_primo_eden_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1280, 1280, 1536, 1536] }]
+ops = [{ op = "crop", box = [2304, 512, 2560, 768] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2834,7 +2548,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_longjohn_silver_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1536, 1280, 1792, 1536] }]
+ops = [{ op = "crop", box = [0, 768, 256, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2845,7 +2559,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_nelly_outfit_3"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1792, 1280, 2048, 1536] }]
+ops = [{ op = "crop", box = [256, 768, 512, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2856,7 +2570,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_silvia_outfit_2"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2048, 1280, 2304, 1536] }]
+ops = [{ op = "crop", box = [512, 768, 768, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2867,7 +2581,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_zak_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2304, 1280, 2560, 1536] }]
+ops = [{ op = "crop", box = [768, 768, 1024, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2878,7 +2592,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_astram_b_schiller_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [0, 1536, 256, 1792] }]
+ops = [{ op = "crop", box = [1024, 768, 1280, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2889,7 +2603,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_stewart_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [256, 1536, 512, 1792] }]
+ops = [{ op = "crop", box = [1280, 768, 1536, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2900,7 +2614,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_sonny_raimon_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [512, 1536, 768, 1792] }]
+ops = [{ op = "crop", box = [1536, 768, 1792, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2911,7 +2625,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_xavier_foster_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [768, 1536, 1024, 1792] }]
+ops = [{ op = "crop", box = [1792, 768, 2048, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2922,7 +2636,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_shawn_froste_outfit_2"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1024, 1536, 1280, 1792] }]
+ops = [{ op = "crop", box = [2048, 768, 2304, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2933,7 +2647,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_gregory_smith_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1280, 1536, 1536, 1792] }]
+ops = [{ op = "crop", box = [2304, 768, 2560, 1024] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2944,7 +2658,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_maxtor_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1536, 1536, 1792, 1792] }]
+ops = [{ op = "crop", box = [0, 1024, 256, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2955,7 +2669,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_jude_sharp_outfit_5"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1792, 1536, 2048, 1792] }]
+ops = [{ op = "crop", box = [256, 1024, 512, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2966,7 +2680,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_mrs_han_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2048, 1536, 2304, 1792] }]
+ops = [{ op = "crop", box = [512, 1024, 768, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2977,7 +2691,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_othello_go_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [2304, 1536, 2560, 1792] }]
+ops = [{ op = "crop", box = [768, 1024, 1024, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2988,7 +2702,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_vladimir_blade_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [0, 1792, 256, 2048] }]
+ops = [{ op = "crop", box = [1024, 1024, 1280, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -2999,7 +2713,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_yoshinobu_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [256, 1792, 512, 2048] }]
+ops = [{ op = "crop", box = [1280, 1024, 1536, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -3010,7 +2724,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_the_benefactor_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [512, 1792, 768, 2048] }]
+ops = [{ op = "crop", box = [1536, 1024, 1792, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -3021,7 +2735,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_ivan_outfit_2"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [768, 1792, 1024, 2048] }]
+ops = [{ op = "crop", box = [1792, 1024, 2048, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -3032,7 +2746,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_truman_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1024, 1792, 1280, 2048] }]
+ops = [{ op = "crop", box = [2048, 1024, 2304, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"
@@ -3043,7 +2757,7 @@ size = [256, 256]
 [[recipe]]
 name = "cos_if_chesney_horse_outfit"
 from = "special_outfit_icons_3"
-ops = [{ op = "crop", box = [1280, 1792, 1536, 2048] }]
+ops = [{ op = "crop", box = [2304, 1024, 2560, 1280] }]
 
 [[texture]]
 atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_outfit_icons_2.g4tx"

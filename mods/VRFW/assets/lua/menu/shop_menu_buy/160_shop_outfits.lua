@@ -89,9 +89,11 @@ if VRFW.host ~= nil then
     if type(count) ~= "number" or type(views) ~= "table" then return nxt(a1, ...) end
     local same = a1 == h.n9
     h.n9 = a1
-    local who, cond = wearer(a1)
-    if who ~= 0 then
-      local target = VRFW.host.command(CMD.XFORM_TARGET, a1, who)
+    -- The condition's character is only its first listed one, so the preview shows a character only when the outfit turns him into a form.
+    local first, cond = wearer(a1)
+    local who = 0
+    if first ~= 0 then
+      local target = VRFW.host.command(CMD.XFORM_TARGET, a1, first)
       if type(target) == "number" and target ~= 0 then who = target end
     end
     local list = bodies(uniform)

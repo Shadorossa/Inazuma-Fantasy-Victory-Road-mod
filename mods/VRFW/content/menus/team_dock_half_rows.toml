@@ -8,6 +8,12 @@ add_commands = [
     { layer = "team01_02_list_item", input = "CMD_LEFT", command = "CMD_FUNCTION", arg = "team_dock_half_row_left", flag = 1 },
 ]
 
+# The list gets one row instance per slot joint (retail 8), so every row mods add is drawn; retail shows min(instances, rows).
+[[patch]]
+menu = "soccer_team_dock_menu"
+layer = "team01_02_list_item"
+count = 11
+
 # One slot joint per list instance that no animation drives; slots 10 and 11 hang from the last retail row joint.
 [[layout]]
 file = "common/menu/102_team/team01/team01_01/team01_01.g4pkm"

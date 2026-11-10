@@ -55,13 +55,14 @@ function Effects.Luck(hdl)
   local cached = LUCK[hdl]
   if cached then return cached end
   local value = 0
-  local view = V.view(hdl)
+  local view, viewError = V.view(hdl)
   local okOwner, owner = pcall(VRFW.character.owner, hdl)
   if not okOwner then owner = nil end
-  if not view and owner then view = V.view(owner) end
+  if not view and owner then view, viewError = V.view(owner) end
+  local p, level = nil, nil
   if view then
-    local p = players()[u32(view.param_id)]
-    local level = V.level(view.obj)
+    p = players()[u32(view.param_id)]
+    level = V.level(view.obj)
     if p and level then
       local base = nil
       if p.native then
@@ -78,6 +79,10 @@ function Effects.Luck(hdl)
   end
   value = math.max(0, value)
   LUCK[hdl] = value
+  -- One line per player and match tells which step of the reading answered, because a Luck of 0 for every player was seen on 2026-11-10.
+  info(string.format("Suerte of 0x%08X: %d (owner %s, record %s, card %s, level %s)", hdl, math.floor(value),
+    owner and string.format("0x%08X", u32(owner)) or "none", view and "read" or ("not read, code " .. tostring(viewError)),
+    view and (p and "known" or string.format("0x%08X not in the card table", u32(view.param_id))) or "-", tostring(level)))
   return value
 end
 

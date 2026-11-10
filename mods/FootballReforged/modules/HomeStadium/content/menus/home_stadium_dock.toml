@@ -1,7 +1,0 @@
-schema = "VRFW.menu/2"
-if_not_mod = "BetterUI"
-
-[[patch]]
-menu = "soccer_team_dock_menu"
-layer = "team01_02_list_item"
-count = 9

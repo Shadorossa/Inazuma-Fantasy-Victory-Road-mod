@@ -1,0 +1,76 @@
+schema = "VRFW.game/2"
+
+# Item filter sections: tabs a mod declares in the filter window of an item list (docs/framework/item-filter-sections.md).
+# Written only by scripts/item_filter.lua, when a mod declares a [[VRFW.ItemFilterSection]] or asks for a tab.
+
+# ------------------------------------------------------------------------------------------------ the item test
+
+# Item.TestSeriesStat(unused, inventory mask, item id*, filter block*) -> 1 = the item is listed.
+# The answer hides an equipment item (masks 0x2000..0x10000) a mod's table ItemFilter.Rejected holds.
+[[VRFW.Hook]]
+name = "ItemFilter.Test"
+game = "Item.TestSeriesStat"
+kind = "function"
+apply = "script"
+arguments = ["ptr", "u64", "ptr", "ptr"]
+returns = "u8"
+
+[[VRFW.Hook.answer]]
+when = [
+  { value = "mask(args[2], 0x1E000)", not = 0 },
+  { value = "[args[3]]:u32", in_table = "*/ItemFilter.Rejected" },
+]
+value = "0"
+
+# ------------------------------------------------------------------------------------------------ the tabs
+
+# Stub over the equipment answer of the window's group list (mov dword [rdx], 1; lea rax, [list]; ret): the count
+# (u32) and the list (bytes at +8) of a block; the script appends the block's address (8 bytes).
+[[VRFW.Patch]]
+name = "ItemFilter.Groups"
+game = "Item.FilterGroupsEquipment"
+kind = "stub"
+apply = "script"
+code = "48 8B 05 10 00 00 00 8B 00 89 02 48 8B 05 05 00 00 00 48 83 C0 08 C3"
+tail = false
+
+# ------------------------------------------------------------------------------------------------ the rows
+
+# The window: the row array of the tab shown and the tab's index.
+[[VRFW.Struct]]
+name = "ItemFilter.Window"
+size = 0x19F58
+fields = { row_count = { at = 0x19F18, type = "u32" }, rows = { at = 0x19F20, type = "ptr" }, row_capacity = { at = 0x19F28, type = "u32" }, tab = { at = 0x19F48, type = "u32" } }
+
+# One line of the list: a left and a right checkbox (value 0xFFFFFFFF = none), each with its layer.
+[[VRFW.Struct]]
+name = "ItemFilter.Row"
+size = 0x1C
+fields = { kind = { at = 0x0, type = "u8" }, value = { at = 0x4, type = "u32" }, option = { at = 0x8, type = "u32" }, value_right = { at = 0xC, type = "u32" }, option_right = { at = 0x10, type = "u32" }, layer = { at = 0x14, type = "u32" }, layer_right = { at = 0x18, type = "u32" } }
+
+# The series group's row builder (window): the post handler writes the rows of a tab the table ItemFilter.Tab holds.
+[[VRFW.Hook]]
+name = "ItemFilter.Rows"
+game = "Item.FilterSeriesRows"
+kind = "function"
+apply = "script"
+arguments = ["ptr"]
+post_when = { value = "[args[1] + 0x19F48]:u32", in_table = "ItemFilter.Tab" }
+
+# ------------------------------------------------------------------------------------------------ commands
+
+# (list menu id) -> n, then per section: name, title text key, icon crc, icon_off crc, symbol crc, serve command name
+[[VRFW.Command]]
+name = "CMND_VRFW_ITEM_FILTER_SECTIONS"
+handler = "ItemFilter.CmdSections"
+
+# (n) -> true: the equipment filter window shows n more tabs after the game's (0 = the game's tabs); their rows are forgotten
+[[VRFW.Command]]
+name = "CMND_VRFW_ITEM_FILTER_TABS"
+handler = "ItemFilter.CmdTabs"
+
+# (tab, at, value at, ...) -> true: added tab `tab` (1 = the first) lists one checkbox row per value (list item type 1,
+# option = tab); `at` = the row the values start at (a command takes 32 arguments at most), 1 = the tab's rows anew
+[[VRFW.Command]]
+name = "CMND_VRFW_ITEM_FILTER_TAB_ROWS"
+handler = "ItemFilter.CmdTabRows"

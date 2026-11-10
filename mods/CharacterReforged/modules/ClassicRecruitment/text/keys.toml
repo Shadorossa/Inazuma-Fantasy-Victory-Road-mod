@@ -6,52 +6,52 @@ default_lang = "en"
 mod_name = "Classic Recruitment"
 mod_description = "One card per character, as in the classic games: players no longer drop as spirits, so you sign them in the Clubroom's Player album with Friendship Points earned in every match. Needs BetterQoL."
 option_remove_gacha = "Remove the gacha"
-option_remove_gacha_help = "Removes the «Universo del jugador» gacha: its Chronicle menu row, the board's Tab shortcut and the hub map's point. Applies after restarting the game."
+option_remove_gacha_help = "Removes the «Universo del jugador» gacha: its Chronicle menu row, the board's Tab shortcut and the hub map's point. Applies at once; the hub map's point changes after restarting the game."
 
 [es.new]
 mod_name = "Fichajes clásicos"
 mod_description = "Una carta por personaje, como en los juegos clásicos: los jugadores ya no caen como espíritus, así que se fichan en el Álbum de jugadores de la Caseta con los Puntos de Amistad que ganas en cada partido. Necesita BetterQoL."
 option_remove_gacha = "Quitar el gacha"
-option_remove_gacha_help = "Quita el gacha «Universo del jugador»: su fila del menú de la Crónica, el atajo Tab del tablero y el punto del mapa central. Se aplica al reiniciar el juego."
+option_remove_gacha_help = "Quita el gacha «Universo del jugador»: su fila del menú de la Crónica, el atajo Tab del tablero y el punto del mapa central. Se aplica al momento; el punto del mapa central cambia al reiniciar el juego."
 
 [fr.new]
 mod_name = "Recrutement classique"
 mod_description = "Une carte par personnage, comme dans les jeux classiques : les joueurs ne tombent plus sous forme d'esprits, on les recrute donc dans l'Album des joueurs du club-house avec les Points d'Amitié gagnés à chaque match. Nécessite BetterQoL."
 option_remove_gacha = "Retirer le gacha"
-option_remove_gacha_help = "Retire le gacha « Univers du joueur » : sa ligne du menu de la Chronique, le raccourci Tab du plateau et le point de la carte centrale. Appliqué au redémarrage du jeu."
+option_remove_gacha_help = "Retire le gacha « Univers du joueur » : sa ligne du menu de la Chronique, le raccourci Tab du plateau et le point de la carte centrale. Appliqué immédiatement ; le point de la carte centrale change au redémarrage du jeu."
 
 [de.new]
 mod_name = "Klassische Verpflichtung"
 mod_description = "Eine Karte pro Charakter, wie in den klassischen Spielen: Spieler fallen nicht mehr als Geister an, du verpflichtest sie im Spieleralbum des Clubraums mit Freundschaftspunkten, die jedes Spiel einbringt. Benötigt BetterQoL."
 option_remove_gacha = "Gacha entfernen"
-option_remove_gacha_help = "Entfernt den Gacha «Universo del jugador»: seine Zeile im Chronik-Menü, die Tab-Abkürzung des Spielbretts und den Punkt der Zentralkarte. Gilt nach einem Neustart des Spiels."
+option_remove_gacha_help = "Entfernt den Gacha «Universo del jugador»: seine Zeile im Chronik-Menü, die Tab-Abkürzung des Spielbretts und den Punkt der Zentralkarte. Gilt sofort; der Punkt der Zentralkarte ändert sich nach einem Neustart des Spiels."
 
 [it.new]
 mod_name = "Ingaggi classici"
 mod_description = "Una carta per personaggio, come nei giochi classici: i giocatori non cadono più come spiriti, quindi si ingaggiano nell'Album dei giocatori della sala del club con i Punti Carisma guadagnati in ogni partita. Richiede BetterQoL."
 option_remove_gacha = "Rimuovi il gacha"
-option_remove_gacha_help = "Rimuove il gacha «Universo del giocatore»: la sua riga del menu della Cronaca, la scorciatoia Tab del tabellone e il punto della mappa centrale. Si applica al riavvio del gioco."
+option_remove_gacha_help = "Rimuove il gacha «Universo del giocatore»: la sua riga del menu della Cronaca, la scorciatoia Tab del tabellone e il punto della mappa centrale. Si applica subito; il punto della mappa centrale cambia al riavvio del gioco."
 
 [pt.new]
 mod_name = "Contratação clássica"
 mod_description = "Uma carta por personagem, como nos jogos clássicos: os jogadores já não caem como espíritos, por isso contratam-se no Álbum de jogadores da sala do clube com os Pontos de Amizade ganhos em cada partida. Precisa de BetterQoL."
 option_remove_gacha = "Remover o gacha"
-option_remove_gacha_help = "Remove o gacha «Universo do jogador»: a sua linha do menu da Crónica, o atalho Tab do tabuleiro e o ponto do mapa central. Aplica-se ao reiniciar o jogo."
+option_remove_gacha_help = "Remove o gacha «Universo do jogador»: a sua linha do menu da Crónica, o atalho Tab do tabuleiro e o ponto do mapa central. Aplica-se de imediato; o ponto do mapa central muda ao reiniciar o jogo."
 
 [ja.new]
 mod_name = "クラシック勧誘"
 mod_description = "昔のシリーズのように、キャラクター1人につきカード1枚。選手はスピリットとしてドロップしなくなり、毎試合もらえるフレンドシップポイントを使って、クラブルームの選手アルバムで獲得します。BetterQoLが必要です。"
 option_remove_gacha = "ガチャを削除"
-option_remove_gacha_help = "「選手ユニバース」のガチャを削除します：クロニクルメニューの項目、ボードのTabショートカット、ハブマップのポイント。ゲームの再起動後に反映。"
+option_remove_gacha_help = "「選手ユニバース」のガチャを削除します：クロニクルメニューの項目、ボードのTabショートカット、ハブマップのポイント。すぐに反映されます。ハブマップのポイントはゲームの再起動後に変わります。"
 
 [zh_hans.new]
 mod_name = "经典招募"
 mod_description = "如同经典作品，每个角色只有一张卡。球员不再以灵魂形式掉落，需要用每场比赛获得的友情点数，在社团活动室的球员图鉴中签约。需要 BetterQoL。"
 option_remove_gacha = "移除扭蛋"
-option_remove_gacha_help = "移除「球员宇宙」扭蛋：编年史菜单中的一行、棋盘的Tab快捷键和中心地图上的地点。重启游戏后生效。"
+option_remove_gacha_help = "移除「球员宇宙」扭蛋：编年史菜单中的一行、棋盘的Tab快捷键和中心地图上的地点。立即生效；中心地图上的地点在重启游戏后改变。"
 
 [zh_hant.new]
 mod_name = "經典招募"
 mod_description = "如同經典作品，每個角色只有一張卡。球員不再以靈魂形式掉落，需要用每場比賽獲得的友情點數，在社團活動室的球員圖鑑中簽約。需要 BetterQoL。"
 option_remove_gacha = "移除扭蛋"
-option_remove_gacha_help = "移除「球員宇宙」扭蛋：編年史選單中的一行、棋盤的Tab快捷鍵和中心地圖上的地點。重啟遊戲後生效。"
+option_remove_gacha_help = "移除「球員宇宙」扭蛋：編年史選單中的一行、棋盤的Tab快捷鍵和中心地圖上的地點。立即生效；中心地圖上的地點在重啟遊戲後改變。"

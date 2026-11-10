@@ -1,0 +1,18 @@
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.item_filter_section/1"
+folder = "content/item_filter_sections"
+label = "Item filter sections"
+label_es = "Secciones del filtro de objetos"
+doc = "A tab of its own in the filter window of an item list: one checkbox row per fact the mod knows about an item."
+doc_es = "Una pestaña propia en la ventana de filtro de una lista de objetos: una casilla por cada dato que el mod sabe de un objeto."
+
+[entry.ItemFilterSection]
+doc = "a tab after the game's tabs in the filter window of an item list; an item is listed when it passes every section, and it passes a section when no row, every row or one of its ticked rows holds for it"
+name = { type = "name", required = true, doc = "the section's name in its mod (a-z 0-9 _)" }
+window = { type = "string", required = true, doc = "\"equipment\": the filter window of the equipment lists (boots, bracelets, pendants, special items)" }
+menus = { type = "strings", required = true, doc = "the list menus whose filter window shows the section, by menu name (\"equip_menu\" = the equipment picker)" }
+text = { type = "string", required = true, doc = "text key of the tab's name (shown under the tab icons)" }
+icon = { type = "string", default = "icon_list_tab_filter08", doc = "tab icon: a sprite of the window's tab icon atlas (icon_list_tab_filter.g4tx); <icon>_off is its unfocused look" }
+symbol = { type = "string", default = "filter_symbol08", doc = "the window's background symbol while the tab is shown (a sprite of win07_01.g4tx)" }
+serve = { type = "string", required = true, doc = "the mod's command that answers the section's rows and tests (CMND_<PREFIX>_…), handled by VRFW.item_filter.server in the mod's script" }
+rows = { type = "records", required = true, doc = "the rows in order", fields = { name = { type = "name", doc = "the row's name in its section" }, text = { type = "string", doc = "text key of the row's label" }, test = { type = "string", doc = "what the row asks of an item, in the mod's own words (handed to the mod's server as it is)" }, each = { type = "string", doc = "instead of name / text / test: one row per entry of a list the mod's server knows (its `list` function)" } } }

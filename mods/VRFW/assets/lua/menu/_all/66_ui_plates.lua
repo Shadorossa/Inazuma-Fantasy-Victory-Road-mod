@@ -707,7 +707,7 @@ if VRFW.ui_plates == nil then
     if lv > 0 then
       local idx = funcLuaMenuCommand(C.PRIM_INDEX, row, inst, MP.PRIM_LOCK)
       if type(idx) == "number" and idx >= 0 then
-        funcLuaMenuCommand(C.PRIM_SET, row, inst, idx, math.min(lv, 99))
+        funcLuaMenuCommand(C.PRIM_SET, row, inst, idx, lv)
       end
     end
     funcLuaMenuCommand(C.PRIM_VIS, row, inst, MP.PRIM_LOCK, lock and lv > 0)

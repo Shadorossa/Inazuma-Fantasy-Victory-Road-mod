@@ -1,8 +1,0 @@
-schema = "VRFW.changelog/1"
-
-[[release]]
-icon = "general"
-notes = ["Equipaciones nuevas de clubes reales, un módulo por liga"]
-
-[release.en]
-notes = ["New kits of real clubs, one module per league"]

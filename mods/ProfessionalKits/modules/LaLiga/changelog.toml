@@ -1,8 +1,0 @@
-schema = "VRFW.changelog/1"
-
-[[release]]
-icon = "general"
-notes = ["Equipaciones y escudos nuevos de LaLiga"]
-
-[release.en]
-notes = ["New LaLiga kits and crests"]

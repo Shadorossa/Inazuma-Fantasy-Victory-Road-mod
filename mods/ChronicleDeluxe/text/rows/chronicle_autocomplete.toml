@@ -26,3 +26,16 @@ pt = "Considerar esta Batalha de Crônica como vencida sem jogá-la?\nVocê não
 ja = "このクロニクルバトルをプレイせずに勝利扱いにしますか？\n試合の報酬は獲得できません。"
 zh_hans = "要将这场编年史比赛视为获胜而不进行比赛吗？\n将无法获得比赛奖励。"
 zh_hant = "要將這場編年史比賽視為獲勝而不進行比賽嗎？\n將無法獲得比賽獎勵。"
+
+# the yes / no window of Accept on a locked piece next to a won one (the board's safety net)
+[[row]]
+id = "chronicle_deluxe_unlock_piece_confirm"
+es = "¿Quieres desbloquear esta casilla?"
+en = "Do you want to unlock this square?"
+fr = "Voulez-vous débloquer cette case ?"
+de = "Möchtest du dieses Feld freischalten?"
+it = "Vuoi sbloccare questa casella?"
+pt = "Quer desbloquear esta casa?"
+ja = "このマスを解放しますか？"
+zh_hans = "要解锁这个格子吗？"
+zh_hant = "要解鎖這個格子嗎？"

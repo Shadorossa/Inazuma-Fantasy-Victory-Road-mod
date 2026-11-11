@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c08090160"                                   # Rion
 moves = [
-  { move = 0x768AB9C5, level = 1 },                         # Frosticle
-  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
-  { move = 0xDE4ED944, level = 20 },                        # Snowstorm Leopard
-  { move = 0x14A6A879, level = 30 },                        # Regal Eagle
+  { move = 0x14A6A879, level = 13 },                        # Regal Eagle
+  { move = 0x768AB9C5, level = 20 },                        # Frosticle
+  { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c08090170"                                   # Van Maanen
 moves = [
-  { move = 0x768AB9C5, level = 1 },                         # Frosticle
-  { move = 0xC6978232, level = 13 },                        # Dinosaur Roar
-  { move = 0x316A7390, level = 20 },                        # Land Dragon
-  { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x316A7390, level = 13 },                        # Land Dragon
+  { move = 0x768AB9C5, level = 20 },                        # Frosticle
+  { move = 0xC6978232, level = 30 },                        # Dinosaur Roar
+  { move = 0x637C031A, level = 38 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -34,10 +34,10 @@ moves = [
 [[edit]]
 target = "c08090180"                                   # Veles
 moves = [
-  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
   { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
-  { move = 0xEFFC6FA8, level = 20 },                        # Warhead
-  { move = 0x43B5739B, level = 30 },                        # Lightning Bolt
+  { move = 0xDEB28A7B, level = 20 },                        # Monkey Turn
+  { move = 0xEFFC6FA8, level = 30 },                        # Warhead
+  { move = 0x43B5739B, level = 38 },                        # Lightning Bolt
 ]
 
   [[edit.cards]]
@@ -49,10 +49,10 @@ moves = [
 [[edit]]
 target = "c08090190"                                   # Brock
 moves = [
-  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
-  { move = 0x01DB04F5, level = 13 },                        # Defence Scan
+  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
   { move = 0x768AB9C5, level = 20 },                        # Frosticle
-  { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
+  { move = 0x2E7B2B84, level = 30 },                        # Thief's Eye
+  { move = 0x01DB04F5, level = 38 },                        # Defence Scan
 ]
 
   [[edit.cards]]
@@ -65,10 +65,10 @@ moves = [
 [[edit]]
 target = "c08090200"                                   # Wolfe
 moves = [
-  { move = 0x768AB9C5, level = 1 },                         # Frosticle
-  { move = 0x78E027BC, level = 13 },                        # Shine Drive
-  { move = 0x087999EE, level = 20 },                        # Heel Drop
-  { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
+  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
+  { move = 0x768AB9C5, level = 20 },                        # Frosticle
+  { move = 0x78E027BC, level = 30 },                        # Shine Drive
+  { move = 0x087999EE, level = 38 },                        # Heel Drop
 ]
 
   [[edit.cards]]
@@ -80,10 +80,10 @@ moves = [
 [[edit]]
 target = "c11908310"                                   # Alexander Allegrov
 moves = [
-  { move = 0x1F0836D6, level = 1 },                         # Comet Shot
   { move = 0x6F918884, level = 13 },                        # Easy Breezy
-  { move = 0x1FC99D68, level = 20 },                        # Snow Angel
-  { move = 0xF26A225B, level = 30 },                        # RC Shot
+  { move = 0x1F0836D6, level = 20 },                        # Comet Shot
+  { move = 0x1FC99D68, level = 30 },                        # Snow Angel
+  { move = 0xF26A225B, level = 38 },                        # RC Shot
 ]
 
   [[edit.cards]]

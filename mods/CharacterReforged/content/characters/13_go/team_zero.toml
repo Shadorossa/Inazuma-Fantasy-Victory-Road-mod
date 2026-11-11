@@ -4,8 +4,8 @@ schema = "VRFW.character/2"
 target = "c04004450"                                   # Gus Martin
 moves = [
   { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x17A96A44, level = 11 },                        # Clone Faker
-  { move = 0x0E0A3F7A, level = 21 },                        # Spatial Portal
+  { move = 0x17A96A44, level = 1 },                         # Clone Faker
+  { move = 0x0E0A3F7A, level = 6 },                         # Spatial Portal
   { move = 0x01DB04F5, level = 31 },                        # Defence Scan
 ]
 
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c04004410"                                   # Pinkus Mountbatten
 moves = [
-  { move = 0xF5638A87, level = 1 },                         # Elemental Destroyer
+  { move = 0xF5638A87, level = 15 },                        # Elemental Destroyer
+  { move = 0xC41097D5, level = 20 },                        # Acrobotics
   { move = 0x64CDCFB9, level = 44 },                        # Rising Dragon
   { move = 0x25276CB9, level = 57 },                        # Solar Surprise
-  { move = 0xC41097D5, level = 67 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -34,7 +34,7 @@ moves = [
 [[edit]]
 target = "c04004420"                                   # Flint Charcoal
 moves = [
-  { move = 0x0C08B663, level = 1 },                         # Doom Dive Drive
+  { move = 0x0C08B663, level = 20 },                        # Doom Dive Drive
   { move = 0x4FE09C7A, level = 40 },                        # Acrobatic Keep
   { move = 0x00A10ABD, level = 60 },                        # Ball Lightning
   { move = 0xB60E3C60, level = 61 },                        # Plasma Cut
@@ -49,10 +49,10 @@ moves = [
 [[edit]]
 target = "c04004430"                                   # Glaucous Gull
 moves = [
-  { move = 0xF5638A87, level = 1 },                         # Elemental Destroyer
+  { move = 0xF5638A87, level = 13 },                        # Elemental Destroyer
   { move = 0x2354CA2D, level = 22 },                        # Wind God's Dance
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
   { move = 0x25276CB9, level = 58 },                        # Solar Surprise
-  { move = 0xDE4ED944, level = 68 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -64,7 +64,7 @@ moves = [
 [[edit]]
 target = "c04004440"                                   # Ashley Silverwood
 moves = [
-  { move = 0xAF28F5A0, level = 1 },                         # The Tower
+  { move = 0xAF28F5A0, level = 25 },                        # The Tower
   { move = 0x4A17EE80, level = 34 },                        # Hunter's Net
   { move = 0x6BA49049, level = 40 },                        # Mystic Mist
   { move = 0xD1E62D0A, level = 58 },                        # Mushroom Hop
@@ -81,9 +81,9 @@ moves = [
 target = "c04004460"                                   # Cinereous Slate
 moves = [
   { move = 0x9AF2229C, level = 1 },                         # Gravity Point
+  { move = 0xED1BFBD3, level = 30 },                        # Fingers of Gaia
+  { move = 0xFC5DC53F, level = 38 },                        # Double God Hand
   { move = 0xFF5C8DAF, level = 59 },                        # Shot Stopper
-  { move = 0xFC5DC53F, level = 69 },                        # Double God Hand
-  { move = 0xED1BFBD3, level = 79 },                        # Fingers of Gaia
 ]
 
   [[edit.cards]]

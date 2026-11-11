@@ -1,0 +1,6 @@
+schema = "VRFW.game/2"
+
+# () -> the rarity key of config.toml [hero_style] (the hero style selector's styles)
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_HERO_STYLE_RARITY"
+handler = "BetterQoL.HeroStyle.Rarity"

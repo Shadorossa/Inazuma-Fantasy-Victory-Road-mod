@@ -9,10 +9,10 @@ card = 0x89AF6C09
   growth = "normal"
   stats = { kick = 360, control = 261, technique = 231, pressure = 189, physical = 182, intelligence = 225, agility = 170, freedom = 213 }
   moves = [
-    { move = 0x1F7F73BA, level = 1 },
+    { move = 0x8A52C09B, level = 1 },
+    { move = 0x0C08B663, level = 1 },
+    { move = 0x1F7F73BA, level = 13 },
     { move = 0x90CD25B4, level = 20 },
-    { move = 0x910F4F83, level = 47 },
-    { move = 0xA955D999, level = 57 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
@@ -64,10 +64,10 @@ card = 0xF03C73D9
   growth = "normal"
   stats = { kick = 360, control = 261, technique = 231, pressure = 189, physical = 182, intelligence = 225, agility = 170, freedom = 213 }
   moves = [
-    { move = 0x1F7F73BA, level = 1 },
+    { move = 0x8A52C09B, level = 1 },
+    { move = 0x0C08B663, level = 1 },
+    { move = 0x1F7F73BA, level = 13 },
     { move = 0x90CD25B4, level = 20 },
-    { move = 0x910F4F83, level = 47 },
-    { move = 0xA955D999, level = 57 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
@@ -81,7 +81,7 @@ card = 0x00472781
   growth = "normal"
   stats = { kick = 370, control = 284, technique = 259, pressure = 143, physical = 165, intelligence = 213, agility = 144, freedom = 209 }
   moves = [
-    { move = 0x89D614F5, level = 1 },
+    { move = 0x89D614F5, level = 12 },
     { move = 0x3297683F, level = 26 },
     { move = 0x1C097E46, level = 45 },
     { move = 0x0E4E083A, level = 67 },
@@ -100,9 +100,9 @@ card = 0x7594D2B5
   stats = { kick = 247, control = 269, technique = 213, pressure = 235, physical = 184, intelligence = 278, agility = 215, freedom = 225 }
   moves = [
     { move = 0x9349F1DA, level = 1 },
+    { move = 0x6F918884, level = 1 },
+    { move = 0xA37D1A41, level = 1 },
     { move = 0x7C1494CF, level = 40 },
-    { move = 0xF88DC090, level = 50 },
-    { move = 0x1CFBA7D4, level = 60 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
@@ -118,9 +118,9 @@ card = 0x7A0B2949
   stats = { kick = 366, control = 277, technique = 284, pressure = 181, physical = 193, intelligence = 244, agility = 136, freedom = 209 }
   moves = [
     { move = 0x518BCA26, level = 1 },
-    { move = 0x00D8C57C, level = 11 },
-    { move = 0x0B011EBF, level = 21 },
-    { move = 0xEAB3792D, level = 31 },
+    { move = 0x00D8C57C, level = 1 },
+    { move = 0xEAB3792D, level = 1 },
+    { move = 0x0B011EBF, level = 38 },
   ]
 
 [[edit]]
@@ -132,7 +132,7 @@ card = 0xBF2CF1A2
   stats = { kick = 306, control = 282, technique = 259, pressure = 208, physical = 173, intelligence = 282, agility = 170, freedom = 217 }
   moves = [
     { move = 0x5643C944, level = 1 },
-    { move = 0x71831119, level = 11 },
+    { move = 0x71831119, level = 1 },
+    { move = 0xC16279D1, level = 1 },
     { move = 0xBF6D0AC5, level = 50 },
-    { move = 0xC16279D1, level = 60 },
   ]

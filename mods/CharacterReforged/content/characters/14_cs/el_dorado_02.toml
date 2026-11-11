@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c05029620_5000"                              # Mecha-Mark
 moves = [
   { move = 0x8C382852, level = 1 },                         # God Hand
-  { move = 0x1E6B76C3, level = 11 },                        # Penguin the Hand
+  { move = 0x1E6B76C3, level = 1 },                         # Penguin the Hand
+  { move = 0xA491AFFF, level = 38 },                        # Majin the Hand
   { move = 0xE647BCEE, level = 53 },                        # God Hand V
-  { move = 0xA491AFFF, level = 63 },                        # Majin the Hand
 ]
 
   [[edit.cards]]
@@ -19,9 +19,9 @@ moves = [
 target = "c05029620"                                   # Mecha-Mark
 moves = [
   { move = 0x8C382852, level = 1 },                         # God Hand
-  { move = 0x1E6B76C3, level = 11 },                        # Penguin the Hand
+  { move = 0x1E6B76C3, level = 1 },                         # Penguin the Hand
+  { move = 0xA491AFFF, level = 38 },                        # Majin the Hand
   { move = 0xE647BCEE, level = 53 },                        # God Hand V
-  { move = 0xA491AFFF, level = 63 },                        # Majin the Hand
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)

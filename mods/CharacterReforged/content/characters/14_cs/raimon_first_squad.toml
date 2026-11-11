@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05020140_5000"                              # Goldie Lemmon
 moves = [
-  { move = 0xC5D2FDE2, level = 1 },                         # Oglitteration
-  { move = 0x8A936B25, level = 11 },                        # Goopy Gloopy Goo
-  { move = 0x924A3053, level = 21 },                        # Aurora Arrow
-  { move = 0xDF70E04C, level = 31 },                        # Rodeo Clown
+  { move = 0x8A936B25, level = 1 },                         # Goopy Gloopy Goo
+  { move = 0xB7474004, level = 1 },                         # Dough Ray Me
+  { move = 0x19BA3BFC, level = 27 },                        # Dance on Air
+  { move = 0x87379CDF, level = 67 },                        # Fire Tornado TC
 ]
 
   [[edit.cards]]
@@ -21,7 +21,7 @@ moves = [
   { move = 0xC636A810, level = 1 },                         # Combustion Catch
   { move = 0x62DEE8B1, level = 9 },                         # Jumping Whack
   { move = 0xF2CB0879, level = 30 },                        # Mugen the Hand
-  { move = 0x1DEFA2AD, level = 40 },                        # We Have Liftoff!
+  { move = 0x1DEFA2AD, level = 47 },                        # We Have Liftoff!
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -37,10 +37,10 @@ moves = [
 [[edit]]
 target = "c05028040"                                   # Riccardo Di Rigo
 moves = [
-  { move = 0x7DD6FEF8, level = 1 },                         # Athena's Anthem
-  { move = 0x900C8E0A, level = 62 },                        # Maestro's Call
-  { move = 0xAD53B378, level = 72 },                        # Diffusal Chord
-  { move = 0x8B90AAAC, level = 82 },                        # Fortissimo
+  { move = 0x900C8E0A, level = 1 },                         # Maestro's Call
+  { move = 0x8B90AAAC, level = 1 },                         # Fortissimo
+  { move = 0x20D01E43, level = 1 },                         # Hey Presto
+  { move = 0x7DD6FEF8, level = 52 },                        # Athena's Anthem
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -57,10 +57,10 @@ moves = [
 [[edit]]
 target = "c05028110"                                   # Victor Blade
 moves = [
-  { move = 0x1F7F73BA, level = 1 },                         # Bicycle Slash
+  { move = 0x8A52C09B, level = 1 },                         # Doomsword Slash
+  { move = 0x0C08B663, level = 1 },                         # Doom Dive Drive
+  { move = 0x1F7F73BA, level = 13 },                        # Bicycle Slash
   { move = 0x90CD25B4, level = 20 },                        # Supernatural Strike
-  { move = 0x910F4F83, level = 47 },                        # Fire Tornado DD
-  { move = 0xA955D999, level = 57 },                        # The Earth: Infinity
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -82,10 +82,10 @@ stats = { kick = 242, control = 201, technique = 216, pressure = 239, physical =
   [[edit.cards]]
   id = 0xB0DD6F1B
   moves = [
+    { move = 0x8A936B25, level = 1 },                       # Goopy Gloopy Goo
     { move = 0xB7474004, level = 1 },                       # Dough Ray Me
-    { move = 0x8A936B25, level = 11 },                      # Goopy Gloopy Goo
-    { move = 0x87379CDF, level = 21 },                      # Fire Tornado TC
-    { move = 0x19BA3BFC, level = 31 },                      # Dance on Air
+    { move = 0x19BA3BFC, level = 27 },                      # Dance on Air
+    { move = 0x87379CDF, level = 67 },                      # Fire Tornado TC
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -96,10 +96,10 @@ stats = { kick = 242, control = 201, technique = 216, pressure = 239, physical =
   [[edit.cards]]
   id = 0xC26F2623
   moves = [
+    { move = 0x8A936B25, level = 1 },                       # Goopy Gloopy Goo
     { move = 0xB7474004, level = 1 },                       # Dough Ray Me
-    { move = 0x8A936B25, level = 11 },                      # Goopy Gloopy Goo
-    { move = 0x87379CDF, level = 21 },                      # Fire Tornado TC
-    { move = 0x19BA3BFC, level = 31 },                      # Dance on Air
+    { move = 0x19BA3BFC, level = 27 },                      # Dance on Air
+    { move = 0x87379CDF, level = 67 },                      # Fire Tornado TC
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -111,9 +111,9 @@ stats = { kick = 242, control = 201, technique = 216, pressure = 239, physical =
 target = "c05028030"                                   # Arion Sherwind
 moves = [
   { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
+  { move = 0x6F918884, level = 1 },                         # Easy Breezy
+  { move = 0xA37D1A41, level = 1 },                         # Hyper-Swiper
   { move = 0x7C1494CF, level = 40 },                        # Tornado Tunnel
-  { move = 0xF88DC090, level = 50 },                        # Z Slash
-  { move = 0x1CFBA7D4, level = 60 },                        # Twister Tornado
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -151,8 +151,8 @@ target = "c05028100"                                   # Ryoma Nishiki
 moves = [
   { move = 0x4FE09C7A, level = 1 },                         # Acrobatic Keep
   { move = 0xC4D13C6B, level = 25 },                        # Katana Kick
+  { move = 0xB4B4D106, level = 30 },                        # Dragon Cannon
   { move = 0x64CDCFB9, level = 34 },                        # Rising Dragon
-  { move = 0xB4B4D106, level = 44 },                        # Dragon Cannon
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -170,10 +170,10 @@ moves = [
 [[edit]]
 target = "c05028120"                                   # Goldie Lemmon
 moves = [
+  { move = 0x8A936B25, level = 1 },                         # Goopy Gloopy Goo
   { move = 0xC5D2FDE2, level = 1 },                         # Oglitteration
-  { move = 0x87379CDF, level = 11 },                        # Fire Tornado TC
-  { move = 0xB7474004, level = 21 },                        # Dough Ray Me
-  { move = 0x19BA3BFC, level = 31 },                        # Dance on Air
+  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
+  { move = 0x87379CDF, level = 69 },                        # Fire Tornado TC
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -191,9 +191,9 @@ moves = [
 target = "c05028130"                                   # Arion Sherwind
 moves = [
   { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
+  { move = 0x6F918884, level = 1 },                         # Easy Breezy
+  { move = 0xA37D1A41, level = 1 },                         # Hyper-Swiper
   { move = 0x7C1494CF, level = 40 },                        # Tornado Tunnel
-  { move = 0xF88DC090, level = 50 },                        # Z Slash
-  { move = 0x1CFBA7D4, level = 60 },                        # Twister Tornado
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)

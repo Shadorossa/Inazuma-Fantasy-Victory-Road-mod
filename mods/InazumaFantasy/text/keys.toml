@@ -5,43 +5,61 @@ default_lang = "en"
 level_orb_result = "Lv. {1} → Lv. {2}"
 mod_name = "Inazuma Fantasy"
 mod_description = "The Market gets its own shops priced in Passion Points that every match pays: a general store, a training shop and two special move shops. It adds Fantasy Idol cards, the Inazuma Fantasy title screen, a free match section with two mod teams and a daily legendary rival, and sells new special moves, including 30 by LegendaryAd and God Strike, and an Arion military outfit."
+update_channel_ProfessionalKits_description = "New kits of real football clubs, one module per league."
+update_channel_InazumaStrikers_description = "Shots like a TV broadcast, Strikers name banners and goals that break."
 
 [es.new]
 level_orb_result = "Nv. {1} → Nv. {2}"
 mod_name = "Inazuma Fantasy"
 mod_description = "El Mercado tiene tiendas propias, con precios en Puntos de pasión que paga cada partido: una tienda general, una de entrenamiento y dos de supertécnicas. Añade cartas Ídolo de Fantasy, la pantalla de título de Inazuma Fantasy, una sección de partido libre con dos equipos del mod y un rival legendario diario, y vende supertécnicas nuevas, entre ellas 30 de LegendaryAd y Golpe Divino, y un traje militar de Arion."
+update_channel_ProfessionalKits_description = "Equipaciones nuevas de clubes de fútbol reales, un módulo por liga."
+update_channel_InazumaStrikers_description = "Tiros como en la tele, rótulos de Strikers y porterías que se rompen."
 
 [fr.new]
 level_orb_result = "Niv. {1} → Niv. {2}"
 mod_name = "Inazuma Fantasy"
 mod_description = "Le Marché a ses propres boutiques, au prix de Points de passion que chaque match rapporte : une boutique générale, une d'entraînement et deux de supertechniques. Il ajoute des cartes Idole de Fantasy, l'écran-titre d'Inazuma Fantasy, une section de match libre avec deux équipes du mod et un rival légendaire quotidien, et vend de nouvelles supertechniques, dont 30 de LegendaryAd et Frappe divine, et une tenue militaire d'Arion."
+update_channel_ProfessionalKits_description = "Nouvelles tenues de vrais clubs de football, un module par championnat."
+update_channel_InazumaStrikers_description = "Des tirs comme à la télé, les bandeaux de Strikers et des buts qui cassent."
 
 [de.new]
 level_orb_result = "Lv. {1} → Lv. {2}"
 mod_name = "Inazuma Fantasy"
 mod_description = "Der Markt hat eigene Läden, bezahlt mit Leidenschaftspunkten, die jedes Spiel einbringt: einen Gemischtwarenladen, einen Trainingsladen und zwei Läden für Spezialtechniken. Dazu kommen Fantasy-Idol-Karten, der Titelbildschirm von Inazuma Fantasy, ein Bereich für freie Spiele mit zwei Mod-Teams und ein täglicher legendärer Rivale; neue Spezialtechniken, darunter 30 von LegendaryAd und Götterschlag, sowie ein Militäroutfit von Arion gibt es in den Läden."
+update_channel_ProfessionalKits_description = "Neue Trikots echter Fußballvereine, ein Modul pro Liga."
+update_channel_InazumaStrikers_description = "Schüsse wie im Fernsehen, Strikers-Namensbanner und Tore, die zerbrechen."
 
 [it.new]
 level_orb_result = "Liv. {1} → Liv. {2}"
 mod_name = "Inazuma Fantasy"
 mod_description = "Il Mercato ha negozi propri, con prezzi in Punti passione che ogni partita fa guadagnare: un negozio generale, uno di allenamento e due di supertecniche. Aggiunge carte Idol di Fantasy, la schermata del titolo di Inazuma Fantasy, una sezione di partita libera con due squadre del mod e un rivale leggendario giornaliero, e vende nuove supertecniche, tra cui 30 di LegendaryAd e Colpo divino, e un'uniforme militare di Arion."
+update_channel_ProfessionalKits_description = "Nuove divise di club di calcio reali, un modulo per campionato."
+update_channel_InazumaStrikers_description = "Tiri come in TV, i titoli di Strikers e porte che si rompono."
 
 [pt.new]
 level_orb_result = "Nv. {1} → Nv. {2}"
 mod_name = "Inazuma Fantasy"
 mod_description = "O Mercado tem lojas próprias, com preços em Pontos de paixão que cada jogo paga: uma loja geral, uma de treino e duas de supertécnicas. Acrescenta cartas Ídolo de Fantasy, o ecrã de título de Inazuma Fantasy, uma secção de jogo livre com duas equipas do mod e um rival lendário diário, e vende novas supertécnicas, entre elas 30 de LegendaryAd e Golpe Divino, e um traje militar de Arion."
+update_channel_ProfessionalKits_description = "Novos equipamentos de clubes de futebol reais, um módulo por liga."
+update_channel_InazumaStrikers_description = "Remates como na televisão, os títulos de Strikers e balizas que se partem."
 
 [ja.new]
 level_orb_result = "Lv.{1} → Lv.{2}"
 mod_name = "Inazuma Fantasy"
 mod_description = "マーケットに専用ショップが加わります。価格は試合ごとにもらえる情熱ポイントで、よろず屋、トレーニングショップ、必殺技ショップ2つ。Fantasyのアイドルカード、Inazuma Fantasyのタイトル画面、2チームが登場するフリーマッチ、毎日のレジェンドライバルも追加されます。LegendaryAd作の30種やゴッドストライクなどの新必殺技と、アリオンの軍服衣装がショップで買えます。"
+update_channel_ProfessionalKits_description = "実在のサッカークラブの新しいユニフォーム。リーグごとに1モジュール。"
+update_channel_InazumaStrikers_description = "テレビ中継のようなシュート、ストライカーズの名前テロップ、壊れるゴール。"
 
 [zh_hans.new]
 level_orb_result = "Lv.{1} → Lv.{2}"
 mod_name = "Inazuma Fantasy"
 mod_description = "市场新增专属商店，以每场比赛赠送的热情点数购买：综合商店、训练商店和两家必杀技商店。新增 Fantasy 偶像卡、Inazuma Fantasy 标题画面、包含两支模组球队的自由比赛分区以及每日传奇对手；新必杀技（包括 LegendaryAd 制作的30种和神之一击）以及亚里翁的军装服装可在商店购买。"
+update_channel_ProfessionalKits_description = "真实足球俱乐部的新球衣，每个联赛一个模块。"
+update_channel_InazumaStrikers_description = "像电视转播一样的射门、Strikers 名称字幕和会被打碎的球门。"
 
 [zh_hant.new]
 level_orb_result = "Lv.{1} → Lv.{2}"
 mod_name = "Inazuma Fantasy"
 mod_description = "市場新增專屬商店，以每場比賽贈送的熱情點數購買：綜合商店、訓練商店和兩家必殺技商店。新增 Fantasy 偶像卡、Inazuma Fantasy 標題畫面、包含兩支模組球隊的自由比賽分區以及每日傳奇對手；新必殺技（包括 LegendaryAd 製作的30種和神之一擊）以及亞里翁的軍裝服裝可在商店購買。"
+update_channel_ProfessionalKits_description = "真實足球俱樂部的新球衣，每個聯賽一個模組。"
+update_channel_InazumaStrikers_description = "像電視轉播一樣的射門、Strikers 名稱字幕和會被打碎的球門。"

@@ -2223,9 +2223,9 @@ function CharacterReforged.hyper_card.mc_ask(chara)
   if type(page) ~= "table" or type(page.mode_change_partner) ~= "function" then
     return false
   end
-  local ok, pparam, pchara = pcall(page.mode_change_partner, chara)
+  local ok, pparam, pchara, phdl, label, in_team = pcall(page.mode_change_partner, chara)
   if ok and type(pparam) == "number" and pparam ~= 0 then
-    return true, true, pparam, pchara
+    return true, true, pparam, pchara, phdl, label, in_team
   end
   return false
 end
@@ -2234,11 +2234,13 @@ function CharacterReforged.hyper_card.mc_get(chara, skill)
   if chara == nil or chara == 0 or not CharacterReforged.hyper_card.is_mode_change(skill) then
     return nil
   end
-  local ok, exists, pparam, pchara = CharacterReforged.hyper_card.mc_ask(chara)
+  local ok, exists, pparam, pchara, phdl, _, in_team = CharacterReforged.hyper_card.mc_ask(chara)
   if not ok or not exists or type(pparam) ~= "number" or pparam == 0 then
     return nil
   end
-  local m = {chara = pchara or 0}
+  local m = {chara = pchara or 0, phdl = type(phdl) == "number" and phdl or 0}
+  -- Keeps the text that says a change gives no swap while its partner is in the base's team (empty when the rule allows it).
+  m.in_team_text = type(in_team) == "string" and in_team or ""
   local okk, face = pcall(funcLuaCommand, 347353059, pparam)
   m.face = (okk and type(face) == "number" and face ~= 0) and face or m.chara
   local okn, a, b = pcall(funcLuaCommand, 4060384944, m.chara, 10)
@@ -2535,8 +2537,10 @@ function PL.hiper_card(skill)
   local d = ""
   funcLuaMenuCommand(2735666188 --[[text visible]], A, 2956552560 --[[_text_flavor02]], false, 0)
   funcLuaMenuCommand(2158717427 --[[locator visible]], A, 622567014 --[[_pos_page03]], false, 0)
+  -- Shows why a stored change gives no swap in a match: its partner shares a team set with the base.
+  local warned = mc ~= nil and mc.in_team_text ~= "" and PL.mx_shares_team(n, mc.phdl) and PL.pair_warning(A, mc.in_team_text)
   pcall(Call, C.LOG, "skill_slots", "hiper card", string.format("%08X", to_u32(skill)), tostring(t),
-    tostring(title), "partner", tostring(mc ~= nil), "desc", #d)
+    tostring(title), "partner", tostring(mc ~= nil), "desc", #d, "inactive", tostring(warned == true))
 end
 
 -- MOVE_X, the pool at POOL_X (ss2_build.py HIPER_JOINTS).
@@ -4827,6 +4831,7 @@ function PL.vrm_def()
   LIST = 4192844953,
   ENTRY = 2320314186,
   READ = 628491750,
+  AREA = 1226495769,
   K_LEFT = 2765147006,        -- CMD_LEFT
   K_RIGHT = 2075023265,       -- CMD_RIGHT
   }
@@ -4973,14 +4978,20 @@ function PL.set_export(i)
   local pv, cf = p.passives or {}, p.pcfg or {}
   local name = PL.mx_chara_name(funcLuaCommand(C.CHARA_GET, n, 4))
   local level = funcLuaCommand(C.CHARA_GET, n, 0) or 0
+  local file_name = (p.name or "") ~= "" and (tostring(name) .. " - " .. p.name) or tostring(name)
+  local result, ticket = VRFW.file_pick.save({area = funcLuaCommand(PL.VRM.AREA), name = file_name, ext = "vrmod",
+    title = PL.txt(PL.TX.SET_EXPORT_ROW)})
+  if result == "cancelled" then
+    return
+  end
   local r = {pcall(funcLuaCommand, PL.VRM.EXPORT, n, name, level, m[1] or 0, m[2] or 0, m[3] or 0, m[4] or 0,
     m[5] or 0, m[6] or 0, p.hiper or 0, e[1] or 0, e[2] or 0, e[3] or 0, e[4] or 0, e[5] or 0, p.sixsense or 0,
     p.role or -1, p.name or "", pv[1] or 0, pv[2] or 0, pv[3] or 0, pv[4] or 0, pv[5] or 0,
-    cf[1] or 0, cf[2] or 0, cf[3] or 0, cf[4] or 0, cf[5] or 0, p.kit or 0, p.mix or 0)}
+    cf[1] or 0, cf[2] or 0, cf[3] or 0, cf[4] or 0, cf[5] or 0, p.kit or 0, p.mix or 0, result == "picked" and ticket or nil)}
   Log("player set export", i, tostring(r[1]), tostring(r[2]), tostring(r[3]), tostring(r[4]))
   if r[1] and r[2] == true and type(r[3]) == "string" then
     funcLuaCommand(C.SE, SE_DECIDE)
-    VRFW.question.notice(PL.txt(PL.TX.EXPORT_DONE, "modloader_exports/" .. tostring(r[4] or "") .. "/" .. r[3]))
+    VRFW.question.notice(PL.txt(PL.TX.EXPORT_DONE, r[4] ~= nil and ("modloader_exports/" .. tostring(r[4]) .. "/" .. r[3]) or r[3]))
   else
     funcLuaCommand(C.SE, SE_NG)
     VRFW.question.notice(PL.txt(PL.TX.EXPORT_FAIL))
@@ -5030,12 +5041,13 @@ function PL.import_item(id)
   return id, true
 end
 
-function PL.set_import(i)
+-- The listed player set file the player takes from the game's own list -> its index; nil when none is taken.
+function PL.import_from_list()
   local okc, count, area = pcall(funcLuaCommand, PL.VRM.LIST)
   if not okc or type(count) ~= "number" or count <= 0 then
     funcLuaCommand(C.SE, SE_NG)
     VRFW.question.notice(PL.txt(PL.TX.IMPORT_NONE, "modloader_exports/" .. tostring(area or "")))
-    return
+    return nil
   end
   local files = {}
   for k = 0, count - 1 do
@@ -5056,10 +5068,27 @@ function PL.set_import(i)
       return "close"
     end})
   if pick < 0 or files[pick + 1] == nil then
+    return nil
+  end
+  return files[pick + 1].idx
+end
+
+function PL.set_import(i)
+  local result, ticket = VRFW.file_pick.open({area = funcLuaCommand(PL.VRM.AREA), ext = "vrmod",
+    title = PL.txt(PL.TX.SET_IMPORT_ROW)})
+  if result == "cancelled" then
     return
   end
-  local r = {pcall(funcLuaCommand, PL.VRM.READ, files[pick + 1].idx, n)}
-  Log("player set import read", files[pick + 1].file, tostring(r[1]), tostring(r[2]), tostring(r[3]))
+  local index = -1
+  if result ~= "picked" then
+    ticket = nil
+    index = PL.import_from_list()
+    if index == nil then
+      return
+    end
+  end
+  local r = {pcall(funcLuaCommand, PL.VRM.READ, index, n, ticket)}
+  Log("player set import read", tostring(index), tostring(ticket), tostring(r[1]), tostring(r[2]), tostring(r[3]))
   if not r[1] or r[2] ~= true then
     funcLuaCommand(C.SE, SE_NG)
     VRFW.question.notice(PL.txt(PL.TX.IMPORT_BAD))
@@ -5707,13 +5736,42 @@ function PL.mx_chara_name(chara)
   return string.format("%08X", to_u32(chara or 0))
 end
 
+-- Says whether two cards sit in one team set (the bit field retail IsCharaInAnyTeam reads).
+function PL.mx_shares_team(base, partner)
+  local okb, base_sets = pcall(funcLuaCommand, 1131797651, base, 35)
+  local okp, partner_sets = pcall(funcLuaCommand, 1131797651, partner, 35)
+  if not okb or not okp or type(base_sets) ~= "number" or type(partner_sets) ~= "number" or base_sets == 0 or partner_sets == 0 then
+    return false
+  end
+  for set = 0, 16 do
+    if funcLuaCommand(3781690203 --[[CMND_CHECK_BIT]], base_sets, set) and funcLuaCommand(3781690203, partner_sets, set) then
+      return true
+    end
+  end
+  return false
+end
+
+-- Shows a pair's inactive reason on aura layer A: the text under the header and the retail alert icon; returns whether it shows one.
+function PL.pair_warning(A, warning)
+  if type(warning) ~= "string" or warning == "" then
+    return false
+  end
+  funcLuaMenuCommand(C.TEXT, A, 2956552560 --[[_text_flavor02]], warning, 0)
+  funcLuaMenuCommand(2735666188, A, 2956552560, true, 0)
+  local icon = pcall(funcLuaMenuCommand, C.SPRITE, A, 2361962091 --[[cmn01_16]], 542418604 --[[icon_alert_yellow01]],
+    4285917355 --[[icon_fs_area_dmy01]], 0, 0)
+  pcall(Call, C.LOG, "skill_slots", "pair warning on layer", string.format("%08X", to_u32(A)), "alert icon", tostring(icon), warning)
+  return true
+end
+
 -- Returns the fusion of the current player (the running fusion and the partner's handle).
 function PL.mx_get()
   local h = PL.mx_test_hdl or n                    -- (mx_test_hdl: harness only, nil in game)
   if h == nil or h == 0 then
     return nil
   end
-  local ok, exists, partner, m1, m2, chara, best, phdl = pcall(funcLuaCommand, PL.MX_CMD.FUSION_GET, h)
+  local ok, exists, partner, m1, m2, chara, best, phdl, off_text, inactive_label, in_team_text =
+    pcall(funcLuaCommand, PL.MX_CMD.FUSION_GET, h)
   if not ok or exists ~= true then
     return nil
   end
@@ -5722,6 +5780,13 @@ function PL.mx_get()
   -- the partner's face key (from 347353059(param), as the retail miximax window)
   local okk, face = pcall(funcLuaCommand, 347353059, f.partner)
   f.face = (okk and type(face) == "number" and face ~= 0) and face or f.chara
+  -- Keeps the reason a stored fusion gives no miximax in a match: its validity, else a partner in the base's team.
+  f.warning_label = type(inactive_label) == "string" and inactive_label or ""
+  if type(off_text) == "string" and off_text ~= "" then
+    f.warning = off_text
+  elseif type(in_team_text) == "string" and in_team_text ~= "" and PL.mx_shares_team(h, f.phdl) then
+    f.warning = in_team_text
+  end
   return f
 end
 
@@ -6537,9 +6602,11 @@ function PL.mx_detail(f, team_info)
     funcLuaMenuCommand(2735666188, L, x, false, 0)
   end
   funcLuaMenuCommand(1233047821, L, 0, 2223127589, false)
-  funcLuaMenuCommand(2158717427, L, 2313134961 --[[_pos_area01]], f.best == true, 0)
-  funcLuaMenuCommand(C.TEXT, L, 1899787537 --[[_text_area01]], f.best and "Best Match" or "", 0)
-  funcLuaMenuCommand(2735666188, L, 1899787537, f.best == true, 0)
+  -- Shows why a stored miximax gives nothing in a match: the retail alert icon, a short label and the reason under the header.
+  local warned = PL.pair_warning(A, f.warning)
+  funcLuaMenuCommand(2158717427, L, 2313134961 --[[_pos_area01]], f.best == true or warned, 0)
+  funcLuaMenuCommand(C.TEXT, L, 1899787537 --[[_text_area01]], warned and f.warning_label or (f.best and "Best Match" or ""), 0)
+  funcLuaMenuCommand(2735666188, L, 1899787537, f.best == true or warned, 0)
   PL.move_row(L, f.move, team_info, 0, false, f.phdl)   -- the partner owns the move: coloured, not greyed
   pcall(Call, C.LOG, "skill_slots", "miximax move row", string.format("%08X", to_u32(f.move or 0)),
     "owner", tostring(f.phdl), "shown", tostring(funcLuaMenuCommand(1262717583, PL.L_HROW, 0)))

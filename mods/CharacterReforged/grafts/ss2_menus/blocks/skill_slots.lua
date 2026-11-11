@@ -1113,8 +1113,10 @@ function PL.hiper_card(skill)
   local d = ""
   funcLuaMenuCommand(2735666188 --[[text visible]], A, 2956552560 --[[_text_flavor02]], false, 0)
   funcLuaMenuCommand(2158717427 --[[locator visible]], A, 622567014 --[[_pos_page03]], false, 0)
+  -- Shows why a stored change gives no swap in a match: its partner shares a team set with the base.
+  local warned = mc ~= nil and mc.in_team_text ~= "" and PL.mx_shares_team(n, mc.phdl) and PL.pair_warning(A, mc.in_team_text)
   pcall(Call, C.LOG, "skill_slots", "hiper card", string.format("%08X", to_u32(skill)), tostring(t),
-    tostring(title), "partner", tostring(mc ~= nil), "desc", #d)
+    tostring(title), "partner", tostring(mc ~= nil), "desc", #d, "inactive", tostring(warned == true))
 end
 
 -- MOVE_X, the pool at POOL_X (ss2_build.py HIPER_JOINTS).

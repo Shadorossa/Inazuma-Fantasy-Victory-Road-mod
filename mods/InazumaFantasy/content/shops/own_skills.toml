@@ -84,7 +84,7 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "dark_fire_storm"    # Tormenta de fuego oscura: shot, 440
+  technique = "dark_fire_storm"    # Tormenta oscura: shot, 440
   price = 13
   currency = "tk_bb000001"
 

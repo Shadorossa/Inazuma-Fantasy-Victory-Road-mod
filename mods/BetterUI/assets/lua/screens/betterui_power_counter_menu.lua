@@ -133,7 +133,7 @@ local function ReadCounters()
   layout = type(tunables) == "table" and tunables or nil
   local critical = { counters[1].value > 0 and counters[1].critical, counters[2].value > 0 and counters[2].critical }
   if critical[1] or critical[2] then
-    tags = PC.NewTags(critical, layout, Log)
+    tags = PC.NewTags(critical, layout, Log, { #tostring(counters[1].value), #tostring(counters[2].value) })
   end
 end
 

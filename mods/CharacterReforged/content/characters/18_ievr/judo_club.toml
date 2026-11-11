@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11500040"                                   # Linton Judson
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
-  { move = 0x232D05EC, level = 13 },                        # Tiger Drive
-  { move = 0x84385EE2, level = 20 },                        # Black Tide Ride
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x5DA7EA06, level = 13 },                        # Boomerang Bluff
+  { move = 0x232D05EC, level = 20 },                        # Tiger Drive
+  { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700010"                                   # Domino Guerrera
 moves = [
-  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
-  { move = 0xAD6E4BF9, level = 13 },                        # Harvest
-  { move = 0x78218C02, level = 20 },                        # Duskfall
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
+  { move = 0xAD6E4BF9, level = 20 },                        # Harvest
+  { move = 0x78218C02, level = 38 },                        # Duskfall
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11700020"                                   # Leston Thoreau
 moves = [
-  { move = 0x8DFA4265, level = 1 },                         # Toughness Block
   { move = 0x24E5068E, level = 13 },                        # Fractal Repeller
-  { move = 0x2C5D1441, level = 20 },                        # Song of the Three Kingdoms
-  { move = 0xE647BCEE, level = 30 },                        # God Hand V
+  { move = 0x8DFA4265, level = 20 },                        # Toughness Block
+  { move = 0x2C5D1441, level = 30 },                        # Song of the Three Kingdoms
+  { move = 0xE647BCEE, level = 38 },                        # God Hand V
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11700030"                                   # Trane Levitt
 moves = [
-  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
-  { move = 0xDF8CB373, level = 13 },                        # Sonic Shot
+  { move = 0x259F08C6, level = 13 },                        # Whirlwind Twister
   { move = 0xC21AFE80, level = 20 },                        # Whirlwind Drop
   { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0xDF8CB373, level = 30 },                        # Sonic Shot
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11717010"                                   # Judeau Garb
 moves = [
-  { move = 0x24E5068E, level = 1 },                         # Fractal Repeller
-  { move = 0x64CDCFB9, level = 13 },                        # Rising Dragon
-  { move = 0x9D236FA3, level = 20 },                        # Sword of the King
-  { move = 0x485150D9, level = 30 },                        # Body Shield
+  { move = 0x24E5068E, level = 13 },                        # Fractal Repeller
+  { move = 0x64CDCFB9, level = 20 },                        # Rising Dragon
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11717020"                                   # Belton McGirdle
 moves = [
-  { move = 0x4CDC2C6B, level = 1 },                         # Shooting Star
-  { move = 0x414BA9BD, level = 13 },                        # Pincer Pinch
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0x65766A4F, level = 30 },                        # Meteor Blade
+  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
+  { move = 0x4CDC2C6B, level = 20 },                        # Shooting Star
+  { move = 0x414BA9BD, level = 30 },                        # Pincer Pinch
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11717030"                                   # Agil Surefall
 moves = [
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0xAD6E4BF9, level = 13 },                        # Harvest
-  { move = 0x78218C02, level = 20 },                        # Duskfall
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0xAD6E4BF9, level = 20 },                        # Harvest
   { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x78218C02, level = 38 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11717040"                                   # Bowen Fleurmett
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x0E0A3F7A, level = 13 },                        # Spatial Portal
-  { move = 0x7DD6FEF8, level = 20 },                        # Athena's Anthem
-  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
+  { move = 0x0E0A3F7A, level = 30 },                        # Spatial Portal
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11717050"                                   # Healan Masson
 moves = [
-  { move = 0xAAA6489B, level = 1 },                         # Spiral Shot
-  { move = 0x768AB9C5, level = 13 },                        # Frosticle
+  { move = 0xAAA6489B, level = 13 },                        # Spiral Shot
   { move = 0xC42D6F54, level = 20 },                        # Aikido
-  { move = 0x7C1494CF, level = 30 },                        # Tornado Tunnel
+  { move = 0x768AB9C5, level = 30 },                        # Frosticle
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11717060"                                   # Damion Duform
 moves = [
-  { move = 0x585098FC, level = 1 },                         # Slice and Dice
-  { move = 0x00A10ABD, level = 13 },                        # Ball Lightning
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
+  { move = 0x585098FC, level = 13 },                        # Slice and Dice
+  { move = 0x0A3F27B7, level = 20 },                        # Foul Offence 3
+  { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11717070"                                   # Hovard Schulder
 moves = [
-  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
-  { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
-  { move = 0x232D05EC, level = 20 },                        # Tiger Drive
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x53CD747F, level = 13 },                        # Tarzan Kick
+  { move = 0x19BA3BFC, level = 20 },                        # Dance on Air
+  { move = 0x232D05EC, level = 30 },                        # Tiger Drive
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]

@@ -18,6 +18,11 @@ if VRFW.host ~= nil then
   local BODY_INFO = 22                -- GET_CHARA_INFO field of the body type
   local COND_MALE, COND_FEMALE = 3, 4 -- equip conditions of male / female wearers
   local WEARER_ICON = 2394257302      -- the layer of the wearer / body type icon under the preview
+  local HIDE_INSTANCES = 2171393651   -- (layer, false) hides every instance of a layer
+  local INSTANCE_COUNT = 1175615627   -- (layer) -> the instances the layer has
+  local SET_SPRITE = 558735651        -- (layer, atlas, sprite, node, 0, instance) draws a sprite on a node
+  local BODY_ICON_ATLAS = 2320109963  -- #/menu/200_icon/15_icon_common/icon_common.g4tx
+  local BODY_ICON_NODE = 2190317620   -- icon_body_type_dmy01
   local FLAGS = { 0, 2, 1, 3 }
   local FLAGS_VIEW = { 8, 10, 9, 11 }
   local NUMBER = 10
@@ -117,14 +122,47 @@ if VRFW.host ~= nil then
     end
   end })
 
+  -- Draws the body type icons of the body types in `list`, as the game draws a costume's; false when none is drawn.
+  local function show_bodies(list)
+    local h = L()
+    local icon_of, icons = h.t5, h.t6
+    if type(icon_of) ~= "table" or type(icons) ~= "table" then return false end
+    local shown = {}
+    for _, b in ipairs(list) do
+      local k = icon_of[b + 1]
+      if k ~= nil then shown[k] = true end
+    end
+    VRFW.host.menu_command(HIDE_INSTANCES, WEARER_ICON, false)
+    local room = VRFW.host.menu_command(INSTANCE_COUNT, WEARER_ICON)
+    if type(room) ~= "number" then return false end
+    local at, last = 0, 0
+    for k = 1, #icons do
+      if at >= room then break end
+      if shown[k] then
+        VRFW.host.menu_command(SET_SPRITE, WEARER_ICON, BODY_ICON_ATLAS, icons[k], BODY_ICON_NODE, 0, at)
+        VRFW.host.menu_command(VRFW.commands.SET_LAYER_VISIBLE, WEARER_ICON, at, true)
+        last = at
+        at = at + 1
+      end
+    end
+    -- The game shows the instances 0..n26 again when the preview comes back.
+    h.n26 = last
+    return at > 0
+  end
+
   VRFW.host.on(STEM, "UpdateSelectItemInfo", { id = ID .. "wearer_icon", phase = "after", fn = function(r, a1, a2, a3)
     if a3 ~= COSTUME or not own_outfit(a2) then return end
-    local who, cond = wearer(a2)
-    if who == 0 then return end
-    local icons = L().t17
-    local pic = type(icons) == "table" and icons[cond] or nil
-    if pic == nil or pic == 0 then
-      VRFW.host.menu_command(VRFW.commands.SET_LAYER_VISIBLE, WEARER_ICON, 0, false)
+    -- An outfit anyone wears and the game's male / female conditions keep the game's icons.
+    local limited, cond = VRFW.host.command(CMD.COND, a2)
+    if limited ~= true or type(cond) ~= "number" or not IsCharacterIconType(cond) then return end
+    local pictures = L().t17
+    if type(pictures) == "table" and pictures[cond] ~= nil and pictures[cond] ~= 0 then return end
+    -- A wearer list of a mod has no picture: the icons are the body types its uniform has a mesh for, not the game's
+    -- pairs of both sexes.
+    local has, uniform = VRFW.host.command(CMD.UNIFORM, a2)
+    local list = has == true and type(uniform) == "number" and bodies(uniform) or nil
+    if list == nil or not show_bodies(list) then
+      VRFW.host.menu_command(HIDE_INSTANCES, WEARER_ICON, false)
     end
   end })
 end

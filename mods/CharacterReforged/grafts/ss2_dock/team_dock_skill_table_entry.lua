@@ -8,6 +8,8 @@ do
   local KEY_PLAYER_INDEX = 622145442       -- the selected index
   local KEY_OPEN_BOARD = 3646488081
   local TEXT_SKILL_TABLE_HEADER = 2489792255
+  local TEXT_CONTROL = 1638840503          -- the retail «Ver apariencia» row, the control of the header diagnostic
+  local TEXT_GET = 4074371074              -- CMND_TEXT_GET
 
   local function set_param(key, value)
     VRFW.param.clear(key)
@@ -44,6 +46,10 @@ do
     set_param(KEY_PLAYER_INDEX, GetFormationSelectCharaIdx())
     set_param(KEY_FORMATION, formation)
     SwapHeaderText(TEXT_SKILL_TABLE_HEADER)
+    -- Diagnostic: logs the header title and a control row as the engine returns them, to tell a text-language change from a wrong row.
+    pcall(funcLuaCommand, CharacterReforged.LOG_COMMAND, "Character Reforged skill table entry", "header text",
+      tostring(funcLuaCommand(TEXT_GET, TEXT_SKILL_TABLE_HEADER)), "control text",
+      tostring(funcLuaCommand(TEXT_GET, TEXT_CONTROL)))
     UpdateEquipButtonGuide(g_parentMenuId, true)
   end
 

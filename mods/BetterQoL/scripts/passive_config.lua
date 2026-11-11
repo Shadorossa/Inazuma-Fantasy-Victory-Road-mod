@@ -1087,6 +1087,18 @@ function PC.InfoOf(h)
   return true, mode, a, b, max, cfgd and #C.inactive(LAYOUT, cfgd, open_of(pr)) or 0
 end
 
+-- The card's own passive state as one line: param, build and the game's answer for each slot (no configured passive).
+function PC.State(h)
+  h = arg_u32(h)
+  local rec = h and record(h)
+  if not rec or not BUF then return "" end
+  local _, build, diamond_build = extra(rec)
+  local slots = {}
+  for k = 1, N do slots[k] = string.format("%08X", engine_slot(h, k, 0)) end
+  return string.format("param=%s build=%d diamond_build=%d passives=%s", tostring(rec.param), build, diamond_build,
+    table.concat(slots, ","))
+end
+
 function PC.Slot(h, slot)
   h, slot = arg_u32(h), arg_slot(slot)
   if not (h and slot) then return 0, false, true, 0, 0, 1 end

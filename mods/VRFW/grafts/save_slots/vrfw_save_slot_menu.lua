@@ -3,7 +3,7 @@ VRFW.save_slots = VRFW.save_slots or {}
 if funcLuaCommand ~= nil then
   pcall(funcLuaCommand, @crc:CMND_VRFW_LOG@, "slot_menu chunk loaded (early)")
 end
-VRFW.slot_menu_build = "2026-10-08 v4.3"
+VRFW.slot_menu_build = "2026-11-10 v5.0"
 INCLUDE("LUA_PROG_BASE")
 INCLUDE("LUA_SAVEDATA_MANAGEMENT_MENU_INC")   -- UpdateHeader + soccer-top header helpers (+ general window inc)
 INCLUDE("LUA_MENU_DEF")                       -- MENU_DEF.OpenSubWindow (options list)
@@ -30,7 +30,7 @@ local loader_commands = {
 
 local TXT = {
   HEADER = "Save Slots",
-  HEADER_PAGE = "Save Slots · %d/%d",
+  GROUP_PLAYER = "Saves",
   GUIDE = "Choose the slot you want to play with.",
   TAB_SLOT = "Slot %d",
   TAB_LOCKED = "Slot %d · Original",
@@ -84,7 +84,7 @@ local TXT = {
 -- Row ids.
 local TXT_ID = {
   HEADER = 1041698948,   -- vrfw_slot_header
-  HEADER_PAGE = 100411774,   -- vrfw_slot_header_page
+  GROUP_PLAYER = 1425625918,   -- vrfw_slot_group_player
   GUIDE = 2857877061,   -- vrfw_slot_guide
   TAB_SLOT = 1493071877,   -- vrfw_slot_tab
   TAB_LOCKED = 1595229800,   -- vrfw_slot_tab_locked
@@ -126,16 +126,25 @@ local TXT_ID = {
 }
 local LOCKED_SLOT = 1
 local PLAYER = {1, 2, 3}
-local PER_PAGE = 3
-local page, pages = 0, 1
-local CARDS = 4
-local RES_CARD = 3        -- 0-based card index of the reserved card
-local WINDOWS = 4
-local RES_WIN = 3
-local SLOT_RESERVED = @crc:CMND_VRFW_SLOT_RESERVED@ --[[crc32("CMND_VRFW_SLOT_RESERVED")]]   -- (n) -> reserved, owner, enterable
+local SLOT_RESERVED = @crc:CMND_VRFW_SLOT_RESERVED@              -- (n) -> reserved, owner, enterable, rootMenu, groupTitle
+local SLOT_RESERVED_LIST = @crc:CMND_VRFW_SLOT_RESERVED_LIST@    -- () -> count, slot1, slot2, ...
 local MAX_SLOT = 99       -- save engine MAX_SLOT
-local RES_LAST = 12
-local res = nil
+-- The carousel (VRFW.layer_carousel): the place of a card by its distance from the centre (px; x mirrored on the left),
+-- each part's origin measured from the centre of the 424 x 700 card (y up; the band is its top 76 px) and the slide.
+local CAROUSEL = {
+  places = {[0] = {x = 0, scale = 1, alpha = 1}, {x = 430, scale = 0.86, alpha = 0.92}, {x = 790, scale = 0.72, alpha = 0.6},
+    {x = 1150, scale = 0.6, alpha = 0}},
+  band_pivot = {x = 0, y = 312}, window_pivot = {x = 0, y = -38},
+  frames = 8,
+}
+local RING = 6            -- card instances of each part (two neighbours per side and one parked)
+-- Group chips and position marks are further instances of the band layer, placed from the cards' attach point.
+local CHIPS = {first = RING, limit = 6, scale = 0.7, x = -748, y = 112, pitch = 309}
+local MARKS = {first = RING + 6, limit = 24, x = 0, y = -682, pitch = 26, group_gap = 26, scale = {x = 0.05, y = 0.16}}
+local ITEMS = {}          -- the carousel's cards in order: { slot, group, reserved = { owner, p, locked } }
+local GROUPS = {}         -- { title, first, size, at }: `first` and `at` are 0-based items
+local carousel = nil
+local opened = false
 VRFW.save_slots_reserved = {}
 -- Path of the 1.x art.
 local ART_PATH = "#/menu/220_img/vrfw_slot/vrfw_slot_base.g4tx"
@@ -153,7 +162,6 @@ local RETAIL_ICONS = {
   row_tex = 1253411383, row_on = 3989988929, row_off = 3208381064,   -- save_icon_list_s01_on / _off
 }
 local ROW_OK = 3292070381
-local ROW_ALPHA = @crc:CMND_SET_LAYER_MODEL_ALPHA@   -- (layer, idx, 0, alpha): locked / empty cards dimmed
 local MENU = 2103230976
 local KEY_RESULT = 2449975398
 
@@ -166,7 +174,7 @@ local L_HEADER = 575058101      -- mainmenu90_01_header
 local L_GUIDE_LINE = 3078308064 -- mainmenu90_05_content_guide_line01
 local L_CURSOR = 2296367164     -- cmn05_01_cursor
 local L_BTN_GUIDE = 1138543975  -- mainmenu01_06_base_button_guide
-local WIN_LABELS = {1743182552, 482811290, 1807756556, 4121213103}   -- attach labels vrfw_slot_win01..04 (objbin)
+local WIN_LABELS = {1743182552, 482811290, 1807756556, 4121213103, 1619730113, 4186066811}   -- the windows' attach labels (objbin); the last two: vrfw_slot_win05 / 06
 
 local C = {
   TEXT = @crc:CMND_SET_MENU_TEXT_STRING@,          -- CMND_SET_MENU_TEXT_STRING (layer, node, string, idx)
@@ -235,6 +243,7 @@ local PLACEHOLDER_TEXT = 968662090 -- any valid text id; every row is overwritte
 local FN_RENAME = 2314791947     -- CMD_FUNC1
 local FN_DELETE = 1786234050     -- CMD_FUNC3
 local FN_DUP = 3393070439           -- CMD_FUNC4 (X): duplicate
+local FN_PREVIOUS, FN_NEXT = 1249594695, 2111354275   -- CMD_LEFT / CMD_UP: vrfw_slot_previous; CMD_RIGHT / CMD_DOWN: vrfw_slot_next
 local KB_TITLE = 2568160623                 -- retail menu_text "Nombre" (Name)
 local KB_MAX = 20
 -- Button guide ids.
@@ -246,9 +255,9 @@ local K_FUNC4, I_FUNC4 = 1435897304 --[[CMD_FUNC4]], 2085238077 --[[<CMD_FUNC4>]
 -- The reserved card's provider `reset` (button text id, texts, run) uses CMD_FUNC2, which this screen does not use and polls in Step like X.
 local K_FUNC2, I_FUNC2 = 3170216173 --[[CMD_FUNC2]], 2387151820 --[[<CMD_FUNC2>]]
 local G_DUP = 1825141567
--- Pages (more than 3 player slots).
-local K_PAGE_PREV, K_PAGE_NEXT = 3559725168, 2955903379
-local G_PAGE, I_R1, K_R1 = 884337385 --[[Change page]], 1596629152 --[[<CMD_FUNCR1>]], 942075773 --[[CMD_FUNCR1]]
+-- Groups (L1 / R1).
+local K_GROUP_PREVIOUS, K_GROUP_NEXT = 3559725168, 2955903379
+local G_GROUP, I_R1, K_R1 = 2511301214 --[[vrfw_slot_guide_group]], 1596629152 --[[<CMD_FUNCR1>]], 942075773 --[[CMD_FUNCR1]]
 local MENU_CTRL, CHECK_INPUT = 1332654303, @crc:CMND_CHECK_INPUT_CMD@   -- (MENU_CTRL, cmd)
 local SE_OK, SE_DECIDE, SE_BACK = 3848881948, 4235359837, 202039849
 
@@ -283,45 +292,70 @@ local HIDDEN_PRIMS = {P.H, P.M, P.S, P.H2, P.M2, P.S2, P.MAX2, P.AVG, P.AVG2, P.
 local info = {}
 local names = {unnamed = {}}
 local active = 1
-local focus = 0
+local focus = 0           -- the band instance of the centre card
+local start_item = 0
 local vrfw_co = nil
 local has_ext = false
 
 --@lib vrfw_menu_kit.lua#Call
 
--- Returns whether slot n is a player slot, not the reserved card's slot.
-local function IsPlayer(n)
-  for _, p in ipairs(PLAYER) do
-    if p == n then
-      return true
-    end
-  end
-  return false
+--@lib vrfw_menu_kit.lua#Int
+
+-- The provider of mod `owner` (its Lua patch of this screen); an empty table when it registered none.
+local function Provider(owner)
+  local p = VRFW.save_slots_reserved[owner]
+  return type(p) == "table" and p or {}
 end
 
-local function FindReserved()
-  local locked = nil
-  for n = 2, RES_LAST do
-    local r, owner, enterable = false, nil, false
-    if not IsPlayer(n) then
-      r, owner, enterable = Call(SLOT_RESERVED, n)
+-- The chip text of the group of mod `owner`: its declared text key ([[VRFW.SaveSlot]] group_title), else the mod id.
+local function GroupTitle(owner, text_key)
+  if type(text_key) == "string" and text_key ~= "" then
+    local ok, s = pcall(funcLuaCommand, C.TEXT_GET, CRC32(text_key))
+    if ok and type(s) == "string" and s ~= "" then
+      return s
     end
-    if r == true and type(owner) == "string" and owner ~= "" then
-      local p = VRFW.save_slots_reserved[owner]
-      p = type(p) == "table" and p or {}
-      if enterable == true then
-        return {slot = n, owner = owner, p = p}
-      elseif locked == nil and p.locked == true then
-        locked = {slot = n, owner = owner, p = p, locked = true}
+  end
+  return owner
+end
+
+-- Builds the cards and their groups: the player slots first, then one group per mod that owns slots.
+-- A mod's slot has a card while its mode can be entered, or while its provider shows it locked.
+local function BuildItems()
+  ITEMS, GROUPS = {}, {}
+  for _, n in ipairs(PLAYER) do
+    ITEMS[#ITEMS + 1] = {slot = n, group = 1}
+  end
+  GROUPS[1] = {title = TXT.GROUP_PLAYER, first = 0, size = #ITEMS}
+  local list = {Call(SLOT_RESERVED_LIST)}
+  local owners, slots_of = {}, {}
+  for k = 2, 1 + Int(list[1]) do
+    local n = Int(list[k])
+    local reserved, owner, enterable, _, text_key = Call(SLOT_RESERVED, n)
+    if reserved == true and type(owner) == "string" and owner ~= "" then
+      local p = Provider(owner)
+      if enterable == true or p.locked == true then
+        if slots_of[owner] == nil then
+          slots_of[owner] = {title = GroupTitle(owner, text_key)}
+          owners[#owners + 1] = owner
+        end
+        table.insert(slots_of[owner], {slot = n, reserved = {owner = owner, p = p, locked = enterable ~= true}})
       end
     end
   end
-  return locked
+  for _, owner in ipairs(owners) do
+    local g = #GROUPS + 1
+    GROUPS[g] = {title = slots_of[owner].title, first = #ITEMS, size = #slots_of[owner]}
+    for _, it in ipairs(slots_of[owner]) do
+      it.group = g
+      ITEMS[#ITEMS + 1] = it
+    end
+  end
 end
 
-local function ResText(v)
+-- A provider text: a string, or a function of (api, slot).
+local function ResText(v, it)
   if type(v) == "function" then
-    local ok, s = pcall(v, VRFW.save_slots.API)
+    local ok, s = pcall(v, VRFW.save_slots.API, it.slot)
     v = ok and s or nil
   end
   if v == nil then
@@ -331,15 +365,13 @@ local function ResText(v)
 end
 
 -- texture and sprite crc of the provider's art `key` (nil = the provider names none)
-local function ResArt(key)
-  local a = res ~= nil and res.p.art or nil
+local function ResArt(it, key)
+  local a = it.reserved ~= nil and it.reserved.p.art or nil
   if type(a) ~= "table" or type(a.tex) ~= "string" or type(a[key]) ~= "string" then
     return nil, nil
   end
   return CRC32(a.tex), CRC32(a[key])
 end
-
---@lib vrfw_menu_kit.lua#Int
 
 local function Chapter(s)
   local c = Int(s.chapter)
@@ -365,14 +397,18 @@ local function EmblemTex(em)
   return "#/menu/200_icon/01_icon_emblem/" .. em .. ".g4tx", em
 end
 
-local function SlotAt(i)
-  if i == RES_CARD then
-    return res ~= nil and res.slot or nil
-  end
-  if i < 0 or i >= PER_PAGE then
+-- The card instance i shows; nil when it shows none.
+local function ItemAt(i)
+  if not opened or type(i) ~= "number" then
     return nil
   end
-  return PLAYER[page * PER_PAGE + i + 1]
+  local k = carousel:item_of(i)
+  return k ~= nil and ITEMS[k + 1] or nil
+end
+
+local function SlotAt(i)
+  local it = ItemAt(i)
+  return it ~= nil and it.slot or nil
 end
 
 -- one string per line (the loader prints at most 8 arguments)
@@ -525,11 +561,11 @@ local ROW_ICONS = {
   slot = {false, false, ART.ri_vic, ART.ri_time, ART.ri_saved},
 }
 local ROW_PLATFORM = {4, 5, 1, 2, 3}
-local function RowIcons(idx, kind)
+local function RowIcons(idx, kind, it)
   local set, tex = ROW_ICONS[kind], ART.tex
   if kind == "reserved" then
     set, tex = nil, nil
-    local a = res ~= nil and res.p.art or nil
+    local a = it.reserved.p.art
     if type(a) == "table" and type(a.tex) == "string" and type(a.rows) == "table" then
       tex, set = CRC32(a.tex), {}
       for r = 1, 5 do
@@ -583,25 +619,24 @@ local function ClearCard(idx)
   RowIcons(idx, "none")
 end
 
-local function FillReservedWindow(idx)
-  local s = info[res.slot] or {exists = false}
-  local p = res.p
+local function FillReservedWindow(idx, it)
+  local s = info[it.slot] or {exists = false}
+  local p = it.reserved.p
   local d = {}
   if type(p.fill) == "function" then
-    local ok, v = pcall(p.fill, VRFW.save_slots.API)
+    local ok, v = pcall(p.fill, VRFW.save_slots.API, it.slot)
     if ok and type(v) == "table" then
       d = v
     else
-      Log("reserved card", res.owner, "fill error", tostring(v))
+      Log("reserved card", it.reserved.owner, "fill error", tostring(v))
     end
   end
-  ClearCard(idx)
-  local stex, strip = ResArt("strip")
+  local stex, strip = ResArt(it, "strip")
   if stex ~= nil and TexReady(stex) then
     Sprite(idx, stex, strip, N.STORY_IMG_NODE)
     Mesh(idx, N.STORY_IMG, true)
   end
-  Text(idx, N.CAT[6], ResText(p.title) or res.owner)
+  Text(idx, N.CAT[6], ResText(p.title, it) or it.reserved.owner)
   Text(idx, N.SUB[1], tostring(d.line or ""))
   local rows = type(d.rows) == "table" and d.rows or {}
   for r = 1, 3 do
@@ -623,21 +658,20 @@ local function FillReservedWindow(idx)
   if d.footer ~= nil then
     Text(idx, N.SUB[4], tostring(d.footer))
   end
-  RowIcons(idx, "reserved")
+  RowIcons(idx, "reserved", it)
 end
 
 local function FillWindow(idx)
-  if idx == RES_WIN then
-    if res ~= nil then
-      FillReservedWindow(idx)
-    end
+  local it = ItemAt(idx)
+  ClearCard(idx)
+  if it == nil then
     return
   end
-  local n = SlotAt(idx)
-  ClearCard(idx)
-  if n == nil then
-    return            -- a free card of the last page
+  if it.reserved ~= nil then
+    FillReservedWindow(idx, it)
+    return
   end
+  local n = it.slot
   local s = info[n] or {exists = false}
   if not s.exists then
     -- the dashed circle + plus is in the body (vrfw_slot_card_empty_*, SetBase)
@@ -686,93 +720,90 @@ local function FillWindow(idx)
   RowIcons(idx, "slot")
 end
 
+-- Draws the body of the card in instance i (the carousel owns its alpha).
 local function SetBase(i)
-  local on = i == focus
-  local n = SlotAt(i)
-  local s = info[n or -1] or {exists = false}
-  -- Body variants (v4.1).
-  local sp
-  if i == RES_WIN and res ~= nil and res.locked then
-    -- Handles a locked reserved card.
-    TexReady(ART.tex)
-    Sprite(i, ART.tex, on and ART.locked_on or ART.locked_off, N.BASE_NODE)
-    funcLuaMenuCommand(ROW_ALPHA, L_WIN, i, 0, 0.7)
+  local it = ItemAt(i)
+  if it == nil then
     return
-  elseif i == RES_WIN then
-    local t, b = ResArt(on and "body_on" or "body_off")
+  end
+  local on = i == focus
+  local s = info[it.slot] or {exists = false}
+  local sp
+  if it.reserved ~= nil and it.reserved.locked then
+    sp = on and ART.locked_on or ART.locked_off
+  elseif it.reserved ~= nil then
+    local t, b = ResArt(it, on and "body_on" or "body_off")
     if t ~= nil then
       TexReady(t)
       Sprite(i, t, b, N.BASE_NODE)
-      funcLuaMenuCommand(ROW_ALPHA, L_WIN, i, 0, 1)
       return
     end
     sp = on and ART.card_on or ART.card_off
-  elseif n == nil then
-    TexReady(ART.tex)
-    Sprite(i, ART.tex, ART.empty_off, N.BASE_NODE)
-    funcLuaMenuCommand(ROW_ALPHA, L_WIN, i, 0, 0.25)   -- a free card of the last page: faint, no slot
-    return
   elseif not s.exists then
     sp = on and ART.empty_on or ART.empty_off
-  elseif n == LOCKED_SLOT then
+  elseif it.slot == LOCKED_SLOT then
     sp = on and ART.locked_on or ART.locked_off
   else
     sp = on and ART.card_on or ART.card_off
   end
   TexReady(ART.tex)
   Sprite(i, ART.tex, sp, N.BASE_NODE)
-  -- Dims locked slot 1 and empty slots.
-  local dim = i < PER_PAGE and (n == LOCKED_SLOT or not s.exists)
-  funcLuaMenuCommand(ROW_ALPHA, L_WIN, i, 0, dim and 0.7 or 1)
 end
 
-local function HighlightWindows()
-  for i = 0, WINDOWS - 1 do
-    SetBase(i)
+local function RowText(it)
+  if it.reserved ~= nil then
+    return ResText(it.reserved.p.row, it) or it.reserved.owner
   end
+  return TabLabel(it.slot)
 end
 
-local function RowText(i)
-  if i == RES_CARD then
-    return res ~= nil and (ResText(res.p.row) or res.owner) or ""
-  end
-  local n = SlotAt(i)
-  return n ~= nil and TabLabel(n) or ""
+-- band nodes and meshes (save01_02): the two texts, the plate of the unfocused state, the icon dummies, the "current" mark
+local BAND = {
+  text_on = 931545948, text_off = 3705682548,               -- _text_list01_on / _text_list01_off
+  plate_on = 496140502, plate_off = 3517400201,             -- list_base_s01_on / list_base_s01_off (node and sprite names)
+  icon_on = 2880627768, icon_ok = 3688370359, icon_off = 2527308690,   -- list_icon_dmy_s01_on / _ok / _off (nodes)
+  icon_meshes = {376662541, 1712955010, 3232607807},        -- _list_icon_dmy_s01_on / _ok / _off (meshes)
+}
+
+-- retail "Guardar" row icon (save_icon_list_s01) on the icon dummies of band instance i
+local function RetailBandIcons(i)
+  funcLuaMenuCommand(C.SPRITE, L_ROW, RETAIL_ICONS.row_tex, RETAIL_ICONS.row_on, BAND.icon_on, 0, i)
+  funcLuaMenuCommand(C.SPRITE, L_ROW, RETAIL_ICONS.row_tex, RETAIL_ICONS.row_on, BAND.icon_ok, 0, i)
+  funcLuaMenuCommand(C.SPRITE, L_ROW, RETAIL_ICONS.row_tex, RETAIL_ICONS.row_off, BAND.icon_off, 0, i)
 end
 
+-- Draws the band of the card in instance i.
 local function SetupRow(i)
-  local t = RowText(i)
-  local n = SlotAt(i)
-  local s = info[n or -1] or {exists = false}
-  -- Marks the current slot.
-  funcLuaMenuCommand(C.MESH_VISIBLE, L_ROW, ROW_OK, i < PER_PAGE and n ~= nil and n == active and n ~= LOCKED_SLOT, i)
-  local dim = (i < PER_PAGE and (n == LOCKED_SLOT or not s.exists)) or (i == RES_CARD and res ~= nil and res.locked == true)
-  funcLuaMenuCommand(ROW_ALPHA, L_ROW, i, 0, (n == nil and i < PER_PAGE) and 0.25 or (dim and 0.7 or 1))
-  funcLuaMenuCommand(C.TEXT, L_ROW, 931545948 --[[`_text_list01_on`]], t, i)
-  funcLuaMenuCommand(C.TEXT, L_ROW, 3705682548 --[[_text_list01_off]], t, i)
-  if i == RES_CARD then
-    -- Draws the reserved band.
-    local bt, bon = ResArt("band_on")
-    local _, boff = ResArt("band_off")
-    if bt ~= nil and boff ~= nil then
-      TexReady(bt)
-      funcLuaMenuCommand(C.SPRITE, L_ROW, bt, bon, 496140502 --[[`list_base_s01_on`]], 0, i)
-      funcLuaMenuCommand(C.SPRITE, L_ROW, bt, boff, 3517400201 --[[list_base_s01_off]], 0, i)
-    end
-    local it, ion = ResArt("icon")
-    local _, ioff = ResArt("icon_off")
-    if it ~= nil then
-      TexReady(it)
-      funcLuaMenuCommand(C.SPRITE, L_ROW, it, ion, 2880627768 --[[`list_icon_dmy_s01_on`]], 0, i)
-      funcLuaMenuCommand(C.SPRITE, L_ROW, it, ion, 3688370359 --[[list_icon_dmy_s01_ok]], 0, i)
-      funcLuaMenuCommand(C.SPRITE, L_ROW, it, ioff or ion, 2527308690 --[[list_icon_dmy_s01_off]], 0, i)
-      return
-    end
+  local it = ItemAt(i)
+  if it == nil then
+    return
   end
-  -- retail "Guardar" row icon (save_icon_list_s01) on the icon dummies
-  funcLuaMenuCommand(C.SPRITE, L_ROW, RETAIL_ICONS.row_tex, RETAIL_ICONS.row_on, 2880627768 --[[`list_icon_dmy_s01_on`]], 0, i)
-  funcLuaMenuCommand(C.SPRITE, L_ROW, RETAIL_ICONS.row_tex, RETAIL_ICONS.row_on, 3688370359 --[[list_icon_dmy_s01_ok]], 0, i)
-  funcLuaMenuCommand(C.SPRITE, L_ROW, RETAIL_ICONS.row_tex, RETAIL_ICONS.row_off, 2527308690 --[[list_icon_dmy_s01_off]], 0, i)
+  local t = RowText(it)
+  -- Marks the current slot.
+  funcLuaMenuCommand(C.MESH_VISIBLE, L_ROW, ROW_OK, it.reserved == nil and it.slot == active and it.slot ~= LOCKED_SLOT, i)
+  funcLuaMenuCommand(C.TEXT, L_ROW, BAND.text_on, t, i)
+  funcLuaMenuCommand(C.TEXT, L_ROW, BAND.text_off, t, i)
+  local bt, bon = ResArt(it, "band_on")
+  local _, boff = ResArt(it, "band_off")
+  if bt ~= nil and boff ~= nil then
+    TexReady(bt)
+    funcLuaMenuCommand(C.SPRITE, L_ROW, bt, bon, BAND.plate_on, 0, i)
+    funcLuaMenuCommand(C.SPRITE, L_ROW, bt, boff, BAND.plate_off, 0, i)
+  else
+    -- an instance shows another card after each move: the retail plates come back
+    funcLuaMenuCommand(C.SPRITE, L_ROW, RETAIL_ICONS.row_tex, BAND.plate_on, BAND.plate_on, 0, i)
+    funcLuaMenuCommand(C.SPRITE, L_ROW, RETAIL_ICONS.row_tex, BAND.plate_off, BAND.plate_off, 0, i)
+  end
+  local itex, ion = ResArt(it, "icon")
+  local _, ioff = ResArt(it, "icon_off")
+  if itex ~= nil then
+    TexReady(itex)
+    funcLuaMenuCommand(C.SPRITE, L_ROW, itex, ion, BAND.icon_on, 0, i)
+    funcLuaMenuCommand(C.SPRITE, L_ROW, itex, ion, BAND.icon_ok, 0, i)
+    funcLuaMenuCommand(C.SPRITE, L_ROW, itex, ioff or ion, BAND.icon_off, 0, i)
+    return
+  end
+  RetailBandIcons(i)
 end
 
 -- Returns whether slot n can be renamed (Accept always).
@@ -785,45 +816,33 @@ local function CanDelete(n)
 end
 
 local function UpdateButtonGuide()
-  local n = SlotAt(focus)
+  local it = ItemAt(focus)
   local texts, icons, cmds, z = {G_ACCEPT}, {I_ENTER}, {K_ENTER}, {0}
-  if pages > 1 then
-    -- Adds the L1 / R1 guide.
-    table.insert(texts, G_PAGE)
-    table.insert(icons, I_R1)
-    table.insert(cmds, K_R1)
+  local function Add(text, icon, cmd)
+    table.insert(texts, text)
+    table.insert(icons, icon)
+    table.insert(cmds, cmd)
     table.insert(z, 0)
   end
-  if focus == RES_CARD then
-    local rs = (res ~= nil and not res.locked) and res.p.reset or nil
+  if #GROUPS > 1 then
+    Add(G_GROUP, I_R1, K_R1)
+  end
+  if it ~= nil and it.reserved ~= nil then
+    local rs = not it.reserved.locked and it.reserved.p.reset or nil
     if type(rs) == "table" and type(rs.run) == "function" and type(rs.button) == "number" then
       -- the provider's reset key, next to Accept where the other cards show Delete
-      table.insert(texts, rs.button)
-      table.insert(icons, I_FUNC2)
-      table.insert(cmds, K_FUNC2)
-      table.insert(z, 0)
+      Add(rs.button, I_FUNC2, K_FUNC2)
     end
-    funcLuaMenuCommand(C.GUIDE_SET, MENU, L_BTN_GUIDE, texts, icons, z, z, z)
-    funcLuaMenuCommand(C.GUIDE_CMD, MENU, L_BTN_GUIDE, cmds)
-    return
-  end
-  if has_ext then
-    table.insert(texts, G_DUP)
-    table.insert(icons, I_FUNC4)
-    table.insert(cmds, K_FUNC4)
-    table.insert(z, 0)
-  end
-  if CanRename(n) then
-    table.insert(texts, G_NAME)
-    table.insert(icons, I_FUNC1)
-    table.insert(cmds, K_FUNC1)
-    table.insert(z, 0)
-  end
-  if CanDelete(n) then
-    table.insert(texts, G_DELETE)
-    table.insert(icons, I_FUNC3)
-    table.insert(cmds, K_FUNC3)
-    table.insert(z, 0)
+  elseif it ~= nil then
+    if has_ext then
+      Add(G_DUP, I_FUNC4, K_FUNC4)
+    end
+    if CanRename(it.slot) then
+      Add(G_NAME, I_FUNC1, K_FUNC1)
+    end
+    if CanDelete(it.slot) then
+      Add(G_DELETE, I_FUNC3, K_FUNC3)
+    end
   end
   funcLuaMenuCommand(C.GUIDE_SET, MENU, L_BTN_GUIDE, texts, icons, z, z, z)
   funcLuaMenuCommand(C.GUIDE_CMD, MENU, L_BTN_GUIDE, cmds)
@@ -919,14 +938,6 @@ local function LoadCardTextures(s)
   end
 end
 
--- Returns the header text.
-local function HeaderText()
-  if pages > 1 then
-    return string.format(TXT.HEADER_PAGE, page + 1, pages)
-  end
-  return TXT.HEADER
-end
-
 -- read slot n (info, name, file flag)
 local function ReadSlot(n)
   info[n] = ReadInfo(n)
@@ -937,38 +948,38 @@ local function ReadSlot(n)
   end
 end
 
--- the textures of the cards on the current page
-local function LoadPageTextures()
-  for i = 0, PER_PAGE - 1 do
-    local n = SlotAt(i)
-    if n ~= nil and info[n] ~= nil then
-      LoadCardTextures(info[n])
-    end
+-- Draws the card in instance i: its textures, band, window and body.
+local function FillCard(i)
+  local it = ItemAt(i)
+  if it ~= nil and info[it.slot] ~= nil then
+    LoadCardTextures(info[it.slot])
+  end
+  SetupRow(i)
+  FillWindow(i)
+  SetBase(i)
+end
+
+local function FillCards()
+  for i = 0, RING - 1 do
+    FillCard(i)
   end
 end
 
--- re-read every slot (after duplicate / delete / rename) and redraw rows, windows and the guide
+-- re-read every slot (after duplicate / delete / rename) and redraw the cards and the guide
 local function Refresh()
   local a = Call(loader_commands.GET_SLOT)
   if type(a) == "number" and a >= 1 and a <= MAX_SLOT then
     active = math.floor(a)
   end
-  for _, n in ipairs(PLAYER) do
-    ReadSlot(n)
+  for _, it in ipairs(ITEMS) do
+    if it.reserved == nil then
+      ReadSlot(it.slot)
+    else
+      info[it.slot] = ReadInfo(it.slot)
+    end
   end
-  LoadPageTextures()
-  if res ~= nil then
-    info[res.slot] = ReadInfo(res.slot)
-  end
-  for i = 0, CARDS - 1 do
-    SetupRow(i)
-  end
-  for i = 0, WINDOWS - 1 do
-    FillWindow(i)
-  end
-  HighlightWindows()
+  FillCards()
   UpdateButtonGuide()
-  funcLuaMenuCommand(C.TEXT, L_HEADER, 1220590795 --[[_text_sub_title02]], HeaderText())
 end
 
 local function EmptyTargets()
@@ -1175,28 +1186,28 @@ local function Rename(i)
   Refresh()
 end
 
--- Resets the reserved card: its question, its run (the owner archives its slot) and the answer texts ({1} is the code it returns).
-local function ReservedReset()
-  local rs = res ~= nil and res.p.reset or nil
+-- Resets a mod's slot: its question, its run (the owner archives its slot) and the answer texts ({1} is the code it returns).
+local function ReservedReset(it)
+  local rs = it.reserved.p.reset
   if type(rs) ~= "table" or type(rs.run) ~= "function" then
     return
   end
   funcLuaCommand(C.SE, SE_OK)
-  if not AskDanger(ResText(rs.ask) or "") then
-    Log("reserved reset: answered No", res.owner)
+  if not AskDanger(ResText(rs.ask, it) or "") then
+    Log("reserved reset: answered No", it.reserved.owner)
     return
   end
-  local okc, ok, code = pcall(rs.run, VRFW.save_slots.API)
-  Log("reserved reset", res.owner, okc and ok == true, tostring(okc and code or ok))
+  local okc, ok, code = pcall(rs.run, VRFW.save_slots.API, it.slot)
+  Log("reserved reset", it.reserved.owner, okc and ok == true, tostring(okc and code or ok))
   Refresh()
   if okc and ok == true then
     funcLuaCommand(C.SE, SE_DECIDE)
-    local done = ResText(rs.done)
+    local done = ResText(rs.done, it)
     if done ~= nil then
       Message(done)
     end
   else
-    local fail = ResText(rs.fail)
+    local fail = ResText(rs.fail, it)
     if fail ~= nil then
       Message((fail:gsub("{1}", tostring(code))))
     end
@@ -1299,30 +1310,29 @@ local function DuplicateFrom(src)
 end
 
 local function Decide(i)
-  if i == RES_CARD then
-    if res == nil then
-      return
-    end
-    Log("decide reserved card", res.slot, res.owner, "active", active, "locked", res.locked == true)
-    if res.locked then
+  local it = ItemAt(i)
+  if it == nil then
+    return
+  end
+  local r = it.reserved
+  if r ~= nil then
+    Log("decide reserved card", it.slot, r.owner, "active", active, "locked", r.locked == true)
+    if r.locked then
       funcLuaCommand(C.SE, SE_BACK)
-      local msg = ResText(res.p.locked_msg)
+      local msg = ResText(r.p.locked_msg, it)
       if msg ~= nil and msg ~= "" then
         Message(msg)
       end
       return
     end
     funcLuaCommand(C.SE, SE_OK)
-    if active == res.slot or res.p.ask == false or Ask(ResText(res.p.ask) or string.format(TXT.ASK_LOAD, res.slot)) then
+    if active == it.slot or r.p.ask == false or Ask(ResText(r.p.ask, it) or string.format(TXT.ASK_LOAD, it.slot)) then
       funcLuaCommand(C.SE, SE_DECIDE)
-      Close(res.slot)
+      Close(it.slot)
     end
     return
   end
-  local n = SlotAt(i)
-  if n == nil then
-    return            -- a free card of the last page
-  end
+  local n = it.slot
   local s = info[n] or {exists = false}
   Log("decide slot", n, "exists", s.exists and "yes" or "no", "active", active)
   funcLuaCommand(C.SE, SE_OK)
@@ -1341,13 +1351,11 @@ end
 
 -- Handles X (duplicate).
 local function Duplicate(i)
-  if i == RES_CARD then
-    return            -- a reserved slot is never duplicated
+  local it = ItemAt(i)
+  if it == nil or it.reserved ~= nil then
+    return            -- a mod's slot is never duplicated
   end
-  local n = SlotAt(i)
-  if n == nil then
-    return
-  end
+  local n = it.slot
   local s = info[n] or {exists = false}
   Log("duplicate key slot", n, "exists", s.exists and "yes" or "no")
   if not has_ext then
@@ -1366,30 +1374,129 @@ local function Duplicate(i)
   end
 end
 
+local LAYER_SET, LAYER_SCALE = @crc:CMND_SET_LAYER_LOCAL_POS@, @crc:CMND_SET_LAYER_LOCAL_SCALE@   -- (layer, x, y, z, instance)
+local ANIME_FOCUS, ANIME_BUTTON = 2734777837, 973515837   -- Focus, button
+local marked = {item = nil, group = nil, count = 0}
+
+-- Makes instance i (the carousel's centre card) the list's focused row.
 local function FocusCard(i)
-  if i == focus then
-    return
+  local before = focus
+  if i ~= before then
+    funcLuaMenuCommand(C.ANIME, L_ROW, before, ANIME_FOCUS, 2, ANIME_BUTTON)
   end
   funcLuaMenuCommand(C.FOCUS_SET, L_ROW, i)
   funcLuaMenuCommand(C.FOCUS_MARK, L_ROW, i, true)
-  funcLuaMenuCommand(C.ANIME, L_ROW, focus, 2734777837 --[[Focus]], 2, 973515837 --[[button]])
-  funcLuaMenuCommand(C.ANIME, L_ROW, i, 2734777837 --[[Focus]], 0, 973515837 --[[button]])
-  funcLuaMenuCommand(C.CURSOR_LOC, L_ROW, 3313461902 --[[cursor]], i, CARDS)
+  funcLuaMenuCommand(C.ANIME, L_ROW, i, ANIME_FOCUS, 0, ANIME_BUTTON)   -- not Active: it slides the row
+  funcLuaMenuCommand(C.CURSOR_LOC, L_ROW, 3313461902 --[[cursor]], i, RING)
   focus = i
+  SetBase(before)
+  SetBase(i)
 end
 
--- Turns the page with L1 / R1.
-local function Page(d)
-  if pages <= 1 then
+-- The group chips: one small band per group, shown while there is more than one group.
+local function SetupChips()
+  for k = 1, CHIPS.limit do
+    local i = CHIPS.first + k - 1
+    local group = #GROUPS > 1 and GROUPS[k] or nil
+    funcLuaMenuCommand(C.LAYER_VISIBLE, L_ROW, i, group ~= nil)
+    if group ~= nil then
+      funcLuaMenuCommand(LAYER_SET, L_ROW, CHIPS.x + (k - 1) * CHIPS.pitch, CHIPS.y, 0, i)
+      funcLuaMenuCommand(LAYER_SCALE, L_ROW, CHIPS.scale, CHIPS.scale, 1, i)
+      funcLuaMenuCommand(C.TEXT, L_ROW, BAND.text_on, group.title, i)
+      funcLuaMenuCommand(C.TEXT, L_ROW, BAND.text_off, group.title, i)
+      funcLuaMenuCommand(C.MESH_VISIBLE, L_ROW, ROW_OK, false, i)
+      RetailBandIcons(i)
+    end
+  end
+  if #GROUPS > CHIPS.limit then
+    Log("WARN", #GROUPS, "groups, chips for the first", CHIPS.limit)
+  end
+end
+
+-- The position marks: one small plate per card, a wider gap between groups.
+local function SetupMarks()
+  local sizes = {}
+  for g, group in ipairs(GROUPS) do
+    sizes[g] = group.size
+  end
+  marked.count = VRFW.layer_carousel.lay_marks({layer = L_ROW, first = MARKS.first, limit = MARKS.limit, x = MARKS.x, y = MARKS.y,
+    pitch = MARKS.pitch, group_gap = MARKS.group_gap, scale = MARKS.scale}, sizes)
+  for k = 0, marked.count - 1 do
+    local i = MARKS.first + k
+    funcLuaMenuCommand(C.TEXT, L_ROW, BAND.text_on, "", i)
+    funcLuaMenuCommand(C.TEXT, L_ROW, BAND.text_off, "", i)
+    funcLuaMenuCommand(C.MESH_VISIBLE, L_ROW, ROW_OK, false, i)
+    for _, mesh in ipairs(BAND.icon_meshes) do
+      funcLuaMenuCommand(C.MESH_VISIBLE, L_ROW, mesh, false, i)
+    end
+  end
+end
+
+local function MarkLook(item, on)
+  if item < marked.count then
+    funcLuaMenuCommand(C.SPRITE, L_ROW, RETAIL_ICONS.row_tex, on and BAND.plate_on or BAND.plate_off, BAND.plate_off, 0, MARKS.first + item)
+  end
+end
+
+local function ChipLook(group, on)
+  if group <= CHIPS.limit then
+    funcLuaMenuCommand(C.ANIME, L_ROW, CHIPS.first + group - 1, ANIME_FOCUS, on and 0 or 2, ANIME_BUTTON)
+  end
+end
+
+-- The centre card changed: the focused row, the guide, the lit mark and the lit chip follow it.
+local function CentreChanged()
+  FocusCard(carousel:centre_instance())
+  UpdateButtonGuide()
+  local item = carousel:centre_item()
+  local group = ITEMS[item + 1].group
+  GROUPS[group].at = item
+  if item ~= marked.item then
+    if marked.item ~= nil then
+      MarkLook(marked.item, false)
+    end
+    MarkLook(item, true)
+    marked.item = item
+  end
+  if group ~= marked.group and #GROUPS > 1 then
+    if marked.group ~= nil then
+      ChipLook(marked.group, false)
+    end
+    ChipLook(group, true)
+    marked.group = group
+  end
+end
+
+-- Moves the carousel one card: 1 = the next slot, -1 = the previous one.
+local function Move(direction)
+  local moved, fill = carousel:move(direction)
+  if not moved then
     return
   end
-  page = (page + d) % pages
   funcLuaCommand(C.SE, SE_OK)
-  Log("page", page + 1, "of", pages)
-  if focus ~= RES_CARD and SlotAt(focus) == nil then
-    FocusCard(0)
+  if fill ~= nil then
+    FillCard(fill.instance)
   end
-  Refresh()
+  CentreChanged()
+end
+
+-- Brings the card of instance i to the centre (a click on a neighbour card).
+local function MoveToInstance(i)
+  local offset = carousel:offset_of(i)
+  for _ = 1, math.abs(offset) do
+    Move(offset)
+  end
+end
+
+-- Switches to the next (1) or previous (-1) group: its card last seen, else its first one.
+local function MoveGroup(direction)
+  local group = ITEMS[carousel:centre_item() + 1].group
+  local to = GROUPS[(group - 1 + direction) % #GROUPS + 1]
+  funcLuaCommand(C.SE, SE_OK)
+  Log("group", to.title, "card", (to.at or to.first) + 1, "of", #ITEMS)
+  carousel:jump(to.at or to.first)
+  FillCards()
+  CentreChanged()
 end
 
 --@lib vrfw_menu_kit.lua#StartCo
@@ -1429,190 +1536,59 @@ function OnInit()
     end
     LOCKED_SLOT = type(lay[2]) == "number" and math.floor(lay[2]) or LOCKED_SLOT
   end
-  pages = math.max(1, math.ceil(#PLAYER / PER_PAGE))
-  RES_LAST = math.max(RES_LAST, PLAYER[#PLAYER] + 4)
-  Log("layout: player slots", table.concat(PLAYER, ","), "locked", LOCKED_SLOT, "pages", pages)
-  res = FindReserved()
-  if res == nil then
-    CARDS, WINDOWS = PER_PAGE, PER_PAGE
-    Log("reserved card off (no reserved slot with an enterable owner): 3 cards")
-  else
-    Log("reserved card: slot", res.slot, "owner", res.owner, "provider", next(res.p) ~= nil and "yes" or "no",
-        res.locked and "LOCKED (mode off)" or "enterable")
-    if type(res.p.art) == "table" and type(res.p.art.tex) == "string" then
-      funcLuaMenuCommand(C.LOAD_TEX, res.p.art.tex)
-    end
-  end
-  -- Reads the focus.
-  local pos = nil
-  for k, n in ipairs(PLAYER) do
-    if n == active and n ~= LOCKED_SLOT then
-      pos = k
-    end
-  end
-  if res ~= nil and active == res.slot and not res.locked then
-    page, focus = 0, RES_CARD
-  else
-    if pos == nil then
-      pos = (PLAYER[1] == LOCKED_SLOT and #PLAYER > 1) and 2 or 1
-    end
-    page, focus = math.floor((pos - 1) / PER_PAGE), (pos - 1) % PER_PAGE
-  end
-  funcLuaMenuCommand(C.LOAD_TEX, ART_PATH)
   has_ext = type(Call(loader_commands.NAME_GET, PLAYER[1])) == "string"
-  for _, n in ipairs(PLAYER) do
-    ReadSlot(n)
+  BuildItems()
+  Log("layout: player slots", table.concat(PLAYER, ","), "locked", LOCKED_SLOT, "cards", #ITEMS, "groups", #GROUPS)
+  carousel = VRFW.layer_carousel.new({
+    parts = {{layer = L_ROW, pivot = CAROUSEL.band_pivot}, {layer = L_WIN, pivot = CAROUSEL.window_pivot}},
+    places = CAROUSEL.places, frames = CAROUSEL.frames, wrap = true,
+  })
+  if carousel:instances() ~= RING then
+    Log("ERROR the carousel needs", carousel:instances(), "instances, the screen has", RING)
   end
-  LoadPageTextures()
-  if res ~= nil then
-    info[res.slot] = ReadInfo(res.slot)
+  -- The start card: the active slot, else the first player slot that can be played.
+  start_item = (PLAYER[1] == LOCKED_SLOT and #PLAYER > 1) and 1 or 0
+  for k, it in ipairs(ITEMS) do
+    if it.slot == active and it.slot ~= LOCKED_SLOT and (it.reserved == nil or not it.reserved.locked) then
+      start_item = k - 1
+    end
+    if it.reserved ~= nil then
+      Log("mod card: slot", it.slot, "owner", it.reserved.owner, "provider", next(it.reserved.p) ~= nil and "yes" or "no",
+          it.reserved.locked and "LOCKED (mode off)" or "enterable")
+      local art = it.reserved.p.art
+      if type(art) == "table" and type(art.tex) == "string" and not loaded_tex[art.tex] then
+        loaded_tex[art.tex] = true
+        funcLuaMenuCommand(C.LOAD_TEX, art.tex)
+      end
+      info[it.slot] = ReadInfo(it.slot)
+    else
+      ReadSlot(it.slot)
+    end
   end
+  GROUPS[ITEMS[start_item + 1].group].at = start_item
+  funcLuaMenuCommand(C.LOAD_TEX, ART_PATH)
   VRFW.param.clear(KEY_RESULT)
 end
 
-local SCREEN_W, CARD_W = 1920, 424
-local GPOS = @crc:CMND_GET_MESH_GLOBAL_POSITION@         -- (layer, idx, node) -> x, y, z
-local LAYER_GET, LAYER_SET = @crc:CMND_GET_LAYER_LOCAL_POS@, @crc:CMND_SET_LAYER_LOCAL_POS@   -- layer local position (layer, idx) / (layer, x, y, z, idx)
-local N_ROW_EDGE, N_WIN_EDGE = 3025401186, 1215790087
-local layout_done, layout_co, rows_open = false, nil, false
+local rows_open, open_wait = false, 3
 
-local function CardCentre(k, n)
-  local gap = (SCREEN_W - n * CARD_W) / (n + 1)
-  return gap + CARD_W / 2 + k * (CARD_W + gap)
-end
-
--- the centre the layout data gives card k (save_slots.toml, same formula)
-local function LayoutCentre(k)
-  if k < PER_PAGE then
-    return CardCentre(k, PER_PAGE)
-  end
-  return CardCentre(k, k + 1)
-end
-
-local function Meas(layer, idx, node)
-  local ok, x = pcall(funcLuaMenuCommand, GPOS, layer, idx, node)
-  if ok and type(x) == "number" then
-    return x
-  end
-  return nil
-end
-
-local function WaitFrames(f)
-  for _ = 1, f do
-    coroutine.yield()
-  end
-end
-
--- Measures the left edges of the n bands and windows, once they stopped moving (the open animations).
-local function MeasureEdges(n)
-  local prev
-  for _ = 1, 15 do
-    local cur, same = {rows = {}, wins = {}}, prev ~= nil
-    for k = 0, n - 1 do
-      cur.rows[k], cur.wins[k] = Meas(L_ROW, k, N_ROW_EDGE), Meas(L_WIN, k, N_WIN_EDGE)
-      if cur.rows[k] == nil or cur.wins[k] == nil then
-        return nil
-      end
-      if same and (math.abs(cur.rows[k] - prev.rows[k]) > 0.5 or math.abs(cur.wins[k] - prev.wins[k]) > 0.5) then
-        same = false
-      end
-    end
-    if same then
-      return cur
-    end
-    prev = cur
-    WaitFrames(4)
-  end
-  return prev
-end
-
-local function EdgeList(t, n)
-  local s = {}
-  for k = 0, n - 1 do
-    s[#s + 1] = string.format("%.1f", t[k])
-  end
-  return table.concat(s, ",")
-end
-
--- Returns why the measured edges are not the wanted ones (nil means all right).
-local function EdgeError(m, n)
-  for k = 0, n - 1 do
-    if math.abs(m.rows[k] - m.wins[k]) > 4 then
-      return "card " .. k .. " header " .. string.format("%.1f", m.rows[k]) .. " body " .. string.format("%.1f", m.wins[k])
-    end
-    local want = CardCentre(k, n) - CARD_W / 2
-    if math.abs(m.wins[k] - want) > 4 then
-      return "card " .. k .. " at " .. string.format("%.1f", m.wins[k]) .. " want " .. string.format("%.1f", want)
-    end
-  end
-  return nil
-end
-
-local function LayoutCards()
-  local n = math.max(1, math.min(CARDS, WINDOWS))
-  local base, moved = {}, false
-  for k = 0, n - 1 do
-    local dx = CardCentre(k, n) - LayoutCentre(k)
-    if math.abs(dx) > 0.5 then
-      moved = true
-    end
-    local okr, rx, ry, rz = pcall(funcLuaMenuCommand, LAYER_GET, L_ROW, k)
-    local okw, wx, wy, wz = pcall(funcLuaMenuCommand, LAYER_GET, L_WIN, k)
-    base[k] = {
-      dx = dx,
-      row = {okr and type(rx) == "number" and rx or 0, okr and type(ry) == "number" and ry or 0, okr and type(rz) == "number" and rz or 0},
-      win = {okw and type(wx) == "number" and wx or 0, okw and type(wy) == "number" and wy or 0, okw and type(wz) == "number" and wz or 0},
-    }
-  end
-  local function Place(on)
-    for k = 0, n - 1 do
-      local b = base[k]
-      local d = on and b.dx or 0
-      pcall(funcLuaMenuCommand, LAYER_SET, L_ROW, b.row[1] + d, b.row[2], b.row[3], k)
-      pcall(funcLuaMenuCommand, LAYER_SET, L_WIN, b.win[1] + d, b.win[2], b.win[3], k)
-    end
-  end
-  if moved then
-    Place(true)
-    WaitFrames(2)
-  end
-  local m = MeasureEdges(n)
-  if m == nil then
-    Log("card layout", n, "cards", moved and "moved" or "layout", "no measure")
+-- Opens the carousel once the bands and the windows exist and their open animations started (called from Step).
+local function StepOpen()
+  if opened or not (windows_ready and rows_open) then
     return
   end
-  local err = EdgeError(m, n)
-  local how = moved and "applied (moved)" or "applied (layout)"
-  if err ~= nil and moved then
-    Place(false)        -- both groups back together: headers stay over their bodies
-    WaitFrames(2)
-    m = MeasureEdges(n) or m
-    how = "fallback to the layout x"
-  end
-  Log("card layout", n, "cards bodies x", EdgeList(m.wins, n), "headers x", EdgeList(m.rows, n), how, err and ("reason " .. err) or "")
-end
-
--- Called from Step.
-local function StepLayout()
-  if layout_done then
+  if open_wait > 0 then
+    open_wait = open_wait - 1
     return
   end
-  if layout_co == nil then
-    if not (windows_ready and rows_open) then
-      return
-    end
-    layout_co = coroutine.create(function()
-      WaitFrames(3)
-      LayoutCards()
-    end)
-  end
-  local ok, err = coroutine.resume(layout_co)
-  if not ok then
-    Log("card layout error", tostring(err))
-    layout_done = true
-  elseif coroutine.status(layout_co) == "dead" then
-    layout_done = true
-  end
+  carousel:open(#ITEMS, start_item)
+  opened = true
+  focus = carousel:centre_instance()
+  FillCards()
+  SetupChips()
+  SetupMarks()
+  CentreChanged()
+  Log("carousel open: card", start_item + 1, "of", #ITEMS, "marks", marked.count, "chips", #GROUPS > 1 and #GROUPS or 0)
 end
 
 function OnSetupLayer(a1, a2)
@@ -1620,33 +1596,30 @@ function OnSetupLayer(a1, a2)
     SetupSoccerTopCommonHeaderLayerInfo(a1, 4153539961, 253801632, 3969848060, 1144161661, 3293713115, 253801632, 1152304044, 305955024, 3007971317)
     SwapSoccerTopCommonHeaderMenuModeIconTexture(758233070 --[[mode_base07]])
     UpdateHeader(3586861540)
-    funcLuaMenuCommand(C.TEXT, a1, 1220590795 --[[_text_sub_title02]], HeaderText())
+    funcLuaMenuCommand(C.TEXT, a1, 1220590795 --[[_text_sub_title02]], TXT.HEADER)
   elseif a1 == L_ROW then
-    if a2 >= CARDS then
+    if a2 >= RING then
+      -- a chip or a mark: hidden until the carousel opens, never the cursor's row, no click zone
       funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
       funcLuaMenuCommand(C.ATTACH_TRACE, a1, a2, 3313461902 --[[cursor]], false)
-      -- Removes the click zone from a hidden row.
       pcall(funcLuaMenuCommand, 855005857 --[[enable / remove an instance's zone]], a1, a2, false)
       return
     end
-    SetupRow(a2)
+    -- a card's band: blank until the carousel opens and fills it
+    funcLuaMenuCommand(C.TEXT, a1, BAND.text_on, "", a2)
+    funcLuaMenuCommand(C.TEXT, a1, BAND.text_off, "", a2)
   elseif a1 == L_WINBASE then
     funcLuaMenuCommand(C.MESH_VISIBLE, a1, 3186689458 --[[_save_arrow_01]], false)
-    for i = 1, WINDOWS do
+    for i = 1, RING do
       funcLuaMenuCommand(C.ATTACH_TRACE, a1, 0, WIN_LABELS[i], true)
     end
-    for i = 0, WINDOWS - 1 do
+    for i = 0, RING - 1 do
       funcLuaMenuCommand(C.OPEN_LAYER, L_WIN, i)
     end
   elseif a1 == L_WIN then
-    if a2 < WINDOWS then
-      FillWindow(a2)
-      SetBase(a2)
-      if a2 == WINDOWS - 1 then
-        windows_ready = true
-      end
-    else
-      funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)   -- no reserved slot: the reserved card's window
+    ClearCard(a2)   -- blank until the carousel opens and fills it
+    if a2 == RING - 1 then
+      windows_ready = true
     end
   elseif a1 == L_GUIDE_LINE then
     funcLuaMenuCommand(C.TEXT, a1, 378156699 --[[_text_guide01]], TXT.GUIDE, 0)
@@ -1658,11 +1631,7 @@ function OnOpenLayer(a1, a2)
     rows_open = true
     funcLuaMenuCommand(C.OPEN_LAYER, L_CURSOR, 0)
     funcLuaMenuCommand(C.FOCUS_ENABLE, a1, true)
-    funcLuaMenuCommand(C.LIST_NUM, a1, CARDS)
-    funcLuaMenuCommand(C.FOCUS_SET, a1, focus)
-    funcLuaMenuCommand(C.ANIME, a1, focus, 2734777837 --[[Focus]], 0, 973515837 --[[button]])   -- not Active: it slides the row
-    funcLuaMenuCommand(C.CURSOR_LOC, a1, 3313461902 --[[cursor]], focus, CARDS)
-    UpdateButtonGuide()
+    funcLuaMenuCommand(C.LIST_NUM, a1, RING)
     if funcLuaCommand(C.FADE_DONE) then
       funcLuaCommand(C.FADE, 0, 0.3)
     end
@@ -1671,58 +1640,52 @@ function OnOpenLayer(a1, a2)
   end
 end
 
+-- The carousel keeps the focused row on its centre card: the engine's own focus changes (the pointer) move nothing.
 function OnChangeFocus(a1, a2)
-  if a1 ~= L_ROW then
-    return
-  end
-  local ret = funcLuaMenuCommand(C.FOCUS_IDX, a1)
-  if ret == nil or ret < 0 or ret >= CARDS then
-    return
-  end
-  funcLuaMenuCommand(C.FOCUS_MARK, a1, ret, true)
-  if ret ~= focus then
-    funcLuaMenuCommand(C.ANIME, a1, focus, 2734777837 --[[Focus]], 2, 973515837 --[[button]])
-  end
-  funcLuaMenuCommand(C.ANIME, a1, ret, 2734777837 --[[Focus]], 0, 973515837 --[[button]])
-  funcLuaMenuCommand(C.CURSOR_LOC, a1, 3313461902 --[[cursor]], ret, CARDS)
-  focus = ret
-  HighlightWindows()
-  UpdateButtonGuide()
 end
 
 function OnDecideFocus(a1, a2)
   Log("OnDecideFocus", a1, "slot", type(a2) == "number" and tostring(SlotAt(a2)) or tostring(a2), "busy", vrfw_co ~= nil and "yes" or "no")
-  if a1 == L_ROW and vrfw_co == nil and a2 ~= nil and a2 >= 0 and a2 < CARDS then
-    StartCo(Decide, a2)
+  if a1 ~= L_ROW or vrfw_co ~= nil or not opened or type(a2) ~= "number" or a2 < 0 or a2 >= RING then
+    return
   end
+  if a2 ~= focus then
+    MoveToInstance(a2)   -- a neighbour card was clicked: it comes to the centre
+    return
+  end
+  StartCo(Decide, a2)
 end
 
--- CMD_FUNC1 / CMD_FUNC3 on the rows (MENU_CMD_INFO CMD_FUNCTION ids vrfw_slot_rename / vrfw_slot_delete)
+-- The function keys of the rows (MENU_CMD_INFO CMD_FUNCTION ids): previous / next slot, rename, delete, duplicate.
 function OnFunction(a1, a2)
   Log("OnFunction", tostring(a1), tostring(a2), "slot", tostring(SlotAt(focus)), "busy", vrfw_co ~= nil and "yes" or "no")
-  if vrfw_co ~= nil then
+  if vrfw_co ~= nil or not opened then
     return 1
   end
   local id = a1
-  if a1 ~= FN_RENAME and a1 ~= FN_DELETE and a1 ~= FN_DUP then
+  if a1 ~= FN_RENAME and a1 ~= FN_DELETE and a1 ~= FN_DUP and a1 ~= FN_PREVIOUS and a1 ~= FN_NEXT then
     id = a2
   end
-  local i = funcLuaMenuCommand(C.FOCUS_IDX, L_ROW)
-  if type(i) ~= "number" or i < 0 or i >= CARDS then
-    i = focus
+  if id == FN_PREVIOUS then
+    Move(-1)
+    return 1
+  elseif id == FN_NEXT then
+    Move(1)
+    return 1
   end
-  if i == RES_CARD then
-    return 1          -- no name / delete on the reserved card
+  local it = ItemAt(focus)
+  if it == nil or it.reserved ~= nil then
+    return 1          -- no name / delete / duplicate on a mod's slot
   end
   if id == FN_DUP then
-    Log("key X (CMD_FUNC4) slot", tostring(SlotAt(i)))
-    StartCo(Duplicate, i)
+    Log("key X (CMD_FUNC4) slot", tostring(it.slot))
+    StartCo(Duplicate, focus)
     return 1
   elseif id == FN_RENAME then
-    StartCo(Rename, i)
+    StartCo(Rename, focus)
     return 1
   elseif id == FN_DELETE then
-    StartCo(Delete, i)
+    StartCo(Delete, focus)
     return 1
   end
 end
@@ -1734,7 +1697,7 @@ function OnEnter(a1, a2)
   end
   if a1 == L_ROW then
     local i = a2
-    if i == nil or i < 0 or i >= CARDS then
+    if i == nil or i < 0 or i >= RING then
       i = funcLuaMenuCommand(C.FOCUS_IDX, L_ROW)
     end
     OnDecideFocus(a1, i)
@@ -1753,7 +1716,7 @@ end
 
 -- Redraws when the loading is waiting.
 local function RedrawWhenLoaded()
-  if not windows_ready or next(wait_tex) == nil then
+  if not opened or next(wait_tex) == nil then
     return
   end
   wait_frames = wait_frames + 1
@@ -1765,32 +1728,29 @@ local function RedrawWhenLoaded()
   if next(wait_tex) == nil or wait_frames >= 900 then
     Log("textures in after frames", wait_frames, "pending", next(wait_tex) ~= nil and "yes" or "no")
     wait_tex = {}
-    for i = 0, CARDS - 1 do
-      SetupRow(i)
-    end
-    for i = 0, WINDOWS - 1 do
-      FillWindow(i)
-    end
-    HighlightWindows()
+    FillCards()
   end
 end
 
-local step_frames = 0
 function Step()
-  step_frames = step_frames + 1
-  StepLayout()
-  RedrawWhenLoaded()
-  -- the provider's reset (CMD_FUNC2) on the reserved card
-  if vrfw_co == nil and focus == RES_CARD and res ~= nil and not res.locked and type(res.p.reset) == "table"
-      and funcLuaCommand(CHECK_INPUT, MENU_CTRL, K_FUNC2) == true then
-    StartCo(ReservedReset)
+  StepOpen()
+  if opened then
+    carousel:step()
+    RedrawWhenLoaded()
   end
-  -- the pages of player slots (L1 / R1)
-  if vrfw_co == nil and pages > 1 and windows_ready then
-    if funcLuaCommand(CHECK_INPUT, MENU_CTRL, K_PAGE_PREV) == true then
-      Page(-1)
-    elseif funcLuaCommand(CHECK_INPUT, MENU_CTRL, K_PAGE_NEXT) == true then
-      Page(1)
+  if vrfw_co == nil and opened then
+    -- the provider's reset (CMD_FUNC2) on a mod's card
+    local it = ItemAt(focus)
+    if it ~= nil and it.reserved ~= nil and not it.reserved.locked and type(it.reserved.p.reset) == "table"
+        and funcLuaCommand(CHECK_INPUT, MENU_CTRL, K_FUNC2) == true then
+      StartCo(ReservedReset, it)
+    elseif #GROUPS > 1 then
+      -- the groups (L1 / R1)
+      if funcLuaCommand(CHECK_INPUT, MENU_CTRL, K_GROUP_PREVIOUS) == true then
+        MoveGroup(-1)
+      elseif funcLuaCommand(CHECK_INPUT, MENU_CTRL, K_GROUP_NEXT) == true then
+        MoveGroup(1)
+      end
     end
   end
   if vrfw_co ~= nil then

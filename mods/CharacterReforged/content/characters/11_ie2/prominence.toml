@@ -4,8 +4,8 @@ schema = "VRFW.character/2"
 target = "c02020810"                                   # Grent
 moves = [
   { move = 0xEF5D458A, level = 1 },                         # Burnout
-  { move = 0x8FBCFC3C, level = 11 },                        # Blazing Knuckle
-  { move = 0xC636A810, level = 21 },                        # Combustion Catch
+  { move = 0x8FBCFC3C, level = 1 },                         # Blazing Knuckle
+  { move = 0xC636A810, level = 4 },                         # Combustion Catch
   { move = 0xBE0E4AD0, level = 60 },                        # Fireball Knuckle
 ]
 
@@ -34,7 +34,7 @@ moves = [
 target = "c02020850"                                   # Bomber
 moves = [
   { move = 0xABA58912, level = 1 },                         # Ignited Steal
-  { move = 0x79E3E635, level = 11 },                        # Racing Flame
+  { move = 0x79E3E635, level = 1 },                         # Racing Flame
   { move = 0x166B0073, level = 35 },                        # Super Armadillo
   { move = 0x4D1E465C, level = 59 },                        # Fake Bomber
 ]
@@ -50,7 +50,7 @@ moves = [
 target = "c02020860"                                   # Heat
 moves = [
   { move = 0x029E7B25, level = 1 },                         # Gaia Break
-  { move = 0x3B8D915B, level = 11 },                        # Meteor Shower
+  { move = 0x3B8D915B, level = 1 },                         # Meteor Shower
   { move = 0xDDCA0D2A, level = 22 },                        # Bouncing Bomb
   { move = 0x30A819A7, level = 63 },                        # Twin Boost F
 ]
@@ -70,7 +70,7 @@ stats = { kick = 343, control = 259, technique = 261, pressure = 186, physical =
   id = 0x6DB78C11
   moves = [
     { move = 0x5FE1545F, level = 1 },                       # Flame Veil
-    { move = 0xAE2B3429, level = 11 },                      # Atomic Flare
+    { move = 0xAE2B3429, level = 1 },                       # Atomic Flare
     { move = 0x132416F6, level = 35 },                      # Dog Run
     { move = 0x111B676E, level = 60 },                      # Fire Blizzard
   ]
@@ -79,7 +79,7 @@ stats = { kick = 343, control = 259, technique = 261, pressure = 186, physical =
   id = 0xE7DC0330
   moves = [
     { move = 0x5FE1545F, level = 1 },                       # Flame Veil
-    { move = 0xAE2B3429, level = 11 },                      # Atomic Flare
+    { move = 0xAE2B3429, level = 1 },                       # Atomic Flare
     { move = 0x132416F6, level = 35 },                      # Dog Run
     { move = 0x111B676E, level = 60 },                      # Fire Blizzard
   ]
@@ -88,7 +88,7 @@ stats = { kick = 343, control = 259, technique = 261, pressure = 186, physical =
   id = 0xEBB36D5A
   moves = [
     { move = 0x5FE1545F, level = 1 },                       # Flame Veil
-    { move = 0xAE2B3429, level = 11 },                      # Atomic Flare
+    { move = 0xAE2B3429, level = 1 },                       # Atomic Flare
     { move = 0x132416F6, level = 35 },                      # Dog Run
     { move = 0x111B676E, level = 60 },                      # Fire Blizzard
   ]
@@ -100,8 +100,8 @@ growth = "normal"
 stats = { kick = 270, control = 248, technique = 246, pressure = 215, physical = 181, intelligence = 228, agility = 180, freedom = 238 }
 moves = [
   { move = 0x7FE98F60, level = 1 },                         # Ganymede Ray
-  { move = 0x30A819A7, level = 11 },                        # Twin Boost F
-  { move = 0x5FE1545F, level = 21 },                        # Flame Veil
+  { move = 0x30A819A7, level = 1 },                         # Twin Boost F
+  { move = 0x5FE1545F, level = 1 },                         # Flame Veil
   { move = 0xAE2B3429, level = 50 },                        # Atomic Flare
 ]
 
@@ -112,7 +112,7 @@ moves = [
 target = "c02022430"                                   # Balcke
 moves = [
   { move = 0x6633159F, level = 1 },                         # Gravitation
-  { move = 0x2296A01A, level = 11 },                        # Southern Cross
+  { move = 0x2296A01A, level = 1 },                         # Southern Cross
   { move = 0x29728358, level = 45 },                        # Planet Shield
   { move = 0xD9477198, level = 60 },                        # Emperor Penguin X
 ]
@@ -127,7 +127,7 @@ moves = [
 target = "c02022440"                                   # Seats
 moves = [
   { move = 0x087999EE, level = 1 },                         # Heel Drop
-  { move = 0xABA58912, level = 11 },                        # Ignited Steal
+  { move = 0xABA58912, level = 1 },                         # Ignited Steal
   { move = 0xA5777314, level = 35 },                        # Assault Shot
   { move = 0x6DAEF91C, level = 65 },                        # Supernova
 ]
@@ -142,7 +142,7 @@ moves = [
 target = "c02022470"                                   # Lean
 moves = [
   { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
-  { move = 0x41F3CDC2, level = 11 },                        # Scorching Tackle
+  { move = 0x41F3CDC2, level = 1 },                         # Scorching Tackle
   { move = 0xBDAE2862, level = 25 },                        # Hellfire
   { move = 0xEAB3792D, level = 75 },                        # Grand Fire
 ]
@@ -157,7 +157,7 @@ moves = [
 target = "c02022480"                                   # Bountine
 moves = [
   { move = 0x5FE1545F, level = 1 },                         # Flame Veil
-  { move = 0x27D9B69F, level = 11 },                        # Prima Donna
+  { move = 0x27D9B69F, level = 1 },                         # Prima Donna
   { move = 0x035C1112, level = 50 },                        # Gungnir
   { move = 0xABA58912, level = 55 },                        # Ignited Steal
 ]

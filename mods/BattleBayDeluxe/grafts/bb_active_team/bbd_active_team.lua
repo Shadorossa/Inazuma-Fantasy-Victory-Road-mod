@@ -45,7 +45,7 @@ function BattleBayDeluxe.personal_before_turn(d, mode)
     end
     if page ~= B.page then
       B.page = page
-      if BattleBayDeluxe.personal_docks_sync("page turned") > 0 then
+      if BattleBayDeluxe.personal_docks_sync("page turned", true) > 0 then
         return step
       end
     else
@@ -56,19 +56,19 @@ function BattleBayDeluxe.personal_before_turn(d, mode)
   return d
 end
 
--- Opens the section on page 1 with one page per 11 templates (one page while a saved run plays a tile).
+-- Opens the section on page 1 with one page per tile count of offered templates (one page while a saved run plays a tile).
 function BattleBayDeluxe.personal_pages_open()
   local B = BattleBayDeluxe.active_team
   BattleBayDeluxe.personal_run_hold("grid opened")
   B.page = 0
   local tiles = BattleBayDeluxe.personal_docks_sync("grid opened")
-  local count = BattleBayDeluxe.template_count()
-  B.pages = (count ~= nil and B.run == nil and B.docks ~= nil and #B.docks > 0) and math.ceil(count / #B.docks) or 1
+  local count = B.offered ~= nil and #B.offered or nil
+  B.pages = (count ~= nil and B.run == nil and B.docks ~= nil and #B.docks > 0) and math.max(1, math.ceil(count / #B.docks)) or 1
   if B.pages > 1 then
     VRFW.battle_bay_pages.set_before_turn(BattleBayDeluxe.personal_before_turn)
   end
   funcLuaCommand(B.PAGE_REPEAT, B.SECTION, B.pages)
-  BattleBayDeluxe.active_team_log("personal section: " .. tostring(count) .. " templates, " .. B.pages .. " page(s), " ..
+  BattleBayDeluxe.active_team_log("personal section: " .. tostring(count) .. " templates offered, " .. B.pages .. " page(s), " ..
     tostring(tiles) .. " tiles on page 1")
 end
 

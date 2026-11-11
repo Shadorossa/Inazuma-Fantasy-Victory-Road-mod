@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c04002410_5000"                              # Abram Cadabra
 moves = [
-  { move = 0x9B3048AB, level = 1 },                         # Shadow Catch
+  { move = 0x9B3048AB, level = 5 },                         # Shadow Catch
+  { move = 0xA3980723, level = 38 },                        # Colosseum Guard
   { move = 0xD471DE6C, level = 64 },                        # Snakebite
-  { move = 0xA3980723, level = 74 },                        # Colosseum Guard
-  { move = 0xCCA8851A, level = 84 },                        # Lucky Dice
+  { move = 0xCCA8851A, level = 74 },                        # Lucky Dice
 ]
 
   [[edit.cards]]
@@ -34,7 +34,7 @@ moves = [
 [[edit]]
 target = "c04002500_5100"                              # Hocus Sesame
 moves = [
-  { move = 0xDBFD9CFE, level = 1 },                         # Big Ball Trick
+  { move = 0xDBFD9CFE, level = 5 },                         # Big Ball Trick
   { move = 0xEFFC6FA8, level = 24 },                        # Warhead
   { move = 0xDDCA0D2A, level = 34 },                        # Bouncing Bomb
   { move = 0x65766A4F, level = 57 },                        # Meteor Blade
@@ -49,7 +49,7 @@ moves = [
 [[edit]]
 target = "c04002510_5000"                              # Pocus Sesame
 moves = [
-  { move = 0xDBFD9CFE, level = 1 },                         # Big Ball Trick
+  { move = 0xDBFD9CFE, level = 2 },                         # Big Ball Trick
   { move = 0x035C1112, level = 21 },                        # Gungnir
   { move = 0x6BA49049, level = 51 },                        # Mystic Mist
   { move = 0x568262FA, level = 57 },                        # Dark Tornado
@@ -64,10 +64,10 @@ moves = [
 [[edit]]
 target = "c04002410"                                   # Abram Cadabra
 moves = [
-  { move = 0x9B3048AB, level = 1 },                         # Shadow Catch
+  { move = 0x9B3048AB, level = 5 },                         # Shadow Catch
+  { move = 0xA3980723, level = 38 },                        # Colosseum Guard
   { move = 0xD471DE6C, level = 64 },                        # Snakebite
-  { move = 0xA3980723, level = 74 },                        # Colosseum Guard
-  { move = 0xCCA8851A, level = 84 },                        # Lucky Dice
+  { move = 0xCCA8851A, level = 74 },                        # Lucky Dice
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -116,7 +116,7 @@ moves = [
 [[edit]]
 target = "c04002440"                                   # Al Kazam
 moves = [
-  { move = 0xAC91D94F, level = 1 },                         # Major Miner
+  { move = 0xAC91D94F, level = 10 },                        # Major Miner
   { move = 0xCABBA212, level = 25 },                        # Menacing Glare
   { move = 0xD8794890, level = 29 },                        # Kangaroo Kick
   { move = 0x7F15DC5F, level = 57 },                        # Desert Drift
@@ -133,7 +133,7 @@ moves = [
 target = "c04002450"                                   # Sigfryd Roi
 moves = [
   { move = 0x0E0A3F7A, level = 1 },                         # Spatial Portal
-  { move = 0x8917BF4B, level = 11 },                        # Willy-Willy
+  { move = 0x8917BF4B, level = 1 },                         # Willy-Willy
   { move = 0x81FC5E34, level = 32 },                        # Driving Header
   { move = 0x7F15DC5F, level = 53 },                        # Desert Drift
 ]
@@ -164,7 +164,7 @@ moves = [
 target = "c04002470"                                   # Launce Berton
 moves = [
   { move = 0xDBFD9CFE, level = 1 },                         # Big Ball Trick
-  { move = 0xCABBA212, level = 11 },                        # Menacing Glare
+  { move = 0xCABBA212, level = 1 },                         # Menacing Glare
   { move = 0x141046AB, level = 53 },                        # Overnight Fortress
   { move = 0xB0BC314A, level = 59 },                        # Spin Meister
 ]
@@ -178,7 +178,7 @@ moves = [
 [[edit]]
 target = "c04002480"                                   # Ledger Demain
 moves = [
-  { move = 0xDBFD9CFE, level = 1 },                         # Big Ball Trick
+  { move = 0xDBFD9CFE, level = 5 },                         # Big Ball Trick
   { move = 0x530CDFC1, level = 31 },                        # Mystifying Mist
   { move = 0x24E5068E, level = 34 },                        # Fractal Repeller
   { move = 0x2296A01A, level = 45 },                        # Southern Cross
@@ -214,7 +214,7 @@ moves = [
 [[edit]]
 target = "c04002500"                                   # Hocus Sesame
 moves = [
-  { move = 0xDBFD9CFE, level = 1 },                         # Big Ball Trick
+  { move = 0xDBFD9CFE, level = 5 },                         # Big Ball Trick
   { move = 0xEFFC6FA8, level = 24 },                        # Warhead
   { move = 0xDDCA0D2A, level = 34 },                        # Bouncing Bomb
   { move = 0x65766A4F, level = 57 },                        # Meteor Blade
@@ -234,7 +234,7 @@ moves = [
 [[edit]]
 target = "c04002510"                                   # Pocus Sesame
 moves = [
-  { move = 0xDBFD9CFE, level = 1 },                         # Big Ball Trick
+  { move = 0xDBFD9CFE, level = 2 },                         # Big Ball Trick
   { move = 0x035C1112, level = 21 },                        # Gungnir
   { move = 0x6BA49049, level = 51 },                        # Mystic Mist
   { move = 0x568262FA, level = 57 },                        # Dark Tornado
@@ -254,10 +254,10 @@ moves = [
 [[edit]]
 target = "c04002520"                                   # Pen Teller
 moves = [
-  { move = 0xA9062A29, level = 1 },                         # Ultrasonic
+  { move = 0xA9062A29, level = 19 },                        # Ultrasonic
+  { move = 0x4AF2F3E2, level = 20 },                        # Bridge to Nowhere
+  { move = 0xA01CD34D, level = 38 },                        # Temporal Wall
   { move = 0x9B3048AB, level = 53 },                        # Shadow Catch
-  { move = 0x4AF2F3E2, level = 63 },                        # Bridge to Nowhere
-  { move = 0xA01CD34D, level = 73 },                        # Temporal Wall
 ]
 
   [[edit.cards]]
@@ -269,8 +269,8 @@ moves = [
 [[edit]]
 target = "c04002530"                                   # Petey Sorcar
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
-  { move = 0xCABBA212, level = 32 },                        # Menacing Glare
+  { move = 0x5DA7EA06, level = 22 },                        # Boomerang Bluff
+  { move = 0xCABBA212, level = 22 },                        # Menacing Glare
   { move = 0x141046AB, level = 34 },                        # Overnight Fortress
   { move = 0xDBFD9CFE, level = 58 },                        # Big Ball Trick
 ]
@@ -285,7 +285,7 @@ moves = [
 [[edit]]
 target = "c04002540"                                   # Trump Loyal
 moves = [
-  { move = 0x928B9BED, level = 1 },                         # Optimal Trajectory
+  { move = 0x928B9BED, level = 3 },                         # Optimal Trajectory
   { move = 0x20D01E43, level = 31 },                        # Hey Presto
   { move = 0x6B1CF436, level = 34 },                        # Bewildered
   { move = 0xA9E3374B, level = 42 },                        # Cyclone Sprint
@@ -301,7 +301,7 @@ moves = [
 [[edit]]
 target = "c04002550"                                   # Daren Blakh
 moves = [
-  { move = 0x650FA58E, level = 1 },                         # Spin Out
+  { move = 0x650FA58E, level = 13 },                        # Spin Out
   { move = 0xB0BC314A, level = 22 },                        # Spin Meister
   { move = 0xF88DC090, level = 46 },                        # Z Slash
   { move = 0x7E2BE557, level = 48 },                        # Legendary Wolf
@@ -316,7 +316,7 @@ moves = [
 [[edit]]
 target = "c04002560"                                   # Billy Lingsoo
 moves = [
-  { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
+  { move = 0x3663DB4C, level = 8 },                         # Utter Gutsiness Bat
   { move = 0xEFFC6FA8, level = 10 },                        # Warhead
   { move = 0x660EED1E, level = 20 },                        # Low Scythe Slice
   { move = 0xC2E6ADBF, level = 22 },                        # Log Roll
@@ -332,10 +332,10 @@ moves = [
 [[edit]]
 target = "c11804070"                                   # Hans Sleight
 moves = [
-  { move = 0x737DCB3F, level = 1 },                         # Pancake Defence
-  { move = 0xBBA44137, level = 11 },                        # Great Wall
-  { move = 0x72BFA108, level = 21 },                        # Wall of Atlantis
-  { move = 0x232D05EC, level = 31 },                        # Tiger Drive
+  { move = 0xBBA44137, level = 13 },                        # Great Wall
+  { move = 0x232D05EC, level = 18 },                        # Tiger Drive
+  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
+  { move = 0x72BFA108, level = 38 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]

@@ -1,5 +1,6 @@
 id = "VRFW"
 name = "VRFW"
+icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_sixth01"
 version = "0.3.0"
 author = "Fantasy Team"
 description = "The framework the other mods are built on: it lets mods add characters, teams, special moves, texts in 9 languages, save data, match rules, game modes, audio and menus, and it provides the Mods screen with its options. Needed by the mods that use it."

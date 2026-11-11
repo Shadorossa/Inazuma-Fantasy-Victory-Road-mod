@@ -11,6 +11,11 @@ end
 VRFW.on("slot_duplicate", function(event)
   local from, to = event.from, event.to
   local copy = "COPY " .. tostring(from) .. "->" .. tostring(to)
+  if VRFW.option("classic_recruitment") == 0 then
+    event.bytes = nil
+    log(copy .. ": classic recruitment is off: spirits left as they are")
+    return nil
+  end
   if is_reserved(from) or is_reserved(to) then
     event.bytes = nil
     log(copy .. ": a reserved slot (a mode's own save): spirits left as they are")

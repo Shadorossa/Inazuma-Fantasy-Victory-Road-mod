@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11700280"                                   # Hanz Boll
 moves = [
-  { move = 0xB01D1B68, level = 1 },                         # Power Spike
-  { move = 0x7BC5D9F0, level = 13 },                        # Rotary Sander
-  { move = 0xA6D711A6, level = 20 },                        # Full Power Shield
-  { move = 0x3B8D915B, level = 30 },                        # Meteor Shower
+  { move = 0x3B8D915B, level = 13 },                        # Meteor Shower
+  { move = 0x7BC5D9F0, level = 20 },                        # Rotary Sander
+  { move = 0xB01D1B68, level = 30 },                        # Power Spike
+  { move = 0xA6D711A6, level = 38 },                        # Full Power Shield
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11702010"                                   # Lisa Lovetluke
 moves = [
-  { move = 0x592A96B4, level = 1 },                         # Afterimage
-  { move = 0x568262FA, level = 13 },                        # Dark Tornado
-  { move = 0x121A2FFE, level = 20 },                        # Mirage Shot
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x592A96B4, level = 13 },                        # Afterimage
+  { move = 0x568262FA, level = 20 },                        # Dark Tornado
+  { move = 0x121A2FFE, level = 30 },                        # Mirage Shot
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11702020"                                   # Hildy Tattleswell
 moves = [
-  { move = 0x8A936B25, level = 1 },                         # Goopy Gloopy Goo
-  { move = 0x79E3E635, level = 13 },                        # Racing Flame
-  { move = 0x2A4E3349, level = 20 },                        # Heart Beat
-  { move = 0x67F17FA8, level = 30 },                        # Mega Quake
+  { move = 0x2A4E3349, level = 13 },                        # Heart Beat
+  { move = 0x8A936B25, level = 20 },                        # Goopy Gloopy Goo
+  { move = 0x79E3E635, level = 30 },                        # Racing Flame
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11702030"                                   # Tendance Chausefutt
 moves = [
-  { move = 0x4F58F805, level = 1 },                         # Coil Turn
-  { move = 0xC42D6F54, level = 13 },                        # Aikido
-  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
+  { move = 0x4F58F805, level = 13 },                        # Coil Turn
+  { move = 0xC42D6F54, level = 20 },                        # Aikido
   { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11702040"                                   # Caellum Orison
 moves = [
-  { move = 0x06130797, level = 1 },                         # Rolling Kick
-  { move = 0xDBFD9CFE, level = 13 },                        # Big Ball Trick
-  { move = 0x74B5C85D, level = 20 },                        # Security Shot
-  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+  { move = 0x06130797, level = 13 },                        # Rolling Kick
+  { move = 0xDBFD9CFE, level = 20 },                        # Big Ball Trick
+  { move = 0x74B5C85D, level = 30 },                        # Security Shot
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11702050"                                   # Tina Hopkins
 moves = [
-  { move = 0xABA58912, level = 1 },                         # Ignited Steal
-  { move = 0x3A4FFB6C, level = 13 },                        # The Ikaros
-  { move = 0x49933AEE, level = 20 },                        # Perfect Tower
-  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
+  { move = 0xABA58912, level = 13 },                        # Ignited Steal
+  { move = 0x0A3F27B7, level = 20 },                        # Foul Offence 3
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11702060"                                   # Selen Dippity
 moves = [
-  { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
-  { move = 0x087999EE, level = 13 },                        # Heel Drop
-  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0xDDCA0D2A, level = 13 },                        # Bouncing Bomb
+  { move = 0x087999EE, level = 20 },                        # Heel Drop
+  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11702070"                                   # Nivea Etoile
 moves = [
-  { move = 0x1C4D4906, level = 1 },                         # Whirlpool
-  { move = 0xB7F1AED6, level = 13 },                        # Double Cyclone
-  { move = 0xE0549BE6, level = 20 },                        # Easy Breezy Kid
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
+  { move = 0xB7F1AED6, level = 30 },                        # Double Cyclone
+  { move = 0xE0549BE6, level = 30 },                        # Easy Breezy Kid
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11702080"                                   # Liam Tossarawn
 moves = [
-  { move = 0x8C990270, level = 1 },                         # Gunshot
   { move = 0x0CF4E55C, level = 13 },                        # Double Touch
-  { move = 0x4890FB67, level = 20 },                        # Twin Boost
-  { move = 0xEE3E059F, level = 30 },                        # Celestial Smash
+  { move = 0x8C990270, level = 20 },                        # Gunshot
+  { move = 0x4890FB67, level = 30 },                        # Twin Boost
+  { move = 0xEE3E059F, level = 38 },                        # Celestial Smash
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11702090"                                   # Ferron Rockfort
 moves = [
-  { move = 0x2FB941B3, level = 1 },                         # Stone Prison
-  { move = 0xA8215D7C, level = 13 },                        # The Mountain
-  { move = 0xC41097D5, level = 20 },                        # Acrobotics
+  { move = 0x2FB941B3, level = 20 },                        # Stone Prison
+  { move = 0xC41097D5, level = 30 },                        # Acrobotics
   { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11702100"                                   # Wily Wimpinberg
 moves = [
-  { move = 0x1D4E888F, level = 1 },                         # Condor Dive
-  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0xC42D6F54, level = 20 },                        # Aikido
-  { move = 0xD9BB22A7, level = 30 },                        # Air Ride
+  { move = 0x1D4E888F, level = 13 },                        # Condor Dive
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
+  { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0xD9BB22A7, level = 38 },                        # Air Ride
 ]
 
   [[edit.cards]]

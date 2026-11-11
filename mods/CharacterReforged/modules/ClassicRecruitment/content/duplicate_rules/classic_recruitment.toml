@@ -1,4 +1,5 @@
 schema = "CharacterReforged.duplicate_rules/1"
+if_mod = "ClassicRecruitment.classic_recruitment"    # The row of options.toml: off = this file is not read.
 
 [CharacterReforged.DuplicateRules.classic_recruitment]
 # one copy per chara_param id (a normal card and its miximax form are two players)
@@ -7,4 +8,6 @@ one_card_per = "card"
 keep_first = ["in_a_fusion", "highest_level", "most_experience", "most_special_move_uses", "in_a_team", "oldest", "lowest_handle"]
 # element spirits given back per released copy
 element_spirits_per_released_card = 3
+# a copy saved at one of these rarities (ids of game_rarities.toml) of a card of another rarity is no duplicate: the Fabled copy the Fabled exchange gives of a normal card
+raised_copy_rarities = ["fabled"]
 apply_on_load = true

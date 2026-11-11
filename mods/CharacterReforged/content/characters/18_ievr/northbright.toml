@@ -10,18 +10,18 @@ target = "c11030010"                                   # Nikas Himmelstein
   growth = "normal"
   stats = { kick = 332, control = 261, technique = 239, pressure = 181, physical = 215, intelligence = 220, agility = 174, freedom = 251 }
   moves = [
-    { move = 0x4EA586F0, level = 1 },                       # Grand Glow
-    { move = 0x7238D1B5, level = 13 },                      # Foil Formula
-    { move = 0x75F0D2D7, level = 20 },                      # Sunshine Splitter
+    { move = 0x75F0D2D7, level = 13 },                      # Sunshine Splitter
+    { move = 0x4EA586F0, level = 20 },                      # Grand Glow
+    { move = 0x7238D1B5, level = 30 },                      # Foil Formula
     { move = 0x637C031A, level = 30 },                      # No Escape
   ]
 
 [[edit]]
 target = "c11030011"                                   # Nikas Himmelstein
 moves = [
-  { move = 0x4EA586F0, level = 1 },                         # Grand Glow
-  { move = 0x7238D1B5, level = 13 },                        # Foil Formula
-  { move = 0x75F0D2D7, level = 20 },                        # Sunshine Splitter
+  { move = 0x75F0D2D7, level = 13 },                        # Sunshine Splitter
+  { move = 0x4EA586F0, level = 20 },                        # Grand Glow
+  { move = 0x7238D1B5, level = 30 },                        # Foil Formula
   { move = 0x637C031A, level = 30 },                        # No Escape
 ]
 
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11030020"                                   # Ivan Mercer
 moves = [
-  { move = 0x4EA586F0, level = 1 },                         # Grand Glow
-  { move = 0x7238D1B5, level = 13 },                        # Foil Formula
+  { move = 0x4EA586F0, level = 13 },                        # Grand Glow
   { move = 0xB3BD79DA, level = 20 },                        # Patriot Shot
-  { move = 0x6C6C932B, level = 30 },                        # Megaton Head
+  { move = 0x7238D1B5, level = 30 },                        # Foil Formula
+  { move = 0x6C6C932B, level = 38 },                        # Megaton Head
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11030030"                                   # Erdem Barath
 moves = [
-  { move = 0x4EA586F0, level = 1 },                         # Grand Glow
-  { move = 0x7238D1B5, level = 13 },                        # Foil Formula
-  { move = 0x78E027BC, level = 20 },                        # Shine Drive
-  { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x78E027BC, level = 13 },                        # Shine Drive
+  { move = 0x4EA586F0, level = 20 },                        # Grand Glow
+  { move = 0x7238D1B5, level = 30 },                        # Foil Formula
+  { move = 0x637C031A, level = 38 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11030040"                                   # Milo Rankin
 moves = [
-  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
   { move = 0xCC2FF5A7, level = 13 },                        # Gravity Dune
-  { move = 0xE9968761, level = 20 },                        # Rocket Kobushi
-  { move = 0x9AF2229C, level = 30 },                        # Gravity Point
+  { move = 0xF14FDC17, level = 20 },                        # Shot Pocket
+  { move = 0xE9968761, level = 30 },                        # Rocket Kobushi
+  { move = 0x9AF2229C, level = 38 },                        # Gravity Point
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11030050"                                   # Taliesin Greenhunt
 moves = [
-  { move = 0x4EA586F0, level = 1 },                         # Grand Glow
-  { move = 0x7238D1B5, level = 13 },                        # Foil Formula
-  { move = 0xB3BD79DA, level = 20 },                        # Patriot Shot
-  { move = 0xBDAE2862, level = 30 },                        # Hellfire
+  { move = 0x4EA586F0, level = 13 },                        # Grand Glow
+  { move = 0x7238D1B5, level = 20 },                        # Foil Formula
+  { move = 0xB3BD79DA, level = 30 },                        # Patriot Shot
+  { move = 0xBDAE2862, level = 38 },                        # Hellfire
 ]
 
   [[edit.cards]]
@@ -99,9 +99,9 @@ moves = [
 [[edit]]
 target = "c11030060"                                   # Bodhi Field
 moves = [
-  { move = 0x7238D1B5, level = 1 },                         # Foil Formula
-  { move = 0xA8E0F6C2, level = 13 },                        # Kung Fu Header
-  { move = 0x0CF4E55C, level = 20 },                        # Double Touch
+  { move = 0x7238D1B5, level = 13 },                        # Foil Formula
+  { move = 0xA8E0F6C2, level = 20 },                        # Kung Fu Header
+  { move = 0x0CF4E55C, level = 30 },                        # Double Touch
   { move = 0x4CDC2C6B, level = 30 },                        # Shooting Star
 ]
 
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11030070"                                   # Hawky Savard
 moves = [
-  { move = 0x4EA586F0, level = 1 },                         # Grand Glow
-  { move = 0x7238D1B5, level = 13 },                        # Foil Formula
-  { move = 0x79224D8B, level = 20 },                        # Freeze Shot
-  { move = 0xB60E3C60, level = 30 },                        # Plasma Cut
+  { move = 0x4EA586F0, level = 13 },                        # Grand Glow
+  { move = 0x7238D1B5, level = 20 },                        # Foil Formula
+  { move = 0x79224D8B, level = 30 },                        # Freeze Shot
+  { move = 0xB60E3C60, level = 38 },                        # Plasma Cut
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11030080"                                   # Chase Winthrop
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x4EA586F0, level = 13 },                        # Grand Glow
-  { move = 0xB3BD79DA, level = 20 },                        # Patriot Shot
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
+  { move = 0x4EA586F0, level = 20 },                        # Grand Glow
   { move = 0x3C843987, level = 30 },                        # Flurry Dash
+  { move = 0xB3BD79DA, level = 38 },                        # Patriot Shot
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11030090"                                   # Everett Shipman
 moves = [
-  { move = 0x4EA586F0, level = 1 },                         # Grand Glow
-  { move = 0xAD6E4BF9, level = 13 },                        # Harvest
-  { move = 0x6633159F, level = 20 },                        # Gravitation
-  { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x4EA586F0, level = 13 },                        # Grand Glow
+  { move = 0xAD6E4BF9, level = 30 },                        # Harvest
+  { move = 0x637C031A, level = 38 },                        # No Escape
+  { move = 0x6633159F, level = 38 },                        # Gravitation
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11030100"                                   # Denzel Harvest
 moves = [
-  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
-  { move = 0x7238D1B5, level = 13 },                        # Foil Formula
-  { move = 0xB1FBC783, level = 20 },                        # Reflect Buster
-  { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0xAB6422AC, level = 13 },                        # Phantom Shot
+  { move = 0x7238D1B5, level = 20 },                        # Foil Formula
+  { move = 0xB1FBC783, level = 30 },                        # Reflect Buster
+  { move = 0x00A10ABD, level = 38 },                        # Ball Lightning
 ]
 
   [[edit.cards]]
@@ -179,10 +179,10 @@ moves = [
 [[edit]]
 target = "c11030110"                                   # Conley Quiver
 moves = [
-  { move = 0x7238D1B5, level = 1 },                         # Foil Formula
-  { move = 0x19025F83, level = 13 },                        # Quick Draw
+  { move = 0x7238D1B5, level = 13 },                        # Foil Formula
   { move = 0x5781A373, level = 20 },                        # Hurricane Arrows
   { move = 0x592A96B4, level = 30 },                        # Afterimage
+  { move = 0x19025F83, level = 30 },                        # Quick Draw
 ]
 
   [[edit.cards]]
@@ -195,10 +195,10 @@ moves = [
 [[edit]]
 target = "c11030120"                                   # Armin Marshall
 moves = [
-  { move = 0xE9968761, level = 1 },                         # Rocket Kobushi
-  { move = 0x8FBCFC3C, level = 13 },                        # Blazing Knuckle
-  { move = 0xEF5D458A, level = 20 },                        # Burnout
-  { move = 0xA6D711A6, level = 30 },                        # Full Power Shield
+  { move = 0xE9968761, level = 13 },                        # Rocket Kobushi
+  { move = 0x8FBCFC3C, level = 20 },                        # Blazing Knuckle
+  { move = 0xEF5D458A, level = 30 },                        # Burnout
+  { move = 0xA6D711A6, level = 38 },                        # Full Power Shield
 ]
 
   [[edit.cards]]
@@ -211,10 +211,10 @@ moves = [
 [[edit]]
 target = "c11030130"                                   # Hugh Pronghorn
 moves = [
-  { move = 0x60397CCA, level = 1 },                         # Cross Drive
-  { move = 0xA0BDF96F, level = 13 },                        # Ballista Barrage
-  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
+  { move = 0x60397CCA, level = 13 },                        # Cross Drive
+  { move = 0xA0BDF96F, level = 30 },                        # Ballista Barrage
   { move = 0x04941270, level = 30 },                        # Vac Attack
+  { move = 0x6ADE9E01, level = 38 },                        # Illusory Ball
 ]
 
   [[edit.cards]]
@@ -227,10 +227,10 @@ moves = [
 [[edit]]
 target = "c11030140"                                   # Peake Fletcher
 moves = [
-  { move = 0x7238D1B5, level = 1 },                         # Foil Formula
-  { move = 0x1D4E888F, level = 13 },                        # Condor Dive
+  { move = 0x7238D1B5, level = 13 },                        # Foil Formula
   { move = 0x79E3E635, level = 20 },                        # Racing Flame
   { move = 0x087999EE, level = 30 },                        # Heel Drop
+  { move = 0x1D4E888F, level = 38 },                        # Condor Dive
 ]
 
   [[edit.cards]]
@@ -243,10 +243,10 @@ moves = [
 [[edit]]
 target = "c11030150"                                   # Sentry Scarborough
 moves = [
-  { move = 0x087999EE, level = 1 },                         # Heel Drop
   { move = 0x67F17FA8, level = 13 },                        # Mega Quake
-  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
-  { move = 0x52CEB5F6, level = 30 },                        # Iron Wall
+  { move = 0x72BFA108, level = 30 },                        # Wall of Atlantis
+  { move = 0x087999EE, level = 30 },                        # Heel Drop
+  { move = 0x52CEB5F6, level = 38 },                        # Iron Wall
 ]
 
   [[edit.cards]]
@@ -259,10 +259,10 @@ moves = [
 [[edit]]
 target = "c11030160"                                   # Autry Rogers
 moves = [
-  { move = 0x4EA586F0, level = 1 },                         # Grand Glow
-  { move = 0xB13A6C3D, level = 13 },                        # Zigzag Flame
-  { move = 0x585098FC, level = 20 },                        # Slice and Dice
-  { move = 0x6C6C932B, level = 30 },                        # Megaton Head
+  { move = 0x4EA586F0, level = 13 },                        # Grand Glow
+  { move = 0xB13A6C3D, level = 30 },                        # Zigzag Flame
+  { move = 0x6C6C932B, level = 38 },                        # Megaton Head
+  { move = 0x585098FC, level = 38 },                        # Slice and Dice
 ]
 
   [[edit.cards]]
@@ -275,10 +275,10 @@ moves = [
 [[edit]]
 target = "c11030500"                                   # Neil Turner
 moves = [
-  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
-  { move = 0xF26A225B, level = 13 },                        # RC Shot
-  { move = 0x3663DB4C, level = 20 },                        # Utter Gutsiness Bat
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x0CF4E55C, level = 13 },                        # Double Touch
+  { move = 0xF26A225B, level = 20 },                        # RC Shot
+  { move = 0x3663DB4C, level = 30 },                        # Utter Gutsiness Bat
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -291,10 +291,10 @@ moves = [
 [[edit]]
 target = "c11030510"                                   # Raz Pond
 moves = [
-  { move = 0x768AB9C5, level = 1 },                         # Frosticle
-  { move = 0xA37D1A41, level = 13 },                        # Hyper-Swiper
+  { move = 0xA37D1A41, level = 1 },                         # Hyper-Swiper
   { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0x768AB9C5, level = 30 },                        # Frosticle
+  { move = 0x2354CA2D, level = 38 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]

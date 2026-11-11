@@ -311,7 +311,7 @@ local function export_area()
   return area
 end
 
--- (handle, player name, level, m1 … m6, aura, e1 … e5, sixsense, role, set name, p1 … p5, c1 … c5, kit[, mix])
+-- Arguments: handle, player name, level, m1 … m6, aura, e1 … e5, sixsense, role, set name, p1 … p5, c1 … c5, kit, mix and an optional save ticket.
 function PlayerSets.Export(handle, player_name, level, ...)
   local h = u32(handle)
   local param_id = param_of(h)
@@ -384,7 +384,13 @@ function PlayerSets.Export(handle, player_name, level, ...)
     needed = needed,
     area = export_area(),
     exporter = me .. "@" .. own_version(),
+    ticket = values[28],
   })
+end
+
+-- CMND_CHARACTERREFORGED_PLAYER_SET_AREA answers the area the player set files go to.
+function PlayerSets.Area()
+  return export_area()
 end
 
 function PlayerSets.ImportList()
@@ -395,8 +401,14 @@ function PlayerSets.ImportEntry(index)
   return BetterQoL.VrmodFilesEntry(export_area(), FILE_KIND, index)
 end
 
-function PlayerSets.ImportRead(index, handle)
-  local read, why = BetterQoL.VrmodFilesRead(export_area(), FILE_KIND, index)
+-- (listed index, handle[, open ticket]): the file of the open ticket when there is one, else listed entry `index`.
+function PlayerSets.ImportRead(index, handle, ticket)
+  local read, why
+  if ticket ~= nil then
+    read, why = BetterQoL.VrmodFilesReadPicked(FILE_KIND, ticket)
+  else
+    read, why = BetterQoL.VrmodFilesRead(export_area(), FILE_KIND, index)
+  end
   if not read then return false, tostring(why) end
   local unresolved = read.missing
   -- The id of one file reference; a name it cannot resolve is added to the missing list.

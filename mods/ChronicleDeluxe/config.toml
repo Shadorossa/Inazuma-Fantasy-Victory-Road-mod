@@ -57,6 +57,13 @@ go3 = ["keshin", "armour", "miximax", "totem", "own_mode_change"]
 ares = ["own_mode_change"]
 orion = ["own_mode_change"]
 
+# The aura kinds no team may start in any match of a game's chapter: every difficulty, both teams, also after the first win.
+[chapter_auras_refused]
+ie1 = ["miximax"]
+ie2 = ["miximax"]
+ie3 = ["miximax"]
+go1 = ["miximax"]
+
 # The short names the match info uses for the games (series names of chara_base's in_<name> columns).
 [heroic.players.short_names]
 ie1 = "IE1"

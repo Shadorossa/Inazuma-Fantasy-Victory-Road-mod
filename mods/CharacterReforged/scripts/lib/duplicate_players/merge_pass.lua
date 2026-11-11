@@ -1,5 +1,6 @@
 
 local T = require "lib/duplicate_players/save_tree"
+local Rules = require "lib/duplicate_players/rules"
 
 local MergePass = {}
 
@@ -80,7 +81,7 @@ local function keeps_before(keep_first)
 end
 
 function MergePass.plan(records, policy, is_hidden)
-  local plan = { rarity = {}, release = {}, protected = {} }
+  local plan = { rarity = {}, release = {}, protected = {}, raised = {} }
   local special = policy.normal_special_rarities or {}
   local convert = policy.convert_special_cards == true and policy.normal_card_rarity ~= nil
   local groups, keys, converting = {}, {}, {}
@@ -92,6 +93,9 @@ function MergePass.plan(records, policy, is_hidden)
         else
           plan.protected[#plan.protected + 1] = { record.handle, record.card, "hidden card", 0, record }
         end
+      elseif Rules.is_raised_copy(policy, record.rarity, record.special_rarity) then
+        -- A raised copy keeps its rarity and joins no duplicate group: the game's own limit bounds how many a save holds.
+        plan.raised[#plan.raised + 1] = { record.handle, record.card, record.rarity }
       else
         if convert and record.special_rarity ~= nil and record.special_rarity ~= 0 and special[record.special_rarity]
             and record.base_card ~= nil and record.base_card ~= record.card then
@@ -228,6 +232,9 @@ function MergePass.run(tree, facts, policy)
   report.players = #records
   local plan = MergePass.plan(records, policy, is_hidden)
   report.protected = #plan.protected
+  for _, entry in ipairs(plan.raised) do
+    report.lines[#report.lines + 1] = string.format("raised copy kept 0x%08X card 0x%08X at rarity %d: no duplicate of the card's other copies", entry[1], entry[2], entry[3])
+  end
   for _, entry in ipairs(plan.protected) do
     local record = entry[5]
     report.lines[#report.lines + 1] = string.format("not released 0x%08X card 0x%08X (%s%s): the bank cannot retire it (attribute 0x%X) or it did not join by signing (source %d)",

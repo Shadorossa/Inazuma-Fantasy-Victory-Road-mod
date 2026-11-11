@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05021810_5000"                              # Vee Wai
 moves = [
-  { move = 0x35462500, level = 1 },                         # Crescent Cross
+  { move = 0x35462500, level = 10 },                        # Crescent Cross
   { move = 0xFD9FAF08, level = 18 },                        # Twist 'n' Clout
   { move = 0x5AF33BC7, level = 39 },                        # God Hand
   { move = 0xE6C22010, level = 53 },                        # Claw de Force
@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c05021820_5000"                              # Dee Vee
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 6 },                         # Acrobotics
   { move = 0xCB79C825, level = 19 },                        # In-Line Stampede
   { move = 0x585098FC, level = 42 },                        # Slice and Dice
   { move = 0xEFFC6FA8, level = 51 },                        # Warhead
@@ -34,7 +34,7 @@ moves = [
 [[edit]]
 target = "c05021830_5000"                              # Ayt Bee
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 8 },                         # Acrobotics
   { move = 0x585098FC, level = 12 },                        # Slice and Dice
   { move = 0xC2E6ADBF, level = 30 },                        # Log Roll
   { move = 0xA37D1A41, level = 48 },                        # Hyper-Swiper
@@ -50,7 +50,7 @@ moves = [
 [[edit]]
 target = "c05021840_5000"                              # En Sicks
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 7 },                         # Acrobotics
   { move = 0xCB79C825, level = 13 },                        # In-Line Stampede
   { move = 0x530CDFC1, level = 29 },                        # Mystifying Mist
   { move = 0xC2E6ADBF, level = 47 },                        # Log Roll
@@ -66,10 +66,10 @@ moves = [
 [[edit]]
 target = "c05021850_5000"                              # Wun Ell
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 12 },                        # In-Line Stampede
   { move = 0xE35B59DB, level = 23 },                        # Twin Sun Smash
+  { move = 0x485150D9, level = 38 },                        # Body Shield
   { move = 0xC41097D5, level = 56 },                        # Acrobotics
-  { move = 0x485150D9, level = 66 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -82,7 +82,7 @@ moves = [
 [[edit]]
 target = "c05021860_5000"                              # Zed Kyu
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 9 },                         # In-Line Stampede
   { move = 0x4A17EE80, level = 14 },                        # Hunter's Net
   { move = 0xA37D1A41, level = 34 },                        # Hyper-Swiper
   { move = 0x0BFD4D80, level = 46 },                        # Grand Slam
@@ -98,7 +98,7 @@ moves = [
 [[edit]]
 target = "c05021870_5000"                              # Kay Zirro
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 11 },                        # In-Line Stampede
   { move = 0x585098FC, level = 17 },                        # Slice and Dice
   { move = 0x98E76F75, level = 40 },                        # Rapid Fire
   { move = 0x0BFD4D80, level = 44 },                        # Grand Slam
@@ -114,7 +114,7 @@ moves = [
 [[edit]]
 target = "c05021880_5000"                              # Cee Eff
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 10 },                        # In-Line Stampede
   { move = 0x530CDFC1, level = 15 },                        # Mystifying Mist
   { move = 0xDF8CB373, level = 23 },                        # Sonic Shot
   { move = 0x7F15DC5F, level = 52 },                        # Desert Drift
@@ -130,10 +130,10 @@ moves = [
 [[edit]]
 target = "c05021890_5000"                              # Ar Ecks
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 3 },                         # In-Line Stampede
   { move = 0xE35B59DB, level = 22 },                        # Twin Sun Smash
+  { move = 0x828A53C8, level = 30 },                        # Plasma Ball
   { move = 0x1755397B, level = 57 },                        # Dark Energy Star
-  { move = 0x828A53C8, level = 67 },                        # Plasma Ball
 ]
 
   [[edit.cards]]
@@ -146,7 +146,7 @@ moves = [
 [[edit]]
 target = "c05021900_5000"                              # Em Tee
 moves = [
-  { move = 0xE35B59DB, level = 1 },                         # Twin Sun Smash
+  { move = 0xE35B59DB, level = 12 },                        # Twin Sun Smash
   { move = 0x19C3F43D, level = 23 },                        # Eternal Blizzard
   { move = 0xDF8CB373, level = 33 },                        # Sonic Shot
   { move = 0xCF7FA2C4, level = 45 },                        # Gold Rush
@@ -161,7 +161,7 @@ moves = [
 [[edit]]
 target = "c05021910_5000"                              # Ough Cee
 moves = [
-  { move = 0xE35B59DB, level = 1 },                         # Twin Sun Smash
+  { move = 0xE35B59DB, level = 13 },                        # Twin Sun Smash
   { move = 0x8A52C09B, level = 21 },                        # Doomsword Slash
   { move = 0x98E76F75, level = 36 },                        # Rapid Fire
   { move = 0x0B011EBF, level = 53 },                        # Fireball Screw
@@ -193,7 +193,7 @@ target = "c05021930_5000"                              # Faiv Ess
 moves = [
   { move = 0x585098FC, level = 1 },                         # Slice and Dice
   { move = 0x3663DB4C, level = 8 },                         # Utter Gutsiness Bat
-  { move = 0x1F7F73BA, level = 18 },                        # Bicycle Slash
+  { move = 0x1F7F73BA, level = 8 },                         # Bicycle Slash
   { move = 0x0BFD4D80, level = 42 },                        # Grand Slam
 ]
 
@@ -206,7 +206,7 @@ moves = [
 [[edit]]
 target = "c05021940_5000"                              # Tu Eigh
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 12 },                        # In-Line Stampede
   { move = 0x4A17EE80, level = 20 },                        # Hunter's Net
   { move = 0x530CDFC1, level = 30 },                        # Mystifying Mist
   { move = 0x14D1ED15, level = 44 },                        # Jumping Jack
@@ -251,7 +251,7 @@ moves = [
 [[edit]]
 target = "c05028410_5000"                              # Vee Wai
 moves = [
-  { move = 0x35462500, level = 1 },                         # Crescent Cross
+  { move = 0x35462500, level = 10 },                        # Crescent Cross
   { move = 0xFD9FAF08, level = 18 },                        # Twist 'n' Clout
   { move = 0x5AF33BC7, level = 39 },                        # God Hand
   { move = 0xE6C22010, level = 53 },                        # Claw de Force
@@ -266,7 +266,7 @@ moves = [
 [[edit]]
 target = "c05028420_5000"                              # Dee Vee
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 6 },                         # Acrobotics
   { move = 0xCB79C825, level = 19 },                        # In-Line Stampede
   { move = 0x585098FC, level = 42 },                        # Slice and Dice
   { move = 0xEFFC6FA8, level = 51 },                        # Warhead
@@ -282,7 +282,7 @@ moves = [
 [[edit]]
 target = "c05028430_5000"                              # Ayt Bee
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 8 },                         # Acrobotics
   { move = 0x585098FC, level = 12 },                        # Slice and Dice
   { move = 0xC2E6ADBF, level = 30 },                        # Log Roll
   { move = 0xA37D1A41, level = 48 },                        # Hyper-Swiper
@@ -298,7 +298,7 @@ moves = [
 [[edit]]
 target = "c05028440_5000"                              # En Sicks
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 7 },                         # Acrobotics
   { move = 0xCB79C825, level = 13 },                        # In-Line Stampede
   { move = 0x530CDFC1, level = 29 },                        # Mystifying Mist
   { move = 0xC2E6ADBF, level = 47 },                        # Log Roll
@@ -314,10 +314,10 @@ moves = [
 [[edit]]
 target = "c05028450_5000"                              # Wun Ell
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 12 },                        # In-Line Stampede
   { move = 0xE35B59DB, level = 23 },                        # Twin Sun Smash
+  { move = 0x485150D9, level = 38 },                        # Body Shield
   { move = 0xC41097D5, level = 56 },                        # Acrobotics
-  { move = 0x485150D9, level = 66 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -330,7 +330,7 @@ moves = [
 [[edit]]
 target = "c05028460_5000"                              # Zed Kyu
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 9 },                         # In-Line Stampede
   { move = 0x4A17EE80, level = 14 },                        # Hunter's Net
   { move = 0xA37D1A41, level = 34 },                        # Hyper-Swiper
   { move = 0x0BFD4D80, level = 46 },                        # Grand Slam
@@ -346,7 +346,7 @@ moves = [
 [[edit]]
 target = "c05028470_5000"                              # Kay Zirro
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 11 },                        # In-Line Stampede
   { move = 0x585098FC, level = 17 },                        # Slice and Dice
   { move = 0x98E76F75, level = 40 },                        # Rapid Fire
   { move = 0x0BFD4D80, level = 44 },                        # Grand Slam
@@ -362,7 +362,7 @@ moves = [
 [[edit]]
 target = "c05028480_5000"                              # Cee Eff
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 10 },                        # In-Line Stampede
   { move = 0x530CDFC1, level = 15 },                        # Mystifying Mist
   { move = 0xDF8CB373, level = 23 },                        # Sonic Shot
   { move = 0x7F15DC5F, level = 52 },                        # Desert Drift
@@ -378,10 +378,10 @@ moves = [
 [[edit]]
 target = "c05028490_5000"                              # Ar Ecks
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 3 },                         # In-Line Stampede
   { move = 0xE35B59DB, level = 22 },                        # Twin Sun Smash
+  { move = 0x828A53C8, level = 30 },                        # Plasma Ball
   { move = 0x1755397B, level = 57 },                        # Dark Energy Star
-  { move = 0x828A53C8, level = 67 },                        # Plasma Ball
 ]
 
   [[edit.cards]]
@@ -394,7 +394,7 @@ moves = [
 [[edit]]
 target = "c05028500_5000"                              # Em Tee
 moves = [
-  { move = 0xE35B59DB, level = 1 },                         # Twin Sun Smash
+  { move = 0xE35B59DB, level = 12 },                        # Twin Sun Smash
   { move = 0x19C3F43D, level = 23 },                        # Eternal Blizzard
   { move = 0xDF8CB373, level = 33 },                        # Sonic Shot
   { move = 0xCF7FA2C4, level = 45 },                        # Gold Rush
@@ -409,7 +409,7 @@ moves = [
 [[edit]]
 target = "c05028510_5000"                              # Ough Cee
 moves = [
-  { move = 0xE35B59DB, level = 1 },                         # Twin Sun Smash
+  { move = 0xE35B59DB, level = 13 },                        # Twin Sun Smash
   { move = 0x8A52C09B, level = 21 },                        # Doomsword Slash
   { move = 0x98E76F75, level = 36 },                        # Rapid Fire
   { move = 0x0B011EBF, level = 53 },                        # Fireball Screw
@@ -441,7 +441,7 @@ target = "c05028530_5000"                              # Faiv Ess
 moves = [
   { move = 0x585098FC, level = 1 },                         # Slice and Dice
   { move = 0x3663DB4C, level = 8 },                         # Utter Gutsiness Bat
-  { move = 0x1F7F73BA, level = 18 },                        # Bicycle Slash
+  { move = 0x1F7F73BA, level = 8 },                         # Bicycle Slash
   { move = 0x0BFD4D80, level = 42 },                        # Grand Slam
 ]
 
@@ -454,7 +454,7 @@ moves = [
 [[edit]]
 target = "c05028540_5000"                              # Tu Eigh
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 12 },                        # In-Line Stampede
   { move = 0x4A17EE80, level = 20 },                        # Hunter's Net
   { move = 0x530CDFC1, level = 30 },                        # Mystifying Mist
   { move = 0x14D1ED15, level = 44 },                        # Jumping Jack
@@ -484,7 +484,7 @@ moves = [
 [[edit]]
 target = "c05021810"                                   # Vee Wai
 moves = [
-  { move = 0x35462500, level = 1 },                         # Crescent Cross
+  { move = 0x35462500, level = 10 },                        # Crescent Cross
   { move = 0xFD9FAF08, level = 18 },                        # Twist 'n' Clout
   { move = 0x5AF33BC7, level = 39 },                        # God Hand
   { move = 0xE6C22010, level = 53 },                        # Claw de Force
@@ -504,7 +504,7 @@ moves = [
 [[edit]]
 target = "c05021820"                                   # Dee Vee
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 6 },                         # Acrobotics
   { move = 0xCB79C825, level = 19 },                        # In-Line Stampede
   { move = 0x585098FC, level = 42 },                        # Slice and Dice
   { move = 0xEFFC6FA8, level = 51 },                        # Warhead
@@ -525,7 +525,7 @@ moves = [
 [[edit]]
 target = "c05021830"                                   # Ayt Bee
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 8 },                         # Acrobotics
   { move = 0x585098FC, level = 12 },                        # Slice and Dice
   { move = 0xC2E6ADBF, level = 30 },                        # Log Roll
   { move = 0xA37D1A41, level = 48 },                        # Hyper-Swiper
@@ -546,7 +546,7 @@ moves = [
 [[edit]]
 target = "c05021840"                                   # En Sicks
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 7 },                         # Acrobotics
   { move = 0xCB79C825, level = 13 },                        # In-Line Stampede
   { move = 0x530CDFC1, level = 29 },                        # Mystifying Mist
   { move = 0xC2E6ADBF, level = 47 },                        # Log Roll
@@ -567,10 +567,10 @@ moves = [
 [[edit]]
 target = "c05021850"                                   # Wun Ell
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 12 },                        # In-Line Stampede
   { move = 0xE35B59DB, level = 23 },                        # Twin Sun Smash
+  { move = 0x485150D9, level = 38 },                        # Body Shield
   { move = 0xC41097D5, level = 56 },                        # Acrobotics
-  { move = 0x485150D9, level = 66 },                        # Body Shield
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -588,7 +588,7 @@ moves = [
 [[edit]]
 target = "c05021860"                                   # Zed Kyu
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 9 },                         # In-Line Stampede
   { move = 0x4A17EE80, level = 14 },                        # Hunter's Net
   { move = 0xA37D1A41, level = 34 },                        # Hyper-Swiper
   { move = 0x0BFD4D80, level = 46 },                        # Grand Slam
@@ -609,7 +609,7 @@ moves = [
 [[edit]]
 target = "c05021870"                                   # Kay Zirro
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 11 },                        # In-Line Stampede
   { move = 0x585098FC, level = 17 },                        # Slice and Dice
   { move = 0x98E76F75, level = 40 },                        # Rapid Fire
   { move = 0x0BFD4D80, level = 44 },                        # Grand Slam
@@ -630,7 +630,7 @@ moves = [
 [[edit]]
 target = "c05021880"                                   # Cee Eff
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 10 },                        # In-Line Stampede
   { move = 0x530CDFC1, level = 15 },                        # Mystifying Mist
   { move = 0xDF8CB373, level = 23 },                        # Sonic Shot
   { move = 0x7F15DC5F, level = 52 },                        # Desert Drift
@@ -655,10 +655,10 @@ rank = 3
 growth = "normal"
 stats = { kick = 316, control = 261, technique = 254, pressure = 184, physical = 213, intelligence = 239, agility = 174, freedom = 293 }
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 3 },                         # In-Line Stampede
   { move = 0xE35B59DB, level = 22 },                        # Twin Sun Smash
+  { move = 0x828A53C8, level = 30 },                        # Plasma Ball
   { move = 0x1755397B, level = 57 },                        # Dark Energy Star
-  { move = 0x828A53C8, level = 67 },                        # Plasma Ball
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -669,10 +669,10 @@ moves = [
   [[edit.cards]]
   id = 0xE8880D3E    # this card's moveset differs from the list above
   moves = [
-    { move = 0xCB79C825, level = 1 },                       # In-Line Stampede
+    { move = 0xCB79C825, level = 3 },                       # In-Line Stampede
     { move = 0xE35B59DB, level = 22 },                      # Twin Sun Smash
+    { move = 0x828A53C8, level = 30 },                      # Plasma Ball
     { move = 0x1755397B, level = 57 },                      # Dark Energy Star
-    { move = 0x828A53C8, level = 67 },                      # Plasma Ball
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -683,7 +683,7 @@ moves = [
 [[edit]]
 target = "c05021900"                                   # Em Tee
 moves = [
-  { move = 0xE35B59DB, level = 1 },                         # Twin Sun Smash
+  { move = 0xE35B59DB, level = 12 },                        # Twin Sun Smash
   { move = 0x19C3F43D, level = 23 },                        # Eternal Blizzard
   { move = 0xDF8CB373, level = 33 },                        # Sonic Shot
   { move = 0xCF7FA2C4, level = 45 },                        # Gold Rush
@@ -703,7 +703,7 @@ moves = [
 [[edit]]
 target = "c05021910"                                   # Ough Cee
 moves = [
-  { move = 0xE35B59DB, level = 1 },                         # Twin Sun Smash
+  { move = 0xE35B59DB, level = 13 },                        # Twin Sun Smash
   { move = 0x8A52C09B, level = 21 },                        # Doomsword Slash
   { move = 0x98E76F75, level = 36 },                        # Rapid Fire
   { move = 0x0B011EBF, level = 53 },                        # Fireball Screw
@@ -745,7 +745,7 @@ target = "c05021930"                                   # Faiv Ess
 moves = [
   { move = 0x585098FC, level = 1 },                         # Slice and Dice
   { move = 0x3663DB4C, level = 8 },                         # Utter Gutsiness Bat
-  { move = 0x1F7F73BA, level = 18 },                        # Bicycle Slash
+  { move = 0x1F7F73BA, level = 8 },                         # Bicycle Slash
   { move = 0x0BFD4D80, level = 42 },                        # Grand Slam
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -763,7 +763,7 @@ moves = [
 [[edit]]
 target = "c05021940"                                   # Tu Eigh
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 12 },                        # In-Line Stampede
   { move = 0x4A17EE80, level = 20 },                        # Hunter's Net
   { move = 0x530CDFC1, level = 30 },                        # Mystifying Mist
   { move = 0x14D1ED15, level = 44 },                        # Jumping Jack
@@ -823,7 +823,7 @@ moves = [
 [[edit]]
 target = "c05028410"                                   # Vee Wai
 moves = [
-  { move = 0x35462500, level = 1 },                         # Crescent Cross
+  { move = 0x35462500, level = 10 },                        # Crescent Cross
   { move = 0xFD9FAF08, level = 18 },                        # Twist 'n' Clout
   { move = 0x5AF33BC7, level = 39 },                        # God Hand
   { move = 0xE6C22010, level = 53 },                        # Claw de Force
@@ -843,7 +843,7 @@ moves = [
 [[edit]]
 target = "c05028420"                                   # Dee Vee
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 6 },                         # Acrobotics
   { move = 0xCB79C825, level = 19 },                        # In-Line Stampede
   { move = 0x585098FC, level = 42 },                        # Slice and Dice
   { move = 0xEFFC6FA8, level = 51 },                        # Warhead
@@ -864,7 +864,7 @@ moves = [
 [[edit]]
 target = "c05028430"                                   # Ayt Bee
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 8 },                         # Acrobotics
   { move = 0x585098FC, level = 12 },                        # Slice and Dice
   { move = 0xC2E6ADBF, level = 30 },                        # Log Roll
   { move = 0xA37D1A41, level = 48 },                        # Hyper-Swiper
@@ -885,7 +885,7 @@ moves = [
 [[edit]]
 target = "c05028440"                                   # En Sicks
 moves = [
-  { move = 0xC41097D5, level = 1 },                         # Acrobotics
+  { move = 0xC41097D5, level = 7 },                         # Acrobotics
   { move = 0xCB79C825, level = 13 },                        # In-Line Stampede
   { move = 0x530CDFC1, level = 29 },                        # Mystifying Mist
   { move = 0xC2E6ADBF, level = 47 },                        # Log Roll
@@ -906,10 +906,10 @@ moves = [
 [[edit]]
 target = "c05028450"                                   # Wun Ell
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 12 },                        # In-Line Stampede
   { move = 0xE35B59DB, level = 23 },                        # Twin Sun Smash
+  { move = 0x485150D9, level = 38 },                        # Body Shield
   { move = 0xC41097D5, level = 56 },                        # Acrobotics
-  { move = 0x485150D9, level = 66 },                        # Body Shield
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -927,7 +927,7 @@ moves = [
 [[edit]]
 target = "c05028460"                                   # Zed Kyu
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 9 },                         # In-Line Stampede
   { move = 0x4A17EE80, level = 14 },                        # Hunter's Net
   { move = 0xA37D1A41, level = 34 },                        # Hyper-Swiper
   { move = 0x0BFD4D80, level = 46 },                        # Grand Slam
@@ -948,7 +948,7 @@ moves = [
 [[edit]]
 target = "c05028470"                                   # Kay Zirro
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 11 },                        # In-Line Stampede
   { move = 0x585098FC, level = 17 },                        # Slice and Dice
   { move = 0x98E76F75, level = 40 },                        # Rapid Fire
   { move = 0x0BFD4D80, level = 44 },                        # Grand Slam
@@ -969,7 +969,7 @@ moves = [
 [[edit]]
 target = "c05028480"                                   # Cee Eff
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 10 },                        # In-Line Stampede
   { move = 0x530CDFC1, level = 15 },                        # Mystifying Mist
   { move = 0xDF8CB373, level = 23 },                        # Sonic Shot
   { move = 0x7F15DC5F, level = 52 },                        # Desert Drift
@@ -994,10 +994,10 @@ rank = 3
 growth = "normal"
 stats = { kick = 316, control = 261, technique = 254, pressure = 184, physical = 213, intelligence = 239, agility = 174, freedom = 293 }
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 3 },                         # In-Line Stampede
   { move = 0xE35B59DB, level = 22 },                        # Twin Sun Smash
+  { move = 0x828A53C8, level = 30 },                        # Plasma Ball
   { move = 0x1755397B, level = 57 },                        # Dark Energy Star
-  { move = 0x828A53C8, level = 67 },                        # Plasma Ball
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -1011,7 +1011,7 @@ moves = [
 [[edit]]
 target = "c05028500"                                   # Em Tee
 moves = [
-  { move = 0xE35B59DB, level = 1 },                         # Twin Sun Smash
+  { move = 0xE35B59DB, level = 12 },                        # Twin Sun Smash
   { move = 0x19C3F43D, level = 23 },                        # Eternal Blizzard
   { move = 0xDF8CB373, level = 33 },                        # Sonic Shot
   { move = 0xCF7FA2C4, level = 45 },                        # Gold Rush
@@ -1031,7 +1031,7 @@ moves = [
 [[edit]]
 target = "c05028510"                                   # Ough Cee
 moves = [
-  { move = 0xE35B59DB, level = 1 },                         # Twin Sun Smash
+  { move = 0xE35B59DB, level = 13 },                        # Twin Sun Smash
   { move = 0x8A52C09B, level = 21 },                        # Doomsword Slash
   { move = 0x98E76F75, level = 36 },                        # Rapid Fire
   { move = 0x0B011EBF, level = 53 },                        # Fireball Screw
@@ -1073,7 +1073,7 @@ target = "c05028530"                                   # Faiv Ess
 moves = [
   { move = 0x585098FC, level = 1 },                         # Slice and Dice
   { move = 0x3663DB4C, level = 8 },                         # Utter Gutsiness Bat
-  { move = 0x1F7F73BA, level = 18 },                        # Bicycle Slash
+  { move = 0x1F7F73BA, level = 8 },                         # Bicycle Slash
   { move = 0x0BFD4D80, level = 42 },                        # Grand Slam
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -1091,7 +1091,7 @@ moves = [
 [[edit]]
 target = "c05028540"                                   # Tu Eigh
 moves = [
-  { move = 0xCB79C825, level = 1 },                         # In-Line Stampede
+  { move = 0xCB79C825, level = 12 },                        # In-Line Stampede
   { move = 0x4A17EE80, level = 20 },                        # Hunter's Net
   { move = 0x530CDFC1, level = 30 },                        # Mystifying Mist
   { move = 0x14D1ED15, level = 44 },                        # Jumping Jack

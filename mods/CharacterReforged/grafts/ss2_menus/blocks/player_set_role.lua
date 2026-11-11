@@ -1102,6 +1102,7 @@ function PL.vrm_def()
   LIST = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_LIST@,
   ENTRY = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_ENTRY@,
   READ = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_READ@,
+  AREA = @crc:CMND_CHARACTERREFORGED_PLAYER_SET_AREA@,
   K_LEFT = 2765147006,        -- CMD_LEFT
   K_RIGHT = 2075023265,       -- CMD_RIGHT
   }
@@ -1248,14 +1249,20 @@ function PL.set_export(i)
   local pv, cf = p.passives or {}, p.pcfg or {}
   local name = PL.mx_chara_name(funcLuaCommand(C.CHARA_GET, n, 4))
   local level = funcLuaCommand(C.CHARA_GET, n, 0) or 0
+  local file_name = (p.name or "") ~= "" and (tostring(name) .. " - " .. p.name) or tostring(name)
+  local result, ticket = VRFW.file_pick.save({area = funcLuaCommand(PL.VRM.AREA), name = file_name, ext = "vrmod",
+    title = PL.txt(PL.TX.SET_EXPORT_ROW)})
+  if result == "cancelled" then
+    return
+  end
   local r = {pcall(funcLuaCommand, PL.VRM.EXPORT, n, name, level, m[1] or 0, m[2] or 0, m[3] or 0, m[4] or 0,
     m[5] or 0, m[6] or 0, p.hiper or 0, e[1] or 0, e[2] or 0, e[3] or 0, e[4] or 0, e[5] or 0, p.sixsense or 0,
     p.role or -1, p.name or "", pv[1] or 0, pv[2] or 0, pv[3] or 0, pv[4] or 0, pv[5] or 0,
-    cf[1] or 0, cf[2] or 0, cf[3] or 0, cf[4] or 0, cf[5] or 0, p.kit or 0, p.mix or 0)}
+    cf[1] or 0, cf[2] or 0, cf[3] or 0, cf[4] or 0, cf[5] or 0, p.kit or 0, p.mix or 0, result == "picked" and ticket or nil)}
   Log("player set export", i, tostring(r[1]), tostring(r[2]), tostring(r[3]), tostring(r[4]))
   if r[1] and r[2] == true and type(r[3]) == "string" then
     funcLuaCommand(C.SE, SE_DECIDE)
-    VRFW.question.notice(PL.txt(PL.TX.EXPORT_DONE, "modloader_exports/" .. tostring(r[4] or "") .. "/" .. r[3]))
+    VRFW.question.notice(PL.txt(PL.TX.EXPORT_DONE, r[4] ~= nil and ("modloader_exports/" .. tostring(r[4]) .. "/" .. r[3]) or r[3]))
   else
     funcLuaCommand(C.SE, SE_NG)
     VRFW.question.notice(PL.txt(PL.TX.EXPORT_FAIL))
@@ -1305,12 +1312,13 @@ function PL.import_item(id)
   return id, true
 end
 
-function PL.set_import(i)
+-- The listed player set file the player takes from the game's own list -> its index; nil when none is taken.
+function PL.import_from_list()
   local okc, count, area = pcall(funcLuaCommand, PL.VRM.LIST)
   if not okc or type(count) ~= "number" or count <= 0 then
     funcLuaCommand(C.SE, SE_NG)
     VRFW.question.notice(PL.txt(PL.TX.IMPORT_NONE, "modloader_exports/" .. tostring(area or "")))
-    return
+    return nil
   end
   local files = {}
   for k = 0, count - 1 do
@@ -1331,10 +1339,27 @@ function PL.set_import(i)
       return "close"
     end})
   if pick < 0 or files[pick + 1] == nil then
+    return nil
+  end
+  return files[pick + 1].idx
+end
+
+function PL.set_import(i)
+  local result, ticket = VRFW.file_pick.open({area = funcLuaCommand(PL.VRM.AREA), ext = "vrmod",
+    title = PL.txt(PL.TX.SET_IMPORT_ROW)})
+  if result == "cancelled" then
     return
   end
-  local r = {pcall(funcLuaCommand, PL.VRM.READ, files[pick + 1].idx, n)}
-  Log("player set import read", files[pick + 1].file, tostring(r[1]), tostring(r[2]), tostring(r[3]))
+  local index = -1
+  if result ~= "picked" then
+    ticket = nil
+    index = PL.import_from_list()
+    if index == nil then
+      return
+    end
+  end
+  local r = {pcall(funcLuaCommand, PL.VRM.READ, index, n, ticket)}
+  Log("player set import read", tostring(index), tostring(ticket), tostring(r[1]), tostring(r[2]), tostring(r[3]))
   if not r[1] or r[2] ~= true then
     funcLuaCommand(C.SE, SE_NG)
     VRFW.question.notice(PL.txt(PL.TX.IMPORT_BAD))

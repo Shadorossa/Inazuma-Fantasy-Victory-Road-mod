@@ -17,7 +17,7 @@ local u32, hex = Id.unsigned, Id.hex_text
 local cfg = VRFW.config
 
 local BLOB = "skill_uses.json"
-local FILE_VERSION = 1
+local FILE_VERSION = 2
 local MAX_GRADE = 5
 local UNIT_STRIDE, UNIT_MAX, UNIT_HDL, UNIT_CHARA = 0x380, 0x60, 0x368, 0x370
 local UNIT_SKILLS, UNIT_SKILL_STRIDE, UNIT_SKILL_RANK, UNIT_SKILL_RECAST = 0x30, 0x1C, 0x15, 0x04
@@ -181,35 +181,39 @@ local function mode_rank(dup, grade)
   return math.min(r, MAX_GRADE)
 end
 
--- { slot, map = { [chara] = { [skill] = { uses, grade } } }, n, dirty }
+-- { slot, map = { [chara key] = { [skill key] = { uses, grade } } }, n, dirty }; the keys are 8-digit hex texts, the file's own object keys
 local function new_store(slot) return { slot = slot, map = {}, n = 0, dirty = false } end
 
+local function key(x) return string.format("%08X", x) end
+
 local function get(st, c, s)
-  local m = st.map[c]
-  local e = m and m[s]
+  local m = st.map[key(c)]
+  local e = m and m[key(s)]
   if e then return e[1], e[2] end
   return 0, 0
 end
 
 local function has(st, c, s)
-  local m = st.map[c]
-  return m ~= nil and m[s] ~= nil
+  local m = st.map[key(c)]
+  return m ~= nil and m[key(s)] ~= nil
 end
 
 local function put(st, c, s, uses, grade)
-  local m = st.map[c]
-  if not m then m = {}; st.map[c] = m end
-  if not m[s] then st.n = st.n + 1 end
-  m[s] = { uses, grade }
+  local ck, sk = key(c), key(s)
+  local m = st.map[ck]
+  if not m then m = {}; st.map[ck] = m end
+  if not m[sk] then st.n = st.n + 1 end
+  m[sk] = { uses, grade }
   st.dirty = true
 end
 
 local function remove(st, c, s)
-  local m = st.map[c]
-  if m and m[s] then
-    m[s] = nil
+  local ck, sk = key(c), key(s)
+  local m = st.map[ck]
+  if m and m[sk] then
+    m[sk] = nil
     st.n = st.n - 1
-    if next(m) == nil then st.map[c] = nil end
+    if next(m) == nil then st.map[ck] = nil end
   end
   st.dirty = true
 end
@@ -249,58 +253,40 @@ local function boost(st, c, s, base, steps)
   return og, g
 end
 
-local DOC = VRFW.save.doc.new(BLOB, { version = FILE_VERSION, stage = true, log = "hissatsu level up",
-  default = function() return { version = FILE_VERSION, entries = {} } end })
-
-local function to_doc(st)
-  local rows = {}
-  for c, m in pairs(st.map) do
-    for s, e in pairs(m) do rows[#rows + 1] = { c, s, e[1], e[2] } end
-  end
-  table.sort(rows, function(a, b)
-    for i = 1, 4 do
-      if a[i] ~= b[i] then return a[i] < b[i] end
+-- Version 1 kept one { chara, skill, uses, grade } row per entry; version 2 is the store's own keyed map, so a load or a write runs no Lua loop.
+local function migrate(j)
+  if tonumber(j.version) ~= 1 then return nil, "version " .. tostring(j.version) .. " is unknown" end
+  local st, auras = new_store(0), 0
+  for _, e in ipairs(type(j.entries) == "table" and j.entries or {}) do
+    local c, s = u32(e[1]), u32(e[2])
+    if c ~= 0 and s ~= 0 then
+      if A.type(s) ~= nil then
+        auras = auras + 1
+      else
+        put(st, c, s, u32(e[3]), math.min(tonumber(e[4]) or 0, MAX_GRADE))
+      end
     end
-    return false
-  end)
-  return { version = FILE_VERSION, slot = st.slot, entries = rows }
+  end
+  info(string.format("skill uses file version 1 -> %d: %d entries kept, %d aura-skill entries dropped (aura skills have no grade)", FILE_VERSION, st.n, auras))
+  return { version = FILE_VERSION, count = st.n, players = st.map }
+end
+
+local DOC = VRFW.save.doc.new(BLOB, { version = FILE_VERSION, stage = true, log = "hissatsu level up", migrate = migrate,
+  default = function() return { version = FILE_VERSION, count = 0, players = {} } end })
+
+-- The framework's JSON writer orders object keys itself, so the store goes out as it is.
+local function to_doc(st)
+  return { version = FILE_VERSION, slot = st.slot, count = st.n, players = st.map }
 end
 
 local function load_store(slot)
   local st = new_store(slot)
   local j, state = DOC:load(slot)
   if state == "bad" then return st end
-  for _, e in ipairs(type(j.entries) == "table" and j.entries or {}) do
-    local c, s = u32(e[1]), u32(e[2])
-    if c ~= 0 and s ~= 0 then
-      local m = st.map[c]
-      if not m then m = {}; st.map[c] = m end
-      if not m[s] then st.n = st.n + 1 end
-      m[s] = { u32(e[3]), math.min(tonumber(e[4]) or 0, MAX_GRADE) }
-    end
-  end
-  st.dirty = false
-  info(string.format("slot %d: %d (player, move) entries loaded", slot, st.n))
-  if slot >= 2 then
-    local n = 0
-    for c, m in pairs(st.map) do
-      for s in pairs(m) do
-        if A.type(s) ~= nil then
-          remove(st, c, s)
-          n = n + 1
-        end
-      end
-    end
-    if n > 0 then
-      local ok, where = DOC:write(to_doc(st), slot, true)
-      if ok then
-        st.dirty = false
-        info(string.format("slot %d: %d aura-skill entries removed (aura skills have no grade)", slot, n))
-      else
-        err(string.format("slot %d: cannot write after removing %d aura entries: %s", slot, n, tostring(where)))
-      end
-    end
-  end
+  if type(j.players) == "table" then st.map = j.players end
+  st.n = math.max(math.floor(tonumber(j.count) or 0), 0)
+  st.dirty = state == "migrated"
+  info(string.format("slot %d: %d (player, move) entries loaded%s", slot, st.n, st.dirty and " (migrated, written at the next game save)" or ""))
   return st
 end
 
@@ -339,10 +325,10 @@ local function cur()
   return store
 end
 
-local function commit(st, why, now)
-  if not st.dirty then return end
-  local ok, where, staged = DOC:write(to_doc(st), st.slot, now)
-  if staged then return end
+-- Writes the store of its slot: staged for the game's save (cleared then), or written at once outside a save.
+local function commit(st, why)
+  if not st.dirty or st.slot == 0 then return end
+  local ok, where = DOC:write(to_doc(st), st.slot)
   if ok then
     st.dirty = false
   else
@@ -585,7 +571,6 @@ local function on_used(ev)
     end
   end
   local uses, old, g = add_use(st, own, skill)
-  commit(st, "use")
   local extra = ""
   if g > old then extra = raise(unit, slot, own, chara, skill, old, g) end
   if LOG_USES or g > old then
@@ -597,67 +582,61 @@ end
 local swept_slot, swept_at = nil, 0
 local build_kinds = {}
 local SWEEP_STEP = 200
-local sweep_list, sweep_pos, sweep_todo = nil, 1, nil
+local sweep_list, sweep_pos = nil, 1
+local sweep_seeded, sweep_charas, sweep_raised = 0, 0, 0
 
-local function sweep_finish(slot, total)
-  local todo = sweep_todo or {}
-  sweep_list, sweep_pos, sweep_todo = nil, 1, nil
-  if #todo == 0 then return end
-  local st = cur()
-  local seeded, charas, raised = 0, {}, 0
-  for _, t in ipairs(todo) do
-    local g, u = seed(st, t[1], t[3], t[4])
+-- Seeds the declared grades of one saved record's moves at once: the walk keeps no list that grows with the save.
+local function sweep_record(st, handle, param, declared)
+  local r = record(handle)
+  if not r or not r.addr then return end
+  local any = false
+  for i = 0, SKILL_SLOTS - 1 do
+    local id = read_memory("u32", r.addr + REC_SKILL_LIST + i * SKILL_ENTRY)
+    local dg = id and id ~= 0 and A.type(id) == nil and not A.is_spirit_move(id) and declared[id]
+    local g, u = nil, nil
+    if dg then g, u = seed(st, handle, id, dg) end
     if g then
-      seeded = seeded + 1
-      charas[t[1]] = true
-      local i, o, nr = write_saved_rank(t[1], t[3], function(c) if g > c then return g end return nil end)
-      if i and nr > o then raised = raised + 1 end
-      if seeded <= SEED_LOG_MAX then
+      any = true
+      sweep_seeded = sweep_seeded + 1
+      local li, o, nr = write_saved_rank(handle, id, function(c) if g > c then return g end return nil end)
+      if li and nr > o then sweep_raised = sweep_raised + 1 end
+      if sweep_seeded <= SEED_LOG_MAX then
         info(string.format("recruit grade: chara %s (card %s) skill %s starts at grade %d (uses %d), saved list %s [sweep]",
-          hex(t[1]), hex(t[2]), hex(t[3]), g, u, i and string.format("[%d] %d->%d", i, o, nr) or "none"))
+          hex(handle), hex(param), hex(id), g, u, li and string.format("[%d] %d->%d", li, o, nr) or "none"))
       end
     end
   end
-  if seeded == 0 then return end
-  local nc = 0
-  for _ in pairs(charas) do nc = nc + 1 end
-  info(string.format("recruit grades sweep (slot %d): %d move(s) seeded on %d saved character(s), %d saved rank(s) raised (%d saved records scanned)",
-    slot, seeded, nc, raised, total))
-  commit(st, "recruit grades sweep")
+  if any then sweep_charas = sweep_charas + 1 end
 end
 
-local function sweep(slot)
+local function sweep(st)
+  local slot = st.slot
   if sweep_list == nil then
     local now = now_ms()
     if swept_slot == slot and now - swept_at < SWEEP_EVERY_MS then return end
     swept_slot, swept_at = slot, now
     local ok, columns = pcall(VRFW.character.saved_columns, { "handle", "param" })
     if not ok or type(columns) ~= "table" then return end
-    sweep_list, sweep_pos, sweep_todo = columns, 1, {}
+    sweep_list, sweep_pos = columns, 1
+    sweep_seeded, sweep_charas, sweep_raised = 0, 0, 0
   elseif swept_slot ~= slot then
-    sweep_list, sweep_pos, sweep_todo = nil, 1, nil   -- the slot changed mid-walk: start again on the next build
+    sweep_list, sweep_pos = nil, 1   -- the slot changed mid-walk: start again on the next build
     return
   end
-  local handles, params, todo = sweep_list.handle, sweep_list.param, sweep_todo
+  local handles, params = sweep_list.handle, sweep_list.param
   local last = math.min(#handles, sweep_pos + SWEEP_STEP - 1)
   for n = sweep_pos, last do
-    local handle = u32(handles[n])
     local param = u32(params[n])
     local declared = grades_of(param)
-    if next(declared) ~= nil then
-      local r = record(handle)
-      if r and r.addr then
-        for i = 0, SKILL_SLOTS - 1 do
-          local id = read_memory("u32", r.addr + REC_SKILL_LIST + i * SKILL_ENTRY)
-          if id and id ~= 0 and not A.is_spirit_move(id) and declared[id] then
-            todo[#todo + 1] = { handle, param, id, declared[id] }
-          end
-        end
-      end
-    end
+    if next(declared) ~= nil then sweep_record(st, u32(handles[n]), param, declared) end
   end
   sweep_pos = last + 1
-  if sweep_pos > #handles then sweep_finish(slot, #handles) end
+  if sweep_pos <= #handles then return end
+  sweep_list, sweep_pos = nil, 1
+  if sweep_seeded > 0 then
+    info(string.format("recruit grades sweep (slot %d): %d move(s) seeded on %d saved character(s), %d saved rank(s) raised (%d saved records scanned)",
+      slot, sweep_seeded, sweep_charas, sweep_raised, #handles))
+  end
 end
 
 local build_owners = {}
@@ -694,17 +673,16 @@ local function on_build(ev)
   if count > 0 and #words == 0 then return end
   local declared = grades_of(param)
   local st = cur()
-  local changes, seeded = {}, false
+  local changes = {}
   for i = 0, count - 1 do
     local e = entries + i * SKILL_ENTRY
     local id, tail = u32(words[i * 2 + 1]), words[i * 2 + 2]
     local dup, flag = band(tail, 0xFF), band(rshift(tail, 16), 0xFF)
-    if id ~= 0 and flag == 0 and not A.is_spirit_move(id) then
+    if id ~= 0 and flag == 0 and A.type(id) == nil and not A.is_spirit_move(id) then
       local dg = declared[id]
       if dg then
         local sg, su = seed(st, own, id, dg)
         if sg then
-          seeded = true
           info(string.format("recruit grade: chara %s (card %s) skill %s starts at grade %d (uses %d) [list build]", hex(own), hex(param), hex(id), sg, su))
         end
       end
@@ -715,8 +693,7 @@ local function on_build(ev)
       end
     end
   end
-  if seeded then commit(st, "recruit grade") end
-  sweep(st.slot)
+  sweep(st)
   local kind = band(rshift(hdl, 12), 0xF)
   if not build_kinds[kind] then
     build_kinds[kind] = true
@@ -749,7 +726,7 @@ local function sync_saved_ranks(hdl, addr)
   local own = is_saved_handle(hdl) and hdl or owner(hdl) or hdl
   local st = cur()
   local declared = grades_of(u32(w[2]))
-  local changes, seeded = {}, false
+  local changes = {}
   for i = 0, SKILL_SLOTS - 1 do
     local e = addr + REC_SKILL_LIST + i * SKILL_ENTRY
     local k = REC_LIST_WORD + i * 2 + 1
@@ -757,7 +734,7 @@ local function sync_saved_ranks(hdl, addr)
     if id ~= 0 and A.type(id) == nil and not A.is_spirit_move(id) then
       local want = rival
       if not want then
-        if declared[id] and seed(st, own, id, declared[id]) then seeded = true end
+        if declared[id] then seed(st, own, id, declared[id]) end
         local _, g = get(st, own, id)
         want = mode_rank(cur_r, g)
       end
@@ -766,7 +743,6 @@ local function sync_saved_ranks(hdl, addr)
       end
     end
   end
-  if seeded then commit(st, "recruit grade") end
   return changes
 end
 
@@ -1054,7 +1030,6 @@ function HissatsuReforged.Cmd.Set(hdl, skill, grade)
   end
   local st = cur()
   local _, g = set_grade(st, hdl, skill, gr)
-  commit(st, "RANK_SET", true)
   local saved, live = apply_grade(hdl, skill, g)
   info(string.format("RANK_SET(%s, %s, %d) -> grade %d, saved %s, live units %d", hex(hdl), hex(skill), gr, g, saved, live))
   return true, g
@@ -1082,7 +1057,6 @@ function HissatsuReforged.Cmd.Boost(hdl, skill, steps)
   local base = grades_of(param)[skill]
   local st = cur()
   local old, g = boost(st, hdl, skill, base, steps)
-  commit(st, "boost", true)
   local saved, live = apply_grade(hdl, skill, g)
   info(string.format("boost (%s): chara %s (card %s, card grade %s) skill %s +%d: grade %d -> %d (slot %d store), saved %s, live units %d",
     why, hex(hdl), hex(param), tostring(base), hex(skill), steps, old, g, st.slot, saved, live))
@@ -1142,7 +1116,6 @@ function HissatsuReforged.Cmd.Item(hdl, skill, item, apply)
   end
   if not apply then return IT_OK, old, want end
   put(st, hdl, skill, math.max(uses, uses_for(want)), want)
-  commit(st, "rank item", true)
   local saved, live = apply_grade(hdl, skill, want)
   info(string.format("rank item %s: chara %s (card %s) skill %s (from the %s) grade %d -> %d (slot %d store), saved %s, live units %d",
     hex(item), hex(hdl), hex(param), hex(skill), where, old, want, st.slot, saved, live))
@@ -1270,5 +1243,19 @@ VRFW.on("match:start_request", function(ev)
 end)
 VRFW.on("match_end", function() REQUEST_GRADE = nil end)
 VRFW.on("menu:open:post", drop_caches)
-VRFW.on("slot_load", drop_caches)
+-- The store of the loaded slot is read here, so no game hook pays for a load.
+VRFW.on("slot_load", function(ev)
+  drop_caches()
+  local slot = ev and tonumber(ev.slot) or 0
+  if slot >= 1 and not (parked and parked.slot == slot) then
+    if store.dirty and store.slot ~= 0 then warn(string.format("slot %d -> %d: dropping uses not saved by the game", store.slot, slot)) end
+    store = load_store(slot)
+  end
+  return nil
+end)
+-- Every change waits in memory and is staged once here, when the game copies its live data into the save it writes.
+VRFW.on("save:before", function()
+  commit(store, "game save")
+  return nil
+end)
 VRFW.on("game_reset", drop_caches)

@@ -1,6 +1,7 @@
 id = "ClassicRecruitment"
 # name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "Classic Recruitment"
+icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_commu02"
 version = "0.3.0"
 author = "Fantasy Team"
 description = "One card per character, as in the classic games: players no longer drop as spirits, so you sign them in the Clubroom's Player album with Friendship Points earned in every match. Needs BetterQoL."

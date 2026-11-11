@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11700410"                                   # Carlisle Laimlight
 moves = [
-  { move = 0x39CB2F02, level = 1 },                         # Dragster
-  { move = 0x1C4D4906, level = 13 },                        # Whirlpool
-  { move = 0x613ABD43, level = 20 },                        # Dawnrise
-  { move = 0x6E53E2B3, level = 30 },                        # Angel Ball
+  { move = 0x39CB2F02, level = 13 },                        # Dragster
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
+  { move = 0x6E53E2B3, level = 38 },                        # Angel Ball
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11715010"                                   # Brandan Broomdorf
 moves = [
-  { move = 0xB01D1B68, level = 1 },                         # Power Spike
-  { move = 0xFF5C8DAF, level = 13 },                        # Shot Stopper
-  { move = 0xABA58912, level = 20 },                        # Ignited Steal
-  { move = 0xBA833662, level = 30 },                        # Million Hands
+  { move = 0xABA58912, level = 13 },                        # Ignited Steal
+  { move = 0xFF5C8DAF, level = 20 },                        # Shot Stopper
+  { move = 0xB01D1B68, level = 30 },                        # Power Spike
+  { move = 0xBA833662, level = 38 },                        # Million Hands
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11715020"                                   # Charlotte Graceslowe
 moves = [
-  { move = 0x06130797, level = 1 },                         # Rolling Kick
-  { move = 0x121A2FFE, level = 13 },                        # Mirage Shot
+  { move = 0x06130797, level = 13 },                        # Rolling Kick
   { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+  { move = 0x121A2FFE, level = 30 },                        # Mirage Shot
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11715030"                                   # Yohannes Drummand
 moves = [
-  { move = 0x5049A011, level = 1 },                         # Spinning Shot
-  { move = 0xC42D6F54, level = 13 },                        # Aikido
-  { move = 0xE0549BE6, level = 20 },                        # Easy Breezy Kid
-  { move = 0x7C1494CF, level = 30 },                        # Tornado Tunnel
+  { move = 0x5049A011, level = 13 },                        # Spinning Shot
+  { move = 0xC42D6F54, level = 20 },                        # Aikido
+  { move = 0xE0549BE6, level = 30 },                        # Easy Breezy Kid
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11715040"                                   # Manni Lamasque
 moves = [
-  { move = 0xBBA44137, level = 1 },                         # Great Wall
-  { move = 0xC5EF0563, level = 13 },                        # Three-Legged Rush
-  { move = 0x737DCB3F, level = 20 },                        # Pancake Defence
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0xBBA44137, level = 13 },                        # Great Wall
+  { move = 0xC5EF0563, level = 20 },                        # Three-Legged Rush
+  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11715050"                                   # Tiffany Fencourt
 moves = [
-  { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
-  { move = 0xBDAE2862, level = 13 },                        # Hellfire
-  { move = 0x8F1DD61E, level = 20 },                        # Maximum Fire
-  { move = 0x58D7E841, level = 30 },                        # Runaway Bull
+  { move = 0x3663DB4C, level = 20 },                        # Utter Gutsiness Bat
+  { move = 0xBDAE2862, level = 30 },                        # Hellfire
+  { move = 0x8F1DD61E, level = 38 },                        # Maximum Fire
+  { move = 0x58D7E841, level = 48 },                        # Runaway Bull
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11715060"                                   # Oralyn Everfable
 moves = [
-  { move = 0x592A96B4, level = 1 },                         # Afterimage
-  { move = 0xDCC9CCA3, level = 13 },                        # Tesla Coil
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
+  { move = 0x592A96B4, level = 13 },                        # Afterimage
+  { move = 0xDCC9CCA3, level = 20 },                        # Tesla Coil
   { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11715070"                                   # Farah Tigressa
 moves = [
-  { move = 0x6F918884, level = 1 },                         # Easy Breezy
-  { move = 0xDE4ED944, level = 13 },                        # Snowstorm Leopard
-  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
+  { move = 0x6F918884, level = 13 },                        # Easy Breezy
   { move = 0x4683AADF, level = 30 },                        # Space Penguin
+  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11715080"                                   # Macy Drapeley
 moves = [
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0xDCC9CCA3, level = 13 },                        # Tesla Coil
-  { move = 0x78218C02, level = 20 },                        # Duskfall
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0xDCC9CCA3, level = 20 },                        # Tesla Coil
+  { move = 0x78218C02, level = 38 },                        # Duskfall
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11715090"                                   # Alyra Verselle
 moves = [
-  { move = 0x039DBAAC, level = 1 },                         # Land of Ice
-  { move = 0x768AB9C5, level = 13 },                        # Frosticle
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x039DBAAC, level = 13 },                        # Land of Ice
+  { move = 0x768AB9C5, level = 20 },                        # Frosticle
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11715100"                                   # Misia Cheveuse
 moves = [
-  { move = 0xB13A6C3D, level = 1 },                         # Zigzag Flame
   { move = 0x3B8D915B, level = 13 },                        # Meteor Shower
-  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0xB13A6C3D, level = 20 },                        # Zigzag Flame
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]

@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c11200010"                                   # Mary Times Eleven
 moves = [
   { move = 0xED1BFBD3, level = 1 },                         # Fingers of Gaia
-  { move = 0xDCA94D3F, level = 11 },                        # Flash Upper
-  { move = 0x1AE60A71, level = 21 },                        # Super God Hand
-  { move = 0x8AF3EAB9, level = 31 },                        # Hammer of Fury
+  { move = 0xDCA94D3F, level = 1 },                         # Flash Upper
+  { move = 0x8AF3EAB9, level = 42 },                        # Hammer of Fury
+  { move = 0x1AE60A71, level = 52 },                        # Super God Hand
 ]
 
   [[edit.cards]]
@@ -20,9 +20,9 @@ moves = [
 target = "c11200020"                                   # Mary Times Eleven
 moves = [
   { move = 0xE546F47E, level = 1 },                         # Dust Devil
-  { move = 0xDCA94D3F, level = 11 },                        # Flash Upper
-  { move = 0x4D7EC7C0, level = 21 },                        # Maw-Ment of Truth
-  { move = 0x57E122EF, level = 31 },                        # Desecrater
+  { move = 0xDCA94D3F, level = 1 },                         # Flash Upper
+  { move = 0x4D7EC7C0, level = 11 },                        # Maw-Ment of Truth
+  { move = 0x57E122EF, level = 21 },                        # Desecrater
 ]
 
   [[edit.cards]]
@@ -36,9 +36,9 @@ moves = [
 target = "c11200030"                                   # Mary Times Eleven
 moves = [
   { move = 0xC2BBD4A2, level = 1 },                         # Wild Claw
-  { move = 0xED1BFBD3, level = 11 },                        # Fingers of Gaia
-  { move = 0x4D7EC7C0, level = 21 },                        # Maw-Ment of Truth
-  { move = 0xD471DE6C, level = 31 },                        # Snakebite
+  { move = 0xED1BFBD3, level = 1 },                         # Fingers of Gaia
+  { move = 0xD471DE6C, level = 1 },                         # Snakebite
+  { move = 0x4D7EC7C0, level = 11 },                        # Maw-Ment of Truth
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11200040"                                   # Mary Times Eleven
 moves = [
-  { move = 0xEBD03938, level = 1 },                         # Utter Gutsiness Catch
-  { move = 0xCC2FF5A7, level = 11 },                        # Gravity Dune
-  { move = 0xDCA94D3F, level = 21 },                        # Flash Upper
-  { move = 0x8AF3EAB9, level = 31 },                        # Hammer of Fury
+  { move = 0xDCA94D3F, level = 1 },                         # Flash Upper
+  { move = 0xEBD03938, level = 34 },                        # Utter Gutsiness Catch
+  { move = 0x8AF3EAB9, level = 42 },                        # Hammer of Fury
+  { move = 0xCC2FF5A7, level = 52 },                        # Gravity Dune
 ]
 
   [[edit.cards]]
@@ -68,9 +68,9 @@ moves = [
 target = "c11200500"                                   # Hurley Kane
 moves = [
   { move = 0x2BF596BF, level = 1 },                         # Tsunami Boost
-  { move = 0x1C4D4906, level = 11 },                        # Whirlpool
-  { move = 0xA4B51923, level = 21 },                        # The Typhoon
-  { move = 0x49933AEE, level = 31 },                        # Perfect Tower
+  { move = 0xA4B51923, level = 1 },                         # The Typhoon
+  { move = 0x1C4D4906, level = 21 },                        # Whirlpool
+  { move = 0x49933AEE, level = 69 },                        # Perfect Tower
 ]
 
   [[edit.cards]]

@@ -8,9 +8,9 @@ growth = "normal"
 stats = { kick = 208, control = 197, technique = 211, pressure = 247, physical = 231, intelligence = 301, agility = 196, freedom = 225 }
 moves = [
   { move = 0xB633C4E1, level = 1 },                         # Photon Crash
-  { move = 0x46FA651E, level = 11 },                        # Water Veil
-  { move = 0x50880BAF, level = 21 },                        # Frozen Steal
-  { move = 0x5E5AF1A9, level = 31 },                        # Northern Impact
+  { move = 0x46FA651E, level = 1 },                         # Water Veil
+  { move = 0x5E5AF1A9, level = 30 },                        # Northern Impact
+  { move = 0x50880BAF, level = 38 },                        # Frozen Steal
 ]
 
 [[edit]]
@@ -47,7 +47,7 @@ moves = [
 target = "c02020880"                                   # Rhine
 moves = [
   { move = 0x43B5739B, level = 1 },                         # Lightning Bolt
-  { move = 0xAAA6489B, level = 11 },                        # Spiral Shot
+  { move = 0xAAA6489B, level = 1 },                         # Spiral Shot
   { move = 0x46FA651E, level = 42 },                        # Water Veil
   { move = 0x4683AADF, level = 75 },                        # Space Penguin
 ]
@@ -67,8 +67,8 @@ stats = { kick = 339, control = 257, technique = 263, pressure = 193, physical =
   id = 0x37DCD24E
   moves = [
     { move = 0x46FA651E, level = 1 },                       # Water Veil
-    { move = 0x5E5AF1A9, level = 11 },                      # Northern Impact
-    { move = 0x0D368F6B, level = 21 },                      # Heaven's Time
+    { move = 0x5E5AF1A9, level = 1 },                       # Northern Impact
+    { move = 0x0D368F6B, level = 1 },                       # Heaven's Time
     { move = 0x09C23C18, level = 60 },                      # Fire Blizzard
   ]
 
@@ -76,8 +76,8 @@ stats = { kick = 339, control = 257, technique = 263, pressure = 193, physical =
   id = 0x3BB3BC24
   moves = [
     { move = 0x46FA651E, level = 1 },                       # Water Veil
-    { move = 0x5E5AF1A9, level = 11 },                      # Northern Impact
-    { move = 0x0D368F6B, level = 21 },                      # Heaven's Time
+    { move = 0x5E5AF1A9, level = 1 },                       # Northern Impact
+    { move = 0x0D368F6B, level = 1 },                       # Heaven's Time
     { move = 0x09C23C18, level = 60 },                      # Fire Blizzard
   ]
 
@@ -85,8 +85,8 @@ stats = { kick = 339, control = 257, technique = 263, pressure = 193, physical =
   id = 0xBDB75D6F
   moves = [
     { move = 0x46FA651E, level = 1 },                       # Water Veil
-    { move = 0x5E5AF1A9, level = 11 },                      # Northern Impact
-    { move = 0x0D368F6B, level = 21 },                      # Heaven's Time
+    { move = 0x5E5AF1A9, level = 1 },                       # Northern Impact
+    { move = 0x0D368F6B, level = 1 },                       # Heaven's Time
     { move = 0x09C23C18, level = 60 },                      # Fire Blizzard
   ]
 
@@ -111,7 +111,7 @@ moves = [
   { move = 0x50880BAF, level = 1 },                         # Frozen Steal
   { move = 0x19C3F43D, level = 43 },                        # Eternal Blizzard
   { move = 0x01DB04F5, level = 62 },                        # Defence Scan
-  { move = 0x5E5AF1A9, level = 72 },                        # Northern Impact
+  { move = 0x5E5AF1A9, level = 62 },                        # Northern Impact
 ]
 
   [[edit.cards]]
@@ -124,7 +124,7 @@ moves = [
 target = "c02022650"                                   # Icer
 moves = [
   { move = 0x50880BAF, level = 1 },                         # Frozen Steal
-  { move = 0x514A6198, level = 11 },                        # Asteroid Belt
+  { move = 0x514A6198, level = 1 },                         # Asteroid Belt
   { move = 0x79224D8B, level = 15 },                        # Freeze Shot
   { move = 0x94405906, level = 75 },                        # Grand Fenrir
 ]
@@ -155,7 +155,7 @@ moves = [
 target = "c02022690"                                   # Blown
 moves = [
   { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
-  { move = 0x46FA651E, level = 11 },                        # Water Veil
+  { move = 0x46FA651E, level = 1 },                         # Water Veil
   { move = 0xDCF43422, level = 32 },                        # Aurora Dribble
   { move = 0x5E5AF1A9, level = 70 },                        # Northern Impact
 ]

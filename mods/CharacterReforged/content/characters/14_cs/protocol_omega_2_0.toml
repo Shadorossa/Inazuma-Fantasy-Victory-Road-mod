@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05020700_5000"                              # Beta
 moves = [
-  { move = 0x05124F07, level = 1 },                         # Fission and Fusion
+  { move = 0x05124F07, level = 6 },                         # Fission and Fusion
   { move = 0x650FA58E, level = 22 },                        # Spin Out
+  { move = 0x518BCA26, level = 30 },                        # Fire Tornado
   { move = 0x1BF20F08, level = 71 },                        # Omega Assault
-  { move = 0x518BCA26, level = 81 },                        # Fire Tornado
 ]
 
   [[edit.cards]]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c05020630"                                   # Kilo
 moves = [
-  { move = 0xDCC9CCA3, level = 1 },                         # Tesla Coil
+  { move = 0xDCC9CCA3, level = 3 },                         # Tesla Coil
   { move = 0x457EB170, level = 20 },                        # Pyrokinetic
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
   { move = 0xF7E49F60, level = 47 },                        # Magnetism
-  { move = 0x21127474, level = 57 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -34,7 +34,7 @@ moves = [
 [[edit]]
 target = "c05020650"                                   # Foxtrot
 moves = [
-  { move = 0x650FA58E, level = 1 },                         # Spin Out
+  { move = 0x650FA58E, level = 7 },                         # Spin Out
   { move = 0xD9BB22A7, level = 19 },                        # Air Ride
   { move = 0x457EB170, level = 21 },                        # Pyrokinetic
   { move = 0x1C4D4906, level = 48 },                        # Whirlpool
@@ -52,8 +52,8 @@ target = "c05020680"                                   # November
 moves = [
   { move = 0x650FA58E, level = 1 },                         # Spin Out
   { move = 0x585098FC, level = 23 },                        # Slice and Dice
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
   { move = 0x86F5F6E8, level = 57 },                        # Cupid's Arrow
-  { move = 0x613ABD43, level = 67 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -72,10 +72,10 @@ stats = { kick = 333, control = 265, technique = 252, pressure = 186, physical =
   [[edit.cards]]
   id = 0x1348F02E
   moves = [
-    { move = 0x05124F07, level = 1 },                       # Fission and Fusion
+    { move = 0x05124F07, level = 6 },                       # Fission and Fusion
     { move = 0x650FA58E, level = 22 },                      # Spin Out
+    { move = 0x518BCA26, level = 30 },                      # Fire Tornado
     { move = 0x1BF20F08, level = 71 },                      # Omega Assault
-    { move = 0x518BCA26, level = 81 },                      # Fire Tornado
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -86,10 +86,10 @@ stats = { kick = 333, control = 265, technique = 252, pressure = 186, physical =
   [[edit.cards]]
   id = 0xA28E9F95
   moves = [
-    { move = 0x05124F07, level = 1 },                       # Fission and Fusion
+    { move = 0x05124F07, level = 6 },                       # Fission and Fusion
     { move = 0x650FA58E, level = 22 },                      # Spin Out
+    { move = 0x518BCA26, level = 30 },                      # Fire Tornado
     { move = 0x1BF20F08, level = 71 },                      # Omega Assault
-    { move = 0x518BCA26, level = 81 },                      # Fire Tornado
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -103,10 +103,10 @@ rank = 3
 growth = "normal"
 stats = { kick = 290, control = 259, technique = 250, pressure = 209, physical = 170, intelligence = 236, agility = 188, freedom = 255 }
 moves = [
-  { move = 0x05124F07, level = 1 },                         # Fission and Fusion
+  { move = 0x05124F07, level = 6 },                         # Fission and Fusion
   { move = 0x650FA58E, level = 22 },                        # Spin Out
+  { move = 0x518BCA26, level = 30 },                        # Fire Tornado
   { move = 0x1BF20F08, level = 71 },                        # Omega Assault
-  { move = 0x518BCA26, level = 81 },                        # Fire Tornado
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)

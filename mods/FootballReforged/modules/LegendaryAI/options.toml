@@ -11,3 +11,13 @@ values = [{ value = 0, name = "difficulty_novice", text = "Novice" }, { value = 
 default = 4
 order = 230
 restart = false
+
+# «Canon Chronicle battles»: Legendary AI also in the Chronicle battles the game gives a story team for (mod.toml not_in_match_modes_unless_option), read at each match setup.
+[[option]]
+id = "canon_chronicle_battles"                # row key LegendaryAI.canon_chronicle_battles
+type = "toggle"
+label = "option_canon_chronicle_battles"      # text\keys.toml, 9 languages
+help = "option_canon_chronicle_battles_help"
+default = 0
+order = 231
+restart = false

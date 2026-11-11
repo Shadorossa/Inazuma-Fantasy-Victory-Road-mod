@@ -12,6 +12,8 @@ difficulty_amateur = "Amateur"
 difficulty_professional = "Professional"
 difficulty_world_class = "World class"
 difficulty_hell = "Hell"
+option_canon_chronicle_battles = "Legendary AI in canon Chronicle battles"
+option_canon_chronicle_battles_help = "Also play the canon Chronicle battles against the Legendary AI: the battles where the game gives you the story team. From the next match."
 
 [es.new]
 mod_name = "IA legendaria"
@@ -23,6 +25,8 @@ difficulty_amateur = "Aficionado"
 difficulty_professional = "Profesional"
 difficulty_world_class = "Clase mundial"
 difficulty_hell = "Infierno"
+option_canon_chronicle_battles = "IA legendaria en batallas de crónica canon"
+option_canon_chronicle_battles_help = "Juega también contra la IA legendaria las batallas de crónica canon: las batallas en las que el juego te da el equipo de la historia. Desde el próximo partido."
 
 [fr.new]
 mod_name = "IA légendaire"
@@ -34,6 +38,8 @@ difficulty_amateur = "Amateur"
 difficulty_professional = "Professionnel"
 difficulty_world_class = "Classe mondiale"
 difficulty_hell = "Enfer"
+option_canon_chronicle_battles = "IA légendaire dans les batailles de Chronique canon"
+option_canon_chronicle_battles_help = "Joue aussi contre l'IA légendaire les batailles de Chronique canon : celles où le jeu te donne l'équipe de l'histoire. Dès le prochain match."
 
 [de.new]
 mod_name = "Legendäre KI"
@@ -45,6 +51,8 @@ difficulty_amateur = "Amateur"
 difficulty_professional = "Profi"
 difficulty_world_class = "Weltklasse"
 difficulty_hell = "Hölle"
+option_canon_chronicle_battles = "Legendäre KI in kanonischen Chronik-Kämpfen"
+option_canon_chronicle_battles_help = "Spiele auch die kanonischen Chronik-Kämpfe gegen die legendäre KI: die Kämpfe, in denen dir das Spiel das Story-Team gibt. Ab dem nächsten Spiel."
 
 [it.new]
 mod_name = "IA leggendaria"
@@ -56,6 +64,8 @@ difficulty_amateur = "Dilettante"
 difficulty_professional = "Professionista"
 difficulty_world_class = "Classe mondiale"
 difficulty_hell = "Inferno"
+option_canon_chronicle_battles = "IA leggendaria nelle battaglie di Cronaca canoniche"
+option_canon_chronicle_battles_help = "Gioca contro l'IA leggendaria anche le battaglie di Cronaca canoniche: quelle in cui il gioco ti dà la squadra della storia. Dalla prossima partita."
 
 [pt.new]
 mod_name = "IA lendária"
@@ -67,6 +77,8 @@ difficulty_amateur = "Amador"
 difficulty_professional = "Profissional"
 difficulty_world_class = "Classe mundial"
 difficulty_hell = "Inferno"
+option_canon_chronicle_battles = "IA lendária nas batalhas de Crónica canónicas"
+option_canon_chronicle_battles_help = "Joga também contra a IA lendária as batalhas de Crónica canónicas: aquelas em que o jogo te dá a equipa da história. A partir da próxima partida."
 
 [ja.new]
 mod_name = "伝説のAI"
@@ -78,6 +90,8 @@ difficulty_amateur = "アマチュア"
 difficulty_professional = "プロ"
 difficulty_world_class = "ワールドクラス"
 difficulty_hell = "地獄"
+option_canon_chronicle_battles = "原作クロニクルバトルで伝説のAI"
+option_canon_chronicle_battles_help = "原作クロニクルバトル(ゲームがストーリーのチームを用意するバトル)でも伝説のAIと戦います。次の試合から反映されます。"
 
 [zh_hans.new]
 mod_name = "传说级AI"
@@ -89,6 +103,8 @@ difficulty_amateur = "业余"
 difficulty_professional = "职业"
 difficulty_world_class = "世界级"
 difficulty_hell = "地狱"
+option_canon_chronicle_battles = "原作编年史对战中的传说级AI"
+option_canon_chronicle_battles_help = "在原作编年史对战(游戏为你提供剧情队伍的对战)中也与传说级AI对战。从下一场比赛起生效。"
 
 [zh_hant.new]
 mod_name = "傳說級AI"
@@ -100,3 +116,5 @@ difficulty_amateur = "業餘"
 difficulty_professional = "職業"
 difficulty_world_class = "世界級"
 difficulty_hell = "地獄"
+option_canon_chronicle_battles = "原作編年史對戰中的傳說級AI"
+option_canon_chronicle_battles_help = "在原作編年史對戰(遊戲為你提供劇情隊伍的對戰)中也與傳說級AI對戰。從下一場比賽起生效。"

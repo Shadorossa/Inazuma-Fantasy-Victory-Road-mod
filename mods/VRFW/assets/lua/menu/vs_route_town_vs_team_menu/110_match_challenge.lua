@@ -73,8 +73,8 @@ if VRFW.match_challenge ~= nil then
           VRFW.host.command(VRFW.match_challenge.SE, VRFW.match_challenge.SE_NG)
           return
         end
-        VRFW.match_challenge.arm_auras(S.game, S.diff)
       end
+      VRFW.match_challenge.arm_auras(S.game, S.diff)
       return decide(...)
     end
     OnDecideFocus = S.decide_wrap

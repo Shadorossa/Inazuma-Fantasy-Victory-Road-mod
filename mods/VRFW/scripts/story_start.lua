@@ -24,7 +24,7 @@ local function build()
     VERSION = 0, LEVEL = 0, NORMAL_LEVEL = 0, PHASE = { 0, 0 },
     BITS = {}, BITS_OFF = {}, BYTES = {}, HELP = {}, QUESTS = {}, WORDS = {}, GAMES = {}, ITEMS = {},
     TEAM_INFO = {}, TEAM_SET = {}, ADDS = {}, SCOUTS = {}, NORMAL = {}, CHARACTER_OF = {}, CHARACTER_CARDS = {},
-    TROPHIES = {},
+    TROPHIES = {}, OBTAINED = {},
   }
   local clear = nil
   local entries = 0
@@ -64,6 +64,7 @@ local function build()
           for _, card in ipairs(cards) do d.CHARACTER_OF[card] = c.character end
         end
         append(d.TROPHIES, e.trophies, function(t) return { t.trophy, t.tier } end)
+        append(d.OBTAINED, e.items_obtained, function(i) return i.catalog end)
       end
     end
   end
@@ -74,7 +75,7 @@ local function build()
   end
   d.BITS[#d.BITS + 1] = clear
   VRFW.log("story_start:", entries, "entry(ies),", #d.BITS, "flags,", #d.ADDS + #d.SCOUTS, "roster,", #d.NORMAL,
-           "normal copies,", #d.TROPHIES, "trophy tiers")
+           "normal copies,", #d.TROPHIES, "trophy tiers,", #d.OBTAINED, "obtained items")
   return d
 end
 

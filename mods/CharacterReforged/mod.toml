@@ -1,6 +1,7 @@
 id = "CharacterReforged"
 # name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "Character Reforged"
+icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_datafile05"
 version = "0.3.0"
 author = "Fantasy Team"
 description = "The base of the character mods. Every character gets his own stats and moveset, the level cap rises to 200, and the skill board becomes an expanded table with 6 special moves, an aura slot and a mix slot. It also adds a paged player page with a 3D model and stat gauges, stat training with free points, a miximax between any two players and every keshin with its armour, and options for item transformations, keshin and totems on points instead of time and a stamina bar for every player."
@@ -21,11 +22,11 @@ lua_early = true
 # File map and extension points: docs/game/mods/character-reforged.md
 
 [exports]
-functions = ["PairRules", "PairCheck", "PairValidity", "Card", "BoardItems", "BoardSlotOf", "BoardPlace", "CanPlace", "AddPlaceRule", "RemovePlaceRule", "SkillSetRules", "MixGet", "MixSet", "SlotOf", "StatsReady", "HasStats", "StatCard", "StatAt", "Libertad", "DerivedLuck", "CharaStat", "LevelCap", "StatCurve", "LevelFactor", "StatTotalMax", "Moveset", "DuplicatePolicy", "EraKitOf", "MixAddsStats", "PartnerLockSet", "BoardRoleState", "BoardRoleSetWithoutMatches", "BoardRoleCodes", "SetRoleMedalThresholds", "TrainingLuckDelta", "MixFusions", "MixStoreBlob", "ChangeOn", "ChangeItems", "ChangeAdd", "ChangeList", "ChangeItem", "ChangeEquip", "ChangeDelete", "ChangeGet", "ChangeReservation", "ChangePartnerOk", "ChangeCandidateRows", "ChangeReservedBy", "ChangeIsBase", "ChangePairs", "ChangeCarrier"]
+functions = ["PairRules", "PartnerInTeamTexts", "PairCheck", "PairValidity", "Card", "BoardItems", "BoardSlotOf", "BoardPlace", "CanPlace", "AddPlaceRule", "RemovePlaceRule", "SkillSetRules", "MixGet", "MixSet", "SlotOf", "StatsReady", "HasStats", "StatCard", "StatAt", "Libertad", "DerivedLuck", "CharaStat", "LevelCap", "StatCurve", "LevelFactor", "StatTotalMax", "Moveset", "DuplicatePolicy", "EraKitOf", "MixAddsStats", "PartnerLockSet", "BoardRoleState", "BoardRoleSetWithoutMatches", "BoardRoleCodes", "SetRoleMedalThresholds", "TrainingLuckDelta", "MixFusions", "MixStoreBlob", "ChangeOn", "ChangeItems", "ChangeAdd", "ChangeList", "ChangeItem", "ChangeEquip", "ChangeDelete", "ChangeGet", "ChangeReservation", "ChangePartnerOk", "ChangeCandidateRows", "ChangeReservedBy", "ChangeIsBase", "ChangePairs", "ChangeCarrier"]
 # [CharacterReforged.<key>] tables other mods declare in their content (schemas in docs/game/mods/character-reforged.md)
 keys = ["PairRules", "Create", "DuplicateRules", "SkillBoard", "EraKit", "PartnerLock", "PlaceRule", "Totem", "Skill"]
 tables = ["CharacterReforged.SoulsPlayer", "CharacterReforged.StatRow", "CharacterReforged.EraKit", "Passive.RarityTier", "CharacterReforged.PointsAura", "CharacterReforged.PointsPlayer", "CharacterReforged.PointsPair", "CharacterReforged.PointsTeam", "CharacterReforged.PointsStaminaAura", "CharacterReforged.PointsStaminaPlayer", "CharacterReforged.PointsStaminaTeam", "Resource.OffPitch"]
-game_lua = ["CharacterReforged.one_card_per_player", "CharacterReforged.header", "CharacterReforged.skill_table", "CharacterReforged.page", "CharacterReforged.parts", "CharacterReforged.training_mode", "CharacterReforged.training_skill_table_button", "CharacterReforged_PointsHud", "CharacterReforged_PointsStamina"]
+game_lua = ["CharacterReforged.one_card_per_player", "CharacterReforged.raised_copy_rarity", "CharacterReforged.header", "CharacterReforged.skill_table", "CharacterReforged.page", "CharacterReforged.parts", "CharacterReforged.training_mode", "CharacterReforged.training_skill_table_button", "CharacterReforged_PointsHud", "CharacterReforged_PointsStamina"]
 
 [content.languages]
 telops = ["es", "en", "fr", "de", "it", "pt", "zh_hans", "zh_hant"]

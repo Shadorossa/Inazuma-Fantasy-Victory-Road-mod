@@ -54,8 +54,8 @@ target = "c03031240"
 moves = [
   { move = 0x166B0073, level = 1 },                         # Super Armadillo
   { move = 0xB13A6C3D, level = 15 },                        # Zigzag Flame
+  { move = 0x087999EE, level = 30 },                        # Heel Drop
   { move = 0x58E8FC83, level = 33 },                        # Rolling Hell
-  { move = 0x087999EE, level = 43 },                        # Heel Drop
 ]
 
   [[edit.cards]]
@@ -113,9 +113,9 @@ moves = [
 target = "c03031280"                                   # Roberto Torres
 moves = [
   { move = 0x132416F6, level = 1 },                         # Dog Run
+  { move = 0xABA58912, level = 30 },                        # Ignited Steal
   { move = 0x2B343D01, level = 31 },                        # Cyclone
   { move = 0x52CEB5F6, level = 52 },                        # Iron Wall
-  { move = 0xABA58912, level = 62 },                        # Ignited Steal
 ]
 
   [[edit.cards]]
@@ -128,9 +128,9 @@ moves = [
 target = "c03031290"                                   # Pablo Castillo
 moves = [
   { move = 0x7B64F3D2, level = 1 },                         # Hawk Shot
+  { move = 0x4DDFEDE2, level = 13 },                        # Eagle Buster
   { move = 0xB13A6C3D, level = 15 },                        # Zigzag Flame
   { move = 0x2F78EA0D, level = 58 },                        # Triangle Z
-  { move = 0x4DDFEDE2, level = 68 },                        # Eagle Buster
 ]
 
   [[edit.cards]]
@@ -145,7 +145,7 @@ moves = [
   { move = 0xBDAE2862, level = 1 },                         # Hellfire
   { move = 0x1D4E888F, level = 33 },                        # Condor Dive
   { move = 0x4DDFEDE2, level = 36 },                        # Eagle Buster
-  { move = 0x41F3CDC2, level = 46 },                        # Scorching Tackle
+  { move = 0x41F3CDC2, level = 38 },                        # Scorching Tackle
 ]
 VRFW.MoveGrades = [
   { Move = 0xBDAE2862, Grade = 1 },                         # Hellfire
@@ -179,7 +179,7 @@ moves = [
   { move = 0xA7157B91, level = 1 },                         # Power Shield
   { move = 0xA6D711A6, level = 15 },                        # Full Power Shield
   { move = 0xB13A6C3D, level = 34 },                        # Zigzag Flame
-  { move = 0xEA12530F, level = 44 },                        # Double Rocket
+  { move = 0xEA12530F, level = 38 },                        # Double Rocket
 ]
 
   [[edit.cards]]
@@ -208,8 +208,8 @@ target = "c03031340"
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0x31ABD82E, level = 20 },                        # Circus Block
+  { move = 0x132416F6, level = 30 },                        # Dog Run
   { move = 0x21127474, level = 57 },                        # Ultra Moon
-  { move = 0x132416F6, level = 67 },                        # Dog Run
 ]
 
   [[edit.cards]]
@@ -239,8 +239,8 @@ target = "c03031360"                                   # Ricardo Agüero
 moves = [
   { move = 0x011AAF4B, level = 1 },                         # Gyro Head
   { move = 0x4DDFEDE2, level = 20 },                        # Eagle Buster
+  { move = 0xB13A6C3D, level = 30 },                        # Zigzag Flame
   { move = 0xADAFE047, level = 59 },                        # Dual Strike
-  { move = 0xB13A6C3D, level = 69 },                        # Zigzag Flame
 ]
 
   [[edit.cards]]
@@ -252,10 +252,10 @@ moves = [
 [[edit]]
 target = "c11803060"                                   # Daniel Sturbin
 moves = [
-  { move = 0x3B8D915B, level = 1 },                         # Meteor Shower
-  { move = 0xEE3E059F, level = 11 },                        # Celestial Smash
-  { move = 0x518BCA26, level = 21 },                        # Fire Tornado
-  { move = 0x3A4FFB6C, level = 31 },                        # The Ikaros
+  { move = 0x3B8D915B, level = 13 },                        # Meteor Shower
+  { move = 0x518BCA26, level = 20 },                        # Fire Tornado
+  { move = 0xEE3E059F, level = 38 },                        # Celestial Smash
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]

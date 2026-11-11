@@ -39,7 +39,7 @@ local function rarity_values()
 end
 
 -- the col 41 values of a list of rarity ids / numbers (unknown ids left out with a warning)
-local function special_rarity_set(label, list)
+local function special_rarity_set(label, key, list)
   local set, by_id = {}, nil
   local function add(rarity)
     if type(rarity) == "number" and rarity > 0 and rarity <= HIGHEST_RARITY and rarity % 1 == 0 then set[rarity] = true end
@@ -50,7 +50,7 @@ local function special_rarity_set(label, list)
       if by_id[entry] then
         for _, rarity in ipairs(by_id[entry]) do add(rarity) end
       else
-        warn(label .. ": normalize_special_rarities names an unknown rarity id " .. entry .. " (left out)")
+        warn(label .. ": " .. key .. " names an unknown rarity id " .. entry .. " (left out)")
       end
     else
       add(entry)
@@ -116,10 +116,17 @@ local function merge_rule(policy, mod_id, rule_name, rule)
             policy.normal_rarity_label = choice.save_adjust_label
           end
         end
-        policy.normal_special_rarities = special_rarity_set(label, list)
+        policy.normal_special_rarities = special_rarity_set(label, "normalize_special_rarities", list)
         policy.normal_special_option = (by_config and config or option) .. " = " .. tostring(ok and current or "?")
       else
         warn(label .. ": normalize_special_rarities must be { option = \"<mod>.<row>\" or config = \"<path>\", values = { \"<value>\" = { rarities = [...] } } }")
+      end
+    elseif key == "raised_copy_rarities" then
+      if type(value) == "table" then
+        policy.raised_copy_rarities = policy.raised_copy_rarities or {}
+        for rarity in pairs(special_rarity_set(label, "raised_copy_rarities", value)) do policy.raised_copy_rarities[rarity] = true end
+      else
+        warn(label .. ": raised_copy_rarities must be a list of rarity ids or numbers")
       end
     elseif key == "element_spirits_per_released_card" then
       if type(value) == "number" and value >= 0 and value % 1 == 0 then
@@ -186,6 +193,14 @@ function DuplicateRules.load()
   return policy
 end
 
+-- Whether a copy saved at `rarity` of a card whose own rarity is `card_rarity` is a raised copy: it keeps its rarity and is no duplicate.
+function DuplicateRules.is_raised_copy(policy, rarity, card_rarity)
+  local raised = policy.raised_copy_rarities
+  if raised == nil or not raised[rarity] or card_rarity == rarity then return false end
+  local normalized = policy.normal_special_rarities
+  return not (normalized and normalized[rarity])
+end
+
 -- the policy in one line, for the log and the report
 function DuplicateRules.describe(policy)
   if #policy.names == 0 then return "no duplicate rule declared" end
@@ -194,11 +209,17 @@ function DuplicateRules.describe(policy)
   local special = {}
   for rarity in pairs(policy.normal_special_rarities or {}) do special[#special + 1] = rarity end
   table.sort(special)
-  return string.format("rules %s; one copy per %s; keep first %s; normal cards -> rarity %s (special tiers too: %s%s); %d element spirits per released copy; hidden cards released: %s; on load: %s",
+  local raised = {}
+  for rarity in pairs(policy.raised_copy_rarities or {}) do
+    if not (policy.normal_special_rarities and policy.normal_special_rarities[rarity]) then raised[#raised + 1] = rarity end
+  end
+  table.sort(raised)
+  return string.format("rules %s; one copy per %s; keep first %s; normal cards -> rarity %s (special tiers too: %s%s); raised copies kept at rarity: %s; %d element spirits per released copy; hidden cards released: %s; on load: %s",
     table.concat(policy.names, ", "), policy.one_card_per or "(none: duplicates stay)", table.concat(policy.keep_first, " > "),
     policy.normal_card_rarity ~= nil and tostring(policy.normal_card_rarity) or "(unchanged)",
     #special > 0 and table.concat(special, ", ") or "none",
     policy.normal_special_option and (", " .. policy.normal_special_option) or "",
+    #raised > 0 and table.concat(raised, ", ") or "none",
     policy.element_spirits_per_released_card, #hidden > 0 and table.concat(hidden, ", ") or "none",
     policy.apply_on_load and "yes" or "no")
 end

@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c03033610"                                   # Lars Luceafăr
 moves = [
   { move = 0x5977EFA9, level = 1 },                         # High Voltage
-  { move = 0xBB415C55, level = 11 },                        # Needle Hammer
-  { move = 0x906C0F96, level = 21 },                        # Electric Trap
-  { move = 0xB01D1B68, level = 31 },                        # Power Spike
+  { move = 0xBB415C55, level = 1 },                         # Needle Hammer
+  { move = 0x906C0F96, level = 1 },                         # Electric Trap
+  { move = 0xB01D1B68, level = 19 },                        # Power Spike
 ]
 VRFW.MoveGrades = [
   { Move = 0x5977EFA9, Grade = 2 },                         # High Voltage
@@ -24,7 +24,7 @@ VRFW.MoveGrades = [
 target = "c03033620"                                   # Lump Trungus
 moves = [
   { move = 0x06D2AC29, level = 1 },                         # Diabolical Cut
-  { move = 0x7BA5586C, level = 11 },                        # Mad Express
+  { move = 0x7BA5586C, level = 1 },                         # Mad Express
   { move = 0x0BFD4D80, level = 12 },                        # Grand Slam
   { move = 0x025FD09B, level = 52 },                        # Volcano Cut
 ]
@@ -43,8 +43,8 @@ VRFW.MoveGrades = [
 target = "c03033630"                                   # Bump Trungus
 moves = [
   { move = 0x2DFFFFEA, level = 1 },                         # Ground Quake
-  { move = 0x1162A8AF, level = 11 },                        # Bewilder Blast
-  { move = 0x4BD584B7, level = 21 },                        # Power Charge
+  { move = 0x1162A8AF, level = 1 },                         # Bewilder Blast
+  { move = 0x4BD584B7, level = 1 },                         # Power Charge
   { move = 0xAEEA9F97, level = 65 },                        # Sigma Zone
 ]
 VRFW.MoveGrades = [
@@ -81,7 +81,7 @@ VRFW.MoveGrades = [
 target = "c03033650"                                   # Drachen Gunther
 moves = [
   { move = 0xAEEA9F97, level = 1 },                         # Sigma Zone
-  { move = 0x1162A8AF, level = 11 },                        # Bewilder Blast
+  { move = 0x1162A8AF, level = 1 },                         # Bewilder Blast
   { move = 0x05567847, level = 15 },                        # Runaway Train
   { move = 0x4BD584B7, level = 34 },                        # Power Charge
 ]
@@ -141,7 +141,7 @@ target = "c03033690"                                   # Bash Lancer
   stats = { kick = 370, control = 239, technique = 257, pressure = 198, physical = 180, intelligence = 211, agility = 171, freedom = 217 }
   moves = [
     { move = 0xDC08671D, level = 1 },                       # Doom Break
-    { move = 0xC513565C, level = 11 },                      # Doom Spear
+    { move = 0xC513565C, level = 1 },                       # Doom Spear
     { move = 0xF4A1E0B0, level = 50 },                      # Entropic Arrows
     { move = 0xC16279D1, level = 63 },                      # Field of Force
   ]
@@ -150,7 +150,7 @@ target = "c03033690"                                   # Bash Lancer
 target = "c03033700"                                   # Ichabod Stark
 moves = [
   { move = 0x119EFB90, level = 1 },                         # Doom Rain
-  { move = 0x6633159F, level = 11 },                        # Gravitation
+  { move = 0x6633159F, level = 1 },                         # Gravitation
   { move = 0x1162A8AF, level = 41 },                        # Bewilder Blast
   { move = 0xC16279D1, level = 58 },                        # Field of Force
 ]
@@ -169,8 +169,8 @@ VRFW.MoveGrades = [
 target = "c03033710"                                   # Jynx Jenkins
 moves = [
   { move = 0x025FD09B, level = 1 },                         # Volcano Cut
-  { move = 0x4BD584B7, level = 11 },                        # Power Charge
-  { move = 0x6ADE9E01, level = 21 },                        # Illusory Ball
+  { move = 0x4BD584B7, level = 1 },                         # Power Charge
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0x0E0A3F7A, level = 51 },                        # Spatial Portal
 ]
 VRFW.MoveGrades = [
@@ -187,7 +187,7 @@ VRFW.MoveGrades = [
 target = "c04018060"                                   # Escavan Malice
 moves = [
   { move = 0x119EFB90, level = 1 },                         # Doom Rain
-  { move = 0x6E53E2B3, level = 11 },                        # Angel Ball
+  { move = 0x6E53E2B3, level = 1 },                         # Angel Ball
   { move = 0x1162A8AF, level = 48 },                        # Bewilder Blast
   { move = 0xC513565C, level = 67 },                        # Doom Spear
 ]

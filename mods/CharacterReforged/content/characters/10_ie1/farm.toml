@@ -4,8 +4,8 @@ schema = "VRFW.character/2"
 target = "c01001410"                                   # Albert Green
 moves = [
   { move = 0x5C38F92C, level = 1 },                         # Mistral
-  { move = 0xBFCC20E7, level = 11 },                        # Wood Chopper
-  { move = 0xBD8A9EBE, level = 21 },                        # Infinite Wall
+  { move = 0xBFCC20E7, level = 1 },                         # Wood Chopper
+  { move = 0xBD8A9EBE, level = 1 },                         # Infinite Wall
   { move = 0x8AF3EAB9, level = 60 },                        # Hammer of Fury
 ]
 
@@ -35,7 +35,7 @@ moves = [
 target = "c01001430"                                   # Kent Work
 moves = [
   { move = 0x55C71D2A, level = 1 },                         # About Face
-  { move = 0x3C843987, level = 11 },                        # Flurry Dash
+  { move = 0x3C843987, level = 1 },                         # Flurry Dash
   { move = 0x574008CD, level = 40 },                        # Kung Fu Fighting
   { move = 0x2AF65736, level = 67 },                        # Bamboo Pattern
 ]
@@ -50,8 +50,8 @@ moves = [
 target = "c01001440"                                   # Mark Hillvalley
 moves = [
   { move = 0x5405771D, level = 1 },                         # Supreme Spin
-  { move = 0xAD6E4BF9, level = 11 },                        # Harvest
-  { move = 0x00196EC2, level = 21 },                        # Earthquake
+  { move = 0xAD6E4BF9, level = 1 },                         # Harvest
+  { move = 0x00196EC2, level = 10 },                        # Earthquake
   { move = 0x58E8FC83, level = 39 },                        # Rolling Hell
 ]
 
@@ -67,7 +67,7 @@ target = "c01001450"                                   # Herb Sherman
 moves = [
   { move = 0xAD6E4BF9, level = 1 },                         # Harvest
   { move = 0x35E70F22, level = 37 },                        # Grenade Shot
-  { move = 0x2EBA803A, level = 47 },                        # Dirt Ball
+  { move = 0x2EBA803A, level = 37 },                        # Dirt Ball
   { move = 0x55C71D2A, level = 49 },                        # About Face
 ]
 
@@ -81,7 +81,7 @@ moves = [
 target = "c01001460"                                   # Joe Small
 moves = [
   { move = 0xC7A9BB3A, level = 1 },                         # Whirlwind Cut
-  { move = 0xAD6E4BF9, level = 11 },                        # Harvest
+  { move = 0xAD6E4BF9, level = 1 },                         # Harvest
   { move = 0x4E9A9232, level = 39 },                        # Spinning Cut
   { move = 0x74CC079C, level = 47 },                        # Big Fan
 ]
@@ -96,9 +96,9 @@ moves = [
 target = "c01001470"                                   # Ike Steiner
 moves = [
   { move = 0x4031A7F5, level = 1 },                         # Mole Fake
-  { move = 0xDD365E15, level = 11 },                        # Mole Shuffle
-  { move = 0x78E027BC, level = 21 },                        # Shine Drive
-  { move = 0x2B343D01, level = 31 },                        # Cyclone
+  { move = 0xDD365E15, level = 1 },                         # Mole Shuffle
+  { move = 0x78E027BC, level = 1 },                         # Shine Drive
+  { move = 0x2B343D01, level = 1 },                         # Cyclone
 ]
 
   [[edit.cards]]
@@ -111,9 +111,9 @@ moves = [
 target = "c01001480"                                   # Orville Newman
 moves = [
   { move = 0xA8E0F6C2, level = 1 },                         # Kung Fu Header
-  { move = 0xC7A9BB3A, level = 11 },                        # Whirlwind Cut
+  { move = 0xC7A9BB3A, level = 1 },                         # Whirlwind Cut
+  { move = 0x64CDCFB9, level = 30 },                        # Rising Dragon
   { move = 0x4741C0E8, level = 57 },                        # Steeple Shot
-  { move = 0x64CDCFB9, level = 67 },                        # Rising Dragon
 ]
 
   [[edit.cards]]
@@ -126,7 +126,7 @@ moves = [
 target = "c01001490"                                   # Tom Walters
 moves = [
   { move = 0x0455B9CE, level = 1 },                         # Run Ball Run
-  { move = 0x259F08C6, level = 11 },                        # Whirlwind Twister
+  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
   { move = 0x78E027BC, level = 30 },                        # Shine Drive
   { move = 0xD8794890, level = 48 },                        # Kangaroo Kick
 ]
@@ -141,7 +141,7 @@ moves = [
 target = "c01001500"                                   # Daniel Dawson
 moves = [
   { move = 0x4031A7F5, level = 1 },                         # Mole Fake
-  { move = 0x0455B9CE, level = 11 },                        # Run Ball Run
+  { move = 0x0455B9CE, level = 1 },                         # Run Ball Run
   { move = 0x2EBA803A, level = 42 },                        # Dirt Ball
   { move = 0x029E7B25, level = 55 },                        # Gaia Break
 ]
@@ -156,7 +156,7 @@ moves = [
 target = "c01001510"                                   # Stuart Racoonfur
 moves = [
   { move = 0x78E027BC, level = 1 },                         # Shine Drive
-  { move = 0xC7A9BB3A, level = 11 },                        # Whirlwind Cut
+  { move = 0xC7A9BB3A, level = 1 },                         # Whirlwind Cut
   { move = 0x3C843987, level = 42 },                        # Flurry Dash
   { move = 0x55C71D2A, level = 53 },                        # About Face
 ]
@@ -171,9 +171,9 @@ moves = [
 target = "c01001520"                                   # Lorne Mower
 moves = [
   { move = 0xBFCC20E7, level = 1 },                         # Wood Chopper
-  { move = 0x5C38F92C, level = 11 },                        # Mistral
+  { move = 0x5C38F92C, level = 1 },                         # Mistral
+  { move = 0x8DFA4265, level = 30 },                        # Toughness Block
   { move = 0x5E7E4775, level = 33 },                        # Table-Turner
-  { move = 0x8DFA4265, level = 43 },                        # Toughness Block
 ]
 
   [[edit.cards]]
@@ -246,10 +246,10 @@ moves = [
 [[edit]]
 target = "c11801110"                                   # Turtle Newfield
 moves = [
-  { move = 0x3F00EDE9, level = 1 },                         # Dash Storm
-  { move = 0x2354CA2D, level = 11 },                        # Wind God's Dance
-  { move = 0x46FA651E, level = 21 },                        # Water Veil
-  { move = 0xB7F1AED6, level = 31 },                        # Double Cyclone
+  { move = 0x46FA651E, level = 13 },                        # Water Veil
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0xB7F1AED6, level = 30 },                        # Double Cyclone
+  { move = 0x2354CA2D, level = 38 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]

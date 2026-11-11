@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11120010"                                   # Love Stirling
 moves = [
-  { move = 0x06130797, level = 1 },                         # Rolling Kick
-  { move = 0x27D9B69F, level = 13 },                        # Prima Donna
-  { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
-  { move = 0x7DAF3139, level = 30 },                        # Emperor Penguin No. 2
+  { move = 0x06130797, level = 13 },                        # Rolling Kick
+  { move = 0x27D9B69F, level = 20 },                        # Prima Donna
+  { move = 0x52CEB5F6, level = 30 },                        # Iron Wall
+  { move = 0x7DAF3139, level = 38 },                        # Emperor Penguin No. 2
 ]
 
   [[edit.cards]]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c11120020"                                   # Gibson Forte
 moves = [
-  { move = 0x1ECA5CE1, level = 1 },                         # Wrath Shot
-  { move = 0xC66BD10D, level = 13 },                        # Zigzag Spark
-  { move = 0x60397CCA, level = 20 },                        # Cross Drive
-  { move = 0x2A37FC88, level = 30 },                        # Revolution V
+  { move = 0x1ECA5CE1, level = 13 },                        # Wrath Shot
+  { move = 0xC66BD10D, level = 20 },                        # Zigzag Spark
+  { move = 0x60397CCA, level = 30 },                        # Cross Drive
+  { move = 0x2A37FC88, level = 38 },                        # Revolution V
 ]
 
   [[edit.cards]]
@@ -34,10 +34,10 @@ moves = [
 [[edit]]
 target = "c11120030"                                   # Primavera Bluefield
 moves = [
-  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
-  { move = 0x6B1CF436, level = 13 },                        # Bewildered
-  { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
-  { move = 0x67F17FA8, level = 30 },                        # Mega Quake
+  { move = 0xACAC21CE, level = 13 },                        # Fake Ball
+  { move = 0x6B1CF436, level = 20 },                        # Bewildered
+  { move = 0x52CEB5F6, level = 30 },                        # Iron Wall
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -49,10 +49,10 @@ moves = [
 [[edit]]
 target = "c11120040"                                   # Sheila Threadwell
 moves = [
-  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
-  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
-  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
-  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+  { move = 0xAB6422AC, level = 13 },                        # Phantom Shot
+  { move = 0x70417B2E, level = 20 },                        # Deceptor Dribble
+  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -64,10 +64,10 @@ moves = [
 [[edit]]
 target = "c11120050"                                   # Terra Hillcroft
 moves = [
-  { move = 0xC13F00CC, level = 1 },                         # Flower Power
-  { move = 0x822B79EA, level = 13 },                        # Somersault Stamp
-  { move = 0x88B554E0, level = 20 },                        # Galatyn
-  { move = 0xA25A6D14, level = 30 },                        # The End
+  { move = 0xC13F00CC, level = 13 },                        # Flower Power
+  { move = 0x822B79EA, level = 20 },                        # Somersault Stamp
+  { move = 0x88B554E0, level = 30 },                        # Galatyn
+  { move = 0xA25A6D14, level = 38 },                        # The End
 ]
 
   [[edit.cards]]
@@ -80,10 +80,10 @@ moves = [
 [[edit]]
 target = "c11120060"                                   # Lorcan Oxfield
 moves = [
-  { move = 0x05567847, level = 1 },                         # Runaway Train
-  { move = 0x166B0073, level = 13 },                        # Super Armadillo
-  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
-  { move = 0x8D5B6847, level = 30 },                        # Odin Sword
+  { move = 0x05567847, level = 13 },                        # Runaway Train
+  { move = 0x166B0073, level = 20 },                        # Super Armadillo
+  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
+  { move = 0x8D5B6847, level = 38 },                        # Odin Sword
 ]
 
   [[edit.cards]]
@@ -96,10 +96,10 @@ moves = [
 [[edit]]
 target = "c11120070"                                   # Newman Wiford
 moves = [
-  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
-  { move = 0xC66BD10D, level = 13 },                        # Zigzag Spark
-  { move = 0x1A868BED, level = 20 },                        # Clone Defence
-  { move = 0x4A17EE80, level = 30 },                        # Hunter's Net
+  { move = 0x1A868BED, level = 13 },                        # Clone Defence
+  { move = 0x2E7B2B84, level = 20 },                        # Thief's Eye
+  { move = 0xC66BD10D, level = 30 },                        # Zigzag Spark
+  { move = 0x4A17EE80, level = 38 },                        # Hunter's Net
 ]
 
   [[edit.cards]]
@@ -112,10 +112,10 @@ moves = [
 [[edit]]
 target = "c11120080"                                   # Mirina Mackrell
 moves = [
-  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
-  { move = 0x7D6E9A87, level = 13 },                        # The Wall
-  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
-  { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0xACAC21CE, level = 13 },                        # Fake Ball
+  { move = 0x7D6E9A87, level = 20 },                        # The Wall
+  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
+  { move = 0x637C031A, level = 38 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -127,10 +127,10 @@ moves = [
 [[edit]]
 target = "c11120090"                                   # Marlin Sharkey
 moves = [
-  { move = 0x2B343D01, level = 1 },                         # Cyclone
-  { move = 0x1C4D4906, level = 13 },                        # Whirlpool
-  { move = 0x5781A373, level = 20 },                        # Hurricane Arrows
-  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+  { move = 0x2B343D01, level = 13 },                        # Cyclone
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
+  { move = 0x5781A373, level = 38 },                        # Hurricane Arrows
 ]
 
   [[edit.cards]]
@@ -143,10 +143,10 @@ moves = [
 [[edit]]
 target = "c11120100"                                   # Brandy Ryehart
 moves = [
-  { move = 0x2EBA803A, level = 1 },                         # Dirt Ball
-  { move = 0xAC6D8A70, level = 13 },                        # Rainbow Arc
-  { move = 0x3663DB4C, level = 20 },                        # Utter Gutsiness Bat
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x2EBA803A, level = 13 },                        # Dirt Ball
+  { move = 0xAC6D8A70, level = 20 },                        # Rainbow Arc
+  { move = 0x3663DB4C, level = 30 },                        # Utter Gutsiness Bat
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -159,10 +159,10 @@ moves = [
 [[edit]]
 target = "c11120110"                                   # Vera Presswell
 moves = [
-  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
-  { move = 0xA9E3374B, level = 13 },                        # Cyclone Sprint
-  { move = 0x4AD6453E, level = 20 },                        # Back Tornado
+  { move = 0xC66BD10D, level = 13 },                        # Zigzag Spark
+  { move = 0xA9E3374B, level = 20 },                        # Cyclone Sprint
   { move = 0xB7F1AED6, level = 30 },                        # Double Cyclone
+  { move = 0x4AD6453E, level = 38 },                        # Back Tornado
 ]
 
   [[edit.cards]]
@@ -174,10 +174,10 @@ moves = [
 [[edit]]
 target = "c11120120"                                   # Alvaro Ventura
 moves = [
-  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
-  { move = 0x31ABD82E, level = 13 },                        # Circus Block
-  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
-  { move = 0xDE4ED944, level = 30 },                        # Snowstorm Leopard
+  { move = 0x73C5AF40, level = 13 },                        # Dash Accelerator
+  { move = 0x31ABD82E, level = 20 },                        # Circus Block
+  { move = 0x1C4D4906, level = 30 },                        # Whirlpool
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -190,10 +190,10 @@ moves = [
 [[edit]]
 target = "c11120130"                                   # Yelena Poplawska
 moves = [
-  { move = 0xAF28F5A0, level = 1 },                         # The Tower
-  { move = 0x21127474, level = 13 },                        # Ultra Moon
-  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
-  { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0xAF28F5A0, level = 13 },                        # The Tower
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
+  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
+  { move = 0x637C031A, level = 38 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -205,10 +205,10 @@ moves = [
 [[edit]]
 target = "c11120140"                                   # Pattie Whitfield
 moves = [
-  { move = 0x7D6E9A87, level = 1 },                         # The Wall
-  { move = 0xBBA44137, level = 13 },                        # Great Wall
-  { move = 0x768AB9C5, level = 20 },                        # Frosticle
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x7D6E9A87, level = 13 },                        # The Wall
+  { move = 0xBBA44137, level = 30 },                        # Great Wall
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
+  { move = 0x768AB9C5, level = 38 },                        # Frosticle
 ]
 
   [[edit.cards]]
@@ -221,10 +221,10 @@ moves = [
 [[edit]]
 target = "c11120150"                                   # Cinnamon Dougherty
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
-  { move = 0x132416F6, level = 20 },                        # Dog Run
-  { move = 0x3B8D915B, level = 30 },                        # Meteor Shower
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0x2E7B2B84, level = 20 },                        # Thief's Eye
+  { move = 0x132416F6, level = 30 },                        # Dog Run
+  { move = 0x3B8D915B, level = 38 },                        # Meteor Shower
 ]
 
   [[edit.cards]]
@@ -236,10 +236,10 @@ moves = [
 [[edit]]
 target = "c11120160"                                   # He Liu
 moves = [
-  { move = 0xC636A810, level = 1 },                         # Combustion Catch
-  { move = 0x47657634, level = 13 },                        # Flame Breath
+  { move = 0xC636A810, level = 13 },                        # Combustion Catch
   { move = 0x5B3151F0, level = 20 },                        # Nitro Slap
-  { move = 0xEF5D458A, level = 30 },                        # Burnout
+  { move = 0x47657634, level = 30 },                        # Flame Breath
+  { move = 0xEF5D458A, level = 38 },                        # Burnout
 ]
 
   [[edit.cards]]
@@ -251,10 +251,10 @@ moves = [
 [[edit]]
 target = "c11120500"                                   # Joon Kim
 moves = [
-  { move = 0xC636A810, level = 1 },                         # Combustion Catch
-  { move = 0xEF5D458A, level = 13 },                        # Burnout
-  { move = 0x35462500, level = 20 },                        # Crescent Cross
-  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
+  { move = 0xC636A810, level = 13 },                        # Combustion Catch
+  { move = 0xEF5D458A, level = 20 },                        # Burnout
+  { move = 0x35462500, level = 38 },                        # Crescent Cross
+  { move = 0xB7474004, level = 38 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]
@@ -267,10 +267,10 @@ moves = [
 [[edit]]
 target = "c11120510"                                   # Daria Poplawska
 moves = [
-  { move = 0xAC6D8A70, level = 1 },                         # Rainbow Arc
   { move = 0x78E027BC, level = 13 },                        # Shine Drive
   { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
+  { move = 0xAC6D8A70, level = 30 },                        # Rainbow Arc
+  { move = 0xB7474004, level = 38 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]

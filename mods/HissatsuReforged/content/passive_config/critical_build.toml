@@ -1,0 +1,5 @@
+schema = "BetterQoL.passive_config/1"
+
+# the «Crítico» archetype passive of content\techniques\critical_break_through.toml, offered next to the game's own
+[[passive]]
+key = "hissatsu_reforged_critical_break_through"

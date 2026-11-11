@@ -1084,6 +1084,20 @@ Help = { es = "Un perfil de IA: a qué bando se aplica, su clase y sus valores p
   Unit = " m"
   When = { Side = ["rival", "user"] }
   [[Shape.Field]]
+  Key = "Team.PressCarrier.lead_s"
+  Type = "float"
+  Unit = " s"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PressCarrier.cover"
+  Type = "int"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
+  Key = "Team.PressCarrier.cover_m"
+  Type = "int"
+  Unit = " m"
+  When = { Side = ["rival", "user"] }
+  [[Shape.Field]]
   Key = "Team.OffsideTrap.defenders"
   Type = "int"
   When = { Side = ["rival", "user"] }

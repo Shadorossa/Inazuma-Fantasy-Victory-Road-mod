@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c04015320"                                   # Brutus Nastion
 moves = [
-  { move = 0xF5C2A0A5, level = 1 },                         # Capoeira Grab
+  { move = 0xF5C2A0A5, level = 26 },                        # Capoeira Grab
   { move = 0x41AEB4DF, level = 38 },                        # Crystal Barrier
   { move = 0xCD6AEF2D, level = 53 },                        # All-Star
   { move = 0xFF5C8DAF, level = 60 },                        # Shot Stopper
@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c04015330"                                   # Linder Loper
 moves = [
-  { move = 0x530CDFC1, level = 1 },                         # Mystifying Mist
+  { move = 0x530CDFC1, level = 13 },                        # Mystifying Mist
   { move = 0x4E22F64D, level = 34 },                        # Transporter Device
   { move = 0x04941270, level = 54 },                        # Vac Attack
   { move = 0xA2BF7076, level = 60 },                        # Side Swipe
@@ -34,7 +34,7 @@ moves = [
 [[edit]]
 target = "c04015340"                                   # Jude Osbourne
 moves = [
-  { move = 0xDCC9CCA3, level = 1 },                         # Tesla Coil
+  { move = 0xDCC9CCA3, level = 12 },                        # Tesla Coil
   { move = 0xF7E49F60, level = 17 },                        # Magnetism
   { move = 0x650FA58E, level = 43 },                        # Spin Out
   { move = 0x3297683F, level = 58 },                        # Warp Step
@@ -49,7 +49,7 @@ moves = [
 [[edit]]
 target = "c04015350"                                   # Locke Saflowe
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
+  { move = 0xDA3FF6C9, level = 17 },                        # Criss-Cross
   { move = 0x2A4E3349, level = 27 },                        # Heart Beat
   { move = 0x585098FC, level = 39 },                        # Slice and Dice
   { move = 0xA1BE38E6, level = 50 },                        # La Flamme
@@ -65,9 +65,9 @@ moves = [
 [[edit]]
 target = "c04015360"                                   # Nate Gobby
 moves = [
-  { move = 0xBBA44137, level = 1 },                         # Great Wall
+  { move = 0xBBA44137, level = 15 },                        # Great Wall
   { move = 0xEFFC6FA8, level = 39 },                        # Warhead
-  { move = 0x8A52C09B, level = 49 },                        # Doomsword Slash
+  { move = 0x8A52C09B, level = 39 },                        # Doomsword Slash
   { move = 0x2CFC3E63, level = 64 },                        # Dragon Crash
 ]
 
@@ -80,7 +80,7 @@ moves = [
 [[edit]]
 target = "c04015370"                                   # Reggie Alldark
 moves = [
-  { move = 0x79E3E635, level = 1 },                         # Racing Flame
+  { move = 0x79E3E635, level = 19 },                        # Racing Flame
   { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
   { move = 0xC324C788, level = 39 },                        # Blast Mine
   { move = 0x585098FC, level = 44 },                        # Slice and Dice
@@ -96,7 +96,7 @@ moves = [
 [[edit]]
 target = "c04015380"                                   # Bill Froger
 moves = [
-  { move = 0x20D01E43, level = 1 },                         # Hey Presto
+  { move = 0x20D01E43, level = 11 },                        # Hey Presto
   { move = 0x737DCB3F, level = 18 },                        # Pancake Defence
   { move = 0x6ADE9E01, level = 47 },                        # Illusory Ball
   { move = 0x7DAF3139, level = 55 },                        # Emperor Penguin No. 2
@@ -112,7 +112,7 @@ moves = [
 [[edit]]
 target = "c04015390"                                   # Romeo Fitzroy
 moves = [
-  { move = 0x9B916289, level = 1 },                         # Jurassic Jaws
+  { move = 0x9B916289, level = 47 },                        # Jurassic Jaws
   { move = 0x2B8C597E, level = 53 },                        # Fugue Wave
   { move = 0xA2BF7076, level = 60 },                        # Side Swipe
   { move = 0x05124F07, level = 66 },                        # Fission and Fusion
@@ -127,7 +127,7 @@ moves = [
 [[edit]]
 target = "c04015400"                                   # Caesar Lionheart
 moves = [
-  { move = 0x6A66FA7E, level = 1 },                         # Killer Whale
+  { move = 0x6A66FA7E, level = 31 },                        # Killer Whale
   { move = 0xC324C788, level = 39 },                        # Blast Mine
   { move = 0x4031A7F5, level = 45 },                        # Mole Fake
   { move = 0xDBFD9CFE, level = 56 },                        # Big Ball Trick
@@ -143,10 +143,10 @@ moves = [
 [[edit]]
 target = "c04015410"                                   # Stan Roller
 moves = [
-  { move = 0xDE4ED944, level = 1 },                         # Snowstorm Leopard
+  { move = 0xDE4ED944, level = 33 },                        # Snowstorm Leopard
   { move = 0xC6978232, level = 47 },                        # Dinosaur Roar
   { move = 0x65766A4F, level = 53 },                        # Meteor Blade
-  { move = 0x1755397B, level = 63 },                        # Dark Energy Star
+  { move = 0x1755397B, level = 53 },                        # Dark Energy Star
 ]
 
   [[edit.cards]]
@@ -158,7 +158,7 @@ moves = [
 [[edit]]
 target = "c04015420"                                   # Bracknell Forge
 moves = [
-  { move = 0xDE4ED944, level = 1 },                         # Snowstorm Leopard
+  { move = 0xDE4ED944, level = 29 },                        # Snowstorm Leopard
   { move = 0x44BCDB47, level = 51 },                        # Pyroclastic
   { move = 0xCB79C825, level = 57 },                        # In-Line Stampede
   { move = 0x1755397B, level = 82 },                        # Dark Energy Star

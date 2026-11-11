@@ -11,7 +11,7 @@ local hex = Id.hex_text
 local info = VRFW.logger("pairing")
 
 -- what a system gets when no mod declares a key (the same values as content\pairing\defaults.toml)
-local BUILTIN = { same_character = false, one_partner_per_base = true, base_may_be_partner = false, base_rarities_denied = {}, partner_rarities_denied = {}, moves = 0 }
+local BUILTIN = { same_character = false, one_partner_per_base = true, base_may_be_partner = false, base_rarities_denied = {}, partner_rarities_denied = {}, moves = 0, partner_may_be_in_team = true }
 local RULES = nil
 local DECLARATIONS = nil
 
@@ -50,6 +50,17 @@ function A.PairRules(system)
     for k, v in pairs(t) do r[k] = v end
   end
   return r
+end
+
+local function pair_text(key)
+  local ok, s = pcall(VRFW.text, "CharacterReforged." .. key)
+  return ok and type(s) == "string" and s or ""
+end
+
+-- (system) -> the inactive label and the partner-in-team reason, both empty when the system's partner may sit in a team.
+function A.PartnerInTeamTexts(system)
+  if A.PairRules(system).partner_may_be_in_team ~= false then return "", "" end
+  return pair_text("pair_inactive_label"), pair_text("pair_partner_in_team")
 end
 
 local function listed(list, v)
@@ -129,6 +140,8 @@ function A.PairValidity(system, pairs)
     local code = 0
     if not p or (want ~= 0 and p.chara ~= 0 and p.chara ~= want) then
       code = 2
+    elseif listed(r.partner_rarities_denied, p.rarity) then
+      code = 6
     elseif r.one_partner_per_base ~= false and claimed[partner] and claimed[partner] ~= u32(o.base) then
       code = 4
     else

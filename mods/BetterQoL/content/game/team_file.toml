@@ -1,10 +1,15 @@
 # Team files: the Lua commands of the «Exportar | Importar» row of the team dock (logic scripts\team_file.lua).
 schema = "VRFW.game/2"
 
-# (team set) -> true, file, area; false, why
+# Arguments: team set and an optional save ticket; results: true, file and area (nil for a picked file), or false and why.
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_TEAM_FILE_EXPORT"
 handler = "BetterQoL.TeamFile.Export"
+
+# Arguments: team set; results: the name of the shown team and the area its files go to.
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEAM_FILE_NAME"
+handler = "BetterQoL.TeamFile.Name"
 
 # (team set) -> true when the shown team has no member and no name
 [[VRFW.Command]]

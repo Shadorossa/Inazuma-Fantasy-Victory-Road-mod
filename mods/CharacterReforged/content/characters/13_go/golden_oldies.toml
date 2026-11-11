@@ -4,7 +4,7 @@ schema = "VRFW.character/2"
 target = "c04003820"                                   # Scott Banyan
 moves = [
   { move = 0x62BE692D, level = 1 },                         # Whirlwind Force
-  { move = 0x55C71D2A, level = 11 },                        # About Face
+  { move = 0x55C71D2A, level = 1 },                         # About Face
   { move = 0x427719AC, level = 22 },                        # Gale Dash
   { move = 0xAD6E4BF9, level = 42 },                        # Harvest
 ]
@@ -22,10 +22,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c04003810"                                   # Chuck Pumpkins
 moves = [
-  { move = 0x4B3099D5, level = 1 },                         # Stomper Stopper
+  { move = 0x4B3099D5, level = 2 },                         # Stomper Stopper
   { move = 0x58B5859E, level = 4 },                         # Whip Crack
+  { move = 0xDBA0E5E3, level = 30 },                        # Gigant Wall
   { move = 0xDF2D9951, level = 52 },                        # Close Counter
-  { move = 0xDBA0E5E3, level = 62 },                        # Gigant Wall
 ]
 
   [[edit.cards]]
@@ -37,10 +37,10 @@ moves = [
 [[edit]]
 target = "c04003830"                                   # Filbert Chestnut
 moves = [
-  { move = 0xED7B7A4F, level = 1 },                         # Defence Equation
+  { move = 0xED7B7A4F, level = 15 },                        # Defence Equation
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
   { move = 0x585098FC, level = 39 },                        # Slice and Dice
   { move = 0xDBFD9CFE, level = 40 },                        # Big Ball Trick
-  { move = 0x9D236FA3, level = 50 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -52,7 +52,7 @@ moves = [
 [[edit]]
 target = "c04003840"                                   # Gadish Oldman
 moves = [
-  { move = 0xED7B7A4F, level = 1 },                         # Defence Equation
+  { move = 0xED7B7A4F, level = 7 },                         # Defence Equation
   { move = 0x0F4DC9B3, level = 42 },                        # Logicstical Sync
   { move = 0xC4D13C6B, level = 43 },                        # Katana Kick
   { move = 0xBA662B00, level = 56 },                        # Pterrordactyl Swoop
@@ -67,7 +67,7 @@ moves = [
 [[edit]]
 target = "c04003850"                                   # Autumn Leaf
 moves = [
-  { move = 0xED7B7A4F, level = 1 },                         # Defence Equation
+  { move = 0xED7B7A4F, level = 17 },                        # Defence Equation
   { move = 0x530CDFC1, level = 26 },                        # Mystifying Mist
   { move = 0x4A17EE80, level = 29 },                        # Hunter's Net
   { move = 0x19BA3BFC, level = 46 },                        # Dance on Air
@@ -83,7 +83,7 @@ moves = [
 [[edit]]
 target = "c04003860"                                   # Skeeter Hawk
 moves = [
-  { move = 0xEF3DC416, level = 1 },                         # Skytree Hop
+  { move = 0xEF3DC416, level = 13 },                        # Skytree Hop
   { move = 0xA9E3374B, level = 35 },                        # Cyclone Sprint
   { move = 0x6A66FA7E, level = 37 },                        # Killer Whale
   { move = 0x6ADE9E01, level = 52 },                        # Illusory Ball
@@ -99,7 +99,7 @@ moves = [
 [[edit]]
 target = "c04003870"
 moves = [
-  { move = 0x6F918884, level = 1 },                         # Easy Breezy
+  { move = 0x6F918884, level = 4 },                         # Easy Breezy
   { move = 0xC4D13C6B, level = 15 },                        # Katana Kick
   { move = 0x14D1ED15, level = 26 },                        # Jumping Jack
   { move = 0x4FE09C7A, level = 35 },                        # Acrobatic Keep
@@ -115,7 +115,7 @@ moves = [
 [[edit]]
 target = "c04003880"                                   # Jacko Lantern
 moves = [
-  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
+  { move = 0x3EC287DE, level = 18 },                        # Bubble Gum
   { move = 0x0BFD4D80, level = 19 },                        # Grand Slam
   { move = 0x79E3E635, level = 28 },                        # Racing Flame
   { move = 0xB37CD264, level = 42 },                        # Am-Bush
@@ -131,7 +131,7 @@ moves = [
 target = "c04003890"                                   # Guy-Jean Harvestman
 moves = [
   { move = 0x2354CA2D, level = 1 },                         # Wind God's Dance
-  { move = 0x5739C70C, level = 11 },                        # Guided Collide
+  { move = 0x5739C70C, level = 1 },                         # Guided Collide
   { move = 0xB0BC314A, level = 14 },                        # Spin Meister
   { move = 0x4E9A9232, level = 41 },                        # Spinning Cut
 ]
@@ -145,7 +145,7 @@ moves = [
 [[edit]]
 target = "c04003900"                                   # Bobine Apples
 moves = [
-  { move = 0x7DAF3139, level = 1 },                         # Emperor Penguin No. 2
+  { move = 0x7DAF3139, level = 7 },                         # Emperor Penguin No. 2
   { move = 0x17110E3B, level = 22 },                        # Jumbo Sandwich
   { move = 0xBF6D0AC5, level = 38 },                        # Emperor Penguin No. 3
   { move = 0x2B8C597E, level = 58 },                        # Fugue Wave
@@ -160,7 +160,7 @@ moves = [
 [[edit]]
 target = "c04003910"                                   # Sibylle Equinox
 moves = [
-  { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
+  { move = 0x7C6D5B0E, level = 15 },                        # Astro Break
   { move = 0x6ADE9E01, level = 22 },                        # Illusory Ball
   { move = 0x15138722, level = 51 },                        # Will-o'-the-Wisp Shot
   { move = 0xBB21DDC9, level = 55 },                        # Trina Tumble
@@ -177,9 +177,9 @@ moves = [
 target = "c05026530"                                   # Silvia Woods
 moves = [
   { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
-  { move = 0x8C382852, level = 11 },                        # God Hand
+  { move = 0x8C382852, level = 1 },                         # God Hand
   { move = 0xF64674CB, level = 70 },                        # Fist of Justice
-  { move = 0xF2CB0879, level = 80 },                        # Mugen the Hand
+  { move = 0xF2CB0879, level = 70 },                        # Mugen the Hand
 ]
 
   [[edit.cards]]

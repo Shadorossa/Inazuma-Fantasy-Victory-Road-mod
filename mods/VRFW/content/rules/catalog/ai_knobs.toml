@@ -1589,11 +1589,11 @@ summary = "at a dead ball (and at half-time) without a tired change, a bench for
 [[team]]
 name = "PressCarrier"
 kind = "table"
-keys = ["forwards", "midfielders", "defenders", "range_m", "max", "speed_mult", "keep_m"]
+keys = ["forwards", "midfielders", "defenders", "range_m", "max", "speed_mult", "keep_m", "lead_s", "cover", "cover_m"]
 min = 0.0
 max = 100.0
 hook = "press_carrier"
-summary = "in play, while the other side holds the ball, the side's players of the chosen roles (`forwards` default 1, `midfielders` / `defenders` default 0; 1 = on) nearest to the ball carrier, within `range_m` (default 30) and at most `max` (default 3), take the carrier as the target of their move action (the catalogue's [passing] move_actions) and run at `speed_mult` (default 1; a move_speed match modifier of the rule engine) while they chase him; a current chaser keeps his job while no other player is `keep_m` (default 0) nearer; with ManMarking the carrier's fixed marker chases first when within its `press_m`"
+summary = "in play, while the other side holds the ball, the side's players of the chosen roles (`forwards` default 1, `midfielders` / `defenders` default 0; 1 = on) nearest to the ball carrier, within `range_m` (default 30) and at most `max` (default 3), take the carrier as the target of their move action (the catalogue's [passing] move_actions) and run at `speed_mult` (default 1; a move_speed match modifier of the rule engine) while they chase him; a current chaser keeps his job while no other player is `keep_m` (default 0) nearer; with `lead_s` (default 0 = off, at most 2) the chasers run to the point the carrier reaches on his current run (his velocity over 150 ms of positions), at most `lead_s` seconds ahead and never farther ahead than the gap the chaser has to close; `cover` (default 0) chasers after the first stand `cover_m` (default 4) from that point on the line to their own goal; with ManMarking the carrier's fixed marker chases first when within its `press_m`"
 
 [[team]]
 name = "ChargeCarrier"

@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11500430"                                   # Aila Pavey
 moves = [
-  { move = 0x46FA651E, level = 1 },                         # Water Veil
-  { move = 0x95823331, level = 13 },                        # The Tube
-  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
-  { move = 0x4683AADF, level = 30 },                        # Space Penguin
+  { move = 0x46FA651E, level = 13 },                        # Water Veil
+  { move = 0x4683AADF, level = 20 },                        # Space Penguin
+  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x95823331, level = 30 },                        # The Tube
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700540"                                   # Izekiel Truth
 moves = [
-  { move = 0x19025F83, level = 1 },                         # Quick Draw
-  { move = 0x750E6DAB, level = 13 },                        # Matador Feint
-  { move = 0x7DD6FEF8, level = 20 },                        # Athena's Anthem
-  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x19025F83, level = 13 },                        # Quick Draw
+  { move = 0x750E6DAB, level = 20 },                        # Matador Feint
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11700660"                                   # Gemma Coombs
 moves = [
-  { move = 0x025FD09B, level = 1 },                         # Volcano Cut
-  { move = 0x414BA9BD, level = 13 },                        # Pincer Pinch
-  { move = 0x518BCA26, level = 20 },                        # Fire Tornado
-  { move = 0xA8215D7C, level = 30 },                        # The Mountain
+  { move = 0x518BCA26, level = 1 },                         # Fire Tornado
+  { move = 0x025FD09B, level = 20 },                        # Volcano Cut
+  { move = 0x414BA9BD, level = 30 },                        # Pincer Pinch
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11730010"                                   # Fuyo Catcher
 moves = [
-  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
-  { move = 0x4FE09C7A, level = 13 },                        # Acrobatic Keep
-  { move = 0x19BA3BFC, level = 20 },                        # Dance on Air
-  { move = 0x5E233E68, level = 30 },                        # Super Elastico
+  { move = 0x53CD747F, level = 13 },                        # Tarzan Kick
+  { move = 0x4FE09C7A, level = 20 },                        # Acrobatic Keep
+  { move = 0x19BA3BFC, level = 30 },                        # Dance on Air
+  { move = 0x5E233E68, level = 38 },                        # Super Elastico
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11730020"                                   # Eviden Tracer
 moves = [
-  { move = 0xA9E3374B, level = 1 },                         # Cyclone Sprint
-  { move = 0xE0549BE6, level = 13 },                        # Easy Breezy Kid
-  { move = 0xC42D6F54, level = 20 },                        # Aikido
-  { move = 0x7C1494CF, level = 30 },                        # Tornado Tunnel
+  { move = 0xA9E3374B, level = 13 },                        # Cyclone Sprint
+  { move = 0xE0549BE6, level = 20 },                        # Easy Breezy Kid
+  { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11730030"                                   # Murray Hollowpot
 moves = [
-  { move = 0xDBFD9CFE, level = 1 },                         # Big Ball Trick
   { move = 0x7C6D5B0E, level = 13 },                        # Astro Break
-  { move = 0x7748D3F2, level = 20 },                        # Devil Ball
-  { move = 0xE937AD43, level = 30 },                        # Dragon Slayer
+  { move = 0xDBFD9CFE, level = 20 },                        # Big Ball Trick
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
+  { move = 0xE937AD43, level = 38 },                        # Dragon Slayer
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11730040"                                   # Morrigan Shutterly
 moves = [
-  { move = 0x166B0073, level = 1 },                         # Super Armadillo
-  { move = 0x52CEB5F6, level = 13 },                        # Iron Wall
-  { move = 0x737DCB3F, level = 20 },                        # Pancake Defence
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x166B0073, level = 13 },                        # Super Armadillo
+  { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
+  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11730050"                                   # Sylas Saxton
 moves = [
-  { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
-  { move = 0xB0F8060A, level = 13 },                        # Ozone Flayer
+  { move = 0x9349F1DA, level = 19 },                        # Zephyr Shot
   { move = 0x04941270, level = 20 },                        # Vac Attack
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11730060"                                   # Ferdy Fenwick
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0xE0549BE6, level = 20 },                        # Easy Breezy Kid
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
+  { move = 0xE0549BE6, level = 30 },                        # Easy Breezy Kid
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11730070"                                   # Hazel Woodrow
 moves = [
-  { move = 0x8DFA4265, level = 1 },                         # Toughness Block
-  { move = 0xBFCC20E7, level = 13 },                        # Wood Chopper
-  { move = 0x24E5068E, level = 20 },                        # Fractal Repeller
-  { move = 0xE647BCEE, level = 30 },                        # God Hand V
+  { move = 0x24E5068E, level = 13 },                        # Fractal Repeller
+  { move = 0x8DFA4265, level = 20 },                        # Toughness Block
+  { move = 0xBFCC20E7, level = 30 },                        # Wood Chopper
+  { move = 0xE647BCEE, level = 38 },                        # God Hand V
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11730080"                                   # Ouijane Boarden
 moves = [
-  { move = 0x025FD09B, level = 1 },                         # Volcano Cut
-  { move = 0xA8215D7C, level = 13 },                        # The Mountain
-  { move = 0x4890FB67, level = 20 },                        # Twin Boost
-  { move = 0xF02C9C02, level = 30 },                        # Tiger Storm
+  { move = 0x025FD09B, level = 20 },                        # Volcano Cut
+  { move = 0x4890FB67, level = 30 },                        # Twin Boost
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
+  { move = 0xF02C9C02, level = 38 },                        # Tiger Storm
 ]
 
   [[edit.cards]]

@@ -469,6 +469,18 @@ kinds = { type = "strings", default = [], values = ["shoot", "long_shoot", "chai
 special = { type = "string", default = "", values = ["yes", "no"], words = "yes_no", doc = "the opponent uses a special move (empty = not asked)" }
 matchup = { type = "string", default = "", values = ["advantage", "disadvantage", "same"], words = "matchup", doc = "the element of the move used (else the carrier's) against the opponent's element on the element wheel ([matchup]); empty = not asked" }
 
+[entry.Critical]
+provides = "block"
+role = "condition"
+text = "block_critical"
+label = "label_critical"
+help = "help_critical"
+group = "event"
+needs = "event"
+doc = "a critical hit (the critical stage): the open execution of the event's player, or of the battle's opponent (the shot of block_battle, keeper_duel and shot_through), hit its roll"
+name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
+who = { type = "string", default = "actor", values = ["actor", "rival"], doc = "actor = the event's player and his move; rival = the opponent of the battle and his move" }
+
 [entry.EventCount]
 provides = "block"
 role = "condition"
@@ -632,6 +644,77 @@ positions = { type = "strings", default = [], values = ["gk", "fw", "mf", "df"],
 elements = { type = "strings", default = [], values = ["wind", "forest", "fire", "mountain", "void"], words = "element", doc = "only targets of these elements (empty = any)" }
 trait = { type = "string", default = "", ref = "block", doc = "only targets of this Trait block (empty = any)" }
 
+[entry.CriticalRate]
+provides = "block"
+role = "effect"
+text = "obj_crit_rate"
+apply = "rate"
+answer = "crit_chance_mult"
+hooks = "crit_check"
+amount_key = "percent"
+doc = "the critical chance of the targets' special moves of these kinds as a factor (crit_check: once per execution), in %, × the stacks: the summed chance × (1 + percent / 100), before the cap"
+name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
+kinds = { type = "strings", default = [], values = ["shoot", "long_shoot", "chain_shoot", "dribble", "block", "shoot_block", "catch", "punch"], words = "move_kind", doc = "the move kinds (empty = every move); see [move_kinds]" }
+percent = { type = "number", required = true, min = -100, max = 1000, doc = "per stack, in % (50 = the chance × 1.5)" }
+value_by_level = { type = "numbers", default = [], doc = "per passive level (1, 2…: [levels]); empty = the one value" }
+target = { type = "string", default = "self", values = ["self", "teammates", "team", "opponents", "all"], words = "target", doc = "whose moves" }
+positions = { type = "strings", default = [], values = ["gk", "fw", "mf", "df"], words = "position", doc = "only targets of these positions (empty = any)" }
+elements = { type = "strings", default = [], values = ["wind", "forest", "fire", "mountain", "void"], words = "element", doc = "only targets of these elements (empty = any)" }
+trait = { type = "string", default = "", ref = "block", doc = "only targets of this Trait block (empty = any)" }
+
+[entry.CriticalPower]
+provides = "block"
+role = "effect"
+text = "obj_crit_power"
+apply = "rate"
+answer = "crit_mult"
+hooks = "crit_check"
+amount_key = "percent"
+doc = "the power of the critical hits of the targets' special moves of these kinds (crit_check: once per execution), in %, × the stacks: the hit's multiplier × (1 + percent / 100)"
+name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
+kinds = { type = "strings", default = [], values = ["shoot", "long_shoot", "chain_shoot", "dribble", "block", "shoot_block", "catch", "punch"], words = "move_kind", doc = "the move kinds (empty = every move); see [move_kinds]" }
+percent = { type = "number", required = true, min = -100, max = 1000, doc = "per stack, in % (100 = a critical hit twice as strong)" }
+value_by_level = { type = "numbers", default = [], doc = "per passive level (1, 2…: [levels]); empty = the one value" }
+target = { type = "string", default = "self", values = ["self", "teammates", "team", "opponents", "all"], words = "target", doc = "whose moves" }
+positions = { type = "strings", default = [], values = ["gk", "fw", "mf", "df"], words = "position", doc = "only targets of these positions (empty = any)" }
+elements = { type = "strings", default = [], values = ["wind", "forest", "fire", "mountain", "void"], words = "element", doc = "only targets of these elements (empty = any)" }
+trait = { type = "string", default = "", ref = "block", doc = "only targets of this Trait block (empty = any)" }
+
+[entry.CriticalMissPower]
+provides = "block"
+role = "effect"
+text = "obj_crit_miss_power"
+apply = "rate"
+answer = "crit_miss_mult"
+hooks = "crit_check"
+amount_key = "percent"
+doc = "the power of the targets' special moves of these kinds when their critical roll misses (crit_check: once per execution), in %, × the stacks"
+name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
+kinds = { type = "strings", default = [], values = ["shoot", "long_shoot", "chain_shoot", "dribble", "block", "shoot_block", "catch", "punch"], words = "move_kind", doc = "the move kinds (empty = every move); see [move_kinds]" }
+percent = { type = "number", required = true, min = -100, max = 1000, doc = "per stack, in % (-50 = a move that is not critical has half its power)" }
+value_by_level = { type = "numbers", default = [], doc = "per passive level (1, 2…: [levels]); empty = the one value" }
+target = { type = "string", default = "self", values = ["self", "teammates", "team", "opponents", "all"], words = "target", doc = "whose moves" }
+positions = { type = "strings", default = [], values = ["gk", "fw", "mf", "df"], words = "position", doc = "only targets of these positions (empty = any)" }
+elements = { type = "strings", default = [], values = ["wind", "forest", "fire", "mountain", "void"], words = "element", doc = "only targets of these elements (empty = any)" }
+trait = { type = "string", default = "", ref = "block", doc = "only targets of this Trait block (empty = any)" }
+
+[entry.ShotThroughPower]
+provides = "block"
+role = "effect"
+text = "obj_shot_through"
+apply = "rate"
+answer = "power_mult"
+hooks = "shot_through"
+amount_key = "percent"
+doc = "the power a shot keeps after it beats a field player's block (shot_through), in %, × the stacks; the targets are the beaten blockers"
+name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
+percent = { type = "number", required = true, min = -100, max = 1000, doc = "per stack (15 = the shot goes on with 15 % more power)" }
+value_by_level = { type = "numbers", default = [], doc = "per passive level (1, 2…: [levels]); empty = the one value" }
+target = { type = "string", default = "opponents", values = ["self", "teammates", "team", "opponents", "all"], words = "target", doc = "whose beaten block (opponents = the blocks of the carrier's opponents: his team's shots)" }
+positions = { type = "strings", default = [], values = ["gk", "fw", "mf", "df"], words = "position", doc = "only targets of these positions (empty = any)" }
+elements = { type = "strings", default = [], values = ["wind", "forest", "fire", "mountain", "void"], words = "element", doc = "only targets of these elements (empty = any)" }
+trait = { type = "string", default = "", ref = "block", doc = "only targets of this Trait block (empty = any)" }
+
 [entry.TensionGain]
 provides = "block"
 role = "effect"
@@ -673,7 +756,7 @@ apply = "tension"
 amount_key = "units"
 doc = "at once, each time the trigger happens: tension points (the HUD's units) for a team, seen from the event's player"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
-units = { type = "int", required = true, min = -100, max = 100, doc = "units added (negative takes them away)" }
+units = { type = "number", required = true, min = -100, max = 100, doc = "units added (negative takes them away)" }
 team = { type = "string", default = "actor", values = ["actor", "opponent", "user", "rival", "carrier", "carrier_opponent"], words = "tension_team", doc = "whose tension: the event player's team (actor) or the other (opponent), the user's or the rival team, the carrier's team or the other" }
 
 [entry.TensionMax]

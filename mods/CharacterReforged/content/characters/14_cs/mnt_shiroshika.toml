@@ -5,8 +5,8 @@ target = "c05021010"                                   # Norimaru Gazen
 moves = [
   { move = 0xE546F47E, level = 1 },                         # Dust Devil
   { move = 0x62DEE8B1, level = 38 },                        # Jumping Whack
+  { move = 0xEA12530F, level = 38 },                        # Double Rocket
   { move = 0x9B3048AB, level = 51 },                        # Shadow Catch
-  { move = 0xEA12530F, level = 61 },                        # Double Rocket
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -41,8 +41,8 @@ target = "c05021030"                                   # Hoichiro Ashiguro
 moves = [
   { move = 0xDD0BA694, level = 1 },                         # Okehazama Ravine
   { move = 0x4031A7F5, level = 14 },                        # Mole Fake
+  { move = 0xC5EF0563, level = 30 },                        # Three-Legged Rush
   { move = 0x016DEA27, level = 53 },                        # Accelerator Gears
-  { move = 0xC5EF0563, level = 63 },                        # Three-Legged Rush
 ]
 
   [[edit.cards]]
@@ -55,7 +55,7 @@ moves = [
 [[edit]]
 target = "c05021040"                                   # Hanbee Yabe
 moves = [
-  { move = 0xDD0BA694, level = 1 },                         # Okehazama Ravine
+  { move = 0xDD0BA694, level = 3 },                         # Okehazama Ravine
   { move = 0xD6649385, level = 6 },                         # Tusk Force
   { move = 0x3663DB4C, level = 8 },                         # Utter Gutsiness Bat
   { move = 0xADD8A52B, level = 40 },                        # Matchlock Bullet
@@ -72,8 +72,8 @@ target = "c05021050"                                   # Ikkatsu Kano
 moves = [
   { move = 0xAF150D21, level = 1 },                         # Swallow Counter
   { move = 0x530CDFC1, level = 16 },                        # Mystifying Mist
+  { move = 0x64CDCFB9, level = 38 },                        # Rising Dragon
   { move = 0x141046AB, level = 39 },                        # Overnight Fortress
-  { move = 0x64CDCFB9, level = 49 },                        # Rising Dragon
 ]
 
   [[edit.cards]]
@@ -86,7 +86,7 @@ moves = [
 [[edit]]
 target = "c05021060"                                   # Denbee Asama
 moves = [
-  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
+  { move = 0xAF150D21, level = 2 },                         # Swallow Counter
   { move = 0x62BE692D, level = 8 },                         # Whirlwind Force
   { move = 0x3C843987, level = 29 },                        # Flurry Dash
   { move = 0x2354CA2D, level = 47 },                        # Wind God's Dance
@@ -101,10 +101,10 @@ moves = [
 [[edit]]
 target = "c05021070"                                   # Ginji Santetsu
 moves = [
-  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
+  { move = 0xAF150D21, level = 3 },                         # Swallow Counter
+  { move = 0xDD0BA694, level = 30 },                        # Okehazama Ravine
+  { move = 0x4A17EE80, level = 38 },                        # Hunter's Net
   { move = 0xB4C3946A, level = 56 },                        # Ephemeral Boost
-  { move = 0xDD0BA694, level = 66 },                        # Okehazama Ravine
-  { move = 0x4A17EE80, level = 76 },                        # Hunter's Net
 ]
 
   [[edit.cards]]
@@ -133,7 +133,7 @@ moves = [
 [[edit]]
 target = "c05021090"                                   # Senji Kudo
 moves = [
-  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
+  { move = 0xAF150D21, level = 3 },                         # Swallow Counter
   { move = 0xADD8A52B, level = 24 },                        # Matchlock Bullet
   { move = 0x457EB170, level = 29 },                        # Pyrokinetic
   { move = 0x6B1CF436, level = 36 },                        # Bewildered
@@ -169,10 +169,10 @@ moves = [
 [[edit]]
 target = "c05021110"                                   # Korin Maebayashi
 moves = [
-  { move = 0xADD8A52B, level = 1 },                         # Matchlock Bullet
+  { move = 0xADD8A52B, level = 5 },                         # Matchlock Bullet
+  { move = 0xAF150D21, level = 38 },                        # Swallow Counter
   { move = 0xC4D13C6B, level = 45 },                        # Katana Kick
   { move = 0xE11DE782, level = 57 },                        # Chrysanthemum Katana
-  { move = 0xAF150D21, level = 67 },                        # Swallow Counter
 ]
 
   [[edit.cards]]
@@ -184,10 +184,10 @@ moves = [
 [[edit]]
 target = "c05021120"                                   # Mikimaru Ujiki
 moves = [
-  { move = 0xE546F47E, level = 1 },                         # Dust Devil
-  { move = 0xA7157B91, level = 13 },                        # Power Shield
-  { move = 0xC636A810, level = 23 },                        # Combustion Catch
-  { move = 0xB01D1B68, level = 33 },                        # Power Spike
+  { move = 0xE546F47E, level = 3 },                         # Dust Devil
+  { move = 0xC636A810, level = 13 },                        # Combustion Catch
+  { move = 0xA7157B91, level = 20 },                        # Power Shield
+  { move = 0xB01D1B68, level = 30 },                        # Power Spike
 ]
 
   [[edit.cards]]
@@ -199,10 +199,10 @@ moves = [
 [[edit]]
 target = "c05021130"                                   # Doshin Yomoyama
 moves = [
-  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
+  { move = 0xAF150D21, level = 6 },                         # Swallow Counter
   { move = 0x141046AB, level = 22 },                        # Overnight Fortress
+  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
   { move = 0xDD0BA694, level = 53 },                        # Okehazama Ravine
-  { move = 0x0A3F27B7, level = 63 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -215,10 +215,10 @@ moves = [
 [[edit]]
 target = "c05021140"                                   # Tenkei Yazu
 moves = [
-  { move = 0x3C843987, level = 1 },                         # Flurry Dash
+  { move = 0x3C843987, level = 6 },                         # Flurry Dash
   { move = 0x62BE692D, level = 10 },                        # Whirlwind Force
+  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
   { move = 0x04941270, level = 41 },                        # Vac Attack
-  { move = 0x2354CA2D, level = 51 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]
@@ -234,7 +234,7 @@ moves = [
   { move = 0xADD8A52B, level = 1 },                         # Matchlock Bullet
   { move = 0x6B1CF436, level = 4 },                         # Bewildered
   { move = 0xAF150D21, level = 25 },                        # Swallow Counter
-  { move = 0xB7474004, level = 35 },                        # Dough Ray Me
+  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]
@@ -248,8 +248,8 @@ target = "c05021160"                                   # Kaburo Hayama
 moves = [
   { move = 0xADD8A52B, level = 1 },                         # Matchlock Bullet
   { move = 0x3C843987, level = 9 },                         # Flurry Dash
+  { move = 0xC42D6F54, level = 30 },                        # Aikido
   { move = 0x64CDCFB9, level = 47 },                        # Rising Dragon
-  { move = 0xC42D6F54, level = 57 },                        # Aikido
 ]
 
   [[edit.cards]]
@@ -261,10 +261,10 @@ moves = [
 [[edit]]
 target = "c11805010"                                   # Bête Noire
 moves = [
-  { move = 0xDE4ED944, level = 1 },                         # Snowstorm Leopard
-  { move = 0xE0549BE6, level = 11 },                        # Easy Breezy Kid
-  { move = 0x768AB9C5, level = 21 },                        # Frosticle
-  { move = 0xB0BC314A, level = 31 },                        # Spin Meister
+  { move = 0xE0549BE6, level = 1 },                         # Easy Breezy Kid
+  { move = 0xB0BC314A, level = 13 },                        # Spin Meister
+  { move = 0x768AB9C5, level = 20 },                        # Frosticle
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -293,8 +293,8 @@ target = "c05021010_5000"                              # Norimaru Gazen
 moves = [
   { move = 0xE546F47E, level = 1 },                         # Dust Devil
   { move = 0x62DEE8B1, level = 38 },                        # Jumping Whack
+  { move = 0xEA12530F, level = 38 },                        # Double Rocket
   { move = 0x9B3048AB, level = 51 },                        # Shadow Catch
-  { move = 0xEA12530F, level = 61 },                        # Double Rocket
 ]
 
   [[edit.cards]]

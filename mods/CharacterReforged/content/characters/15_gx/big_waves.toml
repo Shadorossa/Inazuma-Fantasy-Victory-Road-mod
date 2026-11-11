@@ -5,8 +5,8 @@ target = "c06030610"                                   # Jude Gordon
 moves = [
   { move = 0x2E1BAA18, level = 1 },                         # Crocodile Crush
   { move = 0xF14FDC17, level = 16 },                        # Shot Pocket
+  { move = 0x422A60B1, level = 30 },                        # Barrier Reef
   { move = 0xF400CA92, level = 41 },                        # Anchors Aweigh
-  { move = 0x422A60B1, level = 51 },                        # Barrier Reef
 ]
 
   [[edit.cards]]
@@ -20,8 +20,8 @@ target = "c06030620"                                   # Owe Noyster
 moves = [
   { move = 0x8917BF4B, level = 1 },                         # Willy-Willy
   { move = 0x530CDFC1, level = 15 },                        # Mystifying Mist
-  { move = 0x025FD09B, level = 25 },                        # Volcano Cut
-  { move = 0x6B97E265, level = 35 },                        # Bull Rush
+  { move = 0x025FD09B, level = 38 },                        # Volcano Cut
+  { move = 0x6B97E265, level = 48 },                        # Bull Rush
 ]
 
   [[edit.cards]]
@@ -36,8 +36,8 @@ target = "c06030630"                                   # Whaly Walker
 moves = [
   { move = 0x8917BF4B, level = 1 },                         # Willy-Willy
   { move = 0xC324C788, level = 38 },                        # Blast Mine
-  { move = 0x06D2AC29, level = 48 },                        # Diabolical Cut
-  { move = 0xB2BEB853, level = 58 },                        # Whale Guard
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
+  { move = 0xB2BEB853, level = 38 },                        # Whale Guard
 ]
 
   [[edit.cards]]
@@ -52,8 +52,8 @@ target = "c06030640"                                   # Sunny Fishton
 moves = [
   { move = 0x8917BF4B, level = 1 },                         # Willy-Willy
   { move = 0x3C843987, level = 18 },                        # Flurry Dash
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
   { move = 0xD9BB22A7, level = 40 },                        # Air Ride
-  { move = 0x49933AEE, level = 50 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -67,8 +67,8 @@ target = "c06030650"                                   # Clem Chowdry
 moves = [
   { move = 0x8917BF4B, level = 1 },                         # Willy-Willy
   { move = 0x20D01E43, level = 14 },                        # Hey Presto
+  { move = 0xE3D04F88, level = 30 },                        # Jackknife
   { move = 0x13D845C9, level = 42 },                        # Samba Strike
-  { move = 0xE3D04F88, level = 52 },                        # Jackknife
 ]
 
   [[edit.cards]]
@@ -84,7 +84,7 @@ moves = [
   { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
   { move = 0xE8F5C774, level = 16 },                        # Megalodon
   { move = 0x8917BF4B, level = 33 },                        # Willy-Willy
-  { move = 0x7DD6FEF8, level = 43 },                        # Athena's Anthem
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -99,8 +99,8 @@ target = "c06030670"                                   # Marsha Ark
 moves = [
   { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
   { move = 0x322F0C40, level = 17 },                        # Spider Web
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
   { move = 0x2B8C597E, level = 43 },                        # Fugue Wave
-  { move = 0xA8215D7C, level = 53 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -114,9 +114,9 @@ moves = [
 target = "c06030680"                                   # Cole Reef
 moves = [
   { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
-  { move = 0xE8F5C774, level = 11 },                        # Megalodon
+  { move = 0xE8F5C774, level = 1 },                         # Megalodon
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
   { move = 0xC66BD10D, level = 49 },                        # Zigzag Spark
-  { move = 0x3A4FFB6C, level = 59 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -131,8 +131,8 @@ target = "c06030690"                                   # Amanda Ray
 moves = [
   { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
   { move = 0x2C3D95DD, level = 34 },                        # Sleeping Dust
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
   { move = 0x19BA3BFC, level = 51 },                        # Dance on Air
-  { move = 0x7DD6FEF8, level = 61 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -147,8 +147,8 @@ target = "c06030700"                                   # Lob Stark
 moves = [
   { move = 0xE8F5C774, level = 1 },                         # Megalodon
   { move = 0x332CCDC9, level = 16 },                        # Heel Kick
+  { move = 0xE3D04F88, level = 30 },                        # Jackknife
   { move = 0x0C08B663, level = 42 },                        # Doom Dive Drive
-  { move = 0xE3D04F88, level = 52 },                        # Jackknife
 ]
 
   [[edit.cards]]
@@ -162,8 +162,8 @@ target = "c06030710"                                   # Octavius Parson
 moves = [
   { move = 0xE8F5C774, level = 1 },                         # Megalodon
   { move = 0xA2FB4736, level = 15 },                        # Flying Fish
+  { move = 0x61FB16FD, level = 38 },                        # Divine Arrows
   { move = 0xA4B51923, level = 41 },                        # The Typhoon
-  { move = 0x61FB16FD, level = 51 },                        # Divine Arrows
 ]
 
   [[edit.cards]]
@@ -175,10 +175,10 @@ moves = [
 [[edit]]
 target = "c11806010"                                   # Orlando Sherman
 moves = [
-  { move = 0xE8F5C774, level = 1 },                         # Megalodon
-  { move = 0x414BA9BD, level = 11 },                        # Pincer Pinch
-  { move = 0x46FA651E, level = 21 },                        # Water Veil
-  { move = 0x1C4D4906, level = 31 },                        # Whirlpool
+  { move = 0xE8F5C774, level = 13 },                        # Megalodon
+  { move = 0x414BA9BD, level = 20 },                        # Pincer Pinch
+  { move = 0x46FA651E, level = 30 },                        # Water Veil
+  { move = 0x1C4D4906, level = 38 },                        # Whirlpool
 ]
 
   [[edit.cards]]

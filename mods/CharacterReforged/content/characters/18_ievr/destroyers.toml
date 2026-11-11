@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11220010"                                   # Keines Elvain
 moves = [
-  { move = 0xC8760A18, level = 1 },                         # Falling Planet
-  { move = 0xD262F964, level = 13 },                        # Format Disk
-  { move = 0x1876DB66, level = 20 },                        # Disaster Strike
-  { move = 0xE29933EC, level = 30 },                        # Dimensional Deluge
+  { move = 0xE29933EC, level = 13 },                        # Dimensional Deluge
+  { move = 0xC8760A18, level = 20 },                        # Falling Planet
+  { move = 0xD262F964, level = 30 },                        # Format Disk
+  { move = 0x1876DB66, level = 38 },                        # Disaster Strike
 ]
 
   [[edit.cards]]
@@ -17,10 +17,10 @@ moves = [
 [[edit]]
 target = "c11220020"                                   # Vector Vernam
 moves = [
-  { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
   { move = 0xC8760A18, level = 13 },                        # Falling Planet
   { move = 0xD0A1DBC3, level = 20 },                        # Bungee Ball Burst
   { move = 0xE29933EC, level = 30 },                        # Dimensional Deluge
+  { move = 0xDDCA0D2A, level = 38 },                        # Bouncing Bomb
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c11220030"                                   # Nebula Raime
 moves = [
-  { move = 0x1876DB66, level = 1 },                         # Disaster Strike
-  { move = 0xC9BAEA82, level = 13 },                        # Eye of the Storm
-  { move = 0xB8A509A7, level = 20 },                        # Asterocks
-  { move = 0xE29933EC, level = 30 },                        # Dimensional Deluge
+  { move = 0x1876DB66, level = 13 },                        # Disaster Strike
+  { move = 0xC9BAEA82, level = 20 },                        # Eye of the Storm
+  { move = 0xB8A509A7, level = 30 },                        # Asterocks
+  { move = 0xE29933EC, level = 38 },                        # Dimensional Deluge
 ]
 
   [[edit.cards]]
@@ -48,10 +48,10 @@ moves = [
 [[edit]]
 target = "c11220040"                                   # Garruk Vynce
 moves = [
-  { move = 0x1FA91CF4, level = 1 },                         # Negative Feedback
-  { move = 0xB9676390, level = 13 },                        # Particle Accelerator
-  { move = 0x07704782, level = 20 },                        # Rejection
+  { move = 0x07704782, level = 13 },                        # Rejection
+  { move = 0x1FA91CF4, level = 20 },                        # Negative Feedback
   { move = 0x49F3BB72, level = 30 },                        # Psychlone
+  { move = 0xB9676390, level = 30 },                        # Particle Accelerator
 ]
 
   [[edit.cards]]
@@ -63,10 +63,10 @@ moves = [
 [[edit]]
 target = "c11220050"                                   # Prisca Grav
 moves = [
-  { move = 0x86F5F6E8, level = 1 },                         # Cupid's Arrow
-  { move = 0xD0A1DBC3, level = 13 },                        # Bungee Ball Burst
-  { move = 0x7748D3F2, level = 20 },                        # Devil Ball
-  { move = 0x0D0B77EA, level = 30 },                        # Floral Fiesta
+  { move = 0x86F5F6E8, level = 13 },                        # Cupid's Arrow
+  { move = 0x0D0B77EA, level = 20 },                        # Floral Fiesta
+  { move = 0xD0A1DBC3, level = 30 },                        # Bungee Ball Burst
+  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -78,10 +78,10 @@ moves = [
 [[edit]]
 target = "c11220060"                                   # Denowar Krell
 moves = [
-  { move = 0x828A53C8, level = 1 },                         # Plasma Ball
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
-  { move = 0x4E22F64D, level = 20 },                        # Transporter Device
-  { move = 0x0A02DF36, level = 30 },                        # Containment Field
+  { move = 0x828A53C8, level = 13 },                        # Plasma Ball
+  { move = 0xB60E3C60, level = 20 },                        # Plasma Cut
+  { move = 0x4E22F64D, level = 30 },                        # Transporter Device
+  { move = 0x0A02DF36, level = 38 },                        # Containment Field
 ]
 
   [[edit.cards]]
@@ -93,10 +93,10 @@ moves = [
 [[edit]]
 target = "c11220070"                                   # Grenadier Deton
 moves = [
-  { move = 0xB9676390, level = 1 },                         # Particle Accelerator
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
-  { move = 0xD32B8500, level = 20 },                        # Atomic Spin
-  { move = 0xE29933EC, level = 30 },                        # Dimensional Deluge
+  { move = 0xB9676390, level = 13 },                        # Particle Accelerator
+  { move = 0xB60E3C60, level = 20 },                        # Plasma Cut
+  { move = 0xD32B8500, level = 30 },                        # Atomic Spin
+  { move = 0xE29933EC, level = 38 },                        # Dimensional Deluge
 ]
 
   [[edit.cards]]
@@ -108,10 +108,10 @@ moves = [
 [[edit]]
 target = "c11220080"                                   # Simen Thorne
 moves = [
-  { move = 0xF626F557, level = 1 },                         # Electric Impedance
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
+  { move = 0xF626F557, level = 13 },                        # Electric Impedance
   { move = 0xB8A509A7, level = 20 },                        # Asterocks
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0xB60E3C60, level = 30 },                        # Plasma Cut
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -123,10 +123,10 @@ moves = [
 [[edit]]
 target = "c11220090"                                   # Arden Drax
 moves = [
-  { move = 0xB8A509A7, level = 1 },                         # Asterocks
-  { move = 0xD262F964, level = 13 },                        # Format Disk
+  { move = 0xB8A509A7, level = 13 },                        # Asterocks
   { move = 0x0D0B77EA, level = 20 },                        # Floral Fiesta
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0xD262F964, level = 30 },                        # Format Disk
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -138,10 +138,10 @@ moves = [
 [[edit]]
 target = "c11220100"                                   # Declan Jaxor
 moves = [
-  { move = 0xF7E49F60, level = 1 },                         # Magnetism
-  { move = 0x93885A64, level = 13 },                        # Fire Drill
-  { move = 0xAF150D21, level = 20 },                        # Swallow Counter
-  { move = 0x15138722, level = 30 },                        # Will-o'-the-Wisp Shot
+  { move = 0xF7E49F60, level = 13 },                        # Magnetism
+  { move = 0x93885A64, level = 20 },                        # Fire Drill
+  { move = 0xAF150D21, level = 30 },                        # Swallow Counter
+  { move = 0x15138722, level = 38 },                        # Will-o'-the-Wisp Shot
 ]
 
   [[edit.cards]]
@@ -153,10 +153,10 @@ moves = [
 [[edit]]
 target = "c11220110"                                   # Xyron Madric
 moves = [
-  { move = 0xF7E49F60, level = 1 },                         # Magnetism
   { move = 0xB9676390, level = 13 },                        # Particle Accelerator
-  { move = 0xC9BAEA82, level = 20 },                        # Eye of the Storm
+  { move = 0xF7E49F60, level = 20 },                        # Magnetism
   { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0xC9BAEA82, level = 38 },                        # Eye of the Storm
 ]
 
   [[edit.cards]]
@@ -168,10 +168,10 @@ moves = [
 [[edit]]
 target = "c11220120"                                   # Rourik Bhatt
 moves = [
-  { move = 0x93885A64, level = 1 },                         # Fire Drill
-  { move = 0x7C1494CF, level = 13 },                        # Tornado Tunnel
-  { move = 0xC9BAEA82, level = 20 },                        # Eye of the Storm
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0x93885A64, level = 13 },                        # Fire Drill
+  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
+  { move = 0xC9BAEA82, level = 30 },                        # Eye of the Storm
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -183,10 +183,10 @@ moves = [
 [[edit]]
 target = "c11220130"                                   # Machina Dex
 moves = [
-  { move = 0xF7E49F60, level = 1 },                         # Magnetism
-  { move = 0x93885A64, level = 13 },                        # Fire Drill
-  { move = 0x650FA58E, level = 20 },                        # Spin Out
-  { move = 0xD262F964, level = 30 },                        # Format Disk
+  { move = 0xD262F964, level = 13 },                        # Format Disk
+  { move = 0xF7E49F60, level = 20 },                        # Magnetism
+  { move = 0x93885A64, level = 30 },                        # Fire Drill
+  { move = 0x650FA58E, level = 38 },                        # Spin Out
 ]
 
   [[edit.cards]]
@@ -198,10 +198,10 @@ moves = [
 [[edit]]
 target = "c11220140"                                   # Menox Kessler
 moves = [
-  { move = 0xC8760A18, level = 1 },                         # Falling Planet
-  { move = 0xD0AF516E, level = 13 },                        # Asteride
-  { move = 0xF94FAAA7, level = 20 },                        # Decoy Deploy
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0xF94FAAA7, level = 13 },                        # Decoy Deploy
+  { move = 0xC8760A18, level = 20 },                        # Falling Planet
+  { move = 0xD0AF516E, level = 30 },                        # Asteride
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -213,10 +213,10 @@ moves = [
 [[edit]]
 target = "c11220150"                                   # Crysis Murdok
 moves = [
-  { move = 0x1FA91CF4, level = 1 },                         # Negative Feedback
-  { move = 0xAF150D21, level = 13 },                        # Swallow Counter
-  { move = 0x07704782, level = 20 },                        # Rejection
-  { move = 0x49F3BB72, level = 30 },                        # Psychlone
+  { move = 0x07704782, level = 13 },                        # Rejection
+  { move = 0x49F3BB72, level = 20 },                        # Psychlone
+  { move = 0x1FA91CF4, level = 30 },                        # Negative Feedback
+  { move = 0xAF150D21, level = 30 },                        # Swallow Counter
 ]
 
   [[edit.cards]]
@@ -228,10 +228,10 @@ moves = [
 [[edit]]
 target = "c11220160"                                   # Zyphar Doar
 moves = [
-  { move = 0xB9676390, level = 1 },                         # Particle Accelerator
   { move = 0xC9BAEA82, level = 13 },                        # Eye of the Storm
-  { move = 0xB8A509A7, level = 20 },                        # Asterocks
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0xB9676390, level = 20 },                        # Particle Accelerator
+  { move = 0xB8A509A7, level = 30 },                        # Asterocks
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -243,10 +243,10 @@ moves = [
 [[edit]]
 target = "c11220210"                                   # Keines Elvain
 moves = [
-  { move = 0xC8760A18, level = 1 },                         # Falling Planet
-  { move = 0xD262F964, level = 13 },                        # Format Disk
-  { move = 0x1876DB66, level = 20 },                        # Disaster Strike
-  { move = 0xE29933EC, level = 30 },                        # Dimensional Deluge
+  { move = 0xE29933EC, level = 13 },                        # Dimensional Deluge
+  { move = 0xC8760A18, level = 20 },                        # Falling Planet
+  { move = 0xD262F964, level = 30 },                        # Format Disk
+  { move = 0x1876DB66, level = 38 },                        # Disaster Strike
 ]
 
   [[edit.cards]]
@@ -257,10 +257,10 @@ moves = [
 [[edit]]
 target = "c11220220"                                   # Vector Vernam
 moves = [
-  { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
   { move = 0xC8760A18, level = 13 },                        # Falling Planet
   { move = 0xD0A1DBC3, level = 20 },                        # Bungee Ball Burst
   { move = 0xE29933EC, level = 30 },                        # Dimensional Deluge
+  { move = 0xDDCA0D2A, level = 38 },                        # Bouncing Bomb
 ]
 
   [[edit.cards]]
@@ -272,10 +272,10 @@ moves = [
 [[edit]]
 target = "c11220230"                                   # Nebula Raime
 moves = [
-  { move = 0x1876DB66, level = 1 },                         # Disaster Strike
-  { move = 0xC9BAEA82, level = 13 },                        # Eye of the Storm
-  { move = 0xB8A509A7, level = 20 },                        # Asterocks
-  { move = 0xE29933EC, level = 30 },                        # Dimensional Deluge
+  { move = 0x1876DB66, level = 13 },                        # Disaster Strike
+  { move = 0xC9BAEA82, level = 20 },                        # Eye of the Storm
+  { move = 0xB8A509A7, level = 30 },                        # Asterocks
+  { move = 0xE29933EC, level = 38 },                        # Dimensional Deluge
 ]
 
   [[edit.cards]]
@@ -287,10 +287,10 @@ moves = [
 [[edit]]
 target = "c11220240"                                   # Garruk Vynce
 moves = [
-  { move = 0x1FA91CF4, level = 1 },                         # Negative Feedback
-  { move = 0xB9676390, level = 13 },                        # Particle Accelerator
-  { move = 0x07704782, level = 20 },                        # Rejection
+  { move = 0x07704782, level = 13 },                        # Rejection
+  { move = 0x1FA91CF4, level = 20 },                        # Negative Feedback
   { move = 0x49F3BB72, level = 30 },                        # Psychlone
+  { move = 0xB9676390, level = 30 },                        # Particle Accelerator
 ]
 
   [[edit.cards]]
@@ -302,10 +302,10 @@ moves = [
 [[edit]]
 target = "c11220250"                                   # Prisca Grav
 moves = [
-  { move = 0x86F5F6E8, level = 1 },                         # Cupid's Arrow
-  { move = 0xD0A1DBC3, level = 13 },                        # Bungee Ball Burst
-  { move = 0x7748D3F2, level = 20 },                        # Devil Ball
-  { move = 0x0D0B77EA, level = 30 },                        # Floral Fiesta
+  { move = 0x86F5F6E8, level = 13 },                        # Cupid's Arrow
+  { move = 0x0D0B77EA, level = 20 },                        # Floral Fiesta
+  { move = 0xD0A1DBC3, level = 30 },                        # Bungee Ball Burst
+  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -317,10 +317,10 @@ moves = [
 [[edit]]
 target = "c11220260"                                   # Denowar Krell
 moves = [
-  { move = 0x828A53C8, level = 1 },                         # Plasma Ball
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
-  { move = 0x4E22F64D, level = 20 },                        # Transporter Device
-  { move = 0x0A02DF36, level = 30 },                        # Containment Field
+  { move = 0x828A53C8, level = 13 },                        # Plasma Ball
+  { move = 0xB60E3C60, level = 20 },                        # Plasma Cut
+  { move = 0x4E22F64D, level = 30 },                        # Transporter Device
+  { move = 0x0A02DF36, level = 38 },                        # Containment Field
 ]
 
   [[edit.cards]]
@@ -332,10 +332,10 @@ moves = [
 [[edit]]
 target = "c11220270"                                   # Grenadier Deton
 moves = [
-  { move = 0xB9676390, level = 1 },                         # Particle Accelerator
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
-  { move = 0xD32B8500, level = 20 },                        # Atomic Spin
-  { move = 0xE29933EC, level = 30 },                        # Dimensional Deluge
+  { move = 0xB9676390, level = 13 },                        # Particle Accelerator
+  { move = 0xB60E3C60, level = 20 },                        # Plasma Cut
+  { move = 0xD32B8500, level = 30 },                        # Atomic Spin
+  { move = 0xE29933EC, level = 38 },                        # Dimensional Deluge
 ]
 
   [[edit.cards]]
@@ -347,10 +347,10 @@ moves = [
 [[edit]]
 target = "c11220280"                                   # Simen Thorne
 moves = [
-  { move = 0xF626F557, level = 1 },                         # Electric Impedance
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
+  { move = 0xF626F557, level = 13 },                        # Electric Impedance
   { move = 0xB8A509A7, level = 20 },                        # Asterocks
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0xB60E3C60, level = 30 },                        # Plasma Cut
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -362,10 +362,10 @@ moves = [
 [[edit]]
 target = "c11220290"                                   # Arden Drax
 moves = [
-  { move = 0xB8A509A7, level = 1 },                         # Asterocks
-  { move = 0xD262F964, level = 13 },                        # Format Disk
+  { move = 0xB8A509A7, level = 13 },                        # Asterocks
   { move = 0x0D0B77EA, level = 20 },                        # Floral Fiesta
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0xD262F964, level = 30 },                        # Format Disk
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -377,10 +377,10 @@ moves = [
 [[edit]]
 target = "c11220300"                                   # Declan Jaxor
 moves = [
-  { move = 0xF7E49F60, level = 1 },                         # Magnetism
-  { move = 0x93885A64, level = 13 },                        # Fire Drill
-  { move = 0xAF150D21, level = 20 },                        # Swallow Counter
-  { move = 0x15138722, level = 30 },                        # Will-o'-the-Wisp Shot
+  { move = 0xF7E49F60, level = 13 },                        # Magnetism
+  { move = 0x93885A64, level = 20 },                        # Fire Drill
+  { move = 0xAF150D21, level = 30 },                        # Swallow Counter
+  { move = 0x15138722, level = 38 },                        # Will-o'-the-Wisp Shot
 ]
 
   [[edit.cards]]
@@ -392,10 +392,10 @@ moves = [
 [[edit]]
 target = "c11220310"                                   # Xyron Madric
 moves = [
-  { move = 0xF7E49F60, level = 1 },                         # Magnetism
   { move = 0xB9676390, level = 13 },                        # Particle Accelerator
-  { move = 0xC9BAEA82, level = 20 },                        # Eye of the Storm
+  { move = 0xF7E49F60, level = 20 },                        # Magnetism
   { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0xC9BAEA82, level = 38 },                        # Eye of the Storm
 ]
 
   [[edit.cards]]
@@ -407,10 +407,10 @@ moves = [
 [[edit]]
 target = "c11220320"                                   # Rourik Bhatt
 moves = [
-  { move = 0x93885A64, level = 1 },                         # Fire Drill
-  { move = 0x7C1494CF, level = 13 },                        # Tornado Tunnel
-  { move = 0xC9BAEA82, level = 20 },                        # Eye of the Storm
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0x93885A64, level = 13 },                        # Fire Drill
+  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
+  { move = 0xC9BAEA82, level = 30 },                        # Eye of the Storm
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -422,10 +422,10 @@ moves = [
 [[edit]]
 target = "c11220330"                                   # Machina Dex
 moves = [
-  { move = 0xF7E49F60, level = 1 },                         # Magnetism
-  { move = 0x93885A64, level = 13 },                        # Fire Drill
-  { move = 0x650FA58E, level = 20 },                        # Spin Out
-  { move = 0xD262F964, level = 30 },                        # Format Disk
+  { move = 0xD262F964, level = 13 },                        # Format Disk
+  { move = 0xF7E49F60, level = 20 },                        # Magnetism
+  { move = 0x93885A64, level = 30 },                        # Fire Drill
+  { move = 0x650FA58E, level = 38 },                        # Spin Out
 ]
 
   [[edit.cards]]
@@ -437,10 +437,10 @@ moves = [
 [[edit]]
 target = "c11220340"                                   # Menox Kessler
 moves = [
-  { move = 0xC8760A18, level = 1 },                         # Falling Planet
-  { move = 0xD0AF516E, level = 13 },                        # Asteride
-  { move = 0xF94FAAA7, level = 20 },                        # Decoy Deploy
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0xF94FAAA7, level = 13 },                        # Decoy Deploy
+  { move = 0xC8760A18, level = 20 },                        # Falling Planet
+  { move = 0xD0AF516E, level = 30 },                        # Asteride
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -452,10 +452,10 @@ moves = [
 [[edit]]
 target = "c11220350"                                   # Crysis Murdok
 moves = [
-  { move = 0x1FA91CF4, level = 1 },                         # Negative Feedback
-  { move = 0xAF150D21, level = 13 },                        # Swallow Counter
-  { move = 0x07704782, level = 20 },                        # Rejection
-  { move = 0x49F3BB72, level = 30 },                        # Psychlone
+  { move = 0x07704782, level = 13 },                        # Rejection
+  { move = 0x49F3BB72, level = 20 },                        # Psychlone
+  { move = 0x1FA91CF4, level = 30 },                        # Negative Feedback
+  { move = 0xAF150D21, level = 30 },                        # Swallow Counter
 ]
 
   [[edit.cards]]
@@ -467,10 +467,10 @@ moves = [
 [[edit]]
 target = "c11220360"                                   # Zyphar Doar
 moves = [
-  { move = 0xB9676390, level = 1 },                         # Particle Accelerator
   { move = 0xC9BAEA82, level = 13 },                        # Eye of the Storm
-  { move = 0xB8A509A7, level = 20 },                        # Asterocks
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0xB9676390, level = 20 },                        # Particle Accelerator
+  { move = 0xB8A509A7, level = 30 },                        # Asterocks
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
 ]
 
   [[edit.cards]]
@@ -482,10 +482,10 @@ moves = [
 [[edit]]
 target = "c11220500"                                   # Boulder Vargan
 moves = [
-  { move = 0xF626F557, level = 1 },                         # Electric Impedance
-  { move = 0xDDCA0D2A, level = 13 },                        # Bouncing Bomb
-  { move = 0xB9676390, level = 20 },                        # Particle Accelerator
-  { move = 0x650FA58E, level = 30 },                        # Spin Out
+  { move = 0xB9676390, level = 13 },                        # Particle Accelerator
+  { move = 0x650FA58E, level = 20 },                        # Spin Out
+  { move = 0xF626F557, level = 30 },                        # Electric Impedance
+  { move = 0xDDCA0D2A, level = 38 },                        # Bouncing Bomb
 ]
 
   [[edit.cards]]
@@ -497,10 +497,10 @@ moves = [
 [[edit]]
 target = "c11220510"                                   # Wolter Kruzsk
 moves = [
-  { move = 0xF7E49F60, level = 1 },                         # Magnetism
   { move = 0x93885A64, level = 13 },                        # Fire Drill
-  { move = 0x15138722, level = 20 },                        # Will-o'-the-Wisp Shot
+  { move = 0xF7E49F60, level = 20 },                        # Magnetism
   { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0x15138722, level = 38 },                        # Will-o'-the-Wisp Shot
 ]
 
   [[edit.cards]]
@@ -512,10 +512,10 @@ moves = [
 [[edit]]
 target = "c11220700"                                   # Boulder Vargan
 moves = [
-  { move = 0xF626F557, level = 1 },                         # Electric Impedance
-  { move = 0xDDCA0D2A, level = 13 },                        # Bouncing Bomb
-  { move = 0xB9676390, level = 20 },                        # Particle Accelerator
-  { move = 0x650FA58E, level = 30 },                        # Spin Out
+  { move = 0xB9676390, level = 13 },                        # Particle Accelerator
+  { move = 0x650FA58E, level = 20 },                        # Spin Out
+  { move = 0xF626F557, level = 30 },                        # Electric Impedance
+  { move = 0xDDCA0D2A, level = 38 },                        # Bouncing Bomb
 ]
 
   [[edit.cards]]
@@ -527,10 +527,10 @@ moves = [
 [[edit]]
 target = "c11220710"                                   # Wolter Kruzsk
 moves = [
-  { move = 0xF7E49F60, level = 1 },                         # Magnetism
   { move = 0x93885A64, level = 13 },                        # Fire Drill
-  { move = 0x15138722, level = 20 },                        # Will-o'-the-Wisp Shot
+  { move = 0xF7E49F60, level = 20 },                        # Magnetism
   { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0x15138722, level = 38 },                        # Will-o'-the-Wisp Shot
 ]
 
   [[edit.cards]]

@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c01002420"                                   # Tammy Fielding
 moves = [
-  { move = 0x0F703132, level = 1 },                         # Black Magic
+  { move = 0x0F703132, level = 24 },                        # Black Magic
   { move = 0x592A96B4, level = 35 },                        # Afterimage
   { move = 0xB5B7108F, level = 40 },                        # Shadow Stitch
   { move = 0x637C031A, level = 52 },                        # No Escape
@@ -65,9 +65,9 @@ moves = [
 target = "c01002450"                                   # Ness Sheldon
 moves = [
   { move = 0x65B7C1F1, level = 1 },                         # Sumo Stomp
+  { move = 0x1162A8AF, level = 1 },                         # Bewilder Blast
+  { move = 0xC6978232, level = 1 },                         # Dinosaur Roar
   { move = 0x7EEA4EE9, level = 70 },                        # Blade Attack
-  { move = 0x1162A8AF, level = 80 },                        # Bewilder Blast
-  { move = 0xC6978232, level = 90 },                        # Dinosaur Roar
 ]
 
   [[edit.cards]]
@@ -127,7 +127,7 @@ moves = [
 target = "c01002490"                                   # Samantha Moonlight
 moves = [
   { move = 0x60397CCA, level = 1 },                         # Cross Drive
-  { move = 0x1F0836D6, level = 11 },                        # Comet Shot
+  { move = 0x1F0836D6, level = 1 },                         # Comet Shot
   { move = 0x27D9B69F, level = 40 },                        # Prima Donna
   { move = 0x65766A4F, level = 52 },                        # Meteor Blade
 ]
@@ -142,7 +142,7 @@ moves = [
 target = "c01002500"                                   # Mitch Sandstone
 moves = [
   { move = 0x35E70F22, level = 1 },                         # Grenade Shot
-  { move = 0x332CCDC9, level = 11 },                        # Heel Kick
+  { move = 0x332CCDC9, level = 1 },                         # Heel Kick
   { move = 0xB4B4D106, level = 30 },                        # Dragon Cannon
   { move = 0x3663DB4C, level = 48 },                        # Utter Gutsiness Bat
 ]
@@ -174,7 +174,7 @@ moves = [
   { move = 0xBFCC20E7, level = 1 },                         # Wood Chopper
   { move = 0x73C5AF40, level = 14 },                        # Dash Accelerator
   { move = 0xC0FD6AFB, level = 35 },                        # Fireball Head
-  { move = 0x5E7E4775, level = 45 },                        # Table-Turner
+  { move = 0x5E7E4775, level = 35 },                        # Table-Turner
 ]
 
   [[edit.cards]]
@@ -186,7 +186,7 @@ moves = [
 [[edit]]
 target = "c01002530"                                   # Ian Stager
 moves = [
-  { move = 0x4B142F09, level = 1 },                         # Teleport Shot
+  { move = 0x4B142F09, level = 21 },                        # Teleport Shot
   { move = 0x6B1CF436, level = 28 },                        # Bewildered
   { move = 0x5506B694, level = 39 },                        # Utter Gutsiness Club
   { move = 0xB5B7108F, level = 61 },                        # Shadow Stitch

@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11500330"                                   # Jayden Durance
 moves = [
-  { move = 0xC5EF0563, level = 1 },                         # Three-Legged Rush
   { move = 0x6633159F, level = 13 },                        # Gravitation
-  { move = 0x9D236FA3, level = 20 },                        # Sword of the King
-  { move = 0x485150D9, level = 30 },                        # Body Shield
+  { move = 0xC5EF0563, level = 20 },                        # Three-Legged Rush
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700520"                                   # Finley Brooks
 moves = [
-  { move = 0x6F918884, level = 1 },                         # Easy Breezy
-  { move = 0xA4B51923, level = 13 },                        # The Typhoon
-  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
-  { move = 0xC21AFE80, level = 30 },                        # Whirlwind Drop
+  { move = 0x6F918884, level = 13 },                        # Easy Breezy
+  { move = 0xC21AFE80, level = 20 },                        # Whirlwind Drop
+  { move = 0xA4B51923, level = 30 },                        # The Typhoon
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11700750"                                   # Alonzo Readdie
 moves = [
-  { move = 0x4C1D87D5, level = 1 },                         # Bed of Roses
   { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+  { move = 0x4C1D87D5, level = 20 },                        # Bed of Roses
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11728010"                                   # Galina Chilvers
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
-  { move = 0x64CDCFB9, level = 13 },                        # Rising Dragon
-  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x17110E3B, level = 13 },                        # Jumbo Sandwich
+  { move = 0x64CDCFB9, level = 20 },                        # Rising Dragon
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11728020"                                   # Rockin Sunshaide
 moves = [
-  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
-  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0xB633C4E1, level = 13 },                        # Photon Crash
+  { move = 0xB60E3C60, level = 20 },                        # Plasma Cut
+  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11728030"                                   # Medwin Silvers
 moves = [
-  { move = 0xDA628FD4, level = 1 },                         # Sliding Goal
   { move = 0xBBA44137, level = 13 },                        # Great Wall
-  { move = 0x8AF3EAB9, level = 20 },                        # Hammer of Fury
-  { move = 0xE647BCEE, level = 30 },                        # God Hand V
+  { move = 0xDA628FD4, level = 20 },                        # Sliding Goal
+  { move = 0x8AF3EAB9, level = 30 },                        # Hammer of Fury
+  { move = 0xE647BCEE, level = 38 },                        # God Hand V
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11728040"                                   # Kipper Marino
 moves = [
-  { move = 0xAAA6489B, level = 1 },                         # Spiral Shot
-  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
-  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0xAAA6489B, level = 13 },                        # Spiral Shot
+  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -116,9 +116,9 @@ moves = [
 target = "c11728050"                                   # Wale Gambon
 moves = [
   { move = 0x49529150, level = 1 },                         # Snake Shot
-  { move = 0x2FB941B3, level = 13 },                        # Stone Prison
-  { move = 0xC41097D5, level = 20 },                        # Acrobotics
-  { move = 0x485150D9, level = 30 },                        # Body Shield
+  { move = 0x2FB941B3, level = 20 },                        # Stone Prison
+  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11728060"                                   # Calem Backstrom
 moves = [
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0xDCC9CCA3, level = 13 },                        # Tesla Coil
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0xDCC9CCA3, level = 20 },                        # Tesla Coil
   { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11728070"                                   # Castor Fatica
 moves = [
-  { move = 0x6B1CF436, level = 1 },                         # Bewildered
-  { move = 0x31ABD82E, level = 13 },                        # Circus Block
-  { move = 0xA8215D7C, level = 20 },                        # The Mountain
+  { move = 0x6B1CF436, level = 13 },                        # Bewildered
+  { move = 0x31ABD82E, level = 20 },                        # Circus Block
   { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11728080"                                   # Papilla Revert
 moves = [
-  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
+  { move = 0x35E70F22, level = 13 },                        # Grenade Shot
+  { move = 0xB60E3C60, level = 20 },                        # Plasma Cut
   { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -179,10 +179,10 @@ moves = [
 [[edit]]
 target = "c11728090"                                   # Amita Rudd
 moves = [
-  { move = 0x39CB2F02, level = 1 },                         # Dragster
-  { move = 0x5781A373, level = 13 },                        # Hurricane Arrows
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x39CB2F02, level = 13 },                        # Dragster
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0x5781A373, level = 30 },                        # Hurricane Arrows
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -195,10 +195,10 @@ moves = [
 [[edit]]
 target = "c11728100"                                   # Yarden Forsman
 moves = [
-  { move = 0xBDAE2862, level = 1 },                         # Hellfire
-  { move = 0xEFFC6FA8, level = 13 },                        # Warhead
-  { move = 0x3B8D915B, level = 20 },                        # Meteor Shower
-  { move = 0x0B011EBF, level = 30 },                        # Fireball Screw
+  { move = 0x3B8D915B, level = 13 },                        # Meteor Shower
+  { move = 0xBDAE2862, level = 20 },                        # Hellfire
+  { move = 0xEFFC6FA8, level = 30 },                        # Warhead
+  { move = 0x0B011EBF, level = 38 },                        # Fireball Screw
 ]
 
   [[edit.cards]]
@@ -211,10 +211,10 @@ moves = [
 [[edit]]
 target = "c11728110"                                   # Cheery Allende
 moves = [
-  { move = 0xB5B7108F, level = 1 },                         # Shadow Stitch
-  { move = 0x4A17EE80, level = 13 },                        # Hunter's Net
-  { move = 0x15138722, level = 20 },                        # Will-o'-the-Wisp Shot
-  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x15138722, level = 1 },                         # Will-o'-the-Wisp Shot
+  { move = 0xB5B7108F, level = 20 },                        # Shadow Stitch
+  { move = 0x4A17EE80, level = 30 },                        # Hunter's Net
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]

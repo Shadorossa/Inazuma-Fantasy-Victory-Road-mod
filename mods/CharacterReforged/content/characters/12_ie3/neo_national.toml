@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c03030070"                                   # Dave Quagmire
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0x3F00EDE9, level = 11 },                        # Dash Storm
-  { move = 0x1C8CE2B8, level = 21 },                        # God Knows
-  { move = 0x035C1112, level = 31 },                        # Gungnir
+  { move = 0x3F00EDE9, level = 1 },                         # Dash Storm
+  { move = 0x1C8CE2B8, level = 1 },                         # God Knows
+  { move = 0x035C1112, level = 1 },                         # Gungnir
 ]
 VRFW.MoveGrades = [
   { Move = 0x6ADE9E01, Grade = 1 },                         # Illusory Ball
@@ -25,8 +25,8 @@ VRFW.MoveGrades = [
 target = "c04017360"                                   # Zack Cummings
 moves = [
   { move = 0x29728358, level = 1 },                         # Planet Shield
-  { move = 0xAD6E4BF9, level = 11 },                        # Harvest
-  { move = 0x00196EC2, level = 21 },                        # Earthquake
+  { move = 0xAD6E4BF9, level = 1 },                         # Harvest
+  { move = 0x00196EC2, level = 10 },                        # Earthquake
   { move = 0x7207C577, level = 67 },                        # Boost Glider
 ]
 
@@ -56,7 +56,7 @@ moves = [
 target = "c04017470"                                   # Ethan Whitering
 moves = [
   { move = 0x029E7B25, level = 1 },                         # Gaia Break
-  { move = 0x3B8D915B, level = 11 },                        # Meteor Shower
+  { move = 0x3B8D915B, level = 1 },                         # Meteor Shower
   { move = 0xDDCA0D2A, level = 22 },                        # Bouncing Bomb
   { move = 0x30A819A7, level = 63 },                        # Twin Boost F
 ]
@@ -71,7 +71,7 @@ moves = [
 target = "c06037140"                                   # Zeke Valanche
 moves = [
   { move = 0x7FE98F60, level = 1 },                         # Ganymede Ray
-  { move = 0x029E7B25, level = 11 },                        # Gaia Break
+  { move = 0x029E7B25, level = 1 },                         # Gaia Break
   { move = 0x7E2BE557, level = 21 },                        # Legendary Wolf
   { move = 0xFD49C046, level = 48 },                        # Bubble Trouble
 ]

@@ -67,17 +67,17 @@ local function team_of(handle)
 end
 
 VRFW.on("hook:LegendaryAI.FoulRate:post", function(ev)
-  local kind = struct_field("LegendaryFoulRequest", ev.args[1], "kind")
+  local kind = struct_field("LegendaryFoulRequest", ev.args[1], "Kind")
   if kind == FOUL_KIND_DUEL then
     local duel = game_global("legendary_duel")
-    if not duel or struct_field("LegendaryDuel", duel, "result_kind") ~= DUEL_KIND_POWER then return nil end
+    if not duel or struct_field("LegendaryDuel", duel, "ResultKind") ~= DUEL_KIND_POWER then return nil end
   elseif kind ~= FOUL_KIND_SPRINT then
     return nil
   end
   local match = game_global("legendary_ai_match_info")
-  local user = match and struct_field("LegendaryAIMatchInfo", match, "user_team")
+  local user = match and struct_field("LegendaryAIMatchInfo", match, "UserTeam")
   if user ~= 0 and user ~= 1 then return nil end
-  local offender = struct_field("LegendaryFoulRequest", ev.args[1], "offender")
+  local offender = struct_field("LegendaryFoulRequest", ev.args[1], "Offender")
   local team = team_of(offender)
   if team == nil or VRFW.ai.human(team) then return nil end
   local rate, what = SETTINGS.rival_power_action_foul_rate, "power action"
@@ -89,7 +89,7 @@ end)
 -- the user's team (0 / 1) from the match info, nil when unknown
 local function user_team()
   local match = game_global("legendary_ai_match_info")
-  local user = match and struct_field("LegendaryAIMatchInfo", match, "user_team")
+  local user = match and struct_field("LegendaryAIMatchInfo", match, "UserTeam")
   if user == 0 or user == 1 then return user end
   return nil
 end

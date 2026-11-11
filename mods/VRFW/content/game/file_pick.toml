@@ -1,0 +1,18 @@
+schema = "VRFW.game/2"
+
+# File picks: the commands behind the menu helper VRFW.file_pick (scripts/file_pick.lua, docs/framework/file-pick.md).
+
+# Arguments: area, file name, extension, title; results: ticket, or nil and why when no dialog is shown.
+[[VRFW.Command]]
+name = "CMND_VRFW_FILE_PICK_SAVE"
+handler = "FilePick.Save"
+
+# Arguments: area, extension, title; results: ticket, or nil and why when no dialog is shown.
+[[VRFW.Command]]
+name = "CMND_VRFW_FILE_PICK_OPEN"
+handler = "FilePick.Open"
+
+# Arguments: ticket; results: "pending", "picked" and the file name, "cancelled", or "failed" and why.
+[[VRFW.Command]]
+name = "CMND_VRFW_FILE_PICK_STATE"
+handler = "FilePick.State"

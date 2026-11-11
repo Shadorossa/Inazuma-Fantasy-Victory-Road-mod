@@ -38,8 +38,8 @@ target = "c03031410"                                   # Billy Dash
 moves = [
   { move = 0xDCA94D3F, level = 1 },                         # Flash Upper
   { move = 0xE9968761, level = 32 },                        # Rocket Kobushi
+  { move = 0xF08DB620, level = 38 },                        # Whirlwind
   { move = 0x8C990270, level = 75 },                        # Gunshot
-  { move = 0xF08DB620, level = 85 },                        # Whirlwind
 ]
 
   [[edit.cards]]
@@ -83,9 +83,9 @@ moves = [
 target = "c03031440"                                   # Drake Dynamo
 moves = [
   { move = 0x4BD584B7, level = 1 },                         # Power Charge
+  { move = 0x7EEA4EE9, level = 13 },                        # Blade Attack
+  { move = 0xB13A6C3D, level = 30 },                        # Zigzag Flame
   { move = 0x67F17FA8, level = 36 },                        # Mega Quake
-  { move = 0xB13A6C3D, level = 46 },                        # Zigzag Flame
-  { move = 0x7EEA4EE9, level = 56 },                        # Blade Attack
 ]
 
   [[edit.cards]]
@@ -115,8 +115,8 @@ target = "c03031480"                                   # Shane Pierce
 moves = [
   { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
   { move = 0x79224D8B, level = 10 },                        # Freeze Shot
+  { move = 0x0D368F6B, level = 38 },                        # Heaven's Time
   { move = 0xC19E2AEE, level = 65 },                        # Pegasus Shot
-  { move = 0x0D368F6B, level = 75 },                        # Heaven's Time
 ]
 
   [[edit.cards]]
@@ -129,7 +129,7 @@ moves = [
 target = "c03031490"                                   # Mark Krueger
 moves = [
   { move = 0x94405906, level = 1 },                         # Grand Fenrir
-  { move = 0x3A4FFB6C, level = 11 },                        # The Ikaros
+  { move = 0x3A4FFB6C, level = 1 },                         # The Ikaros
   { move = 0xDA3FF6C9, level = 19 },                        # Criss-Cross
   { move = 0xB6F26F5F, level = 45 },                        # Tri-Pegasus
 ]
@@ -163,7 +163,7 @@ moves = [
 target = "c03031510"                                   # Gabriel Jax
 moves = [
   { move = 0xB6F26F5F, level = 1 },                         # Tri-Pegasus
-  { move = 0xC66BD10D, level = 11 },                        # Zigzag Spark
+  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
   { move = 0x2A37FC88, level = 40 },                        # Revolution V
   { move = 0x21127474, level = 65 },                        # Ultra Moon
 ]
@@ -179,8 +179,8 @@ target = "c03031520"                                   # Alex Hawke
 moves = [
   { move = 0xC379BE95, level = 1 },                         # Counter Strike
   { move = 0x7B64F3D2, level = 12 },                        # Hawk Shot
+  { move = 0xDCA94D3F, level = 13 },                        # Flash Upper
   { move = 0x592A96B4, level = 40 },                        # Afterimage
-  { move = 0xDCA94D3F, level = 50 },                        # Flash Upper
 ]
 
   [[edit.cards]]
@@ -209,8 +209,8 @@ target = "c03031540"                                   # Bob Bobbins
 moves = [
   { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
   { move = 0x7EEA4EE9, level = 18 },                        # Blade Attack
-  { move = 0x4DDFEDE2, level = 28 },                        # Eagle Buster
-  { move = 0xACAC21CE, level = 38 },                        # Fake Ball
+  { move = 0xACAC21CE, level = 20 },                        # Fake Ball
+  { move = 0x4DDFEDE2, level = 30 },                        # Eagle Buster
 ]
 
   [[edit.cards]]
@@ -252,10 +252,10 @@ moves = [
 [[edit]]
 target = "c11803070"                                   # Mac Scryde
 moves = [
-  { move = 0x105C91A7, level = 1 },                         # Slingshot
-  { move = 0xDEB28A7B, level = 11 },                        # Monkey Turn
-  { move = 0x5E233E68, level = 21 },                        # Super Elastico
-  { move = 0x54C4DCA3, level = 31 },                        # Butterfly Trance
+  { move = 0xDEB28A7B, level = 13 },                        # Monkey Turn
+  { move = 0x105C91A7, level = 20 },                        # Slingshot
+  { move = 0x5E233E68, level = 38 },                        # Super Elastico
+  { move = 0x54C4DCA3, level = 38 },                        # Butterfly Trance
 ]
 
   [[edit.cards]]

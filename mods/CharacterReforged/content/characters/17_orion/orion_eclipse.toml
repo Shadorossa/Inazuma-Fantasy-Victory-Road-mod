@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c08120010"                                   # Betelgeuse
 moves = [
-  { move = 0x627FC293, level = 1 },                         # Meteor Attack
-  { move = 0x8C990270, level = 13 },                        # Gunshot
-  { move = 0x4CDC2C6B, level = 20 },                        # Shooting Star
-  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
+  { move = 0x627FC293, level = 13 },                        # Meteor Attack
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x4CDC2C6B, level = 30 },                        # Shooting Star
+  { move = 0x8C990270, level = 38 },                        # Gunshot
 ]
 
   [[edit.cards]]
@@ -23,19 +23,19 @@ target = "c08120020"                                   # Jade Beor
   growth = "normal"
   stats = { kick = 362, control = 251, technique = 238, pressure = 178, physical = 167, intelligence = 212, agility = 170, freedom = 251 }
   moves = [
-    { move = 0x59A180E7, level = 1 },                       # Shadow Swarm
-    { move = 0xA5777314, level = 13 },                      # Assault Shot
-    { move = 0x3E49918D, level = 20 },                      # Orion's Shade
+    { move = 0x3E49918D, level = 13 },                      # Orion's Shade
+    { move = 0x59A180E7, level = 20 },                      # Shadow Swarm
     { move = 0xBC6C4255, level = 30 },                      # Neo Galaxy
+    { move = 0xA5777314, level = 38 },                      # Assault Shot
   ]
 
 [[edit]]
 target = "c08120030"                                   # Rigel
 moves = [
-  { move = 0x627FC293, level = 1 },                         # Meteor Attack
-  { move = 0xDA3FF6C9, level = 13 },                        # Criss-Cross
-  { move = 0x3B8D915B, level = 20 },                        # Meteor Shower
+  { move = 0x627FC293, level = 13 },                        # Meteor Attack
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
   { move = 0x0885CAD1, level = 30 },                        # Prime Legend
+  { move = 0x3B8D915B, level = 38 },                        # Meteor Shower
 ]
 
   [[edit.cards]]
@@ -48,10 +48,10 @@ moves = [
 [[edit]]
 target = "c08120040"                                   # Bellatrix
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
-  { move = 0x24E5068E, level = 13 },                        # Fractal Repeller
-  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
-  { move = 0xAC91D94F, level = 30 },                        # Major Miner
+  { move = 0xAC91D94F, level = 13 },                        # Major Miner
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x24E5068E, level = 30 },                        # Fractal Repeller
+  { move = 0x72BFA108, level = 30 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -63,10 +63,10 @@ moves = [
 [[edit]]
 target = "c08120050"                                   # Mintaka
 moves = [
-  { move = 0x1F0836D6, level = 1 },                         # Comet Shot
   { move = 0x2FB941B3, level = 13 },                        # Stone Prison
   { move = 0x4CDC2C6B, level = 20 },                        # Shooting Star
-  { move = 0x3B8D915B, level = 30 },                        # Meteor Shower
+  { move = 0x1F0836D6, level = 30 },                        # Comet Shot
+  { move = 0x3B8D915B, level = 38 },                        # Meteor Shower
 ]
 
   [[edit.cards]]
@@ -78,10 +78,10 @@ moves = [
 [[edit]]
 target = "c08120060"                                   # Alnilam
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
-  { move = 0xDE4ED944, level = 13 },                        # Snowstorm Leopard
-  { move = 0x3B8D915B, level = 20 },                        # Meteor Shower
-  { move = 0xC79443BB, level = 30 },                        # Waterfall
+  { move = 0xC79443BB, level = 13 },                        # Waterfall
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0xDE4ED944, level = 30 },                        # Snowstorm Leopard
+  { move = 0x3B8D915B, level = 38 },                        # Meteor Shower
 ]
 
   [[edit.cards]]
@@ -94,10 +94,10 @@ moves = [
 [[edit]]
 target = "c08120070"                                   # Alnitak
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
-  { move = 0xDE4ED944, level = 13 },                        # Snowstorm Leopard
-  { move = 0x2296A01A, level = 20 },                        # Southern Cross
-  { move = 0xC79443BB, level = 30 },                        # Waterfall
+  { move = 0xC79443BB, level = 13 },                        # Waterfall
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0xDE4ED944, level = 30 },                        # Snowstorm Leopard
+  { move = 0x2296A01A, level = 38 },                        # Southern Cross
 ]
 
   [[edit.cards]]
@@ -110,10 +110,10 @@ moves = [
 [[edit]]
 target = "c08120080"                                   # Saiph
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
-  { move = 0x24E5068E, level = 13 },                        # Fractal Repeller
-  { move = 0x6633159F, level = 20 },                        # Gravitation
-  { move = 0xC79443BB, level = 30 },                        # Waterfall
+  { move = 0xC79443BB, level = 13 },                        # Waterfall
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x24E5068E, level = 30 },                        # Fractal Repeller
+  { move = 0x6633159F, level = 38 },                        # Gravitation
 ]
 
   [[edit.cards]]
@@ -125,10 +125,10 @@ moves = [
 [[edit]]
 target = "c08120090"                                   # Meissa
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
-  { move = 0x24E5068E, level = 13 },                        # Fractal Repeller
-  { move = 0xC79443BB, level = 20 },                        # Waterfall
-  { move = 0xFACB7EC9, level = 30 },                        # Shiny Feathers
+  { move = 0xC79443BB, level = 13 },                        # Waterfall
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x24E5068E, level = 30 },                        # Fractal Repeller
+  { move = 0xFACB7EC9, level = 38 },                        # Shiny Feathers
 ]
 
   [[edit.cards]]
@@ -140,10 +140,10 @@ moves = [
 [[edit]]
 target = "c08120100"                                   # Tabit
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
-  { move = 0x24E5068E, level = 13 },                        # Fractal Repeller
-  { move = 0xC79443BB, level = 20 },                        # Waterfall
-  { move = 0xFACB7EC9, level = 30 },                        # Shiny Feathers
+  { move = 0xC79443BB, level = 13 },                        # Waterfall
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x24E5068E, level = 30 },                        # Fractal Repeller
+  { move = 0xFACB7EC9, level = 38 },                        # Shiny Feathers
 ]
 
   [[edit.cards]]
@@ -155,10 +155,10 @@ moves = [
 [[edit]]
 target = "c08120110"                                   # Procyon
 moves = [
-  { move = 0x06B22DB5, level = 1 },                         # Gyro-Blocker
-  { move = 0x1FA91CF4, level = 13 },                        # Negative Feedback
-  { move = 0x291202C4, level = 20 },                        # Shadow Shield
-  { move = 0x49F3BB72, level = 30 },                        # Psychlone
+  { move = 0x291202C4, level = 13 },                        # Shadow Shield
+  { move = 0x49F3BB72, level = 20 },                        # Psychlone
+  { move = 0x06B22DB5, level = 30 },                        # Gyro-Blocker
+  { move = 0x1FA91CF4, level = 38 },                        # Negative Feedback
 ]
 
   [[edit.cards]]
@@ -170,10 +170,10 @@ moves = [
 [[edit]]
 target = "c08120120"                                   # Sirius
 moves = [
-  { move = 0x29728358, level = 1 },                         # Planet Shield
-  { move = 0xDA3FF6C9, level = 13 },                        # Criss-Cross
-  { move = 0x24E5068E, level = 20 },                        # Fractal Repeller
-  { move = 0x6633159F, level = 30 },                        # Gravitation
+  { move = 0x29728358, level = 13 },                        # Planet Shield
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x24E5068E, level = 30 },                        # Fractal Repeller
+  { move = 0x6633159F, level = 38 },                        # Gravitation
 ]
 
   [[edit.cards]]
@@ -186,10 +186,10 @@ moves = [
 [[edit]]
 target = "c08120130"                                   # Hatysa
 moves = [
-  { move = 0x29728358, level = 1 },                         # Planet Shield
-  { move = 0xDA3FF6C9, level = 13 },                        # Criss-Cross
-  { move = 0x24E5068E, level = 20 },                        # Fractal Repeller
-  { move = 0x2296A01A, level = 30 },                        # Southern Cross
+  { move = 0x29728358, level = 13 },                        # Planet Shield
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x24E5068E, level = 30 },                        # Fractal Repeller
+  { move = 0x2296A01A, level = 38 },                        # Southern Cross
 ]
 
   [[edit.cards]]
@@ -202,10 +202,10 @@ moves = [
 [[edit]]
 target = "c08120140"                                   # Kappa
 moves = [
-  { move = 0x29728358, level = 1 },                         # Planet Shield
-  { move = 0x514A6198, level = 13 },                        # Asteroid Belt
-  { move = 0x24E5068E, level = 20 },                        # Fractal Repeller
-  { move = 0x3B8D915B, level = 30 },                        # Meteor Shower
+  { move = 0x29728358, level = 13 },                        # Planet Shield
+  { move = 0x514A6198, level = 20 },                        # Asteroid Belt
+  { move = 0x24E5068E, level = 30 },                        # Fractal Repeller
+  { move = 0x3B8D915B, level = 38 },                        # Meteor Shower
 ]
 
   [[edit.cards]]

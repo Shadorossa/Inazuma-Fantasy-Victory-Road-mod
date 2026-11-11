@@ -1,0 +1,47 @@
+schema = "VRFW.game/2"
+
+# Disabled rows of an equipment list (docs/framework/equip-list-disabled-rows.md).
+# Installed only by scripts/equip_list.lua, when a mod declares a [[VRFW.EquipListDisabledRows]].
+
+# ------------------------------------------------------------------------------------------------ the equip test
+
+# The list builder's call of Item.CharaCanEquip(character handle, inventory handle) -> 1 = the item stays listed.
+# At the call rbx is the item's row (its category at +0x3C). The answer keeps an item that fails the test when the
+# table EquipList.KeptKinds holds its category; the test itself answers every other reader as the game wrote it.
+[[VRFW.Hook]]
+name = "EquipList.CanEquip"
+game = "Item.EquipListCanEquipCall"
+kind = "call"
+apply = "script"
+arguments = ["u32", "u32"]
+returns = "u8"
+
+[[VRFW.Hook.answer]]
+when = [
+  { value = "mask(ret, 0xFF)", equals = 0 },
+  { value = "[regs.rbx + 0x3C]:u16", in_table = "EquipList.KeptKinds" },
+]
+value = "1"
+
+# CharaCanEquip(character handle, inventory handle) -> the game's own equip test, asked again for each kept row.
+[[VRFW.Function]]
+name = "Item.CharaCanEquip"
+game = "Item.CharaCanEquip"
+
+# ------------------------------------------------------------------------------------------------ commands
+
+# (menu name) -> n: the list builder keeps the n item kinds declared for the menu (0 = none, or the hook is off)
+[[VRFW.Command]]
+name = "CMND_VRFW_EQUIP_LIST_OPEN"
+handler = "EquipList.CmdOpen"
+
+# () -> true: the list builder drops every item that fails the equip test again
+[[VRFW.Command]]
+name = "CMND_VRFW_EQUIP_LIST_CLOSE"
+handler = "EquipList.CmdClose"
+
+# (character handle, inventory handle) -> disabled, reason: the item is of a kept kind and fails the character's
+# equip test; reason = the menu_text row the kind's declaration names
+[[VRFW.Command]]
+name = "CMND_VRFW_EQUIP_LIST_ROW"
+handler = "EquipList.CmdRow"

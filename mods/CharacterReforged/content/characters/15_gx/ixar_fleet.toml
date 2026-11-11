@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c06032810"                                   # Phobos Quasar
 moves = [
-  { move = 0xFFD91151, level = 1 },                         # Goal Gobbler
+  { move = 0xFFD91151, level = 8 },                         # Goal Gobbler
+  { move = 0xF5C2A0A5, level = 30 },                        # Capoeira Grab
+  { move = 0xBD8A9EBE, level = 38 },                        # Infinite Wall
   { move = 0x9AF2229C, level = 56 },                        # Gravity Point
-  { move = 0xF5C2A0A5, level = 66 },                        # Capoeira Grab
-  { move = 0xBD8A9EBE, level = 76 },                        # Infinite Wall
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -23,7 +23,7 @@ moves = [
 [[edit]]
 target = "c06032820"                                   # Aegir Cepheid
 moves = [
-  { move = 0x88D5D57C, level = 1 },                         # Judgment Ray
+  { move = 0x88D5D57C, level = 2 },                         # Judgment Ray
   { move = 0x900C8E0A, level = 23 },                        # Maestro's Call
   { move = 0x0F4DC9B3, level = 39 },                        # Logicstical Sync
   { move = 0x0E0A3F7A, level = 50 },                        # Spatial Portal
@@ -44,9 +44,9 @@ moves = [
 target = "c06032830"                                   # Meteo Garnet
 moves = [
   { move = 0x88D5D57C, level = 1 },                         # Judgment Ray
+  { move = 0xA2BF7076, level = 38 },                        # Side Swipe
   { move = 0x2B8C597E, level = 39 },                        # Fugue Wave
   { move = 0xB9676390, level = 53 },                        # Particle Accelerator
-  { move = 0xA2BF7076, level = 63 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -59,10 +59,10 @@ moves = [
 [[edit]]
 target = "c06032840"                                   # Deimos Lepton
 moves = [
-  { move = 0x88D5D57C, level = 1 },                         # Judgment Ray
+  { move = 0x88D5D57C, level = 3 },                         # Judgment Ray
+  { move = 0x1656F8F2, level = 38 },                        # Psychic Lift
   { move = 0xF4604B0E, level = 40 },                        # Fancy-Footwork
   { move = 0x25276CB9, level = 50 },                        # Solar Surprise
-  { move = 0x1656F8F2, level = 60 },                        # Psychic Lift
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -80,9 +80,9 @@ moves = [
 target = "c06032850"                                   # Ymir Catena
 moves = [
   { move = 0x88D5D57C, level = 1 },                         # Judgment Ray
+  { move = 0xC8FD1C4B, level = 30 },                        # Holograb
   { move = 0x650FA58E, level = 37 },                        # Spin Out
   { move = 0xBA662B00, level = 54 },                        # Pterrordactyl Swoop
-  { move = 0xC8FD1C4B, level = 64 },                        # Holograb
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -100,9 +100,9 @@ moves = [
 [[edit]]
 target = "c06032860"                                   # Sinope Linea
 moves = [
-  { move = 0x88D5D57C, level = 1 },                         # Judgment Ray
+  { move = 0x88D5D57C, level = 8 },                         # Judgment Ray
   { move = 0x039DBAAC, level = 25 },                        # Land of Ice
-  { move = 0xB4488239, level = 36 },                        # Look! UFO
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
   { move = 0xC41097D5, level = 48 },                        # Acrobotics
 ]
 
@@ -116,10 +116,10 @@ moves = [
 [[edit]]
 target = "c06032870"                                   # Tarvos Boson
 moves = [
-  { move = 0xFACB7EC9, level = 1 },                         # Shiny Feathers
+  { move = 0xFACB7EC9, level = 12 },                        # Shiny Feathers
   { move = 0xF4604B0E, level = 36 },                        # Fancy-Footwork
+  { move = 0x88D5D57C, level = 38 },                        # Judgment Ray
   { move = 0xDA3FF6C9, level = 52 },                        # Criss-Cross
-  { move = 0x88D5D57C, level = 62 },                        # Judgment Ray
 ]
 
   [[edit.cards]]
@@ -132,7 +132,7 @@ moves = [
 [[edit]]
 target = "c06032880"                                   # Dione Bolide
 moves = [
-  { move = 0xFACB7EC9, level = 1 },                         # Shiny Feathers
+  { move = 0xFACB7EC9, level = 13 },                        # Shiny Feathers
   { move = 0x39CB2F02, level = 26 },                        # Dragster
   { move = 0xCB79C825, level = 41 },                        # In-Line Stampede
   { move = 0xC9BAEA82, level = 53 },                        # Eye of the Storm
@@ -153,10 +153,10 @@ moves = [
 [[edit]]
 target = "c06032890"                                   # Despina Lux
 moves = [
-  { move = 0x1EBD198D, level = 1 },                         # Magic Amp
+  { move = 0x1EBD198D, level = 13 },                        # Magic Amp
+  { move = 0x88D5D57C, level = 38 },                        # Judgment Ray
   { move = 0x2354CA2D, level = 43 },                        # Wind God's Dance
   { move = 0x0AC37488, level = 52 },                        # Heavenly Drive
-  { move = 0x88D5D57C, level = 62 },                        # Judgment Ray
 ]
 
   [[edit.cards]]
@@ -174,10 +174,10 @@ target = "c06032900"                                   # Ozrock Boldar
   growth = "normal"
   stats = { kick = 333, control = 288, technique = 185, pressure = 161, physical = 230, intelligence = 243, agility = 171, freedom = 335 }
   moves = [
-    { move = 0x07A628CC, level = 1 },                       # Stargazer
+    { move = 0x07A628CC, level = 11 },                      # Stargazer
+    { move = 0xC8FD1C4B, level = 30 },                      # Holograb
     { move = 0xFACB7EC9, level = 44 },                      # Shiny Feathers
     { move = 0x88D5D57C, level = 59 },                      # Judgment Ray
-    { move = 0xC8FD1C4B, level = 69 },                      # Holograb
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -188,10 +188,10 @@ target = "c06032900"                                   # Ozrock Boldar
 [[edit]]
 target = "c06032910"                                   # Loge Colles
 moves = [
-  { move = 0x1EBD198D, level = 1 },                         # Magic Amp
+  { move = 0x1EBD198D, level = 13 },                        # Magic Amp
   { move = 0xD0A1DBC3, level = 37 },                        # Bungee Ball Burst
+  { move = 0x21127474, level = 38 },                        # Ultra Moon
   { move = 0xBD2BB49C, level = 53 },                        # Dark Matter
-  { move = 0x21127474, level = 63 },                        # Ultra Moon
 ]
 
   [[edit.cards]]

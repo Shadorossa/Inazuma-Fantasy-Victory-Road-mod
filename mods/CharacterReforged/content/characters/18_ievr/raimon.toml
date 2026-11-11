@@ -10,9 +10,9 @@ target = "c11020010"                                   # Harper Evans
   stats = { kick = 354, control = 240, technique = 238, pressure = 196, physical = 217, intelligence = 216, agility = 176, freedom = 213 }
   moves = [
     { move = 0x6CEBE396, level = 1 },                       # Unify
-    { move = 0x41F3CDC2, level = 13 },                      # Scorching Tackle
-    { move = 0x5F1FEB23, level = 20 },                      # Meteoric Fire Tornado
+    { move = 0x5F1FEB23, level = 13 },                      # Meteoric Fire Tornado
     { move = 0xB039ADB4, level = 30 },                      # Inazuma Break
+    { move = 0x41F3CDC2, level = 38 },                      # Scorching Tackle
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -23,10 +23,10 @@ target = "c11020010"                                   # Harper Evans
 [[edit]]
 target = "c11020020"                                   # Darian Moonward
 moves = [
-  { move = 0x20D01E43, level = 1 },                         # Hey Presto
   { move = 0x7432B8E0, level = 13 },                        # Bahamut Crash
-  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x20D01E43, level = 20 },                        # Hey Presto
+  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -39,10 +39,10 @@ moves = [
 [[edit]]
 target = "c11020030"                                   # Boone Wretman
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0xAF28F5A0, level = 13 },                        # The Tower
-  { move = 0x62BE692D, level = 20 },                        # Whirlwind Force
-  { move = 0x613ABD43, level = 30 },                        # Dawnrise
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0xAF28F5A0, level = 20 },                        # The Tower
+  { move = 0x62BE692D, level = 30 },                        # Whirlwind Force
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -55,10 +55,10 @@ moves = [
 [[edit]]
 target = "c11020040"                                   # Jazmine Carmine
 moves = [
-  { move = 0x530CDFC1, level = 1 },                         # Mystifying Mist
-  { move = 0x6F918884, level = 13 },                        # Easy Breezy
-  { move = 0x00A10ABD, level = 20 },                        # Ball Lightning
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x530CDFC1, level = 13 },                        # Mystifying Mist
+  { move = 0x6F918884, level = 20 },                        # Easy Breezy
+  { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -71,10 +71,10 @@ moves = [
 [[edit]]
 target = "c11020050"                                   # Zander Warmington
 moves = [
-  { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
-  { move = 0x8FBCFC3C, level = 13 },                        # Blazing Knuckle
-  { move = 0xBA833662, level = 20 },                        # Million Hands
-  { move = 0xE702A664, level = 30 },                        # Tiger God Hand
+  { move = 0xE702A664, level = 13 },                        # Tiger God Hand
+  { move = 0xBE0E4AD0, level = 20 },                        # Fireball Knuckle
+  { move = 0x8FBCFC3C, level = 30 },                        # Blazing Knuckle
+  { move = 0xBA833662, level = 38 },                        # Million Hands
 ]
 
   [[edit.cards]]
@@ -87,10 +87,10 @@ moves = [
 [[edit]]
 target = "c11020060"                                   # Viorain Maleby
 moves = [
-  { move = 0x0E0A3F7A, level = 1 },                         # Spatial Portal
-  { move = 0xDCC9CCA3, level = 13 },                        # Tesla Coil
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x0E0A3F7A, level = 13 },                        # Spatial Portal
+  { move = 0xDCC9CCA3, level = 20 },                        # Tesla Coil
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -103,10 +103,10 @@ moves = [
 [[edit]]
 target = "c11020070"                                   # Clement Mariner
 moves = [
-  { move = 0x2BF596BF, level = 1 },                         # Tsunami Boost
-  { move = 0xB0F8060A, level = 13 },                        # Ozone Flayer
-  { move = 0xE8F5C774, level = 20 },                        # Megalodon
-  { move = 0x613ABD43, level = 30 },                        # Dawnrise
+  { move = 0x2BF596BF, level = 13 },                        # Tsunami Boost
+  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
+  { move = 0xE8F5C774, level = 30 },                        # Megalodon
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -119,10 +119,10 @@ moves = [
 [[edit]]
 target = "c11020080"                                   # Eleanor Estrella
 moves = [
-  { move = 0x19BA3BFC, level = 1 },                         # Dance on Air
   { move = 0x7C1494CF, level = 13 },                        # Tornado Tunnel
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x19BA3BFC, level = 20 },                        # Dance on Air
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -135,10 +135,10 @@ moves = [
 [[edit]]
 target = "c11020090"                                   # Talon Lewis
 moves = [
-  { move = 0x37A1B17B, level = 1 },                         # Fire Rooster
-  { move = 0x4741C0E8, level = 13 },                        # Steeple Shot
-  { move = 0x7432B8E0, level = 20 },                        # Bahamut Crash
+  { move = 0x7432B8E0, level = 13 },                        # Bahamut Crash
+  { move = 0x37A1B17B, level = 20 },                        # Fire Rooster
   { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
+  { move = 0x4741C0E8, level = 30 },                        # Steeple Shot
 ]
 
   [[edit.cards]]
@@ -151,10 +151,10 @@ moves = [
 [[edit]]
 target = "c11020100"                                   # Maddock Jackson
 moves = [
-  { move = 0x41F3CDC2, level = 1 },                         # Scorching Tackle
-  { move = 0xBDAE2862, level = 13 },                        # Hellfire
-  { move = 0x7432B8E0, level = 20 },                        # Bahamut Crash
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x7432B8E0, level = 13 },                        # Bahamut Crash
+  { move = 0x41F3CDC2, level = 20 },                        # Scorching Tackle
+  { move = 0xBDAE2862, level = 30 },                        # Hellfire
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -167,10 +167,10 @@ moves = [
 [[edit]]
 target = "c11020110"                                   # Mama Sigdale
 moves = [
-  { move = 0xED1BFBD3, level = 1 },                         # Fingers of Gaia
-  { move = 0x8C382852, level = 13 },                        # God Hand
-  { move = 0x609ABAAB, level = 20 },                        # Sacred Embrace
-  { move = 0xEE9F2FBD, level = 30 },                        # God Catch
+  { move = 0x609ABAAB, level = 13 },                        # Sacred Embrace
+  { move = 0xED1BFBD3, level = 20 },                        # Fingers of Gaia
+  { move = 0x8C382852, level = 30 },                        # God Hand
+  { move = 0xEE9F2FBD, level = 38 },                        # God Catch
 ]
 
   [[edit.cards]]
@@ -182,10 +182,10 @@ moves = [
 [[edit]]
 target = "c11020120"                                   # Colton Sharps
 moves = [
-  { move = 0xDBFD9CFE, level = 1 },                         # Big Ball Trick
   { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0x7DD6FEF8, level = 20 },                        # Athena's Anthem
-  { move = 0x7DAF3139, level = 30 },                        # Emperor Penguin No. 2
+  { move = 0x7DAF3139, level = 20 },                        # Emperor Penguin No. 2
+  { move = 0xDBFD9CFE, level = 30 },                        # Big Ball Trick
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -198,10 +198,10 @@ moves = [
 [[edit]]
 target = "c11020130"                                   # Nino Gamberini
 moves = [
-  { move = 0xF26A225B, level = 1 },                         # RC Shot
-  { move = 0x7A67325B, level = 13 },                        # Flame Dance
-  { move = 0xB9A6C82E, level = 20 },                        # Triangle ZZ
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x7A67325B, level = 20 },                        # Flame Dance
+  { move = 0xF26A225B, level = 30 },                        # RC Shot
+  { move = 0xB9A6C82E, level = 38 },                        # Triangle ZZ
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -214,10 +214,10 @@ moves = [
 [[edit]]
 target = "c11020140"                                   # Hortensia Raintree
 moves = [
-  { move = 0xAF28F5A0, level = 1 },                         # The Tower
-  { move = 0xB7F1AED6, level = 13 },                        # Double Cyclone
-  { move = 0x49933AEE, level = 20 },                        # Perfect Tower
+  { move = 0xAF28F5A0, level = 13 },                        # The Tower
+  { move = 0xB7F1AED6, level = 30 },                        # Double Cyclone
   { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -230,10 +230,10 @@ moves = [
 [[edit]]
 target = "c11020150"                                   # Milan McGrath
 moves = [
-  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
-  { move = 0x7432B8E0, level = 13 },                        # Bahamut Crash
-  { move = 0xDE4ED944, level = 20 },                        # Snowstorm Leopard
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
+  { move = 0x7432B8E0, level = 20 },                        # Bahamut Crash
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -246,10 +246,10 @@ moves = [
 [[edit]]
 target = "c11020160"                                   # Kaeo Springfield
 moves = [
-  { move = 0x18019E0A, level = 1 },                         # Double Grenade
-  { move = 0x121A2FFE, level = 13 },                        # Mirage Shot
+  { move = 0x18019E0A, level = 13 },                        # Double Grenade
   { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x121A2FFE, level = 30 },                        # Mirage Shot
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -262,10 +262,10 @@ moves = [
 [[edit]]
 target = "c11020500"                                   # Addison Norris
 moves = [
-  { move = 0xDD0BA694, level = 1 },                         # Okehazama Ravine
-  { move = 0x011AAF4B, level = 13 },                        # Gyro Head
-  { move = 0x2AF65736, level = 20 },                        # Bamboo Pattern
-  { move = 0xA8215D7C, level = 30 },                        # The Mountain
+  { move = 0x011AAF4B, level = 12 },                        # Gyro Head
+  { move = 0xDD0BA694, level = 20 },                        # Okehazama Ravine
+  { move = 0x2AF65736, level = 30 },                        # Bamboo Pattern
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -278,10 +278,10 @@ moves = [
 [[edit]]
 target = "c11020510"                                   # Leia Caperton
 moves = [
-  { move = 0x039DBAAC, level = 1 },                         # Land of Ice
-  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0xC42D6F54, level = 20 },                        # Aikido
-  { move = 0xD9BB22A7, level = 30 },                        # Air Ride
+  { move = 0x039DBAAC, level = 13 },                        # Land of Ice
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
+  { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0xD9BB22A7, level = 38 },                        # Air Ride
 ]
 
   [[edit.cards]]

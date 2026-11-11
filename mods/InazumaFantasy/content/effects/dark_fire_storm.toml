@@ -1,5 +1,5 @@
 schema = "VRFW.effect/1"
-# Tormenta de fuego oscura: Tormenta de fuego's object, giant and ball aura recoloured to retail Tornado oscuro's colours.
+# Tormenta oscura: Tormenta de fuego's object, giant and ball aura recoloured to retail Tornado oscuro's colours.
 
 [[recolor]]
 object = "ev60004500"

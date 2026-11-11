@@ -1,4 +1,5 @@
 schema = "VRFW.item/2"
+if_mod = "ClassicRecruitment.classic_recruitment"    # The row of options.toml: off = this file is not read.
 # No normal player spirit from any source (match drops, rewards, shops, packs); a reserved slot keeps the game's.
 [VRFW.DropList]
 HideTabs = [1, 2, 3, 4]

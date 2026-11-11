@@ -227,8 +227,8 @@ For = "config"
   [[Shape.Field]]
   Key = "stat_effects.move_critical_cap_percent"
   Type = "float"
-  Label = { es = "Tope de crítico de técnicas (%)", en = "Move critical cap (%)" }
-  Help = { es = "Máxima probabilidad de crítico en las supertécnicas.", en = "Highest critical chance of special moves." }
+  Label = { es = "Tope de crítico por Suerte (%)", en = "Move critical cap from Luck (%)" }
+  Help = { es = "Máxima probabilidad de crítico que da la Suerte por sí sola.", en = "Highest critical chance Luck gives on its own." }
   [[Shape.Field]]
   Key = "stat_effects.move_critical_power_multiplier"
   Type = "float"

@@ -4,9 +4,9 @@
 # A VRFW base service: built into mod VRFW (`menu_assemble.py build --mod
 # VRFW`, packed by framework_pack.py under save\lua\ + the screen script menus\scripts\); the slot commands
 # (CMND_VRFW_SLOT_*; 1.x CMND_VRFW_SLOT_* / GET_SLOT / SET_SLOT as aliases) are answered by VRFW.dll's save part (save_engine 1.3.0),
-# so no ModLoader module is named here. Generic: the reserved 4th card shows a slot a mod reserved (its content from
-# the owner's VRFW.save_slots_reserved provider); other mods extend the screen through VRFW.save_slots.HOOKS / VRFW.save_slots.API (a Lua patch of the
-# stem vrfw_save_slot_menu, e.g. a mod's reserved-slot card). The player slots and their pages come from the layout
+# so no ModLoader module is named here. Generic: one carousel (VRFW.layer_carousel) of the player slots and of every slot a mod
+# owns, one group per mod (a mod card's content comes from the owner's VRFW.save_slots_reserved provider); other mods extend the screen through VRFW.save_slots.HOOKS / VRFW.save_slots.API (a Lua patch of the
+# stem vrfw_save_slot_menu, e.g. a mod's slot card). The player slots come from the layout
 # ([save.slots] count); the story-complete start's question is the screen's own (graft story_start applies it).
 name = "save_slots"
 order = 100

@@ -12,3 +12,5 @@ base_rarities_denied = []
 partner_rarities_denied = []
 # partner moves the player picks with a new pair (0 = none: the pair works as the retail aura does)
 moves = 0
+# A card that sits in a team may be picked as the partner (false = only a card out of every team).
+partner_may_be_in_team = true

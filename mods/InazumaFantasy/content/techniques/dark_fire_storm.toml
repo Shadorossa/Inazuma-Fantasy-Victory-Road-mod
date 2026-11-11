@@ -1,28 +1,28 @@
 schema = "VRFW.technique/3"
-# Tormenta de fuego oscura: Tormenta de fuego (whs00450) with Tornado oscuro's element and description, own cut-in.
+# Tormenta oscura: Tormenta de fuego (whs00450) as a wind move with Tornado oscuro's description, own cut-in.
 
 [[technique]]
 name = "dark_fire_storm"
 base = "whs00450"
 manual = true
-element = "forest"
+element = "wind"
 event = "InazumaFantasy.dark_fire_storm"
 description_text = "0xB29455E7"
   [technique.text.es]
-  name = "Tormenta de fuego oscura"
+  name = "Tormenta oscura"
   [technique.text.en]
-  name = "Dark Fireball Storm"
+  name = "Dark Storm"
   [technique.text.fr]
-  name = "Tempête de feu noire"
+  name = "Tempête noire"
   [technique.text.de]
-  name = "Dunkel-Feuersturm"
+  name = "Dunkelsturm"
   [technique.text.it]
-  name = "Dark Tormenta di Fuoco"
+  name = "Tempesta Oscura"
   [technique.text.pt]
-  name = "Tempestade Explosiva Escura"
+  name = "Tempestade Escura"
   [technique.text.ja]
-  name = "ダーク[爆熱/ばくねつ]ストーム"
+  name = "ダークストーム"
   [technique.text.zh_hans]
-  name = "暗影爆热风暴"
+  name = "暗影风暴"
   [technique.text.zh_hant]
-  name = "暗影爆炎風暴"
+  name = "暗影風暴"

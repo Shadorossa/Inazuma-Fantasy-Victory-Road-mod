@@ -1,0 +1,36 @@
+schema = "VRFW.passive_block/1"
+# The blocks of the «Crítico» archetype passives (docs/game/ideas/brecha-critical-rework.md).
+
+# his team is level or behind on goals
+[[VRFW.Score]]
+name = "level_or_trailing"
+states = ["level", "trailing"]
+
+# ps10055: the critical chance of his team's special moves × 1.06 per carrier
+[[VRFW.CriticalRate]]
+name = "team_critical_rate_plus_6"
+percent = 6
+target = "team"
+
+# a critical hit of his own
+[[VRFW.Trigger]]
+name = "own_critical_hit"
+on = "crit"
+by = "self"
+
+# ps10059: 3.6 tension points for his team
+[[VRFW.Tension]]
+name = "tension_3_6_carrier"
+units = 3.6
+team = "carrier"
+
+# the shot of the battle is a critical hit
+[[VRFW.Critical]]
+name = "shot_is_critical"
+who = "rival"
+
+# the shots of his team keep 15 % more power after they beat a block
+[[VRFW.ShotThroughPower]]
+name = "beaten_block_shot_power_plus_15"
+percent = 15
+target = "opponents"

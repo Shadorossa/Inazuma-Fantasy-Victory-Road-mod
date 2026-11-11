@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11010080"                                   # Tai Richter
 moves = [
-  { move = 0x928B9BED, level = 1 },                         # Optimal Trajectory
   { move = 0x2B0B29C3, level = 13 },                        # Matrix Eye
-  { move = 0x6633159F, level = 20 },                        # Gravitation
-  { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x928B9BED, level = 20 },                        # Optimal Trajectory
+  { move = 0x6633159F, level = 30 },                        # Gravitation
+  { move = 0x637C031A, level = 38 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -23,19 +23,19 @@ rank = 3
 growth = "normal"
 stats = { kick = 269, control = 248, technique = 254, pressure = 188, physical = 207, intelligence = 232, agility = 180, freedom = 217 }
 moves = [
-  { move = 0x166B0073, level = 1 },                         # Super Armadillo
   { move = 0x58D7E841, level = 13 },                        # Runaway Bull
-  { move = 0xB13A6C3D, level = 20 },                        # Zigzag Flame
-  { move = 0x6C6C932B, level = 30 },                        # Megaton Head
+  { move = 0x166B0073, level = 20 },                        # Super Armadillo
+  { move = 0xB13A6C3D, level = 30 },                        # Zigzag Flame
+  { move = 0x6C6C932B, level = 38 },                        # Megaton Head
 ]
 
 [[edit]]
 target = "c11010100"                                   # Charis Benzaie
 moves = [
-  { move = 0x73FABB82, level = 1 },                         # Dramatic Swipe
-  { move = 0x530CDFC1, level = 13 },                        # Mystifying Mist
-  { move = 0xB5B7108F, level = 20 },                        # Shadow Stitch
+  { move = 0x73FABB82, level = 13 },                        # Dramatic Swipe
+  { move = 0x530CDFC1, level = 20 },                        # Mystifying Mist
   { move = 0xF94FAAA7, level = 30 },                        # Decoy Deploy
+  { move = 0xB5B7108F, level = 30 },                        # Shadow Stitch
 ]
 
   [[edit.cards]]
@@ -48,10 +48,10 @@ moves = [
 [[edit]]
 target = "c11010110"                                   # Lycus Foxworth
 moves = [
-  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
   { move = 0x4F67ECC7, level = 13 },                        # Phantasm Dribble
   { move = 0x09454CA5, level = 20 },                        # Legendary Silver Wolf
   { move = 0xA2BF7076, level = 30 },                        # Side Swipe
+  { move = 0xAB6422AC, level = 38 },                        # Phantom Shot
 ]
 
   [[edit.cards]]
@@ -64,10 +64,10 @@ moves = [
 [[edit]]
 target = "c11010120"                                   # Maine Alsop
 moves = [
-  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
   { move = 0x22681F66, level = 13 },                        # Solution Boost
   { move = 0x20D01E43, level = 20 },                        # Hey Presto
-  { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x2E7B2B84, level = 30 },                        # Thief's Eye
+  { move = 0x637C031A, level = 38 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -80,10 +80,10 @@ moves = [
 [[edit]]
 target = "c11010130"                                   # Dario Highton
 moves = [
-  { move = 0x32101882, level = 1 },                         # Peaky Breezy
-  { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
-  { move = 0xA8215D7C, level = 20 },                        # The Mountain
-  { move = 0xAEEA9F97, level = 30 },                        # Sigma Zone
+  { move = 0x32101882, level = 13 },                        # Peaky Breezy
+  { move = 0x19BA3BFC, level = 20 },                        # Dance on Air
+  { move = 0xA8215D7C, level = 30 },                        # The Mountain
+  { move = 0xAEEA9F97, level = 38 },                        # Sigma Zone
 ]
 
   [[edit.cards]]
@@ -96,10 +96,10 @@ moves = [
 [[edit]]
 target = "c11010140"                                   # Amelia Rainwalker
 moves = [
-  { move = 0x567CDD86, level = 1 },                         # Hoopsie-Loop
-  { move = 0xAF28F5A0, level = 13 },                        # The Tower
+  { move = 0x567CDD86, level = 13 },                        # Hoopsie-Loop
   { move = 0x6633159F, level = 20 },                        # Gravitation
-  { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
+  { move = 0xAF28F5A0, level = 30 },                        # The Tower
+  { move = 0xDCF43422, level = 38 },                        # Aurora Dribble
 ]
 
   [[edit.cards]]
@@ -112,10 +112,10 @@ moves = [
 [[edit]]
 target = "c11010150"                                   # Marisol Cavallo
 moves = [
-  { move = 0x193D4B41, level = 1 },                         # Frost Finesse
-  { move = 0x039DBAAC, level = 13 },                        # Land of Ice
-  { move = 0xB0F8060A, level = 20 },                        # Ozone Flayer
+  { move = 0x193D4B41, level = 13 },                        # Frost Finesse
+  { move = 0x039DBAAC, level = 20 },                        # Land of Ice
   { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
+  { move = 0xB0F8060A, level = 38 },                        # Ozone Flayer
 ]
 
   [[edit.cards]]
@@ -128,10 +128,10 @@ moves = [
 [[edit]]
 target = "c11010160"                                   # Winsor Compete
 moves = [
-  { move = 0x65B7C1F1, level = 1 },                         # Sumo Stomp
-  { move = 0x166B0073, level = 13 },                        # Super Armadillo
-  { move = 0x88D7393F, level = 20 },                        # Vigorous Stomp
-  { move = 0x7D6E9A87, level = 30 },                        # The Wall
+  { move = 0x88D7393F, level = 13 },                        # Vigorous Stomp
+  { move = 0x7D6E9A87, level = 20 },                        # The Wall
+  { move = 0x65B7C1F1, level = 30 },                        # Sumo Stomp
+  { move = 0x166B0073, level = 38 },                        # Super Armadillo
 ]
 
   [[edit.cards]]
@@ -151,46 +151,46 @@ stats = { kick = 340, control = 239, technique = 194, pressure = 201, physical =
   [[edit.cards]]
   id = 0x2364D78D    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x3AB14410, level = 1 },                       # Swirly Shot
-    { move = 0x06130797, level = 13 },                      # Rolling Kick
+    { move = 0x3AB14410, level = 13 },                      # Swirly Shot
     { move = 0x36A270F2, level = 20 },                      # Rolling Slide
     { move = 0x592A96B4, level = 30 },                      # Afterimage
+    { move = 0x06130797, level = 38 },                      # Rolling Kick
   ]
 
   [[edit.cards]]
   id = 0x8EDE70CB    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x3AB14410, level = 1 },                       # Swirly Shot
-    { move = 0x06130797, level = 13 },                      # Rolling Kick
+    { move = 0x3AB14410, level = 13 },                      # Swirly Shot
     { move = 0x36A270F2, level = 20 },                      # Rolling Slide
     { move = 0x592A96B4, level = 30 },                      # Afterimage
+    { move = 0x06130797, level = 38 },                      # Rolling Kick
   ]
 
   [[edit.cards]]
   id = 0xA6757C9D    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x3AB14410, level = 1 },                       # Swirly Shot
-    { move = 0x06130797, level = 13 },                      # Rolling Kick
+    { move = 0x3AB14410, level = 13 },                      # Swirly Shot
     { move = 0x36A270F2, level = 20 },                      # Rolling Slide
     { move = 0x592A96B4, level = 30 },                      # Afterimage
+    { move = 0x06130797, level = 38 },                      # Rolling Kick
   ]
 
   [[edit.cards]]
   id = 0xF3827DD1    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x3AB14410, level = 1 },                       # Swirly Shot
-    { move = 0x06130797, level = 13 },                      # Rolling Kick
+    { move = 0x3AB14410, level = 13 },                      # Swirly Shot
     { move = 0x36A270F2, level = 20 },                      # Rolling Slide
     { move = 0x592A96B4, level = 30 },                      # Afterimage
+    { move = 0x06130797, level = 38 },                      # Rolling Kick
   ]
 
   [[edit.cards]]
   id = 0xFC6C39F3    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x3AB14410, level = 1 },                       # Swirly Shot
-    { move = 0x06130797, level = 13 },                      # Rolling Kick
+    { move = 0x3AB14410, level = 13 },                      # Swirly Shot
     { move = 0x36A270F2, level = 20 },                      # Rolling Slide
     { move = 0x592A96B4, level = 30 },                      # Afterimage
+    { move = 0x06130797, level = 38 },                      # Rolling Kick
   ]
 
 [[edit]]
@@ -203,46 +203,46 @@ stats = { kick = 235, control = 198, technique = 212, pressure = 235, physical =
   [[edit.cards]]
   id = 0x97C5418A    # this card's moveset differs from the list above
   moves = [
-    { move = 0x400EB337, level = 1 },                       # Twirling Turtle
-    { move = 0x91CC087E, level = 13 },                      # Kraken Seaquake
-    { move = 0x3F00EDE9, level = 20 },                      # Dash Storm
+    { move = 0x400EB337, level = 13 },                      # Twirling Turtle
+    { move = 0x91CC087E, level = 30 },                      # Kraken Seaquake
     { move = 0x7C1494CF, level = 30 },                      # Tornado Tunnel
+    { move = 0x3F00EDE9, level = 38 },                      # Dash Storm
   ]
 
   [[edit.cards]]
   id = 0x3A7FE6CC    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x400EB337, level = 1 },                       # Twirling Turtle
-    { move = 0x91CC087E, level = 13 },                      # Kraken Seaquake
-    { move = 0x3F00EDE9, level = 20 },                      # Dash Storm
+    { move = 0x400EB337, level = 13 },                      # Twirling Turtle
+    { move = 0x91CC087E, level = 30 },                      # Kraken Seaquake
     { move = 0x7C1494CF, level = 30 },                      # Tornado Tunnel
+    { move = 0x3F00EDE9, level = 38 },                      # Dash Storm
   ]
 
   [[edit.cards]]
   id = 0xBF6E4DDC    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x400EB337, level = 1 },                       # Twirling Turtle
-    { move = 0x91CC087E, level = 13 },                      # Kraken Seaquake
-    { move = 0x3F00EDE9, level = 20 },                      # Dash Storm
+    { move = 0x400EB337, level = 13 },                      # Twirling Turtle
+    { move = 0x91CC087E, level = 30 },                      # Kraken Seaquake
     { move = 0x7C1494CF, level = 30 },                      # Tornado Tunnel
+    { move = 0x3F00EDE9, level = 38 },                      # Dash Storm
   ]
 
   [[edit.cards]]
   id = 0xE57708B2    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x400EB337, level = 1 },                       # Twirling Turtle
-    { move = 0x91CC087E, level = 13 },                      # Kraken Seaquake
-    { move = 0x3F00EDE9, level = 20 },                      # Dash Storm
+    { move = 0x400EB337, level = 13 },                      # Twirling Turtle
+    { move = 0x91CC087E, level = 30 },                      # Kraken Seaquake
     { move = 0x7C1494CF, level = 30 },                      # Tornado Tunnel
+    { move = 0x3F00EDE9, level = 38 },                      # Dash Storm
   ]
 
 [[edit]]
 target = "c11010170"                                   # Meridia Althoff
 moves = [
-  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
   { move = 0x00267A00, level = 13 },                        # Falcon Counter
-  { move = 0xC42D6F54, level = 20 },                        # Aikido
+  { move = 0x259F08C6, level = 20 },                        # Whirlwind Twister
   { move = 0xE11DE782, level = 30 },                        # Chrysanthemum Katana
+  { move = 0xC42D6F54, level = 30 },                        # Aikido
 ]
 
   [[edit.cards]]
@@ -255,10 +255,10 @@ moves = [
 [[edit]]
 target = "c11010180"                                   # Lemmy Stretchen
 moves = [
-  { move = 0x6AE18AC3, level = 1 },                         # Dark Mist
-  { move = 0x0E0A3F7A, level = 13 },                        # Spatial Portal
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0xF94FAAA7, level = 30 },                        # Decoy Deploy
+  { move = 0x6AE18AC3, level = 13 },                        # Dark Mist
+  { move = 0x0E0A3F7A, level = 20 },                        # Spatial Portal
+  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0xF94FAAA7, level = 38 },                        # Decoy Deploy
 ]
 
   [[edit.cards]]
@@ -271,10 +271,10 @@ moves = [
 [[edit]]
 target = "c11010190"                                   # Starla Thorn
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x8C990270, level = 13 },                        # Gunshot
-  { move = 0x7D518E45, level = 20 },                        # Amp Beat
+  { move = 0x7D518E45, level = 13 },                        # Amp Beat
+  { move = 0x5643C944, level = 20 },                        # Killer Slide
   { move = 0xB60E3C60, level = 30 },                        # Plasma Cut
+  { move = 0x8C990270, level = 38 },                        # Gunshot
 ]
 
   [[edit.cards]]
@@ -286,10 +286,10 @@ moves = [
 [[edit]]
 target = "c11010200"                                   # Kelvin Steelborne
 moves = [
-  { move = 0x132416F6, level = 1 },                         # Dog Run
   { move = 0x41CCD900, level = 13 },                        # Metal Hammer
-  { move = 0xC324C788, level = 20 },                        # Blast Mine
-  { move = 0x52CEB5F6, level = 30 },                        # Iron Wall
+  { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
+  { move = 0xC324C788, level = 30 },                        # Blast Mine
+  { move = 0x132416F6, level = 38 },                        # Dog Run
 ]
 
   [[edit.cards]]
@@ -302,10 +302,10 @@ moves = [
 [[edit]]
 target = "c11010210"                                   # Antonia Felicier
 moves = [
-  { move = 0x644ABF04, level = 1 },                         # Look! A Rice Ball
-  { move = 0x8A936B25, level = 13 },                        # Goopy Gloopy Goo
+  { move = 0x644ABF04, level = 13 },                        # Look! A Rice Ball
   { move = 0x6E53E2B3, level = 20 },                        # Angel Ball
-  { move = 0x2AF65736, level = 30 },                        # Bamboo Pattern
+  { move = 0x8A936B25, level = 30 },                        # Goopy Gloopy Goo
+  { move = 0x2AF65736, level = 38 },                        # Bamboo Pattern
 ]
 
   [[edit.cards]]
@@ -317,9 +317,9 @@ moves = [
 [[edit]]
 target = "c11010220"                                   # Florent Shorleigh
 moves = [
-  { move = 0xC2E6ADBF, level = 1 },                         # Log Roll
   { move = 0x3B732E27, level = 13 },                        # Flying Marlin
-  { move = 0xD9BB22A7, level = 20 },                        # Air Ride
+  { move = 0xC2E6ADBF, level = 20 },                        # Log Roll
+  { move = 0xD9BB22A7, level = 30 },                        # Air Ride
   { move = 0x637C031A, level = 30 },                        # No Escape
 ]
 
@@ -333,10 +333,10 @@ moves = [
 [[edit]]
 target = "c11010230"                                   # Cade Shelby
 moves = [
-  { move = 0x3AB14410, level = 1 },                         # Swirly Shot
+  { move = 0x3F00EDE9, level = 1 },                         # Dash Storm
   { move = 0x400EB337, level = 11 },                        # Twirling Turtle
   { move = 0x91CC087E, level = 21 },                        # Kraken Seaquake
-  { move = 0x3F00EDE9, level = 31 },                        # Dash Storm
+  { move = 0x3AB14410, level = 31 },                        # Swirly Shot
 ]
 
   [[edit.cards]]
@@ -347,10 +347,10 @@ moves = [
 [[edit]]
 target = "c11010500"                                   # Edwin Grove
 moves = [
-  { move = 0x47657634, level = 1 },                         # Flame Breath
   { move = 0xABA58912, level = 13 },                        # Ignited Steal
-  { move = 0x7BC5D9F0, level = 20 },                        # Rotary Sander
-  { move = 0xBA833662, level = 30 },                        # Million Hands
+  { move = 0x47657634, level = 20 },                        # Flame Breath
+  { move = 0x7BC5D9F0, level = 30 },                        # Rotary Sander
+  { move = 0xBA833662, level = 38 },                        # Million Hands
 ]
 
   [[edit.cards]]
@@ -363,10 +363,10 @@ moves = [
 [[edit]]
 target = "c11500020"                                   # Lilac Tausend
 moves = [
-  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
-  { move = 0x568262FA, level = 13 },                        # Dark Tornado
-  { move = 0xE937AD43, level = 20 },                        # Dragon Slayer
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
+  { move = 0x568262FA, level = 20 },                        # Dark Tornado
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
+  { move = 0xE937AD43, level = 38 },                        # Dragon Slayer
 ]
 
   [[edit.cards]]
@@ -378,10 +378,10 @@ moves = [
 [[edit]]
 target = "c11500250"                                   # Juno Hundertmark
 moves = [
-  { move = 0xAF28F5A0, level = 1 },                         # The Tower
-  { move = 0x5781A373, level = 13 },                        # Hurricane Arrows
-  { move = 0x3A3634AD, level = 20 },                        # Excalibur
-  { move = 0x613ABD43, level = 30 },                        # Dawnrise
+  { move = 0x3A3634AD, level = 1 },                         # Excalibur
+  { move = 0xAF28F5A0, level = 20 },                        # The Tower
+  { move = 0x5781A373, level = 30 },                        # Hurricane Arrows
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -397,10 +397,10 @@ growth_pattern = 1
 growth = "normal"
 stats = { kick = 270, control = 248, technique = 278, pressure = 204, physical = 194, intelligence = 254, agility = 180, freedom = 213 }
 moves = [
+  { move = 0x20D01E43, level = 1 },                         # Hey Presto
   { move = 0x17A96A44, level = 1 },                         # Clone Faker
-  { move = 0x33ED6677, level = 11 },                        # Doppelganger
-  { move = 0x20D01E43, level = 21 },                        # Hey Presto
-  { move = 0xFB8202AD, level = 31 },                        # Gaussian Goal
+  { move = 0xFB8202AD, level = 1 },                         # Gaussian Goal
+  { move = 0x33ED6677, level = 1 },                         # Doppelganger
 ]
 
   [[edit.cards]]
@@ -420,46 +420,46 @@ stats = { kick = 333, control = 243, technique = 251, pressure = 205, physical =
   [[edit.cards]]
   id = 0x47081289    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x23AA7551, level = 1 },                       # Force Flash
-    { move = 0x2B343D01, level = 13 },                      # Cyclone
-    { move = 0x768AB9C5, level = 20 },                      # Frosticle
-    { move = 0x5EDD8114, level = 30 },                      # Spring Thunderclap
+    { move = 0x23AA7551, level = 13 },                      # Force Flash
+    { move = 0x5EDD8114, level = 20 },                      # Spring Thunderclap
+    { move = 0x2B343D01, level = 30 },                      # Cyclone
+    { move = 0x768AB9C5, level = 38 },                      # Frosticle
   ]
 
   [[edit.cards]]
   id = 0x9800FCF7    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x23AA7551, level = 1 },                       # Force Flash
-    { move = 0x2B343D01, level = 13 },                      # Cyclone
-    { move = 0x768AB9C5, level = 20 },                      # Frosticle
-    { move = 0x5EDD8114, level = 30 },                      # Spring Thunderclap
+    { move = 0x23AA7551, level = 13 },                      # Force Flash
+    { move = 0x5EDD8114, level = 20 },                      # Spring Thunderclap
+    { move = 0x2B343D01, level = 30 },                      # Cyclone
+    { move = 0x768AB9C5, level = 38 },                      # Frosticle
   ]
 
   [[edit.cards]]
   id = 0xC219B999    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x23AA7551, level = 1 },                       # Force Flash
-    { move = 0x2B343D01, level = 13 },                      # Cyclone
-    { move = 0x768AB9C5, level = 20 },                      # Frosticle
-    { move = 0x5EDD8114, level = 30 },                      # Spring Thunderclap
+    { move = 0x23AA7551, level = 13 },                      # Force Flash
+    { move = 0x5EDD8114, level = 20 },                      # Spring Thunderclap
+    { move = 0x2B343D01, level = 30 },                      # Cyclone
+    { move = 0x768AB9C5, level = 38 },                      # Frosticle
   ]
 
   [[edit.cards]]
   id = 0xE779A91D    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x23AA7551, level = 1 },                       # Force Flash
-    { move = 0x2B343D01, level = 13 },                      # Cyclone
-    { move = 0x768AB9C5, level = 20 },                      # Frosticle
-    { move = 0x5EDD8114, level = 30 },                      # Spring Thunderclap
+    { move = 0x23AA7551, level = 13 },                      # Force Flash
+    { move = 0x5EDD8114, level = 20 },                      # Spring Thunderclap
+    { move = 0x2B343D01, level = 30 },                      # Cyclone
+    { move = 0x768AB9C5, level = 38 },                      # Frosticle
   ]
 
   [[edit.cards]]
   id = 0xEAB2B5CF    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x23AA7551, level = 1 },                       # Force Flash
-    { move = 0x2B343D01, level = 13 },                      # Cyclone
-    { move = 0x768AB9C5, level = 20 },                      # Frosticle
-    { move = 0x5EDD8114, level = 30 },                      # Spring Thunderclap
+    { move = 0x23AA7551, level = 13 },                      # Force Flash
+    { move = 0x5EDD8114, level = 20 },                      # Spring Thunderclap
+    { move = 0x2B343D01, level = 30 },                      # Cyclone
+    { move = 0x768AB9C5, level = 38 },                      # Frosticle
   ]
 
 [[edit]]
@@ -472,46 +472,46 @@ stats = { kick = 248, control = 209, technique = 224, pressure = 234, physical =
   [[edit.cards]]
   id = 0xF3A9848E
   moves = [
-    { move = 0xB15801E2, level = 1 },                       # Icy Grace
-    { move = 0x41AEB4DF, level = 13 },                      # Crystal Barrier
-    { move = 0x5E5AF1A9, level = 20 },                      # Northern Impact
+    { move = 0xB15801E2, level = 20 },                      # Icy Grace
     { move = 0x79818BEA, level = 30 },                      # Divine Deflectors
+    { move = 0x5E5AF1A9, level = 30 },                      # Northern Impact
+    { move = 0x41AEB4DF, level = 38 },                      # Crystal Barrier
   ]
 
   [[edit.cards]]
   id = 0x5E1323C8    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0xB15801E2, level = 1 },                       # Icy Grace
-    { move = 0x41AEB4DF, level = 13 },                      # Crystal Barrier
-    { move = 0x5E5AF1A9, level = 20 },                      # Northern Impact
+    { move = 0xB15801E2, level = 20 },                      # Icy Grace
     { move = 0x79818BEA, level = 30 },                      # Divine Deflectors
+    { move = 0x5E5AF1A9, level = 30 },                      # Northern Impact
+    { move = 0x41AEB4DF, level = 38 },                      # Crystal Barrier
   ]
 
   [[edit.cards]]
   id = 0x75AD65C5    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0xB15801E2, level = 1 },                       # Icy Grace
-    { move = 0x41AEB4DF, level = 13 },                      # Crystal Barrier
-    { move = 0x5E5AF1A9, level = 20 },                      # Northern Impact
+    { move = 0xB15801E2, level = 20 },                      # Icy Grace
     { move = 0x79818BEA, level = 30 },                      # Divine Deflectors
+    { move = 0x5E5AF1A9, level = 30 },                      # Northern Impact
+    { move = 0x41AEB4DF, level = 38 },                      # Crystal Barrier
   ]
 
   [[edit.cards]]
   id = 0xDB0288D8    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0xB15801E2, level = 1 },                       # Icy Grace
-    { move = 0x41AEB4DF, level = 13 },                      # Crystal Barrier
-    { move = 0x5E5AF1A9, level = 20 },                      # Northern Impact
+    { move = 0xB15801E2, level = 20 },                      # Icy Grace
     { move = 0x79818BEA, level = 30 },                      # Divine Deflectors
+    { move = 0x5E5AF1A9, level = 30 },                      # Northern Impact
+    { move = 0x41AEB4DF, level = 38 },                      # Crystal Barrier
   ]
 
   [[edit.cards]]
   id = 0xFE62985C    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0xB15801E2, level = 1 },                       # Icy Grace
-    { move = 0x41AEB4DF, level = 13 },                      # Crystal Barrier
-    { move = 0x5E5AF1A9, level = 20 },                      # Northern Impact
+    { move = 0xB15801E2, level = 20 },                      # Icy Grace
     { move = 0x79818BEA, level = 30 },                      # Divine Deflectors
+    { move = 0x5E5AF1A9, level = 30 },                      # Northern Impact
+    { move = 0x41AEB4DF, level = 38 },                      # Crystal Barrier
   ]
 
 [[edit]]
@@ -524,18 +524,18 @@ stats = { kick = 267, control = 257, technique = 258, pressure = 180, physical =
   [[edit.cards]]
   id = 0x94431E1F    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x6D2989A1, level = 1 },                       # Heavenly Thunder
-    { move = 0x5E233E68, level = 13 },                      # Super Elastico
-    { move = 0x00A10ABD, level = 20 },                      # Ball Lightning
+    { move = 0x6D2989A1, level = 13 },                      # Heavenly Thunder
+    { move = 0x5E233E68, level = 20 },                      # Super Elastico
+    { move = 0x00A10ABD, level = 30 },                      # Ball Lightning
     { move = 0x637C031A, level = 30 },                      # No Escape
   ]
 
   [[edit.cards]]
   id = 0xBCE81249    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x6D2989A1, level = 1 },                       # Heavenly Thunder
-    { move = 0x5E233E68, level = 13 },                      # Super Elastico
-    { move = 0x00A10ABD, level = 20 },                      # Ball Lightning
+    { move = 0x6D2989A1, level = 13 },                      # Heavenly Thunder
+    { move = 0x5E233E68, level = 20 },                      # Super Elastico
+    { move = 0x00A10ABD, level = 30 },                      # Ball Lightning
     { move = 0x637C031A, level = 30 },                      # No Escape
   ]
 
@@ -549,10 +549,10 @@ growth = "normal"
   id = 0xA5F32308                                         # MF/FW · forest
   stats = { kick = 278, control = 251, technique = 282, pressure = 196, physical = 208, intelligence = 254, agility = 177, freedom = 313 }
   moves = [
-    { move = 0x17A96A44, level = 1 },                       # Clone Faker
-    { move = 0x4031A7F5, level = 13 },                      # Mole Fake
-    { move = 0x31ABD82E, level = 20 },                      # Circus Block
-    { move = 0x13D845C9, level = 30 },                      # Samba Strike
+    { move = 0x17A96A44, level = 13 },                      # Clone Faker
+    { move = 0x31ABD82E, level = 30 },                      # Circus Block
+    { move = 0x13D845C9, level = 38 },                      # Samba Strike
+    { move = 0x4031A7F5, level = 38 },                      # Mole Fake
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -564,10 +564,10 @@ growth = "normal"
   id = 0x8D582F5E                                         # DF/FW · forest
   stats = { kick = 240, control = 197, technique = 215, pressure = 234, physical = 266, intelligence = 297, agility = 189, freedom = 313 }
   moves = [
-    { move = 0x17A96A44, level = 1 },                       # Clone Faker
-    { move = 0x4031A7F5, level = 13 },                      # Mole Fake
-    { move = 0x31ABD82E, level = 20 },                      # Circus Block
-    { move = 0x13D845C9, level = 30 },                      # Samba Strike
+    { move = 0x17A96A44, level = 13 },                      # Clone Faker
+    { move = 0x31ABD82E, level = 30 },                      # Circus Block
+    { move = 0x13D845C9, level = 38 },                      # Samba Strike
+    { move = 0x4031A7F5, level = 38 },                      # Mole Fake
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -579,10 +579,10 @@ growth = "normal"
   id = 0x0849844E                                         # DF/FW · forest
   stats = { kick = 240, control = 197, technique = 215, pressure = 234, physical = 266, intelligence = 297, agility = 189, freedom = 313 }
   moves = [
-    { move = 0x17A96A44, level = 1 },                       # Clone Faker
-    { move = 0x4031A7F5, level = 13 },                      # Mole Fake
-    { move = 0x31ABD82E, level = 20 },                      # Circus Block
-    { move = 0x13D845C9, level = 30 },                      # Samba Strike
+    { move = 0x17A96A44, level = 13 },                      # Clone Faker
+    { move = 0x31ABD82E, level = 30 },                      # Circus Block
+    { move = 0x13D845C9, level = 38 },                      # Samba Strike
+    { move = 0x4031A7F5, level = 38 },                      # Mole Fake
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -593,10 +593,10 @@ growth = "normal"
 [[edit]]
 target = "c11010012"                                   # Destin Billows
 moves = [
+  { move = 0x2B8C597E, level = 1 },                         # Fugue Wave
+  { move = 0xEC78BBC6, level = 1 },                         # Black Ash
   { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0x644ABF04, level = 11 },                        # Look! A Rice Ball
-  { move = 0x2B8C597E, level = 21 },                        # Fugue Wave
-  { move = 0xEC78BBC6, level = 31 },                        # Black Ash
 ]
 
   [[edit.cards]]

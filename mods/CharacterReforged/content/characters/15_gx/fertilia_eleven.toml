@@ -5,8 +5,8 @@ target = "c06032010"                                   # Ceram Longicorn
 moves = [
   { move = 0x78410D9E, level = 1 },                         # Venus Balltrap
   { move = 0xF5A22139, level = 25 },                        # Bindweed
-  { move = 0x9AF2229C, level = 35 },                        # Gravity Point
-  { move = 0xF309624E, level = 45 },                        # Dual Smash
+  { move = 0xF309624E, level = 30 },                        # Dual Smash
+  { move = 0x9AF2229C, level = 38 },                        # Gravity Point
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -23,10 +23,10 @@ moves = [
 [[edit]]
 target = "c06032020"                                   # Romborina Drohn
 moves = [
-  { move = 0xF5A22139, level = 1 },                         # Bindweed
+  { move = 0xF5A22139, level = 8 },                         # Bindweed
+  { move = 0xD1E62D0A, level = 30 },                        # Mushroom Hop
   { move = 0x5739C70C, level = 31 },                        # Guided Collide
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
-  { move = 0xD1E62D0A, level = 60 },                        # Mushroom Hop
 ]
 
   [[edit.cards]]
@@ -39,7 +39,7 @@ moves = [
 [[edit]]
 target = "c06032030"                                   # Heterocera Mothlin
 moves = [
-  { move = 0xF5A22139, level = 1 },                         # Bindweed
+  { move = 0xF5A22139, level = 4 },                         # Bindweed
   { move = 0xD1E62D0A, level = 10 },                        # Mushroom Hop
   { move = 0xDCC9CCA3, level = 30 },                        # Tesla Coil
   { move = 0x4A17EE80, level = 44 },                        # Hunter's Net
@@ -57,8 +57,8 @@ target = "c06032040"                                   # Formica Anz
 moves = [
   { move = 0xD1E62D0A, level = 1 },                         # Mushroom Hop
   { move = 0x5739C70C, level = 17 },                        # Guided Collide
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
   { move = 0xB37CD264, level = 48 },                        # Am-Bush
-  { move = 0x21127474, level = 58 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -71,7 +71,7 @@ moves = [
 [[edit]]
 target = "c06032050"                                   # Mantodea Mantus
 moves = [
-  { move = 0xD1E62D0A, level = 1 },                         # Mushroom Hop
+  { move = 0xD1E62D0A, level = 7 },                         # Mushroom Hop
   { move = 0xF5A22139, level = 19 },                        # Bindweed
   { move = 0x900C8E0A, level = 30 },                        # Maestro's Call
   { move = 0xDBFD9CFE, level = 49 },                        # Big Ball Trick
@@ -87,10 +87,10 @@ moves = [
 [[edit]]
 target = "c06032060"                                   # Lepidoptera Flutterby
 moves = [
-  { move = 0xD1E62D0A, level = 1 },                         # Mushroom Hop
+  { move = 0xD1E62D0A, level = 2 },                         # Mushroom Hop
   { move = 0xF5A22139, level = 7 },                         # Bindweed
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
   { move = 0x2C3D95DD, level = 46 },                        # Sleeping Dust
-  { move = 0x49933AEE, level = 56 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -103,7 +103,7 @@ moves = [
 [[edit]]
 target = "c06032070"                                   # Vespa Hornest
 moves = [
-  { move = 0xAB1367C0, level = 1 },                         # Giant Beanstalk
+  { move = 0xAB1367C0, level = 5 },                         # Giant Beanstalk
   { move = 0xF88DC090, level = 20 },                        # Z Slash
   { move = 0x2B8C597E, level = 35 },                        # Fugue Wave
   { move = 0xB3CA3CB6, level = 45 },                        # Parkour Power
@@ -118,10 +118,10 @@ moves = [
 [[edit]]
 target = "c06032080"                                   # Caelif Hopper
 moves = [
-  { move = 0xAB1367C0, level = 1 },                         # Giant Beanstalk
+  { move = 0xAB1367C0, level = 10 },                        # Giant Beanstalk
   { move = 0xD1E62D0A, level = 22 },                        # Mushroom Hop
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
   { move = 0xF5A22139, level = 37 },                        # Bindweed
-  { move = 0x3F00EDE9, level = 47 },                        # Dash Storm
 ]
 
   [[edit.cards]]
@@ -134,7 +134,7 @@ moves = [
 [[edit]]
 target = "c06032090"                                   # Lucan Stag
 moves = [
-  { move = 0xAB1367C0, level = 1 },                         # Giant Beanstalk
+  { move = 0xAB1367C0, level = 4 },                         # Giant Beanstalk
   { move = 0xD1E62D0A, level = 11 },                        # Mushroom Hop
   { move = 0xF5A22139, level = 34 },                        # Bindweed
   { move = 0xC9BAEA82, level = 53 },                        # Eye of the Storm
@@ -155,7 +155,7 @@ moves = [
 [[edit]]
 target = "c06032100"                                   # Banda Crix
 moves = [
-  { move = 0xD1E62D0A, level = 1 },                         # Mushroom Hop
+  { move = 0xD1E62D0A, level = 5 },                         # Mushroom Hop
   { move = 0xAB1367C0, level = 16 },                        # Giant Beanstalk
   { move = 0x2CFC3E63, level = 36 },                        # Dragon Crash
   { move = 0xFB8202AD, level = 49 },                        # Gaussian Goal
@@ -171,8 +171,8 @@ moves = [
 [[edit]]
 target = "c06032110"                                   # Schisto Locus
 moves = [
-  { move = 0xAB1367C0, level = 1 },                         # Giant Beanstalk
-  { move = 0x6ADE9E01, level = 19 },                        # Illusory Ball
+  { move = 0xAB1367C0, level = 6 },                         # Giant Beanstalk
+  { move = 0xD1E62D0A, level = 19 },                        # Mushroom Hop
   { move = 0xF88DC090, level = 33 },                        # Z Slash
   { move = 0xC513565C, level = 47 },                        # Doom Spear
 ]
@@ -191,10 +191,10 @@ target = "c06032120"                                   # Ruger Baran
   growth = "normal"
   stats = { kick = 294, control = 232, technique = 251, pressure = 231, physical = 154, intelligence = 236, agility = 201, freedom = 305 }
   moves = [
-    { move = 0xB04EE8D8, level = 1 },                       # Scream of Eden
+    { move = 0xB04EE8D8, level = 12 },                      # Scream of Eden
+    { move = 0x79224D8B, level = 30 },                      # Freeze Shot
+    { move = 0xC513565C, level = 38 },                      # Doom Spear
     { move = 0x6ADE9E01, level = 40 },                      # Illusory Ball
-    { move = 0xC513565C, level = 50 },                      # Doom Spear
-    { move = 0x79224D8B, level = 60 },                      # Freeze Shot
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -210,10 +210,10 @@ target = "c06032130"                                   # Gandares Baran
   growth = "normal"
   stats = { kick = 302, control = 238, technique = 255, pressure = 190, physical = 197, intelligence = 205, agility = 188, freedom = 351 }
   moves = [
-    { move = 0xB04EE8D8, level = 1 },                       # Scream of Eden
+    { move = 0xB04EE8D8, level = 13 },                      # Scream of Eden
+    { move = 0x8B90AAAC, level = 30 },                      # Fortissimo
+    { move = 0xF9C4BCF4, level = 38 },                      # Double Helix
     { move = 0x660EED1E, level = 43 },                      # Low Scythe Slice
-    { move = 0x8B90AAAC, level = 53 },                      # Fortissimo
-    { move = 0xF9C4BCF4, level = 63 },                      # Double Helix
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -242,7 +242,7 @@ target = "c06035790"                                   # Elater Clicka
 moves = [
   { move = 0x4E22F64D, level = 1 },                         # Transporter Device
   { move = 0x2CFC3E63, level = 18 },                        # Dragon Crash
-  { move = 0x21127474, level = 28 },                        # Ultra Moon
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
   { move = 0xF5A22139, level = 38 },                        # Bindweed
 ]
 
@@ -270,10 +270,10 @@ moves = [
 [[edit]]
 target = "c11806060"                                   # Simeur Feromont
 moves = [
-  { move = 0x19C3F43D, level = 1 },                         # Eternal Blizzard
-  { move = 0x613ABD43, level = 11 },                        # Dawnrise
-  { move = 0x4E9A9232, level = 21 },                        # Spinning Cut
-  { move = 0xB0F8060A, level = 31 },                        # Ozone Flayer
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
+  { move = 0x19C3F43D, level = 20 },                        # Eternal Blizzard
+  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
 ]
 
   [[edit.cards]]

@@ -4,7 +4,7 @@ schema = "VRFW.character/2"
 target = "c02021010"                                   # Galileo
 moves = [
   { move = 0x46A71C03, level = 1 },                         # Black Hole
-  { move = 0xF14FDC17, level = 11 },                        # Shot Pocket
+  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
   { move = 0x8B31808E, level = 34 },                        # Wormhole
   { move = 0x8E7E960B, level = 62 },                        # Drill Smasher
 ]
@@ -21,7 +21,7 @@ moves = [
   { move = 0x514A6198, level = 1 },                         # Asteroid Belt
   { move = 0x261BDCA8, level = 23 },                        # Moonsault
   { move = 0xB633C4E1, level = 34 },                        # Photon Crash
-  { move = 0xB5B7108F, level = 44 },                        # Shadow Stitch
+  { move = 0xB5B7108F, level = 34 },                        # Shadow Stitch
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c02021030"                                   # Gigs
 moves = [
-  { move = 0x6633159F, level = 1 },                         # Gravitation
+  { move = 0x6633159F, level = 20 },                        # Gravitation
+  { move = 0x00196EC2, level = 30 },                        # Earthquake
   { move = 0x3069B219, level = 38 },                        # Super Sumo Stomp
   { move = 0x10A0C298, level = 46 },                        # Warp Drive
-  { move = 0x00196EC2, level = 56 },                        # Earthquake
 ]
 
   [[edit.cards]]
@@ -64,7 +64,7 @@ moves = [
 target = "c02021050"                                   # Charon
 moves = [
   { move = 0xB633C4E1, level = 1 },                         # Photon Crash
-  { move = 0x142DBE2A, level = 11 },                        # Foul Offence
+  { move = 0x142DBE2A, level = 1 },                         # Foul Offence
   { move = 0xB7F1AED6, level = 26 },                        # Double Cyclone
   { move = 0x7C6D5B0E, level = 32 },                        # Astro Break
 ]
@@ -79,9 +79,9 @@ moves = [
 target = "c02021060"                                   # Pandora
 moves = [
   { move = 0x6633159F, level = 1 },                         # Gravitation
-  { move = 0x10A0C298, level = 11 },                        # Warp Drive
+  { move = 0x10A0C298, level = 1 },                         # Warp Drive
+  { move = 0x514A6198, level = 30 },                        # Asteroid Belt
   { move = 0x46FA651E, level = 38 },                        # Water Veil
-  { move = 0x514A6198, level = 48 },                        # Asteroid Belt
 ]
 
   [[edit.cards]]
@@ -146,7 +146,7 @@ stats = { kick = 277, control = 254, technique = 289, pressure = 198, physical =
   id = 0x517335ED
   moves = [
     { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
-    { move = 0x10A0C298, level = 11 },                      # Warp Drive
+    { move = 0x10A0C298, level = 1 },                       # Warp Drive
     { move = 0x1B854A64, level = 32 },                      # Cosmic Blast
     { move = 0x029E7B25, level = 53 },                      # Gaia Break
   ]
@@ -155,7 +155,7 @@ stats = { kick = 277, control = 254, technique = 289, pressure = 198, physical =
   id = 0x5D1C5B87
   moves = [
     { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
-    { move = 0x10A0C298, level = 11 },                      # Warp Drive
+    { move = 0x10A0C298, level = 1 },                       # Warp Drive
     { move = 0x1B854A64, level = 32 },                      # Cosmic Blast
     { move = 0x029E7B25, level = 53 },                      # Gaia Break
   ]
@@ -164,7 +164,7 @@ stats = { kick = 277, control = 254, technique = 289, pressure = 198, physical =
   id = 0xDB18BACC
   moves = [
     { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
-    { move = 0x10A0C298, level = 11 },                      # Warp Drive
+    { move = 0x10A0C298, level = 1 },                       # Warp Drive
     { move = 0x1B854A64, level = 32 },                      # Cosmic Blast
     { move = 0x029E7B25, level = 53 },                      # Gaia Break
   ]
@@ -173,7 +173,7 @@ stats = { kick = 277, control = 254, technique = 289, pressure = 198, physical =
 target = "c02021110"                                   # Diam
 moves = [
   { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
-  { move = 0x568262FA, level = 11 },                        # Dark Tornado
+  { move = 0x568262FA, level = 1 },                         # Dark Tornado
   { move = 0x10A0C298, level = 15 },                        # Warp Drive
   { move = 0x1B854A64, level = 27 },                        # Cosmic Blast
 ]

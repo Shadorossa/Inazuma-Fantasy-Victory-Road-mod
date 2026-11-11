@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c08110010"                                   # Orlando Pacelli
 moves = [
-  { move = 0x261BDCA8, level = 1 },                         # Moonsault
-  { move = 0x5B6C28ED, level = 13 },                        # Invisible Fake
-  { move = 0x433E65C8, level = 20 },                        # Off-Balance Pisa Kick
-  { move = 0xBA55592C, level = 30 },                        # Last Resort D
+  { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
+  { move = 0xBA55592C, level = 20 },                        # Last Resort D
+  { move = 0x261BDCA8, level = 30 },                        # Moonsault
+  { move = 0x5B6C28ED, level = 38 },                        # Invisible Fake
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c08110020"                                   # Domenico Barberini
 moves = [
-  { move = 0x261BDCA8, level = 1 },                         # Moonsault
   { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
   { move = 0x25141E95, level = 20 },                        # Twin Gallop
-  { move = 0xA5F2EFEA, level = 30 },                        # Brave Shot
+  { move = 0x261BDCA8, level = 30 },                        # Moonsault
+  { move = 0xA5F2EFEA, level = 38 },                        # Brave Shot
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c08110030"                                   # Brandimarte Ruffo
 moves = [
-  { move = 0x433E65C8, level = 1 },                         # Off-Balance Pisa Kick
-  { move = 0x7DD6FEF8, level = 13 },                        # Athena's Anthem
-  { move = 0x8D5B6847, level = 20 },                        # Odin Sword
+  { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
+  { move = 0x7DD6FEF8, level = 20 },                        # Athena's Anthem
   { move = 0x91CEE43D, level = 30 },                        # Phalanx
+  { move = 0x8D5B6847, level = 38 },                        # Odin Sword
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c08110040"                                   # Grandazzo Corsini
 moves = [
-  { move = 0xABA58912, level = 1 },                         # Ignited Steal
   { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
-  { move = 0x427719AC, level = 20 },                        # Gale Dash
+  { move = 0xABA58912, level = 20 },                        # Ignited Steal
   { move = 0x91CEE43D, level = 30 },                        # Phalanx
+  { move = 0x427719AC, level = 38 },                        # Gale Dash
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c08110050"                                   # Medoro Gritti
 moves = [
-  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
   { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x427719AC, level = 30 },                        # Gale Dash
+  { move = 0x0CF4E55C, level = 20 },                        # Double Touch
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0x427719AC, level = 38 },                        # Gale Dash
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c08110060"                                   # Dardinello Foscari
 moves = [
-  { move = 0xC7A9BB3A, level = 1 },                         # Whirlwind Cut
   { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
-  { move = 0x660EED1E, level = 20 },                        # Low Scythe Slice
+  { move = 0xC7A9BB3A, level = 20 },                        # Whirlwind Cut
   { move = 0x91CEE43D, level = 30 },                        # Phalanx
+  { move = 0x660EED1E, level = 38 },                        # Low Scythe Slice
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c08110070"                                   # Zerbino Savelli
 moves = [
-  { move = 0xC7A9BB3A, level = 1 },                         # Whirlwind Cut
-  { move = 0x20D01E43, level = 13 },                        # Hey Presto
-  { move = 0x433E65C8, level = 20 },                        # Off-Balance Pisa Kick
-  { move = 0xAEEA9F97, level = 30 },                        # Sigma Zone
+  { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
+  { move = 0xC7A9BB3A, level = 20 },                        # Whirlwind Cut
+  { move = 0x20D01E43, level = 30 },                        # Hey Presto
+  { move = 0xAEEA9F97, level = 38 },                        # Sigma Zone
 ]
 
   [[edit.cards]]
@@ -114,10 +114,10 @@ moves = [
 [[edit]]
 target = "c08110080"                                   # Bellona Orsini
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
-  { move = 0x36A270F2, level = 13 },                        # Rolling Slide
-  { move = 0x20D01E43, level = 20 },                        # Hey Presto
-  { move = 0x433E65C8, level = 30 },                        # Off-Balance Pisa Kick
+  { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
+  { move = 0x36A270F2, level = 20 },                        # Rolling Slide
+  { move = 0x20D01E43, level = 30 },                        # Hey Presto
+  { move = 0x01DB04F5, level = 38 },                        # Defence Scan
 ]
 
   [[edit.cards]]
@@ -129,10 +129,10 @@ moves = [
 [[edit]]
 target = "c08110090"                                   # Bellamante Medici
 moves = [
-  { move = 0x36A270F2, level = 1 },                         # Rolling Slide
-  { move = 0x47380F29, level = 13 },                        # Echo Ball
-  { move = 0x433E65C8, level = 20 },                        # Off-Balance Pisa Kick
+  { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
+  { move = 0x36A270F2, level = 20 },                        # Rolling Slide
   { move = 0x2C3D95DD, level = 30 },                        # Sleeping Dust
+  { move = 0x47380F29, level = 38 },                        # Echo Ball
 ]
 
   [[edit.cards]]
@@ -146,9 +146,9 @@ moves = [
 target = "c08110100"                                   # Camilla Gonzaga
 moves = [
   { move = 0xAAA6489B, level = 1 },                         # Spiral Shot
-  { move = 0x36A270F2, level = 13 },                        # Rolling Slide
-  { move = 0xB0F8060A, level = 20 },                        # Ozone Flayer
-  { move = 0x433E65C8, level = 30 },                        # Off-Balance Pisa Kick
+  { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
+  { move = 0x36A270F2, level = 20 },                        # Rolling Slide
+  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
 ]
 
   [[edit.cards]]
@@ -161,10 +161,10 @@ moves = [
 [[edit]]
 target = "c08110110"                                   # Clorinda Luzzago
 moves = [
-  { move = 0xF08DB620, level = 1 },                         # Whirlwind
-  { move = 0xC5B27C7E, level = 13 },                        # Storm Rider
-  { move = 0xA3980723, level = 20 },                        # Colosseum Guard
-  { move = 0x4D7EC7C0, level = 30 },                        # Maw-Ment of Truth
+  { move = 0x4D7EC7C0, level = 13 },                        # Maw-Ment of Truth
+  { move = 0xF08DB620, level = 20 },                        # Whirlwind
+  { move = 0xC5B27C7E, level = 30 },                        # Storm Rider
+  { move = 0xA3980723, level = 38 },                        # Colosseum Guard
 ]
 
   [[edit.cards]]
@@ -176,10 +176,10 @@ moves = [
 [[edit]]
 target = "c08110120"                                   # Oliviero Albizzi
 moves = [
-  { move = 0xE38D3695, level = 1 },                         # Tricera Stops
-  { move = 0x316A7390, level = 13 },                        # Land Dragon
-  { move = 0x536C5E5D, level = 20 },                        # Volcano Head
-  { move = 0x04F493EC, level = 30 },                        # Dragon Rage Dunk
+  { move = 0xE38D3695, level = 13 },                        # Tricera Stops
+  { move = 0x04F493EC, level = 20 },                        # Dragon Rage Dunk
+  { move = 0x316A7390, level = 30 },                        # Land Dragon
+  { move = 0x536C5E5D, level = 38 },                        # Volcano Head
 ]
 
   [[edit.cards]]
@@ -191,10 +191,10 @@ moves = [
 [[edit]]
 target = "c08110130"                                   # Fantaghirò Petrucci
 moves = [
-  { move = 0xAC6D8A70, level = 1 },                         # Rainbow Arc
-  { move = 0xB0F8060A, level = 13 },                        # Ozone Flayer
+  { move = 0xAC6D8A70, level = 13 },                        # Rainbow Arc
   { move = 0x433E65C8, level = 20 },                        # Off-Balance Pisa Kick
-  { move = 0x15EFD41D, level = 30 },                        # Dual Pass
+  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
+  { move = 0x15EFD41D, level = 38 },                        # Dual Pass
 ]
 
   [[edit.cards]]
@@ -207,10 +207,10 @@ moves = [
 [[edit]]
 target = "c08110140"                                   # Rinaldo Torelli
 moves = [
-  { move = 0x1D8F2331, level = 1 },                         # Yo-Yo Ball
   { move = 0x7F2824DE, level = 13 },                        # Dual Storm
   { move = 0x433E65C8, level = 20 },                        # Off-Balance Pisa Kick
-  { move = 0x15EFD41D, level = 30 },                        # Dual Pass
+  { move = 0x1D8F2331, level = 30 },                        # Yo-Yo Ball
+  { move = 0x15EFD41D, level = 38 },                        # Dual Pass
 ]
 
   [[edit.cards]]
@@ -223,9 +223,9 @@ moves = [
 [[edit]]
 target = "c08110150"                                   # Marfisa Corsi
 moves = [
-  { move = 0x4CDC2C6B, level = 1 },                         # Shooting Star
   { move = 0x7F2824DE, level = 13 },                        # Dual Storm
   { move = 0x433E65C8, level = 20 },                        # Off-Balance Pisa Kick
+  { move = 0x4CDC2C6B, level = 30 },                        # Shooting Star
   { move = 0x660EED1E, level = 30 },                        # Low Scythe Slice
 ]
 
@@ -238,10 +238,10 @@ moves = [
 [[edit]]
 target = "c08110160"                                   # Ruggiero Spinola
 moves = [
-  { move = 0x4CDC2C6B, level = 1 },                         # Shooting Star
   { move = 0x7F2824DE, level = 13 },                        # Dual Storm
   { move = 0x433E65C8, level = 20 },                        # Off-Balance Pisa Kick
-  { move = 0x15EFD41D, level = 30 },                        # Dual Pass
+  { move = 0x4CDC2C6B, level = 30 },                        # Shooting Star
+  { move = 0x15EFD41D, level = 38 },                        # Dual Pass
 ]
 
   [[edit.cards]]
@@ -253,10 +253,10 @@ moves = [
 [[edit]]
 target = "c11808130"                                   # Marsilio Magno
 moves = [
-  { move = 0x433E65C8, level = 1 },                         # Off-Balance Pisa Kick
-  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0x91CEE43D, level = 20 },                        # Phalanx
-  { move = 0xBA55592C, level = 30 },                        # Last Resort D
+  { move = 0x433E65C8, level = 13 },                        # Off-Balance Pisa Kick
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0x91CEE43D, level = 38 },                        # Phalanx
+  { move = 0xBA55592C, level = 38 },                        # Last Resort D
 ]
 
   [[edit.cards]]
@@ -268,10 +268,10 @@ moves = [
 [[edit]]
 target = "c11808140"                                   # Vladimir
 moves = [
-  { move = 0xB0F8060A, level = 1 },                         # Ozone Flayer
-  { move = 0x768AB9C5, level = 13 },                        # Frosticle
-  { move = 0x433E65C8, level = 20 },                        # Off-Balance Pisa Kick
-  { move = 0x91CEE43D, level = 30 },                        # Phalanx
+  { move = 0xB0F8060A, level = 13 },                        # Ozone Flayer
+  { move = 0x768AB9C5, level = 20 },                        # Frosticle
+  { move = 0x433E65C8, level = 30 },                        # Off-Balance Pisa Kick
+  { move = 0x91CEE43D, level = 38 },                        # Phalanx
 ]
 
   [[edit.cards]]

@@ -1,9 +1,0 @@
-schema = "VRFW.shop/2"
-
-[[edit]]
-target = "InazumaFantasy.technique_shop"
-
-  [[edit.entry]]
-  technique = "ChronicleDeluxe.drill_smasher_a"    # Destrozataladros (A): catch, 540
-  price = 18
-  currency = "tk_bb000001"

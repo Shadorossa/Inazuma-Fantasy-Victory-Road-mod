@@ -3,6 +3,8 @@ schema = "CharacterReforged.duplicate_rules/1"
 [CharacterReforged.DuplicateRules.no_more_rarities]
 # the saved rarity every normal card gets (4 = the 5★ «Leyenda» card)
 normal_card_rarity = 4
+# a copy saved at one of these rarities (ids of game_rarities.toml) of a normal card keeps it, unless normalize_special_rarities below names that rarity
+raised_copy_rarities = ["fabled"]
 # also on every load of a player slot (a backup of the save first); the retail slot and reserved slots are never touched
 apply_on_load = true
 # save adjust: every saved character below normal_card_rarity gets it, whatever its card bits (only the rarity changes)

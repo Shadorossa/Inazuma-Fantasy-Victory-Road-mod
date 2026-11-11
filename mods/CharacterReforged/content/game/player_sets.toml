@@ -29,6 +29,10 @@ name = "CMND_CHARACTERREFORGED_PLAYER_SET_PAGES"         # () -> sets per page, 
 handler = "CharacterReforged.PlayerSets.Pages"
 
 [[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_PLAYER_SET_AREA"          # Takes no argument and returns the area the player set files go to.
+handler = "CharacterReforged.PlayerSets.Area"
+
+[[VRFW.Command]]
 name = "CMND_CHARACTERREFORGED_PLAYER_SET_IMPORT_LIST"   # () -> count, area (the area's .vrmod files, newest first)
 handler = "CharacterReforged.PlayerSets.ImportList"
 

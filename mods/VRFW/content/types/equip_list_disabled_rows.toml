@@ -1,0 +1,14 @@
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.equip_list/1"
+folder = "content/equip_lists"
+label = "Equipment list rows"
+label_es = "Filas de las listas de equipamiento"
+doc = "An equipment list keeps the items of a kind although the player fails their equip test, and shows them disabled."
+doc_es = "Una lista de equipamiento conserva los objetos de un tipo aunque el jugador no pase su prueba de equipar, y los muestra deshabilitados."
+
+[entry.EquipListDisabledRows]
+doc = "the items of these kinds that the shown player may not equip stay in the menu's lists: their rows are grey, choosing one plays the refusal sound and opens a window with the reason, nothing is equipped"
+name = { type = "name", required = true, doc = "the declaration's name in its mod (a-z 0-9 _)" }
+menu = { type = "string", required = true, doc = "the list menu, by script name (\"equip_menu_list\" = the equipment picker of a player)" }
+item_kinds = { type = "ints", required = true, doc = "the item categories of the item table (140 = outfit); a category is declared once per menu" }
+reason = { type = "string", required = true, doc = "id of the menu_text row the window shows when a disabled row is chosen" }

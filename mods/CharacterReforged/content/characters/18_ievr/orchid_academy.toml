@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11110010"                                   # Celina Lavelle
 moves = [
-  { move = 0xAC6D8A70, level = 1 },                         # Rainbow Arc
-  { move = 0x27D9B69F, level = 13 },                        # Prima Donna
-  { move = 0x54C4DCA3, level = 20 },                        # Butterfly Trance
-  { move = 0xA8215D7C, level = 30 },                        # The Mountain
+  { move = 0xAC6D8A70, level = 13 },                        # Rainbow Arc
+  { move = 0x27D9B69F, level = 20 },                        # Prima Donna
+  { move = 0x54C4DCA3, level = 30 },                        # Butterfly Trance
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c11110020"                                   # Clarisse Luxe
 moves = [
-  { move = 0x37A1B17B, level = 1 },                         # Fire Rooster
-  { move = 0x27D9B69F, level = 13 },                        # Prima Donna
-  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x37A1B17B, level = 20 },                        # Fire Rooster
+  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
+  { move = 0x27D9B69F, level = 30 },                        # Prima Donna
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c11110030"                                   # Adelina Gearhart
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
-  { move = 0x70417B2E, level = 20 },                        # Deceptor Dribble
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0x2E7B2B84, level = 20 },                        # Thief's Eye
   { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x70417B2E, level = 38 },                        # Deceptor Dribble
 ]
 
   [[edit.cards]]
@@ -48,10 +48,10 @@ moves = [
 [[edit]]
 target = "c11110040"                                   # Eliza Florence
 moves = [
-  { move = 0x20D01E43, level = 1 },                         # Hey Presto
-  { move = 0x36A270F2, level = 13 },                        # Rolling Slide
-  { move = 0x4FE09C7A, level = 20 },                        # Acrobatic Keep
-  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
+  { move = 0x20D01E43, level = 13 },                        # Hey Presto
+  { move = 0x36A270F2, level = 20 },                        # Rolling Slide
+  { move = 0x4FE09C7A, level = 30 },                        # Acrobatic Keep
+  { move = 0xDA3FF6C9, level = 38 },                        # Criss-Cross
 ]
 
   [[edit.cards]]
@@ -63,10 +63,10 @@ moves = [
 [[edit]]
 target = "c11110050"                                   # Elyse Reign
 moves = [
-  { move = 0x750E6DAB, level = 1 },                         # Matador Feint
   { move = 0x54C4DCA3, level = 13 },                        # Butterfly Trance
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
+  { move = 0x750E6DAB, level = 20 },                        # Matador Feint
+  { move = 0x21127474, level = 38 },                        # Ultra Moon
+  { move = 0xB7474004, level = 38 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]
@@ -78,10 +78,10 @@ moves = [
 [[edit]]
 target = "c11110060"                                   # Galia Flair
 moves = [
-  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
-  { move = 0x585098FC, level = 13 },                        # Slice and Dice
+  { move = 0xAF150D21, level = 13 },                        # Swallow Counter
   { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
-  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x585098FC, level = 30 },                        # Slice and Dice
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -93,10 +93,10 @@ moves = [
 [[edit]]
 target = "c11110070"                                   # Selene Trance
 moves = [
-  { move = 0x27D9B69F, level = 1 },                         # Prima Donna
-  { move = 0x1C4D4906, level = 13 },                        # Whirlpool
-  { move = 0xA4B51923, level = 20 },                        # The Typhoon
+  { move = 0x27D9B69F, level = 13 },                        # Prima Donna
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
   { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0xA4B51923, level = 38 },                        # The Typhoon
 ]
 
   [[edit.cards]]
@@ -108,9 +108,9 @@ moves = [
 [[edit]]
 target = "c11110080"                                   # Margie Frostveil
 moves = [
-  { move = 0x19025F83, level = 1 },                         # Quick Draw
-  { move = 0xB633C4E1, level = 13 },                        # Photon Crash
-  { move = 0x6E53E2B3, level = 20 },                        # Angel Ball
+  { move = 0x19025F83, level = 13 },                        # Quick Draw
+  { move = 0xB633C4E1, level = 20 },                        # Photon Crash
+  { move = 0x6E53E2B3, level = 30 },                        # Angel Ball
   { move = 0xC19E2AEE, level = 30 },                        # Pegasus Shot
 ]
 
@@ -123,9 +123,9 @@ moves = [
 [[edit]]
 target = "c11110090"                                   # Evelyn Hale
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x1C4D4906, level = 13 },                        # Whirlpool
-  { move = 0xB7F1AED6, level = 20 },                        # Double Cyclone
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
+  { move = 0xB7F1AED6, level = 30 },                        # Double Cyclone
   { move = 0xC42D6F54, level = 30 },                        # Aikido
 ]
 
@@ -138,10 +138,10 @@ moves = [
 [[edit]]
 target = "c11110100"                                   # Elara Silvane
 moves = [
-  { move = 0xB5B7108F, level = 1 },                         # Shadow Stitch
-  { move = 0x530CDFC1, level = 13 },                        # Mystifying Mist
-  { move = 0x70417B2E, level = 20 },                        # Deceptor Dribble
-  { move = 0x0E0A3F7A, level = 30 },                        # Spatial Portal
+  { move = 0xB5B7108F, level = 13 },                        # Shadow Stitch
+  { move = 0x530CDFC1, level = 20 },                        # Mystifying Mist
+  { move = 0x70417B2E, level = 30 },                        # Deceptor Dribble
+  { move = 0x0E0A3F7A, level = 38 },                        # Spatial Portal
 ]
 
   [[edit.cards]]
@@ -153,10 +153,10 @@ moves = [
 [[edit]]
 target = "c11110110"                                   # Lilia Charmont
 moves = [
-  { move = 0xC13F00CC, level = 1 },                         # Flower Power
-  { move = 0xF14FDC17, level = 13 },                        # Shot Pocket
-  { move = 0xB01D1B68, level = 20 },                        # Power Spike
-  { move = 0xD471DE6C, level = 30 },                        # Snakebite
+  { move = 0xC13F00CC, level = 13 },                        # Flower Power
+  { move = 0xF14FDC17, level = 20 },                        # Shot Pocket
+  { move = 0xB01D1B68, level = 30 },                        # Power Spike
+  { move = 0xD471DE6C, level = 38 },                        # Snakebite
 ]
 
   [[edit.cards]]
@@ -168,10 +168,10 @@ moves = [
 [[edit]]
 target = "c11110120"                                   # Talia Jester
 moves = [
-  { move = 0x47657634, level = 1 },                         # Flame Breath
-  { move = 0xC636A810, level = 13 },                        # Combustion Catch
+  { move = 0x47657634, level = 13 },                        # Flame Breath
   { move = 0x5B3151F0, level = 20 },                        # Nitro Slap
-  { move = 0xEA12530F, level = 30 },                        # Double Rocket
+  { move = 0xC636A810, level = 30 },                        # Combustion Catch
+  { move = 0xEA12530F, level = 38 },                        # Double Rocket
 ]
 
   [[edit.cards]]
@@ -183,10 +183,10 @@ moves = [
 [[edit]]
 target = "c11110130"                                   # Kiyora Asakiri
 moves = [
-  { move = 0x3C843987, level = 1 },                         # Flurry Dash
-  { move = 0x592A96B4, level = 13 },                        # Afterimage
-  { move = 0x1A868BED, level = 20 },                        # Clone Defence
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x3C843987, level = 13 },                        # Flurry Dash
+  { move = 0x592A96B4, level = 20 },                        # Afterimage
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
+  { move = 0x1A868BED, level = 38 },                        # Clone Defence
 ]
 
   [[edit.cards]]
@@ -198,10 +198,10 @@ moves = [
 [[edit]]
 target = "c11110140"                                   # Lenora Graves
 moves = [
-  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
-  { move = 0x592A96B4, level = 13 },                        # Afterimage
-  { move = 0x18C035B4, level = 20 },                        # Ghost Pull
-  { move = 0x15138722, level = 30 },                        # Will-o'-the-Wisp Shot
+  { move = 0xAB6422AC, level = 13 },                        # Phantom Shot
+  { move = 0x592A96B4, level = 20 },                        # Afterimage
+  { move = 0x18C035B4, level = 30 },                        # Ghost Pull
+  { move = 0x15138722, level = 38 },                        # Will-o'-the-Wisp Shot
 ]
 
   [[edit.cards]]
@@ -213,10 +213,10 @@ moves = [
 [[edit]]
 target = "c11110150"                                   # Liliane Alban
 moves = [
-  { move = 0x4C1D87D5, level = 1 },                         # Bed of Roses
-  { move = 0x27D9B69F, level = 13 },                        # Prima Donna
-  { move = 0x54C4DCA3, level = 20 },                        # Butterfly Trance
+  { move = 0x4C1D87D5, level = 13 },                        # Bed of Roses
+  { move = 0x27D9B69F, level = 20 },                        # Prima Donna
   { move = 0xC5D2FDE2, level = 30 },                        # Oglitteration
+  { move = 0x54C4DCA3, level = 30 },                        # Butterfly Trance
 ]
 
   [[edit.cards]]
@@ -228,10 +228,10 @@ moves = [
 [[edit]]
 target = "c11110160"                                   # Amara Winslow
 moves = [
-  { move = 0x4F58F805, level = 1 },                         # Coil Turn
-  { move = 0x1A868BED, level = 13 },                        # Clone Defence
-  { move = 0xB5B7108F, level = 20 },                        # Shadow Stitch
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x4F58F805, level = 13 },                        # Coil Turn
+  { move = 0x1A868BED, level = 20 },                        # Clone Defence
+  { move = 0xB5B7108F, level = 30 },                        # Shadow Stitch
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -243,10 +243,10 @@ moves = [
 [[edit]]
 target = "c11110500"                                   # Apia Crownwell
 moves = [
-  { move = 0x750E6DAB, level = 1 },                         # Matador Feint
-  { move = 0x518BCA26, level = 13 },                        # Fire Tornado
-  { move = 0x79E3E635, level = 20 },                        # Racing Flame
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x750E6DAB, level = 13 },                        # Matador Feint
+  { move = 0x518BCA26, level = 20 },                        # Fire Tornado
+  { move = 0x79E3E635, level = 30 },                        # Racing Flame
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -258,10 +258,10 @@ moves = [
 [[edit]]
 target = "c11110510"                                   # Melissa Hivewood
 moves = [
-  { move = 0x5049A011, level = 1 },                         # Spinning Shot
-  { move = 0x19025F83, level = 13 },                        # Quick Draw
-  { move = 0x18019E0A, level = 20 },                        # Double Grenade
-  { move = 0x37A1B17B, level = 30 },                        # Fire Rooster
+  { move = 0x5049A011, level = 13 },                        # Spinning Shot
+  { move = 0x19025F83, level = 20 },                        # Quick Draw
+  { move = 0x18019E0A, level = 30 },                        # Double Grenade
+  { move = 0x37A1B17B, level = 38 },                        # Fire Rooster
 ]
 
   [[edit.cards]]

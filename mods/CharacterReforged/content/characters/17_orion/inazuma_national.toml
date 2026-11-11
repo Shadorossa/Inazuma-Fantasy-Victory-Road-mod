@@ -8,10 +8,10 @@ target = "c08010030"                                   # Basile Hardy
   growth = "normal"
   stats = { kick = 367, control = 246, technique = 235, pressure = 186, physical = 163, intelligence = 209, agility = 165, freedom = 213 }
   moves = [
-    { move = 0xA897B3AE, level = 1 },                       # Fire Tornado A
-    { move = 0x41F3CDC2, level = 13 },                      # Scorching Tackle
+    { move = 0xA897B3AE, level = 13 },                      # Fire Tornado A
     { move = 0x1564C24E, level = 20 },                      # Brawl of the Wild
     { move = 0x24D674A2, level = 30 },                      # Last Resort
+    { move = 0x41F3CDC2, level = 30 },                      # Scorching Tackle
   ]
 
 [[edit]]
@@ -24,19 +24,19 @@ target = "c08010240"                                   # Sandra Fischer
   growth = "normal"
   stats = { kick = 265, control = 211, technique = 186, pressure = 186, physical = 215, intelligence = 198, agility = 227, freedom = 259 }
   moves = [
-    { move = 0x46FA651E, level = 1 },                       # Water Veil
     { move = 0x2A96D6AA, level = 13 },                      # Maelstrom the Hand
     { move = 0x338DE7EB, level = 20 },                      # Mermaid's Veil
     { move = 0x1B246046, level = 30 },                      # Majin the Wave
+    { move = 0x46FA651E, level = 38 },                      # Water Veil
   ]
 
 [[edit]]
 target = "c08010010"                                   # Philip Star
 moves = [
-  { move = 0xA9E3374B, level = 1 },                         # Cyclone Sprint
-  { move = 0xB0F8060A, level = 13 },                        # Ozone Flayer
-  { move = 0x2296A01A, level = 20 },                        # Southern Cross
-  { move = 0x07A628CC, level = 30 },                        # Stargazer
+  { move = 0x2296A01A, level = 13 },                        # Southern Cross
+  { move = 0xA9E3374B, level = 20 },                        # Cyclone Sprint
+  { move = 0x07A628CC, level = 38 },                        # Stargazer
+  { move = 0xB0F8060A, level = 38 },                        # Ozone Flayer
 ]
 
   [[edit.cards]]
@@ -53,19 +53,19 @@ target = "c08010020"                                   # Lucas Star
   growth = "normal"
   stats = { kick = 297, control = 243, technique = 267, pressure = 197, physical = 167, intelligence = 243, agility = 169, freedom = 225 }
   moves = [
-    { move = 0xB0F8060A, level = 1 },                       # Ozone Flayer
     { move = 0xCC7060F9, level = 13 },                      # Starstruck
     { move = 0x40BAB1A6, level = 20 },                      # Starstriker
     { move = 0xA34E686D, level = 30 },                      # Last Resort Σ
+    { move = 0xB0F8060A, level = 38 },                      # Ozone Flayer
   ]
 
 [[edit]]
 target = "c11808160"                                   # Jim Trainer
 moves = [
-  { move = 0x922AB1CF, level = 1 },                         # Safety First
   { move = 0x8C382852, level = 13 },                        # God Hand
   { move = 0x65D7406D, level = 20 },                        # Grabber Arm
-  { move = 0x7F48A542, level = 30 },                        # Mega Majin Trio
+  { move = 0x922AB1CF, level = 30 },                        # Safety First
+  { move = 0x7F48A542, level = 38 },                        # Mega Majin Trio
 ]
 
   [[edit.cards]]

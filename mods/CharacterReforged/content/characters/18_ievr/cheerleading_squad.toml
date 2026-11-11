@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11700610"                                   # Montgomery Marchand
 moves = [
-  { move = 0xB01D1B68, level = 1 },                         # Power Spike
   { move = 0x05567847, level = 13 },                        # Runaway Train
-  { move = 0xFF5C8DAF, level = 20 },                        # Shot Stopper
-  { move = 0x53E9C2A3, level = 30 },                        # Capable Hands
+  { move = 0xB01D1B68, level = 20 },                        # Power Spike
+  { move = 0xFF5C8DAF, level = 30 },                        # Shot Stopper
+  { move = 0x53E9C2A3, level = 38 },                        # Capable Hands
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700720"                                   # Elmer Trommel
 moves = [
-  { move = 0xF26A225B, level = 1 },                         # RC Shot
-  { move = 0xB3BD79DA, level = 13 },                        # Patriot Shot
-  { move = 0x43B5739B, level = 20 },                        # Lightning Bolt
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x43B5739B, level = 13 },                        # Lightning Bolt
+  { move = 0xF26A225B, level = 20 },                        # RC Shot
+  { move = 0xB3BD79DA, level = 30 },                        # Patriot Shot
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]

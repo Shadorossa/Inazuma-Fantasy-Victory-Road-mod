@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11908080"                                   # Chesney Horse
 moves = [
-  { move = 0x6B1CF436, level = 1 },                         # Bewildered
-  { move = 0x29B328E6, level = 13 },                        # Spectacle Crash
+  { move = 0x6B1CF436, level = 13 },                        # Bewildered
   { move = 0x5506B694, level = 20 },                        # Utter Gutsiness Club
-  { move = 0xCF7FA2C4, level = 30 },                        # Gold Rush
+  { move = 0x29B328E6, level = 30 },                        # Spectacle Crash
+  { move = 0xCF7FA2C4, level = 38 },                        # Gold Rush
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11907050"                                   # Hunter Foster
 moves = [
-  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
-  { move = 0x2296A01A, level = 13 },                        # Southern Cross
-  { move = 0xAEEA9F97, level = 20 },                        # Sigma Zone
-  { move = 0x6DAEF91C, level = 30 },                        # Supernova
+  { move = 0x65766A4F, level = 13 },                        # Meteor Blade
+  { move = 0x2296A01A, level = 20 },                        # Southern Cross
+  { move = 0x6DAEF91C, level = 38 },                        # Supernova
+  { move = 0xAEEA9F97, level = 38 },                        # Sigma Zone
 ]
 VRFW.MoveGrades = [
   { Move = 0x65766A4F, Grade = 1 },                         # Meteor Blade
@@ -36,10 +36,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c11907060"                                   # Xavier Schiller
 moves = [
-  { move = 0x142DBE2A, level = 1 },                         # Foul Offence
-  { move = 0x903FFC26, level = 13 },                        # Zigzag Zoom
-  { move = 0x8924CD67, level = 20 },                        # The Detonator
-  { move = 0xAEEA9F97, level = 30 },                        # Sigma Zone
+  { move = 0x8924CD67, level = 13 },                        # The Detonator
+  { move = 0x903FFC26, level = 20 },                        # Zigzag Zoom
+  { move = 0x142DBE2A, level = 30 },                        # Foul Offence
+  { move = 0xAEEA9F97, level = 38 },                        # Sigma Zone
 ]
 
   [[edit.cards]]
@@ -50,10 +50,10 @@ moves = [
 [[edit]]
 target = "c11907080"                                   # Massimo Donati
 moves = [
-  { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
-  { move = 0x4D1E465C, level = 13 },                        # Fake Bomber
-  { move = 0xA3CBF493, level = 20 },                        # Fire Lemonade
-  { move = 0x728CD324, level = 30 },                        # Fizzy Fire Lemonade
+  { move = 0xA3CBF493, level = 13 },                        # Fire Lemonade
+  { move = 0x728CD324, level = 20 },                        # Fizzy Fire Lemonade
+  { move = 0x3663DB4C, level = 30 },                        # Utter Gutsiness Bat
+  { move = 0x4D1E465C, level = 30 },                        # Fake Bomber
 ]
 
   [[edit.cards]]
@@ -67,9 +67,9 @@ moves = [
 target = "c11907090_notplayer"                         # Kia Tanner
 moves = [
   { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
-  { move = 0x6ADE9E01, level = 11 },                        # Illusory Ball
-  { move = 0x0422FCA2, level = 21 },                        # Ninja Toad
-  { move = 0xD4222DDC, level = 31 },                        # Kabuki Break
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0xD4222DDC, level = 1 },                         # Kabuki Break
+  { move = 0x0422FCA2, level = 11 },                        # Ninja Toad
 ]
 
   [[edit.cards]]
@@ -82,10 +82,10 @@ moves = [
 [[edit]]
 target = "c11907070"                                   # Faith Winter
 moves = [
-  { move = 0x8D9AC3F9, level = 1 },                         # Twister Trap
   { move = 0x0A02DF36, level = 13 },                        # Containment Field
-  { move = 0x9543988F, level = 20 },                        # Tornado Barrier
-  { move = 0x867EE0BB, level = 30 },                        # Verdure Vortex
+  { move = 0x867EE0BB, level = 20 },                        # Verdure Vortex
+  { move = 0x8D9AC3F9, level = 30 },                        # Twister Trap
+  { move = 0x9543988F, level = 38 },                        # Tornado Barrier
 ]
 
   [[edit.cards]]

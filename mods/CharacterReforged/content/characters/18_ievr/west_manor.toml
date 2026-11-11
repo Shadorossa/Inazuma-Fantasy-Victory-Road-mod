@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11050010"                                   # Edvan Trodden
 moves = [
-  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
   { move = 0x1A868BED, level = 13 },                        # Clone Defence
   { move = 0x2B343D01, level = 20 },                        # Cyclone
-  { move = 0x514A6198, level = 30 },                        # Asteroid Belt
+  { move = 0xC66BD10D, level = 30 },                        # Zigzag Spark
+  { move = 0x514A6198, level = 38 },                        # Asteroid Belt
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11050020"                                   # Looke Raundoff
 moves = [
-  { move = 0x57BEB7B1, level = 1 },                         # Endeavor Rush
-  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
-  { move = 0x322F0C40, level = 20 },                        # Spider Web
+  { move = 0x322F0C40, level = 13 },                        # Spider Web
+  { move = 0x57BEB7B1, level = 20 },                        # Endeavor Rush
   { move = 0x20D01E43, level = 30 },                        # Hey Presto
+  { move = 0x2E7B2B84, level = 38 },                        # Thief's Eye
 ]
 
   [[edit.cards]]
@@ -34,10 +34,10 @@ moves = [
 [[edit]]
 target = "c11050030"                                   # Berdy Caster
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0x8F1F3A5D, level = 13 },                        # Sniper Shot
-  { move = 0xC66BD10D, level = 20 },                        # Zigzag Spark
-  { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0x8F1F3A5D, level = 20 },                        # Sniper Shot
+  { move = 0xC66BD10D, level = 30 },                        # Zigzag Spark
+  { move = 0x00A10ABD, level = 38 },                        # Ball Lightning
 ]
 
   [[edit.cards]]
@@ -50,10 +50,10 @@ moves = [
 [[edit]]
 target = "c11050040"                                   # Dax Prescott
 moves = [
-  { move = 0xC636A810, level = 1 },                         # Combustion Catch
-  { move = 0x836E6360, level = 13 },                        # Stillness Drip
+  { move = 0xC636A810, level = 13 },                        # Combustion Catch
   { move = 0xE9968761, level = 20 },                        # Rocket Kobushi
-  { move = 0x53E9C2A3, level = 30 },                        # Capable Hands
+  { move = 0x53E9C2A3, level = 38 },                        # Capable Hands
+  { move = 0x836E6360, level = 48 },                        # Stillness Drip
 ]
 
   [[edit.cards]]
@@ -65,10 +65,10 @@ moves = [
 [[edit]]
 target = "c11050050"                                   # Laymark Starwyn
 moves = [
-  { move = 0x8F1F3A5D, level = 1 },                         # Sniper Shot
-  { move = 0x57BEB7B1, level = 13 },                        # Endeavor Rush
-  { move = 0x2E7B2B84, level = 20 },                        # Thief's Eye
-  { move = 0xA0BDF96F, level = 30 },                        # Ballista Barrage
+  { move = 0x8F1F3A5D, level = 13 },                        # Sniper Shot
+  { move = 0x57BEB7B1, level = 20 },                        # Endeavor Rush
+  { move = 0x2E7B2B84, level = 30 },                        # Thief's Eye
+  { move = 0xA0BDF96F, level = 38 },                        # Ballista Barrage
 ]
 
   [[edit.cards]]
@@ -80,10 +80,10 @@ moves = [
 [[edit]]
 target = "c11050060"                                   # Moby Tidbitt
 moves = [
-  { move = 0x57BEB7B1, level = 1 },                         # Endeavor Rush
-  { move = 0x166B0073, level = 13 },                        # Super Armadillo
-  { move = 0x2E7B2B84, level = 20 },                        # Thief's Eye
-  { move = 0xACAC21CE, level = 30 },                        # Fake Ball
+  { move = 0x57BEB7B1, level = 13 },                        # Endeavor Rush
+  { move = 0x166B0073, level = 20 },                        # Super Armadillo
+  { move = 0x2E7B2B84, level = 30 },                        # Thief's Eye
+  { move = 0xACAC21CE, level = 38 },                        # Fake Ball
 ]
 
   [[edit.cards]]
@@ -96,10 +96,10 @@ moves = [
 [[edit]]
 target = "c11050070"                                   # Edgard Loathe
 moves = [
-  { move = 0x8F1F3A5D, level = 1 },                         # Sniper Shot
-  { move = 0x12E67CC1, level = 13 },                        # Future Eye
-  { move = 0x20D01E43, level = 20 },                        # Hey Presto
-  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0x20D01E43, level = 13 },                        # Hey Presto
+  { move = 0x12E67CC1, level = 20 },                        # Future Eye
+  { move = 0x8F1F3A5D, level = 30 },                        # Sniper Shot
+  { move = 0x2354CA2D, level = 38 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]
@@ -112,10 +112,10 @@ moves = [
 [[edit]]
 target = "c11050080"                                   # Flanko Midspringle
 moves = [
-  { move = 0x06130797, level = 1 },                         # Rolling Kick
-  { move = 0x57BEB7B1, level = 13 },                        # Endeavor Rush
-  { move = 0x73C5AF40, level = 20 },                        # Dash Accelerator
-  { move = 0x0455B9CE, level = 30 },                        # Run Ball Run
+  { move = 0x06130797, level = 13 },                        # Rolling Kick
+  { move = 0x57BEB7B1, level = 20 },                        # Endeavor Rush
+  { move = 0x73C5AF40, level = 30 },                        # Dash Accelerator
+  { move = 0x0455B9CE, level = 38 },                        # Run Ball Run
 ]
 
   [[edit.cards]]
@@ -128,10 +128,10 @@ moves = [
 [[edit]]
 target = "c11050090"                                   # Rutheo Wheyston
 moves = [
-  { move = 0x19025F83, level = 1 },                         # Quick Draw
-  { move = 0x592A96B4, level = 13 },                        # Afterimage
-  { move = 0xAD6E4BF9, level = 20 },                        # Harvest
-  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
+  { move = 0x19025F83, level = 13 },                        # Quick Draw
+  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
+  { move = 0x592A96B4, level = 30 },                        # Afterimage
+  { move = 0xAD6E4BF9, level = 38 },                        # Harvest
 ]
 
   [[edit.cards]]
@@ -143,10 +143,10 @@ moves = [
 [[edit]]
 target = "c11050100"                                   # Ernesta Beauregard
 moves = [
-  { move = 0x06130797, level = 1 },                         # Rolling Kick
   { move = 0x27D9B69F, level = 13 },                        # Prima Donna
-  { move = 0x36A270F2, level = 20 },                        # Rolling Slide
-  { move = 0x7A67325B, level = 30 },                        # Flame Dance
+  { move = 0x06130797, level = 20 },                        # Rolling Kick
+  { move = 0x36A270F2, level = 30 },                        # Rolling Slide
+  { move = 0x7A67325B, level = 38 },                        # Flame Dance
 ]
 
   [[edit.cards]]
@@ -159,10 +159,10 @@ moves = [
 [[edit]]
 target = "c11050110"                                   # Drever Olflaire
 moves = [
-  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
-  { move = 0x57BEB7B1, level = 13 },                        # Endeavor Rush
-  { move = 0x36A270F2, level = 20 },                        # Rolling Slide
-  { move = 0x78E027BC, level = 30 },                        # Shine Drive
+  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
+  { move = 0x57BEB7B1, level = 20 },                        # Endeavor Rush
+  { move = 0x36A270F2, level = 38 },                        # Rolling Slide
+  { move = 0x78E027BC, level = 38 },                        # Shine Drive
 ]
 
   [[edit.cards]]
@@ -174,10 +174,10 @@ moves = [
 [[edit]]
 target = "c11050120"                                   # Chicory Bellflower
 moves = [
-  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
-  { move = 0x4F58F805, level = 13 },                        # Coil Turn
-  { move = 0x259F08C6, level = 20 },                        # Whirlwind Twister
-  { move = 0xAAA6489B, level = 30 },                        # Spiral Shot
+  { move = 0xACAC21CE, level = 13 },                        # Fake Ball
+  { move = 0x4F58F805, level = 20 },                        # Coil Turn
+  { move = 0x259F08C6, level = 30 },                        # Whirlwind Twister
+  { move = 0xAAA6489B, level = 38 },                        # Spiral Shot
 ]
 
   [[edit.cards]]
@@ -189,10 +189,10 @@ moves = [
 [[edit]]
 target = "c11050130"                                   # Aysen DeMacon
 moves = [
-  { move = 0x57BEB7B1, level = 1 },                         # Endeavor Rush
-  { move = 0x8F1F3A5D, level = 13 },                        # Sniper Shot
-  { move = 0xDBFD9CFE, level = 20 },                        # Big Ball Trick
+  { move = 0x57BEB7B1, level = 13 },                        # Endeavor Rush
+  { move = 0x8F1F3A5D, level = 20 },                        # Sniper Shot
   { move = 0x3663DB4C, level = 30 },                        # Utter Gutsiness Bat
+  { move = 0xDBFD9CFE, level = 38 },                        # Big Ball Trick
 ]
 
   [[edit.cards]]
@@ -204,10 +204,10 @@ moves = [
 [[edit]]
 target = "c11050140"                                   # Breppo Terrey
 moves = [
-  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
-  { move = 0x57BEB7B1, level = 13 },                        # Endeavor Rush
-  { move = 0xB3BD79DA, level = 20 },                        # Patriot Shot
-  { move = 0xABA58912, level = 30 },                        # Ignited Steal
+  { move = 0xACAC21CE, level = 13 },                        # Fake Ball
+  { move = 0x57BEB7B1, level = 20 },                        # Endeavor Rush
+  { move = 0xB3BD79DA, level = 38 },                        # Patriot Shot
+  { move = 0xABA58912, level = 38 },                        # Ignited Steal
 ]
 
   [[edit.cards]]
@@ -219,10 +219,10 @@ moves = [
 [[edit]]
 target = "c11050150"                                   # Frie Sorbet
 moves = [
-  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
-  { move = 0xB633C4E1, level = 13 },                        # Photon Crash
-  { move = 0x27D9B69F, level = 20 },                        # Prima Donna
-  { move = 0x50880BAF, level = 30 },                        # Frozen Steal
+  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
+  { move = 0xB633C4E1, level = 20 },                        # Photon Crash
+  { move = 0x27D9B69F, level = 30 },                        # Prima Donna
+  { move = 0x50880BAF, level = 38 },                        # Frozen Steal
 ]
 
   [[edit.cards]]
@@ -234,10 +234,10 @@ moves = [
 [[edit]]
 target = "c11050160"                                   # Eddi Losse
 moves = [
-  { move = 0x822B79EA, level = 1 },                         # Somersault Stamp
-  { move = 0x0455B9CE, level = 13 },                        # Run Ball Run
-  { move = 0xBFCC20E7, level = 20 },                        # Wood Chopper
-  { move = 0xC5B27C7E, level = 30 },                        # Storm Rider
+  { move = 0xBFCC20E7, level = 13 },                        # Wood Chopper
+  { move = 0xC5B27C7E, level = 20 },                        # Storm Rider
+  { move = 0x0455B9CE, level = 30 },                        # Run Ball Run
+  { move = 0x822B79EA, level = 38 },                        # Somersault Stamp
 ]
 
   [[edit.cards]]
@@ -249,10 +249,10 @@ moves = [
 [[edit]]
 target = "c11050500"                                   # Waddell Homely
 moves = [
-  { move = 0x8FBCFC3C, level = 1 },                         # Blazing Knuckle
-  { move = 0xBFCC20E7, level = 13 },                        # Wood Chopper
-  { move = 0x5B3151F0, level = 20 },                        # Nitro Slap
-  { move = 0xBD8A9EBE, level = 30 },                        # Infinite Wall
+  { move = 0x8FBCFC3C, level = 13 },                        # Blazing Knuckle
+  { move = 0xBFCC20E7, level = 20 },                        # Wood Chopper
+  { move = 0x5B3151F0, level = 30 },                        # Nitro Slap
+  { move = 0xBD8A9EBE, level = 38 },                        # Infinite Wall
 ]
 
   [[edit.cards]]
@@ -265,10 +265,10 @@ moves = [
 [[edit]]
 target = "c11050510"                                   # Yasmin Tausend
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0x74B5C85D, level = 13 },                        # Security Shot
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
   { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x74B5C85D, level = 30 },                        # Security Shot
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
 ]
 
   [[edit.cards]]

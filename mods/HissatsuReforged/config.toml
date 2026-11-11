@@ -1,28 +1,29 @@
 
 [critical]
+# The critical hit of a special move (docs/game/match/critical-chrono-stone.md): the chance comes from the players' Suerte
+# (Character Reforged [stat_effects]) and from the passives; this mod gives the hit's power and the «Crítico» team build.
 base_chance = 0
-# on a critical hit the move's power × this (after every other power rule)
-multiplier = 1.5
+# on a critical hit the move's power × this (after every other power rule); 2 = Inazuma Eleven GO Chrono Stone
+multiplier = 2.0
 # the highest critical chance in percent, whatever adds up (other mods' passives included)
-cap = 50
+cap = 40
+# the team build that is «Crítico» (the game's build 0)
 archetype_build = 0
 # the skill table category of the keepers' moves (keeper_levels / keeper_per_rank apply to them)
 keeper_move_category = 4
 
-archetype_chance = 5
-# ps10055: more points while level or behind on goals (retail: +7 % when level or behind)
-archetype_level_or_behind_chance = 7
-# ps10057: the critical multiplier + this % per rank (retail: castle wall pierce +1 % per rank)
-power_per_rank = 1
-# ps10059: tension units its team gets back on each of its critical hits (retail: tension needed for a breach -3.6 %)
-crit_tension = 3.6
-# ps10113 (keepers): its keepers' chance × (1 + this % × rank) (retail: keeper save rate +4 % per rank)
-keeper_per_rank = 4
-
+# The build's charge, for the whole team while its build is «Crítico»: rank 1 at kick-off, +1 per rank_up_seconds
+# without a team critical, -rank_down_on_crit on each one.
 rank_up_seconds = 15
 rank_down_on_crit = 4
-levels = [0, 25, 50, 75, 100]
-keeper_levels = [0, 25, 50, 75, 100]
+# per rank 1-5: the team's critical chance × (1 + this %)
+levels = [0, 10, 20, 30, 40]
+# per rank 1-5: its keepers' moves, the chance × (1 + this %) more
+keeper_levels = [0, 0, 0, 0, 0]
+# ps10113: its keepers' moves, the chance × (1 + this % × rank)
+keeper_per_rank = 10
+# ps10057: the critical multiplier + this % per rank
+power_per_rank = 2
 
 [ranks]
 thresholds = [10, 25, 50, 120]

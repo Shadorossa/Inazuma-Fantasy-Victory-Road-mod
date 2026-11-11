@@ -10,6 +10,7 @@ updated = "2026-11-09"
 prefix = "LegendaryAI"
 folder = "LegendaryAI"
 requires = ["VRFW>=0.3.0", "FootballReforged>=0.3.0"]
+# Without CharacterReforged its stamina and aura gauge rules read no resource: every player counts as full stamina.
 optional = ["CharacterReforged", "Furor"]
 conflicts = []
 loader_modules = ["lua_bridge"]
@@ -19,6 +20,8 @@ permissions = ["memory", "hook", "state"]
 live_toggle = true
 # A Chronicle battle whose row names the user's team (story team against story team) keeps the game's AI.
 not_in_match_modes = ["chronicle_story_team", "chronicle_story_team_small"]
+# The option «Canon Chronicle battles» (options.toml), switched on, makes the mod act in those battles too.
+not_in_match_modes_unless_option = "canon_chronicle_battles"
 # starts switched ON (the player can turn it off on its card)
 default_enabled = true
 

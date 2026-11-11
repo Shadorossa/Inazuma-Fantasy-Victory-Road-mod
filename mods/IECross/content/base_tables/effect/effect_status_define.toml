@@ -1,0 +1,12 @@
+schema = "VRFW.base_table/1"
+# The aura statuses of Inferno Penguin and Ocean Birth, as the IEVRCROSS mod has them (texture paths and names with the IECross ids).
+
+[[list]]
+name = "EFF_STATUS_DEF_INFO"
+splice = [
+  { at = 566, remove = 0, rows = [
+    ["penguin_aura_inferno_penguin", 0x5EC06D70, 0xCCD65EC5, 0x646AD457, 0xD065D29B, 0x5A349B7B, 1, "#/chr/_waza/ev60_95000/ev60_95000.g4tx", 0xE37887E5, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0],
+    ["ball_aura_ocean_birth_01", 0x9421BD50, 0x00D2B27A, 0xA86E38E8, 0xEA8A5472, 0x963077C4, 1, "#/effect/event/ev60/ev60950100/ev60950100.g4tx", 0x10B13CB8, 0, 1, 1, 0, 0, 0, 0.7333, 0, 3, 0, 0, 0],
+    ["ball_aura_ocean_birth_02", 0xA5C9A7CD, 0x4772C8AA, 0xEFCE4238, 0xF83FFB9C, 0xD1900D14, 1, "#/effect/event/ev60/ev60950100/ev60950100.g4tx", 0x89B86D02, 0, 1, 1, 0, 0, 0, 0, 0, 3, 0, 0, 0],
+  ] },
+]

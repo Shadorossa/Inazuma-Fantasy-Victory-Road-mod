@@ -1,4 +1,5 @@
 schema = "VRFW.shop/2"
+if_mod = "ClassicRecruitment.classic_recruitment"    # The row of options.toml: off = this file is not read.
 # Shop rows selling player spirits or Victory crates are hidden (the spirit stock refuses those cards).
 
 [[edit]]

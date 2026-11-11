@@ -32,7 +32,7 @@ do
   B.REFUSED = {none = 1158902640, known = 555889516}
   B.REFUSAL = 3947752921
   -- the partner refusals that are not a check code (scripts\lib\create.lua names their texts)
-  B.REASON = {no_learned_move = -5, only_grey = -6, in_use = -7, no_move_for_base = -8, himself = -9, other = -10}
+  B.REASON = {no_learned_move = -5, only_grey = -6, in_use = -7, no_move_for_base = -8, himself = -9, other = -10, in_team = -11}
   B.BANK = 1981996040                                -- chara_bank_menu_for_search
   B.PLATE = 1427722143                               -- personal_plate_menu
   B.CARD = 1791816279                                -- team00_01_chara_card_for_list
@@ -67,6 +67,7 @@ do
     B.status = {}                                    -- card -> { ok, why, badge } (B.partner_status)
     B.prohibited_codes, B.prohibited_badge = {}, 0   -- the system's check codes shown as prohibited, their badge
     B.needs_learned_move, B.no_move_badge = false, 0 -- rule partner_needs_learned_move, its badge
+    B.partner_may_be_in_team = true                  -- Holds the rule partner_may_be_in_team.
     B.reason = {}                                    -- card -> the refusal code of his partner status
     B.refusal_logged = {}                            -- card -> its refusal is in the log (B.log_refused)
     B.base_moves = nil                               -- the base's moves (read once per bank)
@@ -195,6 +196,8 @@ do
     elseif use ~= nil then
       ok, why, badge = false, string.format("used by %s as the %s", use.system, use.partner and "partner" or "base"), use.badge
       team_badge, reason = use.team_badge, B.REASON.in_use
+    elseif not B.partner_may_be_in_team and IsCharaInAnyTeam(hdl) then
+      ok, why, reason = false, "in a team (rule partner_may_be_in_team)", B.REASON.in_team
     elseif real == 0 then
       ok, badge = false, B.no_move_badge
       why = string.format("no learned move that is not grey (%d learned, all grey or none)", learned)
@@ -610,8 +613,10 @@ do
         return
       end
       local n, confirm_id, confirm_text, confirm_icon, preview, check, prohibited, prohibited_badge,
-        needs_learned_move, no_move_badge = funcLuaCommand(B.MOVES, row)
+        needs_learned_move, no_move_badge, partner_may_be_in_team = funcLuaCommand(B.MOVES, row)
       B.needs_learned_move = needs_learned_move == true
+      B.partner_may_be_in_team = partner_may_be_in_team ~= false
+      B.log("partner rules", "row", row, "partner may be in a team", tostring(B.partner_may_be_in_team))
       B.no_move_badge = type(no_move_badge) == "number" and no_move_badge or 0
       for _, c in pairs(type(prohibited) == "table" and prohibited or {}) do
         if type(c) == "number" then

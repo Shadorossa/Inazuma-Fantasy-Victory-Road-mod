@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11150010"                                   # Patrie Ambrosia
 moves = [
-  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
   { move = 0xAF28F5A0, level = 13 },                        # The Tower
-  { move = 0x613ABD43, level = 20 },                        # Dawnrise
-  { move = 0xE0549BE6, level = 30 },                        # Easy Breezy Kid
+  { move = 0xB633C4E1, level = 20 },                        # Photon Crash
+  { move = 0x613ABD43, level = 30 },                        # Dawnrise
+  { move = 0xE0549BE6, level = 38 },                        # Easy Breezy Kid
 ]
 
   [[edit.cards]]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c11150020"                                   # Atol Lasalle
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
-  { move = 0x6E53E2B3, level = 13 },                        # Angel Ball
-  { move = 0xB501FE5D, level = 20 },                        # Holy Roller
-  { move = 0xE0549BE6, level = 30 },                        # Easy Breezy Kid
+  { move = 0xDA3FF6C9, level = 13 },                        # Criss-Cross
+  { move = 0x6E53E2B3, level = 20 },                        # Angel Ball
+  { move = 0xB501FE5D, level = 30 },                        # Holy Roller
+  { move = 0xE0549BE6, level = 38 },                        # Easy Breezy Kid
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c11150030"                                   # Riza Nagivar
 moves = [
-  { move = 0xC8760A18, level = 1 },                         # Falling Planet
-  { move = 0xDE4ED944, level = 13 },                        # Snowstorm Leopard
-  { move = 0xCA30B441, level = 20 },                        # Thundertaker
+  { move = 0xCA30B441, level = 13 },                        # Thundertaker
+  { move = 0xC8760A18, level = 20 },                        # Falling Planet
   { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0xDE4ED944, level = 30 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -48,9 +48,9 @@ moves = [
 [[edit]]
 target = "c11150040"                                   # Orisa Namir
 moves = [
-  { move = 0x41F3CDC2, level = 1 },                         # Scorching Tackle
-  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0x0AC37488, level = 20 },                        # Heavenly Drive
+  { move = 0x41F3CDC2, level = 13 },                        # Scorching Tackle
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
+  { move = 0x0AC37488, level = 30 },                        # Heavenly Drive
   { move = 0xC16279D1, level = 30 },                        # Field of Force
 ]
 
@@ -63,10 +63,10 @@ moves = [
 [[edit]]
 target = "c11150050"                                   # Revea Ristair
 moves = [
-  { move = 0x27D9B69F, level = 1 },                         # Prima Donna
   { move = 0x62BE692D, level = 13 },                        # Whirlwind Force
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+  { move = 0x27D9B69F, level = 20 },                        # Prima Donna
+  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -79,10 +79,10 @@ moves = [
 [[edit]]
 target = "c11150060"                                   # Kazimir Stormblade
 moves = [
-  { move = 0x8D5B6847, level = 1 },                         # Odin Sword
-  { move = 0x00A10ABD, level = 13 },                        # Ball Lightning
-  { move = 0x04941270, level = 20 },                        # Vac Attack
-  { move = 0xA6763B84, level = 30 },                        # Gladius Arch
+  { move = 0x04941270, level = 13 },                        # Vac Attack
+  { move = 0x8D5B6847, level = 20 },                        # Odin Sword
+  { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0xA6763B84, level = 38 },                        # Gladius Arch
 ]
 
   [[edit.cards]]
@@ -94,10 +94,10 @@ moves = [
 [[edit]]
 target = "c11150070"                                   # Garrick Loventhal
 moves = [
-  { move = 0x86F5F6E8, level = 1 },                         # Cupid's Arrow
   { move = 0x613ABD43, level = 13 },                        # Dawnrise
   { move = 0x6BA49049, level = 20 },                        # Mystic Mist
-  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x86F5F6E8, level = 30 },                        # Cupid's Arrow
+  { move = 0x0D368F6B, level = 38 },                        # Heaven's Time
 ]
 
   [[edit.cards]]
@@ -110,9 +110,9 @@ moves = [
 [[edit]]
 target = "c11150080"                                   # Iskandar Tarusian
 moves = [
-  { move = 0xF400CA92, level = 1 },                         # Anchors Aweigh
   { move = 0xDBA0E5E3, level = 13 },                        # Gigant Wall
   { move = 0x96A7CD7D, level = 20 },                        # Tsunami Wall
+  { move = 0xF400CA92, level = 30 },                        # Anchors Aweigh
   { move = 0xD471DE6C, level = 30 },                        # Snakebite
 ]
 
@@ -126,9 +126,9 @@ moves = [
 [[edit]]
 target = "c11150090"                                   # Sampa Eonius
 moves = [
-  { move = 0xB9676390, level = 1 },                         # Particle Accelerator
-  { move = 0x61FB16FD, level = 13 },                        # Divine Arrows
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
+  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
+  { move = 0xB9676390, level = 20 },                        # Particle Accelerator
+  { move = 0x61FB16FD, level = 30 },                        # Divine Arrows
   { move = 0x485150D9, level = 30 },                        # Body Shield
 ]
 
@@ -142,10 +142,10 @@ moves = [
 [[edit]]
 target = "c11150100"                                   # Garci Stormdale
 moves = [
-  { move = 0x8C382852, level = 1 },                         # God Hand
-  { move = 0xDBA0E5E3, level = 13 },                        # Gigant Wall
-  { move = 0xFC5DC53F, level = 20 },                        # Double God Hand
+  { move = 0x8C382852, level = 13 },                        # God Hand
+  { move = 0xDBA0E5E3, level = 20 },                        # Gigant Wall
   { move = 0xEE9F2FBD, level = 30 },                        # God Catch
+  { move = 0xFC5DC53F, level = 30 },                        # Double God Hand
 ]
 
   [[edit.cards]]
@@ -157,10 +157,10 @@ moves = [
 [[edit]]
 target = "c11150110"                                   # Burke Forzane
 moves = [
-  { move = 0x2FB941B3, level = 1 },                         # Stone Prison
   { move = 0x67F17FA8, level = 13 },                        # Mega Quake
-  { move = 0x49933AEE, level = 20 },                        # Perfect Tower
-  { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
+  { move = 0x2FB941B3, level = 20 },                        # Stone Prison
+  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x84385EE2, level = 38 },                        # Black Tide Ride
 ]
 
   [[edit.cards]]
@@ -173,10 +173,10 @@ moves = [
 [[edit]]
 target = "c11150120"                                   # Thaddeus Bellefax
 moves = [
-  { move = 0x7FE98F60, level = 1 },                         # Ganymede Ray
-  { move = 0x1C8CE2B8, level = 13 },                        # God Knows
-  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
-  { move = 0x7577A26A, level = 30 },                        # God Break
+  { move = 0x0D368F6B, level = 13 },                        # Heaven's Time
+  { move = 0x1C8CE2B8, level = 30 },                        # God Knows
+  { move = 0x7FE98F60, level = 30 },                        # Ganymede Ray
+  { move = 0x7577A26A, level = 38 },                        # God Break
 ]
 
   [[edit.cards]]
@@ -189,10 +189,10 @@ moves = [
 [[edit]]
 target = "c11150130"                                   # Harald Monet
 moves = [
-  { move = 0x7DD6FEF8, level = 1 },                         # Athena's Anthem
-  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
-  { move = 0xC16279D1, level = 20 },                        # Field of Force
-  { move = 0x0885CAD1, level = 30 },                        # Prime Legend
+  { move = 0x7DD6FEF8, level = 13 },                        # Athena's Anthem
+  { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
+  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x0885CAD1, level = 38 },                        # Prime Legend
 ]
 
   [[edit.cards]]
@@ -204,10 +204,10 @@ moves = [
 [[edit]]
 target = "c11150140"                                   # Kenard Montemar
 moves = [
-  { move = 0xAD6E4BF9, level = 1 },                         # Harvest
-  { move = 0x60F8D774, level = 13 },                        # Gravestone
-  { move = 0xA8215D7C, level = 20 },                        # The Mountain
+  { move = 0xA8215D7C, level = 13 },                        # The Mountain
+  { move = 0xAD6E4BF9, level = 20 },                        # Harvest
   { move = 0x72BFA108, level = 30 },                        # Wall of Atlantis
+  { move = 0x60F8D774, level = 38 },                        # Gravestone
 ]
 
   [[edit.cards]]
@@ -219,9 +219,9 @@ moves = [
 [[edit]]
 target = "c11150150"                                   # Cate Heckel
 moves = [
-  { move = 0x61FB16FD, level = 1 },                         # Divine Arrows
-  { move = 0x3B8D915B, level = 13 },                        # Meteor Shower
-  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x61FB16FD, level = 13 },                        # Divine Arrows
+  { move = 0x3B8D915B, level = 20 },                        # Meteor Shower
+  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
   { move = 0x9D236FA3, level = 30 },                        # Sword of the King
 ]
 
@@ -234,10 +234,10 @@ moves = [
 [[edit]]
 target = "c11150160"                                   # Ciro Zealon
 moves = [
-  { move = 0x585098FC, level = 1 },                         # Slice and Dice
-  { move = 0x41F3CDC2, level = 13 },                        # Scorching Tackle
-  { move = 0x0AC37488, level = 20 },                        # Heavenly Drive
-  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0x0AC37488, level = 13 },                        # Heavenly Drive
+  { move = 0x2354CA2D, level = 20 },                        # Wind God's Dance
+  { move = 0x585098FC, level = 30 },                        # Slice and Dice
+  { move = 0x41F3CDC2, level = 38 },                        # Scorching Tackle
 ]
 
   [[edit.cards]]
@@ -249,10 +249,10 @@ moves = [
 [[edit]]
 target = "c11150500"                                   # Malik Keos
 moves = [
-  { move = 0x922AB1CF, level = 1 },                         # Safety First
   { move = 0xB907E20C, level = 13 },                        # Procyon Net
-  { move = 0xF64674CB, level = 20 },                        # Fist of Justice
-  { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0xC42D6F54, level = 20 },                        # Aikido
+  { move = 0x922AB1CF, level = 30 },                        # Safety First
+  { move = 0xF64674CB, level = 38 },                        # Fist of Justice
 ]
 
   [[edit.cards]]
@@ -264,10 +264,10 @@ moves = [
 [[edit]]
 target = "c11150510"                                   # Mera Henderson
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0x4A17EE80, level = 13 },                        # Hunter's Net
-  { move = 0xAD6E4BF9, level = 20 },                        # Harvest
-  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0x4A17EE80, level = 20 },                        # Hunter's Net
+  { move = 0xAD6E4BF9, level = 30 },                        # Harvest
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]

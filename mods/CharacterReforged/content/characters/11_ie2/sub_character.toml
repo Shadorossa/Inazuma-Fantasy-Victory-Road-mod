@@ -4,7 +4,7 @@ schema = "VRFW.character/2"
 target = "c02024700"                                   # Canon Evans
 moves = [
   { move = 0x07D16DA0, level = 1 },                         # Inazuma-1
-  { move = 0x6C6C932B, level = 11 },                        # Megaton Head
+  { move = 0x6C6C932B, level = 1 },                         # Megaton Head
   { move = 0x31ABD82E, level = 30 },                        # Circus Block
   { move = 0x7E2BE557, level = 45 },                        # Legendary Wolf
 ]
@@ -22,8 +22,8 @@ VRFW.MoveGrades = [
 target = "c02024710"                                   # Syon Blaze
 moves = [
   { move = 0x518BCA26, level = 1 },                         # Fire Tornado
-  { move = 0x41F3CDC2, level = 11 },                        # Scorching Tackle
-  { move = 0x63BDA8A4, level = 21 },                        # Inazuma Drop
+  { move = 0x41F3CDC2, level = 1 },                         # Scorching Tackle
+  { move = 0x63BDA8A4, level = 1 },                         # Inazuma Drop
   { move = 0x00D8C57C, level = 45 },                        # Fireball Storm
 ]
 VRFW.MoveGrades = [
@@ -38,8 +38,8 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c02029240"                                   # In Chikita
 moves = [
-  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
-  { move = 0x6C6C932B, level = 25 },                        # Megaton Head
+  { move = 0xACAC21CE, level = 15 },                        # Fake Ball
+  { move = 0x6C6C932B, level = 15 },                        # Megaton Head
   { move = 0x7A67325B, level = 27 },                        # Flame Dance
   { move = 0xDD365E15, level = 48 },                        # Mole Shuffle
 ]
@@ -54,10 +54,10 @@ moves = [
 [[edit]]
 target = "c11902070"                                   # Stewart Vanguard
 moves = [
-  { move = 0x49933AEE, level = 1 },                         # Perfect Tower
-  { move = 0xAF28F5A0, level = 11 },                        # The Tower
-  { move = 0xC42D6F54, level = 21 },                        # Aikido
-  { move = 0x0F4DC9B3, level = 31 },                        # Logicstical Sync
+  { move = 0xAF28F5A0, level = 13 },                        # The Tower
+  { move = 0x49933AEE, level = 20 },                        # Perfect Tower
+  { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0x0F4DC9B3, level = 38 },                        # Logicstical Sync
 ]
 
   [[edit.cards]]

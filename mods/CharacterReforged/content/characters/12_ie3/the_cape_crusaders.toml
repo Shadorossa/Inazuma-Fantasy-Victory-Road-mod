@@ -5,8 +5,8 @@ target = "c03033010"                                   # Zolani Baloi
 moves = [
   { move = 0xF5C2A0A5, level = 1 },                         # Capoeira Grab
   { move = 0x8FBCFC3C, level = 8 },                         # Blazing Knuckle
-  { move = 0x8DFA4265, level = 18 },                        # Toughness Block
-  { move = 0xDBA0E5E3, level = 28 },                        # Gigant Wall
+  { move = 0x8DFA4265, level = 20 },                        # Toughness Block
+  { move = 0xDBA0E5E3, level = 38 },                        # Gigant Wall
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c03033030"                                   # Jake Fana
 moves = [
-  { move = 0x36A270F2, level = 1 },                         # Rolling Slide
+  { move = 0x36A270F2, level = 4 },                         # Rolling Slide
+  { move = 0xABA58912, level = 13 },                        # Ignited Steal
   { move = 0x41F3CDC2, level = 16 },                        # Scorching Tackle
-  { move = 0xABA58912, level = 26 },                        # Ignited Steal
-  { move = 0x0A3F27B7, level = 36 },                        # Foul Offence 3
+  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -51,9 +51,9 @@ moves = [
 target = "c03033040"                                   # Masego Molelo
 moves = [
   { move = 0x28B0E96F, level = 1 },                         # Heavy Mettle
+  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
   { move = 0x427719AC, level = 21 },                        # Gale Dash
   { move = 0xC0A013E6, level = 46 },                        # Liar Shot
-  { move = 0x70417B2E, level = 56 },                        # Deceptor Dribble
 ]
 
   [[edit.cards]]
@@ -67,9 +67,9 @@ moves = [
 target = "c03033050"                                   # Cassius Tobler
 moves = [
   { move = 0x322F0C40, level = 1 },                         # Spider Web
-  { move = 0x7CACF0B0, level = 11 },                        # Horn Train
+  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
+  { move = 0x7C6D5B0E, level = 13 },                        # Astro Break
   { move = 0x0B011EBF, level = 48 },                        # Fireball Screw
-  { move = 0x7C6D5B0E, level = 58 },                        # Astro Break
 ]
 
   [[edit.cards]]
@@ -97,7 +97,7 @@ moves = [
 [[edit]]
 target = "c03033070"                                   # Adam Marunga
 moves = [
-  { move = 0xC0A013E6, level = 1 },                         # Liar Shot
+  { move = 0xC0A013E6, level = 6 },                         # Liar Shot
   { move = 0x087999EE, level = 26 },                        # Heel Drop
   { move = 0x21127474, level = 37 },                        # Ultra Moon
   { move = 0x2354CA2D, level = 52 },                        # Wind God's Dance
@@ -127,7 +127,7 @@ moves = [
 [[edit]]
 target = "c03033090"                                   # Siyabonga Mahlangu
 moves = [
-  { move = 0x41F3CDC2, level = 1 },                         # Scorching Tackle
+  { move = 0x41F3CDC2, level = 2 },                         # Scorching Tackle
   { move = 0x2BF596BF, level = 27 },                        # Tsunami Boost
   { move = 0x36A270F2, level = 39 },                        # Rolling Slide
   { move = 0x38094535, level = 60 },                        # Sub-Terfuge
@@ -143,9 +143,9 @@ moves = [
 target = "c03033100"                                   # Nathan Tswane
 moves = [
   { move = 0xC0A013E6, level = 1 },                         # Liar Shot
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
   { move = 0x43B5739B, level = 28 },                        # Lightning Bolt
   { move = 0x62BE692D, level = 40 },                        # Whirlwind Force
-  { move = 0x3F00EDE9, level = 50 },                        # Dash Storm
 ]
 
   [[edit.cards]]
@@ -172,10 +172,10 @@ moves = [
 [[edit]]
 target = "c03033120"                                   # Herschel De Villiers
 moves = [
-  { move = 0xC0A013E6, level = 1 },                         # Liar Shot
+  { move = 0xC0A013E6, level = 7 },                         # Liar Shot
+  { move = 0x0CF4E55C, level = 13 },                        # Double Touch
   { move = 0xBDAE2862, level = 38 },                        # Hellfire
   { move = 0x427719AC, level = 47 },                        # Gale Dash
-  { move = 0x0CF4E55C, level = 57 },                        # Double Touch
 ]
 
   [[edit.cards]]
@@ -188,10 +188,10 @@ moves = [
 [[edit]]
 target = "c03033130"                                   # Moeneeb Booysen
 moves = [
-  { move = 0xB37CD264, level = 1 },                         # Am-Bush
+  { move = 0xB37CD264, level = 10 },                        # Am-Bush
+  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
   { move = 0x36A270F2, level = 16 },                        # Rolling Slide
   { move = 0x087999EE, level = 34 },                        # Heel Drop
-  { move = 0xDCF43422, level = 44 },                        # Aurora Dribble
 ]
 
   [[edit.cards]]
@@ -204,7 +204,7 @@ moves = [
 [[edit]]
 target = "c03033140"                                   # Kennedy McCarthy
 moves = [
-  { move = 0xC0A013E6, level = 1 },                         # Liar Shot
+  { move = 0xC0A013E6, level = 8 },                         # Liar Shot
   { move = 0x166B0073, level = 9 },                         # Super Armadillo
   { move = 0xB13A6C3D, level = 30 },                        # Zigzag Flame
   { move = 0xB37CD264, level = 60 },                        # Am-Bush
@@ -222,8 +222,8 @@ target = "c03033150"                                   # Hugh Makebe
 moves = [
   { move = 0xC2BBD4A2, level = 1 },                         # Wild Claw
   { move = 0xF5C2A0A5, level = 10 },                        # Capoeira Grab
+  { move = 0x8E7E960B, level = 13 },                        # Drill Smasher
   { move = 0x91AE65A1, level = 39 },                        # Giant Spider
-  { move = 0x8E7E960B, level = 49 },                        # Drill Smasher
 ]
 
   [[edit.cards]]

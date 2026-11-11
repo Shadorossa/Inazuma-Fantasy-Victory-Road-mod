@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11160010"                                   # Jorna Privinski
 moves = [
-  { move = 0x18C035B4, level = 1 },                         # Ghost Pull
-  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
-  { move = 0x15138722, level = 20 },                        # Will-o'-the-Wisp Shot
-  { move = 0x613ABD43, level = 30 },                        # Dawnrise
+  { move = 0x18C035B4, level = 13 },                        # Ghost Pull
+  { move = 0x70417B2E, level = 30 },                        # Deceptor Dribble
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
+  { move = 0x15138722, level = 38 },                        # Will-o'-the-Wisp Shot
 ]
 
   [[edit.cards]]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c11160020"                                   # Chat Baltauk
 moves = [
-  { move = 0x2D9F7E76, level = 1 },                         # Breath Taker
-  { move = 0x9B3048AB, level = 13 },                        # Shadow Catch
+  { move = 0x2D9F7E76, level = 13 },                        # Breath Taker
   { move = 0xDBA0E5E3, level = 20 },                        # Gigant Wall
-  { move = 0x4AF2F3E2, level = 30 },                        # Bridge to Nowhere
+  { move = 0x9B3048AB, level = 30 },                        # Shadow Catch
+  { move = 0x4AF2F3E2, level = 38 },                        # Bridge to Nowhere
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c11160030"                                   # Aurelio Auditus
 moves = [
-  { move = 0x78E027BC, level = 1 },                         # Shine Drive
-  { move = 0x25276CB9, level = 13 },                        # Solar Surprise
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
+  { move = 0x78E027BC, level = 13 },                        # Shine Drive
+  { move = 0x25276CB9, level = 20 },                        # Solar Surprise
   { move = 0x029E7B25, level = 30 },                        # Gaia Break
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -48,10 +48,10 @@ moves = [
 [[edit]]
 target = "c11160050"                                   # Habib Liomont
 moves = [
-  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
-  { move = 0x530CDFC1, level = 13 },                        # Mystifying Mist
-  { move = 0x84385EE2, level = 20 },                        # Black Tide Ride
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
+  { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
+  { move = 0x530CDFC1, level = 38 },                        # Mystifying Mist
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -64,10 +64,10 @@ moves = [
 [[edit]]
 target = "c11160060"                                   # Keepie Upshire
 moves = [
-  { move = 0x4EA586F0, level = 1 },                         # Grand Glow
   { move = 0x1A868BED, level = 13 },                        # Clone Defence
-  { move = 0x70417B2E, level = 20 },                        # Deceptor Dribble
-  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x4EA586F0, level = 20 },                        # Grand Glow
+  { move = 0x70417B2E, level = 30 },                        # Deceptor Dribble
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -79,10 +79,10 @@ moves = [
 [[edit]]
 target = "c11160040"                                   # Marcelline Memoir
 moves = [
-  { move = 0x19025F83, level = 1 },                         # Quick Draw
-  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0x568262FA, level = 20 },                        # Dark Tornado
+  { move = 0x19025F83, level = 13 },                        # Quick Draw
+  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
   { move = 0x3B8D915B, level = 30 },                        # Meteor Shower
+  { move = 0x568262FA, level = 30 },                        # Dark Tornado
 ]
 
   [[edit.cards]]
@@ -94,10 +94,10 @@ moves = [
 [[edit]]
 target = "c11160070"                                   # Elric Spiech
 moves = [
-  { move = 0x05567847, level = 1 },                         # Runaway Train
-  { move = 0x2FB941B3, level = 13 },                        # Stone Prison
+  { move = 0x05567847, level = 13 },                        # Runaway Train
   { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
-  { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x2FB941B3, level = 30 },                        # Stone Prison
+  { move = 0x637C031A, level = 38 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -110,10 +110,10 @@ moves = [
 [[edit]]
 target = "c11160100"                                   # Staton Folhard
 moves = [
-  { move = 0x750E6DAB, level = 1 },                         # Matador Feint
-  { move = 0x31ABD82E, level = 13 },                        # Circus Block
-  { move = 0xDE4ED944, level = 20 },                        # Snowstorm Leopard
+  { move = 0x750E6DAB, level = 13 },                        # Matador Feint
+  { move = 0x31ABD82E, level = 20 },                        # Circus Block
   { move = 0x4683AADF, level = 30 },                        # Space Penguin
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -125,10 +125,10 @@ moves = [
 [[edit]]
 target = "c11160080"                                   # Histrion Etcher
 moves = [
-  { move = 0x4EA586F0, level = 1 },                         # Grand Glow
   { move = 0x25276CB9, level = 13 },                        # Solar Surprise
   { move = 0xABA58912, level = 20 },                        # Ignited Steal
   { move = 0x79E3E635, level = 30 },                        # Racing Flame
+  { move = 0x4EA586F0, level = 38 },                        # Grand Glow
 ]
 
   [[edit.cards]]
@@ -141,10 +141,10 @@ moves = [
 [[edit]]
 target = "c11160090"                                   # Nelvin Dustrie
 moves = [
-  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
-  { move = 0x31ABD82E, level = 13 },                        # Circus Block
-  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
+  { move = 0x0CF4E55C, level = 13 },                        # Double Touch
+  { move = 0x31ABD82E, level = 20 },                        # Circus Block
   { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x72BFA108, level = 38 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -157,9 +157,9 @@ moves = [
 [[edit]]
 target = "c11160110"                                   # Wilhelmina Goforth
 moves = [
-  { move = 0xEFFC6FA8, level = 1 },                         # Warhead
-  { move = 0xABA58912, level = 13 },                        # Ignited Steal
-  { move = 0x3BF45E9A, level = 20 },                        # Triple Boost
+  { move = 0xEFFC6FA8, level = 13 },                        # Warhead
+  { move = 0xABA58912, level = 20 },                        # Ignited Steal
+  { move = 0x3BF45E9A, level = 30 },                        # Triple Boost
   { move = 0xC41097D5, level = 30 },                        # Acrobotics
 ]
 
@@ -173,9 +173,9 @@ moves = [
 [[edit]]
 target = "c11160120"                                   # Basil Wanderbilt
 moves = [
-  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
-  { move = 0x1C4D4906, level = 13 },                        # Whirlpool
-  { move = 0xBDAE2862, level = 20 },                        # Hellfire
+  { move = 0x35E70F22, level = 13 },                        # Grenade Shot
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
+  { move = 0xBDAE2862, level = 30 },                        # Hellfire
   { move = 0x19BA3BFC, level = 30 },                        # Dance on Air
 ]
 
@@ -188,10 +188,10 @@ moves = [
 [[edit]]
 target = "c11160130"                                   # Odell Farley
 moves = [
-  { move = 0x3C843987, level = 1 },                         # Flurry Dash
-  { move = 0x2354CA2D, level = 13 },                        # Wind God's Dance
-  { move = 0xB7F1AED6, level = 20 },                        # Double Cyclone
+  { move = 0x3C843987, level = 13 },                        # Flurry Dash
+  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
   { move = 0xC21AFE80, level = 30 },                        # Whirlwind Drop
+  { move = 0xB7F1AED6, level = 38 },                        # Double Cyclone
 ]
 
   [[edit.cards]]
@@ -204,10 +204,10 @@ moves = [
 [[edit]]
 target = "c11160140"                                   # Viki Devine
 moves = [
-  { move = 0x25276CB9, level = 1 },                         # Solar Surprise
-  { move = 0x4E22F64D, level = 13 },                        # Transporter Device
-  { move = 0xE35B59DB, level = 20 },                        # Twin Sun Smash
+  { move = 0x25276CB9, level = 13 },                        # Solar Surprise
+  { move = 0x4E22F64D, level = 20 },                        # Transporter Device
   { move = 0x2AF65736, level = 30 },                        # Bamboo Pattern
+  { move = 0xE35B59DB, level = 38 },                        # Twin Sun Smash
 ]
 
   [[edit.cards]]
@@ -219,10 +219,10 @@ moves = [
 [[edit]]
 target = "c11160150"                                   # Horatio Tickner
 moves = [
-  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
-  { move = 0x4A17EE80, level = 13 },                        # Hunter's Net
-  { move = 0x0E0A3F7A, level = 20 },                        # Spatial Portal
-  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
+  { move = 0x737DCB3F, level = 13 },                        # Pancake Defence
+  { move = 0x2E7B2B84, level = 20 },                        # Thief's Eye
+  { move = 0x4A17EE80, level = 30 },                        # Hunter's Net
+  { move = 0x0E0A3F7A, level = 38 },                        # Spatial Portal
 ]
 
   [[edit.cards]]
@@ -235,10 +235,10 @@ moves = [
 [[edit]]
 target = "c11160160"                                   # Barney Snellman
 moves = [
-  { move = 0x8FBCFC3C, level = 1 },                         # Blazing Knuckle
   { move = 0x3069B219, level = 13 },                        # Super Sumo Stomp
   { move = 0xB8C5883B, level = 20 },                        # God Hand X
-  { move = 0x9765A74A, level = 30 },                        # Beast Fang
+  { move = 0x8FBCFC3C, level = 30 },                        # Blazing Knuckle
+  { move = 0x9765A74A, level = 38 },                        # Beast Fang
 ]
 
   [[edit.cards]]
@@ -251,10 +251,10 @@ moves = [
 [[edit]]
 target = "c11160510"                                   # Lether Penderick
 moves = [
-  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
-  { move = 0x4741C0E8, level = 13 },                        # Steeple Shot
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0xB9A6C82E, level = 30 },                        # Triangle ZZ
+  { move = 0x0CF4E55C, level = 13 },                        # Double Touch
+  { move = 0x4741C0E8, level = 20 },                        # Steeple Shot
+  { move = 0xB9A6C82E, level = 38 },                        # Triangle ZZ
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -267,10 +267,10 @@ moves = [
 [[edit]]
 target = "c11160500"                                   # Maynard Giddings
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
-  { move = 0xA7B451B3, level = 13 },                        # Paladin Strike
-  { move = 0x54C4DCA3, level = 20 },                        # Butterfly Trance
+  { move = 0x5DA7EA06, level = 13 },                        # Boomerang Bluff
+  { move = 0xA7B451B3, level = 20 },                        # Paladin Strike
   { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
+  { move = 0x54C4DCA3, level = 38 },                        # Butterfly Trance
 ]
 
   [[edit.cards]]

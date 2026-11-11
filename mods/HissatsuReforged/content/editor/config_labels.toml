@@ -12,7 +12,7 @@ For = "config"
   Key = "critical.base_chance"
   Type = "int"
   Label = { es = "Probabilidad base extra (%)", en = "Extra base chance (%)" }
-  Help = { es = "Probabilidad extra de crítico de toda supertécnica (el 10 % base viene de la Suerte).", en = "Extra critical chance of every special move (the 10 % base comes from Luck)." }
+  Help = { es = "Puntos extra de crítico de toda supertécnica (la probabilidad viene de la Suerte).", en = "Extra critical points of every special move (the chance comes from Luck)." }
   [[Shape.Field]]
   Key = "critical.multiplier"
   Type = "float"
@@ -34,25 +34,10 @@ For = "config"
   Label = { es = "Categoría de técnicas de portero", en = "Keeper move category" }
   Help = { es = "Categoría de la tabla de habilidades que usan los porteros (número interno).", en = "Skill table category used by keepers (internal number)." }
   [[Shape.Field]]
-  Key = "critical.archetype_chance"
-  Type = "int"
-  Label = { es = "Probabilidad del estilo Crítico (%)", en = "Critical build chance (%)" }
-  Help = { es = "Puntos de crítico que da a todo el equipo el estilo «Crítico».", en = "Critical points the «Critical» build gives the whole team." }
-  [[Shape.Field]]
-  Key = "critical.archetype_level_or_behind_chance"
-  Type = "int"
-  Label = { es = "Extra si empata o pierde (%)", en = "Extra when level or behind (%)" }
-  Help = { es = "Puntos más de crítico mientras el equipo empata o va perdiendo.", en = "More critical points while level or behind on goals." }
-  [[Shape.Field]]
   Key = "critical.power_per_rank"
   Type = "int"
   Label = { es = "Potencia por rango (%)", en = "Power per rank (%)" }
   Help = { es = "El multiplicador del crítico sube este % por cada rango.", en = "The critical multiplier rises this % per rank." }
-  [[Shape.Field]]
-  Key = "critical.crit_tension"
-  Type = "float"
-  Label = { es = "Tensión recuperada por crítico", en = "Tension per critical" }
-  Help = { es = "Unidades de tensión que recupera el equipo con cada crítico.", en = "Tension units the team gets back on each critical hit." }
   [[Shape.Field]]
   Key = "critical.keeper_per_rank"
   Type = "int"

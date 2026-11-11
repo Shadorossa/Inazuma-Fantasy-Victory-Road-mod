@@ -5,8 +5,8 @@ target = "c03030810"                                   # Freddy McQueen
 moves = [
   { move = 0x88B554E0, level = 1 },                         # Galatyn
   { move = 0x922AB1CF, level = 14 },                        # Safety First
+  { move = 0xDBA0E5E3, level = 30 },                        # Gigant Wall
   { move = 0x46A71C03, level = 47 },                        # Black Hole
-  { move = 0xDBA0E5E3, level = 57 },                        # Gigant Wall
 ]
 VRFW.MoveGrades = [
   { Move = 0x88B554E0, Grade = 1 },                         # Galatyn
@@ -22,7 +22,7 @@ VRFW.MoveGrades = [
 target = "c03030820"                                   # Jonny Gascoigne
 moves = [
   { move = 0x2FB941B3, level = 1 },                         # Stone Prison
-  { move = 0x637C031A, level = 11 },                        # No Escape
+  { move = 0x637C031A, level = 1 },                         # No Escape
   { move = 0x41F3CDC2, level = 29 },                        # Scorching Tackle
   { move = 0xACAC21CE, level = 63 },                        # Fake Ball
 ]
@@ -53,8 +53,8 @@ target = "c03030840"                                   # Lance Rawton
 moves = [
   { move = 0x2FB941B3, level = 1 },                         # Stone Prison
   { move = 0x60397CCA, level = 21 },                        # Cross Drive
+  { move = 0x637C031A, level = 30 },                        # No Escape
   { move = 0x3A3634AD, level = 60 },                        # Excalibur
-  { move = 0x637C031A, level = 70 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -66,10 +66,10 @@ moves = [
 [[edit]]
 target = "c03030850"                                   # Edge Ripper
 moves = [
-  { move = 0x2FB941B3, level = 1 },                         # Stone Prison
+  { move = 0x2FB941B3, level = 10 },                        # Stone Prison
   { move = 0x4E9A9232, level = 30 },                        # Spinning Cut
+  { move = 0x18C035B4, level = 38 },                        # Ghost Pull
   { move = 0x04941270, level = 49 },                        # Vac Attack
-  { move = 0x18C035B4, level = 59 },                        # Ghost Pull
 ]
 
   [[edit.cards]]
@@ -142,9 +142,9 @@ moves = [
 target = "c03030900"                                   # Edgar Partinus
 moves = [
   { move = 0x3A3634AD, level = 1 },                         # Excalibur
-  { move = 0xA7B451B3, level = 11 },                        # Paladin Strike
-  { move = 0x21127474, level = 21 },                        # Ultra Moon
-  { move = 0x8B90AAAC, level = 31 },                        # Fortissimo
+  { move = 0xA7B451B3, level = 1 },                         # Paladin Strike
+  { move = 0x21127474, level = 1 },                         # Ultra Moon
+  { move = 0x8B90AAAC, level = 12 },                        # Fortissimo
 ]
 VRFW.MoveGrades = [
   { Move = 0x3A3634AD, Grade = 1 },                         # Excalibur
@@ -179,10 +179,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03030920"                                   # Servilius Jeeves
 moves = [
-  { move = 0x88B554E0, level = 1 },                         # Galatyn
+  { move = 0x88B554E0, level = 15 },                        # Galatyn
+  { move = 0xA7157B91, level = 20 },                        # Power Shield
   { move = 0x4523C86D, level = 30 },                        # Killer Blade
   { move = 0x8E7E960B, level = 43 },                        # Drill Smasher
-  { move = 0xA7157B91, level = 53 },                        # Power Shield
 ]
 
   [[edit.cards]]
@@ -194,7 +194,7 @@ moves = [
 [[edit]]
 target = "c03030930"                                   # Martin Squall
 moves = [
-  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 6 },                         # Dash Accelerator
   { move = 0x21127474, level = 15 },                        # Ultra Moon
   { move = 0x4D1E465C, level = 27 },                        # Fake Bomber
   { move = 0xD8851BAF, level = 68 },                        # Unicorn Boost
@@ -226,9 +226,9 @@ moves = [
 target = "c03030950"                                   # Mikey Richards
 moves = [
   { move = 0x21127474, level = 1 },                         # Ultra Moon
+  { move = 0x2FB941B3, level = 30 },                        # Stone Prison
   { move = 0xB5B7108F, level = 45 },                        # Shadow Stitch
   { move = 0x4BD584B7, level = 74 },                        # Power Charge
-  { move = 0x2FB941B3, level = 84 },                        # Stone Prison
 ]
 
   [[edit.cards]]
@@ -242,9 +242,9 @@ moves = [
 target = "c03030960"                                   # Sirius Pounding
 moves = [
   { move = 0x2FB941B3, level = 1 },                         # Stone Prison
+  { move = 0x70417B2E, level = 20 },                        # Deceptor Dribble
   { move = 0x5B6C28ED, level = 28 },                        # Invisible Fake
-  { move = 0x70417B2E, level = 38 },                        # Deceptor Dribble
-  { move = 0xDEB28A7B, level = 48 },                        # Monkey Turn
+  { move = 0xDEB28A7B, level = 30 },                        # Monkey Turn
 ]
 
   [[edit.cards]]
@@ -256,10 +256,10 @@ moves = [
 [[edit]]
 target = "c11803040"                                   # Aaron Adams
 moves = [
-  { move = 0xA7B451B3, level = 1 },                         # Paladin Strike
-  { move = 0x750E6DAB, level = 11 },                        # Matador Feint
-  { move = 0x7748D3F2, level = 21 },                        # Devil Ball
-  { move = 0xC513565C, level = 31 },                        # Doom Spear
+  { move = 0xA7B451B3, level = 13 },                        # Paladin Strike
+  { move = 0x750E6DAB, level = 20 },                        # Matador Feint
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
+  { move = 0xC513565C, level = 38 },                        # Doom Spear
 ]
 
   [[edit.cards]]

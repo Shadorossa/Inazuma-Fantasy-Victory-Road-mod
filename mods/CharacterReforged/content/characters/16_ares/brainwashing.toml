@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c07060040"                                   # Philip Marvel
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
-  { move = 0x34256515, level = 13 },                        # Dynamite Shot
-  { move = 0x58E8FC83, level = 20 },                        # Rolling Hell
-  { move = 0xD9BB22A7, level = 30 },                        # Air Ride
+  { move = 0x34256515, level = 20 },                        # Dynamite Shot
+  { move = 0x01DB04F5, level = 30 },                        # Defence Scan
+  { move = 0x58E8FC83, level = 38 },                        # Rolling Hell
+  { move = 0xD9BB22A7, level = 38 },                        # Air Ride
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c07060050"                                   # Noel Good
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
-  { move = 0x520F1E48, level = 13 },                        # Psycho Shot
-  { move = 0x00196EC2, level = 20 },                        # Earthquake
-  { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x01DB04F5, level = 20 },                        # Defence Scan
+  { move = 0x520F1E48, level = 30 },                        # Psycho Shot
+  { move = 0x21127474, level = 38 },                        # Ultra Moon
+  { move = 0x00196EC2, level = 38 },                        # Earthquake
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c07060070"                                   # Francis Tell
 moves = [
-  { move = 0x245D62F1, level = 1 },                         # Attack Scan
-  { move = 0x520F1E48, level = 13 },                        # Psycho Shot
-  { move = 0xB5B7108F, level = 20 },                        # Shadow Stitch
-  { move = 0x1755397B, level = 30 },                        # Dark Energy Star
+  { move = 0x520F1E48, level = 20 },                        # Psycho Shot
+  { move = 0x245D62F1, level = 30 },                        # Attack Scan
+  { move = 0xB5B7108F, level = 38 },                        # Shadow Stitch
+  { move = 0x1755397B, level = 38 },                        # Dark Energy Star
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c07060090"                                   # Jonathan Seller
 moves = [
-  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
-  { move = 0x245D62F1, level = 13 },                        # Attack Scan
-  { move = 0x518BCA26, level = 20 },                        # Fire Tornado
-  { move = 0xB60E3C60, level = 30 },                        # Plasma Cut
+  { move = 0x520F1E48, level = 13 },                        # Psycho Shot
+  { move = 0x245D62F1, level = 30 },                        # Attack Scan
+  { move = 0x518BCA26, level = 38 },                        # Fire Tornado
+  { move = 0xB60E3C60, level = 38 },                        # Plasma Cut
 ]
 
   [[edit.cards]]
@@ -66,10 +66,10 @@ moves = [
 [[edit]]
 target = "c07060100"                                   # Victor Kind
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
-  { move = 0x520F1E48, level = 13 },                        # Psycho Shot
-  { move = 0x4890FB67, level = 20 },                        # Twin Boost
-  { move = 0x1755397B, level = 30 },                        # Dark Energy Star
+  { move = 0x520F1E48, level = 20 },                        # Psycho Shot
+  { move = 0x01DB04F5, level = 30 },                        # Defence Scan
+  { move = 0x4890FB67, level = 38 },                        # Twin Boost
+  { move = 0x1755397B, level = 38 },                        # Dark Energy Star
 ]
 
   [[edit.cards]]
@@ -82,10 +82,10 @@ moves = [
 [[edit]]
 target = "c07060110"                                   # Neil Turner
 moves = [
-  { move = 0x245D62F1, level = 1 },                         # Attack Scan
   { move = 0xB3BD79DA, level = 13 },                        # Patriot Shot
-  { move = 0x518BCA26, level = 20 },                        # Fire Tornado
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x518BCA26, level = 30 },                        # Fire Tornado
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
+  { move = 0x245D62F1, level = 38 },                        # Attack Scan
 ]
 
   [[edit.cards]]
@@ -98,10 +98,10 @@ moves = [
 [[edit]]
 target = "c07060010"                                   # Gideon Poe
 moves = [
-  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
-  { move = 0xE9968761, level = 13 },                        # Rocket Kobushi
-  { move = 0xC7F4C227, level = 20 },                        # Shot Trap
-  { move = 0xEA12530F, level = 30 },                        # Double Rocket
+  { move = 0xF14FDC17, level = 13 },                        # Shot Pocket
+  { move = 0xE9968761, level = 20 },                        # Rocket Kobushi
+  { move = 0xC7F4C227, level = 30 },                        # Shot Trap
+  { move = 0xEA12530F, level = 38 },                        # Double Rocket
 ]
 
   [[edit.cards]]
@@ -113,10 +113,10 @@ moves = [
 [[edit]]
 target = "c07060060"                                   # Electra Faraday
 moves = [
-  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
-  { move = 0x245D62F1, level = 13 },                        # Attack Scan
-  { move = 0xB1FBC783, level = 20 },                        # Reflect Buster
+  { move = 0x520F1E48, level = 13 },                        # Psycho Shot
+  { move = 0xB1FBC783, level = 30 },                        # Reflect Buster
   { move = 0xDCC9CCA3, level = 30 },                        # Tesla Coil
+  { move = 0x245D62F1, level = 38 },                        # Attack Scan
 ]
 
   [[edit.cards]]
@@ -128,10 +128,10 @@ moves = [
 [[edit]]
 target = "c07060080"                                   # Darren Gouger
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0x38094535, level = 13 },                        # Sub-Terfuge
-  { move = 0xC0A013E6, level = 20 },                        # Liar Shot
-  { move = 0x74B5C85D, level = 30 },                        # Security Shot
+  { move = 0x01DB04F5, level = 20 },                        # Defence Scan
+  { move = 0xC0A013E6, level = 30 },                        # Liar Shot
+  { move = 0x74B5C85D, level = 38 },                        # Security Shot
 ]
 
   [[edit.cards]]
@@ -143,10 +143,10 @@ moves = [
 [[edit]]
 target = "c07060020"                                   # Harry Leading
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
-  { move = 0xB3BD79DA, level = 13 },                        # Patriot Shot
-  { move = 0x087999EE, level = 20 },                        # Heel Drop
-  { move = 0xD9BB22A7, level = 30 },                        # Air Ride
+  { move = 0x01DB04F5, level = 30 },                        # Defence Scan
+  { move = 0x087999EE, level = 30 },                        # Heel Drop
+  { move = 0xB3BD79DA, level = 38 },                        # Patriot Shot
+  { move = 0xD9BB22A7, level = 38 },                        # Air Ride
 ]
 
   [[edit.cards]]
@@ -158,10 +158,10 @@ moves = [
 [[edit]]
 target = "c07060030"                                   # Terry Stronger
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
-  { move = 0x520F1E48, level = 13 },                        # Psycho Shot
-  { move = 0xB3BD79DA, level = 20 },                        # Patriot Shot
-  { move = 0xB7474004, level = 30 },                        # Dough Ray Me
+  { move = 0x01DB04F5, level = 20 },                        # Defence Scan
+  { move = 0xB3BD79DA, level = 30 },                        # Patriot Shot
+  { move = 0x520F1E48, level = 30 },                        # Psycho Shot
+  { move = 0xB7474004, level = 38 },                        # Dough Ray Me
 ]
 
   [[edit.cards]]
@@ -173,10 +173,10 @@ moves = [
 [[edit]]
 target = "c11807070"                                   # Jethro Mackin
 moves = [
-  { move = 0x245D62F1, level = 1 },                         # Attack Scan
-  { move = 0x928B9BED, level = 13 },                        # Optimal Trajectory
-  { move = 0xF626F557, level = 20 },                        # Electric Impedance
+  { move = 0x245D62F1, level = 20 },                        # Attack Scan
   { move = 0xB3BD79DA, level = 30 },                        # Patriot Shot
+  { move = 0x928B9BED, level = 30 },                        # Optimal Trajectory
+  { move = 0xF626F557, level = 38 },                        # Electric Impedance
 ]
 
   [[edit.cards]]
@@ -189,10 +189,10 @@ moves = [
 [[edit]]
 target = "c11807080"                                   # Des Pott
 moves = [
-  { move = 0x245D62F1, level = 1 },                         # Attack Scan
-  { move = 0xB3BD79DA, level = 13 },                        # Patriot Shot
-  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
+  { move = 0xB3BD79DA, level = 20 },                        # Patriot Shot
   { move = 0xA1BE38E6, level = 30 },                        # La Flamme
+  { move = 0x245D62F1, level = 30 },                        # Attack Scan
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]

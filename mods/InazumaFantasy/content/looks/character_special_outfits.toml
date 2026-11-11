@@ -6,13 +6,13 @@ schema = "VRFW.look/2"
 id = "inazumafantasy_uni_axel_outfit"  # u01000100, Axel
   [[kit.model]]
   type = 0
-  fielder = "u01000100"
-  keeper = "u01000100"
+  fielder = "inazumafantasy_u01000100"
+  keeper = "inazumafantasy_u01000100"
   shoes = 0x2DB8D857
   [[kit.model]]
   type = 1
-  fielder = "u01000100"
-  keeper = "u01000100"
+  fielder = "inazumafantasy_u01000100"
+  keeper = "inazumafantasy_u01000100"
   shoes = 0x2DB8D857
 
 [[kit]]
@@ -41,12 +41,12 @@ id = "inazumafantasy_uni_david_outfit_1"  # u01000310, David
 id = "inazumafantasy_uni_seymour_outfit"  # u01002610, Seymour
   [[kit.model]]
   type = 0
-  fielder = "u01002610"
-  keeper = "u01002610"
+  fielder = "inazumafantasy_u01002610"
+  keeper = "inazumafantasy_u01002610"
   [[kit.model]]
   type = 1
-  fielder = "u01002610"
-  keeper = "u01002610"
+  fielder = "inazumafantasy_u01002610"
+  keeper = "inazumafantasy_u01002610"
 
 [[kit]]
 id = "inazumafantasy_uni_suzette_outfit"  # u02024500, Suzette
@@ -63,12 +63,12 @@ id = "inazumafantasy_uni_suzette_outfit"  # u02024500, Suzette
 id = "inazumafantasy_uni_canon_outfit"  # u02024700, Canon
   [[kit.model]]
   type = 0
-  fielder = "u02024700"
-  keeper = "u02024700"
+  fielder = "inazumafantasy_u02024700"
+  keeper = "inazumafantasy_u02024700"
   [[kit.model]]
   type = 1
-  fielder = "u02024700"
-  keeper = "u02024700"
+  fielder = "inazumafantasy_u02024700"
+  keeper = "inazumafantasy_u02024700"
 
 [[kit]]
 id = "inazumafantasy_uni_thor_outfit"  # u02024720, Thor
@@ -118,13 +118,13 @@ id = "inazumafantasy_uni_silvia_outfit_1"  # u02024750, Silvia
 id = "inazumafantasy_uni_aquilina_outfit"  # u02029500, Aquilina
   [[kit.model]]
   type = 0
-  fielder = "u02029500"
-  keeper = "u02029500"
+  fielder = "inazumafantasy_u02029500"
+  keeper = "inazumafantasy_u02029500"
   shoes = 0x1C9176FC
   [[kit.model]]
   type = 1
-  fielder = "u02029500"
-  keeper = "u02029500"
+  fielder = "inazumafantasy_u02029500"
+  keeper = "inazumafantasy_u02029500"
   shoes = 0x1C9176FC
 
 [[kit]]
@@ -142,13 +142,13 @@ id = "inazumafantasy_uni_camellia_outfit"  # u03030080, Camellia
 id = "inazumafantasy_uni_percival_outfit"  # u03039500, Percival
   [[kit.model]]
   type = 0
-  fielder = "u03039500"
-  keeper = "u03039500"
+  fielder = "inazumafantasy_u03039500"
+  keeper = "inazumafantasy_u03039500"
   shoes = 0x878654F8
   [[kit.model]]
   type = 1
-  fielder = "u03039500"
-  keeper = "u03039500"
+  fielder = "inazumafantasy_u03039500"
+  keeper = "inazumafantasy_u03039500"
   shoes = 0x878654F8
 
 [[kit]]
@@ -221,12 +221,12 @@ id = "inazumafantasy_uni_vladimir_outfit_2"  # u05020120, Vladimir
 id = "inazumafantasy_uni_goldie_outfit"  # u05020140, Goldie
   [[kit.model]]
   type = 0
-  fielder = "u05020140"
-  keeper = "u05020140"
+  fielder = "inazumafantasy_u05020140"
+  keeper = "inazumafantasy_u05020140"
   [[kit.model]]
   type = 1
-  fielder = "u05020140"
-  keeper = "u05020140"
+  fielder = "inazumafantasy_u05020140"
+  keeper = "inazumafantasy_u05020140"
 
 [[kit]]
 id = "inazumafantasy_uni_sor_outfit"  # u05020150, Sor
@@ -243,12 +243,12 @@ id = "inazumafantasy_uni_sor_outfit"  # u05020150, Sor
 id = "inazumafantasy_uni_nobunaga_outfit"  # u05020270, Nobunaga
   [[kit.model]]
   type = 0
-  fielder = "u05020270"
-  keeper = "u05020270"
+  fielder = "inazumafantasy_u05020270"
+  keeper = "inazumafantasy_u05020270"
   [[kit.model]]
   type = 1
-  fielder = "u05020270"
-  keeper = "u05020270"
+  fielder = "inazumafantasy_u05020270"
+  keeper = "inazumafantasy_u05020270"
 
 [[kit]]
 id = "inazumafantasy_uni_tokichiro_kinoshita_outfit"  # u05020280, Tokichiro Kinoshita
@@ -397,12 +397,12 @@ id = "inazumafantasy_uni_shawn_froste_outfit_1"  # u05024700, Shawn Froste
 id = "inazumafantasy_uni_flora_outfit"  # u05024920, Flora
   [[kit.model]]
   type = 0
-  fielder = "u05024920"
-  keeper = "u05024920"
+  fielder = "inazumafantasy_u05024920"
+  keeper = "inazumafantasy_u05024920"
   [[kit.model]]
   type = 1
-  fielder = "u05024920"
-  keeper = "u05024920"
+  fielder = "inazumafantasy_u05024920"
+  keeper = "inazumafantasy_u05024920"
 
 [[kit]]
 id = "inazumafantasy_uni_sterne_outfit"  # u05024930, Sterne
@@ -419,12 +419,12 @@ id = "inazumafantasy_uni_sterne_outfit"  # u05024930, Sterne
 id = "inazumafantasy_uni_celia_hills_outfit"  # u05026520, Celia Hills
   [[kit.model]]
   type = 0
-  fielder = "u05026520"
-  keeper = "u05026520"
+  fielder = "inazumafantasy_u05026520"
+  keeper = "inazumafantasy_u05026520"
   [[kit.model]]
   type = 1
-  fielder = "u05026520"
-  keeper = "u05026520"
+  fielder = "inazumafantasy_u05026520"
+  keeper = "inazumafantasy_u05026520"
 
 [[kit]]
 id = "inazumafantasy_uni_silvia_woods_outfit"  # u05026530, Silvia Woods
@@ -463,12 +463,12 @@ id = "inazumafantasy_uni_chester_outfit_1"  # u05026570, Chester
 id = "inazumafantasy_uni_alex_outfit"  # u05026580, Alex
   [[kit.model]]
   type = 0
-  fielder = "u05026580"
-  keeper = "u05026580"
+  fielder = "inazumafantasy_u05026580"
+  keeper = "inazumafantasy_u05026580"
   [[kit.model]]
   type = 1
-  fielder = "u05026580"
-  keeper = "u05026580"
+  fielder = "inazumafantasy_u05026580"
+  keeper = "inazumafantasy_u05026580"
 
 [[kit]]
 id = "inazumafantasy_uni_byron_love_outfit"  # u05026590, Byron Love
@@ -529,24 +529,24 @@ id = "inazumafantasy_uni_shintaro_nakaoka_outfit"  # u05026750, Shintaro Nakaoka
 id = "inazumafantasy_uni_prince_charles_outfit"  # u05026760, Prince Charles
   [[kit.model]]
   type = 0
-  fielder = "u05026760"
-  keeper = "u05026760"
+  fielder = "inazumafantasy_u05026760"
+  keeper = "inazumafantasy_u05026760"
   [[kit.model]]
   type = 1
-  fielder = "u05026760"
-  keeper = "u05026760"
+  fielder = "inazumafantasy_u05026760"
+  keeper = "inazumafantasy_u05026760"
 
 [[kit]]
 id = "inazumafantasy_uni_van_outfit"  # u05029510, Van
   [[kit.model]]
   type = 0
-  fielder = "u05029510"
-  keeper = "u05029510"
+  fielder = "inazumafantasy_u05029510"
+  keeper = "inazumafantasy_u05029510"
   shoes = 0xC02D7933
   [[kit.model]]
   type = 1
-  fielder = "u05029510"
-  keeper = "u05029510"
+  fielder = "inazumafantasy_u05029510"
+  keeper = "inazumafantasy_u05029510"
   shoes = 0xC02D7933
 
 [[kit]]
@@ -564,26 +564,26 @@ id = "inazumafantasy_uni_hiro_outfit"  # u05029520, Hiro
 id = "inazumafantasy_uni_hershel_outfit"  # u05029710, Hershel
   [[kit.model]]
   type = 0
-  fielder = "u05029710"
-  keeper = "u05029710"
+  fielder = "inazumafantasy_u05029710"
+  keeper = "inazumafantasy_u05029710"
   shoes = 0xC3A9AD5D
   [[kit.model]]
   type = 1
-  fielder = "u05029710"
-  keeper = "u05029710"
+  fielder = "inazumafantasy_u05029710"
+  keeper = "inazumafantasy_u05029710"
   shoes = 0xC3A9AD5D
 
 [[kit]]
 id = "inazumafantasy_uni_luke_triton_outfit"  # u05029720, Luke Triton
   [[kit.model]]
   type = 0
-  fielder = "u05029720"
-  keeper = "u05029720"
+  fielder = "inazumafantasy_u05029720"
+  keeper = "inazumafantasy_u05029720"
   shoes = 0xE884FE9E
   [[kit.model]]
   type = 1
-  fielder = "u05029720"
-  keeper = "u05029720"
+  fielder = "inazumafantasy_u05029720"
+  keeper = "inazumafantasy_u05029720"
   shoes = 0xE884FE9E
 
 [[kit]]
@@ -612,12 +612,12 @@ id = "inazumafantasy_uni_glacia_outfit"  # u06030220, Glacia
 id = "inazumafantasy_uni_catra_outfit"  # u06030230, Catra
   [[kit.model]]
   type = 0
-  fielder = "u06030230"
-  keeper = "u06030230"
+  fielder = "inazumafantasy_u06030230"
+  keeper = "inazumafantasy_u06030230"
   [[kit.model]]
   type = 1
-  fielder = "u06030230"
-  keeper = "u06030230"
+  fielder = "inazumafantasy_u06030230"
+  keeper = "inazumafantasy_u06030230"
 
 [[kit]]
 id = "inazumafantasy_uni_laraya_outfit"  # u06030240, Laraya
@@ -634,34 +634,34 @@ id = "inazumafantasy_uni_laraya_outfit"  # u06030240, Laraya
 id = "inazumafantasy_uni_ozrock_outfit"  # u06032900, Ozrock
   [[kit.model]]
   type = 0
-  fielder = "u06032900"
-  keeper = "u06032900"
+  fielder = "inazumafantasy_u06032900"
+  keeper = "inazumafantasy_u06032900"
   [[kit.model]]
   type = 1
-  fielder = "u06032900"
-  keeper = "u06032900"
+  fielder = "inazumafantasy_u06032900"
+  keeper = "inazumafantasy_u06032900"
 
 [[kit]]
 id = "inazumafantasy_uni_circulus_outfit"  # u06033100, Circulus
   [[kit.model]]
   type = 0
-  fielder = "u06033100"
-  keeper = "u06033100"
+  fielder = "inazumafantasy_u06033100"
+  keeper = "inazumafantasy_u06033100"
   [[kit.model]]
   type = 1
-  fielder = "u06033100"
-  keeper = "u06033100"
+  fielder = "inazumafantasy_u06033100"
+  keeper = "inazumafantasy_u06033100"
 
 [[kit]]
 id = "inazumafantasy_uni_arculus_outfit"  # u06033300, Arculus
   [[kit.model]]
   type = 0
-  fielder = "u06033300"
-  keeper = "u06033300"
+  fielder = "inazumafantasy_u06033300"
+  keeper = "inazumafantasy_u06033300"
   [[kit.model]]
   type = 1
-  fielder = "u06033300"
-  keeper = "u06033300"
+  fielder = "inazumafantasy_u06033300"
+  keeper = "inazumafantasy_u06033300"
 
 [[kit]]
 id = "inazumafantasy_uni_aquilina_schiller_outfit_2"  # u06037390, Aquilina Schiller
@@ -777,12 +777,12 @@ id = "inazumafantasy_uni_cross_word_outfit"  # u06039090, Cross Word
 id = "inazumafantasy_uni_adrastus_outfit"  # u06039100, Adrastus
   [[kit.model]]
   type = 0
-  fielder = "u06039100"
-  keeper = "u06039100"
+  fielder = "inazumafantasy_u06039100"
+  keeper = "inazumafantasy_u06039100"
   [[kit.model]]
   type = 1
-  fielder = "u06039100"
-  keeper = "u06039100"
+  fielder = "inazumafantasy_u06039100"
+  keeper = "inazumafantasy_u06039100"
 
 [[kit]]
 id = "inazumafantasy_uni_schemer_outfit"  # u06039110, Schemer
@@ -810,23 +810,23 @@ id = "inazumafantasy_uni_justin_shipwood_outfit"  # u06039130, Justin Shipwood
 id = "inazumafantasy_uni_skip_outfit"  # u06039140, Skip
   [[kit.model]]
   type = 0
-  fielder = "u06039140"
-  keeper = "u06039140"
+  fielder = "inazumafantasy_u06039140"
+  keeper = "inazumafantasy_u06039140"
   [[kit.model]]
   type = 1
-  fielder = "u06039140"
-  keeper = "u06039140"
+  fielder = "inazumafantasy_u06039140"
+  keeper = "inazumafantasy_u06039140"
 
 [[kit]]
 id = "inazumafantasy_uni_chip_outfit"  # u06039150, Chip
   [[kit.model]]
   type = 0
-  fielder = "u06039150"
-  keeper = "u06039150"
+  fielder = "inazumafantasy_u06039150"
+  keeper = "inazumafantasy_u06039150"
   [[kit.model]]
   type = 1
-  fielder = "u06039150"
-  keeper = "u06039150"
+  fielder = "inazumafantasy_u06039150"
+  keeper = "inazumafantasy_u06039150"
 
 [[kit]]
 id = "inazumafantasy_uni_cedric_blossom_outfit"  # u06039180, Cedric Blossom
@@ -865,25 +865,25 @@ id = "inazumafantasy_uni_judy_scarriot_outfit"  # u06039200, Judy Scarriot
 id = "inazumafantasy_uni_jasper_lerner_outfit"  # u06039210, Jasper Lerner
   [[kit.model]]
   type = 0
-  fielder = "u06039210"
-  keeper = "u06039210"
+  fielder = "inazumafantasy_u06039210"
+  keeper = "inazumafantasy_u06039210"
   shoes = 0xC9EA5C9B
   [[kit.model]]
   type = 1
-  fielder = "u06039210"
-  keeper = "u06039210"
+  fielder = "inazumafantasy_u06039210"
+  keeper = "inazumafantasy_u06039210"
   shoes = 0xC9EA5C9B
 
 [[kit]]
 id = "inazumafantasy_uni_mabel_lerner_outfit"  # u06039220, Mabel Lerner
   [[kit.model]]
   type = 0
-  fielder = "u06039220"
-  keeper = "u06039220"
+  fielder = "inazumafantasy_u06039220"
+  keeper = "inazumafantasy_u06039220"
   [[kit.model]]
   type = 1
-  fielder = "u06039220"
-  keeper = "u06039220"
+  fielder = "inazumafantasy_u06039220"
+  keeper = "inazumafantasy_u06039220"
 
 [[kit]]
 id = "inazumafantasy_uni_caleb_stonewall_outfit"  # u06039230, Caleb Stonewall
@@ -922,12 +922,12 @@ id = "inazumafantasy_uni_axel_blaze_outfit_1"  # u06039320, Axel Blaze
 id = "inazumafantasy_uni_arculus_orbes_outfit"  # u06039360, Arculus Orbes
   [[kit.model]]
   type = 0
-  fielder = "u06039360"
-  keeper = "u06039360"
+  fielder = "inazumafantasy_u06039360"
+  keeper = "inazumafantasy_u06039360"
   [[kit.model]]
   type = 1
-  fielder = "u06039360"
-  keeper = "u06039360"
+  fielder = "inazumafantasy_u06039360"
+  keeper = "inazumafantasy_u06039360"
 
 [[kit]]
 id = "inazumafantasy_uni_sonny_outfit"  # u07010010, Sonny
@@ -944,56 +944,56 @@ id = "inazumafantasy_uni_sonny_outfit"  # u07010010, Sonny
 id = "inazumafantasy_uni_adriano_outfit"  # u07010030, Adriano
   [[kit.model]]
   type = 0
-  fielder = "u07010030"
-  keeper = "u07010030"
+  fielder = "inazumafantasy_u07010030"
+  keeper = "inazumafantasy_u07010030"
   [[kit.model]]
   type = 1
-  fielder = "u07010030"
-  keeper = "u07010030"
+  fielder = "inazumafantasy_u07010030"
+  keeper = "inazumafantasy_u07010030"
 
 [[kit]]
 id = "inazumafantasy_uni_trevor_outfit"  # u07010080, Trevor
   [[kit.model]]
   type = 0
-  fielder = "u07010080"
-  keeper = "u07010080"
+  fielder = "inazumafantasy_u07010080"
+  keeper = "inazumafantasy_u07010080"
   [[kit.model]]
   type = 1
-  fielder = "u07010080"
-  keeper = "u07010080"
+  fielder = "inazumafantasy_u07010080"
+  keeper = "inazumafantasy_u07010080"
 
 [[kit]]
 id = "inazumafantasy_uni_elliot_outfit"  # u07020010, Elliot
   [[kit.model]]
   type = 0
-  fielder = "u07020010"
-  keeper = "u07020010"
+  fielder = "inazumafantasy_u07020010"
+  keeper = "inazumafantasy_u07020010"
   [[kit.model]]
   type = 1
-  fielder = "u07020010"
-  keeper = "u07020010"
+  fielder = "inazumafantasy_u07020010"
+  keeper = "inazumafantasy_u07020010"
 
 [[kit]]
 id = "inazumafantasy_uni_jude_sharp_outfit_3"  # u07020120, Jude Sharp
   [[kit.model]]
   type = 0
-  fielder = "u07020120"
-  keeper = "u07020120"
+  fielder = "inazumafantasy_u07020120"
+  keeper = "inazumafantasy_u07020120"
   [[kit.model]]
   type = 1
-  fielder = "u07020120"
-  keeper = "u07020120"
+  fielder = "inazumafantasy_u07020120"
+  keeper = "inazumafantasy_u07020120"
 
 [[kit]]
 id = "inazumafantasy_uni_heath_outfit"  # u07030010, Heath
   [[kit.model]]
   type = 0
-  fielder = "u07030010"
-  keeper = "u07030010"
+  fielder = "inazumafantasy_u07030010"
+  keeper = "inazumafantasy_u07030010"
   [[kit.model]]
   type = 1
-  fielder = "u07030010"
-  keeper = "u07030010"
+  fielder = "inazumafantasy_u07030010"
+  keeper = "inazumafantasy_u07030010"
 
 [[kit]]
 id = "inazumafantasy_uni_duske_outfit"  # u07030020, Duske
@@ -1010,24 +1010,24 @@ id = "inazumafantasy_uni_duske_outfit"  # u07030020, Duske
 id = "inazumafantasy_uni_axel_blaze_outfit_2"  # u07050010, Axel Blaze
   [[kit.model]]
   type = 0
-  fielder = "u07050010"
-  keeper = "u07050010"
+  fielder = "inazumafantasy_u07050010"
+  keeper = "inazumafantasy_u07050010"
   [[kit.model]]
   type = 1
-  fielder = "u07050010"
-  keeper = "u07050010"
+  fielder = "inazumafantasy_u07050010"
+  keeper = "inazumafantasy_u07050010"
 
 [[kit]]
 id = "inazumafantasy_uni_silasar_noirmont_outfit"  # u07160500, Silasar Noirmont
   [[kit.model]]
   type = 0
-  fielder = "u07160500"
-  keeper = "u07160500"
+  fielder = "inazumafantasy_u07160500"
+  keeper = "inazumafantasy_u07160500"
   shoes = 0x0D7D63B4
   [[kit.model]]
   type = 1
-  fielder = "u07160500"
-  keeper = "u07160500"
+  fielder = "inazumafantasy_u07160500"
+  keeper = "inazumafantasy_u07160500"
   shoes = 0x0D7D63B4
 
 [[kit]]
@@ -1056,34 +1056,34 @@ id = "inazumafantasy_uni_jimmy_outfit"  # u08060090, Jimmy
 id = "inazumafantasy_uni_alexander_outfit"  # u08090010, Alexander
   [[kit.model]]
   type = 0
-  fielder = "u08090010"
-  keeper = "u08090010"
+  fielder = "inazumafantasy_u08090010"
+  keeper = "inazumafantasy_u08090010"
   [[kit.model]]
   type = 1
-  fielder = "u08090010"
-  keeper = "u08090010"
+  fielder = "inazumafantasy_u08090010"
+  keeper = "inazumafantasy_u08090010"
 
 [[kit]]
 id = "inazumafantasy_uni_clorinda_outfit"  # u08110110, Clorinda
   [[kit.model]]
   type = 0
-  fielder = "u08110110"
-  keeper = "u08110110"
+  fielder = "inazumafantasy_u08110110"
+  keeper = "inazumafantasy_u08110110"
   [[kit.model]]
   type = 1
-  fielder = "u08110110"
-  keeper = "u08110110"
+  fielder = "inazumafantasy_u08110110"
+  keeper = "inazumafantasy_u08110110"
 
 [[kit]]
 id = "inazumafantasy_uni_destin_outfit_1"  # u11010012, Destin
   [[kit.model]]
   type = 0
-  fielder = "u11010012"
-  keeper = "u11010012"
+  fielder = "inazumafantasy_u11010012"
+  keeper = "inazumafantasy_u11010012"
   [[kit.model]]
   type = 1
-  fielder = "u11010012"
-  keeper = "u11010012"
+  fielder = "inazumafantasy_u11010012"
+  keeper = "inazumafantasy_u11010012"
 
 [[kit]]
 id = "inazumafantasy_uni_destin_outfit_2"  # u11010013, Destin
@@ -1102,104 +1102,104 @@ id = "inazumafantasy_uni_destin_outfit_2"  # u11010013, Destin
 id = "inazumafantasy_uni_cade_outfit_1"  # u11010078, Cade
   [[kit.model]]
   type = 0
-  fielder = "u11010078"
-  keeper = "u11010078"
+  fielder = "inazumafantasy_u11010078"
+  keeper = "inazumafantasy_u11010078"
   shoes = 0xFE9261B0
   [[kit.model]]
   type = 1
-  fielder = "u11010078"
-  keeper = "u11010078"
+  fielder = "inazumafantasy_u11010078"
+  keeper = "inazumafantasy_u11010078"
   shoes = 0xFE9261B0
 
 [[kit]]
 id = "inazumafantasy_uni_cade_outfit_2"  # u11010079, Cade
   [[kit.model]]
   type = 0
-  fielder = "u11010079"
-  keeper = "u11010079"
+  fielder = "inazumafantasy_u11010079"
+  keeper = "inazumafantasy_u11010079"
   shoes = 0xEB2DB52D
   [[kit.model]]
   type = 1
-  fielder = "u11010079"
-  keeper = "u11010079"
+  fielder = "inazumafantasy_u11010079"
+  keeper = "inazumafantasy_u11010079"
   shoes = 0xEB2DB52D
 
 [[kit]]
 id = "inazumafantasy_uni_davin_outfit"  # u11010090, Davin
   [[kit.model]]
   type = 0
-  fielder = "u11010090"
-  keeper = "u11010090"
+  fielder = "inazumafantasy_u11010090"
+  keeper = "inazumafantasy_u11010090"
   shoes = 0xD576F6B3
   [[kit.model]]
   type = 1
-  fielder = "u11010090"
-  keeper = "u11010090"
+  fielder = "inazumafantasy_u11010090"
+  keeper = "inazumafantasy_u11010090"
   shoes = 0xD576F6B3
 
 [[kit]]
 id = "inazumafantasy_uni_charis_outfit"  # u11010100, Charis
   [[kit.model]]
   type = 0
-  fielder = "u11010100"
-  keeper = "u11010100"
+  fielder = "inazumafantasy_u11010100"
+  keeper = "inazumafantasy_u11010100"
   shoes = 0xD576F6B3
   [[kit.model]]
   type = 1
-  fielder = "u11010100"
-  keeper = "u11010100"
+  fielder = "inazumafantasy_u11010100"
+  keeper = "inazumafantasy_u11010100"
   shoes = 0xD576F6B3
 
 [[kit]]
 id = "inazumafantasy_uni_charis_benzaie_outfit"  # u11010109, Charis Benzaie
   [[kit.model]]
   type = 0
-  fielder = "u11010109"
-  keeper = "u11010109"
+  fielder = "inazumafantasy_u11010109"
+  keeper = "inazumafantasy_u11010109"
   shoes = 0xA5AE49DD
   [[kit.model]]
   type = 1
-  fielder = "u11010109"
-  keeper = "u11010109"
+  fielder = "inazumafantasy_u11010109"
+  keeper = "inazumafantasy_u11010109"
   shoes = 0xA5AE49DD
 
 [[kit]]
 id = "inazumafantasy_uni_lycus_outfit"  # u11010110, Lycus
   [[kit.model]]
   type = 0
-  fielder = "u11010110"
-  keeper = "u11010110"
+  fielder = "inazumafantasy_u11010110"
+  keeper = "inazumafantasy_u11010110"
   shoes = 0xD576F6B3
   [[kit.model]]
   type = 1
-  fielder = "u11010110"
-  keeper = "u11010110"
+  fielder = "inazumafantasy_u11010110"
+  keeper = "inazumafantasy_u11010110"
   shoes = 0xD576F6B3
 
 [[kit]]
 id = "inazumafantasy_uni_maine_outfit"  # u11010120, Maine
   [[kit.model]]
   type = 0
-  fielder = "u11010120"
-  keeper = "u11010120"
+  fielder = "inazumafantasy_u11010120"
+  keeper = "inazumafantasy_u11010120"
   shoes = 0xD576F6B3
   [[kit.model]]
   type = 1
-  fielder = "u11010120"
-  keeper = "u11010120"
+  fielder = "inazumafantasy_u11010120"
+  keeper = "inazumafantasy_u11010120"
   shoes = 0xD576F6B3
 
 [[kit]]
 id = "inazumafantasy_uni_maine_alsop_outfit"  # u11010129, Maine Alsop
   [[kit.model]]
   type = 0
-  fielder = "u11010129"
-  keeper = "u11010129"
+  fielder = "inazumafantasy_u11010129"
+  keeper = "inazumafantasy_u11010129"
   shoes = 0x97982B5F
   [[kit.model]]
   type = 1
-  fielder = "u11010129"
-  keeper = "u11010129"
+  fielder = "inazumafantasy_u11010129"
+  keeper = "inazumafantasy_u11010129"
   shoes = 0x97982B5F
 
 [[kit]]
@@ -1245,13 +1245,13 @@ id = "inazumafantasy_uni_starla_outfit"  # u11010190, Starla
 id = "inazumafantasy_uni_harper_outfit"  # u11020010, Harper
   [[kit.model]]
   type = 0
-  fielder = "u11020010"
-  keeper = "u11020010"
+  fielder = "inazumafantasy_u11020010"
+  keeper = "inazumafantasy_u11020010"
   shoes = 0x830BD0DF
   [[kit.model]]
   type = 1
-  fielder = "u11020010"
-  keeper = "u11020010"
+  fielder = "inazumafantasy_u11020010"
+  keeper = "inazumafantasy_u11020010"
   shoes = 0x830BD0DF
 
 [[kit]]
@@ -1271,78 +1271,78 @@ id = "inazumafantasy_uni_darian_outfit"  # u11020020, Darian
 id = "inazumafantasy_uni_eleanor_outfit"  # u11020080, Eleanor
   [[kit.model]]
   type = 0
-  fielder = "u11020080"
-  keeper = "u11020080"
+  fielder = "inazumafantasy_u11020080"
+  keeper = "inazumafantasy_u11020080"
   shoes = 0x98BE57B8
   [[kit.model]]
   type = 1
-  fielder = "u11020080"
-  keeper = "u11020080"
+  fielder = "inazumafantasy_u11020080"
+  keeper = "inazumafantasy_u11020080"
   shoes = 0x98BE57B8
 
 [[kit]]
 id = "inazumafantasy_uni_leia_outfit"  # u11020510, Leia
   [[kit.model]]
   type = 0
-  fielder = "u11020510"
-  keeper = "u11020510"
+  fielder = "inazumafantasy_u11020510"
+  keeper = "inazumafantasy_u11020510"
   shoes = 0x85C01234
   [[kit.model]]
   type = 1
-  fielder = "u11020510"
-  keeper = "u11020510"
+  fielder = "inazumafantasy_u11020510"
+  keeper = "inazumafantasy_u11020510"
   shoes = 0x85C01234
 
 [[kit]]
 id = "inazumafantasy_uni_grenson_veteran_outfit"  # u11020520, Grenson Veteran
   [[kit.model]]
   type = 0
-  fielder = "u11020520"
-  keeper = "u11020520"
+  fielder = "inazumafantasy_u11020520"
+  keeper = "inazumafantasy_u11020520"
   shoes = 0xAEED41F7
   [[kit.model]]
   type = 1
-  fielder = "u11020520"
-  keeper = "u11020520"
+  fielder = "inazumafantasy_u11020520"
+  keeper = "inazumafantasy_u11020520"
   shoes = 0xAEED41F7
 
 [[kit]]
 id = "inazumafantasy_uni_nikas_outfit"  # u11030010, Nikas
   [[kit.model]]
   type = 0
-  fielder = "u11030010"
-  keeper = "u11030010"
+  fielder = "inazumafantasy_u11030010"
+  keeper = "inazumafantasy_u11030010"
   shoes = 0xBE6BF96F
   [[kit.model]]
   type = 1
-  fielder = "u11030010"
-  keeper = "u11030010"
+  fielder = "inazumafantasy_u11030010"
+  keeper = "inazumafantasy_u11030010"
   shoes = 0xBE6BF96F
 
 [[kit]]
 id = "inazumafantasy_uni_ivan_outfit_1"  # u11030020, Ivan
   [[kit.model]]
   type = 0
-  fielder = "u11030020"
-  keeper = "u11030020"
+  fielder = "inazumafantasy_u11030020"
+  keeper = "inazumafantasy_u11030020"
   shoes = 0x9546AAAC
   [[kit.model]]
   type = 1
-  fielder = "u11030020"
-  keeper = "u11030020"
+  fielder = "inazumafantasy_u11030020"
+  keeper = "inazumafantasy_u11030020"
   shoes = 0x9546AAAC
 
 [[kit]]
 id = "inazumafantasy_uni_erdem_outfit"  # u11030030, Erdem
   [[kit.model]]
   type = 0
-  fielder = "u11030030"
-  keeper = "u11030030"
+  fielder = "inazumafantasy_u11030030"
+  keeper = "inazumafantasy_u11030030"
   shoes = 0xC873C60B
   [[kit.model]]
   type = 1
-  fielder = "u11030030"
-  keeper = "u11030030"
+  fielder = "inazumafantasy_u11030030"
+  keeper = "inazumafantasy_u11030030"
   shoes = 0xC873C60B
 
 [[kit]]
@@ -1375,39 +1375,39 @@ id = "inazumafantasy_uni_hawky_outfit"  # u11030070, Hawky
 id = "inazumafantasy_uni_peake_fletcher_outfit"  # u11030140, Peake Fletcher
   [[kit.model]]
   type = 0
-  fielder = "u11030140"
-  keeper = "u11030140"
+  fielder = "inazumafantasy_u11030140"
+  keeper = "inazumafantasy_u11030140"
   shoes = 0xC873C60B
   [[kit.model]]
   type = 1
-  fielder = "u11030140"
-  keeper = "u11030140"
+  fielder = "inazumafantasy_u11030140"
+  keeper = "inazumafantasy_u11030140"
   shoes = 0xC873C60B
 
 [[kit]]
 id = "inazumafantasy_uni_sentry_scarborough_outfit"  # u11030150, Sentry Scarborough
   [[kit.model]]
   type = 0
-  fielder = "u11030150"
-  keeper = "u11030150"
+  fielder = "inazumafantasy_u11030150"
+  keeper = "inazumafantasy_u11030150"
   shoes = 0xC873C60B
   [[kit.model]]
   type = 1
-  fielder = "u11030150"
-  keeper = "u11030150"
+  fielder = "inazumafantasy_u11030150"
+  keeper = "inazumafantasy_u11030150"
   shoes = 0xC873C60B
 
 [[kit]]
 id = "inazumafantasy_uni_neil_outfit"  # u11030500, Neil
   [[kit.model]]
   type = 0
-  fielder = "u11030500"
-  keeper = "u11030500"
+  fielder = "inazumafantasy_u11030500"
+  keeper = "inazumafantasy_u11030500"
   shoes = 0xA1BB0AC5
   [[kit.model]]
   type = 1
-  fielder = "u11030500"
-  keeper = "u11030500"
+  fielder = "inazumafantasy_u11030500"
+  keeper = "inazumafantasy_u11030500"
   shoes = 0xA1BB0AC5
 
 [[kit]]
@@ -1466,139 +1466,139 @@ id = "inazumafantasy_uni_yasmin_outfit"  # u11050510, Yasmin
 id = "inazumafantasy_uni_derrin_wilson_outfit"  # u11060500, Derrin Wilson
   [[kit.model]]
   type = 0
-  fielder = "u11060500"
-  keeper = "u11060500"
+  fielder = "inazumafantasy_u11060500"
+  keeper = "inazumafantasy_u11060500"
   shoes = 0x695B85B5
   [[kit.model]]
   type = 1
-  fielder = "u11060500"
-  keeper = "u11060500"
+  fielder = "inazumafantasy_u11060500"
+  keeper = "inazumafantasy_u11060500"
   shoes = 0x695B85B5
 
 [[kit]]
 id = "inazumafantasy_uni_anita_navarro_outfit"  # u11060510, Anita Navarro
   [[kit.model]]
   type = 0
-  fielder = "u11060510"
-  keeper = "u11060510"
+  fielder = "inazumafantasy_u11060510"
+  keeper = "inazumafantasy_u11060510"
   shoes = 0x7040B4F4
   [[kit.model]]
   type = 1
-  fielder = "u11060510"
-  keeper = "u11060510"
+  fielder = "inazumafantasy_u11060510"
+  keeper = "inazumafantasy_u11060510"
   shoes = 0x7040B4F4
 
 [[kit]]
 id = "inazumafantasy_uni_wythers_moonridge_outfit"  # u11070500, Wythers Moonridge
   [[kit.model]]
   type = 0
-  fielder = "u11070500"
-  keeper = "u11070500"
+  fielder = "inazumafantasy_u11070500"
+  keeper = "inazumafantasy_u11070500"
   shoes = 0x543BAC05
   [[kit.model]]
   type = 1
-  fielder = "u11070500"
-  keeper = "u11070500"
+  fielder = "inazumafantasy_u11070500"
+  keeper = "inazumafantasy_u11070500"
   shoes = 0x543BAC05
 
 [[kit]]
 id = "inazumafantasy_uni_mirela_outfit"  # u11070510, Mirela
   [[kit.model]]
   type = 0
-  fielder = "u11070510"
-  keeper = "u11070510"
+  fielder = "inazumafantasy_u11070510"
+  keeper = "inazumafantasy_u11070510"
   shoes = 0x4D209D44
   [[kit.model]]
   type = 1
-  fielder = "u11070510"
-  keeper = "u11070510"
+  fielder = "inazumafantasy_u11070510"
+  keeper = "inazumafantasy_u11070510"
   shoes = 0x4D209D44
 
 [[kit]]
 id = "inazumafantasy_uni_alice_outfit"  # u11080500, Alice
   [[kit.model]]
   type = 0
-  fielder = "u11080500"
-  keeper = "u11080500"
+  fielder = "inazumafantasy_u11080500"
+  keeper = "inazumafantasy_u11080500"
   [[kit.model]]
   type = 1
-  fielder = "u11080500"
-  keeper = "u11080500"
+  fielder = "inazumafantasy_u11080500"
+  keeper = "inazumafantasy_u11080500"
 
 [[kit]]
 id = "inazumafantasy_uni_theobald_longwood_outfit"  # u11090500, Theobald Longwood
   [[kit.model]]
   type = 0
-  fielder = "u11090500"
-  keeper = "u11090500"
+  fielder = "inazumafantasy_u11090500"
+  keeper = "inazumafantasy_u11090500"
   shoes = 0xEB0B1264
   [[kit.model]]
   type = 1
-  fielder = "u11090500"
-  keeper = "u11090500"
+  fielder = "inazumafantasy_u11090500"
+  keeper = "inazumafantasy_u11090500"
   shoes = 0xEB0B1264
 
 [[kit]]
 id = "inazumafantasy_uni_mabel_greenwood_outfit"  # u11090510, Mabel Greenwood
   [[kit.model]]
   type = 0
-  fielder = "u11090510"
-  keeper = "u11090510"
+  fielder = "inazumafantasy_u11090510"
+  keeper = "inazumafantasy_u11090510"
   shoes = 0xF2102325
   [[kit.model]]
   type = 1
-  fielder = "u11090510"
-  keeper = "u11090510"
+  fielder = "inazumafantasy_u11090510"
+  keeper = "inazumafantasy_u11090510"
   shoes = 0xF2102325
 
 [[kit]]
 id = "inazumafantasy_uni_conrado_pottinger_outfit"  # u11100500, Conrado Pottinger
   [[kit.model]]
   type = 0
-  fielder = "u11100500"
-  keeper = "u11100500"
+  fielder = "inazumafantasy_u11100500"
+  keeper = "inazumafantasy_u11100500"
   shoes = 0x2D47A3B0
   [[kit.model]]
   type = 1
-  fielder = "u11100500"
-  keeper = "u11100500"
+  fielder = "inazumafantasy_u11100500"
+  keeper = "inazumafantasy_u11100500"
   shoes = 0x2D47A3B0
 
 [[kit]]
 id = "inazumafantasy_uni_celeste_fairbourne_outfit"  # u11100510, Celeste Fairbourne
   [[kit.model]]
   type = 0
-  fielder = "u11100510"
-  keeper = "u11100510"
+  fielder = "inazumafantasy_u11100510"
+  keeper = "inazumafantasy_u11100510"
   shoes = 0x345C92F1
   [[kit.model]]
   type = 1
-  fielder = "u11100510"
-  keeper = "u11100510"
+  fielder = "inazumafantasy_u11100510"
+  keeper = "inazumafantasy_u11100510"
   shoes = 0x345C92F1
 
 [[kit]]
 id = "inazumafantasy_uni_apia_outfit"  # u11110500, Apia
   [[kit.model]]
   type = 0
-  fielder = "u11110500"
-  keeper = "u11110500"
+  fielder = "inazumafantasy_u11110500"
+  keeper = "inazumafantasy_u11110500"
   [[kit.model]]
   type = 1
-  fielder = "u11110500"
-  keeper = "u11110500"
+  fielder = "inazumafantasy_u11110500"
+  keeper = "inazumafantasy_u11110500"
 
 [[kit]]
 id = "inazumafantasy_uni_melissa_hivewood_outfit"  # u11110510, Melissa Hivewood
   [[kit.model]]
   type = 0
-  fielder = "u11110510"
-  keeper = "u11110510"
+  fielder = "inazumafantasy_u11110510"
+  keeper = "inazumafantasy_u11110510"
   shoes = 0x093CBB41
   [[kit.model]]
   type = 1
-  fielder = "u11110510"
-  keeper = "u11110510"
+  fielder = "inazumafantasy_u11110510"
+  keeper = "inazumafantasy_u11110510"
   shoes = 0x093CBB41
 
 [[kit]]
@@ -1618,156 +1618,156 @@ id = "inazumafantasy_uni_sheila_outfit"  # u11120040, Sheila
 id = "inazumafantasy_uni_joon_outfit_1"  # u11120500_10, Joon
   [[kit.model]]
   type = 0
-  fielder = "u11120500_10"
-  keeper = "u11120500_10"
+  fielder = "inazumafantasy_u11120500_10"
+  keeper = "inazumafantasy_u11120500_10"
   shoes = 0x5787F0D0
   [[kit.model]]
   type = 1
-  fielder = "u11120500_10"
-  keeper = "u11120500_10"
+  fielder = "inazumafantasy_u11120500_10"
+  keeper = "inazumafantasy_u11120500_10"
   shoes = 0x5787F0D0
 
 [[kit]]
 id = "inazumafantasy_uni_joon_outfit_2"  # u11120500_20, Joon
   [[kit.model]]
   type = 0
-  fielder = "u11120500_20"
-  keeper = "u11120500_20"
+  fielder = "inazumafantasy_u11120500_20"
+  keeper = "inazumafantasy_u11120500_20"
   shoes = 0x5787F0D0
   [[kit.model]]
   type = 1
-  fielder = "u11120500_20"
-  keeper = "u11120500_20"
+  fielder = "inazumafantasy_u11120500_20"
+  keeper = "inazumafantasy_u11120500_20"
   shoes = 0x5787F0D0
 
 [[kit]]
 id = "inazumafantasy_uni_daria_outfit"  # u11120510, Daria
   [[kit.model]]
   type = 0
-  fielder = "u11120510"
-  keeper = "u11120510"
+  fielder = "inazumafantasy_u11120510"
+  keeper = "inazumafantasy_u11120510"
   shoes = 0x4E9CC191
   [[kit.model]]
   type = 1
-  fielder = "u11120510"
-  keeper = "u11120510"
+  fielder = "inazumafantasy_u11120510"
+  keeper = "inazumafantasy_u11120510"
   shoes = 0x4E9CC191
 
 [[kit]]
 id = "inazumafantasy_uni_june_outfit"  # u11130010, June
   [[kit.model]]
   type = 0
-  fielder = "u11130010"
-  keeper = "u11130010"
+  fielder = "inazumafantasy_u11130010"
+  keeper = "inazumafantasy_u11130010"
   shoes = 0x75372ACA
   [[kit.model]]
   type = 1
-  fielder = "u11130010"
-  keeper = "u11130010"
+  fielder = "inazumafantasy_u11130010"
+  keeper = "inazumafantasy_u11130010"
   shoes = 0x75372ACA
 
 [[kit]]
 id = "inazumafantasy_uni_deor_rummond_outfit"  # u11130060, Deor Rummond
   [[kit.model]]
   type = 0
-  fielder = "u11130060"
-  keeper = "u11130060"
+  fielder = "inazumafantasy_u11130060"
+  keeper = "inazumafantasy_u11130060"
   shoes = 0x3A76BC0D
   [[kit.model]]
   type = 1
-  fielder = "u11130060"
-  keeper = "u11130060"
+  fielder = "inazumafantasy_u11130060"
+  keeper = "inazumafantasy_u11130060"
   shoes = 0x3A76BC0D
 
 [[kit]]
 id = "inazumafantasy_uni_caius_rushford_outfit"  # u11130090, Caius Rushford
   [[kit.model]]
   type = 0
-  fielder = "u11130090"
-  keeper = "u11130090"
+  fielder = "inazumafantasy_u11130090"
+  keeper = "inazumafantasy_u11130090"
   shoes = 0xBDEEA0C2
   [[kit.model]]
   type = 1
-  fielder = "u11130090"
-  keeper = "u11130090"
+  fielder = "inazumafantasy_u11130090"
+  keeper = "inazumafantasy_u11130090"
   shoes = 0xBDEEA0C2
 
 [[kit]]
 id = "inazumafantasy_uni_noctis_outfit"  # u11130110, Noctis
   [[kit.model]]
   type = 0
-  fielder = "u11130110"
-  keeper = "u11130110"
+  fielder = "inazumafantasy_u11130110"
+  keeper = "inazumafantasy_u11130110"
   shoes = 0x74F540FD
   [[kit.model]]
   type = 1
-  fielder = "u11130110"
-  keeper = "u11130110"
+  fielder = "inazumafantasy_u11130110"
+  keeper = "inazumafantasy_u11130110"
   shoes = 0x74F540FD
 
 [[kit]]
 id = "inazumafantasy_uni_reuben_sidegate_outfit"  # u11130510, Reuben Sidegate
   [[kit.model]]
   type = 0
-  fielder = "u11130510"
-  keeper = "u11130510"
+  fielder = "inazumafantasy_u11130510"
+  keeper = "inazumafantasy_u11130510"
   shoes = 0x73FCE821
   [[kit.model]]
   type = 1
-  fielder = "u11130510"
-  keeper = "u11130510"
+  fielder = "inazumafantasy_u11130510"
+  keeper = "inazumafantasy_u11130510"
   shoes = 0x73FCE821
 
 [[kit]]
 id = "inazumafantasy_uni_julie_outfit"  # u11140500, Julie
   [[kit.model]]
   type = 0
-  fielder = "u11140500"
-  keeper = "u11140500"
+  fielder = "inazumafantasy_u11140500"
+  keeper = "inazumafantasy_u11140500"
   shoes = 0xD8C70570
   [[kit.model]]
   type = 1
-  fielder = "u11140500"
-  keeper = "u11140500"
+  fielder = "inazumafantasy_u11140500"
+  keeper = "inazumafantasy_u11140500"
   shoes = 0xD8C70570
 
 [[kit]]
 id = "inazumafantasy_uni_hopkins_outfit"  # u11140510, Hopkins
   [[kit.model]]
   type = 0
-  fielder = "u11140510"
-  keeper = "u11140510"
+  fielder = "inazumafantasy_u11140510"
+  keeper = "inazumafantasy_u11140510"
   shoes = 0xC1DC3431
   [[kit.model]]
   type = 1
-  fielder = "u11140510"
-  keeper = "u11140510"
+  fielder = "inazumafantasy_u11140510"
+  keeper = "inazumafantasy_u11140510"
   shoes = 0xC1DC3431
 
 [[kit]]
 id = "inazumafantasy_uni_hawke_outfit"  # u11140520, Hawke
   [[kit.model]]
   type = 0
-  fielder = "u11140520"
-  keeper = "u11140520"
+  fielder = "inazumafantasy_u11140520"
+  keeper = "inazumafantasy_u11140520"
   shoes = 0xEAF167F2
   [[kit.model]]
   type = 1
-  fielder = "u11140520"
-  keeper = "u11140520"
+  fielder = "inazumafantasy_u11140520"
+  keeper = "inazumafantasy_u11140520"
   shoes = 0xEAF167F2
 
 [[kit]]
 id = "inazumafantasy_uni_melvin_moodry_outfit"  # u11140530, Melvin Moodry
   [[kit.model]]
   type = 0
-  fielder = "u11140530"
-  keeper = "u11140530"
+  fielder = "inazumafantasy_u11140530"
+  keeper = "inazumafantasy_u11140530"
   shoes = 0xF3EA56B3
   [[kit.model]]
   type = 1
-  fielder = "u11140530"
-  keeper = "u11140530"
+  fielder = "inazumafantasy_u11140530"
+  keeper = "inazumafantasy_u11140530"
   shoes = 0xF3EA56B3
 
 [[kit]]
@@ -1787,13 +1787,13 @@ id = "inazumafantasy_uni_thaddeus_bellefax_outfit"  # u11150120, Thaddeus Bellef
 id = "inazumafantasy_uni_malik_keos_outfit"  # u11150500, Malik Keos
   [[kit.model]]
   type = 0
-  fielder = "u11150500"
-  keeper = "u11150500"
+  fielder = "inazumafantasy_u11150500"
+  keeper = "inazumafantasy_u11150500"
   shoes = 0xE5A72CC0
   [[kit.model]]
   type = 1
-  fielder = "u11150500"
-  keeper = "u11150500"
+  fielder = "inazumafantasy_u11150500"
+  keeper = "inazumafantasy_u11150500"
   shoes = 0xE5A72CC0
 
 [[kit]]
@@ -1813,39 +1813,39 @@ id = "inazumafantasy_uni_mera_henderson_outfit"  # u11150510, Mera Henderson
 id = "inazumafantasy_uni_maynard_giddings_outfit"  # u11160500, Maynard Giddings
   [[kit.model]]
   type = 0
-  fielder = "u11160500"
-  keeper = "u11160500"
+  fielder = "inazumafantasy_u11160500"
+  keeper = "inazumafantasy_u11160500"
   shoes = 0xA2075610
   [[kit.model]]
   type = 1
-  fielder = "u11160500"
-  keeper = "u11160500"
+  fielder = "inazumafantasy_u11160500"
+  keeper = "inazumafantasy_u11160500"
   shoes = 0xA2075610
 
 [[kit]]
 id = "inazumafantasy_uni_helene_justitia_outfit"  # u11170500, Helene Justitia
   [[kit.model]]
   type = 0
-  fielder = "u11170500"
-  keeper = "u11170500"
+  fielder = "inazumafantasy_u11170500"
+  keeper = "inazumafantasy_u11170500"
   shoes = 0x9F677FA0
   [[kit.model]]
   type = 1
-  fielder = "u11170500"
-  keeper = "u11170500"
+  fielder = "inazumafantasy_u11170500"
+  keeper = "inazumafantasy_u11170500"
   shoes = 0x9F677FA0
 
 [[kit]]
 id = "inazumafantasy_uni_soyogi_outfit"  # u11180500, Soyogi
   [[kit.model]]
   type = 0
-  fielder = "u11180500"
-  keeper = "u11180500"
+  fielder = "inazumafantasy_u11180500"
+  keeper = "inazumafantasy_u11180500"
   shoes = 0x1D37E871
   [[kit.model]]
   type = 1
-  fielder = "u11180500"
-  keeper = "u11180500"
+  fielder = "inazumafantasy_u11180500"
+  keeper = "inazumafantasy_u11180500"
   shoes = 0x1D37E871
 
 [[kit]]
@@ -1865,26 +1865,26 @@ id = "inazumafantasy_uni_silica_fieltour_outfit"  # u11180510, Silica Fieltour
 id = "inazumafantasy_uni_clifford_chillard_outfit"  # u11190500, Clifford Chillard
   [[kit.model]]
   type = 0
-  fielder = "u11190500"
-  keeper = "u11190500"
+  fielder = "inazumafantasy_u11190500"
+  keeper = "inazumafantasy_u11190500"
   shoes = 0x2057C1C1
   [[kit.model]]
   type = 1
-  fielder = "u11190500"
-  keeper = "u11190500"
+  fielder = "inazumafantasy_u11190500"
+  keeper = "inazumafantasy_u11190500"
   shoes = 0x2057C1C1
 
 [[kit]]
 id = "inazumafantasy_uni_hurley_outfit"  # u11200500, Hurley
   [[kit.model]]
   type = 0
-  fielder = "u11200500"
-  keeper = "u11200500"
+  fielder = "inazumafantasy_u11200500"
+  keeper = "inazumafantasy_u11200500"
   shoes = 0xABD3D11E
   [[kit.model]]
   type = 1
-  fielder = "u11200500"
-  keeper = "u11200500"
+  fielder = "inazumafantasy_u11200500"
+  keeper = "inazumafantasy_u11200500"
   shoes = 0xABD3D11E
 
 [[kit]]
@@ -1904,26 +1904,26 @@ id = "inazumafantasy_uni_muriela_stone_outfit"  # u11210510, Muriela Stone
 id = "inazumafantasy_uni_boulder_vargan_outfit"  # u11220500, Boulder Vargan
   [[kit.model]]
   type = 0
-  fielder = "u11220500"
-  keeper = "u11220500"
+  fielder = "inazumafantasy_u11220500"
+  keeper = "inazumafantasy_u11220500"
   shoes = 0x6827E07B
   [[kit.model]]
   type = 1
-  fielder = "u11220500"
-  keeper = "u11220500"
+  fielder = "inazumafantasy_u11220500"
+  keeper = "inazumafantasy_u11220500"
   shoes = 0x6827E07B
 
 [[kit]]
 id = "inazumafantasy_uni_wolter_kruzsk_outfit"  # u11220510, Wolter Kruzsk
   [[kit.model]]
   type = 0
-  fielder = "u11220510"
-  keeper = "u11220510"
+  fielder = "inazumafantasy_u11220510"
+  keeper = "inazumafantasy_u11220510"
   shoes = 0xC808B33F
   [[kit.model]]
   type = 1
-  fielder = "u11220510"
-  keeper = "u11220510"
+  fielder = "inazumafantasy_u11220510"
+  keeper = "inazumafantasy_u11220510"
   shoes = 0xC808B33F
 
 [[kit]]
@@ -1943,91 +1943,91 @@ id = "inazumafantasy_uni_lindalyn_outfit"  # u11230010, Lindalyn
 id = "inazumafantasy_uni_elaine_outfit_1"  # u11500010, Elaine
   [[kit.model]]
   type = 0
-  fielder = "u11500010"
-  keeper = "u11500010"
+  fielder = "inazumafantasy_u11500010"
+  keeper = "inazumafantasy_u11500010"
   shoes = 0xA906120C
   [[kit.model]]
   type = 1
-  fielder = "u11500010"
-  keeper = "u11500010"
+  fielder = "inazumafantasy_u11500010"
+  keeper = "inazumafantasy_u11500010"
   shoes = 0xA906120C
 
 [[kit]]
 id = "inazumafantasy_uni_elaine_outfit_2"  # u11500019, Elaine
   [[kit.model]]
   type = 0
-  fielder = "u11500019"
-  keeper = "u11500019"
+  fielder = "inazumafantasy_u11500019"
+  keeper = "inazumafantasy_u11500019"
   shoes = 0xD0DAAAA8
   [[kit.model]]
   type = 1
-  fielder = "u11500019"
-  keeper = "u11500019"
+  fielder = "inazumafantasy_u11500019"
+  keeper = "inazumafantasy_u11500019"
   shoes = 0xD0DAAAA8
 
 [[kit]]
 id = "inazumafantasy_uni_rina_outfit"  # u11500050, Rina
   [[kit.model]]
   type = 0
-  fielder = "u11500050"
-  keeper = "u11500050"
+  fielder = "inazumafantasy_u11500050"
+  keeper = "inazumafantasy_u11500050"
   shoes = 0xCD6AD708
   [[kit.model]]
   type = 1
-  fielder = "u11500050"
-  keeper = "u11500050"
+  fielder = "inazumafantasy_u11500050"
+  keeper = "inazumafantasy_u11500050"
   shoes = 0xCD6AD708
 
 [[kit]]
 id = "inazumafantasy_uni_aniki_outfit"  # u11500060, Aniki
   [[kit.model]]
   type = 0
-  fielder = "u11500060"
-  keeper = "u11500060"
+  fielder = "inazumafantasy_u11500060"
+  keeper = "inazumafantasy_u11500060"
   shoes = 0xE64784CB
   [[kit.model]]
   type = 1
-  fielder = "u11500060"
-  keeper = "u11500060"
+  fielder = "inazumafantasy_u11500060"
+  keeper = "inazumafantasy_u11500060"
   shoes = 0xE64784CB
 
 [[kit]]
 id = "inazumafantasy_uni_berg_outfit"  # u11500070, Berg
   [[kit.model]]
   type = 0
-  fielder = "u11500070"
-  keeper = "u11500070"
+  fielder = "inazumafantasy_u11500070"
+  keeper = "inazumafantasy_u11500070"
   shoes = 0xFF5CB58A
   [[kit.model]]
   type = 1
-  fielder = "u11500070"
-  keeper = "u11500070"
+  fielder = "inazumafantasy_u11500070"
+  keeper = "inazumafantasy_u11500070"
   shoes = 0xFF5CB58A
 
 [[kit]]
 id = "inazumafantasy_uni_brandt_outfit"  # u11500080, Brandt
   [[kit.model]]
   type = 0
-  fielder = "u11500080"
-  keeper = "u11500080"
+  fielder = "inazumafantasy_u11500080"
+  keeper = "inazumafantasy_u11500080"
   shoes = 0x78C4A945
   [[kit.model]]
   type = 1
-  fielder = "u11500080"
-  keeper = "u11500080"
+  fielder = "inazumafantasy_u11500080"
+  keeper = "inazumafantasy_u11500080"
   shoes = 0x78C4A945
 
 [[kit]]
 id = "inazumafantasy_uni_goldy_outfit"  # u11500090, Goldy
   [[kit.model]]
   type = 0
-  fielder = "u11500090"
-  keeper = "u11500090"
+  fielder = "inazumafantasy_u11500090"
+  keeper = "inazumafantasy_u11500090"
   shoes = 0x61DF9804
   [[kit.model]]
   type = 1
-  fielder = "u11500090"
-  keeper = "u11500090"
+  fielder = "inazumafantasy_u11500090"
+  keeper = "inazumafantasy_u11500090"
   shoes = 0x61DF9804
 
 [[kit]]
@@ -2060,13 +2060,13 @@ id = "inazumafantasy_uni_verity_outfit"  # u11500120, Verity
 id = "inazumafantasy_uni_verity_billows_outfit"  # u11500121, Verity Billows
   [[kit.model]]
   type = 0
-  fielder = "u11500121"
-  keeper = "u11500121"
+  fielder = "inazumafantasy_u11500121"
+  keeper = "inazumafantasy_u11500121"
   shoes = 0xF4EE1B6E
   [[kit.model]]
   type = 1
-  fielder = "u11500121"
-  keeper = "u11500121"
+  fielder = "inazumafantasy_u11500121"
+  keeper = "inazumafantasy_u11500121"
   shoes = 0xF4EE1B6E
 
 [[kit]]
@@ -2138,50 +2138,50 @@ id = "inazumafantasy_uni_donnie_outfit"  # u11500180, Donnie
 id = "inazumafantasy_uni_benjamin_tibault_outfit"  # u11500200, Benjamin Tibault
   [[kit.model]]
   type = 0
-  fielder = "u11500200"
-  keeper = "u11500200"
+  fielder = "inazumafantasy_u11500200"
+  keeper = "inazumafantasy_u11500200"
   shoes = 0xB399F723
   [[kit.model]]
   type = 1
-  fielder = "u11500200"
-  keeper = "u11500200"
+  fielder = "inazumafantasy_u11500200"
+  keeper = "inazumafantasy_u11500200"
   shoes = 0xB399F723
 
 [[kit]]
 id = "inazumafantasy_uni_lorien_outfit"  # u11500210, Lorien
   [[kit.model]]
   type = 0
-  fielder = "u11500210"
-  keeper = "u11500210"
+  fielder = "inazumafantasy_u11500210"
+  keeper = "inazumafantasy_u11500210"
   shoes = 0xAA82C662
   [[kit.model]]
   type = 1
-  fielder = "u11500210"
-  keeper = "u11500210"
+  fielder = "inazumafantasy_u11500210"
+  keeper = "inazumafantasy_u11500210"
   shoes = 0xAA82C662
 
 [[kit]]
 id = "inazumafantasy_uni_huxley_tagg_outfit"  # u11500240, Huxley Tagg
   [[kit.model]]
   type = 0
-  fielder = "u11500240"
-  keeper = "u11500240"
+  fielder = "inazumafantasy_u11500240"
+  keeper = "inazumafantasy_u11500240"
   [[kit.model]]
   type = 1
-  fielder = "u11500240"
-  keeper = "u11500240"
+  fielder = "inazumafantasy_u11500240"
+  keeper = "inazumafantasy_u11500240"
 
 [[kit]]
 id = "inazumafantasy_uni_mark_evans_outfit_2"  # u11500500, Mark Evans
   [[kit.model]]
   type = 0
-  fielder = "u11500500"
-  keeper = "u11500500"
+  fielder = "inazumafantasy_u11500500"
+  keeper = "inazumafantasy_u11500500"
   shoes = 0xB6D6E1A6
   [[kit.model]]
   type = 1
-  fielder = "u11500500"
-  keeper = "u11500500"
+  fielder = "inazumafantasy_u11500500"
+  keeper = "inazumafantasy_u11500500"
   shoes = 0xB6D6E1A6
 
 [[kit]]
@@ -2214,65 +2214,65 @@ id = "inazumafantasy_uni_jude_sharp_outfit_4"  # u11500520, Jude Sharp
 id = "inazumafantasy_uni_eshin_outfit"  # u11500680, eshin
   [[kit.model]]
   type = 0
-  fielder = "u11500680"
-  keeper = "u11500680"
+  fielder = "inazumafantasy_u11500680"
+  keeper = "inazumafantasy_u11500680"
   shoes = 0x7C49D5F7
   [[kit.model]]
   type = 1
-  fielder = "u11500680"
-  keeper = "u11500680"
+  fielder = "inazumafantasy_u11500680"
+  keeper = "inazumafantasy_u11500680"
   shoes = 0x7C49D5F7
 
 [[kit]]
 id = "inazumafantasy_uni_olive_outfit"  # u11500690, Olive
   [[kit.model]]
   type = 0
-  fielder = "u11500690"
-  keeper = "u11500690"
+  fielder = "inazumafantasy_u11500690"
+  keeper = "inazumafantasy_u11500690"
   shoes = 0x6552E4B6
   [[kit.model]]
   type = 1
-  fielder = "u11500690"
-  keeper = "u11500690"
+  fielder = "inazumafantasy_u11500690"
+  keeper = "inazumafantasy_u11500690"
   shoes = 0x6552E4B6
 
 [[kit]]
 id = "inazumafantasy_uni_caelum_outfit"  # u11500860, Caelum
   [[kit.model]]
   type = 0
-  fielder = "u11500860"
-  keeper = "u11500860"
+  fielder = "inazumafantasy_u11500860"
+  keeper = "inazumafantasy_u11500860"
   shoes = 0xE854D573
   [[kit.model]]
   type = 1
-  fielder = "u11500860"
-  keeper = "u11500860"
+  fielder = "inazumafantasy_u11500860"
+  keeper = "inazumafantasy_u11500860"
   shoes = 0xE854D573
 
 [[kit]]
 id = "inazumafantasy_uni_diane_chantry_outfit"  # u11500890, Diane Chantry
   [[kit.model]]
   type = 0
-  fielder = "u11500890"
-  keeper = "u11500890"
+  fielder = "inazumafantasy_u11500890"
+  keeper = "inazumafantasy_u11500890"
   shoes = 0x6FCCC9BC
   [[kit.model]]
   type = 1
-  fielder = "u11500890"
-  keeper = "u11500890"
+  fielder = "inazumafantasy_u11500890"
+  keeper = "inazumafantasy_u11500890"
   shoes = 0x6FCCC9BC
 
 [[kit]]
 id = "inazumafantasy_uni_fergus_lougdon_outfit"  # u11500900, Fergus Lougdon
   [[kit.model]]
   type = 0
-  fielder = "u11500900"
-  keeper = "u11500900"
+  fielder = "inazumafantasy_u11500900"
+  keeper = "inazumafantasy_u11500900"
   shoes = 0xD576F6B3
   [[kit.model]]
   type = 1
-  fielder = "u11500900"
-  keeper = "u11500900"
+  fielder = "inazumafantasy_u11500900"
+  keeper = "inazumafantasy_u11500900"
   shoes = 0xD576F6B3
 
 [[kit]]
@@ -2303,52 +2303,52 @@ id = "inazumafantasy_uni_psyred_outfit"  # u11500940, PsyRed
 id = "inazumafantasy_uni_victorio_cryptix_outfit_1"  # u11600010, Victorio Cryptix
   [[kit.model]]
   type = 0
-  fielder = "u11600010"
-  keeper = "u11600010"
+  fielder = "inazumafantasy_u11600010"
+  keeper = "inazumafantasy_u11600010"
   shoes = 0x2F9260A2
   [[kit.model]]
   type = 1
-  fielder = "u11600010"
-  keeper = "u11600010"
+  fielder = "inazumafantasy_u11600010"
+  keeper = "inazumafantasy_u11600010"
   shoes = 0x2F9260A2
 
 [[kit]]
 id = "inazumafantasy_uni_fei_rune_outfit_1"  # u11600020, Fei Rune
   [[kit.model]]
   type = 0
-  fielder = "u11600020"
-  keeper = "u11600020"
+  fielder = "inazumafantasy_u11600020"
+  keeper = "inazumafantasy_u11600020"
   shoes = 0x04BF3361
   [[kit.model]]
   type = 1
-  fielder = "u11600020"
-  keeper = "u11600020"
+  fielder = "inazumafantasy_u11600020"
+  keeper = "inazumafantasy_u11600020"
   shoes = 0x04BF3361
 
 [[kit]]
 id = "inazumafantasy_uni_fei_rune_outfit_2"  # u11600021, Fei Rune
   [[kit.model]]
   type = 0
-  fielder = "u11600021"
-  keeper = "u11600021"
+  fielder = "inazumafantasy_u11600021"
+  keeper = "inazumafantasy_u11600021"
   shoes = 0x73B803F7
   [[kit.model]]
   type = 1
-  fielder = "u11600021"
-  keeper = "u11600021"
+  fielder = "inazumafantasy_u11600021"
+  keeper = "inazumafantasy_u11600021"
   shoes = 0x73B803F7
 
 [[kit]]
 id = "inazumafantasy_uni_zanark_avalonic_outfit"  # u11600030, Zanark Avalonic
   [[kit.model]]
   type = 0
-  fielder = "u11600030"
-  keeper = "u11600030"
+  fielder = "inazumafantasy_u11600030"
+  keeper = "inazumafantasy_u11600030"
   shoes = 0x1DA40220
   [[kit.model]]
   type = 1
-  fielder = "u11600030"
-  keeper = "u11600030"
+  fielder = "inazumafantasy_u11600030"
+  keeper = "inazumafantasy_u11600030"
   shoes = 0x1DA40220
 
 [[kit]]
@@ -2368,36 +2368,36 @@ id = "inazumafantasy_uni_cross_word_cryptix_outfit"  # u11600041, Cross Word Cry
 id = "inazumafantasy_uni_master_goverm_outfit"  # u11600070, Master Goverm
   [[kit.model]]
   type = 0
-  fielder = "u11600070"
-  keeper = "u11600070"
+  fielder = "inazumafantasy_u11600070"
+  keeper = "inazumafantasy_u11600070"
   shoes = 0x79C8C724
   [[kit.model]]
   type = 1
-  fielder = "u11600070"
-  keeper = "u11600070"
+  fielder = "inazumafantasy_u11600070"
+  keeper = "inazumafantasy_u11600070"
   shoes = 0x79C8C724
 
 [[kit]]
 id = "inazumafantasy_uni_victorio_cryptix_outfit_2"  # u11600110, Victorio Cryptix
   [[kit.model]]
   type = 0
-  fielder = "u11600110"
-  keeper = "u11600110"
+  fielder = "inazumafantasy_u11600110"
+  keeper = "inazumafantasy_u11600110"
   [[kit.model]]
   type = 1
-  fielder = "u11600110"
-  keeper = "u11600110"
+  fielder = "inazumafantasy_u11600110"
+  keeper = "inazumafantasy_u11600110"
 
 [[kit]]
 id = "inazumafantasy_uni_lumina_outfit"  # u11600120, Lumina
   [[kit.model]]
   type = 0
-  fielder = "u11600120"
-  keeper = "u11600120"
+  fielder = "inazumafantasy_u11600120"
+  keeper = "inazumafantasy_u11600120"
   [[kit.model]]
   type = 1
-  fielder = "u11600120"
-  keeper = "u11600120"
+  fielder = "inazumafantasy_u11600120"
+  keeper = "inazumafantasy_u11600120"
 
 [[kit]]
 id = "inazumafantasy_uni_david_evans_outfit_2"  # u11801010, David Evans
@@ -2755,12 +2755,12 @@ id = "inazumafantasy_uni_longjohn_silver_outfit"  # u11804040, Longjohn Silver
 id = "inazumafantasy_uni_nelly_outfit_3"  # u11807240, Nelly
   [[kit.model]]
   type = 0
-  fielder = "u11807240"
-  keeper = "u11807240"
+  fielder = "inazumafantasy_u11807240"
+  keeper = "inazumafantasy_u11807240"
   [[kit.model]]
   type = 1
-  fielder = "u11807240"
-  keeper = "u11807240"
+  fielder = "inazumafantasy_u11807240"
+  keeper = "inazumafantasy_u11807240"
 
 [[kit]]
 id = "inazumafantasy_uni_silvia_outfit_2"  # u11807260, Silvia
@@ -2777,12 +2777,12 @@ id = "inazumafantasy_uni_silvia_outfit_2"  # u11807260, Silvia
 id = "inazumafantasy_uni_zak_outfit"  # u11901090, Zak
   [[kit.model]]
   type = 0
-  fielder = "u11901090"
-  keeper = "u11901090"
+  fielder = "inazumafantasy_u11901090"
+  keeper = "inazumafantasy_u11901090"
   [[kit.model]]
   type = 1
-  fielder = "u11901090"
-  keeper = "u11901090"
+  fielder = "inazumafantasy_u11901090"
+  keeper = "inazumafantasy_u11901090"
 
 [[kit]]
 id = "inazumafantasy_uni_astram_b_schiller_outfit"  # u11902060, Astram B. Schiller
@@ -2821,23 +2821,23 @@ id = "inazumafantasy_uni_sonny_raimon_outfit"  # u11902080, Sonny Raimon
 id = "inazumafantasy_uni_xavier_foster_outfit"  # u11902340, Xavier Foster
   [[kit.model]]
   type = 0
-  fielder = "u11902340"
-  keeper = "u11902340"
+  fielder = "inazumafantasy_u11902340"
+  keeper = "inazumafantasy_u11902340"
   [[kit.model]]
   type = 1
-  fielder = "u11902340"
-  keeper = "u11902340"
+  fielder = "inazumafantasy_u11902340"
+  keeper = "inazumafantasy_u11902340"
 
 [[kit]]
 id = "inazumafantasy_uni_shawn_froste_outfit_2"  # u11902350, Shawn Froste
   [[kit.model]]
   type = 0
-  fielder = "u11902350"
-  keeper = "u11902350"
+  fielder = "inazumafantasy_u11902350"
+  keeper = "inazumafantasy_u11902350"
   [[kit.model]]
   type = 1
-  fielder = "u11902350"
-  keeper = "u11902350"
+  fielder = "inazumafantasy_u11902350"
+  keeper = "inazumafantasy_u11902350"
 
 [[kit]]
 id = "inazumafantasy_uni_gregory_smith_outfit"  # u11903020, Gregory Smith
@@ -2887,13 +2887,13 @@ id = "inazumafantasy_uni_mrs_han_outfit"  # u11904020, Mrs Han
 id = "inazumafantasy_uni_othello_go_outfit"  # u11904030, Othello Go
   [[kit.model]]
   type = 0
-  fielder = "u11904030"
-  keeper = "u11904030"
+  fielder = "inazumafantasy_u11904030"
+  keeper = "inazumafantasy_u11904030"
   shoes = 0x639027A2
   [[kit.model]]
   type = 1
-  fielder = "u11904030"
-  keeper = "u11904030"
+  fielder = "inazumafantasy_u11904030"
+  keeper = "inazumafantasy_u11904030"
   shoes = 0x639027A2
 
 [[kit]]
@@ -2955,9 +2955,9 @@ id = "inazumafantasy_uni_truman_outfit"  # u11908060, Truman
 id = "inazumafantasy_uni_chesney_horse_outfit"  # u11908080, Chesney Horse
   [[kit.model]]
   type = 0
-  fielder = "u11908080"
-  keeper = "u11908080"
+  fielder = "inazumafantasy_u11908080"
+  keeper = "inazumafantasy_u11908080"
   [[kit.model]]
   type = 1
-  fielder = "u11908080"
-  keeper = "u11908080"
+  fielder = "inazumafantasy_u11908080"
+  keeper = "inazumafantasy_u11908080"

@@ -1,0 +1,62 @@
+schema = "VRFW.technique/3"
+default_lang = "none"
+
+# A «Crítico» archetype passive: a critical shot of the team keeps 15 % more power after it beats a field player's block
+# (the effect: content\special_passives\critical_build.toml). Built like the game's ps10053 (category 6 = the build 0
+# passives, team target, the buff icon 4, build icon 0); the timing 951 leaves the effect to the passive engine.
+[[passive_effect_def]]
+key = "hissatsu_reforged_critical_break_through_effect"
+info = [6, 0, 0]
+entries = [
+  ["EXEC_TIMING_DATA", 951],
+  ["TARGET_DATA", 4],
+  ["EXEC_DATA", 1, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A],
+  ["EFFECT_DATA_LIST_BEG", 1],
+  ["EFFECT_DATA", 0x713C7D84, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A],
+  ["EFFECT_DATA_LIST_END"],
+  ["GRAND_TOTAL_INFO", 0xCCF9CDC7, 101, 30],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA_LIST_BEG", 1],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA", 4],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA_LIST_END"],
+  ["GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA_LIST_BEG", 1],
+  ["GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA", 0],
+  ["GRAND_TOTAL_INFO_BUILD_TYPE_ICON_DATA_LIST_END"],
+]
+
+# effects: the definition above (crc32 of its key) and the value the texts show as <VALUE>
+[[passive]]
+key = "hissatsu_reforged_critical_break_through"
+from = "ps10053"
+cells = { desc_text = 0x0611075C }
+effects = [[0x3FBD6C3E, 15, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A]]
+
+# the passive's text (id = crc32 of "hissatsu_reforged_critical_break_through_desc")
+[[text]]
+id = 0x0611075C
+kind = "noun"
+add = true
+es = "Tiro crítico que supera un bloqueo: \\npotencia conservada [CPASSIVE01]+<VALUE> %[C]"
+en = "Critical shot that beats a block: \\npower kept [CPASSIVE01]+<VALUE>%[C]"
+fr = "Tir critique qui passe un blocage : \\npuissance conservée [CPASSIVE01]+<VALUE> %[C]"
+de = "Kritischer Schuss, der einen Block überwindet: \\nerhaltene Kraft [CPASSIVE01]+<VALUE> %[C]"
+it = "Tiro critico che supera un contrasto: \\npotenza conservata [CPASSIVE01]+<VALUE>%[C]"
+pt = "Chute crítico que supera um bloqueio: \\npotência mantida [CPASSIVE01]+<VALUE>%[C]"
+ja = "ブロックを[突破/とっぱ]したクリティカルシュートの\\n[残/のこ]り[威力/いりょく][CPASSIVE01]＋<VALUE>％[C]"
+zh_hans = "突破阻挡的暴击射门，保留威力[CPASSIVE01]+<VALUE>%[C]"
+zh_hant = "突破阻擋的暴擊射門，保留威力[CPASSIVE01]+<VALUE>%[C]"
+
+# the effect's name in the «Habilidades pasivas» filter and the team passive summary (GRAND_TOTAL_INFO text,
+# id = crc32 of "hissatsu_reforged_critical_break_through_total")
+[[text]]
+id = 0xCCF9CDC7
+kind = "noun"
+add = true
+es = "Tiro crítico que supera un bloqueo: \\npotencia conservada <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO>"
+en = "Critical shot that beats a block: \\npower kept <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO>"
+fr = "Tir critique qui passe un blocage : \\npuissance conservée <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO>"
+de = "Kritischer Schuss, der einen Block überwindet: \\nerhaltene Kraft <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO>"
+it = "Tiro critico che supera un contrasto: \\npotenza conservata <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO>"
+pt = "Chute crítico que supera um bloqueio: \\npotência mantida <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO>"
+ja = "ブロックを[突破/とっぱ]したクリティカルシュートの\\n[残/のこ]り[威力/いりょく]<PASSIVE_COLOR>＋<VALUE>％[C]<OVER_PASSIVE_INFO>"
+zh_hans = "突破阻挡的暴击射门，保留威力<PASSIVE_COLOR>+<VALUE>%[C]<OVER_PASSIVE_INFO>"
+zh_hant = "突破阻擋的暴擊射門，保留威力<PASSIVE_COLOR>+<VALUE>%[C]<OVER_PASSIVE_INFO>"

@@ -130,3 +130,10 @@ allow = []
 file = "vrmod_files.lua"
 budget = 2000000
 memory_kb = 16384
+
+# Answers the rarity key of config.toml [hero_style] (the hero style selector).
+[[script]]
+file = "hero_style.lua"
+budget = 100000
+memory_kb = 2048
+allow = []

@@ -34,7 +34,7 @@ moves = [
 [[edit]]
 target = "c04003700_5000"                              # Tezcat
 moves = [
-  { move = 0xEC78BBC6, level = 1 },                         # Black Ash
+  { move = 0xEC78BBC6, level = 15 },                        # Black Ash
   { move = 0xC9BAEA82, level = 30 },                        # Eye of the Storm
   { move = 0xA2BF7076, level = 48 },                        # Side Swipe
   { move = 0x0E4E083A, level = 74 },                        # Zero Magnum
@@ -48,7 +48,7 @@ moves = [
 [[edit]]
 target = "c04003700_5100"                              # Tezcat
 moves = [
-  { move = 0xEC78BBC6, level = 1 },                         # Black Ash
+  { move = 0xEC78BBC6, level = 15 },                        # Black Ash
   { move = 0xC9BAEA82, level = 30 },                        # Eye of the Storm
   { move = 0xA2BF7076, level = 48 },                        # Side Swipe
   { move = 0x0E4E083A, level = 74 },                        # Zero Magnum
@@ -62,7 +62,7 @@ moves = [
 [[edit]]
 target = "c04003710_5000"                              # Yang
 moves = [
-  { move = 0x0C08B663, level = 1 },                         # Doom Dive Drive
+  { move = 0x0C08B663, level = 7 },                         # Doom Dive Drive
   { move = 0xDA3FF6C9, level = 27 },                        # Criss-Cross
   { move = 0x19C3F43D, level = 55 },                        # Eternal Blizzard
   { move = 0x3297683F, level = 56 },                        # Warp Step
@@ -77,7 +77,7 @@ moves = [
 [[edit]]
 target = "c04003610"                                   # Nero Night
 moves = [
-  { move = 0x4AF2F3E2, level = 1 },                         # Bridge to Nowhere
+  { move = 0x4AF2F3E2, level = 6 },                         # Bridge to Nowhere
   { move = 0xDF2D9951, level = 52 },                        # Close Counter
   { move = 0x536C5E5D, level = 53 },                        # Volcano Head
   { move = 0x06B22DB5, level = 54 },                        # Gyro-Blocker
@@ -92,10 +92,10 @@ moves = [
 [[edit]]
 target = "c04003620"                                   # Morris Moore
 moves = [
-  { move = 0xA2BF7076, level = 1 },                         # Side Swipe
+  { move = 0xA2BF7076, level = 10 },                        # Side Swipe
   { move = 0x17110E3B, level = 18 },                        # Jumbo Sandwich
+  { move = 0x78218C02, level = 38 },                        # Duskfall
   { move = 0x414BA9BD, level = 53 },                        # Pincer Pinch
-  { move = 0x78218C02, level = 63 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -108,7 +108,7 @@ moves = [
 [[edit]]
 target = "c04003630"                                   # Jet Onyx
 moves = [
-  { move = 0xA2BF7076, level = 1 },                         # Side Swipe
+  { move = 0xA2BF7076, level = 12 },                        # Side Swipe
   { move = 0x0BFD4D80, level = 19 },                        # Grand Slam
   { move = 0xE196F1D1, level = 22 },                        # Burning Bomb
   { move = 0x4E9A9232, level = 44 },                        # Spinning Cut
@@ -124,7 +124,7 @@ moves = [
 [[edit]]
 target = "c04003640"                                   # Cole Ebony
 moves = [
-  { move = 0xA2BF7076, level = 1 },                         # Side Swipe
+  { move = 0xA2BF7076, level = 11 },                        # Side Swipe
   { move = 0x0C08B663, level = 21 },                        # Doom Dive Drive
   { move = 0x93885A64, level = 48 },                        # Fire Drill
   { move = 0xD0A1DBC3, level = 56 },                        # Bungee Ball Burst
@@ -139,7 +139,7 @@ moves = [
 [[edit]]
 target = "c04003650"                                   # Blake Obscura
 moves = [
-  { move = 0x0E0A3F7A, level = 1 },                         # Spatial Portal
+  { move = 0x0E0A3F7A, level = 6 },                         # Spatial Portal
   { move = 0xAC91D94F, level = 14 },                        # Major Miner
   { move = 0xC324C788, level = 26 },                        # Blast Mine
   { move = 0x04941270, level = 59 },                        # Vac Attack
@@ -174,7 +174,7 @@ moves = [
 [[edit]]
 target = "c04003670"                                   # Goth Grimshaw
 moves = [
-  { move = 0x3297683F, level = 1 },                         # Warp Step
+  { move = 0x3297683F, level = 13 },                        # Warp Step
   { move = 0xBBA44137, level = 27 },                        # Great Wall
   { move = 0xB0F8060A, level = 55 },                        # Ozone Flayer
   { move = 0x141046AB, level = 60 },                        # Overnight Fortress
@@ -230,7 +230,7 @@ target = "c04003700"                                   # Tezcat
   growth = "normal"
   stats = { kick = 333, control = 254, technique = 279, pressure = 221, physical = 163, intelligence = 240, agility = 158, freedom = 209 }
   moves = [
-    { move = 0xEC78BBC6, level = 1 },                       # Black Ash
+    { move = 0xEC78BBC6, level = 15 },                      # Black Ash
     { move = 0xC9BAEA82, level = 30 },                      # Eye of the Storm
     { move = 0xA2BF7076, level = 48 },                      # Side Swipe
     { move = 0x0E4E083A, level = 74 },                      # Zero Magnum
@@ -244,7 +244,7 @@ target = "c04003700"                                   # Tezcat
 [[edit]]
 target = "c04003710"                                   # Yang
 moves = [
-  { move = 0x0C08B663, level = 1 },                         # Doom Dive Drive
+  { move = 0x0C08B663, level = 7 },                         # Doom Dive Drive
   { move = 0xDA3FF6C9, level = 27 },                        # Criss-Cross
   { move = 0x19C3F43D, level = 55 },                        # Eternal Blizzard
   { move = 0x3297683F, level = 56 },                        # Warp Step

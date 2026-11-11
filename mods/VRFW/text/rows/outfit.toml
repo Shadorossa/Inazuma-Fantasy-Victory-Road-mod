@@ -63,3 +63,16 @@ pt = "Uniforme da carta"
 ja = "カードのユニフォーム"
 zh_hans = "卡牌球衣"
 zh_hant = "卡牌球衣"
+
+# Window shown when an outfit the shown player may not wear is chosen in the equipment picker.
+[[row]]
+id = "vrfw_outfit_cannot_wear"
+es = "Este jugador no cumple los requisitos para llevar este atuendo."
+en = "This player does not meet the requirements to wear this outfit."
+fr = "Ce joueur ne remplit pas les conditions pour porter cette tenue."
+de = "Dieser Spieler erfüllt die Voraussetzungen für dieses Outfit nicht."
+it = "Questo giocatore non soddisfa i requisiti per indossare questa tenuta."
+pt = "Este jogador não cumpre os requisitos para usar este traje."
+ja = "この選手は、このコスチュームの着用条件を満たしていません。"
+zh_hans = "该球员不符合穿着这件服装的条件。"
+zh_hant = "該球員不符合穿著這件服裝的條件。"

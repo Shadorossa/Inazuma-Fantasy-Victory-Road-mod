@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11500400"                                   # Fitzbon Vivant
 moves = [
-  { move = 0x2CFC3E63, level = 1 },                         # Dragon Crash
-  { move = 0x21127474, level = 13 },                        # Ultra Moon
-  { move = 0x7748D3F2, level = 20 },                        # Devil Ball
+  { move = 0x2CFC3E63, level = 13 },                        # Dragon Crash
+  { move = 0x21127474, level = 20 },                        # Ultra Moon
   { move = 0x1B854A64, level = 30 },                        # Cosmic Blast
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700460"                                   # Biijiro Onoda
 moves = [
-  { move = 0x4E22F64D, level = 1 },                         # Transporter Device
-  { move = 0xADAFE047, level = 13 },                        # Dual Strike
+  { move = 0x4E22F64D, level = 13 },                        # Transporter Device
   { move = 0xC19E2AEE, level = 20 },                        # Pegasus Shot
-  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+  { move = 0xADAFE047, level = 38 },                        # Dual Strike
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11700470"                                   # Kujira Torikawa
 moves = [
-  { move = 0xBBE07677, level = 1 },                         # Sidewinder
-  { move = 0x13D845C9, level = 13 },                        # Samba Strike
-  { move = 0x6633159F, level = 20 },                        # Gravitation
-  { move = 0x67F17FA8, level = 30 },                        # Mega Quake
+  { move = 0x6633159F, level = 13 },                        # Gravitation
+  { move = 0xBBE07677, level = 20 },                        # Sidewinder
+  { move = 0x13D845C9, level = 38 },                        # Samba Strike
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11738010"                                   # Romain Romanze
 moves = [
-  { move = 0x79E3E635, level = 1 },                         # Racing Flame
-  { move = 0x4CDC2C6B, level = 13 },                        # Shooting Star
-  { move = 0x3B8D915B, level = 20 },                        # Meteor Shower
-  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x3B8D915B, level = 13 },                        # Meteor Shower
+  { move = 0x79E3E635, level = 20 },                        # Racing Flame
+  { move = 0x4CDC2C6B, level = 30 },                        # Shooting Star
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11738020"                                   # Edton Prentt
 moves = [
-  { move = 0x93885A64, level = 1 },                         # Fire Drill
-  { move = 0xDA3FF6C9, level = 13 },                        # Criss-Cross
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0x67F17FA8, level = 30 },                        # Mega Quake
+  { move = 0x93885A64, level = 13 },                        # Fire Drill
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11738030"                                   # Drewey Fournell
 moves = [
-  { move = 0x31ABD82E, level = 1 },                         # Circus Block
-  { move = 0x52CEB5F6, level = 13 },                        # Iron Wall
-  { move = 0x485150D9, level = 20 },                        # Body Shield
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x31ABD82E, level = 20 },                        # Circus Block
+  { move = 0x52CEB5F6, level = 30 },                        # Iron Wall
+  { move = 0x485150D9, level = 38 },                        # Body Shield
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11738040"                                   # Edith Endenwald
 moves = [
-  { move = 0xC5B27C7E, level = 1 },                         # Storm Rider
-  { move = 0x41AEB4DF, level = 13 },                        # Crystal Barrier
-  { move = 0xF64674CB, level = 20 },                        # Fist of Justice
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0xC5B27C7E, level = 20 },                        # Storm Rider
+  { move = 0x41AEB4DF, level = 30 },                        # Crystal Barrier
+  { move = 0xF64674CB, level = 38 },                        # Fist of Justice
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11738050"                                   # Harolde Narcissus
 moves = [
-  { move = 0x4F58F805, level = 1 },                         # Coil Turn
-  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
+  { move = 0x4F58F805, level = 13 },                        # Coil Turn
+  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
   { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11738060"                                   # Manon Matopia
 moves = [
-  { move = 0xDD0BA694, level = 1 },                         # Okehazama Ravine
-  { move = 0xB1FBC783, level = 13 },                        # Reflect Buster
-  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
+  { move = 0xB1FBC783, level = 1 },                         # Reflect Buster
+  { move = 0xDD0BA694, level = 20 },                        # Okehazama Ravine
   { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11738070"                                   # Soria Bordeau
 moves = [
-  { move = 0x17A96A44, level = 1 },                         # Clone Faker
   { move = 0x530CDFC1, level = 13 },                        # Mystifying Mist
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x17A96A44, level = 20 },                        # Clone Faker
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11738080"                                   # Norah Noshawn
 moves = [
-  { move = 0x3C843987, level = 1 },                         # Flurry Dash
-  { move = 0x1C4D4906, level = 13 },                        # Whirlpool
-  { move = 0x613ABD43, level = 20 },                        # Dawnrise
-  { move = 0x6E53E2B3, level = 30 },                        # Angel Ball
+  { move = 0x3C843987, level = 13 },                        # Flurry Dash
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
+  { move = 0x6E53E2B3, level = 38 },                        # Angel Ball
 ]
 
   [[edit.cards]]

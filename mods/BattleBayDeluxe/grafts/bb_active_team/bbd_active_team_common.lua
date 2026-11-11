@@ -12,6 +12,7 @@ do
   B.TILE_PLAYS = @crc:CMND_BATTLEBAYDELUXE_TILE_PLAYS@
   B.T_INFO = @crc:CMND_BETTERQOL_TEMPLATE_INFO@
   B.T_OF_DOCK = @crc:CMND_BETTERQOL_TEMPLATE_OF_DOCK@
+  B.T_LIST = @crc:CMND_BETTERQOL_TEMPLATE_LIST@
   B.T_CARD = @crc:CMND_BETTERQOL_TEMPLATE_CARD@
   B.T_USE = @crc:CMND_BETTERQOL_TEMPLATE_USE@
   B.T_LET_GO = @crc:CMND_BETTERQOL_TEMPLATE_LET_GO@
@@ -160,13 +161,28 @@ do
     return true
   end
 
-  -- The template count when BetterQoL's templates are usable in this save; nil otherwise.
-  function BattleBayDeluxe.template_count()
-    local ok, usable, count = pcall(funcLuaCommand, B.T_INFO)
-    if ok and usable == true and type(count) == "number" and count > 0 then
-      return count
+  -- True when BetterQoL's templates are usable in this save.
+  function BattleBayDeluxe.templates_usable()
+    local ok, usable = pcall(funcLuaCommand, B.T_INFO)
+    return ok and usable == true
+  end
+
+  -- The templates the Personal Teams section offers, in BetterQoL's list order: each template BetterQoL lists as not
+  -- empty that has a line-up, except the `skip` ones, as { template, panel data }; nil when the list is not answered.
+  function BattleBayDeluxe.personal_templates(skip)
+    local ok, numbers = pcall(funcLuaCommand, B.T_LIST)
+    if not ok or type(numbers) ~= "string" then
+      return nil
     end
-    return nil
+    local offered = {}
+    for number in numbers:gmatch("%d+") do
+      local t = tonumber(number)
+      local d = not skip[t] and BattleBayDeluxe.template_read(t) or nil
+      if d ~= nil then
+        offered[#offered + 1] = { template = t, data = d }
+      end
+    end
+    return offered
   end
 
   -- Keeps the template of a saved run in a dock and points its tile at it; the templates no run plays are let go.
@@ -190,7 +206,8 @@ do
   end
 
   -- Mirrors the templates of the shown page onto the Personal Teams tiles; empty templates and the active one are hidden.
-  function BattleBayDeluxe.personal_docks_sync(why)
+  -- `keep` reuses the templates listed when the section opened (a page turn), else they are listed again.
+  function BattleBayDeluxe.personal_docks_sync(why, keep)
     if B.docks == nil then
       local ok, list = pcall(funcLuaCommand, B.DOCK_LIST)
       if not ok or type(list) ~= "string" then
@@ -203,22 +220,33 @@ do
       end
     end
     B.dock_data, B.dock_sent, B.tile_template = {}, B.dock_sent or {}, {}
-    local count = BattleBayDeluxe.template_count()
     local active_set = VRFW.host.command(B.VS_SET)
-    local active = count and funcLuaCommand(B.T_OF_DOCK, active_set) or active_set
+    local usable = BattleBayDeluxe.templates_usable()
+    local active = usable and funcLuaCommand(B.T_OF_DOCK, active_set) or active_set
+    if not keep then
+      B.offered = usable and BattleBayDeluxe.personal_templates({ [active] = true, [B.run and B.run.template or 0] = true }) or nil
+    end
+    local offered = B.offered
     local shown = 0
-    for i, e in ipairs(B.docks) do
-      -- without usable templates (slot 1, story) each tile shows the dock it plays, as retail docks
-      local t = (B.run ~= nil and B.run.team == e.team) and B.run.template or B.page * #B.docks + i
-      local d
-      if count == nil then
+    local next_entry = B.page * #B.docks
+    for _, e in ipairs(B.docks) do
+      local t, d
+      if offered == nil then
+        -- without usable templates (slot 1, story) each tile shows the dock it plays, as retail docks
         t, d = e.set, BattleBayDeluxe.active_team_read(e.set)
-      elseif t <= count then
+      elseif B.run ~= nil and B.run.team == e.team then
+        t = B.run.template
         d = BattleBayDeluxe.template_read(t)
+      else
+        next_entry = next_entry + 1
+        local entry = offered[next_entry]
+        if entry ~= nil then
+          t, d = entry.template, entry.data
+        end
       end
       local ready = BattleBayDeluxe.template_fields(d)
       B.dock_data[e.team] = d
-      B.tile_template[e.team] = (count ~= nil and d ~= nil) and t or nil
+      B.tile_template[e.team] = (offered ~= nil and d ~= nil) and t or nil
       pcall(funcLuaCommand, B.DOCK_READY, e.team, ready and 1 or 0)
       if d ~= nil then
         local key = string.format("%d|%s|%.0f|%.0f|%.0f|%s", t, d.text, d.captain, d.emblem or 0, d.uniform or 0, d.name)

@@ -4,7 +4,7 @@ schema = "VRFW.character/2"
 target = "c01000810"                                   # Thomas Feldt
 moves = [
   { move = 0xE9968761, level = 1 },                         # Rocket Kobushi
-  { move = 0xF14FDC17, level = 11 },                        # Shot Pocket
+  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
   { move = 0xEA12530F, level = 30 },                        # Double Rocket
   { move = 0x8E7E960B, level = 52 },                        # Drill Smasher
 ]
@@ -20,7 +20,7 @@ target = "c01000820"                                   # Harry Leading
 moves = [
   { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0x55C71D2A, level = 29 },                        # About Face
-  { move = 0xB3BD79DA, level = 39 },                        # Patriot Shot
+  { move = 0xB3BD79DA, level = 29 },                        # Patriot Shot
   { move = 0x5B6C28ED, level = 48 },                        # Invisible Fake
 ]
 
@@ -81,8 +81,8 @@ moves = [
 target = "c01000860"                                   # Tyron Rock
 moves = [
   { move = 0x142DBE2A, level = 1 },                         # Foul Offence
-  { move = 0x71831119, level = 11 },                        # Foul Offence 2
-  { move = 0xB3BD79DA, level = 21 },                        # Patriot Shot
+  { move = 0x71831119, level = 1 },                         # Foul Offence 2
+  { move = 0xB3BD79DA, level = 1 },                         # Patriot Shot
   { move = 0x01DB04F5, level = 27 },                        # Defence Scan
 ]
 
@@ -96,7 +96,7 @@ moves = [
 target = "c01000870"                                   # Francis Tell
 moves = [
   { move = 0x01DB04F5, level = 1 },                         # Defence Scan
-  { move = 0x520F1E48, level = 11 },                        # Psycho Shot
+  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
   { move = 0x8C990270, level = 55 },                        # Gunshot
   { move = 0xB5B7108F, level = 89 },                        # Shadow Stitch
 ]
@@ -112,7 +112,7 @@ moves = [
 target = "c01000880"                                   # Samuel Buster
 moves = [
   { move = 0x34256515, level = 1 },                         # Dynamite Shot
-  { move = 0x71831119, level = 11 },                        # Foul Offence 2
+  { move = 0x71831119, level = 1 },                         # Foul Offence 2
   { move = 0x01DB04F5, level = 25 },                        # Defence Scan
   { move = 0x7FE98F60, level = 45 },                        # Ganymede Ray
 ]
@@ -127,7 +127,7 @@ moves = [
 target = "c01000890"                                   # Jonathan Seller
 moves = [
   { move = 0x520F1E48, level = 1 },                         # Psycho Shot
-  { move = 0x01DB04F5, level = 11 },                        # Defence Scan
+  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0x8EDFBC29, level = 65 },                        # Double Jaw
   { move = 0x518BCA26, level = 85 },                        # Fire Tornado
 ]
@@ -142,7 +142,7 @@ moves = [
 target = "c01000900"                                   # Victor Kind
 moves = [
   { move = 0x01DB04F5, level = 1 },                         # Defence Scan
-  { move = 0x520F1E48, level = 11 },                        # Psycho Shot
+  { move = 0x520F1E48, level = 1 },                         # Psycho Shot
   { move = 0x30A819A7, level = 48 },                        # Twin Boost F
   { move = 0x4890FB67, level = 78 },                        # Twin Boost
 ]
@@ -158,8 +158,8 @@ moves = [
 target = "c01000910"                                   # Neil Turner
 moves = [
   { move = 0xB3BD79DA, level = 1 },                         # Patriot Shot
-  { move = 0x035C1112, level = 11 },                        # Gungnir
-  { move = 0x518BCA26, level = 21 },                        # Fire Tornado
+  { move = 0x035C1112, level = 1 },                         # Gungnir
+  { move = 0x518BCA26, level = 10 },                        # Fire Tornado
   { move = 0x00D8C57C, level = 55 },                        # Fireball Storm
 ]
 
@@ -173,9 +173,9 @@ moves = [
 target = "c01000920"                                   # Reg Underwood
 moves = [
   { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
+  { move = 0xE9968761, level = 20 },                        # Rocket Kobushi
+  { move = 0xEA12530F, level = 38 },                        # Double Rocket
   { move = 0x5DFA931B, level = 49 },                        # Triple Defence
-  { move = 0xEA12530F, level = 59 },                        # Double Rocket
-  { move = 0xE9968761, level = 69 },                        # Rocket Kobushi
 ]
 
   [[edit.cards]]
@@ -250,10 +250,10 @@ moves = [
 [[edit]]
 target = "c11801070"                                   # Newton Thomas
 moves = [
-  { move = 0x514A6198, level = 1 },                         # Asteroid Belt
-  { move = 0x7748D3F2, level = 11 },                        # Devil Ball
-  { move = 0x750E6DAB, level = 21 },                        # Matador Feint
-  { move = 0xB5B7108F, level = 31 },                        # Shadow Stitch
+  { move = 0x514A6198, level = 13 },                        # Asteroid Belt
+  { move = 0x750E6DAB, level = 20 },                        # Matador Feint
+  { move = 0xB5B7108F, level = 30 },                        # Shadow Stitch
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
 ]
 
   [[edit.cards]]

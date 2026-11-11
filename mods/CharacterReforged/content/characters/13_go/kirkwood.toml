@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c04002210_5000"                              # Strom Boojum
 moves = [
   { move = 0xDF2D9951, level = 1 },                         # Close Counter
+  { move = 0xDBA0E5E3, level = 30 },                        # Gigant Wall
+  { move = 0xA7157B91, level = 38 },                        # Power Shield
   { move = 0xED1BFBD3, level = 58 },                        # Fingers of Gaia
-  { move = 0xDBA0E5E3, level = 68 },                        # Gigant Wall
-  { move = 0xA7157B91, level = 78 },                        # Power Shield
 ]
 
   [[edit.cards]]
@@ -35,7 +35,7 @@ moves = [
 target = "c04002300_5100"                              # Langford Ash
 moves = [
   { move = 0xBBE07677, level = 1 },                         # Sidewinder
-  { move = 0xADD8A52B, level = 11 },                        # Matchlock Bullet
+  { move = 0xADD8A52B, level = 1 },                         # Matchlock Bullet
   { move = 0xC324C788, level = 34 },                        # Blast Mine
   { move = 0xC4D13C6B, level = 48 },                        # Katana Kick
 ]
@@ -50,9 +50,9 @@ moves = [
 target = "c04002210"                                   # Strom Boojum
 moves = [
   { move = 0xDF2D9951, level = 1 },                         # Close Counter
+  { move = 0xDBA0E5E3, level = 30 },                        # Gigant Wall
+  { move = 0xA7157B91, level = 38 },                        # Power Shield
   { move = 0xED1BFBD3, level = 58 },                        # Fingers of Gaia
-  { move = 0xDBA0E5E3, level = 68 },                        # Gigant Wall
-  { move = 0xA7157B91, level = 78 },                        # Power Shield
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -70,7 +70,7 @@ moves = [
 [[edit]]
 target = "c04002220"                                   # Dock Hickory
 moves = [
-  { move = 0x414BA9BD, level = 1 },                         # Pincer Pinch
+  { move = 0x414BA9BD, level = 2 },                         # Pincer Pinch
   { move = 0xF88DC090, level = 26 },                        # Z Slash
   { move = 0xC2E6ADBF, level = 27 },                        # Log Roll
   { move = 0x93885A64, level = 32 },                        # Fire Drill
@@ -165,7 +165,7 @@ moves = [
 target = "c04002280"                                   # Brook Linden
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0xF88DC090, level = 11 },                        # Z Slash
+  { move = 0xF88DC090, level = 1 },                         # Z Slash
   { move = 0x332CCDC9, level = 22 },                        # Heel Kick
   { move = 0x79E3E635, level = 30 },                        # Racing Flame
 ]
@@ -201,7 +201,7 @@ moves = [
 target = "c04002300"                                   # Langford Ash
 moves = [
   { move = 0xBBE07677, level = 1 },                         # Sidewinder
-  { move = 0xADD8A52B, level = 11 },                        # Matchlock Bullet
+  { move = 0xADD8A52B, level = 1 },                         # Matchlock Bullet
   { move = 0xC324C788, level = 34 },                        # Blast Mine
   { move = 0xC4D13C6B, level = 48 },                        # Katana Kick
   { move = 0, level = 0 },                                  # (empty)
@@ -236,10 +236,10 @@ moves = [
 [[edit]]
 target = "c04002320"                                   # Maxwell Mahogany
 moves = [
-  { move = 0xC636A810, level = 1 },                         # Combustion Catch
+  { move = 0xC636A810, level = 8 },                         # Combustion Catch
+  { move = 0xF14FDC17, level = 20 },                        # Shot Pocket
   { move = 0x37009B59, level = 35 },                        # Burnout Burst
   { move = 0xDF2D9951, level = 53 },                        # Close Counter
-  { move = 0xF14FDC17, level = 63 },                        # Shot Pocket
 ]
 
   [[edit.cards]]
@@ -251,10 +251,10 @@ moves = [
 [[edit]]
 target = "c04002330"                                   # Bradford Ash
 moves = [
-  { move = 0xB9A6C82E, level = 1 },                         # Triangle ZZ
+  { move = 0xB9A6C82E, level = 4 },                         # Triangle ZZ
   { move = 0x14D1ED15, level = 24 },                        # Jumping Jack
   { move = 0x64CDCFB9, level = 48 },                        # Rising Dragon
-  { move = 0xE452F107, level = 58 },                        # Dust Javelin
+  { move = 0xE452F107, level = 48 },                        # Dust Javelin
 ]
 
   [[edit.cards]]
@@ -267,7 +267,7 @@ moves = [
 [[edit]]
 target = "c04002340"                                   # Calder Elm
 moves = [
-  { move = 0xDF8CB373, level = 1 },                         # Sonic Shot
+  { move = 0xDF8CB373, level = 4 },                         # Sonic Shot
   { move = 0xE8F5C774, level = 6 },                         # Megalodon
   { move = 0x6F918884, level = 15 },                        # Easy Breezy
   { move = 0xA2FB4736, level = 35 },                        # Flying Fish
@@ -283,7 +283,7 @@ moves = [
 [[edit]]
 target = "c04002350"                                   # Laike Alder
 moves = [
-  { move = 0xB58AE80E, level = 1 },                         # Silk Road
+  { move = 0xB58AE80E, level = 4 },                         # Silk Road
   { move = 0x5643C944, level = 25 },                        # Killer Slide
   { move = 0xF4604B0E, level = 33 },                        # Fancy-Footwork
   { move = 0xDD0BA694, level = 60 },                        # Okehazama Ravine
@@ -300,7 +300,7 @@ moves = [
 target = "c04002360"                                   # Tahoma Sequoia
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0x5739C70C, level = 11 },                        # Guided Collide
+  { move = 0x5739C70C, level = 1 },                         # Guided Collide
   { move = 0xB0BC314A, level = 12 },                        # Spin Meister
   { move = 0xA2FB4736, level = 30 },                        # Flying Fish
 ]
@@ -316,7 +316,7 @@ moves = [
 target = "c05026590"                                   # Byron Love
 moves = [
   { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
-  { move = 0x1C8CE2B8, level = 11 },                        # God Knows
+  { move = 0x1C8CE2B8, level = 1 },                         # God Knows
   { move = 0x7577A26A, level = 50 },                        # God Break
   { move = 0x3A4FFB6C, level = 66 },                        # The Ikaros
 ]

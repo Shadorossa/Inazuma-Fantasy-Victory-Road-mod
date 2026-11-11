@@ -185,3 +185,8 @@ groups = [
     { name = "battle items", category = 70 },
     { name = "spirits", category = 0 },
 ]
+
+[hero_style]
+# rarity: the rarity (a key of the VR-Framework's rarity set) whose card values are the styles of the team dock's
+# «Selector de héroe» (the game's Hero: 5 red, 6 silver, 7 pink); "" switches the selector off.
+rarity = "hero"

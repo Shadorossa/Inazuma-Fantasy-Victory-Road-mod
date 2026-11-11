@@ -8,18 +8,39 @@ if VRFW.host ~= nil then
   local FADE = 609722083                  -- (1 = to black, seconds)
   local FADE_SECONDS = 0.3
   local FADE_WAIT_STEPS = 120
-  local START_DELAY_STEPS = 10
   local NO_ACCEPT_REPORT_STEPS = 1800     -- one line in the log when nothing reached Accept for this long
+  local SPIRIT_LIST = 114255962           -- team15_01_summon_list
+  local LIST_TAB_ITEM = 4044286600        -- cmn06_20_list_tab_item
+  local LIST_CURSOR = 2296367164          -- cmn05_01_cursor
+  local SET_LAYER_VISIBLE = 711242136     -- (layer, instance, on)
+  local SET_LIST_ACTIVE = 2243775400      -- (list, instance, on)
+  local SET_CTRL_FOCUS = 3518307824       -- (layer, on)
+  local STATE_PERFORMANCE = 2             -- UpdateState's state during retail SummonChara
 
   local log = VRFW.logger.new("VRFW.summon_presentation")
-  local request, performance, delay, steps, accepts = nil, nil, 0, 0, 0
+  local request, performance, listed, steps, accepts = nil, nil, false, 0, 0
 
   local function reset()
-    request, performance, delay, steps, accepts = nil, nil, 0, 0, 0
+    request, performance, listed, steps, accepts = nil, nil, false, 0, 0
+  end
+
+  -- The spirit list made inert and hidden as retail SummonChara does before ExecSummonPerformance.
+  local function close_spirit_list()
+    funcLuaMenuCommand(SET_LAYER_VISIBLE, LIST_CURSOR, 0, false)
+    funcLuaMenuCommand(SET_LIST_ACTIVE, SPIRIT_LIST, 0, false)
+    funcLuaMenuCommand(SET_CTRL_FOCUS, SPIRIT_LIST, false)
+    funcLuaMenuCommand(SET_CTRL_FOCUS, LIST_TAB_ITEM, false)
+    ChangeSelectChara(0)
+    ResetFocusItemInfo()
+    SetVisibleSummonDefaultLayer(false)
+    SetIsSelectSpiritMixChara(false)
+    SetAlwaysCardSizeSmallMode(true)
+    UpdateState(STATE_PERFORMANCE)
+    coroutine.yield()
   end
 
   local function perform()
-    pcall(SetVisibleSummonDefaultLayer, false)
+    close_spirit_list()
     if request.takes_input then
       funcLuaMenuCommand(MENU_ACTIVE, SUMMON_MENU, true)
     end
@@ -62,6 +83,18 @@ if VRFW.host ~= nil then
     end
   end)
 
+  -- The spirit list reports its item count once built: the performance starts after it, so the list is closed for good.
+  VRFW.host.wrap("UpdateItemNum", function(retail)
+    return function(...)
+      local results = table.pack(retail(...))
+      if request ~= nil and not listed then
+        listed = true
+        log("spirit list built")
+      end
+      return table.unpack(results, 1, results.n)
+    end
+  end)
+
   VRFW.host.wrap("OnDecideFocus", function(retail)
     return function(layer, ...)
       if request ~= nil and (layer == PERFORMANCE_BACKGROUND or layer == NEXT_BUTTON) then
@@ -76,11 +109,8 @@ if VRFW.host ~= nil then
     return function(...)
       local results = table.pack(retail(...))
       if request ~= nil then
-        if performance == nil then
-          delay = delay + 1
-          if delay >= START_DELAY_STEPS then
-            performance = coroutine.create(perform)
-          end
+        if performance == nil and listed then
+          performance = coroutine.create(perform)
         end
         if performance ~= nil and coroutine.status(performance) ~= "dead" then
           steps = steps + 1

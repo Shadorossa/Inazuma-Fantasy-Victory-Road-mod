@@ -1,6 +1,7 @@
 id = "MiximaxFromKickoff"
 # name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "Miximax From Kick-Off"
+icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_sp_area07"
 version = "0.3.0"
 author = "Fantasy Team"
 description = "As in IE GO Galaxy: every player with a miximax, on both teams, starts the match already in his form. It costs nothing, never runs out and cannot be switched off. Needs Character Reforged."

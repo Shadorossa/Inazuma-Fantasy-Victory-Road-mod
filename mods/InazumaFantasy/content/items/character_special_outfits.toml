@@ -112,7 +112,7 @@ Currency = "tk_bb000001"
 Name = "seymour_outfit"
 Kit = { Uniform = "0x6EDE71A8" }
 IconKey = "cos_if_seymour_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -217,7 +217,7 @@ Currency = "tk_bb000001"
 Name = "thor_outfit"
 Kit = { Uniform = "0x3B3AFCE1" }
 IconKey = "cos_if_thor_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -427,7 +427,7 @@ Currency = "tk_bb000001"
 Name = "percival_outfit"
 Kit = { Uniform = "0xE66FEB87" }
 IconKey = "cos_if_percival_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -637,7 +637,7 @@ Currency = "tk_bb000001"
 Name = "vladimir_outfit_2"
 Kit = { Uniform = "0x43842E3B" }
 IconKey = "cos_if_vladimir_outfit_2"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -742,7 +742,7 @@ Currency = "tk_bb000001"
 Name = "nobunaga_outfit"
 Kit = { Uniform = "0xCE3DBBA9" }
 IconKey = "cos_if_nobunaga_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -777,7 +777,7 @@ Currency = "tk_bb000001"
 Name = "tokichiro_kinoshita_outfit"
 Kit = { Uniform = "0x8D3F1C32" }
 IconKey = "cos_if_tokichiro_kinoshita"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -847,7 +847,7 @@ Currency = "tk_bb000001"
 Name = "liu_bei_outfit"
 Kit = { Uniform = "0xC9A11B29" }
 IconKey = "cos_if_liu_bei_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -882,7 +882,7 @@ Currency = "tk_bb000001"
 Name = "guan_yu_outfit"
 Kit = { Uniform = "0xB233E133" }
 IconKey = "cos_if_guan_yu_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -917,7 +917,7 @@ Currency = "tk_bb000001"
 Name = "fei_outfit_2"
 Kit = { Uniform = "0x3506276E" }
 IconKey = "cos_if_fei_outfit_2"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -952,7 +952,7 @@ Currency = "tk_bb000001"
 Name = "ryoma_outfit"
 Kit = { Uniform = "0x0849D994" }
 IconKey = "cos_if_ryoma_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -987,7 +987,7 @@ Currency = "tk_bb000001"
 Name = "king_arthur_outfit"
 Kit = { Uniform = "0x5AD634CC" }
 IconKey = "cos_if_king_arthur_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1022,7 +1022,7 @@ Currency = "tk_bb000001"
 Name = "mark_evans_outfit_1"
 Kit = { Uniform = "0xC8FBCAD4" }
 IconKey = "cos_if_mark_evans_outfit_1"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1057,7 +1057,7 @@ Currency = "tk_bb000001"
 Name = "david_samford_outfit"
 Kit = { Uniform = "0x9CD322D2" }
 IconKey = "cos_if_david_samford_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1092,7 +1092,7 @@ Currency = "tk_bb000001"
 Name = "jude_sharp_outfit_1"
 Kit = { Uniform = "0xA86322E0" }
 IconKey = "cos_if_jude_sharp_outfit_1"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1127,7 +1127,7 @@ Currency = "tk_bb000001"
 Name = "jude_sharp_outfit_2"
 Kit = { Uniform = "0x316A735A" }
 IconKey = "cos_if_jude_sharp_outfit_2"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1162,7 +1162,7 @@ Currency = "tk_bb000001"
 Name = "kevin_dragonfly_outfit"
 Kit = { Uniform = "0x34986C91" }
 IconKey = "cos_if_kevin_dragonfly_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1197,7 +1197,7 @@ Currency = "tk_bb000001"
 Name = "shawn_froste_outfit_1"
 Kit = { Uniform = "0xBD1E1DC7" }
 IconKey = "cos_if_shawn_froste_outfit_1"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1372,7 +1372,7 @@ Currency = "tk_bb000001"
 Name = "percival_travis_outfit_2"
 Kit = { Uniform = "0x434092A9" }
 IconKey = "cos_if_percival_travis_outfit_2"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1407,7 +1407,7 @@ Currency = "tk_bb000001"
 Name = "chester_outfit_1"
 Kit = { Uniform = "0xA70B8C4B" }
 IconKey = "cos_if_chester_outfit_1"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1442,7 +1442,7 @@ Currency = "tk_bb000001"
 Name = "alex_outfit"
 Kit = { Uniform = "0xE99EA244" }
 IconKey = "cos_if_alex_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1477,7 +1477,7 @@ Currency = "tk_bb000001"
 Name = "byron_love_outfit"
 Kit = { Uniform = "0xB69E6967" }
 IconKey = "cos_if_byron_love_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1512,7 +1512,7 @@ Currency = "tk_bb000001"
 Name = "gammon_outfit"
 Kit = { Uniform = "0x319BE27D" }
 IconKey = "cos_if_gammon_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1582,7 +1582,7 @@ Currency = "tk_bb000001"
 Name = "aslei_outfit"
 Kit = { Uniform = "0x126ABCB2" }
 IconKey = "cos_if_aslei_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1617,7 +1617,7 @@ Currency = "tk_bb000001"
 Name = "shintaro_nakaoka_outfit"
 Kit = { Uniform = "0x48A16BD6" }
 IconKey = "cos_if_shintaro_nakaoka_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1652,7 +1652,7 @@ Currency = "tk_bb000001"
 Name = "prince_charles_outfit"
 Kit = { Uniform = "0xF6B3A542" }
 IconKey = "cos_if_prince_charles_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -1757,7 +1757,7 @@ Currency = "tk_bb000001"
 Name = "hershel_outfit"
 Kit = { Uniform = "0xED6B47FB" }
 IconKey = "cos_if_hershel_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2002,7 +2002,7 @@ Currency = "tk_bb000001"
 Name = "circulus_outfit"
 Kit = { Uniform = "0x5952F84B" }
 IconKey = "cos_if_circulus_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2142,7 +2142,7 @@ Currency = "tk_bb000001"
 Name = "steve_grim_outfit"
 Kit = { Uniform = "0x8E808ED3" }
 IconKey = "cos_if_steve_grim_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2177,7 +2177,7 @@ Currency = "tk_bb000001"
 Name = "darren_lachance_outfit"
 Kit = { Uniform = "0x8C511D45" }
 IconKey = "cos_if_darren_lachance_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2212,7 +2212,7 @@ Currency = "tk_bb000001"
 Name = "david_outfit_2"
 Kit = { Uniform = "0xE93A4205" }
 IconKey = "cos_if_david_outfit_2"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2247,7 +2247,7 @@ Currency = "tk_bb000001"
 Name = "seymour_hillman_outfit"
 Kit = { Uniform = "0x87E881EA" }
 IconKey = "cos_if_seymour_hillman_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2282,7 +2282,7 @@ Currency = "tk_bb000001"
 Name = "frank_wintersea_outfit"
 Kit = { Uniform = "0xCD966BC4" }
 IconKey = "cos_if_frank_wintersea_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2317,7 +2317,7 @@ Currency = "tk_bb000001"
 Name = "saber_sabel_outfit"
 Kit = { Uniform = "0x9B46D744" }
 IconKey = "cos_if_saber_sabel_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2352,7 +2352,7 @@ Currency = "tk_bb000001"
 Name = "gyan_outfit"
 Kit = { Uniform = "0x27944B0B" }
 IconKey = "cos_if_gyan_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2387,7 +2387,7 @@ Currency = "tk_bb000001"
 Name = "cross_word_outfit"
 Kit = { Uniform = "0x70721D22" }
 IconKey = "cos_if_cross_word_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2422,7 +2422,7 @@ Currency = "tk_bb000001"
 Name = "adrastus_outfit"
 Kit = { Uniform = "0x76D9AC41" }
 IconKey = "cos_if_adrastus_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2457,7 +2457,7 @@ Currency = "tk_bb000001"
 Name = "schemer_outfit"
 Kit = { Uniform = "0x4B707CEF" }
 IconKey = "cos_if_schemer_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2492,7 +2492,7 @@ Currency = "tk_bb000001"
 Name = "justin_shipwood_outfit"
 Kit = { Uniform = "0xF754F647" }
 IconKey = "cos_if_justin_shipwood_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2527,7 +2527,7 @@ Currency = "tk_bb000001"
 Name = "skip_outfit"
 Kit = { Uniform = "0xC8092C96" }
 IconKey = "cos_if_skip_outfit"
-Who = { Body = [2, 10] }
+Who = { Body = [2] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2562,7 +2562,7 @@ Currency = "tk_bb000001"
 Name = "chip_outfit"
 Kit = { Uniform = "0x8DC8535E" }
 IconKey = "cos_if_chip_outfit"
-Who = { Body = [2, 10] }
+Who = { Body = [2] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2597,7 +2597,7 @@ Currency = "tk_bb000001"
 Name = "cedric_blossom_outfit"
 Kit = { Uniform = "0xFCB4CFB7" }
 IconKey = "cos_if_cedric_blossom_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2702,7 +2702,7 @@ Currency = "tk_bb000001"
 Name = "jasper_lerner_outfit"
 Kit = { Uniform = "0xE8BCFCE7" }
 IconKey = "cos_if_jasper_lerner_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2772,7 +2772,7 @@ Currency = "tk_bb000001"
 Name = "caleb_stonewall_outfit"
 Kit = { Uniform = "0x48E05734" }
 IconKey = "cos_if_caleb_stonewall_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2807,7 +2807,7 @@ Currency = "tk_bb000001"
 Name = "astero_outfit"
 Kit = { Uniform = "0x261451C1" }
 IconKey = "cos_if_astero_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2842,7 +2842,7 @@ Currency = "tk_bb000001"
 Name = "axel_blaze_outfit_1"
 Kit = { Uniform = "0xEBA2AFDF" }
 IconKey = "cos_if_axel_blaze_outfit_1"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2877,7 +2877,7 @@ Currency = "tk_bb000001"
 Name = "arculus_orbes_outfit"
 Kit = { Uniform = "0x972E0B09" }
 IconKey = "cos_if_arculus_orbes_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2947,7 +2947,7 @@ Currency = "tk_bb000001"
 Name = "adriano_outfit"
 Kit = { Uniform = "0x223D4F85" }
 IconKey = "cos_if_adriano_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -2982,7 +2982,7 @@ Currency = "tk_bb000001"
 Name = "trevor_outfit"
 Kit = { Uniform = "0x0D49A85B" }
 IconKey = "cos_if_trevor_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3017,7 +3017,7 @@ Currency = "tk_bb000001"
 Name = "elliot_outfit"
 Kit = { Uniform = "0xEA760481" }
 IconKey = "cos_if_elliot_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3087,7 +3087,7 @@ Currency = "tk_bb000001"
 Name = "heath_outfit"
 Kit = { Uniform = "0x4B6F55B7" }
 IconKey = "cos_if_heath_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3122,7 +3122,7 @@ Currency = "tk_bb000001"
 Name = "duske_outfit"
 Kit = { Uniform = "0x2BB41559" }
 IconKey = "cos_if_duske_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3192,7 +3192,7 @@ Currency = "tk_bb000001"
 Name = "silasar_noirmont_outfit"
 Kit = { Uniform = "0x42244132" }
 IconKey = "cos_if_silasar_noirmont_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3262,7 +3262,7 @@ Currency = "tk_bb000001"
 Name = "jimmy_outfit"
 Kit = { Uniform = "0x07007CFE" }
 IconKey = "cos_if_jimmy_outfit"
-Who = { Body = [2, 10] }
+Who = { Body = [2] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3437,7 +3437,7 @@ Currency = "tk_bb000001"
 Name = "cade_outfit_1"
 Kit = { Uniform = "0x6CC49338" }
 IconKey = "cos_if_cade_outfit_1"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3472,7 +3472,7 @@ Currency = "tk_bb000001"
 Name = "cade_outfit_2"
 Kit = { Uniform = "0xF5CDC282" }
 IconKey = "cos_if_cade_outfit_2"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3507,7 +3507,7 @@ Currency = "tk_bb000001"
 Name = "davin_outfit"
 Kit = { Uniform = "0xA02E5D84" }
 IconKey = "cos_if_davin_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3717,7 +3717,7 @@ Currency = "tk_bb000001"
 Name = "winsor_compete_outfit"
 Kit = { Uniform = "0x897F1209" }
 IconKey = "cos_if_winsor_compete_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3787,7 +3787,7 @@ Currency = "tk_bb000001"
 Name = "starla_outfit"
 Kit = { Uniform = "0xED8CD216" }
 IconKey = "cos_if_starla_outfit"
-Who = { Body = [2, 10] }
+Who = { Body = [2] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -3962,7 +3962,7 @@ Currency = "tk_bb000001"
 Name = "grenson_veteran_outfit"
 Kit = { Uniform = "0x0656FDED" }
 IconKey = "cos_if_grenson_veteran_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4032,7 +4032,7 @@ Currency = "tk_bb000001"
 Name = "ivan_outfit_1"
 Kit = { Uniform = "0xA7ACA6D8" }
 IconKey = "cos_if_ivan_outfit_1"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4102,7 +4102,7 @@ Currency = "tk_bb000001"
 Name = "milo_outfit"
 Kit = { Uniform = "0xDF7075AE" }
 IconKey = "cos_if_milo_outfit"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4172,7 +4172,7 @@ Currency = "tk_bb000001"
 Name = "peake_fletcher_outfit"
 Kit = { Uniform = "0x2D1ADF64" }
 IconKey = "cos_if_peake_fletcher_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4207,7 +4207,7 @@ Currency = "tk_bb000001"
 Name = "sentry_scarborough_outfit"
 Kit = { Uniform = "0x5DCF5262" }
 IconKey = "cos_if_sentry_scarborough"
-Who = { Body = [9, 13] }
+Who = { Body = [9] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4242,7 +4242,7 @@ Currency = "tk_bb000001"
 Name = "neil_outfit"
 Kit = { Uniform = "0x98B6B18D" }
 IconKey = "cos_if_neil_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4312,7 +4312,7 @@ Currency = "tk_bb000001"
 Name = "eamon_outfit"
 Kit = { Uniform = "0x97DF127E" }
 IconKey = "cos_if_eamon_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4347,7 +4347,7 @@ Currency = "tk_bb000001"
 Name = "waddell_homely_outfit"
 Kit = { Uniform = "0xC66A55E8" }
 IconKey = "cos_if_waddell_homely_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4417,7 +4417,7 @@ Currency = "tk_bb000001"
 Name = "derrin_wilson_outfit"
 Kit = { Uniform = "0x43D966B0" }
 IconKey = "cos_if_derrin_wilson_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4452,7 +4452,7 @@ Currency = "tk_bb000001"
 Name = "anita_navarro_outfit"
 Kit = { Uniform = "0x596F7D42" }
 IconKey = "cos_if_anita_navarro_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4487,7 +4487,7 @@ Currency = "tk_bb000001"
 Name = "wythers_moonridge_outfit"
 Kit = { Uniform = "0x72360C28" }
 IconKey = "cos_if_wythers_moonridge_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4662,7 +4662,7 @@ Currency = "tk_bb000001"
 Name = "conrado_pottinger_outfit"
 Kit = { Uniform = "0x614D1474" }
 IconKey = "cos_if_conrado_pottinger_outfit"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4732,7 +4732,7 @@ Currency = "tk_bb000001"
 Name = "apia_outfit"
 Kit = { Uniform = "0x51CC1A36" }
 IconKey = "cos_if_apia_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4767,7 +4767,7 @@ Currency = "tk_bb000001"
 Name = "melissa_hivewood_outfit"
 Kit = { Uniform = "0xAFF6310D" }
 IconKey = "cos_if_melissa_hivewood_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4837,7 +4837,7 @@ Currency = "tk_bb000001"
 Name = "joon_outfit_1"
 Kit = { Uniform = "0xD9A1367D" }
 IconKey = "cos_if_joon_outfit_1"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4872,7 +4872,7 @@ Currency = "tk_bb000001"
 Name = "joon_outfit_2"
 Kit = { Uniform = "0x40A867C7" }
 IconKey = "cos_if_joon_outfit_2"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4942,7 +4942,7 @@ Currency = "tk_bb000001"
 Name = "june_outfit"
 Kit = { Uniform = "0x74EF3505" }
 IconKey = "cos_if_june_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -4977,7 +4977,7 @@ Currency = "tk_bb000001"
 Name = "deor_rummond_outfit"
 Kit = { Uniform = "0x4FAB578D" }
 IconKey = "cos_if_deor_rummond_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5012,7 +5012,7 @@ Currency = "tk_bb000001"
 Name = "caius_rushford_outfit"
 Kit = { Uniform = "0x27B39906" }
 IconKey = "cos_if_caius_rushford_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5047,7 +5047,7 @@ Currency = "tk_bb000001"
 Name = "noctis_outfit"
 Kit = { Uniform = "0x4256E7DF" }
 IconKey = "cos_if_noctis_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5082,7 +5082,7 @@ Currency = "tk_bb000001"
 Name = "reuben_sidegate_outfit"
 Kit = { Uniform = "0xA6D86F82" }
 IconKey = "cos_if_reuben_sidegate_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5152,7 +5152,7 @@ Currency = "tk_bb000001"
 Name = "hopkins_outfit"
 Kit = { Uniform = "0xE7364CA8" }
 IconKey = "cos_if_hopkins_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5187,7 +5187,7 @@ Currency = "tk_bb000001"
 Name = "hawke_outfit"
 Kit = { Uniform = "0x397A4FEB" }
 IconKey = "cos_if_hawke_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5222,7 +5222,7 @@ Currency = "tk_bb000001"
 Name = "melvin_moodry_outfit"
 Kit = { Uniform = "0xE9E7E682" }
 IconKey = "cos_if_melvin_moodry_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5257,7 +5257,7 @@ Currency = "tk_bb000001"
 Name = "thaddeus_bellefax_outfit"
 Kit = { Uniform = "0xAB3F48C9" }
 IconKey = "cos_if_thaddeus_bellefax_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5292,7 +5292,7 @@ Currency = "tk_bb000001"
 Name = "malik_keos_outfit"
 Kit = { Uniform = "0x2D7ACD30" }
 IconKey = "cos_if_malik_keos_outfit"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5362,7 +5362,7 @@ Currency = "tk_bb000001"
 Name = "maynard_giddings_outfit"
 Kit = { Uniform = "0x6D4C747B" }
 IconKey = "cos_if_maynard_giddings_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5432,7 +5432,7 @@ Currency = "tk_bb000001"
 Name = "soyogi_outfit"
 Kit = { Uniform = "0x07D3315A" }
 IconKey = "cos_if_soyogi_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5502,7 +5502,7 @@ Currency = "tk_bb000001"
 Name = "clifford_chillard_outfit"
 Kit = { Uniform = "0xED47634B" }
 IconKey = "cos_if_clifford_chillard_outfit"
-Who = { Body = [3, 11] }
+Who = { Body = [3] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5537,7 +5537,7 @@ Currency = "tk_bb000001"
 Name = "hurley_outfit"
 Kit = { Uniform = "0x28690854" }
 IconKey = "cos_if_hurley_outfit"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5607,7 +5607,7 @@ Currency = "tk_bb000001"
 Name = "boulder_vargan_outfit"
 Kit = { Uniform = "0x20729A9E" }
 IconKey = "cos_if_boulder_vargan_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5817,7 +5817,7 @@ Currency = "tk_bb000001"
 Name = "aniki_outfit"
 Kit = { Uniform = "0x59E325A8" }
 IconKey = "cos_if_aniki_outfit"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5887,7 +5887,7 @@ Currency = "tk_bb000001"
 Name = "brandt_outfit"
 Kit = { Uniform = "0xD931F498" }
 IconKey = "cos_if_brandt_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5922,7 +5922,7 @@ Currency = "tk_bb000001"
 Name = "goldy_outfit"
 Kit = { Uniform = "0x327B6A36" }
 IconKey = "cos_if_goldy_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -5957,7 +5957,7 @@ Currency = "tk_bb000001"
 Name = "terrell_outfit"
 Kit = { Uniform = "0x39FF0891" }
 IconKey = "cos_if_terrell_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6062,7 +6062,7 @@ Currency = "tk_bb000001"
 Name = "howell_outfit"
 Kit = { Uniform = "0xDBFC0355" }
 IconKey = "cos_if_howell_outfit"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6097,7 +6097,7 @@ Currency = "tk_bb000001"
 Name = "ibuto_outfit"
 Kit = { Uniform = "0xDD7124D0" }
 IconKey = "cos_if_ibuto_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6202,7 +6202,7 @@ Currency = "tk_bb000001"
 Name = "donnie_outfit"
 Kit = { Uniform = "0x39C5E573" }
 IconKey = "cos_if_donnie_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6237,7 +6237,7 @@ Currency = "tk_bb000001"
 Name = "benjamin_tibault_outfit"
 Kit = { Uniform = "0x297B246F" }
 IconKey = "cos_if_benjamin_tibault_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6272,7 +6272,7 @@ Currency = "tk_bb000001"
 Name = "lorien_outfit"
 Kit = { Uniform = "0x9EA89429" }
 IconKey = "cos_if_lorien_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6307,7 +6307,7 @@ Currency = "tk_bb000001"
 Name = "huxley_tagg_outfit"
 Kit = { Uniform = "0x0258A6FA" }
 IconKey = "cos_if_huxley_tagg_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6342,7 +6342,7 @@ Currency = "tk_bb000001"
 Name = "mark_evans_outfit_2"
 Kit = { Uniform = "0x51F29B6E" }
 IconKey = "cos_if_mark_evans_outfit_2"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6412,7 +6412,7 @@ Currency = "tk_bb000001"
 Name = "jude_sharp_outfit_4"
 Kit = { Uniform = "0xD809D66F" }
 IconKey = "cos_if_jude_sharp_outfit_4"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6447,7 +6447,7 @@ Currency = "tk_bb000001"
 Name = "eshin_outfit"
 Kit = { Uniform = "0xF476DDBA" }
 IconKey = "cos_if_eshin_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6517,7 +6517,7 @@ Currency = "tk_bb000001"
 Name = "caelum_outfit"
 Kit = { Uniform = "0x1342CD9C" }
 IconKey = "cos_if_caelum_outfit"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6587,7 +6587,7 @@ Currency = "tk_bb000001"
 Name = "fergus_lougdon_outfit"
 Kit = { Uniform = "0x94929C2E" }
 IconKey = "cos_if_fergus_lougdon_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6622,7 +6622,7 @@ Currency = "tk_bb000001"
 Name = "jack_outfit"
 Kit = { Uniform = "0xBE6FE1F2" }
 IconKey = "cos_if_jack_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6657,7 +6657,7 @@ Currency = "tk_bb000001"
 Name = "psyred_outfit"
 Kit = { Uniform = "0xD4A8CAE6" }
 IconKey = "cos_if_psyred_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6727,7 +6727,7 @@ Currency = "tk_bb000001"
 Name = "fei_rune_outfit_1"
 Kit = { Uniform = "0x8E535695" }
 IconKey = "cos_if_fei_rune_outfit_1"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6762,7 +6762,7 @@ Currency = "tk_bb000001"
 Name = "fei_rune_outfit_2"
 Kit = { Uniform = "0x175A072F" }
 IconKey = "cos_if_fei_rune_outfit_2"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6797,7 +6797,7 @@ Currency = "tk_bb000001"
 Name = "zanark_avalonic_outfit"
 Kit = { Uniform = "0xCBCF7892" }
 IconKey = "cos_if_zanark_avalonic_outfit"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6832,7 +6832,7 @@ Currency = "tk_bb000001"
 Name = "cross_word_cryptix_outfit"
 Kit = { Uniform = "0x4E1D18FD" }
 IconKey = "cos_if_cross_word_cryptix"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6902,7 +6902,7 @@ Currency = "tk_bb000001"
 Name = "victorio_cryptix_outfit_2"
 Kit = { Uniform = "0x1A60AF80" }
 IconKey = "cos_if_victorio_cryptix_2"
-Who = { Body = [2, 10] }
+Who = { Body = [2] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -6972,7 +6972,7 @@ Currency = "tk_bb000001"
 Name = "david_evans_outfit_2"
 Kit = { Uniform = "0xE9B6B5DE" }
 IconKey = "cos_if_david_evans_outfit_2"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7007,7 +7007,7 @@ Currency = "tk_bb000001"
 Name = "ray_outfit"
 Kit = { Uniform = "0x831F177D" }
 IconKey = "cos_if_ray_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7042,7 +7042,7 @@ Currency = "tk_bb000001"
 Name = "stephen_black_outfit"
 Kit = { Uniform = "0xCE6F1471" }
 IconKey = "cos_if_stephen_black_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7077,7 +7077,7 @@ Currency = "tk_bb000001"
 Name = "hekyll_jyde_outfit"
 Kit = { Uniform = "0x192C6BCF" }
 IconKey = "cos_if_hekyll_jyde_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7112,7 +7112,7 @@ Currency = "tk_bb000001"
 Name = "harry_savage_outfit"
 Kit = { Uniform = "0x277C1FC9" }
 IconKey = "cos_if_harry_savage_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7182,7 +7182,7 @@ Currency = "tk_bb000001"
 Name = "manny_artic_outfit"
 Kit = { Uniform = "0x58B516B0" }
 IconKey = "cos_if_manny_artic_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7252,7 +7252,7 @@ Currency = "tk_bb000001"
 Name = "sammy_igajima_outfit"
 Kit = { Uniform = "0xFFB74EF5" }
 IconKey = "cos_if_sammy_igajima_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7287,7 +7287,7 @@ Currency = "tk_bb000001"
 Name = "turtle_newfield_outfit"
 Kit = { Uniform = "0xD17BB292" }
 IconKey = "cos_if_turtle_newfield_outfit"
-Who = { Body = [2, 10] }
+Who = { Body = [2] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7322,7 +7322,7 @@ Currency = "tk_bb000001"
 Name = "seth_outfit"
 Kit = { Uniform = "0x2411939D" }
 IconKey = "cos_if_seth_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7357,7 +7357,7 @@ Currency = "tk_bb000001"
 Name = "clint_loggan_outfit"
 Kit = { Uniform = "0x57A0F752" }
 IconKey = "cos_if_clint_loggan_outfit"
-Who = { Body = [3, 11] }
+Who = { Body = [3] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7392,7 +7392,7 @@ Currency = "tk_bb000001"
 Name = "hilton_bernaton_outfit"
 Kit = { Uniform = "0xC3873C5F" }
 IconKey = "cos_if_hilton_bernaton_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7427,7 +7427,7 @@ Currency = "tk_bb000001"
 Name = "isaias_setik_outfit"
 Kit = { Uniform = "0xAD986546" }
 IconKey = "cos_if_isaias_setik_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7462,7 +7462,7 @@ Currency = "tk_bb000001"
 Name = "augustus_hargrave_outfit"
 Kit = { Uniform = "0xCEA002AD" }
 IconKey = "cos_if_augustus_hargrave_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7532,7 +7532,7 @@ Currency = "tk_bb000001"
 Name = "jambo_reemoth_outfit"
 Kit = { Uniform = "0xE5206FFB" }
 IconKey = "cos_if_jambo_reemoth_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7602,7 +7602,7 @@ Currency = "tk_bb000001"
 Name = "godric_wyles_outfit"
 Kit = { Uniform = "0x302F2A63" }
 IconKey = "cos_if_godric_wyles_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7637,7 +7637,7 @@ Currency = "tk_bb000001"
 Name = "robert_kleiser_outfit"
 Kit = { Uniform = "0xAC46CA6F" }
 IconKey = "cos_if_robert_kleiser_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7707,7 +7707,7 @@ Currency = "tk_bb000001"
 Name = "lee_ji_seong_outfit"
 Kit = { Uniform = "0xE4BD4139" }
 IconKey = "cos_if_lee_ji_seong_outfit"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7742,7 +7742,7 @@ Currency = "tk_bb000001"
 Name = "aaron_adams_outfit"
 Kit = { Uniform = "0x195EEBAB" }
 IconKey = "cos_if_aaron_adams_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7777,7 +7777,7 @@ Currency = "tk_bb000001"
 Name = "mister_d_outfit"
 Kit = { Uniform = "0xE7077857" }
 IconKey = "cos_if_mister_d_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7812,7 +7812,7 @@ Currency = "tk_bb000001"
 Name = "daniel_sturbin_outfit"
 Kit = { Uniform = "0x69CC7F90" }
 IconKey = "cos_if_daniel_sturbin_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7847,7 +7847,7 @@ Currency = "tk_bb000001"
 Name = "mac_scryde_outfit"
 Kit = { Uniform = "0x056932C4" }
 IconKey = "cos_if_mac_scryde_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7882,7 +7882,7 @@ Currency = "tk_bb000001"
 Name = "leao_samus_outfit"
 Kit = { Uniform = "0x684CB211" }
 IconKey = "cos_if_leao_samus_outfit"
-Who = { Body = [7, 15] }
+Who = { Body = [7] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7917,7 +7917,7 @@ Currency = "tk_bb000001"
 Name = "zoolan_outfit"
 Kit = { Uniform = "0x54EDFEAA" }
 IconKey = "cos_if_zoolan_outfit"
-Who = { Body = [5, 16] }
+Who = { Body = [5] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -7952,7 +7952,7 @@ Currency = "tk_bb000001"
 Name = "tom_jefferson_outfit"
 Kit = { Uniform = "0x586CCB92" }
 IconKey = "cos_if_tom_jefferson_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8022,7 +8022,7 @@ Currency = "tk_bb000001"
 Name = "primo_eden_outfit"
 Kit = { Uniform = "0xC2CCC869" }
 IconKey = "cos_if_primo_eden_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8057,7 +8057,7 @@ Currency = "tk_bb000001"
 Name = "longjohn_silver_outfit"
 Kit = { Uniform = "0x983D4285" }
 IconKey = "cos_if_longjohn_silver_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8162,7 +8162,7 @@ Currency = "tk_bb000001"
 Name = "zak_outfit"
 Kit = { Uniform = "0xAE5661DF" }
 IconKey = "cos_if_zak_outfit"
-Who = { Body = [2, 10] }
+Who = { Body = [2] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8197,7 +8197,7 @@ Currency = "tk_bb000001"
 Name = "astram_b_schiller_outfit"
 Kit = { Uniform = "0x14E38974" }
 IconKey = "cos_if_astram_b_schiller_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8232,7 +8232,7 @@ Currency = "tk_bb000001"
 Name = "stewart_outfit"
 Kit = { Uniform = "0xFEC36638" }
 IconKey = "cos_if_stewart_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8267,7 +8267,7 @@ Currency = "tk_bb000001"
 Name = "sonny_raimon_outfit"
 Kit = { Uniform = "0x58BE0654" }
 IconKey = "cos_if_sonny_raimon_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8372,7 +8372,7 @@ Currency = "tk_bb000001"
 Name = "gregory_smith_outfit"
 Kit = { Uniform = "0xE8745258" }
 IconKey = "cos_if_gregory_smith_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8407,7 +8407,7 @@ Currency = "tk_bb000001"
 Name = "maxtor_outfit"
 Kit = { Uniform = "0x24CA6294" }
 IconKey = "cos_if_maxtor_outfit"
-Who = { Body = [6, 12] }
+Who = { Body = [6] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8512,7 +8512,7 @@ Currency = "tk_bb000001"
 Name = "othello_go_outfit"
 Kit = { Uniform = "0x84B14F92" }
 IconKey = "cos_if_othello_go_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8547,7 +8547,7 @@ Currency = "tk_bb000001"
 Name = "vladimir_blade_outfit"
 Kit = { Uniform = "0x1F0E01F6" }
 IconKey = "cos_if_vladimir_blade_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8582,7 +8582,7 @@ Currency = "tk_bb000001"
 Name = "yoshinobu_outfit"
 Kit = { Uniform = "0xA504A7C6" }
 IconKey = "cos_if_yoshinobu_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8617,7 +8617,7 @@ Currency = "tk_bb000001"
 Name = "the_benefactor_outfit"
 Kit = { Uniform = "0xDDBC4E27" }
 IconKey = "cos_if_the_benefactor_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8652,7 +8652,7 @@ Currency = "tk_bb000001"
 Name = "ivan_outfit_2"
 Kit = { Uniform = "0x3EA5F762" }
 IconKey = "cos_if_ivan_outfit_2"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]
@@ -8687,7 +8687,7 @@ Currency = "tk_bb000001"
 Name = "truman_outfit"
 Kit = { Uniform = "0x9F27E979" }
 IconKey = "cos_if_truman_outfit"
-Who = { Body = [4, 14] }
+Who = { Body = [4] }
 Price = 28
 Currency = "tk_bb000001"
   [VRFW.Outfit.Text.es]

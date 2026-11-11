@@ -19,8 +19,8 @@ moves = [
 target = "c01000620"                                   # Hugo Tallgeese
 moves = [
   { move = 0x7B64F3D2, level = 1 },                         # Hawk Shot
-  { move = 0x73C5AF40, level = 11 },                        # Dash Accelerator
-  { move = 0x37A1B17B, level = 21 },                        # Fire Rooster
+  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0x37A1B17B, level = 1 },                         # Fire Rooster
   { move = 0xC7A9BB3A, level = 34 },                        # Whirlwind Cut
 ]
 
@@ -50,7 +50,7 @@ moves = [
 target = "c01000640"                                   # Peter Johnson
 moves = [
   { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x3EC287DE, level = 11 },                        # Bubble Gum
+  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
   { move = 0x10A0C298, level = 18 },                        # Warp Drive
   { move = 0xACAC21CE, level = 38 },                        # Fake Ball
 ]
@@ -65,7 +65,7 @@ moves = [
 target = "c01000650"                                   # Leonard O'Shea
 moves = [
   { move = 0x166B0073, level = 1 },                         # Super Armadillo
-  { move = 0x7CACF0B0, level = 11 },                        # Horn Train
+  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
   { move = 0xDD365E15, level = 40 },                        # Mole Shuffle
   { move = 0x0455B9CE, level = 66 },                        # Run Ball Run
 ]
@@ -112,7 +112,7 @@ moves = [
 target = "c01000680"                                   # Bruce Monkey
 moves = [
   { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
-  { move = 0x53CD747F, level = 11 },                        # Tarzan Kick
+  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
   { move = 0xD8794890, level = 35 },                        # Kangaroo Kick
   { move = 0x261BDCA8, level = 55 },                        # Moonsault
 ]
@@ -127,7 +127,7 @@ moves = [
 target = "c01000690"                                   # Gary Lancaster
 moves = [
   { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
-  { move = 0x166B0073, level = 11 },                        # Super Armadillo
+  { move = 0x166B0073, level = 1 },                         # Super Armadillo
   { move = 0x6B1CF436, level = 16 },                        # Bewildered
   { move = 0x4BD584B7, level = 48 },                        # Power Charge
 ]
@@ -159,8 +159,8 @@ moves = [
 target = "c01000710"                                   # Adrian Speed
 moves = [
   { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
-  { move = 0x53CD747F, level = 11 },                        # Tarzan Kick
-  { move = 0x2296A01A, level = 21 },                        # Southern Cross
+  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
+  { move = 0x2296A01A, level = 1 },                         # Southern Cross
   { move = 0x34256515, level = 24 },                        # Dynamite Shot
 ]
 
@@ -219,7 +219,7 @@ moves = [
 [[edit]]
 target = "c01000750"                                   # Matt Mouseman
 moves = [
-  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
+  { move = 0xACAC21CE, level = 15 },                        # Fake Ball
   { move = 0x6B1CF436, level = 25 },                        # Bewildered
   { move = 0xAC6D8A70, level = 42 },                        # Rainbow Arc
   { move = 0x592A96B4, level = 55 },                        # Afterimage
@@ -236,7 +236,7 @@ moves = [
 target = "c01000760"                                   # Chad Bullford
 moves = [
   { move = 0x8FBCFC3C, level = 1 },                         # Blazing Knuckle
-  { move = 0x8DFA4265, level = 11 },                        # Toughness Block
+  { move = 0x8DFA4265, level = 1 },                         # Toughness Block
   { move = 0xC2BBD4A2, level = 36 },                        # Wild Claw
   { move = 0xDBA0E5E3, level = 53 },                        # Gigant Wall
 ]
@@ -250,10 +250,10 @@ moves = [
 [[edit]]
 target = "c11801060"                                   # Harry Savage
 moves = [
-  { move = 0x0D368F6B, level = 1 },                         # Heaven's Time
-  { move = 0xC42D6F54, level = 11 },                        # Aikido
-  { move = 0x49933AEE, level = 21 },                        # Perfect Tower
-  { move = 0x7EEA4EE9, level = 31 },                        # Blade Attack
+  { move = 0x7EEA4EE9, level = 13 },                        # Blade Attack
+  { move = 0xC42D6F54, level = 20 },                        # Aikido
+  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -266,10 +266,10 @@ moves = [
 [[edit]]
 target = "c11807060"                                   # Flammie Gonzalez
 moves = [
-  { move = 0x21127474, level = 1 },                         # Ultra Moon
-  { move = 0xB7474004, level = 11 },                        # Dough Ray Me
-  { move = 0x427719AC, level = 21 },                        # Gale Dash
-  { move = 0xB3BD79DA, level = 31 },                        # Patriot Shot
+  { move = 0x21127474, level = 13 },                        # Ultra Moon
+  { move = 0xB7474004, level = 20 },                        # Dough Ray Me
+  { move = 0x427719AC, level = 30 },                        # Gale Dash
+  { move = 0xB3BD79DA, level = 38 },                        # Patriot Shot
 ]
 
   [[edit.cards]]

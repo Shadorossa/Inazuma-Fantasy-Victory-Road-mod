@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c07070120"                                   # Nathan Swift
 moves = [
-  { move = 0x3C843987, level = 1 },                         # Flurry Dash
-  { move = 0x1A868BED, level = 13 },                        # Clone Defence
-  { move = 0x37A1B17B, level = 20 },                        # Fire Rooster
+  { move = 0x3C843987, level = 13 },                        # Flurry Dash
+  { move = 0x1A868BED, level = 20 },                        # Clone Defence
   { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0x37A1B17B, level = 38 },                        # Fire Rooster
 ]
 VRFW.MoveGrades = [
   { Move = 0x3C843987, Grade = 1 },                         # Flurry Dash
@@ -21,10 +21,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c07070010"                                   # Joseph King
 moves = [
-  { move = 0xA7157B91, level = 1 },                         # Power Shield
+  { move = 0xBD8A9EBE, level = 1 },                         # Infinite Wall
   { move = 0xA6D711A6, level = 13 },                        # Full Power Shield
   { move = 0xE24F5CA2, level = 20 },                        # Savage Beast Fang
-  { move = 0xBD8A9EBE, level = 30 },                        # Infinite Wall
+  { move = 0xA7157B91, level = 30 },                        # Power Shield
 ]
 VRFW.MoveGrades = [
   { Move = 0xBD8A9EBE, Grade = 2 },                         # Infinite Wall
@@ -38,10 +38,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c07070130"                                   # Grotley Bogwash
 moves = [
-  { move = 0x5C38F92C, level = 1 },                         # Mistral
-  { move = 0xEBD03938, level = 13 },                        # Utter Gutsiness Catch
-  { move = 0x8DFA4265, level = 20 },                        # Toughness Block
-  { move = 0xA7157B91, level = 30 },                        # Power Shield
+  { move = 0x5C38F92C, level = 13 },                        # Mistral
+  { move = 0xEBD03938, level = 20 },                        # Utter Gutsiness Catch
+  { move = 0x8DFA4265, level = 30 },                        # Toughness Block
+  { move = 0xA7157B91, level = 38 },                        # Power Shield
 ]
 
   [[edit.cards]]
@@ -53,10 +53,10 @@ moves = [
 [[edit]]
 target = "c07070030"                                   # Peter Drent
 moves = [
-  { move = 0x00196EC2, level = 1 },                         # Earthquake
-  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
+  { move = 0x00196EC2, level = 13 },                        # Earthquake
+  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
   { move = 0xDB01CFC1, level = 30 },                        # Thunder Beast
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -69,10 +69,10 @@ moves = [
 [[edit]]
 target = "c07070040"                                   # Ben Simmons
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
   { move = 0x2B343D01, level = 13 },                        # Cyclone
-  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
-  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+  { move = 0x5643C944, level = 20 },                        # Killer Slide
+  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -84,10 +84,10 @@ moves = [
 [[edit]]
 target = "c07070050"                                   # Alan Master
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0x34256515, level = 20 },                        # Dynamite Shot
-  { move = 0x1A868BED, level = 30 },                        # Clone Defence
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
+  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
+  { move = 0x34256515, level = 30 },                        # Dynamite Shot
+  { move = 0x1A868BED, level = 38 },                        # Clone Defence
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c07070060"                                   # Gus Martin
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x17A96A44, level = 13 },                        # Clone Faker
-  { move = 0x087999EE, level = 20 },                        # Heel Drop
-  { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
+  { move = 0x17A96A44, level = 20 },                        # Clone Faker
+  { move = 0x087999EE, level = 30 },                        # Heel Drop
+  { move = 0x21127474, level = 38 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c07070070"                                   # Herman Waldon
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x142DBE2A, level = 13 },                        # Foul Offence
-  { move = 0x2B343D01, level = 20 },                        # Cyclone
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
+  { move = 0x142DBE2A, level = 20 },                        # Foul Offence
   { move = 0xB27F13ED, level = 30 },                        # Death Zone
+  { move = 0x2B343D01, level = 38 },                        # Cyclone
 ]
 
   [[edit.cards]]
@@ -130,10 +130,10 @@ moves = [
 [[edit]]
 target = "c07070080"                                   # John Bloom
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x1ECA5CE1, level = 13 },                        # Wrath Shot
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
   { move = 0x142DBE2A, level = 20 },                        # Foul Offence
-  { move = 0x0C08B663, level = 30 },                        # Doom Dive Drive
+  { move = 0x1ECA5CE1, level = 30 },                        # Wrath Shot
+  { move = 0x0C08B663, level = 38 },                        # Doom Dive Drive
 ]
 
   [[edit.cards]]
@@ -145,10 +145,10 @@ moves = [
 [[edit]]
 target = "c07070090"                                   # Derek Swing
 moves = [
-  { move = 0x17A96A44, level = 1 },                         # Clone Faker
-  { move = 0x5643C944, level = 13 },                        # Killer Slide
-  { move = 0x2A37FC88, level = 20 },                        # Revolution V
-  { move = 0xB27F13ED, level = 30 },                        # Death Zone
+  { move = 0x17A96A44, level = 13 },                        # Clone Faker
+  { move = 0x5643C944, level = 20 },                        # Killer Slide
+  { move = 0xB27F13ED, level = 38 },                        # Death Zone
+  { move = 0x2A37FC88, level = 38 },                        # Revolution V
 ]
 
   [[edit.cards]]
@@ -160,10 +160,10 @@ moves = [
 [[edit]]
 target = "c07070100"                                   # Daniel Hatch
 moves = [
-  { move = 0x1ECA5CE1, level = 1 },                         # Wrath Shot
-  { move = 0x142DBE2A, level = 13 },                        # Foul Offence
-  { move = 0xB27F13ED, level = 20 },                        # Death Zone
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0x1ECA5CE1, level = 13 },                        # Wrath Shot
+  { move = 0x142DBE2A, level = 20 },                        # Foul Offence
+  { move = 0xB27F13ED, level = 30 },                        # Death Zone
+  { move = 0x78218C02, level = 38 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -176,10 +176,10 @@ moves = [
 [[edit]]
 target = "c07070020"                                   # David Samford
 moves = [
-  { move = 0x17A96A44, level = 1 },                         # Clone Faker
-  { move = 0x61FB16FD, level = 13 },                        # Divine Arrows
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x7DAF3139, level = 30 },                        # Emperor Penguin No. 2
+  { move = 0x7DAF3139, level = 13 },                        # Emperor Penguin No. 2
+  { move = 0x17A96A44, level = 20 },                        # Clone Faker
+  { move = 0x61FB16FD, level = 38 },                        # Divine Arrows
+  { move = 0x21127474, level = 38 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -190,10 +190,10 @@ moves = [
 [[edit]]
 target = "c07070110"                                   # Caleb Stonewall
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x142DBE2A, level = 13 },                        # Foul Offence
-  { move = 0x7DAF3139, level = 20 },                        # Emperor Penguin No. 2
-  { move = 0x3BF45E9A, level = 30 },                        # Triple Boost
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
+  { move = 0x3BF45E9A, level = 20 },                        # Triple Boost
+  { move = 0x142DBE2A, level = 30 },                        # Foul Offence
+  { move = 0x7DAF3139, level = 38 },                        # Emperor Penguin No. 2
 ]
 VRFW.MoveGrades = [
   { Move = 0x5643C944, Grade = 1 },                         # Killer Slide
@@ -208,10 +208,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c11807040"                                   # Emperio N. Guinn
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x142DBE2A, level = 13 },                        # Foul Offence
-  { move = 0x2B343D01, level = 20 },                        # Cyclone
-  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
+  { move = 0x142DBE2A, level = 20 },                        # Foul Offence
+  { move = 0x2B343D01, level = 30 },                        # Cyclone
+  { move = 0xB0F8060A, level = 38 },                        # Ozone Flayer
 ]
 
   [[edit.cards]]
@@ -224,10 +224,10 @@ moves = [
 [[edit]]
 target = "c11807230"                                   # Ray Dark
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0xB27F13ED, level = 20 },                        # Death Zone
-  { move = 0x7DAF3139, level = 30 },                        # Emperor Penguin No. 2
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
+  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
+  { move = 0xB27F13ED, level = 30 },                        # Death Zone
+  { move = 0x7DAF3139, level = 38 },                        # Emperor Penguin No. 2
 ]
 
   [[edit.cards]]

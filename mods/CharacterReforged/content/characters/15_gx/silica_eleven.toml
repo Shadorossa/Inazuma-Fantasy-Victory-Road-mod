@@ -5,8 +5,8 @@ target = "c06031410"                                   # B'adaen
 moves = [
   { move = 0x0536F9DB, level = 1 },                         # Sand Blaster
   { move = 0xDE8F72FA, level = 29 },                        # Under Miner
+  { move = 0x2D9F7E76, level = 38 },                        # Breath Taker
   { move = 0xED1BFBD3, level = 52 },                        # Fingers of Gaia
-  { move = 0x2D9F7E76, level = 62 },                        # Breath Taker
 ]
 
   [[edit.cards]]
@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c06031420"                                   # G'ob
 moves = [
-  { move = 0xDE8F72FA, level = 1 },                         # Under Miner
+  { move = 0xDE8F72FA, level = 7 },                         # Under Miner
   { move = 0xAC91D94F, level = 28 },                        # Major Miner
   { move = 0xD0A1DBC3, level = 39 },                        # Bungee Ball Burst
   { move = 0x0E8FA384, level = 51 },                        # Warsaw
@@ -34,10 +34,10 @@ moves = [
 [[edit]]
 target = "c06031430"                                   # A'ddah
 moves = [
-  { move = 0xDE8F72FA, level = 1 },                         # Under Miner
+  { move = 0x49529150, level = 1 },                         # Snake Shot
+  { move = 0xDE8F72FA, level = 8 },                         # Under Miner
+  { move = 0x7D6E9A87, level = 30 },                        # The Wall
   { move = 0x72BFA108, level = 45 },                        # Wall of Atlantis
-  { move = 0x7D6E9A87, level = 55 },                        # The Wall
-  { move = 0x49529150, level = 65 },                        # Snake Shot
 ]
 
   [[edit.cards]]
@@ -50,7 +50,7 @@ moves = [
 [[edit]]
 target = "c06031440"                                   # R'adji
 moves = [
-  { move = 0xDE8F72FA, level = 1 },                         # Under Miner
+  { move = 0xDE8F72FA, level = 6 },                         # Under Miner
   { move = 0xE452F107, level = 27 },                        # Dust Javelin
   { move = 0xAC91D94F, level = 41 },                        # Major Miner
   { move = 0xC324C788, level = 50 },                        # Blast Mine
@@ -66,10 +66,10 @@ moves = [
 [[edit]]
 target = "c06031450"                                   # A'kra
 moves = [
-  { move = 0xDE8F72FA, level = 1 },                         # Under Miner
+  { move = 0xDE8F72FA, level = 8 },                         # Under Miner
   { move = 0xCABBA212, level = 30 },                        # Menacing Glare
+  { move = 0x36A270F2, level = 38 },                        # Rolling Slide
   { move = 0x0E8FA384, level = 51 },                        # Warsaw
-  { move = 0x36A270F2, level = 61 },                        # Rolling Slide
 ]
 
   [[edit.cards]]
@@ -82,10 +82,10 @@ moves = [
 [[edit]]
 target = "c06031460"                                   # N'ameeb
 moves = [
-  { move = 0xDE8F72FA, level = 1 },                         # Under Miner
+  { move = 0xDE8F72FA, level = 3 },                         # Under Miner
   { move = 0xAC91D94F, level = 16 },                        # Major Miner
+  { move = 0x4A17EE80, level = 38 },                        # Hunter's Net
   { move = 0xBB21DDC9, level = 48 },                        # Trina Tumble
-  { move = 0x4A17EE80, level = 58 },                        # Hunter's Net
 ]
 
   [[edit.cards]]
@@ -98,7 +98,7 @@ moves = [
 [[edit]]
 target = "c06031470"                                   # K'aran
 moves = [
-  { move = 0xAC91D94F, level = 1 },                         # Major Miner
+  { move = 0xAC91D94F, level = 6 },                         # Major Miner
   { move = 0xE452F107, level = 18 },                        # Dust Javelin
   { move = 0xDE8F72FA, level = 41 },                        # Under Miner
   { move = 0xC8760A18, level = 54 },                        # Falling Planet
@@ -119,7 +119,7 @@ moves = [
 [[edit]]
 target = "c06031480"                                   # K'al
 moves = [
-  { move = 0xE452F107, level = 1 },                         # Dust Javelin
+  { move = 0xE452F107, level = 6 },                         # Dust Javelin
   { move = 0xAC91D94F, level = 10 },                        # Major Miner
   { move = 0xBA221C40, level = 27 },                        # Dragon's Tail
   { move = 0x232D05EC, level = 46 },                        # Tiger Drive
@@ -134,7 +134,7 @@ moves = [
 [[edit]]
 target = "c06031490"                                   # S'haha
 moves = [
-  { move = 0xE452F107, level = 1 },                         # Dust Javelin
+  { move = 0xE452F107, level = 8 },                         # Dust Javelin
   { move = 0xAC91D94F, level = 18 },                        # Major Miner
   { move = 0xEFFC6FA8, level = 26 },                        # Warhead
   { move = 0x9FEEC7A9, level = 42 },                        # Gigaton Head
@@ -154,7 +154,7 @@ moves = [
 [[edit]]
 target = "c06031500"                                   # S'harqiyah
 moves = [
-  { move = 0xE452F107, level = 1 },                         # Dust Javelin
+  { move = 0xE452F107, level = 3 },                         # Dust Javelin
   { move = 0xAC91D94F, level = 11 },                        # Major Miner
   { move = 0x035C1112, level = 27 },                        # Gungnir
   { move = 0x568262FA, level = 43 },                        # Dark Tornado
@@ -169,7 +169,7 @@ moves = [
 [[edit]]
 target = "c06031510"                                   # A'tac
 moves = [
-  { move = 0xE452F107, level = 1 },                         # Dust Javelin
+  { move = 0xE452F107, level = 5 },                         # Dust Javelin
   { move = 0xAC91D94F, level = 15 },                        # Major Miner
   { move = 0xC6978232, level = 28 },                        # Dinosaur Roar
   { move = 0xE35B59DB, level = 50 },                        # Twin Sun Smash
@@ -184,10 +184,10 @@ moves = [
 [[edit]]
 target = "c06031520"                                   # Ogar Circes
 moves = [
-  { move = 0xA3F886BF, level = 1 },                         # Rock Hammer
+  { move = 0xA3F886BF, level = 3 },                         # Rock Hammer
+  { move = 0x2FB941B3, level = 30 },                        # Stone Prison
+  { move = 0x72BFA108, level = 38 },                        # Wall of Atlantis
   { move = 0x7F15DC5F, level = 43 },                        # Desert Drift
-  { move = 0x72BFA108, level = 53 },                        # Wall of Atlantis
-  { move = 0x2FB941B3, level = 63 },                        # Stone Prison
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -205,10 +205,10 @@ moves = [
 [[edit]]
 target = "c11806040"                                   # Zundar Zand
 moves = [
-  { move = 0xDF8CB373, level = 1 },                         # Sonic Shot
-  { move = 0x5049A011, level = 11 },                        # Spinning Shot
-  { move = 0x828A53C8, level = 21 },                        # Plasma Ball
-  { move = 0xB0F8060A, level = 31 },                        # Ozone Flayer
+  { move = 0xB0F8060A, level = 1 },                         # Ozone Flayer
+  { move = 0x5049A011, level = 13 },                        # Spinning Shot
+  { move = 0xDF8CB373, level = 30 },                        # Sonic Shot
+  { move = 0x828A53C8, level = 38 },                        # Plasma Ball
 ]
 
   [[edit.cards]]

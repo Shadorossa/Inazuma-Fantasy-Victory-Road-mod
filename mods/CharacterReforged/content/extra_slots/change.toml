@@ -41,3 +41,4 @@ cpu = false
 become_partner = true                # he becomes the partner card: look, stats and moves
 release_button = false
 change_table = "ModeChange"
+partner_out_of_team = true           # no swap while the partner card plays in his team

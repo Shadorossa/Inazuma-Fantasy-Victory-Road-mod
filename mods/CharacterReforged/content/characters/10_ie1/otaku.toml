@@ -50,7 +50,7 @@ moves = [
 target = "c01001040"                                   # Walter Valiant
 moves = [
   { move = 0x142DBE2A, level = 1 },                         # Foul Offence
-  { move = 0xACAC21CE, level = 11 },                        # Fake Ball
+  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
   { move = 0x1F0836D6, level = 24 },                        # Comet Shot
   { move = 0xB576BB31, level = 75 },                        # The Earth
 ]
@@ -65,8 +65,8 @@ moves = [
 target = "c01001050"                                   # Spencer Gates
 moves = [
   { move = 0xACAC21CE, level = 1 },                         # Fake Ball
-  { move = 0x3663DB4C, level = 11 },                        # Utter Gutsiness Bat
-  { move = 0x3069B219, level = 21 },                        # Super Sumo Stomp
+  { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
+  { move = 0x3069B219, level = 1 },                         # Super Sumo Stomp
   { move = 0xC0A013E6, level = 50 },                        # Liar Shot
 ]
 
@@ -143,9 +143,9 @@ moves = [
 target = "c01001100"                                   # Mark Gambling
 moves = [
   { move = 0x3663DB4C, level = 1 },                         # Utter Gutsiness Bat
-  { move = 0x6B1CF436, level = 11 },                        # Bewildered
-  { move = 0x5506B694, level = 21 },                        # Utter Gutsiness Club
-  { move = 0x33ED6677, level = 31 },                        # Doppelganger
+  { move = 0x6B1CF436, level = 1 },                         # Bewildered
+  { move = 0x5506B694, level = 1 },                         # Utter Gutsiness Club
+  { move = 0x33ED6677, level = 21 },                        # Doppelganger
 ]
 
   [[edit.cards]]
@@ -158,7 +158,7 @@ moves = [
 target = "c01001110"                                   # Theodore Master
 moves = [
   { move = 0x1F0836D6, level = 1 },                         # Comet Shot
-  { move = 0x6B1CF436, level = 11 },                        # Bewildered
+  { move = 0x6B1CF436, level = 1 },                         # Bewildered
   { move = 0x60397CCA, level = 26 },                        # Cross Drive
   { move = 0x3663DB4C, level = 40 },                        # Utter Gutsiness Bat
 ]
@@ -188,9 +188,9 @@ moves = [
 target = "c01001130"                                   # Bill Formby
 moves = [
   { move = 0x33ED6677, level = 1 },                         # Doppelganger
+  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
   { move = 0x322F0C40, level = 35 },                        # Spider Web
   { move = 0xADAFE047, level = 46 },                        # Dual Strike
-  { move = 0x17110E3B, level = 56 },                        # Jumbo Sandwich
 ]
 
   [[edit.cards]]
@@ -203,9 +203,9 @@ moves = [
 target = "c01001140"                                   # Grant Eldorado
 moves = [
   { move = 0xD824318D, level = 1 },                         # Swan Dive
+  { move = 0xA7157B91, level = 13 },                        # Power Shield
   { move = 0x44E1A25A, level = 27 },                        # Pressure Punch
   { move = 0xDCA94D3F, level = 52 },                        # Flash Upper
-  { move = 0xA7157B91, level = 62 },                        # Power Shield
 ]
 
   [[edit.cards]]
@@ -233,7 +233,7 @@ moves = [
 [[edit]]
 target = "c01001160"                                   # Ollie Webb
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x01DB04F5, level = 25 },                        # Defence Scan
   { move = 0x0F703132, level = 35 },                        # Black Magic
   { move = 0x28B0E96F, level = 42 },                        # Heavy Mettle
   { move = 0x60397CCA, level = 51 },                        # Cross Drive
@@ -248,10 +248,10 @@ moves = [
 [[edit]]
 target = "c11801080"                                   # Manny Artic
 moves = [
-  { move = 0x60F8D774, level = 1 },                         # Gravestone
-  { move = 0x485150D9, level = 11 },                        # Body Shield
-  { move = 0x2AF65736, level = 21 },                        # Bamboo Pattern
-  { move = 0x73C5AF40, level = 31 },                        # Dash Accelerator
+  { move = 0x73C5AF40, level = 13 },                        # Dash Accelerator
+  { move = 0x60F8D774, level = 20 },                        # Gravestone
+  { move = 0x2AF65736, level = 30 },                        # Bamboo Pattern
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -263,10 +263,10 @@ moves = [
 [[edit]]
 target = "c11801090"                                   # Meina Maiden
 moves = [
-  { move = 0x72BFA108, level = 1 },                         # Wall of Atlantis
-  { move = 0xAEEA9F97, level = 11 },                        # Sigma Zone
-  { move = 0xADAFE047, level = 21 },                        # Dual Strike
-  { move = 0x2C3D95DD, level = 31 },                        # Sleeping Dust
+  { move = 0xADAFE047, level = 13 },                        # Dual Strike
+  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
+  { move = 0x2C3D95DD, level = 30 },                        # Sleeping Dust
+  { move = 0xAEEA9F97, level = 38 },                        # Sigma Zone
 ]
 
   [[edit.cards]]

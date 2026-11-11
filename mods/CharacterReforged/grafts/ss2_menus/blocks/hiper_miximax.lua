@@ -19,13 +19,42 @@ function PL.mx_chara_name(chara)
   return string.format("%08X", to_u32(chara or 0))
 end
 
+-- Says whether two cards sit in one team set (the bit field retail IsCharaInAnyTeam reads).
+function PL.mx_shares_team(base, partner)
+  local okb, base_sets = pcall(funcLuaCommand, 1131797651, base, 35)
+  local okp, partner_sets = pcall(funcLuaCommand, 1131797651, partner, 35)
+  if not okb or not okp or type(base_sets) ~= "number" or type(partner_sets) ~= "number" or base_sets == 0 or partner_sets == 0 then
+    return false
+  end
+  for set = 0, 16 do
+    if funcLuaCommand(3781690203 --[[CMND_CHECK_BIT]], base_sets, set) and funcLuaCommand(3781690203, partner_sets, set) then
+      return true
+    end
+  end
+  return false
+end
+
+-- Shows a pair's inactive reason on aura layer A: the text under the header and the retail alert icon; returns whether it shows one.
+function PL.pair_warning(A, warning)
+  if type(warning) ~= "string" or warning == "" then
+    return false
+  end
+  funcLuaMenuCommand(C.TEXT, A, 2956552560 --[[_text_flavor02]], warning, 0)
+  funcLuaMenuCommand(2735666188, A, 2956552560, true, 0)
+  local icon = pcall(funcLuaMenuCommand, C.SPRITE, A, 2361962091 --[[cmn01_16]], 542418604 --[[icon_alert_yellow01]],
+    4285917355 --[[icon_fs_area_dmy01]], 0, 0)
+  pcall(Call, C.LOG, "skill_slots", "pair warning on layer", string.format("%08X", to_u32(A)), "alert icon", tostring(icon), warning)
+  return true
+end
+
 -- Returns the fusion of the current player (the running fusion and the partner's handle).
 function PL.mx_get()
   local h = PL.mx_test_hdl or n                    -- (mx_test_hdl: harness only, nil in game)
   if h == nil or h == 0 then
     return nil
   end
-  local ok, exists, partner, m1, m2, chara, best, phdl = pcall(funcLuaCommand, PL.MX_CMD.FUSION_GET, h)
+  local ok, exists, partner, m1, m2, chara, best, phdl, off_text, inactive_label, in_team_text =
+    pcall(funcLuaCommand, PL.MX_CMD.FUSION_GET, h)
   if not ok or exists ~= true then
     return nil
   end
@@ -34,6 +63,13 @@ function PL.mx_get()
   -- the partner's face key (from 347353059(param), as the retail miximax window)
   local okk, face = pcall(funcLuaCommand, 347353059, f.partner)
   f.face = (okk and type(face) == "number" and face ~= 0) and face or f.chara
+  -- Keeps the reason a stored fusion gives no miximax in a match: its validity, else a partner in the base's team.
+  f.warning_label = type(inactive_label) == "string" and inactive_label or ""
+  if type(off_text) == "string" and off_text ~= "" then
+    f.warning = off_text
+  elseif type(in_team_text) == "string" and in_team_text ~= "" and PL.mx_shares_team(h, f.phdl) then
+    f.warning = in_team_text
+  end
   return f
 end
 

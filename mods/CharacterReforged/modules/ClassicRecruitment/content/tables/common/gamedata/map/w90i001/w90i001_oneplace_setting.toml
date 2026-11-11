@@ -1,4 +1,5 @@
 schema = "VRFW.table/1"
+if_mod = "ClassicRecruitment.classic_recruitment"    # The row of options.toml: off = this file is not read.
 table = "map/function_point"
 key_columns = ["id"]                 # function point id (crc32 of its name)
 when = { option = "remove_gacha", equals = 1, default = 1 }

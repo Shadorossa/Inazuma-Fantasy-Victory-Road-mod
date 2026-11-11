@@ -4,7 +4,7 @@ schema = "VRFW.character/2"
 target = "c01010980"                                   # Shadow Cimmerian
 moves = [
   { move = 0x568262FA, level = 1 },                         # Dark Tornado
-  { move = 0xB5B7108F, level = 11 },                        # Shadow Stitch
+  { move = 0xB5B7108F, level = 1 },                         # Shadow Stitch
   { move = 0x33ED6677, level = 24 },                        # Doppelganger
   { move = 0x32EEA7FE, level = 70 },                        # Death Zone 2
 ]

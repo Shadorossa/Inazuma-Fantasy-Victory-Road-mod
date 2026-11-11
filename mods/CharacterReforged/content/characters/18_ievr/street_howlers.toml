@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11700620"                                   # Cane Fangley
 moves = [
-  { move = 0x1FC99D68, level = 1 },                         # Snow Angel
   { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
-  { move = 0x613ABD43, level = 20 },                        # Dawnrise
-  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0x1FC99D68, level = 20 },                        # Snow Angel
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
+  { move = 0x2354CA2D, level = 38 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700630"                                   # Fenric Wulfgang
 moves = [
-  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
-  { move = 0x4741C0E8, level = 13 },                        # Steeple Shot
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0x0B011EBF, level = 30 },                        # Fireball Screw
+  { move = 0x35E70F22, level = 13 },                        # Grenade Shot
+  { move = 0x4741C0E8, level = 30 },                        # Steeple Shot
+  { move = 0x0B011EBF, level = 38 },                        # Fireball Screw
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]

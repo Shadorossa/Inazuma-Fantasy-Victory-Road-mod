@@ -147,10 +147,11 @@ if VRFW.match_challenge == nil then
                      label = type(label) == "number" and label or 0}
     end
     local auras = nil
-    local ruled, allowed, sides, alabel = VRFW.host.command(MC.CMD.AURAS, i)
+    local ruled, allowed, sides, alabel, always, always_allowed = VRFW.host.command(MC.CMD.AURAS, i)
     if ruled == true then
       auras = {allowed = type(allowed) == "string" and allowed or "", sides = type(sides) == "string" and sides or "both",
-               label = type(alabel) == "number" and alabel or 0}
+               label = type(alabel) == "number" and alabel or 0,
+               always_allowed = always == true and type(always_allowed) == "string" and always_allowed or nil}
     end
     local moves = nil
     local mruled, banned, msides, mlabel = VRFW.host.command(MC.CMD.MOVES, i)
@@ -572,6 +573,19 @@ if VRFW.match_challenge == nil then
     return {i = i, ok = ok, offenders = #bad, label = label}
   end
 
+  --- The aura rule a game's challenge keeps on every row (AlwaysRefused), nil = none: read whatever the difficulty and the clear state.
+  function MC.always_auras(game)
+    if type(game) ~= "number" or game == 0 then
+      return nil
+    end
+    local i = VRFW.host.command(MC.CMD.OF, u32(game))
+    local c = type(i) == "number" and i >= 0 and MC.details(i) or nil
+    if c == nil or c.auras == nil or c.auras.always_allowed == nil then
+      return nil
+    end
+    return c
+  end
+
   --- Arms the aura and move rules the challenge on a match row declares.
   function MC.arm_auras(game, diff, beaten)
     local i = MC.applies(game, diff, beaten)
@@ -580,6 +594,12 @@ if VRFW.match_challenge == nil then
     if c ~= nil and c.auras ~= nil then
       MC.log("auras", c.name, "game", game, "allowed", c.auras.allowed == "" and "none" or c.auras.allowed, "sides", c.auras.sides)
       pcall(funcLuaCommand, MC.AURAS_ARM, c.auras.allowed, c.auras.sides)
+    elseif c == nil then
+      local a = MC.always_auras(game)
+      if a ~= nil then
+        MC.log("auras", a.name, "game", game, "every row", "allowed", a.auras.always_allowed, "sides", a.auras.sides)
+        pcall(funcLuaCommand, MC.AURAS_ARM, a.auras.always_allowed, a.auras.sides)
+      end
     end
     if c ~= nil and c.moves ~= nil then
       MC.log("moves", c.name, "game", game, "banned", c.moves.banned, "sides", c.moves.sides)

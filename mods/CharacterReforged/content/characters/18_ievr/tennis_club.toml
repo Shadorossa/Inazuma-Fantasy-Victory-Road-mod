@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11700480"                                   # Alara Belmont
 moves = [
-  { move = 0x3C843987, level = 1 },                         # Flurry Dash
-  { move = 0xDF8CB373, level = 13 },                        # Sonic Shot
-  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
+  { move = 0x3C843987, level = 13 },                        # Flurry Dash
+  { move = 0xDF8CB373, level = 20 },                        # Sonic Shot
   { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700680"                                   # Lyla Loveland
 moves = [
-  { move = 0x17A96A44, level = 1 },                         # Clone Faker
-  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0x17A96A44, level = 20 },                        # Clone Faker
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11724010"                                   # Ana Santini
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
-  { move = 0x52CEB5F6, level = 13 },                        # Iron Wall
-  { move = 0xC41097D5, level = 20 },                        # Acrobotics
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x5DA7EA06, level = 13 },                        # Boomerang Bluff
+  { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
+  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11724020"                                   # Dasher Ballard
 moves = [
-  { move = 0x8B90AAAC, level = 1 },                         # Fortissimo
   { move = 0x20D01E43, level = 13 },                        # Hey Presto
   { move = 0x4E5B398C, level = 20 },                        # Acrobat Bomber
-  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+  { move = 0x8B90AAAC, level = 30 },                        # Fortissimo
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11724030"                                   # Javor Bonnaire
 moves = [
-  { move = 0x2B343D01, level = 1 },                         # Cyclone
-  { move = 0xB7F1AED6, level = 13 },                        # Double Cyclone
-  { move = 0x613ABD43, level = 20 },                        # Dawnrise
+  { move = 0x2B343D01, level = 20 },                        # Cyclone
+  { move = 0xB7F1AED6, level = 30 },                        # Double Cyclone
   { move = 0xE0549BE6, level = 30 },                        # Easy Breezy Kid
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -84,9 +84,9 @@ moves = [
 target = "c11724040"                                   # Tobin Tempelhof
 moves = [
   { move = 0x4C1D87D5, level = 1 },                         # Bed of Roses
-  { move = 0x0E0A3F7A, level = 13 },                        # Spatial Portal
-  { move = 0xDCC9CCA3, level = 20 },                        # Tesla Coil
-  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x0E0A3F7A, level = 20 },                        # Spatial Portal
+  { move = 0xDCC9CCA3, level = 30 },                        # Tesla Coil
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11724050"                                   # Shiryu Hanabusa
 moves = [
-  { move = 0xFF5C8DAF, level = 1 },                         # Shot Stopper
   { move = 0x585098FC, level = 13 },                        # Slice and Dice
-  { move = 0x53E9C2A3, level = 20 },                        # Capable Hands
-  { move = 0xB8C5883B, level = 30 },                        # God Hand X
+  { move = 0xB8C5883B, level = 20 },                        # God Hand X
+  { move = 0xFF5C8DAF, level = 30 },                        # Shot Stopper
+  { move = 0x53E9C2A3, level = 38 },                        # Capable Hands
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11724060"                                   # Dyne Amic
 moves = [
-  { move = 0x60397CCA, level = 1 },                         # Cross Drive
-  { move = 0xC42D6F54, level = 13 },                        # Aikido
-  { move = 0xD9BB22A7, level = 20 },                        # Air Ride
-  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x60397CCA, level = 13 },                        # Cross Drive
+  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
+  { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0xD9BB22A7, level = 38 },                        # Air Ride
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11724070"                                   # Callista Norton
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
-  { move = 0x232D05EC, level = 13 },                        # Tiger Drive
-  { move = 0x1876DB66, level = 20 },                        # Disaster Strike
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x5DA7EA06, level = 13 },                        # Boomerang Bluff
+  { move = 0x232D05EC, level = 20 },                        # Tiger Drive
+  { move = 0x1876DB66, level = 38 },                        # Disaster Strike
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11724080"                                   # Neve Paisley
 moves = [
-  { move = 0x05567847, level = 1 },                         # Runaway Train
-  { move = 0xDA3FF6C9, level = 13 },                        # Criss-Cross
-  { move = 0x00A10ABD, level = 20 },                        # Ball Lightning
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x05567847, level = 13 },                        # Runaway Train
+  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
+  { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11724090"                                   # Serene Goldwell
 moves = [
-  { move = 0x4A17EE80, level = 1 },                         # Hunter's Net
-  { move = 0x0E0A3F7A, level = 13 },                        # Spatial Portal
-  { move = 0xD6649385, level = 20 },                        # Tusk Force
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0xD6649385, level = 1 },                         # Tusk Force
+  { move = 0x4A17EE80, level = 20 },                        # Hunter's Net
+  { move = 0x0E0A3F7A, level = 30 },                        # Spatial Portal
+  { move = 0x78218C02, level = 38 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -179,10 +179,10 @@ moves = [
 [[edit]]
 target = "c11724100"                                   # Mirko Harding
 moves = [
-  { move = 0xB01D1B68, level = 1 },                         # Power Spike
-  { move = 0x47657634, level = 13 },                        # Flame Breath
-  { move = 0x05567847, level = 20 },                        # Runaway Train
-  { move = 0x9765A74A, level = 30 },                        # Beast Fang
+  { move = 0x05567847, level = 13 },                        # Runaway Train
+  { move = 0xB01D1B68, level = 20 },                        # Power Spike
+  { move = 0x47657634, level = 30 },                        # Flame Breath
+  { move = 0x9765A74A, level = 38 },                        # Beast Fang
 ]
 
   [[edit.cards]]
@@ -195,10 +195,10 @@ moves = [
 [[edit]]
 target = "c11724110"                                   # Clyde Dalen
 moves = [
-  { move = 0xABA58912, level = 1 },                         # Ignited Steal
-  { move = 0xAF150D21, level = 13 },                        # Swallow Counter
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0xABA58912, level = 13 },                        # Ignited Steal
+  { move = 0xAF150D21, level = 20 },                        # Swallow Counter
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -211,10 +211,10 @@ moves = [
 [[edit]]
 target = "c11724120"                                   # Curia Caldwell
 moves = [
-  { move = 0x53CD747F, level = 1 },                         # Tarzan Kick
-  { move = 0x2AF65736, level = 13 },                        # Bamboo Pattern
-  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
-  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0x53CD747F, level = 13 },                        # Tarzan Kick
+  { move = 0xC41097D5, level = 20 },                        # Acrobotics
+  { move = 0x2AF65736, level = 30 },                        # Bamboo Pattern
+  { move = 0x72BFA108, level = 38 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -227,10 +227,10 @@ moves = [
 [[edit]]
 target = "c11724130"                                   # Ava Ehrenreich
 moves = [
-  { move = 0x18019E0A, level = 1 },                         # Double Grenade
-  { move = 0x4741C0E8, level = 13 },                        # Steeple Shot
-  { move = 0x86F5F6E8, level = 20 },                        # Cupid's Arrow
-  { move = 0x0BC0B501, level = 30 },                        # Last Lion of Defence
+  { move = 0x18019E0A, level = 20 },                        # Double Grenade
+  { move = 0x4741C0E8, level = 30 },                        # Steeple Shot
+  { move = 0x86F5F6E8, level = 38 },                        # Cupid's Arrow
+  { move = 0x0BC0B501, level = 48 },                        # Last Lion of Defence
 ]
 
   [[edit.cards]]

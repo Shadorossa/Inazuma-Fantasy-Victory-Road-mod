@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11700640"                                   # Romica Glimmerly
 moves = [
-  { move = 0x6B1CF436, level = 1 },                         # Bewildered
-  { move = 0xC8760A18, level = 13 },                        # Falling Planet
-  { move = 0xC5EF0563, level = 20 },                        # Three-Legged Rush
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x6B1CF436, level = 13 },                        # Bewildered
+  { move = 0xC5EF0563, level = 30 },                        # Three-Legged Rush
+  { move = 0xC8760A18, level = 38 },                        # Falling Planet
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]

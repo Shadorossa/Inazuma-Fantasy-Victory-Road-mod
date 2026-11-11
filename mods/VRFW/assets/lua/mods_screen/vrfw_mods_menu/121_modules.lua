@@ -3,7 +3,7 @@ if Screen == nil then
   return
 end
 local C, CE, Cut, Draw, Fit, G, Hit = Screen.C, Screen.CE, Screen.cut, Screen.draw, Screen.fit, Screen.G, Screen.hit
-local INFO, IconOf, Initials, K, Quad = Screen.INFO, Screen.icon_of, Screen.initials, Screen.K, Screen.quad
+local INFO, Initials, K, Quad = Screen.INFO, Screen.initials, Screen.K, Screen.quad
 local RV, SE_MOVE, SE_NG, SP, Size, T = Screen.RV, Screen.SE_MOVE, Screen.SE_NG, Screen.SP, Screen.size, Screen.T
 local Text, Txt, Units, Wrap, ui = Screen.text, Screen.txt, Screen.units, Screen.wrap, Screen.ui
 
@@ -137,10 +137,7 @@ function RV.draw_module_row(m, n, r, x, y, w, h, foc)
       RV.module_toggle(m, n)
     end
   end)
-  local ic = mm ~= nil and IconOf(mm) or nil
-  if ic ~= nil then
-    Quad("P1", ic[2], x + 10, cy - 15, 30, 30, grey and 0.6 or 1, ic[1])
-  else
+  if not CE.draw_icon("P1", mm, x + 10, cy - 15, 30, grey and 0.6 or 1) then
     Quad("P1", SP("iconbox"), x + 10, cy - 15, 30, 30, grey and 0.6 or 1)
     Txt("PC", "[CWG]" .. Initials({name = name, id = name}) .. "[C]", x + 25, cy - 1, 0.46)
   end
@@ -178,10 +175,7 @@ function RV.draw_module_pane(m, r)
   Txt("PL", Cut(name, Fit(w - 260, 0.8)) .. ver, x + 96, y + hh / 2, 0.8)
   -- the icon and two lines: the state, then the family · size
   local iy = y + hh + 18
-  local ic = mm ~= nil and IconOf(mm) or nil
-  if ic ~= nil then
-    Quad("P1", ic[2], x + 24, iy, 96, 96, 1, ic[1])
-  else
+  if not CE.draw_icon("P1", mm, x + 24, iy, 96, 1) then
     Quad("P1", SP("iconbox_l"), x + 24, iy, 96, 96)
     Txt("PC", "[CWG]" .. Initials({name = name, id = name}) .. "[C]", x + 72, iy + 45, 1.3)
   end
@@ -315,7 +309,7 @@ function RV.draw_modules(m)
           x, y + l.h / 2, 0.78)
     else
       first, last, drawn = first or l.n, l.n, drawn + 1
-      RV.draw_module_row(m, l.n, rows[l.n], x, y + 3, w, h, l.n == p.mrow)   -- the pointer's hover moves p.mrow too (Hover)
+      RV.draw_module_row(m, l.n, rows[l.n], x, y + 3, w, h, CE.page_focused() and l.n == p.mrow)   -- hover moves p.mrow too (Hover)
     end
     y = y + l.h
   end

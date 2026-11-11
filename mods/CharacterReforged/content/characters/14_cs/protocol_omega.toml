@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05020500_5000"                              # Alpha
 moves = [
-  { move = 0xB0BC314A, level = 1 },                         # Spin Meister
+  { move = 0xB0BC314A, level = 7 },                         # Spin Meister
   { move = 0xC324C788, level = 12 },                        # Blast Mine
   { move = 0xFB8202AD, level = 36 },                        # Gaussian Goal
   { move = 0x1BF20F08, level = 67 },                        # Omega Assault
@@ -20,8 +20,8 @@ target = "c05020410"                                   # Hotel
 moves = [
   { move = 0x4B3099D5, level = 1 },                         # Stomper Stopper
   { move = 0x06B22DB5, level = 25 },                        # Gyro-Blocker
+  { move = 0xA6D711A6, level = 38 },                        # Full Power Shield
   { move = 0xA7157B91, level = 56 },                        # Power Shield
-  { move = 0xA6D711A6, level = 66 },                        # Full Power Shield
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -55,9 +55,9 @@ moves = [
 target = "c05020430"                                   # Echo
 moves = [
   { move = 0xDCC9CCA3, level = 1 },                         # Tesla Coil
+  { move = 0xA3392D01, level = 1 },                         # Rainbow Bubble Burst
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
   { move = 0xF626F557, level = 51 },                        # Electric Impedance
-  { move = 0xC41097D5, level = 61 },                        # Acrobotics
-  { move = 0xA3392D01, level = 71 },                        # Rainbow Bubble Burst
 ]
 
   [[edit.cards]]
@@ -72,8 +72,8 @@ target = "c05020440"                                   # Golf
 moves = [
   { move = 0xDCC9CCA3, level = 1 },                         # Tesla Coil
   { move = 0x650FA58E, level = 9 },                         # Spin Out
-  { move = 0x457EB170, level = 42 },                        # Pyrokinetic
-  { move = 0xC42D6F54, level = 52 },                        # Aikido
+  { move = 0xAC91D94F, level = 42 },                        # Major Miner
+  { move = 0x457EB170, level = 43 },                        # Pyrokinetic
 ]
 
   [[edit.cards]]
@@ -104,8 +104,8 @@ target = "c05020460"                                   # Lima
 moves = [
   { move = 0x650FA58E, level = 1 },                         # Spin Out
   { move = 0x5739C70C, level = 20 },                        # Guided Collide
+  { move = 0x1C4D4906, level = 30 },                        # Whirlpool
   { move = 0xBBE07677, level = 53 },                        # Sidewinder
-  { move = 0x1C4D4906, level = 63 },                        # Whirlpool
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -123,7 +123,7 @@ moves = [
 [[edit]]
 target = "c05020470"                                   # Bravo
 moves = [
-  { move = 0x650FA58E, level = 1 },                         # Spin Out
+  { move = 0x650FA58E, level = 4 },                         # Spin Out
   { move = 0x17110E3B, level = 10 },                        # Jumbo Sandwich
   { move = 0xF7E49F60, level = 24 },                        # Magnetism
   { move = 0xAC91D94F, level = 53 },                        # Major Miner
@@ -141,8 +141,8 @@ target = "c05020480"                                   # India
 moves = [
   { move = 0x650FA58E, level = 1 },                         # Spin Out
   { move = 0xDCC9CCA3, level = 9 },                         # Tesla Coil
+  { move = 0xA2BF7076, level = 38 },                        # Side Swipe
   { move = 0x86F5F6E8, level = 39 },                        # Cupid's Arrow
-  { move = 0xA2BF7076, level = 49 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -155,10 +155,10 @@ moves = [
 [[edit]]
 target = "c05020490"                                   # Juliet
 moves = [
-  { move = 0xFB8202AD, level = 1 },                         # Gaussian Goal
+  { move = 0xFB8202AD, level = 3 },                         # Gaussian Goal
   { move = 0x828A53C8, level = 25 },                        # Plasma Ball
+  { move = 0x650FA58E, level = 30 },                        # Spin Out
   { move = 0x768AB9C5, level = 58 },                        # Frosticle
-  { move = 0x650FA58E, level = 68 },                        # Spin Out
 ]
 
   [[edit.cards]]
@@ -176,7 +176,7 @@ target = "c05020500"                                   # Alpha
   growth = "normal"
   stats = { kick = 302, control = 258, technique = 254, pressure = 213, physical = 158, intelligence = 232, agility = 193, freedom = 363 }
   moves = [
-    { move = 0xB0BC314A, level = 1 },                       # Spin Meister
+    { move = 0xB0BC314A, level = 7 },                       # Spin Meister
     { move = 0xC324C788, level = 12 },                      # Blast Mine
     { move = 0xFB8202AD, level = 36 },                      # Gaussian Goal
     { move = 0x1BF20F08, level = 67 },                      # Omega Assault
@@ -205,7 +205,7 @@ moves = [
 [[edit]]
 target = "c05020520"                                   # Uniform
 moves = [
-  { move = 0x4B3099D5, level = 1 },                         # Stomper Stopper
+  { move = 0x4B3099D5, level = 3 },                         # Stomper Stopper
   { move = 0xF14FDC17, level = 17 },                        # Shot Pocket
   { move = 0x8B31808E, level = 20 },                        # Wormhole
   { move = 0x7BC5D9F0, level = 45 },                        # Rotary Sander
@@ -220,10 +220,10 @@ moves = [
 [[edit]]
 target = "c05020530"                                   # Tango
 moves = [
-  { move = 0xDCC9CCA3, level = 1 },                         # Tesla Coil
+  { move = 0xDCC9CCA3, level = 3 },                         # Tesla Coil
   { move = 0x650FA58E, level = 30 },                        # Spin Out
-  { move = 0xC41097D5, level = 40 },                        # Acrobotics
-  { move = 0x21127474, level = 50 },                        # Ultra Moon
+  { move = 0xC41097D5, level = 38 },                        # Acrobotics
+  { move = 0x21127474, level = 38 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -238,8 +238,8 @@ target = "c05020540"                                   # Zulu
 moves = [
   { move = 0x650FA58E, level = 1 },                         # Spin Out
   { move = 0xDCC9CCA3, level = 14 },                        # Tesla Coil
+  { move = 0x64CDCFB9, level = 30 },                        # Rising Dragon
   { move = 0x05124F07, level = 51 },                        # Fission and Fusion
-  { move = 0x64CDCFB9, level = 61 },                        # Rising Dragon
 ]
 
   [[edit.cards]]
@@ -269,8 +269,8 @@ target = "c05020560"                                   # Delta
 moves = [
   { move = 0xB0BC314A, level = 1 },                         # Spin Meister
   { move = 0x414BA9BD, level = 26 },                        # Pincer Pinch
-  { move = 0xE35B59DB, level = 36 },                        # Twin Sun Smash
-  { move = 0x650FA58E, level = 46 },                        # Spin Out
+  { move = 0xE35B59DB, level = 30 },                        # Twin Sun Smash
+  { move = 0x650FA58E, level = 38 },                        # Spin Out
 ]
 
   [[edit.cards]]
@@ -284,8 +284,8 @@ target = "c05020410_5000"                              # Hotel
 moves = [
   { move = 0x4B3099D5, level = 1 },                         # Stomper Stopper
   { move = 0x06B22DB5, level = 25 },                        # Gyro-Blocker
+  { move = 0xA6D711A6, level = 38 },                        # Full Power Shield
   { move = 0xA7157B91, level = 56 },                        # Power Shield
-  { move = 0xA6D711A6, level = 66 },                        # Full Power Shield
 ]
 
   [[edit.cards]]
@@ -299,8 +299,8 @@ target = "c05020460_5000"                              # Lima
 moves = [
   { move = 0x650FA58E, level = 1 },                         # Spin Out
   { move = 0x5739C70C, level = 20 },                        # Guided Collide
+  { move = 0x1C4D4906, level = 30 },                        # Whirlpool
   { move = 0xBBE07677, level = 53 },                        # Sidewinder
-  { move = 0x1C4D4906, level = 63 },                        # Whirlpool
 ]
 
   [[edit.cards]]

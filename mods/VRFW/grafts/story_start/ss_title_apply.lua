@@ -14,6 +14,7 @@ local story_start = {
   STORY_END = 823922180, UPDATE_PARTY = 2983896291, AUTO_SAVE = @crc:CMND_SYSTEM_AUTO_SAVE@,
   FLAG_AVATAR = 2113473044, FLAG_STORY_CLEAR = 750283301,
   OWNED = 1052152255,                                                           -- (card, 0) -> ok, n / n: saved copies of that card
+  ITEM_GOT = @crc:CMND_VRFW_STORY_SET_ITEM_GOT@, CONTENT = @crc:CMND_VRFW_STORY_START_CONTENT@,
 }
 local story_start_ran = false        -- once per VM (the OnInit chain may be wrapped twice)
 
@@ -74,10 +75,10 @@ local function story_start_section(name, fn)
   return n or 0
 end
 
-local function story_start_apply()
+-- The story flags, byte flags and obtained items of the data: plain sets, the same on a slot that has them already.
+local function story_start_flags()
   local D = SS_DATA
   local F = funcLuaCommand
-  local granted = {}                 -- characters given by this apply
   story_start_section("flags", function()
     local n = 0
     for i = 1, #D.BITS - 1 do        -- the last entry (b0:1 story clear) is set at the very end
@@ -93,6 +94,22 @@ local function story_start_apply()
     end
     return n
   end)
+  story_start_section("obtained items", function()
+    local n = 0
+    for _, catalog in ipairs(D.OBTAINED) do
+      if VRFW.host.command(story_start.ITEM_GOT, catalog) == true then
+        n = n + 1
+      end
+    end
+    return n
+  end)
+end
+
+local function story_start_apply()
+  local D = SS_DATA
+  local F = funcLuaCommand
+  local granted = {}                 -- characters given by this apply
+  story_start_flags()
   story_start_section("help/quests/words", function()
     local n = 0
     for _, h in ipairs(D.HELP) do
@@ -207,12 +224,12 @@ function VRFW.story_start.on_title()
     return                           -- once per VM; only in title_menu_2 (not the press-start title_menu)
   end
   story_start_ran = true
-  local state, phase, _, live = VRFW.host.command(story_start.GET)
+  local state, phase, _, live, content = VRFW.host.command(story_start.GET)
   if type(state) ~= "number" then
     return                           -- no save part with the story-complete start
   end
-  if state ~= 1 then
-    return
+  if state ~= 1 and state ~= 2 then
+    return                           -- 1 pending, 2 done (top-up when its content version is older than the data)
   end
   local slot = VRFW.host.command(story_start.GET_SLOT)
   if type(slot) ~= "number" or slot < 1 then
@@ -238,9 +255,14 @@ function VRFW.story_start.on_title()
   end
   local target = SS_DATA.PHASE[1] * 10000 + SS_DATA.PHASE[2]
   local clear = VRFW.host.command(story_start.GET_BIT, story_start.FLAG_STORY_CLEAR) == true
-  -- The four cases (story_start::title_action).
+  -- The four cases (story_start::title_action), and the top-up of a done slot.
   local mode
-  if not clear and phase == 0 then
+  if state == 2 then
+    if not clear or (tonumber(content) or 0) >= SS_DATA.VERSION then
+      return
+    end
+    mode = "topup"
+  elseif not clear and phase == 0 then
     mode = "apply"
   elseif clear and phase == 0 then
     mode = "repair"
@@ -267,17 +289,25 @@ function VRFW.story_start.on_title()
     story_start_log("APPLY slot", slot, "data version", SS_DATA.VERSION, "flags", #SS_DATA.BITS, "roster", #SS_DATA.ADDS + #SS_DATA.SCOUTS,
                 "normal", #SS_DATA.NORMAL, "trophies", #SS_DATA.TROPHIES)
     ok, err = pcall(story_start_apply)
+  elseif mode == "topup" then
+    story_start_log("TOP-UP slot", slot, ": content", tostring(content), "->", SS_DATA.VERSION, ": flags and obtained items")
+    story_start_flags()
+    ok = true
   else
     story_start_log("REPAIR slot", slot, ": story clear set but the saved phase is 0 (live", tostring(live),
-                "): phase only, nothing else re-applied")
+                "): flags and phase, nothing else re-applied")
+    story_start_flags()                 -- a slot made with older data gets the flags added since
     local old, new = VRFW.host.command(story_start.PHASE, SS_DATA.PHASE[1], SS_DATA.PHASE[2])
     story_start_log("phase", tostring(old), "->", tostring(new))
     ok = new == target
     err = ok and nil or "phase write refused"
   end
   local blocked = VRFW.host.command(story_start.END_)
-  story_start_log(mode == "apply" and "APPLY done" or "REPAIR done", ok and "ok" or ("ERROR " .. tostring(err)),
+  story_start_log(string.upper(mode) .. " done", ok and "ok" or ("ERROR " .. tostring(err)),
               "Steam requests dropped", tostring(blocked))
+  if ok then
+    VRFW.host.command(story_start.CONTENT, slot, SS_DATA.VERSION)
+  end
   if VRFW.host.command(story_start.BUSY) ~= true then
     VRFW.host.command(story_start.AUTO_SAVE)            -- CMND_SYSTEM_AUTO_SAVE; the marker turns "done" once it is on disk
     story_start_log("autosave requested")

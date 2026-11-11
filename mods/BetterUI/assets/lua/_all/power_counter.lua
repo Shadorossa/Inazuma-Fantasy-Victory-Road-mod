@@ -60,21 +60,21 @@ if BetterUI.power_counter == nil then
     return x, y
   end
 
-  -- Where on screen a plate's tag anchor goes so the tag is centred above the total (the game centres the digits on the number node).
-  function P.TagTarget(i, layout)
+  -- Where on screen a plate's tag anchor goes so the tag sits on the ribbon, just right of the total's last digit (the digits are centred on the number node).
+  function P.TagTarget(i, layout, digits)
     local plate = P.PLATES[i]
     local layer = Crc(plate.layer)
     if command("CMND_IS_OPEN_LAYER", layer) ~= true then
       return nil
     end
-    local x = P.GlobalPosition(layer, 0, Crc(plate.number_node))
-    local _, y = P.GlobalPosition(layer, 0, Crc(plate.slide))
+    local x, y = P.GlobalPosition(layer, 0, Crc(plate.number_node))
     if x == nil or y == nil or type(layout) ~= "table" or layout.tag_scale == nil or layout.tag_anchor_x == nil
-      or layout.tag_digits_top == nil or layout.tag_gap == nil or layout.tag_height == nil then
+      or layout.tag_gap == nil or layout.tag_width == nil or layout.tag_digit_width == nil or layout.tag_default_digits == nil then
       return nil
     end
     local scale = layout.tag_scale
-    return x - layout.tag_anchor_x * scale, y + layout.tag_digits_top + layout.tag_gap + layout.tag_height * scale / 2
+    local right_edge = x + (digits or layout.tag_default_digits) * layout.tag_digit_width / 2
+    return right_edge + layout.tag_gap + (layout.tag_width / 2 - layout.tag_anchor_x) * scale, y
   end
 
   -- A placer moves the instances of one layer so that one of their nodes lands on a screen point.
@@ -170,9 +170,9 @@ if BetterUI.power_counter == nil then
     command("CMND_SET_MENU_TEXT_STRING", layer, Crc(TAG.text), "", instance)
   end
 
-  -- A tag set: the tags of the plates whose player made a critical hit, placed while their plates are open.
-  function P.NewTags(critical, layout, log)
-    return { critical = critical, layout = layout, placer = P.NewPlacer(P.TAG_LAYER, TAG.mesh, log), done = false, opened = false,
+  -- A tag set: the tags of the plates whose player made a critical hit, placed while their plates are open; `digits` (optional) holds each total's digit count.
+  function P.NewTags(critical, layout, log, digits)
+    return { critical = critical, layout = layout, digits = digits or {}, placer = P.NewPlacer(P.TAG_LAYER, TAG.mesh, log), done = false, opened = false,
       hidden = false }
   end
 
@@ -205,7 +205,7 @@ if BetterUI.power_counter == nil then
     local done = true
     for i = 1, #P.PLATES do
       if t.critical[i] then
-        local x, y = P.TagTarget(i, t.layout)
+        local x, y = P.TagTarget(i, t.layout, t.digits[i])
         if x ~= nil and not P.Started(t.placer, i - 1) then
           P.DressTag(i - 1, t.layout.tag_scale)
         end

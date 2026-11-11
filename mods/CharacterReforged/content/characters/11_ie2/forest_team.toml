@@ -4,7 +4,7 @@ schema = "VRFW.character/2"
 target = "c02021810"                                   # Cam Mando
 moves = [
   { move = 0xDBA0E5E3, level = 1 },                         # Gigant Wall
-  { move = 0x8C382852, level = 11 },                        # God Hand
+  { move = 0x8C382852, level = 1 },                         # God Hand
   { move = 0x5DFA931B, level = 25 },                        # Triple Defence
   { move = 0xB907E20C, level = 60 },                        # Procyon Net
 ]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c02021820"                                   # Harry Boufante
 moves = [
-  { move = 0x37A1B17B, level = 1 },                         # Fire Rooster
+  { move = 0x37A1B17B, level = 25 },                        # Fire Rooster
+  { move = 0xB5B7108F, level = 30 },                        # Shadow Stitch
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
   { move = 0xC5EF0563, level = 60 },                        # Three-Legged Rush
-  { move = 0xB5B7108F, level = 70 },                        # Shadow Stitch
 ]
 
   [[edit.cards]]
@@ -63,10 +63,10 @@ moves = [
 [[edit]]
 target = "c02021850"                                   # Marismus Oregon
 moves = [
-  { move = 0xB4757AB8, level = 1 },                         # Divine Stamp
+  { move = 0x6633159F, level = 20 },                        # Gravitation
+  { move = 0xB4757AB8, level = 25 },                        # Divine Stamp
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
   { move = 0x121A2FFE, level = 60 },                        # Mirage Shot
-  { move = 0x6633159F, level = 70 },                        # Gravitation
 ]
 
   [[edit.cards]]
@@ -80,9 +80,9 @@ moves = [
 target = "c02021860"                                   # Garjan Cypress
 moves = [
   { move = 0x09BBF3D9, level = 1 },                         # Dark Whirlwind
+  { move = 0x19025F83, level = 13 },                        # Quick Draw
   { move = 0x49529150, level = 25 },                        # Snake Shot
   { move = 0x15EFD41D, level = 60 },                        # Dual Pass
-  { move = 0x19025F83, level = 70 },                        # Quick Draw
 ]
 
   [[edit.cards]]
@@ -127,10 +127,10 @@ moves = [
 [[edit]]
 target = "c02021890"                                   # Chris Ticker
 moves = [
-  { move = 0x7B64F3D2, level = 1 },                         # Hawk Shot
+  { move = 0x1D4E888F, level = 13 },                        # Condor Dive
+  { move = 0x7B64F3D2, level = 25 },                        # Hawk Shot
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
   { move = 0xC5EF0563, level = 60 },                        # Three-Legged Rush
-  { move = 0x1D4E888F, level = 70 },                        # Condor Dive
 ]
 
   [[edit.cards]]
@@ -142,10 +142,10 @@ moves = [
 [[edit]]
 target = "c02021900"                                   # Roy Daring
 moves = [
-  { move = 0x2D3E5454, level = 1 },                         # Clone Shot
+  { move = 0x17A96A44, level = 13 },                        # Clone Faker
+  { move = 0x2D3E5454, level = 25 },                        # Clone Shot
+  { move = 0x3C843987, level = 30 },                        # Flurry Dash
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
-  { move = 0x3C843987, level = 60 },                        # Flurry Dash
-  { move = 0x17A96A44, level = 70 },                        # Clone Faker
 ]
 
   [[edit.cards]]
@@ -158,10 +158,10 @@ moves = [
 [[edit]]
 target = "c02021910"                                   # Scaber Enoki
 moves = [
-  { move = 0x78E027BC, level = 1 },                         # Shine Drive
+  { move = 0x78E027BC, level = 25 },                        # Shine Drive
+  { move = 0x31ABD82E, level = 30 },                        # Circus Block
   { move = 0xB37CD264, level = 50 },                        # Am-Bush
   { move = 0xA9229CF5, level = 60 },                        # The Galaxy
-  { move = 0x31ABD82E, level = 70 },                        # Circus Block
 ]
 
   [[edit.cards]]

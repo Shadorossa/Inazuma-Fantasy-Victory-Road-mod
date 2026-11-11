@@ -1,0 +1,32 @@
+schema = "VRFW.passive/1"
+# The «Crítico» archetype passives, carried by the game's build 0 passives (docs/game/ideas/brecha-critical-rework.md).
+# «Lance crítico» (ps10052 / ps10053) is declared in critical_talents.toml. The two per-rank passives (ps10056 / ps10057,
+# ps10113) are terms of the team's charge: config.toml [critical] power_per_rank, keeper_per_rank.
+
+[[VRFW.PassiveCap]]
+name = "critical_team_rate"
+max_percent = 30
+
+[[VRFW.PassiveCap]]
+name = "critical_break_through"
+max_percent = 30
+
+# ps10054 / ps10055: while level or behind, the team's critical chance × 1.06 per carrier (at most × 1.30)
+[[VRFW.Passive]]
+name = "critical_rate_level_or_behind"
+blocks = ["level_or_trailing", "team_critical_rate_plus_6"]
+carried_by = ["ps10054", "ps10055", "hps10055"]
+caps = ["critical_team_rate"]
+
+# ps10058 / ps10059: 3.6 tension points for his team on each of his critical hits
+[[VRFW.Passive]]
+name = "critical_tension"
+blocks = ["own_critical_hit", "tension_3_6_carrier"]
+carried_by = ["ps10058", "ps10059"]
+
+# the new team passive: a critical shot of his team keeps 15 % more power after it beats a block (at most 30 %)
+[[VRFW.Passive]]
+name = "critical_break_through"
+blocks = ["shot_is_critical", "beaten_block_shot_power_plus_15"]
+carried_by = ["hissatsu_reforged_critical_break_through"]
+caps = ["critical_break_through"]

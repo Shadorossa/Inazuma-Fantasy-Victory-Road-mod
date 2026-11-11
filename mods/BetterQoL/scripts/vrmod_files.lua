@@ -15,7 +15,7 @@ function BetterQoL.VrmodFilesNeed(needed, mod_id, version, parts)
   return needed
 end
 
---- Writes one share file: rules = { kind, body, name, file_stem, needed, area, exporter } -> true, file, area; false, why.
+--- Writes one share file: rules = { kind, body, name, file_stem, needed, area, exporter[, ticket] } -> true, file, area; false, why.
 BetterQoL.VrmodFilesWrite = Files.write
 
 --- Lists the share files of `kind` in `area`, newest first -> count, area.
@@ -27,6 +27,13 @@ BetterQoL.VrmodFilesEntry = Files.entry
 --- Reads listed entry `index` -> { body, file, checksum_ok, missing }; nil, why (references resolve with VrmodFilesResolve).
 function BetterQoL.VrmodFilesRead(area, kind, index)
   local read, why = Files.read(area, kind, index)
+  if not read then return nil, why end
+  return { body = read.body, file = read.file, checksum_ok = read.checksum_ok, missing = read.missing }
+end
+
+--- Reads the file of open pick `ticket` (VRFW.file_pick) -> { body, file, checksum_ok, missing }; nil, why.
+function BetterQoL.VrmodFilesReadPicked(kind, ticket)
+  local read, why = Files.read_picked(kind, ticket)
   if not read then return nil, why end
   return { body = read.body, file = read.file, checksum_ok = read.checksum_ok, missing = read.missing }
 end

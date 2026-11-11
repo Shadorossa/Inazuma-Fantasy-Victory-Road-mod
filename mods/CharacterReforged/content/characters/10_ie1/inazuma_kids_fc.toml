@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c01002010"                                   # Herman Muller
 moves = [
-  { move = 0x44E1A25A, level = 1 },                         # Pressure Punch
+  { move = 0x44E1A25A, level = 5 },                         # Pressure Punch
   { move = 0xE9968761, level = 20 },                        # Rocket Kobushi
   { move = 0xEA12530F, level = 58 },                        # Double Rocket
   { move = 0x5C38F92C, level = 68 },                        # Mistral
@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c01002020"                                   # Keth Claus
 moves = [
-  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 7 },                         # Dash Accelerator
   { move = 0x5643C944, level = 15 },                        # Killer Slide
   { move = 0x7EEA4EE9, level = 37 },                        # Blade Attack
   { move = 0x2BF596BF, level = 62 },                        # Tsunami Boost
@@ -33,7 +33,7 @@ moves = [
 [[edit]]
 target = "c01002030"                                   # Robert Silver
 moves = [
-  { move = 0x3C843987, level = 1 },                         # Flurry Dash
+  { move = 0x3C843987, level = 9 },                         # Flurry Dash
   { move = 0xACAC21CE, level = 34 },                        # Fake Ball
   { move = 0x4D1E465C, level = 37 },                        # Fake Bomber
   { move = 0x55C71D2A, level = 44 },                        # About Face
@@ -48,7 +48,7 @@ moves = [
 [[edit]]
 target = "c01002040"                                   # Izzy Island
 moves = [
-  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
+  { move = 0x259F08C6, level = 10 },                        # Whirlwind Twister
   { move = 0x29B328E6, level = 16 },                        # Spectacle Crash
   { move = 0x01DB04F5, level = 32 },                        # Defence Scan
   { move = 0x2B343D01, level = 50 },                        # Cyclone
@@ -64,10 +64,10 @@ moves = [
 [[edit]]
 target = "c01002050"                                   # Sothern Newman
 moves = [
-  { move = 0x7D6E9A87, level = 1 },                         # The Wall
+  { move = 0x73C5AF40, level = 13 },                        # Dash Accelerator
+  { move = 0x7D6E9A87, level = 23 },                        # The Wall
   { move = 0x166B0073, level = 34 },                        # Super Armadillo
   { move = 0x28B0E96F, level = 37 },                        # Heavy Mettle
-  { move = 0x73C5AF40, level = 47 },                        # Dash Accelerator
 ]
 
   [[edit.cards]]
@@ -80,7 +80,7 @@ moves = [
 [[edit]]
 target = "c01002060"                                   # Irwin Hall
 moves = [
-  { move = 0xDF70E04C, level = 1 },                         # Rodeo Clown
+  { move = 0xDF70E04C, level = 5 },                         # Rodeo Clown
   { move = 0xDCF43422, level = 23 },                        # Aurora Dribble
   { move = 0x4F9953BB, level = 43 },                        # Baby Corodragon
   { move = 0x55C71D2A, level = 46 },                        # About Face
@@ -95,7 +95,7 @@ moves = [
 [[edit]]
 target = "c01002070"                                   # Taylor Higgins
 moves = [
-  { move = 0xDF70E04C, level = 1 },                         # Rodeo Clown
+  { move = 0xDF70E04C, level = 7 },                         # Rodeo Clown
   { move = 0x4F58F805, level = 17 },                        # Coil Turn
   { move = 0xB13A6C3D, level = 37 },                        # Zigzag Flame
   { move = 0x4F9953BB, level = 45 },                        # Baby Corodragon
@@ -110,7 +110,7 @@ moves = [
 [[edit]]
 target = "c01002080"                                   # Jamie Cool
 moves = [
-  { move = 0x7B64F3D2, level = 1 },                         # Hawk Shot
+  { move = 0x7B64F3D2, level = 13 },                        # Hawk Shot
   { move = 0x3C843987, level = 19 },                        # Flurry Dash
   { move = 0x3EC287DE, level = 25 },                        # Bubble Gum
   { move = 0xD9BB22A7, level = 58 },                        # Air Ride
@@ -126,8 +126,8 @@ moves = [
 [[edit]]
 target = "c01002090"                                   # Hans Randall
 moves = [
-  { move = 0x1F0836D6, level = 1 },                         # Comet Shot
-  { move = 0x73C5AF40, level = 18 },                        # Dash Accelerator
+  { move = 0x1F0836D6, level = 8 },                         # Comet Shot
+  { move = 0x73C5AF40, level = 8 },                         # Dash Accelerator
   { move = 0x0597D3F9, level = 24 },                        # Dragon Tornado
   { move = 0xE937AD43, level = 68 },                        # Dragon Slayer
 ]
@@ -142,7 +142,7 @@ moves = [
 [[edit]]
 target = "c01002100"                                   # Michael Riverside
 moves = [
-  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
+  { move = 0x73C5AF40, level = 6 },                         # Dash Accelerator
   { move = 0x19025F83, level = 20 },                        # Quick Draw
   { move = 0x53CD747F, level = 39 },                        # Tarzan Kick
   { move = 0x13D845C9, level = 60 },                        # Samba Strike
@@ -172,7 +172,7 @@ moves = [
 [[edit]]
 target = "c01002120"                                   # Karl Blue
 moves = [
-  { move = 0x427719AC, level = 1 },                         # Gale Dash
+  { move = 0x427719AC, level = 9 },                         # Gale Dash
   { move = 0x0F703132, level = 20 },                        # Black Magic
   { move = 0xACAC21CE, level = 37 },                        # Fake Ball
   { move = 0x55C71D2A, level = 53 },                        # About Face
@@ -188,7 +188,7 @@ moves = [
 [[edit]]
 target = "c01002130"                                   # Theakston Plank
 moves = [
-  { move = 0xAC6D8A70, level = 1 },                         # Rainbow Arc
+  { move = 0xAC6D8A70, level = 10 },                        # Rainbow Arc
   { move = 0x259F08C6, level = 20 },                        # Whirlwind Twister
   { move = 0x4E9A9232, level = 32 },                        # Spinning Cut
   { move = 0xA8E0F6C2, level = 49 },                        # Kung Fu Header
@@ -203,7 +203,7 @@ moves = [
 [[edit]]
 target = "c01002140"                                   # Ken Cake
 moves = [
-  { move = 0xAAA6489B, level = 1 },                         # Spiral Shot
+  { move = 0xAAA6489B, level = 5 },                         # Spiral Shot
   { move = 0x65B7C1F1, level = 12 },                        # Sumo Stomp
   { move = 0x3526A49C, level = 29 },                        # Road Roller
   { move = 0x574008CD, level = 53 },                        # Kung Fu Fighting
@@ -218,7 +218,7 @@ moves = [
 [[edit]]
 target = "c01002150"                                   # Mitch Grumble
 moves = [
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0x6ADE9E01, level = 17 },                        # Illusory Ball
   { move = 0xC66BD10D, level = 32 },                        # Zigzag Spark
   { move = 0x07D16DA0, level = 35 },                        # Inazuma-1
   { move = 0xB5B7108F, level = 47 },                        # Shadow Stitch
@@ -234,7 +234,7 @@ moves = [
 target = "c01002160"                                   # Bart Grantham
 moves = [
   { move = 0x8DFA4265, level = 1 },                         # Toughness Block
-  { move = 0xDF70E04C, level = 11 },                        # Rodeo Clown
+  { move = 0xDF70E04C, level = 1 },                         # Rodeo Clown
   { move = 0xD9E65BBA, level = 26 },                        # Aurora Curtain
   { move = 0xDBA0E5E3, level = 68 },                        # Gigant Wall
 ]

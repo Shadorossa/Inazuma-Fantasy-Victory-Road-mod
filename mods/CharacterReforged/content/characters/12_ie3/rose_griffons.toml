@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c03032410"                                   # Roger Pialat
 moves = [
   { move = 0xECD991E4, level = 1 },                         # The Stinger
+  { move = 0x5AF33BC7, level = 13 },                        # God Hand
   { move = 0x88B554E0, level = 55 },                        # Galatyn
   { move = 0xEE9F2FBD, level = 60 },                        # God Catch
-  { move = 0x5AF33BC7, level = 70 },                        # God Hand
 ]
 
   [[edit.cards]]
@@ -19,9 +19,9 @@ moves = [
 target = "c03032420"                                   # Kevin Pinot
 moves = [
   { move = 0x43B5739B, level = 1 },                         # Lightning Bolt
+  { move = 0xB633C4E1, level = 13 },                        # Photon Crash
   { move = 0x232D05EC, level = 18 },                        # Tiger Drive
   { move = 0xB13A6C3D, level = 33 },                        # Zigzag Flame
-  { move = 0xB633C4E1, level = 43 },                        # Photon Crash
 ]
 
   [[edit.cards]]
@@ -50,8 +50,8 @@ target = "c03032440"                                   # Francis Poujol
 moves = [
   { move = 0x7D6E9A87, level = 1 },                         # The Wall
   { move = 0x67F17FA8, level = 12 },                        # Mega Quake
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
   { move = 0x52CEB5F6, level = 53 },                        # Iron Wall
-  { move = 0x49933AEE, level = 63 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -78,7 +78,7 @@ moves = [
 [[edit]]
 target = "c03032460"
 moves = [
-  { move = 0x5B6C28ED, level = 1 },                         # Invisible Fake
+  { move = 0x5B6C28ED, level = 7 },                         # Invisible Fake
   { move = 0x132416F6, level = 20 },                        # Dog Run
   { move = 0x6633159F, level = 28 },                        # Gravitation
   { move = 0x3BF45E9A, level = 68 },                        # Triple Boost
@@ -124,10 +124,10 @@ moves = [
 [[edit]]
 target = "c03032490"                                   # Romuald Huysmans
 moves = [
-  { move = 0xA7B451B3, level = 1 },                         # Paladin Strike
+  { move = 0xA7B451B3, level = 20 },                        # Paladin Strike
+  { move = 0x4683AADF, level = 20 },                        # Space Penguin
   { move = 0xB633C4E1, level = 29 },                        # Photon Crash
   { move = 0xB6F26F5F, level = 55 },                        # Tri-Pegasus
-  { move = 0x4683AADF, level = 65 },                        # Space Penguin
 ]
 
   [[edit.cards]]
@@ -140,9 +140,9 @@ moves = [
 target = "c03032500"
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0x35E70F22, level = 13 },                        # Grenade Shot
   { move = 0x105C91A7, level = 20 },                        # Slingshot
   { move = 0x8EDFBC29, level = 61 },                        # Double Jaw
-  { move = 0x35E70F22, level = 71 },                        # Grenade Shot
 ]
 
   [[edit.cards]]
@@ -155,7 +155,7 @@ moves = [
 target = "c03032510"                                   # Alain Favreau
 moves = [
   { move = 0x316A7390, level = 1 },                         # Land Dragon
-  { move = 0x2B343D01, level = 11 },                        # Cyclone
+  { move = 0x2B343D01, level = 1 },                         # Cyclone
   { move = 0x132416F6, level = 33 },                        # Dog Run
   { move = 0xB6F26F5F, level = 59 },                        # Tri-Pegasus
 ]
@@ -169,10 +169,10 @@ moves = [
 [[edit]]
 target = "c03032520"                                   # Émile Lazare
 moves = [
-  { move = 0xECD991E4, level = 1 },                         # The Stinger
+  { move = 0xECD991E4, level = 20 },                        # The Stinger
+  { move = 0xBD8A9EBE, level = 38 },                        # Infinite Wall
   { move = 0x8AF3EAB9, level = 42 },                        # Hammer of Fury
   { move = 0xF14FDC17, level = 55 },                        # Shot Pocket
-  { move = 0xBD8A9EBE, level = 65 },                        # Infinite Wall
 ]
 
   [[edit.cards]]
@@ -184,10 +184,10 @@ moves = [
 [[edit]]
 target = "c03032530"
 moves = [
-  { move = 0xB4757AB8, level = 1 },                         # Divine Stamp
+  { move = 0xB4757AB8, level = 6 },                         # Divine Stamp
   { move = 0x7A67325B, level = 17 },                        # Flame Dance
+  { move = 0x0A3F27B7, level = 20 },                        # Foul Offence 3
   { move = 0x592A96B4, level = 28 },                        # Afterimage
-  { move = 0x0A3F27B7, level = 38 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -200,9 +200,9 @@ moves = [
 target = "c03032540"                                   # Jean Gutain
 moves = [
   { move = 0x4D1E465C, level = 1 },                         # Fake Bomber
-  { move = 0x6ADE9E01, level = 11 },                        # Illusory Ball
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
   { move = 0x06D2AC29, level = 48 },                        # Diabolical Cut
-  { move = 0xC16279D1, level = 58 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -216,8 +216,8 @@ target = "c03032550"                                   # Claude Moreau
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0x261BDCA8, level = 12 },                        # Moonsault
+  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
   { move = 0x0D368F6B, level = 34 },                        # Heaven's Time
-  { move = 0xDCF43422, level = 44 },                        # Aurora Dribble
 ]
 
   [[edit.cards]]
@@ -230,9 +230,9 @@ moves = [
 target = "c03032560"                                   # Michel Morland
 moves = [
   { move = 0x039DBAAC, level = 1 },                         # Land of Ice
+  { move = 0x1FC99D68, level = 20 },                        # Snow Angel
   { move = 0xB1FBC783, level = 21 },                        # Reflect Buster
   { move = 0x97C48D68, level = 35 },                        # Astro Gate
-  { move = 0x1FC99D68, level = 45 },                        # Snow Angel
 ]
 
   [[edit.cards]]

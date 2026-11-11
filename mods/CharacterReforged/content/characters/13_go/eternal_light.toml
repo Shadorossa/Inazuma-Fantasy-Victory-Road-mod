@@ -4,7 +4,7 @@ schema = "VRFW.character/2"
 target = "c04003470_5000"                              # Dawntavius Spectrum
 moves = [
   { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
-  { move = 0x332CCDC9, level = 11 },                        # Heel Kick
+  { move = 0x332CCDC9, level = 1 },                         # Heel Kick
   { move = 0x2B8C597E, level = 41 },                        # Fugue Wave
   { move = 0x3297683F, level = 62 },                        # Warp Step
 ]
@@ -19,7 +19,7 @@ moves = [
 [[edit]]
 target = "c04003500_5000"                              # Bailong
 moves = [
-  { move = 0x89D614F5, level = 1 },                         # White Hurricane
+  { move = 0x89D614F5, level = 12 },                        # White Hurricane
   { move = 0x3297683F, level = 26 },                        # Warp Step
   { move = 0x1C097E46, level = 45 },                        # Dragon Drive
   { move = 0x0E4E083A, level = 67 },                        # Zero Magnum
@@ -33,7 +33,7 @@ moves = [
 [[edit]]
 target = "c04003500_5100"                              # Bailong
 moves = [
-  { move = 0x89D614F5, level = 1 },                         # White Hurricane
+  { move = 0x89D614F5, level = 12 },                        # White Hurricane
   { move = 0x3297683F, level = 26 },                        # Warp Step
   { move = 0x1C097E46, level = 45 },                        # Dragon Drive
   { move = 0x0E4E083A, level = 67 },                        # Zero Magnum
@@ -48,9 +48,9 @@ moves = [
 target = "c04003410"                                   # Albion Lumina
 moves = [
   { move = 0xD471DE6C, level = 1 },                         # Snakebite
+  { move = 0x89773ED7, level = 38 },                        # Celestial Zone
   { move = 0x41AEB4DF, level = 48 },                        # Crystal Barrier
   { move = 0x1FA91CF4, level = 51 },                        # Negative Feedback
-  { move = 0x89773ED7, level = 61 },                        # Celestial Zone
 ]
 
   [[edit.cards]]
@@ -146,7 +146,7 @@ moves = [
 target = "c04003470"                                   # Dawntavius Spectrum
 moves = [
   { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
-  { move = 0x332CCDC9, level = 11 },                        # Heel Kick
+  { move = 0x332CCDC9, level = 1 },                         # Heel Kick
   { move = 0x2B8C597E, level = 41 },                        # Fugue Wave
   { move = 0x3297683F, level = 62 },                        # Warp Step
   { move = 0, level = 0 },                                  # (empty)
@@ -166,10 +166,10 @@ moves = [
 [[edit]]
 target = "c04003480"                                   # Brighton Spark
 moves = [
-  { move = 0x8B90AAAC, level = 1 },                         # Fortissimo
+  { move = 0x8B90AAAC, level = 2 },                         # Fortissimo
+  { move = 0x1755397B, level = 38 },                        # Dark Energy Star
   { move = 0x768AB9C5, level = 45 },                        # Frosticle
   { move = 0x7DD6FEF8, level = 59 },                        # Athena's Anthem
-  { move = 0x1755397B, level = 69 },                        # Dark Energy Star
 ]
 
   [[edit.cards]]
@@ -182,7 +182,7 @@ moves = [
 [[edit]]
 target = "c04003490"                                   # Laban Lux
 moves = [
-  { move = 0x2354CA2D, level = 1 },                         # Wind God's Dance
+  { move = 0x2354CA2D, level = 6 },                         # Wind God's Dance
   { move = 0x768AB9C5, level = 21 },                        # Frosticle
   { move = 0x25276CB9, level = 53 },                        # Solar Surprise
   { move = 0xB7474004, level = 58 },                        # Dough Ray Me
@@ -203,7 +203,7 @@ target = "c04003500"                                   # Bailong
   growth = "normal"
   stats = { kick = 370, control = 284, technique = 259, pressure = 143, physical = 165, intelligence = 213, agility = 144, freedom = 209 }
   moves = [
-    { move = 0x89D614F5, level = 1 },                       # White Hurricane
+    { move = 0x89D614F5, level = 12 },                      # White Hurricane
     { move = 0x3297683F, level = 26 },                      # Warp Step
     { move = 0x1C097E46, level = 45 },                      # Dragon Drive
     { move = 0x0E4E083A, level = 67 },                      # Zero Magnum
@@ -217,7 +217,7 @@ target = "c04003500"                                   # Bailong
 [[edit]]
 target = "c04003510"                                   # Filbert Weissman
 moves = [
-  { move = 0xC513565C, level = 1 },                         # Doom Spear
+  { move = 0xC513565C, level = 2 },                         # Doom Spear
   { move = 0x4FE09C7A, level = 25 },                        # Acrobatic Keep
   { move = 0x9FEEC7A9, level = 49 },                        # Gigaton Head
   { move = 0x19BA3BFC, level = 56 },                        # Dance on Air

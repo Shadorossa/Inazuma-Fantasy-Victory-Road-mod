@@ -1508,6 +1508,7 @@ Games = ["fbtl_cro01_010_010", "fbtl_cro01_020_010", "vrfw_node_ie1_umbrella", "
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie2_min_1"
@@ -1528,6 +1529,7 @@ Games = ["fbtl_cro02_010_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie2_min_2"
@@ -1548,6 +1550,7 @@ Games = ["fbtl_cro02_020_010", "fbtl_cro02_030_010", "fbtl_cro02_040_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie2_min_3"
@@ -1568,6 +1571,7 @@ Games = ["fbtl_cro02_050_010", "fbtl_cro02_060_010", "fbtl_cro02_070_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie2_min_4"
@@ -1588,6 +1592,7 @@ Games = ["fbtl_cro02_080_010", "fbtl_cro02_090_010", "fbtl_cro02_100_010", "fbtl
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie2_min_5"
@@ -1608,6 +1613,7 @@ Games = ["fbtl_cro02_120_010", "fbtl_cro02_130_010", "fbtl_cro02_140_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie2_min_6"
@@ -1628,6 +1634,7 @@ Games = ["fbtl_cro02_150_010", "fbtl_cro02_160_010", "fbtl_cro02_170_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie2_min_7"
@@ -1648,6 +1655,7 @@ Games = ["fbtl_cro02_180_010", "fbtl_cro02_190_010", "fbtl_cro02_200_010", "vrfw
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie3_min_1"
@@ -1668,6 +1676,7 @@ Games = ["fbtl_cro03_010_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie3_min_2"
@@ -1688,6 +1697,7 @@ Games = ["fbtl_cro03_020_010", "fbtl_cro03_030_010", "fbtl_cro03_040_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie3_min_3"
@@ -1708,6 +1718,7 @@ Games = ["fbtl_cro03_050_010", "fbtl_cro03_060_010", "fbtl_cro03_070_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie3_min_4"
@@ -1728,6 +1739,7 @@ Games = ["fbtl_cro03_080_010", "fbtl_cro03_090_010", "fbtl_cro03_100_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie3_min_5"
@@ -1748,6 +1760,7 @@ Games = ["fbtl_cro03_110_010", "fbtl_cro03_120_010", "fbtl_cro03_130_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie3_min_6"
@@ -1768,6 +1781,7 @@ Games = ["fbtl_cro03_140_010", "fbtl_cro03_150_010", "fbtl_cro03_160_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_ie3_min_7"
@@ -1788,6 +1802,7 @@ Games = ["fbtl_cro03_170_010", "fbtl_cro03_180_010", "fbtl_cro03_190_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only own_mode_change
   Allowed = ["own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_go1_min_1"
@@ -1808,6 +1823,7 @@ Games = ["fbtl_cro04_010_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only keshin, own_mode_change
   Allowed = ["keshin", "own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_go1_min_2"
@@ -1828,6 +1844,7 @@ Games = ["fbtl_cro04_020_010", "fbtl_cro04_030_010", "fbtl_cro04_040_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only keshin, own_mode_change
   Allowed = ["keshin", "own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_go1_min_3"
@@ -1848,6 +1865,7 @@ Games = ["fbtl_cro04_050_010", "fbtl_cro04_060_010", "fbtl_cro04_070_010", "fbtl
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only keshin, own_mode_change
   Allowed = ["keshin", "own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_go1_min_4"
@@ -1868,6 +1886,7 @@ Games = ["fbtl_cro04_090_010", "fbtl_cro04_100_010", "fbtl_cro04_110_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only keshin, own_mode_change
   Allowed = ["keshin", "own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_go1_min_5"
@@ -1888,6 +1907,7 @@ Games = ["fbtl_cro04_120_010", "fbtl_cro04_130_010", "fbtl_cro04_140_010"]
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only keshin, own_mode_change
   Allowed = ["keshin", "own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_go1_min_6"
@@ -1908,6 +1928,7 @@ Games = ["fbtl_cro04_150_010", "fbtl_cro04_160_010", "fbtl_cro04_170_010", "fbtl
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only keshin, own_mode_change
   Allowed = ["keshin", "own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_go1_min_7"
@@ -1928,6 +1949,7 @@ Games = ["fbtl_cro04_190_010", "fbtl_cro04_200_010", "fbtl_cro04_210_010", "fbtl
   Label = "chronicle_deluxe_heroic_required_label"
   [VRFW.MatchChallenge.Auras]         # both teams: only keshin, own_mode_change
   Allowed = ["keshin", "own_mode_change"]
+  AlwaysRefused = ["miximax"]
 
 [[VRFW.MatchChallenge]]
 Name = "ChronicleDeluxe.Heroic_go2_min_1"

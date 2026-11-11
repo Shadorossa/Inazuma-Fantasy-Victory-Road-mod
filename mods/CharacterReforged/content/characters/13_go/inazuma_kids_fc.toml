@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c04004210"                                   # Vivian Doosley
 moves = [
-  { move = 0xC636A810, level = 1 },                         # Combustion Catch
-  { move = 0xA7157B91, level = 13 },                        # Power Shield
+  { move = 0xC636A810, level = 3 },                         # Combustion Catch
+  { move = 0xA7157B91, level = 3 },                         # Power Shield
   { move = 0x31CB59B2, level = 18 },                        # God Hand
-  { move = 0x53E9C2A3, level = 28 },                        # Capable Hands
+  { move = 0x53E9C2A3, level = 38 },                        # Capable Hands
 ]
 
   [[edit.cards]]
@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c04004220"                                   # Sean Muller
 moves = [
-  { move = 0x17110E3B, level = 1 },                         # Jumbo Sandwich
+  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
   { move = 0x3EC287DE, level = 31 },                        # Bubble Gum
   { move = 0x7D6E9A87, level = 62 },                        # The Wall
   { move = 0xC41097D5, level = 63 },                        # Acrobotics
@@ -34,7 +34,7 @@ moves = [
 [[edit]]
 target = "c04004230"                                   # Abe Roof
 moves = [
-  { move = 0x737DCB3F, level = 1 },                         # Pancake Defence
+  { move = 0x737DCB3F, level = 23 },                        # Pancake Defence
   { move = 0x4A17EE80, level = 24 },                        # Hunter's Net
   { move = 0xD9BB22A7, level = 59 },                        # Air Ride
   { move = 0x3C843987, level = 62 },                        # Flurry Dash
@@ -50,10 +50,10 @@ moves = [
 [[edit]]
 target = "c04004240"                                   # Buck Tucker
 moves = [
-  { move = 0x05567847, level = 1 },                         # Runaway Train
+  { move = 0x05567847, level = 4 },                         # Runaway Train
   { move = 0x17110E3B, level = 13 },                        # Jumbo Sandwich
-  { move = 0xE0549BE6, level = 23 },                        # Easy Breezy Kid
-  { move = 0xA2BF7076, level = 33 },                        # Side Swipe
+  { move = 0xE0549BE6, level = 20 },                        # Easy Breezy Kid
+  { move = 0xA2BF7076, level = 38 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -65,7 +65,7 @@ moves = [
 [[edit]]
 target = "c04004250"                                   # Edward Headwood
 moves = [
-  { move = 0x6B1CF436, level = 1 },                         # Bewildered
+  { move = 0x6B1CF436, level = 27 },                        # Bewildered
   { move = 0xA9E3374B, level = 34 },                        # Cyclone Sprint
   { move = 0x6ADE9E01, level = 52 },                        # Illusory Ball
   { move = 0xC9BAEA82, level = 65 },                        # Eye of the Storm
@@ -80,7 +80,7 @@ moves = [
 [[edit]]
 target = "c04004260"                                   # Ricky Shea
 moves = [
-  { move = 0x457EB170, level = 1 },                         # Pyrokinetic
+  { move = 0x457EB170, level = 22 },                        # Pyrokinetic
   { move = 0x0CF4E55C, level = 24 },                        # Double Touch
   { move = 0x64CDCFB9, level = 48 },                        # Rising Dragon
   { move = 0xEF3DC416, level = 51 },                        # Skytree Hop
@@ -96,7 +96,7 @@ moves = [
 [[edit]]
 target = "c04004270"                                   # Felix Higgins
 moves = [
-  { move = 0xC2E6ADBF, level = 1 },                         # Log Roll
+  { move = 0xC2E6ADBF, level = 23 },                        # Log Roll
   { move = 0x3EC287DE, level = 30 },                        # Bubble Gum
   { move = 0x3297683F, level = 60 },                        # Warp Step
   { move = 0x19BA3BFC, level = 61 },                        # Dance on Air
@@ -111,10 +111,10 @@ moves = [
 [[edit]]
 target = "c04004280"                                   # Warren Cool
 moves = [
-  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
+  { move = 0xF6E75EE9, level = 13 },                        # Headbanger
   { move = 0x65766A4F, level = 58 },                        # Meteor Blade
-  { move = 0x8A52C09B, level = 68 },                        # Doomsword Slash
-  { move = 0x90CD25B4, level = 78 },                        # Supernatural Strike
+  { move = 0x8A52C09B, level = 58 },                        # Doomsword Slash
+  { move = 0x90CD25B4, level = 61 },                        # Supernatural Strike
 ]
 
   [[edit.cards]]
@@ -127,9 +127,9 @@ moves = [
 [[edit]]
 target = "c04004290"                                   # Keeley Hall
 moves = [
-  { move = 0x6F918884, level = 1 },                         # Easy Breezy
+  { move = 0x6F918884, level = 10 },                        # Easy Breezy
   { move = 0x5DA7EA06, level = 27 },                        # Boomerang Bluff
-  { move = 0x3EC287DE, level = 37 },                        # Bubble Gum
+  { move = 0x3EC287DE, level = 27 },                        # Bubble Gum
   { move = 0x4FE09C7A, level = 50 },                        # Acrobatic Keep
 ]
 
@@ -142,7 +142,7 @@ moves = [
 [[edit]]
 target = "c04004300"                                   # Walt Riverside
 moves = [
-  { move = 0x900C8E0A, level = 1 },                         # Maestro's Call
+  { move = 0x900C8E0A, level = 13 },                        # Maestro's Call
   { move = 0xC2E6ADBF, level = 22 },                        # Log Roll
   { move = 0x3EC287DE, level = 24 },                        # Bubble Gum
   { move = 0xAD53B378, level = 63 },                        # Diffusal Chord
@@ -157,7 +157,7 @@ moves = [
 [[edit]]
 target = "c04004310"                                   # Elizabeth Buble
 moves = [
-  { move = 0x86F5F6E8, level = 1 },                         # Cupid's Arrow
+  { move = 0x86F5F6E8, level = 2 },                         # Cupid's Arrow
   { move = 0x928B9BED, level = 6 },                         # Optimal Trajectory
   { move = 0x8A936B25, level = 43 },                        # Goopy Gloopy Goo
   { move = 0x00AF8010, level = 46 },                        # Splitting Hares
@@ -172,7 +172,7 @@ moves = [
 [[edit]]
 target = "c04004320"                                   # Titch Allhare
 moves = [
-  { move = 0x58B5859E, level = 1 },                         # Whip Crack
+  { move = 0x58B5859E, level = 3 },                         # Whip Crack
   { move = 0x2D9F7E76, level = 5 },                         # Breath Taker
   { move = 0xFD9FAF08, level = 24 },                        # Twist 'n' Clout
   { move = 0xF5C2A0A5, level = 57 },                        # Capoeira Grab
@@ -188,10 +188,10 @@ moves = [
 [[edit]]
 target = "c04004330"                                   # Puck Fishley
 moves = [
-  { move = 0xA9E3374B, level = 1 },                         # Cyclone Sprint
+  { move = 0x737DCB3F, level = 20 },                        # Pancake Defence
+  { move = 0xA9E3374B, level = 31 },                        # Cyclone Sprint
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
   { move = 0x7D6E9A87, level = 64 },                        # The Wall
-  { move = 0x737DCB3F, level = 74 },                        # Pancake Defence
-  { move = 0x9D236FA3, level = 84 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -204,10 +204,10 @@ moves = [
 [[edit]]
 target = "c04004340"                                   # Reed Maind
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
+  { move = 0x5DA7EA06, level = 20 },                        # Boomerang Bluff
+  { move = 0x737DCB3F, level = 20 },                        # Pancake Defence
   { move = 0x530CDFC1, level = 36 },                        # Mystifying Mist
   { move = 0x24E5068E, level = 38 },                        # Fractal Repeller
-  { move = 0x737DCB3F, level = 48 },                        # Pancake Defence
 ]
 
   [[edit.cards]]
@@ -219,10 +219,10 @@ moves = [
 [[edit]]
 target = "c04004350"                                   # Jacqueline Rabbit
 moves = [
-  { move = 0x928B9BED, level = 1 },                         # Optimal Trajectory
+  { move = 0x928B9BED, level = 4 },                         # Optimal Trajectory
+  { move = 0xA9A7000B, level = 13 },                        # Bouncing Bunny
   { move = 0x6B1CF436, level = 17 },                        # Bewildered
   { move = 0x14D1ED15, level = 31 },                        # Jumping Jack
-  { move = 0xA9A7000B, level = 41 },                        # Bouncing Bunny
 ]
 
   [[edit.cards]]
@@ -234,10 +234,10 @@ moves = [
 [[edit]]
 target = "c04004360"                                   # Bert Trapper
 moves = [
-  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0x2E7B2B84, level = 6 },                         # Thief's Eye
   { move = 0xA23AEC88, level = 8 },                         # Copy Cut
+  { move = 0x650FA58E, level = 13 },                        # Spin Out
   { move = 0x7DD6FEF8, level = 50 },                        # Athena's Anthem
-  { move = 0x650FA58E, level = 60 },                        # Spin Out
 ]
 
   [[edit.cards]]

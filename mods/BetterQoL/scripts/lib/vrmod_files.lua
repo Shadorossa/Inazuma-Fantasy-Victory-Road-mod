@@ -71,7 +71,8 @@ local function checksum(doc)
   return string.format("crc32:%08X", u32(VRFW.crc32(body)))
 end
 
---- Writes one share file: rules = { kind, body, name, file_stem, needed, area, exporter } -> true, file, area; false, why.
+--- Writes one share file: rules = { kind, body, name, file_stem, needed, area, exporter[, ticket] } -> true, file, area; false, why.
+-- With `ticket` (a save the player picked, VRFW.file_pick) the file goes where the player chose and the area result is nil.
 function Files.write(rules)
   local reserved, slot = Files.reserved_slot()
   if reserved then return false, "reserved save slot " .. tostring(slot) end
@@ -93,23 +94,25 @@ function Files.write(rules)
   local text
   text, why = VRFW.files.toml_string(doc)
   if not text then return false, "toml: " .. tostring(why) end
-  local stem = VRFW.files.user_clean(rules.name ~= "" and rules.name or rules.file_stem)
-  local file = stem .. "_" .. VRFW.time.file_stamp() .. FILE_EXTENSION
-  local written, write_error = VRFW.files.user_write(rules.area, file, text, "new")
+  local written, write_error, area
+  if rules.ticket ~= nil then
+    written, write_error = VRFW.files.picked_write(rules.ticket, text)
+  else
+    local stem = VRFW.files.user_clean(rules.name ~= "" and rules.name or rules.file_stem)
+    written, write_error = VRFW.files.user_write(rules.area, stem .. "_" .. VRFW.time.file_stamp() .. FILE_EXTENSION, text, "new")
+    area = rules.area
+  end
   if not written then
     err("export " .. tostring(rules.kind) .. ": " .. tostring(write_error))
     return false, tostring(write_error)
   end
-  info(string.format("exported %s «%s» -> %s/%s", tostring(rules.kind), tostring(rules.name), rules.area, written))
-  return true, written, rules.area
+  info(string.format("exported %s «%s» -> %s/%s", tostring(rules.kind), tostring(rules.name), tostring(area or "picked"), written))
+  return true, written, area
 end
 
--- The parsed document of `file` in `area` when it is a share file of `kind`; nil, why otherwise.
-local function parse(area, kind, file)
-  local text, why = VRFW.files.user_read(area, file)
-  if not text then return nil, why end
-  local doc
-  doc, why = VRFW.files.toml_parse(text)
+-- The parsed document of share file text `text` when it is a share file of `kind`; nil, why otherwise.
+local function parse_text(text, kind)
+  local doc, why = VRFW.files.toml_parse(text)
   if type(doc) ~= "table" then return nil, "toml: " .. tostring(why) end
   if type(doc.vrmod) ~= "table" then return nil, "no [vrmod] table" end
   local schema = tostring(doc.vrmod.schema or "")
@@ -118,6 +121,13 @@ local function parse(area, kind, file)
     return nil, "kind " .. tostring(doc.vrmod.kind) .. " (this list reads \"" .. kind .. "\")"
   end
   return doc
+end
+
+-- The parsed document of `file` in `area` when it is a share file of `kind`; nil, why otherwise.
+local function parse(area, kind, file)
+  local text, why = VRFW.files.user_read(area, file)
+  if not text then return nil, why end
+  return parse_text(text, kind)
 end
 
 --- Lists the share files of `kind` in `area`, newest first -> count, area.
@@ -194,9 +204,22 @@ function Files.read(area, kind, index)
   if reserved then return nil, "reserved save slot " .. tostring(slot) end
   local file = Files.entry(area, kind, index)
   if not file then return nil, "no listed file " .. tostring(index) end
-  local doc, why = parse(area, kind, file)
+  return Files.read_doc(kind, file, parse(area, kind, file))
+end
+
+--- Reads the file of open pick `ticket` (VRFW.file_pick): the same result as Files.read; nil, why.
+function Files.read_picked(kind, ticket)
+  local reserved, slot = Files.reserved_slot()
+  if reserved then return nil, "reserved save slot " .. tostring(slot) end
+  local text, file = VRFW.files.picked_read(ticket)
+  if not text then return nil, tostring(file) end
+  return Files.read_doc(kind, file, parse_text(text, kind))
+end
+
+--- The read result of parsed document `doc` of file `file` (nil, why when `doc` is nil).
+function Files.read_doc(kind, file, doc, why)
   if not doc then
-    err("import " .. file .. ": " .. tostring(why))
+    err("import " .. tostring(file) .. ": " .. tostring(why))
     return nil, tostring(why)
   end
   local sum = checksum(doc)

@@ -322,7 +322,10 @@ function CharacterReforged.Changed.Mc.Get(b)
     ch = owner and equipped_of(st, owner) or nil
   end
   if not ch then return false, 0, 0, 0 end
-  return true, ch.partner_param, ch.partner_chara, ch.partner_hdl
+  local label, in_team = "", ""
+  local base_api = rawget(_G, "CharacterReforged")
+  if type(base_api) == "table" and base_api.PartnerInTeamTexts then label, in_team = base_api.PartnerInTeamTexts("change") end
+  return true, ch.partner_param, ch.partner_chara, ch.partner_hdl, label, in_team
 end
 
 function CharacterReforged.Changed.Mc.Reservation(c)

@@ -90,7 +90,7 @@ name = "event_build"
 id = 15
 actor = true
 move = true
-fired_by = "CmdEventBuild pre (0x14BC0C0); arg = the command type (22 = aura exec)"
+fired_by = "Battle.CommandEventBuild pre (0x14DA3C0): the player and the move the command's scene shows, read as the game reads them (the keeper or the blocker for the keeper battles and the field blocks); arg = the command type (22 = aura exec)"
 
 [[trigger]]
 name = "zone_check"
@@ -323,7 +323,7 @@ name = "crit_check"
 id = 51
 actor = true
 move = true
-fired_by = "Cmd.EventBuild pre (0x14DA3C0), the same hook as event_build: a command with a move that no rule refused, once per execution (user and CPU); its rules answer crit_chance / crit_cap / crit_mult, one roll decides, a hit multiplies that player's move_power of that move for 8 s (the execution's launch / duel / keeper battle)"
+fired_by = "Battle.CommandEventBuild pre (0x14DA3C0), the same hook as event_build: the command of a special move (the game's own command types: profile Battle.MoveCommandTypes; never an aura command) that no rule refused, once per execution, for the player its scene shows (user and CPU); its rules answer crit_chance / crit_cap / crit_mult, one roll decides, a hit multiplies that player's move_power of that move while the execution is open (until its command finishes; a shot: until the shot ends)"
 
 [[trigger]]
 name = "crit"
@@ -417,6 +417,18 @@ name = "crit_cap"
 on = ["crit_check"]
 min = 0.0
 summary = "the highest critical chance in percent (the lowest cap of every rule wins; none = 100)"
+
+[[effect]]
+name = "crit_chance_mult"
+on = ["crit_check"]
+min = 0.0
+summary = "the summed critical chance × the product of the crit_chance_mults, before the cap (1.5 = half as likely again)"
+
+[[effect]]
+name = "crit_miss_mult"
+on = ["crit_check"]
+min = 0.0
+summary = "when the roll misses, the move's power × the product of the crit_miss_mults for that execution (0.5 = a move that is not critical has half its power)"
 
 [[effect]]
 name = "add_tension"
@@ -635,6 +647,11 @@ summary = "the move's partners (the count teammates nearest to the actor): withi
 name = "aura"
 needs = "actor"
 summary = "the actor has an aura out (any aura bit of his unit) or none"
+
+[[condition]]
+name = "critical"
+needs = "move"
+summary = "the open execution of the actor's move (\"actor\") or of the opponent's move in this battle (\"rival\": the shot of block_battle, keeper_duel and shot_through) is a critical hit"
 
 [[condition]]
 name = "half_fraction_from"

@@ -75,10 +75,18 @@ B.AUTOCOMPLETE_CONFIRM = 4058342974 -- crc32("chronicle_deluxe_autocomplete_conf
 B.TEMP_RETURNED_FROM_MATCH = 1388584433
 B.TEMP_MATCH_WON = 2046383450
 B.STATE_BACK_FROM_MATCH = 8       -- PreStep state: the retail handling of a match result
+B.STATE_IDLE = 0                  -- PreStep state: the board takes input
 
--- Runs in OpenCommandSelect, after the command menu closed: confirms, then starts the retail win flow.
+-- Runs in OpenCommandSelect, after the command menu closed: confirms, then runs the retail win flow to its end.
 function B.autocomplete()
-  if VRFW.param.take(B.AUTOCOMPLETE_REQUEST) == nil or not VRFW.question.ask(B.AUTOCOMPLETE_CONFIRM) then
+  if VRFW.param.take(B.AUTOCOMPLETE_REQUEST) == nil then
+    return
+  end
+  if VRFW.route_board.L.n21 ~= B.STATE_IDLE then
+    B.log("autocomplete refused: the board is in state", VRFW.route_board.L.n21, "(a win flow is still running)")
+    return
+  end
+  if not VRFW.question.ask(B.AUTOCOMPLETE_CONFIRM) then
     return
   end
   B.log("autocomplete: Chronicle battle of the current piece counted as won")
@@ -86,6 +94,91 @@ function B.autocomplete()
   funcLuaCommand(B.CMD.SET_TEMP_BIT, B.TEMP_RETURNED_FROM_MATCH, true)
   funcLuaCommand(B.CMD.SET_TEMP_BIT, B.TEMP_MATCH_WON, true)
   VRFW.route_board.L.n21 = B.STATE_BACK_FROM_MATCH
+  -- OpenCommandSelect disabled the map control before the command menu: it stays so until the win flow ends, then the retail "back" branch enables it
+  waitTrue(function()
+    return VRFW.route_board.L.n21 == B.STATE_IDLE
+  end)
+  B.log("autocomplete: win flow ended, map control back")
+end
+
+-- Sets what a normal piece's Chronicle win writes on the piece: its route-open clear and its two battle rows.
+function B.mark_route_open(slot)
+  funcLuaCommand(B.CMD.SET_CLEAR, slot, true, B.ROUTE_OPEN)
+  funcLuaCommand(B.CMD.SET_LOCK, slot, false, B.ROUTE_OPEN)
+  funcLuaCommand(B.CMD.SET_LOCK, slot, false, B.HEROIC)
+end
+
+-- Whether a piece's battle that opens the route is won: its route-open clear, or the Chronicle of a normal piece.
+function B.won(piece)
+  local ok, slot = funcLuaCommand(B.CMD.PIECE_SLOT, piece, 6)
+  local okE, kind = GetTownMapResourceEvent(piece, 1, false, false)
+  if not ok or not okE or not IsSoccerBattle(kind) then
+    return false
+  end
+  if funcLuaCommand(B.CMD.GET_CLEAR, slot, B.ROUTE_OPEN) then
+    return true, slot, kind
+  end
+  return kind == B.NORMAL and funcLuaCommand(B.CMD.GET_CLEAR, slot, B.CHRONICLE) == true, slot, kind
+end
+
+B.UNLOCK_CONFIRM = 1117551755     -- crc32("chronicle_deluxe_unlock_piece_confirm")
+B.BACKGROUND = 1021315501         -- vsroute00_00_background: the board layer whose Accept picks a piece
+B.UNLOCK_STEPS = 4                -- route steps without a battle walked back from the locked piece
+
+-- Returns the pieces to open, won piece first, so that a locked piece opens: its link from a won piece, through steps without a battle.
+function B.unlock_path(piece, depth, seen)
+  seen[piece] = true
+  local openers = VRFW.route_board.openers(piece)
+  for i = 1, #openers do
+    local from = openers[i]
+    if not seen[from] then
+      if B.won(from) then
+        return {from}
+      end
+      local okE, kind = GetTownMapResourceEvent(from, 1, false, false)
+      if okE and not IsSoccerBattle(kind) and not IsPieceOpened(from) and depth < B.UNLOCK_STEPS then
+        local path = B.unlock_path(from, depth + 1, seen)
+        if path ~= nil then
+          path[#path + 1] = from
+          return path
+        end
+      end
+    end
+  end
+  return nil
+end
+
+-- Accept on a locked battle piece next to a won one: asks, then opens it with the normal unlock's writes.
+-- Returns nil when it is not offered (the retail Accept follows), false when declined, true when the piece is open now.
+function B.offer_unlock(piece)
+  local _, main = coroutine.running()
+  if main ~= false or piece == nil or piece < 0 or VRFW.route_board.L.n21 ~= B.STATE_IDLE or IsPieceOpened(piece) then
+    return nil
+  end
+  local ok, slot = funcLuaCommand(B.CMD.PIECE_SLOT, piece, 6)
+  local okE, kind = GetTownMapResourceEvent(piece, 1, true)
+  if not ok or not okE or not IsSoccerBattle(kind) or (VRFW.route_nodes ~= nil and VRFW.route_nodes.by_slot(slot) ~= nil) then
+    return nil
+  end
+  local path = B.unlock_path(piece, 0, {})
+  if path == nil then
+    return nil
+  end
+  if not VRFW.question.ask(B.UNLOCK_CONFIRM) then
+    return false
+  end
+  for i = 1, #path do
+    local won, from_slot, from_kind = B.won(path[i])
+    if won and from_kind == B.NORMAL then
+      B.mark_route_open(from_slot)
+    end
+    local written, opened = VRFW.route_board.open_route(path[i])
+    B.log("unlock by confirm: piece", piece, "slot", slot, "step", i, "from piece", path[i], "wrote", written)
+    for k = 1, #opened do
+      VRFW.route_board.redraw(opened[k])
+    end
+  end
+  return IsPieceOpened(piece)
 end
 
 -- Returns the dots a piece shows.
@@ -111,7 +204,7 @@ if VRFW.host ~= nil then
   end})
   VRFW.host.on(stem, "VRFW.route_board.cleared", {id = id, phase = "after", fn = function(r, c)
     if c.force and not B.if_owns_flow() then
-      funcLuaCommand(B.CMD.SET_CLEAR, c.slot, true, B.ROUTE_OPEN)
+      B.mark_route_open(c.slot)
       B.fast_clear = true
       B.trigger_piece = -1
     end
@@ -125,6 +218,13 @@ if VRFW.host ~= nil then
       funcLuaCommand(B.CMD.SET_LOCK, c.slot, false, B.HEROIC)
     end
     return true
+  end})
+  -- Accept on a locked piece: the confirm instead of the retail "locked" message when a won piece links to it
+  VRFW.host.on(stem, "OnEnter", {id = id .. "_unlock_offer", phase = "around", fn = function(nxt, layer, instance)
+    if layer == B.BACKGROUND and not B.if_owns_flow() and B.offer_unlock(VRFW.route_board.L.n11) == false then
+      return 1
+    end
+    return nxt(layer, instance)
   end})
   VRFW.host.on(stem, "VRFW.route_board.open_effect", {id = id, phase = "around", fn = function(nxt, open)
     local fast = B.fast_clear == true

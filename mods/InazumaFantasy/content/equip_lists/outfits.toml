@@ -1,0 +1,9 @@
+schema = "VRFW.equip_list/1"
+
+# The equipment picker lists every owned outfit: the ones the shown player may not wear are grey and cannot be chosen.
+
+[[VRFW.EquipListDisabledRows]]
+name = "outfits"
+menu = "equip_menu_list"
+item_kinds = [140]                     # 140 = outfit
+reason = "vrfw_outfit_cannot_wear"     # menu_text row of the window

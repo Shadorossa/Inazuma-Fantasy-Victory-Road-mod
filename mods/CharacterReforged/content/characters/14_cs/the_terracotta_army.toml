@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c05024010"                                   # Terracotta Warrior 1
 moves = [
-  { move = 0x50E88A33, level = 1 },                         # Fist Beam
-  { move = 0xDF2D9951, level = 49 },                        # Close Counter
-  { move = 0xBD8A9EBE, level = 59 },                        # Infinite Wall
-  { move = 0xE9968761, level = 69 },                        # Rocket Kobushi
+  { move = 0x50E88A33, level = 4 },                         # Fist Beam
+  { move = 0xBD8A9EBE, level = 38 },                        # Infinite Wall
+  { move = 0xDBA0E5E3, level = 42 },                        # Gigant Wall
+  { move = 0xDF2D9951, level = 46 },                        # Close Counter
 ]
 
   [[edit.cards]]
@@ -19,9 +19,9 @@ moves = [
 target = "c05024020"                                   # Terracotta Warrior 2
 moves = [
   { move = 0xF626F557, level = 1 },                         # Electric Impedance
-  { move = 0xA9E3374B, level = 28 },                        # Cyclone Sprint
+  { move = 0xA9E3374B, level = 26 },                        # Cyclone Sprint
   { move = 0x4E22F64D, level = 38 },                        # Transporter Device
-  { move = 0xB13A6C3D, level = 48 },                        # Zigzag Flame
+  { move = 0xB13A6C3D, level = 38 },                        # Zigzag Flame
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c05024030"                                   # Terracotta Warrior 3
 moves = [
-  { move = 0xF626F557, level = 1 },                         # Electric Impedance
-  { move = 0x4E22F64D, level = 17 },                        # Transporter Device
+  { move = 0xF626F557, level = 2 },                         # Electric Impedance
+  { move = 0x4E22F64D, level = 10 },                        # Transporter Device
+  { move = 0xF4604B0E, level = 29 },                        # Fancy-Footwork
   { move = 0x016DEA27, level = 46 },                        # Accelerator Gears
-  { move = 0x2FB941B3, level = 56 },                        # Stone Prison
 ]
 
   [[edit.cards]]
@@ -48,10 +48,10 @@ moves = [
 [[edit]]
 target = "c05024040"                                   # Terracotta Warrior 4
 moves = [
-  { move = 0xF626F557, level = 1 },                         # Electric Impedance
+  { move = 0xF626F557, level = 2 },                         # Electric Impedance
   { move = 0x457EB170, level = 23 },                        # Pyrokinetic
-  { move = 0xE196F1D1, level = 24 },                        # Burning Bomb
-  { move = 0x6BA49049, level = 48 },                        # Mystic Mist
+  { move = 0xE196F1D1, level = 23 },                        # Burning Bomb
+  { move = 0x6BA49049, level = 43 },                        # Mystic Mist
 ]
 
   [[edit.cards]]
@@ -64,9 +64,9 @@ moves = [
 target = "c05024050"                                   # Terracotta Warrior 5
 moves = [
   { move = 0x4E22F64D, level = 1 },                         # Transporter Device
-  { move = 0xF4604B0E, level = 45 },                        # Fancy-Footwork
-  { move = 0x737DCB3F, level = 47 },                        # Pancake Defence
-  { move = 0x17110E3B, level = 57 },                        # Jumbo Sandwich
+  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
+  { move = 0x2FB941B3, level = 30 },                        # Stone Prison
+  { move = 0x737DCB3F, level = 48 },                        # Pancake Defence
 ]
 
   [[edit.cards]]
@@ -78,10 +78,10 @@ moves = [
 [[edit]]
 target = "c05024060"                                   # Terracotta Warrior 6
 moves = [
-  { move = 0x4E22F64D, level = 1 },                         # Transporter Device
-  { move = 0xF626F557, level = 18 },                        # Electric Impedance
-  { move = 0x737DCB3F, level = 43 },                        # Pancake Defence
-  { move = 0xAC91D94F, level = 46 },                        # Major Miner
+  { move = 0x4E22F64D, level = 2 },                         # Transporter Device
+  { move = 0xF626F557, level = 12 },                        # Electric Impedance
+  { move = 0x72BFA108, level = 38 },                        # Wall of Atlantis
+  { move = 0x737DCB3F, level = 40 },                        # Pancake Defence
 ]
 
   [[edit.cards]]
@@ -94,9 +94,9 @@ moves = [
 target = "c05024070"                                   # Terracotta Warrior 7
 moves = [
   { move = 0x4E22F64D, level = 1 },                         # Transporter Device
-  { move = 0xA9E3374B, level = 23 },                        # Cyclone Sprint
-  { move = 0x2354CA2D, level = 48 },                        # Wind God's Dance
-  { move = 0x49933AEE, level = 58 },                        # Perfect Tower
+  { move = 0xA9E3374B, level = 19 },                        # Cyclone Sprint
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
+  { move = 0x2354CA2D, level = 47 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]
@@ -109,9 +109,9 @@ moves = [
 target = "c05024080"                                   # Terracotta Warrior 8
 moves = [
   { move = 0x4E22F64D, level = 1 },                         # Transporter Device
-  { move = 0xC66BD10D, level = 35 },                        # Zigzag Spark
-  { move = 0x41F3CDC2, level = 45 },                        # Scorching Tackle
-  { move = 0x12E67CC1, level = 55 },                        # Future Eye
+  { move = 0x41F3CDC2, level = 30 },                        # Scorching Tackle
+  { move = 0x12E67CC1, level = 30 },                        # Future Eye
+  { move = 0xC66BD10D, level = 36 },                        # Zigzag Spark
 ]
 
   [[edit.cards]]
@@ -123,10 +123,10 @@ moves = [
 [[edit]]
 target = "c05024090"                                   # Terracotta Warrior 9
 moves = [
-  { move = 0x4E22F64D, level = 1 },                         # Transporter Device
-  { move = 0xF626F557, level = 15 },                        # Electric Impedance
-  { move = 0x016DEA27, level = 32 },                        # Accelerator Gears
-  { move = 0xDA3FF6C9, level = 42 },                        # Criss-Cross
+  { move = 0x4E22F64D, level = 5 },                         # Transporter Device
+  { move = 0xF626F557, level = 16 },                        # Electric Impedance
+  { move = 0x016DEA27, level = 35 },                        # Accelerator Gears
+  { move = 0xDA3FF6C9, level = 38 },                        # Criss-Cross
 ]
 
   [[edit.cards]]
@@ -139,9 +139,9 @@ moves = [
 target = "c05024100"                                   # Terracotta Warrior 10
 moves = [
   { move = 0x4E22F64D, level = 1 },                         # Transporter Device
-  { move = 0x585098FC, level = 11 },                        # Slice and Dice
-  { move = 0xB60E3C60, level = 51 },                        # Plasma Cut
-  { move = 0x016DEA27, level = 61 },                        # Accelerator Gears
+  { move = 0x585098FC, level = 15 },                        # Slice and Dice
+  { move = 0x016DEA27, level = 38 },                        # Accelerator Gears
+  { move = 0xB60E3C60, level = 48 },                        # Plasma Cut
 ]
 
   [[edit.cards]]
@@ -154,9 +154,9 @@ moves = [
 target = "c05024110"                                   # Terracotta Warrior 11
 moves = [
   { move = 0x016DEA27, level = 1 },                         # Accelerator Gears
-  { move = 0x4E22F64D, level = 5 },                         # Transporter Device
-  { move = 0xE11DE782, level = 58 },                        # Chrysanthemum Katana
-  { move = 0xA8215D7C, level = 68 },                        # The Mountain
+  { move = 0x4E22F64D, level = 7 },                         # Transporter Device
+  { move = 0xA8215D7C, level = 30 },                        # The Mountain
+  { move = 0xE11DE782, level = 51 },                        # Chrysanthemum Katana
 ]
 
   [[edit.cards]]

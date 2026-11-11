@@ -1,6 +1,16 @@
 schema = "VRFW.option/2"
 # Classic Recruitment's rows on the Mods screen's «Ajustes» and in Options > «Mod options».
 
+# Off = the game's own recruitment: the files gated on this row are not read and ClassicRecruitment.applies answers false.
+[[option]]
+id = "classic_recruitment"                     # row key ClassicRecruitment.classic_recruitment
+type = "toggle"
+label = "option_classic_recruitment"           # text\keys.toml, 9 languages
+help = "option_classic_recruitment_help"
+default = 1
+order = 174
+restart = true                                 # The gated files are read at the start.
+
 # Read at run time by ClassicRecruitment.gacha_removed (Lua); the hub map's function point table is built at start.
 [[option]]
 id = "remove_gacha"                            # row key ClassicRecruitment.remove_gacha
@@ -9,3 +19,12 @@ label = "option_remove_gacha"                  # text\keys.toml, 9 languages
 help = "option_remove_gacha_help"
 default = 1
 order = 175
+
+# Read at run time by ClassicRecruitment.spirit_menus_hidden (Lua): visibility only, drops and the album stay.
+[[option]]
+id = "player_spirit_menus"                     # row key ClassicRecruitment.player_spirit_menus
+type = "toggle"
+label = "option_player_spirit_menus"           # text\keys.toml, 9 languages
+help = "option_player_spirit_menus_help"
+default = 0
+order = 176

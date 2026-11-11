@@ -1,0 +1,912 @@
+schema = "VRFW.sound/1"
+# Japanese call-outs from the Voice Plus pack of Andrea Calvaruso's Voci Editor (third party, personal use only)
+
+[[voice]]
+bank = "c02023860"            # Cannon Random: Circus Block (Voice Plus Anime)
+cue = "whd00260"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023860_whd00260.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000290"            # Daniel Hatch: Foul Offence (Voice Plus Anime)
+cue = "who00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000290_who00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000290"            # Daniel Hatch: Double Cyclone (Voice Plus Anime)
+cue = ["whd00390", "whd00390_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000290_whd00390.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02023640"            # Argie Bargie: Double Cyclone (Voice Plus Anime)
+cue = ["whd00390", "whd00390_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023640_whd00390.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c03030070", "c07100040"]            # Dave Quagmire: Dash Storm (Voice Plus Anime)
+cue = "who00220"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03030070_who00220.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02024040"            # Hurley Kane: The Tube (Voice Plus Anime)
+cue = "whs01160"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02024040_whs01160.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c06030030"            # Keenan Sharpe: Look! UFO (Voice Plus Anime)
+cue = "who01300"
+lang = "ja"
+file = "assets/sounds/voice/ja/c06030030_who01300.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03033610"            # Lars Luceafăr: Needle Hammer (Voice Plus Anime)
+cue = "whk00730"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03033610_whk00730.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02023490"            # Marshall Artz: Kung Fu Fighting (Voice Plus Anime)
+cue = "whs00530"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023490_whs00530.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03031280"            # Roberto Torres: Dog Run (Voice Plus Anime)
+cue = "who00610"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03031280_who00610.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01001420"            # Seward Hayseed: Bamboo Pattern (Voice Plus Anime)
+cue = ["whd00170", "whd00170_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c01001420_whd00170.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04002900", "c05028060"]            # Sol Daystar: Solar Nexus (Voice Plus Anime)
+cue = "whs02130"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04002900_whs02130.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02024500"            # Suzette Hartland: Steeple Shot (Voice Plus Anime)
+cue = "whs00920"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02024500_whs00920.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c05021100"            # Taian Inaba: Swallow Counter (Voice Plus Anime)
+cue = "who01010"
+lang = "ja"
+file = "assets/sounds/voice/ja/c05021100_who01010.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02023020"            # Timothy Western: Body Shield (Voice Plus Anime)
+cue = "whd00430"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023020_whd00430.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02023030"            # Wallace Hammond: Body Shield (Voice Plus Anime)
+cue = "whd00430"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023030_whd00430.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000240"            # Alan Master: Illusory Ball (Voice Plus Cross)
+cue = "who00040"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000240_who00040.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03030020"            # Archer Hawkins: Foul Offence (Voice Plus Cross)
+cue = "who00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03030020_who00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02024690"            # Aurelia Dingle: Flurry Dash (Voice Plus Cross)
+cue = "who00020"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02024690_who00020.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02024690"            # Aurelia Dingle: Spinning Cut (Voice Plus Cross)
+cue = "whd00130"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02024690_whd00130.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000230"            # Ben Simmons: Foul Offence (Voice Plus Cross)
+cue = "who00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000230_who00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000310", "c02023710"]            # David Samford: Killer Slide (Voice Plus Cross)
+cue = "whd00020"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000310_whd00020.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c11903020"            # Gregory Smith: Scorching Tackle (Voice Plus Cross)
+cue = "who00070"
+lang = "ja"
+file = "assets/sounds/voice/ja/c11903020_who00070.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000260"            # Herman Waldon: Foul Offence (Voice Plus Cross)
+cue = "who00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000260_who00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000260"            # Herman Waldon: Death Zone (Voice Plus Cross)
+cue = "whs00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000260_whs00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02024040"            # Hurley Kane: Spinning Cut (Voice Plus Cross)
+cue = "whd00130"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02024040_whd00130.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000030", "c07040120"]            # Jack Wallside: Zigzag Spark (Voice Plus Cross)
+cue = "who00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000030_who00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000040", "c02024240"]            # Jim Wraith: Afterimage (Voice Plus Cross)
+cue = "who00160"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000040_who00160.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000490"            # Johan Tassman: Ghost Pull (Voice Plus Cross)
+cue = "whd00150"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000490_whd00150.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000270"            # John Bloom: Foul Offence (Voice Plus Cross)
+cue = "who00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000270_who00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000300", "c01010970", "c07020120"]            # Jude Sharp: Cyclone (Voice Plus Cross)
+cue = "whd00070"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whd00070.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c05026650"            # Julia Blaze: Double Touch (Voice Plus Cross)
+cue = "who00300"
+lang = "ja"
+file = "assets/sounds/voice/ja/c05026650_who00300.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c05026650"            # Julia Blaze: Fire Tornado (Voice Plus Cross)
+cue = "whs00030"
+lang = "ja"
+file = "assets/sounds/voice/ja/c05026650_whs00030.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01002110"            # Millie Moonlight: Dash Accelerator (Voice Plus Cross)
+cue = "who00050"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01002110_who00050.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000010", "c07110020"]            # Mark Evans: Clone Faker (Voice Plus Cross)
+cue = "who00010"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_who00010.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01001690", "c07050020"]            # Marvin Murdock: Illusory Ball (Voice Plus Cross)
+cue = "who00040"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01001690_who00040.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000090", "c02024290"]            # Maxwell Carson: Illusory Ball (Voice Plus Cross)
+cue = "who00040"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000090_who00040.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01007240"            # Miles Ryan: Cyclone (Voice Plus Cross)
+cue = "whd00070"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01007240_whd00070.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000080", "c02024280"]            # Sam Kincaid: Clone Faker (Voice Plus Cross)
+cue = "who00010"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000080_who00010.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02023520"            # Scott Banyan: Whirlwind Twister (Voice Plus Cross)
+cue = "who00030"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023520_who00030.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01002610"            # Seymour Hillman: Blazing Knuckle (Voice Plus Cross)
+cue = "whk00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01002610_whk00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01010980", "c02024230"]            # Shadow Cimmerian: Quick Draw (Voice Plus Cross)
+cue = "whd00050"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01010980_whd00050.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c06039040"            # Sonny Raimon: Dark Tornado (Voice Plus Cross)
+cue = "whs00430"
+lang = "ja"
+file = "assets/sounds/voice/ja/c06039040_whs00430.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c06039040"            # Sonny Raimon: Grenade Shot (Voice Plus Cross)
+cue = "whs00070"
+lang = "ja"
+file = "assets/sounds/voice/ja/c06039040_whs00070.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000060", "c02024260"]            # Steve Grim: Cyclone (Voice Plus Cross)
+cue = "whd00070"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000060_whd00070.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000060", "c02024260"]            # Steve Grim: Zigzag Spark (Voice Plus Cross)
+cue = "who00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000060_who00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000810", "c02024210"]            # Thomas Feldt: Rocket Kobushi (Voice Plus Cross)
+cue = "whk00150"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000810_whk00150.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02024720"            # Thor Stoutberg: Zigzag Spark (Voice Plus Cross)
+cue = "who00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02024720_who00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000070", "c02024270"]            # Tim Saunders: Clone Faker (Voice Plus Cross)
+cue = "who00010"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000070_who00010.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000050", "c02024250"]            # Tod Ironside: Double Touch (Voice Plus Cross)
+cue = "who00300"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000050_who00300.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000050", "c02024250"]            # Tod Ironside: Comet Shot (Voice Plus Cross)
+cue = "whs00140"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000050_whs00140.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01001710", "c07050040"]            # Tyler Murdock: Spinning Cut (Voice Plus Cross)
+cue = "whd00130"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01001710_whd00130.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000120"            # William Glass: Quick Draw (Voice Plus Cross)
+cue = "whd00050"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000120_whd00050.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04000080", "c05028030"]            # Arion Sherwind: Triple Defence (Voice Plus Fan)
+cue = "whk00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000080_whk00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04000080", "c05028030"]            # Arion Sherwind: Double Tornado (Voice Plus Fan)
+cue = ["whs00780", "whs00780_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000080_whs00780.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04000080", "c05028030"]            # Arion Sherwind: The Earth (Voice Plus Fan)
+cue = "whs00480"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000080_whs00480.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04000080", "c05028030"]            # Arion Sherwind: God Hand (Voice Plus Fan)
+cue = ["whk00010", "whk00480", "whk01710"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000080_whk01710.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04000080", "c05028030"]            # Arion Sherwind: Triple God Hand (Voice Plus Fan)
+cue = ["whk00380", "whk00380_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000080_whk00380.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04000080", "c05028030"]            # Arion Sherwind: God Break (Voice Plus Fan)
+cue = "whs00900"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000080_whs00900.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04000080", "c05028030"]            # Arion Sherwind: Fire Tornado (Voice Plus Fan)
+cue = "whs00030"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000080_whs00030.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000100", "c07050010"]            # Axel Blaze: Twin Boost (Voice Plus Fan)
+cue = "whs00020"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000100_whs00020.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000100", "c07050010"]            # Axel Blaze: Double Tornado (Voice Plus Fan)
+cue = ["whs00780", "whs00780_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000100_whs00780.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000100", "c07050010"]            # Axel Blaze: Land Dragon (Voice Plus Fan)
+cue = "whs00670"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000100_whs00670.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000100", "c07050010"]            # Axel Blaze: Tiger Drive (Voice Plus Fan)
+cue = "whs00960"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000100_whs00960.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000100", "c07050010"]            # Axel Blaze: Cross Drive (Voice Plus Fan)
+cue = "whs00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000100_whs00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000100", "c07050010"]            # Axel Blaze: Last Resort D (Voice Plus Fan)
+cue = ["whs03290", "whs03290_cro"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000100_whs03290.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04003500", "c05028140"]            # Bailong: Dragon Tornado (Voice Plus Fan)
+cue = ["whs00350", "whs00350_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c04003500_whs00350.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04003500", "c05028140"]            # Bailong: Excalibur (Voice Plus Fan)
+cue = "whs00970"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04003500_whs00970.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04003500", "c05028140"]            # Bailong: Fire Tornado (Voice Plus Fan)
+cue = "whs00030"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04003500_whs00030.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04003500", "c05028140"]            # Bailong: Last Resort D (Voice Plus Fan)
+cue = ["whs03290", "whs03290_cro"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c04003500_whs03290.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03033690"            # Bash Lancer: Foul Offence (Voice Plus Fan)
+cue = "who00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03033690_who00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c07010020", "c08010030"]            # Basile Hardy: Cyclone (Voice Plus Fan)
+cue = "whd00070"
+lang = "ja"
+file = "assets/sounds/voice/ja/c07010020_whd00070.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01010920"            # Bobby Shearer: Killer Blade (Voice Plus Fan)
+cue = "whk00190"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01010920_whk00190.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c07090130"            # Bunny Cottontail: Triple Dash (Voice Plus Fan)
+cue = ["who00360", "who00360_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c07090130_who00360.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c02023700", "c03030050", "c07070110"]            # Caleb Stonewall: Foul Offence (Voice Plus Fan)
+cue = "who00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023700_who00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c02023700", "c03030050", "c07070110"]            # Caleb Stonewall: Death Zone (Voice Plus Fan)
+cue = "whs00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023700_whs00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c02023700", "c03030050", "c07070110"]            # Caleb Stonewall: Death Zone 2 (Voice Plus Fan)
+cue = "whs00470"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023700_whs00470.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03030080"            # Camellia Travis: Death Zone (Voice Plus Fan)
+cue = "whs00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03030080_whs00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02024740"            # Celia Hills: Death Zone (Voice Plus Fan)
+cue = "whs00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02024740_whs00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c07100110"            # Claire Lesnow: God Hand (Voice Plus Fan)
+cue = ["whk00010", "whk00480", "whk01710"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c07100110_whk01710.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c04003080"            # Cronus Fourseasons: Double Tornado (Voice Plus Fan)
+cue = ["whs00780", "whs00780_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c04003080_whs00780.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c04003080"            # Cronus Fourseasons: Fire Tornado (Voice Plus Fan)
+cue = "whs00030"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04003080_whs00030.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c04001490"            # Dakkar Nemo: Cross Drive (Voice Plus Fan)
+cue = "whs00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04001490_whs00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03032090"            # Damien Crawford: Foul Offence (Voice Plus Fan)
+cue = "who00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03032090_who00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000280"            # Derek Swing: Clone Death Zone (Voice Plus Fan)
+cue = "whs01440"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000280_whs01440.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c07020010"            # Elliot Ember: Final Death Zone (Voice Plus Fan)
+cue = ["whs02010", "whs02010_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c07020010_whs02010.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01010910", "c07120060"]            # Erik Eagle: Twin Boost F (Voice Plus Fan)
+cue = ["whs00770", "whs00770_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c01010910_whs00770.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c07110080"            # Gaffer Mason: Cyclone (Voice Plus Fan)
+cue = "whd00070"
+lang = "ja"
+file = "assets/sounds/voice/ja/c07110080_whd00070.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c05020140"            # Goldie Lemmon: Double Tornado (Voice Plus Fan)
+cue = ["whs00780", "whs00780_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c05020140_whs00780.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c05020140"            # Goldie Lemmon: Fire Tornado (Voice Plus Fan)
+cue = "whs00030"
+lang = "ja"
+file = "assets/sounds/voice/ja/c05020140_whs00030.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c11020010"            # Harper Evans: Fire Tornado (Voice Plus Fan)
+cue = "whs00030"
+lang = "ja"
+file = "assets/sounds/voice/ja/c11020010_whs00030.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c05029520"            # Hiro Hughes: Big Bang (Voice Plus Fan)
+cue = "whs01110"
+lang = "ja"
+file = "assets/sounds/voice/ja/c05029520_whs01110.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c05020410"            # Hotel: Power Shield (Voice Plus Fan)
+cue = "whk00020"
+lang = "ja"
+file = "assets/sounds/voice/ja/c05020410_whk00020.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02024040"            # Hurley Kane: Death Zone (Voice Plus Fan)
+cue = "whs00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02024040_whs00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c08020100"            # Hwang Bull-gim: Dual Storm (Voice Plus Fan)
+cue = "whd00310"
+lang = "ja"
+file = "assets/sounds/voice/ja/c08020100_whd00310.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c04002050"            # Iggie Loo: Land Dragon (Voice Plus Fan)
+cue = "whs00670"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04002050_whs00670.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c04002050"            # Iggie Loo: Run Ball Run (Voice Plus Fan)
+cue = "whs00250"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04002050_whs00250.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04000050", "c05028070"]            # Jean-Pierre Lapin: The Earth (Voice Plus Fan)
+cue = "whs00480"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000050_whs00480.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04000050", "c05028070"]            # Jean-Pierre Lapin: God Catch (Voice Plus Fan)
+cue = "whk00550"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000050_whk00550.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01000490"            # Johan Tassman: Shot Stopper (Voice Plus Fan)
+cue = "whk00840"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000490_whk00840.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000300", "c01010970", "c07020120"]            # Jude Sharp: Doom Break (Voice Plus Fan)
+cue = "whs01410"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000300_whs01410.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000110", "c02024310", "c07090140"]            # Kevin Dragonfly: Doom Rain (Voice Plus Fan)
+cue = "whs01390"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000110_whs01390.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000110", "c02024310", "c07090140"]            # Kevin Dragonfly: Death Zone (Voice Plus Fan)
+cue = "whs00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000110_whs00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000010", "c07110020"]            # Mark Evans: Triple God Hand (Voice Plus Fan)
+cue = ["whk00380", "whk00380_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_whk00380.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000010", "c07110020"]            # Mark Evans: God Break (Voice Plus Fan)
+cue = "whs00900"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_whs00900.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000010", "c07110020"]            # Mark Evans: Diamond Ray (Voice Plus Fan)
+cue = "whs03000"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_whs03000.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000010", "c07110020"]            # Mark Evans: Doom Break (Voice Plus Fan)
+cue = "whs01410"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_whs01410.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000010", "c07110020"]            # Mark Evans: Death Zone (Voice Plus Fan)
+cue = "whs00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000010_whs00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03033660"            # Mystral Callous: Foul Offence (Voice Plus Fan)
+cue = "who00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03033660_who00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000020", "c02024300", "c07070120"]            # Nathan Swift: Clone Penguin (Voice Plus Fan)
+cue = "whs01450"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000020_whs01450.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c01000020", "c02024300", "c07070120"]            # Nathan Swift: Triple Dash (Voice Plus Fan)
+cue = ["who00360", "who00360_or"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c01000020_who00360.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03032030"            # Phil A. Minion: Foul Offence (Voice Plus Fan)
+cue = "who00210"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03032030_who00210.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c04000090"            # Riccardo Di Rigo: The Earth (Voice Plus Fan)
+cue = "whs00480"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000090_whs00480.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c04000010"            # Samguk Han: God Hand (Voice Plus Fan)
+cue = ["whk00010", "whk00480", "whk01710"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000010_whk01710.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c04000010"            # Samguk Han: God Catch (Voice Plus Fan)
+cue = "whk00550"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000010_whk00550.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c02023290", "c02023370", "c02023380", "c07090010", "c11902360"]            # Shawn Froste: Fire Blizzard (Voice Plus Fan)
+cue = ["whs00850", "whs00940"]
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023290_whs00940.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c02023290", "c02023370", "c02023380", "c07090010", "c11902360"]            # Shawn Froste: Gungnir (Voice Plus Fan)
+cue = "whs00650"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023290_whs00650.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c02023290", "c02023370", "c02023380", "c07090010", "c11902360"]            # Shawn Froste: Grand Fire (Voice Plus Fan)
+cue = "whs01230"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023290_whs01230.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c02023290", "c02023370", "c02023380", "c07090010", "c11902360"]            # Shawn Froste: Death Zone (Voice Plus Fan)
+cue = "whs00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02023290_whs00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04002900", "c05028060"]            # Sol Daystar: Meteor Blade A (Voice Plus Fan)
+cue = "whs03410"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04002900_whs03410.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c04002900", "c05028060"]            # Sol Daystar: Fire Tornado (Voice Plus Fan)
+cue = "whs00030"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04002900_whs00030.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c04000100"            # Victor Blade: The Earth (Voice Plus Fan)
+cue = "whs00480"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000100_whs00480.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c04000100"            # Victor Blade: Fire Tornado (Voice Plus Fan)
+cue = "whs00030"
+lang = "ja"
+file = "assets/sounds/voice/ja/c04000100_whs00030.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03030040"            # Xavier Foster: Death Zone (Voice Plus Fan)
+cue = "whs00080"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03030040_whs00080.wav"
+normalize = "none"
+
+[[voice]]
+bank = ["c05021890", "c05028490"]            # Ar Ecks: In-Line Stampede (Voice Plus Strikers)
+cue = "who01050"
+lang = "ja"
+file = "assets/sounds/voice/ja/c05021890_who01050.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03031500"            # Dylan Keats: Liar Shot (Voice Plus Strikers)
+cue = "who00580"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03031500_who00580.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c02021040"            # Ganymede: Double Grenade (Voice Plus Strikers)
+cue = "whs00540"
+lang = "ja"
+file = "assets/sounds/voice/ja/c02021040_whs00540.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c03033700"            # Ichabod Stark: Doom Rain (Voice Plus Strikers)
+cue = "whs01390"
+lang = "ja"
+file = "assets/sounds/voice/ja/c03033700_whs01390.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01001890"            # Jonas Demetrius: Divine Arrows (Voice Plus Strikers)
+cue = "whs00310"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01001890_whs00310.wav"
+normalize = "none"
+
+[[voice]]
+bank = "c01001890"            # Jonas Demetrius: Warp Drive (Voice Plus Strikers)
+cue = "who00410"
+lang = "ja"
+file = "assets/sounds/voice/ja/c01001890_who00410.wav"
+normalize = "none"

@@ -4,3 +4,8 @@ schema = "VRFW.game/2"
 [[VRFW.Command]]
 name = "CMND_CHARACTERREFORGED_ONE_CARD_PER_PLAYER"
 handler = "CharacterReforged.OneCardPerPlayer"
+
+# (rarity, the card's own rarity) -> 1 while a copy saved at that rarity is a raised copy the rules keep, else 0 (scripts\duplicate_players.lua)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_RAISED_COPY_RARITY"
+handler = "CharacterReforged.RaisedCopyRarity"

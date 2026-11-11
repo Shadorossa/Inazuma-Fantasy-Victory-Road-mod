@@ -49,10 +49,10 @@ moves = [
 [[edit]]
 target = "c04002010"                                   # Wolfe Whyte
 moves = [
-  { move = 0x41AEB4DF, level = 1 },                         # Crystal Barrier
+  { move = 0x41AEB4DF, level = 3 },                         # Crystal Barrier
+  { move = 0xC4701649, level = 20 },                        # Ice Block
+  { move = 0xD471DE6C, level = 38 },                        # Snakebite
   { move = 0xCD6AEF2D, level = 58 },                        # All-Star
-  { move = 0xD471DE6C, level = 68 },                        # Snakebite
-  { move = 0xC4701649, level = 78 },                        # Ice Block
 ]
 
   [[edit.cards]]
@@ -80,9 +80,9 @@ moves = [
 [[edit]]
 target = "c04002030"                                   # Guy l'Acier
 moves = [
-  { move = 0x039DBAAC, level = 1 },                         # Land of Ice
+  { move = 0x039DBAAC, level = 5 },                         # Land of Ice
   { move = 0x2354CA2D, level = 35 },                        # Wind God's Dance
-  { move = 0x016DEA27, level = 45 },                        # Accelerator Gears
+  { move = 0x016DEA27, level = 35 },                        # Accelerator Gears
   { move = 0xD9BB22A7, level = 51 },                        # Air Ride
 ]
 
@@ -153,9 +153,9 @@ moves = [
 target = "c04002070"                                   # Blain Chills
 moves = [
   { move = 0x768AB9C5, level = 1 },                         # Frosticle
+  { move = 0x585098FC, level = 30 },                        # Slice and Dice
   { move = 0x0DCADC54, level = 31 },                        # Emperor Penguin 7
   { move = 0x15138722, level = 33 },                        # Will-o'-the-Wisp Shot
-  { move = 0x585098FC, level = 43 },                        # Slice and Dice
 ]
 
   [[edit.cards]]
@@ -182,7 +182,7 @@ moves = [
 [[edit]]
 target = "c04002090"                                   # Borel Aurora
 moves = [
-  { move = 0x768AB9C5, level = 1 },                         # Frosticle
+  { move = 0x768AB9C5, level = 3 },                         # Frosticle
   { move = 0xA2FB4736, level = 35 },                        # Flying Fish
   { move = 0xB0BC314A, level = 36 },                        # Spin Meister
   { move = 0x6A66FA7E, level = 40 },                        # Killer Whale
@@ -233,10 +233,10 @@ moves = [
 [[edit]]
 target = "c04002120"                                   # Suno Aisu
 moves = [
-  { move = 0x62DEE8B1, level = 1 },                         # Jumping Whack
+  { move = 0x62DEE8B1, level = 12 },                        # Jumping Whack
   { move = 0x41AEB4DF, level = 48 },                        # Crystal Barrier
-  { move = 0x50E88A33, level = 58 },                        # Fist Beam
-  { move = 0x0536F9DB, level = 68 },                        # Sand Blaster
+  { move = 0x50E88A33, level = 48 },                        # Fist Beam
+  { move = 0x0536F9DB, level = 48 },                        # Sand Blaster
 ]
 
   [[edit.cards]]
@@ -248,7 +248,7 @@ moves = [
 [[edit]]
 target = "c04002130"                                   # Himesh Himalaya
 moves = [
-  { move = 0x768AB9C5, level = 1 },                         # Frosticle
+  { move = 0x768AB9C5, level = 2 },                         # Frosticle
   { move = 0x530CDFC1, level = 31 },                        # Mystifying Mist
   { move = 0x24E5068E, level = 32 },                        # Fractal Repeller
   { move = 0xA9E3374B, level = 39 },                        # Cyclone Sprint
@@ -280,9 +280,9 @@ moves = [
 [[edit]]
 target = "c04002150"                                   # Fritz Brisk
 moves = [
-  { move = 0x530CDFC1, level = 1 },                         # Mystifying Mist
-  { move = 0xF626F557, level = 29 },                        # Electric Impedance
-  { move = 0x4E9A9232, level = 39 },                        # Spinning Cut
+  { move = 0x530CDFC1, level = 19 },                        # Mystifying Mist
+  { move = 0xF626F557, level = 19 },                        # Electric Impedance
+  { move = 0x4E9A9232, level = 23 },                        # Spinning Cut
   { move = 0x768AB9C5, level = 46 },                        # Frosticle
 ]
 
@@ -310,10 +310,10 @@ moves = [
 [[edit]]
 target = "c11804060"                                   # Wilder Bigfoot
 moves = [
-  { move = 0x9D236FA3, level = 1 },                         # Sword of the King
-  { move = 0xBBA44137, level = 11 },                        # Great Wall
-  { move = 0xC41097D5, level = 21 },                        # Acrobotics
-  { move = 0x4FE09C7A, level = 31 },                        # Acrobatic Keep
+  { move = 0xBBA44137, level = 13 },                        # Great Wall
+  { move = 0x4FE09C7A, level = 20 },                        # Acrobatic Keep
+  { move = 0xC41097D5, level = 30 },                        # Acrobotics
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]

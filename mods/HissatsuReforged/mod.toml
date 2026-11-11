@@ -1,5 +1,6 @@
 id = "HissatsuReforged"
 name = "Hissatsu Reforged"
+icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_sp_area01"
 prefix = "HissatsuReforged"
 folder = "HissatsuReforged"
 version = "0.3.0"
@@ -23,4 +24,4 @@ keys = ["Rules"]
 game_lua = ["HissatsuReforged.skill_table_rank_item"]
 
 [layout]
-script_folders = ["skill_set", "hissatsu_level_up", "universe_prizes"]
+script_folders = ["skill_set", "hissatsu_level_up", "universe_prizes", "passive_config"]

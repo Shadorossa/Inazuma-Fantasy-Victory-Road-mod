@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c04001310_5000"                              # Rex Remington
 moves = [
-  { move = 0x0DCADC54, level = 1 },                         # Emperor Penguin 7
+  { move = 0x0DCADC54, level = 8 },                         # Emperor Penguin 7
+  { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
+  { move = 0xDA3FF6C9, level = 38 },                        # Criss-Cross
   { move = 0x4FE09C7A, level = 43 },                        # Acrobatic Keep
-  { move = 0xDA3FF6C9, level = 53 },                        # Criss-Cross
-  { move = 0x84385EE2, level = 63 },                        # Black Tide Ride
 ]
 
   [[edit.cards]]
@@ -36,8 +36,8 @@ target = "c04001210"                                   # Preston Princeton
 moves = [
   { move = 0xB01D1B68, level = 1 },                         # Power Spike
   { move = 0xDF2D9951, level = 52 },                        # Close Counter
-  { move = 0x7BC5D9F0, level = 62 },                        # Rotary Sander
-  { move = 0x1E6B76C3, level = 72 },                        # Penguin the Hand
+  { move = 0x7BC5D9F0, level = 52 },                        # Rotary Sander
+  { move = 0x1E6B76C3, level = 52 },                        # Penguin the Hand
 ]
 
   [[edit.cards]]
@@ -117,7 +117,7 @@ moves = [
 [[edit]]
 target = "c04001260"                                   # Caesar Cornell
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
+  { move = 0xDA3FF6C9, level = 11 },                        # Criss-Cross
   { move = 0xA23AEC88, level = 25 },                        # Copy Cut
   { move = 0x1C4D4906, level = 26 },                        # Whirlpool
   { move = 0x2A4E3349, level = 40 },                        # Heart Beat
@@ -132,10 +132,10 @@ moves = [
 [[edit]]
 target = "c04001270"                                   # Hampton Harvard
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
+  { move = 0xDA3FF6C9, level = 10 },                        # Criss-Cross
   { move = 0x737DCB3F, level = 35 },                        # Pancake Defence
-  { move = 0x93885A64, level = 45 },                        # Fire Drill
-  { move = 0xB9A6C82E, level = 55 },                        # Triangle ZZ
+  { move = 0x93885A64, level = 35 },                        # Fire Drill
+  { move = 0xB9A6C82E, level = 44 },                        # Triangle ZZ
 ]
 
   [[edit.cards]]
@@ -148,10 +148,10 @@ moves = [
 [[edit]]
 target = "c04001280"                                   # Baron Oxford
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
+  { move = 0x1C4D4906, level = 13 },                        # Whirlpool
+  { move = 0xDA3FF6C9, level = 17 },                        # Criss-Cross
   { move = 0x585098FC, level = 44 },                        # Slice and Dice
-  { move = 0xECB91078, level = 54 },                        # Volcanic Flight
-  { move = 0x1C4D4906, level = 64 },                        # Whirlpool
+  { move = 0xECB91078, level = 44 },                        # Volcanic Flight
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c04001290"                                   # Sterling Stanford
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
+  { move = 0xDA3FF6C9, level = 7 },                         # Criss-Cross
   { move = 0x928B9BED, level = 13 },                        # Optimal Trajectory
   { move = 0x0E0A3F7A, level = 56 },                        # Spatial Portal
-  { move = 0xF4604B0E, level = 66 },                        # Fancy-Footwork
+  { move = 0xF4604B0E, level = 56 },                        # Fancy-Footwork
 ]
 
   [[edit.cards]]
@@ -194,10 +194,10 @@ moves = [
 [[edit]]
 target = "c04001310"                                   # Rex Remington
 moves = [
-  { move = 0x0DCADC54, level = 1 },                         # Emperor Penguin 7
+  { move = 0x0DCADC54, level = 8 },                         # Emperor Penguin 7
+  { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
+  { move = 0xDA3FF6C9, level = 38 },                        # Criss-Cross
   { move = 0x4FE09C7A, level = 43 },                        # Acrobatic Keep
-  { move = 0xDA3FF6C9, level = 53 },                        # Criss-Cross
-  { move = 0x84385EE2, level = 63 },                        # Black Tide Ride
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -215,10 +215,10 @@ moves = [
 [[edit]]
 target = "c04001320"                                   # Fred Featherstonhaugh
 moves = [
-  { move = 0x58B5859E, level = 1 },                         # Whip Crack
-  { move = 0xE4849E49, level = 29 },                        # Wild Dunk
-  { move = 0x2E1BAA18, level = 39 },                        # Crocodile Crush
-  { move = 0xFC5DC53F, level = 49 },                        # Double God Hand
+  { move = 0x58B5859E, level = 19 },                        # Whip Crack
+  { move = 0xE4849E49, level = 19 },                        # Wild Dunk
+  { move = 0x2E1BAA18, level = 25 },                        # Crocodile Crush
+  { move = 0xFC5DC53F, level = 36 },                        # Double God Hand
 ]
 
   [[edit.cards]]
@@ -231,10 +231,10 @@ moves = [
 [[edit]]
 target = "c04001330"                                   # Arthur Ascot
 moves = [
-  { move = 0x0DCADC54, level = 1 },                         # Emperor Penguin 7
+  { move = 0x0DCADC54, level = 19 },                        # Emperor Penguin 7
   { move = 0xDA3FF6C9, level = 22 },                        # Criss-Cross
+  { move = 0x3C843987, level = 38 },                        # Flurry Dash
   { move = 0x19C3F43D, level = 48 },                        # Eternal Blizzard
-  { move = 0x3C843987, level = 58 },                        # Flurry Dash
 ]
 
   [[edit.cards]]
@@ -246,10 +246,10 @@ moves = [
 [[edit]]
 target = "c04001340"                                   # Stuart St John
 moves = [
-  { move = 0x530CDFC1, level = 1 },                         # Mystifying Mist
+  { move = 0x530CDFC1, level = 17 },                        # Mystifying Mist
+  { move = 0xE0549BE6, level = 30 },                        # Easy Breezy Kid
+  { move = 0x1A868BED, level = 30 },                        # Clone Defence
   { move = 0xDBFD9CFE, level = 35 },                        # Big Ball Trick
-  { move = 0xE0549BE6, level = 45 },                        # Easy Breezy Kid
-  { move = 0x1A868BED, level = 55 },                        # Clone Defence
 ]
 
   [[edit.cards]]
@@ -261,9 +261,9 @@ moves = [
 [[edit]]
 target = "c04001350"                                   # Wenceslas Wales
 moves = [
-  { move = 0x8A52C09B, level = 1 },                         # Doomsword Slash
+  { move = 0x8A52C09B, level = 4 },                         # Doomsword Slash
   { move = 0xDDCA0D2A, level = 22 },                        # Bouncing Bomb
-  { move = 0x332CCDC9, level = 32 },                        # Heel Kick
+  { move = 0x332CCDC9, level = 22 },                        # Heel Kick
   { move = 0x4A17EE80, level = 44 },                        # Hunter's Net
 ]
 
@@ -277,10 +277,10 @@ moves = [
 [[edit]]
 target = "c04001360"                                   # Yorick York
 moves = [
-  { move = 0xDA3FF6C9, level = 1 },                         # Criss-Cross
+  { move = 0xDA3FF6C9, level = 11 },                        # Criss-Cross
   { move = 0x39CB2F02, level = 35 },                        # Dragster
-  { move = 0xD8794890, level = 45 },                        # Kangaroo Kick
-  { move = 0x19BA3BFC, level = 55 },                        # Dance on Air
+  { move = 0xD8794890, level = 35 },                        # Kangaroo Kick
+  { move = 0x19BA3BFC, level = 43 },                        # Dance on Air
 ]
 
   [[edit.cards]]
@@ -294,8 +294,8 @@ moves = [
 target = "c05024670"                                   # Jude Sharp
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0x4890FB67, level = 11 },                        # Twin Boost
-  { move = 0xB039ADB4, level = 21 },                        # Inazuma Break
+  { move = 0x4890FB67, level = 1 },                         # Twin Boost
+  { move = 0xB039ADB4, level = 1 },                         # Inazuma Break
   { move = 0x32EEA7FE, level = 55 },                        # Death Zone 2
 ]
 
@@ -309,7 +309,7 @@ moves = [
 target = "c05024620"                                   # David Samford
 moves = [
   { move = 0x427719AC, level = 1 },                         # Gale Dash
-  { move = 0x7DAF3139, level = 11 },                        # Emperor Penguin No. 2
+  { move = 0x7DAF3139, level = 1 },                         # Emperor Penguin No. 2
   { move = 0x6730D416, level = 60 },                        # Emperor Penguin No. 1
   { move = 0x4683AADF, level = 70 },                        # Space Penguin
 ]

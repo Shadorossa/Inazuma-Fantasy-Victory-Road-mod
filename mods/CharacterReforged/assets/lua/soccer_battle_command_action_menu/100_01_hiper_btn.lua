@@ -1090,9 +1090,9 @@ function CharacterReforged.hyper_card.mc_ask(chara)
   if type(page) ~= "table" or type(page.mode_change_partner) ~= "function" then
     return false
   end
-  local ok, pparam, pchara = pcall(page.mode_change_partner, chara)
+  local ok, pparam, pchara, phdl, label, in_team = pcall(page.mode_change_partner, chara)
   if ok and type(pparam) == "number" and pparam ~= 0 then
-    return true, true, pparam, pchara
+    return true, true, pparam, pchara, phdl, label, in_team
   end
   return false
 end
@@ -1101,11 +1101,13 @@ function CharacterReforged.hyper_card.mc_get(chara, skill)
   if chara == nil or chara == 0 or not CharacterReforged.hyper_card.is_mode_change(skill) then
     return nil
   end
-  local ok, exists, pparam, pchara = CharacterReforged.hyper_card.mc_ask(chara)
+  local ok, exists, pparam, pchara, phdl, _, in_team = CharacterReforged.hyper_card.mc_ask(chara)
   if not ok or not exists or type(pparam) ~= "number" or pparam == 0 then
     return nil
   end
-  local m = {chara = pchara or 0}
+  local m = {chara = pchara or 0, phdl = type(phdl) == "number" and phdl or 0}
+  -- Keeps the text that says a change gives no swap while its partner is in the base's team (empty when the rule allows it).
+  m.in_team_text = type(in_team) == "string" and in_team or ""
   local okk, face = pcall(funcLuaCommand, 347353059, pparam)
   m.face = (okk and type(face) == "number" and face ~= 0) and face or m.chara
   local okn, a, b = pcall(funcLuaCommand, 4060384944, m.chara, 10)

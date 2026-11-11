@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11700070"                                   # Hercule Gaillard
 moves = [
-  { move = 0x585098FC, level = 1 },                         # Slice and Dice
-  { move = 0x00A10ABD, level = 13 },                        # Ball Lightning
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0x613ABD43, level = 30 },                        # Dawnrise
+  { move = 0x585098FC, level = 13 },                        # Slice and Dice
+  { move = 0x00A10ABD, level = 20 },                        # Ball Lightning
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700080"                                   # Didar Valmont
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0xB5B7108F, level = 13 },                        # Shadow Stitch
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0xB5B7108F, level = 20 },                        # Shadow Stitch
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11700090"                                   # Iro Armussel
 moves = [
-  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
-  { move = 0x19C3F43D, level = 13 },                        # Eternal Blizzard
+  { move = 0x259F08C6, level = 13 },                        # Whirlwind Twister
   { move = 0x07D16DA0, level = 20 },                        # Inazuma-1
-  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0x19C3F43D, level = 30 },                        # Eternal Blizzard
+  { move = 0x2354CA2D, level = 38 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11719010"                                   # Stratos Merrill
 moves = [
-  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
-  { move = 0x2FB941B3, level = 13 },                        # Stone Prison
-  { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
-  { move = 0x485150D9, level = 30 },                        # Body Shield
+  { move = 0x73C5AF40, level = 13 },                        # Dash Accelerator
+  { move = 0x2FB941B3, level = 20 },                        # Stone Prison
+  { move = 0x52CEB5F6, level = 30 },                        # Iron Wall
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11719020"                                   # Kairo Reaser
 moves = [
-  { move = 0x4F58F805, level = 1 },                         # Coil Turn
-  { move = 0xC42D6F54, level = 13 },                        # Aikido
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x4F58F805, level = 13 },                        # Coil Turn
+  { move = 0xC42D6F54, level = 20 },                        # Aikido
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11719030"                                   # Watt Ownes
 moves = [
-  { move = 0x585098FC, level = 1 },                         # Slice and Dice
-  { move = 0x00A10ABD, level = 13 },                        # Ball Lightning
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0xA8215D7C, level = 30 },                        # The Mountain
+  { move = 0x585098FC, level = 13 },                        # Slice and Dice
+  { move = 0x00A10ABD, level = 20 },                        # Ball Lightning
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11719040"                                   # Proteus Flavout
 moves = [
-  { move = 0xC2E6ADBF, level = 1 },                         # Log Roll
-  { move = 0x41AEB4DF, level = 13 },                        # Crystal Barrier
-  { move = 0xBB415C55, level = 20 },                        # Needle Hammer
-  { move = 0xF64674CB, level = 30 },                        # Fist of Justice
+  { move = 0xC2E6ADBF, level = 13 },                        # Log Roll
+  { move = 0x41AEB4DF, level = 20 },                        # Crystal Barrier
+  { move = 0xBB415C55, level = 30 },                        # Needle Hammer
+  { move = 0xF64674CB, level = 38 },                        # Fist of Justice
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11719050"                                   # Olan Ackroyd
 moves = [
-  { move = 0x585098FC, level = 1 },                         # Slice and Dice
-  { move = 0x78E027BC, level = 13 },                        # Shine Drive
-  { move = 0xEFFC6FA8, level = 20 },                        # Warhead
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0x585098FC, level = 13 },                        # Slice and Dice
+  { move = 0x78E027BC, level = 20 },                        # Shine Drive
+  { move = 0xEFFC6FA8, level = 30 },                        # Warhead
+  { move = 0x78218C02, level = 38 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11719060"                                   # Evander Greenvale
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0x121A2FFE, level = 13 },                        # Mirage Shot
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
   { move = 0x1B854A64, level = 20 },                        # Cosmic Blast
-  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+  { move = 0x121A2FFE, level = 30 },                        # Mirage Shot
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11719070"                                   # Floyn Circuits
 moves = [
-  { move = 0x0710C61E, level = 1 },                         # Perimeter Zone
-  { move = 0xAF28F5A0, level = 13 },                        # The Tower
-  { move = 0x89D614F5, level = 20 },                        # White Hurricane
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x89D614F5, level = 1 },                         # White Hurricane
+  { move = 0x0710C61E, level = 20 },                        # Perimeter Zone
+  { move = 0xAF28F5A0, level = 30 },                        # The Tower
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11719080"                                   # Zaydan Smythe
 moves = [
-  { move = 0x52CEB5F6, level = 1 },                         # Iron Wall
-  { move = 0x2AF65736, level = 13 },                        # Bamboo Pattern
-  { move = 0x485150D9, level = 20 },                        # Body Shield
+  { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
   { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
+  { move = 0x2AF65736, level = 30 },                        # Bamboo Pattern
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -179,10 +179,10 @@ moves = [
 [[edit]]
 target = "c11719090"                                   # Praiseton Strongshout
 moves = [
-  { move = 0x91AE65A1, level = 1 },                         # Giant Spider
-  { move = 0x06B22DB5, level = 13 },                        # Gyro-Blocker
-  { move = 0x93E8DBF8, level = 20 },                        # Dimensional Hand
+  { move = 0x91AE65A1, level = 20 },                        # Giant Spider
+  { move = 0x06B22DB5, level = 30 },                        # Gyro-Blocker
   { move = 0xC5D2FDE2, level = 30 },                        # Oglitteration
+  { move = 0x93E8DBF8, level = 38 },                        # Dimensional Hand
 ]
 
   [[edit.cards]]
@@ -195,10 +195,10 @@ moves = [
 [[edit]]
 target = "c11719100"                                   # Wheyland Schultz
 moves = [
-  { move = 0xDBFD9CFE, level = 1 },                         # Big Ball Trick
-  { move = 0x750E6DAB, level = 13 },                        # Matador Feint
-  { move = 0xACAC21CE, level = 20 },                        # Fake Ball
-  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
+  { move = 0xDBFD9CFE, level = 20 },                        # Big Ball Trick
+  { move = 0x750E6DAB, level = 30 },                        # Matador Feint
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -211,10 +211,10 @@ moves = [
 [[edit]]
 target = "c11719110"                                   # Heron Champs
 moves = [
-  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
-  { move = 0x95823331, level = 13 },                        # The Tube
-  { move = 0xDE4ED944, level = 20 },                        # Snowstorm Leopard
+  { move = 0xC66BD10D, level = 13 },                        # Zigzag Spark
+  { move = 0x95823331, level = 20 },                        # The Tube
   { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]

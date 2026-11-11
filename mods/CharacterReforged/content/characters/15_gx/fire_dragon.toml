@@ -5,8 +5,8 @@ target = "c06030410"                                   # Do-Hyeon Nam
 moves = [
   { move = 0x5B3151F0, level = 1 },                         # Nitro Slap
   { move = 0xB01D1B68, level = 19 },                        # Power Spike
+  { move = 0x47657634, level = 38 },                        # Flame Breath
   { move = 0x7BC5D9F0, level = 48 },                        # Rotary Sander
-  { move = 0x47657634, level = 58 },                        # Flame Breath
 ]
 
   [[edit.cards]]
@@ -36,8 +36,8 @@ target = "c06030430"                                   # Jun-Ho Bae
 moves = [
   { move = 0x79E3E635, level = 1 },                         # Racing Flame
   { move = 0x5643C944, level = 15 },                        # Killer Slide
+  { move = 0x530CDFC1, level = 30 },                        # Mystifying Mist
   { move = 0x457EB170, level = 41 },                        # Pyrokinetic
-  { move = 0x530CDFC1, level = 51 },                        # Mystifying Mist
 ]
 
   [[edit.cards]]
@@ -51,9 +51,9 @@ moves = [
 target = "c06030440"                                   # Yongjin Seo
 moves = [
   { move = 0x79E3E635, level = 1 },                         # Racing Flame
+  { move = 0x025FD09B, level = 30 },                        # Volcano Cut
+  { move = 0x7A67325B, level = 38 },                        # Flame Dance
   { move = 0x414BA9BD, level = 42 },                        # Pincer Pinch
-  { move = 0x7A67325B, level = 52 },                        # Flame Dance
-  { move = 0x025FD09B, level = 62 },                        # Volcano Cut
 ]
 
   [[edit.cards]]
@@ -68,8 +68,8 @@ target = "c06030450"                                   # Ujin Shin
 moves = [
   { move = 0x79E3E635, level = 1 },                         # Racing Flame
   { move = 0xE196F1D1, level = 28 },                        # Burning Bomb
+  { move = 0x025FD09B, level = 30 },                        # Volcano Cut
   { move = 0x457EB170, level = 37 },                        # Pyrokinetic
-  { move = 0x025FD09B, level = 47 },                        # Volcano Cut
 ]
 
   [[edit.cards]]
@@ -84,8 +84,8 @@ target = "c06030460"                                   # Gunwoo Yang
 moves = [
   { move = 0xE196F1D1, level = 1 },                         # Burning Bomb
   { move = 0x0BFD4D80, level = 17 },                        # Grand Slam
+  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
   { move = 0xD0A1DBC3, level = 44 },                        # Bungee Ball Burst
-  { move = 0x17110E3B, level = 54 },                        # Jumbo Sandwich
 ]
 
   [[edit.cards]]
@@ -100,7 +100,7 @@ moves = [
   { move = 0xE196F1D1, level = 1 },                         # Burning Bomb
   { move = 0x79E3E635, level = 25 },                        # Racing Flame
   { move = 0x98E76F75, level = 34 },                        # Rapid Fire
-  { move = 0xABA58912, level = 44 },                        # Ignited Steal
+  { move = 0xABA58912, level = 38 },                        # Ignited Steal
 ]
 
   [[edit.cards]]
@@ -116,7 +116,7 @@ moves = [
   { move = 0xE196F1D1, level = 1 },                         # Burning Bomb
   { move = 0x3EC287DE, level = 26 },                        # Bubble Gum
   { move = 0x56FBAD3B, level = 35 },                        # Seal Matrix
-  { move = 0x79E3E635, level = 45 },                        # Racing Flame
+  { move = 0x79E3E635, level = 38 },                        # Racing Flame
 ]
 
   [[edit.cards]]
@@ -130,9 +130,9 @@ moves = [
 target = "c06030490"                                   # Soyeon Sim
 moves = [
   { move = 0x98E76F75, level = 1 },                         # Rapid Fire
+  { move = 0x58E8FC83, level = 30 },                        # Rolling Hell
   { move = 0xDDCA0D2A, level = 31 },                        # Bouncing Bomb
   { move = 0xAC1ACF1C, level = 47 },                        # Flower Plower
-  { move = 0x58E8FC83, level = 57 },                        # Rolling Hell
 ]
 
   [[edit.cards]]
@@ -146,8 +146,8 @@ target = "c06030500"                                   # Jun-Yeong Lee
 moves = [
   { move = 0x98E76F75, level = 1 },                         # Rapid Fire
   { move = 0x0BFD4D80, level = 20 },                        # Grand Slam
+  { move = 0x39CB2F02, level = 20 },                        # Dragster
   { move = 0x568262FA, level = 49 },                        # Dark Tornado
-  { move = 0x39CB2F02, level = 59 },                        # Dragster
 ]
 
   [[edit.cards]]
@@ -161,8 +161,8 @@ target = "c06030510"                                   # Joon-Ho Hwang
 moves = [
   { move = 0x98E76F75, level = 1 },                         # Rapid Fire
   { move = 0xDF8CB373, level = 13 },                        # Sonic Shot
+  { move = 0x58E8FC83, level = 30 },                        # Rolling Hell
   { move = 0xDDCA0D2A, level = 38 },                        # Bouncing Bomb
-  { move = 0x58E8FC83, level = 48 },                        # Rolling Hell
 ]
 
   [[edit.cards]]

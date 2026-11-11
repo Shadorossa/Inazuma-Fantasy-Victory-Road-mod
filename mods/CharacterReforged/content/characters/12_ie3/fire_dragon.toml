@@ -39,8 +39,8 @@ target = "c03030610"                                   # Jeongsu Cho
 moves = [
   { move = 0x5B3151F0, level = 1 },                         # Nitro Slap
   { move = 0x47657634, level = 20 },                        # Flame Breath
-  { move = 0xEF5D458A, level = 30 },                        # Burnout
-  { move = 0x5E7E4775, level = 40 },                        # Table-Turner
+  { move = 0xEF5D458A, level = 20 },                        # Burnout
+  { move = 0x5E7E4775, level = 30 },                        # Table-Turner
 ]
 VRFW.MoveGrades = [
   { Move = 0x5B3151F0, Grade = 1 },                         # Nitro Slap
@@ -102,8 +102,8 @@ target = "c03030650"                                   # Songhwan Ko
 moves = [
   { move = 0x79E3E635, level = 1 },                         # Racing Flame
   { move = 0x3663DB4C, level = 16 },                        # Utter Gutsiness Bat
-  { move = 0x316A7390, level = 26 },                        # Land Dragon
-  { move = 0x5781A373, level = 36 },                        # Hurricane Arrows
+  { move = 0x316A7390, level = 30 },                        # Land Dragon
+  { move = 0x5781A373, level = 30 },                        # Hurricane Arrows
 ]
 
   [[edit.cards]]
@@ -116,7 +116,7 @@ moves = [
 target = "c03030660"                                   # Paekyeong Park
 moves = [
   { move = 0x79E3E635, level = 1 },                         # Racing Flame
-  { move = 0x5FE1545F, level = 11 },                        # Flame Veil
+  { move = 0x5FE1545F, level = 1 },                         # Flame Veil
   { move = 0x41F3CDC2, level = 20 },                        # Scorching Tackle
   { move = 0xABA58912, level = 30 },                        # Ignited Steal
 ]
@@ -134,9 +134,9 @@ VRFW.MoveGrades = [
 target = "c03030680"                                   # Eunyeong Kim
 moves = [
   { move = 0x087999EE, level = 1 },                         # Heel Drop
-  { move = 0x5FE1545F, level = 11 },                        # Flame Veil
+  { move = 0x5FE1545F, level = 1 },                         # Flame Veil
   { move = 0x58E8FC83, level = 20 },                        # Rolling Hell
-  { move = 0x41F3CDC2, level = 30 },                        # Scorching Tackle
+  { move = 0x41F3CDC2, level = 20 },                        # Scorching Tackle
 ]
 VRFW.MoveGrades = [
   { Move = 0x087999EE, Grade = 1 },                         # Heel Drop
@@ -169,8 +169,8 @@ target = "c03030720"                                   # Chi-Won Ho
 moves = [
   { move = 0x5B3151F0, level = 1 },                         # Nitro Slap
   { move = 0x8FBCFC3C, level = 25 },                        # Blazing Knuckle
+  { move = 0xBFCC20E7, level = 30 },                        # Wood Chopper
   { move = 0xEF5D458A, level = 50 },                        # Burnout
-  { move = 0xBFCC20E7, level = 60 },                        # Wood Chopper
 ]
 
   [[edit.cards]]
@@ -214,8 +214,8 @@ target = "c03030750"                                   # Sung-Jin Noh
 moves = [
   { move = 0x5FE1545F, level = 1 },                         # Flame Veil
   { move = 0x259F08C6, level = 12 },                        # Whirlwind Twister
+  { move = 0x41F3CDC2, level = 13 },                        # Scorching Tackle
   { move = 0x4DDFEDE2, level = 72 },                        # Eagle Buster
-  { move = 0x41F3CDC2, level = 82 },                        # Scorching Tackle
 ]
 
   [[edit.cards]]
@@ -243,10 +243,10 @@ moves = [
 [[edit]]
 target = "c11803030"                                   # Lee Ji Seong
 moves = [
-  { move = 0x49933AEE, level = 1 },                         # Perfect Tower
-  { move = 0xAF28F5A0, level = 11 },                        # The Tower
-  { move = 0x1FC99D68, level = 21 },                        # Snow Angel
-  { move = 0x82788A5A, level = 31 },                        # Straight Counter
+  { move = 0x82788A5A, level = 1 },                         # Straight Counter
+  { move = 0xAF28F5A0, level = 20 },                        # The Tower
+  { move = 0x1FC99D68, level = 30 },                        # Snow Angel
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]

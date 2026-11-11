@@ -702,18 +702,31 @@ ja = "スロット%dのデータをロードできませんでした。現在の
 zh_hans = "无法读取栏位%d的数据。保持当前栏位。"
 zh_hant = "無法讀取欄位%d的資料。保持目前欄位。"
 
-# screen header while the player slots take more than one page (config [save.slots] count > 3): %d = page, %d = pages
+# the chip of the player's own group of slots (the other chips are the mods' groups)
 [[row]]
-id = "vrfw_slot_header_page"
-es = "Ranuras de guardado · %d/%d"
-en = "Save Slots · %d/%d"
-fr = "Emplacements de sauvegarde · %d/%d"
-de = "Speicherplätze · %d/%d"
-it = "Slot di salvataggio · %d/%d"
-pt = "Espaços de salvamento · %d/%d"
-ja = "セーブスロット · %d/%d"
-zh_hans = "存档栏位 · %d/%d"
-zh_hant = "存檔欄位 · %d/%d"
+id = "vrfw_slot_group_player"
+es = "Partidas"
+en = "Saves"
+fr = "Parties"
+de = "Spielstände"
+it = "Partite"
+pt = "Jogos"
+ja = "セーブデータ"
+zh_hans = "存档"
+zh_hant = "存檔"
+
+# the button guide's entry of L1 / R1 while there is more than one group
+[[row]]
+id = "vrfw_slot_guide_group"
+es = "Cambiar grupo"
+en = "Change group"
+fr = "Changer de groupe"
+de = "Gruppe wechseln"
+it = "Cambia gruppo"
+pt = "Mudar de grupo"
+ja = "グループ切替"
+zh_hans = "切换分组"
+zh_hant = "切換分組"
 
 [[row]]
 id = "vrfw_slot_story_ask"

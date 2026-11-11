@@ -36,3 +36,11 @@ name = "victory_road"
 stem = "victory_road_top_menu"
 dy = 54.9
 layers = [2649513611, 3551201148, 1283370973]
+
+# Free match («Partido libre»): the series tab bar, the team list and the formation card (the pitch frame is attached to
+# its heading); the help line at the bottom stays.
+[[VRFW.HeaderShift]]
+name = "free_match"
+stem = "soccer_vs_cpu_list_menu"
+dy = 54.9
+layers = [1887158505, 1107559438, 1835074715]

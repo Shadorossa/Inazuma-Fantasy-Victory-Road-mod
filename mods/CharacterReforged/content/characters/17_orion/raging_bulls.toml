@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c08020010"                                   # Baek Bull-wo
 moves = [
-  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
   { move = 0x6B97E265, level = 13 },                        # Bull Rush
   { move = 0x734EB913, level = 20 },                        # Bullseye Blaze
   { move = 0x025FD09B, level = 30 },                        # Volcano Cut
+  { move = 0x7CACF0B0, level = 30 },                        # Horn Train
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c08020020"                                   # Lee San-bull
 moves = [
-  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
-  { move = 0xC324C788, level = 13 },                        # Blast Mine
-  { move = 0x6B97E265, level = 20 },                        # Bull Rush
+  { move = 0x6B97E265, level = 13 },                        # Bull Rush
+  { move = 0x7CACF0B0, level = 20 },                        # Horn Train
   { move = 0x025FD09B, level = 30 },                        # Volcano Cut
+  { move = 0xC324C788, level = 38 },                        # Blast Mine
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c08020030"                                   # Shin Bull-kot
 moves = [
-  { move = 0x457EB170, level = 1 },                         # Pyrokinetic
   { move = 0x7CACF0B0, level = 13 },                        # Horn Train
-  { move = 0x44BCDB47, level = 20 },                        # Pyroclastic
+  { move = 0x457EB170, level = 20 },                        # Pyrokinetic
   { move = 0x025FD09B, level = 30 },                        # Volcano Cut
+  { move = 0x44BCDB47, level = 38 },                        # Pyroclastic
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c08020040"                                   # Seok Tel-bull
 moves = [
-  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
-  { move = 0x41F3CDC2, level = 13 },                        # Scorching Tackle
-  { move = 0x734EB913, level = 20 },                        # Bullseye Blaze
+  { move = 0x7CACF0B0, level = 13 },                        # Horn Train
+  { move = 0x41F3CDC2, level = 20 },                        # Scorching Tackle
   { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0x734EB913, level = 38 },                        # Bullseye Blaze
 ]
 
   [[edit.cards]]
@@ -66,10 +66,10 @@ moves = [
 [[edit]]
 target = "c08020050"                                   # Lee Bull-gae
 moves = [
-  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
   { move = 0x7CACF0B0, level = 13 },                        # Horn Train
-  { move = 0x6B97E265, level = 20 },                        # Bull Rush
-  { move = 0x087999EE, level = 30 },                        # Heel Drop
+  { move = 0x3EC287DE, level = 20 },                        # Bubble Gum
+  { move = 0x6B97E265, level = 30 },                        # Bull Rush
+  { move = 0x087999EE, level = 38 },                        # Heel Drop
 ]
 
   [[edit.cards]]
@@ -81,10 +81,10 @@ moves = [
 [[edit]]
 target = "c08020060"                                   # Yeon Bull-say
 moves = [
-  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
-  { move = 0xC2E6ADBF, level = 13 },                        # Log Roll
+  { move = 0x3EC287DE, level = 13 },                        # Bubble Gum
   { move = 0x01DB04F5, level = 20 },                        # Defence Scan
   { move = 0x79E3E635, level = 30 },                        # Racing Flame
+  { move = 0xC2E6ADBF, level = 38 },                        # Log Roll
 ]
 
   [[edit.cards]]
@@ -96,10 +96,10 @@ moves = [
 [[edit]]
 target = "c08020070"                                   # Han Bull-dang
 moves = [
-  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
-  { move = 0x585098FC, level = 13 },                        # Slice and Dice
-  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
-  { move = 0x2DFFFFEA, level = 30 },                        # Ground Quake
+  { move = 0x17110E3B, level = 13 },                        # Jumbo Sandwich
+  { move = 0x2DFFFFEA, level = 20 },                        # Ground Quake
+  { move = 0x7CACF0B0, level = 30 },                        # Horn Train
+  { move = 0x585098FC, level = 38 },                        # Slice and Dice
 ]
 
   [[edit.cards]]
@@ -111,10 +111,10 @@ moves = [
 [[edit]]
 target = "c08020080"                                   # Suna Bey-bull
 moves = [
-  { move = 0x5FE1545F, level = 1 },                         # Flame Veil
   { move = 0x025FD09B, level = 13 },                        # Volcano Cut
-  { move = 0x79E3E635, level = 20 },                        # Racing Flame
-  { move = 0x7F2824DE, level = 30 },                        # Dual Storm
+  { move = 0x7F2824DE, level = 20 },                        # Dual Storm
+  { move = 0x5FE1545F, level = 30 },                        # Flame Veil
+  { move = 0x79E3E635, level = 38 },                        # Racing Flame
 ]
 
   [[edit.cards]]
@@ -126,10 +126,10 @@ moves = [
 [[edit]]
 target = "c08020090"                                   # Kim Bull-bit
 moves = [
-  { move = 0x79E3E635, level = 1 },                         # Racing Flame
-  { move = 0x025FD09B, level = 13 },                        # Volcano Cut
+  { move = 0x79E3E635, level = 13 },                        # Racing Flame
   { move = 0x15EFD41D, level = 20 },                        # Dual Pass
-  { move = 0x7F2824DE, level = 30 },                        # Dual Storm
+  { move = 0x025FD09B, level = 30 },                        # Volcano Cut
+  { move = 0x7F2824DE, level = 38 },                        # Dual Storm
 ]
 
   [[edit.cards]]
@@ -141,10 +141,10 @@ moves = [
 [[edit]]
 target = "c08020100"                                   # Hwang Bull-gim
 moves = [
-  { move = 0x2B343D01, level = 1 },                         # Cyclone
-  { move = 0x79E3E635, level = 13 },                        # Racing Flame
+  { move = 0x2B343D01, level = 13 },                        # Cyclone
   { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x15EFD41D, level = 30 },                        # Dual Pass
+  { move = 0x79E3E635, level = 30 },                        # Racing Flame
+  { move = 0x15EFD41D, level = 38 },                        # Dual Pass
 ]
 
   [[edit.cards]]
@@ -157,10 +157,10 @@ moves = [
 [[edit]]
 target = "c08020110"                                   # Park Gom-bull
 moves = [
-  { move = 0xFA9607D4, level = 1 },                         # Burning Bulwark
-  { move = 0xFF5C8DAF, level = 13 },                        # Shot Stopper
-  { move = 0xC7F4C227, level = 20 },                        # Shot Trap
-  { move = 0x5B3151F0, level = 30 },                        # Nitro Slap
+  { move = 0xFA9607D4, level = 13 },                        # Burning Bulwark
+  { move = 0xFF5C8DAF, level = 20 },                        # Shot Stopper
+  { move = 0xC7F4C227, level = 30 },                        # Shot Trap
+  { move = 0x5B3151F0, level = 38 },                        # Nitro Slap
 ]
 
   [[edit.cards]]
@@ -172,10 +172,10 @@ moves = [
 [[edit]]
 target = "c08020120"                                   # Ho Bull-tong
 moves = [
-  { move = 0x5FE1545F, level = 1 },                         # Flame Veil
-  { move = 0x7CACF0B0, level = 13 },                        # Horn Train
-  { move = 0x6B97E265, level = 20 },                        # Bull Rush
-  { move = 0xA0BDF96F, level = 30 },                        # Ballista Barrage
+  { move = 0x6B97E265, level = 13 },                        # Bull Rush
+  { move = 0x7CACF0B0, level = 20 },                        # Horn Train
+  { move = 0x5FE1545F, level = 30 },                        # Flame Veil
+  { move = 0xA0BDF96F, level = 38 },                        # Ballista Barrage
 ]
 
   [[edit.cards]]
@@ -187,10 +187,10 @@ moves = [
 [[edit]]
 target = "c08020130"                                   # Son Bull-gong
 moves = [
-  { move = 0x5FE1545F, level = 1 },                         # Flame Veil
   { move = 0x7CACF0B0, level = 13 },                        # Horn Train
-  { move = 0x6B97E265, level = 20 },                        # Bull Rush
-  { move = 0x79E3E635, level = 30 },                        # Racing Flame
+  { move = 0x5FE1545F, level = 20 },                        # Flame Veil
+  { move = 0x6B97E265, level = 30 },                        # Bull Rush
+  { move = 0x79E3E635, level = 38 },                        # Racing Flame
 ]
 
   [[edit.cards]]
@@ -202,10 +202,10 @@ moves = [
 [[edit]]
 target = "c08020140"                                   # Harh Bull-gull
 moves = [
-  { move = 0x1E0BF75F, level = 1 },                         # Mega Wall
-  { move = 0x1162A8AF, level = 13 },                        # Bewilder Blast
+  { move = 0x1E0BF75F, level = 13 },                        # Mega Wall
   { move = 0xABA58912, level = 20 },                        # Ignited Steal
-  { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x1162A8AF, level = 30 },                        # Bewilder Blast
+  { move = 0x637C031A, level = 38 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -218,10 +218,10 @@ moves = [
 [[edit]]
 target = "c11808010"                                   # An Min-su
 moves = [
-  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
-  { move = 0x457EB170, level = 13 },                        # Pyrokinetic
+  { move = 0x7CACF0B0, level = 13 },                        # Horn Train
   { move = 0x6B97E265, level = 20 },                        # Bull Rush
-  { move = 0xC324C788, level = 30 },                        # Blast Mine
+  { move = 0x457EB170, level = 30 },                        # Pyrokinetic
+  { move = 0xC324C788, level = 38 },                        # Blast Mine
 ]
 
   [[edit.cards]]

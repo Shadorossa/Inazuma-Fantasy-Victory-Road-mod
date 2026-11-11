@@ -1,0 +1,18 @@
+# BetterQoL › hero style selector: a «Selector de héroe» row in the team dock's player popup «PERSONAJE» for a card
+# whose rarity has several card values (config.toml [hero_style] rarity, its values from the VR-Framework's rarity set:
+# the game's Hero = 5, 6, 7). The row opens the game's rarity window (sub_window_group type 27, the avatar rarity window)
+# with one banner per style (assets\lua\sub_window_group\160_hero_style.lua) and the current one checked; A applies
+# the style with the game's CMND_SET_CHARA_RARITY, which writes the saved card's rarity (no slot, state or blob of
+# its own). The card keeps its build, board, passives and moves; the log line compares them before and after.
+name = "hero_style"
+mod = "BetterQoL"
+order = 310
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "Hero style selector: the team dock popup row and the game's rarity window with the hero style banners"
+
+[[hooks]]
+stem = "team_dock_formation_menu"
+source = "betterqol_hero_style_dock.lua"

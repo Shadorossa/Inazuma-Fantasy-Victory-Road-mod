@@ -1,5 +1,6 @@
 id = "ChronicleDeluxe"
 name = "Chronicle Deluxe"
+icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_history01"
 version = "0.3.0"
 author = "Fantasy Team"
 description = "More Chronicle mode: new matches on the IE1 board and three chains from the original IE1 and IE2 with their rivals, chests and ranks, plus a Chronicle battle and a Heroica battle up to Lv 200 for every team. Matches drop move manuals, boots, auras and the rival's kit, and the free match offers Lv 50, 99 and 200. Players Universe gives each character his own star, with daily advanced cards and new constellations on the map."

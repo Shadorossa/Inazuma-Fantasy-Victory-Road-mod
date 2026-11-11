@@ -241,7 +241,7 @@ For = "config"
   Key = "flag.slots.count"
   Type = "int"
   Label = { es = "Número de ranuras", en = "Slot count" }
-  Help = { es = "Ranuras de jugador, incluida la bloqueada (1 a 99); se ven 3 por página.", en = "Player slots, the locked one included (1 to 99); 3 are shown per page." }
+  Help = { es = "Ranuras de jugador, incluida la bloqueada (1 a 99); la ranura N es el archivo N.", en = "Player slots, the locked one included (1 to 99); slot N is save file N." }
   [[Shape.Field]]
   Key = "flag.slots.lock"
   Type = "bool"

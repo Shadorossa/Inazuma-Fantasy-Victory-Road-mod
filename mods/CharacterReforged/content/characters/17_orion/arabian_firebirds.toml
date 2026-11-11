@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c08050010"                                   # Falcon Al-Saqir
 moves = [
-  { move = 0xB01D1B68, level = 1 },                         # Power Spike
   { move = 0x4F387999, level = 13 },                        # Sun Block
-  { move = 0xDF2D9951, level = 20 },                        # Close Counter
-  { move = 0xEA12530F, level = 30 },                        # Double Rocket
+  { move = 0xEA12530F, level = 20 },                        # Double Rocket
+  { move = 0xB01D1B68, level = 30 },                        # Power Spike
+  { move = 0xDF2D9951, level = 38 },                        # Close Counter
 ]
 
   [[edit.cards]]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c08050020"                                   # Osprey Al-Bahar
 moves = [
-  { move = 0x7CACF0B0, level = 1 },                         # Horn Train
-  { move = 0x12DB8440, level = 13 },                        # Red Hot Shower
-  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
-  { move = 0x029E7B25, level = 30 },                        # Gaia Break
+  { move = 0x72BFA108, level = 13 },                        # Wall of Atlantis
+  { move = 0x12DB8440, level = 20 },                        # Red Hot Shower
+  { move = 0x7CACF0B0, level = 30 },                        # Horn Train
+  { move = 0x029E7B25, level = 38 },                        # Gaia Break
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c08050030"                                   # Merlin Al-Yaman
 moves = [
-  { move = 0x12DB8440, level = 1 },                         # Red Hot Shower
-  { move = 0xB13A6C3D, level = 13 },                        # Zigzag Flame
+  { move = 0x12DB8440, level = 13 },                        # Red Hot Shower
   { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
-  { move = 0xAE2B3429, level = 30 },                        # Atomic Flare
+  { move = 0xB13A6C3D, level = 30 },                        # Zigzag Flame
+  { move = 0xAE2B3429, level = 38 },                        # Atomic Flare
 ]
 
   [[edit.cards]]
@@ -49,10 +49,10 @@ moves = [
 [[edit]]
 target = "c08050040"                                   # Kestrel Al-Sahir
 moves = [
-  { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
-  { move = 0xDF70E04C, level = 13 },                        # Rodeo Clown
+  { move = 0x737DCB3F, level = 13 },                        # Pancake Defence
   { move = 0xA37D1A41, level = 20 },                        # Hyper-Swiper
-  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
+  { move = 0xD8794890, level = 30 },                        # Kangaroo Kick
+  { move = 0xDF70E04C, level = 38 },                        # Rodeo Clown
 ]
 
   [[edit.cards]]
@@ -64,10 +64,10 @@ moves = [
 [[edit]]
 target = "c08050050"                                   # Buzzard Al-Sahma
 moves = [
-  { move = 0x12DB8440, level = 1 },                         # Red Hot Shower
-  { move = 0x10A0C298, level = 13 },                        # Warp Drive
-  { move = 0xABA58912, level = 20 },                        # Ignited Steal
-  { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0x00A10ABD, level = 13 },                        # Ball Lightning
+  { move = 0x12DB8440, level = 20 },                        # Red Hot Shower
+  { move = 0x10A0C298, level = 30 },                        # Warp Drive
+  { move = 0xABA58912, level = 38 },                        # Ignited Steal
 ]
 
   [[edit.cards]]
@@ -79,10 +79,10 @@ moves = [
 [[edit]]
 target = "c08050060"                                   # Griffon Al-Qahir
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
   { move = 0xC0A013E6, level = 13 },                        # Liar Shot
   { move = 0x25276CB9, level = 20 },                        # Solar Surprise
-  { move = 0x7A67325B, level = 30 },                        # Flame Dance
+  { move = 0x5DA7EA06, level = 30 },                        # Boomerang Bluff
+  { move = 0x7A67325B, level = 38 },                        # Flame Dance
 ]
 
   [[edit.cards]]
@@ -95,10 +95,10 @@ moves = [
 [[edit]]
 target = "c08050070"                                   # Shrike Al-Jazzar
 moves = [
-  { move = 0x5FE1545F, level = 1 },                         # Flame Veil
-  { move = 0x28B0E96F, level = 13 },                        # Heavy Mettle
-  { move = 0x427719AC, level = 20 },                        # Gale Dash
-  { move = 0xAE2B3429, level = 30 },                        # Atomic Flare
+  { move = 0x5FE1545F, level = 13 },                        # Flame Veil
+  { move = 0x28B0E96F, level = 20 },                        # Heavy Mettle
+  { move = 0x427719AC, level = 30 },                        # Gale Dash
+  { move = 0xAE2B3429, level = 38 },                        # Atomic Flare
 ]
 
   [[edit.cards]]
@@ -110,10 +110,10 @@ moves = [
 [[edit]]
 target = "c08050080"                                   # Hawke Al-Bazzar
 moves = [
-  { move = 0x28B0E96F, level = 1 },                         # Heavy Mettle
   { move = 0x12DB8440, level = 13 },                        # Red Hot Shower
   { move = 0x10A0C298, level = 20 },                        # Warp Drive
   { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0x28B0E96F, level = 38 },                        # Heavy Mettle
 ]
 
   [[edit.cards]]
@@ -126,10 +126,10 @@ moves = [
 [[edit]]
 target = "c08050090"                                   # Robin Al-Ahmar
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
   { move = 0x12DB8440, level = 13 },                        # Red Hot Shower
-  { move = 0x18019E0A, level = 20 },                        # Double Grenade
-  { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0x00A10ABD, level = 20 },                        # Ball Lightning
+  { move = 0x5DA7EA06, level = 30 },                        # Boomerang Bluff
+  { move = 0x18019E0A, level = 30 },                        # Double Grenade
 ]
 
   [[edit.cards]]
@@ -141,10 +141,10 @@ moves = [
 [[edit]]
 target = "c08050100"                                   # Condor Al-Kundur
 moves = [
-  { move = 0x1D4E888F, level = 1 },                         # Condor Dive
   { move = 0x12DB8440, level = 13 },                        # Red Hot Shower
   { move = 0xB813E775, level = 20 },                        # Flaming Firebird
-  { move = 0x4DDFEDE2, level = 30 },                        # Eagle Buster
+  { move = 0x1D4E888F, level = 30 },                        # Condor Dive
+  { move = 0x4DDFEDE2, level = 38 },                        # Eagle Buster
 ]
 
   [[edit.cards]]
@@ -157,10 +157,10 @@ moves = [
 [[edit]]
 target = "c08050110"                                   # Perry Al-Surah
 moves = [
-  { move = 0x457EB170, level = 1 },                         # Pyrokinetic
-  { move = 0xB813E775, level = 13 },                        # Flaming Firebird
-  { move = 0x12DB8440, level = 20 },                        # Red Hot Shower
-  { move = 0xAE2B3429, level = 30 },                        # Atomic Flare
+  { move = 0x457EB170, level = 13 },                        # Pyrokinetic
+  { move = 0xB813E775, level = 20 },                        # Flaming Firebird
+  { move = 0x12DB8440, level = 30 },                        # Red Hot Shower
+  { move = 0xAE2B3429, level = 38 },                        # Atomic Flare
 ]
 
   [[edit.cards]]
@@ -172,10 +172,10 @@ moves = [
 [[edit]]
 target = "c08050120"                                   # Harris Al-Suhra
 moves = [
-  { move = 0x12DB8440, level = 1 },                         # Red Hot Shower
-  { move = 0xB813E775, level = 13 },                        # Flaming Firebird
-  { move = 0x592A96B4, level = 20 },                        # Afterimage
-  { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0x12DB8440, level = 13 },                        # Red Hot Shower
+  { move = 0x00A10ABD, level = 20 },                        # Ball Lightning
+  { move = 0x592A96B4, level = 30 },                        # Afterimage
+  { move = 0xB813E775, level = 38 },                        # Flaming Firebird
 ]
 
   [[edit.cards]]
@@ -188,10 +188,10 @@ moves = [
 [[edit]]
 target = "c08050130"                                   # Eagle Al-Suhra
 moves = [
-  { move = 0x12DB8440, level = 1 },                         # Red Hot Shower
-  { move = 0x10A0C298, level = 13 },                        # Warp Drive
-  { move = 0xB813E775, level = 20 },                        # Flaming Firebird
+  { move = 0x12DB8440, level = 13 },                        # Red Hot Shower
+  { move = 0x10A0C298, level = 20 },                        # Warp Drive
   { move = 0x592A96B4, level = 30 },                        # Afterimage
+  { move = 0xB813E775, level = 38 },                        # Flaming Firebird
 ]
 
   [[edit.cards]]
@@ -203,10 +203,10 @@ moves = [
 [[edit]]
 target = "c11808060"                                   # Anqa Qushchi
 moves = [
-  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
   { move = 0x4F387999, level = 13 },                        # Sun Block
-  { move = 0xDF2D9951, level = 20 },                        # Close Counter
-  { move = 0xEA12530F, level = 30 },                        # Double Rocket
+  { move = 0xEA12530F, level = 20 },                        # Double Rocket
+  { move = 0xF14FDC17, level = 30 },                        # Shot Pocket
+  { move = 0xDF2D9951, level = 38 },                        # Close Counter
 ]
 
   [[edit.cards]]
@@ -219,10 +219,10 @@ moves = [
 [[edit]]
 target = "c11808070"                                   # Roc Nasr
 moves = [
-  { move = 0x4F387999, level = 1 },                         # Sun Block
-  { move = 0xDF2D9951, level = 13 },                        # Close Counter
+  { move = 0x4F387999, level = 13 },                        # Sun Block
   { move = 0xEA12530F, level = 20 },                        # Double Rocket
   { move = 0x0536F9DB, level = 30 },                        # Sand Blaster
+  { move = 0xDF2D9951, level = 38 },                        # Close Counter
 ]
 
   [[edit.cards]]

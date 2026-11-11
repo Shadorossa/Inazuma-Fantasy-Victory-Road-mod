@@ -4,7 +4,7 @@ if Screen == nil then
 end
 local BASE, Badge, C, CE, Call = Screen.BASE, Screen.badge, Screen.C, Screen.CE, Screen.call
 local ClosePopup, Cut, Draw, Fit, G, Hit = Screen.close_popup, Screen.cut, Screen.draw, Screen.fit, Screen.G, Screen.hit
-local INFO, IconOf, Initials, K, KeyOf = Screen.INFO, Screen.icon_of, Screen.initials, Screen.K, Screen.key_of
+local INFO, Initials, K, KeyOf = Screen.INFO, Screen.initials, Screen.K, Screen.key_of
 local M, ModById, Quad, RV, SE_MOVE = Screen.M, Screen.mod_by_id, Screen.quad, Screen.RV, Screen.SE_MOVE
 local SE_NG, SE_OK, SP, Size, StartCo = Screen.SE_NG, Screen.SE_OK, Screen.SP, Screen.size, Screen.start_co
 local Str, T, Text, Thumb, Toggle, Txt = Screen.str, Screen.T, Screen.text, Screen.thumb, Screen.toggle, Screen.txt
@@ -40,45 +40,37 @@ function RV.meta(m)
   return table.concat(out, "  ·  ")
 end
 
--- The window of mod `m`'s page: the dim, the header band and the white body.
+-- The docked page of mod `m` in the right pane: the header band and the white body.
 local function PopupWindow(m)
-  Hit(0, 0, 1920, 1080, "modal", function()
-    local x, y = mouse.x, mouse.y
-    if x < G.WIN_X or x >= G.WIN_X + G.WIN_W or y < G.WIN_Y or y >= G.WIN_Y + G.WIN_H then
-      ClosePopup()
-    end
-  end)
-  -- the list behind stays visible, dimmed (no opaque cover)
-  Quad("PD", SP("dim"), 0, 0, 1920, 1080, G.DIM_ALPHA)
   local x, y, w, h = G.WIN_X, G.WIN_Y, G.WIN_W, G.BAND_H
   Quad("P0", SP("tile" .. INFO.tile(m)), x, y, w, h)
-  Quad("P0", SP("white"), x, y + h + G.VTABS_H, w, G.WIN_H - h - G.VTABS_H)
+  Quad("P0", SP("white"), x, y + h + G.VTABS_H, w, G.WIN_H - h - G.VTABS_H, G.BACKDROP_ALPHA)
   -- the compact header: the mod's picture (16:9) or its icon (mod.toml `icon`, else its initials), no big cover tile
   local ch = G.COVER_H
   local cx, cy = x + 24, y + (h - ch) / 2
-  local t, ic = Thumb(m), IconOf(m)
+  local t = Thumb(m)
   local cw = ch
   if t ~= nil then
     cw = G.COVER_W
     Quad("P1", t[3], cx, cy, cw, ch, 1, t[1])
-  elseif ic ~= nil then
-    Quad("P1", ic[2], cx, cy, cw, ch, 1, ic[1])
-  else
+  elseif not CE.draw_icon("P1", m, cx, cy, cw, 1) then
     Quad("P1", SP("iconbox_l"), cx, cy, cw, ch)
     Txt("PC", "[CWG]" .. Initials(m) .. "[C]", cx + cw / 2, cy + ch / 2 - 2, 1.2)
   end
   local tx = cx + cw + 24
   local tw = x + w - 300 - tx
   local name = m.name ~= "" and m.name or m.id
-  Txt("PL", Cut(name, Fit(tw - 150, 1.2)) .. (m.version ~= "" and ("   v" .. Cut(m.version, 12)) or ""), tx, y + 38, 1.2)
-  Txt("PL", Cut(RV.meta(m), Fit(tw, 0.7)), tx, y + 82, 0.7)
-  -- the state pill and "Close" (B, Esc or a click); a page opened over another goes back to it
+  Txt("PL", Cut(name, Fit(tw - 150, 1.2)) .. (m.version ~= "" and ("   v" .. Cut(m.version, 12)) or ""), tx, y + 32, 1.2)
+  Txt("PL", Cut(RV.meta(m), Fit(tw, 0.7)), tx, y + 72, 0.7)
+  -- the state pill and, while the page has the keys, "Back to the list" (B, Esc or a click); a page opened over another goes back to it
   local bs, bt = Badge(m)
   local pw = 230
-  Quad("P1", SP(bs), x + w - 28 - pw, y + 60, pw, 38)
-  Txt("PC", Cut(bt, Fit(pw - 20, 0.64)), x + w - 28 - pw / 2, y + 79, 0.64)
-  Txt("PR", K.B .. " " .. T(ui.popup.back ~= nil and "hint_back" or "hint_close"), x + w - 28, y + 28, 0.72)
-  Hit(x + w - 240, y, 240, 52, "pclose", function() ClosePopup() end)
+  Quad("P1", SP(bs), x + w - 28 - pw, y + 50, pw, 38)
+  Txt("PC", Cut(bt, Fit(pw - 20, 0.64)), x + w - 28 - pw / 2, y + 69, 0.64)
+  if CE.page_focused() then
+    Txt("PR", K.B .. " " .. T(ui.popup.back ~= nil and "hint_back" or "hint_to_list"), x + w - 28, y + 24, 0.72)
+    Hit(x + w - 240, y, 240, 44, "pclose", function() ClosePopup() end)
+  end
 end
 
 local function PopupButton(label, filled, sel, act, id, glyph)
@@ -90,7 +82,11 @@ local function PopupButton(label, filled, sel, act, id, glyph)
   Hit(bx, by, bw, bh, id, act)
 end
 
+-- the page's action buttons: the switch of a mod; none for the framework (it always loads)
 local function PopupButtons(m)
+  if m.id == BASE then
+    return {}
+  end
   return {{id = "pb1", label = T(m.enabled and "btn_disable" or "btn_enable"), filled = not m.enabled,
            act = function() StartCo(Toggle) end}}
 end
@@ -160,6 +156,10 @@ function RV.keys(m)
   local function add(glyphs, key)
     out[#out + 1] = (glyphs ~= "" and (glyphs .. " ") or "") .. T(key)
   end
+  if not CE.page_focused() then
+    add(K.START, "sc_open_page")
+    return out
+  end
   if p.full then
     add("", "sc_scroll")
     add(K.B, "hint_back")
@@ -174,6 +174,8 @@ function RV.keys(m)
     add(K.R3, "sc_module_settings")
   elseif v == "settings" then
     add(K.A, "sc_change")
+    add(K.Y, "sc_default")
+    add(K.X, "sc_reset_mod")
   elseif v == "conflicts" then
     add(K.R3, "sc_who")
   end
@@ -181,7 +183,7 @@ function RV.keys(m)
   if m.enabled and m.family == nil and m.id ~= BASE then
     add(K.L1 .. K.R1, "sc_order")
   end
-  add(K.B, p.back ~= nil and "hint_back" or "hint_close")
+  add(K.B, p.back ~= nil and "hint_back" or "hint_to_list")
   return out
 end
 
@@ -205,7 +207,10 @@ function RV.footer(m)
   local s = ui.toast or table.concat(RV.keys(m), "    ")
   Txt("PL", "[CB]" .. Cut(s, Fit(G.WIN_W - 380, 0.64)) .. "[C]", G.WIN_X + 32, y + G.FOOT_H / 2, 0.64)
   local pb = PopupButtons(m)[1]
-  local hot = (mouse.on and mouse.hot == pb.id) or (not mouse.on and RV.action_focused(m))
+  if pb == nil then
+    return
+  end
+  local hot = (mouse.on and mouse.hot == pb.id) or (not mouse.on and CE.page_focused() and RV.action_focused(m))
   PopupButton(pb.label, pb.filled, hot, pb.act, pb.id, RV.view() == "modules" and not ui.popup.full and K.X or nil)
 end
 
@@ -269,7 +274,9 @@ function RV.info_targets(m)
     end
   end
   out[#out + 1] = {kind = "desc"}
-  out[#out + 1] = {kind = "action"}
+  if #PopupButtons(m) > 0 then
+    out[#out + 1] = {kind = "action"}
+  end
   return out
 end
 
@@ -295,11 +302,11 @@ function RV.draw_info(m)
     return
   end
   local top, foot = RV.body_y() + 34, RV.foot_y()
-  local lx, lw = G.WIN_X + 40, 700
-  local rx = G.WIN_X + 800
+  local lx, lw = G.WIN_X + 40, G.INFO_TEXT_W
+  local rx = lx + lw + 60
   local rw = G.WIN_X + G.WIN_W - 40 - rx
   local target = RV.info_target(m)
-  local pad = not mouse.on
+  local pad = not mouse.on and CE.page_focused()
   Quad("P0", SP("line"), rx - 32, top - 14, 2, foot - top - 10)
   Txt("PL", "[CN]" .. T("what_it_does") .. "[C]", lx, top, 0.86)
   local y, ylim = top + 46, foot - 130

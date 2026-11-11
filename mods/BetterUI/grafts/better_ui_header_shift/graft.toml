@@ -32,6 +32,10 @@ source = "header_shift_hook.lua"
 stem = "victory_road_top_menu"
 source = "header_shift_hook.lua"
 
+[[hooks]]
+stem = "soccer_vs_cpu_list_menu"
+source = "header_shift_hook.lua"
+
 [[files]]
 stem = "ability_learning_board_menu"
 

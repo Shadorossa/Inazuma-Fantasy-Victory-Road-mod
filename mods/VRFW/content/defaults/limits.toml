@@ -8,6 +8,14 @@ opponent_rows = 256
 clear_bits = 32768
 
 # Records of an inventory list (docs/framework/inventory-capacity.md). Whole blocks of the game's own capacity are used; the most is 8192.
+# Boots, save list invShoes (retail 300).
+inventory_boots = 8000
+# Bracelets and gloves, save list invMisanga (retail 150).
+inventory_bracelets = 8000
+# Pendants, save list invAccessory (retail 150).
+inventory_pendants = 8000
+# Special gear, save list invSpecial (retail 150).
+inventory_specials = 8000
 # Team kits, save list invFashion (retail 200).
 inventory_kits = 8000
 # Outfits, save list invCostume (retail 200).

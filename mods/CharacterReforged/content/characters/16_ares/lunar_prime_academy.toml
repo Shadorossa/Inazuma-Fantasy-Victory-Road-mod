@@ -9,19 +9,19 @@ target = "c07030010"                                   # Heath Moore
   growth = "normal"
   stats = { kick = 331, control = 265, technique = 255, pressure = 186, physical = 185, intelligence = 232, agility = 178, freedom = 251 }
   moves = [
-    { move = 0x19BA3BFC, level = 1 },                       # Dance on Air
-    { move = 0x20D01E43, level = 13 },                      # Hey Presto
-    { move = 0x65766A4F, level = 20 },                      # Meteor Blade
-    { move = 0x0F7EBB9F, level = 30 },                      # Royal Lancer
+    { move = 0x0F7EBB9F, level = 13 },                      # Royal Lancer
+    { move = 0x19BA3BFC, level = 20 },                      # Dance on Air
+    { move = 0x65766A4F, level = 30 },                      # Meteor Blade
+    { move = 0x20D01E43, level = 38 },                      # Hey Presto
   ]
 
 [[edit]]
 target = "c07030020"                                   # Duske Grayling
 moves = [
-  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
-  { move = 0x9B3048AB, level = 13 },                        # Shadow Catch
-  { move = 0x7CCC712C, level = 20 },                        # Lunar Eclipse
-  { move = 0x65D7406D, level = 30 },                        # Grabber Arm
+  { move = 0x7CCC712C, level = 13 },                        # Lunar Eclipse
+  { move = 0x65D7406D, level = 20 },                        # Grabber Arm
+  { move = 0xF14FDC17, level = 30 },                        # Shot Pocket
+  { move = 0x9B3048AB, level = 38 },                        # Shadow Catch
 ]
 
   [[edit.cards]]
@@ -32,9 +32,9 @@ moves = [
 [[edit]]
 target = "c07030030"                                   # Solomon Owle
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x261BDCA8, level = 13 },                        # Moonsault
-  { move = 0x245D62F1, level = 20 },                        # Attack Scan
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
+  { move = 0x261BDCA8, level = 20 },                        # Moonsault
+  { move = 0x245D62F1, level = 30 },                        # Attack Scan
   { move = 0x768AB9C5, level = 30 },                        # Frosticle
 ]
 
@@ -47,10 +47,10 @@ moves = [
 [[edit]]
 target = "c07030040"                                   # Leif Bolt
 moves = [
-  { move = 0x60397CCA, level = 1 },                         # Cross Drive
   { move = 0x518BCA26, level = 13 },                        # Fire Tornado
   { move = 0x41F3CDC2, level = 20 },                        # Scorching Tackle
-  { move = 0x427719AC, level = 30 },                        # Gale Dash
+  { move = 0x60397CCA, level = 30 },                        # Cross Drive
+  { move = 0x427719AC, level = 38 },                        # Gale Dash
 ]
 
   [[edit.cards]]
@@ -63,10 +63,10 @@ moves = [
 [[edit]]
 target = "c07030050"                                   # Oleander Meadows
 moves = [
-  { move = 0x8D9AC3F9, level = 1 },                         # Twister Trap
-  { move = 0x3C843987, level = 13 },                        # Flurry Dash
-  { move = 0x19BA3BFC, level = 20 },                        # Dance on Air
-  { move = 0x2AF65736, level = 30 },                        # Bamboo Pattern
+  { move = 0x8D9AC3F9, level = 13 },                        # Twister Trap
+  { move = 0x3C843987, level = 20 },                        # Flurry Dash
+  { move = 0x19BA3BFC, level = 30 },                        # Dance on Air
+  { move = 0x2AF65736, level = 38 },                        # Bamboo Pattern
 ]
 
   [[edit.cards]]
@@ -79,10 +79,10 @@ moves = [
 [[edit]]
 target = "c07030060"                                   # Raven Vale
 moves = [
-  { move = 0x8331F63E, level = 1 },                         # Divine Dummy
-  { move = 0x73C5AF40, level = 13 },                        # Dash Accelerator
-  { move = 0x20D01E43, level = 20 },                        # Hey Presto
-  { move = 0xC6655BA0, level = 30 },                        # Celestial Saw
+  { move = 0xC6655BA0, level = 13 },                        # Celestial Saw
+  { move = 0x8331F63E, level = 20 },                        # Divine Dummy
+  { move = 0x20D01E43, level = 30 },                        # Hey Presto
+  { move = 0x73C5AF40, level = 38 },                        # Dash Accelerator
 ]
 
   [[edit.cards]]
@@ -95,10 +95,10 @@ moves = [
 [[edit]]
 target = "c07030070"                                   # Wolfe Redwood
 moves = [
-  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
-  { move = 0x31ABD82E, level = 20 },                        # Circus Block
-  { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x73C5AF40, level = 20 },                        # Dash Accelerator
+  { move = 0x31ABD82E, level = 30 },                        # Circus Block
+  { move = 0x21127474, level = 38 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -110,10 +110,10 @@ moves = [
 [[edit]]
 target = "c07030080"                                   # Willow Proude
 moves = [
-  { move = 0x8331F63E, level = 1 },                         # Divine Dummy
-  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0x768AB9C5, level = 20 },                        # Frosticle
-  { move = 0xC6655BA0, level = 30 },                        # Celestial Saw
+  { move = 0xC6655BA0, level = 13 },                        # Celestial Saw
+  { move = 0x8331F63E, level = 20 },                        # Divine Dummy
+  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0x768AB9C5, level = 38 },                        # Frosticle
 ]
 
   [[edit.cards]]
@@ -126,10 +126,10 @@ moves = [
 [[edit]]
 target = "c07030090"                                   # Reid Rivers
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
-  { move = 0x8D9AC3F9, level = 13 },                        # Twister Trap
-  { move = 0x73C5AF40, level = 20 },                        # Dash Accelerator
-  { move = 0xAF150D21, level = 30 },                        # Swallow Counter
+  { move = 0x01DB04F5, level = 13 },                        # Defence Scan
+  { move = 0x8D9AC3F9, level = 20 },                        # Twister Trap
+  { move = 0x73C5AF40, level = 30 },                        # Dash Accelerator
+  { move = 0xAF150D21, level = 38 },                        # Swallow Counter
 ]
 
   [[edit.cards]]
@@ -142,10 +142,10 @@ moves = [
 [[edit]]
 target = "c07030100"                                   # Piers Thornton
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x7EEA4EE9, level = 13 },                        # Blade Attack
-  { move = 0x4CDC2C6B, level = 20 },                        # Shooting Star
-  { move = 0xB4757AB8, level = 30 },                        # Divine Stamp
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
+  { move = 0x7EEA4EE9, level = 20 },                        # Blade Attack
+  { move = 0x4CDC2C6B, level = 30 },                        # Shooting Star
+  { move = 0xB4757AB8, level = 38 },                        # Divine Stamp
 ]
 
   [[edit.cards]]
@@ -157,10 +157,10 @@ moves = [
 [[edit]]
 target = "c07030110"                                   # Bud Bloome
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
-  { move = 0xAD6E4BF9, level = 20 },                        # Harvest
-  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
+  { move = 0x19BA3BFC, level = 20 },                        # Dance on Air
+  { move = 0xAD6E4BF9, level = 30 },                        # Harvest
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -172,10 +172,10 @@ moves = [
 [[edit]]
 target = "c07030120"                                   # Lucian Skye
 moves = [
-  { move = 0x8D9AC3F9, level = 1 },                         # Twister Trap
-  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0x20D01E43, level = 20 },                        # Hey Presto
-  { move = 0x2296A01A, level = 30 },                        # Southern Cross
+  { move = 0x2296A01A, level = 13 },                        # Southern Cross
+  { move = 0x8D9AC3F9, level = 20 },                        # Twister Trap
+  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0x20D01E43, level = 38 },                        # Hey Presto
 ]
 
   [[edit.cards]]
@@ -188,10 +188,10 @@ moves = [
 [[edit]]
 target = "c07030130"                                   # Solren Dawnwright
 moves = [
-  { move = 0xF14FDC17, level = 1 },                         # Shot Pocket
   { move = 0x9B3048AB, level = 20 },                        # Shadow Catch
-  { move = 0xB01D1B68, level = 30 },                        # Power Spike
   { move = 0xE9968761, level = 30 },                        # Rocket Kobushi
+  { move = 0xF14FDC17, level = 30 },                        # Shot Pocket
+  { move = 0xB01D1B68, level = 38 },                        # Power Spike
 ]
 
   [[edit.cards]]
@@ -203,9 +203,9 @@ moves = [
 [[edit]]
 target = "c07030140"                                   # Elior March
 moves = [
-  { move = 0x8331F63E, level = 1 },                         # Divine Dummy
-  { move = 0x4F58F805, level = 13 },                        # Coil Turn
-  { move = 0x530CDFC1, level = 20 },                        # Mystifying Mist
+  { move = 0x8331F63E, level = 13 },                        # Divine Dummy
+  { move = 0x4F58F805, level = 20 },                        # Coil Turn
+  { move = 0x530CDFC1, level = 30 },                        # Mystifying Mist
   { move = 0x4683AADF, level = 30 },                        # Space Penguin
 ]
 
@@ -219,10 +219,10 @@ moves = [
 [[edit]]
 target = "c07030150"                                   # Raylon Highmoor
 moves = [
-  { move = 0x19025F83, level = 1 },                         # Quick Draw
   { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
   { move = 0x592A96B4, level = 20 },                        # Afterimage
   { move = 0x04941270, level = 30 },                        # Vac Attack
+  { move = 0x19025F83, level = 30 },                        # Quick Draw
 ]
 
   [[edit.cards]]
@@ -235,10 +235,10 @@ moves = [
 [[edit]]
 target = "c07030160"                                   # Fedrin Fennley
 moves = [
-  { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
-  { move = 0x18C035B4, level = 13 },                        # Ghost Pull
-  { move = 0x0E0A3F7A, level = 20 },                        # Spatial Portal
-  { move = 0xAEEA9F97, level = 30 },                        # Sigma Zone
+  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
+  { move = 0x18C035B4, level = 20 },                        # Ghost Pull
+  { move = 0x0E0A3F7A, level = 30 },                        # Spatial Portal
+  { move = 0xAEEA9F97, level = 38 },                        # Sigma Zone
 ]
 
   [[edit.cards]]
@@ -251,10 +251,10 @@ moves = [
 [[edit]]
 target = "c11807160"                                   # Curt Gale
 moves = [
-  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
-  { move = 0x087999EE, level = 13 },                        # Heel Drop
-  { move = 0x3069B219, level = 20 },                        # Super Sumo Stomp
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x3069B219, level = 1 },                         # Super Sumo Stomp
+  { move = 0x0CF4E55C, level = 13 },                        # Double Touch
+  { move = 0x087999EE, level = 30 },                        # Heel Drop
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]

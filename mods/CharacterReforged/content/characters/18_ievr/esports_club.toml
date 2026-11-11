@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c11700600"                                   # Griffin Fastwell
 moves = [
   { move = 0x0455B9CE, level = 1 },                         # Run Ball Run
-  { move = 0x1A868BED, level = 13 },                        # Clone Defence
-  { move = 0xDCC9CCA3, level = 20 },                        # Tesla Coil
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0x1A868BED, level = 20 },                        # Clone Defence
+  { move = 0xDCC9CCA3, level = 30 },                        # Tesla Coil
+  { move = 0x78218C02, level = 38 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700800"                                   # Sienna Fairborn
 moves = [
-  { move = 0x5DA7EA06, level = 1 },                         # Boomerang Bluff
-  { move = 0x2EBA803A, level = 13 },                        # Dirt Ball
-  { move = 0x5E233E68, level = 20 },                        # Super Elastico
-  { move = 0x1876DB66, level = 30 },                        # Disaster Strike
+  { move = 0x5DA7EA06, level = 13 },                        # Boomerang Bluff
+  { move = 0x2EBA803A, level = 20 },                        # Dirt Ball
+  { move = 0x1876DB66, level = 38 },                        # Disaster Strike
+  { move = 0x5E233E68, level = 38 },                        # Super Elastico
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11737010"                                   # Lockin Somnal
 moves = [
-  { move = 0x20D01E43, level = 1 },                         # Hey Presto
-  { move = 0x4E5B398C, level = 13 },                        # Acrobat Bomber
-  { move = 0x1755397B, level = 20 },                        # Dark Energy Star
-  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+  { move = 0x20D01E43, level = 13 },                        # Hey Presto
+  { move = 0x4E5B398C, level = 20 },                        # Acrobat Bomber
+  { move = 0x1755397B, level = 38 },                        # Dark Energy Star
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11737020"                                   # Aeron Rushmore
 moves = [
-  { move = 0x0710C61E, level = 1 },                         # Perimeter Zone
-  { move = 0xB0F8060A, level = 13 },                        # Ozone Flayer
-  { move = 0xC6655BA0, level = 20 },                        # Celestial Saw
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x0710C61E, level = 20 },                        # Perimeter Zone
+  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
+  { move = 0xC6655BA0, level = 48 },                        # Celestial Saw
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11737030"                                   # Grayson Tiltwood
 moves = [
-  { move = 0x19025F83, level = 1 },                         # Quick Draw
-  { move = 0xDBFD9CFE, level = 13 },                        # Big Ball Trick
-  { move = 0x7DD6FEF8, level = 20 },                        # Athena's Anthem
-  { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x19025F83, level = 13 },                        # Quick Draw
+  { move = 0xDBFD9CFE, level = 20 },                        # Big Ball Trick
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11737040"                                   # Calix Virtus
 moves = [
-  { move = 0xF5C2A0A5, level = 1 },                         # Capoeira Grab
-  { move = 0x62DEE8B1, level = 13 },                        # Jumping Whack
-  { move = 0xBBA44137, level = 20 },                        # Great Wall
-  { move = 0xD471DE6C, level = 30 },                        # Snakebite
+  { move = 0xBBA44137, level = 13 },                        # Great Wall
+  { move = 0xF5C2A0A5, level = 20 },                        # Capoeira Grab
+  { move = 0x62DEE8B1, level = 30 },                        # Jumping Whack
+  { move = 0xD471DE6C, level = 38 },                        # Snakebite
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11737050"                                   # Torwyn Endeavor
 moves = [
-  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
-  { move = 0x21127474, level = 13 },                        # Ultra Moon
-  { move = 0x78218C02, level = 20 },                        # Duskfall
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
+  { move = 0x78218C02, level = 38 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11737060"                                   # Torric Brawnstone
 moves = [
-  { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
-  { move = 0x2FB941B3, level = 13 },                        # Stone Prison
+  { move = 0xD8794890, level = 13 },                        # Kangaroo Kick
   { move = 0x52CEB5F6, level = 20 },                        # Iron Wall
-  { move = 0x485150D9, level = 30 },                        # Body Shield
+  { move = 0x2FB941B3, level = 30 },                        # Stone Prison
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -132,9 +132,9 @@ moves = [
 target = "c11737070"                                   # Cassia Bladecroft
 moves = [
   { move = 0x5405771D, level = 1 },                         # Supreme Spin
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
-  { move = 0xAF150D21, level = 20 },                        # Swallow Counter
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0xB60E3C60, level = 20 },                        # Plasma Cut
+  { move = 0xAF150D21, level = 30 },                        # Swallow Counter
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11737080"                                   # Actie Verran
 moves = [
-  { move = 0x31ABD82E, level = 1 },                         # Circus Block
-  { move = 0x2FB941B3, level = 13 },                        # Stone Prison
-  { move = 0x4B142F09, level = 20 },                        # Teleport Shot
-  { move = 0x72BFA108, level = 30 },                        # Wall of Atlantis
+  { move = 0x4B142F09, level = 1 },                         # Teleport Shot
+  { move = 0x31ABD82E, level = 20 },                        # Circus Block
+  { move = 0x2FB941B3, level = 30 },                        # Stone Prison
+  { move = 0x72BFA108, level = 38 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11737090"                                   # Ellie Fumble
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0x1A868BED, level = 13 },                        # Clone Defence
-  { move = 0x0E0A3F7A, level = 20 },                        # Spatial Portal
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0x1A868BED, level = 20 },                        # Clone Defence
+  { move = 0x0E0A3F7A, level = 30 },                        # Spatial Portal
+  { move = 0x78218C02, level = 38 },                        # Duskfall
 ]
 
   [[edit.cards]]

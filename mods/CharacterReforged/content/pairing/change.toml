@@ -1,4 +1,8 @@
 schema = "CharacterReforged.pairing/1"
+
+[CharacterReforged.PairRules.change]
+# The match gives no swap to a base whose partner card is in his team, so the partner is picked out of every team.
+partner_may_be_in_team = false
 [CharacterReforged.Create.change]
 item = "wmc_character_reforged_create"
 label = "CharacterReforged.change_create_label"

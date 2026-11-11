@@ -184,6 +184,21 @@ For = "config"
   Label = { es = "Margen para conservar la presión (m)", en = "Chase keep margin (m)" }
   Help = { es = "Un perseguidor conserva su tarea salvo que otro esté tanto más cerca.", en = "A chaser keeps the job unless another player is this much nearer." }
   [[Shape.Field]]
+  Key = "press.lead_s"
+  Type = "float"
+  Label = { es = "Anticipación de la persecución (s)", en = "Chase anticipation (s)" }
+  Help = { es = "Los perseguidores corren al punto al que llega tu portador con su carrera actual, como mucho este tiempo por delante (0 = a su posición).", en = "The chasers run to the point your carrier reaches on his current run, at most this far ahead (0 = his position)." }
+  [[Shape.Field]]
+  Key = "press.cover"
+  Type = "int"
+  Label = { es = "Perseguidores en cobertura", en = "Covering chasers" }
+  Help = { es = "Perseguidores, tras el primero, que se colocan entre ese punto y su portería en vez de ir al balón.", en = "Chasers after the first that stand between that point and their goal instead of going to the ball." }
+  [[Shape.Field]]
+  Key = "press.cover_m"
+  Type = "int"
+  Label = { es = "Distancia de la cobertura (m)", en = "Cover distance (m)" }
+  Help = { es = "A qué distancia de ese punto, hacia su portería, se colocan.", en = "How far from that point, toward their goal, they stand." }
+  [[Shape.Field]]
   Key = "press.respect_keeper_hold"
   Type = "bool"
   Label = { es = "No presiona al portero con el balón en las manos", en = "No press on a keeper holding the ball" }

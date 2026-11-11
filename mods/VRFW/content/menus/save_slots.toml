@@ -6,12 +6,12 @@ layout = [
     { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_system_line01", translate = [97.0, 2803.0, 0.0] },
     { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_text_time01", translate = [116.0, 2812.0, 0.0] },
     { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_pos_time01", translate = [377.0, 2822.0, 0.0] },
-    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list01", translate = [374.0, 86.0, 0.0] },
-    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list02", translate = [960.0, 86.0, 0.0] },
-    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list03", translate = [1546.0, 86.0, 0.0] },
-    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list04", translate = [1663.2, 86.0, 0.0] },
-    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list05", translate = [0.0, 2648.0, 0.0] },
-    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list06", translate = [0.0, 2540.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list01", translate = [960.0, 46.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list02", translate = [960.0, 46.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list03", translate = [960.0, 46.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list04", translate = [960.0, 46.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list05", translate = [960.0, 46.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_list06", translate = [960.0, 46.0, 0.0] },
     { file = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm", joint = "_pos_top_list_atc01", recompute = true },
     # vrfw_save01_02_tab.g4pkm
     { file = "common/menu/51_save/save01/vrfw_save01_02_tab/vrfw_save01_02_tab.g4pkm", from = "common/menu/51_save/save01/save01_02/save01_02.g4pkm" },
@@ -30,10 +30,10 @@ layout = [
     # vrfw_save01_03_slot.g4pkm
     { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", from = "common/menu/51_save/save01/save01_03/save01_03.g4pkm" },
     { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_save_arrow_01", translate = [922.0, 2639.0, 0.0] },
-    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info01_01", translate = [1663.2, -568.0, 0.0] },
-    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info02_01", translate = [374.0, -568.0, 0.0] },
-    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info02_02", translate = [1546.0, -568.0, 0.0] },
-    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info03_01", translate = [960.0, -568.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info01_01", translate = [960.0, -608.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info02_01", translate = [960.0, -608.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info02_02", translate = [960.0, -608.0, 0.0] },
+    { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_atc_save_info03_01", translate = [960.0, -608.0, 0.0] },
     { file = "common/menu/51_save/save01/vrfw_save01_03_slot/vrfw_save01_03_slot.g4pkm", joint = "_pos_base01", recompute = true },
     # vrfw_save01_04_card.g4pkm
     { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", from = "common/menu/51_save/save01/save01_04/save01_04.g4pkm" },
@@ -91,7 +91,9 @@ layout = [
     { file = "common/menu/51_save/save01/vrfw_save01_04_card/vrfw_save01_04_card.g4pkm", joint = "_gtxt_victory01", translate = [-146.0, 3114.0, 0.0] },
 ]
 
-# vrfw_save_slot_menu (slot_build.py): 11 layers; base savedata_management_menu
+# vrfw_save_slot_menu: 11 layers; base savedata_management_menu. The cards are a carousel (VRFW.layer_carousel): every band and
+# window locator is the centre card's place and the screen script moves the instances. Band instances 0..5 are the cards,
+# 6..11 the group chips, 12..35 the position marks; window instances 0..5 are the cards.
 [[screen]]
 name = "vrfw_save_slot_menu"
 like = "language_option_menu"
@@ -102,9 +104,9 @@ script = "assets/lua/screens/vrfw_save_slot_menu.lua"
 [screen.rows]
 layer = [
     { layer = "save01_01_list_attach_base", object = "vrfw_save01_01_slot_base" },
-    { layer = "save01_02_list_item", object = "vrfw_save01_02_tab", count = 4 },
+    { layer = "save01_02_list_item", object = "vrfw_save01_02_tab", count = 36 },
     { layer = "save01_03_detail_window_attach_base", object = "vrfw_save01_03_slot_base" },
-    { layer = "save01_04_savedata_detail_window", object = "vrfw_save01_04_card", count = 4 },
+    { layer = "save01_04_savedata_detail_window", object = "vrfw_save01_04_card", count = 6 },
     { layer = "mainmenu90_00_background" },
     { layer = "mainmenu90_01_header" },
     { layer = "mainmenu90_05_content_guide_line01" },
@@ -116,10 +118,10 @@ layer = [
 commands = [
     { layer = "save01_02_list_item", input = "CMD_ENTER", command = "CMD_ENTER", flag = 1 },
     { layer = "save01_02_list_item", input = "CMD_BACK", command = "CMD_BACK", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_UP", command = "CMD_FCS_BACK", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_LEFT", command = "CMD_FCS_BACK", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_DOWN", command = "CMD_FCS_NEXT", flag = 1 },
-    { layer = "save01_02_list_item", input = "CMD_RIGHT", command = "CMD_FCS_NEXT", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_UP", command = "CMD_FUNCTION", arg = "vrfw_slot_previous", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_LEFT", command = "CMD_FUNCTION", arg = "vrfw_slot_previous", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_DOWN", command = "CMD_FUNCTION", arg = "vrfw_slot_next", flag = 1 },
+    { layer = "save01_02_list_item", input = "CMD_RIGHT", command = "CMD_FUNCTION", arg = "vrfw_slot_next", flag = 1 },
     { layer = "save01_02_list_item", input = "CMD_FUNC1", command = "CMD_FUNCTION", arg = "vrfw_slot_rename", flag = 1 },
     { layer = "save01_02_list_item", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = "vrfw_slot_delete", flag = 1 },
     { layer = "save01_02_list_item", input = "CMD_FUNC4", command = "CMD_FUNCTION", arg = 0xCA3E2567, flag = 1 },
@@ -164,6 +166,41 @@ remove = [
 set = [
     { parameter = "SkeletonAnime", match = { 1 = "common/menu/51_save/save01/save01_01/save01_01.g4pkm" }, values = { 1 = "common/menu/51_save/save01/vrfw_save01_01_slot/vrfw_save01_01_slot.g4pkm" } },
 ]
+# band instances 4..35 attach to the centre card's locator: NullLayerName [vrfw_slot_row05..36, _list01, save01_02_list_item, instance]
+add = [
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x9EF75692, 0x070F650A, 0xCDF9A8B9, 4] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x07FE0728, 0x070F650A, 0xCDF9A8B9, 5] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x70F937BE, 0x070F650A, 0xCDF9A8B9, 6] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xE0462A2F, 0x070F650A, 0xCDF9A8B9, 7] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x97411AB9, 0x070F650A, 0xCDF9A8B9, 8] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xF786935C, 0x070F650A, 0xCDF9A8B9, 9] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x8081A3CA, 0x070F650A, 0xCDF9A8B9, 10] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x1988F270, 0x070F650A, 0xCDF9A8B9, 11] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x6E8FC2E6, 0x070F650A, 0xCDF9A8B9, 12] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xF0EB5745, 0x070F650A, 0xCDF9A8B9, 13] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x87EC67D3, 0x070F650A, 0xCDF9A8B9, 14] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x1EE53669, 0x070F650A, 0xCDF9A8B9, 15] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x69E206FF, 0x070F650A, 0xCDF9A8B9, 16] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xF95D1B6E, 0x070F650A, 0xCDF9A8B9, 17] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x8E5A2BF8, 0x070F650A, 0xCDF9A8B9, 18] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xDCABC09F, 0x070F650A, 0xCDF9A8B9, 19] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xABACF009, 0x070F650A, 0xCDF9A8B9, 20] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x32A5A1B3, 0x070F650A, 0xCDF9A8B9, 21] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x45A29125, 0x070F650A, 0xCDF9A8B9, 22] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xDBC60486, 0x070F650A, 0xCDF9A8B9, 23] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xACC13410, 0x070F650A, 0xCDF9A8B9, 24] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x35C865AA, 0x070F650A, 0xCDF9A8B9, 25] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x42CF553C, 0x070F650A, 0xCDF9A8B9, 26] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xD27048AD, 0x070F650A, 0xCDF9A8B9, 27] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xA577783B, 0x070F650A, 0xCDF9A8B9, 28] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xC5B0F1DE, 0x070F650A, 0xCDF9A8B9, 29] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xB2B7C148, 0x070F650A, 0xCDF9A8B9, 30] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x2BBE90F2, 0x070F650A, 0xCDF9A8B9, 31] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x5CB9A064, 0x070F650A, 0xCDF9A8B9, 32] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xC2DD35C7, 0x070F650A, 0xCDF9A8B9, 33] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xB5DA0551, 0x070F650A, 0xCDF9A8B9, 34] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x2CD354EB, 0x070F650A, 0xCDF9A8B9, 35] },
+]
 
 [[object]]
 name = "vrfw_save01_02_tab"
@@ -186,6 +223,11 @@ set = [
     { parameter = "NullLayerName", match = { 1 = 0x7A67E768, 2 = 0xC3FEC174, 3 = 0x1FF36340, 4 = 0 }, values = { 1 = 0x1CC71D9A, 2 = 0x7B42A611, 4 = 1 } },
     { parameter = "NullLayerName", match = { 1 = 0xB4CA7514, 2 = 0x5AF790CE, 3 = 0x1FF36340, 4 = 1 }, values = { 1 = 0x6BC02D0C, 4 = 2 } },
     { parameter = "NullLayerName", match = { 1 = 0x40F0EB24, 2 = 0x7B42A611, 3 = 0x1FF36340, 4 = 0 }, values = { 1 = 0xF5A4B8AF, 2 = 0xD14B6E9A, 4 = 3 } },
+]
+# window instances 4 and 5: NullLayerName [vrfw_slot_win05 / 06, _atc_save_info02_01 / _atc_save_info03_01, save01_04_savedata_detail_window, instance]
+add = [
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x608B1EC1, 0xC3FEC174, 0x1FF36340, 4] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xF9824F7B, 0x7B42A611, 0x1FF36340, 5] },
 ]
 
 [[object]]

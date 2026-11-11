@@ -36,9 +36,9 @@ moves = [
 target = "c11902360"                                   # Shawn Froste
 moves = [
   { move = 0x039DBAAC, level = 1 },                         # Land of Ice
-  { move = 0x19C3F43D, level = 11 },                        # Eternal Blizzard
-  { move = 0x7E2BE557, level = 21 },                        # Legendary Wolf
-  { move = 0x1FC99D68, level = 31 },                        # Snow Angel
+  { move = 0x19C3F43D, level = 1 },                         # Eternal Blizzard
+  { move = 0x7E2BE557, level = 1 },                         # Legendary Wolf
+  { move = 0x1FC99D68, level = 38 },                        # Snow Angel
 ]
 
   [[edit.cards]]

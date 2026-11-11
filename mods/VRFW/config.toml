@@ -92,8 +92,8 @@ path = ""
 
 [flag.slots]
 enabled = true
-# player slots, the locked one included (1..99): the slot screen shows 3 per page, more = pages (L1 / R1)
-count = 3
+# player slots, the locked one included (1..99): slot N is save file N; the slot screen shows them as one carousel
+count = 10
 # the vanilla save is read / duplicate only (never played or written)
 lock = true
 locked_slot = 1
@@ -189,3 +189,8 @@ max_pages = 10
 [shop]
 aura_cards = true
 synergy_conditions = true
+
+# ---------------------------------------------------------------- file picks
+[files]
+# The flow of a file pick: "dialog" is the system save or open dialog (the game's own list when it cannot open, as on a Steam Deck), "list" is always the game's list.
+picker = "dialog"

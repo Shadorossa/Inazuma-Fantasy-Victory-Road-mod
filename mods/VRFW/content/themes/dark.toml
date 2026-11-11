@@ -84,6 +84,15 @@ shade_saturation = 0.7
 shade_tint = 0.3
 
 # First match wins; unmatched sprites are classified from their pixels (`auto`).
+# the alert icons (yellow and red warning triangles, orange changed mark) keep their own colours
+[[sprite]]
+match = "icon_error0*"
+class = "keep"
+file = "cmn01/cmn01_10"
+[[sprite]]
+match = "icon_new03"
+class = "keep"
+file = "cmn01/cmn01_12"
 [[sprite]]
 match = "*"
 class = "keep"

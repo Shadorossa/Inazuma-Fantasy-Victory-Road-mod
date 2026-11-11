@@ -19,7 +19,7 @@ moves = [
 target = "c03034220"                                   # Bael
 moves = [
   { move = 0x78218C02, level = 1 },                         # Duskfall
-  { move = 0x09BBF3D9, level = 11 },                        # Dark Whirlwind
+  { move = 0x09BBF3D9, level = 1 },                         # Dark Whirlwind
   { move = 0xC324C788, level = 34 },                        # Blast Mine
   { move = 0x6633159F, level = 72 },                        # Gravitation
 ]
@@ -35,9 +35,9 @@ moves = [
 target = "c03034230"                                   # Abigor
 moves = [
   { move = 0x7748D3F2, level = 1 },                         # Devil Ball
+  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
   { move = 0x28B0E96F, level = 36 },                        # Heavy Mettle
   { move = 0xC16279D1, level = 72 },                        # Field of Force
-  { move = 0x0A3F27B7, level = 82 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -112,8 +112,8 @@ target = "c03034280"                                   # Jezebeth
 moves = [
   { move = 0x78218C02, level = 1 },                         # Duskfall
   { move = 0x71831119, level = 26 },                        # Foul Offence 2
+  { move = 0x0A3F27B7, level = 38 },                        # Foul Offence 3
   { move = 0x2C3D95DD, level = 72 },                        # Sleeping Dust
-  { move = 0x0A3F27B7, level = 82 },                        # Foul Offence 3
 ]
 
   [[edit.cards]]
@@ -126,7 +126,7 @@ moves = [
 target = "c03034290"                                   # Arachne
 moves = [
   { move = 0x7748D3F2, level = 1 },                         # Devil Ball
-  { move = 0x2C3D95DD, level = 11 },                        # Sleeping Dust
+  { move = 0x2C3D95DD, level = 1 },                         # Sleeping Dust
   { move = 0x06D2AC29, level = 59 },                        # Diabolical Cut
   { move = 0xEAB3792D, level = 72 },                        # Grand Fire
 ]

@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11500560"                                   # King Colossal <FUL:UMIBOZU>
 moves = [
-  { move = 0xC66BD10D, level = 1 },                         # Zigzag Spark
-  { move = 0x1C4D4906, level = 13 },                        # Whirlpool
-  { move = 0x613ABD43, level = 20 },                        # Dawnrise
+  { move = 0xC66BD10D, level = 13 },                        # Zigzag Spark
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
   { move = 0xE0549BE6, level = 30 },                        # Easy Breezy Kid
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
 ]
 
   [[edit.cards]]

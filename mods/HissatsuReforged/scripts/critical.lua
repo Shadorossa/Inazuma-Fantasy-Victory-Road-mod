@@ -33,10 +33,7 @@ local function settings()
     cap = setting("cap", 100),
     archetype_build = setting("archetype_build", -1),
     keeper_move_category = setting("keeper_move_category", -1),
-    archetype_chance = setting("archetype_chance", 0),
-    archetype_level_or_behind_chance = setting("archetype_level_or_behind_chance", 0),
     power_per_rank = setting("power_per_rank", 0),
-    crit_tension = setting("crit_tension", 0),
     keeper_per_rank = setting("keeper_per_rank", 0),
     rank_up_seconds = setting("rank_up_seconds", 0),
     rank_down_on_crit = setting("rank_down_on_crit", 0),
@@ -47,11 +44,9 @@ local function settings()
     warn("multiplier " .. tostring(config.multiplier) .. " below 0: 1 used")
     config.multiplier = 1
   end
-  info(string.format("base %.1f %%, power x%.2f, cap %.1f %%; build %d: +%.1f (+%.1f level or behind), power +%.1f %%/rank, "
-    .. "tension %.1f per critical, keepers +%.1f %%/rank; %d ranks (+1 per %ds, -%d per critical)", config.base_chance,
-    config.multiplier, config.cap, config.archetype_build, config.archetype_chance, config.archetype_level_or_behind_chance,
-    config.power_per_rank, config.crit_tension, config.keeper_per_rank, #config.levels, config.rank_up_seconds,
-    config.rank_down_on_crit))
+  info(string.format("base %.1f %%, power x%.2f, cap %.1f %%; build %d: power +%.1f %%/rank, keepers +%.1f %%/rank; "
+    .. "%d ranks (+1 per %ds, -%d per critical)", config.base_chance, config.multiplier, config.cap, config.archetype_build,
+    config.power_per_rank, config.keeper_per_rank, #config.levels, config.rank_up_seconds, config.rank_down_on_crit))
   return config
 end
 
@@ -75,14 +70,6 @@ end
 local function on_archetype(side)
   local ok, v = pcall(VRFW.state.get, ARCHETYPE_STATE .. tostring(side))
   return ok and tonumber(v) == settings().archetype_build
-end
-
-local function level_or_behind(ev, side)
-  local score = ev.match and ev.match.score
-  if not score then return false end
-  local own, other = score["team" .. side], score["team" .. (1 - side)]
-  if own == nil or other == nil then return false end
-  return own <= other
 end
 
 local CHARGE = {}
@@ -131,21 +118,20 @@ local function on_team_crit(side, ev)
   if s.rank ~= r then publish(side, s.rank, "critical hit") end
 end
 
+-- The points, the chance factor and the power multiplier this mod answers for the event's move: the build's charge acts on the whole team.
 function Critical.Answer(ev)
   local c = settings()
   local a = ev.actor
-  local chance, mult = c.base_chance, c.multiplier
+  local chance, rate, mult = c.base_chance, 1, c.multiplier
   if a and (a.team == 0 or a.team == 1) and on_archetype(a.team) then
     local rank = rank_now(a.team, ev)
-    chance = chance + c.archetype_chance
-    if level_or_behind(ev, a.team) then chance = chance + c.archetype_level_or_behind_chance end
-    chance = chance * (1 + (c.levels[rank] or 0) / 100)
+    rate = 1 + (c.levels[rank] or 0) / 100
     if move_category(ev.skill) == c.keeper_move_category then
-      chance = chance * (1 + ((c.keeper_levels[rank] or 0) + c.keeper_per_rank * rank) / 100)
+      rate = rate * (1 + ((c.keeper_levels[rank] or 0) + c.keeper_per_rank * rank) / 100)
     end
     mult = mult * (1 + c.power_per_rank * rank / 100)
   end
-  return chance, mult
+  return chance, rate, mult
 end
 
 VRFW.on("match_start", function()
@@ -157,18 +143,14 @@ end)
 
 VRFW.on("crit_check", function(ev)
   if not ev.actor or not ev.skill or move_category(ev.skill) == nil then return nil end
-  local chance, mult = Critical.Answer(ev)
-  return { crit_chance = chance, crit_mult = mult, crit_cap = settings().cap }
+  local chance, rate, mult = Critical.Answer(ev)
+  return { crit_chance = chance, crit_chance_mult = rate, crit_mult = mult, crit_cap = settings().cap }
 end)
 
 VRFW.on("crit", function(ev)
   local a = ev.actor
   if not a or not ev.skill or move_category(ev.skill) == nil then return nil end
   info(string.format("CRITICAL: move 0x%08X by 0x%08X (team %s)", u32(ev.skill), u32(a.handle), tostring(a.team)))
-  if (a.team == 0 or a.team == 1) and on_archetype(a.team) then
-    on_team_crit(a.team, ev)
-    local units = settings().crit_tension
-    if units ~= 0 then return { add_tension = units, tension_team = "actor" } end
-  end
+  if (a.team == 0 or a.team == 1) and on_archetype(a.team) then on_team_crit(a.team, ev) end
   return nil
 end)

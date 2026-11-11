@@ -13,72 +13,72 @@ stats = { kick = 247, control = 216, technique = 163, pressure = 201, physical =
   id = 0x18FEC374
   moves = [
     { move = 0xF64674CB, level = 1 },                       # Fist of Justice
-    { move = 0xEE9F2FBD, level = 11 },                      # God Catch
-    { move = 0x8AF3EAB9, level = 21 },                      # Hammer of Fury
-    { move = 0x93E8DBF8, level = 31 },                      # Dimensional Hand
+    { move = 0x93E8DBF8, level = 40 },                      # Dimensional Hand
+    { move = 0x8AF3EAB9, level = 42 },                      # Hammer of Fury
+    { move = 0xEE9F2FBD, level = 60 },                      # God Catch
   ]
 
   [[edit.cards]]
   id = 0x23DC2602
   moves = [
     { move = 0xF64674CB, level = 1 },                       # Fist of Justice
-    { move = 0xEE9F2FBD, level = 11 },                      # God Catch
-    { move = 0x8AF3EAB9, level = 21 },                      # Hammer of Fury
-    { move = 0x93E8DBF8, level = 31 },                      # Dimensional Hand
+    { move = 0x93E8DBF8, level = 40 },                      # Dimensional Hand
+    { move = 0x8AF3EAB9, level = 42 },                      # Hammer of Fury
+    { move = 0xEE9F2FBD, level = 60 },                      # God Catch
   ]
 
   [[edit.cards]]
   id = 0x2FB34868
   moves = [
     { move = 0xF64674CB, level = 1 },                       # Fist of Justice
-    { move = 0xEE9F2FBD, level = 11 },                      # God Catch
-    { move = 0x8AF3EAB9, level = 21 },                      # Hammer of Fury
-    { move = 0x93E8DBF8, level = 31 },                      # Dimensional Hand
+    { move = 0x93E8DBF8, level = 40 },                      # Dimensional Hand
+    { move = 0x8AF3EAB9, level = 42 },                      # Hammer of Fury
+    { move = 0xEE9F2FBD, level = 60 },                      # God Catch
   ]
 
   [[edit.cards]]
   id = 0x3055CF22
   moves = [
     { move = 0xF64674CB, level = 1 },                       # Fist of Justice
-    { move = 0xEE9F2FBD, level = 11 },                      # God Catch
-    { move = 0x8AF3EAB9, level = 21 },                      # Hammer of Fury
-    { move = 0x93E8DBF8, level = 31 },                      # Dimensional Hand
+    { move = 0x93E8DBF8, level = 40 },                      # Dimensional Hand
+    { move = 0x8AF3EAB9, level = 42 },                      # Hammer of Fury
+    { move = 0xEE9F2FBD, level = 60 },                      # God Catch
   ]
 
   [[edit.cards]]
   id = 0x3D9ED3F0
   moves = [
     { move = 0xF64674CB, level = 1 },                       # Fist of Justice
-    { move = 0xEE9F2FBD, level = 11 },                      # God Catch
-    { move = 0x8AF3EAB9, level = 21 },                      # Hammer of Fury
-    { move = 0x93E8DBF8, level = 31 },                      # Dimensional Hand
+    { move = 0x93E8DBF8, level = 40 },                      # Dimensional Hand
+    { move = 0x8AF3EAB9, level = 42 },                      # Hammer of Fury
+    { move = 0xEE9F2FBD, level = 60 },                      # God Catch
   ]
 
   [[edit.cards]]
   id = 0x6EB0397C
   moves = [
     { move = 0xF64674CB, level = 1 },                       # Fist of Justice
-    { move = 0xEE9F2FBD, level = 11 },                      # God Catch
-    { move = 0x8AF3EAB9, level = 21 },                      # Hammer of Fury
-    { move = 0x93E8DBF8, level = 31 },                      # Dimensional Hand
+    { move = 0x93E8DBF8, level = 40 },                      # Dimensional Hand
+    { move = 0x8AF3EAB9, level = 42 },                      # Hammer of Fury
+    { move = 0xEE9F2FBD, level = 60 },                      # God Catch
   ]
 
   [[edit.cards]]
   id = 0x8193A099
   moves = [
     { move = 0xF64674CB, level = 1 },                       # Fist of Justice
-    { move = 0xEE9F2FBD, level = 11 },                      # God Catch
-    { move = 0x8AF3EAB9, level = 21 },                      # Hammer of Fury
-    { move = 0x93E8DBF8, level = 31 },                      # Dimensional Hand
+    { move = 0x93E8DBF8, level = 40 },                      # Dimensional Hand
+    { move = 0x8AF3EAB9, level = 42 },                      # Hammer of Fury
+    { move = 0xEE9F2FBD, level = 60 },                      # God Catch
   ]
 
   [[edit.cards]]
   id = 0x9DEF6864
   moves = [
     { move = 0xF64674CB, level = 1 },                       # Fist of Justice
-    { move = 0xEE9F2FBD, level = 11 },                      # God Catch
-    { move = 0x8AF3EAB9, level = 21 },                      # Hammer of Fury
-    { move = 0x93E8DBF8, level = 31 },                      # Dimensional Hand
+    { move = 0x93E8DBF8, level = 40 },                      # Dimensional Hand
+    { move = 0x8AF3EAB9, level = 42 },                      # Hammer of Fury
+    { move = 0xEE9F2FBD, level = 60 },                      # God Catch
   ]
 
 [[edit]]
@@ -147,8 +147,8 @@ stats = { kick = 247, control = 220, technique = 239, pressure = 215, physical =
   moves = [
     { move = 0x3C843987, level = 1 },                       # Flurry Dash
     { move = 0x2354CA2D, level = 15 },                      # Wind God's Dance
+    { move = 0xC21AFE80, level = 40 },                      # Whirlwind Drop
     { move = 0xF1EEF635, level = 45 },                      # The Hurricane
-    { move = 0xC21AFE80, level = 55 },                      # Whirlwind Drop
   ]
 
   [[edit.cards]]
@@ -156,8 +156,8 @@ stats = { kick = 247, control = 220, technique = 239, pressure = 215, physical =
   moves = [
     { move = 0x3C843987, level = 1 },                       # Flurry Dash
     { move = 0x2354CA2D, level = 15 },                      # Wind God's Dance
+    { move = 0xC21AFE80, level = 40 },                      # Whirlwind Drop
     { move = 0xF1EEF635, level = 45 },                      # The Hurricane
-    { move = 0xC21AFE80, level = 55 },                      # Whirlwind Drop
   ]
 
   [[edit.cards]]
@@ -165,8 +165,8 @@ stats = { kick = 247, control = 220, technique = 239, pressure = 215, physical =
   moves = [
     { move = 0x3C843987, level = 1 },                       # Flurry Dash
     { move = 0x2354CA2D, level = 15 },                      # Wind God's Dance
+    { move = 0xC21AFE80, level = 40 },                      # Whirlwind Drop
     { move = 0xF1EEF635, level = 45 },                      # The Hurricane
-    { move = 0xC21AFE80, level = 55 },                      # Whirlwind Drop
   ]
 
   [[edit.cards]]
@@ -174,8 +174,8 @@ stats = { kick = 247, control = 220, technique = 239, pressure = 215, physical =
   moves = [
     { move = 0x3C843987, level = 1 },                       # Flurry Dash
     { move = 0x2354CA2D, level = 15 },                      # Wind God's Dance
+    { move = 0xC21AFE80, level = 40 },                      # Whirlwind Drop
     { move = 0xF1EEF635, level = 45 },                      # The Hurricane
-    { move = 0xC21AFE80, level = 55 },                      # Whirlwind Drop
   ]
 
   [[edit.cards]]
@@ -183,8 +183,8 @@ stats = { kick = 247, control = 220, technique = 239, pressure = 215, physical =
   moves = [
     { move = 0x3C843987, level = 1 },                       # Flurry Dash
     { move = 0x2354CA2D, level = 15 },                      # Wind God's Dance
+    { move = 0xC21AFE80, level = 40 },                      # Whirlwind Drop
     { move = 0xF1EEF635, level = 45 },                      # The Hurricane
-    { move = 0xC21AFE80, level = 55 },                      # Whirlwind Drop
   ]
 
 [[edit]]
@@ -327,7 +327,7 @@ target = "c01000050"                                   # Tod Ironside
 moves = [
   { move = 0x70417B2E, level = 1 },                         # Deceptor Dribble
   { move = 0xDF70E04C, level = 7 },                         # Rodeo Clown
-  { move = 0x1F0836D6, level = 17 },                        # Comet Shot
+  { move = 0x1F0836D6, level = 7 },                         # Comet Shot
   { move = 0x31ABD82E, level = 42 },                        # Circus Block
 ]
 VRFW.MoveGrades = [
@@ -363,7 +363,7 @@ moves = [
   { move = 0x427719AC, level = 1 },                         # Gale Dash
   { move = 0x259F08C6, level = 6 },                         # Whirlwind Twister
   { move = 0xA8E0F6C2, level = 18 },                        # Kung Fu Header
-  { move = 0x011AAF4B, level = 28 },                        # Gyro Head
+  { move = 0x011AAF4B, level = 18 },                        # Gyro Head
 ]
 
   [[edit.cards]]
@@ -413,54 +413,54 @@ stats = { kick = 328, control = 244, technique = 258, pressure = 184, physical =
   id = 0x288C9454
   moves = [
     { move = 0x518BCA26, level = 1 },                       # Fire Tornado
-    { move = 0x00D8C57C, level = 11 },                      # Fireball Storm
-    { move = 0x0B011EBF, level = 21 },                      # Fireball Screw
-    { move = 0xEAB3792D, level = 31 },                      # Grand Fire
+    { move = 0x00D8C57C, level = 1 },                       # Fireball Storm
+    { move = 0xEAB3792D, level = 1 },                       # Grand Fire
+    { move = 0x0B011EBF, level = 38 },                      # Fireball Screw
   ]
 
   [[edit.cards]]
   id = 0x376A131E
   moves = [
     { move = 0x518BCA26, level = 1 },                       # Fire Tornado
-    { move = 0x00D8C57C, level = 11 },                      # Fireball Storm
-    { move = 0x0B011EBF, level = 21 },                      # Fireball Screw
-    { move = 0xEAB3792D, level = 31 },                      # Grand Fire
+    { move = 0x00D8C57C, level = 1 },                       # Fireball Storm
+    { move = 0xEAB3792D, level = 1 },                       # Grand Fire
+    { move = 0x0B011EBF, level = 38 },                      # Fireball Screw
   ]
 
   [[edit.cards]]
   id = 0x3B057D74
   moves = [
     { move = 0x518BCA26, level = 1 },                       # Fire Tornado
-    { move = 0x00D8C57C, level = 11 },                      # Fireball Storm
-    { move = 0x0B011EBF, level = 21 },                      # Fireball Screw
-    { move = 0xEAB3792D, level = 31 },                      # Grand Fire
+    { move = 0x00D8C57C, level = 1 },                       # Fireball Storm
+    { move = 0xEAB3792D, level = 1 },                       # Grand Fire
+    { move = 0x0B011EBF, level = 38 },                      # Fireball Screw
   ]
 
   [[edit.cards]]
   id = 0x7669620A
   moves = [
     { move = 0x518BCA26, level = 1 },                       # Fire Tornado
-    { move = 0x00D8C57C, level = 11 },                      # Fireball Storm
-    { move = 0x0B011EBF, level = 21 },                      # Fireball Screw
-    { move = 0xEAB3792D, level = 31 },                      # Grand Fire
+    { move = 0x00D8C57C, level = 1 },                       # Fireball Storm
+    { move = 0xEAB3792D, level = 1 },                       # Grand Fire
+    { move = 0x0B011EBF, level = 38 },                      # Fireball Screw
   ]
 
   [[edit.cards]]
   id = 0x85363312
   moves = [
     { move = 0x518BCA26, level = 1 },                       # Fire Tornado
-    { move = 0x00D8C57C, level = 11 },                      # Fireball Storm
-    { move = 0x0B011EBF, level = 21 },                      # Fireball Screw
-    { move = 0xEAB3792D, level = 31 },                      # Grand Fire
+    { move = 0x00D8C57C, level = 1 },                       # Fireball Storm
+    { move = 0xEAB3792D, level = 1 },                       # Grand Fire
+    { move = 0x0B011EBF, level = 38 },                      # Fireball Screw
   ]
 
   [[edit.cards]]
   id = 0x994AFBEF
   moves = [
     { move = 0x518BCA26, level = 1 },                       # Fire Tornado
-    { move = 0x00D8C57C, level = 11 },                      # Fireball Storm
-    { move = 0x0B011EBF, level = 21 },                      # Fireball Screw
-    { move = 0xEAB3792D, level = 31 },                      # Grand Fire
+    { move = 0x00D8C57C, level = 1 },                       # Fireball Storm
+    { move = 0xEAB3792D, level = 1 },                       # Grand Fire
+    { move = 0x0B011EBF, level = 38 },                      # Fireball Screw
   ]
 
 [[edit]]
@@ -510,9 +510,9 @@ rank = 3
 growth = "normal"
 moves = [
   { move = 0x2CFC3E63, level = 1 },                         # Dragon Crash
+  { move = 0xE937AD43, level = 1 },                         # Dragon Slayer
   { move = 0x5F989B9E, level = 18 },                        # Wyvern Crash
   { move = 0x10D90D59, level = 32 },                        # Wyvern Blizzard
-  { move = 0xE937AD43, level = 42 },                        # Dragon Slayer
 ]
 VRFW.MoveGrades = [
   { Move = 0x2CFC3E63, Grade = 1 },                         # Dragon Crash
@@ -534,19 +534,19 @@ rank = 3
 growth = "normal"
 stats = { kick = 238, control = 279, technique = 282, pressure = 197, physical = 146, intelligence = 240, agility = 165, freedom = 417 }
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x01DB04F5, level = 28 },                        # Defence Scan
   { move = 0x29B328E6, level = 30 },                        # Spectacle Crash
   { move = 0x61FB16FD, level = 75 },                        # Divine Arrows
-  { move = 0xBCE9DEAB, level = 85 },                        # Chaos Break
+  { move = 0xBCE9DEAB, level = 75 },                        # Chaos Break
 ]
 
   [[edit.cards]]
   id = 0x1ABAF6D6    # this card's moveset differs from the list above
   moves = [
-    { move = 0x01DB04F5, level = 1 },                       # Defence Scan
+    { move = 0x01DB04F5, level = 28 },                      # Defence Scan
     { move = 0x29B328E6, level = 30 },                      # Spectacle Crash
     { move = 0x61FB16FD, level = 75 },                      # Divine Arrows
-    { move = 0xBCE9DEAB, level = 85 },                      # Chaos Break
+    { move = 0xBCE9DEAB, level = 75 },                      # Chaos Break
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -558,9 +558,9 @@ moves = [
 target = "c01000010_5000"                              # Mark Evans
 moves = [
   { move = 0xF64674CB, level = 1 },                         # Fist of Justice
-  { move = 0xEE9F2FBD, level = 11 },                        # God Catch
-  { move = 0x8AF3EAB9, level = 21 },                        # Hammer of Fury
-  { move = 0x93E8DBF8, level = 31 },                        # Dimensional Hand
+  { move = 0x93E8DBF8, level = 40 },                        # Dimensional Hand
+  { move = 0x8AF3EAB9, level = 42 },                        # Hammer of Fury
+  { move = 0xEE9F2FBD, level = 60 },                        # God Catch
 ]
 
   [[edit.cards]]
@@ -571,10 +571,10 @@ moves = [
 [[edit]]
 target = "c01000120_5000"                              # William Glass
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
+  { move = 0x01DB04F5, level = 28 },                        # Defence Scan
   { move = 0x29B328E6, level = 30 },                        # Spectacle Crash
   { move = 0x61FB16FD, level = 75 },                        # Divine Arrows
-  { move = 0xBCE9DEAB, level = 85 },                        # Chaos Break
+  { move = 0xBCE9DEAB, level = 75 },                        # Chaos Break
 ]
 
   [[edit.cards]]
@@ -670,8 +670,8 @@ moves = [
 [[edit]]
 target = "c01010930"                                   # Paul Peabody
 moves = [
-  { move = 0xDF70E04C, level = 1 },                         # Rodeo Clown
-  { move = 0x6B1CF436, level = 15 },                        # Bewildered
+  { move = 0xDF70E04C, level = 5 },                         # Rodeo Clown
+  { move = 0x6B1CF436, level = 5 },                         # Bewildered
   { move = 0x55C71D2A, level = 22 },                        # About Face
   { move = 0x68982058, level = 56 },                        # Armadillo Circus
 ]
@@ -685,10 +685,10 @@ moves = [
 [[edit]]
 target = "c02024730"                                   # Nelly Raimon
 moves = [
-  { move = 0xAB6422AC, level = 1 },                         # Phantom Shot
-  { move = 0x4C1D87D5, level = 11 },                        # Bed of Roses
-  { move = 0x750E6DAB, level = 31 },                        # Matador Feint
-  { move = 0xB576BB31, level = 75 },                        # The Earth
+  { move = 0x86F5F6E8, level = 3 },                         # Cupid's Arrow
+  { move = 0x8B90AAAC, level = 12 },                        # Fortissimo
+  { move = 0xDA3FF6C9, level = 26 },                        # Criss-Cross
+  { move = 0xBF6D0AC5, level = 60 },                        # Emperor Penguin No. 3
 ]
 
   [[edit.cards]]
@@ -700,7 +700,7 @@ moves = [
 target = "c02024740"                                   # Celia Hills
 moves = [
   { move = 0x01DB04F5, level = 1 },                         # Defence Scan
-  { move = 0x6ADE9E01, level = 11 },                        # Illusory Ball
+  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
   { move = 0xC16279D1, level = 50 },                        # Field of Force
   { move = 0x32EEA7FE, level = 70 },                        # Death Zone 2
 ]
@@ -715,9 +715,9 @@ moves = [
 target = "c02024750"                                   # Silvia Woods
 moves = [
   { move = 0xBE0E4AD0, level = 1 },                         # Fireball Knuckle
-  { move = 0x8C382852, level = 11 },                        # God Hand
+  { move = 0x8C382852, level = 1 },                         # God Hand
   { move = 0xF64674CB, level = 70 },                        # Fist of Justice
-  { move = 0xF2CB0879, level = 80 },                        # Mugen the Hand
+  { move = 0xF2CB0879, level = 70 },                        # Mugen the Hand
 ]
 
   [[edit.cards]]
@@ -729,9 +729,9 @@ moves = [
 target = "c01000110_5000"                              # Kevin Dragonfly
 moves = [
   { move = 0x2CFC3E63, level = 1 },                         # Dragon Crash
+  { move = 0xE937AD43, level = 1 },                         # Dragon Slayer
   { move = 0x5F989B9E, level = 18 },                        # Wyvern Crash
   { move = 0x10D90D59, level = 32 },                        # Wyvern Blizzard
-  { move = 0xE937AD43, level = 42 },                        # Dragon Slayer
 ]
 
   [[edit.cards]]
@@ -744,9 +744,9 @@ moves = [
 target = "c01000100_5000"                              # Axel Blaze
 moves = [
   { move = 0x518BCA26, level = 1 },                         # Fire Tornado
-  { move = 0x00D8C57C, level = 11 },                        # Fireball Storm
-  { move = 0x0B011EBF, level = 21 },                        # Fireball Screw
-  { move = 0xEAB3792D, level = 31 },                        # Grand Fire
+  { move = 0x00D8C57C, level = 1 },                         # Fireball Storm
+  { move = 0xEAB3792D, level = 1 },                         # Grand Fire
+  { move = 0x0B011EBF, level = 38 },                        # Fireball Screw
 ]
 
   [[edit.cards]]
@@ -758,9 +758,9 @@ moves = [
 target = "c11901150"                                   # Mark Evans
 moves = [
   { move = 0xF64674CB, level = 1 },                         # Fist of Justice
-  { move = 0xEE9F2FBD, level = 11 },                        # God Catch
-  { move = 0x8AF3EAB9, level = 21 },                        # Hammer of Fury
-  { move = 0x93E8DBF8, level = 31 },                        # Dimensional Hand
+  { move = 0x93E8DBF8, level = 40 },                        # Dimensional Hand
+  { move = 0x8AF3EAB9, level = 42 },                        # Hammer of Fury
+  { move = 0xEE9F2FBD, level = 60 },                        # God Catch
 ]
 VRFW.MoveGrades = [
   { Move = 0xF64674CB, Grade = 1 },                         # Fist of Justice

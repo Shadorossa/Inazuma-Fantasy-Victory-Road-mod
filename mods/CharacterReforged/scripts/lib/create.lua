@@ -22,6 +22,7 @@ local BANK_REASONS = {
   [-8] = "create_refused_no_move_for_base",
   [-9] = "create_refused_3",
   [-10] = "create_refused_other",
+  [-11] = "create_refused_in_team",
 }
 
 local function id_of(k) return Id.parse(k, { hash_names = true }) or 0 end
@@ -225,14 +226,14 @@ local MAX_MOVES = 2
 
 function CharacterReforged.Create.Moves(i)
   local s = load_systems()[math.floor(tonumber(i) or 0)]
-  if not s then return 0, 0, "", 0, 0, 0, {}, prohibited_badge(), false, 0 end
+  if not s then return 0, 0, "", 0, 0, 0, {}, prohibited_badge(), false, 0, true end
   local n = math.floor(tonumber(A.PairRules(s.pair_system).moves) or 0)
   n = math.max(0, math.min(MAX_MOVES, n))
   local key = s.confirm or (MOD .. ".create_confirm")
   info(string.format("moves of row %s (%s): %d, confirmation %s", tostring(i), s.system, n, key))
   return n, id_of(key), text_of(key), id_of(s.confirm_icon), id_of(s.preview),
     id_of(s.check), s.prohibited_codes, prohibited_badge(), A.PairRules(s.pair_system).partner_needs_learned_move == true,
-    NO_MOVE_BADGE
+    NO_MOVE_BADGE, A.PairRules(s.pair_system).partner_may_be_in_team ~= false
 end
 
 function CharacterReforged.Create.Refusal(i, code)

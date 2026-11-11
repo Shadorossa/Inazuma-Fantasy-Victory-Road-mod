@@ -57,9 +57,12 @@ budget_percent = 0
 critical_catch_base_percent = 1
 critical_catch_per_luck = 0.02
 critical_catch_cap_percent = 25
-move_critical_base_percent = 10.0
-move_critical_per_luck = 0.05
-move_critical_cap_percent = 50.0
+# The critical chance of a special move, as in Inazuma Eleven GO Chrono Stone (docs/game/match/critical-chrono-stone.md):
+# chance % = move_critical_base_percent + Suerte × move_critical_per_luck (1 % per 25 Suerte), at most move_critical_cap_percent from Suerte.
+move_critical_base_percent = 0.0
+move_critical_per_luck = 0.04
+move_critical_cap_percent = 25.0
+# 1.0 leaves the power of a critical hit to the mod that owns it (Hissatsu Reforged [critical] multiplier).
 move_critical_power_multiplier = 1.0
 
 [rival_training]

@@ -9,37 +9,37 @@ stats = { kick = 336, control = 261, technique = 251, pressure = 192, physical =
   [[edit.cards]]
   id = 0x464EDFFE    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x83BAE06D, level = 1 },                       # Golden Gull
     { move = 0xB10794BC, level = 13 },                      # Flash Dash
-    { move = 0x3A4FFB6C, level = 20 },                      # The Ikaros
-    { move = 0xF5915315, level = 30 },                      # Flying Colours
+    { move = 0x83BAE06D, level = 20 },                      # Golden Gull
+    { move = 0xF5915315, level = 38 },                      # Flying Colours
+    { move = 0x3A4FFB6C, level = 38 },                      # The Ikaros
   ]
 
   [[edit.cards]]
   id = 0x6EE5D3A8    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x83BAE06D, level = 1 },                       # Golden Gull
     { move = 0xB10794BC, level = 13 },                      # Flash Dash
-    { move = 0x3A4FFB6C, level = 20 },                      # The Ikaros
-    { move = 0xF5915315, level = 30 },                      # Flying Colours
+    { move = 0x83BAE06D, level = 20 },                      # Golden Gull
+    { move = 0xF5915315, level = 38 },                      # Flying Colours
+    { move = 0x3A4FFB6C, level = 38 },                      # The Ikaros
   ]
 
   [[edit.cards]]
   id = 0xC35F74EE    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0x83BAE06D, level = 1 },                       # Golden Gull
     { move = 0xB10794BC, level = 13 },                      # Flash Dash
-    { move = 0x3A4FFB6C, level = 20 },                      # The Ikaros
-    { move = 0xF5915315, level = 30 },                      # Flying Colours
+    { move = 0x83BAE06D, level = 20 },                      # Golden Gull
+    { move = 0xF5915315, level = 38 },                      # Flying Colours
+    { move = 0x3A4FFB6C, level = 38 },                      # The Ikaros
   ]
 
 [[edit]]
 target = "c07010020"                                   # Basile Hardy
 moves = [
-  { move = 0xA897B3AE, level = 1 },                         # Fire Tornado A
-  { move = 0x427719AC, level = 13 },                        # Gale Dash
+  { move = 0xA897B3AE, level = 13 },                        # Fire Tornado A
   { move = 0xBAD0C5D2, level = 20 },                        # Daruma Boomer
-  { move = 0xF5915315, level = 30 },                        # Flying Colours
+  { move = 0xF5915315, level = 38 },                        # Flying Colours
+  { move = 0x427719AC, level = 38 },                        # Gale Dash
 ]
 
   [[edit.cards]]
@@ -52,9 +52,9 @@ moves = [
 [[edit]]
 target = "c07010030"                                   # Adriano Donati
 moves = [
-  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
-  { move = 0x3663DB4C, level = 13 },                        # Utter Gutsiness Bat
-  { move = 0xA3CBF493, level = 20 },                        # Fire Lemonade
+  { move = 0xA3CBF493, level = 13 },                        # Fire Lemonade
+  { move = 0x35E70F22, level = 20 },                        # Grenade Shot
+  { move = 0x3663DB4C, level = 30 },                        # Utter Gutsiness Bat
   { move = 0x427719AC, level = 30 },                        # Gale Dash
 ]
 
@@ -68,10 +68,10 @@ moves = [
 [[edit]]
 target = "c07010040"                                   # Sandra Fischer
 moves = [
-  { move = 0xC13F00CC, level = 1 },                         # Flower Power
-  { move = 0x422A60B1, level = 13 },                        # Barrier Reef
-  { move = 0x2A96D6AA, level = 20 },                        # Maelstrom the Hand
-  { move = 0x338DE7EB, level = 30 },                        # Mermaid's Veil
+  { move = 0x2A96D6AA, level = 13 },                        # Maelstrom the Hand
+  { move = 0x338DE7EB, level = 20 },                        # Mermaid's Veil
+  { move = 0xC13F00CC, level = 30 },                        # Flower Power
+  { move = 0x422A60B1, level = 38 },                        # Barrier Reef
 ]
 
   [[edit.cards]]
@@ -84,10 +84,10 @@ moves = [
 [[edit]]
 target = "c07010050"                                   # Kiko Calavento
 moves = [
-  { move = 0x8D9AC3F9, level = 1 },                         # Twister Trap
-  { move = 0xDEBC00D6, level = 13 },                        # Flash Dance
-  { move = 0x592A96B4, level = 20 },                        # Afterimage
-  { move = 0x9481F2B8, level = 30 },                        # Gravity Cage
+  { move = 0x8D9AC3F9, level = 13 },                        # Twister Trap
+  { move = 0x9481F2B8, level = 20 },                        # Gravity Cage
+  { move = 0xDEBC00D6, level = 30 },                        # Flash Dance
+  { move = 0x592A96B4, level = 38 },                        # Afterimage
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c07010060"
 moves = [
-  { move = 0x245D62F1, level = 1 },                         # Attack Scan
-  { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
-  { move = 0x9481F2B8, level = 20 },                        # Gravity Cage
-  { move = 0xFE46027B, level = 30 },                        # Short Circuit
+  { move = 0x9481F2B8, level = 13 },                        # Gravity Cage
+  { move = 0xFE46027B, level = 20 },                        # Short Circuit
+  { move = 0x2E7B2B84, level = 30 },                        # Thief's Eye
+  { move = 0x245D62F1, level = 38 },                        # Attack Scan
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c07010070"                                   # Maxime Dassier
 moves = [
-  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
-  { move = 0xDEBC00D6, level = 13 },                        # Flash Dance
-  { move = 0xF5915315, level = 20 },                        # Flying Colours
-  { move = 0xA81CA5FD, level = 30 },                        # Sparky Spin
+  { move = 0xA81CA5FD, level = 13 },                        # Sparky Spin
+  { move = 0xDEBC00D6, level = 20 },                        # Flash Dance
+  { move = 0x73C5AF40, level = 30 },                        # Dash Accelerator
+  { move = 0xF5915315, level = 38 },                        # Flying Colours
 ]
 
   [[edit.cards]]
@@ -134,10 +134,10 @@ rank = 3
 growth = "normal"
 stats = { kick = 213, control = 198, technique = 215, pressure = 248, physical = 223, intelligence = 302, agility = 198, freedom = 267 }
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x2B343D01, level = 13 },                        # Cyclone
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0xA81CA5FD, level = 30 },                        # Sparky Spin
+  { move = 0xA81CA5FD, level = 13 },                        # Sparky Spin
+  { move = 0x4E9A9232, level = 20 },                        # Spinning Cut
+  { move = 0x2B343D01, level = 30 },                        # Cyclone
+  { move = 0x3F00EDE9, level = 38 },                        # Dash Storm
 ]
 
   [[edit.cards]]
@@ -146,10 +146,10 @@ moves = [
 [[edit]]
 target = "c07010090"                                   # Cliff Parker
 moves = [
-  { move = 0x166B0073, level = 1 },                         # Super Armadillo
   { move = 0x7D6E9A87, level = 13 },                        # The Wall
-  { move = 0x67F17FA8, level = 20 },                        # Mega Quake
+  { move = 0x166B0073, level = 20 },                        # Super Armadillo
   { move = 0x63BDA8A4, level = 30 },                        # Inazuma Drop
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -162,10 +162,10 @@ moves = [
 [[edit]]
 target = "c07010100"                                   # Valentin Eisner
 moves = [
-  { move = 0xBB97331B, level = 1 },                         # Cold Snap
-  { move = 0x2B343D01, level = 13 },                        # Cyclone
-  { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
-  { move = 0x1D39CDE3, level = 30 },                        # Meteor Strike
+  { move = 0xBB97331B, level = 13 },                        # Cold Snap
+  { move = 0x1D39CDE3, level = 20 },                        # Meteor Strike
+  { move = 0x2B343D01, level = 30 },                        # Cyclone
+  { move = 0xDCF43422, level = 38 },                        # Aurora Dribble
 ]
 
   [[edit.cards]]
@@ -178,10 +178,10 @@ moves = [
 [[edit]]
 target = "c07010110"                                   # Nino Nango
 moves = [
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0x592A96B4, level = 13 },                        # Afterimage
-  { move = 0x9481F2B8, level = 20 },                        # Gravity Cage
-  { move = 0x0422FCA2, level = 30 },                        # Ninja Toad
+  { move = 0x9481F2B8, level = 13 },                        # Gravity Cage
+  { move = 0x0422FCA2, level = 20 },                        # Ninja Toad
+  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0x592A96B4, level = 38 },                        # Afterimage
 ]
 
   [[edit.cards]]
@@ -193,10 +193,10 @@ moves = [
 [[edit]]
 target = "c07010120"                                   # Rolland Bowlby
 moves = [
-  { move = 0xC636A810, level = 1 },                         # Combustion Catch
-  { move = 0xBE0E4AD0, level = 13 },                        # Fireball Knuckle
-  { move = 0x31CB59B2, level = 20 },                        # God Hand
+  { move = 0x31CB59B2, level = 13 },                        # God Hand
+  { move = 0xC636A810, level = 20 },                        # Combustion Catch
   { move = 0x8FBCFC3C, level = 30 },                        # Blazing Knuckle
+  { move = 0xBE0E4AD0, level = 38 },                        # Fireball Knuckle
 ]
 
   [[edit.cards]]
@@ -209,10 +209,10 @@ moves = [
 [[edit]]
 target = "c07120070"                                   # Jim Wraith
 moves = [
-  { move = 0x4F58F805, level = 1 },                         # Coil Turn
-  { move = 0x55C71D2A, level = 13 },                        # About Face
-  { move = 0x592A96B4, level = 20 },                        # Afterimage
-  { move = 0xB5B7108F, level = 30 },                        # Shadow Stitch
+  { move = 0x4F58F805, level = 13 },                        # Coil Turn
+  { move = 0x55C71D2A, level = 20 },                        # About Face
+  { move = 0x592A96B4, level = 30 },                        # Afterimage
+  { move = 0xB5B7108F, level = 38 },                        # Shadow Stitch
 ]
 
   [[edit.cards]]
@@ -225,9 +225,9 @@ moves = [
 [[edit]]
 target = "c07120040"                                   # Tod Ironside
 moves = [
-  { move = 0x73C5AF40, level = 1 },                         # Dash Accelerator
   { move = 0xDF70E04C, level = 13 },                        # Rodeo Clown
   { move = 0x1F0836D6, level = 20 },                        # Comet Shot
+  { move = 0x73C5AF40, level = 30 },                        # Dash Accelerator
   { move = 0xDEB28A7B, level = 30 },                        # Monkey Turn
 ]
 VRFW.MoveGrades = [
@@ -244,10 +244,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c07120020"                                   # Steve Grim
 moves = [
-  { move = 0x06130797, level = 1 },                         # Rolling Kick
-  { move = 0xC66BD10D, level = 13 },                        # Zigzag Spark
-  { move = 0x79224D8B, level = 20 },                        # Freeze Shot
+  { move = 0x06130797, level = 13 },                        # Rolling Kick
+  { move = 0xC66BD10D, level = 20 },                        # Zigzag Spark
   { move = 0x2B343D01, level = 30 },                        # Cyclone
+  { move = 0x79224D8B, level = 38 },                        # Freeze Shot
 ]
 
   [[edit.cards]]
@@ -260,10 +260,10 @@ moves = [
 [[edit]]
 target = "c07120050"                                   # Tim Saunders
 moves = [
-  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
-  { move = 0xA8E0F6C2, level = 13 },                        # Kung Fu Header
-  { move = 0x17A96A44, level = 20 },                        # Clone Faker
+  { move = 0x259F08C6, level = 13 },                        # Whirlwind Twister
+  { move = 0xA8E0F6C2, level = 20 },                        # Kung Fu Header
   { move = 0x62BE692D, level = 30 },                        # Whirlwind Force
+  { move = 0x17A96A44, level = 30 },                        # Clone Faker
 ]
 
   [[edit.cards]]
@@ -276,10 +276,10 @@ moves = [
 [[edit]]
 target = "c07120080"                                   # Sam Kincaid
 moves = [
-  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
   { move = 0x6B1CF436, level = 13 },                        # Bewildered
-  { move = 0x2B343D01, level = 20 },                        # Cyclone
-  { move = 0x4890FB67, level = 30 },                        # Twin Boost
+  { move = 0x35E70F22, level = 20 },                        # Grenade Shot
+  { move = 0x2B343D01, level = 30 },                        # Cyclone
+  { move = 0x4890FB67, level = 38 },                        # Twin Boost
 ]
 
   [[edit.cards]]
@@ -292,10 +292,10 @@ moves = [
 [[edit]]
 target = "c07120010"                                   # Maxwell Carson
 moves = [
-  { move = 0x19025F83, level = 1 },                         # Quick Draw
-  { move = 0xAAA6489B, level = 13 },                        # Spiral Shot
-  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
-  { move = 0x4AD6453E, level = 30 },                        # Back Tornado
+  { move = 0x19025F83, level = 13 },                        # Quick Draw
+  { move = 0xAAA6489B, level = 20 },                        # Spiral Shot
+  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0x4AD6453E, level = 38 },                        # Back Tornado
 ]
 
   [[edit.cards]]
@@ -307,10 +307,10 @@ moves = [
 [[edit]]
 target = "c07120030"                                   # William Glass
 moves = [
-  { move = 0x29B328E6, level = 1 },                         # Spectacle Crash
-  { move = 0x61FB16FD, level = 13 },                        # Divine Arrows
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x7577A26A, level = 30 },                        # God Break
+  { move = 0x29B328E6, level = 13 },                        # Spectacle Crash
+  { move = 0x61FB16FD, level = 30 },                        # Divine Arrows
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x7577A26A, level = 38 },                        # God Break
 ]
 
   [[edit.cards]]
@@ -323,10 +323,10 @@ moves = [
 [[edit]]
 target = "c07120060"                                   # Erik Eagle
 moves = [
-  { move = 0x5049A011, level = 1 },                         # Spinning Shot
-  { move = 0xAAA6489B, level = 13 },                        # Spiral Shot
-  { move = 0xC19E2AEE, level = 20 },                        # Pegasus Shot
-  { move = 0x64B40078, level = 30 },                        # The Phoenix
+  { move = 0x5049A011, level = 13 },                        # Spinning Shot
+  { move = 0xAAA6489B, level = 30 },                        # Spiral Shot
+  { move = 0x64B40078, level = 38 },                        # The Phoenix
+  { move = 0xC19E2AEE, level = 38 },                        # Pegasus Shot
 ]
 
   [[edit.cards]]
@@ -339,9 +339,9 @@ moves = [
 [[edit]]
 target = "c07120090"                                   # Bobby Shearer
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0x7EEA4EE9, level = 13 },                        # Blade Attack
-  { move = 0x4AD6453E, level = 20 },                        # Back Tornado
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
+  { move = 0x7EEA4EE9, level = 20 },                        # Blade Attack
+  { move = 0x4AD6453E, level = 30 },                        # Back Tornado
   { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
 ]
 
@@ -355,10 +355,10 @@ moves = [
 [[edit]]
 target = "c11807010"                                   # Regina Mulgrave
 moves = [
-  { move = 0xC13F00CC, level = 1 },                         # Flower Power
   { move = 0xC636A810, level = 13 },                        # Combustion Catch
-  { move = 0xEA12530F, level = 20 },                        # Double Rocket
-  { move = 0xA6D711A6, level = 30 },                        # Full Power Shield
+  { move = 0xC13F00CC, level = 20 },                        # Flower Power
+  { move = 0xEA12530F, level = 30 },                        # Double Rocket
+  { move = 0xA6D711A6, level = 38 },                        # Full Power Shield
 ]
 
   [[edit.cards]]
@@ -370,10 +370,10 @@ moves = [
 [[edit]]
 target = "c11807020"                                   # Mister Yi
 moves = [
-  { move = 0x5049A011, level = 1 },                         # Spinning Shot
-  { move = 0xDF70E04C, level = 13 },                        # Rodeo Clown
-  { move = 0x61FB16FD, level = 20 },                        # Divine Arrows
+  { move = 0x5049A011, level = 13 },                        # Spinning Shot
+  { move = 0xDF70E04C, level = 20 },                        # Rodeo Clown
   { move = 0x63BDA8A4, level = 30 },                        # Inazuma Drop
+  { move = 0x61FB16FD, level = 38 },                        # Divine Arrows
 ]
 
   [[edit.cards]]
@@ -385,10 +385,10 @@ moves = [
 [[edit]]
 target = "c11807030"                                   # Dean Rush
 moves = [
-  { move = 0x05567847, level = 1 },                         # Runaway Train
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
-  { move = 0x41F3CDC2, level = 20 },                        # Scorching Tackle
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0x05567847, level = 13 },                        # Runaway Train
+  { move = 0xB60E3C60, level = 20 },                        # Plasma Cut
+  { move = 0x41F3CDC2, level = 30 },                        # Scorching Tackle
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -401,10 +401,10 @@ moves = [
 [[edit]]
 target = "c11807210"                                   # Aurelia Dingle
 moves = [
-  { move = 0x530CDFC1, level = 1 },                         # Mystifying Mist
   { move = 0x2C3D95DD, level = 13 },                        # Sleeping Dust
-  { move = 0xC5D2FDE2, level = 20 },                        # Oglitteration
-  { move = 0xBCE9DEAB, level = 30 },                        # Chaos Break
+  { move = 0x530CDFC1, level = 20 },                        # Mystifying Mist
+  { move = 0xC5D2FDE2, level = 30 },                        # Oglitteration
+  { move = 0xBCE9DEAB, level = 38 },                        # Chaos Break
 ]
 
   [[edit.cards]]
@@ -416,10 +416,10 @@ moves = [
 [[edit]]
 target = "c11808150"                                   # Li Kobun
 moves = [
-  { move = 0x259F08C6, level = 1 },                         # Whirlwind Twister
-  { move = 0xC0A013E6, level = 13 },                        # Liar Shot
-  { move = 0x62BE692D, level = 20 },                        # Whirlwind Force
-  { move = 0xBA221C40, level = 30 },                        # Dragon's Tail
+  { move = 0xBA221C40, level = 13 },                        # Dragon's Tail
+  { move = 0x259F08C6, level = 20 },                        # Whirlwind Twister
+  { move = 0xC0A013E6, level = 30 },                        # Liar Shot
+  { move = 0x62BE692D, level = 38 },                        # Whirlwind Force
 ]
 
   [[edit.cards]]

@@ -218,9 +218,9 @@ if CharacterReforged.page == nil then
       return nil
     end
     for _, id in ipairs(Page.providers(Page.HOST_MODE_CHANGE_PARTNER)) do
-      local exists, partnerParam, partnerChara = VRFW.host.command(id, card)
+      local exists, partnerParam, partnerChara, partnerHdl, inactiveLabel, inTeamText = VRFW.host.command(id, card)
       if exists == true and type(partnerParam) == "number" and partnerParam ~= 0 then
-        return partnerParam, partnerChara
+        return partnerParam, partnerChara, partnerHdl, inactiveLabel, inTeamText
       end
     end
     return nil

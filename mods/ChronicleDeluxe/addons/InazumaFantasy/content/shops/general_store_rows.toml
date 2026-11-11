@@ -64,113 +64,8 @@ hide = ["uni_u010101", "uni_u010201", "uni_u011001", "uni_u011201", "uni_u011301
   stock = 1
 
   [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_divinal_whistles"
-  after = "uni_u081501"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_europe_united"
-  after = "ChronicleDeluxe.kit_ie3_divinal_whistles"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_foreign_students"
-  after = "ChronicleDeluxe.kit_ie3_europe_united"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_masked_men_a"
-  after = "ChronicleDeluxe.kit_ie3_foreign_students"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_the_apples_and_pears"
-  after = "ChronicleDeluxe.kit_ie3_masked_men_a"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_the_back_of_the_nets"
-  after = "ChronicleDeluxe.kit_ie3_the_apples_and_pears"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_the_imaloser_eleven"
-  after = "ChronicleDeluxe.kit_ie3_the_back_of_the_nets"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_the_lemon_squeezies"
-  after = "ChronicleDeluxe.kit_ie3_the_imaloser_eleven"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_the_offside_traps"
-  after = "ChronicleDeluxe.kit_ie3_the_lemon_squeezies"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
   item = "ChronicleDeluxe.kit_ie3_the_raindoes"
-  after = "ChronicleDeluxe.kit_ie3_the_offside_traps"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_the_red_cardinals"
-  after = "ChronicleDeluxe.kit_ie3_the_raindoes"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_the_red_noses"
-  after = "ChronicleDeluxe.kit_ie3_the_red_cardinals"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_the_stone_walls"
-  after = "ChronicleDeluxe.kit_ie3_the_red_noses"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_the_techin_crew"
-  after = "ChronicleDeluxe.kit_ie3_the_stone_walls"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_the_wrap_chores"
-  after = "ChronicleDeluxe.kit_ie3_the_techin_crew"
-  price = 21
-  currency = "tk_bb000001"
-  stock = 1
-
-  [[edit.entry]]
-  item = "ChronicleDeluxe.kit_ie3_ultrasquad_omega"
-  after = "ChronicleDeluxe.kit_ie3_the_wrap_chores"
+  after = "uni_u081501"
   price = 21
   currency = "tk_bb000001"
   stock = 1
@@ -179,5 +74,19 @@ hide = ["uni_u010101", "uni_u010201", "uni_u011001", "uni_u011201", "uni_u011301
   item = "ChronicleDeluxe.kit_tm_prc_050200"
   after = "uni_u111901"
   price = 14
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "ChronicleDeluxe.crest_womens_team"
+  after = "em110001"
+  price = 17
+  currency = "tk_bb000001"
+  stock = 1
+
+  [[edit.entry]]
+  item = "ChronicleDeluxe.crest_world_selection"
+  after = "ChronicleDeluxe.crest_womens_team"
+  price = 17
   currency = "tk_bb000001"
   stock = 1

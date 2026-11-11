@@ -1,6 +1,7 @@
 id = "PassivesSynergies"
 # name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "Passives & Synergies"
+icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_synergy01"
 version = "0.3.0"
 author = "Fantasy Team"
 description = "Each player has one passive of his own that cannot be swapped (switch it off with the «Own passives» option), plus generic elemental passives that make his moves of that element stronger. Team synergies ask for a team or a group instead of named characters, and new synergies come with their own icons; the panel shows who is still missing."

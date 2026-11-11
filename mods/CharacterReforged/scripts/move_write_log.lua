@@ -84,6 +84,8 @@ end
 local function on_equip_slot(ev)
   local args = ev.args or {}
   local inventory_handle = u32(args[2] or 0)
+  -- A reset of the game empties every cell of every player: those writes say nothing unless a bought move is followed.
+  if inventory_handle == 0 and bought_count == 0 then return nil end
   log("EquipSlot: player %s slot %d %s handle %s item %s", hex(u32(args[1] or 0)), (args[3] or 0) + 1,
     (args[4] or 0) ~= 0 and "native" or "placed", hex(inventory_handle), hex(inventory_handle ~= 0 and item_of(inventory_handle) or 0))
   return nil

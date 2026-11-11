@@ -1272,6 +1272,10 @@ local CONDITIONS = {
     if ev.arg == nil or ev.arg == "" then return false end
     return has(DATA.outcomes[v.result], ev.arg)
   end,
+  Critical = function(v, _, ev)
+    if v.who == "rival" then return ev.rival ~= nil and ev.rival.critical == true end
+    return ev.critical == true
+  end,
   CarrierElement = function(v, h) return has(v.elements, h.element) end,
   Present = function(v, h, _, b) return count_trait(b, h) >= v.min end,
   Absent = function(_, h, _, b) return count_trait(b, h) == 0 end,
@@ -1698,7 +1702,7 @@ local SHOOT_KIND = { "shoot" }
 local CACHED_KEYS = { move_speed = true, recast = true, move_power = "frame" }
 local VOLATILE_MS = 100
 local VOLATILE_TYPES = { Zone = true, Near = true, TargetZone = true, HasBall = true, Holder = true, Clock = true, SetPiece = true,
-  Score = true, Half = true, ScoreMargin = true, TensionLevel = true, AuraActive = true, Resource = true, Flag = true }
+  Score = true, Half = true, ScoreMargin = true, TensionLevel = true, AuraActive = true, Resource = true, Flag = true, Critical = true }
 local ANSWER_CACHE = {}
 local PASSIVE_VOLATILE = {}
 local ANSWER_READ_VOLATILE = false   -- the answer being worked out read a volatile passive

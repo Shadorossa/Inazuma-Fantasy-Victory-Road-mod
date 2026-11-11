@@ -1,0 +1,17 @@
+schema = "VRFW.passive_block/1"
+# The blocks of the critical talents of Inazuma Eleven GO Chrono Stone (docs/game/match/critical-chrono-stone.md).
+
+# «Lance crítico» (its skill_config value 150): his critical chance × 1.5
+[[VRFW.CriticalRate]]
+name = "own_critical_rate_plus_50"
+percent = 50
+
+# «Gafe» (its skill_config value 200): his critical hits twice as strong
+[[VRFW.CriticalPower]]
+name = "own_critical_power_plus_100"
+percent = 100
+
+# «Gafe»: his special moves that are not critical have half their power (a failed move of the 3DS games)
+[[VRFW.CriticalMissPower]]
+name = "own_not_critical_power_minus_50"
+percent = -50

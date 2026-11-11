@@ -32,9 +32,9 @@ growth = "normal"
 stats = { kick = 217, control = 181, technique = 201, pressure = 265, physical = 239, intelligence = 290, agility = 198, freedom = 221 }
 moves = [
   { move = 0x43B5739B, level = 1 },                         # Lightning Bolt
-  { move = 0x6633159F, level = 11 },                        # Gravitation
+  { move = 0x6633159F, level = 1 },                         # Gravitation
+  { move = 0x7C6D5B0E, level = 38 },                        # Astro Break
   { move = 0x8C990270, level = 62 },                        # Gunshot
-  { move = 0x7C6D5B0E, level = 72 },                        # Astro Break
 ]
 
 [[edit]]
@@ -44,8 +44,8 @@ growth = "normal"
 stats = { kick = 208, control = 189, technique = 200, pressure = 250, physical = 258, intelligence = 290, agility = 197, freedom = 230 }
 moves = [
   { move = 0x29728358, level = 1 },                         # Planet Shield
-  { move = 0xAD6E4BF9, level = 11 },                        # Harvest
-  { move = 0x00196EC2, level = 21 },                        # Earthquake
+  { move = 0xAD6E4BF9, level = 1 },                         # Harvest
+  { move = 0x00196EC2, level = 10 },                        # Earthquake
   { move = 0x7207C577, level = 67 },                        # Boost Glider
 ]
 
@@ -127,7 +127,7 @@ stats = { kick = 281, control = 257, technique = 293, pressure = 190, physical =
   id = 0x567A9D31    # normal card (the character's special cards keep their own set)
   moves = [
     { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
-    { move = 0x3B8D915B, level = 11 },                      # Meteor Shower
+    { move = 0x3B8D915B, level = 1 },                       # Meteor Shower
     { move = 0x4683AADF, level = 35 },                      # Space Penguin
     { move = 0xC66BD10D, level = 55 },                      # Zigzag Spark
   ]
@@ -136,7 +136,7 @@ stats = { kick = 281, control = 257, technique = 293, pressure = 190, physical =
   id = 0x5A15F35B    # normal card (the character's special cards keep their own set)
   moves = [
     { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
-    { move = 0x3B8D915B, level = 11 },                      # Meteor Shower
+    { move = 0x3B8D915B, level = 1 },                       # Meteor Shower
     { move = 0x4683AADF, level = 35 },                      # Space Penguin
     { move = 0xC66BD10D, level = 55 },                      # Zigzag Spark
   ]
@@ -145,7 +145,7 @@ stats = { kick = 281, control = 257, technique = 293, pressure = 190, physical =
   id = 0x6DD77DAB    # normal card (the character's special cards keep their own set)
   moves = [
     { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
-    { move = 0x3B8D915B, level = 11 },                      # Meteor Shower
+    { move = 0x3B8D915B, level = 1 },                       # Meteor Shower
     { move = 0x4683AADF, level = 35 },                      # Space Penguin
     { move = 0xC66BD10D, level = 55 },                      # Zigzag Spark
   ]
@@ -154,7 +154,7 @@ stats = { kick = 281, control = 257, technique = 293, pressure = 190, physical =
   id = 0x82F4E44E    # normal card (the character's special cards keep their own set)
   moves = [
     { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
-    { move = 0x3B8D915B, level = 11 },                      # Meteor Shower
+    { move = 0x3B8D915B, level = 1 },                       # Meteor Shower
     { move = 0x4683AADF, level = 35 },                      # Space Penguin
     { move = 0xC66BD10D, level = 55 },                      # Zigzag Spark
   ]
@@ -163,7 +163,7 @@ stats = { kick = 281, control = 257, technique = 293, pressure = 190, physical =
   id = 0xDC111210    # normal card (the character's special cards keep their own set)
   moves = [
     { move = 0x7C6D5B0E, level = 1 },                       # Astro Break
-    { move = 0x3B8D915B, level = 11 },                      # Meteor Shower
+    { move = 0x3B8D915B, level = 1 },                       # Meteor Shower
     { move = 0x4683AADF, level = 35 },                      # Space Penguin
     { move = 0xC66BD10D, level = 55 },                      # Zigzag Spark
   ]

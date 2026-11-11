@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11500490"                                   # Nadia Watershed
 moves = [
-  { move = 0xB0BC314A, level = 1 },                         # Spin Meister
-  { move = 0x768AB9C5, level = 13 },                        # Frosticle
-  { move = 0xD9BB22A7, level = 20 },                        # Air Ride
+  { move = 0xB0BC314A, level = 13 },                        # Spin Meister
+  { move = 0x768AB9C5, level = 20 },                        # Frosticle
   { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0xD9BB22A7, level = 38 },                        # Air Ride
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700300"                                   # Choco Racketfeld
 moves = [
-  { move = 0xA2FB4736, level = 1 },                         # Flying Fish
   { move = 0x650FA58E, level = 13 },                        # Spin Out
   { move = 0xE8F5C774, level = 20 },                        # Megalodon
-  { move = 0x6E53E2B3, level = 30 },                        # Angel Ball
+  { move = 0xA2FB4736, level = 30 },                        # Flying Fish
+  { move = 0x6E53E2B3, level = 38 },                        # Angel Ball
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11700310"                                   # Minty Shuttlebrook
 moves = [
-  { move = 0x65B7C1F1, level = 1 },                         # Sumo Stomp
-  { move = 0x1876DB66, level = 13 },                        # Disaster Strike
+  { move = 0x65B7C1F1, level = 13 },                        # Sumo Stomp
   { move = 0x105C91A7, level = 20 },                        # Slingshot
-  { move = 0x485150D9, level = 30 },                        # Body Shield
+  { move = 0x1876DB66, level = 38 },                        # Disaster Strike
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11704010"                                   # Phoebe Soarsky
 moves = [
-  { move = 0x0710C61E, level = 1 },                         # Perimeter Zone
   { move = 0x650FA58E, level = 13 },                        # Spin Out
-  { move = 0xB7F1AED6, level = 20 },                        # Double Cyclone
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x0710C61E, level = 20 },                        # Perimeter Zone
+  { move = 0xB7F1AED6, level = 30 },                        # Double Cyclone
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11704020"                                   # Helen Deavor
 moves = [
-  { move = 0x0CF4E55C, level = 1 },                         # Double Touch
-  { move = 0x36A270F2, level = 13 },                        # Rolling Slide
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0x485150D9, level = 30 },                        # Body Shield
+  { move = 0x0CF4E55C, level = 13 },                        # Double Touch
+  { move = 0x36A270F2, level = 20 },                        # Rolling Slide
+  { move = 0x485150D9, level = 38 },                        # Body Shield
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11704030"                                   # Janet Hollilocks
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0xDCC9CCA3, level = 13 },                        # Tesla Coil
-  { move = 0x6BA49049, level = 20 },                        # Mystic Mist
-  { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0xDCC9CCA3, level = 20 },                        # Tesla Coil
+  { move = 0x6BA49049, level = 30 },                        # Mystic Mist
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11704040"                                   # Barnaby Livergain
 moves = [
-  { move = 0x768AB9C5, level = 1 },                         # Frosticle
   { move = 0x1C8CE2B8, level = 13 },                        # God Knows
   { move = 0xE0549BE6, level = 20 },                        # Easy Breezy Kid
-  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0x768AB9C5, level = 30 },                        # Frosticle
+  { move = 0x2354CA2D, level = 38 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11704050"                                   # Sten Fanborough
 moves = [
-  { move = 0xA8E0F6C2, level = 1 },                         # Kung Fu Header
-  { move = 0x4E5B398C, level = 13 },                        # Acrobat Bomber
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+  { move = 0xA8E0F6C2, level = 13 },                        # Kung Fu Header
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x4E5B398C, level = 30 },                        # Acrobat Bomber
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11704060"                                   # Crest Vertall
 moves = [
-  { move = 0x4031A7F5, level = 1 },                         # Mole Fake
   { move = 0x17110E3B, level = 13 },                        # Jumbo Sandwich
   { move = 0x64CDCFB9, level = 20 },                        # Rising Dragon
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x4031A7F5, level = 30 },                        # Mole Fake
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11704070"                                   # Wyatt Stockaway
 moves = [
-  { move = 0xF309624E, level = 1 },                         # Dual Smash
-  { move = 0x91AE65A1, level = 13 },                        # Giant Spider
-  { move = 0x18C035B4, level = 20 },                        # Ghost Pull
-  { move = 0x93E8DBF8, level = 30 },                        # Dimensional Hand
+  { move = 0x18C035B4, level = 13 },                        # Ghost Pull
+  { move = 0xF309624E, level = 20 },                        # Dual Smash
+  { move = 0x91AE65A1, level = 30 },                        # Giant Spider
+  { move = 0x93E8DBF8, level = 38 },                        # Dimensional Hand
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11704080"                                   # Pristin Florynce
 moves = [
-  { move = 0x65B7C1F1, level = 1 },                         # Sumo Stomp
-  { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
+  { move = 0x65B7C1F1, level = 13 },                        # Sumo Stomp
   { move = 0x64CDCFB9, level = 20 },                        # Rising Dragon
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x19BA3BFC, level = 30 },                        # Dance on Air
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -179,10 +179,10 @@ moves = [
 [[edit]]
 target = "c11704090"                                   # Edmund Boon
 moves = [
-  { move = 0x47657634, level = 1 },                         # Flame Breath
-  { move = 0xFF5C8DAF, level = 13 },                        # Shot Stopper
-  { move = 0xBA833662, level = 20 },                        # Million Hands
-  { move = 0x7A67325B, level = 30 },                        # Flame Dance
+  { move = 0x7A67325B, level = 13 },                        # Flame Dance
+  { move = 0x47657634, level = 20 },                        # Flame Breath
+  { move = 0xFF5C8DAF, level = 30 },                        # Shot Stopper
+  { move = 0xBA833662, level = 38 },                        # Million Hands
 ]
 
   [[edit.cards]]
@@ -195,10 +195,10 @@ moves = [
 [[edit]]
 target = "c11704100"                                   # Willem Durrmore
 moves = [
-  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
-  { move = 0x60F8D774, level = 13 },                        # Gravestone
-  { move = 0x2AF65736, level = 20 },                        # Bamboo Pattern
-  { move = 0x67F17FA8, level = 30 },                        # Mega Quake
+  { move = 0xDEB28A7B, level = 13 },                        # Monkey Turn
+  { move = 0x60F8D774, level = 20 },                        # Gravestone
+  { move = 0x2AF65736, level = 30 },                        # Bamboo Pattern
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -211,10 +211,10 @@ moves = [
 [[edit]]
 target = "c11704110"                                   # Corday Dremin
 moves = [
-  { move = 0xC2E6ADBF, level = 1 },                         # Log Roll
-  { move = 0xDB01CFC1, level = 13 },                        # Thunder Beast
-  { move = 0xDE4ED944, level = 20 },                        # Snowstorm Leopard
+  { move = 0xC2E6ADBF, level = 13 },                        # Log Roll
+  { move = 0xDB01CFC1, level = 20 },                        # Thunder Beast
   { move = 0x4683AADF, level = 30 },                        # Space Penguin
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -227,10 +227,10 @@ moves = [
 [[edit]]
 target = "c11704120"                                   # Candace Mardipanz
 moves = [
-  { move = 0xA37D1A41, level = 1 },                         # Hyper-Swiper
-  { move = 0x7C1494CF, level = 13 },                        # Tornado Tunnel
+  { move = 0xA37D1A41, level = 13 },                        # Hyper-Swiper
   { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -243,10 +243,10 @@ moves = [
 [[edit]]
 target = "c11704130"                                   # Gloria Somdenn
 moves = [
-  { move = 0x9349F1DA, level = 1 },                         # Zephyr Shot
   { move = 0x50880BAF, level = 13 },                        # Frozen Steal
-  { move = 0xE8F5C774, level = 20 },                        # Megalodon
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x9349F1DA, level = 20 },                        # Zephyr Shot
+  { move = 0xE8F5C774, level = 30 },                        # Megalodon
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]

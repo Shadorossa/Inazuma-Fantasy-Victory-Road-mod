@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c07100090"                                   # Ben Blowton
 moves = [
-  { move = 0x166B0073, level = 1 },                         # Super Armadillo
   { move = 0xABA58912, level = 13 },                        # Ignited Steal
   { move = 0x4D1E465C, level = 20 },                        # Fake Bomber
-  { move = 0x79E3E635, level = 30 },                        # Racing Flame
+  { move = 0x166B0073, level = 30 },                        # Super Armadillo
+  { move = 0x79E3E635, level = 38 },                        # Racing Flame
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c07100060"                                   # Bryce Whitingale
 moves = [
-  { move = 0x46FA651E, level = 1 },                         # Water Veil
   { move = 0x5E5AF1A9, level = 13 },                        # Northern Impact
-  { move = 0xA2BF7076, level = 20 },                        # Side Swipe
+  { move = 0x46FA651E, level = 20 },                        # Water Veil
   { move = 0x09C23C18, level = 30 },                        # Fire Blizzard
+  { move = 0xA2BF7076, level = 38 },                        # Side Swipe
 ]
 VRFW.MoveGrades = [
   { Move = 0x46FA651E, Grade = 1 },                         # Water Veil
@@ -36,10 +36,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c07100070"                                   # Claude Beacons
 moves = [
-  { move = 0x5FE1545F, level = 1 },                         # Flame Veil
   { move = 0xAE2B3429, level = 13 },                        # Atomic Flare
-  { move = 0x3B8D915B, level = 20 },                        # Meteor Shower
+  { move = 0x5FE1545F, level = 20 },                        # Flame Veil
   { move = 0x111B676E, level = 30 },                        # Fire Blizzard
+  { move = 0x3B8D915B, level = 30 },                        # Meteor Shower
 ]
 VRFW.MoveGrades = [
   { Move = 0x5FE1545F, Grade = 1 },                         # Flame Veil
@@ -53,10 +53,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c07100100"                                   # Grant Icewater
 moves = [
-  { move = 0x7FE98F60, level = 1 },                         # Ganymede Ray
-  { move = 0x18019E0A, level = 13 },                        # Double Grenade
-  { move = 0x6633159F, level = 20 },                        # Gravitation
-  { move = 0x67F17FA8, level = 30 },                        # Mega Quake
+  { move = 0x6633159F, level = 13 },                        # Gravitation
+  { move = 0x7FE98F60, level = 20 },                        # Ganymede Ray
+  { move = 0x18019E0A, level = 30 },                        # Double Grenade
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -68,10 +68,10 @@ moves = [
 [[edit]]
 target = "c07100030"                                   # Jordan Greenway
 moves = [
-  { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
-  { move = 0x10A0C298, level = 13 },                        # Warp Drive
-  { move = 0x1B854A64, level = 20 },                        # Cosmic Blast
-  { move = 0x43B5739B, level = 30 },                        # Lightning Bolt
+  { move = 0x7C6D5B0E, level = 13 },                        # Astro Break
+  { move = 0x10A0C298, level = 20 },                        # Warp Drive
+  { move = 0x1B854A64, level = 30 },                        # Cosmic Blast
+  { move = 0x43B5739B, level = 38 },                        # Lightning Bolt
 ]
 VRFW.MoveGrades = [
   { Move = 0x7C6D5B0E, Grade = 1 },                         # Astro Break
@@ -87,10 +87,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c07100130"                                   # Ronny Metcalf
 moves = [
-  { move = 0x60397CCA, level = 1 },                         # Cross Drive
-  { move = 0x10A0C298, level = 13 },                        # Warp Drive
-  { move = 0x7C6D5B0E, level = 20 },                        # Astro Break
-  { move = 0x029E7B25, level = 30 },                        # Gaia Break
+  { move = 0x029E7B25, level = 13 },                        # Gaia Break
+  { move = 0x10A0C298, level = 20 },                        # Warp Drive
+  { move = 0x60397CCA, level = 30 },                        # Cross Drive
+  { move = 0x7C6D5B0E, level = 38 },                        # Astro Break
 ]
 VRFW.MoveGrades = [
   { Move = 0x029E7B25, Grade = 1 },                         # Gaia Break
@@ -106,10 +106,10 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c07100050"                                   # Isabelle Trick
 moves = [
-  { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
-  { move = 0x3B8D915B, level = 13 },                        # Meteor Shower
-  { move = 0x4683AADF, level = 20 },                        # Space Penguin
-  { move = 0x6DAEF91C, level = 30 },                        # Supernova
+  { move = 0x7C6D5B0E, level = 13 },                        # Astro Break
+  { move = 0x3B8D915B, level = 20 },                        # Meteor Shower
+  { move = 0x4683AADF, level = 30 },                        # Space Penguin
+  { move = 0x6DAEF91C, level = 38 },                        # Supernova
 ]
 
   [[edit.cards]]
@@ -121,10 +121,10 @@ moves = [
 [[edit]]
 target = "c07100010"                                   # Hunter Foster
 moves = [
-  { move = 0xB633C4E1, level = 1 },                         # Photon Crash
   { move = 0x65766A4F, level = 13 },                        # Meteor Blade
-  { move = 0x2296A01A, level = 20 },                        # Southern Cross
+  { move = 0xB633C4E1, level = 20 },                        # Photon Crash
   { move = 0x6DAEF91C, level = 30 },                        # Supernova
+  { move = 0x2296A01A, level = 38 },                        # Southern Cross
 ]
 VRFW.MoveGrades = [
   { Move = 0x65766A4F, Grade = 1 },                         # Meteor Blade
@@ -143,19 +143,19 @@ target = "c07100020"                                   # Xavier Schiller
   growth = "normal"
   stats = { kick = 292, control = 266, technique = 261, pressure = 197, physical = 181, intelligence = 234, agility = 178, freedom = 259 }
   moves = [
-    { move = 0x142DBE2A, level = 1 },                       # Foul Offence
-    { move = 0x903FFC26, level = 13 },                      # Zigzag Zoom
-    { move = 0x2296A01A, level = 20 },                      # Southern Cross
-    { move = 0x8924CD67, level = 30 },                      # The Detonator
+    { move = 0x8924CD67, level = 13 },                      # The Detonator
+    { move = 0x903FFC26, level = 20 },                      # Zigzag Zoom
+    { move = 0x2296A01A, level = 30 },                      # Southern Cross
+    { move = 0x142DBE2A, level = 30 },                      # Foul Offence
   ]
 
 [[edit]]
 target = "c07100120"                                   # Bonnie Sparks
 moves = [
-  { move = 0x01DB04F5, level = 1 },                         # Defence Scan
   { move = 0xABA58912, level = 13 },                        # Ignited Steal
-  { move = 0xB13A6C3D, level = 20 },                        # Zigzag Flame
-  { move = 0x3B8D915B, level = 30 },                        # Meteor Shower
+  { move = 0x01DB04F5, level = 30 },                        # Defence Scan
+  { move = 0x3B8D915B, level = 38 },                        # Meteor Shower
+  { move = 0xB13A6C3D, level = 38 },                        # Zigzag Flame
 ]
 
   [[edit.cards]]
@@ -167,10 +167,10 @@ moves = [
 [[edit]]
 target = "c07100110"                                   # Claire Lesnow
 moves = [
-  { move = 0x46FA651E, level = 1 },                         # Water Veil
-  { move = 0xB633C4E1, level = 13 },                        # Photon Crash
-  { move = 0x50880BAF, level = 20 },                        # Frozen Steal
-  { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
+  { move = 0x46FA651E, level = 13 },                        # Water Veil
+  { move = 0xB633C4E1, level = 30 },                        # Photon Crash
+  { move = 0x50880BAF, level = 38 },                        # Frozen Steal
+  { move = 0xDCF43422, level = 38 },                        # Aurora Dribble
 ]
 
   [[edit.cards]]
@@ -183,10 +183,10 @@ moves = [
 [[edit]]
 target = "c07100080"                                   # Nigel August
 moves = [
-  { move = 0x7FE98F60, level = 1 },                         # Ganymede Ray
-  { move = 0xABA58912, level = 13 },                        # Ignited Steal
-  { move = 0xAE2B3429, level = 20 },                        # Atomic Flare
+  { move = 0x7FE98F60, level = 13 },                        # Ganymede Ray
+  { move = 0xABA58912, level = 20 },                        # Ignited Steal
   { move = 0x3B8D915B, level = 30 },                        # Meteor Shower
+  { move = 0xAE2B3429, level = 38 },                        # Atomic Flare
 ]
 
   [[edit.cards]]
@@ -198,10 +198,10 @@ moves = [
 [[edit]]
 target = "c07100040"                                   # Dave Quagmire
 moves = [
-  { move = 0xFF5C8DAF, level = 1 },                         # Shot Stopper
   { move = 0x8B31808E, level = 13 },                        # Wormhole
-  { move = 0x9AF2229C, level = 20 },                        # Gravity Point
-  { move = 0x8E7E960B, level = 30 },                        # Drill Smasher
+  { move = 0x8E7E960B, level = 20 },                        # Drill Smasher
+  { move = 0xFF5C8DAF, level = 30 },                        # Shot Stopper
+  { move = 0x9AF2229C, level = 38 },                        # Gravity Point
 ]
 
   [[edit.cards]]
@@ -213,10 +213,10 @@ moves = [
 [[edit]]
 target = "c07100140"                                   # Zeke Valanche
 moves = [
-  { move = 0x7FE98F60, level = 1 },                         # Ganymede Ray
-  { move = 0xB1FBC783, level = 13 },                        # Reflect Buster
-  { move = 0x10A0C298, level = 20 },                        # Warp Drive
+  { move = 0x10A0C298, level = 1 },                         # Warp Drive
+  { move = 0x7FE98F60, level = 13 },                        # Ganymede Ray
   { move = 0x029E7B25, level = 30 },                        # Gaia Break
+  { move = 0xB1FBC783, level = 38 },                        # Reflect Buster
 ]
 
   [[edit.cards]]
@@ -228,10 +228,10 @@ moves = [
 [[edit]]
 target = "c11807200"                                   # Aquilina Schiller
 moves = [
-  { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
-  { move = 0x514A6198, level = 13 },                        # Asteroid Belt
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x4683AADF, level = 30 },                        # Space Penguin
+  { move = 0x7C6D5B0E, level = 13 },                        # Astro Break
+  { move = 0x4683AADF, level = 20 },                        # Space Penguin
+  { move = 0x514A6198, level = 30 },                        # Asteroid Belt
+  { move = 0x21127474, level = 38 },                        # Ultra Moon
 ]
 
   [[edit.cards]]

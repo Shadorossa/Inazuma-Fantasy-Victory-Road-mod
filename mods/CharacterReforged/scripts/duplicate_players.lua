@@ -182,3 +182,14 @@ function CharacterReforged.OneCardPerPlayer()
   local slot = VRFW.slots.ready() and VRFW.slots.active() or 0
   return one_card_rule and slot > 0 and is_player_slot(slot) and 1 or 0
 end
+
+local raised_copy_policy = nil            -- the merged duplicate policy, read once
+
+-- 1 while a club copy saved at `rarity` of a card whose own rarity is `card_rarity` is a raised copy in the loaded save, else 0.
+function CharacterReforged.RaisedCopyRarity(rarity, card_rarity)
+  if type(rarity) ~= "number" or type(card_rarity) ~= "number" then return 0 end
+  if raised_copy_policy == nil then raised_copy_policy = Rules.load() end
+  local slot = VRFW.slots.ready() and VRFW.slots.active() or 0
+  if slot <= 0 or not is_player_slot(slot) then return 0 end
+  return Rules.is_raised_copy(raised_copy_policy, rarity, card_rarity) and 1 or 0
+end

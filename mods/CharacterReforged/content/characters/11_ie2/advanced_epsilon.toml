@@ -10,7 +10,7 @@ target = "c11902210"                                   # Dvalin
   stats = { kick = 243, control = 209, technique = 221, pressure = 231, physical = 236, intelligence = 240, agility = 240, freedom = 225 }
   moves = [
     { move = 0x8B31808E, level = 1 },                       # Wormhole
-    { move = 0x8E7E960B, level = 11 },                      # Drill Smasher
+    { move = 0x8E7E960B, level = 1 },                       # Drill Smasher
     { move = 0xFF5C8DAF, level = 55 },                      # Shot Stopper
     { move = 0x9AF2229C, level = 62 },                      # Gravity Point
   ]
@@ -26,7 +26,7 @@ VRFW.MoveGrades = [
 target = "c11902220"                                   # Kenville
 moves = [
   { move = 0x10A0C298, level = 1 },                         # Warp Drive
-  { move = 0x28B0E96F, level = 11 },                        # Heavy Mettle
+  { move = 0x28B0E96F, level = 1 },                         # Heavy Mettle
   { move = 0x78E027BC, level = 38 },                        # Shine Drive
   { move = 0x514A6198, level = 52 },                        # Asteroid Belt
 ]
@@ -41,9 +41,9 @@ moves = [
 target = "c11902230"                                   # Mole
 moves = [
   { move = 0xB633C4E1, level = 1 },                         # Photon Crash
-  { move = 0x10A0C298, level = 11 },                        # Warp Drive
-  { move = 0x3EC287DE, level = 21 },                        # Bubble Gum
-  { move = 0x3B8D915B, level = 31 },                        # Meteor Shower
+  { move = 0x10A0C298, level = 1 },                         # Warp Drive
+  { move = 0x3EC287DE, level = 1 },                         # Bubble Gum
+  { move = 0x3B8D915B, level = 20 },                        # Meteor Shower
 ]
 
   [[edit.cards]]
@@ -56,7 +56,7 @@ moves = [
 target = "c11902240"                                   # Kayson
 moves = [
   { move = 0x28B0E96F, level = 1 },                         # Heavy Mettle
-  { move = 0x514A6198, level = 11 },                        # Asteroid Belt
+  { move = 0x514A6198, level = 1 },                         # Asteroid Belt
   { move = 0x09BBF3D9, level = 41 },                        # Dark Whirlwind
   { move = 0x142DBE2A, level = 55 },                        # Foul Offence
 ]
@@ -102,7 +102,7 @@ moves = [
 target = "c11902270"                                   # Krypto
 moves = [
   { move = 0x7C6D5B0E, level = 1 },                         # Astro Break
-  { move = 0x3B8D915B, level = 11 },                        # Meteor Shower
+  { move = 0x3B8D915B, level = 1 },                         # Meteor Shower
   { move = 0x105C91A7, level = 42 },                        # Slingshot
   { move = 0x2296A01A, level = 53 },                        # Southern Cross
 ]
@@ -132,8 +132,8 @@ moves = [
 target = "c11902290"                                   # Mercury
 moves = [
   { move = 0x029E7B25, level = 1 },                         # Gaia Break
-  { move = 0x4AD6453E, level = 11 },                        # Back Tornado
-  { move = 0x3B8D915B, level = 21 },                        # Meteor Shower
+  { move = 0x4AD6453E, level = 1 },                         # Back Tornado
+  { move = 0x3B8D915B, level = 1 },                         # Meteor Shower
   { move = 0x8C990270, level = 55 },                        # Gunshot
 ]
 
@@ -147,7 +147,7 @@ moves = [
 target = "c11902300"                                   # Metron
 moves = [
   { move = 0x029E7B25, level = 1 },                         # Gaia Break
-  { move = 0x10A0C298, level = 11 },                        # Warp Drive
+  { move = 0x10A0C298, level = 1 },                         # Warp Drive
   { move = 0x60397CCA, level = 37 },                        # Cross Drive
   { move = 0x7C6D5B0E, level = 55 },                        # Astro Break
 ]
@@ -163,9 +163,9 @@ moves = [
 target = "c11902310"                                   # Zell
 moves = [
   { move = 0x029E7B25, level = 1 },                         # Gaia Break
-  { move = 0x7FE98F60, level = 11 },                        # Ganymede Ray
-  { move = 0xB1FBC783, level = 21 },                        # Reflect Buster
-  { move = 0x2F78EA0D, level = 31 },                        # Triangle Z
+  { move = 0x7FE98F60, level = 1 },                         # Ganymede Ray
+  { move = 0xB1FBC783, level = 1 },                         # Reflect Buster
+  { move = 0x2F78EA0D, level = 10 },                        # Triangle Z
 ]
 
   [[edit.cards]]

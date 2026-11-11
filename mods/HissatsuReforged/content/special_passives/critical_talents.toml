@@ -1,0 +1,13 @@
+schema = "VRFW.passive/1"
+# The critical talents of Inazuma Eleven GO Chrono Stone as passives (docs/game/ideas/brecha-critical-rework.md).
+
+# «Lance crítico»: carried by the game's build 0 passive ps10052 / ps10053
+[[VRFW.Passive]]
+name = "critical_lance"
+blocks = ["own_critical_rate_plus_50"]
+carried_by = ["ps10052", "ps10053", "hps10053"]
+
+# «Gafe»: declared only, no passive carries it and no rival has it
+[[VRFW.Passive]]
+name = "jinx"
+blocks = ["own_critical_power_plus_100", "own_not_critical_power_minus_50"]

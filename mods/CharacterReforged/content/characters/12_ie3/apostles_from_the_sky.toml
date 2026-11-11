@@ -82,9 +82,9 @@ moves = [
 target = "c03034060"                                   # Sachinel
 moves = [
   { move = 0x6E53E2B3, level = 1 },                         # Angel Ball
+  { move = 0x6633159F, level = 20 },                        # Gravitation
   { move = 0x3A3634AD, level = 57 },                        # Excalibur
   { move = 0x21127474, level = 75 },                        # Ultra Moon
-  { move = 0x6633159F, level = 85 },                        # Gravitation
 ]
 
   [[edit.cards]]
@@ -129,7 +129,7 @@ moves = [
 target = "c03034090"                                   # Nuel
 moves = [
   { move = 0x6E53E2B3, level = 1 },                         # Angel Ball
-  { move = 0x79E3E635, level = 11 },                        # Racing Flame
+  { move = 0x79E3E635, level = 1 },                         # Racing Flame
   { move = 0x8EDFBC29, level = 61 },                        # Double Jaw
   { move = 0x47380F29, level = 69 },                        # Echo Ball
 ]
@@ -144,7 +144,7 @@ moves = [
 target = "c03034100"                                   # Gaiel
 moves = [
   { move = 0x0AC37488, level = 1 },                         # Heavenly Drive
-  { move = 0x3A4FFB6C, level = 11 },                        # The Ikaros
+  { move = 0x3A4FFB6C, level = 1 },                         # The Ikaros
   { move = 0x27D9B69F, level = 43 },                        # Prima Donna
   { move = 0x035C1112, level = 60 },                        # Gungnir
 ]
@@ -160,7 +160,7 @@ target = "c03034110"                                   # Sanctus
 moves = [
   { move = 0x0AC37488, level = 1 },                         # Heavenly Drive
   { move = 0x21127474, level = 60 },                        # Ultra Moon
-  { move = 0xF72534DE, level = 70 },                        # Shadow Ray
+  { move = 0xF72534DE, level = 60 },                        # Shadow Ray
   { move = 0x3A3634AD, level = 75 },                        # Excalibur
 ]
 

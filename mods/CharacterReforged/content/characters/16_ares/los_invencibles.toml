@@ -10,29 +10,29 @@ growth = "normal"
   id = 0xDF79536D                                         # MF/FW · mountain
   stats = { kick = 284, control = 259, technique = 289, pressure = 190, physical = 193, intelligence = 259, agility = 166, freedom = 225 }
   moves = [
-    { move = 0x6813360B, level = 1 },                       # Diamond Ray
-    { move = 0x8C58A9CE, level = 13 },                      # Formidable Fortress
+    { move = 0x6813360B, level = 13 },                      # Diamond Ray
     { move = 0x0DBD9938, level = 20 },                      # Diamond Cutter
-    { move = 0x0FFB2761, level = 30 },                      # Perseus Strike
+    { move = 0x8C58A9CE, level = 30 },                      # Formidable Fortress
+    { move = 0x0FFB2761, level = 38 },                      # Perseus Strike
   ]
 
   [[edit.cards]]
   id = 0xC09FD427                                         # DF/FW · forest
   stats = { kick = 246, control = 204, technique = 220, pressure = 228, physical = 248, intelligence = 305, agility = 180, freedom = 225 }
   moves = [
-    { move = 0x6813360B, level = 1 },                       # Diamond Ray
-    { move = 0x8C58A9CE, level = 13 },                      # Formidable Fortress
+    { move = 0x6813360B, level = 13 },                      # Diamond Ray
     { move = 0x0DBD9938, level = 20 },                      # Diamond Cutter
-    { move = 0x0FFB2761, level = 30 },                      # Perseus Strike
+    { move = 0x8C58A9CE, level = 30 },                      # Formidable Fortress
+    { move = 0x0FFB2761, level = 38 },                      # Perseus Strike
   ]
 
 [[edit]]
 target = "c07130020"                                   # Joan Asensi
 moves = [
-  { move = 0x41F3CDC2, level = 1 },                         # Scorching Tackle
-  { move = 0xBDAE2862, level = 13 },                        # Hellfire
-  { move = 0x3F8BFBBA, level = 20 },                        # Double-Trouble
-  { move = 0xEE3E059F, level = 30 },                        # Celestial Smash
+  { move = 0x3F8BFBBA, level = 13 },                        # Double-Trouble
+  { move = 0xEE3E059F, level = 20 },                        # Celestial Smash
+  { move = 0x41F3CDC2, level = 30 },                        # Scorching Tackle
+  { move = 0xBDAE2862, level = 38 },                        # Hellfire
 ]
 
   [[edit.cards]]
@@ -45,10 +45,10 @@ moves = [
 [[edit]]
 target = "c07130030"                                   # Leo Segarra
 moves = [
-  { move = 0x245D62F1, level = 1 },                         # Attack Scan
   { move = 0x3F8BFBBA, level = 13 },                        # Double-Trouble
   { move = 0x65766A4F, level = 20 },                        # Meteor Blade
-  { move = 0xB7300568, level = 30 },                        # Double Tornado
+  { move = 0x245D62F1, level = 30 },                        # Attack Scan
+  { move = 0xB7300568, level = 38 },                        # Double Tornado
 ]
 
   [[edit.cards]]
@@ -60,10 +60,10 @@ moves = [
 [[edit]]
 target = "c07130110"                                   # Salvador Castell
 moves = [
-  { move = 0xCD6AEF2D, level = 1 },                         # All-Star
   { move = 0x0079EF5E, level = 13 },                        # Wetsuit
   { move = 0xDBA0E5E3, level = 20 },                        # Gigant Wall
   { move = 0x406CDEE8, level = 30 },                        # Omega Hand
+  { move = 0xCD6AEF2D, level = 38 },                        # All-Star
 ]
 
   [[edit.cards]]

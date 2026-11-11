@@ -196,21 +196,27 @@ do
     pcall(VRFW.face_icon.forget, L, k)
   end
 
-  function BetterQoL.combo_partners.face(L, k, chara, mesh, slot)
+  -- Draws entry e's face: by its player handle when it has one (the avatar's own face needs it), else by chara.
+  function BetterQoL.combo_partners.face(L, k, e, mesh, slot)
     local id = tostring(L) .. ":" .. tostring(k)
-    local want = chara or 0
+    local want = e and e.chara or 0
+    local hdl = e and e.hdl or 0
     local bound = BetterQoL.combo_partners.FACES[id]
-    if bound ~= nil and bound.chara == want then
+    if bound ~= nil and bound.chara == want and bound.hdl == hdl then
       return bound.drawn
     end
     VRFW.face_icon.forget(L, k)
-    local drawn = want ~= 0 and VRFW.face_icon.face(L, k, want, mesh, slot) ~= false
+    local who = want
+    if hdl ~= 0 then
+      who = {handle = hdl, kind = 255, chara = want}
+    end
+    local drawn = want ~= 0 and VRFW.face_icon.face(L, k, who, mesh, slot) ~= false
     if not drawn then
       VRFW.host.menu_command(BetterQoL.combo_partners.R.RESET_FACE, L, k, slot)
       VRFW.host.menu_command(558735651, L, BetterQoL.combo_partners.ICON_TEX, BetterQoL.combo_partners.UNKNOWN_SPR, slot, 0, k)
       VRFW.host.menu_command(3405944500, L, mesh, true, k)
     end
-    BetterQoL.combo_partners.FACES[id] = {chara = want, drawn = drawn}
+    BetterQoL.combo_partners.FACES[id] = {chara = want, hdl = hdl, drawn = drawn}
     return drawn
   end
 
@@ -250,7 +256,7 @@ do
     BetterQoL.combo_partners.place(L, k, R.FACE, R.FACE_AT)
     BetterQoL.combo_partners.place(L, k, R.ELEM, R.ELEM_AT)
     BetterQoL.combo_partners.place(L, k, R.POS, R.POS_AT)
-    BetterQoL.combo_partners.face(L, k, e.chara, R.FACE, R.FACE_SLOT)
+    BetterQoL.combo_partners.face(L, k, e, R.FACE, R.FACE_SLOT)
     local elem = false
     if e.chara ~= nil and e.chara ~= 0 and type(e.element) == "number" then
       local own = BetterQoL.combo_partners.ELEM_SPR[e.element]
@@ -952,7 +958,7 @@ do
     for _, t in ipairs(F.ROW_TEXTS) do
       pcall(funcLuaMenuCommand, 2735666188 --[[text visible]], L, t, false, i)
     end
-    local face = BetterQoL.combo_partners.face(L, i, e.chara, R.FACE, R.FACE_SLOT)
+    local face = BetterQoL.combo_partners.face(L, i, e, R.FACE, R.FACE_SLOT)
     BetterQoL.combo_partners.place(L, i, F.PLATE_MESH, F.PLATE_FRAME)
     pcall(funcLuaMenuCommand, 558735651, L, F.PLATE_TEXTURE, F.PLATE_SPRITE, F.PLATE_SLOT, 0, i)
     pcall(funcLuaMenuCommand, 3405944500, L, F.PLATE_MESH, true, i)

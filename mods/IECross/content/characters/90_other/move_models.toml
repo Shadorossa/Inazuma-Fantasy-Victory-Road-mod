@@ -10,9 +10,10 @@ battle = false
   [character.base]
   id = 0xF7D4693C
   name = "ev60_95000"
+  name_text = 0x6F7AB9BE                                  # The name text key name_ev60_95000, as in the IEVRCROSS mod.
 
   [character.new_model]
-  id = 0xFDDF11E9
+  id = 0xF6963F5C                                       # crc32 of mdl_ev60_95000, the game's model id form.
   from = 0xCB5105C3                                       # model of ev60_00400
   order = 11
   [character.new_model.cells]
@@ -27,9 +28,10 @@ battle = false
   [character.base]
   id = 0xF616030B
   name = "ev60_95100"
+  name_text = 0x6EB8D389                                  # The name text key name_ev60_95100, as in the IEVRCROSS mod.
 
   [character.new_model]
-  id = 0xFC1D7BDE
+  id = 0xF754556B                                       # crc32 of mdl_ev60_95100, the game's model id form.
   from = 0xCB5105C3                                       # model of ev60_00400
   order = 12
   [character.new_model.cells]
@@ -44,9 +46,10 @@ battle = false
   [character.base]
   id = 0xC5E20BBE
   name = "ev60_95020"
+  name_text = 0x5D4CDB3C                                  # The name text key name_ev60_95020, as in the IEVRCROSS mod.
 
   [character.new_model]
-  id = 0xCFE9736B
+  id = 0xC4A05DDE                                       # crc32 of mdl_ev60_95020, the game's model id form.
   from = 0xAA72D642                                       # model of ev60_00340
   order = 13
   [character.new_model.cells]
@@ -61,9 +64,10 @@ battle = false
   [character.base]
   id = 0xDCF93AFF
   name = "ev60_95030"
+  name_text = 0x4457EA7D                                  # The name text key name_ev60_95030, as in the IEVRCROSS mod.
 
   [character.new_model]
-  id = 0xD6F2422A
+  id = 0xDDBB6C9F                                       # crc32 of mdl_ev60_95030, the game's model id form.
   from = 0xAA72D642                                       # model of ev60_00340
   order = 14
   [character.new_model.cells]
@@ -78,9 +82,10 @@ battle = false
   [character.base]
   id = 0x80D359AA
   name = "ev60_95001"
+  name_text = 0x187D8928                                  # The name text key name_ev60_95001, as in the IEVRCROSS mod.
 
   [character.new_model]
-  id = 0x8AD8217F
+  id = 0x81910FCA                                       # crc32 of mdl_ev60_95001, the game's model id form.
   from = 0xCB5105C3                                       # model of ev60_00400
   order = 80
   [character.new_model.cells]
@@ -95,9 +100,10 @@ battle = false
   [character.base]
   id = 0xB2E53B28
   name = "ev60_95021"
+  name_text = 0x2A4BEBAA                                  # The name text key name_ev60_95021, as in the IEVRCROSS mod.
 
   [character.new_model]
-  id = 0xB8EE43FD
+  id = 0xB3A76D48                                       # crc32 of mdl_ev60_95021, the game's model id form.
   from = 0xAA72D642                                       # model of ev60_00340
   order = 81
   [character.new_model.cells]
@@ -112,9 +118,10 @@ battle = false
   [character.base]
   id = 0x927AC60F
   name = "ev60_95140"
+  name_text = 0x0AD4168D                                  # The name text key name_ev60_95140, as in the IEVRCROSS mod.
 
   [character.new_model]
-  id = 0x9871BEDA
+  id = 0x9338906F                                       # crc32 of mdl_ev60_95140, the game's model id form.
   from = 0xCB5105C3                                       # model of ev60_00400
   order = 82
   [character.new_model.cells]

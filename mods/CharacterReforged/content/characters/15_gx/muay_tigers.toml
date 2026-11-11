@@ -5,8 +5,8 @@ target = "c06031010"                                   # Udom Kaochuea
 moves = [
   { move = 0x1C2DC89A, level = 1 },                         # Menace Elbow
   { move = 0x58B5859E, level = 18 },                        # Whip Crack
+  { move = 0x4AF2F3E2, level = 38 },                        # Bridge to Nowhere
   { move = 0xDBA0E5E3, level = 44 },                        # Gigant Wall
-  { move = 0x4AF2F3E2, level = 54 },                        # Bridge to Nowhere
 ]
 
   [[edit.cards]]
@@ -20,8 +20,8 @@ target = "c06031020"                                   # Yuth Poonlarp
 moves = [
   { move = 0x179492C5, level = 1 },                         # Center Scythe Slice
   { move = 0x457EB170, level = 29 },                        # Pyrokinetic
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
   { move = 0x3663DB4C, level = 39 },                        # Utter Gutsiness Bat
-  { move = 0x613ABD43, level = 49 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -36,8 +36,8 @@ target = "c06031030"                                   # Napa Rattana
 moves = [
   { move = 0x179492C5, level = 1 },                         # Center Scythe Slice
   { move = 0xDBFD9CFE, level = 31 },                        # Big Ball Trick
+  { move = 0x78218C02, level = 38 },                        # Duskfall
   { move = 0x25276CB9, level = 53 },                        # Solar Surprise
-  { move = 0x78218C02, level = 63 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -68,8 +68,8 @@ target = "c06031050"                                   # Solada Kulkit
 moves = [
   { move = 0x660EED1E, level = 1 },                         # Low Scythe Slice
   { move = 0x3EC287DE, level = 17 },                        # Bubble Gum
+  { move = 0x105C91A7, level = 30 },                        # Slingshot
   { move = 0x14D1ED15, level = 42 },                        # Jumping Jack
-  { move = 0x105C91A7, level = 52 },                        # Slingshot
 ]
 
   [[edit.cards]]
@@ -85,7 +85,7 @@ moves = [
   { move = 0x660EED1E, level = 1 },                         # Low Scythe Slice
   { move = 0x179492C5, level = 8 },                         # Center Scythe Slice
   { move = 0xDDCA0D2A, level = 35 },                        # Bouncing Bomb
-  { move = 0xB60E3C60, level = 45 },                        # Plasma Cut
+  { move = 0xB60E3C60, level = 38 },                        # Plasma Cut
 ]
 
   [[edit.cards]]
@@ -101,7 +101,7 @@ moves = [
   { move = 0x660EED1E, level = 1 },                         # Low Scythe Slice
   { move = 0x179492C5, level = 7 },                         # Center Scythe Slice
   { move = 0xD6649385, level = 23 },                        # Tusk Force
-  { move = 0x485150D9, level = 33 },                        # Body Shield
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -148,7 +148,7 @@ moves = [
   { move = 0x660EED1E, level = 1 },                         # Low Scythe Slice
   { move = 0xD6649385, level = 10 },                        # Tusk Force
   { move = 0xCABBA212, level = 30 },                        # Menacing Glare
-  { move = 0x81FC5E34, level = 40 },                        # Driving Header
+  { move = 0x9FEEC7A9, level = 40 },                        # Gigaton Head
 ]
 
   [[edit.cards]]
@@ -176,10 +176,10 @@ moves = [
 [[edit]]
 target = "c11806030"                                   # Rashiri Saran
 moves = [
-  { move = 0x47657634, level = 1 },                         # Flame Breath
-  { move = 0x58B5859E, level = 11 },                        # Whip Crack
-  { move = 0xA9062A29, level = 21 },                        # Ultrasonic
-  { move = 0xC13F00CC, level = 31 },                        # Flower Power
+  { move = 0x47657634, level = 13 },                        # Flame Breath
+  { move = 0x58B5859E, level = 20 },                        # Whip Crack
+  { move = 0xA9062A29, level = 30 },                        # Ultrasonic
+  { move = 0xC13F00CC, level = 38 },                        # Flower Power
 ]
 
   [[edit.cards]]

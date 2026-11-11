@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c04000490_5000"                              # Howie Itzer
 moves = [
-  { move = 0x20D01E43, level = 1 },                         # Hey Presto
+  { move = 0x20D01E43, level = 19 },                        # Hey Presto
   { move = 0xD8794890, level = 24 },                        # Kangaroo Kick
   { move = 0xC324C788, level = 34 },                        # Blast Mine
   { move = 0xA3392D01, level = 62 },                        # Rainbow Bubble Burst
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c04000410"                                   # Lance Speares
 moves = [
-  { move = 0x5B3151F0, level = 1 },                         # Nitro Slap
+  { move = 0x5B3151F0, level = 7 },                         # Nitro Slap
   { move = 0x58B5859E, level = 12 },                        # Whip Crack
   { move = 0xB01D1B68, level = 31 },                        # Power Spike
-  { move = 0xA7157B91, level = 41 },                        # Power Shield
+  { move = 0xA7157B91, level = 31 },                        # Power Shield
 ]
 
   [[edit.cards]]
@@ -33,8 +33,8 @@ moves = [
 [[edit]]
 target = "c04000420"                                   # Dirk Anlace
 moves = [
-  { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
-  { move = 0xA37D1A41, level = 16 },                        # Hyper-Swiper
+  { move = 0x2E7B2B84, level = 6 },                         # Thief's Eye
+  { move = 0xA37D1A41, level = 6 },                         # Hyper-Swiper
   { move = 0x737DCB3F, level = 25 },                        # Pancake Defence
   { move = 0x5739C70C, level = 52 },                        # Guided Collide
 ]
@@ -49,9 +49,9 @@ moves = [
 [[edit]]
 target = "c04000430"                                   # Clay Moor
 moves = [
-  { move = 0xF6E75EE9, level = 1 },                         # Headbanger
+  { move = 0xF6E75EE9, level = 12 },                        # Headbanger
   { move = 0x05567847, level = 22 },                        # Runaway Train
-  { move = 0x79E3E635, level = 32 },                        # Racing Flame
+  { move = 0x79E3E635, level = 22 },                        # Racing Flame
   { move = 0x24E5068E, level = 35 },                        # Fractal Repeller
 ]
 
@@ -65,10 +65,10 @@ moves = [
 [[edit]]
 target = "c04000440"                                   # Nun Chuck
 moves = [
-  { move = 0x457EB170, level = 1 },                         # Pyrokinetic
+  { move = 0x457EB170, level = 22 },                        # Pyrokinetic
   { move = 0x17110E3B, level = 27 },                        # Jumbo Sandwich
   { move = 0x585098FC, level = 44 },                        # Slice and Dice
-  { move = 0x179492C5, level = 54 },                        # Center Scythe Slice
+  { move = 0x179492C5, level = 44 },                        # Center Scythe Slice
 ]
 
   [[edit.cards]]
@@ -81,9 +81,9 @@ moves = [
 [[edit]]
 target = "c04000450"                                   # Spike Stiletto
 moves = [
-  { move = 0x457EB170, level = 1 },                         # Pyrokinetic
+  { move = 0x457EB170, level = 22 },                        # Pyrokinetic
   { move = 0x4A17EE80, level = 39 },                        # Hunter's Net
-  { move = 0x79E3E635, level = 49 },                        # Racing Flame
+  { move = 0x79E3E635, level = 39 },                        # Racing Flame
   { move = 0x7D6E9A87, level = 62 },                        # The Wall
 ]
 
@@ -96,10 +96,10 @@ moves = [
 [[edit]]
 target = "c04000460"                                   # Bilbo Baton
 moves = [
-  { move = 0x928B9BED, level = 1 },                         # Optimal Trajectory
+  { move = 0x928B9BED, level = 6 },                         # Optimal Trajectory
   { move = 0x12E67CC1, level = 13 },                        # Future Eye
   { move = 0x3C843987, level = 62 },                        # Flurry Dash
-  { move = 0x660EED1E, level = 72 },                        # Low Scythe Slice
+  { move = 0x660EED1E, level = 62 },                        # Low Scythe Slice
 ]
 
   [[edit.cards]]
@@ -112,7 +112,7 @@ moves = [
 [[edit]]
 target = "c04000470"                                   # Jack Knife
 moves = [
-  { move = 0x457EB170, level = 1 },                         # Pyrokinetic
+  { move = 0x457EB170, level = 15 },                        # Pyrokinetic
   { move = 0x4031A7F5, level = 18 },                        # Mole Fake
   { move = 0x20D01E43, level = 26 },                        # Hey Presto
   { move = 0xBBE07677, level = 35 },                        # Sidewinder
@@ -127,8 +127,8 @@ moves = [
 [[edit]]
 target = "c04000480"                                   # Bayonet Gunne
 moves = [
-  { move = 0xDF8CB373, level = 1 },                         # Sonic Shot
-  { move = 0xB0BC314A, level = 14 },                        # Spin Meister
+  { move = 0xDF8CB373, level = 4 },                         # Sonic Shot
+  { move = 0xB0BC314A, level = 4 },                         # Spin Meister
   { move = 0x457EB170, level = 22 },                        # Pyrokinetic
   { move = 0x5643C944, level = 31 },                        # Killer Slide
 ]
@@ -143,7 +143,7 @@ moves = [
 [[edit]]
 target = "c04000490"                                   # Howie Itzer
 moves = [
-  { move = 0x20D01E43, level = 1 },                         # Hey Presto
+  { move = 0x20D01E43, level = 19 },                        # Hey Presto
   { move = 0xD8794890, level = 24 },                        # Kangaroo Kick
   { move = 0xC324C788, level = 34 },                        # Blast Mine
   { move = 0xA3392D01, level = 62 },                        # Rainbow Bubble Burst
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c04000510"                                   # Flam Berger
 moves = [
-  { move = 0x8A52C09B, level = 1 },                         # Doomsword Slash
+  { move = 0x8A52C09B, level = 11 },                        # Doomsword Slash
+  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
   { move = 0x1755397B, level = 82 },                        # Dark Energy Star
-  { move = 0x9B916289, level = 92 },                        # Jurassic Jaws
-  { move = 0xDA3FF6C9, level = 99 },                        # Criss-Cross
+  { move = 0x9B916289, level = 82 },                        # Jurassic Jaws
 ]
 
   [[edit.cards]]
@@ -178,9 +178,9 @@ moves = [
 [[edit]]
 target = "c04000520"                                   # Matt Chetty
 moves = [
-  { move = 0xC636A810, level = 1 },                         # Combustion Catch
-  { move = 0xEBD03938, level = 21 },                        # Utter Gutsiness Catch
-  { move = 0xFD9FAF08, level = 31 },                        # Twist 'n' Clout
+  { move = 0xC636A810, level = 11 },                        # Combustion Catch
+  { move = 0xEBD03938, level = 11 },                        # Utter Gutsiness Catch
+  { move = 0xFD9FAF08, level = 19 },                        # Twist 'n' Clout
   { move = 0xF5C2A0A5, level = 48 },                        # Capoeira Grab
 ]
 
@@ -194,7 +194,7 @@ moves = [
 [[edit]]
 target = "c04000530"                                   # Harold Shields
 moves = [
-  { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
+  { move = 0xDDCA0D2A, level = 15 },                        # Bouncing Bomb
   { move = 0x457EB170, level = 22 },                        # Pyrokinetic
   { move = 0xC4D13C6B, level = 31 },                        # Katana Kick
   { move = 0xB60E3C60, level = 56 },                        # Plasma Cut
@@ -209,10 +209,10 @@ moves = [
 [[edit]]
 target = "c04000540"                                   # Hal Byrd
 moves = [
-  { move = 0x457EB170, level = 1 },                         # Pyrokinetic
+  { move = 0x457EB170, level = 22 },                        # Pyrokinetic
+  { move = 0xAD6E4BF9, level = 30 },                        # Harvest
   { move = 0xEFFC6FA8, level = 39 },                        # Warhead
   { move = 0xE11DE782, level = 45 },                        # Chrysanthemum Katana
-  { move = 0xAD6E4BF9, level = 55 },                        # Harvest
 ]
 
   [[edit.cards]]
@@ -225,10 +225,10 @@ moves = [
 [[edit]]
 target = "c04000550"                                   # Morgan Stern
 moves = [
-  { move = 0x0BFD4D80, level = 1 },                         # Grand Slam
+  { move = 0x0BFD4D80, level = 12 },                        # Grand Slam
   { move = 0xBBA44137, level = 22 },                        # Great Wall
   { move = 0x62BE692D, level = 39 },                        # Whirlwind Force
-  { move = 0x4E9A9232, level = 49 },                        # Spinning Cut
+  { move = 0x4E9A9232, level = 39 },                        # Spinning Cut
 ]
 
   [[edit.cards]]
@@ -241,10 +241,10 @@ moves = [
 [[edit]]
 target = "c04000560"                                   # Roman Ballista
 moves = [
-  { move = 0x0BFD4D80, level = 1 },                         # Grand Slam
+  { move = 0x0BFD4D80, level = 19 },                        # Grand Slam
   { move = 0x39CB2F02, level = 35 },                        # Dragster
-  { move = 0x9EA7BBCD, level = 45 },                        # Magmire
-  { move = 0x8A52C09B, level = 55 },                        # Doomsword Slash
+  { move = 0x9EA7BBCD, level = 35 },                        # Magmire
+  { move = 0x8A52C09B, level = 40 },                        # Doomsword Slash
 ]
 
   [[edit.cards]]

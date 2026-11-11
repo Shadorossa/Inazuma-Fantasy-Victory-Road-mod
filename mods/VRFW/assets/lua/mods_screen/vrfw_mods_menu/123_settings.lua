@@ -2,8 +2,8 @@ local Screen = VRFW.mods_screen
 if Screen == nil then
   return
 end
-local C, CE, Call, Crc, Cut, Draw, FN = Screen.C, Screen.CE, Screen.call, Screen.crc, Screen.cut, Screen.draw, Screen.FN
-local Fit, G, Hit, IconOf, Initials, Int = Screen.fit, Screen.G, Screen.hit, Screen.icon_of, Screen.initials, Screen.int
+local Ask, C, CE, Call, Crc, Cut, Draw, FN = Screen.ask, Screen.C, Screen.CE, Screen.call, Screen.crc, Screen.cut, Screen.draw, Screen.FN
+local Fit, G, Hit, Initials, Int = Screen.fit, Screen.G, Screen.hit, Screen.initials, Screen.int
 local Log, ModById, PopupButtons, PopupWindow = Screen.log, Screen.mod_by_id, Screen.popup_buttons, Screen.popup_window
 local Quad, RV, SE_MOVE, SE_NG, SP, Str = Screen.quad, Screen.RV, Screen.SE_MOVE, Screen.SE_NG, Screen.SP, Screen.str
 local T, TextIdKey, Txt, Units, Wrap, ui = Screen.T, Screen.text_id_key, Screen.txt, Screen.units, Screen.wrap, Screen.ui
@@ -19,10 +19,14 @@ function RV.option_rows()
   end
   all = {}
   for i = 1, Int(Call(RV.OPT.ROWS)) do
-    local k, kind, storage, label, fallback, get, set, _gated, _fixed, _parent, help, help_fb, category = Call(RV.OPT.ROW, i)
+    local k, kind, storage, label, fallback, get, set, _gated, _fixed, parent, help, help_fb, category, default, restart, started_with =
+      Call(RV.OPT.ROW, i)
     if type(k) == "string" then
       all[#all + 1] = {key = k, kind = Str(kind), storage = Str(storage), label = Int(label), fallback = Str(fallback),
-                       get = Int(get), set = Int(set), help = Int(help), help_fb = Str(help_fb), category = Int(category)}
+                       get = Int(get), set = Int(set), help = Int(help), help_fb = Str(help_fb), category = Int(category),
+                       default = type(default) == "number" and default or nil, restart = restart == true,
+                       parent = type(parent) == "string" and parent or nil,
+                       started_with = type(started_with) == "number" and started_with or nil}
     end
   end
   RV.cache.option_rows = all
@@ -110,17 +114,72 @@ function RV.value(r)
   return nil, false
 end
 
+-- The text of value `v`, its 0-based position among the row's values and how many values the row has (nil, nil without a value list).
 function RV.fmt(r, v)
   if r.module ~= nil then
     local k = v == 1 and "module_on" or "module_off"
-    return T(r.module.pending and (k .. "_next") or k)
+    return T(r.module.pending and (k .. "_next") or k), v, 2
   end
-  local id, fb = Call(RV.OPT.TEXT, r.key, v)
+  local id, fb, position, count = Call(RV.OPT.TEXT, r.key, v)
   if type(id) ~= "number" then
     return tostring(v)
   end
   local s = RV.text_of(id, Str(fb))
-  return s ~= "" and s or tostring(v)
+  if type(position) ~= "number" or type(count) ~= "number" then
+    position, count = nil, nil
+  end
+  return s ~= "" and s or tostring(v), position, count
+end
+
+-- Stores value `n` where row `r` keeps it; true when it was taken.
+function RV.store(r, n)
+  if r.storage == "command" then
+    return Call(r.set, n) == true
+  end
+  return Call(RV.OPT.SET, r.key, n) == true
+end
+
+-- What value `v` says about row `r`: it differs from the default, and it waits for a restart.
+function RV.row_state(r, v)
+  local changed = r.module == nil and r.default ~= nil and v ~= nil and v ~= r.default
+  local pending = r.restart == true and r.started_with ~= nil and v ~= nil and v ~= r.started_with
+  return changed, pending
+end
+
+-- Y on a setting: the focused row goes back to its default value.
+function RV.restore_default(m)
+  local r = RV.set_rows(m)[ui.popup.srow or 1]
+  local v, live = nil, false
+  if r ~= nil and r.module == nil then
+    v, live = RV.value(r)
+  end
+  local ok = live and (RV.row_state(r, v)) and RV.store(r, r.default)
+  funcLuaCommand(C.SE, ok and SE_MOVE or SE_NG)
+  if ok then
+    Log("setting", r.key, "default")
+  end
+  Draw()
+end
+
+-- X on the settings: after a yes, every changed setting of the mod and of its modules goes back to its default value.
+function RV.restore_mod(m)
+  local changed = {}
+  for _, r in ipairs(RV.set_rows(m)) do
+    if r.module == nil and (RV.row_state(r, (RV.value(r)))) then
+      changed[#changed + 1] = r
+    end
+  end
+  if #changed == 0 then
+    funcLuaCommand(C.SE, SE_NG)
+    return
+  end
+  if Ask(T("set_reset_ask", {n = #changed, name = m.name ~= "" and m.name or m.id})) then
+    for _, r in ipairs(changed) do
+      RV.store(r, r.default)
+    end
+    Log("settings", m.id, "defaults", #changed)
+  end
+  Draw()
 end
 
 -- the selected row's (or `row`'s) value one step in direction `dir` (±1), stored where the row keeps it
@@ -137,11 +196,7 @@ function RV.change(m, dir, row)
   if v ~= nil and live then
     n = Call(RV.OPT.STEP, r.key, v, dir)
     if type(n) == "number" and n ~= v then
-      if r.storage == "command" then
-        ok = Call(r.set, n) == true
-      else
-        ok = Call(RV.OPT.SET, r.key, n) == true
-      end
+      ok = RV.store(r, n)
     end
   end
   funcLuaCommand(C.SE, ok and SE_MOVE or SE_NG)
@@ -151,9 +206,34 @@ function RV.change(m, dir, row)
   Draw()
 end
 
-RV.HEAD_H, RV.ROW_H, RV.SET_ROWS, RV.SET_CHIPS = 34, 38, 12, 4
--- where a page draws its settings rows: quad / left text / centred text layers, section bar height, most chips
-RV.PAGE_ROW = {q = "P1", l = "PL", c = "PC", bar_h = RV.HEAD_H - 6, chips = RV.SET_CHIPS}
+RV.HEAD_H, RV.ROW_H, RV.SET_ROWS = 34, 46, 11
+-- where a page draws its settings rows: quad / left text / centred text layers, section bar height
+RV.PAGE_ROW = {q = "P1", l = "PL", c = "PC", bar_h = RV.HEAD_H - 6}
+-- The retail atlases a setting row is drawn from (the Options menu's row pieces, the list window's check box, the alert icons).
+RV.ART = {
+  option = "#/menu/108_option/option01/option01_02/option01_02.g4tx",
+  window = "#/menu/10_win/win05/win05_02/win05_02.g4tx",
+  alert = "#/menu/20_cmn/cmn01/cmn01_10/cmn01_10.g4tx",
+  changed = "#/menu/20_cmn/cmn01/cmn01_12/cmn01_12.g4tx",
+}
+-- A setting row's measures: child indent, where the value zone starts (share of the plate), check box side, mark side,
+-- the fewest values that draw a gauge, the opacity of a row that cannot change.
+RV.ROW = {CHILD_INDENT = 30, VALUE_FROM = 0.61, CHECK_SIDE = 26, MARK_SIDE = 24, GAUGE_MIN_VALUES = 8, LOCKED_OPACITY = 0.55,
+          LABEL_SCALE = 0.7, VALUE_SCALE = 0.66, NOTE_SCALE = 0.5}
+
+-- Sprite `sprite` of retail atlas `atlas` (a key of RV.ART) as a quad.
+function RV.art_quad(layer, atlas, sprite, x, y, w, h, alpha)
+  return Quad(layer, Crc(sprite), x, y, w, h, alpha, CE.texture(RV.ART[atlas]))
+end
+
+-- The retail check box at x, vertical middle cy: its base and, when on, its tick.
+function RV.draw_check(layer, x, cy, on, alpha)
+  local s = RV.ROW.CHECK_SIDE
+  RV.art_quad(layer, "window", "icon_check_base03", x, cy - s / 2, s, s, alpha)
+  if on then
+    RV.art_quad(layer, "window", "icon_check01", x - 2, cy - s / 2 - 4, s + 6, s + 6, alpha)
+  end
+end
 
 function RV.layout(m)
   local lines, group, category = {}, nil, 0
@@ -279,10 +359,7 @@ function RV.draw_group_bar(style, mm, x, y, w)
   local h = style.bar_h
   Quad(style.q, SP("row_head"), x, y, w, h)
   local name = RV.group_name(mm)
-  local ic = IconOf(mm)
-  if ic ~= nil then
-    Quad(style.q, ic[2], x + 8, y + 3, h - 6, h - 6, 1, ic[1])
-  else
+  if not CE.draw_icon(style.q, mm, x + 8, y + 3, h - 6, 1) then
     Txt(style.c, Initials({name = name, id = name}), x + 8 + (h - 6) / 2, y + h / 2, 0.5)
   end
   Txt(style.l, Cut(name, Fit(w - 80, 0.66)), x + h + 14, y + h / 2, 0.66)
@@ -294,32 +371,111 @@ function RV.draw_category_bar(style, category, x, y, w)
   Txt(style.l, Cut(name, Fit(w - 24, 0.58)), x + 12, y + style.bar_h / 2, 0.58)
 end
 
-function RV.draw_row(style, r, x, y, w, h, focused, chips)
-  local cy = y + h / 2
-  if focused then
-    CE.focus(style.q, x, y, w, h, 3)
+-- The value zone of a row (from x0 to x1): the picker arrows on the focused row, then a check box, a gauge or the value's text.
+function RV.draw_value(style, r, v, live, focused, x0, x1, y, h)
+  local R = RV.ROW
+  local cy, mid = y + h / 2, (x0 + x1) / 2
+  local ink = focused and "" or (live and "[CB]" or "[CWG]")
+  local close = ink ~= "" and "[C]" or ""
+  if r.module == nil and (r.kind == "lua" or r.storage == "lua") then
+    Txt(style.c, ink .. Cut(T("set_lua"), Fit(x1 - x0, R.NOTE_SCALE)) .. close, mid, cy, R.NOTE_SCALE)
+    return
   end
+  if v == nil then
+    Txt(style.c, ink .. T("set_unknown") .. close, mid, cy, R.VALUE_SCALE)
+    return
+  end
+  if focused and live then
+    RV.art_quad(style.q, "option", "btn_arrow_l01", x0 + 6, cy - 17, 28, 34)
+    RV.art_quad(style.q, "option", "btn_arrow_r01", x1 - 34, cy - 17, 28, 34)
+  end
+  local text, position, count = RV.fmt(r, v)
+  text = Cut(text, Fit(x1 - x0 - 130, R.VALUE_SCALE))
+  if count == 2 and (r.module ~= nil or r.kind == "toggle") then
+    local tw = Units(text) * G.PX * R.VALUE_SCALE
+    RV.draw_check(style.q, mid - tw / 2 - R.CHECK_SIDE, cy, v == 1, live and 1 or R.LOCKED_OPACITY)
+    Txt(style.c, ink .. text .. close, mid + 14, cy, R.VALUE_SCALE)
+  elseif count ~= nil and count >= R.GAUGE_MIN_VALUES then
+    Txt(style.c, ink .. text .. close, mid, cy - 6, R.VALUE_SCALE)
+    local gx, gw = x0 + 52, x1 - x0 - 104
+    RV.art_quad(style.q, "option", "gauge_base01", gx, y + h - 11, gw, 6)
+    local fill = math.floor(gw * position / (count - 1))
+    if fill > 0 then
+      RV.art_quad(style.q, "option", "gauge_bar01", gx, y + h - 11, fill, 6)
+    end
+  else
+    Txt(style.c, ink .. text .. close, mid, cy, R.VALUE_SCALE)
+  end
+end
+
+-- The value zone (x0, x1) of row r drawn at x, w wide (a child row is indented).
+function RV.value_zone(r, x, w)
+  if r.parent ~= nil then
+    x, w = x + RV.ROW.CHILD_INDENT, w - RV.ROW.CHILD_INDENT
+  end
+  return x + math.floor(w * RV.ROW.VALUE_FROM), x + w - 20
+end
+
+-- One setting row in the Options menu's look: plate (the child plate under a parent row), changed mark, label, restart mark, default, value.
+function RV.draw_row(style, r, x, y, w, h, focused)
+  local R = RV.ROW
+  local x0, x1 = RV.value_zone(r, x, w)
+  local v, live = RV.value(r)
+  local child = r.parent ~= nil
+  if child then
+    x, w = x + R.CHILD_INDENT, w - R.CHILD_INDENT
+  end
+  local cy = y + h / 2
+  RV.art_quad(style.q, "option", (child and "option_list_base03_" or "option_list_base02_") .. (focused and "on" or "off"), x, y, w, h,
+              live and 1 or R.LOCKED_OPACITY)
+  local ink = focused and "" or (live and "[CB]" or "[CWG]")
+  local close = ink ~= "" and "[C]" or ""
+  local changed, pending = RV.row_state(r, v)
+  local tx = x + (child and math.floor(w * 0.085) or 36)
+  if changed then
+    RV.art_quad(style.q, "changed", "icon_new03", tx - R.MARK_SIDE - 4, cy - R.MARK_SIDE / 2, R.MARK_SIDE, R.MARK_SIDE)
+  end
+  local right = x0 - 12
+  if changed then
+    -- The default value ends where the value zone starts.
+    local s = Cut(T("set_default_is", {v = (RV.fmt(r, r.default))}), Fit(170, R.NOTE_SCALE))
+    right = right - math.floor(Units(s) * G.PX * R.NOTE_SCALE)
+    Txt(style.l, (focused and "" or "[CWG]") .. s .. (focused and "" or "[C]"), right, cy, R.NOTE_SCALE)
+    right = right - 12
+  end
+  local note = pending and T("set_on_restart") or nil
+  local room = right - tx - (r.restart and (R.MARK_SIDE + 10) or 0) - (note ~= nil and math.floor(Units(note) * G.PX * R.NOTE_SCALE) + 8 or 0)
   local label, chip = RV.set_label(r)
-  local tx = x + 12
-  if chip ~= nil and chips.n < style.chips then
-    chips.n = chips.n + 1
-    local cw = math.min(140, math.floor(Units(chip) * G.PX * 0.52) + 22)
-    Quad(style.q, SP("pill_blue"), tx, cy - 12, cw, 24)
-    Txt(style.c, Cut(chip, Fit(cw - 10, 0.52)), tx + cw / 2, cy, 0.52)
-    tx = tx + cw + 10
-  elseif chip ~= nil then
+  if chip ~= nil then
     label = chip .. " · " .. label
   end
-  local bx, bw = x + w - G.SET_VAL_W - 8, G.SET_VAL_W
-  Txt(style.l, "[CB]" .. Cut(label, Fit(bx - tx - 16, 0.66)) .. "[C]", tx, cy, 0.66)
-  local v, live = RV.value(r)
-  if r.kind == "lua" or r.storage == "lua" then
-    Txt(style.c, "[CWG]" .. Cut(T("set_lua"), Fit(bw, 0.5)) .. "[C]", bx + bw / 2, cy, 0.5)
-  elseif v == nil then
-    Txt(style.c, "[CWG]" .. T("set_unknown") .. "[C]", bx + bw / 2, cy, 0.6)
-  else
-    Quad(style.q, SP((focused and live) and "val_sel" or "val"), bx, cy - 15, bw, 30)
-    Txt(style.c, (live and "[CB]" or "[CWG]") .. Cut(RV.fmt(r, v), Fit(bw - 60, 0.62)) .. "[C]", bx + bw / 2, cy, 0.62)
+  label = Cut(label, Fit(room, R.LABEL_SCALE))
+  Txt(style.l, ink .. label .. close, tx, cy, R.LABEL_SCALE)
+  if r.restart then
+    local mx = tx + math.floor(Units(label) * G.PX * R.LABEL_SCALE) + 10
+    RV.art_quad(style.q, "alert", "icon_error01", mx, cy - R.MARK_SIDE / 2, R.MARK_SIDE, R.MARK_SIDE)
+    if note ~= nil then
+      Txt(style.l, (focused and "" or "[CY]") .. note .. (focused and "" or "[C]"), mx + R.MARK_SIDE + 6, cy, R.NOTE_SCALE)
+    end
+  end
+  RV.draw_value(style, r, v, live, focused, x0, x1, y, h)
+end
+
+-- The value lines of a setting's sheet from y: now, default and, on a restart row, when a change applies.
+function RV.draw_set_values(style, r, x, y)
+  local v = RV.value(r)
+  local lines = {}
+  if v ~= nil then
+    lines[#lines + 1] = {"set_now", (RV.fmt(r, v))}
+    if r.module == nil and r.default ~= nil then
+      lines[#lines + 1] = {"set_default", (RV.fmt(r, r.default))}
+    end
+  end
+  if r.restart then
+    lines[#lines + 1] = {"set_applies", T("set_on_restart")}
+  end
+  for k, l in ipairs(lines) do
+    Txt(style.l, "[CWG]" .. T(l[1]) .. ":[C]  [CB]" .. Cut(l[2], 40) .. "[C]", x, y + (k - 1) * 30, 0.64)
   end
 end
 
@@ -343,21 +499,26 @@ function RV.draw_set_sheet(style, r, owner, x, ty, w)
   for k, l in ipairs(Wrap(help ~= "" and help or T("set_no_help"), Fit(w, 0.64), G.SET_HELP_LINES)) do
     Txt(style.l, (help ~= "" and "[CB]" or "[CWG]") .. l .. "[C]", x, ty + (k - 1) * 30, 0.64)
   end
+  RV.draw_set_values(style, r, x, ty + G.SET_HELP_LINES * 30 + 14)
 end
 
--- the focused setting's sheet at the right of a page: a blue bar with its label, then the sheet
-function RV.draw_set_pane(r)
-  local x, w, y = G.MOD_PANE_X, G.MOD_PANE_W, RV.body_y() + 14
-  local hh = G.MOD_PANE_HEAD
+-- the focused setting's strip under a page's rows (y = its top): a bar with its label, its help at the left, its values at the right
+function RV.draw_set_strip(r, x, y, w)
+  local hh = 40
   Quad("P1", SP("hbar"), x, y, w, hh)
-  Txt("PL", Cut((RV.set_label(r)), Fit(w - 40, 0.74)), x + 20, y + hh / 2, 0.74)
-  RV.draw_set_sheet(RV.PAGE_ROW, r, nil, x + 20, y + hh + 26, w - 40)
+  Txt("PL", Cut((RV.set_label(r)), Fit(w - 40, 0.72)), x + 20, y + hh / 2, 0.72)
+  local hw = math.floor(w * 0.64)
+  local help = RV.set_help(r)
+  for k, l in ipairs(Wrap(help ~= "" and help or T("set_no_help"), Fit(hw - 20, 0.62), G.SET_STRIP_LINES)) do
+    Txt("PL", (help ~= "" and "[CB]" or "[CWG]") .. l .. "[C]", x + 20, y + hh + 24 + (k - 1) * 30, 0.62)
+  end
+  RV.draw_set_values(RV.PAGE_ROW, r, x + hw + 20, y + hh + 24)
 end
 
 function RV.draw_settings(m)
   local rows = RV.set_rows(m)
   local px, py = G.WIN_X + 32, RV.body_y() + 14
-  local w = G.MOD_LIST_W
+  local w = G.WIN_W - 64
   if #rows == 0 then
     local why = (m.enabled and m.state == 0 and not m.pending) and "set_none" or "set_inactive"
     for i, l in ipairs(Wrap(T(why), Fit(G.WIN_W - 80, 0.8), 3)) do
@@ -369,7 +530,8 @@ function RV.draw_settings(m)
   local sel = math.max(1, math.min(p.srow or 1, #rows))
   p.srow = sel
   local lines = RV.layout(m)
-  local bottom = RV.foot_y() - 40     -- above the page line and the shortcut bar
+  local strip_y = RV.foot_y() - G.SET_STRIP_H
+  local bottom = strip_y - 40         -- above the page line and the focused setting's strip
   local avail = bottom - py
   -- scroll: the selected line on the page (with its section bar when it is right above)
   local sl = RV.where(lines, sel) or 1
@@ -392,7 +554,7 @@ function RV.draw_settings(m)
     top = top + 1
   end
   p.stop = top
-  local y, first, last, drawn, chips = py, nil, nil, 0, {n = 0}
+  local y, first, last, drawn = py, nil, nil, 0
   for k = top, #lines do
     local l = lines[k]
     local need = l.h
@@ -414,8 +576,15 @@ function RV.draw_settings(m)
     else
       local n = l.items[1]
       first, last, drawn = first or n, n, drawn + 1
-      RV.draw_row(RV.PAGE_ROW, rows[n], px, y, w, RV.ROW_H - 4, p.szone ~= "buttons" and n == sel, chips)
+      local foc = CE.page_focused() and p.szone ~= "buttons" and n == sel
+      RV.draw_row(RV.PAGE_ROW, rows[n], px, y, w, RV.ROW_H - 4, foc)
       Hit(px, y, w, RV.ROW_H - 4, "set" .. n, function() RV.activate(m, n) end)   -- hover moves p.srow too (Hover)
+      if foc then
+        -- A click on a picker arrow of the focused row steps its value back or on.
+        local x0, x1 = RV.value_zone(rows[n], px, w)
+        Hit(x0, y, 40, RV.ROW_H - 4, "arrow_l", function() RV.change(m, -1, rows[n]) end)
+        Hit(x1 - 40, y, 40, RV.ROW_H - 4, "arrow_r", function() RV.change(m, 1, rows[n]) end)
+      end
     end
     y = y + l.h
   end
@@ -425,7 +594,7 @@ function RV.draw_settings(m)
     note = T("report_rows", {n = first, c = last, t = #rows}) .. "   ·   " .. note
   end
   Txt("PL", "[CWG]" .. Cut(note, Fit(w, 0.58)) .. "[C]", px, bottom + 20, 0.58)
-  RV.draw_set_pane(rows[sel])
+  RV.draw_set_strip(rows[sel], px, strip_y, w)
 end
 
 -- a mod's own rows: rows with no category first, then each category together in the order its first row is declared

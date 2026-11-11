@@ -1,9 +1,43 @@
 schema = "VRFW.technique/3"
 
-# The armours of Victory Road's own warrior spirits are hidden while Inazuma Fantasy is active, except the two armours of Victoria.
+# The armours of Victory Road's own warrior spirits are off while Inazuma Fantasy is active, except the two armours of Victoria.
 # Victory Road's own spirits are wks02010 Victoria, wks02020 Crystal Rabbit, wko02030 Entertainer, wkd02040 Warborg, wks02050 Robin and wks02060 Nike, and the game has no armour for any of them.
-# Their armours are this mod's own aura commands in warrior_spirits.toml, and was_fantasy_k002010 and was_fantasy_k002011 (Victoria) are left out of this rule.
-# Matches = true keeps them out of every match move list, because a bearer gets an armour from its spirit and not from a learn list or a shop.
-[[VRFW.Unobtainable]]
-Techniques = ["was_fantasy_k002020", "was_fantasy_k002030", "was_fantasy_k002040", "was_fantasy_k002050", "was_fantasy_k002060"]
-Matches = true
+# An armour is this mod's own aura command plus its transform in addons/CharacterReforged/content/transforms, and a spirit without both has no armour anywhere.
+# The five aura commands below are off, and removing the comment marks here and in the five transform files brings them back.
+# was_fantasy_k002010 and was_fantasy_k002011 (Victoria) stay declared in warrior_spirits.toml.
+# ```
+# The armour of the keshin Crystal Rabbit (wks02020).
+# [[aura_command]]
+# key = "was_fantasy_k002020"
+# from = "was00220"
+# cells = { name_text = 0xB7617564, desc_text = 0x37671E6C, aura_chara = 0x0466C92D, chara_param = 0x1D7E9729, order = 114 }
+# charas = []
+#
+# The armour of the keshin Entertainer (wko02030).
+# [[aura_command]]
+# key = "was_fantasy_k002030"
+# from = "was00220"
+# cells = { name_text = 0xDA6E86C5, desc_text = 0x5A68EDCD, aura_chara = 0x1D7DF86C, chara_param = 0x970440F7, order = 117 }
+# charas = []
+#
+# The armour of the keshin Warborg (wkd02040).
+# [[aura_command]]
+# key = "was_fantasy_k002040"
+# from = "was00220"
+# cells = { name_text = 0xFFE8E0C1, desc_text = 0x7FEE8BC9, aura_chara = 0x523C6EAB, chara_param = 0x4E0A507E, order = 115 }
+# charas = []
+#
+# The armour of the keshin Robin (wks02050).
+# [[aura_command]]
+# key = "was_fantasy_k002050"
+# from = "was00220"
+# cells = { name_text = 0xF820E3A3, desc_text = 0x782688AB, aura_chara = 0x4B275FEA, chara_param = 0xE7F6615E, order = 116 }
+# charas = []
+#
+# The armour of the keshin Niké (wks02060).
+# [[aura_command]]
+# key = "was_fantasy_k002060"
+# from = "was00220"
+# cells = { name_text = 0xD30DB060, desc_text = 0x530BDB68, aura_chara = 0x600A0C29, chara_param = 0x404B71CE, order = 112 }
+# charas = []
+# ```

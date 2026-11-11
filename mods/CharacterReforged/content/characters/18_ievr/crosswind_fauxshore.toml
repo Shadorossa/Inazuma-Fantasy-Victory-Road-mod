@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11100010"                                   # Vashan Morell
 moves = [
-  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
-  { move = 0xADD8A52B, level = 13 },                        # Matchlock Bullet
-  { move = 0x78218C02, level = 20 },                        # Duskfall
+  { move = 0xAF150D21, level = 20 },                        # Swallow Counter
   { move = 0xA1BE38E6, level = 30 },                        # La Flamme
+  { move = 0xADD8A52B, level = 30 },                        # Matchlock Bullet
+  { move = 0x78218C02, level = 38 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c11100020"                                   # Ebiss Marlowe
 moves = [
-  { move = 0x05567847, level = 1 },                         # Runaway Train
-  { move = 0x025FD09B, level = 13 },                        # Volcano Cut
-  { move = 0x0CF4E55C, level = 20 },                        # Double Touch
-  { move = 0x72BFA108, level = 30 },                        # Wall of Atlantis
+  { move = 0x05567847, level = 13 },                        # Runaway Train
+  { move = 0x025FD09B, level = 20 },                        # Volcano Cut
+  { move = 0x0CF4E55C, level = 30 },                        # Double Touch
+  { move = 0x72BFA108, level = 38 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c11100030"                                   # Vinda Koral
 moves = [
-  { move = 0xAF150D21, level = 1 },                         # Swallow Counter
-  { move = 0xADD8A52B, level = 13 },                        # Matchlock Bullet
-  { move = 0x4FE09C7A, level = 20 },                        # Acrobatic Keep
-  { move = 0x5781A373, level = 30 },                        # Hurricane Arrows
+  { move = 0xAF150D21, level = 13 },                        # Swallow Counter
+  { move = 0xADD8A52B, level = 20 },                        # Matchlock Bullet
+  { move = 0x4FE09C7A, level = 30 },                        # Acrobatic Keep
+  { move = 0x5781A373, level = 38 },                        # Hurricane Arrows
 ]
 
   [[edit.cards]]
@@ -48,10 +48,10 @@ moves = [
 [[edit]]
 target = "c11100040"                                   # Froclan Junn
 moves = [
-  { move = 0xB3BD79DA, level = 1 },                         # Patriot Shot
-  { move = 0xC324C788, level = 13 },                        # Blast Mine
-  { move = 0x4A17EE80, level = 20 },                        # Hunter's Net
-  { move = 0xB27F13ED, level = 30 },                        # Death Zone
+  { move = 0xB3BD79DA, level = 13 },                        # Patriot Shot
+  { move = 0xC324C788, level = 20 },                        # Blast Mine
+  { move = 0x4A17EE80, level = 30 },                        # Hunter's Net
+  { move = 0xB27F13ED, level = 38 },                        # Death Zone
 ]
 
   [[edit.cards]]
@@ -63,10 +63,10 @@ moves = [
 [[edit]]
 target = "c11100050"                                   # Benton Zellner
 moves = [
-  { move = 0xA2FB4736, level = 1 },                         # Flying Fish
   { move = 0xDF8CB373, level = 13 },                        # Sonic Shot
   { move = 0xC324C788, level = 20 },                        # Blast Mine
-  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0xA2FB4736, level = 30 },                        # Flying Fish
+  { move = 0x2354CA2D, level = 38 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]
@@ -78,10 +78,10 @@ moves = [
 [[edit]]
 target = "c11100060"                                   # Budan Ashwell
 moves = [
-  { move = 0x05567847, level = 1 },                         # Runaway Train
-  { move = 0x5781A373, level = 13 },                        # Hurricane Arrows
-  { move = 0x17110E3B, level = 20 },                        # Jumbo Sandwich
-  { move = 0x65766A4F, level = 30 },                        # Meteor Blade
+  { move = 0x05567847, level = 13 },                        # Runaway Train
+  { move = 0x17110E3B, level = 30 },                        # Jumbo Sandwich
+  { move = 0x5781A373, level = 38 },                        # Hurricane Arrows
+  { move = 0x65766A4F, level = 38 },                        # Meteor Blade
 ]
 
   [[edit.cards]]
@@ -93,10 +93,10 @@ moves = [
 [[edit]]
 target = "c11100070"                                   # Itor Sheerman
 moves = [
-  { move = 0x3C843987, level = 1 },                         # Flurry Dash
-  { move = 0x3F00EDE9, level = 13 },                        # Dash Storm
-  { move = 0xC42D6F54, level = 20 },                        # Aikido
-  { move = 0x7C1494CF, level = 30 },                        # Tornado Tunnel
+  { move = 0x3C843987, level = 13 },                        # Flurry Dash
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -108,10 +108,10 @@ moves = [
 [[edit]]
 target = "c11100080"                                   # Yarkin Cittey
 moves = [
-  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
-  { move = 0x00196EC2, level = 13 },                        # Earthquake
+  { move = 0xACAC21CE, level = 13 },                        # Fake Ball
   { move = 0x4CDC2C6B, level = 20 },                        # Shooting Star
   { move = 0x19BA3BFC, level = 30 },                        # Dance on Air
+  { move = 0x00196EC2, level = 38 },                        # Earthquake
 ]
 
   [[edit.cards]]
@@ -123,10 +123,10 @@ moves = [
 [[edit]]
 target = "c11100090"                                   # Susen Faircourt
 moves = [
-  { move = 0x19025F83, level = 1 },                         # Quick Draw
-  { move = 0x2B343D01, level = 13 },                        # Cyclone
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
+  { move = 0x19025F83, level = 13 },                        # Quick Draw
+  { move = 0x2B343D01, level = 20 },                        # Cyclone
   { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0x21127474, level = 38 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -138,10 +138,10 @@ moves = [
 [[edit]]
 target = "c11100100"                                   # Hathea Calmell
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x79224D8B, level = 13 },                        # Freeze Shot
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
   { move = 0x46FA651E, level = 20 },                        # Water Veil
   { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
+  { move = 0x79224D8B, level = 38 },                        # Freeze Shot
 ]
 
   [[edit.cards]]
@@ -153,10 +153,10 @@ moves = [
 [[edit]]
 target = "c11100110"                                   # Mayen Harmet
 moves = [
-  { move = 0x5AF33BC7, level = 1 },                         # God Hand
-  { move = 0xE9968761, level = 13 },                        # Rocket Kobushi
-  { move = 0x07D16DA0, level = 20 },                        # Inazuma-1
+  { move = 0x5AF33BC7, level = 13 },                        # God Hand
+  { move = 0xE9968761, level = 20 },                        # Rocket Kobushi
   { move = 0xDD6B2708, level = 30 },                        # Majin the Hand
+  { move = 0x07D16DA0, level = 38 },                        # Inazuma-1
 ]
 
   [[edit.cards]]
@@ -168,9 +168,9 @@ moves = [
 [[edit]]
 target = "c11100120"                                   # Trevin Seabourne
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0x1C4D4906, level = 13 },                        # Whirlpool
-  { move = 0x2354CA2D, level = 20 },                        # Wind God's Dance
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
+  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
   { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
 ]
 
@@ -183,10 +183,10 @@ moves = [
 [[edit]]
 target = "c11100130"                                   # Jory Jinx
 moves = [
-  { move = 0xB3BD79DA, level = 1 },                         # Patriot Shot
-  { move = 0xBDAE2862, level = 13 },                        # Hellfire
-  { move = 0x41F3CDC2, level = 20 },                        # Scorching Tackle
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0xB3BD79DA, level = 13 },                        # Patriot Shot
+  { move = 0xBDAE2862, level = 20 },                        # Hellfire
+  { move = 0x41F3CDC2, level = 30 },                        # Scorching Tackle
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -198,10 +198,10 @@ moves = [
 [[edit]]
 target = "c11100150"                                   # Clementine Weston
 moves = [
-  { move = 0x20D01E43, level = 1 },                         # Hey Presto
-  { move = 0x4AD6453E, level = 13 },                        # Back Tornado
-  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
-  { move = 0xA8215D7C, level = 30 },                        # The Mountain
+  { move = 0x20D01E43, level = 13 },                        # Hey Presto
+  { move = 0x4AD6453E, level = 20 },                        # Back Tornado
+  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -213,10 +213,10 @@ moves = [
 [[edit]]
 target = "c11100160"                                   # Orfreya Newcomb
 moves = [
-  { move = 0xAF28F5A0, level = 1 },                         # The Tower
-  { move = 0x79E3E635, level = 13 },                        # Racing Flame
-  { move = 0x27D9B69F, level = 20 },                        # Prima Donna
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0xAF28F5A0, level = 13 },                        # The Tower
+  { move = 0x79E3E635, level = 20 },                        # Racing Flame
+  { move = 0x27D9B69F, level = 30 },                        # Prima Donna
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -228,10 +228,10 @@ moves = [
 [[edit]]
 target = "c11100500"                                   # Conrado Pottinger
 moves = [
-  { move = 0x60397CCA, level = 1 },                         # Cross Drive
   { move = 0x41F3CDC2, level = 13 },                        # Scorching Tackle
-  { move = 0xB3BD79DA, level = 20 },                        # Patriot Shot
+  { move = 0x60397CCA, level = 20 },                        # Cross Drive
   { move = 0x4FE09C7A, level = 30 },                        # Acrobatic Keep
+  { move = 0xB3BD79DA, level = 38 },                        # Patriot Shot
 ]
 
   [[edit.cards]]
@@ -243,10 +243,10 @@ moves = [
 [[edit]]
 target = "c11100510"                                   # Celeste Fairbourne
 moves = [
-  { move = 0x61FB16FD, level = 1 },                         # Divine Arrows
-  { move = 0x19BA3BFC, level = 13 },                        # Dance on Air
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x6E53E2B3, level = 30 },                        # Angel Ball
+  { move = 0x61FB16FD, level = 20 },                        # Divine Arrows
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0x19BA3BFC, level = 30 },                        # Dance on Air
+  { move = 0x6E53E2B3, level = 38 },                        # Angel Ball
 ]
 
   [[edit.cards]]
@@ -258,10 +258,10 @@ moves = [
 [[edit]]
 target = "c11100140"                                   # Jakob Serveraw
 moves = [
-  { move = 0xC636A810, level = 1 },                         # Combustion Catch
   { move = 0x8FBCFC3C, level = 13 },                        # Blazing Knuckle
-  { move = 0xA7157B91, level = 20 },                        # Power Shield
-  { move = 0xED1BFBD3, level = 30 },                        # Fingers of Gaia
+  { move = 0xC636A810, level = 20 },                        # Combustion Catch
+  { move = 0xA7157B91, level = 30 },                        # Power Shield
+  { move = 0xED1BFBD3, level = 38 },                        # Fingers of Gaia
 ]
 
   [[edit.cards]]

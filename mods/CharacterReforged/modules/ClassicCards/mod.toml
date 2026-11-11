@@ -1,6 +1,7 @@
 id = "ClassicCards"
 # name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "Classic Cards"
+icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_kizuna02"
 version = "0.3.0"
 author = "Fantasy Team"
 description = "Every normal player is a 5★ Legend, as in the classic Inazuma Eleven games: no rarities, rarity-up or fusion. Cards are coloured by position, and special rarities such as Hero and Diamond keep their look by default."

@@ -219,13 +219,35 @@ local function record_or_owner(card)
   return owner and record_of(owner) or nil
 end
 
+-- The text key that says why a stored fusion is off, by its validity code (pairing.lua PairValidity).
+local OFF_TEXT = { [2] = "create_refused_2", [4] = "create_refused_7", [6] = "create_refused_6" }
+
+local function text_of(key)
+  local ok, s = pcall(VRFW.text, "CharacterReforged." .. key)
+  return ok and type(s) == "string" and s or ""
+end
+
+-- The stored fusion of a base card, running or off.
+local function stored_of(card)
+  for _, f in ipairs(store().fusions or {}) do
+    if u32(f.base_hdl) == card then return f end
+  end
+  return nil
+end
+
+-- (card) -> exists, partner param, move 1, move 2, partner chara, best match, partner handle, off reason, inactive label, partner-in-team reason
 function CharacterReforged.Miximaxed.FusionGet(card)
-  local l = record_or_owner(u32(card))
-  local f = l and l.f or nil
+  card = u32(card)
+  local l = record_or_owner(card)
+  local f = l and l.f or stored_of(card)
   if not f then return false, 0, 0, 0, 0, false, 0 end
   local mv = type(f.moves) == "table" and f.moves or {}
-  local best = f.best_match == true or u32(l.overdrive) ~= 0
-  return true, u32(f.partner_param), u32(mv[1]), u32(mv[2]), u32(f.partner_chara), best, u32(f.partner_hdl)
+  local best = f.best_match == true or (l ~= nil and u32(l.overdrive) ~= 0)
+  local code = LAST[u32(f.base_hdl)] or 0
+  local off = code ~= 0 and text_of(OFF_TEXT[code] or "create_refused_other") or ""
+  local label, in_team = CharacterReforged.PartnerInTeamTexts(SYSTEM)
+  return true, u32(f.partner_param), u32(mv[1]), u32(mv[2]), u32(f.partner_chara), best, u32(f.partner_hdl),
+    off, label ~= "" and label or text_of("pair_inactive_label"), in_team
 end
 
 function CharacterReforged.Miximaxed.Gains(card)

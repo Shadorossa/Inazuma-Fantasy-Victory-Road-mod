@@ -1,2 +1,3 @@
 schema = "BetterQoL.team_planner/1"
+if_mod = "ClassicRecruitment.classic_recruitment"    # The row of options.toml: off = this file is not read.
 owned_rarities = "any"

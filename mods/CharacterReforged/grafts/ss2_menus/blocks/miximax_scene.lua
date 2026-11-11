@@ -745,9 +745,11 @@ function PL.mx_detail(f, team_info)
     funcLuaMenuCommand(2735666188, L, x, false, 0)
   end
   funcLuaMenuCommand(1233047821, L, 0, 2223127589, false)
-  funcLuaMenuCommand(2158717427, L, 2313134961 --[[_pos_area01]], f.best == true, 0)
-  funcLuaMenuCommand(C.TEXT, L, 1899787537 --[[_text_area01]], f.best and "Best Match" or "", 0)
-  funcLuaMenuCommand(2735666188, L, 1899787537, f.best == true, 0)
+  -- Shows why a stored miximax gives nothing in a match: the retail alert icon, a short label and the reason under the header.
+  local warned = PL.pair_warning(A, f.warning)
+  funcLuaMenuCommand(2158717427, L, 2313134961 --[[_pos_area01]], f.best == true or warned, 0)
+  funcLuaMenuCommand(C.TEXT, L, 1899787537 --[[_text_area01]], warned and f.warning_label or (f.best and "Best Match" or ""), 0)
+  funcLuaMenuCommand(2735666188, L, 1899787537, f.best == true or warned, 0)
   PL.move_row(L, f.move, team_info, 0, false, f.phdl)   -- the partner owns the move: coloured, not greyed
   pcall(Call, C.LOG, "skill_slots", "miximax move row", string.format("%08X", to_u32(f.move or 0)),
     "owner", tostring(f.phdl), "shown", tostring(funcLuaMenuCommand(@crc:CMND_IS_LAYER_VISIBLE@, PL.L_HROW, 0)))

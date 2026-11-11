@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11700560"                                   # Rockson Grohl
 moves = [
-  { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
-  { move = 0x2FB941B3, level = 13 },                        # Stone Prison
+  { move = 0xD8794890, level = 13 },                        # Kangaroo Kick
   { move = 0x737DCB3F, level = 20 },                        # Pancake Defence
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x2FB941B3, level = 30 },                        # Stone Prison
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700730"                                   # Sadley Lonsom
 moves = [
-  { move = 0xE8F5C774, level = 1 },                         # Megalodon
   { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
   { move = 0xDB01CFC1, level = 20 },                        # Thunder Beast
   { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0xE8F5C774, level = 30 },                        # Megalodon
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11733010"                                   # Blossom Laine
 moves = [
-  { move = 0x7A67325B, level = 1 },                         # Flame Dance
-  { move = 0xA1BE38E6, level = 13 },                        # La Flamme
-  { move = 0x485150D9, level = 20 },                        # Body Shield
-  { move = 0x0A3F27B7, level = 30 },                        # Foul Offence 3
+  { move = 0x7A67325B, level = 13 },                        # Flame Dance
+  { move = 0x0A3F27B7, level = 20 },                        # Foul Offence 3
+  { move = 0xA1BE38E6, level = 30 },                        # La Flamme
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11733020"                                   # Thompson Hummings
 moves = [
-  { move = 0x2D3E5454, level = 1 },                         # Clone Shot
-  { move = 0x121A2FFE, level = 13 },                        # Mirage Shot
-  { move = 0xB27F13ED, level = 20 },                        # Death Zone
-  { move = 0xBB21DDC9, level = 30 },                        # Trina Tumble
+  { move = 0xBB21DDC9, level = 1 },                         # Trina Tumble
+  { move = 0x2D3E5454, level = 20 },                        # Clone Shot
+  { move = 0x121A2FFE, level = 30 },                        # Mirage Shot
+  { move = 0xB27F13ED, level = 38 },                        # Death Zone
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11733030"                                   # Trebor Donders
 moves = [
-  { move = 0x3069B219, level = 1 },                         # Super Sumo Stomp
-  { move = 0x41F3CDC2, level = 13 },                        # Scorching Tackle
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0xA8215D7C, level = 30 },                        # The Mountain
+  { move = 0x3069B219, level = 13 },                        # Super Sumo Stomp
+  { move = 0x41F3CDC2, level = 20 },                        # Scorching Tackle
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11733040"                                   # Liron Suesskind
 moves = [
-  { move = 0x0710C61E, level = 1 },                         # Perimeter Zone
   { move = 0x3C843987, level = 13 },                        # Flurry Dash
-  { move = 0xC42D6F54, level = 20 },                        # Aikido
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x0710C61E, level = 20 },                        # Perimeter Zone
+  { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11733050"                                   # Marius Harlow
 moves = [
-  { move = 0xACAC21CE, level = 1 },                         # Fake Ball
-  { move = 0x06B22DB5, level = 13 },                        # Gyro-Blocker
-  { move = 0xF309624E, level = 20 },                        # Dual Smash
-  { move = 0x93E8DBF8, level = 30 },                        # Dimensional Hand
+  { move = 0xACAC21CE, level = 13 },                        # Fake Ball
+  { move = 0x06B22DB5, level = 20 },                        # Gyro-Blocker
+  { move = 0xF309624E, level = 30 },                        # Dual Smash
+  { move = 0x93E8DBF8, level = 38 },                        # Dimensional Hand
 ]
 
   [[edit.cards]]
@@ -116,9 +116,9 @@ moves = [
 target = "c11733060"                                   # Raya Sixstring
 moves = [
   { move = 0xA2FB4736, level = 1 },                         # Flying Fish
-  { move = 0x1FC99D68, level = 13 },                        # Snow Angel
-  { move = 0x5781A373, level = 20 },                        # Hurricane Arrows
-  { move = 0x613ABD43, level = 30 },                        # Dawnrise
+  { move = 0x1FC99D68, level = 20 },                        # Snow Angel
+  { move = 0x5781A373, level = 30 },                        # Hurricane Arrows
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11733070"                                   # Minna Smallwood
 moves = [
-  { move = 0x7D6E9A87, level = 1 },                         # The Wall
-  { move = 0xC5EF0563, level = 13 },                        # Three-Legged Rush
-  { move = 0x737DCB3F, level = 20 },                        # Pancake Defence
-  { move = 0x485150D9, level = 30 },                        # Body Shield
+  { move = 0x7D6E9A87, level = 13 },                        # The Wall
+  { move = 0xC5EF0563, level = 20 },                        # Three-Legged Rush
+  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11733080"                                   # Cleara Sounds
 moves = [
-  { move = 0xDDCA0D2A, level = 1 },                         # Bouncing Bomb
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
+  { move = 0xDDCA0D2A, level = 13 },                        # Bouncing Bomb
   { move = 0x00A10ABD, level = 20 },                        # Ball Lightning
-  { move = 0x3A4FFB6C, level = 30 },                        # The Ikaros
+  { move = 0xB60E3C60, level = 30 },                        # Plasma Cut
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11733090"                                   # Hop Sadler
 moves = [
-  { move = 0x12E67CC1, level = 1 },                         # Future Eye
-  { move = 0x322F0C40, level = 13 },                        # Spider Web
-  { move = 0x0E0A3F7A, level = 20 },                        # Spatial Portal
-  { move = 0x78218C02, level = 30 },                        # Duskfall
+  { move = 0x12E67CC1, level = 13 },                        # Future Eye
+  { move = 0x322F0C40, level = 20 },                        # Spider Web
+  { move = 0x0E0A3F7A, level = 30 },                        # Spatial Portal
+  { move = 0x78218C02, level = 38 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -179,10 +179,10 @@ moves = [
 [[edit]]
 target = "c11733100"                                   # Bang Revell
 moves = [
-  { move = 0x3C843987, level = 1 },                         # Flurry Dash
-  { move = 0xE8F5C774, level = 13 },                        # Megalodon
-  { move = 0x3F00EDE9, level = 20 },                        # Dash Storm
-  { move = 0x2354CA2D, level = 30 },                        # Wind God's Dance
+  { move = 0x3C843987, level = 13 },                        # Flurry Dash
+  { move = 0xE8F5C774, level = 20 },                        # Megalodon
+  { move = 0x3F00EDE9, level = 30 },                        # Dash Storm
+  { move = 0x2354CA2D, level = 38 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]

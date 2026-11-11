@@ -4,9 +4,9 @@ schema = "VRFW.character/2"
 target = "c03030210"                                   # Gene Whalon
 moves = [
   { move = 0x422A60B1, level = 1 },                         # Barrier Reef
+  { move = 0xF400CA92, level = 38 },                        # Anchors Aweigh
   { move = 0x96A7CD7D, level = 40 },                        # Tsunami Wall
   { move = 0xD8794890, level = 51 },                        # Kangaroo Kick
-  { move = 0xF400CA92, level = 61 },                        # Anchors Aweigh
 ]
 VRFW.MoveGrades = [
   { Move = 0x422A60B1, Grade = 1 },                         # Barrier Reef
@@ -21,7 +21,7 @@ VRFW.MoveGrades = [
 [[edit]]
 target = "c03030220"                                   # David Waterman
 moves = [
-  { move = 0x60F8D774, level = 1 },                         # Gravestone
+  { move = 0x60F8D774, level = 5 },                         # Gravestone
   { move = 0x039DBAAC, level = 20 },                        # Land of Ice
   { move = 0x259F08C6, level = 36 },                        # Whirlwind Twister
   { move = 0x2296A01A, level = 53 },                        # Southern Cross
@@ -36,7 +36,7 @@ moves = [
 [[edit]]
 target = "c03030230"                                   # Sonny Shore
 moves = [
-  { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
+  { move = 0xD8794890, level = 5 },                         # Kangaroo Kick
   { move = 0x78E027BC, level = 37 },                        # Shine Drive
   { move = 0x4E9A9232, level = 40 },                        # Spinning Cut
   { move = 0x025FD09B, level = 53 },                        # Volcano Cut
@@ -53,8 +53,8 @@ target = "c03030240"                                   # Kjell Snapper
 moves = [
   { move = 0x60F8D774, level = 1 },                         # Gravestone
   { move = 0xB2BEB853, level = 5 },                         # Whale Guard
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
   { move = 0x4BD584B7, level = 69 },                        # Power Charge
-  { move = 0x67F17FA8, level = 79 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -67,9 +67,9 @@ moves = [
 target = "c03030250"                                   # Ken Crackham
 moves = [
   { move = 0xB2BEB853, level = 1 },                         # Whale Guard
-  { move = 0xD8794890, level = 11 },                        # Kangaroo Kick
+  { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
+  { move = 0x1C4D4906, level = 30 },                        # Whirlpool
   { move = 0x34E4CEAB, level = 73 },                        # Barbarian Shield
-  { move = 0x1C4D4906, level = 83 },                        # Whirlpool
 ]
 
   [[edit.cards]]
@@ -81,7 +81,7 @@ moves = [
 [[edit]]
 target = "c03030260"                                   # Shawn Princeton
 moves = [
-  { move = 0x46FA651E, level = 1 },                         # Water Veil
+  { move = 0x46FA651E, level = 5 },                         # Water Veil
   { move = 0x261BDCA8, level = 20 },                        # Moonsault
   { move = 0x60F8D774, level = 36 },                        # Gravestone
   { move = 0x2FB941B3, level = 61 },                        # Stone Prison
@@ -98,8 +98,8 @@ target = "c03030270"                                   # Matt Fischer
 moves = [
   { move = 0xD8794890, level = 1 },                         # Kangaroo Kick
   { move = 0x322F0C40, level = 36 },                        # Spider Web
+  { move = 0x637C031A, level = 38 },                        # No Escape
   { move = 0x2BF596BF, level = 42 },                        # Tsunami Boost
-  { move = 0x637C031A, level = 52 },                        # No Escape
 ]
 
   [[edit.cards]]
@@ -143,9 +143,9 @@ moves = [
 target = "c03030300"                                   # Hamilton Reith
 moves = [
   { move = 0xE8F5C774, level = 1 },                         # Megalodon
-  { move = 0x261BDCA8, level = 11 },                        # Moonsault
+  { move = 0x261BDCA8, level = 1 },                         # Moonsault
   { move = 0x1F0836D6, level = 30 },                        # Comet Shot
-  { move = 0x70417B2E, level = 40 },                        # Deceptor Dribble
+  { move = 0x70417B2E, level = 30 },                        # Deceptor Dribble
 ]
 
   [[edit.cards]]
@@ -159,7 +159,7 @@ moves = [
 target = "c03030310"                                   # Joe Dawes
 moves = [
   { move = 0xE8F5C774, level = 1 },                         # Megalodon
-  { move = 0x46FA651E, level = 11 },                        # Water Veil
+  { move = 0x46FA651E, level = 1 },                         # Water Veil
   { move = 0x18C035B4, level = 12 },                        # Ghost Pull
   { move = 0x67F17FA8, level = 48 },                        # Mega Quake
 ]
@@ -227,8 +227,8 @@ target = "c03030350"                                   # Barack Daniels
 moves = [
   { move = 0x7CACF0B0, level = 1 },                         # Horn Train
   { move = 0x60F8D774, level = 5 },                         # Gravestone
+  { move = 0x5781A373, level = 20 },                        # Hurricane Arrows
   { move = 0x7BA5586C, level = 63 },                        # Mad Express
-  { move = 0x5781A373, level = 73 },                        # Hurricane Arrows
 ]
 VRFW.MoveGrades = [
   { Move = 0x60F8D774, Grade = 1 },                         # Gravestone
@@ -259,10 +259,10 @@ moves = [
 [[edit]]
 target = "c11803010"                                   # Robert Kleiser
 moves = [
-  { move = 0x65766A4F, level = 1 },                         # Meteor Blade
-  { move = 0xB3BD79DA, level = 11 },                        # Patriot Shot
-  { move = 0x35E70F22, level = 21 },                        # Grenade Shot
-  { move = 0x3A4FFB6C, level = 31 },                        # The Ikaros
+  { move = 0x35E70F22, level = 13 },                        # Grenade Shot
+  { move = 0xB3BD79DA, level = 30 },                        # Patriot Shot
+  { move = 0x65766A4F, level = 38 },                        # Meteor Blade
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
 ]
 
   [[edit.cards]]

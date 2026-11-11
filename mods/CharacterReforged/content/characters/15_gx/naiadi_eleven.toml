@@ -5,8 +5,8 @@ target = "c06031610"                                   # Van Tarel
 moves = [
   { move = 0x4A776F1C, level = 1 },                         # Hydro Breath
   { move = 0xC79443BB, level = 23 },                        # Waterfall
+  { move = 0x8B31808E, level = 38 },                        # Wormhole
   { move = 0xE6C22010, level = 51 },                        # Claw de Force
-  { move = 0x8B31808E, level = 61 },                        # Wormhole
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
   { move = 0, level = 0 },                                  # (empty)
@@ -23,10 +23,10 @@ moves = [
 [[edit]]
 target = "c06031620"                                   # Squalcha Nhess
 moves = [
-  { move = 0xC79443BB, level = 1 },                         # Waterfall
+  { move = 0xC79443BB, level = 5 },                         # Waterfall
   { move = 0x039DBAAC, level = 18 },                        # Land of Ice
+  { move = 0x78218C02, level = 38 },                        # Duskfall
   { move = 0x0F4DC9B3, level = 50 },                        # Logicstical Sync
-  { move = 0x78218C02, level = 60 },                        # Duskfall
 ]
 
   [[edit.cards]]
@@ -39,10 +39,10 @@ moves = [
 [[edit]]
 target = "c06031630"                                   # Sog Galily
 moves = [
-  { move = 0xC79443BB, level = 1 },                         # Waterfall
+  { move = 0xC79443BB, level = 8 },                         # Waterfall
+  { move = 0xC0A013E6, level = 30 },                        # Liar Shot
   { move = 0x650FA58E, level = 34 },                        # Spin Out
   { move = 0x4E9A9232, level = 47 },                        # Spinning Cut
-  { move = 0xC0A013E6, level = 57 },                        # Liar Shot
 ]
 
   [[edit.cards]]
@@ -58,7 +58,7 @@ moves = [
   { move = 0x87BC8A8C, level = 1 },                         # Hydro Flow
   { move = 0xC79443BB, level = 10 },                        # Waterfall
   { move = 0xFD49C046, level = 32 },                        # Bubble Trouble
-  { move = 0x2354CA2D, level = 42 },                        # Wind God's Dance
+  { move = 0x2354CA2D, level = 38 },                        # Wind God's Dance
 ]
 
   [[edit.cards]]
@@ -79,17 +79,17 @@ target = "c06031650"                                   # Plink Powai
   moves = [
     { move = 0x87BC8A8C, level = 1 },                       # Hydro Flow
     { move = 0xC79443BB, level = 11 },                      # Waterfall
+    { move = 0x7C1494CF, level = 38 },                      # Tornado Tunnel
     { move = 0xE3D04F88, level = 55 },                      # Jackknife
-    { move = 0x7C1494CF, level = 65 },                      # Tornado Tunnel
   ]
 
 [[edit]]
 target = "c06031660"                                   # Puddel Khaspian
 moves = [
-  { move = 0x87BC8A8C, level = 1 },                         # Hydro Flow
+  { move = 0x87BC8A8C, level = 4 },                         # Hydro Flow
   { move = 0xFD49C046, level = 17 },                        # Bubble Trouble
   { move = 0x6DD736DD, level = 31 },                        # Ribbon Shower
-  { move = 0x7DD6FEF8, level = 41 },                        # Athena's Anthem
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -102,10 +102,10 @@ moves = [
 [[edit]]
 target = "c06031670"                                   # Sploosh Saroma
 moves = [
-  { move = 0x87BC8A8C, level = 1 },                         # Hydro Flow
+  { move = 0x87BC8A8C, level = 5 },                         # Hydro Flow
   { move = 0xFD49C046, level = 18 },                        # Bubble Trouble
+  { move = 0xC79443BB, level = 30 },                        # Waterfall
   { move = 0x04941270, level = 45 },                        # Vac Attack
-  { move = 0xC79443BB, level = 55 },                        # Waterfall
 ]
 
   [[edit.cards]]
@@ -118,7 +118,7 @@ moves = [
 [[edit]]
 target = "c06031680"                                   # Droplit Turkana
 moves = [
-  { move = 0x87BC8A8C, level = 1 },                         # Hydro Flow
+  { move = 0x87BC8A8C, level = 2 },                         # Hydro Flow
   { move = 0xFD49C046, level = 8 },                         # Bubble Trouble
   { move = 0x039DBAAC, level = 33 },                        # Land of Ice
   { move = 0x6DD736DD, level = 45 },                        # Ribbon Shower
@@ -134,7 +134,7 @@ moves = [
 [[edit]]
 target = "c06031690"                                   # Plip Batur
 moves = [
-  { move = 0xFD49C046, level = 1 },                         # Bubble Trouble
+  { move = 0xFD49C046, level = 7 },                         # Bubble Trouble
   { move = 0xC79443BB, level = 23 },                        # Waterfall
   { move = 0x7E2BE557, level = 36 },                        # Legendary Wolf
   { move = 0xCB79C825, level = 47 },                        # In-Line Stampede
@@ -149,10 +149,10 @@ moves = [
 [[edit]]
 target = "c06031700"                                   # Serban Bacha
 moves = [
-  { move = 0xFD49C046, level = 1 },                         # Bubble Trouble
+  { move = 0xFD49C046, level = 6 },                         # Bubble Trouble
   { move = 0x87BC8A8C, level = 12 },                        # Hydro Flow
+  { move = 0xC0A013E6, level = 30 },                        # Liar Shot
   { move = 0xDE4ED944, level = 46 },                        # Snowstorm Leopard
-  { move = 0xC0A013E6, level = 56 },                        # Liar Shot
 ]
 
   [[edit.cards]]
@@ -164,7 +164,7 @@ moves = [
 [[edit]]
 target = "c06031710"                                   # Plunk Balkhash
 moves = [
-  { move = 0xFD49C046, level = 1 },                         # Bubble Trouble
+  { move = 0xFD49C046, level = 10 },                        # Bubble Trouble
   { move = 0xE8F5C774, level = 20 },                        # Megalodon
   { move = 0xD9BB22A7, level = 35 },                        # Air Ride
   { move = 0x82788A5A, level = 48 },                        # Straight Counter
@@ -186,10 +186,10 @@ target = "c06031720"                                   # Rondula Flehl
   growth = "normal"
   stats = { kick = 285, control = 254, technique = 286, pressure = 184, physical = 188, intelligence = 248, agility = 189, freedom = 254 }
   moves = [
-    { move = 0xE3D04F88, level = 1 },                       # Jackknife
+    { move = 0xE3D04F88, level = 5 },                       # Jackknife
+    { move = 0x0D368F6B, level = 30 },                      # Heaven's Time
+    { move = 0xC42D6F54, level = 38 },                      # Aikido
     { move = 0xB501FE5D, level = 39 },                      # Holy Roller
-    { move = 0x0D368F6B, level = 49 },                      # Heaven's Time
-    { move = 0xC42D6F54, level = 59 },                      # Aikido
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
     { move = 0, level = 0 },                                # (empty)
@@ -200,10 +200,10 @@ target = "c06031720"                                   # Rondula Flehl
 [[edit]]
 target = "c11806050"                                   # Porco Umir
 moves = [
-  { move = 0xC16279D1, level = 1 },                         # Field of Force
-  { move = 0x70417B2E, level = 11 },                        # Deceptor Dribble
-  { move = 0xDBFD9CFE, level = 21 },                        # Big Ball Trick
-  { move = 0x1D8F2331, level = 31 },                        # Yo-Yo Ball
+  { move = 0x1D8F2331, level = 1 },                         # Yo-Yo Ball
+  { move = 0x70417B2E, level = 13 },                        # Deceptor Dribble
+  { move = 0xDBFD9CFE, level = 30 },                        # Big Ball Trick
+  { move = 0xC16279D1, level = 38 },                        # Field of Force
 ]
 
   [[edit.cards]]

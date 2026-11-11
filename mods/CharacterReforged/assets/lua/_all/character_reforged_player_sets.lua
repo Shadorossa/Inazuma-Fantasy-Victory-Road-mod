@@ -816,7 +816,15 @@ if CharacterReforged.player_sets == nil then
         ok_board and "OK" or "unchanged (the list rules)")
       ok_all = ok_list
       if not ok_board then
-        log("equip row", row, S.name(skill), "board not mirrored")
+        -- Diagnostic: the whole list and board of the player, which shows the cells the list's moves sit on.
+        local listed, cells = {}, {}
+        for position = 0, NORMAL_NUM - 1 do
+          listed[#listed + 1] = string.format("%08X", S.list_skill(h, position))
+        end
+        for cell = 0, HYPER_SLOT do
+          cells[#cells + 1] = string.format("%08X", (S.board_skill(h, cell)))
+        end
+        log("equip row", row, S.name(skill), "board not mirrored", "list", table.concat(listed, " "), "board", table.concat(cells, " "))
       end
     end
     msg = msg .. ".\n" .. S.board_diff(before, S.board_snapshot(h))

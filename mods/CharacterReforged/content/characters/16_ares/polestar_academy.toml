@@ -9,36 +9,36 @@ stats = { kick = 311, control = 265, technique = 258, pressure = 194, physical =
   [[edit.cards]]
   id = 0x2945A978
   moves = [
-    { move = 0xE197629E, level = 1 },                       # Penguin Volley
-    { move = 0xB27F13ED, level = 13 },                      # Death Zone
+    { move = 0xE197629E, level = 13 },                      # Penguin Volley
     { move = 0x16658ADE, level = 20 },                      # Perfect Penguin
     { move = 0x0A02DF36, level = 30 },                      # Containment Field
+    { move = 0xB27F13ED, level = 38 },                      # Death Zone
   ]
 
   [[edit.cards]]
   id = 0x248EB5AA    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0xE197629E, level = 1 },                       # Penguin Volley
-    { move = 0xB27F13ED, level = 13 },                      # Death Zone
+    { move = 0xE197629E, level = 13 },                      # Penguin Volley
     { move = 0x16658ADE, level = 20 },                      # Perfect Penguin
     { move = 0x0A02DF36, level = 30 },                      # Containment Field
+    { move = 0xB27F13ED, level = 38 },                      # Death Zone
   ]
 
   [[edit.cards]]
   id = 0x84FF0E3E    # normal card (the character's special cards keep their own set)
   moves = [
-    { move = 0xE197629E, level = 1 },                       # Penguin Volley
-    { move = 0xB27F13ED, level = 13 },                      # Death Zone
+    { move = 0xE197629E, level = 13 },                      # Penguin Volley
     { move = 0x16658ADE, level = 20 },                      # Perfect Penguin
     { move = 0x0A02DF36, level = 30 },                      # Containment Field
+    { move = 0xB27F13ED, level = 38 },                      # Death Zone
   ]
 
 [[edit]]
 target = "c07020020"                                   # Eddy O'Ryan
 moves = [
-  { move = 0x88E6A750, level = 1 },                         # Centrifugal Blast
-  { move = 0x142DBE2A, level = 13 },                        # Foul Offence
-  { move = 0xB27F13ED, level = 20 },                        # Death Zone
+  { move = 0xB27F13ED, level = 13 },                        # Death Zone
+  { move = 0x88E6A750, level = 20 },                        # Centrifugal Blast
+  { move = 0x142DBE2A, level = 30 },                        # Foul Offence
   { move = 0xA17F9358, level = 30 },                        # Clone Death Zone
 ]
 
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c07020030"                                   # Oscar Pio
 moves = [
-  { move = 0x88E6A750, level = 1 },                         # Centrifugal Blast
-  { move = 0x245D62F1, level = 13 },                        # Attack Scan
-  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
-  { move = 0xB27F13ED, level = 30 },                        # Death Zone
+  { move = 0xB27F13ED, level = 13 },                        # Death Zone
+  { move = 0x88E6A750, level = 20 },                        # Centrifugal Blast
+  { move = 0x245D62F1, level = 30 },                        # Attack Scan
+  { move = 0x6ADE9E01, level = 38 },                        # Illusory Ball
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c07020040"                                   # Oliver Golightly
 moves = [
-  { move = 0x8331F63E, level = 1 },                         # Divine Dummy
-  { move = 0x88E6A750, level = 13 },                        # Centrifugal Blast
-  { move = 0xDF8CB373, level = 20 },                        # Sonic Shot
+  { move = 0x8331F63E, level = 13 },                        # Divine Dummy
+  { move = 0x88E6A750, level = 20 },                        # Centrifugal Blast
   { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+  { move = 0xDF8CB373, level = 30 },                        # Sonic Shot
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c07020050"                                   # Caesar Pike
 moves = [
-  { move = 0xE8F5C774, level = 1 },                         # Megalodon
-  { move = 0x737DCB3F, level = 13 },                        # Pancake Defence
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0x0A02DF36, level = 30 },                        # Containment Field
+  { move = 0x0A02DF36, level = 13 },                        # Containment Field
+  { move = 0xE8F5C774, level = 20 },                        # Megalodon
+  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
 ]
 
   [[edit.cards]]
@@ -98,10 +98,10 @@ moves = [
 [[edit]]
 target = "c07020060"                                   # Jimmy Nigh
 moves = [
-  { move = 0x142DBE2A, level = 1 },                         # Foul Offence
-  { move = 0x4CDC2C6B, level = 13 },                        # Shooting Star
-  { move = 0x06D2AC29, level = 20 },                        # Diabolical Cut
-  { move = 0x0A02DF36, level = 30 },                        # Containment Field
+  { move = 0x142DBE2A, level = 13 },                        # Foul Offence
+  { move = 0x0A02DF36, level = 20 },                        # Containment Field
+  { move = 0x06D2AC29, level = 38 },                        # Diabolical Cut
+  { move = 0x4CDC2C6B, level = 38 },                        # Shooting Star
 ]
 
   [[edit.cards]]
@@ -120,19 +120,19 @@ target = "c07020070"                                   # Acker Reese
   growth = "normal"
   stats = { kick = 215, control = 208, technique = 221, pressure = 240, physical = 232, intelligence = 315, agility = 194, freedom = 375 }
   moves = [
-    { move = 0x2B343D01, level = 1 },                       # Cyclone
-    { move = 0x7C1494CF, level = 13 },                      # Tornado Tunnel
-    { move = 0x0A02DF36, level = 20 },                      # Containment Field
-    { move = 0x7DAF3139, level = 30 },                      # Emperor Penguin No. 2
+    { move = 0x0A02DF36, level = 13 },                      # Containment Field
+    { move = 0x7DAF3139, level = 20 },                      # Emperor Penguin No. 2
+    { move = 0x2B343D01, level = 38 },                      # Cyclone
+    { move = 0x7C1494CF, level = 38 },                      # Tornado Tunnel
   ]
 
 [[edit]]
 target = "c07020080"                                   # Ari Zimmerman
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0xC7A9BB3A, level = 13 },                        # Whirlwind Cut
+  { move = 0x5643C944, level = 13 },                        # Killer Slide
   { move = 0x0A02DF36, level = 20 },                        # Containment Field
-  { move = 0xA81CA5FD, level = 30 },                        # Sparky Spin
+  { move = 0xC7A9BB3A, level = 30 },                        # Whirlwind Cut
+  { move = 0xA81CA5FD, level = 38 },                        # Sparky Spin
 ]
 
   [[edit.cards]]
@@ -145,9 +145,9 @@ moves = [
 [[edit]]
 target = "c07020090"                                   # Cygnus Starkey
 moves = [
-  { move = 0x8331F63E, level = 1 },                         # Divine Dummy
-  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0x8331F63E, level = 13 },                        # Divine Dummy
   { move = 0x7A67325B, level = 20 },                        # Flame Dance
+  { move = 0x6ADE9E01, level = 30 },                        # Illusory Ball
   { move = 0x21127474, level = 30 },                        # Ultra Moon
 ]
 
@@ -161,10 +161,10 @@ moves = [
 [[edit]]
 target = "c07020100"                                   # Larry Lyre
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
-  { move = 0xABA58912, level = 13 },                        # Ignited Steal
+  { move = 0x4E9A9232, level = 13 },                        # Spinning Cut
   { move = 0x7A67325B, level = 20 },                        # Flame Dance
-  { move = 0x427719AC, level = 30 },                        # Gale Dash
+  { move = 0xABA58912, level = 30 },                        # Ignited Steal
+  { move = 0x427719AC, level = 38 },                        # Gale Dash
 ]
 
   [[edit.cards]]
@@ -177,10 +177,10 @@ moves = [
 [[edit]]
 target = "c07020110"                                   # Mickey Way
 moves = [
-  { move = 0x4EFA13AE, level = 1 },                         # Fur Trapper
-  { move = 0x8DFA4265, level = 13 },                        # Toughness Block
-  { move = 0x46A71C03, level = 20 },                        # Black Hole
-  { move = 0x57E122EF, level = 30 },                        # Desecrater
+  { move = 0x4EFA13AE, level = 13 },                        # Fur Trapper
+  { move = 0x57E122EF, level = 20 },                        # Desecrater
+  { move = 0x8DFA4265, level = 30 },                        # Toughness Block
+  { move = 0x46A71C03, level = 38 },                        # Black Hole
 ]
 
   [[edit.cards]]
@@ -193,10 +193,10 @@ moves = [
 [[edit]]
 target = "c07020130"                                   # Holt Northam
 moves = [
-  { move = 0x5643C944, level = 1 },                         # Killer Slide
-  { move = 0xC7A9BB3A, level = 13 },                        # Whirlwind Cut
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x0A02DF36, level = 30 },                        # Containment Field
+  { move = 0x0A02DF36, level = 13 },                        # Containment Field
+  { move = 0x5643C944, level = 20 },                        # Killer Slide
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0xC7A9BB3A, level = 38 },                        # Whirlwind Cut
 ]
 
   [[edit.cards]]
@@ -209,10 +209,10 @@ moves = [
 [[edit]]
 target = "c07020140"                                   # Braveon Halvors
 moves = [
-  { move = 0x574008CD, level = 1 },                         # Kung Fu Fighting
   { move = 0xB1FBC783, level = 13 },                        # Reflect Buster
-  { move = 0x4DDFEDE2, level = 20 },                        # Eagle Buster
-  { move = 0x485150D9, level = 30 },                        # Body Shield
+  { move = 0x574008CD, level = 20 },                        # Kung Fu Fighting
+  { move = 0x4DDFEDE2, level = 30 },                        # Eagle Buster
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]
@@ -224,10 +224,10 @@ moves = [
 [[edit]]
 target = "c07020150"                                   # Konrad Hardin
 moves = [
-  { move = 0x05567847, level = 1 },                         # Runaway Train
   { move = 0x025FD09B, level = 13 },                        # Volcano Cut
   { move = 0x414BA9BD, level = 20 },                        # Pincer Pinch
   { move = 0x06D2AC29, level = 30 },                        # Diabolical Cut
+  { move = 0x05567847, level = 30 },                        # Runaway Train
 ]
 
   [[edit.cards]]
@@ -239,10 +239,10 @@ moves = [
 [[edit]]
 target = "c07020160"                                   # Aren Yarrow
 moves = [
-  { move = 0x19025F83, level = 1 },                         # Quick Draw
-  { move = 0x73C5AF40, level = 13 },                        # Dash Accelerator
-  { move = 0x55C71D2A, level = 20 },                        # About Face
-  { move = 0x259F08C6, level = 30 },                        # Whirlwind Twister
+  { move = 0x19025F83, level = 13 },                        # Quick Draw
+  { move = 0x73C5AF40, level = 20 },                        # Dash Accelerator
+  { move = 0x55C71D2A, level = 30 },                        # About Face
+  { move = 0x259F08C6, level = 38 },                        # Whirlwind Twister
 ]
 
   [[edit.cards]]
@@ -254,10 +254,10 @@ moves = [
 [[edit]]
 target = "c07020120"                                   # Jude Sharp
 moves = [
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0x4890FB67, level = 13 },                        # Twin Boost
-  { move = 0x30A819A7, level = 20 },                        # Twin Boost F
-  { move = 0xB039ADB4, level = 30 },                        # Inazuma Break
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0x4890FB67, level = 20 },                        # Twin Boost
+  { move = 0x30A819A7, level = 30 },                        # Twin Boost F
+  { move = 0xB039ADB4, level = 38 },                        # Inazuma Break
 ]
 
   [[edit.cards]]
@@ -269,10 +269,10 @@ moves = [
 [[edit]]
 target = "c11807140"                                   # Percival Travis
 moves = [
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0xB5B7108F, level = 13 },                        # Shadow Stitch
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x7748D3F2, level = 30 },                        # Devil Ball
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0xB5B7108F, level = 20 },                        # Shadow Stitch
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x7748D3F2, level = 38 },                        # Devil Ball
 ]
 
   [[edit.cards]]
@@ -284,10 +284,10 @@ moves = [
 [[edit]]
 target = "c11807150"                                   # Dominic Hewitt
 moves = [
-  { move = 0x2EBA803A, level = 1 },                         # Dirt Ball
-  { move = 0x8917BF4B, level = 13 },                        # Willy-Willy
-  { move = 0x1876DB66, level = 20 },                        # Disaster Strike
-  { move = 0x029E7B25, level = 30 },                        # Gaia Break
+  { move = 0x8917BF4B, level = 1 },                         # Willy-Willy
+  { move = 0x029E7B25, level = 13 },                        # Gaia Break
+  { move = 0x2EBA803A, level = 30 },                        # Dirt Ball
+  { move = 0x1876DB66, level = 38 },                        # Disaster Strike
 ]
 
   [[edit.cards]]
@@ -299,10 +299,10 @@ moves = [
 [[edit]]
 target = "c11807250"                                   # Celia Hills
 moves = [
-  { move = 0x4E9A9232, level = 1 },                         # Spinning Cut
   { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
-  { move = 0x32EEA7FE, level = 20 },                        # Death Zone 2
+  { move = 0x4E9A9232, level = 20 },                        # Spinning Cut
   { move = 0xC16279D1, level = 30 },                        # Field of Force
+  { move = 0x32EEA7FE, level = 38 },                        # Death Zone 2
 ]
 
   [[edit.cards]]

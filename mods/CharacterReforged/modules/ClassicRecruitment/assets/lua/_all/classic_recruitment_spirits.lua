@@ -11,6 +11,9 @@ if ClassicRecruitment.spirits == nil then
   local SPIRIT_INFO = 707505551          -- CMND_GET_SPIRIT_INFO (mode, series) -> ok, shown
   local HAS_CHARA_SPIRIT = 3002728759    -- (card) -> a spirit of this player is new
   local LOG = 519897777                 -- CMND_VRFW_LOG
+  local DROP_HIDE_TABS = 170971510       -- CMND_VRFW_DROP_HIDE_TABS () -> the drop list tab types never shown
+  local FIRST_SPIRIT_TAB = 1             -- Drop list tab types 1 to 4 are the player spirit groups A to D.
+  local LAST_SPIRIT_TAB = 4
   local CHARA_INFO = 4060384944
   local SPIRIT_NUM = 1883729669          -- CMND_GET_SPIRIT_NUM (card, rarity) -> ok, stock
   local ADD_SPIRIT = 2757645277          -- CMND_ADD_ITEM_SPIRIT (card, count, rarity, used)
@@ -73,16 +76,32 @@ if ClassicRecruitment.spirits == nil then
     end
   end
 
-  -- no "new spirit" notices
+  -- No "new spirit" notices while the spirit menus are hidden.
   local function NoticeFilter(nxt, ...)
     local id = ...
-    if id == SPIRIT_INFO and ClassicRecruitment.applies() then
+    if id == SPIRIT_INFO and ClassicRecruitment.spirit_menus_hidden() then
       return true, false
     end
-    if id == HAS_CHARA_SPIRIT and ClassicRecruitment.applies() then
+    if id == HAS_CHARA_SPIRIT and ClassicRecruitment.spirit_menus_hidden() then
       return false
     end
     return nxt(...)
+  end
+
+  -- The drop list keeps its player spirit tabs while the spirit menus are shown.
+  local function TabFilter(nxt, ...)
+    local hidden = table.pack(nxt(...))
+    if ClassicRecruitment.spirit_menus_hidden() then
+      return table.unpack(hidden, 1, hidden.n)
+    end
+    local kept = {}
+    for i = 1, hidden.n do
+      local tab = hidden[i]
+      if type(tab) ~= "number" or tab < FIRST_SPIRIT_TAB or tab > LAST_SPIRIT_TAB then
+        kept[#kept + 1] = tab
+      end
+    end
+    return table.unpack(kept)
   end
 
   local function FirstCommand(nxt, ...)
@@ -280,6 +299,7 @@ if ClassicRecruitment.spirits == nil then
   if type(VRFW.host) == "table" and type(VRFW.host.hook_command) == "function" then
     local innermost = {priority = VRFW.host.INNERMOST}
     VRFW.host.hook_command({SPIRIT_INFO, HAS_CHARA_SPIRIT}, NoticeFilter, "ClassicRecruitment.spirit_notices", innermost)
+    VRFW.host.hook_command({DROP_HIDE_TABS}, TabFilter, "ClassicRecruitment.spirit_tabs", innermost)
     VRFW.host.hook_command("*", FirstCommand, LATE_OWNER, innermost)
     VRFW.host.hook_command("*", FirstCommand, LATE_OWNER, {menu = true, priority = VRFW.host.INNERMOST})
   end

@@ -13,8 +13,8 @@ focus_duel_read_error = 0.0
 offside_trap_miss = 0.0
 
 [auras]
-# how often it reviews its auras (s); default 0.5
-decide_s = 0.5
+# how often it reviews its auras (s); default 0.25
+decide_s = 0.25
 # chance, at each threat, that the keeper's aura goes first (0..1); default 0.85
 keeper_priority = 0.85
 # your carrier this close to its goal line is a threat (m); default 35
@@ -59,7 +59,7 @@ hurry_force_at = 0.6
 retreat_back = 1.0
 # the sideways part of that duel move x this (0..5); default 1.0
 retreat_lateral = 1.0
-attack_read_react_s = 0.05
+attack_read_react_s = 0.0
 # chance its read follows when you change side (0..1); default 1.0
 attack_read_feint = 1.0
 # a straight duel move drifts this far to the free side (m, 0..5); default 1.3
@@ -94,12 +94,18 @@ midfielders = 1
 defenders = 1
 # only players within this of the carrier chase (m, 0..100); default 45
 range_m = 45
-# most chasers at once (players); default 3
-max = 3
+# most chasers at once (players); default 4
+max = 4
 # the chasers' run speed x this; default 1.15
 speed_mult = 1.15
 # a chaser keeps the job unless another player is this much nearer (m); default 3
 keep_m = 3
+# its chasers run to the point your carrier reaches on his current run, at most this far ahead (s, 0..2; 0 = his position); default 0.35
+lead_s = 0.35
+# chasers after the first that stand goal side of that point instead of on it (players); default 1
+cover = 1
+# how far goal side of that point they stand (m); default 4
+cover_m = 4
 # nobody chases your keeper while he holds the ball in his hands, as the game's own press (true / false); default true
 respect_keeper_hold = true
 kickoff_press = true
@@ -113,7 +119,7 @@ level_m = 0.5
 step_m = 3.5
 # how long the step-up lasts (s); default 0.7
 step_s = 0.7
-reaction_s = 0.3
+reaction_s = 0.1
 # off while your carrier is within this of the line (m); default 10
 min_distance_m = 10
 # off while your carrier is within this of its goal line (m); default 16.5
@@ -122,12 +128,12 @@ box_m = 16.5
 lane_m = 2.5
 # only defenders within this of the line take part (m); default 20
 range_m = 20
-# no new step-up for this long after one (s); default 2.5
-cooldown_s = 2.5
+# no new step-up for this long after one (s); default 1.5
+cooldown_s = 1.5
 zone_fraction = 0.25
 
 [low_block]
-after_lost_s = 2
+after_lost_s = 3
 # its forwards stand at least this far behind halfway (m; negative = that far past it); default -30
 forward_drop_m = -30
 # its other players stand at least this far behind halfway (m; negative = that far past it); default -20
@@ -142,8 +148,8 @@ mark_m = 1.0
 lane_bias = 0.4
 # only your players within this are marked (m); default 70
 range_m = 70
-# during the block this many nearest players of any role chase your carrier (players; 0 = off); default 2
-press = 2
+# during the block this many nearest players of any role chase your carrier (players; 0 = off); default 3
+press = 3
 # a player farther than this from his spot runs faster (m); default 4
 recover_m = 4
 # that recovery run's speed x this; default 1.25
@@ -178,8 +184,8 @@ width_m = 20
 range_m = 30
 # a shot passing within this of your teammate counts too (m); default 4
 chain_m = 4
-# players taking spots on the chain-to-goal line (players); default 2
-blockers = 2
+# players taking spots on the chain-to-goal line (players); default 3
+blockers = 3
 # the first spot this far from the chain point (m); default 2
 from_m = 2
 # the gap between spots (m); default 2
@@ -188,11 +194,11 @@ spacing_m = 2
 hold_s = 1.0
 
 [pass_read]
-# players sent to each pass of yours (players, 0..6; 0 = off); default 2
-players = 2
+# players sent to each pass of yours (players, 0..6; 0 = off); default 3
+players = 3
 reaction_s = 0.0
-# only players within this of their interception point take part (m); default 30
-range_m = 30
+# only players within this of their interception point take part (m); default 35
+range_m = 35
 run_speed_mps = 7.0
 # the order lasts until the ball gets there plus this (s); default 0.2
 hold_s = 0.2
@@ -206,12 +212,12 @@ lob_vertical_mps = 6.0
 defenders = 1
 # its midfielders react (1 = on, 0 = off); default 1
 midfielders = 1
-# its forwards react (1 = on, 0 = off); default 0
-forwards = 0
+# its forwards react (1 = on, 0 = off); default 1
+forwards = 1
 
 [through_ball_cover]
 lead_m = 4
-chasers = 2
+chasers = 3
 # the gap goal side of the landing point between the covering chasers (m); default 3
 goal_side_m = 3
 # only players within this of the landing point take part (m); default 40
@@ -231,7 +237,7 @@ free_gap_m = 18
 walls = 2
 # the state starts with your carrier this far behind its last outfield player (m); default 1
 enter_m = 1
-enter_s = 0.15
+enter_s = 0.1
 moving_mps = 3
 # your carrier counts as stopped under this speed toward its goal (m/s); default 1
 stopped_mps = 1
@@ -257,8 +263,8 @@ middle_max_rate = 0.5
 sprint = 1
 
 [shape]
-# a role keeps a player at least this long against a less urgent change (s); default 0.5
-hold_s = 0.5
+# a role keeps a player at least this long against a less urgent change (s); default 0.35
+hold_s = 0.35
 # without the ball its back line stands this far behind the ball (m); default 10
 line_behind_ball_m = 10
 # the back line stays at least this far from its goal line (m); default 8
@@ -289,10 +295,10 @@ disadvantage_penalty = 25
 press_m = 25
 
 [counter]
-# its runners go forward during the first this-many seconds of a won ball (s); default 6
-window_s = 6
-# players running forward (players); default 3
-runners = 3
+# its runners go forward during the first this-many seconds of a won ball (s); default 7
+window_s = 7
+# players running forward (players); default 4
+runners = 4
 # the gap between the runners' channels across the pitch (m); default 10
 channel_m = 10
 # each runs to this far ahead of himself or the ball (m); default 14
@@ -437,8 +443,8 @@ focusDefOpponentSkillRate = 1.0
 focusAtkImmediateSkillRate = 1.0
 # defender uses a move at the start of the duel (0..1); default 1.0
 focusDefImmediateSkillRate = 1.0
-# duel action interval (first value, s) (0..10); default 0.1
-focusActionIntervalA = 0.1
+# duel action interval (first value, s) (0..10); default 0.05
+focusActionIntervalA = 0.05
 # duel action interval (second value, s) (0..10); default 0.05
 focusActionIntervalB = 0.05
 # duel action interval (third value, s) (0..10); default 0.05
@@ -493,37 +499,37 @@ charaTacticsDelayTime = 0.0
 charaTacticsDelayFluctuationTime = 0.0
 # seconds a player re-plans at once after a state change (0..5); default 0.5
 fCharaTacticsStateChangeUpdateTime = 0.5
-fCharaTacticsResetIntervalTime = 1.0
-# seconds between two strategy choices of the team (0..10); default 0.2
-teamStrategyUpdateInterval = 0.2
-# seconds between two team tactic choices (0..30); default 0.5
-teamTacticsUpdateInterval = 0.5
+fCharaTacticsResetIntervalTime = 0.5
+# seconds between two strategy choices of the team (0..10); default 0.1
+teamStrategyUpdateInterval = 0.1
+# seconds between two team tactic choices (0..30); default 0.25
+teamTacticsUpdateInterval = 0.25
 # seconds between pass decisions (shortest) (0..10); default 0.02
 passLotteryIntervalMin = 0.02
-# seconds between pass decisions (longest) (0..10); default 0.1
-passLotteryIntervalMax = 0.1
+# seconds between pass decisions (longest) (0..10); default 0.06
+passLotteryIntervalMax = 0.06
 fAutoPassIntervalTime = 0.1
-gkAutoPassTime = 0.8
+gkAutoPassTime = 0.4
 # seconds between dash decisions of the ball carrier (shortest) (0..10); default 0.1
 dashLineDashLotteryIntervalMin = 0.1
-# seconds between dash decisions of the ball carrier (longest) (0..10); default 0.6
-dashLineDashLotteryIntervalMax = 0.6
-# seconds between slide-tackle decisions (shortest) (0..10); default 0.5
-slidingLotteryIntervalMin = 0.5
-# seconds between slide-tackle decisions (longest) (0..10); default 1.5
-slidingLotteryIntervalMax = 1.5
-# seconds between special tactic checks (shortest) (0..60); default 1.0
-spTacticsAutoUseIntervalMin = 1.0
-# seconds between special tactic checks (longest) (0..60); default 2.0
-spTacticsAutoUseIntervalMax = 2.0
-# seconds between super tactic checks (shortest) (0..60); default 1.0
-suTacticsAutoUseIntervalMin = 1.0
-# seconds between super tactic checks (longest) (0..60); default 2.0
-suTacticsAutoUseIntervalMax = 2.0
-# seconds between aura checks (shortest) (0..60); default 0.5
-auraSkillAutoUseIntervalMin = 0.5
-# seconds between aura checks (longest) (0..60); default 1.0
-auraSkillAutoUseIntervalMax = 1.0
+# seconds between dash decisions of the ball carrier (longest) (0..10); default 0.4
+dashLineDashLotteryIntervalMax = 0.4
+# seconds between slide-tackle decisions (shortest) (0..10); default 0.3
+slidingLotteryIntervalMin = 0.3
+# seconds between slide-tackle decisions (longest) (0..10); default 0.8
+slidingLotteryIntervalMax = 0.8
+# seconds between special tactic checks (shortest) (0..60); default 0.5
+spTacticsAutoUseIntervalMin = 0.5
+# seconds between special tactic checks (longest) (0..60); default 1.0
+spTacticsAutoUseIntervalMax = 1.0
+# seconds between super tactic checks (shortest) (0..60); default 0.5
+suTacticsAutoUseIntervalMin = 0.5
+# seconds between super tactic checks (longest) (0..60); default 1.0
+suTacticsAutoUseIntervalMax = 1.0
+# seconds between aura checks (shortest) (0..60); default 0.25
+auraSkillAutoUseIntervalMin = 0.25
+# seconds between aura checks (longest) (0..60); default 0.5
+auraSkillAutoUseIntervalMax = 0.5
 # percent: the team starts a duel (each roll) (0..100); default 80
 autoRunFocusBtlProbabilityMax = 80
 autoRunFocusBtlIntervalMin = 2.0
@@ -544,9 +550,9 @@ autoRunShootProbabilityMin = 100
 autoRunShootProbabilityMax = 100
 autoRunShootIntervalMin = 0.0
 autoRunShootIntervalMax = 0.6
-uPressCharaNumMax = 6
-# players that press without stopping (0..11); default 4
-uNoStopPressCharaNumMax = 4
+uPressCharaNumMax = 7
+# players that press without stopping (0..11); default 5
+uNoStopPressCharaNumMax = 5
 # pass choice: weight of the success rate (0..1000); default 80
 tacticsPassEvaluationSuccessRateWeight = 80
 # pass choice: weight of the phase value (0..1000); default 80
@@ -566,12 +572,12 @@ passPotentialFromOpp = 1500
 # pass target value toward the goal (0..100000); default 12000
 passPotentialToGoal = 12000
 charaSpeedStrengthMin = 1.0
-focusOpponentSkillDelayMinTimeRate = 0.05
-focusOpponentSkillDelayAddTimeRate = 0.05
+focusOpponentSkillDelayMinTimeRate = 0.0
+focusOpponentSkillDelayAddTimeRate = 0.0
 # metres within which a player may pick one of your men to mark (5..120; the game 30); default 60
 markCheckNearDist = 60
-# metres at which a presser's press score falls to 0: farther players still press (2..60; the game 10); default 20
-pressCheckNearLen = 20
+# metres at which a presser's press score falls to 0: farther players still press (2..60; the game 10); default 26
+pressCheckNearLen = 26
 # run speed factor of a marking player (0..1.5; the game 0.75); default 1.0
 eventMoveSpeedStrength_Mark = 1.0
 # run speed factor of a player pressing the ball (0..1.5; the game 0.75); default 1.0
@@ -580,9 +586,9 @@ eventMoveSpeedStrength_PressBall = 1.0
 eventMoveSpeedStrength_PressChara = 1.0
 # run speed factor of a player moving with his line (0..1.5; the game 0.5); default 0.8
 eventMoveSpeedStrength_LineMove = 0.8
-pressTimeLimit = 12
-# seconds the analysis keeps the previous phase after a change of possession (0..10; the game 1.3); default 0.5
-changePossessionContinueTime = 0.5
+pressTimeLimit = 15
+# seconds the analysis keeps the previous phase after a change of possession (0..10; the game 1.3); default 0.2
+changePossessionContinueTime = 0.2
 # pass length (m) from which the pass success starts to drop (0..100); default 18
 passFarDistBase = 18
 # pass length (m) at which the distance drop of the pass success is full (0..150); default 45
@@ -604,7 +610,7 @@ skillBattleWinPercent0_HighPowerRatio = 1.0
 skillBattleWinPercent1_HighPowerRatio = -1.0
 
 [situations.opponent_received_pass_within]
-value = 2.0
+value = 3.0
 uPressCharaNumMax = 8
 # players that press without stopping (0..11); default 6
 uNoStopPressCharaNumMax = 6
@@ -647,10 +653,10 @@ value = 0.4
 focusDefImmediateSkillRate = 1.0
 
 [situations.own_lost_ball_within]
-value = 2.0
-uPressCharaNumMax = 8
-# players that press without stopping (0..11); default 6
-uNoStopPressCharaNumMax = 6
+value = 3.0
+uPressCharaNumMax = 10
+# players that press without stopping (0..11); default 8
+uNoStopPressCharaNumMax = 8
 
 [situations.own_lost_ball_over]
 value = 3.0
@@ -682,8 +688,8 @@ positioningOffenseDirPosOffsetDist = 8
 offensePosOffsetDistRateOffense = 2.0
 # seconds between dash decisions of the ball carrier (shortest) (0..10); default 0.1
 dashLineDashLotteryIntervalMin = 0.1
-# seconds between dash decisions of the ball carrier (longest) (0..10); default 0.6
-dashLineDashLotteryIntervalMax = 0.6
+# seconds between dash decisions of the ball carrier (longest) (0..10); default 0.4
+dashLineDashLotteryIntervalMax = 0.4
 
 [situations.own_possession_over]
 value = 6.0
@@ -699,8 +705,8 @@ passDisableBackPassPosRateZ = 0.0
 tacticsDribbleEvaluationPhaseEvaluationWeight = 60
 # seconds between dash decisions of the ball carrier (shortest) (0..10); default 0.1
 dashLineDashLotteryIntervalMin = 0.1
-# seconds between dash decisions of the ball carrier (longest) (0..10); default 0.6
-dashLineDashLotteryIntervalMax = 0.6
+# seconds between dash decisions of the ball carrier (longest) (0..10); default 0.4
+dashLineDashLotteryIntervalMax = 0.4
 posOffsetRateFW = 0.1
 # depth offset of his spot while he plays in the defender group, in half-pitch lengths (retail 0) (-1..1); default 0.1
 posOffsetRateDF = 0.1
@@ -813,7 +819,7 @@ offside_trap_miss = 0.5
 [difficulty.from.focus_duel]
 hurry_scale = 1.0
 hurry_force_at = 1.0
-attack_read_react_s = 0.25
+attack_read_react_s = { values = [0.21, 0.17, 0.13, 0.09, 0.0] }
 attack_read_feint = 0.0
 
 # the same chance at every level: it multiplies attackDashEnableRate, which rises with the level
@@ -823,30 +829,35 @@ chance_per_opponent = 0.5
 [difficulty.from.press]
 lane_cut_receivers = 1
 range_m = 20
-max = 1
+max = { values = [1, 2, 2, 3, 4] }
 speed_mult = 1.0
+lead_s = { values = [0.0, 0.0, 0.0, 0.0, 0.35] }
+cover = { values = [0, 0, 0, 0, 1] }
 
 [difficulty.from.offside_trap]
-reaction_s = 1.0
+reaction_s = { values = [0.86, 0.72, 0.58, 0.44, 0.1] }
+cooldown_s = { values = [2.5, 2.5, 2.5, 2.5, 1.5] }
 
 [difficulty.from.low_block]
-after_lost_s = 6
-press = 0
+after_lost_s = { values = [5, 4, 4, 3, 3] }
+press = { values = [0, 1, 1, 2, 3] }
 recover_mult = 1.0
 
 [difficulty.from.shot_chain_read]
-blockers = 1
+blockers = { values = [1, 1, 2, 2, 3] }
 
 [difficulty.from.pass_read]
-players = 1
+players = { values = [1, 1, 2, 2, 3] }
 reaction_s = 0.5
+forwards = { values = [0, 0, 0, 0, 1] }
+range_m = { values = [30, 30, 30, 30, 35] }
 
 [difficulty.from.through_ball_cover]
-chasers = 1
+chasers = { values = [1, 1, 2, 2, 3] }
 
 [difficulty.from.counter]
-window_s = 2
-runners = 1
+window_s = { values = [3, 4, 4, 5, 7] }
+runners = { values = [1, 2, 2, 3, 4] }
 
 [difficulty.from.passing]
 pass_speed = 1.0
@@ -867,6 +878,7 @@ keeper_tension_reserve = 20
 [difficulty.from.auras]
 keeper_priority = 0.0
 carrier_free_slot_chance = 0.0
+decide_s = { values = [0.5, 0.5, 0.5, 0.5, 0.25] }
 
 [difficulty.from.retail_ai.class_rates]
 passEnableRate = 0.6
@@ -883,7 +895,7 @@ focusAtkOpponentSkillRate = 0.9
 focusDefOpponentSkillRate = 0.9
 focusAtkImmediateSkillRate = 0.8
 focusDefImmediateSkillRate = 0.8
-focusActionIntervalA = 0.2
+focusActionIntervalA = { values = [0.18, 0.16, 0.14, 0.12, 0.05] }
 focusActionIntervalB = 0.1
 focusActionIntervalC = 0.1
 focusBreakThroughDisableTime = 0.15
@@ -915,23 +927,23 @@ fCharaTacticsUpdateMoreNumMax = "retail"
 charaTacticsDelayTime = "retail"
 charaTacticsDelayFluctuationTime = "retail"
 fCharaTacticsStateChangeUpdateTime = "retail"
-fCharaTacticsResetIntervalTime = "retail"
-teamStrategyUpdateInterval = "retail"
-teamTacticsUpdateInterval = "retail"
+fCharaTacticsResetIntervalTime = { values = [4.2, 3.4, 2.6, 1.8, 0.5] }
+teamStrategyUpdateInterval = { values = [1.64, 1.28, 0.92, 0.56, 0.1] }
+teamTacticsUpdateInterval = { values = [4.1, 3.2, 2.3, 1.4, 0.25] }
 passLotteryIntervalMin = "retail"
-passLotteryIntervalMax = "retail"
+passLotteryIntervalMax = { values = [2.42, 1.84, 1.26, 0.68, 0.06] }
 fAutoPassIntervalTime = "retail"
-gkAutoPassTime = "retail"
+gkAutoPassTime = { values = [3.36, 2.72, 2.08, 1.44, 0.4] }
 dashLineDashLotteryIntervalMin = "retail"
-dashLineDashLotteryIntervalMax = "retail"
-slidingLotteryIntervalMin = "retail"
-slidingLotteryIntervalMax = "retail"
-spTacticsAutoUseIntervalMin = "retail"
-spTacticsAutoUseIntervalMax = "retail"
-suTacticsAutoUseIntervalMin = "retail"
-suTacticsAutoUseIntervalMax = "retail"
-auraSkillAutoUseIntervalMin = "retail"
-auraSkillAutoUseIntervalMax = "retail"
+dashLineDashLotteryIntervalMax = { values = [1.72, 1.44, 1.16, 0.88, 0.4] }
+slidingLotteryIntervalMin = { values = [0.9, 0.8, 0.7, 0.6, 0.3] }
+slidingLotteryIntervalMax = { values = [2.7, 2.4, 2.1, 1.8, 0.8] }
+spTacticsAutoUseIntervalMin = { values = [4.2, 3.4, 2.6, 1.8, 0.5] }
+spTacticsAutoUseIntervalMax = { values = [8.4, 6.8, 5.2, 3.6, 1.0] }
+suTacticsAutoUseIntervalMin = { values = [4.2, 3.4, 2.6, 1.8, 0.5] }
+suTacticsAutoUseIntervalMax = { values = [8.4, 6.8, 5.2, 3.6, 1.0] }
+auraSkillAutoUseIntervalMin = { values = [2.5, 2.0, 1.5, 1.0, 0.25] }
+auraSkillAutoUseIntervalMax = { values = [4.2, 3.4, 2.6, 1.8, 0.5] }
 autoRunFocusBtlProbabilityMax = "retail"
 autoRunFocusBtlIntervalMin = "retail"
 autoRunFocusBtlIntervalMax = "retail"
@@ -944,8 +956,8 @@ autoRunShootProbabilityMin = "retail"
 autoRunShootProbabilityMax = "retail"
 autoRunShootIntervalMin = "retail"
 autoRunShootIntervalMax = "retail"
-uPressCharaNumMax = "retail"
-uNoStopPressCharaNumMax = "retail"
+uPressCharaNumMax = { values = [4, 4, 5, 5, 7] }
+uNoStopPressCharaNumMax = { values = [2, 2, 3, 3, 5] }
 tacticsPassEvaluationSuccessRateWeight = "retail"
 tacticsPassEvaluationPhaseEvaluationWeight = "retail"
 tacticsDribbleEvaluationSuccessRateWeight = "retail"
@@ -956,16 +968,16 @@ passDisableBackPassPosRateZ = "retail"
 passPotentialFromOpp = "retail"
 passPotentialToGoal = "retail"
 charaSpeedStrengthMin = "retail"
-focusOpponentSkillDelayMinTimeRate = "retail"
-focusOpponentSkillDelayAddTimeRate = "retail"
+focusOpponentSkillDelayMinTimeRate = { values = [0.33, 0.26, 0.19, 0.12, 0.0] }
+focusOpponentSkillDelayAddTimeRate = { values = [0.41, 0.32, 0.23, 0.14, 0.0] }
 markCheckNearDist = "retail"
-pressCheckNearLen = "retail"
+pressCheckNearLen = { values = [12, 14, 16, 18, 26] }
 eventMoveSpeedStrength_Mark = "retail"
 eventMoveSpeedStrength_PressBall = "retail"
 eventMoveSpeedStrength_PressChara = "retail"
 eventMoveSpeedStrength_LineMove = "retail"
-pressTimeLimit = "retail"
-changePossessionContinueTime = "retail"
+pressTimeLimit = { values = [7, 8, 10, 11, 15] }
+changePossessionContinueTime = { values = [1.14, 0.98, 0.82, 0.66, 0.2] }
 passFarDistBase = "retail"
 passFarDistMax = "retail"
 passExpectetdFarDistMax = "retail"
@@ -975,6 +987,7 @@ throuthPassTargetLengthAdjustRate = "retail"
 [difficulty.from.situations.opponent_received_pass_within]
 uPressCharaNumMax = "retail"
 uNoStopPressCharaNumMax = "retail"
+value = { values = [2.0, 2.0, 2.0, 2.0, 3.0] }
 
 [difficulty.from.situations.opponent_ball_owner_stamina_below]
 uPressCharaNumMax = "retail"
@@ -999,8 +1012,9 @@ focusPowerBlockUseRate = 0.85
 focusDefImmediateSkillRate = 0.8
 
 [difficulty.from.situations.own_lost_ball_within]
-uPressCharaNumMax = "retail"
-uNoStopPressCharaNumMax = "retail"
+uPressCharaNumMax = { values = [4, 5, 6, 7, 10] }
+uNoStopPressCharaNumMax = { values = [2, 3, 4, 5, 8] }
+value = { values = [2.0, 2.0, 2.0, 2.0, 3.0] }
 
 [difficulty.from.situations.own_lost_ball_over]
 posOffsetRateFW = 0.0
@@ -1018,7 +1032,7 @@ throuthPassTargetLengthAdjustRate = "retail"
 positioningOffenseDirPosOffsetDist = "retail"
 offensePosOffsetDistRateOffense = "retail"
 dashLineDashLotteryIntervalMin = "retail"
-dashLineDashLotteryIntervalMax = "retail"
+dashLineDashLotteryIntervalMax = { values = [1.72, 1.44, 1.16, 0.88, 0.4] }
 
 [difficulty.from.situations.own_possession_over]
 passPotentialToGoal = "retail"
@@ -1027,7 +1041,7 @@ passWeightBackPasss = "retail"
 passDisableBackPassPosRateZ = "retail"
 tacticsDribbleEvaluationPhaseEvaluationWeight = "retail"
 dashLineDashLotteryIntervalMin = "retail"
-dashLineDashLotteryIntervalMax = "retail"
+dashLineDashLotteryIntervalMax = { values = [1.72, 1.44, 1.16, 0.88, 0.4] }
 posOffsetRateFW = 0.0
 posOffsetRateDF = 0.0
 
@@ -1051,3 +1065,9 @@ attackDashEnableRate = 0.5
 
 [difficulty.from.situations.own_zone]
 keepTention = 0.0
+
+[difficulty.from.behind_line]
+enter_s = { values = [0.15, 0.15, 0.15, 0.15, 0.1] }
+
+[difficulty.from.shape]
+hold_s = { values = [0.5, 0.5, 0.5, 0.5, 0.35] }

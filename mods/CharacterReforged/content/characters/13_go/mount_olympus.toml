@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c04003060_5000"                              # Rae Godmother
 moves = [
-  { move = 0x00A10ABD, level = 1 },                         # Ball Lightning
+  { move = 0x00A10ABD, level = 12 },                        # Ball Lightning
   { move = 0xB9A6C82E, level = 18 },                        # Triangle ZZ
   { move = 0xAF150D21, level = 55 },                        # Swallow Counter
   { move = 0x9EA7BBCD, level = 67 },                        # Magmire
@@ -18,7 +18,7 @@ moves = [
 [[edit]]
 target = "c04003070_5000"                              # Hyperion Wise
 moves = [
-  { move = 0x00A10ABD, level = 1 },                         # Ball Lightning
+  { move = 0x00A10ABD, level = 11 },                        # Ball Lightning
   { move = 0xDDCA0D2A, level = 16 },                        # Bouncing Bomb
   { move = 0xA0BDF96F, level = 44 },                        # Ballista Barrage
   { move = 0x25276CB9, level = 60 },                        # Solar Surprise
@@ -34,7 +34,7 @@ moves = [
 [[edit]]
 target = "c04003080_5000"                              # Cronus Fourseasons
 moves = [
-  { move = 0xA0BDF96F, level = 1 },                         # Ballista Barrage
+  { move = 0xA0BDF96F, level = 3 },                         # Ballista Barrage
   { move = 0x00A10ABD, level = 17 },                        # Ball Lightning
   { move = 0xB0F8060A, level = 40 },                        # Ozone Flayer
   { move = 0x910F4F83, level = 62 },                        # Fire Tornado DD
@@ -51,7 +51,7 @@ moves = [
 target = "c04003010"                                   # Theo Divine
 moves = [
   { move = 0xFF5C8DAF, level = 1 },                         # Shot Stopper
-  { move = 0xE4849E49, level = 11 },                        # Wild Dunk
+  { move = 0xE4849E49, level = 1 },                         # Wild Dunk
   { move = 0x1C2DC89A, level = 49 },                        # Menace Elbow
   { move = 0xE6C22010, level = 66 },                        # Claw de Force
 ]
@@ -95,7 +95,7 @@ moves = [
 [[edit]]
 target = "c04003040"                                   # Iapetus Pierce
 moves = [
-  { move = 0xB0F8060A, level = 1 },                         # Ozone Flayer
+  { move = 0xB0F8060A, level = 3 },                         # Ozone Flayer
   { move = 0x660EED1E, level = 39 },                        # Low Scythe Slice
   { move = 0x768AB9C5, level = 43 },                        # Frosticle
   { move = 0x72BFA108, level = 59 },                        # Wall of Atlantis
@@ -111,7 +111,7 @@ moves = [
 [[edit]]
 target = "c04003050"                                   # Phoebus Moonlight
 moves = [
-  { move = 0xB0F8060A, level = 1 },                         # Ozone Flayer
+  { move = 0xB0F8060A, level = 5 },                         # Ozone Flayer
   { move = 0x4FE09C7A, level = 43 },                        # Acrobatic Keep
   { move = 0x62BE692D, level = 49 },                        # Whirlwind Force
   { move = 0xF4604B0E, level = 51 },                        # Fancy-Footwork
@@ -127,7 +127,7 @@ moves = [
 [[edit]]
 target = "c04003060"                                   # Rae Godmother
 moves = [
-  { move = 0x00A10ABD, level = 1 },                         # Ball Lightning
+  { move = 0x00A10ABD, level = 12 },                        # Ball Lightning
   { move = 0xB9A6C82E, level = 18 },                        # Triangle ZZ
   { move = 0xAF150D21, level = 55 },                        # Swallow Counter
   { move = 0x9EA7BBCD, level = 67 },                        # Magmire
@@ -147,7 +147,7 @@ moves = [
 [[edit]]
 target = "c04003070"                                   # Hyperion Wise
 moves = [
-  { move = 0x00A10ABD, level = 1 },                         # Ball Lightning
+  { move = 0x00A10ABD, level = 11 },                        # Ball Lightning
   { move = 0xDDCA0D2A, level = 16 },                        # Bouncing Bomb
   { move = 0xA0BDF96F, level = 44 },                        # Ballista Barrage
   { move = 0x25276CB9, level = 60 },                        # Solar Surprise
@@ -168,7 +168,7 @@ moves = [
 [[edit]]
 target = "c04003080"                                   # Cronus Fourseasons
 moves = [
-  { move = 0xA0BDF96F, level = 1 },                         # Ballista Barrage
+  { move = 0xA0BDF96F, level = 3 },                         # Ballista Barrage
   { move = 0x00A10ABD, level = 17 },                        # Ball Lightning
   { move = 0xB0F8060A, level = 40 },                        # Ozone Flayer
   { move = 0x910F4F83, level = 62 },                        # Fire Tornado DD
@@ -189,7 +189,7 @@ moves = [
 [[edit]]
 target = "c04003090"                                   # Oceanus Worldstream
 moves = [
-  { move = 0x8A52C09B, level = 1 },                         # Doomsword Slash
+  { move = 0x8A52C09B, level = 4 },                         # Doomsword Slash
   { move = 0x2A4E3349, level = 17 },                        # Heart Beat
   { move = 0xC66BD10D, level = 54 },                        # Zigzag Spark
   { move = 0xECB91078, level = 57 },                        # Volcanic Flight
@@ -205,7 +205,7 @@ moves = [
 [[edit]]
 target = "c04003100"                                   # Coeus Heavens
 moves = [
-  { move = 0xA0BDF96F, level = 1 },                         # Ballista Barrage
+  { move = 0xA0BDF96F, level = 5 },                         # Ballista Barrage
   { move = 0xA37D1A41, level = 13 },                        # Hyper-Swiper
   { move = 0x4FE09C7A, level = 54 },                        # Acrobatic Keep
   { move = 0xB0F8060A, level = 60 },                        # Ozone Flayer
@@ -220,10 +220,10 @@ moves = [
 [[edit]]
 target = "c04003110"                                   # Tet Aqua
 moves = [
-  { move = 0x518BCA26, level = 1 },                         # Fire Tornado
+  { move = 0x518BCA26, level = 4 },                         # Fire Tornado
   { move = 0x2B8C597E, level = 50 },                        # Fugue Wave
   { move = 0xB0F8060A, level = 60 },                        # Ozone Flayer
-  { move = 0xF4604B0E, level = 70 },                        # Fancy-Footwork
+  { move = 0xF4604B0E, level = 60 },                        # Fancy-Footwork
 ]
 
   [[edit.cards]]
@@ -235,10 +235,10 @@ moves = [
 [[edit]]
 target = "c04003120"                                   # Eos Dawn
 moves = [
-  { move = 0x8C382852, level = 1 },                         # God Hand
+  { move = 0x8C382852, level = 2 },                         # God Hand
+  { move = 0x822B79EA, level = 38 },                        # Somersault Stamp
   { move = 0xA0BDF96F, level = 52 },                        # Ballista Barrage
   { move = 0xFF5C8DAF, level = 66 },                        # Shot Stopper
-  { move = 0x822B79EA, level = 76 },                        # Somersault Stamp
 ]
 
   [[edit.cards]]
@@ -250,10 +250,10 @@ moves = [
 [[edit]]
 target = "c04003130"                                   # Pallas Brandish
 moves = [
-  { move = 0x25276CB9, level = 1 },                         # Solar Surprise
+  { move = 0x25276CB9, level = 24 },                        # Solar Surprise
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
   { move = 0x64CDCFB9, level = 43 },                        # Rising Dragon
   { move = 0x6BA49049, level = 48 },                        # Mystic Mist
-  { move = 0x9D236FA3, level = 58 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -265,7 +265,7 @@ moves = [
 [[edit]]
 target = "c04003140"                                   # Themis Law
 moves = [
-  { move = 0x928B9BED, level = 1 },                         # Optimal Trajectory
+  { move = 0x928B9BED, level = 9 },                         # Optimal Trajectory
   { move = 0x4A17EE80, level = 26 },                        # Hunter's Net
   { move = 0x3297683F, level = 60 },                        # Warp Step
   { move = 0x660EED1E, level = 61 },                        # Low Scythe Slice
@@ -281,7 +281,7 @@ moves = [
 [[edit]]
 target = "c04003150"                                   # Atlas Carrier
 moves = [
-  { move = 0xE196F1D1, level = 1 },                         # Burning Bomb
+  { move = 0xE196F1D1, level = 18 },                        # Burning Bomb
   { move = 0x0BFD4D80, level = 19 },                        # Grand Slam
   { move = 0x4E9A9232, level = 42 },                        # Spinning Cut
   { move = 0xA0BDF96F, level = 57 },                        # Ballista Barrage
@@ -297,7 +297,7 @@ moves = [
 [[edit]]
 target = "c04003160"                                   # Orion Hunter
 moves = [
-  { move = 0xA9E3374B, level = 1 },                         # Cyclone Sprint
+  { move = 0xA9E3374B, level = 27 },                        # Cyclone Sprint
   { move = 0x00A10ABD, level = 55 },                        # Ball Lightning
   { move = 0xC513565C, level = 57 },                        # Doom Spear
   { move = 0x87BC8A8C, level = 58 },                        # Hydro Flow
@@ -314,9 +314,9 @@ moves = [
 target = "c05026580"                                   # Alex Zabel
 moves = [
   { move = 0x518BCA26, level = 1 },                         # Fire Tornado
-  { move = 0x00D8C57C, level = 11 },                        # Fireball Storm
-  { move = 0x0B011EBF, level = 21 },                        # Fireball Screw
-  { move = 0xEAB3792D, level = 31 },                        # Grand Fire
+  { move = 0x00D8C57C, level = 1 },                         # Fireball Storm
+  { move = 0xEAB3792D, level = 1 },                         # Grand Fire
+  { move = 0x0B011EBF, level = 38 },                        # Fireball Screw
 ]
 VRFW.MoveGrades = [
   { Move = 0x518BCA26, Grade = 1 },                         # Fire Tornado
@@ -332,9 +332,9 @@ VRFW.MoveGrades = [
 target = "c05026620"                                   # Dave Quagmire
 moves = [
   { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0x3F00EDE9, level = 11 },                        # Dash Storm
-  { move = 0x1C8CE2B8, level = 21 },                        # God Knows
-  { move = 0x035C1112, level = 31 },                        # Gungnir
+  { move = 0x3F00EDE9, level = 1 },                         # Dash Storm
+  { move = 0x1C8CE2B8, level = 1 },                         # God Knows
+  { move = 0x035C1112, level = 1 },                         # Gungnir
 ]
 VRFW.MoveGrades = [
   { Move = 0x6ADE9E01, Grade = 1 },                         # Illusory Ball

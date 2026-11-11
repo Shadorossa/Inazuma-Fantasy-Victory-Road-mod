@@ -1,0 +1,53 @@
+schema = "VRFW.item/2"
+# Owner-made crests sold in Inazuma Fantasy's general store (add-on rule: addons/InazumaFantasy/_general_store.toml).
+default_lang = "en"
+
+[[item]]
+name = "crest_world_selection"
+base = "em900012"
+category = "emblem"
+icon_key = "em987001"
+key_id = true
+  [item.text.es]
+  name = "Selección Mundial"
+  [item.text.en]
+  name = "World Captains United"
+  [item.text.fr]
+  name = "Union des capitaines"
+  [item.text.de]
+  name = "Die Weltkapitäne"
+  [item.text.it]
+  name = "Capitani del Mondo"
+  [item.text.pt]
+  name = "União dos Capitães"
+  [item.text.ja]
+  name = "[世界選抜/せかいせんばつ]チーム"
+  [item.text.zh_hans]
+  name = "世界选拔队"
+  [item.text.zh_hant]
+  name = "世界選拔隊"
+
+[[item]]
+name = "crest_womens_team"
+base = "em900012"
+category = "emblem"
+icon_key = "em987002"
+key_id = true
+  [item.text.es]
+  name = "Equipo Femenino"
+  [item.text.en]
+  name = "Women's Team"
+  [item.text.fr]
+  name = "Équipe Féminine"
+  [item.text.de]
+  name = "Frauenteam"
+  [item.text.it]
+  name = "Squadra Femminile"
+  [item.text.pt]
+  name = "Equipe Feminina"
+  [item.text.ja]
+  name = "女子チーム"
+  [item.text.zh_hans]
+  name = "女子队"
+  [item.text.zh_hant]
+  name = "女子隊"

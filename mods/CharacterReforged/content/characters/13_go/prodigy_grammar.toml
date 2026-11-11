@@ -5,8 +5,8 @@ target = "c04000610"                                   # Par Scal
 moves = [
   { move = 0x822B79EA, level = 1 },                         # Somersault Stamp
   { move = 0xDF2D9951, level = 52 },                        # Close Counter
-  { move = 0x06B22DB5, level = 62 },                        # Gyro-Blocker
-  { move = 0xB8C5883B, level = 72 },                        # God Hand X
+  { move = 0x06B22DB5, level = 52 },                        # Gyro-Blocker
+  { move = 0xB8C5883B, level = 52 },                        # God Hand X
 ]
 
   [[edit.cards]]
@@ -21,7 +21,7 @@ moves = [
   { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
   { move = 0xED7B7A4F, level = 20 },                        # Defence Equation
   { move = 0xA9E3374B, level = 35 },                        # Cyclone Sprint
-  { move = 0x0F4DC9B3, level = 45 },                        # Logicstical Sync
+  { move = 0x0F4DC9B3, level = 35 },                        # Logicstical Sync
 ]
 
   [[edit.cards]]
@@ -35,8 +35,8 @@ target = "c04000630"                                   # Aris Tottle
 moves = [
   { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
   { move = 0xD8794890, level = 25 },                        # Kangaroo Kick
+  { move = 0x64CDCFB9, level = 30 },                        # Rising Dragon
   { move = 0x5DA7EA06, level = 32 },                        # Boomerang Bluff
-  { move = 0x64CDCFB9, level = 42 },                        # Rising Dragon
 ]
 
   [[edit.cards]]
@@ -51,8 +51,8 @@ target = "c04000640"                                   # Archie Medes
 moves = [
   { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
   { move = 0x12E67CC1, level = 13 },                        # Future Eye
-  { move = 0xAD6E4BF9, level = 23 },                        # Harvest
-  { move = 0x7DD6FEF8, level = 33 },                        # Athena's Anthem
+  { move = 0xAD6E4BF9, level = 38 },                        # Harvest
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -67,8 +67,8 @@ target = "c04000650"                                   # Socrat Eiss
 moves = [
   { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
   { move = 0x928B9BED, level = 13 },                        # Optimal Trajectory
-  { move = 0xDE4ED944, level = 23 },                        # Snowstorm Leopard
-  { move = 0x6ADE9E01, level = 33 },                        # Illusory Ball
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
+  { move = 0x6ADE9E01, level = 38 },                        # Illusory Ball
 ]
 
   [[edit.cards]]
@@ -82,8 +82,8 @@ target = "c04000660"                                   # Ian Stein
 moves = [
   { move = 0x12E67CC1, level = 1 },                         # Future Eye
   { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
-  { move = 0xA2BF7076, level = 23 },                        # Side Swipe
-  { move = 0x4A17EE80, level = 33 },                        # Hunter's Net
+  { move = 0x4A17EE80, level = 30 },                        # Hunter's Net
+  { move = 0xA2BF7076, level = 38 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -97,8 +97,8 @@ target = "c04000670"                                   # Ed Ison
 moves = [
   { move = 0x12E67CC1, level = 1 },                         # Future Eye
   { move = 0x928B9BED, level = 13 },                        # Optimal Trajectory
-  { move = 0xEFFC6FA8, level = 23 },                        # Warhead
-  { move = 0x15138722, level = 33 },                        # Will-o'-the-Wisp Shot
+  { move = 0xEFFC6FA8, level = 30 },                        # Warhead
+  { move = 0x15138722, level = 38 },                        # Will-o'-the-Wisp Shot
 ]
 
   [[edit.cards]]
@@ -113,7 +113,7 @@ moves = [
   { move = 0x12E67CC1, level = 1 },                         # Future Eye
   { move = 0x928B9BED, level = 13 },                        # Optimal Trajectory
   { move = 0xDA3FF6C9, level = 36 },                        # Criss-Cross
-  { move = 0x3C843987, level = 46 },                        # Flurry Dash
+  { move = 0x3C843987, level = 38 },                        # Flurry Dash
 ]
 
   [[edit.cards]]
@@ -128,8 +128,8 @@ target = "c04000690"                                   # Moe Sart
 moves = [
   { move = 0x928B9BED, level = 1 },                         # Optimal Trajectory
   { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
-  { move = 0x61FB16FD, level = 23 },                        # Divine Arrows
-  { move = 0xA2BF7076, level = 33 },                        # Side Swipe
+  { move = 0x61FB16FD, level = 38 },                        # Divine Arrows
+  { move = 0xA2BF7076, level = 38 },                        # Side Swipe
 ]
 
   [[edit.cards]]
@@ -157,9 +157,9 @@ moves = [
 target = "c04000710"                                   # Frank Lyn
 moves = [
   { move = 0x928B9BED, level = 1 },                         # Optimal Trajectory
+  { move = 0x12E67CC1, level = 20 },                        # Future Eye
   { move = 0xA0BDF96F, level = 35 },                        # Ballista Barrage
-  { move = 0x7DD6FEF8, level = 45 },                        # Athena's Anthem
-  { move = 0x12E67CC1, level = 55 },                        # Future Eye
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -172,9 +172,9 @@ moves = [
 target = "c04000720"                                   # Cooper Nikos
 moves = [
   { move = 0x822B79EA, level = 1 },                         # Somersault Stamp
+  { move = 0x8B31808E, level = 20 },                        # Wormhole
+  { move = 0xF08DB620, level = 30 },                        # Whirlwind
   { move = 0xF2CB0879, level = 48 },                        # Mugen the Hand
-  { move = 0x8B31808E, level = 58 },                        # Wormhole
-  { move = 0xF08DB620, level = 68 },                        # Whirlwind
 ]
 
   [[edit.cards]]
@@ -188,9 +188,9 @@ moves = [
 target = "c04000730"                                   # Leo Gally
 moves = [
   { move = 0x2E7B2B84, level = 1 },                         # Thief's Eye
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
   { move = 0x4A17EE80, level = 39 },                        # Hunter's Net
-  { move = 0xEF3DC416, level = 49 },                        # Skytree Hop
-  { move = 0x7DD6FEF8, level = 59 },                        # Athena's Anthem
+  { move = 0xEF3DC416, level = 39 },                        # Skytree Hop
 ]
 
   [[edit.cards]]
@@ -205,8 +205,8 @@ target = "c04000740"                                   # Desmond Cartes
 moves = [
   { move = 0x12E67CC1, level = 1 },                         # Future Eye
   { move = 0x2E7B2B84, level = 13 },                        # Thief's Eye
+  { move = 0x737DCB3F, level = 30 },                        # Pancake Defence
   { move = 0xDBFD9CFE, level = 56 },                        # Big Ball Trick
-  { move = 0x737DCB3F, level = 66 },                        # Pancake Defence
 ]
 
   [[edit.cards]]
@@ -220,8 +220,8 @@ target = "c04000750"                                   # Connor Fuschius
 moves = [
   { move = 0x12E67CC1, level = 1 },                         # Future Eye
   { move = 0xCF7FA2C4, level = 30 },                        # Gold Rush
+  { move = 0x73C5AF40, level = 30 },                        # Dash Accelerator
   { move = 0x14D1ED15, level = 36 },                        # Jumping Jack
-  { move = 0x73C5AF40, level = 46 },                        # Dash Accelerator
 ]
 
   [[edit.cards]]
@@ -235,7 +235,7 @@ target = "c04000760"                                   # Dar Wynne
 moves = [
   { move = 0x928B9BED, level = 1 },                         # Optimal Trajectory
   { move = 0xF6E75EE9, level = 24 },                        # Headbanger
-  { move = 0x332CCDC9, level = 34 },                        # Heel Kick
+  { move = 0x332CCDC9, level = 24 },                        # Heel Kick
   { move = 0x1C4D4906, level = 36 },                        # Whirlpool
 ]
 
@@ -249,10 +249,10 @@ moves = [
 [[edit]]
 target = "c11804010"                                   # Tom Jefferson
 moves = [
-  { move = 0x650FA58E, level = 1 },                         # Spin Out
-  { move = 0xE0549BE6, level = 11 },                        # Easy Breezy Kid
-  { move = 0xDF8CB373, level = 21 },                        # Sonic Shot
-  { move = 0x7C1494CF, level = 31 },                        # Tornado Tunnel
+  { move = 0x650FA58E, level = 13 },                        # Spin Out
+  { move = 0xE0549BE6, level = 30 },                        # Easy Breezy Kid
+  { move = 0xDF8CB373, level = 30 },                        # Sonic Shot
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]

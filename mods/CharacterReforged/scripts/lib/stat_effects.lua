@@ -19,7 +19,8 @@ local MEMBER_SKIP, MEMBER_USED, MEMBER_HANDLE = 0xF1, 0xD8, 0xE4
 
 local SETTINGS = nil
 local PLAYERS = nil
-local LUCK = {}            -- handle -> Suerte, this match
+local LUCK = {}            -- character handle -> Suerte, this match
+local LUCK_UNREAD = {}     -- actor handle -> true once his failed reading was logged, this match
 local CATCH_WRITTEN = nil  -- the criticalCatchPercentage value last written
 
 local Memory = VRFW.memory
@@ -48,41 +49,53 @@ local function players()
   return PLAYERS
 end
 
--- Suerte of a match player (0 when his card or record is not known)
+-- The character handle match actor `hdl` plays (0 when the actor or his match unit is not readable).
+local function actor_character(hdl)
+  local actor = VRFW.players.of(hdl, { chara = true })
+  return actor and u32(actor.chara or 0) or 0
+end
+
+-- Suerte of match actor `hdl`: his card's value at his level, plus the committed training of his saved character or his rival training.
 function Effects.Luck(hdl)
   hdl = u32(hdl or 0)
   if hdl == 0 then return 0 end
-  local cached = LUCK[hdl]
+  local chara = actor_character(hdl)
+  local cached = LUCK[chara]
   if cached then return cached end
-  local value = 0
-  local view, viewError = V.view(hdl)
-  local okOwner, owner = pcall(VRFW.character.owner, hdl)
-  if not okOwner then owner = nil end
-  if not view and owner then view, viewError = V.view(owner) end
-  local p, level = nil, nil
-  if view then
-    p = players()[u32(view.param_id)]
-    level = V.level(view.obj)
-    if p and level then
-      local base = nil
-      if p.native then
-        base = {}
-        for i = 0, CS.RETIRED - 1 do base[i] = V.param_stat(view.params, i) or 0 end
-      end
-      value = CS.luck(p, level, base)
+  local view, viewError = nil, "no character on the actor's match unit"
+  if chara ~= 0 then view, viewError = V.view(chara) end
+  local p = view and players()[u32(view.param_id)]
+  local level = view and V.level(view.obj)
+  if not (view and p and level) then
+    if not LUCK_UNREAD[hdl] then
+      LUCK_UNREAD[hdl] = true
+      warn(string.format("Suerte of actor 0x%08X not read (character 0x%08X, record %s, card %s, level %s): 0 used", hdl, chara,
+        view and "read" or ("not read, code " .. tostring(viewError)),
+        view and (p and "known" or string.format("0x%08X not in the card table", u32(view.param_id))) or "-", tostring(level)))
     end
-    local saved = owner or hdl
-    local okDelta, delta = pcall(CharacterReforged.TrainingLuckDelta, saved)
-    if okDelta and type(delta) == "number" then value = value + delta end
-    local okRival, rival = pcall(RivalTraining.luck_delta, hdl, view.param_id)
-    if okRival and type(rival) == "number" then value = value + rival end
+    return 0
   end
-  value = math.max(0, value)
-  LUCK[hdl] = value
-  -- One line per player and match tells which step of the reading answered, because a Luck of 0 for every player was seen on 2026-11-10.
-  info(string.format("Suerte of 0x%08X: %d (owner %s, record %s, card %s, level %s)", hdl, math.floor(value),
-    owner and string.format("0x%08X", u32(owner)) or "none", view and "read" or ("not read, code " .. tostring(viewError)),
-    view and (p and "known" or string.format("0x%08X not in the card table", u32(view.param_id))) or "-", tostring(level)))
+  local base = nil
+  if p.native then
+    base = {}
+    for i = 0, CS.RETIRED - 1 do base[i] = V.param_stat(view.params, i) or 0 end
+  end
+  local card_luck = CS.luck(p, level, base)
+  local okOwner, owner = pcall(VRFW.character.owner, chara)
+  if not okOwner then owner = nil end
+  local trained = 0
+  if owner then
+    local okDelta, delta = pcall(CharacterReforged.TrainingLuckDelta, owner)
+    if okDelta and type(delta) == "number" then trained = delta end
+  end
+  local rival = 0
+  local okRival, rivalDelta = pcall(RivalTraining.luck_delta, hdl, view.param_id)
+  if okRival and type(rivalDelta) == "number" then rival = rivalDelta end
+  local value = math.max(0, card_luck + trained + rival)
+  LUCK[chara] = value
+  info(string.format("Suerte of actor 0x%08X (character 0x%08X, card 0x%08X, level %d, owner %s): card %d + training %d + rival training %d = %d",
+    hdl, chara, u32(view.param_id), math.floor(level), owner and string.format("0x%08X", u32(owner)) or "none", math.floor(card_luck),
+    math.floor(trained), math.floor(rival), math.floor(value)))
   return value
 end
 
@@ -93,9 +106,10 @@ function Effects.CatchPercent(keeper)
   return math.max(0, math.min(s.catch_cap, 100, math.floor(v + 0.5)))
 end
 
+-- The critical chance in percent Suerte gives match actor `hdl`, at most the configured cap.
 function Effects.CriticalChance(hdl)
   local s = settings()
-  return s.crit_base + Effects.Luck(hdl) * s.crit_per_luck
+  return math.max(0, math.min(s.crit_cap, s.crit_base + Effects.Luck(hdl) * s.crit_per_luck))
 end
 
 local function catch_address()
@@ -141,6 +155,7 @@ end
 
 local function reset_match()
   LUCK = {}
+  LUCK_UNREAD = {}
   PLAYERS = nil
 end
 
@@ -161,12 +176,15 @@ VRFW.on("hook:CharacterReforged.TrainingShotLaunch", function()
   return nil
 end)
 
--- the critical stage of special moves (docs/framework/rules.md §3.7)
+-- The critical stage of a special move's execution (docs/framework/rules.md §3.7): the chance grows with the player's Suerte.
 VRFW.on("crit_check", function(ev)
   local a = ev.actor
   if not a or not a.handle then return nil end
   local s = settings()
-  return { crit_chance = Effects.CriticalChance(a.handle), crit_cap = s.crit_cap, crit_mult = s.crit_mult }
+  local chance = Effects.CriticalChance(a.handle)
+  info(string.format("critical chance of actor 0x%08X: %.2f %% = %.2f + Suerte %d x %.3f (at most %.1f %% from Suerte)", u32(a.handle), chance,
+    s.crit_base, math.floor(Effects.Luck(a.handle)), s.crit_per_luck, s.crit_cap))
+  return { crit_chance = chance, crit_mult = s.crit_mult }
 end)
 
 return Effects

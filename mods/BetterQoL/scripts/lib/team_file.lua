@@ -23,6 +23,8 @@ local FIELD = {
 }
 local AURA_SLOT_COUNT = 4
 local TACTIC_COUNT = 4
+-- Words of a member record: +0x0 handle, +0x4 cleared by the game when it places a player, +0x8 kept with the slot, +0xC the shirt number (u16), the position (byte +0xE) and the game's recount flags (byte +0xF).
+local RECORD = { HANDLE = 0, PLACED = 1, SLOT = 2, NUMBER_POSITION = 3 }
 
 local function export_area()
   local area = VRFW.config("team_files.export_area", DEFAULT_EXPORT_AREA)
@@ -81,16 +83,20 @@ local function team_to_file(needed, words, team)
     if handle ~= 0 then
       local param, order = identity(handle)
       if param then
-        local detail = words[at + 1]
+        local detail = words[at + RECORD.NUMBER_POSITION]
         local chara = Files.reference(needed, "chara", "characters", param)
         chara.name = character_name(param)
         out.member[#out.member + 1] = {
-          slot = slot, chara = chara, order = order,
-          number = band(detail, 0xFFFF), position = band(rshift(detail, 16), 0xFF), title = band(rshift(detail, 24), 0xFF),
+          slot = slot, chara = chara, order = order, number = band(detail, 0xFFFF), position = band(rshift(detail, 16), 0xFF),
         }
         slot_of_handle[handle] = slot
       end
     end
+  end
+  -- Every slot keeps its position, filled or not, so the import rebuilds the formation slot by slot.
+  out.positions = {}
+  for slot = 0, S.MEMBERS - 1 do
+    out.positions[slot + 1] = band(rshift(words[S.wi(0, S.member_off(team, slot)) + RECORD.NUMBER_POSITION], 16), 0xFF)
   end
   local name = clean_name(team_name(words, team))
   if #out.member == 0 and name == "" then return nil end
@@ -125,8 +131,8 @@ local function team_to_file(needed, words, team)
   return out
 end
 
--- CMND_BETTERQOL_TEAM_FILE_EXPORT (team set) -> true, file, area; false, why
-function TeamFile.Export(set)
+-- CMND_BETTERQOL_TEAM_FILE_EXPORT (team set[, save ticket]) answers true, file and area (nil for a picked file), or false and why.
+function TeamFile.Export(set, ticket)
   local words = BetterQoL.TeamTemplates.DockWords(set)
   if not words then return false, "the shown team cannot be read" end
   local needed, teams = {}, {}
@@ -143,7 +149,20 @@ function TeamFile.Export(set)
     needed = needed,
     area = export_area(),
     exporter = "BetterQoL@" .. own_version(),
+    ticket = ticket,
   })
+end
+
+-- CMND_BETTERQOL_TEAM_FILE_NAME (team set) answers the name of the shown team and the area its files go to.
+function TeamFile.Name(set)
+  local words = BetterQoL.TeamTemplates.DockWords(set)
+  return words and clean_name(team_name(words, 0)) or "", export_area()
+end
+
+-- The read share file: listed entry `index`, or the file of open pick `ticket` when there is one.
+local function read_file(index, ticket)
+  if ticket ~= nil then return Files.read_picked(FILE_KIND, ticket) end
+  return Files.read(export_area(), FILE_KIND, index)
 end
 
 -- CMND_BETTERQOL_TEAM_FILE_EMPTY (team set) -> true when the shown team has no member and no name
@@ -163,11 +182,12 @@ function TeamFile.Entry(index)
   return Files.entry(export_area(), FILE_KIND, index)
 end
 
--- CMND_BETTERQOL_TEAM_FILE_CHECK (index) -> true, checksum ok, missing mods text; false, why
-function TeamFile.Check(index)
-  local read, why = Files.read(export_area(), FILE_KIND, index)
+-- CMND_BETTERQOL_TEAM_FILE_CHECK (index[, open ticket]) answers true, checksum ok, missing mods text and team name, or false and why.
+function TeamFile.Check(index, ticket)
+  local read, why = read_file(index, ticket)
   if not read then return false, tostring(why) end
-  return true, read.checksum_ok, table.concat(read.missing, ", ")
+  local first = type(read.body.teams) == "table" and read.body.teams[1] or nil
+  return true, read.checksum_ok, table.concat(read.missing, ", "), type(first) == "table" and clean_name(first.name) or ""
 end
 
 -- The handles of the save's players by chara_param id, each list with its get orders.
@@ -207,7 +227,11 @@ end
 local function file_to_team(read, source, words, team, owned, in_use)
   local placed, skipped, kept = 0, {}, 0
   local function put(offset, value) words[word_at(team, offset)] = value end
-  for slot = 0, S.MEMBERS - 1 do S.clear_member(words, 0, team, slot) end
+  for slot = 0, S.MEMBERS - 1 do
+    S.clear_member(words, 0, team, slot)
+    local at = S.wi(0, S.member_off(team, slot))
+    words[at + RECORD.NUMBER_POSITION] = lshift(band(int(source.positions[slot + 1], 0), 0xFF), 16)
+  end
   for k = 0, AURA_SLOT_COUNT * 2 - 1 do put(FIELD.AURA_SLOTS + k * 4, 0) end
   put(FIELD.CAPTAIN_CHARACTER, 0)
   put(FIELD.CAPTAIN_HANDLE, 0)
@@ -226,9 +250,8 @@ local function file_to_team(read, source, words, team, owned, in_use)
         taken[chosen.handle] = true
         handle_of_slot[slot] = chosen.handle
         local at = S.wi(0, S.member_off(team, slot))
-        words[at] = chosen.handle
-        words[at + 1] = bor(band(int(member.number, 0), 0xFFFF), lshift(band(int(member.position, 0), 0xFF), 16),
-          lshift(band(int(member.title, 0), 0xFF), 24))
+        words[at + RECORD.HANDLE] = chosen.handle
+        words[at + RECORD.NUMBER_POSITION] = bor(band(int(member.number, 0), 0xFFFF), lshift(band(int(source.positions[slot + 1], 0), 0xFF), 16))
         placed = placed + 1
         if slot == int(source.captain, -1) then
           put(FIELD.CAPTAIN_CHARACTER, param)
@@ -272,13 +295,18 @@ local function file_to_team(read, source, words, team, owned, in_use)
   return placed, skipped, kept
 end
 
--- CMND_BETTERQOL_TEAM_FILE_APPLY (index, team set) -> true, members placed, members skipped, their names, fields kept; false, why
-function TeamFile.Apply(index, set)
-  local read, why = Files.read(export_area(), FILE_KIND, index)
+-- CMND_BETTERQOL_TEAM_FILE_APPLY (index, team set[, open ticket]) answers true, members placed, members skipped, their names and fields kept, or false and why.
+function TeamFile.Apply(index, set, ticket)
+  local read, why = read_file(index, ticket)
   if not read then return false, tostring(why) end
   local body = read.body
   if int(body.members_per_team, -1) ~= S.MEMBERS or type(body.teams) ~= "table" then
     return false, "the file's team layout is not this game's"
+  end
+  for _, source in ipairs(body.teams) do
+    if type(source) ~= "table" or type(source.positions) ~= "table" or #source.positions ~= S.MEMBERS then
+      return false, "the file has no slot positions (an older export): export the team again"
+    end
   end
   local current = BetterQoL.TeamTemplates.DockWords(set)
   if not current then return false, "the shown team cannot be read" end

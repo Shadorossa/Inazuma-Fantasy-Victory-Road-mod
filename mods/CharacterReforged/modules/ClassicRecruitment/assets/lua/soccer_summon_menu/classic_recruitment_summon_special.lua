@@ -52,7 +52,10 @@ if VRFW.host ~= nil and type(ClassicRecruitment) == "table" then
       if type(spirit.rarity) == "number" and spirit.rarity < FIRST_SPECIAL_RARITY and ClassicRecruitment.gacha_removed() then
         return ClassicRecruitment.say(NORMAL_REFUSED, "")
       end
-      if type(VRFW.recruit) == "table" and type(spirit.card) == "number" then
+      -- A spirit of a raised rarity of a card of another rarity summons a copy the duplicate rules keep: the game's own limit bounds it.
+      local raised = type(spirit.rarity) == "number" and type(spirit.card) == "number" and type(VRFW.recruit) == "table"
+        and CharacterReforged.raised_copy_rarity(spirit.rarity, VRFW.recruit.card_rarity(spirit.card))
+      if not raised and type(VRFW.recruit) == "table" and type(spirit.card) == "number" then
         local _, why = VRFW.recruit.can_sign(spirit.card)
         if why == "owned" then
           return ClassicRecruitment.say(ClassicRecruitment.album.OWNED, card_name(spirit.card))

@@ -3,10 +3,10 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c11500420"                                   # Amadeus Lyland
 moves = [
-  { move = 0x4AD6453E, level = 1 },                         # Back Tornado
-  { move = 0x95823331, level = 13 },                        # The Tube
-  { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
+  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
+  { move = 0x4AD6453E, level = 20 },                        # Back Tornado
   { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x95823331, level = 30 },                        # The Tube
 ]
 
   [[edit.cards]]
@@ -19,10 +19,10 @@ moves = [
 [[edit]]
 target = "c11700330"                                   # Ryden Waverley
 moves = [
-  { move = 0x60397CCA, level = 1 },                         # Cross Drive
-  { move = 0xC42D6F54, level = 13 },                        # Aikido
-  { move = 0x7C1494CF, level = 20 },                        # Tornado Tunnel
-  { move = 0x0D368F6B, level = 30 },                        # Heaven's Time
+  { move = 0x60397CCA, level = 13 },                        # Cross Drive
+  { move = 0x0D368F6B, level = 20 },                        # Heaven's Time
+  { move = 0xC42D6F54, level = 30 },                        # Aikido
+  { move = 0x7C1494CF, level = 38 },                        # Tornado Tunnel
 ]
 
   [[edit.cards]]
@@ -35,10 +35,10 @@ moves = [
 [[edit]]
 target = "c11706010"                                   # Safine Papillonia
 moves = [
-  { move = 0xA4B51923, level = 1 },                         # The Typhoon
-  { move = 0x039DBAAC, level = 13 },                        # Land of Ice
+  { move = 0x039DBAAC, level = 1 },                         # Land of Ice
   { move = 0x63BDA8A4, level = 20 },                        # Inazuma Drop
-  { move = 0xDE4ED944, level = 30 },                        # Snowstorm Leopard
+  { move = 0xA4B51923, level = 30 },                        # The Typhoon
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -51,10 +51,10 @@ moves = [
 [[edit]]
 target = "c11706020"                                   # Caspian Hearken
 moves = [
-  { move = 0x06130797, level = 1 },                         # Rolling Kick
-  { move = 0x74B5C85D, level = 13 },                        # Security Shot
+  { move = 0x06130797, level = 13 },                        # Rolling Kick
   { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x7DD6FEF8, level = 30 },                        # Athena's Anthem
+  { move = 0x74B5C85D, level = 30 },                        # Security Shot
+  { move = 0x7DD6FEF8, level = 38 },                        # Athena's Anthem
 ]
 
   [[edit.cards]]
@@ -67,10 +67,10 @@ moves = [
 [[edit]]
 target = "c11706030"                                   # Davis Tarvish
 moves = [
-  { move = 0x232D05EC, level = 1 },                         # Tiger Drive
-  { move = 0x105C91A7, level = 13 },                        # Slingshot
-  { move = 0xD8851BAF, level = 20 },                        # Unicorn Boost
+  { move = 0x232D05EC, level = 20 },                        # Tiger Drive
+  { move = 0x105C91A7, level = 30 },                        # Slingshot
   { move = 0x84385EE2, level = 30 },                        # Black Tide Ride
+  { move = 0xD8851BAF, level = 38 },                        # Unicorn Boost
 ]
 
   [[edit.cards]]
@@ -83,10 +83,10 @@ moves = [
 [[edit]]
 target = "c11706040"                                   # Bastian Brineford
 moves = [
-  { move = 0xC5EF0563, level = 1 },                         # Three-Legged Rush
   { move = 0x6633159F, level = 13 },                        # Gravitation
-  { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0xC5EF0563, level = 30 },                        # Three-Legged Rush
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
+  { move = 0x72BFA108, level = 38 },                        # Wall of Atlantis
 ]
 
   [[edit.cards]]
@@ -99,10 +99,10 @@ moves = [
 [[edit]]
 target = "c11706050"                                   # Kenneth Frostner
 moves = [
-  { move = 0x35E70F22, level = 1 },                         # Grenade Shot
-  { move = 0xB60E3C60, level = 13 },                        # Plasma Cut
-  { move = 0x3A4FFB6C, level = 20 },                        # The Ikaros
-  { move = 0xE0DF8DB5, level = 30 },                        # No Future
+  { move = 0x35E70F22, level = 13 },                        # Grenade Shot
+  { move = 0xB60E3C60, level = 20 },                        # Plasma Cut
+  { move = 0x3A4FFB6C, level = 38 },                        # The Ikaros
+  { move = 0xE0DF8DB5, level = 38 },                        # No Future
 ]
 
   [[edit.cards]]
@@ -115,10 +115,10 @@ moves = [
 [[edit]]
 target = "c11706060"                                   # Ripley Swaydon
 moves = [
-  { move = 0x1D4E888F, level = 1 },                         # Condor Dive
-  { move = 0x1FC99D68, level = 13 },                        # Snow Angel
-  { move = 0xB0F8060A, level = 20 },                        # Ozone Flayer
-  { move = 0x49933AEE, level = 30 },                        # Perfect Tower
+  { move = 0x1D4E888F, level = 13 },                        # Condor Dive
+  { move = 0x1FC99D68, level = 20 },                        # Snow Angel
+  { move = 0xB0F8060A, level = 30 },                        # Ozone Flayer
+  { move = 0x49933AEE, level = 38 },                        # Perfect Tower
 ]
 
   [[edit.cards]]
@@ -131,10 +131,10 @@ moves = [
 [[edit]]
 target = "c11706070"                                   # Kyle Flaggard
 moves = [
-  { move = 0xB13A6C3D, level = 1 },                         # Zigzag Flame
   { move = 0x43B5739B, level = 13 },                        # Lightning Bolt
-  { move = 0xA8215D7C, level = 20 },                        # The Mountain
+  { move = 0xB13A6C3D, level = 20 },                        # Zigzag Flame
   { move = 0x00A10ABD, level = 30 },                        # Ball Lightning
+  { move = 0xA8215D7C, level = 38 },                        # The Mountain
 ]
 
   [[edit.cards]]
@@ -147,10 +147,10 @@ moves = [
 [[edit]]
 target = "c11706080"                                   # Landric Delphin
 moves = [
-  { move = 0x1C4D4906, level = 1 },                         # Whirlpool
   { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
-  { move = 0xB7F1AED6, level = 20 },                        # Double Cyclone
-  { move = 0x613ABD43, level = 30 },                        # Dawnrise
+  { move = 0x1C4D4906, level = 20 },                        # Whirlpool
+  { move = 0xB7F1AED6, level = 30 },                        # Double Cyclone
+  { move = 0x613ABD43, level = 38 },                        # Dawnrise
 ]
 
   [[edit.cards]]
@@ -163,10 +163,10 @@ moves = [
 [[edit]]
 target = "c11706090"                                   # Volbert Brackenbal
 moves = [
-  { move = 0x1FA91CF4, level = 1 },                         # Negative Feedback
-  { move = 0x906C0F96, level = 13 },                        # Electric Trap
-  { move = 0x4AF2F3E2, level = 20 },                        # Bridge to Nowhere
+  { move = 0x1FA91CF4, level = 20 },                        # Negative Feedback
+  { move = 0x906C0F96, level = 30 },                        # Electric Trap
   { move = 0xBA662B00, level = 30 },                        # Pterrordactyl Swoop
+  { move = 0x4AF2F3E2, level = 38 },                        # Bridge to Nowhere
 ]
 
   [[edit.cards]]
@@ -179,10 +179,10 @@ moves = [
 [[edit]]
 target = "c11706100"                                   # Niles Gawkerson
 moves = [
-  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
-  { move = 0x52CEB5F6, level = 13 },                        # Iron Wall
+  { move = 0xDEB28A7B, level = 13 },                        # Monkey Turn
   { move = 0x637C031A, level = 20 },                        # No Escape
-  { move = 0x9D236FA3, level = 30 },                        # Sword of the King
+  { move = 0x52CEB5F6, level = 30 },                        # Iron Wall
+  { move = 0x9D236FA3, level = 38 },                        # Sword of the King
 ]
 
   [[edit.cards]]
@@ -195,10 +195,10 @@ moves = [
 [[edit]]
 target = "c11706110"                                   # Cecilia Alabaster
 moves = [
-  { move = 0xB01D1B68, level = 1 },                         # Power Spike
   { move = 0x3069B219, level = 13 },                        # Super Sumo Stomp
-  { move = 0xEA12530F, level = 20 },                        # Double Rocket
-  { move = 0xBA833662, level = 30 },                        # Million Hands
+  { move = 0xB01D1B68, level = 20 },                        # Power Spike
+  { move = 0xEA12530F, level = 30 },                        # Double Rocket
+  { move = 0xBA833662, level = 38 },                        # Million Hands
 ]
 
   [[edit.cards]]
@@ -211,10 +211,10 @@ moves = [
 [[edit]]
 target = "c11706120"                                   # Pinn Persica
 moves = [
-  { move = 0x414BA9BD, level = 1 },                         # Pincer Pinch
   { move = 0x43B5739B, level = 13 },                        # Lightning Bolt
-  { move = 0xDA3FF6C9, level = 20 },                        # Criss-Cross
-  { move = 0x485150D9, level = 30 },                        # Body Shield
+  { move = 0x414BA9BD, level = 20 },                        # Pincer Pinch
+  { move = 0xDA3FF6C9, level = 30 },                        # Criss-Cross
+  { move = 0x485150D9, level = 38 },                        # Body Shield
 ]
 
   [[edit.cards]]

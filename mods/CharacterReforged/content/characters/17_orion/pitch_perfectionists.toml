@@ -8,19 +8,19 @@ target = "c08090010"                                   # Alexander Allegrov
   growth = "normal"
   stats = { kick = 294, control = 252, technique = 270, pressure = 185, physical = 163, intelligence = 243, agility = 171, freedom = 213 }
   moves = [
-    { move = 0x261BDCA8, level = 1 },                       # Moonsault
-    { move = 0x7C1494CF, level = 13 },                      # Tornado Tunnel
-    { move = 0x0C7FF30F, level = 20 },                      # Divine Drive
-    { move = 0x14A6A879, level = 30 },                      # Regal Eagle
+    { move = 0x0C7FF30F, level = 13 },                      # Divine Drive
+    { move = 0x14A6A879, level = 20 },                      # Regal Eagle
+    { move = 0x7C1494CF, level = 30 },                      # Tornado Tunnel
+    { move = 0x261BDCA8, level = 38 },                      # Moonsault
   ]
 
 [[edit]]
 target = "c08090020"                                   # Yuri Dolchin
 moves = [
-  { move = 0xDE4ED944, level = 1 },                         # Snowstorm Leopard
-  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
-  { move = 0x6E53E2B3, level = 20 },                        # Angel Ball
-  { move = 0x0AC37488, level = 30 },                        # Heavenly Drive
+  { move = 0xDE4ED944, level = 13 },                        # Snowstorm Leopard
+  { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
+  { move = 0x6E53E2B3, level = 30 },                        # Angel Ball
+  { move = 0x0AC37488, level = 38 },                        # Heavenly Drive
 ]
 
   [[edit.cards]]
@@ -32,10 +32,10 @@ moves = [
 [[edit]]
 target = "c08090030"                                   # Anton Kolosalyov
 moves = [
-  { move = 0xDEB28A7B, level = 1 },                         # Monkey Turn
-  { move = 0x38094535, level = 13 },                        # Sub-Terfuge
-  { move = 0x316A7390, level = 20 },                        # Land Dragon
-  { move = 0xA5F2EFEA, level = 30 },                        # Brave Shot
+  { move = 0x316A7390, level = 13 },                        # Land Dragon
+  { move = 0xA5F2EFEA, level = 20 },                        # Brave Shot
+  { move = 0xDEB28A7B, level = 30 },                        # Monkey Turn
+  { move = 0x38094535, level = 30 },                        # Sub-Terfuge
 ]
 
   [[edit.cards]]
@@ -47,10 +47,10 @@ moves = [
 [[edit]]
 target = "c08090040"                                   # Dmitri Pianov
 moves = [
-  { move = 0xC7A9BB3A, level = 1 },                         # Whirlwind Cut
-  { move = 0x5781A373, level = 13 },                        # Hurricane Arrows
-  { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
-  { move = 0xDE4ED944, level = 30 },                        # Snowstorm Leopard
+  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
+  { move = 0xC7A9BB3A, level = 20 },                        # Whirlwind Cut
+  { move = 0x5781A373, level = 30 },                        # Hurricane Arrows
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -62,10 +62,10 @@ moves = [
 [[edit]]
 target = "c08090050"                                   # Konstantin Furyozov
 moves = [
-  { move = 0x38094535, level = 1 },                         # Sub-Terfuge
   { move = 0x67F17FA8, level = 13 },                        # Mega Quake
-  { move = 0x21127474, level = 20 },                        # Ultra Moon
-  { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x637C031A, level = 20 },                        # No Escape
+  { move = 0x38094535, level = 30 },                        # Sub-Terfuge
+  { move = 0x21127474, level = 30 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -77,10 +77,10 @@ moves = [
 [[edit]]
 target = "c08090060"                                   # Mikhail Vivachev
 moves = [
-  { move = 0x38094535, level = 1 },                         # Sub-Terfuge
-  { move = 0x5E233E68, level = 13 },                        # Super Elastico
-  { move = 0x7207C577, level = 20 },                        # Boost Glider
-  { move = 0xDCF43422, level = 30 },                        # Aurora Dribble
+  { move = 0x7207C577, level = 13 },                        # Boost Glider
+  { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
+  { move = 0x38094535, level = 30 },                        # Sub-Terfuge
+  { move = 0x5E233E68, level = 38 },                        # Super Elastico
 ]
 
   [[edit.cards]]
@@ -93,10 +93,10 @@ moves = [
 [[edit]]
 target = "c08090070"                                   # Igor Pitsikatov
 moves = [
-  { move = 0x38094535, level = 1 },                         # Sub-Terfuge
   { move = 0x7207C577, level = 13 },                        # Boost Glider
   { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
-  { move = 0xAEEA9F97, level = 30 },                        # Sigma Zone
+  { move = 0x38094535, level = 30 },                        # Sub-Terfuge
+  { move = 0xAEEA9F97, level = 38 },                        # Sigma Zone
 ]
 
   [[edit.cards]]
@@ -109,10 +109,10 @@ moves = [
 [[edit]]
 target = "c08090080"                                   # Nikolai Glisanderov
 moves = [
-  { move = 0xB9676390, level = 1 },                         # Particle Accelerator
   { move = 0x5AAE42DA, level = 13 },                        # Triple Dash
   { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
   { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0xB9676390, level = 38 },                        # Particle Accelerator
 ]
 
   [[edit.cards]]
@@ -125,10 +125,10 @@ moves = [
 [[edit]]
 target = "c08090090"                                   # Boris Kaprichyov
 moves = [
-  { move = 0x166B0073, level = 1 },                         # Super Armadillo
   { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
   { move = 0x72BFA108, level = 20 },                        # Wall of Atlantis
-  { move = 0x67F17FA8, level = 30 },                        # Mega Quake
+  { move = 0x166B0073, level = 30 },                        # Super Armadillo
+  { move = 0x67F17FA8, level = 38 },                        # Mega Quake
 ]
 
   [[edit.cards]]
@@ -141,10 +141,10 @@ moves = [
 [[edit]]
 target = "c08090100"                                   # Leonid Largov
 moves = [
-  { move = 0x1A868BED, level = 1 },                         # Clone Defence
-  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
-  { move = 0xDE4ED944, level = 20 },                        # Snowstorm Leopard
+  { move = 0x1A868BED, level = 13 },                        # Clone Defence
+  { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
   { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -157,10 +157,10 @@ moves = [
 [[edit]]
 target = "c08090110"                                   # Gregory Fortin
 moves = [
-  { move = 0x64152A5A, level = 1 },                         # Pinch and Save
-  { move = 0xF309624E, level = 13 },                        # Dual Smash
-  { move = 0xC4701649, level = 20 },                        # Ice Block
-  { move = 0x41AEB4DF, level = 30 },                        # Crystal Barrier
+  { move = 0x64152A5A, level = 13 },                        # Pinch and Save
+  { move = 0xF309624E, level = 20 },                        # Dual Smash
+  { move = 0xC4701649, level = 30 },                        # Ice Block
+  { move = 0x41AEB4DF, level = 38 },                        # Crystal Barrier
 ]
 
   [[edit.cards]]
@@ -173,10 +173,10 @@ moves = [
 [[edit]]
 target = "c08090120"                                   # Molev Misterioski
 moves = [
-  { move = 0xBDAE2862, level = 1 },                         # Hellfire
   { move = 0xD0AF516E, level = 13 },                        # Asteride
   { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
   { move = 0xB2085681, level = 30 },                        # Volcanic Rock
+  { move = 0xBDAE2862, level = 38 },                        # Hellfire
 ]
 
   [[edit.cards]]
@@ -189,10 +189,10 @@ moves = [
 [[edit]]
 target = "c08090130"                                   # Marat Stakatov
 moves = [
-  { move = 0x928B9BED, level = 1 },                         # Optimal Trajectory
   { move = 0xD0AF516E, level = 13 },                        # Asteride
   { move = 0xDCF43422, level = 20 },                        # Aurora Dribble
   { move = 0x21127474, level = 30 },                        # Ultra Moon
+  { move = 0x928B9BED, level = 38 },                        # Optimal Trajectory
 ]
 
   [[edit.cards]]
@@ -204,10 +204,10 @@ moves = [
 [[edit]]
 target = "c08090140"                                   # Martemeli Prestov
 moves = [
-  { move = 0x768AB9C5, level = 1 },                         # Frosticle
-  { move = 0x21127474, level = 13 },                        # Ultra Moon
-  { move = 0x0C7FF30F, level = 20 },                        # Divine Drive
-  { move = 0x5BE73EBE, level = 30 },                        # One for All
+  { move = 0x0C7FF30F, level = 13 },                        # Divine Drive
+  { move = 0x5BE73EBE, level = 20 },                        # One for All
+  { move = 0x768AB9C5, level = 30 },                        # Frosticle
+  { move = 0x21127474, level = 38 },                        # Ultra Moon
 ]
 
   [[edit.cards]]
@@ -219,10 +219,10 @@ moves = [
 [[edit]]
 target = "c08090150"                                   # Oleg Animatov
 moves = [
-  { move = 0x768AB9C5, level = 1 },                         # Frosticle
-  { move = 0xDE4ED944, level = 13 },                        # Snowstorm Leopard
-  { move = 0x14A6A879, level = 20 },                        # Regal Eagle
-  { move = 0x5BE73EBE, level = 30 },                        # One for All
+  { move = 0x14A6A879, level = 13 },                        # Regal Eagle
+  { move = 0x5BE73EBE, level = 20 },                        # One for All
+  { move = 0x768AB9C5, level = 30 },                        # Frosticle
+  { move = 0xDE4ED944, level = 38 },                        # Snowstorm Leopard
 ]
 
   [[edit.cards]]
@@ -234,10 +234,10 @@ moves = [
 [[edit]]
 target = "c08090210"                                   # Serge Riktov
 moves = [
-  { move = 0x83BAE06D, level = 1 },                         # Golden Gull
-  { move = 0x78E027BC, level = 13 },                        # Shine Drive
-  { move = 0xB10794BC, level = 20 },                        # Flash Dash
-  { move = 0x43B5739B, level = 30 },                        # Lightning Bolt
+  { move = 0xB10794BC, level = 13 },                        # Flash Dash
+  { move = 0x83BAE06D, level = 20 },                        # Golden Gull
+  { move = 0x78E027BC, level = 30 },                        # Shine Drive
+  { move = 0x43B5739B, level = 38 },                        # Lightning Bolt
 ]
 
   [[edit.cards]]
@@ -248,10 +248,10 @@ moves = [
 [[edit]]
 target = "c11808110"                                   # Baton Maystrov
 moves = [
-  { move = 0xDCF43422, level = 1 },                         # Aurora Dribble
-  { move = 0x14A6A879, level = 13 },                        # Regal Eagle
-  { move = 0x5BE73EBE, level = 20 },                        # One for All
+  { move = 0xDCF43422, level = 13 },                        # Aurora Dribble
+  { move = 0x14A6A879, level = 30 },                        # Regal Eagle
   { move = 0x637C031A, level = 30 },                        # No Escape
+  { move = 0x5BE73EBE, level = 38 },                        # One for All
 ]
 
   [[edit.cards]]

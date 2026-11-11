@@ -3,7 +3,7 @@ schema = "VRFW.character/2"
 [[edit]]
 target = "c03033400"                                   # Karl Kappa
 moves = [
-  { move = 0xF400CA92, level = 1 },                         # Anchors Aweigh
+  { move = 0xF400CA92, level = 6 },                         # Anchors Aweigh
   { move = 0x422A60B1, level = 20 },                        # Barrier Reef
   { move = 0x41AEB4DF, level = 43 },                        # Crystal Barrier
   { move = 0x9B3048AB, level = 56 },                        # Shadow Catch
@@ -18,10 +18,10 @@ moves = [
 [[edit]]
 target = "c06037370"                                   # Lucia
 moves = [
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
+  { move = 0x029E7B25, level = 13 },                        # Gaia Break
+  { move = 0x6ADE9E01, level = 20 },                        # Illusory Ball
   { move = 0x8D5B6847, level = 35 },                        # Odin Sword
   { move = 0xD16D3B59, level = 70 },                        # Supermassive Shot
-  { move = 0x029E7B25, level = 80 },                        # Gaia Break
 ]
 
   [[edit.cards]]
@@ -33,10 +33,10 @@ moves = [
 [[edit]]
 target = "c11901010"                                   # Tom Dark
 moves = [
-  { move = 0x6ADE9E01, level = 1 },                         # Illusory Ball
-  { move = 0x7DAF3139, level = 11 },                        # Emperor Penguin No. 2
-  { move = 0xDF8CB373, level = 21 },                        # Sonic Shot
-  { move = 0x4890FB67, level = 31 },                        # Twin Boost
+  { move = 0x6ADE9E01, level = 13 },                        # Illusory Ball
+  { move = 0xDF8CB373, level = 20 },                        # Sonic Shot
+  { move = 0x4890FB67, level = 30 },                        # Twin Boost
+  { move = 0x7DAF3139, level = 38 },                        # Emperor Penguin No. 2
 ]
 
   [[edit.cards]]
@@ -48,10 +48,10 @@ moves = [
 [[edit]]
 target = "c11903040"                                   # Maxtor Lunde
 moves = [
-  { move = 0xA8215D7C, level = 1 },                         # The Mountain
-  { move = 0x7EEA4EE9, level = 11 },                        # Blade Attack
-  { move = 0x2FB941B3, level = 21 },                        # Stone Prison
-  { move = 0x8D5B6847, level = 31 },                        # Odin Sword
+  { move = 0x7EEA4EE9, level = 13 },                        # Blade Attack
+  { move = 0xA8215D7C, level = 20 },                        # The Mountain
+  { move = 0x2FB941B3, level = 30 },                        # Stone Prison
+  { move = 0x8D5B6847, level = 38 },                        # Odin Sword
 ]
 
   [[edit.cards]]
@@ -63,7 +63,7 @@ moves = [
 [[edit]]
 target = "c03030100"                                   # Hector Helio
 moves = [
-  { move = 0x8C382852, level = 1 },                         # God Hand
+  { move = 0x8C382852, level = 4 },                         # God Hand
   { move = 0xA1DEB97A, level = 10 },                        # Soul Hand
   { move = 0xB8C5883B, level = 15 },                        # God Hand X
   { move = 0xE647BCEE, level = 62 },                        # God Hand V

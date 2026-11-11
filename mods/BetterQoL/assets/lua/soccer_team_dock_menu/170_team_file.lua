@@ -34,41 +34,56 @@ if VRFW.host ~= nil and BetterQoL.team_file == nil then
     return host ~= nil and host.L ~= nil and host.L.n5 or nil
   end
 
-  --- Writes the shown team to a share file and tells the player where it went.
+  --- Writes the shown team to a share file (where the player picks it in the save dialog) and tells the player where it went.
   function F.export()
     local set = shown_team_set()
     if VRFW.host.command(command("EMPTY"), set) == true then
       VRFW.question.notice(text("export_empty"))
       return false
     end
-    local ok, file, area = VRFW.host.command(command("EXPORT"), set)
+    local name, area = VRFW.host.command(command("NAME"), set)
+    local result, ticket = VRFW.file_pick.save({ area = area, name = name, ext = "vrmod", title = text("export_title") })
+    if result == "cancelled" then return false end
+    local ok, file, written_area = VRFW.host.command(command("EXPORT"), set, result == "picked" and ticket or nil)
     if ok ~= true then
       log("export refused:", tostring(file))
       VRFW.question.notice(text("export_fail"))
       return false
     end
-    VRFW.question.notice(text("export_done", "modloader_exports/" .. tostring(area) .. "/" .. tostring(file)))
+    local shown = written_area ~= nil and ("modloader_exports/" .. tostring(written_area) .. "/" .. tostring(file)) or tostring(file)
+    VRFW.question.notice(text("export_done", shown))
     return true
   end
 
-  --- Offers the team files newest first and writes the chosen one into the shown team; true when the team changed.
-  function F.import()
-    local set = shown_team_set()
+  -- The listed team file the player takes, offered newest first with one question each; nil when none is taken.
+  local function chosen_from_list()
     local count, area = VRFW.host.command(command("LIST"))
     if type(count) ~= "number" or count < 1 then
       VRFW.question.notice(text("import_none", "modloader_exports/" .. tostring(area or "")))
-      return false
+      return nil
     end
-    local chosen = nil
     for index = 0, count - 1 do
       local _, label = VRFW.host.command(command("ENTRY"), index)
       if VRFW.question.ask(text("import_ask", index + 1, count, tostring(label or ""))) then
-        chosen = index
-        break
+        return index
       end
     end
-    if chosen == nil then return false end
-    local readable, checksum_ok, missing_mods = VRFW.host.command(command("CHECK"), chosen)
+    return nil
+  end
+
+  --- Writes a team file into the shown team (picked in the open dialog, or from the game's list without one); true when the team changed.
+  function F.import()
+    local set = shown_team_set()
+    local _, area = VRFW.host.command(command("NAME"), set)
+    local result, ticket = VRFW.file_pick.open({ area = area, ext = "vrmod", title = text("import_title") })
+    if result == "cancelled" then return false end
+    local chosen = -1
+    if result ~= "picked" then
+      ticket = nil
+      chosen = chosen_from_list()
+      if chosen == nil then return false end
+    end
+    local readable, checksum_ok, missing_mods, team_name = VRFW.host.command(command("CHECK"), chosen, ticket)
     if readable ~= true then
       log("import refused:", tostring(checksum_ok))
       VRFW.question.notice(text("import_fail"))
@@ -78,10 +93,10 @@ if VRFW.host ~= nil and BetterQoL.team_file == nil then
     if type(missing_mods) == "string" and missing_mods ~= "" then
       VRFW.question.notice(text("import_missing_mods", missing_mods))
     end
-    if VRFW.host.command(command("EMPTY"), set) ~= true and not VRFW.question.ask(text("import_overwrite")) then
+    if VRFW.host.command(command("EMPTY"), set) ~= true and not VRFW.question.ask(text("import_overwrite", tostring(team_name or ""))) then
       return false
     end
-    local ok, placed, skipped, skipped_names, kept = VRFW.host.command(command("APPLY"), chosen, set)
+    local ok, placed, skipped, skipped_names, kept = VRFW.host.command(command("APPLY"), chosen, set, ticket)
     if ok ~= true then
       log("import failed:", tostring(placed))
       VRFW.question.notice(text("import_fail"))

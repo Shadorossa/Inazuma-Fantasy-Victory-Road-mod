@@ -36,7 +36,7 @@ key = "J"
 xinput = true
 pass_when_empty = true
 
-# RB + right: the group keshin its summoned components complete, else the keshin or totem inherited through the Mix-Max
+# RB + right: the group keshin he takes part in (first: shown once the team carries its components), else the keshin or totem inherited through the Mix-Max
 [[VRFW.ExtraSlot.direct]]
 pages = ["group", "inherited"]
 pad = "RB+RIGHT"

@@ -1,48 +1,6 @@
-372aac5ef3a1b7e501f11648a19b282ea1e6cf0b7611ce95ef67306b96dea84d99f327d6d4023f0b59e2d700c188904736a321bc3e00b313759569ce4bdc5c04
+c63f1f163c3183170e683ed680444983289b920b54935a60558c12e73824f5a0b336b0cecac26f0845926c4fbc199513478f28f1529f440f8beed8216bb3490d
 format = 1
-sequence = 7
-
-[[version]]
-label = "0.2.4a"
-ref = "release-0.2.4a"
-sequence = 1
-manifest_sha256 = "8f3dfc12455e7bb3045273950890e97a90104c079faa18181345a2d5cb04b6d0"
-game_version = "v7.2.1"
-
-[[version]]
-label = "0.3.0"
-ref = "release-0.3.0"
-sequence = 2
-manifest_sha256 = "4e4986f1e41b7200497815cd4b0744dbad4043198d23353590910ef31004ad8b"
-game_version = "v7.2.1"
-
-[[version]]
-label = "0.3.0a"
-ref = "release-0.3.0a"
-sequence = 3
-manifest_sha256 = "7206fd03ab75e5c4d3915c73495962cd45d903de0a3a6301c97f35e5fcb9a527"
-game_version = "v7.2.1"
-
-[[version]]
-label = "0.3.0b"
-ref = "release-0.3.0b"
-sequence = 4
-manifest_sha256 = "6e17fad7e0f19310798890a8e6920f0c4b789b337d4425c3aaa386354c315bb7"
-game_version = "v7.2.1"
-
-[[version]]
-label = "0.3.0c"
-ref = "release-0.3.0c"
-sequence = 5
-manifest_sha256 = "e37c2dda1664ac714ec9fcb2dc071bcb8d887e58d866d4ca4a7a38c7b4187f35"
-game_version = "v7.2.1"
-
-[[version]]
-label = "0.3.0d"
-ref = "release-0.3.0d"
-sequence = 6
-manifest_sha256 = "a6365c5d9f315c62d356ced0c2473f9aeea1badf9d636e86926b3fa68d432358"
-game_version = "v7.2.1"
+sequence = 8
 
 [[version]]
 label = "0.3.0e"

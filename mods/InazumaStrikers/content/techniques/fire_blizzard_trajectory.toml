@@ -1,0 +1,10 @@
+# Fire Blizzard: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs00850"
+trajectory = { points = [[0.0, 4.5]], goal_points = [[0.0, 2.0]], unblockable = false }
+
+[[edit]]
+target = "whs00940"
+trajectory = { points = [[0.0, 4.5]], goal_points = [[0.0, 2.0]], unblockable = false }

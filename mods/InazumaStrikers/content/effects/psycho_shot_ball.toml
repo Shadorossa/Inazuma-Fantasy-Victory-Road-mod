@@ -1,0 +1,13 @@
+# Psycho Shot: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/psycho_shot_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "psycho_shot"
+from = "ega0075d"
+object = "effect/event/ev60/ev6023ps00/ev6023ps00.objbin"
+
+[[shot_aura]]
+name = "psycho_shot"
+when = { techniques = ["whs00230"] }
+aura = "psycho_shot"
+like = "ega0075d"

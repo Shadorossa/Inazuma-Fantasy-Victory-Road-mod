@@ -1,0 +1,31 @@
+# Lion Assault: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/lion_assault_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "lion_assault"
+from = "ega0075d"
+object = "effect/event/ev60/ev6271la00/ev6271la00.objbin"
+
+[[shot_aura]]
+name = "lion_assault"
+when = { techniques = ["whs02710"] }
+aura = "lion_assault"
+like = "ega0075d"
+anchor = "kick"
+drift = 0.75
+
+[[shot_aura]]
+name = "lion_assault_fire"
+when = { techniques = ["whs02711"] }
+aura = "lion_assault"
+like = "ega0075c"
+anchor = "kick"
+drift = 0.75
+
+[[shot_aura]]
+name = "lion_assault_mountain"
+when = { techniques = ["whs02712"] }
+aura = "lion_assault"
+like = "ega0075a"
+anchor = "kick"
+drift = 0.75

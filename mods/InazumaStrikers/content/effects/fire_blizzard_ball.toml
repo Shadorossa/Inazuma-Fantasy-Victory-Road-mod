@@ -1,0 +1,19 @@
+# Fire Blizzard: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/fire_blizzard_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "fire_blizzard"
+from = "ega0075b"
+object = "effect/event/ev60/ev6085fb00/ev6085fb00.objbin"
+
+[[shot_aura]]
+name = "fire_blizzard"
+when = { techniques = ["whs00850"] }
+aura = "fire_blizzard"
+like = "ega0075b"
+
+[[shot_aura]]
+name = "fire_blizzard_fire"
+when = { techniques = ["whs00940"] }
+aura = "fire_blizzard"
+like = "ega0075c"

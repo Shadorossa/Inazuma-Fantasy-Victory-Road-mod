@@ -1,0 +1,19 @@
+# View turned toward the goal while a shot can be chained (camera_drives/shot_view.toml).
+schema = "VRFW.match_camera/3"
+
+[[preset]]
+name = "chain"
+kind = "chase_rows"
+yaw = 90.0
+pitch = 22.0
+distance = 32.0
+fov = 45.0
+fixed_pitch = true
+option = "horizontal"
+anchor = "orbit"
+fallback_half_width = 30.0
+frame_goal = true
+turn = 45.0
+goal_margin = 10.0
+max_turn = 60.0
+turn_rate = 60.0

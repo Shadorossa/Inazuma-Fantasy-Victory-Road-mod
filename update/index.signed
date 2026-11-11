@@ -1,0 +1,10 @@
+dd0a75da9f392debcbd927017b35b7f4875ebf9a846b1707531cb972748afd49ca2b9f1cc4caabc0ea69f9071b497a17143c87090e9bc7571fe96ece902c2e08
+format = 1
+sequence = 1
+
+[[version]]
+label = "0.3.0e"
+ref = "strikers-0.3.0e"
+sequence = 1
+manifest_sha256 = "68c1904ab5ee1d1a18f7c7b90c298e0cf317be3e6b2819e00086b8b516c42c4b"
+game_version = "v7.2.1"

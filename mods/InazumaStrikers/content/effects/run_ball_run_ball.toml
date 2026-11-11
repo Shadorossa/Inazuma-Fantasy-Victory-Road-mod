@@ -1,0 +1,15 @@
+# Run Ball Run: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/run_ball_run_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "run_ball_run"
+from = "ega0075d"
+object = "effect/event/ev60/ev6025rb00/ev6025rb00.objbin"
+
+[[shot_aura]]
+name = "run_ball_run"
+when = { techniques = ["whs00250"] }
+aura = "run_ball_run"
+like = "ega0075d"
+anchor = "kick"
+drift = 0.75

@@ -1,0 +1,6 @@
+# Pegasus Punch: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs01820"
+trajectory = { goal_points = [[38.45, 4.5], [0.0, 1.13]], unblockable = false }

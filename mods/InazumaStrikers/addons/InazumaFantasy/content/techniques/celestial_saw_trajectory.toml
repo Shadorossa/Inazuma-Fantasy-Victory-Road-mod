@@ -1,0 +1,6 @@
+# Celestial Saw: the shot flight of Inazuma Fantasy's cuts.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "InazumaFantasy.celestial_saw_cuts"
+trajectory = { points = [[0.0, 1.0]], straight = true, unblockable = false }

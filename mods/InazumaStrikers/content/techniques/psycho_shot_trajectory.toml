@@ -1,0 +1,6 @@
+# Psycho Shot: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs00230"
+trajectory = { points = [[0.0, 2.00]], straight = true, unblockable = false }

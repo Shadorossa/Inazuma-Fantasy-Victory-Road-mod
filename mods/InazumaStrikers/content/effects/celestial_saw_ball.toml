@@ -1,0 +1,14 @@
+# Celestial Saw: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/celestial_saw_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "celestial_saw"
+from = "ega0075b"
+object = "effect/event/ev60/ev6291cs00/ev6291cs00.objbin"
+
+[[shot_aura]]
+name = "celestial_saw"
+spawn_fade = true
+when = { techniques = ["whs02910", "whs94180198519"] }
+aura = "celestial_saw"
+like = "ega0075b"

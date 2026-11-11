@@ -1,0 +1,6 @@
+# Supernova: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs00810"
+trajectory = { points = [[0.0, 2.40]], straight = true, unblockable = false }

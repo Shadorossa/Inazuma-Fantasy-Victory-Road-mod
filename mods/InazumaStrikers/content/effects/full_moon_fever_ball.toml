@@ -1,0 +1,13 @@
+# Full Moon Fever: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/full_moon_fever_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "full_moon_fever"
+from = "ega0075d"
+object = "effect/event/ev60/ev6240fm00/ev6240fm00.objbin"
+
+[[shot_aura]]
+name = "full_moon_fever"
+when = { techniques = ["whs02400"] }
+aura = "full_moon_fever"
+like = "ega0075d"

@@ -1,0 +1,6 @@
+# Scream of Eden: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs02640"
+trajectory = { points = [[0.0, 2.0]], straight = true, unblockable = false }

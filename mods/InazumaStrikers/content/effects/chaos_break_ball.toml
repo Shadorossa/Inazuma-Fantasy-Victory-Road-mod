@@ -1,0 +1,13 @@
+# Chaos Break: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/chaos_break_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "chaos_break"
+from = "ega0075d"
+object = "effect/event/ev60/ev6125cb00/ev6125cb00.objbin"
+
+[[shot_aura]]
+name = "chaos_break"
+when = { techniques = ["whs01250", "whs01250_or"] }
+aura = "chaos_break"
+like = "ega0075d"

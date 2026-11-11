@@ -1,0 +1,6 @@
+# Twister Tornado: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs02680"
+trajectory = { points = [[0.0, 0.11]], unblockable = false }

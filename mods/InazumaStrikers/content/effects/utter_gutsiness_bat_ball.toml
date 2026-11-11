@@ -1,0 +1,13 @@
+# Utter Gutsiness Bat: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/utter_gutsiness_bat_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "utter_gutsiness_bat"
+from = "ega0075c"
+object = "effect/event/ev60/ev6027ub00/ev6027ub00.objbin"
+
+[[shot_aura]]
+name = "utter_gutsiness_bat"
+when = { techniques = ["whs00270"] }
+aura = "utter_gutsiness_bat"
+like = "ega0075c"

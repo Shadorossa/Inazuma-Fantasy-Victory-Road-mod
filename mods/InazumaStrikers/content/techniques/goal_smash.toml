@@ -1,0 +1,22 @@
+# Goal Smash: special-goal events of these moves (assets/effect/event/ev71).
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs10110"
+goal_event = "ev71_00070"
+
+[[edit]]
+target = "whs10160"
+goal_event = "ev71_00070"
+
+[[edit]]
+target = "whs00380"
+goal_event = "ev71_00071"
+
+[[edit]]
+target = "whs10090"
+goal_event = "ev71_00080"
+
+[[edit]]
+target = "whs02350"
+goal_event = "ev71_00090"

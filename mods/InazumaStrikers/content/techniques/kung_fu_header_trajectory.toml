@@ -1,0 +1,6 @@
+# Kung Fu Header: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs00290"
+trajectory = { points = [[0.0, 0.6]], straight = true, unblockable = false }

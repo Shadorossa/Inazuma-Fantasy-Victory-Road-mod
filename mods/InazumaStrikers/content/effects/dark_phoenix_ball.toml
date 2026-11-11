@@ -1,0 +1,14 @@
+# Dark Phoenix: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/dark_phoenix_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "dark_phoenix"
+from = "ega0075d"
+object = "effect/event/ev60/ev6086dp00/ev6086dp00.objbin"
+
+[[shot_aura]]
+name = "dark_phoenix"
+when = { techniques = ["whs00860", "whs00860_or"] }
+aura = "dark_phoenix"
+like = "ega0075d"
+spawn_fade = false

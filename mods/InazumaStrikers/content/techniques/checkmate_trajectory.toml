@@ -1,0 +1,6 @@
+# Checkmate: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs01920"
+trajectory = { points = [[0.0, 2.50]], straight = true, unblockable = false }

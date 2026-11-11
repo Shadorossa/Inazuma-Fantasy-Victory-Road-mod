@@ -1,0 +1,12 @@
+# Dark Empress goal scene ev71_00080: these commands use its own effect object ev71000800.
+schema = "VRFW.base_table/1"
+
+[[entry]]
+command = "ACTOR_ATTACH_POINT"
+at = 5
+args = ["ev71000800", "point_eff", "evp_eff01", 0.0, 0.0, 0.0, 1]
+
+[[entry]]
+command = "ACTOR_ATTACH_ROTATION"
+at = 6
+args = ["ev71000800", 0.0, 0.0, 0.0]

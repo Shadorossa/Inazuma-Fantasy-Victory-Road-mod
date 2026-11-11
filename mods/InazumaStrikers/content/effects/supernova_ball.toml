@@ -1,0 +1,13 @@
+# Supernova: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/supernova_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "supernova"
+from = "ega0075d"
+object = "effect/event/ev60/ev6081sn00/ev6081sn00.objbin"
+
+[[shot_aura]]
+name = "supernova"
+when = { techniques = ["whs00810"] }
+aura = "supernova"
+like = "ega0075d"

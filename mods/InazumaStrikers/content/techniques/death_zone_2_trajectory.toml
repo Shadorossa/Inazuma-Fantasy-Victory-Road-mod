@@ -1,0 +1,6 @@
+# Death Zone 2: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs00470"
+trajectory = { points = [[0.0, 2.2]], straight = true, unblockable = false }

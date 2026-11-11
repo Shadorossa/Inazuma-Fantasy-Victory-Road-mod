@@ -1,0 +1,15 @@
+# Pegasus Punch: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/pegasus_punch_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "pegasus_punch"
+from = "ega0075b"
+object = "effect/event/ev60/ev6182pp00/ev6182pp00.objbin"
+
+[[shot_aura]]
+name = "pegasus_punch"
+when = { techniques = ["whs01820"] }
+aura = "pegasus_punch"
+like = "ega0075b"
+anchor = "kick"
+drift = 0.75

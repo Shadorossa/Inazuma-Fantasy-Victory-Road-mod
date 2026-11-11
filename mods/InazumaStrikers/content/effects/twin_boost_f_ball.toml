@@ -1,0 +1,15 @@
+# Twin Boost F: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/twin_boost_f_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "twin_boost_f"
+from = "ega0075c"
+object = "effect/event/ev60/ev6077tb00/ev6077tb00.objbin"
+
+[[shot_aura]]
+name = "twin_boost_f"
+when = { techniques = ["whs00770", "whs00770_or"] }
+aura = "twin_boost_f"
+like = "ega0075c"
+anchor = "kick"
+drift = 0.75

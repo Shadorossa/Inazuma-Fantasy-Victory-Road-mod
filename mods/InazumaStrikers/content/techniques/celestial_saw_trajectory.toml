@@ -1,0 +1,6 @@
+# Celestial Saw: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs02910"
+trajectory = { points = [[0.0, 1.0]], straight = true, unblockable = false }

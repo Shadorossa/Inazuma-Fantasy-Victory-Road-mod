@@ -1,0 +1,13 @@
+# Dragon's Tail: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/dragon_s_tail_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "dragon_s_tail"
+from = "ega0075a"
+object = "effect/event/ev60/ev6175dt00/ev6175dt00.objbin"
+
+[[shot_aura]]
+name = "dragon_s_tail"
+when = { techniques = ["whs01750"] }
+aura = "dragon_s_tail"
+like = "ega0075a"

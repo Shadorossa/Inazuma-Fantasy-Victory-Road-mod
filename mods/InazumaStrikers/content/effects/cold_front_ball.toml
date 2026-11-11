@@ -1,0 +1,15 @@
+# Cold Front: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/cold_front_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "cold_front"
+from = "ega0075b"
+object = "effect/event/ev60/ev6293cf00/ev6293cf00.objbin"
+
+[[shot_aura]]
+name = "cold_front"
+when = { techniques = ["whs02930", "whs02930_or"] }
+aura = "cold_front"
+like = "ega0075b"
+anchor = "kick"
+drift = 0.75

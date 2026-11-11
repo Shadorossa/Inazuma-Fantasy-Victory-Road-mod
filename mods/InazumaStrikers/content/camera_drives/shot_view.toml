@@ -1,0 +1,16 @@
+# Shot camera: the touchline view for your team's shots at goal, then your camera back.
+schema = "VRFW.camera_drive/1"
+
+[[VRFW.CameraDrive]]
+name = "shot_view"
+window = "shot"
+shots = "all"
+preset = "shot"
+chain_preset = "chain"
+priority = 10
+rebuild = true
+turn_in_s = 0.0
+turn_out_s = 0.8
+cut_in_window_s = 2.0
+shooter_groups = ["shot"]
+side = "own"

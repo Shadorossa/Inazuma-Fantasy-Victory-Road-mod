@@ -1,0 +1,364 @@
+# ModManager editor form of the shot_fx recipes (research/scripts/shot_fx_recipe.py); the game does not read it.
+schema = "VRFW.editor/1"
+
+[[Editor]]
+Id = "shot_fx"
+Title = { es = "Recetas de aura", en = "Aura recipes" }
+Help = { es = "Un objeto de aura nuevo hecho a partir de un cut-in.", en = "A new aura object made from a cut-in." }
+Section = "shot_aura"
+Files = ["content/shot_fx/*.toml"]
+Table = "shot_fx"
+Key = "name"
+Shape = "shot_fx"
+New = "content/shot_fx/{key}.toml"
+
+[[Shape]]
+Id = "shot_fx"
+  [[Shape.Field]]
+  Key = "from_start"
+  Type = "bool"
+  Label = { es = "Todo desde el inicio", en = "All from the start" }
+  Help = { es = "Cada pieza está desde el primer fotograma del aura; nada aparece a mitad de vuelo.", en = "Every part is there from the aura's first frame; nothing pops in mid-flight." }
+  [[Shape.Field]]
+  Key = "roll"
+  Type = "float"
+  Label = { es = "Giro sobre el vuelo", en = "Roll about the flight" }
+  Help = { es = "Grados de toda el aura sobre el eje del vuelo.", en = "Degrees of the whole aura about the flight axis." }
+  [[Shape.Field]]
+  Key = "flight"
+  Type = "numbers"
+  Label = { es = "Fotogramas de la dirección", en = "Direction frames" }
+  Help = { es = "Dos fotogramas del corte: la dirección de vuelo es el camino del balón entre ellos.", en = "Two frames of the cut: the flight direction is the ball's way between them." }
+  [[Shape.Field]]
+  Key = "axis"
+  Type = "numbers"
+  Label = { es = "Eje de vuelo", en = "Flight axis" }
+  Help = { es = "X, Y, Z: la dirección de vuelo en vez del camino del balón (corte a cámara lenta).", en = "X, Y, Z: the flight direction instead of the ball's way (a slow-motion cut)." }
+  [[Shape.Field]]
+  Key = "centre_joint"
+  Type = "string"
+  Label = { es = "Hueso que hace de balón", en = "Joint standing for the ball" }
+  Help = { es = "Vacío: el balón del evento.", en = "Empty: the event's ball." }
+  [[Shape.Field]]
+  Key = "ball_in_tip"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Balón en la punta de", en = "Ball in the tip of" }
+  Help = { es = "Piezas en cono cuya punta debe rodear el balón.", en = "Cone parts whose tip must enclose the ball." }
+  [[Shape.Field]]
+  Key = "tip_radius"
+  Type = "float"
+  Label = { es = "Radio de la punta", en = "Tip radius" }
+  Help = { es = "Metros en el juego.", en = "Metres in game." }
+  [[Shape.Field]]
+  Key = "tip_back"
+  Type = "float"
+  Label = { es = "Retroceso en la punta", en = "Back from the tip" }
+  Help = { es = "Metros que el balón queda detrás de esa punta.", en = "Metres the ball sits behind that tip." }
+  [[Shape.Field]]
+  Key = "centre_tip"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Balón quieto en la punta de", en = "Still ball in the tip of" }
+  Help = { es = "Para un cut-in cuyo balón no vuela: el balón queda en la punta de estas piezas.", en = "For a cut-in whose ball does not fly: the ball stands at the tip of these parts." }
+  [[Shape.Field]]
+  Key = "align_to"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Alinear con", en = "Align with" }
+  Help = { es = "Piezas cuyo eje largo es la dirección de vuelo.", en = "Parts whose long axis is the flight direction." }
+  [[Shape.Field]]
+  Key = "cycle"
+  Type = "list"
+  Of = "shot_fx_cycle"
+  Label = { es = "Bucles", en = "Loops" }
+  Help = { es = "Piezas o huesos que repiten unos fotogramas del corte.", en = "Parts or joints that replay some frames of the cut." }
+  [[Shape.Field]]
+  Key = "seamless_loop"
+  Type = "bool"
+  Label = { es = "Cerrar los bucles", en = "Close the loops" }
+  Help = { es = "El último fotograma de un bucle enlaza con el primero. Sin poner: sí.", en = "A loop's last frame meets its first. Unset: yes." }
+  [[Shape.Field]]
+  Key = "lead"
+  Type = "list"
+  Of = "shot_fx_lead"
+  Label = { es = "Sostener hasta", en = "Hold until" }
+  Help = { es = "Con «todo desde el inicio»: el fotograma en que una pieza se sostiene hasta que llega su momento.", en = "With «all from the start»: the frame a part is held at until its time comes." }
+  [[Shape.Field]]
+  Key = "replay_texture"
+  Type = "list"
+  Of = "shot_fx_texture"
+  Label = { es = "Revelar textura", en = "Texture reveal" }
+  Help = { es = "Desplazamientos de textura que se reproducen hasta el fotograma sostenido.", en = "Texture offsets replayed up to the held frame." }
+  [[Shape.Field]]
+  Key = "tail_fade"
+  Type = "float"
+  Label = { es = "Desvanecer la cola", en = "Tail fade" }
+  Help = { es = "Parte del largo del aura que se desvanece detrás del balón; 0 = no. Sin poner: según la forma.", en = "Share of the aura's length fading out behind the ball; 0 = off. Unset: by shape." }
+  [[Shape.Field]]
+  Key = "reveal_segments"
+  Type = "int"
+  Label = { es = "Cortes del revelado", en = "Reveal slices" }
+  Help = { es = "Mínimo de cortes de una pieza revelada.", en = "Least slices of a revealed part." }
+  [[Shape.Field]]
+  Key = "reveal_slice"
+  Type = "float"
+  Label = { es = "Largo de cada corte", en = "Slice length" }
+  Help = { es = "Metros en el juego.", en = "Metres in game." }
+  [[Shape.Field]]
+  Key = "reveal_soft"
+  Type = "float"
+  Label = { es = "Suavidad del revelado", en = "Reveal softness" }
+  Help = { es = "Metros de la rampa detrás del punto de chute.", en = "Metres of the ramp behind the kick point." }
+  [[Shape.Field]]
+  Key = "reveal_grow"
+  Type = "float"
+  Label = { es = "Metros por fotograma", en = "Metres per frame" }
+  Help = { es = "Lo que se aleja el punto de chute del balón cada fotograma.", en = "How far the kick point runs back from the ball each frame." }
+  [[Shape.Field]]
+  Key = "reveal_lag"
+  Type = "float"
+  Label = { es = "Retraso del revelado", en = "Reveal lag" }
+  Help = { es = "Metros que el revelado va por detrás de lo volado.", en = "Metres the reveal runs behind the distance flown." }
+  [[Shape.Field]]
+  Key = "sweep_back"
+  Type = "float"
+  Label = { es = "Curvatura hacia atrás", en = "Sweep back" }
+  Help = { es = "Grados en la punta de las piezas marcadas como curvadas.", en = "Degrees at the tip of the parts marked as swept." }
+  [[Shape.Field]]
+  Key = "hold_single_keys"
+  Type = "bool"
+  Label = { es = "Sostener materiales de una clave", en = "Hold one-key materials" }
+  Help = { es = "Un color o alfa puesto con una sola clave se mantiene.", en = "A colour or alpha set by a single key stays." }
+  [[Shape.Field]]
+  Key = "hold_single_tracks"
+  Type = "bool"
+  Label = { es = "Sostener pistas de una clave", en = "Hold one-key tracks" }
+  Help = { es = "Toda pista de una sola clave se mantiene desde el primer fotograma.", en = "Every one-key track stays from the first frame." }
+  [[Shape.Field]]
+  Key = "prio_max"
+  Type = "int"
+  Label = { es = "Prioridad máxima de dibujo", en = "Highest draw priority" }
+  Help = { es = "Por encima de 30 el juego se cierra.", en = "Over 30 the game crashes." }
+  [[Shape.Field]]
+  Key = "in_len"
+  Type = "int"
+  Label = { es = "Fotogramas de entrada", en = "Frames in" }
+  Help = { es = "Largo del clip in.", en = "Length of the in clip." }
+  [[Shape.Field]]
+  Key = "out_len"
+  Type = "int"
+  Label = { es = "Fotogramas de salida", en = "Frames out" }
+  Help = { es = "Largo del clip out.", en = "Length of the out clip." }
+  [[Shape.Field]]
+  Key = "beam"
+  Type = "table"
+  Of = "shot_fx_beam"
+  Label = { es = "Rayo desde el punto de chute", en = "Beam from the kick point" }
+  Help = { es = "Un rayo fijo en el campo que nunca se estira.", en = "A beam fixed on the pitch that never stretches." }
+  [[Shape.Field]]
+  Key = "ground_kick"
+  Type = "int"
+  Label = { es = "Fijo en el campo desde", en = "Fixed on the pitch from" }
+  Help = { es = "Fotograma del corte: el objeto queda en el campo bajo el balón de ese fotograma, para un objeto de suelo. Solo «Generar aquí».", en = "Cut frame: the object stays on the pitch under the ball of that frame, for a ground object. «Generate here» only." }
+  [[Shape.Field]]
+  Key = "ring_replay"
+  Type = "list"
+  Of = "shot_fx_cycle"
+  Label = { es = "Anillos que se repiten", en = "Rings replayed" }
+  Help = { es = "Cada anillo repite su tramo del corte, centrado en el vuelo. Solo «Generar aquí».", en = "Each ring replays its stretch of the cut, centred on the flight. «Generate here» only." }
+  [[Shape.Field]]
+  Key = "ring_delay"
+  Type = "int"
+  Label = { es = "Fotogramas entre anillos", en = "Frames between rings" }
+  Help = { es = "Para los anillos que se repiten.", en = "For the rings replayed." }
+  [[Shape.Field]]
+  Key = "rings"
+  Type = "table"
+  Of = "shot_fx_rings"
+  Label = { es = "Anillos que se quedan atrás", en = "Rings left behind" }
+  Help = { es = "Salen uno tras otro y cada uno se queda donde nació. Solo «Generar aquí».", en = "They go out one after another and each stays where it was born. «Generate here» only." }
+  [[Shape.Field]]
+  Key = "lane"
+  Type = "table"
+  Of = "shot_fx_lane"
+  Label = { es = "Surco en el campo", en = "Lane on the pitch" }
+  Help = { es = "Una tira que se repite desde el punto de chute y aparece al pasar el balón. Solo «Generar aquí».", en = "A strip repeated from the kick point that appears as the ball passes. «Generate here» only." }
+  [[Shape.Field]]
+  Key = "cross"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Copia cruzada de", en = "Crossed copy of" }
+  Help = { es = "Cartas planas con una copia girada sobre la línea de vuelo. Solo «Generar aquí».", en = "Flat cards with a copy turned about the flight line. «Generate here» only." }
+  [[Shape.Field]]
+  Key = "cross_degrees"
+  Type = "float"
+  Label = { es = "Grados de la copia cruzada", en = "Crossed copy degrees" }
+
+[[Shape]]
+Id = "shot_fx_cycle"
+  [[Shape.Field]]
+  Key = "part"
+  Type = "string"
+  Label = { es = "Pieza o hueso", en = "Part or joint" }
+  [[Shape.Field]]
+  Key = "first"
+  Type = "int"
+  Label = { es = "Primer fotograma", en = "First frame" }
+  [[Shape.Field]]
+  Key = "last"
+  Type = "int"
+  Label = { es = "Último fotograma", en = "Last frame" }
+
+[[Shape]]
+Id = "shot_fx_lead"
+  [[Shape.Field]]
+  Key = "part"
+  Type = "string"
+  Label = { es = "Pieza", en = "Part" }
+  [[Shape.Field]]
+  Key = "frame"
+  Type = "int"
+  Label = { es = "Fotograma", en = "Frame" }
+
+[[Shape]]
+Id = "shot_fx_texture"
+  [[Shape.Field]]
+  Key = "material"
+  Type = "string"
+  Label = { es = "Material", en = "Material" }
+  [[Shape.Field]]
+  Key = "slot"
+  Type = "int"
+  Label = { es = "Textura", en = "Texture" }
+  [[Shape.Field]]
+  Key = "channel"
+  Type = "int"
+  Label = { es = "Canal", en = "Channel" }
+
+[[Shape]]
+Id = "shot_fx_beam"
+  [[Shape.Field]]
+  Key = "joint"
+  Type = "string"
+  Required = true
+  Label = { es = "Hueso del rayo", en = "Beam joint" }
+  [[Shape.Field]]
+  Key = "meshes"
+  Type = "list"
+  Of = "string"
+  Required = true
+  Label = { es = "Piezas del rayo", en = "Beam parts" }
+  [[Shape.Field]]
+  Key = "body_joint"
+  Type = "string"
+  Required = true
+  Label = { es = "Hueso libre del cuerpo", en = "Spare joint of the body" }
+  [[Shape.Field]]
+  Key = "axis"
+  Type = "enum"
+  Values = ["+X", "-X", "+Y", "-Y", "+Z", "-Z"]
+  Label = { es = "Eje hacia el balón", en = "Axis to the ball" }
+  [[Shape.Field]]
+  Key = "head_y"
+  Type = "float"
+  Label = { es = "Extremo en el balón", en = "End at the ball" }
+  [[Shape.Field]]
+  Key = "tail_y"
+  Type = "float"
+  Label = { es = "Extremo en el chute", en = "End at the kick" }
+  [[Shape.Field]]
+  Key = "split_y"
+  Type = "float"
+  Label = { es = "Fin de la cabeza", en = "End of the head" }
+  [[Shape.Field]]
+  Key = "max_len"
+  Type = "float"
+  Label = { es = "Largo máximo", en = "Longest length" }
+  [[Shape.Field]]
+  Key = "hide_short"
+  Type = "bool"
+  Label = { es = "Ocultar mientras no cabe", en = "Hide while it has no room" }
+
+[[Shape]]
+Id = "shot_fx_ring_set"
+  [[Shape.Field]]
+  Key = "parts"
+  Type = "list"
+  Of = "string"
+  Required = true
+  Label = { es = "Piezas del anillo", en = "Parts of the ring" }
+
+[[Shape]]
+Id = "shot_fx_rings"
+  [[Shape.Field]]
+  Key = "sets"
+  Type = "list"
+  Of = "shot_fx_ring_set"
+  Required = true
+  Label = { es = "Anillos", en = "Rings" }
+  Help = { es = "Una lista de piezas por anillo, en el orden en que salen.", en = "One list of parts per ring, in the order they go out." }
+  [[Shape.Field]]
+  Key = "delay"
+  Type = "int"
+  Required = true
+  Label = { es = "Fotogramas entre anillos", en = "Frames between rings" }
+  [[Shape.Field]]
+  Key = "window"
+  Type = "int"
+  Label = { es = "Fotogramas de cada anillo", en = "Frames of each ring" }
+  Help = { es = "Sin poner: los fotogramas entre anillos por el número de anillos.", en = "Unset: the frames between rings times the number of rings." }
+  [[Shape.Field]]
+  Key = "fade"
+  Type = "int"
+  Label = { es = "Fotogramas de desvanecer", en = "Frames fading out" }
+  [[Shape.Field]]
+  Key = "drift"
+  Type = "float"
+  Label = { es = "Metros por fotograma", en = "Metres a frame" }
+  Help = { es = "Lo que el anillo se queda atrás respecto al balón.", en = "How far the ring falls behind the ball." }
+  [[Shape.Field]]
+  Key = "hold"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Huesos quietos", en = "Joints held still" }
+
+[[Shape]]
+Id = "shot_fx_lane"
+  [[Shape.Field]]
+  Key = "part"
+  Type = "string"
+  Required = true
+  Label = { es = "Pieza", en = "Part" }
+  [[Shape.Field]]
+  Key = "height"
+  Type = "float"
+  Required = true
+  Label = { es = "Altura del balón", en = "Ball height" }
+  Help = { es = "Metros del balón sobre el campo.", en = "Metres of the ball over the pitch." }
+  [[Shape.Field]]
+  Key = "step"
+  Type = "float"
+  Label = { es = "Largo de cada tramo", en = "Length of each slice" }
+  [[Shape.Field]]
+  Key = "length"
+  Type = "float"
+  Label = { es = "Largo del surco", en = "Lane length" }
+  [[Shape.Field]]
+  Key = "tail"
+  Type = "numbers"
+  Label = { es = "Cola", en = "Tail" }
+  Help = { es = "Metros tras el balón: empieza a desvanecerse y desaparece.", en = "Metres behind the ball: it starts fading and is gone." }
+  [[Shape.Field]]
+  Key = "front"
+  Type = "float"
+  Label = { es = "Entrada", en = "Fade in" }
+  Help = { es = "Metros que tarda un tramo en aparecer al pasar el balón.", en = "Metres a slice takes to appear as the ball passes." }
+  [[Shape.Field]]
+  Key = "full_alpha"
+  Type = "float"
+  Label = { es = "Alfa del tramo repetido", en = "Alpha of the repeated stretch" }
+  [[Shape.Field]]
+  Key = "drift"
+  Type = "float"
+  Label = { es = "Metros por fotograma", en = "Metres a frame" }

@@ -1,0 +1,15 @@
+# Rainbow Bubble Burst: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/rainbow_bubble_burst_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "rainbow_bubble_burst"
+from = "ega0085d"
+object = "effect/event/ev60/ev6174rb00/ev6174rb00.objbin"
+
+[[shot_aura]]
+name = "rainbow_bubble_burst"
+when = { techniques = ["whs01740"] }
+aura = "rainbow_bubble_burst"
+like = "ega0085d"
+anchor = "kick"
+drift = 0.75

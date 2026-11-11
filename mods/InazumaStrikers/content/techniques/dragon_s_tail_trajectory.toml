@@ -1,0 +1,6 @@
+# Dragon's Tail: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs01750"
+trajectory = { points = [[0.0, 1.0]], goal_points = [[0.0, 1.0]], unblockable = false }

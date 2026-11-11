@@ -1,0 +1,16 @@
+# Touchline view while a shot at goal flies (requested by camera_drives/shot_view.toml).
+schema = "VRFW.match_camera/2"
+
+[[preset]]
+name = "shot"
+kind = "chase_rows"
+yaw = 90.0
+pitch = 20.0
+distance = 40.0
+fov = 35.0
+fixed_pitch = true
+option = "horizontal"
+anchor = "touchline"
+touchline_margin = 10.0
+fallback_half_width = 30.0
+fov_mode = "keep_framing"

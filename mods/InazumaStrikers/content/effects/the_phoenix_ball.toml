@@ -1,0 +1,14 @@
+# The Phoenix: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/the_phoenix_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "the_phoenix"
+from = "ega0075c"
+object = "effect/event/ev60/ev6041ph00/ev6041ph00.objbin"
+
+[[shot_aura]]
+name = "the_phoenix"
+when = { techniques = ["whs00410"] }
+aura = "the_phoenix"
+like = "ega0075c"
+spawn_fade = false

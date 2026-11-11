@@ -1,0 +1,13 @@
+# Death Zone 2: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/death_zone_2_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "death_zone_2"
+from = "ega0075d"
+object = "effect/event/ev60/ev6047dz00/ev6047dz00.objbin"
+
+[[shot_aura]]
+name = "death_zone_2"
+when = { techniques = ["whs00470"] }
+aura = "death_zone_2"
+like = "ega0075d"

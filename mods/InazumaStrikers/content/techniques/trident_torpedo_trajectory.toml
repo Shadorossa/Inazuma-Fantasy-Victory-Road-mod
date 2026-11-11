@@ -1,0 +1,6 @@
+# Trident Torpedo: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs01850"
+trajectory = { points = [[0.0, 2.0]], start = { behind = 0.03, height = 4.08, fall = false }, unblockable = false }

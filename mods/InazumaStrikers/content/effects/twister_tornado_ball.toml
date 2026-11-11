@@ -1,0 +1,13 @@
+# Twister Tornado: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/twister_tornado_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "twister_tornado"
+from = "ega0075b"
+object = "effect/event/ev60/ev6268tt00/ev6268tt00.objbin"
+
+[[shot_aura]]
+name = "twister_tornado"
+when = { techniques = ["whs02680"] }
+aura = "twister_tornado"
+like = "ega0075b"

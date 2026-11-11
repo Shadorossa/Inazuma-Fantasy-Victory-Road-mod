@@ -1,0 +1,22 @@
+# Odin Sword: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/odins_sword_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "odins_sword"
+from = "ega0075a"
+object = "effect/event/ev60/ev6107os00/ev6107os00.objbin"
+
+[[effect]]
+name = "odins_sword_mark"
+from = "ega0021"
+object = "effect/event/ev60/ev6107om00/ev6107om00.objbin"
+clips = { in = "in", loop = "loop", out = "out" }
+
+[[shot_aura]]
+name = "odins_sword"
+when = { techniques = ["whs01070"] }
+aura = "odins_sword"
+like = "ega0075a"
+anchor = "kick"
+drift = 0.75
+ground_effect = { effect = "odins_sword_mark" }

@@ -1,0 +1,6 @@
+# Mortal Smash: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs02410"
+trajectory = { points = [[0.0, 1.5]], straight = true, unblockable = false }

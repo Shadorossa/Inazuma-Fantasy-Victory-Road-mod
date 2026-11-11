@@ -1,0 +1,29 @@
+# Spanish names of two retail techniques; the other languages keep their retail name.
+schema = "VRFW.text/2"
+table = "skill_text"
+
+[[row]]
+id = 0x5FE4028F
+kind = "noun"
+es = "Empuje trillizo"
+en = "Triple Boost"
+fr = "Triple tir"
+de = "Dreifach-Drücker"
+it = "Calcio Triplo"
+pt = "Impulso Triplo"
+ja = "トリプルブースト"
+zh_hans = "三重推进"
+zh_hant = "三重噴射"
+
+[[row]]
+id = 0x25E391D7
+kind = "noun"
+es = "Corte flamígero"
+en = "Scorching Tackle"
+fr = "Charge enflammée"
+de = "Feuerdribbling"
+it = "Dribbling Rovente"
+pt = "Avanço Escaldante"
+ja = "ヒートタックル"
+zh_hans = "烈火冲撞"
+zh_hant = "烈火衝撞"

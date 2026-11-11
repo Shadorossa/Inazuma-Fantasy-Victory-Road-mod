@@ -1,0 +1,15 @@
+# Kung Fu Header: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/kung_fu_header_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "kung_fu_header"
+from = "ega0075d"
+object = "effect/event/ev60/ev6029kf00/ev6029kf00.objbin"
+
+[[shot_aura]]
+name = "kung_fu_header"
+when = { techniques = ["whs00290"] }
+aura = "kung_fu_header"
+like = "ega0075d"
+anchor = "kick"
+drift = 0.75

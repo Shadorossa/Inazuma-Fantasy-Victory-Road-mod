@@ -1,0 +1,57 @@
+# Texts of the Mods screen and the options row; a missing language falls back to English.
+schema = "VRFW.text_key/1"
+default_lang = "en"
+
+[en.new]
+mod_name = "Inazuma Strikers"
+mod_description = "Shots at goal like a TV broadcast: the camera follows your team's shots from the touchline, shot auras keep the look of the move's cut-in, and a few special moves smash the goal (skippable in the mod options). Name banners for special moves and keshin from the Inazuma Eleven GO Strikers 2013 fan translation, also for moves added by mods. Strikers titles by @IEGOStrikersESP, @ShinAngelico, @adridebolsillo."
+skip_goal_scene = "Skip special goal scene"
+skip_goal_scene_help = "On: goals scored with this mod's moves show the normal goal scene."
+
+[es.new]
+mod_name = "Inazuma Strikers"
+mod_description = "Tiros a portería como en la tele: la cámara sigue desde la banda los tiros de tu equipo, las auras de tiro conservan el aspecto de la escena de la técnica, y algunas supertécnicas destrozan la portería (se puede saltar en las opciones del mod). Rótulos de supertécnicas y espíritus guerreros de la traducción de fans de Inazuma Eleven GO Strikers 2013, también para las técnicas que añaden otros mods. Títulos de Strikers por @IEGOStrikersESP, @ShinAngelico, @adridebolsillo."
+skip_goal_scene = "Saltar la cinemática de gol especial"
+skip_goal_scene_help = "Activado: los goles con técnicas de este mod muestran el gol normal."
+
+[fr.new]
+mod_name = "Inazuma Strikers"
+mod_description = "Des tirs au but comme à la télé : la caméra suit depuis la ligne de touche les tirs de ton équipe, les auras de tir gardent l'aspect de la scène de la technique, et quelques supertechniques détruisent le but (on peut passer cette scène dans les options du mod). Bandeaux de noms des supertechniques et keshin de la traduction de fans d'Inazuma Eleven GO Strikers 2013, aussi pour les techniques ajoutées par des mods. Titres Strikers par @IEGOStrikersESP, @ShinAngelico, @adridebolsillo."
+skip_goal_scene = "Passer la scène de but spéciale"
+skip_goal_scene_help = "Activé : les buts marqués avec ce mod montrent le but normal."
+
+[de.new]
+mod_name = "Inazuma Strikers"
+mod_description = "Torschüsse wie im Fernsehen: Die Kamera folgt den Schüssen deines Teams von der Seitenlinie, Schuss-Auren behalten den Look der Technik-Sequenz, und einige Spezialtechniken zertrümmern das Tor (in den Mod-Optionen überspringbar). Namensbanner für Spezialtechniken und Keshin aus der Fan-Übersetzung von Inazuma Eleven GO Strikers 2013, auch für Techniken, die Mods hinzufügen. Strikers-Titel von @IEGOStrikersESP, @ShinAngelico, @adridebolsillo."
+skip_goal_scene = "Spezial-Torszene überspringen"
+skip_goal_scene_help = "An: Tore mit Techniken dieses Mods zeigen die normale Torszene."
+
+[it.new]
+mod_name = "Inazuma Strikers"
+mod_description = "Tiri in porta come in TV: la telecamera segue dalla linea laterale i tiri della tua squadra, le aure di tiro mantengono l'aspetto della scena della tecnica, e alcune supertecniche sfondano la porta (saltabile nelle opzioni del mod). Banner dei nomi di supertecniche e keshin dalla traduzione dei fan di Inazuma Eleven GO Strikers 2013, anche per le tecniche aggiunte da altri mod. Titoli Strikers di @IEGOStrikersESP, @ShinAngelico, @adridebolsillo."
+skip_goal_scene = "Salta la scena del gol speciale"
+skip_goal_scene_help = "Attivato: i gol con le tecniche di questa mod mostrano il gol normale."
+
+[pt.new]
+mod_name = "Inazuma Strikers"
+mod_description = "Remates à baliza como na televisão: a câmara segue da linha lateral os remates da tua equipa, as auras de remate mantêm o aspeto da cena da técnica, e algumas supertécnicas destroem a baliza (dá para saltar nas opções do mod). Letreiros de nomes de supertécnicas e keshin da tradução de fãs de Inazuma Eleven GO Strikers 2013, também para as técnicas que outros mods acrescentam. Títulos Strikers de @IEGOStrikersESP, @ShinAngelico, @adridebolsillo."
+skip_goal_scene = "Saltar a cena de golo especial"
+skip_goal_scene_help = "Ativado: os golos com técnicas deste mod mostram o golo normal."
+
+[ja.new]
+mod_name = "Inazuma Strikers"
+mod_description = "テレビ中継のようなシュート演出です。自チームのシュートをカメラがタッチライン側から追い、シュートのオーラは必殺技カットインの見た目を保ち、一部の必殺技ではゴールが粉砕されます（Modオプションでスキップ可能）。『イナズマイレブンGO ストライカーズ2013』のファン翻訳による必殺技・化身の名前表示は、Modが追加した技にも対応します。ストライカーズのタイトル：@IEGOStrikersESP、@ShinAngelico、@adridebolsillo。"
+skip_goal_scene = "特殊ゴール演出をスキップ"
+skip_goal_scene_help = "オン：このMODの必殺技でのゴールは通常のゴール演出になります。"
+
+[zh_hans.new]
+mod_name = "Inazuma Strikers"
+mod_description = "像电视转播一样的射门演出：镜头会从边线跟拍你队的射门，射门灵气保留招式演出时的外观，部分必杀技进球时会击碎球门（可在模组选项中跳过）。必杀技和化身的名称横幅取自《闪电十一人GO 强袭者2013》的粉丝翻译，模组新增的招式也同样适用。强袭者标题由 @IEGOStrikersESP、@ShinAngelico、@adridebolsillo 制作。"
+skip_goal_scene = "跳过特殊进球演出"
+skip_goal_scene_help = "开：用本模组必杀技的进球显示普通进球演出。"
+
+[zh_hant.new]
+mod_name = "Inazuma Strikers"
+mod_description = "像電視轉播一樣的射門演出：鏡頭會從邊線跟拍你隊的射門，射門靈氣保留招式演出時的外觀，部分必殺技進球時會擊碎球門（可在模組選項中跳過）。必殺技和化身的名稱橫幅取自《閃電十一人GO 強襲者2013》的粉絲翻譯，模組新增的招式也同樣適用。強襲者標題由 @IEGOStrikersESP、@ShinAngelico、@adridebolsillo 製作。"
+skip_goal_scene = "跳過特殊進球演出"
+skip_goal_scene_help = "開：用本模組必殺技的進球顯示普通進球演出。"

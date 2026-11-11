@@ -1,0 +1,11 @@
+# Mod options row: skip the special-goal scene (content/techniques/goal_smash.toml).
+schema = "VRFW.option/2"
+
+[[option]]
+id = "skip_goal_scene"
+visual = true
+type = "toggle"
+label = "skip_goal_scene"
+help = "skip_goal_scene_help"
+default = false
+order = 300

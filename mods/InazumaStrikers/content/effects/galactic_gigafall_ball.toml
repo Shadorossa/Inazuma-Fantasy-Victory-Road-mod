@@ -1,0 +1,13 @@
+# Galactic GigaFall: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/galactic_gigafall_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "galactic_gigafall_comet"
+from = "ega0075e"
+object = "effect/event/ev60/ev6263gg00/ev6263gg00.objbin"
+
+[[shot_aura]]
+name = "galactic_gigafall_comet"
+when = { techniques = ["whs02630"] }
+aura = "galactic_gigafall_comet"
+like = "ega0075e"

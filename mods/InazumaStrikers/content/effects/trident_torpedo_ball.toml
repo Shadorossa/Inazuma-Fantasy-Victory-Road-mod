@@ -1,0 +1,22 @@
+# Trident Torpedo: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/trident_torpedo_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "trident_torpedo"
+from = "ega0075b"
+object = "effect/event/ev60/ev6185tt00/ev6185tt00.objbin"
+
+[[effect]]
+name = "trident_torpedo_stand"
+from = "ega0021"
+object = "effect/event/ev60/ev6185tk00/ev6185tk00.objbin"
+clips = { in = "in", loop = "loop", out = "out" }
+
+[[shot_aura]]
+name = "trident_torpedo"
+when = { techniques = ["whs01850"] }
+aura = "trident_torpedo"
+like = "ega0075b"
+anchor = "kick"
+drift = 0.75
+ground_effect = { effect = "trident_torpedo_stand" }

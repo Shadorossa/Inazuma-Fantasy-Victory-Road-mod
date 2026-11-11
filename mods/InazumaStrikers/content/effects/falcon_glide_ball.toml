@@ -1,0 +1,23 @@
+# Falcon Glide: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/falcon_glide_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "falcon_glide"
+from = "ega0075b"
+object = "effect/event/ev60/ev6269fg00/ev6269fg00.objbin"
+
+[[shot_aura]]
+name = "falcon_glide"
+when = { techniques = ["whs02690"] }
+aura = "falcon_glide"
+like = "ega0075b"
+anchor = "kick"
+drift = 0.21
+
+[[shot_aura]]
+name = "falcon_glide_mountain"
+when = { techniques = ["whs02691"] }
+aura = "falcon_glide"
+like = "ega0075a"
+anchor = "kick"
+drift = 0.21

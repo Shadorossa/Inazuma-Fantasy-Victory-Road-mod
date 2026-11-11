@@ -1,0 +1,3 @@
+# Technique defaults of this mod's own declarations: aura shots fly one straight line.
+[trajectory]
+straight = true

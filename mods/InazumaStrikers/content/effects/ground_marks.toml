@@ -1,0 +1,8 @@
+# Ground-trail pieces of the shots' ground_trail (objects: research/mods/InazumaStrikers/_tools/ground_mark_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "doom_break_mark"
+from = "ega2011"
+object = "effect/battle/common/egx1410/egx1410.objbin"
+clips = { in = "life", loop = "gone", out = "" }

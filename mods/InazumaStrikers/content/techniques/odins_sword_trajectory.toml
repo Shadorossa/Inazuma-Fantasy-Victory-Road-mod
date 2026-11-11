@@ -1,0 +1,6 @@
+# Odin Sword: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs01070"
+trajectory = { points = [[0.0, 0.3]], goal_points = [[0.0, 2.6]], start = { height = 0.3 }, unblockable = false }

@@ -1,0 +1,14 @@
+# Lion Assault: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs02710"
+trajectory = { points = [[0.0, 3.0]], straight = true, unblockable = false }
+
+[[edit]]
+target = "whs02711"
+trajectory = { points = [[0.0, 3.0]], straight = true, unblockable = false }
+
+[[edit]]
+target = "whs02712"
+trajectory = { points = [[0.0, 3.0]], straight = true, unblockable = false }

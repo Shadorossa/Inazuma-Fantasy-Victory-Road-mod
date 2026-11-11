@@ -1,0 +1,6 @@
+# Astro Gate: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs01260"
+trajectory = { points = [[0.0, 0.5]], straight = true, unblockable = false }

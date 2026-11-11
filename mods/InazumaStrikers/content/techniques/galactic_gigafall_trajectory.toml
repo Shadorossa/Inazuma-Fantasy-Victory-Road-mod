@@ -1,0 +1,6 @@
+# Galactic GigaFall: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs02630"
+trajectory = { points = [[0.0, 9.0]], goal_points = [[0.0, 2.0]], start = { height = 9.0 }, unblockable = false }

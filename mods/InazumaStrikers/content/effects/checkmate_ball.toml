@@ -1,0 +1,13 @@
+# Checkmate: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/checkmate_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "checkmate"
+from = "ega0075d"
+object = "effect/event/ev60/ev6019cm00/ev6019cm00.objbin"
+
+[[shot_aura]]
+name = "checkmate"
+when = { techniques = ["whs01920"] }
+aura = "checkmate"
+like = "ega0075d"

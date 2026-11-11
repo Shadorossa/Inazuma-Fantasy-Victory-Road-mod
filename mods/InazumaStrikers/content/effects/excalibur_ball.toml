@@ -1,0 +1,15 @@
+# Excalibur: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/excalibur_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "excalibur"
+from = "ega0085b"
+object = "effect/event/ev60/ev6097ex00/ev6097ex00.objbin"
+
+[[shot_aura]]
+name = "excalibur"
+when = { techniques = ["whs00970"] }
+aura = "excalibur"
+like = "ega0085b"
+anchor = "kick"
+drift = 0.75

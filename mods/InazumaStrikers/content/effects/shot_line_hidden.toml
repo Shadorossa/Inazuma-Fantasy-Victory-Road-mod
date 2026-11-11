@@ -1,0 +1,9 @@
+# Hides the game's translucent shot band on the pitch.
+schema = "VRFW.effect/1"
+
+[[recolor]]
+object = "ega0086"
+
+[[recolor.tint]]
+mesh = ["_100_area", "_200_sc"]
+alpha = 0.0

@@ -1,0 +1,6 @@
+# Run Ball Run: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs00250"
+trajectory = { points = [[0.0, 0.11]], straight = true, unblockable = false }

@@ -1,0 +1,13 @@
+# Dragon Cannon: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/dragon_cannon_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "dragon_cannon"
+from = "ega0075c"
+object = "effect/event/ev60/ev6058dc00/ev6058dc00.objbin"
+
+[[shot_aura]]
+name = "dragon_cannon"
+when = { techniques = ["whs00580"] }
+aura = "dragon_cannon"
+like = "ega0075c"

@@ -1,0 +1,13 @@
+# Scream of Eden: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/eden_cry_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "eden_cry"
+from = "ega0075d"
+object = "effect/event/ev60/ev6264ed00/ev6264ed00.objbin"
+
+[[shot_aura]]
+name = "eden_cry"
+when = { techniques = ["whs02640"] }
+aura = "eden_cry"
+like = "ega0075d"

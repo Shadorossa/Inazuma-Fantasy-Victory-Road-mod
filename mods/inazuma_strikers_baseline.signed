@@ -1,0 +1,3371 @@
+d5ba8896d65705f8be175c045eda1d5c3bc3edf7f90e463f40615c3d413552bd7b6dbadec56524285d380799062d300be15532b8b0e7de7ed90741d79c313007
+format = 1
+sequence = 1
+label = "0.3.0e"
+game_version = "v7.2.1"
+min_loader = "2.0.0"
+
+[[file]]
+path = "mods/InazumaStrikers/addons/InazumaFantasy/content/techniques/celestial_saw_trajectory.toml"
+size = 226
+sha256 = "1bf43e45ad0edc7b3d87e97b445586afc8af6da3acb78d2359afd59e64384907"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/battle/common/egx1410/egx1410.g4mg"
+size = 59136
+sha256 = "96fbb9781353adf27666a7072160ea60010d7343ff3df6f2f8774ebef320ed65"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/battle/common/egx1410/egx1410.g4pkm"
+size = 5600
+sha256 = "3cd7cb8d4452a43720776b3575284bdb8020b6c2f9b5a5accac66f63d4a4babf"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/battle/common/egx1410/egx1410.g4tx"
+size = 107744
+sha256 = "f4d8f920018502cdecdb41fef8aaddb1a3a85d1ff3586b23b7654ee79c0d8f84"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/battle/common/egx1410/egx1410.objbin"
+size = 496
+sha256 = "bb84384efc990b0a3f49f342cf4c914acb11e58023c01be8cf435dbaab1f4a30"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6019cm00/ev6019cm00.g4mg"
+size = 498176
+sha256 = "bdb418fecb98b25e353fc8ef834003781e7f408b755464a09776fd7cb42402da"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6019cm00/ev6019cm00.g4pkm"
+size = 169792
+sha256 = "6dbe32cd82d7a88520566c7d8e5728bbe431a14e5d672aab8eb0ba84334d50af"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6019cm00/ev6019cm00.g4tx"
+size = 622608
+sha256 = "f36666ced86d4b7b860aa138d060d1621c4470d18f8cef2d542d7360b52a30da"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6019cm00/ev6019cm00.objbin"
+size = 2384
+sha256 = "a6cdf22e3f0b28d4820e2432b773c5749c5c08ce09414738565ce49e32085ac1"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6023ps00/ev6023ps00.g4mg"
+size = 225344
+sha256 = "017dc0f9a71a8018d04fbf28955f94626d5367f515f266dc3535fd204351d493"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6023ps00/ev6023ps00.g4pkm"
+size = 51296
+sha256 = "17be64c046bdcca7747583752d9d35c3c7d5700bd5f57a2686b038f7be24546a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6023ps00/ev6023ps00.g4tx"
+size = 130400
+sha256 = "80daf7f205f1e3ddb7762b1247e77f73e23be68af8e710f9dec380d180f00e2f"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6023ps00/ev6023ps00.objbin"
+size = 576
+sha256 = "d0833d9289e44b4123825dfbba6975ae7809d99d7050fbb5d1c57d1fc8a9a1d1"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6023ps00/ev6023ps00.ptlb"
+size = 6000
+sha256 = "47ee20a29ac7049796d09a4a60e3f3ef3119854f5db8598fd637aa28d9633939"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6025rb00/ev6025rb00.g4mg"
+size = 478912
+sha256 = "d04c852f66a41b0ac9a20485b6062b24a4e33542a0da3d22c102899b9f4e680a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6025rb00/ev6025rb00.g4pkm"
+size = 638720
+sha256 = "a2b8065a2471ca9e34f507b0d3f8694a1b9d56abfb6b614ba2878048f9b0c504"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6025rb00/ev6025rb00.g4tx"
+size = 251440
+sha256 = "ce5e5778917501049b27301d57ac8c4ca764ecddef179cf13c25c7efde54af73"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6025rb00/ev6025rb00.objbin"
+size = 448
+sha256 = "96056536ba742fc46c1e9f6ba15a6d2c1b6946612ec9ab0c93db6b5936d06122"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6027ub00/ev6027ub00.g4mg"
+size = 387392
+sha256 = "d179c0323abc0d53d64031f6ebb2b689f505e9a87996f9e32bbeb069cbe53091"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6027ub00/ev6027ub00.g4pkm"
+size = 158336
+sha256 = "267de69bc25a850799d83547c8cc85fc92bda29e741085d6a12297ae6e244580"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6027ub00/ev6027ub00.g4tx"
+size = 434032
+sha256 = "7c3134c73d377db100c68196254a8666978ed455b544c96491e0654dd115a950"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6027ub00/ev6027ub00.objbin"
+size = 1664
+sha256 = "54000e368d41e34a9e525b064c05702176823c2968e57cde63600ec39c3d77e4"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6027ub00/ev6027ub00.ptlb"
+size = 5120
+sha256 = "176d3f93cd24253ce6b805fa5ef76a6fc976242dffc091db940bbf2b325ade6a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6029kf00/ev6029kf00.g4mg"
+size = 371712
+sha256 = "2e6372f28b1a9fce8873ba265f9631038c65abadd68378491d641d258e157de7"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6029kf00/ev6029kf00.g4pkm"
+size = 104320
+sha256 = "fc7f7a1623b421960645be4eec2a8f36988456c707a3b726a379ad95f05cd723"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6029kf00/ev6029kf00.g4tx"
+size = 555328
+sha256 = "55367c002d71de8260e05ad7c00279ffa1c2b188eb32bf5a225a577d08a117d8"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6029kf00/ev6029kf00.objbin"
+size = 1552
+sha256 = "3ac8bdf2d156479ae090ab0a693ee9abff1f7f4551c2573b4dc5ddbb0401d86e"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6034gk00/ev6034gk00.g4mg"
+size = 197056
+sha256 = "623e41c4731355af87bdbec9248ab55188538b1492d4c391a205e1f142543b85"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6034gk00/ev6034gk00.g4pkm"
+size = 216736
+sha256 = "9e16fc9c9ed4439664508aa3f0316ca01c2147fef1a00034cfef500e2469d4b4"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6034gk00/ev6034gk00.g4tx"
+size = 177680
+sha256 = "ef93c7a1b1d2fb187d83f1c81efb355068c06a914616318edb09169426436d5c"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6034gk00/ev6034gk00.objbin"
+size = 1552
+sha256 = "07d9e987c9b4f548b49301c1b8bdb8063efd02edad188b4330a2eb22a8b9fc62"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6035dt00/ev6035dt00.g4mg"
+size = 1950144
+sha256 = "d7699c9b50bf3501d939f5b97500cf34bb6035c7e091ca7be3b0f258f516acb6"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6035dt00/ev6035dt00.g4pkm"
+size = 4250080
+sha256 = "2e93638352892635775782465eba32d6541f598bab7170303d60516115e01e4c"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6035dt00/ev6035dt00.g4tx"
+size = 1892464
+sha256 = "5674f5d350692c22d7dfb377235b84196b684c2bcb96f880a2f9d6c0c97ff8bd"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6035dt00/ev6035dt00.objbin"
+size = 2496
+sha256 = "cd288496aae5575cfd6ba77e076e671735ce287bf7a161bc9b514403a092b4b5"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6035dt00/ev6035dt00.ptlb"
+size = 7392
+sha256 = "7afdedadd127a84d90022acb1d14f112a25dfa663e5b57ca4470802b8cda53ec"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6041ph00/ev6041ph00.g4mg"
+size = 1059328
+sha256 = "c87fe34b1daed96407959135746fb57dec41f7d50aa4be793ecb763cfd2c3c38"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6041ph00/ev6041ph00.g4pkm"
+size = 424544
+sha256 = "b859a5f97ff92f7d12dafd02010cdf06ff9540fe03822160beb29abc5c9f721e"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6041ph00/ev6041ph00.g4tx"
+size = 1578640
+sha256 = "e510d0b8a2974b961c80c9998d0891acce22326bd369880fef4ed8bfef37af35"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6041ph00/ev6041ph00.objbin"
+size = 2384
+sha256 = "a226fe6b65e1e5f1f3949991a3f8bf154dca94f660cfed7eeb2fae900688ea1f"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6047dz00/ev6047dz00.g4mg"
+size = 457216
+sha256 = "87517c6b1c25cb50e3e1ed0cd5657e293d839bba0810db27f54adbc11c3b9982"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6047dz00/ev6047dz00.g4pkm"
+size = 308416
+sha256 = "457a96389bbb1969a9d0b195520af7f8c715164eb522b7829fd2e3f0a2f5c16e"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6047dz00/ev6047dz00.g4tx"
+size = 405744
+sha256 = "151b576e3acb247247f3e01a3c1437b0287ce8b9357db4a321d7c238aa098601"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6047dz00/ev6047dz00.objbin"
+size = 1552
+sha256 = "fd5535c013a5f793e220f6e60d8bd1bf1d8be61885f79707205a317759d58aa4"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6058dc00/ev6058dc00.g4mg"
+size = 642368
+sha256 = "48055f15f76b31e8810d4f0bef5c7d1130350be2960e2cc8c5bcb96c944f3834"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6058dc00/ev6058dc00.g4pkm"
+size = 896704
+sha256 = "e25b83ff89712b361308af999166672682f7fd7446d4303da1cfeaa2d127fd39"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6058dc00/ev6058dc00.g4tx"
+size = 1762480
+sha256 = "0f9ec74181212e504dee2741668b419214dc88c3b440fdaea3a232f27c6ef574"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6058dc00/ev6058dc00.objbin"
+size = 1664
+sha256 = "06fd928326af26a2c3c33f91f859d822d1a90eb93f067f295ef70e17e0ed31db"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6058dc00/ev6058dc00.ptlb"
+size = 3680
+sha256 = "4063579d456fe565a717b673bb8dee9678cb413dbf7fe34ef849b1ec5809cff4"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6077tb00/ev6077tb00.g4mg"
+size = 944576
+sha256 = "7330e25f03ce52f0b2b7e2b2f4b12b76dd36345c1b0ed95a67077b2e5c8b3887"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6077tb00/ev6077tb00.g4pkm"
+size = 161280
+sha256 = "589690e759ddc620e75e0aad92a827faf451c2772a6029494ff8d0b8cee6c60b"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6077tb00/ev6077tb00.g4tx"
+size = 426080
+sha256 = "4adedf0f47b0ebb2a557f6eeec9b99461e1b0d5485fe90ba8f0c364b44e0c598"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6077tb00/ev6077tb00.objbin"
+size = 1664
+sha256 = "9df6d2d41bd45c0b40f269b9b49101279f2f4ab82b2af69dbc150a19b3e2ec21"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6077tb00/ev6077tb00.ptlb"
+size = 3696
+sha256 = "5d3e1b14fad692797faa3c4ca0bea08b93f94af7212e57302cbe5539222f38b7"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6081sn00/ev6081sn00.g4mg"
+size = 1171264
+sha256 = "7b1ff70810a4e377e16a7933d3e804799978a7dc8303e1768f281e33a75caa02"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6081sn00/ev6081sn00.g4pkm"
+size = 226112
+sha256 = "e7fb4045d74cf8518a02d0156718635c6e4a8fd4e976b20af95847c68c19a1ac"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6081sn00/ev6081sn00.g4tx"
+size = 621696
+sha256 = "9da2597c4a6baea7c804e242f3ebc0a506593d5010276cf550429eea0e052e0b"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6081sn00/ev6081sn00.objbin"
+size = 4048
+sha256 = "43ae513f0ac6d2eb9c36d2af3a5d257703babba7822f774002e2ec83c1b78a93"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6085fb00/ev6085fb00.g4mg"
+size = 560000
+sha256 = "9e6b852c3b9cc1cf1484516cb6b2d48b006eb5ae25faa936a5caec7afb10413e"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6085fb00/ev6085fb00.g4pkm"
+size = 154688
+sha256 = "2944059aa6bfd88fe8c91e42c387a30f14ca467ad6425b7e6992520e75d4ef22"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6085fb00/ev6085fb00.g4tx"
+size = 450560
+sha256 = "076eb772ed4b6d6e4dc3b8d1bb858ef1d60f1b8445df250271e62b39fe62db2a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6085fb00/ev6085fb00.objbin"
+size = 2496
+sha256 = "c9aff61dca29e7a6df57e6ab6e5ab4257277c3421b1367980bfc074d0d8f543a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6085fb00/ev6085fb00.ptlb"
+size = 6128
+sha256 = "ba5af49a36518f0b7acd26d1dc632164b7f462ce5c24e7bd07ae28e3bf288984"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6086dp00/ev6086dp00.g4mg"
+size = 925440
+sha256 = "9ff96191a05a45019fa966b03196a4af0becc3f9f2dae8b2c813a7a3fb078da3"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6086dp00/ev6086dp00.g4pkm"
+size = 327776
+sha256 = "1b70e187f4087e995f854490ed11634b460af56e0f83068fff7f8aac34b0c6a8"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6086dp00/ev6086dp00.g4tx"
+size = 1234352
+sha256 = "e6b3c6d78d6edd61a307244542ccf5a1da18e864205fce9c8c29c0f2b9587435"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6086dp00/ev6086dp00.objbin"
+size = 1664
+sha256 = "851e9a5801e5b9ffeaab286f0ff32751f52e0b0fe3b09ba24acc5b810a980399"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6086dp00/ev6086dp00.ptlb"
+size = 13072
+sha256 = "71134f50cfc295bcf6940e1f9b7362437299076c658c3a2559d07a68105b66cc"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6097ex00/ev6097ex00.g4mg"
+size = 2884224
+sha256 = "9fbf8a72e675bf7e24b9868f5c9e50d5e5b78aef23e044db7f094aa6b95e6e95"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6097ex00/ev6097ex00.g4pkm"
+size = 249440
+sha256 = "7bbf9bb3efa078b682e9ce900b53819a65b575b17169a05f62591feb6c7c5ec3"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6097ex00/ev6097ex00.g4tx"
+size = 617648
+sha256 = "d88b8cbd5996819b3775e83aaaf0d5a433e5329874c6550324a6c96d9fdde554"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6097ex00/ev6097ex00.objbin"
+size = 1552
+sha256 = "8c4ff62cc24a6158cd3368ad6e16bcfa4c417b227eb5a4d488de286a7ef9c3b4"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6107om00/ev6107om00.g4mg"
+size = 273408
+sha256 = "bbb585dae6088d2dc734fcc6ee7edd928b97c44f0be5642a1efb0e967db58fcb"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6107om00/ev6107om00.g4pkm"
+size = 155040
+sha256 = "79a1cef377f745c3d57e817394e3460427d57cbecc6bdd42e4b97fc32ba93a0f"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6107om00/ev6107om00.g4tx"
+size = 203088
+sha256 = "d9d4a20f5470566bfdeca6c66a5941da7b4e8d873fa317e29fa17059cadfe2b8"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6107om00/ev6107om00.objbin"
+size = 1552
+sha256 = "f77642d2bf18839f52cb3cf2de739e16decaf9f88734ff056c5e89b1c89690c3"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6107os00/ev6107os00.g4mg"
+size = 702592
+sha256 = "de9d7350511e307646386c32ee76c55642ddbb5d6b8bbd1f49b9fbb2c0948557"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6107os00/ev6107os00.g4pkm"
+size = 272832
+sha256 = "fb434ce8f782a5a8e0e687708b8a77e2e967d1ff5175031c5475ba7c8d9f81d0"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6107os00/ev6107os00.g4tx"
+size = 203088
+sha256 = "8f726e4e8fdefcecca002636baa314351db6340b1adc9124e21a1649395b763f"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6107os00/ev6107os00.objbin"
+size = 1552
+sha256 = "53a3051bed10ce9ad83610b25fcce242aee43a107fa9c9c61835c8fc371b0ba9"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6125cb00/ev6125cb00.g4mg"
+size = 658624
+sha256 = "b2e84d19918671ad1edefab8d626f6b622e35e78c6f3814bc72c8b12cb318b48"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6125cb00/ev6125cb00.g4pkm"
+size = 312640
+sha256 = "9b015473e1e8526ba6c6e118e5660d1b5a01a8900ef78ea3d27e6f32a440b795"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6125cb00/ev6125cb00.g4tx"
+size = 656640
+sha256 = "d27325715e2983030a2daceefc3ef8a10ea2e07798d922bb99ba2c8449bc744c"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6125cb00/ev6125cb00.objbin"
+size = 4160
+sha256 = "3ca5d5cbe01990a86df4a4d848c4001336d373b3ccfe604d180e8478f6ed0430"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6125cb00/ev6125cb00.ptlb"
+size = 16352
+sha256 = "b8960356eceb82f7f192021f969d16737b4ec21a12c2d5a4c76a28f52fef93a8"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6126ag00/ev6126ag00.g4mg"
+size = 14975936
+sha256 = "84910a4d46bf86d7b732ed195ed5ec1a040d612edf027fe8917b8be1c6f868d9"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6126ag00/ev6126ag00.g4pkm"
+size = 217920
+sha256 = "b5d99bed8a831a756d61f68f71d3a3dcb1aabae99fbf2c53550069d1fb8f05c8"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6126ag00/ev6126ag00.g4tx"
+size = 1038272
+sha256 = "acf6f1b588daf45814ca592b0866fc68077ad5d4dfe64d843fbff455fb87bcea"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6126ag00/ev6126ag00.objbin"
+size = 1664
+sha256 = "ee4173b217b17fd7e0184295e7448d17bd7017e00b259c7ecd83b9d6dc2a0cf3"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6126ag00/ev6126ag00.ptlb"
+size = 3712
+sha256 = "97da7c549fea0f371f62105af2d560d19d030e1cdbc9e4b7cc26d3a75866365f"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6174rb00/ev6174rb00.g4mg"
+size = 3198464
+sha256 = "d4bbc1e8fc0be88e0407c73e0515e1c5f605585d567c1c8989bbced5bd2b137b"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6174rb00/ev6174rb00.g4pkm"
+size = 689952
+sha256 = "b1b4603e831117ecaa12f317149583462912e6e2625f92cdd6bcdc1725cd9ac1"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6174rb00/ev6174rb00.g4tx"
+size = 298368
+sha256 = "b52c5257c6c27519c79f9d530b09ee4d4193cfd7f6e59c71dca84c6349750f1a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6174rb00/ev6174rb00.objbin"
+size = 1696
+sha256 = "ab80d4e54b9cd55ef9defb324551b956c5b8ba1e48ce53ca156eb00df3f15262"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6175dt00/ev6175dt00.g4mg"
+size = 1670848
+sha256 = "4d3f44bdc116bec82d8f27174a3a249c30eb20995b27d64befb41535e66b4701"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6175dt00/ev6175dt00.g4pkm"
+size = 731168
+sha256 = "0d9b10f4834e622bce373ce685045197c4e44ada4170d7066dce98da3bcece65"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6175dt00/ev6175dt00.g4tx"
+size = 1687872
+sha256 = "256f3740c99e3be07b365f148bae2f4a8395bec61fd7664a0aca4be36f544b5a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6175dt00/ev6175dt00.objbin"
+size = 576
+sha256 = "e2d94cee6e6be358bbb28834bfa51296e0a60ace3829ab3bbded1c37e8bf1629"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6175dt00/ev6175dt00.ptlb"
+size = 2848
+sha256 = "74bd9a6e6071dac8a202855d888d575f2cbed7f71aa31099ff575dbbf3b4d487"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6182pp00/ev6182pp00.g4mg"
+size = 3297856
+sha256 = "26d42127a870b7a4eed8b188a1a15806b2164a98e6baf53808db3b22be764a74"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6182pp00/ev6182pp00.g4pkm"
+size = 161696
+sha256 = "0c22465bf404c628386b7edbde9d883d3f95c406b2fdb6ab8003b72bd6e61863"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6182pp00/ev6182pp00.g4tx"
+size = 192640
+sha256 = "1248b82315c13d5aff7564129ead314d34cfd5c298c2cb820f1c6719740b5c47"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6182pp00/ev6182pp00.objbin"
+size = 1552
+sha256 = "bb7c53d58a17b6560dce63cbae9e17e7c973509e92a6d23fe1bb0ae975bf01d0"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tk00/ev6185tk00.g4mg"
+size = 2072320
+sha256 = "d30171caeae697bf5b7482baec05d1040327f1a44b3401208ab6159c6e2e7488"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tk00/ev6185tk00.g4pkm"
+size = 138880
+sha256 = "bf2db03b5b956028b3e8d20de61dd85e8b2dde2302d99e5c219e4899a5817721"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tk00/ev6185tk00.g4tx"
+size = 1819184
+sha256 = "bd5edf485b3630783ccac8a0be256307171afa934fa59956b2c59c1dfb302528"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tk00/ev6185tk00.objbin"
+size = 2384
+sha256 = "06345f4197b1a36cfec573eff4e0b817e3b296e9aebacf60d57aece7582c9db2"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tk10/ev6185tk10.g4mg"
+size = 2072320
+sha256 = "81977c7fae7ebed550f050474ed9c85212d9ba2c1d69c441fe059c081f737665"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tk10/ev6185tk10.g4pkm"
+size = 138880
+sha256 = "a355c29e7bdbe8393b149251289ef9eb26dae1d56da426b14a488325c062b40c"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tk10/ev6185tk10.g4tx"
+size = 1819184
+sha256 = "a870e44ace246de61ef42550820ff2aedfb9550c6791944aa759dd0a107a00e9"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tk10/ev6185tk10.objbin"
+size = 2384
+sha256 = "9bbcf38c36d5a9977a00419a2efcb19c89f83c9647130e0358b2878d2f6f9ab6"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tt00/ev6185tt00.g4mg"
+size = 1754368
+sha256 = "fa7bcaff91b3f8c80a2df171fc6e5f68cf2cbff6808aa291743de6f51170c33e"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tt00/ev6185tt00.g4pkm"
+size = 149696
+sha256 = "ad06ba6a9eddf52627956aa956a36a39cf44fa0668f53110db3d3a6a165a8fb5"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tt00/ev6185tt00.g4tx"
+size = 1819184
+sha256 = "6851dbcb55676a087b0c8a5d0a44225d71712b2496a57768327aa7ba0151dc5c"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tt00/ev6185tt00.objbin"
+size = 2384
+sha256 = "63785ef681e565b97b5c605a8f19df6b29f67e4b9c9359d78354f4083a4dae17"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tt10/ev6185tt10.g4mg"
+size = 1754368
+sha256 = "fa7bcaff91b3f8c80a2df171fc6e5f68cf2cbff6808aa291743de6f51170c33e"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tt10/ev6185tt10.g4pkm"
+size = 149696
+sha256 = "760c57225e4a7747dadd7898869fba18b5e8db0c11bc538d72c0f71811815320"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tt10/ev6185tt10.g4tx"
+size = 1819184
+sha256 = "acaedc2f9ab436d880564d4ad45396573f8bcd6d1d66211d62e382be51aeb860"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6185tt10/ev6185tt10.objbin"
+size = 2384
+sha256 = "ec4560450ee1fa0fc5a81eb607837f18bc93d553b7906e39b695c2be9d8c613e"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6208ds00/ev6208ds00.g4mg"
+size = 342528
+sha256 = "2d3f0712f11d0a04754e91ed9194f2f3725b36c203b5668b1209c0947ed6dc7f"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6208ds00/ev6208ds00.g4pkm"
+size = 517472
+sha256 = "01ffee906cccc9728ae66943fa1ac2edb4485d4faa34f009ee9a4e8d261cbdbd"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6208ds00/ev6208ds00.g4tx"
+size = 267520
+sha256 = "f20738954232bf58b74d7eefbf5782b5f015cc946053627c527e3e12d2e8bf21"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6208ds00/ev6208ds00.objbin"
+size = 1552
+sha256 = "bad77473a4718f2ac52e42c2fb925c69fb18404420c072f229a1af7635d01dce"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6240fm00/ev6240fm00.g4mg"
+size = 369664
+sha256 = "2c927dc444b96fb4fa7fc0dea11169e8638f0e6ab42c5e9d099e5b96a3c41e7e"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6240fm00/ev6240fm00.g4pkm"
+size = 230656
+sha256 = "86475837c63fa1ef1621a30cec2ef5bb760ad8962044d8200c0ac3d0323852b1"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6240fm00/ev6240fm00.g4tx"
+size = 655632
+sha256 = "034f57f2e665b55eeb925ef5643e30d706b917c4945093e8df35d567e08001c2"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6240fm00/ev6240fm00.objbin"
+size = 2384
+sha256 = "f06c8c252e3ccbad268f357fb8004f89e9e8286c7d99f5d8860980b5e7005c7c"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6241ms00/ev6241ms00.g4mg"
+size = 550208
+sha256 = "4ce7b0a9e74f022799358e6e13590612d9382c7420b7466be3fdc168ec3f11c5"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6241ms00/ev6241ms00.g4pkm"
+size = 318400
+sha256 = "76f3e280f5a2658186ef16a2154b835f210a14dd3d1576b75ae8398197c5686a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6241ms00/ev6241ms00.g4tx"
+size = 230896
+sha256 = "627186d54d2bd18ee1821a28c2f23fbc63b4fbf29b8c3f551afeb8967e3d801f"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6241ms00/ev6241ms00.objbin"
+size = 2384
+sha256 = "3f0c5e305788ced3b47a0ffbb04fd6c597b58d90e1b9ae853cfc337e8104f477"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6263gg00/ev6263gg00.g4mg"
+size = 6980672
+sha256 = "30d42bdd59bf90a883426538a41f7a7be407da39ae76dfd6a3c04b4ed60267ae"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6263gg00/ev6263gg00.g4pkm"
+size = 452768
+sha256 = "14b4b44cd4ce1c120f6c3315d2921164349edce7f8c8a970904017e13ec76f53"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6263gg00/ev6263gg00.g4tx"
+size = 505968
+sha256 = "d2b0700d00a78c654c79c8ddf2c79738bcf15fe665a64830a60f2045b882e488"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6263gg00/ev6263gg00.objbin"
+size = 1552
+sha256 = "604b9569e1940c3b55c745996e9d134b07afc2a0589bf4a15b112eaac9aa4a19"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6264ed00/ev6264ed00.g4mg"
+size = 502400
+sha256 = "35acfc035f4b0bcae8ca014f1e17522abe0b6a623030d6bcdee68eaff4509b3a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6264ed00/ev6264ed00.g4pkm"
+size = 204032
+sha256 = "7fa664565767e2a98b365ca2707428577915a4ca43d366ff7d069d46ab52cc8c"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6264ed00/ev6264ed00.g4tx"
+size = 356912
+sha256 = "5cacc1d1de237f683a767ac34967bbd6da28ca5ffdc03c9b221ffd27935e8258"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6264ed00/ev6264ed00.objbin"
+size = 1552
+sha256 = "cdcb3c40bf077238c2d4cffd4b56fe2096968d36c2ca6a901d2ea8244661bc6a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6268tt00/ev6268tt00.g4mg"
+size = 1570368
+sha256 = "efeb6aa640f5d7ddf13a0f91b550a5a7b6317c61c257cf30294056eced5d12f6"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6268tt00/ev6268tt00.g4pkm"
+size = 269760
+sha256 = "03ecc3bf40ea7f542cd9e7651147bee541941b5fae057db4756f278a1661fb71"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6268tt00/ev6268tt00.g4tx"
+size = 672704
+sha256 = "079d5f61a82e32a885c6558a85b801888d8225cfac186c744197128769cfdd4e"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6268tt00/ev6268tt00.objbin"
+size = 448
+sha256 = "eecf6fd078eb1e0cab37191132c5a23cbd330242d350ba6a696a4848859c15d7"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6269fg00/ev6269fg00.g4mg"
+size = 1264512
+sha256 = "5415c62a59ac8e1b8bfa0927fb10cec84740e2ae1259a53dcc51d4396ed6b037"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6269fg00/ev6269fg00.g4pkm"
+size = 876992
+sha256 = "36301a0c4e0292fce8e021ffe7449332848d792ff3127dcfae0822433fea37aa"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6269fg00/ev6269fg00.g4tx"
+size = 1544992
+sha256 = "3e37246ab2785d2faf4f9900d20e5da5b6f117085d969ce78987819a566f1dd5"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6269fg00/ev6269fg00.objbin"
+size = 1552
+sha256 = "181bb45f35a119ee23188db3f6a56305e6f688b306df2ebceda1ec5a85227de8"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6271la00/ev6271la00.g4mg"
+size = 400128
+sha256 = "96124c7cd1ae00d9003c0254fa7c6eecaa9ae64c25d0692568da08226a8ffcc6"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6271la00/ev6271la00.g4pkm"
+size = 172800
+sha256 = "2f20cd5a793014691abb4ea54105d7e6913602087fe7302191977827c8567b30"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6271la00/ev6271la00.g4tx"
+size = 251776
+sha256 = "ac9000bcfe5a89b6c718074686a073e55bd50b5f383902088aef47d565532954"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6271la00/ev6271la00.objbin"
+size = 2400
+sha256 = "08f2e13022442bce1dafc9d5039d2aed137821ee4a020fa8c576aa70ba7790bb"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6291cs00/ev6291cs00.g4mg"
+size = 515648
+sha256 = "6b771b3c6da6378931ac0fc4c51d91d39aadc4bc801e339157c17d230bbc6b3e"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6291cs00/ev6291cs00.g4pkm"
+size = 137120
+sha256 = "0955a7bec994a938de2cdafe39c21e5c28479b9d4242e64527e1b14c67d050cb"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6291cs00/ev6291cs00.g4tx"
+size = 231120
+sha256 = "ef91ca011f08551f8573f37baa523fb4bf086d8fe4fae5f3064f4ef7fbf299c1"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6291cs00/ev6291cs00.objbin"
+size = 1552
+sha256 = "4288262535040e24bf04bd9029adffd30495c8518dfa892f0a8591d8dba3121a"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6293cf00/ev6293cf00.g4mg"
+size = 1385280
+sha256 = "f943026e756dbe6cce0cff069883aac1ae618d04c110defd87a3b08566567ad9"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6293cf00/ev6293cf00.g4pkm"
+size = 192800
+sha256 = "01c95deb7fe925c6059eefd6ae0f324de81302b19a34c165e707c5704bac6336"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6293cf00/ev6293cf00.g4tx"
+size = 1510800
+sha256 = "2d74ca500b63bcd1b3b102e1e9d75ec2b89bccb3ecf252b8fd35b5d3cc8fd1f8"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6293cf00/ev6293cf00.objbin"
+size = 576
+sha256 = "a7fdf7e23db6e3930b253e0798d6b10796e6bdeed05aec510a081bd654e25422"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev60/ev6293cf00/ev6293cf00.ptlb"
+size = 4160
+sha256 = "cde87bce869c66dc9caa228d72a43952d2c29190200542c61265d53b34d23b29"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev71/ev71000900/ev71000900.g4mg"
+size = 787904
+sha256 = "40a8b53b42f0fdfe98f8ea76200128aba3813ce62f57929f6e6f5652f0925991"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev71/ev71000900/ev71000900.g4pkm"
+size = 39168
+sha256 = "b6c07f741f31c4ddb3dbfafb37059bc71746bc81ceb966d51315b0c309b84799"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev71/ev71000900/ev71000900.g4tx"
+size = 695824
+sha256 = "dc5f6d8f2ab0aa94240cbca92abe8647486f8569c4db7530406283f77d61878f"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev71/ev71000900/ev71000900.objbin"
+size = 448
+sha256 = "7e1531436bb08e778511a0e5639713a8937d67f943f512d4bbbac5070e72198f"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev71/ev71000910/ev71000910.g4mg"
+size = 932224
+sha256 = "4fa2fede00797f9bd418f07e8d2fe6ca23272d06407ad880abfe9db0e34ceebd"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev71/ev71000910/ev71000910.g4pkm"
+size = 105280
+sha256 = "cbe32bc39e7685acefd6fcaecdaddebb4c5bb9cc5d16e4066aca0f8c0479c908"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev71/ev71000910/ev71000910.g4tx"
+size = 824384
+sha256 = "19ad2e5d1efcbda128e37a3acfe520b88459f618be017218f4dda6ae8e4c4565"
+
+[[file]]
+path = "mods/InazumaStrikers/assets/effect/event/ev71/ev71000910/ev71000910.objbin"
+size = 1552
+sha256 = "72a4545b041834b6d1601d0be7c837933b3198c031d74c68a0961a3c612da34a"
+
+[[file]]
+path = "mods/InazumaStrikers/changelog.toml"
+size = 1974
+sha256 = "26090287ccd04e5ed9c0061db7c3076af141db8ebead669522da4ee28b57a5b7"
+
+[[file]]
+path = "mods/InazumaStrikers/content/base_tables/event_cfg/eff/ev71_00080_eff.toml"
+size = 336
+sha256 = "cf54c8a12e255d0d138cae2c4d42facb35f8a14f07ee03eaf79fda72c5d60149"
+
+[[file]]
+path = "mods/InazumaStrikers/content/base_tables/event_cfg/eff/ev71_00090_eff.toml"
+size = 914
+sha256 = "81d6f207fb3261fb3f09fa497a4116c76016356c5102cdc901472f380a9653dc"
+
+[[file]]
+path = "mods/InazumaStrikers/content/base_tables/event_cfg/evt/ev71_00090.toml"
+size = 140
+sha256 = "c2e7fb5c56e142a7c0dcf7853338a7e2ee9969409d2f1cf4ca1bac391fb45535"
+
+[[file]]
+path = "mods/InazumaStrikers/content/base_tables/event_cfg/snd/ev71_00090_snd.toml"
+size = 148
+sha256 = "e3e1310fb15cd5407332a82d6ca6deac384869ca9c7d50ae664e873c6e89e3e6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/camera_drives/shot_view.toml"
+size = 368
+sha256 = "4122ab98362821eb4587a7b6dd04139b650b4c1d8fa2c9a8705963fa894704f9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/cameras/chain.toml"
+size = 405
+sha256 = "8113972d2423c69fdfced648697926ac60caf7f8ec8c16abb98000d8db05a0b1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/cameras/shot.toml"
+size = 372
+sha256 = "b5eabcfc4226ac2f5db05977a708ccf19cac18b1d1cd51d382ac25c53cdba4ff"
+
+[[file]]
+path = "mods/InazumaStrikers/content/defaults/cutin_aura.toml"
+size = 126
+sha256 = "a43e1b8fa97c278a8983e9db29af86a7facf63dfbc51989c397631b5ff6929a1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/defaults/technique.toml"
+size = 119
+sha256 = "4a581b1f0af8e8d32e48c34b518977b92021599eef308cc3872a0475b339940b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/editor/shot_auras.toml"
+size = 19259
+sha256 = "dac8873e46b0ca6a04cbe9ed9cc3e469068352eb3fbd7def5974ad0811e795eb"
+
+[[file]]
+path = "mods/InazumaStrikers/content/editor/shot_fx.toml"
+size = 14784
+sha256 = "54b37145164cc300a2c393b27731b7635e37379ef451d4ed825c541a067c05be"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/astro_gate_ball.toml"
+size = 392
+sha256 = "be8cce6fbc795b94756e5d1e9afed143e0bcb9ca510fa3b516d8f9e76e2c68eb"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/celestial_saw_ball.toml"
+size = 413
+sha256 = "454d0c4204fc3a7020a4d37443801e83040df06bd0b663c8e137c42cf89b8ebc"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/chaos_break_ball.toml"
+size = 381
+sha256 = "440f67a70b61ce0794c266a00e90db601a07682f54a6591310b7b7adf732e7c9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/checkmate_ball.toml"
+size = 356
+sha256 = "c070379d20c50e7afe863cc8558b3bec8ce2403a2befe0a66ef0e0835e99b645"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/cold_front_ball.toml"
+size = 407
+sha256 = "5681673cb0de1aa5662298d04ebc2c6822bdc9e1b2e91bd63e9ecf2aa921106e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/dark_phoenix_ball.toml"
+size = 406
+sha256 = "a1abeb1653d8f4c7e64a42f6aaab64f909c66f71fac3acdc28fd8f2cb8935bc3"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/death_zone_2_ball.toml"
+size = 371
+sha256 = "162ee27a2baa63217344e00d3a1c6acc63d0bcc7b3304ec3dd262521cd639396"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/disaster_strike_ball.toml"
+size = 419
+sha256 = "be6dc35cad6f1ceb6fa293ffa809e55b00516800794cb87b428c8e6c562e2035"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/dragon_cannon_ball.toml"
+size = 376
+sha256 = "31d6c0980912fb14e27b112edda751dc8afa574bb82b65a28a66e570916e3d23"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/dragon_s_tail_ball.toml"
+size = 376
+sha256 = "9edecfcda56c8d1974d676a3b0cfb295c2415fd30bc617592519e083741e7b29"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/dragon_tornado_ball.toml"
+size = 427
+sha256 = "d282104a41d8e14297133b5bfa75d6afc9b848d1e205fe20bf5ed66e79135b6c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/eden_cry_ball.toml"
+size = 357
+sha256 = "48f556b934093ef6d0bd1e327ad3de568cc71d69b24e8d1b6afbbd8b6ec1845a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/excalibur_ball.toml"
+size = 387
+sha256 = "36585f91ba03b69a61e3ed1a46d9c5ebe2da20e894e1b8855d8b817554a58f4c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/falcon_glide_ball.toml"
+size = 562
+sha256 = "697839ffb87a34b905e34d298d51da8754f3c2d2b004492789235677e2ea3a64"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/fire_blizzard_ball.toml"
+size = 503
+sha256 = "ff5763232a9702bf14d6069611e91089dfaa2a82ef7e8e8f7c05e392e210d4ce"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/full_moon_fever_ball.toml"
+size = 386
+sha256 = "888c6b61049e0347c551e30da63a87cc0b2aa5c1d21ddb4d17e67fab5ed3de99"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/galactic_gigafall_ball.toml"
+size = 414
+sha256 = "bb5f1d79715e246df637c98c2ea924ba9274bb03f15be98225a33fc76dd41f03"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/god_knows_ball.toml"
+size = 383
+sha256 = "84ac2d5cd761a7ccfc193c4efeb2d591c7362bf4ef981c1abcb05ebc365f7c7d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/ground_marks.toml"
+size = 307
+sha256 = "f6207bf0b71309ab29de7e1c5a1d33ee7aa5fc70e9664dc07d09750741d402e8"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/kung_fu_header_ball.toml"
+size = 412
+sha256 = "0a39116dea1249d7bc1e3b664b648d666f282d7bfd3501c732a9495a0174180b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/lion_assault_ball.toml"
+size = 718
+sha256 = "1ebf350fa27646b6dc5c63cad91315b75ad5cfe3e132d0db4bb48c2facdbbb65"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/mortal_smash_ball.toml"
+size = 371
+sha256 = "6de4a1aae65be99eaa8f5f9b66d163eab3fb3b73ad2e625a647841588b50b90a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/odins_sword_ball.toml"
+size = 614
+sha256 = "0422a38d941fb7c0a565f942ab204b36f8696d037eafc2053a98c7703825b038"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/pegasus_punch_ball.toml"
+size = 407
+sha256 = "bfbd4895934debb5a6d365720c4167401fc151c2e084813af07a7fcc244f8af3"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/psycho_shot_ball.toml"
+size = 366
+sha256 = "5aeb0874ee811210759d7f28b0b4626f0c4100560bb3fb500c6adfc9bdde7e81"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/rainbow_bubble_burst_ball.toml"
+size = 442
+sha256 = "42cc0fc4dd427619eadffd48107a7b6ede292a2dbb874bf0834dc2e4f2b09e9c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/run_ball_run_ball.toml"
+size = 402
+sha256 = "10d8f4c5ac66d54d5569b12935a9936001cca085175577fec6ff7b2a74bf7d81"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/shot_line_hidden.toml"
+size = 183
+sha256 = "39a3ecfe57cdd9038b805fb3a29f25cba5b4ce403c7d4cd1da7ac8a641ba0c88"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/supernova_ball.toml"
+size = 356
+sha256 = "da64dab02a5234e983e489aa70ff46e1b845c7dd1638ec1e9f11aaa3fac2584f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/the_phoenix_ball.toml"
+size = 386
+sha256 = "1598ea4e126555c5562aac27bd57f530bd4d0d7002918d5e0344dd84ada0be2f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/trident_torpedo_ball.toml"
+size = 645
+sha256 = "e6d20053db547bd4a105955e5c6cdd6af722ea8c4a6fabf095a8c9338c039f31"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/trident_torpedo_ball_variants.toml"
+size = 617
+sha256 = "19620c82d62a878edf1d072ed30468b7fbe1489977974ab36e96b14cc172bbdf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/twin_boost_f_ball.toml"
+size = 417
+sha256 = "9d0780fd0553efa43c8333db4d2fbedc043df9456a17ecf239b8884b24f66b53"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/twister_tornado_ball.toml"
+size = 386
+sha256 = "f2b704aa2b04c593f98bf00c2c94d9f56e18fff7c785935244ea902c97150d34"
+
+[[file]]
+path = "mods/InazumaStrikers/content/effects/utter_gutsiness_bat_ball.toml"
+size = 406
+sha256 = "ac852bd5e992d83f1109d33fce144691222be85ca31e31351f67ba06f7cb77b3"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/astro_gate_trajectory.toml"
+size = 168
+sha256 = "825625f9da2df647bd1701cb2c21ee6f3575f041d8ce7950038a21e1d290da9d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/celestial_saw_trajectory.toml"
+size = 171
+sha256 = "e25aeae3fa69e74b3dae7af4eb759d9f2d32fd2908234881d60f9869bde7e404"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/chaos_break_trajectory.toml"
+size = 187
+sha256 = "474448c4f879c2b07b66cd550bf5b440090442e930894591e53a6565509231c1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/checkmate_trajectory.toml"
+size = 168
+sha256 = "f0d79d4255dcbd98ce02560f4f1e46534d909a817bc36baa7f5f617bea3f714f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/cold_front_trajectory.toml"
+size = 282
+sha256 = "630d5dae00321fcbe2c4e8eb32e507633469ec2db633717d71e1bd91c08b96db"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/dark_phoenix_trajectory.toml"
+size = 186
+sha256 = "f15a0fc980cc2843580505882ea9f232c494dd6587f8dba38e02dfd9c7b36425"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/death_zone_2_trajectory.toml"
+size = 170
+sha256 = "805886ffb87b3c7d5b8bfc7049e468aead6c1b565eb021c1025338d785d4debd"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/disaster_strike_trajectory.toml"
+size = 174
+sha256 = "d1afa62806effd76484daf476c5589e80490a6ee86603aac9c3d49f76249ef92"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/dragon_cannon_trajectory.toml"
+size = 172
+sha256 = "8388770cc6309c055c233743807c4ee041f34e0482ae5206cbaeab65f5a68f32"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/dragon_s_tail_trajectory.toml"
+size = 182
+sha256 = "b83bcee5d7a2cb5a7889a9e984a1cf35d3c0ed7d0bcfcf999c078bf8a41040cf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/dragon_tornado_trajectory.toml"
+size = 173
+sha256 = "dcfb5537addbd152a30358320968cf47c7346dac9a1c4b5fae97706e799ad26f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/eden_cry_trajectory.toml"
+size = 172
+sha256 = "643db125946d3a7d8fc70ecd6177094af8a25c6c26970a255a3fa15eeb7f6819"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/excalibur_trajectory.toml"
+size = 168
+sha256 = "b0b853d22e01376cc98b72dc8018f2bca2fe6558816bc7ca61205495b1899039"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/falcon_glide_trajectory.toml"
+size = 283
+sha256 = "0e8d362ba208608956b0ea763601d6205c71d8d443ed86476ac5a6d5db340e8c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/fire_blizzard_trajectory.toml"
+size = 304
+sha256 = "d335c6c7b483a342d588d61b3e02ac989af9ecdcbf704dc74810b7d07c03f403"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/full_moon_fever_trajectory.toml"
+size = 173
+sha256 = "d865e1b20482354e2542e40771077ba975ea184b4ea2a0940554b76761d11491"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/galactic_gigafall_trajectory.toml"
+size = 212
+sha256 = "8b140e5a04d52da209f1956cb9cee841c9ea44dd54675f8f2c7c4609f6a41e04"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/goal_smash.toml"
+size = 407
+sha256 = "eadd663f7a7a46951be8f7a9e3748caf03f98b390c7538dca425ffac649acc6a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/god_knows_trajectory.toml"
+size = 203
+sha256 = "6a96819cb4eadf5a1cc1822d2a96d1958ea7db01841daa6b00d1b07d2c494ee7"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/kung_fu_header_trajectory.toml"
+size = 172
+sha256 = "992c9b33310ae8bcdda5bd33f699a84899e4eca63d1fb5631d838f547968279c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/lion_assault_trajectory.toml"
+size = 392
+sha256 = "98eb79e3dccdac221b3d4cef1b6a69444ac4db87bd5ef8b182cb3c249e7f6832"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/mortal_smash_trajectory.toml"
+size = 170
+sha256 = "4d297f5963fb29cdc3fb15b1b3c8cb44e77ba6cf053c6e2340a1b11595d81d8d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/odins_sword_trajectory.toml"
+size = 205
+sha256 = "afa0bb42179750b1cb78da30ae926050b54ed3e8a3f8c3fc7f7a2a0091b1ba9d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/pegasus_punch_trajectory.toml"
+size = 174
+sha256 = "f5324156fc11171575fca3a8585e6987c773879ae53362686114b944cb26992f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/psycho_shot_trajectory.toml"
+size = 170
+sha256 = "767103427a9cf1b4ad9bb236d44f2b039aba3deb60d727a6d958e5a2da88ed16"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/rainbow_bubble_burst_trajectory.toml"
+size = 178
+sha256 = "7fb116d0b4699459f4387ee91781bdbc335c5b86d28c2439e8d7c558b9802437"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/run_ball_run_trajectory.toml"
+size = 171
+sha256 = "d99e925608f320bfa8bbfbf7d10cf76d459fae3594825d2c6212af36f6a0a518"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/supernova_trajectory.toml"
+size = 168
+sha256 = "75f91bca60a2fe5d37dde1461fa663113f74dac06c09e1593257b5fd6943248f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/the_phoenix_trajectory.toml"
+size = 180
+sha256 = "170e3ccb92730d4388c06628c01de0c30ea3f40a706f17a9fda6d1ffea8f9c8f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/trident_torpedo_trajectory.toml"
+size = 212
+sha256 = "d1bfef5c94e5f62419491d8638bba69e7df3fea468d7d80b385c6d4e4ea1268a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/twin_boost_f_trajectory.toml"
+size = 170
+sha256 = "b30c80295cb1fd8c6cd81b6500705b3a9914828884348ebddb98dcfc8ebbeb70"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/twister_tornado_trajectory.toml"
+size = 157
+sha256 = "e6c22f8fa2fefb3a9d1ca937405ba94f35f26a2f0d4500d502ef11c8f01ba914"
+
+[[file]]
+path = "mods/InazumaStrikers/content/techniques/utter_gutsiness_bat_trajectory.toml"
+size = 188
+sha256 = "3a8d59e9c3e1791dc2bab4847306f01217ceadd9b3c1bcc7124ce8e4b4d6093f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/en/inazuma_fantasy/whs02300.png"
+size = 2053667
+sha256 = "3717ce770abc761d054ea4f0f4ce8be79c4cafc5d7da256fe124f908772fc41e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/inazuma_fantasy/whk01460.png"
+size = 213529
+sha256 = "98b951b8a65d62f8f53392e557944314ef72a5d7d2c8c3b12aa2e5ae41df5baf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/inazuma_fantasy/whk01490.png"
+size = 179309
+sha256 = "04d6c5749ef072b39dd9a9c8799128df2b501ad9624d84e82d88d508afd122f4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/inazuma_fantasy/whk01610.png"
+size = 497244
+sha256 = "8349ccd6b923238fca30aa4a3f5260ad515da9a0b2035364a0a732dbe306c0a2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/inazuma_fantasy/whk01615.png"
+size = 531301
+sha256 = "d52f8cca29e4a0c07ec8e937b62691f05040f8fb7d39f8a736b7059ed6e92a2a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/inazuma_fantasy/whk01690.png"
+size = 400376
+sha256 = "2828cb95bcf44db08dfe1a9e7bca9d060417fa3bfe25eaaf34ea2195f052a5a1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/inazuma_fantasy/whs02350.png"
+size = 493502
+sha256 = "429bf2603a21affa57e4cff7d97439784f7e6db3126868ab586815f518204bb5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/inazuma_fantasy/whs02940.png"
+size = 112997
+sha256 = "6057b4a4a9cc93dff22f23f19cd3fa33507704db74625426a3d461d371a9696d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/inazuma_fantasy/whs03120.png"
+size = 194037
+sha256 = "f837fd3a2439744d646d273a762f7e50d74e9d83cdfd62ccd9e971c238871325"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/inazuma_fantasy/whs03240.png"
+size = 408232
+sha256 = "5cfc108e7629810eb83698ebe8d8d06731041deb4bc4595f7bc4d143bdde883d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/inazuma_fantasy/whs03350.png"
+size = 367753
+sha256 = "c8a826fe638fbc6e073c8ae5e06e2e97b15c242e548ed50dd42d7d44049a54b1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000010.png"
+size = 427982
+sha256 = "d172d1a96704492289d21f8710fddb367c9b0284979ffe8044e06abcf924862f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000020.png"
+size = 218861
+sha256 = "47bf24defa7eef0c8cc40b2c616b270c9bb3260327c503964c6a09df955d98bf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000030.png"
+size = 377171
+sha256 = "19ff254434ac6a455a840a826dae507347ea5100775a198e3fbf1574c3b7a12f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000040.png"
+size = 285233
+sha256 = "4b33ad10abe56338af7dba2b1b2f243d7e0400c05d43eec41d3fea6ff6be332a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000050.png"
+size = 337777
+sha256 = "95403da694deec7200f73afbcf7f3291beb730b882f6e188f3f5cb553f175758"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000070.png"
+size = 407219
+sha256 = "4ad1d4738d69413f8c670624c47f34c6c6a600289eec31edfd7aa92756f4ab4f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000080.png"
+size = 404131
+sha256 = "990b68da7e61fe6cc1b1e8379a886874cfcb3dfe55c87faba06424438f2062bf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000090.png"
+size = 367279
+sha256 = "0968a98922b320571ce986303de796e6673cc1f6a73973f57258fd9b8d593263"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000100.png"
+size = 566622
+sha256 = "eab505304a6582b2aabdeec2047a6fe67251cbdf2c9ef829089783465a14f6d4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000110.png"
+size = 544584
+sha256 = "1e055d5c87bde2f6ee6588ac3ea3eccb0f7538ae4dc7cbb0cc80d83d4e6712c8"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000120.png"
+size = 457307
+sha256 = "36ef7c9e8e7302c2ac45e7bdbd02767d56e2ccb464c2dfb7acf714e3f5373419"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000130.png"
+size = 544820
+sha256 = "b5d87ebc4d356c198ab4afcd9a832a03f5432a923d2d0447cc224572053a36d7"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000140.png"
+size = 583557
+sha256 = "65424334cb4e84ae4e9ffb4a9069372cbec571a42765546631770c8781704abf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000150.png"
+size = 398584
+sha256 = "10f6e8ece651838641dc431082a197fd8c8a8f8a666c6bf724bb63d7d254ddda"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000180.png"
+size = 191467
+sha256 = "b594b42281af3a64f08c1a122bbda0b92230e993d9efc18c1b9820e6e833bca4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000190.png"
+size = 469469
+sha256 = "99817ade8adc45cd86c365789641ca4d55f010760592ac70b5f3ecd1fc057410"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000220.png"
+size = 409751
+sha256 = "0dea9260faa7fac9fabe4b0d4fcb9e548beb42ca8f2ad5c816a38d75504c8642"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000230.png"
+size = 480465
+sha256 = "57ef84cadd3d97ec8584908c421d26e3333ad65de39d76dcb59bdd855abb16fd"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000240.png"
+size = 822763
+sha256 = "6a7fcfad8490e69976c501302cfde855e886dd2d85426488ba9deb280cff6206"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000250.png"
+size = 467411
+sha256 = "5662bd81fd73be9ce7f20386e957dac49de22abb35e2ffeeae99d7fd3f74bba0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000280.png"
+size = 418395
+sha256 = "c9b0180cdb915962d637393927222de77996d5de4c3ef1a3f6832520e5bbeceb"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000290.png"
+size = 793139
+sha256 = "25a12ea9fc1d09c6dc9fe75735cbed22bb40c228702c2375aa20ed8db9215775"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000300.png"
+size = 399902
+sha256 = "c85843830d5c672b5281d9b99ac81813c4767b02a9c06ac9c361ea7ef24d4764"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000310.png"
+size = 774315
+sha256 = "47ef7b415644dc3673542ca480ad6ae6545f2c8c976f60f5096da7f370fd13a1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000320.png"
+size = 459580
+sha256 = "976bbee749f67cf65905a63e84b79048632852e04d421ddce4882e5e43a308d7"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000330.png"
+size = 564097
+sha256 = "9a44f597a74fb721c3833824c5c484677aa2cea9efc68eb672dd73a5a399a35c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000340.png"
+size = 167982
+sha256 = "d3fa453e2ec447bcbf9a93181b1bd518017bdc8f4da0be4881e5a7e22169f70d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000350.png"
+size = 280871
+sha256 = "050c04ef590edc2f5fce3b8600e478d3b4ee7291a39bf896744a8f785cb32fdd"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000360.png"
+size = 283129
+sha256 = "457a86101c21082b1086be605db2c4ef4d843eef605f29660fc2375d07b05770"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000370.png"
+size = 277713
+sha256 = "b17876f4f6ae34ebce41a5c3ff981ab71c4b17ec470fa61ff655a89a8c1d3ca4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000420.png"
+size = 268668
+sha256 = "39fd6e8585703a7e1180e78986a47c88828eb89735ee9be53620088be06a372d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000540.png"
+size = 744236
+sha256 = "720743c7f8b9af9b19842aa921b1f5bae6f0ce5d13826252177f054782417ce6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000610.png"
+size = 498688
+sha256 = "77add23a69f9135dc5dd07cb005d775cbad239684191d5e7bedf85b0a0cfecb0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000630.png"
+size = 458144
+sha256 = "6ee42e00abb7b20b8e0143ff9a57991b6c6806605ec1f470f6a4d890e39c19a3"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000640.png"
+size = 582515
+sha256 = "5f5cacaeabb97ff482173d6b14aa275c3c838d765cad11c20d7fba74892985d9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000650.png"
+size = 727898
+sha256 = "d56b7998207cf4b6e2656d803489df9e0f297ee45235bc9585171bda45a4658f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000660.png"
+size = 477842
+sha256 = "e8678781ab52292913792a76df9488321e7e0f24d350f13a418cf9d77516061f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000680.png"
+size = 606741
+sha256 = "b18a615786f4d7027f164a6aefc1f14564c5581f7fd4424874e215507beecf11"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000690.png"
+size = 645694
+sha256 = "31a3876b383055b7939284c5f09888c3b1be1aedf33e21998d47665b34933f92"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000700.png"
+size = 612816
+sha256 = "de2c34a40a525f9525023eca16fb325e0455e5c37779c5bfe19d00e5fb085896"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000710.png"
+size = 379028
+sha256 = "4c74cc04de6102ee57495874cffd78c3696cfe31c084294296864efc2bd0e42b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000760.png"
+size = 555237
+sha256 = "baaf65376417484c9f76cb6fd8ff1c3a658d1edae80cf89f894669c3b3af4e2f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000800.png"
+size = 496644
+sha256 = "832ab831ea7c278ac89b4cd6340b0908178f8a7eb734e4991397e63011834cca"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000840.png"
+size = 624406
+sha256 = "7dcac4d03ad1eee6700eac384cbb90095283555605034d5e9d5046873ec8b8b5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/k000970.png"
+size = 551110
+sha256 = "5cb0782266c306b3e9f6acaf78ec0a42e4b177b63c587835eec04fcf979e74bf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/strikers_telops.toml"
+size = 20490
+sha256 = "7c4d28b164a646dbade08bfe307aa0c5c66e42ced2458553c72bf439406e6366"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00010.png"
+size = 59872
+sha256 = "46d077688b63ccd45a5422c494eccbdf8865226558deeb4d0d0a7257d560e417"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00020.png"
+size = 125633
+sha256 = "fc558b743e9eaff06db3e11df0f30577dd873da0fac286a4855b7861e01fe45a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00030.png"
+size = 96631
+sha256 = "0f28b3e42ea5312f7861c09d9611ec3a0269922db6f5cb11572414907d8decaf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00040.png"
+size = 48709
+sha256 = "9c28604a49d08737173c09594c34c503f40e7d80fd2ff9b8f14812421a603aed"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00050.png"
+size = 115343
+sha256 = "b0d9bb5222db7748714afb28d7b0c4801d999e8fb2805f8a573804dc9ca389f5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00070.png"
+size = 50899
+sha256 = "5f45833da51b8b2c25458f7227dcef89906962e5f3071a644389050a81324e12"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00090.png"
+size = 106551
+sha256 = "5a895a688d8a2cc2cdfe83e22d531c6225be430da3fe5a7d7ab5f4d0f1d77243"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00130.png"
+size = 131545
+sha256 = "13c34e41f6e165d5605344f50c5b568420bf29bc099e95a74f51da3eb072de50"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00190.png"
+size = 92693
+sha256 = "a204a82eba037646f61b1d278f426975bdbee30a8669384cc3a236971956780e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00200.png"
+size = 126659
+sha256 = "3d063092e0df2282982a9238f9849bc7af00a91f7921a52030ae556b31864875"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00210.png"
+size = 156393
+sha256 = "c18bcafd25297b50245e43d4919b9083deb90e1b431f9e331ccdd6cd85d5c8d2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00230.png"
+size = 80270
+sha256 = "91726ab55dd8eb28e59ed21ee9af84b5ff5669168db1d55f144c18c104163ca7"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00240.png"
+size = 458356
+sha256 = "2ab8825a68174395815e30fefaa9c3cf70039649f883dc2ba252bc5c8d6a4e3b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00250.png"
+size = 124398
+sha256 = "6d16d5e4fe0d5514ae56c6136e523f9cbbd2151b423e9326a0796fd9e7a952d4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00260.png"
+size = 120278
+sha256 = "ba150c7e5189950f922b5a752e8b46cafa6782bee4a5ba3e397cca6e51de63ff"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00270.png"
+size = 159593
+sha256 = "769727bd6c2e99b2df149094be962e0a0768745d61294744969c85782f36801c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00280.png"
+size = 120735
+sha256 = "ce0f9cf93738467d21393f315e1e425e26617b566ef19aae8475ae63d6431329"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00290.png"
+size = 125297
+sha256 = "db2593d5d5d856420dd66ff66e73ca159940e3d4c3fb9a26b107b9299e043262"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00300.png"
+size = 97185
+sha256 = "fb3bf9ac01a0c6cb5042c4d370bb3e5c2ebc33559dfc0e25883bfe862a21d213"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00330.png"
+size = 109714
+sha256 = "d2e06dcf5c656dabc05989e8cc3fa80afafd1641eb594e3e02992268044abf0c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00340.png"
+size = 172106
+sha256 = "ed9b2707234acd06bdf701dbe0fd1e9fe86f9ffd91548aba8b53f0c684ccaa05"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00360.png"
+size = 137181
+sha256 = "19dbdd2df26953eefa0b2bced548dd9ebddac1d2fa98c816b6cb21fc99189550"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00410.png"
+size = 119238
+sha256 = "9d1b63df5dab17877f1931a7a78875035119fc4eac0b17402a448427d9e84117"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00470.png"
+size = 128464
+sha256 = "5b1a458fb4d2b857fa8903112180a66f10e21879b32122650b149e8b72f3be46"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00480.png"
+size = 108904
+sha256 = "dcd48cf1d3d5d63927317af8588493ebe7c9b075d2096da030fdab4ea165b8b6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00500.png"
+size = 126474
+sha256 = "0188e6bf7d55e6cc472c8d3f8a9dc949ee8bc55b86e10a3df494289423c27afd"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00520.png"
+size = 112416
+sha256 = "2691779bdf7710d9e0c7ce013044e1bc9422f2f1360b26a7c42a5caa078dc69f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00530.png"
+size = 125937
+sha256 = "6e1bbe303bafa9844d488c80b5c73ebedbd2260e2d0ed34048889acd2c7f88f2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00540.png"
+size = 177233
+sha256 = "d10cb9a1d90704da5d0c59a3ab731d9748b060bd254b5139cff6b166eb357bc2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00550.png"
+size = 386385
+sha256 = "ae9417c610fbdb22df2edd376661776a7f637bbf6083be19d1247170f5dc1305"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00560.png"
+size = 508671
+sha256 = "ec193648abc4d4fe3d22d6253f25fa01e30e1c364810eec5bc4e2a3a27885fc4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00570.png"
+size = 102351
+sha256 = "eb7b81e577df848719e9b195e5be9add8f8164e8f5754e9ecf56eace988c94d7"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00580.png"
+size = 118660
+sha256 = "9c5cc3befd4bcdbda85ff2d8048ad25cd9a0098d20134de02409bf4480cb00bd"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00620.png"
+size = 113432
+sha256 = "ff1465b7467afe278cdd5bbb19650f08e03c0861a8e5af306af46a5fbf962e9d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00630.png"
+size = 138331
+sha256 = "b000652198a252439b9857580469f4b8a77cf8fc9d167b4222d62ca7ba99214a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00640.png"
+size = 202657
+sha256 = "f518590cbf7a34b77a3d5c49e7bb2007af4e808f87e67dbd8410efb37a32c105"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00660.png"
+size = 167519
+sha256 = "34af6cd6ef93358aa447ffd8774db82e4bb327d2cf2cb1e7a81fe8cc4b184839"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00680.png"
+size = 340346
+sha256 = "76b4f09ee0b64a6b62e2742381fa10f1849dd2e51c7e96e740a73c710c46c528"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00700.png"
+size = 160685
+sha256 = "c75a867ac7c77d5d7c3186843f10de96ffc571bfe453715b77d757c907525a1b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00710.png"
+size = 151022
+sha256 = "2ebea243132871c322d7f35c1626392f485ce84132c6b29a48deb4f6ce5d6f3c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00720.png"
+size = 211287
+sha256 = "2cae3ffc0ed1a227cacf656cbe1fadad3523f671abf8353806592dc1caaf6744"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00730.png"
+size = 293913
+sha256 = "5e6223da2755cad93ddbc2a6314c212e68647655031c6731ab38ac5dd9d8ec7c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00740.png"
+size = 157094
+sha256 = "7ab8e98aa7369df4948ff22608d32f9f346b23a0019cea9928db64a14492418d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00750.png"
+size = 160141
+sha256 = "4ea36ae50588bab24796bc8165e2ead1fd2b8c98ce725913c9151214b893be53"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00770.png"
+size = 121632
+sha256 = "146f43efd276885c8627d2dd65a1f212528a06a94372b86de07885281c0fb7df"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00780.png"
+size = 369740
+sha256 = "aa65daeba79c8bb6153a3f30d3c3b778f0b2e087492326252806d771289814fd"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00790.png"
+size = 160681
+sha256 = "e9ec89c5849d07bf34f1ef0af9ed79e6131b9cfba3b034fdfd7abd6cc4751643"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00800.png"
+size = 116965
+sha256 = "3111bb83356c7adf9ed33569abad6de9207835752de5e3211d2a8e79e0a32d65"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00810.png"
+size = 274832
+sha256 = "18885879a1e551f0ff5cc0e26d26835855514c707aef4c756d3871f554486833"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00830.png"
+size = 167391
+sha256 = "aecca3acc08a61675eeacf55552876a58dacd49e84438f55a0b723e2aab41216"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00840.png"
+size = 150259
+sha256 = "527543e6cd68e686373ed9950fad924870e70ca02b145030dfe96a1ecd1b4a68"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00870.png"
+size = 256815
+sha256 = "1ffcc1682f93765ce042aaf4c979372d184bc60d7213e23998953900556000a1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00880.png"
+size = 166033
+sha256 = "1ac8cd9f85cf09490a6548776e5b766c386c2c3f575959d75bbb58855f9b874c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00890.png"
+size = 278450
+sha256 = "dc88106f3d0067e9406f6a2ef043d6581b97b440f1f09bd6ba095aa9e3beff6a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00900.png"
+size = 283945
+sha256 = "059888847ddec5a48096ccb892452329a9ae7c165a54b08ef9d5c5f5f3948070"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00910.png"
+size = 649393
+sha256 = "3a5a42eb002de878609cc019df46e06586ba9871e6c5cfcc3961f48396ad8e1b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00920.png"
+size = 257510
+sha256 = "a2ea0ad66164b296ca634d4f404354ae62f93bd82f4b148acb840075d0a21a8c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00930.png"
+size = 543716
+sha256 = "00f0617fe404f63d297865f298aba89d4e3bd01c0083940330c79b42d7cd1db1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00960.png"
+size = 374677
+sha256 = "c476dc7a1c11664ca7436c9c7f632b23a316561f8253122dbf0f320d5f9527ce"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00970.png"
+size = 141979
+sha256 = "50f707d1c8cdc6194eb6b5658288339b09eb12ae0d289a618b7bc62cc57a7efa"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00980.png"
+size = 368029
+sha256 = "e75f458cfa54ab76f537e18be95653fc068fc0d29a2481bb4390245486453bb6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd00990.png"
+size = 490206
+sha256 = "720cb580891bf4c02cfa71013732772f63554d832c129d59f926742fa00cb0ad"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01010.png"
+size = 634226
+sha256 = "472ab47478294646c7bbe683fe289b0723729f692f6fdff9e519565e512e2529"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01020.png"
+size = 263941
+sha256 = "30c9832b34fb6f28cad17975ab655f65d7e966fed9f089c281cacfab7f109680"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01030.png"
+size = 165887
+sha256 = "ba506aaa510f9edbddec102ab2d796fdaa7ed7e3a59b61c253884f96d2e0eed6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01040.png"
+size = 367018
+sha256 = "ec95bee4e5c9dad1120cec45c642fb35300c0d8ebd68e485ae6bdfd1e0681f29"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01050.png"
+size = 306888
+sha256 = "b08ad1ec5442e88fedffdeebfd6c0e025083bbe08dc373d19cbbe83755a213e0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01060.png"
+size = 299345
+sha256 = "e334741a7d4ad2ca02c27f31f59f111c1554dd4bf738d09172e224db84777bc1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01070.png"
+size = 155884
+sha256 = "f5823216b04a0d7b3fd5fda5b7e34f8addd209983954330bcfa294bffb4aa2a9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01080.png"
+size = 148908
+sha256 = "98198a88dd60e25d86cd74b86d6ed1a15ea2492e44c314f70682af5286ff5d5f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01090.png"
+size = 430999
+sha256 = "f2c153874fb4c908918afcd8d6f60e47b840ccdd10567eac71e8bdcfac0e8cbe"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01150.png"
+size = 539119
+sha256 = "be5a2e16f08784c15f0c1c4a5a2c0ef3ffdd7f5f22c991e177f4cd33c0be7019"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whd01180.png"
+size = 615355
+sha256 = "3047192278847bd0c520b0ed7ed77adef4070f72b2104e3a363c55d5e35298e0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00010.png"
+size = 194375
+sha256 = "cf5415b9007e92fa8955b71faf1b911dddd7d00399ae6696804562bbf7f5392f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00020.png"
+size = 119737
+sha256 = "705e5e16200224b90e6d4f69cfbf6fd26fbeb2d9b61653b11bb24c89a9870b69"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00040.png"
+size = 124026
+sha256 = "714d268921c70fa9dc239daf4e6ee0d82830e7ba43ba67f00cd4647e12520306"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00120.png"
+size = 112492
+sha256 = "37e140074ea4caef57b7940881ac26565c023cdafb2a6e7142762291062eed68"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00170.png"
+size = 126966
+sha256 = "2e7119251217beaf6d0341045cbae8b3e0544e541e38c9736a109180a1bb955e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00190.png"
+size = 160921
+sha256 = "9e8138d9f1f859371896aa1024b73d103cf16e36640d5f2023b19230e2d4cbd4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00200.png"
+size = 121144
+sha256 = "0d9a42c6e6980971990dd2cbdcfb788a1993238fe4751e3576b5d05ae8cb86d6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00220.png"
+size = 95514
+sha256 = "b69123e4d7b78995cd48d7aae1cd00926830c389e7d7afef7791a0562965dd6a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00230.png"
+size = 120566
+sha256 = "38922b6c23dd4d2050047691138a92d5872c2989bc0b71e3dd73d98e7fd5cfed"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00240.png"
+size = 435579
+sha256 = "bcbbef81befbb104ddf51f41e52cfd38b975f42b9eb0fada286adf3f2206b4c3"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00300.png"
+size = 238315
+sha256 = "efd30d1797b25152364007105fb1947cc5445003678f89963708a54505d5f65a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00310.png"
+size = 258241
+sha256 = "943ea8e84ed84ebef9c469c5f87e6900995cda846adfbcea7f1e5ffd6c5b98fa"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00340.png"
+size = 369804
+sha256 = "52e8b889b2d8ae0ca14ccb6f8b4b151e30c26493286897a9ecd5d856fe416112"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00350.png"
+size = 178163
+sha256 = "9d67e14d08a58ed7e5ac725c4f6295b4e1bee2e01e4903f0705e2050943ed663"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00360.png"
+size = 172749
+sha256 = "caec787ec18b242564c7cc8f3291954e11bbde94a5ff3c733d2a9055b0f3d0d4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00410.png"
+size = 461551
+sha256 = "c98f62528c3f5dab372ad95a614a7a7eaf71372663e6ee3aabeebaa101d416c8"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00420.png"
+size = 355852
+sha256 = "ef7d3c8d1216cbf942d3badac70f0615656e6caab233b39b8ba0456e575dcb74"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00430.png"
+size = 122196
+sha256 = "c79ef56ea48e279e0ad4ec3b77f0ef228698e7eae1d02bf3f17c1e11d97fcbee"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00440.png"
+size = 440236
+sha256 = "7227aec435c181b3a30d5530fb8f9a29cd7ce1aaaba38bb7259841b9770edb81"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00450.png"
+size = 93469
+sha256 = "c2b2e87aa9d28d4d97b7d301032e7a00068084c2c456025d5333d9fd817adff0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00500.png"
+size = 616736
+sha256 = "97d55ed8c9f748cd655bfc64cce213580ea28a8aaf59fb8059fb0513e1f288c8"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00510.png"
+size = 367231
+sha256 = "d94cf81f0c397da3501797a8edee9618705c06c2745405ea17348dd224562e00"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00520.png"
+size = 437379
+sha256 = "b7549bdbee0ba9b4beb84905506dc34df89538ba3d7665ad27582b16bd72ede8"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00530.png"
+size = 362461
+sha256 = "9bc7be9a6fdfe0e22320865a135053f0bd685d6995299a49454d7c1c3815f54f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00540.png"
+size = 217472
+sha256 = "62e1d98543290747e1bcacb1704cc9f743316c14991af1414d01982714d8b963"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00550.png"
+size = 436200
+sha256 = "cc5bb1d68b4c7f32930fe4669d700a1b6a74fb264694d776a03e87d26260cae9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00600.png"
+size = 134513
+sha256 = "00053dee04694cd0446b39e0f23fcd3dd1bce1bc0690d940a9323f02de87cfd5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00620.png"
+size = 157534
+sha256 = "32822ed872e1873e8c14e2567022374eeb8a6a4a185949897a33201f9f8e41a3"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00680.png"
+size = 577513
+sha256 = "6ecb6bf13f4713ab3eca1b5b97c79eeb4e019eb9316e35f50809bae81dbef7c0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00690.png"
+size = 616580
+sha256 = "5759116e0be12523524acbe3600d55cbbe38f196f3edf7f670906594e3efa39f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00700.png"
+size = 573749
+sha256 = "d4301c9907a502365c673dcefe847fa1365d4ff01f236d3e072167a945840706"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00720.png"
+size = 368179
+sha256 = "09377fef49e01273691d38d57cf6f100fefd311e3561fb8ef759dc7169a938af"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00750.png"
+size = 210414
+sha256 = "5c0761335e05385ba046a18cea5aa1d6043bed727e92e9955c19f7bee3638458"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00760.png"
+size = 182236
+sha256 = "73764ea2be5b746942ee863d74ecbcb43f671994307ed6594cf886404a072d6a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00770.png"
+size = 348180
+sha256 = "0a24244e980e6c5f6bf4a054dae94f736b62c30ea5093c70204355d787790150"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00790.png"
+size = 155651
+sha256 = "b091510371c523bcef9c5517cdc48f4580fae72427f1a68d61d4633e5ab502f2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00830.png"
+size = 156098
+sha256 = "dc6ee9cc5e3010719a6ec2083a02861d244e0ab233fff327cf382f4957d537d2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00840.png"
+size = 129682
+sha256 = "c8ce57ec768213c70b078c42fb78fa812c8aaa7d4e1b64f8e8f5852b4fd4f480"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00850.png"
+size = 370110
+sha256 = "7a411d675ea43eb429f002f2cde7009de3df674411e232ad18c8e44ee0c8e83a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00870.png"
+size = 246565
+sha256 = "4fc323998cf2f049ffb13c71928db7ef763fa9f5c37a492eb87a2f380429e5f6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00880.png"
+size = 359021
+sha256 = "76ddb1f57b09a750dde732a06ce8df2cc7d96627ecae8f1c8d72e320d3e9cc0e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00900.png"
+size = 499334
+sha256 = "eedab9ab380920ee48a6cf3fce65592bea881e164235f152ebad54b32c185bc6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00930.png"
+size = 582838
+sha256 = "4c4d45ea2b0acfa465a284f8b8c481f17ba0e6cfd025d0371e9a9bc1d6f0ad73"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00940.png"
+size = 257491
+sha256 = "ca7a2b7b78d469c4eafe58ef0a6b14c64f4992ad8df2907720f80562c4da9e55"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk00980.png"
+size = 200737
+sha256 = "29859b4666277ee4dfc0e1c5e7e6c361dabe50fc878c9b0f9bd32706ef0a567f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk01000.png"
+size = 159219
+sha256 = "539fe564c993dca1b2ec88ae8ff9e58fafa776327bb94947acea2039f9c0ecaa"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk01010.png"
+size = 409763
+sha256 = "1431cbf923f1e6368322b281d02c216ee0075dfab034671edc36f7248974a013"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk01040.png"
+size = 501564
+sha256 = "e419c82db7ec6be9de1587fbad4766421ad70307b7391aa6c9dc11601a39faa3"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk01060.png"
+size = 160244
+sha256 = "fc0fe04cde20144d808a3ee4e8322b9511cef0e246dff2855005009989b0f1c6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk01070.png"
+size = 259520
+sha256 = "69029e8963e0c1b91e62b9b8be5bb9e5d3a466c1587c7782dcf88f98aaa5f2d1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk01090.png"
+size = 282955
+sha256 = "4363110ba45725c7295ea492f4bd5d260b761a52e1b2f1312ef91620690f4c6a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whk01100.png"
+size = 313649
+sha256 = "74e903d1ff48a233a78d458e57662359a16b492b2bb39511e7d28b27d73371a9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00010.png"
+size = 133014
+sha256 = "43d14ceb78767ff2cef3672d5a750adf7a486454a31a57e9ee8d5ef047377046"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00020.png"
+size = 119290
+sha256 = "e707cbeaa33eb61d3c981c32421741417565a2777acb3d08415562bc8748e04b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00030.png"
+size = 127943
+sha256 = "885a69fe461dee22938acc04839bec29492b0aa9e0ac8d827d66cee78a416cda"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00040.png"
+size = 128941
+sha256 = "42e3b90cac37469fae79106b8fad1b8fa5520fc2813f6b825e90f106c6b986c5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00050.png"
+size = 70173
+sha256 = "ad09426202d9fc6074d138c1ee4ec9cf08633ddd01f8639361ee8ef1ad6a70e9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00070.png"
+size = 134251
+sha256 = "4c16bed12d8b1f79e320a5cb82583fc52968a753ee99548b4a2d43cca4ad1a73"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00080.png"
+size = 216323
+sha256 = "386ef0f887369a2dfa7a4c85f8824809fac71a67c5b301ab59c55a0ab81b239c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00090.png"
+size = 97289
+sha256 = "58bab50677fb2930b2a138ea19561596a904d41eafa9c1ea458815c00f4ec500"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00160.png"
+size = 87966
+sha256 = "471c2bc494bd9456e66851e8a60c507379334276316e9fd83d4f8046d115285c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00200.png"
+size = 115493
+sha256 = "4ec8356581d91128299cc699464c861802adbce342230cfbfb1ac000d98c4e02"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00220.png"
+size = 122570
+sha256 = "8fbe8bd30e04b9b545231abb8b5ff787fe2007f230da5f248099753d607cf7b5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00250.png"
+size = 140381
+sha256 = "5b25f16166b1564d1facf8fe925732dcd66458121ea3f4fa18bd825d386378cf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00300.png"
+size = 129739
+sha256 = "e33ee4aa9fef9cfcd2bc12c7005839e1268c772186dfbb4d3a853605b4e7216b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00320.png"
+size = 126038
+sha256 = "84cb5820ddbf170b65210404623a0ceab48361c9c2448584f694739622f72f62"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00330.png"
+size = 102496
+sha256 = "00b8b32f063e82c9fb058e6d867ff83cbecc38b1a999db9eab0d65e115ebb603"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00350.png"
+size = 46383
+sha256 = "02f85b8e2827234ea145915bf952a336f89b1a4ad593fd4d66640ed5a7659ee8"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00370.png"
+size = 323265
+sha256 = "65aced56ace3c4bf9e7d0f42c8d05c4e6f8fe2c1ed285aec111072f90377a28f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00380.png"
+size = 66408
+sha256 = "0544b3ac17f47318963ccb36e8796ec3ca9bdd557e9a9e2b51e600d767258b47"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00410.png"
+size = 118564
+sha256 = "2975975cd2c47609151a45e5a5a35cd2d5bc53ec54338752b6f5cf9374a2553b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00420.png"
+size = 121048
+sha256 = "362e63f957bc9ca76c9f6a2cb077fe92295fd14afa1f0d8b24e74006677df02f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00460.png"
+size = 124755
+sha256 = "b82b7bd4bd6dd26bdd8cf99736299282bd215f5105c8a3a0e644f2be69094e65"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00470.png"
+size = 116342
+sha256 = "c364196ccb745f9308622e0bacffe63651beb17fd4f676b8cb26216fd4a104e2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00480.png"
+size = 138642
+sha256 = "3d7049af4bb7f4837c8e9acac9c7052d4c8df42835ce6f437a204fa69c0583bf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00500.png"
+size = 120516
+sha256 = "1e809f633f059b09c3528406b85819000c0b97e554267305d3c2ed5e7581ad4e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00510.png"
+size = 67948
+sha256 = "3d150877e583800f5c8b64e5d36e421f21c4fec053b842ab7ee8012df9fb55c4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00520.png"
+size = 117340
+sha256 = "068939f3503f6685e2ffb95ce8cb8abef534d3551a26e7b84c385a219f60f6e7"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00530.png"
+size = 388041
+sha256 = "408f1dd2e9ec5cf9e3b7ff6774f4075761c8555fc8e2b7a68e3c1276f7de42bd"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00550.png"
+size = 161660
+sha256 = "7826158456a591bddd3a762cd43f2b7b55ca49602cbf189c5ef2137155827411"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00560.png"
+size = 155668
+sha256 = "d66007da8e5b39de3489636fefeddef1b4397450eda036df27206da4cdb76300"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00570.png"
+size = 109000
+sha256 = "672e41f7e9f6b71c5a721d2c5ac0316bfd64b2bd33c791478884073b3f2295bb"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00580.png"
+size = 187611
+sha256 = "665257c4360b4a294c8c841bfd426cad2312ea7d511cc62f8a2c8187a9373e39"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00590.png"
+size = 147370
+sha256 = "f5e4316d581179baa086f9f5b5c0b03f15989efcc69dc30ea97eaad63030156c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00600.png"
+size = 64867
+sha256 = "0de44409650faa0c7c0569b8d47ca0c997efd9b418e97594c41759ddf153d4cf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00640.png"
+size = 162985
+sha256 = "3ee9825f5e86ef6cbf5af9cef2d5d7959b1ee3ca5f0aef6912c8d6726ce3e8be"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00650.png"
+size = 200644
+sha256 = "d1275f8c0d2ab79d7d350d55446b5758061d95aa9783bd546a7ad6084ebc6736"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00670.png"
+size = 109236
+sha256 = "5add1f021af3bd8b165d92f726a9bf1a6d76134e62844de5673f811f436d5978"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00680.png"
+size = 261923
+sha256 = "6f1c9e993067ae91fa01b2abc062f239ae93c820f3e59fe2edcf6df7f96b8040"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00700.png"
+size = 132467
+sha256 = "70c30b58f8852185f17076cc438ce142eb88402490e75f72df138e2c5a28e981"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00720.png"
+size = 167685
+sha256 = "a31002424f95df05613b8ddc4dbedc0b97aea1590408dcda42f5c7addb76a03c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00730.png"
+size = 369983
+sha256 = "30cbf827d9ff3853eeec4ac789c4b2b918c4d847abba70afded3dc0dc1b3ea1f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00740.png"
+size = 265989
+sha256 = "19a2ef689c56100cdd39a721aac8eedaf4b5b0823f2dbb6e844a2c38e7ade1aa"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00750.png"
+size = 156718
+sha256 = "2845d8ad30b7ee74c4c6200030e3729c4c97d882597b0a0b47195a6502633fcc"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00760.png"
+size = 145980
+sha256 = "2ff3b3a334153393869b62ead7c68376807267ce47dc2fd85f07908632e4bcc9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00780.png"
+size = 122297
+sha256 = "e4d8eba8bee3b53cbb84fb67cdf0b1785afade954e1011ce0e036bf09b9dd416"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00790.png"
+size = 173040
+sha256 = "c887af0997865aebf81aaeeb12eeae87e020cb4f6259d5b710cb83c2592d8a49"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00800.png"
+size = 167467
+sha256 = "794ed406042c5d03ec8da1d5fffc8cd6be8ffc7412131876e62c51ad93715d4a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00810.png"
+size = 298705
+sha256 = "e071626339db92c6a1c5bdac9fca8dce35cc6adaddd315c34cabf6cd4a947d3c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00820.png"
+size = 288725
+sha256 = "1f984f09c9d8a04c93762498d0783ba0e23b4bd4db93963191a3927cfdf97f8f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00830.png"
+size = 192823
+sha256 = "934814410ebf329e5b6d4e93b115886df03532239d014e799660edf5fa60f68a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00840.png"
+size = 314591
+sha256 = "5afd9892cf406980fb28f6cdc1a4da3c66cc663f5a19a2d8eb876d2f6810d833"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00850.png"
+size = 479626
+sha256 = "ec8c725bcb59e22b53171ade73962fc4ec0dabffdbac36e6dd28c1ffd88130e2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00870.png"
+size = 512011
+sha256 = "a8b702707fc25ac502998515033906ca4cc099630149df01da8481edf5130f45"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00880.png"
+size = 442321
+sha256 = "ac6ecca0d0c2500acc6e89efe0e36a9b81bb213c82884da36350da7ba452033e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00890.png"
+size = 471971
+sha256 = "05f26d3812106d310f2f7f0cde20e8ad7e658b85b4d4945a745262d8e4872e37"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00900.png"
+size = 370834
+sha256 = "1218dbb2828e5122b78af326229fe351005e3feb6f45e9054e3c3a6235ad5d0b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00910.png"
+size = 460764
+sha256 = "a6bb0d68518efcb0f524301bd83c395bb4f8c30ef352bb71101c8fd6fd89bbde"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00920.png"
+size = 346293
+sha256 = "b9d80b2bc17eeae1238adc76a443f7510a1e6aa703f76259980fd79878bb11a0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00930.png"
+size = 353778
+sha256 = "6af10f5ed32fb43430dc26890202741d85b14c8b98965743d60f1c8795f8397c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00950.png"
+size = 394605
+sha256 = "7b3030fcd2951d69242ecfbd90bf8f40544430169049c04f9507fc6c876c8dbe"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who00990.png"
+size = 172073
+sha256 = "0036d379d4c9e5d373b13f892f25af787c1c68f454c212b2ac9d4a094bb3e421"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who01000.png"
+size = 467609
+sha256 = "adc285c89c9b97bf1a81efc3b240ec8a2fe9495aece6a89e5544991739296343"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who01020.png"
+size = 628923
+sha256 = "2d918c52527bbf26a87a2d34ac39baf973c92ba268344650151945515d16d825"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who01030.png"
+size = 360376
+sha256 = "56591c1c532dd02210f1c05b1b960f9c11851be75719b59ef5031cdc1d4e028b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who01040.png"
+size = 402943
+sha256 = "662721c1f24f577ee713fc716d3642fa4a8e87d320f2d616484ebeb85992edf8"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who01070.png"
+size = 517685
+sha256 = "3b07ca0f95c31ac9d1db4b2fde274ced9c1a2a97bea0a03c60e5a98be0515045"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/who01080.png"
+size = 165844
+sha256 = "b29eb123cfc07435a802afe194590adfc6eb621ff958a2b03605a67c9a3879f6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00010.png"
+size = 160453
+sha256 = "8736d2f16af4148c8175461be435706d2b21a4deaa3837c9fbb4acf8ab4d0a82"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00020.png"
+size = 142350
+sha256 = "6cef205ffbe7b283c423950b855b891619319842f215bf24f50a1743eb5b7ee2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00030.png"
+size = 115913
+sha256 = "1ad22953fa29b2a0263d5741a70722e4274507764fa7dda21933b1b18edd37e2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00040.png"
+size = 149233
+sha256 = "d808c9943f659749e6b654984dbd3d8ee3459d4a928abf4e36a88d8d56f4d04d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00050.png"
+size = 132428
+sha256 = "80012c15efb847af1bf6ee36fce99236b930981ff2ad1638f46c78a3c3377826"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00060.png"
+size = 122030
+sha256 = "1e35e5d72a8fe4eeae4ae30f4341e2a26d8a17d975c0c2c41466d06abea3bf7d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00070.png"
+size = 106326
+sha256 = "8a9851b1ceace4a0e5cf7b4d4e49f7cec8b655243d0d9180931e444cb3eb0e0a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00080.png"
+size = 150951
+sha256 = "214cef5d24d8d7d56c4ac17f0c5b1392b61c5322830d0b18e76c295ee0a9cca9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00090.png"
+size = 186115
+sha256 = "ad0cc715b1d048a9ac9ffb644ed2a4783b67f1a3733069c082dc7565d95074b5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00130.png"
+size = 107368
+sha256 = "e4084286c8851e84be4e5a5ddb027b63fc280b249736ad1e11076734728083c1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00140.png"
+size = 120774
+sha256 = "11ba3d9abc4e9ad0026b497cac1b43bb432ded2d5fbd7b58e76099f0daf1583c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00150.png"
+size = 134003
+sha256 = "f89125fab494dcb305a1eb041c139d1a3577ec6c252b200e731884de7185b00f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00190.png"
+size = 119146
+sha256 = "6a7c27a7cba611e2571fcad61b05ce5f557334d9efef8acedb69a649507696f4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00200.png"
+size = 174290
+sha256 = "a7f08ec30e9285994a25ac44c1cc8393ce376c1e7aa24972637f155b8b98748a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00210.png"
+size = 104148
+sha256 = "4e8c52f41b0e1ba94ca086960d75b943acb141408c48398260c4cf47cff14206"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00260.png"
+size = 92060
+sha256 = "f33b4a46c56d97e81ccfceb16a3f09fb01f3a9431579badf08aa91abc449b2f0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00280.png"
+size = 165526
+sha256 = "a4bc41eb7bc1bf49442fb9dae0e58966228ad0c7235e5e1241158c419bfb1bd2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00310.png"
+size = 95141
+sha256 = "590369bea7491b02985df091ec629a705a7b998590172388b7bc4e5b5b6160c7"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00320.png"
+size = 117621
+sha256 = "dc68eeab9abe4b4f8b3217c7010aab73d20cdb327d11cf6247c34abe9a77d2cf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00340.png"
+size = 117447
+sha256 = "3e9be60afdb1334830eae2417d3b57598e0e469b6892e4463dd61b46fee9466c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00350.png"
+size = 105106
+sha256 = "81ededa588a906eec933c461f70c29b47b429280f0f39674ea3c5e686a6383bb"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00370.png"
+size = 134618
+sha256 = "d9f12274b9d5b13bd08f0bf30a8e2291cfec926592d6f97070292a1efdcd49f0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00380.png"
+size = 148273
+sha256 = "33c6f4b649165edfa63a6c25852f0a9d608a5ab1f8cedd1c9dacb880dc88b26b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00400.png"
+size = 156314
+sha256 = "363e0554d16420e59484d9723aa544af699c015fcfb02d87ff8b6ce4a3bac909"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00410.png"
+size = 65148
+sha256 = "87bb294866087cac7b9e12026a38d6fd3f3296ff2acce7314bb016ba59e99cfa"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00430.png"
+size = 115511
+sha256 = "f24d896c65922a36f127005ffb3ef11f9e8f348655b64a955631095c6b69a40f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00440.png"
+size = 463109
+sha256 = "cf097f956cd36bc9cfcef753fb4312a21c9041d45cbc98d8036bfe0e8d09ce1e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00450.png"
+size = 425910
+sha256 = "7d3bf76f76c643b82a2b1f8382ae2e276e2b4540d154c911ed7984a70f2a9837"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00460.png"
+size = 401882
+sha256 = "76cf0ffcaebbdfb3e42e2e99e28a440bd5666ef8f34e368f7e008492e15ff6c9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00470.png"
+size = 159760
+sha256 = "d88004234daefcb6fcbe092c4b256d4e1046a26000bd9c53578ce717a17520fe"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00480.png"
+size = 306401
+sha256 = "7201d60eae4976fcf41f594e67f33782a921338fd0919eaee5e21564384e089d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00500.png"
+size = 173077
+sha256 = "34d7e1fdf08a6c89ead72b24cd54e176485faa85a9cd0058893c523b070637d2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00510.png"
+size = 340999
+sha256 = "5ab8de5525070b4a39ff513a73d445875be1e21d307f3ed41d8b54d5e903aed1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00540.png"
+size = 165083
+sha256 = "a59f8f15993bf5d5601ade7472cd3ddb9c690404712573c3dd1d6ff637870d6d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00550.png"
+size = 152381
+sha256 = "d96116aa00cde1697226862951aa9c283c23e0f2df2490e443551d8d552e916e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00560.png"
+size = 95424
+sha256 = "41d17caab49ca677fa77dbf80a239bed7381bcabdbe81532c788b3f2249850ec"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00580.png"
+size = 194474
+sha256 = "30e3a015630f72f44c1cd735ba817290e918d824232a24d193d2f2ec8ebc7fab"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00590.png"
+size = 225149
+sha256 = "34e860744679cd4a715f0270bec4535ca8003c47d053587a2726b1f865abe954"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00600.png"
+size = 323749
+sha256 = "1467c4582e6937ef52576599be45f93d4398001e234f293e92ed7db4204afadf"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00610.png"
+size = 433002
+sha256 = "e6cc22007c17182ba022d14bad41fe5745ef35d2a194cac8bb3e0e8eb984dd58"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00620.png"
+size = 121745
+sha256 = "643c6634897175d4c6ee05262cdce8f57cc8f4ff9e85de67232dfe75d0e6056f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00650.png"
+size = 325475
+sha256 = "b611b1d9bf194ef2d6daf7bcca4b00e4440cefcfdb8f23a140203f9babf1bb6f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00680.png"
+size = 101196
+sha256 = "f1b8821e7de2e681d188220c1ecc539fd381737aebc967445d3eec24994326b8"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00690.png"
+size = 209118
+sha256 = "51a67587130807178575589268413926aae253b6771431387695236c7d7204be"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00700.png"
+size = 147137
+sha256 = "63b34fce809cbffde40c550521b36520aaaf378b9f88f820c7c4209f524e54af"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00730.png"
+size = 116949
+sha256 = "ee093d0a1dce20a77debf4f206b7bd02bc3d0a0722a36d82abd649a2f9f8a19f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00740.png"
+size = 126668
+sha256 = "de8863ced5d9c772a92c0c06f2d52a3c5d50cfd178207399d6cfe131c231cf51"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00750.png"
+size = 367527
+sha256 = "fcb95afae64d0ebcae53201da59cb2b591993c149c1530f39f1acdd4b174b070"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00760.png"
+size = 94287
+sha256 = "0b4d82746da75ed86391b6c821c4e73acbb40a34ae84cedbca21351834bba5ec"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00770.png"
+size = 160658
+sha256 = "8c9e6f3e9de2053a6a8e72fc25e01197afed7e344f6877d12b6054162e5fc07f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00790.png"
+size = 625114
+sha256 = "620a69034dfb4e960ed7f3228be3f24d29f7a1a896e8d72eafffef353dde78af"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00810.png"
+size = 309700
+sha256 = "1ac05c4d1bc44c7f869a525bd7d7e0f0910520e98309aeb7ad9fc20b031edd39"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00820.png"
+size = 458241
+sha256 = "03ceb278156d3d53c0ff421ca04357744b0db83a8497c8f1a599e0a796c765ff"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00830.png"
+size = 325176
+sha256 = "0edfed4d640cbf401fa288b49e40091f796f72f20032c485be8d60a1dfda0aa5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00840.png"
+size = 374797
+sha256 = "c6c3f015c5189c6c8f7815266158bc61449832c1ebd6fa1c3cc0967af00c31db"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00850.png"
+size = 214801
+sha256 = "f55075a2f3ead58242b3380e5d1a7eace4ae566866d0329236cb6cbfcaeef778"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00860.png"
+size = 276834
+sha256 = "c617a966c5f7643b7a69603b81ddab58666994d1428b7ad6a1dd95181c963453"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00870.png"
+size = 147228
+sha256 = "10cf7a7e3fe9e8f19ab3e518663ca1b6cbab2d0175a552611efd0004ea7743b0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00900.png"
+size = 592536
+sha256 = "1a12d25808880a5691dd198d62baa3265202926b308ebf06ffc1611460e6aa46"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00910.png"
+size = 553536
+sha256 = "640b05ef391f0d7cdf192e3239a1f1be0ba4b076d5d3c0a529f1a6fb43756246"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00930.png"
+size = 394642
+sha256 = "e7b10b1da8f2be492ef62f271c350e35feb206e603292c55caa4f28acb2cfc77"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00950.png"
+size = 425326
+sha256 = "ca2558547657c7e88dca09674a106d3fa7fa7c6a5bbbb5c38524fb55cbfb9fa9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00960.png"
+size = 520606
+sha256 = "c124ea1d930c77a333e1d215408c39f5d83eec163860aed7ea8f00d0eb183984"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00970.png"
+size = 68469
+sha256 = "5ae0e50bd31cab8a8be6ed0099ab2daad815e673e279c100fb3ec6abd82bb3b9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs00990.png"
+size = 336889
+sha256 = "9e54c8dd3aab781ab599f731e62d494ec5188d1626462b835a074e3e12a07684"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01000.png"
+size = 339961
+sha256 = "bde278c0fd03610699742364b5f08996599862e7ca787c23f4bb4da42fab2c8f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01010.png"
+size = 421751
+sha256 = "5d493323905fe96c5753c9a05b64f43156ba4bd3cf38813b7178a75463ce3db7"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01020.png"
+size = 436618
+sha256 = "d25e902b67b7e983ae4f0bbf14743e33587f07b8de92a1fb2538a47f66985ce6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01030.png"
+size = 341818
+sha256 = "2f1ad9936ddcfdfaca4a327b464d7c0b17bd76dccf1e3e2af002dd0c38ea1102"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01040.png"
+size = 615142
+sha256 = "fb8b5e0e0ab0ef69f10a6eeb6156998640cdf81785a5c970822cf6f6c35b5864"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01050.png"
+size = 325143
+sha256 = "f86c8875c1dbfd0ad3431954346fd92d6f3ddbec63477f6b1531eb5c1391101e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01060.png"
+size = 96289
+sha256 = "8aaec5c5055e74b3b5382a4f277a35dd374b0e8fd9ffaed10406135e36a585b9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01070.png"
+size = 418733
+sha256 = "e665f711a43ba728d759c5c78301f1cd23ac2444fbba7731ccd3aac76b1eb8ba"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01080.png"
+size = 464779
+sha256 = "ec757e21fc727829a4cd0b5fec95b8b97db8bb450bf456160a3b5752793070b6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01090.png"
+size = 414649
+sha256 = "632c92f0af8fbf96067b140bf93282aae836b15a9f43d603c3506afd2cf43631"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01100.png"
+size = 241970
+sha256 = "0a85ed6908351a2124863920caa9ca351e8cc449aa128a79c55246749c0d8f94"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01110.png"
+size = 164309
+sha256 = "d4981022e524f523e8f6b99e8b1c1b6ad290c4a64edc9595d32d51d49b190f0a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01120.png"
+size = 165336
+sha256 = "53d5c72a636ca7fffcc29e693e053c3b6a64020a66b5024282b9315574a099be"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01130.png"
+size = 88664
+sha256 = "cd11cb794b96f39a355265881b655d591038fb9bbec913586840c9eb1a55a04a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01140.png"
+size = 239918
+sha256 = "cd73b294224f1274b2678c2103acf8e74eafd63b646aa28a04ed4124d571933a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01170.png"
+size = 158545
+sha256 = "20744ba487db36dd8806eba94ea30ce0cd0f6a23f26b9533c02d18e9001fa281"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01180.png"
+size = 308969
+sha256 = "b29eb80539e87918bfcb0624b7cd3e50668795774d2887c402bbfcbae67589e5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01190.png"
+size = 113697
+sha256 = "4fa4fc7fae4f9d7e1c26d415bfa15969cb67f4a043abbe07bed5756d053b4de4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01200.png"
+size = 297159
+sha256 = "048d6236a3abc543ae63683bbab3178f6b96a14e8ad711353fc7eb5dcf8a8b8a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01210.png"
+size = 164054
+sha256 = "2924a25c5f8599725fb3f61829675412e31d30c01c5da8f6a0f2c3c14eecfb3e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01220.png"
+size = 349849
+sha256 = "3ce42c9e0a78c82f502391355e4d05518a276c3011e06c259da7029e663f8080"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01230.png"
+size = 160055
+sha256 = "c223aef56299766faeec5e180137e4fa8061bb0cb61c8acb353036a7472ddc11"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01250.png"
+size = 256451
+sha256 = "6afd0b85a3180d3725cc04a1fa5fe5c29b4d44a31150a88be20006d488f556da"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01270.png"
+size = 231647
+sha256 = "c563a6a3520d0ba122e80847cc909b56a89c942363dcdb1583363b287c2360b6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01310.png"
+size = 369315
+sha256 = "63d07442c7af5478a71c60d0bdda0867174df476bdd7be70a4486c3a9502bc21"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01320.png"
+size = 278827
+sha256 = "0fc688a97cf9b335a1067c60f4f9e1977b9cc94e395f8562e6d33dcd6385e097"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01330.png"
+size = 381926
+sha256 = "703198bbe00dc251d3a973c9d0d94274a809b86b48f3039f71970a39f5a8cbfd"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01340.png"
+size = 487745
+sha256 = "9c59704828d2997bd8bce02191e65d3195782c092980cd8b496871aa2eb8241b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01350.png"
+size = 320746
+sha256 = "d9b46cee3eeebf032581c942e2d46cb8127750a426e694ebe011bf6022e52d46"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01360.png"
+size = 211545
+sha256 = "882eac12d41d587ea415b032bc7504cf03dfff4262d0cf25da48cb15a3e43172"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01370.png"
+size = 548111
+sha256 = "35ea778f3e878fefae346cf6601f9702dc4492911ed151fdedb3b9907796e5df"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01380.png"
+size = 623674
+sha256 = "5f55f328909b64283b6903b74cccb55902c35490d32e03c73ae2857d7121fb82"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01390.png"
+size = 227240
+sha256 = "b351ff6588e9587a7d05c3ad71ca260ac3d252f3a4d7ec6f6c69ea41baf649cd"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01400.png"
+size = 428159
+sha256 = "34f398c04839a44693a2af4e059fea14eca0d0900d9f8db77fae43e62ffb360f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01410.png"
+size = 540971
+sha256 = "f5bb6870a946c4e4c1406ebfc5ec97cd45d6a15a37f821a12655ad031b599998"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01430.png"
+size = 340196
+sha256 = "bcdd184925872c49509eb7a2de3d69b4ed868c1288379d0fa5ab077cf756514d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01460.png"
+size = 266441
+sha256 = "e68320f7a5e525d7ab6b78d789d2c93242ebe4192ff29b25adc40b2149aeb544"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01470.png"
+size = 294258
+sha256 = "429a88ff53c4b0fe57cda9f294f1ad06aa8d381b8e1f5952ded005409e5d0e6b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01480.png"
+size = 352290
+sha256 = "c8b625ddf7fb1704986d1efcf833e7c25b3d4162519431e6ebf35b5ae48271fc"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01490.png"
+size = 206172
+sha256 = "8f64cd8e4e902b00b7c8406496cef93e233f2db09c9b8329440d47e0d1c5dc7b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01500.png"
+size = 317445
+sha256 = "4b15339f68dbd39e67efb10ad7240284ece8c6d2c6629c645b6eaf74082cb3c6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01510.png"
+size = 132301
+sha256 = "ec40d322c2ac4d010e2db19d1c61350b1de44eb7df35deb6bc60c7ff802811e4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01520.png"
+size = 162778
+sha256 = "0a9a8947a464f4859fd5da48fcc5c3dba6908b5b586471b21f7ecce75948b8e9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01540.png"
+size = 119147
+sha256 = "bcfef211c492cc926b6791e0ace4ef3cd013baceb1259ab86e7f21bb8027778c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01550.png"
+size = 379418
+sha256 = "643aa1794a7781d922f33220da17c5cec46f1b14b3d261091f3f5526d7d55504"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01570.png"
+size = 211405
+sha256 = "ccd34e55f26ae1f15d237e1ae73581dbe2311c0cf629eb43ef54317397f58b3a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01580.png"
+size = 353446
+sha256 = "286c9b27186f4e24aebabd15afca4ea204f1b11e73071f1cd073125fd313e5bb"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01590.png"
+size = 482318
+sha256 = "5ff5675ee12b74019392abf0f429c47f8fab6e66b5c33de5f0cab3d8a3a67d58"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01610.png"
+size = 162638
+sha256 = "35307cdee57cae86f0813d2b620b3fe081f1ece9baa7490a209721003ad8b026"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01620.png"
+size = 271081
+sha256 = "f99a7c1f9484a555bb4cee47ee6c683e265b70e689efaab288e8c862b1f5777c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01630.png"
+size = 431513
+sha256 = "98940602192cd64f5f7cb891f56c7e52d2a898a66c3fd237422ce094a354555d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01640.png"
+size = 163833
+sha256 = "f2f17e9d3f454a7f9e65ba752cdabf7614c06f86998f286ffc3c7057ce8ad1ca"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01650.png"
+size = 122431
+sha256 = "f57b236859944d6d6db3df8c61f00b47df63fc0d7efb34340320a08cd48a6508"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01660.png"
+size = 514596
+sha256 = "e128ee5af07db510a47a8b5caf6c86c7ff687d9fdbcac3378015e139fd2eefa1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01670.png"
+size = 356712
+sha256 = "92f577833c2f1b800307432dfd42680462f4ed4007baad95d5cd6a5688874a0c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01680.png"
+size = 310615
+sha256 = "30649dffdf21567774f90dadb3a697b622e82c3268c844200e2239bf9c48cff5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01690.png"
+size = 480377
+sha256 = "a7b54d4d2f56cf4073d3fa3e647cf294486ca13b2c0269ab4db8a82b89314c4c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01700.png"
+size = 440746
+sha256 = "985327c890f584f1826f737f8ec38840d3473ee313f7f16b585bac194f4cf151"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01710.png"
+size = 594449
+sha256 = "d9a167250dfee0a4e3e2abcdaa320377a7bcb61a90ae58924770fd83cfc6b1cc"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01720.png"
+size = 537783
+sha256 = "08c7384be36da0f17413137afcdf74ff40e84bedbd86f95ad973aa061476ef0b"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01730.png"
+size = 355414
+sha256 = "224e1bb35f9eb3309f44e3f2a9fed0fe8da8c5d6d12669623b92c56c1906bc0a"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01760.png"
+size = 323561
+sha256 = "681b0f290dca292b7d6ba38ba1c5139c308e7152e19b8bcc1f8ad4481ba70c3e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01780.png"
+size = 642989
+sha256 = "eade4f8015b2b51cfcaf5af2c095edac60471209f08085f15f34a113ed5a7fd4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01790.png"
+size = 426408
+sha256 = "cb8bad7912c649bab0260d9de9dc97a2bddea3364fc2b5d5aea74da7ed65a748"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01800.png"
+size = 140804
+sha256 = "ff26c9519d181f9cf4b82a39993a8f691475ffb467a4e4f1a2e6d385e60db1a1"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01810.png"
+size = 394439
+sha256 = "71c91a597b1d6fdf635e6e0ba31816abb7210a2d20e15657fee9c91221ed8d73"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01820.png"
+size = 285798
+sha256 = "64fa98fe75d2803d290ccf22f924668cdf32c454d94a288c72c3b45f06b6dcf7"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01830.png"
+size = 494231
+sha256 = "44956e89e04464a4e587548817bbda7dd4ad16a17f47b88c54962934ed71dc4d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01840.png"
+size = 367991
+sha256 = "b3beb975d6201ab20ace10bd54d4f5988dd800bae881d8d7a9a9011ddc5e591d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01850.png"
+size = 611783
+sha256 = "5e76f6412c713c293a8bf5751f48aed6ffdd79d2c91e2a93926c8770163b2692"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01860.png"
+size = 198344
+sha256 = "9bb3e3150e2bfb70651e8defc7e615749a0eaeeea6a8fe3534723f984b79ee51"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01865.png"
+size = 505869
+sha256 = "cce24be803705e74f982890f6ff4dcbd95cb671a7cdad1b78fcab354c0bcfe78"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01870.png"
+size = 386566
+sha256 = "12022dea0d99660a17d1799716b70db8b9924bc52c6113a2ad7075d70140b20e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01880.png"
+size = 351407
+sha256 = "44ba8467f1e8ff40a2e2a67cb8fc96d6f91c9d8ee18c1d7381da6c4d40076085"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01890.png"
+size = 415631
+sha256 = "900a00794e7d499d464f1d51b682a7a3b5397b89f9f9102151e2512fcad0aa24"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01900.png"
+size = 589865
+sha256 = "6e1ac037592bf045ea2f3cad87e1ccdb16b1a6c38afbcca67afde5d2f28cb054"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01910.png"
+size = 484720
+sha256 = "e34d56a734c732966a47aefdd52d208d8b495034ef95fa5aa67cbf8fbb7aba0f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01920.png"
+size = 203548
+sha256 = "68cdf9138cd7be693457791f79dea3e77fdac71aab1f0457397fb77356708835"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01940.png"
+size = 547339
+sha256 = "1caac1f89daeeddc287266d33276e4c0058d2fc42fe46762718bf39e0e05f6dc"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01960.png"
+size = 708885
+sha256 = "b173a90158edbec29dafce3241843881feef202caa0607b82e847c628aa08396"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01970.png"
+size = 154222
+sha256 = "55331a2bfb306f3e181f31e2933cad8ab36741356e24714b59546b04cc7d1672"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs01990.png"
+size = 564097
+sha256 = "1996bb22e0fec9602c8a8529992b64892420fe7f72d2408ce71ae59ae2f57c0c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02000.png"
+size = 665916
+sha256 = "2a88d4a95b0207c3c4372c9cfb976fccdec7e455e2fed1ac07b73f8be23f58a2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02010.png"
+size = 630547
+sha256 = "f89b871e87a7aad126c16ce8ff7eaf908f8b9fa2784120f16b5454e5fd5ff5a2"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02020.png"
+size = 368360
+sha256 = "564ec202b2df5589116302e5898d12e1880c4a23f7f4c0393779de180e445126"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02040.png"
+size = 495832
+sha256 = "5cc1451c4942e761f54677c977711a0c334d07f0fd891fe018fd064be661bb47"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02050.png"
+size = 152578
+sha256 = "ecb875a00a5109afbfd22aab91ee03530c75b1420627e46d524a5ab4741b5afc"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02070.png"
+size = 368426
+sha256 = "57a8e758ffaeb9d89ce5bdabaa259387f991835d1755c441cd65c29fa96d672c"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02080.png"
+size = 419484
+sha256 = "b4d733b8cd1d5de05f5097587a038f94ef0adef78a3e72e8572ff1e971d655d5"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02100.png"
+size = 640196
+sha256 = "9af10c3a3fba43be089104c74714f6484ab725efa81b014d2ddd39b5381ce240"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02110.png"
+size = 164591
+sha256 = "3f05c4b68ac711b4bc36ecb199309d500265090482e813902c14175f06ddf057"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02140.png"
+size = 600429
+sha256 = "048fe8361c9d3ea431947f4277bb4c30f0d245ce13e4bb1344d055a7a11f9c6d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02150.png"
+size = 670197
+sha256 = "44a940b2a713f8e601de6e7091a1b56bdd0b93f39a53f8a9b11dff484e1d39a6"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02160.png"
+size = 493340
+sha256 = "6747a374bc02b202b06750b1cad0fb5e1f7d0c515e157dfbbb38a0cf1fb8cd81"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02180.png"
+size = 471307
+sha256 = "76cf69559cb998b644f968498d105028a4fc8be6dec122bcb9a445efe5e005b4"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02190.png"
+size = 599295
+sha256 = "7cf646c263237e7940d37a7d44e3b2801dc293049eaeef221e2e23e75ef3252e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02210.png"
+size = 642858
+sha256 = "87530aee1c526e3d8459f80e225a70a1c52bc93afb867862ee0d1f629b4c46b9"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02220.png"
+size = 470619
+sha256 = "58924442349e40da713d08be60fa116fa554353bea09189ba3b41c072bc9c76e"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02230.png"
+size = 719867
+sha256 = "5ece992ca3840b39870c365926b24bd9d3fd4b3e4283ef87d736297cdea13e24"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02240.png"
+size = 234134
+sha256 = "931a851d53fcea36ddbbe7a64f6a654a2f272527c9fb7adb25fd577bdf251ea0"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02250.png"
+size = 730228
+sha256 = "157c8f1ce64bde3747a0a23466b647b6583562f8bf880673db30862d7a2a7275"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02280.png"
+size = 461435
+sha256 = "9ad7028962f085dd294941d5a78906bdbe845340b1569426b81a78dc7f517722"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02380.png"
+size = 419965
+sha256 = "a283c9cab85b68fb9782c4dc924728e6ab6a3eb9f33fe41af2657ffc4ca0405d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/es/whs02410.png"
+size = 295442
+sha256 = "25b15b25ee419267b66cd446e3109dd837022fac8b0ebd6d56e74599efb30e32"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/ja/inazuma_fantasy/whs01680.png"
+size = 801865
+sha256 = "2d4ca9a536e5ca6ce822521f4975b0d652e83dc9081ec3fe68172c9a25d2506d"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/ja/inazuma_fantasy/whs02300.png"
+size = 2503228
+sha256 = "cb92caccda146dad8a4f08b06d6f3788daa31cbb53c5aa7177aa83055a39fca8"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/ja/inazuma_fantasy/whs02970.png"
+size = 700601
+sha256 = "9389537d074f4499d15454dca35492aab88c730e8080f37f6654e0cdfc3e473f"
+
+[[file]]
+path = "mods/InazumaStrikers/content/telops/ja/inazuma_fantasy/whs03200.png"
+size = 2703376
+sha256 = "5d038e9169843ee793908618a7479ab3ac3046188625b64a790511c067d3b3e4"
+
+[[file]]
+path = "mods/InazumaStrikers/mod.toml"
+size = 1050
+sha256 = "c310e43770cef00945ca931a61ed2230be03470bd274ea2ad5c2e1f00d6f9a3f"
+
+[[file]]
+path = "mods/InazumaStrikers/options.toml"
+size = 270
+sha256 = "d827903dbdf3042e3c3606a381d2af6dfdae2327946d58f61e151d6bd9109d91"
+
+[[file]]
+path = "mods/InazumaStrikers/text/keys.toml"
+size = 6210
+sha256 = "a53eed99448ca5d1ec98c59e1f64590d39e3d21409f6a922ab6dde8538985c66"
+
+[[file]]
+path = "mods/InazumaStrikers/text/rows/skill_text.toml"
+size = 673
+sha256 = "708ceb869e3a5a0ce162e2dd6ac280ad253b090704d3dbf2d9a82207bb0cc043"

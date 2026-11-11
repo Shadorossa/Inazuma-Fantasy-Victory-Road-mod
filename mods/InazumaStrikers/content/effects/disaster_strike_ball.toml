@@ -1,0 +1,13 @@
+# Disaster Strike: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/disaster_strike_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "disaster_strike_ridge"
+from = "ega0075a"
+object = "effect/event/ev60/ev6208ds00/ev6208ds00.objbin"
+
+[[shot_aura]]
+name = "disaster_strike_ridge"
+when = { techniques = ["whs02080", "whs02080_mm"] }
+aura = "disaster_strike_ridge"
+like = "ega0075a"

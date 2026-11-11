@@ -1,0 +1,15 @@
+# Dragon Tornado: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/dragon_tornado_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "dragon_tornado"
+from = "ega0075c"
+object = "effect/event/ev60/ev6035dt00/ev6035dt00.objbin"
+
+[[shot_aura]]
+name = "dragon_tornado"
+when = { techniques = ["whs00350", "whs00350_or"] }
+aura = "dragon_tornado"
+like = "ega0075c"
+anchor = "kick"
+drift = 0.75

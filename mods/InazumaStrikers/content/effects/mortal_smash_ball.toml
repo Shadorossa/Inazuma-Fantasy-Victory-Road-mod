@@ -1,0 +1,13 @@
+# Mortal Smash: in-flight shot aura (objects: research/mods/InazumaStrikers/_tools/mortal_smash_ball_fx.py).
+schema = "VRFW.effect/1"
+
+[[effect]]
+name = "mortal_smash"
+from = "ega0075a"
+object = "effect/event/ev60/ev6241ms00/ev6241ms00.objbin"
+
+[[shot_aura]]
+name = "mortal_smash"
+when = { techniques = ["whs02410"] }
+aura = "mortal_smash"
+like = "ega0075a"

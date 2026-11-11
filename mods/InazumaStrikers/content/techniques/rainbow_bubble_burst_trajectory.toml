@@ -1,0 +1,6 @@
+# Rainbow Bubble Burst: shot flight.
+schema = "VRFW.technique/3"
+
+[[edit]]
+target = "whs01740"
+trajectory = { points = [[0.0, 1.2]], straight = true, unblockable = false }

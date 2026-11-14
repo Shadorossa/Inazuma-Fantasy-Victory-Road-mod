@@ -1,7 +1,7 @@
-dc9574c41ec486d8ade96893bc366c89f468c3bbedd0fdafcac13aafff0412b460c0c9cdb99b9ae51030c9daabcfda078953a7815e8c70baa5b6bc1bcec1c903
+8ca8df1c8f814d0c5521682bce7b7a1e331a114c38e4f3d0ea4fd88e0bc9cd8559c339af928637749872e09ebc6e5f64407f5357a864eaa36fd674bf72736402
 format = 1
 channel = "InazumaFantasy"
-label = "0.3.1"
+label = "0.3.1a"
 
 [[retired]]
 path = "mods/BattleBayDeluxe/assets/lua/bb_stadium_campaign_end_window/346_01_bb_tournament.lua"
@@ -2389,6 +2389,11 @@ size = 6942
 sha256 = "59f33ddc4b386361cda60b319e3d4801091e47baf887cf3c6781ea88f34b01e1"
 
 [[retired]]
+path = "mods/BetterUI/assets/lua/ability_list_menu/960_01_better_ui_skill_screen.lua"
+size = 27822
+sha256 = "74e658c0b954a6517fc6fccd08d6e816404f4db8ade203706b7ceb7746fb220b"
+
+[[retired]]
 path = "mods/BetterUI/assets/lua/bb_stadium_top_menu/915_01_clean_hud_menu_cleanup.lua"
 size = 10409
 sha256 = "73273bc26e07c92b7836a48c04a4adbd9d6b342e5794dcbb4d9a302764d8356f"
@@ -2719,6 +2724,16 @@ size = 11200
 sha256 = "cfe7392e5046514a6f02ee2d0b9887152aa80a55d52634be664fc7d814919eca"
 
 [[retired]]
+path = "mods/BetterUI/content/images/menu/200_icon/15_icon_common/skill_screen_art.toml"
+size = 2499
+sha256 = "0c510655ab956b71c32c051ff72c514d6937eb8594b41a0db2cbde60fba336ed"
+
+[[retired]]
+path = "mods/BetterUI/content/images/menu/200_icon/15_icon_common/skill_screen_art/better_ui_skill_screen_art.png"
+size = 7707
+sha256 = "f0f91155f6d48ae2ae3afc30b89a79650a5baf07e75dfc25595dc5c04e76788b"
+
+[[retired]]
 path = "mods/BetterUI/content/menus/confirm_cards.toml"
 size = 2519
 sha256 = "27cf393ce6b8ff2467c5f1a0186e6b53ef485ed7d64d29b66e7cd237bab315d0"
@@ -2727,6 +2742,36 @@ sha256 = "27cf393ce6b8ff2467c5f1a0186e6b53ef485ed7d64d29b66e7cd237bab315d0"
 path = "mods/BetterUI/content/menus/confirm_cards.toml"
 size = 2488
 sha256 = "66f14010ae4479dfba79185f93a65f2cddb930c3728b1e0bce1e84a262334f2a"
+
+[[retired]]
+path = "mods/BetterUI/content/menus/skill_board_header.toml"
+size = 1016
+sha256 = "2c18b9fa1c0b499219759ff242349342d9ec358391e68ef6d92e57f751d188c8"
+
+[[retired]]
+path = "mods/BetterUI/content/menus/skill_board_header.toml"
+size = 998
+sha256 = "7abe5d44c1fe946706039a5ec67da929a240df84c046cce8df32abb1b25b5d5f"
+
+[[retired]]
+path = "mods/BetterUI/content/menus/skill_board_header.toml"
+size = 267
+sha256 = "a2bb4221c0fb63992149435c7088a61c41ce1d1b74c571474ae637777eda7f3e"
+
+[[retired]]
+path = "mods/BetterUI/content/menus/skill_list_carousel.toml"
+size = 16736
+sha256 = "fa2ffda5f87fdbead0fc391479e13e21fd6b3c8802c596f8e31c0958abc4e9d3"
+
+[[retired]]
+path = "mods/BetterUI/grafts/better_ui_skill_screen/better_ui_skill_screen_1.lua"
+size = 29116
+sha256 = "4c41a5ee2b31c09b2320cb7369c3c7d44c47dcce58d29757116d8a8ec8031ac9"
+
+[[retired]]
+path = "mods/BetterUI/grafts/better_ui_skill_screen/graft.toml"
+size = 828
+sha256 = "a124c4a0bc7f37e3125b5120040e84caa5050b668f7e5191a7614517beb2237c"
 
 [[retired]]
 path = "mods/BetterUI/grafts/clean_hud_bb_title/bb_title.lua"
@@ -21830,6 +21875,11 @@ sha256 = "44e2ec1c2aa90f40d5862a0faebc27dab67eb39696e0abe0bf2fdd178f28d8c8"
 
 [[retired]]
 path = "mods/InazumaFantasy/content/update_channels/InazumaFantasy.history.signed"
+size = 2269339
+sha256 = "63af3fdf5e6e573146e92160fcb3278b7ee32a71a87325ff30dc143474e288cf"
+
+[[retired]]
+path = "mods/InazumaFantasy/content/update_channels/InazumaFantasy.history.signed"
 size = 1831545
 sha256 = "6466be8e4546b781d9f89d5a8606107e5821d55bbf5509ac6e6e8833881fe14c"
 
@@ -34694,16 +34744,6 @@ size = 7176
 sha256 = "5df12c2b4f93965047578abfbaf565757c75190baf0862d4a58445226a78572c"
 
 [[replaced]]
-path = "mods/BetterUI/content/menus/skill_board_header.toml"
-size = 1016
-sha256 = "2c18b9fa1c0b499219759ff242349342d9ec358391e68ef6d92e57f751d188c8"
-
-[[replaced]]
-path = "mods/BetterUI/content/menus/skill_board_header.toml"
-size = 998
-sha256 = "7abe5d44c1fe946706039a5ec67da929a240df84c046cce8df32abb1b25b5d5f"
-
-[[replaced]]
 path = "mods/BetterUI/content/menus/soccer_battle_setting_flow_vs_menu.toml"
 size = 1420
 sha256 = "441530b1bfc035f69a6a99ae24e19a54a886aecdfb213c197f4c69e196421544"
@@ -34787,6 +34827,11 @@ sha256 = "5281b958b1cbcb0fe35caf171b7423aaf46b552002179063771d17286dad0642"
 path = "mods/BetterUI/content/sprite_redirects/own_atlases.toml"
 size = 1547
 sha256 = "67048a0d7820651e2b1416960683e24423a9614f8c9b3cd85d40633d3bf241c7"
+
+[[replaced]]
+path = "mods/BetterUI/content/sprite_redirects/own_atlases.toml"
+size = 1244
+sha256 = "730026478b2929f870746f102bb159544c290f8507d592fad7f7fa45c523baf2"
 
 [[replaced]]
 path = "mods/BetterUI/content/sprite_redirects/own_atlases.toml"

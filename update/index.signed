@@ -1,6 +1,6 @@
-7e33bc255350934c86460337816ac44b57c2d57ca8f7833c58cb89052889e627be7a6c5fe32a0a7e335544160d2d24a128fb05455492404d45b93937d6975509
+1bbe98cc6b0b422f207fdf60521ba610c0870ef377ae3578e0a7eb13397d449cf953c14175e3cd1cbed6283955777190664f20259712f0621bdf53fde529ee04
 format = 1
-sequence = 9
+sequence = 10
 name = "Inazuma Fantasy"
 public_key = "311b04b838548b75bb1c281dedd058d02215f3498a588a83022d245f4165691f"
 
@@ -16,4 +16,11 @@ label = "0.3.1"
 ref = "release-0.3.1"
 sequence = 8
 manifest_sha256 = "f371bb25584567af1bf6f6b2d8a8d916b18ec77e6274c33f76a5d1f4c2cd4612"
+game_version = "v7.2.1"
+
+[[version]]
+label = "0.3.1a"
+ref = "release-0.3.1a"
+sequence = 9
+manifest_sha256 = "2924342d70a2f55c04c09da2b58385fec45f6177cfc0362e3b6c5a70e9ad7886"
 game_version = "v7.2.1"

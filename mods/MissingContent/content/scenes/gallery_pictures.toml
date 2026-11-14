@@ -1,0 +1,39 @@
+schema = "VRFW.gallery/1"
+
+# Pictures of the game's files that its gallery does not list (docs/framework/gallery-unlocks.md: each row gets a save
+# flag of 512 or more and keeps its open state in the slot).
+
+# The game ships these three gallery pictures and thumbnails without a row (their series left flags 253, 255 and 256
+# unused): each row clones the last row of its series, so it costs and opens like its neighbours.
+[[VRFW.GalleryImage]]
+Name = "chronicle_character_0070"
+Key = "chronicle_character_0070"
+Image = "img_chronicle_character_0070"
+Thumbnail = "thumb_chronicle_character_0070"
+Template = "chronicle_character_0060"
+
+[[VRFW.GalleryImage]]
+Name = "chronicle_team_0010"
+Key = "chronicle_team_0010"
+Image = "img_chronicle_team_0010"
+Thumbnail = "thumb_chronicle_team_0010"
+Template = "chronicle_team_0030"
+
+[[VRFW.GalleryImage]]
+Name = "chronicle_team_0020"
+Key = "chronicle_team_0020"
+Image = "img_chronicle_team_0020"
+Thumbnail = "thumb_chronicle_team_0020"
+Template = "chronicle_team_0030"
+
+# Viewer test rows: the gallery shows a game texture of another size and name, served unchanged as both the picture
+# and the thumbnail. The first is 2640 x 1200 (2.2:1), the second 1920 x 1080 (16:9) with another texture name.
+[[VRFW.GalleryImage]]
+Name = "test_wide_picture"
+Source = "dx11/menu/220_img/ev_pic/ev_ch_pic2875_18.g4tx"
+ThumbnailSource = "dx11/menu/220_img/ev_pic/ev_ch_pic2875_18.g4tx"
+
+[[VRFW.GalleryImage]]
+Name = "test_other_name"
+Source = "dx11/menu/220_img/stadium/img_vs_bg_b10g001.g4tx"
+ThumbnailSource = "dx11/menu/220_img/stadium/img_vs_bg_b10g001.g4tx"

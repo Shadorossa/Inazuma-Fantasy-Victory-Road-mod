@@ -1,4 +1,4 @@
---- Internal: namespace of the go-ahead guide wrappers.
+--- Internal: table of the go-ahead guide hooks.
 VRFW.go_ahead_guide = VRFW.go_ahead_guide or {}
 do
   local C = {
@@ -34,7 +34,7 @@ do
 
   local set = SetGoAheadButtonGuideStatus
   if type(set) == "function" and VRFW.go_ahead_guide.status ~= set then
-    --- Internal: wraps the guide status; args visible, gray, area; answers the original result.
+    --- Internal: wrapped status function (visible, gray, area); marks the guide active while the sprite flag is set.
     VRFW.go_ahead_guide.status = function(visible, gray, area)
       local sprite = flag(FLAG)
       state.active = sprite ~= 0 and not visible and gray == true
@@ -52,7 +52,7 @@ do
 
   local gauge = UpdateGoAheadRecastGauge
   if type(gauge) == "function" and VRFW.go_ahead_guide.gauge ~= gauge then
-    --- Internal: wraps the guide gauge; args visible, rate; answers the original result.
+    --- Internal: wrapped gauge function (visible, rate); hides the gauge while the guide is active.
     VRFW.go_ahead_guide.gauge = function(visible, rate)
       if state.active then
         return gauge(false, 0)
@@ -64,7 +64,7 @@ do
 
   local texture = UpdateTextureAttachButtonGuide
   if type(texture) == "function" and VRFW.go_ahead_guide.texture ~= texture then
-    --- Internal: wraps the guide texture lookup; args layer and extra args; answers the original result.
+    --- Internal: wrapped texture function (layer, ...); adjusts the guide layer's texture.
     VRFW.go_ahead_guide.texture = function(layer, ...)
       local r = table.pack(texture(layer, ...))
       if layer == GUIDE then

@@ -54,3 +54,8 @@ local PLATE_LAYOUT_KEYS = { "left_label_end_x", "right_label_end_x", "digits_gap
 function BetterUI.DuelPlateLayout()
   return NumberSection("duel_counter", PLATE_LAYOUT_KEYS)
 end
+
+-- CMND_BETTERUI_SKILL_SCREEN_REDESIGN() -> true when config.toml [skill_screen] redesign is true.
+function BetterUI.SkillScreenRedesign()
+  return VRFW.files.config("skill_screen.redesign") == true
+end

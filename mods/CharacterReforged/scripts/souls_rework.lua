@@ -692,6 +692,19 @@ local function publish_start_max()
   return n
 end
 
+-- CMND_CHARACTERREFORGED_SOULS_TOTEM_EFFECTS(aura) -> { count, [i] = { level, text, shown, plain } }: what each level
+-- of that totem gives (its totem points), for a move list; count 0 for an aura that is no totem here.
+function CharacterReforged.Souls.TotemEffects(aura)
+  local out = { count = 0 }
+  local T = tonumber(aura) and totem_of(tonumber(aura)) or nil
+  if not T then return out end
+  for level, points in ipairs(T.totem_points) do
+    out.count = out.count + 1
+    out[out.count] = { level = level, text = text("CharacterReforged.totem_points"), shown = tostring(points), plain = true }
+  end
+  return out
+end
+
 function CharacterReforged.Souls.TotemLevel(hdl)
   local h = tonumber(hdl)
   if not h then return nil end

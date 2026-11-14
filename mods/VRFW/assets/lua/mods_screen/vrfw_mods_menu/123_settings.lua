@@ -20,14 +20,14 @@ function RV.option_rows()
   end
   all = {}
   for i = 1, Int(Call(RV.OPT.ROWS)) do
-    local k, kind, storage, label, fallback, get, set, _gated, _fixed, parent, help, help_fb, category, default, restart, started_with =
-      Call(RV.OPT.ROW, i)
+    local k, kind, storage, label, fallback, get, set, _gated, _fixed, parent, help, help_fb, category, default, restart, started_with,
+      declared_by = Call(RV.OPT.ROW, i)
     if type(k) == "string" then
       all[#all + 1] = {key = k, kind = Str(kind), storage = Str(storage), label = Int(label), fallback = Str(fallback),
                        get = Int(get), set = Int(set), help = Int(help), help_fb = Str(help_fb), category = Int(category),
                        default = type(default) == "number" and default or nil, restart = restart == true,
                        parent = type(parent) == "string" and parent or nil,
-                       started_with = type(started_with) == "number" and started_with or nil}
+                       started_with = type(started_with) == "number" and started_with or nil, mod = Str(declared_by)}
     end
   end
   RV.cache.option_rows = all
@@ -42,9 +42,9 @@ function RV.settings(id)
     return r
   end
   local opts = {}
-  local pre = id .. "."
+  -- A row belongs to the mod that declares it: the framework's rows are keyed by its parts' namespaces, not by its id.
   for _, o in ipairs(RV.option_rows()) do
-    if string.sub(o.key, 1, #pre) == pre then
+    if o.mod == id then
       opts[#opts + 1] = o
     end
   end

@@ -156,7 +156,7 @@ local function merge_rule(policy, mod_id, rule_name, rule)
       else
         warn(label .. ": release_cards_hidden_in must be a mod-relative .toml path")
       end
-    else
+    elseif key ~= "when" then
       warn(label .. ": unknown key " .. tostring(key) .. " (left out)")
     end
   end
@@ -188,7 +188,9 @@ function DuplicateRules.load()
     local root = type(data) == "table" and type(data.CharacterReforged) == "table" and data.CharacterReforged.DuplicateRules or nil
     if type(root) == "table" then
       for _, rule_name in ipairs(sorted_names(root)) do
-        if type(root[rule_name]) == "table" then merge_rule(policy, tostring(file.mod), rule_name, root[rule_name]) end
+        local rule = root[rule_name]
+        -- a rule with a `when` condition (`{ option = "<mod>.<row>", equals = 0 }`) counts only while it holds
+        if type(rule) == "table" and (rule.when == nil or VRFW.declarations.holds(file.mod, rule.when)) then merge_rule(policy, tostring(file.mod), rule_name, rule) end
       end
     end
   end

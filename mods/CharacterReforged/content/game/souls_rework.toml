@@ -29,6 +29,10 @@ name = "CMND_CHARACTERREFORGED_SOULS_TOTEM_LEVEL"
 handler = "CharacterReforged.Souls.TotemLevel"
 
 [[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_SOULS_TOTEM_EFFECTS"
+handler = "CharacterReforged.Souls.TotemEffects"
+
+[[VRFW.Command]]
 name = "CMND_CHARACTERREFORGED_SOULS_REEL"
 handler = "CharacterReforged.Souls.Reel"
 

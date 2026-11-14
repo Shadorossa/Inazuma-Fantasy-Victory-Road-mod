@@ -25,7 +25,7 @@ extra_items = { type = "any", doc = "items no game shop sells that get a row: an
 mod_outfits = { type = "bool", default = false, doc = "the mod's own outfits with a price get rows" }
 exclude_items = { type = "strings", doc = "item keys that never get a row" }
 redirect_emptied_to = { type = "string", doc = "the shop of the merge every game shop left with no visible row opens as" }
-rewarded_by = { type = "records", fields = { prize_tables = { type = "string" }, kinds = { type = "strings" }, chains = { type = "strings" } }, doc = "the mod's prize tables and route chains (paths relative to the mod): the items of `kinds` they give are not sold" }
+rewarded_by = { type = "records", fields = { prize_tables = { type = "string" }, kinds = { type = "strings" }, chains = { type = "strings" } }, doc = "the mod's prize tables and route chains (paths relative to the mod; in layout v2 relative to the TOML's folder, a * in any part of a chains pattern): the items of `kinds` they give are not sold" }
 chronicle_rewards = { type = "table", doc = "{ kinds, difficulties }: items of these kinds a Chronicle battle's first clear at these difficulties gives get no row" }
 learnable = { type = "table", doc = "{ min_rows, skills, override_bases, obtained, unobtainable }: every move a player can obtain gets a row in the categories with learnable" }
 sort_series = { type = "table", doc = "{ order, key_prefixes, digits }: the series of a key = the digits after a prefix, ranked by order" }

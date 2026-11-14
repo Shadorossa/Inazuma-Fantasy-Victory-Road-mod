@@ -1,0 +1,13 @@
+schema = "VRFW.model/1"
+# Head c08120110 (Procyon): new head mesh and face texture, imported from a .glb (docs/app/head-glb.md)
+kind = "head"
+target = "chr/_face/08_ORION/c08120110/c08120110.g4md"
+replace = true
+glb = "c08120110.glb"
+
+[skeleton]
+mode = "rig"
+rig = "c000101"
+
+[[texture]]
+name = "c08120110_10"

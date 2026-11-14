@@ -1,0 +1,6 @@
+schema = "VRFW.game/2"
+
+# CMND_BETTERUI_SKILL_SCREEN_REDESIGN() -> true when config.toml [skill_screen] redesign is true (graft better_ui_skill_screen).
+[[VRFW.Command]]
+name = "CMND_BETTERUI_SKILL_SCREEN_REDESIGN"
+handler = "BetterUI.SkillScreenRedesign"

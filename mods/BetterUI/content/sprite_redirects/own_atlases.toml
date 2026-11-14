@@ -26,6 +26,6 @@ sprites = [
 name = "better_ui_technique_books_rows"
 atlas = "#/menu/200_icon/15_icon_common/icon_common.g4tx"
 own_atlas = "#/menu/200_icon/better_ui_own/better_ui_technique_books.g4tx"
-# the move list rows
-layers = ["team08_02_ability_list_item"]
+# the move list rows and the «Habilidades» carousel / thumbnail books (graft better_ui_skill_screen)
+layers = ["team08_02_ability_list_item", "betterui_skill_book"]
 sprites = ["icon_sp_area01", "icon_sp_area02", "icon_sp_area03", "icon_sp_area04"]

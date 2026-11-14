@@ -74,3 +74,8 @@ tag_default_digits = 3
 # The layout's size; the plates stay inside layout_width.
 layout_width = 1920
 layout_height = 1080
+
+# The «Habilidades» redesign (graft better_ui_skill_screen, content/menus/skill_list_carousel.toml); false = the game's
+# own screen. Read at start.
+[skill_screen]
+redesign = false

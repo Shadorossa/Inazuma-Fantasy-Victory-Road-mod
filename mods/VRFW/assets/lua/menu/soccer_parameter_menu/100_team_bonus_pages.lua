@@ -19,6 +19,8 @@
 --   } -> true, or false, why
 --   VRFW.team_bonus_pages.context() -> { dock, kind, in_match, side }: the team the screen shows (its OnInit reads)
 --   VRFW.team_bonus_pages.is_frame(layer) -> true for the frame layer of any page (the game's three and the added ones)
+-- A lua_early mod's files run before this one: such a mod puts a function(Pages) in the list
+-- VRFW.team_bonus_pages_queue, and this file calls it with the library once it is defined.
 -- No engine call at load time.
 if VRFW.host ~= nil and VRFW.team_bonus_pages == nil then
   local P = { list = {} }
@@ -371,4 +373,16 @@ if VRFW.host ~= nil and VRFW.team_bonus_pages == nil then
       call(S.current, "step")
     end
   end })
+
+  -- Runs the registrations of the lua_early mods, whose files load before this one.
+  local queue = rawget(VRFW, "team_bonus_pages_queue")
+  rawset(VRFW, "team_bonus_pages_queue", nil)
+  if type(queue) == "table" then
+    for _, register in ipairs(queue) do
+      local ok, err = pcall(register, P)
+      if not ok then
+        log("queued registration failed:", tostring(err))
+      end
+    end
+  end
 end

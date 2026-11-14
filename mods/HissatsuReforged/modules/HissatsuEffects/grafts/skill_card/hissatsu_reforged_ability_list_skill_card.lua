@@ -202,8 +202,9 @@ do
       e.spct = tonumber(spct) or 0
       e.dunb = tonumber(dunb) or 0
     end
-    -- the technique effects written as behaviour rules (Hissatsu Effects' technique_effects_*.toml, any mod's rule)
-    local rule = RuleText(skill)
+    -- the technique effects written as behaviour rules (Hissatsu Effects' technique_effects_*.toml, any mod's rule); a
+    -- screen that lists them next to the card sets SKILL_CARD_RULES_SHOWN and this page leaves them out
+    local rule = SKILL_CARD_RULES_SHOWN == true and "" or RuleText(skill)
     if rule ~= nil and rule ~= "" then
       e = e or {}
       e.rule = rule

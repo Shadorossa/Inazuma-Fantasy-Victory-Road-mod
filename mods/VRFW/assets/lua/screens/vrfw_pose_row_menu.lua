@@ -338,7 +338,7 @@ local Kit, Ptr                  -- set in OnInit
 
 --- Advanced: Namespace: 3D character model preview helper for menus; holds new().
 VRFW.chara_model = VRFW.chara_model or {}
---- Advanced: Creates a character model preview (layer, opts); answers a table with show(pid), hide, release, ok and step.
+--- Advanced: Creates a character model preview (layer, opts); answers a table with show(pid), show_chara(chara, motion), hide, release, ok and step.
 VRFW.chara_model.new = VRFW.chara_model.new or function(layer, opts)
   opts = opts or {}
   local M = {pid = nil, chara = nil, pend = nil, build = nil, hide_build = false, logs = 0, failed = false,
@@ -430,7 +430,7 @@ VRFW.chara_model.new = VRFW.chara_model.new or function(layer, opts)
       Visible(false)
       P.built, P.n = true, 0
       M.build = {n = 0, seen = false, ok = 0, done = false}
-      M.pid, M.chara = P.pid, P.chara
+      M.pid, M.chara, M.clip = P.pid, P.chara, P.clip
       Log("build", P.pid, P.chara, P.motion, string.format("uniform 0x%08X flags %d", P.uniform, P.flags), tostring(ok),
         tostring(err))
       return
@@ -440,6 +440,9 @@ VRFW.chara_model.new = VRFW.chara_model.new or function(layer, opts)
       return
     end
     Visible(true)
+    if M.clip ~= nil then
+      MC(180466856, layer, 0, M.clip, 0, 0, 0, 0, M.SLOT)   -- Plays the model's stand clip, as retail shop_menu_buy does.
+    end
     M.pend = nil
     Log("shown", P.pid, P.n)
   end
@@ -539,6 +542,30 @@ VRFW.chara_model.new = VRFW.chara_model.new or function(layer, opts)
     end
     Visible(false)
     M.pend = {pid = pid, chara = chara, motion = motion, body = body, uniform = uniform, flags = flags, n = 0,
+      built = false}
+    PendStep()
+  end
+  --- Shows character id chara itself, for a model of its own (a spirit, a prop): no kit, no pose; motion = its stand clip or nil.
+  function M.show_chara(chara, motion)
+    M.release_wanted = false
+    if type(chara) ~= "number" or chara == 0 then
+      M.hide()
+      return
+    end
+    local P = M.pend
+    if P ~= nil and P.pid == chara then
+      return
+    end
+    if P == nil and M.pid == chara then
+      if BuildDone() then
+        Visible(true)
+      else
+        M.pend = {pid = chara, chara = M.chara, n = 0, built = true}
+      end
+      return
+    end
+    Visible(false)
+    M.pend = {pid = chara, chara = chara, motion = 1, body = -1, uniform = 0, flags = 0, clip = motion, n = 0,
       built = false}
     PendStep()
   end

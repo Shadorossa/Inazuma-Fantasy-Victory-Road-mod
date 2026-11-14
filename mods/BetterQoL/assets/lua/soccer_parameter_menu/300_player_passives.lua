@@ -5,8 +5,8 @@
 -- rows. The players are the team the screen shows: its 11 and its bench, in the team's slot order (a player without an
 -- unlocked passive in those slots has no card). Up / down (or the wheel) scroll by one row when the cards do not fit.
 -- The team is read once per screen open (when the page is asked whether it shows); no engine call at load time.
-if VRFW.team_bonus_pages ~= nil then
-  local Pages = VRFW.team_bonus_pages
+-- BetterQoL is lua_early, so this file usually runs before the framework's library: the page then waits in its queue.
+local function register(Pages)
   local C = VRFW.commands
   local log = VRFW.logger.new("BetterQoL player passives")
 
@@ -276,4 +276,11 @@ if VRFW.team_bonus_pages ~= nil then
       end
     end,
   })
+end
+
+if VRFW.team_bonus_pages ~= nil then
+  register(VRFW.team_bonus_pages)
+else
+  VRFW.team_bonus_pages_queue = VRFW.team_bonus_pages_queue or {}
+  table.insert(VRFW.team_bonus_pages_queue, register)
 end

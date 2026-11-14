@@ -167,6 +167,9 @@ end
 
 local function use_cap() return math.min(max_grade(), USE_CAP) end
 
+-- The last grade a move reaches: by use, or with the last-grade item when one is declared.
+local function top_grade() return ITEM_LAST ~= 0 and MAX_GRADE or use_cap() end
+
 local function next_at(grade)
   if grade >= use_cap() then return 0 end
   return THR[grade + 1] or 0
@@ -1116,12 +1119,13 @@ end
 
 -- CMND_HISSATSUREFORGED_MOVE_LEVEL_EFFECTS(move) -> { count, [i] = { level, kind, value, text, shown } } (shown: the
 -- value as the card shows it next to the text, nil for none): what each move level
--- changes, in level order. kind "recast": the recast multiplier of that level in percent over level 1 (the K of
+-- changes, in level order, up to the last grade (level 6 with the last-grade item); nothing for a move without grades. kind "recast": the recast multiplier of that level in percent over level 1 (the K of
 -- recast_value); kind "cutin": from that level on the move plays the cut-in of move `value` (grade animations).
 function HissatsuReforged.LevelEffects(move)
   move = u32(tonumber(move) or 0)
   local out = { count = 0 }
   if move == 0 then return out end
+  if A.type(move) ~= nil or A.is_spirit_move(move) then return out end -- aura skills and spirit moves have no grade
   if LEVEL_CUTINS == nil then
     LEVEL_CUTINS = {}
     for _, e in ipairs(grade_animations()) do
@@ -1132,7 +1136,7 @@ function HissatsuReforged.LevelEffects(move)
   for _, e in ipairs(LEVEL_CUTINS) do
     if e.move == move and e.of ~= 0 then cutins[e.level] = e.of end
   end
-  for grade = 1, use_cap() do
+  for grade = 1, top_grade() do
     local level = grade + 1
     out.count = out.count + 1
     local pct = math.floor(K * grade * 1000 + 0.5) / 10

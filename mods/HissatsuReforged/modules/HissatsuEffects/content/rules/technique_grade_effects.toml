@@ -1,0 +1,54 @@
+schema = "VRFW.behaviour/1"
+if_mod = "HissatsuEffects.technique_passives"   # options.toml row «technique_passives»: off = not read
+
+# Hissatsu Effects › grade effects: what a special move gains at a grade, on top of its own effect.
+# A grade effect is a behaviour rule like the own effect, with `when.grade` (1 = the base grade, 6 = the last one);
+# `grade = { min = 3 }` holds from the third grade on. The «Habilidades» screen shows its `text` on that grade's row.
+# A move without rules here keeps the grade rows of Hissatsu Reforged ([ranks] recast_per_grade) alone.
+#
+# EXAMPLES (2026-11-13): the three moves below show the form; their values are placeholders for the owner to judge.
+
+# EXAMPLE › Tornado de fuego (whs00030)
+[[rule]]
+id = "tg_whs00030_3"
+on = "match:tension_pay"
+text = "HissatsuEffects.tg_whs00030_3"
+when = { technique = ["whs00030"], grade = { min = 3 } }
+do = { cost_mult = 0.9 }
+
+[[rule]]
+id = "tg_whs00030_6"
+on = "match:move_power"
+text = "HissatsuEffects.tg_whs00030_6"
+when = { technique = ["whs00030"], grade = { min = 6 }, score = "level" }
+do = { power_mult = 1.08 }
+
+# EXAMPLE › Mano celestial (whk00010)
+[[rule]]
+id = "tg_whk00010_4"
+on = "match:move_power"
+text = "HissatsuEffects.tg_whk00010_4"
+when = { technique = ["whk00010", "whk00480", "whk01710"], grade = { min = 4 }, half = 2 }
+do = { power_mult = 1.06 }
+
+[[rule]]
+id = "tg_whk00010_6"
+on = "match:move_power"
+text = "HissatsuEffects.tg_whk00010_6"
+when = { technique = ["whk00010", "whk00480", "whk01710"], grade = { min = 6 }, score = "trailing" }
+do = { power_mult = 1.1 }
+
+# EXAMPLE › Giro de mono (who00190)
+[[rule]]
+id = "tg_who00190_2"
+on = "match:tension_pay"
+text = "HissatsuEffects.tg_who00190_2"
+when = { technique = ["who00190"], grade = { min = 2 } }
+do = { cost_mult = 0.95 }
+
+[[rule]]
+id = "tg_who00190_5"
+on = "match:move_power"
+text = "HissatsuEffects.tg_who00190_5"
+when = { technique = ["who00190"], grade = { min = 5 }, half = 2 }
+do = { power_mult = 1.08 }

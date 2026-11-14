@@ -1,0 +1,18 @@
+# BetterUI: the «Habilidades» move list (ability_list_menu) as the owner's sketch: a carousel of technique books that keeps
+# the focused one in the centre, a thumbnail frame, the move card on the right and the move's effects under it (layers and layouts: research/mods/BetterUI/content/menus/skill_list_carousel.toml).
+name = "better_ui_skill_screen"
+order = 960
+mod = "BetterUI"
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["OnSetupLayer", "OnChangeFocus", "UpdateListItem", "UpdateSkillDetailWindow", "OnAfterReceiveFilterParam", "CallBackSort", "Step", "OnOpenLayer", "OnBack", "OnOpenEndLayer"]
+description = "BetterUI: «Habilidades» carousel, card and technique effects"
+
+[[files]]
+stem = "ability_list_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "better_ui_skill_screen_1.lua"
+  marker = "better_ui_skill_screen"

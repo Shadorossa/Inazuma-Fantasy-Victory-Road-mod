@@ -3,3 +3,8 @@ schema = "VRFW.game/2"
 [[VRFW.Command]]
 name = "CMND_HISSATSUEFFECTS_MOVE_RULE_TEXTS"   # (move) -> { count, [i] = sentence }
 handler = "HissatsuEffects.RuleTexts.OfMove"
+
+# The effects a move gains at a grade: the rules that name it with `when.grade` (content/rules/technique_grade_effects.toml).
+[[VRFW.Command]]
+name = "CMND_HISSATSUEFFECTS_MOVE_GRADE_TEXTS"   # (move) -> { count, [i] = { level, kind, text, shown } }
+handler = "HissatsuEffects.RuleTexts.GradesOfMove"

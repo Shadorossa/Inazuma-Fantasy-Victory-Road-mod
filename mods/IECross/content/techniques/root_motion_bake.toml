@@ -1,0 +1,4 @@
+schema = "VRFW.technique/3"
+
+# The Cross events move the root joint of characters and move models, which the game does not play: the framework serves these packs baked.
+[VRFW.RootMotionBake]

@@ -1,3 +1,4 @@
+-- lua_patch.scope: used
 -- A team template read as the game reads a team, without a dock swap: the fields the team lists show.
 BetterQoL = type(BetterQoL) == "table" and BetterQoL or {}
 if BetterQoL.template_cards == nil then

@@ -1,4 +1,5 @@
--- Hero style selector, shared part (every menu VM): the styles of a card's rarity and the card's current style.
+-- lua_patch.scope: used
+-- Hero style selector, shared part (the menu VMs that use it): the styles of a card's rarity and the card's current style.
 CharacterReforged = type(CharacterReforged) == "table" and CharacterReforged or {}
 if CharacterReforged.HeroStyle == nil then
   local S = {

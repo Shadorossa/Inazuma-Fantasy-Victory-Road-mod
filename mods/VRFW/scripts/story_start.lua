@@ -7,7 +7,6 @@ local KIND = "VRFW.story_start/1"
 local function warn(...) VRFW.warn("story_start:", ...) end
 
 local DATA = nil
-local LOADED = false
 
 local function append(out, list, f)
   if type(list) ~= "table" then return end
@@ -81,9 +80,8 @@ end
 
 -- CMND_VRFW_STORY_START_DATA
 function StoryStart.Data()
-  if not LOADED then
-    LOADED = true
-    DATA = build()
-  end
   return DATA
 end
+
+-- the declarations are read once at script load (boot thread), not on the game thread at the title
+DATA = build()

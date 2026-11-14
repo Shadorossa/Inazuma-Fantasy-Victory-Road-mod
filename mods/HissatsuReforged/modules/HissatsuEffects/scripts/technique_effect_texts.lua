@@ -91,7 +91,24 @@ local function without_value(s, shown)
   return nil
 end
 
--- move id -> list of { key, mod, value } (load order, each key once)
+-- The lowest grade a rule's `when.grade` lets in (a number, a list of numbers or { min, max }); nil when the rule has no grade condition.
+local function grade_floor(g)
+  if type(g) == "number" then
+    return g
+  end
+  if type(g) ~= "table" then
+    return nil
+  end
+  local low = tonumber(g.min)
+  for _, v in ipairs(g) do
+    if type(v) == "number" and (low == nil or v < low) then
+      low = v
+    end
+  end
+  return low or 1
+end
+
+-- move id -> list of { key, mod, value, grade } (load order, each key once); grade: the rule holds from that grade on, nil = at every grade
 local function build_index()
   local index = {}
   local ok, files = pcall(VRFW.files.declarations, FOLDERS, "rule")
@@ -125,7 +142,7 @@ local function build_index()
               end
             end
             if not seen then
-              list[#list + 1] = { key = key, mod = f.mod, value = value }
+              list[#list + 1] = { key = key, mod = f.mod, value = value, grade = grade_floor(when.grade) }
             end
             index[id] = list
           end
@@ -139,7 +156,7 @@ end
 -- the index, built once and kept between starts (mod rule files and move ids only)
 local function load_all()
   if cache == nil then
-    cache = VRFW.derived("technique_effect_texts_2", nil, build_index)
+    cache = VRFW.derived("technique_effect_texts_3", nil, build_index)
   end
   return cache
 end
@@ -147,12 +164,13 @@ end
 -- built at load, so neither a slot load nor the first move card reads every rule file
 load_all()
 
+-- The effects the move has at every grade (a rule with `when.grade` is a grade effect: GradesOfMove).
 -- (move) -> { count, [i] = sentence, value = { [i] = "+12 %" or nil }, rest = { [i] = the sentence without its
 -- leading value, or nil } }
 function RuleTexts.OfMove(move)
   local out = { count = 0, value = {}, rest = {} }
   for _, e in ipairs(load_all()[u32(move)] or {}) do
-    local s = text_of(e.key, e.mod)
+    local s = e.grade == nil and text_of(e.key, e.mod) or ""
     if s ~= "" then
       out.count = out.count + 1
       out[out.count] = s
@@ -160,5 +178,22 @@ function RuleTexts.OfMove(move)
       out.rest[out.count] = e.value ~= nil and without_value(s, e.value) or nil
     end
   end
+  return out
+end
+
+-- CMND_HISSATSUEFFECTS_MOVE_GRADE_TEXTS(move) -> { count, [i] = { level, kind = "effect", text, shown } }: the effects the
+-- move gains at a grade (the rules that name it with `when.grade`), in grade order; level = the lowest grade of the
+-- rule, text = its sentence (without its leading value when `shown` carries it).
+function RuleTexts.GradesOfMove(move)
+  local out = { count = 0 }
+  for _, e in ipairs(load_all()[u32(move)] or {}) do
+    local s = e.grade ~= nil and text_of(e.key, e.mod) or ""
+    if s ~= "" then
+      local rest = e.value ~= nil and without_value(s, e.value) or nil
+      out.count = out.count + 1
+      out[out.count] = { level = e.grade, kind = "effect", text = rest or s, shown = rest ~= nil and e.value or nil }
+    end
+  end
+  table.sort(out, function(p, q) return p.level < q.level end)
   return out
 end

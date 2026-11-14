@@ -650,6 +650,11 @@ needs = "actor"
 summary = "the move's partners (the count teammates nearest to the actor): within radius_m, distinct_elements"
 
 [[condition]]
+name = "grade"
+needs = "move"
+summary = "the grade of the move in the actor's move slots (1 = the base grade, 6 = the last one); never holds while the trigger has no player on the pitch"
+
+[[condition]]
 name = "aura"
 needs = "actor"
 summary = "the actor has an aura out (any aura bit of his unit) or none"

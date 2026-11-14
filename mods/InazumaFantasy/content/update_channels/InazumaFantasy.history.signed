@@ -1,7 +1,7 @@
-8ca8df1c8f814d0c5521682bce7b7a1e331a114c38e4f3d0ea4fd88e0bc9cd8559c339af928637749872e09ebc6e5f64407f5357a864eaa36fd674bf72736402
+25ab67d0e50557af88094c425686f6821a892deb268d528c9f195271d9f82590f1cf7db26ac96173c4e7aa530da610b0cc4c3def3b301f5c5e17df62fb072401
 format = 1
 channel = "InazumaFantasy"
-label = "0.3.1a"
+label = "0.3.1b"
 
 [[retired]]
 path = "mods/BattleBayDeluxe/assets/lua/bb_stadium_campaign_end_window/346_01_bb_tournament.lua"
@@ -2389,11 +2389,6 @@ size = 6942
 sha256 = "59f33ddc4b386361cda60b319e3d4801091e47baf887cf3c6781ea88f34b01e1"
 
 [[retired]]
-path = "mods/BetterUI/assets/lua/ability_list_menu/960_01_better_ui_skill_screen.lua"
-size = 27822
-sha256 = "74e658c0b954a6517fc6fccd08d6e816404f4db8ade203706b7ceb7746fb220b"
-
-[[retired]]
 path = "mods/BetterUI/assets/lua/bb_stadium_top_menu/915_01_clean_hud_menu_cleanup.lua"
 size = 10409
 sha256 = "73273bc26e07c92b7836a48c04a4adbd9d6b342e5794dcbb4d9a302764d8356f"
@@ -2724,16 +2719,6 @@ size = 11200
 sha256 = "cfe7392e5046514a6f02ee2d0b9887152aa80a55d52634be664fc7d814919eca"
 
 [[retired]]
-path = "mods/BetterUI/content/images/menu/200_icon/15_icon_common/skill_screen_art.toml"
-size = 2499
-sha256 = "0c510655ab956b71c32c051ff72c514d6937eb8594b41a0db2cbde60fba336ed"
-
-[[retired]]
-path = "mods/BetterUI/content/images/menu/200_icon/15_icon_common/skill_screen_art/better_ui_skill_screen_art.png"
-size = 7707
-sha256 = "f0f91155f6d48ae2ae3afc30b89a79650a5baf07e75dfc25595dc5c04e76788b"
-
-[[retired]]
 path = "mods/BetterUI/content/menus/confirm_cards.toml"
 size = 2519
 sha256 = "27cf393ce6b8ff2467c5f1a0186e6b53ef485ed7d64d29b66e7cd237bab315d0"
@@ -2742,36 +2727,6 @@ sha256 = "27cf393ce6b8ff2467c5f1a0186e6b53ef485ed7d64d29b66e7cd237bab315d0"
 path = "mods/BetterUI/content/menus/confirm_cards.toml"
 size = 2488
 sha256 = "66f14010ae4479dfba79185f93a65f2cddb930c3728b1e0bce1e84a262334f2a"
-
-[[retired]]
-path = "mods/BetterUI/content/menus/skill_board_header.toml"
-size = 1016
-sha256 = "2c18b9fa1c0b499219759ff242349342d9ec358391e68ef6d92e57f751d188c8"
-
-[[retired]]
-path = "mods/BetterUI/content/menus/skill_board_header.toml"
-size = 998
-sha256 = "7abe5d44c1fe946706039a5ec67da929a240df84c046cce8df32abb1b25b5d5f"
-
-[[retired]]
-path = "mods/BetterUI/content/menus/skill_board_header.toml"
-size = 267
-sha256 = "a2bb4221c0fb63992149435c7088a61c41ce1d1b74c571474ae637777eda7f3e"
-
-[[retired]]
-path = "mods/BetterUI/content/menus/skill_list_carousel.toml"
-size = 16736
-sha256 = "fa2ffda5f87fdbead0fc391479e13e21fd6b3c8802c596f8e31c0958abc4e9d3"
-
-[[retired]]
-path = "mods/BetterUI/grafts/better_ui_skill_screen/better_ui_skill_screen_1.lua"
-size = 29116
-sha256 = "4c41a5ee2b31c09b2320cb7369c3c7d44c47dcce58d29757116d8a8ec8031ac9"
-
-[[retired]]
-path = "mods/BetterUI/grafts/better_ui_skill_screen/graft.toml"
-size = 828
-sha256 = "a124c4a0bc7f37e3125b5120040e84caa5050b668f7e5191a7614517beb2237c"
 
 [[retired]]
 path = "mods/BetterUI/grafts/clean_hud_bb_title/bb_title.lua"
@@ -4292,6 +4247,21 @@ sha256 = "0fd391f04702c6f50caa6ed4f682db189102a2a7a10b849c930efcdec73f6f13"
 path = "mods/CharacterReforged/content/menus/player_page_view_forms.toml"
 size = 1106
 sha256 = "85b3ce970475726c5160e7e35eb3496938c89dd041622894e896483001289877"
+
+[[retired]]
+path = "mods/CharacterReforged/content/types/miximax_palette.toml"
+size = 2163
+sha256 = "aed47944e8c600d84fec05728b80ffbcb414cd0fef092cf63fb8bef9cb0cac5a"
+
+[[retired]]
+path = "mods/CharacterReforged/content/types/miximax_palette.toml"
+size = 1988
+sha256 = "daa66453f45dd26277d77a98c1eb7f823ba72a62ab3b09f029dee2a1af49db2f"
+
+[[retired]]
+path = "mods/CharacterReforged/content/types/synergy.toml"
+size = 6431
+sha256 = "8efc4d1d448f9f090e9927b5d616668ea51ee88b77d11a6c4dd032f3adaaa0c9"
 
 [[retired]]
 path = "mods/CharacterReforged/grafts/cr_bank_skill_table/cr_bank_skill_table.lua"
@@ -21865,6 +21835,11 @@ sha256 = "1282f79c6415c5d7c5dbb93b1c24c2aea4561839cc27a64246843187fa780619"
 
 [[retired]]
 path = "mods/InazumaFantasy/content/update_channels/InazumaFantasy.history.signed"
+size = 2270959
+sha256 = "272148080a00124cb1c35fd6c19b577e137546c6e5a5f80316273b13035b343c"
+
+[[retired]]
+path = "mods/InazumaFantasy/content/update_channels/InazumaFantasy.history.signed"
 size = 1807633
 sha256 = "3d89bcd0ad187ac425fe6ee6964f75b7425ce4e70e90611a7c916232977eae02"
 
@@ -22622,6 +22597,11 @@ sha256 = "c5a65215ffa03f000d2c931611a6472587ed79653d1f9bef794d0cd308d1dda1"
 path = "mods/MissingContent/content/sounds/voice_plus.toml"
 size = 27364
 sha256 = "f50259b2b56375f583a1e45a3eb52f20858a9197f4921792f213d2643d075de5"
+
+[[retired]]
+path = "mods/MissingContent/content/tables/common/gamedata/gallery/gallery_config.toml"
+size = 404
+sha256 = "4a2a996796eac7b7e06e2e57b0a698ca8cde7778fe80c73631209cd20dc67984"
 
 [[retired]]
 path = "mods/MissingContent/modules/ExtraOpenings/assets/menu/220_img/theater_img/if_vt_op_ie2.g4tx"
@@ -27544,16 +27524,6 @@ size = 81700
 sha256 = "b9e213b545f19deebd6573b396c7a00b4f087bc1a744878f59a8058ec6560f47"
 
 [[retired]]
-path = "mods/VRFW/grafts/story_start/story_start_ref.json"
-size = 21798
-sha256 = "8a7d357689a30f1bae90d1f54c17a6b436c88384e6c0c92acc4b95241463a8dd"
-
-[[retired]]
-path = "mods/VRFW/grafts/story_start/story_start_ref.json"
-size = 19282
-sha256 = "deb99d5c974194ffba062abfff42d913aa1511b07da5d14758a99980a6c6b280"
-
-[[retired]]
 path = "mods/VRFW/scripts/lib/actors.lua"
 size = 7490
 sha256 = "3976ac8aa5ebe55d97dfa8f9313d7dd2e5bc6ae972454545b7efce89ff81d9df"
@@ -31939,6 +31909,11 @@ size = 399
 sha256 = "105c36d2f7f7b66daedab6ddc33b83434d23e7022362611471e9f46d227e8ea0"
 
 [[replaced]]
+path = "mods/BetterQoL/assets/lua/_all/betterqol_template_cards.lua"
+size = 3938
+sha256 = "8e723de6036f49fa69bcac622015d1448f628c1995f0dacf6b61334fd5890bc3"
+
+[[replaced]]
 path = "mods/BetterQoL/assets/lua/_all/passive_config_session.lua"
 size = 6124
 sha256 = "08aa919e787f61995bbaa070f5cb5a1a3a5c9759655ae23214db745359ff98e8"
@@ -32132,6 +32107,11 @@ sha256 = "7846646471b7ccb08d9e5af710575a361b4879349cdb186a39617588e908a140"
 path = "mods/BetterQoL/assets/lua/soccer_inplay_menu/310_01_comandante_guia.lua"
 size = 8589
 sha256 = "72a06826d0986d4652980146c6fc007e768b9b1a96296f20acca76cdf99b0953"
+
+[[replaced]]
+path = "mods/BetterQoL/assets/lua/soccer_parameter_menu/300_player_passives.lua"
+size = 10861
+sha256 = "83850c17c4f6e64283b9865d84dfe2b4389ae963c687dc6f2f88b9e3ba508f8e"
 
 [[replaced]]
 path = "mods/BetterQoL/assets/lua/soccer_team_dock_menu/170_team_file.lua"
@@ -33994,6 +33974,11 @@ size = 4981
 sha256 = "c7de2c481c059e7470c6776e128f8f7457d5db353a06c9fdd306a69600f9997e"
 
 [[replaced]]
+path = "mods/BetterUI/assets/lua/ability_list_menu/960_01_better_ui_skill_screen.lua"
+size = 27822
+sha256 = "74e658c0b954a6517fc6fccd08d6e816404f4db8ade203706b7ceb7746fb220b"
+
+[[replaced]]
 path = "mods/BetterUI/assets/lua/bb_stadium_top_menu/915_01_better_ui_menu_cleanup.lua"
 size = 7758
 sha256 = "58cc219e7769ff23c87a90612a3eefdd24ab68fbdf2bb99affd7e99139cea482"
@@ -34444,6 +34429,11 @@ size = 3802
 sha256 = "f086f6d551a2e03901d8a1201893f6af868b9247f4df399c0589cae89f38042b"
 
 [[replaced]]
+path = "mods/BetterUI/config.toml"
+size = 3935
+sha256 = "fb17ed54cace671c4f6761faafed1cc43dde46f958cb4e7deef69aa8e52523d8"
+
+[[replaced]]
 path = "mods/BetterUI/content/base_tables/gamedata/menu/chara_menu_resource.toml"
 size = 23327
 sha256 = "0c1bd7648984d599c1398683ffbf3a2d943286d5421eb74e38bd050a33dee5c5"
@@ -34744,6 +34734,21 @@ size = 7176
 sha256 = "5df12c2b4f93965047578abfbaf565757c75190baf0862d4a58445226a78572c"
 
 [[replaced]]
+path = "mods/BetterUI/content/menus/skill_board_header.toml"
+size = 1016
+sha256 = "2c18b9fa1c0b499219759ff242349342d9ec358391e68ef6d92e57f751d188c8"
+
+[[replaced]]
+path = "mods/BetterUI/content/menus/skill_board_header.toml"
+size = 998
+sha256 = "7abe5d44c1fe946706039a5ec67da929a240df84c046cce8df32abb1b25b5d5f"
+
+[[replaced]]
+path = "mods/BetterUI/content/menus/skill_list_carousel.toml"
+size = 16736
+sha256 = "fa2ffda5f87fdbead0fc391479e13e21fd6b3c8802c596f8e31c0958abc4e9d3"
+
+[[replaced]]
 path = "mods/BetterUI/content/menus/soccer_battle_setting_flow_vs_menu.toml"
 size = 1420
 sha256 = "441530b1bfc035f69a6a99ae24e19a54a886aecdfb213c197f4c69e196421544"
@@ -34830,13 +34835,13 @@ sha256 = "67048a0d7820651e2b1416960683e24423a9614f8c9b3cd85d40633d3bf241c7"
 
 [[replaced]]
 path = "mods/BetterUI/content/sprite_redirects/own_atlases.toml"
-size = 1244
-sha256 = "730026478b2929f870746f102bb159544c290f8507d592fad7f7fa45c523baf2"
+size = 1117
+sha256 = "78692160f0f65217410e36bde113a54319ea64e007bfc869035fb128921f607a"
 
 [[replaced]]
 path = "mods/BetterUI/content/sprite_redirects/own_atlases.toml"
-size = 1117
-sha256 = "78692160f0f65217410e36bde113a54319ea64e007bfc869035fb128921f607a"
+size = 1139
+sha256 = "c25cbb2492faf7c0e8449f0e44fd881c245ccd959c4735bccdb2afd9887bed29"
 
 [[replaced]]
 path = "mods/BetterUI/grafts/_build.toml"
@@ -35062,6 +35067,16 @@ sha256 = "663e16249efbfc7112d95cffac14e061141eae421709cd5b97ff8ee334386979"
 path = "mods/BetterUI/grafts/better_ui_shirt_number/sn_menu.lua"
 size = 8652
 sha256 = "19c03ca169728a7d9ed1ff912aa294e3e0338bec7d70d506fed8c3d8a6d146a8"
+
+[[replaced]]
+path = "mods/BetterUI/grafts/better_ui_skill_screen/better_ui_skill_screen_1.lua"
+size = 29116
+sha256 = "4c41a5ee2b31c09b2320cb7369c3c7d44c47dcce58d29757116d8a8ec8031ac9"
+
+[[replaced]]
+path = "mods/BetterUI/grafts/better_ui_skill_screen/graft.toml"
+size = 828
+sha256 = "a124c4a0bc7f37e3125b5120040e84caa5050b668f7e5191a7614517beb2237c"
 
 [[replaced]]
 path = "mods/BetterUI/grafts/better_ui_team_ai/team_ai_dock.lua"
@@ -35290,6 +35305,11 @@ sha256 = "036ab04d954a69aa361293ced697d57c4d16b3d03ea9e97e701ced14647e5db0"
 
 [[replaced]]
 path = "mods/BetterUI/scripts/better_ui.lua"
+size = 2102
+sha256 = "2f212b58ff42f79e8daf94a4425582f19754f4109473f63cb5f34ee32f95e89d"
+
+[[replaced]]
+path = "mods/BetterUI/scripts/better_ui.lua"
 size = 1756
 sha256 = "312bbef5c5a08f867bcae75f4bab88f345fdd1daf888c66b4018162a838b75c5"
 
@@ -35419,6 +35439,11 @@ size = 2229
 sha256 = "a0f2d5c3ce14327729b823fb26d9cf98d847444ea9447c2733f7b30099d4aaf3"
 
 [[replaced]]
+path = "mods/CharacterReforged/assets/lua/_all/character_reforged_hero_style.lua"
+size = 2788
+sha256 = "f7e28d4f8e39ddd1eb2c66aa8656606186dd9597524f62725253c6c7507b1683"
+
+[[replaced]]
 path = "mods/CharacterReforged/assets/lua/_all/character_reforged_move_rows.lua"
 size = 4362
 sha256 = "63a6d859a57b0b05a426f7a866ac1561be1627c221ba88a96813a5eb71b49358"
@@ -35452,6 +35477,11 @@ sha256 = "be7d3e2aedd491d783a584ed88ddfe89dad47f68d8f72b15cac16c6a7fcb3bde"
 path = "mods/CharacterReforged/assets/lua/_all/character_reforged_page.lua"
 size = 12999
 sha256 = "d620bf9a1ad2b28bea4c8877283ace479fa6bd27565728ce5795eeb94359635a"
+
+[[replaced]]
+path = "mods/CharacterReforged/assets/lua/_all/character_reforged_page.lua"
+size = 9318
+sha256 = "f1f08332ada4b56833457df789cfd10690e428adc03671c27242d012a4bc9527"
 
 [[replaced]]
 path = "mods/CharacterReforged/assets/lua/_all/character_reforged_player_sets.lua"
@@ -40319,6 +40349,11 @@ size = 984
 sha256 = "e6c3f3acb320a918aa4167a60cff266a98dcba8638b7fb8c85c7e47332430ed5"
 
 [[replaced]]
+path = "mods/CharacterReforged/content/game/souls_rework.toml"
+size = 1650
+sha256 = "9a7c1b4aac35dff0b98b2c742ca18125c40eb1dd57499b410f2efc71ae230c9e"
+
+[[replaced]]
 path = "mods/CharacterReforged/content/game/stats.toml"
 size = 11906
 sha256 = "4e2ded5040700519655cee5d483ba43a2c6328f00eb7519f5c7b12125126da80"
@@ -40982,11 +41017,6 @@ sha256 = "9d3efcf858b619dba24285ce58cfefc79500bef37238ca410c798333092be6af"
 path = "mods/CharacterReforged/content/types/era_kit.toml"
 size = 764
 sha256 = "d2ebb46332d7d4c747bef9155d452dd8d7777d17f043f66374a3fb3ce18e4131"
-
-[[replaced]]
-path = "mods/CharacterReforged/content/types/miximax_palette.toml"
-size = 1988
-sha256 = "daa66453f45dd26277d77a98c1eb7f823ba72a62ab3b09f029dee2a1af49db2f"
 
 [[replaced]]
 path = "mods/CharacterReforged/content/types/movesets.toml"
@@ -43410,6 +43440,11 @@ sha256 = "0ce6bc948c1342d0a9671f1f2cf6b30bf731e9d161f452ce8f40e8944e5172fa"
 
 [[replaced]]
 path = "mods/CharacterReforged/scripts/lib/duplicate_players/rules.lua"
+size = 11805
+sha256 = "16a67d586049057010ead6948bfa1d320c01be6c2c9db4cb310dc87b58e8a7be"
+
+[[replaced]]
+path = "mods/CharacterReforged/scripts/lib/duplicate_players/rules.lua"
 size = 10822
 sha256 = "70466e8e930144a7ee096d4d46c9ea5451fa96b995c8caf0d4faa36ff9e4423f"
 
@@ -43702,6 +43737,11 @@ sha256 = "d4f32d0705de8cd4d4cc94d675e93ee0d73fe24da33bdb9882c4e9bb5cce60fd"
 path = "mods/CharacterReforged/scripts/souls_rework.lua"
 size = 33334
 sha256 = "1533ff682b7c3af4893a97f620ad5e8702e6daa9d96159c19431a36532402479"
+
+[[replaced]]
+path = "mods/CharacterReforged/scripts/souls_rework.lua"
+size = 33388
+sha256 = "a47eb0ce735b0fd92b788cc506916c18ea923f5cb43565b6dc6a6fc471c00011"
 
 [[replaced]]
 path = "mods/CharacterReforged/scripts/spirit_points.lua"
@@ -47410,6 +47450,11 @@ sha256 = "ae47066895fe70c13b62089170bdae20f1697490b4391ce43da99feee163e7e9"
 
 [[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/assets/lua/ability_list_menu/220_01_skill_card.lua"
+size = 33955
+sha256 = "557793dcc85177efa462740bbeeaa097cbefc1b5568fd12323335218a363e0c4"
+
+[[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/assets/lua/ability_list_menu/220_01_skill_card.lua"
 size = 47518
 sha256 = "fc51c4a3b6af3d1bdb739409b3c3017cdaf735307a7483190d9b7a62e0513ba4"
 
@@ -47442,6 +47487,11 @@ sha256 = "9f3bab6d78ac1d857b730ce014b61d53a23ec4ae69dde6f8abb14ab9fab609ed"
 path = "mods/HissatsuReforged/modules/HissatsuEffects/content/game/technique_effect_texts.toml"
 size = 405
 sha256 = "9cee4ae87968c8a243805460e59e4bfac32dde5d0af59a193fb14d183cc9ef2e"
+
+[[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/content/game/technique_effect_texts.toml"
+size = 177
+sha256 = "a00993b9574c82b8c9ecccd49555e2b2fac77e37a626c1c411471527786f5830"
 
 [[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/content/game/technique_effect_texts.toml"
@@ -47599,6 +47649,11 @@ size = 2470
 sha256 = "995fac1e0483a4610d3fe81d2c152b06fd8709a325f5d77d1a9d7c6319e8ef59"
 
 [[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/grafts/skill_card/hissatsu_reforged_ability_list_skill_card.lua"
+size = 36463
+sha256 = "16065235b0784f8523e6598271bf10ec954cfc75636c3aa90af1417a7b866914"
+
+[[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/mod.toml"
 size = 2273
 sha256 = "19ea9091ddcb8d1653c041a57b3eb64136bb7a90f0e8a221a94960b35628888c"
@@ -47629,9 +47684,19 @@ size = 3346
 sha256 = "df9e205c11a62c92e2413fe5f2d7352cc789f61b4dc187b5dcb7415bb66c69b3"
 
 [[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/scripts/technique_effect_texts.lua"
+size = 5435
+sha256 = "fd3eaf8730a2b052d1683cc92487d67cd4332ba170cb5a93facd777f0dfa9782"
+
+[[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/de.toml"
 size = 58477
 sha256 = "073a03d5342c753a55f5653f70ee52190a08567a0c5183b3e809cd357945e9d5"
+
+[[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/text/de.toml"
+size = 58447
+sha256 = "1c7cc8a46fdf2c2d14a0b61e20159730f7903dd91e57a6f331d8a6632ed0d716"
 
 [[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/de.toml"
@@ -47645,6 +47710,11 @@ sha256 = "1b464607b2e1cb5958204a0fd535600efd707909c6f32dafa22dd5bc4561bfe0"
 
 [[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/en.toml"
+size = 52858
+sha256 = "53d9b9be83e3f0fc48af737266a195e4261489f549ad58509c7381a401b6e694"
+
+[[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/text/en.toml"
 size = 52930
 sha256 = "8ceebecd734287e88f198b84eded50b266b56c5f4a73ae16a3e2b482bb3ba42e"
 
@@ -47652,6 +47722,11 @@ sha256 = "8ceebecd734287e88f198b84eded50b266b56c5f4a73ae16a3e2b482bb3ba42e"
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/es.toml"
 size = 61368
 sha256 = "12ebb581215376f542e27d52793e3592d92481b4a0ad17d6541dcabe0a3205ed"
+
+[[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/text/es.toml"
+size = 61303
+sha256 = "7a073b1e51187f5ed345fde0941eeca47113b9a5add46ae3a9658ada8cb33735"
 
 [[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/es.toml"
@@ -47665,8 +47740,18 @@ sha256 = "19e904e7e30eee00e0cd19b1b691f929206f6fcf84bf37bef18adf0f331d64d0"
 
 [[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/fr.toml"
+size = 67554
+sha256 = "6dc72cc27943afc1443b6906b92ced515653f1fbd3d424f04ac74a639621666a"
+
+[[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/text/fr.toml"
 size = 67579
 sha256 = "bc36023e047a700db417bfdb9ca59b20abc4e3b154ce02b18e0dca18171334b3"
+
+[[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/text/it.toml"
+size = 63501
+sha256 = "5ad6a8c36283a00edf36ab94149819ecfe7109263c8c38970ba0a2818e8a4dc8"
 
 [[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/it.toml"
@@ -47682,6 +47767,11 @@ sha256 = "db74c93857c99d2949120f85bd1634a814485300ae9614b24cfee0f5ffd5f3e2"
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/ja.toml"
 size = 64361
 sha256 = "0aa6bce334b9cc8efd14289b10d1fce3cb28af642fe8a4b49862928e9e3a1d10"
+
+[[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/text/ja.toml"
+size = 65125
+sha256 = "76f70907e6c5cbc126a61de306ccd026c36fefde6a1ece26cfb799bce0ae5130"
 
 [[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/ja.toml"
@@ -47702,6 +47792,11 @@ sha256 = "4a2fd3d60923f1e630daa7fc40bf6435f9335846dabd9b3337b8264f8c943504"
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/keys.toml"
 size = 5296
 sha256 = "b8c5460214f25d4012990cc36e86aceaa9eac75adc187c966657ba770ce70451"
+
+[[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/text/pt.toml"
+size = 60627
+sha256 = "225d8ac74ff9c3d32ea58da1b767c332fd80ef9f31129b2fc2a56f61fdc03493"
 
 [[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/pt.toml"
@@ -47734,9 +47829,19 @@ size = 52041
 sha256 = "a16db1c0f6869be61de2d8c34f2bbd3b94f34cf5ebd7d86ae4d4792a2f3c8235"
 
 [[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/text/zh_hans.toml"
+size = 51983
+sha256 = "ab362311d96c9fae51b7a1887cd27be09517bf6d62b80ddbf8a0b8cc4dd7bc27"
+
+[[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/zh_hant.toml"
 size = 52285
 sha256 = "0ea076dcb5f817466e6598bcff7819af8b7d088976bfbc1917259d4e9c7e4f99"
+
+[[replaced]]
+path = "mods/HissatsuReforged/modules/HissatsuEffects/text/zh_hant.toml"
+size = 53012
+sha256 = "8d49289422b63aae36574791f5cd7631ea9d56feb51bdd2b8cefe41cdf5ba6c6"
 
 [[replaced]]
 path = "mods/HissatsuReforged/modules/HissatsuEffects/text/zh_hant.toml"
@@ -47772,6 +47877,11 @@ sha256 = "a3d92a0c3e4ab03852b74ea99c531eaac84d52e42515b3ec997e307b7adb3060"
 path = "mods/HissatsuReforged/scripts/hissatsu_level_up.lua"
 size = 47679
 sha256 = "b0dd24ef9a50abb7eeb2d1d50c3b37af02072b05489b827314c3994f5b4bcbb6"
+
+[[replaced]]
+path = "mods/HissatsuReforged/scripts/hissatsu_level_up.lua"
+size = 51261
+sha256 = "b825c79bae93f06087c0cbc081a2cc4bf9c2a5e38f8748f59b090ed377046896"
 
 [[replaced]]
 path = "mods/HissatsuReforged/scripts/technique_families.lua"
@@ -47880,48 +47990,48 @@ sha256 = "2fdcb14081eded9ba1c35aa7b83e5a92ba2af418432f0869c6f4ffec9aa0ea6f"
 
 [[replaced]]
 path = "mods/IECross/assets/event/ev60/ev60_95000/ev60_95000_ev60_95000_s00_p00_c0100.g4pk"
-size = 7104
-sha256 = "e8c289a9831745b7553cf99b5c81b4e5e41ce8011b5fb0e0d0ca0280ed2cf003"
+size = 20224
+sha256 = "b34b81b35296eca55e69eb94b4d76f47dc629de8be83db9431198ce5668cfac1"
 
 [[replaced]]
 path = "mods/IECross/assets/event/ev60/ev60_95000/ev60_95000_ev60_95000_s00_p00_c0200.g4pk"
-size = 7552
-sha256 = "38f7f5c87b9f6534dc9deac230866e05968596a79978e5016d7f491ba914e82b"
+size = 15552
+sha256 = "04cc5f808b3f6a8c5af9710ac86380f620989c87a5a5e70d1708c776bbb32f5e"
 
 [[replaced]]
 path = "mods/IECross/assets/event/ev60/ev60_95000/ev60_95000_ev60_95000_s00_p00_c0300.g4pk"
-size = 5312
-sha256 = "5870b640fdca4990e712657f0aea196b5ae914d1a01a1e3af001056e3d03d6e8"
+size = 24384
+sha256 = "dc52c67d8917102f384a0e8134de14c2e756bec4e6ceacab003fa9cc458633ff"
 
 [[replaced]]
 path = "mods/IECross/assets/event/ev60/ev60_95000/ev60_95000_ev60_95000_s00_p00_c0400.g4pk"
-size = 12032
-sha256 = "8897e521b7b99bf19be0a4e1808a01ef02565a0381e2f8ea2d533c7b59611a2a"
+size = 19776
+sha256 = "49c4cf58125cac41fbbdf6a011056dc2440759c87ea55dfd52a17c9ef53eb43d"
 
 [[replaced]]
 path = "mods/IECross/assets/event/ev60/ev60_95000/ev60_95000_ev60_95001_s00_p00_c0100.g4pk"
-size = 7104
-sha256 = "deead1247863f63169f6613bff81ab58aee881dc0cc944662c8fc36fc7a6057a"
+size = 20224
+sha256 = "8da52bc71b8370f44484be4e940fc58a2a041eb81ad80f29402f8c445d6e0f3f"
 
 [[replaced]]
 path = "mods/IECross/assets/event/ev60/ev60_95000/ev60_95000_ev60_95001_s00_p00_c0200.g4pk"
-size = 7552
-sha256 = "2d3a2bf758746c3d0f973e6bbc5ba4924dcd8fba6248e767a36b697fe943896d"
+size = 15552
+sha256 = "9b7888096519b59bccea133d8f1415acc799e80e888a93934b20955462e42c25"
 
 [[replaced]]
 path = "mods/IECross/assets/event/ev60/ev60_95000/ev60_95000_ev60_95001_s00_p00_c0300.g4pk"
-size = 5312
-sha256 = "5a11c678858206f097d64d25e4635a624081e6a9196b1b1fb003a79af1abe437"
+size = 24384
+sha256 = "e519b2a66fe4eab813a506d3c8b87d637799541aa6e1fa3b80e6a53276314a95"
 
 [[replaced]]
 path = "mods/IECross/assets/event/ev60/ev60_95000/ev60_95000_ev60_95001_s00_p00_c0400.g4pk"
-size = 12032
-sha256 = "22be40704331b0303250735f51aa2448e560e61742dd91cd326af8969941104c"
+size = 19776
+sha256 = "4f285c54f538a9c5e149f60cc56a998f19d959170937bbce0ee221979fd3cf2b"
 
 [[replaced]]
 path = "mods/IECross/assets/event/ev60/ev60_95030/ev60_95030_ev60_95030_s00_p00_c0200.g4pk"
-size = 1856
-sha256 = "d70164cd7a75c52a408c2a210db20d7ccb78bb5f5e557fb7950b1fa60299423d"
+size = 1920
+sha256 = "bb7686598cfc745838f3890e7b64faa21ce68868deebdfcb81493f26615406c5"
 
 [[replaced]]
 path = "mods/IECross/changelog.toml"
@@ -53505,6 +53615,11 @@ sha256 = "aef7d696bf9ed0641d55b25a86259fd7f5781a15b6e6e6629915833b5cf1c9a1"
 
 [[replaced]]
 path = "mods/MissingContent/text/keys.toml"
+size = 8276
+sha256 = "0b0e019779ee29888641b01242d34bb4535dbe384f79259742cde4188746cc5e"
+
+[[replaced]]
+path = "mods/MissingContent/text/keys.toml"
 size = 3924
 sha256 = "39b272ee3981272f26e2ed1d9cb9dfcc7dbd2adcfb99789321edf15c409cb8e4"
 
@@ -55570,6 +55685,11 @@ sha256 = "cdc1a268cd04eb4c342e3f1f77f0e916b9db514cee982d2db776d1474ae2451b"
 
 [[replaced]]
 path = "mods/VRFW/assets/lua/menu/soccer_battle_command_action_menu/300_go_ahead_guide.lua"
+size = 2829
+sha256 = "d4e865ff45f985724bca1bf2bbb5ae87ec6f121926d9b82b938d0b7f264db46a"
+
+[[replaced]]
+path = "mods/VRFW/assets/lua/menu/soccer_battle_command_action_menu/300_go_ahead_guide.lua"
 size = 2476
 sha256 = "f0e653fb917fe3237c09b90f61a44ad5e786abcebf6911ddda364546920d1cc8"
 
@@ -55627,6 +55747,11 @@ sha256 = "e99414024addc10e4ff4f11738d046edbfa1c3cec4a167b92918a41efc587282"
 path = "mods/VRFW/assets/lua/menu/soccer_half_time_menu/300_match_break.lua"
 size = 2986
 sha256 = "efd6088e4b30a063f5fedbd19a2807a603ba94b715bf8dc1c7ed08f266e269e4"
+
+[[replaced]]
+path = "mods/VRFW/assets/lua/menu/soccer_parameter_menu/100_team_bonus_pages.lua"
+size = 14396
+sha256 = "8f01e508d7a0c3660cedf425b22bfc463403f2faff8854751637d1d5372bd0f7"
 
 [[replaced]]
 path = "mods/VRFW/assets/lua/menu/soccer_summon_menu/summon_presentation.lua"
@@ -56285,6 +56410,11 @@ sha256 = "89968dae4eedd4716faeb4e690ad3d209905f7cc121bc0d841860d20bc1ac4f1"
 
 [[replaced]]
 path = "mods/VRFW/assets/lua/mods_screen/vrfw_mods_menu/123_settings.lua"
+size = 36343
+sha256 = "8c97cde6d01977dd68245baf5448d0bf7700d5a39f276c3cf79d5979f6e9df1d"
+
+[[replaced]]
+path = "mods/VRFW/assets/lua/mods_screen/vrfw_mods_menu/123_settings.lua"
 size = 24387
 sha256 = "c321226b73de1679b600f5213624dbc4e99a283525e1a7612b7d81747fb8a31f"
 
@@ -56595,6 +56725,11 @@ sha256 = "fe70e275a29dfa2b3ec3eff443832fbea5fe2cbb0e37d9063422d2d112757a2a"
 
 [[replaced]]
 path = "mods/VRFW/assets/lua/screens/vrfw_contact_map_menu.lua"
+size = 143694
+sha256 = "067173ac04c343aff8e72bd1c89bbb5cb37f2a6df9997a13d6c4799894cdefe8"
+
+[[replaced]]
+path = "mods/VRFW/assets/lua/screens/vrfw_contact_map_menu.lua"
 size = 183346
 sha256 = "25983b76cc1bdfa7465958babc66dfb768157843113b124365da2451d38c9ade"
 
@@ -56627,6 +56762,11 @@ sha256 = "f3f95813d87f23415467f7749c01b8d807347d654d22018f1605f77acc61661d"
 path = "mods/VRFW/assets/lua/screens/vrfw_pose_row_menu.lua"
 size = 57473
 sha256 = "6d2bcfa39e6e1b2a45e4d0b51c552006d481a3515d278d61d81ce5c8e4819c4a"
+
+[[replaced]]
+path = "mods/VRFW/assets/lua/screens/vrfw_pose_row_menu.lua"
+size = 57976
+sha256 = "b507429bb56d61c0a3313d8822efb027207a3b5e6273d780ca61eaaba731cb9f"
 
 [[replaced]]
 path = "mods/VRFW/assets/lua/screens/vrfw_pose_row_menu.lua"
@@ -56912,6 +57052,11 @@ sha256 = "53a97020443d71ca57a865c936bf40df92dc0995b7022b5607f40172d9580a27"
 path = "mods/VRFW/content/defaults/boot_splash.toml"
 size = 5674
 sha256 = "bf3e90e23009cc40d8bc106ac6b6cdfae5cbe5e29bd9ac36cabcefef05a6080d"
+
+[[replaced]]
+path = "mods/VRFW/content/defaults/boot_splash.toml"
+size = 196931
+sha256 = "d7cef42901b50f0818571eb0f5e0f31fdd47ea3da5a0dc5c1e2ac4f2d3efd51c"
 
 [[replaced]]
 path = "mods/VRFW/content/defaults/boot_splash.toml"
@@ -58480,6 +58625,11 @@ sha256 = "769c475de3a880c50d4ea88f44827d201ee68b37b7d017805ad38787b93a6f74"
 
 [[replaced]]
 path = "mods/VRFW/content/rules/catalog/triggers.toml"
+size = 21460
+sha256 = "80011699a70b3236206891e46b1a27871da7e831a2089e1481f75bd34273e93c"
+
+[[replaced]]
+path = "mods/VRFW/content/rules/catalog/triggers.toml"
 size = 19102
 sha256 = "9b6b56d42747da45d6104afdf9e35cdbe0abec92bf04d363fb0c7f725e5be708"
 
@@ -59469,6 +59619,11 @@ size = 2089
 sha256 = "6defa289dcfa1c20eb2af5988590cd512aaed008c535073de973f1578a15662b"
 
 [[replaced]]
+path = "mods/VRFW/content/types/shop_merge.toml"
+size = 4227
+sha256 = "0f9d6d0798b07ea7b05db280ef523d4ab1d64495400ff09d6748b40529577c65"
+
+[[replaced]]
 path = "mods/VRFW/content/types/shop_redirect.toml"
 size = 1472
 sha256 = "11062e3eb17bc7e93c431c41173abf0d8c7056cf7573b390b74e75d88b92009b"
@@ -59722,6 +59877,11 @@ sha256 = "da96956f5d4b8e46785d3c0e68e8923f2e756e31e05b57762519277c738784ce"
 path = "mods/VRFW/grafts/_lib/vrfw_hud_frame.lua"
 size = 1041
 sha256 = "e91cc06ff95d1c92ec3a9c2f700f78b8707390c0cd1fd49c69ce5d8a47f48903"
+
+[[replaced]]
+path = "mods/VRFW/grafts/_lib/vrfw_menu_kit.lua"
+size = 19327
+sha256 = "0d51286b989d67ae9c981ac3aecdf5c16f7adef68e4cb379b3133b1fa3c0c676"
 
 [[replaced]]
 path = "mods/VRFW/grafts/_lib/vrfw_menu_kit.lua"
@@ -60142,6 +60302,16 @@ sha256 = "5159633cd0b349645c4d7327544c1432da8eaa3bbc1b9258d682b5be00c4a2f6"
 path = "mods/VRFW/grafts/story_start/ss_title_apply.lua"
 size = 11927
 sha256 = "c6601bc71af7cefcec7b2bd57ee9be5ca5c52c5358c252415a5e34d8947df327"
+
+[[replaced]]
+path = "mods/VRFW/grafts/story_start/story_start_ref.json"
+size = 21798
+sha256 = "8a7d357689a30f1bae90d1f54c17a6b436c88384e6c0c92acc4b95241463a8dd"
+
+[[replaced]]
+path = "mods/VRFW/grafts/story_start/story_start_ref.json"
+size = 19282
+sha256 = "deb99d5c974194ffba062abfff42d913aa1511b07da5d14758a99980a6c6b280"
 
 [[replaced]]
 path = "mods/VRFW/grafts/vrfw_announce_item_name/graft.toml"
@@ -61497,6 +61667,11 @@ sha256 = "71be13667118a11ab75453dff16a37b16a099d1c08f307d300de38d4a8be88ac"
 path = "mods/VRFW/scripts/story_start.lua"
 size = 5079
 sha256 = "7a30a15fbbf37150c9c68f45880add8fdd5783492b4b3f3f276a86440c38386f"
+
+[[replaced]]
+path = "mods/VRFW/scripts/story_start.lua"
+size = 3716
+sha256 = "9371cba561c24426911170ed4caeb0c3ab271bfd040cedf28553ec7ffd7480e8"
 
 [[replaced]]
 path = "mods/VRFW/scripts/story_start.lua"

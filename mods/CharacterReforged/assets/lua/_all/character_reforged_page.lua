@@ -1,3 +1,4 @@
+-- lua_patch.scope: used
 CharacterReforged = type(CharacterReforged) == "table" and CharacterReforged or {}
 if CharacterReforged.page == nil then
   local Page = {}
